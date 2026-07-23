@@ -1,1207 +1,495 @@
-# Review pack FULL — SFIA Studio v3 Doctrine PR readiness
+# Review pack FULL — Audit dépendances v2.6 & trajectoire refondation SFIA Studio v3-native
 
 ## 1. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure | 2026-07-23 19:02:03 CEST (+0200) |
-| Cycle | PR readiness |
+| Date/heure | 2026-07-23 19:14:40 CEST (+0200) |
+| Cycle | Cadrage / audit de transformation (+ archi fonctionnelle & technique état des lieux) |
 | Profil | Critical |
-| Sujet | SFIA Studio v3 Knowledge-Driven Doctrine |
-| Gates consommés | `GO VALIDATION DOCTRINE — SFIA STUDIO V3 KNOWLEDGE-DRIVEN METHOD` · `GO PR READINESS, PUSH ET DRAFT PR — SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE` |
+| Gate consommé | `GO AUDIT DÉPENDANCES V2.6 ET TRAJECTOIRE DE REFONDATION — SFIA STUDIO V3-NATIVE` |
 | Repository | mcleland147/sfia-workspace |
-| Branche | `method/sfia-studio-v3-doctrine-consolidation` |
-| Base | `origin/main` @ `2014e941f548c519d152ebc70d0d4ddad29a6397` |
-| Merge-base | `2014e941f548c519d152ebc70d0d4ddad29a6397` |
-| HEAD initial | `79a909b57e473a251d67fa0b07c3038895137125` |
-| HEAD final | `daf6f7d02bbac09024f6275a793769e66b2b3878` |
-| Handoff source (cycle précédent) | commit `6703af1949c4f6fabc0762bcb82dc16e898d85aa` · blob `e6539f46d1a52bc3acd15cec83f79312cb1633ab` |
-| Draft PR | [#259](https://github.com/mcleland147/sfia-workspace/pull/259) |
-| Push projet | oui |
-| Merge | **non exécuté** |
+| Worktree | `/Users/morris/Projects/sfia-workspace-v3-native-audit` |
+| Branche audit | `audit/sfia-studio-v3-native-dependencies` (locale, **non poussée**) |
+| HEAD | `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` |
+| Base | `origin/main` @ `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` |
+| Merge de référence | PR #259 · `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` |
+| Doctrine produit de référence | SFIA Studio v3 VALIDATED (framing 30–37) |
+| Modification projet | **aucune** |
+| Commit / push / PR projet | **aucune** |
 
 ## 2. Local Git Truth Check
 
-- Worktree : `/Users/morris/Projects/sfia-workspace-v3-doctrine-consolidation`
-- Branche attendue OK · HEAD contenait `79a909b` · `origin/main` = base attendue
-- Pas de lock/merge/rebase · pas de branche distante préalable · pas de PR concurrente
-- Untracked uniquement `.tmp-sfia-review/` (review pack)
-- Fichiers 30–37 + README suivis
+| Contrôle | Résultat |
+|----------|----------|
+| `origin/main` contient PR #259 | OUI (`56ddf32…`) |
+| Docs framing 30–37 présents | OUI |
+| Locks / merge / rebase | aucun |
+| Branche audit créée depuis `origin/main` | OUI |
+| Worktree projet modifié | NON (hors `.tmp-sfia-review/` pour ce pack) |
+| Status | ```## audit/sfia-studio-v3-native-dependencies...origin/main``` |
 
-## 3. Décisions Morris tracées
-
-| Id | Décision |
-|----|----------|
-| D-V3-01 | V3-F01…F15 validées |
-| D-V3-02 | Doctrine v3 exclusive Studio |
-| D-V3-03 | Aucune coexistence opérationnelle v2.6/v3 |
-| D-V3-04 | Réévaluation des actifs existants |
-| D-V3-05 | Commit · push · draft PR · handoff autorisés |
-
-## 4. CKC
-
-- Cycle PR readiness : pilote détaillé **absent** (attendu)
-- Fallback : carte synthétique PR readiness + garde-fous repository v2.6 pour **exécution Git uniquement**
-- Distinction stricte : méthode d'exécution cycle Git ≠ doctrine produit Studio (v3 exclusive)
-
-## 5. Fichiers lus
-
-- Template cycle + framing 01–37 pertinents
-- Docs 30–37 + README (intégralement)
-- Handoff `6703af…` / `e6539f…`
-- UX 87–89 (worktree d1) en contraintes déjà validées
-- design/modeled/delivery : **non modifiés**
-
-## 6. Fichiers créés / modifiés (périmètre PR)
-
-### Diff name-status (`origin/main...HEAD`)
+Log récent :
 
 ```
-A	projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md
-A	projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md
-A	projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md
-A	projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md
-A	projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
-A	projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
-A	projects/sfia-studio/sfia-v3-framing/36-sfia-v2.6-inheritance-and-adaptation-matrix.md
-A	projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md
-M	projects/sfia-studio/sfia-v3-framing/README.md
+56ddf32 (HEAD -> audit/sfia-studio-v3-native-dependencies, origin/main, origin/HEAD) docs(sfia-studio): validate v3 knowledge-driven doctrine (#259)
+2014e94 (main) docs(sfia): integrate candidate Cycle Knowledge Contract routing (#258)
+499c6b3 delivery(sfia-studio): D1 shared platform integration + 60s provider timeout (#257)
+416af8a docs(sfia-studio): consolidate unmerged project documents (#256)
+445702d refactor(sfia-studio): extract shared technical platform (#255)
+88fa465 (framing/sfia-studio-next-product-increment) feat(sfia-studio): deliver control tower and AI-guided project intake foundation (#254)
+32e5271 (ops1/action/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4, ops1/action/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c, ops1/action/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e, ops1/action/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846, ops1/action/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0, ops1/action/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4, ops1/action/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6, ops1/action/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14, ops1/action/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29, ops1/action/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1, ops1/action/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68, ops1/action/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901, framing/sfia-studio-control-tower) feat(sfia-studio): deliver OPS1 I6 reporting and continuation (#253)
+27811e8 (ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230, ops1/action/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2, ops1/action/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050, ops1/action/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353, ops1/action/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca, ops1/action/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700, ops1/action/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7, ops1/action/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7, ops1/action/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187, ops1/action/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8, ops1/action/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d, ops1/action/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce, ops1/action/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608, ops1/action/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a, ops1/action/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539, ops1/action/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd, ops1/action/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928, ops1/action/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56, ops1/action/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f, ops1/action/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89) feat(sfia-studio): deliver OPS1 I5 real cursor execution (#252)
+4b279b8 (ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0, ops1/action/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b, ops1/action/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca, ops1/action/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61, ops1/action/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62, ops1/action/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10) feat(sfia-studio): deliver OPS1 I4 allowlist evaluation (#251)
+33de2fc feat(sfia-studio): deliver OPS1 I3 action gate (#250)
+853959c feat(tooling): add canonical review handoff publisher (#249)
+ae39a8c feat(ops1): deliver I2 live conversation modes (#248)
+abd0541 docs(method): require review handoff for every Cursor report (#247)
+84e624f feat: implement OPS1 I1 session and journal (#246)
+7dc742b docs: validate OPS1 integration DevOps foundation (#245)
 ```
 
-### Diff stat
+## 3. Sources consultées
+
+### 3.1 Doctrine v3 (main)
+
+- `projects/sfia-studio/sfia-v3-framing/README.md` + docs 01–37 (dont 30–37 intégralement pour axes F01–F15 / exclusivité)
+- `sfia-v3-design/**` (index + D1 slices)
+- `sfia-v3-modeled/**` (README + schemas listés)
+- `sfia-v3-delivery/**` (D1 I1 / C1–C4)
+- README racine `projects/sfia-studio/README.md` + docs produit 01–85
+
+### 3.2 Runtime
+
+- `projects/sfia-studio/app/**` (Next.js actif, port 3020)
+- `projects/sfia-studio/harness/**` (POC secondaire)
+- Modules clés : `app/lib/platform/sfia-context/*`, `app/lib/ops1/*`, `app/lib/d1/*`, `app/lib/harness/*`
+
+### 3.3 UX hors main
+
+- Worktree `sfia-workspace-d1-conversational-convergence` @ `7dc6f9f…`
+- Docs `87`, `88`, `89` présents hors main ; **absents de main**
+
+### 3.4 Référentiel v2.6 (identification uniquement)
+
+- Chemins chargés par runtime : `prompts/templates/sfia-cycle-execution-template.md`, `method/sfia-fast-track/core/{routing,operating-model,guardrails}`
+- CKC sous `method/` (pilotes) — **non** utilisés comme SoT cible Studio
+
+### 3.5 Recherches exécutées
+
+- `rg` v2.6 / PGE / template / method/ / MethodMode / DoctrinePackage / LPS / HumanDecision / CKC / E0–E4 / N1–N3
+- Inventaire schemas modeled
+- Comptages couches (app 254 ts/tsx · harness 62 · framing 38 · design 56 md · modeled 41 · delivery 55 · root docs 86)
+
+## 4. Inventaire des couches
+
+| Couche | Path | Fichiers (ordre) | Rôle | Maturité réelle vs claim |
+|--------|------|------------------|------|--------------------------|
+| Runtime actif | `app/` | ~254 ts/tsx | Next.js Studio | **IMPLÉMENTÉ** sous modèle v2.6-consommé · **non** migré v3-exclusive |
+| Harness POC | `harness/` | ~62 ts | Orchestration POC S1 | Preuve / spike · parallèle à OPS1 |
+| Framing v3 | `sfia-v3-framing/` | 38 | Doctrine | **VALIDATED** (30–37) ; 01–29 partiellement obsolètes (coexistence) |
+| Design v3 | `sfia-v3-design/` | ~70 | Conception D1 | Pré-exclusivité · à réévaluer |
+| Modeled v3 | `sfia-v3-modeled/` | 41 | Schemas JSON | MODELED CANDIDATE · baseline doc encore « v2.6 » · schemas F01–F03 manquants |
+| Delivery v3 | `sfia-v3-delivery/` | 55 | Rapports D1 | IMPLEMENTED CANDIDATE slices · runtime ≠ doctrine exclusive |
+| Docs produit root | `projects/sfia-studio/*.md` | 86 | Historique produit OPS1/D1/CT | Majorité **HISTORICAL / ADAPT** ; README encore « consomme v2.6 » |
+| UX 87–89 | branche UX | 3 | Convergence conversationnelle | Validés Morris hors main |
+
+## 5. Runtime actif identifié
+
+**Verdict :** le runtime utilisateur actif est **`projects/sfia-studio/app`** (package `sfia-studio`, Next 15, port 3020).
+
+Routes principales : `/nouvelle-demande` (D1 intake) · `/workspace` · `/projects/[id]` · `/ops1/*` · `/synthese` · `/cycle-actif` · `/decision`.
+
+Orchestration secondaire : `projects/sfia-studio/harness` invoqué via `app/lib/harness/invokeHarness.ts` (CLI POC).
 
 ```
- ...30-knowledge-context-human-decision-doctrine.md | 120 +++++++++++++++++
- .../31-doctrine-package-and-source-resolution.md   |  98 ++++++++++++++
- ...-living-project-state-and-dynamic-trajectory.md |  83 ++++++++++++
- ...stemology-provenance-and-contradiction-model.md |  70 ++++++++++
- ...ities-reversibility-and-execution-governance.md |  93 ++++++++++++++
- ...tifact-evidence-debt-and-controlled-learning.md |  97 ++++++++++++++
- ...-sfia-v2.6-inheritance-and-adaptation-matrix.md | 109 ++++++++++++++++
- ...-foundations-and-consolidation-decision-pack.md | 142 +++++++++++++++++++++
- projects/sfia-studio/sfia-v3-framing/README.md     |  90 +++++++++++--
- 9 files changed, 889 insertions(+), 13 deletions(-)
+Morris UI (Next :3020)
+  ├─ D1 intake/cockpit → SQLite d1.sqlite + OpenAI
+  │                      └─ loadCanonicalCoreSources (method/ + template)
+  ├─ OPS1 session → SQLite ops1.sqlite
+  │   GPT → proposal → compiler → allowlist → ExecutionContract → Cursor
+  │                      └─ ensureSfiaContext (method/ v2.6)
+  └─ Harness bridge → poc-s1 CLI
+
+Doctrine v3 framing 30–37 → VALIDATED docs only (non branchée runtime)
 ```
 
-### Commits
+## 6. Axes d'audit (A–J) — synthèse avec preuves
+
+### Axe A — Source doctrinale — **BLOCKER**
+
+Runtime charge explicitement `method/sfia-fast-track/**` et `prompts/templates/sfia-cycle-execution-template.md`.
+
+Preuve :
 
 ```
-daf6f7d docs(sfia-studio): validate v3 doctrine as Studio-exclusive
-79a909b docs(sfia-studio): consolidate v3 knowledge-driven doctrine
+projects/sfia-studio/app/lib/platform/sfia-context/canonicalPaths.ts
+SFIA_CANONICAL_CORE_PATHS = [
+  "prompts/templates/sfia-cycle-execution-template.md",
+  "method/sfia-fast-track/core/sfia-cycle-routing-guide.md",
+  "method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md",
+  "method/sfia-fast-track/core/sfia-rules-and-guardrails.md",
+]
+SFIA_METHOD_BASELINE = "SFIA v2.6"
 ```
 
-## 7. Statut V3-F01…F15
+`sourceLoader.ts` lit ces fichiers via `fs.readFileSync`.
+`contextResolver.ts` injecte : « Baseline méthode : SFIA v2.6 (consommée, non modifiée ici). »
 
-Toutes **VALIDATED** (doctrine Studio). Non MODELED / non IMPLEMENTED runtime / non ADOPTED runtime.
+**Contradit D-V3-02 / D-V3-03 / SC-DOC-EXCL.**
 
-## 8. Règle d'exclusivité v3
+### Axe B — Contrat d'exécution — **STRUCTURAL**
 
-Studio consomme exclusivement DoctrinePackage / doctrine v3. ExecutionContract = contrat natif. Export Markdown = adaptateur. v2.6 = historique externe uniquement.
+| Couche | Contrat observé |
+|--------|-----------------|
+| OPS1 | `ExecutionContract` structuré (SQLite) + adapter Cursor — **KEEP/ADAPT** comme pattern |
+| Instantiation | Prompt Markdown depuis template v2.6 — **REPLACE** comme natif |
+| Harness | `ExecutionContractCandidate` parallèle — **REWORK / HISTORICAL** |
+| Cible v3 | ExecutionContract v3 + export MD = adaptateur seulement |
 
-## 9. Traitement v2.6
+### Axe C — Modèle projet — **STRUCTURAL**
 
-Matrice `36` = héritage historique · **pas** de lien runtime · categories Inherited/Adapted/Replaced/Not-applicable/Unresolved clarifiées.
+- Project D1 existe (`d1_projects`) avec `method_mode` ∈ `SFIA_V2_6|TRANSITION|V3_CANDIDATE` → **coexistence opérationnelle** (BLOCKER conceptuel).
+- **Living Project State** : 0 occurrence code · pas de schema.
+- **ProjectTrajectory** : schema modeled présent · quasi absent runtime.
+- OPS1 = cycle/session-centric ; D1 = project-centric — distinction partielle CC-D13, non LPS.
 
-## 10. Validations
+### Axe D — Conversation — **MAJOR**
 
-- `git diff --check` : PASS
-- liens Markdown : OK
-- scope framing only : OK
-- phrases « soumis à validation » / « Morris validation required » / « proposée » pour F01–F15 : retirées
-- coexistence opérationnelle comme cible : absente (uniquement interdite)
-- claims READY FOR DELIVERY / ADOPTED runtime / baseline globale : absents comme affirmations positives
+- D1 `/nouvelle-demande` + OPS1 : conversation-led (**ADAPT** vers CC-D01).
+- Cockpit `/workspace` `/projects` + P0 hub : surfaces cockpit.
+- Framing `11` : « Cockpit avant chat » — **dette / contradiction** avec CC-D01 et doc `30`/`37`.
 
-## 11. Risques
+### Axe E — Connaissance — **BLOCKER**
 
-| Risque | Qualification |
-|--------|---------------|
-| Confusion v2.6/v3 | Mitigé documentairement · dette runtime non auditées |
-| Claim prématuré | Anti-claims explicites |
-| Doc ≠ runtime | Réserve VAL-R01 |
-| Dette future reconception | D-V3-04 assumée |
+- Pas de DoctrinePackage resolver.
+- Pas de CkcResolution (0 hits CKC métier dans app).
+- Digests : présents pour sources allowlistées v2.6, pas pour package v3.
+- Fallback : silencieux vers carte/méthode absente côté Studio ; runtime **utilise** v2.6 comme core.
 
-## 12. Réserves
+### Axe F — Décision humaine — **ADAPT**
 
-VAL-R01…R07 (voir `37`) · merge non exécuté · audit dépendances hors périmètre.
+- OPS1 `actionGate` + `gate_decisions` : GO/NO-GO Morris — **KEEP pattern**.
+- Schema `human-decision.schema.json` non branché.
+- Confirmations N1–N3 : **non** trouvées comme modèle unifié dans `app/lib` (écart CC-D06).
+- Pas de mutation implicite dominante observée sur OPS1 (fail-closed) — **KEEP**.
 
-## 13. Push
+### Axe G — Agents — **MAJOR**
 
-- Branche distante : `origin/method/sfia-studio-v3-doctrine-consolidation`
-- SHA distant : `daf6f7d02bbac09024f6275a793769e66b2b3878`
-- Local = remote : oui
+- Capacités implicites (ops allow/deny lists) — **pas** `AgentCapability` contract.
+- Cursor réel gate `OPS1_CURSOR_REAL`.
+- L5 listé dans closed gates — **KEEP principe**.
 
-## 14. Draft PR
+### Axe H — Persistance — **MAJOR / STRUCTURAL**
 
-| Champ | Valeur |
-|-------|--------|
-| Numéro | 259 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/259 |
-| Titre | docs(sfia-studio): validate v3 knowledge-driven doctrine |
-| Base | main |
-| Head | method/sfia-studio-v3-doctrine-consolidation |
-| Draft | **true** |
-| State | OPEN |
+- SQLite OPS1 + D1 : état runtime (alignement partiel D5).
+- Pas de MD/JSON/SQL doctrine pin.
+- Audit events D1 limités ; OPS1 journal riche.
+- Modeled HumanDecision / LPS / DoctrinePackage **non** persistés.
 
-### Corps de PR (complet)
+### Axe I — Maturité — **MAJOR**
 
-```markdown
-### Contexte
+- Framing 30–37 : VALIDATED (OK).
+- README framing encore « merge en attente / DRAFT PR PENDING » — **dette post-merge**.
+- README Studio root : « consomme v2.6 » — **claim obsolète** vs D-V3-02.
+- Modeled README : Baseline SFIA v2.6 — **obsolète**.
+- Delivery « IMPLEMENTED CANDIDATE » ≠ plateforme v3 exclusive.
 
-SFIA Studio adopte une doctrine v3 spécifique, conversationnelle et pilotée par la connaissance, le contexte et la décision humaine.
+### Axe J — UX/UI — **MAJOR**
 
-### Décision Morris
+- CC-D01/D03/D05/D06/D12/D13 : documentés hors main (87–89) + intégrés doctrine `30`.
+- Runtime partiellement aligné (conversation intake) · panneau vivant LPS absent · N1–N3 non unifiés · MethodMode badges exposent coexistence.
 
-SFIA v3 devient la doctrine exclusive de SFIA Studio.
+## 7. Matrice 1 — Dépendances v2.6
 
-SFIA v2.6 reste une baseline historique externe à Studio et n'est pas une source runtime, un fallback ou une doctrine active du produit.
+| ID | Path | Couche | Type de dépendance | Active ? | Preuve | Sévérité | Traitement |
+|----|------|--------|-------------------|----------|--------|----------|------------|
+| DEP-01 | `app/lib/platform/sfia-context/canonicalPaths.ts` | Runtime | SoT method/ + template | **Oui** | `SFIA_CANONICAL_CORE_PATHS` + `SFIA_METHOD_BASELINE` | **BLOCKER** | REPLACE (DoctrinePackage) |
+| DEP-02 | `app/lib/platform/sfia-context/sourceLoader.ts` | Runtime | Lecture FS method/prompts | **Oui** | `fs.readFileSync` allowlist | **BLOCKER** | REPLACE |
+| DEP-03 | `app/lib/platform/sfia-context/contextResolver.ts` | Runtime | Injection baseline v2.6 dans LLM | **Oui** | `PERMANENT_CORE` L40 | **BLOCKER** | REPLACE |
+| DEP-04 | `app/lib/ops1/sfia/cursorPromptInstantiator.ts` | Runtime | Template Cursor = contrat natif | **Oui** | load template path | **STRUCTURAL** | ADAPT→adapter only |
+| DEP-05 | `app/lib/ops1/sessionContext.ts` | Runtime | ensureSfiaContext → cores v2.6 | **Oui** | imports resolver | **BLOCKER** | REWORK |
+| DEP-06 | `app/lib/d1/intake/canonicalContext.ts` | Runtime | D1 charge cores v2.6 | **Oui** | `methodBaseline` | **BLOCKER** | REWORK |
+| DEP-07 | `app/lib/d1/db.ts` + `types.ts` | Persistance | MethodMode coexistence | **Oui** | CHECK `SFIA_V2_6|TRANSITION|V3_CANDIDATE` | **BLOCKER** | REPLACE schéma mode |
+| DEP-08 | `app/features/d1/Badges.tsx` | UX | Affiche MethodMode | **Oui** | MethodModeBadge | **MAJOR** | ADAPT/REMOVE |
+| DEP-09 | `harness/src/types/qualificationCandidate.ts` | Harness | Cycles/blocks v2.6 closed lists | **Oui (POC)** | comment + enums | **STRUCTURAL** | HISTORICAL / REPLACE if reused |
+| DEP-10 | `app/lib/harness/sfiaCanonicalLabels.ts` | Runtime | Duplication labels cycles | **Oui** | mirror harness | **MODERATE** | ADAPT |
+| DEP-11 | `sfia-v3-modeled/schemas/common/doctrine-reference.schema.json` | Modeled | Enum `SFIA-v2.6` | Doc/contrat | schema enum | **MAJOR** | ADAPT |
+| DEP-12 | `sfia-v3-modeled/examples/*.json` | Modeled | Exemples doctrineVersion v2.6 | Non runtime | examples | **HISTORICAL** | HISTORICAL-ONLY / refresh |
+| DEP-13 | `sfia-v3-modeled/README.md` | Modeled | Baseline claim v2.6 | Doc | metadata | **MAJOR** | ADAPT post-arbitrate |
+| DEP-14 | `projects/sfia-studio/README.md` | Doc produit | « consomme v2.6 » Option C | Doc active | multiples lignes | **STRUCTURAL** | REWORK |
+| DEP-15 | `sfia-v3-framing/11-…` + `15` + `16` + `27` | Framing antérieur | Modes coexistence / cockpit-first | Doc | MethodMode / cockpit | **STRUCTURAL** | ADAPT/supersede |
+| DEP-16 | `sfia-v3-framing/01–29` (hors 30–37) | Framing | Métadonnées baseline v2.6 | Doc | headers | **MODERATE** | ADAPT dette doc |
+| DEP-17 | Tests `app/__tests__/d1/project-foundation.test.ts` | Tests | Valident coexistence MethodMode | **Oui** | assert SFIA_V2_6 | **MAJOR** | REPLACE tests exclusivité |
+| DEP-18 | Tests canonical engine | Tests | Attendent paths method/ | **Oui** | canonicalEngine.test.ts | **MAJOR** | REPLACE |
+| DEP-19 | Allowlist OPS1 `method/` deny write | Runtime | Protège method (OK) mais lecture SoT | Hybride | pathPolicy / allowlist | **MODERATE** | KEEP deny-write · REMOVE read-SoT |
+| DEP-20 | Docs root 41–85 OPS1/D1 | Doc | Conçus sous Option C v2.6 | Historique | claims | **HISTORICAL** | HISTORICAL-ONLY + extract patterns |
 
-Décisions tracées : **D-V3-01** (V3-F01…F15 validées) · **D-V3-02** (exclusivité) · **D-V3-03** (pas de coexistence opérationnelle) · **D-V3-04** (réévaluation des actifs) · **D-V3-05** (push + draft PR autorisés).
+### Faux positifs
 
-### Contenu
+| Item | Pourquoi faux positif |
+|------|----------------------|
+| Mentions v2.6 dans `36` / `30`–`37` post-validation | Doctrine d'interdiction / héritage — **pas** dépendance active |
+| `method/` dans denylist write | Protection — pas consommation |
+| `reviewPackCompleteness` matches « ckc » substring | Bruit regex |
+| Handoff / review pack vocabulary | Concepts hérités incorporés v3 |
 
-- V3-F01 à V3-F15
-- DoctrinePackage
-- CKC (couche cognitive)
-- Living Project State
-- trajectoire dynamique
-- épistémologie
-- provenance
-- contradictions
-- capacités agents
-- réversibilité
-- dette
-- preuves
-- maturité
-- apprentissage contrôlé
-- matrice d'héritage historique v2.6
-- décision pack
+## 8. Matrice 2 — Conformité V3-F01…F15
 
-### Scope
+| Fondation | Framing | Design | Modeled | Delivery | Runtime | Écart | Priorité |
+|-----------|---------|--------|---------|----------|---------|-------|----------|
+| F01 CKC | VALIDATED `30` | partiel intake | **absent** CkcResolution | opaque non | **absent** | Pas de résolution CKC | P0 |
+| F02 LPS | VALIDATED `32` | panneau partiel | **absent** schema | non | **absent** | Pas d'état vivant unifié | P0 |
+| F03 DoctrinePackage | VALIDATED `31` | — | **absent** | non | **method/ SoT** | Inverse de la cible | P0 |
+| F04 Épistémologie | VALIDATED `33` | tags partiels OPS1 | schemas decision partiels | partiel | partiel (proposal≠decision) | Incomplet | P1 |
+| F05 Chaîne conv→exec | VALIDATED `30` | D1 design | — | C1–C4 | hybride PGE | Template MD natif | P0 |
+| F06 Trajectoire | VALIDATED `32` | — | `project-trajectory.schema.json` | non | quasi absent | Non branché | P1 |
+| F07 Provenance | VALIDATED `31` | — | partiel digests | non | digests v2.6 cores | Mauvaise source | P0 |
+| F08 Contradictions | VALIDATED `33` | — | absent | non | quasi absent | Pas de moteur | P1 |
+| F09 Replanif | VALIDATED `32` | — | absent | non | absent | — | P2 |
+| F10 DebtItem | VALIDATED `35` | — | absent | non | absent | — | P2 |
+| F11 AgentCapability | VALIDATED `34` | — | absent | allowlists ad hoc | allow/deny lists | Pattern KEEP → contract | P1 |
+| F12 Réversibilité | VALIDATED `34` | — | absent | gates OPS1 | closed gates | KEEP/ADAPT | P1 |
+| F13 Learning | VALIDATED `35` | — | absent | non | absent | — | P3 |
+| F14 Artefacts | VALIDATED `35` | — | absent | review patterns | review pack harness | ADAPT | P2 |
+| F15 Maturité | VALIDATED `35` | claims mixtes | claims mixtes | IMPL CAND | claims runtime | Anti-claims tests absents | P1 |
 
-Documentation framing uniquement (`projects/sfia-studio/sfia-v3-framing/` — docs `30`–`37` + README).
+**Exclusivité v3 :** framing OK · **runtime KO**.
 
-### Non inclus
+## 9. Matrice 3 — Qualification des actifs (principaux)
 
-- code
-- modeled
-- delivery
-- UX
-- migration
-- activation runtime
-- suppression v2.6 du repository
-- merge
+| Actif | Qualification | Justification |
+|-------|---------------|---------------|
+| Framing `30`–`37` + README exclusivité | **KEEP** | Doctrine VALIDATED ; dette métadonnées post-merge seulement |
+| Framing `01`–`29` (coexistence / baseline v2.6) | **ADAPT** | Supersede / amender vs D-V3-02/03 |
+| `canonicalPaths` + `sourceLoader` + `contextResolver` | **REPLACE** | SoT v2.6 active |
+| OPS1 ExecutionContract + worktree + postcheck + allowlist deny-default | **ADAPT** | Pattern v3-compatible si découplé de method/ |
+| OPS1 actionGate / journal / conversation | **ADAPT** | Base HumanDecision/gates |
+| `cursorPromptInstantiator` | **ADAPT** | Garder comme **adaptateur** export MD, pas SoT |
+| D1 project foundation (create/activate/audit) | **ADAPT** | Retirer MethodMode coexistence |
+| D1 intake conversation UI | **ADAPT** | Aligner CC-D01/D03/D05 |
+| MethodMode triad + badges | **REMOVE-FROM-RUNTIME** | Contredit D-V3-03 |
+| Harness POC S1 | **HISTORICAL-ONLY** (ou REWORK si réutilisé) | Double stack · v2.6 enums |
+| P0 fixture screens | **REWORK** / HISTORICAL | Hub pré-D1 |
+| Modeled schemas existants (project/cycle/decision/review) | **ADAPT** | Enrichir + retirer enum v2.6 runtime |
+| Schemas manquants DoctrinePackage/LPS/CKC/… | **REPLACE** (créer) | Gap modeled |
+| Delivery D1 C1–C4 reports | **HISTORICAL-ONLY** + extract | Preuves slices |
+| Docs root 01–40 produit pré-v3 | **HISTORICAL-ONLY** | Traçabilité |
+| Docs OPS1 41–65 | **HISTORICAL-ONLY** + **ADAPT** patterns | Patterns gates/allowlist |
+| UX 87–89 (hors main) | **KEEP** (intégrer) | Décisions CC-D* |
+| Tests MethodMode / canonical method paths | **REPLACE** | Doivent tester exclusivité |
+| `projects/sfia-studio/README.md` Option C | **REWORK** | Claim doctrinal faux post-#259 |
 
-### Validations
+## 10. Matrice 4 — Cycles à rejouer
 
-- `git diff --check` : PASS
-- liens Markdown internes : OK
-- scope : 9 fichiers framing uniquement (8 créés + README modifié)
-- anti-claims : pas READY FOR DELIVERY / pas ADOPTED runtime / pas baseline globale / pas coexistence opérationnelle comme cible
-- cohérence F01–F15 : toutes **VALIDATED** (doctrine Studio)
-- base : `origin/main` @ `2014e941f548c519d152ebc70d0d4ddad29a6397`
-- commits : `79a909b` (consolidation) · `daf6f7d` (validation exclusive)
+| Ordre | Cycle | Motif | Entrées | Sorties attendues | Dépendances | Gate Morris |
+|------:|-------|-------|---------|-------------------|-------------|-------------|
+| 0 | Post-merge doc hygiene | Métadonnées 30–37/README framing obsolètes | main@56ddf32 | Docs à jour merge | — | GO DOC HYGIENE (light) |
+| 1 | Arbitrage trajectoire | Choisir ordre + tranche | ce handoff | Trajectoire validée | Audit | `GO MORRIS ARBITRATION — SFIA STUDIO V3-NATIVE REFOUNDATION TRAJECTORY` |
+| 2 | Conception fonctionnelle v3-native | Remplacer Option C runtime | Doctrine 30–37 · audit | Spec F01–F12 native | Arbitrage | `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE` |
+| 3 | Architecture fonctionnelle | LPS · DoctrineResolver · chaîne | Spec | AF v3 | CF | GO AF |
+| 4 | UX/UI | Intégrer 87–89 + LPS panel · retirer MethodMode | CC-D* | Contrat UX v3 | AF | GO UX |
+| 5 | Modeled enrichment | Schemas F01–F03+ | AF | Manifests JSON | GO modeled | `GO ENRICHISSEMENT MODELED` |
+| 6 | Archi technique resolver/LPS | Pin doctrine · stop SC-DOC-EXCL | Modeled | Design tech | Modeled | GO AT |
+| 7 | Refonte orchestration | Remplacer SoT method/ | AT | ExecutionContract v3-native | AT | GO Delivery borné |
+| 8 | Tranche verticale pilote | Prouver A | Tout amont | Preuve E2E | 7 | GO VERTICAL SLICE |
+| 9 | Migration / retrait deps | REMOVE-FROM-RUNTIME | Preuve | method/ hors lecture produit | 8 | GO RETRAIT DEPS |
+| 10 | QA doctrinale | Tests exclusivité | Règles | Suite tests | 9 | GO QA |
+| 11 | RUN readiness / capitalisation | — | — | — | 10 | ultérieur |
 
-### Réserves
+## 11. Matrice 5 — Dette
 
-- la PR n'active pas encore v3 dans le runtime
-- le code Studio conserve potentiellement des dépendances v2.6 non encore auditées
-- design, modeled, delivery et UX devront être réévalués (D-V3-04)
-- un audit de dépendances précède toute nouvelle implémentation
-- le merge ne signifie pas migration terminée
-- merge soumis à GO Morris distinct
+| Dette | Type | Origine | Impact | Priorité | Cycle de remboursement |
+|-------|------|---------|--------|----------|------------------------|
+| Runtime SoT = method/ v2.6 | technique / gouvernance | Control Tower / OPS1 | BLOCKER exclusivité | P0 | Orchestration + modeled |
+| MethodMode coexistence | donnée / UX | D1-I1 | Contredit D-V3-03 | P0 | CF + modeled + delivery |
+| Absence DoctrinePackage/LPS/CKC runtime | fonctionnelle | Gap post-doctrine | Pas de v3-native | P0 | Modeled + AT |
+| Framing 11 cockpit-first | documentaire / UX | Cadrage ancien | Confusion IA | P1 | Doc + UX |
+| README Studio Option C | documentaire | Pré-#259 | Claim faux | P1 | Hygiene / CF |
+| Dual OPS1 vs harness contracts | technique | POC | Drift | P2 | Décision retire harness |
+| UX 87–89 hors main | documentaire | Branche UX | IA incomplete main | P1 | Merge docs UX |
+| Métadonnées post-merge framing | documentaire | PR #259 | Gate/verdict obsolètes | P1 | Hygiene |
+| Pas de tests exclusivité v3 | preuve / QA | — | Régression silencieuse | P1 | QA |
+| N1–N3 non unifiés | UX / enforcement | Gap CC-D06 | Confirmations hétérogènes | P1 | UX + delivery |
+| E0–E4 non exposés runtime unifié | sécurité | Framing 25 vs code | Vocabulaire divergence | P2 | AT |
+| Onze CKC absents | connaissance | CKC programme | Fallback synthétique | P2 | CKC programme (hors Studio-only) |
 
-### Gate suivant
+## 12. Matrice 6 — Risques de migration
 
-`GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE`
+| Risque | Probabilité | Impact | Mitigation | Stop condition |
+|--------|-------------|--------|------------|----------------|
+| Big-bang rewrite app | Moyenne | Élevé | Tranche verticale A bornée | Scope > allowlist |
+| Coexistence temporaire « pour transition » | Haute | Critique | Interdit D-V3-03 · feature flags ≠ doctrine duale | MethodMode v2.6 réintroduit |
+| Casser OPS1 Campus360 pendant migration | Haute | Élevé | Adapter allowlist · garder fail-closed | Write method/ |
+| Drift harness vs app | Moyenne | Moyen | Geler harness HISTORICAL | Nouveau feature dans harness |
+| Claim « runtime migré » prématuré | Moyenne | Critique | Anti-claims + tests | Claim sans preuve |
+| Oublier D1 MethodMode en DB | Haute | Élevé | Migration données après modèle | Schema conserve SFIA_V2_6 actif |
 
-```
+## 13. Matrice 7 — Couverture des tests
 
-## 15. Actions non exécutées
+| Règle v3 | Test existant | Suffisant ? | Test futur requis |
+|----------|---------------|-------------|-------------------|
+| Exclusivité doctrine (pas method/ SoT) | Non (tests **imposent** method/) | Non | Refuse load method/ as doctrine |
+| SC-DOC-EXCL | Non | Non | Unit + integration |
+| DoctrinePackage pin/digest | Non | Non | Resolver fail-closed |
+| LPS persisté | Non | Non | CRUD LPS + anti hyp→decision |
+| CKC resolution opaque | Non | Non | Absent→synthetic silent |
+| N1–N3 | Non unifié | Non | Confirmation matrix |
+| HumanDecision ≠ recommendation | Partiel OPS1 gate | Partiel | Schema + UI tags |
+| MethodMode interdit | Tests **autorisent** SFIA_V2_6 | Inverse | Remove + negative tests |
+| Anti-claim ADOPTED | Non | Non | Claim scanner |
 
-- merge
-- push main
-- force push
-- modification method/CKC/design/modeled/delivery/code
-- audit dépendances v2.6 code
-- création schemas
-- activation runtime
+## 14. Blockers (liste)
 
-## 16. État Git final
+1. **DEP-01…03 / DEP-05…06** — runtime charge method/ + baseline v2.6.
+2. **DEP-07** — MethodMode coexistence persistée.
+3. **Absence DoctrinePackage / LPS / CKC** — fondations VALIDATED non instanciables.
+4. **README / modeled claims** — documentation produit encore « v2.6 consommée » (confusion gouvernance).
+5. **Tests qui verrouillent le couplage method/** — frein à la migration.
 
-```
-## method/sfia-studio-v3-doctrine-consolidation...origin/method/sfia-studio-v3-doctrine-consolidation
-?? .tmp-sfia-review/
-```
+## 15. Éléments à retirer de la cible runtime
 
-HEAD final : `daf6f7d02bbac09024f6275a793769e66b2b3878`
+- Doctrine v2.6 comme source produit (`method/` lecture SoT)
+- Fallback doctrinal v2.6
+- PGE / template MD comme contrat **natif**
+- MethodMode `SFIA_V2_6` / `TRANSITION` opérationnels
+- Cockpit-first comme entrée principale (framing 11)
+- Claim maturité sans preuve
+- Agent sans capability contract formalisé
+- L5 global (déjà fermé — conserver)
+- Dual-run doctrinal
 
-## 17. Contenu complet des fichiers du pack (état final HEAD)
+## 16. Trajectoire de refondation proposée (candidate — **pas** décision Morris)
 
+Principe : **pas de big-bang** · **pas de coexistence doctrinale active** · retirer SoT method/ dès la première tranche runtime · conserver patterns fail-closed OPS1.
 
-### Fichier : `projects/sfia-studio/sfia-v3-framing/README.md`
+### Étape 0 — Hygiene documentaire post-merge (light)
+- Objectif : corriger métadonnées framing après #259
+- Cycle : DOC
+- Critère : plus de « DRAFT PR PENDING MERGE »
 
-````markdown
-# SFIA Studio v3 — Cadrage doctrinal (VALIDATED)
+### Étape 1 — Arbitrage Morris trajectoire + tranche
+- Gate : `GO MORRIS ARBITRATION — SFIA STUDIO V3-NATIVE REFOUNDATION TRAJECTORY`
 
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut doctrinal** | Doctrine SFIA Studio v3 **validée par Morris** · intégration sur `main` en attente de merge |
-| **Fondations** | **V3-F01 à V3-F15 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** (D-V3-02 · D-V3-03) |
-| **SFIA v2.6** | Baseline **historique externe** à Studio · traçabilité d'héritage (`36`) · **jamais** doctrine active / source runtime / fallback Studio |
-| **Maturité framing doctrine** | **VALIDATED** (Studio) |
-| **Maturité design / modeled / delivery / runtime** | Non réévalués ici · runtime **non migré** · non MODELED/IMPLEMENTED complets · non ADOPTED runtime |
-| **Adoption v3 hors Studio** | **Non** |
-| **Trajectoire conception** | Option D (co-design borné) — actifs existants soumis à réévaluation (D-V3-04) |
-| **Gates consommés** | `GO VALIDATION DOCTRINE — SFIA STUDIO V3 KNOWLEDGE-DRIVEN METHOD` · `GO PR READINESS, PUSH ET DRAFT PR — SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE` |
-| **Gate suivant** | `GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE` |
-| **Anti-claims** | Pas runtime v3 actif · Pas migration terminée · Pas READY FOR DELIVERY · Pas baseline globale v3 · Pas suppression v2.6 du repository · Pas merge dans ce cycle |
+### Étape 2 — Conception fonctionnelle v3-native
+- Remplacer Option C runtime par chaîne F01–F12
+- Décider sort MethodMode / harness / P0
 
-## Règles d'exclusivité (D-V3-02 · D-V3-03)
+### Étape 3 — Architecture fonctionnelle
+- LPS · DoctrineResolver · CkcResolution · HumanDecision unifiée
 
-1. SFIA Studio consomme **exclusivement** sa doctrine SFIA v3.
-2. Le **DoctrinePackage** v3 est la future source doctrinale canonique de Studio.
-3. Les CKC Studio sont résolus via la doctrine v3 et ses sources explicitement autorisées.
-4. Le contrat natif d'exécution Studio est l'**ExecutionContract** v3.
-5. Un export Markdown Cursor peut exister comme **adaptateur technique**, pas comme doctrine ni SoT.
-6. SFIA v2.6 reste **externe** à Studio (historique, traçabilité, méthode repository actuelle jusqu'à migration d'outillage) — **pas** consommée comme doctrine produit.
+### Étape 4 — UX (intégrer 87–89)
+- Conversation dominante · panneau LPS · N1–N3 · Project≠Cycle · retirer badges coexistence
 
-## Décisions de cadrage validées (D1–D8)
+### Étape 5 — Modeled enrichment
+- DoctrinePackageManifest · LPS · CKC · Contradiction · DebtItem · AgentCapability · ActionPolicy
 
-| Id | Décision |
-|----|----------|
-| D1 | v3 exclusivement Studio-native |
-| D2 | ReviewBundle hybride (handoff = export/résilience) |
-| D3 / R1 | MD = pourquoi · JSON = quoi · SQL = état |
-| D4 / R2 | Enforcement E0–E4 |
-| D5 / R3 | SQL transactionnel + audit append-only |
-| D6 / R4 | Maturité DOCUMENTED…ADOPTED |
-| D7 / R5 | Pas de migration générale historiques |
-| D8 | Option D trajectoire validée |
+### Étape 6 — Archi technique + Delivery bornée
+- Brancher resolver · couper lecture method/ produit · ExecutionContract natif · MD export adapter
 
-## Décisions de validation doctrinale (D-V3-01…05)
+### Étape 7 — Tranche verticale pilote (**Option A recommandée**)
+- Intention → CKC → LPS → trajectoire → décision → ExecutionContract → preuve
+- Critère sortie : zéro lecture `method/` dans chemin chaud ; digest DoctrinePackage
 
-| Id | Décision |
-|----|----------|
-| D-V3-01 | V3-F01…F15 validées comme fondations Studio v3 |
-| D-V3-02 | Doctrine exclusive SFIA v3 pour Studio |
-| D-V3-03 | Aucune coexistence doctrinale opérationnelle v2.6/v3 |
-| D-V3-04 | Réévaluation des actifs Studio existants (conserver / adapter / remplacer / retirer / preuve historique) |
-| D-V3-05 | Commit · push branche · draft PR · handoff autorisés · **pas** de merge |
+### Étape 8 — Retrait deps + QA doctrinale + capitalisation
 
-Détail : document `37`.
+## 17. Tranche verticale recommandée
 
-## Décisions UX validées (réf. 87–89 — hors main)
+| Option | Description | Recommandation |
+|--------|-------------|----------------|
+| **A** | Intention → Cadrage → CKC → LPS → trajectoire → décision → ExecutionContract → preuve | **Recommandée** — prouve F01–F07 + F05 sans dépendre d'un Project legacy contaminé MethodMode |
+| B | Reprise Project existant → DoctrinePackage → LPS → cycle → décision → exec | Utile en 2ᵉ tranche (migration données MethodMode) |
+| C | QA → CKC QA → preuves → contradiction → HumanDecision | Trop étroit pour débloquer SoT |
 
-CC-D01 · CC-D03 · CC-D05 · CC-D06 · CC-D12 · CC-D13 — contraintes intégrées dans `30` / `34` / `37`.
+**Option A est une recommandation d'audit, pas une décision Morris.**
 
-## Couches et maturité réelle
+## 18. Ordre de priorité immédiat
 
-| Couche | Rôle | Maturité réelle |
-|--------|------|-----------------|
-| Framing (`sfia-v3-framing`) | Doctrine validée Studio | **VALIDATED** (doctrine) · merge pending |
-| Design (`sfia-v3-design`) | Conception fonctionnelle | À réévaluer (D-V3-04) |
-| Modeled (`sfia-v3-modeled`) | Contrats / schemas | À enrichir après gate modeled |
-| Delivery (`sfia-v3-delivery`) | Implémentation | À réévaluer · **non** = runtime v3 |
-| Runtime Studio | Exécution produit | **Non migré** vers doctrine v3 |
+1. Arbitrage Morris trajectoire (gate suivant)
+2. Couper conceptuellement SoT method/ (spec CF)
+3. Modeled DoctrinePackage + LPS
+4. Brancher runtime tranche A
+5. Retirer MethodMode
+6. Intégrer UX 87–89
+7. Hygiene docs README Studio / framing 01–29
 
-## Index framing (01–37)
+## 19. Gates Morris futurs (non consommés)
 
-| # | Fichier |
-|---|---------|
-| 01–22 | Cadrage consolidé (clôture) |
-| 23 | ReviewBundle & lifecycle |
-| 24 | Sources MD/JSON (R1) |
-| 25 | Enforcement E0–E4 (R2) |
-| 26 | SQL & audit (R3) |
-| 27 | Maturité & éligibilité (R4) |
-| 28 | Projets historiques (R5) |
-| 29 | Option D & slices D1–D3 |
-| **30** | Doctrine connaissance, contexte, décision humaine (V3-F01, F05) |
-| **31** | DoctrinePackage & résolution sources (V3-F03, F07) |
-| **32** | Living Project State & trajectoire (V3-F02, F06, F09) |
-| **33** | Épistémologie & contradictions (V3-F04, F08) |
-| **34** | Agents, réversibilité, stop conditions (V3-F11, F12) |
-| **35** | Artefacts, dette, apprentissage, maturité (V3-F10, F13–F15) |
-| **36** | Matrice d'héritage historique v2.6 → concepts Studio v3 |
-| **37** | Pack fondations & décisions Morris de validation |
+1. `GO MORRIS ARBITRATION — SFIA STUDIO V3-NATIVE REFOUNDATION TRAJECTORY`
+2. `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE`
+3. (ensuite) GO AF · GO UX · `GO ENRICHISSEMENT MODELED` · GO AT · GO VERTICAL SLICE · GO RETRAIT DEPS · GO QA
 
-## Dette et réserves (courtes)
+## 20. Réserves
 
 | ID | Réserve |
 |----|---------|
-| VAL-R01 | Runtime / design / modeled / delivery non migrés |
-| VAL-R02 | Dépendances v2.6 dans le code non auditées (hors périmètre PR) |
-| VAL-R03 | Schemas DoctrinePackage / LPS non créés |
-| VAL-R04 | UX 87–89 hors `main` |
-| VAL-R05 | Onze CKC détaillés absents (fallback silencieux carte synthétique v3) |
-| VAL-R06 | Merge soumis à GO Morris distinct |
+| AUD-R01 | Runtime **non** migré |
+| AUD-R02 | Harness encore présent (surface parallèle) |
+| AUD-R03 | UX 87–89 hors main — audit UX qualifié via worktree `7dc6f9f` |
+| AUD-R04 | Inventaire root docs 86 fichiers : qualification agrégée, pas fichier-à-fichier exhaustif pour chaque md historique |
+| AUD-R05 | Figma non ré-audité dans ce cycle |
+| AUD-R06 | CKC généraux restent hors Studio ; programme CKC distinct |
 
-## Prochaines étapes
+## 21. Dette documentaire post-merge (non corrigée ici)
 
-1. Review Morris de la draft PR.
-2. Merge si GO Morris.
-3. Audit dépendances v2.6 dans les actifs Studio.
-4. `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3 FOUNDATIONAL CONTRACTS` (après merge / gate dédié).
-5. Réévaluation design / delivery / UX (D-V3-04).
+| Path | Problème |
+|------|----------|
+| `sfia-v3-framing/README.md` | « intégration sur main en attente de merge » · gate `GO MORRIS REVIEW — DRAFT PR` · verdict `DRAFT PR PENDING MERGE` |
+| `sfia-v3-framing/37-…` | Même gate / verdict pending merge |
+| Autres 30–36 | En-têtes « merge en attente » possibles |
+| `projects/sfia-studio/README.md` | Option C / consomme v2.6 — **obsolète doctrinalement** pour Studio produit |
 
-## Verdict
+## 22. Inconnues (UNKNOWN)
 
-**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE VALIDATED — DRAFT PR PENDING MERGE**
-````
+| ID | Sujet |
+|----|-------|
+| U-01 | Faut-il conserver OPS1 Campus360 comme produit parallèle pendant la tranche A ou le geler ? |
+| U-02 | Statut définitif du harness (delete later vs extract library) |
+| U-03 | Calendrier merge UX 87–89 vs CF |
+| U-04 | Stratégie migration données `method_mode` existantes |
 
-### Fichier : `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
+## 23. Actions non exécutées
 
-````markdown
-# 30 — Doctrine connaissance, contexte et décision humaine
+- aucune modification projet
+- aucun commit projet
+- aucun push branche audit
+- aucune PR
+- aucun merge
+- aucune suppression dépendance
+- aucune correction opportuniste des docs post-merge
 
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
-| **Fondations** | **V3-F01 · V3-F05 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** |
-| **SFIA v2.6** | Externe à Studio · historique / traçabilité uniquement |
-| **Maturité fondations** | **VALIDATED** (doctrine Studio) |
-| **Maturité runtime** | Non migré |
-| **Gates** | Validation doctrine + PR readiness (consommés) |
-| **Anti-claims** | Pas runtime actif · Pas ADOPTED runtime · Pas READY FOR DELIVERY · Pas baseline globale |
-| **Document** | `30-knowledge-context-human-decision-doctrine.md` |
-
----
-
-## 1. Doctrine cible (validée)
-
-SFIA Studio v3 est un **système méthodologique conversationnel, gouverné et piloté par la connaissance, le contexte et la décision humaine**. Il transforme une intention en projet structuré, mobilise les connaissances adaptées à chaque cycle, maintient un état projet vivant, propose une trajectoire révisable et prépare des exécutions bornées et auditables.
-
-**Studio-native** · **doctrine exclusive Studio** · **sans autorité d'exécution autonome**.
-
-## 2. Chaîne canonique
+## 24. État Git final
 
 ```
-intention utilisateur
-→ compréhension de l'intention
-→ résolution du contexte et des sources (DoctrinePackage v3)
-→ qualification cycle / profil / blocs
-→ résolution CKC (pilote v3-autorisé ou fallback silencieux carte synthétique)
-→ analyse et clarification
-→ détection des contradictions
-→ mise à jour du Living Project State
-→ trajectoire (recommandation jusqu'à validation)
-→ options et recommandation
-→ décision Morris
-→ confirmation proportionnée (N1–N3)
-→ Execution Contract
-→ agent / Cursor / Runtime
-→ preuves et ReviewBundle
-→ mise à jour de l'état
-→ replanification ou capitalisation
+## audit/sfia-studio-v3-native-dependencies...origin/main
 ```
 
-## 3. V3-F01 — CKC comme couche cognitive canonique (VALIDATED)
+HEAD inchangé : `56ddf32e811f0f5f8b82f31400da18ceecf3bc30`
+Branche audit **non poussée**.
 
-### Définition
+## 25. Preuves complémentaires (extraits)
 
-Un **Cycle Knowledge Contract (CKC)** est un contrat de connaissance associé à un **type de cycle projet**. Il guide le **raisonnement cognitif** (ChatGPT / Studio) après qualification du cycle et **avant** le contrat d'exécution Cursor.
+### canonicalPaths (runtime SoT)
 
-### Fournit
+Fichier : `projects/sfia-studio/app/lib/platform/sfia-context/canonicalPaths.ts`
+Contenu clé : `SFIA_CANONICAL_CORE_PATHS` pointe `prompts/templates/…` + 3 fichiers `method/sfia-fast-track/core/…` ; `SFIA_METHOD_BASELINE = "SFIA v2.6"`.
 
-dimensions d'analyse · questions adaptatives · risques · critères de maturité · preuves attendues · anti-claims · entrées/sorties · dépendances · limites · règles de fallback **intra-doctrine v3**.
+### contextResolver PERMANENT_CORE
 
-### Garde-fous (obligatoires)
+Fichier : `projects/sfia-studio/app/lib/platform/sfia-context/contextResolver.ts`
+Inclut : « Le prompt Cursor doit être instancié depuis prompts/templates/sfia-cycle-execution-template.md. » et « Baseline méthode : SFIA v2.6 (consommée, non modifiée ici). »
 
-| Règle | Contenu |
-|-------|---------|
-| Autorité | **Aucune** autorité d'exécution |
-| Décision | **Aucune** décision Morris implicite |
-| UI | **Jamais** exposé comme formulaire / checklist / dimensions brutes |
-| Couverture | 4 pilotes détaillés (1, 2, 6, 9) · 11 cycles en fallback silencieux |
-| Fallback | Carte synthétique / sources **autorisées par DoctrinePackage v3** · **silencieux** UI (CC-D12) · **jamais** bascule doctrinale vers SFIA v2.6 |
-| Traçabilité | path · version · statut `detailed`/`synthetic`/`absent` · digest si disponible |
-| Invention | **Interdit** d'inventer un CKC détaillé absent |
+### D1 MethodMode
 
-### Consommation Studio
+Fichier : `projects/sfia-studio/app/lib/d1/db.ts`
+`method_mode … IN ('SFIA_V2_6', 'TRANSITION', 'V3_CANDIDATE')`.
 
-Résolution **interne** après qualification cycle · influence questions/challenges · trace audit · n'élargit pas le périmètre Cursor · **pas** de chargement de `method/sfia-fast-track/` comme doctrine produit.
+### Concepts absents du runtime
 
-## 4. V3-F05 — Chaîne conversation → décision → exécution (VALIDATED)
+`DoctrinePackage` · `LivingProjectState` · `HumanDecision` · `DebtItem` · `AgentCapability` · `CkcResolution` · `ReviewBundle` : **0** fichiers app/harness.
 
-Alignement **décisions UX validées** (2026-07-23) :
+`ExecutionContract` : **33** fichiers (OPS1) — pattern à **ADAPT**.
 
-| Décision | Règle doctrinale |
-|----------|------------------|
-| CC-D01 | Conversation **dominante** + panneau vivant + confirmations structurantes · pas de stepper principal · pas de workspace multi-panneaux MVP |
-| CC-D03 | Panneau sticky 360–400@1440 · ~320@1280 · sheet/drawer ≤1024 · contenu = état utile |
-| CC-D05 | Observation / Hypothèse / Option / Recommandation / Décision distinctes · gates visibles · métier + ID SFIA secondaire |
-| CC-D06 | Confirmations N1 · N2 · N3 · explicite avant mutation |
-| CC-D12 | Fallback CKC silencieux (intra-v3) |
-| CC-D13 | **Project ≠ Cycle** |
+## 26. Verdict exact
 
-**Lecture UX de framing `11` :** la surface conversationnelle (CC-D01 Option A) prévaut pour Studio ; le cockpit projet reste surface **après** création/reprise de Project (voir `37`).
-
-**Règles :**
-
-- aucune mutation implicite ;
-- Execution Contract **uniquement** après décisions nécessaires ;
-- phrase conversationnelle ≠ gate ;
-- Composer libre toujours disponible hors modal stricte.
-
-## 5. Architecture doctrinale — 7 couches
-
-| # | Couche | Responsabilités | Sorties | Autorité |
-|---|--------|-----------------|---------|----------|
-| 1 | Governance | Morris, gates, maturité, anti-claims | Décisions, stop | Morris |
-| 2 | Knowledge & Context | DoctrinePackage v3, CKC, sources, provenance | Contexte résolu | Cognitive |
-| 3 | Project Method | Cycles, profils, lenses, routage | Qualification | Cognitive |
-| 4 | Living Project State | État utile persisté | LPS mis à jour | Studio |
-| 5 | Trajectory & Decision | Trajectoire, options, reco, HumanDecision | Décision / réserve | Morris |
-| 6 | Execution & Agent | ExecutionContract, capacités, réversibilité | Exécution bornée | Cursor/Runtime sous contrat |
-| 7 | Evidence & Learning | Preuves, ReviewBundle, REX, dette | Capitalisation | Morris pour promotion |
-
-**Anti-claims couches :** aucune couche n'autorise L5 décisionnel global · aucune couche n'active seule le runtime ADOPTED.
-
-## 6. Boucle de vie projet (native)
-
-cadrage → conception → architecture → UX → backlog → delivery → QA → sécurité → release → RUN readiness → PR readiness → post-merge → capitalisation → évolution doctrine/CKC (sous décision Morris).
-
-Le **merge ne termine pas** automatiquement un projet ni un cycle.
-
-## 7. Relation aux documents antérieurs
-
-Complète : `01`–`29` (D1–D8, Option D, E0–E4, MD/JSON/SQL).
-Amende la lecture UX de `11` au profit de CC-D01 (voir `37`).
-
-## 8. Maturité
-
-Fondations V3-F01 / V3-F05 : **VALIDATED** (doctrine Studio) · non MODELED · non IMPLEMENTED runtime.
-````
-
-### Fichier : `projects/sfia-studio/sfia-v3-framing/31-doctrine-package-and-source-resolution.md`
-
-````markdown
-# 31 — DoctrinePackage et résolution des sources
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
-| **Fondations** | **V3-F03 · V3-F07 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** — DoctrinePackage = future SoT Studio |
-| **SFIA v2.6** | Externe · hors allowlist de consommation produit |
-| **Maturité fondations** | **VALIDATED** (doctrine) · schéma JSON **non créé** |
-| **Gates** | Validation doctrine + PR readiness |
-| **Anti-claims** | Pas package exécutable · Pas resolver runtime · Pas ADOPTED runtime |
-| **Document** | `31-doctrine-package-and-source-resolution.md` |
-
-> Conceptuel uniquement — **aucun** schéma JSON exécutable dans ce cycle.
-
----
-
-## 1. V3-F03 — DoctrinePackage (VALIDATED)
-
-### Définition
-
-Unité doctrinale **versionnée**, consommée **uniquement par SFIA Studio** (Studio-native, D1 · exclusivité D-V3-02).
-
-### Contenu conceptuel minimal
-
-| Champ | Rôle |
-|-------|------|
-| packageId | Identifiant stable |
-| version | Semver / label doctrine |
-| maturité | DOCUMENTED…ADOPTED (package) — package doctrine actuellement **VALIDATED** côté framing |
-| doctrineRoot | Racine documentaire Studio (`projects/sfia-studio/sfia-v3-*`) |
-| documentsCanoniques | Index framing (+ références design/modeled quand validés) |
-| schemas | Références futures (modeled) — non créés ici |
-| ckcAvailable | Paths/statut des CKC (pilotes / synthetic / absent) |
-| fallbackRules | Fallback **intra-package** pour CKC absents (carte synthétique autorisée) · **interdit** de basculer vers doctrine v2.6 |
-| compatibility | Compatibilité **versions DoctrinePackage** entre elles · **pas** de mode coexistence opérationnelle v2.6/v3 |
-| consumerAllowlist | Studio seulement |
-| sourcesInterdites | `method/sfia-fast-track/` comme SoT runtime · PGE documentaire v2.6 comme moteur · prompts manuels comme contrat natif |
-| digests | checksums path→digest (concept) |
-| resolutionRules | Ordre de chargement / pin version |
-| failurePolicy | Fail-closed si root/digest manquant |
-| historique | Versions antérieures |
-
-### Règles d'exclusivité
-
-1. Studio consomme exclusivement DoctrinePackage v3.
-2. Aucune coexistence doctrinale opérationnelle avec v2.6 (D-V3-03).
-3. Export Markdown Cursor = adaptateur technique, pas SoT.
-4. Consommateur hors allowlist = **interdit**.
-5. Pas de schéma exécutable dans ce cycle (impact → modeled).
-
-## 2. Résolution de version
-
-1. Lire pin projet (`doctrineVersion` / digest) si présent.
-2. Résoudre DoctrinePackage déclaré.
-3. Vérifier digests des docs/CKC référencés.
-4. Si absent / mismatch → **stop** (CONTEXT_STALE / DOCTRINE_UNRESOLVED) — pas de silent fallback vers un autre package ni vers v2.6.
-5. Fallback CKC de **cycle** (silencieux UI, carte synthétique v3) ≠ fallback de **package doctrine**.
-
-## 3. V3-F07 — Provenance et hiérarchie des sources (VALIDATED)
-
-### Hiérarchie d'autorité (haute → basse)
-
-```
-preuves Git et runtime
-> décisions Morris
-> état projet validé
-> doctrine Studio v3 (package piné)
-> CKC (sources autorisées package)
-> documents projet non validés
-> contexte conversationnel
-> recommandations
-> hypothèses
-```
-
-SFIA v2.6 **n'apparaît pas** dans la hiérarchie de consommation Studio. Elle peut apparaître uniquement comme **métadonnée d'origine** d'un concept hérité (voir `36`).
-
-### Attributs de provenance
-
-sourceId · type · autorité · fraîcheur · digest/path · acteur · timestamp · statut (active/stale/superseded) · originHeritage (optionnel, historique).
-
-### Conflits
-
-Un conflit **haut vs bas** : retenir le haut, signaler contradiction (voir `33`).
-Un conflit **même niveau** : gate Morris si structurant.
-
-### Ce qui n'est pas SoT
-
-raisonnement interne brut · scores non explicables · chat seul · CKC comme autorisation · documents `method/` non pinés dans DoctrinePackage.
-
-## 4. Alignement D3 / R1
-
-MD = pourquoi · JSON = quoi · SQL = état — **conservé**.
-DoctrinePackage orchestre **quelles** defs MD/JSON sont pinées ; SQL porte l'état runtime.
-
-## 5. Maturité
-
-V3-F03 / V3-F07 : **VALIDATED** (doctrine) · manifest/resolver : **non MODELED / non IMPLEMENTED**.
-````
-
-### Fichier : `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
-
-````markdown
-# 32 — Living Project State et trajectoire dynamique
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
-| **Fondations** | **V3-F02 · V3-F06 · V3-F09 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** |
-| **SFIA v2.6** | Externe · non représentée comme mode doctrinal actif du LPS |
-| **Maturité fondations** | **VALIDATED** (doctrine) · persist runtime non migrée |
-| **Anti-claims** | Pas LPS runtime ADOPTED · Pas trajectoire auto-exécutée |
-| **Document** | `32-living-project-state-and-dynamic-trajectory.md` |
-
----
-
-## 1. V3-F02 — Living Project State (VALIDATED)
-
-### Définition
-
-**État fonctionnel central** du Project, visible dans le panneau vivant (CC-D03) et persisté de façon sélective (D5 / SQL + audit) — **sous doctrine v3 exclusive**.
-
-### Contenu minimal
-
-| Bloc | Contenu |
-|------|---------|
-| Identité | projectId, nom, doctrinePackageRef (version/digest pinés) |
-| Objectifs / contexte / périmètre | Validables, tagués |
-| Parties prenantes | Acteurs |
-| Trajectoire | Réf. ProjectTrajectory |
-| Cycle actif / terminés | Type, statut · Project ≠ Cycle (CC-D13) |
-| Observation / Hypothèse / Option / Recommandation / Décision | Épistémologie `33` |
-| Gates | Ouverts / passés |
-| Risques / réserves / dette | Dont DebtItem |
-| Preuves / livrables / actions | Liens Evidence |
-| Prochaine étape | Une phrase |
-| Historique qualifié | Changements d'état |
-
-**Interdit :** modes LPS du type « v2.6 / coexistence / fallback doctrinal » — le LPS Studio est **v3-only**.
-
-### Persister
-
-identité · pin doctrine · décisions validées · gates · trajectoire validée · réserves acceptées · preuves référencées · digests contexte · audit events.
-
-### Ne pas persister
-
-raisonnement interne brut · scores non explicables · recommandations **comme** décisions · hypothèses **comme** faits · prompts temporaires non nécessaires à l'audit · dimensions CKC brutes · copies de doctrine v2.6.
-
-### Affichage UX
-
-Panneau = état utile seulement · **CKC non exposé** · Project et Cycle **séparés** (CC-D13).
-
-## 2. V3-F06 — ProjectTrajectory (VALIDATED)
-
-### Contenu
-
-cycles proposés · actifs · clôturés · dépendances · conditions d'entrée/sortie · branches possibles · gates · réserves · motifs de replanification.
-
-### Règle
-
-Une trajectoire est une **recommandation** tant qu'elle n'est pas **validée** par décision Morris / humaine explicite.
-
-## 3. V3-F09 — Replanification gouvernée (VALIDATED)
-
-### Boucle
-
-```
-événement → analyse d'impact → trajectoire révisée (recommandation)
-→ options → recommandation → gate Morris si structurant
-→ mise à jour validée du LPS / trajectoire
-```
-
-### Événements
-
-changement de périmètre · nouvelle décision · décision annulée · risque · test en échec · dépendance modifiée · preuve invalide · nouvelle contrainte · cycle bloqué.
-
-### Anti-claims
-
-- replanification automatique **sans** gate si structurante = interdit ;
-- événement ≠ décision ;
-- replanification **ne** recharge **pas** une doctrine v2.6.
-
-## 4. Maturité
-
-V3-F02 / F06 / F09 : **VALIDATED** (doctrine) · schemas / persist runtime : non créés.
-````
-
-### Fichier : `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
-
-````markdown
-# 33 — Épistémologie, provenance et contradictions
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
-| **Fondations** | **V3-F04 · V3-F08 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** |
-| **Maturité fondations** | **VALIDATED** (doctrine) |
-| **Anti-claims** | Phrase utilisateur ≠ décision · Recommandation ≠ exécution |
-| **Document** | `33-epistemology-provenance-and-contradiction-model.md` |
-
----
-
-## 1. V3-F04 — Épistémologie explicite (VALIDATED)
-
-| Type | Définition | Source typique | Autorité | Transition | Persistance | UX | Preuve | Anti-claim |
-|------|------------|----------------|----------|------------|-------------|-----|--------|------------|
-| Observation | Fait constaté | Git, runtime, humain | Faible→moyenne | → Fact si corroboré | Oui | Tag Observation | Capture / log | ≠ Décision |
-| Fact | Observation corroborée | Multi-sources | Moyenne | — | Oui | Tag Fact | Digests | ≠ GO |
-| Hypothesis | Supposition à valider | GPT / humain | Aucune | → Fact / retirée | Oui (statut) | Tag + Valider/Corriger | — | ≠ Décision |
-| Option | Choix possible | GPT / humain | Aucune | → sélection | Oui | Carte Option | — | ≠ Décision |
-| Recommendation | Proposition non exécutable | GPT | Aucune | → Decision si validée | Oui | Tag Recommandation | Justification | ≠ exécution |
-| HumanDecision | Acte explicite Morris/humain | Humain | **Haute** | — | **Oui** | Tag Décision + historique | Gate + confirmation | — |
-| Reserve | Limitation connue | Audit / QA | Moyenne | Levée documentée | Oui | Tag Réserve | — | ≠ blocage seul |
-| Risk | Menace plausible | Analyse | Moyenne | Mitigation / acceptation | Oui | Tag Risque | — | ≠ fait |
-| Evidence | Preuve référencée | Git / test / capture | Haute si vérifiable | — | Lien | Liste preuves | Path/digest | — |
-| Claim | Affirmation de maturité/statut | Document / UI | Selon preuve | — | Trace | Discret | Preuve obligatoire | Claim sans preuve interdit |
-
-### Règles cardinales
-
-1. Une phrase utilisateur **ne devient pas** automatiquement une HumanDecision.
-2. Une Recommendation **reste** une Recommendation.
-3. Une Option **≠** Décision.
-4. Contradiction → signalement (`V3-F08`) avant claim.
-5. Alignement CC-D05 : labels texte, pas couleur seule.
-6. Une source v2.6 historique **n'est pas** un Fact de doctrine Studio active.
-
-## 2. Provenance (lien V3-F07)
-
-Chaque item épistémique porte : origin (gpt|human|system|git|runtime) · status · sourceRefs · updatedAt · authorityLevel.
-
-## 3. V3-F08 — Détection des contradictions (VALIDATED)
-
-### Catégories
-
-| Code | Catégorie |
-|------|-----------|
-| C-SRC | source contre source |
-| C-DEC-IMP | décision contre implémentation |
-| C-DOC-RT | doctrine contre runtime |
-| C-SCOPE | périmètre contre action |
-| C-REC-EV | recommandation contre preuve |
-| C-MAT-CLAIM | maturité contre claim |
-| C-TRAJ-DEP | trajectoire contre dépendance |
-
-### Attributs
-
-sévérité (info / warning / blocking) · sources · objet impacté · blocante? · action · gate · réserve.
-
-### Effets
-
-- blocking → Stop Condition Engine (`34`) ;
-- warning → réserve visible ;
-- info → trace audit.
-
-**Cas particulier D-V3-03 :** toute tentative de charger v2.6 comme doctrine Studio active est une contradiction **C-DOC-RT** / gouvernance → stop.
-
-## 4. Maturité
-
-V3-F04 / F08 : **VALIDATED** (doctrine) · schemas : non créés.
-````
-
-### Fichier : `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md`
-
-````markdown
-# 34 — Capacités agents, réversibilité et gouvernance d'exécution
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
-| **Fondations** | **V3-F11 · V3-F12 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** · ExecutionContract = contrat natif |
-| **Maturité fondations** | **VALIDATED** (doctrine) · enforcement runtime non migré |
-| **Anti-claims** | Pas L5 décisionnel · Pas décision Morris automatisée |
-| **Document** | `34-agent-capabilities-reversibility-and-execution-governance.md` |
-
----
-
-## 1. V3-F11 — AgentCapability (VALIDATED)
-
-| Acteur | Lecture | Écriture | Autonomie max | Protégé | Escalade |
-|--------|---------|----------|---------------|---------|----------|
-| Morris | Tout | Décisions / gates | Décision | — | — |
-| Studio | DoctrinePackage v3 pinée, LPS, outils | État borné | Propose / prepare | Mutations | Gate humain |
-| ChatGPT | Contexte fourni (v3) | Aucune mutation repo | Raisonne / recommande | — | Morris |
-| Cursor | Selon ExecutionContract | Fichiers autorisés | L0–L4 borné | Protected paths | Stop / Morris |
-| Runtime | SQL / tools | Mutations confirmées | Exécute contrat | Confirmations N2–N3 | Fail-closed |
-| Connecteurs / validateurs | Spécifique | Preuves | Lecture / check | Secrets | Studio |
-
-### Attributs AgentCapability
-
-role · readCaps · writeCaps · tools · scope · autonomyLevel · protectedActions · evidenceProduced · escalationRules · rollback · limits.
-
-**Interdit :** L5 décisionnel global · décision Morris automatisée · élargissement via CKC · chargement doctrine v2.6 comme capacité de lecture produit.
-
-## 2. V3-F12 — Taxonomie des actions et réversibilité (VALIDATED)
-
-| Action | L max | E typique | Confirmation | Gate | Réversibilité |
-|--------|-------|-----------|--------------|------|---------------|
-| read | L1 | E0–E1 | — | — | N/A |
-| simulate | L2 | E1 | légère | — | totale |
-| propose | L2 | E1 | — | — | totale |
-| generate temporary artifact | L2–L3 | E1–E2 | N1 | — | haute |
-| local write | L3 | E2–E3 | N1–N2 | selon effet | jusqu'à commit |
-| commit | L3 | E3 | N2 | humain | amend/revert borné |
-| push | L3 | E3–E4 | N3 | Morris | force interdit |
-| PR | L3 | E3 | N3 | Morris | close PR |
-| merge | L3 | E4 | N3 | Morris | revert post-merge |
-| delete (branche/fichier critique) | L3 | E4 | N3 | Morris | souvent irréversible |
-| doctrine change | L2 doc | E3 | N2–N3 | Morris | versioning |
-| baseline promotion | — | E4 | N3 | **Morris only** | quasi irréversible |
-
-Alignement CC-D06 (N1–N3) et framing 25 (E0–E4).
-
-**Note :** l'**ExecutionContract** v3 est le contrat natif d'exécution Studio. Un export Markdown Cursor est un **adaptateur**, pas la doctrine.
-
-## 3. Routage multi-dimensionnel
-
-```
-intention → cycle candidat → profil → lenses → CKC (package v3)
-→ risques → niveau de preuve → gates → trajectoire
-```
-
-Propriétés : révisable · explicable · auditable · non irréversible · multi-candidats · clarification · stop.
-
-Le routage **ne** consulte **pas** SFIA v2.6 comme source de qualification produit.
-
-## 4. Lenses transverses
-
-sécurité · RSSI · RGPD · accessibilité · performance · UX/UI · FinOps · GreenOps · DevOps · release · observabilité · RUN readiness · capitalisation.
-
-Ces lenses sont des **concepts incorporés/adaptés dans la doctrine v3** (origine historique documentée dans `36`). Activation contextuelle · effet sur raisonnement/preuves/gates · **aucune** autorité de décision · **aucune** dépendance runtime vers `method/`.
-
-## 5. Stop Condition Engine
-
-| Code | Condition | Sévérité | Effet |
-|------|-----------|----------|-------|
-| SC-SRC | source canonique absente | blocking | stop + message |
-| SC-CONTRA | contradiction critique | blocking | gate |
-| SC-CONF | confiance / maturité insuffisante | warning/blocking | clarification |
-| SC-DEC | décision Morris absente | blocking | attente |
-| SC-SCOPE | périmètre non stabilisé | blocking | bornage |
-| SC-EVID | preuve insuffisante | blocking | QA |
-| SC-IRR | action irréversible sans N3 | blocking | refuse |
-| SC-PROT | chemin protégé | blocking | refuse |
-| SC-CAP | capacité agent insuffisante | blocking | escalate |
-| SC-MAT | maturité incompatible claim | blocking | anti-claim |
-| SC-ART | contrat artefact incomplet | blocking | refuse passage |
-| SC-GIT | Git incohérent | blocking | Truth Check |
-| SC-TRAJ | action hors trajectoire | warning/blocking | replanif |
-| SC-FB | fallback CKC intra-v3 non défini | blocking | stop |
-| SC-DOC-EXCL | tentative de doctrine v2.6 active | blocking | refuse (D-V3-03) |
-
-Message utilisateur : métier clair · ID SFIA secondaire (CC-D05).
-
-## 6. Maturité
-
-V3-F11 / F12 : **VALIDATED** (doctrine) · ActionPolicy / runtime enforce : non IMPLEMENTED.
-````
-
-### Fichier : `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
-
-````markdown
-# 35 — Artefacts, preuves, dette et apprentissage contrôlé
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
-| **Fondations** | **V3-F10 · V3-F13 · V3-F14 · V3-F15 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** |
-| **Maturité fondations** | **VALIDATED** (doctrine) |
-| **Anti-claims** | Pas promotion auto · Pas apprentissage opaque · Pas ADOPTED runtime |
-| **Document** | `35-artifact-evidence-debt-and-controlled-learning.md` |
-
----
-
-## 1. V3-F14 — Artifact Completeness Contract (VALIDATED)
-
-| Champ | Contenu |
-|-------|---------|
-| type d'artefact | doc / schéma / preuve / review pack / handoff / Execution Contract |
-| contenu obligatoire | sections listées |
-| sources | refs (DoctrinePackage / Git) |
-| preuves | liens |
-| statut | documented / validated / modeled / implemented / adopted (selon objet) |
-| réserves | ouvertes |
-| consommateur | Studio / Morris / Cursor |
-| critères d'acceptation | checklist |
-| passage cycle suivant | conditions |
-
-**Règle conservée :** fichier créé = complet · modification = sections complètes ou diff exploitable · synthèse seule ≠ livrable consommable · REVIEW PACK INCOMPLETE si contenu manquant.
-
-## 2. Preuves et ReviewBundle
-
-Alignement D2 : ReviewBundle hybride · handoff = export/résilience · review pack = preuve de cycle.
-Preuves Git/runtime > narration (V3-F07).
-
-## 3. V3-F10 — DebtItem (VALIDATED)
-
-| Attribut | Contenu |
-|----------|---------|
-| type | technique · fonctionnelle · UX · documentaire · méthodologique · sécurité · donnée · preuve · gouvernance |
-| source / description / impact / criticité | — |
-| effort estimatif / échéance | optionnel |
-| condition de remboursement | — |
-| propriétaire / statut | open · accepted · paid · deferred |
-| acceptation Morris | si structurante |
-| preuve de clôture | obligatoire |
-
-Dette **pilotée**, pas oubliée.
-
-Dette structurante post-validation (exemples) : dépendances v2.6 non auditées dans le runtime · schemas non créés · UX 87–89 hors main · onze CKC absents.
-
-## 4. V3-F13 — Apprentissage contrôlé (VALIDATED)
-
-```
-projet / cycle → REX → observation récurrente
-→ proposition d'évolution → simulation / validation
-→ décision Morris → nouvelle version doctrine ou CKC (DoctrinePackage)
-```
-
-### Interdit
-
-- modification automatique d'un CKC ;
-- modification automatique de la doctrine ;
-- apprentissage opaque ;
-- promotion automatique de maturité ;
-- décision fondée uniquement sur fréquence statistique ;
-- réintroduction silencieuse de v2.6 comme doctrine Studio.
-
-## 5. V3-F15 — Maturité distribuée et anti-claims (VALIDATED)
-
-Niveaux : DOCUMENTED · VALIDATED · MODELED · IMPLEMENTED · ADOPTED.
-
-Appliqués à : package · fondation · contrat · schéma · CKC · composant runtime.
-
-### État actuel (précis)
-
-| Objet | Maturité |
-|-------|----------|
-| Fondations V3-F01…F15 | **VALIDATED** (doctrine Studio) |
-| Pack framing knowledge-driven | **VALIDATED** · merge pending |
-| DoctrinePackageManifest / schemas | non MODELED |
-| Runtime Studio | non IMPLEMENTED sous doctrine v3 · non ADOPTED |
-| CKC pilotes généraux | candidats repository · résolution Studio via package futur |
-| Adoption v3 hors Studio | **Non** |
-
-### Règles
-
-1. Implémentation locale ≠ adoption.
-2. Maturité globale limitée par composants **obligatoires**.
-3. Aucune promotion automatique.
-4. Adoption **uniquement** décision Morris.
-5. Claim toujours supporté par preuve.
-6. Vocabulaire « IMPLEMENTED CANDIDATE » de slices delivery ≠ V3-IMPLEMENTED plateforme.
-7. Validation doctrine **≠** MODELED / IMPLEMENTED / ADOPTED runtime.
-
-## 6. Maturité de ce document
-
-V3-F10 / F13 / F14 / F15 : **VALIDATED** (doctrine).
-````
-
-### Fichier : `projects/sfia-studio/sfia-v3-framing/36-sfia-v2.6-inheritance-and-adaptation-matrix.md`
-
-````markdown
-# 36 — Matrice d'héritage historique SFIA v2.6 → concepts Studio v3
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Matrice **historique et de conception** · doctrine Studio v3 **validée** · **pas** de lien runtime |
-| **Rôle** | Documenter l'origine et le traitement des concepts · **jamais** une dépendance active |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** (D-V3-02 · D-V3-03) |
-| **SFIA v2.6** | Baseline historique **externe** · hors consommation produit Studio |
-| **Fondations liées** | V3-F01…F15 **VALIDATED** |
-| **Anti-claims** | Pas coexistence opérationnelle · Pas fallback doctrinal v2.6 · Pas SoT `method/` pour Studio |
-| **Document** | `36-sfia-v2.6-inheritance-and-adaptation-matrix.md` |
-| **Complète** | framing `12` · `20` · décisions D-V3-* |
-
----
-
-## 0. Interprétation des catégories (obligatoire)
-
-| Catégorie | Signification pour Studio v3 |
-|-----------|------------------------------|
-| **Inherited** | Le principe a été **incorporé** dans la doctrine v3 ; Studio l'applique via v3, **pas** en chargeant v2.6 |
-| **Adapted** | La doctrine v3 possède désormais **sa propre formulation** ; l'origine est historique |
-| **Replaced** | Le mécanisme v2.6 **n'est pas utilisé** par Studio ; un mécanisme v3 le remplace |
-| **Not-applicable** | Exclu du produit Studio |
-| **Unresolved** | Sujet encore non arbitrable sans GO Morris supplémentaire |
-
-Cette matrice **ne crée aucun** lien runtime vers v2.6.
-
----
-
-## 1. Matrice
-
-### Inherited
-
-| Élément | Justification Studio v3 |
-|---------|-------------------------|
-| Git source de vérité | Incorporé (D3 / OM) |
-| Morris décide | Incorporé |
-| Protected paths | Incorporé |
-| Absence de décision automatique | Incorporé (anti-L5 décisionnel) |
-| Complétude des livrables | Incorporé (Artifact Completeness) |
-| PR readiness | Incorporé (cycle projet) |
-| Post-merge | Incorporé |
-| Capitalisation | Incorporé |
-| Review handoff (preuve externe / résilience) | Incorporé (D2 hybride) |
-
-### Adapted
-
-| Élément | Formulation Studio v3 |
-|---------|----------------------|
-| Quinze cycles | Qualification dynamique post-intention |
-| Profils Light/Standard/Critical/Capitalization | UI + LPS |
-| Blocs transverses | **Lenses** contextuelles (`34`) |
-| Gates / stop conditions | UI + Stop Condition Engine |
-| L0–L5 | Couplés E0–E4 · L5 global interdit |
-| Rôles ChatGPT / Cursor | Boucle Studio-native |
-| Knowledge Layer / source routing | Allowlist DoctrinePackage v3 |
-| Review pack | Contenu + Artifact Completeness |
-| Preuve et verdict | EvidenceLink + anti-claims |
-
-### Replaced
-
-| Élément historique v2.6 | Remplacement Studio v3 |
-|------------------------|------------------------|
-| PGE documentaire comme moteur principal | **ExecutionContract** (+ export Markdown Cursor = adaptateur) |
-| Démarrage explicite par cycle | Démarrage par **intention** puis qualification dynamique |
-| Doctrine `method/` comme SoT runtime direct | **DoctrinePackage** Studio-only |
-| Coexistence / dual-run doctrinal opérationnel | **Exclusivité v3** (D-V3-03) — dual-run produit interdit |
-
-### Not applicable
-
-| Élément | Raison |
-|---------|--------|
-| Consommation indiscriminée de toute la doctrine générale | Studio-native D1 + exclusivité |
-| Dépendance obligatoire aux prompts manuels seuls | Surface conversationnelle Studio |
-| L5 global | Interdit |
-| Migration générale des historiques | D7 / R5 |
-| Promotion automatique de maturité | V3-F15 |
-| Fallback doctrinal Studio → v2.6 | D-V3-03 |
-| Chargement v2.6 dans mémoire fonctionnelle / moteur de contexte Studio | D-V3-03 |
-
-### Unresolved — encore ouverts
-
-| ID | Sujet | Note |
-|----|-------|------|
-| U2 | Root Git exact du DoctrinePackage | Après modeled |
-| U3 | Priorité slices Option D D2/D3 | Après audit dépendances |
-| U4 | Fusion docs UX 87–89 vers `main` | Gate doc dédié |
-| U5 | Vocabulaire IMPLEMENTED CANDIDATE vs maturité plateforme | Clarification delivery |
-
-**Résolu pour doctrine Studio :** U1 (entrée UX) — CC-D01 Option A prévaut ; amendement formel du texte framing `11` reste une action documentaire aval.
-
-## 2. Ce qui n'est pas hérité tel quel
-
-- Questionnaire CKC visible ;
-- Claim ADOPTED sans GO ;
-- Dual-run doctrinal prolongé ;
-- v2.6 comme doctrine active Studio.
-
-## 3. Réévaluation des actifs (D-V3-04)
-
-Tout actif Studio existant (fonctionnel, UX, modeled, delivery, runtime) doit être classé :
-
-conservé (conforme) · adapté · remplacé · retiré · preuve historique uniquement.
-
-Cette classification **n'est pas** exécutée dans la présente PR.
-
-## 4. Maturité
-
-Matrice : **VALIDATED** comme document d'héritage de la doctrine Studio · **n'active pas** v2.6 · **n'altère pas** les fichiers `method/**`.
-````
-
-### Fichier : `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md`
-
-````markdown
-# 37 — Pack fondations V3-F01…F15 et décisions Morris de validation
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Pack doctrinal **VALIDATED** pour SFIA Studio · merge `main` en attente |
-| **Fondations** | **V3-F01…F15 validées** (D-V3-01) |
-| **Doctrine produit Studio** | **SFIA v3 exclusive** (D-V3-02 · D-V3-03) |
-| **Maturité** | Doctrine **VALIDATED** · non MODELED complet · non IMPLEMENTED runtime · non ADOPTED runtime |
-| **Adoption v3 hors Studio** | **Non** |
-| **Gates consommés** | `GO VALIDATION DOCTRINE — SFIA STUDIO V3 KNOWLEDGE-DRIVEN METHOD` · `GO PR READINESS, PUSH ET DRAFT PR — SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE` |
-| **Gate suivant** | `GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE` |
-| **Anti-claims** | Pas merge · Pas runtime migré · Pas READY FOR DELIVERY · Pas baseline globale · Pas suppression v2.6 du repo |
-| **Document** | `37-studio-v3-foundations-and-consolidation-decision-pack.md` |
-
----
-
-## 1. Décisions Morris consommées lors de la validation doctrinale
-
-| Id | Décision validée | Impact | Action future | Gate futur | Hors périmètre PR |
-|----|------------------|--------|---------------|------------|-------------------|
-| **D-V3-01** | V3-F01…F15 validées comme fondations Studio v3 | Statut DOCUMENTED→**VALIDATED** doctrine | Enrichir modeled | Enrichissement modeled | Schemas |
-| **D-V3-02** | Doctrine v3 **exclusive** pour Studio | Remplace toute coexistence opérationnelle | DoctrinePackage pin runtime | Modeled + delivery | Activation runtime |
-| **D-V3-03** | Aucune coexistence doctrinale opérationnelle v2.6/v3 | v2.6 = historique/externe uniquement | Retrait dépendances v2.6 du fonctionnement Studio | Audit dépendances | Audit code |
-| **D-V3-04** | Réévaluation des actifs existants | Conserver / adapter / remplacer / retirer / preuve historique | Cycles reconception possibles | Par couche | Refonte dans cette PR |
-| **D-V3-05** | Commit · push · draft PR · handoff autorisés | Intégration Git | Review Morris · merge séparé | `GO MORRIS REVIEW` puis GO merge | Merge |
-
-### Conséquences opérationnelles explicitement autorisées (futures)
-
-- retrait futur de toutes les dépendances v2.6 du **fonctionnement** Studio ;
-- nouvelle conception autorisée si nécessaire ;
-- audit de dépendances v2.6 **requis** avant nouvelle implémentation ;
-- merge restant soumis à un **GO Morris distinct**.
-
-## 2. Fondations V3-F01…F15 — statut
-
-| ID | Titre | Doc | Statut Morris |
-|----|-------|-----|---------------|
-| V3-F01 | CKC couche cognitive | `30` | **VALIDATED** |
-| V3-F02 | Living Project State | `32` | **VALIDATED** |
-| V3-F03 | DoctrinePackage | `31` | **VALIDATED** |
-| V3-F04 | Épistémologie | `33` | **VALIDATED** |
-| V3-F05 | Chaîne conversation→exécution | `30` | **VALIDATED** |
-| V3-F06 | ProjectTrajectory | `32` | **VALIDATED** |
-| V3-F07 | Provenance / hiérarchie sources | `31` | **VALIDATED** |
-| V3-F08 | Contradictions | `33` | **VALIDATED** |
-| V3-F09 | Replanification gouvernée | `32` | **VALIDATED** |
-| V3-F10 | DebtItem | `35` | **VALIDATED** |
-| V3-F11 | AgentCapability | `34` | **VALIDATED** |
-| V3-F12 | Réversibilité actions | `34` | **VALIDATED** |
-| V3-F13 | Apprentissage contrôlé | `35` | **VALIDATED** |
-| V3-F14 | Artifact Completeness | `35` | **VALIDATED** |
-| V3-F15 | Maturité distribuée | `35` | **VALIDATED** |
-
-## 3. Décisions déjà validées (cadrage / UX)
-
-### Cadrage v3 — D1–D8
-
-| Id | Décision |
-|----|----------|
-| D1 | v3 exclusivement Studio-native |
-| D2 | ReviewBundle hybride |
-| D3 | MD = pourquoi · JSON = quoi · SQL = état |
-| D4 | Enforcement E0–E4 |
-| D5 | SQL transactionnel + audit append-only |
-| D6 | Maturité DOCUMENTED…ADOPTED |
-| D7 | Pas de migration générale historiques |
-| D8 | Option D trajectoire validée |
-
-### UX — CC-D* (2026-07-23)
-
-CC-D01 Option A · CC-D03 panneau vivant · CC-D05 décisions/gates · CC-D06 confirmations N1–N3 · CC-D12 fallback CKC silencieux · CC-D13 Project ≠ Cycle.
-
-### Amendement framing 11
-
-**Décision de lecture :** CC-D01 Option A prévaut pour Studio.
-**Action future :** aligner le texte de `11` lors d'un cycle documentaire dédié.
-**Statut :** résolu pour doctrine Studio · amendement textuel `11` encore dû.
-
-## 4. Exclusivité v3 — règles consolidées
-
-1. Studio consomme exclusivement sa doctrine SFIA v3.
-2. DoctrinePackage v3 = future source doctrinale canonique.
-3. CKC résolus via doctrine v3 et sources autorisées.
-4. ExecutionContract v3 = contrat natif d'exécution.
-5. Export Markdown Cursor = adaptateur technique seulement.
-6. v2.6 = historique / traçabilité / outillage repository actuel — **pas** doctrine produit.
-
-## 5. Impact map aval
-
-| Fondation | Framing | Design | Modeled | Delivery | Gate suivant |
-|-----------|---------|--------|---------|----------|--------------|
-| F01 CKC | `30` | reconcil. intake/UX | CkcResolution | resolver opaque | Enrichissement CKC / modeled |
-| F02 LPS | `32` | panneau CC-D03 | LivingProjectState | persist sélective | Modeled |
-| F03 Package | `31` | — | DoctrinePackageManifest | pin runtime | Modeled |
-| F04 Épistémologie | `33` | tags UI | Observation/Hypothesis/… | affichage | Modeled + design |
-| F05 Chaîne | `30` | align CC-D* | — | flow C1–C4 | Post-merge + reconception |
-| F06 Trajectoire | `32` | — | ProjectTrajectory | — | Modeled |
-| F07 Provenance | `31` | — | ProvenanceRecord | — | Modeled |
-| F08 Contradiction | `33` | banners | Contradiction | stop UI | Modeled |
-| F09 Replanif | `32` | — | events | — | Modeled |
-| F10 Dette | `35` | — | DebtItem | — | Modeled |
-| F11 Agents | `34` | — | AgentCapability | allowlists | Modeled |
-| F12 Actions | `34` | confirmations | ActionPolicy | enforce | Modeled + delivery |
-| F13 Learning | `35` | — | REX records | — | Capitalisation |
-| F14 Artefacts | `35` | — | ArtifactCompletenessContract | gates passage | Modeled |
-| F15 Maturité | `35` | badges | maturity fields | anti-claims | Distributed |
-
-### Objets futurs à modéliser (non créés ici)
-
-DoctrinePackage · DoctrinePackageManifest · KnowledgeSource · CkcResolution · LivingProjectState · ProjectTrajectory · Observation · Hypothesis · Recommendation · HumanDecision · Contradiction · EvidenceLink · ProvenanceRecord · DebtItem · AgentCapability · ActionPolicy · ExecutionContract · ArtifactCompletenessContract · AuditEvent.
-
-## 6. Arbitrages encore ouverts (hors validation F01–F15)
-
-1. Root exact DoctrinePackage (U2).
-2. Priorité D2/D3 Option D (U3).
-3. Intégration 87–89 sur `main` (U4).
-4. Vocabulaire IMPLEMENTED CANDIDATE (U5).
-5. Périmètre et calendrier de l'audit dépendances v2.6.
-
-## 7. Réserves
-
-| ID | Réserve |
-|----|---------|
-| VAL-R01 | Runtime / design / modeled / delivery non migrés |
-| VAL-R02 | Dépendances v2.6 code non auditées |
-| VAL-R03 | Schemas non créés |
-| VAL-R04 | UX 87–89 hors main |
-| VAL-R05 | Onze CKC détaillés absents |
-| VAL-R06 | Merge soumis à GO Morris distinct |
-| VAL-R07 | Amendement textuel framing `11` encore dû |
-
-## 8. Trajectoire aval
-
-1. `GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE`
-2. GO merge distinct (si review OK)
-3. Audit dépendances v2.6 (Studio)
-4. `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3 FOUNDATIONAL CONTRACTS`
-5. Réévaluation design / delivery / UX (D-V3-04)
-
-## 9. Verdict documentaire
-
-**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE VALIDATED — DRAFT PR PENDING MERGE**
-````
-
-## 18. Verdict exact
-
-**SFIA STUDIO V3 DOCTRINE PR READY — PUSHED — DRAFT PR OPEN**
+**SFIA STUDIO V3-NATIVE DEPENDENCIES AUDITED — REFOUNDATION TRAJECTORY PROPOSED**
