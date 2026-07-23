@@ -142,6 +142,8 @@ Ce que le CKC ne couvre pas.
 
 3 phrases max : charge CKC → raisonne ; routing → références ; template → Cursor ; UX → surface.
 
+Consommation expérimentale : routing guide §4.4.5 ; déclaration template §2.0.D ; statut toujours `candidate` ; aucune autorité d'exécution.
+
 ---
 
 ## Règles d’écriture
@@ -180,3 +182,7 @@ Ce que le CKC ne couvre pas.
 ## Limites
 ## Articulation
 ```
+
+### Consommation (routing experiment)
+
+Après qualification du cycle, résoudre le CKC via routing guide §4.4.5. Déclarer consultation dans le template §2.0.D. Statut toujours `candidate`. Aucune autorité d'exécution.

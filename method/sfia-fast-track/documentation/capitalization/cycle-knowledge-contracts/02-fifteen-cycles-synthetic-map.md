@@ -33,3 +33,8 @@
 ### Transverses (non cycles cœur)
 
 FinOps · GreenOps · RGPD · Accessibilité · Performance — **blocs** template §6 ; pas de CKC autonome par défaut (COND dans cycles concernés).
+
+### Routage (candidate)
+
+Consommation : routing guide §4.4.5. Matrice : [04-cycle-to-ckc-routing-matrix.md](./04-cycle-to-ckc-routing-matrix.md).
+Fallback onze cycles sans pilote : **cette carte** + méthode cycles §4 — ne pas inventer de contrat détaillé.

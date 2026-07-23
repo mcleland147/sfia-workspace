@@ -207,7 +207,21 @@ Voir rapport final / § décisions (nécessité, nom, structure, emplacement, fo
 
 ## 11. Gate suivant candidat
 
-`GO VALIDATION MÉTHODE — SFIA CYCLE KNOWLEDGE CONTRACTS`
+`GO VALIDATION MÉTHODE — CKC CANDIDATE ROUTING`
 (ou consolidation si Morris exige réduction du modèle)
 
 Non consommé ici.
+
+---
+
+## 12. Routage expérimental intégré (post-consolidation)
+
+| Élément | Valeur |
+|---------|--------|
+| Gate consommé | `GO CONSOLIDATION MÉTHODE — INTÉGRATION DU ROUTAGE CKC CANDIDAT` |
+| Points d'entrée | Routing §4.4.5 · Template §2.0/2.1/3 · PGE · Knowledge Layer §6.1.1 · Operating Model §3.1.1 · Validation §3.1.1 |
+| Pilotes couverts | 4 |
+| Fallback | 11 cycles → carte synthétique + méthode v2.6 |
+| Autorité | experimental cognitive guidance — **non baseline** |
+
+Voir [README.md](./README.md) et [04-cycle-to-ckc-routing-matrix.md](./04-cycle-to-ckc-routing-matrix.md).
