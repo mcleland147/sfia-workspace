@@ -260,7 +260,12 @@ export class AppendLivingProjectStateVersion {
               : current.epistemicItemIds
                 ? [...current.epistemicItemIds]
                 : [],
-          decisionIds: current.decisionIds ? [...current.decisionIds] : [],
+          decisionIds:
+            request.decisionIds !== undefined
+              ? [...request.decisionIds]
+              : current.decisionIds
+                ? [...current.decisionIds]
+                : [],
           createdAt: timestamp,
           createdBy: structuredClone(request.createdBy),
           correlationId,
