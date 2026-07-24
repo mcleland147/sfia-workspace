@@ -4,72 +4,75 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure Europe/Paris** | 2026-07-24 14:47:40 CEST (+0200) |
-| **Cycle** | Validation Option A T-A3 — Decision / Confirmation / Authority |
+| **Date/heure Europe/Paris** | 2026-07-24 15:14:30 CEST (+0200) |
+| **Cycle** | PR readiness Option A T-A3 — Decision / Confirmation / Authority |
 | **Profil** | Critical |
-| **Gate consommé** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
+| **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **origin/main** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` — Merge PR #263 (T-A2) |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` |
-| **HEAD initial expected** | `a71f0b44ee980092b93a7a06e505df60a66d07fb` |
-| **HEAD initial observed** | `a71f0b44ee980092b93a7a06e505df60a66d07fb` — MATCH |
-| **HEAD final** | `7afd12a76e4450451e1a84a5f0add16eac5c222f` |
+| **HEAD avant PR readiness** | `7afd12a76e4450451e1a84a5f0add16eac5c222f` |
+| **HEAD final (tip / PR head)** | `f8d25c2dc523020b0443c2b16f375edbf7f5631b` |
+| **08 field HEAD final** | `a815b8c14a20ff9e7f77fe7fefe15b5b2b6b9fe7` (documents tip before last align commit; same N−1 residual class as T-A2) |
 | **merge-base(HEAD, origin/main)** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` |
+| **Diff vs origin/main** | **38 files**, **+6073 / −1** |
 | **Status / staged / untracked** | clean tracked tree; untracked `.tmp-sfia-review/` only (local evidence; not committed) |
-| **Handoff SOURCE consumed** | blob `2f32d62c24a60c762fa4407acd7c2e96add802ed` / commit `c1032e501849fc8d28be5471cf0325c06b6e6e55` (delivery handoff — T-A3 FOUNDATION IMPLEMENTED) |
+| **Handoff SOURCE consumed** | blob `8330b4dacee529c3eeaf4848f331b5f7acfdf1cf` / commit `30be90f43510289f8a02e16189c9c1ae445a0415` (validation handoff — PASSED AFTER CORRECTION) |
 | **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Handoff WT** | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| **Main checkout** | `/Users/morris/Projects/sfia-workspace` |
-| **Push / PR / merge projet** | **NONE** |
+| **Main checkout** | `/Users/morris/Projects/sfia-workspace` (not used for project commits) |
+| **Push** | **DONE** — remote SHA `f8d25c2dc523020b0443c2b16f375edbf7f5631b` MATCH local |
+| **PR** | **#264** OPEN non-draft — https://github.com/mcleland147/sfia-workspace/pull/264 |
+| **Merge / auto-merge** | **NONE** (gate `GO MERGE PR T-A3` non consommé) |
 | **T-A4 / DATABASE SELECTED / package.json / method/** / modeled schema edits / SQL** | **NONE** |
 | **Niveau** | FULL |
 
 ## VERDICT
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A3 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A T-A3 PR CREATED — MORRIS REVIEW REQUIRED**
 
-Blockers B1–B4 **proven + fixed**. Reserves B5 / R1 / R-T-A3-* remain OPEN (not closed).
+Blockers B1–B4 remain **proven + fixed**. Reserves B5 / R1 / R-T-A3-1..4 remain **OPEN** (not closed). Morris decisions T-A3-D01…D10 still **required** (recommendations only).
 
 ## Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| Date Europe/Paris | 2026-07-24 14:47:40 CEST (+0200) — PASS |
-| Gate | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` — PASS |
+| Date Europe/Paris | 2026-07-24 15:14:30 CEST (+0200) — PASS |
+| Gate | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` — PASS |
 | origin/main | `5f5c616…` — MATCH |
 | Branche | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` — PASS |
-| HEAD initial expected | `a71f0b4…` — MATCH observed |
-| Delivery commits present (not rewritten) | `6d2c4af` feat · `5e699e9` test · `a71f0b4` docs — PASS |
-| Correction chain | `f1cf170` fix → `5d988dd` adversarial tests → `7afd12a` findings — PASS |
+| HEAD avant expected | `7afd12a…` — MATCH |
+| Delivery commits present | `6d2c4af` feat · `5e699e9` test · `a71f0b4` docs — PASS |
+| Validation chain present | `f1cf170` fix · `5d988dd` tests · `7afd12a` findings — PASS |
+| PR readiness docs commits | `276c530` prepare · `5317830`/`a815b8c`/`f8d25c2` align HEAD/checklist — PASS |
 | merge-base | = origin/main `5f5c616…` — PASS |
-| Ancestor of `5f5c616` | YES — PASS |
-| Diff validation `a71f0b4..HEAD` | **11 files**, **+1195 / −163** — PASS |
-| Diff final vs origin/main `5f5c616..HEAD` | **37 files**, **+5871 / −1** — PASS |
-| Handoff source blob | `2f32d62c…` type `blob` on `c1032e5` — PASS |
-| Concurrent project PR / push | NONE — PASS |
+| Diff tip vs origin/main | **38 files**, **+6073 / −1** — PASS |
+| Handoff validation blob | `8330b4da…` on `30be90f` — PASSED AFTER CORRECTION — PASS |
+| Prior remote T-A3 branch / PR at start | NONE — PASS |
+| Protected paths in diff | NONE — PASS |
 | Working tree | only untracked `.tmp-sfia-review/` — PASS |
 
 **Truth Check verdict:** **PASS**
 
 ## Handoff source consumed
 
-- Branch `origin/sfia/review-handoff` commit **`c1032e501849fc8d28be5471cf0325c06b6e6e55`**
+- Branch `origin/sfia/review-handoff` commit **`30be90f43510289f8a02e16189c9c1ae445a0415`**
 - Path `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob **`2f32d62c24a60c762fa4407acd7c2e96add802ed`**
-- Content class: **Delivery** review pack (verdict `…FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED`)
-- This validation pack **supersedes** that delivery handoff for Morris/ChatGPT decision; it does **not** rewrite the delivery commit chain `a71f0b4`.
+- Blob **`8330b4dacee529c3eeaf4848f331b5f7acfdf1cf`**
+- Content class: **Validation** review pack (verdict `…VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED`)
+- This PR readiness pack **supersedes** that validation handoff for Morris PR review; it does **not** rewrite delivery/validation commit chains.
 
-## CKC (for this validation cycle)
+## CKC (for this PR readiness cycle)
 
 Not in T-A3 scope. T-A2 CKC foundation remains; T-A3 does not mutate CKC resolver. Critical cycle stays `proposed` when a decision links a cycle (**R-T-A3-1**).
 
 ## Sources consulted
 
-- `lib/oa/decision/**` (application + infrastructure)
+- `lib/oa/decision/**` (application + infrastructure) — B1–B4 spot-check
 - `__tests__/oa/decision/**` (foundation + delivery adversarial + validation adversarial + anti-legacy)
-- `sfia-v3-delivery/.../t-a3-decision-confirmation-authority/**` (01–07)
-- Prior delivery handoff blob `2f32d62c…`
-- Exploration blockers B1–B4 (TOCTOU, refuse/cancel race, dual supersede, silent links)
+- `sfia-v3-delivery/.../t-a3-decision-confirmation-authority/**` (01–08)
+- Prior validation handoff blob `8330b4da…`
+- PR #264 live metadata via `gh`
 
 ## Canonical T-A3 definition
 
@@ -83,187 +86,87 @@ Foundation slice for `HumanDecision`, `Confirmation` (N1/N2/N3), `AuthorityResol
 
 ## Scope / Out of scope
 
-| In scope (validation) | Out of scope (respected) |
-|-----------------------|--------------------------|
-| Prove B1–B4 with adversarial tests | Modeled schema / method / package.json edits |
-| Fix only `lib/oa/decision/**` | UI / Execution / Evidence / ReviewBundle |
-| Docs pack §07 + README/05/06/04 | T-A4 |
-| Review pack FULL + handoff publish | Project push / PR / merge |
-| Evidence freeze / actor mismatch tests | Closing B5 / R1 / R-T-A3-* without Morris |
-| | Rewrite delivery commits `a71f0b4` chain |
+| In scope (PR readiness) | Out of scope (respected) |
+|-------------------------|--------------------------|
+| Docs under `t-a3-decision-confirmation-authority/**` including `08-pr-readiness.md` | Modeled schema / method / package.json edits |
+| Wording fixes obsolete HEAD/test counts/verdicts | UI / Execution / Evidence / ReviewBundle |
+| Local docs commits + normal `git push -u` | T-A4 |
+| Non-draft PR to `main` | Merge / auto-merge / force-push / rebase / squash |
+| FULL review pack in tech `.tmp` + handoff publish | Closing B5 / R1 / R-T-A3-* without Morris |
+| Re-run matrix 50/48/30/28/10 + tsc/lint/build/diff-check | Claiming Morris validated |
 
-## Diff initial (delivery HEAD a71f0b4)
+## B1–B4 spot-check (still fixed)
 
-Delivery at start: **35 files** under `5f5c616..a71f0b4` (feat+test+docs). Validation starts clean at `a71f0b4`.
+| ID | Evidence in code | Status |
+|----|------------------|--------|
+| **B1** | `recordHumanDecision.ts` / `supersedeHumanDecision.ts` snapshot before await | **CORRECTED** |
+| **B2** | `refuseConfirmation.ts` / `cancelConfirmation.ts` re-load under txn | **CORRECTED** |
+| **B3** | `supersedeHumanDecision.ts` `expectedPreStatus` + single accepted | **CORRECTED** |
+| **B4** | `recordHumanDecision.ts` fail-closed links + `compensateOrphan` | **CORRECTED** |
+| **E** | `memoryAuthorityResolver.ts` `evidence_immutable` | **CONFIRMED** |
 
-## Architecture (post-correction)
+Reserves **OPEN**: B5 · R1 · R-T-A3-1 · R-T-A3-2 · R-T-A3-3 · R-T-A3-4.
 
-### Module
+## Architecture (unchanged from validation)
 
-`projects/sfia-studio/app/lib/oa/decision/`
+Modular monolith `lib/oa/decision` (domain / application / ports / infrastructure mémoire).
 
-- `domain/` types · errors · invariants (clone arrays)
-- `application/` Record / Get / List / Request / Grant / Refuse / Consume / Cancel / Supersede / Verify
-- `ports/` DecisionRepo · ConfirmationRepo · AuthorityResolver · Audit
-- `infrastructure/` MemoryDecisionStore (mutex + snapshot txn) · repos · MemoryAuthorityResolver (immutable register) · observability
+```
+RecordHumanDecision / SupersedeHumanDecision
+  → snapshot request fields BEFORE awaits (B1)
+  → AuthorityResolverPort (never trust client authorityLevel/displayName)
+  → MemoryDecisionStore txn (mutex) + begin/commit/rollback
+  → optional LPS decisionIds / Epistemic DecisionRef (fail-closed + compensate — B4)
+Request/Grant/Refuse/Cancel/Consume Confirmation
+  → re-load under txn; refuse only from requested; cancel only from requested|granted (B2)
+```
 
-### Authority
+## Matrice tests (réexécutée PR readiness)
 
-- Registry `AuthorityEvidence` with optional `canActAsMorris`
-- **N3 ≠ Morris gate**
-- NEVER trusts client `authorityLevel` / `displayName`
-- Re-register same `evidenceId` → throws `evidence_immutable`
-- actorId vs evidence mismatch → `actor_mismatch` → `AUTHORITY_DENIED`
-
-### Integration T-A1 / T-A2
-
-- Require project via `getProject`
-- Optional cycle: GetCycle + same projectId; **does not mutate** Critical `proposed` (**R-T-A3-1**)
-- After accept: optional Epistemic DecisionRef / LPS decisionIds — **fail-closed when requested** (B4)
-
-## Decision domain (post B1)
-
-`RecordHumanDecision` / `SupersedeHumanDecision` snapshot authority, actor, selectedOptionId, status, nonStructuring, subject, scope **before any await**; persist only snapshots.
-
-## Confirmation domain (post B2)
-
-- Grant / Consume: re-load under txn (already)
-- Refuse: re-load; only `requested` → `refused`
-- Cancel: re-load; only `requested`\|`granted` → `cancelled`
-- Concurrent grant+refuse: one wins; refuse cannot overwrite grant
-
-## Supersession (post B3)
-
-Inside txn: `current.status === expectedPreStatus` and supersedable; concurrent second supersede → `STATE_CONFLICT`; at most one accepted successor per subject.
-
-## Link fail-closed (post B4)
-
-When `linkToLivingProjectState` / `linkEpistemicDecisionRef` requested and fails:
-
-1. Compensate: supersede orphan decision in decision store
-2. Return `LPS_VERSION_CONFLICT` or `PERSISTENCE_FAILURE`
-3. Residual orphan only if compensate fails → **R-T-A3-2**
-
-## Immutability / anti-aliasing
-
-structuredClone on returns; clone-before-validate arrays; B1 scalar snapshots; evidence register immutable.
-
-## Repositories / transactions / mutex
-
-Single `MemoryDecisionStore` promise mutex + begin/commit/rollback. Cross-store Decision↔LPS/Epistemic: no distributed txn (**R-T-A3-2**); fail-closed + compensate.
-
-## Errors matrix + retryability
-
-| detailCode | Modeled | Notes |
-|------------|---------|-------|
-| AUTHORITY_DENIED / AUTHORITY_SCOPE_MISMATCH | AUTHORITY_DENIED | scope mapped |
-| STATE_CONFLICT | STATE_CONFLICT | refuse/cancel/supersede races |
-| VERSION_CONFLICT / LPS_VERSION_CONFLICT | STATE_CONFLICT | retryable |
-| PERSISTENCE_FAILURE | STATE_CONFLICT | link fail / txn fail |
-
-## Provenance / security
-
-Hostile authorityLevel/displayName ignored; TOCTOU mutations ignored post-snapshot; no prototype pollution vectors added.
-
-## Observability
-
-Audit: `oa.authority.verified`, `oa.decision.recorded|superseded`, `oa.confirmation.*`.
-
-## Performance
-
-In-memory only; mutex serializes concurrent grant/supersede; no DB.
-
-## Tests before / after
-
-| Suite | Before (delivery) | After (validation) |
-|-------|-------------------|--------------------|
-| `__tests__/oa/decision` | **38** | **50** (+12) |
-| `__tests__/oa/cycle` | 48 | **48** |
-| `__tests__/oa/project` | 30 | **30** |
-| `__tests__/oa/doctrine` | 28 | **28** |
-| platform + fixtures | 10 | **10** |
-| **Total matrix** | 154 | **166** |
-
-New suite: `__tests__/oa/decision/validationAdversarial.test.ts` (12).
-
-## Typecheck lint build diff-check
+| Suite | Attendu | Résultat |
+|-------|--------:|----------|
+| `npx vitest run __tests__/oa/decision` | 50 | **PASS** |
+| `npx vitest run __tests__/oa/cycle` | 48 | **PASS** |
+| `npx vitest run __tests__/oa/project` | 30 | **PASS** |
+| `npx vitest run __tests__/oa/doctrine` | 28 | **PASS** |
+| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | 10 | **PASS** |
+| **Total** | **166** | **PASS** |
 
 | Gate | Result |
 |------|--------|
 | `npx tsc --noEmit` | PASS |
-| `npm run lint` | PASS |
-| `npm run build` | PASS |
-| `git diff --check` | PASS |
-| secrets / SQL / package.json / modeled / method / legacy ops1 imports | NONE touched |
+| `npx eslint lib/oa/decision __tests__/oa/decision --max-warnings 0` | PASS |
+| `npx next build` | PASS |
+| `git diff --check` | PASS (trailing whitespace in §06 verdicts fixed this cycle) |
 
-## Findings blockers (B1–B4) with proof
-
-| ID | Title | Proven? | Fixed? | Evidence |
-|----|-------|---------|--------|----------|
-| **B1** | TOCTOU authority/actor/selectedOptionId/status/subject/scope after await | Yes | Yes | `ignores authority/selectedOptionId/actor mutated after await starts` · supersede variant |
-| **B2** | Refuse/cancel overwrite grant (stale outside txn) | Yes | Yes | `concurrent grant+refuse…` · `refuse after grant` · `cancel after consume` |
-| **B3** | Concurrent supersede dual-accepted | Yes | Yes | `concurrent supersede… one accepted successor` · `refuses supersede of already superseded` |
-| **B4** | Silent LPS/epistemic link failures | Yes | Yes | LPS version conflict fail-closed + compensate · missing expectedLpsVersion · success path |
-| **E** | actorId/evidence mismatch + escalate canActAsMorris | Guard + freeze | Yes | mismatch denied · `evidence_immutable` |
-
-## Findings non-blocking / reserves
-
-| ID | Status |
-|----|--------|
-| **B5** | OPEN — T-A1 satellite ids beyond decisionIds |
-| **R1** | OPEN — cross-store Project↔Cycle atomicity |
-| **R-T-A3-1** | OPEN — no public Critical acknowledge |
-| **R-T-A3-2** | OPEN residual — compensate failure edge |
-| **R-T-A3-3** | OPEN — in-memory authority |
-| **R-T-A3-4** | OPEN — scope detail → AUTHORITY_DENIED |
-
-## Corrections complete
-
-1. **B1** — `recordHumanDecision.ts` / `supersedeHumanDecision.ts`: snapshot before await
-2. **B2** — `refuseConfirmation.ts` / `cancelConfirmation.ts`: re-load under txn
-3. **B3** — `supersedeHumanDecision.ts`: expectedPreStatus + supersedable + single accepted
-4. **B4** — `recordHumanDecision.ts`: fail-closed links + compensate supersede
-5. **Evidence** — `memoryAuthorityResolver.ts`: immutable register
-
-## Files created/modified/deleted
-
-### Created
-
-- `app/__tests__/oa/decision/validationAdversarial.test.ts`
-- `sfia-v3-delivery/.../t-a3-.../07-validation-findings-and-morris-decision-pack.md`
-
-### Modified
-
-- `app/lib/oa/decision/application/{recordHumanDecision,supersedeHumanDecision,refuseConfirmation,cancelConfirmation}.ts`
-- `app/lib/oa/decision/infrastructure/memoryAuthorityResolver.ts`
-- `sfia-v3-delivery/.../t-a3-.../{README,04,05,06}.md`
-
-### Deleted
-
-- none
-
-## Protected files untouched
-
-- `method/**` · modeled schemas · `package.json` · T-A4 · control-tower · main WT `.tmp-sfia-review/`
-
-## Diff final
-
-| Range | Files | +/- |
-|-------|-------|-----|
-| `a71f0b4..HEAD` (validation only) | 11 | +1195 / −163 |
-| `5f5c616..HEAD` (delivery+validation) | 37 | +5871 / −1 |
-
-## Correction commits
+## Docs commits (PR readiness)
 
 | SHA | Message |
 |-----|---------|
-| `f1cf170f0995560e638ef45355ea88f39424ac7f` | fix(sfia-studio): correct T-A3 validation findings |
-| `5d988dda0cc467a07d273726ea6f2b0929f9aaf6` | test(sfia-studio): strengthen T-A3 adversarial validation |
-| `7afd12a76e4450451e1a84a5f0add16eac5c222f` | docs(sfia-studio): record T-A3 validation findings |
+| `276c530ff918734a59139474298e404e9b2c772b` | docs(sfia-studio): prepare T-A3 Decision and Authority PR |
+| `5317830c2c56bc4efe97603a7b17a23db94304e8` | docs(sfia-studio): align T-A3 PR readiness HEAD and checklist |
+| `a815b8c14a20ff9e7f77fe7fefe15b5b2b6b9fe7` | docs(sfia-studio): align T-A3 PR readiness HEAD and checklist |
+| `f8d25c2dc523020b0443c2b16f375edbf7f5631b` | docs(sfia-studio): align T-A3 PR readiness HEAD and checklist |
 
-Delivery chain `6d2c4af` → `5e699e9` → `a71f0b4` **not rewritten**.
+Delivery/validation SHAs **not rewritten**.
 
-## Decisions T-A3-D01..D10 (Morris open)
+## PR verification
+
+| Field | Value |
+|-------|-------|
+| Number | **#264** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/264 |
+| State | **OPEN** |
+| Draft | **false** |
+| Mergeable | **MERGEABLE** (CLEAN when settled) |
+| Auto-merge | **null / not enabled** |
+| Merged | **false** |
+| Head SHA | `f8d25c2dc523020b0443c2b16f375edbf7f5631b` |
+| Stats | **38 files**, **+6073 / −1** |
+| Base | `main` |
+| Title | feat(sfia-studio): add v3-native T-A3 Decision and Authority foundation |
+
+## Decisions T-A3-D01..D10 (Morris still open)
 
 | ID | Recommendation |
 |----|----------------|
@@ -280,16 +183,19 @@ Delivery chain `6d2c4af` → `5e699e9` → `a71f0b4` **not rewritten**.
 
 ## Reserves / Debt / Anti-claims
 
-Pas MERGED · Pas Morris validated · Pas T-A4 AUTHORIZED · Pas DATABASE SELECTED · Pas B5/R1/R-T-A3-* CLOSED · Pas `VALIDATED WITH RESERVES` · Pas push/PR
+Pas MERGED · Pas Morris validated · Pas T-A4 AUTHORIZED · Pas DATABASE SELECTED · Pas B5/R1/R-T-A3-* CLOSED · Pas `VALIDATED WITH RESERVES` comme claim Morris · Pas auto-merge
+
+Merge only via future gate **`GO MERGE PR T-A3`** (not consumed).
+
+## Issues / residuals
+
+1. **08 HEAD final field vs tip (T-A2-class):** `08-pr-readiness.md` documents HEAD final / remote SHA as `a815b8c…`; actual tip / PR head after last align commit is `f8d25c2…`. Content otherwise correct (PR #264 URL, matrix, reserves). Not blocking Morris review.
+2. Multiple align commits due to HEAD self-reference chicken-egg (same class as T-A2).
 
 ## Working tree final
 
-Tracked clean. Untracked: `.tmp-sfia-review/chatgpt-review.md` (this pack; published via handoff script).
-
-## Push/PR/merge/T-A4 = NONE
-
-Project branch **not** pushed. Handoff branch `sfia/review-handoff` only (Validation pack).
+Tracked clean after push. Untracked: `.tmp-sfia-review/chatgpt-review.md` (this pack; published via handoff script to `sfia/review-handoff` only).
 
 ## Verdict exact (allowed string)
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A3 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A T-A3 PR CREATED — MORRIS REVIEW REQUIRED**
