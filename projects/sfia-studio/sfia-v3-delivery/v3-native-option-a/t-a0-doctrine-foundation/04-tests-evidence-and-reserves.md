@@ -14,7 +14,7 @@ Voir `05-delivery-validation-and-decision-pack.md` pour les commandes et sorties
 
 ## Réserves
 
-1. `ajv` reste dépendance **transitive** (eslint) — promotion directe candidate
+1. ~~`ajv` transitive~~ — **FERMÉE** : dépendance directe `ajv@^6.15.0`
 2. Codes detail T-A0 non encore dans enum ErrorRecord modeled
 3. Provenance requise en sémantique T-A0 alors qu’optionnelle dans schema modeled
 4. Example modeled `doctrine-package-manifest.valid.json` conserve un digest placeholder (valide schema, non digéré)

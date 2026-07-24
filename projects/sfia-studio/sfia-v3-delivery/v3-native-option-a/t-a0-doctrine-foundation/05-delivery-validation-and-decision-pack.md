@@ -3,39 +3,43 @@
 | Champ | Valeur |
 |-------|--------|
 | **Date** | 2026-07-24 (Europe/Paris) |
-| **Gate** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A0` |
-| **Verdict candidat** | `SFIA STUDIO V3-NATIVE OPTION A T-A0 DOCTRINE FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED` |
+| **Gate** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A0` (impl) puis validation / PR readiness |
+| **Statut** | Décisions **T-A0-D01…D08 VALIDATED** (Morris) with reserves — voir [06](./06-morris-validation-and-pr-readiness.md) |
+| **Verdict** | Fondation T-A0 **VALIDATED** ; PR readiness pack ; **merge interdit** sans décision Morris explicite |
 
-## Validations exécutées
+## Validations exécutées (rejouées PR readiness)
 
 | Commande | Résultat |
 |----------|----------|
-| `npx tsc --noEmit` | PASS |
-| `npx vitest run __tests__/oa/doctrine` | PASS 24/24 |
-| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | PASS 10/10 |
-| `next lint` (fichiers OA ciblés) | PASS |
-| `npx next build` | PASS |
+| `npx tsc --noEmit` | PASS (0.95s) |
+| `npx vitest run __tests__/oa/doctrine` | PASS **28/28** (0.63s) |
+| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | PASS **10/10** (0.63s) |
+| `next lint` (dirs `lib/oa`, `__tests__/oa`) | PASS (1.68s) |
+| `npx next build` | PASS (6.91s) |
 | `git diff --check` | PASS |
-| Grep SQL/migration dans `lib/oa` | aucun |
-| Grep secrets | aucun |
-| Anti-legacy imports | PASS |
+| `npm ci` / `npm ci --omit=dev` | PASS ; `ajv@6.15.0` présent sous omit=dev |
+| Symlink escape / method / dir | PASS (refus `path_forbidden`) ; internal symlink OK |
+| Grep secrets / SQL / legacy / `method/` runtime | PASS (pas de secrets ; pas de SQL ; pas d’imports legacy) |
 
-## Décisions candidates (non validées sans Morris)
+## Décisions T-A0-D01…D08
 
-| ID | Décision | Proposition |
-|----|----------|-------------|
-| **T-A0-D01** | Structure module | `app/lib/oa/doctrine/{domain,application,ports,infrastructure}` |
-| **T-A0-D02** | Format registry | `registry.json` + `packages/<dir>/manifest.json` ; path ≠ id |
-| **T-A0-D03** | Digest | SHA-256 du JSON canonique du manifest hors champ `digest` |
-| **T-A0-D04** | Validation schema | AJV Draft-07 sur schemas modeled `0.1.0-oa` (consommation bornée) |
-| **T-A0-D05** | Validation sémantique | id/version/digest, sources, status, freshness, provenance, anti-v2.6 |
-| **T-A0-D06** | Erreurs | Detail codes T-A0 → ErrorRecord `DOCTRINE_UNRESOLVED` / `CONTEXT_STALE` |
-| **T-A0-D07** | Cache | **Absence de cache** en T-A0 |
-| **T-A0-D08** | Readiness T-A0 | Fondation implémentée + tests ; pas d’adoption globale runtime |
+| ID | Décision | Statut |
+|----|----------|--------|
+| **T-A0-D01** | Structure module | **VALIDATED** |
+| **T-A0-D02** | Format registry | **VALIDATED** |
+| **T-A0-D03** | Digest | **VALIDATED** |
+| **T-A0-D04** | Validation schema AJV Draft-07 | **VALIDATED** (AJV direct) |
+| **T-A0-D05** | Validation sémantique | **VALIDATED** |
+| **T-A0-D06** | Erreurs | **VALIDATED** with reserve (enum modeled) |
+| **T-A0-D07** | Cache absent | **VALIDATED** |
+| **T-A0-D08** | Readiness fondation only | **VALIDATED** |
 
-## Hypothèses
+## Réserve AJV
 
-- `ajv@6` transitive suffit pour T-A0 sans nouvelle dépendance déclarée
+**Fermée** — `ajv@^6.15.0` déclaré dans `projects/sfia-studio/app/package.json` (lock `6.15.0`).
+
+## Hypothèses restantes
+
 - Provenance obligatoire côté runtime T-A0 même si schema modeled la laisse optionnelle
 - Registry locale filesystem est l’unique adaptateur P0
 
@@ -45,9 +49,8 @@ DB · IAM · Evidence retention · activation session · T-A1 LPS pin
 
 ## Anti-claims
 
-Pas T-A0 VALIDATED · Pas MERGED · Pas T-A1 AUTHORIZED · Pas DOCTRINE GLOBALLY ADOPTED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED
+Pas MERGED · Pas T-A1 AUTHORIZED · Pas DOCTRINE GLOBALLY ADOPTED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas cutover
 
-## Gate suivant candidat
+## Gate suivant
 
-`GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A0`
-(puis seulement après validation + PR/merge : `GO DELIVERY … T-A1`)
+Revue PR Morris — merge seulement après GO explicite. Puis `GO DELIVERY … T-A1` (non autorisé ici).
