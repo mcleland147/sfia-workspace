@@ -4,8 +4,9 @@
 |-------|--------|
 | **Date** | 2026-07-24 (Europe/Paris) |
 | **Gate** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` + `GO VALIDATION … T-A2` |
-| **Statut** | Décisions **T-A2-D01…D10 CANDIDATES** — Morris validation required |
-| **Verdict** | Fondation T-A2 **VALIDATED WITH RESERVES** (candidate) ; **merge / push / PR interdits** sans décision Morris |
+| **Statut** | Décisions **T-A2-D01…D10 CANDIDATES** — Morris validation required (pas de source Git Morris-validated) |
+| **Verdict technique** | Fondation T-A2 **PASSED AFTER CORRECTION** ; B1/B3/B4/E **CORRECTED** ; réserves **B5/R1 OPEN** |
+| **PR readiness** | Voir [08-pr-readiness.md](./08-pr-readiness.md) — gate PR readiness séparé ; **merge interdit** sans `GO MERGE PR T-A2` |
 
 ## Validations exécutées
 
@@ -55,4 +56,4 @@ Pas MERGED · Pas T-A3 AUTHORIZED · Pas DATABASE SELECTED · Pas V2.6 REMOVED �
 
 ## Gate suivant
 
-Revue Morris — puis éventuellement PR readiness / merge GO. Puis `GO DELIVERY … T-A3` (non autorisé ici).
+PR readiness (`GO PR READINESS … T-A2`) puis revue Morris sur PR. Merge uniquement via `GO MERGE PR T-A2` (non consommé). Puis `GO DELIVERY … T-A3` (non autorisé ici).

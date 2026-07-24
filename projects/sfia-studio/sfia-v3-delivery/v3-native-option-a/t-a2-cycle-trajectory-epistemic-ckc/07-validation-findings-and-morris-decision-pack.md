@@ -5,7 +5,7 @@
 | **Gate** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
 | **Date** | 2026-07-24 (Europe/Paris) |
 | **HEAD start** | `633d46389f650c03a5d4c113fced41f106c2067b` |
-| **HEAD final** | tip after `docs(sfia-studio): align T-A2 validation verdict string` (see handoff META) |
+| **HEAD final (validation)** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
 | **Scope** | Prove defects with adversarial tests; fix only proven T-A2-scoped defects |
 | **Morris** | **NOT VALIDATED** — recommendations only |
 
@@ -69,4 +69,6 @@
 
 ## Anti-claims
 
-Pas MERGED · Pas PUSH · Pas PR · Pas Morris validated · Pas T-A3 AUTHORIZED · Pas DATABASE SELECTED · Pas B5 fixed in T-A1
+Pas MERGED · Pas Morris validated décisions · Pas T-A3 AUTHORIZED · Pas DATABASE SELECTED · Pas B5/R1 CLOSED · Pas `VALIDATED WITH RESERVES` comme claim Morris
+
+PR readiness : voir [08-pr-readiness.md](./08-pr-readiness.md).
