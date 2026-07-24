@@ -219,6 +219,15 @@ export class AppendLivingProjectStateVersion {
           supersedes: current.provenance?.provenanceRecordId,
         });
 
+        const pickLink = <T>(
+          next: T | null | undefined,
+          prior: T | undefined,
+        ): T | undefined => {
+          if (next === null) return undefined;
+          if (next !== undefined) return next;
+          return prior;
+        };
+
         const nextLps: LivingProjectState = {
           schemaVersion: "0.1.0-oa",
           lpsVersionId,
@@ -227,13 +236,31 @@ export class AppendLivingProjectStateVersion {
           supersedesLpsVersionId: current.lpsVersionId,
           status: "active",
           objective: request.objective.trim(),
-          context: request.context,
-          scope: request.scope,
-          constraints: [],
-          stakeholders: [],
+          context: request.context ?? current.context,
+          scope: request.scope ?? current.scope,
+          constraints: current.constraints ? [...current.constraints] : [],
+          stakeholders: current.stakeholders ? [...current.stakeholders] : [],
           doctrinePackageRef: structuredClone(doctrinePackageRef),
-          epistemicItemIds: [],
-          decisionIds: [],
+          ckcResolutionRef: pickLink(
+            request.ckcResolutionRef,
+            current.ckcResolutionRef,
+          ),
+          activeCycleInstanceId: pickLink(
+            request.activeCycleInstanceId,
+            current.activeCycleInstanceId,
+          ),
+          trajectoryId: pickLink(request.trajectoryId, current.trajectoryId),
+          trajectoryVersion: pickLink(
+            request.trajectoryVersion,
+            current.trajectoryVersion,
+          ),
+          epistemicItemIds:
+            request.epistemicItemIds !== undefined
+              ? [...request.epistemicItemIds]
+              : current.epistemicItemIds
+                ? [...current.epistemicItemIds]
+                : [],
+          decisionIds: current.decisionIds ? [...current.decisionIds] : [],
           createdAt: timestamp,
           createdBy: structuredClone(request.createdBy),
           correlationId,
@@ -244,6 +271,10 @@ export class AppendLivingProjectStateVersion {
         const nextProject: Project = {
           ...structuredClone(project),
           currentLpsVersionId: lpsVersionId,
+          activeCycleInstanceId: pickLink(
+            request.activeCycleInstanceId,
+            project.activeCycleInstanceId,
+          ),
           updatedAt: timestamp,
         };
 
