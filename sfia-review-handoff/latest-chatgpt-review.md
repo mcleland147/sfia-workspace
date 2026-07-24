@@ -185,15 +185,14 @@ Documented as **planned only** in `05-…`. Error codes referenced from modeled 
 | Handoff WT | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | Expected remote content | **INCOMPLETE — MORRIS ARBITRATION REQUIRED** + discovery finding |
 
-*(Handoff commit/blob filled after publish verification.)*
-
 ### Handoff verification (post-publish)
 
 | Champ | Valeur |
 |-------|--------|
-| Handoff commit | _PENDING_PUBLISH_ |
-| Blob | _PENDING_PUBLISH_ |
-| Remote verified phrase | _PENDING_PUBLISH_ |
+| Handoff commit | `037822a04844b8b794350c98aa0dbee7d9f6bc0f` |
+| Blob | `81c4c012016ebb115ea74d9c233717eff8203613` |
+| Remote verified | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Remote phrases | **INCOMPLETE — MORRIS ARBITRATION REQUIRED** · **EXECUTIONCONTRACT CONTRACT REQUIRES MORRIS ARBITRATION** — MATCH |
 
 ## Exact verdict (repeat)
 
