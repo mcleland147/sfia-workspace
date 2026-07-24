@@ -1,6 +1,7 @@
 /**
  * Local filesystem DoctrinePackage repository — allowlisted registry only.
  * Read-only. Path ≠ business id. Deny-by-default + traversal protection.
+ * Symlink targets are resolved via realpath and must remain under the registry root.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -26,6 +27,14 @@ export type FilesystemDoctrinePackageRepositoryOptions = {
 
 function isDigest(value: unknown): value is Digest {
   return typeof value === "string" && /^sha256:[a-f0-9]{64}$/.test(value);
+}
+
+
+function isPathInsideRoot(rootReal: string, candidateReal: string): boolean {
+  return (
+    candidateReal === rootReal ||
+    candidateReal.startsWith(rootReal + path.sep)
+  );
 }
 
 export class FilesystemDoctrinePackageRepository
@@ -107,14 +116,61 @@ export class FilesystemDoctrinePackageRepository
     }
 
     try {
-      if (!fs.existsSync(manifestPath) || !fs.statSync(manifestPath).isFile()) {
+      let rootReal: string;
+      try {
+        rootReal = fs.realpathSync(root);
+      } catch {
+        return {
+          ok: false,
+          kind: "io_error",
+          message: "registry root realpath failed",
+        };
+      }
+
+      if (!fs.existsSync(manifestPath)) {
         return {
           ok: false,
           kind: "not_found",
           message: "manifest not found",
         };
       }
-      const buf = fs.readFileSync(manifestPath);
+
+      let packageDirReal: string;
+      let manifestReal: string;
+      try {
+        packageDirReal = fs.realpathSync(packageDir);
+        manifestReal = fs.realpathSync(manifestPath);
+      } catch {
+        return {
+          ok: false,
+          kind: "io_error",
+          message: "manifest realpath failed",
+        };
+      }
+
+      if (!isPathInsideRoot(rootReal, packageDirReal)) {
+        return {
+          ok: false,
+          kind: "path_forbidden",
+          message: "package path symlink escapes registry root",
+        };
+      }
+      if (!isPathInsideRoot(rootReal, manifestReal)) {
+        return {
+          ok: false,
+          kind: "path_forbidden",
+          message: "manifest symlink escapes registry root",
+        };
+      }
+
+      if (!fs.statSync(manifestReal).isFile()) {
+        return {
+          ok: false,
+          kind: "not_found",
+          message: "manifest not found",
+        };
+      }
+      const buf = fs.readFileSync(manifestReal);
       if (buf.length > MAX_MANIFEST_BYTES) {
         return {
           ok: false,
@@ -144,7 +200,7 @@ export class FilesystemDoctrinePackageRepository
         ok: true,
         rawText,
         rawJson,
-        absoluteManifestPath: manifestPath,
+        absoluteManifestPath: manifestReal,
       };
     } catch {
       return {

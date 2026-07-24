@@ -20,6 +20,7 @@
 
 - Allowlist registry stricte (entrées déclarées uniquement)
 - Path traversal bloqué (`..`, absolu, escape root)
+- Symlink targets resolved via `realpath`; targets outside the registry root are refused (`path_forbidden` / `DOCTRINE_SOURCE_FORBIDDEN`). Internal in-registry symlinks remain allowed.
 - Taille max manifest 256 KiB
 - Lecture seule
 - Deny-by-default

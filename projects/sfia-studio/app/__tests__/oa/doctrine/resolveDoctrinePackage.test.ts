@@ -436,6 +436,106 @@ describe("T-A0 doctrine fail-closed", () => {
     expect(result.outcome).toBe("not_found");
   });
 
+  it("allows internal symlink to an in-registry manifest", async () => {
+    const dir = writeTempRegistry((root) => {
+      const pkgDir = path.join(root, "packages/pkg-symlink-internal");
+      fs.mkdirSync(pkgDir, { recursive: true });
+      fs.symlinkSync(
+        path.join("..", "pkg-studio-v3-oa-1.0.0", "manifest.json"),
+        path.join(pkgDir, "manifest.json"),
+      );
+      const registry = JSON.parse(
+        fs.readFileSync(path.join(root, "registry.json"), "utf8"),
+      );
+      registry.entries[0].relativePackageDir = "packages/pkg-symlink-internal";
+      fs.writeFileSync(
+        path.join(root, "registry.json"),
+        JSON.stringify(registry),
+        "utf8",
+      );
+    });
+    const { resolver } = buildResolver(dir);
+    const result = await resolver.resolve({ pin: VALID_PIN });
+    expect(result.outcome).toBe("resolved");
+  });
+
+  it("rejects symlink that escapes the registry root", async () => {
+    const outside = fs.mkdtempSync(path.join(os.tmpdir(), "oa-doctrine-out-"));
+    const outsideManifest = path.join(outside, "manifest.json");
+    fs.writeFileSync(outsideManifest, JSON.stringify({ secret: "escaped" }), "utf8");
+    const dir = writeTempRegistry((root) => {
+      const pkgDir = path.join(root, "packages/pkg-symlink-escape");
+      fs.mkdirSync(pkgDir, { recursive: true });
+      fs.symlinkSync(outsideManifest, path.join(pkgDir, "manifest.json"));
+      const registry = JSON.parse(
+        fs.readFileSync(path.join(root, "registry.json"), "utf8"),
+      );
+      registry.entries[0].relativePackageDir = "packages/pkg-symlink-escape";
+      registry.entries[0].digest = VALID_DIGEST;
+      fs.writeFileSync(
+        path.join(root, "registry.json"),
+        JSON.stringify(registry),
+        "utf8",
+      );
+    });
+    const { resolver } = buildResolver(dir);
+    const result = await resolver.resolve({ pin: VALID_PIN });
+    expect(result.outcome).toBe("source_not_allowed");
+    if (result.outcome === "resolved") return;
+    expect(result.error.detailCode).toBe("DOCTRINE_SOURCE_FORBIDDEN");
+  });
+
+  it("rejects symlink toward method/** outside the registry", async () => {
+    const methodRoot = fs.mkdtempSync(path.join(os.tmpdir(), "oa-doctrine-method-"));
+    const methodPkg = path.join(methodRoot, "sfia-core");
+    fs.mkdirSync(methodPkg, { recursive: true });
+    const methodManifest = path.join(methodPkg, "manifest.json");
+    fs.writeFileSync(methodManifest, JSON.stringify({ method: "leak" }), "utf8");
+    const dir = writeTempRegistry((root) => {
+      const pkgDir = path.join(root, "packages/pkg-symlink-method");
+      fs.mkdirSync(pkgDir, { recursive: true });
+      fs.symlinkSync(methodManifest, path.join(pkgDir, "manifest.json"));
+      const registry = JSON.parse(
+        fs.readFileSync(path.join(root, "registry.json"), "utf8"),
+      );
+      registry.entries[0].relativePackageDir = "packages/pkg-symlink-method";
+      registry.entries[0].digest = VALID_DIGEST;
+      fs.writeFileSync(
+        path.join(root, "registry.json"),
+        JSON.stringify(registry),
+        "utf8",
+      );
+    });
+    const { resolver } = buildResolver(dir);
+    const result = await resolver.resolve({ pin: VALID_PIN });
+    expect(result.outcome).toBe("source_not_allowed");
+  });
+
+  it("rejects package directory symlink that escapes the registry root", async () => {
+    const outside = fs.mkdtempSync(path.join(os.tmpdir(), "oa-doctrine-outdir-"));
+    fs.writeFileSync(
+      path.join(outside, "manifest.json"),
+      JSON.stringify({ secret: "dir-escape" }),
+      "utf8",
+    );
+    const dir = writeTempRegistry((root) => {
+      fs.symlinkSync(outside, path.join(root, "packages/pkg-dir-escape"));
+      const registry = JSON.parse(
+        fs.readFileSync(path.join(root, "registry.json"), "utf8"),
+      );
+      registry.entries[0].relativePackageDir = "packages/pkg-dir-escape";
+      registry.entries[0].digest = VALID_DIGEST;
+      fs.writeFileSync(
+        path.join(root, "registry.json"),
+        JSON.stringify(registry),
+        "utf8",
+      );
+    });
+    const { resolver } = buildResolver(dir);
+    const result = await resolver.resolve({ pin: VALID_PIN });
+    expect(result.outcome).toBe("source_not_allowed");
+  });
+
   it("rejects stale freshness", async () => {
     const dir = writeTempRegistry((root) => {
       const manifestPath = path.join(

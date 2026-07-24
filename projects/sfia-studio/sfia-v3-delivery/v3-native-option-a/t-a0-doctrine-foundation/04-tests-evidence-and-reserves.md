@@ -4,7 +4,7 @@
 
 | Fichier | Couverture |
 |---------|------------|
-| `__tests__/oa/doctrine/resolveDoctrinePackage.test.ts` | Succès, fail-closed, traversal, method, v2.6, stale, revoked |
+| `__tests__/oa/doctrine/resolveDoctrinePackage.test.ts` | Succès, fail-closed, traversal, method, symlink escape, v2.6, stale, revoked |
 | `__tests__/oa/doctrine/schemaValidation.test.ts` | AJV fixture + example modeled |
 | `__tests__/oa/doctrine/antiLegacy.test.ts` | Pas d’imports sfia-context / ops1 / fallback |
 
