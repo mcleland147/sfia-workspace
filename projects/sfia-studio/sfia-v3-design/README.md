@@ -9,8 +9,8 @@
 | **`v3-native-option-a/functional-architecture/`** | architecture fonctionnelle **VALIDATED BY MORRIS** | FA-OA-01…05 |
 | **`v3-native-option-a/ux-ui/`** | UX/UI **VALIDATED BY MORRIS** | UX-OA-01…12 · réserves maintenues |
 | **`sfia-v3-modeled/v3-native-option-a/`** | modeled **VALIDATED BY MORRIS** | M-OA-01…12 |
-| **`sfia-v3-technical-architecture/v3-native-option-a/`** | AT **candidate** | Gate architecture technique Option A |
+| **`sfia-v3-technical-architecture/v3-native-option-a/`** | AT **VALIDATED BY MORRIS** | AT-OA-01…14 · Option C · T-A0…T-A7 |
 
 Doctrine : `sfia-v3-framing/` VALIDATED.
 
-Anti-claims : pas ARCHITECTURE VALIDATED · pas READY FOR DELIVERY · pas READY FOR IMPLEMENTATION · pas SCHEMAS ADOPTED · pas runtime migré · pas coexistence doctrinale.
+Anti-claims : pas READY FOR DELIVERY global · pas READY FOR IMPLEMENTATION · pas SCHEMAS ADOPTED · pas DATABASE SELECTED · pas runtime migré · pas V2.6 REMOVED · pas coexistence doctrinale · T-A0 non lancé.

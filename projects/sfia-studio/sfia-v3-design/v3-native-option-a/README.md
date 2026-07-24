@@ -13,8 +13,10 @@
 | **Gate modeled (consommé)** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Modeled** | **VALIDATED BY MORRIS** — M-OA-01…12 |
 | **Gate AT (consommé)** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **Architecture technique** | **VALIDATED BY MORRIS** — AT-OA-01…14 · Option C |
+| **Gate validation AT (consommé)** | `GO VALIDATION ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE OPTION A` |
 | **Doctrine** | SFIA Studio v3 exclusive (VALIDATED framing 30–37) |
-| **Anti-claims** | Pas ARCHITECTURE VALIDATED · Pas READY FOR DELIVERY · Pas IMPLEMENTED · Pas SCHEMAS ADOPTED · Pas v2.6 removed |
+| **Anti-claims** | Pas READY FOR DELIVERY global · Pas IMPLEMENTED · Pas SCHEMAS ADOPTED · Pas DATABASE SELECTED · Pas V2.6 REMOVED · Pas T-A0 STARTED |
 | **Code / schemas / SQL** | **Interdits** |
 
 ## Objectif
@@ -31,7 +33,7 @@ intention → DoctrinePackage → qualification → CKC → clarification → Li
 | **FA** | `functional-architecture/` — architecture fonctionnelle **VALIDATED** |
 | **UX** | `ux-ui/` — contrat UX/UI + Figma **VALIDATED** |
 | **Modeled** | `../../sfia-v3-modeled/v3-native-option-a/` — contrats modeled **VALIDATED** |
-| **AT** | `../../sfia-v3-technical-architecture/v3-native-option-a/` — architecture technique (candidate) |
+| **AT** | `../../sfia-v3-technical-architecture/v3-native-option-a/` — architecture technique **VALIDATED** |
 
 ## Décisions FD-OA validées
 
@@ -53,4 +55,4 @@ intention → DoctrinePackage → qualification → CKC → clarification → Li
 
 ## Verdict conception
 
-**SFIA STUDIO V3-NATIVE OPTION A FD · FA · UX · MODELED VALIDATED · TECHNICAL ARCHITECTURE DOCUMENTED (candidate) — MORRIS AT VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A FOUNDATION COMPLETE — FD · FA · UX · MODELED · TECHNICAL ARCHITECTURE VALIDATED BY MORRIS — PR READINESS / T-A0 NOT STARTED**

@@ -2,12 +2,13 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | Architecture technique **candidate** — validation Morris requise |
+| **Statut** | Architecture technique **VALIDATED BY MORRIS** |
+| **Gate validation** | `GO VALIDATION ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE OPTION A` |
 | **Pack** | `sfia-v3-technical-architecture/v3-native-option-a` |
 | **Gate consommé** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Modeled** | M-OA-01…12 **VALIDATED** |
 | **UX / FA / FD** | UX-OA · FA-OA · FD-OA **VALIDATED** |
-| **Anti-claims** | Pas ARCHITECTURE VALIDATED · Pas READY FOR DELIVERY · Pas READY FOR IMPLEMENTATION · Pas DATABASE SELECTED · Pas SCHEMAS ADOPTED · Pas RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED |
+| **Anti-claims** | Pas READY FOR DELIVERY global · Pas READY FOR IMPLEMENTATION · Pas DATABASE SELECTED · Pas SCHEMAS ADOPTED · Pas RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas T-A0 STARTED · Pas OPTION A IMPLEMENTED |
 | **Code / SQL / Figma / delivery** | **Interdits** |
 | **Document** | `13-technical-architecture-validation-and-decision-pack.md` |
 
@@ -30,20 +31,22 @@
 
 | Id | Proposition | Statut |
 |----|-------------|--------|
-| AT-OA-01 | Valider pack AT Option A | candidate |
-| AT-OA-02 | Style hybride Option C | candidate |
-| AT-OA-03 | Project identité + LPS versionné | candidate |
-| AT-OA-04 | Snapshot + journal | candidate |
-| AT-OA-05 | DoctrinePackage digest fail-closed | candidate |
-| AT-OA-06 | Evidence hybride metadata+blob | candidate |
-| AT-OA-07 | Schema + sémantique | candidate |
-| AT-OA-08 | Events in-process/outbox | candidate |
-| AT-OA-09 | Capability/authority séparées | candidate |
-| AT-OA-10 | Observabilité + audit | candidate |
-| AT-OA-11 | Isolation legacy | candidate |
-| AT-OA-12 | Ordre T-A0…T-A7 | candidate |
-| AT-OA-13 | Pas READY FOR DELIVERY tant que non validé Morris | candidate |
-| AT-OA-14 | Gates cutover v2.6 | candidate |
+| AT-OA-01 | Valider pack AT Option A | **VALIDATED** |
+| AT-OA-02 | Style hybride Option C | **VALIDATED** |
+| AT-OA-03 | Project identité + LPS versionné | **VALIDATED** |
+| AT-OA-04 | Snapshot + journal | **VALIDATED** |
+| AT-OA-05 | DoctrinePackage digest fail-closed | **VALIDATED** |
+| AT-OA-06 | Evidence hybride metadata+blob | **VALIDATED** |
+| AT-OA-07 | Schema + sémantique | **VALIDATED** |
+| AT-OA-08 | Events in-process/outbox | **VALIDATED** |
+| AT-OA-09 | Capability/authority séparées | **VALIDATED** |
+| AT-OA-10 | Observabilité + audit | **VALIDATED** |
+| AT-OA-11 | Isolation legacy | **VALIDATED** |
+| AT-OA-12 | Ordre T-A0…T-A7 | **VALIDATED** |
+| AT-OA-13 | Pas READY FOR DELIVERY tant que non validé Morris | **VALIDATED** |
+| AT-OA-14 | Gates cutover v2.6 | **VALIDATED** |
+
+*AT-OA-01…14 = **VALIDATED BY MORRIS** (ADR restent proposed pour détails d’implémentation futurs).*
 
 ## Ports (catalogue)
 
@@ -55,13 +58,15 @@ U-AT01 IAM provider · U-AT02 DB prod finale · U-AT03 rétention RGPD · hypoth
 
 ## Maturité
 
-AT **DOCUMENTED candidate**. Pas VALIDATED. Pas delivery.
+AT **VALIDATED BY MORRIS**. Pas READY FOR DELIVERY global. T-A0 non lancé. Schemas non adoptés runtime.
 
 ## Gate suivant
 
-`GO VALIDATION ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE OPTION A`
-puis `GO DELIVERY OPTION A — T-A0` (non consommé).
+Validation AT consommée.
+Après merge PR foundation : cadrage `GO DELIVERY OPTION A — T-A0` (non consommé ici).
 
 ## Verdict
 
-**SFIA STUDIO V3-NATIVE OPTION A TECHNICAL ARCHITECTURE DOCUMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A TECHNICAL ARCHITECTURE VALIDATED BY MORRIS**
+
+*AT-OA-01…14 = **VALIDATED BY MORRIS**. Option C et ordre T-A0…T-A7 retenus. Réserves DB/IAM/volumétrie/RGPD/Evidence retention maintenues. T-A0 peut être cadré après merge PR — **non lancé ici**. Pas READY FOR DELIVERY global. Aucune implémentation. Aucun cutover v2.6.*

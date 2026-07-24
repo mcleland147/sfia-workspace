@@ -2,12 +2,13 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | Architecture technique **candidate** — validation Morris requise |
+| **Statut** | Architecture technique **VALIDATED BY MORRIS** |
+| **Gate validation** | `GO VALIDATION ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE OPTION A` |
 | **Pack** | `sfia-v3-technical-architecture/v3-native-option-a` |
 | **Gate consommé** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Modeled** | M-OA-01…12 **VALIDATED** |
 | **UX / FA / FD** | UX-OA · FA-OA · FD-OA **VALIDATED** |
-| **Anti-claims** | Pas ARCHITECTURE VALIDATED · Pas READY FOR DELIVERY · Pas READY FOR IMPLEMENTATION · Pas DATABASE SELECTED · Pas SCHEMAS ADOPTED · Pas RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED |
+| **Anti-claims** | Pas READY FOR DELIVERY global · Pas READY FOR IMPLEMENTATION · Pas DATABASE SELECTED · Pas SCHEMAS ADOPTED · Pas RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas T-A0 STARTED · Pas OPTION A IMPLEMENTED |
 | **Code / SQL / Figma / delivery** | **Interdits** |
 
 ## Objectif
@@ -34,8 +35,8 @@ Architecture technique cible pour intention → DoctrinePackage → CKC → Proj
 
 ## Recommandation style (candidate)
 
-**Option C hybride** : modular monolith pour Project/LPS/Decision/Contract + exécution agent/Evidence asynchrone via ports — voir doc 01.
+**Option C hybride VALIDATED** : modular monolith cœur + ports asynchrones agents/Evidence — voir doc 01. Ordre T-A0…T-A7 validé ; T-A0 cadré mais **non lancé**.
 
 ## Verdict
 
-**SFIA STUDIO V3-NATIVE OPTION A TECHNICAL ARCHITECTURE DOCUMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A TECHNICAL ARCHITECTURE VALIDATED BY MORRIS — T-A0 NOT STARTED · NO GLOBAL DELIVERY READINESS**
