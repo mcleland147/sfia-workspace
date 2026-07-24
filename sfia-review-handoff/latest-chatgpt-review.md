@@ -258,13 +258,14 @@ Prior arbitration docs commit remains: `e95779cf5c89b56fd9bde92c5eee9249cd33935a
 | Mode | publish-in-cycle |
 | Expected remote verdict | **MODELED REWORK COMPLETED — MORRIS VALIDATION REQUIRED** |
 
-### Handoff verification (filled after publish)
+### Handoff verification (post-publish)
 
 | Champ | Valeur |
 |-------|--------|
-| Handoff commit | _(pending publish)_ |
-| Blob | _(pending publish)_ |
-| Remote verified | _(pending publish)_ |
+| Handoff commit | `895054343c5b306473876a76ec882693e4af1e62` |
+| Blob | `a1e98f7ac192806a1ed520659a5833b37bc83cf4` |
+| Remote verified | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Remote phrases | **MODELED REWORK COMPLETED — MORRIS VALIDATION REQUIRED** · Morris decisions verbatim · ExecutionContract `0.2.0-oa` — MATCH |
 
 ## 19. Gate suivant
 
