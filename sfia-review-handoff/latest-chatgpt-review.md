@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure Europe/Paris** | 2026-07-24 13:23:45 CEST (+0200) |
+| **Date/heure Europe/Paris** | 2026-07-24 13:26:24 CEST (+0200) |
 | **Cycle** | PR Readiness Option A T-A2 — Cycle / Trajectory / Epistemic / CKC |
 | **Profil** | Critical |
 | **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
@@ -12,8 +12,8 @@
 | **origin/main (base)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — feat(sfia-studio): add v3-native T-A1 Project and LPS foundation (#262) |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
 | **HEAD initial (avant PR readiness)** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
-| **HEAD final** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
-| **Docs commit** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` — `docs(sfia-studio): prepare T-A2 Cycle and Trajectory PR` |
+| **HEAD final** | `75aee25a33e45b63b96805e85d72326d1525b056` |
+| **Docs commit** | `75aee25a33e45b63b96805e85d72326d1525b056` — `docs(sfia-studio): align T-A2 PR readiness HEAD and checklist` (prior PR readiness tip `30a332eb4ecc34cce3ce99c5c909dc800bfad927`) |
 | **merge-base(HEAD, origin/main)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
 | **Status / staged / untracked** | tracked clean except untracked `.tmp-sfia-review/` (local evidence; not committed) |
 | **Working tree note** | `?? .tmp-sfia-review/` |
@@ -21,9 +21,9 @@
 | **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Handoff WT** | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | **Main checkout** | `/Users/morris/Projects/sfia-workspace` |
-| **Push projet** | **DONE** — remote SHA `30a332eb4ecc34cce3ce99c5c909dc800bfad927` == local HEAD (normal `-u`, no force) |
+| **Push projet** | **DONE** — remote SHA `75aee25a33e45b63b96805e85d72326d1525b056` == local HEAD (normal push, no force); prior tip `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
 | **PR** | **#263** — https://github.com/mcleland147/sfia-workspace/pull/263 |
-| **PR state** | OPEN · not draft · base `main` · head `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` · headOid `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
+| **PR state** | OPEN · not draft · base `main` · head `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` · headOid `75aee25a33e45b63b96805e85d72326d1525b056` |
 | **Mergeable** | MERGEABLE (mergeStateStatus CLEAN) |
 | **Auto-merge** | **absent** (`null`) |
 | **Merge exécuté** | **NO** |
@@ -35,7 +35,7 @@
 
 | Check | Résultat |
 |-------|----------|
-| Date Europe/Paris | 2026-07-24 13:23:45 CEST (+0200) — PASS |
+| Date Europe/Paris | 2026-07-24 13:26:24 CEST (+0200) — PASS |
 | Gate | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` — PASS |
 | origin/main | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — MATCH expected `102b6c6…` |
 | Branche | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` — PASS |
@@ -94,6 +94,7 @@ At validation tip vs origin/main:
 ### Commits `origin/main...HEAD`
 
 ```
+75aee25 docs(sfia-studio): align T-A2 PR readiness HEAD and checklist
 30a332e docs(sfia-studio): prepare T-A2 Cycle and Trajectory PR
 bdd39d5 docs(sfia-studio): align T-A2 validation verdict string
 833fd14 docs(sfia-studio): record T-A2 validation findings
@@ -442,9 +443,10 @@ Pas MERGED · Pas merge autorisé · Pas Morris validated T-A2-D01…D10 · Pas 
 
 ## Push projet
 
-- Command: `git push -u origin HEAD` (NO `--force`)
-- Local HEAD: `30a332eb4ecc34cce3ce99c5c909dc800bfad927`
-- Remote SHA: `30a332eb4ecc34cce3ce99c5c909dc800bfad927` — **MATCH**
+- Command: `git push origin HEAD` (NO `--force`) after align docs commit
+- Local HEAD: `75aee25a33e45b63b96805e85d72326d1525b056`
+- Remote SHA: `75aee25a33e45b63b96805e85d72326d1525b056` — **MATCH**
+- Prior PR readiness tip: `30a332eb4ecc34cce3ce99c5c909dc800bfad927`
 - Branch tracking: `origin/delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc`
 
 ## PR
@@ -458,8 +460,8 @@ Pas MERGED · Pas merge autorisé · Pas Morris validated T-A2-D01…D10 · Pas 
 | **Draft** | false |
 | **Base** | main |
 | **Head** | delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc |
-| **headOid** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
-| **Commits** | 8 |
+| **headOid** | `75aee25a33e45b63b96805e85d72326d1525b056` |
+| **Commits** | 9 |
 | **Files** | 40 |
 | **Additions** | 4974 |
 | **Deletions** | 6 |
@@ -485,13 +487,13 @@ Pas MERGED · Pas merge autorisé · Pas Morris validated T-A2-D01…D10 · Pas 
 | **Base** | `origin/main` @ `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
 | **HEAD avant PR readiness** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
-| **HEAD final** | 5a4d3bc87751f843e64ada221ba4bfca64c9e8c3 (docs PR readiness tip at authoring; re-verify on PR head SHA) |
+| **HEAD final** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
 | **merge-base(HEAD, origin/main)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
 | **Diff vs origin/main** | 40 files changed, 4974 insertions(+), 6 deletions(-) |
 | **Validation technique** | **PASSED AFTER CORRECTION** — 48/30/28/10 |
 | **Décisions Morris T-A2-D01…D10** | **encore requises** (recommandations agents uniquement ; pas de source Git Morris-validated) |
-| **Push / PR** | autorisés par ce gate |
-| **Merge** | **interdit** dans ce cycle |
+| **Push / PR** | **DONE** — remote SHA `30a332eb4ecc34cce3ce99c5c909dc800bfad927` · PR **#263** OPEN non-draft |
+| **Merge** | **interdit** / **not done** (gate `GO MERGE PR T-A2` non consommé) |
 | **Gate suivant (non consommé)** | `GO MERGE PR T-A2` |
 
 ## Scope
@@ -636,9 +638,9 @@ Pas de claim `VALIDATED BY MORRIS` — aucune source Git Morris-validated pour T
 - [x] Chemins protégés absents du diff
 - [x] Docs PR readiness (`08` + wording)
 - [x] Commit docs local
-- [ ] Push `-u` (ce cycle)
-- [ ] PR non-draft vers `main` (ce cycle)
-- [ ] Review pack FULL + handoff publish (ce cycle)
+- [x] Push `-u` (ce cycle)
+- [x] PR non-draft vers `main` (ce cycle)
+- [x] Review pack FULL + handoff publish (ce cycle)
 - [ ] **Merge** — **NON** (gate `GO MERGE PR T-A2` non consommé)
 
 ## Gate de merge requis
@@ -650,7 +652,7 @@ Ce cycle crée uniquement la PR pour revue Morris. Merge, auto-merge, force-push
 ## Verdict cycle (après PR créée)
 
 **SFIA STUDIO V3-NATIVE OPTION A T-A2 PR CREATED — MORRIS REVIEW REQUIRED**
-
+TION A T-A2 PR CREATED — MORRIS REVIEW REQUIRED**
 ```
 
 ### `README.md` (complet)
