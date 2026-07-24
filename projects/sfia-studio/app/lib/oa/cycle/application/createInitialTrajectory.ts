@@ -87,14 +87,17 @@ export class CreateInitialTrajectory {
         return fail("TRAJECTORY_INVALID", "project_id_invalid");
       }
 
-      const stepsViolation = validateTrajectorySteps(request.steps);
+      // Clone FIRST then validate — closes TOCTOU on request.steps mutation after await.
+      const steps = structuredClone(request.steps);
+      const status = request.status ?? "candidate";
+
+      const stepsViolation = validateTrajectorySteps(steps);
       if (stepsViolation) {
         return fail(stepsViolation.detailCode, stepsViolation.reason);
       }
 
-      const status = request.status ?? "candidate";
       const draft: Pick<ProjectTrajectory, "steps" | "status" | "version"> = {
-        steps: request.steps,
+        steps,
         status,
         version: 1,
       };
@@ -126,7 +129,7 @@ export class CreateInitialTrajectory {
         projectId: request.projectId,
         version: 1,
         status,
-        steps: structuredClone(request.steps),
+        steps: structuredClone(steps),
       };
 
       let lpsVersion = 0;

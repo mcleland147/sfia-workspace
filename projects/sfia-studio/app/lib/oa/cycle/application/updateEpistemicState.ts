@@ -93,6 +93,7 @@ export class UpdateEpistemicState {
           }
 
           const promotion = assertNoHypothesisDecisionPromotion({
+            epistemicItemId: raw.epistemicItemId,
             nextType: raw.type,
             promoteFromHypothesis: raw.promoteFromHypothesis,
             supersedes: raw.supersedes,

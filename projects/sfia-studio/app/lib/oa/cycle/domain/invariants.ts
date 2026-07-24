@@ -202,6 +202,23 @@ export function validateTrajectorySteps(
             reason: "dependency_id_invalid",
           };
         }
+        if (dep === step.stepId) {
+          return {
+            detailCode: "TRAJECTORY_INVALID",
+            reason: "self_dependency",
+          };
+        }
+      }
+    }
+  }
+  // Deps must resolve in the step set (DFS previously skipped unknowns).
+  for (const step of steps) {
+    for (const dep of step.dependencies ?? []) {
+      if (!seen.has(dep)) {
+        return {
+          detailCode: "TRAJECTORY_INVALID",
+          reason: "orphan_dependency",
+        };
       }
     }
   }
@@ -273,10 +290,12 @@ export function validateEpistemicItemInput(input: {
 
 /**
  * Refuse Hypothesis → DecisionRef automatic promotion.
- * Detected when promoteFromHypothesis flag is set, or when superseding an
- * active Hypothesis item while declaring type DecisionRef.
+ * Detected when promoteFromHypothesis flag is set, when superseding an
+ * active Hypothesis item while declaring type DecisionRef, or when
+ * overwriting the same epistemicItemId from Hypothesis/Observation to DecisionRef.
  */
 export function assertNoHypothesisDecisionPromotion(input: {
+  epistemicItemId?: string;
   nextType: EpistemicItemType;
   promoteFromHypothesis?: boolean;
   supersedes?: string;
@@ -299,6 +318,45 @@ export function assertNoHypothesisDecisionPromotion(input: {
         reason: "supersede_hypothesis_as_decision_ref",
       };
     }
+  }
+  if (input.epistemicItemId) {
+    const sameId = input.existing.find(
+      (e) => e.epistemicItemId === input.epistemicItemId,
+    );
+    if (sameId && sameId.type === "Hypothesis") {
+      return {
+        detailCode: "EPISTEMIC_PROMOTION_FORBIDDEN",
+        reason: "same_id_hypothesis_to_decision_ref",
+      };
+    }
+    if (sameId && sameId.type === "Observation") {
+      return {
+        detailCode: "EPISTEMIC_PROMOTION_FORBIDDEN",
+        reason: "same_id_observation_to_decision_ref",
+      };
+    }
+  }
+  return null;
+}
+
+/** Propose may only install currentable trajectory statuses. */
+export const PROPOSE_CURRENTABLE_STATUSES = [
+  "candidate",
+  "validated",
+  "active",
+] as const;
+
+export function validateProposeTrajectoryStatus(
+  status: ProjectTrajectory["status"] | undefined,
+): InvariantViolation | null {
+  if (status === undefined) return null;
+  if (
+    !(PROPOSE_CURRENTABLE_STATUSES as readonly string[]).includes(status)
+  ) {
+    return {
+      detailCode: "TRAJECTORY_INVALID",
+      reason: "propose_status_not_currentable",
+    };
   }
   return null;
 }

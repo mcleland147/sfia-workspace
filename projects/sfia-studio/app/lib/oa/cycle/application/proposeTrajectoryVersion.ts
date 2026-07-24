@@ -4,6 +4,7 @@ import type { ProjectServices } from "@/lib/oa/project";
 import { createCycleError } from "../domain/errors";
 import {
   assertTrajectorySize,
+  validateProposeTrajectoryStatus,
   validateTrajectorySteps,
 } from "../domain/invariants";
 import type {
@@ -113,14 +114,23 @@ export class ProposeTrajectoryVersion {
         return fail("TRAJECTORY_INVALID", "expected_lps_version_invalid");
       }
 
-      const stepsViolation = validateTrajectorySteps(request.steps);
+      // Clone FIRST then validate — closes TOCTOU on request.steps mutation after await.
+      const steps = structuredClone(request.steps);
+      const status = request.status ?? "candidate";
+
+      const statusViolation = validateProposeTrajectoryStatus(status);
+      if (statusViolation) {
+        return fail(statusViolation.detailCode, statusViolation.reason);
+      }
+
+      const stepsViolation = validateTrajectorySteps(steps);
       if (stepsViolation) {
         return fail(stepsViolation.detailCode, stepsViolation.reason);
       }
 
       const sizeViolation = assertTrajectorySize({
-        steps: request.steps,
-        status: request.status ?? "candidate",
+        steps,
+        status,
         version: request.expectedVersion + 1,
       });
       if (sizeViolation) {
@@ -161,8 +171,8 @@ export class ProposeTrajectoryVersion {
           trajectoryId: request.trajectoryId,
           projectId: request.projectId,
           version: nextVersion,
-          status: request.status ?? "candidate",
-          steps: structuredClone(request.steps),
+          status,
+          steps: structuredClone(steps),
           supersedesTrajectoryVersion: current.version,
         };
 
