@@ -4,11 +4,13 @@
 |-------|--------|
 | **Slice** | T-A1 — Project/LPS Foundation |
 | **Profil** | Critical |
-| **Gate consommé** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A1` |
-| **Statut** | **IMPLEMENTED** — Morris validation required |
+| **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A1` |
+| **Statut** | **T-A1 TECHNICALLY VALIDATED BY MORRIS — PR READINESS AUTHORIZED** |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a1-project-lps-foundation` |
 | **Base** | `origin/main` @ `8013c71342a019ab6c1297f05443a0dd8b6fac7c` |
+| **HEAD (pre-docs)** | `861ca766cfd081060b1dddd6ef614aad96f264e1` |
 | **Dépendance** | T-A0 Doctrine Foundation (merged PR #261) |
+| **Merge** | **interdit** dans ce cycle |
 
 ## Objectif
 
@@ -21,14 +23,17 @@ Fournir une fondation runtime minimale, testée et fail-closed pour `Project` + 
 3. [03-persistence-consistency-and-failure-modes.md](./03-persistence-consistency-and-failure-modes.md)
 4. [04-tests-evidence-and-reserves.md](./04-tests-evidence-and-reserves.md)
 5. [05-delivery-validation-and-decision-pack.md](./05-delivery-validation-and-decision-pack.md)
+6. [06-morris-validation-and-pr-readiness.md](./06-morris-validation-and-pr-readiness.md)
+7. [pr-readiness/](./pr-readiness/) — pack PR (scope, validations, risques, description)
 
 ## Anti-claims
 
-- Pas T-A1 MERGED / VALIDATED (Morris)
-- Pas T-A2 AUTHORIZED
+- Pas T-A1 **MERGED**
+- Pas T-A2 **AUTHORIZED**
 - Pas READY FOR DELIVERY GLOBAL
 - Pas DATABASE SELECTED
 - Pas SCHEMAS ADOPTED runtime
 - Pas V2.6 REMOVED / MethodMode REMOVED / OPS1 RETIRED
 - Pas OPTION A IMPLEMENTED (foundation slice only)
 - Pas UI / Cycle / Decision / Execution / Evidence
+- Pas autorisation de merge dans ce cycle
