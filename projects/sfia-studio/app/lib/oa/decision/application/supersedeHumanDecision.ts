@@ -7,8 +7,10 @@ import {
 } from "../domain/invariants";
 import type {
   AuthorityLevel,
+  DecisionAuthority,
   DecisionResult,
   HumanDecision,
+  OaActorReference,
   SupersedeHumanDecisionRequest,
 } from "../domain/types";
 import type { MemoryDecisionStore } from "../infrastructure/memoryDecisionStore";
@@ -21,16 +23,43 @@ function newId(prefix: "cor" | "prv"): string {
 }
 
 function requiredLevelForAuthority(
-  authority: SupersedeHumanDecisionRequest["authority"],
+  authority: DecisionAuthority,
 ): AuthorityLevel {
   if (authority === "morris") return "N3";
   if (authority === "delegated") return "N2";
   return "N1";
 }
 
+function isSupersedableStatus(status: HumanDecision["status"]): boolean {
+  return (
+    status === "accepted" ||
+    status === "proposed" ||
+    status === "required" ||
+    status === "amended"
+  );
+}
+
+type SupersedeSnapshot = {
+  newDecisionId: string;
+  supersedesDecisionId: string;
+  selectedOptionId: string;
+  actor: OaActorReference;
+  authority: DecisionAuthority;
+  reversible: boolean;
+  reason: string;
+  scope: string | undefined;
+  nonStructuring: boolean | undefined;
+  rationale: string | undefined;
+  authorityEvidenceId: string | undefined;
+  expectedVersion: number | undefined;
+};
+
 /**
  * SupersedeHumanDecision — immutable history: old → superseded, new with supersedes link.
  * Reason required. Re-verifies authority. OCC via expectedVersion when provided.
+ *
+ * B1: snapshot request fields before awaits.
+ * B3: inside txn reject if prior already superseded/revoked/refused; require supersedable status.
  */
 export class SupersedeHumanDecision {
   constructor(
@@ -87,44 +116,73 @@ export class SupersedeHumanDecision {
         return fail("DECISION_INVALID", "reason_required");
       }
 
-      const prior = await this.decisions.findById(request.supersedesDecisionId);
+      // B1 — Snapshot BEFORE any await / authority verify side effects.
+      const snap: SupersedeSnapshot = {
+        newDecisionId: request.newDecisionId,
+        supersedesDecisionId: request.supersedesDecisionId,
+        selectedOptionId: request.selectedOptionId,
+        actor: structuredClone(request.actor),
+        authority: request.authority,
+        reversible: request.reversible,
+        reason: request.reason.trim(),
+        scope: request.scope,
+        nonStructuring: request.nonStructuring,
+        rationale: request.rationale,
+        authorityEvidenceId: request.authorityEvidenceId,
+        expectedVersion: request.expectedVersion,
+      };
+
+      const options =
+        request.options ??
+        // Will be replaced after prior load if options omitted — clone arrays now if provided.
+        undefined;
+      const clonedArrays = cloneDecisionArrays({
+        options: options,
+        reservations: request.reservations,
+        evidenceRefs: request.evidenceRefs,
+      });
+
+      const prior = await this.decisions.findById(snap.supersedesDecisionId);
       if (!prior) {
         return fail("DECISION_NOT_FOUND", "missing_prior");
       }
-      if (prior.status === "superseded" || prior.status === "revoked") {
+      if (!isSupersedableStatus(prior.status)) {
         return fail("STATE_CONFLICT", `prior_status_${prior.status}`, {
           projectId: prior.projectId,
         });
       }
 
+      const expectedPreStatus = prior.status;
+
       if (
-        request.expectedVersion !== undefined &&
-        (prior.version ?? 1) !== request.expectedVersion
+        snap.expectedVersion !== undefined &&
+        (prior.version ?? 1) !== snap.expectedVersion
       ) {
         return fail("VERSION_CONFLICT", "expected_version_mismatch", {
           projectId: prior.projectId,
-          expectedVersion: request.expectedVersion,
+          expectedVersion: snap.expectedVersion,
           currentVersion: prior.version ?? 1,
         });
       }
 
-      const options =
-        request.options ??
-        structuredClone(prior.options);
-      const cloned = cloneDecisionArrays({
-        options,
-        reservations: request.reservations,
-        evidenceRefs: request.evidenceRefs,
-      });
+      const optionsFinal =
+        options !== undefined
+          ? clonedArrays.options
+          : structuredClone(prior.options);
+      const cloned = {
+        options: optionsFinal,
+        reservations: clonedArrays.reservations,
+        evidenceRefs: clonedArrays.evidenceRefs,
+      };
 
       const fieldViolation = validateDecisionFields({
-        decisionId: request.newDecisionId,
+        decisionId: snap.newDecisionId,
         projectId: prior.projectId,
         subject: prior.subject,
         options: cloned.options,
-        selectedOptionId: request.selectedOptionId,
-        authority: request.authority,
-        nonStructuring: request.nonStructuring,
+        selectedOptionId: snap.selectedOptionId,
+        authority: snap.authority,
+        nonStructuring: snap.nonStructuring,
         cycleInstanceId: prior.cycleInstanceId,
       });
       if (fieldViolation) {
@@ -133,17 +191,17 @@ export class SupersedeHumanDecision {
         });
       }
 
-      const scope = request.scope ?? prior.scope ?? prior.subject;
-      const requireMorris = request.authority === "morris";
-      const requiredLevel = requiredLevelForAuthority(request.authority);
+      const scope = snap.scope ?? prior.scope ?? prior.subject;
+      const requireMorris = snap.authority === "morris";
+      const requiredLevel = requiredLevelForAuthority(snap.authority);
 
       const verification = this.authority.verify({
-        actorId: request.actor.actorId,
+        actorId: snap.actor.actorId,
         requiredLevel,
         scope,
-        evidenceId: request.authorityEvidenceId,
-        authorityLevel: request.actor.authorityLevel,
-        displayName: request.actor.displayName,
+        evidenceId: snap.authorityEvidenceId,
+        authorityLevel: snap.actor.authorityLevel,
+        displayName: snap.actor.displayName,
         requireMorrisGate: requireMorris,
       });
 
@@ -151,7 +209,7 @@ export class SupersedeHumanDecision {
         event: "oa.authority.verified",
         ts: timestamp,
         correlationId,
-        actorId: request.actor.actorId,
+        actorId: snap.actor.actorId,
         requiredLevel,
         scope,
         ok: verification.ok,
@@ -171,7 +229,7 @@ export class SupersedeHumanDecision {
         });
       }
 
-      if (await this.decisions.exists(request.newDecisionId)) {
+      if (await this.decisions.exists(snap.newDecisionId)) {
         return fail("DECISION_ALREADY_EXISTS", "new_id_taken", {
           projectId: prior.projectId,
         });
@@ -181,20 +239,31 @@ export class SupersedeHumanDecision {
 
       const persist = async () => {
         const current = await this.decisions.findById(
-          request.supersedesDecisionId,
+          snap.supersedesDecisionId,
         );
         if (!current) {
           throw Object.assign(new Error("missing_prior"), {
             detailCode: "DECISION_NOT_FOUND" as const,
           });
         }
+        // B3 — Re-check expected pre-supersede status under mutex.
+        if (current.status !== expectedPreStatus) {
+          throw Object.assign(new Error(`status_race_${current.status}`), {
+            detailCode: "STATE_CONFLICT" as const,
+          });
+        }
+        if (!isSupersedableStatus(current.status)) {
+          throw Object.assign(new Error(`prior_status_${current.status}`), {
+            detailCode: "STATE_CONFLICT" as const,
+          });
+        }
         if (
-          request.expectedVersion !== undefined &&
-          (current.version ?? 1) !== request.expectedVersion
+          snap.expectedVersion !== undefined &&
+          (current.version ?? 1) !== snap.expectedVersion
         ) {
           throw Object.assign(new Error("version"), {
             detailCode: "VERSION_CONFLICT" as const,
-            expectedVersion: request.expectedVersion,
+            expectedVersion: snap.expectedVersion,
             currentVersion: current.version ?? 1,
           });
         }
@@ -206,25 +275,39 @@ export class SupersedeHumanDecision {
         };
         await this.decisions.save(superseded);
 
+        // Ensure only one accepted for subject after this write.
+        const others = await this.decisions.listAcceptedBySubject(
+          current.projectId,
+          current.subject,
+        );
+        for (const other of others) {
+          if (other.decisionId === current.decisionId) continue;
+          await this.decisions.save({
+            ...other,
+            status: "superseded",
+            version: (other.version ?? 1) + 1,
+          });
+        }
+
         const next: HumanDecision = {
           schemaVersion: "0.1.0-oa",
-          decisionId: request.newDecisionId,
+          decisionId: snap.newDecisionId,
           projectId: current.projectId,
           cycleInstanceId: current.cycleInstanceId,
           subject: current.subject,
           options: structuredClone(cloned.options),
-          selectedOptionId: request.selectedOptionId,
-          actor: structuredClone(request.actor),
-          authority: request.authority,
+          selectedOptionId: snap.selectedOptionId,
+          actor: structuredClone(snap.actor),
+          authority: snap.authority,
           status: "accepted",
           effectiveAt: timestamp,
-          reversible: request.reversible,
+          reversible: snap.reversible,
           scope,
           reservations:
             cloned.reservations.length > 0
               ? structuredClone(cloned.reservations)
               : undefined,
-          rationale: request.rationale ?? request.reason.trim(),
+          rationale: snap.rationale ?? snap.reason,
           evidenceRefs:
             cloned.evidenceRefs.length > 0
               ? [...cloned.evidenceRefs]
@@ -233,7 +316,7 @@ export class SupersedeHumanDecision {
           provenance: {
             schemaVersion: "0.1.0-oa",
             provenanceRecordId: newId("prv"),
-            actor: structuredClone(request.actor),
+            actor: structuredClone(snap.actor),
             source: "human_decision",
             timestamp,
             correlationId,
@@ -288,8 +371,8 @@ export class SupersedeHumanDecision {
         ts: timestamp,
         correlationId,
         projectId: prior.projectId,
-        decisionId: request.newDecisionId,
-        supersedesDecisionId: request.supersedesDecisionId,
+        decisionId: snap.newDecisionId,
+        supersedesDecisionId: snap.supersedesDecisionId,
         result: "ok",
         durationMs,
       });
@@ -297,7 +380,7 @@ export class SupersedeHumanDecision {
       return {
         ok: true,
         decision: structuredClone(decision),
-        supersededDecisionIds: [request.supersedesDecisionId],
+        supersededDecisionIds: [snap.supersedesDecisionId],
         durationMs,
       };
     } catch {

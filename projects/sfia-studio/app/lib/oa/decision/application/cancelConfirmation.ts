@@ -14,6 +14,11 @@ function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
 }
 
+/**
+ * CancelConfirmation — requested|granted → cancelled.
+ * B2: re-load inside txn; reject if status no longer cancellable
+ * (consumed/refused/expired/cancelled/superseded).
+ */
 export class CancelConfirmation {
   constructor(
     private readonly confirmations: ConfirmationRepositoryPort,
@@ -70,8 +75,20 @@ export class CancelConfirmation {
       let confirmation: Confirmation | undefined;
 
       const persist = async () => {
+        // B2 — Re-load under mutex; only cancel if still requested|granted.
+        const current = await this.confirmations.findById(
+          request.confirmationId,
+        );
+        if (
+          !current ||
+          (current.status !== "requested" && current.status !== "granted")
+        ) {
+          throw Object.assign(new Error("status_race"), {
+            detailCode: "STATE_CONFLICT" as const,
+          });
+        }
         const next: Confirmation = {
-          ...existing,
+          ...current,
           status: "cancelled",
           cancelledAt: timestamp,
         };
@@ -85,7 +102,18 @@ export class CancelConfirmation {
         } else {
           await persist();
         }
-      } catch {
+      } catch (err) {
+        if (
+          err &&
+          typeof err === "object" &&
+          "detailCode" in err
+        ) {
+          return fail(
+            (err as { detailCode: Parameters<typeof createDecisionError>[0]["detailCode"] })
+              .detailCode,
+            err instanceof Error ? err.message : "race",
+          );
+        }
         return fail("PERSISTENCE_FAILURE", "atomic_cancel_failed");
       }
 

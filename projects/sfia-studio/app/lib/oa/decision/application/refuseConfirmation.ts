@@ -14,6 +14,10 @@ function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
 }
 
+/**
+ * RefuseConfirmation — requested → refused.
+ * B2: re-load inside txn; only transition from `requested` (mirror Grant).
+ */
 export class RefuseConfirmation {
   constructor(
     private readonly confirmations: ConfirmationRepositoryPort,
@@ -67,8 +71,17 @@ export class RefuseConfirmation {
       let confirmation: Confirmation | undefined;
 
       const persist = async () => {
+        // B2 — Re-load under mutex; only transition from requested.
+        const current = await this.confirmations.findById(
+          request.confirmationId,
+        );
+        if (!current || current.status !== "requested") {
+          throw Object.assign(new Error("status_race"), {
+            detailCode: "STATE_CONFLICT" as const,
+          });
+        }
         const next: Confirmation = {
-          ...existing,
+          ...current,
           status: "refused",
           confirmedAt: timestamp,
         };
@@ -82,7 +95,18 @@ export class RefuseConfirmation {
         } else {
           await persist();
         }
-      } catch {
+      } catch (err) {
+        if (
+          err &&
+          typeof err === "object" &&
+          "detailCode" in err
+        ) {
+          return fail(
+            (err as { detailCode: Parameters<typeof createDecisionError>[0]["detailCode"] })
+              .detailCode,
+            err instanceof Error ? err.message : "race",
+          );
+        }
         return fail("PERSISTENCE_FAILURE", "atomic_refuse_failed");
       }
 

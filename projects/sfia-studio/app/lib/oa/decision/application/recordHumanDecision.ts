@@ -10,8 +10,11 @@ import {
 } from "../domain/invariants";
 import type {
   AuthorityLevel,
+  DecisionAuthority,
   DecisionResult,
   HumanDecision,
+  HumanDecisionStatus,
+  OaActorReference,
   RecordHumanDecisionRequest,
 } from "../domain/types";
 import type { MemoryDecisionStore } from "../infrastructure/memoryDecisionStore";
@@ -24,12 +27,33 @@ function newId(prefix: "cor" | "prv" | "epi"): string {
 }
 
 function requiredLevelForAuthority(
-  authority: RecordHumanDecisionRequest["authority"],
+  authority: DecisionAuthority,
 ): AuthorityLevel {
   if (authority === "morris") return "N3";
   if (authority === "delegated") return "N2";
   return "N1";
 }
+
+type DecisionFieldSnapshot = {
+  decisionId: string;
+  projectId: string;
+  cycleInstanceId: string | undefined;
+  subject: string;
+  selectedOptionId: string;
+  actor: OaActorReference;
+  authority: DecisionAuthority;
+  status: HumanDecisionStatus;
+  reversible: boolean;
+  scope: string;
+  nonStructuring: boolean | undefined;
+  rationale: string | undefined;
+  authorityEvidenceId: string | undefined;
+  supersedeExistingAccepted: boolean;
+  linkEpistemicDecisionRef: boolean;
+  epistemicItemId: string | undefined;
+  linkToLivingProjectState: boolean;
+  expectedLpsVersion: number | undefined;
+};
 
 /**
  * RecordHumanDecision — create an explicit human decision.
@@ -37,6 +61,9 @@ function requiredLevelForAuthority(
  * Never invents Morris from actorId/displayName.
  * Critical cycle stays proposed — this use-case does NOT mutate cycle status
  * (R-T-A3-1: no public AcknowledgeCriticalCycle API on T-A2).
+ *
+ * B1: snapshot authority/actor/selectedOptionId/status/subject/scope BEFORE awaits.
+ * B4: requested LPS/epistemic links fail-closed (compensate orphan decision).
  */
 export class RecordHumanDecision {
   constructor(
@@ -66,9 +93,9 @@ export class RecordHumanDecision {
         detailCode,
         timestamp,
         correlationId,
-        projectId: request.projectId,
-        decisionId: request.decisionId,
-        subject: request.subject,
+        projectId: extra?.projectId ?? request.projectId,
+        decisionId: extra?.decisionId ?? request.decisionId,
+        subject: extra?.subject ?? request.subject,
         internalCauseRef,
         ...extra,
       });
@@ -76,9 +103,9 @@ export class RecordHumanDecision {
         event: "oa.decision.recorded",
         ts: timestamp,
         correlationId,
-        projectId: request.projectId,
-        decisionId: request.decisionId,
-        subject: request.subject,
+        projectId: error.projectId ?? request.projectId,
+        decisionId: error.decisionId ?? request.decisionId,
+        subject: error.subject ?? request.subject,
         authority: request.authority,
         status: request.status ?? "accepted",
         result: "error",
@@ -93,68 +120,109 @@ export class RecordHumanDecision {
         return fail("DECISION_INVALID", "actor_required");
       }
 
-      // Clone-before-validate (B1 pattern) — ignore hostile post-clone mutations.
+      // B1 — Snapshot scalars/objects IMMEDIATELY after clone/validate path start,
+      // BEFORE any await. Persist only snapshots (ignore hostile post-await mutations).
       const cloned = cloneDecisionArrays({
         options: request.options,
         reservations: request.reservations,
         evidenceRefs: request.evidenceRefs,
       });
 
-      const fieldViolation = validateDecisionFields({
+      const snap: DecisionFieldSnapshot = {
         decisionId: request.decisionId,
         projectId: request.projectId,
-        subject: request.subject,
-        options: cloned.options,
-        selectedOptionId: request.selectedOptionId,
-        authority: request.authority,
-        status: request.status,
-        nonStructuring: request.nonStructuring,
         cycleInstanceId: request.cycleInstanceId,
+        subject: request.subject,
+        selectedOptionId: request.selectedOptionId,
+        actor: structuredClone(request.actor),
+        authority: request.authority,
+        status: request.status ?? "accepted",
+        reversible: request.reversible,
+        scope: request.scope ?? request.subject,
+        nonStructuring: request.nonStructuring,
+        rationale: request.rationale,
+        authorityEvidenceId: request.authorityEvidenceId,
+        supersedeExistingAccepted: request.supersedeExistingAccepted !== false,
+        linkEpistemicDecisionRef: request.linkEpistemicDecisionRef === true,
+        epistemicItemId: request.epistemicItemId,
+        linkToLivingProjectState: request.linkToLivingProjectState === true,
+        expectedLpsVersion: request.expectedLpsVersion,
+      };
+
+      const fieldViolation = validateDecisionFields({
+        decisionId: snap.decisionId,
+        projectId: snap.projectId,
+        subject: snap.subject,
+        options: cloned.options,
+        selectedOptionId: snap.selectedOptionId,
+        authority: snap.authority,
+        status: snap.status,
+        nonStructuring: snap.nonStructuring,
+        cycleInstanceId: snap.cycleInstanceId,
       });
       if (fieldViolation) {
-        return fail(fieldViolation.detailCode, fieldViolation.reason);
+        return fail(fieldViolation.detailCode, fieldViolation.reason, {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
       }
 
       assertRecommendationIsNotDecision({
         options: cloned.options,
-        selectedOptionId: request.selectedOptionId,
+        selectedOptionId: snap.selectedOptionId,
       });
 
       const projectResult = await this.projectServices.getProject.execute({
-        projectId: request.projectId,
+        projectId: snap.projectId,
       });
       if (!projectResult.ok) {
-        return fail("PROJECT_NOT_FOUND", "missing_project");
+        return fail("PROJECT_NOT_FOUND", "missing_project", {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
       }
 
-      if (request.cycleInstanceId) {
+      if (snap.cycleInstanceId) {
         if (!this.cycleServices) {
-          return fail("CYCLE_NOT_FOUND", "cycle_services_unavailable");
+          return fail("CYCLE_NOT_FOUND", "cycle_services_unavailable", {
+            projectId: snap.projectId,
+            decisionId: snap.decisionId,
+            subject: snap.subject,
+          });
         }
         const cycleResult = await this.cycleServices.getCycle.execute({
-          cycleInstanceId: request.cycleInstanceId,
+          cycleInstanceId: snap.cycleInstanceId,
         });
         if (!cycleResult.ok) {
-          return fail("CYCLE_NOT_FOUND", "missing_cycle");
+          return fail("CYCLE_NOT_FOUND", "missing_cycle", {
+            projectId: snap.projectId,
+            decisionId: snap.decisionId,
+            subject: snap.subject,
+          });
         }
-        if (cycleResult.cycle.projectId !== request.projectId) {
-          return fail("CYCLE_PROJECT_MISMATCH", "cycle_project_mismatch");
+        if (cycleResult.cycle.projectId !== snap.projectId) {
+          return fail("CYCLE_PROJECT_MISMATCH", "cycle_project_mismatch", {
+            projectId: snap.projectId,
+            decisionId: snap.decisionId,
+            subject: snap.subject,
+          });
         }
         // Critical stays proposed — no auto-ack (no public T-A2 acknowledge API).
       }
 
-      const scope = request.scope ?? request.subject;
-      const requireMorris = request.authority === "morris";
-      const requiredLevel = requiredLevelForAuthority(request.authority);
+      const requireMorris = snap.authority === "morris";
+      const requiredLevel = requiredLevelForAuthority(snap.authority);
 
       // Hostile: never use actor.authorityLevel / displayName as proof.
       const verification = this.authority.verify({
-        actorId: request.actor.actorId,
+        actorId: snap.actor.actorId,
         requiredLevel,
-        scope,
-        evidenceId: request.authorityEvidenceId,
-        authorityLevel: request.actor.authorityLevel,
-        displayName: request.actor.displayName,
+        scope: snap.scope,
+        evidenceId: snap.authorityEvidenceId,
+        authorityLevel: snap.actor.authorityLevel,
+        displayName: snap.actor.displayName,
         requireMorrisGate: requireMorris,
       });
 
@@ -167,25 +235,29 @@ export class RecordHumanDecision {
           event: "oa.authority.verified",
           ts: timestamp,
           correlationId,
-          actorId: request.actor.actorId,
+          actorId: snap.actor.actorId,
           requiredLevel,
-          scope,
+          scope: snap.scope,
           ok: false,
           verifiedLevel: verification.verifiedLevel,
           reason: verification.reason,
           canActAsMorris: verification.canActAsMorris,
           durationMs: Date.now() - started,
         });
-        return fail(detail, verification.reason);
+        return fail(detail, verification.reason, {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
       }
 
       this.audit.append({
         event: "oa.authority.verified",
         ts: timestamp,
         correlationId,
-        actorId: request.actor.actorId,
+        actorId: snap.actor.actorId,
         requiredLevel,
-        scope,
+        scope: snap.scope,
         ok: true,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,
@@ -193,11 +265,15 @@ export class RecordHumanDecision {
         durationMs: Date.now() - started,
       });
 
-      if (await this.decisions.exists(request.decisionId)) {
-        return fail("DECISION_ALREADY_EXISTS", "decision_id_taken");
+      if (await this.decisions.exists(snap.decisionId)) {
+        return fail("DECISION_ALREADY_EXISTS", "decision_id_taken", {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
       }
 
-      const status = request.status ?? "accepted";
+      const status = snap.status;
       const supersededDecisionIds: string[] = [];
 
       let decision: HumanDecision | undefined;
@@ -207,11 +283,11 @@ export class RecordHumanDecision {
       const persist = async () => {
         if (status === "accepted") {
           const existing = await this.decisions.listAcceptedBySubject(
-            request.projectId,
-            request.subject,
+            snap.projectId,
+            snap.subject.trim(),
           );
           if (existing.length > 0) {
-            if (request.supersedeExistingAccepted === false) {
+            if (!snap.supersedeExistingAccepted) {
               throw Object.assign(new Error("accepted_exists"), {
                 detailCode: "STATE_CONFLICT" as const,
               });
@@ -230,23 +306,23 @@ export class RecordHumanDecision {
 
         const next: HumanDecision = {
           schemaVersion: "0.1.0-oa",
-          decisionId: request.decisionId,
-          projectId: request.projectId,
-          cycleInstanceId: request.cycleInstanceId,
-          subject: request.subject.trim(),
+          decisionId: snap.decisionId,
+          projectId: snap.projectId,
+          cycleInstanceId: snap.cycleInstanceId,
+          subject: snap.subject.trim(),
           options: structuredClone(cloned.options),
-          selectedOptionId: request.selectedOptionId,
-          actor: structuredClone(request.actor),
-          authority: request.authority,
+          selectedOptionId: snap.selectedOptionId,
+          actor: structuredClone(snap.actor),
+          authority: snap.authority,
           status,
           effectiveAt: timestamp,
-          reversible: request.reversible,
-          scope,
+          reversible: snap.reversible,
+          scope: snap.scope,
           reservations:
             cloned.reservations.length > 0
               ? structuredClone(cloned.reservations)
               : undefined,
-          rationale: request.rationale,
+          rationale: snap.rationale,
           evidenceRefs:
             cloned.evidenceRefs.length > 0
               ? [...cloned.evidenceRefs]
@@ -254,11 +330,11 @@ export class RecordHumanDecision {
           provenance: {
             schemaVersion: "0.1.0-oa",
             provenanceRecordId: newId("prv"),
-            actor: structuredClone(request.actor),
+            actor: structuredClone(snap.actor),
             source: "human_decision",
             timestamp,
             correlationId,
-            projectId: request.projectId,
+            projectId: snap.projectId,
           },
           version: 1,
         };
@@ -284,69 +360,140 @@ export class RecordHumanDecision {
             (err as { detailCode: Parameters<typeof createDecisionError>[0]["detailCode"] })
               .detailCode,
             err instanceof Error ? err.message : "rule",
+            {
+              projectId: snap.projectId,
+              decisionId: snap.decisionId,
+              subject: snap.subject,
+            },
           );
         }
-        return fail("PERSISTENCE_FAILURE", "atomic_record_failed");
+        return fail("PERSISTENCE_FAILURE", "atomic_record_failed", {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
       }
 
       if (!decision) {
-        return fail("PERSISTENCE_FAILURE", "atomic_record_incomplete");
+        return fail("PERSISTENCE_FAILURE", "atomic_record_incomplete", {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
       }
 
-      // Optional epistemic DecisionRef — ONLY after accepted, via public Cycle API.
-      if (
-        status === "accepted" &&
-        request.linkEpistemicDecisionRef &&
-        this.cycleServices
-      ) {
-        const epiId = request.epistemicItemId ?? newId("epi");
+      const compensateOrphan = async (cause: string): Promise<DecisionResult> => {
+        // Best-effort compensate within decision store (R-T-A3-2 residual if this fails).
+        try {
+          const mark = async () => {
+            const current = await this.decisions.findById(snap.decisionId);
+            if (!current) return;
+            await this.decisions.save({
+              ...current,
+              status: "superseded",
+              version: (current.version ?? 1) + 1,
+              rationale: `${current.rationale ?? ""} [compensated:${cause}]`.trim(),
+            });
+          };
+          if (this.store) {
+            await this.store.runInTransaction(mark);
+          } else {
+            await mark();
+          }
+        } catch {
+          // Documented residual of R-T-A3-2 if compensate also fails.
+        }
+        return fail("PERSISTENCE_FAILURE", cause, {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
+      };
+
+      // B4 — Optional epistemic DecisionRef: fail-closed when requested.
+      if (status === "accepted" && snap.linkEpistemicDecisionRef) {
+        if (!this.cycleServices) {
+          return compensateOrphan("epistemic_services_unavailable");
+        }
+        const epiId = snap.epistemicItemId ?? newId("epi");
         const epi = await this.cycleServices.updateEpistemicState.execute({
-          projectId: request.projectId,
+          projectId: snap.projectId,
           items: [
             {
               epistemicItemId: epiId,
               type: "DecisionRef",
-              statement: `Decision ${request.decisionId} accepted for ${request.subject}`,
-              relatedObjects: [request.decisionId],
+              statement: `Decision ${snap.decisionId} accepted for ${snap.subject}`,
+              relatedObjects: [snap.decisionId],
               source: "human_decision",
             },
           ],
-          createdBy: request.actor,
+          createdBy: snap.actor,
           correlationId,
         });
-        if (epi.ok) {
-          epistemicItemId = epiId;
+        if (!epi.ok) {
+          return compensateOrphan("epistemic_link_failed");
         }
+        epistemicItemId = epiId;
       }
 
-      // Optional LPS decisionIds link — via public T-A1 append only.
-      if (
-        status === "accepted" &&
-        request.linkToLivingProjectState &&
-        request.expectedLpsVersion !== undefined
-      ) {
+      // B4 — Optional LPS decisionIds link: fail-closed when requested.
+      if (status === "accepted" && snap.linkToLivingProjectState) {
+        if (snap.expectedLpsVersion === undefined) {
+          return compensateOrphan("lps_expected_version_required");
+        }
         const current =
           await this.projectServices.getCurrentLivingProjectState.execute({
-            projectId: request.projectId,
+            projectId: snap.projectId,
           });
-        if (current.ok) {
-          const priorIds = current.livingProjectState.decisionIds ?? [];
-          const nextIds = [...priorIds, request.decisionId];
-          const appended =
-            await this.projectServices.appendLivingProjectStateVersion.execute({
-              projectId: request.projectId,
-              expectedVersion: request.expectedLpsVersion,
-              objective: current.livingProjectState.objective,
-              createdBy: request.actor,
-              correlationId,
-              context: current.livingProjectState.context,
-              scope: current.livingProjectState.scope,
-              decisionIds: nextIds,
-            });
-          if (appended.ok) {
-            livingProjectStateVersion = appended.livingProjectState.version;
-          }
+        if (!current.ok) {
+          return compensateOrphan("lps_current_unavailable");
         }
+        const priorIds = current.livingProjectState.decisionIds ?? [];
+        const nextIds = [...priorIds, snap.decisionId];
+        const appended =
+          await this.projectServices.appendLivingProjectStateVersion.execute({
+            projectId: snap.projectId,
+            expectedVersion: snap.expectedLpsVersion,
+            objective: current.livingProjectState.objective,
+            createdBy: snap.actor,
+            correlationId,
+            context: current.livingProjectState.context,
+            scope: current.livingProjectState.scope,
+            decisionIds: nextIds,
+          });
+        if (!appended.ok) {
+          if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
+            // Compensate then surface LPS_VERSION_CONFLICT (retryable).
+            try {
+              const mark = async () => {
+                const cur = await this.decisions.findById(snap.decisionId);
+                if (!cur) return;
+                await this.decisions.save({
+                  ...cur,
+                  status: "superseded",
+                  version: (cur.version ?? 1) + 1,
+                  rationale: `${cur.rationale ?? ""} [compensated:lps_version_conflict]`.trim(),
+                });
+              };
+              if (this.store) {
+                await this.store.runInTransaction(mark);
+              } else {
+                await mark();
+              }
+            } catch {
+              // R-T-A3-2 residual
+            }
+            return fail("LPS_VERSION_CONFLICT", "lps_link_version_conflict", {
+              projectId: snap.projectId,
+              decisionId: snap.decisionId,
+              subject: snap.subject,
+              expectedVersion: snap.expectedLpsVersion,
+              currentVersion: current.livingProjectState.version,
+            });
+          }
+          return compensateOrphan("lps_link_failed");
+        }
+        livingProjectStateVersion = appended.livingProjectState.version;
       }
 
       const durationMs = Date.now() - started;
@@ -354,10 +501,10 @@ export class RecordHumanDecision {
         event: "oa.decision.recorded",
         ts: timestamp,
         correlationId,
-        projectId: request.projectId,
-        decisionId: request.decisionId,
-        subject: request.subject,
-        authority: request.authority,
+        projectId: snap.projectId,
+        decisionId: snap.decisionId,
+        subject: snap.subject,
+        authority: snap.authority,
         status,
         result: "ok",
         durationMs,

@@ -19,7 +19,14 @@ import type { AuthorityResolverPort } from "../ports/authorityResolver";
 export class MemoryAuthorityResolver implements AuthorityResolverPort {
   private readonly byId = new Map<string, AuthorityEvidence>();
 
+  /**
+   * Register authority evidence. Immutable after first write — re-register
+   * of the same evidenceId (e.g. escalating canActAsMorris) is rejected.
+   */
   register(evidence: AuthorityEvidence): void {
+    if (this.byId.has(evidence.evidenceId)) {
+      throw new Error("evidence_immutable");
+    }
     this.byId.set(evidence.evidenceId, structuredClone(evidence));
   }
 
