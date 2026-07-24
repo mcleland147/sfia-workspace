@@ -262,8 +262,8 @@ Prior arbitration docs commit remains: `e95779cf5c89b56fd9bde92c5eee9249cd33935a
 
 | Champ | Valeur |
 |-------|--------|
-| Handoff commit | `31148ad1c418e43565fd25a1853ab558100d54e1` |
-| Blob | `3f58724cccd70414f76b342a38162caf5eda64ca` |
+| Handoff commit | `3d30c31c8430a684a9704b543fd4bb17c3847d35` |
+| Blob | `892887596a2456481517cf97dc6bc38b74e6f96c` |
 | Remote verified | **HANDOFF UPDATED — REMOTE VERIFIED** |
 | Remote phrases | **MODELED REWORK COMPLETED — MORRIS VALIDATION REQUIRED** · Morris decisions verbatim · ExecutionContract `0.2.0-oa` — MATCH |
 
