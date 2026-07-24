@@ -4,17 +4,23 @@
 |-------|--------|
 | **Slice** | T-A3 — Decision/Confirmation/Authority |
 | **Profil** | Critical |
-| **Gate consommé** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
+| **Gate delivery** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
+| **Gate validation** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` |
 | **Base** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` (T-A2 merge on main) |
-| **Tests T-A3** | **38** PASS |
+| **HEAD delivery** | `a71f0b44ee980092b93a7a06e505df60a66d07fb` |
+| **HEAD validation** | `4ba555fd8d433d9a4cc4ca3c41c276aafe0d491c` |
+| **Tests T-A3** | **50** PASS (was 38 at delivery; +12 validation)
 | **Dépendance** | T-A1 Project/LPS · T-A2 Cycle/Trajectory/Epistemic · T-A0 Doctrine |
-| **Merge / Push / PR** | **interdit** dans ce cycle (local delivery only) |
-| **Réserves OPEN** | **B5** · **R1** (héritées) · **R-T-A3-1** · **R-T-A3-2** |
+| **Merge / Push / PR** | **interdit** dans ce cycle (local validation only) |
+| **Réserves OPEN** | **B5** · **R1** (héritées) · **R-T-A3-1** · **R-T-A3-2** · **R-T-A3-3** · **R-T-A3-4** |
+| **Verdict validation** | **PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED** |
 
 ## Objectif
 
 Fournir une fondation runtime minimale, testée et fail-closed pour `HumanDecision`, `Confirmation` (N1/N2/N3) et `AuthorityResolverPort` v3-native : preuve N2/N3 auditable, supersession immuable, jamais de confiance client sur `authorityLevel` / `displayName`, sans cutover, sans UI, sans T-A4+.
+
+Validation adversarial a prouvé et corrigé B1–B4 (TOCTOU snapshots, refuse/cancel race, concurrent supersede, link fail-closed).
 
 ## Contenu
 
@@ -24,6 +30,7 @@ Fournir une fondation runtime minimale, testée et fail-closed pour `HumanDecisi
 4. [04-supersession-consistency-and-failure-modes.md](./04-supersession-consistency-and-failure-modes.md)
 5. [05-tests-evidence-and-reserves.md](./05-tests-evidence-and-reserves.md)
 6. [06-delivery-validation-and-decision-pack.md](./06-delivery-validation-and-decision-pack.md)
+7. [07-validation-findings-and-morris-decision-pack.md](./07-validation-findings-and-morris-decision-pack.md)
 
 ## Anti-claims
 
@@ -35,5 +42,6 @@ Fournir une fondation runtime minimale, testée et fail-closed pour `HumanDecisi
 - Pas OPTION A IMPLEMENTED (foundation slice only)
 - Pas UI / ExecutionContract / Evidence / ReviewBundle
 - Pas décisions T-A3 **VALIDATED BY MORRIS**
-- Pas B5 / R1 / R-T-A3-1 / R-T-A3-2 fermées
+- Pas B5 / R1 / R-T-A3-* fermées
 - Pas Critical cycle auto-acknowledged
+- Pas `VALIDATED WITH RESERVES` (verdict exact: PASSED AFTER CORRECTION)

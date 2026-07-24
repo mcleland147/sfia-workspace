@@ -21,7 +21,7 @@ History remains listable; no in-place rewrite of the prior payload.
 | Project/LPS | Separate T-A1 mutex |
 | Cycle/Epistemic | Separate T-A2 mutex |
 
-Cross-store Decision↔LPS / Decision↔Epistemic is **best-effort after persist** (same pattern as T-A2 trajectory↔LPS). See **R-T-A3-2**.
+Cross-store Decision↔LPS / Decision↔Epistemic is **not** a single atomic txn (**R-T-A3-2**). When a link is **requested** and fails after decision persist, T-A3 **fail-closes**: compensate by superseding the orphan decision in the decision store, then return `LPS_VERSION_CONFLICT` or `PERSISTENCE_FAILURE`. Residual orphan only if compensate itself fails.
 
 ## Failure modes
 
@@ -34,9 +34,13 @@ Cross-store Decision↔LPS / Decision↔Epistemic is **best-effort after persist
 | Idempotency clash | `CONFIRMATION_IDEMPOTENCY_CONFLICT` | Fail closed |
 | Expired consume | `CONFIRMATION_EXPIRED` | Fail closed |
 | Double consume | `CONFIRMATION_ALREADY_CONSUMED` | Fail closed |
-| Concurrent grant | `STATE_CONFLICT` | One wins |
+| Concurrent grant / refuse | `STATE_CONFLICT` | One wins; refuse cannot overwrite grant |
+| Concurrent supersede | `STATE_CONFLICT` | One accepted successor |
+| LPS link version race | `LPS_VERSION_CONFLICT` | Fail closed + compensate supersede |
+| Link requested + fail | `PERSISTENCE_FAILURE` | Fail closed + compensate supersede |
 | `failNextSave` | `PERSISTENCE_FAILURE` | Full rollback |
 | OCC supersede | `VERSION_CONFLICT` | Retryable |
+| TOCTOU hostile mutation | (ignored) | Snapshots before await (B1) |
 
 ## Critical cycle ack (reserve)
 
