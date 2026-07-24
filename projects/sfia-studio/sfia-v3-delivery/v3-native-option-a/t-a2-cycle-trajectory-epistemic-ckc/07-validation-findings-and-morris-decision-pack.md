@@ -5,6 +5,7 @@
 | **Gate** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
 | **Date** | 2026-07-24 (Europe/Paris) |
 | **HEAD start** | `633d46389f650c03a5d4c113fced41f106c2067b` |
+| **HEAD final** | tip after `docs(sfia-studio): align T-A2 validation verdict string` (see handoff META) |
 | **Scope** | Prove defects with adversarial tests; fix only proven T-A2-scoped defects |
 | **Morris** | **NOT VALIDATED** — recommendations only |
 
@@ -62,9 +63,9 @@
 | **T-A2-D09** | **ACCEPT** — size cap unchanged |
 | **T-A2-D10** | **ACCEPT WITH RESERVE** — foundation-only; B5/R1 reserves; no UI/T-A3 |
 
-## Verdict candidate (allowed list)
+## Verdict (exact allowed string)
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A2 CYCLE/TRAJECTORY/EPISTEMIC/CKC VALIDATED WITH RESERVES — MORRIS DECISION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
 
 ## Anti-claims
 
