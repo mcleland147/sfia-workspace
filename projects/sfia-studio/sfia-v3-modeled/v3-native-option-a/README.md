@@ -8,9 +8,10 @@
 | **Gate consommé** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **UX** | UX-OA-01…12 **VALIDATED** |
 | **FA / FD** | FA-OA-01…05 · FD-OA-01…06 **VALIDATED** |
-| **schemaVersion** | `0.1.0-oa` |
+| **schemaVersion (baseline)** | `0.1.0-oa` |
+| **ExecutionContract** | `0.2.0-oa` (T-A4 modeled rework — breaking) |
 | **JSON Schema** | Draft-07 |
-| **Anti-claims** | Pas MODELED VALIDATED · Pas READY FOR AT/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED |
+| **Anti-claims** | Pas MODELED VALIDATED · Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4 RUNTIME |
 | **Code / SQL / Figma** | **Interdits** |
 
 ## Objectif
@@ -33,8 +34,9 @@ Contrats modeled versionnables pour la chaîne Option A (intention → LPS → d
 | 10 | Validation, versioning, provenance, sécurité |
 | 11 | Réemploi / migration actifs existants |
 | 12 | Decision pack M-OA |
-| schemas/ | JSON Schema Draft-07 `0.1.0-oa` |
-| examples/ | Exemples valides / invalid/ |
+| schemas/ | JSON Schema Draft-07 (`0.1.0-oa` baseline ; ExecutionContract `0.2.0-oa`) |
+| examples/ | Exemples valides / invalid/ (incl. ExecutionContract governance) |
+| tests/ | Validation ajv ExecutionContract governance (modeled-only) |
 
 ## Verdict
 

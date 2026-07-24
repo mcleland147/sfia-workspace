@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "executionContractId": "xct:oa-successor-001",
+  "projectId": "prj:campus360-oa",
+  "cycleInstanceId": "cyc:modeled-001",
+  "decisionRefs": [
+    "dec:oa-002"
+  ],
+  "action": "publish-modeled-pack-revised",
+  "target": "sfia-v3-modeled/v3-native-option-a",
+  "scope": "docs+schemas+examples only",
+  "requiredCapabilities": [
+    "cap:git-docs"
+  ],
+  "requiredAuthority": "N3",
+  "constraints": [
+    "no-runtime-code"
+  ],
+  "stopConditions": [
+    "AUTHORITY_DENIED"
+  ],
+  "evidenceRequirements": [
+    "evreq:schemas"
+  ],
+  "reversibility": "partially_reversible",
+  "idempotencyKey": "idem-xct-successor-001",
+  "correlationId": "corr:oa-demo-001",
+  "status": "draft",
+  "version": 1,
+  "supersedesExecutionContractId": "xct:oa-001",
+  "supersessionReason": "Prior confirmed contract cannot start execution after source decision superseded; successor replan."
+}

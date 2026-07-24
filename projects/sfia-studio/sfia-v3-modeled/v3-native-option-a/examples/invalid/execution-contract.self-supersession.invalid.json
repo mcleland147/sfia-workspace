@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.2.0-oa",
-  "executionContractId": "xct:bad-001",
+  "executionContractId": "xct:self-001",
   "projectId": "prj:campus360-oa",
   "action": "do-something",
   "target": "x",
@@ -8,6 +8,7 @@
   "requiredCapabilities": [
     "cap:x"
   ],
+  "requiredAuthority": "N2",
   "constraints": [
     "c"
   ],
@@ -15,12 +16,13 @@
     "s"
   ],
   "evidenceRequirements": [
-    "e"
+    "evreq:x"
   ],
   "reversibility": "reversible",
-  "idempotencyKey": "idem-bad-001",
+  "idempotencyKey": "idem-self-001",
   "correlationId": "corr:oa-demo-001",
-  "status": "confirmed",
+  "status": "draft",
   "version": 1,
-  "immutableAfterConfirm": true
+  "supersedesExecutionContractId": "xct:self-001",
+  "supersessionReason": "Invalid self-supersession — schema cannot reject equality; runtime must."
 }
