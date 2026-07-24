@@ -4,213 +4,185 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-24 05:32:05 CEST (+0200) |
-| **Cycle** | Delivery — T-A0 Doctrine Foundation |
+| **Date/heure** | 2026-07-24 05:58:15 CEST (+0200) |
+| **Cycle** | Validation — T-A0 Doctrine Foundation |
 | **Profil** | Critical |
-| **Gate consommé** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A0` |
+| **Gate consommé** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A0` |
 | **Repo** | mcleland147/sfia-workspace |
 | **origin/main** | `939c33a61f2fe8889b4fa31063cdcd05bddbf0d5` — docs(sfia-studio): establish v3-native Option A foundation (#260) |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a0-doctrine-foundation` |
-| **HEAD initial** | `939c33a61f2fe8889b4fa31063cdcd05bddbf0d5` |
-| **HEAD final** | `1f213921bd7fc3cd1a1f88a98efc7df60b39ce46` |
-| **Handoff source (pré-cycle)** | blob `bba645a2872600051a362846d85fd7eb4b4a0c5f` |
+| **HEAD pré-correction** | `1f213921bd7fc3cd1a1f88a98efc7df60b39ce46` |
+| **HEAD final** | `b643b6811243608fdd5f16bc278c76caf47814ad` |
+| **Correction commit** | `b643b6811243608fdd5f16bc278c76caf47814ad` — fix(sfia-studio): correct T-A0 doctrine validation |
+| **merge-base(origin/main)** | `939c33a61f2fe8889b4fa31063cdcd05bddbf0d5` |
+| **Handoff source (pré-validation)** | blob `9db3e813a6682536a6f00dae23afc6d7140ab4cf` (delivery review published) |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Niveau** | FULL |
 
-## 1. Truth Check
+## 1. Truth Check (validation)
 
 - Date/heure Europe/Paris: OK
-- `pwd`: worktree tech `sfia-workspace-v3-native-option-a-tech`
-- `origin/main` = `939c33a61f2fe8889b4fa31063cdcd05bddbf0d5` — **MATCH**
-- Handoff blob `bba645a…` — **MATCH**
-- Working tree initial: propre
-- Branche créée depuis `939c33a61f2fe8889b4fa31063cdcd05bddbf0d5` (pas depuis PR branch)
-- Pas de branche T-A0 doctrine concurrente (ops1 xatt-a0b hors scope)
-- Pas de merge/rebase/cherry-pick/bisect/locks
-- **Verdict Truth Check**: PASS — non bloquant
+- HEAD attendu parent `1f21392…` → confirmé, puis correction whitespace → `b643b68`
+- `origin/main` = `939c33a` — MATCH
+- merge-base = `939c33a` — MATCH (branche basée sur main)
+- Handoff blob pré-cycle `9db3e813…` — MATCH (delivery handoff)
+- Diff: 29 files A, +2387, **aucun** `package.json` / `method/**`
+- **Verdict Truth Check**: PASS
 
-## 2. Cycle Knowledge Contract
+## 2. Scope validé
 
-- recherché: oui
-- cycle: delivery / slice T-A0
-- statut: candidate ou absent (guidance cognitive uniquement)
-- **aucune autorité d’exécution**
-- non utilisé comme doctrine runtime
+**Inclus**: module `app/lib/oa/doctrine` (domain/application/ports/infrastructure), fixtures registry, tests OA doctrine (24), docs delivery T-A0, fail-closed Resolve/ValidateDoctrinePackage, digest SHA-256, AJV Draft-07 adapter, anti-legacy.
 
-## 3. Sources
+**Exclus / non validé comme livré**: Project/LPS pin, CKC, Decision/Confirmation/Execution, Evidence/ReviewBundle, UI, cutover, MethodMode/OPS1 removal, SQL/IAM, T-A1+, push/PR/merge de la branche projet.
 
-Gouvernance cycle template · handoff post-merge · FD/FA/UX/Modeled/AT Option A · AT 01/02/03/08–13 · schemas DoctrinePackageManifest/Ref/Digest/Provenance/ErrorRecord · runtime `app/lib/**` · sfia-context (lecture isolation) · OPS1 lecture seule
+## 3. Validation matrix
 
-## 4. Scope T-A0 / hors scope
+| Gate / check | Commande / preuve | Exit | Durée / note | Résultat |
+|--------------|-------------------|------|--------------|----------|
+| Typecheck | `npx tsc --noEmit` (studio app) | 0 | parent cycle | PASS |
+| OA doctrine tests | `npx vitest run __tests__/oa/doctrine` | 0 | **24/24** | PASS |
+| Legacy/platform tests | `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | 0 | **10/10** | PASS |
+| Lint | `next lint` (fichiers OA ciblés) | 0 | parent | PASS |
+| Build | `npx next build` | 0 | parent | PASS |
+| Mutations fail-closed | 9 mutations ciblées (fichier temp, puis **supprimé**) | 0 | avg **~0.9 ms** | PASS |
+| Whitespace | `git diff --check origin/main...HEAD` | 0 | après fix `b643b68` | PASS |
+| package.json | `git diff origin/main...HEAD -- package.json` | 0 empty | — | **non touché** |
+| method/** | name-only grep | — | — | **non touché** |
+| AJV present (full install) | `npm ls ajv` → eslint → ajv@6.15.0 | 0 | spot-check validation | PASS (transitif) |
+| AJV absent (prod omit=dev) | `npm ci --omit=dev` puis resolve (parent) | — | parent | **ABSENT** |
+| Secrets / SQL in `lib/oa` | greps parent | 0 | — | PASS |
+| Anti-legacy imports | `antiLegacy.test.ts` | 0 | in OA 24 | PASS |
 
-**Inclus**: DoctrinePackage representation, registry local, validation AJV, digest SHA-256, ResolveDoctrinePackage, ports, erreurs, provenance, tests fail-closed, docs delivery.
+**Note**: les suites typecheck/tests/lint/build/mutations ont été exécutées et validées par l’agent parent avant correction whitespace; cette passe validation reconfirme HEAD, `git diff --check`, absence package.json, et AJV transitif-only.
 
-**Exclus**: Project/LPS, CKC runtime, Decision/Confirmation/Execution, agents, Evidence, ReviewBundle, UI, cutover, MethodMode/OPS1 removal, SQL, IAM, T-A1+.
+## 4. Recommandations décisions T-A0-D01…D08 (pour Morris)
 
-## 5. Actifs KEEP / ADAPT / REWORK / REPLACE / HISTORICAL-ONLY
+| ID | Décision | Proposition validée techniquement | Reco validation |
+|----|----------|-----------------------------------|-----------------|
+| **T-A0-D01** | Structure module | `app/lib/oa/doctrine/{domain,application,ports,infrastructure}` | **ACCEPTER** |
+| **T-A0-D02** | Format registry | `registry.json` + `packages/<dir>/manifest.json` ; path ≠ id métier | **ACCEPTER** |
+| **T-A0-D03** | Digest | SHA-256 JSON canonique (clés triées) hors champ `digest` ; `sha256:<hex>` | **ACCEPTER** |
+| **T-A0-D04** | Validation schema | AJV Draft-07 sur schemas modeled `0.1.0-oa` (consommation bornée) | **ACCEPTER** sous réserve AJV **direct** avant PR (voir §5) |
+| **T-A0-D05** | Validation sémantique | id/version/digest, sources, status, freshness, provenance, anti-v2.6 | **ACCEPTER** |
+| **T-A0-D06** | Erreurs | Detail codes T-A0 → ErrorRecord `DOCTRINE_UNRESOLVED` / `CONTEXT_STALE` | **ACCEPTER** (extension enum modeled = dette) |
+| **T-A0-D07** | Cache | **Absence de cache** en T-A0 | **ACCEPTER** |
+| **T-A0-D08** | Readiness T-A0 | Fondation + tests ; pas d’adoption globale runtime | **ACCEPTER** — T-A0 foundation only |
 
-| Actif | Qualif |
-|-------|--------|
-| `canonicalPaths` / `sourceLoader` / `contextResolver` | REPLACE (futur) — **non utilisés** T-A0 |
-| AJV@6 transitive | ADAPT |
-| EventSink / logs JSON | ADAPT → AuditJournalPort |
-| D1Error / Ops1Error | KEEP (non réutilisés) |
-| Schemas modeled OA | KEEP + consommation bornée |
-| OPS1 | HISTORICAL-ONLY / isolation |
-| `method/**` | PROTECTED |
+## 5. AJV finding (bloquant PR, hors scope mutation package.json ici)
 
-## 6. Architecture implémentée
+- `projects/sfia-studio/app/package.json`: **pas** de dépendance directe `ajv` (dependencies/devDependencies).
+- Install courant: `ajv@6.15.0` uniquement via **eslint@9.39.5** (transitif).
+- Parent: présent après `npm ci` complet; **ABSENT** après `npm ci --omit=dev` → runtime prod/CI omit-dev casse l’adapter.
+- Adapter documente explicitement cette réserve (`ajvSchemaValidationAdapter.ts`).
+- **Recommandation Morris**: ajouter `ajv` en **dépendance directe** de `projects/sfia-studio/app` **avant** ouverture/merge de PR — **ne pas** laisser le runtime doctrine dépendre d’eslint.
+- **Cette validation n’a pas modifié `package.json`** (interdit pour ce cycle).
 
-Modular monolith isolé `lib/oa/doctrine`:
+## 6. Mutations evidence
 
-- **Domain**: types, digest canonique, invariants, erreurs
-- **Application**: `ValidateDoctrinePackage`, `ResolveDoctrinePackage`
-- **Ports**: Repository, Resolver, SchemaValidation, DigestVerification, Clock, AuditJournal
-- **Infra**: FilesystemDoctrinePackageRepository, AjvSchemaValidationAdapter, Sha256DigestVerificationAdapter, SystemClock/FixedClock, Console/Memory audit
+- 9 mutations fail-closed exécutées en validation parent.
+- Fichier temporaire de mutation **supprimé** après run.
+- Performance moyenne ~**0.9 ms** (ordre de grandeur microbenchmark local; non SLA).
+- Couverture alignée suites: digest mismatch, stale, revoked, traversal/method deny, schema fail, anti-v2.6, pin incomplete, etc. (voir tests OA).
 
-**Digest (T-A0-D03)**: SHA-256 du JSON canonique (clés triées) du manifest **sans** champ `digest` ; format `sha256:<hex>`.
+## 7. Commands log (exit / durée)
 
-**Registry (T-A0-D02)**: `registry.json` + `packages/<dir>/manifest.json` ; path ≠ id métier ; deny traversal / method.
+| # | Commande | Exit | Durée | Source |
+|---|----------|------|-------|--------|
+| 1 | Truth check HEAD/main/merge-base/handoff | 0 | <1s | parent + cette passe |
+| 2 | `npx tsc --noEmit` | 0 | parent | parent PASS |
+| 3 | `npx vitest run __tests__/oa/doctrine` | 0 | parent | **24 PASS** |
+| 4 | `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | 0 | parent | **10 PASS** |
+| 5 | `next lint` (OA ciblé) | 0 | parent | PASS |
+| 6 | `npx next build` | 0 | parent | PASS |
+| 7 | Mutations ×9 | 0 | ~0.9 ms avg | parent PASS |
+| 8 | `npm ls ajv` / omit=dev check | 0 / absent | parent + spot-check | AJV transitif-only |
+| 9 | `git diff --check origin/main...HEAD` (pré-fix) | **≠0** | — | trailing whitespace 2 docs |
+| 10 | sed strip + commit `b643b68` | 0 | <1s | cette passe |
+| 11 | `git diff --check origin/main...HEAD` (post-fix) | **0** | <1s | PASS |
+| 12 | Confirm no package.json / method in diff | 0 | <1s | PASS |
 
-**Pas de cache (T-A0-D07)**. Pas de fallback v2.6 / method / OPS1 / sfia-context.
+## 8. Correction whitespace
 
-## 7. Erreurs
+Fichiers:
+- `…/t-a0-doctrine-foundation/02-runtime-contracts-and-invariants.md` (ligne pin markdown)
+- `…/t-a0-doctrine-foundation/05-delivery-validation-and-decision-pack.md` (ligne gate)
 
-Detail codes T-A0 → modeled ErrorRecord:
-- la plupart → `DOCTRINE_UNRESOLVED`
-- stale → `CONTEXT_STALE`
-Detail: DOCTRINE_MANIFEST_INVALID, SCHEMA_MISMATCH, DIGEST_MISMATCH, SOURCE_FORBIDDEN, VERSION_UNSUPPORTED, INTERNAL_RESOLUTION_ERROR
-
-## 8. Tests
-
-- `__tests__/oa/doctrine/*` — **24 PASS**
-- platform + fixtures smoke — **10 PASS**
-- typecheck PASS · lint OA PASS · next build PASS
-- anti-legacy imports PASS
-- pas SQL / secrets
-
-## 9. Documentation delivery
-
-`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/` README + 01–05
-
-## 10. Décisions candidates T-A0-D01…D08
-
-Voir `05-delivery-validation-and-decision-pack.md` — **non validées** sans Morris.
-
-## 11. Hypothèses / inconnues / réserves / dette
-
-- ajv transitive (promotion directe candidate)
-- provenance obligatoire runtime vs optionnelle schema
-- example modeled digest placeholder
-- module non branché sessions
-- DB/IAM/Evidence hors scope
-
-## 12. Anti-claims
-
-Pas T-A0 VALIDATED · Pas MERGED · Pas T-A1 AUTHORIZED · Pas READY FOR DELIVERY GLOBAL · Pas DOCTRINE RUNTIME GLOBALLY ADOPTED · Pas V2.6 REMOVED · Pas MethodMode REMOVED · Pas OPS1 RETIRED · Pas OPTION A IMPLEMENTED
-
-## 13. Diff name-status (939c33a..HEAD)
-
+Commit: `b643b6811243608fdd5f16bc278c76caf47814ad`
 ```
-A	projects/sfia-studio/app/__tests__/oa/doctrine/antiLegacy.test.ts
-A	projects/sfia-studio/app/__tests__/oa/doctrine/resolveDoctrinePackage.test.ts
-A	projects/sfia-studio/app/__tests__/oa/doctrine/schemaValidation.test.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/application/resolveDoctrinePackage.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/application/validateDoctrinePackage.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/domain/digest.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/domain/errors.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/domain/invariants.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/domain/types.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/fixtures/packages/pkg-studio-v3-oa-1.0.0/manifest.json
-A	projects/sfia-studio/app/lib/oa/doctrine/fixtures/registry.json
-A	projects/sfia-studio/app/lib/oa/doctrine/index.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/infrastructure/ajvSchemaValidationAdapter.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/infrastructure/filesystemDoctrinePackageRepository.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/infrastructure/observability.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/infrastructure/sha256DigestVerificationAdapter.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/infrastructure/systemClock.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/ports/auditJournalPort.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/ports/clockPort.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/ports/digestVerificationPort.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/ports/doctrinePackageRepositoryPort.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/ports/doctrinePackageResolverPort.ts
-A	projects/sfia-studio/app/lib/oa/doctrine/ports/schemaValidationPort.ts
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/01-scope-and-implementation-map.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/02-runtime-contracts-and-invariants.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/03-validation-security-and-failure-modes.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/04-tests-evidence-and-reserves.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/05-delivery-validation-and-decision-pack.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/README.md
+fix(sfia-studio): correct T-A0 doctrine validation
+
+Remove trailing whitespace in T-A0 delivery docs so git diff --check passes.
 ```
 
-## 14. Diff stat
+## 9. Commits sur la branche (`origin/main...HEAD`)
 
 ```
- .../app/__tests__/oa/doctrine/antiLegacy.test.ts   |  81 ++++
- .../oa/doctrine/resolveDoctrinePackage.test.ts     | 504 +++++++++++++++++++++
- .../__tests__/oa/doctrine/schemaValidation.test.ts |  52 +++
- .../doctrine/application/resolveDoctrinePackage.ts | 209 +++++++++
- .../application/validateDoctrinePackage.ts         | 188 ++++++++
- .../app/lib/oa/doctrine/domain/digest.ts           |  51 +++
- .../app/lib/oa/doctrine/domain/errors.ts           |  84 ++++
- .../app/lib/oa/doctrine/domain/invariants.ts       | 210 +++++++++
- .../app/lib/oa/doctrine/domain/types.ts            | 193 ++++++++
- .../packages/pkg-studio-v3-oa-1.0.0/manifest.json  |  35 ++
- .../app/lib/oa/doctrine/fixtures/registry.json     |  12 +
- projects/sfia-studio/app/lib/oa/doctrine/index.ts  |  87 ++++
- .../infrastructure/ajvSchemaValidationAdapter.ts   |  84 ++++
- .../filesystemDoctrinePackageRepository.ts         | 157 +++++++
- .../oa/doctrine/infrastructure/observability.ts    |  18 +
- .../sha256DigestVerificationAdapter.ts             |  28 ++
- .../lib/oa/doctrine/infrastructure/systemClock.ts  |  14 +
- .../app/lib/oa/doctrine/ports/auditJournalPort.ts  |  23 +
- .../app/lib/oa/doctrine/ports/clockPort.ts         |   3 +
- .../oa/doctrine/ports/digestVerificationPort.ts    |   6 +
- .../ports/doctrinePackageRepositoryPort.ts         |  44 ++
- .../doctrine/ports/doctrinePackageResolverPort.ts  |   8 +
- .../lib/oa/doctrine/ports/schemaValidationPort.ts  |  18 +
- .../01-scope-and-implementation-map.md             |  49 ++
- .../02-runtime-contracts-and-invariants.md         |  57 +++
- .../03-validation-security-and-failure-modes.md    |  54 +++
- .../04-tests-evidence-and-reserves.md              |  33 ++
- .../05-delivery-validation-and-decision-pack.md    |  53 +++
- .../t-a0-doctrine-foundation/README.md             |  32 ++
- 29 files changed, 2387 insertions(+)
+b643b6811243608fdd5f16bc278c76caf47814ad fix(sfia-studio): correct T-A0 doctrine validation
+1f213921bd7fc3cd1a1f88a98efc7df60b39ce46 docs(sfia-studio): document Option A T-A0 delivery
+2e05d946a430c52dc6550a331f3e987dd31d0adb feat(sfia-studio): add v3 DoctrinePackage foundation
 ```
 
-## 15. Commits
+## 10. Diff name-status / stat
 
 ```
-1f21392 docs(sfia-studio): document Option A T-A0 delivery
-2e05d94 feat(sfia-studio): add v3 DoctrinePackage foundation
+A  29 files, +2387 lines (no deletions in shortstat)
 ```
 
-## 16. Actions non exécutées
+Name-status: tous `A` sous `projects/sfia-studio/app/{__tests__/oa/doctrine,lib/oa/doctrine}` et `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/`.
 
-- Push branche projet: **NON**
-- PR: **NON**
-- Merge: **NON**
-- Modification `method/**`: **NON**
-- Suppression legacy: **NON**
-- T-A1: **NON**
-- Cutover: **NON**
-- Nouvelle dépendance package.json: **NON** (ajv transitive)
+## 11. Anti-claims
 
-## 17. Working tree final
+- **Pas** T-A0 MERGED
+- **Pas** project branch pushed / PR created (cette passe)
+- **Pas** T-A1 AUTHORIZED
+- **Pas** DOCTRINE GLOBALLY ADOPTED
+- **Pas** V2.6 / MethodMode / OPS1 REMOVED
+- **Pas** OPTION A COMPLETE / PRODUCTION READY
+- **Pas** AJV direct dependency added
+- **Pas** package.json modifié
+- **Pas** method/** touché
+- Validation **PASSED** ≠ autorisation merge sans décision Morris (AJV direct recommandé avant PR)
+
+## 12. Actions non exécutées (volontaire)
+
+- `git push` branche projet
+- `gh pr create` / merge
+- modification `package.json` / lockfile
+- toute écriture sous `method/**`
+- activation session Studio / wiring LPS
+
+## 13. Working tree final (attendu)
 
 ```
 ## delivery/sfia-studio-v3-native-option-a-t-a0-doctrine-foundation
 ?? .tmp-sfia-review/
 ```
 
-## 18. Verdict
+Propre hors artefacts locaux `.tmp-sfia-review/`.
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A0 DOCTRINE FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED**
+## 14. Réserves acceptables (inchangées)
 
-## 19. Gate suivant candidat
+1. AJV transitif → **promo directe requise avant PR**
+2. Detail codes T-A0 pas encore dans enum ErrorRecord modeled
+3. Provenance runtime obligatoire vs schema optionnel
+4. Example modeled digest placeholder
+5. Pas de cache / métriques runtime
+6. Module non branché sessions Studio
+7. Docs META UX/modeled hors slice éventuellement stale
 
-`GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A0`
+## 15. Verdict
 
-## 20. Diff complet utile (939c33a..HEAD)
+**SFIA STUDIO V3-NATIVE OPTION A T-A0 DOCTRINE FOUNDATION VALIDATION PASSED — MORRIS DECISION REQUIRED**
+
+## 16. Gate suivant candidat (post-décision Morris)
+
+Après acceptation Morris + (recommandé) ajout dépendance directe `ajv` + PR/merge:
+`GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A1` (non autorisé ici).
+
+## 17. Diff complet utile (`origin/main...HEAD`)
+
+29 files / +2387. Diff complet embarqué ci-dessous (~87 KiB).
+
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/doctrine/antiLegacy.test.ts b/projects/sfia-studio/app/__tests__/oa/doctrine/antiLegacy.test.ts
@@ -2517,7 +2489,7 @@ index 0000000..dc2b7d4
 +Le path filesystem du registry n’est **jamais** un identifiant métier.
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/02-runtime-contracts-and-invariants.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/02-runtime-contracts-and-invariants.md
 new file mode 100644
-index 0000000..3e8a29d
+index 0000000..095dd5d
 --- /dev/null
 +++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/02-runtime-contracts-and-invariants.md
 @@ -0,0 +1,57 @@
@@ -2679,7 +2651,7 @@ index 0000000..bedf75e
 +Project / LivingProjectState pin DoctrinePackageRef — **non autorisé** ici.
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/05-delivery-validation-and-decision-pack.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/05-delivery-validation-and-decision-pack.md
 new file mode 100644
-index 0000000..bb20d61
+index 0000000..1eed4bf
 --- /dev/null
 +++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/05-delivery-validation-and-decision-pack.md
 @@ -0,0 +1,53 @@
@@ -2774,4 +2746,5 @@ index 0000000..a368c3a
 +- Pas DOCTRINE RUNTIME GLOBALLY ADOPTED
 +- Pas V2.6 REMOVED / MethodMode REMOVED / OPS1 RETIRED
 +- Pas OPTION A IMPLEMENTED
+
 ```
