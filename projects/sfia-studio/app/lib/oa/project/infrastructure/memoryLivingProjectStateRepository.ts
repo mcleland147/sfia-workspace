@@ -53,6 +53,8 @@ export class MemoryLivingProjectStateRepository
     if (!existing) {
       throw new Error("lps_missing_for_supersede");
     }
-    existing.status = "superseded";
+    const next = structuredClone(existing);
+    next.status = "superseded";
+    this.store.lpsById.set(lpsVersionId, next);
   }
 }

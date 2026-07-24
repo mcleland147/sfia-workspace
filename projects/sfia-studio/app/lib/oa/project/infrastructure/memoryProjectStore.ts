@@ -49,6 +49,8 @@ export class MemoryProjectStore {
 
   private depth = 0;
   private stack: Snapshot[] = [];
+  /** Serialize transactions — nested snapshot rollback is not re-entrant safe. */
+  private queue: Promise<void> = Promise.resolve();
 
   /** Test hook — force next save to throw (atomicity tests). */
   failNextSave: "project" | "lps" | null = null;
@@ -76,14 +78,24 @@ export class MemoryProjectStore {
   }
 
   async runInTransaction<T>(fn: () => Promise<T>): Promise<T> {
-    this.begin();
-    try {
-      const result = await fn();
-      this.commit();
-      return result;
-    } catch (err) {
-      this.rollback();
-      throw err;
-    }
+    const run = async (): Promise<T> => {
+      this.begin();
+      try {
+        const result = await fn();
+        this.commit();
+        return result;
+      } catch (err) {
+        this.rollback();
+        throw err;
+      }
+    };
+
+    const next = this.queue.then(run, run);
+    // Keep the chain alive regardless of transaction outcome.
+    this.queue = next.then(
+      () => undefined,
+      () => undefined,
+    );
+    return next;
   }
 }

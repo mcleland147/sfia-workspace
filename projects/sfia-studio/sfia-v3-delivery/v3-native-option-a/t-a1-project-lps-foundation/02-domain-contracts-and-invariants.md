@@ -44,19 +44,23 @@ Required: `schemaVersion`, `lpsVersionId`, `projectId`, `version`, `status`, `ob
 1. `schemaVersion === 0.1.0-oa`
 2. Project `active` ⇒ DoctrinePackageRef `resolved`
 3. Mutation LPS ⇒ nouvelle version (pas d’in-place silencieux)
-4. `expectedVersion === current.version` sinon `LPS_VERSION_CONFLICT` → modeled `STATE_CONFLICT`
+4. `expectedVersion === current.version` sinon `LPS_VERSION_CONFLICT` → modeled `STATE_CONFLICT` (check **inside** txn/mutex)
 5. Pin create : `resolver.resolve({pin})` ; seul `outcome === resolved` accepté
-6. Pin append : égalité id+version+digest avec Project (pas de re-resolve obligatoire)
+6. Pin append : égalité id+version+digest avec Project (pas de re-resolve obligatoire) — Option A
 7. Provenance présente sur create/append (`prv:…`)
-8. Snapshot sérialisé (champs stockés T-A1) ≤ `MAX_LPS_SNAPSHOT_BYTES` (256_000)
+8. Snapshot sérialisé (champs stockés T-A1) ≤ `MAX_LPS_SNAPSHOT_BYTES` (256_000 UTF-8 bytes via `Buffer.byteLength(JSON.stringify(...), "utf8")`)
 9. Idempotence optionnelle : même `idempotencyKey` → même Project
 10. Create atomique Project + LPS v1 (rollback si échec)
+11. Repos deep-clone (`structuredClone`) on read/write ; returned graphs cloned
 
 ## Erreurs
 
-| Detail | Modeled `code` |
-|--------|----------------|
-| DOCTRINE_UNRESOLVED | `DOCTRINE_UNRESOLVED` |
-| LPS_VERSION_CONFLICT / PROJECT_* / LPS_* / PERSISTENCE_* | `STATE_CONFLICT` |
+| Detail | Modeled `code` | retryable |
+|--------|----------------|-----------|
+| DOCTRINE_UNRESOLVED | `DOCTRINE_UNRESOLVED` | true |
+| LPS_VERSION_CONFLICT | `STATE_CONFLICT` | true |
+| PERSISTENCE_FAILURE | `STATE_CONFLICT` | true |
+| PROJECT_NOT_FOUND / LPS_NOT_FOUND | `STATE_CONFLICT` | false |
+| PROJECT_INVALID / LPS_INVALID / PROJECT_ALREADY_EXISTS | `STATE_CONFLICT` | false |
 
-Detail codes hors enum ErrorRecord modeled → dette documentée (T-A1-D08).
+Detail codes hors enum ErrorRecord modeled → dette documentée (T-A1-D08). Clients doivent préférer `detailCode` pour distinguer NOT_FOUND vs conflict.

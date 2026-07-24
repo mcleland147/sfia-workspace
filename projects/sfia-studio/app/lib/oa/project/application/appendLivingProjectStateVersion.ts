@@ -25,6 +25,19 @@ function newId(prefix: "lps" | "prv" | "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
 }
 
+/** Thrown inside a transaction when optimistic expectedVersion mismatches. */
+export class LpsVersionConflictSignal extends Error {
+  readonly currentVersion: number;
+  readonly lpsVersionId: string;
+
+  constructor(currentVersion: number, lpsVersionId: string) {
+    super("lps_version_conflict");
+    this.name = "LpsVersionConflictSignal";
+    this.currentVersion = currentVersion;
+    this.lpsVersionId = lpsVersionId;
+  }
+}
+
 function appendProvenance(input: {
   timestamp: string;
   correlationId: string;
@@ -143,12 +156,13 @@ export class AppendLivingProjectStateVersion {
       if (!project.doctrinePackageRef) {
         return fail("DOCTRINE_UNRESOLVED", "project_missing_doctrine_ref");
       }
+      const doctrinePackageRef = project.doctrinePackageRef;
 
       if (request.doctrinePackagePin) {
         if (
           !doctrinePinEqualsRef(
             request.doctrinePackagePin,
-            project.doctrinePackageRef,
+            doctrinePackageRef,
           )
         ) {
           return fail("DOCTRINE_UNRESOLVED", "append_pin_mismatch", {
@@ -158,23 +172,12 @@ export class AppendLivingProjectStateVersion {
         }
       }
 
-      const current = await this.lps.findCurrentByProjectId(request.projectId);
-      if (!current) {
+      // Preflight: current must exist (final optimistic check runs inside the txn).
+      const preflightCurrent = await this.lps.findCurrentByProjectId(
+        request.projectId,
+      );
+      if (!preflightCurrent) {
         return fail("LPS_NOT_FOUND", "missing_current_lps");
-      }
-
-      if (request.expectedVersion !== current.version) {
-        return fail("LPS_VERSION_CONFLICT", "expected_version_mismatch", {
-          expectedVersion: request.expectedVersion,
-          currentVersion: current.version,
-          lpsVersionId: current.lpsVersionId,
-        });
-      }
-
-      // Non-monotonic refused: next must be current+1 (enforced by construction).
-      const nextVersion = current.version + 1;
-      if (nextVersion !== current.version + 1 || nextVersion <= current.version) {
-        return fail("LPS_INVALID", "non_monotonic_version");
       }
 
       const lpsVersionId = request.lpsVersionId ?? newId("lps");
@@ -182,47 +185,74 @@ export class AppendLivingProjectStateVersion {
         return fail("LPS_INVALID", "lps_version_id_taken");
       }
 
-      const provenance = appendProvenance({
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        actor: request.createdBy,
-        doctrinePackageRef: `${project.doctrinePackageRef.doctrinePackageId}@${project.doctrinePackageRef.version}`,
-        supersedes: current.provenance?.provenanceRecordId,
-      });
-
-      const livingProjectState: LivingProjectState = {
-        schemaVersion: "0.1.0-oa",
-        lpsVersionId,
-        projectId: request.projectId,
-        version: nextVersion,
-        supersedesLpsVersionId: current.lpsVersionId,
-        status: "active",
-        objective: request.objective.trim(),
-        context: request.context,
-        scope: request.scope,
-        constraints: [],
-        stakeholders: [],
-        doctrinePackageRef: project.doctrinePackageRef,
-        epistemicItemIds: [],
-        decisionIds: [],
-        createdAt: timestamp,
-        createdBy: request.createdBy,
-        correlationId,
-        provenance,
-        uiOwnership: false,
-      };
-
-      const updatedProject: Project = {
-        ...project,
-        currentLpsVersionId: lpsVersionId,
-        updatedAt: timestamp,
-      };
+      let livingProjectState: LivingProjectState | undefined;
+      let updatedProject: Project | undefined;
+      let previousLpsVersionId: string | undefined;
+      let nextVersion = 0;
 
       const persist = async () => {
+        // Re-read under the transaction/mutex — concurrent double-append must conflict.
+        const current = await this.lps.findCurrentByProjectId(request.projectId);
+        if (!current) {
+          throw new Error("missing_current_lps");
+        }
+        if (request.expectedVersion !== current.version) {
+          throw new LpsVersionConflictSignal(
+            current.version,
+            current.lpsVersionId,
+          );
+        }
+
+        nextVersion = current.version + 1;
+        if (nextVersion <= current.version) {
+          throw new Error("non_monotonic_version");
+        }
+
+        previousLpsVersionId = current.lpsVersionId;
+
+        const provenance = appendProvenance({
+          timestamp,
+          correlationId,
+          projectId: request.projectId,
+          actor: request.createdBy,
+          doctrinePackageRef: `${doctrinePackageRef.doctrinePackageId}@${doctrinePackageRef.version}`,
+          supersedes: current.provenance?.provenanceRecordId,
+        });
+
+        const nextLps: LivingProjectState = {
+          schemaVersion: "0.1.0-oa",
+          lpsVersionId,
+          projectId: request.projectId,
+          version: nextVersion,
+          supersedesLpsVersionId: current.lpsVersionId,
+          status: "active",
+          objective: request.objective.trim(),
+          context: request.context,
+          scope: request.scope,
+          constraints: [],
+          stakeholders: [],
+          doctrinePackageRef: structuredClone(doctrinePackageRef),
+          epistemicItemIds: [],
+          decisionIds: [],
+          createdAt: timestamp,
+          createdBy: structuredClone(request.createdBy),
+          correlationId,
+          provenance,
+          uiOwnership: false,
+        };
+
+        const nextProject: Project = {
+          ...structuredClone(project),
+          currentLpsVersionId: lpsVersionId,
+          updatedAt: timestamp,
+        };
+
         await this.lps.markSuperseded(current.lpsVersionId);
-        await this.lps.save(livingProjectState);
-        await this.projects.save(updatedProject);
+        await this.lps.save(nextLps);
+        await this.projects.save(nextProject);
+
+        livingProjectState = nextLps;
+        updatedProject = nextProject;
       };
 
       try {
@@ -231,8 +261,19 @@ export class AppendLivingProjectStateVersion {
         } else {
           await persist();
         }
-      } catch {
+      } catch (err) {
+        if (err instanceof LpsVersionConflictSignal) {
+          return fail("LPS_VERSION_CONFLICT", "expected_version_mismatch", {
+            expectedVersion: request.expectedVersion,
+            currentVersion: err.currentVersion,
+            lpsVersionId: err.lpsVersionId,
+          });
+        }
         return fail("PERSISTENCE_FAILURE", "atomic_append_failed");
+      }
+
+      if (!livingProjectState || !updatedProject || !previousLpsVersionId) {
+        return fail("PERSISTENCE_FAILURE", "atomic_append_incomplete");
       }
 
       const durationMs = Date.now() - started;
@@ -242,16 +283,16 @@ export class AppendLivingProjectStateVersion {
         correlationId,
         projectId: request.projectId,
         lpsVersion: nextVersion,
-        previousLpsVersionId: current.lpsVersionId,
+        previousLpsVersionId,
         result: "ok",
         durationMs,
       });
 
       return {
         ok: true,
-        project: updatedProject,
-        livingProjectState,
-        previousLpsVersionId: current.lpsVersionId,
+        project: structuredClone(updatedProject),
+        livingProjectState: structuredClone(livingProjectState),
+        previousLpsVersionId,
         durationMs,
       };
     } catch {

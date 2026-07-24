@@ -24,9 +24,12 @@
 Optimistic lock sur append :
 
 - entrée `expectedVersion`
-- compare à LPS courant
+- compare à LPS courant **à l’intérieur** de `runInTransaction` (mutex store)
 - mismatch → `LPS_VERSION_CONFLICT` + audit `oa.lps.version_conflict`
+- double-append concurrent même `expectedVersion` → un gagnant, un conflit
 - pas d’écrasement silencieux
+
+`MemoryProjectStore.runInTransaction` sérialise les transactions (file d’attente) pour éviter corruption du snapshot stack.
 
 ## DoctrinePackage pin (T-A1-D05)
 

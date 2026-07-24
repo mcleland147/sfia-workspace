@@ -199,11 +199,11 @@ export class CreateProject {
         scope: request.scope,
         constraints: [],
         stakeholders: [],
-        doctrinePackageRef,
+        doctrinePackageRef: structuredClone(doctrinePackageRef),
         epistemicItemIds: [],
         decisionIds: [],
         createdAt: timestamp,
-        createdBy: request.createdBy,
+        createdBy: structuredClone(request.createdBy),
         correlationId,
         provenance,
         uiOwnership: false,
@@ -215,14 +215,18 @@ export class CreateProject {
         title: request.title.trim(),
         status: "active",
         currentLpsVersionId: lpsVersionId,
-        doctrinePackageRef,
+        doctrinePackageRef: structuredClone(doctrinePackageRef),
         createdAt: timestamp,
         updatedAt: timestamp,
-        createdBy: request.createdBy,
+        createdBy: structuredClone(request.createdBy),
         provenance,
       };
 
       const persist = async () => {
+        // Re-check under txn/mutex — concurrent creates of the same id must conflict.
+        if (await this.projects.exists(request.projectId)) {
+          throw new Error("project_id_taken");
+        }
         await this.projects.save(project);
         await this.lps.save(livingProjectState);
         if (request.idempotencyKey) {
@@ -239,7 +243,10 @@ export class CreateProject {
         } else {
           await persist();
         }
-      } catch {
+      } catch (err) {
+        if (err instanceof Error && err.message === "project_id_taken") {
+          return fail("PROJECT_ALREADY_EXISTS", "project_id_taken");
+        }
         return fail("PERSISTENCE_FAILURE", "atomic_create_failed");
       }
 
@@ -254,7 +261,13 @@ export class CreateProject {
         durationMs,
       });
 
-      return { ok: true, project, livingProjectState, durationMs };
+      // Return deep clones so callers cannot alias into the returned graph.
+      return {
+        ok: true,
+        project: structuredClone(project),
+        livingProjectState: structuredClone(livingProjectState),
+        durationMs,
+      };
     } catch {
       return fail("PERSISTENCE_FAILURE", "unexpected_exception");
     }

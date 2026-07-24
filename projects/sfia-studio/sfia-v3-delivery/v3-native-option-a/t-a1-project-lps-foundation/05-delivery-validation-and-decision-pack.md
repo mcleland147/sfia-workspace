@@ -11,13 +11,19 @@
 
 | Commande | Résultat |
 |----------|----------|
-| `npx vitest run __tests__/oa/project` | PASS (voir run) |
-| `npx vitest run __tests__/oa/doctrine` | PASS (régression T-A0, attendu 28) |
-| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | PASS |
+| `npx vitest run __tests__/oa/project` | PASS — 30 tests (après correction concurrence) |
+| `npx vitest run __tests__/oa/doctrine` | PASS — 28 |
+| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | PASS — 10 |
 | `npx tsc --noEmit` | PASS |
-| `next lint` (dirs `lib/oa`, `__tests__/oa`) | PASS |
-| `npx next build` | PASS si exécuté |
+| `next lint` (dirs `lib/oa/project`, `__tests__/oa/project`) | PASS |
+| `npx next build` | PASS |
 | `git diff --check` | PASS |
+
+## Correction validation (QA)
+
+- Bug bloquant : double-append concurrent même `expectedVersion` → deux succès
+- Fix : mutex `runInTransaction` + re-check `expectedVersion` dans la transaction + deep-clone write/read/return
+- Commit attendu : `fix(sfia-studio): correct T-A1 Project and LPS validation`
 
 ## Décisions candidates T-A1-D01…D10
 

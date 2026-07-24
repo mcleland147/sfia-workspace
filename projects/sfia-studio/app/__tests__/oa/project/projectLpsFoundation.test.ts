@@ -12,6 +12,7 @@ import {
 import {
   MAX_LPS_SNAPSHOT_BYTES,
   createTestProjectServices,
+  measureLpsSnapshotBytes,
   type ActorReference,
 } from "@/lib/oa/project";
 
@@ -211,6 +212,144 @@ describe("T-A1 CreateProject", () => {
     expect(await svc.lps.findById("lps:atomic-v1")).toBeNull();
   });
 
+  it("rolls back atomically when project save fails before LPS", async () => {
+    const svc = buildServices();
+    svc.store.failNextSave = "project";
+    const result = await svc.createProject.execute({
+      projectId: "prj:atomic-proj-fail",
+      title: "Atomic",
+      objective: "Obj",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:atomic-proj-v1",
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.detailCode).toBe("PERSISTENCE_FAILURE");
+    expect(await svc.projects.exists("prj:atomic-proj-fail")).toBe(false);
+    expect(await svc.lps.findById("lps:atomic-proj-v1")).toBeNull();
+  });
+
+  it("accepts snapshot at UTF-8 byte limit and rejects limit+1", async () => {
+    const svc = buildServices();
+    const empty = measureLpsSnapshotBytes({
+      objective: "",
+      constraints: [],
+      stakeholders: [],
+      epistemicItemIds: [],
+      decisionIds: [],
+    });
+    const nLimit = MAX_LPS_SNAPSHOT_BYTES - empty;
+
+    const atLimitMinus1 = await svc.createProject.execute({
+      projectId: "prj:snap-lim-minus-1",
+      title: "Lim",
+      objective: "x".repeat(nLimit - 1),
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+    });
+    expect(atLimitMinus1.ok).toBe(true);
+
+    const atLimit = await svc.createProject.execute({
+      projectId: "prj:snap-lim",
+      title: "Lim",
+      objective: "x".repeat(nLimit),
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+    });
+    expect(atLimit.ok).toBe(true);
+    expect(
+      measureLpsSnapshotBytes({
+        objective: "x".repeat(nLimit),
+        constraints: [],
+        stakeholders: [],
+        epistemicItemIds: [],
+        decisionIds: [],
+      }),
+    ).toBe(MAX_LPS_SNAPSHOT_BYTES);
+
+    const over = await svc.createProject.execute({
+      projectId: "prj:snap-lim-plus-1",
+      title: "Lim",
+      objective: "x".repeat(nLimit + 1),
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+    });
+    expect(over.ok).toBe(false);
+    if (over.ok) return;
+    expect(over.error.detailCode).toBe("LPS_INVALID");
+  });
+
+  it("measures Unicode snapshot size in UTF-8 JSON bytes", async () => {
+    const svc = buildServices();
+    const emoji = "😀";
+    const empty = measureLpsSnapshotBytes({
+      objective: "",
+      constraints: [],
+      stakeholders: [],
+      epistemicItemIds: [],
+      decisionIds: [],
+    });
+    const one = measureLpsSnapshotBytes({
+      objective: emoji,
+      constraints: [],
+      stakeholders: [],
+      epistemicItemIds: [],
+      decisionIds: [],
+    });
+    expect(one - empty).toBe(Buffer.byteLength(emoji, "utf8"));
+
+    // Build a payload that exceeds the limit via multi-byte Unicode.
+    let objective = "";
+    while (
+      measureLpsSnapshotBytes({
+        objective,
+        constraints: [],
+        stakeholders: [],
+        epistemicItemIds: [],
+        decisionIds: [],
+      }) <= MAX_LPS_SNAPSHOT_BYTES
+    ) {
+      objective += emoji.repeat(1000);
+    }
+    const result = await svc.createProject.execute({
+      projectId: "prj:snap-unicode-over",
+      title: "Unicode",
+      objective,
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.detailCode).toBe("LPS_INVALID");
+  });
+
+  it("does not alias returned or input objects into the store", async () => {
+    const svc = buildServices();
+    const actor = { ...ACTOR, displayName: "Before" };
+    const created = await svc.createProject.execute({
+      projectId: "prj:alias",
+      title: "Alias",
+      objective: "orig",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: actor,
+      lpsVersionId: "lps:alias-v1",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    created.project.title = "MUTATED_TITLE";
+    created.livingProjectState.objective = "MUTATED_OBJ";
+    created.project.createdBy.displayName = "HACKED";
+    actor.displayName = "AFTER_INPUT";
+
+    const stored = await svc.projects.findById("prj:alias");
+    const storedLps = await svc.lps.findById("lps:alias-v1");
+    expect(stored?.title).toBe("Alias");
+    expect(storedLps?.objective).toBe("orig");
+    expect(stored?.createdBy.displayName).toBe("Before");
+  });
+
   it("rejects oversized LPS snapshot", async () => {
     const svc = buildServices();
     const oversized = "x".repeat(MAX_LPS_SNAPSHOT_BYTES);
@@ -224,6 +363,39 @@ describe("T-A1 CreateProject", () => {
     expect(result.ok).toBe(false);
     if (result.ok) return;
     expect(result.error.detailCode).toBe("LPS_INVALID");
+  });
+
+  it("treats __proto__ objective text as data without prototype pollution", async () => {
+    const svc = buildServices();
+    const result = await svc.createProject.execute({
+      projectId: "prj:proto",
+      title: "Proto",
+      objective: "__proto__",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      context: "constructor",
+      lpsVersionId: "lps:proto-v1",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.livingProjectState.objective).toBe("__proto__");
+    expect(
+      Object.prototype.hasOwnProperty.call(result.livingProjectState, "__proto__"),
+    ).toBe(false);
+    expect(({} as { polluted?: boolean }).polluted).toBeUndefined();
+
+    const stored = await svc.lps.findById("lps:proto-v1");
+    expect(stored?.objective).toBe("__proto__");
+    // Mutating a path-like key on a plain returned object must not pollute Object.prototype.
+    const probe = JSON.parse(
+      '{"__proto__":{"polluted":true},"objective":"x"}',
+    ) as Record<string, unknown>;
+    const cloned = structuredClone({
+      objective: String(probe.objective),
+      meta: probe,
+    });
+    expect(({} as { polluted?: boolean }).polluted).toBeUndefined();
+    expect(Object.getPrototypeOf(cloned)).toBe(Object.prototype);
   });
 });
 
@@ -344,6 +516,7 @@ describe("T-A1 AppendLivingProjectStateVersion", () => {
     if (result.ok) return;
     expect(result.error.detailCode).toBe("LPS_VERSION_CONFLICT");
     expect(result.error.code).toBe("STATE_CONFLICT");
+    expect(result.error.retryable).toBe(true);
     expect(result.error.currentVersion).toBe(1);
     expect(result.error.expectedVersion).toBe(99);
 
@@ -351,6 +524,156 @@ describe("T-A1 AppendLivingProjectStateVersion", () => {
       (e) => e.event === "oa.lps.version_conflict",
     );
     expect(conflicts).toHaveLength(1);
+  });
+
+  it("rejects expectedVersion below 1 as LPS_INVALID", async () => {
+    const svc = buildServices();
+    await svc.createProject.execute({
+      projectId: "prj:low-ver",
+      title: "Low",
+      objective: "v1",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+    });
+    const result = await svc.appendLivingProjectStateVersion.execute({
+      projectId: "prj:low-ver",
+      expectedVersion: 0,
+      objective: "bad",
+      createdBy: ACTOR,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.detailCode).toBe("LPS_INVALID");
+  });
+
+  it("allows only one winner on concurrent double-append with same expectedVersion", async () => {
+    const svc = buildServices();
+    await svc.createProject.execute({
+      projectId: "prj:race",
+      title: "Race",
+      objective: "v1",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:race-v1",
+    });
+
+    const [a, b] = await Promise.all([
+      svc.appendLivingProjectStateVersion.execute({
+        projectId: "prj:race",
+        expectedVersion: 1,
+        objective: "A",
+        createdBy: ACTOR,
+        lpsVersionId: "lps:race-a",
+      }),
+      svc.appendLivingProjectStateVersion.execute({
+        projectId: "prj:race",
+        expectedVersion: 1,
+        objective: "B",
+        createdBy: ACTOR,
+        lpsVersionId: "lps:race-b",
+      }),
+    ]);
+
+    const outcomes = [a, b];
+    const wins = outcomes.filter((r) => r.ok);
+    const conflicts = outcomes.filter(
+      (r) => !r.ok && r.error.detailCode === "LPS_VERSION_CONFLICT",
+    );
+    expect(wins).toHaveLength(1);
+    expect(conflicts).toHaveLength(1);
+    expect(svc.store.lpsById.size).toBe(2);
+
+    const current = await svc.lps.findCurrentByProjectId("prj:race");
+    expect(current?.version).toBe(2);
+    expect(current?.lpsVersionId).toBe(
+      wins[0] && wins[0].ok ? wins[0].livingProjectState.lpsVersionId : "",
+    );
+  });
+
+  it("rolls back append when LPS save fails after supersede", async () => {
+    const svc = buildServices();
+    await svc.createProject.execute({
+      projectId: "prj:append-atomic",
+      title: "Atomic",
+      objective: "v1",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:append-atomic-v1",
+    });
+    svc.store.failNextSave = "lps";
+    const result = await svc.appendLivingProjectStateVersion.execute({
+      projectId: "prj:append-atomic",
+      expectedVersion: 1,
+      objective: "v2",
+      createdBy: ACTOR,
+      lpsVersionId: "lps:append-atomic-v2",
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.detailCode).toBe("PERSISTENCE_FAILURE");
+    expect(await svc.lps.findById("lps:append-atomic-v2")).toBeNull();
+    const prev = await svc.lps.findById("lps:append-atomic-v1");
+    expect(prev?.status).toBe("active");
+    expect(
+      (await svc.projects.findById("prj:append-atomic"))?.currentLpsVersionId,
+    ).toBe("lps:append-atomic-v1");
+  });
+
+  it("rolls back append when project update fails after LPS save", async () => {
+    const svc = buildServices();
+    await svc.createProject.execute({
+      projectId: "prj:append-proj-fail",
+      title: "Atomic",
+      objective: "v1",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:append-proj-v1",
+    });
+    svc.store.failNextSave = "project";
+    const result = await svc.appendLivingProjectStateVersion.execute({
+      projectId: "prj:append-proj-fail",
+      expectedVersion: 1,
+      objective: "v2",
+      createdBy: ACTOR,
+      lpsVersionId: "lps:append-proj-v2",
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.detailCode).toBe("PERSISTENCE_FAILURE");
+    expect(await svc.lps.findById("lps:append-proj-v2")).toBeNull();
+    expect((await svc.lps.findById("lps:append-proj-v1"))?.status).toBe(
+      "active",
+    );
+    expect(
+      (await svc.projects.findById("prj:append-proj-fail"))?.currentLpsVersionId,
+    ).toBe("lps:append-proj-v1");
+  });
+
+  it("keeps historical LPS immutable after append and caller mutation", async () => {
+    const svc = buildServices();
+    await svc.createProject.execute({
+      projectId: "prj:hist-immut",
+      title: "Hist",
+      objective: "v1",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:hist-v1",
+    });
+    const appended = await svc.appendLivingProjectStateVersion.execute({
+      projectId: "prj:hist-immut",
+      expectedVersion: 1,
+      objective: "v2",
+      createdBy: ACTOR,
+      lpsVersionId: "lps:hist-v2",
+    });
+    expect(appended.ok).toBe(true);
+
+    const hist = await svc.lps.findById("lps:hist-v1");
+    expect(hist?.status).toBe("superseded");
+    if (hist) hist.objective = "MUTATED_HIST";
+    const hist2 = await svc.lps.findById("lps:hist-v1");
+    expect(hist2?.objective).toBe("v1");
+    expect(hist2?.status).toBe("superseded");
   });
 
   it("refuses non-monotonic expectedVersion below current after append", async () => {
