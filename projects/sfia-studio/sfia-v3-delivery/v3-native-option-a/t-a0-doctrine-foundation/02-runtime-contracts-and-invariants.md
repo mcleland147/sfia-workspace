@@ -30,7 +30,7 @@ Fichier `registry.json` (schemaVersion `0.1.0-oa-registry`) :
 
 ## DoctrinePackageRef
 
-Entrée = **pin** `{ doctrinePackageId, version, digest }`.  
+Entrée = **pin** `{ doctrinePackageId, version, digest }`.
 Sortie succès = Ref complète `{ …, resolvedAt, resolver, status: "resolved" }` + provenance.
 
 ## Invariants
