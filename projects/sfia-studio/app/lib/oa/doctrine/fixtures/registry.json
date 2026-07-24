@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "0.1.0-oa-registry",
+  "entries": [
+    {
+      "doctrinePackageId": "pkg:studio-v3-oa",
+      "version": "1.0.0",
+      "digest": "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622",
+      "relativePackageDir": "packages/pkg-studio-v3-oa-1.0.0",
+      "status": "published"
+    }
+  ]
+}

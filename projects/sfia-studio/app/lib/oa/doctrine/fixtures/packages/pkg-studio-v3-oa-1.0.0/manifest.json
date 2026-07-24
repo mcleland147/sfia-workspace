@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "doctrinePackageId": "pkg:studio-v3-oa",
+  "version": "1.0.0",
+  "digest": "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622",
+  "status": "published",
+  "sources": [
+    {
+      "doctrineSourceRef": "src:framing-30-37",
+      "kind": "framing",
+      "label": "Doctrine v3"
+    }
+  ],
+  "allowlist": [
+    "sfia-v3-framing",
+    "v3-native-option-a"
+  ],
+  "publishedAt": "2026-07-23T21:00:00.000Z",
+  "freshness": "current",
+  "compatibility": {
+    "studioNativeV3": true,
+    "legacyV26Fallback": false
+  },
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:pkg-studio-v3-oa-1",
+    "actor": {
+      "actorId": "sys:doctrine-publisher",
+      "role": "system"
+    },
+    "source": "system",
+    "timestamp": "2026-07-23T21:00:00.000Z",
+    "correlationId": "cor:t-a0-fixture"
+  }
+}
