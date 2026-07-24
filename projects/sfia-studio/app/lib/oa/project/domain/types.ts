@@ -120,6 +120,11 @@ export type AppendLivingProjectStateRequest = {
   activeCycleInstanceId?: string | null;
   ckcResolutionRef?: string | null;
   epistemicItemIds?: string[];
+  /**
+   * Optional decision id linkage (T-A3 consumers). When omitted, carried
+   * forward from the current LPS snapshot (same pattern as epistemicItemIds).
+   */
+  decisionIds?: string[];
 };
 
 /** Modeled ErrorRecord codes applicable to Project/LPS (M-OA). */
