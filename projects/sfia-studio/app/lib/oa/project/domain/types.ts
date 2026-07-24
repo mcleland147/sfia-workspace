@@ -111,6 +111,15 @@ export type AppendLivingProjectStateRequest = {
    * No re-resolve; mismatch → DOCTRINE_UNRESOLVED / LPS_INVALID.
    */
   doctrinePackagePin?: DoctrinePackagePin;
+  /**
+   * Optional linkage fields (T-A2 consumers). When omitted, carried forward
+   * from the current LPS snapshot. Explicit `null` clears the field.
+   */
+  trajectoryId?: string | null;
+  trajectoryVersion?: number | null;
+  activeCycleInstanceId?: string | null;
+  ckcResolutionRef?: string | null;
+  epistemicItemIds?: string[];
 };
 
 /** Modeled ErrorRecord codes applicable to Project/LPS (M-OA). */
