@@ -4,172 +4,122 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure Europe/Paris** | 2026-07-24 15:14:30 CEST (+0200) |
-| **Cycle** | PR readiness Option A T-A3 — Decision / Confirmation / Authority |
+| **Date/heure** | 2026-07-24 15:21:15 CEST (+0200) |
+| **Cycle** | Post-merge verification — T-A3 Decision / Confirmation / Authority |
 | **Profil** | Critical |
-| **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
-| **Repo** | `mcleland147/sfia-workspace` |
-| **origin/main** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` — Merge PR #263 (T-A2) |
-| **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` |
-| **HEAD avant PR readiness** | `7afd12a76e4450451e1a84a5f0add16eac5c222f` |
-| **HEAD final (tip / PR head)** | `f8d25c2dc523020b0443c2b16f375edbf7f5631b` |
-| **08 field HEAD final** | `a815b8c14a20ff9e7f77fe7fefe15b5b2b6b9fe7` (documents tip before last align commit; same N−1 residual class as T-A2) |
-| **merge-base(HEAD, origin/main)** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` |
-| **Diff vs origin/main** | **38 files**, **+6073 / −1** |
-| **Status / staged / untracked** | clean tracked tree; untracked `.tmp-sfia-review/` only (local evidence; not committed) |
-| **Handoff SOURCE consumed** | blob `8330b4dacee529c3eeaf4848f331b5f7acfdf1cf` / commit `30be90f43510289f8a02e16189c9c1ae445a0415` (validation handoff — PASSED AFTER CORRECTION) |
-| **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
+| **Gate consommé** | `GO MERGE PR T-A3` (PR #264) |
+| **Repo** | mcleland147/sfia-workspace |
+| **origin/main (avant merge)** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` (T-A2 merge) |
+| **origin/main (après merge)** | `37d4036bb0811575bd112a30e97139f75c7acb3e` — MATCH merge commit |
+| **PR** | [#264](https://github.com/mcleland147/sfia-workspace/pull/264) — **MERGED** |
+| **PR head (avant merge)** | `f8d25c2dc523020b0443c2b16f375edbf7f5631b` |
+| **Merge SHA** | `37d4036bb0811575bd112a30e97139f75c7acb3e` |
+| **Merge mode** | `merge_commit` (matched T-A2 #263 / T-A1 #262) |
+| **Parents** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` + `f8d25c2dc523020b0443c2b16f375edbf7f5631b` |
+| **Tree integrity** | PR head tree = merge tree = `bd5c8f3ad3b834712350beb9f35afac6fe2df0e4` — MATCH |
+| **Branche delivery (remote)** | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` @ `f8d25c2…` — **still present** (`--delete-branch=false`) |
+| **Handoff source blob (pré-cycle)** | commit `d2841d3` / blob `671430e7548109452ac81c6db530519447fdf2ff` — MATCH expected |
+| **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` (review write only; no project commit) |
 | **Handoff WT** | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| **Main checkout** | `/Users/morris/Projects/sfia-workspace` (not used for project commits) |
-| **Push** | **DONE** — remote SHA `f8d25c2dc523020b0443c2b16f375edbf7f5631b` MATCH local |
-| **PR** | **#264** OPEN non-draft — https://github.com/mcleland147/sfia-workspace/pull/264 |
-| **Merge / auto-merge** | **NONE** (gate `GO MERGE PR T-A3` non consommé) |
-| **T-A4 / DATABASE SELECTED / package.json / method/** / modeled schema edits / SQL** | **NONE** |
+| **Main checkout** | `/Users/morris/Projects/sfia-workspace` |
+| **Admin bypass** | **NONE** |
+| **Force push** | **NONE** |
+| **T-A4 delivery / modeled schema / method edits** | **NONE** |
 | **Niveau** | FULL |
 
 ## VERDICT
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A3 PR CREATED — MORRIS REVIEW REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A T-A3 POST-MERGE VERIFIED — T-A3 CLOSED — T-A4 FRAMING MAY OPEN**
 
-Blockers B1–B4 remain **proven + fixed**. Reserves B5 / R1 / R-T-A3-1..4 remain **OPEN** (not closed). Morris decisions T-A3-D01…D10 still **required** (recommendations only).
+Blockers: **none**
 
-## Truth Check
+## 1. Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| Date Europe/Paris | 2026-07-24 15:14:30 CEST (+0200) — PASS |
-| Gate | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` — PASS |
-| origin/main | `5f5c616…` — MATCH |
-| Branche | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` — PASS |
-| HEAD avant expected | `7afd12a…` — MATCH |
-| Delivery commits present | `6d2c4af` feat · `5e699e9` test · `a71f0b4` docs — PASS |
-| Validation chain present | `f1cf170` fix · `5d988dd` tests · `7afd12a` findings — PASS |
-| PR readiness docs commits | `276c530` prepare · `5317830`/`a815b8c`/`f8d25c2` align HEAD/checklist — PASS |
-| merge-base | = origin/main `5f5c616…` — PASS |
-| Diff tip vs origin/main | **38 files**, **+6073 / −1** — PASS |
-| Handoff validation blob | `8330b4da…` on `30be90f` — PASSED AFTER CORRECTION — PASS |
-| Prior remote T-A3 branch / PR at start | NONE — PASS |
-| Protected paths in diff | NONE — PASS |
-| Working tree | only untracked `.tmp-sfia-review/` — PASS |
+| Date Europe/Paris | 2026-07-24 15:21:15 CEST (+0200) — PASS |
+| `git fetch --all --prune` | OK (main + tech + handoff) |
+| Pre-merge `gh pr view 264` | OPEN · not draft · MERGEABLE · CLEAN · autoMerge `null` · headOid `f8d25c2…` · baseOid `5f5c616…` — PASS |
+| T-A2 #263 / T-A1 #262 merge method | `merge_commit` (2 parents) — matched with `gh pr merge 264 --merge` — PASS |
+| `gh pr view 264` post-merge state | **MERGED** (`mergedAt` 2026-07-24T13:20:44Z) — PASS |
+| `origin/main` after | `37d4036bb0811575bd112a30e97139f75c7acb3e` — MATCH merge SHA |
+| Old main parent | `5f5c616…` — MATCH |
+| PR head parent | `f8d25c2…` — MATCH |
+| Mode | `merge_commit` (2 parents) — PASS |
+| Tree head vs merge | MATCH `bd5c8f3…` — PASS |
+| Diff `5f5c616..37d4036` | **38 files**, **+6073 / -1** — PASS |
+| PR head ancestor of `origin/main` | YES — PASS |
+| Tech WT `origin/main` contains T-A3 tip ancestry | YES — PASS |
+| Delivery branch still on remote | YES @ `f8d25c2…` — PASS |
+| Handoff readiness `d2841d3` / blob `671430e` | MATCH — PASS |
+| CI / statusCheckRollup | empty both pre- and post-merge (`gh pr checks`: no checks reported) — **no failing checks**; not a blocker |
 
-**Truth Check verdict:** **PASS**
+**Verdict Truth Check:** **PASS**
 
-## Handoff source consumed
-
-- Branch `origin/sfia/review-handoff` commit **`30be90f43510289f8a02e16189c9c1ae445a0415`**
-- Path `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob **`8330b4dacee529c3eeaf4848f331b5f7acfdf1cf`**
-- Content class: **Validation** review pack (verdict `…VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED`)
-- This PR readiness pack **supersedes** that validation handoff for Morris PR review; it does **not** rewrite delivery/validation commit chains.
-
-## CKC (for this PR readiness cycle)
-
-Not in T-A3 scope. T-A2 CKC foundation remains; T-A3 does not mutate CKC resolver. Critical cycle stays `proposed` when a decision links a cycle (**R-T-A3-1**).
-
-## Sources consulted
-
-- `lib/oa/decision/**` (application + infrastructure) — B1–B4 spot-check
-- `__tests__/oa/decision/**` (foundation + delivery adversarial + validation adversarial + anti-legacy)
-- `sfia-v3-delivery/.../t-a3-decision-confirmation-authority/**` (01–08)
-- Prior validation handoff blob `8330b4da…`
-- PR #264 live metadata via `gh`
-
-## Canonical T-A3 definition
-
-Foundation slice for `HumanDecision`, `Confirmation` (N1/N2/N3), `AuthorityResolverPort`:
-
-- Dual enums: Decision.authority (`morris|delegated|system_non_structuring`) vs Confirmation.level (`N1|N2|N3`)
-- Morris gate = verified N3 **and** `canActAsMorris` (never invent from displayName/actorId)
-- One accepted decision per subject; supersede = immutable history
-- In-memory store + ports; failNextSave rollback; audit events
-- Optional LPS `decisionIds` + Epistemic `DecisionRef` via public T-A1/T-A2 APIs only
-
-## Scope / Out of scope
-
-| In scope (PR readiness) | Out of scope (respected) |
-|-------------------------|--------------------------|
-| Docs under `t-a3-decision-confirmation-authority/**` including `08-pr-readiness.md` | Modeled schema / method / package.json edits |
-| Wording fixes obsolete HEAD/test counts/verdicts | UI / Execution / Evidence / ReviewBundle |
-| Local docs commits + normal `git push -u` | T-A4 |
-| Non-draft PR to `main` | Merge / auto-merge / force-push / rebase / squash |
-| FULL review pack in tech `.tmp` + handoff publish | Closing B5 / R1 / R-T-A3-* without Morris |
-| Re-run matrix 50/48/30/28/10 + tsc/lint/build/diff-check | Claiming Morris validated |
-
-## B1–B4 spot-check (still fixed)
-
-| ID | Evidence in code | Status |
-|----|------------------|--------|
-| **B1** | `recordHumanDecision.ts` / `supersedeHumanDecision.ts` snapshot before await | **CORRECTED** |
-| **B2** | `refuseConfirmation.ts` / `cancelConfirmation.ts` re-load under txn | **CORRECTED** |
-| **B3** | `supersedeHumanDecision.ts` `expectedPreStatus` + single accepted | **CORRECTED** |
-| **B4** | `recordHumanDecision.ts` fail-closed links + `compensateOrphan` | **CORRECTED** |
-| **E** | `memoryAuthorityResolver.ts` `evidence_immutable` | **CONFIRMED** |
-
-Reserves **OPEN**: B5 · R1 · R-T-A3-1 · R-T-A3-2 · R-T-A3-3 · R-T-A3-4.
-
-## Architecture (unchanged from validation)
-
-Modular monolith `lib/oa/decision` (domain / application / ports / infrastructure mémoire).
+### Merge fuller (summary)
 
 ```
-RecordHumanDecision / SupersedeHumanDecision
-  → snapshot request fields BEFORE awaits (B1)
-  → AuthorityResolverPort (never trust client authorityLevel/displayName)
-  → MemoryDecisionStore txn (mutex) + begin/commit/rollback
-  → optional LPS decisionIds / Epistemic DecisionRef (fail-closed + compensate — B4)
-Request/Grant/Refuse/Cancel/Consume Confirmation
-  → re-load under txn; refuse only from requested; cancel only from requested|granted (B2)
+commit 37d4036bb0811575bd112a30e97139f75c7acb3e
+Merge: 5f5c616 f8d25c2
+Author:     mcleland147 <m.cleland@live.fr>
+AuthorDate: Fri Jul 24 15:20:44 2026 +0200
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Jul 24 15:20:44 2026 +0200
+
+    Merge pull request #264 from mcleland147/delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority
+
+    feat(sfia-studio): add v3-native T-A3 Decision and Authority foundation
+
+ 38 files changed, 6073 insertions(+), 1 deletion(-)
 ```
 
-## Matrice tests (réexécutée PR readiness)
+### PR commit chain (10)
 
-| Suite | Attendu | Résultat |
-|-------|--------:|----------|
-| `npx vitest run __tests__/oa/decision` | 50 | **PASS** |
-| `npx vitest run __tests__/oa/cycle` | 48 | **PASS** |
-| `npx vitest run __tests__/oa/project` | 30 | **PASS** |
-| `npx vitest run __tests__/oa/doctrine` | 28 | **PASS** |
-| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | 10 | **PASS** |
-| **Total** | **166** | **PASS** |
+`6d2c4af`, `5e699e9`, `a71f0b4`, `f1cf170`, `5d988dd`, `7afd12a`, `276c530`, `5317830`, `a815b8c`, `f8d25c2`
 
-| Gate | Result |
-|------|--------|
-| `npx tsc --noEmit` | PASS |
-| `npx eslint lib/oa/decision __tests__/oa/decision --max-warnings 0` | PASS |
-| `npx next build` | PASS |
-| `git diff --check` | PASS (trailing whitespace in §06 verdicts fixed this cycle) |
+## 2. Scope classification
 
-## Docs commits (PR readiness)
+**Inclus:**
+- `projects/sfia-studio/app/lib/oa/decision/**` (domain, application, ports, memory infra, authority resolver)
+- `projects/sfia-studio/app/__tests__/oa/decision/**`
+- Minimal LPS touch: `lib/oa/project/application/appendLivingProjectStateVersion.ts`, `domain/types.ts` (`decisionIds`)
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/**` (+ pr-readiness / decision pack)
 
-| SHA | Message |
-|-----|---------|
-| `276c530ff918734a59139474298e404e9b2c772b` | docs(sfia-studio): prepare T-A3 Decision and Authority PR |
-| `5317830c2c56bc4efe97603a7b17a23db94304e8` | docs(sfia-studio): align T-A3 PR readiness HEAD and checklist |
-| `a815b8c14a20ff9e7f77fe7fefe15b5b2b6b9fe7` | docs(sfia-studio): align T-A3 PR readiness HEAD and checklist |
-| `f8d25c2dc523020b0443c2b16f375edbf7f5631b` | docs(sfia-studio): align T-A3 PR readiness HEAD and checklist |
+**Exclus / probes (no hits in merge range):**
+- `method/**`
+- `prompts/**`
+- `.github/**`
+- OPS1 runtime paths
+- `sfia-context`
+- modeled schema adds / SQL / migrations
+- root `package.json`
 
-Delivery/validation SHAs **not rewritten**.
+**Scope verdict:** **CLEAN — PASS**
 
-## PR verification
+## 3. Reserves still OPEN (not closed by merge)
 
-| Field | Value |
-|-------|-------|
-| Number | **#264** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/264 |
-| State | **OPEN** |
-| Draft | **false** |
-| Mergeable | **MERGEABLE** (CLEAN when settled) |
-| Auto-merge | **null / not enabled** |
-| Merged | **false** |
-| Head SHA | `f8d25c2dc523020b0443c2b16f375edbf7f5631b` |
-| Stats | **38 files**, **+6073 / −1** |
-| Base | `main` |
-| Title | feat(sfia-studio): add v3-native T-A3 Decision and Authority foundation |
+| ID | Reserve | Status post-merge |
+|----|---------|-------------------|
+| **B5** | T-A1 `AppendLivingProjectStateVersion` does not accept/carry `reservationIds` / satellite LPS ids beyond `decisionIds` | **OPEN** — documented on main in T-A3 delivery docs |
+| **R1** | No strict cross-store atomicity Project↔Cycle (dual in-memory mutex only) | **OPEN** — accepted foundation reserve |
+| **R-T-A3-1** | No public T-A2 Critical acknowledge API; critical cycle stays `proposed` when decision links | **OPEN** |
+| **R-T-A3-2** | Decision↔LPS / Decision↔Epistemic not single atomic txn; residual if compensate fails | **OPEN** |
+| **R-T-A3-3** | Authority registry in-memory only (NOT DATABASE SELECTED) | **OPEN** |
+| **R-T-A3-4** | Modeled ErrorRecord lacks `AUTHORITY_SCOPE_MISMATCH` → mapped to `AUTHORITY_DENIED` | **OPEN** |
 
-## Decisions T-A3-D01..D10 (Morris still open)
+Merge does **not** close B5 / R1 / R-T-A3-*.
 
-| ID | Recommendation |
-|----|----------------|
+## 4. Morris decisions T-A3-D01…D10
+
+| Status | Detail |
+|--------|--------|
+| Present on main | YES — `06-delivery-validation-and-decision-pack.md`, `07-validation-findings-and-morris-decision-pack.md` |
+| Agent recommendations | ACCEPT / ACCEPT WITH RESERVE (see delivery docs) |
+| Morris-validated in Git | **NO source found** — remain **recommendations / candidates only** |
+| Consumed this cycle | **NO** |
+
+| ID | Recommendation (unchanged) |
+|----|----------------------------|
 | **T-A3-D01** | **ACCEPT** — Dual enums |
 | **T-A3-D02** | **ACCEPT** — Morris gate N3 + canActAsMorris |
 | **T-A3-D03** | **ACCEPT** — Never trust client authorityLevel/displayName; B1 snapshots |
@@ -181,21 +131,57 @@ Delivery/validation SHAs **not rewritten**.
 | **T-A3-D09** | **ACCEPT WITH RESERVE** — Detail mapping; B4 fail-closed (R-T-A3-4) |
 | **T-A3-D10** | **ACCEPT WITH RESERVE** — Foundation-only; R1 / R-T-A3-2 |
 
-## Reserves / Debt / Anti-claims
+## 5. Delivery docs on main
 
-Pas MERGED · Pas Morris validated · Pas T-A4 AUTHORIZED · Pas DATABASE SELECTED · Pas B5/R1/R-T-A3-* CLOSED · Pas `VALIDATED WITH RESERVES` comme claim Morris · Pas auto-merge
+- `06-delivery-validation-and-decision-pack.md` — present
+- `07-validation-findings-and-morris-decision-pack.md` — present
+- `08-pr-readiness.md` — present
+- Candidate decisions **T-A3-D01…D10** — present
+- Réserves **B5 / R1 / R-T-A3-1..4 OPEN** — present
+- B1–B4 remain **proven + fixed** on main (not reopened by merge)
 
-Merge only via future gate **`GO MERGE PR T-A3`** (not consumed).
+## 6. Branch / project hygiene (this cycle)
 
-## Issues / residuals
+| Item | Result |
+|------|--------|
+| Merge method | `gh pr merge 264 --merge --delete-branch=false` |
+| Admin bypass | **NONE** |
+| Force push | **NONE** |
+| Branch deleted | **NO** — remote delivery branch kept @ `f8d25c2…` |
+| Project commits created this cycle | **NONE** (merge only via GitHub) |
+| Modeled schemas / method edited | **NONE** |
+| T-A4 started / authorized | **NONE** |
+| Tech WT project tree | unmodified except `.tmp-sfia-review/chatgpt-review.md` write |
+| Main workspace `.tmp-sfia-review/` | **NOT TOUCHED** |
 
-1. **08 HEAD final field vs tip (T-A2-class):** `08-pr-readiness.md` documents HEAD final / remote SHA as `a815b8c…`; actual tip / PR head after last align commit is `f8d25c2…`. Content otherwise correct (PR #264 URL, matrix, reserves). Not blocking Morris review.
-2. Multiple align commits due to HEAD self-reference chicken-egg (same class as T-A2).
+## 7. Handoff publish (this cycle)
 
-## Working tree final
+| Item | Value |
+|------|--------|
+| Pre-publish handoff commit | `d2841d3` (full: see publish verification) |
+| Pre-publish handoff blob | `671430e7548109452ac81c6db530519447fdf2ff` |
+| Publish message | `docs(review-handoff): publish Studio Option A T-A3 post-merge review` |
+| Script | `scripts/sfia/publish-review-handoff.sh` |
+| Source | tech `.tmp-sfia-review/chatgpt-review.md` only |
 
-Tracked clean after push. Untracked: `.tmp-sfia-review/chatgpt-review.md` (this pack; published via handoff script to `sfia/review-handoff` only).
+## 8. Claim discipline / anti-claims
 
-## Verdict exact (allowed string)
+- T-A3 **POST-MERGE VERIFIED** / **CLOSED** — YES (this pack)
+- T-A4 **FRAMING MAY OPEN** — YES (framing only; **NOT AUTHORIZED** delivery)
+- T-A4 AUTHORIZED / launched — **NO**
+- DATABASE SELECTED — **NO**
+- OPTION A IMPLEMENTED (full product) — **NO**
+- V2.6 REMOVED / cutover — **NO**
+- B5 / R1 / R-T-A3-* CLOSED — **NO** (still OPEN)
+- Morris validated T-A3-D01…D10 — **NO** (recommendations only; no Git validation source)
+- method/** / OPS1 / sfia-context / modeled schemas mutated this cycle — **NO**
+- Auto-merge / force push / admin bypass — **NO**
+- Control-tower checkout — **NO**
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A3 PR CREATED — MORRIS REVIEW REQUIRED**
+## 9. Final
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A3 POST-MERGE VERIFIED — T-A3 CLOSED — T-A4 FRAMING MAY OPEN**
+
+**Blockers:** none
+
+**CI issues:** none failing (no required checks configured / empty `statusCheckRollup`)
