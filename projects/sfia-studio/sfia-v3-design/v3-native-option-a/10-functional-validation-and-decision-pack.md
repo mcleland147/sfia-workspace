@@ -36,7 +36,7 @@
 | U-OA-02 | Moment merge UX 87–89 vs cycles UX/AF aval |
 | U-OA-03 | Stratégie données MethodMode existantes |
 | U-OA-04 | Périmètre P0 exact des premiers composants livrés |
-| U-FA-01 | LPS = agrégat unique vs projection multi-domaines (décision candidate AF) |
+| U-FA-01 | LPS = agrégat unique vs projection multi-domaines (**FA-OA-01 VALIDATED**) |
 
 U-OA-01 (gel vs migration OPS1) : **levé** par FD-OA-05 (legacy gelé).
 
@@ -58,7 +58,7 @@ U-OA-01 (gel vs migration OPS1) : **levé** par FD-OA-05 (legacy gelé).
 | Objet | Maturité |
 |-------|----------|
 | Pack conception Option A | **VALIDATED** (Morris) |
-| Architecture fonctionnelle | **DOCUMENTED candidate** (ce cycle) |
+| Architecture fonctionnelle | **VALIDATED BY MORRIS** (cycles suivants capitalisés) |
 | Fondations F01–F15 | VALIDATED (framing) |
 | Runtime v3-native | non MODELED / non IMPLEMENTED |
 | Coupure v2.6 | non exécutée |
@@ -79,7 +79,7 @@ Interdit : MODELED · IMPLEMENTED · ADOPTED runtime · READY FOR MODELED · REA
 
 ## 8. Gate
 
-Architecture fonctionnelle en cours sur branche `design/sfia-studio-v3-native-option-a-functional-architecture`.
+Architecture fonctionnelle **VALIDATED BY MORRIS** (capitalisée ; chaîne consolidée dans la PR foundation).
 
 Gate suivant après AF documentée : validation Morris AF, puis UX et/ou modeled selon arbitrage.
 
