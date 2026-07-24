@@ -4,194 +4,154 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-24 10:04:07 CEST (+0200) |
-| **Cycle** | PR readiness — T-A1 Project / LPS Foundation |
+| **Date/heure** | 2026-07-24 10:22:07 CEST (+0200) |
+| **Cycle** | Post-merge verification — T-A1 Project / LPS Foundation |
 | **Profil** | Critical |
-| **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A1` |
+| **Gate consommé** | Post-merge verification PR #262 (READ-ONLY project) |
 | **Repo** | mcleland147/sfia-workspace |
-| **origin/main** | `8013c71342a019ab6c1297f05443a0dd8b6fac7c` — feat(sfia-studio): add v3-native T-A0 Doctrine Foundation (#261) |
-| **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a1-project-lps-foundation` |
-| **HEAD initial (Truth Check)** | `861ca766cfd081060b1dddd6ef614aad96f264e1` |
-| **HEAD final** | `5733d25b4b4c7ada042af2776fe1d3154c0b5583` |
-| **merge-base(origin/main)** | `8013c71342a019ab6c1297f05443a0dd8b6fac7c` |
-| **Handoff blob (pré-cycle)** | `9927cd1bef11a0af218ffe06899e8b6d4285b105` (T-A1 validation review) |
-| **PR** | [#262](https://github.com/mcleland147/sfia-workspace/pull/262) — OPEN — non-draft — **not merged** |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
+| **origin/main (attendu)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
+| **origin/main (observé)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — MATCH |
+| **Old main** | `8013c71342a019ab6c1297f05443a0dd8b6fac7c` |
+| **PR** | [#262](https://github.com/mcleland147/sfia-workspace/pull/262) — **MERGED** |
+| **PR head** | `5733d25b4b4c7ada042af2776fe1d3154c0b5583` |
+| **Merge SHA** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
+| **Merge mode** | `merge_commit` |
+| **Parents** | `8013c71342a019ab6c1297f05443a0dd8b6fac7c` + `5733d25b4b4c7ada042af2776fe1d3154c0b5583` |
+| **Tree integrity** | PR head tree = merge tree = `fd83620deee7547e25f85d1f1bed0c42db08a786` — MATCH |
+| **Branche delivery (remote)** | `delivery/sfia-studio-v3-native-option-a-t-a1-project-lps-foundation` @ `5733d25…` — **still present** |
+| **Handoff source blob (pré-cycle)** | `c79bf0c255fab61eeadcb650ccdf8af0fd7d12cc` — MATCH |
+| **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` (unmodified project; review write only) |
+| **Temp WT** | `/tmp/sfia-t-a1-postmerge` @ `origin/main` (validations; removed after) |
 | **Handoff WT** | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| **T-A2 / method/** / modeled schemas / package.json / SQL / UI / OPS1 / sfia-context** | **hors scope / inchangés** |
+| **Project commits / push / PR / merge / branch delete / T-A2** | **NONE this cycle** |
 | **Niveau** | FULL |
+
+## VERDICT
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A1 POST-MERGE VERIFIED — T-A1 CLOSED — T-A2 FRAMING MAY OPEN**
+
+Blockers: **none**
 
 ## 1. Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| Date Europe/Paris | 2026-07-24 10:00:35 CEST — PASS |
-| Fetch all | OK |
-| Branch | `delivery/sfia-studio-v3-native-option-a-t-a1-project-lps-foundation` — MATCH |
-| HEAD attendu `861ca76…` | MATCH (pré-docs) |
-| `origin/main` `8013c713…` | MATCH |
-| merge-base = origin/main | MATCH |
-| Commits pré-cycle | `090e7be`, `fc8a51a`, `262d274`, `861ca76` — MATCH |
-| Handoff blob `9927cd1…` | MATCH (blob present) |
-| Concurrent T-A1 PR | **aucune** (pré-cycle) — PASS |
-| Status | clean hors `.tmp-sfia-review/` — PASS |
-| Commit `861ca76` mutex/concurrency evidence | PASS (mutex `runInTransaction`, re-check `expectedVersion`, concurrent double-append test, `structuredClone`, rollback) |
+| Date Europe/Paris | 2026-07-24 10:22:07 CEST — PASS |
+| `git fetch origin` | OK |
+| `gh pr view 262` state | **MERGED** (`mergedAt` 2026-07-24T08:11:54Z) — PASS |
+| Merge subject includes `(#262)` | PASS — `feat(sfia-studio): add v3-native T-A1 Project and LPS foundation (#262)` |
+| `origin/main` = `102b6c6…` | MATCH |
+| Old main parent = `8013c713…` | MATCH |
+| PR head parent = `5733d25…` | MATCH |
+| Mode | `merge_commit` (2 parents) — PASS |
+| Tree head vs merge | MATCH `fd83620…` — PASS |
+| Diff `8013c713..102b6c6` | **30 files**, **+3249 / -0** — MATCH expected |
+| PR commit chain (6) | `090e7be`, `fc8a51a`, `262d274`, `861ca76`, `1e9070e`, `5733d25` — MATCH |
+| Concurrency fix `861ca76` ancestor of merge | YES — PASS |
+| Delivery branch still on remote | YES @ `5733d25…` — PASS |
+| Handoff blob `c79bf0c…` | MATCH — PASS |
 
 **Verdict Truth Check:** **PASS**
 
-## 2. Scope
-
-**Inclus:** `app/lib/oa/project/**`, `__tests__/oa/project/**`, delivery docs `t-a1-project-lps-foundation/**` (incl. Morris validation + pr-readiness pack).
-
-**Exclus:** merge / auto-merge / force push / delete branch · T-A2 · `method/**` · modeled schema edits · `package.json` · SQL · UI · OPS1 · sfia-context · cutover.
-
-## 3. Commit chain (`origin/main..HEAD`)
+### Merge fuller (summary)
 
 ```
-5733d25b4b4c7ada042af2776fe1d3154c0b5583 docs(sfia-studio): prepare T-A1 Project and LPS PR
-1e9070efa4d51e89c4740827d015322a98d775a1 docs(sfia-studio): record T-A1 Morris validation
-861ca766cfd081060b1dddd6ef614aad96f264e1 fix(sfia-studio): correct T-A1 Project and LPS validation
-262d274b82573585e373448e7a4f94e9c5419e9a docs(sfia-studio): document Option A T-A1 delivery
-fc8a51a7d6d2b6aa6d90c6352944ea67bcd1ebff test(sfia-studio): validate T-A1 Project and LPS invariants
-090e7be6aee32b0184a0a5bf6608e595dd4988e3 feat(sfia-studio): add v3 Project and LPS foundation
-```
+commit 102b6c6c1d662c2359b1a11802f1bbc7e620935d
+Merge: 8013c71 5733d25
+Author:     mcleland147 <m.cleland@live.fr>
+AuthorDate: Fri Jul 24 10:11:54 2026 +0200
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Jul 24 10:11:54 2026 +0200
 
-### New commits this PR-readiness cycle
+    feat(sfia-studio): add v3-native T-A1 Project and LPS foundation (#262)
 
-| SHA | Message |
-|-----|---------|
-| `1e9070efa4d51e89c4740827d015322a98d775a1` | docs(sfia-studio): record T-A1 Morris validation |
-| `5733d25b4b4c7ada042af2776fe1d3154c0b5583` | docs(sfia-studio): prepare T-A1 Project and LPS PR |
-
-## 4. Concurrency fix evidence (`861ca76`)
-
-- Bug: concurrent double-append same `expectedVersion` → two successes (history fork).
-- Fix: serialize `MemoryProjectStore.runInTransaction` + re-check `expectedVersion` inside append critical section + `structuredClone` on write/read/return.
-- Test: `allows only one winner on concurrent double-append with same expectedVersion`.
-- Status: **FIXED** before PR-readiness docs; re-validated in this cycle.
-
-## 5. Validation matrix (re-run PR readiness)
-
-| Check | Exit | Duration | Result |
-|-------|------|----------|--------|
-| `npx vitest run __tests__/oa/project` | 0 | 0.40s | **30/30** PASS |
-| `npx vitest run __tests__/oa/doctrine` | 0 | 0.29s | **28/28** PASS |
-| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | 0 | 0.40s | **10/10** PASS |
-| `npx tsc --noEmit` | 0 | <1s | PASS |
-| `npx next lint --dir lib/oa/project --dir __tests__/oa/project` | 0 | <2s | PASS |
-| `npx next build` | 0 | ~10s | PASS |
-| `git diff --check origin/main...HEAD` | 0 | <1s | PASS |
-| Grep secrets in diff | none | — | PASS |
-| Grep SQL / migrations | none | — | PASS |
-| Grep `package.json` in diff | none | — | PASS |
-| Modeled schemas unchanged | — | — | PASS |
-| Forbidden paths (`method/`, OPS1, sfia-context) | none | — | PASS |
-
-## 6. Morris decisions T-A1-D01…D10
-
-Status exact: **T-A1 TECHNICALLY VALIDATED BY MORRIS — PR READINESS AUTHORIZED**
-
-| ID | Statut |
-|----|--------|
-| T-A1-D01…D04, D07, D09, D10 | **VALIDATED** |
-| T-A1-D05 | **VALIDATED** with reserve (Option A pin-compare only on append) |
-| T-A1-D06 | **VALIDATED** with reserve (in-memory; DATABASE SELECTED open) |
-| T-A1-D08 | **VALIDATED** with reserve (detail codes / enum modeled = dette) |
-
-Record: `…/t-a1-project-lps-foundation/06-morris-validation-and-pr-readiness.md`
-
-## 7. PR
-
-| Champ | Valeur |
-|-------|--------|
-| Number | **262** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/262 |
-| State | **OPEN** |
-| Draft | false |
-| Auto-merge | null / disabled |
-| Base | `main` |
-| Head | `delivery/sfia-studio-v3-native-option-a-t-a1-project-lps-foundation` |
-| head SHA | `5733d25b4b4c7ada042af2776fe1d3154c0b5583` |
-| Remote branch SHA | `5733d25b4b4c7ada042af2776fe1d3154c0b5583` (match local) |
-| Merged | **NO** |
-| Merge executed this cycle | **NO** |
-
-## 8. Diffstat summary
-
-Files touched vs main: **30**
-
-```
- .../app/__tests__/oa/project/antiLegacy.test.ts    | 100 +++
- .../oa/project/projectLpsFoundation.test.ts        | 773 +++++++++++++++++++++
- .../application/appendLivingProjectStateVersion.ts | 302 ++++++++
- .../lib/oa/project/application/createProject.ts    | 275 ++++++++
- .../application/getCurrentLivingProjectState.ts    | 110 +++
- .../application/getLivingProjectStateVersion.ts    | 125 ++++
- .../app/lib/oa/project/application/getProject.ts   |  85 +++
- .../app/lib/oa/project/domain/errors.ts            |  89 +++
- .../app/lib/oa/project/domain/invariants.ts        | 180 +++++
- .../sfia-studio/app/lib/oa/project/domain/types.ts | 211 ++++++
- projects/sfia-studio/app/lib/oa/project/index.ts   | 130 ++++
- .../memoryLivingProjectStateRepository.ts          |  60 ++
- .../infrastructure/memoryProjectRepository.ts      |  41 ++
- .../project/infrastructure/memoryProjectStore.ts   | 101 +++
- .../lib/oa/project/infrastructure/observability.ts |  18 +
- .../ports/livingProjectStateRepositoryPort.ts      |  18 +
- .../oa/project/ports/projectAuditJournalPort.ts    |  50 ++
- .../lib/oa/project/ports/projectRepositoryPort.ts  |  13 +
- .../01-scope-and-canonical-slice-definition.md     |  48 ++
- .../02-domain-contracts-and-invariants.md          |  66 ++
- ...03-persistence-consistency-and-failure-modes.md |  72 ++
- .../04-tests-evidence-and-reserves.md              |  35 +
- .../05-delivery-validation-and-decision-pack.md    |  54 ++
- .../06-morris-validation-and-pr-readiness.md       |  63 ++
- .../t-a1-project-lps-foundation/README.md          |  39 ++
- .../pr-readiness/01-pr-scope-and-commit-chain.md   |  31 +
- .../pr-readiness/02-validation-results.md          |  27 +
- .../03-risks-reserves-and-review-guide.md          |  27 +
- .../pr-readiness/04-pr-description.md              |  79 +++
- .../pr-readiness/README.md                         |  27 +
  30 files changed, 3249 insertions(+)
 ```
 
-## 9. Review focus (for Morris)
+## 2. Scope classification
 
-1. Mutex `runInTransaction` serialization
-2. Concurrent double-append single-winner
-3. Atomic rollback create/append
-4. `structuredClone` immutability / no aliasing
-5. Doctrine pin create vs Option A pin-compare append
-6. UTF-8 `MAX_LPS_SNAPSHOT_BYTES=256_000`
-7. Error mapping `STATE_CONFLICT` / `DOCTRINE_UNRESOLVED` + detail codes
-8. Legacy isolation (anti-ops1 / anti-method / anti-sfia-context)
+**Inclus (all Added):**
+- `projects/sfia-studio/app/lib/oa/project/**` (domain, application, ports, memory infra)
+- `projects/sfia-studio/app/__tests__/oa/project/**`
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/**` (+ pr-readiness)
 
-## 10. Anti-claims
+**Exclus / probes (no hits in merge range):**
+- `method/**`
+- `prompts/**`
+- `.github/**`
+- OPS1 runtime paths
+- `sfia-context`
+- modeled schema adds
+- `package.json`
+- SQL / migrations
 
-- Pas T-A1 **MERGED**
-- Pas T-A2 **AUTHORIZED** / started
-- Pas READY FOR DELIVERY GLOBAL
-- Pas DATABASE SELECTED
-- Pas SCHEMAS ADOPTED runtime / modeled schemas inchangés
-- Pas V2.6 / MethodMode / OPS1 removed
-- Pas OPTION A IMPLEMENTED (foundation slice only)
-- Pas UI / Cycle / Decision / Execution / Evidence
-- Pas force push · Pas merge executed · Pas auto-merge
+**Scope verdict:** **CLEAN — PASS**
 
-## 11. Réserves maintenues
+## 3. Concurrency fix presence (`861ca76`)
 
-1. Persistance mémoire seulement — pas DATABASE SELECTED
-2. Detail codes T-A1 hors enum ErrorRecord modeled
-3. NOT_FOUND / INVALID → `STATE_CONFLICT` (lire `detailCode`)
-4. Pas de métriques Prometheus ; audit mémoire/console
-5. Module non branché sessions / UI
-6. Option A pin-compare only on append (pas de re-verify digest)
-7. Volumétrie historique non bornée en mémoire
-8. Dette enum modeled T-A1-D08
+Verified on `origin/main` tree (`memoryProjectStore.ts` + `appendLivingProjectStateVersion.ts`):
 
-## 12. Blockers
+| Element | Present |
+|---------|---------|
+| Mutex / serialize queue (`private queue` + `runInTransaction` chain) | YES |
+| Re-check `expectedVersion` inside transaction critical section | YES |
+| Comment: concurrent double-append must conflict | YES |
 
-**None** for PR creation. Merge remains Morris-gated.
+**Concurrency fix verdict:** **PASS**
 
-## 13. Verdict
+## 4. Validations (temp worktree `/tmp/sfia-t-a1-postmerge` @ `102b6c6`)
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A1 PR CREATED — MORRIS REVIEW REQUIRED**
+| Check | Exit | Detail |
+|-------|------|--------|
+| `npm ci` (app) | 0 | 414 packages |
+| `vitest run __tests__/oa/project` | 0 | **30** passed (2 files) |
+| `vitest run __tests__/oa/doctrine` | 0 | **28** passed (3 files) |
+| `vitest run __tests__/platform` + `__tests__/fixtures` | 0 | **10** passed (3 files) |
+| `tsc --noEmit` | 0 | clean |
+| `next lint` (OA project paths) | 0 | No ESLint warnings or errors |
+| `next build` | 0 | Compiled successfully |
+| `git diff --check 8013c713..102b6c6` | 0 | clean |
+| Grep secrets in merge files | — | no credential/private-key hits (doc false-positives only) |
+| Grep SQL / method / legacy / T-A2 | — | no forbidden path edits; T-A2 mentions are documentary anti-claims only |
+| `06-morris-validation-and-pr-readiness.md` | — | PRESENT |
+| Decisions **T-A1-D01…D10** | — | PRESENT in decision pack |
+
+**Validations verdict:** **PASS**
+
+## 5. Delivery docs
+
+- `06-morris-validation-and-pr-readiness.md` — present
+- Candidate decisions **T-A1-D01…D10** table — present in `05-delivery-validation-and-decision-pack.md`
+
+## 6. Branch / project hygiene (this cycle)
+
+| Item | Result |
+|------|--------|
+| Project commits created | **NONE** |
+| Project push / PR / merge / branch delete | **NONE** |
+| T-A2 started / authorized | **NONE** |
+| Tech WT project tree | unmodified (only `.tmp-sfia-review/chatgpt-review.md` write) |
+| Temp worktree | created for validations; removed without commit |
+
+## 7. Handoff publish (this cycle)
+
+| Item | Value |
+|------|--------|
+| Pre-publish handoff blob | `c79bf0c255fab61eeadcb650ccdf8af0fd7d12cc` |
+| Publish message | `docs(review-handoff): publish Studio Option A T-A1 post-merge review` |
+| Script | `scripts/sfia/publish-review-handoff.sh` |
+
+## 8. Claim discipline
+
+- T-A1 **POST-MERGE VERIFIED** / **CLOSED** — YES (this pack)
+- T-A2 **FRAMING MAY OPEN** — YES (framing only; not AUTHORIZED delivery)
+- DATABASE SELECTED — NO
+- OPTION A IMPLEMENTED — NO
+- V2.6 REMOVED / cutover — NO
+- method/** / OPS1 / sfia-context mutated — NO
+
+## 9. Final
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A1 POST-MERGE VERIFIED — T-A1 CLOSED — T-A2 FRAMING MAY OPEN**
+
+**Blockers:** none
