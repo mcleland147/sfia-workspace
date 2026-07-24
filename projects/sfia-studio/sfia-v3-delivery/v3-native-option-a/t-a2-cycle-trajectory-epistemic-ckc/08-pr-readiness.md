@@ -7,13 +7,13 @@
 | **Base** | `origin/main` @ `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
 | **HEAD avant PR readiness** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
-| **HEAD final** | 5a4d3bc87751f843e64ada221ba4bfca64c9e8c3 (docs PR readiness tip at authoring; re-verify on PR head SHA) |
+| **HEAD final** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
 | **merge-base(HEAD, origin/main)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
 | **Diff vs origin/main** | 40 files changed, 4974 insertions(+), 6 deletions(-) |
 | **Validation technique** | **PASSED AFTER CORRECTION** — 48/30/28/10 |
 | **Décisions Morris T-A2-D01…D10** | **encore requises** (recommandations agents uniquement ; pas de source Git Morris-validated) |
-| **Push / PR** | autorisés par ce gate |
-| **Merge** | **interdit** dans ce cycle |
+| **Push / PR** | **DONE** — remote SHA `30a332eb4ecc34cce3ce99c5c909dc800bfad927` · PR **#263** OPEN non-draft |
+| **Merge** | **interdit** / **not done** (gate `GO MERGE PR T-A2` non consommé) |
 | **Gate suivant (non consommé)** | `GO MERGE PR T-A2` |
 
 ## Scope
@@ -158,9 +158,9 @@ Pas de claim `VALIDATED BY MORRIS` — aucune source Git Morris-validated pour T
 - [x] Chemins protégés absents du diff
 - [x] Docs PR readiness (`08` + wording)
 - [x] Commit docs local
-- [ ] Push `-u` (ce cycle)
-- [ ] PR non-draft vers `main` (ce cycle)
-- [ ] Review pack FULL + handoff publish (ce cycle)
+- [x] Push `-u` (ce cycle)
+- [x] PR non-draft vers `main` (ce cycle)
+- [x] Review pack FULL + handoff publish (ce cycle)
 - [ ] **Merge** — **NON** (gate `GO MERGE PR T-A2` non consommé)
 
 ## Gate de merge requis
