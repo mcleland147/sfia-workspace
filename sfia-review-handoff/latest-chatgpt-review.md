@@ -4,204 +4,292 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-24 14:10:56 CEST (+0200) |
-| **Cycle** | Delivery — T-A3 Decision / Confirmation / Authority Foundation |
+| **Date/heure Europe/Paris** | 2026-07-24 14:47:40 CEST (+0200) |
+| **Cycle** | Validation Option A T-A3 — Decision / Confirmation / Authority |
 | **Profil** | Critical |
-| **Gate consommé** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
-| **Repo** | mcleland147/sfia-workspace |
-| **Base (required)** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` (T-A2 merge) |
+| **Gate consommé** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
+| **Repo** | `mcleland147/sfia-workspace` |
+| **origin/main** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` — Merge PR #263 (T-A2) |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` |
-| **HEAD final** | `a71f0b44ee980092b93a7a06e505df60a66d07fb` |
-| **Ancestor check** | `5f5c616…` is ancestor of HEAD — **PASS** |
-| **Push** | **NONE** |
-| **PR** | **NONE** |
-| **Merge** | **NONE** |
-| **package.json / modeled schemas / method/\*\*** | **NONE edited** |
+| **HEAD initial expected** | `a71f0b44ee980092b93a7a06e505df60a66d07fb` |
+| **HEAD initial observed** | `a71f0b44ee980092b93a7a06e505df60a66d07fb` — MATCH |
+| **HEAD final** | `7afd12a76e4450451e1a84a5f0add16eac5c222f` |
+| **merge-base(HEAD, origin/main)** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` |
+| **Status / staged / untracked** | clean tracked tree; untracked `.tmp-sfia-review/` only (local evidence; not committed) |
+| **Handoff SOURCE consumed** | blob `2f32d62c24a60c762fa4407acd7c2e96add802ed` / commit `c1032e501849fc8d28be5471cf0325c06b6e6e55` (delivery handoff — T-A3 FOUNDATION IMPLEMENTED) |
 | **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Handoff WT** | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | **Main checkout** | `/Users/morris/Projects/sfia-workspace` |
-| **Admin bypass** | **NONE** |
-| **Force push** | **NONE** |
+| **Push / PR / merge projet** | **NONE** |
+| **T-A4 / DATABASE SELECTED / package.json / method/** / modeled schema edits / SQL** | **NONE** |
 | **Niveau** | FULL |
 
 ## VERDICT
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A3 DECISION/CONFIRMATION/AUTHORITY FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A T-A3 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
 
-Blockers: **none** (delivery foundation complete; Morris D01–D10 open)
+Blockers B1–B4 **proven + fixed**. Reserves B5 / R1 / R-T-A3-* remain OPEN (not closed).
 
-## 1. Truth Check
+## Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| Date Europe/Paris | 2026-07-24 14:10:56 CEST (+0200) — PASS |
-| Branch | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` — PASS |
-| HEAD based on `5f5c616…` | YES (`merge-base --is-ancestor`) — PASS |
-| Commits (3 local) | feat → test → docs — PASS |
-| No push / PR / merge | PASS |
-| No package.json / modeled / method edits | PASS |
-| Working tree clean | PASS |
+| Date Europe/Paris | 2026-07-24 14:47:40 CEST (+0200) — PASS |
+| Gate | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` — PASS |
+| origin/main | `5f5c616…` — MATCH |
+| Branche | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` — PASS |
+| HEAD initial expected | `a71f0b4…` — MATCH observed |
+| Delivery commits present (not rewritten) | `6d2c4af` feat · `5e699e9` test · `a71f0b4` docs — PASS |
+| Correction chain | `f1cf170` fix → `5d988dd` adversarial tests → `7afd12a` findings — PASS |
+| merge-base | = origin/main `5f5c616…` — PASS |
+| Ancestor of `5f5c616` | YES — PASS |
+| Diff validation `a71f0b4..HEAD` | **11 files**, **+1195 / −163** — PASS |
+| Diff final vs origin/main `5f5c616..HEAD` | **37 files**, **+5871 / −1** — PASS |
+| Handoff source blob | `2f32d62c…` type `blob` on `c1032e5` — PASS |
+| Concurrent project PR / push | NONE — PASS |
+| Working tree | only untracked `.tmp-sfia-review/` — PASS |
 
-### Commit chain (3)
+**Truth Check verdict:** **PASS**
 
-| SHA | Message |
-|-----|---------|
-| `6d2c4aff86adafb6c31856109e457dfc761d0857` | feat(sfia-studio): add v3 Decision and Confirmation foundation |
-| `5e699e9a75e3d42d719356696333b5068a104f54` | test(sfia-studio): validate T-A3 authority and supersession invariants |
-| `a71f0b44ee980092b93a7a06e505df60a66d07fb` | docs(sfia-studio): document Option A T-A3 delivery |
+## Handoff source consumed
 
-### Diff vs base
+- Branch `origin/sfia/review-handoff` commit **`c1032e501849fc8d28be5471cf0325c06b6e6e55`**
+- Path `sfia-review-handoff/latest-chatgpt-review.md`
+- Blob **`2f32d62c24a60c762fa4407acd7c2e96add802ed`**
+- Content class: **Delivery** review pack (verdict `…FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED`)
+- This validation pack **supersedes** that delivery handoff for Morris/ChatGPT decision; it does **not** rewrite the delivery commit chain `a71f0b4`.
 
-`5f5c616..HEAD` → **35 files**, **+4839 / −1**
+## CKC (for this validation cycle)
 
-| Bucket | Files | Notes |
-|--------|-------|-------|
-| feat | 25 | `lib/oa/decision/**` (23) + LPS `decisionIds` extension (2) |
-| test | 3 | `__tests__/oa/decision/**` |
-| docs | 7 | `t-a3-decision-confirmation-authority/**` |
+Not in T-A3 scope. T-A2 CKC foundation remains; T-A3 does not mutate CKC resolver. Critical cycle stays `proposed` when a decision links a cycle (**R-T-A3-1**).
 
-## 2. Scope classification
+## Sources consulted
 
-| In scope (done) | Out of scope (respected) |
-|-----------------|--------------------------|
-| HumanDecision / Confirmation / AuthorityResolver | Modeled schema edits |
-| Use-cases Record/Get/List/Request/Grant/Refuse/Consume/Cancel/Supersede/Verify | UI / Execution / Evidence |
-| In-memory store + failNextSave + audit | Database selection |
-| LPS `decisionIds` non-breaking append | Full B5 satellite ids |
-| Epistemic DecisionRef via public Cycle API | Critical auto-ack mutation |
-| Docs pack + D01–D10 | Push / PR / merge |
-| ≥30 T-A3 tests (38) | `method/**`, `package.json` |
+- `lib/oa/decision/**` (application + infrastructure)
+- `__tests__/oa/decision/**` (foundation + delivery adversarial + validation adversarial + anti-legacy)
+- `sfia-v3-delivery/.../t-a3-decision-confirmation-authority/**` (01–07)
+- Prior delivery handoff blob `2f32d62c…`
+- Exploration blockers B1–B4 (TOCTOU, refuse/cancel race, dual supersede, silent links)
 
-## 3. Architecture delivered
+## Canonical T-A3 definition
+
+Foundation slice for `HumanDecision`, `Confirmation` (N1/N2/N3), `AuthorityResolverPort`:
+
+- Dual enums: Decision.authority (`morris|delegated|system_non_structuring`) vs Confirmation.level (`N1|N2|N3`)
+- Morris gate = verified N3 **and** `canActAsMorris` (never invent from displayName/actorId)
+- One accepted decision per subject; supersede = immutable history
+- In-memory store + ports; failNextSave rollback; audit events
+- Optional LPS `decisionIds` + Epistemic `DecisionRef` via public T-A1/T-A2 APIs only
+
+## Scope / Out of scope
+
+| In scope (validation) | Out of scope (respected) |
+|-----------------------|--------------------------|
+| Prove B1–B4 with adversarial tests | Modeled schema / method / package.json edits |
+| Fix only `lib/oa/decision/**` | UI / Execution / Evidence / ReviewBundle |
+| Docs pack §07 + README/05/06/04 | T-A4 |
+| Review pack FULL + handoff publish | Project push / PR / merge |
+| Evidence freeze / actor mismatch tests | Closing B5 / R1 / R-T-A3-* without Morris |
+| | Rewrite delivery commits `a71f0b4` chain |
+
+## Diff initial (delivery HEAD a71f0b4)
+
+Delivery at start: **35 files** under `5f5c616..a71f0b4` (feat+test+docs). Validation starts clean at `a71f0b4`.
+
+## Architecture (post-correction)
 
 ### Module
 
 `projects/sfia-studio/app/lib/oa/decision/`
 
-- `domain/` types · errors · invariants (clone-before-validate, dual enums)
-- `application/` 10 use-cases
+- `domain/` types · errors · invariants (clone arrays)
+- `application/` Record / Get / List / Request / Grant / Refuse / Consume / Cancel / Supersede / Verify
 - `ports/` DecisionRepo · ConfirmationRepo · AuthorityResolver · Audit
-- `infrastructure/` MemoryDecisionStore (promise mutex + snapshot txn) · repos · MemoryAuthorityResolver · observability
-- `index.ts` `createInMemoryDecisionServices` / `createTestDecisionServices`
+- `infrastructure/` MemoryDecisionStore (mutex + snapshot txn) · repos · MemoryAuthorityResolver (immutable register) · observability
 
-### Authority (critical)
+### Authority
 
 - Registry `AuthorityEvidence` with optional `canActAsMorris`
-- **N3 ≠ Morris gate** — morris authority requires verified N3 **and** `canActAsMorris: true`
-- NEVER trusts client `authorityLevel` / `displayName === "Morris"` / injected N3
-- Scope mismatch → `AUTHORITY_SCOPE_MISMATCH` → modeled `AUTHORITY_DENIED`
+- **N3 ≠ Morris gate**
+- NEVER trusts client `authorityLevel` / `displayName`
+- Re-register same `evidenceId` → throws `evidence_immutable`
+- actorId vs evidence mismatch → `actor_mismatch` → `AUTHORITY_DENIED`
 
 ### Integration T-A1 / T-A2
 
 - Require project via `getProject`
-- Optional cycle: `GetCycle` + same `projectId`; **does not mutate** Critical `proposed` status (**R-T-A3-1**)
-- After accept: optional Epistemic `DecisionRef` (new id) via public API
-- After accept: optional LPS link via `decisionIds` on `AppendLivingProjectStateVersion` (carry-forward when omitted)
+- Optional cycle: GetCycle + same projectId; **does not mutate** Critical `proposed` (**R-T-A3-1**)
+- After accept: optional Epistemic DecisionRef / LPS decisionIds — **fail-closed when requested** (B4)
 
-### Audit events (post-persist)
+## Decision domain (post B1)
 
-`oa.decision.*` · `oa.confirmation.*` · `oa.authority.verified`
+`RecordHumanDecision` / `SupersedeHumanDecision` snapshot authority, actor, selectedOptionId, status, nonStructuring, subject, scope **before any await**; persist only snapshots.
 
-Proof = N2/N3 audit; Rollback = supersede (immutable history).
+## Confirmation domain (post B2)
 
-## 4. Test matrix
+- Grant / Consume: re-load under txn (already)
+- Refuse: re-load; only `requested` → `refused`
+- Cancel: re-load; only `requested`\|`granted` → `cancelled`
+- Concurrent grant+refuse: one wins; refuse cannot overwrite grant
 
-| Suite | Command | Result |
-|-------|---------|--------|
-| T-A3 decision | `npx vitest run __tests__/oa/decision` | **38 PASS** |
-| T-A2 cycle | `npx vitest run __tests__/oa/cycle` | **48 PASS** |
-| T-A1 project | `npx vitest run __tests__/oa/project` | **30 PASS** |
-| T-A0 doctrine | `npx vitest run __tests__/oa/doctrine` | **28 PASS** |
-| Platform + fixtures | `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | **10 PASS** |
-| **Total** | | **154 PASS** |
-| Typecheck | `npx tsc --noEmit` | PASS |
-| Lint | `npm run lint` | PASS (no errors) |
-| Build | `npm run build` | PASS |
+## Supersession (post B3)
 
-### T-A3 coverage highlights
+Inside txn: `current.status === expectedPreStatus` and supersedable; concurrent second supersede → `STATE_CONFLICT`; at most one accepted successor per subject.
 
-- Morris N3+canActAsMorris accept
-- Hostile displayName / injected N3 denied
-- N3 without Morris gate denied
-- N2 cannot grant N3; N3 can grant N2
-- Scope mismatch
-- Idempotency reuse + conflict
-- Expired not consumable; double consume forbidden
-- Concurrent double grant/consume
-- failNextSave rollback
-- Supersede + OCC version conflict
-- Epistemic DecisionRef after accept only
-- LPS decisionIds carry-forward
-- Critical cycle stays proposed
-- Anti-legacy imports
-- Immutability / clone-before-validate
+## Link fail-closed (post B4)
 
-## 5. Reserves (OPEN)
+When `linkToLivingProjectState` / `linkEpistemicDecisionRef` requested and fails:
 
-| ID | Reserve | Status |
-|----|---------|--------|
-| **B5** | Other LPS satellite ids (`reservationIds`, …) not on append | OPEN (inherited); `decisionIds` only extended |
-| **R1** | No strict Project↔Cycle cross-store atomicity | OPEN (inherited) |
-| **R-T-A3-1** | No public T-A2 Critical acknowledge API | OPEN — decision links cycle without status mutate |
-| **R-T-A3-2** | Decision↔LPS/Epistemic best-effort post-persist | OPEN |
-| R-T-A3-3 | Authority registry in-memory only | OPEN (NOT DATABASE SELECTED) |
-| R-T-A3-4 | No modeled `AUTHORITY_SCOPE_MISMATCH` enum member | OPEN — mapped to `AUTHORITY_DENIED` |
+1. Compensate: supersede orphan decision in decision store
+2. Return `LPS_VERSION_CONFLICT` or `PERSISTENCE_FAILURE`
+3. Residual orphan only if compensate fails → **R-T-A3-2**
 
-## 6. D01–D10 recommendations (Morris)
+## Immutability / anti-aliasing
+
+structuredClone on returns; clone-before-validate arrays; B1 scalar snapshots; evidence register immutable.
+
+## Repositories / transactions / mutex
+
+Single `MemoryDecisionStore` promise mutex + begin/commit/rollback. Cross-store Decision↔LPS/Epistemic: no distributed txn (**R-T-A3-2**); fail-closed + compensate.
+
+## Errors matrix + retryability
+
+| detailCode | Modeled | Notes |
+|------------|---------|-------|
+| AUTHORITY_DENIED / AUTHORITY_SCOPE_MISMATCH | AUTHORITY_DENIED | scope mapped |
+| STATE_CONFLICT | STATE_CONFLICT | refuse/cancel/supersede races |
+| VERSION_CONFLICT / LPS_VERSION_CONFLICT | STATE_CONFLICT | retryable |
+| PERSISTENCE_FAILURE | STATE_CONFLICT | link fail / txn fail |
+
+## Provenance / security
+
+Hostile authorityLevel/displayName ignored; TOCTOU mutations ignored post-snapshot; no prototype pollution vectors added.
+
+## Observability
+
+Audit: `oa.authority.verified`, `oa.decision.recorded|superseded`, `oa.confirmation.*`.
+
+## Performance
+
+In-memory only; mutex serializes concurrent grant/supersede; no DB.
+
+## Tests before / after
+
+| Suite | Before (delivery) | After (validation) |
+|-------|-------------------|--------------------|
+| `__tests__/oa/decision` | **38** | **50** (+12) |
+| `__tests__/oa/cycle` | 48 | **48** |
+| `__tests__/oa/project` | 30 | **30** |
+| `__tests__/oa/doctrine` | 28 | **28** |
+| platform + fixtures | 10 | **10** |
+| **Total matrix** | 154 | **166** |
+
+New suite: `__tests__/oa/decision/validationAdversarial.test.ts` (12).
+
+## Typecheck lint build diff-check
+
+| Gate | Result |
+|------|--------|
+| `npx tsc --noEmit` | PASS |
+| `npm run lint` | PASS |
+| `npm run build` | PASS |
+| `git diff --check` | PASS |
+| secrets / SQL / package.json / modeled / method / legacy ops1 imports | NONE touched |
+
+## Findings blockers (B1–B4) with proof
+
+| ID | Title | Proven? | Fixed? | Evidence |
+|----|-------|---------|--------|----------|
+| **B1** | TOCTOU authority/actor/selectedOptionId/status/subject/scope after await | Yes | Yes | `ignores authority/selectedOptionId/actor mutated after await starts` · supersede variant |
+| **B2** | Refuse/cancel overwrite grant (stale outside txn) | Yes | Yes | `concurrent grant+refuse…` · `refuse after grant` · `cancel after consume` |
+| **B3** | Concurrent supersede dual-accepted | Yes | Yes | `concurrent supersede… one accepted successor` · `refuses supersede of already superseded` |
+| **B4** | Silent LPS/epistemic link failures | Yes | Yes | LPS version conflict fail-closed + compensate · missing expectedLpsVersion · success path |
+| **E** | actorId/evidence mismatch + escalate canActAsMorris | Guard + freeze | Yes | mismatch denied · `evidence_immutable` |
+
+## Findings non-blocking / reserves
+
+| ID | Status |
+|----|--------|
+| **B5** | OPEN — T-A1 satellite ids beyond decisionIds |
+| **R1** | OPEN — cross-store Project↔Cycle atomicity |
+| **R-T-A3-1** | OPEN — no public Critical acknowledge |
+| **R-T-A3-2** | OPEN residual — compensate failure edge |
+| **R-T-A3-3** | OPEN — in-memory authority |
+| **R-T-A3-4** | OPEN — scope detail → AUTHORITY_DENIED |
+
+## Corrections complete
+
+1. **B1** — `recordHumanDecision.ts` / `supersedeHumanDecision.ts`: snapshot before await
+2. **B2** — `refuseConfirmation.ts` / `cancelConfirmation.ts`: re-load under txn
+3. **B3** — `supersedeHumanDecision.ts`: expectedPreStatus + supersedable + single accepted
+4. **B4** — `recordHumanDecision.ts`: fail-closed links + compensate supersede
+5. **Evidence** — `memoryAuthorityResolver.ts`: immutable register
+
+## Files created/modified/deleted
+
+### Created
+
+- `app/__tests__/oa/decision/validationAdversarial.test.ts`
+- `sfia-v3-delivery/.../t-a3-.../07-validation-findings-and-morris-decision-pack.md`
+
+### Modified
+
+- `app/lib/oa/decision/application/{recordHumanDecision,supersedeHumanDecision,refuseConfirmation,cancelConfirmation}.ts`
+- `app/lib/oa/decision/infrastructure/memoryAuthorityResolver.ts`
+- `sfia-v3-delivery/.../t-a3-.../{README,04,05,06}.md`
+
+### Deleted
+
+- none
+
+## Protected files untouched
+
+- `method/**` · modeled schemas · `package.json` · T-A4 · control-tower · main WT `.tmp-sfia-review/`
+
+## Diff final
+
+| Range | Files | +/- |
+|-------|-------|-----|
+| `a71f0b4..HEAD` (validation only) | 11 | +1195 / −163 |
+| `5f5c616..HEAD` (delivery+validation) | 37 | +5871 / −1 |
+
+## Correction commits
+
+| SHA | Message |
+|-----|---------|
+| `f1cf170f0995560e638ef45355ea88f39424ac7f` | fix(sfia-studio): correct T-A3 validation findings |
+| `5d988dda0cc467a07d273726ea6f2b0929f9aaf6` | test(sfia-studio): strengthen T-A3 adversarial validation |
+| `7afd12a76e4450451e1a84a5f0add16eac5c222f` | docs(sfia-studio): record T-A3 validation findings |
+
+Delivery chain `6d2c4af` → `5e699e9` → `a71f0b4` **not rewritten**.
+
+## Decisions T-A3-D01..D10 (Morris open)
 
 | ID | Recommendation |
 |----|----------------|
-| T-A3-D01 Dual enums | **ACCEPT** |
-| T-A3-D02 Morris = N3 + canActAsMorris | **ACCEPT** |
-| T-A3-D03 Never trust client authority fields | **ACCEPT** |
-| T-A3-D04 One accepted per subject | **ACCEPT** |
-| T-A3-D05 Supersede as rollback | **ACCEPT** |
-| T-A3-D06 In-memory authority registry | **ACCEPT WITH RESERVE** (R-T-A3-3) |
-| T-A3-D07 Critical no auto-ack | **ACCEPT WITH RESERVE** (R-T-A3-1) |
-| T-A3-D08 LPS decisionIds extension | **ACCEPT** (B5 remains for other ids) |
-| T-A3-D09 Detail→modeled mapping | **ACCEPT WITH RESERVE** (R-T-A3-4) |
-| T-A3-D10 Foundation-only | **ACCEPT WITH RESERVE** (R1 / R-T-A3-2) |
+| **T-A3-D01** | **ACCEPT** — Dual enums |
+| **T-A3-D02** | **ACCEPT** — Morris gate N3 + canActAsMorris |
+| **T-A3-D03** | **ACCEPT** — Never trust client authorityLevel/displayName; B1 snapshots |
+| **T-A3-D04** | **ACCEPT** — One accepted per subject; B3 fixed |
+| **T-A3-D05** | **ACCEPT** — Supersede immutable history |
+| **T-A3-D06** | **ACCEPT WITH RESERVE** — In-memory authority + immutable register (R-T-A3-3) |
+| **T-A3-D07** | **ACCEPT WITH RESERVE** — Critical stays proposed (R-T-A3-1) |
+| **T-A3-D08** | **ACCEPT** — LPS decisionIds; B5 remains |
+| **T-A3-D09** | **ACCEPT WITH RESERVE** — Detail mapping; B4 fail-closed (R-T-A3-4) |
+| **T-A3-D10** | **ACCEPT WITH RESERVE** — Foundation-only; R1 / R-T-A3-2 |
 
-## 7. Stop conditions
+## Reserves / Debt / Anti-claims
 
-| Condition | Hit? |
-|-----------|------|
-| Base not `5f5c616…` | No |
-| Modeled / method / package.json edited | No |
-| Push/PR/merge attempted | No |
-| Prior suites regress | No |
-| Critical auto-acked without public API | No (explicitly avoided) |
+Pas MERGED · Pas Morris validated · Pas T-A4 AUTHORIZED · Pas DATABASE SELECTED · Pas B5/R1/R-T-A3-* CLOSED · Pas `VALIDATED WITH RESERVES` · Pas push/PR
 
-## 8. Anti-claims
+## Working tree final
 
-- Pas T-A3 MERGED / PUSHED / PR OPEN
-- Pas READY FOR DELIVERY GLOBAL
-- Pas DATABASE SELECTED / SCHEMAS ADOPTED
-- Pas V2.6 / MethodMode / OPS1 retired
-- Pas OPTION A IMPLEMENTED (slice only)
-- Pas UI / Execution / Evidence
-- Pas Morris D01–D10 VALIDATED
-- Pas B5 / R1 / R-T-A3-* CLOSED
+Tracked clean. Untracked: `.tmp-sfia-review/chatgpt-review.md` (this pack; published via handoff script).
 
-## 9. Docs pack
+## Push/PR/merge/T-A4 = NONE
 
-`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/`
+Project branch **not** pushed. Handoff branch `sfia/review-handoff` only (Validation pack).
 
-README · 01 scope · 02 contracts · 03 authority/audit · 04 supersession/failures · 05 tests/reserves · 06 validation/D01–D10
+## Verdict exact (allowed string)
 
-## 10. Handoff publish
-
-Published via:
-
-```bash
-scripts/sfia/publish-review-handoff.sh \
-  --source <abs chatgpt-review.md> \
-  --commit-message 'docs(review-handoff): publish Studio Option A T-A3 delivery review' \
-  --handoff-worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
-```
-
-(Handoff commit/blob filled after script run.)
-
-## EXACT VERDICT
-
-**SFIA STUDIO V3-NATIVE OPTION A T-A3 DECISION/CONFIRMATION/AUTHORITY FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A T-A3 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
