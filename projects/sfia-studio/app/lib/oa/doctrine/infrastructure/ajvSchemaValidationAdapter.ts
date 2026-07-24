@@ -1,7 +1,6 @@
 /**
  * AJV Draft-07 SchemaValidationPort — consumes modeled Option A schemas.
- * Uses lockfile-transitive ajv@6 (eslint stack). Declaring ajv as a direct
- * dependency is a candidate follow-up (T-A0 reserve), not done here.
+ * Runtime depends on direct dependency ajv@6 (Draft-07).
  */
 import fs from "node:fs";
 import path from "node:path";
