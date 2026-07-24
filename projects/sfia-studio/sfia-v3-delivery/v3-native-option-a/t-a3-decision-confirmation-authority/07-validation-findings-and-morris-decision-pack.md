@@ -5,9 +5,10 @@
 | **Gate** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
 | **Date** | 2026-07-24 (Europe/Paris) |
 | **HEAD start** | `a71f0b44ee980092b93a7a06e505df60a66d07fb` |
-| **HEAD final (validation)** | tip after docs commit (see handoff META / `git rev-parse HEAD`) |
+| **HEAD final (validation)** | `7afd12a76e4450451e1a84a5f0add16eac5c222f` |
 | **Scope** | Prove defects with adversarial tests; fix only proven T-A3-scoped defects |
 | **Morris** | **NOT VALIDATED** — recommendations only |
+| **PR readiness** | Voir [08-pr-readiness.md](./08-pr-readiness.md) |
 
 ## Validation commits
 
@@ -15,7 +16,7 @@
 |-----|---------|
 | `f1cf170f0995560e638ef45355ea88f39424ac7f` | fix(sfia-studio): correct T-A3 validation findings |
 | `5d988dda0cc467a07d273726ea6f2b0929f9aaf6` | test(sfia-studio): strengthen T-A3 adversarial validation |
-| `4ba555fd8d433d9a4cc4ca3c41c276aafe0d491c` | docs(sfia-studio): record T-A3 validation findings |
+| `7afd12a76e4450451e1a84a5f0add16eac5c222f` | docs(sfia-studio): record T-A3 validation findings |
 
 ## Evidence method
 
@@ -78,4 +79,6 @@
 
 ## Anti-claims
 
-Pas MERGED · Pas Morris validated décisions · Pas T-A4 AUTHORIZED · Pas DATABASE SELECTED · Pas B5 / R1 / R-T-A3-* CLOSED · Pas `VALIDATED WITH RESERVES` comme claim Morris · Pas push / PR
+Pas MERGED · Pas Morris validated décisions · Pas T-A4 AUTHORIZED · Pas DATABASE SELECTED · Pas B5 / R1 / R-T-A3-* CLOSED · Pas `VALIDATED WITH RESERVES` comme claim Morris
+
+PR readiness : voir [08-pr-readiness.md](./08-pr-readiness.md) (push/PR autorisés uniquement sous gate PR readiness ; merge interdit).

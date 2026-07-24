@@ -20,7 +20,7 @@
 | Platform + fixtures | **10** |
 | **Total matrix** | **166** |
 
-Also: `tsc --noEmit` · `lint` · `build` · `git diff --check` — PASS.
+Also: `tsc --noEmit` · `lint` · `build` · `git diff --check` — PASS (réexécutés au cycle PR readiness ; voir [08-pr-readiness.md](./08-pr-readiness.md)).
 
 ## Reserves
 

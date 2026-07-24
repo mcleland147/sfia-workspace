@@ -6,8 +6,9 @@
 | **Verdict validation** | **PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED** |
 | **Gate delivery** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
 | **Gate validation** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
-| **Push / PR / Merge** | **NONE** this cycle |
-| **Tests** | **50** T-A3 (was 38) |
+| **Push / PR (validation cycle)** | **NONE** in validation cycle |
+| **PR readiness** | Voir [08-pr-readiness.md](./08-pr-readiness.md) — gate `GO PR READINESS … T-A3` ; **merge interdit** sans `GO MERGE PR T-A3` |
+| **Tests** | **50** T-A3 (was 38) · matrice **166** |
 
 ## D01–D10 candidates (Morris)
 
@@ -34,17 +35,24 @@
 
 ## Next (after Morris)
 
-1. Morris decision on D01–D10 (validation pack §07)
-2. Optional: public Critical acknowledge on T-A2 (closes R-T-A3-1)
-3. Optional: outbox / single txn for Decision↔LPS (closes R-T-A3-2 / R1 family)
-4. PR readiness gate (separate) — not this cycle
+1. Morris decision on D01–D10 (validation pack §07) — still open at PR readiness
+2. Morris review of PR (PR readiness pack §08)
+3. Optional: public Critical acknowledge on T-A2 (closes R-T-A3-1)
+4. Optional: outbox / single txn for Decision↔LPS (closes R-T-A3-2 / R1 family)
+5. Merge uniquement via `GO MERGE PR T-A3` (non consommé)
 
 ## Exact verdicts
 
-**Delivery:**  
+**Delivery:**
+
 **SFIA STUDIO V3-NATIVE OPTION A T-A3 DECISION/CONFIRMATION/AUTHORITY FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED**
 
-**Validation:**  
+**Validation:**
+
 **SFIA STUDIO V3-NATIVE OPTION A T-A3 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
 
-See [07-validation-findings-and-morris-decision-pack.md](./07-validation-findings-and-morris-decision-pack.md).
+**PR readiness:**
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A3 PR CREATED — MORRIS REVIEW REQUIRED**
+
+See [07-validation-findings-and-morris-decision-pack.md](./07-validation-findings-and-morris-decision-pack.md) and [08-pr-readiness.md](./08-pr-readiness.md).
