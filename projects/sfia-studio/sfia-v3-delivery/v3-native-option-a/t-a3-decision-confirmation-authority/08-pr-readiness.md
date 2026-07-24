@@ -2,17 +2,17 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure Europe/Paris** | 2026-07-24 15:12:00 CEST (+0200) |
+| **Date/heure Europe/Paris** | 2026-07-24 15:13:30 CEST (+0200) |
 | **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A3` |
 | **Base** | `origin/main` @ `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a3-decision-confirmation-authority` |
 | **HEAD avant PR readiness** | `7afd12a76e4450451e1a84a5f0add16eac5c222f` |
-| **HEAD final** | `276c530ff918734a59139474298e404e9b2c772b` |
+| **HEAD final** | `5317830c2c56bc4efe97603a7b17a23db94304e8` |
 | **merge-base(HEAD, origin/main)** | `5f5c6161063e11065aaf5be74d8181ee2c2eeaea` |
-| **Diff vs origin/main** | 38 files changed, 6073 insertions(+), 1 deletion(-) _(at prepare docs commit; tip may include align)_ |
+| **Diff vs origin/main** | 38 files changed, 6073 insertions(+), 1 deletion(-) |
 | **Validation technique** | **PASSED AFTER CORRECTION** — 50/48/30/28/10 = **166** |
 | **Décisions Morris T-A3-D01…D10** | **encore requises** (recommandations agents uniquement ; pas de source Git Morris-validated) |
-| **Push / PR** | **DONE this cycle** — remote SHA / PR filled after push |
+| **Push / PR** | **DONE** — remote SHA `5317830c2c56bc4efe97603a7b17a23db94304e8` · PR **#264** OPEN non-draft |
 | **Merge** | **interdit** / **not done** (gate `GO MERGE PR T-A3` non consommé) |
 | **Gate suivant (non consommé)** | `GO MERGE PR T-A3` |
 
