@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "trajectoryId": "traj:oa-001",
+  "projectId": "prj:campus360-oa",
+  "version": 1,
+  "status": "candidate",
+  "steps": [
+    {
+      "stepId": "step:1",
+      "order": 1,
+      "label": "Clarifier",
+      "state": "done",
+      "exitCriteria": [
+        "intention claire"
+      ]
+    },
+    {
+      "stepId": "step:2",
+      "order": 2,
+      "label": "Décider",
+      "state": "active",
+      "gate": "HumanDecision",
+      "dependencies": [
+        "step:1"
+      ]
+    },
+    {
+      "stepId": "step:3",
+      "order": 3,
+      "label": "Exécuter",
+      "state": "pending",
+      "dependencies": [
+        "step:2"
+      ],
+      "reservations": [
+        "preuves requises"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/epistemic/epistemic-item.schema.json",
+  "title": "EpistemicItem",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "epistemicItemId",
+    "type",
+    "statement",
+    "status",
+    "createdBy",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "epistemicItemId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Observation",
+        "Hypothesis",
+        "Option",
+        "Recommendation",
+        "DecisionRef",
+        "Reservation",
+        "Contradiction",
+        "EvidenceRef"
+      ]
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "superseded",
+        "rejected",
+        "resolved"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "none"
+      ]
+    },
+    "source": {
+      "type": "string"
+    },
+    "createdBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "supersedes": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "relatedObjects": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "blocking": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}

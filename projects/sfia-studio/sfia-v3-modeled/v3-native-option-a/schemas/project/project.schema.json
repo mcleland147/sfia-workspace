@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/project/project.schema.json",
+  "title": "Project",
+  "description": "Project identity root. ACTIVE requires resolved DoctrinePackageRef (FD-OA-02). No MethodMode.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "projectId",
+    "title",
+    "status",
+    "createdAt",
+    "createdBy"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "closed",
+        "archived"
+      ]
+    },
+    "currentLpsVersionId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "doctrinePackageRef": {
+      "$ref": "../doctrine/doctrine-package-ref.schema.json"
+    },
+    "activeCycleInstanceId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "updatedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "createdBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}

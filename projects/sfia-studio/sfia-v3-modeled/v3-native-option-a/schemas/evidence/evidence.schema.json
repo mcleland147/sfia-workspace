@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/evidence/evidence.schema.json",
+  "title": "Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "evidenceId",
+    "type",
+    "source",
+    "producedAt",
+    "status"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "evidenceId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "document",
+        "screenshot",
+        "log_ref",
+        "artifact",
+        "attestation",
+        "other"
+      ]
+    },
+    "source": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string",
+      "description": "Reference only — secrets forbidden in clear"
+    },
+    "digest": {
+      "$ref": "../common/digest.schema.json"
+    },
+    "producedBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "producedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "freshness": {
+      "type": "string",
+      "enum": [
+        "fresh",
+        "aging",
+        "stale",
+        "unknown"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "expected",
+        "available",
+        "verified",
+        "incomplete",
+        "stale",
+        "rejected",
+        "superseded"
+      ]
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "decisionId": {
+          "$ref": "../common/identifier.schema.json"
+        },
+        "executionContractId": {
+          "$ref": "../common/identifier.schema.json"
+        },
+        "reviewBundleId": {
+          "$ref": "../common/identifier.schema.json"
+        }
+      }
+    },
+    "containsSecrets": {
+      "type": "boolean",
+      "const": false
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}

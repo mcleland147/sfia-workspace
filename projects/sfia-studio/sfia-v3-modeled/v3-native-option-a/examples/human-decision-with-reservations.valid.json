@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "decisionId": "dec:oa-001",
+  "projectId": "prj:campus360-oa",
+  "cycleInstanceId": "cyc:modeled-001",
+  "subject": "Ouvrir enrichissement modeled Option A",
+  "options": [
+    {
+      "optionId": "opt:go",
+      "label": "GO modeled",
+      "impacts": [
+        "ouvre contrats"
+      ],
+      "recommended": true
+    },
+    {
+      "optionId": "opt:defer",
+      "label": "Différer",
+      "impacts": [
+        "bloque AT"
+      ]
+    }
+  ],
+  "selectedOptionId": "opt:go",
+  "actor": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "authority": "morris",
+  "scope": "modeled Option A",
+  "reservations": [
+    {
+      "reservationId": "rsv:tablet",
+      "statement": "Frame 1024 encore due",
+      "blocking": false
+    }
+  ],
+  "rationale": "UX validée ; modeled requis avant AT",
+  "evidenceRefs": [
+    "ev:ux-pack"
+  ],
+  "reversible": false,
+  "effectiveAt": "2026-07-23T21:00:00.000Z",
+  "status": "accepted",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prov:001",
+    "actor": {
+      "actorId": "actor:morris",
+      "role": "decision_maker",
+      "displayName": "Morris",
+      "authorityLevel": "N3"
+    },
+    "source": "human_decision",
+    "timestamp": "2026-07-23T21:00:00.000Z",
+    "correlationId": "corr:oa-demo-001",
+    "projectId": "prj:campus360-oa"
+  }
+}

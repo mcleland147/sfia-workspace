@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "attemptId": "xat:oa-timeout-001",
+  "contractId": "xct:oa-001",
+  "agentRef": "agent:cursor-docs",
+  "startedAt": "2026-07-23T21:00:00.000Z",
+  "endedAt": "2026-07-23T21:30:00.000Z",
+  "status": "timeout",
+  "timeout": true,
+  "errorRef": "err:timeout-001"
+}

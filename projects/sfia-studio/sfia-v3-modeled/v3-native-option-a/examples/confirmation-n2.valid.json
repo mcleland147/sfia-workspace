@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "confirmationId": "cnf:n2-create-project",
+  "level": "N2",
+  "actionRef": "act:create-project",
+  "decisionRef": "dec:oa-001",
+  "requestedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio"
+  },
+  "requestedTo": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "scope": "Créer Project actif campus360-oa",
+  "impacts": [
+    "persistance Project",
+    "pin DoctrinePackageRef"
+  ],
+  "risks": [
+    "mauvais package"
+  ],
+  "expiresAt": "2026-07-23T22:00:00.000Z",
+  "status": "granted",
+  "confirmedAt": "2026-07-23T21:00:00.000Z",
+  "idempotencyKey": "idem-n2-create-001"
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "confirmationId": "cnf:n3-exec-001",
+  "level": "N3",
+  "actionRef": "act:execute-contract-001",
+  "decisionRef": "dec:oa-001",
+  "requestedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio"
+  },
+  "requestedTo": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "scope": "Exécuter contrat structurant hors Studio",
+  "impacts": [
+    "effet externe",
+    "preuve obligatoire"
+  ],
+  "risks": [
+    "irréversible"
+  ],
+  "expiresAt": "2026-07-23T23:00:00.000Z",
+  "status": "granted",
+  "confirmedAt": "2026-07-23T21:00:00.000Z",
+  "idempotencyKey": "idem-n3-exec-001"
+}

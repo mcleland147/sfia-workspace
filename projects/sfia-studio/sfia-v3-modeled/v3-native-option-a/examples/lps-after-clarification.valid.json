@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "lpsVersionId": "lps:campus360-v2",
+  "projectId": "prj:campus360-oa",
+  "version": 2,
+  "supersedesLpsVersionId": "lps:campus360-v1",
+  "status": "active",
+  "objective": "Livrer contrats modeled Option A",
+  "context": "Après clarification intention",
+  "scope": "modeled contracts only",
+  "doctrinePackageRef": {
+    "doctrinePackageId": "pkg:studio-v3-oa",
+    "version": "1.0.0",
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "resolvedAt": "2026-07-23T21:00:00.000Z",
+    "resolver": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio"
+    },
+    "status": "resolved"
+  },
+  "ckcResolutionRef": "ckc:modeled-synth-001",
+  "activeCycleInstanceId": "cyc:modeled-001",
+  "trajectoryId": "traj:oa-001",
+  "trajectoryVersion": 1,
+  "epistemicItemIds": [
+    "epi:obs-001",
+    "epi:hyp-001"
+  ],
+  "decisionIds": [],
+  "createdAt": "2026-07-23T21:10:00.000Z",
+  "createdBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio"
+  },
+  "correlationId": "corr:oa-demo-001",
+  "uiOwnership": false,
+  "nextStep": "Proposer trajectoire candidate"
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/execution/execution-attempt.schema.json",
+  "title": "ExecutionAttempt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "attemptId",
+    "contractId",
+    "agentRef",
+    "startedAt",
+    "status"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "attemptId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "contractId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "agentRef": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "startedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "endedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "succeeded",
+        "failed",
+        "timeout",
+        "cancelled",
+        "partial"
+      ]
+    },
+    "resultRef": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "errorRef": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "retryOf": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cancellation": {
+      "type": "string"
+    },
+    "timeout": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}

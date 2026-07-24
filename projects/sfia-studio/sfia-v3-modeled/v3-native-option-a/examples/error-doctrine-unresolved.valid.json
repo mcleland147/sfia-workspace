@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "errorRecordId": "err:doctrine-001",
+  "code": "DOCTRINE_UNRESOLVED",
+  "domain": "B",
+  "severity": "critical",
+  "blocking": true,
+  "retryable": true,
+  "recoverable": true,
+  "relatedObject": "pkg:missing",
+  "userMessageKey": "error.doctrine_unresolved",
+  "createdAt": "2026-07-23T21:00:00.000Z"
+}

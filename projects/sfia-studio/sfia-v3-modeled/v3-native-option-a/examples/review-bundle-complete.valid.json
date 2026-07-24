@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "reviewBundleId": "rb:oa-complete-001",
+  "projectId": "prj:campus360-oa",
+  "cycleInstanceId": "cyc:modeled-001",
+  "executionContractId": "xct:oa-001",
+  "evidenceRefs": [
+    "ev:schemas",
+    "ev:examples",
+    "ev:docs"
+  ],
+  "completeness": "complete",
+  "reservations": [
+    "a11y runtime pending"
+  ],
+  "reviewer": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "status": "ready_for_review",
+  "createdAt": "2026-07-23T21:00:00.000Z",
+  "synthesisOnly": false
+}

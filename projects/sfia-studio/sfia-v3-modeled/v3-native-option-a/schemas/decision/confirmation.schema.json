@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/decision/confirmation.schema.json",
+  "title": "Confirmation",
+  "description": "N1/N2/N3 confirmation. Distinct from HumanDecision. Expired confirmations are not consumable.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "confirmationId",
+    "level",
+    "actionRef",
+    "requestedBy",
+    "requestedTo",
+    "scope",
+    "status",
+    "idempotencyKey"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "confirmationId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "N1",
+        "N2",
+        "N3"
+      ]
+    },
+    "actionRef": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "decisionRef": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "requestedBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "requestedTo": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "impacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expiresAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "requested",
+        "granted",
+        "refused",
+        "expired",
+        "cancelled",
+        "consumed",
+        "superseded"
+      ]
+    },
+    "confirmedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "cancelledAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 8
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}

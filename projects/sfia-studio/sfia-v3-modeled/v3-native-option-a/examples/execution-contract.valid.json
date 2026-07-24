@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "executionContractId": "xct:oa-001",
+  "projectId": "prj:campus360-oa",
+  "cycleInstanceId": "cyc:modeled-001",
+  "decisionRefs": [
+    "dec:oa-001"
+  ],
+  "confirmationRef": "cnf:n3-exec-001",
+  "doctrinePackageRef": {
+    "doctrinePackageId": "pkg:studio-v3-oa",
+    "version": "1.0.0",
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "resolvedAt": "2026-07-23T21:00:00.000Z",
+    "resolver": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio"
+    },
+    "status": "resolved"
+  },
+  "action": "publish-modeled-pack",
+  "target": "sfia-v3-modeled/v3-native-option-a",
+  "scope": "docs+schemas+examples only",
+  "inputs": {
+    "branch": "modeled/sfia-studio-v3-native-option-a"
+  },
+  "expectedOutputs": [
+    "pack documented",
+    "schemas validated"
+  ],
+  "requiredCapabilities": [
+    "cap:git-docs"
+  ],
+  "requiredAuthority": "morris-N3",
+  "selectedAgentRef": "agent:cursor-docs",
+  "constraints": [
+    "no-runtime-code",
+    "no-sql"
+  ],
+  "stopConditions": [
+    "DOCTRINE_UNRESOLVED",
+    "AUTHORITY_DENIED"
+  ],
+  "evidenceRequirements": [
+    "evreq:schemas",
+    "evreq:examples"
+  ],
+  "reversibility": "partially_reversible",
+  "idempotencyKey": "idem-xct-oa-001",
+  "correlationId": "corr:oa-demo-001",
+  "status": "confirmed",
+  "version": 1,
+  "adapterExportRef": "adapter:cursor-md-export-not-native",
+  "immutableAfterConfirm": true
+}

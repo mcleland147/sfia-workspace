@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/common/identifier.schema.json",
+  "title": "OaIdentifier",
+  "description": "Stable Option A identifier. Prefer typed prefixes (prj-, lps-, dec-, …). No local filesystem path as business id.",
+  "type": "string",
+  "minLength": 3,
+  "maxLength": 128,
+  "pattern": "^[a-z][a-z0-9]*:[a-zA-Z0-9][a-zA-Z0-9:_\\-\\.]*$"
+}

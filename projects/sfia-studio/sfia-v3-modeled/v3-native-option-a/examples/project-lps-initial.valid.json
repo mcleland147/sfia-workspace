@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "lpsVersionId": "lps:campus360-v1",
+  "projectId": "prj:campus360-oa",
+  "version": 1,
+  "status": "active",
+  "objective": "Conduire Option A conversation → exécution gouvernée",
+  "context": "Studio v3-native",
+  "scope": "tranche verticale Option A",
+  "doctrinePackageRef": {
+    "doctrinePackageId": "pkg:studio-v3-oa",
+    "version": "1.0.0",
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "resolvedAt": "2026-07-23T21:00:00.000Z",
+    "resolver": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio"
+    },
+    "status": "resolved"
+  },
+  "epistemicItemIds": [],
+  "decisionIds": [],
+  "createdAt": "2026-07-23T21:00:00.000Z",
+  "createdBy": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "correlationId": "corr:oa-demo-001",
+  "uiOwnership": false,
+  "nextStep": "Clarifier l'intention"
+}

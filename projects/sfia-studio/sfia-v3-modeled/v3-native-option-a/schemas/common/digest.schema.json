@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/common/digest.schema.json",
+  "title": "OaDigest",
+  "description": "sha256:<hex> digest for immutable packages/evidence",
+  "type": "string",
+  "pattern": "^sha256:[a-f0-9]{64}$"
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "decisionId": "dec:bad",
+  "projectId": "prj:x",
+  "subject": "ok",
+  "options": [
+    {
+      "optionId": "opt:a",
+      "label": "A"
+    }
+  ],
+  "status": "accepted",
+  "effectiveAt": "2026-07-23T21:00:00.000Z",
+  "reversible": true
+}
