@@ -4,136 +4,180 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure Europe/Paris** | 2026-07-24 12:08:46 CEST (+0200) |
-| **Cycle** | Validation Option A T-A2 — Cycle / Trajectory / Epistemic / CKC |
+| **Date/heure Europe/Paris** | 2026-07-24 13:23:45 CEST (+0200) |
+| **Cycle** | PR Readiness Option A T-A2 — Cycle / Trajectory / Epistemic / CKC |
 | **Profil** | Critical |
-| **Gate consommé** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
+| **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **origin/main** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — feat(sfia-studio): add v3-native T-A1 Project and LPS foundation (#262) |
+| **origin/main (base)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — feat(sfia-studio): add v3-native T-A1 Project and LPS foundation (#262) |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
-| **HEAD initial expected** | `633d46389f650c03a5d4c113fced41f106c2067b` |
-| **HEAD initial observed** | `633d46389f650c03a5d4c113fced41f106c2067b` — MATCH |
-| **HEAD final** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
+| **HEAD initial (avant PR readiness)** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
+| **HEAD final** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
+| **Docs commit** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` — `docs(sfia-studio): prepare T-A2 Cycle and Trajectory PR` |
 | **merge-base(HEAD, origin/main)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
-| **Status / staged / untracked** | clean tracked tree; untracked `.tmp-sfia-review/` only (local evidence; not committed) |
-| **Handoff SOURCE consumed** | blob `18d8851cffdbcbc6f9e8361f83befb962bd54496` / commit `bdbc19bd5aba645fe48871e4a46fc5e416d026bc` (delivery handoff — T-A2 FOUNDATION IMPLEMENTED) |
+| **Status / staged / untracked** | tracked clean except untracked `.tmp-sfia-review/` (local evidence; not committed) |
+| **Working tree note** | `?? .tmp-sfia-review/` |
+| **Handoff SOURCE consumed** | validation handoff commit `da3bcf0a6625247e959992a9937a3229108f051d` / blob `aa53e7710b6bb0a9274647f4e7fa5fe54a897bf9` |
 | **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Handoff WT** | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | **Main checkout** | `/Users/morris/Projects/sfia-workspace` |
-| **Push / PR / merge projet** | **NONE** |
-| **T-A3 / DATABASE SELECTED / package.json / method/** / modeled schema edits / SQL** | **NONE** |
+| **Push projet** | **DONE** — remote SHA `30a332eb4ecc34cce3ce99c5c909dc800bfad927` == local HEAD (normal `-u`, no force) |
+| **PR** | **#263** — https://github.com/mcleland147/sfia-workspace/pull/263 |
+| **PR state** | OPEN · not draft · base `main` · head `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` · headOid `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
+| **Mergeable** | MERGEABLE (mergeStateStatus CLEAN) |
+| **Auto-merge** | **absent** (`null`) |
+| **Merge exécuté** | **NO** |
+| **Branche conservée** | **YES** |
+| **T-A3** | **NOT LAUNCHED / NOT AUTHORIZED** |
 | **Niveau** | FULL |
 
 ## Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| Date Europe/Paris | 2026-07-24 12:08:46 CEST (+0200) — PASS |
-| Gate | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` — PASS |
-| origin/main | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — MATCH |
+| Date Europe/Paris | 2026-07-24 13:23:45 CEST (+0200) — PASS |
+| Gate | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` — PASS |
+| origin/main | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — MATCH expected `102b6c6…` |
 | Branche | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` — PASS |
-| HEAD initial expected | `633d463…` — MATCH observed |
-| Delivery commits present | `b4a185a`, `230b4a9`, `633d463` — PASS |
-| Correction chain | `d7af9cd` fix → `b7d6672` adversarial tests → `833fd14` findings → `bdd39d5` verdict align — PASS |
-| merge-base | = origin/main `102b6c6…` — PASS |
-| Diff delivery @633d463 | **37 files**, **+3901 / −6** — PASS |
-| Diff final vs origin/main | **39 files**, **+4775 / −6** — PASS |
-| Handoff source blob | `18d8851c…` type `blob` on `bdbc19bd` — PASS |
-| Concurrent T-A2 PR | none opened / none pushed — PASS |
-| Locks | no `.git/index.lock` — PASS |
-| Working tree | only untracked `.tmp-sfia-review/` — PASS |
+| HEAD initial | `bdd39d5…` — MATCH |
+| merge-base | = origin/main — PASS |
+| Diff final | 40 files changed, 4974 insertions(+), 6 deletions(-) — PASS |
+| Protected paths | method/ prompts/ package.json SQL schemas-modeled T-A3 HumanDecision — **absent** — PASS |
+| Concurrent T-A2 PR before create | none — PASS |
+| Push | remote SHA == local — PASS |
+| PR | #263 OPEN non-draft — PASS |
 
 **Truth Check verdict:** **PASS**
 
 ## Handoff source consumed
 
-- Branch `origin/sfia/review-handoff` commit **`bdbc19bd5aba645fe48871e4a46fc5e416d026bc`**
+- Branch `origin/sfia/review-handoff` commit **`da3bcf0a6625247e959992a9937a3229108f051d`**
 - Path `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob **`18d8851cffdbcbc6f9e8361f83befb962bd54496`** (`git cat-file -t` → `blob`)
-- Content class: **Delivery** review pack (verdict `…FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED`)
-- This validation pack **supersedes** that delivery handoff for Morris/ChatGPT decision; it does **not** rewrite history of the delivery commit.
+- Blob **`aa53e7710b6bb0a9274647f4e7fa5fe54a897bf9`**
+- Content class: **Validation** review pack (verdict `…VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED`)
+- This PR readiness pack **supersedes** that validation handoff for Morris/ChatGPT review of the opened PR; it does **not** rewrite history of the validation commit.
 
-## CKC (for this validation cycle)
+## Template / sources consulted
+
+1. Cycle prompt — PR Readiness Delivery Option A — T-A2 (§13–§21)
+2. Validation handoff blob `aa53e771…` / commit `da3bcf0`
+3. Delivery docs `t-a2-cycle-trajectory-epistemic-ckc/{01..08,README}.md`
+4. Implementation `projects/sfia-studio/app/lib/oa/cycle/**` (read-only this cycle)
+5. Minimal LPS touch `lib/oa/project/application/appendLivingProjectStateVersion.ts`, `types.ts` (pre-existing on branch)
+6. Tests `__tests__/oa/cycle/**`, project, doctrine, platform
+7. Prior PR patterns T-A0 #261 / T-A1 #262
+8. Local evidence `/tmp/t-a2-pr-readiness-tests.txt`
+
+## CKC (for this PR readiness cycle)
 
 | Item | Value |
 |------|-------|
-| **Found / absent path** | Port `CkcResolver` + `MemoryCkcResolver` + `ResolveCycleKnowledgeContract` under `lib/oa/cycle/**` |
-| **Candidate** | Registry candidate resolution **or** explicit absent guidance |
-| **Experimental guidance** | Absent CKC → `level=absent`, `status=unavailable`, `fallbackPolicy=intra_v3_only` — guidance only; **does not block** `CreateCycle` |
-| **executionAuthority** | **none / always false** — hostile `true` → `CKC_UNAVAILABLE` / `execution_authority_forbidden` |
-| **Fallback architectural + modeled** | Only `intra_v3_only` or `none`; invalid fallback → `CKC_UNAVAILABLE` / `fallback_policy_invalid`; **no v2.6** |
+| **Found** | Port `CkcResolver` + `MemoryCkcResolver` + `ResolveCycleKnowledgeContract` |
+| **Guidance** | Absent CKC → unavailable + `intra_v3_only` — does **not** block Create |
+| **executionAuthority** | always false; hostile true → `CKC_UNAVAILABLE` |
+| **Authority in this cycle** | **none** — cognitive guidance only for reviewers |
 
-Hostile CKC guard (post-correction suite green):
+## Diff avant PR readiness (at HEAD `bdd39d5`)
 
-```typescript
-// resolveCycleKnowledgeContract.ts — hard invariants
-if (resolution.executionAuthority !== false && resolution.executionAuthority !== undefined) {
-  return fail("CKC_UNAVAILABLE", "execution_authority_forbidden");
-}
-resolution.executionAuthority = false;
-if (
-  resolution.fallbackPolicy !== "intra_v3_only" &&
-  resolution.fallbackPolicy !== "none"
-) {
-  return fail("CKC_UNAVAILABLE", "fallback_policy_invalid");
-}
+At validation tip vs origin/main:
+
+```
+39 files changed, 4775 insertions(+), 6 deletions(-)
 ```
 
-## Sources consulted
+## Diff final (après docs PR readiness)
 
-1. Delivery handoff blob `18d8851c…` / commit `bdbc19bd` (SOURCE consumed)
-2. Canonical slice doc `sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md` (T-A2 row)
-3. Delivery docs `sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/{01..07,README}.md`
-4. Modeled schemas (read-only): `sfia-v3-modeled/v3-native-option-a/schemas/{cycle,epistemic,doctrine}/**`
-5. Implementation: `projects/sfia-studio/app/lib/oa/cycle/**`
-6. Minimal T-A1 LPS linkage: `lib/oa/project/application/appendLivingProjectStateVersion.ts`, `lib/oa/project/domain/types.ts`
-7. Tests: `__tests__/oa/cycle/{cycleTrajectoryEpistemicCkc,adversarialValidation,antiLegacy}.test.ts`
-8. T-A1 mutex reference commit `861ca766cfd081060b1dddd6ef614aad96f264e1`
-9. Local evidence `.tmp-sfia-review/validation-results-raw.txt` (tsc/lint/build/greps)
-10. Prior T-A1 validation handoff pattern (`c90dd65`) for FULL pack structure
+```
+40 files changed, 4974 insertions(+), 6 deletions(-)
+```
 
-## Canonical T-A2 definition
+### Commits `origin/main...HEAD`
 
-Exact quote (doc 12 / delivery 01):
+```
+30a332e docs(sfia-studio): prepare T-A2 Cycle and Trajectory PR
+bdd39d5 docs(sfia-studio): align T-A2 validation verdict string
+833fd14 docs(sfia-studio): record T-A2 validation findings
+b7d6672 test(sfia-studio): strengthen T-A2 adversarial validation
+d7af9cd fix(sfia-studio): correct T-A2 validation findings
+633d463 docs(sfia-studio): document Option A T-A2 delivery
+230b4a9 test(sfia-studio): validate T-A2 qualification and trajectory invariants
+b4a185a feat(sfia-studio): add v3 Cycle and Trajectory foundation
+```
 
-> | **T-A2** | Cycle/Trajectory/Epistemic/CKC | T-A1 | T-A2 | qualif Critical | version traj |
+### Fichiers créés (38)
 
-**MATCH** — CycleInstance / ProjectTrajectory / EpistemicItem / CkcResolution foundation with deterministic qualification and trajectory versioning. Rollback = propose restored trajectory version (never rewrite).
+```
+projects/sfia-studio/app/__tests__/oa/cycle/adversarialValidation.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/antiLegacy.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts
+projects/sfia-studio/app/lib/oa/cycle/application/createCycle.ts
+projects/sfia-studio/app/lib/oa/cycle/application/createInitialTrajectory.ts
+projects/sfia-studio/app/lib/oa/cycle/application/getCurrentTrajectory.ts
+projects/sfia-studio/app/lib/oa/cycle/application/getCycle.ts
+projects/sfia-studio/app/lib/oa/cycle/application/getEpistemicState.ts
+projects/sfia-studio/app/lib/oa/cycle/application/getTrajectoryVersion.ts
+projects/sfia-studio/app/lib/oa/cycle/application/proposeTrajectoryVersion.ts
+projects/sfia-studio/app/lib/oa/cycle/application/qualifyCycle.ts
+projects/sfia-studio/app/lib/oa/cycle/application/resolveCycleKnowledgeContract.ts
+projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/errors.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/invariants.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/qualification.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+projects/sfia-studio/app/lib/oa/cycle/index.ts
+projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryCkcResolver.ts
+projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryCycleRepository.ts
+projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryCycleStore.ts
+projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryEpistemicRepository.ts
+projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts
+projects/sfia-studio/app/lib/oa/cycle/infrastructure/observability.ts
+projects/sfia-studio/app/lib/oa/cycle/ports/ckcResolver.ts
+projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+projects/sfia-studio/app/lib/oa/cycle/ports/cycleRepository.ts
+projects/sfia-studio/app/lib/oa/cycle/ports/epistemicRepository.ts
+projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/01-scope-and-canonical-slice-definition.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/02-domain-contracts-and-invariants.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/03-persistence-consistency-and-failure-modes.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/04-tests-evidence-and-reserves.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/05-delivery-validation-and-decision-pack.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/06-morris-validation-and-pr-readiness.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/07-validation-findings-and-morris-decision-pack.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/08-pr-readiness.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/README.md
+```
 
-## Scope / Out of scope
+### Fichiers modifiés (2)
 
-### In scope (validated)
+```
+projects/sfia-studio/app/lib/oa/project/application/appendLivingProjectStateVersion.ts
+projects/sfia-studio/app/lib/oa/project/domain/types.ts
+```
 
-- Domain: `CycleInstance`, `ProjectTrajectory`, `EpistemicItem`, `CkcResolution`, qualification, invariants, structured errors
-- Application use-cases: QualifyCycle, CreateCycle, GetCycle, CreateInitialTrajectory, GetCurrentTrajectory, GetTrajectoryVersion, ProposeTrajectoryVersion, GetEpistemicState, UpdateEpistemicState, ResolveCycleKnowledgeContract
-- Ports + in-memory infrastructure (transactional store, repos, MemoryCkcResolver, audit)
-- Minimal T-A1 LPS append linkage fields (trajectoryId/version, activeCycleInstanceId, ckcResolutionRef, epistemicItemIds) with carry-forward
-- Adversarial validation + fixes for proven blockers B1/B3/B4/E
-- Delivery + validation documentation under `t-a2-cycle-trajectory-epistemic-ckc/**`
+### Fichiers supprimés (0)
+
+```
+(none)
+```
+
+## Scope / hors scope
+
+### In scope
+
+- CycleInstance / ProjectTrajectory / EpistemicItem / CkcResolution foundation
+- Qualification déterministe ; Critical `proposed`
+- Trajectory versioning + LPS linkage
+- Adversarial validation corrections B1/B3/B4/E
+- Docs PR readiness including `08-pr-readiness.md`
+- Push + non-draft PR to main
 
 ### Out of scope
 
-HumanDecision · Confirmation · ExecutionContract · agents · Evidence · ReviewBundle · ClaimEvaluation · UI Option A · cutover v2.6 · MethodMode/OPS1 suppression · SQL migration · IAM · **DATABASE SELECTED** · T-A3 · Critical Morris ack (Critical stays `proposed`) · inventing T-A1 `reservationIds` API (B5 reserve) · push/PR/merge
-
-## Diff initial (37 files +3901/−6 at delivery HEAD)
-
-At delivery HEAD `633d46389f650c03a5d4c113fced41f106c2067b` vs `origin/main` `102b6c6…`:
-
-```
-37 files changed, 3901 insertions(+), 6 deletions(-)
-```
-
-Delivery commit chain (local only, never pushed):
-
-| SHA | Message |
-|-----|---------|
-| `b4a185a424b75dd12e1b640198646f11be9aa469` | feat(sfia-studio): add v3 Cycle and Trajectory foundation |
-| `230b4a967ccf6f0912989b523a1c83c917cb84e0` | test(sfia-studio): validate T-A2 qualification and trajectory invariants |
-| `633d46389f650c03a5d4c113fced41f106c2067b` | docs(sfia-studio): document Option A T-A2 delivery |
+HumanDecision · Confirmation · ExecutionContract · agents · Evidence/Review/Claim · UI · cutover v2.6 · MethodMode/OPS1 · SQL · DATABASE SELECTED · modeled schema edits · method/** · prompts/** · package.json · T-A3 · Critical Morris ack · inventing T-A1 reservationIds API · **merge**
 
 ## Architecture
 
-Modular monolith module `projects/sfia-studio/app/lib/oa/cycle/**` mirroring T-A0/T-A1:
+Modular monolith `lib/oa/cycle`:
 
 ```
 QualifyCycle → recommendation only (isMorrisDecision=false)
@@ -145,467 +189,739 @@ ResolveCycleKnowledgeContract → CkcResolverPort (guidance; executionAuthority=
 UpdateEpistemicState → refuse Hypothesis/Observation→DecisionRef promotion
 ```
 
-Layers:
+Layers: domain / application / ports / infrastructure (memory) / index barrels. Consumes `@/lib/oa/project` and `@/lib/oa/doctrine` public APIs only.
 
-- **domain** — types, errors, invariants, qualification
-- **application** — ten use-cases listed above
-- **ports** — cycle/trajectory/epistemic repos, CkcResolver, CycleAudit
-- **infrastructure** — `MemoryCycleStore` (+ queue mutex `runInTransaction`), memory repos (structuredClone R/W), `MemoryCkcResolver`, observability journals
-- **index** — `createInMemoryCycleServices` / `createTestCycleServices` (injects `ProjectServices`)
+## Qualification
 
-Consumption: `@/lib/oa/project` and `@/lib/oa/doctrine` public barrels only. No `method/**`, ops1, d1, sfia-context imports (anti-legacy suite).
+Deterministic signal priority: Critical signals → Critical (+ justification on Create); else `lowRiskBounded` → Light; else Standard. Capitalization via `cycleTypeId=cyc:capitalization` (not profile enum). Qualify never sets `isMorrisDecision=true`.
 
-## Cycle domain
+## Trajectoire
 
-- Identity `cyc:…`; types e.g. `cyc:capitalization`
-- Required modeled fields: schemaVersion, cycleInstanceId, cycleTypeId, projectId, profile, status, createdAt
-- `profile` ∈ {Light, Standard, Critical} — **Capitalization is NOT a profile enum value** (schema gap → cycleTypeId)
-- Critical → `status=proposed` until explicit Morris ack (out of T-A2)
-- Light/Standard → `status=acknowledged`
-- Absent CKC does not block CreateCycle
-- QualifyCycle never consumes gates / never sets `isMorrisDecision=true`
+Versioned snapshots; propose with `expectedVersion` + LPS expectedVersion; mutex + conflict; cyclic/orphan/self deps rejected; size cap 256_000 UTF-8; propose status allowlist; logical rollback = propose restored version (never rewrite history).
 
-## Qualification + signal priority + Standard default + Light + Critical + Capitalization
+## État épistémique
 
-Deterministic signal priority (no invented scores):
+Types Observation/Hypothesis/Option/Recommendation/DecisionRef/Reservation/Contradiction/EvidenceRef. Promotion Hypothesis/Observation→DecisionRef forbidden (flag, supersede, **same-id**).
 
-1. Any Critical signal (`structuralChange` | `securityImpact` | `architectureImpact` | `dataImpact` | `irreversible`) → **Critical**; Create requires non-empty justification else `CYCLE_CRITICAL_JUSTIFICATION_REQUIRED`
-2. Else `lowRiskBounded` → **Light**
-3. Else → **Standard** (default)
-4. RequestedProfile Light **without** `lowRiskBounded` → Standard (edge proven)
-5. Critical signal wins even when `lowRiskBounded` also set (edge proven)
-6. Capitalization = `cycleTypeId: cyc:capitalization` + profile from signals (typically Standard) — not a fourth profile enum
+## CKC
 
-Adversarial proofs: `Critical wins when lowRiskBounded…`, `requestedProfile Light without lowRiskBounded yields Standard`, `Create refuses requested Critical without signals and empty justification`, `Capitalization cycleTypeId keeps profile from signals…`
+Guidance-only; hostile executionAuthority denied; absent does not block Create.
 
-## Status proposed/acknowledged + absence Morris decision
+## Intégration T-A1 / LPS
 
-| Profile | Create status | Morris decision |
-|---------|---------------|-----------------|
-| Critical | `proposed` | **absent** — `isMorrisDecision=false` always on Qualify; never auto-ack |
-| Light / Standard | `acknowledged` | N/A (no Critical gate) |
+Intentional minimal linkage fields only (trajectoryId/version, activeCycleInstanceId, ckcResolutionRef, epistemicItemIds). **B5 OPEN**: satellite ids not carried by T-A1 append API. **R1 OPEN**: no cross-store atomicity.
 
-Proof: `never auto-acks Critical and never sets isMorrisDecision`.
+## Corrections B1 / B3 / B4 / E
 
-## Trajectory + versioning + concurrency + logical rollback + cyclic deps + UTF-8 limit
+| ID | Status | Fix |
+|----|--------|-----|
+| B1 TOCTOU steps | **CORRECTED** | clone-first before validate/persist |
+| B3 orphan/self deps | **CORRECTED** | reject orphan + self_dependency |
+| B4 stale propose | **CORRECTED** | allowlist candidate\|validated\|active |
+| E same-id promotion | **CORRECTED** | guard in assertNoHypothesisDecisionPromotion |
 
-- v1 via `CreateInitialTrajectory` (status candidate|active)
-- Propose requires `expectedVersion` + `expectedLpsVersion`; supersedes prior; installs new version as current
-- Optimistic concurrency: re-check `expectedVersion === current.version` **inside** `runInTransaction` mutex → `TRAJECTORY_VERSION_CONFLICT` (retryable)
-- Concurrent same `expectedVersion`: one success + one conflict (proven)
-- Cyclic dependencies → `TRAJECTORY_INVALID` / `cyclic_dependencies`
-- Orphan deps → `orphan_dependency` (B3 fix); self-deps → `self_dependency`
-- Logical rollback = propose new version restoring prior steps (never rewrite historical versions)
-- Size: `MAX_TRAJECTORY_SNAPSHOT_BYTES = 256_000` UTF-8 bytes via `Buffer.byteLength(JSON.stringify(...), "utf8")`
-- Propose status allowlist (B4 fix): `candidate|validated|active` only — `stale`/`superseded` refused (`propose_status_not_currentable`)
+## Réserves B5 / R1
 
-## Epistemic + promotion forbidden
+| ID | Status | Notes |
+|----|--------|-------|
+| **B5** | **OPEN RESERVE** | Do not invent T-A1 reservationIds API in T-A2 |
+| **R1** | **OPEN RESERVE** | Dual mutex; acceptable foundation; structural debt pre-real persistence |
 
-Types: Observation · Hypothesis · Option · Recommendation · DecisionRef · Reservation · Contradiction · EvidenceRef.
+## Erreurs
 
-- Observation fact-like requires `source` or `provenance`
-- Auto promotion Hypothesis→DecisionRef **forbidden** (`EPISTEMIC_PROMOTION_FORBIDDEN` → modeled `AUTHORITY_DENIED`)
-- Detection paths: `promoteFromHypothesis` flag; supersede Hypothesis as DecisionRef; **same-id overwrite** Hypothesis→DecisionRef or Observation→DecisionRef (finding **E** fixed)
+Detail codes mapped to modeled ErrorRecord codes (`STATE_CONFLICT`, `DECISION_REQUIRED`, `AUTHORITY_DENIED`, `CKC_UNAVAILABLE`, `CONTEXT_STALE`). Enum not extended — debt T-A2-D08.
 
-```typescript
-// invariants.ts — same-id promotion guard (fix E)
-if (input.epistemicItemId) {
-  const sameId = input.existing.find(
-    (e) => e.epistemicItemId === input.epistemicItemId,
-  );
-  if (sameId && sameId.type === "Hypothesis") {
-    return {
-      detailCode: "EPISTEMIC_PROMOTION_FORBIDDEN",
-      reason: "same_id_hypothesis_to_decision_ref",
-    };
-  }
-  if (sameId && sameId.type === "Observation") {
-    return {
-      detailCode: "EPISTEMIC_PROMOTION_FORBIDDEN",
-      reason: "same_id_observation_to_decision_ref",
-    };
-  }
-}
-```
+## Sécurité
 
-```typescript
-// updateEpistemicState.ts — passes epistemicItemId into guard
-const promotion = assertNoHypothesisDecisionPromotion({
-  epistemicItemId: raw.epistemicItemId,
-  nextType: raw.type,
-  promoteFromHypothesis: raw.promoteFromHypothesis,
-  supersedes: raw.supersedes,
-  existing,
-});
-```
+Identifier prefixes validated; no secrets in diff; hostile CKC cannot grant authority; no method/ops1/sfia-context imports; no SQL/migrations; no package.json.
 
-## CKC resolution + hostile CKC
+## Observabilité
 
-- Happy path: resolver returns candidate or absent guidance; `executionAuthority` forced false
-- Hostile resolver granting `executionAuthority: true` → fail closed `CKC_UNAVAILABLE`
-- Invalid `fallbackPolicy` → fail closed
-- CreateCycle proceeds even when CKC absent/unavailable
-- Anti-legacy: infrastructure never sets `executionAuthority: true`; no v2.6 strings as authority
-
-## Project/LPS integration + carry-forward + atomicity + fault injection
-
-### Intentional LPS touch (NOT accidental T-A1 edit during correction)
-
-Commit `b4a185a` (foundation) modified only:
-
-- `appendLivingProjectStateVersion.ts` — optional linkage fields + `pickLink` carry-forward / explicit `null` clear; constraints/stakeholders/decisionIds preserved from current
-- `types.ts` — optional request fields `trajectoryId`, `trajectoryVersion`, `activeCycleInstanceId`, `ckcResolutionRef`, `epistemicItemIds`
-
-Correction commits `d7af9cd` / `b7d6672` / `833fd14` / `bdd39d5` **did not** touch `lib/oa/project/**`. **No unexpected T-A1 LPS change in validation corrections.** Keep intentional non-breaking linkage from foundation commit.
-
-### Carry-forward gap (B5 / R6 — OPEN RESERVE)
-
-T-A1 `AppendLivingProjectStateVersion` still does **not** accept or carry `reservationIds` / `contradictionIds` / `evidenceIds` / similar satellite arrays. T-A2 trajectory link cannot invent that API. Adversarial probe documents the reserve without inventing fields.
-
-### Atomicity
-
-- Within Cycle store: snapshot/rollback via `MemoryCycleStore.runInTransaction` + queue mutex (same pattern as T-A1 `861ca76`)
-- Cross-store Project↔Cycle: **no distributed transaction** — fixed order (cycle/trajectory first, LPS append next; rollback cycle if LPS fails before cycle commit). Reserve **R1**.
-
-### Fault injection
-
-`failNextSave: "cycle" | "trajectory" | "epistemic"` — proven rollback with `PERSISTENCE_FAILURE` and no partial current pointer.
-
-## Immutability / anti-aliasing
-
-- Repos: `structuredClone` on read, write, and list
-- Application returns: `structuredClone` of cycle/trajectory/epistemic aggregates
-- Clone-first on inbound `request.steps` (B1) before any `await`
-- Adversarial: `mutating returned epistemic does not mutate store`
-- Foundation suite: `does not alias returned cycle/trajectory/epistemic into the store`
-
-## Repositories / transactions / mutex (compare T-A1 861ca76)
-
-| Concern | T-A1 (`861ca76`) | T-A2 |
-|---------|------------------|------|
-| Store | `MemoryProjectStore` | `MemoryCycleStore` |
-| Txn | `begin/commit/rollback` + snapshot maps | identical pattern |
-| Mutex | promise queue on `runInTransaction` | identical promise queue |
-| Version check | `expectedVersion` **inside** txn | trajectory `expectedVersion` **inside** txn |
-| failNextSave | project/LPS hooks | cycle/trajectory/epistemic hooks |
-| Cross-aggregate | Project+LPS same store | Cycle+Traj+Epistemic same store; LPS via T-A1 separate store (R1) |
-
-```typescript
-// memoryCycleStore.ts — queue mutex (T-A1 parity)
-async runInTransaction<T>(fn: () => Promise<T>): Promise<T> {
-  const run = async (): Promise<T> => {
-    this.begin();
-    try {
-      const result = await fn();
-      this.commit();
-      return result;
-    } catch (err) {
-      this.rollback();
-      throw err;
-    }
-  };
-  const next = this.queue.then(run, run);
-  this.queue = next.then(() => undefined, () => undefined);
-  return next;
-}
-```
-
-## Errors matrix + retryability
-
-| Detail code | Modeled `code` | retryable (default) |
-|-------------|----------------|---------------------|
-| CYCLE_CRITICAL_JUSTIFICATION_REQUIRED | DECISION_REQUIRED | false |
-| TRAJECTORY_VERSION_CONFLICT | STATE_CONFLICT | **true** |
-| LPS_VERSION_CONFLICT | STATE_CONFLICT | **true** |
-| CONTEXT_STALE | CONTEXT_STALE | **true** |
-| PERSISTENCE_FAILURE | STATE_CONFLICT | **true** |
-| EPISTEMIC_PROMOTION_FORBIDDEN | AUTHORITY_DENIED | false |
-| CKC_UNAVAILABLE | CKC_UNAVAILABLE | false |
-| TRAJECTORY_INVALID / CYCLE_INVALID / *_NOT_FOUND / *_ALREADY_EXISTS / EPISTEMIC_INVALID | STATE_CONFLICT | false |
-
-Safe messages only; no raw exception leakage in structured errors. Detail codes finer than modeled ErrorRecord enum → debt **T-A2-D08** (documented; mapping stable).
-
-## Provenance / security / prototype pollution
-
-- `createdBy.actorId` required on mutating commands
-- Provenance cloned via `structuredClone` when present
-- Identifiers validated (`prj:`, `cyc:`, `trj:`, `stp:`, `epi:`) via `isOaIdentifier`
-- No `Object.assign` onto untrusted prototypes for domain aggregates; inputs validated field-by-field
-- Hostile CKC cannot grant execution authority
-- Secrets grep on OA paths: no matches (exit 1 = clean)
-- Legacy import grep: no matches
-- method/ path grep: no matches
-- SQL: only benign `validate`/`execute` identifier hits in doctrine (pre-existing); no migrations added
-
-## Observability
-
-Minimal audit events (no trajectory/epistemic payload content):
-
-- `oa.cycle.qualified` / `oa.cycle.created`
-- `oa.trajectory.created` / `oa.trajectory.version_proposed` / `oa.trajectory.version_conflict`
-- `oa.epistemic.updated`
-- `oa.ckc.resolved`
-
-Sinks: `MemoryCycleAuditJournal` (tests) / `ConsoleCycleAuditJournal` (JSON line).
+Minimal audit events (`oa.cycle.*`, `oa.trajectory.*`, `oa.epistemic.*`, `oa.ckc.*`) without trajectory/epistemic payloads.
 
 ## Performance
 
-- Dedicated large-payload smoke **skipped** due to path/alias constraints in this WT layout; not required for foundation gate
-- Full `__tests__/oa/cycle` suite: **48 PASS in ~414ms** (sub-second)
-- No premature optimization; in-memory only; 256KB hard cap prevents unbounded snapshots
+In-memory foundation only; UTF-8 size cap; no DB selected; concurrency via promise-queue mutex.
 
-## Tests before (26) / adversarial added / after (48) + T-A1 30 + T-A0 28 + platform 10
+## Tests (réexécutés PR readiness)
 
-| Suite | Before validation | After validation | Command exit |
-|-------|-------------------|------------------|--------------|
-| `__tests__/oa/cycle` | **26 PASS** | **48 PASS** | exit 0 |
-| `__tests__/oa/project` (T-A1) | 30 | 30 | exit 0 |
-| `__tests__/oa/doctrine` (T-A0) | 28 | 28 | exit 0 |
-| platform + fixtures | 10 | 10 | exit 0 |
+| Commande | Exit | Durée (s) | Tests / notes |
+|----------|------|-----------|---------------|
+| `npx vitest run __tests__/oa/cycle` | 0 | ~1 | **48 PASS** |
+| `npx vitest run __tests__/oa/project` | 0 | ~1 | **30 PASS** |
+| `npx vitest run __tests__/oa/doctrine` | 0 | ~1 | **28 PASS** |
+| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | 0 | ~0 | **10 PASS** |
+| `npx tsc --noEmit` | 0 | ~1 | PASS |
+| `npx next lint` (cycle+project) | 0 | ~2 | No ESLint warnings |
+| `npx next build` | 0 | ~7 | PASS |
+| `git diff --check origin/main...HEAD` | 0 | ~0 | PASS |
 
-Adversarial file: `__tests__/oa/cycle/adversarialValidation.test.ts` (22 cases). Initial adversarial run proved **7 FAIL** (blockers) then all green after fixes.
+Total connu: **116 PASS**.
 
-### Adversarial test names (complete)
-
-1. `ignores cycle injected after clone-before-validate (no cyclic persist)` — B1
-2. `ignores orphan dep injected after clone-before-validate` — B1
-3. `rejects dependency pointing to non-existent stepId` — B3
-4. `rejects self-dependency` — B3b
-5. `refuses stale status that would orphan current pointer` — B4
-6. `refuses superseded status on propose` — B4
-7. `allows candidate|validated|active on propose` — B4 allowlist
-8. `returns CKC_UNAVAILABLE when resolver grants executionAuthority` — hostile CKC
-9. `returns CKC_UNAVAILABLE for invalid fallbackPolicy` — hostile CKC
-10. `Critical wins when lowRiskBounded and critical signal both set` — Q
-11. `requestedProfile Light without lowRiskBounded yields Standard` — Q
-12. `Create refuses requested Critical without signals and empty justification` — Q
-13. `Capitalization cycleTypeId keeps profile from signals not Capitalization enum` — Q/D02
-14. `rolls back cycle save failure with PERSISTENCE_FAILURE` — R
-15. `rolls back trajectory save failure with no partial state` — R
-16. `rolls back epistemic save failure with PERSISTENCE_FAILURE` — R
-17. `mutating returned epistemic does not mutate store` — I
-18. `one success and one TRAJECTORY_VERSION_CONFLICT for same expectedVersion` — C
-19. `never auto-acks Critical and never sets isMorrisDecision` — Crit
-20. `forbids Hypothesis→DecisionRef via same-id type overwrite` — E
-21. `forbids Observation→DecisionRef via same-id type overwrite` — E
-22. `documents that T-A2 trajectory link does not invent reservationIds API` — B5 reserve
-
-Re-run evidence (2026-07-24 12:07 CEST):
+### Raw evidence excerpt
 
 ```
-npx vitest run __tests__/oa/cycle  → Test Files 3 passed; Tests 48 passed; Duration ~414ms; exit 0
-npx vitest run __tests__/oa/project → Tests 30 passed; exit 0
-```
+===== vitest-cycle =====
+cmd: npx vitest run __tests__/oa/cycle
+exit: 0
+duration_s: 1
+--- tail ---
 
-## Typecheck lint build diff-check secrets SQL package schema legacy
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech/projects/sfia-studio/app
 
-From `.tmp-sfia-review/validation-results-raw.txt` + re-runs:
+ ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 11ms
+ ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 55ms
+ ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 59ms
 
-| Check | Command / scope | Exit |
-|-------|-----------------|------|
-| T-A0 doctrine tests | vitest `__tests__/oa/doctrine` | **0** (28) |
-| Platform tests | vitest platform + fixtures | **0** (10) |
-| `tsc` | project typecheck | **0** |
-| `next lint` | `OA_LINT_TARGETS=lib/oa __tests__/oa` | **0** (no warnings) |
-| `next build` | production build | **0** (~6.9s) |
-| diff-check | protected/path policy | **0** |
-| secrets grep | OA paths | **1** (no matches — desired) |
-| SQL grep | no migrations; benign validate hits only | cleaned / non-blocking |
-| method/ grep | | **1** (no matches — desired) |
-| legacy imports grep | | **1** (no matches — desired) |
-| package.json | unchanged vs origin/main | PASS |
-| modeled schemas | unchanged | PASS |
-| SQL migrations | none added | PASS |
+ Test Files  3 passed (3)
+      Tests  48 passed (48)
+   Start at  13:19:48
+   Duration  436ms (transform 143ms, setup 128ms, collect 340ms, tests 125ms, environment 0ms, prepare 111ms)
 
-## Findings blockers (B1 B3 B4 E) with proof
 
-### B1 — TOCTOU on `request.steps` (BLOCKER → FIXED)
+===== vitest-project =====
+cmd: npx vitest run __tests__/oa/project
+exit: 0
+duration_s: 1
+--- tail ---
 
-**Defect:** validate then `await` then clone allowed caller to mutate `request.steps` after validation (inject cycle / orphan dep) and persist invalid graph.
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech/projects/sfia-studio/app
 
-**Proof (pre-fix):** adversarial tests failed — cycle/orphan injected after validate could persist.
+ ✓ __tests__/oa/project/antiLegacy.test.ts (4 tests) 4ms
+ ✓ __tests__/oa/project/projectLpsFoundation.test.ts (26 tests) 65ms
 
-**Fix:** clone-first in both `CreateInitialTrajectory` and `ProposeTrajectoryVersion`:
+ Test Files  2 passed (2)
+      Tests  30 passed (30)
+   Start at  13:19:49
+   Duration  325ms (transform 83ms, setup 42ms, collect 119ms, tests 69ms, environment 0ms, prepare 50ms)
 
-```typescript
-// proposeTrajectoryVersion.ts / createInitialTrajectory.ts
-// Clone FIRST then validate — closes TOCTOU on request.steps mutation after await.
-const steps = structuredClone(request.steps);
-const status = request.status ?? "candidate";
-// ... validateProposeTrajectoryStatus(status) on propose ...
-const stepsViolation = validateTrajectorySteps(steps);
-```
 
-**Post-fix proof:** `ignores cycle injected after clone-before-validate…`, `ignores orphan dep injected after clone-before-validate` — PASS.
+===== vitest-doctrine =====
+cmd: npx vitest run __tests__/oa/doctrine
+exit: 0
+duration_s: 1
+--- tail ---
 
-### B3 — Orphan dependencies accepted (BLOCKER → FIXED)
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech/projects/sfia-studio/app
 
-**Defect:** DFS skipped unknown deps, so orphan `dependencies: ["stp:missing"]` passed validation.
+ ✓ __tests__/oa/doctrine/antiLegacy.test.ts (3 tests) 5ms
+ ✓ __tests__/oa/doctrine/schemaValidation.test.ts (3 tests) 32ms
+ ✓ __tests__/oa/doctrine/resolveDoctrinePackage.test.ts (22 tests) 60ms
 
-**Fix:** after collecting `seen` stepIds, reject deps not in set; also explicit self-dep:
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  13:19:49
+   Duration  282ms (transform 67ms, setup 68ms, collect 141ms, tests 96ms, environment 0ms, prepare 82ms)
 
-```typescript
-if (dep === step.stepId) {
-  return { detailCode: "TRAJECTORY_INVALID", reason: "self_dependency" };
-}
-// ...
-for (const step of steps) {
-  for (const dep of step.dependencies ?? []) {
-    if (!seen.has(dep)) {
-      return { detailCode: "TRAJECTORY_INVALID", reason: "orphan_dependency" };
-    }
-  }
-}
-```
 
-**Proof:** `rejects dependency pointing to non-existent stepId`, `rejects self-dependency` — PASS.
+===== vitest-platform =====
+cmd: npx vitest run __tests__/platform __tests__/fixtures.test.ts
+exit: 0
+duration_s: 0
+--- tail ---
 
-### B4 — Propose `stale`/`superseded` orphans current pointer (BLOCKER → FIXED)
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech/projects/sfia-studio/app
 
-**Defect:** Propose accepted non-currentable statuses that could leave current pointer on a stale/superseded snapshot semantics.
+ ✓ __tests__/platform/import-boundaries.test.ts (3 tests) 12ms
+ ✓ __tests__/platform/platform-ai.test.ts (5 tests) 2ms
+ ✓ __tests__/fixtures.test.ts (2 tests) 1ms
 
-**Fix:** allowlist:
+ Test Files  3 passed (3)
+      Tests  10 passed (10)
+   Start at  13:19:50
+   Duration  407ms (transform 49ms, setup 62ms, collect 51ms, tests 15ms, environment 238ms, prepare 99ms)
 
-```typescript
-export const PROPOSE_CURRENTABLE_STATUSES = ["candidate", "validated", "active"] as const;
-export function validateProposeTrajectoryStatus(status) {
-  if (status === undefined) return null;
-  if (!(PROPOSE_CURRENTABLE_STATUSES as readonly string[]).includes(status)) {
-    return { detailCode: "TRAJECTORY_INVALID", reason: "propose_status_not_currentable" };
-  }
-  return null;
-}
-```
 
-**Proof:** `refuses stale status…`, `refuses superseded status on propose`, `allows candidate|validated|active on propose` — PASS.
+===== tsc =====
+cmd: npx tsc --noEmit
+exit: 0
+duration_s: 1
+--- tail ---
 
-### E — Same-id Hypothesis/Observation → DecisionRef overwrite (BLOCKER → FIXED)
+===== lint-cycle-project =====
+cmd: npx next lint --dir lib/oa/cycle --dir __tests__/oa/cycle --dir lib/oa/project --dir __tests__/oa/project
+exit: 0
+duration_s: 2
+--- tail ---
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
 
-**Defect:** promotion guard missed same-`epistemicItemId` type overwrite to DecisionRef.
+✔ No ESLint warnings or errors
 
-**Fix:** pass `epistemicItemId` into `assertNoHypothesisDecisionPromotion` (excerpts above).
+===== next-build =====
+cmd: npx next build
+exit: 0
+duration_s: 7
+--- tail ---
+   ▲ Next.js 15.5.20
 
-**Proof:** `forbids Hypothesis→DecisionRef via same-id…`, `forbids Observation→DecisionRef via same-id…` — PASS.
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 888ms
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/9) ...
+   Generating static pages (2/9)
+   Generating static pages (4/9)
+   Generating static pages (6/9)
+ ✓ Generating static pages (9/9)
+   Finalizing page optimization ...
+   Collecting build traces ...
 
-## Findings non-blocking / reserves (B5 R1 R2…)
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      127 B         103 kB
+├ ○ /_not-found                            127 B         103 kB
+├ ○ /cycle-actif                         3.82 kB         119 kB
+├ ○ /decision                            5.53 kB         120 kB
+├ ƒ /nouvelle-demande                    10.2 kB         116 kB
+├ ○ /ops1/nouvelle-demande               18.5 kB         133 kB
+├ ƒ /projects/[id]                       2.66 kB         108 kB
+├ ○ /projects/new                        2.63 kB         108 kB
+├ ○ /synthese                            4.84 kB         120 kB
+└ ƒ /workspace                             571 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-3981a3d1f3561bd8.js       46.2 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.96 kB
 
-| ID | Title | Severity | Disposition |
-|----|-------|----------|-------------|
-| **B5 / R6** | LPS satellite ids (`reservationIds`, etc.) not carried by T-A1 append API | Non-blocking | **OPEN RESERVE** — T-A1 debt; do not invent API in T-A2 |
-| **R1** | No strict cross-store atomicity Project↔Cycle | Accepted reserve | Dual mutex / ordered calls only |
-| **R2** | Critical Morris ack out of scope | By design | Critical stays `proposed` |
-| **R3** | Capitalization ∉ profile enum | Schema gap | cycleTypeId only (D02) |
-| **R4** | ErrorRecord enum narrower than detail codes | Debt | mapping T-A2-D08 |
-| **R5** | No DB | By design | memory reversible; NOT DATABASE SELECTED |
 
-Hostile CKC / qualification / failNextSave / immutability / concurrency / Critical-proposed: already correct at delivery; re-proven adversarial (non-regressions).
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
 
-## Corrections complete (with code excerpts or clear diffs of the 4 fixed areas)
 
-Correction commit: **`d7af9cdf82e35a83ae8c70fa110fb9d72ee1bf18`** — `fix(sfia-studio): correct T-A2 validation findings` (4 files, +83/−11).
+===== diff-check =====
+cmd: git diff --check origin/main...HEAD
+exit: 0
+duration_s: 0
+--- tail ---
 
-| Area | Files | Essence |
-|------|-------|---------|
-| 1. Clone-first TOCTOU | `createInitialTrajectory.ts`, `proposeTrajectoryVersion.ts` | `structuredClone(request.steps)` before validate/await |
-| 2. Orphan + self deps | `invariants.ts` `validateTrajectorySteps` | `orphan_dependency` / `self_dependency` |
-| 3. Propose status allowlist | `invariants.ts` `validateProposeTrajectoryStatus` + propose use-case | currentable only |
-| 4. Same-id promotion | `invariants.ts` + `updateEpistemicState.ts` | Hypothesis/Observation→DecisionRef blocked |
-
-Follow-on:
-
-- `b7d6672` — `test(sfia-studio): strengthen T-A2 adversarial validation`
-- `833fd14` — `docs(sfia-studio): record T-A2 validation findings`
-- `bdd39d5` — `docs(sfia-studio): align T-A2 validation verdict string`
-
-## Files created/modified/deleted
-
-### Final vs origin/main (39 files, +4775/−6)
-
-**Created (cycle module + tests + docs):** full `lib/oa/cycle/**` tree; `__tests__/oa/cycle/{antiLegacy,cycleTrajectoryEpistemicCkc,adversarialValidation}.test.ts`; `sfia-v3-delivery/.../t-a2-*/{01..07,README}.md`.
-
-**Modified (intentional T-A1 linkage only at foundation):**
-
-- `lib/oa/project/application/appendLivingProjectStateVersion.ts`
-- `lib/oa/project/domain/types.ts`
-
-**Deleted:** none.
-
-### Validation delta vs delivery `633d463` (10 files, +899/−25)
-
-- A `adversarialValidation.test.ts`
-- M `createInitialTrajectory.ts`, `proposeTrajectoryVersion.ts`, `updateEpistemicState.ts`, `invariants.ts`
-- M/A docs `04`, `05`, `06`, `07`, `README`
-
-## Protected files untouched
-
-Confirmed `git diff --name-only origin/main...HEAD` has **no** hits on:
-
-- `method/**`
-- `package.json` / lockfile changes for this slice
-- modeled `schemas/**` writes
-- `*.sql` migrations
-- ops1 / d1 authority cutover
-
-Anti-legacy tests enforce import boundaries.
-
-## Diff final vs origin/main and vs 633d463
+===== protected-path-greps =====
+sql:
+absent
+package:
+absent
+schemas-modeled:
+absent
+method-prompts:
+absent
+secrets-like:
+absent
+legacy-imports:
+absent
+t-a3:
+absent
+DONE
 
 ```
-origin/main...HEAD (bdd39d5):  39 files changed, 4775 insertions(+), 6 deletions(-)
-633d463...HEAD:               10 files changed, 899 insertions(+), 25 deletions(-)
-origin/main...633d463:         37 files changed, 3901 insertions(+), 6 deletions(-)
+
+## Décisions T-A2-D01…D10 — recommandations (Morris encore REQUIS)
+
+| ID | Recommandation | Morris |
+|----|----------------|--------|
+| T-A2-D01 | **ACCEPT** | REQUISE |
+| T-A2-D02 | **ACCEPT** | REQUISE |
+| T-A2-D03 | **ACCEPT** | REQUISE |
+| T-A2-D04 | **ACCEPT** | REQUISE |
+| T-A2-D05 | **ACCEPT WITH RESERVE** (R1/B5) | REQUISE |
+| T-A2-D06 | **ACCEPT** | REQUISE |
+| T-A2-D07 | **ACCEPT** | REQUISE |
+| T-A2-D08 | **ACCEPT** | REQUISE |
+| T-A2-D09 | **ACCEPT** | REQUISE |
+| T-A2-D10 | **ACCEPT WITH RESERVE** (B5/R1) | REQUISE |
+
+**No `VALIDATED BY MORRIS` claim** — no Git source closing these decisions.
+
+## Dettes
+
+B5 LPS satellite carry · R1 cross-store atomicity · ErrorRecord enum · Capitalization schema gap · DATABASE SELECTED · Critical ack hors T-A2 · bounds tuning
+
+## Anti-claims
+
+Pas MERGED · Pas merge autorisé · Pas Morris validated T-A2-D01…D10 · Pas T-A3 · Pas DATABASE SELECTED · Pas B5/R1 CLOSED · Pas `VALIDATED WITH RESERVES` as Morris verdict · Validation = **PASSED AFTER CORRECTION** only
+
+## Push projet
+
+- Command: `git push -u origin HEAD` (NO `--force`)
+- Local HEAD: `30a332eb4ecc34cce3ce99c5c909dc800bfad927`
+- Remote SHA: `30a332eb4ecc34cce3ce99c5c909dc800bfad927` — **MATCH**
+- Branch tracking: `origin/delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc`
+
+## PR
+
+| Champ | Valeur |
+|-------|--------|
+| **Number** | **263** |
+| **URL** | https://github.com/mcleland147/sfia-workspace/pull/263 |
+| **Title** | feat(sfia-studio): add v3-native T-A2 Cycle and Trajectory foundation |
+| **State** | OPEN |
+| **Draft** | false |
+| **Base** | main |
+| **Head** | delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc |
+| **headOid** | `30a332eb4ecc34cce3ce99c5c909dc800bfad927` |
+| **Commits** | 8 |
+| **Files** | 40 |
+| **Additions** | 4974 |
+| **Deletions** | 6 |
+| **Mergeable** | MERGEABLE |
+| **Auto-merge** | none |
+| **Merged** | **NO** |
+
+## Merge
+
+**NOT EXECUTED.** Gate `GO MERGE PR T-A2` **not consumed**.
+
+## Documentation créée / modifiée (contenu)
+
+### `08-pr-readiness.md` (complet)
+
+```markdown
+# 08 — PR readiness — T-A2 Cycle / Trajectory / Epistemic / CKC
+
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure Europe/Paris** | 2026-07-24 13:17:57 CEST (+0200) |
+| **Gate consommé** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
+| **Base** | `origin/main` @ `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
+| **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
+| **HEAD avant PR readiness** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
+| **HEAD final** | 5a4d3bc87751f843e64ada221ba4bfca64c9e8c3 (docs PR readiness tip at authoring; re-verify on PR head SHA) |
+| **merge-base(HEAD, origin/main)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
+| **Diff vs origin/main** | 40 files changed, 4974 insertions(+), 6 deletions(-) |
+| **Validation technique** | **PASSED AFTER CORRECTION** — 48/30/28/10 |
+| **Décisions Morris T-A2-D01…D10** | **encore requises** (recommandations agents uniquement ; pas de source Git Morris-validated) |
+| **Push / PR** | autorisés par ce gate |
+| **Merge** | **interdit** dans ce cycle |
+| **Gate suivant (non consommé)** | `GO MERGE PR T-A2` |
+
+## Scope
+
+- Module `projects/sfia-studio/app/lib/oa/cycle/**` — CycleInstance, ProjectTrajectory, EpistemicItem, CkcResolution
+- Qualification déterministe (Critical / Light / Standard) ; Critical reste `proposed`
+- Trajectoire versionnée + LPS link via T-A1 `AppendLivingProjectStateVersion`
+- CKC guidance-only (`executionAuthority=false`) ; absent CKC n’bloque pas Create
+- Tests foundation + adversarial + anti-legacy (48)
+- Extensions LPS minimales (champs de liaison)
+- Corrections validation B1 / B3 / B4 / E
+- Documentation `t-a2-cycle-trajectory-epistemic-ckc/**`
+
+## Hors scope
+
+HumanDecision · Confirmation · ExecutionContract · agents · Evidence / ReviewBundle / ClaimEvaluation · UI Option A · cutover v2.6 · MethodMode / OPS1 · SQL / migrations · IAM · DATABASE SELECTED · schemas modeled · `method/**` · `prompts/**` · `package.json` · T-A3+ · Critical Morris ack · inventer API T-A1 `reservationIds` (B5)
+
+## Architecture
+
+Modular monolith `lib/oa/cycle` (domain / application / ports / infrastructure mémoire) :
+
+```
+QualifyCycle → recommendation only (isMorrisDecision=false)
+CreateCycle → ProjectServices.GetProject → persist CycleInstance
+CreateInitialTrajectory / ProposeTrajectoryVersion
+  → clone-first steps → validate → TrajectoryRepository (mutex)
+  → AppendLivingProjectStateVersion (expectedVersion / expectedLpsVersion)
+ResolveCycleKnowledgeContract → CkcResolverPort (guidance; executionAuthority=false)
+UpdateEpistemicState → refuse Hypothesis/Observation→DecisionRef promotion
 ```
 
-## Correction commits
+## Corrections B1 / B3 / B4 / E (corrigées)
 
-| SHA | Message |
-|-----|---------|
-| `d7af9cdf82e35a83ae8c70fa110fb9d72ee1bf18` | fix(sfia-studio): correct T-A2 validation findings |
-| `b7d6672…` | test(sfia-studio): strengthen T-A2 adversarial validation |
-| `833fd1483c5aab89da84aa169461521b36052749` | docs(sfia-studio): record T-A2 validation findings |
-| `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` | docs(sfia-studio): align T-A2 validation verdict string |
+| ID | Defect | Fix | Status |
+|----|--------|-----|--------|
+| **B1** | TOCTOU: validate then await then clone `request.steps` | Clone-first avant validate/persist | **CORRECTED** |
+| **B3** | Orphan deps accepted (DFS skipped unknowns) + self-deps | Reject orphan + explicit `self_dependency` | **CORRECTED** |
+| **B4** | Propose `stale`/`superseded` orphans current pointer | Allowlist `candidate\|validated\|active` | **CORRECTED** |
+| **E** | Same-id Hypothesis/Observation → DecisionRef overwrite | Guard in `assertNoHypothesisDecisionPromotion` | **CORRECTED** |
 
-Full branch (`origin/main..HEAD`): `b4a185a` → `230b4a9` → `633d463` → `d7af9cd` → `b7d6672` → `833fd14` → `bdd39d5`.
+## Tests adversariaux
 
-## Decisions T-A2-D01..D10 with recommended ACCEPT/ACCEPT WITH RESERVE (Morris open)
+Suite `__tests__/oa/cycle/adversarialValidation.test.ts` — prouve B1/B3/B4/E, hostile CKC, qualification edges, failNextSave rollback, immutabilité, concurrency `TRAJECTORY_VERSION_CONFLICT`, Critical stays proposed, same-id promotion, B5 LPS carry probe (documents OPEN RESERVE).
 
-| ID | Recommendation | Rationale |
-|----|----------------|-----------|
-| **T-A2-D01** | **ACCEPT** | Module isolation held under adversarial + anti-legacy suites |
-| **T-A2-D02** | **ACCEPT** | Capitalization via `cycleTypeId` confirmed; profile enum gap documented |
-| **T-A2-D03** | **ACCEPT** | Qualification edges confirmed (Critical wins, Light→Standard, justification, Capitalization) |
-| **T-A2-D04** | **ACCEPT** | Critical stays `proposed`; no invented Morris decision |
-| **T-A2-D05** | **ACCEPT WITH RESERVE** | Versioning + concurrency OK; B1/B3/B4 fixed; R1/B5 remain |
-| **T-A2-D06** | **ACCEPT** | In-memory + ports; failNextSave rollback proven; NOT DATABASE SELECTED |
-| **T-A2-D07** | **ACCEPT** | Hostile CKC denied; absent CKC guidance-only |
-| **T-A2-D08** | **ACCEPT** | Detail codes + modeled mapping unchanged; new causes under existing codes |
-| **T-A2-D09** | **ACCEPT** | 256_000 UTF-8 size cap unchanged |
-| **T-A2-D10** | **ACCEPT WITH RESERVE** | Foundation-only; B5/R1 reserves; no UI / no T-A3 |
+## Résultats de validation (matrice PR readiness)
 
-**Morris status:** decisions are **recommendations only** — **NOT consumed**, **NOT VALIDATED** by Morris in this pack.
+| Suite | Attendu | Résultat |
+|-------|---------|----------|
+| `npx vitest run __tests__/oa/cycle` | 48 | PASS (réexécuté ce cycle) |
+| `npx vitest run __tests__/oa/project` | 30 | PASS |
+| `npx vitest run __tests__/oa/doctrine` | 28 | PASS |
+| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | 10 | PASS |
+| `npx tsc --noEmit` | PASS | PASS |
+| lint `lib/oa/cycle` + `lib/oa/project` (+ tests cycle) | PASS | PASS |
+| `npx next build` | PASS si faisable | PASS / noté dans review pack |
+| `git diff --check origin/main...HEAD` | PASS | PASS |
 
-## Reserves / Debt / Anti-claims
+Total connu : **116** tests PASS.
 
-**Reserves:** R1 cross-store atomicity; R2 Critical ack; R3 Capitalization schema gap; R4 ErrorRecord enum; R5 no DB; **R6/B5** LPS satellite carry-forward.
+## Réserves OPEN (non fermées)
 
-**Debt:** T-A2-D08 detail-code mapping documentation; future T-A1 append API for reservation/contradiction/evidence ids if product requires carry-forward.
+| ID | Réserve | Statut |
+|----|---------|--------|
+| **B5 / R6** | T-A1 append ne porte pas `reservationIds` / ids satellites LPS ; T-A2 ne doit pas inventer l’API | **OPEN RESERVE** |
+| **R1** | Pas d’atomicité cross-store stricte Project↔Cycle (deux mutex mémoire) | **OPEN RESERVE** |
 
-**Anti-claims:** Pas MERGED · Pas PUSH projet · Pas PR · Pas Morris validated · Pas T-A3 AUTHORIZED · Pas DATABASE SELECTED · Pas B5 fixed in T-A1 · Pas UI Option A · Pas v2.6 fallback authority.
+Autres dettes documentées (non blockers fondation) : ErrorRecord enum borné · bornes nombre versions/étapes/items · mémoire uniquement · Capitalization via `cycleTypeId` · Critical acknowledgement hors T-A2.
 
-## Working tree final
+## Dettes
+
+1. **B5** — évolution explicite contrat LPS T-A1 pour carry-forward satellite ids
+2. **R1** — transaction unique / outbox avant persistance réelle ou exécution critique
+3. **ErrorRecord** — extension enum modeled pour detail codes T-A2 (mapping actuel documenté)
+4. **Capitalization** — schema `profile` sans valeur Capitalization (porté par `cycleTypeId`)
+5. **DATABASE SELECTED** — ports mémoire seulement
+6. **Critical ack** — hors T-A2 (reste `proposed`)
+
+## Décisions T-A2-D01…D10 — recommandations (Morris encore requis)
+
+| ID | Observation | Preuve | Option | Alternative rejetée | Réserve / dette | Réversibilité | Recommandation | Morris |
+|----|-------------|--------|--------|---------------------|-----------------|---------------|----------------|--------|
+| **T-A2-D01** | Isolation module cycle | anti-legacy + suite 48 | `lib/oa/cycle` | fusion d1/OPS1 | — | Haute | **ACCEPT** | **REQUISE** |
+| **T-A2-D02** | Capitalization hors enum profile | tests Capitalization | `cycleTypeId=cyc:capitalization` | étendre enum maintenant | schema gap | Haute | **ACCEPT** | **REQUISE** |
+| **T-A2-D03** | Qualification déterministe | edges adversarial | Critical/Light/Standard | scores inventés | — | Haute | **ACCEPT** | **REQUISE** |
+| **T-A2-D04** | Critical sans auto-ack | `never auto-acks Critical` | status `proposed` | auto-acknowledge | ack T-A3+ | Haute | **ACCEPT** | **REQUISE** |
+| **T-A2-D05** | Versioning + concurrency | B1/B3/B4 fixed + concurrent conflict | expectedVersion + clone-first + allowlist | in-place / stale propose | **R1/B5** | Haute | **ACCEPT WITH RESERVE** | **REQUISE** |
+| **T-A2-D06** | Repos locaux | failNextSave rollback | in-memory + ports | SQL maintenant | adapter DB futur | Haute | **ACCEPT** | **REQUISE** |
+| **T-A2-D07** | CKC guidance | hostile denied ; absent OK | unavailable + `intra_v3_only` | inventer detailed / bloquer Create | contenu CKC futur | Haute | **ACCEPT** | **REQUISE** |
+| **T-A2-D08** | Erreurs bornées | mapping detail codes | map vers codes existants | étendre schema enum | enum debt | Moyenne | **ACCEPT** | **REQUISE** |
+| **T-A2-D09** | Cap taille traj | size cap test | `MAX_TRAJECTORY_SNAPSHOT_BYTES=256_000` | illimité | tuning | Haute | **ACCEPT** | **REQUISE** |
+| **T-A2-D10** | Foundation-only | exclusions + docs | slice bornée | wiring session/decision | **B5/R1** + activation | Haute | **ACCEPT WITH RESERVE** | **REQUISE** |
+
+Pas de claim `VALIDATED BY MORRIS` — aucune source Git Morris-validated pour T-A2-D01…D10.
+
+## Anti-claims
+
+- Pas T-A2 **MERGED**
+- Pas merge autorisé dans ce cycle
+- Pas Morris **VALIDATED** décisions T-A2 (recommandations seulement)
+- Pas T-A3 **AUTHORIZED** / **LAUNCHED**
+- Pas DATABASE SELECTED / SQL / schemas modeled runtime adoptés
+- Pas V2.6 REMOVED / MethodMode REMOVED / OPS1 RETIRED
+- Pas OPTION A IMPLEMENTED (foundation slice only)
+- Pas UI / HumanDecision / Confirmation / Execution / Evidence
+- Pas B5 / R1 **CLOSED**
+- Pas `VALIDATED WITH RESERVES` comme verdict Morris — verdict technique = **PASSED AFTER CORRECTION**
+
+## Stratégie de rollback
+
+- Trajectoire : proposer une nouvelle version restaurée (jamais rewrite in-place des versions historiques)
+- Cycle / epistemic : fail-closed ; rollback logique store mémoire sur `failNextSave`
+- LPS : `expectedVersion` / conflict — pas d’overwrite silencieux
+- Rollback produit = revert / non-merge de la PR ; branche conservée
+
+## Risques de merge
+
+| Risque | Mitigation |
+|--------|------------|
+| Partial Project↔Cycle (R1) | Accepté fondation ; documenté OPEN |
+| LPS satellite ids drop (B5) | OPEN RESERVE ; pas d’API inventée |
+| Reviewer confond validation technique / décision Morris | Status discipline explicite dans PR + docs |
+| Scope creep T-A3 / UI | Exclusions + anti-claims |
+| Concurrent propose | Mutex + `TRAJECTORY_VERSION_CONFLICT` prouvé |
+
+## Review focus
+
+1. Transaction / concurrence trajectoire + LPS expectedVersion
+2. Intégration LPS (champs de liaison uniquement)
+3. Corrections B1 / B3 / B4 / E
+4. Distinction recommandation vs décision (`isMorrisDecision=false`)
+5. Critical reste `proposed`
+6. CKC sans autorité d’exécution
+7. Trajectoire immutable (versions)
+8. Promotion épistémique interdite
+9. Réserves B5 / R1 toujours OPEN
+
+## Checklist PR
+
+- [x] Truth Check branche / HEAD / merge-base / diff
+- [x] Corrections B1/B3/B4/E présentes + tests adversariaux verts
+- [x] Matrice 48/30/28/10 + tsc/lint/build/diff-check
+- [x] Chemins protégés absents du diff
+- [x] Docs PR readiness (`08` + wording)
+- [x] Commit docs local
+- [ ] Push `-u` (ce cycle)
+- [ ] PR non-draft vers `main` (ce cycle)
+- [ ] Review pack FULL + handoff publish (ce cycle)
+- [ ] **Merge** — **NON** (gate `GO MERGE PR T-A2` non consommé)
+
+## Gate de merge requis
+
+**Non consommé** : `GO MERGE PR T-A2`.
+
+Ce cycle crée uniquement la PR pour revue Morris. Merge, auto-merge, force-push, rebase/squash rewrite, et lancement T-A3 sont **interdits**.
+
+## Verdict cycle (après PR créée)
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 PR CREATED — MORRIS REVIEW REQUIRED**
 
 ```
-On branch delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc
-Untracked files:
-  .tmp-sfia-review/
-nothing added to commit but untracked files present
-HEAD = bdd39d51382d228d38c83fc2f6b60de18d64f7ad
+
+### `README.md` (complet)
+
+```markdown
+# T-A2 — Cycle / Trajectory / Epistemic / CKC Foundation (Delivery Option A)
+
+| Champ | Valeur |
+|-------|--------|
+| **Slice** | T-A2 — Cycle/Trajectory/Epistemic/CKC |
+| **Profil** | Critical |
+| **Gate consommé (validation)** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
+| **Gate consommé (PR readiness)** | `GO PR READINESS DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
+| **Statut validation** | **PASSED AFTER CORRECTION** — décisions Morris T-A2-D01…D10 encore ouvertes |
+| **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
+| **Base** | `origin/main` @ `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
+| **HEAD start PR readiness** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
+| **Tests T-A2** | **48** PASS |
+| **Dépendance** | T-A1 Project/LPS Foundation (merged PR #262) · T-A0 Doctrine |
+| **Merge** | **interdit** dans le cycle PR readiness (gate `GO MERGE PR T-A2` non consommé) |
+| **Réserves OPEN** | **B5** (LPS satellite ids) · **R1** (atomicité cross-store) |
+
+## Objectif
+
+Fournir une fondation runtime minimale, testée et fail-closed pour `CycleInstance`, `ProjectTrajectory`, `EpistemicItem` et `CkcResolution` v3-native : qualification déterministe, création cycle (Critical `proposed`), trajectoire versionnée liée au LPS via T-A1, épistémologie sans promotion Hypothesis→DecisionRef, CKC guidance-only — sans cutover, sans UI, sans T-A3+.
+
+## Contenu
+
+1. [01-scope-and-canonical-slice-definition.md](./01-scope-and-canonical-slice-definition.md)
+2. [02-domain-contracts-and-invariants.md](./02-domain-contracts-and-invariants.md)
+3. [03-persistence-consistency-and-failure-modes.md](./03-persistence-consistency-and-failure-modes.md)
+4. [04-tests-evidence-and-reserves.md](./04-tests-evidence-and-reserves.md)
+5. [05-delivery-validation-and-decision-pack.md](./05-delivery-validation-and-decision-pack.md)
+6. [06-morris-validation-and-pr-readiness.md](./06-morris-validation-and-pr-readiness.md)
+7. [07-validation-findings-and-morris-decision-pack.md](./07-validation-findings-and-morris-decision-pack.md)
+8. [08-pr-readiness.md](./08-pr-readiness.md)
+
+## Corrections validation
+
+**B1 / B3 / B4 / E** — **CORRECTED** (voir `07` et `08`).
+
+## Anti-claims
+
+- Pas T-A2 **MERGED**
+- Pas T-A3 **AUTHORIZED**
+- Pas READY FOR DELIVERY GLOBAL
+- Pas DATABASE SELECTED
+- Pas SCHEMAS ADOPTED runtime
+- Pas V2.6 REMOVED / MethodMode REMOVED / OPS1 RETIRED
+- Pas OPTION A IMPLEMENTED (foundation slice only)
+- Pas UI / HumanDecision / Confirmation / Execution / Evidence
+- Pas décisions T-A2 **VALIDATED BY MORRIS** (pas de source Git)
+- Pas B5 / R1 fermées
+- Pas Capitalization dans l’enum `profile` (schema gap — voir T-A2-D02)
+
 ```
 
-## Push/PR/merge/T-A3 = NONE
+### `05-delivery-validation-and-decision-pack.md` (complet)
 
-No `git push` of project branch. No PR. No merge to main. No T-A3 authorization. Handoff publish is **review-handoff branch only** (separate from project delivery branch).
+```markdown
+# 05 — Delivery validation and decision pack
 
-## Verdict exact (allowed string)
+| Champ | Valeur |
+|-------|--------|
+| **Date** | 2026-07-24 (Europe/Paris) |
+| **Gate** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` + `GO VALIDATION … T-A2` |
+| **Statut** | Décisions **T-A2-D01…D10 CANDIDATES** — Morris validation required (pas de source Git Morris-validated) |
+| **Verdict technique** | Fondation T-A2 **PASSED AFTER CORRECTION** ; B1/B3/B4/E **CORRECTED** ; réserves **B5/R1 OPEN** |
+| **PR readiness** | Voir [08-pr-readiness.md](./08-pr-readiness.md) — gate PR readiness séparé ; **merge interdit** sans `GO MERGE PR T-A2` |
+
+## Validations exécutées
+
+| Commande | Résultat |
+|----------|----------|
+| `npx vitest run __tests__/oa/cycle` | PASS — 48 tests (26 foundation + 22 adversarial) |
+| `npx vitest run __tests__/oa/project` | PASS — 30 |
+| `npx vitest run __tests__/oa/doctrine` | PASS — 28 |
+| `npx vitest run __tests__/platform __tests__/fixtures.test.ts` | PASS — 10 |
+| `npx tsc --noEmit` | PASS |
+| `next lint` (dirs `lib/oa/cycle`, `__tests__/oa/cycle`, `lib/oa/project`) | PASS |
+| `npx next build` | PASS |
+| `git diff --check` | PASS |
+
+Adversarial proof + fixes: [07-validation-findings-and-morris-decision-pack.md](./07-validation-findings-and-morris-decision-pack.md).
+
+## Décisions candidates T-A2-D01…D10
+
+| ID | Décision | Observation | Option retenue | Alternative rejetée | Dette | Réversibilité | Recommandation | Morris |
+|----|----------|-------------|----------------|---------------------|-------|---------------|----------------|--------|
+| **T-A2-D01** | Boundaries Cycle module | Modular monolith OA | `lib/oa/cycle` isolé | Fusion d1/OPS1 | — | Haute | Valider isolation | attendue |
+| **T-A2-D02** | Capitalization | Schema profile sans Capitalization | `cycleTypeId=cyc:capitalization` + profile règles | Étendre enum profile | Schema gap | Haute | Valider gap | attendue |
+| **T-A2-D03** | Qualification | Signaux explicites | Critical/Light/Standard déterministe | Scores inventés | — | Haute | Valider | attendue |
+| **T-A2-D04** | Critical status | FD-OA-03 | `proposed` sans auto-ack | Auto-acknowledge | Ack T-A3+ | Haute | Valider | attendue |
+| **T-A2-D05** | Trajectory versioning | Canonique T-A2 | expectedVersion + supersede + LPS link + clone-first + status allowlist + orphan deps | In-place mutate / stale propose | R1/B5 | Haute | **ACCEPT WITH RESERVE** | attendue |
+| **T-A2-D06** | Repos locaux | Pas DB selected | In-memory + ports | SQL maintenant | Adapter DB futur | **Haute** | Valider mémoire | attendue |
+| **T-A2-D07** | CKC absent | Guidance only | unavailable + intra_v3_only ; pas de blocage Create | Inventer detailed | Contenu CKC futur | Haute | Valider | attendue |
+| **T-A2-D08** | Erreurs | Enum modeled borné | Detail codes + map (STATE_CONFLICT / DECISION_REQUIRED / AUTHORITY_DENIED / CKC_UNAVAILABLE / CONTEXT_STALE) | Étendre schema | Enum extension | Moyenne | Valider mapping | attendue |
+| **T-A2-D09** | Limite taille traj | AT <256KB | `MAX_TRAJECTORY_SNAPSHOT_BYTES=256_000` | Illimité | Tuning | Haute | Valider | attendue |
+| **T-A2-D10** | Readiness foundation-only | Pas UI/T-A3 | Slice bornée + validation adversarial | Wiring session/decision | B5/R1 + activation future | Haute | **ACCEPT WITH RESERVE** | attendue |
+
+## Schema gap notes
+
+1. **Capitalization** n’est pas dans `CycleInstance.profile` enum — porté par `cycleTypeId`.
+2. Pas de schema `CycleType` / knowledge package dédié — CKC via `CkcResolution` seulement.
+3. Detail codes T-A2 hors enum `ErrorRecord.code` — mapping documenté.
+
+## Hypothèses
+
+- Mémoire suffisante pour tests / fondation
+- Append LPS T-A1 étendu (linkage) reste compatible non-régression T-A1
+- Justify Critical est une string non vide (pas de policy métier plus riche)
+
+## Anti-claims
+
+Pas MERGED · Pas T-A3 AUTHORIZED · Pas DATABASE SELECTED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas cutover · Pas Morris decision inventée
+
+## Gate suivant
+
+PR readiness (`GO PR READINESS … T-A2`) puis revue Morris sur PR. Merge uniquement via `GO MERGE PR T-A2` (non consommé). Puis `GO DELIVERY … T-A3` (non autorisé ici).
+
+```
+
+### `06-morris-validation-and-pr-readiness.md` (complet)
+
+```markdown
+# 06 — Morris validation and PR readiness
+
+## Statut
+
+| Champ | Valeur |
+|-------|--------|
+| **Implémentation** | COMPLETE (local commits) |
+| **Validation adversarial** | COMPLETE — **PASSED AFTER CORRECTION** — findings in `07-…` |
+| **Blockers B1 / B3 / B4 / E** | **CORRECTED** |
+| **Réserves B5 / R1** | **OPEN** |
+| **Tests T-A2** | **48** PASS |
+| **HEAD validation tip** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
+| **Morris décisions T-A2-D01…D10** | **REQUIRED** — non consommées (recommandations agents uniquement) |
+| **PR readiness** | Pack `08-pr-readiness.md` — gate `GO PR READINESS … T-A2` |
+| **Merge** | **INTERDIT** ce cycle — gate `GO MERGE PR T-A2` non consommé |
+
+## Checklist Morris
+
+- [ ] Confirmer MATCH T-A2 Cycle/Trajectory/Epistemic/CKC
+- [ ] Valider règles qualification (Critical justification, Light/Standard)
+- [ ] Valider Capitalization = cycleTypeId (schema gap T-A2-D02)
+- [ ] Valider Critical reste `proposed` (pas d’ack inventé)
+- [ ] Valider trajectoire versionnée + LPS expectedVersion + mutex
+- [ ] Valider refus promotion Hypothesis→DecisionRef
+- [ ] Valider CKC absent = unavailable, pas d’invention, pas de blocage Create
+- [ ] Valider corrections B1/B3/B4/E
+- [ ] Accepter réserves OPEN B5/R1 (ou demander évolution LPS / atomicité)
+- [ ] Valider anti-legacy / pas SQL / pas method / pas T-A3
+- [ ] Décider T-A2-D01…D10 (candidates → décisions Morris)
+- [ ] Autoriser (ou non) merge via gate dédié
+
+## Verdict validation (exact)
 
 **SFIA STUDIO V3-NATIVE OPTION A T-A2 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
+
+## Verdict PR readiness (après création PR)
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 PR CREATED — MORRIS REVIEW REQUIRED**
+
+Ne pas confondre avec `VALIDATED WITH RESERVES` / `VALIDATED BY MORRIS` — aucune décision Morris T-A2 n’est close sans source Git explicite.
+
+```
+
+### `07-validation-findings-and-morris-decision-pack.md` (complet)
+
+```markdown
+# 07 — Validation findings and Morris decision pack
+
+| Field | Value |
+|-------|-------|
+| **Gate** | `GO VALIDATION DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
+| **Date** | 2026-07-24 (Europe/Paris) |
+| **HEAD start** | `633d46389f650c03a5d4c113fced41f106c2067b` |
+| **HEAD final (validation)** | `bdd39d51382d228d38c83fc2f6b60de18d64f7ad` |
+| **Scope** | Prove defects with adversarial tests; fix only proven T-A2-scoped defects |
+| **Morris** | **NOT VALIDATED** — recommendations only |
+
+## Evidence method
+
+1. Baseline: `__tests__/oa/cycle` → **26 PASS**
+2. Adversarial suite added → **7 FAIL** (proven defects) + 15 PASS
+3. Fixes in `lib/oa/cycle/**` only
+4. Final: `__tests__/oa/cycle` → **48 PASS**
+
+## Findings
+
+| ID | Title | Proven? | Blocker? | Fixed? | Evidence (test) |
+|----|-------|---------|----------|--------|-----------------|
+| **B1** | TOCTOU: validate then await then clone `request.steps` | Yes | Yes | Yes | `ignores cycle injected after clone-before-validate` / `ignores orphan dep injected after clone-before-validate` |
+| **B3** | Orphan deps accepted (DFS skipped unknowns) | Yes | Yes | Yes | `rejects dependency pointing to non-existent stepId` |
+| **B3b** | Self-deps | Already rejected via cycle DFS | No | N/A (explicit `self_dependency` added) | `rejects self-dependency` |
+| **B4** | Propose `stale`/`superseded` orphans current pointer | Yes | Yes | Yes | `refuses stale status…` / `refuses superseded status on propose` |
+| **CKC** | Hostile `executionAuthority:true` / invalid fallback | Already guarded | Yes if regress | Already fixed | `returns CKC_UNAVAILABLE when resolver grants…` / `…invalid fallbackPolicy` |
+| **Q** | Qualification edges (Critical wins, Light→Standard, Critical justification, Capitalization) | Yes (already correct) | No | N/A | Qualification edges describe block |
+| **R** | `failNextSave` cycle/trajectory/epistemic rollback | Yes (already correct) | No | N/A | failNextSave rollback describe block |
+| **I** | Returned objects aliased into store | Epistemic + prior cycle/traj covered | No | N/A | Immutability + existing anti-aliasing |
+| **C** | Concurrent propose same `expectedVersion` | Yes (already correct) | No | N/A | `one success and one TRAJECTORY_VERSION_CONFLICT…` |
+| **Crit** | Critical stays `proposed`; `isMorrisDecision:false` | Yes (already correct) | No | N/A | `never auto-acks Critical…` |
+| **E** | Same-id Hypothesis/Observation → DecisionRef overwrite | Yes | Yes | Yes | `forbids Hypothesis→DecisionRef via same-id…` / `forbids Observation→DecisionRef…` |
+| **B5** | LPS `reservationIds` (etc.) carry-forward on T-A2 link | Investigated | No (T-A1 debt) | **OPEN RESERVE** | `documents that T-A2 trajectory link does not invent reservationIds API` |
+| **R1** | Cross-store Project↔Cycle atomicity | Accepted | No | Reserve | Prior docs; no distributed txn invented |
+
+## Fixes applied (T-A2 only)
+
+1. **Clone-first** in `ProposeTrajectoryVersion` and `CreateInitialTrajectory` before validate/persist.
+2. **Orphan + self dependency** rejection in `validateTrajectorySteps`.
+3. **Propose status allowlist** `candidate|validated|active` via `validateProposeTrajectoryStatus`.
+4. **Same-id promotion guard** in `assertNoHypothesisDecisionPromotion` (Hypothesis/Observation → DecisionRef).
+
+## B5 / R1 reserves (not fixed here)
+
+| ID | Reserve | Why not fixed in T-A2 |
+|----|---------|------------------------|
+| **B5 / R6** | T-A1 `AppendLivingProjectStateVersion` does not accept or carry `reservationIds` / `contradictionIds` / `evidenceIds` / … from current LPS | Fix requires T-A1 append core; T-A2 callers cannot overlay fields the API omits. Prefer OPEN RESERVE over T-A1 scope creep. |
+| **R1** | No strict cross-store atomicity Project↔Cycle | Accepted foundation reserve; in-memory dual mutex only. |
+
+## Recommended Morris decisions (candidates — not consumed)
+
+| ID | Recommendation |
+|----|----------------|
+| **T-A2-D01** | **ACCEPT** — module isolation held under adversarial suite |
+| **T-A2-D02** | **ACCEPT** — Capitalization via `cycleTypeId` confirmed |
+| **T-A2-D03** | **ACCEPT** — qualification edges confirmed |
+| **T-A2-D04** | **ACCEPT** — Critical stays `proposed` |
+| **T-A2-D05** | **ACCEPT WITH RESERVE** — versioning + concurrency OK; B1/B3/B4 fixed; R1/B5 remain |
+| **T-A2-D06** | **ACCEPT** — in-memory + ports; failNextSave rollback proven |
+| **T-A2-D07** | **ACCEPT** — hostile CKC denied; absent CKC guidance-only |
+| **T-A2-D08** | **ACCEPT** — detail codes + mapping unchanged; new causes under existing codes |
+| **T-A2-D09** | **ACCEPT** — size cap unchanged |
+| **T-A2-D10** | **ACCEPT WITH RESERVE** — foundation-only; B5/R1 reserves; no UI/T-A3 |
+
+## Verdict (exact allowed string)
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 VALIDATION PASSED AFTER CORRECTION — MORRIS DECISION REQUIRED**
+
+## Anti-claims
+
+Pas MERGED · Pas Morris validated décisions · Pas T-A3 AUTHORIZED · Pas DATABASE SELECTED · Pas B5/R1 CLOSED · Pas `VALIDATED WITH RESERVES` comme claim Morris
+
+PR readiness : voir [08-pr-readiness.md](./08-pr-readiness.md).
+
+```
+
+## Rollback strategy
+
+Propose restored trajectory version; fail-closed memory rollback; LPS expectedVersion conflicts; product rollback = do not merge / revert PR; branch kept.
+
+## Merge risks
+
+R1 partial cross-store · B5 satellite drop · reviewer confuses technical validation with Morris decision · scope creep T-A3/UI
+
+## Review focus
+
+Transaction/concurrency · LPS linkage · B1/B3/B4/E · recommendation vs decision · Critical proposed · CKC no authority · immutable trajectory · epistemic promotion banned · B5/R1 OPEN
+
+## Status discipline
+
+- Validation technique PASSED AFTER CORRECTION
+- Morris decisions still required
+- Merge NOT authorized this cycle
+- T-A3 NOT authorized
+
+## Gate suivant (candidat, non consommé)
+
+`GO MERGE PR T-A2`
+
+## Verdict exact
+
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 PR CREATED — MORRIS REVIEW REQUIRED**
