@@ -5,6 +5,7 @@
 | Champ | Valeur |
 |-------|--------|
 | **Implémentation** | COMPLETE (local commits) |
+| **Validation adversarial** | COMPLETE — findings in `07-…` |
 | **Morris validation** | **REQUIRED** — non consommée |
 | **PR readiness** | **NOT AUTHORIZED** sans GO Morris |
 | **Push / PR / merge** | **INTERDITS** ce cycle |
@@ -24,4 +25,4 @@
 
 ## Verdict attendu post-implémentation
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A2 CYCLE/TRAJECTORY/EPISTEMIC/CKC FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 CYCLE/TRAJECTORY/EPISTEMIC/CKC VALIDATED WITH RESERVES — MORRIS DECISION REQUIRED**

@@ -4,8 +4,8 @@
 |-------|--------|
 | **Slice** | T-A2 — Cycle/Trajectory/Epistemic/CKC |
 | **Profil** | Critical |
-| **Gate consommé** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
-| **Statut** | **IMPLEMENTED** — Morris validation required |
+| **Gate consommé** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` + validation gate |
+| **Statut** | **VALIDATED WITH RESERVES** (candidate) — Morris decision required |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
 | **Base** | `origin/main` @ `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
 | **Dépendance** | T-A1 Project/LPS Foundation (merged PR #262) · T-A0 Doctrine |
@@ -23,6 +23,7 @@ Fournir une fondation runtime minimale, testée et fail-closed pour `CycleInstan
 4. [04-tests-evidence-and-reserves.md](./04-tests-evidence-and-reserves.md)
 5. [05-delivery-validation-and-decision-pack.md](./05-delivery-validation-and-decision-pack.md)
 6. [06-morris-validation-and-pr-readiness.md](./06-morris-validation-and-pr-readiness.md)
+7. [07-validation-findings-and-morris-decision-pack.md](./07-validation-findings-and-morris-decision-pack.md)
 
 ## Anti-claims
 
