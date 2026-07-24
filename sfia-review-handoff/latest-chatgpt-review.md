@@ -4,154 +4,142 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-24 10:22:07 CEST (+0200) |
-| **Cycle** | Post-merge verification — T-A1 Project / LPS Foundation |
+| **Date/heure** | 2026-07-24 10:51:49 CEST (+0200) |
+| **Cycle** | Delivery Option A — T-A2 Cycle / Trajectory / Epistemic / CKC Foundation |
 | **Profil** | Critical |
-| **Gate consommé** | Post-merge verification PR #262 (READ-ONLY project) |
+| **Gate consommé** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A2` |
 | **Repo** | mcleland147/sfia-workspace |
-| **origin/main (attendu)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
-| **origin/main (observé)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` — MATCH |
-| **Old main** | `8013c71342a019ab6c1297f05443a0dd8b6fac7c` |
-| **PR** | [#262](https://github.com/mcleland147/sfia-workspace/pull/262) — **MERGED** |
-| **PR head** | `5733d25b4b4c7ada042af2776fe1d3154c0b5583` |
-| **Merge SHA** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
-| **Merge mode** | `merge_commit` |
-| **Parents** | `8013c71342a019ab6c1297f05443a0dd8b6fac7c` + `5733d25b4b4c7ada042af2776fe1d3154c0b5583` |
-| **Tree integrity** | PR head tree = merge tree = `fd83620deee7547e25f85d1f1bed0c42db08a786` — MATCH |
-| **Branche delivery (remote)** | `delivery/sfia-studio-v3-native-option-a-t-a1-project-lps-foundation` @ `5733d25…` — **still present** |
-| **Handoff source blob (pré-cycle)** | `c79bf0c255fab61eeadcb650ccdf8af0fd7d12cc` — MATCH |
-| **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` (unmodified project; review write only) |
-| **Temp WT** | `/tmp/sfia-t-a1-postmerge` @ `origin/main` (validations; removed after) |
+| **origin/main (base)** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
+| **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a2-cycle-trajectory-epistemic-ckc` |
+| **HEAD initial** | `102b6c6c1d662c2359b1a11802f1bbc7e620935d` |
+| **HEAD final** | `633d46389f650c03a5d4c113fced41f106c2067b` |
+| **Tech WT** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Handoff WT** | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| **Project commits / push / PR / merge / branch delete / T-A2** | **NONE this cycle** |
+| **Push / PR / merge** | **NONE** |
+| **package.json / method/** / modeled schema / SQL / T-A3** | **NONE** |
 | **Niveau** | FULL |
 
 ## VERDICT
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A1 POST-MERGE VERIFIED — T-A1 CLOSED — T-A2 FRAMING MAY OPEN**
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 CYCLE/TRAJECTORY/EPISTEMIC/CKC FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED**
 
-Blockers: **none**
+Blockers: **none** (Morris validation still required before PR readiness)
 
 ## 1. Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| Date Europe/Paris | 2026-07-24 10:22:07 CEST — PASS |
-| `git fetch origin` | OK |
-| `gh pr view 262` state | **MERGED** (`mergedAt` 2026-07-24T08:11:54Z) — PASS |
-| Merge subject includes `(#262)` | PASS — `feat(sfia-studio): add v3-native T-A1 Project and LPS foundation (#262)` |
-| `origin/main` = `102b6c6…` | MATCH |
-| Old main parent = `8013c713…` | MATCH |
-| PR head parent = `5733d25…` | MATCH |
-| Mode | `merge_commit` (2 parents) — PASS |
-| Tree head vs merge | MATCH `fd83620…` — PASS |
-| Diff `8013c713..102b6c6` | **30 files**, **+3249 / -0** — MATCH expected |
-| PR commit chain (6) | `090e7be`, `fc8a51a`, `262d274`, `861ca76`, `1e9070e`, `5733d25` — MATCH |
-| Concurrency fix `861ca76` ancestor of merge | YES — PASS |
-| Delivery branch still on remote | YES @ `5733d25…` — PASS |
-| Handoff blob `c79bf0c…` | MATCH — PASS |
+| Date Europe/Paris | 2026-07-24 10:51:49 CEST — PASS |
+| Base `origin/main` | `102b6c6…` — PASS |
+| Branche T-A2 | créée @ `102b6c6…`, HEAD `633d463…` — PASS |
+| Locks | no index.lock — PASS |
+| Concurrent T-A2 PR | none — PASS |
 
-**Verdict Truth Check:** **PASS**
+## 2. Canonical slice
 
-### Merge fuller (summary)
+Exact quote (doc 12):
 
-```
-commit 102b6c6c1d662c2359b1a11802f1bbc7e620935d
-Merge: 8013c71 5733d25
-Author:     mcleland147 <m.cleland@live.fr>
-AuthorDate: Fri Jul 24 10:11:54 2026 +0200
-Commit:     GitHub <noreply@github.com>
-CommitDate: Fri Jul 24 10:11:54 2026 +0200
+> \| **T-A2** \| Cycle/Trajectory/Epistemic/CKC \| T-A1 \| T-A2 \| qualif Critical \| version traj \|
 
-    feat(sfia-studio): add v3-native T-A1 Project and LPS foundation (#262)
+**MATCH** — Cycle / Trajectory / Epistemic / CKC foundation.
 
- 30 files changed, 3249 insertions(+)
-```
+## 3. Commit chain (local only)
 
-## 2. Scope classification
+| SHA | Message |
+|-----|---------|
+| `b4a185a424b75dd12e1b640198646f11be9aa469` | feat(sfia-studio): add v3 Cycle and Trajectory foundation |
+| `230b4a967ccf6f0912989b523a1c83c917cb84e0` | test(sfia-studio): validate T-A2 qualification and trajectory invariants |
+| `633d46389f650c03a5d4c113fced41f106c2067b` | docs(sfia-studio): document Option A T-A2 delivery |
 
-**Inclus (all Added):**
-- `projects/sfia-studio/app/lib/oa/project/**` (domain, application, ports, memory infra)
-- `projects/sfia-studio/app/__tests__/oa/project/**`
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/**` (+ pr-readiness)
+Diff vs `102b6c6…`: **37 files**, **+3901 / −6**
 
-**Exclus / probes (no hits in merge range):**
-- `method/**`
-- `prompts/**`
-- `.github/**`
-- OPS1 runtime paths
-- `sfia-context`
-- modeled schema adds
-- `package.json`
-- SQL / migrations
+## 4. Architecture delivered
 
-**Scope verdict:** **CLEAN — PASS**
+Module `projects/sfia-studio/app/lib/oa/cycle/**` mirroring T-A0/T-A1:
 
-## 3. Concurrency fix presence (`861ca76`)
+- **domain** — types, errors, invariants, qualification
+- **application** — QualifyCycle, CreateCycle, GetCycle, CreateInitialTrajectory, GetCurrentTrajectory, GetTrajectoryVersion, ProposeTrajectoryVersion, GetEpistemicState, UpdateEpistemicState, ResolveCycleKnowledgeContract
+- **ports** — cycle/trajectory/epistemic repos, CkcResolver, CycleAudit
+- **infrastructure** — MemoryCycleStore (+ mutex), memory repos, MemoryCkcResolver, observability
+- **index** — `createInMemoryCycleServices` / `createTestCycleServices` (injects `ProjectServices`)
 
-Verified on `origin/main` tree (`memoryProjectStore.ts` + `appendLivingProjectStateVersion.ts`):
+T-A1 consumption via `@/lib/oa/project` only. Clock via `@/lib/oa/doctrine`. Minimal LPS append extension: optional linkage fields (`trajectoryId`, `trajectoryVersion`, `activeCycleInstanceId`, `ckcResolutionRef`, `epistemicItemIds`) with carry-forward.
 
-| Element | Present |
-|---------|---------|
-| Mutex / serialize queue (`private queue` + `runInTransaction` chain) | YES |
-| Re-check `expectedVersion` inside transaction critical section | YES |
-| Comment: concurrent double-append must conflict | YES |
+## 5. Behavioural contracts
 
-**Concurrency fix verdict:** **PASS**
+### Qualification
+- Critical signals → Critical; Create requires non-empty justification else `CYCLE_CRITICAL_JUSTIFICATION_REQUIRED`
+- Else `lowRiskBounded` → Light; else Standard
+- Capitalization = `cycleTypeId: cyc:capitalization` (not profile enum)
+- QualifyCycle = recommendation only (`isMorrisDecision=false`)
 
-## 4. Validations (temp worktree `/tmp/sfia-t-a1-postmerge` @ `102b6c6`)
+### Cycle
+- Critical → `status=proposed` (no auto-ack; no invented Morris decision)
+- Light/Standard → `acknowledged`
+- Absent CKC does **not** block CreateCycle
 
-| Check | Exit | Detail |
-|-------|------|--------|
-| `npm ci` (app) | 0 | 414 packages |
-| `vitest run __tests__/oa/project` | 0 | **30** passed (2 files) |
-| `vitest run __tests__/oa/doctrine` | 0 | **28** passed (3 files) |
-| `vitest run __tests__/platform` + `__tests__/fixtures` | 0 | **10** passed (3 files) |
-| `tsc --noEmit` | 0 | clean |
-| `next lint` (OA project paths) | 0 | No ESLint warnings or errors |
-| `next build` | 0 | Compiled successfully |
-| `git diff --check 8013c713..102b6c6` | 0 | clean |
-| Grep secrets in merge files | — | no credential/private-key hits (doc false-positives only) |
-| Grep SQL / method / legacy / T-A2 | — | no forbidden path edits; T-A2 mentions are documentary anti-claims only |
-| `06-morris-validation-and-pr-readiness.md` | — | PRESENT |
-| Decisions **T-A1-D01…D10** | — | PRESENT in decision pack |
+### Trajectory
+- v1 candidate; LPS linked via `expectedVersion`
+- Propose requires `expectedVersion`; supersede; cyclic deps → `TRAJECTORY_INVALID`
+- Concurrent propose → conflict; logical rollback = new version restoring prior steps
+- Max JSON 256_000 UTF-8 bytes
 
-**Validations verdict:** **PASS**
+### Epistemic
+- Observation requires source or provenance
+- Hypothesis→DecisionRef auto-promotion refused (`EPISTEMIC_PROMOTION_FORBIDDEN` → modeled `AUTHORITY_DENIED`)
 
-## 5. Delivery docs
+### CKC
+- Registry candidate **or** `level=absent` / `status=unavailable` / `fallbackPolicy=intra_v3_only`
+- `executionAuthority=false` always; no v2.6
 
-- `06-morris-validation-and-pr-readiness.md` — present
-- Candidate decisions **T-A1-D01…D10** table — present in `05-delivery-validation-and-decision-pack.md`
+## 6. Schema gap notes
 
-## 6. Branch / project hygiene (this cycle)
+1. **Capitalization** absent from `CycleInstance.profile` enum — carried as `cycleTypeId` (`cyc:capitalization`) — **T-A2-D02**
+2. No dedicated `CycleType` / knowledge-package schema — CKC via `CkcResolution` only
+3. Detail codes finer than modeled `ErrorRecord.code` enum — mapping documented (**T-A2-D08**)
 
-| Item | Result |
+## 7. Validations
+
+| Commande | Résultat |
+|----------|----------|
+| `vitest __tests__/oa/cycle` | **PASS — 26** (T-A2) |
+| `vitest __tests__/oa/project` | **PASS — 30** (T-A1) |
+| `vitest __tests__/oa/doctrine` | **PASS — 28** (T-A0) |
+| `vitest __tests__/platform` + `fixtures` | **PASS — 10** |
+| Combined OA+platform+fixtures | **PASS — 94** |
+| `tsc --noEmit` | **PASS** |
+| `next lint` (cycle + project) | **PASS** |
+| `next build` | **PASS** |
+| `git diff --check` | **PASS** |
+| Forbidden paths | **NONE** |
+
+## 8. Decisions T-A2-D01…D10
+
+All **CANDIDATES** — Morris validation required. See `sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/05-delivery-validation-and-decision-pack.md`.
+
+Highlights: isolation module; Capitalization via cycleTypeId; deterministic qualification; Critical stays proposed; trajectory optimistic versioning + LPS link; in-memory repos; CKC absent = unavailable without inventing; error detail mapping; 256KB traj cap; foundation-only readiness.
+
+## 9. Anti-claims
+
+- Pas T-A2 MERGED / PUSHED / PR
+- Pas T-A3 AUTHORIZED
+- Pas DATABASE SELECTED
+- Pas SCHEMAS ADOPTED runtime
+- Pas V2.6 / MethodMode / OPS1 removed
+- Pas OPTION A IMPLEMENTED (slice foundation only)
+- Pas UI / HumanDecision / Confirmation / Execution
+- Pas Morris decision inventée / Critical auto-ack
+
+## 10. Blockers / next
+
+| Item | Status |
 |------|--------|
-| Project commits created | **NONE** |
-| Project push / PR / merge / branch delete | **NONE** |
-| T-A2 started / authorized | **NONE** |
-| Tech WT project tree | unmodified (only `.tmp-sfia-review/chatgpt-review.md` write) |
-| Temp worktree | created for validations; removed without commit |
+| Implementation blockers | **none** |
+| Morris validation | **REQUIRED** |
+| PR readiness | **NOT AUTHORIZED** |
+| Push / PR / merge | **FORBIDDEN** this cycle |
+| Next gate | Morris GO → optionally PR readiness; then T-A3 (not authorized) |
 
-## 7. Handoff publish (this cycle)
+## VERDICT (repeat)
 
-| Item | Value |
-|------|--------|
-| Pre-publish handoff blob | `c79bf0c255fab61eeadcb650ccdf8af0fd7d12cc` |
-| Publish message | `docs(review-handoff): publish Studio Option A T-A1 post-merge review` |
-| Script | `scripts/sfia/publish-review-handoff.sh` |
-
-## 8. Claim discipline
-
-- T-A1 **POST-MERGE VERIFIED** / **CLOSED** — YES (this pack)
-- T-A2 **FRAMING MAY OPEN** — YES (framing only; not AUTHORIZED delivery)
-- DATABASE SELECTED — NO
-- OPTION A IMPLEMENTED — NO
-- V2.6 REMOVED / cutover — NO
-- method/** / OPS1 / sfia-context mutated — NO
-
-## 9. Final
-
-**SFIA STUDIO V3-NATIVE OPTION A T-A1 POST-MERGE VERIFIED — T-A1 CLOSED — T-A2 FRAMING MAY OPEN**
-
-**Blockers:** none
+**SFIA STUDIO V3-NATIVE OPTION A T-A2 CYCLE/TRAJECTORY/EPISTEMIC/CKC FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED**
