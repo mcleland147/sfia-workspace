@@ -371,6 +371,17 @@ export class StartExecution {
           started,
         });
       }
+      if (launch.adapterId !== this.adapter.adapterId) {
+        return this.failLaunch({
+          attempt,
+          contractVersion: contract.version,
+          cause: "fail",
+          reason: "adapter_identity_binding_mismatch",
+          timestamp,
+          correlationId,
+          started,
+        });
+      }
 
       // Step 6a — Attempt running FIRST.
       const runningAttempt: ExecutionAttempt = {

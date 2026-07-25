@@ -194,6 +194,7 @@ export function createInMemoryExecutionAttemptServices(
   const contractStatusWriter = new ExecutionContractStatusWriter(
     contracts,
     options.executionContractServices.store,
+    attempts,
   );
 
   const selectExecutionAgent = new SelectExecutionAgent(

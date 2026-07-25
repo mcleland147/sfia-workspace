@@ -5,8 +5,9 @@
  * `ExecutionContractRepositoryPort` (+ the same MemoryExecutionContractStore
  * transaction helper). No T-A4 use-case is extended to post-exec.
  *
- * Absolute invariant enforced here:
- *   ExecutionContract.executing ⇒ a matching Attempt is ALREADY running.
+ * Absolute invariant enforced here (RTA5-09):
+ *   ExecutionContract.executing ⇒ a matching Attempt is ALREADY running
+ *   in the Attempt repository — caller-claimed status alone is NOT trusted.
  */
 import type {
   ExecutionContract,
@@ -14,6 +15,7 @@ import type {
   MemoryExecutionContractStore,
 } from "@/lib/oa/execution-contract";
 import type { AttemptDetailCode, ExecutionAttemptStatus } from "../domain/types";
+import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
 
 export type Ta5ContractStatus =
   | "executing"
@@ -35,7 +37,7 @@ export type ContractStatusWriteRequest = {
   /** Recorded on the contract when the Attempt selection is bound. */
   selectedAgentRef?: string;
   reason?: string;
-  /** Required for `executing`: the Attempt must already be running. */
+  /** Required for `executing`: identifies the Attempt that must already be running. */
   runningAttempt?: { attemptId: string; status: ExecutionAttemptStatus };
 };
 
@@ -51,21 +53,46 @@ export type ContractStatusWriteResult =
 export class ExecutionContractStatusWriter {
   constructor(
     private readonly contracts: ExecutionContractRepositoryPort,
-    private readonly store?: MemoryExecutionContractStore,
+    private readonly store: MemoryExecutionContractStore | undefined,
+    private readonly attempts: ExecutionAttemptRepositoryPort,
   ) {}
 
   async write(
     request: ContractStatusWriteRequest,
   ): Promise<ContractStatusWriteResult> {
-    if (
-      request.nextStatus === "executing" &&
-      request.runningAttempt?.status !== "running"
-    ) {
-      return {
-        ok: false,
-        detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",
-        internalCauseRef: "executing_requires_running_attempt",
-      };
+    if (request.nextStatus === "executing") {
+      if (!request.runningAttempt?.attemptId) {
+        return {
+          ok: false,
+          detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",
+          internalCauseRef: "executing_requires_running_attempt_ref",
+        };
+      }
+      // Defense in depth: never trust a caller-claimed status alone.
+      const persisted = await this.attempts.findById(
+        request.runningAttempt.attemptId,
+      );
+      if (!persisted) {
+        return {
+          ok: false,
+          detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",
+          internalCauseRef: "executing_requires_persisted_attempt",
+        };
+      }
+      if (persisted.executionContractId !== request.executionContractId) {
+        return {
+          ok: false,
+          detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",
+          internalCauseRef: "executing_attempt_contract_mismatch",
+        };
+      }
+      if (persisted.status !== "running") {
+        return {
+          ok: false,
+          detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",
+          internalCauseRef: `executing_requires_running_attempt_got_${persisted.status}`,
+        };
+      }
     }
 
     let written: ExecutionContract | undefined;
