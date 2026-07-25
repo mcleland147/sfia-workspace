@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/execution/execution-contract.schema.json",
   "title": "ExecutionContract",
-  "description": "Native structured contract (domain F). Cursor Markdown is adapter export only (domain G). Immutable after confirmed except explicit supersession.",
+  "description": "Native structured contract (domain F). Cursor Markdown is adapter export only (domain G). Immutable after confirmed except explicit supersession via a successor contract. schemaVersion 0.2.0-oa is a breaking bump from 0.1.0-oa (requiredAuthority enum closure + supersession fields). Ownership: T-A4 may produce draft|proposed|validated|confirmation_required|confirmed|cancelled|superseded; T-A5 owns agent selection and executing|completed|failed. Reverse superseded-by link is derived at runtime from successors' supersedesExecutionContractId (one direction only).",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -26,25 +26,30 @@
   "properties": {
     "schemaVersion": {
       "type": "string",
-      "const": "0.1.0-oa"
+      "const": "0.2.0-oa",
+      "description": "Breaking vs 0.1.0-oa: requiredAuthority closed to N1|N2|N3|MORRIS; supersedesExecutionContractId + supersessionReason added."
     },
     "executionContractId": {
-      "$ref": "../common/identifier.schema.json"
+      "$ref": "../common/identifier.schema.json",
+      "description": "Canonical id; preferred prefix xct:"
     },
     "projectId": {
       "$ref": "../common/identifier.schema.json"
     },
     "cycleInstanceId": {
-      "$ref": "../common/identifier.schema.json"
+      "$ref": "../common/identifier.schema.json",
+      "description": "Optional cycle link. Critical cycle still proposed/non-acknowledged: contract must not reach confirmed (runtime fail-closed; R-T-A3-1 OPEN)."
     },
     "decisionRefs": {
       "type": "array",
       "items": {
         "$ref": "../common/identifier.schema.json"
-      }
+      },
+      "description": "Structuring contracts require ≥1 accepted, same-project, non-superseded decision at build and at confirm (runtime). After confirmed, if a source decision is later superseded, contract must not start new execution until superseded or cancelled (runtime T-A4→T-A5 gate)."
     },
     "confirmationRef": {
-      "$ref": "../common/identifier.schema.json"
+      "$ref": "../common/identifier.schema.json",
+      "description": "When status=confirmed, references the T-A3 Confirmation consumed exactly once at ConfirmExecutionContract. Build/Validate must not consume Confirmation."
     },
     "doctrinePackageRef": {
       "$ref": "../doctrine/doctrine-package-ref.schema.json"
@@ -79,10 +84,17 @@
     },
     "requiredAuthority": {
       "type": "string",
-      "minLength": 1
+      "enum": [
+        "N1",
+        "N2",
+        "N3",
+        "MORRIS"
+      ],
+      "description": "Canonical T-A3 mapping. N1|N2|N3 are Confirmation/Authority levels. N3 ≠ Morris: requiredAuthority=N3 does not confer canActAsMorris. MORRIS means verified N3 AND canActAsMorris=true (normative; not a hierarchical level above N3). Real authority always verified by T-A3 AuthorityResolverPort — never trust client claims."
     },
     "selectedAgentRef": {
-      "$ref": "../common/identifier.schema.json"
+      "$ref": "../common/identifier.schema.json",
+      "description": "T-A5 ownership only (SelectExecutionAgent). T-A4 governance must not set this field."
     },
     "constraints": {
       "type": "array",
@@ -133,11 +145,31 @@
         "failed",
         "cancelled",
         "superseded"
-      ]
+      ],
+      "description": "Single schema covers full lifecycle (Option A). T-A4 may produce: draft, proposed, validated, confirmation_required, confirmed, cancelled (pre-exec), superseded. T-A5 owns: executing, completed, failed (and agent selection). T-A4 must not produce T-A5 statuses; T-A5 must not rewrite prior governance statuses."
     },
     "version": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 1,
+      "description": "Monotone object version (OCC). Successor superseding contracts use a new executionContractId; do not mutate confirmed content in place."
+    },
+    "supersedesExecutionContractId": {
+      "description": "Optional id of the contract this successor replaces. One direction only; reverse supersededBy is derived at runtime. Must use xct: prefix. Must not equal this.executionContractId (runtime invariant — Draft-07 cannot compare properties).",
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^xct:"
+        }
+      ]
+    },
+    "supersessionReason": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": ".*\\S.*",
+      "description": "Required when supersedesExecutionContractId is present OR status=superseded. Must contain ≥1 non-whitespace character (catalog: raison non vide — whitespace/NBSP-only rejected)."
     },
     "adapterExportRef": {
       "type": "string",
@@ -150,5 +182,62 @@
     "provenance": {
       "$ref": "../common/provenance-record.schema.json"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "supersedesExecutionContractId"
+        ]
+      },
+      "then": {
+        "required": [
+          "supersessionReason"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "superseded"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "supersessionReason"
+        ],
+        "description": "status=superseded requires supersessionReason. Relational proof that a successor points here via supersedesExecutionContractId is a runtime invariant (reverse link derived)."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "confirmed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "confirmationRef",
+          "decisionRefs"
+        ],
+        "properties": {
+          "decisionRefs": {
+            "type": "array",
+            "minItems": 1
+          }
+        },
+        "description": "confirmed requires confirmationRef (consumed Confirmation) and ≥1 decisionRef. Semantic freshness of decision/Critical ack remain runtime."
+      }
+    }
+  ]
 }

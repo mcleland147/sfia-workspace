@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "executionContractId": "xct:oa-morris-001",
+  "projectId": "prj:campus360-oa",
+  "cycleInstanceId": "cyc:modeled-001",
+  "decisionRefs": [
+    "dec:oa-morris-001"
+  ],
+  "confirmationRef": "cnf:morris-exec-001",
+  "action": "approve-structuring-cutover-prep",
+  "target": "sfia-studio-option-a",
+  "scope": "modeled+docs governance only",
+  "requiredCapabilities": [
+    "cap:governance-docs"
+  ],
+  "requiredAuthority": "MORRIS",
+  "constraints": [
+    "no-runtime-code",
+    "no-t-a5"
+  ],
+  "stopConditions": [
+    "AUTHORITY_DENIED",
+    "CONFIRMATION_REQUIRED"
+  ],
+  "evidenceRequirements": [
+    "evreq:morris-gate"
+  ],
+  "reversibility": "irreversible",
+  "idempotencyKey": "idem-xct-morris-001",
+  "correlationId": "corr:oa-demo-morris",
+  "status": "confirmed",
+  "version": 1,
+  "immutableAfterConfirm": true
+}

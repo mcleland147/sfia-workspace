@@ -15,12 +15,14 @@
 
 ## Versioning
 
-- schemaVersion objets : `0.1.0-oa`
+- schemaVersion objets (baseline pack) : `0.1.0-oa`
+- **Exception T-A4 rework** : `ExecutionContract.schemaVersion` = `0.2.0-oa` (breaking : enum `requiredAuthority` + champs supersession). Avant = `0.1.0-oa` free-string authority / pas de `supersedes*`.
 - versions LPS / trajectory / contract entières monotones
 - DoctrinePackage version + digest
 - breaking change ⇒ nouvelle version schema
 - pas de mutation silencieuse contrat confirmé
 - schemas historiques D1 conservés (HISTORICAL-ONLY / ADAPT)
+- Exemples / validateurs ExecutionContract doivent cibler `0.2.0-oa` ; autres agrégats restent `0.1.0-oa`
 
 ## Provenance / audit
 
