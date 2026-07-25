@@ -9,18 +9,19 @@
 | **Gate arbitration** | `GO ARBITRATE T-A5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Gate materialize** | `GO MATERIALIZE T-A5 ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Gate modeled validate** | `GO VALIDATE T-A5 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate runtime framing** | `GO FRAME T-A5 RUNTIME — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
 | **Base / origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` (T-A4 PR #265 merge) |
-| **Runtime `app/lib/oa/**`** | **NONE** (interdit) |
+| **Runtime `app/lib/oa/**`** | **NONE** (interdit — cadrage docs only) |
 | **Modeled schemas / catalogues** | Attempt `0.2.0-oa` + AgentDescriptor `0.1.0-oa` — **MODELED CORRECTED AND VALIDATED** |
 | **Push / PR / merge** | **NONE** (projet) |
-| **Statut pack** | **MODELED CORRECTED AND VALIDATED** |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 MODELED CORRECTED AND VALIDATED — RUNTIME FRAMING MAY OPEN WITH MORRIS GO` |
-| **Gate suivant** | `GO FRAME T-A5 RUNTIME — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed / NOT presumed**) |
+| **Statut pack** | **RUNTIME FRAMING COMPLETED** |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE DELIVERY` |
+| **Gate suivant** | `GO ARBITRATE T-A5 RUNTIME — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed / NOT presumed**) |
 
 ## Objectif
 
-Cadrer, arbitrer, matérialiser, puis **valider** (avec corrections Borned) les décisions Morris T-A5 (agent, Attempt, exécution) en modeled + docs — **sans** runtime, agent opérationnel, Attempt exécutable, shell, réseau, Cursor/MCP, SQL, UI.
+Cadrer, arbitrer, matérialiser, valider le modeled, puis **cadrer le runtime mémoire** T-A5 — **sans** implémenter de code applicatif, agent opérationnel, Attempt exécutable, shell, réseau, Cursor/MCP, SQL, UI.
 
 ## Périmètre
 
@@ -28,12 +29,13 @@ Cadrer, arbitrer, matérialiser, puis **valider** (avec corrections Borned) les 
 - Arbitration (`02-arbitration.md`) — décisions Morris **APPROVED**
 - Materialization (`03-materialization.md`) — schemas / catalogs / exemples / tests
 - Modeled validation (`04-modeled-validation.md`) — **CORRECTED AND VALIDATED**
+- Runtime framing (`05-runtime-framing.md`) — **COMPLETED** (docs only ; RTA5-01…10)
 - Réserves héritées maintenues OPEN
 - Commits locaux + handoff review
 
 ## Hors périmètre
 
-- Runtime T-A5 / delivery exécutable
+- Runtime T-A5 **code** / delivery exécutable / adapter réel
 - Push branche projet, PR, merge
 - Fermeture de réserves
 - Cutover SFIA v2.6 / MethodMode / OPS1
@@ -53,6 +55,7 @@ Cadrer, arbitrer, matérialiser, puis **valider** (avec corrections Borned) les 
 3. [02-arbitration.md](./02-arbitration.md) — pack d’arbitrage + **APPROVED BY MORRIS**
 4. [03-materialization.md](./03-materialization.md) — matérialisation
 5. [04-modeled-validation.md](./04-modeled-validation.md) — **validation modeled + corrections**
+6. [05-runtime-framing.md](./05-runtime-framing.md) — **cadrage runtime mémoire + RTA5-01…10**
 
 ## Réserves (héritées — OPEN)
 
@@ -90,4 +93,5 @@ Détail : [03-materialization.md](./03-materialization.md) · validation : [04-m
 - Pas DATABASE SELECTED / réserves **CLOSED**
 - Pas Option A **complete**
 - Pas push / PR / merge / force-push projet ce cycle
-- Pas `GO FRAME T-A5 RUNTIME` consommé
+- Pas `GO ARBITRATE T-A5 RUNTIME` / `GO DELIVER T-A5 RUNTIME FOUNDATION` consommés
+- Pas code sous `app/lib/oa/execution-attempt/**`
