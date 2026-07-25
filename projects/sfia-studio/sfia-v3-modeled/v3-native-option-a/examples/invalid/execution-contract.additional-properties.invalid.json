@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "executionContractId": "xct:oa-addl-001",
+  "projectId": "prj:campus360-oa",
+  "action": "do-something",
+  "target": "x",
+  "scope": "y",
+  "requiredCapabilities": [
+    "cap:x"
+  ],
+  "requiredAuthority": "N2",
+  "constraints": [
+    "c"
+  ],
+  "stopConditions": [
+    "s"
+  ],
+  "evidenceRequirements": [
+    "evreq:x"
+  ],
+  "reversibility": "reversible",
+  "idempotencyKey": "idem-addl-001",
+  "correlationId": "corr:oa-demo-001",
+  "status": "draft",
+  "version": 1,
+  "hostileExtraField": "must-fail"
+}
