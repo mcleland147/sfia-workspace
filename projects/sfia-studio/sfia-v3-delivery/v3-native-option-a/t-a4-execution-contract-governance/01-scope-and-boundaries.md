@@ -3,7 +3,7 @@
 | Champ | Valeur |
 |-------|--------|
 | **Slice** | T-A4 — ExecutionContract governance |
-| **Statut** | **MODELED REWORK COMPLETED — runtime not started** |
+| **Statut** | **MODELED REWORK CORRECTED AND VALIDATED — runtime not started** |
 | **Code** | **NONE** (`app/lib/oa/execution*` absent) |
 
 ## In-scope (modeled this cycle)

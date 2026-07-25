@@ -2,8 +2,10 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Verdict rework** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT MODELED REWORK COMPLETED — MORRIS VALIDATION REQUIRED** |
+| **Verdict rework** | Modeled rework completed (prior cycle) |
+| **Verdict validation** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT MODELED REWORK CORRECTED AND VALIDATED — RUNTIME DELIVERY MAY RESUME WITH MORRIS GO** |
 | **Gate modeled rework** | **CONSUMED** |
+| **Gate modeled validation** | **CONSUMED** — see [08](./08-modeled-rework-validation.md) |
 | **Gate delivery** | `GO DELIVERY … T-A4` — **NOT CONSUMED** |
 | **Product code** | **NONE** |
 | **Modeled schemas** | **REWORKED** (`0.2.0-oa`) |
@@ -36,18 +38,18 @@ Full verbatim Morris list: [07-modeled-rework-after-morris-arbitration.md](./07-
 | ID | State |
 |----|-------|
 | R-T-A3-1 · B5 · R1 · R-T-A3-2..4 | **OPEN** |
-| R-T-A4-1 | **RESOLVED BY MODELED REWORK** (not globally CLOSED) |
-| R-T-A4-2 | **RESOLVED BY MORRIS DECISION + MODELED ALIGNMENT** |
-| R-T-A4-3 | **RESOLVED BY CANONICAL T-A3 MAPPING** |
+| R-T-A4-1 | **RESOLVED BY MODELED** — confirmed under validation (not globally CLOSED) |
+| R-T-A4-2 | **RESOLVED BY MODELED** — confirmed under validation |
+| R-T-A4-3 | **RESOLVED BY MODELED** — confirmed under validation |
 
 ## Next gate (candidate)
 
-`GO VALIDATION MODELED REWORK OPTION A — SFIA STUDIO V3-NATIVE — T-A4 EXECUTIONCONTRACT`
+`GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A4`
 
 ## Anti-claims
 
-- Pas T-A4 RUNTIME IMPLEMENTED / MERGED / VALIDATED BY MORRIS
+- Pas T-A4 RUNTIME IMPLEMENTED / MERGED
 - Pas GO DELIVERY T-A4 CONSUMED
 - Pas T-A5 AUTHORIZED / LAUNCHED
 - Pas push / PR / merge
-- Pas toutes réserves fermées
+- Pas B5 / R1 / R-T-A3-* fermées
