@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "agentId": "agent:cursor-docs",
+  "agentType": "docs_adapter",
+  "adapterRef": "adapter:cursor-md-export",
+  "supportedCapabilities": [
+    "cap:git-docs"
+  ],
+  "allowedActions": [
+    "publish-modeled-pack"
+  ],
+  "allowedTargets": [
+    "sfia-v3-modeled/v3-native-option-a"
+  ],
+  "allowedScopes": [
+    "docs+schemas+examples only"
+  ],
+  "trustLevel": "bounded",
+  "executionMode": "adapter_async",
+  "healthStatus": "healthy",
+  "version": 1,
+  "enabled": true,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prov:agent-desc-001",
+    "actor": {
+      "actorId": "actor:system",
+      "role": "system",
+      "displayName": "Studio"
+    },
+    "source": "system",
+    "timestamp": "2026-07-25T12:00:00.000Z",
+    "correlationId": "corr:oa-t-a5-001",
+    "projectId": "prj:campus360-oa"
+  },
+  "createdAt": "2026-07-23T21:00:00.000Z",
+  "updatedAt": "2026-07-25T12:00:00.000Z"
+}
