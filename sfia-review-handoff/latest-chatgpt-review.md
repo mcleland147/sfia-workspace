@@ -1,80 +1,259 @@
-# FULL Review Pack — T-A5 Push and PR Creation
+# FULL Review Pack — Independent PR #266 Review (T-A5 Option A)
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-25 21:39:10 CEST (+0200) |
-| **Cycle** | PR readiness — publication de branche et création de PR |
+| **Date/heure/fuseau** | 2026-07-25 22:14:46 CEST (+0200) |
+| **Cycle** | PR review |
 | **Profil** | Critical |
-| **Gate** | `GO PUSH AND CREATE T-A5 PR — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate** | `GO REVIEW T-A5 PR — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Repo** | mcleland147/sfia-workspace |
-| **origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
-| **Branche** | framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution |
-| **HEAD local avant/après push** | `65e5b606c2cddf443b95a890855f5097cb2ec93f` |
-| **SHA distant après push** | `65e5b606c2cddf443b95a890855f5097cb2ec93f` |
+| **PR** | [#266](https://github.com/mcleland147/sfia-workspace/pull/266) |
+| **État / draft / merged / mergeable** | OPEN / false / false / MERGEABLE (mergeStateStatus=CLEAN) |
+| **Base** | `main` @ `6bfef83971f4d71bc83c12dabad87366447120a7` |
+| **Head** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` @ `65e5b606c2cddf443b95a890855f5097cb2ec93f` |
+| **Local/remote equality** | YES (`65e5b606c2cddf443b95a890855f5097cb2ec93f`) |
 | **Merge-base** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
-| **Status** | tracked clean ; `?? .tmp-sfia-review/` |
-| **Staged** | none |
-| **Untracked** | `.tmp-sfia-review/` |
-| **Worktrees** | tech + handoff |
-| **Template** | prompts/templates/sfia-cycle-execution-template.md |
-| **Handoff source** | blob `b54950028cad936a00153d6bb02f461d91ec4e00` PR READY |
-| **CKC** | method/.../pilots/03-architecture-technique.md — candidate ; executionAuthority=false |
+| **Status** | tracked clean ; staged vide ; untracked `.tmp-sfia-review/` only |
+| **Worktrees** | tech worktree + handoff worktree (+ autres hors scope) |
+| **Template** | `prompts/templates/sfia-cycle-execution-template.md` |
+| **Handoff source** | blob `f65cfbda4026c6bda59e31a67696d46f003e2421` — BRANCH PUSHED AND PR CREATED |
+| **CKC** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` — **candidate** ; usage experimental cognitive guidance ; `executionAuthority=false` ; aucune autorité correction/push/merge |
 
 ## Truth Check
 
-PASS — HEAD/main/merge-base exacts ; OPS=NONE ; remote branch absente avant ; PR absente avant.
+**PASS**
+- HEAD / origin/main / merge-base / remote branch SHA exacts
+- PR OPEN non-draft non-mergée, 23 commits, 95 fichiers, +13588/−94
+- Ops Git absentes ; locks absents ; tracked clean
+- Handoff source cohérent avec push/PR création
 
-## Branche distante avant action
+## Sources
 
-ABSENTE
+PR #266 + corps ; diff `origin/main...HEAD` ; 23 commits ; docs T-A5 01–10 + README ; schemas AgentDescriptor/ExecutionAttempt/ExecutionContract ; catalogues 07/09/10 + exemples ; runtime `execution-attempt/**` ; tests `__tests__/oa/execution-attempt/**` ; APIs publiques T-A3 decision/Confirmation/Authority ; APIs publiques T-A4 ExecutionContract ; D-T-A5-01…10 ; RTA5-01…10 ; réserves B5/R1/R-T-A3-1…4 ; CKC candidate.
 
-## PR avant action
+## Méthode
 
-ABSENTE
+Pour chaque invariant : (1) lire code (2) lire modeled (3) identifier tests (4) comparer décisions Morris (5) scénarios adversariaux (6) qualifier PASS / MINOR / MAJOR / CRITICAL / NOT PROVEN. Rapports précédents ≠ preuve seule.
 
-## Push
+## Inventaire Git / périmètre
 
-- Commande : `git push -u origin framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution`
-- Force : NON
-- Résultat : new branch created ; upstream set
-- Local/remote SHA equality : YES (`65e5b606c2cddf443b95a890855f5097cb2ec93f`)
+- Fichiers : **95** (89 A + 6 M) ; **0 deleted**
+- Additions/deletions : **+13588 / −94** ( 95 files changed, 13588 insertions(+), 94 deletions(-))
+- Package/lockfile : **aucun**
+- Code T-A3/T-A4 (`app/lib/oa/decision|execution-contract`) : **aucun**
+- method/** / prompts/** : **aucun**
+- Routes/API/UI/infra externe : **aucun**
+- Fichiers étrangers hors T-A5 modeled/delivery/runtime/tests : **aucun**
+- Diff-check : **PASS**
 
-## Upstream
+### Commits (23)
 
-`origin/framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution`
+```
+f6cb8f3 docs(sfia-studio): frame T-A5 agent selection and execution
+57de65f docs(sfia-studio): prepare T-A5 Morris arbitration
+4254ff2 docs(sfia-studio): materialize T-A5 Morris decisions
+bfe82c2 feat(modeled): define ExecutionAttempt 0.2.0-oa governance
+de9cc5d test(modeled): validate T-A5 modeled governance
+6c4f656 fix(modeled): correct T-A5 governance defect
+b8b199b test(modeled): cover T-A5 validation correction
+f320208 docs(sfia-studio): document T-A5 modeled validation
+8c70547 docs(sfia-studio): frame T-A5 runtime architecture
+42c4832 docs(sfia-studio): prepare T-A5 runtime arbitration
+64a037d docs(sfia-studio): materialize T-A5 runtime decisions
+6a5153a feat(sfia-studio): add T-A5 execution attempt foundation
+99b020e test(sfia-studio): validate T-A5 runtime foundation
+ddddb66 docs(sfia-studio): document T-A5 runtime foundation delivery
+4f227b5 fix(sfia-studio): correct T-A5 runtime foundation defects
+2df5226 test(sfia-studio): strengthen T-A5 runtime foundation validation
+d477492 docs(sfia-studio): document T-A5 runtime foundation validation
+cdae326 docs(sfia-studio): trim trailing whitespace in T-A5 QA validation
+84c2c6c docs(sfia-studio): prepare T-A5 PR readiness
+184f74d docs(sfia-studio): record T-A5 PR readiness HEAD final
+6ddc1c1 docs(sfia-studio): align T-A5 PR readiness HEAD metadata
+8a3c05b docs(sfia-studio): freeze T-A5 PR readiness tip metadata
+65e5b60 docs(sfia-studio): clarify T-A5 PR readiness HEAD tip reference
+```
 
-## PR créée
+Qualification métadonnées PR readiness (4 commits tip) : `184f74d`, `6ddc1c1`, `8a3c05b`, `65e5b60` — **bruit mineur / dette non significative** (HEAD tip freeze). Ne justifie pas rewrite.
 
-| Champ | Valeur |
-|-------|--------|
-| Numéro | **#266** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/266 |
-| État | OPEN |
-| Draft | False |
-| Base | main |
-| Head | framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution |
-| Head SHA | `65e5b606c2cddf443b95a890855f5097cb2ec93f` |
-| Titre | feat(sfia-studio): add v3-native T-A5 agent selection and execution foundation |
-| Auteur | mcleland147 |
-| Commits | 23 |
-| Fichiers | 95 |
-| Additions | 13588 |
-| Deletions | 94 |
+## Modeled
+
+| Élément | Résultat |
+|---------|----------|
+| AgentDescriptor `0.1.0-oa` | PASS |
+| ExecutionAttempt `0.2.0-oa` BREAKING vs 0.1.0-oa | PASS (annoncé schema + tests reject 0.1.0-oa) |
+| Lifecycle accepted→running→result_pending/terminals | PASS |
+| Retry / timeout / cancellation / adapter binding fields | PASS |
+| Confirmation binding modeled + narratives | PASS |
+| Catalogues 07/09/10 | PASS |
+| Exemples valid/invalid | PASS |
+| Tests modeled Attempt+Contract | **46 PASS** |
+| Cohérence runtime | PASS |
+
+## Matrice D-T-A5-01…10
+
+| Décision | Code | Test | Doc | Résultat | Réserve |
+|----------|------|------|-----|----------|---------|
+| D01 Attempt agrégat séparé | repo Attempt séparé | attemptRepository + lifecycle | 03/07/08 | **PASS** | — |
+| D02 Critical human_confirmed_proposal | select strategy gate | lifecycle + modeled | 03 | **PASS** | — |
+| D03 Select≠Start + TTL | select/start séparés | lifecycle | 03 | **PASS** | — |
+| D04 lifecycle + result_pending | domain types + use-cases | lifecycle/qa | 03 | **PASS** | — |
+| D05 persist-then-launch | Select persist ; Start launch après | lifecycle/qa | 03 | **PASS** | — |
+| D06 result_pending no speculative completed | recordResult | lifecycle/qa | 03 | **PASS** | R-T-A3-2 |
+| D07 cancel best-effort no business rollback | cancel | lifecycle | 03 | **PASS** (+ MIN-02) | — |
+| D08 authority matrix / Morris / Record bind | attemptSupport + cancel/start | qa + lifecycle | 03 | **PASS** | — |
+| D09 timeout→failed ; retry new Attempt | timeout/retry | lifecycle/qa | 03 | **PASS** | dette retry post-failed |
+| D10 T-A5 technical only (Evidence=T-A6) | boundary docs/schema | modeled | 03 | **PASS** | — |
+
+## Matrice RTA5-01…10
+
+| ID | Code | Test | Doc | Résultat | Réserve |
+|----|------|------|-----|----------|---------|
+| RTA5-01 Confirmation agent_selection | invariants + select/start | qa/lifecycle | 07/09 | **PASS** (+ MIN-01 residual consume) | R-T-A3-2 |
+| RTA5-02 repo/OCC/compensate | memory repo + start compensate | attemptRepository/qa | 07 | **PASS** | R1 / R-T-A3-2 |
+| RTA5-03 Test/NoOp only + LaunchAck | factories + start adapterId | registry/qa | 07/09 | **PASS AFTER prior QA** (+ MIN-03/04) | — |
+| RTA5-04 Select accepted no launch | select | lifecycle | 07 | **PASS** | — |
+| RTA5-05 activeByContractId rebuild/drift | repo | attemptRepository/qa | 07 | **PASS** | — |
+| RTA5-06 result_pending | recordResult | lifecycle/qa | 07 | **PASS** | R-T-A3-2 |
+| RTA5-07 TriggerAttemptTimeout + Clock | timeout | lifecycle | 07 | **PASS** | — |
+| RTA5-08 auto-safety=timeout ; stale detect only | start/timeout | lifecycle | 07 | **PASS** | — |
+| RTA5-09 ordre + writer persisted running | start + writer | qa mutations | 07/09 | **PASS AFTER prior QA** (+ MIN-01) | R-T-A3-2 |
+| RTA5-10 factories fermées | index.ts | registry/qa | 07 | **PASS** (+ MIN-03) | — |
+
+## Confirmation / autorité
+
+- Scope exact `agent_selection` : **PASS**
+- Binding `act:agent_selection:{cid}:v{ver}:{agent}` : **PASS**
+- Distinct Confirm contrat : **PASS**
+- TTL / expiration / supersession : **PASS**
+- Consume uniquement après Start réussi (happy path) : **PASS**
+- Pas de consume sur fail launch : **PASS**
+- Replay idempotent si déjà consumed : **PASS**
+- Mauvais acteur/contrat/version/agent : **PASS**
+- displayName / client authorityLevel ignorés : **PASS**
+- N3 sans canActAsMorris refusé ; Morris = N3 ∧ canActAsMorris : **PASS**
+- Système jamais Morris implicite : **PASS**
+
+## Repository / OCC / activeByContractId
+
+- Repo séparé + OCC expectedVersion : **PASS**
+- activeByContractId + reserve/release + rebuild + drift fail-closed : **PASS**
+- releaseActiveContract no-op si autre attemptId : **PASS**
+- Concurrent Start : jamais executing sans running : **PASS**
+
+## Registry / adapters / factories
+
+- Registry immutable injecté : **PASS**
+- TestExecutionAdapter + NoOpExecutionAdapter only in module : **PASS**
+- Factories refusent objet foreign : **PASS**
+- Aucun shell/réseau/MCP/Cursor/child_process/process.env/eval actif : **PASS**
+- LaunchAck adapterId + attemptId liés : **PASS**
+
+## Select / Start / RTA5-09
+
+- Select ≠ Start ; aucun adapter ; Attempt accepted ; TTL : **PASS**
+- Ordre happy-path : accepted → confirmed → launch → ack verify → running persist → Contract executing → consume : **PASS**
+- Writer re-lit Attempt repo (`status===running` + même contractId) : **PASS**
+- Compensation contract-fail après running : **PASS**
+- Crash-window replay `running` : ne re-lance pas ; ne soigne pas executing/consume incomplets → **MIN-01** (R-T-A3-2)
+
+## result_pending / timeout / cancel / retry
+
+- result_pending ; Contract reste executing ; pas completed spéculatif : **PASS**
+- Timeout commande + Clock ; pas scheduler ; stale=detect only : **PASS**
+- Cancel autorité ; accepted sans adapter ; running best-effort : **PASS**
+- Retry nouvel Attempt + budget ; post-contract-failed fermé : **PASS** (dette)
+
+## Audit / données sensibles
+
+- Journal append-only refs techniques : **PASS**
+- Pas de secret/token/endpoint/payload métier/Confirmation complète : **PASS**
+
+## Tests exécutés (head exact `65e5b606c2cddf443b95a890855f5097cb2ec93f`)
+
+| Suite | Commande | Résultat | Durée |
+|-------|----------|----------|-------|
+| T-A5 | `npm test -- __tests__/oa/execution-attempt` | **88 PASS** / 4 files | ~1.1s |
+| Combined T-A3+T-A4+T-A5 | `npm test -- __tests__/oa/decision __tests__/oa/execution-contract __tests__/oa/execution-attempt` | **199 PASS** / 13 files | ~1.45s |
+| Modeled Attempt+Contract | `node --test …attempt… …contract… governance` | **46 PASS** | ~0.17s |
+| typecheck | `npm run typecheck` | **PASS** | ~0.90s |
+| lint | `npm run lint` | **PASS** | ~1.71s |
+| build | `npm run build` | **PASS** Next 15.5.20 | ~6.91s |
+| diff-check | `git diff --check origin/main...HEAD` | **PASS** | — |
+
+Aucun test temporaire laissé. Working tree tracked clean.
+
+## GitHub
+
+| Élément | Valeur |
+|---------|--------|
+| Checks | **PENDING / NOT AVAILABLE** — absence ≠ PASS |
+| Workflows branch | 0 runs |
+| Commentaires | 0 |
+| Reviews | 0 |
+| Requested reviewers | [] |
 | Auto-merge | None |
-| Merge | NON |
-| MaintainerCanModify | False |
+| Merge | **NON** |
+| Corps PR | conforme pack readiness |
+| Made with Cursor | footer présent — **bruit mineur acceptable** |
 
-## Checks
+## Findings
 
-PENDING / NOT YET AVAILABLE — `gh pr checks 266` : no checks reported. Absence de CI ≠ PASS.
+### Critical
 
-## Titre PR
+Aucun.
 
-```
-feat(sfia-studio): add v3-native T-A5 agent selection and execution foundation
-```
+### Major
 
-## Corps PR complet
+Aucun ouvert incompatible avec le scope fake-only memory foundation + R-T-A3-2 OPEN déjà arbitrée.
+
+### Minor (acceptés pour merge GO candidat)
+
+| ID | Sévérité | Symbole | Constat | Blocker merge foundation |
+|----|----------|---------|---------|--------------------------|
+| MIN-01 | MINOR | `StartExecution` running replay | Replay `ok:true` sans soigner executing/consume incomplets (ex. après consume fail) | Non — R-T-A3-2 |
+| MIN-02 | MINOR | cancel/timeout/recordFailure | `ok:true` si contract write échoue (asymétrie vs RecordResult) | Non |
+| MIN-03 | MINOR | factories/`instanceof` | subclass Test + constructeurs exportés contournent convention | Non (pas de surface HTTP) |
+| MIN-04 | MINOR | Start | pas de bind `agent.adapterRef === adapter.adapterId` | Non fake-only |
+| MIN-05 | MINOR | `assertAttemptTransition` | helper mort ; repo n'applique pas matrice | Non |
+| MIN-06 | MINOR | commits tip | 4 commits métadonnées HEAD | Non |
+| MIN-07 | MINOR | corps PR | Made with Cursor footer | Non |
+
+## Dettes documentées
+
+- LaunchRequest sans action/target/scope : acceptable
+- Retry post-Contract failed : dette acceptable
+- Non-durabilité mémoire / compensation / result_pending / active index : R-T-A3-2 OPEN
+
+## Réserves (OPEN)
+
+B5, R1, R-T-A3-1, R-T-A3-2, R-T-A3-3, R-T-A3-4 — **aucune fermée**.
+**R-T-A3-1 / R-T-A3-2 HARD** pour toute exécution réelle.
+
+## Risques
+
+- PR : CI absente ; minors crash-window/API honesty ; bruit tip commits
+- Merge : ne ferme aucune réserve ; n'autorise pas exec réelle ; mergeability GitHub ≠ GO Morris
+
+## Readiness
+
+| Axe | Verdict |
+|-----|---------|
+| Scope ready | YES |
+| Modeled ready | YES |
+| Code ready | YES (fake-only) |
+| Tests ready | YES |
+| Docs ready | YES |
+| Security ready | YES fake-only ; NO real exec |
+| Reviewability ready | YES |
+| Mergeability GitHub | YES |
+| Merge readiness technique | YES foundation candidate |
+| Autorisation Morris | **NON** — gate merge séparé |
+
+## Corps PR complet (GitHub)
+
+Titre : `feat(sfia-studio): add v3-native T-A5 agent selection and execution foundation`
+
 
 ## Summary
 
@@ -172,165 +351,28 @@ The following reservations remain **OPEN** and are not closed by this PR:
 Made with [Cursor](https://cursor.com)
 
 
-## Commits
+## Anti-claims / bornes cycle
 
-```
-f6cb8f3 docs(sfia-studio): frame T-A5 agent selection and execution
-57de65f docs(sfia-studio): prepare T-A5 Morris arbitration
-4254ff2 docs(sfia-studio): materialize T-A5 Morris decisions
-bfe82c2 feat(modeled): define ExecutionAttempt 0.2.0-oa governance
-de9cc5d test(modeled): validate T-A5 modeled governance
-6c4f656 fix(modeled): correct T-A5 governance defect
-b8b199b test(modeled): cover T-A5 validation correction
-f320208 docs(sfia-studio): document T-A5 modeled validation
-8c70547 docs(sfia-studio): frame T-A5 runtime architecture
-42c4832 docs(sfia-studio): prepare T-A5 runtime arbitration
-64a037d docs(sfia-studio): materialize T-A5 runtime decisions
-6a5153a feat(sfia-studio): add T-A5 execution attempt foundation
-99b020e test(sfia-studio): validate T-A5 runtime foundation
-ddddb66 docs(sfia-studio): document T-A5 runtime foundation delivery
-4f227b5 fix(sfia-studio): correct T-A5 runtime foundation defects
-2df5226 test(sfia-studio): strengthen T-A5 runtime foundation validation
-d477492 docs(sfia-studio): document T-A5 runtime foundation validation
-cdae326 docs(sfia-studio): trim trailing whitespace in T-A5 QA validation
-84c2c6c docs(sfia-studio): prepare T-A5 PR readiness
-184f74d docs(sfia-studio): record T-A5 PR readiness HEAD final
-6ddc1c1 docs(sfia-studio): align T-A5 PR readiness HEAD metadata
-8a3c05b docs(sfia-studio): freeze T-A5 PR readiness tip metadata
-65e5b60 docs(sfia-studio): clarify T-A5 PR readiness HEAD tip reference
+- Fichiers projet créés/modifiés/supprimés : **aucun**
+- Push projet : **NON**
+- PR modifiée : **NON**
+- Review GitHub soumise : **NON**
+- Merge : **NON**
+- Auto-merge : **NON**
+- Branche supprimée : **NON**
+- Adapter réel : **absent**
+- Exécution réelle : **absente**
+- Réserves fermées : **aucune**
+- Production ready / Option A complete : **NON**
 
-```
+## Working tree final
 
-## Diff stat
-
-```
- .../oa/execution-attempt/attemptRepository.test.ts | 373 +++++++++++
- .../app/__tests__/oa/execution-attempt/helpers.ts  | 548 ++++++++++++++++
- .../execution-attempt/lifecycleFoundation.test.ts  | 615 ++++++++++++++++++
- .../qaAdversarialValidation.test.ts                | 365 +++++++++++
- .../execution-attempt/registryAndAdapters.test.ts  | 267 ++++++++
- .../execution-attempt/application/attemptPolicy.ts |  44 ++
- .../application/attemptSupport.ts                  |  96 +++
- .../application/cancelExecutionAttempt.ts          | 286 +++++++++
- .../application/checkAttemptAuthorization.ts       | 157 +++++
- .../application/executionContractStatusWriter.ts   | 170 +++++
- .../application/getExecutionAttempt.ts             |  47 ++
- .../application/listExecutionAttempts.ts           |  53 ++
- .../application/recordExecutionFailure.ts          | 186 ++++++
- .../application/recordExecutionResult.ts           | 371 +++++++++++
- .../application/retryExecutionAttempt.ts           | 213 +++++++
- .../application/selectExecutionAgent.ts            | 517 +++++++++++++++
- .../application/startExecution.ts                  | 691 +++++++++++++++++++++
- .../application/triggerAttemptTimeout.ts           | 202 ++++++
- .../app/lib/oa/execution-attempt/domain/errors.ts  | 229 +++++++
- .../lib/oa/execution-attempt/domain/invariants.ts  | 659 ++++++++++++++++++++
- .../app/lib/oa/execution-attempt/domain/types.ts   | 400 ++++++++++++
- .../app/lib/oa/execution-attempt/index.ts          | 321 ++++++++++
- .../infrastructure/memoryAgentRegistry.ts          |  60 ++
- .../memoryExecutionAttemptRepository.ts            | 223 +++++++
- .../infrastructure/memoryExecutionAttemptStore.ts  | 107 ++++
- .../infrastructure/noOpExecutionAdapter.ts         |  47 ++
- .../infrastructure/observability.ts                |  28 +
- .../infrastructure/testExecutionAdapter.ts         | 148 +++++
- .../oa/execution-attempt/ports/agentRegistry.ts    |  16 +
- .../oa/execution-attempt/ports/executionAdapter.ts |  81 +++
- .../ports/executionAttemptAudit.ts                 |  53 ++
- .../ports/executionAttemptRepository.ts            |  49 ++
- .../t-a5-agent-selection-execution/01-framing.md   | 555 +++++++++++++++++
- .../02-arbitration.md                              | 493 +++++++++++++++
- .../03-materialization.md                          | 188 ++++++
- .../04-modeled-validation.md                       | 222 +++++++
- .../05-runtime-framing.md                          | 452 ++++++++++++++
- .../06-runtime-arbitration.md                      | 451 ++++++++++++++
- .../07-runtime-arbitrations-materialization.md     | 230 +++++++
- .../08-runtime-foundation-delivery.md              | 197 ++++++
- .../09-runtime-foundation-validation.md            | 143 +++++
- .../10-pr-readiness.md                             | 389 ++++++++++++
- .../t-a5-agent-selection-execution/README.md       |  59 ++
- ...7-execution-contract-attempt-and-agent-model.md | 111 +++-
- ...9-command-event-error-and-transition-catalog.md | 203 ++++--
- ...ion-versioning-provenance-and-security-rules.md |   5 +-
- .../sfia-v3-modeled/v3-native-option-a/README.md   |  10 +-
- .../examples/agent-descriptor.valid.json           |  38 ++
- .../examples/execution-attempt-accepted.valid.json |  28 +
- ...on-attempt-adapter-foreign-attempt.narrative.md |   5 +
- .../execution-attempt-cancelled.valid.json         |  35 ++
- ...execution-attempt-critical-selection.valid.json |  33 +
- .../examples/execution-attempt-failed.valid.json   |  36 ++
- .../execution-attempt-launch-fail.valid.json       |  32 +
- ...empt-launch-then-persist.forbidden.narrative.md |   9 +
- ...n-attempt-morris-displayname-spoof.narrative.md |   9 +
- ...-attempt-n3-without-canActAsMorris.narrative.md |   7 +
- ...ion-attempt-noncritical-capabilities.valid.json |  28 +
- ...result-pending-no-direct-completed.narrative.md |   7 +
- .../execution-attempt-result-pending.valid.json    |  37 ++
- ...ion-attempt-retry-budget-exhausted.narrative.md |   7 +
- .../examples/execution-attempt-retry.valid.json    |  31 +
- .../examples/execution-attempt-running.valid.json  |  31 +
- ...xecution-attempt-selection-expired.narrative.md |   9 +
- .../execution-attempt-succeeded.valid.json         |  38 ++
- .../examples/execution-attempt-timeout.valid.json  |  38 +-
- .../execution-attempt-ttl-expired.narrative.md     |   5 +
- ...n-attempt-wrong-agent-confirmation.narrative.md |   7 +
- ...t-descriptor.additional-properties.invalid.json |  39 ++
- ...attempt.accepted-without-selection.invalid.json |  25 +
- ...tion-attempt.additional-properties.invalid.json |  29 +
- ...ecution-attempt.bad-schema-version.invalid.json |  28 +
- .../execution-attempt.blocked-status.invalid.json  |  28 +
- ...empt.cancelled-without-cancelledAt.invalid.json |  31 +
- ...t.capabilities-on-critical-profile.invalid.json |  28 +
- ...tempt.capabilities-without-profile.invalid.json |  27 +
- ...tion-attempt.critical-capabilities.invalid.json |  28 +
- ...tempt.failed-without-error-or-stop.invalid.json |  31 +
- ...on-attempt.failed-without-failedAt.invalid.json |  32 +
- ....human-confirm-running-without-cnf.invalid.json |  30 +
- .../execution-attempt.legacy-agentRef.invalid.json |  28 +
- ...xecution-attempt.legacy-contractId.invalid.json |  28 +
- ...execution-attempt.missing-required.invalid.json |   5 +
- .../execution-attempt.partial-status.invalid.json  |  25 +
- .../execution-attempt.planned-status.invalid.json  |  28 +
- ...-attempt.result-pending-without-ts.invalid.json |  30 +
- ...ttempt.retry-index-without-retryOf.invalid.json |  30 +
- ...attempt.running-without-launchedAt.invalid.json |  29 +
- .../execution-attempt.starting-status.invalid.json |  28 +
- ...n-attempt.succeeded-without-result.invalid.json |  31 +
- .../execution-attempt.ta6-claimId.invalid.json     |  29 +
- ...attempt.timeout-without-timedOutAt.invalid.json |  31 +
- .../schemas/execution/agent-descriptor.schema.json | 116 ++++
- .../execution/execution-attempt.schema.json        | 474 +++++++++++++-
- .../tests/execution-attempt-governance.test.mjs    | 614 ++++++++++++++++++
- 95 files changed, 13588 insertions(+), 94 deletions(-)
-
-```
-
-## Tests de référence (PR readiness)
-
-- T-A5 88 PASS ; combined 199 PASS ; modeled 46 PASS
-- tsc/lint/build/diff-check PASS
-
-## Réserves OPEN
-
-B5, R1, R-T-A3-1, R-T-A3-2, R-T-A3-3, R-T-A3-4
-R-T-A3-1 / R-T-A3-2 HARD pour exécution réelle.
-
-## Fichiers projet créés/modifiés/supprimés ce cycle
-
-Aucun.
-
-## Anti-claims
-
-- Merge NON
-- Auto-merge NON
-- Branche NON supprimée
-- Adapter réel NON
-- Exécution réelle NON
-- Réserves NON fermées
-- Option A NON complète
+tracked clean ; `?? .tmp-sfia-review/` ; HEAD `65e5b606c2cddf443b95a890855f5097cb2ec93f` sync upstream
 
 ## Verdict exact
 
-SFIA STUDIO V3-NATIVE OPTION A T-A5 BRANCH PUSHED AND PR CREATED — REVIEW AND MORRIS MERGE GO REQUIRED
+SFIA STUDIO V3-NATIVE OPTION A T-A5 PR REVIEWED WITH ACCEPTED MINOR RESERVES — MORRIS MERGE GO MAY OPEN
 
 ## Gate suivant (non consommé)
 
-GO REVIEW T-A5 PR — SFIA STUDIO V3-NATIVE — OPTION A
+`GO MERGE T-A5 PR #266 — SFIA STUDIO V3-NATIVE — OPTION A`
