@@ -321,6 +321,7 @@ export async function grantConfirmation(
     decisionRef?: string;
     actor?: ActorReference;
     evidenceId?: string;
+    expiresAt?: string;
   } = {},
 ): Promise<string> {
   const confirmationId = opts.confirmationId ?? "cfm:exec-001";
@@ -338,6 +339,7 @@ export async function grantConfirmation(
     scope,
     idempotencyKey: `idem-${confirmationId}`,
     decisionRef: opts.decisionRef ?? "dec:oa-001",
+    expiresAt: opts.expiresAt,
   });
   expect(requested.ok).toBe(true);
 
