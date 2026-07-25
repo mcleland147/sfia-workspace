@@ -1,362 +1,391 @@
-# SFIA Review Pack FULL — T-A5 Runtime Arbitrations Materialization
+# FULL Review Pack — T-A5 Runtime Foundation Delivery
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-25 — Europe/Paris (CEST) |
-| **Cycle / profil** | Materialization RTA5 — Critical |
-| **Gate** | `GO MATERIALIZE T-A5 RUNTIME ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Date/heure/fuseau** | 2026-07-25 20:34:37 CEST (+0200) |
+| **Cycle** | Delivery / architecture technique / QA / sécurité / observabilité |
+| **Profil** | Critical |
+| **Gate** | `GO DELIVER T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Repo** | mcleland147/sfia-workspace |
 | **origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
-| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
-| **HEAD initial** | `42c48325a13c25ea3577e87b60a5b69f9cf82e22` |
-| **HEAD final** | `64a037d305ab0b84e8b5dfc177e303deca49610d` |
-| **merge-base** | `6bfef839…` |
-| **Truth Check** | **PASS** |
-| **status** | clean tracked ; `?? .tmp-sfia-review/` |
-| **Push / PR** | **NONE** |
-| **Runtime / modeled** | **NONE** |
-| **Verdict** | **SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME ARBITRATIONS MATERIALIZED — RUNTIME FOUNDATION DELIVERY MAY OPEN WITH MORRIS GO** |
+| **Branche** | framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution |
+| **HEAD initial** | `64a037d305ab0b84e8b5dfc177e303deca49610d` |
+| **HEAD final** | `ddddb66cbeb59b99fafa0d05434ee3289830ec28` |
+| **Merge-base** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
+| **Status** | tracked clean ; `?? .tmp-sfia-review/` only |
+| **Staged** | none (post-commit) |
+| **Untracked** | `.tmp-sfia-review/` |
+| **Worktrees** | tech: sfia-workspace-v3-native-option-a-tech ; handoff: sfia-workspace/sfia-review-handoff |
+| **Template** | prompts/templates/sfia-cycle-execution-template.md |
+| **Handoff source** | sfia/review-handoff blob `fcd35ecb2fc2de02371774a68d77ae4114cab252` (pre-delivery) |
+| **CKC** | pilots/03-architecture-technique.md — candidate ; executionAuthority=false |
 
-## Handoff source
+## Sources consultées
 
-blob `7fce413b…` — RUNTIME ARBITRATION PACK COMPLETED
+07-runtime-arbitrations-materialization.md ; 06/05/04/03/02/01 ; ExecutionAttempt 0.2.0-oa ; AgentDescriptor 0.1.0-oa ; ExecutionContract 0.2.0-oa ; catalogues 07/09/10 ; T-A3 decision/** ; T-A4 execution-contract/** ; conventions tests OA.
 
-## CKC
+## Patterns T-A3/T-A4
 
-`03-architecture-technique.md` — candidate — executionAuthority=false
+Barrel index.ts ; MemoryStore+txn ; OCC repository ; createInMemory/createTest factories ; MemoryAuditJournal ; AuthorityResolverPort ; Confirmation consume ; ContractStatusWriter via shared T-A4 repo (T-A4 use-cases refuse T-A5 statuses).
 
-## Décisions RTA5 (APPROVED BY MORRIS)
+## Décisions RTA5
 
-RTA5-01 A WITH CONDITIONS · 02 A · 03 A · 04 A · 05 A WITH CONDITIONS · 06 A · 07 A · 08 A WITH CONDITIONS · 09 A WITH CONDITIONS · 10 A
+RTA5-01…10 APPROVED BY MORRIS — toutes implémentées (voir 08-runtime-foundation-delivery.md).
 
-Voir contenu complet 07 ci-dessous.
+## Architecture réelle
 
-## Réserves OPEN
+`app/lib/oa/execution-attempt/{domain,ports,application,infrastructure,index.ts}`
 
-B5, R1, R-T-A3-1..4. Delivery mémoire non-blocker ; exec réelle HARD R-T-A3-1/2.
+## Fichiers créés
 
-## Fichiers
+- projects/sfia-studio/app/lib/oa/execution-attempt/** (27 files)
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/** (4 files)
+- projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/08-runtime-foundation-delivery.md
 
-- Created: 07-runtime-arbitrations-materialization.md
-- Modified: 06-runtime-arbitration.md (§0 APPROVED), README.md
-- Commit: 64a037d305ab0b84e8b5dfc177e303deca49610d
+## Fichiers modifiés
 
-## Gate suivant
+- projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/README.md
 
-`GO DELIVER T-A5 RUNTIME FOUNDATION` — NOT consumed
+## Fichiers supprimés
 
-## Exact verdict
+Aucun.
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME ARBITRATIONS MATERIALIZED — RUNTIME FOUNDATION DELIVERY MAY OPEN WITH MORRIS GO**
+## Contenu documentaire 08
 
----
+Voir fichier complet `08-runtime-foundation-delivery.md` (delivery pack). Statut README mis à jour : fondation mémoire ≠ autorisation d'exécution réelle ; gate suivant VALIDATE.
 
-## Contenu complet — 07-runtime-arbitrations-materialization.md
+## Domaine / Repository / Registry / Confirmation / Select / Start
 
-```markdown
-# 07 — Materialization of T-A5 Runtime Arbitrations (RTA5)
+Voir 08 §§6–10. Binding Confirmation : `act:agent_selection:{contractId}:v{version}:{agent}`. Persist-then-launch prouvé. Attempt running avant Contract executing prouvé. Double Start refusé (EXECUTION_ALREADY_ACTIVE / replay Start).
+
+## Adapter / result_pending / timeout / cancel / retry
+
+TestExecutionAdapter + NoOpExecutionAdapter only. result_pending sans completed spéculatif. Timeout sans scheduler. Stale detect without auto-cancel. Morris emergency ; spoof N3 sans canActAsMorris refusé. Retry = nouvel Attempt ; budget.
+
+## Factories / API publique
+
+createInMemoryExecutionAttemptServices ; createTestExecutionAttemptServices ; InjectableExecutionAdapter = Test|NoOp only.
+
+## Tests
+
+| Suite | N |
+|-------|--:|
+| attemptRepository | 33 |
+| registryAndAdapters | 19 |
+| lifecycleFoundation | 24 |
+| **T-A5 total** | **76 PASS** |
+| T-A3/T-A4 régression | **111 PASS** |
+| Modeled Attempt+Contract | **46 PASS** |
+
+- type-check: PASS (`tsc --noEmit`)
+- lint: PASS (`next lint`)
+- build: non rejoué (Next build non requis ; réserve qualifiée — typecheck+lint+tests suffisent pour fondation mémoire)
+- diff-check: PASS
+
+## Réserves
+
+B5, R1, R-T-A3-1, R-T-A3-2, R-T-A3-3, R-T-A3-4 — **OPEN**. Aucune fermée.
+
+## Blockers
+
+- Mémoire fake-only : aucun bloquant
+- Exécution réelle : R-T-A3-1/2 HARD ; pas d'adapter réel ; pas DB/scheduler/endpoint
+
+## Dette
+
+Retry post-contract-`failed` non ouvert (exige confirmed — path launch reject). Non-durabilité mémoire acceptée.
+
+## Diff stat (ce cycle delivery, 3 commits)
+
+```
+feat: 27 files, +5406 (execution-attempt module)
+test: 4 files, +1803
+docs: 2 files, +227/-80
+```
+
+Branche ahead 14 vs origin/main (11 docs + 3 delivery).
+
+## Commits delivery
+
+1. `6a5153a3ec55351460358ff168ed7f90de4b46aa` feat(sfia-studio): add T-A5 execution attempt foundation
+2. `99b020e4b82fba173106b25f90ae2a45f8410c67` test(sfia-studio): validate T-A5 runtime foundation
+3. `ddddb66cbeb59b99fafa0d05434ee3289830ec28` docs(sfia-studio): document T-A5 runtime foundation delivery
+
+## Working tree final
+
+tracked clean ; `?? .tmp-sfia-review/` only
+
+## Anti-claims vérifiés
+
+- push projet : **NON**
+- PR : **NON**
+- shell/réseau/MCP/Cursor : **NON**
+- agent réel / Attempt opérationnel réel / exécution réelle : **NON**
+
+## Verdict exact
+
+SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME FOUNDATION DELIVERED — QA VALIDATION REQUIRED
+
+## Gate suivant (non consommé)
+
+GO VALIDATE T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A
+
+## Contenu complet — 08-runtime-foundation-delivery.md
+
+# 08 — T-A5 Runtime Foundation Delivery (mémoire)
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-25 — Europe/Paris (CEST) |
+| **Date/heure/fuseau** | 2026-07-25 20:33:40 CEST (+0200) — Europe/Paris |
 | **Slice** | T-A5 — Agent Selection and Execution |
-| **Cycle** | Materialization runtime arbitrations (Critical) |
-| **Gate** | `GO MATERIALIZE T-A5 RUNTIME ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Cycle** | Delivery / architecture technique / QA / sécurité / observabilité (Critical) |
+| **Gate** | `GO DELIVER T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Repo** | `mcleland147/sfia-workspace` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
-| **Base** | `origin/main` @ `6bfef83971f4d71bc83c12dabad87366447120a7` |
-| **HEAD arbitration pack** | `42c48325a13c25ea3577e87b60a5b69f9cf82e22` |
-| **Runtime code** | **NONE** (interdit) |
-| **Modeled** | **NONE modifié** |
-| **Statut** | **RUNTIME ARBITRATIONS MATERIALIZED — DELIVERY GATE REQUIRED** |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME ARBITRATIONS MATERIALIZED — RUNTIME FOUNDATION DELIVERY MAY OPEN WITH MORRIS GO` |
-| **Gate suivant** | `GO DELIVER T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Base / origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
+| **HEAD initial** | `64a037d305ab0b84e8b5dfc177e303deca49610d` |
+| **Merge-base** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
+| **Module** | `projects/sfia-studio/app/lib/oa/execution-attempt/**` |
+| **Tests** | `projects/sfia-studio/app/__tests__/oa/execution-attempt/**` |
+| **Statut** | **RUNTIME FOUNDATION DELIVERED (mémoire, fake-only)** |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME FOUNDATION DELIVERED — QA VALIDATION REQUIRED` |
+| **Gate suivant** | `GO VALIDATE T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ---
 
 ## 1. Sources
 
-| Source | Usage |
-|--------|-------|
-| Handoff blob `7fce413b…` | RUNTIME ARBITRATION PACK COMPLETED |
-| `06-runtime-arbitration.md` | recommandations → **APPROVED BY MORRIS** |
-| `05-runtime-framing.md` | architecture candidate |
-| Modeled Attempt 0.2.0-oa / AgentDescriptor / Contract | lecture |
-| Runtime T-A3/T-A4 | conventions factories / Confirmation / OCC |
-| CKC | `pilots/03-architecture-technique.md` — candidate ; `executionAuthority=false` |
+- Handoff matérialisation RTA5 blob `fcd35ecb2fc2de02371774a68d77ae4114cab252`
+- `07-runtime-arbitrations-materialization.md` — RTA5-01…10 **APPROVED BY MORRIS**
+- Modeled ExecutionAttempt `0.2.0-oa`, AgentDescriptor `0.1.0-oa`, ExecutionContract `0.2.0-oa`
+- Runtime T-A3 `decision/**`, T-A4 `execution-contract/**`
+- CKC `pilots/03-architecture-technique.md` — **candidate** ; `executionAuthority=false` ; guidance cognitive expérimentale uniquement
 
----
+## 2. Cycle Knowledge Contract
 
-## 2. Décisions Morris RTA5-01…10 (normatives)
+| Champ | Valeur |
+|-------|--------|
+| Cycle qualifié | delivery + architecture technique |
+| Path CKC | `pilots/03-architecture-technique.md` |
+| Statut | candidate |
+| Usage | experimental cognitive guidance |
+| executionAuthority | **false** |
+| Autorité décision/exécution | **aucune** |
+| Limites | pas d’autorité de merge, push projet, adapter réel, DB |
+| Fallback | conventions T-A3/T-A4 repo + décisions RTA5 |
 
-### Différences reco → décision
+## 3. Matrice patterns T-A3/T-A4 → T-A5
 
-| ID | Reco cadrage/arbitrage | Décision Morris | Delta |
-|----|------------------------|-----------------|-------|
-| 01 | A | **APPROVE A WITH CONDITIONS** | Conditions binding/TTL/consume explicitées |
-| 02 | A | **APPROVE A** | Conditions OCC/compensation |
-| 03 | A | **APPROVE A** | Interdits adapter listés |
-| 04 | A | **APPROVE A** | Abandon/expire → cancelled/failed |
-| 05 | A WITH CONDITION | **APPROVE A WITH CONDITIONS** | Rebuild + tests dérive |
-| 06 | A | **APPROVE A** | Non-durabilité + budget |
-| 07 | A | **APPROVE A** | Autorité timeout |
-| 08 | A WITH CONDITIONS | **APPROVE A WITH CONDITIONS** | Stale = détection only |
-| 09 | A corrected sequence | **APPROVE A WITH CONDITIONS** | Séquence 7 étapes + invariant |
-| 10 | A | **APPROVE A** | Factories fermées |
+| Pattern existant | Implémentation T-A5 |
+|------------------|---------------------|
+| Barrel `index.ts` (pas `public.ts`) | `execution-attempt/index.ts` |
+| `Memory*Store` + `runInTransaction` | `MemoryExecutionAttemptStore` |
+| Repository OCC + clone | `MemoryExecutionAttemptRepository` |
+| `createInMemory*` / `createTest*` | factories fermées Test/NoOp only |
+| `Memory*AuditJournal` | `MemoryExecutionAttemptAuditJournal` |
+| `create*Error` + detailCode | `createAttemptError` |
+| `AuthorityResolverPort` + ignore displayName | `attemptSupport.verifyAttemptAuthority` |
+| Confirmation consume Option B | consume `agent_selection` après Start réussi ; skip si déjà consumed (replay) |
+| Contract statuses T-A5 refusés par T-A4 use-cases | `ExecutionContractStatusWriter` écrit via repo T-A4 partagé |
+| FixedClock / ClockPort | injectés ; timeout commande explicite |
+| Anti-legacy / adversarial tests | registry/adapters + lifecycle + Morris spoof |
 
-### RTA5-01 — APPROVE A WITH CONDITIONS
+## 4. Architecture réelle
 
-Réutiliser Confirmation T-A3 scope fermé `agent_selection`.
+```
+execution-attempt/
+  domain/     types, errors, invariants (+ binding agent_selection)
+  ports/      repository, registry, adapter, audit
+  application/ Select, Start, Cancel, RecordResult/Failure, Retry,
+               TriggerTimeout, Get, List, CheckAuth, ContractStatusWriter
+  infrastructure/ memory store/repo, immutable registry,
+                  TestExecutionAdapter, NoOpExecutionAdapter, audit journals
+  index.ts    barrel + factories fermées
+```
 
-Conditions :
-- binding obligatoire `executionContractId` + `executionContractVersion` + `selectedAgentRef` ;
-- TTL aligné sur `selectionExpiresAt` ;
-- consommation au **Start réussi** ;
-- aucune réutilisation silencieuse d’une Confirmation expirée ou superseded ;
-- Confirmation sélection **distincte** de Confirm contrat.
+Aucun shell, réseau, MCP, Cursor, worker, queue, scheduler, SQL, UI, endpoint.
 
-Contrat de vérification futur : Confirmation présente ; scope exact ; binding exact ; non expirée ; non consommée avant Start ; non superseded ; acteur autorisé ; consommation idempotente.
+## 5. Décisions RTA5 implémentées
 
-**Aucun nouveau type modeled.**
+| ID | Implémentation |
+|----|----------------|
+| RTA5-01 | Confirmation scope exact `agent_selection` ; binding `act:agent_selection:<contractId>:v<version>:<agent>` ; TTL vs `selectionExpiresAt` ; consume au Start réussi |
+| RTA5-02 | Repository Attempt séparé ; OCC ; compensation fail-closed documentée |
+| RTA5-03 | `ExecutionAdapterPort` + Test + NoOp uniquement ; union fermée factories |
+| RTA5-04 | Select → Attempt `accepted` avec stratégie/profil/TTL/refs |
+| RTA5-05 | `activeByContractId` invariant + rebuild + drift fail-closed |
+| RTA5-06 | `result_pending` ; Contract reste `executing` ; pas de completed spéculatif |
+| RTA5-07 | `TriggerAttemptTimeout` + Clock ; pas de scheduler |
+| RTA5-08 | Auto-safety = timeout only ; stale = détection + refuse ; pas d’auto-cancel |
+| RTA5-09 | Persist accepted → fake launch → Attempt `running` **puis** Contract `executing` ; compensate si Contract update échoue |
+| RTA5-10 | `createInMemoryExecutionAttemptServices` + `createTestExecutionAttemptServices` |
 
-### RTA5-02 — APPROVE A
+## 6. Domaine Attempt
 
-`ExecutionAttemptRepository` séparé ; OCC ; écritures séquentielles ; compensation fail-closed documentée ; **aucune** prétention d’atomicité durable ; R1 et R-T-A3-2 **OPEN**.
+États : `accepted` → `running` → (`result_pending` →) `succeeded` \| `failed` \| `timeout` \| `cancelled`.
 
-Responsabilités candidates (docs) : get ; list ; create accepted ; update(expectedVersion) ; findActiveByContract ; reserveActiveInvariant ; releaseOnTerminal ; rebuildIndex.
+Interdits : `planned`, `blocked`, `starting`, `partial`, `completed` (Attempt).
 
-### RTA5-03 — APPROVE A
+## 7. Repository / OCC / activeByContractId / rebuild
 
-`ExecutionAdapterPort` futur avec **uniquement** `TestExecutionAdapter` et `NoOpExecutionAdapter`.
+- `create` / `getById` / `list` / `update(expectedVersion)` / `findActiveByContractId`
+- `reserveActiveContract` / `releaseActiveContract` / `rebuildActiveIndex` / `assertActiveIndexConsistent`
+- Au plus un Attempt non-terminal par contrat
+- Drift détecté fail-closed
 
-Surface max : `launch(request)` ; `cancel(request)`.
-Non retenus v1 : prepare ; getStatus ; recordResult sur le port.
+## 8. Registry
 
-Interdits : shell ; réseau ; MCP ; Cursor ; commande arbitraire ; adapter générique configurable ; effet externe ; secret/endpoint/token ; HTTP ; processus enfant.
+`MemoryAgentRegistry` — immutable à la construction ; deny-by-default ; health/enabled simulés ; sélection déterministe (`agentId` lexicographique). Critical + `capabilities_deterministic` refusé.
 
-Identité adapter + binding `attemptId` obligatoires.
+## 9. Confirmation Critical
 
-### RTA5-04 — APPROVE A
+- Scope : `agent_selection` (string T-A3, pas de nouveau modeled)
+- Binding actionRef : `act:agent_selection:{executionContractId}:v{executionContractVersion}:{selectedAgentRef}`
+- Distinct de Confirm contrat (scope = `contract.scope`)
+- Consommée uniquement après Start réussi ; replay Start ne re-consomme pas (déjà `consumed`)
 
-Select → Attempt `accepted` contenant au minimum : executionContractId, executionContractVersion, selectedAgentRef, selectionStrategy, selectionProfile, selectionExpiresAt, agentConfirmationRef (Critical), idempotencyKey, correlationId, provenance, version.
+## 10. Select / Start (RTA5-09)
 
-TTL obligatoire ; abandon/expiration → `cancelled` ou `failed` selon cause ; **pas** d’AgentSelectionRecord ; pas de mutation silencieuse d’agent ; re-sélection = nouvel Attempt.
+**Select** : contrat confirmed → auth → registry → Attempt `accepted` persisté → réserve active → audit → **aucun** adapter.
 
-### RTA5-05 — APPROVE A WITH CONDITIONS
+**Start** : préconditions → TTL → Confirmation si Critical → fake `launch(attemptId)` → reject/fail fail-closed → ack → **Attempt running d’abord** → Contract `executing` → consume Confirmation → audit. Si update Contract échoue après running → compensation Attempt `failed` + audit.
 
-`activeByContractId` = **invariant repository** (+ OCC primaire).
+**Invariant** : `Contract.executing` ⇒ Attempt `running` correspondant.
 
-Conditions : rebuild au boot depuis Attempts non terminaux ; tests dérive/concurrence/reconstruction ; libération sur terminal ; concurrence Start/Cancel/Timeout/Result.
-Mutex process **≠** source de vérité.
+## 11. Adapters
 
-### RTA5-06 — APPROVE A
+Port : `launch` / `cancel` uniquement. Test (scripté, journal) + NoOp. Interdits : shell, réseau, MCP, Cursor, payload métier, élargissement scope, autorité auto-déclarée.
 
-`result_pending` dans Attempt ; refs techniques bornées ; pas de payload sensible ; pas de completed spéculatif ; retry budget borné ; Contract **reste executing** ; non-durabilité mémoire documentée ; perte possible au restart ; R-T-A3-2 HARD pour exec réelle.
+## 12. result_pending / RecordResult / RecordFailure
 
-### RTA5-07 — APPROVE A
+Persist terminal échoue → Attempt `result_pending` (commande `ok:false` / `RESULT_RECORDING_FAILED`) ; Contract reste `executing` ; retry Record borné ; succeeded → Contract `completed` ; failed → Contract `failed`. AdapterId doit matcher `agent.adapterRef`.
 
-Future commande `TriggerAttemptTimeout` : Clock injectée ; idempotente ; auditée ; autorité auto-safety / N≥ / Morris ; Attempt non terminal → timeout ; Contract → failed ; **aucun scheduler réel**.
+## 13. Timeout / auto-safety / cancellation / retry
 
-### RTA5-08 — APPROVE A WITH CONDITIONS
+- Timeout : `startedAt + policy.attemptTimeoutMs` ; Attempt `timeout` ; Contract `failed`
+- Stale : détecter + refuser ; **pas** d’auto-cancel
+- Cancel : autorité contrat / Morris emergency ; spoof displayName refusé ; N3 sans `canActAsMorris` refusé ; adapter best-effort si running/result_pending
+- Retry : **toujours** nouvel Attempt (`priorAttemptId` → `newAttemptId`) ; budget ; nouvelle idempotencyKey ; contrat doit rester `confirmed` (ex. après launch reject)
 
-Auto-safety v1 = **timeout déterministe uniquement**.
+## 14. Crash windows (documentés)
 
-Stale Contract/Decision/stop condition : **détection seule** ; Cancel = humain ou Morris ; pas d’auto-cancel générique ; pas d’arbitrage automatisé.
+1. Après accepted, avant launch — replay Start
+2. Après launch, avant ack — adapter memoize
+3. Après ack, avant running — compensation / refuse double Start
+4. Après running, avant Contract executing — compensation Attempt
+5. Après executing, avant audit — audit best-effort ; état déjà cohérent
+6. Non-durabilité mémoire — perte au restart (R-T-A3-2 OPEN)
 
-### RTA5-09 — APPROVE A WITH CONDITIONS
+## 15. Audit / factories / API publique
 
-Séquence canonique normative :
+Journal mémoire append-only (refs bornées, pas de secrets/payloads).
 
-1. Vérifier toutes les préconditions Start ;
-2. Persister Attempt `accepted` (ou replay idempotent) ;
-3. Contract reste `confirmed` ;
-4. Fake adapter `launch(attemptId)` idempotent ;
-5. Launch reject/failure → Attempt `failed|cancelled` ; Contract `failed|cancelled` selon cause ; **jamais** executing/completed ;
-6. LaunchAck conforme → Attempt `running` **d’abord** ; puis Contract `executing` ;
-7. Si update Contract échoue après running → compensation fail-closed Attempt + audit ; pas de rollback métier ; pas d’effet externe.
+Factories : injection explicite ; adapters Test\|NoOp seulement ; registry immutable.
 
-**Invariant :** `ExecutionContract.executing` ⇒ Attempt `running` correspondant déjà existant.
+Exports : types/errors/invariants, ports, use-cases, infra fake, factories. **Pas** de mutation registry, **pas** d’adapter générique.
 
-Crash windows : après accepted ; après launch avant ack ; après ack avant running ; après running avant Contract executing ; après Contract executing avant audit. Replay idempotent obligatoire.
+## 16. Tests
 
-### RTA5-10 — APPROVE A
+| Suite | Count |
+|-------|------:|
+| `attemptRepository.test.ts` | 33 |
+| `registryAndAdapters.test.ts` | 19 |
+| `lifecycleFoundation.test.ts` | 24 |
+| **Total T-A5** | **76** |
 
-Factories futures : `createInMemoryExecutionAttemptServices` ; `createTestExecutionAttemptServices`.
+Régression : T-A3/T-A4 **111 PASS** ; modeled Attempt+Contract **46 PASS** ; `tsc --noEmit` PASS ; `next lint` PASS ; `git diff --check` PASS.
 
-Câblage explicite Clock/IdGenerator/repos/registry/Test|NoOp/audit ; réutilisation T-A3/T-A4 ; config fermée ; pas de valeur permissive ; pas d’adapter arbitraire depuis payload ; pas d’extension silencieuse factory T-A4 ; pas de dépendance circulaire.
+## 17. Réserves (toutes OPEN)
 
----
-
-## 3. Conditions globales (validées Morris)
-
-- runtime mémoire uniquement ; aucun effet externe ;
-- aucun shell/réseau/worker/queue/scheduler réel/SQL/UI ;
-- B5, R1, R-T-A3-1…4 **OPEN** ;
-- R-T-A3-1/2 **HARD** pour exécution réelle ;
-- aucune DB/infra sélectionnée ;
-- **aucune** implémentation runtime par ce gate ;
-- aucun push/PR/merge/exécution réelle.
-
----
-
-## 4. Contrat de future delivery (sans code)
-
-### Autorisé (sous `GO DELIVER T-A5 RUNTIME FOUNDATION`)
-
-- `app/lib/oa/execution-attempt/**` ;
-- repository mémoire ; registry immutable ; adapter port ; Test + NoOp ;
-- Clock/ids injectés ; audit journal ; services ; factories fermées ;
-- tests unitaires, intégration mémoire, adversariaux.
-
-### Interdit
-
-- shell/network/MCP/Cursor adapters ; worker ; queue ; scheduler ; DB ; SQL ; migration ; UI ; endpoint exécution réelle ; registre live ; exécution réelle.
-
----
-
-## 5. Fichiers candidats vs interdits (delivery future)
-
-| Candidats | Interdits |
-|-----------|-----------|
-| `app/lib/oa/execution-attempt/**` | tout autre adapter réel |
-| `__tests__/oa/execution-attempt/**` | `method/**`, `prompts/**`, package/lockfiles |
-| | modeled schemas (sauf GO modeled) |
-| | SQL/UI/OPS1/sfia-context |
-
----
-
-## 6. Stratégie de tests futurs (seuil candidat non imposé)
-
-| Domaine | Cas |
-|---------|-----|
-| Confirmation | scope/contract/version/agent wrong ; expired ; superseded ; consumed ; silent reuse ; vs Confirm contrat |
-| Repository | OCC ; active index ; rebuild ; dérive ; double Start ; concurrent ; release terminal ; replay |
-| Adapter | Test/NoOp only ; foreign refuse ; no shell/network config ; attemptId binding |
-| RTA5-09 | confirmed while accepted ; running before executing ; launch fail ; Contract fail + compensate ; crash windows |
-| result_pending | bounded refs ; budget ; no payload ; no completed ; non-durability |
-| timeout/auto-safety | command ; idempotence ; stale detect only ; no auto-cancel ; Morris emergency |
-
-Seuil candidat (non décision) : ≥ 40–60 tests runtime Attempt.
-
----
-
-## 7. Réserves
-
-| Reserve | Delivery mémoire | Exec réelle |
-|---------|------------------|-------------|
-| B5 | Soft — LPS fail-closed | Soft |
-| R1 | Soft — compensate documentée | Hard |
-| R-T-A3-1 | Non-blocker si refuse Start Critical non-ack | **HARD** |
-| R-T-A3-2 | Non-blocker fake/mémoire | **HARD** |
+| Reserve | Mémoire fake-only | Exec réelle |
+|---------|-------------------|-------------|
+| B5 | Soft | Soft |
+| R1 | Soft (compensation documentée) | Hard |
+| R-T-A3-1 | Non-blocker si fail-closed Critical non-ack | **HARD** |
+| R-T-A3-2 | Non-blocker mémoire | **HARD** |
 | R-T-A3-3 | Soft | Soft |
 | R-T-A3-4 | Soft | Soft |
 
-**Aucune réserve fermée.**
+## 18. Dette / blockers
 
----
+**Blockers runtime mémoire** : aucun bloquant pour cette tranche fake-only.
 
-## 8. Dette
+**Blockers exécution réelle** : R-T-A3-1, R-T-A3-2 ; absence d’adapter réel (volontaire) ; pas de DB/scheduler ; pas d’endpoint.
 
-- Compensation cross-store (Option B-like)
-- Index `activeByContractId` à reconstruire
-- `result_pending` non durable au restart process
-- Timeout sans scheduler (commande manuelle/tests)
-- Auto-safety limitée (stale mid-flight = opérateur/Morris)
+**Dette** : Retry exige Contract `confirmed` (launch reject path) — mapping post-`failed` contract pour retry à arbitrer plus tard ; non-durabilité mémoire acceptée.
 
----
+## 19. Anti-claims
 
-## 9. Anti-claims
+- Pas d’exécution réelle autorisée
+- Pas d’agent opérationnel réel / Attempt opérationnel réel
+- Pas d’adapter shell/réseau/MCP/Cursor
+- Pas T-A5 production/merge ready
+- Pas réserves fermées
+- Pas Option A complète
+- Pas push/PR/merge branche projet
 
-- Pas runtime **authorized** / **implemented** / delivery **started**
-- Pas agent/Attempt/exécution opérationnels
-- Pas DATABASE SELECTED / réserves closed / Option A complete
-- Pas push / PR / merge / code `app/**` ce cycle
+## 20. Gate suivant
 
----
+`GO VALIDATE T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A`
 
-## 10. Gate suivant
+Ce gate n’est **pas** consommé. Il autoriserait une validation QA indépendante du runtime mémoire, pas une exécution réelle.
 
-`GO DELIVER T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**)
+## Contenu complet — README T-A5 (post-delivery)
 
-Autoriserait uniquement fondation mémoire Test/NoOp sans effet externe.
-
----
-
-## 11. Verdict
-
-**SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME ARBITRATIONS MATERIALIZED — RUNTIME FOUNDATION DELIVERY MAY OPEN WITH MORRIS GO**
-```
-
-## Sections 06 modifiées (APPROVED BY MORRIS §0 + verdicts)
-```markdown
-# 06 — Runtime Arbitration Pack T-A5
+# T-A5 — Agent Selection and Execution (Option A)
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-25 — Europe/Paris (CEST) |
-| **Slice** | T-A5 — Agent Selection and Execution |
-| **Cycle** | Runtime arbitration (Critical) |
-| **Gate arbitration** | `GO ARBITRATE T-A5 RUNTIME — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
-| **Gate materialize** | `GO MATERIALIZE T-A5 RUNTIME ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Slice** | T-A5 — Agent adapter / Attempt / timeout |
+| **Titre cycle** | Agent Selection and Execution |
+| **Profil** | Critical |
+| **Gate framing → RTA5 materialize** | **CONSUMED** (voir historique ci-dessous) |
+| **Gate runtime foundation** | `GO DELIVER T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
-| **Base** | `origin/main` @ `6bfef83971f4d71bc83c12dabad87366447120a7` |
-| **HEAD arbitration pack** | `42c48325a13c25ea3577e87b60a5b69f9cf82e22` |
-| **Statut** | **RUNTIME ARBITRATIONS APPROVED BY MORRIS — MATERIALIZED** |
-| **Runtime / modeled** | **NONE modifié** (ce pack) |
-| **Décisions Morris RTA5** | **APPROVED BY MORRIS** — voir ci-dessous + [07-runtime-arbitrations-materialization.md](./07-runtime-arbitrations-materialization.md) |
-| **Verdict arbitration (historique)** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME ARBITRATION PACK COMPLETED — MORRIS DECISIONS REQUIRED` |
-| **Verdict materialization** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME ARBITRATIONS MATERIALIZED — RUNTIME FOUNDATION DELIVERY MAY OPEN WITH MORRIS GO` |
+| **Base / origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` (T-A4 PR #265 merge) |
+| **Runtime** | `app/lib/oa/execution-attempt/**` — **mémoire / Test+NoOp only** |
+| **Modeled** | Attempt `0.2.0-oa` + AgentDescriptor `0.1.0-oa` — validés (non modifiés ce cycle) |
+| **Push / PR / merge projet** | **NONE** |
+| **Statut pack** | **RUNTIME FOUNDATION DELIVERED — QA VALIDATION REQUIRED** |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME FOUNDATION DELIVERED — QA VALIDATION REQUIRED` |
+| **Gate suivant** | `GO VALIDATE T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
----
+## Objectif
 
-## 0. Morris decisions — APPROVED BY MORRIS
+Livrer la première fondation runtime mémoire T-A5 conforme aux décisions Morris RTA5-01…10 — sélection d’agent, Attempt, fake adapters — **sans** effet externe ni exécution réelle.
 
-Matérialisation normative : [07-runtime-arbitrations-materialization.md](./07-runtime-arbitrations-materialization.md).
+La fondation mémoire **ne constitue pas** une autorisation d’exécution réelle.
 
-| ID | Décision Morris |
-|----|-----------------|
-| **RTA5-01** | **APPROVE A WITH CONDITIONS** — Confirmation T-A3 scope `agent_selection` ; binding contractId+version+selectedAgentRef ; TTL=`selectionExpiresAt` ; consume au Start réussi ; pas de reuse silencieuse expired/superseded ; distinct de Confirm contrat |
-| **RTA5-02** | **APPROVE A** — AttemptRepository séparé ; OCC ; écritures séquentielles ; compensation fail-closed ; pas d’atomicité durable ; R1/R-T-A3-2 OPEN |
-| **RTA5-03** | **APPROVE A** — ExecutionAdapterPort + TestExecutionAdapter + NoOpExecutionAdapter only ; interdits shell/réseau/MCP/Cursor/commande arbitraire/générique/effet externe |
-| **RTA5-04** | **APPROVE A** — sélection dans Attempt `accepted` ; TTL ; abandon/expire → cancelled/failed ; pas d’AgentSelectionRecord |
-| **RTA5-05** | **APPROVE A WITH CONDITIONS** — `activeByContractId` invariant repo + OCC ; rebuild boot ; tests dérive/concurrence/reconstruction |
-| **RTA5-06** | **APPROVE A** — result_pending dans Attempt ; refs bornées ; pas payload sensible ; pas completed spéculatif ; retry budget ; non-durabilité mémoire |
-| **RTA5-07** | **APPROVE A** — TriggerAttemptTimeout + Clock ; pas de scheduler ; idempotent ; autorité auto-safety/N≥/Morris |
-| **RTA5-08** | **APPROVE A WITH CONDITIONS** — auto-safety = timeout only ; stale = détection ; Cancel = humain/Morris ; pas d’auto-cancel générique |
-| **RTA5-09** | **APPROVE A WITH CONDITIONS** — séquence : preconditions → persist accepted → Contract confirmed → fake launch → (fail: Attempt+Contract failed/cancelled, never executing) / (ack: Attempt running then Contract executing) → compensate si Contract update fail ; invariant executing ⇒ Attempt running |
-| **RTA5-10** | **APPROVE A** — createInMemoryExecutionAttemptServices + createTestExecutionAttemptServices ; config fermée ; Test/NoOp only ; pas d’extension silencieuse T-A4 |
+## Livrables
 
-**Conditions globales :** mémoire only ; aucun effet externe ; réserves OPEN ; R-T-A3-1/2 HARD exec réelle ; pas d’implémentation runtime par le gate materialize ; pas push/PR/merge.
+1. [README.md](./README.md) (ce fichier)
+2. [01-framing.md](./01-framing.md) … [07-runtime-arbitrations-materialization.md](./07-runtime-arbitrations-materialization.md) — packs antérieurs
+3. [08-runtime-foundation-delivery.md](./08-runtime-foundation-delivery.md) — **delivery fondation runtime**
+4. Code : `projects/sfia-studio/app/lib/oa/execution-attempt/**`
+5. Tests : `projects/sfia-studio/app/__tests__/oa/execution-attempt/**` (76 tests)
 
-L’analyse et le formulaire ci-dessous restent l’historique d’arbitrage ; le statut décisionnel SoT est §0 + document 07.
+## Gates consommés (historique)
 
----
+- GO FRAME / ARBITRATE / MATERIALIZE T-A5 (modeled)
+- GO VALIDATE T-A5 MODELED
+- GO FRAME / ARBITRATE / MATERIALIZE T-A5 RUNTIME
+- **GO DELIVER T-A5 RUNTIME FOUNDATION** (ce cycle)
 
-## 1. Sources
+## Réserves (héritées — OPEN)
 
-| Source | Usage |
-|--------|-------|
-| Handoff framing blob `4c25f369…` | RUNTIME FRAMING COMPLETED |
-| `05-runtime-framing.md` | SoT recommandations initiales RTA5 |
-| `01`–`04` T-A5 + D-T-A5-01…10 | cohérence décisions Morris |
-| Attempt 0.2.0-oa / AgentDescriptor / Contract 0.2.0-oa | conformité |
-| Runtime T-A3/T-A4 | patterns Confirmation, OCC, Option B |
-| CKC | `pilots/03-architecture-technique.md` — candidate ; `executionAuthority=false` |
+| Reserve | Status |
+|---------|--------|
+| B5 | **OPEN** |
+| R1 | **OPEN** |
+| R-T-A3-1 | **OPEN** (HARD exécution réelle Critical) |
+| R-T-A3-2 | **OPEN** (HARD exécution réelle) |
+| R-T-A3-3 | **OPEN** |
+| R-T-A3-4 | **OPEN** |
 
-### CKC
-```
+## Anti-claims
 
-## README — lignes statut
-```
-17:| **Runtime `app/lib/oa/**`** | **NONE** (interdit — docs only) |
-20:| **Statut pack** | **RUNTIME ARBITRATIONS MATERIALIZED — DELIVERY GATE REQUIRED** |
-21:| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 RUNTIME ARBITRATIONS MATERIALIZED — RUNTIME FOUNDATION DELIVERY MAY OPEN WITH MORRIS GO` |
-22:| **Gate suivant** | `GO DELIVER T-A5 RUNTIME FOUNDATION — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed / NOT presumed**) |
-35:- Runtime arbitration (`06-runtime-arbitration.md`) — **APPROVED BY MORRIS**
-36:- Runtime arbitrations materialization (`07-runtime-arbitrations-materialization.md`) — **MATERIALIZED**
-59:3. [02-arbitration.md](./02-arbitration.md) — pack d’arbitrage + **APPROVED BY MORRIS**
-63:7. [06-runtime-arbitration.md](./06-runtime-arbitration.md) — arbitrage RTA5 — **APPROVED BY MORRIS**
-64:8. [07-runtime-arbitrations-materialization.md](./07-runtime-arbitrations-materialization.md) — **matérialisation RTA5 + contrat delivery**
-95:## Décisions Morris runtime (RTA5) — APPROVED BY MORRIS
-97:Voir [06-runtime-arbitration.md](./06-runtime-arbitration.md) §0 et [07-runtime-arbitrations-materialization.md](./07-runtime-arbitrations-materialization.md).
-106:- Pas `GO DELIVER T-A5 RUNTIME FOUNDATION` consommé
-```
+- Pas exécution réelle / agent opérationnel réel / adapter réel
+- Pas T-A5 production ready / merge ready
+- Pas réserves fermées / Option A complète
+- Pas push / PR / merge branche projet
+- Pas shell / réseau / MCP / Cursor / SQL / UI / scheduler réel
