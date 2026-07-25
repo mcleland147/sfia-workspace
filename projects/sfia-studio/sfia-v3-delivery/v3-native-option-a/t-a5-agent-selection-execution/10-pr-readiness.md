@@ -10,7 +10,7 @@
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
 | **Base / origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
 | **HEAD initial** | `cdae32684d6d41bd46535fda552b0465399f1b3e` |
-| **HEAD final** | `b743b38f43970d73af0668b9063dd3086384b353` |
+| **HEAD final** | `b0a30dbb2c9ff17b14849f7f76572e634d32f0bd` |
 | **Merge-base** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
 | **Ahead** | 22 commits |
 | **Branche distante projet** | **ABSENTE** |
