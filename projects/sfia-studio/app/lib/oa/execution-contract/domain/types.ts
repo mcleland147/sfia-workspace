@@ -164,6 +164,8 @@ export type SupersedeExecutionContractRequest = {
   adapterExportRef?: string;
   /** Initial status of successor — draft or proposed. */
   status?: "draft" | "proposed";
+  /** Hostile T-A5 injection — ignored / refused. */
+  selectedAgentRef?: string;
 };
 
 export type CancelExecutionContractRequest = {

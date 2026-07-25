@@ -180,6 +180,11 @@ export class CheckExecutionAuthorization {
             projectId: contract.projectId,
           });
         }
+        if (decisionResult.decision.projectId !== contract.projectId) {
+          return fail("DECISION_REQUIRED", "decision_project_mismatch", {
+            projectId: contract.projectId,
+          });
+        }
         if (decisionResult.decision.status !== "accepted") {
           return fail(
             "DECISION_NOT_CURRENT",

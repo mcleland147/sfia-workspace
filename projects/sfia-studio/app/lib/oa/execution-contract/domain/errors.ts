@@ -60,7 +60,7 @@ const SAFE_MESSAGES: Record<ExecutionDetailCode, string> = {
     "T-A5 status or selectedAgentRef is refused in T-A4 governance.",
   SELF_SUPERSESSION: "An execution contract cannot supersede itself.",
   SUPERSESSION_REASON_INVALID:
-    "Supersession reason must contain non-whitespace content.",
+    "Supersession reason must contain a visible letter or number (ZWSP-only rejected).",
   AUTHORIZATION_DENIED:
     "Execution authorization denied (deny-by-default mismatch or gate).",
   PROJECT_NOT_FOUND: "Project was not found.",

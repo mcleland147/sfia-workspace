@@ -47,6 +47,7 @@ type BuildSnapshot = {
   actor: ActorReference;
   authorityEvidenceId: string | undefined;
   claimedAuthorityLevel: string | undefined;
+  doctrinePackageRef: BuildExecutionContractRequest["doctrinePackageRef"];
 };
 
 /**
@@ -149,6 +150,9 @@ export class BuildExecutionContract {
         actor: structuredClone(request.actor),
         authorityEvidenceId: request.authorityEvidenceId,
         claimedAuthorityLevel: request.claimedAuthorityLevel,
+        doctrinePackageRef: request.doctrinePackageRef
+          ? structuredClone(request.doctrinePackageRef)
+          : undefined,
       };
 
       const fieldViolation = validateBuildFields({
@@ -191,6 +195,12 @@ export class BuildExecutionContract {
           scope: snap.scope,
           requiredAuthority: snap.requiredAuthority,
           decisionRefs: cloned.decisionRefs,
+          constraints: cloned.constraints,
+          requiredCapabilities: cloned.requiredCapabilities,
+          stopConditions: cloned.stopConditions,
+          evidenceRequirements: cloned.evidenceRequirements,
+          reversibility: snap.reversibility,
+          status: snap.status,
         });
         const existingFp = contractIdempotencyFingerprint({
           projectId: byIdem.projectId,
@@ -199,6 +209,12 @@ export class BuildExecutionContract {
           scope: byIdem.scope,
           requiredAuthority: byIdem.requiredAuthority,
           decisionRefs: byIdem.decisionRefs ?? [],
+          constraints: byIdem.constraints,
+          requiredCapabilities: byIdem.requiredCapabilities,
+          stopConditions: byIdem.stopConditions,
+          evidenceRequirements: byIdem.evidenceRequirements,
+          reversibility: byIdem.reversibility,
+          status: byIdem.status,
         });
         if (fp === existingFp) {
           const durationMs = Date.now() - started;
@@ -304,8 +320,8 @@ export class BuildExecutionContract {
         projectId: snap.projectId,
         cycleInstanceId: snap.cycleInstanceId,
         decisionRefs: cloned.decisionRefs,
-        doctrinePackageRef: request.doctrinePackageRef
-          ? structuredClone(request.doctrinePackageRef)
+        doctrinePackageRef: snap.doctrinePackageRef
+          ? structuredClone(snap.doctrinePackageRef)
           : undefined,
         action: snap.action,
         target: snap.target,

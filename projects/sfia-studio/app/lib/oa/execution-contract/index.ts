@@ -12,9 +12,10 @@
  * API. ConfirmExecutionContract fail-closes when Critical cycle is still
  * `proposed` (R-T-A3-1 OPEN).
  *
- * Confirmation consumption: ConfirmExecutionContract calls
- * DecisionServices.consumeConfirmation (public). Cross-store atomicity with
- * the execution-contract store is a residual (R-T-A3-2 OPEN).
+ * Confirmation consumption: ConfirmExecutionContract persists confirmed with
+ * confirmationRef first, then calls DecisionServices.consumeConfirmation.
+ * On consume failure, compensates via CancelExecutionContract (Option B).
+ * Residual R-T-A3-2 OPEN if compensate cancel also fails.
  */
 
 export * from "./domain/types";
@@ -99,6 +100,14 @@ export function createInMemoryExecutionContractServices(
   const authority =
     options.authorityResolver ?? options.decisionServices.authority;
 
+  const cancelExecutionContract = new CancelExecutionContract(
+    contracts,
+    authority,
+    clock,
+    audit,
+    store,
+  );
+
   return {
     store,
     contracts,
@@ -134,6 +143,7 @@ export function createInMemoryExecutionContractServices(
       clock,
       audit,
       store,
+      cancelExecutionContract,
     ),
     supersedeExecutionContract: new SupersedeExecutionContract(
       contracts,
@@ -142,13 +152,7 @@ export function createInMemoryExecutionContractServices(
       audit,
       store,
     ),
-    cancelExecutionContract: new CancelExecutionContract(
-      contracts,
-      authority,
-      clock,
-      audit,
-      store,
-    ),
+    cancelExecutionContract,
     checkExecutionAuthorization: new CheckExecutionAuthorization(
       contracts,
       authority,

@@ -21,6 +21,17 @@ export const EXECUTION_CONTRACT_SCHEMA_VERSION = "0.2.0-oa" as const;
 /** Non-whitespace content required (modeled pattern .*\\S.*). */
 export const NON_WHITESPACE_PATTERN = /\S/;
 
+/** Zero-width / BOM invisible characters that must not alone satisfy reason checks. */
+export const INVISIBLE_CHARS_PATTERN = /[\u200B-\u200D\uFEFF]/g;
+
+/** Visible letter or number (Unicode) — supersession/cancel reasons. */
+export const VISIBLE_LETTER_OR_NUMBER = /\p{L}|\p{N}/u;
+
+const AUTHORITY_RANK: Record<"N1" | "N2" | "N3", number> = {
+  N1: 1,
+  N2: 2,
+  N3: 3,
+};
 export const TA4_STATUSES: ReadonlySet<Ta4ExecutionContractStatus> = new Set([
   "draft",
   "proposed",
@@ -98,12 +109,72 @@ export function isValidAuthorityClass(value: unknown): value is AuthorityClass {
   );
 }
 
+/**
+ * Supersession / cancel reason must contain a visible letter or number after
+ * stripping zero-width / BOM characters (hardens beyond modeled `.*\\S.*`).
+ */
 export function isValidSupersessionReason(reason: unknown): boolean {
-  return (
-    typeof reason === "string" &&
-    reason.length >= 1 &&
-    NON_WHITESPACE_PATTERN.test(reason)
-  );
+  if (typeof reason !== "string" || reason.length < 1) {
+    return false;
+  }
+  const visible = reason.replace(INVISIBLE_CHARS_PATTERN, "");
+  return VISIBLE_LETTER_OR_NUMBER.test(visible);
+}
+
+/**
+ * Confirmation.level must satisfy contract.requiredAuthority
+ * (MORRIS maps to N3 for confirmation-level comparison).
+ */
+export function confirmationLevelSatisfiesAuthority(
+  confirmationLevel: "N1" | "N2" | "N3",
+  requiredAuthority: AuthorityClass,
+): boolean {
+  const required: "N1" | "N2" | "N3" =
+    requiredAuthority === "MORRIS" ? "N3" : requiredAuthority;
+  return AUTHORITY_RANK[confirmationLevel] >= AUTHORITY_RANK[required];
+}
+
+/**
+ * Confirmation binding for ConfirmExecutionContract.
+ * Emits CONFIRMATION_INVALID on scope / level / decisionRef mismatch.
+ */
+export function assertConfirmationBinding(input: {
+  confirmationScope: string;
+  confirmationLevel: "N1" | "N2" | "N3";
+  confirmationDecisionRef?: string;
+  contractScope: string;
+  requiredAuthority: AuthorityClass;
+  contractDecisionRefs: string[];
+}): InvariantViolation | null {
+  if (input.confirmationScope !== input.contractScope) {
+    return {
+      detailCode: "CONFIRMATION_INVALID",
+      reason: "confirmation_scope_mismatch",
+    };
+  }
+  if (
+    !confirmationLevelSatisfiesAuthority(
+      input.confirmationLevel,
+      input.requiredAuthority,
+    )
+  ) {
+    return {
+      detailCode: "CONFIRMATION_INVALID",
+      reason: "confirmation_level_insufficient",
+    };
+  }
+  if (
+    input.confirmationDecisionRef !== undefined &&
+    input.confirmationDecisionRef !== null &&
+    input.confirmationDecisionRef !== "" &&
+    !input.contractDecisionRefs.includes(input.confirmationDecisionRef)
+  ) {
+    return {
+      detailCode: "CONFIRMATION_INVALID",
+      reason: "confirmation_decision_ref_not_in_contract",
+    };
+  }
+  return null;
 }
 
 /**
@@ -349,6 +420,8 @@ export function assertNotTa5Injection(input: {
 
 /**
  * Fingerprint for idempotency conflict detection (stable field subset).
+ * Includes constraints / capabilities / stopConditions / evidence /
+ * reversibility / status so hostile divergences cannot reuse a key.
  */
 export function contractIdempotencyFingerprint(input: {
   projectId: string;
@@ -357,13 +430,26 @@ export function contractIdempotencyFingerprint(input: {
   scope: string;
   requiredAuthority: AuthorityClass;
   decisionRefs: string[];
+  constraints: string[];
+  requiredCapabilities: string[];
+  stopConditions: string[];
+  evidenceRequirements: string[];
+  reversibility: Reversibility;
+  status: "draft" | "proposed" | string;
 }): string {
+  const stableJoin = (values: string[]) => [...values].sort().join(",");
   return [
     input.projectId,
     input.action,
     input.target,
     input.scope,
     input.requiredAuthority,
-    [...input.decisionRefs].sort().join(","),
+    stableJoin(input.decisionRefs),
+    stableJoin(input.constraints),
+    stableJoin(input.requiredCapabilities),
+    stableJoin(input.stopConditions),
+    stableJoin(input.evidenceRequirements),
+    input.reversibility,
+    input.status,
   ].join("|");
 }

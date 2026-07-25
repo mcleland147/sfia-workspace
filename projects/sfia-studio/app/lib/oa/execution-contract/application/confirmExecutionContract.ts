@@ -6,7 +6,10 @@ import type {
   DecisionServices,
 } from "@/lib/oa/decision";
 import { createExecutionError } from "../domain/errors";
-import { isTa5Status } from "../domain/invariants";
+import {
+  assertConfirmationBinding,
+  isTa5Status,
+} from "../domain/invariants";
 import type {
   ActorReference,
   ConfirmExecutionContractRequest,
@@ -16,6 +19,7 @@ import type {
 import type { MemoryExecutionContractStore } from "../infrastructure/memoryExecutionContractStore";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
+import type { CancelExecutionContract } from "./cancelExecutionContract";
 import { verifyRequiredAuthority } from "./authorityHelper";
 
 function newId(prefix: "cor"): string {
@@ -34,16 +38,17 @@ type ConfirmSnapshot = {
 
 /**
  * ConfirmExecutionContract — validated|confirmation_required → confirmed.
- * Consumes Confirmation exactly once via DecisionServices.consumeConfirmation
- * (public T-A3 API). Build/Validate must not consume.
+ *
+ * Option B (R-T-A3-2 harden): persist confirmed with confirmationRef FIRST,
+ * then consume Confirmation via DecisionServices.consumeConfirmation.
+ * If consume fails, compensate by CancelExecutionContract on the just-
+ * confirmed row. confirmationId is known before consume (request field).
+ *
+ * Residual R-T-A3-2 OPEN: if consume fails AND compensate cancel also fails,
+ * contract may remain confirmed with an unconsumed confirmationRef.
  *
  * Critical fail-closed (R-T-A3-1 OPEN): if linked cycle is Critical and still
  * `proposed` (no public AcknowledgeCriticalCycle API), Confirm fails.
- *
- * Cross-store residual (R-T-A3-2): confirmation consume (decision store) and
- * contract persist (execution store) are not a single atomic txn. On contract
- * save failure after successful consume, confirmation remains consumed —
- * callers must treat this as fail-closed STATE_CONFLICT / PERSISTENCE_FAILURE.
  */
 export class ConfirmExecutionContract {
   constructor(
@@ -54,6 +59,7 @@ export class ConfirmExecutionContract {
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAuditPort,
     private readonly store?: MemoryExecutionContractStore,
+    private readonly cancelExecutionContract?: CancelExecutionContract,
   ) {}
 
   async execute(
@@ -221,6 +227,20 @@ export class ConfirmExecutionContract {
         });
       }
 
+      const binding = assertConfirmationBinding({
+        confirmationScope: confirmation.scope,
+        confirmationLevel: confirmation.level,
+        confirmationDecisionRef: confirmation.decisionRef,
+        contractScope: existing.scope,
+        requiredAuthority: existing.requiredAuthority,
+        contractDecisionRefs: decisionRefs,
+      });
+      if (binding) {
+        return fail(binding.detailCode, binding.reason, {
+          projectId: existing.projectId,
+        });
+      }
+
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority: existing.requiredAuthority,
         actorId: snap.actor.actorId,
@@ -255,30 +275,8 @@ export class ConfirmExecutionContract {
         );
       }
 
-      // Consume confirmation via public T-A3 use-case (decision store txn).
-      const consumeResult =
-        await this.decisionServices.consumeConfirmation.execute({
-          confirmationId: snap.confirmationId,
-          actor: snap.actor,
-          correlationId,
-          nowIso: snap.nowIso ?? timestamp,
-        });
-      if (!consumeResult.ok) {
-        const mapped =
-          consumeResult.error.detailCode === "CONFIRMATION_EXPIRED"
-            ? "CONFIRMATION_EXPIRED"
-            : consumeResult.error.detailCode === "CONFIRMATION_ALREADY_CONSUMED"
-              ? "CONFIRMATION_ALREADY_CONSUMED"
-              : consumeResult.error.detailCode === "CONFIRMATION_NOT_FOUND"
-                ? "CONFIRMATION_NOT_FOUND"
-                : "CONFIRMATION_CONSUME_FAILED";
-        return fail(mapped, consumeResult.error.detailCode, {
-          projectId: existing.projectId,
-        });
-      }
-
+      // Option B: persist confirmed WITH confirmationRef BEFORE consume.
       let contract: ExecutionContract | undefined;
-
       const persist = async () => {
         const current = await this.contracts.findById(snap.executionContractId);
         if (!current) {
@@ -322,26 +320,70 @@ export class ConfirmExecutionContract {
           await persist();
         }
       } catch (err) {
-        // R-T-A3-2: confirmation already consumed; contract persist failed.
+        // Persist failed before consume — confirmation remains granted.
         if (err && typeof err === "object" && "detailCode" in err) {
           const e = err as {
             detailCode: Parameters<typeof createExecutionError>[0]["detailCode"];
             expectedVersion?: number;
             currentVersion?: number;
           };
-          return fail(e.detailCode, "post_consume_persist_race", {
+          return fail(e.detailCode, "pre_consume_persist_race", {
             projectId: existing.projectId,
             expectedVersion: e.expectedVersion,
             currentVersion: e.currentVersion,
           });
         }
-        return fail("PERSISTENCE_FAILURE", "post_consume_persist_failed", {
+        return fail("PERSISTENCE_FAILURE", "pre_consume_persist_failed", {
           projectId: existing.projectId,
         });
       }
 
       if (!contract) {
-        return fail("PERSISTENCE_FAILURE", "post_consume_incomplete", {
+        return fail("PERSISTENCE_FAILURE", "pre_consume_incomplete", {
+          projectId: existing.projectId,
+        });
+      }
+
+      // Consume confirmation via public T-A3 use-case (decision store txn).
+      const consumeResult =
+        await this.decisionServices.consumeConfirmation.execute({
+          confirmationId: snap.confirmationId,
+          actor: snap.actor,
+          correlationId,
+          nowIso: snap.nowIso ?? timestamp,
+        });
+      if (!consumeResult.ok) {
+        // Compensate: cancel the just-confirmed contract (Option B).
+        let compensated = false;
+        if (this.cancelExecutionContract) {
+          const cancelResult = await this.cancelExecutionContract.execute({
+            executionContractId: snap.executionContractId,
+            reason:
+              "Compensate confirm after confirmation consume failure (R-T-A3-2 Option B)",
+            actor: snap.actor,
+            authorityEvidenceId: snap.authorityEvidenceId,
+            correlationId,
+            claimedAuthorityLevel: snap.claimedAuthorityLevel,
+          });
+          compensated = cancelResult.ok;
+        }
+        const mapped =
+          consumeResult.error.detailCode === "CONFIRMATION_EXPIRED"
+            ? "CONFIRMATION_EXPIRED"
+            : consumeResult.error.detailCode === "CONFIRMATION_ALREADY_CONSUMED"
+              ? "CONFIRMATION_ALREADY_CONSUMED"
+              : consumeResult.error.detailCode === "CONFIRMATION_NOT_FOUND"
+                ? "CONFIRMATION_NOT_FOUND"
+                : "CONFIRMATION_CONSUME_FAILED";
+        if (!compensated) {
+          // Residual R-T-A3-2: confirmed row may remain with unconsumed cfm.
+          return fail(
+            "PERSISTENCE_FAILURE",
+            `post_persist_consume_failed_compensate_failed:${consumeResult.error.detailCode}`,
+            { projectId: existing.projectId },
+          );
+        }
+        return fail(mapped, `post_persist_consume_compensated`, {
           projectId: existing.projectId,
         });
       }

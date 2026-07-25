@@ -4,11 +4,13 @@ import type { AuthorityResolverPort } from "@/lib/oa/decision";
 import { createExecutionError } from "../domain/errors";
 import {
   assertNoSelfSupersession,
+  assertNotTa5Injection,
   assertPrefixedId,
   cloneContractArrays,
   EXECUTION_CONTRACT_SCHEMA_VERSION,
   isTa5Status,
   isValidSupersessionReason,
+  validateBuildFields,
 } from "../domain/invariants";
 import type {
   ActorReference,
@@ -43,6 +45,7 @@ type SupersedeSnapshot = {
   idempotencyKey: string | undefined;
   adapterExportRef: string | undefined;
   status: "draft" | "proposed";
+  selectedAgentRef: string | undefined;
 };
 
 /**
@@ -50,6 +53,7 @@ type SupersedeSnapshot = {
  * Old → superseded immutable; successor becomes the current in the lineage.
  * Self-supersession rejected. Concurrent OCC via expectedVersion.
  * Reverse superseded-by is derived at read time (listSuperseding).
+ * Successor initial status must be draft|proposed; T-A5 injection refused.
  */
 export class SupersedeExecutionContract {
   constructor(
@@ -100,7 +104,15 @@ export class SupersedeExecutionContract {
         return fail("CONTRACT_INVALID", "actor_required");
       }
       if (!isValidSupersessionReason(request.supersessionReason)) {
-        return fail("SUPERSESSION_REASON_INVALID", "whitespace_or_empty");
+        return fail("SUPERSESSION_REASON_INVALID", "whitespace_zwsp_or_empty");
+      }
+
+      const ta5 = assertNotTa5Injection({
+        status: request.status,
+        selectedAgentRef: request.selectedAgentRef,
+      });
+      if (ta5) {
+        return fail(ta5.detailCode, ta5.reason);
       }
 
       const selfErr = assertNoSelfSupersession(
@@ -124,6 +136,11 @@ export class SupersedeExecutionContract {
       );
       if (oldIdErr) {
         return fail(oldIdErr.detailCode, oldIdErr.reason);
+      }
+
+      const initialStatus = request.status ?? "draft";
+      if (initialStatus !== "draft" && initialStatus !== "proposed") {
+        return fail("CONTRACT_INVALID", "supersede_status_invalid");
       }
 
       const cloned = cloneContractArrays({
@@ -151,9 +168,11 @@ export class SupersedeExecutionContract {
         reversibility: request.reversibility,
         idempotencyKey: request.idempotencyKey,
         adapterExportRef: request.adapterExportRef,
-        status: request.status ?? "draft",
+        status: initialStatus,
+        selectedAgentRef: undefined,
       };
       void snap.claimedAuthorityLevel;
+      void snap.selectedAgentRef;
 
       const prior = await this.contracts.findById(
         snap.supersedesExecutionContractId,
@@ -194,6 +213,58 @@ export class SupersedeExecutionContract {
       const requiredAuthority =
         snap.requiredAuthority ?? prior.requiredAuthority;
       const scope = snap.scope ?? prior.scope;
+      const action = snap.action ?? prior.action;
+      const target = snap.target ?? prior.target;
+      const reversibility = snap.reversibility ?? prior.reversibility;
+      // Explicit overrides (including empty arrays) take precedence — no silent fallback.
+      const decisionRefs =
+        request.decisionRefs !== undefined
+          ? cloned.decisionRefs
+          : [...(prior.decisionRefs ?? [])];
+      const requiredCapabilities =
+        request.requiredCapabilities !== undefined
+          ? cloned.requiredCapabilities
+          : [...prior.requiredCapabilities];
+      const constraints =
+        request.constraints !== undefined
+          ? cloned.constraints
+          : [...prior.constraints];
+      const stopConditions =
+        request.stopConditions !== undefined
+          ? cloned.stopConditions
+          : [...prior.stopConditions];
+      const evidenceRequirements =
+        request.evidenceRequirements !== undefined
+          ? cloned.evidenceRequirements
+          : [...prior.evidenceRequirements];
+      const idempotencyKey =
+        snap.idempotencyKey ??
+        `${prior.idempotencyKey}-supersede-${snap.newExecutionContractId}`;
+
+      // Validate successor fields like Build when overrides (or merged) present.
+      const fieldViolation = validateBuildFields({
+        executionContractId: snap.newExecutionContractId,
+        projectId: prior.projectId,
+        cycleInstanceId: prior.cycleInstanceId,
+        decisionRefs,
+        action,
+        target,
+        scope,
+        requiredCapabilities,
+        requiredAuthority,
+        constraints,
+        stopConditions,
+        evidenceRequirements,
+        reversibility,
+        idempotencyKey,
+        correlationId,
+        status: snap.status,
+      });
+      if (fieldViolation) {
+        return fail(fieldViolation.detailCode, fieldViolation.reason, {
+          projectId: prior.projectId,
+        });
+      }
 
       const verification = verifyRequiredAuthority(this.authority, {
         requiredAuthority,
@@ -232,15 +303,12 @@ export class SupersedeExecutionContract {
         executionContractId: snap.newExecutionContractId,
         projectId: prior.projectId,
         cycleInstanceId: prior.cycleInstanceId,
-        decisionRefs:
-          cloned.decisionRefs.length > 0
-            ? cloned.decisionRefs
-            : [...(prior.decisionRefs ?? [])],
+        decisionRefs,
         doctrinePackageRef: prior.doctrinePackageRef
           ? structuredClone(prior.doctrinePackageRef)
           : undefined,
-        action: snap.action ?? prior.action,
-        target: snap.target ?? prior.target,
+        action,
+        target,
         scope,
         inputs:
           cloned.inputs !== undefined
@@ -254,27 +322,13 @@ export class SupersedeExecutionContract {
             : prior.expectedOutputs
               ? [...prior.expectedOutputs]
               : undefined,
-        requiredCapabilities:
-          cloned.requiredCapabilities.length > 0
-            ? cloned.requiredCapabilities
-            : [...prior.requiredCapabilities],
+        requiredCapabilities,
         requiredAuthority,
-        constraints:
-          cloned.constraints.length > 0
-            ? cloned.constraints
-            : [...prior.constraints],
-        stopConditions:
-          cloned.stopConditions.length > 0
-            ? cloned.stopConditions
-            : [...prior.stopConditions],
-        evidenceRequirements:
-          cloned.evidenceRequirements.length > 0
-            ? cloned.evidenceRequirements
-            : [...prior.evidenceRequirements],
-        reversibility: snap.reversibility ?? prior.reversibility,
-        idempotencyKey:
-          snap.idempotencyKey ??
-          `${prior.idempotencyKey}-supersede-${snap.newExecutionContractId}`,
+        constraints,
+        stopConditions,
+        evidenceRequirements,
+        reversibility,
+        idempotencyKey,
         correlationId,
         status: snap.status,
         version: 1,
