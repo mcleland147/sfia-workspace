@@ -223,16 +223,21 @@
       },
       "then": {
         "required": [
+          "requiredEvidenceRefs",
           "providedEvidenceRefs",
           "evaluatedAt"
         ],
         "properties": {
+          "requiredEvidenceRefs": {
+            "type": "array",
+            "minItems": 1
+          },
           "providedEvidenceRefs": {
             "type": "array",
             "minItems": 1
           }
         },
-        "description": "PASS requires at least one providedEvidenceRef (semantic: must cover requiredEvidenceRefs)"
+        "description": "PASS requires non-empty requiredEvidenceRefs and providedEvidenceRefs (semantic: provided must cover required; Evidence unavailable/stale/incomplete cannot support PASS)"
       }
     },
     {
@@ -365,7 +370,28 @@
         "required": [
           "waiver"
         ],
-        "description": "WAIVED ≠ PASS; explicit motivated waiver required"
+        "properties": {
+          "waiver": {
+            "type": "object",
+            "properties": {
+              "authorizedBy": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "not": {
+                      "enum": [
+                        "system",
+                        "agent"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "WAIVED ≠ PASS; explicit motivated waiver required; system/agent cannot authorize waiver"
       }
     },
     {

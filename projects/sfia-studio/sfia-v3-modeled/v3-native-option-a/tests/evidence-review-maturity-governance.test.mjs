@@ -92,6 +92,9 @@ const INVALID_REVIEW_BUNDLES = [
   "invalid/review-bundle.verdict-before-freeze.invalid.json",
   "invalid/review-bundle.synthesis-as-complete.invalid.json",
   "invalid/review-bundle.bad-schema-version.invalid.json",
+  "invalid/review-bundle.accepted-synthesis-only.invalid.json",
+  "invalid/review-bundle.incomplete-status-complete.invalid.json",
+  "invalid/review-bundle.accepted-incomplete.invalid.json",
 ];
 
 const VALID_CLAIMS = [
@@ -105,7 +108,10 @@ const VALID_CLAIMS = [
 
 const INVALID_CLAIMS = [
   "invalid/claim-evaluation.pass-without-evidence.invalid.json",
+  "invalid/claim-evaluation.pass-empty-required.invalid.json",
   "invalid/claim-evaluation.critical-system-confirm.invalid.json",
+  "invalid/claim-evaluation.critical-agent-confirm.invalid.json",
+  "invalid/claim-evaluation.waiver-system-authorize.invalid.json",
   "invalid/claim-evaluation.waived-as-pass.invalid.json",
   "invalid/claim-evaluation.not-proven-as-pass.invalid.json",
   "invalid/claim-evaluation.additional-properties.invalid.json",
@@ -500,4 +506,59 @@ test("adversarial: maturity autoPromoted true rejected; confirmed with blocking 
   );
   confirmed.blockingReservationRefs = ["res:hard"];
   assert.equal(validate(confirmed), false);
+});
+
+test("adversarial validation: PASS empty requiredEvidenceRefs rejected", () => {
+  const ajv = buildAjv();
+  const validate = ajv.getSchema(CLAIM_SCHEMA_ID);
+  const data = loadJson(
+    path.join(EXAMPLES, "claim-evaluation-noncritical-pass.valid.json"),
+  );
+  data.requiredEvidenceRefs = [];
+  assert.equal(validate(data), false);
+});
+
+test("adversarial validation: waiver authorizedBy system rejected", () => {
+  const ajv = buildAjv();
+  const validate = ajv.getSchema(CLAIM_SCHEMA_ID);
+  const data = loadJson(
+    path.join(EXAMPLES, "claim-evaluation-waived.valid.json"),
+  );
+  data.waiver.authorizedBy = {
+    actorId: "actor:studio",
+    role: "system",
+    displayName: "Studio",
+  };
+  assert.equal(validate(data), false);
+});
+
+test("adversarial validation: accepted synthesisOnly or incomplete rejected", () => {
+  const ajv = buildAjv();
+  const validate = ajv.getSchema(REVIEW_BUNDLE_SCHEMA_ID);
+  const accepted = loadJson(
+    path.join(EXAMPLES, "review-bundle-accepted.valid.json"),
+  );
+  const synth = { ...accepted, synthesisOnly: true, completeness: "incomplete" };
+  assert.equal(validate(synth), false);
+  const incomplete = { ...accepted, completeness: "incomplete", synthesisOnly: false };
+  assert.equal(validate(incomplete), false);
+  const statusIncomplete = loadJson(
+    path.join(EXAMPLES, "review-bundle-incomplete-status.valid.json"),
+  );
+  statusIncomplete.completeness = "complete";
+  assert.equal(validate(statusIncomplete), false);
+});
+
+test("adversarial validation: Critical PASS confirmedBy agent rejected", () => {
+  const ajv = buildAjv();
+  const validate = ajv.getSchema(CLAIM_SCHEMA_ID);
+  const data = loadJson(
+    path.join(EXAMPLES, "claim-evaluation-critical-confirmed.valid.json"),
+  );
+  data.confirmedBy = {
+    actorId: "actor:agent-ta5",
+    role: "agent",
+    displayName: "T-A5 Agent",
+  };
+  assert.equal(validate(data), false);
 });

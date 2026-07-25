@@ -227,7 +227,55 @@
           "validatedAt",
           "reviewer"
         ],
-        "description": "Verdict statuses require freeze + validatedAt + reviewer; incomplete bundle cannot carry final PASS claims (semantic)"
+        "properties": {
+          "synthesisOnly": {
+            "const": false
+          }
+        },
+        "description": "Verdict statuses require freeze + validatedAt + reviewer; synthesisOnly cannot receive accepted/rejected verdict"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "const": "complete"
+          },
+          "synthesisOnly": {
+            "const": false
+          }
+        },
+        "description": "accepted ⇒ completeness=complete and not synthesisOnly"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "incomplete"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "const": "incomplete"
+          }
+        },
+        "description": "status=incomplete ⇒ completeness=incomplete"
       }
     },
     {

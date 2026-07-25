@@ -61,6 +61,8 @@ Agrégat autonome versionné (`rb:` + `version` OCC). Verdict lié à `reviewBun
 - Après freeze : Evidence refs et claim refs **immutables** ; correction ⇒ nouvelle version ou nouveau bundle.
 - Bundle non gelé **ne peut pas** recevoir de verdict (`accepted`/`rejected` exigent `frozenAt` + `validatedAt` + `reviewer`).
 - `synthesisOnly=true` ⇒ `completeness=incomplete` (synthèse seule ≠ bundle complet).
+- `accepted` ⇒ `completeness=complete` et `synthesisOnly=false` (schema).
+- `status=incomplete` ⇒ `completeness=incomplete` (schema).
 - Bundle incomplete ⇒ aucun claim PASS final exigeant complétude (invariant sémantique).
 
 Commandes : `CreateReviewBundle` · `FreezeReviewBundle` · `StartReview` · `RecordFinding` · `CompleteReview` · `ReopenReview`.
@@ -102,7 +104,7 @@ Séparation **sémantique** Claim ≠ ClaimEvaluation ; implémentation physique
 | Morris | claims/maturité/réserves/waivers structurants | — |
 | Service / adapter | fournir artefact | juger conformité |
 
-Règles : PASS impossible si Evidence obligatoire absente ; NOT_PROVEN ≠ FAIL ; WAIVED ≠ PASS ; self-review Critical interdit ; waiver explicite, motivé, horodaté, autorisé, **réversible** ; ClaimEvaluation ne mute aucune Evidence ; verdict lié à ReviewBundle gelé (`reviewBundleId` + `reviewBundleVersion`).
+Règles : PASS ⇒ `requiredEvidenceRefs` et `providedEvidenceRefs` non vides (schema) ; PASS impossible si Evidence obligatoire absente/unavailable/stale/incomplete (sémantique) ; NOT_PROVEN ≠ FAIL ; WAIVED ≠ PASS ; self-review Critical interdit ; waiver explicite, motivé, horodaté, autorisé (**≠ system/agent**), **réversible** ; ClaimEvaluation ne mute aucune Evidence ; verdict lié à ReviewBundle gelé (`reviewBundleId` + `reviewBundleVersion`).
 
 Commandes : `EvaluateClaim` · `ConfirmClaimEvaluation` · `RejectClaimEvaluation`.
 
