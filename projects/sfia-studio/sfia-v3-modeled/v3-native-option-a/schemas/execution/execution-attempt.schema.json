@@ -2,64 +2,328 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/execution/execution-attempt.schema.json",
   "title": "ExecutionAttempt",
+  "description": "Separate aggregate for a single bounded execution try against a confirmed ExecutionContract (T-A5; Morris D01 A). schemaVersion 0.2.0-oa is a BREAKING bump from 0.1.0-oa: renames contractId→executionContractId + agentRef→selectedAgentRef; adds executionContractVersion, idempotencyKey, correlationId, version, createdAt, provenance (required); status enum replaces partial with accepted|result_pending; removes endedAt/cancellation/timeout boolean/retryOf in favour of typed timestamps + retryOfAttemptId. Ownership: T-A5 only. Multiple Attempts per contract allowed. Persist-then-launch: status accepted is persisted before any launch; running only after compliant launch ack. result_pending = technical exit captured, durable RecordResult not yet persisted — never speculative contract completed. partial evidence interpretation is T-A6 (removed from Attempt). Anti-claims: not operational runtime, not Evidence/Claim, not live agent registry.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schemaVersion",
     "attemptId",
-    "contractId",
-    "agentRef",
-    "startedAt",
-    "status"
+    "executionContractId",
+    "executionContractVersion",
+    "selectedAgentRef",
+    "status",
+    "idempotencyKey",
+    "correlationId",
+    "version",
+    "createdAt",
+    "provenance"
   ],
   "properties": {
     "schemaVersion": {
       "type": "string",
-      "const": "0.1.0-oa"
+      "const": "0.2.0-oa",
+      "description": "Breaking vs 0.1.0-oa — see schema description."
     },
     "attemptId": {
-      "$ref": "../common/identifier.schema.json"
+      "description": "Canonical Attempt id; must use xat: prefix.",
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^xat:"
+        }
+      ]
     },
-    "contractId": {
-      "$ref": "../common/identifier.schema.json"
+    "executionContractId": {
+      "description": "Bound confirmed ExecutionContract; must use xct: prefix.",
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^xct:"
+        }
+      ]
     },
-    "agentRef": {
-      "$ref": "../common/identifier.schema.json"
+    "executionContractVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Immutable binding to contract OCC version at Select/Start."
     },
-    "startedAt": {
-      "$ref": "../common/timestamp.schema.json"
-    },
-    "endedAt": {
-      "$ref": "../common/timestamp.schema.json"
+    "selectedAgentRef": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Selected agent id (after Select; revalidated at Start)."
     },
     "status": {
       "type": "string",
       "enum": [
+        "accepted",
         "running",
+        "result_pending",
         "succeeded",
         "failed",
         "timeout",
-        "cancelled",
-        "partial"
+        "cancelled"
+      ],
+      "description": "Lifecycle (D04 B + D06 C): accepted → running → succeeded|failed|timeout|cancelled; running → result_pending → succeeded|failed. No blocked/starting/planned durable. No partial (T-A6)."
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 8,
+      "description": "Distinct per Attempt (including retries)."
+    },
+    "correlationId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotone Attempt OCC version."
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    },
+    "selectionStrategy": {
+      "type": "string",
+      "enum": [
+        "capabilities_deterministic",
+        "human_confirmed_proposal"
+      ],
+      "description": "Closed strategies (D02). Critical profile MUST use human_confirmed_proposal (enforced when selectionProfile=critical). capabilities_deterministic only for closed non-Critical profiles (standard|light|capitalization policy)."
+    },
+    "selectionProfile": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "standard",
+        "light",
+        "capitalization"
       ]
     },
+    "proposedAgentRef": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "System proposal before human confirm (Critical path)."
+    },
+    "agentConfirmationRef": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Confirmation scope agent_selection. Required when selectionStrategy=human_confirmed_proposal and status is beyond accepted (Start+)."
+    },
+    "selectionExpiresAt": {
+      "$ref": "../common/timestamp.schema.json",
+      "description": "TTL for selection (D03). Required when status=accepted and selectionStrategy is present. Revalidated at Start."
+    },
+    "retryOfAttemptId": {
+      "description": "Prior Attempt id when this is an authorized retry (D09). Pattern xat:.",
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^xat:"
+        }
+      ]
+    },
+    "retryIndex": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "1-based retry ordinal when retryOfAttemptId set."
+    },
+    "maxRetriesBudget": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Bound retry budget reference on Attempt (policy/contract may also constrain)."
+    },
+    "startedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "completedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "failedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "timedOutAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "cancelledAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "resultPendingAt": {
+      "$ref": "../common/timestamp.schema.json",
+      "description": "Required when status=result_pending."
+    },
     "resultRef": {
-      "$ref": "../common/identifier.schema.json"
+      "$ref": "../common/identifier.schema.json",
+      "description": "Technical result artefact ref (not Evidence/Claim). Required when status=succeeded."
     },
     "errorRef": {
       "$ref": "../common/identifier.schema.json"
     },
-    "retryOf": {
-      "$ref": "../common/identifier.schema.json"
+    "stopReason": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": ".*\\S.*"
     },
-    "cancellation": {
-      "type": "string"
+    "technicalExitCode": {
+      "type": "integer"
     },
-    "timeout": {
-      "type": "boolean"
+    "durationMs": {
+      "type": "integer",
+      "minimum": 0
     },
-    "provenance": {
-      "$ref": "../common/provenance-record.schema.json"
+    "logRefs": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "cancellationRequested": {
+      "type": "boolean",
+      "description": "Cancel requested (best-effort); does not imply cancel completed."
+    },
+    "irreversibleEffectsPossible": {
+      "type": "boolean",
+      "description": "Set when mid-flight cancel cannot undo effects (D07); no implicit business rollback."
+    },
+    "updatedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "launchedAt": {
+      "$ref": "../common/timestamp.schema.json",
+      "description": "Wall-clock of compliant launch ack (persist-then-launch)."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted"
+          },
+          "selectionStrategy": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "selectionStrategy"
+        ]
+      },
+      "then": {
+        "required": [
+          "selectionExpiresAt"
+        ],
+        "description": "accepted + selectionStrategy ⇒ selectionExpiresAt (TTL)."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "result_pending"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "resultPendingAt"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "succeeded"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "resultRef",
+          "completedAt"
+        ],
+        "description": "No speculative succeeded without durable resultRef."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "selectionProfile": {
+            "const": "critical"
+          }
+        },
+        "required": [
+          "selectionProfile"
+        ]
+      },
+      "then": {
+        "properties": {
+          "selectionStrategy": {
+            "const": "human_confirmed_proposal"
+          }
+        },
+        "required": [
+          "selectionStrategy"
+        ],
+        "description": "Critical ⇒ human_confirmed_proposal only (D02)."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "selectionStrategy": {
+            "const": "human_confirmed_proposal"
+          },
+          "status": {
+            "enum": [
+              "running",
+              "result_pending",
+              "succeeded",
+              "failed",
+              "timeout",
+              "cancelled"
+            ]
+          }
+        },
+        "required": [
+          "selectionStrategy",
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "agentConfirmationRef"
+        ],
+        "description": "human_confirmed_proposal beyond accepted ⇒ agentConfirmationRef required at Start+."
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "retryOfAttemptId"
+        ]
+      },
+      "then": {
+        "required": [
+          "retryIndex",
+          "maxRetriesBudget"
+        ]
+      }
+    }
+  ]
 }

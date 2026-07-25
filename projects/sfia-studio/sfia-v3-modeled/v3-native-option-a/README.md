@@ -10,8 +10,10 @@
 | **FA / FD** | FA-OA-01…05 · FD-OA-01…06 **VALIDATED** |
 | **schemaVersion (baseline)** | `0.1.0-oa` |
 | **ExecutionContract** | `0.2.0-oa` (T-A4 modeled rework — breaking) |
+| **ExecutionAttempt** | `0.2.0-oa` (T-A5 materialization — breaking vs `0.1.0-oa`) |
+| **AgentDescriptor** | `0.1.0-oa` (docs-first ; not a live registry) |
 | **JSON Schema** | Draft-07 |
-| **Anti-claims** | Pas MODELED VALIDATED · Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4 RUNTIME |
+| **Anti-claims** | Pas MODELED VALIDATED (pack gate historique ≠ T-A5 Attempt validated) · Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4 RUNTIME · Pas T-A5 RUNTIME |
 | **Code / SQL / Figma** | **Interdits** |
 
 ## Objectif
@@ -34,9 +36,9 @@ Contrats modeled versionnables pour la chaîne Option A (intention → LPS → d
 | 10 | Validation, versioning, provenance, sécurité |
 | 11 | Réemploi / migration actifs existants |
 | 12 | Decision pack M-OA |
-| schemas/ | JSON Schema Draft-07 (`0.1.0-oa` baseline ; ExecutionContract `0.2.0-oa`) |
-| examples/ | Exemples valides / invalid/ (incl. ExecutionContract governance) |
-| tests/ | Validation ajv ExecutionContract governance (modeled-only) |
+| schemas/ | JSON Schema Draft-07 (`0.1.0-oa` baseline ; ExecutionContract + ExecutionAttempt `0.2.0-oa` ; AgentDescriptor `0.1.0-oa`) |
+| examples/ | Exemples valides / invalid/ (ExecutionContract + ExecutionAttempt + AgentDescriptor) |
+| tests/ | Validation ajv ExecutionContract + ExecutionAttempt governance (modeled-only) |
 
 ## Verdict
 

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "attemptId": "xat:oa-crit-001",
+  "executionContractId": "xct:oa-001",
+  "executionContractVersion": 1,
+  "selectedAgentRef": "agent:cursor-docs",
+  "status": "running",
+  "idempotencyKey": "idem-xat-crit-001",
+  "correlationId": "corr:oa-t-a5-001",
+  "version": 1,
+  "createdAt": "2026-07-25T12:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prov:xat-crit-001",
+    "actor": {
+      "actorId": "actor:morris",
+      "role": "approver",
+      "displayName": "Morris",
+      "authorityLevel": "N3"
+    },
+    "source": "confirmation",
+    "timestamp": "2026-07-25T12:00:00.000Z",
+    "correlationId": "corr:oa-t-a5-001",
+    "projectId": "prj:campus360-oa"
+  },
+  "selectionStrategy": "human_confirmed_proposal",
+  "selectionProfile": "critical",
+  "proposedAgentRef": "agent:cursor-docs",
+  "agentConfirmationRef": "cnf:agent-sel-001",
+  "selectionExpiresAt": "2026-07-25T12:20:00.000Z",
+  "startedAt": "2026-07-25T12:02:00.000Z",
+  "launchedAt": "2026-07-25T12:02:00.000Z"
+}

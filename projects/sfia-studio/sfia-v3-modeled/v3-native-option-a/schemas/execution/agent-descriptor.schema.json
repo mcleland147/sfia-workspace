@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/execution/agent-descriptor.schema.json",
+  "title": "AgentDescriptor",
+  "description": "Docs-first modeled descriptor of an execution agent/adapter capability envelope (T-A5). schemaVersion 0.1.0-oa. NOT an operational live registry, NOT a health probe endpoint, NOT runtime configuration. Used for modeled examples, intersection rules (capabilities ∩ action/target/scope), and future delivery design. Deny-by-default semantics are normative in docs; this schema only shapes fields.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "agentId",
+    "agentType",
+    "adapterRef",
+    "supportedCapabilities",
+    "allowedActions",
+    "allowedTargets",
+    "allowedScopes",
+    "trustLevel",
+    "executionMode",
+    "healthStatus",
+    "version",
+    "enabled",
+    "provenance",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "agentId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "agentType": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adapterRef": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "supportedCapabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "allowedActions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "allowedTargets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "allowedScopes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "trustLevel": {
+      "type": "string",
+      "enum": [
+        "fixture",
+        "bounded",
+        "elevated",
+        "restricted"
+      ]
+    },
+    "executionMode": {
+      "type": "string",
+      "enum": [
+        "dry_run",
+        "simulated",
+        "adapter_async",
+        "adapter_sync_fixture"
+      ]
+    },
+    "healthStatus": {
+      "type": "string",
+      "enum": [
+        "unknown",
+        "healthy",
+        "degraded",
+        "unhealthy"
+      ],
+      "description": "Modeled snapshot field only — not a live probe."
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "updatedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    }
+  }
+}
