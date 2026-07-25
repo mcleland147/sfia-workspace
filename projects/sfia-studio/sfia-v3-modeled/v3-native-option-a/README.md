@@ -6,7 +6,8 @@
 | **Gate AT (consommé)** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Pack** | `sfia-v3-modeled/v3-native-option-a` |
 | **Gate consommé** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
-| **Gate T-A6** | `GO MATERIALIZE T-A6 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate T-A6 materialize** | `GO MATERIALIZE T-A6 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate T-A6 validate** | `GO VALIDATE T-A6 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED** — VALIDATED AFTER CORRECTION) |
 | **UX** | UX-OA-01…12 **VALIDATED** |
 | **FA / FD** | FA-OA-01…05 · FD-OA-01…06 **VALIDATED** |
 | **schemaVersion (baseline)** | `0.1.0-oa` |
@@ -18,7 +19,7 @@
 | **ClaimEvaluation** | `0.1.0-oa` (T-A6 — **nouveau** ; R-M01 OPEN jusqu’à validation) |
 | **MaturityAssessment** | `0.2.0-oa` (T-A6 — breaking vs `0.1.0-oa`) |
 | **JSON Schema** | Draft-07 |
-| **Anti-claims** | Pas MODELED VALIDATED (T-A6) · Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4/T-A5/T-A6 RUNTIME · Pas T-A7 · Pas vendor stockage · Pas réserves fermées |
+| **Anti-claims** | T-A6 modeled VALIDATED AFTER CORRECTION ≠ READY FOR DELIVERY · Pas SCHEMAS ADOPTED runtime · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4/T-A5/T-A6 RUNTIME · Pas T-A7 · Pas vendor stockage · Pas réserves fermées · R-M01 closure requires Morris |
 | **Code / SQL / Figma** | **Interdits** |
 
 ## Objectif
@@ -49,6 +50,6 @@ Contrats modeled versionnables pour la chaîne Option A (intention → LPS → d
 
 **SFIA STUDIO V3-NATIVE OPTION A MODELED CONTRACTS VALIDATED BY MORRIS — TECHNICAL ARCHITECTURE IN PROGRESS**
 
-T-A6 materialization (ce cycle) : **candidate** — gate suivant `GO VALIDATE T-A6 MODELED` (**NOT consumed**).
+T-A6 modeled : **VALIDATED AFTER CORRECTION** — gate suivant `GO FRAME T-A6 DELIVERY` (**NOT consumed**).
 
-Réserves maintenues : B5 · R1 · R-T-A3-1…4 · **R-M01** (ClaimEvaluation non VALIDATED) · **U-M02** (stockage Evidence) · pas READY FOR DELIVERY · schemas non adoptés runtime · aucune implémentation · T-A7 non ouvert.
+Réserves maintenues : B5 · R1 · R-T-A3-1…4 · **R-M01** (`VALIDATION SATISFIED — CLOSURE REQUIRES MORRIS DECISION`) · **U-M02** · pas READY FOR DELIVERY · schemas non adoptés runtime · aucune implémentation · T-A7 non ouvert.
