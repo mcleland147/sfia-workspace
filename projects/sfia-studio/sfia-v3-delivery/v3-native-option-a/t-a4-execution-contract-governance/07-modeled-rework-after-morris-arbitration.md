@@ -62,8 +62,8 @@
 ## Supersession
 
 - Forward only: successor carries `supersedesExecutionContractId` (`^xct:`).
-- `supersessionReason` required when forward id present **or** `status=superseded`.
-- Self-supersession: runtime invariant (Draft-07 cannot compare properties).
+- `supersessionReason` required when forward id present **or** `status=superseded` ; **≥1 non-whitespace** (validation harden — whitespace/NBSP-only rejected).
+- Self-supersession: runtime invariant (Draft-07 cannot compare properties); schema-accepted fixture exercised in tests.
 - Old content immutable; new id + monotone `version`.
 
 ## Ownership T-A4 / T-A5

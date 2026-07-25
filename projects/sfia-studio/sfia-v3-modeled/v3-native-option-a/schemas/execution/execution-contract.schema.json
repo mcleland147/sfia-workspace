@@ -168,7 +168,8 @@
     "supersessionReason": {
       "type": "string",
       "minLength": 1,
-      "description": "Required when supersedesExecutionContractId is present OR status=superseded. Captures why supersession occurred."
+      "pattern": ".*\\S.*",
+      "description": "Required when supersedesExecutionContractId is present OR status=superseded. Must contain ≥1 non-whitespace character (catalog: raison non vide — whitespace/NBSP-only rejected)."
     },
     "adapterExportRef": {
       "type": "string",

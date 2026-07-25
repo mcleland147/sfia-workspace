@@ -58,7 +58,7 @@ Noms inventés du prompt initial (`RecordExecutionContract`, `ExecutionScope`, `
 | Champ | Valeur |
 |-------|--------|
 | Agrégat | ExecutionContract |
-| Préconditions | ancien contrat non terminal d’exécution exclusive ; raison non vide ; nouvel `executionContractId` |
+| Préconditions | ancien contrat non terminal d’exécution exclusive ; raison non vide (**≥1 caractère non-whitespace** — schema `pattern` `.*\S.*` ; espaces/TAB/NBSP seuls rejetés) ; nouvel `executionContractId` |
 | Effet | crée successeur avec `supersedesExecutionContractId` + `supersessionReason` ; marque ancien `superseded` + `supersessionReason` |
 | Événement | `ExecutionContractSuperseded` |
 | Owner | **T-A4** |

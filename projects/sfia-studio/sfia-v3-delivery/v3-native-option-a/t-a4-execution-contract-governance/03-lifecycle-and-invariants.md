@@ -29,7 +29,7 @@ Aucune transition vers `executing` sous T-A4.
 | MD Cursor = export G only | modeled + future runtime |
 | caps + authority + stops mandatory | schema |
 | Immutable after confirm except supersession | schema description + runtime |
-| `supersessionReason` when superseding or superseded | schema if/then |
+| `supersessionReason` when superseding or superseded | schema if/then + non-whitespace pattern |
 | No self-supersession | **runtime only** |
 | Reverse supersededBy derived | **runtime only** |
 | Confirmation consumed on confirmed | catalog + schema (confirmationRef) |

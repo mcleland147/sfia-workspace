@@ -69,7 +69,7 @@ Contrats structurants : ≥1 `decisionRef` accepted, même Project, non supersed
 ### Supersession
 
 - Champ forward : `supersedesExecutionContractId` (préfixe `xct:`)
-- `supersessionReason` requis si supersède **ou** `status=superseded`
+- `supersessionReason` requis si supersède **ou** `status=superseded` ; **≥1 non-whitespace** (espaces/TAB/NBSP seuls invalides)
 - Self-supersession : **interdit** (invariant runtime — non exprimable en Draft-07)
 - Lien inverse `supersededBy*` : **non stocké** ; dérivé au runtime
 - Contenu confirmé immutable ; successeur = nouvel id + version monotone

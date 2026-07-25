@@ -39,7 +39,7 @@ Schema path:
 | `inputs` / `expectedOutputs` | object / string[] |
 | `selectedAgentRef` | identifier — **T-A5 only** |
 | `supersedesExecutionContractId` | identifier ∧ pattern `^xct:` |
-| `supersessionReason` | string minLength 1 ; **required if supersedes* present OR status=superseded** |
+| `supersessionReason` | string minLength 1 ∧ pattern `.*\S.*` ; **required if supersedes* present OR status=superseded** ; whitespace/NBSP-only rejected |
 | `adapterExportRef` | string |
 | `immutableAfterConfirm` | const true |
 | `provenance` | provenance-record |

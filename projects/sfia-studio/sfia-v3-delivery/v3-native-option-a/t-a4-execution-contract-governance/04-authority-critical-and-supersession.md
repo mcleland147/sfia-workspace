@@ -10,7 +10,7 @@
 | Requirement | Modeled status |
 |-------------|----------------|
 | `supersedesExecutionContractId` | **PRESENT** (`^xct:`) |
-| `supersessionReason` | **PRESENT** (conditional required) |
+| `supersessionReason` | **PRESENT** (conditional required + non-whitespace pattern) |
 | `SupersedeExecutionContract` | **PRESENT** in catalog |
 | `ExecutionContractSuperseded` | **PRESENT** in catalog |
 | Reverse link | **Derived at runtime** (not stored) |
