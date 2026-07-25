@@ -5,76 +5,59 @@
 | **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
 | **Titre cycle** | Evidence, Review, Claims and Maturity |
 | **Profil** | Critical |
-| **Gate framing** | `GO FRAME T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
-| **Gate arbitrage** | `GO ARBITRATE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate framing** | `GO FRAME T-A6` (**CONSUMED**) |
+| **Gate arbitrage** | `GO ARBITRATE T-A6` (**CONSUMED**) |
+| **Gate décision** | `GO DECIDE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` (PR #266 T-A5 merge) |
-| **HEAD framing** | `40e92336b3e646f03354c7912c705b1d62b68097` |
-| **Modeled / runtime** | **NONE** modifié — pack documentaire uniquement |
-| **Push / PR / merge projet** | **NONE** — require Morris GO |
-| **Statut pack** | **ARBITRATION PACK PREPARED** |
-| **Horodatage** | 2026-07-26 00:43:49 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
-| **Gate suivant** | `GO DECIDE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **HEAD arbitration** | `d2d4cf5bee8d956ae9bc3ad899bce89a5d09d0b7` |
+| **Modeled / runtime** | **NONE** modifié |
+| **Push / PR / merge projet** | **NONE** |
+| **Statut pack** | **DECISIONS APPROVED BY MORRIS** |
+| **Horodatage** | 2026-07-26 01:12:00 CEST (+0200) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DECISIONS RECORDED — MODELED MATERIALIZATION REQUIRES MORRIS GO` |
+| **Gate suivant** | `GO MATERIALIZE T-A6 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ## Objectif
 
-Préparer un decision pack fermé D-T-A6-01…12 permettant à Morris de statuer sans ambiguïté sur Evidence, ReviewBundle, ClaimEvaluation, maturité, autorité, stockage logique, automatisation et sorties T-A6.
-
-## Périmètre
-
-- Challenge contradictoire des options du cadrage ;
-- Élimination des options incompatibles ;
-- Recommandations uniques `RECOMMENDED — NOT DECIDED` ;
-- Format de réponse Morris ;
-- Traitement candidat des réserves R-T-A6-1…9.
-
-## Hors périmètre
-
-- Validation d’options à la place de Morris ;
-- Enrichissement schema / runtime / tests ;
-- Choix de technologie de stockage ;
-- SQL, API, UI, worker, scheduler ;
-- Fermeture de réserves ;
-- T-A7 ;
-- Push / PR / merge.
+Enregistrer dans Git les décisions Morris explicites D-T-A6-01…12 relatives à Evidence, ReviewBundle, ClaimEvaluation, maturité, autorité, stockage logique, automatisation et sorties T-A6.
 
 ## Livrables
 
 1. [README.md](./README.md) (ce fichier)
-2. [01-framing.md](./01-framing.md) — cadrage (inchangé ce cycle)
-3. [02-arbitration.md](./02-arbitration.md) — **decision pack Morris**
+2. [01-framing.md](./01-framing.md) — cadrage (inchangé)
+3. [02-arbitration.md](./02-arbitration.md) — decision pack (inchangé)
+4. [03-decisions.md](./03-decisions.md) — **décisions Morris matérialisées**
 
-## Décisions validées (nouvelles)
+## Décisions Morris (APPROVED)
 
-**Aucune.**
+| ID | Formulation |
+|----|-------------|
+| D-T-A6-01 | OPTION C — APPROVED |
+| D-T-A6-02 | OPTION C — APPROVED |
+| D-T-A6-03 | OPTION A+D — APPROVED |
+| D-T-A6-04 | OPTION B — APPROVED |
+| D-T-A6-05 | OPTION D — APPROVED |
+| D-T-A6-06 | RECOMMENDED AUTHORITY MATRIX — APPROVED |
+| D-T-A6-07 | OPTION C — APPROVED |
+| D-T-A6-08 | OPTION D — APPROVED |
+| D-T-A6-09 | PRINCIPLES PACK — APPROVED |
+| D-T-A6-10 | T-A6/T-A7 BOUNDARY — APPROVED |
+| D-T-A6-11 | L0–L3 DEFAULT / L4 GATED / L5 OUT — APPROVED |
+| D-T-A6-12 | OUTPUT CONTRACT WITHOUT AUTO NEXT CYCLE — APPROVED |
 
-Toutes les recommandations D-T-A6 restent `RECOMMENDED — NOT DECIDED` jusqu’à `GO DECIDE T-A6`.
+Détail : [03-decisions.md](./03-decisions.md).
 
-Héritages utiles (non re-votés) : M-OA-07, M-OA-08, T-A5 D10.
+## Hors périmètre (toujours)
 
-## Décisions en attente Morris
+- Modeled / schemas / runtime / tests ;
+- Technologie de stockage ;
+- Fermeture de réserves ;
+- T-A7 ;
+- Push / PR / merge ;
+- Exécution réelle.
 
-| ID | Recommandation candidate |
-|----|--------------------------|
-| D-T-A6-01 | **C** Evidence entité T-A6 + bindings |
-| D-T-A6-02 | **C** Hybride logique |
-| D-T-A6-03 | **A+D** Agrégat + freeze |
-| D-T-A6-04 | **B** ClaimEvaluation v1 unifié |
-| D-T-A6-05 | **D** Matrice type × Critical |
-| D-T-A6-06 | Matrice acteurs documentée |
-| D-T-A6-07 | **C** Maturity proposée puis confirmée |
-| D-T-A6-08 | **D** Réserves bloquent niveaux associés |
-| D-T-A6-09 | Principles pack ; tech deferred |
-| D-T-A6-10 | Boundary T-A6 / T-A7 |
-| D-T-A6-11 | L0–L3 / L4 gated / L5 out |
-| D-T-A6-12 | Output contract |
-
-Format de réponse : voir [02-arbitration.md](./02-arbitration.md) §12.
-
-## Réserves
-
-### Existantes (OPEN — inchangées)
+## Réserves (OPEN — inchangées)
 
 | Reserve | Status |
 |---------|--------|
@@ -85,23 +68,21 @@ Format de réponse : voir [02-arbitration.md](./02-arbitration.md) §12.
 | R-T-A3-3 | **OPEN** |
 | R-T-A3-4 | **OPEN** |
 | R-M01 | **OPEN** (ClaimEvaluation schema) |
-| U-M02 | **OPEN** (stockage Evidence) |
+| U-M02 | **OPEN** (stockage Evidence — aucune technologie choisie) |
 
-### Candidates (non validées — traitement proposé dans 02)
-
-R-T-A6-1 … R-T-A6-9 — CREATE / MERGE / TRACK AS DEBT recommandés ; **aucune créée** sans Morris.
+R-T-A6-1…9 : risques/invariants/dettes documentés — **pas** de réserves CREATE VALIDATED.
 
 ## Anti-claims
 
-- Pas T-A6 décidé / validé / modeled ready / delivery ready / production ready
-- Pas storage vendor choisi / schema ClaimEvaluation créé
-- Pas réserves créées ou fermées
+- Pas modeled ready / delivery ready / production ready
+- Pas storage vendor choisi
+- Pas réserves fermées
 - Pas T-A7 / exécution réelle / adapter réel
 - Pas push / PR / merge ce cycle
 
 ## Modeled de référence (lecture seule)
 
-- `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/08-evidence-review-bundle-maturity-and-debt-model.md`
+- `.../08-evidence-review-bundle-maturity-and-debt-model.md`
 - `schemas/evidence/evidence.schema.json`
 - `schemas/evidence/review-bundle.schema.json`
 - `schemas/maturity/maturity-assessment.schema.json`
