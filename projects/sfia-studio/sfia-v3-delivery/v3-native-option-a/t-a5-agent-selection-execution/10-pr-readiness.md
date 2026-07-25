@@ -10,9 +10,9 @@
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
 | **Base / origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
 | **HEAD initial** | `cdae32684d6d41bd46535fda552b0465399f1b3e` |
-| **HEAD final** | `b0a30dbb2c9ff17b14849f7f76572e634d32f0bd` |
+| **HEAD final** | branch tip after this readiness pack (authoritative: `git rev-parse HEAD` / handoff) |
 | **Merge-base** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
-| **Ahead** | 22 commits |
+| **Ahead** | 23 commits (after readiness docs) |
 | **Branche distante projet** | **ABSENTE** |
 | **PR T-A5** | **ABSENTE** |
 | **Handoff source** | blob `59d4638783780dd735f353b7fc68684b6d6f26fb` |
