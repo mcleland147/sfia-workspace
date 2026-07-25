@@ -4,25 +4,26 @@
 |-------|--------|
 | **Slice** | T-A4 — ExecutionContract governance |
 | **Profil** | Critical |
-| **Gate delivery candidate** | `GO DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A4` (**NOT CONSUMED**) |
-| **Gate modeled rework** | `GO MODELED REWORK OPTION A — SFIA STUDIO V3-NATIVE — T-A4 EXECUTIONCONTRACT` (**CONSUMED**) |
-| **Gate modeled validation** | `GO VALIDATION MODELED REWORK OPTION A — SFIA STUDIO V3-NATIVE — T-A4 EXECUTIONCONTRACT` (**CONSUMED**) |
+| **Gate delivery (resume)** | `GO RESUME DELIVERY OPTION A — SFIA STUDIO V3-NATIVE — T-A4 EXECUTIONCONTRACT` |
+| **Gate modeled rework** | `GO MODELED REWORK … T-A4 EXECUTIONCONTRACT` (**CONSUMED**) |
+| **Gate modeled validation** | `GO VALIDATION MODELED REWORK … T-A4 EXECUTIONCONTRACT` (**CONSUMED**) |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-t-a4-execution-contract-governance` |
 | **Base / origin/main** | `37d4036bb0811575bd112a30e97139f75c7acb3e` (T-A3 merge) |
-| **Rework HEAD** | `ed4b21fa680f22378f6e11b442787b4920ff6b7d` |
-| **Code produit `app/lib/oa/execution*`** | **NONE** — runtime not started |
-| **Schemas modeled** | **VALIDATED** — ExecutionContract `0.2.0-oa` (+ validation harden non-whitespace reason) |
+| **HEAD modeled validation** | `1e469fba7509d94a8b61f6b0a117b9c914d12774` |
+| **Code produit `app/lib/oa/execution-contract/`** | **IMPLEMENTED** (in-memory foundation) |
+| **Schemas modeled** | **VALIDATED** — ExecutionContract `0.2.0-oa` — **not edited** this runtime cycle |
+| **Tests runtime** | **45** PASS (`__tests__/oa/execution-contract`) |
 | **Push / PR / merge** | **NONE** |
-| **T-A5** | **NONE** (not started / not authorized) |
-| **Statut pack** | **MODELED REWORK CORRECTED AND VALIDATED — runtime not started** |
-| **Verdict validation** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT MODELED REWORK CORRECTED AND VALIDATED — RUNTIME DELIVERY MAY RESUME WITH MORRIS GO** |
+| **T-A5** | **NONE** (not started / not authorized; refused in T-A4) |
+| **Statut pack** | **RUNTIME FOUNDATION IMPLEMENTED — Morris validation required** |
+| **Verdict runtime** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT RUNTIME FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED** |
 
 ## Why this pack exists
 
 1. Arbitration docs stopped delivery: supersession / ownership / authority gaps.
 2. Morris validated decisions (see [07](./07-modeled-rework-after-morris-arbitration.md)).
-3. Modeled rework applied (schema/catalog/examples/tests) — no `app/lib/oa/**` runtime.
-4. This validation cycle independently verified Morris materialization, hardened one proven schema/docs gap, and extended adversarial tests ([08](./08-modeled-rework-validation.md)).
+3. Modeled rework applied + independently validated ([08](./08-modeled-rework-validation.md)).
+4. Runtime delivery resumed after handoff blob `2fb07e42…` — see [09](./09-runtime-delivery-after-modeled-validation.md).
 
 ## Morris decisions (VALIDATED — verbatim)
 
@@ -44,18 +45,27 @@
 5. [05-security-errors-audit-and-performance.md](./05-security-errors-audit-and-performance.md)
 6. [06-delivery-validation-and-morris-decision-pack.md](./06-delivery-validation-and-morris-decision-pack.md)
 7. [07-modeled-rework-after-morris-arbitration.md](./07-modeled-rework-after-morris-arbitration.md) ← rework SoT
-8. [08-modeled-rework-validation.md](./08-modeled-rework-validation.md) ← **validation SoT**
+8. [08-modeled-rework-validation.md](./08-modeled-rework-validation.md) ← modeled validation SoT
+9. [09-runtime-delivery-after-modeled-validation.md](./09-runtime-delivery-after-modeled-validation.md) ← **runtime SoT**
+
+## Reserves
+
+| Reserve | Status |
+|---------|--------|
+| B5 / R1 | **OPEN** |
+| R-T-A3-1 / R-T-A3-2 / R-T-A3-3 / R-T-A3-4 | **OPEN** |
+| R-T-A4-1 / R-T-A4-2 / R-T-A4-3 | **resolved-by-modeled** |
 
 ## Anti-claims
 
-- Pas T-A4 **RUNTIME IMPLEMENTED** / **MERGED**
-- Pas `app/lib/oa/execution*` shipped
-- Pas GO DELIVERY T-A4 **CONSUMED**
+- Pas T-A4 **MERGED** / **PR CREATED**
+- Pas T-A5 **AUTHORIZED** / **LAUNCHED** / **IMPLEMENTED**
 - Pas READY FOR DELIVERY GLOBAL / OPTION A IMPLEMENTED
-- Pas DATABASE SELECTED / SCHEMAS ADOPTED runtime
+- Pas DATABASE SELECTED / SCHEMAS ADOPTED runtime product
 - Pas V2.6 REMOVED / MethodMode REMOVED / OPS1 RETIRED
 - Pas UI / Evidence / ReviewBundle / ClaimEvaluation
-- Pas T-A5 **AUTHORIZED** / **LAUNCHED** / **IMPLEMENTED**
-- Pas push / PR / merge this branch
 - Pas B5 / R1 / R-T-A3-* **CLOSED**
-- R-T-A4-1/2/3 = **resolved-by-modeled under validation confirmation** (not global product CLOSED)
+- Pas Critical cycle auto-acknowledged
+- Pas agent / Attempt / shell / StartExecution
+- Pas modeled schema edits in the runtime cycle
+- Pas push / force push / admin bypass
