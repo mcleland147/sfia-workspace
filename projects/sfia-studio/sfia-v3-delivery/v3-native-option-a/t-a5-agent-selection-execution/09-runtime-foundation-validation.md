@@ -60,12 +60,12 @@ Aucun restant après correction.
 
 ### Major (corrigés)
 
-1. **`ExecutionContractStatusWriter` faisait confiance au statut `running` fourni par l’appelant** sans lire le repository Attempt → `Contract.executing` possible sans Attempt réellement `running`.  
-   **Correction** : vérification `attempts.findById` + status `running` + même `executionContractId`.  
+1. **`ExecutionContractStatusWriter` faisait confiance au statut `running` fourni par l’appelant** sans lire le repository Attempt → `Contract.executing` possible sans Attempt réellement `running`.
+   **Correction** : vérification `attempts.findById` + status `running` + même `executionContractId`.
    **Mutation** : retrait de la vérif → test QA échoue ; restauration → PASS.
 
-2. **`StartExecution` ne vérifiait pas `LaunchAck.adapterId`** contre l’adapter injecté.  
-   **Correction** : fail-closed `adapter_identity_binding_mismatch`.  
+2. **`StartExecution` ne vérifiait pas `LaunchAck.adapterId`** contre l’adapter injecté.
+   **Correction** : fail-closed `adapter_identity_binding_mismatch`.
    **Mutation** : retrait du check → test QA échoue ; restauration → PASS.
 
 ### Minor / dette acceptable
@@ -122,7 +122,7 @@ Suite ajoutée : `qaAdversarialValidation.test.ts`.
 
 ## 10. Dette retry
 
-**Qualifiée : dette acceptable / hors blocker QA.**  
+**Qualifiée : dette acceptable / hors blocker QA.**
 Retry exige Contract `confirmed` ; path launch-reject OK ; path launch-fail (Contract `failed`) volontairement fermé jusqu’à arbitrage Morris ultérieur.
 
 ## 11. Réserves (OPEN)
