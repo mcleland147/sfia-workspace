@@ -1,10 +1,10 @@
 {
   "schemaVersion": "0.2.0-oa",
-  "evidenceId": "ev:incomplete-001",
+  "evidenceId": "ev:unavailable-001",
   "type": "artifact",
-  "source": "partial agent output",
-  "sourceKind": "execution_attempt",
-  "location": "refs/evidence/partial",
+  "source": "missing external payload",
+  "sourceKind": "external",
+  "location": "refs/external/missing",
   "producedBy": {
     "actorId": "actor:studio",
     "role": "system",
@@ -12,26 +12,26 @@
     "authorityLevel": "none"
   },
   "producedAt": "2026-07-26T00:00:00.000Z",
-  "freshness": "fresh",
-  "status": "incomplete",
-  "classification": "internal",
-  "storageMode": "metadata_only",
-  "availability": "unknown",
+  "freshness": "unknown",
+  "status": "unavailable",
+  "classification": "confidential",
+  "storageMode": "external_payload_ref",
+  "availability": "unavailable",
   "bindings": {
-    "executionAttemptId": "xat:oa-ok-001",
-    "executionContractId": "xct:oa-001"
+    "executionContractId": "xct:oa-001",
+    "projectId": "prj:campus360-oa"
   },
   "containsSecrets": false,
   "provenance": {
     "schemaVersion": "0.1.0-oa",
-    "provenanceRecordId": "prv:ev-incomplete-001",
+    "provenanceRecordId": "prv:ev-unavailable-001",
     "actor": {
       "actorId": "actor:studio",
       "role": "system",
       "displayName": "Studio",
       "authorityLevel": "none"
     },
-    "source": "execution_adapter",
+    "source": "system",
     "timestamp": "2026-07-26T00:00:00.000Z",
     "correlationId": "corr:oa-t-a6-001"
   }

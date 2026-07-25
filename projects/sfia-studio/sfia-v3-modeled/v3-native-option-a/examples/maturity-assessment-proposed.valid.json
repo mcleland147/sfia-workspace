@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "maturityAssessmentId": "mat:oa-proposed-001",
+  "projectId": "prj:campus360-oa",
+  "subjectRef": "prj:campus360-oa",
+  "proposedLevel": "VALIDATED",
+  "claimEvaluationRefs": [
+    "clm:noncrit-pass-001"
+  ],
+  "reviewBundleRefs": [
+    {
+      "reviewBundleId": "rb:oa-ready-001",
+      "version": 2
+    }
+  ],
+  "evidenceRefs": [
+    "ev:external-001"
+  ],
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "status": "proposed",
+  "autoPromoted": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:mat-proposed-001",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

@@ -1,43 +1,43 @@
 {
   "schemaVersion": "0.2.0-oa",
-  "maturityAssessmentId": "mat:oa-modeled-prop",
+  "maturityAssessmentId": "mat:oa-superseded-001",
   "projectId": "prj:campus360-oa",
   "subjectRef": "pack:v3-native-option-a-modeled",
-  "dimensions": [
-    {
-      "dimensionId": "modeled-contracts",
-      "proposedLevel": "MODELED"
-    }
-  ],
-  "proposedLevel": "MODELED",
+  "proposedLevel": "VALIDATED",
+  "confirmedLevel": "VALIDATED",
   "claimEvaluationRefs": [
-    "clm:noncrit-pass-001"
+    "clm:not-proven-001"
   ],
   "reviewBundleRefs": [
     {
-      "reviewBundleId": "rb:oa-ready-001",
+      "reviewBundleId": "rb:oa-incomplete-status-001",
       "version": 2
     }
   ],
   "evidenceRefs": [
-    "ev:from-attempt-001",
-    "ev:manual-001"
-  ],
-  "blockingReservationRefs": [
-    "res:candidate-until-morris"
+    "ev:stale-001"
   ],
   "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "confirmedBy": {
     "actorId": "actor:morris",
     "role": "decision_maker",
     "displayName": "Morris",
     "authorityLevel": "N3"
   },
   "proposedAt": "2026-07-26T00:00:00.000Z",
-  "status": "proposed",
+  "confirmedAt": "2026-07-26T01:00:00.000Z",
+  "status": "superseded",
+  "supersedesMaturityAssessmentId": "mat:oa-confirmed-001",
+  "downgradeReason": "Prior MODELED confirmation invalidated after evidence became stale/unavailable",
   "autoPromoted": false,
   "provenance": {
     "schemaVersion": "0.1.0-oa",
-    "provenanceRecordId": "prv:mat-modeled-001",
+    "provenanceRecordId": "prv:mat-superseded-001",
     "actor": {
       "actorId": "actor:morris",
       "role": "decision_maker",

@@ -1,35 +1,33 @@
 {
   "schemaVersion": "0.2.0-oa",
-  "reviewBundleId": "rb:oa-complete-001",
+  "reviewBundleId": "rb:oa-accepted-001",
   "projectId": "prj:campus360-oa",
-  "cycleInstanceId": "cyc:modeled-001",
-  "executionContractId": "xct:oa-001",
-  "version": 1,
+  "version": 3,
   "evidenceRefs": [
     "ev:from-attempt-001",
     "ev:manual-001",
     "ev:external-001"
   ],
   "claimEvaluationRefs": [
-    "clm:noncrit-pass-001"
+    "clm:crit-confirmed-001",
+    "clm:structural-001"
   ],
   "completeness": "complete",
-  "reservations": [
-    "a11y runtime pending"
-  ],
   "reviewer": {
     "actorId": "actor:morris",
     "role": "decision_maker",
     "displayName": "Morris",
     "authorityLevel": "N3"
   },
-  "status": "ready_for_review",
+  "status": "accepted",
   "createdAt": "2026-07-26T00:00:00.000Z",
   "frozenAt": "2026-07-26T01:00:00.000Z",
+  "reviewStartedAt": "2026-07-26T02:00:00.000Z",
+  "validatedAt": "2026-07-26T03:00:00.000Z",
   "synthesisOnly": false,
   "provenance": {
     "schemaVersion": "0.1.0-oa",
-    "provenanceRecordId": "prv:rb-complete-001",
+    "provenanceRecordId": "prv:rb-accepted-001",
     "actor": {
       "actorId": "actor:reviewer-1",
       "role": "reviewer",

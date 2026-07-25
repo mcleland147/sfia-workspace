@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "maturityAssessmentId": "mat:oa-blocked-001",
+  "projectId": "prj:campus360-oa",
+  "subjectRef": "prj:campus360-oa",
+  "proposedLevel": "IMPLEMENTED",
+  "dimensions": [
+    {
+      "dimensionId": "runtime",
+      "proposedLevel": "IMPLEMENTED",
+      "blocked": true
+    }
+  ],
+  "claimEvaluationRefs": [
+    "clm:not-proven-001"
+  ],
+  "blockingReservationRefs": [
+    "res:hard-runtime-not-proven"
+  ],
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "status": "blocked",
+  "autoPromoted": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:mat-blocked-001",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:not-proven-001",
+  "claimType": "qualite",
+  "claimStatement": "Accessibility runtime coverage is complete",
+  "criticality": "non_critical",
+  "evaluationMethod": "assisted",
+  "requiredEvidenceRefs": [
+    "ev:unavailable-001"
+  ],
+  "providedEvidenceRefs": [],
+  "reviewBundleId": "rb:oa-incomplete-status-001",
+  "reviewBundleVersion": 2,
+  "status": "not_proven",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "evaluatedAt": "2026-07-26T01:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-not-proven-001",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

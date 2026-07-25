@@ -1,19 +1,15 @@
 {
-  "schemaVersion": "0.2.0-oa",
-  "reviewBundleId": "rb:oa-incomplete-001",
+  "schemaVersion": "0.1.0-oa",
+  "reviewBundleId": "rb:bad-ver-001",
   "projectId": "prj:campus360-oa",
   "version": 1,
   "evidenceRefs": [],
   "completeness": "incomplete",
   "status": "draft",
   "createdAt": "2026-07-26T00:00:00.000Z",
-  "synthesisOnly": true,
-  "reservations": [
-    "synthèse seule"
-  ],
   "provenance": {
     "schemaVersion": "0.1.0-oa",
-    "provenanceRecordId": "prv:rb-incomplete-001",
+    "provenanceRecordId": "prv:rb-bad-ver",
     "actor": {
       "actorId": "actor:reviewer-1",
       "role": "reviewer",

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "evidenceId": "ev:manual-001",
+  "type": "document",
+  "source": "manual upload by reviewer",
+  "sourceKind": "manual",
+  "location": "refs/evidence/manual-notes",
+  "producedBy": {
+    "actorId": "actor:reviewer-1",
+    "role": "reviewer",
+    "displayName": "Reviewer One",
+    "authorityLevel": "N2"
+  },
+  "producedAt": "2026-07-26T00:00:00.000Z",
+  "freshness": "fresh",
+  "status": "available",
+  "classification": "internal",
+  "storageMode": "internal_payload_ref",
+  "availability": "available",
+  "bindings": {
+    "cycleInstanceId": "cyc:modeled-001",
+    "projectId": "prj:campus360-oa"
+  },
+  "containsSecrets": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:ev-manual-001",
+    "actor": {
+      "actorId": "actor:reviewer-1",
+      "role": "reviewer",
+      "displayName": "Reviewer One",
+      "authorityLevel": "N2"
+    },
+    "source": "human_decision",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

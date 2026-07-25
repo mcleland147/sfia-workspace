@@ -2,29 +2,93 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/maturity/maturity-assessment.schema.json",
   "title": "MaturityAssessment",
+  "description": "T-A6 MaturityAssessment (D-T-A6-07/08). BREAKING vs 0.1.0-oa: projectId, proposedLevel/confirmedLevel, claimEvaluationRefs, reviewBundleRefs, blockingReservationRefs, propose→confirm, autoPromoted=false, supersession, provenance. Maturity ≠ execution authorization. MODELED ≠ IMPLEMENTED ≠ ADOPTED.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schemaVersion",
     "maturityAssessmentId",
+    "projectId",
     "subjectRef",
-    "level",
-    "evaluator",
-    "evaluatedAt",
-    "status"
+    "proposedLevel",
+    "status",
+    "proposedBy",
+    "proposedAt",
+    "autoPromoted",
+    "provenance"
   ],
   "properties": {
     "schemaVersion": {
       "type": "string",
-      "const": "0.1.0-oa"
+      "const": "0.2.0-oa"
     },
     "maturityAssessmentId": {
-      "$ref": "../common/identifier.schema.json"
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^mat:"
+        }
+      ]
+    },
+    "projectId": {
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^prj:"
+        }
+      ]
     },
     "subjectRef": {
       "$ref": "../common/identifier.schema.json"
     },
-    "level": {
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "dimensionId",
+          "proposedLevel"
+        ],
+        "properties": {
+          "dimensionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "proposedLevel": {
+            "type": "string",
+            "enum": [
+              "DOCUMENTED",
+              "VALIDATED",
+              "MODELED",
+              "IMPLEMENTED",
+              "ADOPTED"
+            ]
+          },
+          "confirmedLevel": {
+            "type": "string",
+            "enum": [
+              "DOCUMENTED",
+              "VALIDATED",
+              "MODELED",
+              "IMPLEMENTED",
+              "ADOPTED"
+            ]
+          },
+          "blocked": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "proposedLevel": {
       "type": "string",
       "enum": [
         "DOCUMENTED",
@@ -34,36 +98,219 @@
         "ADOPTED"
       ]
     },
+    "confirmedLevel": {
+      "type": "string",
+      "enum": [
+        "DOCUMENTED",
+        "VALIDATED",
+        "MODELED",
+        "IMPLEMENTED",
+        "ADOPTED"
+      ]
+    },
+    "claimEvaluationRefs": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "../common/identifier.schema.json"
+          },
+          {
+            "type": "string",
+            "pattern": "^clm:"
+          }
+        ]
+      }
+    },
+    "reviewBundleRefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "reviewBundleId",
+          "version"
+        ],
+        "properties": {
+          "reviewBundleId": {
+            "allOf": [
+              {
+                "$ref": "../common/identifier.schema.json"
+              },
+              {
+                "type": "string",
+                "pattern": "^rb:"
+              }
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
     "evidenceRefs": {
       "type": "array",
       "items": {
-        "$ref": "../common/identifier.schema.json"
+        "allOf": [
+          {
+            "$ref": "../common/identifier.schema.json"
+          },
+          {
+            "type": "string",
+            "pattern": "^ev:"
+          }
+        ]
       }
     },
-    "evaluator": {
-      "$ref": "../common/actor-reference.schema.json"
-    },
-    "evaluatedAt": {
-      "$ref": "../common/timestamp.schema.json"
-    },
-    "reservations": {
+    "blockingReservationRefs": {
       "type": "array",
       "items": {
-        "type": "string"
-      }
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "description": "HARD blocking reserves prevent associated level/dimension; PASS does not close reserves"
+    },
+    "waiverRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "description": "Waiver ≠ reserve closure"
+    },
+    "proposedBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "confirmedBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "proposedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "confirmedAt": {
+      "$ref": "../common/timestamp.schema.json"
     },
     "status": {
       "type": "string",
       "enum": [
         "proposed",
-        "accepted",
+        "confirmed",
         "rejected",
-        "superseded"
+        "superseded",
+        "blocked"
       ]
+    },
+    "supersedesMaturityAssessmentId": {
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^mat:"
+        }
+      ]
+    },
+    "downgradeReason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "Required when supersession encodes a downgrade after invalidated evidence/claim"
     },
     "autoPromoted": {
       "type": "boolean",
       "const": false
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "confirmed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "confirmedLevel",
+          "confirmedBy",
+          "confirmedAt"
+        ],
+        "properties": {
+          "confirmedBy": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "not": {
+                  "enum": [
+                    "system",
+                    "agent"
+                  ]
+                }
+              }
+            }
+          },
+          "blockingReservationRefs": {
+            "type": "array",
+            "maxItems": 0
+          }
+        },
+        "description": "confirmed ⇒ human confirmation; no HARD blockingReservationRefs; autoPromoted remains false"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "blocked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "blockingReservationRefs"
+        ],
+        "properties": {
+          "blockingReservationRefs": {
+            "type": "array",
+            "minItems": 1
+          }
+        },
+        "description": "blocked ⇒ at least one blockingReservationRef"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "superseded"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "supersedesMaturityAssessmentId"
+        ],
+        "description": "supersession preferred over historical mutation; downgradeReason when level regresses (semantic)"
+      }
+    }
+  ]
 }

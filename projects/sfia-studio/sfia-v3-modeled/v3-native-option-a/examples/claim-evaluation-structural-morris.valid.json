@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:structural-001",
+  "claimType": "maturite_support",
+  "claimStatement": "Modeled pack boundary for T-A6 is structurally sound",
+  "criticality": "structural",
+  "evaluationMethod": "human_review",
+  "requiredEvidenceRefs": [
+    "ev:manual-001",
+    "ev:external-001"
+  ],
+  "providedEvidenceRefs": [
+    "ev:manual-001",
+    "ev:external-001"
+  ],
+  "reviewBundleId": "rb:oa-accepted-001",
+  "reviewBundleVersion": 3,
+  "status": "pass",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "confirmedBy": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "confirmationAuthority": "morris",
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "evaluatedAt": "2026-07-26T01:00:00.000Z",
+  "confirmedAt": "2026-07-26T02:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-structural-001",
+    "actor": {
+      "actorId": "actor:morris",
+      "role": "decision_maker",
+      "displayName": "Morris",
+      "authorityLevel": "N3"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

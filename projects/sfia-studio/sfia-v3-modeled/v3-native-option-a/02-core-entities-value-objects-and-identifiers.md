@@ -35,8 +35,9 @@ Stables · explicites · pas de path local métier · digest pour packages immua
 | evidenceId | `ev:` |
 | reviewBundleId | `rb:` |
 | claimEvaluationId | `clm:` |
+| maturityAssessmentId | `mat:` |
 | debtItemId | `debt:` |
-| provenanceRecordId | `prov:` |
+| provenanceRecordId | `prov:` / `prv:` |
 | auditEventId | `aud:` |
 | errorRecordId | `err:` |
 
@@ -44,4 +45,6 @@ Stables · explicites · pas de path local métier · digest pour packages immua
 
 Project · ProjectRef · DoctrinePackageManifest · DoctrinePackageRef · DoctrineSourceRef · CkcResolution · CkcRef · CycleType · CycleInstance · LivingProjectState · LivingProjectStateVersion · ProjectTrajectory · TrajectoryStep · EpistemicItem (+ Observation/Hypothesis/Option/Recommendation/Contradiction) · HumanDecision · DecisionOption · DecisionReservation · Confirmation · ExecutionContract · ExecutionAttempt · AgentCapability · AgentAuthority · Evidence · EvidenceRequirement · ReviewBundle · ClaimEvaluation · DebtItem · RiskItem · ProvenanceRecord · AuditEvent · MaturityAssessment · ErrorRecord.
 
-Cardinalités clés : Project 1—1..* LPS versions · Project 0..1 active CycleInstance · Decision 1—1..* Options · Contract 1—0..* Attempts · Bundle 0..* Evidence.
+Cardinalités clés : Project 1—1..* LPS versions · Project 0..1 active CycleInstance · Decision 1—1..* Options · Contract 1—0..* Attempts · Bundle 0..* Evidence · ClaimEvaluation 1—1 ReviewBundle version gelée · MaturityAssessment 0..* claimEvaluationRefs.
+
+T-A6 : Evidence bindings multi-objets (Attempt non-owner) · ReviewBundle versionné OCC · ClaimEvaluation unifié v1 · MaturityAssessment propose→confirm.

@@ -1,16 +1,24 @@
 {
   "schemaVersion": "0.2.0-oa",
-  "reviewBundleId": "rb:synth-complete-001",
+  "reviewBundleId": "rb:verdict-nofreeze-001",
   "projectId": "prj:campus360-oa",
   "version": 1,
-  "evidenceRefs": [],
+  "evidenceRefs": [
+    "ev:manual-001"
+  ],
   "completeness": "complete",
-  "status": "draft",
+  "reviewer": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "status": "accepted",
   "createdAt": "2026-07-26T00:00:00.000Z",
-  "synthesisOnly": true,
+  "validatedAt": "2026-07-26T01:00:00.000Z",
   "provenance": {
     "schemaVersion": "0.1.0-oa",
-    "provenanceRecordId": "prv:rb-synth-complete",
+    "provenanceRecordId": "prv:rb-verdict-nofreeze",
     "actor": {
       "actorId": "actor:reviewer-1",
       "role": "reviewer",

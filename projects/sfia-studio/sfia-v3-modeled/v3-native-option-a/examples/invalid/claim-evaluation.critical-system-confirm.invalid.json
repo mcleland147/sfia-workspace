@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:crit-sys-001",
+  "claimType": "securite",
+  "claimStatement": "Critical confirmed by system",
+  "criticality": "critical",
+  "evaluationMethod": "deterministic",
+  "requiredEvidenceRefs": [
+    "ev:external-001"
+  ],
+  "providedEvidenceRefs": [
+    "ev:external-001"
+  ],
+  "reviewBundleId": "rb:oa-under-001",
+  "reviewBundleVersion": 2,
+  "status": "pass",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "confirmedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "confirmationAuthority": "authorized_human",
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "evaluatedAt": "2026-07-26T01:00:00.000Z",
+  "confirmedAt": "2026-07-26T02:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-crit-sys",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

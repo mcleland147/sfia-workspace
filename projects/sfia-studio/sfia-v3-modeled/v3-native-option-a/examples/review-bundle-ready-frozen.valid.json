@@ -1,16 +1,25 @@
 {
   "schemaVersion": "0.2.0-oa",
-  "reviewBundleId": "rb:synth-complete-001",
+  "reviewBundleId": "rb:oa-ready-001",
   "projectId": "prj:campus360-oa",
-  "version": 1,
-  "evidenceRefs": [],
+  "cycleInstanceId": "cyc:modeled-001",
+  "executionContractId": "xct:oa-001",
+  "version": 2,
+  "evidenceRefs": [
+    "ev:from-attempt-001",
+    "ev:external-001"
+  ],
+  "claimEvaluationRefs": [
+    "clm:noncrit-pass-001"
+  ],
   "completeness": "complete",
-  "status": "draft",
+  "status": "ready_for_review",
   "createdAt": "2026-07-26T00:00:00.000Z",
-  "synthesisOnly": true,
+  "frozenAt": "2026-07-26T01:00:00.000Z",
+  "synthesisOnly": false,
   "provenance": {
     "schemaVersion": "0.1.0-oa",
-    "provenanceRecordId": "prv:rb-synth-complete",
+    "provenanceRecordId": "prv:rb-ready-001",
     "actor": {
       "actorId": "actor:reviewer-1",
       "role": "reviewer",
