@@ -12,11 +12,11 @@
 | **HEAD modeled validation** | `1e469fba7509d94a8b61f6b0a117b9c914d12774` |
 | **Code produit `app/lib/oa/execution-contract/`** | **IMPLEMENTED** (in-memory foundation) |
 | **Schemas modeled** | **VALIDATED** — ExecutionContract `0.2.0-oa` — **not edited** this runtime cycle |
-| **Tests runtime** | **45** PASS (`__tests__/oa/execution-contract`) |
+| **Tests runtime** | **61** PASS (`__tests__/oa/execution-contract`) |
 | **Push / PR / merge** | **NONE** |
 | **T-A5** | **NONE** (not started / not authorized; refused in T-A4) |
-| **Statut pack** | **RUNTIME FOUNDATION IMPLEMENTED — Morris validation required** |
-| **Verdict runtime** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT RUNTIME FOUNDATION IMPLEMENTED — MORRIS VALIDATION REQUIRED** |
+| **Statut pack** | **RUNTIME FOUNDATION CORRECTED AND VALIDATED — Morris GO for PR readiness** |
+| **Verdict runtime** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT RUNTIME FOUNDATION CORRECTED AND VALIDATED — PR READINESS MAY OPEN WITH MORRIS GO** |
 
 ## Why this pack exists
 
@@ -24,6 +24,7 @@
 2. Morris validated decisions (see [07](./07-modeled-rework-after-morris-arbitration.md)).
 3. Modeled rework applied + independently validated ([08](./08-modeled-rework-validation.md)).
 4. Runtime delivery resumed after handoff blob `2fb07e42…` — see [09](./09-runtime-delivery-after-modeled-validation.md).
+5. Runtime validation hardened blockers + Option B Confirm — see [10](./10-runtime-validation.md).
 
 ## Morris decisions (VALIDATED — verbatim)
 
@@ -46,7 +47,8 @@
 6. [06-delivery-validation-and-morris-decision-pack.md](./06-delivery-validation-and-morris-decision-pack.md)
 7. [07-modeled-rework-after-morris-arbitration.md](./07-modeled-rework-after-morris-arbitration.md) ← rework SoT
 8. [08-modeled-rework-validation.md](./08-modeled-rework-validation.md) ← modeled validation SoT
-9. [09-runtime-delivery-after-modeled-validation.md](./09-runtime-delivery-after-modeled-validation.md) ← **runtime SoT**
+9. [09-runtime-delivery-after-modeled-validation.md](./09-runtime-delivery-after-modeled-validation.md) ← runtime foundation SoT
+10. [10-runtime-validation.md](./10-runtime-validation.md) ← **runtime validation SoT**
 
 ## Reserves
 
