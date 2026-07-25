@@ -9,7 +9,7 @@
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial** | `eee75d19c98c19baf23802e3d276c9de89484841` |
 | **HEAD après correction** | `6449d290b6820aafdd512b1991d3b75beca49119` |
-| **HEAD final (docs validate)** | `41dd07fb099f83c8b20b7db3e6586dc00fa8bd42` |
+| **HEAD final (docs validate)** | `983aa287850b125629830882cc5eab623093285c` |
 | **Horodatage** | 2026-07-26 01:52:29 CEST (+0200) |
 | **Runtime / SQL / API / UI** | **NONE** modifié |
 | **Push / PR / merge projet** | **NONE** |
