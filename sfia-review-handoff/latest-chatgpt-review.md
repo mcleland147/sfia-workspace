@@ -1,677 +1,726 @@
-# FULL Review Pack — T-A6 Framing (Option A)
+# FULL Review Pack — T-A6 Arbitration Pack (Option A)
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 00:07:31 CEST (+0200) |
-| **Cycle** | Cadrage |
+| **Date/heure/fuseau** | 2026-07-26 00:45:16 CEST (+0200) |
+| **Cycle** | Arbitrage / conception fonctionnelle |
 | **Profil** | Critical |
-| **Gate** | `GO FRAME T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate** | `GO ARBITRATE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Repo** | mcleland147/sfia-workspace |
-| **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
+| **Base** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
-| **HEAD final** | `40e92336b3e646f03354c7912c705b1d62b68097` |
-| **Commit local** | `docs(sfia-studio): frame T-A6 evidence review and maturity` |
-| **Status** | tracked clean after commit ; staged vide ; untracked `.tmp-sfia-review/` only |
-| **Worktrees** | tech (T-A6 branch) + main + handoff |
+| **HEAD initial** | `40e92336b3e646f03354c7912c705b1d62b68097` |
+| **HEAD final** | `d2d4cf5bee8d956ae9bc3ad899bce89a5d09d0b7` |
+| **Commit** | `docs(sfia-studio): prepare T-A6 Morris arbitration` |
+| **Status** | tracked clean ; staged vide ; untracked `.tmp-sfia-review/` only |
+| **Worktrees** | tech (T-A6) + main + handoff |
 | **Template** | `prompts/templates/sfia-cycle-execution-template.md` |
-| **Handoff source** | blob `6482ed9ad6eff2cfe1bb246e78e1d89bf175683d` — T-A5 POST-MERGE VERIFIED |
-| **CKC** | `method/.../pilots/01-cadrage.md` — candidate ; experimental cognitive guidance ; `executionAuthority=false` |
+| **Handoff source** | blob `f09c773385104d16bbc66874fa95de10d2d4e2f5` — T-A6 FRAMING COMPLETED |
+| **CKC** | `method/.../pilots/01-cadrage.md` — candidate ; `executionAuthority=false` |
 
 ## Truth Check
 
-PASS — origin/main exact ; tracked clean ; pas de branche/PR T-A6 préexistante ; handoff post-merge cohérent.
+PASS — HEAD framing exact ; main exact ; ahead 1 framing puis +1 arbitration ; pas de PR/remote T-A6 ; ops absentes.
 
-## Sources consultées
+## Sources
 
-- CKC 01-cadrage.md
-- modeled README, 01, 02, 03, 05, 06, 07, **08-evidence-review-bundle-maturity-and-debt-model.md**, 09, 10
-- schemas Evidence / ReviewBundle / MaturityAssessment
-- T-A5 README + framing/materialization/pr-readiness
-- réserves B5, R1, R-T-A3-1…4, R-M01, U-M02
-
-## Path modeled Evidence exact
-
-`projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/08-evidence-review-bundle-maturity-and-debt-model.md`
-
-## Périmètre
-
-Deux fichiers delivery T-A6 uniquement. Aucun modeled/runtime/test/package modifié.
+01-framing + README T-A6 ; handoff framing ; modeled 01–10 + schemas Evidence/RB/Maturity ; T-A3/T-A4/T-A5 ; réserves B5/R1/R-T-A3/R-M01/U-M02 ; CKC cadrage.
 
 ## Fichiers
 
 | Action | Path |
 |--------|------|
-| créé | `.../t-a6-evidence-review-claims-maturity/01-framing.md` |
-| créé | `.../t-a6-evidence-review-claims-maturity/README.md` |
-| modifié | aucun hors ces créations |
+| créé | `.../t-a6-.../02-arbitration.md` |
+| modifié | `.../t-a6-.../README.md` |
+| inchangé | `01-framing.md` |
 | supprimé | aucun |
-
-## Diff-check
-
-PASS (trailing whitespace corrigé avant commit).
 
 ## Décisions validées nouvelles
 
-Aucune.
+**Aucune.** Toutes `RECOMMENDED — NOT DECIDED`.
 
-## Arbitrages
+## Synthèse recommandations D-T-A6-01…12
 
-D-T-A6-01…12 préparés — non validés.
+| ID | Reco |
+|----|------|
+| 01 | C |
+| 02 | C |
+| 03 | A+D |
+| 04 | B |
+| 05 | D |
+| 06 | MATRIX |
+| 07 | C |
+| 08 | D |
+| 09 | PRINCIPLES PACK |
+| 10 | BOUNDARY |
+| 11 | L0–L3 / L4 gated / L5 out |
+| 12 | OUTPUT CONTRACT |
 
-## Réserves
+## Diff-check
 
-B5, R1, R-T-A3-1…4, R-M01, U-M02 OPEN ; R-T-A6-1…9 candidates.
+PASS
 
-## Anti-claims
+## Contenu complet — 02-arbitration.md
 
-Pas T-A6 validé ; pas modeled/delivery/production ready ; pas storage décidé ; pas T-A7 ; pas exec réelle ; pas push/PR/merge ; pas réserves fermées.
-
-## Contenu complet — 01-framing.md
-
-# 01 — Framing T-A6 Evidence, Review, Claims and Maturity
+# 02 — Arbitration Pack T-A6 Evidence, Review, Claims and Maturity
 
 | Champ | Valeur |
 |-------|--------|
 | **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
-| **Cycle** | Framing (Critical) |
-| **Gate** | `GO FRAME T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
-| **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` (PR #266 merge) |
+| **Cycle** | Arbitrage / conception fonctionnelle (Critical) |
+| **Gate** | `GO ARBITRATE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
-| **Modeled / runtime edits** | **NONE** (cadrage documentaire uniquement) |
-| **Horodatage** | 2026-07-26 00:05:48 CEST (+0200) |
-| **Statut** | Framing complete — Morris arbitration required |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE MODELED OR DELIVERY` |
+| **HEAD framing** | `40e92336b3e646f03354c7912c705b1d62b68097` |
+| **Modeled / runtime** | **NONE** modifié |
+| **Horodatage** | 2026-07-26 00:43:49 CEST (+0200) |
+| **Statut** | **ARBITRATION PACK PREPARED** — recommandations candidates |
+| **Décisions Morris** | **NONE** — toutes `RECOMMENDED — NOT DECIDED` |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
 
 ---
 
-## 1. Contexte
+## 1. Autorité du cycle
 
-T-A5 (PR #266) a intégré sur `main` la fondation runtime mémoire `ExecutionAttempt` (Select/Start/Cancel/Record/Retry/Timeout) avec adapters Test/NoOp uniquement. T-A5 produit des **résultats techniques** et des **références** (`resultRef` / `errorRef`). Il ne produit ni Evidence validée, ni Claim, ni maturité.
+Ce gate autorise la **préparation** d’un decision pack fermé pour D-T-A6-01…12.
 
-T-A6 doit cadrer la chaîne permettant de collecter, relier, qualifier et faire revoir des preuves examinables, puis de **proposer** un état de claim et de maturité — sans fabriquer de preuve, sans transformer une évaluation système en décision humaine, et sans autoriser implicitement une nouvelle exécution.
+Il **n’autorise pas** à déclarer une option validée, approuvée, adoptée ou décidée.
 
-Ce document est **arbitrable**. Aucune option n’est validée. Aucun schema, runtime, SQL, API ou UI n’est implémenté dans ce cycle.
+| Rôle | Autorité |
+|------|----------|
+| Cursor | challenge, élimination, recommandation unique, format de réponse |
+| Morris | sélection explicite `APPROVED` / `REJECTED` / `DEFERRED` |
+| Git | trace documentaire locale + handoff L3 |
 
-### Question structurante
+---
 
-> Comment SFIA Studio peut-il collecter, relier, qualifier et faire revoir les preuves issues d’une exécution T-A5, puis calculer ou proposer un état de claim et de maturité, sans fabriquer de preuve, sans transformer une évaluation système en décision humaine et sans autoriser implicitement une nouvelle exécution ?
+## 2. Sources
 
-### Héritage T-A1 → T-A5 (contraintes dures)
-
-| Règle | Source |
-|-------|--------|
-| Project / LPS portent des refs satellites (`evidenceIds`, `reviewBundleIds`, `debtItemIds`, `maturityAssessmentId`) | modeled 03 ; B5 OPEN |
-| Cycle / Trajectory / Epistemic : `EvidenceRef` est un type épistémique ; contradiction `blocking` stoppe | modeled 05 |
-| Decision / Confirmation / Authority : séparés d’Evidence ; maturité dans la matrice d’autorité | modeled 06 |
-| T-A4 Contract jusqu’à `confirmed` ; T-A5 possède Attempt et post-start | modeled 07 ; T-A4/T-A5 |
-| T-A5 = technique only ; Evidence / Claim / maturity = **T-A6** (Morris D10) | T-A5 D10 ; modeled 07 |
-| Attempt n’embarque pas `claimId` / `partial` | Attempt `0.2.0-oa` |
-| Evidence ≠ ReviewBundle ≠ ClaimEvaluation | modeled 01 / 08 ; M-OA-07 |
-| Synthèse seule ≠ bundle complet ; pas de promotion auto de maturité | modeled 08 |
-| Secrets interdits en clair dans Evidence | modeled 08 / 10 |
-| R-T-A3-1 / R-T-A3-2 HARD pour exécution réelle | T-A5 post-merge |
-| Test/NoOp only ; aucune surface d’exécution réelle dans T-A5 | runtime T-A5 |
-
-### Modeled déjà présent (non modifié ce cycle)
-
-| Objet | Schema | Prefix | Notes |
-|-------|--------|--------|-------|
-| Evidence | `schemas/evidence/evidence.schema.json` `0.1.0-oa` | `ev:` | status / freshness / links / digest |
-| ReviewBundle | `schemas/evidence/review-bundle.schema.json` `0.1.0-oa` | `rb:` | completeness / synthesisOnly |
-| MaturityAssessment | `schemas/maturity/maturity-assessment.schema.json` `0.1.0-oa` | `mat:` (exemple) | `autoPromoted: false` |
-| ClaimEvaluation | **absent** | `clm:` (doc 02) | réserve R-M01 |
-| DebtItem | **absent** | `debt:` | listé modeled 08 ; pas de schema |
-| EvidenceRequirement | nommé doc 02 | — | pas de schema |
-
-Path exact doc Evidence : `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/08-evidence-review-bundle-maturity-and-debt-model.md`.
+| Source | Usage |
+|--------|-------|
+| `01-framing.md` + README T-A6 | cadrage et options initiales |
+| Handoff framing blob `f09c773…` | verdict framing |
+| Modeled 01–03, 05–10 + README + decision pack | Evidence/RB/Maturity, M-OA-07/08 |
+| Schemas Evidence, ReviewBundle, MaturityAssessment `0.1.0-oa` | contraintes existantes |
+| T-A3/T-A4/T-A5 frontières publiques + D10 | Attempt technique only |
+| Réserves B5, R1, R-T-A3-1…4, R-M01, U-M02 | contraintes OPEN |
+| CKC `method/.../pilots/01-cadrage.md` | guidance candidate |
 
 ### CKC
 
 | Item | Valeur |
 |------|--------|
-| Trouvé | **oui** |
+| Cycle | arbitrage (guidance via pilote cadrage) |
 | Path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` |
-| Statut | **candidate** |
+| Statut | candidate |
 | Usage | experimental cognitive guidance |
 | `executionAuthority` | **false** |
-| Fallback | non requis |
-| Limites | ne valide aucune option T-A6 ; n’ouvre pas de Cycle runtime ; ne remplace pas Morris ; n’autorise aucune exécution réelle |
 
 ---
 
-## 2. Frontière T-A5 → T-A6
+## 3. Doctrine d’arbitrage
 
-### 2.1 T-A5 produit
+Pour chaque D-T-A6 :
 
-- `ExecutionAttempt` (agrégat séparée) et statut technique ;
-- `resultRef` / `errorRef` (références techniques bornées) ;
-- timestamps, provenance technique, correlation / idempotency ;
-- audit technique append-only (refs, jamais payloads) ;
-- `selectedAgentRef`, adapter fake id, contract version binding ;
-- données strictement nécessaires à l’interprétation ultérieure.
+1. reformuler la décision ;
+2. lister options distinctes ;
+3. éliminer les incompatibles avec Git / modeled / T-A5 D10 / invariants ;
+4. analyser valeur, complexité, dette, sécurité, RGPD, coût, réversibilité, impacts modeled/runtime, dépendances, réserves ;
+5. produire **une** recommandation ;
+6. formuler la décision Morris exacte ;
+7. statut : **`RECOMMENDED — NOT DECIDED`**.
 
-### 2.2 T-A5 ne produit pas
-
-- Evidence validée / ReviewBundle final ;
-- Claim / ClaimEvaluation ;
-- maturité validée ;
-- conformité métier / acceptation humaine ;
-- autorisation de poursuivre une trajectoire ;
-- fermeture de réserve ;
-- adapter réel / exécution réelle.
-
-### 2.3 T-A6 candidat possède (à arbitrer)
-
-| Responsabilité | Notes |
-|----------------|-------|
-| Collecte / référencement d’Evidence | depuis Attempt / Contract / artefacts |
-| Intégrité et provenance | digest, source, freshness |
-| Constitution ReviewBundle | ensemble versionné soumis à revue |
-| Orchestration bornée de revue | start / findings / complete / reopen |
-| Claims et ClaimEvaluation | proposition vs confirmation |
-| MaturityAssessment | proposal / confirm / downgrade |
-| Dette et réserves | enregistrer / maintenir OPEN / fermer sous autorité |
-| Traçabilité | audit sans secrets |
-| Séparation machine / humain | système propose ; humain décide |
-| Verdict de revue | pass / fail / not_proven / waived / disputed |
-
-### 2.4 Hors périmètre T-A6
-
-- T-A7 legacy cutover / MethodMode / OPS1 ;
-- exécution réelle / adapter réel ;
-- SQL choisi, API, UI, worker, scheduler ;
-- fermeture B5 / R1 / R-T-A3-* ;
-- validation d’options (ce cycle) ;
-- ouverture automatique du cycle suivant.
+Interdit dans ce document : `VALIDATED`, `ADOPTED`, `APPROVED`, `DECIDED` appliqués à une option T-A6.
 
 ---
 
-## 3. Définitions épistémiques (candidates)
+## 4. Contraintes héritées (non re-votées)
 
-Toutes les définitions ci-dessous sont **candidates** pour arbitrage. Elles s’alignent sur modeled 08 / 01 sans les valider comme runtime.
-
-### 3.1 Observation
-
-Fait constaté, directement rattaché à une source identifiable.
-**Owner candidat :** Reviewer / système de capture (selon type).
-**Immutabilité :** observation enregistrée ne se réécrit pas ; correction = nouvelle observation.
-**Automatisation :** capture possible ; jugement de pertinence souvent humain.
-**Anti-claim :** une observation n’est pas une Evidence validée ni un Claim.
-
-### 3.2 Evidence
-
-Objet ou référence vérifiable supportant une observation ou un claim (`ev:`).
-**Owner candidat :** domaine H / T-A6.
-**Lifecycle candidat (modeled existant) :** `expected | available | verified | incomplete | stale | rejected | superseded`.
-**Versioning :** `0.1.0-oa` ; digest optionnel.
-**Autorité création :** système (référencement technique) ou humain (attestation).
-**Autorité validation :** humain ou règle déterministe explicite — jamais l’agent T-A5 auteur.
-**Anti-claims :** secrets interdits en clair ; location = référence ; synthèse ≠ Evidence complète ; Attempt.status ≠ Evidence.
-
-### 3.3 Finding
-
-Écart ou constat qualifié issu d’une revue.
-**Owner candidat :** ReviewBundle / Reviewer.
-**Relation :** Finding référence Evidence / Claim ; ne remplace pas Decision.
-**Anti-claim :** Finding ≠ ClaimEvaluation ≠ Decision Morris.
-
-### 3.4 Claim
-
-Proposition vérifiable affirmant qu’une propriété est satisfaite.
-**Types candidats :** technique ; conformité ; qualité ; sécurité ; maturité-support.
-**Interdit :** claim décisionnel qui se substitue à une Decision humaine.
-**Owner création candidat :** système (proposition) ou reviewer.
-**Owner validation :** humain N≥ selon Critical ; Morris pour claims structurants.
-**Anti-claim :** Claim ≠ Evidence ; Claim ≠ PASS automatique.
-
-### 3.5 ClaimEvaluation
-
-Évaluation d’un Claim à partir d’Evidence et de règles explicites (`clm:`).
-**Schema :** absent (R-M01 OPEN).
-**Lifecycle candidat :** `pending | evaluating | pass | fail | not_proven | waived | disputed`.
-**Règle :** `PASS` impossible si Evidence obligatoire absente ; `NOT_PROVEN` ≠ `FAIL` ; `WAIVED` ≠ `PASS`.
-**Anti-claim :** ClaimEvaluation ne mute pas Evidence ; système peut proposer, confirmation humaine selon type/Critical.
-
-### 3.6 ReviewBundle
-
-Ensemble versionné des éléments soumis à une revue (`rb:`).
-**Lifecycle candidat (modeled) :** `draft | ready_for_review | accepted | rejected | superseded` (+ gel / under_review / reopened à arbitrer).
-**Règle :** `synthesisOnly: true` ⇒ completeness `incomplete` ; bundle incomplete ⇒ pas de claim READY.
-**Anti-claim :** merge Git ≠ ReviewBundle accepted ; synthèse seule ≠ bundle complet.
-
-### 3.7 Maturity
-
-État synthétique dérivé de claims et décisions explicites — **jamais une preuve en soi**.
-**Niveaux modeled :** `DOCUMENTED | VALIDATED | MODELED | IMPLEMENTED | ADOPTED`.
-**Status :** `proposed | accepted | rejected | superseded` (+ `downgraded` candidat).
-**`autoPromoted: false` const.**
-**Anti-claims :** MODELED ⇏ IMPLEMENTED ; maturité ≠ autorisation d’exécution ; pas de moyenne trompeuse.
-
-### 3.8 Debt / Reserve
-
-Écart connu, risque, limite ou condition non satisfaite, conservé indépendamment d’un résultat positif.
-**DebtItem** (`debt:`) : dette produit/technique.
-**Reserve** : condition structurante (B5, R1, R-T-A3-*, R-M01, U-M02…).
-**Fermeture :** autorité humaine explicite ; **système ne ferme aucune réserve structurante**.
-**Anti-claim :** verdict review positif ≠ fermeture de réserve.
-
-### 3.9 Decision
-
-Arbitrage humain explicite (`dec:` / Confirmation `cnf:`).
-**Ne doit jamais** être créé implicitement par une Evidence, une ClaimEvaluation automatique ou une MaturityAssessment.
-**Relation T-A6 :** une review peut **recommander** une Decision ; elle ne la crée pas.
+| Contrainte | Source |
+|------------|--------|
+| Evidence ≠ ReviewBundle ≠ ClaimEvaluation | M-OA-07 |
+| Pas de promotion auto de maturité ; `autoPromoted: false` | M-OA-08 / schema |
+| T-A5 = technique only ; Evidence/Claim/maturity = T-A6 | T-A5 D10 |
+| Attempt sans `claimId` / `partial` | Attempt `0.2.0-oa` |
+| Synthèse seule ≠ bundle complet | modeled 08 |
+| Secrets interdits en clair Evidence | modeled 08/10 |
+| N3 ≠ Morris | T-A3/T-A5 |
+| R-T-A3-1/2 HARD exécution réelle | T-A5 post-merge |
+| B5, R1, R-M01, U-M02 OPEN | modeled / T-A5 |
+| Prefixes : `ev:`, `rb:`, `clm:`, `debt:`, `mat:` | modeled 02 |
 
 ---
 
-## 4. Questions structurantes (Q1–Q10)
+## 5. Décisions D-T-A6-01 … D-T-A6-12
 
-Chaque question présente des **options candidates**. Aucune n’est validée.
+### D-T-A6-01 — Nature et ownership d’Evidence
 
-### Q1 — Evidence : copie ou référence
-
-| Option | Description | Forces | Risques |
-|--------|-------------|--------|---------|
-| **A — Références immuables** | `location` + digest vers artefacts externes | volumétrie basse ; portabilité | indisponibilité externe ; R-T-A3-2 |
-| **B — Snapshot interne** | copie content-addressed | intégrité / disponibilité | coût ; PII ; rétention |
-| **C — Hybride** | metadata + digest obligatoires ; payload optionnel selon classification | flexibilité | complexité ; U-M02 |
-
-**Recommandation candidate :** **C** — metadata/digest toujours ; payload interne seulement si classification l’exige.
-**Dette :** U-M02 storage. **Réversible :** oui avant delivery. **Gate :** D-T-A6-02.
-
-### Q2 — Granularité Evidence
-
-Bindings explicites candidats (multi-liens via `links` / EvidenceBinding) :
-
-- Attempt (`xat:`) — **primaire** pour résultats T-A5 ;
-- ExecutionContract (`xct:`) ;
-- Claim / ReviewBundle ;
-- Cycle / Decision (optionnel).
-
-**Interdit candidat :** Evidence globale orpheline sans binding.
-**Recommandation candidate :** binding Attempt obligatoire pour Evidence issue d’exécution ; multi-binding explicite autorisé.
-**Gate :** D-T-A6-01.
-
-### Q3 — ReviewBundle
+**Décision requise :** définir la nature et l’ownership d’Evidence dans Option A.
 
 | Option | Description |
 |--------|-------------|
-| **A** | Agrégat autonome gelé (ownership H) |
-| **B** | Projection versionnée depuis LPS |
-| **C** | Liste de références sans gel |
-| **D** | Snapshot gelé au StartReview |
+| **A** | Agrégat autonome Evidence |
+| **B** | Entité rattachée exclusivement à ExecutionAttempt (owned by T-A5) |
+| **C** | Entité T-A6 indépendante avec bindings explicites (Attempt primaire possible) |
+| **D** | Simple référence sans lifecycle propre |
 
-**Recommandation candidate :** **A+D** — agrégat autonome ; freeze explicite avant verdict ; supersession = nouvel id ; reopen = nouvelle review ou version.
-**Gate :** D-T-A6-03.
+**Éliminées :**
 
-### Q4 — Claim
+| Option | Justification |
+|--------|---------------|
+| **B** | Contredit T-A5 D10 (T-A5 ne possède pas Evidence) et ownership Attempt technique |
+| **D** | Incompatible avec schema Evidence existant (status, provenance, digest) et I01–I03 |
+| **A** | Trop lourd si ReviewBundle porte la cohérence de revue ; risque de double agrégat sans gain v1 |
 
-Séparer :
+**Recommandation :** **C**
 
-- claim technique (ex. Attempt succeeded + refs présentes) ;
-- claim conformité / qualité / sécurité ;
-- claim support de maturité ;
-- **claim décisionnel interdit**.
+- Evidence = entité T-A6 (`ev:`) avec identité, provenance, intégrité, lifecycle ;
+- bindings explicites (`links` / EvidenceBinding) ;
+- Attempt = source primaire pour résultats d’exécution, **pas** owner ;
+- sources manuelles / externes autorisées via bindings ;
+- ReviewBundle reste l’agrégat de cohérence de revue.
 
-**Création :** système peut proposer ; humain peut créer.
-**Validation :** selon Critical et type (Q5 / Q9).
-**Gate :** D-T-A6-04.
+| Dimension | Analyse |
+|-----------|---------|
+| Valeur | Aligné schemas + multi-origine |
+| Complexité | Moyenne |
+| Dette | Bindings multi-objets à spécifier au materialize |
+| Sécurité/RGPD | Classification au niveau Evidence |
+| Réversibilité | Haute avant delivery |
+| Impact modeled | Enrichissement docs/bindings ; schema déjà présent |
+| Impact runtime | Futur module T-A6 ; pas T-A5 |
+| Réserves | — |
+| Statut | **RECOMMENDED — NOT DECIDED** |
 
-### Q5 — ClaimEvaluation
+**Formulation Morris proposée :**
+`D-T-A6-01 = OPTION C — APPROVED`
+(Evidence entité T-A6 indépendante à bindings explicites ; Attempt non-owner)
 
-| Option | Usage candidat |
-|--------|----------------|
-| **A** Auto déterministe | claims techniques non-Critical à règles fermées |
-| **B** Système assisté + confirmation humaine | défaut |
-| **C** Revue humaine obligatoire | Critical / sécurité / maturité ADOPTED |
-| **D** Stratégie par type × Critical | matrice |
+---
 
-**Recommandation candidate :** **D** avec règle : système **propose** ; confirmation humaine pour Critical et tout claim impactant maturité ≥ VALIDATED.
-**Gate :** D-T-A6-05 / D-T-A6-06.
+### D-T-A6-02 — Copie, référence ou hybride
 
-### Q6 — Maturité
+**Décision requise :** modèle logique de conservation Evidence (sans vendor).
 
-| Aspect | Proposition candidate |
-|--------|----------------------|
-| Nature | **proposée** puis **confirmée** ; jamais auto |
-| Calcul | dérivé de ClaimEvaluations + réserves ; downgrade possible |
-| Seuils | explicites par niveau ; pas de moyenne |
-| NOT_PROVEN | bloque promotion ; ≠ FAIL |
-| Réserves bloquantes | incompatibles avec niveau final correspondant |
-| Morris | confirme niveaux structurants / ADOPTED |
+| Option | Description |
+|--------|-------------|
+| **A** | Référence externe uniquement |
+| **B** | Snapshot interne uniquement |
+| **C** | Hybride : metadata+digest internes ; payload interne ou externe selon classification |
+| **D** | Content-addressed interne obligatoire pour tout payload |
 
-**Gate :** D-T-A6-07 / D-T-A6-08.
+**Éliminées :**
 
-### Q7 — Dette et réserves
+| Option | Justification |
+|--------|---------------|
+| **A** | Indisponibilité externe + R-T-A3-2 ; intégrité faible si pas de digest local |
+| **B** | Coût/PII/rétention excessifs pour tous les artefacts |
+| **D** | Trop strict trop tôt ; force stockage interne même pour artefacts publics techniques |
 
-- Verdict positif **maintient** réserves OPEN ;
-- Distinguer : dette / risque / réserve / waiver / finding ;
-- Fermeture : N≥ / Morris selon criticité ;
-- Propagation LPS / Cycle / Trajectory via refs (contrainte B5) ;
-- Waiver explicite, jamais silencieux.
+**Recommandation :** **C**
 
-### Q8 — Revue
+Règles minimales candidates :
 
-| Aspect | Proposition candidate |
-|--------|----------------------|
-| Déclencheur | commande StartReview sur bundle frozen |
-| Reviewer | humain N≥ ; système = contrôles L1/L3 seulement |
-| Séparation | auteur Attempt / agent ≠ reviewer du claim Critical |
-| Verdicts | accepted / rejected / incomplete / reopen |
-| Immutabilité | résultat de revue versionné ; correction = nouvelle review |
+| Règle | Contenu |
+|-------|---------|
+| Metadata | toujours canoniques internes |
+| Digest | obligatoire dès qu’un payload est revendiqué |
+| Payload | interne si PII/secret-class/legal hold ; sinon référence externe autorisée |
+| Indisponibilité | status `stale` / `unavailable` ; pas de PASS sur Evidence obligatoire absente |
+| Suppression | soft + legal hold ; purge selon classe |
+| Secrets | interdits en clair (location/provenance/logs) |
+| Portabilité | export metadata + digests toujours |
 
-### Q9 — Autorité (matrice fermée candidate)
+U-M02 reste **OPEN** (technologie non choisie).
+
+| Statut | **RECOMMENDED — NOT DECIDED** |
+
+**Formulation :**
+`D-T-A6-02 = OPTION C — APPROVED`
+(hybride logique ; aucun vendor)
+
+---
+
+### D-T-A6-03 — ReviewBundle
+
+**Décision requise :** nature du ReviewBundle et règle de gel.
+
+| Option | Description |
+|--------|-------------|
+| **A** | Agrégat autonome versionné |
+| **B** | Projection dynamique |
+| **C** | Liste mutable de références |
+| **D** | Snapshot gelé à l’ouverture de review |
+| **A+D** | Agrégat autonome + freeze immutable avant verdict |
+
+**Éliminées :**
+
+| Option | Justification |
+|--------|---------------|
+| **B** | Verdict non reproductible (I06) |
+| **C** | Mutable pendant revue → drift (I05 / R-T-A6-2) |
+| **A seule** | Sans freeze explicite, risque de mutation post-start |
+| **D seule** | Snapshot sans agrégat/ownership H affaiblit identity/versioning |
+
+**Recommandation :** **A+D** avec lifecycle v1 simplifié :
+
+`draft → frozen → under_review → accepted | rejected | incomplete | superseded`
+
+- `ready_for_review` modeled actuel **équivalent sémantique** de `frozen` en v1 (éviter double état) ;
+- draft mutable sous OCC ;
+- freeze crée version immutable ;
+- verdict lié à `reviewBundleId` + version exacte ;
+- correction = nouvelle version / nouvelle review (pas mutation historique).
+
+| Statut | **RECOMMENDED — NOT DECIDED** |
+
+**Formulation :**
+`D-T-A6-03 = OPTION A+D — APPROVED`
+(agrégat autonome ; freeze avant verdict ; ready_for_review ≡ frozen v1)
+
+---
+
+### D-T-A6-04 — Claim et ClaimEvaluation
+
+**Décision requise :** modèle conceptuel et v1 physique.
+
+| Option | Description |
+|--------|-------------|
+| **A** | Claim et ClaimEvaluation objets séparés (schemas séparés) |
+| **B** | Fusion physique v1 dans ClaimEvaluation (champs claim inclus) |
+| **C** | Claim seulement ; résultat porté par ReviewBundle |
+| **D** | Claim catalogue statique + instances d’évaluation |
+
+**Éliminées :**
+
+| Option | Justification |
+|--------|---------------|
+| **C** | Dilue ClaimEvaluation ; contredit M-OA-07 et catalogue EvaluateClaim |
+| **A pure v1** | Deux schemas avant R-M01 enrichi = dette prématurée |
+
+**Recommandation :** **B** (physique v1) **avec séparation sémantique** (conceptuelle A) :
+
+ClaimEvaluation v1 (`clm:`) porte :
+
+- définition / énoncé du claim ;
+- type (technique | conformité | qualité | sécurité | maturité-support) ;
+- règle d’évaluation (réf explicite) ;
+- Evidence requises ;
+- statut `pending|evaluating|pass|fail|not_proven|waived|disputed` ;
+- reviewer / confirmation ;
+- waiver / dispute metadata.
+
+Claim catalogue (D) = **évolution** optionnelle post-v1, pas bloquante.
+
+R-M01 reste **OPEN** jusqu’à materialize/validation schema.
+
+| Statut | **RECOMMENDED — NOT DECIDED** |
+
+**Formulation :**
+`D-T-A6-04 = OPTION B — APPROVED`
+(ClaimEvaluation v1 unifié sémantiquement séparé ; schema prioritaire R-M01)
+
+---
+
+### D-T-A6-05 — Matrice d’évaluation Critical
+
+**Décision requise :** qui évalue / confirme selon type × criticité.
+
+| Option | Description |
+|--------|-------------|
+| **A** | Toutes évaluations humaines |
+| **B** | Automatisation déterministe complète |
+| **C** | Système propose, humain confirme toujours |
+| **D** | Matrice type × criticité |
+
+**Éliminées :**
+
+| Option | Justification |
+|--------|---------------|
+| **B** | Auto-validation Critical / maturité = risque structurant |
+| **A** | Coût excessif pour claims techniques non-Critical déterministes |
+| **C** | Sur-contraint L3 légitime non-Critical |
+
+**Recommandation :** **D** — matrice minimale :
+
+| Type claim | Non-Critical | Critical |
+|------------|--------------|----------|
+| Technique déterministe (règle fermée + Evidence complète) | L3 auto **propose+applique** statut évaluatif technique | Système propose ; humain N≥ confirme |
+| Conformité / qualité / sécurité | Système propose ; humain N≥ confirme | Humain N≥ confirme ; pas self-review |
+| Support maturité | Système propose | Humain ; Morris si structurant / ADOPTED |
+| Décisionnel | **INTERDIT** | **INTERDIT** |
+
+Règles transverses :
+
+- NOT_PROVEN ≠ PASS ; conversion implicite interdite ;
+- WAIVED distinct, autorisé, motivé, horodaté ;
+- auteur Attempt/agent ≠ validateur claim Critical.
+
+| Statut | **RECOMMENDED — NOT DECIDED** |
+
+**Formulation :**
+`D-T-A6-05 = OPTION D — APPROVED`
+
+---
+
+### D-T-A6-06 — Autorité de confirmation
+
+**Décision requise :** matrice fermée des acteurs.
 
 | Acteur | Peut | Ne peut pas |
 |--------|------|-------------|
-| Système | référencer Evidence ; proposer claims/évaluations/maturité ; contrôles déterministes | se déclarer Morris ; fermer réserve structurante ; valider Critical sans règle ; promouvoir Option A ; autoriser exécution ; muter Evidence source |
-| Agent T-A5 | produire resultRef technique | créer Evidence validée / Claim accepté |
-| Reviewer N1/N2/N3 | revue selon scope | usurper Morris ; réécrire historique |
-| Morris | Critical / réserves / maturité structurante | — |
-| Adapter / service | fournir artefacts | juger conformité |
+| Système | proposer ; contrôles L1/L3 bornés | confirmer Critical ; fermer réserve ; se déclarer Morris ; autoriser exécution |
+| Agent T-A5 | artefacts techniques (`resultRef`) | Evidence validée ; Claim confirmé |
+| Reviewer N1 | revue scope N1 | usurper N2/N3/Morris |
+| Reviewer N2 | revue scope N2 | Morris |
+| Reviewer N3 | revue scope N3 | **≠ Morris** |
+| Morris | claims/maturité/réserves/waivers structurants | — |
+| Service technique | stocker/servir artefacts | juger conformité |
 
-### Q10 — Transition de trajectoire
+**Éliminé :** toute règle « N3 = Morris » (héritage T-A3/T-A5).
 
-T-A6 peut **produire** :
+**Recommandation :** matrice ci-dessus + séparation des rôles + provenance obligatoire sur confirmations.
 
-- refs LPS (`evidenceIds`, `reviewBundleIds`, `maturityAssessmentId`, `debtItemIds`) — sous réserve B5 ;
-- événements de revue / maturité ;
-- **recommandation** de prochain gate / correction cycle.
+| Statut | **RECOMMENDED — NOT DECIDED** |
 
-T-A6 **ne lance pas** automatiquement un cycle suivant.
-**Gate :** D-T-A6-12.
-
----
-
-## 5. Objets candidats et simplification
-
-| Objet | Nature candidate | ID | Justification | Alternative plus simple |
-|-------|------------------|----|---------------|-------------------------|
-| Evidence | entité / VO lié | `ev:` | schema existant | — |
-| EvidenceSource | VO | — | classifier origine | string `source` suffit v1 |
-| EvidenceBinding | VO | — | multi-liens | `links` schema existant |
-| ReviewBundle | **agrégat** | `rb:` | ownership H | — |
-| ReviewScope | VO | — | bornage revue | champs sur bundle |
-| Finding | entité | `fnd:`? | écarts | event + note |
-| Claim | entité | ? | proposition | fusionner dans ClaimEvaluation v1 |
-| ClaimEvaluation | entité | `clm:` | R-M01 | — |
-| MaturityAssessment | entité | `mat:` | schema existant | — |
-| DebtRecord | entité | `debt:` | LPS | — |
-| ReviewDecision | projection | — | pointer Decision | utiliser Decision T-A3 |
-
-**Challenge réduction :** v1 candidate = **Evidence + ReviewBundle + ClaimEvaluation + MaturityAssessment + DebtRecord** (5). EvidenceSource/Binding/Finding/Claim séparés = enrichissement ultérieur. Finding peut rester événement + payload borné.
-
-**Agrégats candidats v1 :** ReviewBundle (H) ; ClaimEvaluation (si schema) ; Evidence peut rester entité référencée plutôt qu’agrégat racine (aligné modeled 01).
+**Formulation :**
+`D-T-A6-06 = MATRIX AS DOCUMENTED — APPROVED`
 
 ---
 
-## 6. Lifecycles candidats
+### D-T-A6-07 — Modèle de maturité
 
-### 6.1 Evidence (modeled + challenge)
+**Décision requise :** nature du MaturityAssessment.
 
-`expected → available → verified` ; branches `incomplete | stale | rejected | superseded`.
-**Challenge :** ne pas confondre `available` (disponibilité) et `verified` (intégrité/acceptabilité).
-**Non validé.**
+| Option | Description |
+|--------|-------------|
+| **A** | Calculée automatiquement et finale |
+| **B** | Proposée par système seulement |
+| **C** | Proposée puis confirmée |
+| **D** | Purement manuelle |
+| **E** | Dérivée à la lecture (non persistée) |
 
-### 6.2 ReviewBundle
+**Éliminées :**
 
-Modeled : `draft | ready_for_review | accepted | rejected | superseded`.
-**Extension candidate :** `frozen` (avant review) ; `under_review` ; `reopened`.
-Alternative : `ready_for_review` = frozen.
+| Option | Justification |
+|--------|---------------|
+| **A** | Contredit `autoPromoted: false` / M-OA-08 |
+| **E** | Non auditable / non versionnable |
+| **B seule** | Sans confirmation = promotion de facto |
+| **D seule** | Perd traçabilité des claims sous-jacents |
 
-### 6.3 ClaimEvaluation
+**Recommandation :** **C**
 
-`pending → evaluating → {pass | fail | not_proven | waived | disputed}`.
-Terminal disputé peut rouvrir.
+- assessment versionné (`mat:`) ;
+- proposition dérivée de ClaimEvaluations + réserves ;
+- confirmation humaine ; Morris pour niveau structurant / ADOPTED ;
+- `autoPromoted=false` ;
+- downgrade si claim/Evidence invalidés ;
+- supersession plutôt que réécriture ;
+- NOT_PROVEN et réserves bloquantes empêchent promotion ;
+- pas de moyenne masquant une dimension bloquante ;
+- maturité ≠ autorisation d’exécution.
 
-### 6.4 MaturityAssessment
+| Statut | **RECOMMENDED — NOT DECIDED** |
 
-Modeled status : `proposed | accepted | rejected | superseded`.
-**Extension candidate :** `downgraded` (événement + nouvel assessment superseding).
-
----
-
-## 7. Commandes et événements candidats
-
-### 7.1 Commandes (à qualifier / dédoublonner)
-
-| Commande | Owner | Autorité | Idempotence | Notes |
-|----------|-------|----------|-------------|-------|
-| RegisterEvidence | T-A6 | système/humain | oui (digest/id) | vs catalog AttachEvidence |
-| AttachEvidence | T-A6 | système | oui | binding Attempt/Contract |
-| VerifyEvidenceIntegrity | T-A6 | système | oui | digest check |
-| CreateReviewBundle | T-A6 | N≥ / système | non | draft |
-| FreezeReviewBundle | T-A6 | N≥ | oui | gel avant verdict |
-| StartReview | T-A6 | reviewer | oui | |
-| RecordFinding | T-A6 | reviewer | append | |
-| CreateClaim | T-A6 | système/humain | non | proposition |
-| EvaluateClaim | T-A6 | système/humain | bornée | catalog 09 |
-| ConfirmClaimEvaluation | T-A6 | N≥ / Morris | oui | |
-| RejectClaimEvaluation | T-A6 | N≥ / Morris | oui | |
-| CompleteReview | T-A6 | reviewer | oui | |
-| ReopenReview | T-A6 | N≥ / Morris | non | nouvelle version |
-| ProposeMaturity | T-A6 | système | oui | autoPromoted false |
-| ConfirmMaturity | T-A6 | N≥ / Morris | oui | |
-| DowngradeMaturity | T-A6 | N≥ / Morris | non | |
-| RegisterDebt / CloseDebt / ReopenDebt | T-A6 | N≥ / Morris close | — | système n’auto-close pas réserve |
-| GetReviewBundle / ListEvidence / GetClaimEvaluation | T-A6 | lecture | oui | |
-
-**Simplification candidate :** fusionner Register+Attach ; fusionner CreateClaim dans EvaluateClaim(propose).
-
-### 7.2 Événements candidats
-
-EvidenceRegistered · EvidenceIntegrityVerified · EvidenceRejected · ReviewBundleFrozen · ReviewStarted · FindingRecorded · ClaimCreated · ClaimEvaluationProposed · ClaimEvaluationConfirmed · ClaimEvaluationRejected · ReviewCompleted · ReviewReopened · MaturityProposed · MaturityConfirmed · MaturityDowngraded · DebtRegistered · DebtClosed · ReserveMaintainedOpen.
-
-**Audit :** refs only — jamais secret, token, payload Evidence brut, Confirmation complète.
+**Formulation :**
+`D-T-A6-07 = OPTION C — APPROVED`
 
 ---
 
-## 8. Invariants candidats
+### D-T-A6-08 — Réserves et maturité
 
-| ID | Invariant | Risque | Owner | Test futur | Réserve | Morris |
-|----|-----------|--------|-------|------------|---------|--------|
-| I01 | Evidence liée à source identifiable | orpheline | T-A6 | schema+runtime | — | non |
-| I02 | Digest/intégrité quand applicable | falsification | T-A6 | VerifyIntegrity | U-M02 | D-T-A6-02 |
-| I03 | Provenance obligatoire | audit | T-A6 | schema | — | non |
-| I04 | Pas d’Evidence fabriquée depuis un claim seul | fausse assurance | T-A6 | adversarial | — | oui |
-| I05 | ReviewBundle gelé avant verdict | drift | T-A6 | Freeze | — | D-T-A6-03 |
-| I06 | Verdict référence version exacte du bundle | non-reproductibilité | T-A6 | CompleteReview | — | non |
-| I07 | ClaimEvaluation ne mute pas Evidence | intégrité | T-A6 | mutation test | — | non |
-| I08 | PASS impossible si Evidence obligatoire absente | faux PASS | T-A6 | EvaluateClaim | — | oui |
-| I09 | NOT_PROVEN ≠ FAIL | sémantique | T-A6 | enum | R-M01 | oui |
-| I10 | WAIVED ≠ PASS | waiver silencieux | T-A6 | enum+audit | — | oui |
-| I11 | Réserve bloquante incompatible maturity finale | inflation | T-A6 | Propose/Confirm | B5/R-T-A3 | oui |
-| I12 | Système ne ferme aucune réserve humaine | usurpation | T-A6 | CloseDebt authz | — | oui |
-| I13 | Reviewer ne réécrit pas l’historique | anti-tamper | T-A6 | OCC/version | — | non |
-| I14 | Correction ⇒ nouvelle version / review | immutabilité | T-A6 | Reopen | — | non |
-| I15 | Maturity downgrade possible | honesty | T-A6 | Downgrade | — | D-T-A6-07 |
-| I16 | Maturity ≠ autorisation d’exécution | élévation | T-A6 | anti-claim | R-T-A3 | oui |
-| I17 | Résultat T-A5 ≠ Evidence validée sans ingestion | confusion | T-A6 | Attach | — | oui |
-| I18 | Pas de donnée sensible complète dans logs/refs publiques | RGPD/secret | T-A6 | audit scan | — | non |
+**Décision requise :** effet des réserves sur les niveaux de maturité.
 
----
+| Option | Description |
+|--------|-------------|
+| **A** | Réserves seulement affichées |
+| **B** | Informatives sans effet |
+| **C** | Bloquent tout niveau |
+| **D** | Bloquent dimensions / niveaux associés |
+| **E** | Waiver permet d’ignorer sans trace |
 
-## 9. Autorité, Critical, séparation humain/système
+**Éliminées :**
 
-- Critical review / claims / maturité ≥ VALIDATED : confirmation humaine explicite.
-- Agent T-A5 et système d’évaluation : **conflit d’intérêts** → ne valident pas leurs propres claims Critical.
-- Morris : réserves structurantes, ADOPTED, overrides.
-- N3 ≠ Morris (héritage T-A3/T-A5).
-- Aucun auto-ack, auto-promote, auto-close.
+| Option | Justification |
+|--------|---------------|
+| **A/B** | Inflation (R-T-A6-5) |
+| **C** | Trop strict (DOCUMENTED bloqué par dette UX mineure) |
+| **E** | Waiver silencieux (R-T-A6-6) |
 
----
+**Recommandation :** **D**
 
-## 10. Sécurité, RGPD, données
+- mapping réserve → dimension/niveau ;
+- réserve HARD bloque assertion incompatible ;
+- PASS claims ≠ fermeture réserve ;
+- waiver ≠ fermeture : explicite, autorisé, motivé, horodaté, réversible ;
+- B5 et R-T-A3-* restent OPEN ;
+- système ne ferme aucune réserve structurante.
 
-### Classification candidate
+| Statut | **RECOMMENDED — NOT DECIDED** |
 
-| Classe | Exemples | Traitement candidat |
-|--------|----------|---------------------|
-| Public technique | attemptId, status, digests | refs OK |
-| Interne | logs techniques non PII | rétention bornée |
-| Sensible / PII | captures UI, noms, emails | minimisation ; pas dans logs |
-| Secret | tokens, credentials | **interdit** dans Evidence claire |
-
-### Interdictions candidates
-
-- secret dans URL / location ;
-- Evidence brute dans audit log ;
-- token dans provenance ;
-- exécution de contenu Evidence ;
-- rendu HTML non assaini ;
-- confiance automatique aux métadonnées agent ;
-- export ReviewBundle sans contrôle d’accès.
-
-### RGPD
-
-Droit d’effacement vs legal hold ; anonymisation ; rétention par classe ; accès reviewer minimisé.
+**Formulation :**
+`D-T-A6-08 = OPTION D — APPROVED`
 
 ---
 
-## 11. Stockage et volumétrie (non décidé)
+### D-T-A6-09 — Stockage et rétention (principes)
 
-| Dimension | Options candidates | Lien réserve |
-|-----------|-------------------|--------------|
-| Metadata vs payload | SQL/metadata + object store | U-M02 |
-| Content-addressed | digest = adresse | U-M02 |
-| Références externes | A (Q1) | R-T-A3-2 |
-| Max size / count | bornes par Attempt/Claim/Bundle | volumétrie LPS |
-| Déduplication | par digest | — |
-| Indisponibilité | status `unavailable` / `stale` | — |
+**Décision requise :** principes logiques uniquement — **pas** de technologie.
 
-**Aucune technologie validée.**
+**Recommandation :** **PRINCIPLES PACK** (pas de vendor) :
+
+| Principe | Règle candidate |
+|----------|-----------------|
+| Metadata | canoniques, versionnées, internes |
+| Payload | séparé ; CAS lorsque pertinent |
+| Classification | public technique / interne / PII / secret |
+| Bornes | max size et count par Attempt/Claim/Bundle (valeurs au materialize) |
+| Rétention | par classe |
+| Indisponibilité | fail-closed pour Evidence obligatoire |
+| Effacement | vs legal hold |
+| Chiffrement / accès / export / purge / dédup | obligatoires conceptuellement |
+
+U-M02 reste **OPEN**.
+
+**Éliminé :** choix S3/Postgres/filesystem dans ce cycle.
+
+| Statut | **RECOMMENDED — NOT DECIDED** |
+
+**Formulation :**
+`D-T-A6-09 = PRINCIPLES PACK — APPROVED`
+(technologie DEFERRED ; U-M02 OPEN)
 
 ---
 
-## 12. Automatisation et niveaux SFIA
+### D-T-A6-10 — Frontière T-A6 / T-A7
 
-| Niveau | Actions candidates T-A6 |
-|--------|-------------------------|
+| Domaine | Owner |
+|---------|-------|
+| Evidence, ReviewBundle, ClaimEvaluation, MaturityAssessment, dette/findings de review, reco de gate | **T-A6** |
+| Cutover legacy, MethodMode, OPS1, migration chemins historiques, activation opérationnelle globale | **T-A7** |
+
+**Recommandation :** frontière ci-dessus.
+
+- T-A6 ne lance pas T-A7 ;
+- aucune exécution réelle ouverte par T-A6.
+
+| Statut | **RECOMMENDED — NOT DECIDED** |
+
+**Formulation :**
+`D-T-A6-10 = BOUNDARY AS DOCUMENTED — APPROVED`
+
+---
+
+### D-T-A6-11 — Automatisation
+
+**Recommandation :** doctrine fermée
+
+| Niveau | Autorisé T-A6 |
+|--------|---------------|
 | L0 | revue manuelle assistée |
-| L1 | contrôles auto (intégrité, présence refs) |
-| L2 | génération guidée bundle/claims |
-| L3 | évaluation déterministe bornée non-Critical |
+| L1 | présence / intégrité / cohérence |
+| L2 | génération guidée bundles/claims |
+| L3 | évaluation déterministe non-Critical bornée |
 | L4 | orchestration sous gates Morris |
 | L5 | **hors cible** Option A |
 
-**Stop conditions :** Evidence obligatoire absente ; bundle non gelé ; self-review Critical ; réserve bloquante ; R-T-A3-1/2 si chemin exec réelle ; PII/secret détecté.
+**Interdictions :**
 
-**Règle :** aucune automatisation ne transforme une proposition de maturité en décision validée.
+- auto-confirm maturité ;
+- auto-fermeture réserve humaine ;
+- auto-lancement cycle suivant ;
+- NOT_PROVEN → PASS ;
+- self-review Critical.
 
----
+| Statut | **RECOMMENDED — NOT DECIDED** |
 
-## 13. Risques et réserves
-
-### 13.1 Réserves existantes (OPEN — non fermées)
-
-| ID | Statut | Impact T-A6 |
-|----|--------|-------------|
-| B5 | OPEN | LPS satellite ids (evidenceIds…) |
-| R1 | OPEN | atomicité cross-store |
-| R-T-A3-1 | OPEN HARD exec réelle | Critical ack |
-| R-T-A3-2 | OPEN HARD exec réelle | durabilité Evidence/Attempt |
-| R-T-A3-3 | OPEN | authority registry mémoire |
-| R-T-A3-4 | OPEN | mapping AUTHORITY_SCOPE_MISMATCH |
-| R-M01 | OPEN | ClaimEvaluation schema |
-| U-M02 | OPEN | stockage Evidence blobs |
-
-### 13.2 Réserves / risques **candidates** (non validées)
-
-| ID candidat | Risque | Prob. | Impact | Mitigation candidate | Blocker T-A6 framing | Blocker exec réelle |
-|-------------|--------|-------|--------|----------------------|----------------------|---------------------|
-| R-T-A6-1 | Evidence falsifiée / mutable | M | H | digest + freeze | non | oui si exec |
-| R-T-A6-2 | Bundle non gelé avant verdict | M | H | Freeze obligatoire | non | — |
-| R-T-A6-3 | Self-review / auto-validation | M | H | séparation auteur/reviewer | non | oui Critical |
-| R-T-A6-4 | NOT_PROVEN traité comme PASS | M | H | enum + tests | non | — |
-| R-T-A6-5 | Maturity inflation | M | H | réserves bloquantes | non | — |
-| R-T-A6-6 | Waiver silencieux | L | H | WAIVED explicite | non | — |
-| R-T-A6-7 | PII/secret dans Evidence | M | H | classification + scan | non | — |
-| R-T-A6-8 | Volumétrie / rétention | M | M | bornes + U-M02 | non | — |
-| R-T-A6-9 | Divergence modeled/runtime | M | M | gates materialize | non | — |
+**Formulation :**
+`D-T-A6-11 = L0–L3 DEFAULT / L4 GATED / L5 OUT — APPROVED`
 
 ---
 
-## 14. Arbitrages Morris préparés (D-T-A6)
+### D-T-A6-12 — Sortie T-A6
 
-| ID | Question | Options | Reco candidate | Dette | Réversible | Gate |
-|----|----------|---------|----------------|-------|------------|------|
-| D-T-A6-01 | Ownership / nature Evidence | entité liée Attempt vs agrégat | entité + bindings Attempt primaires | — | oui | ARBITRATE |
-| D-T-A6-02 | Copie / référence / hybride | A/B/C | **C** hybride | U-M02 | oui | ARBITRATE |
-| D-T-A6-03 | Agrégat ReviewBundle | A/B/C/D | **A+D** autonome + freeze | — | oui | ARBITRATE |
-| D-T-A6-04 | Claim vs ClaimEvaluation | séparés / fusion v1 | séparés sémantiquement ; schema ClaimEvaluation prioritaire (R-M01) | R-M01 | oui | ARBITRATE |
-| D-T-A6-05 | Règles Critical | A–D Q5 | **D** matrice type×Critical | — | partiel | ARBITRATE |
-| D-T-A6-06 | Autorité confirmation | N-levels / Morris | N≥ + Morris structurants | — | non | ARBITRATE |
-| D-T-A6-07 | Modèle maturity | calculé/proposé/confirmé | proposé puis confirmé ; downgrade | — | partiel | ARBITRATE |
-| D-T-A6-08 | Réserves dans maturity | ignore / bloquent / affichent | **bloquent** niveau correspondant | B5 | non | ARBITRATE |
-| D-T-A6-09 | Stockage / rétention | tech candidates | **non choisi** ; cadrer bornes | U-M02 | oui | ARBITRATE |
-| D-T-A6-10 | Frontière T-A6 / T-A7 | cutover hors T-A6 | T-A7 hors scope | — | oui | ARBITRATE |
-| D-T-A6-11 | Automatisation L0–L5 | bornes | L0–L3 défaut ; L4 sous gates ; L5 hors | — | oui | ARBITRATE |
-| D-T-A6-12 | Sortie T-A6 | artifacts + reco gate | refs LPS + review verdict ; **pas** auto next cycle | B5 | oui | ARBITRATE |
+**Sorties autorisées :**
 
-**Aucune option validée dans ce document.**
+- Evidence refs ;
+- ReviewBundle versionné ;
+- ClaimEvaluation ;
+- MaturityAssessment proposé/confirmé ;
+- Debt/Reserve refs ;
+- Findings ;
+- verdict de revue ;
+- **recommandation** de gate / cycle correctif.
 
----
+**Sorties interdites :**
 
-## 15. Recommandations candidates (synthèse)
+- lancement auto du cycle suivant ;
+- mutation Trajectory sans commande+autorité ;
+- autorisation d’exécution ;
+- fermeture implicite de réserve ;
+- promotion Option A ;
+- décision Morris implicite.
 
-1. Partir des schemas Evidence / ReviewBundle / Maturity déjà présents ; enrichir ClaimEvaluation (R-M01) avant delivery.
-2. Ingestion explicite Attempt → Evidence (I17) ; jamais Attempt.status comme Evidence.
-3. Freeze ReviewBundle avant tout verdict.
-4. Système propose ; humain confirme Critical et maturité.
-5. Réserves OPEN restent OPEN malgré PASS.
-6. Hybride stockage (D-T-A6-02) sans choisir vendor.
-7. T-A7 et exécution réelle hors scope.
+Propagation LPS : refs sous réserve **B5 OPEN**.
+
+| Statut | **RECOMMENDED — NOT DECIDED** |
+
+**Formulation :**
+`D-T-A6-12 = OUTPUT CONTRACT AS DOCUMENTED — APPROVED`
 
 ---
 
-## 16. Décisions validées nouvelles
+## 6. Synthèse des recommandations
 
-**Aucune.**
-Décisions héritées utiles (non re-votées ici) : M-OA-07 séparation Evidence/ReviewBundle/ClaimEvaluation ; M-OA-08 maturité sans auto-promote ; T-A5 D10 Evidence/Claim = T-A6.
+| ID | Recommandation | Statut |
+|----|----------------|--------|
+| D-T-A6-01 | **C** Evidence entité T-A6 + bindings | RECOMMENDED — NOT DECIDED |
+| D-T-A6-02 | **C** Hybride logique | RECOMMENDED — NOT DECIDED |
+| D-T-A6-03 | **A+D** Agrégat + freeze (`ready_for_review`≡frozen v1) | RECOMMENDED — NOT DECIDED |
+| D-T-A6-04 | **B** ClaimEvaluation v1 unifié (sémantique séparée) | RECOMMENDED — NOT DECIDED |
+| D-T-A6-05 | **D** Matrice type × Critical | RECOMMENDED — NOT DECIDED |
+| D-T-A6-06 | Matrice acteurs documentée | RECOMMENDED — NOT DECIDED |
+| D-T-A6-07 | **C** Maturity proposée puis confirmée | RECOMMENDED — NOT DECIDED |
+| D-T-A6-08 | **D** Réserves bloquent niveaux associés | RECOMMENDED — NOT DECIDED |
+| D-T-A6-09 | Principles pack ; tech deferred | RECOMMENDED — NOT DECIDED |
+| D-T-A6-10 | Boundary T-A6/T-A7 | RECOMMENDED — NOT DECIDED |
+| D-T-A6-11 | L0–L3 / L4 gated / L5 out | RECOMMENDED — NOT DECIDED |
+| D-T-A6-12 | Output contract | RECOMMENDED — NOT DECIDED |
+
+**Décisions validées nouvelles : aucune.**
 
 ---
 
-## 17. Stop conditions (cadrage / futur delivery)
+## 7. Matrice Critical (détail reco D-T-A6-05)
 
-- Tentative de valider une option sans Morris ;
-- Modification modeled/runtime dans un cycle cadrage ;
-- Fermeture de réserve ;
-- Traitement NOT_PROVEN comme PASS ;
+Voir §5 D-T-A6-05. Résumé :
+
+- L3 déterministe non-Critical technique seulement ;
+- Critical = proposition système + confirmation humaine ;
+- structurant / ADOPTED / réserve = Morris ;
+- self-review Critical interdit.
+
+---
+
+## 8. Matrice autorité (détail reco D-T-A6-06)
+
+Voir §5 D-T-A6-06. N3 ≠ Morris. Système ne ferme pas les réserves humaines.
+
+---
+
+## 9. Doctrine stockage (détail reco D-T-A6-09)
+
+Voir §5 D-T-A6-09. Alignée D-T-A6-02 hybride. U-M02 OPEN.
+
+---
+
+## 10. Doctrine automatisation (détail reco D-T-A6-11)
+
+Voir §5 D-T-A6-11.
+
+---
+
+## 11. Réserves candidates R-T-A6-1…9
+
+| ID | Risque | Couverture existante ? | Recommandation traitement | Owner | Fermeture | Blocker |
+|----|--------|------------------------|---------------------------|-------|-----------|---------|
+| R-T-A6-1 | Evidence falsifiée/mutable | partielle (digest schema) | **CREATE** candidate | T-A6 | VerifyIntegrity + tests | exec réelle |
+| R-T-A6-2 | Bundle non gelé | I05 framing | **CREATE** candidate | T-A6 | Freeze obligatoire modeled/runtime | delivery review |
+| R-T-A6-3 | Self-review | D-T-A6-05/06 | **CREATE** candidate | T-A6 | authz séparation rôles | Critical |
+| R-T-A6-4 | NOT_PROVEN→PASS | enum candidat | **CREATE** candidate | T-A6 | tests adversariaux | delivery |
+| R-T-A6-5 | Maturity inflation | D-T-A6-07/08 | **CREATE** candidate | T-A6 | mapping réserves | delivery |
+| R-T-A6-6 | Waiver silencieux | D-T-A6-08 | **CREATE** candidate | T-A6 | WAIVED explicite | delivery |
+| R-T-A6-7 | PII/secret | modeled 08/10 | **MERGE INTO** doctrine sécurité + **TRACK AS DEBT** | T-A6/Sec | scans + classification | delivery |
+| R-T-A6-8 | Volumétrie/rétention | U-M02 | **MERGE INTO U-M02** | AT | bornes+rétention | soft |
+| R-T-A6-9 | Divergence modeled/runtime | process gates | **TRACK AS DEBT** process | QA | materialize+validate gates | soft |
+
+**Aucune créée comme réserve validée** sans Morris (`GO DECIDE T-A6`).
+
+### Réserves existantes (inchangées OPEN)
+
+B5 · R1 · R-T-A3-1 · R-T-A3-2 · R-T-A3-3 · R-T-A3-4 · R-M01 · U-M02
+
+---
+
+## 12. Decision pack Morris — format de réponse
+
+Pour chaque ID, répondre exactement :
+
+```text
+D-T-A6-xx = OPTION X — APPROVED
+```
+
+ou
+
+```text
+D-T-A6-xx = REJECTED — [motif]
+```
+
+ou
+
+```text
+D-T-A6-xx = DEFERRED — [condition]
+```
+
+### Checklist groupée (optionnelle, non présumée)
+
+```text
+GO DECIDE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A
+D-T-A6-01 = OPTION C — APPROVED
+D-T-A6-02 = OPTION C — APPROVED
+D-T-A6-03 = OPTION A+D — APPROVED
+D-T-A6-04 = OPTION B — APPROVED
+D-T-A6-05 = OPTION D — APPROVED
+D-T-A6-06 = MATRIX AS DOCUMENTED — APPROVED
+D-T-A6-07 = OPTION C — APPROVED
+D-T-A6-08 = OPTION D — APPROVED
+D-T-A6-09 = PRINCIPLES PACK — APPROVED
+D-T-A6-10 = BOUNDARY AS DOCUMENTED — APPROVED
+D-T-A6-11 = L0–L3 DEFAULT / L4 GATED / L5 OUT — APPROVED
+D-T-A6-12 = OUTPUT CONTRACT AS DOCUMENTED — APPROVED
+```
+
+Ce bloc n’est **pas** un GO consommé. Il n’a d’effet qu’après réponse Morris explicite.
+
+---
+
+## 13. Anti-claims
+
+- Aucune option T-A6 **décidée** / **validée** / **adoptée** par ce cycle ;
+- Pas modeled ready / delivery ready / production ready ;
+- Pas de technologie de stockage choisie ;
+- Pas de schema ClaimEvaluation créé ;
+- Pas de réserve créée ou fermée ;
+- Pas T-A7 / exécution réelle / adapter réel ;
+- Pas push / PR / merge projet.
+
+---
+
+## 14. Stop conditions
+
+- Transformer une recommandation en décision sans Morris ;
+- Modifier modeled/runtime ;
+- Choisir un vendor ;
+- Fermer B5/R1/R-T-A3/R-M01/U-M02 ;
+- Présenter NOT_PROVEN comme PASS ;
 - Auto-promotion maturité ;
-- Surface d’exécution réelle ;
-- Ouverture T-A7 implicite ;
-- Evidence sans binding ;
-- Bundle non gelé avant verdict.
+- Ouvrir T-A7.
 
 ---
 
-## 18. Anti-claims
+## 15. Gate suivant candidat
 
-- T-A6 **non** validé ;
-- modeled **non** enrichi / **non** ready delivery ;
-- storage Evidence **non** décidé ;
-- maturity model **non** validé runtime ;
-- automatisation **non** autorisée au-delà du cadrage ;
-- T-A7 **non** ouvert ;
-- Option A **non** complète ;
-- production ready **non** ;
-- exécution réelle **non** autorisée ;
-- réserves **non** fermées ;
-- push / PR / merge **non** autorisés par ce cycle.
-
----
-
-## 19. Gate suivant candidat
-
-`GO ARBITRATE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A`
+`GO DECIDE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A`
 (**NOT consumed**)
 
+Nécessite les choix Morris explicites D-T-A6-01…12.
+
 ---
 
-## 20. Verdict
+## 16. Verdict
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE MODELED OR DELIVERY`
+`SFIA STUDIO V3-NATIVE OPTION A T-A6 ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED`
 
 ## Contenu complet — README.md
 
@@ -683,35 +732,35 @@ Décisions héritées utiles (non re-votées ici) : M-OA-07 séparation Evidence
 | **Titre cycle** | Evidence, Review, Claims and Maturity |
 | **Profil** | Critical |
 | **Gate framing** | `GO FRAME T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate arbitrage** | `GO ARBITRATE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` (PR #266 T-A5 merge) |
-| **Modeled / runtime** | **NONE** modifié — cadrage documentaire uniquement |
+| **HEAD framing** | `40e92336b3e646f03354c7912c705b1d62b68097` |
+| **Modeled / runtime** | **NONE** modifié — pack documentaire uniquement |
 | **Push / PR / merge projet** | **NONE** — require Morris GO |
-| **Statut pack** | **FRAMING COMPLETED** |
-| **Horodatage** | 2026-07-26 00:05:48 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE MODELED OR DELIVERY` |
-| **Gate suivant** | `GO ARBITRATE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Statut pack** | **ARBITRATION PACK PREPARED** |
+| **Horodatage** | 2026-07-26 00:43:49 CEST (+0200) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
+| **Gate suivant** | `GO DECIDE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ## Objectif
 
-Cadrer la frontière fonctionnelle et architecturale permettant de transformer les résultats techniques T-A5 en éléments de preuve examinables (Evidence, ReviewBundle, ClaimEvaluation, maturité, dette), sans confondre résultat technique, preuve, claim, décision humaine et autorisation d’exécution.
+Préparer un decision pack fermé D-T-A6-01…12 permettant à Morris de statuer sans ambiguïté sur Evidence, ReviewBundle, ClaimEvaluation, maturité, autorité, stockage logique, automatisation et sorties T-A6.
 
 ## Périmètre
 
-- Définitions épistémiques candidates ;
-- Frontière T-A5 → T-A6 ;
-- Objets / lifecycles / commandes / événements candidats ;
-- Invariants, autorité, sécurité/RGPD, stockage/volumétrie ;
-- Automatisation L0–L5 bornée ;
-- Risques et réserves (existantes + candidates) ;
-- Arbitrages Morris D-T-A6-01…12.
+- Challenge contradictoire des options du cadrage ;
+- Élimination des options incompatibles ;
+- Recommandations uniques `RECOMMENDED — NOT DECIDED` ;
+- Format de réponse Morris ;
+- Traitement candidat des réserves R-T-A6-1…9.
 
 ## Hors périmètre
 
+- Validation d’options à la place de Morris ;
 - Enrichissement schema / runtime / tests ;
+- Choix de technologie de stockage ;
 - SQL, API, UI, worker, scheduler ;
-- Adapter réel / exécution réelle ;
-- Validation d’options ;
 - Fermeture de réserves ;
 - T-A7 ;
 - Push / PR / merge.
@@ -719,21 +768,39 @@ Cadrer la frontière fonctionnelle et architecturale permettant de transformer l
 ## Livrables
 
 1. [README.md](./README.md) (ce fichier)
-2. [01-framing.md](./01-framing.md) — cadrage complet arbitrable
+2. [01-framing.md](./01-framing.md) — cadrage (inchangé ce cycle)
+3. [02-arbitration.md](./02-arbitration.md) — **decision pack Morris**
 
 ## Décisions validées (nouvelles)
 
 **Aucune.**
 
-Héritages utiles (non re-votés) : M-OA-07, M-OA-08, T-A5 D10 (Evidence/Claim = T-A6).
+Toutes les recommandations D-T-A6 restent `RECOMMENDED — NOT DECIDED` jusqu’à `GO DECIDE T-A6`.
 
-## Arbitrages ouverts
+Héritages utiles (non re-votés) : M-OA-07, M-OA-08, T-A5 D10.
 
-D-T-A6-01 … D-T-A6-12 — voir [01-framing.md](./01-framing.md) §14.
+## Décisions en attente Morris
+
+| ID | Recommandation candidate |
+|----|--------------------------|
+| D-T-A6-01 | **C** Evidence entité T-A6 + bindings |
+| D-T-A6-02 | **C** Hybride logique |
+| D-T-A6-03 | **A+D** Agrégat + freeze |
+| D-T-A6-04 | **B** ClaimEvaluation v1 unifié |
+| D-T-A6-05 | **D** Matrice type × Critical |
+| D-T-A6-06 | Matrice acteurs documentée |
+| D-T-A6-07 | **C** Maturity proposée puis confirmée |
+| D-T-A6-08 | **D** Réserves bloquent niveaux associés |
+| D-T-A6-09 | Principles pack ; tech deferred |
+| D-T-A6-10 | Boundary T-A6 / T-A7 |
+| D-T-A6-11 | L0–L3 / L4 gated / L5 out |
+| D-T-A6-12 | Output contract |
+
+Format de réponse : voir [02-arbitration.md](./02-arbitration.md) §12.
 
 ## Réserves
 
-### Existantes (OPEN)
+### Existantes (OPEN — inchangées)
 
 | Reserve | Status |
 |---------|--------|
@@ -746,16 +813,17 @@ D-T-A6-01 … D-T-A6-12 — voir [01-framing.md](./01-framing.md) §14.
 | R-M01 | **OPEN** (ClaimEvaluation schema) |
 | U-M02 | **OPEN** (stockage Evidence) |
 
-### Candidates (non validées)
+### Candidates (non validées — traitement proposé dans 02)
 
-R-T-A6-1 … R-T-A6-9 — voir [01-framing.md](./01-framing.md) §13.2.
+R-T-A6-1 … R-T-A6-9 — CREATE / MERGE / TRACK AS DEBT recommandés ; **aucune créée** sans Morris.
 
 ## Anti-claims
 
-- Pas T-A6 validé / modeled ready / delivery ready / production ready
-- Pas storage décidé / maturity runtime validée / automatisation autorisée
-- Pas T-A7 ouvert / Option A complète / exécution réelle
-- Pas réserves fermées / push / PR / merge ce cycle
+- Pas T-A6 décidé / validé / modeled ready / delivery ready / production ready
+- Pas storage vendor choisi / schema ClaimEvaluation créé
+- Pas réserves créées ou fermées
+- Pas T-A7 / exécution réelle / adapter réel
+- Pas push / PR / merge ce cycle
 
 ## Modeled de référence (lecture seule)
 
@@ -764,25 +832,26 @@ R-T-A6-1 … R-T-A6-9 — voir [01-framing.md](./01-framing.md) §13.2.
 - `schemas/evidence/review-bundle.schema.json`
 - `schemas/maturity/maturity-assessment.schema.json`
 
-## Bornes cycle
+## Bornes
 
-- Push projet : **NON**
-- PR : **NON**
-- Merge : **NON**
-- Modeled modifié : **NON**
-- Runtime modifié : **NON**
-- T-A7 ouvert : **NON**
-- Adapter réel : **absent**
-- Exécution réelle : **absente**
+- Push projet : NON
+- PR : NON
+- Merge : NON
+- Modeled modifié : NON
+- Runtime modifié : NON
+- T-A7 ouvert : NON
+- Adapter réel : absent
+- Exécution réelle : absente
+- Réserves fermées/créées validées : aucune
 
 ## Working tree final
 
-Branche T-A6 @ `40e92336b3e646f03354c7912c705b1d62b68097` ; tracked clean ; `?? .tmp-sfia-review/`
+Branche T-A6 @ `d2d4cf5bee8d956ae9bc3ad899bce89a5d09d0b7` ; tracked clean ; `?? .tmp-sfia-review/`
 
 ## Verdict exact
 
-SFIA STUDIO V3-NATIVE OPTION A T-A6 FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE MODELED OR DELIVERY
+SFIA STUDIO V3-NATIVE OPTION A T-A6 ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED
 
 ## Gate suivant (non consommé)
 
-`GO ARBITRATE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A`
+`GO DECIDE T-A6 — SFIA STUDIO V3-NATIVE — OPTION A`
