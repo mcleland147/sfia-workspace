@@ -8,25 +8,26 @@
 | **Gate framing** | `GO FRAME T-A5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Gate arbitration** | `GO ARBITRATE T-A5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Gate materialize** | `GO MATERIALIZE T-A5 ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate modeled validate** | `GO VALIDATE T-A5 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
 | **Base / origin/main** | `6bfef83971f4d71bc83c12dabad87366447120a7` (T-A4 PR #265 merge) |
-| **HEAD cadrage** | `f6cb8f39c772c2adf02e93933dbb2ceef096764f` |
 | **Runtime `app/lib/oa/**`** | **NONE** (interdit) |
-| **Modeled schemas / catalogues** | **MATERIALIZED** Attempt `0.2.0-oa` + AgentDescriptor `0.1.0-oa` + catalogs — **MODELED VALIDATION REQUIRED** |
+| **Modeled schemas / catalogues** | Attempt `0.2.0-oa` + AgentDescriptor `0.1.0-oa` — **MODELED CORRECTED AND VALIDATED** |
 | **Push / PR / merge** | **NONE** (projet) |
-| **Statut pack** | **MATERIALIZED — MODELED VALIDATION REQUIRED** |
-| **Verdict materialization** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 ARBITRATIONS MATERIALIZED — MODELED VALIDATION REQUIRED` |
-| **Gate suivant** | `GO VALIDATE T-A5 MODELED — …` (**NOT consumed / NOT presumed**) |
+| **Statut pack** | **MODELED CORRECTED AND VALIDATED** |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 MODELED CORRECTED AND VALIDATED — RUNTIME FRAMING MAY OPEN WITH MORRIS GO` |
+| **Gate suivant** | `GO FRAME T-A5 RUNTIME — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed / NOT presumed**) |
 
 ## Objectif
 
-Cadrer, arbitrer, puis **matérialiser** les décisions Morris T-A5 (agent, Attempt, exécution) en modeled + docs — **sans** runtime, agent opérationnel, Attempt exécutable, shell, réseau, Cursor/MCP, SQL, UI.
+Cadrer, arbitrer, matérialiser, puis **valider** (avec corrections Borned) les décisions Morris T-A5 (agent, Attempt, exécution) en modeled + docs — **sans** runtime, agent opérationnel, Attempt exécutable, shell, réseau, Cursor/MCP, SQL, UI.
 
 ## Périmètre
 
 - Framing (`01-framing.md`)
 - Arbitration (`02-arbitration.md`) — décisions Morris **APPROVED**
 - Materialization (`03-materialization.md`) — schemas / catalogs / exemples / tests
+- Modeled validation (`04-modeled-validation.md`) — **CORRECTED AND VALIDATED**
 - Réserves héritées maintenues OPEN
 - Commits locaux + handoff review
 
@@ -40,7 +41,7 @@ Cadrer, arbitrer, puis **matérialiser** les décisions Morris T-A5 (agent, Atte
 
 ## Sources
 
-- Décisions Morris D01–D10 (voir ci-dessous et `03-materialization.md`)
+- Décisions Morris D01–D10 (voir ci-dessous et `03-materialization.md` / `04-modeled-validation.md`)
 - Modeled 07/09 ; Attempt `0.2.0-oa` ; ExecutionContract `0.2.0-oa`
 - Runtime T-A4 `execution-contract/**` (lecture seule)
 - CKC cadrage pilot (candidate, `executionAuthority=false`)
@@ -50,7 +51,8 @@ Cadrer, arbitrer, puis **matérialiser** les décisions Morris T-A5 (agent, Atte
 1. [README.md](./README.md) (ce fichier)
 2. [01-framing.md](./01-framing.md) — cadrage
 3. [02-arbitration.md](./02-arbitration.md) — pack d’arbitrage + **APPROVED BY MORRIS**
-4. [03-materialization.md](./03-materialization.md) — **matérialisation**
+4. [03-materialization.md](./03-materialization.md) — matérialisation
+5. [04-modeled-validation.md](./04-modeled-validation.md) — **validation modeled + corrections**
 
 ## Réserves (héritées — OPEN)
 
@@ -64,7 +66,7 @@ Cadrer, arbitrer, puis **matérialiser** les décisions Morris T-A5 (agent, Atte
 | R-T-A3-4 | **OPEN** |
 | R-T-A4-1/2/3 | resolved-by-modeled (non fermées globalement) |
 
-## Décisions Morris (APPROVED — materialization)
+## Décisions Morris (APPROVED — materialization + validation)
 
 | ID | Approval |
 |----|----------|
@@ -79,13 +81,13 @@ Cadrer, arbitrer, puis **matérialiser** les décisions Morris T-A5 (agent, Atte
 | D09 | APPROVE A — timeout → contract failed ; retry = new Attempt + retryOf + budget + auth |
 | D10 | APPROVE A+C — T-A5 technical only ; Evidence/Claim/maturity = T-A6 |
 
-Détail : [03-materialization.md](./03-materialization.md) · marquage : [02-arbitration.md](./02-arbitration.md).
+Détail : [03-materialization.md](./03-materialization.md) · validation : [04-modeled-validation.md](./04-modeled-validation.md) · marquage : [02-arbitration.md](./02-arbitration.md).
 
 ## Anti-claims
 
-- Pas T-A5 **MODELED VALIDATED** (gate validate non consommé)
 - Pas T-A5 **AUTHORIZED** runtime / **DELIVERY READY** / **IMPLEMENTED**
 - Pas agent **selected** opérationnel / Attempt **operational** / execution **enabled**
 - Pas DATABASE SELECTED / réserves **CLOSED**
 - Pas Option A **complete**
 - Pas push / PR / merge / force-push projet ce cycle
+- Pas `GO FRAME T-A5 RUNTIME` consommé

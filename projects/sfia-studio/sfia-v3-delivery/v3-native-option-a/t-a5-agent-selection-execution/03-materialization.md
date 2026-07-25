@@ -78,7 +78,7 @@ Required : `schemaVersion`, `attemptId` (`^xat:`), `executionContractId` (`^xct:
 
 Status : `accepted` \| `running` \| `result_pending` \| `succeeded` \| `failed` \| `timeout` \| `cancelled`.
 
-Conditionnels Draft-07 : TTL si accepted+strategy ; `resultPendingAt` si result_pending ; `resultRef`+`completedAt` si succeeded ; Critical ⇒ human_confirmed_proposal ; agentConfirmationRef si human_confirmed_proposal au-delà d’accepted ; retry fields si `retryOfAttemptId`.
+Conditionnels Draft-07 : `accepted` ⇒ selectionStrategy+selectionProfile+selectionExpiresAt ; `capabilities_deterministic` ⇒ profile standard|light|capitalization (**critical FORBIDDEN**) ; `resultPendingAt` si result_pending ; `resultRef`+`completedAt` si succeeded ; `timedOutAt` si timeout ; `cancelledAt` si cancelled ; `failedAt`+(errorRef|stopReason) si failed ; post-launch ⇒ launchedAt+startedAt (exception launch-fail failed sans launchedAt si stopReason EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED) ; Critical ⇒ human_confirmed_proposal ; agentConfirmationRef si human_confirmed_proposal au-delà d’accepted ; retryOfAttemptId ⇒ retryIndex+maxRetriesBudget ; retryIndex ⇒ retryOfAttemptId.
 
 ### AgentDescriptor `0.1.0-oa`
 
@@ -128,11 +128,11 @@ Documentés dans [07-execution-contract-attempt-and-agent-model.md](../../../sfi
 
 ## 8. Exemples
 
-Valides : accepted, running, result_pending, succeeded, failed, timeout, cancelled, retry, critical-selection, noncritical-capabilities, agent-descriptor.
+Valides : accepted, running, result_pending, succeeded, failed, timeout, cancelled, retry, critical-selection, noncritical-capabilities, launch-fail, agent-descriptor.
 
-Invalid : additionalProperties, bad schemaVersion `0.1.0-oa`, partial status, missing required, succeeded-without-result, result_pending-without-ts, critical+capabilities, human-confirm running sans cnf, agent-descriptor additionalProperties.
+Invalid : additionalProperties, bad schemaVersion `0.1.0-oa`, partial status, missing required, succeeded-without-result, result_pending-without-ts, critical+capabilities, human-confirm running sans cnf, timeout/failed/cancelled timestamp gaps, running-without-launchedAt, accepted-without-selection, capabilities-on-critical / without-profile, legacy contractId/agentRef, blocked/starting/planned, ta6-claimId, retry-index-without-retryOf, failed-without-error-or-stop, agent-descriptor additionalProperties.
 
-Narrative : `execution-attempt-selection-expired.narrative.md` (TTL Start refuse).
+Narratives : selection-expired / ttl-expired ; morris-displayname-spoof ; n3-without-canActAsMorris ; wrong-agent-confirmation ; launch-then-persist.forbidden ; adapter-foreign-attempt ; result-pending-no-direct-completed ; retry-budget-exhausted.
 
 ---
 
@@ -141,7 +141,7 @@ Narrative : `execution-attempt-selection-expired.narrative.md` (TTL Start refuse
 - `tests/execution-attempt-governance.test.mjs` — suite T-A5
 - `tests/execution-contract-governance.test.mjs` — inchangé (18)
 
-Exécution : `node --test tests/execution-attempt-governance.test.mjs tests/execution-contract-governance.test.mjs` → **38 pass** (20 + 18).
+Exécution : `node --test tests/execution-attempt-governance.test.mjs tests/execution-contract-governance.test.mjs` → **38 pass** à la materialization ; **46 pass** après validation correction (28 Attempt + 18 Contract). Voir `04-modeled-validation.md`.
 
 ---
 
