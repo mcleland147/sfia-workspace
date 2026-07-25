@@ -10,7 +10,7 @@
 
 ## Status enum
 
-1. `draft` 2. `proposed` 3. `validated` 4. `confirmation_required` 5. `confirmed`  
+1. `draft` 2. `proposed` 3. `validated` 4. `confirmation_required` 5. `confirmed`
 6. `executing` 7. `completed` 8. `failed` 9. `cancelled` 10. `superseded`
 
 ## Ownership (Morris VALIDATED)

@@ -13,10 +13,12 @@
 | **Code produit `app/lib/oa/execution-contract/`** | **IMPLEMENTED** (in-memory foundation) |
 | **Schemas modeled** | **VALIDATED** — ExecutionContract `0.2.0-oa` — **not edited** this runtime cycle |
 | **Tests runtime** | **61** PASS (`__tests__/oa/execution-contract`) |
-| **Push / PR / merge** | **NONE** |
+| **Push / PR / merge** | **NONE** (PR readiness prepared; Morris GO required for push/PR) |
 | **T-A5** | **NONE** (not started / not authorized; refused in T-A4) |
-| **Statut pack** | **RUNTIME FOUNDATION CORRECTED AND VALIDATED — Morris GO for PR readiness** |
-| **Verdict runtime** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT RUNTIME FOUNDATION CORRECTED AND VALIDATED — PR READINESS MAY OPEN WITH MORRIS GO** |
+| **Statut pack** | **PR READY — Morris GO required for push and PR creation** |
+| **Verdict PR readiness** | **SFIA STUDIO V3-NATIVE OPTION A T-A4 EXECUTIONCONTRACT PR READY — MORRIS GO REQUIRED FOR PUSH AND PR CREATION** |
+| **Gate PR readiness** | `GO PR READINESS OPTION A — SFIA STUDIO V3-NATIVE — T-A4 EXECUTIONCONTRACT` (**CONSUMED**) |
+| **Gate suivant** | `GO PUSH AND CREATE PR OPTION A — … T-A4 EXECUTIONCONTRACT` (**NOT consumed**) |
 
 ## Why this pack exists
 
@@ -25,6 +27,7 @@
 3. Modeled rework applied + independently validated ([08](./08-modeled-rework-validation.md)).
 4. Runtime delivery resumed after handoff blob `2fb07e42…` — see [09](./09-runtime-delivery-after-modeled-validation.md).
 5. Runtime validation hardened blockers + Option B Confirm — see [10](./10-runtime-validation.md).
+6. PR readiness prepared (no project push / no PR) — see [11](./11-pr-readiness.md).
 
 ## Morris decisions (VALIDATED — verbatim)
 
@@ -48,7 +51,8 @@
 7. [07-modeled-rework-after-morris-arbitration.md](./07-modeled-rework-after-morris-arbitration.md) ← rework SoT
 8. [08-modeled-rework-validation.md](./08-modeled-rework-validation.md) ← modeled validation SoT
 9. [09-runtime-delivery-after-modeled-validation.md](./09-runtime-delivery-after-modeled-validation.md) ← runtime foundation SoT
-10. [10-runtime-validation.md](./10-runtime-validation.md) ← **runtime validation SoT**
+10. [10-runtime-validation.md](./10-runtime-validation.md) ← runtime validation SoT
+11. [11-pr-readiness.md](./11-pr-readiness.md) ← **PR readiness SoT** (proposed PR title/body; push/PR not done)
 
 ## Reserves
 
@@ -60,7 +64,7 @@
 
 ## Anti-claims
 
-- Pas T-A4 **MERGED** / **PR CREATED**
+- Pas T-A4 **MERGED** / **PR CREATED** / branche **poussée** (PR readiness only)
 - Pas T-A5 **AUTHORIZED** / **LAUNCHED** / **IMPLEMENTED**
 - Pas READY FOR DELIVERY GLOBAL / OPTION A IMPLEMENTED
 - Pas DATABASE SELECTED / SCHEMAS ADOPTED runtime product
@@ -69,5 +73,4 @@
 - Pas B5 / R1 / R-T-A3-* **CLOSED**
 - Pas Critical cycle auto-acknowledged
 - Pas agent / Attempt / shell / StartExecution
-- Pas modeled schema edits in the runtime cycle
-- Pas push / force push / admin bypass
+- Pas push / force push / admin bypass this cycle

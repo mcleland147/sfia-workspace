@@ -7,7 +7,7 @@
 | **Statut** | **MODELED REWORK COMPLETED — runtime not started** |
 | **Schemas modified this cycle** | ExecutionContract (+ examples/catalog/docs) |
 
-Schema path:  
+Schema path:
 `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/execution/execution-contract.schema.json`
 
 ## Required fields
