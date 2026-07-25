@@ -95,7 +95,7 @@
         "capabilities_deterministic",
         "human_confirmed_proposal"
       ],
-      "description": "Closed strategies (D02). Critical profile MUST use human_confirmed_proposal (enforced when selectionProfile=critical). capabilities_deterministic only for closed non-Critical profiles (standard|light|capitalization policy)."
+      "description": "Closed strategies (D02). Critical profile MUST use human_confirmed_proposal (enforced when selectionProfile=critical). capabilities_deterministic only for closed non-Critical profiles standard|light (capitalization treated as non-Critical closed profile and allowed; critical FORBIDDEN with capabilities_deterministic)."
     },
     "selectionProfile": {
       "type": "string",
@@ -207,21 +207,47 @@
         "properties": {
           "status": {
             "const": "accepted"
-          },
-          "selectionStrategy": {
-            "type": "string"
           }
         },
         "required": [
-          "status",
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "selectionStrategy",
+          "selectionProfile",
+          "selectionExpiresAt"
+        ],
+        "description": "accepted ⇒ selectionStrategy + selectionProfile + selectionExpiresAt (TTL)."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "selectionStrategy": {
+            "const": "capabilities_deterministic"
+          }
+        },
+        "required": [
           "selectionStrategy"
         ]
       },
       "then": {
         "required": [
-          "selectionExpiresAt"
+          "selectionProfile"
         ],
-        "description": "accepted + selectionStrategy ⇒ selectionExpiresAt (TTL)."
+        "properties": {
+          "selectionProfile": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "light",
+              "capitalization"
+            ]
+          }
+        },
+        "description": "capabilities_deterministic ⇒ non-Critical closed profile only (standard|light|capitalization); critical FORBIDDEN (D02)."
       }
     },
     {
@@ -258,6 +284,123 @@
           "completedAt"
         ],
         "description": "No speculative succeeded without durable resultRef."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "timeout"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "timedOutAt"
+        ],
+        "description": "timeout ⇒ timedOutAt."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "cancelled"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "cancelledAt"
+        ],
+        "description": "cancelled ⇒ cancelledAt."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "running",
+              "result_pending",
+              "succeeded",
+              "timeout",
+              "cancelled"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "launchedAt",
+          "startedAt"
+        ],
+        "description": "Post-launch statuses (excl. launch-fail failed path) ⇒ launchedAt + startedAt."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "failedAt"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "errorRef"
+            ]
+          },
+          {
+            "required": [
+              "stopReason"
+            ]
+          }
+        ],
+        "oneOf": [
+          {
+            "description": "Launch-fail path: accepted→failed pre-launch without launchedAt.",
+            "not": {
+              "required": [
+                "launchedAt"
+              ]
+            },
+            "required": [
+              "stopReason"
+            ],
+            "properties": {
+              "stopReason": {
+                "type": "string",
+                "pattern": "^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED)([:; ].*)?$"
+              }
+            }
+          },
+          {
+            "description": "Post-launch failed: require launchedAt + startedAt.",
+            "required": [
+              "launchedAt",
+              "startedAt"
+            ]
+          }
+        ],
+        "description": "failed ⇒ failedAt + (errorRef OR stopReason); launch-fail may omit launchedAt iff stopReason is EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED; otherwise launchedAt+startedAt required."
       }
     },
     {
@@ -323,6 +466,19 @@
           "retryIndex",
           "maxRetriesBudget"
         ]
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "retryIndex"
+        ]
+      },
+      "then": {
+        "required": [
+          "retryOfAttemptId"
+        ],
+        "description": "retryIndex present ⇒ retryOfAttemptId required."
       }
     }
   ]

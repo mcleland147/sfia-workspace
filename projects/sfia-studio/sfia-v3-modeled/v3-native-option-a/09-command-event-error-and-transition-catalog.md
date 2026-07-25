@@ -7,13 +7,14 @@
 | **Gate consommé** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Rework gate T-A4** | `GO MODELED REWORK OPTION A — SFIA STUDIO V3-NATIVE — T-A4 EXECUTIONCONTRACT` |
 | **Materialize gate T-A5** | `GO MATERIALIZE T-A5 ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Validate gate T-A5 modeled** | `GO VALIDATE T-A5 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED** — Attempt CORRECTED AND VALIDATED) |
 | **UX** | UX-OA-01…12 **VALIDATED** |
 | **FA / FD** | FA-OA-01…05 · FD-OA-01…06 **VALIDATED** |
 | **schemaVersion (pack baseline)** | `0.1.0-oa` |
 | **ExecutionContract schemaVersion** | `0.2.0-oa` (breaking T-A4 rework) |
-| **ExecutionAttempt schemaVersion** | `0.2.0-oa` (breaking T-A5 materialization) |
+| **ExecutionAttempt schemaVersion** | `0.2.0-oa` (breaking T-A5 materialization ; conditionals hardened at validate) |
 | **JSON Schema** | Draft-07 |
-| **Anti-claims** | Pas MODELED VALIDATED · Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4 RUNTIME · Pas T-A5 RUNTIME |
+| **Anti-claims** | Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4 RUNTIME · Pas T-A5 RUNTIME · Pas GO FRAME T-A5 RUNTIME consommé |
 | **Code / SQL / Figma** | **Interdits** |
 | **Document** | `09-command-event-error-and-transition-catalog.md` |
 | **Alignement** | AF `05-state-command-event-and-decision-model.md` · T-A4 Morris arbitration · T-A5 Morris D01–D10 |
@@ -125,7 +126,23 @@ IntentSubmitted · DoctrinePackageResolved/Failed · ProjectMatched/Created · C
 | `ExecutionAuthorizationDenied` | technique | Select/Start/Cancel/Record/Retry | — | **N3 ≠ Morris** ; jamais trust client `canActAsMorris` |
 | `ExecutionRetryAuthorized` | domaine | RetryExecutionAttempt | Attempt | |
 
-Payload minimal : `aggregateId` · `attemptId` · `executionContractId` · `executionContractVersion` · `correlationId` · `causationId?` · actor/provenance · `previousStatus` · `newStatus` · `agentRef?` · `reason?`. **Interdits :** secrets, tokens, Confirmation complète, authority evidence complète, payloads métier non nécessaires.
+Payload minimal : `aggregateId` · `attemptId` · `executionContractId` · `executionContractVersion` · `correlationId` · `causationId?` · actor/provenance · `previousStatus` · `newStatus` · `selectedAgentRef?` · `reason?`. **Interdits :** secrets, tokens, Confirmation complète, authority evidence complète, payloads métier non nécessaires. (Legacy `agentRef?` retiré — utiliser `selectedAgentRef?`.)
+
+---
+
+## Matrice d'autorité T-A5 (D08)
+
+| Action | Autorité métier | Notes |
+|--------|-----------------|-------|
+| **SelectExecutionAgent** | N≥ `requiredAuthority` ; système **seulement** si non-Critical + `capabilities_deterministic` fermé | pas Morris spoof ; pas launch |
+| **StartExecution** | même barre + relecture T-A3 ; Critical = Confirmation agent | persist-then-launch ; TTL revalidate |
+| **CancelExecutionAttempt** (métier) | N≥ `requiredAuthority` | best-effort ; pas rollback métier implicite |
+| **Emergency stop Morris** | **Morris only** = N3 ∧ `canActAsMorris: true` (server) | **N3 ≠ Morris** ; displayName spoof refusé |
+| **auto-safety** (timeout / kill borné) | système borné policy | jamais équivalent Morris ; bornes explicites |
+| **RecordExecutionResult / Failure** | adaptateur authentifié lié à **son** Attempt | foreign Attempt → deny |
+| **RetryExecutionAttempt** | auth explicite = Start | nouvel Attempt ; budget |
+
+**Anti-spoof :** jamais trust client `canActAsMorris` / displayName « Morris ». Système ≠ Morris.
 
 ---
 
@@ -154,6 +171,7 @@ Aucune transition vers `executing` sous T-A4. **Aucun completed spéculatif** ta
 |--------|------------------|-------|-----------------|-----------|-------------|
 | (new) | SelectExecutionAgent (persist) | `accepted` | **confirmed** (inchangé) | ExecutionAttemptAccepted | contrat ≠ confirmed |
 | `accepted` | StartExecution (launch ack) | `running` | → **executing** | ExecutionStarted | TTL expiré ; auth deny ; pas de persist préalable |
+| `accepted` | StartExecution (launch fail / persist fail pre-launch) | `failed` | **confirmed** (inchangé) ou policy cancel | ExecutionFailed | post-launch sans `launchedAt` hors codes launch/persist |
 | `accepted` | CancelExecutionAttempt | `cancelled` | → cancelled (si policy) | ExecutionCancelled | — |
 | `running` | RecordExecutionResult (ok) | `succeeded` | → **completed** | ExecutionSucceeded | sans resultRef durable |
 | `running` | Record* / failure | `failed` | → **failed** | ExecutionFailed | — |
@@ -162,10 +180,11 @@ Aucune transition vers `executing` sous T-A4. **Aucun completed spéculatif** ta
 | `running` | Record persist fail | `result_pending` | **stays `executing`** | ExecutionResultPending | completed spéculatif |
 | `result_pending` | Record retry ok | `succeeded` | → **completed** | ExecutionSucceeded | — |
 | `result_pending` | Record retry fail / budget | `failed` | → **failed** | ExecutionFailed | — |
+| `result_pending` | CancelExecutionAttempt (si policy) | `cancelled` | → **cancelled** | ExecutionCancelled | completed spéculatif ; cancel mid-record hors policy |
 
-**Transitions interdites (non exhaustif) :** `accepted`→`succeeded` ; `accepted`→`result_pending` ; `succeeded`→* ; `failed`→`running` (in-place) ; `*→partial` ; `*→blocked` ; `*→starting` ; launch sans `accepted` persisté (**anti launch-then-persist**).
+**Transitions interdites (non exhaustif) :** `accepted`→`succeeded` ; `accepted`→`result_pending` ; `result_pending`→`completed` (contrat) direct / spéculatif ; `succeeded`→* ; `failed`→`running` (in-place) ; `*→partial` ; `*→blocked` ; `*→starting` ; `*→planned` ; launch sans `accepted` persisté (**anti launch-then-persist**).
 
-**persist-then-launch invariant :** pas de `running` / pas de launch adaptateur sans Attempt `accepted` durable.
+**persist-then-launch invariant :** pas de `running` / pas de launch adaptateur sans Attempt `accepted` durable. **launch-then-persist** interdit.
 
 ---
 

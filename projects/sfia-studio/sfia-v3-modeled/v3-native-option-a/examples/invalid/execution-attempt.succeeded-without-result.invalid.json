@@ -22,5 +22,10 @@
     "correlationId": "corr:oa-t-a5-001",
     "projectId": "prj:campus360-oa"
   },
+  "selectionStrategy": "capabilities_deterministic",
+  "selectionProfile": "standard",
+  "selectionExpiresAt": "2026-07-25T12:15:00.000Z",
+  "startedAt": "2026-07-25T12:01:00.000Z",
+  "launchedAt": "2026-07-25T12:01:00.000Z",
   "completedAt": "2026-07-25T12:08:00.000Z"
 }
