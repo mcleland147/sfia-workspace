@@ -1,18 +1,47 @@
 # 02 — Arbitration Pack T-A5 Agent Selection and Execution
 
+## Morris decisions APPROVED (materialization cycle)
+
+Gate materialize consommé : `GO MATERIALIZE T-A5 ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A`.
+
+Livrable de matérialisation : [03-materialization.md](./03-materialization.md).
+
+| ID | Décision Morris (EXACT) |
+|----|-------------------------|
+| **D01** | **APPROVE A** — Attempt separate aggregate |
+| **D02** | **APPROVE C WITH CONDITION** — Critical: system propose + human confirm; Option A capabilities only non-Critical closed profile |
+| **D03** | **APPROVE A WITH CONDITION** — Select and Start separate; TTL + revalidate at Start |
+| **D04** | **APPROVE B** — Attempt lifecycle: accepted → running → succeeded\|failed\|timeout\|cancelled; no blocked/starting durable; + result_pending per D06 |
+| **D05** | **APPROVE A** — persist-then-launch; launch-then-persist forbidden |
+| **D06** | **APPROVE C** — result_pending; no speculative completed |
+| **D07** | **APPROVE B+D** — stop conditions + cancel best-effort; no implicit business rollback |
+| **D08** | **APPROVE A WITH CONDITIONS** — authority matrix; Morris emergency; auto-safety bounded; RecordResult adapter bound to own Attempt; system never Morris |
+| **D09** | **APPROVE A** — Attempt timeout → contract failed; retry = new Attempt + retryOf + budget + explicit auth |
+| **D10** | **APPROVE A+C** — T-A5 technical only; Evidence/Claim/maturity = T-A6 |
+
+Réserves B5, R1, R-T-A3-1…4 restent **OPEN** (non fermées par ce cycle).
+
+**Statut pack (post-materialize) :** décisions **APPROVED BY MORRIS** · modeled **MATERIALIZED** · **MODELED VALIDATION REQUIRED** (gate validate non consommé).
+
+L’analyse candidate ci-dessous est **conservée** comme historique d’arbitrage ; elle ne remplace pas les décisions APPROVED ci-dessus.
+
+---
+
 | Champ | Valeur |
 |-------|--------|
 | **Date/heure/fuseau** | 2026-07-25 — Europe/Paris (CEST) |
 | **Slice** | T-A5 — Agent Selection and Execution |
-| **Cycle** | Arbitration (Critical) |
-| **Gate** | `GO ARBITRATE T-A5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Cycle** | Arbitration (Critical) → Materialization |
+| **Gate arbitration** | `GO ARBITRATE T-A5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate materialize** | `GO MATERIALIZE T-A5 ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a5-agent-selection-execution` |
 | **Base** | `origin/main` @ `6bfef83971f4d71bc83c12dabad87366447120a7` |
 | **HEAD cadrage** | `f6cb8f39c772c2adf02e93933dbb2ceef096764f` |
-| **Statut** | **ARBITRATION PACK PREPARED — MORRIS DECISIONS PENDING** |
-| **Runtime / modeled** | **NONE modifié** |
-| **Décisions Morris** | **TOUTES PENDING** — aucune APPROVE imputée |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 ARBITRATION PACK COMPLETED — MORRIS DECISIONS REQUIRED` |
+| **Statut** | **MORRIS DECISIONS APPROVED — MATERIALIZED** (voir `03-materialization.md`) |
+| **Runtime** | **NONE** |
+| **Décisions Morris** | **D01–D10 APPROVED BY MORRIS** (table ci-dessus) |
+| **Verdict arbitration (historique)** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 ARBITRATION PACK COMPLETED — MORRIS DECISIONS REQUIRED` |
+| **Verdict materialization** | `SFIA STUDIO V3-NATIVE OPTION A T-A5 ARBITRATIONS MATERIALIZED — MODELED VALIDATION REQUIRED` |
 
 ---
 
@@ -437,19 +466,21 @@ Répondre pour chaque décision : `APPROVE A` / `APPROVE B` / `APPROVE C` / `APP
 
 ## 18. Anti-claims
 
-- Pas D-T-A5-01…10 **approved**
-- Pas T-A5 modeled / delivery **authorized**
-- Pas agent selected / Attempt implemented / execution enabled
+- Décisions D-T-A5-01…10 **APPROVED BY MORRIS** (materialization) — voir table en tête + `03-materialization.md`
+- Pas T-A5 **MODELED VALIDATED** / delivery **authorized** / runtime **implemented**
+- Pas agent selected / Attempt implemented / execution enabled (opérationnel)
 - Pas DATABASE SELECTED / réserves fermées
-- Pas push / PR / merge / runtime / modeled edits ce cycle
+- Pas push projet / PR / merge
 
 ---
 
-## 19. Gate potentiel (non consommé)
+## 19. Gate potentiel (historique arbitration) / gate suivant
 
-Après réponses Morris explicites D-01…10 :
+Après réponses Morris (fait) : gate materialize **CONSUMED**.
 
-`GO MATERIALIZE T-A5 ARBITRATIONS — SFIA STUDIO V3-NATIVE — OPTION A`
+Gate suivant (non consommé) :
+
+`GO VALIDATE T-A5 MODELED — SFIA STUDIO V3-NATIVE — OPTION A`
 
 Ce gate **n’est pas consommé** et **n’est pas présumé**.
 
@@ -457,4 +488,6 @@ Ce gate **n’est pas consommé** et **n’est pas présumé**.
 
 ## 20. Verdict
 
-**SFIA STUDIO V3-NATIVE OPTION A T-A5 ARBITRATION PACK COMPLETED — MORRIS DECISIONS REQUIRED**
+**Historique arbitration :** `SFIA STUDIO V3-NATIVE OPTION A T-A5 ARBITRATION PACK COMPLETED — MORRIS DECISIONS REQUIRED`
+
+**Materialization :** `SFIA STUDIO V3-NATIVE OPTION A T-A5 ARBITRATIONS MATERIALIZED — MODELED VALIDATION REQUIRED`
