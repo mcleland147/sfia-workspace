@@ -12,7 +12,7 @@
 | **HEAD initial** | `cdae32684d6d41bd46535fda552b0465399f1b3e` |
 | **HEAD final** | `cdae32684d6d41bd46535fda552b0465399f1b3e` (+ commit docs readiness) |
 | **Merge-base** | `6bfef83971f4d71bc83c12dabad87366447120a7` |
-| **Ahead** | 18 commits (avant commit docs 10) |
+| **Ahead** | 19 commits |
 | **Branche distante projet** | **ABSENTE** |
 | **PR T-A5** | **ABSENTE** |
 | **Handoff source** | blob `59d4638783780dd735f353b7fc68684b6d6f26fb` |
