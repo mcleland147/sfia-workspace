@@ -4,34 +4,34 @@
 |-------|--------|
 | **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
 | **Profil** | Critical |
-| **Gate D1–D5 / frame / PR readiness** | **CONSUMED** (voir docs 09–20) |
-| **Gate publish branch + PR** | `GO PUBLISH T-A6 BRANCH AND CREATE PR — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
-| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **Branche distante** | `origin/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` (**publiée**) |
-| **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
-| **PR** | [#267](https://github.com/mcleland147/sfia-workspace/pull/267) — **OPEN** |
-| **PR URL** | https://github.com/mcleland147/sfia-workspace/pull/267 |
-| **Runtime D1–D5** | **VALIDATED** |
-| **Fake-only / mémoire / D5 read-only** | **oui** |
-| **Persistence réelle / API/UI / T-A7** | **NON** |
-| **Merge** | **NON** |
-| **T-A6 COMPLETE / Option A COMPLETE** | **NON** |
-| **Statut pack** | **PR OPEN — MERGE REQUIRES MORRIS GO** |
-| **Horodatage publication** | 2026-07-26 12:40:30 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 BRANCH PUBLISHED AND PR CREATED — MERGE REQUIRES MORRIS GO` |
-| **Gate suivant candidat** | `GO REVIEW T-A6 PR AND CI — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **PR** | [#267](https://github.com/mcleland147/sfia-workspace/pull/267) — **MERGED** |
+| **Merge commit** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
+| **Stratégie** | **merge commit** |
+| **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
+| **Branche head** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` — **conservée** |
+| **Gate post-merge** | `GO RUN T-A6 POST-MERGE REVIEW — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Statut pack** | **POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED** |
+| **T-A6 intégré dans main** | **OUI** |
+| **T-A6 COMPLETE** | **NON** |
+| **Option A COMPLETE** | **NON** |
+| **T-A7** | **NON** |
+| **CI** | **ABSENT / UNAVAILABLE** (validation locale PASS) |
+| **Écart gouvernance** | **tracé** (pas de cycle review PR/CI ni gate merge formel) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED, CI UNAVAILABLE, GOVERNANCE GAP RECORDED` |
+| **Gate suivant candidat** | `GO FRAME NEXT OPTION A STEP AFTER T-A6 — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **Horodatage post-merge** | 2026-07-26 13:03:45 CEST (+0200) |
 
 ## Livrables
 
 1. [README.md](./README.md)
-2. [01](./01-framing.md) … [20-pr-readiness.md](./20-pr-readiness.md)
-3. [21-branch-publication-and-pr.md](./21-branch-publication-and-pr.md)
-4. Runtime : `app/lib/oa/evidence-review/**` (D1–D5)
-5. Tests : `app/__tests__/oa/evidence-review/**`
+2. [01](./01-framing.md) … [21-branch-publication-and-pr.md](./21-branch-publication-and-pr.md)
+3. [22-post-merge-review.md](./22-post-merge-review.md)
+4. Runtime : `app/lib/oa/evidence-review/**` (D1–D5) — **sur main**
+5. Tests : `app/__tests__/oa/evidence-review/**` — **sur main**
 
-## D1–D5 validés · PR ouverte
+## D1–D5 validés · intégré · post-merge confirmé
 
-D1–D5 **VALIDATED** · branche **publiée** · PR **#267 OPEN** · merge **requiert GO Morris** · T-A6 **non** déclaré complet · Option A **non** déclarée complète
+D1–D5 **VALIDATED** · PR **#267 MERGED** · contenu **intégré** · post-merge **COMPLETE** · T-A6 **non** déclaré complet · Option A **non** déclarée complète · branche head **conservée** · worktree T-A6 **inchangé**
 
 ## Réserves (OPEN — inchangées)
 
@@ -40,4 +40,4 @@ C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ## Anti-claims
 
-Pas T-A6 COMPLETE / Option A COMPLETE / DELIVERY COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / merge / rebase / squash / force-push / gate suivant consommé
+Pas T-A6 COMPLETE / Option A COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / CI PASS / merge « pleinement conforme gouvernance » / gate suivant consommé

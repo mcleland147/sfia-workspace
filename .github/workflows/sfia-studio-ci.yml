@@ -1,0 +1,96 @@
+name: SFIA Studio CI
+
+on:
+  pull_request:
+    paths:
+      - "projects/sfia-studio/**"
+      - ".github/workflows/sfia-studio-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "projects/sfia-studio/**"
+      - ".github/workflows/sfia-studio-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sfia-studio-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build and validate SFIA Studio
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+        working-directory: projects/sfia-studio/app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: projects/sfia-studio/app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Unit tests (Vitest)
+        run: npm test
+
+      - name: Modeled governance tests
+        working-directory: projects/sfia-studio
+        run: |
+          node --test \
+            sfia-v3-modeled/v3-native-option-a/tests/evidence-review-maturity-governance.test.mjs \
+            sfia-v3-modeled/v3-native-option-a/tests/execution-contract-governance.test.mjs \
+            sfia-v3-modeled/v3-native-option-a/tests/execution-attempt-governance.test.mjs
+
+      - name: Secret pattern scan (targeted)
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          # Fail closed on common high-signal secret markers under Studio paths.
+          # No external scanner dependency; patterns are intentionally narrow.
+          matches="$(git grep -nE 'BEGIN (RSA |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}' -- 'projects/sfia-studio' || true)"
+          if [ -n "${matches}" ]; then
+            echo "Potential secret material detected under projects/sfia-studio:" >&2
+            printf '%s\n' "${matches}" >&2
+            exit 1
+          fi
+          echo "Secret pattern scan passed"
+
+      - name: Trailing whitespace check
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            git diff --check "${BASE_SHA}...HEAD"
+          else
+            # Push to main: check the pushed commit range when available.
+            BEFORE="${{ github.event.before }}"
+            if [ -n "${BEFORE}" ] && [ "${BEFORE}" != "0000000000000000000000000000000000000000" ]; then
+              git diff --check "${BEFORE}...HEAD"
+            else
+              echo "No previous SHA available; skipping whitespace range check"
+            fi
+          fi
