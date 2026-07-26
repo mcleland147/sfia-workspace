@@ -54,6 +54,8 @@ export type ReviewBundle = {
   provenance: ProvenanceRecord;
   /** Runtime: set at freeze; immutable thereafter. */
   frozenEvidenceSnapshots?: ReviewBundleEvidenceSnapshot[];
+  /** Runtime: OCC version at freeze — ClaimEvaluation binds this exact value. */
+  frozenVersion?: number;
   /** Runtime command idempotency key for create. */
   idempotencyKey?: string;
   updatedAt?: string;

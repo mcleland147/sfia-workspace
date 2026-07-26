@@ -199,6 +199,7 @@ export class FreezeReviewBundle {
         );
       }
 
+      const nextVersion = current.version + 1;
       const updated: ReviewBundle = {
         ...current,
         claimEvaluationRefs: [],
@@ -206,8 +207,9 @@ export class FreezeReviewBundle {
         status: "ready_for_review",
         frozenAt: timestamp,
         frozenEvidenceSnapshots: snapshots,
+        frozenVersion: nextVersion,
         updatedAt: timestamp,
-        version: current.version + 1,
+        version: nextVersion,
         idempotencyKey: request.idempotencyKey,
       };
 

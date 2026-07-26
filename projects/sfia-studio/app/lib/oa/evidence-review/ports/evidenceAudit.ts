@@ -23,7 +23,20 @@ export type EvidenceAuditEventName =
   | "oa.review_bundle.reopened"
   | "oa.review_bundle.operation_rejected"
   | "oa.review_bundle.idempotency_conflict"
-  | "oa.review_bundle.concurrent_modification_rejected";
+  | "oa.review_bundle.concurrent_modification_rejected"
+  | "oa.claim_evaluation.created"
+  | "oa.claim_evaluation.evaluated"
+  | "oa.claim_evaluation.passed"
+  | "oa.claim_evaluation.failed"
+  | "oa.claim_evaluation.inconclusive"
+  | "oa.claim_evaluation.confirmation_requested"
+  | "oa.claim_evaluation.confirmed"
+  | "oa.claim_evaluation.waived"
+  | "oa.claim_evaluation.disputed"
+  | "oa.claim_evaluation.operation_rejected"
+  | "oa.claim_evaluation.authority_rejected"
+  | "oa.claim_evaluation.idempotency_conflict"
+  | "oa.claim_evaluation.concurrent_modification_rejected";
 
 export type EvidenceAuditEvent = {
   event: EvidenceAuditEventName;
@@ -34,6 +47,7 @@ export type EvidenceAuditEvent = {
   executionAttemptId?: string;
   reviewBundleId?: string;
   successorReviewBundleId?: string;
+  claimEvaluationId?: string;
   actorId?: string;
   previousStatus?: string;
   newStatus?: string;
