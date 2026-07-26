@@ -50,7 +50,7 @@ Build CI sous Node 20 : `ERR_UNKNOWN_BUILTIN_MODULE` / `node:sqlite` chargé via
 +          node-version: "24"
 ```
 
-Fichier : `.github/workflows/sfia-studio-ci.yml`  
+Fichier : `.github/workflows/sfia-studio-ci.yml`
 Aucune autre ligne modifiée (job, paths, permissions, cache, timeout, concurrency, commandes inchangés).
 
 ---

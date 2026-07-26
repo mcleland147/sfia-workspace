@@ -132,7 +132,7 @@ Origine probable : hard-break Markdown (`␠␠` en fin de ligne) introduit à l
 
 ```
 projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/27-ci-node-runtime-correction-and-rerun.md:53: trailing whitespace.
-+Fichier : `.github/workflows/sfia-studio-ci.yml`  
++Fichier : `.github/workflows/sfia-studio-ci.yml`
 ```
 
 | Métrique | Valeur |
