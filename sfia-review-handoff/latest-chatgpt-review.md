@@ -1,140 +1,90 @@
-# SFIA Review Pack — FULL — T-A6 Post-Merge Review
+# SFIA Review Pack — FULL — Option A Next-Step Framing After T-A6
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 13:04:54 CEST (+0200) |
-| **Cycle** | Post-merge / T-A6 |
+| **Date/heure/fuseau** | 2026-07-26 13:23:09 CEST (+0200) |
+| **Cycle** | Cadrage — trajectoire Option A après T-A6 |
 | **Profil** | Critical |
-| **Gate** | `GO RUN T-A6 POST-MERGE REVIEW — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate** | `GO FRAME NEXT OPTION A STEP AFTER T-A6 — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
 | **Repo** | mcleland147/sfia-workspace |
-| **PR** | #267 MERGED — https://github.com/mcleland147/sfia-workspace/pull/267 |
-| **Merge commit** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **Parents** | `b25c20e6…` + `0b696ed…` |
-| **Stratégie** | merge commit |
 | **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **Worktree T-A6** | /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech |
-| **Branche T-A6** | framing/…-t-a6-… @ `0b696ed970823aa75d013336e44e72de08f2ac57` — **inchangée / conservée** |
-| **Worktree post-merge** | /Users/morris/Projects/sfia-workspace-t-a6-post-merge |
-| **Branche post-merge** | `post-merge/sfia-studio-v3-native-option-a-t-a6` @ `1f2585712e460b4ba6267d9e520cd0fd3cea6d3e` — **locale non poussée** |
-| **main modifié par ce cycle** | **NON** |
-| **Runtime/tests/modeled** | **NON** |
+| **Merge T-A6** | PR #267 · `910de87a9dad00491cd32cb6b439ce13cbc7bceb` · head `0b696ed…` |
+| **Branche source** | `post-merge/sfia-studio-v3-native-option-a-t-a6` @ `1f25857…` |
+| **Branche cadrage** | `framing/sfia-studio-v3-native-option-a-after-t-a6` @ `aef7fd6d5a678857cf36e490f1550866d47c8887` |
+| **HEAD T-A6 (inchangé)** | `0b696ed970823aa75d013336e44e72de08f2ac57` |
+| **Push projet / PR / merge** | **NON** |
+| **Runtime / tests / modeled / T-A6 historique** | **NON** |
 | **Réserves** | **OPEN inchangées** |
 | **T-A7 / décision Morris / gate suivant** | **NON** |
 | **Niveau** | FULL |
-| **CI** | ABSENT / UNAVAILABLE |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED, CI UNAVAILABLE, GOVERNANCE GAP RECORDED` |
-| **Gate suivant candidat** | `GO FRAME NEXT OPTION A STEP AFTER T-A6 — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **Recommandation (non validée)** | Option F — CI + gouvernance d’intégration |
+| **Gate suivant candidat** | `GO PREPARE OPTION A CI AND MERGE GOVERNANCE — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A NEXT STEP AFTER T-A6 FRAMED — MORRIS DECISION REQUIRED` |
 
 ---
 
 ## 1. Truth Check
 
-PASS — PR merged · merge commit = origin/main · parents exacts · branche T-A6 conservée · worktree T-A6 inchangé · handoff source blob `6767d0e7…` · aucun checkout T-A6.
-
-### Status T-A6
-
-```
-## framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity...origin/framing/...
-?? .tmp-sfia-review/
-```
-
-### Status post-merge
-
-```
-## post-merge/sfia-studio-v3-native-option-a-t-a6
-```
+PASS — main = merge T-A6 · post-merge docs only · T-A6 worktree inchangé · handoff blob `2b1bd4c1…` · branche cadrage créée sans upstream · aucune PR Option A ouverte.
 
 ---
 
-## 2. CKC / sources / handoff source
+## 2. CKC / sources
 
-- CKC 14-post-merge **absent** → fallback méthode + T-A5 pattern
-- Handoff source blob `6767d0e7993131e87f90a4f922ea0d600be6a273`
-- PR #267 · merge commit · docs 20/21 · D1–D5
-
-### PR JSON
-
-```json
-{"additions":26515,"autoMergeRequest":null,"baseRefName":"main","changedFiles":171,"deletions":112,"headRefOid":"0b696ed970823aa75d013336e44e72de08f2ac57","mergeCommit":{"oid":"910de87a9dad00491cd32cb6b439ce13cbc7bceb"},"mergedAt":"2026-07-26T10:52:16Z","number":267,"state":"MERGED","statusCheckRollup":[],"url":"https://github.com/mcleland147/sfia-workspace/pull/267"}
-
-```
+- CKC cadrage candidate `01-cadrage.md` · `executionAuthority=false`
+- Design/AT/modeled Option A · delivery T-A0–T-A6 · PR #260–#267 · CI Interv360-only · branches sœurs
 
 ---
 
-## 3. Intégration
+## 3. Synthèse trajectoire
 
-- 171 files · +26515/−112
-- Runtime/tests/modeled/docs T-A6 **présents** sur main
-- Diff scoped head↔main T-A6 : **vide** (aucune perte)
+T-A0…T-A6 **intégrés** sur main (fake/memory). Shared platform #255 et control tower #254 **déjà mergés**. T-A7 = cutover/OPS1/legacy — **pack absent** — **non** prochain incrément fondation.
 
----
-
-## 4. CI
-
-CI ABSENT / UNAVAILABLE — LOCAL POST-MERGE VALIDATION REQUIRED
+CI `sfia-studio` : **ABSENT**. Finding gouvernance F-A6-PM-G01 ouvert.
 
 ---
 
-## 5. Tests post-merge (HEAD merge `910de87`)
+## 4. Options / recommandation
 
-| Suite | Résultat |
-|-------|----------|
-| evidence-review | **140 PASS** |
-| T-A3 | **50 PASS** |
-| T-A4 | **61 PASS** |
-| T-A5 | **88 PASS** |
-| modeled T-A6 | **27 PASS** |
-| tsc / lint / build | **PASS** |
-| secret scan / diff-check | **PASS** |
+| Option | Reco |
+|--------|------|
+| A T-A7 | écarter/différer |
+| B Shared platform | différer (déjà mergé) |
+| C UX/CT | différer (façade) |
+| D Persist/API | ensuite |
+| E Réserves HARD | ensuite |
+| **F CI/gov** | **maintenant** |
+| G Doc 22 | ensuite |
+| H Consolidation | 2ᵉ option |
 
-Environnement : Node v24.16.0 · worktree post-merge · deps liées localement non commitées.
-
----
-
-## 6. Écart gouvernance
-
-- Merge réel sans cycle `GO REVIEW T-A6 PR AND CI` ni gate merge formel tracé
-- H2 squash non décidé ; merge commit effectif
-- Finding Major gouvernance F-A6-PM-G01 **tracé** · pas de revert
-- Recommandation : séparer review/CI · décision H1/H2 · GO merge · post-merge
+Gate candidat : `GO PREPARE OPTION A CI AND MERGE GOVERNANCE — SFIA STUDIO V3-NATIVE` (**NOT consumed**)
 
 ---
 
-## 7. Réserves OPEN
-
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 · C1–C4 NOT VALIDATED
-
----
-
-## 8. Contenu complet — 22-post-merge-review.md
+## 5. Contenu complet — 23-next-option-a-step-after-t-a6.md
 
 ```markdown
-# 22 — T-A6 Post-Merge Review
+# 23 — Next Option A Step After T-A6
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 13:03:45 CEST (+0200) — Europe/Paris |
-| **Cycle** | Post-merge |
-| **Sous-cycle** | T-A6 — Evidence / ReviewBundle / Claims / Maturity / RecommendNextGate |
+| **Date/heure/fuseau** | 2026-07-26 13:21:11 CEST (+0200) — Europe/Paris |
+| **Cycle** | Cadrage — trajectoire Option A après T-A6 |
 | **Profil** | Critical |
-| **Gate** | `GO RUN T-A6 POST-MERGE REVIEW — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate** | `GO FRAME NEXT OPTION A STEP AFTER T-A6 — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **PR** | [#267](https://github.com/mcleland147/sfia-workspace/pull/267) — **MERGED** |
-| **Merge commit** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **Ancien origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
-| **origin/main courant** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **Parents** | `b25c20e…` (main) + `0b696ed…` (head T-A6) |
-| **Stratégie** | **merge commit** (pas de squash) |
-| **Branche head** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` @ `0b696ed…` — **conservée** |
-| **Worktree T-A6** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` — **inchangé** |
-| **Worktree post-merge** | `/Users/morris/Projects/sfia-workspace-t-a6-post-merge` |
-| **Branche post-merge** | `post-merge/sfia-studio-v3-native-option-a-t-a6` (locale, non poussée) |
-| **Handoff source** | blob `6767d0e7993131e87f90a4f922ea0d600be6a273` |
+| **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
+| **Merge T-A6** | PR [#267](https://github.com/mcleland147/sfia-workspace/pull/267) · `910de87…` · head `0b696ed…` |
+| **Branche source** | `post-merge/sfia-studio-v3-native-option-a-t-a6` @ `1f25857…` |
+| **Branche cadrage** | `framing/sfia-studio-v3-native-option-a-after-t-a6` (locale, non poussée) |
+| **Worktree cadrage** | `/Users/morris/Projects/sfia-workspace-option-a-after-t-a6` |
+| **Handoff source** | blob `2b1bd4c1440ef53790ec739eee4c673b58fb22d9` |
 | **T-A6 COMPLETE** | **NON** |
 | **Option A COMPLETE** | **NON** |
-| **T-A7** | **NON** |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED, CI UNAVAILABLE, GOVERNANCE GAP RECORDED` |
-| **Gate suivant candidat** | `GO FRAME NEXT OPTION A STEP AFTER T-A6 — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **T-A7** | **NON ouvert** |
+| **Recommandation** | Option F — CI + gouvernance d’intégration (**non validée**) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A NEXT STEP AFTER T-A6 FRAMED — MORRIS DECISION REQUIRED` |
+| **Gate suivant candidat** | `GO PREPARE OPTION A CI AND MERGE GOVERNANCE — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
 
 ---
 
@@ -142,280 +92,299 @@ B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 · C1–C4 NOT VALIDATED
 
 | Contrôle | Résultat |
 |----------|----------|
-| PR #267 MERGED | **PASS** |
-| Merge commit sur `origin/main` | **PASS** (`910de87…`) |
-| Parent 1 = ancien main | **PASS** (`b25c20e…`) |
-| Parent 2 = head T-A6 publié | **PASS** (`0b696ed…`) |
-| Stratégie merge commit | **PASS** (2 parents · message `Merge pull request #267`) |
-| Branche distante T-A6 conservée | **PASS** |
-| Worktree T-A6 inchangé / pas de checkout | **PASS** |
-| Handoff publication blob | **PASS** (`6767d0e7…`) |
-| Ops Git actives | **aucune** |
+| `origin/main` = merge T-A6 | **PASS** |
+| Parents merge #267 | `b25c20e…` + `0b696ed…` |
+| Branche T-A6 conservée | **PASS** |
+| Post-merge `1f25857` + doc 22 | **PASS** (seul delta = docs) |
+| Handoff post-merge blob | **PASS** |
+| Worktrees T-A6 / main non modifiés | **PASS** |
+| Branche cadrage créée | **PASS** · aucun upstream |
+| PR Option A ouvertes | **aucune** |
 
 ---
 
 ## 2. Sources / CKC
 
-- Template cycle · handoff publication/PR · PR #267 · merge commit · docs `20`/`21`/README · D1–D5
-- Pattern T-A5 #266 (merge commit · branche conservée · pas de doc post-merge sur main)
-- CKC `14-post-merge.md` : **absent** → fallback méthode + routing + patterns T-A5 · `executionAuthority=false`
+| Source | Usage |
+|--------|-------|
+| Template cycle · routing · méthode · operating model · garde-fous | méthode |
+| CKC `pilots/01-cadrage.md` | **candidate** · `executionAuthority=false` |
+| Design / AT / modeled Option A READMEs | trajectoire validée Morris (fondations) |
+| Delivery T-A0…T-A6 sur `main` | incréments runtime |
+| PR #260–#267 | chronologie merges |
+| Handoff post-merge · docs T-A6 01–22 | état T-A6 |
+| Branches sœurs (shared platform, UX, CT, next-increment) | dépendances / non-intégration |
+| `.github/workflows/interv360-ci.yml` | CI absente pour `sfia-studio` |
 
 ---
 
-## 3. Merge GitHub
+## 3. Chronologie Option A (faits Git)
 
-| Champ | Valeur |
-|-------|--------|
-| Merged at | 2026-07-26T10:52:16Z |
-| Author | `mcleland147` |
-| Committer | GitHub |
-| Message | `Merge pull request #267 from …/t-a6-…` + titre feat |
-| Files | **171** |
-| +/- | **+26515 / −112** |
-| Auto-merge | **null** |
-| Draft | non |
-| Squash | **NON** |
-| Rebase | **NON** |
+| Élément | Statut | Preuve |
+|---------|--------|--------|
+| Conception FD/FA/UX/Modeled/AT | **VALIDATED BY MORRIS** (docs) | packs design/AT/modeled |
+| Foundation docs PR #260 | **MERGED** | `pr/sfia-studio-v3-native-option-a-foundation` |
+| T-A0 Doctrine | **intégré main** | PR #261 |
+| T-A1 Project/LPS | **intégré main** | PR #262 |
+| T-A2 Cycle/Trajectory/CKC | **intégré main** | PR #263 |
+| T-A3 Decision/Authority | **intégré main** | PR #264 · réserves OPEN |
+| T-A4 ExecutionContract | **intégré main** | PR #265 |
+| T-A5 ExecutionAttempt | **intégré main** | PR #266 |
+| T-A6 Evidence/Review/Claims/Maturity | **intégré main** | PR #267 · post-merge OK |
+| Shared technical platform | **déjà mergé** (#255) · branche locale tip docs en retard sur main | pas un « gros manquant » runtime Option A |
+| Control tower / D1 intake | **déjà mergé** (#254) · worktree local divergé | legacy/produit parallèle |
+| UX Option A design branch | delta vs main **0** | contrat UX validé docs ; pas un runtime Option A manquant |
+| T-A7 delivery pack | **absent** | aucune folder `t-a7-*` · définition = cutover/OPS1/legacy |
 
-Comparaison T-A5 #266 : même stratégie merge commit · branche head conservée · pattern historique ≠ décision générale.
-
----
-
-## 4. Contenu intégré sur `main`
-
-| Bucket | Présent | Preuve |
-|--------|---------|--------|
-| Runtime `evidence-review/**` | **oui** | 66 fichiers · barrel · D1–D5 apps (dont `recommendNextGate.ts`) |
-| Tests evidence-review | **oui** | 17 fichiers |
-| Modeled schemas/examples/tests | **oui** | Evidence/RB/Claim/Maturity + governance test |
-| Docs 01–21 + README | **oui** | 22 entrées dossier (avant ce cycle) |
-| Fichiers manquants T-A6 | **aucun** | diff scoped head↔main **vide** |
-
-Comparaison tree head `0b696ed` vs `origin/main` (paths T-A6) : **aucune différence**.
+**Anti-assimilation :** merge ≠ COMPLETE produit · modeled ≠ runtime · branche locale ≠ capacité non intégrée.
 
 ---
 
-## 5. CI
+## 4. État capacitaire sur `main` après T-A6
 
-| Surface | Statut |
-|---------|--------|
-| Checks PR #267 | **aucun** (`statusCheckRollup=[]`) |
-| Checks head `0b696ed` | **0** statuses · state pending vide |
-| Checks merge `910de87` | **0** check-runs |
-| Workflows utiles | **unavailable** |
+| Capacité | Qualification |
+|----------|----------------|
+| Doctrine / Project / LPS / Cycle | runtime mémoire sur `main` |
+| Authority / Decision / Confirmation | runtime mémoire · réserves T-A3 OPEN |
+| ExecutionContract | runtime mémoire |
+| ExecutionAttempt + adapters Test/NoOp | runtime mémoire · **pas** adapter réel |
+| Evidence / ReviewBundle / ClaimEvaluation / Maturity | runtime mémoire · D1–D5 validés |
+| RecommendNextGate | runtime read-only · `executionAuthority=false` |
+| Persistence réelle | **absente** |
+| API produit Option A | **absente** |
+| UI Option A native branchée sur oa/** | **absente** (CT/D1 = autre surface) |
+| Observabilité / RUN readiness Option A | partielle / non RUN-ready |
+| Exécution réelle | **bloquée** (R-T-A3 HARD + anti T-A7) |
+| Sécurité/RGPD v1 fake-only | bornée · U-M02 OPEN |
+| CI `sfia-studio` | **ABSENT** (workflow limité à `projects/interv360/**`) |
 
-**Formulation :** `CI ABSENT / UNAVAILABLE — LOCAL POST-MERGE VALIDATION REQUIRED`
-
-L’absence de CI **n’est pas** un PASS.
-
----
-
-## 6. Tests post-merge (sur `910de87`)
-
-Environnement : worktree `…/sfia-workspace-t-a6-post-merge` · `projects/sfia-studio/app` · Node v24.16.0 · npm 11.13.0 · `node_modules` lié localement (non commité).
-
-| Suite | Résultat | Réf. readiness |
-|-------|----------|----------------|
-| evidence-review | **140 PASS** | 140 |
-| T-A3 decision | **50 PASS** | 50 |
-| T-A4 execution-contract | **61 PASS** | 61 |
-| T-A5 execution-attempt | **88 PASS** | 88 |
-| modeled T-A6 | **27 PASS** | 27 |
-| `tsc --noEmit` | **PASS** | PASS |
-| `npm run lint` | **PASS** | PASS |
-| `npm run build` | **PASS** | PASS |
-| secret scan ciblé | **0** secret réel | PASS |
-| `git diff --check b25c20e..910de87` | **PASS** | PASS |
-
-Skipped : **0**. Variations vs readiness : **aucune**.
+Modules `app/lib/oa/` présents : `doctrine` · `project` · `cycle` · `decision` · `execution-contract` · `execution-attempt` · `evidence-review`.
 
 ---
 
-## 7. Findings
+## 5. Réserves et blockers (inchangés)
 
-| ID | Sévérité | Statut | Note |
-|----|----------|--------|------|
-| — | Critical | **aucun** | intégration OK |
-| F-A6-PM-G01 | **Major (gouvernance/doc)** | **tracé** | merge sans cycle `GO REVIEW T-A6 PR AND CI` ni gate merge explicite dans la séquence documentée |
-| O-PM-1 | Observation | ouvert | CI absente / unavailable |
-| O-PM-2 | Observation | ouvert | H2 squash recommandé non décidé ; merge commit effectif (comme #266) |
-| O-PM-3 | Observation | ouvert | checklist PR readiness encore cochée « Push/PR require GO » (historique pré-publication) |
+| ID | Criticité | Impact prochaine étape |
+|----|-----------|------------------------|
+| B5 | OPEN | dette structurante / LPS satellite |
+| R1 | OPEN | txn / outbox avant persistence réelle |
+| R-T-A3-1 | OPEN | Critical acknowledge public manquant |
+| R-T-A3-2 | OPEN HARD famille | atomicité Decision↔LPS — **bloque persistence réelle saine** |
+| R-T-A3-3 / 4 | OPEN | autorité |
+| R-M01 | OPEN | ClaimEvaluator / readiness |
+| U-M02 | OPEN | payloads / vendor |
+| C1–C4 | RECOMMENDED — NOT VALIDATED | dette delivery T-A6 |
+| F-A6-PM-G01 | Major gouvernance | merge sans cycle review/CI ni gate merge formel |
+| CI ABSENT | Observation structurelle | aucune CI `sfia-studio` |
 
-Aucune correction technique dans ce cycle.
-
----
-
-## 8. Écart de gouvernance
-
-### Observation (faits)
-
-- PR #267 **mergée** ; merge commit sur `main`.
-- Aucun cycle explicite `GO REVIEW T-A6 PR AND CI` exécuté.
-- Aucun gate de merge formel tracé dans la séquence documentaire avant l’action « go merge ».
-- H2 squash = recommandation, **pas** décision ; stratégie effective = **merge commit**.
-
-### Impact
-
-| Domaine | Impact |
-|---------|--------|
-| Technique | **faible** — contenu intact · tests locaux PASS |
-| Documentaire | **moyen** — séquence gates incomplète jusqu’au post-merge |
-| Gouvernance | **majeur process** — risque de répétition si non tracé |
-| Réserves | **nul** — restent OPEN |
-| Trajectoire | **faible** — suite Option A à cadrer ; pas d’auto T-A7 |
-
-### Recommandation (non validée)
-
-1. Tracer l’écart ici (fait).
-2. **Ne pas** revert / réécrire.
-3. Pour les prochains slices : séparer explicitement revue PR/CI · décision H1/H2 · GO merge · post-merge.
-4. Traiter CI absente comme observation structurelle repo, pas comme PASS.
-
-### Décisions validées (uniquement faits Git)
-
-- Merge effectif #267
-- Stratégie merge commit
-- Contenu T-A6 intégré dans `main`
-- Tests locaux post-merge PASS
+Aucune fermeture dans ce cadrage.
 
 ---
 
-## 9. Réserves (OPEN — inchangées)
+## 6. Options
 
-| ID | Statut | Impact T-A6 intégré | Production | Autorité |
-|----|--------|---------------------|------------|----------|
-| B5 | OPEN | dette Option A | oui | Morris |
-| R1 | OPEN | dette | oui | Morris |
-| R-T-A3-1 | OPEN HARD | hors mémoire | bloque exec réelle | Morris |
-| R-T-A3-2 | OPEN HARD | hors mémoire | bloque exec réelle | Morris |
-| R-T-A3-3 | OPEN | autorité | partiel | Morris |
-| R-T-A3-4 | OPEN | autorité | partiel | Morris |
-| R-M01 | OPEN | ClaimEvaluator readiness | oui | Morris |
-| U-M02 | OPEN | payloads/vendor | oui | Morris |
-| C1–C4 | RECOMMENDED — NOT VALIDATED | dette delivery | dette | Morris |
+### Option A — Ouvrir T-A7
 
-Le merge **ne ferme** aucune réserve et **ne valide** aucun C1–C4.
+| Champ | Analyse |
+|-------|---------|
+| Définition Git | Cutover legacy · MethodMode · OPS1 · activation globale (D-T-A6-10 / framing T-A6) |
+| Pack delivery | **absent** |
+| Prérequis | exécution réelle / legacy / réserves HARD · framing dédié |
+| Recommandation | **écarter / différer maintenant** |
+| Risque | inertie de numérotation · contour HARD · blast radius élevé |
+
+### Option B — Intégrer shared technical platform
+
+| Champ | Analyse |
+|-------|---------|
+| Fait | PR #255 **déjà mergée** |
+| Branche locale | tip docs, **en retard** sur main post T-A0–T-A6 |
+| Recommandation | **différer** comme « intégration » · éventuellement capitalisation docs branche stale |
+| Invert si | Git révèle un delta runtime non mergé critique (non constaté comme blocker T-A6) |
+
+### Option C — UX/UI / control tower Option A
+
+| Champ | Analyse |
+|-------|---------|
+| UX design | validé docs · delta branche **0** |
+| CT/D1 | déjà sur main (#254) · surface distincte |
+| Risque | façade UI sur runtime mémoire sans persistence |
+| Recommandation | **différer** pour branchement produit Option A |
+
+### Option D — Persistence / API
+
+| Champ | Analyse |
+|-------|---------|
+| Valeur | débloque produit / LPS durable |
+| Blockers | R1 / R-T-A3-2 · U-M02 · DB non sélectionnée (anti-claims AT) |
+| Recommandation | **ensuite** (cadrage dédié) — pas immédiat sans politique CI/gouvernance |
+
+### Option E — Traiter réserves autorité / exécution réelle
+
+| Champ | Analyse |
+|-------|---------|
+| Valeur | prérequis T-A7 / adapters réels |
+| Urgence | haute **avant** exec réelle · basse pour stack fake-only actuelle |
+| Recommandation | **ensuite** / parallèle après F |
+
+### Option F — CI et gouvernance d’intégration
+
+| Champ | Analyse |
+|-------|---------|
+| Preuve | CI Interv360-only · F-A6-PM-G01 · post-merge « CI UNAVAILABLE » |
+| Valeur | sécurise prochains merges (persistence, réserves, éventuel T-A7 framing) |
+| Dette évitée | merges sans checks · gaps de gates |
+| Effort | relatif moyen · réversible · L1–L2 |
+| Recommandation | **maintenant** |
+
+### Option G — Capitaliser doc post-merge T-A6 (doc 22)
+
+| Champ | Analyse |
+|-------|---------|
+| Fait | `22` local sur post-merge / cadrage · **pas** sur `origin/main` |
+| Valeur | traçabilité |
+| Recommandation | **ensuite immédiat** ou sous-tâche de F · pas prioritaire seul |
+
+### Option H — Pause / consolidation Option A
+
+| Champ | Analyse |
+|-------|---------|
+| Valeur | cartographie capabilities + séquence branches |
+| Recommandation | **deuxième option** si Morris veut inventaire avant outillage CI |
 
 ---
 
-## 10. Anti-claims
+## 7. Matrice (synthèse)
 
-Pas T-A6 COMPLETE · Option A COMPLETE · runtime/production ready · réserves fermées · R-M01 fermée · C1–C4 validées · T-A7 ouvert · persistence réelle · API/UI · « merge conforme à toute la gouvernance » · merge commit = baseline obligatoire · CI PASS.
-
-Autorisé : T-A6 **intégré** dans `main` · PR #267 mergée · post-merge review complète avec CI unavailable · écart gouvernance **tracé**.
-
----
-
-## 11. Décisions Morris requises (futures)
-
-1. Autoriser cadrage suite Option A (`GO FRAME NEXT OPTION A STEP AFTER T-A6`) ?
-2. Décider politique merge (H1 merge commit vs H2 squash) pour prochains slices ?
-3. Exiger cycle review PR/CI avant tout merge futur ?
-4. (Hors scope) fermeture éventuelle de réserves — **pas** par ce cycle.
+| Option | Urgence | Blockers | Dette créée | Maintenant ? |
+|--------|---------|----------|-------------|--------------|
+| A T-A7 | basse | HARD + pack absent | très haute | **non** |
+| B Shared plat. | basse | stale / déjà mergé | moyenne | **non** |
+| C UX/CT | basse | façade mémoire | haute | **non** |
+| D Persist/API | moyenne | R1/R-T-A3-2/U-M02 | haute si précipité | **ensuite** |
+| E Réserves HARD | moyenne | Morris | faible si cadrage | **ensuite** |
+| **F CI/gov** | **haute** | aucun HARD | faible | **oui** |
+| G Doc 22 | faible | aucun | faible | ensuite |
+| H Consolidation | moyenne | aucun | faible | 2ᵉ choix |
 
 ---
 
-## 12. Gate suivant candidat
+## 8. Challenges
+
+| Question | Réponse (F) |
+|----------|-------------|
+| Utile maintenant ? | **Oui** — gap CI/gov démontré sur #267 |
+| Dette créée ? | Faible (workflows/docs/process) |
+| Plus simple ? | G plus simple mais ne corrige pas CI |
+| Repo-first ? | **Oui** — workflow paths le prouvent |
+| T-A7 par inertie ? | **Non** — explicitement écarté |
+| Contour HARD ? | **Non** |
+| Façade ? | **Non** |
+
+---
+
+## 9. Recommandation (non validée)
+
+### Option recommandée : **F — CI et gouvernance d’intégration Option A**
+
+**Justification :** la chaîne T-A0→T-A6 fake-only est sur `main` ; le risque immédiat n’est plus « le prochain agrégat manquant » mais **l’absence de CI `sfia-studio`** et le **gap de gouvernance de merge** (F-A6-PM-G01). T-A7 n’est pas le prochain incrément de fondation : c’est un cutover legacy/OPS1 sans pack delivery et bloqué par HARD.
+
+| Élément | Proposition |
+|---------|-------------|
+| Cycle SFIA | PR readiness / DevOps / intégration (cadrage puis préparation) |
+| Profil | Critical |
+| Blocs | DevOps · intégration · gouvernance · QA · anti-claims · documentation |
+| Scope | workflows CI ciblant `projects/sfia-studio/**` · checklist merge · distinction review/CI · H1/H2 · gates Morris · éventuellement intégrer publication doc 22 |
+| Exclusions | runtime métier · T-A7 · persistence · fermeture réserves · adapters réels |
+| Réserves | toutes **OPEN** |
+| Branche | nouvelle `devops/…` ou `framing/…-ci-merge-governance` depuis `main` |
+| Preuves | workflow vert sur PR test · docs gates · anti force-merge |
+| Stop | élargissement runtime · claim « production ready » · ouverture T-A7 |
+
+**Gate Morris candidat :**
 
 ```
-GO FRAME NEXT OPTION A STEP AFTER T-A6
+GO PREPARE OPTION A CI AND MERGE GOVERNANCE
 — SFIA STUDIO V3-NATIVE
 ```
 
-**NOT consumed.** Ne pas ouvrir T-A7 automatiquement.
+**NOT consumed.**
+
+### Deuxième option : **H — Consolidation / inventaire capacitaire Option A**
+
+Utile si Morris veut d’abord une carte unique des capabilities + ordre d’intégration avant outillage. Moins urgente que F car n’adresse pas le trou CI déjà prouvé.
+
+**Inversion possible de F → D/E** si Morris priorise explicitement persistence ou traitement HARD avant outillage CI.
+
+---
+
+## 10. Automatisation
+
+| Niveau | Admissible pour F |
+|--------|-------------------|
+| L0–L1 | checklists · contrôles |
+| L2 | génération workflows guidée |
+| L3 | publication handoff / CI runs bornés |
+| L4–L5 | **hors** cible |
+
+Aucune autorité d’exécution réelle.
+
+---
+
+## 11. Décisions
+
+### Validées (faits)
+
+- T-A6 intégré · #267 mergée · merge commit · tests post-merge PASS · CI absente · écart gouvernance tracé · réserves OPEN · T-A6/Option A non COMPLETE · T-A7 non ouvert · D-T-A6-10 BOUNDARY approved
+
+### Candidates (Morris)
+
+- prochaine étape = F ?
+- ordre F → G/H → D/E ?
+- politique H1/H2 future ?
+- ouverture T-A7 (recommandé : non maintenant) ?
+- push branche cadrage / PR doc (non demandé ici)
+
+---
+
+## 12. Anti-claims
+
+Pas T-A7 OPEN · T-A6 COMPLETE · Option A COMPLETE · prochaine étape **validée** · architecture re-validée · réserve fermée · production ready · CI PASS · persistence/API/UI prêts.
 
 ---
 
 ## 13. Verdict
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED, CI UNAVAILABLE, GOVERNANCE GAP RECORDED`
+`SFIA STUDIO V3-NATIVE OPTION A NEXT STEP AFTER T-A6 FRAMED — MORRIS DECISION REQUIRED`
 
 ```
 
 ---
 
-## 9. Contenu complet — README.md
+## 6. Index/README Option A delivery
 
-```markdown
-# T-A6 — Evidence, Review, Claims and Maturity (Option A)
-
-| Champ | Valeur |
-|-------|--------|
-| **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
-| **Profil** | Critical |
-| **PR** | [#267](https://github.com/mcleland147/sfia-workspace/pull/267) — **MERGED** |
-| **Merge commit** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **Stratégie** | **merge commit** |
-| **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **Branche head** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` — **conservée** |
-| **Gate post-merge** | `GO RUN T-A6 POST-MERGE REVIEW — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
-| **Statut pack** | **POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED** |
-| **T-A6 intégré dans main** | **OUI** |
-| **T-A6 COMPLETE** | **NON** |
-| **Option A COMPLETE** | **NON** |
-| **T-A7** | **NON** |
-| **CI** | **ABSENT / UNAVAILABLE** (validation locale PASS) |
-| **Écart gouvernance** | **tracé** (pas de cycle review PR/CI ni gate merge formel) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED, CI UNAVAILABLE, GOVERNANCE GAP RECORDED` |
-| **Gate suivant candidat** | `GO FRAME NEXT OPTION A STEP AFTER T-A6 — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
-| **Horodatage post-merge** | 2026-07-26 13:03:45 CEST (+0200) |
-
-## Livrables
-
-1. [README.md](./README.md)
-2. [01](./01-framing.md) … [21-branch-publication-and-pr.md](./21-branch-publication-and-pr.md)
-3. [22-post-merge-review.md](./22-post-merge-review.md)
-4. Runtime : `app/lib/oa/evidence-review/**` (D1–D5) — **sur main**
-5. Tests : `app/__tests__/oa/evidence-review/**` — **sur main**
-
-## D1–D5 validés · intégré · post-merge confirmé
-
-D1–D5 **VALIDATED** · PR **#267 MERGED** · contenu **intégré** · post-merge **COMPLETE** · T-A6 **non** déclaré complet · Option A **non** déclarée complète · branche head **conservée** · worktree T-A6 **inchangé**
-
-## Réserves (OPEN — inchangées)
-
-B5 · R1 · R-T-A3-1..4 (HARD 1–2) · R-M01 · U-M02 **OPEN**
-C1–C4 **RECOMMENDED — NOT VALIDATED**
-
-## Anti-claims
-
-Pas T-A6 COMPLETE / Option A COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / CI PASS / merge « pleinement conforme gouvernance » / gate suivant consommé
-
-```
+Aucun README canonique au niveau `v3-native-option-a/` delivery — **non créé** (non inventé).
 
 ---
 
-## 10. Fichiers / commits
+## 7. Fichiers / commit
 
-**Créés**
-- `…/22-post-merge-review.md`
+**Créé**
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/23-next-option-a-step-after-t-a6.md`
 
-**Modifiés**
-- `…/README.md`
+**Commit**
+- `aef7fd6d5a678857cf36e490f1550866d47c8887` `docs(sfia-studio): frame next Option A step after T-A6`
 
-**Supprimés**
-- aucun
-
-**Commit local post-merge**
-- `1f2585712e460b4ba6267d9e520cd0fd3cea6d3e` `docs(sfia-studio): record T-A6 post-merge review`
-
-**Push branche post-merge**
-- **NON**
+**Push branche cadrage** : **NON**
 
 ---
 
-## 11. Anti-claims / validation finale
+## 8. Anti-claims
 
-- main **non** modifié par ce cycle
-- branche T-A6 **non** modifiée / **non** supprimée
-- runtime/tests/modeled **non** modifiés
-- réserves **inchangées**
-- T-A6 COMPLETE / Option A COMPLETE **NON**
-- T-A7 **NON**
-- gate suivant **NOT consumed**
+Pas T-A7 OPEN · T-A6/Option A COMPLETE · prochaine étape validée · réserve fermée · production ready · gate suivant consommé · décision Morris créée
 
 ---
 
-## 12. Verdict exact
+## 9. Verdict exact
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED, CI UNAVAILABLE, GOVERNANCE GAP RECORDED`
+`SFIA STUDIO V3-NATIVE OPTION A NEXT STEP AFTER T-A6 FRAMED — MORRIS DECISION REQUIRED`
