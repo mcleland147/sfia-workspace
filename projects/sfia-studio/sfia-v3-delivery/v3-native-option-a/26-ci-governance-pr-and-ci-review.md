@@ -19,7 +19,8 @@
 | **Push projet** | **NON** |
 | **Merge** | **INTERDIT** |
 | **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE PR REVIEW COMPLETE — CI CORRECTION FRAMED, MORRIS GO REQUIRED` |
-| **Gate suivant candidat** | `GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **Gate suivant candidat** | `GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI — SFIA STUDIO V3-NATIVE` (**CONSUMED** dans cycle suivant — voir [27](./27-ci-node-runtime-correction-and-rerun.md)) |
+| **Correction exécutée** | Voir [27-ci-node-runtime-correction-and-rerun.md](./27-ci-node-runtime-correction-and-rerun.md) — Node 24 workflow-only (analyse historique ci-dessous inchangée) |
 
 ---
 
