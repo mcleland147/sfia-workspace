@@ -10,7 +10,7 @@
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial** | `ce0f181f983fb8499e7c80338e4096c92c7b5c2c` |
-| **HEAD final** | tip après commits locaux de ce cycle (autoritatif : `git rev-parse HEAD`) |
+| **HEAD final** | `a90c114a067be5ac84ad422d674fae64388f083f` |
 | **origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Base / merge-base** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Avance / retard** | **+49 / −0** (après fix whitespace + docs readiness) |
