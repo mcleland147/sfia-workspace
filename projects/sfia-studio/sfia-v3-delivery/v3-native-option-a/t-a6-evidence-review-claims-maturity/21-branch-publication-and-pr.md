@@ -11,7 +11,7 @@
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial (cycle)** | `a9a14eb7fc1a7b18bc1d7928e689f2415ac7bf4c` |
 | **HEAD pré-push** | `4cdc492fa87d05390bbcc451d6d8ef5dbea8e6a1` |
-| **HEAD final** | tip après commit record (autoritatif : `git rev-parse HEAD`) |
+| **HEAD final** | `32371be17dd2ae0bb456e0153122934e62e367d5` |
 | **origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Merge-base** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Avance / retard** | **+54+ / −0** |
