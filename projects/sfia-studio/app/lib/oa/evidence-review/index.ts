@@ -1,13 +1,14 @@
 /**
- * T-A6 Evidence-Review barrel — D1 Evidence + D2 ReviewBundle + D3 ClaimEvaluation.
+ * T-A6 Evidence-Review barrel — D1 Evidence + D2 ReviewBundle + D3 ClaimEvaluation + D4 MaturityAssessment.
  *
  * Module: app/lib/oa/evidence-review/**
  *
  * D1: Evidence register/ingest/verify/unavailable — memory + fake-only.
  * D2: ReviewBundle create/attach/remove/freeze/start/complete/reopen.
  * D3: ClaimEvaluation EvaluateClaim / Confirm / Reject.
+ * D4: MaturityAssessment ProposeMaturity / ConfirmMaturity / DowngradeMaturity.
  *
- * WHAT THIS IS NOT: Maturity (D4), coordination D5,
+ * WHAT THIS IS NOT: coordination D5,
  * SQL, API/UI, real adapters, T-A7, real execution.
  */
 
@@ -30,6 +31,18 @@ export {
   evidenceSupportsPass,
 } from "./domain/claimEvaluationInvariants";
 export type { ClaimInvariantViolation } from "./domain/claimEvaluationInvariants";
+export * from "./domain/maturityAssessmentTypes";
+export * from "./domain/maturityAssessmentErrors";
+export {
+  MATURITY_LEVELS,
+  MATURITY_STATUSES,
+  isMaturityAssessmentId,
+  isProjectId,
+  levelRank,
+  minLevel,
+  validateMaturityAssessmentShape,
+} from "./domain/maturityAssessmentInvariants";
+export type { MaturityInvariantViolation } from "./domain/maturityAssessmentInvariants";
 
 export * from "./ports/evidenceRepository";
 export * from "./ports/evidencePayloadPort";
@@ -40,7 +53,9 @@ export * from "./ports/evidenceReader";
 export * from "./ports/reviewBundleRepository";
 export * from "./ports/reviewBundleReader";
 export * from "./ports/claimEvaluationRepository";
+export * from "./ports/claimEvaluationReader";
 export * from "./ports/claimAuthorityPort";
+export * from "./ports/maturityAssessmentRepository";
 
 export { RegisterEvidence } from "./application/registerEvidence";
 export { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
@@ -56,6 +71,14 @@ export { ReopenReview } from "./application/reopenReview";
 export { EvaluateClaim } from "./application/evaluateClaim";
 export { ConfirmClaimEvaluation } from "./application/confirmClaimEvaluation";
 export { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
+export { ProposeMaturity } from "./application/proposeMaturity";
+export { ConfirmMaturity } from "./application/confirmMaturity";
+export { DowngradeMaturity } from "./application/downgradeMaturity";
+export {
+  assessClaimEligibility,
+  calculateMaturityLevel,
+  missingClaimBinding,
+} from "./application/maturityCalculation";
 
 export { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
 export { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceRepository";
@@ -68,6 +91,9 @@ export { MemoryReviewBundleRepository } from "./infrastructure/memoryReviewBundl
 export { ReviewBundleRepositoryReader } from "./infrastructure/reviewBundleRepositoryReader";
 export { MemoryClaimEvaluationStore } from "./infrastructure/memoryClaimEvaluationStore";
 export { MemoryClaimEvaluationRepository } from "./infrastructure/memoryClaimEvaluationRepository";
+export { ClaimEvaluationRepositoryReader } from "./infrastructure/claimEvaluationRepositoryReader";
+export { MemoryMaturityAssessmentStore } from "./infrastructure/memoryMaturityAssessmentStore";
+export { MemoryMaturityAssessmentRepository } from "./infrastructure/memoryMaturityAssessmentRepository";
 export {
   ClaimAuthorityAdapter,
   FakeClaimAuthority,
@@ -86,11 +112,14 @@ import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
 import { AttachEvidenceToReviewBundle } from "./application/attachEvidenceToReviewBundle";
 import { CompleteReview } from "./application/completeReview";
 import { ConfirmClaimEvaluation } from "./application/confirmClaimEvaluation";
+import { ConfirmMaturity } from "./application/confirmMaturity";
 import { CreateReviewBundle } from "./application/createReviewBundle";
+import { DowngradeMaturity } from "./application/downgradeMaturity";
 import { EvaluateClaim } from "./application/evaluateClaim";
 import { FreezeReviewBundle } from "./application/freezeReviewBundle";
 import { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
 import { MarkEvidenceUnavailable } from "./application/markEvidenceUnavailable";
+import { ProposeMaturity } from "./application/proposeMaturity";
 import { RegisterEvidence } from "./application/registerEvidence";
 import { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
 import { RemoveEvidenceFromReviewBundle } from "./application/removeEvidenceFromReviewBundle";
@@ -98,6 +127,7 @@ import { ReopenReview } from "./application/reopenReview";
 import { StartReview } from "./application/startReview";
 import { VerifyEvidenceIntegrity } from "./application/verifyEvidenceIntegrity";
 import { FakeClaimAuthority } from "./infrastructure/claimAuthorityAdapter";
+import { ClaimEvaluationRepositoryReader } from "./infrastructure/claimEvaluationRepositoryReader";
 import { EvidenceRepositoryReader } from "./infrastructure/evidenceRepositoryReader";
 import { FakeEvidencePayloadAdapter } from "./infrastructure/fakeEvidencePayloadAdapter";
 import { FakeExecutionAttemptReader } from "./infrastructure/fakeExecutionAttemptReader";
@@ -109,6 +139,8 @@ import { MemoryClaimEvaluationRepository } from "./infrastructure/memoryClaimEva
 import { MemoryClaimEvaluationStore } from "./infrastructure/memoryClaimEvaluationStore";
 import { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceRepository";
 import { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
+import { MemoryMaturityAssessmentRepository } from "./infrastructure/memoryMaturityAssessmentRepository";
+import { MemoryMaturityAssessmentStore } from "./infrastructure/memoryMaturityAssessmentStore";
 import { MemoryReviewBundleRepository } from "./infrastructure/memoryReviewBundleRepository";
 import { MemoryReviewBundleStore } from "./infrastructure/memoryReviewBundleStore";
 import { ReviewBundleRepositoryReader } from "./infrastructure/reviewBundleRepositoryReader";
@@ -117,6 +149,7 @@ import {
   MemoryEvidenceAuditJournal,
 } from "./infrastructure/observability";
 import type { ClaimAuthorityPort } from "./ports/claimAuthorityPort";
+import type { ClaimEvaluationReaderPort } from "./ports/claimEvaluationReader";
 import type { EvidenceAuditPort } from "./ports/evidenceAudit";
 import type { EvidencePayloadPort } from "./ports/evidencePayloadPort";
 import type { EvidenceReaderPort } from "./ports/evidenceReader";
@@ -132,7 +165,10 @@ export type EvidenceReviewServices = {
   reviewBundleReader: ReviewBundleReaderPort;
   claimEvaluationStore: MemoryClaimEvaluationStore;
   claimEvaluationRepository: MemoryClaimEvaluationRepository;
+  claimEvaluationReader: ClaimEvaluationReaderPort;
   claimAuthority: ClaimAuthorityPort;
+  maturityAssessmentStore: MemoryMaturityAssessmentStore;
+  maturityAssessmentRepository: MemoryMaturityAssessmentRepository;
   evidenceReader: EvidenceReaderPort;
   payload: EvidencePayloadPort;
   attemptReader: ExecutionAttemptReaderPort;
@@ -153,6 +189,9 @@ export type EvidenceReviewServices = {
   evaluateClaim: EvaluateClaim;
   confirmClaimEvaluation: ConfirmClaimEvaluation;
   rejectClaimEvaluation: RejectClaimEvaluation;
+  proposeMaturity: ProposeMaturity;
+  confirmMaturity: ConfirmMaturity;
+  downgradeMaturity: DowngradeMaturity;
 };
 
 export type CreateEvidenceReviewServicesOptions = {
@@ -164,6 +203,7 @@ export type CreateEvidenceReviewServicesOptions = {
   store?: MemoryEvidenceStore;
   reviewBundleStore?: MemoryReviewBundleStore;
   claimEvaluationStore?: MemoryClaimEvaluationStore;
+  maturityAssessmentStore?: MemoryMaturityAssessmentStore;
   evidenceReader?: EvidenceReaderPort;
   claimAuthority?: ClaimAuthorityPort;
 };
@@ -186,7 +226,16 @@ export function createInMemoryEvidenceReviewServices(
   const claimEvaluationRepository = new MemoryClaimEvaluationRepository(
     claimEvaluationStore,
   );
+  const claimEvaluationReader = new ClaimEvaluationRepositoryReader(
+    claimEvaluationRepository,
+    claimEvaluationStore,
+  );
   const claimAuthority = options.claimAuthority ?? new FakeClaimAuthority();
+  const maturityAssessmentStore =
+    options.maturityAssessmentStore ?? new MemoryMaturityAssessmentStore();
+  const maturityAssessmentRepository = new MemoryMaturityAssessmentRepository(
+    maturityAssessmentStore,
+  );
   const clock = options.clock ?? new SystemClock();
   const audit = options.audit ?? new ConsoleEvidenceAuditJournal();
   const ids = options.ids ?? new RandomIdGenerator();
@@ -204,7 +253,10 @@ export function createInMemoryEvidenceReviewServices(
     reviewBundleReader,
     claimEvaluationStore,
     claimEvaluationRepository,
+    claimEvaluationReader,
     claimAuthority,
+    maturityAssessmentStore,
+    maturityAssessmentRepository,
     evidenceReader,
     payload,
     attemptReader,
@@ -298,6 +350,28 @@ export function createInMemoryEvidenceReviewServices(
     ),
     rejectClaimEvaluation: new RejectClaimEvaluation(
       claimEvaluationRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    proposeMaturity: new ProposeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      clock,
+      audit,
+      ids,
+    ),
+    confirmMaturity: new ConfirmMaturity(
+      maturityAssessmentRepository,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    downgradeMaturity: new DowngradeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      claimAuthority,
       clock,
       audit,
       ids,

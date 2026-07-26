@@ -36,7 +36,16 @@ export type EvidenceAuditEventName =
   | "oa.claim_evaluation.operation_rejected"
   | "oa.claim_evaluation.authority_rejected"
   | "oa.claim_evaluation.idempotency_conflict"
-  | "oa.claim_evaluation.concurrent_modification_rejected";
+  | "oa.claim_evaluation.concurrent_modification_rejected"
+  | "oa.maturity_assessment.proposed"
+  | "oa.maturity_assessment.calculated"
+  | "oa.maturity_assessment.confirmed"
+  | "oa.maturity_assessment.downgraded"
+  | "oa.maturity_assessment.superseded"
+  | "oa.maturity_assessment.operation_rejected"
+  | "oa.maturity_assessment.authority_rejected"
+  | "oa.maturity_assessment.idempotency_conflict"
+  | "oa.maturity_assessment.concurrent_modification_rejected";
 
 export type EvidenceAuditEvent = {
   event: EvidenceAuditEventName;
@@ -48,6 +57,8 @@ export type EvidenceAuditEvent = {
   reviewBundleId?: string;
   successorReviewBundleId?: string;
   claimEvaluationId?: string;
+  maturityAssessmentId?: string;
+  successorMaturityAssessmentId?: string;
   actorId?: string;
   previousStatus?: string;
   newStatus?: string;
