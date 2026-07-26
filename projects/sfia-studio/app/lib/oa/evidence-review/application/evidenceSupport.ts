@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import type { ProvenanceRecord } from "@/lib/oa/doctrine";
+import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
 import type { ActorReference } from "../domain/types";
+import type { EvidenceReaderPort } from "../ports/evidenceReader";
 import type { IdGeneratorPort } from "../ports/idGenerator";
 import { IDEMPOTENCY_KEY_MIN_LENGTH } from "../domain/invariants";
 
@@ -47,6 +49,30 @@ export function buildProvenance(input: {
     projectId: input.projectId,
     cycleInstanceId: input.cycleInstanceId,
   };
+}
+
+/** Read-only Evidence metadata for completeness (never payloads). */
+export async function readEvidenceSnapshotsForCompleteness(
+  reader: EvidenceReaderPort,
+  evidenceIds: string[],
+): Promise<
+  | { ok: true; snapshots: ReviewBundleEvidenceSnapshot[] }
+  | { ok: false; missingId: string }
+> {
+  const snapshots: ReviewBundleEvidenceSnapshot[] = [];
+  for (const evidenceId of evidenceIds) {
+    const ev = await reader.findById(evidenceId);
+    if (!ev) {
+      return { ok: false, missingId: evidenceId };
+    }
+    snapshots.push({
+      evidenceId: ev.evidenceId,
+      evidenceVersion: ev.version,
+      status: ev.status,
+      availability: ev.availability,
+    });
+  }
+  return { ok: true, snapshots };
 }
 
 /** Register/ingest fingerprint ignores volatile actor display fields beyond actorId+role. */

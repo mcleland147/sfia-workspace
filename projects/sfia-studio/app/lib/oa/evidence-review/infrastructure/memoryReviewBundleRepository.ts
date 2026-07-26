@@ -114,6 +114,99 @@ export class MemoryReviewBundleRepository
     }
   }
 
+  async createSuccessorAndMarkSuperseded(
+    successor: ReviewBundle,
+    superseded: ReviewBundle,
+    expectedVersion: number,
+    record: ReviewBundleIdempotencyRecord & { successorId: string },
+  ): Promise<void> {
+    const successorShape = validateReviewBundleShape(successor);
+    if (successorShape) {
+      throw new ReviewBundleDomainError(
+        successorShape.detailCode,
+        successorShape.reason,
+      );
+    }
+    const supersededShape = validateReviewBundleShape(superseded);
+    if (supersededShape) {
+      throw new ReviewBundleDomainError(
+        supersededShape.detailCode,
+        supersededShape.reason,
+      );
+    }
+    if (successor.version !== 1) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "successor_requires_version_1",
+      );
+    }
+    if (superseded.status !== "superseded") {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "source_must_be_superseded",
+      );
+    }
+    if (record.successorId !== successor.reviewBundleId) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "record_successor_id_mismatch",
+      );
+    }
+    if (successor.reviewBundleId === superseded.reviewBundleId) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "successor_must_differ_from_source",
+      );
+    }
+
+    const current = this.store.bundles.get(superseded.reviewBundleId);
+    if (!current) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_NOT_FOUND",
+        "reopen_source_missing",
+      );
+    }
+    if (current.version !== expectedVersion) {
+      throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
+        expectedVersion,
+        currentVersion: current.version,
+      });
+    }
+    if (superseded.version !== expectedVersion + 1) {
+      throw new ReviewBundleDomainError(
+        "VERSION_CONFLICT",
+        "version_not_monotone",
+        { expectedVersion, currentVersion: current.version },
+      );
+    }
+    if (this.store.bundles.has(successor.reviewBundleId)) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_ALREADY_EXISTS",
+        "successor_review_bundle_id_taken",
+      );
+    }
+    if (!superseded.idempotencyKey) {
+      throw new ReviewBundleDomainError(
+        "REVIEW_BUNDLE_INVALID",
+        "reopen_idempotency_key_required",
+      );
+    }
+
+    // Fail-closed before any mutation — no orphan successor / half-supersede.
+    this.failIfForced();
+    this.store.bundles.set(
+      successor.reviewBundleId,
+      structuredClone(successor),
+    );
+    this.store.bundles.set(
+      superseded.reviewBundleId,
+      structuredClone(superseded),
+    );
+    this.store.idempotencyIndex.set(superseded.idempotencyKey, {
+      ...structuredClone(record),
+    });
+  }
+
   private failIfForced(): void {
     if (this.store.failNextSave) {
       this.store.failNextSave = false;

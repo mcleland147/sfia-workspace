@@ -32,4 +32,14 @@ export interface ReviewBundleRepositoryPort {
     expectedVersion: number,
     record?: ReviewBundleIdempotencyRecord,
   ): Promise<void>;
+  /**
+   * Atomic reopen for memory D2: create successor draft + mark source
+   * superseded + write idempotency index, or mutate nothing.
+   */
+  createSuccessorAndMarkSuperseded(
+    successor: ReviewBundle,
+    superseded: ReviewBundle,
+    expectedVersion: number,
+    record: ReviewBundleIdempotencyRecord & { successorId: string },
+  ): Promise<void>;
 }

@@ -26,6 +26,7 @@ import type { ReviewBundleRepositoryPort } from "../ports/reviewBundleRepository
 import {
   assertIdempotencyKey,
   fingerprintCommand,
+  readEvidenceSnapshotsForCompleteness,
   registerFingerprintBody,
 } from "./evidenceSupport";
 
@@ -169,18 +170,24 @@ export class AttachEvidenceToReviewBundle {
         );
       }
 
-      const ev = await this.evidence.findById(request.evidenceId);
-      if (!ev) {
-        return fail("EVIDENCE_NOT_FOUND", "missing_evidence");
-      }
-
       const evidenceRefs = sortEvidenceRefs([
         ...current.evidenceRefs,
         request.evidenceId,
       ]);
+      const snapshotRead = await readEvidenceSnapshotsForCompleteness(
+        this.evidence,
+        evidenceRefs,
+      );
+      if (!snapshotRead.ok) {
+        return fail("EVIDENCE_NOT_FOUND", "missing_evidence", {
+          evidenceId: snapshotRead.missingId,
+        });
+      }
+
       const completeness = computeCompleteness({
         evidenceRefs,
         synthesisOnly: current.synthesisOnly,
+        snapshots: snapshotRead.snapshots,
       });
 
       const updated: ReviewBundle = {

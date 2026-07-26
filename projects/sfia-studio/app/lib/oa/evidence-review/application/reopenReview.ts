@@ -116,6 +116,9 @@ export class ReopenReview {
       if (containsForbiddenSecret(request.reason)) {
         return fail("REVIEW_BUNDLE_SECRET_FORBIDDEN", "secret_in_reopen_reason");
       }
+      if (containsForbiddenSecret(request.actor.displayName)) {
+        return fail("REVIEW_BUNDLE_SECRET_FORBIDDEN", "secret_in_actor");
+      }
 
       const fingerprint = fingerprintCommand(
         registerFingerprintBody({
@@ -254,19 +257,17 @@ export class ReopenReview {
         });
       }
 
-      // Create successor first so idempotent reuse can resolve successorId.
-      await this.repo.create(successor);
-
-      const reopenRecord = {
-        reviewBundleId: superseded.reviewBundleId,
-        fingerprint,
-        operation: "reopen_review" as const,
-        successorId: successor.reviewBundleId,
-      };
-      await this.repo.update(
+      // Atomic memory write: successor + superseded + idempotency, or nothing.
+      await this.repo.createSuccessorAndMarkSuperseded(
+        successor,
         superseded,
         request.expectedVersion,
-        reopenRecord,
+        {
+          reviewBundleId: superseded.reviewBundleId,
+          fingerprint,
+          operation: "reopen_review",
+          successorId: successor.reviewBundleId,
+        },
       );
 
       const durationMs = Date.now() - started;

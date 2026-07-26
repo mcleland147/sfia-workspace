@@ -34,6 +34,7 @@ import {
   assertIdempotencyKey,
   buildProvenance,
   fingerprintCommand,
+  readEvidenceSnapshotsForCompleteness,
   registerFingerprintBody,
 } from "./evidenceSupport";
 
@@ -135,14 +136,17 @@ export class CreateReviewBundle {
         );
       }
 
-      for (const evidenceId of evidenceIds) {
-        const ev = await this.evidence.findById(evidenceId);
-        if (!ev) {
-          return fail("EVIDENCE_NOT_FOUND", "missing_evidence", { evidenceId });
-        }
+      const evidenceRefs = sortEvidenceRefs(evidenceIds);
+      const snapshotRead = await readEvidenceSnapshotsForCompleteness(
+        this.evidence,
+        evidenceRefs,
+      );
+      if (!snapshotRead.ok) {
+        return fail("EVIDENCE_NOT_FOUND", "missing_evidence", {
+          evidenceId: snapshotRead.missingId,
+        });
       }
 
-      const evidenceRefs = sortEvidenceRefs(evidenceIds);
       const fingerprint = fingerprintCommand(
         registerFingerprintBody({
           reviewBundleId: request.reviewBundleId,
@@ -190,6 +194,7 @@ export class CreateReviewBundle {
       const completeness = computeCompleteness({
         evidenceRefs,
         synthesisOnly,
+        snapshots: snapshotRead.snapshots,
       });
 
       const bundle: ReviewBundle = {

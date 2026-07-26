@@ -190,6 +190,7 @@ export function createInMemoryEvidenceReviewServices(
     ),
     removeEvidenceFromReviewBundle: new RemoveEvidenceFromReviewBundle(
       reviewBundleRepository,
+      evidenceReader,
       clock,
       audit,
       ids,

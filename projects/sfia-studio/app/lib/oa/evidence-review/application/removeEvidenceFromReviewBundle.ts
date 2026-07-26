@@ -20,17 +20,20 @@ import type {
 } from "../domain/reviewBundleTypes";
 import { isEvidenceId } from "../domain/invariants";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
+import type { EvidenceReaderPort } from "../ports/evidenceReader";
 import type { IdGeneratorPort } from "../ports/idGenerator";
 import type { ReviewBundleRepositoryPort } from "../ports/reviewBundleRepository";
 import {
   assertIdempotencyKey,
   fingerprintCommand,
+  readEvidenceSnapshotsForCompleteness,
   registerFingerprintBody,
 } from "./evidenceSupport";
 
 export class RemoveEvidenceFromReviewBundle {
   constructor(
     private readonly repo: ReviewBundleRepositoryPort,
+    private readonly evidence: EvidenceReaderPort,
     private readonly clock: ClockPort,
     private readonly audit: EvidenceAuditPort,
     private readonly ids: IdGeneratorPort,
@@ -170,9 +173,20 @@ export class RemoveEvidenceFromReviewBundle {
       const evidenceRefs = sortEvidenceRefs(
         current.evidenceRefs.filter((id) => id !== request.evidenceId),
       );
+      const snapshotRead = await readEvidenceSnapshotsForCompleteness(
+        this.evidence,
+        evidenceRefs,
+      );
+      if (!snapshotRead.ok) {
+        return fail("EVIDENCE_NOT_FOUND", "missing_evidence", {
+          evidenceId: snapshotRead.missingId,
+          reviewBundle: current,
+        });
+      }
       const completeness = computeCompleteness({
         evidenceRefs,
         synthesisOnly: current.synthesisOnly,
+        snapshots: snapshotRead.snapshots,
       });
 
       const updated: ReviewBundle = {
