@@ -138,4 +138,122 @@ describe("T-A6-D5 adversarial RecommendNextGate", () => {
       expect(raw).not.toContain('"executionAuthority":true');
     }
   });
+
+  it("F-A6-D5-01: maturityAssessmentId without exact version is refused", async () => {
+    const s = buildServices();
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      maturityAssessmentId: "mat:any",
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.detailCode).toBe("COORDINATION_INVALID");
+  });
+
+  it("F-A6-D5-02: evidenceRefs without exact version cannot yield gate_candidate", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-ver0");
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      evidenceRefs: [{ id: "ev:d5-ver0", version: 0 }],
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some((b) => b.code === "version_mismatch"),
+    ).toBe(true);
+    expect(result.coordination.status).not.toBe("gate_candidate");
+    expect(result.coordination.nextGate).toBeUndefined();
+    expect(result.coordination.executionAuthority).toBe(false);
+  });
+
+  it("F-A6-D5-03: superseded evidence blocks positive gate recommendation", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-sup-1");
+    const current = await s.repository.findById("ev:d5-sup-1");
+    expect(current).toBeTruthy();
+    await s.repository.update(
+      { ...current!, status: "superseded", version: current!.version + 1 },
+      current!.version,
+    );
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      evidenceRefs: [{ id: "ev:d5-sup-1", version: current!.version + 1 }],
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some((b) => b.code === "evidence_superseded"),
+    ).toBe(true);
+    expect(result.coordination.status).not.toBe("gate_candidate");
+    expect(result.coordination.nextGate).toBeUndefined();
+    expect(result.coordination.gateConsumed).toBe(false);
+    expect(result.coordination.decisionCreated).toBe(false);
+  });
+
+  it("subject mismatch never yields gate_candidate", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-subj-1");
+    await s.createReviewBundle.execute({
+      reviewBundleId: "rb:d5-subj",
+      idempotencyKey: "idem-rb-subj",
+      actor: ACTOR,
+      projectId: "prj:campus360-oa",
+      evidenceIds: ["ev:d5-subj-1"],
+    });
+    await s.freezeReviewBundle.execute({
+      reviewBundleId: "rb:d5-subj",
+      idempotencyKey: "idem-fr-subj",
+      actor: ACTOR,
+      expectedVersion: 1,
+    });
+    const evaluated = await s.evaluateClaim.execute({
+      claimEvaluationId: "clm:d5-subj",
+      idempotencyKey: "idem-clm-subj",
+      actor: SYSTEM,
+      claimType: "technique",
+      claimStatement: "Subject check",
+      criticality: "non_critical",
+      evaluationMethod: "deterministic",
+      requiredEvidenceRefs: ["ev:d5-subj-1"],
+      reviewBundleId: "rb:d5-subj",
+      reviewBundleVersion: 2,
+    });
+    expect(evaluated.ok).toBe(true);
+    if (!evaluated.ok) return;
+    const proposed = await s.proposeMaturity.execute({
+      maturityAssessmentId: "mat:d5-subj",
+      idempotencyKey: "idem-mat-subj",
+      actor: SYSTEM,
+      projectId: "prj:campus360-oa",
+      subjectRef: "pack:v3-native-option-a-modeled",
+      requestedLevel: "VALIDATED",
+      claimBindings: [
+        {
+          claimEvaluationId: "clm:d5-subj",
+          claimEvaluationVersion: evaluated.claimEvaluation.version,
+        },
+      ],
+      reviewBundleRefs: [{ reviewBundleId: "rb:d5-subj", version: 2 }],
+      evidenceRefs: ["ev:d5-subj-1"],
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      subjectRef: "pack:other-subject",
+      maturityAssessmentId: "mat:d5-subj",
+      maturityAssessmentVersion: proposed.maturityAssessment.version,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some(
+        (b) =>
+          b.code === "cross_aggregate_inconsistency" &&
+          b.detail === "subject_mismatch",
+      ),
+    ).toBe(true);
+    expect(result.coordination.nextGate).toBeUndefined();
+  });
 });

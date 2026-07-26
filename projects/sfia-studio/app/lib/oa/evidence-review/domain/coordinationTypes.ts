@@ -30,6 +30,7 @@ export type CoordinationBlockerCode =
   | "version_mismatch"
   | "evidence_unavailable"
   | "evidence_not_verified"
+  | "evidence_superseded"
   | "review_bundle_not_frozen"
   | "review_bundle_incomplete"
   | "review_bundle_synthesis_only"

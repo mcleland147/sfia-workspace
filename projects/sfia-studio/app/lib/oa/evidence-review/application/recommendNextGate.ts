@@ -184,8 +184,18 @@ export class RecommendNextGate {
       const bundleMap = new Map<string, ReviewBundle>();
       const evidenceMap = new Map<string, Evidence>();
 
-      // --- Load maturity (exact version) ---
+      // --- Load maturity (exact version required — no implicit latest) ---
       if (request.maturityAssessmentId) {
+        if (
+          request.maturityAssessmentVersion === undefined ||
+          !Number.isInteger(request.maturityAssessmentVersion) ||
+          request.maturityAssessmentVersion < 1
+        ) {
+          return fail(
+            "COORDINATION_INVALID",
+            "maturity_assessment_version_required",
+          );
+        }
         maturityAssessment = await this.maturity.findById(
           request.maturityAssessmentId,
         );
@@ -194,10 +204,10 @@ export class RecommendNextGate {
             code: "source_missing",
             sourceKind: "maturity_assessment",
             sourceId: request.maturityAssessmentId,
+            sourceVersion: request.maturityAssessmentVersion,
           });
         } else {
           if (
-            request.maturityAssessmentVersion !== undefined &&
             maturityAssessment.version !== request.maturityAssessmentVersion
           ) {
             blockers.push({
@@ -476,19 +486,30 @@ export class RecommendNextGate {
         });
       }
 
-      // Collect evidence refs
+      // Collect evidence refs — prefer exact frozen snapshot versions; never imply latest.
       const evidenceRefs: VersionedRef[] = [];
       if (request.evidenceRefs) {
-        evidenceRefs.push(...request.evidenceRefs);
-      }
-      if (maturityAssessment?.evidenceRefs) {
-        for (const id of maturityAssessment.evidenceRefs) {
-          evidenceRefs.push({ id, version: 0 }); // version 0 = any (id-only from maturity)
+        for (const ref of request.evidenceRefs) {
+          if (!Number.isInteger(ref.version) || ref.version < 1) {
+            blockers.push({
+              code: "version_mismatch",
+              sourceKind: "evidence",
+              sourceId: ref.id,
+              detail: "exact_version_required",
+            });
+          } else {
+            evidenceRefs.push(ref);
+          }
         }
       }
+      const frozenVersionByEvidenceId = new Map<string, number>();
       for (const bundle of bundleMap.values()) {
         if (bundle.frozenEvidenceSnapshots?.length) {
           for (const snap of bundle.frozenEvidenceSnapshots) {
+            frozenVersionByEvidenceId.set(
+              snap.evidenceId,
+              snap.evidenceVersion,
+            );
             evidenceRefs.push({
               id: snap.evidenceId,
               version: snap.evidenceVersion,
@@ -496,16 +517,48 @@ export class RecommendNextGate {
           }
         } else {
           for (const id of bundle.evidenceRefs) {
-            evidenceRefs.push({ id, version: 0 });
+            // Unfrozen / snapshot-less bundle already blocked; still require exact version.
+            blockers.push({
+              code: "version_mismatch",
+              sourceKind: "evidence",
+              sourceId: id,
+              detail: "frozen_snapshot_version_required",
+            });
+          }
+        }
+      }
+      if (maturityAssessment?.evidenceRefs) {
+        for (const id of maturityAssessment.evidenceRefs) {
+          const frozenVersion = frozenVersionByEvidenceId.get(id);
+          if (frozenVersion !== undefined) {
+            evidenceRefs.push({ id, version: frozenVersion });
+          } else {
+            blockers.push({
+              code: "version_mismatch",
+              sourceKind: "evidence",
+              sourceId: id,
+              detail: "exact_version_required_for_maturity_evidence_ref",
+            });
           }
         }
       }
       for (const claim of claimMap.values()) {
-        for (const id of claim.requiredEvidenceRefs) {
-          evidenceRefs.push({ id, version: 0 });
-        }
-        for (const id of claim.providedEvidenceRefs ?? []) {
-          evidenceRefs.push({ id, version: 0 });
+        const ids = [
+          ...claim.requiredEvidenceRefs,
+          ...(claim.providedEvidenceRefs ?? []),
+        ];
+        for (const id of ids) {
+          const frozenVersion = frozenVersionByEvidenceId.get(id);
+          if (frozenVersion !== undefined) {
+            evidenceRefs.push({ id, version: frozenVersion });
+          } else {
+            blockers.push({
+              code: "version_mismatch",
+              sourceKind: "evidence",
+              sourceId: id,
+              detail: "exact_version_required_for_claim_evidence_ref",
+            });
+          }
         }
       }
       const uniqueEvidenceRefs = dedupeEvidenceRefs(sortRefs(evidenceRefs));
@@ -517,17 +570,25 @@ export class RecommendNextGate {
             code: "source_missing",
             sourceKind: "evidence",
             sourceId: ref.id,
-            sourceVersion: ref.version || undefined,
+            sourceVersion: ref.version,
           });
           continue;
         }
-        if (ref.version > 0 && evidence.version !== ref.version) {
+        if (evidence.version !== ref.version) {
           blockers.push({
             code: "version_mismatch",
             sourceKind: "evidence",
             sourceId: evidence.evidenceId,
             sourceVersion: evidence.version,
             detail: `expected_version=${ref.version}`,
+          });
+        }
+        if (evidence.status === "superseded") {
+          blockers.push({
+            code: "evidence_superseded",
+            sourceKind: "evidence",
+            sourceId: evidence.evidenceId,
+            sourceVersion: evidence.version,
           });
         }
         if (
@@ -546,42 +607,36 @@ export class RecommendNextGate {
             sourceId: evidence.evidenceId,
           });
         } else if (
-          evidence.status !== "verified" &&
-          evidence.status !== "available"
+          evidence.status === "incomplete" ||
+          evidence.status === "expected"
         ) {
-          if (
-            evidence.status === "incomplete" ||
-            evidence.status === "expected"
-          ) {
-            gaps.push({
-              code: "evidence_incomplete",
-              sourceKind: "evidence",
-              sourceId: evidence.evidenceId,
-              detail: `status=${evidence.status}`,
-            });
-          }
+          gaps.push({
+            code: "evidence_incomplete",
+            sourceKind: "evidence",
+            sourceId: evidence.evidenceId,
+            detail: `status=${evidence.status}`,
+          });
+          blockers.push({
+            code: "evidence_not_verified",
+            sourceKind: "evidence",
+            sourceId: evidence.evidenceId,
+            sourceVersion: evidence.version,
+            detail: `status=${evidence.status}`,
+          });
         }
-        if (
-          evidence.status !== "verified" &&
-          evidence.status !== "unavailable" &&
-          evidence.status !== "rejected" &&
-          evidence.status !== "superseded"
-        ) {
-          // available but not verified is a soft gap for positive recommendation
-          if (evidence.status === "available") {
-            gaps.push({
-              code: "evidence_incomplete",
-              sourceKind: "evidence",
-              sourceId: evidence.evidenceId,
-              detail: "not_verified",
-            });
-            blockers.push({
-              code: "evidence_not_verified",
-              sourceKind: "evidence",
-              sourceId: evidence.evidenceId,
-              sourceVersion: evidence.version,
-            });
-          }
+        if (evidence.status === "available") {
+          gaps.push({
+            code: "evidence_incomplete",
+            sourceKind: "evidence",
+            sourceId: evidence.evidenceId,
+            detail: "not_verified",
+          });
+          blockers.push({
+            code: "evidence_not_verified",
+            sourceKind: "evidence",
+            sourceId: evidence.evidenceId,
+            sourceVersion: evidence.version,
+          });
         }
         if (evidence.status === "rejected" || evidence.status === "stale") {
           blockers.push({
@@ -685,6 +740,7 @@ export class RecommendNextGate {
           "maturity_superseded",
           "claim_disputed",
           "claim_superseded",
+          "evidence_superseded",
           "t_a7_auto_launch_forbidden",
         ].includes(b.code),
       );
@@ -762,6 +818,18 @@ export class RecommendNextGate {
           actionCode: "confirm_maturity",
           reasons: ["maturity_proposed", "confirmation_required"],
           authorityRequired: morris ? "morris" : "human",
+        };
+        nextGate = undefined;
+      } else if (
+        maturityAssessment &&
+        maturityAssessment.status === "rejected"
+      ) {
+        status = "not_recommended";
+        nextAction = {
+          kind: "recommendation",
+          actionCode: "propose_maturity",
+          reasons: ["maturity_rejected"],
+          authorityRequired: "none",
         };
         nextGate = undefined;
       } else if (!maturityAssessment && claimMap.size > 0) {
@@ -980,16 +1048,21 @@ function pickNextAction(
       authorityRequired: "human",
     };
   }
-  if (has("evidence_unavailable") || has("evidence_not_verified") || has("source_missing")) {
+  if (has("evidence_unavailable") || has("evidence_not_verified") || has("source_missing") || has("evidence_superseded")) {
     const missingEvidence = blockers.some(
       (b) => b.code === "source_missing" && b.sourceKind === "evidence",
     );
+    const superseded = has("evidence_superseded");
     return {
       kind: "recommendation",
-      actionCode: missingEvidence
+      actionCode: superseded
         ? "complete_evidence"
-        : "verify_evidence_integrity",
-      reasons: ["evidence_not_ready"],
+        : missingEvidence
+          ? "complete_evidence"
+          : "verify_evidence_integrity",
+      reasons: superseded
+        ? ["evidence_superseded"]
+        : ["evidence_not_ready"],
       authorityRequired: "none",
     };
   }
