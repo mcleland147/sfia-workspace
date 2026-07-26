@@ -1,30 +1,33 @@
-# SFIA Review Pack — FULL — T-A6 D5 Bounded Coordination Validation
+# SFIA Review Pack — FULL — T-A6 Next-Step Framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 11:55:13 CEST (+0200) |
-| **Cycle** | QA / validation / T-A6-D5 RecommendNextGate |
+| **Date/heure/fuseau** | 2026-07-26 12:06:33 CEST (+0200) |
+| **Cycle** | Cadrage / T-A6 next step after D1–D5 |
 | **Profil** | Critical |
-| **Gate** | `GO VALIDATE T-A6 DELIVERY D5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate** | `GO FRAME NEXT T-A6 STEP — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Repo** | mcleland147/sfia-workspace |
-| **Base** | origin/main @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `b2c582f06d6ac0ebe1f7d28d07ea32dd632cebf1` |
-| **HEAD final** | `96f8ac87e4e4a95ee7f3d75082af8a5b06649b9e` |
-| **Commits** | `098473b` fix · `f8e62b8` validate docs · record/point HEAD |
-| **Push projet / PR / merge** | **NON** |
-| **Modeled / T-A3–T-A5 / packages** | **NON** modifiés |
-| **D1–D4 régressés** | **NON** (140 PASS D1–D5) |
-| **Décision / gate consommé par D5** | **NON** |
-| **SQL / API / UI / T-A7 / adapter / exécution** | **ABSENTS** |
+| **HEAD initial** | `96f8ac87e4e4a95ee7f3d75082af8a5b06649b9e` |
+| **HEAD final** | `ce0f181f983fb8499e7c80338e4096c92c7b5c2c` |
+| **origin/main courant** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
+| **Base historique** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
+| **Merge-base** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
+| **Avance / retard** | **+47 / −0** |
+| **Push / PR / merge / rebase / cherry-pick** | **NON** |
+| **Runtime / tests / modeled / T-A3–T-A5 / packages** | **NON** modifiés |
+| **Réserves** | **inchangées OPEN** |
+| **T-A7 / décision Morris / gate suivant** | **NON** |
 | **Niveau** | FULL |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D5 BOUNDED COORDINATION VALIDATED AFTER CORRECTION — NEXT T-A6 STEP REQUIRES MORRIS FRAMING AND GO` |
+| **Recommandation** | Option A — PR readiness (non validée) |
+| **Gate suivant candidat** | `GO PREPARE T-A6 PR READINESS — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 NEXT STEP FRAMED — MORRIS GO REQUIRED` |
 
 ---
 
 ## 1. Truth Check
 
-PASS — branche/HEAD/merge-base exacts au départ · staged vide · untracked `.tmp-sfia-review/` · handoff source blob `9ee232de…`.
+PASS — HEAD/branche/merge-base exacts · main inchangé · staged vide · `.tmp-sfia-review/` · handoff D5 blob `3b3575d5…` · aucune PR/branche distante T-A6.
 
 ### Status final
 
@@ -35,212 +38,280 @@ PASS — branche/HEAD/merge-base exacts au départ · staged vide · untracked `
 
 ---
 
-## 2. Handoff source / CKC
+## 2. Synthèse cadrage
 
 | Item | Valeur |
 |------|--------|
-| Handoff source | blob `9ee232de38c9a68fe684c55ed807bbf2dfd15cbc` |
-| Verdict source | D5 BOUNDED COORDINATION IMPLEMENTED — VALIDATION REQUIRES MORRIS GO |
-| CKC | `04-qa-validation.md` candidate · `executionAuthority=false` |
+| D1–D5 | **VALIDATED** |
+| T-A6 COMPLETE | **NON** |
+| Retard main | **0** |
+| Overlap sœurs | **0** |
+| Option recommandée | **A — PR readiness** |
+| Resync (B) | non prioritaire |
+| Correction (E) | non justifiée |
 
 ---
 
-## 3. Contrat D5 / corrections
-
-Canonique **RecommendNextGate** · pas d'agrégat/repo/persistence D5 · `T_A7_AUTO_LAUNCH_FORBIDDEN`.
-
-### Major corrigés
-
-| ID | Correction |
-|----|------------|
-| **F-A6-D5-01** | `maturityAssessmentVersion` obligatoire |
-| **F-A6-D5-02** | Evidence versions exactes (snapshots gelés ; refuse version 0) |
-| **F-A6-D5-03** | Blocker `evidence_superseded` |
-
----
-
-## 4. Read-only / anti-claims
-
-D1–D4 non mutés · `kind=recommendation` · `executionAuthority=false` · `gateConsumed=false` · `decisionCreated=false` · gate candidat `SOLICIT_MORRIS_GO_FOR_NEXT_CYCLE` jamais consommé.
-
-Persistence D5 / OCC / idempotence mutante : **N/A**.
-
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN** · C1–C4 **NOT VALIDATED**.
-
----
-
-## 5. Tests
-
-| Suite | Commande | Avant | Après | Résultat |
-|-------|----------|-------|-------|----------|
-| evidence-review D1–D5 | `npm test -- __tests__/oa/evidence-review` | 136 | **140** | PASS |
-| T-A3 | `npm test -- __tests__/oa/decision` | 50 | 50 | PASS |
-| T-A4 | `npm test -- __tests__/oa/execution-contract` | 61 | 61 | PASS |
-| T-A5 | `npm test -- __tests__/oa/execution-attempt` | 88 | 88 | PASS |
-| Modeled T-A6 | node --test modeled | 27 | 27 | PASS |
-| lint / build / diff-check | — | — | — | PASS |
-
----
-
-## 6. Contenu complet — 18-delivery-d5-validation.md
+## 3. Contenu complet — 19-next-step-framing.md
 
 ```markdown
-# 18 — T-A6-D5 Bounded Coordination Validation
+# 19 — T-A6 Next-Step Framing
 
 | Champ | Valeur |
 |-------|--------|
 | **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
-| **Sous-cycle** | T-A6-D5 — RecommendNextGate / coordination bornée |
-| **Cycle** | QA / validation (Critical) |
-| **Gate** | `GO VALIDATE T-A6 DELIVERY D5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
-| **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
+| **Cycle** | Cadrage — prochaine étape après D1–D5 |
+| **Profil** | Critical |
+| **Gate** | `GO FRAME NEXT T-A6 STEP — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `b2c582f06d6ac0ebe1f7d28d07ea32dd632cebf1` |
-| **HEAD final** | `ac4ad922c7af4a8e4d835681c60d22d96a44c5e3` |
-| **Horodatage** | 2026-07-26 11:54:00 CEST (+0200) |
-| **Handoff source** | blob `9ee232de38c9a68fe684c55ed807bbf2dfd15cbc` |
-| **Statut** | **T-A6-D5 VALIDATED AFTER CORRECTION** |
-| **D1 / D2 / D3 / D4** | VALIDATED (non régressés) |
-| **Fake-only / read-only** | **oui** |
-| **Persistence D5** | **aucune** |
-| **Push / PR / merge** | **NONE** |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D5 BOUNDED COORDINATION VALIDATED AFTER CORRECTION — NEXT T-A6 STEP REQUIRES MORRIS FRAMING AND GO` |
-| **Suite candidate** | `GO FRAME NEXT T-A6 STEP — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed** · cadrage requis) |
+| **HEAD initial / final** | `96f8ac87e4e4a95ee7f3d75082af8a5b06649b9e` (cadrage documentaire uniquement) |
+| **Base historique** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
+| **origin/main courant** | `b25c20e6eb131cba7dc811697b763fd033f3f652` (**identique**) |
+| **Merge-base** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
+| **Avance / retard** | **+47 / −0** |
+| **Handoff source** | blob `3b3575d52670774b44799cc15935ff47192eae76` |
+| **Statut** | **NEXT STEP FRAMED — MORRIS DECISION REQUIRED** |
+| **T-A6 COMPLETE** | **NON** |
+| **Option A COMPLETE** | **NON** |
+| **Push / PR / merge / rebase** | **NONE** |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 NEXT STEP FRAMED — MORRIS GO REQUIRED` |
+| **Gate suivant candidat** | `GO PREPARE T-A6 PR READINESS — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Horodatage** | 2026-07-26 12:06:00 CEST (+0200) |
 
 ---
 
-## 1. Sources / CKC
+## 1. Truth Check
 
-Delivery `01`…`17` · README · handoff D5 impl · runtime `evidence-review/**` · `T_A7_AUTO_LAUNCH_FORBIDDEN` · CKC `04-qa-validation.md` (candidate, `executionAuthority=false`).
-
----
-
-## 2. Méthode (8 niveaux)
-
-1. Conformité décisions Morris  
-2. Contrat D5 `RecommendNextGate`  
-3. Read-only strict  
-4. Cohérence cross-aggregate  
-5. Recommandations / gate candidat  
-6. Autorité / anti-claims / réserves  
-7. Fail-closed / déterminisme / sécurité / audit  
-8. Non-régression  
+PASS — branche/HEAD exacts · merge-base = origin/main courant · staged vide · untracked `.tmp-sfia-review/` · aucune op Git active · aucune branche distante projet T-A6 · aucune PR T-A6 · handoff D5 validation cohérent.
 
 ---
 
-## 3. Contrat D5
+## 2. Sources / CKC
 
-| Élément | Résultat |
-|---------|----------|
-| Canonique `RecommendNextGate` | **PASS** |
-| Pas d’agrégat / repo / persistence D5 | **PASS** |
-| Pas LaunchT-A7 / ConfirmGate / CreateDecision | **PASS** |
-| `T_A7_AUTO_LAUNCH_FORBIDDEN` | **PASS** |
-| Calcul à la demande · L1 RO | **PASS** |
-
----
-
-## 4. Read-only / readers / versions
-
-| Invariant | Résultat |
-|-----------|----------|
-| D1–D4 non mutés | **PASS** |
-| Readers RO · copies défensives | **PASS** |
-| Versions exactes obligatoires (maturité + evidence) | **PASS** (après F-A6-D5-01/02) |
-| Pas de lookup implicite « latest » | **PASS** (après correction) |
+- Template cycle · routing · méthode · operating model  
+- CKC cadrage candidat (`01-cadrage.md`) · `executionAuthority=false`  
+- T-A6 docs `01`…`18` + README · handoff D5 validation  
+- Décisions DEL-09 / DEL-10 · anti T-A7  
+- Branches Option A locales (T-A3…T-A5, modeled, shared platform, UX, control tower)  
+- Pattern PR readiness T-A0/T-A1/T-A5  
 
 ---
 
-## 5. Cohérence / recommandations / gate
+## 3. Statut T-A6 (observations Git)
 
-| Invariant | Résultat |
-|-----------|----------|
-| disputed/waived/superseded/non confirmé exclus | **PASS** |
-| Evidence superseded bloque positif | **PASS** (après F-A6-D5-03) |
-| HARD / R-M01 → blocked, réserve non fermée | **PASS** |
-| Maturité proposed → requires_human_decision | **PASS** |
-| Maturité confirmed + chaîne saine → gate_candidate | **PASS** |
-| `SOLICIT_MORRIS_GO_FOR_NEXT_CYCLE` · jamais consommé | **PASS** |
-| `kind=recommendation` · `executionAuthority=false` · `gateConsumed=false` · `decisionCreated=false` | **PASS** |
+| Élément | Statut |
+|---------|--------|
+| D1 Evidence | **VALIDATED** (après correction) |
+| D2 ReviewBundle | **VALIDATED AFTER CORRECTION** |
+| D3 ClaimEvaluation | **VALIDATED AFTER CORRECTION** |
+| D4 MaturityAssessment | **VALIDATED AFTER CORRECTION** |
+| D5 RecommendNextGate | **VALIDATED AFTER CORRECTION** |
+| Sous-cycle delivery prévu après D5 | **Aucun** (DEL-09 = D1→D5) |
+| Runtime | `app/lib/oa/evidence-review/**` mémoire/fake-only |
+| Modeled T-A6 | matérialisé + validé sur **cette** branche |
+| Docs 01–18 | **présents** |
+| Critical/Major ouverts | **aucun** |
+| T-A6 COMPLETE | **NON** (pas de source déclarative) |
+| Intégré dans main | **NON** |
+| Branche distante / PR | **absentes** |
 
----
-
-## 6. Persistence / OCC / idempotence
-
-| Item | Statut |
-|------|--------|
-| Persistence D5 | **N/A — absente** |
-| OCC D5 | **N/A — read-only** |
-| Idempotence mutante | **N/A — read-only** |
+**Observation :** D1–D5 validés ⇒ incrément delivery local cohérent et testé ; **≠** T-A6 complet produit / merge-ready / Option A complete.
 
 ---
 
-## 7. Findings
+## 4. État Git / écart avec main
 
-### Critical
+| Métrique | Valeur |
+|----------|--------|
+| Commits `origin/main..HEAD` | **47** |
+| Commits `HEAD..origin/main` | **0** |
+| Fichiers | **168** (154 A · 14 M) |
+| Insertions / suppressions | **+25634 / −112** |
+| Runtime `evidence-review` | ~66 fichiers · ~11.6k lignes |
+| Tests | ~17 fichiers · ~4.8k lignes |
+| Delivery docs T-A6 | 19 fichiers · ~5.3k lignes |
+| Modeled | ~66 fichiers · ~4.0k lignes |
+| Commits feat/fix utiles | **12** |
+| Commits record/point docs | **~24** (bruit historique) |
 
-Aucun.
+**Risque base obsolète :** **faible aujourd’hui** — `origin/main` n’a **pas** avancé depuis la base historique. À **re-vérifier** au moment d’un futur push/PR.
 
-### Major (corrigés)
-
-| ID | Fichier | Invariant | Preuve | Impact | Correction |
-|----|---------|-----------|--------|--------|------------|
-| **F-A6-D5-01** | `recommendNextGate.ts` | Version maturité exacte | `maturityAssessmentId` sans version accepté (latest implicite) | Gate/reco sur version non figée | Exiger `maturityAssessmentVersion` ≥ 1 |
-| **F-A6-D5-02** | `recommendNextGate.ts` | Evidence version exacte | `version:0` / refs id-only sans snapshot | Lookup implicite latest | Exiger version ≥ 1 ou snapshot gelé |
-| **F-A6-D5-03** | `recommendNextGate.ts` | Evidence superseded non positive | status `superseded` non bloqué | `gate_candidate` indû | Blocker `evidence_superseded` |
-
-### Observations
-
-| ID | Note |
-|----|------|
-| O-D5-1 | Pas de schema modeled dédié RecommendNextGate (contrat delivery) |
-| O-D5-2 | C1–C4 NOT VALIDATED (gap explicite) |
-| O-D5-3 | R-M01 OPEN |
-| O-D5-4 | Audit replay read-only peut ré-émettre — acceptable |
+`git diff --check origin/main...HEAD` : trailing whitespace mineur dans `18-delivery-d5-validation.md` (doc) — non bloquant pour cadrage ; à traiter en PR readiness.
 
 ---
 
-## 8. Corrections
+## 5. Dépendances Option A
 
-Commit : `fix(sfia-studio): correct T-A6 D5 validation findings`
+| Dépendance | Classe | Preuve |
+|------------|--------|--------|
+| T-A3 Authority/Decision (sur main) | **forte** (runtime RO) | `AuthorityResolver` / fake claim authority |
+| T-A4 ExecutionContract (sur main) | **faible** | pas d’écriture ; Attempt via port |
+| T-A5 Attempt reader (sur main) | **forte** (ingestion RO) | `ExecutionAttemptReader` · DEL-04 |
+| Modeled Option A ancestor | **forte** (contrat) | merge-base = tip `modeled/…` ; schémas Evidence/RB/Claim/Maturity |
+| Shared technical platform | **informative** | overlap fichiers vs main = **0** |
+| D1 shared platform integration | **informative** | overlap = **0** |
+| Control tower / UX Option A | **informative** | overlap = **0** ; hors périmètre mémoire T-A6 |
+| T-A7 | **bloquante si ouverte** | **interdit** ; `T_A7_AUTO_LAUNCH_FORBIDDEN` |
 
-- Version maturité obligatoire  
-- Versions Evidence exactes (snapshots gelés)  
-- Blocker `evidence_superseded`  
-- Tests adversariaux +4  
-
----
-
-## 9. Tests (réexécution propre)
-
-| Suite | Commande | Avant | Après | Résultat |
-|-------|----------|-------|-------|----------|
-| evidence-review D1–D5 | `npm test -- __tests__/oa/evidence-review` | 136 | **140** | **PASS** (+4) |
-| T-A3 | `npm test -- __tests__/oa/decision` | 50 | 50 | PASS |
-| T-A4 | `npm test -- __tests__/oa/execution-contract` | 61 | 61 | PASS |
-| T-A5 | `npm test -- __tests__/oa/execution-attempt` | 88 | 88 | PASS |
-| Modeled T-A6 | `node --test …/evidence-review-maturity-governance.test.mjs` | 27 | 27 | PASS |
-| typecheck / lint / build / diff-check | — | — | — | PASS |
-
-Durées : evidence-review ~0.70s. Skipped : 0.
+Aucune dépendance bloquante non résolue pour un cycle **PR readiness** local. L’intégration produit (API/UI/persistence) reste **hors T-A6 v1**.
 
 ---
 
-## 10. Réserves / anti-claims
+## 6. Chevauchements / conflits
 
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
-C1–C4 **RECOMMENDED — NOT VALIDATED**
+Overlap `name-only` vs branches sœurs (relatif à `origin/main`) : **0** pour T-A3/T-A4/T-A5, modeled, shared platform, UX, control tower, next-product-increment.
 
-Pas T-A6 COMPLETE · Option A COMPLETE · runtime ready · production ready · gate consommé · décision Morris créée · T-A7 · persistence réelle · exécution réelle.
+Conflits potentiels avec `main` : **aucun immédiat** (retard 0).  
+Conflits futurs : possibles si d’autres branches touchent `app/lib/oa/**` ou modeled Evidence avant merge T-A6.
 
 ---
 
-## 11. Verdict
+## 7. Réserves
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 D5 BOUNDED COORDINATION VALIDATED AFTER CORRECTION — NEXT T-A6 STEP REQUIRES MORRIS FRAMING AND GO`
+| ID | Statut | Impact T-A6 / PR / merge | Action cadrage |
+|----|--------|---------------------------|----------------|
+| B5 | OPEN | dette structurante Option A | maintenir OPEN · documenter en PR |
+| R1 | OPEN | dette | maintenir OPEN |
+| R-T-A3-1 | OPEN HARD | exécution réelle Critical | **non** fermée ; hors merge T-A6 mémoire |
+| R-T-A3-2 | OPEN HARD | exécution réelle | idem |
+| R-T-A3-3 | OPEN | autorité | maintenir |
+| R-T-A3-4 | OPEN | autorité | maintenir |
+| R-M01 | OPEN | ClaimEvaluator/runtime readiness | exposée D5 ; **ne pas** fermer |
+| U-M02 | OPEN | payloads/vendor | fake-only ; **ne pas** fermer |
+| C1–C4 | RECOMMENDED — NOT VALIDATED | dette delivery | **ne pas** valider ; mention PR |
+
+Autorité de fermeture : **Morris / gates séparés** uniquement.
+
+---
+
+## 8. Readiness
+
+### Documentaire
+
+PASS relatif au cadrage : 01–18 présents · gates D1–D5 tracés · findings corrigés · anti-claims · README cohérent avec « D5 VALIDATED » · pas de claim COMPLETE.
+
+### Technique
+
+PASS relatif au périmètre v1 : module identifiable · 140 tests D1–D5 annoncés · fake-only/mémoire/read-only D5 · pas SQL/API/UI · pas adapter réel.  
+Manques **normaux hors périmètre** : persistence réelle · API/UI · vendor payload (U-M02).
+
+### PR
+
+| Critère | Qualification |
+|---------|----------------|
+| Scope | cohérent T-A6 (modeled+runtime+docs+tests) |
+| Taille | **grande** (~25k LOC / 168 files) |
+| Atomicité | **oui** au niveau slice T-A6 |
+| Historique | bruité (≈24 record/point) · **squash candidat** |
+| Tests | D1–D5 + non-régression T-A3–T-A5 + modeled |
+| Docs | delivery complète locale |
+| Risques | taille PR · bruit commits · trailing whitespace doc |
+| Base PR | `main` @ `b25c20e6…` (actuel) |
+| Rebase/merge-main | **non requis maintenant** (retard 0) |
+| Split PR | possible modeled vs runtime — **non recommandé** (même trajectoire Git ; T-A5 pattern = 1 slice / 1 PR) |
+
+---
+
+## 9. Options A–F
+
+### A — PR readiness immédiate
+
+**Recommandée.** Alignée pattern T-A5 (`GO PREPARE … PR READINESS`). D1–D5 clos · main stable · overlap 0 · pas de Critical/Major ouvert.
+
+### B — Resynchronisation contrôlée
+
+**Non prioritaire.** Retard main = 0. Re-évaluer uniquement si `origin/main` avance avant push. Stratégie rebase vs merge = **décision Morris** ultérieure si besoin.
+
+### C — Intégration séquencée Option A
+
+**Non bloquante.** Shared platform / UX / control tower n’intersectent pas les paths T-A6. Peut suivre **après** merge T-A6.
+
+### D — Clôture documentaire T-A6 avant PR readiness
+
+**Redondante.** Un pack PR readiness (comme T-A0/T-A1/T-A5) couvre clôture delivery locale sans cycle doc isolé. Clôture « T-A6 COMPLETE » serait un **faux claim**.
+
+### E — Correction préalable
+
+**Non justifiée.** Aucun Critical/Major ouvert. Trailing whitespace doc = hygiène PR readiness, pas cycle correctif dédié.
+
+### F — Arbitrage Morris avant suite
+
+**Non requis pour la trajectoire** (une option dominante). Morris doit seulement **autoriser** le gate PR readiness (et plus tard push/PR).
+
+---
+
+## 10. Matrice comparative
+
+| Option | Dette | Largeur | Conflits | Traçabilité | Progression | Score cadrage |
+|--------|-------|---------|----------|-------------|-------------|---------------|
+| **A PR readiness** | basse | bornée | faible | haute | haute | **1** |
+| B Resync | moyenne | +1 cycle | N/A aujourd’hui | moyenne | faible | 4 |
+| C Séquence Option A | haute | large | variable | moyenne | différée | 5 |
+| D Clôture doc seule | moyenne | +1 cycle | nulle | moyenne | faible | 3 |
+| E Correction | n/a | — | — | — | — | éliminée |
+| F Arbitrage ouvert | — | — | — | — | bloquée | 2 si égalité |
+
+---
+
+## 11. Challenge
+
+| Question | Réponse |
+|----------|---------|
+| Utile maintenant ? | **Oui** — seul frein = absence de pack PR readiness + GO Morris push |
+| Dette créée ? | Non si on évite cycles doc/resync inutiles |
+| Plus simple ? | PR readiness directe |
+| Repo-first ? | Oui |
+| Gate Morris ? | Oui — consommer PR readiness, puis push/PR séparés |
+| Branche trop large ? | Grande mais atomique T-A6 ; squash recommandé en readiness |
+| PR trop grande ? | Risque review — mitiger par guide PR + résumé D1–D5 |
+| Dépendances intégrées ? | T-A3–T-A5 sur main ; OK |
+
+---
+
+## 12. Recommandation (non validée)
+
+**Option A — lancer un cycle PR readiness T-A6.**
+
+Gate candidat unique :
+
+`GO PREPARE T-A6 PR READINESS — SFIA STUDIO V3-NATIVE — OPTION A`
+
+Périmètre attendu du prochain cycle (recommandé, non consommé) :
+
+- pack `pr-readiness/**` (scope, validation, risques/réserves, description PR) ;
+- qualification squash vs historique ;
+- re-check `origin/main` / conflicts ;
+- **sans** push, **sans** création PR, **sans** merge, **sans** fermeture de réserve.
+
+---
+
+## 13. Décisions Morris requises
+
+1. **Autoriser** `GO PREPARE T-A6 PR READINESS` (oui/non).  
+2. À la readiness : **squash** recommandé ou historique conservé.  
+3. **Une** PR T-A6 (modeled+runtime+docs) vs split — recommandation cadrage : **une PR**.  
+4. Plus tard (hors ce cadrage) : GO push + create PR ; GO merge — **non** décidés ici.
+
+### Décisions déjà validées (Git)
+
+- D-T-A6-DEL-01…10  
+- D1–D5 implement + validate (gates consommés)  
+- Interdiction auto T-A7 / fake-only / memory  
+
+---
+
+## 14. Anti-claims
+
+Pas T-A6 COMPLETE · T-A6 READY FOR MERGE · PR READY · Option A COMPLETE · runtime/production ready · rebase/merge approved · R-M01/U-M02/C1–C4 fermées · T-A7 ouvert · décision Morris créée · gate suivant consommé.
+
+---
+
+## 15. Verdict
+
+`SFIA STUDIO V3-NATIVE OPTION A T-A6 NEXT STEP FRAMED — MORRIS GO REQUIRED`
 ```
 
-## 7. Contenu complet — README
+## 4. Contenu complet — README
 ```markdown
 # T-A6 — Evidence, Review, Claims and Maturity (Option A)
 
@@ -254,6 +325,7 @@ Pas T-A6 COMPLETE · Option A COMPLETE · runtime ready · production ready · g
 | **Gate D4 validate** | `GO VALIDATE T-A6 DELIVERY D4` (**CONSUMED**) |
 | **Gate D5 implement** | `GO IMPLEMENT T-A6 DELIVERY D5` (**CONSUMED**) |
 | **Gate D5 validate** | `GO VALIDATE T-A6 DELIVERY D5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate next-step frame** | `GO FRAME NEXT T-A6 STEP — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Modeled** | Evidence/RB/Maturity `0.2.0-oa` · ClaimEvaluation `0.1.0-oa` |
@@ -261,7 +333,7 @@ Pas T-A6 COMPLETE · Option A COMPLETE · runtime ready · production ready · g
 | **Runtime D2** | **VALIDATED AFTER CORRECTION** |
 | **Runtime D3** | **VALIDATED AFTER CORRECTION** |
 | **Runtime D4** | **VALIDATED AFTER CORRECTION** |
-| **Runtime D5** | RecommendNextGate — **T-A6-D5 VALIDATED AFTER CORRECTION** |
+| **Runtime D5** | RecommendNextGate — **VALIDATED AFTER CORRECTION** |
 | **Fake-only / mémoire** | **oui** |
 | **D5 read-only** | **oui** |
 | **Persistence D5 / réelle** | **NON** |
@@ -270,22 +342,23 @@ Pas T-A6 COMPLETE · Option A COMPLETE · runtime ready · production ready · g
 | **Push / PR / merge** | **NONE** |
 | **T-A7** | **NON** ouvert |
 | **T-A6 COMPLETE / Option A COMPLETE** | **NON** |
-| **Statut pack** | **T-A6-D5 VALIDATED AFTER CORRECTION** |
-| **Horodatage D5 validate** | 2026-07-26 11:54:00 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D5 BOUNDED COORDINATION VALIDATED AFTER CORRECTION — NEXT T-A6 STEP REQUIRES MORRIS FRAMING AND GO` |
-| **Suite candidate** | `GO FRAME NEXT T-A6 STEP — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed** · cadrage Morris requis) |
+| **Statut pack** | **NEXT STEP FRAMED — MORRIS DECISION REQUIRED** |
+| **Horodatage next-step frame** | 2026-07-26 12:06:00 CEST (+0200) |
+| **Recommandation (non validée)** | PR readiness T-A6 |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 NEXT STEP FRAMED — MORRIS GO REQUIRED` |
+| **Gate suivant candidat** | `GO PREPARE T-A6 PR READINESS — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ## Livrables
 
 1. [README.md](./README.md)
-2. [01](./01-framing.md) … [17-delivery-d5-implementation.md](./17-delivery-d5-implementation.md)
-3. [18-delivery-d5-validation.md](./18-delivery-d5-validation.md)
+2. [01](./01-framing.md) … [18-delivery-d5-validation.md](./18-delivery-d5-validation.md)
+3. [19-next-step-framing.md](./19-next-step-framing.md)
 4. Runtime : `app/lib/oa/evidence-review/**` (D1–D5)
 5. Tests : `app/__tests__/oa/evidence-review/**`
 
-## D5 validé (après correction)
+## D1–D5 validés · suite cadrée
 
-`RecommendNextGate` · versions exactes · fail-closed · `executionAuthority=false` · aucun gate/décision · 140 tests D1–D5 PASS
+D1–D5 **VALIDATED** · next step recommandé : **PR readiness** (gate non consommé) · T-A6 **non** déclaré complet
 
 ## Réserves (OPEN)
 
@@ -294,260 +367,18 @@ C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ## Anti-claims
 
-Pas T-A6 COMPLETE / Option A COMPLETE / DELIVERY COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / gate consommé / décision Morris créée
-```
-
-## 8. Diff utile corrections (098473b)
-```
-commit 098473bcb31024949b7b0e65c377a9d5ddb2eae5
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Sun Jul 26 11:54:47 2026 +0200
-
-    fix(sfia-studio): correct T-A6 D5 validation findings
-    
-    Require exact maturity and evidence versions, and block superseded
-    evidence from positive gate recommendations.
-    
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../adversarialCoordinationValidation.test.ts      | 118 ++++++++++++++
- .../application/recommendNextGate.ts               | 181 +++++++++++++++------
- .../oa/evidence-review/domain/coordinationTypes.ts |   1 +
- 3 files changed, 246 insertions(+), 54 deletions(-)
-```
-
-Diff complet fix :
-```diff
-commit 098473bcb31024949b7b0e65c377a9d5ddb2eae5
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Sun Jul 26 11:54:47 2026 +0200
-
-    fix(sfia-studio): correct T-A6 D5 validation findings
-    
-    Require exact maturity and evidence versions, and block superseded
-    evidence from positive gate recommendations.
-    
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/recommendNextGate.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/recommendNextGate.ts
-index b0f37c8..92ea42b 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/application/recommendNextGate.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/recommendNextGate.ts
-@@ -184,8 +184,18 @@ export class RecommendNextGate {
-       const bundleMap = new Map<string, ReviewBundle>();
-       const evidenceMap = new Map<string, Evidence>();
- 
--      // --- Load maturity (exact version) ---
-+      // --- Load maturity (exact version required — no implicit latest) ---
-       if (request.maturityAssessmentId) {
-+        if (
-+          request.maturityAssessmentVersion === undefined ||
-+          !Number.isInteger(request.maturityAssessmentVersion) ||
-+          request.maturityAssessmentVersion < 1
-+        ) {
-+          return fail(
-+            "COORDINATION_INVALID",
-+            "maturity_assessment_version_required",
-+          );
-+        }
-         maturityAssessment = await this.maturity.findById(
-           request.maturityAssessmentId,
-         );
-@@ -194,10 +204,10 @@ export class RecommendNextGate {
-             code: "source_missing",
-             sourceKind: "maturity_assessment",
-             sourceId: request.maturityAssessmentId,
-+            sourceVersion: request.maturityAssessmentVersion,
-           });
-         } else {
-           if (
--            request.maturityAssessmentVersion !== undefined &&
-             maturityAssessment.version !== request.maturityAssessmentVersion
-           ) {
-             blockers.push({
-@@ -476,19 +486,30 @@ export class RecommendNextGate {
-         });
-       }
- 
--      // Collect evidence refs
-+      // Collect evidence refs — prefer exact frozen snapshot versions; never imply latest.
-       const evidenceRefs: VersionedRef[] = [];
-       if (request.evidenceRefs) {
--        evidenceRefs.push(...request.evidenceRefs);
--      }
--      if (maturityAssessment?.evidenceRefs) {
--        for (const id of maturityAssessment.evidenceRefs) {
--          evidenceRefs.push({ id, version: 0 }); // version 0 = any (id-only from maturity)
-+        for (const ref of request.evidenceRefs) {
-+          if (!Number.isInteger(ref.version) || ref.version < 1) {
-+            blockers.push({
-+              code: "version_mismatch",
-+              sourceKind: "evidence",
-+              sourceId: ref.id,
-+              detail: "exact_version_required",
-+            });
-+          } else {
-+            evidenceRefs.push(ref);
-+          }
-         }
-       }
-+      const frozenVersionByEvidenceId = new Map<string, number>();
-       for (const bundle of bundleMap.values()) {
-         if (bundle.frozenEvidenceSnapshots?.length) {
-           for (const snap of bundle.frozenEvidenceSnapshots) {
-+            frozenVersionByEvidenceId.set(
-+              snap.evidenceId,
-+              snap.evidenceVersion,
-+            );
-             evidenceRefs.push({
-               id: snap.evidenceId,
-               version: snap.evidenceVersion,
-@@ -496,16 +517,48 @@ export class RecommendNextGate {
-           }
-         } else {
-           for (const id of bundle.evidenceRefs) {
--            evidenceRefs.push({ id, version: 0 });
-+            // Unfrozen / snapshot-less bundle already blocked; still require exact version.
-+            blockers.push({
-+              code: "version_mismatch",
-+              sourceKind: "evidence",
-+              sourceId: id,
-+              detail: "frozen_snapshot_version_required",
-+            });
-           }
-         }
-       }
--      for (const claim of claimMap.values()) {
--        for (const id of claim.requiredEvidenceRefs) {
--          evidenceRefs.push({ id, version: 0 });
-+      if (maturityAssessment?.evidenceRefs) {
-+        for (const id of maturityAssessment.evidenceRefs) {
-+          const frozenVersion = frozenVersionByEvidenceId.get(id);
-+          if (frozenVersion !== undefined) {
-+            evidenceRefs.push({ id, version: frozenVersion });
-+          } else {
-+            blockers.push({
-+              code: "version_mismatch",
-+              sourceKind: "evidence",
-+              sourceId: id,
-+              detail: "exact_version_required_for_maturity_evidence_ref",
-+            });
-+          }
-         }
--        for (const id of claim.providedEvidenceRefs ?? []) {
--          evidenceRefs.push({ id, version: 0 });
-+      }
-+      for (const claim of claimMap.values()) {
-+        const ids = [
-+          ...claim.requiredEvidenceRefs,
-+          ...(claim.providedEvidenceRefs ?? []),
-+        ];
-+        for (const id of ids) {
-+          const frozenVersion = frozenVersionByEvidenceId.get(id);
-+          if (frozenVersion !== undefined) {
-+            evidenceRefs.push({ id, version: frozenVersion });
-+          } else {
-+            blockers.push({
-+              code: "version_mismatch",
-+              sourceKind: "evidence",
-+              sourceId: id,
-+              detail: "exact_version_required_for_claim_evidence_ref",
-+            });
-+          }
-         }
-       }
-       const uniqueEvidenceRefs = dedupeEvidenceRefs(sortRefs(evidenceRefs));
-@@ -517,11 +570,11 @@ export class RecommendNextGate {
-             code: "source_missing",
-             sourceKind: "evidence",
-             sourceId: ref.id,
--            sourceVersion: ref.version || undefined,
-+            sourceVersion: ref.version,
-           });
-           continue;
-         }
--        if (ref.version > 0 && evidence.version !== ref.version) {
-+        if (evidence.version !== ref.version) {
-           blockers.push({
-             code: "version_mismatch",
-             sourceKind: "evidence",
-@@ -530,6 +583,14 @@ export class RecommendNextGate {
-             detail: `expected_version=${ref.version}`,
-           });
-         }
-+        if (evidence.status === "superseded") {
-+          blockers.push({
-+            code: "evidence_superseded",
-+            sourceKind: "evidence",
-+            sourceId: evidence.evidenceId,
-+            sourceVersion: evidence.version,
-+          });
-+        }
-         if (
-           evidence.status === "unavailable" ||
-           evidence.availability === "unavailable"
-@@ -546,42 +607,36 @@ export class RecommendNextGate {
-             sourceId: evidence.evidenceId,
-           });
-         } else if (
--          evidence.status !== "verified" &&
--          evidence.status !== "available"
-+          evidence.status === "incomplete" ||
-+          evidence.status === "expected"
-         ) {
--          if (
--            evidence.status === "incomplete" ||
--            evidence.status === "expected"
--          ) {
--            gaps.push({
--              code: "evidence_incomplete",
--              sourceKind: "evidence",
--              sourceId: evidence.evidenceId,
--              detail: `status=${evidence.status}`,
--            });
--          }
-+          gaps.push({
-+            code: "evidence_incomplete",
-+            sourceKind: "evidence",
-+            sourceId: evidence.evidenceId,
-+            detail: `status=${evidence.status}`,
-+          });
-+          blockers.push({
-+            code: "evidence_not_verified",
-+            sourceKind: "evidence",
-+            sourceId: evidence.evidenceId,
-+            sourceVersion: evidence.version,
-+            detail: `status=${evidence.status}`,
-+          });
-         }
--        if (
--          evidence.status !== "verified" &&
--          evidence.status !== "unavailable" &&
--          evidence.status !== "rejected" &&
--          evidence.status !== "superseded"
--        ) {
--          // available but not verified is a soft gap for positive recommendation
--          if (evidence.status === "available") {
--            gaps.push({
--              code: "evidence_incomplete",
--              sourceKind: "evidence",
--              sourceId: evidence.evidenceId,
--              detail: "not_verified",
--            });
--            blockers.push({
--              code: "evidence_not_verified",
--              sourceKind: "evidence",
--              sourceId: evidence.evidenceId,
-```
+Pas T-A6 COMPLETE / Option A COMPLETE / PR READY / DELIVERY COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / push / PR / merge / rebase```
 
 ---
 
-## 9. Suite candidate / verdict
+## 5. Fichiers / commit / anti-claims
 
-**Suite candidate (NOT consumed) :** `GO FRAME NEXT T-A6 STEP — SFIA STUDIO V3-NATIVE — OPTION A`  
-(cadrage repo-informed + GO Morris séparés — non inventé comme gate validé)
+Créés : `19-next-step-framing.md`  
+Modifiés : README T-A6  
+Supprimés : aucun  
+Commit : `docs(sfia-studio): frame next T-A6 step`
 
-Pas T-A6 COMPLETE · Option A COMPLETE · runtime ready · production ready · R-M01 fermée · C1–C4 validées · T-A7 · exécution réelle.
+Pas T-A6 COMPLETE · PR READY · Option A COMPLETE · rebase/merge approved · R-M01 fermée · C1–C4 validées · T-A7 · push/PR/merge · gate suivant consommé.
 
 **Verdict exact :**
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 D5 BOUNDED COORDINATION VALIDATED AFTER CORRECTION — NEXT T-A6 STEP REQUIRES MORRIS FRAMING AND GO`
+`SFIA STUDIO V3-NATIVE OPTION A T-A6 NEXT STEP FRAMED — MORRIS GO REQUIRED`
