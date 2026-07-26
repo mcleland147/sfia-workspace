@@ -90,6 +90,8 @@ export function assessClaimEligibility(
 }
 
 export type MaturityCalculation = {
+  /** Highest modeled level supported by eligible claims; null if none eligible. */
+  supportedLevel: MaturityLevel | null;
   proposedLevel: MaturityLevel;
   status: "proposed" | "blocked";
   criteriaResults: MaturityCriterionResult[];
@@ -229,7 +231,8 @@ export function calculateMaturityLevel(input: {
     },
   ];
 
-  let supported: MaturityLevel = "DOCUMENTED";
+  // Fail-closed: no eligible PASS ⇒ no supported modeled level (DOCUMENTED requires ≥1).
+  let supported: MaturityLevel | null = null;
   if (hasEligible) supported = "DOCUMENTED";
   if (hasEligible && hasConfirmed) supported = "VALIDATED";
   if (hasEligible && hasConfirmed && hasModeledSupport) supported = "MODELED";
@@ -239,9 +242,42 @@ export function calculateMaturityLevel(input: {
   if (hasEligible && hasConfirmed && hasAdoptedSupport) {
     supported = "ADOPTED";
   }
-  if (!hasEligible) {
-    // Fail-closed floor: still DOCUMENTED proposal with gaps — never invent higher.
-    supported = "DOCUMENTED";
+
+  if (supported === null) {
+    gaps.push({
+      code: "insufficient_for_level",
+      level: input.requestedLevel,
+    });
+    // proposedLevel kept as requested for gap context only — callers must not persist
+    // a positive maturity without eligible claims (Propose/Confirm fail-closed).
+    const placeholder = minLevel(input.requestedLevel, "DOCUMENTED");
+    if (hardBlocked) {
+      gaps.push({
+        code: "hard_reserve_blocks_level",
+        level: placeholder,
+      });
+      return {
+        supportedLevel: null,
+        proposedLevel: placeholder,
+        status: "blocked",
+        criteriaResults,
+        gaps,
+        dimensions: [
+          {
+            dimensionId: "default",
+            proposedLevel: placeholder,
+            blocked: true,
+          },
+        ],
+      };
+    }
+    return {
+      supportedLevel: null,
+      proposedLevel: placeholder,
+      status: "proposed",
+      criteriaResults,
+      gaps,
+    };
   }
 
   let proposedLevel = minLevel(input.requestedLevel, supported);
@@ -268,6 +304,7 @@ export function calculateMaturityLevel(input: {
       blocked: true,
     }));
     return {
+      supportedLevel: supported,
       proposedLevel,
       status: "blocked",
       criteriaResults,
@@ -290,12 +327,47 @@ export function calculateMaturityLevel(input: {
   }));
 
   return {
+    supportedLevel: supported,
     proposedLevel,
     status: "proposed",
     criteriaResults,
     gaps,
     dimensions: dimensions.length ? dimensions : undefined,
   };
+}
+
+/** Re-read exact ClaimEvaluation bindings (Confirm fail-closed). Never mutates claims. */
+export async function reassessStoredBindings(input: {
+  bindings: MaturityClaimBinding[];
+  claims: {
+    findById(id: string): Promise<ClaimEvaluation | null>;
+    isSuperseded(id: string): Promise<boolean>;
+  };
+}): Promise<MaturityClaimBinding[]> {
+  const out: MaturityClaimBinding[] = [];
+  for (const bound of input.bindings) {
+    const claim = await input.claims.findById(bound.claimEvaluationId);
+    if (!claim) {
+      out.push(
+        missingClaimBinding(
+          bound.claimEvaluationId,
+          bound.claimEvaluationVersion,
+        ),
+      );
+      continue;
+    }
+    const isSuperseded = await input.claims.isSuperseded(
+      bound.claimEvaluationId,
+    );
+    out.push(
+      assessClaimEligibility({
+        claim,
+        expectedVersion: bound.claimEvaluationVersion,
+        isSuperseded,
+      }),
+    );
+  }
+  return out;
 }
 
 export function missingClaimBinding(

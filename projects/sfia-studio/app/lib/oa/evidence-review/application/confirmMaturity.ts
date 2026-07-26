@@ -1,7 +1,8 @@
 /**
  * ConfirmMaturity — human confirmation of proposed maturity.
- * System/agent forbidden. ADOPTED / structural levels require Morris.
+ * System/agent forbidden. ADOPTED / IMPLEMENTED require Morris.
  * HARD blockingReservationRefs forbid confirm. autoPromoted remains false.
+ * Re-assesses ClaimEvaluation bindings at exact versions before confirm (fail-closed).
  * Never launches D5 / Decision / executionAuthority.
  */
 import type { ClockPort } from "@/lib/oa/doctrine";
@@ -21,6 +22,7 @@ import type {
 } from "../domain/maturityAssessmentTypes";
 import { containsForbiddenSecret } from "../domain/invariants";
 import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
+import type { ClaimEvaluationReaderPort } from "../ports/claimEvaluationReader";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { IdGeneratorPort } from "../ports/idGenerator";
 import type { MaturityAssessmentRepositoryPort } from "../ports/maturityAssessmentRepository";
@@ -29,12 +31,17 @@ import {
   fingerprintCommand,
   registerFingerprintBody,
 } from "./evidenceSupport";
+import {
+  calculateMaturityLevel,
+  reassessStoredBindings,
+} from "./maturityCalculation";
 
 const MATURITY_AUTHORITY_SCOPE = "oa.maturity_assessment";
 
 export class ConfirmMaturity {
   constructor(
     private readonly repo: MaturityAssessmentRepositoryPort,
+    private readonly claims: ClaimEvaluationReaderPort,
     private readonly authority: ClaimAuthorityPort,
     private readonly clock: ClockPort,
     private readonly audit: EvidenceAuditPort,
@@ -214,6 +221,91 @@ export class ConfirmMaturity {
         }
       }
 
+      // Re-assess exact ClaimEvaluation bindings before PASS confirm (fail-closed).
+      const freshBindings = await reassessStoredBindings({
+        bindings: current.claimBindings,
+        claims: this.claims,
+      });
+      const missing = freshBindings.find(
+        (b) => b.ineligibilityCode === "missing",
+      );
+      if (missing) {
+        return fail("MATURITY_CLAIM_NOT_FOUND", "claim_missing_at_confirm", {
+          claimEvaluationId: missing.claimEvaluationId,
+          maturityAssessment: current,
+        });
+      }
+      const versionMismatch = freshBindings.find(
+        (b) => b.ineligibilityCode === "version_mismatch",
+      );
+      if (versionMismatch) {
+        return fail(
+          "MATURITY_CLAIM_VERSION_MISMATCH",
+          "claim_version_mismatch_at_confirm",
+          {
+            claimEvaluationId: versionMismatch.claimEvaluationId,
+            maturityAssessment: current,
+          },
+        );
+      }
+      const disputed = freshBindings.find(
+        (b) => b.ineligibilityCode === "disputed",
+      );
+      if (disputed) {
+        return fail("MATURITY_CLAIM_DISPUTED", "claim_disputed_at_confirm", {
+          claimEvaluationId: disputed.claimEvaluationId,
+          maturityAssessment: current,
+        });
+      }
+      const waived = freshBindings.find(
+        (b) => b.ineligibilityCode === "waived",
+      );
+      if (waived) {
+        return fail("MATURITY_CLAIM_WAIVED", "claim_waived_at_confirm", {
+          claimEvaluationId: waived.claimEvaluationId,
+          maturityAssessment: current,
+        });
+      }
+      const superseded = freshBindings.find(
+        (b) => b.ineligibilityCode === "superseded",
+      );
+      if (superseded) {
+        return fail(
+          "MATURITY_CLAIM_SUPERSEDED",
+          "claim_superseded_at_confirm",
+          {
+            claimEvaluationId: superseded.claimEvaluationId,
+            maturityAssessment: current,
+          },
+        );
+      }
+
+      const calc = calculateMaturityLevel({
+        requestedLevel: current.proposedLevel,
+        bindings: freshBindings,
+        blockingReservationRefs: current.blockingReservationRefs,
+        dimensions: current.dimensions?.map((d) => ({
+          dimensionId: d.dimensionId,
+          proposedLevel: d.proposedLevel,
+        })),
+      });
+      if (calc.supportedLevel === null || calc.status === "blocked") {
+        return fail(
+          calc.status === "blocked"
+            ? "MATURITY_BLOCKED_BY_RESERVATION"
+            : "MATURITY_CLAIM_NOT_ELIGIBLE",
+          "confirm_reassess_unsupported",
+          { maturityAssessment: current },
+        );
+      }
+      if (levelRank(calc.proposedLevel) < levelRank(current.proposedLevel)) {
+        return fail(
+          "MATURITY_CLAIM_NOT_ELIGIBLE",
+          "confirm_level_regressed_after_reassess",
+          { maturityAssessment: current },
+        );
+      }
+
       const requireMorris =
         current.proposedLevel === "ADOPTED" ||
         current.proposedLevel === "IMPLEMENTED";
@@ -246,6 +338,10 @@ export class ConfirmMaturity {
         confirmedLevel: current.proposedLevel,
         confirmedBy: { ...request.actor },
         confirmedAt: timestamp,
+        claimBindings: structuredClone(freshBindings),
+        criteriaResults: structuredClone(calc.criteriaResults),
+        gaps: structuredClone(calc.gaps),
+        calculatedAt: timestamp,
         dimensions: current.dimensions?.map((d) => ({
           ...d,
           confirmedLevel: d.proposedLevel,

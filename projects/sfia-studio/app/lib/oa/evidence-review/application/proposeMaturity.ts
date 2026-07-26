@@ -242,6 +242,12 @@ export class ProposeMaturity {
         dimensions: request.dimensions,
       });
 
+      // DOCUMENTED requires ≥1 eligible PASS — never propose a positive level without support
+      // unless HARD reserves force an explicit blocked assessment.
+      if (calc.supportedLevel === null && calc.status !== "blocked") {
+        return fail("MATURITY_CLAIM_NOT_ELIGIBLE", "no_eligible_claims_for_propose");
+      }
+
       const assessment: MaturityAssessment = {
         schemaVersion: "0.2.0-oa",
         maturityAssessmentId: request.maturityAssessmentId,

@@ -189,7 +189,7 @@ describe("T-A6-D4 ProposeMaturity", () => {
     expect(badVer.error.detailCode).toBe("MATURITY_CLAIM_VERSION_MISMATCH");
   });
 
-  it("does not promote from waived or disputed claims", async () => {
+  it("refuses propose when waived/disputed only (no eligible PASS)", async () => {
     const s = buildServices();
     await freezeBundle(s, "rb:mat-waive", ["ev:mat-waive"]);
     s.fakeClaimAuthority.grant({
@@ -229,15 +229,9 @@ describe("T-A6-D4 ProposeMaturity", () => {
         },
       ],
     });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    expect(proposed.maturityAssessment.proposedLevel).toBe("DOCUMENTED");
-    expect(
-      proposed.maturityAssessment.claimBindings[0]?.eligibleForPositive,
-    ).toBe(false);
-    expect(proposed.maturityAssessment.gaps?.some((g) => g.code === "claim_waived")).toBe(
-      true,
-    );
+    expect(proposed.ok).toBe(false);
+    if (proposed.ok) return;
+    expect(proposed.error.detailCode).toBe("MATURITY_CLAIM_NOT_ELIGIBLE");
   });
 
   it("blocks proposal when HARD reservation present", async () => {

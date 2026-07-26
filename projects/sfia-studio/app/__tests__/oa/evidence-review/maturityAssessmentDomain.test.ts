@@ -121,10 +121,24 @@ describe("T-A6-D4 maturity domain", () => {
       bindings: [eligible],
       blockingReservationRefs: [],
     });
+    expect(calc.supportedLevel).toBe("MODELED");
     expect(calc.proposedLevel).toBe("MODELED");
     expect(calc.gaps.some((g) => g.code === "requested_level_unsupported")).toBe(
       true,
     );
+
+    const none = calculateMaturityLevel({
+      requestedLevel: "DOCUMENTED",
+      bindings: [
+        assessClaimEligibility({
+          claim: baseClaim({ status: "waived" }),
+          expectedVersion: 1,
+          isSuperseded: false,
+        }),
+      ],
+      blockingReservationRefs: [],
+    });
+    expect(none.supportedLevel).toBeNull();
 
     const blocked = calculateMaturityLevel({
       requestedLevel: "MODELED",

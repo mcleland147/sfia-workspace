@@ -78,6 +78,7 @@ export {
   assessClaimEligibility,
   calculateMaturityLevel,
   missingClaimBinding,
+  reassessStoredBindings,
 } from "./application/maturityCalculation";
 
 export { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
@@ -363,6 +364,7 @@ export function createInMemoryEvidenceReviewServices(
     ),
     confirmMaturity: new ConfirmMaturity(
       maturityAssessmentRepository,
+      claimEvaluationReader,
       claimAuthority,
       clock,
       audit,
