@@ -6,24 +6,26 @@
 | **Titre cycle** | Evidence, Review, Claims and Maturity |
 | **Profil** | Critical |
 | **Gate framing** | `GO FRAME T-A6` (**CONSUMED**) |
-| **Gate arbitrage** | `GO ARBITRATE T-A6` (**CONSUMED**) |
-| **Gate décision** | `GO DECIDE T-A6` (**CONSUMED**) |
+| **Gate arbitrage modeled** | `GO ARBITRATE T-A6` (**CONSUMED**) |
+| **Gate décision modeled** | `GO DECIDE T-A6` (**CONSUMED**) |
 | **Gate materialize** | `GO MATERIALIZE T-A6 MODELED` (**CONSUMED**) |
 | **Gate validate** | `GO VALIDATE T-A6 MODELED` (**CONSUMED**) |
-| **Gate delivery framing** | `GO FRAME T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate delivery framing** | `GO FRAME T-A6 DELIVERY` (**CONSUMED**) |
+| **Gate delivery arbitrage** | `GO ARBITRATE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Modeled** | Evidence/RB/Maturity `0.2.0-oa` · ClaimEvaluation `0.1.0-oa` — **VALIDATED AFTER CORRECTION** |
-| **Runtime** | **NONE** modifié / créé |
+| **Runtime / modeled ce cycle** | **NONE** modifié |
+| **Fake-only** | **oui** (DEL-08 reco A) |
 | **Push / PR / merge projet** | **NONE** |
-| **Statut pack** | **DELIVERY FRAMING PREPARED** |
-| **Horodatage delivery framing** | 2026-07-26 02:06:59 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE DELIVERY` |
-| **Gate suivant** | `GO ARBITRATE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Statut pack** | **DELIVERY ARBITRATION PACK PREPARED** |
+| **Horodatage arbitrage delivery** | 2026-07-26 02:17:58 CEST (+0200) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
+| **Gate suivant** | `GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ## Objectif (ce cycle)
 
-Cadrer le futur delivery runtime mémoire T-A6 (fake-only) — **sans** implémentation, SQL, vendor, ni T-A7.
+Préparer un decision pack fermé D-T-A6-DEL-01…10 pour Morris — **recommandations uniquement**, aucune décision validée.
 
 ## Livrables
 
@@ -33,20 +35,12 @@ Cadrer le futur delivery runtime mémoire T-A6 (fake-only) — **sans** impléme
 4. [03-decisions.md](./03-decisions.md)
 5. [04-modeled-materialization.md](./04-modeled-materialization.md)
 6. [05-modeled-validation.md](./05-modeled-validation.md)
-7. [06-delivery-framing.md](./06-delivery-framing.md) — **cadrage delivery**
+7. [06-delivery-framing.md](./06-delivery-framing.md)
+8. [07-delivery-arbitration.md](./07-delivery-arbitration.md) — **decision pack delivery**
 
-## Modeled validé
+## D-T-A6-DEL-01…10 (en attente Morris)
 
-| Schema | Version |
-|--------|---------|
-| Evidence | `0.2.0-oa` |
-| ReviewBundle | `0.2.0-oa` |
-| ClaimEvaluation | `0.1.0-oa` |
-| MaturityAssessment | `0.2.0-oa` |
-
-## Arbitrages delivery
-
-D-T-A6-DEL-01…10 préparés dans [06-delivery-framing.md](./06-delivery-framing.md) — **recommandations uniquement** ; aucune option validée.
+Toutes recommandations **OPTION A** — statut **RECOMMENDED — NOT DECIDED**. Détail : [07-delivery-arbitration.md](./07-delivery-arbitration.md).
 
 ## Réserves (OPEN — inchangées)
 
@@ -63,12 +57,9 @@ D-T-A6-DEL-01…10 préparés dans [06-delivery-framing.md](./06-delivery-framin
 
 ## Anti-claims
 
-- Pas DELIVERY READY / implementation ready / runtime ready
-- Pas R-M01 fermée / U-M02 fermée / vendor
-- Pas code / runtime / modeled modifié ce cycle
+- Pas DELIVERY ARBITRATED / décisions VALIDATED
+- Pas IMPLEMENTATION READY / runtime ready
+- Pas R-M01 / U-M02 fermées / vendor
+- Pas code / modeled / runtime modifié
 - Pas T-A7 / exécution réelle / adapter réel
 - Pas push / PR / merge
-
-## Hors périmètre delivery framing
-
-Implémentation · SQL · API · UI · stockage physique · T-A7 · exécution réelle
