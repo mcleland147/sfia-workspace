@@ -1,52 +1,34 @@
-# Review Pack FULL — Publish Option A CI Governance Post-Merge Documentation (PR #269)
+# Review Pack FULL — Review Option A CI Governance Post-Merge Documentation PR (#269)
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 23:22:55 CEST (+0200) — Europe/Paris |
-| **Cycle** | Capitalisation / documentation — publication post-merge |
+| **Date/heure/fuseau** | 2026-07-26 23:37:42 CEST (+0200) — Europe/Paris |
+| **Cycle** | PR readiness documentaire / capitalisation |
 | **Profil** | Standard |
-| **Gate** | `GO PUBLISH OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
+| **Gate** | `GO REVIEW OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION PR — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Worktree source** | `/Users/morris/Projects/sfia-workspace-option-a-ci-governance` |
-| **Branche source** | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
-| **HEAD source** | `2f9560534e285c5b8105f81dca39c5252667860c` |
-| **Upstream source** | `dc7a24cfed4c3cd3fe584e4948847551e7af4cff` |
-| **origin/main** | `508ef7c4619e27b664d087fd97d53afe74ea93cc` |
-| **Branche documentaire** | `docs/sfia-studio-option-a-ci-governance-post-merge` |
-| **Worktree documentaire** | `/Users/morris/Projects/sfia-workspace-option-a-ci-governance-docs` |
-| **HEAD docs final** | `a42a85c0c0b3e146e59f82ea753329ed9253f278` |
-| **PR** | [#269](https://github.com/mcleland147/sfia-workspace/pull/269) |
-| **CI** | run **30220885332** · **success** |
-| **Handoff source** | blob `b4cdebd137c582db6cd32b58770a5f999ca6b4a7` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-option-a-ci-governance-docs` |
+| **Branche** | `docs/sfia-studio-option-a-ci-governance-post-merge` |
+| **HEAD local = distant = PR head** | `a42a85c0c0b3e146e59f82ea753329ed9253f278` |
+| **origin/main / merge-base** | `508ef7c4619e27b664d087fd97d53afe74ea93cc` |
+| **avance/retard** | **+2 / −0** |
+| **Handoff source** | blob `5b168564a8c90da8a8ad5ce88e6e51460bd391c5` |
 | **Niveau** | FULL |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION PUBLISHED — PR AND CI READY FOR MORRIS REVIEW` |
-| **Gate suivant** | `GO REVIEW OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION PR — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **Stratégie recommandée** | **H1 — merge commit** (non décision) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION PR REVIEW COMPLETE — READY FOR MORRIS MERGE DECISION` |
+| **Gate suivant** | `GO MERGE PR #269 USING H1 MERGE COMMIT AT HEAD a42a85c0c0b3e146e59f82ea753329ed9253f278 — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
 
 ---
 
-## 1. Truth Check / sources
+## 1. Truth Check / Git
 
-Truth Check source : **PASS** (ahead 2 · commits mono-fichier · docs absents de main · pas de branche/PR concurrente).
-
-### Status source
-
-```
-## delivery/sfia-studio-v3-native-option-a-ci-merge-governance...origin/delivery/sfia-studio-v3-native-option-a-ci-merge-governance [ahead 2]
-?? .tmp-sfia-review/
-```
-
-### Status docs
+**PASS**
 
 ```
 ## docs/sfia-studio-option-a-ci-governance-post-merge...origin/docs/sfia-studio-option-a-ci-governance-post-merge
 ```
 
-### Commits sources
-
-| SHA | Message | Fichier |
-|-----|---------|---------|
-| `a8e775b…` | docs(sfia-studio): review CI governance PR after correction | document **30** seul |
-| `2f95605…` | docs(sfia-studio): review CI governance post-merge integration | document **31** seul |
+Ops Git : absentes. Local = upstream = PR head. main stable `508ef7c…`.
 
 ---
 
@@ -55,39 +37,63 @@ Truth Check source : **PASS** (ahead 2 · commits mono-fichier · docs absents d
 | Élément | Valeur |
 |---------|--------|
 | Template | `prompts/templates/sfia-cycle-execution-template.md` |
-| CKC | **absent** comme autorité · fallback méthode + handoff post-merge |
-| Handoff source | blob `b4cdebd…` — post-merge review COMPLETE |
+| CKC | **absent** · fallback méthode + handoff publication + Git/PR/CI |
+| Handoff source | blob `5b168564…` — DOCUMENTATION PUBLISHED — PR AND CI READY FOR MORRIS REVIEW |
 
 ---
 
-## 3. Branche documentaire / reprise
+## 3. PR #269
 
 | Champ | Valeur |
 |-------|--------|
-| Création | `git worktree add -b docs/… …-docs origin/main` |
-| Base / HEAD initial | `508ef7c…` |
-| Méthode | **cherry-pick** standard |
-| Cherry-pick 30 | `a8e775b…` → `5fb0fc265d109c857a265ef27f37e6782c54fe0b` |
-| Cherry-pick 31 | `2f95605…` → `a42a85c0c0b3e146e59f82ea753329ed9253f278` |
-| HEAD final | `a42a85c…` |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/269 |
+| Titre | `docs(sfia-studio): publish CI governance post-merge reviews` |
+| State / draft / merged | OPEN / false / **non** |
+| Base / head | `main` @ `508ef7c…` / docs… @ `a42a85c…` |
+| Files / +/- | **2** · **+447 / −0** |
+| Mergeable / state | MERGEABLE / CLEAN |
+| Reviewers / labels / comments / reviews | **aucun** |
+| Auto-merge | **inactif** |
 
-### Blobs
+### Body
 
-| Doc | Source | Cible | Égalité |
-|-----|--------|-------|---------|
-| 30 | `1cfb76ee09d992883e16d4f5d31028ff7460f4aa` | idem | **YES** |
-| 31 | `01793cb685da67fb5f341cd1c66bf95751e61440` | idem | **YES** |
+```markdown
+## Summary
 
-### Log docs
+- publie la revue PR readiness post-correction de la PR #268 ;
+- publie la revue post-merge et la preuve du run CI `push` sur `main` ;
+- conserve les documents comme preuves historiques sans réécriture ;
+- ne modifie aucun workflow, runtime, package, test ou modeled.
 
-```
-a42a85c docs(sfia-studio): review CI governance post-merge integration
-5fb0fc2 docs(sfia-studio): review CI governance PR after correction
+## Documents
+
+- `30-ci-governance-pr-post-correction-review.md`
+- `31-ci-governance-post-merge-review.md`
+
+## Evidence
+
+- PR #268 mergée via H2 squash ;
+- squash `508ef7c4619e27b664d087fd97d53afe74ea93cc` ;
+- run post-merge `30219134760` : success ;
+- F-A6-PM-G01 proposé MITIGATED, non CLOSED ;
+- protections et required check toujours non appliqués.
+
+## Governance
+
+- PR documentaire uniquement ;
+- merge soumis à un GO Morris distinct ;
+- branche delivery conservée ;
+- aucune fermeture de finding ou réserve ;
+- Option A non COMPLETE ;
+- T-A7 non ouvert.
+
+Made with [Cursor](https://cursor.com)
+
 ```
 
 ---
 
-## 4. Diff
+## 4. Périmètre / contrôles
 
 ### name-status
 
@@ -104,15 +110,14 @@ A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/31-ci-governance-post
  2 files changed, 447 insertions(+)
 ```
 
-### diff-check / scans
-
 | Contrôle | Résultat |
 |----------|----------|
+| Exactement 2 fichiers A | **PASS** |
+| Workflow / runtime / packages / tests / modeled / docs 22–29 / README | **non modifiés** |
 | `git diff --check` | **PASS** |
 | Markdown | OK (preuves historiques) |
-| Secrets | **OK** |
-| Conflits | **aucun** |
-| TODO/FIXME | mention documentaire dans doc 31 (« TODO/FIXME absents ») · pas de marqueur incomplet |
+| Secrets / conflits | **OK** |
+| TODO/FIXME incomplets | **aucun** (mention documentaire « absents » dans 31) |
 
 ### Diff complet
 
@@ -581,79 +586,21 @@ index 0000000..01793cb
 
 ---
 
-## 5. Push / PR
+## 5. Document 30 — revue
 
 | Champ | Valeur |
 |-------|--------|
-| Push | `git push -u origin docs/sfia-studio-option-a-ci-governance-post-merge` |
-| Force | **NON** |
-| SHA distant | `a42a85c0c0b3e146e59f82ea753329ed9253f278` |
-| Local = distant | **YES** |
-| PR | **#269** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/269 |
-| Titre | `docs(sfia-studio): publish CI governance post-merge reviews` |
-| Base / head | `main` / `docs/sfia-studio-option-a-ci-governance-post-merge` |
-| Head SHA | `a42a85c…` |
-| Files / +/- | **2** · **+447 / −0** |
-| Mergeable | MERGEABLE · CLEAN |
-| Auto-merge | **inactif** |
+| Blob | `1cfb76ee09d992883e16d4f5d31028ff7460f4aa` (**égal source**) |
+| Nature | preuve historique **pré-merge** PR #268 |
+| Gate historique | GO REVIEW … AFTER CORRECTION |
+| CI citée | `30215155391` |
+| H2 | recommandé (non décidé à l’époque du doc) |
+| Verdict historique | READY FOR MORRIS GOVERNANCE DECISION |
+| Verdict fichier | **CONFORME — PREUVE HISTORIQUE** |
 
-### Body PR
+Formulations anciennes (PR OPEN, gate H1/H2/H3) = état **daté** · non interprétées comme état courant.
 
-```markdown
-## Summary
-
-- publie la revue PR readiness post-correction de la PR #268 ;
-- publie la revue post-merge et la preuve du run CI `push` sur `main` ;
-- conserve les documents comme preuves historiques sans réécriture ;
-- ne modifie aucun workflow, runtime, package, test ou modeled.
-
-## Documents
-
-- `30-ci-governance-pr-post-correction-review.md`
-- `31-ci-governance-post-merge-review.md`
-
-## Evidence
-
-- PR #268 mergée via H2 squash ;
-- squash `508ef7c4619e27b664d087fd97d53afe74ea93cc` ;
-- run post-merge `30219134760` : success ;
-- F-A6-PM-G01 proposé MITIGATED, non CLOSED ;
-- protections et required check toujours non appliqués.
-
-## Governance
-
-- PR documentaire uniquement ;
-- merge soumis à un GO Morris distinct ;
-- branche delivery conservée ;
-- aucune fermeture de finding ou réserve ;
-- Option A non COMPLETE ;
-- T-A7 non ouvert.
-
-Made with [Cursor](https://cursor.com)
-
-```
-
----
-
-## 6. CI run head exact
-
-| Champ | Valeur |
-|-------|--------|
-| Run ID | **30220885332** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30220885332 |
-| Event | pull_request |
-| Head | `a42a85c…` |
-| Status / conclusion | completed / **success** |
-| Job/check | Build and validate SFIA Studio |
-| Node | **v24.18.0** |
-| Durée | ~1m8s |
-| Steps | checkout · Node · npm ci · typecheck · lint · build · Vitest · modeled · secret · whitespace — **tous success** |
-| Skipped utiles | **aucun** |
-
----
-
-## 7. Contenu complet — document 30
+### Contenu complet — document 30
 
 ```markdown
 # 30 — CI Governance PR Post-Correction Review (PR #268)
@@ -884,7 +831,20 @@ GO SELECT OPTION A CI MERGE GOVERNANCE H1 H2 OR H3
 
 ---
 
-## 8. Contenu complet — document 31
+## 6. Document 31 — revue
+
+| Champ | Valeur |
+|-------|--------|
+| Blob | `01793cb685da67fb5f341cd1c66bf95751e61440` (**égal source**) |
+| Nature | preuve **post-merge** |
+| Squash / parent / tree | `508ef7c…` / `910de87…` / `a1fabdb…` |
+| CI push | `30219134760` success |
+| P0–P3 | reco **P0** |
+| F-A6-PM-G01 | MITIGATED proposé · non CLOSED |
+| Verdict historique | INTEGRATION AND MAIN CI VERIFIED … FOLLOW-UP DECISIONS REQUIRED |
+| Verdict fichier | **CONFORME — PREUVE POST-MERGE** |
+
+### Contenu complet — document 31
 
 ```markdown
 # 31 — CI Governance Post-Merge Review (PR #268)
@@ -1116,50 +1076,101 @@ GO DELETE OPTION A CI GOVERNANCE DELIVERY BRANCH
 
 ---
 
-## 9. Findings / réserves (inchangés)
+## 7. Cohérence croisée 30 / 31
 
-F-A6-PM-G01 : MITIGATED proposé · non CLOSED
-F-CI-01/02/04 OPEN · F-CI-03/05 MITIGATED · F-CI-06/06B MITIGATED non CLOSED
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 OPEN · C1–C4 RECOMMENDED — NOT VALIDATED
-
----
-
-## 10. Non-exécutions
-
-| Action | Statut |
-|--------|--------|
-| Push delivery | **NON** |
-| main modifié | **NON** |
-| Workflow / runtime / packages / tests / modeled | **NON** |
-| Merge PR #269 | **NON** |
-| Auto-merge / protection / required check | **NON** |
-| Branche delivery / docs deleted | **NON** |
-| Findings/réserves fermés | **NON** |
-| Option A COMPLETE / T-A7 | **NON** |
-| Gate suivant consommé | **NON** |
-
-Branche delivery distante : **conservée** @ `dc7a24c…`.
+| Point | Résultat |
+|-------|----------|
+| Ordre chronologique | **OK** (30 avant merge · 31 après) |
+| PR #268 OPEN → MERGED | **OK** (temporalité) |
+| H2 recommandé → appliqué | **OK** |
+| Findings/réserves IDs | **alignés** · non fermés |
+| Anti-claims | **cohérents** |
+| Protection absente | **OK** dans les deux |
+| Contradictions réelles | **aucune** |
 
 ---
 
-## 11. Gates suivants (**NOT consumed**)
+## 8. Commits
+
+| SHA | Parent | Message | Fichier | +/- |
+|-----|--------|---------|---------|-----|
+| `5fb0fc2…` | `508ef7c…` | review CI governance PR after correction | doc **30** | +223 |
+| `a42a85c…` | `5fb0fc2…` | review CI governance post-merge integration | doc **31** | +224 |
+
+Cohérents · mono-fichier · hors périmètre absent.
+
+---
+
+## 9. CI run `30220885332`
+
+| Champ | Valeur |
+|-------|--------|
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30220885332 |
+| Event | pull_request |
+| Head | `a42a85c…` |
+| Conclusion | **success** |
+| Check | Build and validate SFIA Studio |
+| Node | **v24.18.0** |
+| Durée | ~1m8s |
+| Steps | checkout · Node · npm ci · typecheck · lint · build · Vitest · modeled · secret · whitespace — **tous success** |
+| Skipped utiles | **aucun** |
+| Logs | pas d’erreur masquée |
+
+---
+
+## 10. Stratégie de merge (recommandation ≠ décision)
+
+| Option | Analyse |
+|--------|---------|
+| **H1 merge commit** | **recommandée** — conserve séparation pré-merge (30) / post-merge (31) |
+| H2 squash | acceptable · perd la séparation des preuves en 2 commits sur main |
+| H3 rebase | possible · peu d’avantage vs H1 pour 2 commits docs |
+
+---
+
+## 11. PR readiness
+
+| Dimension | Verdict |
+|-----------|---------|
+| Périmètre / blobs / contenus | **READY** |
+| Cohérence historique | **READY** |
+| CI | **READY** |
+| Findings bloquants | **aucun** |
+| Merge autorisé | **NON** — GO Morris distinct requis |
+
+**READY FOR MORRIS MERGE DECISION**
+
+---
+
+## 12. Findings / réserves (inchangés)
+
+F-A6-PM-G01 MITIGATED proposé · non CLOSED · F-CI-01/02/04 OPEN · F-CI-03/05 MITIGATED · F-CI-06/06B MITIGATED non CLOSED · B5 · R1 · R-T-A3-* · R-M01 · U-M02 OPEN · C1–C4 RECOMMENDED — NOT VALIDATED
+
+---
+
+## 13. Non-exécutions
+
+Fichiers versionnés créés/modifiés/supprimés : **aucun** · push projet **NON** · PR non modifiée · merge **NON** · auto-merge/protection/required/delete **NON** · findings/réserves non fermés · Option A / T-A7 **NON** · gate suivant **NOT consumed**
+
+---
+
+## 14. Gate suivant candidat
 
 ```
-GO REVIEW OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION PR
+GO MERGE PR #269 USING H1 MERGE COMMIT AT HEAD a42a85c0c0b3e146e59f82ea753329ed9253f278
 — SFIA STUDIO V3-NATIVE
 ```
 
-Séparé : `GO FRAME OPTION A CI REQUIRED CHECK AND MAIN PROTECTION — SFIA STUDIO V3-NATIVE`
-Post-intégration docs : `GO DELETE OPTION A CI GOVERNANCE DELIVERY BRANCH — SFIA STUDIO V3-NATIVE`
+(**NOT consumed.**)
 
 ---
 
-## 12. Handoff (après publish)
+## 15. Handoff (après publish)
 
-Message : `docs(review-handoff): publish Studio CI post-merge documentation PR`
+Message : `docs(review-handoff): publish Studio post-merge documentation PR review`
 
 ---
 
-## 13. Verdict exact
+## 16. Verdict exact
 
-`SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION PUBLISHED — PR AND CI READY FOR MORRIS REVIEW`
+`SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE POST-MERGE DOCUMENTATION PR REVIEW COMPLETE — READY FOR MORRIS MERGE DECISION`
