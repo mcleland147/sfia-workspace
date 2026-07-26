@@ -16,7 +16,10 @@
 | **Handoff source** | blob `7af972db6fbee95af27124a87d8270f584905d01` |
 | **Cycle bloqué précédent** | Gate W1-only bloqué (2 anomalies : 27 L53 + 28 L135) |
 | **Merge** | **INTERDIT** |
-| **Verdict provisoire** | complété après push/run — voir §8 |
+| **HEAD / SHA distant final** | `09ccd89ec6dadbe393e9fa3202458c0e153ce55f` |
+| **Run** | [30215073378](https://github.com/mcleland147/sfia-workspace/actions/runs/30215073378) · **success** |
+| **Qualification** | `GITHUB ACTIONS DOCUMENTARY WHITESPACE FINDINGS CORRECTION RUN SUCCESS — POST-CORRECTION REVIEW REQUIRED` |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI DOCUMENTARY WHITESPACE FINDINGS CORRECTED — GITHUB ACTIONS SUCCESS, POST-CORRECTION REVIEW REQUIRES MORRIS GO` |
 
 ---
 
@@ -64,20 +67,20 @@
 
 ---
 
-## 4. Commits / push (à compléter)
+## 4. Commits / push
 
 | Commit | Message |
 |--------|---------|
 | `7dda2a3…` | doc 28 review (conservé) |
-| _(fix)_ | `docs(sfia-studio): remove CI documentary whitespace findings` |
-| _(docs)_ | `docs(sfia-studio): record whitespace findings correction rerun` |
+| `353cb5d…` | `docs(sfia-studio): remove CI documentary whitespace findings` |
+| `09ccd89…` | `docs(sfia-studio): record whitespace findings correction rerun` |
 
 | Champ | Valeur |
 |-------|--------|
 | Push | `git push origin delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
 | Force | **NON** |
-| SHA distant final | _pending_ |
-| Run | _pending_ |
+| SHA distant final | `09ccd89ec6dadbe393e9fa3202458c0e153ce55f` |
+| Run | **30215073378** · success |
 
 ---
 
@@ -85,8 +88,8 @@
 
 | ID | Statut cible |
 |----|--------------|
-| F-CI-06 | `MITIGATED — REMOTE SUCCESS OBSERVED` **si** whitespace check distant PASS |
-| F-CI-06B | extension citation doc 28 · même mitigation |
+| F-CI-06 | **MITIGATED — REMOTE SUCCESS OBSERVED** (non CLOSED) |
+| F-CI-06B | **MITIGATED — REMOTE SUCCESS OBSERVED** (non CLOSED) |
 | F-CI-05 | MITIGATED · non fermé |
 | F-CI-03 | MITIGATED |
 | F-A6-PM-G01 · F-CI-01 · F-CI-02 · F-CI-04 | OPEN |
@@ -115,6 +118,23 @@ Gate suivant (si vert) :
 
 ---
 
-## 8. Résultat run (après observation)
+## 8. Résultat run
 
-_À compléter après push._
+| Champ | Valeur |
+|-------|--------|
+| Workflow | SFIA Studio CI |
+| Run ID | **30215073378** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30215073378 |
+| Event | pull_request |
+| Head | `09ccd89ec6dadbe393e9fa3202458c0e153ce55f` |
+| Conclusion | **success** |
+| Job/check | Build and validate SFIA Studio |
+| Node CI | **v24** (setup-node) |
+| Durée | ~1m22s |
+| Qualification | `GITHUB ACTIONS DOCUMENTARY WHITESPACE FINDINGS CORRECTION RUN SUCCESS — POST-CORRECTION REVIEW REQUIRED` |
+
+Steps : checkout · setup Node · npm ci · typecheck · lint · build · Vitest · modeled · secret · **whitespace** — tous **success**.
+
+F-CI-06 / F-CI-06B : **MITIGATED — REMOTE SUCCESS OBSERVED** (non CLOSED).
+
+Gate suivant : `GO REVIEW OPTION A CI GOVERNANCE PR AFTER CORRECTION — SFIA STUDIO V3-NATIVE` (**NOT consumed**).
