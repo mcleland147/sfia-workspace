@@ -104,6 +104,7 @@ export class RegisterEvidence {
       const secretViolation = validateSecretFreeFields({
         source: request.source,
         location: request.location,
+        actorDisplayName: request.actor.displayName ?? request.producedBy?.displayName,
       });
       if (secretViolation) {
         return fail(secretViolation.detailCode, secretViolation.reason);

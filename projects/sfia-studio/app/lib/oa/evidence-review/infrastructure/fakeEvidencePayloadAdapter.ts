@@ -14,6 +14,9 @@ export type FakePayloadScript = {
 /**
  * FakeEvidencePayloadAdapter — metadata-only, no network/filesystem/shell.
  * Scripts are keyed by evidenceId (or "*" default).
+ *
+ * Fail-closed: without an explicit script, the probe fails.
+ * Observed digest is NEVER echoed from expectedDigest (F-A6-D1-01).
  */
 export class FakeEvidencePayloadAdapter implements EvidencePayloadPort {
   private scripts = new Map<string, FakePayloadScript>();
@@ -31,8 +34,19 @@ export class FakeEvidencePayloadAdapter implements EvidencePayloadPort {
     location?: string;
     expectedDigest?: Digest;
   }): Promise<EvidencePayloadProbeResult> {
+    // expectedDigest is intentionally unused for observation — claimants cannot mint matches.
+    void input.expectedDigest;
+
     const script =
-      this.scripts.get(input.evidenceId) ?? this.scripts.get("*") ?? {};
+      this.scripts.get(input.evidenceId) ?? this.scripts.get("*");
+
+    if (!script) {
+      return {
+        ok: false,
+        reason: "technical_error",
+        availability: "unknown",
+      };
+    }
 
     if (script.failWith) {
       return {
@@ -52,10 +66,18 @@ export class FakeEvidencePayloadAdapter implements EvidencePayloadPort {
       };
     }
 
+    if (!script.digest) {
+      return {
+        ok: false,
+        reason: "digest_missing",
+        availability: "unknown",
+      };
+    }
+
     return {
       ok: true,
       availability,
-      digest: script.digest ?? input.expectedDigest,
+      digest: script.digest,
       sizeBytes: script.sizeBytes,
       metadataOnly: true,
     };

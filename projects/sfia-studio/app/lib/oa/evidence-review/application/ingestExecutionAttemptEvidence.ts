@@ -109,6 +109,7 @@ export class IngestExecutionAttemptEvidence {
 
       const secretViolation = validateSecretFreeFields({
         location: request.location,
+        actorDisplayName: request.actor.displayName,
       });
       if (secretViolation) {
         return fail(secretViolation.detailCode, secretViolation.reason);

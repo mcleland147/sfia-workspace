@@ -208,6 +208,9 @@ export function validateSecretFreeFields(input: {
   location?: string;
   unavailableReason?: string;
   technicalResultRef?: string;
+  actorDisplayName?: string;
+  correlationId?: string;
+  provenanceRecordId?: string;
 }): InvariantViolation | null {
   for (const [key, value] of Object.entries(input)) {
     if (containsForbiddenSecret(value)) {
@@ -218,6 +221,19 @@ export function validateSecretFreeFields(input: {
     }
   }
   return null;
+}
+
+/** Deep scan of provenance string fields (modeled: secrets forbidden in provenance). */
+export function validateProvenanceSecrets(
+  provenance: Evidence["provenance"] | undefined,
+): InvariantViolation | null {
+  if (!provenance) return null;
+  return validateSecretFreeFields({
+    actorDisplayName: provenance.actor?.displayName,
+    correlationId: provenance.correlationId,
+    provenanceRecordId: provenance.provenanceRecordId,
+    source: provenance.actor?.actorId,
+  });
 }
 
 /**
@@ -296,8 +312,12 @@ export function validateEvidenceShape(
     location: evidence.location,
     unavailableReason: evidence.unavailableReason,
     technicalResultRef: evidence.technicalResultRef,
+    actorDisplayName: evidence.producedBy?.displayName,
   });
   if (secretViolation) return secretViolation;
+
+  const provenanceSecret = validateProvenanceSecrets(evidence.provenance);
+  if (provenanceSecret) return provenanceSecret;
 
   if (evidence.location !== undefined && evidence.location.length > 1000) {
     return { detailCode: "EVIDENCE_INVALID", reason: "location_too_long" };
