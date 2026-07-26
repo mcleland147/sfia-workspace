@@ -1,29 +1,29 @@
-# SFIA Review Pack — FULL — T-A6 Delivery Arbitration
+# SFIA Review Pack — FULL — T-A6 Delivery Decisions
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 02:19:28 CEST (+0200) |
-| **Cycle** | Arbitrage / delivery |
+| **Date/heure/fuseau** | 2026-07-26 02:26:38 CEST (+0200) |
+| **Cycle** | Décision / delivery |
 | **Profil** | Critical |
-| **Gate** | `GO ARBITRATE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate** | `GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Repo** | mcleland147/sfia-workspace |
 | **Base** | origin/main @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `c92b49fbc425e5f8d030dd91f6e55c9837d62f25` |
-| **HEAD final** | `5cb63d12d91df0260838376cdcc24091dce77827` |
-| **Commits locaux** | `f66b9db` prepare arbitration · `5cb63d1` record HEAD |
-| **Push / PR / merge** | **NON** |
+| **HEAD initial** | `5cb63d12d91df0260838376cdcc24091dce77827` |
+| **HEAD final** | `c2507c370abd04ed274f972c9e6e0aa674f6b106` |
+| **Commits locaux** | `3266bef` record T-A6 delivery decisions · `c2507c3` record HEAD |
+| **Push projet / PR / merge** | **NON / NON / NON** |
 | **Modeled / runtime** | **NON** modifié |
 | **SQL / T-A7 / adapter / exécution** | **ABSENT / NON / ABSENT / ABSENTE** |
-| **Décisions validées nouvelles** | **aucune** |
+| **Décisions validées nouvelles** | D-T-A6-DEL-01 … D-T-A6-DEL-10 (**APPROVED BY MORRIS**) |
 | **Niveau** | FULL |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY DECISIONS RECORDED — IMPLEMENTATION REQUIRES MORRIS GO` |
 
 ---
 
 ## 1. Truth Check
 
-PASS — branche/HEAD/main/merge-base exacts ; handoff source blob `6f8fb681…` DELIVERY FRAMING COMPLETED.
+PASS — branche exacte ; HEAD initial `5cb63d12…` ; HEAD final `c2507c370abd04ed274f972c9e6e0aa674f6b106` ; origin/main et merge-base `b25c20e6…` ; tracked clean hors `.tmp-sfia-review/` ; staged vide ; aucune op Git active ; aucune branche distante projet T-A6 ; aucune PR T-A6 ; handoff source blob `ccf76472…` vérifié.
 
 ### Status
 
@@ -32,7 +32,23 @@ PASS — branche/HEAD/main/merge-base exacts ; handoff source blob `6f8fb681…`
 ?? .tmp-sfia-review/
 ```
 
-### Worktrees (extrait)
+### Staged
+
+```
+(vide)
+```
+
+### Untracked
+
+```
+.tmp-sfia-review/chatgpt-review.md
+.tmp-sfia-review/created.txt
+.tmp-sfia-review/handoff-blob.txt
+.tmp-sfia-review/modified.txt
+.tmp-sfia-review/pr-body.md
+```
+
+### Worktrees
 
 ```
 worktree /Users/morris/Projects/sfia-workspace
@@ -74,103 +90,306 @@ branch refs/heads/main
 worktree /Users/morris/Projects/sfia-workspace-review-handoff-publisher
 HEAD 14d58fe95a8f29c3dc1f72c794a64fedbc795bbe
 branch refs/heads/tooling/review-handoff-canonical-publisher
+
+worktree /Users/morris/Projects/sfia-workspace-shared-platform-delivery
+HEAD 08c282abafd97685bcc0b7e525ec96e6721ec589
+branch refs/heads/delivery/sfia-studio-shared-technical-platform
+
+worktree /Users/morris/Projects/sfia-workspace-template-handoff-fix
+HEAD 134be301792efbf6f9739d13f0572062ef976da7
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-ux-reconciliation
+HEAD 7bdabdcc0ea5f760383da190a661250dcd5d2598
+branch refs/heads/project/sfia-studio-ux-ui-reconciliation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-doctrine-consolidation
+HEAD daf6f7d02bbac09024f6275a793769e66b2b3878
+branch refs/heads/method/sfia-studio-v3-doctrine-consolidation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-audit
+HEAD 56ddf32e811f0f5f8b82f31400da18ceecf3bc30
+branch refs/heads/audit/sfia-studio-v3-native-dependencies
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-arch
+HEAD 577ff0c22491288d2293fd9730ed26f0af4095b0
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional-architecture
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-design
+HEAD e22bc243c8854df4e9422fafe46e92135fe242e9
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-modeled
+HEAD 52891e5c5a9b1254143e422111ea4955ca3a0940
+branch refs/heads/modeled/sfia-studio-v3-native-option-a
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech
+HEAD c2507c370abd04ed274f972c9e6e0aa674f6b106
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-ux
+HEAD 608d3d4cb3bee46ef2a533aa9cf94ee427c4cf71
+branch refs/heads/design/sfia-studio-v3-native-option-a-ux-ui
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+
+worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+HEAD f27a6d8a4a33f678076ab0fc58f8fd1b832c0903
+branch refs/heads/sfia/review-handoff
+
+
 ```
 
 ## 2. Handoff source
 
-- blob `6f8fb6815c15365b3d54b9aa265566cc8266d71a`
-- verdict DELIVERY FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE DELIVERY
+| Item | Valeur |
+|------|--------|
+| Branche | `sfia/review-handoff` |
+| Path | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Commit | `f27a6d8a4a33f678076ab0fc58f8fd1b832c0903` |
+| Blob | `ccf76472cd698e9843e73e80f81348994002932f` |
+| Verdict source | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
 
 ## 3. CKC
 
-`pilots/03-architecture-technique.md` — candidate · executionAuthority=false
+| Item | Valeur |
+|------|--------|
+| Cycle qualifié | décision / delivery |
+| CKC recherché | oui |
+| Path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
+| Statut | candidate |
+| Usage | experimental cognitive guidance |
+| `executionAuthority` | **false** |
+| Fallback | conception fonctionnelle |
+| Autorité sur décisions Morris | **aucune** |
 
-## 4. Sources
+## 4. Template / sources
 
-delivery 01–06 · D-T-A6-01…12 · modeled validé · runtime T-A3–T-A5 RO · framing T-A5
+- `prompts/templates/sfia-cycle-execution-template.md`
+- routing guide ; méthode cycles ; operating model ; règles et garde-fous
+- CKC architecture technique candidat
+- T-A6 : `01`…`07`, README, handoff arbitration
+- modeled T-A6 + runtime T-A3/T-A4/T-A5 en lecture seule (conséquences documentées uniquement)
 
-## 5. Fichiers
+## 5. Décisions Morris exactes (consommées)
 
-### Créés
-- `07-delivery-arbitration.md`
+```
+D-T-A6-DEL-01 = OPTION A — APPROVED
+D-T-A6-DEL-02 = OPTION A — APPROVED
+D-T-A6-DEL-03 = OPTION A — APPROVED
+D-T-A6-DEL-04 = OPTION A — APPROVED
+D-T-A6-DEL-05 = OPTION A — APPROVED
+D-T-A6-DEL-06 = OPTION A — APPROVED
+D-T-A6-DEL-07 = OPTION A — APPROVED
+D-T-A6-DEL-08 = OPTION A — APPROVED
+D-T-A6-DEL-09 = OPTION A — APPROVED
+D-T-A6-DEL-10 = OPTION A — APPROVED
+```
 
-### Modifiés
-- README delivery T-A6
+Gate : `GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A`
 
-### Supprimés
-- aucun
+## 6. Fichiers
 
-## 6. Synthèse D-T-A6-DEL-01…10
+| Action | Path |
+|--------|------|
+| Créé | `…/t-a6-evidence-review-claims-maturity/08-delivery-decisions.md` |
+| Modifié | `…/t-a6-evidence-review-claims-maturity/README.md` |
+| Supprimé | **aucun** |
+| Interdits touchés | **aucun** (modeled/runtime/app/SQL/method/01–07) |
 
-Toutes recommandations **OPTION A** — statut **RECOMMENDED — NOT DECIDED**.
+## 7. Contenu complet — `08-delivery-decisions.md`
 
-| ID | Reco | Éliminées |
-|----|------|-----------|
-| 01 | A module unique | C étendre Attempt |
-| 02 | A Claim autonome OCC | B sous RB · C VO |
-| 03 | A use-cases fichiers | C god-orchestrator |
-| 04 | A Ingest explicite | B hook auto · C polling |
-| 05 | A OCC par agrégat | C sans OCC |
-| 06 | A vérifs sync app | C atomicité prétendue · B saga hors v1 |
-| 07 | A downgrade explicite | B auto · C in-place |
-| 08 | A fake/metadata-only | C vendor · B disque hors scope |
-| 09 | A D1→D5 | B big-bang · C claims avant freeze |
-| 10 | A DECIDE avant implement | B IMPLEMENT direct · C fusion R-M01 |
-
-## 7. Cohérence
-
-Aucune contradiction entre reco A×10. Fake-only · ingestion explicite · pas Attempt→PASS · pas auto Critical · pas auto T-A7 · R-M01 OPEN.
-
-## 8. Réserves
-
-Existantes OPEN. Candidates C1–C3 TRACK AS DEBT · C4 MERGE INTO B5 — **NOT VALIDATED**.
-
-## 9. Validation documentaire
-
-PASS — diff-check · pas de placeholder · pas de code · pas de vendor choisi · aucune décision présentée comme APPROVED factuelle.
-
-## 10. Gate suivant
-
-`GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**)
-
-## 11. Verdict exact
-
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED`
-
----
-
-# ANNEXE A — 07-delivery-arbitration.md (complet)
-
-# 07 — T-A6 Delivery Arbitration Pack
+```markdown
+# 08 — T-A6 Delivery Decisions Materialization
 
 | Champ | Valeur |
 |-------|--------|
 | **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
-| **Cycle** | Arbitrage / delivery (Critical) |
-| **Gate** | `GO ARBITRATE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Cycle** | Décision / delivery (Critical) |
+| **Gate** | `GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `c92b49fbc425e5f8d030dd91f6e55c9837d62f25` |
-| **HEAD final** | `f66b9db443512e1b55a7662a56b155fad5eb2e3c` |
-| **Horodatage** | 2026-07-26 02:17:58 CEST (+0200) |
-| **Source cadrage** | `06-delivery-framing.md` @ `79c1a6e` / HEAD record `c92b49f` |
+| **HEAD initial** | `5cb63d12d91df0260838376cdcc24091dce77827` |
+| **HEAD final** | `3266bef284986d056634ba9a81f8ff4cdbc6a278` |
+| **Horodatage** | 2026-07-26 02:25:02 CEST (+0200) |
+| **Source arbitration** | `07-delivery-arbitration.md` + handoff blob `ccf76472cd698e9843e73e80f81348994002932f` |
 | **Modeled / runtime** | **NONE** modifié |
 | **Push / PR / merge** | **NONE** |
-| **Décisions validées nouvelles** | **aucune** |
-| **Statut** | **DELIVERY ARBITRATION PACK PREPARED** |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
-| **Gate suivant** | `GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Statut** | **DELIVERY DECISIONS APPROVED BY MORRIS** |
+| **Architecture** | **DELIVERY ARCHITECTURE DECIDED — NOT IMPLEMENTED** |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY DECISIONS RECORDED — IMPLEMENTATION REQUIRES MORRIS GO` |
+| **Gate suivant** | `GO IMPLEMENT T-A6 DELIVERY D1 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ---
 
-## 1. Autorité & CKC
+## 1. Autorité
 
-Gate d’arbitrage consommé. Cursor **recommande** ; Morris **décide**. Aucune option n’est APPROVED / VALIDATED / DECIDED dans ce cycle.
+Morris a fourni des choix **explicites** pour D-T-A6-DEL-01…10.
+
+Ce cycle **enregistre** ces décisions dans Git. Il ne les invente pas, ne les élargit pas, et n’ajoute aucune décision supplémentaire (y compris sur les réserves candidates).
+
+| Rôle | Autorité |
+|------|----------|
+| Morris | décisions D-T-A6-DEL-01…10 |
+| Cursor | transcription documentaire fidèle |
+| Git | commit local + handoff L3 |
+
+### CKC
 
 | Item | Valeur |
 |------|--------|
-| Cycle | arbitrage delivery |
-| CKC path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
+| Cycle | décision / delivery |
+| Path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
 | Statut | candidate |
 | Usage | experimental cognitive guidance |
 | `executionAuthority` | **false** |
@@ -178,309 +397,319 @@ Gate d’arbitrage consommé. Cursor **recommande** ; Morris **décide**. Aucune
 
 ---
 
-## 2. Sources
+## 2. Décisions héritées (non re-votées)
 
-- Handoff framing blob `6f8fb681…` — DELIVERY FRAMING COMPLETED
-- Delivery T-A6 01–06 (surtout `06-delivery-framing.md`)
-- Décisions modeled D-T-A6-01…12 (`03-decisions.md`)
-- Modeled Evidence/RB/Claim/Maturity validés
-- Runtime T-A3–T-A5 lecture seule (AuthorityResolver, OCC, AuditSink, barrels)
-- Framing T-A5 `05-runtime-framing.md`
-
----
-
-## 3. Principes non renégociables (hérités)
-
-Evidence indépendante · Attempt source ≠ owner · hybride logique · U-M02 OPEN · aucun vendor · ReviewBundle freeze · Claim/ClaimEvaluation sémantique distinct · PASS/FAIL/NOT_PROVEN/WAIVED · Critical humain · structural Morris · N3 ≠ Morris · self-review interdit · maturity propose→confirm · `autoPromoted=false` · PASS ≠ close reserve · maturity ≠ executionAuthority · pas d’auto next cycle · T-A6 ≠ T-A7 · L0–L3 / L4 gated / L5 out.
+| ID | Contenu | Source |
+|----|---------|--------|
+| D-T-A6-01…12 | Evidence / RB / Claim / Maturity / autorité / stockage logique / T-A7 / auto / output | `03-decisions.md` |
+| M-OA-07 / M-OA-08 | Evidence ≠ RB ≠ ClaimEvaluation ; `autoPromoted=false` | modeled |
+| T-A5 D10 | Evidence/Claim/maturity = T-A6 | T-A5 |
 
 ---
 
-## 4. Doctrine d’arbitrage
+## 3. Décisions Morris D-T-A6-DEL-01 … 10
 
-Pour chaque D-T-A6-DEL :
+Chaque décision porte le statut **`APPROVED BY MORRIS`**.
 
-1. reformuler · 2. options distinctes · 3. éliminer incompatibles · 4. analyser valeur/simplicité/dette/Critical/réversibilité/tests/sécu/RGPD/perf/obs/T-A3–5/réserves · 5. **une** recommandation · 6. conséquences · 7. formulation Morris · 8. statut **RECOMMENDED — NOT DECIDED**.
+### D-T-A6-DEL-01 — Frontière module runtime
 
-Réponses Morris attendues :
+**Formulation Morris exacte :**
+`D-T-A6-DEL-01 = OPTION A — APPROVED`
 
-```
-D-T-A6-DEL-xx = OPTION X — APPROVED
-D-T-A6-DEL-xx = REJECTED — [motif]
-D-T-A6-DEL-xx = DEFERRED — [condition]
-```
+**Statut :** APPROVED BY MORRIS
 
----
+**Conséquences validées :**
 
-## 5. Décisions D-T-A6-DEL-01 … 10
+- futur runtime T-A6 dans un module unique `app/lib/oa/evidence-review/**` ;
+- sous-domaines internes : Evidence · ReviewBundle · ClaimEvaluation · MaturityAssessment ;
+- barrel public unique ;
+- aucune extension de l’ownership `execution-attempt` ;
+- scission future possible, **non** décidée en v1.
 
-### D-T-A6-DEL-01 — Frontières modules runtime
-
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Où placer le code runtime T-A6 ? |
-| **Options** | **A** module unique `app/lib/oa/evidence-review/**` · **B** quatre modules séparés · **C** étendre `execution-attempt` |
-| **Éliminées** | **C** — viole ownership T-A5/T-A6 (D-T-A6-01/10) ; Attempt ne doit pas porter Evidence/Claim |
-| **Challenge A vs B** | A : wiring simple, sous-domaines internes, scission future possible. B : testabilité locale mais multi-barrels, dette wiring, contrats publics prématurés |
-| **Recommandation** | **A** |
-| **Impacts** | barrel `index.ts` unique ; sous-dossiers `domain/{evidence,review-bundle,claim-evaluation,maturity}` |
-| **Dette** | module plus large ; mitigée par découpage D1→D5 interne |
-| **Risques** | god-module si pas de frontières internes — mitiger par dossiers + use-cases |
-| **Réversibilité** | scission B ultérieure possible sans contrat public prématuré |
-| **Testabilité** | élevée (comme T-A5) |
-| **Dépendances** | DEL-03, DEL-09 |
-| **Réserves** | aucune nouvelle |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation Morris** | `D-T-A6-DEL-01 = OPTION A — APPROVED` |
+**Non validé :** création du module · scission en 4 packages · implémentation.
 
 ---
 
-### D-T-A6-DEL-02 — Ownership ClaimEvaluation runtime
+### D-T-A6-DEL-02 — Ownership ClaimEvaluation
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | ClaimEvaluation est-il un agrégat autonome ? |
-| **Options** | **A** agrégat autonome OCC · **B** entité sous ReviewBundle · **C** VO éphémère |
-| **Éliminées** | **C** — perte audit/historique/waiver. **B** — risque mutation bundle gelé / concurrence freeze↔confirm (D-T-A6-03) |
-| **Recommandation** | **A** |
-| **Impacts** | repo dédié ; lien `reviewBundleId`+`version` exacts ; confirm indépendant du freeze |
-| **Dette** | 4e repository |
-| **Risques** | cross-aggregate (mitigé DEL-06) |
-| **Réversibilité** | moyenne |
-| **Testabilité** | élevée (Critical isolé) |
-| **Dépendances** | DEL-05, DEL-06, D3 |
-| **Réserves** | lie R-T-A6-DEL-C1 (Evidence status join) |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-02 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-02 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- ClaimEvaluation = agrégat autonome ;
+- persistence et OCC propres ;
+- lien immuable `reviewBundleId` + `reviewBundleVersion` ;
+- aucune mutation du ReviewBundle gelé ;
+- historique, waiver, dispute, confirmation conservés.
+
+**Non validé :** code repository · schema runtime.
 
 ---
 
 ### D-T-A6-DEL-03 — Organisation application services
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Style d’application layer ? |
-| **Options** | **A** use-cases fichiers (T-A5) · **B** quatre façades classes · **C** orchestrateur unique |
-| **Éliminées** | **C** — god-orchestrator, Critical opaque, non aligné T-A5 |
-| **Challenge A vs B** | A aligné Attempt ; regroupements logiques documentaires OK sans façade mutable. B ajoute indirection sans gain v1 |
-| **Recommandation** | **A** (structurante **non bloquante** si A/B proches, mais arbitrable) |
-| **Impacts** | un fichier par commande ; `RecommendNextGate` lecture seule |
-| **Dette** | faible |
-| **Risques** | faible |
-| **Réversibilité** | haute |
-| **Testabilité** | haute |
-| **Dépendances** | DEL-01 |
-| **Réserves** | — |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-03 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-03 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- use cases spécialisés par fichier ;
+- alignement conventions T-A5 ;
+- regroupements logiques sans façade mutable massive ;
+- aucun god-orchestrator ;
+- `RecommendNextGate` borné, **lecture seule**.
+
+**Non validé :** fichiers application concrets.
 
 ---
 
-### D-T-A6-DEL-04 — Contrat d’ingestion T-A5
+### D-T-A6-DEL-04 — Ingestion T-A5
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Comment T-A6 obtient une Evidence depuis Attempt ? |
-| **Options** | **A** `IngestExecutionAttemptEvidence` explicite · **B** hook auto `RecordResult` · **C** polling Attempt |
-| **Éliminées** | **B** — auto-validation implicite (`succeeded`→Evidence/PASS) ; crée dépendance T-A5→T-A6. **C** — dette, latence, pas d’audit explicite |
-| **Invariants** | Attempt source≠owner · T-A6→T-A5 RO only · pas de verified auto · retry ≠ replace Evidence gelée · idempotence+audit |
-| **Recommandation** | **A** |
-| **Impacts** | port `ExecutionAttemptReader` ; commande D1 |
-| **Dette** | faible |
-| **Risques** | Critical si B — éliminé |
-| **Réversibilité** | haute |
-| **Testabilité** | adversarial no-auto-PASS |
-| **Dépendances** | DEL-01, D1 |
-| **Réserves** | — |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-04 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-04 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- commande explicite `IngestExecutionAttemptEvidence` ;
+- T-A6 lit T-A5 via port read-only ;
+- aucune dépendance T-A5 → T-A6 ;
+- `ExecutionAttempt.succeeded` ≠ Evidence verified ≠ PASS ;
+- ingestion idempotente et auditée ;
+- retry T-A5 ne remplace pas silencieusement une Evidence gelée.
+
+**Non validé :** adapter AttemptReader · wiring runtime.
 
 ---
 
 ### D-T-A6-DEL-05 — Repository et OCC
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Modèle de concurrence ? |
-| **Options** | **A** `expectedVersion` par agrégat · **B** lock optimiste global · **C** sans OCC v1 |
-| **Éliminées** | **C** — interdit (double freeze/confirm). **B** — couplage artificiel, pas aligné T-A4/T-A5 |
-| **Recommandation** | **A** |
-| **Impacts** | VERSION_CONFLICT / CONCURRENT_MODIFICATION · idempotency index · versions monotones |
-| **Dette** | alignée T-A5 |
-| **Risques** | échec partiel cross-aggregate → DEL-06 |
-| **Réversibilité** | moyenne |
-| **Testabilité** | double freeze / double confirm / retry |
-| **Dépendances** | DEL-02, DEL-06 |
-| **Réserves** | — |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-05 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-05 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- `expectedVersion` par agrégat ;
+- version monotone ;
+- index d’idempotence ;
+- conflits explicites : `CONCURRENT_MODIFICATION` · `VERSION_CONFLICT` · `IDEMPOTENCY_CONFLICT` ;
+- aucune transaction globale ; aucune absence d’OCC en v1.
+
+**Non validé :** stores mémoire concrets.
 
 ---
 
 ### D-T-A6-DEL-06 — Invariants cross-aggregate
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Comment assurer Evidence+RB+Claim+Maturity sans saga ? |
-| **Options** | **A** vérifs synchrones application + audit · **B** saga/compensation · **C** atomicité cross-aggregate prétendue |
-| **Éliminées** | **C** — mensonge technique. **B** — hors v1 (complexité) sauf justification structurante absente |
-| **Précisions A** | ordre lecture RO puis écriture agrégat cible · fail-closed · retry idempotent · pas de compensation magique · Evidence status avant PASS · RB version avant confirm · HARD reserve avant ConfirmMaturity |
-| **Recommandation** | **A** |
-| **Impacts** | application services lisent plusieurs repos |
-| **Dette** | R-T-A6-DEL-C1 (jointure status) tracked |
-| **Risques** | fenêtre concurrente — OCC + fail-closed |
-| **Réversibilité** | haute (B possible plus tard) |
-| **Testabilité** | adversarial unavailable Evidence → no PASS |
-| **Dépendances** | DEL-02, DEL-05, DEL-07 |
-| **Réserves** | R-T-A6-DEL-C1 |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-06 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-06 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- contrôles synchrones dans les application services ;
+- fail-closed + audit obligatoire ;
+- ordre lecture/écriture explicite ;
+- retry idempotent ;
+- aucune atomicité cross-aggregate prétendue ;
+- aucune saga en v1 ;
+- Evidence disponible/vérifiée avant PASS ;
+- ReviewBundle gelé + version exacte avant ClaimEvaluation ;
+- réserve HARD vérifiée avant confirmation de maturité.
+
+**Non validé :** enforcement code · dette C1.
 
 ---
 
 ### D-T-A6-DEL-07 — Downgrade de maturité
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Comment réagir à Evidence/Claim invalidés ? |
-| **Options** | **A** commande explicite + supersession · **B** auto-downgrade · **C** mutation in-place |
-| **Éliminées** | **B** et **C** — incompatibles D-T-A6-07 (pas d’auto-promotion/mutation silencieuse) |
-| **Recommandation** | **A** |
-| **Impacts** | invalidation → recommandation audit ou `DowngradeMaturity` · historique · Morris si structurant · jamais `executionAuthority` |
-| **Dette** | faible |
-| **Risques** | oubli de downgrade — tests + RecommendNextGate |
-| **Réversibilité** | haute |
-| **Testabilité** | supersession + downgradeReason |
-| **Dépendances** | DEL-06, D4 |
-| **Réserves** | — |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-07 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-07 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- commande explicite de downgrade ;
+- supersession + historique ;
+- aucune mutation in-place ;
+- aucun downgrade automatique ;
+- autorité humaine ; Morris si niveau structurant ;
+- maturité ≠ `executionAuthority`.
+
+**Non validé :** use case runtime.
 
 ---
 
-### D-T-A6-DEL-08 — Payloads en v1
+### D-T-A6-DEL-08 — Payloads v1
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Où vivent les payloads Evidence v1 ? |
-| **Options** | **A** fake / metadata-only · **B** disque local · **C** S3/Postgres/fournisseur |
-| **Éliminées** | **C** — U-M02 OPEN ; aucun vendor (D-T-A6-09). **B** — hors scope v1 (pas de besoin démontré ; surface sécu) |
-| **Recommandation** | **A** |
-| **Impacts** | `EvidencePayloadPort` minimal dès D1 (digest/availability fixtures) · payload non exécuté · fixtures sans secrets |
-| **Dette** | U-M02 reste ouverte |
-| **Risques** | vendor creep — stop condition |
-| **Réversibilité** | complète |
-| **Testabilité** | FakePayload unavailable/digest |
-| **Dépendances** | D1, U-M02 |
-| **Réserves** | U-M02 ; R-T-A6-DEL-C3 (bornes) |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-08 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-08 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- adapters fake et metadata-only ;
+- aucun payload réel persistant ;
+- digest et disponibilité simulables ;
+- payload jamais exécuté ;
+- aucune donnée sensible dans les fixtures ;
+- aucun disque, DB, object storage ou vendor ;
+- **U-M02 reste OPEN**.
+
+**Non validé :** technologie de stockage · fermeture U-M02.
 
 ---
 
-### D-T-A6-DEL-09 — Découpage des incréments
+### D-T-A6-DEL-09 — Découpage delivery
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Ordre des tranches delivery ? |
-| **Options** | **A** D1→D2→D3→D4→D5 · **B** big-bang · **C** Claims avant freeze RB |
-| **Éliminées** | **C** — faux PASS possible sans freeze (D-T-A6-03). **B** — surface Critical maximale, stop difficile |
-| **Recommandation** | **A** |
-| **Découpage** | D1 Evidence · D2 ReviewBundle · D3 ClaimEvaluation · D4 Maturity · D5 coordination/E2E/non-régression |
-| **Impacts** | stop après chaque tranche · faux PASS impossible avant D2 |
-| **Dette** | wiring progressif acceptable |
-| **Risques** | faible vs B |
-| **Réversibilité** | haute par tranche |
-| **Testabilité** | par tranche |
-| **Dépendances** | DEL-01…08 |
-| **Réserves** | — |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-09 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-09 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Découpage validé :**
+
+| Tranche | Contenu |
+|---------|---------|
+| T-A6-D1 | Evidence core |
+| T-A6-D2 | ReviewBundle |
+| T-A6-D3 | ClaimEvaluation |
+| T-A6-D4 | MaturityAssessment |
+| T-A6-D5 | coordination et validation |
+
+**Conséquences validées :**
+
+- séquence D1 → D2 → D3 → D4 → D5 ;
+- chaque tranche testable et réversible ;
+- stop possible après chaque tranche ;
+- aucun big-bang ;
+- ClaimEvaluation pas avant règles de freeze ReviewBundle ;
+- aucune tranche n’ouvre T-A7.
+
+**Non validé :** lancement D1 · code des tranches.
 
 ---
 
 ### D-T-A6-DEL-10 — Gate vers implémentation
 
-| Champ | Contenu |
-|-------|---------|
-| **Décision requise** | Quand autoriser le code runtime T-A6 ? |
-| **Options** | **A** ARBITRATE puis **DECIDE** delivery avant implement · **B** GO IMPLEMENT direct · **C** fusion fermeture R-M01 |
-| **Éliminées** | **C** — R-M01 gate Morris **distinct**. **B** — saute décisions DEL structurantes |
-| **Recommandation** | **A** |
-| **Impacts** | gate suivant `GO DECIDE T-A6 DELIVERY` ; puis gate implement séparé ; push/PR/merge gates séparés ; fake-only |
-| **Dette** | process |
-| **Risques** | fusion R-M01 — éliminé |
-| **Réversibilité** | n/a |
-| **Testabilité** | n/a |
-| **Dépendances** | R-M01 |
-| **Réserves** | R-M01 OPEN |
-| **Statut** | **RECOMMENDED — NOT DECIDED** |
-| **Formulation** | `D-T-A6-DEL-10 = OPTION A — APPROVED` |
+**Formulation :**
+`D-T-A6-DEL-10 = OPTION A — APPROVED`
+
+**Statut :** APPROVED BY MORRIS
+
+**Conséquences validées :**
+
+- arbitrage et décision delivery requis avant implémentation ;
+- le présent gate valide les choix delivery ;
+- il **ne lance pas** l’implémentation ;
+- un nouveau GO Morris est requis pour implémenter ;
+- fermeture de R-M01 = gate **séparé** ;
+- push, PR et merge restent soumis à leurs propres gates.
+
+**Non validé :** GO IMPLEMENT · fermeture R-M01.
 
 ---
 
-## 6. Synthèse recommandations (GO groupé candidat — non présumé)
+## 4. Synthèse des 10 décisions
 
-| ID | Reco | Formulation exacte |
-|----|------|-------------------|
-| D-T-A6-DEL-01 | A | `D-T-A6-DEL-01 = OPTION A — APPROVED` |
-| D-T-A6-DEL-02 | A | `D-T-A6-DEL-02 = OPTION A — APPROVED` |
-| D-T-A6-DEL-03 | A | `D-T-A6-DEL-03 = OPTION A — APPROVED` |
-| D-T-A6-DEL-04 | A | `D-T-A6-DEL-04 = OPTION A — APPROVED` |
-| D-T-A6-DEL-05 | A | `D-T-A6-DEL-05 = OPTION A — APPROVED` |
-| D-T-A6-DEL-06 | A | `D-T-A6-DEL-06 = OPTION A — APPROVED` |
-| D-T-A6-DEL-07 | A | `D-T-A6-DEL-07 = OPTION A — APPROVED` |
-| D-T-A6-DEL-08 | A | `D-T-A6-DEL-08 = OPTION A — APPROVED` |
-| D-T-A6-DEL-09 | A | `D-T-A6-DEL-09 = OPTION A — APPROVED` |
-| D-T-A6-DEL-10 | A | `D-T-A6-DEL-10 = OPTION A — APPROVED` |
+| ID | Formulation Morris | Statut |
+|----|-------------------|--------|
+| D-T-A6-DEL-01 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-02 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-03 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-04 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-05 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-06 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-07 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-08 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-09 | OPTION A — APPROVED | APPROVED BY MORRIS |
+| D-T-A6-DEL-10 | OPTION A — APPROVED | APPROVED BY MORRIS |
 
-**Toutes : RECOMMENDED — NOT DECIDED.** Morris peut APPROVE / REJECT / DEFER individuellement ou grouper.
-
----
-
-## 7. Matrice de cohérence globale
-
-| Question | Réponse d’arbitrage |
-|----------|---------------------|
-| Module unique + 4 repos dette excessive ? | Non en v1 — pattern T-A5 multi-ports dans un module |
-| Claim autonome complique D3 ? | Coût repo acceptable vs risque freeze mutation (B) |
-| D1→D5 le plus simple ? | Oui vs big-bang ; Claims avant freeze éliminé |
-| RecommendNextGate lecture seule ? | **Oui** — pas d’auto next cycle / T-A7 |
-| Façade publique unique ? | Barrel `createInMemoryEvidenceReviewServices` utile ; pas de façade mutable massive |
-| EvidencePayload dès D1 ? | **Oui** minimal metadata-only (DEL-08 A) ; pas de disque |
-
-**Contradiction détectée :** aucune entre les dix reco A.
+**Aucune recommandation additionnelle transformée en décision.**
 
 ---
 
-## 8. Architecture cible candidate (si Morris APPROVE A×10)
+## 5. Architecture delivery désormais décidée
 
-```
-app/lib/oa/evidence-review/**  (module unique)
-  use-cases fichiers
-  Evidence · RB · ClaimEvaluation · Maturity (OCC chacun)
-  ExecutionAttemptReader RO
-  EvidencePayloadPort fake
-  AuthorityResolver T-A3
-  AuditSink memory
-```
+**Statut exact :** `DELIVERY ARCHITECTURE DECIDED — NOT IMPLEMENTED`
 
-Ingestion explicite · fake-only · D1→D5 · pas T-A7.
+| Élément | Décidé |
+|---------|--------|
+| Module | `app/lib/oa/evidence-review/**` (non créé) |
+| Agrégats | Evidence · ReviewBundle · ClaimEvaluation · MaturityAssessment |
+| Application | use cases spécialisés par fichier |
+| Ports | EvidenceRepository · ReviewBundleRepository · ClaimEvaluationRepository · MaturityAssessmentRepository · EvidencePayloadPort fake · ExecutionAttemptReader RO · AuthorityResolver T-A3 · AuditSink · Clock · IdGenerator |
+| Adapters | fake / mémoire uniquement |
+| Persistence | mémoire + OCC ; **pas** réelle |
+| API / UI / worker | **aucune** |
+| T-A7 | **non** lancé |
 
----
-
-## 9. Autorité / Critical / automatisation / tests / sécu / obs
-
-Inchangés vs `06-delivery-framing.md` §17–22 — rappel :
-
-- Critical : humain ; structural : Morris ; N3 ≠ Morris
-- L0–L3 v1 ; L4 gated ; L5 out
-- Tests domaine/application/fake/non-régression
-- Secrets interdits ; payload non exécuté ; U-M02 OPEN
-- Audit conceptuel ; pas de stack obs
+Ne pas présenter comme IMPLEMENTED / VALIDATED / ADOPTED.
 
 ---
 
-## 10. Réserves existantes (OPEN)
+## 6. Frontières
+
+| Frontière | Règle décidée |
+|-----------|---------------|
+| T-A5 → T-A6 | lecture seule via AttemptReader ; ingestion explicite |
+| T-A6 → T-A5 | **interdit** en dépendance inverse |
+| T-A6 / T-A7 | aucune commande LaunchT-A7 |
+| Attempt | source ≠ owner Evidence |
+| Freeze | obligatoire avant Claim PASS / CompleteReview |
+
+---
+
+## 7. OCC, idempotence, cross-aggregate
+
+- OCC `expectedVersion` par agrégat
+- idempotency keys + index
+- erreurs `CONCURRENT_MODIFICATION` · `VERSION_CONFLICT` · `IDEMPOTENCY_CONFLICT`
+- invariants cross-aggregate = contrôles synchrones fail-closed (pas de saga v1)
+
+---
+
+## 8. Autorité / Critical / automatisation
+
+| Acteur | Autorisé | Interdit |
+|--------|----------|----------|
+| Système | proposition ; contrôles bornés | Critical/structural ; fermer réserve ; Morris ; authz exécution |
+| Agent T-A5 | source technique | conformité / Claim confirmé |
+| N1/N2/N3 | revue selon scope | N3 ≠ Morris |
+| Morris | structurants | — |
+| Service technique | artefact | juger conformité |
+
+Automatisation : L0–L3 v1 · L4 hors v1 sauf gate · L5 out.
+Interdit : auto-confirm Critical/structural · auto-close réserve · auto-promote maturity · auto T-A7 · exécution réelle.
+
+---
+
+## 9. Stratégie de tests future (non exécutée)
+
+Domaine · application · intégration fake · non-régression T-A3–T-A5 + modeled T-A6.
+Aucun test créé ce cycle.
+
+---
+
+## 10. Sécurité / RGPD / observabilité
+
+Secrets interdits · payload non exécuté · metadata≠payload · legal hold ≠ effacement · U-M02 OPEN.
+Observabilité conceptuelle (AuditSink) — pas de stack.
+
+---
+
+## 11. Réserves existantes (OPEN — inchangées)
 
 | ID | Statut |
 |----|--------|
@@ -493,69 +722,85 @@ Inchangés vs `06-delivery-framing.md` §17–22 — rappel :
 | R-M01 | **OPEN** — VALIDATION SATISFIED — CLOSURE REQUIRES MORRIS DECISION |
 | U-M02 | **OPEN** |
 
-R-T-A6-1…9 : risques/dettes — pas CREATE VALIDATED.
-
 ### R-M01
 
-Schema ClaimEvaluation validé. Fermeture **non** automatique. `GO DECIDE T-A6 DELIVERY` **ne ferme pas** R-M01. Gate Morris **séparé** requis.
+Ce gate delivery **ne ferme pas** R-M01 · ne vaut pas gate de fermeture · n’empêche pas la préparation future D1 fake-only.
+Gate Morris **séparé** requis pour fermeture.
 
 ---
 
-## 11. Réserves delivery candidates (NOT VALIDATED)
+## 12. Réserves candidates delivery
 
-| ID | Risque | Doublon ? | Reco traitement | Owner | Fermeture | Blocker delivery? | Blocker exéc. réelle? |
-|----|--------|-----------|-----------------|-------|-----------|-------------------|------------------------|
-| R-T-A6-DEL-C1 | Evidence status join pour PASS | partiel R-T-A6 sémantique | **TRACK AS DEBT** (enforce in D3 app) | T-A6 D3 | tests adversarial PASS+unavailable | non si tests | non |
-| R-T-A6-DEL-C2 | self-review runtime | narrative modeled | **TRACK AS DEBT** | T-A6 D3 | tests CLAIM_SELF_REVIEW | non si tests | non |
-| R-T-A6-DEL-C3 | bornes taille/nombre | D-T-A6-09 | **TRACK AS DEBT** / policy D1 | T-A6 D1 | policy constants + tests | non (fake) | oui si payload réel |
-| R-T-A6-DEL-C4 | LPS satellite | **B5** | **MERGE INTO EXISTING** → B5 | LPS/B5 | B5 closure | oui write LPS | selon B5 |
+Le GO approuve **uniquement** D-T-A6-DEL-01…10.
+Il n’approuve **pas** le traitement des candidates.
 
-**Aucune CREATE VALIDATED.** Aucune fermeture.
+| ID | Traitement candidat | Statut |
+|----|---------------------|--------|
+| R-T-A6-DEL-C1 | TRACK AS DEBT | **RECOMMENDED — NOT VALIDATED** |
+| R-T-A6-DEL-C2 | TRACK AS DEBT | **RECOMMENDED — NOT VALIDATED** |
+| R-T-A6-DEL-C3 | TRACK AS DEBT | **RECOMMENDED — NOT VALIDATED** |
+| R-T-A6-DEL-C4 | MERGE INTO B5 | **RECOMMENDED — NOT VALIDATED** |
 
----
-
-## 12. Décisions validées nouvelles
-
-**Aucune.**
+Aucune CREATE VALIDATED · aucune fusion C4→B5 · aucune fermeture.
 
 ---
 
-## 13. Anti-claims
+## 13. Dettes
 
-- Pas DELIVERY ARBITRATED / décisions VALIDATED
-- Pas IMPLEMENTATION READY / runtime ready / production ready
-- Pas R-M01 / U-M02 / B5 / R1 / R-T-A3-* fermées
-- Pas vendor / stockage choisi
+| Dette | Lien |
+|-------|------|
+| Implémentation D1–D5 | DEL-09 / gate IMPLEMENT |
+| Evidence status join PASS | C1 |
+| Self-review runtime | C2 |
+| Bornes payload | C3 |
+| LPS satellite | C4 / B5 |
+| Stockage physique | U-M02 |
+| Fermeture R-M01 | gate Morris séparé |
+
+---
+
+## 14. Anti-claims
+
+- Pas IMPLEMENTATION READY / runtime implemented / runtime validated
+- Pas delivery complete / production ready
+- Pas R-M01 fermée · pas réserves candidates validées · pas U-M02 fermée
+- Pas stockage physique décidé · pas vendor
+- Pas T-A7 · pas exécution réelle · pas adapter réel
 - Pas code / modeled / runtime modifié
-- Pas T-A7 / exécution réelle / adapter réel
 - Pas push / PR / merge
+- Architecture **DECIDED** ≠ **IMPLEMENTED** ≠ **VALIDATED** ≠ **ADOPTED**
 
 ---
 
-## 14. Stop conditions
+## 15. Stop conditions
 
-Stop DECIDE/implement si : reco présentée comme APPROVED sans Morris · vendor · auto Critical · auto T-A7 · R-M01 fermée sans gate · code hors fake-only · dépendance T-A5→T-A6.
+- Transcrire une décision absente du GO Morris
+- Transformer C1–C4 en réserve validée
+- Fermer B5/R1/R-T-A3/R-M01/U-M02
+- Choisir un vendor
+- Créer du code / ouvrir T-A7
+- Présenter l’architecture comme implémentée
 
 ---
 
-## 15. Gate suivant
+## 16. Gate suivant candidat
 
-`GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**)
+`GO IMPLEMENT T-A6 DELIVERY D1 — SFIA STUDIO V3-NATIVE — OPTION A`
+(**NOT consumed**)
 
-Consommable uniquement avec choix Morris explicites D-T-A6-DEL-01…10.
-
+Périmètre attendu : **T-A6-D1 — Evidence core** uniquement · fake-only · mémoire.
 Gate distinct pour fermer R-M01.
 
 ---
 
-## 16. Verdict
+## 17. Verdict
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED`
+`SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY DECISIONS RECORDED — IMPLEMENTATION REQUIRES MORRIS GO`
+```
 
----
+## 8. Contenu complet — README T-A6
 
-# ANNEXE B — README delivery (complet)
-
+```markdown
 # T-A6 — Evidence, Review, Claims and Maturity (Option A)
 
 | Champ | Valeur |
@@ -569,36 +814,42 @@ Gate distinct pour fermer R-M01.
 | **Gate materialize** | `GO MATERIALIZE T-A6 MODELED` (**CONSUMED**) |
 | **Gate validate** | `GO VALIDATE T-A6 MODELED` (**CONSUMED**) |
 | **Gate delivery framing** | `GO FRAME T-A6 DELIVERY` (**CONSUMED**) |
-| **Gate delivery arbitrage** | `GO ARBITRATE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate delivery arbitrage** | `GO ARBITRATE T-A6 DELIVERY` (**CONSUMED**) |
+| **Gate delivery décision** | `GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
-| **Modeled** | Evidence/RB/Maturity `0.2.0-oa` · ClaimEvaluation `0.1.0-oa` — **VALIDATED AFTER CORRECTION** |
+| **Modeled** | Evidence/RB/Maturity `0.2.0-oa` · ClaimEvaluation `0.1.0-oa` — VALIDATED AFTER CORRECTION |
+| **Architecture delivery** | **DECIDED — NOT IMPLEMENTED** |
+| **Fake-only** | **oui** (D-T-A6-DEL-08) |
 | **Runtime / modeled ce cycle** | **NONE** modifié |
-| **Fake-only** | **oui** (DEL-08 reco A) |
 | **Push / PR / merge projet** | **NONE** |
-| **Statut pack** | **DELIVERY ARBITRATION PACK PREPARED** |
-| **Horodatage arbitrage delivery** | 2026-07-26 02:17:58 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED` |
-| **Gate suivant** | `GO DECIDE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Statut pack** | **DELIVERY DECISIONS APPROVED BY MORRIS** |
+| **Horodatage décisions delivery** | 2026-07-26 02:25:02 CEST (+0200) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY DECISIONS RECORDED — IMPLEMENTATION REQUIRES MORRIS GO` |
+| **Gate suivant** | `GO IMPLEMENT T-A6 DELIVERY D1 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ## Objectif (ce cycle)
 
-Préparer un decision pack fermé D-T-A6-DEL-01…10 pour Morris — **recommandations uniquement**, aucune décision validée.
+Enregistrer dans Git les décisions Morris explicites D-T-A6-DEL-01…10 — **sans** implémentation.
 
 ## Livrables
 
 1. [README.md](./README.md) (ce fichier)
-2. [01-framing.md](./01-framing.md)
-3. [02-arbitration.md](./02-arbitration.md)
-4. [03-decisions.md](./03-decisions.md)
-5. [04-modeled-materialization.md](./04-modeled-materialization.md)
-6. [05-modeled-validation.md](./05-modeled-validation.md)
-7. [06-delivery-framing.md](./06-delivery-framing.md)
-8. [07-delivery-arbitration.md](./07-delivery-arbitration.md) — **decision pack delivery**
+2. [01-framing.md](./01-framing.md) … [07-delivery-arbitration.md](./07-delivery-arbitration.md)
+3. [08-delivery-decisions.md](./08-delivery-decisions.md) — **décisions delivery Morris**
 
-## D-T-A6-DEL-01…10 (en attente Morris)
+## D-T-A6-DEL-01…10 (APPROVED BY MORRIS)
 
-Toutes recommandations **OPTION A** — statut **RECOMMENDED — NOT DECIDED**. Détail : [07-delivery-arbitration.md](./07-delivery-arbitration.md).
+| ID | Formulation |
+|----|-------------|
+| D-T-A6-DEL-01…10 | chacune `OPTION A — APPROVED` |
+
+Détail : [08-delivery-decisions.md](./08-delivery-decisions.md).
+
+## Architecture delivery
+
+Module candidat `app/lib/oa/evidence-review/**` · 4 agrégats · use-cases · OCC mémoire · fake-only · découpage D1→D5.
+**Non implémentée.**
 
 ## Réserves (OPEN — inchangées)
 
@@ -613,26 +864,140 @@ Toutes recommandations **OPTION A** — statut **RECOMMENDED — NOT DECIDED**. 
 | R-M01 | **OPEN** — VALIDATION SATISFIED — CLOSURE REQUIRES MORRIS DECISION |
 | U-M02 | **OPEN** |
 
+Réserves candidates C1–C4 : **RECOMMENDED — NOT VALIDATED** (non créées).
+
 ## Anti-claims
 
-- Pas DELIVERY ARBITRATED / décisions VALIDATED
-- Pas IMPLEMENTATION READY / runtime ready
-- Pas R-M01 / U-M02 fermées / vendor
+- Pas IMPLEMENTATION READY / runtime implemented / delivery complete
+- Pas R-M01 / U-M02 / candidates fermées ou validées
+- Pas vendor / T-A7 / exécution réelle
 - Pas code / modeled / runtime modifié
-- Pas T-A7 / exécution réelle / adapter réel
 - Pas push / PR / merge
+- DECIDED ≠ IMPLEMENTED ≠ VALIDATED ≠ ADOPTED
+```
 
----
+## 9. D-T-A6-DEL-01 … 10 (synthèse review)
 
-# ANNEXE C — Anti-claims checklist
+| ID | Décision | Statut |
+|----|----------|--------|
+| DEL-01 | Module unique `app/lib/oa/evidence-review/**` | APPROVED BY MORRIS |
+| DEL-02 | ClaimEvaluation agrégat autonome OCC | APPROVED BY MORRIS |
+| DEL-03 | Use cases spécialisés (style T-A5) | APPROVED BY MORRIS |
+| DEL-04 | `IngestExecutionAttemptEvidence` explicite ; T-A5 RO | APPROVED BY MORRIS |
+| DEL-05 | OCC `expectedVersion` + conflits explicites | APPROVED BY MORRIS |
+| DEL-06 | Invariants cross-aggregate synchrones fail-closed | APPROVED BY MORRIS |
+| DEL-07 | Downgrade maturity explicite + supersession | APPROVED BY MORRIS |
+| DEL-08 | Fake / metadata-only ; U-M02 OPEN ; no vendor | APPROVED BY MORRIS |
+| DEL-09 | Découpage D1→D2→D3→D4→D5 | APPROVED BY MORRIS |
+| DEL-10 | DECIDE ≠ IMPLEMENT ; R-M01 gate séparée | APPROVED BY MORRIS |
 
-- [x] Aucune décision DEL validée
-- [x] Modeled / runtime non modifiés
-- [x] SQL / T-A7 / adapter / exécution absents
-- [x] Push/PR/merge non exécutés
-- [x] Réserves OPEN · R-M01 non fermée
-- [x] Review pack FULL
+## 10. Architecture delivery décidée
 
-## Verdict final
+**Statut :** `DELIVERY ARCHITECTURE DECIDED — NOT IMPLEMENTED`
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY ARBITRATION PACK PREPARED — MORRIS DECISIONS REQUIRED`
+- Module : `evidence-review/**`
+- 4 agrégats
+- Use cases spécialisés
+- Repositories mémoire OCC
+- Ports : EvidenceRepository · ReviewBundleRepository · ClaimEvaluationRepository · MaturityAssessmentRepository · EvidencePayloadPort fake · ExecutionAttemptReader RO · AuthorityResolver T-A3 · AuditSink · Clock · IdGenerator
+- Adapters fake uniquement
+- Aucune persistence réelle · API/UI/worker · T-A7
+
+### Module runtime
+`app/lib/oa/evidence-review/**` — décidé, **non créé**.
+
+### Ownership ClaimEvaluation
+Agrégat autonome ; OCC propre ; lien immuable RB id+version ; pas de mutation du freeze.
+
+### Application services
+Fichiers spécialisés ; pas de god-orchestrator ; `RecommendNextGate` RO borné.
+
+### Ingestion T-A5
+Commande explicite ; AttemptReader RO ; pas de dépendance T-A5→T-A6 ; succeeded ≠ Evidence ≠ PASS.
+
+### OCC
+`expectedVersion` ; monotone ; idempotence ; `CONCURRENT_MODIFICATION` · `VERSION_CONFLICT` · `IDEMPOTENCY_CONFLICT`.
+
+### Invariants cross-aggregate
+Contrôles synchrones + audit ; fail-closed ; pas de saga / atomicité prétendue v1.
+
+### Downgrade maturity
+Commande explicite ; supersession ; pas d’auto ; Morris si structurant ; maturity ≠ executionAuthority.
+
+### Payload v1
+Fake metadata-only ; jamais exécuté ; U-M02 OPEN ; no vendor.
+
+### Découpage D1→D5
+Evidence → ReviewBundle → ClaimEvaluation → Maturity → coordination ; stop possible ; pas de T-A7.
+
+### Gate implémentation
+Ce gate ne lance pas l’implémentation ; GO IMPLEMENT D1 requis ; R-M01 = gate séparé.
+
+## 11. Autorité / Critical / automatisation
+
+- Système : proposition + contrôles bornés
+- Agent T-A5 : source technique ≠ conformité
+- N1/N2/N3 selon scope ; N3 ≠ Morris
+- Morris : structurants
+- Critical : confirmation humaine ; self-review interdit
+- Système ne ferme aucune réserve
+- maturity ≠ executionAuthority
+- L0–L3 v1 ; L4 hors v1 sauf gate ; L5 out
+- Interdit : auto-Critical / auto-structural / auto-close réserve / auto-promote maturity / auto T-A7 / exécution réelle
+
+## 12. Tests futurs / sécurité / RGPD / observabilité
+
+- Tests futurs documentés, **non créés**
+- Sécurité : secrets interdits ; payload non exécuté
+- RGPD : metadata≠payload ; legal hold ≠ effacement ; U-M02 OPEN
+- Observabilité : AuditSink conceptuel ; pas de stack
+
+## 13. Réserves
+
+| ID | Statut |
+|----|--------|
+| B5 | OPEN |
+| R1 | OPEN |
+| R-T-A3-1 | OPEN HARD |
+| R-T-A3-2 | OPEN HARD |
+| R-T-A3-3 | OPEN |
+| R-T-A3-4 | OPEN |
+| R-M01 | OPEN — VALIDATION SATISFIED — CLOSURE REQUIRES MORRIS DECISION |
+| U-M02 | OPEN |
+| R-T-A6-DEL-C1…C3 | RECOMMENDED — NOT VALIDATED (TRACK AS DEBT candidate) |
+| R-T-A6-DEL-C4 | RECOMMENDED — NOT VALIDATED (MERGE INTO B5 candidate) |
+
+Aucune réserve fermée · aucune candidate validée · C4 non fusionnée.
+
+## 14. Validation documentaire
+
+PASS — 10 décisions = GO Morris exact ; aucune reco→décision ; candidates non validées ; fake-only ; no vendor ; no code ; modeled/runtime inchangés ; ingestion explicite ; pas Attempt→PASS ; pas auto-Critical/downgrade/promote/T-A7 ; R-M01 + réserves OPEN ; DECIDED≠IMPLEMENTED≠VALIDATED≠ADOPTED ; contenus complets ; pas de placeholder ; horodatage fuseau ; `git diff --check` PASS.
+
+## 15. Commit local
+
+| Commit | Message |
+|--------|---------|
+| `3266bef284986d056634ba9a81f8ff4cdbc6a278` | `docs(sfia-studio): record T-A6 delivery decisions` |
+| `c2507c370abd04ed274f972c9e6e0aa674f6b106` | `docs(sfia-studio): record T-A6 delivery decisions HEAD` |
+
+Push projet : **NON** · PR : **NON** · merge : **NON**
+
+## 16. Anti-exécution
+
+- Modeled non modifié
+- Runtime non modifié
+- SQL absent
+- T-A7 non ouvert
+- Adapter réel absent
+- Exécution réelle absente
+
+## 17. Gate suivant candidat
+
+`GO IMPLEMENT T-A6 DELIVERY D1 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**)
+
+Périmètre attendu : T-A6-D1 Evidence core · fake-only · mémoire.
+Gate distinct pour fermer R-M01.
+
+## 18. Verdict exact
+
+`SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY DECISIONS RECORDED — IMPLEMENTATION REQUIRES MORRIS GO`
