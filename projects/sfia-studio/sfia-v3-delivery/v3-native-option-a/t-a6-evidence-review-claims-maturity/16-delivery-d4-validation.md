@@ -30,13 +30,13 @@ Delivery `01`…`15` · README · handoff D4 · runtime `evidence-review/**` · 
 
 ## 2. Méthode (7 niveaux)
 
-1. Conformité décisions Morris  
-2. Domaine MaturityAssessment vs `0.2.0-oa`  
-3. Binding ClaimEvaluation exacts  
-4. Calcul / promotion fail-closed  
-5. Confirmation / autorité  
-6. Downgrade / supersession / OCC / idempotence  
-7. Sécurité / audit / non-régression  
+1. Conformité décisions Morris
+2. Domaine MaturityAssessment vs `0.2.0-oa`
+3. Binding ClaimEvaluation exacts
+4. Calcul / promotion fail-closed
+5. Confirmation / autorité
+6. Downgrade / supersession / OCC / idempotence
+7. Sécurité / audit / non-régression
 
 ---
 
@@ -116,10 +116,10 @@ Aucun.
 
 Commit : `fix(sfia-studio): correct T-A6 D4 validation findings`
 
-- Confirm re-assess ClaimEvaluation  
-- supportedLevel null / Propose fail-closed sans eligible  
-- Tests adversariaux `adversarialMaturityValidation.test.ts` (+3)  
-- Tests lifecycle/domain mis à jour  
+- Confirm re-assess ClaimEvaluation
+- supportedLevel null / Propose fail-closed sans eligible
+- Tests adversariaux `adversarialMaturityValidation.test.ts` (+3)
+- Tests lifecycle/domain mis à jour
 
 ---
 
@@ -142,7 +142,7 @@ Durées : evidence-review ~0.77s · T-A3 ~0.4s · T-A4 ~0.5s · T-A5 ~0.5s · mo
 
 Actors/motifs filtrés · audit refs-only · fake-only · U-M02 **OPEN**.
 
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
+B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**
 C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ---

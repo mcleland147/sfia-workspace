@@ -31,12 +31,12 @@ PASS — branche/HEAD exacts · merge-base = origin/main courant · staged vide 
 
 ## 2. Sources / CKC
 
-- Template cycle · routing · méthode · operating model  
-- CKC cadrage candidat (`01-cadrage.md`) · `executionAuthority=false`  
-- T-A6 docs `01`…`18` + README · handoff D5 validation  
-- Décisions DEL-09 / DEL-10 · anti T-A7  
-- Branches Option A locales (T-A3…T-A5, modeled, shared platform, UX, control tower)  
-- Pattern PR readiness T-A0/T-A1/T-A5  
+- Template cycle · routing · méthode · operating model
+- CKC cadrage candidat (`01-cadrage.md`) · `executionAuthority=false`
+- T-A6 docs `01`…`18` + README · handoff D5 validation
+- Décisions DEL-09 / DEL-10 · anti T-A7
+- Branches Option A locales (T-A3…T-A5, modeled, shared platform, UX, control tower)
+- Pattern PR readiness T-A0/T-A1/T-A5
 
 ---
 
@@ -104,7 +104,7 @@ Aucune dépendance bloquante non résolue pour un cycle **PR readiness** local. 
 
 Overlap `name-only` vs branches sœurs (relatif à `origin/main`) : **0** pour T-A3/T-A4/T-A5, modeled, shared platform, UX, control tower, next-product-increment.
 
-Conflits potentiels avec `main` : **aucun immédiat** (retard 0).  
+Conflits potentiels avec `main` : **aucun immédiat** (retard 0).
 Conflits futurs : possibles si d’autres branches touchent `app/lib/oa/**` ou modeled Evidence avant merge T-A6.
 
 ---
@@ -135,7 +135,7 @@ PASS relatif au cadrage : 01–18 présents · gates D1–D5 tracés · findings
 
 ### Technique
 
-PASS relatif au périmètre v1 : module identifiable · 140 tests D1–D5 annoncés · fake-only/mémoire/read-only D5 · pas SQL/API/UI · pas adapter réel.  
+PASS relatif au périmètre v1 : module identifiable · 140 tests D1–D5 annoncés · fake-only/mémoire/read-only D5 · pas SQL/API/UI · pas adapter réel.
 Manques **normaux hors périmètre** : persistence réelle · API/UI · vendor payload (U-M02).
 
 ### PR
@@ -230,16 +230,16 @@ Périmètre attendu du prochain cycle (recommandé, non consommé) :
 
 ## 13. Décisions Morris requises
 
-1. **Autoriser** `GO PREPARE T-A6 PR READINESS` (oui/non).  
-2. À la readiness : **squash** recommandé ou historique conservé.  
-3. **Une** PR T-A6 (modeled+runtime+docs) vs split — recommandation cadrage : **une PR**.  
+1. **Autoriser** `GO PREPARE T-A6 PR READINESS` (oui/non).
+2. À la readiness : **squash** recommandé ou historique conservé.
+3. **Une** PR T-A6 (modeled+runtime+docs) vs split — recommandation cadrage : **une PR**.
 4. Plus tard (hors ce cadrage) : GO push + create PR ; GO merge — **non** décidés ici.
 
 ### Décisions déjà validées (Git)
 
-- D-T-A6-DEL-01…10  
-- D1–D5 implement + validate (gates consommés)  
-- Interdiction auto T-A7 / fake-only / memory  
+- D-T-A6-DEL-01…10
+- D1–D5 implement + validate (gates consommés)
+- Interdiction auto T-A7 / fake-only / memory
 
 ---
 

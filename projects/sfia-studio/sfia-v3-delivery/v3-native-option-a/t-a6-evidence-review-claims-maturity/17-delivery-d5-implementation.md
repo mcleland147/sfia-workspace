@@ -98,15 +98,15 @@ Incohérence ⇒ blocker / `not_recommended` / `blocked` — **jamais** `gate_ca
 
 ## 8. Autorité / anti-claims / réserves
 
-Système = analyse/recommandation. Morris requis pour structural / HARD / next cycle.  
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**. C1–C4 **NOT VALIDATED** (gap `c1_c4_not_validated`).  
+Système = analyse/recommandation. Morris requis pour structural / HARD / next cycle.
+B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**. C1–C4 **NOT VALIDATED** (gap `c1_c4_not_validated`).
 D5 n’ouvre/ferme/fusionne aucune réserve.
 
 ---
 
 ## 9. Sécurité / audit
 
-Actors filtrés · audit `oa.coordination.*` refs-only · fake-only · aucun payload.  
+Actors filtrés · audit `oa.coordination.*` refs-only · fake-only · aucun payload.
 Événements : `next_action_recommended` · `next_gate_recommended` · `blocked` · `operation_rejected`.
 
 ---
@@ -124,7 +124,7 @@ Actors filtrés · audit `oa.coordination.*` refs-only · fake-only · aucun pay
 
 ## 11. Findings
 
-Critical / Major : **aucun**.  
+Critical / Major : **aucun**.
 Observations : O-D5-1 pas de schema modeled dédié RecommendNextGate (contrat delivery) · O-D5-2 C1–C4 NOT VALIDATED · O-D5-3 R-M01 OPEN.
 
 ---

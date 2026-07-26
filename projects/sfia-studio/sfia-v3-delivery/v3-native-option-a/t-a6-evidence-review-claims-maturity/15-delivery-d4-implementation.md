@@ -64,7 +64,7 @@ Adaptation D3 non-breaking : reader RO + `isSuperseded` scan mémoire.
 
 ## 4. Domaine / niveaux / critères
 
-**Niveaux :** DOCUMENTED · VALIDATED · MODELED · IMPLEMENTED · ADOPTED  
+**Niveaux :** DOCUMENTED · VALIDATED · MODELED · IMPLEMENTED · ADOPTED
 **Status :** proposed · confirmed · rejected · superseded · blocked
 
 **Seuils explicites (pas de moyenne) :**
@@ -134,7 +134,7 @@ Observations : O-D4-1 seuils runtime documentés (modeled ne fixe pas de formule
 
 ## 11. Réserves
 
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
+B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**
 C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ---

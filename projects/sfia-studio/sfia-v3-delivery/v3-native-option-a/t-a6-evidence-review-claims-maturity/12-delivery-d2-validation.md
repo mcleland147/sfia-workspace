@@ -30,12 +30,12 @@ Delivery `01`…`11` · README · handoff D2 · runtime `evidence-review/**` · 
 
 ## 2. Méthode (6 niveaux)
 
-1. Conformité décisions DEL-01/03/05/06/08/09/10  
-2. Domaine ReviewBundle vs `0.2.0-oa`  
-3. Lifecycle / freeze / completeness / synthesisOnly  
-4. Application + repository + EvidenceReader  
-5. Sécurité / RGPD / audit  
-6. Non-régression T-A3–T-A5 / modeled / packages  
+1. Conformité décisions DEL-01/03/05/06/08/09/10
+2. Domaine ReviewBundle vs `0.2.0-oa`
+3. Lifecycle / freeze / completeness / synthesisOnly
+4. Application + repository + EvidenceReader
+5. Sécurité / RGPD / audit
+6. Non-régression T-A3–T-A5 / modeled / packages
 
 ---
 
@@ -130,7 +130,7 @@ Motifs + actors filtrés · audit refs-only · aucun payload · fake-only · U-M
 
 ## 9. Réserves
 
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
+B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**
 C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ---

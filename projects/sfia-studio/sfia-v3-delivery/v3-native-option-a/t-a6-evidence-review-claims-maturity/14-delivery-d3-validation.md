@@ -30,13 +30,13 @@ Delivery `01`…`13` · README · handoff D3 implement · runtime `evidence-revi
 
 ## 2. Méthode (7 niveaux)
 
-1. Conformité décisions Morris (DEL + anti D4/D5)  
-2. Domaine ClaimEvaluation vs `0.1.0-oa`  
-3. Binding ReviewBundle + Evidence exactes  
-4. PASS fail-closed  
-5. Autorité / confirmation / waiver / dispute  
-6. Repository / OCC / idempotence / supersession  
-7. Sécurité / audit / bornage / non-régression  
+1. Conformité décisions Morris (DEL + anti D4/D5)
+2. Domaine ClaimEvaluation vs `0.1.0-oa`
+3. Binding ReviewBundle + Evidence exactes
+4. PASS fail-closed
+5. Autorité / confirmation / waiver / dispute
+6. Repository / OCC / idempotence / supersession
+7. Sécurité / audit / bornage / non-régression
 
 ---
 
@@ -135,9 +135,9 @@ Aucun.
 
 Commit : `fix(sfia-studio): correct T-A6 D3 validation findings`
 
-- Confirm : re-bind RB + re-assess Evidence avant PASS  
-- Assessment : respect snapshot freeze status/availability  
-- Wiring `createEvidenceReviewServices` (ports readers)  
+- Confirm : re-bind RB + re-assess Evidence avant PASS
+- Assessment : respect snapshot freeze status/availability
+- Wiring `createEvidenceReviewServices` (ports readers)
 - Tests adversariaux `adversarialClaimEvaluationValidation.test.ts` (+4)
 
 ---
@@ -171,7 +171,7 @@ Actors/motifs filtrés · audit refs-only (IDs, versions, claim/RB/Evidence refs
 
 ## 12. Réserves
 
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
+B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**
 C1–C4 **RECOMMENDED — NOT VALIDATED** (aucune création/fermeture)
 
 ---

@@ -30,14 +30,14 @@ Delivery `01`…`17` · README · handoff D5 impl · runtime `evidence-review/**
 
 ## 2. Méthode (8 niveaux)
 
-1. Conformité décisions Morris  
-2. Contrat D5 `RecommendNextGate`  
-3. Read-only strict  
-4. Cohérence cross-aggregate  
-5. Recommandations / gate candidat  
-6. Autorité / anti-claims / réserves  
-7. Fail-closed / déterminisme / sécurité / audit  
-8. Non-régression  
+1. Conformité décisions Morris
+2. Contrat D5 `RecommendNextGate`
+3. Read-only strict
+4. Cohérence cross-aggregate
+5. Recommandations / gate candidat
+6. Autorité / anti-claims / réserves
+7. Fail-closed / déterminisme / sécurité / audit
+8. Non-régression
 
 ---
 
@@ -117,10 +117,10 @@ Aucun.
 
 Commit : `fix(sfia-studio): correct T-A6 D5 validation findings`
 
-- Version maturité obligatoire  
-- Versions Evidence exactes (snapshots gelés)  
-- Blocker `evidence_superseded`  
-- Tests adversariaux +4  
+- Version maturité obligatoire
+- Versions Evidence exactes (snapshots gelés)
+- Blocker `evidence_superseded`
+- Tests adversariaux +4
 
 ---
 
@@ -141,7 +141,7 @@ Durées : evidence-review ~0.70s. Skipped : 0.
 
 ## 10. Réserves / anti-claims
 
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
+B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**
 C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 Pas T-A6 COMPLETE · Option A COMPLETE · runtime ready · production ready · gate consommé · décision Morris créée · T-A7 · persistence réelle · exécution réelle.
