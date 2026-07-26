@@ -1,53 +1,36 @@
-# SFIA Review Pack — FULL — T-A6 D4 MaturityAssessment Implementation
+# SFIA Review Pack — FULL — T-A6 D4 MaturityAssessment Validation
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 11:01:21 CEST (+0200) |
-| **Cycle** | Delivery — implémentation / T-A6-D4 MaturityAssessment |
+| **Date/heure/fuseau** | 2026-07-26 11:19:55 CEST (+0200) |
+| **Cycle** | QA / validation / T-A6-D4 MaturityAssessment |
 | **Profil** | Critical |
-| **Gate** | `GO IMPLEMENT T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate** | `GO VALIDATE T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Repo** | mcleland147/sfia-workspace |
 | **Base** | origin/main @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `f935bc00ab2cac314f0ef09db939ef53d7ae05eb` |
-| **HEAD final** | `357fe58fdad60859e2410be3d1e553b39a157308` |
-| **Commits** | `a662c0d` feat D4 · `3d7ec5d` record HEAD · `357fe58` point HEAD final |
+| **HEAD initial** | `357fe58fdad60859e2410be3d1e553b39a157308` |
+| **HEAD final** | `fb5e11ccb48fb40aecf95de63459efcccd501ca8` |
+| **Commits** | `5bb399d` fix · `5e666d4` validate docs · `07a2e1f` record · `fb5e11c` point HEAD |
 | **Push projet / PR / merge** | **NON** |
 | **D5** | **NON** |
 | **Modeled / T-A3–T-A5 / packages** | **NON** modifiés |
-| **D1–D3 régressés** | **NON** (119 PASS D1–D4) |
-| **SQL / API / UI / T-A7 / adapter réel / exécution réelle** | **ABSENTS** |
+| **D1–D3 régressés** | **NON** (122 PASS D1–D4) |
+| **SQL / API / UI / T-A7 / adapter / exécution réelle** | **ABSENTS** |
 | **Niveau** | FULL |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT IMPLEMENTED — VALIDATION REQUIRES MORRIS GO` |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT VALIDATED AFTER CORRECTION — D5 REQUIRES MORRIS GO` |
 
 ---
 
 ## 1. Truth Check
 
-PASS — branche exacte · HEAD initial `f935bc00ab2cac314f0ef09db939ef53d7ae05eb` · tip `357fe58fdad60859e2410be3d1e553b39a157308` · merge-base = origin/main `b25c20e6…` · staged vide · untracked `.tmp-sfia-review/` · aucune op Git · aucune remote/PR T-A6 · handoff source blob `0b12a48c…` relu.
+PASS — branche/HEAD/merge-base exacts · staged vide · untracked `.tmp-sfia-review/` · handoff source blob `45bd2aff…`.
 
 ### Status
 
 ```
 ## framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity
 ?? .tmp-sfia-review/
-```
-
-### Untracked
-
-```
-.tmp-sfia-review/14-full.md
-.tmp-sfia-review/chatgpt-review.md
-.tmp-sfia-review/created.txt
-.tmp-sfia-review/d3-validation-fix.diff
-.tmp-sfia-review/handoff-blob.txt
-.tmp-sfia-review/modified.txt
-.tmp-sfia-review/now.txt
-.tmp-sfia-review/pr-body.md
-.tmp-sfia-review/readme-full.md
-.tmp-sfia-review/status.txt
-.tmp-sfia-review/untracked.txt
-.tmp-sfia-review/worktrees.txt
 ```
 
 ### Worktrees
@@ -126,7 +109,7 @@ HEAD 52891e5c5a9b1254143e422111ea4955ca3a0940
 branch refs/heads/modeled/sfia-studio-v3-native-option-a
 
 worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech
-HEAD 357fe58fdad60859e2410be3d1e553b39a157308
+HEAD fb5e11ccb48fb40aecf95de63459efcccd501ca8
 branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity
 
 worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-ux
@@ -286,77 +269,62 @@ HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
 branch refs/heads/ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
 
 worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
-HEAD 00158a9ab61cad347b1489ebc79b8a3548052d9c
+HEAD a197322c9fabfb58aa52a23fbfa58d3df3348856
 branch refs/heads/sfia/review-handoff
 ```
 
 ### Handoff source
 
-- blob : `0b12a48c6e88ffcca0440b8a1dca611f28c6663b`
-- verdict : `SFIA STUDIO V3-NATIVE OPTION A T-A6 D3 CLAIM EVALUATION VALIDATED AFTER CORRECTION — D4 REQUIRES MORRIS GO`
+blob `45bd2affb52a547f2837e1504fee585ef32f4683` — IMPLEMENTED — VALIDATION REQUIRES MORRIS GO
 
 ### CKC
 
-`03-architecture-technique.md` candidate · `executionAuthority=false`
-
-### Template
-
-`prompts/templates/sfia-cycle-execution-template.md`
+`04-qa-validation.md` candidate · `executionAuthority=false`
 
 ---
 
-## 2. Fichiers créés / modifiés
+## 2. Diff initial
 
-### Feat commit stat
+Working tree clean at `357fe58fdad60859e2410be3d1e553b39a157308` before validation corrections.
+
+### Fix commit stat
 
 ```
-commit a662c0ddc3a5b752ccc0f29fe66c2e2990e83685
+commit 5bb399d83c39bb55e34e8a5d5cd206297dff59cc
 Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Sun Jul 26 11:01:02 2026 +0200
+Date:   Sun Jul 26 11:19:38 2026 +0200
 
-    feat(sfia-studio): implement T-A6 D4 maturity assessment
+    fix(sfia-studio): correct T-A6 D4 validation findings
     
-    Add Propose/Confirm/Downgrade MaturityAssessment over exact ClaimEvaluation
-    bindings with fail-closed calculation, OCC, and atomic downgrade supersession.
+    Re-assess ClaimEvaluation bindings before ConfirmMaturity, and refuse Propose
+    when no eligible PASS supports a modeled level.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
-A	projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentDomain.test.ts
-A	projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/confirmMaturity.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/downgradeMaturity.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/maturityCalculation.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/proposeMaturity.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/domain/maturityAssessmentErrors.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/domain/maturityAssessmentInvariants.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/domain/maturityAssessmentTypes.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/claimEvaluationRepositoryReader.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryMaturityAssessmentRepository.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryMaturityAssessmentStore.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/ports/claimEvaluationReader.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/ports/evidenceAudit.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/ports/maturityAssessmentRepository.ts
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/15-delivery-d4-implementation.md
-M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/README.md
+ .../adversarialMaturityValidation.test.ts          | 255 +++++++++++++++++++++
+ .../maturityAssessmentDomain.test.ts               |  14 ++
+ .../maturityAssessmentLifecycle.test.ts            |  14 +-
+ .../evidence-review/application/confirmMaturity.ts |  98 +++++++-
+ .../application/maturityCalculation.ts             |  80 ++++++-
+ .../evidence-review/application/proposeMaturity.ts |   6 +
+ .../app/lib/oa/evidence-review/index.ts            |   2 +
+ 7 files changed, 454 insertions(+), 15 deletions(-)
 
 ```
 
-### Arborescence D4
+---
 
-```
-projects/sfia-studio/app/lib/oa/evidence-review/application/confirmMaturity.ts
-projects/sfia-studio/app/lib/oa/evidence-review/application/downgradeMaturity.ts
-projects/sfia-studio/app/lib/oa/evidence-review/application/maturityCalculation.ts
-projects/sfia-studio/app/lib/oa/evidence-review/application/proposeMaturity.ts
-projects/sfia-studio/app/lib/oa/evidence-review/domain/maturityAssessmentErrors.ts
-projects/sfia-studio/app/lib/oa/evidence-review/domain/maturityAssessmentInvariants.ts
-projects/sfia-studio/app/lib/oa/evidence-review/domain/maturityAssessmentTypes.ts
-projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryMaturityAssessmentRepository.ts
-projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryMaturityAssessmentStore.ts
-projects/sfia-studio/app/lib/oa/evidence-review/ports/claimEvaluationReader.ts
-projects/sfia-studio/app/lib/oa/evidence-review/ports/maturityAssessmentRepository.ts
-```
+## 3. Fichiers
+
+### Créés
+
+- `adversarialMaturityValidation.test.ts`
+- `16-delivery-d4-validation.md`
+
+### Modifiés
+
+- `confirmMaturity.ts` · `maturityCalculation.ts` · `proposeMaturity.ts` · `index.ts`
+- lifecycle/domain tests · README
 
 ### Supprimés
 
@@ -364,165 +332,173 @@ Aucun.
 
 ---
 
-## 3. Contenu complet — 15-delivery-d4-implementation.md
+## 4. Contenu complet — 16-delivery-d4-validation.md
 
 ```markdown
-# 15 — T-A6-D4 MaturityAssessment Implementation
+# 16 — T-A6-D4 MaturityAssessment Validation
 
 | Champ | Valeur |
 |-------|--------|
 | **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
 | **Sous-cycle** | T-A6-D4 — MaturityAssessment |
-| **Cycle** | Delivery — implémentation (Critical) |
-| **Gate** | `GO IMPLEMENT T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Cycle** | QA / validation (Critical) |
+| **Gate** | `GO VALIDATE T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
-| **HEAD initial** | `f935bc00ab2cac314f0ef09db939ef53d7ae05eb` |
-| **HEAD final** | `3d7ec5de4361bc0dec3a627203b87c2bde84a6e1` |
-| **Horodatage** | 2026-07-26 11:01:00 CEST (+0200) |
-| **Handoff source** | blob `0b12a48c6e88ffcca0440b8a1dca611f28c6663b` |
-| **Statut** | **T-A6-D4 IMPLEMENTED — NOT VALIDATED** |
-| **D1 / D2 / D3** | VALIDATED AFTER CORRECTION |
+| **HEAD initial** | `357fe58fdad60859e2410be3d1e553b39a157308` |
+| **HEAD final** | `07a2e1f70beddbb42709a28262031b79ec4d05d2` |
+| **Horodatage** | 2026-07-26 11:19:00 CEST (+0200) |
+| **Handoff source** | blob `45bd2affb52a547f2837e1504fee585ef32f4683` |
+| **Statut** | **T-A6-D4 VALIDATED AFTER CORRECTION** |
+| **D1 / D2 / D3** | VALIDATED AFTER CORRECTION (non régressés) |
 | **D5** | **NON** |
 | **Fake-only / mémoire** | **oui** |
 | **Push / PR / merge** | **NONE** |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT IMPLEMENTED — VALIDATION REQUIRES MORRIS GO` |
-| **Gate suivant** | `GO VALIDATE T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT VALIDATED AFTER CORRECTION — D5 REQUIRES MORRIS GO` |
+| **Gate suivant** | `GO IMPLEMENT T-A6 DELIVERY D5 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ---
 
 ## 1. Sources / CKC
 
-Delivery `01`…`14` · schema MaturityAssessment `0.2.0-oa` · catalogue Propose/Confirm/Downgrade · runtime D1–D3 · T-A3 Authority RO · CKC `03-architecture-technique.md` (candidate, `executionAuthority=false`).
+Delivery `01`…`15` · README · handoff D4 · runtime `evidence-review/**` · schema MaturityAssessment `0.2.0-oa` · ClaimEvaluation D3 · T-A3 RO · CKC `04-qa-validation.md` (candidate, `executionAuthority=false`).
 
 ---
 
-## 2. Périmètre D4
+## 2. Méthode (7 niveaux)
 
-### Inclus
-
-- Domaine MaturityAssessment (`mat:`) + OCC runtime
-- Commandes modeled : `ProposeMaturity` · `ConfirmMaturity` · `DowngradeMaturity`
-- Bindings ClaimEvaluation exacts (id + version) immuables
-- Calcul déterministe fail-closed · critères · gaps
-- `autoPromoted=false` const
-- HARD `blockingReservationRefs` ⇒ status `blocked` / refuse Confirm
-- Downgrade explicite par supersession atomique
-- MemoryMaturityAssessmentRepository · ClaimEvaluationReader RO · Audit `oa.maturity_assessment.*`
-
-### Hors périmètre
-
-D5 coordination · SQL/API/UI · T-A7 · modification modeled / T-A3–T-A5 · fermeture réserves · Decision Morris · executionAuthority
+1. Conformité décisions Morris  
+2. Domaine MaturityAssessment vs `0.2.0-oa`  
+3. Binding ClaimEvaluation exacts  
+4. Calcul / promotion fail-closed  
+5. Confirmation / autorité  
+6. Downgrade / supersession / OCC / idempotence  
+7. Sécurité / audit / non-régression  
 
 ---
 
-## 3. Architecture
+## 3. Conformité décisions
 
-Module inchangé : `app/lib/oa/evidence-review/**`
-
-```
-domain/maturityAssessment{Types,Errors,Invariants}.ts
-application/{proposeMaturity,confirmMaturity,downgradeMaturity,maturityCalculation}.ts
-ports/{maturityAssessmentRepository,claimEvaluationReader}.ts
-infrastructure/{memoryMaturityAssessment{Store,Repository},claimEvaluationRepositoryReader}.ts
-```
-
-Adaptation D3 non-breaking : reader RO + `isSuperseded` scan mémoire.
+| Décision | Résultat |
+|----------|----------|
+| Module unique `evidence-review/**` | **PASS** |
+| Maturity autonome · OCC propre | **PASS** |
+| Use cases spécialisés · sync fail-closed | **PASS** (Confirm renforcé) |
+| Mémoire / fake-only | **PASS** |
+| D4 only · D1–D3 non breaking | **PASS** |
+| D5 / Decision / executionAuthority absents | **PASS** |
 
 ---
 
-## 4. Domaine / niveaux / critères
+## 4. Domaine / niveaux / critères / gaps
 
-**Niveaux :** DOCUMENTED · VALIDATED · MODELED · IMPLEMENTED · ADOPTED  
-**Status :** proposed · confirmed · rejected · superseded · blocked
-
-**Seuils explicites (pas de moyenne) :**
-
-| Niveau | Critère |
-|--------|---------|
-| DOCUMENTED | ≥1 claim eligible PASS |
-| VALIDATED | + confirmation (system_deterministic non_critical ou humain) |
-| MODELED | + claimType technique\|maturite_support\|conformite |
-| IMPLEMENTED | + criticality critical\|structural confirmée |
-| ADOPTED | + structural + confirmationAuthority=morris |
-
-**Éligibilité positive interdite pour :** disputed · waived · superseded · not_pass · Critical/structural non confirmés · mauvaise version · claim absente.
+| Zone | Résultat |
+|------|----------|
+| ID `mat:` · statuses · niveaux modeled | **PASS** |
+| Critères eligible/confirmed/modeled/implemented/adopted/no_hard_reserve | **PASS** |
+| Gaps explicites | **PASS** |
+| `autoPromoted=false` | **PASS** |
+| DOCUMENTED exige ≥1 eligible PASS | **PASS** (après F-A6-D4-02) |
+| Copies défensives | **PASS** |
 
 ---
 
-## 5. Binding ClaimEvaluation
+## 5. Binding / éligibilité / promotion
 
-Chaque assessment conserve `claimEvaluationRefs` + `claimBindings[]` (id, version, status, criticality, confirmation, eligible, reviewBundle id/version). Aucune mutation ClaimEvaluation. Snapshot historique stable.
+| Invariant | Résultat |
+|-----------|----------|
+| ClaimEvaluationReader RO · id+version exacts | **PASS** |
+| disputed/waived/superseded/non confirmé exclus | **PASS** |
+| Confirm re-assess bindings avant confirm | **PASS** (après F-A6-D4-01) |
+| Propose refuse si aucun eligible (hors blocked HARD) | **PASS** (après F-A6-D4-02) |
+| Aucune moyenne / auto-promotion | **PASS** |
 
 ---
 
 ## 6. Commandes
 
-| Commande | Comportement |
-|----------|--------------|
-| ProposeMaturity | lit claims exactes · calcule · proposed\|blocked · autoPromoted=false · OCC v1 |
-| ConfirmMaturity | humain · ≠ system/agent · IMPLEMENTED/ADOPTED ⇒ Morris · pas HARD reserve · self-review refusée |
-| DowngradeMaturity | humain · target < source · successor + source superseded atomique · motif sûr |
-
-Aucune gate D5 · aucune Decision · `executionAuthority` inchangé false.
+| Commande | Résultat |
+|----------|----------|
+| ProposeMaturity | **PASS** |
+| ConfirmMaturity | **PASS** (re-assess + Morris IMPLEMENTED/ADOPTED) |
+| DowngradeMaturity | **PASS** (explicite · atomique · humain) |
 
 ---
 
-## 7. Repository / OCC / idempotence
+## 7. Findings
 
-MemoryMaturityAssessmentRepository · create/update/expectedVersion · createSuccessorAndMarkSuperseded · idempotency index · copies défensives.
+### Critical
 
----
+Aucun.
 
-## 8. Sécurité / audit
+### Major (corrigés)
 
-Actors/motifs filtrés · audit refs-only · fake-only · U-M02 OPEN.
+| ID | Fichier | Invariant | Preuve | Impact | Correction | Blocker D4 | Blocker D5 |
+|----|---------|-----------|--------|--------|------------|------------|------------|
+| **F-A6-D4-01** | `confirmMaturity.ts` | Confirm exige claims encore éligibles aux versions exactes | Confirm promo `proposed`→`confirmed` sans relire ClaimEvaluation ; claim superseded post-propose ⇒ faux confirm | Confirmation indue / maturité figée sur claims périmées | Inject `ClaimEvaluationReader` ; `reassessStoredBindings` + recalcul avant authority/update | oui (avant) | oui |
+| **F-A6-D4-02** | `maturityCalculation.ts` / `proposeMaturity.ts` | DOCUMENTED ⇒ ≥1 eligible PASS | Calcul assignait DOCUMENTED avec `supportedLevel` même sans eligible ; Propose waived-only réussissait | Fausse maturité DOCUMENTED | `supportedLevel=null` sans eligible ; Propose fail `MATURITY_CLAIM_NOT_ELIGIBLE` (sauf blocked HARD) | oui (avant) | oui |
 
-Événements : proposed · calculated · confirmed · downgraded · superseded · operation_rejected · authority_rejected · idempotency_conflict · concurrent_modification_rejected.
+### Minor / Observations
 
----
-
-## 9. Tests
-
-| Suite | Résultat |
-|-------|----------|
-| evidence-review D1–D4 | **119 PASS** (105→119, +14 D4) |
-| T-A3 / T-A4 / T-A5 | 50 / 61 / 88 PASS |
-| Modeled T-A6 | 27 PASS |
-| typecheck / lint / build / diff-check | PASS |
-
----
-
-## 10. Findings
-
-Aucun Critical / Major ouvert à l’implémentation.
-
-Observations : O-D4-1 seuils runtime documentés (modeled ne fixe pas de formule numérique) · O-D4-2 C1–C4 NOT VALIDATED · O-D4-3 D5 absent.
+| ID | Note |
+|----|------|
+| O-D4-1 | Seuils runtime documentés (modeled sans formule numérique) |
+| O-D4-2 | C1–C4 NOT VALIDATED |
+| O-D4-3 | Downgrade peut enregistrer un successeur avec gaps après invalidation (DEL-07) |
+| O-D4-4 | Replay idempotent peut ré-émettre audit ok — acceptable |
 
 ---
 
-## 11. Réserves
+## 8. Corrections
+
+Commit : `fix(sfia-studio): correct T-A6 D4 validation findings`
+
+- Confirm re-assess ClaimEvaluation  
+- supportedLevel null / Propose fail-closed sans eligible  
+- Tests adversariaux `adversarialMaturityValidation.test.ts` (+3)  
+- Tests lifecycle/domain mis à jour  
+
+---
+
+## 9. Tests (réexécution propre)
+
+| Suite | Commande | Avant | Après | Résultat |
+|-------|----------|-------|-------|----------|
+| evidence-review D1–D4 | `npm test -- __tests__/oa/evidence-review` | 119 | **122** | **PASS** (+3 adversariaux) |
+| T-A3 | `npm test -- __tests__/oa/decision` | 50 | 50 | **PASS** |
+| T-A4 | `npm test -- __tests__/oa/execution-contract` | 61 | 61 | **PASS** |
+| T-A5 | `npm test -- __tests__/oa/execution-attempt` | 88 | 88 | **PASS** |
+| Modeled T-A6 | `node --test …/evidence-review-maturity-governance.test.mjs` | 27 | 27 | **PASS** |
+| typecheck / lint / build / diff-check | — | — | — | **PASS** |
+
+Durées : evidence-review ~0.77s · T-A3 ~0.4s · T-A4 ~0.5s · T-A5 ~0.5s · modeled ~0.15s. Skipped : 0.
+
+---
+
+## 10. Sécurité / audit / réserves
+
+Actors/motifs filtrés · audit refs-only · fake-only · U-M02 **OPEN**.
 
 B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
 C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ---
 
-## 12. Anti-claims
+## 11. Anti-claims
 
-Pas D4 VALIDATED · D5 READY · DELIVERY COMPLETE · persistence réelle · T-A7 · R-M01 fermée · C1–C4 validées · exécution réelle · Decision Morris créée.
+Pas D5 READY · DELIVERY COMPLETE · persistence réelle · T-A7 · R-M01/U-M02 fermées · C1–C4 validées · exécution réelle · Decision Morris créée.
 
 ---
 
-## 13. Verdict
+## 12. Verdict
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT IMPLEMENTED — VALIDATION REQUIRES MORRIS GO`
+`SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT VALIDATED AFTER CORRECTION — D5 REQUIRES MORRIS GO`
 
 ```
 
 ---
 
-## 4. Contenu complet — README T-A6
+## 5. Contenu complet — README
 
 ```markdown
 # T-A6 — Evidence, Review, Claims and Maturity (Option A)
@@ -534,34 +510,35 @@ Pas D4 VALIDATED · D5 READY · DELIVERY COMPLETE · persistence réelle · T-A7
 | **Gate D1 validate** | `GO VALIDATE T-A6 DELIVERY D1` (**CONSUMED**) |
 | **Gate D2 validate** | `GO VALIDATE T-A6 DELIVERY D2` (**CONSUMED**) |
 | **Gate D3 validate** | `GO VALIDATE T-A6 DELIVERY D3` (**CONSUMED**) |
-| **Gate D4 implement** | `GO IMPLEMENT T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate D4 implement** | `GO IMPLEMENT T-A6 DELIVERY D4` (**CONSUMED**) |
+| **Gate D4 validate** | `GO VALIDATE T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Modeled** | Evidence/RB/Maturity `0.2.0-oa` · ClaimEvaluation `0.1.0-oa` |
 | **Runtime D1** | **VALIDATED** (après correction) |
 | **Runtime D2** | **VALIDATED AFTER CORRECTION** |
 | **Runtime D3** | **VALIDATED AFTER CORRECTION** |
-| **Runtime D4** | MaturityAssessment — **T-A6-D4 IMPLEMENTED — NOT VALIDATED** |
+| **Runtime D4** | MaturityAssessment — **T-A6-D4 VALIDATED AFTER CORRECTION** |
 | **Fake-only / mémoire** | **oui** |
 | **Persistence réelle** | **NON** |
 | **D5** | **NON** lancé |
 | **Push / PR / merge** | **NONE** |
-| **Statut pack** | **T-A6-D4 IMPLEMENTED — NOT VALIDATED** |
-| **Horodatage D4** | 2026-07-26 11:01:00 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT IMPLEMENTED — VALIDATION REQUIRES MORRIS GO` |
-| **Gate suivant** | `GO VALIDATE T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Statut pack** | **T-A6-D4 VALIDATED AFTER CORRECTION** |
+| **Horodatage D4 validate** | 2026-07-26 11:19:00 CEST (+0200) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT VALIDATED AFTER CORRECTION — D5 REQUIRES MORRIS GO` |
+| **Gate suivant** | `GO IMPLEMENT T-A6 DELIVERY D5 — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ## Livrables
 
 1. [README.md](./README.md)
-2. [01](./01-framing.md) … [14-delivery-d3-validation.md](./14-delivery-d3-validation.md)
-3. [15-delivery-d4-implementation.md](./15-delivery-d4-implementation.md)
+2. [01](./01-framing.md) … [15-delivery-d4-implementation.md](./15-delivery-d4-implementation.md)
+3. [16-delivery-d4-validation.md](./16-delivery-d4-validation.md)
 4. Runtime : `app/lib/oa/evidence-review/**` (D1–D4)
 5. Tests : `app/__tests__/oa/evidence-review/**`
 
-## D4 implémenté
+## D4 validé
 
-ProposeMaturity / ConfirmMaturity / DowngradeMaturity · bindings ClaimEvaluation exacts · calcul fail-closed · autoPromoted=false · HARD reserves · supersession atomique · 119 tests D1–D4 PASS
+ProposeMaturity / ConfirmMaturity / DowngradeMaturity · bindings ClaimEvaluation exacts · Confirm re-assess · DOCUMENTED sans eligible refusé · Morris IMPLEMENTED/ADOPTED · 122 tests D1–D4 PASS
 
 ## Réserves (OPEN)
 
@@ -570,2840 +547,710 @@ C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ## Anti-claims
 
-Pas D4 VALIDATED / D5 READY / DELIVERY COMPLETE / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle
+Pas D5 READY / DELIVERY COMPLETE / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle
 
 ```
 
 ---
 
-## 5. Runtime D4 + tests (contenu complet fichiers clés)
+## 6. Diff utile corrections
 
-### `projects/sfia-studio/app/lib/oa/evidence-review/domain/maturityAssessmentTypes.ts`
-
-```typescript
-/**
- * T-A6-D4 MaturityAssessment — domain types (Option A v3-native).
- * Modeled: maturity-assessment.schema.json 0.2.0-oa.
- * Commands: ProposeMaturity · ConfirmMaturity · DowngradeMaturity.
- * Never mutates Evidence, ReviewBundle, or ClaimEvaluation.
- * Maturity ≠ executionAuthority. autoPromoted=false const.
- */
-import type { ActorReference, ProvenanceRecord } from "@/lib/oa/doctrine";
-
-export type { ActorReference, ProvenanceRecord };
-
-export const MATURITY_ASSESSMENT_SCHEMA_VERSION = "0.2.0-oa" as const;
-
-export type MaturityLevel =
-  | "DOCUMENTED"
-  | "VALIDATED"
-  | "MODELED"
-  | "IMPLEMENTED"
-  | "ADOPTED";
-
-export type MaturityAssessmentStatus =
-  | "proposed"
-  | "confirmed"
-  | "rejected"
-  | "superseded"
-  | "blocked";
-
-export type MaturityDimension = {
-  dimensionId: string;
-  proposedLevel: MaturityLevel;
-  confirmedLevel?: MaturityLevel;
-  blocked?: boolean;
-};
-
-/** Immutable binding of a ClaimEvaluation consumed at calculation time. */
-export type MaturityClaimBinding = {
-  claimEvaluationId: string;
-  claimEvaluationVersion: number;
-  claimType: string;
-  criticality: string;
-  status: string;
-  confirmationAuthority?: string;
-  confirmedByActorId?: string;
-  eligibleForPositive: boolean;
-  ineligibilityCode?: MaturityClaimIneligibilityCode;
-  reviewBundleId: string;
-  reviewBundleVersion: number;
-};
-
-export type MaturityClaimIneligibilityCode =
-  | "missing"
-  | "version_mismatch"
-  | "disputed"
-  | "waived"
-  | "superseded"
-  | "not_pass"
-  | "confirmation_required"
-  | "structural_confirmation_required";
-
-export type MaturityCriterionCode =
-  | "has_eligible_pass"
-  | "has_confirmed_pass"
-  | "has_modeled_support"
-  | "has_implemented_support"
-  | "has_adopted_morris_support"
-  | "no_hard_blocking_reserve";
-
-export type MaturityCriterionResult = {
-  code: MaturityCriterionCode;
-  satisfied: boolean;
-  supportingClaimEvaluationIds: string[];
-  detail?: string;
-};
-
-export type MaturityGapCode =
-  | "no_eligible_claims"
-  | "claim_disputed"
-  | "claim_waived"
-  | "claim_superseded"
-  | "claim_not_confirmed"
-  | "claim_version_mismatch"
-  | "claim_missing"
-  | "hard_reserve_blocks_level"
-  | "requested_level_unsupported"
-  | "insufficient_for_level";
-
-export type MaturityGap = {
-  code: MaturityGapCode;
-  claimEvaluationId?: string;
-  level?: MaturityLevel;
-  detail?: string;
-};
-
-export type MaturityReviewBundleRef = {
-  reviewBundleId: string;
-  version: number;
-};
-
-export type MaturityAssessment = {
-  schemaVersion: typeof MATURITY_ASSESSMENT_SCHEMA_VERSION;
-  maturityAssessmentId: string;
-  projectId: string;
-  subjectRef: string;
-  dimensions?: MaturityDimension[];
-  proposedLevel: MaturityLevel;
-  confirmedLevel?: MaturityLevel;
-  claimEvaluationRefs: string[];
-  /** Exact versions consumed — runtime immutable bindings (refs-only). */
-  claimBindings: MaturityClaimBinding[];
-  reviewBundleRefs?: MaturityReviewBundleRef[];
-  evidenceRefs?: string[];
-  blockingReservationRefs: string[];
-  waiverRefs?: string[];
-  proposedBy: ActorReference;
-  confirmedBy?: ActorReference;
-  proposedAt: string;
-  confirmedAt?: string;
-  status: MaturityAssessmentStatus;
-  supersedesMaturityAssessmentId?: string;
-  downgradeReason?: string;
-  autoPromoted: false;
-  provenance: ProvenanceRecord;
-  criteriaResults?: MaturityCriterionResult[];
-  gaps?: MaturityGap[];
-  calculatedAt?: string;
-  /** Runtime OCC — monotone. */
-  version: number;
-  idempotencyKey?: string;
-  updatedAt?: string;
-};
-
-export type MaturityDetailCode =
-  | "MATURITY_ASSESSMENT_INVALID"
-  | "MATURITY_ASSESSMENT_NOT_FOUND"
-  | "MATURITY_ASSESSMENT_ALREADY_EXISTS"
-  | "MATURITY_INVALID_STATE"
-  | "MATURITY_ALREADY_CONFIRMED"
-  | "MATURITY_SUPERSEDED"
-  | "MATURITY_CLAIM_NOT_FOUND"
-  | "MATURITY_CLAIM_VERSION_MISMATCH"
-  | "MATURITY_CLAIM_NOT_ELIGIBLE"
-  | "MATURITY_CLAIM_DISPUTED"
-  | "MATURITY_CLAIM_SUPERSEDED"
-  | "MATURITY_CLAIM_WAIVED"
-  | "MATURITY_CONFIRMATION_REQUIRED"
-  | "MATURITY_AUTHORITY_FORBIDDEN"
-  | "MATURITY_SELF_REVIEW_FORBIDDEN"
-  | "MATURITY_BLOCKED_BY_RESERVATION"
-  | "MATURITY_AUTO_PROMOTION_FORBIDDEN"
-  | "MATURITY_DOWNGRADE_FORBIDDEN"
-  | "MATURITY_DOWNGRADE_REQUIRED"
-  | "MATURITY_SECRET_FORBIDDEN"
-  | "VERSION_CONFLICT"
-  | "CONCURRENT_MODIFICATION"
-  | "IDEMPOTENCY_CONFLICT"
-  | "MATURITY_PERSISTENCE_FAILED";
-
-export type MaturityModeledErrorCode =
-  | "VALIDATION_FAILED"
-  | "AUTHORITY_DENIED"
-  | "STATE_CONFLICT"
-  | "MATURITY_BLOCKED_BY_RESERVATION"
-  | "MATURITY_CONFIRMATION_REQUIRED"
-  | "MATURITY_AUTO_PROMOTION_FORBIDDEN"
-  | "MATURITY_DOWNGRADE_REQUIRED";
-
-export type MaturityStructuredError = {
-  schemaVersion: "0.1.0-oa";
-  errorCode: MaturityModeledErrorCode;
-  detailCode: MaturityDetailCode;
-  message: string;
-  severity: "error" | "critical";
-  recoverable: boolean;
-  timestamp: string;
-  correlationId?: string;
-  maturityAssessmentId?: string;
-  claimEvaluationId?: string;
-  expectedVersion?: number;
-  currentVersion?: number;
-};
-
-export type ProposeMaturityRequest = {
-  maturityAssessmentId: string;
-  idempotencyKey: string;
-  actor: ActorReference;
-  projectId: string;
-  subjectRef: string;
-  /** Exact ClaimEvaluation bindings (id + version). */
-  claimBindings: Array<{
-    claimEvaluationId: string;
-    claimEvaluationVersion: number;
-  }>;
-  requestedLevel: MaturityLevel;
-  dimensions?: Array<{ dimensionId: string; proposedLevel: MaturityLevel }>;
-  blockingReservationRefs?: string[];
-  reviewBundleRefs?: MaturityReviewBundleRef[];
-  evidenceRefs?: string[];
-  correlationId?: string;
-  nowIso?: string;
-};
-
-export type ConfirmMaturityRequest = {
-  maturityAssessmentId: string;
-  idempotencyKey: string;
-  actor: ActorReference;
-  expectedVersion: number;
-  authorityEvidenceId?: string;
-  correlationId?: string;
-  nowIso?: string;
-};
-
-export type DowngradeMaturityRequest = {
-  sourceMaturityAssessmentId: string;
-  successorMaturityAssessmentId: string;
-  idempotencyKey: string;
-  actor: ActorReference;
-  expectedVersion: number;
-  targetLevel: MaturityLevel;
-  downgradeReason: string;
-  claimBindings: Array<{
-    claimEvaluationId: string;
-    claimEvaluationVersion: number;
-  }>;
-  blockingReservationRefs?: string[];
-  authorityEvidenceId?: string;
-  correlationId?: string;
-  nowIso?: string;
-};
-
-export type MaturityAssessmentResult =
-  | {
-      ok: true;
-      maturityAssessment: MaturityAssessment;
-      successor?: MaturityAssessment;
-      error?: undefined;
-      reusedFromIdempotencyKey?: boolean;
-      durationMs: number;
-    }
-  | {
-      ok: false;
-      maturityAssessment?: MaturityAssessment;
-      successor?: MaturityAssessment;
-      error: MaturityStructuredError;
-      reusedFromIdempotencyKey?: boolean;
-      durationMs: number;
-    };
-
-export const MATURITY_LEVEL_ORDER: readonly MaturityLevel[] = [
-  "DOCUMENTED",
-  "VALIDATED",
-  "MODELED",
-  "IMPLEMENTED",
-  "ADOPTED",
-] as const;
-
-```
-
-### `projects/sfia-studio/app/lib/oa/evidence-review/application/maturityCalculation.ts`
-
-```typescript
-/**
- * Deterministic fail-closed maturity calculation from exact ClaimEvaluation bindings.
- * Never promotes by default. Waiver ≠ PASS. Disputed/superseded never positive.
- * Never mutates ClaimEvaluation. Never creates Decision or sets executionAuthority.
- */
-import type { ClaimEvaluation } from "../domain/claimEvaluationTypes";
-import type {
-  MaturityClaimBinding,
-  MaturityClaimIneligibilityCode,
-  MaturityCriterionResult,
-  MaturityGap,
-  MaturityLevel,
-} from "../domain/maturityAssessmentTypes";
-import { levelRank, minLevel } from "../domain/maturityAssessmentInvariants";
-
-export type ClaimEligibilityInput = {
-  claim: ClaimEvaluation;
-  expectedVersion: number;
-  isSuperseded: boolean;
-};
-
-export function assessClaimEligibility(
-  input: ClaimEligibilityInput,
-): MaturityClaimBinding {
-  const { claim, expectedVersion, isSuperseded } = input;
-  const base = {
-    claimEvaluationId: claim.claimEvaluationId,
-    claimEvaluationVersion: claim.version,
-    claimType: claim.claimType,
-    criticality: claim.criticality,
-    status: claim.status,
-    confirmationAuthority: claim.confirmationAuthority,
-    confirmedByActorId: claim.confirmedBy?.actorId,
-    reviewBundleId: claim.reviewBundleId,
-    reviewBundleVersion: claim.reviewBundleVersion,
-  };
-
-  const ineligible = (
-    code: MaturityClaimIneligibilityCode,
-  ): MaturityClaimBinding => ({
-    ...base,
-    eligibleForPositive: false,
-    ineligibilityCode: code,
-  });
-
-  if (claim.version !== expectedVersion) {
-    return ineligible("version_mismatch");
-  }
-  if (isSuperseded) {
-    return ineligible("superseded");
-  }
-  if (claim.status === "disputed") {
-    return ineligible("disputed");
-  }
-  if (claim.status === "waived") {
-    return ineligible("waived");
-  }
-  if (claim.status !== "pass") {
-    return ineligible("not_pass");
-  }
-
-  // PASS requires confirmation when Critical/structural (or when confirmationAuthority missing for non-deterministic).
-  if (claim.criticality === "structural") {
-    if (
-      !claim.confirmedBy ||
-      claim.confirmationAuthority !== "morris"
-    ) {
-      return ineligible("structural_confirmation_required");
-    }
-  } else if (claim.criticality === "critical") {
-    if (
-      !claim.confirmedBy ||
-      claim.confirmationAuthority === "system_deterministic" ||
-      claim.confirmedBy.role === "system" ||
-      claim.confirmedBy.role === "agent"
-    ) {
-      return ineligible("confirmation_required");
-    }
-  } else {
-    // non_critical: system_deterministic PASS ok; otherwise human confirmation if evaluating was confirmed to pass
-    if (
-      claim.confirmationAuthority !== "system_deterministic" &&
-      !claim.confirmedBy
-    ) {
-      return ineligible("confirmation_required");
-    }
-  }
-
-  return { ...base, eligibleForPositive: true };
-}
-
-export type MaturityCalculation = {
-  proposedLevel: MaturityLevel;
-  status: "proposed" | "blocked";
-  criteriaResults: MaturityCriterionResult[];
-  gaps: MaturityGap[];
-  dimensions?: Array<{
-    dimensionId: string;
-    proposedLevel: MaturityLevel;
-    blocked?: boolean;
-  }>;
-};
-
-/**
- * Explicit level thresholds (no averages, no majority):
- * - DOCUMENTED: ≥1 eligible PASS
- * - VALIDATED: ≥1 eligible PASS with any confirmation authority
- * - MODELED: ≥1 eligible PASS with claimType technique|maturite_support|conformite
- * - IMPLEMENTED: ≥1 eligible PASS with criticality critical|structural
- * - ADOPTED: ≥1 eligible PASS structural with morris confirmation
- * HARD reserves ⇒ blocked (cannot confirm; proposedLevel capped at DOCUMENTED for display)
- */
-export function calculateMaturityLevel(input: {
-  requestedLevel: MaturityLevel;
-  bindings: MaturityClaimBinding[];
-  blockingReservationRefs: string[];
-  dimensions?: Array<{ dimensionId: string; proposedLevel: MaturityLevel }>;
-}): MaturityCalculation {
-  const eligible = input.bindings.filter((b) => b.eligibleForPositive);
-  const gaps: MaturityGap[] = [];
-
-  for (const b of input.bindings) {
-    if (b.eligibleForPositive) continue;
-    if (b.ineligibilityCode === "disputed") {
-      gaps.push({
-        code: "claim_disputed",
-        claimEvaluationId: b.claimEvaluationId,
-      });
-    } else if (b.ineligibilityCode === "waived") {
-      gaps.push({
-        code: "claim_waived",
-        claimEvaluationId: b.claimEvaluationId,
-      });
-    } else if (b.ineligibilityCode === "superseded") {
-      gaps.push({
-        code: "claim_superseded",
-        claimEvaluationId: b.claimEvaluationId,
-      });
-    } else if (
-      b.ineligibilityCode === "confirmation_required" ||
-      b.ineligibilityCode === "structural_confirmation_required"
-    ) {
-      gaps.push({
-        code: "claim_not_confirmed",
-        claimEvaluationId: b.claimEvaluationId,
-      });
-    } else if (b.ineligibilityCode === "version_mismatch") {
-      gaps.push({
-        code: "claim_version_mismatch",
-        claimEvaluationId: b.claimEvaluationId,
-      });
-    } else if (b.ineligibilityCode === "missing") {
-      gaps.push({
-        code: "claim_missing",
-        claimEvaluationId: b.claimEvaluationId,
-      });
-    }
-  }
-
-  const hasEligible = eligible.length > 0;
-  if (!hasEligible) {
-    gaps.push({ code: "no_eligible_claims" });
-  }
-
-  const hasConfirmed = eligible.some(
-    (b) =>
-      Boolean(b.confirmationAuthority) || Boolean(b.confirmedByActorId),
-  );
-  const hasModeledSupport = eligible.some((b) =>
-    ["technique", "maturite_support", "conformite"].includes(b.claimType),
-  );
-  const hasImplementedSupport = eligible.some(
-    (b) => b.criticality === "critical" || b.criticality === "structural",
-  );
-  const hasAdoptedSupport = eligible.some(
-    (b) =>
-      b.criticality === "structural" &&
-      b.confirmationAuthority === "morris",
-  );
-  const hardBlocked = input.blockingReservationRefs.length > 0;
-
-  const criteriaResults: MaturityCriterionResult[] = [
-    {
-      code: "has_eligible_pass",
-      satisfied: hasEligible,
-      supportingClaimEvaluationIds: eligible.map((b) => b.claimEvaluationId),
-    },
-    {
-      code: "has_confirmed_pass",
-      satisfied: hasConfirmed,
-      supportingClaimEvaluationIds: eligible
-        .filter((b) => b.confirmationAuthority || b.confirmedByActorId)
-        .map((b) => b.claimEvaluationId),
-    },
-    {
-      code: "has_modeled_support",
-      satisfied: hasModeledSupport,
-      supportingClaimEvaluationIds: eligible
-        .filter((b) =>
-          ["technique", "maturite_support", "conformite"].includes(b.claimType),
-        )
-        .map((b) => b.claimEvaluationId),
-    },
-    {
-      code: "has_implemented_support",
-      satisfied: hasImplementedSupport,
-      supportingClaimEvaluationIds: eligible
-        .filter(
-          (b) =>
-            b.criticality === "critical" || b.criticality === "structural",
-        )
-        .map((b) => b.claimEvaluationId),
-    },
-    {
-      code: "has_adopted_morris_support",
-      satisfied: hasAdoptedSupport,
-      supportingClaimEvaluationIds: eligible
-        .filter(
-          (b) =>
-            b.criticality === "structural" &&
-            b.confirmationAuthority === "morris",
-        )
-        .map((b) => b.claimEvaluationId),
-    },
-    {
-      code: "no_hard_blocking_reserve",
-      satisfied: !hardBlocked,
-      supportingClaimEvaluationIds: [],
-    },
-  ];
-
-  let supported: MaturityLevel = "DOCUMENTED";
-  if (hasEligible) supported = "DOCUMENTED";
-  if (hasEligible && hasConfirmed) supported = "VALIDATED";
-  if (hasEligible && hasConfirmed && hasModeledSupport) supported = "MODELED";
-  if (hasEligible && hasConfirmed && hasImplementedSupport) {
-    supported = "IMPLEMENTED";
-  }
-  if (hasEligible && hasConfirmed && hasAdoptedSupport) {
-    supported = "ADOPTED";
-  }
-  if (!hasEligible) {
-    // Fail-closed floor: still DOCUMENTED proposal with gaps — never invent higher.
-    supported = "DOCUMENTED";
-  }
-
-  let proposedLevel = minLevel(input.requestedLevel, supported);
-  if (levelRank(input.requestedLevel) > levelRank(supported)) {
-    gaps.push({
-      code: "requested_level_unsupported",
-      level: input.requestedLevel,
-    });
-    gaps.push({
-      code: "insufficient_for_level",
-      level: input.requestedLevel,
-    });
-  }
-
-  if (hardBlocked) {
-    gaps.push({
-      code: "hard_reserve_blocks_level",
-      level: proposedLevel,
-    });
-    proposedLevel = minLevel(proposedLevel, "DOCUMENTED");
-    const dimensions = (input.dimensions ?? []).map((d) => ({
-      dimensionId: d.dimensionId,
-      proposedLevel: minLevel(d.proposedLevel, proposedLevel),
-      blocked: true,
-    }));
-    return {
-      proposedLevel,
-      status: "blocked",
-      criteriaResults,
-      gaps,
-      dimensions: dimensions.length
-        ? dimensions
-        : [
-            {
-              dimensionId: "default",
-              proposedLevel,
-              blocked: true,
-            },
-          ],
-    };
-  }
-
-  const dimensions = (input.dimensions ?? []).map((d) => ({
-    dimensionId: d.dimensionId,
-    proposedLevel: minLevel(d.proposedLevel, proposedLevel),
-  }));
-
-  return {
-    proposedLevel,
-    status: "proposed",
-    criteriaResults,
-    gaps,
-    dimensions: dimensions.length ? dimensions : undefined,
-  };
-}
-
-export function missingClaimBinding(
-  claimEvaluationId: string,
-  expectedVersion: number,
-): MaturityClaimBinding {
-  return {
-    claimEvaluationId,
-    claimEvaluationVersion: expectedVersion,
-    claimType: "",
-    criticality: "",
-    status: "missing",
-    eligibleForPositive: false,
-    ineligibilityCode: "missing",
-    reviewBundleId: "",
-    reviewBundleVersion: 0,
-  };
-}
-
-```
-
-### `projects/sfia-studio/app/lib/oa/evidence-review/application/proposeMaturity.ts`
-
-```typescript
-/**
- * ProposeMaturity — create MaturityAssessment with deterministic fail-closed calculation.
- * autoPromoted=false. Never mutates ClaimEvaluation. Never launches D5 / Decision / execution.
- */
-import type { ClockPort } from "@/lib/oa/doctrine";
-import {
-  createMaturityAssessmentError,
-  isMaturityAssessmentDomainError,
-} from "../domain/maturityAssessmentErrors";
-import {
-  isMaturityAssessmentId,
-  isProjectId,
-  MATURITY_LEVELS,
-  validateMaturityAssessmentShape,
-} from "../domain/maturityAssessmentInvariants";
-import type {
-  MaturityAssessment,
-  MaturityAssessmentResult,
-  ProposeMaturityRequest,
-} from "../domain/maturityAssessmentTypes";
-import { containsForbiddenSecret, isOaIdentifier } from "../domain/invariants";
-import type { ClaimEvaluationReaderPort } from "../ports/claimEvaluationReader";
-import type { EvidenceAuditPort } from "../ports/evidenceAudit";
-import type { IdGeneratorPort } from "../ports/idGenerator";
-import type { MaturityAssessmentRepositoryPort } from "../ports/maturityAssessmentRepository";
-import {
-  assertIdempotencyKey,
-  buildProvenance,
-  fingerprintCommand,
-  registerFingerprintBody,
-} from "./evidenceSupport";
-import {
-  assessClaimEligibility,
-  calculateMaturityLevel,
-  missingClaimBinding,
-} from "./maturityCalculation";
-
-export class ProposeMaturity {
-  constructor(
-    private readonly repo: MaturityAssessmentRepositoryPort,
-    private readonly claims: ClaimEvaluationReaderPort,
-    private readonly clock: ClockPort,
-    private readonly audit: EvidenceAuditPort,
-    private readonly ids: IdGeneratorPort,
-  ) {}
-
-  async execute(
-    request: ProposeMaturityRequest,
-  ): Promise<MaturityAssessmentResult> {
-    const started = Date.now();
-    const timestamp = request.nowIso ?? this.clock.nowIso();
-    const correlationId =
-      request.correlationId ?? this.ids.newCorrelationId();
-
-    const fail = (
-      detailCode: Parameters<typeof createMaturityAssessmentError>[0]["detailCode"],
-      internalCauseRef: string,
-      extra?: Partial<Parameters<typeof createMaturityAssessmentError>[0]> & {
-        maturityAssessment?: MaturityAssessment;
-      },
-    ): MaturityAssessmentResult => {
-      const { maturityAssessment, ...errorExtra } = extra ?? {};
-      const durationMs = Date.now() - started;
-      const event =
-        detailCode === "IDEMPOTENCY_CONFLICT"
-          ? ("oa.maturity_assessment.idempotency_conflict" as const)
-          : detailCode === "MATURITY_AUTHORITY_FORBIDDEN" ||
-              detailCode === "MATURITY_SELF_REVIEW_FORBIDDEN"
-            ? ("oa.maturity_assessment.authority_rejected" as const)
-            : ("oa.maturity_assessment.operation_rejected" as const);
-      this.audit.append({
-        event,
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: request.maturityAssessmentId,
-        actorId: request.actor.actorId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return {
-        ok: false,
-        error: createMaturityAssessmentError({
-          detailCode,
-          timestamp,
-          correlationId,
-          maturityAssessmentId: request.maturityAssessmentId,
-          internalCauseRef,
-          ...errorExtra,
-        }),
-        maturityAssessment,
-        durationMs,
-      };
-    };
-
-    try {
-      if (!isMaturityAssessmentId(request.maturityAssessmentId)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "maturity_id_invalid");
-      }
-      if (!isProjectId(request.projectId)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "project_id_invalid");
-      }
-      if (!request.subjectRef || !isOaIdentifier(request.subjectRef)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "subject_ref_invalid");
-      }
-      if (!MATURITY_LEVELS.has(request.requestedLevel)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "requested_level_invalid");
-      }
-      if (!assertIdempotencyKey(request.idempotencyKey)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "idempotency_key_too_short");
-      }
-      if (!request.claimBindings?.length) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "claim_bindings_required");
-      }
-      if (containsForbiddenSecret(request.actor.displayName)) {
-        return fail("MATURITY_SECRET_FORBIDDEN", "secret_in_actor");
-      }
-
-      const fingerprint = fingerprintCommand(
-        registerFingerprintBody({
-          maturityAssessmentId: request.maturityAssessmentId,
-          idempotencyKey: request.idempotencyKey,
-          projectId: request.projectId,
-          subjectRef: request.subjectRef,
-          requestedLevel: request.requestedLevel,
-          claimBindings: request.claimBindings,
-          blockingReservationRefs: request.blockingReservationRefs ?? [],
-          dimensions: request.dimensions ?? [],
-          actor: request.actor,
-        }),
-      );
-
-      const existingIdem = await this.repo.findByIdempotencyKey(
-        request.idempotencyKey,
-      );
-      if (existingIdem) {
-        if (
-          existingIdem.record.fingerprint === fingerprint &&
-          existingIdem.record.operation === "propose_maturity"
-        ) {
-          const durationMs = Date.now() - started;
-          this.audit.append({
-            event: "oa.maturity_assessment.proposed",
-            ts: timestamp,
-            correlationId,
-            maturityAssessmentId:
-              existingIdem.maturityAssessment.maturityAssessmentId,
-            actorId: request.actor.actorId,
-            newStatus: existingIdem.maturityAssessment.status,
-            version: existingIdem.maturityAssessment.version,
-            result: "ok",
-            durationMs,
-          });
-          return {
-            ok: true,
-            maturityAssessment: existingIdem.maturityAssessment,
-            reusedFromIdempotencyKey: true,
-            durationMs,
-          };
-        }
-        return fail("IDEMPOTENCY_CONFLICT", "idempotency_fingerprint_mismatch");
-      }
-
-      if (await this.repo.exists(request.maturityAssessmentId)) {
-        return fail(
-          "MATURITY_ASSESSMENT_ALREADY_EXISTS",
-          "maturity_id_taken",
-        );
-      }
-
-      const bindings = [];
-      const reviewBundleRefs = new Map<
-        string,
-        { reviewBundleId: string; version: number }
-      >();
-      const evidenceRefs = new Set<string>();
-      const waiverRefs: string[] = [];
-
-      for (const ref of request.claimBindings) {
-        if (!ref.claimEvaluationId?.startsWith("clm:")) {
-          return fail("MATURITY_ASSESSMENT_INVALID", "claim_id_invalid", {
-            claimEvaluationId: ref.claimEvaluationId,
-          });
-        }
-        const claim = await this.claims.findById(ref.claimEvaluationId);
-        if (!claim) {
-          bindings.push(
-            missingClaimBinding(
-              ref.claimEvaluationId,
-              ref.claimEvaluationVersion,
-            ),
-          );
-          continue;
-        }
-        const isSuperseded = await this.claims.isSuperseded(
-          ref.claimEvaluationId,
-        );
-        const binding = assessClaimEligibility({
-          claim,
-          expectedVersion: ref.claimEvaluationVersion,
-          isSuperseded,
-        });
-        bindings.push(binding);
-        reviewBundleRefs.set(
-          `${claim.reviewBundleId}@${claim.reviewBundleVersion}`,
-          {
-            reviewBundleId: claim.reviewBundleId,
-            version: claim.reviewBundleVersion,
-          },
-        );
-        for (const ev of claim.requiredEvidenceRefs) evidenceRefs.add(ev);
-        if (claim.status === "waived" && claim.waiver) {
-          waiverRefs.push(ref.claimEvaluationId);
-        }
-      }
-
-      // Hard fail if any required binding is missing entirely (fail-closed propose).
-      const missing = bindings.find((b) => b.ineligibilityCode === "missing");
-      if (missing) {
-        return fail("MATURITY_CLAIM_NOT_FOUND", "claim_missing", {
-          claimEvaluationId: missing.claimEvaluationId,
-        });
-      }
-      const versionMismatch = bindings.find(
-        (b) => b.ineligibilityCode === "version_mismatch",
-      );
-      if (versionMismatch) {
-        return fail(
-          "MATURITY_CLAIM_VERSION_MISMATCH",
-          "claim_version_mismatch",
-          { claimEvaluationId: versionMismatch.claimEvaluationId },
-        );
-      }
-
-      const blockingReservationRefs = [
-        ...(request.blockingReservationRefs ?? []),
-      ];
-      const calc = calculateMaturityLevel({
-        requestedLevel: request.requestedLevel,
-        bindings,
-        blockingReservationRefs,
-        dimensions: request.dimensions,
-      });
-
-      const assessment: MaturityAssessment = {
-        schemaVersion: "0.2.0-oa",
-        maturityAssessmentId: request.maturityAssessmentId,
-        projectId: request.projectId,
-        subjectRef: request.subjectRef,
-        dimensions: calc.dimensions,
-        proposedLevel: calc.proposedLevel,
-        claimEvaluationRefs: request.claimBindings.map(
-          (c) => c.claimEvaluationId,
-        ),
-        claimBindings: structuredClone(bindings),
-        reviewBundleRefs:
-          request.reviewBundleRefs ??
-          [...reviewBundleRefs.values()],
-        evidenceRefs: request.evidenceRefs ?? [...evidenceRefs],
-        blockingReservationRefs,
-        waiverRefs: waiverRefs.length ? waiverRefs : undefined,
-        proposedBy: { ...request.actor },
-        proposedAt: timestamp,
-        status: calc.status,
-        autoPromoted: false,
-        provenance: buildProvenance({
-          ids: this.ids,
-          actor: request.actor,
-          source: "review",
-          timestamp,
-          correlationId,
-          projectId: request.projectId,
-        }),
-        criteriaResults: structuredClone(calc.criteriaResults),
-        gaps: structuredClone(calc.gaps),
-        calculatedAt: timestamp,
-        version: 1,
-        idempotencyKey: request.idempotencyKey,
-        updatedAt: timestamp,
-      };
-
-      const shape = validateMaturityAssessmentShape(assessment);
-      if (shape) {
-        return fail(shape.detailCode, shape.reason);
-      }
-
-      await this.repo.create(assessment, {
-        maturityAssessmentId: assessment.maturityAssessmentId,
-        fingerprint,
-        operation: "propose_maturity",
-      });
-
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.maturity_assessment.proposed",
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: assessment.maturityAssessmentId,
-        claimEvaluationId: assessment.claimEvaluationRefs[0],
-        evidenceIds: assessment.claimEvaluationRefs,
-        actorId: request.actor.actorId,
-        newStatus: assessment.status,
-        version: assessment.version,
-        result: "ok",
-        durationMs,
-      });
-      this.audit.append({
-        event: "oa.maturity_assessment.calculated",
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: assessment.maturityAssessmentId,
-        actorId: request.actor.actorId,
-        newStatus: assessment.proposedLevel,
-        version: assessment.version,
-        result: "ok",
-        durationMs,
-      });
-
-      return {
-        ok: true,
-        maturityAssessment: structuredClone(assessment),
-        durationMs,
-      };
-    } catch (err) {
-      if (isMaturityAssessmentDomainError(err)) {
-        return fail(err.detailCode, err.message, {
-          expectedVersion: err.expectedVersion,
-          currentVersion: err.currentVersion,
-        });
-      }
-      return fail("MATURITY_PERSISTENCE_FAILED", "unexpected_propose_failure");
-    }
-  }
-}
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/adversarialMaturityValidation.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/adversarialMaturityValidation.test.ts
+new file mode 100644
+index 0000000..6c44737
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/evidence-review/adversarialMaturityValidation.test.ts
+@@ -0,0 +1,255 @@
++/**
++ * T-A6-D4 adversarial validation — Confirm re-assess, no DOCUMENTED without eligible,
++ * IMPLEMENTED/ADOPTED Morris, defensive copies.
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import type { ActorReference } from "@/lib/oa/evidence-review";
++import { ACTOR, DIGEST_A, buildServices } from "./helpers";
++
++const REVIEWER: ActorReference = {
++  actorId: "actor:reviewer-1",
++  role: "reviewer",
++  authorityLevel: "N2",
++};
++
++const SYSTEM: ActorReference = {
++  actorId: "actor:studio",
++  role: "system",
++  authorityLevel: "none",
++};
++
++async function seedVerifiedEvidence(
++  s: ReturnType<typeof buildServices>,
++  id: string,
++) {
++  await s.registerEvidence.execute({
++    evidenceId: id,
++    idempotencyKey: `idem-${id}`,
++    actor: ACTOR,
++    type: "document",
++    source: "fixture",
++    sourceKind: "manual",
++    bindings: { projectId: "prj:campus360-oa" },
++    classification: "internal",
++    storageMode: "metadata_only",
++    digest: DIGEST_A,
++  });
++  s.fakePayload.setScript(id, { digest: DIGEST_A });
++  await s.verifyEvidenceIntegrity.execute({
++    evidenceId: id,
++    actor: ACTOR,
++    expectedVersion: 1,
++  });
++}
++
++async function freezeBundle(
++  s: ReturnType<typeof buildServices>,
++  rbId: string,
++  evidenceIds: string[],
++) {
++  for (const id of evidenceIds) await seedVerifiedEvidence(s, id);
++  await s.createReviewBundle.execute({
++    reviewBundleId: rbId,
++    idempotencyKey: `idem-create-${rbId}`,
++    actor: ACTOR,
++    projectId: "prj:campus360-oa",
++    evidenceIds,
++  });
++  await s.freezeReviewBundle.execute({
++    reviewBundleId: rbId,
++    idempotencyKey: `idem-freeze-${rbId}`,
++    actor: ACTOR,
++    expectedVersion: 1,
++  });
++}
++
++async function seedPassClaim(
++  s: ReturnType<typeof buildServices>,
++  claimId: string,
++  evidenceId: string,
++  rbId: string,
++) {
++  await freezeBundle(s, rbId, [evidenceId]);
++  const evaluated = await s.evaluateClaim.execute({
++    claimEvaluationId: claimId,
++    idempotencyKey: `idem-eval-${claimId}`,
++    actor: SYSTEM,
++    claimType: "technique",
++    claimStatement: "Support maturity",
++    criticality: "non_critical",
++    evaluationMethod: "deterministic",
++    requiredEvidenceRefs: [evidenceId],
++    reviewBundleId: rbId,
++    reviewBundleVersion: 2,
++  });
++  expect(evaluated.ok).toBe(true);
++  if (!evaluated.ok) return null;
++  return evaluated.claimEvaluation;
++}
++
++describe("T-A6-D4 adversarial — Confirm re-assessment", () => {
++  it("refuses Confirm after bound claim is superseded post-propose", async () => {
++    const s = buildServices();
++    s.fakeClaimAuthority.grant({
++      actorId: REVIEWER.actorId,
++      level: "N2",
++      scope: "oa.maturity_assessment",
++    });
++    const claim = await seedPassClaim(
++      s,
++      "clm:adv-sup-old",
++      "ev:adv-sup",
++      "rb:adv-sup",
++    );
++    expect(claim).toBeTruthy();
++    const proposed = await s.proposeMaturity.execute({
++      maturityAssessmentId: "mat:adv-sup",
++      idempotencyKey: "idem-mat-adv-sup-p",
++      actor: SYSTEM,
++      projectId: "prj:campus360-oa",
++      subjectRef: "prj:campus360-oa",
++      requestedLevel: "VALIDATED",
++      claimBindings: [
++        {
++          claimEvaluationId: "clm:adv-sup-old",
++          claimEvaluationVersion: claim!.version,
++        },
++      ],
++    });
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++
++    const successor = await s.evaluateClaim.execute({
++      claimEvaluationId: "clm:adv-sup-new",
++      idempotencyKey: "idem-clm-adv-sup-new",
++      actor: SYSTEM,
++      claimType: "technique",
++      claimStatement: "Superseding evaluation",
++      criticality: "non_critical",
++      evaluationMethod: "deterministic",
++      requiredEvidenceRefs: ["ev:adv-sup"],
++      reviewBundleId: "rb:adv-sup",
++      reviewBundleVersion: 2,
++      supersedesClaimEvaluationId: "clm:adv-sup-old",
++    });
++    expect(successor.ok).toBe(true);
++    expect(await s.claimEvaluationReader.isSuperseded("clm:adv-sup-old")).toBe(
++      true,
++    );
++
++    const confirmed = await s.confirmMaturity.execute({
++      maturityAssessmentId: "mat:adv-sup",
++      idempotencyKey: "idem-mat-adv-sup-c",
++      actor: REVIEWER,
++      expectedVersion: 1,
++    });
++    expect(confirmed.ok).toBe(false);
++    if (confirmed.ok) return;
++    expect(
++      confirmed.error.detailCode === "MATURITY_CLAIM_SUPERSEDED" ||
++        confirmed.error.detailCode === "MATURITY_CLAIM_NOT_ELIGIBLE",
++    ).toBe(true);
++  });
++});
++
++describe("T-A6-D4 adversarial — IMPLEMENTED Morris + defensive copies", () => {
++  it("refuses IMPLEMENTED confirm without Morris gate", async () => {
++    const s = buildServices();
++    s.fakeClaimAuthority.grant({
++      actorId: REVIEWER.actorId,
++      level: "N2",
++      scope: "oa.maturity_assessment",
++    });
++    s.fakeClaimAuthority.grant({
++      actorId: REVIEWER.actorId,
++      level: "N2",
++      scope: "oa.claim_evaluation",
++    });
++    // Build critical confirmed claim to support IMPLEMENTED
++    await freezeBundle(s, "rb:adv-impl", ["ev:adv-impl"]);
++    const evaluated = await s.evaluateClaim.execute({
++      claimEvaluationId: "clm:adv-impl-001",
++      idempotencyKey: "idem-clm-adv-impl-e",
++      actor: SYSTEM,
++      claimType: "securite",
++      claimStatement: "Critical claim",
++      criticality: "critical",
++      evaluationMethod: "human_review",
++      requiredEvidenceRefs: ["ev:adv-impl"],
++      reviewBundleId: "rb:adv-impl",
++      reviewBundleVersion: 2,
++    });
++    expect(evaluated.ok).toBe(true);
++    if (!evaluated.ok) return;
++    expect(evaluated.claimEvaluation.status).toBe("evaluating");
++    const claimConfirmed = await s.confirmClaimEvaluation.execute({
++      claimEvaluationId: "clm:adv-impl-001",
++      idempotencyKey: "idem-clm-adv-impl-c",
++      actor: REVIEWER,
++      expectedVersion: 1,
++    });
++    expect(claimConfirmed.ok).toBe(true);
++    if (!claimConfirmed.ok) return;
++
++    const proposed = await s.proposeMaturity.execute({
++      maturityAssessmentId: "mat:adv-impl",
++      idempotencyKey: "idem-mat-adv-impl-p",
++      actor: SYSTEM,
++      projectId: "prj:campus360-oa",
++      subjectRef: "prj:campus360-oa",
++      requestedLevel: "IMPLEMENTED",
++      claimBindings: [
++        {
++          claimEvaluationId: "clm:adv-impl-001",
++          claimEvaluationVersion: claimConfirmed.claimEvaluation.version,
++        },
++      ],
++    });
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++    expect(proposed.maturityAssessment.proposedLevel).toBe("IMPLEMENTED");
++
++    const confirmed = await s.confirmMaturity.execute({
++      maturityAssessmentId: "mat:adv-impl",
++      idempotencyKey: "idem-mat-adv-impl-c",
++      actor: REVIEWER,
++      expectedVersion: 1,
++    });
++    expect(confirmed.ok).toBe(false);
++    if (confirmed.ok) return;
++    expect(confirmed.error.detailCode).toBe("MATURITY_AUTHORITY_FORBIDDEN");
++  });
++
++  it("defensive copies on maturity get", async () => {
++    const s = buildServices();
++    const claim = await seedPassClaim(
++      s,
++      "clm:adv-clone-001",
++      "ev:adv-clone",
++      "rb:adv-clone",
++    );
++    await s.proposeMaturity.execute({
++      maturityAssessmentId: "mat:adv-clone",
++      idempotencyKey: "idem-mat-adv-clone",
++      actor: SYSTEM,
++      projectId: "prj:campus360-oa",
++      subjectRef: "prj:campus360-oa",
++      requestedLevel: "VALIDATED",
++      claimBindings: [
++        {
++          claimEvaluationId: "clm:adv-clone-001",
++          claimEvaluationVersion: claim!.version,
++        },
++      ],
++    });
++    const got = await s.maturityAssessmentRepository.findById("mat:adv-clone");
++    expect(got).toBeTruthy();
++    if (!got) return;
++    got.status = "confirmed";
++    got.claimBindings[0]!.eligibleForPositive = false;
++    const again = await s.maturityAssessmentRepository.findById("mat:adv-clone");
++    expect(again?.status).toBe("proposed");
++    expect(again?.claimBindings[0]?.eligibleForPositive).toBe(true);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentDomain.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentDomain.test.ts
+index ad47b79..1087d9e 100644
+--- a/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentDomain.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentDomain.test.ts
+@@ -121,11 +121,25 @@ describe("T-A6-D4 maturity domain", () => {
+       bindings: [eligible],
+       blockingReservationRefs: [],
+     });
++    expect(calc.supportedLevel).toBe("MODELED");
+     expect(calc.proposedLevel).toBe("MODELED");
+     expect(calc.gaps.some((g) => g.code === "requested_level_unsupported")).toBe(
+       true,
+     );
+ 
++    const none = calculateMaturityLevel({
++      requestedLevel: "DOCUMENTED",
++      bindings: [
++        assessClaimEligibility({
++          claim: baseClaim({ status: "waived" }),
++          expectedVersion: 1,
++          isSuperseded: false,
++        }),
++      ],
++      blockingReservationRefs: [],
++    });
++    expect(none.supportedLevel).toBeNull();
++
+     const blocked = calculateMaturityLevel({
+       requestedLevel: "MODELED",
+       bindings: [eligible],
+diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts
+index 0bbf775..f91b719 100644
+--- a/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts
+@@ -189,7 +189,7 @@ describe("T-A6-D4 ProposeMaturity", () => {
+     expect(badVer.error.detailCode).toBe("MATURITY_CLAIM_VERSION_MISMATCH");
+   });
+ 
+-  it("does not promote from waived or disputed claims", async () => {
++  it("refuses propose when waived/disputed only (no eligible PASS)", async () => {
+     const s = buildServices();
+     await freezeBundle(s, "rb:mat-waive", ["ev:mat-waive"]);
+     s.fakeClaimAuthority.grant({
+@@ -229,15 +229,9 @@ describe("T-A6-D4 ProposeMaturity", () => {
+         },
+       ],
+     });
+-    expect(proposed.ok).toBe(true);
+-    if (!proposed.ok) return;
+-    expect(proposed.maturityAssessment.proposedLevel).toBe("DOCUMENTED");
+-    expect(
+-      proposed.maturityAssessment.claimBindings[0]?.eligibleForPositive,
+-    ).toBe(false);
+-    expect(proposed.maturityAssessment.gaps?.some((g) => g.code === "claim_waived")).toBe(
+-      true,
+-    );
++    expect(proposed.ok).toBe(false);
++    if (proposed.ok) return;
++    expect(proposed.error.detailCode).toBe("MATURITY_CLAIM_NOT_ELIGIBLE");
+   });
+ 
+   it("blocks proposal when HARD reservation present", async () => {
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmMaturity.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmMaturity.ts
+index 16a79d4..2cdd971 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmMaturity.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/confirmMaturity.ts
+@@ -1,7 +1,8 @@
+ /**
+  * ConfirmMaturity — human confirmation of proposed maturity.
+- * System/agent forbidden. ADOPTED / structural levels require Morris.
++ * System/agent forbidden. ADOPTED / IMPLEMENTED require Morris.
+  * HARD blockingReservationRefs forbid confirm. autoPromoted remains false.
++ * Re-assesses ClaimEvaluation bindings at exact versions before confirm (fail-closed).
+  * Never launches D5 / Decision / executionAuthority.
+  */
+ import type { ClockPort } from "@/lib/oa/doctrine";
+@@ -21,6 +22,7 @@ import type {
+ } from "../domain/maturityAssessmentTypes";
+ import { containsForbiddenSecret } from "../domain/invariants";
+ import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
++import type { ClaimEvaluationReaderPort } from "../ports/claimEvaluationReader";
+ import type { EvidenceAuditPort } from "../ports/evidenceAudit";
+ import type { IdGeneratorPort } from "../ports/idGenerator";
+ import type { MaturityAssessmentRepositoryPort } from "../ports/maturityAssessmentRepository";
+@@ -29,12 +31,17 @@ import {
+   fingerprintCommand,
+   registerFingerprintBody,
+ } from "./evidenceSupport";
++import {
++  calculateMaturityLevel,
++  reassessStoredBindings,
++} from "./maturityCalculation";
+ 
+ const MATURITY_AUTHORITY_SCOPE = "oa.maturity_assessment";
+ 
+ export class ConfirmMaturity {
+   constructor(
+     private readonly repo: MaturityAssessmentRepositoryPort,
++    private readonly claims: ClaimEvaluationReaderPort,
+     private readonly authority: ClaimAuthorityPort,
+     private readonly clock: ClockPort,
+     private readonly audit: EvidenceAuditPort,
+@@ -214,6 +221,91 @@ export class ConfirmMaturity {
+         }
+       }
+ 
++      // Re-assess exact ClaimEvaluation bindings before PASS confirm (fail-closed).
++      const freshBindings = await reassessStoredBindings({
++        bindings: current.claimBindings,
++        claims: this.claims,
++      });
++      const missing = freshBindings.find(
++        (b) => b.ineligibilityCode === "missing",
++      );
++      if (missing) {
++        return fail("MATURITY_CLAIM_NOT_FOUND", "claim_missing_at_confirm", {
++          claimEvaluationId: missing.claimEvaluationId,
++          maturityAssessment: current,
++        });
++      }
++      const versionMismatch = freshBindings.find(
++        (b) => b.ineligibilityCode === "version_mismatch",
++      );
++      if (versionMismatch) {
++        return fail(
++          "MATURITY_CLAIM_VERSION_MISMATCH",
++          "claim_version_mismatch_at_confirm",
++          {
++            claimEvaluationId: versionMismatch.claimEvaluationId,
++            maturityAssessment: current,
++          },
++        );
++      }
++      const disputed = freshBindings.find(
++        (b) => b.ineligibilityCode === "disputed",
++      );
++      if (disputed) {
++        return fail("MATURITY_CLAIM_DISPUTED", "claim_disputed_at_confirm", {
++          claimEvaluationId: disputed.claimEvaluationId,
++          maturityAssessment: current,
++        });
++      }
++      const waived = freshBindings.find(
++        (b) => b.ineligibilityCode === "waived",
++      );
++      if (waived) {
++        return fail("MATURITY_CLAIM_WAIVED", "claim_waived_at_confirm", {
++          claimEvaluationId: waived.claimEvaluationId,
++          maturityAssessment: current,
++        });
++      }
++      const superseded = freshBindings.find(
++        (b) => b.ineligibilityCode === "superseded",
++      );
++      if (superseded) {
++        return fail(
++          "MATURITY_CLAIM_SUPERSEDED",
++          "claim_superseded_at_confirm",
++          {
++            claimEvaluationId: superseded.claimEvaluationId,
++            maturityAssessment: current,
++          },
++        );
++      }
++
++      const calc = calculateMaturityLevel({
++        requestedLevel: current.proposedLevel,
++        bindings: freshBindings,
++        blockingReservationRefs: current.blockingReservationRefs,
++        dimensions: current.dimensions?.map((d) => ({
++          dimensionId: d.dimensionId,
++          proposedLevel: d.proposedLevel,
++        })),
++      });
++      if (calc.supportedLevel === null || calc.status === "blocked") {
++        return fail(
++          calc.status === "blocked"
++            ? "MATURITY_BLOCKED_BY_RESERVATION"
++            : "MATURITY_CLAIM_NOT_ELIGIBLE",
++          "confirm_reassess_unsupported",
++          { maturityAssessment: current },
++        );
++      }
++      if (levelRank(calc.proposedLevel) < levelRank(current.proposedLevel)) {
++        return fail(
++          "MATURITY_CLAIM_NOT_ELIGIBLE",
++          "confirm_level_regressed_after_reassess",
++          { maturityAssessment: current },
++        );
++      }
++
+       const requireMorris =
+         current.proposedLevel === "ADOPTED" ||
+         current.proposedLevel === "IMPLEMENTED";
+@@ -246,6 +338,10 @@ export class ConfirmMaturity {
+         confirmedLevel: current.proposedLevel,
+         confirmedBy: { ...request.actor },
+         confirmedAt: timestamp,
++        claimBindings: structuredClone(freshBindings),
++        criteriaResults: structuredClone(calc.criteriaResults),
++        gaps: structuredClone(calc.gaps),
++        calculatedAt: timestamp,
+         dimensions: current.dimensions?.map((d) => ({
+           ...d,
+           confirmedLevel: d.proposedLevel,
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/maturityCalculation.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/maturityCalculation.ts
+index e6c11f5..f5d19e6 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/application/maturityCalculation.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/maturityCalculation.ts
+@@ -90,6 +90,8 @@ export function assessClaimEligibility(
+ }
+ 
+ export type MaturityCalculation = {
++  /** Highest modeled level supported by eligible claims; null if none eligible. */
++  supportedLevel: MaturityLevel | null;
+   proposedLevel: MaturityLevel;
+   status: "proposed" | "blocked";
+   criteriaResults: MaturityCriterionResult[];
+@@ -229,7 +231,8 @@ export function calculateMaturityLevel(input: {
+     },
+   ];
+ 
+-  let supported: MaturityLevel = "DOCUMENTED";
++  // Fail-closed: no eligible PASS ⇒ no supported modeled level (DOCUMENTED requires ≥1).
++  let supported: MaturityLevel | null = null;
+   if (hasEligible) supported = "DOCUMENTED";
+   if (hasEligible && hasConfirmed) supported = "VALIDATED";
+   if (hasEligible && hasConfirmed && hasModeledSupport) supported = "MODELED";
+@@ -239,9 +242,42 @@ export function calculateMaturityLevel(input: {
+   if (hasEligible && hasConfirmed && hasAdoptedSupport) {
+     supported = "ADOPTED";
+   }
+-  if (!hasEligible) {
+-    // Fail-closed floor: still DOCUMENTED proposal with gaps — never invent higher.
+-    supported = "DOCUMENTED";
++
++  if (supported === null) {
++    gaps.push({
++      code: "insufficient_for_level",
++      level: input.requestedLevel,
++    });
++    // proposedLevel kept as requested for gap context only — callers must not persist
++    // a positive maturity without eligible claims (Propose/Confirm fail-closed).
++    const placeholder = minLevel(input.requestedLevel, "DOCUMENTED");
++    if (hardBlocked) {
++      gaps.push({
++        code: "hard_reserve_blocks_level",
++        level: placeholder,
++      });
++      return {
++        supportedLevel: null,
++        proposedLevel: placeholder,
++        status: "blocked",
++        criteriaResults,
++        gaps,
++        dimensions: [
++          {
++            dimensionId: "default",
++            proposedLevel: placeholder,
++            blocked: true,
++          },
++        ],
++      };
++    }
++    return {
++      supportedLevel: null,
++      proposedLevel: placeholder,
++      status: "proposed",
++      criteriaResults,
++      gaps,
++    };
+   }
+ 
+   let proposedLevel = minLevel(input.requestedLevel, supported);
+@@ -268,6 +304,7 @@ export function calculateMaturityLevel(input: {
+       blocked: true,
+     }));
+     return {
++      supportedLevel: supported,
+       proposedLevel,
+       status: "blocked",
+       criteriaResults,
+@@ -290,6 +327,7 @@ export function calculateMaturityLevel(input: {
+   }));
+ 
+   return {
++    supportedLevel: supported,
+     proposedLevel,
+     status: "proposed",
+     criteriaResults,
+@@ -298,6 +336,40 @@ export function calculateMaturityLevel(input: {
+   };
+ }
+ 
++/** Re-read exact ClaimEvaluation bindings (Confirm fail-closed). Never mutates claims. */
++export async function reassessStoredBindings(input: {
++  bindings: MaturityClaimBinding[];
++  claims: {
++    findById(id: string): Promise<ClaimEvaluation | null>;
++    isSuperseded(id: string): Promise<boolean>;
++  };
++}): Promise<MaturityClaimBinding[]> {
++  const out: MaturityClaimBinding[] = [];
++  for (const bound of input.bindings) {
++    const claim = await input.claims.findById(bound.claimEvaluationId);
++    if (!claim) {
++      out.push(
++        missingClaimBinding(
++          bound.claimEvaluationId,
++          bound.claimEvaluationVersion,
++        ),
++      );
++      continue;
++    }
++    const isSuperseded = await input.claims.isSuperseded(
++      bound.claimEvaluationId,
++    );
++    out.push(
++      assessClaimEligibility({
++        claim,
++        expectedVersion: bound.claimEvaluationVersion,
++        isSuperseded,
++      }),
++    );
++  }
++  return out;
++}
++
+ export function missingClaimBinding(
+   claimEvaluationId: string,
+   expectedVersion: number,
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/proposeMaturity.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/proposeMaturity.ts
+index 3e7dc0d..61846a2 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/application/proposeMaturity.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/proposeMaturity.ts
+@@ -242,6 +242,12 @@ export class ProposeMaturity {
+         dimensions: request.dimensions,
+       });
+ 
++      // DOCUMENTED requires ≥1 eligible PASS — never propose a positive level without support
++      // unless HARD reserves force an explicit blocked assessment.
++      if (calc.supportedLevel === null && calc.status !== "blocked") {
++        return fail("MATURITY_CLAIM_NOT_ELIGIBLE", "no_eligible_claims_for_propose");
++      }
++
+       const assessment: MaturityAssessment = {
+         schemaVersion: "0.2.0-oa",
+         maturityAssessmentId: request.maturityAssessmentId,
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+index 222f22e..63898ae 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+@@ -78,6 +78,7 @@ export {
+   assessClaimEligibility,
+   calculateMaturityLevel,
+   missingClaimBinding,
++  reassessStoredBindings,
+ } from "./application/maturityCalculation";
+ 
+ export { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
+@@ -363,6 +364,7 @@ export function createInMemoryEvidenceReviewServices(
+     ),
+     confirmMaturity: new ConfirmMaturity(
+       maturityAssessmentRepository,
++      claimEvaluationReader,
+       claimAuthority,
+       clock,
+       audit,
 
 ```
-
-### `projects/sfia-studio/app/lib/oa/evidence-review/application/confirmMaturity.ts`
-
-```typescript
-/**
- * ConfirmMaturity — human confirmation of proposed maturity.
- * System/agent forbidden. ADOPTED / structural levels require Morris.
- * HARD blockingReservationRefs forbid confirm. autoPromoted remains false.
- * Never launches D5 / Decision / executionAuthority.
- */
-import type { ClockPort } from "@/lib/oa/doctrine";
-import {
-  createMaturityAssessmentError,
-  isMaturityAssessmentDomainError,
-} from "../domain/maturityAssessmentErrors";
-import {
-  isMaturityAssessmentId,
-  levelRank,
-  validateMaturityAssessmentShape,
-} from "../domain/maturityAssessmentInvariants";
-import type {
-  ConfirmMaturityRequest,
-  MaturityAssessment,
-  MaturityAssessmentResult,
-} from "../domain/maturityAssessmentTypes";
-import { containsForbiddenSecret } from "../domain/invariants";
-import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
-import type { EvidenceAuditPort } from "../ports/evidenceAudit";
-import type { IdGeneratorPort } from "../ports/idGenerator";
-import type { MaturityAssessmentRepositoryPort } from "../ports/maturityAssessmentRepository";
-import {
-  assertIdempotencyKey,
-  fingerprintCommand,
-  registerFingerprintBody,
-} from "./evidenceSupport";
-
-const MATURITY_AUTHORITY_SCOPE = "oa.maturity_assessment";
-
-export class ConfirmMaturity {
-  constructor(
-    private readonly repo: MaturityAssessmentRepositoryPort,
-    private readonly authority: ClaimAuthorityPort,
-    private readonly clock: ClockPort,
-    private readonly audit: EvidenceAuditPort,
-    private readonly ids: IdGeneratorPort,
-  ) {}
-
-  async execute(
-    request: ConfirmMaturityRequest,
-  ): Promise<MaturityAssessmentResult> {
-    const started = Date.now();
-    const timestamp = request.nowIso ?? this.clock.nowIso();
-    const correlationId =
-      request.correlationId ?? this.ids.newCorrelationId();
-
-    const fail = (
-      detailCode: Parameters<typeof createMaturityAssessmentError>[0]["detailCode"],
-      internalCauseRef: string,
-      extra?: Partial<Parameters<typeof createMaturityAssessmentError>[0]> & {
-        maturityAssessment?: MaturityAssessment;
-      },
-    ): MaturityAssessmentResult => {
-      const { maturityAssessment, ...errorExtra } = extra ?? {};
-      const durationMs = Date.now() - started;
-      const event =
-        detailCode === "IDEMPOTENCY_CONFLICT"
-          ? ("oa.maturity_assessment.idempotency_conflict" as const)
-          : detailCode === "VERSION_CONFLICT" ||
-              detailCode === "CONCURRENT_MODIFICATION"
-            ? ("oa.maturity_assessment.concurrent_modification_rejected" as const)
-            : detailCode === "MATURITY_AUTHORITY_FORBIDDEN" ||
-                detailCode === "MATURITY_SELF_REVIEW_FORBIDDEN"
-              ? ("oa.maturity_assessment.authority_rejected" as const)
-              : ("oa.maturity_assessment.operation_rejected" as const);
-      this.audit.append({
-        event,
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: request.maturityAssessmentId,
-        actorId: request.actor.actorId,
-        expectedVersion: request.expectedVersion,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return {
-        ok: false,
-        error: createMaturityAssessmentError({
-          detailCode,
-          timestamp,
-          correlationId,
-          maturityAssessmentId: request.maturityAssessmentId,
-          internalCauseRef,
-          ...errorExtra,
-        }),
-        maturityAssessment,
-        durationMs,
-      };
-    };
-
-    try {
-      if (!isMaturityAssessmentId(request.maturityAssessmentId)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "maturity_id_invalid");
-      }
-      if (!assertIdempotencyKey(request.idempotencyKey)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "idempotency_key_too_short");
-      }
-      if (containsForbiddenSecret(request.actor.displayName)) {
-        return fail("MATURITY_SECRET_FORBIDDEN", "secret_in_actor");
-      }
-      if (
-        request.actor.role === "system" ||
-        request.actor.role === "agent"
-      ) {
-        return fail(
-          "MATURITY_AUTHORITY_FORBIDDEN",
-          "system_or_agent_cannot_confirm",
-        );
-      }
-
-      const fingerprint = fingerprintCommand(
-        registerFingerprintBody({
-          maturityAssessmentId: request.maturityAssessmentId,
-          idempotencyKey: request.idempotencyKey,
-          expectedVersion: request.expectedVersion,
-          actor: request.actor,
-          authorityEvidenceId: request.authorityEvidenceId,
-        }),
-      );
-
-      const existingIdem = await this.repo.findByIdempotencyKey(
-        request.idempotencyKey,
-      );
-      if (existingIdem) {
-        if (
-          existingIdem.record.fingerprint === fingerprint &&
-          existingIdem.record.operation === "confirm_maturity"
-        ) {
-          const durationMs = Date.now() - started;
-          this.audit.append({
-            event: "oa.maturity_assessment.confirmed",
-            ts: timestamp,
-            correlationId,
-            maturityAssessmentId:
-              existingIdem.maturityAssessment.maturityAssessmentId,
-            actorId: request.actor.actorId,
-            newStatus: existingIdem.maturityAssessment.status,
-            version: existingIdem.maturityAssessment.version,
-            result: "ok",
-            durationMs,
-          });
-          return {
-            ok: true,
-            maturityAssessment: existingIdem.maturityAssessment,
-            reusedFromIdempotencyKey: true,
-            durationMs,
-          };
-        }
-        return fail("IDEMPOTENCY_CONFLICT", "idempotency_fingerprint_mismatch");
-      }
-
-      const current = await this.repo.findById(request.maturityAssessmentId);
-      if (!current) {
-        return fail("MATURITY_ASSESSMENT_NOT_FOUND", "missing_maturity");
-      }
-      if (current.version !== request.expectedVersion) {
-        return fail("VERSION_CONFLICT", "occ_mismatch", {
-          expectedVersion: request.expectedVersion,
-          currentVersion: current.version,
-          maturityAssessment: current,
-        });
-      }
-      if (current.status === "superseded") {
-        return fail("MATURITY_SUPERSEDED", "cannot_confirm_superseded", {
-          maturityAssessment: current,
-        });
-      }
-      if (current.status === "confirmed") {
-        return fail("MATURITY_ALREADY_CONFIRMED", "already_confirmed", {
-          maturityAssessment: current,
-        });
-      }
-      if (current.status === "blocked") {
-        return fail(
-          "MATURITY_BLOCKED_BY_RESERVATION",
-          "blocked_cannot_confirm",
-          { maturityAssessment: current },
-        );
-      }
-      if (current.status !== "proposed") {
-        return fail("MATURITY_INVALID_STATE", "confirm_requires_proposed", {
-          maturityAssessment: current,
-        });
-      }
-      if ((current.blockingReservationRefs?.length ?? 0) > 0) {
-        return fail(
-          "MATURITY_BLOCKED_BY_RESERVATION",
-          "hard_reserve_present",
-          { maturityAssessment: current },
-        );
-      }
-      if (current.autoPromoted !== false) {
-        return fail(
-          "MATURITY_AUTO_PROMOTION_FORBIDDEN",
-          "auto_promoted_forbidden",
-          { maturityAssessment: current },
-        );
-      }
-      if (request.actor.actorId === current.proposedBy.actorId) {
-        if (
-          levelRank(current.proposedLevel) >= levelRank("IMPLEMENTED")
-        ) {
-          return fail(
-            "MATURITY_SELF_REVIEW_FORBIDDEN",
-            "self_review_structural_level",
-            { maturityAssessment: current },
-          );
-        }
-      }
-
-      const requireMorris =
-        current.proposedLevel === "ADOPTED" ||
-        current.proposedLevel === "IMPLEMENTED";
-      const requiredLevel = requireMorris
-        ? ("N3" as const)
-        : ("N2" as const);
-      const auth = this.authority.verify({
-        actorId: request.actor.actorId,
-        requiredLevel,
-        scope: MATURITY_AUTHORITY_SCOPE,
-        evidenceId: request.authorityEvidenceId,
-        requireMorrisGate: requireMorris,
-      });
-      if (!auth.ok) {
-        return fail("MATURITY_AUTHORITY_FORBIDDEN", auth.reason, {
-          maturityAssessment: current,
-        });
-      }
-      if (requireMorris && request.actor.role !== "decision_maker") {
-        return fail(
-          "MATURITY_AUTHORITY_FORBIDDEN",
-          "structural_maturity_requires_decision_maker",
-          { maturityAssessment: current },
-        );
-      }
-
-      const updated: MaturityAssessment = {
-        ...current,
-        status: "confirmed",
-        confirmedLevel: current.proposedLevel,
-        confirmedBy: { ...request.actor },
-        confirmedAt: timestamp,
-        dimensions: current.dimensions?.map((d) => ({
-          ...d,
-          confirmedLevel: d.proposedLevel,
-        })),
-        autoPromoted: false,
-        blockingReservationRefs: [],
-        updatedAt: timestamp,
-        version: current.version + 1,
-        idempotencyKey: request.idempotencyKey,
-      };
-      const shape = validateMaturityAssessmentShape(updated);
-      if (shape) {
-        return fail(shape.detailCode, shape.reason, {
-          maturityAssessment: current,
-        });
-      }
-
-      await this.repo.update(updated, request.expectedVersion, {
-        maturityAssessmentId: updated.maturityAssessmentId,
-        fingerprint,
-        operation: "confirm_maturity",
-      });
-
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.maturity_assessment.confirmed",
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: updated.maturityAssessmentId,
-        evidenceIds: updated.claimEvaluationRefs,
-        actorId: request.actor.actorId,
-        previousStatus: current.status,
-        newStatus: updated.status,
-        version: updated.version,
-        expectedVersion: request.expectedVersion,
-        result: "ok",
-        durationMs,
-      });
-      return {
-        ok: true,
-        maturityAssessment: structuredClone(updated),
-        durationMs,
-      };
-    } catch (err) {
-      if (isMaturityAssessmentDomainError(err)) {
-        return fail(err.detailCode, err.message, {
-          expectedVersion: err.expectedVersion,
-          currentVersion: err.currentVersion,
-        });
-      }
-      return fail("MATURITY_PERSISTENCE_FAILED", "unexpected_confirm_failure");
-    }
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/lib/oa/evidence-review/application/downgradeMaturity.ts`
-
-```typescript
-/**
- * DowngradeMaturity — explicit supersession + lower level. Never automatic.
- * Human authority; Morris if target/source structural (IMPLEMENTED/ADOPTED).
- * Atomic createSuccessorAndMarkSuperseded. Never mutates ClaimEvaluation.
- * Never launches D5 / closes reserves / sets executionAuthority.
- */
-import type { ClockPort } from "@/lib/oa/doctrine";
-import {
-  createMaturityAssessmentError,
-  isMaturityAssessmentDomainError,
-} from "../domain/maturityAssessmentErrors";
-import {
-  isMaturityAssessmentId,
-  levelRank,
-  MATURITY_LEVELS,
-  validateMaturityAssessmentShape,
-} from "../domain/maturityAssessmentInvariants";
-import type {
-  DowngradeMaturityRequest,
-  MaturityAssessment,
-  MaturityAssessmentResult,
-} from "../domain/maturityAssessmentTypes";
-import { containsForbiddenSecret } from "../domain/invariants";
-import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
-import type { ClaimEvaluationReaderPort } from "../ports/claimEvaluationReader";
-import type { EvidenceAuditPort } from "../ports/evidenceAudit";
-import type { IdGeneratorPort } from "../ports/idGenerator";
-import type { MaturityAssessmentRepositoryPort } from "../ports/maturityAssessmentRepository";
-import {
-  assertIdempotencyKey,
-  buildProvenance,
-  fingerprintCommand,
-  registerFingerprintBody,
-} from "./evidenceSupport";
-import {
-  assessClaimEligibility,
-  calculateMaturityLevel,
-  missingClaimBinding,
-} from "./maturityCalculation";
-
-const MATURITY_AUTHORITY_SCOPE = "oa.maturity_assessment";
-
-export class DowngradeMaturity {
-  constructor(
-    private readonly repo: MaturityAssessmentRepositoryPort,
-    private readonly claims: ClaimEvaluationReaderPort,
-    private readonly authority: ClaimAuthorityPort,
-    private readonly clock: ClockPort,
-    private readonly audit: EvidenceAuditPort,
-    private readonly ids: IdGeneratorPort,
-  ) {}
-
-  async execute(
-    request: DowngradeMaturityRequest,
-  ): Promise<MaturityAssessmentResult> {
-    const started = Date.now();
-    const timestamp = request.nowIso ?? this.clock.nowIso();
-    const correlationId =
-      request.correlationId ?? this.ids.newCorrelationId();
-
-    const fail = (
-      detailCode: Parameters<typeof createMaturityAssessmentError>[0]["detailCode"],
-      internalCauseRef: string,
-      extra?: Partial<Parameters<typeof createMaturityAssessmentError>[0]> & {
-        maturityAssessment?: MaturityAssessment;
-        successor?: MaturityAssessment;
-      },
-    ): MaturityAssessmentResult => {
-      const { maturityAssessment, successor, ...errorExtra } = extra ?? {};
-      const durationMs = Date.now() - started;
-      const event =
-        detailCode === "IDEMPOTENCY_CONFLICT"
-          ? ("oa.maturity_assessment.idempotency_conflict" as const)
-          : detailCode === "VERSION_CONFLICT" ||
-              detailCode === "CONCURRENT_MODIFICATION"
-            ? ("oa.maturity_assessment.concurrent_modification_rejected" as const)
-            : detailCode === "MATURITY_AUTHORITY_FORBIDDEN"
-              ? ("oa.maturity_assessment.authority_rejected" as const)
-              : ("oa.maturity_assessment.operation_rejected" as const);
-      this.audit.append({
-        event,
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: request.sourceMaturityAssessmentId,
-        successorMaturityAssessmentId: request.successorMaturityAssessmentId,
-        actorId: request.actor.actorId,
-        expectedVersion: request.expectedVersion,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return {
-        ok: false,
-        error: createMaturityAssessmentError({
-          detailCode,
-          timestamp,
-          correlationId,
-          maturityAssessmentId: request.sourceMaturityAssessmentId,
-          internalCauseRef,
-          ...errorExtra,
-        }),
-        maturityAssessment,
-        successor,
-        durationMs,
-      };
-    };
-
-    try {
-      if (!isMaturityAssessmentId(request.sourceMaturityAssessmentId)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "source_id_invalid");
-      }
-      if (!isMaturityAssessmentId(request.successorMaturityAssessmentId)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "successor_id_invalid");
-      }
-      if (
-        request.sourceMaturityAssessmentId ===
-        request.successorMaturityAssessmentId
-      ) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "successor_must_differ");
-      }
-      if (!MATURITY_LEVELS.has(request.targetLevel)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "target_level_invalid");
-      }
-      if (!assertIdempotencyKey(request.idempotencyKey)) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "idempotency_key_too_short");
-      }
-      if (
-        !request.downgradeReason?.trim() ||
-        containsForbiddenSecret(request.downgradeReason)
-      ) {
-        return fail(
-          request.downgradeReason &&
-            containsForbiddenSecret(request.downgradeReason)
-            ? "MATURITY_SECRET_FORBIDDEN"
-            : "MATURITY_ASSESSMENT_INVALID",
-          "downgrade_reason_invalid",
-        );
-      }
-      if (containsForbiddenSecret(request.actor.displayName)) {
-        return fail("MATURITY_SECRET_FORBIDDEN", "secret_in_actor");
-      }
-      if (
-        request.actor.role === "system" ||
-        request.actor.role === "agent"
-      ) {
-        return fail(
-          "MATURITY_DOWNGRADE_FORBIDDEN",
-          "system_or_agent_cannot_downgrade",
-        );
-      }
-      if (!request.claimBindings?.length) {
-        return fail("MATURITY_ASSESSMENT_INVALID", "claim_bindings_required");
-      }
-
-      const fingerprint = fingerprintCommand(
-        registerFingerprintBody({
-          sourceMaturityAssessmentId: request.sourceMaturityAssessmentId,
-          successorMaturityAssessmentId: request.successorMaturityAssessmentId,
-          idempotencyKey: request.idempotencyKey,
-          expectedVersion: request.expectedVersion,
-          targetLevel: request.targetLevel,
-          downgradeReason: request.downgradeReason,
-          claimBindings: request.claimBindings,
-          actor: request.actor,
-        }),
-      );
-
-      const existingIdem = await this.repo.findByIdempotencyKey(
-        request.idempotencyKey,
-      );
-      if (existingIdem) {
-        if (
-          existingIdem.record.fingerprint === fingerprint &&
-          existingIdem.record.operation === "downgrade_maturity" &&
-          existingIdem.successor
-        ) {
-          const durationMs = Date.now() - started;
-          this.audit.append({
-            event: "oa.maturity_assessment.downgraded",
-            ts: timestamp,
-            correlationId,
-            maturityAssessmentId: existingIdem.maturityAssessment.maturityAssessmentId,
-            successorMaturityAssessmentId:
-              existingIdem.successor.maturityAssessmentId,
-            actorId: request.actor.actorId,
-            newStatus: existingIdem.successor.status,
-            version: existingIdem.successor.version,
-            result: "ok",
-            durationMs,
-          });
-          return {
-            ok: true,
-            maturityAssessment: existingIdem.maturityAssessment,
-            successor: existingIdem.successor,
-            reusedFromIdempotencyKey: true,
-            durationMs,
-          };
-        }
-        return fail("IDEMPOTENCY_CONFLICT", "idempotency_fingerprint_mismatch");
-      }
-
-      const source = await this.repo.findById(
-        request.sourceMaturityAssessmentId,
-      );
-      if (!source) {
-        return fail("MATURITY_ASSESSMENT_NOT_FOUND", "source_missing");
-      }
-      if (source.version !== request.expectedVersion) {
-        return fail("VERSION_CONFLICT", "occ_mismatch", {
-          expectedVersion: request.expectedVersion,
-          currentVersion: source.version,
-          maturityAssessment: source,
-        });
-      }
-      if (source.status === "superseded") {
-        return fail("MATURITY_SUPERSEDED", "already_superseded", {
-          maturityAssessment: source,
-        });
-      }
-      if (
-        source.status !== "confirmed" &&
-        source.status !== "proposed" &&
-        source.status !== "blocked"
-      ) {
-        return fail("MATURITY_INVALID_STATE", "downgrade_invalid_source_state", {
-          maturityAssessment: source,
-        });
-      }
-      if (levelRank(request.targetLevel) >= levelRank(source.proposedLevel)) {
-        return fail(
-          "MATURITY_DOWNGRADE_FORBIDDEN",
-          "target_not_lower_than_source",
-          { maturityAssessment: source },
-        );
-      }
-
-      const requireMorris =
-        levelRank(source.proposedLevel) >= levelRank("IMPLEMENTED") ||
-        levelRank(request.targetLevel) >= levelRank("IMPLEMENTED") ||
-        source.confirmedLevel === "ADOPTED" ||
-        source.proposedLevel === "ADOPTED";
-      const auth = this.authority.verify({
-        actorId: request.actor.actorId,
-        requiredLevel: requireMorris ? "N3" : "N2",
-        scope: MATURITY_AUTHORITY_SCOPE,
-        evidenceId: request.authorityEvidenceId,
-        requireMorrisGate: requireMorris,
-      });
-      if (!auth.ok) {
-        return fail("MATURITY_AUTHORITY_FORBIDDEN", auth.reason, {
-          maturityAssessment: source,
-        });
-      }
-      if (requireMorris && request.actor.role !== "decision_maker") {
-        return fail(
-          "MATURITY_AUTHORITY_FORBIDDEN",
-          "structural_downgrade_requires_decision_maker",
-          { maturityAssessment: source },
-        );
-      }
-
-      const bindings = [];
-      for (const ref of request.claimBindings) {
-        const claim = await this.claims.findById(ref.claimEvaluationId);
-        if (!claim) {
-          bindings.push(
-            missingClaimBinding(
-              ref.claimEvaluationId,
-              ref.claimEvaluationVersion,
-            ),
-          );
-          continue;
-        }
-        const isSuperseded = await this.claims.isSuperseded(
-          ref.claimEvaluationId,
-        );
-        bindings.push(
-          assessClaimEligibility({
-            claim,
-            expectedVersion: ref.claimEvaluationVersion,
-            isSuperseded,
-          }),
-        );
-      }
-      const missing = bindings.find((b) => b.ineligibilityCode === "missing");
-      if (missing) {
-        return fail("MATURITY_CLAIM_NOT_FOUND", "claim_missing", {
-          claimEvaluationId: missing.claimEvaluationId,
-          maturityAssessment: source,
-        });
-      }
-      const versionMismatch = bindings.find(
-        (b) => b.ineligibilityCode === "version_mismatch",
-      );
-      if (versionMismatch) {
-        return fail(
-          "MATURITY_CLAIM_VERSION_MISMATCH",
-          "claim_version_mismatch",
-          {
-            claimEvaluationId: versionMismatch.claimEvaluationId,
-            maturityAssessment: source,
-          },
-        );
-      }
-
-      const blockingReservationRefs = [
-        ...(request.blockingReservationRefs ?? source.blockingReservationRefs),
-      ];
-      const calc = calculateMaturityLevel({
-        requestedLevel: request.targetLevel,
-        bindings,
-        blockingReservationRefs,
-      });
-      // Explicit downgrade: force targetLevel (still fail-closed capped by support).
-      const proposedLevel =
-        levelRank(calc.proposedLevel) <= levelRank(request.targetLevel)
-          ? calc.proposedLevel
-          : request.targetLevel;
-
-      const successor: MaturityAssessment = {
-        schemaVersion: "0.2.0-oa",
-        maturityAssessmentId: request.successorMaturityAssessmentId,
-        projectId: source.projectId,
-        subjectRef: source.subjectRef,
-        dimensions: calc.dimensions,
-        proposedLevel,
-        claimEvaluationRefs: request.claimBindings.map(
-          (c) => c.claimEvaluationId,
-        ),
-        claimBindings: structuredClone(bindings),
-        reviewBundleRefs: source.reviewBundleRefs
-          ? structuredClone(source.reviewBundleRefs)
-          : undefined,
-        evidenceRefs: source.evidenceRefs
-          ? [...source.evidenceRefs]
-          : undefined,
-        blockingReservationRefs,
-        waiverRefs: source.waiverRefs ? [...source.waiverRefs] : undefined,
-        proposedBy: { ...request.actor },
-        proposedAt: timestamp,
-        status: calc.status === "blocked" ? "blocked" : "proposed",
-        supersedesMaturityAssessmentId: source.maturityAssessmentId,
-        downgradeReason: request.downgradeReason,
-        autoPromoted: false,
-        provenance: buildProvenance({
-          ids: this.ids,
-          actor: request.actor,
-          source: "review",
-          timestamp,
-          correlationId,
-          projectId: source.projectId,
-        }),
-        criteriaResults: structuredClone(calc.criteriaResults),
-        gaps: structuredClone(calc.gaps),
-        calculatedAt: timestamp,
-        version: 1,
-        idempotencyKey: request.idempotencyKey,
-        updatedAt: timestamp,
-      };
-
-      const superseded: MaturityAssessment = {
-        ...source,
-        status: "superseded",
-        // Schema: superseded requires supersedesMaturityAssessmentId — link to successor (supersededBy).
-        supersedesMaturityAssessmentId: successor.maturityAssessmentId,
-        downgradeReason: request.downgradeReason,
-        autoPromoted: false,
-        updatedAt: timestamp,
-        version: source.version + 1,
-        idempotencyKey: request.idempotencyKey,
-      };
-
-      const successorShape = validateMaturityAssessmentShape(successor);
-      if (successorShape) {
-        return fail(successorShape.detailCode, successorShape.reason, {
-          maturityAssessment: source,
-        });
-      }
-      const supersededShape = validateMaturityAssessmentShape(superseded);
-      if (supersededShape) {
-        return fail(supersededShape.detailCode, supersededShape.reason, {
-          maturityAssessment: source,
-        });
-      }
-
-      await this.repo.createSuccessorAndMarkSuperseded(
-        successor,
-        superseded,
-        request.expectedVersion,
-        {
-          maturityAssessmentId: superseded.maturityAssessmentId,
-          fingerprint,
-          operation: "downgrade_maturity",
-          successorId: successor.maturityAssessmentId,
-        },
-      );
-
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.maturity_assessment.downgraded",
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: superseded.maturityAssessmentId,
-        successorMaturityAssessmentId: successor.maturityAssessmentId,
-        evidenceIds: successor.claimEvaluationRefs,
-        actorId: request.actor.actorId,
-        previousStatus: source.status,
-        newStatus: successor.status,
-        version: successor.version,
-        expectedVersion: request.expectedVersion,
-        result: "ok",
-        durationMs,
-      });
-      this.audit.append({
-        event: "oa.maturity_assessment.superseded",
-        ts: timestamp,
-        correlationId,
-        maturityAssessmentId: superseded.maturityAssessmentId,
-        successorMaturityAssessmentId: successor.maturityAssessmentId,
-        actorId: request.actor.actorId,
-        previousStatus: source.status,
-        newStatus: "superseded",
-        version: superseded.version,
-        result: "ok",
-        durationMs,
-      });
-
-      return {
-        ok: true,
-        maturityAssessment: structuredClone(superseded),
-        successor: structuredClone(successor),
-        durationMs,
-      };
-    } catch (err) {
-      if (isMaturityAssessmentDomainError(err)) {
-        return fail(err.detailCode, err.message, {
-          expectedVersion: err.expectedVersion,
-          currentVersion: err.currentVersion,
-        });
-      }
-      return fail(
-        "MATURITY_PERSISTENCE_FAILED",
-        "unexpected_downgrade_failure",
-      );
-    }
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryMaturityAssessmentRepository.ts`
-
-```typescript
-import { MaturityAssessmentDomainError } from "../domain/maturityAssessmentErrors";
-import { validateMaturityAssessmentShape } from "../domain/maturityAssessmentInvariants";
-import type { MaturityAssessment } from "../domain/maturityAssessmentTypes";
-import type {
-  MaturityAssessmentRepositoryPort,
-  MaturityIdempotencyRecord,
-} from "../ports/maturityAssessmentRepository";
-import type { MemoryMaturityAssessmentStore } from "./memoryMaturityAssessmentStore";
-
-export class MemoryMaturityAssessmentRepository
-  implements MaturityAssessmentRepositoryPort
-{
-  constructor(private readonly store: MemoryMaturityAssessmentStore) {}
-
-  async findById(
-    maturityAssessmentId: string,
-  ): Promise<MaturityAssessment | null> {
-    const found = this.store.assessments.get(maturityAssessmentId);
-    return found ? structuredClone(found) : null;
-  }
-
-  async findByIdempotencyKey(idempotencyKey: string): Promise<{
-    maturityAssessment: MaturityAssessment;
-    record: MaturityIdempotencyRecord;
-    successor?: MaturityAssessment;
-  } | null> {
-    const record = this.store.idempotencyIndex.get(idempotencyKey);
-    if (!record) return null;
-    const maturityAssessment = await this.findById(record.maturityAssessmentId);
-    if (!maturityAssessment) return null;
-    const successor = record.successorId
-      ? ((await this.findById(record.successorId)) ?? undefined)
-      : undefined;
-    return {
-      maturityAssessment,
-      record: structuredClone(record),
-      successor,
-    };
-  }
-
-  async exists(maturityAssessmentId: string): Promise<boolean> {
-    return this.store.assessments.has(maturityAssessmentId);
-  }
-
-  async create(
-    assessment: MaturityAssessment,
-    record?: MaturityIdempotencyRecord,
-  ): Promise<void> {
-    const shape = validateMaturityAssessmentShape(assessment);
-    if (shape) {
-      throw new MaturityAssessmentDomainError(shape.detailCode, shape.reason);
-    }
-    if (assessment.version !== 1) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_INVALID",
-        "create_requires_version_1",
-      );
-    }
-    if (this.store.assessments.has(assessment.maturityAssessmentId)) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_ALREADY_EXISTS",
-        "maturity_assessment_id_taken",
-      );
-    }
-    this.failIfForced();
-    this.store.assessments.set(
-      assessment.maturityAssessmentId,
-      structuredClone(assessment),
-    );
-    if (record && assessment.idempotencyKey) {
-      this.store.idempotencyIndex.set(
-        assessment.idempotencyKey,
-        structuredClone(record),
-      );
-    }
-  }
-
-  async update(
-    assessment: MaturityAssessment,
-    expectedVersion: number,
-    record?: MaturityIdempotencyRecord,
-  ): Promise<void> {
-    const current = this.store.assessments.get(assessment.maturityAssessmentId);
-    if (!current) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_NOT_FOUND",
-        "update_missing",
-      );
-    }
-    if (current.version !== expectedVersion) {
-      throw new MaturityAssessmentDomainError(
-        "VERSION_CONFLICT",
-        "occ_mismatch",
-        { expectedVersion, currentVersion: current.version },
-      );
-    }
-    if (assessment.version !== expectedVersion + 1) {
-      throw new MaturityAssessmentDomainError(
-        "VERSION_CONFLICT",
-        "version_not_monotone",
-        { expectedVersion, currentVersion: current.version },
-      );
-    }
-    const shape = validateMaturityAssessmentShape(assessment);
-    if (shape) {
-      throw new MaturityAssessmentDomainError(shape.detailCode, shape.reason);
-    }
-    this.failIfForced();
-    this.store.assessments.set(
-      assessment.maturityAssessmentId,
-      structuredClone(assessment),
-    );
-    if (record && assessment.idempotencyKey) {
-      this.store.idempotencyIndex.set(
-        assessment.idempotencyKey,
-        structuredClone(record),
-      );
-    }
-  }
-
-  async createSuccessorAndMarkSuperseded(
-    successor: MaturityAssessment,
-    superseded: MaturityAssessment,
-    expectedVersion: number,
-    record: MaturityIdempotencyRecord & { successorId: string },
-  ): Promise<void> {
-    const successorShape = validateMaturityAssessmentShape(successor);
-    if (successorShape) {
-      throw new MaturityAssessmentDomainError(
-        successorShape.detailCode,
-        successorShape.reason,
-      );
-    }
-    const supersededShape = validateMaturityAssessmentShape(superseded);
-    if (supersededShape) {
-      throw new MaturityAssessmentDomainError(
-        supersededShape.detailCode,
-        supersededShape.reason,
-      );
-    }
-    if (successor.version !== 1) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_INVALID",
-        "successor_requires_version_1",
-      );
-    }
-    if (superseded.status !== "superseded") {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_INVALID",
-        "source_must_be_superseded",
-      );
-    }
-    if (record.successorId !== successor.maturityAssessmentId) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_INVALID",
-        "record_successor_id_mismatch",
-      );
-    }
-    if (
-      successor.maturityAssessmentId === superseded.maturityAssessmentId
-    ) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_INVALID",
-        "successor_must_differ",
-      );
-    }
-
-    const current = this.store.assessments.get(
-      superseded.maturityAssessmentId,
-    );
-    if (!current) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_NOT_FOUND",
-        "downgrade_source_missing",
-      );
-    }
-    if (current.version !== expectedVersion) {
-      throw new MaturityAssessmentDomainError(
-        "VERSION_CONFLICT",
-        "occ_mismatch",
-        { expectedVersion, currentVersion: current.version },
-      );
-    }
-    if (superseded.version !== expectedVersion + 1) {
-      throw new MaturityAssessmentDomainError(
-        "VERSION_CONFLICT",
-        "version_not_monotone",
-        { expectedVersion, currentVersion: current.version },
-      );
-    }
-    if (this.store.assessments.has(successor.maturityAssessmentId)) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_ALREADY_EXISTS",
-        "successor_id_taken",
-      );
-    }
-    if (!superseded.idempotencyKey && !record) {
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_ASSESSMENT_INVALID",
-        "downgrade_idempotency_required",
-      );
-    }
-
-    this.failIfForced();
-    this.store.assessments.set(
-      successor.maturityAssessmentId,
-      structuredClone(successor),
-    );
-    this.store.assessments.set(
-      superseded.maturityAssessmentId,
-      structuredClone(superseded),
-    );
-    if (successor.idempotencyKey) {
-      this.store.idempotencyIndex.set(successor.idempotencyKey, {
-        ...structuredClone(record),
-      });
-    }
-  }
-
-  private failIfForced(): void {
-    if (this.store.failNextSave) {
-      this.store.failNextSave = false;
-      throw new MaturityAssessmentDomainError(
-        "MATURITY_PERSISTENCE_FAILED",
-        "forced_maturity_save_failure",
-      );
-    }
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts`
-
-```typescript
-/**
- * T-A6-D4 MaturityAssessment — Propose / Confirm / Downgrade lifecycle + fail-closed.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import type { ActorReference } from "@/lib/oa/evidence-review";
-import { ACTOR, DIGEST_A, buildServices } from "./helpers";
-
-const REVIEWER: ActorReference = {
-  actorId: "actor:reviewer-1",
-  role: "reviewer",
-  authorityLevel: "N2",
-};
-
-const MORRIS: ActorReference = {
-  actorId: "actor:morris",
-  role: "decision_maker",
-  authorityLevel: "N3",
-};
-
-const SYSTEM: ActorReference = {
-  actorId: "actor:studio",
-  role: "system",
-  authorityLevel: "none",
-};
-
-const AGENT: ActorReference = {
-  actorId: "actor:agent-1",
-  role: "agent",
-  authorityLevel: "none",
-};
-
-async function seedVerifiedEvidence(
-  s: ReturnType<typeof buildServices>,
-  id: string,
-) {
-  const reg = await s.registerEvidence.execute({
-    evidenceId: id,
-    idempotencyKey: `idem-${id}`,
-    actor: ACTOR,
-    type: "document",
-    source: "fixture",
-    sourceKind: "manual",
-    bindings: { projectId: "prj:campus360-oa" },
-    classification: "internal",
-    storageMode: "metadata_only",
-    digest: DIGEST_A,
-  });
-  expect(reg.ok).toBe(true);
-  s.fakePayload.setScript(id, { digest: DIGEST_A });
-  const verified = await s.verifyEvidenceIntegrity.execute({
-    evidenceId: id,
-    actor: ACTOR,
-    expectedVersion: 1,
-  });
-  expect(verified.ok).toBe(true);
-}
-
-async function freezeBundle(
-  s: ReturnType<typeof buildServices>,
-  rbId: string,
-  evidenceIds: string[],
-) {
-  for (const id of evidenceIds) {
-    await seedVerifiedEvidence(s, id);
-  }
-  await s.createReviewBundle.execute({
-    reviewBundleId: rbId,
-    idempotencyKey: `idem-create-${rbId}`,
-    actor: ACTOR,
-    projectId: "prj:campus360-oa",
-    evidenceIds,
-  });
-  const frozen = await s.freezeReviewBundle.execute({
-    reviewBundleId: rbId,
-    idempotencyKey: `idem-freeze-${rbId}`,
-    actor: ACTOR,
-    expectedVersion: 1,
-  });
-  expect(frozen.ok).toBe(true);
-}
-
-/** Non-critical deterministic PASS claim ready for maturity. */
-async function seedPassClaim(
-  s: ReturnType<typeof buildServices>,
-  opts: {
-    claimId: string;
-    evidenceId: string;
-    rbId: string;
-    claimType?:
-      | "technique"
-      | "conformite"
-      | "qualite"
-      | "securite"
-      | "maturite_support";
-  },
-) {
-  await freezeBundle(s, opts.rbId, [opts.evidenceId]);
-  const evaluated = await s.evaluateClaim.execute({
-    claimEvaluationId: opts.claimId,
-    idempotencyKey: `idem-eval-${opts.claimId}`,
-    actor: SYSTEM,
-    claimType: opts.claimType ?? "technique",
-    claimStatement: "Support maturity proposal",
-    criticality: "non_critical",
-    evaluationMethod: "deterministic",
-    requiredEvidenceRefs: [opts.evidenceId],
-    reviewBundleId: opts.rbId,
-    reviewBundleVersion: 2,
-  });
-  expect(evaluated.ok).toBe(true);
-  if (!evaluated.ok) return null;
-  expect(evaluated.claimEvaluation.status).toBe("pass");
-  return evaluated.claimEvaluation;
-}
-
-describe("T-A6-D4 ProposeMaturity", () => {
-  it("proposes VALIDATED from eligible non-critical PASS (never auto-promoted)", async () => {
-    const s = buildServices();
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-pass-001",
-      evidenceId: "ev:mat-1",
-      rbId: "rb:mat-1",
-    });
-    expect(claim).toBeTruthy();
-    const proposed = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:propose-001",
-      idempotencyKey: "idem-mat-propose-001",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "pack:v3-native-option-a-modeled",
-      requestedLevel: "MODELED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-pass-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    expect(proposed.maturityAssessment.autoPromoted).toBe(false);
-    expect(proposed.maturityAssessment.status).toBe("proposed");
-    expect(proposed.maturityAssessment.proposedLevel).toBe("MODELED");
-    expect(proposed.maturityAssessment.claimBindings[0]?.eligibleForPositive).toBe(
-      true,
-    );
-    expect(proposed.maturityAssessment.version).toBe(1);
-  });
-
-  it("refuses missing claim and wrong version", async () => {
-    const s = buildServices();
-    const missing = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:missing-001",
-      idempotencyKey: "idem-mat-missing",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "DOCUMENTED",
-      claimBindings: [
-        { claimEvaluationId: "clm:does-not-exist", claimEvaluationVersion: 1 },
-      ],
-    });
-    expect(missing.ok).toBe(false);
-    if (missing.ok) return;
-    expect(missing.error.detailCode).toBe("MATURITY_CLAIM_NOT_FOUND");
-
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-ver-001",
-      evidenceId: "ev:mat-ver",
-      rbId: "rb:mat-ver",
-    });
-    const badVer = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:badver-001",
-      idempotencyKey: "idem-mat-badver",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "DOCUMENTED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-ver-001",
-          claimEvaluationVersion: claim!.version + 5,
-        },
-      ],
-    });
-    expect(badVer.ok).toBe(false);
-    if (badVer.ok) return;
-    expect(badVer.error.detailCode).toBe("MATURITY_CLAIM_VERSION_MISMATCH");
-  });
-
-  it("does not promote from waived or disputed claims", async () => {
-    const s = buildServices();
-    await freezeBundle(s, "rb:mat-waive", ["ev:mat-waive"]);
-    s.fakeClaimAuthority.grant({
-      actorId: REVIEWER.actorId,
-      level: "N2",
-      scope: "oa.claim_evaluation",
-    });
-    const waived = await s.evaluateClaim.execute({
-      claimEvaluationId: "clm:mat-waive-001",
-      idempotencyKey: "idem-clm-waive",
-      actor: REVIEWER,
-      intent: "waive",
-      claimType: "technique",
-      claimStatement: "Waived claim",
-      criticality: "non_critical",
-      evaluationMethod: "human_review",
-      requiredEvidenceRefs: ["ev:mat-waive"],
-      reviewBundleId: "rb:mat-waive",
-      reviewBundleVersion: 2,
-      waiverReason: "temporary exception documented",
-    });
-    expect(waived.ok).toBe(true);
-    if (!waived.ok) return;
-    expect(waived.claimEvaluation.status).toBe("waived");
-
-    const proposed = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:from-waive",
-      idempotencyKey: "idem-mat-waive",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "VALIDATED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-waive-001",
-          claimEvaluationVersion: waived.claimEvaluation.version,
-        },
-      ],
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    expect(proposed.maturityAssessment.proposedLevel).toBe("DOCUMENTED");
-    expect(
-      proposed.maturityAssessment.claimBindings[0]?.eligibleForPositive,
-    ).toBe(false);
-    expect(proposed.maturityAssessment.gaps?.some((g) => g.code === "claim_waived")).toBe(
-      true,
-    );
-  });
-
-  it("blocks proposal when HARD reservation present", async () => {
-    const s = buildServices();
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-block-001",
-      evidenceId: "ev:mat-block",
-      rbId: "rb:mat-block",
-    });
-    const proposed = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:blocked-001",
-      idempotencyKey: "idem-mat-blocked",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "IMPLEMENTED",
-      blockingReservationRefs: ["res:hard-runtime-not-proven"],
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-block-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    expect(proposed.maturityAssessment.status).toBe("blocked");
-    expect(proposed.maturityAssessment.blockingReservationRefs.length).toBe(1);
-  });
-
-  it("idempotent propose replay / conflict", async () => {
-    const s = buildServices();
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-idem-001",
-      evidenceId: "ev:mat-idem",
-      rbId: "rb:mat-idem",
-    });
-    const first = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:idem-001",
-      idempotencyKey: "idem-mat-idem-key",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "VALIDATED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-idem-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(first.ok).toBe(true);
-    const replay = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:idem-001",
-      idempotencyKey: "idem-mat-idem-key",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "VALIDATED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-idem-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(replay.ok).toBe(true);
-    if (!replay.ok) return;
-    expect(replay.reusedFromIdempotencyKey).toBe(true);
-
-    const conflict = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:idem-002",
-      idempotencyKey: "idem-mat-idem-key",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "MODELED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-idem-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(conflict.ok).toBe(false);
-    if (conflict.ok) return;
-    expect(conflict.error.detailCode).toBe("IDEMPOTENCY_CONFLICT");
-  });
-});
-
-describe("T-A6-D4 ConfirmMaturity", () => {
-  it("confirms proposed maturity for human; refuses system/agent/blocked", async () => {
-    const s = buildServices();
-    s.fakeClaimAuthority.grant({
-      actorId: REVIEWER.actorId,
-      level: "N2",
-      scope: "oa.maturity_assessment",
-    });
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-conf-001",
-      evidenceId: "ev:mat-conf",
-      rbId: "rb:mat-conf",
-    });
-    const proposed = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:conf-001",
-      idempotencyKey: "idem-mat-conf-p",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "VALIDATED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-conf-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-
-    const sys = await s.confirmMaturity.execute({
-      maturityAssessmentId: "mat:conf-001",
-      idempotencyKey: "idem-mat-conf-sys",
-      actor: SYSTEM,
-      expectedVersion: 1,
-    });
-    expect(sys.ok).toBe(false);
-    if (!sys.ok) {
-      expect(sys.error.detailCode).toBe("MATURITY_AUTHORITY_FORBIDDEN");
-    }
-
-    const agent = await s.confirmMaturity.execute({
-      maturityAssessmentId: "mat:conf-001",
-      idempotencyKey: "idem-mat-conf-agent",
-      actor: AGENT,
-      expectedVersion: 1,
-    });
-    expect(agent.ok).toBe(false);
-
-    const ok = await s.confirmMaturity.execute({
-      maturityAssessmentId: "mat:conf-001",
-      idempotencyKey: "idem-mat-conf-ok",
-      actor: REVIEWER,
-      expectedVersion: 1,
-    });
-    expect(ok.ok).toBe(true);
-    if (!ok.ok) return;
-    expect(ok.maturityAssessment.status).toBe("confirmed");
-    expect(ok.maturityAssessment.confirmedLevel).toBe("VALIDATED");
-    expect(ok.maturityAssessment.autoPromoted).toBe(false);
-    expect(ok.maturityAssessment.confirmedBy?.role).not.toBe("system");
-  });
-
-  it("refuses confirm when HARD reserves present", async () => {
-    const s = buildServices();
-    s.fakeClaimAuthority.grant({
-      actorId: REVIEWER.actorId,
-      level: "N2",
-      scope: "oa.maturity_assessment",
-    });
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-conf-block",
-      evidenceId: "ev:mat-conf-block",
-      rbId: "rb:mat-conf-block",
-    });
-    const proposed = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:conf-block",
-      idempotencyKey: "idem-mat-conf-block-p",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "VALIDATED",
-      blockingReservationRefs: ["res:hard-1"],
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-conf-block",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    expect(proposed.maturityAssessment.status).toBe("blocked");
-    const confirmed = await s.confirmMaturity.execute({
-      maturityAssessmentId: "mat:conf-block",
-      idempotencyKey: "idem-mat-conf-block-c",
-      actor: REVIEWER,
-      expectedVersion: 1,
-    });
-    expect(confirmed.ok).toBe(false);
-    if (confirmed.ok) return;
-    expect(confirmed.error.detailCode).toBe("MATURITY_BLOCKED_BY_RESERVATION");
-  });
-});
-
-describe("T-A6-D4 DowngradeMaturity", () => {
-  it("explicit downgrade supersedes source atomically; refuses system", async () => {
-    const s = buildServices();
-    s.fakeClaimAuthority.grant({
-      actorId: REVIEWER.actorId,
-      level: "N2",
-      scope: "oa.maturity_assessment",
-    });
-    s.fakeClaimAuthority.grant({
-      actorId: MORRIS.actorId,
-      level: "N3",
-      scope: "oa.maturity_assessment",
-      canActAsMorris: true,
-    });
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-down-001",
-      evidenceId: "ev:mat-down",
-      rbId: "rb:mat-down",
-    });
-    const proposed = await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:down-src",
-      idempotencyKey: "idem-mat-down-p",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "MODELED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-down-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    const confirmed = await s.confirmMaturity.execute({
-      maturityAssessmentId: "mat:down-src",
-      idempotencyKey: "idem-mat-down-c",
-      actor: REVIEWER,
-      expectedVersion: 1,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const sysDown = await s.downgradeMaturity.execute({
-      sourceMaturityAssessmentId: "mat:down-src",
-      successorMaturityAssessmentId: "mat:down-new",
-      idempotencyKey: "idem-mat-down-sys",
-      actor: SYSTEM,
-      expectedVersion: 2,
-      targetLevel: "VALIDATED",
-      downgradeReason: "evidence invalidated after confirm",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-down-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(sysDown.ok).toBe(false);
-    if (!sysDown.ok) {
-      expect(sysDown.error.detailCode).toBe("MATURITY_DOWNGRADE_FORBIDDEN");
-    }
-
-    const down = await s.downgradeMaturity.execute({
-      sourceMaturityAssessmentId: "mat:down-src",
-      successorMaturityAssessmentId: "mat:down-new",
-      idempotencyKey: "idem-mat-down-ok",
-      actor: REVIEWER,
-      expectedVersion: 2,
-      targetLevel: "VALIDATED",
-      downgradeReason: "evidence invalidated after confirm",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-down-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(down.ok).toBe(true);
-    if (!down.ok) return;
-    expect(down.maturityAssessment?.status).toBe("superseded");
-    expect(down.successor?.supersedesMaturityAssessmentId).toBe("mat:down-src");
-    expect(down.successor?.downgradeReason).toContain("invalidated");
-    expect(down.successor?.proposedLevel).toBe("VALIDATED");
-    expect(down.successor?.autoPromoted).toBe(false);
-
-    const source = await s.maturityAssessmentRepository.findById("mat:down-src");
-    expect(source?.status).toBe("superseded");
-    expect(source?.claimBindings[0]?.claimEvaluationId).toBe("clm:mat-down-001");
-
-    const replay = await s.downgradeMaturity.execute({
-      sourceMaturityAssessmentId: "mat:down-src",
-      successorMaturityAssessmentId: "mat:down-new",
-      idempotencyKey: "idem-mat-down-ok",
-      actor: REVIEWER,
-      expectedVersion: 2,
-      targetLevel: "VALIDATED",
-      downgradeReason: "evidence invalidated after confirm",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-down-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(replay.ok).toBe(true);
-    if (!replay.ok) return;
-    expect(replay.reusedFromIdempotencyKey).toBe(true);
-  });
-
-  it("refuses secret in downgrade reason", async () => {
-    const s = buildServices();
-    s.fakeClaimAuthority.grant({
-      actorId: REVIEWER.actorId,
-      level: "N2",
-      scope: "oa.maturity_assessment",
-    });
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-sec-001",
-      evidenceId: "ev:mat-sec",
-      rbId: "rb:mat-sec",
-    });
-    await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:sec-src",
-      idempotencyKey: "idem-mat-sec-p",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "VALIDATED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-sec-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    const bad = await s.downgradeMaturity.execute({
-      sourceMaturityAssessmentId: "mat:sec-src",
-      successorMaturityAssessmentId: "mat:sec-new",
-      idempotencyKey: "idem-mat-sec-d",
-      actor: REVIEWER,
-      expectedVersion: 1,
-      targetLevel: "DOCUMENTED",
-      downgradeReason: "token=super-secret-value-here",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-sec-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    expect(bad.ok).toBe(false);
-    if (bad.ok) return;
-    expect(bad.error.detailCode).toBe("MATURITY_SECRET_FORBIDDEN");
-  });
-});
-
-describe("T-A6-D4 repository / defensive copies", () => {
-  it("defensive copy after get; independent stores", async () => {
-    const s = buildServices();
-    const claim = await seedPassClaim(s, {
-      claimId: "clm:mat-clone-001",
-      evidenceId: "ev:mat-clone",
-      rbId: "rb:mat-clone",
-    });
-    await s.proposeMaturity.execute({
-      maturityAssessmentId: "mat:clone-001",
-      idempotencyKey: "idem-mat-clone",
-      actor: SYSTEM,
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      requestedLevel: "DOCUMENTED",
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:mat-clone-001",
-          claimEvaluationVersion: claim!.version,
-        },
-      ],
-    });
-    const got = await s.maturityAssessmentRepository.findById("mat:clone-001");
-    expect(got).toBeTruthy();
-    if (!got) return;
-    got.status = "confirmed";
-    got.claimBindings.push({
-      claimEvaluationId: "clm:injected",
-      claimEvaluationVersion: 1,
-      claimType: "technique",
-      criticality: "non_critical",
-      status: "pass",
-      eligibleForPositive: true,
-      reviewBundleId: "rb:x",
-      reviewBundleVersion: 1,
-    });
-    const again = await s.maturityAssessmentRepository.findById("mat:clone-001");
-    expect(again?.status).toBe("proposed");
-    expect(again?.claimBindings).toHaveLength(1);
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/__tests__/oa/evidence-review/maturityAssessmentDomain.test.ts`
-
-```typescript
-/**
- * T-A6-D4 domain calculation + adversarial eligibility.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  assessClaimEligibility,
-  calculateMaturityLevel,
-  isMaturityAssessmentId,
-  levelRank,
-  validateMaturityAssessmentShape,
-  type ClaimEvaluation,
-  type MaturityAssessment,
-} from "@/lib/oa/evidence-review";
-
-function baseClaim(
-  overrides: Partial<ClaimEvaluation> = {},
-): ClaimEvaluation {
-  return {
-    schemaVersion: "0.1.0-oa",
-    claimEvaluationId: "clm:calc-001",
-    claimType: "technique",
-    claimStatement: "calc",
-    criticality: "non_critical",
-    evaluationMethod: "deterministic",
-    requiredEvidenceRefs: ["ev:1"],
-    providedEvidenceRefs: ["ev:1"],
-    reviewBundleId: "rb:1",
-    reviewBundleVersion: 2,
-    status: "pass",
-    proposedBy: {
-      actorId: "actor:studio",
-      role: "system",
-      authorityLevel: "none",
-    },
-    confirmationAuthority: "system_deterministic",
-    proposedAt: "2026-07-26T00:00:00.000Z",
-    evaluatedAt: "2026-07-26T00:00:00.000Z",
-    provenance: {
-      schemaVersion: "0.1.0-oa",
-      provenanceRecordId: "prv:1",
-      actor: {
-        actorId: "actor:studio",
-        role: "system",
-        authorityLevel: "none",
-      },
-      source: "review",
-      timestamp: "2026-07-26T00:00:00.000Z",
-      correlationId: "corr:1",
-    },
-    version: 1,
-    ...overrides,
-  };
-}
-
-describe("T-A6-D4 maturity domain", () => {
-  it("validates mat: ids and level order", () => {
-    expect(isMaturityAssessmentId("mat:oa-1")).toBe(true);
-    expect(isMaturityAssessmentId("clm:x")).toBe(false);
-    expect(levelRank("DOCUMENTED")).toBeLessThan(levelRank("ADOPTED"));
-  });
-
-  it("eligibility: disputed/waived/superseded/unconfirmed never positive", () => {
-    expect(
-      assessClaimEligibility({
-        claim: baseClaim({ status: "disputed" }),
-        expectedVersion: 1,
-        isSuperseded: false,
-      }).eligibleForPositive,
-    ).toBe(false);
-    expect(
-      assessClaimEligibility({
-        claim: baseClaim({ status: "waived" }),
-        expectedVersion: 1,
-        isSuperseded: false,
-      }).ineligibilityCode,
-    ).toBe("waived");
-    expect(
-      assessClaimEligibility({
-        claim: baseClaim(),
-        expectedVersion: 1,
-        isSuperseded: true,
-      }).ineligibilityCode,
-    ).toBe("superseded");
-    expect(
-      assessClaimEligibility({
-        claim: baseClaim({
-          criticality: "critical",
-          confirmationAuthority: undefined,
-          confirmedBy: undefined,
-        }),
-        expectedVersion: 1,
-        isSuperseded: false,
-      }).ineligibilityCode,
-    ).toBe("confirmation_required");
-    expect(
-      assessClaimEligibility({
-        claim: baseClaim({
-          criticality: "structural",
-          confirmationAuthority: "authorized_human",
-          confirmedBy: {
-            actorId: "actor:reviewer-1",
-            role: "reviewer",
-            authorityLevel: "N2",
-          },
-        }),
-        expectedVersion: 1,
-        isSuperseded: false,
-      }).ineligibilityCode,
-    ).toBe("structural_confirmation_required");
-  });
-
-  it("calculation is fail-closed and never averages", () => {
-    const eligible = assessClaimEligibility({
-      claim: baseClaim(),
-      expectedVersion: 1,
-      isSuperseded: false,
-    });
-    const calc = calculateMaturityLevel({
-      requestedLevel: "ADOPTED",
-      bindings: [eligible],
-      blockingReservationRefs: [],
-    });
-    expect(calc.proposedLevel).toBe("MODELED");
-    expect(calc.gaps.some((g) => g.code === "requested_level_unsupported")).toBe(
-      true,
-    );
-
-    const blocked = calculateMaturityLevel({
-      requestedLevel: "MODELED",
-      bindings: [eligible],
-      blockingReservationRefs: ["res:hard"],
-    });
-    expect(blocked.status).toBe("blocked");
-  });
-
-  it("shape forbids autoPromoted true and confirmed with reserves", () => {
-    const base: MaturityAssessment = {
-      schemaVersion: "0.2.0-oa",
-      maturityAssessmentId: "mat:shape-001",
-      projectId: "prj:campus360-oa",
-      subjectRef: "prj:campus360-oa",
-      proposedLevel: "VALIDATED",
-      claimEvaluationRefs: ["clm:1"],
-      claimBindings: [
-        {
-          claimEvaluationId: "clm:1",
-          claimEvaluationVersion: 1,
-          claimType: "technique",
-          criticality: "non_critical",
-          status: "pass",
-          eligibleForPositive: true,
-          reviewBundleId: "rb:1",
-          reviewBundleVersion: 2,
-        },
-      ],
-      blockingReservationRefs: [],
-      proposedBy: {
-        actorId: "actor:studio",
-        role: "system",
-        authorityLevel: "none",
-      },
-      proposedAt: "2026-07-26T00:00:00.000Z",
-      status: "proposed",
-      autoPromoted: false,
-      provenance: {
-        schemaVersion: "0.1.0-oa",
-        provenanceRecordId: "prv:1",
-        actor: {
-          actorId: "actor:studio",
-          role: "system",
-          authorityLevel: "none",
-        },
-        source: "review",
-        timestamp: "2026-07-26T00:00:00.000Z",
-        correlationId: "corr:1",
-      },
-      version: 1,
-    };
-    expect(validateMaturityAssessmentShape(base)).toBeNull();
-    expect(
-      validateMaturityAssessmentShape({
-        ...base,
-        autoPromoted: true as unknown as false,
-      })?.detailCode,
-    ).toBe("MATURITY_AUTO_PROMOTION_FORBIDDEN");
-    expect(
-      validateMaturityAssessmentShape({
-        ...base,
-        status: "confirmed",
-        confirmedLevel: "VALIDATED",
-        confirmedBy: {
-          actorId: "actor:morris",
-          role: "decision_maker",
-          authorityLevel: "N3",
-        },
-        confirmedAt: "2026-07-26T01:00:00.000Z",
-        blockingReservationRefs: ["res:x"],
-      })?.detailCode,
-    ).toBe("MATURITY_BLOCKED_BY_RESERVATION");
-  });
-});
-
-```
-
 
 ---
 
-## 6. Synthèse comportementale
+## 7. Synthèse validation
 
 | Zone | Résultat |
 |------|----------|
-| ProposeMaturity | PASS — calcul fail-closed · autoPromoted=false |
-| ConfirmMaturity | PASS — humain · Morris IMPLEMENTED/ADOPTED · HARD refuse |
-| DowngradeMaturity | PASS — atomique · historique · system/agent refusés |
-| Claim bindings exacts | PASS |
-| disputed/waived/superseded | jamais positifs |
+| Propose / Confirm / Downgrade | PASS |
+| Confirm re-assess ClaimEvaluation | PASS après F-A6-D4-01 |
+| DOCUMENTED sans eligible refusé | PASS après F-A6-D4-02 |
+| disputed/waived/superseded exclus | PASS |
+| Morris IMPLEMENTED/ADOPTED | PASS |
+| Downgrade explicite atomique | PASS |
 | D5 / Decision / executionAuthority | absents |
 
 ---
 
-## 7. Tests
+## 8. Tests
 
 | Suite | Commande | Tests | Résultat |
 |-------|----------|-------|----------|
-| D1–D4 | `npm test -- __tests__/oa/evidence-review` | **119** | PASS |
+| D1–D4 | `npm test -- __tests__/oa/evidence-review` | **122** | PASS |
 | T-A3 | `npm test -- __tests__/oa/decision` | 50 | PASS |
 | T-A4 | `npm test -- __tests__/oa/execution-contract` | 61 | PASS |
 | T-A5 | `npm test -- __tests__/oa/execution-attempt` | 88 | PASS |
-| Modeled | `node --test …/evidence-review-maturity-governance.test.mjs` | 27 | PASS |
+| Modeled | `node --test …maturity-governance.test.mjs` | 27 | PASS |
 | tsc / lint / build / diff-check | — | — | PASS |
 
-Différence vs D3 validation : 105 → **119** (+14 D4).
+119 → **122** (+3 adversariaux).
 
 ---
 
-## 8. Findings / réserves
+## 9. Findings / corrections
 
-Aucun Critical/Major ouvert.
+Critical: aucun ouvert.  
+Major corrigés: **F-A6-D4-01**, **F-A6-D4-02**.  
+Observations: O-D4-1..4.
+
+Corrections: commit `5bb399d` · retests PASS.
+
+---
+
+## 10. Réserves
 
 B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN**  
 C1–C4 **NOT VALIDATED**
 
 ---
 
-## 9. Validation finale
+## 11. Commits locaux
 
-Fake-only · pas persistence · D5 absent · modeled/T-A3–T-A5/packages inchangés · D1–D3 non régressés · push/PR/merge **NON** · T-A7 **NON**
-
----
-
-## 10. Commits locaux
-
-1. `a662c0ddc3a5b752ccc0f29fe66c2e2990e83685` — feat(sfia-studio): implement T-A6 D4 maturity assessment
-2. `3d7ec5d…` — docs(sfia-studio): record T-A6 D4 implementation HEAD
-3. `357fe58fdad60859e2410be3d1e553b39a157308` — docs(sfia-studio): point D4 implementation HEAD final at record commit
+1. `5bb399d` — fix(sfia-studio): correct T-A6 D4 validation findings
+2. `5e666d4` — docs(sfia-studio): validate T-A6 D4 maturity assessment
+3. `07a2e1f` — docs(sfia-studio): record T-A6 D4 validation HEAD
+4. `fb5e11c` — docs(sfia-studio): point D4 validation HEAD final at record commit
 
 ---
 
-## 11. Gate suivant (NOT consumed)
+## 12. Gate suivant (NOT consumed)
 
-`GO VALIDATE T-A6 DELIVERY D4 — SFIA STUDIO V3-NATIVE — OPTION A`
+`GO IMPLEMENT T-A6 DELIVERY D5 — SFIA STUDIO V3-NATIVE — OPTION A`
 
 ---
 
-## 12. Verdict exact
+## 13. Verdict exact
 
-`SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT IMPLEMENTED — VALIDATION REQUIRES MORRIS GO`
+`SFIA STUDIO V3-NATIVE OPTION A T-A6 D4 MATURITY ASSESSMENT VALIDATED AFTER CORRECTION — D5 REQUIRES MORRIS GO`
