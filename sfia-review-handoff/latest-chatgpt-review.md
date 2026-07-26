@@ -1,39 +1,41 @@
-# Review Pack FULL — Review Option A CI Governance PR and CI (#268)
+# Review Pack FULL — Correct Option A CI Node Runtime and Re-run PR CI
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 15:15:06 CEST (+0200) — Europe/Paris |
-| **Cycle** | QA / validation — Revue PR/CI SFIA Studio |
+| **Date/heure/fuseau** | 2026-07-26 17:45:25 CEST (+0200) — Europe/Paris |
+| **Cycle** | Intégration / DevOps — Correction CI Node 24 + rerun |
 | **Profil** | Critical |
-| **Gate** | `GO REVIEW OPTION A CI GOVERNANCE PR AND CI — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
+| **Gate** | `GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-option-a-ci-governance` |
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
-| **HEAD local (après commit doc)** | `08cf62efb0bc6ac046bf82791a56a9f53e80ffeb` |
-| **SHA distant branche** | `ff10c92246e624736164fdd5f1bb97a03772d33e` (**non poussé** ce cycle) |
+| **HEAD initial** | `08cf62efb0bc6ac046bf82791a56a9f53e80ffeb` |
+| **SHA distant initial** | `ff10c92246e624736164fdd5f1bb97a03772d33e` |
+| **HEAD final** | `dc461a1d6adf9e743e2585850561985ff4031c9e` |
+| **SHA distant final** | `dc461a1d6adf9e743e2585850561985ff4031c9e` |
 | **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **merge-base** | `910de87…` |
-| **avance locale vs main** | +9 / −0 (doc 26 locale) |
-| **Handoff source** | blob `1d27f1ddaf79aeb1a17c4f17e15e873511ebb428` |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE PR REVIEW COMPLETE — CI CORRECTION FRAMED, MORRIS GO REQUIRED` |
-| **Gate suivant** | `GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **PR** | [#268](https://github.com/mcleland147/sfia-workspace/pull/268) |
+| **Handoff source** | blob `0d2ae9aeb649baada7d52b1ec382fac5de217e34` |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI NODE RUNTIME CORRECTED — GITHUB ACTIONS STILL FAILING, ADDITIONAL REVIEW REQUIRES MORRIS GO` |
+| **Gate suivant** | `GO REVIEW OPTION A CI CORRECTED RUN FAILURE — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
 
 ---
 
 ## 1. Truth Check / Git
 
-Truth Check sur tip distant `ff10c92…` : **PASS**. Commit local doc 26 ajouté **sans push**.
+Truth Check **PASS**. Status final:
 
 ```
-## delivery/sfia-studio-v3-native-option-a-ci-merge-governance...origin/delivery/sfia-studio-v3-native-option-a-ci-merge-governance [ahead 1]
+## delivery/sfia-studio-v3-native-option-a-ci-merge-governance...origin/delivery/sfia-studio-v3-native-option-a-ci-merge-governance
 ?? .tmp-sfia-review/
 ```
 
-Opérations interdites : **aucune** (pas de merge/rebase/amend/force-push/push projet).
-
-Commits vs main (incl. doc 26 locale) :
+Commits vs main:
 
 ```
+dc461a1 docs(sfia-studio): record corrected CI run failure outcome
+b0ad1e3 docs(sfia-studio): record CI Node runtime correction
+e322bf6 ci(sfia-studio): use Node 24 for project validation
 08cf62e docs(sfia-studio): review CI governance PR failure
 ff10c92 docs(sfia-studio): align doc 25 HEAD final SHA
 941701f docs(sfia-studio): pin publication document HEAD SHA
@@ -45,205 +47,16 @@ aef7fd6 docs(sfia-studio): frame next Option A step after T-A6
 1f25857 docs(sfia-studio): record T-A6 post-merge review
 ```
 
----
-
-## 2. Template / CKC / sources
-
-| Élément | Valeur |
-|---------|--------|
-| Template | cycle execution template |
-| CKC | QA pilot candidate · **pas** d’autorité correction |
-| Fallback | méthode + logs GHA + docs 24/25 |
-| Sources | PR #268 · runs · workflow · package.json · d1/db.ts · nouvelle-demande · OPS1 Node Cas B |
+Push standard non forcé. Pas de merge/rebase/amend/force-push. Pas de package/lockfile/runtime/tests/modeled.
 
 ---
 
-## 3. PR #268
+## 2. Cause / correction
 
-| Champ | Valeur |
-|-------|--------|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/268 |
-| State/draft | OPEN / false |
-| Base/head | main / delivery… @ `ff10c92…` (head distant) |
-| Files | 6 · +1376/−23 |
-| Mergeable / state | MERGEABLE / UNSTABLE |
-| Reviewers/labels | aucun |
-| Auto-merge/queue | inactifs |
-| Merge-ready | **NON** |
+F-CI-05 : Node 20 × `node:sqlite` au build.
+Correction exacte : `node-version: "20"` → `"24"` (seule ligne).
 
-### Body PR
-
-```markdown
-## Summary
-
-- ajoute un workflow GitHub Actions dédié à `projects/sfia-studio/**` ;
-- formalise la séquence PR readiness → publication → review PR/CI → choix H1/H2/H3 → GO merge → post-merge ;
-- ajoute les documents post-merge et cadrage non encore intégrés ;
-- ne modifie aucun runtime métier.
-
-## Workflow
-
-- nom : `SFIA Studio CI`
-- job : `validate`
-- check attendu : `Build and validate SFIA Studio`
-- Node : 20 candidat
-- package manager : npm
-- working directory : `projects/sfia-studio/app`
-- permissions : `contents: read`
-- timeout : 30 minutes
-- concurrency : annulation des runs PR précédents
-- déclencheurs : paths SFIA Studio + workflow.
-
-## Validation locale
-
-- `npm ci` PASS
-- typecheck PASS
-- lint PASS
-- build PASS
-- Vitest : 655 PASS
-- modeled : 73 PASS
-- secret scan PASS
-- diff-check PASS
-- YAML parse PASS
-- actionlint non exécuté
-- validation locale sous Node 24.16.0
-- GitHub Actions sous Node 20 non encore prouvé.
-
-## Findings / observations
-
-- F-A6-PM-G01 OPEN — mitigation préparée
-- F-CI-01 Node pin OPEN
-- F-CI-02 npm audit : 12 high
-- F-CI-03 local Node 24 vs CI Node 20
-- F-CI-04 actionlint absent.
-
-## Governance
-
-- CI absente ou en échec = stop
-- tests locaux ≠ CI distante
-- mergeable ≠ validé
-- stratégie H1/H2/H3 à décider explicitement
-- GO Morris de merge obligatoire
-- post-merge obligatoire.
-
-## Branch protection
-
-- PROPOSED — NOT APPLIED
-- required check non activé avant observation du nom réel sur GitHub
-- aucune protection modifiée par cette PR.
-
-## Reservations
-
-Maintenir OPEN :
-
-- B5
-- R1
-- R-T-A3-1 à R-T-A3-4
-- R-M01
-- U-M02
-- C1–C4 RECOMMENDED — NOT VALIDATED.
-
-## Anti-claims
-
-- CI non encore prouvée avant le premier run
-- F-A6-PM-G01 non clos
-- T-A6 non COMPLETE
-- Option A non COMPLETE
-- aucun T-A7
-- aucune branch protection appliquée
-- aucun required check actif
-- aucun merge autorisé.
-
-## Review focus
-
-1. syntaxe et sécurité du workflow ;
-2. déclencheurs paths ;
-3. Node 20 ;
-4. reproductibilité des commandes ;
-5. noms de job/check ;
-6. modeled tests ;
-7. gouvernance PR/CI/merge ;
-8. findings audit/actionlint ;
-9. absence de modification métier.
-
-## Merge
-
-- interdit dans ce cycle ;
-- cycle suivant obligatoire :
-  `GO REVIEW OPTION A CI GOVERNANCE PR AND CI — SFIA STUDIO V3-NATIVE`.
-
-Made with [Cursor](https://cursor.com)
-```
-
----
-
-## 4. Runs
-
-| Run | Head | Conclusion | Nature |
-|-----|------|------------|--------|
-| 30201400028 | 67a7a1f… | failure | premier run |
-| 30201461893 | ff10c92… | failure | documentaire · même cause |
-
-Check réel : **Build and validate SFIA Studio**
-
-PASS : checkout · setup-node · npm ci · typecheck · lint
-FAIL : **Build**
-SKIPPED : vitest · modeled · secret · whitespace
-
-Erreur :
-
-```
-No such built-in module: node:sqlite
-ERR_UNKNOWN_BUILTIN_MODULE
-Failed to collect configuration/page data for /nouvelle-demande
-```
-
----
-
-## 5. Chaîne causale / reproduction
-
-Import valeur : `lib/d1/db.ts` → `DatabaseSync` from `node:sqlite`
-Chaîne : `nouvelle-demande/page.tsx` → `d1/commands` → `d1/db` → builtin.
-
-| Node | sqlite | build |
-|------|--------|-------|
-| 20.19.4 | FAIL | FAIL |
-| 22.17.1 | OK (ExperimentalWarning) | PASS |
-| 24.16.0 | OK | PASS |
-
-Smoke D1 7/7 PASS sous 22 et 24. Flag non requis. Fichiers versionnés non modifiés par repro (binaires `/tmp` seulement).
-
----
-
-## 6. Options / recommandation
-
-- **C1 Node 24 workflow-only** — **recommandé**
-- C1 Node 22 — second
-- C2 retirer sqlite — NON (scope métier)
-- C3 engines/.nvmrc — complément
-- C4 matrice / C5 skip build — NON
-
-Correctif minimal proposé : `.github/workflows/sfia-studio-ci.yml` `node-version: "24"`
-Tests attendus : ci/typecheck/lint/build/test/modeled sous Node 24
-Runs attendus : nouveau run PR vert
-**Aucune correction exécutée ce cycle.**
-
----
-
-## 7. Gouvernance
-
-PR non merge-ready · H1/H2/H3 non proposés · GO merge non proposé · required check non applicable · F-A6-PM-G01 OPEN · protections NOT APPLIED.
-
----
-
-## 8. Findings / réserves
-
-F-A6-PM-G01 · F-CI-01..05 **OPEN** (F-CI-05 cause démontrée, non fermé)
-B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 **OPEN** · C1–C4 NOT VALIDATED
-
----
-
-## 9. Workflow actuel (inchangé)
+### Workflow avant
 
 ```yaml
 name: SFIA Studio CI
@@ -344,10 +157,202 @@ jobs:
           fi
 ```
 
+### Workflow après
+
+```yaml
+name: SFIA Studio CI
+
+on:
+  pull_request:
+    paths:
+      - "projects/sfia-studio/**"
+      - ".github/workflows/sfia-studio-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "projects/sfia-studio/**"
+      - ".github/workflows/sfia-studio-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sfia-studio-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build and validate SFIA Studio
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+        working-directory: projects/sfia-studio/app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: projects/sfia-studio/app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Unit tests (Vitest)
+        run: npm test
+
+      - name: Modeled governance tests
+        working-directory: projects/sfia-studio
+        run: |
+          node --test \
+            sfia-v3-modeled/v3-native-option-a/tests/evidence-review-maturity-governance.test.mjs \
+            sfia-v3-modeled/v3-native-option-a/tests/execution-contract-governance.test.mjs \
+            sfia-v3-modeled/v3-native-option-a/tests/execution-attempt-governance.test.mjs
+
+      - name: Secret pattern scan (targeted)
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          # Fail closed on common high-signal secret markers under Studio paths.
+          # No external scanner dependency; patterns are intentionally narrow.
+          matches="$(git grep -nE 'BEGIN (RSA |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}' -- 'projects/sfia-studio' || true)"
+          if [ -n "${matches}" ]; then
+            echo "Potential secret material detected under projects/sfia-studio:" >&2
+            printf '%s\n' "${matches}" >&2
+            exit 1
+          fi
+          echo "Secret pattern scan passed"
+
+      - name: Trailing whitespace check
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            git diff --check "${BASE_SHA}...HEAD"
+          else
+            # Push to main: check the pushed commit range when available.
+            BEFORE="${{ github.event.before }}"
+            if [ -n "${BEFORE}" ] && [ "${BEFORE}" != "0000000000000000000000000000000000000000" ]; then
+              git diff --check "${BEFORE}...HEAD"
+            else
+              echo "No previous SHA available; skipping whitespace range check"
+            fi
+          fi
+```
+
 ---
 
-## 10. Contenu complet document 26
+## 3. Validation locale Node 24.16.0
 
+npm 11.13.0 · npm ci / typecheck / lint / build / Vitest 655 / modeled 73 / secret / YAML : PASS · actionlint ABSENT · audit 12 high.
+
+---
+
+## 4. Run corrigé 30208754162
+
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/30208754162
+- Head: `b0ad1e35c1a6f91ff37529e3427eb1e2b5a7c3b1`
+- Node CI: **v24.18.0**
+- Conclusion: **failure**
+- PASS: checkout · setup Node 24 · npm ci · typecheck · lint · **build** · Vitest · modeled · secret
+- FAIL: Trailing whitespace (`27-…md:53`) — **non corrigé**
+- F-CI-06 OPEN Minor
+- Qualification: `GITHUB ACTIONS CORRECTED RUN FAILED — ADDITIONAL CORRECTIVE REVIEW REQUIRES MORRIS GO`
+
+Run documentaire ultérieur éventuel sur tip `dc461a1d6adf9e743e2585850561985ff4031c9e` : non utilisé pour conclure le correctif Node.
+
+---
+
+## 5. PR body (après mise à jour)
+
+```markdown
+## Summary
+
+- ajoute un workflow GitHub Actions dédié à `projects/sfia-studio/**` ;
+- formalise la séquence PR readiness → publication → review PR/CI → choix H1/H2/H3 → GO merge → post-merge ;
+- ajoute les documents post-merge et cadrage non encore intégrés ;
+- ne modifie aucun runtime métier.
+
+## Workflow
+
+- nom : `SFIA Studio CI`
+- job : `validate`
+- check : `Build and validate SFIA Studio`
+- Node : **24** (correctif Morris — remplace 20)
+- package manager : npm
+- working directory : `projects/sfia-studio/app`
+- permissions : `contents: read`
+- timeout : 30 minutes
+
+## Correction CI (Node runtime)
+
+- Cause F-CI-05 : Node 20 × `node:sqlite` au `next build`.
+- Correctif : `node-version: "20"` → `"24"` uniquement.
+- Pas de package.json / lockfile / `.nvmrc` / engines / runtime / tests / modeled.
+- Validation locale Node v24.16.0 : PASS (ci, typecheck, lint, build, Vitest 655, modeled 73).
+
+## Run corrigé observé
+
+- Run : https://github.com/mcleland147/sfia-workspace/actions/runs/30208754162
+- Head : `b0ad1e3…`
+- Node CI : **v24.18.0**
+- Conclusion : **failure**
+- PASS : checkout · setup Node 24 · npm ci · typecheck · lint · **build** · Vitest · modeled · secret scan
+- FAIL : **Trailing whitespace check** (`27-…md:53`) — **non corrigé** dans le cycle Node (interdit)
+- Finding F-CI-06 OPEN Minor
+- F-CI-05 reste OPEN (run non intégralement vert) ; build Node/sqlite PASS
+- F-CI-03 MITIGATED (Node 24 local+CI) — pas de baseline globale
+
+## Governance
+
+- merge **interdit**
+- required check **non appliqué**
+- H1/H2/H3 non décidé
+- cycle suivant : `GO REVIEW OPTION A CI CORRECTED RUN FAILURE — SFIA STUDIO V3-NATIVE`
+
+## Reservations
+
+B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 OPEN · C1–C4 RECOMMENDED — NOT VALIDATED · F-A6-PM-G01 OPEN
+```
+
+---
+
+## 6. Findings / réserves
+
+- F-A6-PM-G01 OPEN
+- F-CI-01 OPEN
+- F-CI-02 OPEN
+- F-CI-03 MITIGATED (Node 24) — pas baseline globale
+- F-CI-04 OPEN
+- F-CI-05 OPEN (build PASS ; run non entièrement vert)
+- F-CI-06 OPEN Minor
+- B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 OPEN
+- C1–C4 RECOMMENDED — NOT VALIDATED
+- Protections / required check / auto-merge / H1-H3 / GO merge : non
+
+---
+
+## 7. Document 26 (extrait métadonnées + lien correction)
+
+```
 # 26 — CI Governance PR and CI Review (PR #268)
 
 | Champ | Valeur |
@@ -369,7 +374,8 @@ jobs:
 | **Push projet** | **NON** |
 | **Merge** | **INTERDIT** |
 | **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE PR REVIEW COMPLETE — CI CORRECTION FRAMED, MORRIS GO REQUIRED` |
-| **Gate suivant candidat** | `GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
+| **Gate suivant candidat** | `GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI — SFIA STUDIO V3-NATIVE` (**CONSUMED** dans cycle suivant — voir [27](./27-ci-node-runtime-correction-and-rerun.md)) |
+| **Correction exécutée** | Voir [27-ci-node-runtime-correction-and-rerun.md](./27-ci-node-runtime-correction-and-rerun.md) — Node 24 workflow-only (analyse historique ci-dessous inchangée) |
 
 ---
 
@@ -382,376 +388,193 @@ jobs:
 | `origin/main` = `910de87…` | **PASS** |
 | +8 / −0 | **PASS** |
 | PR #268 OPEN non-draft non-mergée | **PASS** |
-| Head PR = tip | **PASS** |
-| Auto-merge inactif · mergeState UNSTABLE | **PASS** |
-| Runs 30201400028 + 30201461893 présents | **PASS** |
-| Handoff blob `1d27f1dd…` | **PASS** |
-| Aucune opération Git active | **PASS** |
-| Tracked clean (hors `.tmp-sfia-review/`) | **PASS** |
-| Workflow / packages / runtime non modifiés depuis tip | **PASS** |
+```
+
+(analyse historique inchangée ; lien vers doc 27 ajouté)
 
 ---
 
-## 2. CKC
+## 8. Contenu complet document 27
+
+# 27 — CI Node Runtime Correction and Rerun (PR #268)
 
 | Champ | Valeur |
 |-------|--------|
-| Contrat QA détaillé | **candidate** périphérique : `method/.../pilots/04-qa-validation.md` |
-| Statut pour ce cycle | **absent** d’autorité DevOps/CI dédiée |
-| Usage | experimental cognitive guidance |
-| Autorité | **aucune** (ne peut pas autoriser une correction) |
-| Fallback | méthode SFIA + workflow + logs GitHub + docs 24/25 |
+| **Date/heure/fuseau** | 2026-07-26 17:40:48 CEST (+0200) — Europe/Paris |
+| **Cycle** | Intégration / DevOps — Correction CI Node runtime + rerun PR #268 |
+| **Profil** | Critical |
+| **Gate** | `GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
+| **Repo** | `mcleland147/sfia-workspace` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-option-a-ci-governance` |
+| **Branche** | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
+| **HEAD local initial** | `08cf62efb0bc6ac046bf82791a56a9f53e80ffeb` |
+| **SHA distant initial** | `ff10c92246e624736164fdd5f1bb97a03772d33e` |
+| **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
+| **merge-base** | `910de87…` |
+| **PR** | [#268](https://github.com/mcleland147/sfia-workspace/pull/268) |
+| **Handoff source** | blob `0d2ae9aeb649baada7d52b1ec382fac5de217e34` |
+| **Correction** | `node-version: "20"` → `"24"` (seule ligne) |
+| **Package/lockfile/engines/.nvmrc** | **NON modifiés** |
+| **Merge** | **INTERDIT** |
+| **Branch protection / required checks** | **PROPOSED — NOT APPLIED** |
+| **Verdict provisoire** | remplacé — voir §9 |
 
 ---
 
-## 3. État PR #268
+## 1. Truth Check
+
+| Contrôle | Résultat |
+|----------|----------|
+| HEAD local `08cf62e…` · upstream `ff10c92…` · ahead 1 | **PASS** |
+| Ahead commit = doc 26 uniquement | **PASS** |
+| `origin/main` / merge-base `910de87…` | **PASS** |
+| PR #268 OPEN non-draft non-mergée | **PASS** |
+| Workflow distant encore Node **20** | **PASS** |
+| Handoff `0d2ae9ae…` | **PASS** |
+| Runs initiaux failure 30201400028 / 30201461893 | **PASS** |
+
+---
+
+## 2. Cause F-CI-05 (rappel)
+
+Build CI sous Node 20 : `ERR_UNKNOWN_BUILTIN_MODULE` / `node:sqlite` chargé via `lib/d1/db.ts` pendant `next build` (collecte page). Revue doc 26 : Node 22/24 build PASS ; recommandation Morris appliquée = **Node 24 workflow-only**.
+
+---
+
+## 3. Diff exact
+
+```diff
+-          node-version: "20"
++          node-version: "24"
+```
+
+Fichier : `.github/workflows/sfia-studio-ci.yml`
+Aucune autre ligne modifiée (job, paths, permissions, cache, timeout, concurrency, commandes inchangés).
+
+---
+
+## 4. Validation locale Node 24
 
 | Champ | Valeur |
 |-------|--------|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/268 |
-| State | **OPEN** |
-| Draft | **false** |
-| Merged | **NON** |
-| Base | `main` @ `910de87…` |
-| Head | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` @ `ff10c92…` |
-| Titre | `ci(sfia-studio): add project validation workflow and merge governance` |
-| Files | **6** |
-| Additions / deletions | **+1376 / −23** |
-| Mergeable | **MERGEABLE** |
-| Merge state | **UNSTABLE** |
-| Reviewers / labels | **aucun** |
-| Auto-merge / merge queue | **inactifs** |
+| Node | **v24.16.0** |
+| npm | **11.13.0** |
+| Source runtime | binaire temporaire `/tmp/sfia-node-repro/...` (hors repo) |
 
-**PR merge-ready :** **NON** (check en échec).
+| Commande | rc | Durée |
+|----------|-----|-------|
+| `npm ci` | 0 | ~6 s |
+| `npm run typecheck` | 0 | ~1 s |
+| `npm run lint` | 0 | ~4 s |
+| `npm run build` | 0 | ~7 s |
+| `npm test` | 0 | ~7 s · **71** files · **655** tests PASS |
+| modeled `node --test` (3 fichiers) | 0 | <1 s · **73** pass |
+| secret scan | PASS | — |
+| `git diff --check origin/main...HEAD` | 0 | — |
+| YAML parse | YAML_OK | — |
+| actionlint | **ABSENT** | — |
+| npm audit (sans correction) | 12 high | Observation F-CI-02 |
 
----
-
-## 4. Périmètre / commits / diff
-
-### Fichiers (6)
-
-| Fichier | Nature | Scope |
-|---------|--------|-------|
-| `.github/workflows/sfia-studio-ci.yml` | CI | **in scope** |
-| `…/22-post-merge-review.md` | docs héritées | **in scope** |
-| `…/23-next-option-a-step-after-t-a6.md` | docs | **in scope** |
-| `…/24-ci-and-merge-governance-preparation.md` | docs | **in scope** |
-| `…/25-ci-governance-branch-publication-and-pr.md` | docs | **in scope** |
-| `…/t-a6-…/README.md` | docs | **in scope** |
-
-**Anomalie scope métier :** aucune. Pas de secret. Pas de package/runtime/test/modeled.
-
-### Commits (8 au-dessus de main)
-
-| SHA | Message |
-|-----|---------|
-| `1f25857` | docs T-A6 post-merge |
-| `aef7fd6` | docs cadrage after T-A6 |
-| `2492069` | ci workflow |
-| `5dd1b50` | docs 24 gouvernance |
-| `67a7a1f` | docs 25 publication |
-| `4678333` | docs record PR |
-| `941701f` | docs pin HEAD SHA |
-| `ff10c92` | docs align HEAD final |
+Warnings : stderr fixtures tests intentionnels ; aucun ExperimentalWarning sqlite sous 24.
 
 ---
 
-## 5. Chronologie des runs
+## 5. Commits / push (à compléter)
 
-| # | Run ID | Head SHA | Event | Conclusion | Nature |
-|---|--------|----------|-------|------------|--------|
-| 1 | [30201400028](https://github.com/mcleland147/sfia-workspace/actions/runs/30201400028) | `67a7a1f…` | pull_request | **failure** | **Premier run** (workflow + doc 25 initial) |
-| 2 | [30201461893](https://github.com/mcleland147/sfia-workspace/actions/runs/30201461893) | `ff10c92…` | pull_request | **failure** | Run **documentaire** (même cause) |
-
-Aucun autre run. Pas de rerun forcé. Concurrency : non pertinente (runs séquentiels sur heads différents).
-
-### Job / check réel
-
-**`Build and validate SFIA Studio`** (workflow `SFIA Studio CI`)
-
-| Steps | Run 1 & 2 |
-|-------|-----------|
-| Checkout · Setup Node · npm ci · Typecheck · Lint | **PASS** |
-| **Build** | **FAIL** |
-| Vitest · modeled · secret · whitespace | **skipped** |
-
-### Logs utiles (cause identique)
-
-```
-✓ Compiled successfully
-Collecting page data ...
-[Error: Failed to collect configuration for /nouvelle-demande] {
-  [cause]: Error: No such built-in module: node:sqlite
-  code: 'ERR_UNKNOWN_BUILTIN_MODULE'
-}
-> Build error occurred
-[Error: Failed to collect page data for /nouvelle-demande]
-```
-
-Observation GHA (run doc) : warning dépréciation Node 20 sur runners Actions (`actions/checkout@v4` / `setup-node@v4` forcés vers Node 24 pour l’exécution des actions) — **distinct** du `node-version: "20"` installé pour les steps `run` (qui reste la cause du module manquant).
-
----
-
-## 6. Chaîne causale F-CI-05 (démontrée)
-
-### Observation
-
-Build CI échoue à la collecte de page data Next.js avec `ERR_UNKNOWN_BUILTIN_MODULE` / `node:sqlite`.
-
-### Cause démontrée
-
-1. **Import applicatif direct (valeur)** dans `projects/sfia-studio/app/lib/d1/db.ts` :
-
-   `import { DatabaseSync } from "node:sqlite";`
-
-   (également `lib/ops1/db.ts` — même API).
-
-2. Chaîne de chargement build :
-
-   `app/nouvelle-demande/page.tsx`
-   → `@/lib/d1/commands` (`listWorkspaceProjects`)
-   → `./db` (`openD1Db`)
-   → `node:sqlite` (`DatabaseSync`)
-
-3. `next build` charge le graphe serveur lors de « Collecting page data » → **require runtime** de `node:sqlite` (pas seulement typecheck).
-
-4. **Node 20** : module builtin **absent** → `ERR_UNKNOWN_BUILTIN_MODULE`.
-
-5. **Node 24** (local historique) : module **présent** → build PASS → explique le faux sentiment de « build OK » avant CI.
-
-### Preuves complémentaires
-
-| Version | Source | `require('node:sqlite')` | typecheck | lint | `next build` |
-|---------|--------|--------------------------|-----------|------|--------------|
-| **v20.19.4** | tarball temporaire `/tmp` | **FAIL** | 0 | 0 | **1** (même erreur ; page observée `/workspace` — même cause) |
-| **v22.17.1** | tarball temporaire | **OK** + `ExperimentalWarning` | 0 | 0 | **0** |
-| **v24.16.0** | tarball temporaire | **OK** | 0 | 0 | **0** |
-
-Smoke D1 (`project-foundation.test.ts`) : **7/7 PASS** sous Node 22 et 24.
-
-**Flag Node requis :** **non** pour build/tests observés sous 22.17.1 / 24.16.0 (warning expérimental seulement sur 22).
-
-**Version minimale démontrée pour build :** **Node 22.17.1** (avec API sqlite **expérimentale**). **Node 24.16.0** : build OK **sans** ExperimentalWarning observé au probe.
-
-**Compatibilité Next 15.5.20 :** build OK dès que `node:sqlite` existe.
-
-**Impact :**
-
-| Surface | Impact |
-|---------|--------|
-| Build CI | **bloqué** sous Node 20 |
-| Runtime Studio (D1/OPS1) | **dépend** de `node:sqlite` (choix architecture déjà documenté) |
-| Tests | suites D1/OPS1 exigent le même module |
-| Production | hors scope ; pin Node doit couvrir runtime cible |
-
-**Hypothèses écartées / non retenues comme cause primaire :**
-
-- bug Next.js isolé (compilation OK ; échec au load module) ;
-- lockfile / npm ci (ci PASS) ;
-- path filters workflow (run bien déclenché) ;
-- secret scan / permissions.
-
----
-
-## 7. Options correctives
-
-### C1 — Changer Node dans le workflow
-
-| Critère | Évaluation |
-|---------|------------|
-| Versions candidates | **22** (min démontrée) · **24** (alignée local + moins expérimentale) |
-| Preuve build | 22 PASS · 24 PASS |
-| Preuve tests | smoke D1 PASS 22/24 |
-| `node:sqlite` | OK 22 (expérimental) · OK 24 |
-| Stabilité | 24 préférable vs ExperimentalWarning 22 |
-| Impact CI | modification **1 ligne** `node-version` |
-| Impact runtime cible | aligne CI sur capacité déjà utilisée en local |
-| Dette | reste sans `engines`/`.nvmrc` si C3 non joint |
-| Minimal immédiat | **OUI — workflow-only** |
-
-### C2 — Supprimer / remplacer `node:sqlite`
-
-| Critère | Évaluation |
-|---------|------------|
-| Fichiers | `lib/d1/db.ts`, `lib/ops1/db.ts` + nombreux type-imports |
-| Valeur actuelle | persistence locale D1/OPS1 **intentionnelle** (docs design) |
-| Alternative | better-sqlite3 / PG / abstraction — **refonte** |
-| Scope | **métier/architecture** · hors PR CI |
-| Priorité | **ne pas** privilégier pour conserver Node 20 |
-
-### C3 — Pin projet (`engines` / `.nvmrc`)
-
-| Critère | Évaluation |
-|---------|------------|
-| Bénéfice | aligne local/CI/docs ; clôture progressive F-CI-01 |
-| Impact package | **modifie** `package.json` (± lock non requis pour engines) |
-| Cycle | peut être **même GO** si Morris élargit fichiers, sinon **cycle pin séparé** |
-| Recommandation | **fortement utile** en complément de C1, pas substitut au fix CI immédiat |
-
-### C4 — Matrice Node temporaire
-
-Diagnostique utile déjà fait localement. Matrice GHA = surindustrialisation pour 1ère CI. **Écarter** pour le correctif immédiat.
-
-### C5 — Différer le build CI
-
-Contrôle dégradé · masquerait F-CI-05. **Écarter** sauf impossibilité (non démontrée).
-
----
-
-## 8. Matrice comparative
-
-| Option | Minimal | Preuve | Dette | Scope métier | Recommandé |
-|--------|---------|--------|-------|--------------|------------|
-| **C1 Node 24 workflow** | très bas | build+smoke OK | pin projet encore OPEN | non | **OUI (primaire)** |
-| C1 Node 22 workflow | très bas | build OK | ExperimentalWarning | non | acceptable second choix |
-| C2 retirer sqlite | élevé | n/a | architecture | **oui** | NON pour ce fix |
-| C3 engines/.nvmrc | bas | doc/ops | faible | non | **complément** |
-| C4 matrice | moyen | redondant | bruit CI | non | NON immédiat |
-| C5 skip build | bas | faux PASS | élevée | non | NON |
-
----
-
-## 9. Recommandation (non validée Morris)
-
-**Correction minimale recommandée :** **C1 workflow-only** — passer `node-version` de `"20"` à **`"24"`** dans `.github/workflows/sfia-studio-ci.yml`.
+| Commit | Message |
+|--------|---------|
+| `08cf62e…` | `docs(sfia-studio): review CI governance PR failure` (conservé) |
+| _(ci)_ | `ci(sfia-studio): use Node 24 for project validation` |
+| _(docs)_ | `docs(sfia-studio): record CI Node runtime correction` |
 
 | Champ | Valeur |
 |-------|--------|
-| Type de cycle | **workflow-only** (minimal) |
-| Fichier exact | `.github/workflows/sfia-studio-ci.yml` |
-| Changement | `node-version: "20"` → `node-version: "24"` |
-| Justification | Node 20 **incompatible** avec `node:sqlite` déjà en runtime D1/OPS1 ; Node 24 **démontré** localement ; aligne validation historique ; évite ExperimentalWarning Node 22 |
-| Tests locaux attendus (sous Node 24) | `npm ci` · typecheck · lint · build · `npm test` · modeled `node --test` (3 fichiers) · secret scan · diff-check |
-| Runs GitHub attendus | nouveau run PR sur head corrigé · check `Build and validate SFIA Studio` → succès attendu |
-| Findings traités (mitigation) | F-CI-05 (mitigation CI) · F-CI-03 (réduit) |
-| Findings maintenus OPEN | F-A6-PM-G01 · F-CI-01 · F-CI-02 · F-CI-04 · F-CI-05 jusqu’à preuve run vert · pin engines |
-| Limites | ne fige pas `engines.node` ; ne décide pas baseline produit formalisée ; ne ferme pas F-A6-PM-G01 |
-| Stop conditions correctif | build/tests locaux fail sous 24 · run GitHub encore fail · scope élargi sans GO · modification runtime |
-
-**Complément candidat (Morris) :** C3 dans le **même** gate élargi **ou** cycle pin séparé (`engines.node` + `.nvmrc` = `24` ou `>=22`).
-
-**Second choix :** Node **22** si Morris refuse 24 ; documenter ExperimentalWarning.
-
-**Gate Morris exact :**
-
-```
-GO CORRECT OPTION A CI NODE RUNTIME AND RE-RUN PR CI
-— SFIA STUDIO V3-NATIVE
-```
-
-Fichiers autorisés proposés pour ce GO : **uniquement** `.github/workflows/sfia-studio-ci.yml` (+ doc de correction) ; **pas** runtime/tests/modeled ; package/lock **uniquement** si Morris ajoute explicitement C3.
-
-Après succès distant :
-
-```
-GO REVIEW OPTION A CI GOVERNANCE PR AFTER CORRECTION
-— SFIA STUDIO V3-NATIVE
-```
-
-**Aucun gate merge** à ce stade.
+| Push | `git push origin delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
+| Force | **NON** |
+| SHA distant final | `b0ad1e35c1a6f91ff37529e3427eb1e2b5a7c3b1` |
+| Commits poussés | `08cf62e` · `e322bf6` · `b0ad1e3` |
+| Run ID / URL | **30208754162** · https://github.com/mcleland147/sfia-workspace/actions/runs/30208754162 |
+| Conclusion | **failure** (voir §9) |
 
 ---
 
-## 10. Gouvernance merge
+## 6. Findings / réserves (statut attendu après run)
 
-| Élément | Statut |
-|---------|--------|
-| PR merge-ready | **NON** |
-| MERGEABLE ≠ validée | confirmé |
-| Check en échec = stop | confirmé |
-| H1/H2/H3 | **non consommés** · **non proposés** |
-| GO merge | **non proposé** |
-| Required check | **non applicable** tant qu’échec |
-| Branch protection | **PROPOSED — NOT APPLIED** |
+| ID | Statut cible |
+|----|--------------|
+| F-CI-05 | `MITIGATED — REMOTE SUCCESS OBSERVED` **si** run intégralement vert · sinon OPEN |
+| F-CI-03 | `MITIGATED` si local+CI Node 24 · pas de baseline globale |
+| F-CI-01 | **OPEN** (pas de engines/.nvmrc) |
+| F-CI-02 | **OPEN** |
+| F-CI-04 | **OPEN** (actionlint absent) |
 | F-A6-PM-G01 | **OPEN** |
-
-Séquence post-correction : GO correctif → fix → validation locale Node CI → push → nouveau run → revue after correction → H1/H2/H3 → GO merge → post-merge → protections cycle séparé.
-
----
-
-## 11. Findings / réserves
-
-| ID | Statut |
-|----|--------|
-| F-A6-PM-G01 | **OPEN** |
-| F-CI-01 | **OPEN** (pin Node Studio) |
-| F-CI-02 | **OPEN** (npm audit) |
-| F-CI-03 | **OPEN** (corroboré · path vers mitigation C1) |
-| F-CI-04 | **OPEN** (actionlint) |
-| F-CI-05 | **OPEN Major** — cause démontrée · correctif **cadré** · **non fermé** |
 | B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 | **OPEN** |
-| C1–C4 (maturité Option A) | RECOMMENDED — NOT VALIDATED |
+| C1–C4 | RECOMMENDED — NOT VALIDATED |
 
 ---
 
-## 12. Décisions
+## 7. Gouvernance
 
-### Validées (ce cycle — revue)
+Même succès CI ≠ PR merge-ready · H1/H2/H3 non décidé · GO merge non proposé · required check non appliqué · revue post-correction obligatoire.
 
-- Cause F-CI-05 = incompatibilité Node 20 × `node:sqlite` chargé au build via D1.
-- Reproduction locale Node 20 = FAIL build ; 22/24 = PASS build.
-- Scope PR #268 conforme (CI + docs).
-- PR non merge-ready.
-- Aucune correction exécutée.
+Gate suivant candidat (si vert) :
 
-### Candidates
-
-- C1 Node **24** workflow-only (recommandation).
-- C1 Node 22 (second).
-- C3 pin `engines`/`.nvmrc` (complément).
-
-### Morris requises (non créées)
-
-- GO correctif Node runtime CI ;
-- choix 24 vs 22 vs C3 joint ;
-- tout GO merge ultérieur ;
-- fermeture findings.
+`GO REVIEW OPTION A CI GOVERNANCE PR AFTER CORRECTION — SFIA STUDIO V3-NATIVE` (**NOT consumed**)
 
 ---
 
-## 13. Anti-claims
+## 8. Anti-claims
 
-- Revue ≠ correction
-- Recommandation ≠ décision Morris
-- Build local Node 24 ≠ CI PASS
-- MERGEABLE ≠ validée
-- Cause démontrée ≠ F-CI-05 fermé
+- Correction ≠ merge autorisé
+- Node 24 CI ≠ baseline produit globale
+- F-CI-05 mitigé ≠ CLOSED
 - F-A6-PM-G01 non clos
 - T-A6 / Option A non COMPLETE
 - T-A7 non ouvert
 
 ---
 
-## 14. Verdict
+## 9. Résultat run corrigé (observation — sans nouveau correctif)
 
-`SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE PR REVIEW COMPLETE — CI CORRECTION FRAMED, MORRIS GO REQUIRED`
+| Champ | Valeur |
+|-------|--------|
+| Workflow | SFIA Studio CI |
+| Run | 30208754162 |
+| Head | `b0ad1e35c1a6f91ff37529e3427eb1e2b5a7c3b1` |
+| Node CI observé | **v24.18.0** |
+| Conclusion job | **failure** |
+| Qualification | `GITHUB ACTIONS CORRECTED RUN FAILED — ADDITIONAL CORRECTIVE REVIEW REQUIRES MORRIS GO` |
+
+Steps PASS : Checkout · Setup Node 24 · npm ci · Typecheck · Lint · **Build** · Vitest · Modeled · Secret scan.
+
+Step FAIL : **Trailing whitespace check** — `27-ci-node-runtime-correction-and-rerun.md:53` trailing whitespace.
+
+**Aucun correctif whitespace appliqué dans ce cycle** (interdit). Finding **F-CI-06** OPEN Minor.
+
+| Finding | Statut après run |
+|---------|------------------|
+| F-CI-05 | **OPEN** (build PASS sous Node 24 ; run non intégralement vert) |
+| F-CI-03 | **MITIGATED** (Node 24 local+CI) · pas de baseline globale |
+| F-CI-01 · F-CI-02 · F-CI-04 | **OPEN** |
+| F-CI-06 | **OPEN Minor** |
+| F-A6-PM-G01 | **OPEN** |
+
+**Verdict exact :**
+
+`SFIA STUDIO V3-NATIVE OPTION A CI NODE RUNTIME CORRECTED — GITHUB ACTIONS STILL FAILING, ADDITIONAL REVIEW REQUIRES MORRIS GO`
+
+**Gate suivant candidat (NOT consumed) :**
+
+`GO REVIEW OPTION A CI CORRECTED RUN FAILURE — SFIA STUDIO V3-NATIVE`
 
 ---
 
-## 11. Fichiers / non-modifications
+## 9. Non-modifications
 
-| Créé | `26-ci-governance-pr-and-ci-review.md` |
-| Commit local | `docs(sfia-studio): review CI governance PR failure` (`08cf62efb0bc6ac046bf82791a56a9f53e80ffeb`) |
-| Push projet | **NON** |
-| Workflow modifié | **NON** |
-| package/lockfile | **NON** |
-| runtime/tests/modeled | **NON** |
-| PR technique | **NON** |
-| rerun forcé | **NON** |
-| merge / protections | **NON** |
-| findings fermés | **NON** |
-| T-A7 | **NON** |
-| gate suivant consommé | **NON** |
+workflow hors node-version : NON · packages : NON · runtime/tests/modeled : NON · merge : NON · T-A7 : NON · findings CLOSED abusivement : NON · gate suivant consommé : NON
 
 ---
 
-## 12. Handoff
+## 10. Verdict exact
 
-Message : `docs(review-handoff): publish Studio CI governance PR review`
-Commit/blob : _après publish_
-
----
-
-## 13. Verdict exact
-
-`SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE PR REVIEW COMPLETE — CI CORRECTION FRAMED, MORRIS GO REQUIRED`
+`SFIA STUDIO V3-NATIVE OPTION A CI NODE RUNTIME CORRECTED — GITHUB ACTIONS STILL FAILING, ADDITIONAL REVIEW REQUIRES MORRIS GO`
