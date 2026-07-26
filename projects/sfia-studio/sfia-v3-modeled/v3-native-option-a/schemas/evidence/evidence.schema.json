@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/evidence/evidence.schema.json",
   "title": "Evidence",
+  "description": "T-A6 Evidence entity (D-T-A6-01/02). BREAKING vs 0.1.0-oa: bindings, classification, storageMode, availability, retention/legalHold, sourceKind, provenance required, unavailable status, digest rules. Attempt is source not owner. No storage vendor. Secrets forbidden in clear.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -9,16 +10,31 @@
     "evidenceId",
     "type",
     "source",
+    "sourceKind",
     "producedAt",
-    "status"
+    "status",
+    "classification",
+    "storageMode",
+    "availability",
+    "bindings",
+    "containsSecrets",
+    "provenance"
   ],
   "properties": {
     "schemaVersion": {
       "type": "string",
-      "const": "0.1.0-oa"
+      "const": "0.2.0-oa"
     },
     "evidenceId": {
-      "$ref": "../common/identifier.schema.json"
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^ev:"
+        }
+      ]
     },
     "type": {
       "type": "string",
@@ -32,14 +48,31 @@
       ]
     },
     "source": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Human-readable source label — no secrets/tokens"
+    },
+    "sourceKind": {
+      "type": "string",
+      "enum": [
+        "execution_attempt",
+        "manual",
+        "external",
+        "system"
+      ]
     },
     "location": {
       "type": "string",
-      "description": "Reference only — secrets forbidden in clear"
+      "maxLength": 1000,
+      "description": "Logical ref only — secrets/tokens forbidden"
     },
     "digest": {
       "$ref": "../common/digest.schema.json"
+    },
+    "verifiablePayload": {
+      "type": "boolean",
+      "description": "If true, digest is mandatory (content-addressed verifiable claim)"
     },
     "producedBy": {
       "$ref": "../common/actor-reference.schema.json"
@@ -65,21 +98,112 @@
         "incomplete",
         "stale",
         "rejected",
-        "superseded"
+        "superseded",
+        "unavailable"
       ]
     },
-    "links": {
+    "classification": {
+      "type": "string",
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "storageMode": {
+      "type": "string",
+      "enum": [
+        "metadata_only",
+        "internal_payload_ref",
+        "external_payload_ref"
+      ],
+      "description": "Logical hybrid storage — no vendor (U-M02 OPEN)"
+    },
+    "availability": {
+      "type": "string",
+      "enum": [
+        "available",
+        "unavailable",
+        "unknown"
+      ]
+    },
+    "retentionClass": {
+      "type": "string",
+      "enum": [
+        "short",
+        "standard",
+        "extended",
+        "legal_hold_eligible"
+      ]
+    },
+    "legalHold": {
+      "type": "boolean",
+      "description": "Legal hold is distinct from erasure right"
+    },
+    "bindings": {
       "type": "object",
       "additionalProperties": false,
+      "minProperties": 1,
+      "description": "At least one structural binding required (D-T-A6-01)",
       "properties": {
+        "executionAttemptId": {
+          "allOf": [
+            {
+              "$ref": "../common/identifier.schema.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^xat:"
+            }
+          ]
+        },
+        "executionContractId": {
+          "allOf": [
+            {
+              "$ref": "../common/identifier.schema.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^xct:"
+            }
+          ]
+        },
         "decisionId": {
           "$ref": "../common/identifier.schema.json"
         },
-        "executionContractId": {
-          "$ref": "../common/identifier.schema.json"
+        "cycleInstanceId": {
+          "allOf": [
+            {
+              "$ref": "../common/identifier.schema.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^cyc:"
+            }
+          ]
+        },
+        "projectId": {
+          "allOf": [
+            {
+              "$ref": "../common/identifier.schema.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^prj:"
+            }
+          ]
         },
         "reviewBundleId": {
-          "$ref": "../common/identifier.schema.json"
+          "allOf": [
+            {
+              "$ref": "../common/identifier.schema.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^rb:"
+            }
+          ]
         }
       }
     },
@@ -90,5 +214,90 @@
     "provenance": {
       "$ref": "../common/provenance-record.schema.json"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verifiablePayload": {
+            "const": true
+          }
+        },
+        "required": [
+          "verifiablePayload"
+        ]
+      },
+      "then": {
+        "required": [
+          "digest"
+        ],
+        "description": "Verifiable payload claim ⇒ digest mandatory"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "verified"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "digest"
+        ],
+        "description": "verified ⇒ digest mandatory"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sourceKind": {
+            "const": "execution_attempt"
+          }
+        },
+        "required": [
+          "sourceKind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "bindings": {
+            "required": [
+              "executionAttemptId"
+            ]
+          }
+        },
+        "description": "execution_attempt sourceKind ⇒ bindings.executionAttemptId (Attempt is source, not owner)"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "availability": {
+            "const": "unavailable"
+          }
+        },
+        "required": [
+          "availability"
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "enum": [
+              "unavailable",
+              "incomplete",
+              "stale",
+              "rejected"
+            ]
+          }
+        },
+        "description": "unavailable availability cannot be status available/verified"
+      }
+    }
+  ]
 }

@@ -1,22 +1,51 @@
 {
-  "schemaVersion": "0.1.0-oa",
+  "schemaVersion": "0.2.0-oa",
   "maturityAssessmentId": "mat:oa-modeled-prop",
+  "projectId": "prj:campus360-oa",
   "subjectRef": "pack:v3-native-option-a-modeled",
-  "level": "MODELED",
-  "evidenceRefs": [
-    "ev:schemas",
-    "ev:examples"
+  "dimensions": [
+    {
+      "dimensionId": "modeled-contracts",
+      "proposedLevel": "MODELED"
+    }
   ],
-  "evaluator": {
+  "proposedLevel": "MODELED",
+  "claimEvaluationRefs": [
+    "clm:noncrit-pass-001"
+  ],
+  "reviewBundleRefs": [
+    {
+      "reviewBundleId": "rb:oa-ready-001",
+      "version": 2
+    }
+  ],
+  "evidenceRefs": [
+    "ev:from-attempt-001",
+    "ev:manual-001"
+  ],
+  "blockingReservationRefs": [
+    "res:candidate-until-morris"
+  ],
+  "proposedBy": {
     "actorId": "actor:morris",
     "role": "decision_maker",
     "displayName": "Morris",
     "authorityLevel": "N3"
   },
-  "evaluatedAt": "2026-07-23T21:00:00.000Z",
-  "reservations": [
-    "candidate until Morris validation"
-  ],
+  "proposedAt": "2026-07-26T00:00:00.000Z",
   "status": "proposed",
-  "autoPromoted": false
+  "autoPromoted": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:mat-modeled-001",
+    "actor": {
+      "actorId": "actor:morris",
+      "role": "decision_maker",
+      "displayName": "Morris",
+      "authorityLevel": "N3"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
 }

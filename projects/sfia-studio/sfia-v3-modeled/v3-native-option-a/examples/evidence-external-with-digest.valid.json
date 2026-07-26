@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "evidenceId": "ev:external-001",
+  "type": "artifact",
+  "source": "external CI artifact",
+  "sourceKind": "external",
+  "location": "refs/external/ci-artifact-001",
+  "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "verifiablePayload": true,
+  "producedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "producedAt": "2026-07-26T00:00:00.000Z",
+  "freshness": "fresh",
+  "status": "verified",
+  "classification": "public",
+  "storageMode": "external_payload_ref",
+  "availability": "available",
+  "bindings": {
+    "projectId": "prj:campus360-oa",
+    "reviewBundleId": "rb:oa-ready-001"
+  },
+  "containsSecrets": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:ev-external-001",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "system",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

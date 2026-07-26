@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:pass-noev-001",
+  "claimType": "technique",
+  "claimStatement": "PASS without evidence",
+  "criticality": "non_critical",
+  "evaluationMethod": "deterministic",
+  "requiredEvidenceRefs": [
+    "ev:from-attempt-001"
+  ],
+  "reviewBundleId": "rb:oa-ready-001",
+  "reviewBundleVersion": 2,
+  "status": "pass",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "confirmationAuthority": "system_deterministic",
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "evaluatedAt": "2026-07-26T01:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-pass-noev",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

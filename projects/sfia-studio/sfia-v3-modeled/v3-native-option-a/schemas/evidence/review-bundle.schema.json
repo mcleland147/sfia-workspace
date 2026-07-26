@@ -2,39 +2,100 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/evidence/review-bundle.schema.json",
   "title": "ReviewBundle",
-  "description": "Synthesis alone is never a complete ReviewBundle.",
+  "description": "T-A6 ReviewBundle aggregate (D-T-A6-03). BREAKING vs 0.1.0-oa: version OCC, under_review/incomplete statuses, frozenAt, claimEvaluationRefs, provenance required, freeze before verdict. ready_for_review ≡ frozen in v1. Synthesis alone is never complete.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schemaVersion",
     "reviewBundleId",
     "projectId",
+    "version",
     "evidenceRefs",
     "completeness",
     "status",
-    "createdAt"
+    "createdAt",
+    "provenance"
   ],
   "properties": {
     "schemaVersion": {
       "type": "string",
-      "const": "0.1.0-oa"
+      "const": "0.2.0-oa"
     },
     "reviewBundleId": {
-      "$ref": "../common/identifier.schema.json"
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^rb:"
+        }
+      ]
     },
     "projectId": {
-      "$ref": "../common/identifier.schema.json"
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^prj:"
+        }
+      ]
     },
     "cycleInstanceId": {
-      "$ref": "../common/identifier.schema.json"
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^cyc:"
+        }
+      ]
     },
     "executionContractId": {
-      "$ref": "../common/identifier.schema.json"
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^xct:"
+        }
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "OCC aggregate version — verdict binds reviewBundleId + version exactly"
     },
     "evidenceRefs": {
       "type": "array",
       "items": {
-        "$ref": "../common/identifier.schema.json"
+        "allOf": [
+          {
+            "$ref": "../common/identifier.schema.json"
+          },
+          {
+            "type": "string",
+            "pattern": "^ev:"
+          }
+        ]
+      }
+    },
+    "claimEvaluationRefs": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "../common/identifier.schema.json"
+          },
+          {
+            "type": "string",
+            "pattern": "^clm:"
+          }
+        ]
       }
     },
     "completeness": {
@@ -47,7 +108,9 @@
     "reservations": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
       }
     },
     "reviewer": {
@@ -58,16 +121,37 @@
       "enum": [
         "draft",
         "ready_for_review",
+        "under_review",
         "accepted",
         "rejected",
+        "incomplete",
         "superseded"
-      ]
+      ],
+      "description": "Lifecycle v1: draft → ready_for_review → under_review → accepted|rejected|incomplete|superseded. ready_for_review ≡ frozen."
     },
     "createdAt": {
       "$ref": "../common/timestamp.schema.json"
     },
+    "frozenAt": {
+      "$ref": "../common/timestamp.schema.json",
+      "description": "Required for all statuses after draft (ready_for_review ≡ freeze)"
+    },
+    "reviewStartedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
     "validatedAt": {
       "$ref": "../common/timestamp.schema.json"
+    },
+    "supersedesReviewBundleId": {
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^rb:"
+        }
+      ]
     },
     "synthesisOnly": {
       "type": "boolean",
@@ -76,5 +160,158 @@
     "provenance": {
       "$ref": "../common/provenance-record.schema.json"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "synthesisOnly": {
+            "const": true
+          }
+        },
+        "required": [
+          "synthesisOnly"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "const": "incomplete"
+          }
+        },
+        "description": "synthesisOnly=true ⇒ completeness=incomplete"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "ready_for_review",
+              "under_review",
+              "accepted",
+              "rejected",
+              "incomplete",
+              "superseded"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "frozenAt"
+        ],
+        "description": "Post-draft statuses require frozenAt (ready_for_review ≡ freeze)"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "accepted",
+              "rejected"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "frozenAt",
+          "validatedAt",
+          "reviewer"
+        ],
+        "properties": {
+          "synthesisOnly": {
+            "const": false
+          }
+        },
+        "description": "Verdict statuses require freeze + validatedAt + reviewer; synthesisOnly cannot receive accepted/rejected verdict"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "const": "complete"
+          },
+          "synthesisOnly": {
+            "const": false
+          }
+        },
+        "description": "accepted ⇒ completeness=complete and not synthesisOnly"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "incomplete"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "const": "incomplete"
+          }
+        },
+        "description": "status=incomplete ⇒ completeness=incomplete"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "under_review"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "frozenAt",
+          "reviewStartedAt"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "superseded"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "frozenAt"
+        ]
+      }
+    }
+  ]
 }

@@ -19,8 +19,9 @@
 - Fail-closed ; mutations gouvernées.
 - UX panel ≠ source d’autorité (FA-OA-01).
 - HumanDecision ≠ Confirmation ≠ ExecutionContract ≠ Markdown Cursor.
-- Evidence ≠ ReviewBundle ≠ ClaimEvaluation.
-- Domaines A–H (FA-OA-02) ; F ≠ G.
+- Evidence ≠ ReviewBundle ≠ ClaimEvaluation (D-T-A6-01/03/04).
+- Domaines A–H (FA-OA-02) ; F ≠ G ; H = revue/claims/maturité (T-A6).
+- Attempt n’est **pas** owner d’Evidence ; T-A6 ne lance pas T-A7.
 
 ## Agrégats candidats
 
@@ -32,10 +33,14 @@
 | Confirmation | `Confirmation` | N1–N3, scope, expiry, idempotency | E |
 | ExecutionContract | `ExecutionContract` | action/scope/caps/authority/stops | F |
 | ExecutionAttempt | `ExecutionAttempt` | attempt/result/timeout | G (résultat) / F (lien) |
-| ReviewBundle | `ReviewBundle` | evidence set + completeness | H |
+| Evidence | `Evidence` (entité) | bindings, digest, classification, availability | **H** (T-A6) |
+| ReviewBundle | `ReviewBundle` | evidence/claim refs + freeze + completeness | **H** |
+| ClaimEvaluation | `ClaimEvaluation` | claim+eval unifiés v1 (`clm:`) | **H** |
+| MaturityAssessment | `MaturityAssessment` | propose→confirm ; `autoPromoted=false` | **H** |
 
 ## Frontières transactionnelles conceptuelles
 
 - Mutation LPS → nouvelle `lpsVersionId` (pas update in-place).
 - Contrat confirmé → immutable ; retry → nouvel Attempt.
+- ReviewBundle : freeze (`ready_for_review`) avant verdict ; refs immutables post-freeze.
 - Chat message hors agrégat décision.

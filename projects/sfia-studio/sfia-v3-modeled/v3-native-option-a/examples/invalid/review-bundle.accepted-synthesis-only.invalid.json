@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "reviewBundleId": "rb:accepted-synth-001",
+  "projectId": "prj:campus360-oa",
+  "version": 3,
+  "evidenceRefs": [
+    "ev:from-attempt-001",
+    "ev:manual-001",
+    "ev:external-001"
+  ],
+  "claimEvaluationRefs": [
+    "clm:crit-confirmed-001",
+    "clm:structural-001"
+  ],
+  "completeness": "incomplete",
+  "reviewer": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "status": "accepted",
+  "createdAt": "2026-07-26T00:00:00.000Z",
+  "frozenAt": "2026-07-26T01:00:00.000Z",
+  "reviewStartedAt": "2026-07-26T02:00:00.000Z",
+  "validatedAt": "2026-07-26T03:00:00.000Z",
+  "synthesisOnly": true,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:rb-accepted-001",
+    "actor": {
+      "actorId": "actor:reviewer-1",
+      "role": "reviewer",
+      "displayName": "Reviewer One",
+      "authorityLevel": "N2"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "evidenceId": "ev:sensitive-001",
+  "type": "document",
+  "source": "internal restricted design note",
+  "sourceKind": "manual",
+  "location": "refs/evidence/restricted-design",
+  "producedBy": {
+    "actorId": "actor:morris",
+    "role": "decision_maker",
+    "displayName": "Morris",
+    "authorityLevel": "N3"
+  },
+  "producedAt": "2026-07-26T00:00:00.000Z",
+  "freshness": "fresh",
+  "status": "available",
+  "classification": "restricted",
+  "storageMode": "metadata_only",
+  "availability": "available",
+  "retentionClass": "extended",
+  "legalHold": false,
+  "bindings": {
+    "decisionId": "dec:oa-001",
+    "projectId": "prj:campus360-oa"
+  },
+  "containsSecrets": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:ev-sensitive-001",
+    "actor": {
+      "actorId": "actor:morris",
+      "role": "decision_maker",
+      "displayName": "Morris",
+      "authorityLevel": "N3"
+    },
+    "source": "human_decision",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:waiver-system-001",
+  "claimType": "conformite",
+  "claimStatement": "Temporary deferral of tablet UX evidence",
+  "criticality": "non_critical",
+  "evaluationMethod": "human_review",
+  "requiredEvidenceRefs": [
+    "ev:stale-001"
+  ],
+  "providedEvidenceRefs": [],
+  "reviewBundleId": "rb:oa-ready-001",
+  "reviewBundleVersion": 2,
+  "status": "waived",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "waiver": {
+    "reason": "Tablet UX deferred under known debt UX-U01; reversible when evidence lands",
+    "authorizedBy": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "authorizedAt": "2026-07-26T01:00:00.000Z",
+    "reversible": true
+  },
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-waived-001",
+    "actor": {
+      "actorId": "actor:morris",
+      "role": "decision_maker",
+      "displayName": "Morris",
+      "authorityLevel": "N3"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

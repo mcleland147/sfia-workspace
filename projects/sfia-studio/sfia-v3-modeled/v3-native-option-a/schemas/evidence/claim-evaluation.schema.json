@@ -1,0 +1,450 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/evidence/claim-evaluation.schema.json",
+  "title": "ClaimEvaluation",
+  "description": "T-A6 ClaimEvaluation 0.1.0-oa (D-T-A6-04/05/06). Semantic Claim ≠ ClaimEvaluation; physical v1 unified in this object (clm:). System proposes Critical; human/Morris confirms. NOT_PROVEN ≠ FAIL; WAIVED ≠ PASS. Adapter does not judge conformity. R-M01 remains OPEN until Morris modeled validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "claimEvaluationId",
+    "claimType",
+    "claimStatement",
+    "criticality",
+    "evaluationMethod",
+    "requiredEvidenceRefs",
+    "reviewBundleId",
+    "reviewBundleVersion",
+    "status",
+    "proposedBy",
+    "proposedAt",
+    "provenance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "claimEvaluationId": {
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^clm:"
+        }
+      ]
+    },
+    "claimType": {
+      "type": "string",
+      "enum": [
+        "technique",
+        "conformite",
+        "qualite",
+        "securite",
+        "maturite_support"
+      ],
+      "description": "Decisionnel claims forbidden in T-A6 ClaimEvaluation"
+    },
+    "claimStatement": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "criticality": {
+      "type": "string",
+      "enum": [
+        "non_critical",
+        "critical",
+        "structural"
+      ]
+    },
+    "evaluationMethod": {
+      "type": "string",
+      "enum": [
+        "deterministic",
+        "assisted",
+        "human_review"
+      ]
+    },
+    "ruleRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "requiredEvidenceRefs": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "../common/identifier.schema.json"
+          },
+          {
+            "type": "string",
+            "pattern": "^ev:"
+          }
+        ]
+      }
+    },
+    "providedEvidenceRefs": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "../common/identifier.schema.json"
+          },
+          {
+            "type": "string",
+            "pattern": "^ev:"
+          }
+        ]
+      }
+    },
+    "reviewBundleId": {
+      "allOf": [
+        {
+          "$ref": "../common/identifier.schema.json"
+        },
+        {
+          "type": "string",
+          "pattern": "^rb:"
+        }
+      ]
+    },
+    "reviewBundleVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Verdict binds exact frozen ReviewBundle version"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "evaluating",
+        "pass",
+        "fail",
+        "not_proven",
+        "waived",
+        "disputed"
+      ]
+    },
+    "proposedBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "reviewedBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "confirmedBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "confirmationAuthority": {
+      "type": "string",
+      "enum": [
+        "system_deterministic",
+        "authorized_human",
+        "morris"
+      ],
+      "description": "system_deterministic only for non_critical; morris required for structural; N3 ≠ Morris"
+    },
+    "proposedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "evaluatedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "confirmedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "waiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "authorizedBy",
+        "authorizedAt",
+        "reversible"
+      ],
+      "properties": {
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "authorizedBy": {
+          "$ref": "../common/actor-reference.schema.json"
+        },
+        "authorizedAt": {
+          "$ref": "../common/timestamp.schema.json"
+        },
+        "reversible": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "dispute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "raisedBy",
+        "raisedAt"
+      ],
+      "properties": {
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "raisedBy": {
+          "$ref": "../common/actor-reference.schema.json"
+        },
+        "raisedAt": {
+          "$ref": "../common/timestamp.schema.json"
+        }
+      }
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "pass"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "requiredEvidenceRefs",
+          "providedEvidenceRefs",
+          "evaluatedAt"
+        ],
+        "properties": {
+          "requiredEvidenceRefs": {
+            "type": "array",
+            "minItems": 1
+          },
+          "providedEvidenceRefs": {
+            "type": "array",
+            "minItems": 1
+          }
+        },
+        "description": "PASS requires non-empty requiredEvidenceRefs and providedEvidenceRefs (semantic: provided must cover required; Evidence unavailable/stale/incomplete cannot support PASS)"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "pass"
+          },
+          "criticality": {
+            "const": "non_critical"
+          },
+          "evaluationMethod": {
+            "const": "deterministic"
+          }
+        },
+        "required": [
+          "status",
+          "criticality",
+          "evaluationMethod"
+        ]
+      },
+      "then": {
+        "required": [
+          "confirmationAuthority"
+        ],
+        "properties": {
+          "confirmationAuthority": {
+            "const": "system_deterministic"
+          }
+        },
+        "description": "non_critical deterministic PASS may use system_deterministic confirmationAuthority"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "pass"
+          },
+          "criticality": {
+            "const": "critical"
+          }
+        },
+        "required": [
+          "status",
+          "criticality"
+        ]
+      },
+      "then": {
+        "required": [
+          "confirmedBy",
+          "confirmedAt",
+          "confirmationAuthority"
+        ],
+        "properties": {
+          "confirmationAuthority": {
+            "const": "authorized_human"
+          },
+          "confirmedBy": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "not": {
+                  "enum": [
+                    "system",
+                    "agent"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "Critical PASS ⇒ human confirmation; system/agent cannot confirm"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "pass"
+          },
+          "criticality": {
+            "const": "structural"
+          }
+        },
+        "required": [
+          "status",
+          "criticality"
+        ]
+      },
+      "then": {
+        "required": [
+          "confirmedBy",
+          "confirmedAt",
+          "confirmationAuthority"
+        ],
+        "properties": {
+          "confirmationAuthority": {
+            "const": "morris"
+          },
+          "confirmedBy": {
+            "type": "object",
+            "required": [
+              "actorId",
+              "role"
+            ],
+            "properties": {
+              "role": {
+                "const": "decision_maker"
+              }
+            }
+          }
+        },
+        "description": "structural PASS ⇒ Morris confirmationAuthority (N3 ≠ Morris semantic)"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "waived"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "waiver"
+        ],
+        "properties": {
+          "waiver": {
+            "type": "object",
+            "properties": {
+              "authorizedBy": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "not": {
+                      "enum": [
+                        "system",
+                        "agent"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "WAIVED ≠ PASS; explicit motivated waiver required; system/agent cannot authorize waiver"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "disputed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "dispute"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "not_proven"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "evaluatedAt"
+        ],
+        "description": "NOT_PROVEN ≠ FAIL and ≠ PASS"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "fail"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "evaluatedAt"
+        ]
+      }
+    }
+  ]
+}

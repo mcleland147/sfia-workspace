@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:waived-nopayload-001",
+  "claimType": "conformite",
+  "claimStatement": "Waived without waiver object",
+  "criticality": "non_critical",
+  "evaluationMethod": "human_review",
+  "requiredEvidenceRefs": [
+    "ev:stale-001"
+  ],
+  "reviewBundleId": "rb:oa-ready-001",
+  "reviewBundleVersion": 2,
+  "status": "waived",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-waived-nopayload",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

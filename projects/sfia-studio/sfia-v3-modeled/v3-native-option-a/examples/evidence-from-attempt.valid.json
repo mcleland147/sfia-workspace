@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "evidenceId": "ev:from-attempt-001",
+  "type": "log_ref",
+  "source": "execution attempt stdout log",
+  "sourceKind": "execution_attempt",
+  "location": "refs/logs/xat-oa-ok-001",
+  "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "producedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "producedAt": "2026-07-26T00:00:00.000Z",
+  "freshness": "fresh",
+  "status": "available",
+  "classification": "internal",
+  "storageMode": "internal_payload_ref",
+  "availability": "available",
+  "retentionClass": "standard",
+  "legalHold": false,
+  "bindings": {
+    "executionAttemptId": "xat:oa-ok-001",
+    "projectId": "prj:campus360-oa"
+  },
+  "containsSecrets": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:ev-from-attempt-001",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "execution_adapter",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

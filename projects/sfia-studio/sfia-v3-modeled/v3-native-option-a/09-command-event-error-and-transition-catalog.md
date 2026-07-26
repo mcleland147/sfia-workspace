@@ -13,17 +13,24 @@
 | **schemaVersion (pack baseline)** | `0.1.0-oa` |
 | **ExecutionContract schemaVersion** | `0.2.0-oa` (breaking T-A4 rework) |
 | **ExecutionAttempt schemaVersion** | `0.2.0-oa` (breaking T-A5 materialization ; conditionals hardened at validate) |
+| **Evidence schemaVersion** | `0.2.0-oa` (breaking T-A6 materialization) |
+| **ReviewBundle schemaVersion** | `0.2.0-oa` (breaking T-A6 materialization) |
+| **ClaimEvaluation schemaVersion** | `0.1.0-oa` (nouveau T-A6 ; R-M01 OPEN jusqu’à validation) |
+| **MaturityAssessment schemaVersion** | `0.2.0-oa` (breaking T-A6 materialization) |
+| **Materialize gate T-A6** | `GO MATERIALIZE T-A6 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **JSON Schema** | Draft-07 |
-| **Anti-claims** | Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4 RUNTIME · Pas T-A5 RUNTIME · Pas GO FRAME T-A5 RUNTIME consommé |
+| **Anti-claims** | Pas READY FOR CLASS/DELIVERY/IMPLEMENTATION · Pas SCHEMAS ADOPTED · Pas DB/RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED · Pas T-A4 RUNTIME · Pas T-A5 RUNTIME · Pas T-A6 RUNTIME · Pas T-A7 · Pas GO VALIDATE T-A6 MODELED consommé |
 | **Code / SQL / Figma** | **Interdits** |
 | **Document** | `09-command-event-error-and-transition-catalog.md` |
-| **Alignement** | AF `05-state-command-event-and-decision-model.md` · T-A4 Morris arbitration · T-A5 Morris D01–D10 |
+| **Alignement** | AF `05-state-command-event-and-decision-model.md` · T-A4 Morris arbitration · T-A5 Morris D01–D10 · T-A6 Morris D-T-A6-01…12 |
 
 ## Commandes (conceptuelles, non endpoints)
 
-StartConversation · SubmitIntent · ResolveDoctrinePackage · ResolveProjectContext · ProposeCycleQualification · AcknowledgeCycleQualification · ResolveCkc · RequestClarification · RecordEpistemicItem · CreateProject · UpdateLivingProjectState · ProposeTrajectory · ReplanTrajectory · RecordHumanDecision · RequestConfirmation · ConfirmAction · CancelAction · BuildExecutionContract · ValidateExecutionContract · ConfirmExecutionContract · SupersedeExecutionContract · SelectExecutionAgent · StartExecution · CancelExecution · CancelExecutionAttempt · RecordExecutionResult · RecordExecutionFailure · RetryExecutionAttempt · GetExecutionAttempt · ListExecutionAttempts · CheckAttemptAuthorization · AttachEvidence · BuildReviewBundle · EvaluateClaim · CloseCycleInstance · ProposeNextCycle.
+StartConversation · SubmitIntent · ResolveDoctrinePackage · ResolveProjectContext · ProposeCycleQualification · AcknowledgeCycleQualification · ResolveCkc · RequestClarification · RecordEpistemicItem · CreateProject · UpdateLivingProjectState · ProposeTrajectory · ReplanTrajectory · RecordHumanDecision · RequestConfirmation · ConfirmAction · CancelAction · BuildExecutionContract · ValidateExecutionContract · ConfirmExecutionContract · SupersedeExecutionContract · SelectExecutionAgent · StartExecution · CancelExecution · CancelExecutionAttempt · RecordExecutionResult · RecordExecutionFailure · RetryExecutionAttempt · GetExecutionAttempt · ListExecutionAttempts · CheckAttemptAuthorization · RegisterEvidence · AttachEvidence · VerifyEvidenceIntegrity · CreateReviewBundle · BuildReviewBundle · FreezeReviewBundle · StartReview · RecordFinding · EvaluateClaim · ConfirmClaimEvaluation · RejectClaimEvaluation · CompleteReview · ReopenReview · ProposeMaturity · ConfirmMaturity · DowngradeMaturity · RegisterDebt · CloseDebt · ReopenDebt · CloseCycleInstance · ProposeNextCycle.
 
 Pour chacune : initiateur domaine · agrégat cible · préconditions · autorité · confirmation éventuelle · événements · erreurs.
+
+**Note T-A6 :** `RegisterEvidence` absorbe l’intention d’attache (`AttachEvidence` reste alias catalogue v1). `BuildReviewBundle` reste alias historique de `CreateReviewBundle` (+ freeze optionnel documenté). `CreateClaim` absorbé dans `EvaluateClaim` v1. Aucune commande ne lance T-A7.
 
 ### Ownership ExecutionContract (T-A4 / T-A5) — Morris VALIDATED T-A4 + T-A5 materialization
 
@@ -89,13 +96,39 @@ Noms inventés hors catalogue **ne sont pas** des commandes (T-A4-D09).
 
 **Invariant persist-then-launch :** aucun launch sans Attempt `accepted` persisté. **launch-then-persist** interdit.
 
-**Anti-claims commandes :** pas d’endpoint HTTP ; pas d’adaptateur appelé ce cycle ; pas d’Evidence/Claim.
+**Anti-claims commandes :** pas d’endpoint HTTP ; pas d’adaptateur appelé ce cycle ; pas d’Evidence/Claim **runtime** (T-A5) — catalogues T-A6 modeled-only.
+
+---
+
+## T-A6 — Commandes Evidence / Review / Claim / Maturity (D-T-A6-01…12)
+
+| Commande | Agrégat | Acteur / autorité | Préconditions | Effet | Événements | Erreurs typiques |
+|----------|---------|-------------------|---------------|-------|------------|------------------|
+| `RegisterEvidence` | Evidence | système / humain / adapter (artefact only) | ≥1 binding ; pas de secret | crée Evidence ; alias `AttachEvidence` v1 | `EvidenceRegistered` | `EVIDENCE_SOURCE_REQUIRED`, `EVIDENCE_BINDING_REQUIRED`, `EVIDENCE_SECRET_FORBIDDEN` |
+| `AttachEvidence` | Evidence | idem | alias RegisterEvidence | lie bindings | `EvidenceRegistered` | idem |
+| `VerifyEvidenceIntegrity` | Evidence | système déterministe L1 | digest si verifiable | status→verified si OK | `EvidenceIntegrityVerified` / `EvidenceRejected` | `EVIDENCE_DIGEST_REQUIRED`, `EVIDENCE_UNAVAILABLE` |
+| `CreateReviewBundle` | ReviewBundle | N≥ scope | projectId | draft + version | — | `STATE_CONFLICT` |
+| `BuildReviewBundle` | ReviewBundle | N≥ | alias historique Create (+ évent. freeze) | draft ou ready_for_review | `ReviewBundleFrozen` (si freeze) | idem |
+| `FreezeReviewBundle` | ReviewBundle | N≥ | draft → ready_for_review | freeze (`frozenAt`) ; refs immutables | `ReviewBundleFrozen` | `REVIEW_BUNDLE_INCOMPLETE` |
+| `StartReview` | ReviewBundle | reviewer | frozen | → under_review | `ReviewStarted` | `REVIEW_BUNDLE_NOT_FROZEN` |
+| `RecordFinding` | ReviewBundle | reviewer | under_review | finding append (semantic) | `FindingRecorded` | `REVIEW_BUNDLE_NOT_FROZEN` |
+| `EvaluateClaim` | ClaimEvaluation | système propose / humain | bundle gelé + version exacte | pending→evaluating→pass\|fail\|not_proven\|waived\|disputed | `ClaimEvaluationProposed` | `CLAIM_EVIDENCE_MISSING`, `CLAIM_NOT_PROVEN`, `REVIEW_BUNDLE_VERSION_MISMATCH` |
+| `ConfirmClaimEvaluation` | ClaimEvaluation | humain / Morris | Critical/structural rules | confirme PASS | `ClaimEvaluationConfirmed` | `CLAIM_CONFIRMATION_REQUIRED`, `CLAIM_SELF_REVIEW_FORBIDDEN`, `CLAIM_AUTHORITY_MISMATCH`, `WAIVER_AUTHORITY_REQUIRED` |
+| `RejectClaimEvaluation` | ClaimEvaluation | reviewer | evaluating | fail / not_proven | `ClaimEvaluationRejected` | `CLAIM_AUTHORITY_MISMATCH` |
+| `CompleteReview` | ReviewBundle | reviewer | under_review | accepted\|rejected\|incomplete | `ReviewCompleted` | `REVIEW_BUNDLE_NOT_FROZEN`, `REVIEW_BUNDLE_INCOMPLETE` |
+| `ReopenReview` | ReviewBundle | N≥ / Morris | accepted\|rejected | nouvelle version / reopen | `ReviewReopened` | `STATE_CONFLICT` |
+| `ProposeMaturity` | MaturityAssessment | système | claims/evidence | status proposed ; autoPromoted=false | `MaturityProposed` | `MATURITY_BLOCKED_BY_RESERVATION` |
+| `ConfirmMaturity` | MaturityAssessment | humain / Morris | proposed ; pas HARD block | → confirmed | `MaturityConfirmed` | `MATURITY_CONFIRMATION_REQUIRED`, `MATURITY_AUTO_PROMOTION_FORBIDDEN`, `MATURITY_BLOCKED_BY_RESERVATION` |
+| `DowngradeMaturity` | MaturityAssessment | humain / Morris | evidence/claim invalidé | supersession + downgradeReason | `MaturityDowngraded` | `MATURITY_DOWNGRADE_REQUIRED` |
+| `RegisterDebt` / `CloseDebt` / `ReopenDebt` | DebtItem (docs) | humain / Morris | — | dette review | `DebtRegistered` / `DebtClosed` / `ReserveMaintainedOpen` | — |
+
+**Interdit :** toute commande T-A6 → auto-launch T-A7 (`T_A7_AUTO_LAUNCH_FORBIDDEN`) · auto-confirm Critical · auto-close réserve humaine · auto next cycle.
 
 ---
 
 ## Événements (extrait)
 
-IntentSubmitted · DoctrinePackageResolved/Failed · ProjectMatched/Created · CycleQualificationProposed/Acknowledged · CkcResolved · EpistemicItemRecorded · ContradictionDetected · LivingProjectStateVersioned · TrajectoryProposed/Replanned · HumanDecisionRecorded/Superseded · ConfirmationRequested/Granted/Expired · ExecutionContractBuilt · ExecutionContractValidated · ExecutionContractConfirmationRequired · ExecutionContractConfirmed · ExecutionContractSuperseded · ExecutionContractCancelled · ExecutionAgentProposed · ExecutionAgentSelected · ExecutionAttemptAccepted · ExecutionStarted · ExecutionResultPending · ExecutionSucceeded · ExecutionFailed · ExecutionTimedOut · ExecutionCancellationRequested · ExecutionCancelled · ExecutionCancellationFailed · ExecutionAuthorizationDenied · ExecutionRetryAuthorized · EvidenceAttached · ReviewBundleCompleted · ClaimRejected · CycleInstanceClosed · NextCycleProposed.
+IntentSubmitted · DoctrinePackageResolved/Failed · ProjectMatched/Created · CycleQualificationProposed/Acknowledged · CkcResolved · EpistemicItemRecorded · ContradictionDetected · LivingProjectStateVersioned · TrajectoryProposed/Replanned · HumanDecisionRecorded/Superseded · ConfirmationRequested/Granted/Expired · ExecutionContractBuilt · ExecutionContractValidated · ExecutionContractConfirmationRequired · ExecutionContractConfirmed · ExecutionContractSuperseded · ExecutionContractCancelled · ExecutionAgentProposed · ExecutionAgentSelected · ExecutionAttemptAccepted · ExecutionStarted · ExecutionResultPending · ExecutionSucceeded · ExecutionFailed · ExecutionTimedOut · ExecutionCancellationRequested · ExecutionCancelled · ExecutionCancellationFailed · ExecutionAuthorizationDenied · ExecutionRetryAuthorized · EvidenceRegistered · EvidenceIntegrityVerified · EvidenceRejected · ReviewBundleFrozen · ReviewStarted · FindingRecorded · ClaimEvaluationProposed · ClaimEvaluationConfirmed · ClaimEvaluationRejected · ReviewCompleted · ReviewReopened · MaturityProposed · MaturityConfirmed · MaturityDowngraded · DebtRegistered · DebtClosed · ReserveMaintainedOpen · CycleInstanceClosed · NextCycleProposed.
 
 ### Événements ExecutionContract (T-A4)
 
@@ -228,6 +261,40 @@ Voir `schemas/error/error-record.schema.json` : `DOCTRINE_UNRESOLVED` · `CONTEX
 
 ErrorRecord enum **non élargi** ce cycle (évite breaking ErrorRecord) ; codes T-A5 documentés ici pour delivery future. Pas de doublon nominal avec sémantique différente.
 
+### Erreurs catalog T-A6 (conceptuelles — pas de doublon ErrorRecord enum)
+
+| Code T-A6 | Notes |
+|-----------|-------|
+| `EVIDENCE_SOURCE_REQUIRED` | source/sourceKind manquant |
+| `EVIDENCE_BINDING_REQUIRED` | bindings vides |
+| `EVIDENCE_DIGEST_REQUIRED` | verifiable/verified sans digest |
+| `EVIDENCE_UNAVAILABLE` | indisponible ; ne peut supporter PASS |
+| `EVIDENCE_SECRET_FORBIDDEN` | secret/token en clair |
+| `REVIEW_BUNDLE_NOT_FROZEN` | verdict ou review avant freeze |
+| `REVIEW_BUNDLE_INCOMPLETE` | incomplete vs PASS final exigeant complétude |
+| `REVIEW_BUNDLE_VERSION_MISMATCH` | claim lié à mauvaise version |
+| `CLAIM_EVIDENCE_MISSING` | PASS sans Evidence requise |
+| `CLAIM_NOT_PROVEN` | NOT_PROVEN (≠ FAIL) |
+| `CLAIM_SELF_REVIEW_FORBIDDEN` | auteur = confirmer Critical |
+| `CLAIM_CONFIRMATION_REQUIRED` | Critical/structural sans confirm |
+| `CLAIM_AUTHORITY_MISMATCH` | N3 spoof Morris ; système confirme Critical |
+| `WAIVER_AUTHORITY_REQUIRED` | waiver non autorisé |
+| `MATURITY_BLOCKED_BY_RESERVATION` | HARD reserve |
+| `MATURITY_CONFIRMATION_REQUIRED` | confirm manquante |
+| `MATURITY_AUTO_PROMOTION_FORBIDDEN` | autoPromoted |
+| `MATURITY_DOWNGRADE_REQUIRED` | evidence/claim invalidé |
+| `T_A7_AUTO_LAUNCH_FORBIDDEN` | T-A6 ne lance pas T-A7 |
+
 ## Transitions LPS
 
 active --stale--> stale ; active --conflict--> conflict ; * --version--> superseded + new active.
+
+### Transitions ReviewBundle (T-A6)
+
+| Source | Commande | Cible | Notes |
+|--------|----------|-------|-------|
+| (new) | CreateReviewBundle | draft | mutable sous OCC |
+| draft | FreezeReviewBundle | ready_for_review | frozenAt ; refs gelées |
+| ready_for_review | StartReview | under_review | reviewStartedAt |
+| under_review | CompleteReview | accepted\|rejected\|incomplete | validatedAt |
+| *frozen* | ReopenReview / nouvelle version | superseded + new | pas de mutation in-place post-freeze |

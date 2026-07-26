@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "maturityAssessmentId": "mat:bad-ver-001",
+  "projectId": "prj:campus360-oa",
+  "subjectRef": "prj:campus360-oa",
+  "proposedLevel": "MODELED",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "status": "proposed",
+  "autoPromoted": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:mat-bad-ver",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

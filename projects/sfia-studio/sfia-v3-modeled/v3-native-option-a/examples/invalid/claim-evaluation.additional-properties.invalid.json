@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:addl-001",
+  "claimType": "technique",
+  "claimStatement": "extra prop",
+  "criticality": "non_critical",
+  "evaluationMethod": "deterministic",
+  "requiredEvidenceRefs": [],
+  "reviewBundleId": "rb:oa-draft-001",
+  "reviewBundleVersion": 1,
+  "status": "pending",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "autoJudge": true,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-addl",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

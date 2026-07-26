@@ -1,0 +1,259 @@
+/**
+ * T-A6-D5 adversarial coordination validation — fail-closed / anti-claims.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { ACTOR, DIGEST_A, buildServices } from "./helpers";
+import type { ActorReference } from "@/lib/oa/evidence-review";
+
+const SYSTEM: ActorReference = {
+  actorId: "actor:studio",
+  role: "system",
+  authorityLevel: "none",
+};
+
+async function seedVerified(
+  s: ReturnType<typeof buildServices>,
+  id: string,
+) {
+  await s.registerEvidence.execute({
+    evidenceId: id,
+    idempotencyKey: `idem-${id}`,
+    actor: ACTOR,
+    type: "document",
+    source: "fixture",
+    sourceKind: "manual",
+    bindings: { projectId: "prj:campus360-oa" },
+    classification: "internal",
+    storageMode: "metadata_only",
+    digest: DIGEST_A,
+  });
+  s.fakePayload.setScript(id, { digest: DIGEST_A });
+  await s.verifyEvidenceIntegrity.execute({
+    evidenceId: id,
+    actor: ACTOR,
+    expectedVersion: 1,
+  });
+}
+
+describe("T-A6-D5 adversarial RecommendNextGate", () => {
+  it("never treats waived claim as positive gate candidate", async () => {
+    const s = buildServices();
+    s.fakeClaimAuthority.grant({
+      actorId: ACTOR.actorId,
+      level: "N2",
+      scope: "oa.claim_evaluation",
+    });
+    await seedVerified(s, "ev:d5-wav-1");
+    await s.createReviewBundle.execute({
+      reviewBundleId: "rb:d5-wav",
+      idempotencyKey: "idem-rb-wav",
+      actor: ACTOR,
+      projectId: "prj:campus360-oa",
+      evidenceIds: ["ev:d5-wav-1"],
+    });
+    await s.freezeReviewBundle.execute({
+      reviewBundleId: "rb:d5-wav",
+      idempotencyKey: "idem-fr-wav",
+      actor: ACTOR,
+      expectedVersion: 1,
+    });
+    const waived = await s.evaluateClaim.execute({
+      claimEvaluationId: "clm:d5-wav",
+      idempotencyKey: "idem-wav",
+      actor: ACTOR,
+      claimType: "technique",
+      claimStatement: "Waived claim",
+      criticality: "non_critical",
+      evaluationMethod: "human_review",
+      requiredEvidenceRefs: ["ev:d5-wav-1"],
+      reviewBundleId: "rb:d5-wav",
+      reviewBundleVersion: 2,
+      intent: "waive",
+      waiverReason: "temporary exception documented",
+    });
+    expect(waived.ok).toBe(true);
+    if (!waived.ok) return;
+    expect(waived.claimEvaluation.status).toBe("waived");
+
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      claimEvaluationRefs: [
+        { id: "clm:d5-wav", version: waived.claimEvaluation.version },
+      ],
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some((b) => b.code === "claim_waived"),
+    ).toBe(true);
+    expect(result.coordination.status).not.toBe("gate_candidate");
+    expect(result.coordination.nextGate).toBeUndefined();
+    expect(result.coordination.executionAuthority).toBe(false);
+    expect(result.coordination.decisionCreated).toBe(false);
+    expect(result.coordination.gateConsumed).toBe(false);
+  });
+
+  it("draft review bundle never yields gate_candidate", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-draft-1");
+    await s.createReviewBundle.execute({
+      reviewBundleId: "rb:d5-draft",
+      idempotencyKey: "idem-rb-draft",
+      actor: ACTOR,
+      projectId: "prj:campus360-oa",
+      evidenceIds: ["ev:d5-draft-1"],
+    });
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      reviewBundleRefs: [{ id: "rb:d5-draft", version: 1 }],
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some(
+        (b) => b.code === "review_bundle_not_frozen",
+      ),
+    ).toBe(true);
+    expect(result.coordination.status).not.toBe("gate_candidate");
+    expect(result.coordination.nextGate).toBeUndefined();
+  });
+
+  it("audit events are refs-only and never claim gate consumed", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-aud-1");
+    await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      evidenceRefs: [{ id: "ev:d5-aud-1", version: 2 }],
+      actor: SYSTEM,
+    });
+    const events = s.memoryAudit.events.filter((e) =>
+      e.event.startsWith("oa.coordination."),
+    );
+    expect(events.length).toBeGreaterThan(0);
+    for (const ev of events) {
+      const raw = JSON.stringify(ev);
+      expect(raw).not.toMatch(/sk-|password|Bearer /i);
+      expect(raw).not.toContain('"gateConsumed":true');
+      expect(raw).not.toContain('"executionAuthority":true');
+    }
+  });
+
+  it("F-A6-D5-01: maturityAssessmentId without exact version is refused", async () => {
+    const s = buildServices();
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      maturityAssessmentId: "mat:any",
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.error.detailCode).toBe("COORDINATION_INVALID");
+  });
+
+  it("F-A6-D5-02: evidenceRefs without exact version cannot yield gate_candidate", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-ver0");
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      evidenceRefs: [{ id: "ev:d5-ver0", version: 0 }],
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some((b) => b.code === "version_mismatch"),
+    ).toBe(true);
+    expect(result.coordination.status).not.toBe("gate_candidate");
+    expect(result.coordination.nextGate).toBeUndefined();
+    expect(result.coordination.executionAuthority).toBe(false);
+  });
+
+  it("F-A6-D5-03: superseded evidence blocks positive gate recommendation", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-sup-1");
+    const current = await s.repository.findById("ev:d5-sup-1");
+    expect(current).toBeTruthy();
+    await s.repository.update(
+      { ...current!, status: "superseded", version: current!.version + 1 },
+      current!.version,
+    );
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      evidenceRefs: [{ id: "ev:d5-sup-1", version: current!.version + 1 }],
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some((b) => b.code === "evidence_superseded"),
+    ).toBe(true);
+    expect(result.coordination.status).not.toBe("gate_candidate");
+    expect(result.coordination.nextGate).toBeUndefined();
+    expect(result.coordination.gateConsumed).toBe(false);
+    expect(result.coordination.decisionCreated).toBe(false);
+  });
+
+  it("subject mismatch never yields gate_candidate", async () => {
+    const s = buildServices();
+    await seedVerified(s, "ev:d5-subj-1");
+    await s.createReviewBundle.execute({
+      reviewBundleId: "rb:d5-subj",
+      idempotencyKey: "idem-rb-subj",
+      actor: ACTOR,
+      projectId: "prj:campus360-oa",
+      evidenceIds: ["ev:d5-subj-1"],
+    });
+    await s.freezeReviewBundle.execute({
+      reviewBundleId: "rb:d5-subj",
+      idempotencyKey: "idem-fr-subj",
+      actor: ACTOR,
+      expectedVersion: 1,
+    });
+    const evaluated = await s.evaluateClaim.execute({
+      claimEvaluationId: "clm:d5-subj",
+      idempotencyKey: "idem-clm-subj",
+      actor: SYSTEM,
+      claimType: "technique",
+      claimStatement: "Subject check",
+      criticality: "non_critical",
+      evaluationMethod: "deterministic",
+      requiredEvidenceRefs: ["ev:d5-subj-1"],
+      reviewBundleId: "rb:d5-subj",
+      reviewBundleVersion: 2,
+    });
+    expect(evaluated.ok).toBe(true);
+    if (!evaluated.ok) return;
+    const proposed = await s.proposeMaturity.execute({
+      maturityAssessmentId: "mat:d5-subj",
+      idempotencyKey: "idem-mat-subj",
+      actor: SYSTEM,
+      projectId: "prj:campus360-oa",
+      subjectRef: "pack:v3-native-option-a-modeled",
+      requestedLevel: "VALIDATED",
+      claimBindings: [
+        {
+          claimEvaluationId: "clm:d5-subj",
+          claimEvaluationVersion: evaluated.claimEvaluation.version,
+        },
+      ],
+      reviewBundleRefs: [{ reviewBundleId: "rb:d5-subj", version: 2 }],
+      evidenceRefs: ["ev:d5-subj-1"],
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    const result = await s.recommendNextGate.execute({
+      projectId: "prj:campus360-oa",
+      subjectRef: "pack:other-subject",
+      maturityAssessmentId: "mat:d5-subj",
+      maturityAssessmentVersion: proposed.maturityAssessment.version,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.coordination.blockers.some(
+        (b) =>
+          b.code === "cross_aggregate_inconsistency" &&
+          b.detail === "subject_mismatch",
+      ),
+    ).toBe(true);
+    expect(result.coordination.nextGate).toBeUndefined();
+  });
+});

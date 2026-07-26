@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "reviewBundleId": "rb:oa-draft-001",
+  "projectId": "prj:campus360-oa",
+  "cycleInstanceId": "cyc:modeled-001",
+  "version": 1,
+  "evidenceRefs": [
+    "ev:manual-001"
+  ],
+  "completeness": "incomplete",
+  "status": "draft",
+  "createdAt": "2026-07-26T00:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:rb-draft-001",
+    "actor": {
+      "actorId": "actor:reviewer-1",
+      "role": "reviewer",
+      "displayName": "Reviewer One",
+      "authorityLevel": "N2"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

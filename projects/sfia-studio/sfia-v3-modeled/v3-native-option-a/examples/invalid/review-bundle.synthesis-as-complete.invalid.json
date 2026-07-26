@@ -1,10 +1,24 @@
 {
-  "schemaVersion": "0.1.0-oa",
-  "reviewBundleId": "rb:bad",
-  "projectId": "prj:x",
+  "schemaVersion": "0.2.0-oa",
+  "reviewBundleId": "rb:synth-complete-001",
+  "projectId": "prj:campus360-oa",
+  "version": 1,
   "evidenceRefs": [],
   "completeness": "complete",
-  "status": "accepted",
-  "createdAt": "2026-07-23T21:00:00.000Z",
-  "synthesisOnly": true
+  "status": "draft",
+  "createdAt": "2026-07-26T00:00:00.000Z",
+  "synthesisOnly": true,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:rb-synth-complete",
+    "actor": {
+      "actorId": "actor:reviewer-1",
+      "role": "reviewer",
+      "displayName": "Reviewer One",
+      "authorityLevel": "N2"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
 }

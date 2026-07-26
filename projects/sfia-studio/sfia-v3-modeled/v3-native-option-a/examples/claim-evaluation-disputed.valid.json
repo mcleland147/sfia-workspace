@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:disputed-001",
+  "claimType": "technique",
+  "claimStatement": "External digest matches published artifact",
+  "criticality": "critical",
+  "evaluationMethod": "human_review",
+  "requiredEvidenceRefs": [
+    "ev:external-001"
+  ],
+  "providedEvidenceRefs": [
+    "ev:external-001"
+  ],
+  "reviewBundleId": "rb:oa-under-001",
+  "reviewBundleVersion": 2,
+  "status": "disputed",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "dispute": {
+    "reason": "Reviewer contests digest provenance chain",
+    "raisedBy": {
+      "actorId": "actor:reviewer-1",
+      "role": "reviewer",
+      "displayName": "Reviewer One",
+      "authorityLevel": "N2"
+    },
+    "raisedAt": "2026-07-26T01:00:00.000Z"
+  },
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-disputed-001",
+    "actor": {
+      "actorId": "actor:reviewer-1",
+      "role": "reviewer",
+      "displayName": "Reviewer One",
+      "authorityLevel": "N2"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

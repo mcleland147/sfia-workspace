@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "claimEvaluationId": "clm:notproven-as-pass-001",
+  "claimType": "qualite",
+  "claimStatement": "NOT_PROVEN disguised as PASS with empty provided",
+  "criticality": "non_critical",
+  "evaluationMethod": "deterministic",
+  "requiredEvidenceRefs": [
+    "ev:unavailable-001"
+  ],
+  "providedEvidenceRefs": [],
+  "reviewBundleId": "rb:oa-incomplete-status-001",
+  "reviewBundleVersion": 2,
+  "status": "pass",
+  "proposedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio",
+    "authorityLevel": "none"
+  },
+  "confirmationAuthority": "system_deterministic",
+  "proposedAt": "2026-07-26T00:00:00.000Z",
+  "evaluatedAt": "2026-07-26T01:00:00.000Z",
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:clm-notproven-as-pass",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}

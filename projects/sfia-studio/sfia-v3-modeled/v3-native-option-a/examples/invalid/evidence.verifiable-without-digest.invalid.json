@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "0.2.0-oa",
+  "evidenceId": "ev:verifiable-nodigest-001",
+  "type": "artifact",
+  "source": "claims verifiable without digest",
+  "sourceKind": "external",
+  "verifiablePayload": true,
+  "producedAt": "2026-07-26T00:00:00.000Z",
+  "status": "available",
+  "classification": "public",
+  "storageMode": "external_payload_ref",
+  "availability": "available",
+  "bindings": {
+    "projectId": "prj:campus360-oa"
+  },
+  "containsSecrets": false,
+  "provenance": {
+    "schemaVersion": "0.1.0-oa",
+    "provenanceRecordId": "prv:ev-verifiable-nodigest",
+    "actor": {
+      "actorId": "actor:studio",
+      "role": "system",
+      "displayName": "Studio",
+      "authorityLevel": "none"
+    },
+    "source": "review",
+    "timestamp": "2026-07-26T00:00:00.000Z",
+    "correlationId": "corr:oa-t-a6-001"
+  }
+}
