@@ -9,7 +9,7 @@
 | **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial** | `589fe19b19b46275ee74a327c13645cdd0f534a1` |
-| **HEAD final** | *(voir commit feat)* |
+| **HEAD final** |  |
 | **Horodatage** | 2026-07-26 10:31:00 CEST (+0200) |
 | **Handoff source** | blob `16d91407e30e60d5605be3e0ca04552c115c4ec7` |
 | **Statut** | **T-A6-D3 IMPLEMENTED — NOT VALIDATED** |
