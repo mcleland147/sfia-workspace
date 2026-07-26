@@ -9,19 +9,21 @@
 | **Gate arbitrage** | `GO ARBITRATE T-A6` (**CONSUMED**) |
 | **Gate décision** | `GO DECIDE T-A6` (**CONSUMED**) |
 | **Gate materialize** | `GO MATERIALIZE T-A6 MODELED` (**CONSUMED**) |
-| **Gate validate** | `GO VALIDATE T-A6 MODELED — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate validate** | `GO VALIDATE T-A6 MODELED` (**CONSUMED**) |
+| **Gate delivery framing** | `GO FRAME T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
-| **Runtime** | **NONE** modifié |
+| **Modeled** | Evidence/RB/Maturity `0.2.0-oa` · ClaimEvaluation `0.1.0-oa` — **VALIDATED AFTER CORRECTION** |
+| **Runtime** | **NONE** modifié / créé |
 | **Push / PR / merge projet** | **NONE** |
-| **Statut pack** | **MODELED VALIDATED AFTER CORRECTION** |
-| **Horodatage validate** | 2026-07-26 01:52:29 CEST (+0200) |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 MODELED VALIDATED AFTER CORRECTION — DELIVERY FRAMING REQUIRES MORRIS GO` |
-| **Gate suivant** | `GO FRAME T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Statut pack** | **DELIVERY FRAMING PREPARED** |
+| **Horodatage delivery framing** | 2026-07-26 02:06:59 CEST (+0200) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 DELIVERY FRAMING COMPLETED — MORRIS ARBITRATION REQUIRED BEFORE DELIVERY` |
+| **Gate suivant** | `GO ARBITRATE T-A6 DELIVERY — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
-## Objectif
+## Objectif (ce cycle)
 
-Valider formellement les contrats modeled T-A6 (Evidence, ReviewBundle, ClaimEvaluation, MaturityAssessment) contre D-T-A6-01…12 — sans runtime, SQL, vendor, ni T-A7.
+Cadrer le futur delivery runtime mémoire T-A6 (fake-only) — **sans** implémentation, SQL, vendor, ni T-A7.
 
 ## Livrables
 
@@ -30,9 +32,10 @@ Valider formellement les contrats modeled T-A6 (Evidence, ReviewBundle, ClaimEva
 3. [02-arbitration.md](./02-arbitration.md)
 4. [03-decisions.md](./03-decisions.md)
 5. [04-modeled-materialization.md](./04-modeled-materialization.md)
-6. [05-modeled-validation.md](./05-modeled-validation.md) — **validation modeled**
+6. [05-modeled-validation.md](./05-modeled-validation.md)
+7. [06-delivery-framing.md](./06-delivery-framing.md) — **cadrage delivery**
 
-## Versions schemas (validées)
+## Modeled validé
 
 | Schema | Version |
 |--------|---------|
@@ -41,16 +44,9 @@ Valider formellement les contrats modeled T-A6 (Evidence, ReviewBundle, ClaimEva
 | ClaimEvaluation | `0.1.0-oa` |
 | MaturityAssessment | `0.2.0-oa` |
 
-## Tests (validate cycle)
+## Arbitrages delivery
 
-| Suite | Résultat |
-|-------|----------|
-| T-A6 governance | **27 PASS** |
-| Modeled Option A complete | **73 PASS** |
-
-## Corrections validation
-
-`fix(sfia-studio): correct T-A6 modeled validation findings` — F-T-A6-V-01…04 (Major) fermés en schema + exemples + tests.
+D-T-A6-DEL-01…10 préparés dans [06-delivery-framing.md](./06-delivery-framing.md) — **recommandations uniquement** ; aucune option validée.
 
 ## Réserves (OPEN — inchangées)
 
@@ -67,13 +63,12 @@ Valider formellement les contrats modeled T-A6 (Evidence, ReviewBundle, ClaimEva
 
 ## Anti-claims
 
-- Pas READY FOR DELIVERY / runtime / production ready
+- Pas DELIVERY READY / implementation ready / runtime ready
 - Pas R-M01 fermée / U-M02 fermée / vendor
+- Pas code / runtime / modeled modifié ce cycle
 - Pas T-A7 / exécution réelle / adapter réel
 - Pas push / PR / merge
 
-## Modeled de référence
+## Hors périmètre delivery framing
 
-- `sfia-v3-modeled/v3-native-option-a/08-…`
-- schemas Evidence / ReviewBundle / ClaimEvaluation / MaturityAssessment
-- `tests/evidence-review-maturity-governance.test.mjs`
+Implémentation · SQL · API · UI · stockage physique · T-A7 · exécution réelle
