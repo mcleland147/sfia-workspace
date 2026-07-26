@@ -11,6 +11,7 @@
 | **Gate D5 implement** | `GO IMPLEMENT T-A6 DELIVERY D5` (**CONSUMED**) |
 | **Gate D5 validate** | `GO VALIDATE T-A6 DELIVERY D5 — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Gate next-step frame** | `GO FRAME NEXT T-A6 STEP — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
+| **Gate PR readiness** | `GO PREPARE T-A6 PR READINESS — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **Base / origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Modeled** | Evidence/RB/Maturity `0.2.0-oa` · ClaimEvaluation `0.1.0-oa` |
@@ -24,32 +25,31 @@
 | **Persistence D5 / réelle** | **NON** |
 | **Décision / gate consommé par D5** | **NON** |
 | **`executionAuthority`** | **false** |
-| **Push / PR / merge** | **NONE** |
+| **Push / PR / merge / rebase / squash** | **NONE** |
 | **T-A7** | **NON** ouvert |
 | **T-A6 COMPLETE / Option A COMPLETE** | **NON** |
-| **Statut pack** | **NEXT STEP FRAMED — MORRIS DECISION REQUIRED** |
-| **Horodatage next-step frame** | 2026-07-26 12:06:00 CEST (+0200) |
-| **Recommandation (non validée)** | PR readiness T-A6 |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 NEXT STEP FRAMED — MORRIS GO REQUIRED` |
-| **Gate suivant candidat** | `GO PREPARE T-A6 PR READINESS — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
+| **Statut pack** | **PR READY AFTER CORRECTION — PUSH AND PR REQUIRE MORRIS GO** |
+| **Horodatage PR readiness** | 2026-07-26 12:28:49 CEST (+0200) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 PR READY AFTER CORRECTION — PUSH AND PR REQUIRE MORRIS GO` |
+| **Gate suivant candidat** | `GO PUBLISH T-A6 BRANCH AND CREATE PR — SFIA STUDIO V3-NATIVE — OPTION A` (**NOT consumed**) |
 
 ## Livrables
 
 1. [README.md](./README.md)
-2. [01](./01-framing.md) … [18-delivery-d5-validation.md](./18-delivery-d5-validation.md)
-3. [19-next-step-framing.md](./19-next-step-framing.md)
+2. [01](./01-framing.md) … [19-next-step-framing.md](./19-next-step-framing.md)
+3. [20-pr-readiness.md](./20-pr-readiness.md)
 4. Runtime : `app/lib/oa/evidence-review/**` (D1–D5)
 5. Tests : `app/__tests__/oa/evidence-review/**`
 
-## D1–D5 validés · suite cadrée
+## D1–D5 validés · PR readiness préparée
 
-D1–D5 **VALIDATED** · next step recommandé : **PR readiness** (gate non consommé) · T-A6 **non** déclaré complet
+D1–D5 **VALIDATED** · pack PR readiness produit · branche **non** poussée · PR **non** créée · T-A6 **non** déclaré complet · gate publish **non** consommé
 
-## Réserves (OPEN)
+## Réserves (OPEN — inchangées)
 
 B5 · R1 · R-T-A3-1..4 (HARD 1–2) · R-M01 · U-M02 **OPEN**
 C1–C4 **RECOMMENDED — NOT VALIDATED**
 
 ## Anti-claims
 
-Pas T-A6 COMPLETE / Option A COMPLETE / PR READY / DELIVERY COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / push / PR / merge / rebase
+Pas T-A6 COMPLETE / Option A COMPLETE / DELIVERY COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / push / PR / merge / rebase / squash / gate suivant consommé
