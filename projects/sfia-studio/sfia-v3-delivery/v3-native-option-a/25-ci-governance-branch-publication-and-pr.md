@@ -11,7 +11,7 @@
 | **Branche** | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
 | **HEAD initial** | `5dd1b50d368779599d1abfc8c7313b752d915877` |
 | **HEAD pré-push** | `67a7a1f7d3a5c9189027f6bcef68bda39636bf8e` |
-| **HEAD final** | `467833391aa79aaa3196344ee73c40328d65d869` |
+| **HEAD final** | `941701fa099e08a29627becd043d24e9c97c24fb` |
 | **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
 | **merge-base** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
 | **Upstream** | `origin/delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
