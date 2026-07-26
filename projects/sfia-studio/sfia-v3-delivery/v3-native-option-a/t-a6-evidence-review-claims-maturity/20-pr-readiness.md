@@ -10,10 +10,10 @@
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial** | `ce0f181f983fb8499e7c80338e4096c92c7b5c2c` |
-| **HEAD final** | `7d6c71d3229098b111f2227f740911689500ab20` (tip ; pack `a90c114` + pointer record) |
+| **HEAD final** | `49e3f9e7a423a70b63fa077982be3eae5d4658d0` (freeze tip; authoritative live tip = `git rev-parse HEAD`) |
 | **origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Base / merge-base** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
-| **Avance / retard** | **+51 / −0**
+| **Avance / retard** | **+52 / −0**
 | **Branche distante projet** | **ABSENTE** |
 | **PR T-A6** | **ABSENTE** |
 | **Handoff source** | blob `a15ec408c66aaaaa717a28d53681ace3ddacb21a` |
