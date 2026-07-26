@@ -11,7 +11,7 @@
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial (cycle)** | `a9a14eb7fc1a7b18bc1d7928e689f2415ac7bf4c` |
 | **HEAD pré-push** | `4cdc492fa87d05390bbcc451d6d8ef5dbea8e6a1` |
-| **HEAD final** | `cb98abd114b970cb29840d761d2fd3ac301499ec` (pre-align; live tip = `git rev-parse HEAD`) |
+| **HEAD final** | `bf68a45a37c41cb37427963b4d9cc16cf29ef758` |
 | **origin/main** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Merge-base** | `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Avance / retard** | **+54+ / −0** |
@@ -38,7 +38,7 @@ PASS — worktree T-A6 · HEAD/main/merge-base exacts · retard 0 · aucune bran
 | Force | **NON** |
 | Branche distante | `origin/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | SHA distant (1er push) | `4cdc492fa87d05390bbcc451d6d8ef5dbea8e6a1` |
-| SHA distant (final / PR head) | `cb98abd114b970cb29840d761d2fd3ac301499ec` |
+| SHA distant (final / PR head) | `bf68a45a37c41cb37427963b4d9cc16cf29ef758` |
 | Upstream | `origin/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | Historique | **intact** (H1 local publié) |
 
