@@ -1,209 +1,82 @@
-# Review Pack FULL — Select H2 Squash for Option A CI Merge Governance (PR #268)
+# Review Pack FULL — Merge PR #268 Using H2 Squash (Option A CI Governance)
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-26 21:59:46 CEST (+0200) — Europe/Paris |
-| **Cycle** | PR readiness / gouvernance de merge — sélection stratégie H2 |
+| **Date/heure/fuseau** | 2026-07-26 22:31:10 CEST (+0200) — Europe/Paris |
+| **Cycle** | Gouvernance de merge — H2 squash PR #268 |
 | **Profil** | Critical |
-| **Gate consommé** | `GO SELECT H2 SQUASH FOR OPTION A CI MERGE GOVERNANCE — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
-| **Décision Morris** | **H2 — squash merge** (validée) |
+| **Gate consommé** | `GO MERGE PR #268 USING H2 SQUASH AT HEAD dc7a24cfed4c3cd3fe584e4948847551e7af4cff — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-option-a-ci-governance` |
-| **Branche** | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
-| **HEAD local** | `a8e775bfade50ee18252831263e6d556afb37e5d` (doc 30 only · **ahead 1** · **non poussé**) |
-| **Upstream / head PR** | `dc7a24cfed4c3cd3fe584e4948847551e7af4cff` |
-| **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **merge-base** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-| **avance/retard (upstream vs main)** | **+16 / −0** |
-| **avance locale vs upstream** | **+1 / −0** (doc 30) |
-| **Handoff source** | blob `b76d136f60859c8ad9dc8bd122b39f3f3dd2216a` |
+| **Branche delivery** | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` (**conservée**) |
+| **HEAD local** | `a8e775bfade50ee18252831263e6d556afb37e5d` (doc 30 · ahead 1 · **non poussé**) |
+| **Head PR mergé** | `dc7a24cfed4c3cd3fe584e4948847551e7af4cff` |
+| **origin/main avant** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
+| **origin/main après (squash)** | `508ef7c4619e27b664d087fd97d53afe74ea93cc` |
+| **Stratégie** | **H2 — squash merge** |
+| **Handoff source** | blob `da58e4188267d7c26b07259b1781a5e09b2a1eb6` (H2 SELECTED) |
 | **Niveau** | FULL |
-| **Merge exécuté** | **NON** |
-| **Gate merge** | préparé · **NOT consumed** |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI MERGE GOVERNANCE H2 SQUASH SELECTED — DISTINCT MORRIS MERGE GO REQUIRED` |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE PR #268 MERGED VIA H2 SQUASH — POST-MERGE REVIEW REQUIRES MORRIS GO` |
+| **Gate suivant candidat** | `GO RUN OPTION A CI GOVERNANCE POST-MERGE REVIEW — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
 
 ---
 
-## 1. Truth Check / Git
+## 1. Truth Check pré-merge
 
-Truth Check : **PASS** — état inchangé depuis la revue post-correction.
+**PASS**
 
 | Contrôle | Résultat |
 |----------|----------|
-| Branche | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
-| HEAD local | `a8e775b…` = doc 30 only |
-| Upstream / PR head | `dc7a24c…` |
-| origin/main / merge-base | `910de87…` |
-| Ahead local | **1** · fichier unique doc 30 |
-| Ops Git actives | **aucune** |
-| PR #268 | OPEN · non draft · non mergée |
-| MERGEABLE / CLEAN | **PASS** |
-| CI run `30215155391` | **success** |
-| Check | `Build and validate SFIA Studio` **pass** |
-| Doc 30 | présent · **inchangé** ce cycle |
-| Fichiers projet créés/modifiés ce cycle | **aucun** |
+| PR OPEN · MERGEABLE · CLEAN | PASS |
+| Head exact `dc7a24c…` | PASS |
+| Base / main `910de87…` | PASS |
+| CI run `30215155391` success | PASS |
+| Check `Build and validate SFIA Studio` pass | PASS |
+| H2 sélectionné (handoff) | PASS |
+| Ahead local = doc 30 only | PASS · **non inclus dans le merge** |
+| Ops Git actives | aucune |
+| `delete_branch_on_merge` | **false** |
 
-### Status
+### Status (inchangé projet)
 
 ```
 ## delivery/sfia-studio-v3-native-option-a-ci-merge-governance...origin/delivery/sfia-studio-v3-native-option-a-ci-merge-governance [ahead 1]
-```
-
-### Staged
-
-```
-(vide)
-```
-
-### Untracked
-
-```
-(aucun hors tmp éventuel gitignored)
-```
-
-### Opérations Git
-
-MERGE_HEAD / CHERRY_PICK_HEAD / REBASE_HEAD / REVERT_HEAD / BISECT_LOG : **absent**
-
-### Commits PR (16)
-
-```
-dc7a24c docs(sfia-studio): record whitespace findings CI success outcome
-09ccd89 docs(sfia-studio): record whitespace findings correction rerun
-353cb5d docs(sfia-studio): remove CI documentary whitespace findings
-7dda2a3 docs(sfia-studio): review corrected CI whitespace failure
-dc461a1 docs(sfia-studio): record corrected CI run failure outcome
-b0ad1e3 docs(sfia-studio): record CI Node runtime correction
-e322bf6 ci(sfia-studio): use Node 24 for project validation
-08cf62e docs(sfia-studio): review CI governance PR failure
-ff10c92 docs(sfia-studio): align doc 25 HEAD final SHA
-941701f docs(sfia-studio): pin publication document HEAD SHA
-4678333 docs(sfia-studio): record CI governance pull request
-67a7a1f docs(sfia-studio): prepare CI governance branch publication
-5dd1b50 docs(sfia-studio): define CI and merge governance
-2492069 ci(sfia-studio): prepare project validation workflow
-aef7fd6 docs(sfia-studio): frame next Option A step after T-A6
-1f25857 docs(sfia-studio): record T-A6 post-merge review
+?? .tmp-sfia-review/
 ```
 
 ---
 
-## 2. Template / CKC / handoff source
+## 2. CKC / template / sources
 
 | Élément | Valeur |
 |---------|--------|
 | Template | `prompts/templates/sfia-cycle-execution-template.md` |
-| CKC | `pilots/04-qa-validation.md` · **candidate** |
-| Usage | experimental cognitive guidance |
-| Autorité | **aucune** autorité de merge |
-| Fallback | méthode SFIA v2.6 + doc 24 + revue PR/CI |
-| Limites | pas de merge · pas de push projet · pas de protection |
-| Handoff source | blob `b76d136f…` — post-correction review COMPLETE — READY FOR MORRIS GOVERNANCE DECISION |
+| CKC | `pilots/04-qa-validation.md` · candidate · **pas** d’autorité au-delà du GO merge |
+| Fallback | méthode + doc 24 + sélection H2 + revue post-correction |
+| Décision H2 | validée cycle précédent · gate merge distinct consommé ici |
 
 ---
 
-## 3. PR #268
+## 3. Merge exécuté
 
 | Champ | Valeur |
 |-------|--------|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/268 |
-| Titre | `ci(sfia-studio): add project validation workflow and merge governance` |
-| State / draft / merged | OPEN / false / **non** |
-| Base / head | `main` / `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` |
-| Head SHA | `dc7a24cfed4c3cd3fe584e4948847551e7af4cff` |
-| Files / +/- | **10** · **+2317 / −23** |
-| Commits | **16** |
-| Mergeable / state | MERGEABLE / CLEAN |
-| Reviewers / labels / comments / reviews | **aucun** |
-| Auto-merge / merge queue | **inactifs** |
-| Protections / required check | **NOT APPLIED** |
+| Commande | `gh pr merge 268 --squash` (sans `--delete-branch`) |
+| PR | [#268](https://github.com/mcleland147/sfia-workspace/pull/268) |
+| State | **MERGED** |
+| mergedAt | 2026-07-26T20:30:39Z |
+| Stratégie | **H2 squash** |
+| Merge commit / squash OID | `508ef7c4619e27b664d087fd97d53afe74ea93cc` |
+| Parent unique | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
+| Tree squash = tree PR tip | **PASS** (`a1fabdb345109a41aecd64bb52818abcd710683e`) |
+| Branche head distante | **conservée** @ `dc7a24c…` |
+| Doc 30 local | **hors merge** · non sur `main` |
 
----
-
-## 4. CI head revu
-
-| Champ | Valeur |
-|-------|--------|
-| Run | **30215155391** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30215155391 |
-| Workflow | SFIA Studio CI |
-| Event | pull_request |
-| Head | `dc7a24c…` |
-| Conclusion | **success** |
-| Check | **Build and validate SFIA Studio** |
-| Steps | checkout · setup Node · npm ci · typecheck · lint · build · Vitest · modeled · secret · whitespace — **tous success** |
-| Node | v24.18.0 |
-
----
-
-## 5. Définitions H1 / H2 / H3 (doc 24 §11)
-
-| ID | Définition | Doctrine |
-|----|------------|----------|
-| **H1** | merge commit | disponible |
-| **H2** | squash merge | disponible |
-| **H3** | rebase merge | **seulement si justifié** |
-
-Séquence doc 24 : stratégie choisie (étape 6) **puis** GO Morris de merge exact (étape 7) — **deux gates distincts**.
-
----
-
-## 6. Décision Morris H2 — VALIDÉE
-
-| Champ | Valeur |
-|-------|--------|
-| ID | **H2** |
-| Stratégie | **squash merge** |
-| PR | **#268** |
-| Base attendue | `main` @ `910de87…` |
-| Head revu | `dc7a24cfed4c3cd3fe584e4948847551e7af4cff` |
-| Statut | **sélection validée** · **merge NON autorisé** |
-
-### Justification
-
-- 16 commits sur la PR ;
-- majorité documentaire (~14 docs) ;
-- historique détaillé déjà dans docs 22–29 et handoffs ;
-- un commit consolidé rend `main` plus lisible ;
-- aucune nécessité de préserver séparément chaque commit intermédiaire sur `main`.
-
-### H1 — non retenue
-
-- techniquement possible ;
-- historique jugé trop bruyant pour cette PR ;
-- **non retenue**.
-
-### H3 — non retenue
-
-- absence de justification pour rebase merge ;
-- doctrine : H3 seulement si justifié ;
-- **non retenue**.
-
-### Anti-claims décision
-
-- H2 sélectionnée ≠ merge autorisé ;
-- H2 ≠ GO merge ;
-- H2 ≠ auto-merge ;
-- H2 ≠ Option A COMPLETE ;
-- H2 ≠ fermeture de findings/réserves ;
-- H2 ≠ suppression de branche ;
-- H2 ≠ required check / protection.
-
----
-
-## 7. Squash candidat (préparé — NON exécuté)
-
-Convention repo : conventional commits anglais (`ci(sfia-studio):`, `docs(sfia-studio):`).
-
-**Titre candidat :**
+### Message squash
 
 ```
 ci(sfia-studio): add project validation workflow and merge governance
-```
 
-**Corps candidat :**
-
-```
 add dedicated SFIA Studio CI workflow;
 validate typecheck, lint, build, Vitest, modeled governance, secret patterns and whitespace;
 use Node 24 for node:sqlite compatibility;
@@ -211,94 +84,97 @@ document CI and merge governance, corrections and reviews;
 preserve Option A findings and reserves as open.
 ```
 
-Aucune modification du titre/body PR distant dans ce cycle.
+### Stat fichiers intégrés
+
+```
+.github/workflows/sfia-studio-ci.yml               |  96 +++++
+ .../23-next-option-a-step-after-t-a6.md            | 292 ++++++++++++++
+ .../24-ci-and-merge-governance-preparation.md      | 435 +++++++++++++++++++++
+ .../25-ci-governance-branch-publication-and-pr.md  | 310 +++++++++++++++
+ .../26-ci-governance-pr-and-ci-review.md           | 378 ++++++++++++++++++
+ .../27-ci-node-runtime-correction-and-rerun.md     | 170 ++++++++
+ .../28-ci-corrected-run-failure-review.md          | 253 ++++++++++++
+ ...ary-whitespace-findings-correction-and-rerun.md | 140 +++++++
+ .../22-post-merge-review.md                        | 220 +++++++++++
+ .../t-a6-evidence-review-claims-maturity/README.md |  46 +--
+ 10 files changed, 2317 insertions(+), 23 deletions(-)
+```
 
 ---
 
-## 8. Gate de merge exact (préparé)
-
-```
-GO MERGE PR #268 USING H2 SQUASH AT HEAD dc7a24cfed4c3cd3fe584e4948847551e7af4cff
-— SFIA STUDIO V3-NATIVE
-```
+## 4. CI de référence (pré-merge)
 
 | Champ | Valeur |
 |-------|--------|
-| Statut | **NOT consumed** |
-| Autorisera (cycle ultérieur) | vérif finale · confirm base/head/checks · squash merge #268 · titre/corps validés · vérif nouveau head main · pas de delete auto branche · rapport merge · handoff |
-| N’autorise pas implicitement | suppression branche · protection · required check · fermeture réserves · Option A COMPLETE · T-A7 |
+| Run | 30215155391 |
+| Head | `dc7a24c…` |
+| Conclusion | success |
+| Check | Build and validate SFIA Studio |
+
+Post-merge CI sur `main` : **non requise** pour conclure ce cycle (workflow intégré ; revue post-merge séparée).
 
 ---
 
-## 9. PR readiness vs autorisation merge
-
-| Dimension | Verdict |
-|-----------|---------|
-| Technique (head/CI/diff) | **READY** (inchangé depuis revue) |
-| Stratégie | **H2 SELECTED** |
-| Autorisation de merge | **NON** — gate merge distinct requis |
-| Merge-ready gouvernance complète | **NON** tant que GO merge non consommé |
-
----
-
-## 10. Findings / réserves (inchangés)
+## 5. Findings / réserves (inchangés)
 
 | ID | Statut |
 |----|--------|
-| F-A6-PM-G01 | OPEN |
+| F-A6-PM-G01 | OPEN — mitigation workflow+gouvernance **intégrée** ; clôture éventuelle seulement après post-merge + (évent.) required checks sous GO séparé |
 | F-CI-01 | OPEN |
 | F-CI-02 | OPEN |
 | F-CI-03 | MITIGATED |
 | F-CI-04 | OPEN |
 | F-CI-05 | MITIGATED |
-| F-CI-06 | MITIGATED, non CLOSED |
-| F-CI-06B | MITIGATED, non CLOSED |
+| F-CI-06 / F-CI-06B | MITIGATED, non CLOSED |
 | B5 · R1 · R-T-A3-1..4 · R-M01 · U-M02 | OPEN |
 | C1–C4 | RECOMMENDED — NOT VALIDATED |
 
-La décision H2 **ne modifie aucun** de ces statuts.
+Aucune fermeture dans ce cycle.
 
 ---
 
-## 11. Fichiers / non-exécutions (ce cycle)
+## 6. Non-exécutions / anti-claims
 
 | Action | Statut |
 |--------|--------|
-| Fichiers projet créés | **aucun** |
-| Fichiers projet modifiés | **aucun** |
-| Document 30 modifié | **NON** |
-| Documents 22–29 / workflow | **NON** |
-| Commit projet | **NON** |
-| Push projet | **NON** |
-| PR modifiée | **NON** |
-| Rerun | **NON** |
-| Merge / squash exécuté | **NON** |
-| Protection / required check / auto-merge | **NON** |
-| Branche supprimée | **NON** |
+| Push branche projet / doc 30 | **NON** |
+| Suppression branche | **NON** |
+| Protection / ruleset / required check | **NON** |
+| Auto-merge | **NON** (merge manuel GO) |
 | Findings/réserves fermés | **NON** |
 | Option A COMPLETE | **NON** |
 | T-A7 | **NON** |
-| Gate merge consommé | **NON** |
+| Post-merge review | **NON** (gate suivant) |
 
-Écriture autorisée uniquement : `.tmp-sfia-review/**` + handoff L3.
+Merge ≠ Option A COMPLETE · Merge ≠ required check actif · Merge ≠ F-A6-PM-G01 CLOSED.
 
 ---
 
-## 12. Handoff (après publish)
+## 7. Fichiers projet ce cycle
+
+| Action | Statut |
+|--------|--------|
+| Créés / modifiés tracked | **aucun** |
+| Commit local projet | **aucun** nouveau |
+| Écriture | `.tmp-sfia-review/**` + handoff L3 uniquement |
+
+---
+
+## 8. Handoff (après publish)
 
 | Champ | Valeur |
 |-------|--------|
 | Branche | `sfia/review-handoff` |
 | Path | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Message | `docs(review-handoff): record Studio H2 squash selection` |
+| Message | `docs(review-handoff): record Studio PR 268 H2 squash merge` |
 | Commit/blob | _après publish_ |
 
 ---
 
-## 13. Gate suivant candidat
+## 9. Gate suivant candidat
 
 ```
-GO MERGE PR #268 USING H2 SQUASH AT HEAD dc7a24cfed4c3cd3fe584e4948847551e7af4cff
+GO RUN OPTION A CI GOVERNANCE POST-MERGE REVIEW
 — SFIA STUDIO V3-NATIVE
 ```
 
@@ -306,6 +182,6 @@ GO MERGE PR #268 USING H2 SQUASH AT HEAD dc7a24cfed4c3cd3fe584e4948847551e7af4cf
 
 ---
 
-## 14. Verdict exact
+## 10. Verdict exact
 
-`SFIA STUDIO V3-NATIVE OPTION A CI MERGE GOVERNANCE H2 SQUASH SELECTED — DISTINCT MORRIS MERGE GO REQUIRED`
+`SFIA STUDIO V3-NATIVE OPTION A CI GOVERNANCE PR #268 MERGED VIA H2 SQUASH — POST-MERGE REVIEW REQUIRES MORRIS GO`
