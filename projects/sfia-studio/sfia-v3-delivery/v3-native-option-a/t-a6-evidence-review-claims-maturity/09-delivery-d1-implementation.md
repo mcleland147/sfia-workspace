@@ -9,6 +9,7 @@
 | **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial** | `c2507c370abd04ed274f972c9e6e0aa674f6b106` |
+| **HEAD final** | `31aebb3fe06a963adcb9644b3c9b989fcef4f01a` |
 | **Horodatage** | 2026-07-26 02:44:00 CEST (+0200) |
 | **Handoff source** | blob `91aa963b770eb2e44c3469f395b59ec33ce85d40` |
 | **Statut** | **T-A6-D1 IMPLEMENTED — NOT VALIDATED** |
