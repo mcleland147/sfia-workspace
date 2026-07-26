@@ -48,6 +48,66 @@ export async function assessRequiredEvidence(input: {
       continue;
     }
 
+    // Fail-closed on frozen snapshot metadata (authoritative at freeze).
+    if (
+      snap.availability === "unavailable" ||
+      snap.status === "unavailable"
+    ) {
+      assessments.push({
+        evidenceId,
+        expectedVersion: snap.evidenceVersion,
+        status: snap.status,
+        availability: snap.availability,
+        code: "unavailable",
+      });
+      markBlock("unavailable", evidenceId);
+      continue;
+    }
+    if (snap.status === "stale") {
+      assessments.push({
+        evidenceId,
+        expectedVersion: snap.evidenceVersion,
+        status: snap.status,
+        availability: snap.availability,
+        code: "stale",
+      });
+      markBlock("stale", evidenceId);
+      continue;
+    }
+    if (snap.status === "incomplete") {
+      assessments.push({
+        evidenceId,
+        expectedVersion: snap.evidenceVersion,
+        status: snap.status,
+        availability: snap.availability,
+        code: "incomplete",
+      });
+      markBlock("incomplete", evidenceId);
+      continue;
+    }
+    if (snap.status === "rejected") {
+      assessments.push({
+        evidenceId,
+        expectedVersion: snap.evidenceVersion,
+        status: snap.status,
+        availability: snap.availability,
+        code: "rejected",
+      });
+      markBlock("rejected", evidenceId);
+      continue;
+    }
+    if (snap.status !== "verified") {
+      assessments.push({
+        evidenceId,
+        expectedVersion: snap.evidenceVersion,
+        status: snap.status,
+        availability: snap.availability,
+        code: "not_verified",
+      });
+      markBlock("not_verified", evidenceId);
+      continue;
+    }
+
     const live = await input.evidenceReader.findById(evidenceId);
     if (!live) {
       assessments.push({

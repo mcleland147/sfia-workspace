@@ -3,6 +3,7 @@
  * Never mutates Evidence or ReviewBundle. Never creates MaturityAssessment.
  * System/agent cannot confirm Critical. Structural requires Morris gate.
  * Critical self-review (proposedBy === confirmedBy) is forbidden.
+ * Re-assesses Evidence against the exact frozen ReviewBundle before PASS.
  */
 import type { ClockPort } from "@/lib/oa/doctrine";
 import {
@@ -22,7 +23,13 @@ import { containsForbiddenSecret } from "../domain/invariants";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { ClaimAuthorityPort } from "../ports/claimAuthorityPort";
 import type { ClaimEvaluationRepositoryPort } from "../ports/claimEvaluationRepository";
+import type { EvidenceReaderPort } from "../ports/evidenceReader";
 import type { IdGeneratorPort } from "../ports/idGenerator";
+import type { ReviewBundleReaderPort } from "../ports/reviewBundleReader";
+import {
+  assessRequiredEvidence,
+  detailCodeForAssessment,
+} from "./claimEvidenceAssessment";
 import {
   assertIdempotencyKey,
   fingerprintCommand,
@@ -34,6 +41,8 @@ const CLAIM_AUTHORITY_SCOPE = "oa.claim_evaluation";
 export class ConfirmClaimEvaluation {
   constructor(
     private readonly repo: ClaimEvaluationRepositoryPort,
+    private readonly bundles: ReviewBundleReaderPort,
+    private readonly evidence: EvidenceReaderPort,
     private readonly authority: ClaimAuthorityPort,
     private readonly clock: ClockPort,
     private readonly audit: EvidenceAuditPort,
@@ -191,11 +200,70 @@ export class ConfirmClaimEvaluation {
         );
       }
       if (request.actor.actorId === current.proposedBy.actorId) {
-        if (current.criticality === "critical" || current.criticality === "structural") {
+        if (
+          current.criticality === "critical" ||
+          current.criticality === "structural"
+        ) {
           return fail("CLAIM_SELF_REVIEW_FORBIDDEN", "critical_self_review", {
             claimEvaluation: current,
           });
         }
+      }
+
+      // Re-bind exact ReviewBundle + re-assess Evidence before PASS (fail-closed).
+      const bundle = await this.bundles.findById(current.reviewBundleId);
+      if (!bundle) {
+        return fail(
+          "REVIEW_BUNDLE_NOT_FOUND",
+          "missing_review_bundle_at_confirm",
+          {
+            claimEvaluation: current,
+            reviewBundleId: current.reviewBundleId,
+          },
+        );
+      }
+      if (!bundle.frozenAt || !bundle.frozenVersion) {
+        return fail("CLAIM_REVIEW_BUNDLE_INVALID", "review_bundle_not_frozen", {
+          claimEvaluation: current,
+          reviewBundleId: current.reviewBundleId,
+        });
+      }
+      if (bundle.frozenVersion !== current.reviewBundleVersion) {
+        return fail(
+          "CLAIM_REVIEW_BUNDLE_VERSION_MISMATCH",
+          "review_bundle_version_mismatch_at_confirm",
+          {
+            claimEvaluation: current,
+            reviewBundleId: current.reviewBundleId,
+          },
+        );
+      }
+      if (bundle.synthesisOnly || bundle.completeness !== "complete") {
+        return fail(
+          "CLAIM_REVIEW_BUNDLE_INVALID",
+          "review_bundle_incomplete_or_synthesis_at_confirm",
+          {
+            claimEvaluation: current,
+            reviewBundleId: current.reviewBundleId,
+          },
+        );
+      }
+
+      const assessed = await assessRequiredEvidence({
+        requiredEvidenceRefs: current.requiredEvidenceRefs,
+        bundle,
+        evidenceReader: this.evidence,
+      });
+      if (assessed.blockingCode) {
+        return fail(
+          detailCodeForAssessment(assessed.blockingCode),
+          `confirm_evidence_${assessed.blockingCode}`,
+          {
+            claimEvaluation: current,
+            evidenceId: assessed.blockingEvidenceId,
+            reviewBundleId: current.reviewBundleId,
+          },
+        );
       }
 
       const requireMorris = current.criticality === "structural";
@@ -228,13 +296,13 @@ export class ConfirmClaimEvaluation {
       const confirmationAuthority =
         current.criticality === "structural"
           ? ("morris" as const)
-          : current.criticality === "critical"
-            ? ("authorized_human" as const)
-            : ("authorized_human" as const);
+          : ("authorized_human" as const);
 
       const updated: ClaimEvaluation = {
         ...current,
         status: "pass",
+        providedEvidenceRefs: assessed.provided,
+        evidenceAssessments: structuredClone(assessed.assessments),
         confirmedBy: { ...request.actor },
         confirmedAt: timestamp,
         confirmationAuthority,
@@ -262,6 +330,7 @@ export class ConfirmClaimEvaluation {
         correlationId,
         claimEvaluationId: updated.claimEvaluationId,
         reviewBundleId: updated.reviewBundleId,
+        evidenceIds: updated.requiredEvidenceRefs,
         actorId: request.actor.actorId,
         previousStatus: current.status,
         newStatus: updated.status,

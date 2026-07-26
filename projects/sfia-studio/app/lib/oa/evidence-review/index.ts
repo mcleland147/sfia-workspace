@@ -289,6 +289,8 @@ export function createInMemoryEvidenceReviewServices(
     ),
     confirmClaimEvaluation: new ConfirmClaimEvaluation(
       claimEvaluationRepository,
+      reviewBundleReader,
+      evidenceReader,
       claimAuthority,
       clock,
       audit,
