@@ -9,7 +9,7 @@
 | **Base** | `origin/main` @ `b25c20e6eb131cba7dc811697b763fd033f3f652` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` |
 | **HEAD initial** | `8232b95a7404c3a501926a811e2e518cdefa67aa` |
-| **HEAD final** | *(renseigné après commit docs + record)* |
+| **HEAD final** | `734f944332aacb30a539f0dab6ccddfcfaea5b73` |
 | **Horodatage** | 2026-07-26 10:41:00 CEST (+0200) |
 | **Handoff source** | blob `4128adb35678d12df00f66456e64d3771c5a0b73` (commit `91f1a009…`) |
 | **Statut** | **T-A6-D3 VALIDATED AFTER CORRECTION** |
