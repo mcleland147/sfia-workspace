@@ -1,5 +1,5 @@
 /**
- * T-A6 Evidence-Review barrel — D1 Evidence + D2 ReviewBundle + D3 ClaimEvaluation + D4 MaturityAssessment.
+ * T-A6 Evidence-Review barrel — D1…D4 aggregates + D5 RecommendNextGate (read-only).
  *
  * Module: app/lib/oa/evidence-review/**
  *
@@ -7,9 +7,10 @@
  * D2: ReviewBundle create/attach/remove/freeze/start/complete/reopen.
  * D3: ClaimEvaluation EvaluateClaim / Confirm / Reject.
  * D4: MaturityAssessment ProposeMaturity / ConfirmMaturity / DowngradeMaturity.
+ * D5: RecommendNextGate — bounded coordination, read-only, non-executive.
  *
- * WHAT THIS IS NOT: coordination D5,
- * SQL, API/UI, real adapters, T-A7, real execution.
+ * WHAT THIS IS NOT: gate consumption, Morris decision creation, SQL, API/UI,
+ * real adapters, T-A7 auto-launch, real execution, executionAuthority.
  */
 
 export * from "./domain/types";
@@ -56,6 +57,9 @@ export * from "./ports/claimEvaluationRepository";
 export * from "./ports/claimEvaluationReader";
 export * from "./ports/claimAuthorityPort";
 export * from "./ports/maturityAssessmentRepository";
+export * from "./ports/maturityAssessmentReader";
+export * from "./domain/coordinationTypes";
+export * from "./domain/coordinationErrors";
 
 export { RegisterEvidence } from "./application/registerEvidence";
 export { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
@@ -74,6 +78,7 @@ export { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
 export { ProposeMaturity } from "./application/proposeMaturity";
 export { ConfirmMaturity } from "./application/confirmMaturity";
 export { DowngradeMaturity } from "./application/downgradeMaturity";
+export { RecommendNextGate } from "./application/recommendNextGate";
 export {
   assessClaimEligibility,
   calculateMaturityLevel,
@@ -95,6 +100,7 @@ export { MemoryClaimEvaluationRepository } from "./infrastructure/memoryClaimEva
 export { ClaimEvaluationRepositoryReader } from "./infrastructure/claimEvaluationRepositoryReader";
 export { MemoryMaturityAssessmentStore } from "./infrastructure/memoryMaturityAssessmentStore";
 export { MemoryMaturityAssessmentRepository } from "./infrastructure/memoryMaturityAssessmentRepository";
+export { MaturityAssessmentRepositoryReader } from "./infrastructure/maturityAssessmentRepositoryReader";
 export {
   ClaimAuthorityAdapter,
   FakeClaimAuthority,
@@ -121,6 +127,7 @@ import { FreezeReviewBundle } from "./application/freezeReviewBundle";
 import { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
 import { MarkEvidenceUnavailable } from "./application/markEvidenceUnavailable";
 import { ProposeMaturity } from "./application/proposeMaturity";
+import { RecommendNextGate } from "./application/recommendNextGate";
 import { RegisterEvidence } from "./application/registerEvidence";
 import { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
 import { RemoveEvidenceFromReviewBundle } from "./application/removeEvidenceFromReviewBundle";
@@ -142,6 +149,7 @@ import { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceReposit
 import { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
 import { MemoryMaturityAssessmentRepository } from "./infrastructure/memoryMaturityAssessmentRepository";
 import { MemoryMaturityAssessmentStore } from "./infrastructure/memoryMaturityAssessmentStore";
+import { MaturityAssessmentRepositoryReader } from "./infrastructure/maturityAssessmentRepositoryReader";
 import { MemoryReviewBundleRepository } from "./infrastructure/memoryReviewBundleRepository";
 import { MemoryReviewBundleStore } from "./infrastructure/memoryReviewBundleStore";
 import { ReviewBundleRepositoryReader } from "./infrastructure/reviewBundleRepositoryReader";
@@ -156,6 +164,7 @@ import type { EvidencePayloadPort } from "./ports/evidencePayloadPort";
 import type { EvidenceReaderPort } from "./ports/evidenceReader";
 import type { ExecutionAttemptReaderPort } from "./ports/executionAttemptReader";
 import type { IdGeneratorPort } from "./ports/idGenerator";
+import type { MaturityAssessmentReaderPort } from "./ports/maturityAssessmentReader";
 import type { ReviewBundleReaderPort } from "./ports/reviewBundleReader";
 
 export type EvidenceReviewServices = {
@@ -170,6 +179,7 @@ export type EvidenceReviewServices = {
   claimAuthority: ClaimAuthorityPort;
   maturityAssessmentStore: MemoryMaturityAssessmentStore;
   maturityAssessmentRepository: MemoryMaturityAssessmentRepository;
+  maturityAssessmentReader: MaturityAssessmentReaderPort;
   evidenceReader: EvidenceReaderPort;
   payload: EvidencePayloadPort;
   attemptReader: ExecutionAttemptReaderPort;
@@ -193,6 +203,7 @@ export type EvidenceReviewServices = {
   proposeMaturity: ProposeMaturity;
   confirmMaturity: ConfirmMaturity;
   downgradeMaturity: DowngradeMaturity;
+  recommendNextGate: RecommendNextGate;
 };
 
 export type CreateEvidenceReviewServicesOptions = {
@@ -237,6 +248,9 @@ export function createInMemoryEvidenceReviewServices(
   const maturityAssessmentRepository = new MemoryMaturityAssessmentRepository(
     maturityAssessmentStore,
   );
+  const maturityAssessmentReader = new MaturityAssessmentRepositoryReader(
+    maturityAssessmentRepository,
+  );
   const clock = options.clock ?? new SystemClock();
   const audit = options.audit ?? new ConsoleEvidenceAuditJournal();
   const ids = options.ids ?? new RandomIdGenerator();
@@ -258,6 +272,7 @@ export function createInMemoryEvidenceReviewServices(
     claimAuthority,
     maturityAssessmentStore,
     maturityAssessmentRepository,
+    maturityAssessmentReader,
     evidenceReader,
     payload,
     attemptReader,
@@ -374,6 +389,15 @@ export function createInMemoryEvidenceReviewServices(
       maturityAssessmentRepository,
       claimEvaluationReader,
       claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    recommendNextGate: new RecommendNextGate(
+      evidenceReader,
+      reviewBundleReader,
+      claimEvaluationReader,
+      maturityAssessmentReader,
       clock,
       audit,
       ids,

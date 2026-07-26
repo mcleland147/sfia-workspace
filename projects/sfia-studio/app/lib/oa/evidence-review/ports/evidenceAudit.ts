@@ -45,7 +45,13 @@ export type EvidenceAuditEventName =
   | "oa.maturity_assessment.operation_rejected"
   | "oa.maturity_assessment.authority_rejected"
   | "oa.maturity_assessment.idempotency_conflict"
-  | "oa.maturity_assessment.concurrent_modification_rejected";
+  | "oa.maturity_assessment.concurrent_modification_rejected"
+  | "oa.coordination.assessed"
+  | "oa.coordination.next_action_recommended"
+  | "oa.coordination.next_gate_recommended"
+  | "oa.coordination.blocked"
+  | "oa.coordination.inconsistency_detected"
+  | "oa.coordination.operation_rejected";
 
 export type EvidenceAuditEvent = {
   event: EvidenceAuditEventName;
