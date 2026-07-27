@@ -1,94 +1,49 @@
 # SFIA Review Pack — FULL
 
 ## Métadonnées
-- Date/heure/fuseau : 2026-07-27 11:39:39 CEST (+0200)
-- Cycle : 15 — Capitalisation / formalisation documentaire (compléments 9 QA, 13 PR readiness, 14 Post-action)
+- Date/heure/fuseau : 2026-07-27 12:08:39 CEST (+0200)
+- Cycle : 8 — Delivery documentaire / commit contrôlé (compléments 9 QA, 13 PR readiness, 15 Capitalisation)
 - Profil SFIA : Critical
-- Typologie : Formalisation finding / documentation CI / capitalisation décisionnelle
-- Gate consommé : `GO FORMALIZE F-A6-PM-G01 AS MITIGATED AFTER M1 — SFIA STUDIO V3-NATIVE`
+- Typologie : Commit documentaire borné / formalisation finding
+- Gate consommé : `GO COMMIT F-A6-PM-G01 MITIGATED FORMALIZATION — SFIA STUDIO V3-NATIVE`
 - Repository : `mcleland147/sfia-workspace`
-- Workspace stable : `/Users/morris/Projects/sfia-workspace`
-- Branche workspace : `delivery/sfia-studio-control-tower-fast-track` (divergente — baseline normative `origin/main`)
-- HEAD workspace : `bb3c9e29936a925174beb0c1758e8fe887e58bc3`
+- Workspace : `/Users/morris/Projects/sfia-workspace`
+- Branche : `delivery/sfia-studio-control-tower-fast-track`
+- HEAD avant : `bb3c9e29936a925174beb0c1758e8fe887e58bc3`
+- HEAD après : `c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf`
+- Parent : `bb3c9e29936a925174beb0c1758e8fe887e58bc3`
 - origin/main : `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513`
 - Workflow blob : `801a8759bb7440666799b95edf13f9ee6d9332f8`
-- Status Git : untracked `.tmp-sfia-review/` + untracked arborescence locale du document 24 matérialisé depuis `origin/main` puis modifié
-- Staged : aucun
+- Status avant : untracked `.tmp-sfia-review/` + untracked doc 24 (arborescence option-a)
+- Staged avant : vide
 - Opérations Git actives : aucune
-- Mode : mutation locale documentaire uniquement — aucun commit/push projet
+- Mode : commit local unique — aucun push/PR/merge
 
 ## Sources consultées
-- `prompts/templates/sfia-cycle-execution-template.md`
-- Routing / operating model / règles et guardrails
-- CKC capitalisation : candidate ou absent — fallback template + handoff décision
-- Handoff décision blob `6cd8fe1a8fb31e09440976d5d451bc77eb35fdc6` (D-M1-01…D-M1-08)
-- Docs Option A 23, 24, 30, 31, 32 (lecture) ; F-CI (lecture)
-- Ruleset `19798462` ; workflow P3 ; PR #270–#273 ; runs M1
+- Template cycle / routing / operating model / guardrails
+- CKC delivery documentaire : candidate ou absent — fallback template + handoff
+- Handoff initial blob `aacbe92e71bfdab69dd6f7a55657b8aa797c005c`
+- Document 24 local + `origin/main` + formalisation validée
+- Ruleset `19798462` (relecture post-commit)
 
 ## Cycle Knowledge Contract (CKC)
 - recherché : oui
-- cycle qualifié : capitalisation / formalisation de finding
+- cycle qualifié : delivery documentaire / commit contrôlé
 - statut : candidate ou absent
-- usage : experimental cognitive guidance
 - autorité : aucune
-- limite respectée : aucun CLOSED ; aucun élargissement de périmètre
+- limite respectée : aucun push/PR/merge ; aucun élargissement
 
 ## Handoff initial
-- Branche : `sfia/review-handoff`
-- Blob : `6cd8fe1a8fb31e09440976d5d451bc77eb35fdc6`
-- Contenu : décision M1 COMPLETE ; F-A6 MITIGATED APPROVED FOR FORMALIZATION ; F-A6 NOT CLOSED
+- Blob : `aacbe92e71bfdab69dd6f7a55657b8aa797c005c`
+- Contenu : formalisation locale F-A6 MITIGATED NOT CLOSED validée
 
-## A. Découverte du registre
+## A. Revalidation avant commit
+- Fichier local : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md`
+- Comparaison : `diff -u` contre `git show origin/main:…/24-…md`
+- Contenu : MITIGATED exact ; CLOSED NON ; F-CI inchangés ; preuves/réserves conformes handoff
+- `git diff --no-index --check` : aucune alerte trailing/whitespace
 
-### Candidats trouvés (`git grep F-A6-PM-G01 origin/main`)
-- `t-a6-…/22-post-merge-review.md` — origine « tracé »
-- `23-next-option-a-step-after-t-a6.md` — citation
-- `24-ci-and-merge-governance-preparation.md` — section Capitalisation F-A6-PM-G01 + table findings
-- `25` à `30` — snapshots chronologiques OPEN
-- `31-ci-governance-post-merge-review.md` — MITIGATED (proposition)
-- `32-…preparation.md` — MITIGATED proposé (exclu de ce cycle)
-- Aucun fichier registre findings dédié hors ces docs de cycle
-
-### Document canonique retenu
-- Path : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md`
-- Section : `### Capitalisation F-A6-PM-G01`
-- Ajustement cohérent dans le même document : ligne F-A6-PM-G01 de la table §15 Findings uniquement
-
-### Justification
-1. Seul document portant une section dédiée Capitalisation F-A6-PM-G01 avec critères Mitigation / Clos.
-2. Doc 22 = origine historique « tracé », non registre de statut vivant.
-3. Docs 25–30 = citations chronologiques secondaires.
-4. Doc 31 = proposition explicite, non formalisation Morris.
-5. Doc 32 exclu par D-M1-07 / interdiction de ce gate.
-6. Hiérarchie explicite : capitalisation doc 24 = autorité de statut ; autres = secondaires inchangées.
-7. Ambiguïté d’autorité concurrente : non — formalisation démarrée.
-
-## C. Section F-A6 complète AVANT
-
-```markdown
-### Capitalisation F-A6-PM-G01
-
-| État | Qualification |
-|------|----------------|
-| Mitigation | **préparée** (workflow + gouvernance documentée) |
-| Clos | **NON** — exige run GitHub prouvé + gouvernance appliquée sur PR réelle + (éventuellement) required checks appliqués sous GO Morris |
-
----
-```
-
-- Statut actuel avant : Mitigation préparée · Clos NON
-- Sévérité : Major (gouvernance) — dans table findings
-- Problème initial : Merge #267 sans review PR/CI formelle / CI absente
-- Critères CLOSED historiques : run GitHub + gouvernance PR + (évent.) required checks
-
-## D. Modification
-
-- Fichier modifié : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md`
-- Date/heure mitigation enregistrée : `2026-07-27 11:35:05 CEST (+0200)`
-- Statut après : `MITIGATED — M1 GOVERNANCE CONTROL APPLIED AND BEHAVIORALLY PROVEN — NOT CLOSED`
-- CLOSED : NON (explicite)
-
-## Section F-A6 complète APRÈS
+## Section F-A6 (HEAD / commit)
 
 ```markdown
 ### Capitalisation F-A6-PM-G01
@@ -144,11 +99,11 @@
 ---
 ```
 
-## Diff complet (vs origin/main)
+## Diff métier complet vs origin/main
 
 ```diff
---- .tmp-sfia-review/m1-fa6-formalization/before-full.md	2026-07-27 11:35:53
-+++ .tmp-sfia-review/m1-fa6-formalization/after-full.md	2026-07-27 11:35:53
+--- .tmp-sfia-review/m1-fa6-commit/origin-main-doc24.md	2026-07-27 12:07:22
++++ .tmp-sfia-review/m1-fa6-commit/head-doc24.md	2026-07-27 12:07:22
 @@ -286,11 +286,54 @@
 
  ### Capitalisation F-A6-PM-G01
@@ -219,77 +174,110 @@
  | F-CI-03 | **Observation** | Validation locale Node 24 ≠ CI Node 20 | Limite explicite |
 ```
 
-## Preuves ajoutées
-- PR #270 / blob workflow `801a8759bb7440666799b95edf13f9ee6d9332f8`
-- Ruleset `19798462` + check `SFIA Studio Required Gate` / `15368`
-- PR #272 run `30248284607` ; PR #273 runs `30248328467` / `30248480927`
-- PR #272/#273 CLOSED non mergées ; branches/worktrees supprimés ; preuves GitHub conservées ; bypass non utilisé
-- Décisions Morris D-M1-01/02/03/05/06 référencées
+## C. Staging
+- Avant staging : `git diff --cached` vide
+- Commande : `git add -- projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md`
+- name-status : `A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md`
+- staged files count : 1
+- Justification statut `A` : fichier absent de HEAD (branche divergente) mais présent sur `origin/main` ; portée métier = modification bornée F-A6 vs main
+- Représentation Git vs HEAD : ajout
+- Portée métier vs origin/main : modification Capitalisation + ligne findings F-A6
+- `.tmp-sfia-review/` non staged
+- `git diff --cached --check` : aucune alerte WS
 
-## Réserves conservées
-- finding non CLOSED ; doc 32 obsolète ; REX M1 requis ; rollback/bypass non testés ; F-CI-* inchangés ; M1 loose ; Option A non COMPLETE ; T-A7 non ouverte
+## D. Commit
+- Commande : `git commit -m "docs(sfia-studio): formalize F-A6 as mitigated after M1"`
+- Exit code : 0
+- stdout :
+```
+[delivery/sfia-studio-control-tower-fast-track c895a96] docs(sfia-studio): formalize F-A6 as mitigated after M1
+ Committer: Morris Cleland <morris@macbook-air1.home>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
 
-## F. Contrôles documentaires
+    git config --global --edit
 
-| Contrôle | Attendu | Résultat | Verdict |
-|---|---|---|---|
-| Un seul document projet muté | doc 24 seulement | untracked path option-a/24 uniquement | PASS |
-| Section Capitalisation F-A6 mise à jour | MITIGATED NOT CLOSED | statut exact présent | PASS |
-| CLOSED explicite NON | NON | présent dans section après | PASS |
-| F-CI-* inchangés | identiques | lignes F-CI-01…04 identiques au baseline | PASS |
-| Document 32 inchangé | non modifié | absent localement / non touché | PASS |
-| Option A COMPLETE non déclaré | NON | présent NON | PASS |
-| T-A7 non ouverte | NON OUVERTE | présent | PASS |
-| Pas de claims interdits | absents | rollback/bypass validated, M2 approved absents | PASS |
-| Critères CLOSED historiques conservés | présents | sous-section critères historiques | PASS |
-| Problème initial conservé | Merge #267 | présent | PASS |
-| IDs preuves exacts | PR/runs/ruleset/blob | tous présents | PASS |
-| Trailing whitespace | aucun | scan Python vide | PASS |
-| git diff --check | pas d’erreur WS | aucune alerte trailing/whitespace ; exit≠0 dû au diff --no-index | PASS WITH NOTE |
-| main / workflow / ruleset | inchangés | 4e2d5cf / 801a8759 / 19798462 active | PASS |
-| staged/commit/push/PR | aucun | aucun | PASS |
+After doing this, you may fix the identity used for this commit with:
 
-## Fichiers projet modifiés
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md` (matérialisé depuis origin/main puis modifié ; absent de la branche workspace avant ce cycle)
+    git commit --amend --reset-author
 
-## Fichiers interdits vérifiés (inchangés)
-- document 32 ; docs 23/25–31 ; F-CI contents ; workflow ; ruleset ; roadmap
+ 1 file changed, 478 insertions(+)
+ create mode 100644 projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md
+```
+- stderr :
+```
+```
+- SHA : `c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf`
+- Message : `docs(sfia-studio): formalize F-A6 as mitigated after M1`
+- Parent : `bb3c9e29936a925174beb0c1758e8fe887e58bc3`
+- Auteur/date/fuseau : Morris Cleland <morris@macbook-air1.home> — 2026-07-27 12:07:05 +0200
+- Fichiers du commit : `A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md`
+- Diff stat : 1 file changed, 478 insertions(+)
+- Note : le patch commit vs parent présente le fichier entier comme ajout (attendu) ; le diff métier vs main est le delta borné ci-dessus
 
-## Décisions Morris respectées
-- D-M1-02 : formalisation MITIGATED effectuée localement
-- D-M1-03 : CLOSED = NON
-- D-M1-04 : F-CI-* inchangés
-- D-M1-05/06 : Option A NON COMPLETE ; T-A7 NON OUVERTE
-- D-M1-07/08 : doc 32 et REX non traités ici
+## log fuller
+```
+commit c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Mon Jul 27 12:07:05 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Mon Jul 27 12:07:05 2026 +0200
+
+    docs(sfia-studio): formalize F-A6 as mitigated after M1
+```
+
+## E. Validation post-commit
+| Contrôle | Résultat |
+|---|---|
+| HEAD | `c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf` |
+| Parent = bb3c9e2… | PASS |
+| Un seul fichier | PASS (`A` doc 24) |
+| Staged restant | vide |
+| Doc 24 plus untracked | PASS |
+| `.tmp-sfia-review/` untracked | autorisé |
+| origin/main | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` inchangé |
+| Workflow blob | `801a8759bb7440666799b95edf13f9ee6d9332f8` inchangé |
+| Ruleset 19798462 | active ; updated_at inchangé |
+| Métier vs main | limité Capitalisation + ligne F-A6 |
+| F-CI table rows | identiques à origin/main |
+| Push | NON (branche ahead 1 localement) |
+| PR / merge | NON |
+
+## Status final
+- `## delivery/sfia-studio-control-tower-fast-track...origin/… [ahead 1]`
+- `?? .tmp-sfia-review/`
 
 ## Actions non exécutées
-- git add / git commit / git push projet
-- création branche projet / PR / merge
-- CLOSED F-A6 ; mutation F-CI ; correction 32 ; REX ; ruleset/workflow ; rollback ; bypass ; M2 ; Notion
+- push branche projet
+- création PR / merge
+- amend / --no-verify
+- CLOSED F-A6 ; F-CI ; doc 32 ; REX ; ruleset/workflow ; M2
 
 ## Gates suivants candidats (NOT CONSUMED)
-- `GO COMMIT F-A6-PM-G01 MITIGATED FORMALIZATION — SFIA STUDIO V3-NATIVE`
+- `GO PUSH F-A6-PM-G01 MITIGATED FORMALIZATION BRANCH — SFIA STUDIO V3-NATIVE`
 - `GO CORRECT OPTION A DOCUMENT 32 POST-P3 AND M1 — SFIA STUDIO V3-NATIVE`
 - `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS — SFIA STUDIO V3-NATIVE`
 
 ## Anti-claims
-- formalisation locale ≠ commit projet
+- commit local ≠ push
+- commit local ≠ PR
 - MITIGATED ≠ CLOSED
+- fichier ajouté vs HEAD ≠ nouveau document métier
 - M1 COMPLETE ≠ Option A COMPLETE
-- preuve bypass absente ≠ bypass validé
-- rollback défini ≠ rollback testé
-- document 32 inchangé ≠ dette supprimée
-- finding formalisé ≠ F-CI-* modifiés
-- handoff publié ≠ modification projet publiée
+- commit F-A6 ≠ correction document 32
+- commit F-A6 ≠ REX M1
+- handoff publié ≠ commit projet poussé
 
 ## Verdict
-`SFIA STUDIO V3-NATIVE F-A6-PM-G01 MITIGATED FORMALIZATION COMPLETE — CANONICAL FINDING UPDATED LOCALLY — NOT CLOSED — PROJECT COMMIT NOT CREATED`
+`SFIA STUDIO V3-NATIVE F-A6-PM-G01 MITIGATED FORMALIZATION COMMITTED LOCALLY — SINGLE-FILE ATOMIC COMMIT — NOT PUSHED — NOT CLOSED`
 
 ## Handoff Git
 - décision : required
 - mode : publish-in-cycle
 - branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- source : `.tmp-sfia-review/chatgpt-review.md`
-- commit attendu : `docs(review-handoff): record F-A6 MITIGATED formalization`
-- fichier projet modifié interdit dans le commit handoff
+- commit attendu : `docs(review-handoff): record F-A6 MITIGATED local commit`
+- commit projet interdit dans le commit handoff
+- aucun push de la branche projet
