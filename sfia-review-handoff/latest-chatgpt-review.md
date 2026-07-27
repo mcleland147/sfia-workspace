@@ -1,7 +1,7 @@
 # SFIA Review Pack — F-A6 Closure Documentation PR Readiness (FULL)
 
 ## Metadata
-- date/heure/fuseau: 2026-07-27 20:28:44 CEST (+0200)
+- date/heure/fuseau: 2026-07-27 20:31:00 CEST (+0200)
 - cycle: 13 — PR readiness (+ 9 QA, 15 Capitalisation, 14 Post-merge, 7 DevOps)
 - profil SFIA: Critical
 - typologie: PR-READINESS / DOC / GOVERNANCE / FINDING / CLOSURE
@@ -18,6 +18,7 @@
 - blob doc24 HEAD: `53810c033fd4f9a75021a731b141325f914540de`
 - handoff initial blob: `0e6bbfea993fa43888f072cd82c484388d6fd6bb`
 - mode: lecture seule projet — **aucune** modification du commit
+- note handoff: lignes whitespace-only du pack normalisées pour passer `git diff --check` handoff (lignes contexte vides du unified diff = un espace) ; contenu sémantique inchangé
 
 ## 1. Local Git Truth
 ```
@@ -87,7 +88,6 @@ branch refs/heads/qa/sfia-studio-m1-bypass-probe
 
 worktree /Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert
 HEAD b502c0069f836a729090bdc187dd98a0c26591ca
-
 ```
 Attendus respectés pour identité Git. STOP local non déclenché.
 
@@ -111,7 +111,6 @@ CommitDate: Mon Jul 27 20:16:22 2026 +0200
 
  .../24-ci-and-merge-governance-preparation.md      | 139 +++++++++++++++------
  1 file changed, 101 insertions(+), 38 deletions(-)
-
 ```
 ```
 commit a13759d5420d2e1d9915ab05a4dbb3872d85e8a0
@@ -125,7 +124,6 @@ CommitDate: Mon Jul 27 20:16:22 2026 +0200
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md
-
 ```
 - message: `docs(sfia-studio): close F-A6 after M1 governance proofs` — **exact**
 - parent unique ; 1 fichier ; M ; 101 / 38
@@ -731,7 +729,6 @@ Verdict historique du cycle de préparation (conservé) :
 Addendum de clôture F-A6 (formalisation locale) :
 
 `SFIA STUDIO F-A6-PM-G01 MORRIS CLOSURE DECISION FORMALIZED LOCALLY — DOCUMENT 24 UPDATED — HISTORICAL CRITERIA, ROLLBACK AND BYPASS PROOFS RECORDED — LOOSE-CONFIG HARDENING KEPT DISTINCT — CANONICAL MAIN INTEGRATION PENDING — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
-
 ```
 
 ## 6. Sections modifiées — Capitalisation F-A6
@@ -842,8 +839,6 @@ Ces sujets **ne rouvrent pas** F-A6. Ils relèvent d’un futur cycle de hardeni
 - PR future ≠ merge.
 
 ---
-
-
 ```
 
 ### §12
@@ -870,8 +865,6 @@ Ce cycle de préparation **n’avait modifié aucun** ruleset / branch protectio
 **Ne pas** rendre required avant observation du nom réel sur GitHub.
 
 ---
-
-
 ```
 
 ### §17 (source de la contradiction)
@@ -906,8 +899,6 @@ Ce cycle de préparation **n’avait modifié aucun** ruleset / branch protectio
 - fermeture F-A6-PM-G01 — **consommé** : `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` (formalisation locale dans ce document ; intégration `main` en attente de PR/merge).
 
 ---
-
-
 ```
 
 ## 7. Diff complet
@@ -1114,7 +1105,6 @@ index f62ff9c..53810c0 100644
 +Addendum de clôture F-A6 (formalisation locale) :
 +
 +`SFIA STUDIO F-A6-PM-G01 MORRIS CLOSURE DECISION FORMALIZED LOCALLY — DOCUMENT 24 UPDATED — HISTORICAL CRITERIA, ROLLBACK AND BYPASS PROOFS RECORDED — LOOSE-CONFIG HARDENING KEPT DISTINCT — CANONICAL MAIN INTEGRATION PENDING — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
-
 ```
 
 ## 8. Recherche contradictions
@@ -1404,7 +1394,6 @@ Verdict contradiction : `F-A6 CLOSURE DOCUMENTARY CONTRADICTION DETECTED — NOT
 - ruleset live:
 ```json
 {"bypass_actors":[{"actor_id":295557155,"actor_type":"User","bypass_mode":"pull_request"}],"enforcement":"active","id":19798462,"name":"SFIA Studio Main Required Gate — M1","rules":["pull_request","required_status_checks","non_fast_forward","deletion"]}
-
 ```
 - integration ID `15368` : référencé dans doc
 - Aucune référence SHA manquante côté objets Git locaux
@@ -1496,7 +1485,6 @@ Candidate recommandée : **H2 — squash** (non décidée ici).
 ## Post-merge
 
 Review post-merge requis ; aucune suppression automatique de branche.
-
 ```
 
 ## 14. Stratégies de merge (candidates, non décidées)
@@ -1518,7 +1506,7 @@ Review post-merge requis ; aucune suppression automatique de branche.
 | preuves | PASS | SHA/runs/ruleset recoupés |
 | cohérence gouvernance | FAIL | état ruleset ambigu entre §17 et header/§12 |
 | validation Markdown | PASS | UTF-8, newline, markers, trailing clean |
-| secrets | PASS |  |
+| secrets | PASS | |
 | whitespace | PASS | git diff --check / show --check clean |
 | dette | FAIL | correction documentaire requise avant PR (annotation supersédé L481) |
 | risques | PASS WITH RESERVATION | risque de lecture CLOSED + BP non appliqué si §17 lu isolément |
