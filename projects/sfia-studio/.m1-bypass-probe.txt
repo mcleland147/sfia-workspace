@@ -1,0 +1,6 @@
+TEMPORARY M1 BYPASS PROBE — DO NOT KEEP
+This file is an inoffensive controlled governance probe artifact.
+No executable code. No secrets. No product data.
+Gate: GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE
+INTENTIONAL_TRAILING_WHITESPACE_LINE 
+End of probe file.
