@@ -1,22 +1,20 @@
 # ChatGPT Review Pack — FULL
-## Option A M1 capitalization push and PR opening
+## PR #276 readiness — Option A M1 capitalization
 
 ### 0. En-tête
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-07-27 18:22:02 CEST (+0200) |
-| Cycle | 8 — Delivery ; complémentaires 15 Capitalisation · 13 PR readiness · 7 DevOps · 9 QA |
+| Date/heure/fuseau | 2026-07-27 18:29:04 CEST (+0200) |
+| Cycle | 13 — PR readiness ; complémentaires 15 Capitalisation · 9 QA · 7 DevOps · 2 Revue documentaire |
 | Profil | Capitalization — Critical |
-| Gate consommé | `GO PUSH AND OPEN PR FOR OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE` |
+| Gate consommé | `GO ASSESS PR READINESS FOR OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE` |
 | Repo | `mcleland147/sfia-workspace` |
 | Workspace | `/Users/morris/Projects/sfia-workspace-m1-capitalization` |
 | Branche | `docs/sfia-studio-m1-capitalization-rex` |
-| HEAD | `fa0eebe00ce3b765a8a486aa660dddfab40123a0` |
-| Parent | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-| origin/main | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-| Status initial | propre ; LR `0 / 1` ; pas d’upstream |
-| Handoff initial | blob `d6e044dc52154163e4cce3eba68a725aca357234` — vérifié |
+| HEAD / parent / main | `fa0eebe00ce3b765a8a486aa660dddfab40123a0` / `ae61c3ed48d4d1c9fe751eddd73617ba15480734` / `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
+| Status local | propre ; LR main `0/1` ; LR remote branch `0/0` |
+| Handoff initial | blob `9531e9b357ca9687567db8faee81911c76d8efb7` — vérifié |
 
 ### 1. Commit metadata
 
@@ -38,7 +36,7 @@ CommitDate: Mon Jul 27 18:14:00 2026 +0200
 | Blob | `6c87cf4016d6a33f096df921acf8bafd4d73af4e` |
 | Stat | `A` · `441 / 0` |
 
-#### Contenu complet
+#### Contenu complet du document 33
 
 ```markdown
 # SFIA Studio — REX M1 : implémentation du required gate et preuves comportementales
@@ -485,7 +483,11 @@ Aucune de ces décisions n’est tranchée par la rédaction de ce document.
 
 ```
 
-#### Diff commit / GitHub (identique)
+#### Diff local (= HEAD, working tree propre)
+
+Working tree identique à HEAD — pas de delta local.
+
+#### Diff commit / Diff GitHub (identiques)
 
 ```diff
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
@@ -938,54 +940,27 @@ index 0000000..6c87cf4
 
 ```
 
-### 2. Vérification remote avant mutation
+#### Comparaison des trois diffs
 
-| Contrôle | Résultat |
-|----------|----------|
-| `ls-remote` branche | vide |
-| `gh pr list --head …` | `[]` |
-| recherche doc 33 | `[]` |
+| Source | Résultat |
+|--------|----------|
+| local vs HEAD | **identique** (delta vide) |
+| commit `HEAD^..HEAD` | référence |
+| GitHub `main...head` | **identique** au commit |
 
-### 3. Push
-
-| Champ | Valeur |
-|-------|--------|
-| Commande | `git push -u origin docs/sfia-studio-m1-capitalization-rex` |
-| Date/heure | 2026-07-27 18:21:07 CEST (+0200) |
-| Exit | 0 |
-| Force | **non** |
-| SHA distant | `fa0eebe00ce3b765a8a486aa660dddfab40123a0` |
-| Upstream | `origin/docs/sfia-studio-m1-capitalization-rex` |
-| LR local/upstream | `0 / 0` |
-
-#### stdout/stderr
-
-```
-remote:
-remote: Create a pull request for 'docs/sfia-studio-m1-capitalization-rex' on GitHub by visiting:
-remote:      https://github.com/mcleland147/sfia-workspace/pull/new/docs/sfia-studio-m1-capitalization-rex
-remote:
-To https://github.com/mcleland147/sfia-workspace.git
- * [new branch]      docs/sfia-studio-m1-capitalization-rex -> docs/sfia-studio-m1-capitalization-rex
-branch 'docs/sfia-studio-m1-capitalization-rex' set up to track 'origin/docs/sfia-studio-m1-capitalization-rex'.
-
-```
-
-### 4. PR
+### 2. Metadata PR #276
 
 | Champ | Valeur |
 |-------|--------|
-| Commande | `gh pr create --repo mcleland147/sfia-workspace --base main --head docs/sfia-studio-m1-capitalization-rex --title "docs(sfia-studio): capitalize M1 implementation and proofs" --body-file …` |
-| Numéro | **#276** |
 | URL | https://github.com/mcleland147/sfia-workspace/pull/276 |
 | Titre | `docs(sfia-studio): capitalize M1 implementation and proofs` |
 | state/draft/merged | `OPEN` / `False` / `None` |
 | base | `main` @ `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
 | head | `docs/sfia-studio-m1-capitalization-rex` @ `fa0eebe00ce3b765a8a486aa660dddfab40123a0` |
 | commits/files/+/- | 1/1/441/0 |
-| mergeable / mergeStateStatus | `MERGEABLE` / `BLOCKED` |
+| mergeable / mergeStateStatus | `MERGEABLE` / `CLEAN` |
 | auto-merge | `None` |
-| stdout create | `https://github.com/mcleland147/sfia-workspace/pull/276` |
+| comments/reviews | 0 / 0 |
 
 #### Corps PR complet
 
@@ -1046,53 +1021,137 @@ Versionner le REX M1 documentant l’implémentation du required gate SFIA Studi
 - capitalisation ≠ décision Morris ;
 - CI success ≠ rollback/bypass testés.
 
+
 ```
 
-### 5. CI initiale
+### 3. CI run `30284328539`
 
 | Champ | Valeur |
 |-------|--------|
-| Qualification | **IN PROGRESS** |
-| Run ID | `30284328539` |
 | Workflow | `SFIA Studio CI` |
 | Event | `pull_request` |
 | Head | `fa0eebe00ce3b765a8a486aa660dddfab40123a0` |
-| Status | `in_progress` |
-| Conclusion | `(pending)` |
+| Status/conclusion | `completed` / `success` |
 | URL | `https://github.com/mcleland147/sfia-workspace/actions/runs/30284328539` |
 
-Jobs :
-- Detect SFIA Studio changes: status=completed conclusion=success id=90038240806
-- Build and validate SFIA Studio: status=in_progress conclusion=(pending) id=90038282435
+#### Detect `90038240806` — success
+
+| # | Step | status | conclusion |
+|---|------|--------|------------|
+| 1 | Set up job | completed | success |
+| 2 | Checkout | completed | success |
+| 3 | Detect Studio scope | completed | success |
+| 6 | Post Checkout | completed | success |
+| 7 | Complete job | completed | success |
+
+#### Build `90038282435` — success
+
+| # | Step | status | conclusion |
+|---|------|--------|------------|
+| 1 | Set up job | completed | success |
+| 2 | Checkout | completed | success |
+| 3 | Setup Node.js | completed | success |
+| 4 | Install dependencies | completed | success |
+| 5 | Typecheck | completed | success |
+| 6 | Lint | completed | success |
+| 7 | Build | completed | success |
+| 8 | Unit tests (Vitest) | completed | success |
+| 9 | Modeled governance tests | completed | success |
+| 10 | Secret pattern scan (targeted) | completed | success |
+| 11 | Trailing whitespace check | completed | success |
+| 21 | Post Setup Node.js | completed | success |
+| 22 | Post Checkout | completed | success |
+| 23 | Complete job | completed | success |
+
+#### Required Gate `90038551933` — success
+
+| # | Step | status | conclusion |
+|---|------|--------|------------|
+| 1 | Set up job | completed | success |
+| 2 | Aggregate required gate | completed | success |
+| 3 | Complete job | completed | success |
+
+`Aggregate required gate` = **success**.
+
+statusCheckRollup : Detect / Build / Required Gate = **SUCCESS**.
+
+### 4. Ruleset
 
 ```
-Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/30284328539/job/90038282435
-Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/30284328539/job/90038240806
+id=19798462
+name=SFIA Studio Main Required Gate — M1
+enforcement=active
+RULE pull_request {"required_approving_review_count": 0, "dismiss_stale_reviews_on_push": false, "required_reviewers": [], "require_code_owner_review": false, "require_last_push_approval": false, "required_review_thread_resolution": false, "allowed_merge_methods": ["merge", "squash", "rebase"]}
+RULE required_status_checks {"strict_required_status_checks_policy": false, "do_not_enforce_on_create": false, "required_status_checks": [{"context": "SFIA Studio Required Gate", "integration_id": 15368}]}
+RULE non_fast_forward {}
+RULE deletion {}
+bypass=[{"actor_id": 295557155, "actor_type": "User", "bypass_mode": "pull_request"}]
 
 ```
 
-### 6. Réserves / anti-claims
+| Bypass actors | |
+```json
+[
+  {
+    "actor_id": 295557155,
+    "actor_type": "User",
+    "bypass_mode": "pull_request"
+  }
+]
 
-- F-A6 = **MITIGATED NOT CLOSED**
-- Option A = **non COMPLETE**
-- T-A7 = **non ouverte**
-- rollback / bypass = non testés
-- config M1 loose = inchangée
-- PR ouverte ≠ PR READY ≠ merge
-- REX en PR ≠ intégré sur `main`
+```
 
-### 7. Actions non exécutées
+| Bypass utilisé | **NON** |
+| `--admin` requis | **NON** |
+| Config loose | réserve non bloquante (approvals 0, strict false) |
 
-- amend / rebase / force push / push main
-- merge / auto-merge / `--admin`
-- modification doc 33
-- suppression branche/worktree
+### 5. Commentaires / reviews / conversations
+
+**Aucun.**
+
+### 6. Blockers
+
+**Aucun blocker PR.**
+
+### 7. Réserves trajectoire (non bloquantes)
+
+F-A6 NOT CLOSED
+Option A non COMPLETE
+T-A7 non ouverte
+rollback non testé
+bypass non testé
+configuration M1 loose
+D1–D7 NOT DECIDED
+REX versionné ≠ décision de trajectoire
+
+
+### 8. États
+
+| Sujet | État |
+|-------|------|
+| F-A6 | **MITIGATED NOT CLOSED** |
+| Option A | **non COMPLETE** |
+| T-A7 | **non ouverte** |
+| Rollback / bypass | **non testés** |
+| Merge | **non exécuté** |
+
+### 9. Actions non exécutées
+
+- mutation PR / commit / push / merge / auto-merge / `--admin`
+- modification doc 33 / workflow / ruleset
 - F-A6 CLOSED / Option A COMPLETE / T-A7 / Notion
 
-### 8. Gate candidat (NOT CONSUMED)
+### 10. Anti-claims
 
-`GO ASSESS PR READINESS FOR OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE`
+- PR READY ≠ merge
+- REX READY ≠ F-A6 CLOSED / Option A COMPLETE / T-A7
+- CI success ≠ rollback/bypass testés
+- readiness ≠ décision de trajectoire
 
-### 9. Verdict
+### 11. Gate candidat (NOT CONSUMED)
 
-`SFIA STUDIO V3-NATIVE OPTION A M1 CAPITALIZATION BRANCH PUSHED AND PR OPENED — COMPLETE 441-LINE SINGLE-FILE REX VERIFIED — CI PENDING — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — NOT MERGED`
+`GO MERGE PR #276 FOR OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE`
+
+### 12. Verdict
+
+`SFIA STUDIO V3-NATIVE PR #276 READY WITH RESERVATIONS FOR MORRIS MERGE DECISION — COMPLETE 441-LINE SINGLE-COMMIT SINGLE-FILE M1 REX VERIFIED — CI AND REQUIRED GATE SUCCESS — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — NOT MERGED`
