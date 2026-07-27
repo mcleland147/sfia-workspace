@@ -478,7 +478,7 @@ Le workflow CI **ne ferme** aucune réserve métier/architecture · **ne débloq
 - Inclure Vitest global + 3 tests modeled + scans légers.
 - Exclure Playwright e2e de la CI candidate.
 - Documenter gouvernance H1/H2/H3 + stop conditions + anti-claims.
-- Branch protection / required checks : **PROPOSED — NOT APPLIED**.
+- Branch protection / required checks : **APPLIED** via M1 — état historique de préparation `PROPOSED — NOT APPLIED` supersédé.
 
 ### Candidates (Morris)
 
