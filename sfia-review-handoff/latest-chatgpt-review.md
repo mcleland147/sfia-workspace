@@ -1,19 +1,30 @@
-# SFIA Review Pack — Option A Post-F-A6 Trajectory Assessment (FULL)
+# SFIA Review Pack — T-A7 Framing and Option A Completion Criteria (FULL)
 
 ## Metadata
-- date/heure/fuseau: 2026-07-27 22:16:23 CEST (+0200)
-- cycle: 1 Cadrage (+2 Conception fonctionnelle, 3 Architecture fonctionnelle, 6 Architecture technique, 9 QA, 10 Sécurité/RSSI, 12 RUN, 15 Capitalisation)
+- date/heure/fuseau: 2026-07-27 22:45:16 CEST (+0200)
+- cycle: 1 Cadrage (+2 Conception fonctionnelle · 3 Architecture fonctionnelle · 6 Architecture technique · 9 QA · 10 Sécurité/RSSI · 12 RUN · 15 Capitalisation)
 - profil: Critical
-- typologie: CADRAGE / TRAJECTORY / GAP-ASSESSMENT / GOVERNANCE / OPTION-A / PRE-T-A7
-- gate consommé: `GO ASSESS OPTION A REMAINING GAPS, OPEN DECISIONS AND NEXT TRAJECTORY AFTER F-A6 CLOSURE — SFIA STUDIO V3-NATIVE`
-- repo/worktree: `mcleland147/sfia-workspace` · `/Users/morris/Projects/sfia-workspace`
-- ref canonique: `origin/main` @ `c472eb412f3ade3e94fee9201042794fee502d8f`
-- HEAD local: `c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf` sur branche indépendante — **non utilisé comme vérité**
-- status projet: aucun staged/unstaged projet ; `.tmp-sfia-review/**` seulement en untracked
-- handoff initial: blob `1826fa5cf557a12374a40fa305e903d606081a42`
-- CKC: candidate/absent ; guidance only ; aucune autorité d’ouverture/COMPLETE
+- typologie: CADRAGE / T-A7 / CUTOVER / COMPLETION-CRITERIA / GOVERNANCE / DOCUMENTATION
+- gate consommé: `GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION`
+- repo: `mcleland147/sfia-workspace`
+- worktree source connu: `/Users/morris/Projects/sfia-workspace`
+- worktree créé: `/Users/morris/Projects/sfia-workspace-t-a7-framing`
+- branche locale: `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions`
+- upstream: **aucun**
+- origin/main: `c472eb412f3ade3e94fee9201042794fee502d8f`
+- HEAD framing: `27dbf60574b8ec82990600827934dc56e256b50f`
+- parent: `c472eb412f3ade3e94fee9201042794fee502d8f`
+- handoff initial: blob `f89afcecb793d0d4e77307b8ec6344a584389862`
+- template: blob `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`
+- statut pack: `FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED`
+- T-A7: **NOT OPEN**
+- T-A7 delivery: **NOT AUTHORIZED**
+- cutover: **NOT AUTHORIZED**
+- T-A6 COMPLETE: **NOT DECLARED**
+- Option A COMPLETE: **NOT DECLARED**
+- real execution: **NOT AUTHORIZED**
 
-## 1. Truth
+## 1. Truth check (extrait)
 ```text
 pwd=/Users/morris/Projects/sfia-workspace
 toplevel=/Users/morris/Projects/sfia-workspace
@@ -26,1191 +37,1914 @@ origin_main=c472eb412f3ade3e94fee9201042794fee502d8f
 ?? .tmp-sfia-review/
 diff:
 cached:
-untracked:
-.tmp-sfia-review/chatgpt-review.md
-.tmp-sfia-review/commit-plan/commit-1-files.txt
-.tmp-sfia-review/commit-plan/commit-2-files.txt
-.tmp-sfia-review/commit-plan/commit-3-files.txt
-.tmp-sfia-review/commit-plan/commit-4-files.txt
-.tmp-sfia-review/commit-plan/commit-5-files.txt
-.tmp-sfia-review/commit-plan/commit-6-files.txt
-.tmp-sfia-review/commit-plan/duplicate-files.txt
-.tmp-sfia-review/commit-plan/excluded-files.txt
-.tmp-sfia-review/commit-plan/unclassified-files.txt
-.tmp-sfia-review/control-tower-fast-track-evidence/00-live-ready-morris.txt
-.tmp-sfia-review/control-tower-fast-track-evidence/screenshots/01-fixture-git-tool.png
-.tmp-sfia-review/control-tower-fast-track-evidence/screenshots/02-tool-denied.png
-.tmp-sfia-review/d1-c1-created-files.txt
-.tmp-sfia-review/d1-c1-modified.diff
-.tmp-sfia-review/d1-i1-created-files.txt
-.tmp-sfia-review/d1-i1-modified.diff
-.tmp-sfia-review/doc32-commit/commit-ec.txt
-.tmp-sfia-review/doc32-commit/commit-fuller.txt
-.tmp-sfia-review/doc32-commit/commit-stdout.txt
-.tmp-sfia-review/doc32-commit/commit-ts.txt
-.tmp-sfia-review/doc32-commit/commit.diff
-.tmp-sfia-review/doc32-commit/empty-cached.stat
-.tmp-sfia-review/doc32-commit/left-right.txt
-.tmp-sfia-review/doc32-commit/pre-commit.diff
-.tmp-sfia-review/doc32-commit/pre-commit.stat
-.tmp-sfia-review/doc32-commit/show-full.txt
-.tmp-sfia-review/doc32-commit/show-name-status.txt
-.tmp-sfia-review/doc32-commit/show-stat.txt
-.tmp-sfia-review/doc32-commit/staged.diff
-.tmp-sfia-review/doc32-commit/staged.diff.bak
-.tmp-sfia-review/doc32-commit/staged.name-status
-.tmp-sfia-review/doc32-commit/staged.stat
-.tmp-sfia-review/doc32-commit/status-final.txt
-.tmp-sfia-review/doc32-post-p3-m1/after-acquis.md
-.tmp-sfia-review/doc32-post-p3-m1/after-hors-perimetre.md
-.tmp-sfia-review/doc32-post-p3-m1/after-meta.md
-.tmp-sfia-review/doc32-post-p3-m1/after-reserves.md
-.tmp-sfia-review/doc32-post-p3-m1/after-succes-reserve.md
-.tmp-sfia-review/doc32-post-p3-m1/all-32.txt
-.tmp-sfia-review/doc32-post-p3-m1/before-acquis.md
-.tmp-sfia-review/doc32-post-p3-m1/before-hors-perimetre.md
-.tmp-sfia-review/doc32-post-p3-m1/before-meta.md
-.tmp-sfia-review/doc32-post-p3-m1/before-reserves.md
-.tmp-sfia-review/doc32-post-p3-m1/before-succes-reserve.md
-.tmp-sfia-review/doc32-post-p3-m1/blob-initial.txt
-.tmp-sfia-review/doc32-post-p3-m1/doc32-before.md
-.tmp-sfia-review/doc32-post-p3-m1/doc32-path.txt
-.tmp-sfia-review/doc32-post-p3-m1/doc32-paths.txt
-.tmp-sfia-review/doc32-post-p3-m1/full.diff
-.tmp-sfia-review/doc32-post-p3-m1/occurrences-full.txt
-.tmp-sfia-review/doc32-post-p3-m1/occurrences-raw.txt
-.tmp-sfia-review/doc32-post-p3-m1/semantic-review.txt
-.tmp-sfia-review/doc32-pr-body.md
-.tmp-sfia-review/doc32-pr275-merge/ci-found
-.tmp-sfia-review/doc32-pr275-merge/ci-post-jobs.txt
-.tmp-sfia-review/doc32-pr275-merge/ci-post-qual.txt
-.tmp-sfia-review/doc32-pr275-merge/ci-post-run.json
-.tmp-sfia-review/doc32-pr275-merge/ci-post-view.json
-.tmp-sfia-review/doc32-pr275-merge/ci-pr.json
-.tmp-sfia-review/doc32-pr275-merge/merge-cmd.txt
-.tmp-sfia-review/doc32-pr275-merge/merge-ec.txt
-.tmp-sfia-review/doc32-pr275-merge/merge-out.txt
-.tmp-sfia-review/doc32-pr275-merge/merge-ts.txt
-.tmp-sfia-review/doc32-pr275-merge/postmerge-runs.json
-.tmp-sfia-review/doc32-pr275-merge/pr-after.json
-.tmp-sfia-review/doc32-pr275-merge/pr-before.json
-.tmp-sfia-review/doc32-pr275-merge/pr-body-before.md
-.tmp-sfia-review/doc32-pr275-merge/pr-diff-before.txt
-.tmp-sfia-review/doc32-pr275-merge/pr-threads-before.json
-.tmp-sfia-review/doc32-pr275-merge/remote-branch-after.txt
-.tmp-sfia-review/doc32-pr275-merge/ruleset.json
-.tmp-sfia-review/doc32-pr275-merge/squash-fuller.txt
-.tmp-sfia-review/doc32-pr275-merge/squash-name-status.txt
-.tmp-sfia-review/doc32-pr275-merge/squash-sha.txt
-.tmp-sfia-review/doc32-pr275-merge/squash-stat.txt
-.tmp-sfia-review/doc32-pr275-merge/squash.diff
-.tmp-sfia-review/doc32-pr275-merge/ts-start.txt
-.tmp-sfia-review/doc32-pr275-postmerge/branches-contains.txt
-.tmp-sfia-review/doc32-pr275-postmerge/bypass.json
-.tmp-sfia-review/doc32-pr275-postmerge/ci-post.json
-.tmp-sfia-review/doc32-pr275-postmerge/doc32-on-main.md
-.tmp-sfia-review/doc32-pr275-postmerge/doc32-useful.md
-.tmp-sfia-review/doc32-pr275-postmerge/job-90018681920.meta.json
-.tmp-sfia-review/doc32-pr275-postmerge/job-90018732641.meta.json
-.tmp-sfia-review/doc32-pr275-postmerge/job-90019119514.meta.json
-.tmp-sfia-review/doc32-pr275-postmerge/local-branch.txt
-.tmp-sfia-review/doc32-pr275-postmerge/local-src-sha.txt
-.tmp-sfia-review/doc32-pr275-postmerge/origin-main-fuller.txt
-.tmp-sfia-review/doc32-pr275-postmerge/origin-main-sha.txt
-.tmp-sfia-review/doc32-pr275-postmerge/pr-after.json
-.tmp-sfia-review/doc32-pr275-postmerge/pr-body.md
-.tmp-sfia-review/doc32-pr275-postmerge/remote-src.txt
-.tmp-sfia-review/doc32-pr275-postmerge/ruleset-summary.txt
-.tmp-sfia-review/doc32-pr275-postmerge/ruleset.json
-.tmp-sfia-review/doc32-pr275-postmerge/squash-fuller.txt
-.tmp-sfia-review/doc32-pr275-postmerge/squash-name-status.txt
-.tmp-sfia-review/doc32-pr275-postmerge/squash-stat.txt
-.tmp-sfia-review/doc32-pr275-postmerge/squash.diff
-.tmp-sfia-review/doc32-pr275-postmerge/ts.txt
-.tmp-sfia-review/doc32-pr275-postmerge/worktree-list.txt
-.tmp-sfia-review/doc32-pr275-readiness/bypass.json
-.tmp-sfia-review/doc32-pr275-readiness/ci-run.json
-.tmp-sfia-review/doc32-pr275-readiness/commit-fuller.txt
-.tmp-sfia-review/doc32-pr275-readiness/commit.diff
-.tmp-sfia-review/doc32-pr275-readiness/github-compare.diff
-.tmp-sfia-review/doc32-pr275-readiness/job-90013737560.json
-.tmp-sfia-review/doc32-pr275-readiness/job-90013783710.json
-.tmp-sfia-review/doc32-pr275-readiness/job-90014180221.json
-.tmp-sfia-review/doc32-pr275-readiness/pr-body.md
-.tmp-sfia-review/doc32-pr275-readiness/pr-threads.json
-.tmp-sfia-review/doc32-pr275-readiness/pr-view.json
-.tmp-sfia-review/doc32-pr275-readiness/ruleset-summary.txt
-.tmp-sfia-review/doc32-pr275-readiness/ruleset.json
-.tmp-sfia-review/doc32-pr275-readiness/ts.txt
-.tmp-sfia-review/doc32-push-pr/ci-found
-.tmp-sfia-review/doc32-push-pr/ci-qual.txt
-.tmp-sfia-review/doc32-push-pr/ci-run-view.json
-.tmp-sfia-review/doc32-push-pr/ci-run.json
-.tmp-sfia-review/doc32-push-pr/commit-fuller.txt
-.tmp-sfia-review/doc32-push-pr/commit.diff
-.tmp-sfia-review/doc32-push-pr/compare.stat
-.tmp-sfia-review/doc32-push-pr/github-compare.diff
-.tmp-sfia-review/doc32-push-pr/ls-remote-before.txt
-.tmp-sfia-review/doc32-push-pr/pr-body.md
-.tmp-sfia-review/doc32-push-pr/pr-checks-rollup.json
-.tmp-sfia-review/doc32-push-pr/pr-checks.txt
-.tmp-sfia-review/doc32-push-pr/pr-create-ec.txt
-.tmp-sfia-review/doc32-push-pr/pr-create-out.txt
-.tmp-sfia-review/doc32-push-pr/pr-create-ts.txt
-.tmp-sfia-review/doc32-push-pr/pr-list-before.json
-.tmp-sfia-review/doc32-push-pr/pr-merge-guard.json
-.tmp-sfia-review/doc32-push-pr/pr-search-commit.json
-.tmp-sfia-review/doc32-push-pr/pr-view.json
-.tmp-sfia-review/doc32-push-pr/push-ec.txt
-.tmp-sfia-review/doc32-push-pr/push-out.txt
-.tmp-sfia-review/doc32-push-pr/push-ts.txt
-.tmp-sfia-review/doc32-push-pr/runs.json
-.tmp-sfia-review/doc32-push-pr/show-name-status.txt
-.tmp-sfia-review/doc32-push-pr/show-stat.txt
-.tmp-sfia-review/doc32-squash-body.txt
-.tmp-sfia-review/fa6-clean-branch/baseline-doc24.md
-.tmp-sfia-review/fa6-clean-branch/commit-fuller.txt
-.tmp-sfia-review/fa6-clean-branch/commit-name-status.txt
-.tmp-sfia-review/fa6-clean-branch/commit-stat.txt
-.tmp-sfia-review/fa6-clean-branch/commit-stderr.txt
-.tmp-sfia-review/fa6-clean-branch/commit-stdout.txt
-.tmp-sfia-review/fa6-clean-branch/diff-tree.txt
-.tmp-sfia-review/fa6-clean-branch/fa6-section.md
-.tmp-sfia-review/fa6-clean-branch/left-right.txt
-.tmp-sfia-review/fa6-clean-branch/new-commit.txt
-.tmp-sfia-review/fa6-clean-branch/pr-local-full.diff
-.tmp-sfia-review/fa6-clean-branch/pr-local-name-status.txt
-.tmp-sfia-review/fa6-clean-branch/pr-local-stat.txt
-.tmp-sfia-review/fa6-clean-branch/ruleset.json
-.tmp-sfia-review/fa6-clean-branch/source-delta.diff
-.tmp-sfia-review/fa6-clean-branch/source-delta.patch
-.tmp-sfia-review/fa6-clean-branch/staged-name-status.txt
-.tmp-sfia-review/fa6-clean-branch/staged-stat.txt
-.tmp-sfia-review/fa6-clean-branch/staged.diff
-.tmp-sfia-review/fa6-clean-branch/status-after.txt
-.tmp-sfia-review/fa6-clean-branch/target-doc24.md
-.tmp-sfia-review/fa6-clean-branch/worktree-pre-stage.diff
-.tmp-sfia-review/fa6-clean-pr/check-runs.json
-.tmp-sfia-review/fa6-clean-pr/commits-lr.txt
-.tmp-sfia-review/fa6-clean-pr/diff-stat.txt
-.tmp-sfia-review/fa6-clean-pr/fa6-section.md
-.tmp-sfia-review/fa6-clean-pr/full.diff
-.tmp-sfia-review/fa6-clean-pr/gh-compare.json
-.tmp-sfia-review/fa6-clean-pr/name-status.txt
-.tmp-sfia-review/fa6-clean-pr/pr-checks-2.err
-.tmp-sfia-review/fa6-clean-pr/pr-checks-2.txt
-.tmp-sfia-review/fa6-clean-pr/pr-checks.err
-.tmp-sfia-review/fa6-clean-pr/pr-checks.txt
-.tmp-sfia-review/fa6-clean-pr/pr-create-exit.txt
-.tmp-sfia-review/fa6-clean-pr/pr-create-stderr.txt
-.tmp-sfia-review/fa6-clean-pr/pr-create-stdout.txt
-.tmp-sfia-review/fa6-clean-pr/pr-diff.txt
-.tmp-sfia-review/fa6-clean-pr/pr-num.txt
-.tmp-sfia-review/fa6-clean-pr/pr-view.json
-.tmp-sfia-review/fa6-clean-pr/ruleset.json
-.tmp-sfia-review/fa6-clean-pr/run-view.json
-.tmp-sfia-review/fa6-clean-pr/runs.json
-.tmp-sfia-review/fa6-clean-pr/status-final.txt
-.tmp-sfia-review/fa6-clean-push/ahead-behind-u.txt
-.tmp-sfia-review/fa6-clean-push/diff-tree.txt
-.tmp-sfia-review/fa6-clean-push/fa6-section.md
-.tmp-sfia-review/fa6-clean-push/gh-commit.json
-.tmp-sfia-review/fa6-clean-push/gh-file-meta.json
-.tmp-sfia-review/fa6-clean-push/local-before.txt
-.tmp-sfia-review/fa6-clean-push/local-full.diff
-.tmp-sfia-review/fa6-clean-push/local-name-status.txt
-.tmp-sfia-review/fa6-clean-push/local-stat.txt
-.tmp-sfia-review/fa6-clean-push/lr-remote.txt
-.tmp-sfia-review/fa6-clean-push/prs-after.json
-.tmp-sfia-review/fa6-clean-push/push-exit.txt
-.tmp-sfia-review/fa6-clean-push/push-stderr.txt
-.tmp-sfia-review/fa6-clean-push/push-stdout.txt
-.tmp-sfia-review/fa6-clean-push/remote-after.txt
-.tmp-sfia-review/fa6-clean-push/remote-before.txt
-.tmp-sfia-review/fa6-clean-push/remote-full.diff
-.tmp-sfia-review/fa6-clean-push/remote-ns.txt
-.tmp-sfia-review/fa6-clean-push/remote-stat.txt
-.tmp-sfia-review/fa6-clean-push/ruleset.json
-.tmp-sfia-review/fa6-clean-push/runs.json
-.tmp-sfia-review/fa6-clean-push/show-name-status.txt
-.tmp-sfia-review/fa6-clean-push/show-stat.txt
-.tmp-sfia-review/fa6-clean-push/status-after.txt
-.tmp-sfia-review/fa6-cleanup/24-main.md
-.tmp-sfia-review/fa6-cleanup/fa6-worktree-block.txt
-.tmp-sfia-review/fa6-cleanup/handoff-initial.txt
-.tmp-sfia-review/fa6-cleanup/local-branch-meta.txt
-.tmp-sfia-review/fa6-cleanup/local-branches-after.txt
-.tmp-sfia-review/fa6-cleanup/local-branches-before.txt
-.tmp-sfia-review/fa6-cleanup/local-d-stderr.txt
-.tmp-sfia-review/fa6-cleanup/local-d-stdout.txt
-.tmp-sfia-review/fa6-cleanup/post-cleanup.txt
-.tmp-sfia-review/fa6-cleanup/pr-after.json
-.tmp-sfia-review/fa6-cleanup/pr-before.json
-.tmp-sfia-review/fa6-cleanup/remote-delete-meta.txt
-.tmp-sfia-review/fa6-cleanup/remote-delete-stderr.txt
-.tmp-sfia-review/fa6-cleanup/remote-delete-stdout.txt
-.tmp-sfia-review/fa6-cleanup/remote-heads-after.txt
-.tmp-sfia-review/fa6-cleanup/remote-heads-before.txt
-.tmp-sfia-review/fa6-cleanup/ruleset.json
-.tmp-sfia-review/fa6-cleanup/safe-porcelain.txt
-.tmp-sfia-review/fa6-cleanup/safe-unexpected.txt
-.tmp-sfia-review/fa6-cleanup/target-status.txt
-.tmp-sfia-review/fa6-cleanup/tree-compare.txt
-.tmp-sfia-review/fa6-cleanup/truth-safe.txt
-.tmp-sfia-re
+untracked_non_tmp:
+active_ops:
+(none if blank)
+worktrees:
+worktree /Users/morris/Projects/sfia-workspace
+HEAD c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf
+branch refs/heads/delivery/sfia-studio-control-tower-fast-track
+
+worktree /Users/morris/Projects/sfia-codex-pilot
+HEAD ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+branch refs/heads/method/codex-operating-model-pilot
+
+worktree /Users/morris/Projects/sfia-task-tracker
+HEAD b763a318fb84e23e482ed23a0bd561c1d9e719e6
+branch refs/heads/cadrage/task-tracker-light
+
+worktree /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts
+HEAD cae841519ed1d2dd825e6ecb998337cd47b4a1e1
+branch refs/heads/method/sfia-cycle-knowledge-contracts
+
+worktree /Users/morris/Projects/sfia-workspace-d1-conversational-convergence
+HEAD 7dc6f9fc7e16f13de08a1003b492b0b6e243f05e
+branch refs/heads/ux/sfia-studio-d1-conversational-convergence
+
+worktree /Users/morris/Projects/sfia-workspace-d1-platform-integration
+HEAD c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9
+branch refs/heads/delivery/sfia-studio-d1-shared-platform-integration
+
+worktree /Users/morris/Projects/sfia-workspace-doc32-post-p3-m1
 ```
-Note: la sortie exhaustive des untracked `.tmp-sfia-review/**` est tronquée ici; aucun fichier projet modifié.
+Worktree framing aligné sur `origin/main` avant commit ; aucun pack `t-a7-*` préexistant.
 
-## 2. Source canonique et méthode
-- Toutes les qualifications viennent de `git show/grep/ls-tree origin/main`.
-- Branches/worktrees historiques et corps de PR ne sont utilisés que pour recoupement.
-- `main` contient PR #279 / F-A6 CLOSED ; doc 24 supersède les états MITIGATED de doc 33 pour F-A6.
-- Les READMEs T-A0–T-A5 sont des snapshots pré-merge: leur anti-claim « pas merged » est historique, tandis que Git #261–#266 prouve l’intégration.
-
-## 3. Inventaire documentaire
-- `v3-native-option-a` delivery: **99 fichiers**, sans README racine.
-- Fondation design: FD, FA, UX, Modeled, AT **VALIDATED BY MORRIS**.
-- Runtime: `app/lib/oa/**` **196 fichiers** en 7 modules.
-- Tests: `app/__tests__/oa/**` + 3 modeled governance suites.
-
-### Manifeste déterminant paths/blobs
+## 2. Sources et blobs déterminants
 ```text
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/23-next-option-a-step-after-t-a6.md|e87deff78f5662dccae84557b061ad3aec9ea461|292|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_23-next-option-a-step-after-t-a6.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md|27c7934799d19e5fc3401eb55e95c0d99b1e36e2|541|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_24-ci-and-merge-governance-preparation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/30-ci-governance-pr-post-correction-review.md|1cfb76ee09d992883e16d4f5d31028ff7460f4aa|223|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_30-ci-governance-pr-post-correction-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/31-ci-governance-post-merge-review.md|01793cb685da67fb5f341cd1c66bf95751e61440|224|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_31-ci-governance-post-merge-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md|1bc7b6544d27d687bf9e33757863f1397b1494b6|294|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_32-path-aware-required-check-and-main-protection-preparation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md|6c87cf4016d6a33f096df921acf8bafd4d73af4e|441|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_33-m1-implementation-and-proofs-rex.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/README.md|ed48d3a6bed24d0c3e9cd870e35f77ab6b36d26a|33|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a0-doctrine-foundation_README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/README.md|df1db12716609758a01d77d015d699cb0c7ab1df|39|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a1-project-lps-foundation_README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/README.md|3c55eed45705c2125d5c0548bc394fe2edf754c8|49|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a2-cycle-trajectory-epistemic-ckc_README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/README.md|144f32d90a5f1ebf75e1153908c8404c760a8d6e|58|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a3-decision-confirmation-authority_README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/README.md|a160e27b3f72bb961871c15e9b506b037be62412|76|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a4-execution-contract-governance_README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/README.md|88dc9717e4cbc5328def545e96d4f3c553ad3f12|59|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a5-agent-selection-execution_README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/README.md|08f33f517b599215e8a1d3f27bdd69c01fad3053|43|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a6-evidence-review-claims-maturity_README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/19-next-step-framing.md|e2f4bf9ce85566dcc1156b89b4390b666e30e890|254|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a6-evidence-review-claims-maturity_19-next-step-framing.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/22-post-merge-review.md|8a76bc2126837e6a9d4136257a07396eb732a560|220|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a6-evidence-review-claims-maturity_22-post-merge-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/07-validation-findings-and-morris-decision-pack.md|3562a4e33151e22cdd3136a15ff045064b9528e7|84|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a3-decision-confirmation-authority_07-validation-findings-and-morris-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/07-validation-findings-and-morris-decision-pack.md|60c1d6e6132e2a5d94b4911f6b9f48403a132211|74|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a2-cycle-trajectory-epistemic-ckc_07-validation-findings-and-morris-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/10-runtime-validation.md|eca874afacb42d60bcb970078065ab90f94e2885|80|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a4-execution-contract-governance_10-runtime-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/09-runtime-foundation-validation.md|da0e3557dc5c90987c3af2e9e0c463a48daaffd3|143|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-delivery_v3-native-option-a_t-a5-agent-selection-execution_09-runtime-foundation-validation.md
-projects/sfia-studio/sfia-v3-design/v3-native-option-a/README.md|7bcfb5588979d08cd775a47d0b96aaf41d69d1dc|58|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-design_v3-native-option-a_README.md
-projects/sfia-studio/sfia-v3-design/v3-native-option-a/10-functional-validation-and-decision-pack.md|5a786ed39d1ae26711a0c887030ae9e59d902b15|88|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-design_v3-native-option-a_10-functional-validation-and-decision-pack.md
-projects/sfia-studio/sfia-v3-design/v3-native-option-a/functional-architecture/README.md|2896d45cea5977288a9d1c8a667dd5b2cde134fd|41|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-design_v3-native-option-a_functional-architecture_README.md
-projects/sfia-studio/sfia-v3-design/v3-native-option-a/functional-architecture/10-functional-architecture-validation-and-decision-pack.md|e2642234a6f62def1ce74ff28c59865f0b38766d|79|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-design_v3-native-option-a_functional-architecture_10-functional-architecture-validation-and-decision-pack.md
-projects/sfia-studio/sfia-v3-design/v3-native-option-a/ux-ui/README.md|f74721061ae0146ecb505cbe36e14f6cf92a4199|59|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-design_v3-native-option-a_ux-ui_README.md
-projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/README.md|8c5325245fec960742fab22176b992c7eb524625|55|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-modeled_v3-native-option-a_README.md
-projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/12-modeled-validation-and-decision-pack.md|514e1b146b80868f9a8cd20f2406852c5089cab6|51|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-modeled_v3-native-option-a_12-modeled-validation-and-decision-pack.md
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/README.md|0c0f9115e7e9e43cfabe4dc5a0134dc6b3ae745b|42|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-technical-architecture_v3-native-option-a_README.md
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/10-resilience-performance-observability-and-run-architecture.md|979b700ee3fa268f4e935c3bae046ad156ca79a5|37|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-technical-architecture_v3-native-option-a_10-resilience-performance-observability-and-run-architecture.md
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/11-legacy-isolation-migration-and-cutover-architecture.md|fc2e410be49e0b736f2914fdbb1c0795ddf0c996|31|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-technical-architecture_v3-native-option-a_11-legacy-isolation-migration-and-cutover-architecture.md
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md|493634be2ebeabb42ee453765e7ba7f5d2c7e7f9|27|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-technical-architecture_v3-native-option-a_12-delivery-slices-dependencies-and-technical-gates.md
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/13-technical-architecture-validation-and-decision-pack.md|b93b7cae57ddef0d5f7f7239a51545522edfb2a0|72|/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/option-a-post-fa6/docs/projects_sfia-studio_sfia-v3-technical-architecture_v3-native-option-a_13-technical-architecture-validation-and-decision-pack.md
+prompts/templates/sfia-cycle-execution-template.md|b9ce0a9fe57bb0f675afb8505ee0584180f830d7
+projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/11-legacy-isolation-migration-and-cutover-architecture.md|fc2e410be49e0b736f2914fdbb1c0795ddf0c996
+projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md|493634be2ebeabb42ee453765e7ba7f5d2c7e7f9
+projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/13-technical-architecture-validation-and-decision-pack.md|b93b7cae57ddef0d5f7f7239a51545522edfb2a0
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/23-next-option-a-step-after-t-a6.md|e87deff78f5662dccae84557b061ad3aec9ea461
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md|27c7934799d19e5fc3401eb55e95c0d99b1e36e2
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md|1bc7b6544d27d687bf9e33757863f1397b1494b6
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md|6c87cf4016d6a33f096df921acf8bafd4d73af4e
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/README.md|08f33f517b599215e8a1d3f27bdd69c01fad3053
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/03-decisions.md|5e8f2f1ac7e352f34963a80265a0d60afb34107e
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/22-post-merge-review.md|8a76bc2126837e6a9d4136257a07396eb732a560
+projects/sfia-studio/sfia-v3-design/v3-native-option-a/README.md|7bcfb5588979d08cd775a47d0b96aaf41d69d1dc
+projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/08-evidence-review-bundle-maturity-and-debt-model.md|d38896185e3c6d6e82a32a0bc2d6dc34598eef53
+```
+Assessment post-F-A6 handoff blob `f89afcecb793d0d4e77307b8ec6344a584389862` relu.
+
+## 3. Path final du pack
+`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/`
+
+Convention: suffixe `framing` tant que T-A7 n’est pas ouvert ; cohérent avec `t-a0-…`…`t-a6-…` ; aucune collision.
+
+## 4. Fichiers créés
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md` · blob `4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd` · 171 lignes
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md` · blob `eda7106103490798a6b379811eefe90156c46172` · 107 lignes
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md` · blob `232d73a9b021734dc8ba0f3c7c69d036cfe579d6` · 134 lignes
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md` · blob `da6d67448841b267c849b72a3692ea10d3b4d98c` · 101 lignes
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md` · blob `01a8482862467cbc0116e11dde1d8a946ace3a01` · 226 lignes
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md` · blob `efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c` · 80 lignes
+
+## 5. Contenu complet des fichiers créés
+
+### 01-framing-and-scope.md
+
+Blob: `4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd`
+
+```markdown
+# 01 — Framing and Scope
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `01-framing-and-scope.md` |
+| **Pack** | `t-a7-legacy-cutover-framing` |
+| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **T-A7** | **NOT OPEN** |
+| **Delivery / cutover / real execution** | **NOT AUTHORIZED** |
+| **Décisions** | D-T-A7-F01 · D-T-A7-F02 — **NOT DECIDED** |
+
+---
+
+## 1. Truth et sources
+
+| Contrôle | Résultat |
+|----------|----------|
+| `origin/main` | `c472eb412f3ade3e94fee9201042794fee502d8f` |
+| Branche | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
+| Pack T-A7 préexistant sur main | **absent** |
+| Upstream | **aucun** |
+
+### Sources déterminantes (courantes)
+
+| Path | Blob | Rôle |
+|------|------|------|
+| `sfia-v3-technical-architecture/.../11-legacy-isolation-migration-and-cutover-architecture.md` | `fc2e410be49e0b736f2914fdbb1c0795ddf0c996` | Cutover / OPS1 / MethodMode |
+| `sfia-v3-technical-architecture/.../12-delivery-slices-dependencies-and-technical-gates.md` | `493634be2ebeabb42ee453765e7ba7f5d2c7e7f9` | Définition T-A7 |
+| `sfia-v3-technical-architecture/.../13-technical-architecture-validation-and-decision-pack.md` | `b93b7cae57ddef0d5f7f7239a51545522edfb2a0` | AT-OA-12 ordre T-A0…T-A7 VALIDATED |
+| `t-a6-.../03-decisions.md` D-T-A6-10 | `5e8f2f1ac7e352f34963a80265a0d60afb34107e` | Frontière T-A6 / T-A7 APPROVED |
+| `23-next-option-a-step-after-t-a6.md` | `e87deff78f5662dccae84557b061ad3aec9ea461` | Trajectoire post-T-A6 |
+| `24-ci-and-merge-governance-preparation.md` | `27c7934799d19e5fc3401eb55e95c0d99b1e36e2` | F-A6 CLOSED · Option A NOT COMPLETE · T-A7 NON OUVERTE |
+| Assessment handoff | `f89afcecb793d0d4e77307b8ec6344a584389862` | Post-F-A6 trajectory |
+
+---
+
+## 2. Définition bornée de T-A7
+
+### Libellé candidat
+
+`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
+
+### Frontière D-T-A6-10 (APPROVED — historique validé)
+
+| T-A6 | T-A7 |
+|------|------|
+| Evidence, ReviewBundle, ClaimEvaluation, MaturityAssessment, findings/dette de review, reco de gate | cutover legacy, MethodMode, OPS1, migration chemins historiques, activation opérationnelle globale |
+
+T-A6 **ne lance pas** T-A7. Aucune exécution réelle ouverte par T-A6.
+
+### Quatre niveaux (obligatoires)
+
+#### A. T-A7 framing — **ce cycle**
+
+- définition exacte ;
+- préconditions ;
+- critères de complétude candidats ;
+- décision pack Morris ;
+- **aucune** modification runtime, modeled, workflow, `method/**`, OPS1.
+
+#### B. T-A7 delivery preparation — **hors cycle**
+
+- backlog découpé ;
+- architecture détaillée ;
+- plan de migration ;
+- tests candidats ;
+- hold/rollback design ;
+- **aucun** cutover.
+
+#### C. T-A7 delivery — **hors cycle**
+
+- modifications code et frontières d’import ;
+- feature / hold flags ;
+- tests unitaires et d’intégration ;
+- migration progressive sous hold.
+
+#### D. T-A7 cutover — **hors cycle**
+
+- retrait ou désactivation effective ;
+- preuves runtime ;
+- rollback éprouvé ;
+- décision Morris **dédiée** et distincte.
+
+**Règle :** ces quatre niveaux ne sont **pas** équivalents. Framing ≠ open ≠ delivery ≠ cutover ≠ real execution.
+
+---
+
+## 3. Périmètre candidat du framing
+
+### Inclus (définition / critères seulement)
+
+| Élément legacy | Remplacement Option A cible |
+|----------------|-----------------------------|
+| `canonicalPaths` | DoctrinePackage registry |
+| `sourceLoader` | package loader |
+| `contextResolver` | CkcResolver + doctrine |
+| `sessionContext` dépendances MethodMode | corrélation Option A |
+| `MethodMode` | retiré de la **cible** Option A |
+| lectures `method/**` | absentes de la cible Option A |
+| badges v2.6 | retirés des surfaces Option A |
+| contrats OPS1 hors legacy | isolation ACL / frontière |
+| historique legacy | read-only seulement sous politique Morris explicite |
+| migration | anti-corruption adapter si nécessaire |
+| rollback | hold flag / stratégie de rollback |
+
+### Hors périmètre de ce cadrage
+
+- implémentation runtime ou modeled ;
+- choix technique définitif non déjà validé (DB, vendor blob, IAM provider) ;
+- suppression réelle de `MethodMode` / `method/**` / OPS1 ;
+- migration réelle ;
+- double write ;
+- compatibilité implicite ;
+- présentation OPS1 comme v3 ;
+- adoption globale hors Option A ;
+- fermeture de réserve ;
+- déclaration T-A6 COMPLETE / Option A COMPLETE / T-A7 OPEN ;
+- exécution réelle ;
+- hardening M1 ;
+- modification du ruleset.
+
+---
+
+## 4. Convention de path
+
+| Élément | Valeur |
+|---------|--------|
+| Path retenu | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/` |
+| Justification | aligné `t-a0-…` … `t-a6-…` ; suffixe `framing` explicite tant que T-A7 n’est pas ouvert |
+| Collision | **aucune** (aucun `t-a7-*` sur `origin/main`) |
+
+---
+
+## 5. État capacitaire pertinent (faits Git)
+
+| Capacité | État sur `main` | Preuve |
+|----------|-----------------|--------|
+| Fondation FD/FA/UX/Modeled/AT | VALIDATED BY MORRIS | design README |
+| T-A0…T-A6 runtime mémoire | **intégré** PR #261–#267 | chronology doc 23 |
+| T-A6 COMPLETE | **NON** | T-A6 README |
+| Option A COMPLETE | **NON** | doc 24 D-M1-05 |
+| Persistence réelle | **absente** | doc 23 |
+| API/UI Option A native | **absente** | doc 23 |
+| Adapter réel / worker / queue | **absent** | T-A5 |
+| CI + M1 Required Gate | **actif** | ruleset `19798462` · F-A6 CLOSED |
+| Pack delivery `t-a7-*` | **absent** | inventaire main |
+
+---
+
+## 6. Challenge de cadrage
+
+| Question | Réponse cadrage |
+|----------|-----------------|
+| Framing utile maintenant ? | **Oui** — critères COMPLETE et préconditions cutover absents |
+| Framing = ouverture T-A7 ? | **Non** |
+| HARD R-T-A3 bloquent-ils le framing ? | **Non** — ils bloquent delivery/cutover/real execution |
+| Persistence/IAM/RGPD requis pour framing ? | **Non** — requis avant delivery/real execution/cutover selon matrice |
+| UI/API requise pour framing ? | **Non** — à arbitrer pour cutover (D-T-A7-F11) |
+
+---
+
+## 7. Anti-claims
+
+Pas T-A7 OPEN · Pas T-A7 COMPLETE · Pas READY FOR DELIVERY · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas RESERVE CLOSED · Pas Option A COMPLETE · Pas T-A6 COMPLETE · Pas DECIDED pour D-T-A7-F*.
+
+---
+
+## 8. Verdict documentaire
+
+`T-A7 FRAMING SCOPE DEFINED — LEVEL A ONLY — DELIVERY AND CUTOVER OUT OF SCOPE — MORRIS VALIDATION REQUIRED`
 ```
 
-### Inventaire intégral delivery Option A
-```text
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/23-next-option-a-step-after-t-a6.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/25-ci-governance-branch-publication-and-pr.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/26-ci-governance-pr-and-ci-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/27-ci-node-runtime-correction-and-rerun.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/28-ci-corrected-run-failure-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/29-ci-documentary-whitespace-findings-correction-and-rerun.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/30-ci-governance-pr-post-correction-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/31-ci-governance-post-merge-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/01-scope-and-implementation-map.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/02-runtime-contracts-and-invariants.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/03-validation-security-and-failure-modes.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/04-tests-evidence-and-reserves.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/05-delivery-validation-and-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/06-morris-validation-and-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/pr-readiness/01-pr-scope-and-commit-chain.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/pr-readiness/02-validation-results.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/pr-readiness/03-risks-reserves-and-review-guide.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/pr-readiness/04-pr-description.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a0-doctrine-foundation/pr-readiness/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/01-scope-and-canonical-slice-definition.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/02-domain-contracts-and-invariants.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/03-persistence-consistency-and-failure-modes.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/04-tests-evidence-and-reserves.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/05-delivery-validation-and-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/06-morris-validation-and-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/pr-readiness/01-pr-scope-and-commit-chain.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/pr-readiness/02-validation-results.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/pr-readiness/03-risks-reserves-and-review-guide.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/pr-readiness/04-pr-description.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a1-project-lps-foundation/pr-readiness/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/01-scope-and-canonical-slice-definition.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/02-domain-contracts-and-invariants.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/03-persistence-consistency-and-failure-modes.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/04-tests-evidence-and-reserves.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/05-delivery-validation-and-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/06-morris-validation-and-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/07-validation-findings-and-morris-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/08-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a2-cycle-trajectory-epistemic-ckc/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/01-scope-and-canonical-slice-definition.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/02-decision-and-confirmation-contracts.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/03-authority-n2-n3-and-audit.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/04-supersession-consistency-and-failure-modes.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/05-tests-evidence-and-reserves.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/06-delivery-validation-and-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/07-validation-findings-and-morris-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/08-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a3-decision-confirmation-authority/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/01-scope-and-boundaries.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/02-canonical-contract-mapping.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/03-lifecycle-and-invariants.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/04-authority-critical-and-supersession.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/05-security-errors-audit-and-performance.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/06-delivery-validation-and-morris-decision-pack.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/07-modeled-rework-after-morris-arbitration.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/08-modeled-rework-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/09-runtime-delivery-after-modeled-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/10-runtime-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/11-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a4-execution-contract-governance/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/01-framing.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/02-arbitration.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/03-materialization.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/04-modeled-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/05-runtime-framing.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/06-runtime-arbitration.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/07-runtime-arbitrations-materialization.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/08-runtime-foundation-delivery.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/09-runtime-foundation-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/10-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a5-agent-selection-execution/README.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/01-framing.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/02-arbitration.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/03-decisions.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/04-modeled-materialization.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/05-modeled-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/06-delivery-framing.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/07-delivery-arbitration.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/08-delivery-decisions.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/09-delivery-d1-implementation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/10-delivery-d1-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/11-delivery-d2-implementation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/12-delivery-d2-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/13-delivery-d3-implementation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/14-delivery-d3-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/15-delivery-d4-implementation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/16-delivery-d4-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/17-delivery-d5-implementation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/18-delivery-d5-validation.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/19-next-step-framing.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/20-pr-readiness.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/21-branch-publication-and-pr.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/22-post-merge-review.md
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/README.md
+### 02-t-a7-cutover-preconditions.md
+
+Blob: `eda7106103490798a6b379811eefe90156c46172`
+
+```markdown
+# 02 — T-A7 Cutover Preconditions
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `02-t-a7-cutover-preconditions.md` |
+| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **Matrice** | `RECOMMENDATION — NOT DECIDED` |
+| **T-A7** | **NOT OPEN** |
+| **Delivery / cutover** | **NOT AUTHORIZED** |
+
+> Toutes les préconditions ci-dessous sont **candidates**. Elles ne sont **pas** toutes obligatoires pour le framing read-only. Morris tranche via D-T-A7-F03 / F08 / F09 / F10 / F11.
+
+---
+
+## 1. Légende
+
+| Champ | Sens |
+|-------|------|
+| **Niveau requis** | Framing / Delivery prep / Delivery / Cutover / Real execution / Production |
+| **État actuel** | observation Git sur `origin/main` @ `c472eb4` |
+| **SATISFIED / PARTIAL / MISSING / N/A** | qualification de preuve actuelle |
+
+---
+
+## 2. Matrice des préconditions
+
+| ID | Composant legacy | Remplacement Option A | État actuel | Preuve Git | Gap | Risque | Dépendance | Réserve liée | Entrée delivery | Entrée cutover | Rollback | Décision Morris | Cycle recommandé |
+|----|------------------|----------------------|-------------|------------|-----|--------|------------|--------------|-----------------|----------------|----------|-----------------|------------------|
+| P01 | — | T-A0…T-A6 intégrés | **SATISFIED** | PR #261–#267 · doc 23 | aucun pour intégration | faible | — | — | OK | OK | n/a | D-T-A7-F03 | — |
+| P02 | — | Critères T-A6 COMPLETE définis | **PARTIAL** | matrices candidates ce pack | critères **non décidés** | faux claim COMPLETE | framing | C1–C4 · R-M01 | critères validés Morris | T-A6 COMPLETE déclaré | n/a | D-T-A7-F04 | review framing |
+| P03 | `canonicalPaths` | DoctrinePackage registry | **PARTIAL** | T-A0 runtime `app/lib/oa/doctrine/**` | pas d’adoption produit globale ; pas de preuve no-fallback | fallback silencieux | T-A0 | — | tests resolve/deny sans fallback | preuve import + runtime | feature flag | D-T-A7-F03 | delivery prep |
+| P04 | `sourceLoader` | package loader + digest | **PARTIAL** | T-A0 digest SHA-256 | pas de cutover loader produit | package stale | T-A0 | — | digest pin tests | loader unique cible | restore package pin | D-T-A7-F03 | delivery prep |
+| P05 | `contextResolver` | CkcResolver + doctrine | **PARTIAL** | T-A2 `memoryCkcResolver` | guidance-only ; pas de preuve no `method/**` product | doctrine v2.6 résiduelle | T-A2 | — | boundary tests CKC | no method/** reads | hold flag | D-T-A7-F03 | delivery |
+| P06 | `sessionContext` / MethodMode deps | OA correlation | **MISSING** | anti-claims T-A* | pas de remplacement produit session | MethodMode residual | T-A0–T-A2 · UX | — | design session OA | preuve no MethodMode | hold | D-T-A7-F03 · F11 | delivery prep |
+| P07 | MethodMode | retiré de cible OA | **MISSING** | AT-11 table | MethodMode encore présent hors OA runtime mémoire | cutover prématuré | UX/API | — | inventaire dépendances | UI+API tests + import boundary | hold flag | D-T-A7-F03 · F11 | delivery |
+| P08 | lectures `method/**` | absentes cible OA | **MISSING** | AT-11 | pas de preuve import boundary Option A native | lecture legacy silencieuse | modules app | — | grep/import boundary CI | CI + runtime proof | hold | D-T-A7-F03 | delivery |
+| P09 | badges v2.6 | retirés surfaces OA | **MISSING** | AT-11 | UI Option A native absente | confusion utilisateur | UX | — | design UI OA | UI tests | hold | D-T-A7-F11 | delivery |
+| P10 | OPS1 contracts | ACL / isolation | **PARTIAL** | AT-11 · shared surfaces séparées | pas d’ACL cutover prouvée | double identité OPS1/v3 | CT/D1 parallel | — | frontière documentée + tests no cross-call | ACL runtime | hold | D-T-A7-F13 | delivery |
+| P11 | historique legacy | read-only policy | **MISSING** | AT-11 | politique non décidée | fuite/mutation legacy | D-T-A7-F13 | — | politique Morris | enforcement read-only | restore ACL | D-T-A7-F13 | framing→delivery |
+| P12 | — | Project/LPS porte état nécessaire | **PARTIAL** | T-A1 mémoire | B5 satellite ids ; pas persistence | état incomplet | T-A1 | **B5** | B5 traité ou accepté | persistence saine | snapshot restore | D-T-A7-F08 · F09 | reserve closure |
+| P13 | — | Cycle/Trajectory/CKC | **PARTIAL** | T-A2 | R1 atomicité ; Critical ack absent | inconsistance | T-A2 | **R1** · **R-T-A3-1** | R1 stratégie ; Critical path | preuve qualification | version traj | D-T-A7-F08 · F09 | authority |
+| P14 | — | autorité humaine exploitable | **PARTIAL** | T-A3 | Critical ack public absent ; authority mémoire | Critical fail-closed permanent | T-A3 | **R-T-A3-1** · **R-T-A3-3** | Critical ack API + IAM path | IAM + audit | supersede | D-T-A7-F08 · F10 | authority/IAM |
+| P15 | — | ExecutionContract gouverné | **PARTIAL** | T-A4 | R-T-A3-2 résiduelle | orphan Decision↔LPS | T-A4 | **R-T-A3-2** | atomicité décidée | preuve txn | cancel/supersede | D-T-A7-F08 · F09 | architecture |
+| P16 | — | Attempt/exécution bornée | **PARTIAL** | T-A5 Test/NoOp | pas d’adapter réel / worker | exécution réelle impossible | T-A5 | R-T-A3 HARD | adapter réel borné si cutover l’exige | timeout≠success live | cancel attempt | D-T-A7-F09 | real execution |
+| P17 | — | Evidence/Review/Maturity | **PARTIAL** | T-A6 D1–D5 VALIDATED | T-A6 COMPLETE NON ; R-M01 · U-M02 · C1–C4 | claim readiness faux | T-A6 | **R-M01** · **U-M02** · **C1–C4** | critères T-A6 COMPLETE | T-A6 COMPLETE déclaré | incomplete bundle | D-T-A7-F04 · F08 | T-A6 closure |
+| P18 | — | persistance cible décidée | **MISSING** | anti-claim DATABASE NOT SELECTED | DB non choisie | cutover sur mémoire | AT-OA | **R1** · **U-M02** | DB SELECTED + schéma | migrations + backup | restore DB | D-T-A7-F10 | persistence |
+| P19 | — | stratégie atomicité | **MISSING** | R1 · R-T-A3-2 OPEN | pas de txn/outbox | corruption d’état | T-A1–T-A4 | **R1** · **R-T-A3-2** | stratégie validée | preuve adversarial | compensate/outbox replay | D-T-A7-F08 · F09 | architecture |
+| P20 | — | IAM décidé | **MISSING** | U-AT01 · R-T-A3-3 | registry mémoire | spoofing authority | T-A3 | **R-T-A3-3** | IAM design | IAM runtime | revoke | D-T-A7-F10 | security |
+| P21 | — | RGPD / rétention Evidence | **MISSING** | U-M02 · D-T-A6-09 | vendor/rétention non choisis | non-conformité | T-A6 | **U-M02** | politique + vendor | purge/legal hold preuves | restore retention class | D-T-A7-F10 | privacy |
+| P22 | — | API/UI nécessaires cutover | **MISSING** | doc 23 · UX design only | pas de wiring `lib/oa` | cutover invisible / non opérable | UX | — | surfaces minimales définies | UI+API tests | hold UI flag | D-T-A7-F11 | product |
+| P23 | — | observabilité + rollback | **PARTIAL** | audit console/memory · AT-10 | pas RUN-ready | cutover non observable | AT-10 | — | design RUN + hold | metrics/traces + rollback test | hold flag | D-T-A7-F03 · F09 | RUN |
+| P24 | — | import boundaries prouvables | **MISSING** | AT-11 | pas de CI boundary cutover | régression method/** | DevOps | — | règles CI | CI required gate | revert commit | D-T-A7-F03 | delivery |
+| P25 | — | gouvernance M1 suffisante | **PARTIAL** | M1 COMPLETE · loose OPEN | approvals=0 · strict=false | merge cutover sous-gouverné | ruleset `19798462` | M1 D3 | hardening si cutover sur main | hardening appliqué | ruleset restore | D-T-A7-F12 | governance |
+
+---
+
+## 3. Classification par niveau
+
+### Obligatoires pour framing (niveau A) — recommandation
+
+| ID | Motif |
+|----|-------|
+| P01 | base intégrée déjà vraie |
+| P02 | sans critères T-A6, cutover flou |
+| définition niveaux A–D | anti-confusion framing/delivery |
+| inventaire P03–P25 | sans exécution |
+
+**Non obligatoires pour framing :** P07–P09, P16, P18–P22, P24–P25.
+
+### Candidats obligatoires avant delivery (niveau C) — `NOT DECIDED`
+
+P02 (critères validés) · P03–P05 (remplacements doctrine/CKC prouvables) · P12–P15 (réserves HARD ou acceptation formelle) · P17 · P18–P19 · P23 design · P24 design · D-T-A7-F08.
+
+### Candidats obligatoires avant cutover (niveau D) — `NOT DECIDED`
+
+Tous les delivery + P07–P11 · P16 si activation opérationnelle · P20–P22 · P23 preuves · P25 hardening selon D-T-A7-F12 · D-T-A7-F09.
+
+### Candidats obligatoires avant real execution — `NOT DECIDED`
+
+R-T-A3-1 · R-T-A3-2 · adapter réel · IAM · persistence · RGPD/U-M02 · atomicité.
+
+---
+
+## 4. Hold / rollback (conceptuel)
+
+| Mécanisme | Usage candidat |
+|-----------|----------------|
+| Feature / hold flag | empêcher activation cutover avant GO |
+| Import boundary CI | bloquer réintroduction `method/**` |
+| Package pin / digest | rollback doctrine |
+| Snapshot LPS / DB restore | rollback état |
+| Ruleset restore | rollback gouvernance M1 |
+| Supersede Decision / Cancel Contract / Attempt | rollback logique métier |
+
+**Aucun** de ces mécanismes n’est implémenté dans ce cycle.
+
+---
+
+## 5. Anti-claims
+
+Pas READY FOR DELIVERY · Pas READY FOR CUTOVER · Pas DATABASE SELECTED · Pas IAM SELECTED · Pas MethodMode REMOVED · Pas V2.6 REMOVED · Pas OPS1 RETIRED · Pas préconditions SATISFIED globales · Pas DECIDED.
+
+---
+
+## 6. Verdict
+
+`T-A7 CUTOVER PRECONDITION MATRIX FRAMED — CANDIDATE ONLY — FRAMING DOES NOT REQUIRE FULL SATISFACTION — MORRIS DECISIONS REQUIRED`
 ```
 
-## 4. PRs / commits structurants
-```text
-254|MERGED|88fa4658da07156614de270d8172f147535ddbf9|2026-07-22T21:13:16Z|feat(sfia-studio): deliver control tower and AI-guided project intake foundation|312|22843|86
-255|MERGED|445702dcad750734cef4b97122e7ccb1e67b24ee|2026-07-23T05:15:59Z|refactor(sfia-studio): extract shared technical platform|53|3757|2830
-260|MERGED|939c33a61f2fe8889b4fa31063cdcd05bddbf0d5|2026-07-24T02:45:09Z|docs(sfia-studio): establish v3-native Option A foundation|108|5587|0
-261|MERGED|8013c71342a019ab6c1297f05443a0dd8b6fac7c|2026-07-24T04:19:12Z|feat(sfia-studio): add v3-native T-A0 Doctrine Foundation|37|2806|6
-262|MERGED|102b6c6c1d662c2359b1a11802f1bbc7e620935d|2026-07-24T08:11:54Z|feat(sfia-studio): add v3-native T-A1 Project and LPS foundation|30|3249|0
-263|MERGED|5f5c6161063e11065aaf5be74d8181ee2c2eeaea|2026-07-24T11:48:13Z|feat(sfia-studio): add v3-native T-A2 Cycle and Trajectory foundation|40|4974|6
-264|MERGED|37d4036bb0811575bd112a30e97139f75c7acb3e|2026-07-24T13:20:44Z|feat(sfia-studio): add v3-native T-A3 Decision and Authority foundation|38|6073|1
-265|MERGED|6bfef83971f4d71bc83c12dabad87366447120a7|2026-07-25T11:50:46Z|feat(sfia-studio): add T-A4 ExecutionContract governance|59|7800|33
-266|MERGED|b25c20e6eb131cba7dc811697b763fd033f3f652|2026-07-25T20:18:24Z|feat(sfia-studio): add v3-native T-A5 agent selection and execution foundation|95|13588|94
-267|MERGED|910de87a9dad00491cd32cb6b439ce13cbc7bceb|2026-07-26T10:52:16Z|feat(sfia-studio): add T-A6 evidence review claims and maturity|171|26515|112
-268|MERGED|508ef7c4619e27b664d087fd97d53afe74ea93cc|2026-07-26T20:30:39Z|ci(sfia-studio): add project validation workflow and merge governance|10|2317|23
-269|MERGED|60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc|2026-07-26T21:55:55Z|docs(sfia-studio): publish CI governance post-merge reviews|2|447|0
-270|MERGED|4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513|2026-07-27T05:02:16Z|ci(sfia-studio): add path-aware required gate preparation|2|435|3
-274|MERGED|b89065fa92d823843f1eb1014c304e7d13233556|2026-07-27T12:38:16Z|docs(sfia-studio): formalize F-A6 as mitigated after M1|1|47|4
-275|MERGED|ae61c3ed48d4d1c9fe751eddd73617ba15480734|2026-07-27T15:08:15Z|docs(sfia-studio): align document 32 after P3 and M1|1|6|4
-276|MERGED|49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13|2026-07-27T16:35:20Z|docs(sfia-studio): capitalize M1 implementation and proofs|1|441|0
-279|MERGED|c472eb412f3ade3e94fee9201042794fee502d8f|2026-07-27T19:33:21Z|docs(sfia-studio): close F-A6 after M1 governance proofs|1|102|39
-```
-Fondation #260; T-A0–T-A6 #261–#267; CI/governance #268+; F-A6 CLOSED #279 / `c472eb4`.
+### 03-t-a6-and-option-a-completion-criteria.md
 
-## 5. Tableau A — Increments
-| Increment | PR | Intégré | Validé | Complétude | Réserves | Prochain besoin |
-|-----------|----|---------|--------|------------|----------|----------------|
-| Foundation | #260 | Oui | Oui (Morris) | FOUNDATION COMPLETE | N/A produit | Ne pas assimiler à Option A COMPLETE |
-| T-A0 | #261 | Oui | VALIDATED with reserves | NOT DECLARED — validated foundation with reservations | Global adoption/cutover exclus | Aucun besoin immédiat |
-| T-A1 | #262 | Oui | TECHNICALLY VALIDATED | NOT DECLARED — technically validated foundation | B5, R1, DB non sélectionnée | B5/R1 avant persistence réelle |
-| T-A2 | #263 | Oui | PASSED AFTER CORRECTION | PARTIAL (decisions T-A2-D* non validées) | B5, R1 | Réconcilier décisions si critère COMPLETE l’exige |
-| T-A3 | #264 | Oui | PASSED AFTER CORRECTION | PARTIAL | R-T-A3-1..4, B5, R1 | Critical ack + atomicité avant exécution réelle |
-| T-A4 | #265 | Oui | TECHNICALLY VALIDATED | NOT DECLARED — technically validated foundation | R-T-A3-2 résiduelle | Pas d’action avant arbitrage exécution réelle |
-| T-A5 | #266 | Oui | TECHNICALLY VALIDATED | FOUNDATION ONLY | Pas adapter réel; R-T-A3 HARD | Adapter/worker seulement après GO exécution réelle |
-| T-A6 | #267 | Oui | D1–D5 VALIDATED | NON (explicite) | R-M01, U-M02, C1–C4, héritées | Définir critères de completion; ne pas inventer COMPLETE |
-| T-A7 | — | Non | NOT STARTED | NOT STARTED | HARD real execution + framing dédié | Framing borné uniquement, sous GO Morris |
+Blob: `232d73a9b021734dc8ba0f3c7c69d036cfe579d6`
 
-### Distinction de complétude
-- intégré ≠ techniquement validé ≠ fonctionnellement complet ≠ production-ready.
-- D1–D5 T-A6 = use cases techniques validés; **pas** les décisions M1 REX D1–D7.
-- Foundation COMPLETE (design) ≠ Option A COMPLETE (produit).
+```markdown
+# 03 — T-A6 and Option A Completion Criteria
 
-## 6. Matrice candidate Option A COMPLETE — `RECOMMENDATION — NOT DECIDED`
-Aucun checklist affirmatif canonique n’existe. Cette matrice est une proposition de cadrage, pas une décision.
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `03-t-a6-and-option-a-completion-criteria.md` |
+| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **Matrices** | `RECOMMENDATION — NOT DECIDED` |
+| **T-A6 COMPLETE** | **NOT DECLARED** |
+| **Option A COMPLETE** | **NOT DECLARED** |
 
-| Dimension | État | Preuve | Gap | Cible bloquée | Cycle |
-|-----------|------|--------|-----|---------------|-------|
-| Chaîne fonctionnelle | PARTIAL | T-A0–T-A6 runtime mémoire | T-A7 absent; pas produit E2E | Oui (candidate) | 1/2 |
-| Architecture | PASS | FD/FA/UX/Modeled/AT validés | Décisions runtime aval ouvertes | Non immédiat | 1 |
-| Modeled contracts | PASS WITH RESERVATION | M-OA validé + T-A6 modeled | R-M01/U-M02 | Oui candidate | 2 |
-| Runtime | PARTIAL | 196 fichiers app/lib/oa | Mémoire/fake-only | Oui | 2–4 |
-| Persistence | NOT STARTED | Absente | R1/R-T-A3-2/DB | Real execution | 3 |
-| Autorité humaine | PARTIAL | Fail-closed T-A3/T-A4 | Critical ack public absent; IAM mémoire | Real execution | 2–3 |
-| Sécurité | PARTIAL | Fail-closed, scans CI | IAM/dep audit/prod policies | Production | 3–4 |
-| RGPD/retention | FOUNDATION ONLY | Principes docs | U-M02/vendor/retention | Real execution/production | 3 |
-| UX/UI | DESIGN VALIDATED / RUNTIME ABSENT | UX pack Morris | Pas wiring Option A | Product/cutover | 4 |
-| Tests/CI | TECHNICALLY VALIDATED | Vitest + modeled + Required Gate success | E2E réel absent | Production | 4 |
-| Observabilité/RUN | PARTIAL | Audit console/memory | Metrics/traces/runbooks/backup | Production | 4 |
-| Documentation | PASS WITH RESERVATION | Packs complets | READMEs T-A0–T-A5 pré-merge historiques; no delivery root index | Non bloquant | 1 |
-| Décisions Morris | PARTIAL | Fondations + D-T-A6 | D1–D7/T-A2/T-A3/criteria open | Oui | 1–2 |
+> Aucune déclaration COMPLETE n’est autorisée par ce document. Les matrices sont des **propositions** pour arbitrage Morris (D-T-A7-F04…F07).
 
-**Statut actuel:** `OPTION A NOT COMPLETE` (explicite doc 24 D-M1-05).
+---
 
-## 7. Tableau B — Gaps / réserves / findings
-| ID | Statut | Sévérité | Cible bloquée | Action | Gate candidat |
-|----|--------|----------|----------------|--------|---------------|
-| CRITERIA-OA | ABSENT / INCOMPLETE | Critical governance | Option A COMPLETE | Définir critères affirmatifs Option A COMPLETE | GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION |
-| T-A6-COMPLETE | NON | Major | Option A COMPLETE | Définir critères/decision de clôture T-A6; ne pas inférer | GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION |
-| T-A7-PACK | ABSENT / NOT OPEN | Major | Option A COMPLETE + T-A7 delivery | Cadrage T-A7 distinct, sans delivery | GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION |
-| R-T-A3-1 | OPEN HARD | Critical | Real execution; T-A7 delivery (pas framing) | API publique Critical acknowledgement fail-closed | GO ARBITRATE OPTION A REAL-EXECUTION AUTHORITY AND ATOMICITY PREREQUISITES |
-| R-T-A3-2 | OPEN HARD | Critical | Real persistence/execution; T-A7 delivery | Atomicité Decision↔LPS/Epistemic / transaction strategy | GO ARBITRATE OPTION A REAL-EXECUTION AUTHORITY AND ATOMICITY PREREQUISITES |
-| R1 | OPEN | Major | Real persistence / production | Atomicité Project↔Cycle / outbox/transaction | GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS |
-| B5 | OPEN | Major | Option A quality/completion candidate | Carry-forward LPS satellite IDs | GO FRAME OPTION A FOUNDATION RESERVE CLOSURE — B5 AND R1 |
-| R-T-A3-3 | OPEN | Major | IAM/production; partial real execution | Remplacer authority registry mémoire selon IAM | GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS |
-| R-T-A3-4 | OPEN | Low | Aucune cible immédiate | Enum/error mapping debt | Gate dette technique ultérieur |
-| R-M01 | OPEN — validation satisfied, closure Morris | Major governance | Option A COMPLETE candidate | Arbitrer closure ClaimEvaluator readiness | GO ARBITRATE OPTION A REMAINING MODELED AND DELIVERY RESERVES |
-| U-M02 | OPEN | Major | Real persistence / production | Evidence blob vendor + retention/RGPD | GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS |
-| C1–C4 | RECOMMENDED — NOT VALIDATED | Delivery debt | Option A COMPLETE candidate; pas framing T-A7 | Arbitrer C1-C3; C4→B5 candidate | GO ARBITRATE OPTION A REMAINING MODELED AND DELIVERY RESERVES |
-| API/UI | ABSENT runtime Option A | Product gap | Cutover/product completeness, pas framing | Delivery produit après persistence/authority | Gate delivery produit ultérieur |
-| Adapter/worker/queue | ABSENT | Execution gap | Real execution / production | Real adapter + scheduler/worker après GO | Gate real execution ultérieur |
-| RUN/observability | PARTIAL | Production gap | Production readiness | Metrics/traces/runbooks/backup/restore | GO FRAME OPTION A RUN READINESS |
-| F-CI-01 | OPEN | Observation | Non | Node engine pin — plus tard | Gate config séparé |
-| F-CI-02 | OPEN (historique 12 high; à revalider) | Security observation | Production conditionnel | Re-audit dependencies avant production | GO REASSESS SFIA STUDIO DEPENDENCY SECURITY |
-| F-CI-04 | OPEN Minor | Minor tooling | Non | actionlint si coût justifié | Gate tooling ultérieur |
+## 1. Ambiguïté de vocabulaire (rappel)
 
-### Classification par cible
-- **A Option A COMPLETE:** critères absents, T-A6 non COMPLETE, T-A7 absent, B5/R1/R-M01/U-M02/C1–C4 selon critères à décider, produit API/UI/persistence incomplet.
-- **B T-A7 framing:** aucun blocker technique; décision Morris + pack framing obligatoire. Les HARD ne bloquent pas le cadrage.
-- **C Real execution:** R-T-A3-1/2, persistence/atomicité, IAM authority, U-M02, adapter réel/worker.
-- **D Production:** API/UI E2E, RGPD/retention, RUN/observability, security/deps, M1 governance hardening.
-- **E Hardening non bloquant:** M1 loose, Node pin/actionlint.
-- **F Dette différable:** R-T-A3-4, C1–C3 sous réserve des critères futurs, docs snapshots historiques.
+| Terme | Sens |
+|-------|------|
+| Foundation complete (design) | FD · FA · UX · Modeled · AT VALIDATED — **déjà vrai** (design) ; ≠ product COMPLETE |
+| T-A6 D1–D5 VALIDATED | use cases techniques delivery — **≠** T-A6 COMPLETE |
+| T-A6 COMPLETE | clôture slice Evidence/Review/Claims/Maturity — **à décider** |
+| Option A product complete | capacité produit Option A sans nécessairement production — **à décider** |
+| Option A production ready | RUN/IAM/RGPD/E2E/ops — **distinct** |
+| M1 REX D1–D7 | décisions gouvernance CI — **≠** T-A6 D1–D5 |
 
-### F-CI roll-up courant
-- OPEN: F-CI-01 (Node pin), F-CI-02 (historique npm audit; revalidation requise), F-CI-04 (actionlint).
-- MITIGATED: F-CI-03, F-CI-05, F-CI-06/06B.
-- CLOSED: F-A6-PM-G01 uniquement (finding Major concerné).
+---
 
-## 8. Findings
-- F-A6-PM-G01: **CLOSED** sur main (doc 24 / PR #279).
-- B5/R1/R-T-A3-1..4/R-M01/U-M02: **OPEN**.
-- C1–C4: **RECOMMENDED — NOT VALIDATED**; C4→B5 seulement candidate.
-- Aucun ancien état ne ferme une réserve sans décision Morris.
+## 2. Critères candidats T-A6 COMPLETE
 
-## 9. Tableau C — Décisions
-| ID | État | Impact | Décision Morris nécessaire maintenant? |
-|----|------|--------|----------------------------------------|
-| FD/FA/UX/M-OA/AT-OA | VALIDATED BY MORRIS | Fondation validée; Option C + ordre T-A0–T-A7 | Non |
-| T-A4 modeled/runtime decisions | VALIDATED | Ownership lifecycle, authority mapping, confirm consume | Non |
-| D-T-A6-01…12 | APPROVED/VALIDATED | Périmètre T-A6; D-T-A6-10 interdit auto T-A7 | Non |
-| T-A2-D01…D10 | NOT VALIDATED / candidates | Dette décisionnelle slice T-A2 | À qualifier dans critère COMPLETE |
-| T-A3-D01…D10 | NOT VALIDATED / candidates | Dette décisionnelle authority | À qualifier dans critère COMPLETE |
-| C1–C4 | RECOMMENDED — NOT VALIDATED | Dette delivery T-A6 | Non immédiat; arbitrage après framing |
-| M1 REX D1 | NOT DECIDED formellement; rollback exécuté ensuite | Action matériellement dépassée | Réconciliation documentaire seulement |
-| M1 REX D2 | NOT DECIDED formellement; bypass exécuté ensuite | Action matériellement dépassée | Réconciliation documentaire seulement |
-| M1 REX D3 | NOT DECIDED | Hardening loose | Non avant framing; avant production |
-| M1 REX D4 | NOT DECIDED formellement; F-A6 CLOSED ensuite | Superseded matériellement | Réconciliation documentaire seulement |
-| M1 REX D5 | NOT DECIDED | Autoriser ou non framing T-A7 | Oui |
-| M1 REX D6 | NOT DECIDED formellement; REX intégré #276 | Action exécutée | Réconciliation documentaire seulement |
-| M1 REX D7 | NOT DECIDED formellement; cleanup exécuté | Action exécutée | Réconciliation documentaire seulement |
-| DB/IAM/RGPD/retention | NOT DECIDED | Persistence, authority, privacy | Pas avant framing; requis avant real execution |
-| Option A COMPLETE criteria | ABSENT / NOT DECIDED | Empêche toute clôture fiable | Oui |
+**Label obligatoire :** `RECOMMENDATION — NOT DECIDED`
 
-### Ambiguïté D1–D7
-Les IDs M1 REX D1–D7 restent formellement `NOT DECIDED` dans doc 33/doc 24. Des actions ultérieures ont exécuté D1/D2/D4/D6/D7 sans mettre à jour ce registre d’IDs. Ne pas transformer l’action en décision formelle; classer comme dette de réconciliation. D3 (hardening) et D5 (T-A7) restent substantiellement ouverts.
+| ID | Critère affirmatif | Preuve attendue | Preuve actuelle | État | Blocker | Réserve | Owner | Gate |
+|----|--------------------|-----------------|-----------------|------|---------|---------|-------|------|
+| T6-C01 | D1 Evidence runtime fail-closed intégré | tests Evidence + module sur main | D1 VALIDATED · PR #267 | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
+| T6-C02 | D2 ReviewBundle lifecycle intégré | tests ReviewBundle | D2 VALIDATED | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
+| T6-C03 | D3 ClaimEvaluation fail-closed | tests ClaimEvaluation | D3 VALIDATED | **SATISFIED** | non | R-M01 | Morris | D-T-A7-F04 |
+| T6-C04 | D4 MaturityAssessment sans auto-promotion | tests Maturity | D4 VALIDATED | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
+| T6-C05 | D5 RecommendNextGate read-only, no T-A7 launch | tests + `T_A7_AUTO_LAUNCH_FORBIDDEN` | D5 VALIDATED | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
+| T6-C06 | Modeled/runtime alignment Evidence/RB/Claim/Maturity | schemas + runtime + modeled tests | matérialisé + governance tests CI | **SATISFIED** | non | R-M01 closure | Morris | D-T-A7-F04 |
+| T6-C07 | Non-régression T-A3–T-A5 | suites Vitest pass | documenté post-merge | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
+| T6-C08 | Erreurs fail-closed documentées | codes + tests adversariaux | présents | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
+| T6-C09 | Autorité humaine respectée (pas auto-ack Critical) | tests Critical fail-closed | présent | **SATISFIED** | non | R-T-A3-1 (hors T-A6 mémoire) | Morris | D-T-A7-F04 |
+| T6-C10 | Périmètre mémoire justifié **ou** persistence réelle | décision Morris explicite | fake-only justifié docs ; persistence absente | **PARTIAL** | si COMPLETE exige persistence | U-M02 · R1 | Morris | D-T-A7-F04 · F07 |
+| T6-C11 | Réserves T-A6 traitées ou acceptées formellement | registre réserves CLOSED ou ACCEPTED | R-M01 · U-M02 · C1–C4 OPEN / NOT VALIDATED | **MISSING** | **oui** candidate | R-M01 · U-M02 · C1–C4 | Morris | D-T-A7-F04 · F08 |
+| T6-C12 | Tests T-A6 observés sous CI Required Gate | CI success sur paths Studio | workflow + gate M1 actifs post-#268 | **SATISFIED** | non | F-CI-* residual | Morris | D-T-A7-F04 |
+| T6-C13 | Documentation delivery + post-merge présents | docs 01–22 + README | présents sur main | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
+| T6-C14 | Post-merge review complète | doc 22 | COMPLETE (CI unavailable à l’époque ; gap gouvernance fermé via F-A6) | **SATISFIED** | non | F-A6 CLOSED | Morris | D-T-A7-F04 |
+| T6-C15 | Décision Morris explicite `T-A6 COMPLETE` | gate + verdict | **absente** | **MISSING** | **oui** | — | Morris | D-T-A7-F04 |
 
-## 10. Hardening M1
-- approvals=0: **REQUIRED BEFORE PRODUCTION**, pas avant framing.
-- strict up-to-date=false: **RECOMMENDED LATER**; réévaluer avant production selon concurrence.
-- conversation resolution=false: **REQUIRED BEFORE PRODUCTION** si reviews structurantes.
-- bypass actor Morris: **REQUIRED BEFORE PRODUCTION** à requalifier/narrow/audit, pas suppression automatique.
-- Valeur immédiate avant T-A7 framing: **NOT JUSTIFIED NOW**.
-- Ruleset `19798462` actif + Required Gate `15368`; CI post-F-A6 run `30298749017` success.
+### Synthèse T-A6
 
-## 11. Définition et éligibilité T-A7
-- Définition AT: cutover legacy, retrait MethodMode/method/**, isolation OPS1, activation globale.
-- Dépendance: T-A6; gate cutover Morris; boundary tests; hold flag.
-- Pack delivery `t-a7-*`: absent.
-- T-A6 runtime interdit auto-launch T-A7.
-- **Verdict:** `T-A7 FRAMING ELIGIBLE WITH MORRIS DECISIONS`.
-- **Pas éligible au delivery/runtime:** HARD real execution, persistence/IAM/RGPD, pack et critères absents.
-- Framing ≠ open; delivery ≠ runtime activation; runtime activation ≠ real execution authorization.
+- Techniquement : D1–D5 et CI/docs largement **SATISFIED**.
+- Gouvernance : T6-C11 + T6-C15 **MISSING** → **T-A6 COMPLETE NOT DECLARED**.
+- T6-C10 dépend de D-T-A7-F07 (product vs production) : mémoire peut rester acceptable pour un COMPLETE étroit.
 
-## 12. Options de trajectoire (max 4)
-| Option | Bénéfice | Risque | Dette | Coût | Recommandation |
-|--------|----------|--------|-------|------|----------------|
-| A — Fermer d’abord tous les blockers Option A | Réduit risque delivery | Mélange trop de sujets; long; sur-traitement avant cadrage | Cycle large et séquençage caché | Élevé | Non comme premier acte |
-| B — Framing T-A7 seulement, réserves conservées | Résout ambiguïté sans exécution | Peut devenir faux départ si pris pour ouverture | Faible si anti-claims stricts | Faible–moyen | RECOMMANDÉ |
-| C — Persistence/IAM/RGPD d’abord | Prépare exécution réelle saine | Architecture prématurée sans critères T-A7/complete | Choix irréversibles trop tôt | Élevé | Après B, avant real execution |
-| D — Hardening M1 préalable | Gouvernance plus forte | Friction; ne résout aucun gap produit | Process prématuré | Faible–moyen | Pas avant framing; avant production |
+---
 
-## 13. Recommandation
-**Option B — framing T-A7 borné + critères de complétude, sans ouvrir delivery.**
+## 3. Critères candidats Option A COMPLETE
 
-Pourquoi: le risque dominant n’est plus CI/F-A6 (clos), mais l’absence de définition affirmée de COMPLETE et de pack T-A7. Corriger tous les gaps d’abord mélangerait architecture, sécurité, RGPD et produit sans critère de sortie.
+**Label obligatoire :** `RECOMMENDATION — NOT DECIDED`
 
-## 14. Tableau D — Séquence minimale
-| Étape | Quand | Cycle | Objectif | Gate | Sortie |
-|-------|-------|-------|----------|------|--------|
-| 1 | Maintenant | 1 Cadrage | Définir T-A7 framing + critères Option A/T-A6 COMPLETE + classer réserves admissibles | GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION | T-A7 framing eligibility et completion criteria décidables |
-| 2 | Avant T-A7 delivery | 2/3/6 Arbitrage architecture | Décider R-T-A3-1/2, B5/R1, R-M01/C1–C4 réellement requis | GO ARBITRATE OPTION A REAL-EXECUTION AUTHORITY AND ATOMICITY PREREQUISITES | Blockers delivery classés et gates séparés |
-| 3 | Avant exécution réelle | 6/10 Architecture technique + sécurité/RGPD | Persistence, IAM, U-M02 retention/vendor, atomicité | GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS | Architecture real execution validée |
-| 4 | Avant production | 7/10/12 Delivery + RUN | API/UI, real adapter/worker, observabilité, hardening M1, dependency security | Gates delivery/production séparés — NOT DECIDED | Evidence production readiness; éventuel T-A7 delivery GO |
+### 3.1 Couches
 
-### Gate Morris requis immédiatement
-`GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION` — **NOT CONSUMED**
+| Couche | Libellé | Définition candidate | Nécessaire pour foundation? | Product complete? | Production ready? | T-A7 framing? | T-A7 delivery? | T-A7 cutover? |
+|--------|---------|----------------------|----------------------------|-------------------|-------------------|---------------|----------------|---------------|
+| **A** | Foundation complete | FD · FA · UX · Modeled · AT VALIDATED | **définition** | prérequis | prérequis | utile | prérequis | prérequis |
+| **B** | Integrated runtime complete | T-A0…T-A6 intégrés + tests mémoire + CI | non | prérequis candidat | prérequis | utile | prérequis | prérequis |
+| **C** | Product completion | chaîne fonctionnelle Option A opérable selon critères Morris (peut exclure prod) | non | **définition** | prérequis | non | probable | **oui** |
+| **D** | Real-execution readiness | Critical ack · atomicité · adapter réel · persistence | non | optionnel (D-T-A7-F07) | prérequis | non | selon périmètre | **oui** si activation |
+| **E** | Production readiness | IAM · RGPD · RUN · E2E · hardening · deps | non | **non implicite** | **définition** | non | non | recommandé |
+| **F** | Legacy cutover complete | MethodMode/method/** retirés · OPS1 isolé · preuves | non | optionnel (peut être hors product étroit) | souvent requis | non | — | **définition cutover** |
 
-### Gates candidats ultérieurs
-- `GO ARBITRATE OPTION A REAL-EXECUTION AUTHORITY AND ATOMICITY PREREQUISITES`
-- `GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS`
-- `GO ARBITRATE OPTION A REMAINING MODELED AND DELIVERY RESERVES`
-- Gates delivery/production/T-A7 séparés — NOT DECIDED.
+**Règle soumise à Morris (D-T-A7-F07) :** `production ready` n’est **pas** une condition implicite d’une définition étroite de `product complete`.
 
-## 15. Challenge final
-- Option A doit-elle être fermée avant framing T-A7? **Non**; elle doit l’être avant cutover/COMPLETE, pas avant cadrage.
-- Gaps utiles maintenant? **Critères COMPLETE, scope T-A7, admissibilité des réserves.**
-- Gaps différables? M1 hardening, F-CI-01/04, UI/API, adapter/worker, RUN — jusqu’à leur seuil (real execution/production).
-- Hardening M1 valeur immédiate? **Non** pour framing; oui avant production.
-- Persistence/IAM/RGPD avant T-A7? **Avant delivery/real execution, pas avant framing.**
-- UI/API nécessaires? **Avant cutover/product completeness**, pas avant framing.
-- Prochain acte répétable ou arbitrage? **Arbitrage Morris** sur scope/criteria; génération de pack ensuite répétable.
-- Séquence la plus simple? Framing criteria → arbitrage blockers → architecture persistence/security → delivery/RUN.
-- Dette options: A sur-traite; B faible; C décisions prématurées; D friction sans valeur produit.
-- Gate immédiat: `GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION`.
+### 3.2 Matrice dimensionnelle Option A
 
-## 16. Réserves méthodologiques
-- Absence de critères affirmatifs Option A COMPLETE: conclusions de blocage sont partiellement candidates.
-- Docs historiques contiennent des anti-claims pré-merge; Git main et documents postérieurs priment.
-- D1–D7 M1 non réconciliés avec actions ultérieures: dette documentaire, pas blocker T-A7 framing.
-- Les tests documentés sont recoupés par CI actuelle mais ce cycle ne relance pas les tests.
+| ID | Dimension | Critère affirmatif | Preuve attendue | Preuve actuelle | État | Couches | Blocker product? | Blocker production? | Owner |
+|----|-----------|--------------------|-----------------|-----------------|------|---------|------------------|---------------------|-------|
+| OA-01 | FD/FA/UX/Modeled/AT | fondation design VALIDATED | packs design | VALIDATED | **SATISFIED** | A | non | non | Morris |
+| OA-02 | T-A0…T-A6 intégrés | merges #261–#267 | Git | OUI | **SATISFIED** | B | non | non | Morris |
+| OA-03 | T-A6 COMPLETE | critères T6 + GO Morris | matrices + décision | NON | **MISSING** | B/C | **oui** candidat | oui | Morris |
+| OA-04 | T-A7 | cutover complete **ou** hors product étroit | pack + preuves | NOT OPEN | **N/A ou MISSING** | C/F | selon F06/F07 | oui cutover | Morris |
+| OA-05 | Persistence | DB SELECTED + repos durables | ADR + migrations | absente | **MISSING** | C/D/E | selon F07 | **oui** | Morris |
+| OA-06 | Atomicité | R1 + R-T-A3-2 résolus ou acceptés | design + tests | OPEN HARD | **MISSING** | D/E | selon F07 | **oui** | Morris |
+| OA-07 | Autorité | Critical ack + supersession | API + tests | R-T-A3-1 OPEN | **MISSING** | D | **oui** real-exec | oui | Morris |
+| OA-08 | IAM | provider + mapping authority | design + runtime | NOT DECIDED | **MISSING** | D/E | selon F07 | **oui** | Morris |
+| OA-09 | Sécurité | fail-closed + deps + secrets | CI + audit | PARTIAL | **PARTIAL** | E | non immédiat | **oui** | Morris |
+| OA-10 | RGPD / Evidence retention | politique + vendor + purge | docs + preuves | U-M02 OPEN | **MISSING** | D/E | selon F07 | **oui** | Morris |
+| OA-11 | API/UI | surfaces Option A branchées `lib/oa` | code + tests | absentes | **MISSING** | C | **oui** candidat | oui | Morris |
+| OA-12 | Adapters réels | adapter non-Test/NoOp | code + tests | absents | **MISSING** | D | real-exec | oui | Morris |
+| OA-13 | Worker/queue/scheduler | exécution asynchrone contrôlée | code + RUN | absents | **MISSING** | D/E | real-exec | oui | Morris |
+| OA-14 | Tests E2E | parcours Option A | Playwright/CI | exclus CI | **MISSING** | E | non | **oui** | Morris |
+| OA-15 | CI | Required Gate path-aware | ruleset + runs | SATISFIED M1 | **SATISFIED** | B/E | non | partiel | Morris |
+| OA-16 | Observabilité | metrics/traces/audit | stack RUN | console/memory | **PARTIAL** | E | non | **oui** | Morris |
+| OA-17 | RUN | health/backup/restore/runbooks | pack RUN | conceptuel AT-10 | **MISSING** | E | non | **oui** | Morris |
+| OA-18 | Rollback | hold + restore éprouvés | preuves | non cutover | **MISSING** | F/E | cutover | oui | Morris |
+| OA-19 | Documentation | index + packs cohérents | docs | packs présents ; pas d’index delivery racine | **PARTIAL** | A–F | non | non | Morris |
+| OA-20 | Réserves | CLOSED ou ACCEPTED formellement | registre | OPEN | **MISSING** | C–F | **oui** | oui | Morris |
+| OA-21 | Dette C1–C4 / F-CI | traitée ou acceptée | décisions | NOT VALIDATED / OPEN | **MISSING** | C/E | partiel | partiel | Morris |
+| OA-22 | Décisions Morris | critères F04–F07 décidés + COMPLETE GO | gates | NOT DECIDED | **MISSING** | toutes | **oui** | oui | Morris |
 
-## 17. Sources déterminantes — sections complètes
-### Doc 23 §§3–9 (chronologie, capacités, gaps, options)
-```text
-0055|## 3. Chronologie Option A (faits Git)
-0056|
-0057|| Élément | Statut | Preuve |
-0058||---------|--------|--------|
-0059|| Conception FD/FA/UX/Modeled/AT | **VALIDATED BY MORRIS** (docs) | packs design/AT/modeled |
-0060|| Foundation docs PR #260 | **MERGED** | `pr/sfia-studio-v3-native-option-a-foundation` |
-0061|| T-A0 Doctrine | **intégré main** | PR #261 |
-0062|| T-A1 Project/LPS | **intégré main** | PR #262 |
-0063|| T-A2 Cycle/Trajectory/CKC | **intégré main** | PR #263 |
-0064|| T-A3 Decision/Authority | **intégré main** | PR #264 · réserves OPEN |
-0065|| T-A4 ExecutionContract | **intégré main** | PR #265 |
-0066|| T-A5 ExecutionAttempt | **intégré main** | PR #266 |
-0067|| T-A6 Evidence/Review/Claims/Maturity | **intégré main** | PR #267 · post-merge OK |
-0068|| Shared technical platform | **déjà mergé** (#255) · branche locale tip docs en retard sur main | pas un « gros manquant » runtime Option A |
-0069|| Control tower / D1 intake | **déjà mergé** (#254) · worktree local divergé | legacy/produit parallèle |
-0070|| UX Option A design branch | delta vs main **0** | contrat UX validé docs ; pas un runtime Option A manquant |
-0071|| T-A7 delivery pack | **absent** | aucune folder `t-a7-*` · définition = cutover/OPS1/legacy |
-0072|
-0073|**Anti-assimilation :** merge ≠ COMPLETE produit · modeled ≠ runtime · branche locale ≠ capacité non intégrée.
-0074|
-0075|---
-0076|
-0077|## 4. État capacitaire sur `main` après T-A6
-0078|
-0079|| Capacité | Qualification |
-0080||----------|----------------|
-0081|| Doctrine / Project / LPS / Cycle | runtime mémoire sur `main` |
-0082|| Authority / Decision / Confirmation | runtime mémoire · réserves T-A3 OPEN |
-0083|| ExecutionContract | runtime mémoire |
-0084|| ExecutionAttempt + adapters Test/NoOp | runtime mémoire · **pas** adapter réel |
-0085|| Evidence / ReviewBundle / ClaimEvaluation / Maturity | runtime mémoire · D1–D5 validés |
-0086|| RecommendNextGate | runtime read-only · `executionAuthority=false` |
-0087|| Persistence réelle | **absente** |
-0088|| API produit Option A | **absente** |
-0089|| UI Option A native branchée sur oa/** | **absente** (CT/D1 = autre surface) |
-0090|| Observabilité / RUN readiness Option A | partielle / non RUN-ready |
-0091|| Exécution réelle | **bloquée** (R-T-A3 HARD + anti T-A7) |
-0092|| Sécurité/RGPD v1 fake-only | bornée · U-M02 OPEN |
-0093|| CI `sfia-studio` | **ABSENT** (workflow limité à `projects/interv360/**`) |
-0094|
-0095|Modules `app/lib/oa/` présents : `doctrine` · `project` · `cycle` · `decision` · `execution-contract` · `execution-attempt` · `evidence-review`.
-0096|
-0097|---
-0098|
-0099|## 5. Réserves et blockers (inchangés)
-0100|
-0101|| ID | Criticité | Impact prochaine étape |
-0102||----|-----------|------------------------|
-0103|| B5 | OPEN | dette structurante / LPS satellite |
-0104|| R1 | OPEN | txn / outbox avant persistence réelle |
-0105|| R-T-A3-1 | OPEN | Critical acknowledge public manquant |
-0106|| R-T-A3-2 | OPEN HARD famille | atomicité Decision↔LPS — **bloque persistence réelle saine** |
-0107|| R-T-A3-3 / 4 | OPEN | autorité |
-0108|| R-M01 | OPEN | ClaimEvaluator / readiness |
-0109|| U-M02 | OPEN | payloads / vendor |
-0110|| C1–C4 | RECOMMENDED — NOT VALIDATED | dette delivery T-A6 |
-0111|| F-A6-PM-G01 | Major gouvernance | merge sans cycle review/CI ni gate merge formel |
-0112|| CI ABSENT | Observation structurelle | aucune CI `sfia-studio` |
-0113|
-0114|Aucune fermeture dans ce cadrage.
-0115|
-0116|---
-0117|
-0118|## 6. Options
-0119|
-0120|### Option A — Ouvrir T-A7
-0121|
-0122|| Champ | Analyse |
-0123||-------|---------|
-0124|| Définition Git | Cutover legacy · MethodMode · OPS1 · activation globale (D-T-A6-10 / framing T-A6) |
-0125|| Pack delivery | **absent** |
-0126|| Prérequis | exécution réelle / legacy / réserves HARD · framing dédié |
-0127|| Recommandation | **écarter / différer maintenant** |
-0128|| Risque | inertie de numérotation · contour HARD · blast radius élevé |
-0129|
-0130|### Option B — Intégrer shared technical platform
-0131|
-0132|| Champ | Analyse |
-0133||-------|---------|
-0134|| Fait | PR #255 **déjà mergée** |
-0135|| Branche locale | tip docs, **en retard** sur main post T-A0–T-A6 |
-0136|| Recommandation | **différer** comme « intégration » · éventuellement capitalisation docs branche stale |
-0137|| Invert si | Git révèle un delta runtime non mergé critique (non constaté comme blocker T-A6) |
-0138|
-0139|### Option C — UX/UI / control tower Option A
-0140|
-0141|| Champ | Analyse |
-0142||-------|---------|
-0143|| UX design | validé docs · delta branche **0** |
-0144|| CT/D1 | déjà sur main (#254) · surface distincte |
-0145|| Risque | façade UI sur runtime mémoire sans persistence |
-0146|| Recommandation | **différer** pour branchement produit Option A |
-0147|
-0148|### Option D — Persistence / API
-0149|
-0150|| Champ | Analyse |
-0151||-------|---------|
-0152|| Valeur | débloque produit / LPS durable |
-0153|| Blockers | R1 / R-T-A3-2 · U-M02 · DB non sélectionnée (anti-claims AT) |
-0154|| Recommandation | **ensuite** (cadrage dédié) — pas immédiat sans politique CI/gouvernance |
-0155|
-0156|### Option E — Traiter réserves autorité / exécution réelle
-0157|
-0158|| Champ | Analyse |
-0159||-------|---------|
-0160|| Valeur | prérequis T-A7 / adapters réels |
-0161|| Urgence | haute **avant** exec réelle · basse pour stack fake-only actuelle |
-0162|| Recommandation | **ensuite** / parallèle après F |
-0163|
-0164|### Option F — CI et gouvernance d’intégration
-0165|
-0166|| Champ | Analyse |
-0167||-------|---------|
-0168|| Preuve | CI Interv360-only · F-A6-PM-G01 · post-merge « CI UNAVAILABLE » |
-0169|| Valeur | sécurise prochains merges (persistence, réserves, éventuel T-A7 framing) |
-0170|| Dette évitée | merges sans checks · gaps de gates |
-0171|| Effort | relatif moyen · réversible · L1–L2 |
-0172|| Recommandation | **maintenant** |
-0173|
-0174|### Option G — Capitaliser doc post-merge T-A6 (doc 22)
-0175|
-0176|| Champ | Analyse |
-0177||-------|---------|
-0178|| Fait | `22` local sur post-merge / cadrage · **pas** sur `origin/main` |
-0179|| Valeur | traçabilité |
-0180|| Recommandation | **ensuite immédiat** ou sous-tâche de F · pas prioritaire seul |
-0181|
-0182|### Option H — Pause / consolidation Option A
-0183|
-0184|| Champ | Analyse |
-0185||-------|---------|
-0186|| Valeur | cartographie capabilities + séquence branches |
-0187|| Recommandation | **deuxième option** si Morris veut inventaire avant outillage CI |
-0188|
-0189|---
-0190|
-0191|## 7. Matrice (synthèse)
-0192|
-0193|| Option | Urgence | Blockers | Dette créée | Maintenant ? |
-0194||--------|---------|----------|-------------|--------------|
-0195|| A T-A7 | basse | HARD + pack absent | très haute | **non** |
-0196|| B Shared plat. | basse | stale / déjà mergé | moyenne | **non** |
-0197|| C UX/CT | basse | façade mémoire | haute | **non** |
-0198|| D Persist/API | moyenne | R1/R-T-A3-2/U-M02 | haute si précipité | **ensuite** |
-0199|| E Réserves HARD | moyenne | Morris | faible si cadrage | **ensuite** |
-0200|| **F CI/gov** | **haute** | aucun HARD | faible | **oui** |
-0201|| G Doc 22 | faible | aucun | faible | ensuite |
-0202|| H Consolidation | moyenne | aucun | faible | 2ᵉ choix |
-0203|
-0204|---
-0205|
-0206|## 8. Challenges
-0207|
-0208|| Question | Réponse (F) |
-0209||----------|-------------|
-0210|| Utile maintenant ? | **Oui** — gap CI/gov démontré sur #267 |
-0211|| Dette créée ? | Faible (workflows/docs/process) |
-0212|| Plus simple ? | G plus simple mais ne corrige pas CI |
-0213|| Repo-first ? | **Oui** — workflow paths le prouvent |
-0214|| T-A7 par inertie ? | **Non** — explicitement écarté |
-0215|| Contour HARD ? | **Non** |
-0216|| Façade ? | **Non** |
-0217|
-0218|---
-0219|
-0220|## 9. Recommandation (non validée)
-0221|
-0222|### Option recommandée : **F — CI et gouvernance d’intégration Option A**
-0223|
-0224|**Justification :** la chaîne T-A0→T-A6 fake-only est sur `main` ; le risque immédiat n’est plus « le prochain agrégat manquant » mais **l’absence de CI `sfia-studio`** et le **gap de gouvernance de merge** (F-A6-PM-G01). T-A7 n’est pas le prochain incrément de fondation : c’est un cutover legacy/OPS1 sans pack delivery et bloqué par HARD.
-0225|
-0226|| Élément | Proposition |
-0227||---------|-------------|
-0228|| Cycle SFIA | PR readiness / DevOps / intégration (cadrage puis préparation) |
-0229|| Profil | Critical |
-0230|| Blocs | DevOps · intégration · gouvernance · QA · anti-claims · documentation |
-0231|| Scope | workflows CI ciblant `projects/sfia-studio/**` · checklist merge · distinction review/CI · H1/H2 · gates Morris · éventuellement intégrer publication doc 22 |
-0232|| Exclusions | runtime métier · T-A7 · persistence · fermeture réserves · adapters réels |
-0233|| Réserves | toutes **OPEN** |
-0234|| Branche | nouvelle `devops/…` ou `framing/…-ci-merge-governance` depuis `main` |
-0235|| Preuves | workflow vert sur PR test · docs gates · anti force-merge |
-0236|| Stop | élargissement runtime · claim « production ready » · ouverture T-A7 |
-0237|
-0238|**Gate Morris candidat :**
-0239|
-0240|```
-0241|GO PREPARE OPTION A CI AND MERGE GOVERNANCE
-0242|— SFIA STUDIO V3-NATIVE
-0243|```
-0244|
-0245|**NOT consumed.**
-0246|
-0247|### Deuxième option : **H — Consolidation / inventaire capacitaire Option A**
-0248|
-0249|Utile si Morris veut d’abord une carte unique des capabilities + ordre d’intégration avant outillage. Moins urgente que F car n’adresse pas le trou CI déjà prouvé.
-0250|
-0251|**Inversion possible de F → D/E** si Morris priorise explicitement persistence ou traitement HARD avant outillage CI.
+### 3.3 Définitions candidates à trancher
+
+| Option de définition | Inclut | Exclut typiquement | Dette |
+|----------------------|--------|--------------------|-------|
+| **Étroite — fondation+runtime intégré** | A+B + T-A6 COMPLETE mémoire justifié | persistence · IAM · UI · cutover | risque de sous-estimer produit |
+| **Produit opérable** | A+B+C (+ OA-11) | production E · cutover F optionnel | nécessite UI/API |
+| **Produit + cutover** | A+B+C+F | production E | blast radius élevé |
+| **Production ready** | A–E (+ F souvent) | — | plus long ; le plus sûr |
+
+**Recommandation Cursor/ChatGPT (non Morris) :** distinguer explicitement **product complete** (C) et **production ready** (E) ; ne pas exiger E pour C ; exiger F seulement si Option A est définie comme « v3 native sans MethodMode ».
+
+---
+
+## 4. Liens T-A7
+
+| Question | Réponse candidate |
+|----------|-------------------|
+| Option A doit-elle être COMPLETE avant framing T-A7 ? | **Non** |
+| Option A doit-elle être COMPLETE avant delivery T-A7 ? | **Probablement oui pour couches A–B et critères T-A6** — D-T-A7-F03/F08 |
+| Option A doit-elle être COMPLETE avant cutover ? | **Oui au sens product/cutover décidé** — D-T-A7-F06/F09 |
+| T-A7 framing peut-il coexister avec réserves OPEN ? | **Oui** |
+
+---
+
+## 5. Anti-claims
+
+Pas T-A6 COMPLETE · Pas Option A COMPLETE · Pas PRODUCTION READY · Pas READY FOR CUTOVER · Pas critères DECIDED · Pas RESERVE CLOSED.
+
+---
+
+## 6. Verdict
+
+`T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — RECOMMENDATION NOT DECIDED — NO COMPLETE DECLARATION`
 ```
 
-### T-A6 README complet
-```text
-0001|# T-A6 — Evidence, Review, Claims and Maturity (Option A)
-0002|
-0003|| Champ | Valeur |
-0004||-------|--------|
-0005|| **Slice** | T-A6 — Evidence / ReviewBundle / Claims / Maturity |
-0006|| **Profil** | Critical |
-0007|| **PR** | [#267](https://github.com/mcleland147/sfia-workspace/pull/267) — **MERGED** |
-0008|| **Merge commit** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-0009|| **Stratégie** | **merge commit** |
-0010|| **origin/main** | `910de87a9dad00491cd32cb6b439ce13cbc7bceb` |
-0011|| **Branche head** | `framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity` — **conservée** |
-0012|| **Gate post-merge** | `GO RUN T-A6 POST-MERGE REVIEW — SFIA STUDIO V3-NATIVE — OPTION A` (**CONSUMED**) |
-0013|| **Statut pack** | **POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED** |
-0014|| **T-A6 intégré dans main** | **OUI** |
-0015|| **T-A6 COMPLETE** | **NON** |
-0016|| **Option A COMPLETE** | **NON** |
-0017|| **T-A7** | **NON** |
-0018|| **CI** | **ABSENT / UNAVAILABLE** (validation locale PASS) |
-0019|| **Écart gouvernance** | **tracé** (pas de cycle review PR/CI ni gate merge formel) |
-0020|| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A T-A6 POST-MERGE REVIEW COMPLETE — INTEGRATION CONFIRMED, CI UNAVAILABLE, GOVERNANCE GAP RECORDED` |
-0021|| **Gate suivant candidat** | `GO FRAME NEXT OPTION A STEP AFTER T-A6 — SFIA STUDIO V3-NATIVE` (**NOT consumed**) |
-0022|| **Horodatage post-merge** | 2026-07-26 13:03:45 CEST (+0200) |
-0023|
-0024|## Livrables
-0025|
-0026|1. [README.md](./README.md)
-0027|2. [01](./01-framing.md) … [21-branch-publication-and-pr.md](./21-branch-publication-and-pr.md)
-0028|3. [22-post-merge-review.md](./22-post-merge-review.md)
-0029|4. Runtime : `app/lib/oa/evidence-review/**` (D1–D5) — **sur main**
-0030|5. Tests : `app/__tests__/oa/evidence-review/**` — **sur main**
-0031|
-0032|## D1–D5 validés · intégré · post-merge confirmé
-0033|
-0034|D1–D5 **VALIDATED** · PR **#267 MERGED** · contenu **intégré** · post-merge **COMPLETE** · T-A6 **non** déclaré complet · Option A **non** déclarée complète · branche head **conservée** · worktree T-A6 **inchangé**
-0035|
-0036|## Réserves (OPEN — inchangées)
-0037|
-0038|B5 · R1 · R-T-A3-1..4 (HARD 1–2) · R-M01 · U-M02 **OPEN**
-0039|C1–C4 **RECOMMENDED — NOT VALIDATED**
-0040|
-0041|## Anti-claims
-0042|
-0043|Pas T-A6 COMPLETE / Option A COMPLETE / runtime ready / production ready / persistence réelle / T-A7 / R-M01 fermée / C1–C4 validées / exécution réelle / CI PASS / merge « pleinement conforme gouvernance » / gate suivant consommé
+### 04-reservations-risks-and-stop-conditions.md
+
+Blob: `da6d67448841b267c849b72a3692ea10d3b4d98c`
+
+```markdown
+# 04 — Reservations, Risks and Stop Conditions
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `04-reservations-risks-and-stop-conditions.md` |
+| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **T-A7** | **NOT OPEN** |
+| **Réserves fermées dans ce cycle** | **aucune** |
+
+---
+
+## 1. Registre des réserves et findings
+
+| ID | Statut | Définition | Preuve | Bloque framing T-A7 ? | Bloque delivery T-A7 ? | Bloque cutover ? | Bloque real execution ? | Bloque production ? | Obligatoire Option A COMPLETE ? | Décision Morris | Cycle recommandé |
+|----|--------|------------|--------|----------------------|------------------------|------------------|-------------------------|---------------------|---------------------------------|-----------------|------------------|
+| **B5** | OPEN | LPS satellite ids non carry-forward | T-A2/T-A3 docs · doc 23 | **Non** | **Oui** candidat | **Oui** | Indirect | Indirect | **Oui** candidat | D-T-A7-F08 | reserve closure / T-A1 |
+| **R1** | OPEN | Atomicité Project↔Cycle absente | T-A2 docs | **Non** | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** si persistence | D-T-A7-F08 · F10 | architecture persistence |
+| **R-T-A3-1** | OPEN **HARD** | Pas d’API publique Critical acknowledge | T-A3 · Confirm fail-closed | **Non** | **Oui** si Critical path requis | **Oui** si activation | **Oui** | **Oui** | **Oui** real-exec / product large | D-T-A7-F08 · F09 | authority |
+| **R-T-A3-2** | OPEN **HARD** | Atomicité Decision↔LPS/Epistemic résiduelle | T-A3/T-A4 Option B | **Non** | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** persistence | D-T-A7-F08 · F09 | architecture |
+| **R-T-A3-3** | OPEN | Authority registry in-memory | T-A3 | **Non** | Partiel | **Oui** | Partiel | **Oui** (IAM) | **Oui** production | D-T-A7-F10 | IAM |
+| **R-T-A3-4** | OPEN | Enum mapping `AUTHORITY_SCOPE_MISMATCH` | T-A3 | **Non** | **Non** | **Non** | **Non** | Low | Non | dette ultérieure | hygiene |
+| **R-M01** | OPEN | ClaimEvaluator readiness — closure Morris | T-A6 | **Non** | **Oui** candidat T-A6 COMPLETE | Indirect | Indirect | **Oui** | **Oui** T-A6 COMPLETE | D-T-A7-F04 · F08 | modeled/delivery |
+| **U-M02** | OPEN | Evidence blob vendor / payloads / retention | T-A6 · D-T-A6-09 | **Non** | **Oui** si Evidence physique | **Oui** | **Oui** | **Oui** | **Oui** production / Evidence | D-T-A7-F10 | RGPD/persistence |
+| **C1** | RECOMMENDED — NOT VALIDATED | Evidence status jointure PASS | T-A6 20-pr-readiness | **Non** | Dette | Indirect | Indirect | Indirect | Partiel | D-T-A7-F04 · F08 | T-A6 debt |
+| **C2** | RECOMMENDED — NOT VALIDATED | Self-review Critical | T-A6 | **Non** | Dette | Indirect | Indirect | Indirect | Partiel | D-T-A7-F04 | T-A6 debt |
+| **C3** | RECOMMENDED — NOT VALIDATED | Bornes taille/nombre | T-A6 | **Non** | Dette | Indirect | Indirect | Indirect | Partiel | D-T-A7-F04 | T-A6 debt |
+| **C4** | RECOMMENDED — NOT VALIDATED | LPS satellite → fusion B5 candidate | T-A6 | **Non** | Via B5 | Via B5 | Indirect | Indirect | Via B5 | D-T-A7-F08 | merge into B5 |
+| **F-CI-01** | OPEN | Node engines pin absent | docs 24/31 | **Non** | **Non** | **Non** | **Non** | Partiel | Non | tooling | config |
+| **F-CI-02** | OPEN | npm audit historique | docs 24/31 | **Non** | **Non** | **Non** | **Non** | **Oui** conditionnel | Non | security | deps |
+| **F-CI-03** | MITIGATED | Node local/CI | docs 31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | — | — |
+| **F-CI-04** | OPEN Minor | actionlint absent | docs 24/31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | tooling | — |
+| **F-CI-05** | MITIGATED | node:sqlite/Node20 | docs 31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | — | — |
+| **F-CI-06/06B** | MITIGATED non CLOSED | whitespace | docs 29/31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | hygiene | — |
+| **F-A6-PM-G01** | **CLOSED** | merge T-A6 sans CI formelle | doc 24 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | — | supersédé |
+| **M1 loose** | NOT DECIDED | approvals=0 · strict=false · conversation resolution=false · bypass | doc 24/33 · D3 | **Non** | **Non** | **Recommandé avant** | **Non** | **Oui** | Non (distinct COMPLETE) | D-T-A7-F12 | governance |
+
+### Point critique R-T-A3-1 / R-T-A3-2
+
+Git **ne démontre pas** que R-T-A3-1/2 bloquent un cadrage read-only. Ils restent **HARD** pour :
+
+- exécution réelle ;
+- Confirm Critical réel ;
+- persistence saine ;
+- delivery/cutover si le périmètre active ces chemins.
+
+---
+
+## 2. Risques du cadrage
+
+| Risque | Mitigation documentaire |
+|--------|-------------------------|
+| Confusion framing / open / delivery / cutover | niveaux A–D + anti-claims |
+| Claim COMPLETE implicite | matrices `NOT DECIDED` + T6-C15 / OA-22 |
+| Fermeture implicite de réserve | registre OPEN inchangé |
+| Retrait prématuré MethodMode | stop conditions §3 |
+| Sous-estimer persistence/IAM/RGPD | préconditions P18–P21 |
+| Hardening M1 prématuré | D-T-A7-F12 · NOT JUSTIFIED NOW pour framing |
+
+---
+
+## 3. Stop conditions (obligatoires)
+
+1. **Pas de delivery** sans validation Morris du framing (D-T-A7-F01…F03).
+2. **Pas de modification** `method/**` ou OPS1 sans gate dédié.
+3. **Pas de suppression MethodMode** sans preuve des remplacements (P03–P09).
+4. **Pas de cutover** sans rollback éprouvé et GO cutover distinct.
+5. **Pas d’exécution réelle** sans autorité (R-T-A3-1), atomicité (R-T-A3-2/R1), persistence, IAM et sécurité adaptées.
+6. **Pas de migration Evidence** sans politique RGPD/rétention (U-M02).
+7. **Pas de claim Option A COMPLETE** sans critères validés + preuves + GO Morris.
+8. **Pas de claim production ready** sans E2E, RUN et observabilité.
+9. **Pas de fermeture de réserve** par simple cadrage.
+10. **Divergence de `main`** affectant Option A / T-A6 / T-A7 / réserves = **re-review obligatoire** avant tout acte suivant.
+11. **Pas de push projet** de cette branche sous le gate courant.
+12. **Pas de double write** ni présentation OPS1 comme v3.
+
+---
+
+## 4. Dette acceptable temporairement
+
+| Item | Acceptable pendant framing | Acceptable jusqu’à delivery | Acceptable jusqu’à production |
+|------|----------------------------|-----------------------------|-------------------------------|
+| B5 / R1 OPEN | oui | non (sauf acceptation) | non |
+| R-T-A3-1/2 OPEN | oui | non si Critical/persistence | non |
+| R-T-A3-4 | oui | oui | oui (low) |
+| C1–C4 NOT VALIDATED | oui | à arbitrer | à arbitrer |
+| F-CI-01/04 | oui | oui | partiel |
+| M1 loose | oui | oui | **non recommandé** |
+| Absence API/UI | oui | non pour cutover opérable | non |
+| Absence persistence | oui (mémoire) | non pour cutover durable | non |
+
+---
+
+## 5. Anti-claims
+
+Pas RESERVE CLOSED · Pas HARD résolu · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas IAM SELECTED · Pas DECIDED.
+
+---
+
+## 6. Verdict
+
+`RESERVATIONS AND STOP CONDITIONS FRAMED — HARD BLOCKERS CLASSIFIED FOR EXECUTION NOT FRAMING — NO RESERVE CLOSED`
 ```
 
-### AT legacy/cutover doc 11 complet
-```text
-0001|# 11 — Isolation legacy, migration, cutover
-0002|
-0003|| Champ | Valeur |
-0004||-------|--------|
-0005|| **Statut** | Architecture technique **candidate** — validation Morris requise |
-0006|| **Pack** | `sfia-v3-technical-architecture/v3-native-option-a` |
-0007|| **Gate consommé** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
-0008|| **Modeled** | M-OA-01…12 **VALIDATED** |
-0009|| **UX / FA / FD** | UX-OA · FA-OA · FD-OA **VALIDATED** |
-0010|| **Anti-claims** | Pas ARCHITECTURE VALIDATED · Pas READY FOR DELIVERY · Pas READY FOR IMPLEMENTATION · Pas DATABASE SELECTED · Pas SCHEMAS ADOPTED · Pas RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED |
-0011|| **Code / SQL / Figma / delivery** | **Interdits** |
-0012|| **Document** | `11-legacy-isolation-migration-and-cutover-architecture.md` |
-0013|
-0014|## Isolation OPS1
-0015|
-0016|Option A ≠ OPS1. Pas de doctrine partagée · pas fallback · pas MethodMode · pas double write · pas présentation OPS1 comme v3 · historique read-only seulement si gate Morris · migration via anti-corruption adapter.
-0017|
-0018|## Cutover v2.6 — préconditions (ne rien supprimer ici)
-0019|
-0020|| Élément | Remplacement v3 | Preuve | Gate |
-0021||---------|-----------------|--------|------|
-0022|| canonicalPaths | DoctrinePackage registry | tests resolve | Morris |
-0023|| sourceLoader | package loader | digest pin | Morris |
-0024|| contextResolver | CkcResolver + doctrine | no method/** | Morris |
-0025|| sessionContext | OA correlation | no MethodMode | Morris |
-0026|| MethodMode | removed from target | UI+API tests | Morris |
-0027|| method/** reads | removed | import boundary | Morris |
-0028|| badges v2.6 | removed | UI tests | Morris |
-0029|| OPS1 contracts hors legacy | ACL only | no cross-call | Morris |
-0030|
-0031|Ordre candidate : T-A0…T-A6 puis T-A7 cutover.
-```
+### 05-morris-decision-pack.md
 
-### AT slices doc 12 complet
-```text
-0001|# 12 — Slices delivery T-A0–T-A7
-0002|
-0003|| Champ | Valeur |
-0004||-------|--------|
-0005|| **Statut** | Architecture technique **candidate** — validation Morris requise |
-0006|| **Pack** | `sfia-v3-technical-architecture/v3-native-option-a` |
-0007|| **Gate consommé** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
-0008|| **Modeled** | M-OA-01…12 **VALIDATED** |
-0009|| **UX / FA / FD** | UX-OA · FA-OA · FD-OA **VALIDATED** |
-0010|| **Anti-claims** | Pas ARCHITECTURE VALIDATED · Pas READY FOR DELIVERY · Pas READY FOR IMPLEMENTATION · Pas DATABASE SELECTED · Pas SCHEMAS ADOPTED · Pas RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas OPTION A IMPLEMENTED |
-0011|| **Code / SQL / Figma / delivery** | **Interdits** |
-0012|| **Document** | `12-delivery-slices-dependencies-and-technical-gates.md` |
-0013|
-0014|| Slice | Contenu | Dépend | Gate candidate | Preuve | Rollback |
-0015||-------|---------|--------|----------------|--------|----------|
-0016|| **T-A0** | Doctrine registry/resolver, schema, digest, fail-closed | — | GO DELIVERY T-A0 | tests resolve/deny | feature flag |
-0017|| **T-A1** | Project/LPS repos, versioning, conflict | T-A0 | T-A1 | optimistic lock tests | restore snapshot |
-0018|| **T-A2** | Cycle/Trajectory/Epistemic/CKC | T-A1 | T-A2 | qualif Critical | version traj |
-0019|| **T-A3** | Decision/Confirmation/authority | T-A2 | T-A3 | N2/N3 audit | supersede |
-0020|| **T-A4** | ExecutionContract governance | T-A3 | T-A4 | immutability tests | supersede contract |
-0021|| **T-A5** | Agent adapter/Attempt/timeout | T-A4 | T-A5 | timeout≠success | cancel attempt |
-0022|| **T-A6** | Evidence/Review/Claim/maturity | T-A5 | T-A6 | claim reject incomplete | incomplete bundle |
-0023|| **T-A7** | Legacy cutover MethodMode/method/**/OPS1 isolate | T-A6 | cutover Morris | boundary tests | hold flag |
-0024|
-0025|Fichiers probables (indicatifs, non créés) : modules sous `app/lib/oa/**` futurs — **hors ce cycle**.
-0026|
-0027|**Aucune autorisation delivery.**
-```
+Blob: `01a8482862467cbc0116e11dde1d8a946ace3a01`
 
-### AT decision pack doc 13 complet
-```text
-0001|# 13 — Decision pack AT + ADR candidates
-0002|
-0003|| Champ | Valeur |
-0004||-------|--------|
-0005|| **Statut** | Architecture technique **VALIDATED BY MORRIS** |
-0006|| **Gate validation** | `GO VALIDATION ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE OPTION A` |
-0007|| **Pack** | `sfia-v3-technical-architecture/v3-native-option-a` |
-0008|| **Gate consommé** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
-0009|| **Modeled** | M-OA-01…12 **VALIDATED** |
-0010|| **UX / FA / FD** | UX-OA · FA-OA · FD-OA **VALIDATED** |
-0011|| **Anti-claims** | Pas READY FOR DELIVERY global · Pas READY FOR IMPLEMENTATION · Pas DATABASE SELECTED · Pas SCHEMAS ADOPTED · Pas RUNTIME MIGRATED · Pas V2.6 REMOVED · Pas T-A0 STARTED · Pas OPTION A IMPLEMENTED |
-0012|| **Code / SQL / Figma / delivery** | **Interdits** |
-0013|| **Document** | `13-technical-architecture-validation-and-decision-pack.md` |
-0014|
-0015|## ADR candidates (proposed)
-0016|
-0017|| ADR | Sujet | Proposition |
-0018||-----|-------|-------------|
-0019|| ADR-OA-01 | Style | Hybride Option C |
-0020|| ADR-OA-02 | Persistance LPS | Snapshot versionné + event/audit journal |
-0021|| ADR-OA-03 | Evidence | Metadata TX + blob store |
-0022|| ADR-OA-04 | Validation | Schema ajv + semantic policies |
-0023|| ADR-OA-05 | Events | In-process + outbox TX ; pas broker P0 |
-0024|| ADR-OA-06 | Execution | F governance / G adapter ; MD non natif |
-0025|| ADR-OA-07 | Cap/Auth | Registry + deny-by-default |
-0026|| ADR-OA-08 | Obs/Audit | correlationId ; audit séparé |
-0027|| ADR-OA-09 | Legacy | Anti-corruption OPS1 |
-0028|| ADR-OA-10 | Cutover | Ordre T-A0…T-A7 |
-0029|
-0030|## Décisions candidates AT-OA
-0031|
-0032|| Id | Proposition | Statut |
-0033||----|-------------|--------|
-0034|| AT-OA-01 | Valider pack AT Option A | **VALIDATED** |
-0035|| AT-OA-02 | Style hybride Option C | **VALIDATED** |
-0036|| AT-OA-03 | Project identité + LPS versionné | **VALIDATED** |
-0037|| AT-OA-04 | Snapshot + journal | **VALIDATED** |
-0038|| AT-OA-05 | DoctrinePackage digest fail-closed | **VALIDATED** |
-0039|| AT-OA-06 | Evidence hybride metadata+blob | **VALIDATED** |
-0040|| AT-OA-07 | Schema + sémantique | **VALIDATED** |
-0041|| AT-OA-08 | Events in-process/outbox | **VALIDATED** |
-0042|| AT-OA-09 | Capability/authority séparées | **VALIDATED** |
-0043|| AT-OA-10 | Observabilité + audit | **VALIDATED** |
-0044|| AT-OA-11 | Isolation legacy | **VALIDATED** |
-0045|| AT-OA-12 | Ordre T-A0…T-A7 | **VALIDATED** |
-0046|| AT-OA-13 | Pas READY FOR DELIVERY tant que non validé Morris | **VALIDATED** |
-0047|| AT-OA-14 | Gates cutover v2.6 | **VALIDATED** |
-0048|
-0049|*AT-OA-01…14 = **VALIDATED BY MORRIS** (ADR restent proposed pour détails d’implémentation futurs).*
-0050|
-0051|## Ports (catalogue)
-0052|
-0053|DoctrinePackageResolverPort · CkcResolverPort · ProjectRepositoryPort · LivingProjectStateRepositoryPort · DecisionRepositoryPort · ConfirmationRepositoryPort · ExecutionContractRepositoryPort · EvidenceRepositoryPort · ReviewBundleRepositoryPort · AuditJournalPort · EventPublisherPort · AgentRegistryPort · AgentExecutionPort · AuthorityResolverPort · SchemaValidationPort · SemanticValidationPort · ClockPort · IdGeneratorPort.
-0054|
-0055|## Inconnues / hypothèses / réserves / dette
-0056|
-0057|U-AT01 IAM provider · U-AT02 DB prod finale · U-AT03 rétention RGPD · hypothèses volumétrie doc 04 · réserves modeled R-M* · dette MethodMode/OPS1/runtime context.
-0058|
-0059|## Maturité
-0060|
-0061|AT **VALIDATED BY MORRIS**. Pas READY FOR DELIVERY global. T-A0 non lancé. Schemas non adoptés runtime.
-0062|
-0063|## Gate suivant
-0064|
-0065|Validation AT consommée.
-0066|Après merge PR foundation : cadrage `GO DELIVERY OPTION A — T-A0` (non consommé ici).
-0067|
-0068|## Verdict
-0069|
-0070|**SFIA STUDIO V3-NATIVE OPTION A TECHNICAL ARCHITECTURE VALIDATED BY MORRIS**
-0071|
-0072|*AT-OA-01…14 = **VALIDATED BY MORRIS**. Option C et ordre T-A0…T-A7 retenus. Réserves DB/IAM/volumétrie/RGPD/Evidence retention maintenues. T-A0 peut être cadré après merge PR — **non lancé ici**. Pas READY FOR DELIVERY global. Aucune implémentation. Aucun cutover v2.6.*
-```
+```markdown
+# 05 — Morris Decision Pack
 
-### Doc 24 clôture + réserves (extraits déterminants)
-```text
-0287|### Capitalisation F-A6-PM-G01
-0288|
-0289|| Champ | Valeur |
-0290||------|--------|
-0291|| Statut | `CLOSED — M1 GOVERNANCE CONTROL APPLIED, BEHAVIORALLY PROVEN, ROLLBACK-TESTED AND BYPASS-QUALIFIED` |
-0292|| CLOSED | **OUI** |
-0293|| Sévérité initiale | **Major** (gouvernance) — conservée comme information historique |
-0294|| Problème initial | Merge #267 sans review PR/CI formelle / CI absente — **objet exclusif** de la clôture |
-0295|| Date/heure mitigation | 2026-07-27 11:35:05 CEST (+0200) — Europe/Paris |
-0296|| Date/heure clôture | 2026-07-27 20:14:47 CEST (+0200) — Europe/Paris |
-0297|| Décision Morris de mitigation (antérieure) | D-M1-02 — formalisation MITIGATED (`GO FORMALIZE F-A6-PM-G01 AS MITIGATED AFTER M1 — SFIA STUDIO V3-NATIVE`) — **supersédée** pour le statut CLOSED |
-0298|| Décision Morris antérieure NOT CLOSED | D-M1-03 — F-A6-PM-G01 **non CLOSED** — **supersédée** par le GO de clôture ci-dessous |
-0299|| Décision Morris de clôture | `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` (**CONSUMED**) |
-0300|| M1 | techniquement et comportementalement COMPLETE (D-M1-01) |
-0301|| Option A COMPLETE | **NON** (D-M1-05) — inchangé |
-0302|| T-A7 | **NON OUVERTE** (D-M1-06) — inchangé |
-0303|
-0304|#### Décision Morris de clôture
-0305|
-0306|| Champ | Valeur |
-0307||------|--------|
-0308|| Décision validée | F-A6-PM-G01 = **CLOSED** |
-0309|| Autorité | Morris — gate `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` |
-0310|| Objet exact | traitement du problème initial (#267 sans review PR/CI formelle ; absence de CI SFIA Studio observable ; absence de contrôle de merge démontré) |
-0311|| Date/heure/fuseau | 2026-07-27 20:14:47 CEST (+0200) — Europe/Paris |
-0312|| Preuves déterminantes | required gate path-aware actif ; #272 hors Studio PASS ; #273 BLOCKED + recovery ; #275/#276 merges + CI post-merge ; rollback ruleset restore identique (1 s) ; #277 bypass explicite REST sans `--admin` ; #278 revert normal + CI post-revert SUCCESS ; pollution 173 s ; diff net vide ; ruleset `19798462` actif inchangé |
-0313|| Condition technique restante | **aucune** pour le problème initial F-A6 |
-0314|| Hardening loose | **distinct** — non absorbé par cette clôture ; aucune décision de durcissement ici |
-0315|| Intégration Git canonique | formalisation **locale** sur branche `docs/sfia-studio-fa6-closure` ; `main` reste inchangé jusqu’à PR/merge futurs |
-0316|
-0317|#### Critères historiques de clôture (tous satisfaits)
-0318|
-0319|| Critère | Statut |
-0320||---------|--------|
-0321|| Run GitHub prouvé | **satisfait** |
-0322|| Gouvernance appliquée sur PR réelle | **satisfait** |
-0323|| Required checks appliqués | **satisfait** |
-0324|| Blocage d’une PR invalide | **satisfait** |
-0325|| Recovery validée | **satisfait** |
-0326|| Post-merge validé | **satisfait** |
-0327|| Rollback validé | **satisfait** |
-0328|| Bypass qualifié | **satisfait** |
-0329|| Contrôle actif sur `main` | **satisfait** |
-0330|| Documentation et REX disponibles | **satisfait** |
-0331|
-0332|État antérieur (supersédé) : avant ce GO, le statut était `MITIGATED — … — NOT CLOSED` et la formalisation CLOSED était une décision Morris séparée.
-0333|
-0334|#### Preuves factuelles (mitigation M1 + clôture)
-0335|
-0336|| Preuve | Référence |
-0337||--------|-----------|
-0338|| P3 intégré sur `main` | PR #270 |
-0339|| Workflow blob (référence historique M1) | `801a8759bb7440666799b95edf13f9ee6d9332f8` |
-0340|| Ruleset M1 actif | ID `19798462` — `SFIA Studio Main Required Gate — M1` — enforcement `active` — cible `refs/heads/main` |
-0341|| Required check | `SFIA Studio Required Gate` — integration ID `15368` |
-0342|| Preuve hors Studio PASS | PR #272 CLOSED non mergée — run `30248284607` |
-0343|| Preuve Studio failure BLOCKED | PR #273 — run `30248328467` |
-0344|| Preuve Studio recovery PASS | PR #273 — run `30248480927` |
-0345|| PR de preuve fermées sans merge | #272 et #273 — `merged=false` |
-0346|| Formalisation MITIGATED (antérieure) | PR #274 |
-0347|| Alignement document 32 | PR #275 — squash `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-0348|| REX M1 intégré | PR #276 — squash `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13` — doc `33` blob `6c87cf4016d6a33f096df921acf8bafd4d73af4e` |
-0349|| Rollback ruleset | désactivation puis restauration identique en **1 s** — `RULESET_RESTORED_IDENTICALLY` — main inchangé pendant le test |
-0350|| Bypass comportemental | PR #277 — run `30290065655` (Trailing whitespace → Required Gate failure) ; merge normal bloqué ; bypass REST explicite acteur ruleset (sans `--admin`) — squash `17840f45f74bbae702bd1a18acb9723b149a6ea0` |
-0351|| Revert normal | PR #278 — run `30290283916` SUCCESS ; squash `df9d9c6e688be367f54aa9376e67543eab80533a` (sans bypass) |
-0352|| CI post-revert | run `30290479092` SUCCESS |
-0353|| Pollution bornée | **173 s** ; diff net `49f2edfa…`…`df9d9c6…` **vide** ; fichier probe absent |
-0354|| État final `main` (au moment de la formalisation) | `df9d9c6e688be367f54aa9376e67543eab80533a` |
-0355|| Preuves GitHub | runs, checks et logs conservés |
-0356|
-0357|#### Réserves F-A6 devenues obsolètes (retirées)
-0358|
-0359|Les items suivants **ne sont plus** des réserves ouvertes de F-A6 :
-0360|
-0361|- finding non CLOSED ;
-0362|- document 32 obsolète (corrigé via PR #275) ;
-0363|- capitalisation / REX M1 encore requise (intégré via PR #276) ;
-0364|- rollback non testé (prouvé) ;
-0365|- bypass non testé (prouvé comportementalement).
-0366|
-0367|#### Sujets distincts non bloquants après clôture
-0368|
-0369|Ces sujets **ne rouvrent pas** F-A6. Ils relèvent d’un futur cycle de hardening, d’un backlog, ou d’un finding distinct. **Aucune** décision de durcissement n’est prise ici.
-0370|
-0371|- configuration M1 loose : approvals = `0` ; strict up-to-date = `false` ; conversation resolution = `false` ;
-0372|- bypass actor Morris conservé (mode `pull_request`) — capacité désormais **qualifiée**, non recommandée comme méthode normale ;
-0373|- auditabilité organisationnelle limitée (audit log org non accessible dans les cycles de preuve) ;
-0374|- traces Git permanentes du probe/revert (#277/#278) ;
-0375|- findings F-CI-* inchangés ;
-0376|- Option A non COMPLETE ;
-0377|- T-A7 non ouverte ;
-0378|- D1–D7 du REX restent `NOT DECIDED` (hors clôture F-A6).
-0379|
-0380|#### Anti-claims de clôture
-0381|
-0382|- F-A6 CLOSED ≠ Option A COMPLETE ;
-0383|- F-A6 CLOSED ≠ T-A7 OPEN ;
-0384|- F-A6 CLOSED ≠ ruleset hardened ;
-0385|- F-A6 CLOSED ≠ bypass recommandé ;
-0386|- F-A6 CLOSED ≠ production-ready ;
-0387|- F-A6 CLOSED ≠ D1–D7 décidées ;
-0388|- clôture documentaire locale ≠ intégration sur `main` ;
-0389|- commit local ≠ PR ;
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `05-morris-decision-pack.md` |
+| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **Décisions** | D-T-A7-F01…F14 — toutes **`NOT DECIDED`** |
+| **T-A7** | **NOT OPEN** |
+| **Autorité** | Morris uniquement — aucune décision consommée ici |
 
-0438|## 15. Findings
-0439|
-0440|| ID | Sévérité | Description | Action ce cycle |
-0441||----|----------|-------------|-----------------|
-0442|| F-A6-PM-G01 | **Major** (gouvernance) — sévérité initiale historique | Merge #267 sans review PR/CI formelle / CI absente | **CLOSED — M1 GOVERNANCE PROOFS COMPLETE — MORRIS CLOSURE DECISION RECORDED** (voir Capitalisation F-A6-PM-G01) |
-0443|| F-CI-01 | **Observation** | Pin Node Studio absent ; CI candidate Node 20 = précédent Interv360 | Documenté · pas de modif `package.json` |
-0444|| F-CI-02 | **Observation** | `npm audit` 12 high après `npm ci` | Hors périmètre · cycle deps séparé si Morris |
-0445|| F-CI-03 | **Observation** | Validation locale Node 24 ≠ CI Node 20 | Limite explicite |
-0446|| F-CI-04 | **Minor** | actionlint non disponible | YAML validé via Ruby · actionlint reporté absent |
-0447|
-0448|**Critical technique bloquant CI :** aucun.
-0449|
-0450|---
-0451|
-0452|## 16. Réserves (inchangées — OPEN)
-0453|
-0454|| Réserve | Statut |
-0455||---------|--------|
-0456|| B5 | **OPEN** |
-0457|| R1 | **OPEN** |
-0458|| R-T-A3-1 | **OPEN** |
-0459|| R-T-A3-2 | **OPEN** |
-0460|| R-T-A3-3 | **OPEN** |
-0461|| R-T-A3-4 | **OPEN** |
-0462|| R-M01 | **OPEN** |
-0463|| U-M02 | **OPEN** |
-0464|| C1–C4 | **RECOMMENDED — NOT VALIDATED** |
-0465|
-0466|Le workflow CI **ne ferme** aucune réserve métier/architecture · **ne débloque pas** l’exécution réelle · **ne rend pas** Option A production-ready.
-0467|
-0468|---
-0469|
-0470|## 17. Décisions
-0471|
-0472|### Validées (ce cycle — préparation locale)
-0473|
-0474|- Créer workflow dédié `sfia-studio-ci.yml` (ne pas étendre Interv360).
-0475|- Job unique `Build and validate SFIA Studio`.
-0476|- Paths limités à `projects/sfia-studio/**` + workflow.
-0477|- Node **20** comme version **CI candidate** (précédent repo), sans figer `engines` Studio.
-0478|- Inclure Vitest global + 3 tests modeled + scans légers.
-0479|- Exclure Playwright e2e de la CI candidate.
-0480|- Documenter gouvernance H1/H2/H3 + stop conditions + anti-claims.
-0481|- Branch protection / required checks : **APPLIED** via M1 — état historique de préparation `PROPOSED — NOT APPLIED` supersédé.
-0482|
-0483|### Candidates (Morris)
-0484|
-0485|- Publier branche + créer PR CI/gouvernance.
-0486|- Après 1er run : activer required check sous GO distinct.
-0487|- Choisir pin `engines.node` Studio (cycle config séparé).
-0488|- Traiter `npm audit` (cycle deps séparé).
-0489|- Politique review obligatoire / CODEOWNERS.
-0490|
-0491|### Morris requises (historique de préparation — statut actualisé)
-0492|
-0493|- GO publish + PR — **consommé** dans les cycles postérieurs de publication CI/gouvernance ;
-0494|- GO review PR and CI — **consommé** dans les cycles postérieurs ;
-0495|- GO apply branch protection / required checks — **consommé** via M1 (ruleset `19798462`) ;
-0496|- GO merge (avec H1/H2/H3 explicite) — **consommé** pour les merges Studio gouvernés postérieurs ;
-0497|- fermeture F-A6-PM-G01 — **consommé** : `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` (état de publication au moment de la formalisation : portée par la PR #279 et non encore intégrée à `main` ; cette mention constitue une trace pré-intégration après merge).
-0498|
-```
+> Les recommandations Cursor/ChatGPT sont **explicites et non contraignantes**. Morris tranche.
 
-### Doc 33 décisions D1–D7 (section complète)
-```text
-0388|## 14. Décisions Morris requises
-0389|
-0390|Statut obligatoire de chaque item : **`NOT DECIDED`**
-0391|
-0392|| ID | Décision | Statut |
-0393||----|----------|--------|
-0394|| D1 | Faut-il tester le rollback du ruleset M1 ? | NOT DECIDED |
-0395|| D2 | Faut-il tester le bypass M1 ? | NOT DECIDED |
-0396|| D3 | Faut-il durcir la configuration loose (approvals / strict / bypass) ? | NOT DECIDED |
-0397|| D4 | Quand réévaluer F-A6 (rester MITIGATED vs envisager CLOSED) ? | NOT DECIDED |
-0398|| D5 | Faut-il ouvrir ultérieurement T-A7 ? | NOT DECIDED |
-0399|| D6 | Faut-il versionner ce REX sur `main` maintenant ? | NOT DECIDED |
-0400|| D7 | Faut-il nettoyer branches/worktrees résiduels maintenant ? | NOT DECIDED |
-0401|
-0402|Aucune de ces décisions n’est tranchée par la rédaction de ce document.
-0403|
-0404|---
-0405|
-0406|## 15. Verdict de capitalisation
-0407|
-0408|`M1 IMPLEMENTATION AND BEHAVIORAL PROOFS CAPITALIZED — F-A6 MITIGATED NOT CLOSED — ROLLBACK AND BYPASS UNTESTED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — MORRIS DECISION REQUIRED FOR NEXT TRAJECTORY STEP`
-0409|
-0410|### Anti-claims (rappel)
-0411|
-0412|- capitalisation M1 ≠ F-A6 CLOSED
-0413|- capitalisation M1 ≠ Option A COMPLETE
-0414|- capitalisation M1 ≠ ouverture T-A7
-0415|- CI success ≠ rollback/bypass testés
-```
+---
 
-## 18. Actions non exécutées
-- aucune modification projet, branche, commit, push projet, PR projet, merge ou suppression
-- aucun hardening/ruleset
-- aucune réserve fermée
-- Option A non COMPLETE
-- T-A7 non ouverte
-- D1–D7 non décidées
-- aucune DB/IAM/live execution/Notion/CMP
+## Registre
 
-## 19. Verdict
-`SFIA STUDIO OPTION A POST-F-A6 TRAJECTORY ASSESSED — T-A0 TO T-A6 INTEGRATION STATE VERIFIED — REMAINING GAPS AND OPEN DECISIONS CLASSIFIED — OPTION A NOT COMPLETE — T-A7 NOT OPENED — NEXT SEQUENCE AND MORRIS GATES PROPOSED`
+### D-T-A7-F01 — Validation du périmètre de framing T-A7
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Le pack `t-a7-legacy-cutover-framing` et son périmètre (niveaux A only) sont-ils validés ? |
+| **Options** | (1) ACCEPT · (2) ACCEPT WITH CHANGES · (3) REJECT · (4) DEFER |
+| **Recommandation Cursor/ChatGPT** | (1) ACCEPT — pack borné, cohérent AT-11/12 et D-T-A6-10 |
+| **Impacts** | autorise la review ; n’ouvre pas T-A7 |
+| **Dette** | faible |
+| **Réversibilité** | haute |
+| **Gate futur** | `GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` |
+
+### D-T-A7-F02 — Framing vs delivery vs cutover
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Les quatre niveaux A/B/C/D sont-ils la définition normative de T-A7 ? |
+| **Options** | (1) ADOPT 4 niveaux · (2) ADOPT 3 niveaux (fusion B+C) · (3) REDEFINE |
+| **Recommandation Cursor/ChatGPT** | (1) ADOPT 4 niveaux — réduit les confusions framing/open/delivery/cutover |
+| **Impacts** | gates séparés obligatoires |
+| **Dette** | cycles supplémentaires |
+| **Réversibilité** | moyenne |
+| **Gate futur** | même gate review ; puis gates delivery/cutover distincts |
+
+### D-T-A7-F03 — Préconditions d’entrée en delivery
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Quelles préconditions P0x sont obligatoires avant delivery T-A7 ? |
+| **Options** | (1) Set minimal (P02, P03–P05, HARD reserves strategy, P17–P19 design) · (2) Set maximal (presque toutes) · (3) Custom |
+| **Recommandation Cursor/ChatGPT** | (1) Set minimal documenté dans `02` §3 — éviter de bloquer delivery prep inutilement |
+| **Impacts** | séquence post-framing |
+| **Dette** | si trop minimal → reprise AT |
+| **Réversibilité** | moyenne |
+| **Gate futur** | `GO PREPARE T-A7 DELIVERY` (NOT CONSUMED / NOT PROPOSED as open) |
+
+### D-T-A7-F04 — Définition T-A6 COMPLETE
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | La matrice T6-C01…C15 est-elle adoptée ? T-A6 COMPLETE exige-t-il T6-C11 (réserves) et T6-C15 (GO explicite) ? |
+| **Options** | (1) ADOPT as-is · (2) ADOPT with memory justification only (relax C11 for U-M02) · (3) REQUIRE persistence for T-A6 COMPLETE · (4) REJECT |
+| **Recommandation Cursor/ChatGPT** | (2) — D1–D5 + docs/CI + GO Morris ; accepter U-M02 OPEN **documenté** pour COMPLETE mémoire ; exiger traitement/acceptation R-M01 et C1–C4 |
+| **Impacts** | clôture T-A6 vs product |
+| **Dette** | U-M02 reporté |
+| **Réversibilité** | moyenne |
+| **Gate futur** | `GO DECLARE T-A6 COMPLETE` (ultérieur, distinct) |
+
+### D-T-A7-F05 — Option A foundation complete
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Confirmer que « foundation complete » = FD/FA/UX/Modeled/AT VALIDATED (déjà vrai) ? |
+| **Options** | (1) CONFIRM · (2) REDEFINE |
+| **Recommandation Cursor/ChatGPT** | (1) CONFIRM — ne pas confondre avec product COMPLETE |
+| **Impacts** | vocabulaire |
+| **Dette** | nulle si confirmé |
+| **Réversibilité** | haute |
+| **Gate futur** | inclus dans review framing |
+
+### D-T-A7-F06 — Option A product complete
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Que signifie Option A product complete (couche C) ? |
+| **Options** | (1) A+B + T-A6 COMPLETE mémoire · (2) A+B+C avec API/UI · (3) A+B+C+F cutover inclus · (4) Custom |
+| **Recommandation Cursor/ChatGPT** | (2) — produit opérable nécessite surfaces ; cutover (F) séparé |
+| **Impacts** | roadmap UI/API |
+| **Dette** | UI/API avant COMPLETE |
+| **Réversibilité** | faible une fois communiqué |
+| **Gate futur** | gate critères Option A |
+
+### D-T-A7-F07 — Product complete vs production ready
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Production ready (E) est-il requis pour product complete (C) ? |
+| **Options** | (1) SEPARATE — E non requis pour C · (2) MERGE — C implique E · (3) STAGED labels |
+| **Recommandation Cursor/ChatGPT** | (1) SEPARATE — évite inflation de COMPLETE |
+| **Impacts** | IAM/RGPD/RUN hors chemin critique produit étroit |
+| **Dette** | risque de sous-qualifier « produit » |
+| **Réversibilité** | moyenne |
+| **Gate futur** | inclus review framing |
+
+### D-T-A7-F08 — Réserves obligatoires avant delivery
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Quelles réserves doivent être CLOSED ou ACCEPTED avant delivery T-A7 ? |
+| **Options** | (1) R-T-A3-1/2 + B5/R1 strategy + R-M01 · (2) Toutes OPEN · (3) Aucune (delivery prep only) |
+| **Recommandation Cursor/ChatGPT** | (3) pour **delivery preparation** ; (1) avant **delivery code cutover-bound** |
+| **Impacts** | parallélisation possible |
+| **Dette** | si (3) trop long → dette technique |
+| **Réversibilité** | moyenne |
+| **Gate futur** | gate reserve arbitration |
+
+### D-T-A7-F09 — Réserves obligatoires avant cutover
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Quelles réserves bloquent le cutover ? |
+| **Options** | (1) HARD + persistence/IAM/RGPD + MethodMode proofs · (2) HARD only · (3) Custom |
+| **Recommandation Cursor/ChatGPT** | (1) — cutover sans persistence/IAM est un faux cutover |
+| **Impacts** | retarde cutover |
+| **Dette** | faible vs risque blast radius |
+| **Réversibilité** | faible après cutover |
+| **Gate futur** | `GO AUTHORIZE T-A7 CUTOVER` (ultérieur) |
+
+### D-T-A7-F10 — Ordre persistence / IAM / RGPD
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Quel ordre cadrer/décider persistence, IAM, RGPD/Evidence ? |
+| **Options** | (1) Persistence+atomicité → IAM → RGPD/U-M02 · (2) IAM d’abord · (3) Parallèle borné · (4) Différer après UI |
+| **Recommandation Cursor/ChatGPT** | (1) — R1/R-T-A3-2 d’abord ; IAM pour authority réelle ; RGPD lié Evidence vendor |
+| **Impacts** | séquence post-framing |
+| **Dette** | cycles AT/sécurité |
+| **Réversibilité** | moyenne |
+| **Gate futur** | `GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS` |
+
+### D-T-A7-F11 — API/UI avant cutover
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Une API/UI Option A native est-elle requise avant cutover ? |
+| **Options** | (1) OUI minimale · (2) NON si cutover technique headless · (3) OUI complète |
+| **Recommandation Cursor/ChatGPT** | (1) — preuves MethodMode/badges/UX cutover sinon non démontrables |
+| **Impacts** | delivery produit |
+| **Dette** | si (2) : cutover invisible |
+| **Réversibilité** | moyenne |
+| **Gate futur** | gate product delivery |
+
+### D-T-A7-F12 — Moment du hardening M1
+
+| Champ | Contenu |
+|-------|---------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Quand durcir approvals/strict/conversation resolution/bypass ? |
+| **Options** | (1) Maintenant · (2) Avant delivery T-A7 · (3) Avant cutover/production · (4) Jamais |
+| **Recommandation Cursor/ChatGPT** | (3) — NOT JUSTIFIED NOW pour framing ; REQUIRED BEFORE PRODUCTION |
+| **Impacts** | friction PR |
+| **Dette** | loose prolongé |
+| **Réversibilité** | haute |
+| **Gate futur** | gate hardening M1 |
+
+### D-T-A7-F13 — Legacy history read-only
+
+| Champ | Contenu |
+|-------|--------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Quelle politique pour l’historique OPS1/v2.6 après cutover ? |
+| **Options** | (1) Read-only ACL gated · (2) Archive offline only · (3) Purge après retention · (4) Keep writable legacy |
+| **Recommandation Cursor/ChatGPT** | (1) — aligné AT-11 ; interdire (4) |
+| **Impacts** | sécurité / RGPD |
+| **Dette** | ACL à construire |
+| **Réversibilité** | faible après purge |
+| **Gate futur** | inclus architecture cutover |
+
+### D-T-A7-F14 — Validation du prochain cycle
+
+| Champ | Contenu |
+|-------|--------|
+| **Statut** | `NOT DECIDED` |
+| **Question** | Quel est le prochain cycle après validation du framing ? |
+| **Options** | (1) Review framing pack · (2) Arbitrage HARD/réserves · (3) Persistence/IAM/RGPD · (4) Delivery prep T-A7 immédiat |
+| **Recommandation Cursor/ChatGPT** | (1) puis (2) — ne pas sauter à (4) |
+| **Impacts** | trajectoire |
+| **Dette** | nulle si suivi |
+| **Réversibilité** | haute |
+| **Gate futur** | `GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` |
+
+---
+
+## Séquence candidate après framing (non validée)
+
+| # | Étape | Cycle SFIA | Profil | Dépendances | Fichiers probables | Gate | Stop | Preuve |
+|---|-------|------------|--------|-------------|--------------------|------|------|--------|
+| 1 | Validation Morris framing + critères | 1 / 15 | Critical | ce pack | pack T-A7 | `GO REVIEW T-A7 FRAMING…` | reject → stop | décisions F01–F07 |
+| 2 | Arbitrage autorité / atomicité / réserves | 2 / 3 / 6 | Critical | F08 | docs décision · éventuellement T-A3/T-A1 | reserve arbitration | pas de runtime cutover | ACCEPTED/CLOSED plan |
+| 3 | Architecture persistence / IAM / RGPD | 6 / 10 | Critical | F10 | AT docs · threat/privacy | persistence/IAM/RGPD framing | pas DB live | ADR candidats |
+| 4 | Préparation delivery T-A7 | 1 / 6 | Critical | F03 | backlog · tests candidats | prepare delivery | pas code cutover | pack prep |
+| 5 | Delivery incrémental sous hold | 4 / 9 | Critical | F03/F08 | `app/**` boundaries · flags | delivery GO | pas activation | PRs + CI |
+| 6 | QA / sécurité / RUN | 9 / 10 / 12 | Critical | delivery | tests E2E · RUN pack | QA/RUN GO | pas cutover | preuves |
+| 7 | Décision cutover | 1 / 15 | Critical | F09 | decision pack cutover | authorize cutover | rollback non prêt → stop | GO cutover |
+| 8 | Cutover contrôlé | 7 / 12 | Critical | F09/F11/F13 | MethodMode/method/**/OPS1 | execute cutover | incident → hold | boundary proofs |
+| 9 | Post-merge / post-cutover | 9 / 15 | Critical | cutover | review docs | post-cutover review | — | review COMPLETE |
+| 10 | Capitalisation / cleanup | 15 | Standard | post | REX · branches | cleanup GO | — | cleanup evidence |
+
+---
 
 ## Anti-claims
-- assessment ≠ décision
-- integrated ≠ complete
-- technically validated ≠ production ready
-- T-A7 framing eligible ≠ T-A7 open
-- CI verte/F-A6 CLOSED ≠ réserves/hardening complete
-- recommandation ≠ GO Morris
 
-## Review Handoff Git
-- commit attendu: `docs(review-handoff): assess Option A trajectory after F-A6 closure`
+Aucune décision D-T-A7-F* n’est **DECIDED**. Aucune recommandation n’est un GO. Aucune ouverture T-A7. Aucune clôture Option A. Aucune réserve fermée.
+
+---
+
+## Verdict
+
+`MORRIS DECISION PACK T-A7 FRAMING READY FOR REVIEW — ALL DECISIONS NOT DECIDED — NEXT GATE CANDIDATE NOT CONSUMED`
+```
+
+### README.md
+
+Blob: `efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c`
+
+```markdown
+# T-A7 — Legacy Cutover Framing (Option A)
+
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure/fuseau** | 2026-07-27 22:39:24 CEST (+0200) — Europe/Paris |
+| **Cycle** | 1 — Cadrage (+2 Conception fonctionnelle · 3 Architecture fonctionnelle · 6 Architecture technique · 9 QA · 10 Sécurité/RSSI · 12 RUN readiness · 15 Capitalisation) |
+| **Profil** | Critical |
+| **Typologie** | CADRAGE / T-A7 / CUTOVER / COMPLETION-CRITERIA / GOVERNANCE / DOCUMENTATION |
+| **Gate consommé** | `GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION` |
+| **Repo** | `mcleland147/sfia-workspace` |
+| **Base SHA** | `c472eb412f3ade3e94fee9201042794fee502d8f` (`origin/main`) |
+| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
+| **Upstream** | **aucun** |
+| **Pack path** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/` |
+| **Statut pack** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **T-A7** | **NOT OPEN** |
+| **T-A7 delivery** | **NOT AUTHORIZED** |
+| **Cutover** | **NOT AUTHORIZED** |
+| **T-A6 COMPLETE** | **NOT DECLARED** |
+| **Option A COMPLETE** | **NOT DECLARED** |
+| **Real execution** | **NOT AUTHORIZED** |
+| **Verdict** | `SFIA STUDIO T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETION CRITERIA FRAMED — DOCUMENTARY PACK CREATED LOCALLY — T-A7 FRAMING DEFINED — DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — MORRIS DECISIONS REQUIRED — OPTION A NOT COMPLETE — T-A7 NOT OPEN` |
+
+---
+
+## Objectif
+
+Définir le cadrage documentaire candidat de T-A7 et les matrices affirmatives de complétude T-A6 / Option A, sans ouvrir le delivery, sans cutover et sans fermer Option A.
+
+## Définition T-A7 (candidate)
+
+`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
+
+Source AT : `sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md` · D-T-A6-10 BOUNDARY APPROVED.
+
+## Niveaux T-A7
+
+| Niveau | Contenu | Autorisé dans ce cycle |
+|--------|---------|------------------------|
+| **A. Framing** | définition · préconditions · critères · décisions · aucune modification runtime | **OUI — ce pack** |
+| **B. Delivery preparation** | backlog · AT détaillée · plan migration · tests candidats · aucun cutover | NON |
+| **C. Delivery** | modifications code/frontières · hold flags · tests · migration progressive | NON |
+| **D. Cutover** | retrait/désactivation effective · preuves runtime · rollback · GO Morris dédié | NON |
+
+## Livrables
+
+1. [README.md](./README.md) — ce fichier
+2. [01-framing-and-scope.md](./01-framing-and-scope.md)
+3. [02-t-a7-cutover-preconditions.md](./02-t-a7-cutover-preconditions.md)
+4. [03-t-a6-and-option-a-completion-criteria.md](./03-t-a6-and-option-a-completion-criteria.md)
+5. [04-reservations-risks-and-stop-conditions.md](./04-reservations-risks-and-stop-conditions.md)
+6. [05-morris-decision-pack.md](./05-morris-decision-pack.md)
+
+## Décisions Morris attendues
+
+D-T-A7-F01…F14 — toutes **`NOT DECIDED`** — voir [05-morris-decision-pack.md](./05-morris-decision-pack.md).
+
+## Gate suivant candidat
+
+```
+GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA
+— SFIA STUDIO V3-NATIVE
+```
+
+**NOT CONSUMED.**
+
+## Anti-claims
+
+- pack créé ≠ framing validé
+- framing défini ≠ T-A7 OPEN
+- T-A7 OPEN ultérieurement ≠ delivery autorisé
+- delivery autorisé ≠ cutover autorisé
+- critères proposés ≠ critères décidés
+- critères techniquement satisfaits ≠ Option A COMPLETE
+- product complete ≠ production ready
+- intégration T-A0–T-A6 ≠ cutover readiness
+- commit local ≠ publication
+- assessment ≠ décision Morris
+- aucune réserve fermée · aucun runtime/modeled/workflow modifié · aucun push projet
+```
+
+## 6. Définition T-A7
+`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
+
+Sources: AT-12 L23 · AT-11 · D-T-A6-10 APPROVED.
+
+## 7. Niveaux framing / delivery / cutover
+- A Framing: ce pack uniquement
+- B Delivery preparation: hors cycle
+- C Delivery: hors cycle
+- D Cutover: hors cycle
+
+## 8. Matrice préconditions
+Voir fichier `02` intégral ci-dessus (P01–P25). Framing n’exige pas satisfaction complète.
+
+## 9. Critères T-A6 COMPLETE
+Matrice T6-C01…C15 — `RECOMMENDATION — NOT DECIDED`. T-A6 **NOT DECLARED**.
+
+## 10. Critères Option A COMPLETE
+Couches A–F + OA-01…OA-22 — `RECOMMENDATION — NOT DECIDED`. Option A **NOT DECLARED**. Product complete ≠ production ready (D-T-A7-F07).
+
+## 11. Réserves / blockers
+R-T-A3-1/2 = HARD pour real execution / delivery-cutover, **pas** pour framing read-only. B5 · R1 · R-M01 · U-M02 · C1–C4 OPEN/NOT VALIDATED. F-A6 CLOSED. M1 loose NOT DECIDED (F12).
+
+## 12. Stop conditions
+12 stop conditions dans `04` — delivery/cutover/MethodMode/OPS1/real execution/COMPLETE/reserve closure interdits sans gates dédiés.
+
+## 13. Decision pack
+D-T-A7-F01…F14 toutes `NOT DECIDED`. Recommandations Cursor/ChatGPT non contraignantes.
+
+## 14. Séquence candidate
+1 review framing → 2 arbitrage réserves → 3 persistence/IAM/RGPD → 4 prep delivery → 5 delivery hold → 6 QA/RUN → 7 authorize cutover → 8 cutover → 9 post → 10 capitalisation.
+
+## 15. Validations documentaires
+- `git diff --cached --check`: PASS
+- 6 fichiers A only
+- aucun fichier existant modifié
+- aucun runtime/modeled/workflow modifié
+- aucun upstream
+- aucune branche projet poussée
+- NOT DECIDED présents pour D-T-A7-F*
+- anti-claims présents
+
+## 16. Commit local
+```text
+commit 27dbf60574b8ec82990600827934dc56e256b50f
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Mon Jul 27 22:44:36 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Mon Jul 27 22:44:36 2026 +0200
+
+    docs(sfia-studio): frame T-A7 cutover and Option A completion criteria
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+```
+
+### name-status
+```text
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md
+```
+
+### stat
+```text
+ .../01-framing-and-scope.md                        | 171 ++++++++++++++++
+ .../02-t-a7-cutover-preconditions.md               | 107 ++++++++++
+ .../03-t-a6-and-option-a-completion-criteria.md    | 134 ++++++++++++
+ .../04-reservations-risks-and-stop-conditions.md   | 101 +++++++++
+ .../05-morris-decision-pack.md                     | 226 +++++++++++++++++++++
+ .../t-a7-legacy-cutover-framing/README.md          |  80 ++++++++
+ 6 files changed, 819 insertions(+)
+```
+
+### blobs
+```text
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md|4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md|eda7106103490798a6b379811eefe90156c46172
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md|232d73a9b021734dc8ba0f3c7c69d036cfe579d6
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md|da6d67448841b267c849b72a3692ea10d3b4d98c
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md|01a8482862467cbc0116e11dde1d8a946ace3a01
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md|efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c
+```
+
+### status final
+```text
+## framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
+```
+
+### diff complet
+```diff
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md
+new file mode 100644
+index 0000000..4d342a5
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md
+@@ -0,0 +1,171 @@
++# 01 — Framing and Scope
++
++| Champ | Valeur |
++|-------|--------|
++| **Document** | `01-framing-and-scope.md` |
++| **Pack** | `t-a7-legacy-cutover-framing` |
++| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
++| **T-A7** | **NOT OPEN** |
++| **Delivery / cutover / real execution** | **NOT AUTHORIZED** |
++| **Décisions** | D-T-A7-F01 · D-T-A7-F02 — **NOT DECIDED** |
++
++---
++
++## 1. Truth et sources
++
++| Contrôle | Résultat |
++|----------|----------|
++| `origin/main` | `c472eb412f3ade3e94fee9201042794fee502d8f` |
++| Branche | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
++| Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
++| Pack T-A7 préexistant sur main | **absent** |
++| Upstream | **aucun** |
++
++### Sources déterminantes (courantes)
++
++| Path | Blob | Rôle |
++|------|------|------|
++| `sfia-v3-technical-architecture/.../11-legacy-isolation-migration-and-cutover-architecture.md` | `fc2e410be49e0b736f2914fdbb1c0795ddf0c996` | Cutover / OPS1 / MethodMode |
++| `sfia-v3-technical-architecture/.../12-delivery-slices-dependencies-and-technical-gates.md` | `493634be2ebeabb42ee453765e7ba7f5d2c7e7f9` | Définition T-A7 |
++| `sfia-v3-technical-architecture/.../13-technical-architecture-validation-and-decision-pack.md` | `b93b7cae57ddef0d5f7f7239a51545522edfb2a0` | AT-OA-12 ordre T-A0…T-A7 VALIDATED |
++| `t-a6-.../03-decisions.md` D-T-A6-10 | `5e8f2f1ac7e352f34963a80265a0d60afb34107e` | Frontière T-A6 / T-A7 APPROVED |
++| `23-next-option-a-step-after-t-a6.md` | `e87deff78f5662dccae84557b061ad3aec9ea461` | Trajectoire post-T-A6 |
++| `24-ci-and-merge-governance-preparation.md` | `27c7934799d19e5fc3401eb55e95c0d99b1e36e2` | F-A6 CLOSED · Option A NOT COMPLETE · T-A7 NON OUVERTE |
++| Assessment handoff | `f89afcecb793d0d4e77307b8ec6344a584389862` | Post-F-A6 trajectory |
++
++---
++
++## 2. Définition bornée de T-A7
++
++### Libellé candidat
++
++`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
++
++### Frontière D-T-A6-10 (APPROVED — historique validé)
++
++| T-A6 | T-A7 |
++|------|------|
++| Evidence, ReviewBundle, ClaimEvaluation, MaturityAssessment, findings/dette de review, reco de gate | cutover legacy, MethodMode, OPS1, migration chemins historiques, activation opérationnelle globale |
++
++T-A6 **ne lance pas** T-A7. Aucune exécution réelle ouverte par T-A6.
++
++### Quatre niveaux (obligatoires)
++
++#### A. T-A7 framing — **ce cycle**
++
++- définition exacte ;
++- préconditions ;
++- critères de complétude candidats ;
++- décision pack Morris ;
++- **aucune** modification runtime, modeled, workflow, `method/**`, OPS1.
++
++#### B. T-A7 delivery preparation — **hors cycle**
++
++- backlog découpé ;
++- architecture détaillée ;
++- plan de migration ;
++- tests candidats ;
++- hold/rollback design ;
++- **aucun** cutover.
++
++#### C. T-A7 delivery — **hors cycle**
++
++- modifications code et frontières d’import ;
++- feature / hold flags ;
++- tests unitaires et d’intégration ;
++- migration progressive sous hold.
++
++#### D. T-A7 cutover — **hors cycle**
++
++- retrait ou désactivation effective ;
++- preuves runtime ;
++- rollback éprouvé ;
++- décision Morris **dédiée** et distincte.
++
++**Règle :** ces quatre niveaux ne sont **pas** équivalents. Framing ≠ open ≠ delivery ≠ cutover ≠ real execution.
++
++---
++
++## 3. Périmètre candidat du framing
++
++### Inclus (définition / critères seulement)
++
++| Élément legacy | Remplacement Option A cible |
++|----------------|-----------------------------|
++| `canonicalPaths` | DoctrinePackage registry |
++| `sourceLoader` | package loader |
++| `contextResolver` | CkcResolver + doctrine |
++| `sessionContext` dépendances MethodMode | corrélation Option A |
++| `MethodMode` | retiré de la **cible** Option A |
++| lectures `method/**` | absentes de la cible Option A |
++| badges v2.6 | retirés des surfaces Option A |
++| contrats OPS1 hors legacy | isolation ACL / frontière |
++| historique legacy | read-only seulement sous politique Morris explicite |
++| migration | anti-corruption adapter si nécessaire |
++| rollback | hold flag / stratégie de rollback |
++
++### Hors périmètre de ce cadrage
++
++- implémentation runtime ou modeled ;
++- choix technique définitif non déjà validé (DB, vendor blob, IAM provider) ;
++- suppression réelle de `MethodMode` / `method/**` / OPS1 ;
++- migration réelle ;
++- double write ;
++- compatibilité implicite ;
++- présentation OPS1 comme v3 ;
++- adoption globale hors Option A ;
++- fermeture de réserve ;
++- déclaration T-A6 COMPLETE / Option A COMPLETE / T-A7 OPEN ;
++- exécution réelle ;
++- hardening M1 ;
++- modification du ruleset.
++
++---
++
++## 4. Convention de path
++
++| Élément | Valeur |
++|---------|--------|
++| Path retenu | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/` |
++| Justification | aligné `t-a0-…` … `t-a6-…` ; suffixe `framing` explicite tant que T-A7 n’est pas ouvert |
++| Collision | **aucune** (aucun `t-a7-*` sur `origin/main`) |
++
++---
++
++## 5. État capacitaire pertinent (faits Git)
++
++| Capacité | État sur `main` | Preuve |
++|----------|-----------------|--------|
++| Fondation FD/FA/UX/Modeled/AT | VALIDATED BY MORRIS | design README |
++| T-A0…T-A6 runtime mémoire | **intégré** PR #261–#267 | chronology doc 23 |
++| T-A6 COMPLETE | **NON** | T-A6 README |
++| Option A COMPLETE | **NON** | doc 24 D-M1-05 |
++| Persistence réelle | **absente** | doc 23 |
++| API/UI Option A native | **absente** | doc 23 |
++| Adapter réel / worker / queue | **absent** | T-A5 |
++| CI + M1 Required Gate | **actif** | ruleset `19798462` · F-A6 CLOSED |
++| Pack delivery `t-a7-*` | **absent** | inventaire main |
++
++---
++
++## 6. Challenge de cadrage
++
++| Question | Réponse cadrage |
++|----------|-----------------|
++| Framing utile maintenant ? | **Oui** — critères COMPLETE et préconditions cutover absents |
++| Framing = ouverture T-A7 ? | **Non** |
++| HARD R-T-A3 bloquent-ils le framing ? | **Non** — ils bloquent delivery/cutover/real execution |
++| Persistence/IAM/RGPD requis pour framing ? | **Non** — requis avant delivery/real execution/cutover selon matrice |
++| UI/API requise pour framing ? | **Non** — à arbitrer pour cutover (D-T-A7-F11) |
++
++---
++
++## 7. Anti-claims
++
++Pas T-A7 OPEN · Pas T-A7 COMPLETE · Pas READY FOR DELIVERY · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas RESERVE CLOSED · Pas Option A COMPLETE · Pas T-A6 COMPLETE · Pas DECIDED pour D-T-A7-F*.
++
++---
++
++## 8. Verdict documentaire
++
++`T-A7 FRAMING SCOPE DEFINED — LEVEL A ONLY — DELIVERY AND CUTOVER OUT OF SCOPE — MORRIS VALIDATION REQUIRED`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md
+new file mode 100644
+index 0000000..eda7106
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md
+@@ -0,0 +1,107 @@
++# 02 — T-A7 Cutover Preconditions
++
++| Champ | Valeur |
++|-------|--------|
++| **Document** | `02-t-a7-cutover-preconditions.md` |
++| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
++| **Matrice** | `RECOMMENDATION — NOT DECIDED` |
++| **T-A7** | **NOT OPEN** |
++| **Delivery / cutover** | **NOT AUTHORIZED** |
++
++> Toutes les préconditions ci-dessous sont **candidates**. Elles ne sont **pas** toutes obligatoires pour le framing read-only. Morris tranche via D-T-A7-F03 / F08 / F09 / F10 / F11.
++
++---
++
++## 1. Légende
++
++| Champ | Sens |
++|-------|------|
++| **Niveau requis** | Framing / Delivery prep / Delivery / Cutover / Real execution / Production |
++| **État actuel** | observation Git sur `origin/main` @ `c472eb4` |
++| **SATISFIED / PARTIAL / MISSING / N/A** | qualification de preuve actuelle |
++
++---
++
++## 2. Matrice des préconditions
++
++| ID | Composant legacy | Remplacement Option A | État actuel | Preuve Git | Gap | Risque | Dépendance | Réserve liée | Entrée delivery | Entrée cutover | Rollback | Décision Morris | Cycle recommandé |
++|----|------------------|----------------------|-------------|------------|-----|--------|------------|--------------|-----------------|----------------|----------|-----------------|------------------|
++| P01 | — | T-A0…T-A6 intégrés | **SATISFIED** | PR #261–#267 · doc 23 | aucun pour intégration | faible | — | — | OK | OK | n/a | D-T-A7-F03 | — |
++| P02 | — | Critères T-A6 COMPLETE définis | **PARTIAL** | matrices candidates ce pack | critères **non décidés** | faux claim COMPLETE | framing | C1–C4 · R-M01 | critères validés Morris | T-A6 COMPLETE déclaré | n/a | D-T-A7-F04 | review framing |
++| P03 | `canonicalPaths` | DoctrinePackage registry | **PARTIAL** | T-A0 runtime `app/lib/oa/doctrine/**` | pas d’adoption produit globale ; pas de preuve no-fallback | fallback silencieux | T-A0 | — | tests resolve/deny sans fallback | preuve import + runtime | feature flag | D-T-A7-F03 | delivery prep |
++| P04 | `sourceLoader` | package loader + digest | **PARTIAL** | T-A0 digest SHA-256 | pas de cutover loader produit | package stale | T-A0 | — | digest pin tests | loader unique cible | restore package pin | D-T-A7-F03 | delivery prep |
++| P05 | `contextResolver` | CkcResolver + doctrine | **PARTIAL** | T-A2 `memoryCkcResolver` | guidance-only ; pas de preuve no `method/**` product | doctrine v2.6 résiduelle | T-A2 | — | boundary tests CKC | no method/** reads | hold flag | D-T-A7-F03 | delivery |
++| P06 | `sessionContext` / MethodMode deps | OA correlation | **MISSING** | anti-claims T-A* | pas de remplacement produit session | MethodMode residual | T-A0–T-A2 · UX | — | design session OA | preuve no MethodMode | hold | D-T-A7-F03 · F11 | delivery prep |
++| P07 | MethodMode | retiré de cible OA | **MISSING** | AT-11 table | MethodMode encore présent hors OA runtime mémoire | cutover prématuré | UX/API | — | inventaire dépendances | UI+API tests + import boundary | hold flag | D-T-A7-F03 · F11 | delivery |
++| P08 | lectures `method/**` | absentes cible OA | **MISSING** | AT-11 | pas de preuve import boundary Option A native | lecture legacy silencieuse | modules app | — | grep/import boundary CI | CI + runtime proof | hold | D-T-A7-F03 | delivery |
++| P09 | badges v2.6 | retirés surfaces OA | **MISSING** | AT-11 | UI Option A native absente | confusion utilisateur | UX | — | design UI OA | UI tests | hold | D-T-A7-F11 | delivery |
++| P10 | OPS1 contracts | ACL / isolation | **PARTIAL** | AT-11 · shared surfaces séparées | pas d’ACL cutover prouvée | double identité OPS1/v3 | CT/D1 parallel | — | frontière documentée + tests no cross-call | ACL runtime | hold | D-T-A7-F13 | delivery |
++| P11 | historique legacy | read-only policy | **MISSING** | AT-11 | politique non décidée | fuite/mutation legacy | D-T-A7-F13 | — | politique Morris | enforcement read-only | restore ACL | D-T-A7-F13 | framing→delivery |
++| P12 | — | Project/LPS porte état nécessaire | **PARTIAL** | T-A1 mémoire | B5 satellite ids ; pas persistence | état incomplet | T-A1 | **B5** | B5 traité ou accepté | persistence saine | snapshot restore | D-T-A7-F08 · F09 | reserve closure |
++| P13 | — | Cycle/Trajectory/CKC | **PARTIAL** | T-A2 | R1 atomicité ; Critical ack absent | inconsistance | T-A2 | **R1** · **R-T-A3-1** | R1 stratégie ; Critical path | preuve qualification | version traj | D-T-A7-F08 · F09 | authority |
++| P14 | — | autorité humaine exploitable | **PARTIAL** | T-A3 | Critical ack public absent ; authority mémoire | Critical fail-closed permanent | T-A3 | **R-T-A3-1** · **R-T-A3-3** | Critical ack API + IAM path | IAM + audit | supersede | D-T-A7-F08 · F10 | authority/IAM |
++| P15 | — | ExecutionContract gouverné | **PARTIAL** | T-A4 | R-T-A3-2 résiduelle | orphan Decision↔LPS | T-A4 | **R-T-A3-2** | atomicité décidée | preuve txn | cancel/supersede | D-T-A7-F08 · F09 | architecture |
++| P16 | — | Attempt/exécution bornée | **PARTIAL** | T-A5 Test/NoOp | pas d’adapter réel / worker | exécution réelle impossible | T-A5 | R-T-A3 HARD | adapter réel borné si cutover l’exige | timeout≠success live | cancel attempt | D-T-A7-F09 | real execution |
++| P17 | — | Evidence/Review/Maturity | **PARTIAL** | T-A6 D1–D5 VALIDATED | T-A6 COMPLETE NON ; R-M01 · U-M02 · C1–C4 | claim readiness faux | T-A6 | **R-M01** · **U-M02** · **C1–C4** | critères T-A6 COMPLETE | T-A6 COMPLETE déclaré | incomplete bundle | D-T-A7-F04 · F08 | T-A6 closure |
++| P18 | — | persistance cible décidée | **MISSING** | anti-claim DATABASE NOT SELECTED | DB non choisie | cutover sur mémoire | AT-OA | **R1** · **U-M02** | DB SELECTED + schéma | migrations + backup | restore DB | D-T-A7-F10 | persistence |
++| P19 | — | stratégie atomicité | **MISSING** | R1 · R-T-A3-2 OPEN | pas de txn/outbox | corruption d’état | T-A1–T-A4 | **R1** · **R-T-A3-2** | stratégie validée | preuve adversarial | compensate/outbox replay | D-T-A7-F08 · F09 | architecture |
++| P20 | — | IAM décidé | **MISSING** | U-AT01 · R-T-A3-3 | registry mémoire | spoofing authority | T-A3 | **R-T-A3-3** | IAM design | IAM runtime | revoke | D-T-A7-F10 | security |
++| P21 | — | RGPD / rétention Evidence | **MISSING** | U-M02 · D-T-A6-09 | vendor/rétention non choisis | non-conformité | T-A6 | **U-M02** | politique + vendor | purge/legal hold preuves | restore retention class | D-T-A7-F10 | privacy |
++| P22 | — | API/UI nécessaires cutover | **MISSING** | doc 23 · UX design only | pas de wiring `lib/oa` | cutover invisible / non opérable | UX | — | surfaces minimales définies | UI+API tests | hold UI flag | D-T-A7-F11 | product |
++| P23 | — | observabilité + rollback | **PARTIAL** | audit console/memory · AT-10 | pas RUN-ready | cutover non observable | AT-10 | — | design RUN + hold | metrics/traces + rollback test | hold flag | D-T-A7-F03 · F09 | RUN |
++| P24 | — | import boundaries prouvables | **MISSING** | AT-11 | pas de CI boundary cutover | régression method/** | DevOps | — | règles CI | CI required gate | revert commit | D-T-A7-F03 | delivery |
++| P25 | — | gouvernance M1 suffisante | **PARTIAL** | M1 COMPLETE · loose OPEN | approvals=0 · strict=false | merge cutover sous-gouverné | ruleset `19798462` | M1 D3 | hardening si cutover sur main | hardening appliqué | ruleset restore | D-T-A7-F12 | governance |
++
++---
++
++## 3. Classification par niveau
++
++### Obligatoires pour framing (niveau A) — recommandation
++
++| ID | Motif |
++|----|-------|
++| P01 | base intégrée déjà vraie |
++| P02 | sans critères T-A6, cutover flou |
++| définition niveaux A–D | anti-confusion framing/delivery |
++| inventaire P03–P25 | sans exécution |
++
++**Non obligatoires pour framing :** P07–P09, P16, P18–P22, P24–P25.
++
++### Candidats obligatoires avant delivery (niveau C) — `NOT DECIDED`
++
++P02 (critères validés) · P03–P05 (remplacements doctrine/CKC prouvables) · P12–P15 (réserves HARD ou acceptation formelle) · P17 · P18–P19 · P23 design · P24 design · D-T-A7-F08.
++
++### Candidats obligatoires avant cutover (niveau D) — `NOT DECIDED`
++
++Tous les delivery + P07–P11 · P16 si activation opérationnelle · P20–P22 · P23 preuves · P25 hardening selon D-T-A7-F12 · D-T-A7-F09.
++
++### Candidats obligatoires avant real execution — `NOT DECIDED`
++
++R-T-A3-1 · R-T-A3-2 · adapter réel · IAM · persistence · RGPD/U-M02 · atomicité.
++
++---
++
++## 4. Hold / rollback (conceptuel)
++
++| Mécanisme | Usage candidat |
++|-----------|----------------|
++| Feature / hold flag | empêcher activation cutover avant GO |
++| Import boundary CI | bloquer réintroduction `method/**` |
++| Package pin / digest | rollback doctrine |
++| Snapshot LPS / DB restore | rollback état |
++| Ruleset restore | rollback gouvernance M1 |
++| Supersede Decision / Cancel Contract / Attempt | rollback logique métier |
++
++**Aucun** de ces mécanismes n’est implémenté dans ce cycle.
++
++---
++
++## 5. Anti-claims
++
++Pas READY FOR DELIVERY · Pas READY FOR CUTOVER · Pas DATABASE SELECTED · Pas IAM SELECTED · Pas MethodMode REMOVED · Pas V2.6 REMOVED · Pas OPS1 RETIRED · Pas préconditions SATISFIED globales · Pas DECIDED.
++
++---
++
++## 6. Verdict
++
++`T-A7 CUTOVER PRECONDITION MATRIX FRAMED — CANDIDATE ONLY — FRAMING DOES NOT REQUIRE FULL SATISFACTION — MORRIS DECISIONS REQUIRED`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md
+new file mode 100644
+index 0000000..232d73a
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md
+@@ -0,0 +1,134 @@
++# 03 — T-A6 and Option A Completion Criteria
++
++| Champ | Valeur |
++|-------|--------|
++| **Document** | `03-t-a6-and-option-a-completion-criteria.md` |
++| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
++| **Matrices** | `RECOMMENDATION — NOT DECIDED` |
++| **T-A6 COMPLETE** | **NOT DECLARED** |
++| **Option A COMPLETE** | **NOT DECLARED** |
++
++> Aucune déclaration COMPLETE n’est autorisée par ce document. Les matrices sont des **propositions** pour arbitrage Morris (D-T-A7-F04…F07).
++
++---
++
++## 1. Ambiguïté de vocabulaire (rappel)
++
++| Terme | Sens |
++|-------|------|
++| Foundation complete (design) | FD · FA · UX · Modeled · AT VALIDATED — **déjà vrai** (design) ; ≠ product COMPLETE |
++| T-A6 D1–D5 VALIDATED | use cases techniques delivery — **≠** T-A6 COMPLETE |
++| T-A6 COMPLETE | clôture slice Evidence/Review/Claims/Maturity — **à décider** |
++| Option A product complete | capacité produit Option A sans nécessairement production — **à décider** |
++| Option A production ready | RUN/IAM/RGPD/E2E/ops — **distinct** |
++| M1 REX D1–D7 | décisions gouvernance CI — **≠** T-A6 D1–D5 |
++
++---
++
++## 2. Critères candidats T-A6 COMPLETE
++
++**Label obligatoire :** `RECOMMENDATION — NOT DECIDED`
++
++| ID | Critère affirmatif | Preuve attendue | Preuve actuelle | État | Blocker | Réserve | Owner | Gate |
++|----|--------------------|-----------------|-----------------|------|---------|---------|-------|------|
++| T6-C01 | D1 Evidence runtime fail-closed intégré | tests Evidence + module sur main | D1 VALIDATED · PR #267 | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
++| T6-C02 | D2 ReviewBundle lifecycle intégré | tests ReviewBundle | D2 VALIDATED | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
++| T6-C03 | D3 ClaimEvaluation fail-closed | tests ClaimEvaluation | D3 VALIDATED | **SATISFIED** | non | R-M01 | Morris | D-T-A7-F04 |
++| T6-C04 | D4 MaturityAssessment sans auto-promotion | tests Maturity | D4 VALIDATED | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
++| T6-C05 | D5 RecommendNextGate read-only, no T-A7 launch | tests + `T_A7_AUTO_LAUNCH_FORBIDDEN` | D5 VALIDATED | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
++| T6-C06 | Modeled/runtime alignment Evidence/RB/Claim/Maturity | schemas + runtime + modeled tests | matérialisé + governance tests CI | **SATISFIED** | non | R-M01 closure | Morris | D-T-A7-F04 |
++| T6-C07 | Non-régression T-A3–T-A5 | suites Vitest pass | documenté post-merge | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
++| T6-C08 | Erreurs fail-closed documentées | codes + tests adversariaux | présents | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
++| T6-C09 | Autorité humaine respectée (pas auto-ack Critical) | tests Critical fail-closed | présent | **SATISFIED** | non | R-T-A3-1 (hors T-A6 mémoire) | Morris | D-T-A7-F04 |
++| T6-C10 | Périmètre mémoire justifié **ou** persistence réelle | décision Morris explicite | fake-only justifié docs ; persistence absente | **PARTIAL** | si COMPLETE exige persistence | U-M02 · R1 | Morris | D-T-A7-F04 · F07 |
++| T6-C11 | Réserves T-A6 traitées ou acceptées formellement | registre réserves CLOSED ou ACCEPTED | R-M01 · U-M02 · C1–C4 OPEN / NOT VALIDATED | **MISSING** | **oui** candidate | R-M01 · U-M02 · C1–C4 | Morris | D-T-A7-F04 · F08 |
++| T6-C12 | Tests T-A6 observés sous CI Required Gate | CI success sur paths Studio | workflow + gate M1 actifs post-#268 | **SATISFIED** | non | F-CI-* residual | Morris | D-T-A7-F04 |
++| T6-C13 | Documentation delivery + post-merge présents | docs 01–22 + README | présents sur main | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
++| T6-C14 | Post-merge review complète | doc 22 | COMPLETE (CI unavailable à l’époque ; gap gouvernance fermé via F-A6) | **SATISFIED** | non | F-A6 CLOSED | Morris | D-T-A7-F04 |
++| T6-C15 | Décision Morris explicite `T-A6 COMPLETE` | gate + verdict | **absente** | **MISSING** | **oui** | — | Morris | D-T-A7-F04 |
++
++### Synthèse T-A6
++
++- Techniquement : D1–D5 et CI/docs largement **SATISFIED**.
++- Gouvernance : T6-C11 + T6-C15 **MISSING** → **T-A6 COMPLETE NOT DECLARED**.
++- T6-C10 dépend de D-T-A7-F07 (product vs production) : mémoire peut rester acceptable pour un COMPLETE étroit.
++
++---
++
++## 3. Critères candidats Option A COMPLETE
++
++**Label obligatoire :** `RECOMMENDATION — NOT DECIDED`
++
++### 3.1 Couches
++
++| Couche | Libellé | Définition candidate | Nécessaire pour foundation? | Product complete? | Production ready? | T-A7 framing? | T-A7 delivery? | T-A7 cutover? |
++|--------|---------|----------------------|----------------------------|-------------------|-------------------|---------------|----------------|---------------|
++| **A** | Foundation complete | FD · FA · UX · Modeled · AT VALIDATED | **définition** | prérequis | prérequis | utile | prérequis | prérequis |
++| **B** | Integrated runtime complete | T-A0…T-A6 intégrés + tests mémoire + CI | non | prérequis candidat | prérequis | utile | prérequis | prérequis |
++| **C** | Product completion | chaîne fonctionnelle Option A opérable selon critères Morris (peut exclure prod) | non | **définition** | prérequis | non | probable | **oui** |
++| **D** | Real-execution readiness | Critical ack · atomicité · adapter réel · persistence | non | optionnel (D-T-A7-F07) | prérequis | non | selon périmètre | **oui** si activation |
++| **E** | Production readiness | IAM · RGPD · RUN · E2E · hardening · deps | non | **non implicite** | **définition** | non | non | recommandé |
++| **F** | Legacy cutover complete | MethodMode/method/** retirés · OPS1 isolé · preuves | non | optionnel (peut être hors product étroit) | souvent requis | non | — | **définition cutover** |
++
++**Règle soumise à Morris (D-T-A7-F07) :** `production ready` n’est **pas** une condition implicite d’une définition étroite de `product complete`.
++
++### 3.2 Matrice dimensionnelle Option A
++
++| ID | Dimension | Critère affirmatif | Preuve attendue | Preuve actuelle | État | Couches | Blocker product? | Blocker production? | Owner |
++|----|-----------|--------------------|-----------------|-----------------|------|---------|------------------|---------------------|-------|
++| OA-01 | FD/FA/UX/Modeled/AT | fondation design VALIDATED | packs design | VALIDATED | **SATISFIED** | A | non | non | Morris |
++| OA-02 | T-A0…T-A6 intégrés | merges #261–#267 | Git | OUI | **SATISFIED** | B | non | non | Morris |
++| OA-03 | T-A6 COMPLETE | critères T6 + GO Morris | matrices + décision | NON | **MISSING** | B/C | **oui** candidat | oui | Morris |
++| OA-04 | T-A7 | cutover complete **ou** hors product étroit | pack + preuves | NOT OPEN | **N/A ou MISSING** | C/F | selon F06/F07 | oui cutover | Morris |
++| OA-05 | Persistence | DB SELECTED + repos durables | ADR + migrations | absente | **MISSING** | C/D/E | selon F07 | **oui** | Morris |
++| OA-06 | Atomicité | R1 + R-T-A3-2 résolus ou acceptés | design + tests | OPEN HARD | **MISSING** | D/E | selon F07 | **oui** | Morris |
++| OA-07 | Autorité | Critical ack + supersession | API + tests | R-T-A3-1 OPEN | **MISSING** | D | **oui** real-exec | oui | Morris |
++| OA-08 | IAM | provider + mapping authority | design + runtime | NOT DECIDED | **MISSING** | D/E | selon F07 | **oui** | Morris |
++| OA-09 | Sécurité | fail-closed + deps + secrets | CI + audit | PARTIAL | **PARTIAL** | E | non immédiat | **oui** | Morris |
++| OA-10 | RGPD / Evidence retention | politique + vendor + purge | docs + preuves | U-M02 OPEN | **MISSING** | D/E | selon F07 | **oui** | Morris |
++| OA-11 | API/UI | surfaces Option A branchées `lib/oa` | code + tests | absentes | **MISSING** | C | **oui** candidat | oui | Morris |
++| OA-12 | Adapters réels | adapter non-Test/NoOp | code + tests | absents | **MISSING** | D | real-exec | oui | Morris |
++| OA-13 | Worker/queue/scheduler | exécution asynchrone contrôlée | code + RUN | absents | **MISSING** | D/E | real-exec | oui | Morris |
++| OA-14 | Tests E2E | parcours Option A | Playwright/CI | exclus CI | **MISSING** | E | non | **oui** | Morris |
++| OA-15 | CI | Required Gate path-aware | ruleset + runs | SATISFIED M1 | **SATISFIED** | B/E | non | partiel | Morris |
++| OA-16 | Observabilité | metrics/traces/audit | stack RUN | console/memory | **PARTIAL** | E | non | **oui** | Morris |
++| OA-17 | RUN | health/backup/restore/runbooks | pack RUN | conceptuel AT-10 | **MISSING** | E | non | **oui** | Morris |
++| OA-18 | Rollback | hold + restore éprouvés | preuves | non cutover | **MISSING** | F/E | cutover | oui | Morris |
++| OA-19 | Documentation | index + packs cohérents | docs | packs présents ; pas d’index delivery racine | **PARTIAL** | A–F | non | non | Morris |
++| OA-20 | Réserves | CLOSED ou ACCEPTED formellement | registre | OPEN | **MISSING** | C–F | **oui** | oui | Morris |
++| OA-21 | Dette C1–C4 / F-CI | traitée ou acceptée | décisions | NOT VALIDATED / OPEN | **MISSING** | C/E | partiel | partiel | Morris |
++| OA-22 | Décisions Morris | critères F04–F07 décidés + COMPLETE GO | gates | NOT DECIDED | **MISSING** | toutes | **oui** | oui | Morris |
++
++### 3.3 Définitions candidates à trancher
++
++| Option de définition | Inclut | Exclut typiquement | Dette |
++|----------------------|--------|--------------------|-------|
++| **Étroite — fondation+runtime intégré** | A+B + T-A6 COMPLETE mémoire justifié | persistence · IAM · UI · cutover | risque de sous-estimer produit |
++| **Produit opérable** | A+B+C (+ OA-11) | production E · cutover F optionnel | nécessite UI/API |
++| **Produit + cutover** | A+B+C+F | production E | blast radius élevé |
++| **Production ready** | A–E (+ F souvent) | — | plus long ; le plus sûr |
++
++**Recommandation Cursor/ChatGPT (non Morris) :** distinguer explicitement **product complete** (C) et **production ready** (E) ; ne pas exiger E pour C ; exiger F seulement si Option A est définie comme « v3 native sans MethodMode ».
++
++---
++
++## 4. Liens T-A7
++
++| Question | Réponse candidate |
++|----------|-------------------|
++| Option A doit-elle être COMPLETE avant framing T-A7 ? | **Non** |
++| Option A doit-elle être COMPLETE avant delivery T-A7 ? | **Probablement oui pour couches A–B et critères T-A6** — D-T-A7-F03/F08 |
++| Option A doit-elle être COMPLETE avant cutover ? | **Oui au sens product/cutover décidé** — D-T-A7-F06/F09 |
++| T-A7 framing peut-il coexister avec réserves OPEN ? | **Oui** |
++
++---
++
++## 5. Anti-claims
++
++Pas T-A6 COMPLETE · Pas Option A COMPLETE · Pas PRODUCTION READY · Pas READY FOR CUTOVER · Pas critères DECIDED · Pas RESERVE CLOSED.
++
++---
++
++## 6. Verdict
++
++`T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — RECOMMENDATION NOT DECIDED — NO COMPLETE DECLARATION`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md
+new file mode 100644
+index 0000000..da6d674
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md
+@@ -0,0 +1,101 @@
++# 04 — Reservations, Risks and Stop Conditions
++
++| Champ | Valeur |
++|-------|--------|
++| **Document** | `04-reservations-risks-and-stop-conditions.md` |
++| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
++| **T-A7** | **NOT OPEN** |
++| **Réserves fermées dans ce cycle** | **aucune** |
++
++---
++
++## 1. Registre des réserves et findings
++
++| ID | Statut | Définition | Preuve | Bloque framing T-A7 ? | Bloque delivery T-A7 ? | Bloque cutover ? | Bloque real execution ? | Bloque production ? | Obligatoire Option A COMPLETE ? | Décision Morris | Cycle recommandé |
++|----|--------|------------|--------|----------------------|------------------------|------------------|-------------------------|---------------------|---------------------------------|-----------------|------------------|
++| **B5** | OPEN | LPS satellite ids non carry-forward | T-A2/T-A3 docs · doc 23 | **Non** | **Oui** candidat | **Oui** | Indirect | Indirect | **Oui** candidat | D-T-A7-F08 | reserve closure / T-A1 |
++| **R1** | OPEN | Atomicité Project↔Cycle absente | T-A2 docs | **Non** | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** si persistence | D-T-A7-F08 · F10 | architecture persistence |
++| **R-T-A3-1** | OPEN **HARD** | Pas d’API publique Critical acknowledge | T-A3 · Confirm fail-closed | **Non** | **Oui** si Critical path requis | **Oui** si activation | **Oui** | **Oui** | **Oui** real-exec / product large | D-T-A7-F08 · F09 | authority |
++| **R-T-A3-2** | OPEN **HARD** | Atomicité Decision↔LPS/Epistemic résiduelle | T-A3/T-A4 Option B | **Non** | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** persistence | D-T-A7-F08 · F09 | architecture |
++| **R-T-A3-3** | OPEN | Authority registry in-memory | T-A3 | **Non** | Partiel | **Oui** | Partiel | **Oui** (IAM) | **Oui** production | D-T-A7-F10 | IAM |
++| **R-T-A3-4** | OPEN | Enum mapping `AUTHORITY_SCOPE_MISMATCH` | T-A3 | **Non** | **Non** | **Non** | **Non** | Low | Non | dette ultérieure | hygiene |
++| **R-M01** | OPEN | ClaimEvaluator readiness — closure Morris | T-A6 | **Non** | **Oui** candidat T-A6 COMPLETE | Indirect | Indirect | **Oui** | **Oui** T-A6 COMPLETE | D-T-A7-F04 · F08 | modeled/delivery |
++| **U-M02** | OPEN | Evidence blob vendor / payloads / retention | T-A6 · D-T-A6-09 | **Non** | **Oui** si Evidence physique | **Oui** | **Oui** | **Oui** | **Oui** production / Evidence | D-T-A7-F10 | RGPD/persistence |
++| **C1** | RECOMMENDED — NOT VALIDATED | Evidence status jointure PASS | T-A6 20-pr-readiness | **Non** | Dette | Indirect | Indirect | Indirect | Partiel | D-T-A7-F04 · F08 | T-A6 debt |
++| **C2** | RECOMMENDED — NOT VALIDATED | Self-review Critical | T-A6 | **Non** | Dette | Indirect | Indirect | Indirect | Partiel | D-T-A7-F04 | T-A6 debt |
++| **C3** | RECOMMENDED — NOT VALIDATED | Bornes taille/nombre | T-A6 | **Non** | Dette | Indirect | Indirect | Indirect | Partiel | D-T-A7-F04 | T-A6 debt |
++| **C4** | RECOMMENDED — NOT VALIDATED | LPS satellite → fusion B5 candidate | T-A6 | **Non** | Via B5 | Via B5 | Indirect | Indirect | Via B5 | D-T-A7-F08 | merge into B5 |
++| **F-CI-01** | OPEN | Node engines pin absent | docs 24/31 | **Non** | **Non** | **Non** | **Non** | Partiel | Non | tooling | config |
++| **F-CI-02** | OPEN | npm audit historique | docs 24/31 | **Non** | **Non** | **Non** | **Non** | **Oui** conditionnel | Non | security | deps |
++| **F-CI-03** | MITIGATED | Node local/CI | docs 31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | — | — |
++| **F-CI-04** | OPEN Minor | actionlint absent | docs 24/31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | tooling | — |
++| **F-CI-05** | MITIGATED | node:sqlite/Node20 | docs 31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | — | — |
++| **F-CI-06/06B** | MITIGATED non CLOSED | whitespace | docs 29/31 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | hygiene | — |
++| **F-A6-PM-G01** | **CLOSED** | merge T-A6 sans CI formelle | doc 24 | **Non** | **Non** | **Non** | **Non** | **Non** | Non | — | supersédé |
++| **M1 loose** | NOT DECIDED | approvals=0 · strict=false · conversation resolution=false · bypass | doc 24/33 · D3 | **Non** | **Non** | **Recommandé avant** | **Non** | **Oui** | Non (distinct COMPLETE) | D-T-A7-F12 | governance |
++
++### Point critique R-T-A3-1 / R-T-A3-2
++
++Git **ne démontre pas** que R-T-A3-1/2 bloquent un cadrage read-only. Ils restent **HARD** pour :
++
++- exécution réelle ;
++- Confirm Critical réel ;
++- persistence saine ;
++- delivery/cutover si le périmètre active ces chemins.
++
++---
++
++## 2. Risques du cadrage
++
++| Risque | Mitigation documentaire |
++|--------|-------------------------|
++| Confusion framing / open / delivery / cutover | niveaux A–D + anti-claims |
++| Claim COMPLETE implicite | matrices `NOT DECIDED` + T6-C15 / OA-22 |
++| Fermeture implicite de réserve | registre OPEN inchangé |
++| Retrait prématuré MethodMode | stop conditions §3 |
++| Sous-estimer persistence/IAM/RGPD | préconditions P18–P21 |
++| Hardening M1 prématuré | D-T-A7-F12 · NOT JUSTIFIED NOW pour framing |
++
++---
++
++## 3. Stop conditions (obligatoires)
++
++1. **Pas de delivery** sans validation Morris du framing (D-T-A7-F01…F03).
++2. **Pas de modification** `method/**` ou OPS1 sans gate dédié.
++3. **Pas de suppression MethodMode** sans preuve des remplacements (P03–P09).
++4. **Pas de cutover** sans rollback éprouvé et GO cutover distinct.
++5. **Pas d’exécution réelle** sans autorité (R-T-A3-1), atomicité (R-T-A3-2/R1), persistence, IAM et sécurité adaptées.
++6. **Pas de migration Evidence** sans politique RGPD/rétention (U-M02).
++7. **Pas de claim Option A COMPLETE** sans critères validés + preuves + GO Morris.
++8. **Pas de claim production ready** sans E2E, RUN et observabilité.
++9. **Pas de fermeture de réserve** par simple cadrage.
++10. **Divergence de `main`** affectant Option A / T-A6 / T-A7 / réserves = **re-review obligatoire** avant tout acte suivant.
++11. **Pas de push projet** de cette branche sous le gate courant.
++12. **Pas de double write** ni présentation OPS1 comme v3.
++
++---
++
++## 4. Dette acceptable temporairement
++
++| Item | Acceptable pendant framing | Acceptable jusqu’à delivery | Acceptable jusqu’à production |
++|------|----------------------------|-----------------------------|-------------------------------|
++| B5 / R1 OPEN | oui | non (sauf acceptation) | non |
++| R-T-A3-1/2 OPEN | oui | non si Critical/persistence | non |
++| R-T-A3-4 | oui | oui | oui (low) |
++| C1–C4 NOT VALIDATED | oui | à arbitrer | à arbitrer |
++| F-CI-01/04 | oui | oui | partiel |
++| M1 loose | oui | oui | **non recommandé** |
++| Absence API/UI | oui | non pour cutover opérable | non |
++| Absence persistence | oui (mémoire) | non pour cutover durable | non |
++
++---
++
++## 5. Anti-claims
++
++Pas RESERVE CLOSED · Pas HARD résolu · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas IAM SELECTED · Pas DECIDED.
++
++---
++
++## 6. Verdict
++
++`RESERVATIONS AND STOP CONDITIONS FRAMED — HARD BLOCKERS CLASSIFIED FOR EXECUTION NOT FRAMING — NO RESERVE CLOSED`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md
+new file mode 100644
+index 0000000..01a8482
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md
+@@ -0,0 +1,226 @@
++# 05 — Morris Decision Pack
++
++| Champ | Valeur |
++|-------|--------|
++| **Document** | `05-morris-decision-pack.md` |
++| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
++| **Décisions** | D-T-A7-F01…F14 — toutes **`NOT DECIDED`** |
++| **T-A7** | **NOT OPEN** |
++| **Autorité** | Morris uniquement — aucune décision consommée ici |
++
++> Les recommandations Cursor/ChatGPT sont **explicites et non contraignantes**. Morris tranche.
++
++---
++
++## Registre
++
++### D-T-A7-F01 — Validation du périmètre de framing T-A7
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Le pack `t-a7-legacy-cutover-framing` et son périmètre (niveaux A only) sont-ils validés ? |
++| **Options** | (1) ACCEPT · (2) ACCEPT WITH CHANGES · (3) REJECT · (4) DEFER |
++| **Recommandation Cursor/ChatGPT** | (1) ACCEPT — pack borné, cohérent AT-11/12 et D-T-A6-10 |
++| **Impacts** | autorise la review ; n’ouvre pas T-A7 |
++| **Dette** | faible |
++| **Réversibilité** | haute |
++| **Gate futur** | `GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` |
++
++### D-T-A7-F02 — Framing vs delivery vs cutover
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Les quatre niveaux A/B/C/D sont-ils la définition normative de T-A7 ? |
++| **Options** | (1) ADOPT 4 niveaux · (2) ADOPT 3 niveaux (fusion B+C) · (3) REDEFINE |
++| **Recommandation Cursor/ChatGPT** | (1) ADOPT 4 niveaux — réduit les confusions framing/open/delivery/cutover |
++| **Impacts** | gates séparés obligatoires |
++| **Dette** | cycles supplémentaires |
++| **Réversibilité** | moyenne |
++| **Gate futur** | même gate review ; puis gates delivery/cutover distincts |
++
++### D-T-A7-F03 — Préconditions d’entrée en delivery
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Quelles préconditions P0x sont obligatoires avant delivery T-A7 ? |
++| **Options** | (1) Set minimal (P02, P03–P05, HARD reserves strategy, P17–P19 design) · (2) Set maximal (presque toutes) · (3) Custom |
++| **Recommandation Cursor/ChatGPT** | (1) Set minimal documenté dans `02` §3 — éviter de bloquer delivery prep inutilement |
++| **Impacts** | séquence post-framing |
++| **Dette** | si trop minimal → reprise AT |
++| **Réversibilité** | moyenne |
++| **Gate futur** | `GO PREPARE T-A7 DELIVERY` (NOT CONSUMED / NOT PROPOSED as open) |
++
++### D-T-A7-F04 — Définition T-A6 COMPLETE
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | La matrice T6-C01…C15 est-elle adoptée ? T-A6 COMPLETE exige-t-il T6-C11 (réserves) et T6-C15 (GO explicite) ? |
++| **Options** | (1) ADOPT as-is · (2) ADOPT with memory justification only (relax C11 for U-M02) · (3) REQUIRE persistence for T-A6 COMPLETE · (4) REJECT |
++| **Recommandation Cursor/ChatGPT** | (2) — D1–D5 + docs/CI + GO Morris ; accepter U-M02 OPEN **documenté** pour COMPLETE mémoire ; exiger traitement/acceptation R-M01 et C1–C4 |
++| **Impacts** | clôture T-A6 vs product |
++| **Dette** | U-M02 reporté |
++| **Réversibilité** | moyenne |
++| **Gate futur** | `GO DECLARE T-A6 COMPLETE` (ultérieur, distinct) |
++
++### D-T-A7-F05 — Option A foundation complete
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Confirmer que « foundation complete » = FD/FA/UX/Modeled/AT VALIDATED (déjà vrai) ? |
++| **Options** | (1) CONFIRM · (2) REDEFINE |
++| **Recommandation Cursor/ChatGPT** | (1) CONFIRM — ne pas confondre avec product COMPLETE |
++| **Impacts** | vocabulaire |
++| **Dette** | nulle si confirmé |
++| **Réversibilité** | haute |
++| **Gate futur** | inclus dans review framing |
++
++### D-T-A7-F06 — Option A product complete
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Que signifie Option A product complete (couche C) ? |
++| **Options** | (1) A+B + T-A6 COMPLETE mémoire · (2) A+B+C avec API/UI · (3) A+B+C+F cutover inclus · (4) Custom |
++| **Recommandation Cursor/ChatGPT** | (2) — produit opérable nécessite surfaces ; cutover (F) séparé |
++| **Impacts** | roadmap UI/API |
++| **Dette** | UI/API avant COMPLETE |
++| **Réversibilité** | faible une fois communiqué |
++| **Gate futur** | gate critères Option A |
++
++### D-T-A7-F07 — Product complete vs production ready
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Production ready (E) est-il requis pour product complete (C) ? |
++| **Options** | (1) SEPARATE — E non requis pour C · (2) MERGE — C implique E · (3) STAGED labels |
++| **Recommandation Cursor/ChatGPT** | (1) SEPARATE — évite inflation de COMPLETE |
++| **Impacts** | IAM/RGPD/RUN hors chemin critique produit étroit |
++| **Dette** | risque de sous-qualifier « produit » |
++| **Réversibilité** | moyenne |
++| **Gate futur** | inclus review framing |
++
++### D-T-A7-F08 — Réserves obligatoires avant delivery
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Quelles réserves doivent être CLOSED ou ACCEPTED avant delivery T-A7 ? |
++| **Options** | (1) R-T-A3-1/2 + B5/R1 strategy + R-M01 · (2) Toutes OPEN · (3) Aucune (delivery prep only) |
++| **Recommandation Cursor/ChatGPT** | (3) pour **delivery preparation** ; (1) avant **delivery code cutover-bound** |
++| **Impacts** | parallélisation possible |
++| **Dette** | si (3) trop long → dette technique |
++| **Réversibilité** | moyenne |
++| **Gate futur** | gate reserve arbitration |
++
++### D-T-A7-F09 — Réserves obligatoires avant cutover
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Quelles réserves bloquent le cutover ? |
++| **Options** | (1) HARD + persistence/IAM/RGPD + MethodMode proofs · (2) HARD only · (3) Custom |
++| **Recommandation Cursor/ChatGPT** | (1) — cutover sans persistence/IAM est un faux cutover |
++| **Impacts** | retarde cutover |
++| **Dette** | faible vs risque blast radius |
++| **Réversibilité** | faible après cutover |
++| **Gate futur** | `GO AUTHORIZE T-A7 CUTOVER` (ultérieur) |
++
++### D-T-A7-F10 — Ordre persistence / IAM / RGPD
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Quel ordre cadrer/décider persistence, IAM, RGPD/Evidence ? |
++| **Options** | (1) Persistence+atomicité → IAM → RGPD/U-M02 · (2) IAM d’abord · (3) Parallèle borné · (4) Différer après UI |
++| **Recommandation Cursor/ChatGPT** | (1) — R1/R-T-A3-2 d’abord ; IAM pour authority réelle ; RGPD lié Evidence vendor |
++| **Impacts** | séquence post-framing |
++| **Dette** | cycles AT/sécurité |
++| **Réversibilité** | moyenne |
++| **Gate futur** | `GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS` |
++
++### D-T-A7-F11 — API/UI avant cutover
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Une API/UI Option A native est-elle requise avant cutover ? |
++| **Options** | (1) OUI minimale · (2) NON si cutover technique headless · (3) OUI complète |
++| **Recommandation Cursor/ChatGPT** | (1) — preuves MethodMode/badges/UX cutover sinon non démontrables |
++| **Impacts** | delivery produit |
++| **Dette** | si (2) : cutover invisible |
++| **Réversibilité** | moyenne |
++| **Gate futur** | gate product delivery |
++
++### D-T-A7-F12 — Moment du hardening M1
++
++| Champ | Contenu |
++|-------|---------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Quand durcir approvals/strict/conversation resolution/bypass ? |
++| **Options** | (1) Maintenant · (2) Avant delivery T-A7 · (3) Avant cutover/production · (4) Jamais |
++| **Recommandation Cursor/ChatGPT** | (3) — NOT JUSTIFIED NOW pour framing ; REQUIRED BEFORE PRODUCTION |
++| **Impacts** | friction PR |
++| **Dette** | loose prolongé |
++| **Réversibilité** | haute |
++| **Gate futur** | gate hardening M1 |
++
++### D-T-A7-F13 — Legacy history read-only
++
++| Champ | Contenu |
++|-------|--------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Quelle politique pour l’historique OPS1/v2.6 après cutover ? |
++| **Options** | (1) Read-only ACL gated · (2) Archive offline only · (3) Purge après retention · (4) Keep writable legacy |
++| **Recommandation Cursor/ChatGPT** | (1) — aligné AT-11 ; interdire (4) |
++| **Impacts** | sécurité / RGPD |
++| **Dette** | ACL à construire |
++| **Réversibilité** | faible après purge |
++| **Gate futur** | inclus architecture cutover |
++
++### D-T-A7-F14 — Validation du prochain cycle
++
++| Champ | Contenu |
++|-------|--------|
++| **Statut** | `NOT DECIDED` |
++| **Question** | Quel est le prochain cycle après validation du framing ? |
++| **Options** | (1) Review framing pack · (2) Arbitrage HARD/réserves · (3) Persistence/IAM/RGPD · (4) Delivery prep T-A7 immédiat |
++| **Recommandation Cursor/ChatGPT** | (1) puis (2) — ne pas sauter à (4) |
++| **Impacts** | trajectoire |
++| **Dette** | nulle si suivi |
++| **Réversibilité** | haute |
++| **Gate futur** | `GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` |
++
++---
++
++## Séquence candidate après framing (non validée)
++
++| # | Étape | Cycle SFIA | Profil | Dépendances | Fichiers probables | Gate | Stop | Preuve |
++|---|-------|------------|--------|-------------|--------------------|------|------|--------|
++| 1 | Validation Morris framing + critères | 1 / 15 | Critical | ce pack | pack T-A7 | `GO REVIEW T-A7 FRAMING…` | reject → stop | décisions F01–F07 |
++| 2 | Arbitrage autorité / atomicité / réserves | 2 / 3 / 6 | Critical | F08 | docs décision · éventuellement T-A3/T-A1 | reserve arbitration | pas de runtime cutover | ACCEPTED/CLOSED plan |
++| 3 | Architecture persistence / IAM / RGPD | 6 / 10 | Critical | F10 | AT docs · threat/privacy | persistence/IAM/RGPD framing | pas DB live | ADR candidats |
++| 4 | Préparation delivery T-A7 | 1 / 6 | Critical | F03 | backlog · tests candidats | prepare delivery | pas code cutover | pack prep |
++| 5 | Delivery incrémental sous hold | 4 / 9 | Critical | F03/F08 | `app/**` boundaries · flags | delivery GO | pas activation | PRs + CI |
++| 6 | QA / sécurité / RUN | 9 / 10 / 12 | Critical | delivery | tests E2E · RUN pack | QA/RUN GO | pas cutover | preuves |
++| 7 | Décision cutover | 1 / 15 | Critical | F09 | decision pack cutover | authorize cutover | rollback non prêt → stop | GO cutover |
++| 8 | Cutover contrôlé | 7 / 12 | Critical | F09/F11/F13 | MethodMode/method/**/OPS1 | execute cutover | incident → hold | boundary proofs |
++| 9 | Post-merge / post-cutover | 9 / 15 | Critical | cutover | review docs | post-cutover review | — | review COMPLETE |
++| 10 | Capitalisation / cleanup | 15 | Standard | post | REX · branches | cleanup GO | — | cleanup evidence |
++
++---
++
++## Anti-claims
++
++Aucune décision D-T-A7-F* n’est **DECIDED**. Aucune recommandation n’est un GO. Aucune ouverture T-A7. Aucune clôture Option A. Aucune réserve fermée.
++
++---
++
++## Verdict
++
++`MORRIS DECISION PACK T-A7 FRAMING READY FOR REVIEW — ALL DECISIONS NOT DECIDED — NEXT GATE CANDIDATE NOT CONSUMED`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md
+new file mode 100644
+index 0000000..efd3a4b
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md
+@@ -0,0 +1,80 @@
++# T-A7 — Legacy Cutover Framing (Option A)
++
++| Champ | Valeur |
++|-------|--------|
++| **Date/heure/fuseau** | 2026-07-27 22:39:24 CEST (+0200) — Europe/Paris |
++| **Cycle** | 1 — Cadrage (+2 Conception fonctionnelle · 3 Architecture fonctionnelle · 6 Architecture technique · 9 QA · 10 Sécurité/RSSI · 12 RUN readiness · 15 Capitalisation) |
++| **Profil** | Critical |
++| **Typologie** | CADRAGE / T-A7 / CUTOVER / COMPLETION-CRITERIA / GOVERNANCE / DOCUMENTATION |
++| **Gate consommé** | `GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION` |
++| **Repo** | `mcleland147/sfia-workspace` |
++| **Base SHA** | `c472eb412f3ade3e94fee9201042794fee502d8f` (`origin/main`) |
++| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
++| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
++| **Upstream** | **aucun** |
++| **Pack path** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/` |
++| **Statut pack** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
++| **T-A7** | **NOT OPEN** |
++| **T-A7 delivery** | **NOT AUTHORIZED** |
++| **Cutover** | **NOT AUTHORIZED** |
++| **T-A6 COMPLETE** | **NOT DECLARED** |
++| **Option A COMPLETE** | **NOT DECLARED** |
++| **Real execution** | **NOT AUTHORIZED** |
++| **Verdict** | `SFIA STUDIO T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETION CRITERIA FRAMED — DOCUMENTARY PACK CREATED LOCALLY — T-A7 FRAMING DEFINED — DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — MORRIS DECISIONS REQUIRED — OPTION A NOT COMPLETE — T-A7 NOT OPEN` |
++
++---
++
++## Objectif
++
++Définir le cadrage documentaire candidat de T-A7 et les matrices affirmatives de complétude T-A6 / Option A, sans ouvrir le delivery, sans cutover et sans fermer Option A.
++
++## Définition T-A7 (candidate)
++
++`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
++
++Source AT : `sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md` · D-T-A6-10 BOUNDARY APPROVED.
++
++## Niveaux T-A7
++
++| Niveau | Contenu | Autorisé dans ce cycle |
++|--------|---------|------------------------|
++| **A. Framing** | définition · préconditions · critères · décisions · aucune modification runtime | **OUI — ce pack** |
++| **B. Delivery preparation** | backlog · AT détaillée · plan migration · tests candidats · aucun cutover | NON |
++| **C. Delivery** | modifications code/frontières · hold flags · tests · migration progressive | NON |
++| **D. Cutover** | retrait/désactivation effective · preuves runtime · rollback · GO Morris dédié | NON |
++
++## Livrables
++
++1. [README.md](./README.md) — ce fichier
++2. [01-framing-and-scope.md](./01-framing-and-scope.md)
++3. [02-t-a7-cutover-preconditions.md](./02-t-a7-cutover-preconditions.md)
++4. [03-t-a6-and-option-a-completion-criteria.md](./03-t-a6-and-option-a-completion-criteria.md)
++5. [04-reservations-risks-and-stop-conditions.md](./04-reservations-risks-and-stop-conditions.md)
++6. [05-morris-decision-pack.md](./05-morris-decision-pack.md)
++
++## Décisions Morris attendues
++
++D-T-A7-F01…F14 — toutes **`NOT DECIDED`** — voir [05-morris-decision-pack.md](./05-morris-decision-pack.md).
++
++## Gate suivant candidat
++
++```
++GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA
++— SFIA STUDIO V3-NATIVE
++```
++
++**NOT CONSUMED.**
++
++## Anti-claims
++
++- pack créé ≠ framing validé
++- framing défini ≠ T-A7 OPEN
++- T-A7 OPEN ultérieurement ≠ delivery autorisé
++- delivery autorisé ≠ cutover autorisé
++- critères proposés ≠ critères décidés
++- critères techniquement satisfaits ≠ Option A COMPLETE
++- product complete ≠ production ready
++- intégration T-A0–T-A6 ≠ cutover readiness
++- commit local ≠ publication
++- assessment ≠ décision Morris
++- aucune réserve fermée · aucun runtime/modeled/workflow modifié · aucun push projet
+```
+
+## 17. Actions non exécutées
+- push branche projet
+- PR projet
+- merge
+- modification main
+- delivery T-A7
+- runtime / modeled / method/** / OPS1 / MethodMode
+- DB / IAM / API/UI / adapter / worker
+- ruleset / hardening M1
+- clôture réserve
+- déclaration T-A6/Option A COMPLETE
+- déclaration T-A7 OPEN
+- consommation décisions Morris
+- Notion/CMP
+
+## 18. Statuts
+- T-A6 COMPLETE: **NOT DECLARED**
+- Option A COMPLETE: **NOT DECLARED**
+- T-A7: **NOT OPEN**
+
+## 19. Gate candidat
+`GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
+
+## 20. Verdict
+`SFIA STUDIO T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETION CRITERIA FRAMED — DOCUMENTARY PACK CREATED LOCALLY — T-A7 FRAMING DEFINED — DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — MORRIS DECISIONS REQUIRED — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
+
+## Anti-claims
+- pack créé ≠ framing validé
+- framing défini ≠ T-A7 OPEN
+- T-A7 OPEN ≠ delivery autorisé
+- delivery ≠ cutover
+- critères proposés ≠ critères décidés
+- product complete ≠ production ready
+- commit local ≠ publication
+- assessment ≠ décision Morris
