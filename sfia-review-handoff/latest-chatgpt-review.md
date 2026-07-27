@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Date/heure/fuseau | 2026-07-27 08:40:00 CEST (+0200) — Europe/Paris |
+| Date/heure/fuseau | 2026-07-27 09:02:41 CEST (+0200) — Europe/Paris |
 | Cycle | 1 — Cadrage décisionnel ; compléments 6/7/10/12/13/15 |
 | Profil | Critical |
 | Typologie | Decision d’architecture GitHub / gouvernance CI |
