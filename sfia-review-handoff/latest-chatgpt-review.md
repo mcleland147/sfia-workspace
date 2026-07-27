@@ -437,11 +437,11 @@ Fondation #260; T-A0–T-A6 #261–#267; CI/governance #268+; F-A6 CLOSED #279 /
 | Increment | PR | Intégré | Validé | Complétude | Réserves | Prochain besoin |
 |-----------|----|---------|--------|------------|----------|----------------|
 | Foundation | #260 | Oui | Oui (Morris) | FOUNDATION COMPLETE | N/A produit | Ne pas assimiler à Option A COMPLETE |
-| T-A0 | #261 | Oui | VALIDATED with reserves | COMPLETE WITH RESERVATIONS (slice foundation) | Global adoption/cutover exclus | Aucun besoin immédiat |
-| T-A1 | #262 | Oui | TECHNICALLY VALIDATED | COMPLETE WITH RESERVATIONS (foundation) | B5, R1, DB non sélectionnée | B5/R1 avant persistence réelle |
+| T-A0 | #261 | Oui | VALIDATED with reserves | NOT DECLARED — validated foundation with reservations | Global adoption/cutover exclus | Aucun besoin immédiat |
+| T-A1 | #262 | Oui | TECHNICALLY VALIDATED | NOT DECLARED — technically validated foundation | B5, R1, DB non sélectionnée | B5/R1 avant persistence réelle |
 | T-A2 | #263 | Oui | PASSED AFTER CORRECTION | PARTIAL (decisions T-A2-D* non validées) | B5, R1 | Réconcilier décisions si critère COMPLETE l’exige |
 | T-A3 | #264 | Oui | PASSED AFTER CORRECTION | PARTIAL | R-T-A3-1..4, B5, R1 | Critical ack + atomicité avant exécution réelle |
-| T-A4 | #265 | Oui | TECHNICALLY VALIDATED | COMPLETE WITH RESERVATIONS (foundation) | R-T-A3-2 résiduelle | Pas d’action avant arbitrage exécution réelle |
+| T-A4 | #265 | Oui | TECHNICALLY VALIDATED | NOT DECLARED — technically validated foundation | R-T-A3-2 résiduelle | Pas d’action avant arbitrage exécution réelle |
 | T-A5 | #266 | Oui | TECHNICALLY VALIDATED | FOUNDATION ONLY | Pas adapter réel; R-T-A3 HARD | Adapter/worker seulement après GO exécution réelle |
 | T-A6 | #267 | Oui | D1–D5 VALIDATED | NON (explicite) | R-M01, U-M02, C1–C4, héritées | Définir critères de completion; ne pas inventer COMPLETE |
 | T-A7 | — | Non | NOT STARTED | NOT STARTED | HARD real execution + framing dédié | Framing borné uniquement, sous GO Morris |
