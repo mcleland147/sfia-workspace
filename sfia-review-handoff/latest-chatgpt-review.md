@@ -1,23 +1,19 @@
-# SFIA Review Pack — F-A6 Closure PR #279 H2 Squash Merge + Post-Merge (FULL)
+# SFIA Review Pack — F-A6 Cycle Post-Merge Closure + Cleanup Assessment (FULL)
 
 ## Metadata
-- date/heure/fuseau: 2026-07-27 21:36:23 CEST (+0200)
-- cycle: 7 Intégration/DevOps → 14 Post-merge (+9/13/15/10)
-- profil: Critical
-- typologie: MERGE / H2-SQUASH / DOC / GOVERNANCE / FINDING / CLOSURE / POST-MERGE
-- gate consommé: `GO MERGE F-A6-PM-G01 CLOSURE PR #279 WITH H2 SQUASH — SFIA STUDIO V3-NATIVE`
+- date/heure/fuseau: 2026-07-27 21:45:02 CEST (+0200)
+- cycle: 14 Post-merge (+ 15 Capitalisation/REX)
+- profil SFIA: Capitalization
+- profondeur: Critical
+- typologie: POST-MERGE / CAPITALIZATION / CYCLE-CLOSURE / CLEANUP-ASSESSMENT / GOVERNANCE / FINDING
+- gate consommé: `GO POST-MERGE CLOSE F-A6-PM-G01 CYCLE AND ASSESS CLEANUP — SFIA STUDIO V3-NATIVE`
 - repo: `mcleland147/sfia-workspace`
 - worktree: `/Users/morris/Projects/sfia-workspace-fa6-closure`
 - branche: `docs/sfia-studio-fa6-closure`
-- PR: #279 — https://github.com/mcleland147/sfia-workspace/pull/279
-- head autorisé: `bd288475cd6e1d7ff8977e1bca12bef9f036e541`
-- base pré-merge: `df9d9c6e688be367f54aa9376e67543eab80533a`
-- squash SHA: `c472eb412f3ade3e94fee9201042794fee502d8f`
-- blob: `27c7934799d19e5fc3401eb55e95c0d99b1e36e2`
-- handoff initial: HANDOFF_BLOB=dacad80f586692fc0eee1c0cb2c7a45b00e20819
+- handoff initial: HANDOFF_BLOB=d6e55e473f857830ee49d635cd3ab9778dc8b861
 - note: whitespace-only lines normalisées pour handoff check
 
-## 1. Truth pré-merge
+## 1. Truth
 ```
 pwd=/Users/morris/Projects/sfia-workspace-fa6-closure
 toplevel=/Users/morris/Projects/sfia-workspace-fa6-closure
@@ -25,263 +21,32 @@ origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
 origin	https://github.com/mcleland147/sfia-workspace.git (push)
 branch=docs/sfia-studio-fa6-closure
 HEAD=bd288475cd6e1d7ff8977e1bca12bef9f036e541
-origin_head=bd288475cd6e1d7ff8977e1bca12bef9f036e541
-origin_main=df9d9c6e688be367f54aa9376e67543eab80533a
-merge_base=df9d9c6e688be367f54aa9376e67543eab80533a
-ahead_behind=0	3
+origin_main=c472eb412f3ade3e94fee9201042794fee502d8f
+origin_branch=bd288475cd6e1d7ff8977e1bca12bef9f036e541
+merge_base_main_branch=df9d9c6e688be367f54aa9376e67543eab80533a
 ## docs/sfia-studio-fa6-closure...origin/docs/sfia-studio-fa6-closure
 diff:
 cached:
 untracked:
+active_ops:
+(none if blank)
+=== worktree list ===
+total_worktrees=70
+/Users/morris/Projects/sfia-workspace-fa6-closure | bd288475cd6e1d7ff8977e1bca12bef9f036e541 | refs/heads/docs/sfia-studio-fa6-closure
+/Users/morris/Projects/sfia-workspace-fa6-mitigated-clean | 67f140a19cf4a992dbc0d7b053abfde579a9a68c | refs/heads/docs/sfia-studio-fa6-mitigated-from-main
+fa6_closure_only=/Users/morris/Projects/sfia-workspace-fa6-closure
+other_worktrees_count=69
+
+(full porcelain captured locally; pack embeds summary + fa6 entry)
 ```
 
-## 2. PR avant merge
+## 2. PR #279 / squash
 ```json
 {
-  "additions": 102,
-  "autoMergeRequest": null,
   "baseRefName": "main",
-  "baseRefOid": "df9d9c6e688be367f54aa9376e67543eab80533a",
-  "changedFiles": 1,
-  "commits": [
-    {
-      "authoredDate": "2026-07-27T18:16:22Z",
-      "authors": [
-        {
-          "email": "morris@macbook-air1.home",
-          "id": "",
-          "login": "",
-          "name": "Morris Cleland"
-        },
-        {
-          "email": "cursoragent@cursor.com",
-          "id": "U_kgDOC972lw",
-          "login": "cursoragent",
-          "name": "Cursor"
-        }
-      ],
-      "committedDate": "2026-07-27T18:16:22Z",
-      "messageBody": "Co-authored-by: Cursor <cursoragent@cursor.com>",
-      "messageHeadline": "docs(sfia-studio): close F-A6 after M1 governance proofs",
-      "oid": "a13759d5420d2e1d9915ab05a4dbb3872d85e8a0"
-    },
-    {
-      "authoredDate": "2026-07-27T18:43:07Z",
-      "authors": [
-        {
-          "email": "morris@macbook-air1.home",
-          "id": "",
-          "login": "",
-          "name": "Morris Cleland"
-        },
-        {
-          "email": "cursoragent@cursor.com",
-          "id": "U_kgDOC972lw",
-          "login": "cursoragent",
-          "name": "Cursor"
-        }
-      ],
-      "committedDate": "2026-07-27T18:43:07Z",
-      "messageBody": "Co-authored-by: Cursor <cursoragent@cursor.com>",
-      "messageHeadline": "docs(sfia-studio): align F-A6 branch protection decision status",
-      "oid": "77271faac978b65fa10b912986eb9b6687ee6636"
-    },
-    {
-      "authoredDate": "2026-07-27T19:21:10Z",
-      "authors": [
-        {
-          "email": "morris@macbook-air1.home",
-          "id": "",
-          "login": "",
-          "name": "Morris Cleland"
-        },
-        {
-          "email": "cursoragent@cursor.com",
-          "id": "U_kgDOC972lw",
-          "login": "cursoragent",
-          "name": "Cursor"
-        }
-      ],
-      "committedDate": "2026-07-27T19:21:10Z",
-      "messageBody": "Co-authored-by: Cursor <cursoragent@cursor.com>",
-      "messageHeadline": "docs(sfia-studio): stabilize F-A6 post-merge state language",
-      "oid": "bd288475cd6e1d7ff8977e1bca12bef9f036e541"
-    }
-  ],
-  "deletions": 39,
-  "headRefName": "docs/sfia-studio-fa6-closure",
-  "headRefOid": "bd288475cd6e1d7ff8977e1bca12bef9f036e541",
-  "isDraft": false,
-  "mergeStateStatus": "CLEAN",
-  "mergeable": "MERGEABLE",
-  "mergedAt": null,
-  "number": 279,
-  "reviews": [],
-  "state": "OPEN",
-  "statusCheckRollup": [
-    {
-      "__typename": "CheckRun",
-      "completedAt": "2026-07-27T19:21:26Z",
-      "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/mcleland147/sfia-workspace/actions/runs/30297870223/job/90083250099",
-      "name": "Detect SFIA Studio changes",
-      "startedAt": "2026-07-27T19:21:20Z",
-      "status": "COMPLETED",
-      "workflowName": "SFIA Studio CI"
-    },
-    {
-      "__typename": "CheckRun",
-      "completedAt": "2026-07-27T19:22:39Z",
-      "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/mcleland147/sfia-workspace/actions/runs/30297870223/job/90083286141",
-      "name": "Build and validate SFIA Studio",
-      "startedAt": "2026-07-27T19:21:29Z",
-      "status": "COMPLETED",
-      "workflowName": "SFIA Studio CI"
-    },
-    {
-      "__typename": "CheckRun",
-      "completedAt": "2026-07-27T19:22:44Z",
-      "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/mcleland147/sfia-workspace/actions/runs/30297870223/job/90083578847",
-      "name": "SFIA Studio Required Gate",
-      "startedAt": "2026-07-27T19:22:42Z",
-      "status": "COMPLETED",
-      "workflowName": "SFIA Studio CI"
-    }
-  ],
-  "title": "docs(sfia-studio): close F-A6 after M1 governance proofs",
-  "url": "https://github.com/mcleland147/sfia-workspace/pull/279"
-}
-```
-- OPEN, non draft, MERGEABLE/CLEAN, autoMerge null, 1 fichier, 3 commits, head exact
-
-### Titre
-`docs(sfia-studio): close F-A6 after M1 governance proofs`
-
-### Corps (extrait conformité)
-Corps conforme (3 commits + SHA bd28847…).
-
-## 3. CI pré-merge / required gate / ruleset
-- run `30297870223` SUCCESS event pull_request head `bd28847…`
-```json
-{
-  "id": 30297870223,
-  "name": "SFIA Studio CI",
-  "event": "pull_request",
-  "head_sha": "bd288475cd6e1d7ff8977e1bca12bef9f036e541",
-  "status": "completed",
-  "conclusion": "success",
-  "html_url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30297870223"
-}
-```
-```json
-{
-  "runs": [
-    {
-      "conclusion": "success",
-      "name": "SFIA Studio Required Gate",
-      "status": "completed"
-    },
-    {
-      "conclusion": "success",
-      "name": "Build and validate SFIA Studio",
-      "status": "completed"
-    },
-    {
-      "conclusion": "success",
-      "name": "Detect SFIA Studio changes",
-      "status": "completed"
-    }
-  ],
-  "total": 3
-}
-```
-```json
-{
-  "id": 19798462,
-  "name": "SFIA Studio Main Required Gate — M1",
-  "enforcement": "active",
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ],
-  "rules": [
-    {
-      "type": "pull_request",
-      "parameters": {
-        "required_approving_review_count": 0,
-        "dismiss_stale_reviews_on_push": false,
-        "required_reviewers": [],
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_review_thread_resolution": false,
-        "allowed_merge_methods": [
-          "merge",
-          "squash",
-          "rebase"
-        ]
-      }
-    },
-    {
-      "type": "required_status_checks",
-      "parameters": {
-        "strict_required_status_checks_policy": false,
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "SFIA Studio Required Gate",
-            "integration_id": 15368
-          }
-        ]
-      }
-    }
-  ]
-}
-```
-Reviews/comments/conversations: 0 / 0 / 0
-
-## 4. Merge H2
-```
-MERGE_TS=2026-07-27 21:33:19 CEST (+0200)
-CMD=gh pr merge 279 --repo mcleland147/sfia-workspace --squash --subject "docs(sfia-studio): close F-A6 after M1 governance proofs" --body "<BODY EXACT>"
-EXIT=0
-```
-### Titre squash
-`docs(sfia-studio): close F-A6 after M1 governance proofs`
-
-### Body squash
-```
-Formalise la décision Morris de clôture de F-A6-PM-G01 après preuves complètes M1, rollback et bypass.
-
-Aligne le statut Branch protection / required checks comme APPLIED via M1, avec l’état historique PROPOSED — NOT APPLIED supersédé.
-
-Stabilise les formulations d’état de publication afin que le document reste cohérent avant et après intégration via la PR #279.
-
-Conserve le hardening loose comme sujet distinct.
-
-Option A reste non COMPLETE, T-A7 non ouverte et D1–D7 NOT DECIDED.
-```
-
-### stdout
-```
-(empty)
-```
-### stderr
-```
-(empty)
-```
-- pas de `--admin` / `--auto` / `--delete-branch` / `--merge` / `--rebase`
-
-## 5. PR après merge
-```json
-{
-  "baseRefOid": "df9d9c6e688be367f54aa9376e67543eab80533a",
   "closedAt": "2026-07-27T19:33:21Z",
   "headRefOid": "bd288475cd6e1d7ff8977e1bca12bef9f036e541",
+  "isDraft": false,
   "mergeCommit": {
     "oid": "c472eb412f3ade3e94fee9201042794fee502d8f"
   },
@@ -297,11 +62,6 @@ Option A reste non COMPLETE, T-A7 non ouverte et D1–D7 NOT DECIDED.
   "url": "https://github.com/mcleland147/sfia-workspace/pull/279"
 }
 ```
-Verdict: `F-A6 CLOSURE PR #279 MERGED WITH H2 SQUASH — SQUASH SHA VERIFIED`
-
-## 6. Main après
-- main avant: `df9d9c6e688be367f54aa9376e67543eab80533a`
-- main après / squash: `c472eb412f3ade3e94fee9201042794fee502d8f`
 ```
 commit c472eb412f3ade3e94fee9201042794fee502d8f
 Author:     mcleland147 <m.cleland@live.fr>
@@ -324,17 +84,21 @@ CommitDate: Mon Jul 27 21:33:21 2026 +0200
  .../24-ci-and-merge-governance-preparation.md      | 141 +++++++++++++++------
  1 file changed, 102 insertions(+), 39 deletions(-)
 ```
-### name-status / stat
-```
-M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md
-```
-```
- .../24-ci-and-merge-governance-preparation.md      | 141 +++++++++++++++------
- 1 file changed, 102 insertions(+), 39 deletions(-)
-```
-- 1 commit nouveau ; 1 fichier ; blob `27c7934799d19e5fc3401eb55e95c0d99b1e36e2`
+- parent squash: `df9d9c6e688be367f54aa9376e67543eab80533a`
+- blob: `27c7934799d19e5fc3401eb55e95c0d99b1e36e2`
+- 1 fichier ; 102/39 ; H2 squash ; branche distante **non** auto-supprimée
 
-## 7. Document canonique complet (origin/main)
+## 3. Main
+```
+origin_main=c472eb412f3ade3e94fee9201042794fee502d8f
+commits_after_squash:
+doc24_after_squash:
+blob_main=27c7934799d19e5fc3401eb55e95c0d99b1e36e2
+```
+- `origin/main` = `c472eb412f3ade3e94fee9201042794fee502d8f` (inchangé depuis merge)
+- squash ancêtre de main ; aucun commit ultérieur
+
+## 4. Document canonique complet
 ```markdown
 # 24 — CI and Merge Governance Preparation (Option A)
 
@@ -879,14 +643,225 @@ Addendum de clôture F-A6 (formalisation documentaire — trace pré-intégratio
 `SFIA STUDIO F-A6-PM-G01 MORRIS CLOSURE DECISION FORMALIZED — DOCUMENT 24 UPDATED — HISTORICAL CRITERIA, ROLLBACK AND BYPASS PROOFS RECORDED — LOOSE-CONFIG HARDENING KEPT DISTINCT — PRE-MERGE PUBLICATION STATE RECORDED VIA PR #279 — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
 ```
 
-## 8. Cohérence post-merge documentaire
-- F-A6 CLOSED / CLOSED=OUI
-- §17/§20 stables (PRE-MERGE PUBLICATION STATE RECORDED VIA PR #279 ; trace pré-intégration)
-- pas de CANONICAL MAIN INTEGRATION PENDING
-- hardening distinct ; Option A NON ; T-A7 NON ; D1–D7 NOT DECIDED
-- **F-A6 CLOSED sur main** ; formalisation canonique intégrée
+## 5. Contradictions
+```json
+[
+  {
+    "line": 15,
+    "pattern": "NOT CLOSED",
+    "class": "historique/supersédé",
+    "text": "| **Finding capitalisé** | **F-A6-PM-G01** — **CLOSED** (formalisation sous `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` ; état de publication au moment de la formalisation porté par la PR #279) ; états antérieurs supersédés : miti"
+  },
+  {
+    "line": 15,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| **Finding capitalisé** | **F-A6-PM-G01** — **CLOSED** (formalisation sous `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` ; état de publication au moment de la formalisation porté par la PR #279) ; états antérieurs supersédés : miti"
+  },
+  {
+    "line": 19,
+    "pattern": "Option A COMPLETE",
+    "class": "anti-claim / hors scope OK",
+    "text": "| **Option A COMPLETE** | **NON** |"
+  },
+  {
+    "line": 20,
+    "pattern": "T-A7",
+    "class": "anti-claim / hors scope OK",
+    "text": "| **T-A7** | **NON ouvert** |"
+  },
+  {
+    "line": 34,
+    "pattern": "T-A7",
+    "class": "anti-claim / hors scope OK",
+    "text": "**Non autorisé / non exécuté** : push branche projet, PR, merge, rulesets/branch protections distants, required checks, auto-merge, merge queue, runtime métier Option A, T-A7, fermeture de réserve."
+  },
+  {
+    "line": 291,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| Statut | `CLOSED — M1 GOVERNANCE CONTROL APPLIED, BEHAVIORALLY PROVEN, ROLLBACK-TESTED AND BYPASS-QUALIFIED` |"
+  },
+  {
+    "line": 292,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| CLOSED | **OUI** |"
+  },
+  {
+    "line": 297,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| Décision Morris de mitigation (antérieure) | D-M1-02 — formalisation MITIGATED (`GO FORMALIZE F-A6-PM-G01 AS MITIGATED AFTER M1 — SFIA STUDIO V3-NATIVE`) — **supersédée** pour le statut CLOSED |"
+  },
+  {
+    "line": 298,
+    "pattern": "NOT CLOSED",
+    "class": "historique/supersédé",
+    "text": "| Décision Morris antérieure NOT CLOSED | D-M1-03 — F-A6-PM-G01 **non CLOSED** — **supersédée** par le GO de clôture ci-dessous |"
+  },
+  {
+    "line": 298,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| Décision Morris antérieure NOT CLOSED | D-M1-03 — F-A6-PM-G01 **non CLOSED** — **supersédée** par le GO de clôture ci-dessous |"
+  },
+  {
+    "line": 301,
+    "pattern": "Option A COMPLETE",
+    "class": "anti-claim / hors scope OK",
+    "text": "| Option A COMPLETE | **NON** (D-M1-05) — inchangé |"
+  },
+  {
+    "line": 302,
+    "pattern": "T-A7",
+    "class": "anti-claim / hors scope OK",
+    "text": "| T-A7 | **NON OUVERTE** (D-M1-06) — inchangé |"
+  },
+  {
+    "line": 308,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| Décision validée | F-A6-PM-G01 = **CLOSED** |"
+  },
+  {
+    "line": 332,
+    "pattern": "NOT CLOSED",
+    "class": "historique/supersédé",
+    "text": "État antérieur (supersédé) : avant ce GO, le statut était `MITIGATED — … — NOT CLOSED` et la formalisation CLOSED était une décision Morris séparée."
+  },
+  {
+    "line": 332,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "État antérieur (supersédé) : avant ce GO, le statut était `MITIGATED — … — NOT CLOSED` et la formalisation CLOSED était une décision Morris séparée."
+  },
+  {
+    "line": 342,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| Preuve hors Studio PASS | PR #272 CLOSED non mergée — run `30248284607` |"
+  },
+  {
+    "line": 361,
+    "pattern": "NOT CLOSED",
+    "class": "historique/supersédé",
+    "text": "- finding non CLOSED ;"
+  },
+  {
+    "line": 361,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "- finding non CLOSED ;"
+  },
+  {
+    "line": 364,
+    "pattern": "rollback non testé",
+    "class": "historique — réserve retirée",
+    "text": "- rollback non testé (prouvé) ;"
+  },
+  {
+    "line": 365,
+    "pattern": "bypass non testé",
+    "class": "historique — réserve retirée",
+    "text": "- bypass non testé (prouvé comportementalement)."
+  },
+  {
+    "line": 377,
+    "pattern": "T-A7",
+    "class": "anti-claim / hors scope OK",
+    "text": "- T-A7 non ouverte ;"
+  },
+  {
+    "line": 378,
+    "pattern": "D1–D7",
+    "class": "anti-claim / hors scope OK",
+    "text": "- D1–D7 du REX restent `NOT DECIDED` (hors clôture F-A6)."
+  },
+  {
+    "line": 382,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "- F-A6 CLOSED ≠ Option A COMPLETE ;"
+  },
+  {
+    "line": 382,
+    "pattern": "Option A COMPLETE",
+    "class": "anti-claim / hors scope OK",
+    "text": "- F-A6 CLOSED ≠ Option A COMPLETE ;"
+  },
+  {
+    "line": 383,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "- F-A6 CLOSED ≠ T-A7 OPEN ;"
+  },
+  {
+    "line": 383,
+    "pattern": "T-A7",
+    "class": "anti-claim / hors scope OK",
+    "text": "- F-A6 CLOSED ≠ T-A7 OPEN ;"
+  },
+  {
+    "line": 384,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "- F-A6 CLOSED ≠ ruleset hardened ;"
+  },
+  {
+    "line": 385,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "- F-A6 CLOSED ≠ bypass recommandé ;"
+  },
+  {
+    "line": 386,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "- F-A6 CLOSED ≠ production-ready ;"
+  },
+  {
+    "line": 387,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "- F-A6 CLOSED ≠ D1–D7 décidées ;"
+  },
+  {
+    "line": 387,
+    "pattern": "D1–D7",
+    "class": "anti-claim / hors scope OK",
+    "text": "- F-A6 CLOSED ≠ D1–D7 décidées ;"
+  },
+  {
+    "line": 396,
+    "pattern": "PROPOSED — NOT APPLIED",
+    "class": "historique/supersédé",
+    "text": "**Statut historique (cycle de préparation) :** `PROPOSED — NOT APPLIED — MORRIS GO REQUIRED` — **supersédé**."
+  },
+  {
+    "line": 442,
+    "pattern": "CLOSED",
+    "class": "statut/anti-claim",
+    "text": "| F-A6-PM-G01 | **Major** (gouvernance) — sévérité initiale historique | Merge #267 sans review PR/CI formelle / CI absente | **CLOSED — M1 GOVERNANCE PROOFS COMPLETE — MORRIS CLOSURE DECISION RECORDED** (voir Capitalisation F-A6-PM-G01) |"
+  },
+  {
+    "line": 481,
+    "pattern": "PROPOSED — NOT APPLIED",
+    "class": "historique/supersédé",
+    "text": "- Branch protection / required checks : **APPLIED** via M1 — état historique de préparation `PROPOSED — NOT APPLIED` supersédé."
+  },
+  {
+    "line": 541,
+    "pattern": "T-A7",
+    "class": "anti-claim / hors scope OK",
+    "text": "`SFIA STUDIO F-A6-PM-G01 MORRIS CLOSURE DECISION FORMALIZED — DOCUMENT 24 UPDATED — HISTORICAL CRITERIA, ROLLBACK AND BYPASS PROOFS RECORDED — LOOSE-CONFIG HARDENING KEPT DISTINCT — PRE-MERGE PUBLICATION STATE RECORDED VIA PR #279 — OPTION A NOT COMPLETE — T-A"
+  }
+]
+```
+Réelles: []
+**0 contradiction réelle.**
 
-## 9. CI post-merge
+## 6. CI post-merge `30298749017`
 ```json
 {
   "id": 30298749017,
@@ -895,50 +870,27 @@ Addendum de clôture F-A6 (formalisation documentaire — trace pré-intégratio
   "head_sha": "c472eb412f3ade3e94fee9201042794fee502d8f",
   "status": "completed",
   "conclusion": "success",
-  "run_attempt": 1,
+  "html_url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30298749017",
   "created_at": "2026-07-27T19:33:24Z",
-  "updated_at": "2026-07-27T19:35:17Z",
-  "html_url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30298749017"
+  "updated_at": "2026-07-27T19:35:17Z"
 }
 ```
-### Jobs/steps
 ```json
 [
   {
     "name": "Detect SFIA Studio changes",
     "id": 90086177108,
     "conclusion": "success",
-    "status": "completed",
     "steps": [
-      {
-        "number": 1,
-        "name": "Set up job",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
       {
         "number": 2,
         "name": "Checkout",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 3,
         "name": "Detect Studio scope",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
-      {
-        "number": 6,
-        "name": "Post Checkout",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
-      {
-        "number": 7,
-        "name": "Complete job",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       }
     ]
   },
@@ -946,91 +898,56 @@ Addendum de clôture F-A6 (formalisation documentaire — trace pré-intégratio
     "name": "Build and validate SFIA Studio",
     "id": 90086233252,
     "conclusion": "success",
-    "status": "completed",
     "steps": [
-      {
-        "number": 1,
-        "name": "Set up job",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
       {
         "number": 2,
         "name": "Checkout",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 3,
         "name": "Setup Node.js",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 4,
         "name": "Install dependencies",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 5,
         "name": "Typecheck",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 6,
         "name": "Lint",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 7,
         "name": "Build",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 8,
         "name": "Unit tests (Vitest)",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 9,
         "name": "Modeled governance tests",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 10,
         "name": "Secret pattern scan (targeted)",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       },
       {
         "number": 11,
         "name": "Trailing whitespace check",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
-      {
-        "number": 21,
-        "name": "Post Setup Node.js",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
-      {
-        "number": 22,
-        "name": "Post Checkout",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
-      {
-        "number": 23,
-        "name": "Complete job",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       }
     ]
   },
@@ -1038,165 +955,193 @@ Addendum de clôture F-A6 (formalisation documentaire — trace pré-intégratio
     "name": "SFIA Studio Required Gate",
     "id": 90086616727,
     "conclusion": "success",
-    "status": "completed",
     "steps": [
-      {
-        "number": 1,
-        "name": "Set up job",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
       {
         "number": 2,
         "name": "Aggregate required gate",
-        "conclusion": "success",
-        "continue_on_error": null
-      },
-      {
-        "number": 3,
-        "name": "Complete job",
-        "conclusion": "success",
-        "continue_on_error": null
+        "conclusion": "success"
       }
     ]
   }
 ]
 ```
-### Checks
+Detect / Build / Required Gate = success ; aucun rerun contradictoire.
+
+## 7. Ruleset
 ```json
 {
-  "runs": [
+  "id": 19798462,
+  "name": "SFIA Studio Main Required Gate — M1",
+  "enforcement": "active",
+  "bypass_actors": [
     {
-      "conclusion": "success",
-      "html_url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30298749017/job/90086616727",
-      "name": "SFIA Studio Required Gate",
-      "status": "completed"
-    },
-    {
-      "conclusion": "success",
-      "html_url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30298749017/job/90086233252",
-      "name": "Build and validate SFIA Studio",
-      "status": "completed"
-    },
-    {
-      "conclusion": "success",
-      "html_url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30298749017/job/90086177108",
-      "name": "Detect SFIA Studio changes",
-      "status": "completed"
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
     }
   ],
-  "total": 3
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
-### Logs utiles
-```
-Detect SFIA Studio changes	Detect Studio scope	﻿2026-07-27T19:33:36.3469565Z ##[group]Run set -euo pipefail
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3471110Z ^[[36;1mset -euo pipefail^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3472308Z ^[[36;1m^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3473302Z ^[[36;1mstudio_changed="false"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3474576Z ^[[36;1mevent_name="push"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3475728Z ^[[36;1m^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3476707Z ^[[36;1mis_studio_path() {^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3477906Z ^[[36;1m  case "$1" in^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3479612Z ^[[36;1m    projects/sfia-studio/*|.github/workflows/sfia-studio-ci.yml)^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3481452Z ^[[36;1m      return 0^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3482546Z ^[[36;1m      ;;^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3483509Z ^[[36;1m    *)^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3484487Z ^[[36;1m      return 1^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3485551Z ^[[36;1m      ;;^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3486524Z ^[[36;1m  esac^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3487463Z ^[[36;1m}^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3488359Z ^[[36;1m^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3489467Z ^[[36;1mscan_range() {^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3490579Z ^[[36;1m  local base_sha="$1"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3491821Z ^[[36;1m  local head_sha="$2"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3492996Z ^[[36;1m  local file=""^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3494119Z ^[[36;1m  local found="false"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3495277Z ^[[36;1m^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3496524Z ^[[36;1m  git rev-parse --verify "${base_sha}^{commit}" >/dev/null^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3498892Z ^[[36;1m  git rev-parse --verify "${head_sha}^{commit}" >/dev/null^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3500537Z ^[[36;1m^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3501531Z ^[[36;1m  while IFS= read -r -d '' file; do^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3502976Z ^[[36;1m    if is_studio_path "${file}"; then^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3504342Z ^[[36;1m      found="true"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3505467Z ^[[36;1m      break^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3506470Z ^[[36;1m    fi^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3507783Z ^[[36;1m  done < <(git diff -z --name-only "${base_sha}...${head_sha}")^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3509540Z ^[[36;1m^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3510479Z ^[[36;1m  printf '%s' "${found}"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3511659Z ^[[36;1m}^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3512555Z ^[[36;1m^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3513615Z ^[[36;1mif [ "${event_name}" = "pull_request" ]; then^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3515038Z ^[[36;1m  base_sha=""^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3516096Z ^[[36;1m  head_sha=""^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3517386Z ^[[36;1m  if [ -z "${base_sha}" ] || [ -z "${head_sha}" ]; then^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3519414Z ^[[36;1m    echo "Missing pull_request base/head SHA; fail-closed." >&2^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3521133Z ^[[36;1m    exit 1^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3522129Z ^[[36;1m  fi^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3523429Z ^[[36;1m  studio_changed="$(scan_range "${base_sha}" "${head_sha}")"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3595901Z ^[[36;1melif [ "${event_name}" = "push" ]; then^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3598097Z ^[[36;1m  # Path filters already constrain push triggers to Studio-relevant paths.^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3600481Z ^[[36;1m  # Fail-closed: treat triggered push runs as Studio-in-scope.^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3602519Z ^[[36;1m  # Optionally corroborate with before...sha when resolvable.^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3604491Z ^[[36;1m  before_sha="df9d9c6e688be367f54aa9376e67543eab80533a"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3606270Z ^[[36;1m  head_sha="c472eb412f3ade3e94fee9201042794fee502d8f"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3607798Z ^[[36;1m  studio_changed="true"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3609889Z ^[[36;1m  if [ -n "${before_sha}" ] && [ "${before_sha}" != "0000000000000000000000000000000000000000" ]; then^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3612387Z ^[[36;1m    if ! git rev-parse --verify "${before_sha}^{commit}" >/dev/null 2>&1; then^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3614574Z ^[[36;1m      echo "Cannot resolve github.event.before; fail-closed." >&2^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3616194Z ^[[36;1m      exit 1^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3617187Z ^[[36;1m    fi^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3618458Z ^[[36;1m    corroborate="$(scan_range "${before_sha}" "${head_sha}")"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3620501Z ^[[36;1m    echo "push corroborate studio_changed=${corroborate}"^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3622031Z ^[[36;1m  fi^[[0m
-Detect SFIA Studio changes	Detect Studio scope	2026-07-27T19:33:36.3622902Z ^[[36;1melse^[[0m
-```
-- Detect / Build / Required Gate : **success**
-- event: **push** sur squash SHA
+- approvals=0 ; strict=false ; conversation resolution=false ; bypass actor inchangé
+- **non** traité ici (hardening distinct)
 
-## 10. Branches / worktree
-```
-bd288475cd6e1d7ff8977e1bca12bef9f036e541	refs/heads/docs/sfia-studio-fa6-closure
-```
-- branche distante conservée
-- branche locale conservée
-- worktree `/Users/morris/Projects/sfia-workspace-fa6-closure` conservé
-- **cleanup non exécuté**
+## 8. Matrice clôture F-A6
+| Critère | Statut |
+|---------|--------|
+| décision Morris CLOSED | PASS |
+| décision intégrée sur main | PASS | squash c472eb41 |
+| PR mergée | PASS | #279 |
+| stratégie H2 conforme | PASS |
+| squash SHA vérifié | PASS |
+| document canonique complet | PASS | blob 27c79347… |
+| preuves M1 présentes | PASS |
+| rollback prouvé | PASS |
+| bypass prouvé | PASS |
+| CI PR success | PASS | 30297870223 |
+| CI post-merge success | PASS | 30298749017 |
+| required gate success | PASS |
+| aucune contradiction documentaire | PASS |
+| aucune action post-merge obligatoire restante pour F-A6 | PASS |
+| éléments distincts séparés | PASS | hardening / Option A / T-A7 / D1–D7 |
+| handoff exploitable | PASS |
 
-## 11. Gouvernance finale
-- F-A6-PM-G01: **CLOSED sur main**
-- document 24: canonique intégré
-- PR #279: MERGED H2 squash
-- hardening loose: distinct / inchangé
-- ruleset: inchangé
+## 9. Clôture logique
+- cycle F-A6: **CLOSED**
+- finding F-A6: **CLOSED sur main**
+- merge + post-merge: **validés**
+- cleanup: **évalué, non exécuté**
+- hardening: distinct
 - Option A: non COMPLETE
 - T-A7: non ouverte
 - D1–D7: NOT DECIDED
 
-## 12. Actions non exécutées
-- amend/rebase/update-branch/force-push
-- H1/H3
-- auto-merge/bypass/--admin
-- delete branch/worktree
-- ruleset/hardening
-- Option A COMPLETE / T-A7 / D1–D7 / Notion/CMP
+## 10. Inventaire cleanup
+### Branche distante / locale / worktree
+- remote: `origin/docs/sfia-studio-fa6-closure` @ `bd288475cd6e1d7ff8977e1bca12bef9f036e541`
+- local: `docs/sfia-studio-fa6-closure` @ même SHA
+- worktree: `/Users/morris/Projects/sfia-workspace-fa6-closure` (unique sur cette branche)
 
-## 13. Risques / réserves
-- approvals=0 configuration loose inchangée (hors F-A6)
-- traces probe/revert historiques toujours présentes sur main (hors clôture)
-- cleanup branche/worktree nécessite GO séparé
+### Tracked / staged / untracked / ignored
+```
+tracked_count=2372
+staged:
+untracked:
+ignored_sample:
+ignored_count=
+other_worktrees_on_same_branch:
+/Users/morris/Projects/sfia-workspace-fa6-closure
+```
 
-## 14. Gate candidat (NOT CONSUMED)
-`GO POST-MERGE CLOSE F-A6-PM-G01 CYCLE AND ASSESS CLEANUP — SFIA STUDIO V3-NATIVE`
+### Comparaison tree branche ↔ squash
+```
+=== diff stat branch..squash trees ===
+=== name-status ===
+=== tree SHAs ===
+squash_tree=26059de8b42214c447825e309e1914db8ef08555
+branch_tree=26059de8b42214c447825e309e1914db8ef08555
+```
+```
+commits_on_branch_not_ancestor_of_main:
+bd28847 docs(sfia-studio): stabilize F-A6 post-merge state language
+77271fa docs(sfia-studio): align F-A6 branch protection decision status
+a13759d docs(sfia-studio): close F-A6 after M1 governance proofs
+is_branch_ancestor_of_main?
+no
+is_squash_ancestor_of_main?
+yes
+```
+- trees **identiques** (`26059de8…`)
+- diff contenu **vide**
+- 3 commits de branche non ancêtres de main (attendu après squash) — **contenu déjà intégré**
+- aucune dépendance d’autre worktree sur cette branche
+- aucun untracked/staged
 
-## 15. Verdict
-`SFIA STUDIO F-A6-PM-G01 CLOSURE PR #279 MERGED WITH H2 SQUASH — SQUASH SHA VERIFIED ON MAIN — DOCUMENT 24 CANONICAL CONTENT INTEGRATED — POST-MERGE CI PASSED — F-A6 CLOSED ON MAIN — LOOSE-CONFIG HARDENING KEPT DISTINCT — BRANCH AND WORKTREE PRESERVED — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
+### Réversibilité
+- suppression distante : récupérable via PR #279 / reflog GitHub limité ; commits `a13759d/77271fa/bd28847` restent joignables tant que GitHub conserve les refs de PR
+- suppression locale/worktree : réversible tant que remote existe ; après remote delete, recréable depuis PR commits si encore fetchables
+- **audit principal** déjà porté par PR #279 + squash sur main
+
+## 11. Classification cleanup
+| Objet | Qualification | Justification |
+|-------|---------------|---------------|
+| Branche distante | **SAFE TO DELETE** | tree ≡ squash ; pas de contenu non intégré ; PR conserve l’audit |
+| Branche locale | **SAFE TO DELETE** | même SHA ; unique worktree ; clean |
+| Worktree | **SAFE TO DELETE** | clean ; aucun ignored utile détecté ; aucune dépendance |
+
+Risques: confusion future si la branche reste alors que le contenu est déjà sur main ; dette de worktrees multiples déjà élevée dans le repo.
+
+Ordre candidat (NON exécuté):
+1. `git worktree remove /Users/morris/Projects/sfia-workspace-fa6-closure`
+2. `git branch -d docs/sfia-studio-fa6-closure` (depuis un autre worktree)
+3. `git push origin --delete docs/sfia-studio-fa6-closure`
+4. vérifier `git worktree list` et `git ls-remote --heads origin docs/sfia-studio-fa6-closure`
+
+Conditions: GO Morris cleanup distinct ; pas d’investigation active F-A6.
+
+## 12. Challenge de nécessité
+- cleanup utile maintenant ? **Oui** (réduction dette worktree/branch) mais **non bloquant** pour clôturer F-A6
+- conservation crée-t-elle dette ? **Oui**, mineure (branche orpheline post-squash + worktree)
+- raison opérationnelle de conserver temporairement ? **Non** après validation post-merge CI + handoff
+- valeur d’audit de la branche distante ? **Faible** — PR #279 + squash + handoffs suffisent
+- suppression = solution la plus simple ? **Oui**
+- clôturer F-A6 sans cleanup immédiat ? **Oui — obligatoire dans ce gate**
+- cleanup = arbitrage humain ? **Oui** — décision Morris via gate séparé
+
+## 13. Actions non exécutées
+- aucune suppression branche/worktree
+- aucun `git push --delete` / `branch -d/-D` / `worktree remove`
+- aucun commit/push projet / modif doc / ruleset / hardening
+- Option A COMPLETE / T-A7 / D1–D7 / Notion/CMP: non
+
+## 14. Sujets distincts
+- hardening loose (approvals 0, strict false, bypass actor)
+- Option A COMPLETE
+- T-A7
+- D1–D7
+- cleanup Git (gate candidat ci-dessous)
+
+## 15. Gate candidat (NOT CONSUMED)
+`GO CLEANUP F-A6-PM-G01 MERGED BRANCH AND WORKTREE — DELETE LOCAL WORKTREE, LOCAL BRANCH AND REMOTE BRANCH — SFIA STUDIO V3-NATIVE`
+
+## 16. Verdict
+`SFIA STUDIO F-A6-PM-G01 CYCLE CLOSED POST-MERGE — PR #279 AND SQUASH C472EB41 VERIFIED — DOCUMENT 24 CANONICAL AND POST-MERGE CI VALIDATED — F-A6 CLOSED ON MAIN — CLEANUP ASSESSED SAFE BUT NOT EXECUTED — LOOSE-CONFIG HARDENING KEPT DISTINCT — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
 
 ## Anti-claims
-- F-A6 CLOSED sur main ≠ Option A COMPLETE / T-A7 OPEN
-- merge H2 ≠ hardening validé
-- merge ≠ suppression branche autorisée
-- CI PR verte ≠ CI post-merge (ici les deux sont passées)
+- cycle F-A6 CLOSED ≠ Option A COMPLETE / T-A7 OPEN
+- cleanup safe ≠ cleanup autorisé / décidé
+- branche mergée par squash ≠ ancêtre direct de main
+- cleanup ≠ hardening
 
 ## Review Handoff Git
-- commit attendu: `docs(review-handoff): record F-A6 closure merge and post-merge`
+- commit attendu: `docs(review-handoff): close F-A6 cycle and assess cleanup`
