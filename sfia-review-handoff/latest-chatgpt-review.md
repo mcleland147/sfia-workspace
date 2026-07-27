@@ -1,132 +1,148 @@
-# Review pack FULL — PR #270 H2 squash merge
+# Review pack FULL — Post-merge review PR #270 path-aware required check
 
 ## Métadonnées cycle
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-27 07:04:19 CEST (+0200) |
-| **Cycle** | 14 — Merge contrôlé (+13 recheck, +7 DevOps, +9 QA) |
+| **Date/heure** | 2026-07-27 07:15:16 CEST (+0200) |
+| **Cycle** | 14 — Post-merge (+7 DevOps, +9 QA, +15 capitalisation légère) |
 | **Profil SFIA** | Critical |
 | **Typologie** | EVOL / DOC / DevOps |
-| **Gate consommé** | `GO MERGE OPTION A PATH-AWARE REQUIRED CHECK PR #270 — STRATEGY H2 SQUASH — SFIA STUDIO V3-NATIVE` |
-| **Stratégie** | **H2 squash** (validée Morris) |
+| **Gate consommé** | `GO POST-MERGE REVIEW OPTION A PATH-AWARE REQUIRED CHECK PR #270 — SFIA STUDIO V3-NATIVE` |
 | **Workspace** | `/Users/morris/Projects/sfia-workspace-option-a-path-aware-required-check` |
-| **Branche projet** | `delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation` |
-| **HEAD projet** | `9f03916243c470587f6958e058fd58909e5bd75a` |
+| **Branche projet** | `delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation` @ `9f03916243c470587f6958e058fd58909e5bd75a` |
 | **Ancien main** | `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
-| **Nouveau main** | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` |
-| **merge-base pré-merge** | `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 MERGED VIA H2 SQUASH — POST-MERGE CI GREEN — READY FOR POST-MERGE REVIEW` |
+| **origin/main** | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` (= squash #270) |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 — POST-MERGE REVIEW PASS — P3 INTEGRATED ON MAIN — NON-STUDIO PROOF REQUIRED BEFORE M1` |
 
-## Status initial / final (worktree projet)
+## Status initial / final
 
-- tracked clean ; staged vide ; untracked `.tmp-sfia-review/` only
-- aucune opération Git active
-- branche projet **conservée** @ `9f039162…` (remote présent)
-- aucun push local sur `main`
+Identiques : tracked clean ; staged vide ; untracked `.tmp-sfia-review/` only ; aucune opération Git active ; branche distante conservée.
+
+## CKC
+
+Candidat présent : `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` — experimental — **aucune autorité**.
 
 ## Sources / handoff initial
 
-- handoff readiness blob `d1a0e66b34c1da76bb0005b78d6f173eef6ec2d5`
-- workflow / doc 32 / runs PR `30237044632` (fail) + `30237640228` (success)
-- CKC QA candidat (guidance only)
+Handoff merge blob `e44032e8f048451e1eb84a5cf8c1fc62228d610a` ; workflow/doc 32 depuis `origin/main` ; runs `30237044632` / `30237640228` / `30238651843` ; docs 30/31 contexte.
 
-## Préconditions pré-merge — PASS
+## A. Intégration — PASS
 
-Local : HEAD/main/MB/remote OK ; DIFF_CHECK PASS ; 3 commits ; 2 fichiers.
-GitHub PR #270 : OPEN → (avant merge) MERGEABLE CLEAN ; non-draft ; head `9f039162…` ; base `60d9ac9…` ; checks 3/3 success ; protections absentes ; rulesets `[]`.
-
-## PR avant merge
-
-| Champ | Valeur |
-|-------|--------|
-| Titre | `ci(sfia-studio): add path-aware required gate preparation` |
-| Commits | `b55f2fb` · `e981352` · `9f039162` |
-| Fichiers | workflow M + doc 32 A |
-| +/- | +435 / −3 |
-| CI head | run `30237640228` success |
-
-## Action de merge
-
-- Mécanisme : `gh pr merge 270 --squash` (H2)
-- Suppression branche : **non**
-- mergedAt : `2026-07-27T05:02:16Z`
-- state post : **MERGED**
-
-## Commit squash
+### Commit squash
 
 | Champ | Valeur |
 |-------|--------|
 | SHA | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` |
 | Parents | **1** — `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
-| Titre | `ci(sfia-studio): add path-aware required gate preparation (#270)` |
-| Corps | path-aware detection + stable gate ; doc M1 candidat / bypass / non-Studio proof remaining |
-| Tree | `04070dd4b8f27326162cb05fa60d430ed7c3820b` = tree PR tip `9f039162…` (**TREE_EQ=YES**) |
-| Blobs | WF `801a8759…` · DOC32 `1bc7b654…` |
-| Diff check | PASS |
-| Fichiers | 2 uniquement · +435/−3 |
+| Stratégie | **H2 squash** confirmée (parent unique + GitHub committer) |
+| Author | mcleland147 <m.cleland@live.fr> |
+| Committer | GitHub <noreply@github.com> |
+| Date | 2026-07-27T07:02:16+02:00 |
+| Subject | `ci(sfia-studio): add path-aware required gate preparation (#270)` |
+| Tree | `04070dd4b8f27326162cb05fa60d430ed7c3820b` |
+| TREE_EQ tip PR `9f039162…` | **YES** |
+| WF blob | `801a8759bb7440666799b95edf13f9ee6d9332f8` |
+| DOC32 blob | `1bc7b6544d27d687bf9e33757863f1397b1494b6` |
+| Diff | 2 fichiers · +435/−3 · `git diff --check` PASS |
+| Interdits / secrets | absents |
+| TW doc 32 | aucun |
 
-## Équivalence PR / commit
+### PR #270
 
-Contenu intégré **identique** au tip PR (égalité de trees + blobs). Aucune altération hors squash.
+- state **MERGED** / closed ; draft false
+- mergeCommit `4e2d5cf2…` ; mergedAt `2026-07-27T05:02:16Z`
+- base `main` ; head branche projet @ `9f039162…`
+- branche projet **conservée** remote
+- auto-merge null
 
-## Branche projet
+## B. Qualité technique workflow sur main — PASS structurel
 
-Conservée : `origin/delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation` @ `9f039162…`
+Lu depuis `origin/main` : name `SFIA Studio CI` ; `contents: read` ; concurrency cancel ; PR sans paths ; push paths Studio ; Detect fail-closed ; validate Node 24 + steps complets ; aucun `continue-on-error` ; gate `SFIA Studio Required Gate` `always()` ; YAML parse PASS.
 
-## CI post-merge
+Risques : renommage futur du check ; concurrency ; coût CI sur toutes les PR (detect léger + validate conditionnel).
 
-| Champ | Valeur |
-|-------|--------|
-| Run | **30238651843** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30238651843 |
-| Event | `push` |
-| Head | `4e2d5cf2…` |
-| Workflow | SFIA Studio CI |
-| Conclusion | **success** |
+## C. Couverture de preuve
 
-| Job | Conclusion |
-|-----|------------|
-| Detect SFIA Studio changes | success (`event_name=push`, `studio_changed=true`, corroborate true) |
-| Build and validate SFIA Studio | success (incl. Trailing whitespace) |
-| SFIA Studio Required Gate | success (`Required gate PASS: Studio validation succeeded.`) |
+| Scénario | Statut |
+|----------|--------|
+| PR in-scope failure (TW) | **prouvé distant** — run `30237044632` |
+| PR in-scope success | **prouvé distant** — run `30237640228` |
+| Push main in-scope | **prouvé distant** — run `30238651843` (`studio_changed=true`, corroborate true, gate PASS) |
+| Fail-closed gate on validate failure | **prouvé distant** |
+| Nom exact check `SFIA Studio Required Gate` | **prouvé distant** |
+| Matrice 8 scénarios locale | **simulée** (doc 32 / prep) |
+| `studio_changed=false` / validate skipped / gate success | **non prouvé** |
+| M1 / required check config | **non applicable** (non configurés) |
 
-## Protections / rulesets / required check
+### Runs
 
-Toujours absents après merge (protection 404 ; rulesets `[]` ; required check non configuré).
+**Rouge** `30237044632` @ `e9813524…` pull_request : Detect success + studio_changed=true ; Build fail TW L48/L245 ; Gate FAIL validate=failure.
 
-## Limite hors Studio
+**Vert PR** `30237640228` @ `9f039162…` pull_request : Detect/Build/Gate success ; whitespace success.
 
-**NON PROUVÉ.** Bloquant pour M1. Non transformé en Option A COMPLETE.
+**Post-merge** `30238651843` @ `4e2d5cf2…` push : Detect/Build/Gate success ; `push corroborate studio_changed=true` ; Required gate PASS: Studio validation succeeded.
 
-## Findings inchangés
+## D. Documentation
 
-F-A6-PM-G01 MITIGATED proposé not CLOSED ; F-CI-01/02/04 OPEN ; F-CI-03/05 MITIGATED ; F-CI-06/06B MITIGATED not CLOSED.
+Doc 32 présent sur main : P3 vs M1 NOT APPLIED ; B2 recommandé non validé ; F-A6-PM-G01 non CLOSED ; Option A non COMPLETE ; T-A7 non ouvert ; limite hors Studio.
+
+**Dette documentaire candidate (non corrigée ici)** : doc 32 contient encore la formulation « P3 / M1 préparés · non intégrés · non appliqués » alors que **P3 est désormais intégré sur main**. À traiter dans un cycle documentaire distinct si Morris le décide. Docs 30/31 historiques non contradictoires sur l'absence de M1.
+
+## E. Findings — inchangés
+
+| ID | Statut |
+|----|--------|
+| F-A6-PM-G01 | MITIGATED proposé — **not CLOSED** |
+| F-CI-01, F-CI-02, F-CI-04 | OPEN |
+| F-CI-03, F-CI-05 | MITIGATED |
+| F-CI-06 / F-CI-06B | MITIGATED, not CLOSED |
+
+## F. Trajectoire
+
+| Élément | Statut |
+|---------|--------|
+| P3 path-aware workflow | **intégré sur main** |
+| M1 ruleset | **NOT APPLIED** |
+| Required check config | **non configuré** |
+| Preuve hors Studio | **due** |
+| Option A | **non COMPLETE** |
+| T-A7 | **non ouvert** |
+
+## Protections / rulesets
+
+Branch protection main : absente (`protected: false`, 404). Rulesets : `[]`. Required check : non configuré.
+
+## Recommandation (non décision)
+
+Produire une **preuve réelle hors Studio** via une PR minimale vers `main` (hors `projects/sfia-studio/**` et hors workflow Studio), réversible, sous nouveau GO Morris, **avant** toute application M1.
+
+Gate candidat (**NOT CONSUMED**) :
+`GO PROVE OPTION A PATH-AWARE REQUIRED CHECK ON NON-STUDIO PR — SFIA STUDIO V3-NATIVE`
 
 ## Anti-claims
 
-- Merge ≠ M1 appliqué
-- Merge ≠ required check configuré
-- CI post-merge verte ≠ Option A COMPLETE
-- Gate observé ≠ required
-- Hors Studio ≠ prouvé
-- T-A7 ≠ ouvert
+- Post-merge PASS ≠ Option A COMPLETE
+- P3 intégré ≠ M1 appliqué
+- Check observé ≠ required configuré
+- CI verte ≠ preuve hors Studio
+- Recommandation ≠ décision Morris
 - F-A6-PM-G01 ≠ CLOSED
+- T-A7 ≠ ouvert
 
 ## Actions non exécutées
 
-ruleset ; protection ; required check config ; delete branche ; fermeture finding ; T-A7 ; amend/rebase/force-push ; autre stratégie que H2.
+Aucune mutation projet/PR/main ; aucun ruleset/protection/required check ; aucune suppression branche ; aucune fermeture finding ; aucun T-A7 ; aucune correction doc 32.
 
-## Décisions Morris / gate suivant
+## Décisions Morris restantes
 
-Gate suivant (**NOT CONSUMED**) :
-`GO POST-MERGE REVIEW OPTION A PATH-AWARE REQUIRED CHECK PR #270 — SFIA STUDIO V3-NATIVE`
-
-Puis, ultérieurement et séparément : preuve hors Studio / éventuel GO APPLY M1 — **non autorisés ici**.
+1. Autoriser ou non la PR de preuve hors Studio.
+2. Moment / scope de cette preuve.
+3. Ultérieurement seulement : M1 / required check / delete branches / F-A6.
 
 ---
 
-## Diff complet squash `60d9ac9…`..`4e2d5cf…` (rstrip handoff ; trees/blobs font foi)
+## Diff squash `60d9ac9…`..`4e2d5cf…` (rstrip ; trees/blobs font foi)
 
 ```diff
 diff --git a/.github/workflows/sfia-studio-ci.yml b/.github/workflows/sfia-studio-ci.yml
@@ -599,6 +615,245 @@ index 0000000..1bc7b65
 +`SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK AND MAIN PROTECTION IMPLEMENTATION PREPARED LOCALLY — READY FOR MORRIS PUSH AND PR DECISION`
 ```
 
+## Workflow complet sur `origin/main` (blob `801a8759…`)
+
+```yaml
+name: SFIA Studio CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+    paths:
+      - "projects/sfia-studio/**"
+      - ".github/workflows/sfia-studio-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sfia-studio-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect:
+    name: Detect SFIA Studio changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      studio_changed: ${{ steps.detect.outputs.studio_changed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect Studio scope
+        id: detect
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          studio_changed="false"
+          event_name="${{ github.event_name }}"
+
+          is_studio_path() {
+            case "$1" in
+              projects/sfia-studio/*|.github/workflows/sfia-studio-ci.yml)
+                return 0
+                ;;
+              *)
+                return 1
+                ;;
+            esac
+          }
+
+          scan_range() {
+            local base_sha="$1"
+            local head_sha="$2"
+            local file=""
+            local found="false"
+
+            git rev-parse --verify "${base_sha}^{commit}" >/dev/null
+            git rev-parse --verify "${head_sha}^{commit}" >/dev/null
+
+            while IFS= read -r -d '' file; do
+              if is_studio_path "${file}"; then
+                found="true"
+                break
+              fi
+            done < <(git diff -z --name-only "${base_sha}...${head_sha}")
+
+            printf '%s' "${found}"
+          }
+
+          if [ "${event_name}" = "pull_request" ]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
+            head_sha="${{ github.event.pull_request.head.sha }}"
+            if [ -z "${base_sha}" ] || [ -z "${head_sha}" ]; then
+              echo "Missing pull_request base/head SHA; fail-closed." >&2
+              exit 1
+            fi
+            studio_changed="$(scan_range "${base_sha}" "${head_sha}")"
+          elif [ "${event_name}" = "push" ]; then
+            # Path filters already constrain push triggers to Studio-relevant paths.
+            # Fail-closed: treat triggered push runs as Studio-in-scope.
+            # Optionally corroborate with before...sha when resolvable.
+            before_sha="${{ github.event.before }}"
+            head_sha="${{ github.sha }}"
+            studio_changed="true"
+            if [ -n "${before_sha}" ] && [ "${before_sha}" != "0000000000000000000000000000000000000000" ]; then
+              if ! git rev-parse --verify "${before_sha}^{commit}" >/dev/null 2>&1; then
+                echo "Cannot resolve github.event.before; fail-closed." >&2
+                exit 1
+              fi
+              corroborate="$(scan_range "${before_sha}" "${head_sha}")"
+              echo "push corroborate studio_changed=${corroborate}"
+            fi
+          else
+            echo "Unsupported event_name=${event_name}; fail-closed." >&2
+            exit 1
+          fi
+
+          if [ "${studio_changed}" != "true" ] && [ "${studio_changed}" != "false" ]; then
+            echo "Invalid studio_changed value; fail-closed." >&2
+            exit 1
+          fi
+
+          echo "event_name=${event_name}"
+          echo "studio_changed=${studio_changed}"
+          echo "studio_changed=${studio_changed}" >> "${GITHUB_OUTPUT}"
+
+  validate:
+    name: Build and validate SFIA Studio
+    needs: detect
+    if: >
+      needs.detect.result == 'success' &&
+      (
+        (github.event_name == 'pull_request' && needs.detect.outputs.studio_changed == 'true') ||
+        github.event_name == 'push'
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+        working-directory: projects/sfia-studio/app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: projects/sfia-studio/app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Unit tests (Vitest)
+        run: npm test
+
+      - name: Modeled governance tests
+        working-directory: projects/sfia-studio
+        run: |
+          node --test \
+            sfia-v3-modeled/v3-native-option-a/tests/evidence-review-maturity-governance.test.mjs \
+            sfia-v3-modeled/v3-native-option-a/tests/execution-contract-governance.test.mjs \
+            sfia-v3-modeled/v3-native-option-a/tests/execution-attempt-governance.test.mjs
+
+      - name: Secret pattern scan (targeted)
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          # Fail closed on common high-signal secret markers under Studio paths.
+          # No external scanner dependency; patterns are intentionally narrow.
+          matches="$(git grep -nE 'BEGIN (RSA |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}' -- 'projects/sfia-studio' || true)"
+          if [ -n "${matches}" ]; then
+            echo "Potential secret material detected under projects/sfia-studio:" >&2
+            printf '%s\n' "${matches}" >&2
+            exit 1
+          fi
+          echo "Secret pattern scan passed"
+
+      - name: Trailing whitespace check
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            git diff --check "${BASE_SHA}...HEAD"
+          else
+            # Push to main: check the pushed commit range when available.
+            BEFORE="${{ github.event.before }}"
+            if [ -n "${BEFORE}" ] && [ "${BEFORE}" != "0000000000000000000000000000000000000000" ]; then
+              git diff --check "${BEFORE}...HEAD"
+            else
+              echo "No previous SHA available; skipping whitespace range check"
+            fi
+          fi
+
+  required_gate:
+    name: SFIA Studio Required Gate
+    needs:
+      - detect
+      - validate
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Aggregate required gate
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          detect_result="${{ needs.detect.result }}"
+          validate_result="${{ needs.validate.result }}"
+          studio_changed="${{ needs.detect.outputs.studio_changed }}"
+
+          echo "detect_result=${detect_result}"
+          echo "validate_result=${validate_result}"
+          echo "studio_changed=${studio_changed}"
+
+          if [ "${detect_result}" != "success" ]; then
+            echo "Required gate FAIL: detection did not succeed (result=${detect_result})." >&2
+            exit 1
+          fi
+
+          if [ "${studio_changed}" != "true" ] && [ "${studio_changed}" != "false" ]; then
+            echo "Required gate FAIL: unknown studio_changed value." >&2
+            exit 1
+          fi
+
+          if [ "${studio_changed}" = "false" ]; then
+            echo "Required gate PASS: non-Studio pull request; heavy validation not required."
+            exit 0
+          fi
+
+          if [ "${validate_result}" != "success" ]; then
+            echo "Required gate FAIL: Studio validation required but result=${validate_result}." >&2
+            exit 1
+          fi
+
+          echo "Required gate PASS: Studio validation succeeded."
+```
+
 ## Verdict
 
-`SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 MERGED VIA H2 SQUASH — POST-MERGE CI GREEN — READY FOR POST-MERGE REVIEW`
+`SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 — POST-MERGE REVIEW PASS — P3 INTEGRATED ON MAIN — NON-STUDIO PROOF REQUIRED BEFORE M1`
