@@ -1,1276 +1,671 @@
-# SFIA Review Pack — PR #276 Post-Merge Validation (FULL)
+# SFIA Review Pack — M1 Ruleset Rollback Test + Bypass Qualification (FULL)
 
 ## Metadata
-- date/heure/fuseau: 2026-07-27 19:12:23 CEST (+0200)
-- truth-check timestamp: 2026-07-27 19:11:04 CEST (+0200)
-- cycle: 14 — Post-merge (+ 9 QA, 7 Intégration/DevOps, 15 Capitalisation/REX, 13 vérification PR intégrée)
-- profil SFIA: Capitalization
-- profondeur: Critical
-- typologie: DOC / CAPITALIZATION / POST-MERGE / M1
-- gate consommé: `GO POST-MERGE VALIDATE PR #276 OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE`
+- date/heure/fuseau: 2026-07-27 19:28:39 CEST (+0200)
+- cycle: 9 — QA / validation (+ 7 DevOps, 10 Sécurité, 12 RUN readiness, 15 Capitalisation, 1 cadrage futur bypass)
+- profil SFIA: Critical
+- typologie: QA / DEVOPS / GOVERNANCE / RULESET / ROLLBACK / BYPASS
+- gate consommé: `GO TEST M1 RULESET ROLLBACK AND PREPARE BYPASS VALIDATION — SFIA STUDIO V3-NATIVE`
 - repo: `mcleland147/sfia-workspace`
 - workspace: `/Users/morris/Projects/sfia-workspace-m1-capitalization`
-- branche: `docs/sfia-studio-m1-capitalization-rex`
-- mode: read-only projet (aucune mutation projet)
+- main: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
+- acteur authentifié: `mcleland147` (id `295557155`)
 
 ## 1. Local Git Truth Check
 - HEAD local: `fa0eebe00ce3b765a8a486aa660dddfab40123a0`
-- origin/main: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13` (= squash ; MAIN_EQUALS_SQUASH)
-- origin/head source: `fa0eebe00ce3b765a8a486aa660dddfab40123a0`
-- status local: clean · aucune opération Git active
-- handoff initial: blob `f4bb2b189ed60393f07f6a11b18cd2dba3261a21`
-- squash ancêtre de main: oui
-- document 33 blob sur main: `6c87cf4016d6a33f096df921acf8bafd4d73af4e`
-- lignes: 441
+- origin/main avant: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
+- origin/main après: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
+- status: clean · aucune opération Git active
+- handoff initial blob: `b503cf1d8871d69ea270935740c50dc802de9be3`
+- branche/worktree capitalisation: présents
 
-### Extrait truth check
-```
-BRANCH=docs/sfia-studio-m1-capitalization-rex
-HEAD=fa0eebe00ce3b765a8a486aa660dddfab40123a0
-ORIGIN_MAIN=49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13
-ORIGIN_HEAD=fa0eebe00ce3b765a8a486aa660dddfab40123a0
-MAIN_EQUALS_SQUASH
-HANDOFF_BLOB=f4bb2b189ed60393f07f6a11b18cd2dba3261a21
-```
+## 2. Activité concurrente (pré-mutation)
+- PR ouvertes vers main: `0`
+- CI in_progress/queued sur main: `0`
+- merges pendant fenêtre de désactivation: `[]`
+- pré-disable: `OPEN_PRS=0 INPROG=0 QUEUED=0`
 
-## 2. Metadata PR après merge
+## 3. Ruleset initial complet
 ```json
 {
-  "additions": 441,
-  "autoMergeRequest": null,
-  "baseRefName": "main",
-  "baseRefOid": "ae61c3ed48d4d1c9fe751eddd73617ba15480734",
-  "body": "## Objectif\n\nVersionner le REX M1 documentant l’implémentation du required gate SFIA Studio et les preuves comportementales associées.\n\n## Portée\n\n- ajout de :\n  `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md`\n- 441 lignes ;\n- aucun changement workflow, ruleset ou code produit.\n\n## Preuves capitalisées\n\n- PR #268 à #275 ;\n- PR contrôlées #272 et #273 ;\n- required check `SFIA Studio Required Gate` ;\n- ruleset `19798462` ;\n- runs de preuve M1 ;\n- PR #275 et CI post-merge.\n\n## État de gouvernance\n\n- F-A6-PM-G01 = MITIGATED ;\n- F-A6-PM-G01 = NOT CLOSED ;\n- Option A non COMPLETE ;\n- T-A7 non ouverte ;\n- rollback et bypass non testés ;\n- configuration M1 loose inchangée ;\n- D1–D7 NOT DECIDED.\n\n## Validation\n\n- 1 commit ;\n- 1 fichier ;\n- 441 insertions ;\n- `git diff --check` conforme ;\n- contenu complet ;\n- aucune modification workflow/ruleset ;\n- aucun nouveau choix de trajectoire.\n\n## Réserves\n\n- le REX versionné ne ferme pas F-A6 ;\n- le REX ne vaut pas Option A COMPLETE ;\n- le REX n’ouvre pas T-A7 ;\n- rollback et bypass restent non prouvés ;\n- les recommandations restent soumises à décision Morris.\n\n## Anti-claims\n\n- PR ouverte ≠ PR READY ;\n- PR ouverte ≠ merge ;\n- REX versionné ≠ F-A6 CLOSED ;\n- capitalisation ≠ décision Morris ;\n- CI success ≠ rollback/bypass testés.\n",
-  "comments": [],
-  "commits": [
+  "id": 19798462,
+  "name": "SFIA Studio Main Required Gate — M1",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "mcleland147/sfia-workspace",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
     {
-      "authoredDate": "2026-07-27T16:14:00Z",
-      "authors": [
-        {
-          "email": "morris@macbook-air1.home",
-          "id": "",
-          "login": "",
-          "name": "Morris Cleland"
-        },
-        {
-          "email": "cursoragent@cursor.com",
-          "id": "U_kgDOC972lw",
-          "login": "cursoragent",
-          "name": "Cursor"
-        }
-      ],
-      "committedDate": "2026-07-27T16:14:00Z",
-      "messageBody": "Co-authored-by: Cursor <cursoragent@cursor.com>",
-      "messageHeadline": "docs(sfia-studio): capitalize M1 implementation and proofs",
-      "oid": "fa0eebe00ce3b765a8a486aa660dddfab40123a0"
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
     }
   ],
-  "deletions": 0,
-  "files": [
+  "node_id": "RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4",
+  "created_at": "2026-07-27T09:31:28.759+02:00",
+  "updated_at": "2026-07-27T09:31:28.849+02:00",
+  "bypass_actors": [
     {
-      "path": "projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md",
-      "additions": 441,
-      "deletions": 0,
-      "changeType": "ADDED"
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
     }
   ],
-  "headRefName": "docs/sfia-studio-m1-capitalization-rex",
-  "headRefOid": "fa0eebe00ce3b765a8a486aa660dddfab40123a0",
-  "isDraft": false,
-  "mergeCommit": {
-    "oid": "49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13"
-  },
-  "mergedAt": "2026-07-27T16:35:20Z",
-  "mergedBy": {
-    "id": "U_kgDOEZ3YIw",
-    "is_bot": false,
-    "login": "mcleland147",
-    "name": ""
-  },
-  "number": 276,
-  "reviews": [],
-  "state": "MERGED",
-  "title": "docs(sfia-studio): capitalize M1 implementation and proofs",
-  "url": "https://github.com/mcleland147/sfia-workspace/pull/276"
-}
-```
-- state: MERGED (CLOSED/MERGED)
-- mergedAt: `2026-07-27T16:35:20Z`
-- mergedBy: `mcleland147`
-- head source SHA: `fa0eebe00ce3b765a8a486aa660dddfab40123a0`
-- merge/squash SHA: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
-- auto-merge: absent
-- bypass/admin: non observé / non utilisé
-
-### Corps PR complet
-```markdown
-## Objectif
-
-Versionner le REX M1 documentant l’implémentation du required gate SFIA Studio et les preuves comportementales associées.
-
-## Portée
-
-- ajout de :
-  `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md`
-- 441 lignes ;
-- aucun changement workflow, ruleset ou code produit.
-
-## Preuves capitalisées
-
-- PR #268 à #275 ;
-- PR contrôlées #272 et #273 ;
-- required check `SFIA Studio Required Gate` ;
-- ruleset `19798462` ;
-- runs de preuve M1 ;
-- PR #275 et CI post-merge.
-
-## État de gouvernance
-
-- F-A6-PM-G01 = MITIGATED ;
-- F-A6-PM-G01 = NOT CLOSED ;
-- Option A non COMPLETE ;
-- T-A7 non ouverte ;
-- rollback et bypass non testés ;
-- configuration M1 loose inchangée ;
-- D1–D7 NOT DECIDED.
-
-## Validation
-
-- 1 commit ;
-- 1 fichier ;
-- 441 insertions ;
-- `git diff --check` conforme ;
-- contenu complet ;
-- aucune modification workflow/ruleset ;
-- aucun nouveau choix de trajectoire.
-
-## Réserves
-
-- le REX versionné ne ferme pas F-A6 ;
-- le REX ne vaut pas Option A COMPLETE ;
-- le REX n’ouvre pas T-A7 ;
-- rollback et bypass restent non prouvés ;
-- les recommandations restent soumises à décision Morris.
-
-## Anti-claims
-
-- PR ouverte ≠ PR READY ;
-- PR ouverte ≠ merge ;
-- REX versionné ≠ F-A6 CLOSED ;
-- capitalisation ≠ décision Morris ;
-- CI success ≠ rollback/bypass testés.
-```
-
-## 3. Diff PR / source / squash
-Comparaison: source (`ae61c3ed48d4d1c9fe751eddd73617ba15480734...fa0eebe00ce3b765a8a486aa660dddfab40123a0`) == squash (`ae61c3ed48d4d1c9fe751eddd73617ba15480734...49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`) => **DIFFS_IDENTICAL**
-
-### Diff complet (source = PR = squash)
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
-new file mode 100644
-index 0000000..6c87cf4
---- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
-@@ -0,0 +1,441 @@
-+# SFIA Studio — REX M1 : implémentation du required gate et preuves comportementales
-+
-+## 1. Métadonnées
-+
-+| Métadonnée | Valeur |
-+|------------|--------|
-+| **Date/heure/fuseau** | 2026-07-27 17:52:49 CEST (+0200) |
-+| **Cycle** | 15 — Capitalisation / REX |
-+| **Cycles complémentaires** | 9 QA · 7 Intégration/DevOps · 14 Post-merge · 1 Cadrage décisionnel futur |
-+| **Profil** | Capitalization — profondeur Critical |
-+| **Typologie** | DOC / CAPITALIZATION / REX / M1 / OPTION A |
-+| **Gate Morris consommé** | `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS — SFIA STUDIO V3-NATIVE` |
-+| **Repository** | `mcleland147/sfia-workspace` |
-+| **Ref / HEAD de capitalisation** | `origin/main` @ `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-+| **Auteur d’exécution** | Cursor (agent) sous autorité Morris |
-+| **Autorité décisionnelle** | Morris (L0) — **aucune décision de trajectoire prise dans ce document** |
-+| **Statut du document** | `capitalization-candidate — Morris decision required for any resulting trajectory decision` |
-+| **Finding associé** | `F-A6-PM-G01` |
-+| **État F-A6 (canonique)** | `MITIGATED — NOT CLOSED` |
-+
-+> Ce document capitalise des **faits Git et GitHub déjà observés**.
-+> Il ne crée aucune décision Morris, ne ferme pas F-A6, ne déclare pas Option A COMPLETE et n’ouvre pas T-A7.
-+
-+### Légende de qualification (utilisée dans tout le document)
-+
-+| Qualifiant | Signification |
-+|------------|---------------|
-+| **Observation** | Fait constaté, sans jugement de trajectoire |
-+| **Preuve** | Artefact Git/GitHub vérifiable (PR, run, job, blob, ruleset) |
-+| **Résultat validé** | Comportement déjà démontré dans un cycle Morris antérieur |
-+| **Réserve** | Limite ouverte, non convertie en décision |
-+| **Risque résiduel** | Exposition restante malgré M1 |
-+| **Recommandation** | Proposition non décidée |
-+| **Option** | Alternative de trajectoire pour arbitrage Morris |
-+| **Décision Morris requise** | Point explicitement `NOT DECIDED` |
-+
-+---
-+
-+## 2. Objet et périmètre
-+
-+### Pourquoi M1 a été introduit
-+
-+**Observation :** le finding `F-A6-PM-G01` a été capitalisé après le merge de la PR #267 sans revue PR/CI formelle et sans CI SFIA Studio observable sur les changements Studio.
-+
-+**Objectif de M1 :** instaurer un contrôle de gouvernance de merge sur `main` capable de :
-+
-+1. détecter si une PR touche le périmètre SFIA Studio ;
-+2. exécuter une validation lourde uniquement si nécessaire ;
-+3. exposer un **required check stable** (`SFIA Studio Required Gate`) utilisable par un ruleset GitHub ;
-+4. bloquer l’intégration d’une PR Studio invalide ;
-+5. ne pas bloquer indûment une PR hors Studio.
-+
-+### Problème de gouvernance traité
-+
-+| Problème | Nature |
-+|----------|--------|
-+| Absence de CI Studio path-aware | Pas de signal de qualité avant merge sur `main` |
-+| Required checks path-filtered classiques | Instables ou inapplicables hors paths |
-+| Merge possible sans gate agrégé | Risque de régression silencieuse sur Studio |
-+| Finding F-A6 ouvert | Mitigation technique et comportementale requise avant toute clôture |
-+
-+### Inclus dans ce REX
-+
-+- chronologie des PR #268–#275 et preuves associées ;
-+- architecture factuelle du workflow + ruleset M1 ;
-+- matrice des preuves comportementales ;
-+- résultats obtenus et non-preuves ;
-+- écarts / difficultés capitalisés ;
-+- état F-A6 MITIGATED NOT CLOSED ;
-+- recommandations et options **non décidées**.
-+
-+### Hors périmètre
-+
-+- modification du workflow ou du ruleset ;
-+- test réel de rollback ou de bypass ;
-+- clôture F-A6 ;
-+- déclaration Option A COMPLETE ;
-+- ouverture T-A7 ;
-+- nettoyage des branches/worktrees ;
-+- exécution métier Option A / providers live ;
-+- action Notion/CMP ;
-+- versionnement Git de ce REX (commit projet = gate séparé).
-+
-+---
-+
-+## 3. Chronologie factuelle
-+
-+| Ordre | Événement | PR / artefact | SHA / ID | Qualification |
-+|------:|-----------|---------------|----------|---------------|
-+| 1 | CI initiale + gouvernance merge préparée | PR **#268** MERGED | squash/merge `508ef7c4619e27b664d087fd97d53afe74ea93cc` | **Preuve** d’introduction du workflow |
-+| 2 | Revues documentaires CI / post-merge | PR **#269** MERGED | merge `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` ; docs `25`–`31` | **Preuve** documentaire |
-+| 3 | Required gate path-aware (P3) | PR **#270** MERGED | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` ; doc Option A `32-path-aware-…` | **Résultat validé** — P3 intégré |
-+| 4 | Preuve hors Studio (préparatoire) | PR **#271** CLOSED non mergée | head `ffa36fdef905…` ; run `30239805289` SUCCESS | **Preuve** comportementale pré-ruleset ou contrôlée |
-+| 5 | Preuve hors Studio sous M1 | PR **#272** CLOSED non mergée | head `09a2c093427b…` ; run `30248284607` SUCCESS | **Résultat validé** — hors Studio PASS |
-+| 6 | Preuve Studio failure | PR **#273** (1er head) | head `dd4a083d8e86…` ; run `30248328467` FAILURE | **Résultat validé** — blocage |
-+| 7 | Recovery Studio sur la même PR | PR **#273** (2e head) | head `1b8ea24afc33…` ; run `30248480927` SUCCESS | **Résultat validé** — recovery |
-+| 8 | Activation ruleset M1 | Ruleset ID `19798462` | check `SFIA Studio Required Gate` · integration `15368` | **Résultat validé** — contrôle actif |
-+| 9 | Formalisation F-A6 MITIGATED | PR **#274** MERGED | `b89065fa92d823843f1eb1014c304e7d13233556` ; doc `24` | **Résultat validé** — MITIGATED NOT CLOSED |
-+| 10 | Alignement doc POC `32` | PR **#275** MERGED | squash `ae61c3ed48d4d1c9fe751eddd73617ba15480734` | **Résultat validé** — claims CI obsolètes retirés |
-+| 11 | CI post-merge #275 | run push | `30278533761` SUCCESS | **Résultat validé** |
-+
-+**Observation :** `origin/main` au moment de cette capitalisation est exactement `ae61c3ed48d4d1c9fe751eddd73617ba15480734`.
-+
-+---
-+
-+## 4. Architecture du contrôle M1
-+
-+> Description factuelle de l’état sur `main`. **Pas** une nouvelle baseline d’architecture produit.
-+
-+### 4.1 Workflow `.github/workflows/sfia-studio-ci.yml`
-+
-+| Élément | Valeur factuelle |
-+|---------|------------------|
-+| Nom | `SFIA Studio CI` |
-+| Blob sur `main` | `801a8759bb7440666799b95edf13f9ee6d9332f8` |
-+| Déclenchement | `pull_request` et `push` vers `main` (paths Studio + workflow lui-même) |
-+
-+#### Jobs
-+
-+1. **Detect SFIA Studio changes**
-+   - calcule `studio_changed=true|false`
-+   - fail-closed si valeur invalide
-+
-+2. **Build and validate SFIA Studio**
-+   - `needs: detect`
-+   - exécuté si Studio concerné (PR avec `studio_changed=true`, ou push corroboré)
-+   - steps : Node, install, typecheck, lint, build, Vitest, modeled governance, secret scan, trailing whitespace
-+
-+3. **SFIA Studio Required Gate** (`required_gate`)
-+   - `if: always()`
-+   - agrège Detect + Build
-+   - **PASS** si hors Studio (`studio_changed=false`) sans exiger Build
-+   - **PASS** si Studio et Build success
-+   - **FAIL** si Studio et Build failure/cancelled/absent
-+
-+### 4.2 Ruleset GitHub
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| ID | `19798462` |
-+| Nom | `SFIA Studio Main Required Gate — M1` |
-+| Enforcement | `active` |
-+| Cible | `refs/heads/main` |
-+| Required check | `SFIA Studio Required Gate` |
-+| Integration ID | `15368` |
-+| Non-fast-forward | bloqué |
-+| Deletion de `main` | bloquée |
-+| Bypass actors | User `295557155`, mode `pull_request` |
-+| Approvals requis | `0` (**configuration loose** — **réserve**) |
-+| Strict up-to-date | `false` (**loose** — **réserve**) |
-+
-+### 4.3 Comportements attendus (déjà démontrés)
-+
-+| Cas | Comportement |
-+|-----|--------------|
-+| PR hors Studio | Detect success · Build skipped · Required Gate success |
-+| PR Studio en échec | Detect success · Build failure · Required Gate failure · merge bloqué |
-+| PR Studio corrigée | Detect/Build/Gate success |
-+| Push post-merge Studio | Detect/Build/Gate success |
-+
-+---
-+
-+## 5. Matrice des preuves
-+
-+| # | Scénario | Branche / PR | Head SHA | Run ID | Detect | Build | Required Gate | Comportement GitHub | Résultat | Limite |
-+|---|----------|--------------|----------|--------|--------|-------|---------------|---------------------|----------|--------|
-+| 1 | PR hors Studio | `qa/sfia-studio-m1-controlled-non-studio-proof` / **#272** CLOSED non mergée | `09a2c093427b60234256355bdb7c3521e1e2ae01` | `30248284607` | success `89920211552` | **skipped** `89920245972` | success `89920245604` | Gate PASS sans validation lourde | **PASS** hors Studio | Pas un merge vers main ; PR fermée sans merge |
-+| 2 | PR Studio en échec | `qa/sfia-studio-m1-controlled-studio-proof` / **#273** | `dd4a083d8e86d06b99dbdcca43f3ec9f24752da0` | `30248328467` | success `89920352750` | **failure** `89920382756` | **failure** `89920627798` | Required check rouge | **BLOCKED** | Échec volontaire contrôlé |
-+| 3 | Recovery Studio | même PR **#273** | `1b8ea24afc33502b596c564f7daa911d9dc3e995` | `30248480927` | success `89920826448` | success `89920863525` | success `89921140417` | Required check vert | **RECOVERY PASS** | PR ensuite fermée sans merge |
-+| 4 | PR documentaire Studio | `docs/sfia-studio-doc32-post-p3-m1-correction` / **#275** MERGED | `dd2a68c6a1e45fee1e1f397cb644c2c082a3d877` | `30277076735` | success `90013737560` | success `90013783710` | success `90014180221` | Merge squash autorisé après CLEAN | **PASS** + merge | Contenu doc seulement |
-+| 5 | Push post-merge `main` | `main` après #275 | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` | `30278533761` | success `90018681920` | success `90018732641` | success `90019119514` | CI push complète | **PASS** post-merge | N’équivaut pas à test rollback/bypass |
-+
-+### Preuve préparatoire complémentaire (hors matrice obligatoire)
-+
-+| Scénario | PR | Run | Résultat |
-+|----------|----|-----|----------|
-+| Hors Studio préparatoire | **#271** CLOSED | `30239805289` — Detect success · Build skipped · Gate success | **Preuve** cohérente avec #272 |
-+
-+---
-+
-+## 6. Résultats obtenus
-+
-+| Affirmation | Qualification | Commentaire |
-+|-------------|---------------|-------------|
-+| M1 techniquement appliqué | **Résultat validé** | Workflow + ruleset actifs sur `main` |
-+| M1 comportementalement prouvé | **Résultat validé** | Preuves #272 / #273 / #275 / post-merge |
-+| Required gate stable | **Résultat validé** | Nom de check constant `SFIA Studio Required Gate` |
-+| Absence de blocage indu hors Studio | **Résultat validé** | #272 Build skipped + Gate success |
-+| Blocage d’une PR Studio invalide | **Résultat validé** | #273 failure run |
-+| Recovery réussie | **Résultat validé** | #273 recovery run |
-+| CI post-merge réussie | **Résultat validé** | run `30278533761` |
-+| F-A6 formalisé MITIGATED | **Résultat validé** | PR #274 / doc `24` |
-+| Doc POC `32` aligné post-P3/M1 | **Résultat validé** | PR #275 · blob `43f5157a…` |
-+
-+---
-+
-+## 7. Ce que M1 ne prouve pas
-+
-+| Non-preuve | Qualification |
-+|------------|---------------|
-+| Rollback du ruleset | **non testé** |
-+| Bypass du ruleset | **non testé** (bypass non utilisé sur #272–#275) |
-+| Comportement multi-acteurs | **non testé** |
-+| Résilience aux indisponibilités GitHub Actions | **non testée** |
-+| Gouvernance de modification future du ruleset | **non éprouvée** |
-+| Configuration bypass / approvals « loose » | **inchangée** — **réserve** |
-+| M1 COMPLETE ⇒ Option A COMPLETE | **faux** — anti-claim |
-+| M1 COMPLETE ⇒ F-A6 CLOSED | **faux** — anti-claim |
-+| M1 ⇒ ouverture T-A7 | **faux** — anti-claim |
-+| CI success ⇒ industrialisation / production ready | **faux** — anti-claim |
-+
-+---
-+
-+## 8. Analyse des écarts et difficultés
-+
-+| Écart / difficulté | Capitalisation |
-+|--------------------|----------------|
-+| Trailing whitespaces | Ont cassé des runs documentaires ; un step dédié dans Build a été intégré — **observation** utile pour futurs docs |
-+| Check final stable | Les required checks path-filtered seuls sont fragiles ; l’agrégateur `always()` résout le cas hors Studio — **résultat validé** |
-+| Workflows path-filtered comme required checks | Risque de check « absent » hors paths — **risque résiduel** historique corrigé par Detect+Gate |
-+| Détection path-aware | Distingue Studio / hors Studio sans inventer un second workflow — **valeur confirmée** |
-+| Skipped vs success | Build skipped hors Studio ≠ échec ; Gate doit PASS explicitement — **résultat validé** |
-+| PR contrôlées réelles | #272/#273 fermées sans merge fournissent des preuves sans polluer `main` — **pratique à conserver** |
-+| Micro-cycles | Coût élevé (push / readiness / merge séparés) — **observation** ; rationaliser push+ouverture PR reste une **recommandation**, merge séparé reste un garde-fou |
-+| Alignement documentaire tardif | Doc POC `32` a nécessité #275 après P3/M1 — **dette de synchronisation** documentaire |
-+
-+---
-+
-+## 9. Garde-fous confirmés
-+
-+| Garde-fou | Statut |
-+|-----------|--------|
-+| Aucun bypass utilisé sur les preuves M1 / #274 / #275 | **Observation** confirmée |
-+| Aucun `--admin` | **Observation** confirmée |
-+| `main` protégée (ruleset actif) | **Résultat validé** |
-+| Merge squash avec `--match-head-commit` (#275) | **Résultat validé** |
-+| Séparation GO push / PR readiness / merge | **Résultat validé** (pratique de cycle) |
-+| Review handoff Git (`sfia/review-handoff`) | **Résultat validé** |
-+| Anti-claims dans docs `24` et POC `32` | **Résultat validé** |
-+
-+---
-+
-+## 10. État de F-A6-PM-G01
-+
-+### État obligatoire
-+
-+`MITIGATED — NOT CLOSED`
-+
-+Source canonique : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md` (post PR #274).
-+
-+### Critères couverts (mitigation)
-+
-+| Critère | Couverture |
-+|---------|------------|
-+| Workflow CI Studio sur `main` | **couvert** (#268–#270) |
-+| Required check stable | **couvert** |
-+| Ruleset actif sur `main` | **couvert** (`19798462`) |
-+| Preuve hors Studio PASS | **couvert** (#272) |
-+| Preuve Studio FAIL puis recovery | **couvert** (#273) |
-+| Formalisation documentaire MITIGATED | **couvert** (#274) |
-+| Alignement doc POC `32` | **couvert** (#275) |
-+
-+### Preuves disponibles
-+
-+Voir §5 et chronologie §3.
-+
-+### Critères historiques restant ouverts (empêchant clôture automatique)
-+
-+| Critère ouvert | Commentaire |
-+|----------------|-------------|
-+| Décision Morris explicite de CLOSED | **NOT DECIDED** — D-M1-03 conserve NOT CLOSED |
-+| Rollback ruleset | non testé |
-+| Bypass | non testé |
-+| Durcissement config loose | non décidé |
-+| REX M1 versionné sur `main` | ce document est **draft local** jusqu’à gate de commit |
-+
-+### Raisons empêchant la clôture automatique
-+
-+1. La formalisation #274 a explicitement séparé MITIGATED et CLOSED.
-+2. Des non-preuves critiques (§7) restent ouvertes.
-+3. Aucun gate Morris de clôture n’a été consommé.
-+4. Ce REX **recommandera** éventuellement une réévaluation, sans la décider.
-+
-+**Interdit dans ce document :** présenter `F-A6 CLOSED` comme verdict.
-+
-+---
-+
-+## 11. Réserves et risques résiduels
-+
-+| Réserve / risque | Qualification |
-+|------------------|---------------|
-+| REX M1 produit dans ce cycle, **non encore versionné** | **Réserve** (commit projet = gate séparé) |
-+| Rollback non testé | **Réserve** |
-+| Bypass non testé | **Réserve** |
-+| Configuration M1 loose (approvals 0, strict false, bypass PR mode) | **Réserve / risque résiduel** |
-+| Findings F-CI éventuels non rouverts ici | **Observation** — hors mutation |
-+| Branches/worktrees résiduels (doc32, F-A6, preuves QA) | **Réserve** de cleanup |
-+| Dette de maintenance du ruleset | **Risque résiduel** |
-+| Dérive documentaire future (POC `32` vs Option A `32-path-aware`) | **Risque résiduel** de confusion de chemins |
-+| Option A non COMPLETE | **Réserve trajectoire** |
-+| T-A7 non ouverte | **Réserve trajectoire** |
-+
-+---
-+
-+## 12. Recommandations
-+
-+> Toute recommandation ci-dessous est **non décidée**.
-+
-+### 12.1 Court terme
-+
-+| ID | Recommandation | Valeur | Dette créée | Alternative plus simple | Gate Morris requis | Répétable / arbitrage |
-+|----|----------------|--------|-------------|-------------------------|--------------------|-----------------------|
-+| R1 | Commit + PR du présent REX (`33-…`) | Trace capitalisée sur `main` | Micro-cycle docs | Garder draft local | `GO COMMIT OPTION A M1 CAPITALIZATION…` | Répétable |
-+| R2 | Nettoyage borné branches/worktrees F-A6 + doc32 + preuves QA | Réduit bruit local | Risque de supprimer trop tôt | Conserver jusqu’à GO cleanup | Gate cleanup séparé | Arbitrage humain |
-+| R3 | Index Option A racine (si un jour créé) — **ne pas inventer maintenant** | Navigabilité | Nouveau doc | Liens croisés dans `24`/`33` seulement | Gate docs index | Arbitrage |
-+
-+### 12.2 Avant décision de clôture F-A6
-+
-+| ID | Recommandation | Valeur | Dette | Alternative | Gate requis | Nature |
-+|----|----------------|--------|-------|-------------|-------------|--------|
-+| R4 | Cycle borné test **rollback** ruleset | Prouve réversibilité | Risque opérationnel sur `main` | Accepter réserve permanente | Gate test rollback | Arbitrage humain |
-+| R5 | Cycle borné test **bypass** (puis révocation) | Prouve surface de contournement | Risque gouvernance | Documenter bypass « known loose » sans test | Gate test bypass | Arbitrage humain |
-+| R6 | Réévaluer F-A6 seulement après R4/R5 **ou** acceptation formelle des non-preuves | Évite CLOSED prématuré | Retarde clôture | CLOSED conditionnel documenté | Gate réévaluation F-A6 | Arbitrage humain |
-+
-+### 12.3 Avant ouverture T-A7
-+
-+| ID | Recommandation | Valeur | Dette | Alternative | Gate requis | Nature |
-+|----|----------------|--------|-------|-------------|-------------|--------|
-+| R7 | Ne pas lier T-A7 à la seule existence de M1 | Évite promotion implicite | Aucune | Cadrage T-A7 indépendant | Gate cadrage T-A7 | Arbitrage |
-+| R8 | Exiger un pack de cadrage T-A7 distinct (périmètre produit ≠ CI gate) | Séparation des préoccupations | Cycle supplémentaire | Absorber dans Option A runtime | Gate T-A7 | Arbitrage |
-+
-+### 12.4 Maintenance M1
-+
-+| ID | Recommandation | Valeur | Dette | Alternative | Gate | Nature |
-+|----|----------------|--------|-------|-------------|------|--------|
-+| R9 | Toute modification workflow/ruleset = cycle DevOps borné + preuves | Évite régression silencieuse | Coût process | Hotfix non gouverné (**à éviter**) | Gate DevOps M1 | Répétable |
-+| R10 | Conserver le nom exact du required check | Stabilité ruleset | Couplage nom | Migration versionnée du check | Gate ruleset | Répétable |
-+| R11 | Surveiller la config loose ; durcir seulement sous GO | Réduit bypass accidentel | Friction merge | Maintenir loose + monitoring | Gate durcissement | Arbitrage |
-+
-+---
-+
-+## 13. Options de trajectoire pour Morris
-+
-+> Aucune option n’est sélectionnée. Statut : **NOT DECIDED**.
-+
-+### Option 1 — Conserver F-A6 MITIGATED et poursuivre sans clôture
-+
-+| | |
-+|--|--|
-+| **Bénéfices** | Fidèle à D-M1-03 ; pas de faux CLOSED ; laisse du temps pour REX versionné |
-+| **Risques** | Finding reste ouvert longtemps ; dette visuelle de gouvernance |
-+| **Dette** | Suivi périodique F-A6 |
-+| **Prérequis** | Aucun technique immédiat |
-+| **Gate requis** | Aucun pour « ne rien fermer » ; éventuellement commit REX |
-+
-+### Option 2 — Lancer un cycle borné rollback + bypass avant réévaluation
-+
-+| | |
-+|--|--|
-+| **Bénéfices** | Comble les non-preuves §7 ; meilleure base pour CLOSED futur |
-+| **Risques** | Erreur opérationnelle sur ruleset ; fenêtre de faiblesse |
-+| **Dette** | Scripts/runbooks de test ; evidence pack |
-+| **Prérequis** | GO Morris dédié ; fenêtre contrôlée ; pas de `--admin` caché |
-+| **Gate requis** | Gate test rollback/bypass |
-+
-+### Option 3 — Renforcer la configuration bypass / approvals avant réévaluation
-+
-+| | |
-+|--|--|
-+| **Bénéfices** | Réduit la surface loose |
-+| **Risques** | Friction delivery ; faux sentiment de sécurité sans preuves comportementales |
-+| **Dette** | Ajustements ruleset + re-preuve éventuelle |
-+| **Prérequis** | GO durcissement ; critères d’acceptation |
-+| **Gate requis** | Gate durcissement M1 |
-+
-+### Option 4 — Différer toute décision F-A6 jusqu’au cadrage T-A7
-+
-+| | |
-+|--|--|
-+| **Bénéfices** | Évite de coupler CI gate et trajectoire produit |
-+| **Risques** | F-A6 reste MITIGATED indéfiniment ; confusion stakeholders |
-+| **Dette** | Suivi croisé Option A / F-A6 |
-+| **Prérequis** | Clarifier que T-A7 ≠ CI |
-+| **Gate requis** | Gate cadrage T-A7 (ultérieur) |
-+
-+---
-+
-+## 14. Décisions Morris requises
-+
-+Statut obligatoire de chaque item : **`NOT DECIDED`**
-+
-+| ID | Décision | Statut |
-+|----|----------|--------|
-+| D1 | Faut-il tester le rollback du ruleset M1 ? | NOT DECIDED |
-+| D2 | Faut-il tester le bypass M1 ? | NOT DECIDED |
-+| D3 | Faut-il durcir la configuration loose (approvals / strict / bypass) ? | NOT DECIDED |
-+| D4 | Quand réévaluer F-A6 (rester MITIGATED vs envisager CLOSED) ? | NOT DECIDED |
-+| D5 | Faut-il ouvrir ultérieurement T-A7 ? | NOT DECIDED |
-+| D6 | Faut-il versionner ce REX sur `main` maintenant ? | NOT DECIDED |
-+| D7 | Faut-il nettoyer branches/worktrees résiduels maintenant ? | NOT DECIDED |
-+
-+Aucune de ces décisions n’est tranchée par la rédaction de ce document.
-+
-+---
-+
-+## 15. Verdict de capitalisation
-+
-+`M1 IMPLEMENTATION AND BEHAVIORAL PROOFS CAPITALIZED — F-A6 MITIGATED NOT CLOSED — ROLLBACK AND BYPASS UNTESTED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — MORRIS DECISION REQUIRED FOR NEXT TRAJECTORY STEP`
-+
-+### Anti-claims (rappel)
-+
-+- capitalisation M1 ≠ F-A6 CLOSED
-+- capitalisation M1 ≠ Option A COMPLETE
-+- capitalisation M1 ≠ ouverture T-A7
-+- CI success ≠ rollback/bypass testés
-+- REX draft local ≠ REX versionné sur `main`
-+- recommandation ≠ décision Morris
-+
-+---
-+
-+## Annexe A — Références de chemins
-+
-+| Artefact | Path |
-+|----------|------|
-+| Workflow | `.github/workflows/sfia-studio-ci.yml` |
-+| F-A6 / CI gouvernance | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md` |
-+| Path-aware préparation (Option A doc 32) | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md` |
-+| POC vertical slice (doc 32 corrigé #275) | `projects/sfia-studio/32-poc-vertical-slice-functional-design.md` |
-+| CI reviews #269 | docs Option A `25`–`31` |
-+| **Ce REX** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` |
-+
-+## Annexe B — Identifiants stables
-+
-+| Type | Valeur |
-+|------|--------|
-+| Ruleset | `19798462` |
-+| Required check | `SFIA Studio Required Gate` |
-+| Integration | `15368` |
-+| Workflow blob | `801a8759bb7440666799b95edf13f9ee6d9332f8` |
-+| `main` HEAD (capitalisation) | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-+| Doc POC 32 blob | `43f5157a2bb198fb6fb04969677277d80645a434` |
-```
-
-## 4. Squash commit metadata
-```
-commit 49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13
-Author:     mcleland147 <m.cleland@live.fr>
-AuthorDate: Mon Jul 27 18:35:19 2026 +0200
-Commit:     GitHub <noreply@github.com>
-CommitDate: Mon Jul 27 18:35:19 2026 +0200
-
-    docs(sfia-studio): capitalize M1 implementation and proofs
-
-    Version the complete M1 implementation and behavioral proofs REX.
-
-    F-A6-PM-G01 remains MITIGATED and explicitly NOT CLOSED.
-    Option A remains not COMPLETE.
-    T-A7 remains not open.
-    Rollback and bypass remain untested.
-    D1–D7 remain NOT DECIDED.
-
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
-```
-
-### Message complet
-```
-docs(sfia-studio): capitalize M1 implementation and proofs
-
-Version the complete M1 implementation and behavioral proofs REX.
-
-F-A6-PM-G01 remains MITIGATED and explicitly NOT CLOSED.
-Option A remains not COMPLETE.
-T-A7 remains not open.
-Rollback and bypass remain untested.
-D1–D7 remain NOT DECIDED.
-```
-
-### Stat
-```
-commit 49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13
-Author:     mcleland147 <m.cleland@live.fr>
-AuthorDate: Mon Jul 27 18:35:19 2026 +0200
-Commit:     GitHub <noreply@github.com>
-CommitDate: Mon Jul 27 18:35:19 2026 +0200
-
-    docs(sfia-studio): capitalize M1 implementation and proofs
-
-    Version the complete M1 implementation and behavioral proofs REX.
-
-    F-A6-PM-G01 remains MITIGATED and explicitly NOT CLOSED.
-    Option A remains not COMPLETE.
-    T-A7 remains not open.
-    Rollback and bypass remain untested.
-    D1–D7 remain NOT DECIDED.
-
- .../33-m1-implementation-and-proofs-rex.md         | 441 +++++++++++++++++++++
- 1 file changed, 441 insertions(+)
-```
-
-- parent unique: `ae61c3ed48d4d1c9fe751eddd73617ba15480734`
-- fichier/stat: `A` `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` · `441 / 0`
-- whitespace check: clean
-
-## 5. Document 33 sur main
-- path: `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md`
-- blob: `6c87cf4016d6a33f096df921acf8bafd4d73af4e`
-- lignes: `441`
-- sections: 1–15 présentes (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-- annexes: Annexe A, Annexe B présentes
-- ruleset `19798462` / integration `15368` / required check `SFIA Studio Required Gate` présents
-- F-A6: MITIGATED — NOT CLOSED
-- Option A: non COMPLETE
-- T-A7: non ouverte / NOT OPEN
-- D1–D7: NOT DECIDED
-- rollback/bypass: non testés
-
-### Contenu complet document 33 (441 lignes)
-```markdown
-# SFIA Studio — REX M1 : implémentation du required gate et preuves comportementales
-
-## 1. Métadonnées
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Date/heure/fuseau** | 2026-07-27 17:52:49 CEST (+0200) |
-| **Cycle** | 15 — Capitalisation / REX |
-| **Cycles complémentaires** | 9 QA · 7 Intégration/DevOps · 14 Post-merge · 1 Cadrage décisionnel futur |
-| **Profil** | Capitalization — profondeur Critical |
-| **Typologie** | DOC / CAPITALIZATION / REX / M1 / OPTION A |
-| **Gate Morris consommé** | `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS — SFIA STUDIO V3-NATIVE` |
-| **Repository** | `mcleland147/sfia-workspace` |
-| **Ref / HEAD de capitalisation** | `origin/main` @ `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-| **Auteur d’exécution** | Cursor (agent) sous autorité Morris |
-| **Autorité décisionnelle** | Morris (L0) — **aucune décision de trajectoire prise dans ce document** |
-| **Statut du document** | `capitalization-candidate — Morris decision required for any resulting trajectory decision` |
-| **Finding associé** | `F-A6-PM-G01` |
-| **État F-A6 (canonique)** | `MITIGATED — NOT CLOSED` |
-
-> Ce document capitalise des **faits Git et GitHub déjà observés**.
-> Il ne crée aucune décision Morris, ne ferme pas F-A6, ne déclare pas Option A COMPLETE et n’ouvre pas T-A7.
-
-### Légende de qualification (utilisée dans tout le document)
-
-| Qualifiant | Signification |
-|------------|---------------|
-| **Observation** | Fait constaté, sans jugement de trajectoire |
-| **Preuve** | Artefact Git/GitHub vérifiable (PR, run, job, blob, ruleset) |
-| **Résultat validé** | Comportement déjà démontré dans un cycle Morris antérieur |
-| **Réserve** | Limite ouverte, non convertie en décision |
-| **Risque résiduel** | Exposition restante malgré M1 |
-| **Recommandation** | Proposition non décidée |
-| **Option** | Alternative de trajectoire pour arbitrage Morris |
-| **Décision Morris requise** | Point explicitement `NOT DECIDED` |
-
----
-
-## 2. Objet et périmètre
-
-### Pourquoi M1 a été introduit
-
-**Observation :** le finding `F-A6-PM-G01` a été capitalisé après le merge de la PR #267 sans revue PR/CI formelle et sans CI SFIA Studio observable sur les changements Studio.
-
-**Objectif de M1 :** instaurer un contrôle de gouvernance de merge sur `main` capable de :
-
-1. détecter si une PR touche le périmètre SFIA Studio ;
-2. exécuter une validation lourde uniquement si nécessaire ;
-3. exposer un **required check stable** (`SFIA Studio Required Gate`) utilisable par un ruleset GitHub ;
-4. bloquer l’intégration d’une PR Studio invalide ;
-5. ne pas bloquer indûment une PR hors Studio.
-
-### Problème de gouvernance traité
-
-| Problème | Nature |
-|----------|--------|
-| Absence de CI Studio path-aware | Pas de signal de qualité avant merge sur `main` |
-| Required checks path-filtered classiques | Instables ou inapplicables hors paths |
-| Merge possible sans gate agrégé | Risque de régression silencieuse sur Studio |
-| Finding F-A6 ouvert | Mitigation technique et comportementale requise avant toute clôture |
-
-### Inclus dans ce REX
-
-- chronologie des PR #268–#275 et preuves associées ;
-- architecture factuelle du workflow + ruleset M1 ;
-- matrice des preuves comportementales ;
-- résultats obtenus et non-preuves ;
-- écarts / difficultés capitalisés ;
-- état F-A6 MITIGATED NOT CLOSED ;
-- recommandations et options **non décidées**.
-
-### Hors périmètre
-
-- modification du workflow ou du ruleset ;
-- test réel de rollback ou de bypass ;
-- clôture F-A6 ;
-- déclaration Option A COMPLETE ;
-- ouverture T-A7 ;
-- nettoyage des branches/worktrees ;
-- exécution métier Option A / providers live ;
-- action Notion/CMP ;
-- versionnement Git de ce REX (commit projet = gate séparé).
-
----
-
-## 3. Chronologie factuelle
-
-| Ordre | Événement | PR / artefact | SHA / ID | Qualification |
-|------:|-----------|---------------|----------|---------------|
-| 1 | CI initiale + gouvernance merge préparée | PR **#268** MERGED | squash/merge `508ef7c4619e27b664d087fd97d53afe74ea93cc` | **Preuve** d’introduction du workflow |
-| 2 | Revues documentaires CI / post-merge | PR **#269** MERGED | merge `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` ; docs `25`–`31` | **Preuve** documentaire |
-| 3 | Required gate path-aware (P3) | PR **#270** MERGED | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` ; doc Option A `32-path-aware-…` | **Résultat validé** — P3 intégré |
-| 4 | Preuve hors Studio (préparatoire) | PR **#271** CLOSED non mergée | head `ffa36fdef905…` ; run `30239805289` SUCCESS | **Preuve** comportementale pré-ruleset ou contrôlée |
-| 5 | Preuve hors Studio sous M1 | PR **#272** CLOSED non mergée | head `09a2c093427b…` ; run `30248284607` SUCCESS | **Résultat validé** — hors Studio PASS |
-| 6 | Preuve Studio failure | PR **#273** (1er head) | head `dd4a083d8e86…` ; run `30248328467` FAILURE | **Résultat validé** — blocage |
-| 7 | Recovery Studio sur la même PR | PR **#273** (2e head) | head `1b8ea24afc33…` ; run `30248480927` SUCCESS | **Résultat validé** — recovery |
-| 8 | Activation ruleset M1 | Ruleset ID `19798462` | check `SFIA Studio Required Gate` · integration `15368` | **Résultat validé** — contrôle actif |
-| 9 | Formalisation F-A6 MITIGATED | PR **#274** MERGED | `b89065fa92d823843f1eb1014c304e7d13233556` ; doc `24` | **Résultat validé** — MITIGATED NOT CLOSED |
-| 10 | Alignement doc POC `32` | PR **#275** MERGED | squash `ae61c3ed48d4d1c9fe751eddd73617ba15480734` | **Résultat validé** — claims CI obsolètes retirés |
-| 11 | CI post-merge #275 | run push | `30278533761` SUCCESS | **Résultat validé** |
-
-**Observation :** `origin/main` au moment de cette capitalisation est exactement `ae61c3ed48d4d1c9fe751eddd73617ba15480734`.
-
----
-
-## 4. Architecture du contrôle M1
-
-> Description factuelle de l’état sur `main`. **Pas** une nouvelle baseline d’architecture produit.
-
-### 4.1 Workflow `.github/workflows/sfia-studio-ci.yml`
-
-| Élément | Valeur factuelle |
-|---------|------------------|
-| Nom | `SFIA Studio CI` |
-| Blob sur `main` | `801a8759bb7440666799b95edf13f9ee6d9332f8` |
-| Déclenchement | `pull_request` et `push` vers `main` (paths Studio + workflow lui-même) |
-
-#### Jobs
-
-1. **Detect SFIA Studio changes**
-   - calcule `studio_changed=true|false`
-   - fail-closed si valeur invalide
-
-2. **Build and validate SFIA Studio**
-   - `needs: detect`
-   - exécuté si Studio concerné (PR avec `studio_changed=true`, ou push corroboré)
-   - steps : Node, install, typecheck, lint, build, Vitest, modeled governance, secret scan, trailing whitespace
-
-3. **SFIA Studio Required Gate** (`required_gate`)
-   - `if: always()`
-   - agrège Detect + Build
-   - **PASS** si hors Studio (`studio_changed=false`) sans exiger Build
-   - **PASS** si Studio et Build success
-   - **FAIL** si Studio et Build failure/cancelled/absent
-
-### 4.2 Ruleset GitHub
-
-| Champ | Valeur |
-|-------|--------|
-| ID | `19798462` |
-| Nom | `SFIA Studio Main Required Gate — M1` |
-| Enforcement | `active` |
-| Cible | `refs/heads/main` |
-| Required check | `SFIA Studio Required Gate` |
-| Integration ID | `15368` |
-| Non-fast-forward | bloqué |
-| Deletion de `main` | bloquée |
-| Bypass actors | User `295557155`, mode `pull_request` |
-| Approvals requis | `0` (**configuration loose** — **réserve**) |
-| Strict up-to-date | `false` (**loose** — **réserve**) |
-
-### 4.3 Comportements attendus (déjà démontrés)
-
-| Cas | Comportement |
-|-----|--------------|
-| PR hors Studio | Detect success · Build skipped · Required Gate success |
-| PR Studio en échec | Detect success · Build failure · Required Gate failure · merge bloqué |
-| PR Studio corrigée | Detect/Build/Gate success |
-| Push post-merge Studio | Detect/Build/Gate success |
-
----
-
-## 5. Matrice des preuves
-
-| # | Scénario | Branche / PR | Head SHA | Run ID | Detect | Build | Required Gate | Comportement GitHub | Résultat | Limite |
-|---|----------|--------------|----------|--------|--------|-------|---------------|---------------------|----------|--------|
-| 1 | PR hors Studio | `qa/sfia-studio-m1-controlled-non-studio-proof` / **#272** CLOSED non mergée | `09a2c093427b60234256355bdb7c3521e1e2ae01` | `30248284607` | success `89920211552` | **skipped** `89920245972` | success `89920245604` | Gate PASS sans validation lourde | **PASS** hors Studio | Pas un merge vers main ; PR fermée sans merge |
-| 2 | PR Studio en échec | `qa/sfia-studio-m1-controlled-studio-proof` / **#273** | `dd4a083d8e86d06b99dbdcca43f3ec9f24752da0` | `30248328467` | success `89920352750` | **failure** `89920382756` | **failure** `89920627798` | Required check rouge | **BLOCKED** | Échec volontaire contrôlé |
-| 3 | Recovery Studio | même PR **#273** | `1b8ea24afc33502b596c564f7daa911d9dc3e995` | `30248480927` | success `89920826448` | success `89920863525` | success `89921140417` | Required check vert | **RECOVERY PASS** | PR ensuite fermée sans merge |
-| 4 | PR documentaire Studio | `docs/sfia-studio-doc32-post-p3-m1-correction` / **#275** MERGED | `dd2a68c6a1e45fee1e1f397cb644c2c082a3d877` | `30277076735` | success `90013737560` | success `90013783710` | success `90014180221` | Merge squash autorisé après CLEAN | **PASS** + merge | Contenu doc seulement |
-| 5 | Push post-merge `main` | `main` après #275 | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` | `30278533761` | success `90018681920` | success `90018732641` | success `90019119514` | CI push complète | **PASS** post-merge | N’équivaut pas à test rollback/bypass |
-
-### Preuve préparatoire complémentaire (hors matrice obligatoire)
-
-| Scénario | PR | Run | Résultat |
-|----------|----|-----|----------|
-| Hors Studio préparatoire | **#271** CLOSED | `30239805289` — Detect success · Build skipped · Gate success | **Preuve** cohérente avec #272 |
-
----
-
-## 6. Résultats obtenus
-
-| Affirmation | Qualification | Commentaire |
-|-------------|---------------|-------------|
-| M1 techniquement appliqué | **Résultat validé** | Workflow + ruleset actifs sur `main` |
-| M1 comportementalement prouvé | **Résultat validé** | Preuves #272 / #273 / #275 / post-merge |
-| Required gate stable | **Résultat validé** | Nom de check constant `SFIA Studio Required Gate` |
-| Absence de blocage indu hors Studio | **Résultat validé** | #272 Build skipped + Gate success |
-| Blocage d’une PR Studio invalide | **Résultat validé** | #273 failure run |
-| Recovery réussie | **Résultat validé** | #273 recovery run |
-| CI post-merge réussie | **Résultat validé** | run `30278533761` |
-| F-A6 formalisé MITIGATED | **Résultat validé** | PR #274 / doc `24` |
-| Doc POC `32` aligné post-P3/M1 | **Résultat validé** | PR #275 · blob `43f5157a…` |
-
----
-
-## 7. Ce que M1 ne prouve pas
-
-| Non-preuve | Qualification |
-|------------|---------------|
-| Rollback du ruleset | **non testé** |
-| Bypass du ruleset | **non testé** (bypass non utilisé sur #272–#275) |
-| Comportement multi-acteurs | **non testé** |
-| Résilience aux indisponibilités GitHub Actions | **non testée** |
-| Gouvernance de modification future du ruleset | **non éprouvée** |
-| Configuration bypass / approvals « loose » | **inchangée** — **réserve** |
-| M1 COMPLETE ⇒ Option A COMPLETE | **faux** — anti-claim |
-| M1 COMPLETE ⇒ F-A6 CLOSED | **faux** — anti-claim |
-| M1 ⇒ ouverture T-A7 | **faux** — anti-claim |
-| CI success ⇒ industrialisation / production ready | **faux** — anti-claim |
-
----
-
-## 8. Analyse des écarts et difficultés
-
-| Écart / difficulté | Capitalisation |
-|--------------------|----------------|
-| Trailing whitespaces | Ont cassé des runs documentaires ; un step dédié dans Build a été intégré — **observation** utile pour futurs docs |
-| Check final stable | Les required checks path-filtered seuls sont fragiles ; l’agrégateur `always()` résout le cas hors Studio — **résultat validé** |
-| Workflows path-filtered comme required checks | Risque de check « absent » hors paths — **risque résiduel** historique corrigé par Detect+Gate |
-| Détection path-aware | Distingue Studio / hors Studio sans inventer un second workflow — **valeur confirmée** |
-| Skipped vs success | Build skipped hors Studio ≠ échec ; Gate doit PASS explicitement — **résultat validé** |
-| PR contrôlées réelles | #272/#273 fermées sans merge fournissent des preuves sans polluer `main` — **pratique à conserver** |
-| Micro-cycles | Coût élevé (push / readiness / merge séparés) — **observation** ; rationaliser push+ouverture PR reste une **recommandation**, merge séparé reste un garde-fou |
-| Alignement documentaire tardif | Doc POC `32` a nécessité #275 après P3/M1 — **dette de synchronisation** documentaire |
-
----
-
-## 9. Garde-fous confirmés
-
-| Garde-fou | Statut |
-|-----------|--------|
-| Aucun bypass utilisé sur les preuves M1 / #274 / #275 | **Observation** confirmée |
-| Aucun `--admin` | **Observation** confirmée |
-| `main` protégée (ruleset actif) | **Résultat validé** |
-| Merge squash avec `--match-head-commit` (#275) | **Résultat validé** |
-| Séparation GO push / PR readiness / merge | **Résultat validé** (pratique de cycle) |
-| Review handoff Git (`sfia/review-handoff`) | **Résultat validé** |
-| Anti-claims dans docs `24` et POC `32` | **Résultat validé** |
-
----
-
-## 10. État de F-A6-PM-G01
-
-### État obligatoire
-
-`MITIGATED — NOT CLOSED`
-
-Source canonique : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md` (post PR #274).
-
-### Critères couverts (mitigation)
-
-| Critère | Couverture |
-|---------|------------|
-| Workflow CI Studio sur `main` | **couvert** (#268–#270) |
-| Required check stable | **couvert** |
-| Ruleset actif sur `main` | **couvert** (`19798462`) |
-| Preuve hors Studio PASS | **couvert** (#272) |
-| Preuve Studio FAIL puis recovery | **couvert** (#273) |
-| Formalisation documentaire MITIGATED | **couvert** (#274) |
-| Alignement doc POC `32` | **couvert** (#275) |
-
-### Preuves disponibles
-
-Voir §5 et chronologie §3.
-
-### Critères historiques restant ouverts (empêchant clôture automatique)
-
-| Critère ouvert | Commentaire |
-|----------------|-------------|
-| Décision Morris explicite de CLOSED | **NOT DECIDED** — D-M1-03 conserve NOT CLOSED |
-| Rollback ruleset | non testé |
-| Bypass | non testé |
-| Durcissement config loose | non décidé |
-| REX M1 versionné sur `main` | ce document est **draft local** jusqu’à gate de commit |
-
-### Raisons empêchant la clôture automatique
-
-1. La formalisation #274 a explicitement séparé MITIGATED et CLOSED.
-2. Des non-preuves critiques (§7) restent ouvertes.
-3. Aucun gate Morris de clôture n’a été consommé.
-4. Ce REX **recommandera** éventuellement une réévaluation, sans la décider.
-
-**Interdit dans ce document :** présenter `F-A6 CLOSED` comme verdict.
-
----
-
-## 11. Réserves et risques résiduels
-
-| Réserve / risque | Qualification |
-|------------------|---------------|
-| REX M1 produit dans ce cycle, **non encore versionné** | **Réserve** (commit projet = gate séparé) |
-| Rollback non testé | **Réserve** |
-| Bypass non testé | **Réserve** |
-| Configuration M1 loose (approvals 0, strict false, bypass PR mode) | **Réserve / risque résiduel** |
-| Findings F-CI éventuels non rouverts ici | **Observation** — hors mutation |
-| Branches/worktrees résiduels (doc32, F-A6, preuves QA) | **Réserve** de cleanup |
-| Dette de maintenance du ruleset | **Risque résiduel** |
-| Dérive documentaire future (POC `32` vs Option A `32-path-aware`) | **Risque résiduel** de confusion de chemins |
-| Option A non COMPLETE | **Réserve trajectoire** |
-| T-A7 non ouverte | **Réserve trajectoire** |
-
----
-
-## 12. Recommandations
-
-> Toute recommandation ci-dessous est **non décidée**.
-
-### 12.1 Court terme
-
-| ID | Recommandation | Valeur | Dette créée | Alternative plus simple | Gate Morris requis | Répétable / arbitrage |
-|----|----------------|--------|-------------|-------------------------|--------------------|-----------------------|
-| R1 | Commit + PR du présent REX (`33-…`) | Trace capitalisée sur `main` | Micro-cycle docs | Garder draft local | `GO COMMIT OPTION A M1 CAPITALIZATION…` | Répétable |
-| R2 | Nettoyage borné branches/worktrees F-A6 + doc32 + preuves QA | Réduit bruit local | Risque de supprimer trop tôt | Conserver jusqu’à GO cleanup | Gate cleanup séparé | Arbitrage humain |
-| R3 | Index Option A racine (si un jour créé) — **ne pas inventer maintenant** | Navigabilité | Nouveau doc | Liens croisés dans `24`/`33` seulement | Gate docs index | Arbitrage |
-
-### 12.2 Avant décision de clôture F-A6
-
-| ID | Recommandation | Valeur | Dette | Alternative | Gate requis | Nature |
-|----|----------------|--------|-------|-------------|-------------|--------|
-| R4 | Cycle borné test **rollback** ruleset | Prouve réversibilité | Risque opérationnel sur `main` | Accepter réserve permanente | Gate test rollback | Arbitrage humain |
-| R5 | Cycle borné test **bypass** (puis révocation) | Prouve surface de contournement | Risque gouvernance | Documenter bypass « known loose » sans test | Gate test bypass | Arbitrage humain |
-| R6 | Réévaluer F-A6 seulement après R4/R5 **ou** acceptation formelle des non-preuves | Évite CLOSED prématuré | Retarde clôture | CLOSED conditionnel documenté | Gate réévaluation F-A6 | Arbitrage humain |
-
-### 12.3 Avant ouverture T-A7
-
-| ID | Recommandation | Valeur | Dette | Alternative | Gate requis | Nature |
-|----|----------------|--------|-------|-------------|-------------|--------|
-| R7 | Ne pas lier T-A7 à la seule existence de M1 | Évite promotion implicite | Aucune | Cadrage T-A7 indépendant | Gate cadrage T-A7 | Arbitrage |
-| R8 | Exiger un pack de cadrage T-A7 distinct (périmètre produit ≠ CI gate) | Séparation des préoccupations | Cycle supplémentaire | Absorber dans Option A runtime | Gate T-A7 | Arbitrage |
-
-### 12.4 Maintenance M1
-
-| ID | Recommandation | Valeur | Dette | Alternative | Gate | Nature |
-|----|----------------|--------|-------|-------------|------|--------|
-| R9 | Toute modification workflow/ruleset = cycle DevOps borné + preuves | Évite régression silencieuse | Coût process | Hotfix non gouverné (**à éviter**) | Gate DevOps M1 | Répétable |
-| R10 | Conserver le nom exact du required check | Stabilité ruleset | Couplage nom | Migration versionnée du check | Gate ruleset | Répétable |
-| R11 | Surveiller la config loose ; durcir seulement sous GO | Réduit bypass accidentel | Friction merge | Maintenir loose + monitoring | Gate durcissement | Arbitrage |
-
----
-
-## 13. Options de trajectoire pour Morris
-
-> Aucune option n’est sélectionnée. Statut : **NOT DECIDED**.
-
-### Option 1 — Conserver F-A6 MITIGATED et poursuivre sans clôture
-
-| | |
-|--|--|
-| **Bénéfices** | Fidèle à D-M1-03 ; pas de faux CLOSED ; laisse du temps pour REX versionné |
-| **Risques** | Finding reste ouvert longtemps ; dette visuelle de gouvernance |
-| **Dette** | Suivi périodique F-A6 |
-| **Prérequis** | Aucun technique immédiat |
-| **Gate requis** | Aucun pour « ne rien fermer » ; éventuellement commit REX |
-
-### Option 2 — Lancer un cycle borné rollback + bypass avant réévaluation
-
-| | |
-|--|--|
-| **Bénéfices** | Comble les non-preuves §7 ; meilleure base pour CLOSED futur |
-| **Risques** | Erreur opérationnelle sur ruleset ; fenêtre de faiblesse |
-| **Dette** | Scripts/runbooks de test ; evidence pack |
-| **Prérequis** | GO Morris dédié ; fenêtre contrôlée ; pas de `--admin` caché |
-| **Gate requis** | Gate test rollback/bypass |
-
-### Option 3 — Renforcer la configuration bypass / approvals avant réévaluation
-
-| | |
-|--|--|
-| **Bénéfices** | Réduit la surface loose |
-| **Risques** | Friction delivery ; faux sentiment de sécurité sans preuves comportementales |
-| **Dette** | Ajustements ruleset + re-preuve éventuelle |
-| **Prérequis** | GO durcissement ; critères d’acceptation |
-| **Gate requis** | Gate durcissement M1 |
-
-### Option 4 — Différer toute décision F-A6 jusqu’au cadrage T-A7
-
-| | |
-|--|--|
-| **Bénéfices** | Évite de coupler CI gate et trajectoire produit |
-| **Risques** | F-A6 reste MITIGATED indéfiniment ; confusion stakeholders |
-| **Dette** | Suivi croisé Option A / F-A6 |
-| **Prérequis** | Clarifier que T-A7 ≠ CI |
-| **Gate requis** | Gate cadrage T-A7 (ultérieur) |
-
----
-
-## 14. Décisions Morris requises
-
-Statut obligatoire de chaque item : **`NOT DECIDED`**
-
-| ID | Décision | Statut |
-|----|----------|--------|
-| D1 | Faut-il tester le rollback du ruleset M1 ? | NOT DECIDED |
-| D2 | Faut-il tester le bypass M1 ? | NOT DECIDED |
-| D3 | Faut-il durcir la configuration loose (approvals / strict / bypass) ? | NOT DECIDED |
-| D4 | Quand réévaluer F-A6 (rester MITIGATED vs envisager CLOSED) ? | NOT DECIDED |
-| D5 | Faut-il ouvrir ultérieurement T-A7 ? | NOT DECIDED |
-| D6 | Faut-il versionner ce REX sur `main` maintenant ? | NOT DECIDED |
-| D7 | Faut-il nettoyer branches/worktrees résiduels maintenant ? | NOT DECIDED |
-
-Aucune de ces décisions n’est tranchée par la rédaction de ce document.
-
----
-
-## 15. Verdict de capitalisation
-
-`M1 IMPLEMENTATION AND BEHAVIORAL PROOFS CAPITALIZED — F-A6 MITIGATED NOT CLOSED — ROLLBACK AND BYPASS UNTESTED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — MORRIS DECISION REQUIRED FOR NEXT TRAJECTORY STEP`
-
-### Anti-claims (rappel)
-
-- capitalisation M1 ≠ F-A6 CLOSED
-- capitalisation M1 ≠ Option A COMPLETE
-- capitalisation M1 ≠ ouverture T-A7
-- CI success ≠ rollback/bypass testés
-- REX draft local ≠ REX versionné sur `main`
-- recommandation ≠ décision Morris
-
----
-
-## Annexe A — Références de chemins
-
-| Artefact | Path |
-|----------|------|
-| Workflow | `.github/workflows/sfia-studio-ci.yml` |
-| F-A6 / CI gouvernance | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md` |
-| Path-aware préparation (Option A doc 32) | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md` |
-| POC vertical slice (doc 32 corrigé #275) | `projects/sfia-studio/32-poc-vertical-slice-functional-design.md` |
-| CI reviews #269 | docs Option A `25`–`31` |
-| **Ce REX** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` |
-
-## Annexe B — Identifiants stables
-
-| Type | Valeur |
-|------|--------|
-| Ruleset | `19798462` |
-| Required check | `SFIA Studio Required Gate` |
-| Integration | `15368` |
-| Workflow blob | `801a8759bb7440666799b95edf13f9ee6d9332f8` |
-| `main` HEAD (capitalisation) | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-| Doc POC 32 blob | `43f5157a2bb198fb6fb04969677277d80645a434` |
-```
-
-## 6. Anti-claims vérifiés
-- aucune affirmation positive `F-A6 CLOSED` (seulement interdictions / anti-claims)
-- aucune affirmation positive `Option A COMPLETE`
-- aucune affirmation positive `T-A7 OPEN` / T-A7 ouverte
-- aucune baseline produit nouvellement déclarée
-- aucune recommandation promue en décision Morris
-- aucun test rollback/bypass présenté comme réalisé
-- post-merge validated ≠ F-A6 CLOSED / Option A COMPLETE / ouverture T-A7 / décision D1–D7 / cleanup
-
-## 7. CI post-merge (run 30285393915)
-```json
-{
-  "databaseId": 30285393915,
-  "workflowName": "SFIA Studio CI",
-  "event": "push",
-  "headBranch": "main",
-  "headSha": "49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13",
-  "status": "completed",
-  "conclusion": "success",
-  "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30285393915"
+  "current_user_can_bypass": "pull_requests_only",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"
+    },
+    "html": {
+      "href": "https://github.com/mcleland147/sfia-workspace/rules/19798462"
+    }
+  }
 }
 ```
 
-### Jobs / steps
-- Detect SFIA Studio changes | id=90041789824 | status=completed | conclusion=success
-  - step: Set up job | status=completed | conclusion=success
-  - step: Checkout | status=completed | conclusion=success
-  - step: Detect Studio scope | status=completed | conclusion=success
-  - step: Post Checkout | status=completed | conclusion=success
-  - step: Complete job | status=completed | conclusion=success
-- Build and validate SFIA Studio | id=90041833134 | status=completed | conclusion=success
-  - step: Set up job | status=completed | conclusion=success
-  - step: Checkout | status=completed | conclusion=success
-  - step: Setup Node.js | status=completed | conclusion=success
-  - step: Install dependencies | status=completed | conclusion=success
-  - step: Typecheck | status=completed | conclusion=success
-  - step: Lint | status=completed | conclusion=success
-  - step: Build | status=completed | conclusion=success
-  - step: Unit tests (Vitest) | status=completed | conclusion=success
-  - step: Modeled governance tests | status=completed | conclusion=success
-  - step: Secret pattern scan (targeted) | status=completed | conclusion=success
-  - step: Trailing whitespace check | status=completed | conclusion=success
-  - step: Post Setup Node.js | status=completed | conclusion=success
-  - step: Post Checkout | status=completed | conclusion=success
-  - step: Complete job | status=completed | conclusion=success
-- SFIA Studio Required Gate | id=90042221238 | status=completed | conclusion=success
-  - step: Set up job | status=completed | conclusion=success
-  - step: Aggregate required gate | status=completed | conclusion=success
-  - step: Complete job | status=completed | conclusion=success
-
-- Detect `90041789824` SUCCESS
-- Build `90041833134` SUCCESS (Checkout, Setup Node.js, Install, Typecheck, Lint, Build, Vitest, Modeled governance, Secret scan, Trailing whitespace)
-- Required Gate `90042221238` SUCCESS (Aggregate required gate)
-
-## 8. Ruleset (lecture seule)
-- ID: `19798462`
+- SHA-256 JSON normalisé initial (full GET): `090262238b82576b826e1654bc14727aa21b04ddc59852fd4e653a2db0bfb05e`
+- clés top-level: ["_links", "bypass_actors", "conditions", "created_at", "current_user_can_bypass", "enforcement", "id", "name", "node_id", "rules", "source", "source_type", "target", "updated_at"]
+- name: `SFIA Studio Main Required Gate — M1`
 - enforcement: `active`
-- conditions/ref_name: {"ref_name": {"exclude": [], "include": ["refs/heads/main"]}}
-- required check: `SFIA Studio Required Gate`
-- integration ID: `15368`
-- required_approving_review_count: `0`
-- strict_required_status_checks_policy: `False`
-- allowed_merge_methods: ['merge', 'squash', 'rebase']
-- bypass_actors: [{"actor_id": 295557155, "actor_type": "User", "bypass_mode": "pull_request"}]
-- non-fast-forward / deletion main: bloqués (ruleset active)
-- bypass utilisé pour merge #276: non
-- réserves ruleset non clôturées: approvals=0 ; strict up-to-date=false ; bypass user mode PR ; rollback/bypass non testés
+- target: `branch`
+- required check: `SFIA Studio Required Gate` / integration `15368`
+- approvals: `0`
+- strict policy: `false`
+- bypass actor: user `295557155` mode `pull_request`
 
-## 9. Branches / worktrees
-- branche distante: `fa0eebe00ce3b765a8a486aa660dddfab40123a0	refs/heads/docs/sfia-studio-m1-capitalization-rex`
-- branche locale: `docs/sfia-studio-m1-capitalization-rex` @ `fa0eebe00ce3b765a8a486aa660dddfab40123a0` présente
-- worktree: `/Users/morris/Projects/sfia-workspace-m1-capitalization` présent
-- suppressions: aucune
-
-### Extrait worktrees
+## 4. Payload disable complet
+```json
+{
+  "name": "SFIA Studio Main Required Gate — M1",
+  "target": "branch",
+  "source_type": "Repository",
+  "enforcement": "disabled",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ]
+}
 ```
-/Users/morris/Projects/sfia-workspace-doc32-post-p3-m1                                                                                   dd2a68c [docs/sfia-studio-doc32-post-p3-m1-correction]
-/Users/morris/Projects/sfia-workspace-fa6-mitigated-clean                                                                                67f140a [docs/sfia-studio-fa6-mitigated-from-main]
-/Users/morris/Projects/sfia-workspace-m1-capitalization                                                                                  fa0eebe [docs/sfia-studio-m1-capitalization-rex]
-/Users/morris/Projects/sfia-workspace-review-handoff-publisher                                                                           14d58fe [tooling/review-handoff-canonical-publisher]
-/Users/morris/Projects/sfia-workspace/sfia-review-handoff                                                                                a24da25 [sfia/review-handoff]
+
+## 5. Payload restore complet
+```json
+{
+  "name": "SFIA Studio Main Required Gate — M1",
+  "target": "branch",
+  "source_type": "Repository",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ]
+}
 ```
 
-## 10. Qualification post-merge
+## 6. Comparaison des payloads
+- différence logique unique: `.enforcement` : `disabled` vs `active`
+- aucune autre modification dans les payloads
+- preuve: `ONLY_DIFF=.enforcement disabled vs active`
 
-### Résultats validés
-- PR #276 mergée par squash
-- squash conforme (parent, titre, corps, scope)
-- document 33 intégré sur main (blob/lignes/contenu)
-- diffs source/PR/squash identiques
-- CI post-merge success
-- required gate success
-- branche et worktree conservés
+## 7. Désactivation réelle
+- timestamp: `2026-07-27 19:27:21 CEST (+0200)`
+- commande: `DISABLE_CMD=gh api --method PUT repos/mcleland147/sfia-workspace/rulesets/19798462 --input .tmp-sfia-review/ruleset-19798462-disable.json`
+- DISABLE_EXIT=0
+- stdout (réponse API):
+```json
+{"id":19798462,"name":"SFIA Studio Main Required Gate — M1","target":"branch","source_type":"Repository","source":"mcleland147/sfia-workspace","enforcement":"disabled","conditions":{"ref_name":{"exclude":[],"include":["refs/heads/main"]}},"rules":[{"type":"pull_request","parameters":{"required_approving_review_count":0,"dismiss_stale_reviews_on_push":false,"required_reviewers":[],"require_code_owner_review":false,"require_last_push_approval":false,"required_review_thread_resolution":false,"allowed_merge_methods":["merge","squash","rebase"]}},{"type":"required_status_checks","parameters":{"strict_required_status_checks_policy":false,"do_not_enforce_on_create":false,"required_status_checks":[{"context":"SFIA Studio Required Gate","integration_id":15368}]}},{"type":"non_fast_forward"},{"type":"deletion"}],"node_id":"RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4","created_at":"2026-07-27T09:31:28.759+02:00","updated_at":"2026-07-27T19:27:22.047+02:00","bypass_actors":[{"actor_id":295557155,"actor_type":"User","bypass_mode":"pull_request"}],"current_user_can_bypass":"pull_requests_only","_links":{"self":{"href":"https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"},"html":{"href":"https://github.com/mcleland147/sfia-workspace/rules/19798462"}}}
+```
+- stderr: `(empty)`
 
-### Réserves ouvertes
-- F-A6 NOT CLOSED
-- Option A non COMPLETE
-- T-A7 non ouverte
-- rollback non testé
-- bypass non testé
-- configuration M1 loose inchangée
-- D1–D7 NOT DECIDED
-- branches/worktree encore présents
+### Ruleset désactivé (GET immédiat)
+```json
+{
+  "id": 19798462,
+  "name": "SFIA Studio Main Required Gate — M1",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "mcleland147/sfia-workspace",
+  "enforcement": "disabled",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "node_id": "RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4",
+  "created_at": "2026-07-27T09:31:28.759+02:00",
+  "updated_at": "2026-07-27T19:27:22.047+02:00",
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
+  "current_user_can_bypass": "pull_requests_only",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"
+    },
+    "html": {
+      "href": "https://github.com/mcleland147/sfia-workspace/rules/19798462"
+    }
+  }
+}
+```
+- enforcement observé: `disabled`
+- ID/name/target/required check/bypass: inchangés hors enforcement
+- verdict étape: `M1 RULESET ROLLBACK DISABLE STEP VERIFIED`
+- durée de désactivation: `1` seconde(s) (< 300)
 
-### Décisions Morris non prises
+## 8. Restauration immédiate
+- timestamp: `2026-07-27 19:27:22 CEST (+0200)`
+- commande: `RESTORE_CMD=gh api --method PUT repos/mcleland147/sfia-workspace/rulesets/19798462 --input .tmp-sfia-review/ruleset-19798462-restore.json`
+- RESTORE_EXIT=0
+- stdout (réponse API):
+```json
+{"id":19798462,"name":"SFIA Studio Main Required Gate — M1","target":"branch","source_type":"Repository","source":"mcleland147/sfia-workspace","enforcement":"active","conditions":{"ref_name":{"exclude":[],"include":["refs/heads/main"]}},"rules":[{"type":"pull_request","parameters":{"required_approving_review_count":0,"dismiss_stale_reviews_on_push":false,"required_reviewers":[],"require_code_owner_review":false,"require_last_push_approval":false,"required_review_thread_resolution":false,"allowed_merge_methods":["merge","squash","rebase"]}},{"type":"required_status_checks","parameters":{"strict_required_status_checks_policy":false,"do_not_enforce_on_create":false,"required_status_checks":[{"context":"SFIA Studio Required Gate","integration_id":15368}]}},{"type":"non_fast_forward"},{"type":"deletion"}],"node_id":"RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4","created_at":"2026-07-27T09:31:28.759+02:00","updated_at":"2026-07-27T19:27:23.150+02:00","bypass_actors":[{"actor_id":295557155,"actor_type":"User","bypass_mode":"pull_request"}],"current_user_can_bypass":"pull_requests_only","_links":{"self":{"href":"https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"},"html":{"href":"https://github.com/mcleland147/sfia-workspace/rules/19798462"}}}
+```
+- stderr: `(empty)`
+
+### Ruleset restauré (GET)
+```json
+{
+  "id": 19798462,
+  "name": "SFIA Studio Main Required Gate — M1",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "mcleland147/sfia-workspace",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "node_id": "RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4",
+  "created_at": "2026-07-27T09:31:28.759+02:00",
+  "updated_at": "2026-07-27T19:27:23.150+02:00",
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
+  "current_user_can_bypass": "pull_requests_only",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"
+    },
+    "html": {
+      "href": "https://github.com/mcleland147/sfia-workspace/rules/19798462"
+    }
+  }
+}
+```
+
+## 9. Comparaison avant/après (configurable)
+### Comparable before
+```json
+{
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "enforcement": "active",
+  "name": "SFIA Studio Main Required Gate — M1",
+  "rules": [
+    {
+      "parameters": {
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ],
+        "dismiss_stale_reviews_on_push": false,
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_approving_review_count": 0,
+        "required_review_thread_resolution": false,
+        "required_reviewers": []
+      },
+      "type": "pull_request"
+    },
+    {
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ],
+        "strict_required_status_checks_policy": false
+      },
+      "type": "required_status_checks"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "target": "branch"
+}
+```
+
+### Comparable after
+```json
+{
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "enforcement": "active",
+  "name": "SFIA Studio Main Required Gate — M1",
+  "rules": [
+    {
+      "parameters": {
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ],
+        "dismiss_stale_reviews_on_push": false,
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_approving_review_count": 0,
+        "required_review_thread_resolution": false,
+        "required_reviewers": []
+      },
+      "type": "pull_request"
+    },
+    {
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ],
+        "strict_required_status_checks_policy": false
+      },
+      "type": "required_status_checks"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "target": "branch"
+}
+```
+
+- résultat: `RULESET_RESTORED_IDENTICALLY`
+- hash comparable (identique): `2ffe7e49a0c27bc2f8860f91271a22ebd97759e9eded39c342083215c5c19270`
+- hash full GET after: `01a0cd762c44b703c71d4c8476fb50ae936c111b9a558ae35a97954754b011c0`
+- métadonnées serveur différentes tolérées: ["updated_at"] (ex. `updated_at`)
+
+## 10. Vérification opérationnelle post-restauration
+- ruleset enforcement final: `active`
+- required check présent: oui (`SFIA Studio Required Gate` / `15368`)
+- main avant = main après = `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
+- document 33 présent · 441 lignes · blob `6c87cf4016d6a33f096df921acf8bafd4d73af4e`
+- merges pendant fenêtre: aucun
+- bypass utilisé pendant le test: non (aucune tentative de merge/bypass)
+- qualification rollback: `ROLLBACK TEST PASSED`
+
+## 11. Analyse bypass (sans exécution)
+```json
+{
+  "current_user_can_bypass": "pull_requests_only",
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
+  "enforcement": "active"
+}
+```
+
+### Permissions / champs observés
+- actor = bypass actor listé (`mcleland147` / `295557155`)
+- `current_user_can_bypass` = `pull_requests_only`
+- repository permissions admin=true (compte Morris)
+- GraphQL PR #276 (déjà mergée): `viewerPermission=ADMIN`, `viewerCanMergeAsAdmin=false` (attendu sur PR déjà MERGED)
+- méthodes merge repo: squash/merge/rebase autorisés ; auto-merge=false ; delete_branch_on_merge=false
+- audit log org: non accessible avec droits actuels (`AUDIT_EC=AUDIT_EC=1`) — stderr scrubbé: `gh: Not Found (HTTP 404)`
+
+### Différences conceptuelles
+| Mécanisme | Effet | Testé ici |
+|---|---|---|
+| merge normal | exige required gate SUCCESS | non (hors scope) |
+| merge `--admin` | contournement admin GitHub | **interdit / non exécuté** |
+| bypass explicite ruleset (`pull_request`) | permet merge PR malgré checks si UI/API expose bypass | **config vérifiée, comportement non testé** |
+| désactivation ruleset | retire enforcement temporairement | **testé puis restauré** |
+
+### Risques
+- bypass accidentel possible car actor = admin repo et mode `pull_request`
+- absence d’approvals (0) + strict=false = configuration loose
+- audit log non vérifiable ici sans droits org supplémentaires
+
+### Conclusion bypass autorisée
+`BYPASS CONFIGURATION VERIFIED — BEHAVIOR NOT TESTED`
+
+## 12. Protocole futur test bypass (NON EXÉCUTÉ)
+
+### Option B1 — test comportemental réel
+- branche temporaire proposée: `qa/sfia-studio-m1-bypass-probe` (éphémère)
+- modification minimale volontaire: toucher un fichier Studio pour déclencher le path-aware gate, ou introduire une erreur de lint/typecheck intentionnelle minimale sous `projects/sfia-studio/`
+- création PR vers `main` avec titre explicite `qa(sfia-studio): controlled M1 bypass probe — DO NOT KEEP`
+- preuve de blocage normal: required check `SFIA Studio Required Gate` = failure / merge bloqué
+- action bypass envisagée: merge via UI/API en mode bypass ruleset (pas `--admin` générique) uniquement après GO Morris distinct
+- si bypass fonctionne: commit atteint `main` malgré gate failed → pollution de main
+- neutralisation immédiate: revert squash/commit sur main dans la même fenêtre
+- stratégie revert: PR de revert ou revert commit + CI success
+- preuve d’audit: capture screenshots/API merge event + ruleset bypass indication
+- durée maximale: ≤ 15 minutes fenêtre ouverte
+- stop conditions: incapacité à revert, autre activité concurrente, doute sur état ruleset
+- risque: élevé (pollution main, dette CI, confusion gouvernance)
+- dette: historique de merge invalide même après revert
+- prérequis: `GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE` (NOT CONSUMED)
+- ne pas exécuter dans ce cycle
+
+### Option B2 — validation non destructive
+- inspection permissions, API, `current_user_can_bypass`, bypass_actors, merge methods
+- éventuellement PR draft contrôlée **sans** merge, observant l’absence d’option bypass tant que checks pending/failed (lecture UI)
+- aucune intégration sur `main`
+- prouve la configuration / présence de capacité, **pas** le comportement réel de contournement réussi
+- risque faible
+- ne suffit pas seule à qualifier `bypass tested`
+- partiellement réalisée dans ce cycle (API/config)
+
+### Recommandation (non décision)
+Préférer **B2 approfondi** puis, seulement si Morris exige une preuve comportementale, exécuter **B1** sous GO Critical séparé avec revert immédiat obligatoire. Ne pas combiner B1 avec d’autres mutations.
+
+## 13. Gouvernance préservée
+- F-A6-PM-G01 = MITIGATED — NOT CLOSED
+- Option A = non COMPLETE
+- T-A7 = non ouverte
+- D1–D7 = NOT DECIDED
+- rollback: **testé avec succès** (disable+restore identique)
+- bypass: **configuration vérifiée — comportement non testé**
+- configuration M1 loose inchangée après restauration
+- aucune nouvelle baseline produit
+
+## 14. Anti-claims
+- rollback testé ≠ F-A6 CLOSED
+- bypass config verified ≠ bypass tested / proven
+- ruleset restored ≠ ruleset hardened
+- main unchanged ≠ trajectoire produit reprise
+- ce cycle ≠ Option A COMPLETE / T-A7 OPEN / décision D1–D7
+
+## 15. Décisions Morris non prises
 - clôture F-A6
-- test rollback
-- test bypass
-- durcissement du ruleset
+- exécution B1 bypass comportemental
+- durcissement ruleset (approvals/strict/bypass actors)
 - ouverture T-A7
-- cleanup des branches/worktrees
+- cleanup branches/worktrees
+- D1–D7
 
-## 11. Actions non exécutées
-- modification document 33 / autre fichier
-- commit/push projet / PR / merge / amend / rebase / cherry-pick / revert
-- rollback réel / test bypass
-- modification workflow / ruleset
-- suppression branche locale/distante / worktree
-- F-A6 CLOSED / Option A COMPLETE / ouverture T-A7 / décision D1–D7
-- action Notion/CMP
+## 16. Actions non exécutées
+- merge par bypass / `--admin`
+- PR volontairement invalide
+- push direct sur main
+- commit projet / modification workflow / docs 24/32/33
+- modification durable du ruleset
+- suppression branche/worktree
+- Notion/CMP
 
-## 12. Blockers
-- aucun blocker bloquant la validation post-merge
+## 17. Blockers
+- aucun blocker sur le rollback
+- bypass comportemental bloqué volontairement par safe-execution boundary du gate
 
-## 13. Gates candidats (NOT CONSUMED)
-- gate séparé de réévaluation F-A6
-- gate séparé de test rollback/bypass
-- gate séparé de durcissement du ruleset
-- gate séparé d’ouverture T-A7
-- gate séparé de cleanup branches/worktrees
+## 18. Gate candidat
+- `GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
 
-## 14. Verdict
-`SFIA STUDIO V3-NATIVE PR #276 POST-MERGE VALIDATED — COMPLETE 441-LINE M1 REX VERIFIED ON MAIN — POST-MERGE CI AND REQUIRED GATE SUCCESS — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — D1–D7 NOT DECIDED — BRANCH AND WORKTREE PRESERVED`
+## 19. Verdict
+`SFIA STUDIO M1 RULESET ROLLBACK TEST PASSED — RULESET 19798462 DISABLED AND RESTORED IDENTICALLY — MAIN UNCHANGED — BYPASS CONFIGURATION VERIFIED BUT BEHAVIOR NOT TESTED — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
 
-## Review Handoff Git (à publier)
-- décision: required
-- mode: publish-in-cycle
-- branche: `sfia/review-handoff`
-- fichier: `sfia-review-handoff/latest-chatgpt-review.md`
-- source: `.tmp-sfia-review/chatgpt-review.md`
-- commit attendu: `docs(review-handoff): record PR #276 post-merge validation`
+## Review Handoff Git
+- commit attendu: `docs(review-handoff): record M1 ruleset rollback test`
