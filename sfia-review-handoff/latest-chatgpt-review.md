@@ -1,7 +1,7 @@
 # SFIA Review Pack — PR #276 Merge (FULL)
 
 ## Metadata
-- date/heure/fuseau: 2026-07-27 18:37:24 CEST (+0200)
+- date/heure/fuseau: 2026-07-27 18:38:42 CEST (+0200)
 - merge timestamp: 2026-07-27 18:35:17 CEST (+0200)
 - cycle: 8 — Delivery (+ 13 PR readiness, 15 Capitalisation/REX, 7 Intégration/DevOps, 9 QA, 14 Post-merge observation initiale)
 - profil SFIA: Capitalization
@@ -2114,13 +2114,14 @@ Aucune de ces décisions n’est tranchée par la rédaction de ce document.
 ```
 
 ## 11. CI post-merge initiale
-- état: `IN PROGRESS` (= PENDING pour verdict)
+- état: `SUCCESS`
+- note: observation initiale IN PROGRESS puis completion SUCCESS dans le même cycle (sans correction)
 - run: `30285393915`
 - workflow: `SFIA Studio CI`
 - event: `push`
 - headSha: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
-- status: `in_progress`
-- conclusion: `(none yet)`
+- status: `completed`
+- conclusion: `success`
 - url: `https://github.com/mcleland147/sfia-workspace/actions/runs/30285393915`
 
 ### Jobs visibles
@@ -2130,20 +2131,25 @@ Aucune de ces décisions n’est tranchée par la rédaction de ce document.
   - step: Detect Studio scope | status=completed | conclusion=success
   - step: Post Checkout | status=completed | conclusion=success
   - step: Complete job | status=completed | conclusion=success
-- Build and validate SFIA Studio | id=90041833134 | status=in_progress | conclusion=
+- Build and validate SFIA Studio | id=90041833134 | status=completed | conclusion=success
   - step: Set up job | status=completed | conclusion=success
   - step: Checkout | status=completed | conclusion=success
   - step: Setup Node.js | status=completed | conclusion=success
   - step: Install dependencies | status=completed | conclusion=success
-  - step: Typecheck | status=in_progress | conclusion=
-  - step: Lint | status=pending | conclusion=
-  - step: Build | status=pending | conclusion=
-  - step: Unit tests (Vitest) | status=pending | conclusion=
-  - step: Modeled governance tests | status=pending | conclusion=
-  - step: Secret pattern scan (targeted) | status=pending | conclusion=
-  - step: Trailing whitespace check | status=pending | conclusion=
-  - step: Post Setup Node.js | status=pending | conclusion=
-  - step: Post Checkout | status=pending | conclusion=
+  - step: Typecheck | status=completed | conclusion=success
+  - step: Lint | status=completed | conclusion=success
+  - step: Build | status=completed | conclusion=success
+  - step: Unit tests (Vitest) | status=completed | conclusion=success
+  - step: Modeled governance tests | status=completed | conclusion=success
+  - step: Secret pattern scan (targeted) | status=completed | conclusion=success
+  - step: Trailing whitespace check | status=completed | conclusion=success
+  - step: Post Setup Node.js | status=completed | conclusion=success
+  - step: Post Checkout | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- SFIA Studio Required Gate | id=90042221238 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Aggregate required gate | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
 
 ## 12. Branches / worktrees conservés
 - branche distante: présente — `fa0eebe00ce3b765a8a486aa660dddfab40123a0	refs/heads/docs/sfia-studio-m1-capitalization-rex`
@@ -2196,7 +2202,7 @@ Aucune de ces décisions n’est tranchée par la rédaction de ce document.
 - `GO POST-MERGE VALIDATE PR #276 OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE` — NOT CONSUMED
 
 ## 17. Verdict
-`SFIA STUDIO V3-NATIVE PR #276 MERGED BY SQUASH — COMPLETE 441-LINE M1 REX INTEGRATED ON MAIN — POST-MERGE CI PENDING — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — BRANCH PRESERVED`
+`SFIA STUDIO V3-NATIVE PR #276 MERGED BY SQUASH — COMPLETE 441-LINE M1 REX INTEGRATED ON MAIN — POST-MERGE CI SUCCESS — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — BRANCH PRESERVED`
 
 ## Review Handoff Git (à publier)
 - décision: required
