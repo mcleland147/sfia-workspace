@@ -1,201 +1,230 @@
-# Review pack FULL — Option A M1 controlled proof PR closure without merge
+# SFIA Review Pack — FULL
 
-## 1. Métadonnées
+## Métadonnées
+- Date/heure/fuseau : 2026-07-27 10:34:53 CEST (+0200)
+- Cycle : 14 — Post-action contrôlée (compléments 7 DevOps, 9 QA, 15 capitalisation légère)
+- Profil SFIA : Standard
+- Typologie : Nettoyage Git contrôlé / conservation des preuves distantes
+- Gate consommé : `GO DELETE OPTION A M1 CONTROLLED PROOF BRANCHES AND WORKTREES — SFIA STUDIO V3-NATIVE`
+- Repository : `mcleland147/sfia-workspace`
+- Workspace stable : `/Users/morris/Projects/sfia-workspace`
+- Branche workspace : `delivery/sfia-studio-control-tower-fast-track`
+- HEAD workspace : `bb3c9e29936a925174beb0c1758e8fe887e58bc3`
+- origin/main avant : `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513`
+- origin/main après : `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513`
+- Status Git workspace : untracked `.tmp-sfia-review/` uniquement (artefacts locaux non versionnés)
+- Staged : aucun
+- Opérations Git actives (merge/rebase/cherry-pick/revert/bisect) : aucune
 
-| Champ | Valeur |
-|---|---|
-| Date/heure/fuseau | 2026-07-27 10:17:01 CEST (+0200) — Europe/Paris |
-| Cycle | 14 — Post-action contrôlée (+7 DevOps, +9 QA, +15 capitalisation) |
-| Profil | Standard |
-| Typologie | Clôture GitHub contrôlée / conservation de preuves |
-| Gate consommé | `GO CLOSE OPTION A M1 CONTROLLED PROOF PRS WITHOUT MERGE — SFIA STUDIO V3-NATIVE` |
-| Workspace stable | `/Users/morris/Projects/sfia-workspace` |
-| Branche stable | `delivery/sfia-studio-control-tower-fast-track` |
-| HEAD stable | `bb3c9e29936a925174beb0c1758e8fe887e58bc3` |
-| `origin/main` avant/après | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` / inchangé |
-| Workflow blob avant/après | `801a8759bb7440666799b95edf13f9ee6d9332f8` / inchangé |
-| Ruleset ID | `19798462` |
-| Verdict | `SFIA STUDIO V3-NATIVE OPTION A M1 CONTROLLED PROOF PRS CLOSED WITHOUT MERGE — PROOFS PRESERVED — BRANCHES AND WORKTREES RETAINED` |
+## Sources consultées
+- `prompts/templates/sfia-cycle-execution-template.md`
+- Routing guide / operating model / règles et guardrails
+- `.github/workflows/sfia-studio-ci.yml` (blob `801a8759bb7440666799b95edf13f9ee6d9332f8`)
+- Documents Option A 24, 30, 31, 32 (lecture ; document 32 non modifié)
+- Findings F-A6-PM-G01 et F-CI-* (conservés inchangés)
+- PR #272, PR #273
+- Runs `30248284607`, `30248328467`, `30248480927`
+- Ruleset `19798462`
+- Handoff initial branche `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md` blob `cfe27320ac48a3642876a17673c423acd2b000bc`
 
-## 2. Local Git Truth Check
+## Cycle Knowledge Contract (CKC)
+- recherché : oui
+- cycle qualifié : post-action / nettoyage contrôlé
+- statut : candidate ou absent — usage experimental cognitive guidance uniquement
+- autorité : aucune autorité d’exécution
+- fallback : template v2.6 + handoff de clôture + état Git/GitHub réel
+- limite respectée : aucun CKC n’a élargi les suppressions autorisées
 
-- workspace stable distinct des worktrees de preuve
-- status : untracked `.tmp-sfia-review/` uniquement ; aucun tracked/staged modifié
-- opérations Git actives : aucune
-- handoff initial blob : `d5bfc1f6cc5ff8f0a0cc6e37a6409591b324492b` — conforme
-- branches locales/distantes de preuve présentes avant fermeture
-- worktrees présents avant fermeture
+## Handoff initial
+- Branche : `sfia/review-handoff`
+- Commit initial cycle : `df747752d090432211b278d858d9285f377082fd`
+- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+- Blob : `cfe27320ac48a3642876a17673c423acd2b000bc`
+- Verdict préalable : `SFIA STUDIO V3-NATIVE OPTION A M1 CONTROLLED PROOF PRS CLOSED WITHOUT MERGE — PROOFS PRESERVED — BRANCHES AND WORKTREES RETAINED`
 
-## 3. Sources consultées
+## A. Snapshot avant nettoyage
+- Horodatage snapshot : `2026-07-27 10:30:22 CEST (+0200)`
+- PR #272 avant : state=`closed`, merged=`False`, merged_at=`None`, head=`09a2c093427b60234256355bdb7c3521e1e2ae01`, closed_at=`2026-07-27T08:16:14Z`, title=`test(ci): verify M1 ruleset on non-Studio PR`
+- PR #273 avant : state=`closed`, merged=`False`, merged_at=`None`, head=`1b8ea24afc33502b596c564f7daa911d9dc3e995`, closed_at=`2026-07-27T08:16:37Z`, title=`test(ci): verify M1 ruleset on Studio failure and recovery`
+- Branche locale hors Studio SHA : `09a2c093427b60234256355bdb7c3521e1e2ae01`
+- Branche distante hors Studio SHA : `09a2c093427b60234256355bdb7c3521e1e2ae01`
+- Branche locale Studio SHA : `1b8ea24afc33502b596c564f7daa911d9dc3e995`
+- Branche distante Studio SHA : `1b8ea24afc33502b596c564f7daa911d9dc3e995`
+- Worktree hors Studio : `/Users/morris/Projects/sfia-workspace-m1-controlled-non-studio-proof` (présent, exclusif à la branche)
+- Worktree Studio : `/Users/morris/Projects/sfia-workspace-m1-controlled-studio-proof` (présent, exclusif à la branche)
+- Status worktree hors Studio : clean (aucun tracked/staged/untracked inattendu)
+- Status worktree Studio : clean (aucun tracked/staged/untracked inattendu)
+- Worktrees totaux avant : 66
+- Ruleset avant : ID `19798462`, name `SFIA Studio Main Required Gate — M1`, enforcement `active`, target `refs/heads/main`, updated_at `2026-07-27T09:31:28.849+02:00`
+- Bypass actors avant : User `295557155` mode `pull_request` ; `current_user_can_bypass=pull_requests_only` (non utilisé)
+- Effective rules avant : capturées (`12-effective-rules-before.json`)
+- main.protected avant : true (via ruleset) ; classic branch protection : 404
+- Workflow blob avant : `801a8759bb7440666799b95edf13f9ee6d9332f8`
+- Runs avant (accessibles) :
+  - `30248284607` : conclusion=`success`, headSha=`09a2c093427b60234256355bdb7c3521e1e2ae01`, url=`https://github.com/mcleland147/sfia-workspace/actions/runs/30248284607`
+  - `30248328467` : conclusion=`failure`, headSha=`dd4a083d8e86d06b99dbdcca43f3ec9f24752da0`, url=`https://github.com/mcleland147/sfia-workspace/actions/runs/30248328467`
+  - `30248480927` : conclusion=`success`, headSha=`1b8ea24afc33502b596c564f7daa911d9dc3e995`, url=`https://github.com/mcleland147/sfia-workspace/actions/runs/30248480927`
+- Logs avant : snippets non-Studio PASS / Studio trailing whitespace / Studio recovery PASS capturés
+- Préconditions : PASS (aucune divergence)
 
-- template cycle / routing / operating model / guardrails
-- CKC post-action : candidate/absent ; aucune autorité d’exécution
-- workflow P3 ; docs Option A 24/30/31/32
-- handoff preuve contrôlée
-- PR #272/#273 ; runs `30248284607`, `30248328467`, `30248480927`
-- ruleset `19798462`
+## C. Nettoyage hors Studio (exécuté en premier)
+### C1. Suppression worktree
+- Commande : `git worktree remove /Users/morris/Projects/sfia-workspace-m1-controlled-non-studio-proof`
+- Exit : `EXIT=0`
+- STDOUT : (empty)
+- STDERR : (empty)
+- Après : chemin absent ; plus référencé dans `git worktree list`
+- Contraintes : pas de `--force` ; pas de `rm -rf`
 
-## 4. Snapshot avant fermeture
+### C2. Suppression branche locale
+- Commande : `git branch -D qa/sfia-studio-m1-controlled-non-studio-proof`
+- Exit : `EXIT=0`
+- STDOUT : Deleted branch qa/sfia-studio-m1-controlled-non-studio-proof (was 09a2c09).
+- STDERR : (empty)
+- Après : `refs/heads/qa/sfia-studio-m1-controlled-non-studio-proof` absent
 
-Répertoire : `.tmp-sfia-review/m1-controlled-pr-closure/`
+### C3. Suppression branche distante + prune
+- Commande : `git push origin --delete qa/sfia-studio-m1-controlled-non-studio-proof`
+- Exit : `EXIT=0`
+- STDERR (remote ack) : To https://github.com/mcleland147/sfia-workspace.git
+ - [deleted]         qa/sfia-studio-m1-controlled-non-studio-proof
+- Commande : `git fetch origin --prune`
+- Exit : `EXIT=0`
+- Après : `git ls-remote --heads origin qa/sfia-studio-m1-controlled-non-studio-proof` vide ; remote-tracking absent
+- Vérification intermédiaire : PR #272 toujours CLOSED non mergée ; run `30248284607` accessible ; ressource Studio encore présente
 
-Horodatage snapshot : `2026-07-27 10:15:48 CEST (+0200)`
+## D. Nettoyage Studio (après validation hors Studio)
+### D1. Suppression worktree
+- Commande : `git worktree remove /Users/morris/Projects/sfia-workspace-m1-controlled-studio-proof`
+- Exit : `EXIT=0`
+- STDOUT : (empty)
+- STDERR : (empty)
+- Après : chemin absent ; plus référencé dans `git worktree list`
+- Contraintes : pas de `--force` ; pas de `rm -rf`
 
-Contenu : métadonnées PR REST, runs, ruleset, effective rules, `main`, branches, worktrees.
+### D2. Suppression branche locale
+- Commande : `git branch -D qa/sfia-studio-m1-controlled-studio-proof`
+- Exit : `EXIT=0`
+- STDOUT : Deleted branch qa/sfia-studio-m1-controlled-studio-proof (was 1b8ea24).
+- STDERR : (empty)
+- Après : `refs/heads/qa/sfia-studio-m1-controlled-studio-proof` absent
 
-## 5. Reconfirmation des preuves avant fermeture
+### D3. Suppression branche distante + prune
+- Commande : `git push origin --delete qa/sfia-studio-m1-controlled-studio-proof`
+- Exit : `EXIT=0`
+- STDERR (remote ack) : To https://github.com/mcleland147/sfia-workspace.git
+ - [deleted]         qa/sfia-studio-m1-controlled-studio-proof
+- Commande : `git fetch origin --prune`
+- Exit : `EXIT=0`
+- Après : `git ls-remote` vide pour la branche Studio ; remote-tracking absent
 
-### PR #272
+## E. Vérification finale Git
+- Worktrees après : 64 (delta attendu −2 ; hors Studio et Studio absents)
+- Autres worktrees préservés (dont workspace stable et `sfia-review-handoff`)
+- Branches locales preuve : absentes (`git branch --list qa/sfia-studio-m1-controlled-*` vide)
+- Branches distantes preuve : absentes (`git ls-remote` vide pour les deux)
+- PR #272 finale : state=`closed`, merged=`False`, merged_at=`None`, head=`09a2c093427b60234256355bdb7c3521e1e2ae01`
+- PR #273 finale : state=`closed`, merged=`False`, merged_at=`None`, head=`1b8ea24afc33502b596c564f7daa911d9dc3e995`
+- Runs finaux accessibles :
+  - `30248284607` : conclusion=`success`, headSha=`09a2c093427b60234256355bdb7c3521e1e2ae01`, url=`https://github.com/mcleland147/sfia-workspace/actions/runs/30248284607`
+  - `30248328467` : conclusion=`failure`, headSha=`dd4a083d8e86d06b99dbdcca43f3ec9f24752da0`, url=`https://github.com/mcleland147/sfia-workspace/actions/runs/30248328467`
+  - `30248480927` : conclusion=`success`, headSha=`1b8ea24afc33502b596c564f7daa911d9dc3e995`, url=`https://github.com/mcleland147/sfia-workspace/actions/runs/30248480927`
+- Logs/checks relecturables après cleanup (snippets PASS/FAIL/PASS confirmés)
+- SHA historiques toujours visibles via PR/runs : `09a2c093427b60234256355bdb7c3521e1e2ae01`, `dd4a083d8e86d06b99dbdcca43f3ec9f24752da0`, `1b8ea24afc33502b596c564f7daa911d9dc3e995`
 
-| Champ | Valeur |
-|---|---|
-| state | OPEN |
-| merged / mergedAt | false / null |
-| base | `main` @ `4e2d5cf2…` |
-| head branch | `qa/sfia-studio-m1-controlled-non-studio-proof` |
-| head SHA | `09a2c093427b60234256355bdb7c3521e1e2ae01` |
-| files | 1 |
-| run | `30248284607` success |
-| Detect / studio_changed / Validate / Gate | success / false / skipped / success |
-| mergeStateStatus | CLEAN |
-| note | `merge_commit_sha` synthétique présent mais `merged=false` |
+## F. Vérification finale gouvernance
+- Ruleset ID après : `19798462`
+- updated_at avant = après : `2026-07-27T09:31:28.849+02:00` == `2026-07-27T09:31:28.849+02:00`
+- enforcement après : `active`
+- Effective rules : inchangées (identité structurelle avant/après)
+- main.protected=true ; classic protection absente (HTTP 404)
+- origin/main inchangé : `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513`
+- Workflow blob inchangé : `801a8759bb7440666799b95edf13f9ee6d9332f8`
+- Bypass B2 : non utilisé (capacité `pull_requests_only` visible, aucune action bypass)
+- Aucun commit/push projet hors suppressions de branches preuve + handoff L3
+- Aucune nouvelle PR ; aucune réouverture de PR
+- Findings non modifiés ; document 32 non modifié
 
-### PR #273
+## Fichiers / ressources supprimés
+1. Worktree `/Users/morris/Projects/sfia-workspace-m1-controlled-non-studio-proof`
+2. Branche locale `qa/sfia-studio-m1-controlled-non-studio-proof`
+3. Branche distante `qa/sfia-studio-m1-controlled-non-studio-proof`
+4. Worktree `/Users/morris/Projects/sfia-workspace-m1-controlled-studio-proof`
+5. Branche locale `qa/sfia-studio-m1-controlled-studio-proof`
+6. Branche distante `qa/sfia-studio-m1-controlled-studio-proof`
 
-| Champ | Valeur |
-|---|---|
-| state | OPEN |
-| merged / mergedAt | false / null |
-| base | `main` @ `4e2d5cf2…` |
-| head branch | `qa/sfia-studio-m1-controlled-studio-proof` |
-| head SHA final | `1b8ea24afc33502b596c564f7daa911d9dc3e995` |
-| files | 1 |
-| run failure | `30248328467` failure ; trailing whitespace L27 ; Gate FAIL |
-| run recovery | `30248480927` success ; Gate PASS |
-| mergeStateStatus final | CLEAN |
-| note | `merge_commit_sha` synthétique présent mais `merged=false` |
+## Ressources préservées
+- PR #272 CLOSED non mergée + métadonnées/historique
+- PR #273 CLOSED non mergée + métadonnées/historique
+- Runs `30248284607`, `30248328467`, `30248480927` + jobs/checks/logs
+- Ruleset M1 `19798462` actif et inchangé
+- `main` / `origin/main`
+- Workflow P3 blob `801a8759bb7440666799b95edf13f9ee6d9332f8`
+- Findings F-A6-PM-G01 et F-CI-*
+- Document 32 (non corrigé)
+- Handoff canonique (mis à jour en fin de cycle)
+- Tous les autres worktrees/branches hors contrat
 
-## 6. Gouvernance avant fermeture
+## Actions non exécutées
+- Pas de suppression/réouverture des PR #272/#273
+- Pas de merge
+- Pas de bypass B2
+- Pas de modification du ruleset
+- Pas de rollback
+- Pas de modification de `main`
+- Pas de modification du workflow
+- Pas de suppression d’autre branche/worktree
+- Pas de suppression de runs/artefacts GitHub
+- Pas de modification de findings
+- Pas de correction du document 32
+- Pas de déclaration Option A COMPLETE
+- Pas d’ouverture de T-A7
+- Pas de `git worktree remove --force`
+- Pas de `rm -rf`
 
-| Élément | Valeur |
-|---|---|
-| ruleset | `19798462` unique, active |
-| `updated_at` | `2026-07-27T09:31:28.849+02:00` |
-| cible | `refs/heads/main` |
-| règles | pull_request, required_status_checks, non_fast_forward, deletion |
-| `main.protected` | true |
-| classic protection | absente (404) |
-| workflow blob | `801a8759…` |
-| `origin/main` | `4e2d5cf2…` |
+## Findings (inchangés)
+- F-A6-PM-G01 : inchangé, not CLOSED
+- F-CI-01/02/04 : OPEN
+- F-CI-03/05 : MITIGATED
+- F-CI-06/06B : MITIGATED, not CLOSED
+- Option A COMPLETE : NON
+- T-A7 : NON ouvert
 
-## 7. Fermeture PR #272
+## Dette documentaire
+- Document 32 reste historiquement stale (aucune correction autorisée dans ce cycle)
 
-Commande :
+## Décisions restantes
+- Évaluer la readiness de clôture M1 Option A (cycle d’assessment dédié)
+- Ne pas confondre cleanup terminé avec fermeture de findings ou Option A COMPLETE
 
-```bash
-gh pr close 272 --repo mcleland147/sfia-workspace
-```
+## Observation après succès
+- M1 appliqué
+- Configuration statique validée
+- Comportement M1 prouvé
+- PR de preuve fermées sans merge
+- Ressources temporaires nettoyées
+- Preuve distante conservée
 
-| Champ | Valeur |
-|---|---|
-| exit code | `0` |
-| sortie | `✓ Closed pull request mcleland147/sfia-workspace#272 (test(ci): verify M1 ruleset on non-Studio PR)` |
-| state après | CLOSED |
-| merged | false |
-| mergedAt | null |
-| closedAt | `2026-07-27T08:16:14Z` |
-| head conservé | `09a2c093…` |
-| branche locale | conservée |
-| branche distante | conservée |
-| worktree | `/Users/morris/Projects/sfia-workspace-m1-controlled-non-studio-proof` conservé |
-| run | `30248284607` accessible |
+## Anti-claims
+- nettoyage terminé ≠ finding fermé
+- nettoyage terminé ≠ Option A COMPLETE
+- nettoyage terminé ≠ T-A7 ouvert
+- branches/worktrees supprimés ≠ PR ou runs supprimés
+- preuves distantes conservées ≠ ressources Git locales conservées
+- ruleset inchangé ≠ rollback testé
 
-## 8. Fermeture PR #273
+## Gate suivant candidat
+- `GO ASSESS OPTION A M1 CLOSURE READINESS — SFIA STUDIO V3-NATIVE`
+- Statut : NOT CONSUMED
 
-Commande :
+## Verdict
+`SFIA STUDIO V3-NATIVE OPTION A M1 CONTROLLED PROOF CLEANUP COMPLETE — WORKTREES DELETED — LOCAL AND REMOTE BRANCHES DELETED — REMOTE PROOFS PRESERVED`
 
-```bash
-gh pr close 273 --repo mcleland147/sfia-workspace
-```
-
-| Champ | Valeur |
-|---|---|
-| exit code | `0` |
-| sortie | `✓ Closed pull request mcleland147/sfia-workspace#273 (test(ci): verify M1 ruleset on Studio failure and recovery)` |
-| state après | CLOSED |
-| merged | false |
-| mergedAt | null |
-| closedAt | `2026-07-27T08:16:37Z` |
-| head recovery conservé | `1b8ea24a…` |
-| branche locale | conservée |
-| branche distante | conservée |
-| worktree | `/Users/morris/Projects/sfia-workspace-m1-controlled-studio-proof` conservé |
-| runs | failure `30248328467` et recovery `30248480927` accessibles |
-
-## 9. Vérification croisée après fermeture
-
-| Contrôle | Résultat |
-|---|---|
-| PR #272 | CLOSED, non mergée |
-| PR #273 | CLOSED, non mergée |
-| branches locales | présentes aux SHA exacts |
-| branches distantes | présentes aux SHA exacts |
-| worktrees | présents |
-| runs/logs | accessibles |
-| ruleset `updated_at` | inchangé |
-| effective rules | inchangées |
-| `main.protected` | true |
-| classic protection | absente |
-| `origin/main` | inchangé |
-| workflow blob | inchangé |
-| bypass | non utilisé |
-| PR ouvertes restantes | aucune |
-
-## 10. Findings
-
-| ID | Statut |
-|---|---|
-| F-A6-PM-G01 | inchangé, not CLOSED |
-| F-CI-01/02/04 | OPEN |
-| F-CI-03/05 | MITIGATED |
-| F-CI-06/06B | MITIGATED, not CLOSED |
-| Option A COMPLETE | NON |
-| T-A7 | NON ouvert |
-
-## 11. Dette documentaire
-
-Document 32 toujours historiquement dépassé. Correction hors cycle.
-
-## 12. Décisions restantes / gate suivant
-
-NOT CONSUMED :
-
-`GO DELETE OPTION A M1 CONTROLLED PROOF BRANCHES AND WORKTREES — SFIA STUDIO V3-NATIVE`
-
-Puis ultérieurement : qualification F-A6-PM-G01 ; correction document 32 ; Option A COMPLETE / T-A7.
-
-## 13. Actions non exécutées
-
-- aucun merge
-- aucun bypass
-- aucune suppression de branche locale/distante
-- aucune suppression de worktree
-- aucune modification ruleset/protection/workflow
-- aucun push/commit projet
-- aucun finding modifié
-- aucune correction document 32
-
-## 14. Anti-claims
-
-- PR fermées ≠ branches supprimées
-- PR fermées ≠ preuves supprimées
-- PR fermées ≠ M1 rollback
-- preuve acquise ≠ F-A6-PM-G01 fermé
-- preuve acquise ≠ Option A COMPLETE
-- preuve acquise ≠ T-A7 ouvert
-- fermeture réussie ≠ nettoyage autorisé
-- `merge_commit_sha` synthétique ≠ merge réel
-
-## 15. Verdict
-
-`SFIA STUDIO V3-NATIVE OPTION A M1 CONTROLLED PROOF PRS CLOSED WITHOUT MERGE — PROOFS PRESERVED — BRANCHES AND WORKTREES RETAINED`
+## Handoff Git
+- décision : required
+- mode : publish-in-cycle
+- branche : `sfia/review-handoff`
+- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+- source : `.tmp-sfia-review/chatgpt-review.md`
+- push handoff autorisé : oui — L3 borné
+- commit attendu : `docs(review-handoff): record M1 controlled proof cleanup`
