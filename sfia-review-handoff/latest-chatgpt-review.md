@@ -1,14 +1,15 @@
 # SFIA Review Pack — FULL
 
 ## Métadonnées
-- Date/heure/fuseau : 2026-07-27 10:53:26 CEST (+0200)
-- Cycle : 13 — PR readiness / readiness de gouvernance (compléments 9 QA, 10 Sécurité, 12 RUN readiness, 14 Post-action, 15 Capitalisation/REX)
+- Date/heure/fuseau : 2026-07-27 11:24:02 CEST (+0200)
+- Cycle : 15 — Capitalisation / décision de gouvernance (compléments 13 PR readiness, 9 QA, 12 RUN readiness, 14 Post-action)
 - Profil SFIA : Critical
-- Typologie : Assessment de clôture technique, gouvernance CI et trajectoire Option A
-- Gate consommé : `GO ASSESS OPTION A M1 CLOSURE READINESS — SFIA STUDIO V3-NATIVE`
+- Typologie : Décision de clôture technique M1 / gouvernance / trajectoire
+- Gate consommé : `GO DECIDE OPTION A M1 CLOSURE — SFIA STUDIO V3-NATIVE`
+- Assessment validé d’entrée : `SFIA STUDIO V3-NATIVE OPTION A M1 CLOSURE READINESS VALIDATED — M1 TECHNICALLY COMPLETE — F-A6 MITIGATED READY — F-A6 CLOSURE NOT READY — OPTION A COMPLETE AND T-A7 NOT READY`
 - Repository : `mcleland147/sfia-workspace`
 - Workspace stable : `/Users/morris/Projects/sfia-workspace`
-- Branche workspace : `delivery/sfia-studio-control-tower-fast-track` (divergente de main — lectures normatives = `origin/main`)
+- Branche workspace : `delivery/sfia-studio-control-tower-fast-track` (divergente — lectures normatives = `origin/main`)
 - HEAD workspace : `bb3c9e29936a925174beb0c1758e8fe887e58bc3`
 - origin/main : `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513`
 - Workflow blob : `801a8759bb7440666799b95edf13f9ee6d9332f8`
@@ -16,278 +17,196 @@
 - Staged : aucun
 - Tracked modifié : aucun
 - Opérations Git actives : aucune
-- Mode : lecture seule (aucun commit/push projet ; handoff L3 borné en fin de cycle)
+- Mode : formalisation décision dans handoff uniquement — aucune mutation fichier projet
 
 ## Sources consultées
 - `prompts/templates/sfia-cycle-execution-template.md`
 - Routing / operating model / règles et guardrails
-- CKC routing matrix (`04-cycle-to-ckc-routing-matrix.md`) : cycle 13 PR readiness = absent détaillé → fallback template ; QA pilot candidate ; RUN readiness absent détaillé
-- `.github/workflows/sfia-studio-ci.yml` @ `origin/main`
+- CKC capitalisation / gouvernance : candidate ou absent (fallback template + assessment)
 - Docs Option A 23, 24, 30, 31, 32 @ `origin/main`
-- Docs 27, 28, 29 (F-CI-*) @ `origin/main`
-- PR #270, #271, #272, #273
-- Runs `30237044632`, `30237640228`, `30238651843`, `30239805289`, `30248284607`, `30248328467`, `30248480927`
-- Ruleset `19798462` + effective rules `main` + classic protection (404)
-- Handoff initial blob `ce8709101ef362e81e5200e23912f9cf1fcb8d32` — verdict cleanup COMPLETE
+- Docs F-CI (27–29) et définition F-A6-PM-G01
+- Workflow P3 ; ruleset `19798462` ; effective rules ; PR #270–#273 ; runs listés
+- Handoff assessment initial blob `5b68037a141521a79c7c5e618f9ef2d944de517e`
 
 ## Cycle Knowledge Contract (CKC)
 - recherché : oui
-- cycle qualifié : PR readiness / closure readiness
-- statut : candidate ou absent (pas de CKC détaillé cycle 13)
+- cycle qualifié : capitalisation / décision de gouvernance
+- statut : candidate ou absent
 - usage : experimental cognitive guidance
 - autorité : aucune autorité d’exécution
-- fallback : template v2.6 + handoff M1 cleanup + docs Option A + état GitHub réel
-- limite respectée : aucune recommandation transformée en décision validée
+- fallback : template v2.6 + assessment validé + état Git/GitHub réel
+- limite respectée : aucune décision Morris élargie ou altérée
 
 ## Handoff initial
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob : `ce8709101ef362e81e5200e23912f9cf1fcb8d32`
-- Verdict préalable : `SFIA STUDIO V3-NATIVE OPTION A M1 CONTROLLED PROOF CLEANUP COMPLETE — WORKTREES DELETED — LOCAL AND REMOTE BRANCHES DELETED — REMOTE PROOFS PRESERVED`
+- Blob : `5b68037a141521a79c7c5e618f9ef2d944de517e`
+- Contenu : assessment M1 closure readiness FULL (TECHNICALLY COMPLETE ; F-A6 MITIGATED READY ; CLOSED NOT READY ; Option A NOT COMPLETE ; T-A7 NOT READY)
 
-## A. État M1 reconfirmé
+## A. Assessment reconfirmé
 
-| Élément M1 | Attendu | État réel | Preuve | Verdict |
-|---|---|---|---|---|
-| P3 intégré sur main | workflow path-aware | présent | PR #270 MERGED → `4e2d5cf…` ; blob `801a8759…` | PASS |
-| Workflow blob | `801a8759…` | identique | `git rev-parse origin/main:.github/workflows/sfia-studio-ci.yml` | PASS |
-| Ruleset unique actif | ID 19798462 | 1 ruleset, active | `gh api .../rulesets` count=1 ; ID match | PASS |
-| Cible main | `refs/heads/main` | exact | ruleset.conditions.ref_name.include | PASS |
-| Required check | `SFIA Studio Required Gate` / integration 15368 | exact | ruleset.required_status_checks | PASS |
-| Autres règles M1 | PR + non_ff + deletion ; approvals 0 ; conv=false ; up-to-date=false | conforme | ruleset.parameters | PASS |
-| Bypass B2 | User 295557155 pull_request | présent | bypass_actors | PASS |
-| Protection main | protected via ruleset | protected=true | branches/main API | PASS |
-| Classic protection | absente | HTTP 404 | branches/main/protection | PASS |
-| Preuve hors Studio | Detect OK, studio_changed=false, Validate skipped, Gate success | confirmé | run 30248284607 ; jobs success/skipped/success | PASS |
-| Preuve Studio failure | Validate fail, Gate fail, BLOCKED | confirmé | run 30248328467 ; Gate FAIL validate_result=failure ; check-run failure | PASS |
-| Preuve Studio recovery | Validate OK, Gate OK, CLEAN | confirmé | run 30248480927 ; check-run success | PASS |
-| Bypass utilisé | non | non utilisé | current_user_can_bypass visible ; aucune action bypass | PASS |
-| PR #272/#273 | CLOSED non mergées | CLOSED merged=false | API pulls | PASS |
-| Branches/worktrees preuve | absents | absents | ls-remote/local/worktree | PASS |
-| Runs/logs préservés | accessibles | accessibles | gh run view + logs | PASS |
-| origin/main | `4e2d5cf…` | inchangé | rev-parse | PASS |
-| Findings registres Git | inchangés (pas de mutate) | docs historiques non mis à jour | lecture seule | PASS (état) / OPEN (capitalisation) |
-| Document 32 | historiquement stale | stale (P3/M1 « non appliqués ») | doc 32 §9/§17 | PASS WITH RESERVATION |
-
-## B. Définition « M1 terminé » (critères documentés, non inventés)
-
-Sources : docs 24 (fermeture F-A6 / required checks), 31 (post-merge + required check futur), 32 (plan P3→M1, rollback, anti-claims), handoffs M1 apply/proof/close/cleanup.
-
-| Critère | Qualification | Commentaire |
-|---|---|---|
-| Implémentation M1 (ruleset actif + required gate) | PASS | Ruleset 19798462 actif ; check exact |
-| Validation statique (config conforme) | PASS | Conditions/rules/bypass/protection vérifiés |
-| Validation comportementale (hors Studio + failure + recovery) | PASS | PR #272/#273 + runs 30248284607/30248328467/30248480927 |
-| Clôture ressources temporaires | PASS | worktrees/branches locales+distantes supprimés ; preuves distantes conservées |
-| Capitalisation / REX M1 | OPEN | aucune capitalisation formelle post-apply/proof dans Git projet |
-| Mise à jour findings (registre) | OPEN | F-A6-PM-G01 non muté ; statut Git documentaire encore « non CLOSED » / propositions antérieures |
-| Mise à jour documentaire (doc 32) | OPEN | formulations P3/M1 « NOT APPLIED » obsolètes |
-| Décision de trajectoire (Option A COMPLETE / T-A7) | OPEN | hors clôture technique M1 ; décisions Morris restantes |
-
-Conclusion B : **M1 est techniquement et comportementalement terminé** ; capitalisation, findings formels et doc 32 restent des décisions/gouvernance.
-
-## C. Assessment F-A6-PM-G01
-
-### Définition (docs 23/24/31/32)
-- Problème initial : merge #267 sans review PR/CI formelle / CI absente (Major gouvernance).
-- Mitigation préparée (doc 24) : workflow + gouvernance documentée.
-- Clos (doc 24) : exige run GitHub prouvé + gouvernance appliquée sur PR réelle + (éventuellement) required checks sous GO Morris.
-- Doc 31 : après intégration CI, proposition `MITIGATED — GOVERNANCE CONTROL INTEGRATED AND APPLIED` · **non CLOSED** ; fermeture/required check = décision Morris séparée.
-- Doc 32 : MITIGATED proposé · non CLOSED · ruleset futur = étape suivante ; anti-claim `ruleset actif futur ≠ F-A6-PM-G01 CLOSED`.
-
-| Critère finding | Preuve disponible | Statut | Réserve |
+| Conclusion assessment | Preuve | Reconfirmé | Divergence |
 |---|---|---|---|
-| CI sfia-studio existante | workflow sur main + runs verts | PASS | — |
-| Gouvernance appliquée sur PR réelle | #268 merge H2 GO ; #270 path-aware | PASS | — |
-| Required checks appliqués (éventuel doc 24) | ruleset M1 + check Required Gate | PASS | approvals=0 ; bypass non testé |
-| Preuve comportementale required gate | #272/#273 | PASS | — |
-| Mitigation formelle enregistrée | non mutée ce cycle | OPEN | décision Morris MITIGATED |
-| Fermeture formelle CLOSED | non | OPEN | anti-claim ruleset≠CLOSED ; doc 32 stale ; capitalisation absente |
+| M1 configuration PASS | ruleset 19798462 active ; target refs/heads/main ; check SFIA Studio Required Gate / 15368 ; unique ruleset ; main.protected=true ; classic 404 | OUI | aucune |
+| M1 comportement PASS | #272 run 30248284607 success (non-Studio) ; #273 fail 30248328467 + recovery 30248480927 | OUI | aucune |
+| Nettoyage PASS | branches/worktrees preuve absents local+remote | OUI | aucune |
+| Preuves distantes PASS | PR #272/#273 CLOSED non mergées ; 7 runs accessibles | OUI | aucune |
+| Aucun blocker technique M1 | relecture assessment + GitHub | OUI | aucune |
+| F-A6 MITIGATED ready | assessment + critères doc 24/31/32 satisfaits techniquement | OUI | aucune |
+| F-A6 CLOSED not ready | anti-claims + formalisation registre absente + doc 32 stale | OUI | aucune |
+| Option A not COMPLETE | doc 23 ; blockers produit/réserves HARD | OUI | aucune |
+| T-A7 not ready | pack absent ; Option A non COMPLETE ; HARD | OUI | aucune |
+| Document 32 stale | formulations NOT APPLIED / non intégrés encore sur main | OUI | aucune |
+| Capitalisation M1 absente | aucun REX post-M1 projet | OUI | aucune |
+| Rollback non testé | procédure doc 32 ; pas de test exécuté | OUI | aucune |
+| Bypass non testé | B2 configuré ; non utilisé/testé | OUI | aucune |
+| origin/main + workflow | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` / `801a8759bb7440666799b95edf13f9ee6d9332f8` | OUI | aucune |
+| Handoff initial | blob exact attendu | OUI | aucune |
 
-- Statut actuel réel (opérationnel) : **non CLOSED** ; preuves de mitigation **complètes**.
-- Readiness MITIGATED : **READY FOR MORRIS DECISION TO MARK MITIGATED**.
-- Readiness CLOSED : **NOT READY** sans arbitrage Morris + correction documentaire/capitalisation.
-- Verdict consolidé finding : `MITIGATED READY — CLOSURE NOT READY`
+Reconfirmation globale : **PASS — aucune divergence — formalisation autorisée**.
 
-## D. Assessment F-CI-*
+## B. Contrat de décision Morris (D-M1-01 … D-M1-11)
 
-| Finding | Statut Git (docs) | Impact M1 | Recommandation | Décision Morris requise |
-|---|---|---|---|---|
-| F-CI-01 Node pin absent | OPEN | aucun (hors objet M1) | rester OPEN | cycle engines/.nvmrc séparé éventuel |
-| F-CI-02 npm audit high | OPEN | aucun | rester OPEN | cycle deps séparé éventuel |
-| F-CI-03 Node 24 local≠CI | MITIGATED | aucun nouveau | rester MITIGATED | fermeture optionnelle séparée |
-| F-CI-04 actionlint absent | OPEN | aucun | rester OPEN | outillage optionnel |
-| F-CI-05 node:sqlite/Node20 | MITIGATED | aucun nouveau | rester MITIGATED | fermeture optionnelle |
-| F-CI-06 whitespace | MITIGATED, not CLOSED | preuve Studio failure a réutilisé le mécanisme whitespace | rester MITIGATED not CLOSED | fermeture optionnelle |
-| F-CI-06B citation whitespace | MITIGATED, not CLOSED | idem | rester MITIGATED not CLOSED | fermeture optionnelle |
+| ID décision | Décision Morris | Portée | Effet immédiat | Effet différé | Mutation autorisée dans ce cycle |
+|---|---|---|---|---|---|
+| D-M1-01 | M1 est déclaré techniquement et comportementalement terminé | sous-chantier M1 (config + preuves + nettoyage) | état logique M1 COMPLETE enregistré dans handoff | n’autorise pas Option A COMPLETE / T-A7 / F-A6 CLOSED | non (handoff seulement) |
+| D-M1-02 | F-A6-PM-G01 doit être traité comme prêt pour formalisation au statut MITIGATED | finding F-A6-PM-G01 | autorise un cycle borné de formalisation MITIGATED | mutation registre/doc finding différée | non |
+| D-M1-03 | F-A6-PM-G01 reste non CLOSED | finding F-A6-PM-G01 | interdit toute présentation CLOSED | réévaluation CLOSED ultérieure possible | non |
+| D-M1-04 | F-CI-01…F-CI-06B restent inchangés | findings CI | aucun changement de statut | cycles CI séparés éventuels | non |
+| D-M1-05 | Option A reste non COMPLETE | trajectoire Option A | décision négative actuelle | framing produit/réserves hors M1 | non |
+| D-M1-06 | T-A7 reste non ouverte et non prête | trajectoire T-A7 | décision négative actuelle | pack + préconditions avant toute ouverture | non |
+| D-M1-07 | document 32 doit être corrigé dans un cycle documentaire séparé | doc 32 | correction requise ; non exécutée ici | gate CORRECT DOCUMENT 32 | non |
+| D-M1-08 | capitalisation / REX M1 doit être produite dans un cycle séparé | capitalisation | REX requis ; non produit ici | gate CAPITALIZE M1 | non |
+| D-M1-09 | test rollback non exigé pour M1 technique COMPLETE ; reste réserve RUN | rollback | M1 technique non bloqué | possible avant F-A6 CLOSED | non |
+| D-M1-10 | test bypass non exigé pour M1 technique COMPLETE ; reste réserve sécurité/gouvernance | bypass B2 | M1 technique non bloqué | possible avant F-A6 CLOSED | non |
+| D-M1-11 | toute configuration M2 hors séquence M1 ; trajectoire et gate distincts | M2 | aucune config M2 validée | GO Morris M2 futur | non |
 
-Aucun F-CI-* n’est un blocker technique de M1. Les OPEN (01/02/04) créent une dette CI mais ne définissent pas à eux seuls Option A COMPLETE (définition plus large doc 23).
+## C. État de référence après décision
 
-## E. Assessment Option A COMPLETE
-
-Définition opérationnelle (doc 23 + anti-claims 24/31/32) : Option A COMPLETE n’est **pas** équivalente à CI/M1. Après T-A6, Option A reste NON COMPLETE (persistence/API/UI absentes, réserves OPEN, exécution réelle bloquée, T-A7 non ouvert).
-
-| Critère Option A COMPLETE | État | Preuve | Blocage | Action restante |
-|---|---|---|---|---|
-| P3 intégré | PASS | #270 / blob | non | — |
-| M1 appliqué | PASS | ruleset 19798462 | non | — |
-| Validation statique M1 | PASS | API ruleset | non | — |
-| Validation comportementale M1 | PASS | #272/#273 | non | — |
-| Protection effective main | PASS | protected=true | non | — |
-| Non-régression path-aware | PASS | non-Studio skip validate | non | — |
-| Rollback défini | PASS WITH RESERVATION | doc 32 §12 | non auto-blocker | procédure connue ; non rejouée |
-| Rollback testé | OPEN | absent | non auto-blocker (brief) | décision Morris si exigé |
-| Bypass testé | OPEN | visible non utilisé | non auto-blocker | décision Morris si exigé |
-| Findings bloquants gouvernance F-A6 | PASS WITH RESERVATION | mitigable ; not CLOSED | gouvernance | décision MITIGATED/CLOSED |
-| F-CI OPEN | OPEN | 01/02/04 | dette CI | cycles séparés |
-| Dette documentaire doc 32 | OPEN | stale | représentation | correction |
-| Documentation Option A à jour post-M1 | OPEN | 32 stale | représentation | correction + capitalisation |
-| RUN readiness produit Option A | OPEN | doc 23 partielle | produit | hors M1 |
-| Exploitabilité / persistence / API / UI | OPEN/BLOCKER produit | absents | oui pour COMPLETE produit | trajectoire post-M1 |
-| Réserves HARD (R-T-A3-*) | OPEN/BLOCKER produit | doc 23 | oui pour exec réelle/T-A7 | traitement réserves |
-| Responsabilités humaines / gates ouverts | OPEN | décisions Morris listées | gouvernance | séquence K |
-
-Verdict E : `OPTION A NOT COMPLETE — BLOCKERS REMAIN` (blockers produit/réserves ; M1 lui-même n’équivaut pas COMPLETE).
-
-## F. Assessment T-A7
-
-| Précondition T-A7 | État | Preuve | Décision/Action |
-|---|---|---|---|
-| Définition = cutover legacy/OPS1 | confirmée | doc 23 | ne pas assimiler à M1 |
-| Pack delivery `t-a7-*` | absent | git ls-tree | créer pack avant ouverture |
-| Option A COMPLETE | NON | doc 23 + E | bloquant |
-| Réserves HARD / exec réelle | OPEN / bloquée | doc 23 | bloquant |
-| F-A6-PM-G01 CLOSED | non requis comme unique prérequis ; gouvernance merge en place | M1 PASS | non suffisant pour ouvrir T-A7 |
-| Framing Morris T-A7 | non consommé | anti-claims | ne pas ouvrir |
-
-Verdict F : `T-A7 NOT READY`
-
-## G. Dette documentaire — document 32
-
-- Formulations obsolètes : §9 « Configuration candidate M1 (**NOT APPLIED**) » ; anti-claims « P3 / M1 préparés · non intégrés · non appliqués » ; required check « non appliqué » (état historique).
-- Historique à préserver : plan d’activation, rollback, options B0/B1/B2, simulations locales, anti-claims d’époque.
-- Sections à corriger : statut d’application P3/M1 ; pointeurs vers PR #270–#273, ruleset ID, runs ; findings post-preuve.
-- Sections à ne pas réécrire : narrative de préparation locale ; critères candidats initiaux.
-- Impact clôture M1 : **n’invalide pas** les preuves techniques ; **bloque** une représentation Git cohérente pour CLOSED F-A6 / déclaration COMPLETE.
-- Risque : lecteur de `main` croit M1 non appliqué alors qu’il l’est.
-- Périmètre proposé (sans modification) : addendum ou révision bornée post-P3/M1 + liens preuves.
-- Gate candidat : `GO CORRECT OPTION A DOCUMENT 32 POST-P3 AND M1 — SFIA STUDIO V3-NATIVE` (**NOT CONSUMED**)
-
-## H. Capitalisation / REX
-
-Nécessaire avant clôture formelle finding/trajectoire : **oui (recommandé)**.
-
-| Sujet | Nature |
+| Objet | État décidé |
 |---|---|
-| Ruleset vs classic protection | observation prouvée (classic 404 ; ruleset actif) |
-| Path-aware fail-closed + required gate terminal | observation prouvée (#272/#273) |
-| B2 PR-only | observation : configuré, non testé |
-| Hors Studio / failure / recovery | observation prouvée |
-| Rollback non testé | observation + recommandation |
-| Config loose initiale (approvals 0, no up-to-date, no conv resolution) | observation + candidat M2 |
-| Coûts ops (detect léger / validate conditionnel) | observation |
-| Limites / M2 | recommandation séparée |
+| M1 technique | COMPLETE |
+| M1 comportemental | COMPLETE |
+| M1 nettoyage | COMPLETE |
+| F-A6-PM-G01 | MITIGATED READY — formalisation Git à effectuer séparément |
+| F-A6-PM-G01 CLOSED | NON |
+| F-CI-* | inchangés |
+| Document 32 | correction requise |
+| Capitalisation M1 | requise |
+| Rollback testé | NON |
+| Bypass testé | NON |
+| Option A COMPLETE | NON |
+| T-A7 | NON OUVERTE |
+| M2 | hors trajectoire M1 |
 
-Gate candidat : `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS — SFIA STUDIO V3-NATIVE` (**NOT CONSUMED**)
+Rappel anti-assimilation : `M1 technique COMPLETE` ≠ Option A COMPLETE ≠ F-A6 CLOSED ≠ T-A7 ouverte ≠ produit Option A RUN-ready.
 
-## I. Rollback et RUN readiness
+## D. Formalisation F-A6
 
-| Risque RUN | Contrôle actuel | Réserve | Action recommandée |
-|---|---|---|---|
-| Ruleset incorrect / blocage permanent | preuves failure/recovery + non-Studio PASS ; rollback doc 32 (disable/delete ruleset sous GO) | rollback non testé | décider si test rollback requis avant CLOSED |
-| Dépendance admin unique (295557155) | bypass B2 PR-only | SPOF humain | documenter ops ; M2 éventuel |
-| Dépendance GitHub Actions check 15368 | check name exact prouvé | outage GHA | surveillance ; fail-closed accepté |
-| Mono-contributeur + approvals 0 | require PR + status check | review humaine non forcée | M2 approvals si multi-acteur |
-| Diagnostic | runs/logs préservés ; jobs Detect/Validate/Gate | — | conserver URLs dans capitalisation |
-| Surveillance post-clôture | ruleset updated_at stable | dérive config | relecture périodique ruleset |
+- Observation validée : mitigation technique et comportementale démontrée (CI, gouvernance PR, required gate M1, preuves #272/#273).
+- Décision Morris (D-M1-02) : F-A6-PM-G01 est prêt à être formalisé MITIGATED.
+- Décision Morris négative (D-M1-03) : F-A6-PM-G01 n’est pas CLOSED.
+- Action différée : mutation du registre ou document canonique du finding → cycle documentaire borné.
+- Aucun fichier finding modifié dans ce cycle.
+- Gate candidat : `GO FORMALIZE F-A6-PM-G01 AS MITIGATED AFTER M1 — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
 
-## J. Matrice finale de closure readiness
+## E. Option A et T-A7
 
-| Domaine | PASS | PASS WITH RESERVATION | OPEN | BLOCKER | Commentaire |
-|---|---:|---:|---:|---:|---|
-| P3 | 1 | 0 | 0 | 0 | intégré |
-| M1 configuration | 1 | 0 | 0 | 0 | ruleset conforme |
-| M1 comportement | 1 | 0 | 0 | 0 | 3 scénarios |
-| nettoyage | 1 | 0 | 0 | 0 | WT/branches gone |
-| preuves | 1 | 0 | 0 | 0 | runs/logs OK |
-| ruleset | 1 | 0 | 0 | 0 | unique actif |
-| sécurité | 0 | 1 | 0 | 0 | B2 non testé ; permissions workflow read |
-| QA | 1 | 0 | 0 | 0 | preuves comportementales |
-| RUN readiness | 0 | 1 | 0 | 0 | CI/gov OK ; produit Option A non RUN-ready |
-| rollback | 0 | 1 | 0 | 0 | défini non testé |
-| bypass | 0 | 0 | 1 | 0 | visible non testé |
-| findings | 0 | 1 | 0 | 0 | F-A6 mitigable ; F-CI dettes |
-| documentation | 0 | 0 | 1 | 0 | doc 32 stale |
-| capitalisation | 0 | 0 | 1 | 0 | REX M1 due |
-| Option A COMPLETE | 0 | 0 | 0 | 1 | blockers produit/réserves |
-| T-A7 | 0 | 0 | 0 | 1 | pack absent + préconditions |
+- Option A COMPLETE : décision négative (D-M1-05).
+- Raison : blockers produit et réserves HARD hors M1 (doc 23).
+- T-A7 : décision négative (D-M1-06) — non ouverte et non prête.
+- Raison : pack `t-a7-*` absent ; Option A non COMPLETE ; réserves HARD.
+- M1 ne constitue pas une autorisation d’ouverture de T-A7.
+- Aucune évolution de roadmap dans ce cycle.
 
-Totaux domaines : PASS=7 · PASS WITH RESERVATION=4 · OPEN=3 · BLOCKER=2
+## F. Document 32
 
-Note : les BLOCKER portent sur **Option A COMPLETE / T-A7**, pas sur la complétude technique de M1.
+- Décision (D-M1-07) : document obsolète ; correction nécessaire ; cycle séparé.
+- Correction séparée de la formalisation F-A6 MITIGATED.
+- Historique de préparation à préserver ; preuves P3/M1 à ajouter.
+- Aucune correction dans ce cycle.
+- Gate candidat : `GO CORRECT OPTION A DOCUMENT 32 POST-P3 AND M1 — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
 
-## Blockers
-- Option A COMPLETE bloquée par capacités produit absentes + réserves HARD (doc 23), pas par M1.
-- T-A7 bloqué : pack absent, HARD, Option A non COMPLETE.
-- Aucun blocker technique M1 restant.
+## G. Capitalisation M1
 
-## Réserves
-- Doc 32 obsolète
-- Capitalisation M1 absente
-- Rollback non testé
-- Bypass non testé
-- Approvals 0 / conversation resolution false / up-to-date false (loose M1 volontaire)
-- F-CI-01/02/04 OPEN ; F-CI-06/06B MITIGATED not CLOSED
-- F-A6-PM-G01 non formellement MITIGATED/CLOSED dans un registre muté
+- Décision (D-M1-08) : REX M1 requis ; cycle séparé.
+- Contenu minimal requis : ruleset vs classic protection ; path-aware ; required terminal gate ; preuve hors Studio ; preuve Studio failure/recovery ; B2 PR-only ; rollback non testé ; bypass non testé ; configuration loose initiale ; dette et trajectoire M2 ; coûts et exploitabilité.
+- Aucun document REX créé dans ce cycle.
+- Gate candidat : `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
 
-## K. Décisions Morris à isoler (NOT CONSUMED)
-1. Passer F-A6-PM-G01 à MITIGATED ?
-2. Fermer F-A6-PM-G01 (CLOSED) ? — recommandé seulement après doc 32 + capitalisation ou arbitrage explicite
-3. Maintenir F-CI-* (recommandé : oui, inchangés) ou évoluer ?
-4. Corriger document 32 post-P3/M1 ?
-5. Capitaliser M1 (REX) ?
-6. Exiger un test de rollback avant clôture finding ?
-7. Exiger un test de bypass avant clôture finding ?
-8. Déclarer Option A COMPLETE ? — **non recommandé maintenant**
-9. Ouvrir T-A7 ? — **non recommandé maintenant**
-10. Configurer M2 (approvals, conversation resolution, up-to-date, autres) ? — trajectoire séparée
+## H. Rollback, bypass et M2
 
-## L. Séquencement recommandé
-1. `GO DECIDE OPTION A M1 CLOSURE` — arbitrer MITIGATED (et criteria CLOSED) sans muter encore Option A COMPLETE/T-A7
-2. `GO CORRECT OPTION A DOCUMENT 32 POST-P3 AND M1` — lever la fausse représentation
-3. `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS` — REX borné
-4. Décision CLOSED F-A6 (si critères Morris satisfaits) — gate dédié éventuel
-5. Garder Option A COMPLETE / T-A7 **hors** séquence M1 jusqu’à framing produit/réserves
-6. M2 éventuel en trajectoire séparée
+### Rollback (D-M1-09)
+- Procédure définie (doc 32).
+- Test non exécuté.
+- Absence de test non bloquante pour M1 technique COMPLETE.
+- Décision future possible avant F-A6 CLOSED.
 
-Regroupement possible sans confusion : (2)+(3) en un cycle documentaire+REX si GO Morris le formule explicitement ; **ne pas** regrouper avec CLOSED finding ni Option A COMPLETE.
+### Bypass (D-M1-10)
+- B2 configuré (User 295557155, mode pull_request).
+- Capacité visible ; non testé.
+- Absence de test non bloquante pour M1 technique COMPLETE.
+- Décision future possible avant F-A6 CLOSED.
+
+### M2 (D-M1-11)
+- Aucune modification M1 actuelle.
+- Approvals, conversation resolution, up-to-date et autres règles = trajectoire séparée.
+- Aucune configuration candidate M2 ne devient décision validée ici.
+
+## I. Décisions non prises
+
+- aucune décision F-A6 CLOSED
+- aucune décision Option A COMPLETE
+- aucune décision T-A7 OPEN
+- aucune décision de lancer M2
+- aucune décision de tester le rollback
+- aucune décision de tester le bypass
+- aucune décision de fermer les F-CI-*
+- aucune décision de modifier le produit Option A
+- aucune mutation registre finding / document projet / roadmap / ruleset / workflow
+
+## J. Séquencement décidé
+
+1. Formaliser F-A6-PM-G01 comme MITIGATED dans un cycle borné
+2. Corriger le document 32
+3. Capitaliser M1
+4. Réévaluer ultérieurement F-A6 CLOSED
+5. Maintenir Option A COMPLETE et T-A7 hors séquence M1
+6. Traiter M2 dans une trajectoire séparée seulement après GO Morris
+
+Notes de regroupement :
+- (2)+(3) regroupables uniquement sous gate Morris explicite.
+- Formalisation F-A6 MITIGATED **ne doit pas** être regroupée implicitement avec F-A6 CLOSED.
 
 ## Actions non exécutées
-- Aucune modification finding / document projet / roadmap / Notion
-- Aucune déclaration effective MITIGATED/CLOSED/COMPLETE
-- Aucune ouverture T-A7
-- Aucune modification ruleset/workflow/main
-- Aucun rollback / test bypass
-- Aucune branche projet / PR / merge / suppression supplémentaire
-- Aucun commit/push hors handoff L3
+- Pas de modification registre F-A6 / F-CI-*
+- Pas de correction document 32
+- Pas de création REX M1
+- Pas de déclaration Git Option A COMPLETE
+- Pas d’ouverture T-A7
+- Pas de roadmap / ruleset / workflow / rollback / bypass / M2
+- Pas de branche projet / commit projet / PR / merge / Notion
+- Seule mutation autorisée : publication handoff L3 borné
 
 ## Gates candidats (NOT CONSUMED)
-- `GO DECIDE OPTION A M1 CLOSURE — SFIA STUDIO V3-NATIVE`
+- `GO FORMALIZE F-A6-PM-G01 AS MITIGATED AFTER M1 — SFIA STUDIO V3-NATIVE`
 - `GO CORRECT OPTION A DOCUMENT 32 POST-P3 AND M1 — SFIA STUDIO V3-NATIVE`
 - `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS — SFIA STUDIO V3-NATIVE`
 
 ## Anti-claims
-- M1 techniquement terminé ≠ finding fermé
-- finding mitigé ≠ finding fermé
-- Option A techniquement avancée sur CI ≠ Option A déclarée COMPLETE
-- readiness T-A7 ≠ T-A7 ouverte
-- document 32 obsolète ≠ preuve technique invalide
-- rollback défini ≠ rollback testé
-- bypass visible ≠ bypass testé
-- assessment conforme ≠ décisions Morris consommées
+- décision M1 COMPLETE ≠ Option A COMPLETE
+- MITIGATED approuvé ≠ registre déjà modifié
+- MITIGATED ≠ CLOSED
+- F-A6 non CLOSED ≠ preuve M1 insuffisante
+- T-A7 non ouverte ≠ trajectoire abandonnée
+- correction requise ≠ document corrigé
+- capitalisation requise ≠ REX produit
+- rollback non bloquant M1 ≠ rollback inutile
+- bypass non bloquant M1 ≠ bypass validé
+- gate DECIDE ≠ gate de mutation documentaire projet
 
 ## Verdict
-`SFIA STUDIO V3-NATIVE OPTION A M1 CLOSURE READINESS — TECHNICALLY COMPLETE — GOVERNANCE AND DOCUMENTATION DECISIONS REQUIRED`
+`SFIA STUDIO V3-NATIVE OPTION A M1 CLOSURE DECISION RECORDED — M1 TECHNICALLY COMPLETE — F-A6 MITIGATED APPROVED FOR FORMALIZATION — F-A6 NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
 
 ## Handoff Git
 - décision : required
@@ -296,4 +215,4 @@ Regroupement possible sans confusion : (2)+(3) en un cycle documentaire+REX si G
 - fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 - source : `.tmp-sfia-review/chatgpt-review.md`
 - push handoff autorisé : oui — L3 borné
-- commit attendu : `docs(review-handoff): assess Option A M1 closure readiness`
+- commit attendu : `docs(review-handoff): record Option A M1 closure decision`
