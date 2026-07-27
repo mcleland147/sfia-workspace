@@ -1,346 +1,25 @@
-# SFIA Review Pack — M1 Ruleset Rollback Test + Bypass Qualification (FULL)
+# SFIA Review Pack — Controlled M1 Bypass Behavior Test (FULL)
 
 ## Metadata
-- date/heure/fuseau: 2026-07-27 19:28:39 CEST (+0200)
-- cycle: 9 — QA / validation (+ 7 DevOps, 10 Sécurité, 12 RUN readiness, 15 Capitalisation, 1 cadrage futur bypass)
+- date/heure/fuseau: 2026-07-27 19:46:28 CEST (+0200)
+- cycle: 9 — QA / validation (+ 7 DevOps, 10 Sécurité, 12 RUN readiness, 14 Post-merge, 15 Capitalisation)
 - profil SFIA: Critical
-- typologie: QA / DEVOPS / GOVERNANCE / RULESET / ROLLBACK / BYPASS
-- gate consommé: `GO TEST M1 RULESET ROLLBACK AND PREPARE BYPASS VALIDATION — SFIA STUDIO V3-NATIVE`
+- typologie: QA / DEVOPS / GOVERNANCE / BYPASS / CONTROLLED FAILURE / REVERT
+- gate consommé: `GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE`
 - repo: `mcleland147/sfia-workspace`
-- workspace: `/Users/morris/Projects/sfia-workspace-m1-capitalization`
-- main: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
-- acteur authentifié: `mcleland147` (id `295557155`)
+- worktrees:
+  - probe: `/Users/morris/Projects/sfia-workspace-m1-bypass-probe`
+  - revert: `/Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert`
+- branches: `qa/sfia-studio-m1-bypass-probe`, `qa/sfia-studio-m1-bypass-probe-revert`, `sfia/review-handoff`
+- main initial: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
+- handoff initial blob: `e5de7f960503de3f93b3d5d373c11b5d10ee09bb`
 
-## 1. Local Git Truth Check
-- HEAD local: `fa0eebe00ce3b765a8a486aa660dddfab40123a0`
-- origin/main avant: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
-- origin/main après: `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
-- status: clean · aucune opération Git active
-- handoff initial blob: `b503cf1d8871d69ea270935740c50dc802de9be3`
-- branche/worktree capitalisation: présents
+## 1. Status Git initial
+- origin/main = `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
+- ruleset actif, required check exact, bypass actor exact
+- concurrent: 0 PR ouvertes, 0 CI queued/in_progress, aucune branche/PR probe préexistante
 
-## 2. Activité concurrente (pré-mutation)
-- PR ouvertes vers main: `0`
-- CI in_progress/queued sur main: `0`
-- merges pendant fenêtre de désactivation: `[]`
-- pré-disable: `OPEN_PRS=0 INPROG=0 QUEUED=0`
-
-## 3. Ruleset initial complet
-```json
-{
-  "id": 19798462,
-  "name": "SFIA Studio Main Required Gate — M1",
-  "target": "branch",
-  "source_type": "Repository",
-  "source": "mcleland147/sfia-workspace",
-  "enforcement": "active",
-  "conditions": {
-    "ref_name": {
-      "exclude": [],
-      "include": [
-        "refs/heads/main"
-      ]
-    }
-  },
-  "rules": [
-    {
-      "type": "pull_request",
-      "parameters": {
-        "required_approving_review_count": 0,
-        "dismiss_stale_reviews_on_push": false,
-        "required_reviewers": [],
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_review_thread_resolution": false,
-        "allowed_merge_methods": [
-          "merge",
-          "squash",
-          "rebase"
-        ]
-      }
-    },
-    {
-      "type": "required_status_checks",
-      "parameters": {
-        "strict_required_status_checks_policy": false,
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "SFIA Studio Required Gate",
-            "integration_id": 15368
-          }
-        ]
-      }
-    },
-    {
-      "type": "non_fast_forward"
-    },
-    {
-      "type": "deletion"
-    }
-  ],
-  "node_id": "RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4",
-  "created_at": "2026-07-27T09:31:28.759+02:00",
-  "updated_at": "2026-07-27T09:31:28.849+02:00",
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ],
-  "current_user_can_bypass": "pull_requests_only",
-  "_links": {
-    "self": {
-      "href": "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"
-    },
-    "html": {
-      "href": "https://github.com/mcleland147/sfia-workspace/rules/19798462"
-    }
-  }
-}
-```
-
-- SHA-256 JSON normalisé initial (full GET): `090262238b82576b826e1654bc14727aa21b04ddc59852fd4e653a2db0bfb05e`
-- clés top-level: ["_links", "bypass_actors", "conditions", "created_at", "current_user_can_bypass", "enforcement", "id", "name", "node_id", "rules", "source", "source_type", "target", "updated_at"]
-- name: `SFIA Studio Main Required Gate — M1`
-- enforcement: `active`
-- target: `branch`
-- required check: `SFIA Studio Required Gate` / integration `15368`
-- approvals: `0`
-- strict policy: `false`
-- bypass actor: user `295557155` mode `pull_request`
-
-## 4. Payload disable complet
-```json
-{
-  "name": "SFIA Studio Main Required Gate — M1",
-  "target": "branch",
-  "source_type": "Repository",
-  "enforcement": "disabled",
-  "conditions": {
-    "ref_name": {
-      "exclude": [],
-      "include": [
-        "refs/heads/main"
-      ]
-    }
-  },
-  "rules": [
-    {
-      "type": "pull_request",
-      "parameters": {
-        "required_approving_review_count": 0,
-        "dismiss_stale_reviews_on_push": false,
-        "required_reviewers": [],
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_review_thread_resolution": false,
-        "allowed_merge_methods": [
-          "merge",
-          "squash",
-          "rebase"
-        ]
-      }
-    },
-    {
-      "type": "required_status_checks",
-      "parameters": {
-        "strict_required_status_checks_policy": false,
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "SFIA Studio Required Gate",
-            "integration_id": 15368
-          }
-        ]
-      }
-    },
-    {
-      "type": "non_fast_forward"
-    },
-    {
-      "type": "deletion"
-    }
-  ],
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ]
-}
-```
-
-## 5. Payload restore complet
-```json
-{
-  "name": "SFIA Studio Main Required Gate — M1",
-  "target": "branch",
-  "source_type": "Repository",
-  "enforcement": "active",
-  "conditions": {
-    "ref_name": {
-      "exclude": [],
-      "include": [
-        "refs/heads/main"
-      ]
-    }
-  },
-  "rules": [
-    {
-      "type": "pull_request",
-      "parameters": {
-        "required_approving_review_count": 0,
-        "dismiss_stale_reviews_on_push": false,
-        "required_reviewers": [],
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_review_thread_resolution": false,
-        "allowed_merge_methods": [
-          "merge",
-          "squash",
-          "rebase"
-        ]
-      }
-    },
-    {
-      "type": "required_status_checks",
-      "parameters": {
-        "strict_required_status_checks_policy": false,
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "SFIA Studio Required Gate",
-            "integration_id": 15368
-          }
-        ]
-      }
-    },
-    {
-      "type": "non_fast_forward"
-    },
-    {
-      "type": "deletion"
-    }
-  ],
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ]
-}
-```
-
-## 6. Comparaison des payloads
-- différence logique unique: `.enforcement` : `disabled` vs `active`
-- aucune autre modification dans les payloads
-- preuve: `ONLY_DIFF=.enforcement disabled vs active`
-
-## 7. Désactivation réelle
-- timestamp: `2026-07-27 19:27:21 CEST (+0200)`
-- commande: `DISABLE_CMD=gh api --method PUT repos/mcleland147/sfia-workspace/rulesets/19798462 --input .tmp-sfia-review/ruleset-19798462-disable.json`
-- DISABLE_EXIT=0
-- stdout (réponse API):
-```json
-{"id":19798462,"name":"SFIA Studio Main Required Gate — M1","target":"branch","source_type":"Repository","source":"mcleland147/sfia-workspace","enforcement":"disabled","conditions":{"ref_name":{"exclude":[],"include":["refs/heads/main"]}},"rules":[{"type":"pull_request","parameters":{"required_approving_review_count":0,"dismiss_stale_reviews_on_push":false,"required_reviewers":[],"require_code_owner_review":false,"require_last_push_approval":false,"required_review_thread_resolution":false,"allowed_merge_methods":["merge","squash","rebase"]}},{"type":"required_status_checks","parameters":{"strict_required_status_checks_policy":false,"do_not_enforce_on_create":false,"required_status_checks":[{"context":"SFIA Studio Required Gate","integration_id":15368}]}},{"type":"non_fast_forward"},{"type":"deletion"}],"node_id":"RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4","created_at":"2026-07-27T09:31:28.759+02:00","updated_at":"2026-07-27T19:27:22.047+02:00","bypass_actors":[{"actor_id":295557155,"actor_type":"User","bypass_mode":"pull_request"}],"current_user_can_bypass":"pull_requests_only","_links":{"self":{"href":"https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"},"html":{"href":"https://github.com/mcleland147/sfia-workspace/rules/19798462"}}}
-```
-- stderr: `(empty)`
-
-### Ruleset désactivé (GET immédiat)
-```json
-{
-  "id": 19798462,
-  "name": "SFIA Studio Main Required Gate — M1",
-  "target": "branch",
-  "source_type": "Repository",
-  "source": "mcleland147/sfia-workspace",
-  "enforcement": "disabled",
-  "conditions": {
-    "ref_name": {
-      "exclude": [],
-      "include": [
-        "refs/heads/main"
-      ]
-    }
-  },
-  "rules": [
-    {
-      "type": "pull_request",
-      "parameters": {
-        "required_approving_review_count": 0,
-        "dismiss_stale_reviews_on_push": false,
-        "required_reviewers": [],
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_review_thread_resolution": false,
-        "allowed_merge_methods": [
-          "merge",
-          "squash",
-          "rebase"
-        ]
-      }
-    },
-    {
-      "type": "required_status_checks",
-      "parameters": {
-        "strict_required_status_checks_policy": false,
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "SFIA Studio Required Gate",
-            "integration_id": 15368
-          }
-        ]
-      }
-    },
-    {
-      "type": "non_fast_forward"
-    },
-    {
-      "type": "deletion"
-    }
-  ],
-  "node_id": "RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4",
-  "created_at": "2026-07-27T09:31:28.759+02:00",
-  "updated_at": "2026-07-27T19:27:22.047+02:00",
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ],
-  "current_user_can_bypass": "pull_requests_only",
-  "_links": {
-    "self": {
-      "href": "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"
-    },
-    "html": {
-      "href": "https://github.com/mcleland147/sfia-workspace/rules/19798462"
-    }
-  }
-}
-```
-- enforcement observé: `disabled`
-- ID/name/target/required check/bypass: inchangés hors enforcement
-- verdict étape: `M1 RULESET ROLLBACK DISABLE STEP VERIFIED`
-- durée de désactivation: `1` seconde(s) (< 300)
-
-## 8. Restauration immédiate
-- timestamp: `2026-07-27 19:27:22 CEST (+0200)`
-- commande: `RESTORE_CMD=gh api --method PUT repos/mcleland147/sfia-workspace/rulesets/19798462 --input .tmp-sfia-review/ruleset-19798462-restore.json`
-- RESTORE_EXIT=0
-- stdout (réponse API):
-```json
-{"id":19798462,"name":"SFIA Studio Main Required Gate — M1","target":"branch","source_type":"Repository","source":"mcleland147/sfia-workspace","enforcement":"active","conditions":{"ref_name":{"exclude":[],"include":["refs/heads/main"]}},"rules":[{"type":"pull_request","parameters":{"required_approving_review_count":0,"dismiss_stale_reviews_on_push":false,"required_reviewers":[],"require_code_owner_review":false,"require_last_push_approval":false,"required_review_thread_resolution":false,"allowed_merge_methods":["merge","squash","rebase"]}},{"type":"required_status_checks","parameters":{"strict_required_status_checks_policy":false,"do_not_enforce_on_create":false,"required_status_checks":[{"context":"SFIA Studio Required Gate","integration_id":15368}]}},{"type":"non_fast_forward"},{"type":"deletion"}],"node_id":"RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4","created_at":"2026-07-27T09:31:28.759+02:00","updated_at":"2026-07-27T19:27:23.150+02:00","bypass_actors":[{"actor_id":295557155,"actor_type":"User","bypass_mode":"pull_request"}],"current_user_can_bypass":"pull_requests_only","_links":{"self":{"href":"https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"},"html":{"href":"https://github.com/mcleland147/sfia-workspace/rules/19798462"}}}
-```
-- stderr: `(empty)`
-
-### Ruleset restauré (GET)
+## 2. Ruleset initial complet
 ```json
 {
   "id": 19798462,
@@ -415,257 +94,533 @@
   }
 }
 ```
-
-## 9. Comparaison avant/après (configurable)
-### Comparable before
-```json
-{
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ],
-  "conditions": {
-    "ref_name": {
-      "exclude": [],
-      "include": [
-        "refs/heads/main"
-      ]
-    }
-  },
-  "enforcement": "active",
-  "name": "SFIA Studio Main Required Gate — M1",
-  "rules": [
-    {
-      "parameters": {
-        "allowed_merge_methods": [
-          "merge",
-          "squash",
-          "rebase"
-        ],
-        "dismiss_stale_reviews_on_push": false,
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_approving_review_count": 0,
-        "required_review_thread_resolution": false,
-        "required_reviewers": []
-      },
-      "type": "pull_request"
-    },
-    {
-      "parameters": {
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "SFIA Studio Required Gate",
-            "integration_id": 15368
-          }
-        ],
-        "strict_required_status_checks_policy": false
-      },
-      "type": "required_status_checks"
-    },
-    {
-      "type": "non_fast_forward"
-    },
-    {
-      "type": "deletion"
-    }
-  ],
-  "target": "branch"
-}
-```
-
-### Comparable after
-```json
-{
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ],
-  "conditions": {
-    "ref_name": {
-      "exclude": [],
-      "include": [
-        "refs/heads/main"
-      ]
-    }
-  },
-  "enforcement": "active",
-  "name": "SFIA Studio Main Required Gate — M1",
-  "rules": [
-    {
-      "parameters": {
-        "allowed_merge_methods": [
-          "merge",
-          "squash",
-          "rebase"
-        ],
-        "dismiss_stale_reviews_on_push": false,
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_approving_review_count": 0,
-        "required_review_thread_resolution": false,
-        "required_reviewers": []
-      },
-      "type": "pull_request"
-    },
-    {
-      "parameters": {
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "SFIA Studio Required Gate",
-            "integration_id": 15368
-          }
-        ],
-        "strict_required_status_checks_policy": false
-      },
-      "type": "required_status_checks"
-    },
-    {
-      "type": "non_fast_forward"
-    },
-    {
-      "type": "deletion"
-    }
-  ],
-  "target": "branch"
-}
-```
-
-- résultat: `RULESET_RESTORED_IDENTICALLY`
-- hash comparable (identique): `2ffe7e49a0c27bc2f8860f91271a22ebd97759e9eded39c342083215c5c19270`
-- hash full GET after: `01a0cd762c44b703c71d4c8476fb50ae936c111b9a558ae35a97954754b011c0`
-- métadonnées serveur différentes tolérées: ["updated_at"] (ex. `updated_at`)
-
-## 10. Vérification opérationnelle post-restauration
-- ruleset enforcement final: `active`
-- required check présent: oui (`SFIA Studio Required Gate` / `15368`)
-- main avant = main après = `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
-- document 33 présent · 441 lignes · blob `6c87cf4016d6a33f096df921acf8bafd4d73af4e`
-- merges pendant fenêtre: aucun
-- bypass utilisé pendant le test: non (aucune tentative de merge/bypass)
-- qualification rollback: `ROLLBACK TEST PASSED`
-
-## 11. Analyse bypass (sans exécution)
-```json
-{
-  "current_user_can_bypass": "pull_requests_only",
-  "bypass_actors": [
-    {
-      "actor_id": 295557155,
-      "actor_type": "User",
-      "bypass_mode": "pull_request"
-    }
-  ],
-  "enforcement": "active"
-}
-```
-
-### Permissions / champs observés
-- actor = bypass actor listé (`mcleland147` / `295557155`)
 - `current_user_can_bypass` = `pull_requests_only`
-- repository permissions admin=true (compte Morris)
-- GraphQL PR #276 (déjà mergée): `viewerPermission=ADMIN`, `viewerCanMergeAsAdmin=false` (attendu sur PR déjà MERGED)
-- méthodes merge repo: squash/merge/rebase autorisés ; auto-merge=false ; delete_branch_on_merge=false
-- audit log org: non accessible avec droits actuels (`AUDIT_EC=AUDIT_EC=1`) — stderr scrubbé: `gh: Not Found (HTTP 404)`
+- bypass actor user `295557155` mode `pull_request`
 
-### Différences conceptuelles
-| Mécanisme | Effet | Testé ici |
-|---|---|---|
-| merge normal | exige required gate SUCCESS | non (hors scope) |
-| merge `--admin` | contournement admin GitHub | **interdit / non exécuté** |
-| bypass explicite ruleset (`pull_request`) | permet merge PR malgré checks si UI/API expose bypass | **config vérifiée, comportement non testé** |
-| désactivation ruleset | retire enforcement temporairement | **testé puis restauré** |
+## 3. Plan de neutralisation (avant bypass)
+```markdown
+# Plan de neutralisation — M1 bypass probe (préparé AVANT bypass)
 
-### Risques
-- bypass accidentel possible car actor = admin repo et mode `pull_request`
-- absence d’approvals (0) + strict=false = configuration loose
-- audit log non vérifiable ici sans droits org supplémentaires
+## Artefact
+- path: `projects/sfia-studio/.m1-bypass-probe.txt`
+- contenu: texte explicite probe temporaire + une ligne avec espace final volontaire
+- échec CI attendu: uniquement `Trailing whitespace check` via `git diff --check BASE...HEAD`
+- hors scope: TypeScript, lint, tests, secret scan, build, workflow, ruleset, docs 24/32/33
 
-### Conclusion bypass autorisée
-`BYPASS CONFIGURATION VERIFIED — BEHAVIOR NOT TESTED`
+## Revert (immédiat après merge probe)
+- branche: `qa/sfia-studio-m1-bypass-probe-revert`
+- worktree: `/Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert`
+- action: supprimer exclusivement `.m1-bypass-probe.txt`
+- commit: `revert(sfia-studio): remove controlled M1 bypass probe`
+- PR titre: `revert(sfia-studio): remove controlled M1 bypass probe`
+- merge: squash NORMAL (sans bypass, sans --admin)
+- validation: Detect/Build/Required Gate SUCCESS
 
-## 12. Protocole futur test bypass (NON EXÉCUTÉ)
+## Commandes prévues
+```bash
+git fetch origin --prune
+git worktree add -b qa/sfia-studio-m1-bypass-probe-revert \
+  /Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert origin/main
+cd /Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert
+git rm projects/sfia-studio/.m1-bypass-probe.txt
+git commit -m "revert(sfia-studio): remove controlled M1 bypass probe"
+git push -u origin HEAD
+gh pr create --base main --title "revert(sfia-studio): remove controlled M1 bypass probe" --body "..."
+# wait CI success
+gh pr merge <N> --squash --match-head-commit <SHA>   # NO --admin
+```
 
-### Option B1 — test comportemental réel
-- branche temporaire proposée: `qa/sfia-studio-m1-bypass-probe` (éphémère)
-- modification minimale volontaire: toucher un fichier Studio pour déclencher le path-aware gate, ou introduire une erreur de lint/typecheck intentionnelle minimale sous `projects/sfia-studio/`
-- création PR vers `main` avec titre explicite `qa(sfia-studio): controlled M1 bypass probe — DO NOT KEEP`
-- preuve de blocage normal: required check `SFIA Studio Required Gate` = failure / merge bloqué
-- action bypass envisagée: merge via UI/API en mode bypass ruleset (pas `--admin` générique) uniquement après GO Morris distinct
-- si bypass fonctionne: commit atteint `main` malgré gate failed → pollution de main
-- neutralisation immédiate: revert squash/commit sur main dans la même fenêtre
-- stratégie revert: PR de revert ou revert commit + CI success
-- preuve d’audit: capture screenshots/API merge event + ruleset bypass indication
-- durée maximale: ≤ 15 minutes fenêtre ouverte
-- stop conditions: incapacité à revert, autre activité concurrente, doute sur état ruleset
-- risque: élevé (pollution main, dette CI, confusion gouvernance)
-- dette: historique de merge invalide même après revert
-- prérequis: `GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE` (NOT CONSUMED)
-- ne pas exécuter dans ce cycle
+## Stop / urgence
+- si revert PR non créable: CRITICAL STOP, ne pas toucher ruleset, fournir état exact
+- si CI revert échoue: CRITICAL STOP, main polluée temporairement
+- durée max pollution: 15 minutes
+- ne jamais utiliser --admin / désactivation ruleset pour "réparer"
+```
 
-### Option B2 — validation non destructive
-- inspection permissions, API, `current_user_can_bypass`, bypass_actors, merge methods
-- éventuellement PR draft contrôlée **sans** merge, observant l’absence d’option bypass tant que checks pending/failed (lecture UI)
-- aucune intégration sur `main`
-- prouve la configuration / présence de capacité, **pas** le comportement réel de contournement réussi
-- risque faible
-- ne suffit pas seule à qualifier `bypass tested`
-- partiellement réalisée dans ce cycle (API/config)
+## 4. Fichier probe (whitespace rendu explicitement)
+Espaces rendus `·` :
+```
+1|TEMPORARY·M1·BYPASS·PROBE·—·DO·NOT·KEEP
+2|This·file·is·an·inoffensive·controlled·governance·probe·artifact.
+3|No·executable·code.·No·secrets.·No·product·data.
+4|Gate:·GO·EXECUTE·CONTROLLED·M1·BYPASS·BEHAVIOR·TEST·—·SFIA·STUDIO·V3-NATIVE
+5|INTENTIONAL_TRAILING_WHITESPACE_LINE·
+6|End·of·probe·file.
+```
+- path: `projects/sfia-studio/.m1-bypass-probe.txt`
+- bytes: 292
+- local `git diff --cached --check` a détecté trailing whitespace ligne 5
 
-### Recommandation (non décision)
-Préférer **B2 approfondi** puis, seulement si Morris exige une preuve comportementale, exécuter **B1** sous GO Critical séparé avec revert immédiat obligatoire. Ne pas combiner B1 avec d’autres mutations.
+## 5. Commit / push probe
+- commit: `f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23`
+- message: `qa(sfia-studio): add controlled M1 bypass probe`
+- 1 fichier ajouté, 6 insertions
+```
+commit f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Mon Jul 27 19:36:55 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Mon Jul 27 19:36:55 2026 +0200
 
-## 13. Gouvernance préservée
-- F-A6-PM-G01 = MITIGATED — NOT CLOSED
+    qa(sfia-studio): add controlled M1 bypass probe
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+A	projects/sfia-studio/.m1-bypass-probe.txt
+```
+
+## 6. PR probe #277
+```json
+{
+  "additions": 6,
+  "baseRefName": "main",
+  "baseRefOid": "49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13",
+  "body": "## Objectif\n\nDémontrer comportementalement le bypass explicite du ruleset M1 (`19798462`) sur une PR dont le required gate est volontairement en échec, puis neutraliser immédiatement l’artefact.\n\n## Gate Morris consommé\n\n`GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE`\n\n## Artefact temporaire\n\n- `projects/sfia-studio/.m1-bypass-probe.txt`\n- texte inoffensif uniquement\n- une ligne avec trailing whitespace volontaire\n- aucun code produit, secret, workflow, ruleset, docs 24/32/33\n\n## Failure intentionnelle attendue\n\n- step `Trailing whitespace check` = failure\n- `SFIA Studio Required Gate` = failure\n- merge normal bloqué\n\n## Bypass\n\n- bypass explicite ruleset mode `pull_request` uniquement\n- **interdit** : `--admin`, désactivation ruleset, push direct sur main\n\n## Revert immédiat obligatoire\n\n- PR revert dédiée après merge probe\n- merge revert **normal** (sans bypass)\n- suppression exclusive de l’artefact\n\n## Gouvernance\n\n- F-A6 reste MITIGATED NOT CLOSED\n- Option A non COMPLETE\n- T-A7 non ouverte\n- D1–D7 NOT DECIDED\n- cette PR et son commit ne doivent pas être conservés fonctionnellement sur `main`\n\n## DO NOT KEEP\n\nCette PR est un probe de gouvernance contrôlé. Neutralisation obligatoire.\n\nMade with [Cursor](https://cursor.com)",
+  "deletions": 0,
+  "files": [
+    {
+      "path": "projects/sfia-studio/.m1-bypass-probe.txt",
+      "additions": 6,
+      "deletions": 0,
+      "changeType": "ADDED"
+    }
+  ],
+  "headRefName": "qa/sfia-studio-m1-bypass-probe",
+  "headRefOid": "f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23",
+  "isDraft": false,
+  "mergeStateStatus": "BLOCKED",
+  "mergeable": "MERGEABLE",
+  "number": 277,
+  "state": "OPEN",
+  "title": "qa(sfia-studio): controlled M1 bypass probe — DO NOT KEEP",
+  "url": "https://github.com/mcleland147/sfia-workspace/pull/277"
+}
+```
+
+### Diff probe complet
+```diff
+diff --git a/projects/sfia-studio/.m1-bypass-probe.txt b/projects/sfia-studio/.m1-bypass-probe.txt
+new file mode 100644
+index 00000000..b234fa8b
+--- /dev/null
++++ b/projects/sfia-studio/.m1-bypass-probe.txt
+@@ -0,0 +1,6 @@
++TEMPORARY M1 BYPASS PROBE — DO NOT KEEP
++This file is an inoffensive controlled governance probe artifact.
++No executable code. No secrets. No product data.
++Gate: GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE
++INTENTIONAL_TRAILING_WHITESPACE_LINE
++End of probe file.
+```
+
+## 7. CI probe (run 30290065655)
+```json
+{
+  "databaseId": 30290065655,
+  "workflowName": "SFIA Studio CI",
+  "event": "pull_request",
+  "headSha": "f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23",
+  "status": "completed",
+  "conclusion": "failure",
+  "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30290065655"
+}
+```
+### Jobs/steps
+- Detect SFIA Studio changes | id=90057389766 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Checkout | status=completed | conclusion=success
+  - step: Detect Studio scope | status=completed | conclusion=success
+  - step: Post Checkout | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- Build and validate SFIA Studio | id=90057428994 | status=completed | conclusion=failure
+  - step: Set up job | status=completed | conclusion=success
+  - step: Checkout | status=completed | conclusion=success
+  - step: Setup Node.js | status=completed | conclusion=success
+  - step: Install dependencies | status=completed | conclusion=success
+  - step: Typecheck | status=completed | conclusion=success
+  - step: Lint | status=completed | conclusion=success
+  - step: Build | status=completed | conclusion=success
+  - step: Unit tests (Vitest) | status=completed | conclusion=success
+  - step: Modeled governance tests | status=completed | conclusion=success
+  - step: Secret pattern scan (targeted) | status=completed | conclusion=success
+  - step: Trailing whitespace check | status=completed | conclusion=failure
+  - step: Post Setup Node.js | status=completed | conclusion=skipped
+  - step: Post Checkout | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- SFIA Studio Required Gate | id=90057782135 | status=completed | conclusion=failure
+  - step: Set up job | status=completed | conclusion=success
+  - step: Aggregate required gate | status=completed | conclusion=failure
+  - step: Complete job | status=completed | conclusion=success
+
+Preuve déterministe:
+- Detect SUCCESS
+- Typecheck/Lint/Build/Vitest/Modeled/Secret SUCCESS
+- **Trailing whitespace check FAILURE** (seul échec de validation)
+- Required Gate FAILURE
+- mergeStateStatus BLOCKED
+
+Verdict étape: `M1 BYPASS PROBE BLOCKED NORMALLY — REQUIRED GATE FAILURE VERIFIED`
+
+## 8. Preuve merge normal bloqué
+- commande: `gh pr merge 277 --squash --match-head-commit f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23 ...` (sans `--admin`)
+- exit: `NORMAL_MERGE_EXIT=1`
+- stderr:
+```
+X Pull request mcleland147/sfia-workspace#277 is not mergeable: the base branch policy prohibits the merge.
+To have the pull request merged after all the requirements have been met, add the `--auto` flag.
+To use administrator privileges to immediately merge the pull request, add the `--admin` flag.
+```
+- GraphQL pré-bypass:
+```json
+{
+  "data": {
+    "repository": {
+      "pullRequest": {
+        "id": "PR_kwDOTHYmCM73C0jC",
+        "mergeStateStatus": "BLOCKED",
+        "viewerCanMergeAsAdmin": false,
+        "mergeable": "MERGEABLE",
+        "commits": {
+          "nodes": [
+            {
+              "commit": {
+                "oid": "f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23",
+                "statusCheckRollup": {
+                  "state": "FAILURE"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+- `viewerCanMergeAsAdmin` = `false`
+- required checks state = `FAILURE`
+
+## 9. Revalidation pré-bypass
+- main toujours `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`
+- ruleset actif / bypass actor inchangé / `current_user_can_bypass=pull_requests_only`
+- seule PR ouverte = #277
+- plan revert prêt
+- fenêtre: `2026-07-27 19:39:48 CEST (+0200)`
+
+## 10. Bypass explicite
+- mécanisme: **REST `PUT /repos/mcleland147/sfia-workspace/pulls/277/merge`** en tant qu’acteur bypass du ruleset `19798462` (mode `pull_request`)
+- **absence de `--admin`** : confirmée (commande REST sans flag admin ; `gh pr merge --admin` non utilisé ; `viewerCanMergeAsAdmin=false`)
+- distinction: `gh pr merge` normal refusé par branch policy ; REST merge réussi via capacité bypass ruleset
+- payload:
+```json
+{
+  "commit_title": "qa(sfia-studio): controlled M1 bypass probe — DO NOT KEEP",
+  "commit_message": "Controlled M1 ruleset bypass probe under GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST.\nRequired gate was intentionally failing (trailing whitespace).\nImmediate revert required. Do not keep.\nBypass mechanism: ruleset 19798462 bypass actor pull_request (NOT --admin).",
+  "sha": "f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23",
+  "merge_method": "squash"
+}
+```
+- exit: `BYPASS_EXIT=0`
+- stderr: `(empty)`
+- réponse:
+```json
+{
+  "sha": "17840f45f74bbae702bd1a18acb9723b149a6ea0",
+  "merged": true,
+  "message": "Pull Request successfully merged"
+}
+```
+- merge probe SHA: `17840f45f74bbae702bd1a18acb9723b149a6ea0`
+- mergedAt: `2026-07-27T17:40:01Z` by `mcleland147`
+- verdict: `M1 RULESET BYPASS BEHAVIOR VERIFIED — FAILED REQUIRED GATE OVERRIDDEN EXPLICITLY`
+
+## 11. Main pollué (fenêtre temporaire)
+- main pollué: `17840f45f74bbae702bd1a18acb9723b149a6ea0`
+- CI push/main pendant pollution (attendu failure whitespace): run `30290261912` conclusion `failure`
+- durée pollution: **173 secondes** (< 900)
+
+## 12. Revert immédiat
+- branche: `qa/sfia-studio-m1-bypass-probe-revert`
+- worktree: `/Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert`
+- commit: `b502c0069f836a729090bdc187dd98a0c26591ca` `revert(sfia-studio): remove controlled M1 bypass probe`
+```
+commit b502c0069f836a729090bdc187dd98a0c26591ca
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Mon Jul 27 19:40:15 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Mon Jul 27 19:40:15 2026 +0200
+
+    revert(sfia-studio): remove controlled M1 bypass probe
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+D	projects/sfia-studio/.m1-bypass-probe.txt
+```
+- PR revert #278
+```json
+{
+  "additions": 0,
+  "baseRefName": "main",
+  "baseRefOid": "17840f45f74bbae702bd1a18acb9723b149a6ea0",
+  "body": "## Objectif\n\nNeutraliser complètement l’artefact du probe de bypass M1.\n\n## Références\n\n- PR probe: #277\n- head probe: `f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23`\n- merge probe (bypass): `17840f45f74bbae702bd1a18acb9723b149a6ea0`\n- mécanisme: REST merge as ruleset bypass actor (`pull_request`) — **sans** `--admin`\n\n## Neutralisation\n\n- suppression exclusive de `projects/sfia-studio/.m1-bypass-probe.txt`\n- 1 fichier\n- required gate normal exigé\n- **aucun bypass autorisé** sur cette PR de revert\n- **aucun** `--admin`\n- aucune suppression automatique de branche\n\n## Gouvernance\n\n- F-A6 reste MITIGATED NOT CLOSED\n- Option A non COMPLETE\n- T-A7 non ouverte\n\nMade with [Cursor](https://cursor.com)",
+  "deletions": 6,
+  "files": [
+    {
+      "path": "projects/sfia-studio/.m1-bypass-probe.txt",
+      "additions": 0,
+      "deletions": 6,
+      "changeType": "DELETED"
+    }
+  ],
+  "headRefName": "qa/sfia-studio-m1-bypass-probe-revert",
+  "headRefOid": "b502c0069f836a729090bdc187dd98a0c26591ca",
+  "isDraft": false,
+  "number": 278,
+  "state": "OPEN",
+  "title": "revert(sfia-studio): remove controlled M1 bypass probe",
+  "url": "https://github.com/mcleland147/sfia-workspace/pull/278"
+}
+```
+
+### Diff revert
+```diff
+diff --git a/projects/sfia-studio/.m1-bypass-probe.txt b/projects/sfia-studio/.m1-bypass-probe.txt
+deleted file mode 100644
+index b234fa8b..00000000
+--- a/projects/sfia-studio/.m1-bypass-probe.txt
++++ /dev/null
+@@ -1,6 +0,0 @@
+-TEMPORARY M1 BYPASS PROBE — DO NOT KEEP
+-This file is an inoffensive controlled governance probe artifact.
+-No executable code. No secrets. No product data.
+-Gate: GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE
+-INTENTIONAL_TRAILING_WHITESPACE_LINE
+-End of probe file.
+```
+
+## 13. CI revert (run 30290283916)
+```json
+{
+  "databaseId": 30290283916,
+  "workflowName": "SFIA Studio CI",
+  "event": "pull_request",
+  "headSha": "b502c0069f836a729090bdc187dd98a0c26591ca",
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30290283916"
+}
+```
+### Jobs/steps
+- Detect SFIA Studio changes | id=90058118812 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Checkout | status=completed | conclusion=success
+  - step: Detect Studio scope | status=completed | conclusion=success
+  - step: Post Checkout | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- Build and validate SFIA Studio | id=90058182419 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Checkout | status=completed | conclusion=success
+  - step: Setup Node.js | status=completed | conclusion=success
+  - step: Install dependencies | status=completed | conclusion=success
+  - step: Typecheck | status=completed | conclusion=success
+  - step: Lint | status=completed | conclusion=success
+  - step: Build | status=completed | conclusion=success
+  - step: Unit tests (Vitest) | status=completed | conclusion=success
+  - step: Modeled governance tests | status=completed | conclusion=success
+  - step: Secret pattern scan (targeted) | status=completed | conclusion=success
+  - step: Trailing whitespace check | status=completed | conclusion=success
+  - step: Post Setup Node.js | status=completed | conclusion=success
+  - step: Post Checkout | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- SFIA Studio Required Gate | id=90058571305 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Aggregate required gate | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- mergeState CLEAN / MERGEABLE
+- merge squash **normal** (sans bypass, sans `--admin`)
+- commande: `gh pr merge 278 --squash --match-head-commit b502c0069f836a729090bdc187dd98a0c26591ca`
+- exit: `REVERT_MERGE_EXIT=0`
+- merge revert SHA: `df9d9c6e688be367f54aa9376e67543eab80533a`
+- mergedAt: `2026-07-27T17:42:54Z`
+
+## 14. CI post-revert push/main
+- état: `SUCCESS`
+```json
+{
+  "databaseId": 30290479092,
+  "workflowName": "SFIA Studio CI",
+  "event": "push",
+  "headSha": "df9d9c6e688be367f54aa9376e67543eab80533a",
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30290479092"
+}
+```
+### Jobs/steps
+- Detect SFIA Studio changes | id=90058766113 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Checkout | status=completed | conclusion=success
+  - step: Detect Studio scope | status=completed | conclusion=success
+  - step: Post Checkout | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- Build and validate SFIA Studio | id=90058836535 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Checkout | status=completed | conclusion=success
+  - step: Setup Node.js | status=completed | conclusion=success
+  - step: Install dependencies | status=completed | conclusion=success
+  - step: Typecheck | status=completed | conclusion=success
+  - step: Lint | status=completed | conclusion=success
+  - step: Build | status=completed | conclusion=success
+  - step: Unit tests (Vitest) | status=completed | conclusion=success
+  - step: Modeled governance tests | status=completed | conclusion=success
+  - step: Secret pattern scan (targeted) | status=completed | conclusion=success
+  - step: Trailing whitespace check | status=completed | conclusion=success
+  - step: Post Setup Node.js | status=completed | conclusion=success
+  - step: Post Checkout | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+- SFIA Studio Required Gate | id=90059202821 | status=completed | conclusion=success
+  - step: Set up job | status=completed | conclusion=success
+  - step: Aggregate required gate | status=completed | conclusion=success
+  - step: Complete job | status=completed | conclusion=success
+
+## 15. Validation finale main
+- main final: `df9d9c6e688be367f54aa9376e67543eab80533a`
+- probe merge ancêtre: oui
+- revert merge = HEAD main: oui
+- fichier probe: **ABSENT**
+- diff net `49f2edfa5adcbeb9d59ea5cba7d6db69b00edc13`…`origin/main`: **VIDE**
+```
+(empty)
+```
+- document 33 blob: `6c87cf4016d6a33f096df921acf8bafd4d73af4e` inchangé
+- ruleset final:
+```json
+{
+  "id": 19798462,
+  "name": "SFIA Studio Main Required Gate — M1",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "mcleland147/sfia-workspace",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "node_id": "RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4",
+  "created_at": "2026-07-27T09:31:28.759+02:00",
+  "updated_at": "2026-07-27T19:27:23.150+02:00",
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
+  "current_user_can_bypass": "pull_requests_only",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"
+    },
+    "html": {
+      "href": "https://github.com/mcleland147/sfia-workspace/rules/19798462"
+    }
+  }
+}
+```
+- comparaison configurable initial/final: **identique** (meta diffs: [])
+
+## 16. Branches / worktrees conservés
+```
+f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23	refs/heads/qa/sfia-studio-m1-bypass-probe
+b502c0069f836a729090bdc187dd98a0c26591ca	refs/heads/qa/sfia-studio-m1-bypass-probe-revert
+```
+- worktrees probe + revert présents
+- aucune suppression
+
+## 17. Qualification
+- `BYPASS TEST PASSED` : required gate rouge + merge normal bloqué + bypass explicite identifiable (REST as ruleset bypass actor, not `--admin`) + merge probe + revert normal + main net + ruleset inchangé
+
+## 18. Gouvernance
+- rollback (cycle précédent) = testé avec succès
+- bypass = **testé comportementalement avec succès**
+- F-A6 = MITIGATED — NOT CLOSED
 - Option A = non COMPLETE
 - T-A7 = non ouverte
 - D1–D7 = NOT DECIDED
-- rollback: **testé avec succès** (disable+restore identique)
-- bypass: **configuration vérifiée — comportement non testé**
-- configuration M1 loose inchangée après restauration
-- aucune nouvelle baseline produit
+- configuration M1 loose inchangée
+- bypass testé ≠ recommandé comme méthode normale
 
-## 14. Anti-claims
-- rollback testé ≠ F-A6 CLOSED
-- bypass config verified ≠ bypass tested / proven
-- ruleset restored ≠ ruleset hardened
-- main unchanged ≠ trajectoire produit reprise
-- ce cycle ≠ Option A COMPLETE / T-A7 OPEN / décision D1–D7
+## 19. Anti-claims
+- bypass testé ≠ F-A6 CLOSED
+- bypass testé ≠ Option A COMPLETE
+- bypass testé ≠ T-A7 OPEN
+- revert réussi ≠ absence de trace Git (probe+revert restent dans l’historique)
+- main net ≠ autorisation cleanup branches/worktrees
 
-## 15. Décisions Morris non prises
+## 20. Décisions Morris non prises
 - clôture F-A6
-- exécution B1 bypass comportemental
-- durcissement ruleset (approvals/strict/bypass actors)
-- ouverture T-A7
+- durcissement ruleset
 - cleanup branches/worktrees
+- ouverture T-A7
 - D1–D7
 
-## 16. Actions non exécutées
-- merge par bypass / `--admin`
-- PR volontairement invalide
-- push direct sur main
-- commit projet / modification workflow / docs 24/32/33
-- modification durable du ruleset
-- suppression branche/worktree
+## 21. Actions non exécutées
+- `gh pr merge --admin`
+- désactivation/mutation ruleset
+- modification workflow / docs 24/32/33 / code produit
+- push direct main / force push / amend / rebase / auto-merge
+- suppression branches/worktrees
 - Notion/CMP
 
-## 17. Blockers
-- aucun blocker sur le rollback
-- bypass comportemental bloqué volontairement par safe-execution boundary du gate
+## 22. Gates candidats (NOT CONSUMED)
+- réévaluation F-A6
+- décision de durcissement du ruleset
+- cleanup branches/worktrees
+- ouverture T-A7 après clôture de la séquence prudente
 
-## 18. Gate candidat
-- `GO EXECUTE CONTROLLED M1 BYPASS BEHAVIOR TEST — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
-
-## 19. Verdict
-`SFIA STUDIO M1 RULESET ROLLBACK TEST PASSED — RULESET 19798462 DISABLED AND RESTORED IDENTICALLY — MAIN UNCHANGED — BYPASS CONFIGURATION VERIFIED BUT BEHAVIOR NOT TESTED — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
+## 23. Verdict
+`SFIA STUDIO M1 CONTROLLED BYPASS BEHAVIOR TEST PASSED — FAILED REQUIRED GATE BLOCKED NORMAL MERGE AND WAS EXPLICITLY BYPASSED — PROBE MERGED THEN FULLY REVERTED — MAIN NET STATE RESTORED — RULESET 19798462 UNCHANGED — F-A6 MITIGATED NOT CLOSED — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
 
 ## Review Handoff Git
-- commit attendu: `docs(review-handoff): record M1 ruleset rollback test`
+- commit attendu: `docs(review-handoff): record controlled M1 bypass test`
