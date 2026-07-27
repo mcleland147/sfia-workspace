@@ -1,226 +1,103 @@
-# Review pack FULL — PR readiness #270 — Path-aware required check
+# Review pack FULL — PR #270 H2 squash merge
 
 ## Métadonnées cycle
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-27 06:49:31 CEST (+0200) |
-| **Cycle** | 13 — PR readiness (+7 DevOps, +9 QA) |
+| **Date/heure** | 2026-07-27 07:04:19 CEST (+0200) |
+| **Cycle** | 14 — Merge contrôlé (+13 recheck, +7 DevOps, +9 QA) |
 | **Profil SFIA** | Critical |
 | **Typologie** | EVOL / DOC / DevOps |
-| **Gate consommé** | `GO PR READINESS OPTION A PATH-AWARE REQUIRED CHECK PR #270 — SFIA STUDIO V3-NATIVE` |
+| **Gate consommé** | `GO MERGE OPTION A PATH-AWARE REQUIRED CHECK PR #270 — STRATEGY H2 SQUASH — SFIA STUDIO V3-NATIVE` |
+| **Stratégie** | **H2 squash** (validée Morris) |
 | **Workspace** | `/Users/morris/Projects/sfia-workspace-option-a-path-aware-required-check` |
-| **Branche** | `delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation` |
-| **HEAD** | `9f03916243c470587f6958e058fd58909e5bd75a` |
-| **origin/main** | `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
-| **merge-base** | `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
-| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 — PR READINESS PASS — READY FOR MORRIS MERGE STRATEGY DECISION` |
+| **Branche projet** | `delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation` |
+| **HEAD projet** | `9f03916243c470587f6958e058fd58909e5bd75a` |
+| **Ancien main** | `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
+| **Nouveau main** | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` |
+| **merge-base pré-merge** | `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
+| **Verdict** | `SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 MERGED VIA H2 SQUASH — POST-MERGE CI GREEN — READY FOR POST-MERGE REVIEW` |
 
-## Status initial / final
+## Status initial / final (worktree projet)
 
-Identiques : tracked clean ; staged vide ; untracked `.tmp-sfia-review/` only ; aucune opération Git active ; upstream syncé ; remote SHA = HEAD.
+- tracked clean ; staged vide ; untracked `.tmp-sfia-review/` only
+- aucune opération Git active
+- branche projet **conservée** @ `9f039162…` (remote présent)
+- aucun push local sur `main`
 
-## CKC
+## Sources / handoff initial
 
-- recherché : oui
-- candidat présent : `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-- statut : candidate — experimental cognitive guidance — **aucune autorité d'exécution**
+- handoff readiness blob `d1a0e66b34c1da76bb0005b78d6f173eef6ec2d5`
+- workflow / doc 32 / runs PR `30237044632` (fail) + `30237640228` (success)
+- CKC QA candidat (guidance only)
 
-## Sources consultées
+## Préconditions pré-merge — PASS
 
-- template cycle + handoff blob départ `8f1ace9bb3415eefc7aab5e65a64d8836c2a6f94`
-- workflow HEAD blob `801a8759bb7440666799b95edf13f9ee6d9332f8`
-- doc 32 blob `1bc7b6544d27d687bf9e33757863f1397b1494b6`
-- docs 30/31 (contexte)
-- PR #270 ; runs `30237044632` (fail) et `30237640228` (success)
-- protections/rulesets lecture seule
+Local : HEAD/main/MB/remote OK ; DIFF_CHECK PASS ; 3 commits ; 2 fichiers.
+GitHub PR #270 : OPEN → (avant merge) MERGEABLE CLEAN ; non-draft ; head `9f039162…` ; base `60d9ac9…` ; checks 3/3 success ; protections absentes ; rulesets `[]`.
 
-## PR #270 metadata
+## PR avant merge
 
 | Champ | Valeur |
 |-------|--------|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/270 |
 | Titre | `ci(sfia-studio): add path-aware required gate preparation` |
-| State | OPEN |
-| Draft | false |
-| mergeable | MERGEABLE |
-| mergeStateStatus | CLEAN |
-| Base | `main` @ `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
-| Head ref | `delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation` |
-| Head SHA | `9f03916243c470587f6958e058fd58909e5bd75a` |
-| Fichiers | **2** |
+| Commits | `b55f2fb` · `e981352` · `9f039162` |
+| Fichiers | workflow M + doc 32 A |
 | +/- | +435 / −3 |
-| auto-merge | null |
-| labels / reviewers / reviews / comments | vides |
+| CI head | run `30237640228` success |
 
-### Corps PR actuel
+## Action de merge
 
-```markdown
-## Objectif
+- Mécanisme : `gh pr merge 270 --squash` (H2)
+- Suppression branche : **non**
+- mergedAt : `2026-07-27T05:02:16Z`
+- state post : **MERGED**
 
-Préparer un required check SFIA Studio path-aware avant toute activation de protection sur `main`.
+## Commit squash
 
-## Changements
+| Champ | Valeur |
+|-------|--------|
+| SHA | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` |
+| Parents | **1** — `60d9ac9bdf8bad7dc5b2882db74ec951c70f31dc` |
+| Titre | `ci(sfia-studio): add path-aware required gate preparation (#270)` |
+| Corps | path-aware detection + stable gate ; doc M1 candidat / bypass / non-Studio proof remaining |
+| Tree | `04070dd4b8f27326162cb05fa60d430ed7c3820b` = tree PR tip `9f039162…` (**TREE_EQ=YES**) |
+| Blobs | WF `801a8759…` · DOC32 `1bc7b654…` |
+| Diff check | PASS |
+| Fichiers | 2 uniquement · +435/−3 |
 
-- déclenchement du workflow sur toutes les PR vers `main` ;
-- détection fail-closed du périmètre SFIA Studio ;
-- validation lourde uniquement lorsque Studio est concerné ;
-- ajout du check final stable `SFIA Studio Required Gate` ;
-- maintien du push `main` filtré sur les chemins Studio ;
-- documentation du ruleset candidat M1 et des options de bypass.
+## Équivalence PR / commit
 
-## Fichiers
+Contenu intégré **identique** au tip PR (égalité de trees + blobs). Aucune altération hors squash.
 
-- `.github/workflows/sfia-studio-ci.yml`
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md`
+## Branche projet
 
-## Validations locales
+Conservée : `origin/delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation` @ `9f039162…`
 
-- YAML : PASS
-- structure jobs et conditions : PASS
-- matrice simulée : 8/8 PASS
-- `git diff --check` : PASS après correction whitespace du document 32
-- npm ci : PASS
-- typecheck : PASS
-- lint : PASS
-- build : PASS
-- Vitest : 655 PASS
-- modeled governance : 73 PASS
-- lockfile : inchangé
+## CI post-merge
 
-## Gouvernance
+| Champ | Valeur |
+|-------|--------|
+| Run | **30238651843** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30238651843 |
+| Event | `push` |
+| Head | `4e2d5cf2…` |
+| Workflow | SFIA Studio CI |
+| Conclusion | **success** |
 
-- push projet autorisé par gate Morris ;
-- création de PR autorisée ;
-- merge non autorisé ;
-- protection et ruleset non appliqués ;
-- required check non encore configuré ;
-- B2 recommandé mais non validé ;
-- F-A6-PM-G01 non CLOSED ;
-- Option A non COMPLETE ;
-- T-A7 non ouvert.
+| Job | Conclusion |
+|-----|------------|
+| Detect SFIA Studio changes | success (`event_name=push`, `studio_changed=true`, corroborate true) |
+| Build and validate SFIA Studio | success (incl. Trailing whitespace) |
+| SFIA Studio Required Gate | success (`Required gate PASS: Studio validation succeeded.`) |
 
-## Réserves
+## Protections / rulesets / required check
 
-- le nom réel du check doit être observé dans GitHub ;
-- le comportement réel sur une PR hors Studio reste à prouver ;
-- aucune activation M1 avant revue de la CI et preuve hors Studio ;
-- le run initial 30237044632 a échoué sur deux trailing whitespaces du document 32 ; correction dédiée appliquée ensuite.
-```
+Toujours absents après merge (protection 404 ; rulesets `[]` ; required check non configuré).
 
-Cohérence corps : OK (objectif, 2 fichiers, check contextualisé, run initial rouge, anti-claims protection/required/M1/hors Studio).
+## Limite hors Studio
 
-## Commits (graph parents)
-
-```
-9f03916243c470587f6958e058fd58909e5bd75a  parent e9813524…  docs(sfia-studio): remove trailing whitespace from path-aware preparation
-e9813524e90d75d7d737b5ef330f8923f75cda43  parent b55f2fb7…  docs(sfia-studio): prepare path-aware required check and main protection
-b55f2fb77623d993d0c449705904143b2ed2b3cb  parent 60d9ac9b…  ci(sfia-studio): prepare path-aware required gate workflow
-```
-
-Trois commits seulement. Commit correctif : parent exact `e9813524…` ; name-status unique doc 32 ; workflow non touché (blob inchangé `801a8759…`).
-
-## Diff stat / name-status
-
-```
- .github/workflows/sfia-studio-ci.yml               | 144 +++++++++-
- .../32-path-aware-required-check-and-main-protection-preparation.md | 294 +++++++++++++++++++++
- 2 files changed, 435 insertions(+), 3 deletions(-)
-
-M	.github/workflows/sfia-studio-ci.yml
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md
-```
-
-`git diff --check origin/main...HEAD` : **PASS** (exit 0).
-Aucun package-lock / method / prompts / .sfia / secret marker dans le diff.
-
-## A. Scope — PASS
-
-- Diff strictement conforme (2 fichiers).
-- Aucun fichier supplémentaire / commit inattendu.
-- Dette introduite (documentée) : logique multi-jobs à maintenir ; preuve hors Studio encore due ; M1 non appliqué.
-
-## B. Workflow — PASS structurel
-
-| Contrôle | Résultat |
-|----------|----------|
-| name `SFIA Studio CI` | OK |
-| permissions `contents: read` | OK |
-| concurrency + `cancel-in-progress: true` | OK (réserve : annule runs head antérieurs) |
-| PR → main sans paths filter | OK |
-| push → main paths Studio | OK |
-| Detect + fetch-depth 0 | OK |
-| studio_changed true/false fail-closed | OK |
-| validate conditionnel Node 24 + steps complets | OK |
-| aucun continue-on-error | OK |
-| Required Gate `always()` needs detect+validate | OK |
-| PASS hors Studio / PASS Studio / FAIL detect / FAIL validate | logique OK (hors Studio **non prouvé distant**) |
-
-Risque contournement : faible sur PR (detect fail-closed + gate always). Push hors paths Studio ne déclenche pas (volontaire).
-
-## C. Validation
-
-### Locales (cycle readiness)
-
-- `git diff --check` PASS
-- YAML : PyYAML absent ; structure/clés critiques vérifiées ; `continue-on-error` absent
-- lockfile inchangé
-- secrets absents du diff
-- DOC32 TW résiduel : aucun
-
-### Distantes
-
-**Preuve failure** run `30237044632` @ `e9813524…` :
-- Detect success ; `studio_changed=true`
-- Build failure (Trailing whitespace)
-- Required Gate failure (fail-closed)
-
-**Preuve success** run `30237640228` @ `9f039162…` :
-- event `pull_request` ; conclusion **success**
-- Detect success ; `studio_changed=true`
-- Build success ; Trailing whitespace **success**
-- **SFIA Studio Required Gate** **success** (`validate_result=success`)
-
-Check runs head courant : 3/3 success. Nom exact gate observé : `SFIA Studio Required Gate`.
-
-Gap : scénario `studio_changed=false` / validate skipped / gate success **NON PROUVÉ**.
-
-## D. Documentation — PASS
-
-Doc 32 : path-filter, P3 vs M1 NOT APPLIED, matrice, B0/B1/B2 (B2 recommandé non validé), F-A6-PM-G01 non CLOSED, Option A non COMPLETE, T-A7 non ouvert, TW absents.
-
-Corps PR aligné ; anti-claims présents.
-
-## E. Risques / réserves
-
-1. **Hors Studio non prouvé** — non bloquant potentiel pour merge workflow (décision Morris) ; **bloquant pour activation M1** tant que preuve absente ou stratégie contrôlée non décidée.
-2. Renommage futur du job/check casserait un required check ultérieur.
-3. Concurrency cancel-in-progress.
-4. `main` peut avancer avant merge → re-vérifier merge-base.
-5. Ruleset / required check **non configurés** (état actuel confirmé).
-
-## F. Merge readiness
-
-| Qualification | Statut |
-|---------------|--------|
-| Techniquement intégrable | **OUI** (CI verte, scope clean, mergeable CLEAN) |
-| Prêt pour décision Morris | **OUI** |
-| Merge autorisé par ce cycle | **NON** |
-| Activation M1 autorisée | **NON** |
-| Preuve hors Studio | **NON** |
-
-### Recommandation stratégie (non décision)
-
-- **H2 squash recommandé** : un commit unique sur `main` aligné sur le titre PR ; évite de conserver le commit whitespace correctif comme bruit d'historique ; cohérent avec #268 (CI workflow).
-- **H1 merge commit** alternatif si Morris veut préserver explicitement la séquence 3 commits (préparation → docs → fix) sur `main`.
-
-Morris sélectionne H1 ou H2. Aucune exécution ici.
-
-## Protections / rulesets (lecture)
-
-- Branch protection `main` : **absente** (404)
-- Rulesets : **[]**
-- Required check : **non configuré**
+**NON PROUVÉ.** Bloquant pour M1. Non transformé en Option A COMPLETE.
 
 ## Findings inchangés
 
@@ -228,33 +105,28 @@ F-A6-PM-G01 MITIGATED proposé not CLOSED ; F-CI-01/02/04 OPEN ; F-CI-03/05 MITI
 
 ## Anti-claims
 
-- CI verte ≠ merge autorisé
-- Check observé ≠ required configuré
-- M1 ≠ appliqué
-- B2 ≠ validé
-- Option A ≠ COMPLETE
-- T-A7 ≠ ouvert
+- Merge ≠ M1 appliqué
+- Merge ≠ required check configuré
+- CI post-merge verte ≠ Option A COMPLETE
+- Gate observé ≠ required
 - Hors Studio ≠ prouvé
+- T-A7 ≠ ouvert
 - F-A6-PM-G01 ≠ CLOSED
 
 ## Actions non exécutées
 
-Aucune modification projet/PR ; aucun commit/push projet ; aucun merge/auto-merge/approval/review/label ; aucun ruleset/protection ; aucun amend/rebase/force-push ; pas de fermeture finding ; pas de T-A7.
+ruleset ; protection ; required check config ; delete branche ; fermeture finding ; T-A7 ; amend/rebase/force-push ; autre stratégie que H2.
 
-## Gates suivants
+## Décisions Morris / gate suivant
 
-- `GO MERGE OPTION A PATH-AWARE REQUIRED CHECK PR #270 — STRATEGY H1 OR H2 TO BE SELECTED — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
-- Activation M1 / preuve hors Studio : gates séparés ultérieurs — **NOT CONSUMED**
+Gate suivant (**NOT CONSUMED**) :
+`GO POST-MERGE REVIEW OPTION A PATH-AWARE REQUIRED CHECK PR #270 — SFIA STUDIO V3-NATIVE`
 
-## Décisions Morris requises
-
-1. Sélection H1 vs H2 pour merge #270.
-2. Moment de la preuve hors Studio (avant ou après merge, avant M1).
-3. Ne pas appliquer M1 sans preuve hors Studio ou stratégie contrôlée.
+Puis, ultérieurement et séparément : preuve hors Studio / éventuel GO APPLY M1 — **non autorisés ici**.
 
 ---
 
-## Patch complet — workflow (rstrip handoff ; blob `801a8759…` fait foi)
+## Diff complet squash `60d9ac9…`..`4e2d5cf…` (rstrip handoff ; trees/blobs font foi)
 
 ```diff
 diff --git a/.github/workflows/sfia-studio-ci.yml b/.github/workflows/sfia-studio-ci.yml
@@ -425,11 +297,6 @@ index e705920..801a875 100644
 +          fi
 +
 +          echo "Required gate PASS: Studio validation succeeded."
-```
-
-## Patch complet — document 32 (rstrip handoff ; blob `1bc7b654…` fait foi)
-
-```diff
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md
 new file mode 100644
 index 0000000..1bc7b65
@@ -732,43 +599,6 @@ index 0000000..1bc7b65
 +`SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK AND MAIN PROTECTION IMPLEMENTATION PREPARED LOCALLY — READY FOR MORRIS PUSH AND PR DECISION`
 ```
 
-## Patch commit correctif `9f039162…` (whitespace only)
-
-```diff
-commit 9f03916243c470587f6958e058fd58909e5bd75a
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Mon Jul 27 06:38:02 2026 +0200
-
-    docs(sfia-studio): remove trailing whitespace from path-aware preparation
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md
-index cc5459e..1bc7b65 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md
-@@ -45,7 +45,7 @@
-
- ## 3. Problème path-filter
-
--**Avant :** `pull_request.paths` limitait le déclenchement aux chemins Studio.
-+**Avant :** `pull_request.paths` limitait le déclenchement aux chemins Studio.
- Un required check global fondé sur `Build and validate SFIA Studio` resterait **absent/pending** pour les PR hors Studio → **blocage mono-repo**.
-
- **Après (P3 préparé localement) :**
-@@ -242,7 +242,7 @@ Réserves B5 · R1 · R-T-A3-* · R-M01 · U-M02 OPEN · C1–C4 NOT VALIDATED.
- | Cancel concurrency | réserve head courant vs ancien |
- | Preuve distante absente | anti-claim + GO push/PR |
-
--Dette évitée : required check global incompatible path-filter.
-+Dette évitée : required check global incompatible path-filter.
- Dette introduite : logique multi-jobs à maintenir ; preuve GitHub encore due.
-
- ---
-```
-
 ## Verdict
 
-`SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 — PR READINESS PASS — READY FOR MORRIS MERGE STRATEGY DECISION`
-
-Réserve explicite non bloquante pour readiness merge : preuve hors Studio absente — bloquante pour M1.
+`SFIA STUDIO V3-NATIVE OPTION A PATH-AWARE REQUIRED CHECK PR #270 MERGED VIA H2 SQUASH — POST-MERGE CI GREEN — READY FOR POST-MERGE REVIEW`
