@@ -45,7 +45,7 @@
 
 ## 3. Problème path-filter
 
-**Avant :** `pull_request.paths` limitait le déclenchement aux chemins Studio.  
+**Avant :** `pull_request.paths` limitait le déclenchement aux chemins Studio.
 Un required check global fondé sur `Build and validate SFIA Studio` resterait **absent/pending** pour les PR hors Studio → **blocage mono-repo**.
 
 **Après (P3 préparé localement) :**
@@ -242,7 +242,7 @@ Réserves B5 · R1 · R-T-A3-* · R-M01 · U-M02 OPEN · C1–C4 NOT VALIDATED.
 | Cancel concurrency | réserve head courant vs ancien |
 | Preuve distante absente | anti-claim + GO push/PR |
 
-Dette évitée : required check global incompatible path-filter.  
+Dette évitée : required check global incompatible path-filter.
 Dette introduite : logique multi-jobs à maintenir ; preuve GitHub encore due.
 
 ---
