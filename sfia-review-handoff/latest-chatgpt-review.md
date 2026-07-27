@@ -1,181 +1,219 @@
-# Review pack FULL — Option A M1 configuration (decided, not applied)
+# Review pack FULL — Option A M1 configuration contract (decided, NOT applied)
 
-## 1. Date/heure/fuseau, cycle et profil
+## 1. Date/heure/fuseau
 
-| Champ | Valeur |
-|---|---|
-| Date/heure/fuseau | 2026-07-27 09:02:41 CEST (+0200) — Europe/Paris |
-| Cycle | 1 — Cadrage décisionnel ; compléments 6/7/10/12/13/15 |
-| Profil | Critical |
-| Typologie | Decision d’architecture GitHub / gouvernance CI |
-| Gate consommé | `GO DECIDE OPTION A M1 CONFIGURATION — SFIA STUDIO V3-NATIVE` |
-| Workspace stable | `/Users/morris/Projects/sfia-workspace` |
-| Baseline `main` (SHA attendu) | `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513` |
+2026-07-27 09:04:30 CEST (+0200) — Europe/Paris
 
-## 2. Local Git Truth Check (read-only, preconditions)
+## 2. Cycle / profil
 
-Statut global : **PASS** (lecture seule).
+Cycle : `1 — Cadrage décisionnel` ; complément(s) : 6/7/10/12/13/15
+Profil SFIA : `Critical` ; Typologie : `Decision d’architecture GitHub / gouvernance CI`
 
-- `main` contient le workflow `SFIA Studio CI` (P3 intégré).
-- Blob workflow observé : `801a8759bb7440666799b95edf13f9ee6d9332f8` (inchangé).
-- `main.protected` : `false` (branch protection absente, HTTP 404).
-- `repository rulesets` : `[]` (aucun ruleset actif).
-- `Required status checks` effectifs : aucun.
-- Check exact : `SFIA Studio Required Gate` visible comme check-run.
-- Check-run source attendue : GitHub Actions, app slug `github-actions`, app id `15368`.
-- Aucun indice d’application partielle de M1 détectée (aucune protection/ruleset/required check déjà configuré).
+## 3. Gate consommé
 
-## 3. Observations / preuves (reconfirmation de readiness avant formalisation)
+`GO DECIDE OPTION A M1 CONFIGURATION — SFIA STUDIO V3-NATIVE` (Gate Morris : consommé dans ce cycle)
 
-### Observations
+## 4. Workspace / branche / HEAD / main
 
-1. Workflow sur `origin/main` :
-   - P3 path-aware présent dans `.github/workflows/sfia-studio-ci.yml`.
-2. Check exact candidat :
-   - nom de check-run : `SFIA Studio Required Gate`.
-   - app/source observée : `github-actions` + id `15368`.
-3. Gouvernance GitHub :
-   - `rulesets=[]`, `main protection` absente.
+Workspace stable : `/Users/morris/Projects/sfia-workspace`
+Branche locale active : `delivery/sfia-studio-control-tower-fast-track`
+HEAD local : `bb3c9e29936a925174beb0c1758e8fe887e58bc3`
+Baseline `origin/main` (SHA attendu) : `4e2d5cf2f7e6865c4453ba0e8084e5ea85af5513`
+Dernier commit main : `4e2d5cf ci(sfia-studio): add path-aware required gate preparation (#270)`
 
-### Preuves acquises (distantes — réutilisées comme preuves de readiness)
+## 5. Statut Git (read-only)
 
-- PR Studio en échec : run `30237044632` → gate `FAIL`.
-- PR Studio corrigée en succès : run `30237640228` → gate `PASS`.
-- push Studio sur `main` : run `30238651843` → gate `PASS`.
-- PR hors Studio : PR #271 / run `30239805289` → `studio_changed=false`, validation `skipped`, gate `PASS`.
+- `git status --short` : untracked uniquement sous `.tmp-sfia-review/` (aucune mutation projet)
+- `git diff --stat` : vide
+- opérations Git actives (merge/rebase/cherry-pick/revert/bisect) : aucune
 
-### Hypothèses (limitées au contrat, pas de mutation)
+## 6. Sources consultées (obligatoires)
 
-- GitHub supporte bien `bypass_mode="pull_request"` pour un acteur de type `User` dans un ruleset de branche (documenté par la spécification REST rulesets).
+### Méthode (template + operating model)
 
-## 4. Contrat M1 décidé (complet, directement applicable — CANDIDATE, NOT EXECUTED)
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/checklists/guardrails-checklist.md`
 
-Contrat cible : `mcleland147/sfia-workspace` ; baseline `main` uniquement.
+### Project / Option A (obligatoires)
 
-### 4.1 Tableau exhaustif des paramètres M1
+- `.github/workflows/sfia-studio-ci.yml`
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md`
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/30-ci-governance-pr-post-correction-review.md`
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/31-ci-governance-post-merge-review.md`
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md`
+- documents portant `F-A6-PM-G01` et findings CI (F-CI-01/02/03/04/05/06/06B)
+
+### Preuves GitHub (obligatoires, réutilisées pour la readiness)
+
+- PR `#270` + runs `30237044632`, `30237640228`
+- push `main` (run `30238651843`)
+- PR `#271` + run `30239805289`
+- check-run exact : `SFIA Studio Required Gate` ; app source : `github-actions` ; app id candidate : `15368` (reconfrim avant application)
+
+### GitHub API read-only (obligatoires pour configuration actuelle)
+
+- `rulesets` : `[]`
+- `branches/main/protection` : 404 (branch protection absente)
+- check-runs et app id du check
+- permissions/collaborators (acteur `mcleland147`, id `295557155`)
+
+## 7. CKC (Architecture technique / utile aux décisions)
+
+CKC candidats consultés (orientation, pas autorité d’exécution) :
+
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/00-framing-and-architecture.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
+
+Statut : guidance candidate ; l’autorité d’exécution reste à Morris GO uniquement.
+
+## 8. Handoff initial (obligatoire)
+
+Handoff canonique initial (tel que fourni dans ton prompt) :
+
+- branche : `sfia/review-handoff`
+- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+- blob initial attendu (handshake de readiness) : `2bd86785087ef461c2d5459b77510cf4a8c0634e`
+
+Ce cycle publie un nouveau handoff canonique pour matérialiser le contrat M1 décidé.
+
+## 9. Readiness reconfirmée (avant formalisation)
+
+Confirmations sur `origin/main` :
+
+1. Workflow P3 path-aware présent dans `.github/workflows/sfia-studio-ci.yml` ; blob workflow : `801a8759bb7440666799b95edf13f9ee6d9332f8`.
+2. Check-run exact stable : `SFIA Studio Required Gate` (nom exact observé dans check-runs).
+3. App source observée : `github-actions` ; app id candidate : `15368`.
+4. Preuves de scénarios (remote) : gate fail-closed en cas de Studio failure et success en cas de Studio success et hors Studio.
+5. Gouvernance actuelle : aucune application M1 effective :
+   - rulesets : `[]`
+   - protection main : absente (404)
+   - required checks : aucun.
+
+## 10. Configuration GitHub actuelle (obligatoire)
+
+- `main.protected` : `false`
+- branch protection : absente (404)
+- repository rulesets : `[]`
+- règles effectives pour `main` : vides
+
+## 11. Contrat M1 décidé (complet, payload CANDIDATE — NOT EXECUTED)
+
+### 11.1 Tableau exhaustif (décision → valeurs techniques)
+
+Nom ruleset (candidat → valeur décidée pour le futur apply) : `SFIA Studio Main Required Gate — M1`
 
 | Paramètre | Décision M1 | Valeur technique | Justification | Risque résiduel | Rollback |
 |---|---|---|---|---|---|
-| Nom ruleset | **Décidé** | `SFIA Studio Main Required Gate — M1` | Nom candidat fixé pour l’application future | Faible | Désactivation ruleset |
-| Enforcement | **Décidé** | `active` | Mode exécution future | Faible (si bien formé) | Désactivation ruleset |
-| Mécanisme | **Décidé** | ruleset repository unique | Un seul mécanisme actif | Conflits si déjà configuré ailleurs (STOP précondition) | Désactivation ruleset |
-| Target | **Décidé** | `branch` | règles pour branches | Faible | Désactivation ruleset |
-| Include refs | **Décidé** | conditions.ref_name.include = `["main"]` | main uniquement, pas de wildcard | Faible | Désactivation ruleset |
-| Exclude refs | **Décidé** | `[]` | pas d’exclusion | Faible | Désactivation ruleset |
-| PR obligatoire | **Décidé** | rule `pull_request` activée | empêche push direct “normal” | Friction mineure | Désactivation ruleset |
-| Required approvals | **Décidé** | `required_approving_review_count = 0` | mono-contributeur ; barrière CI initiale | risque de revue informelle seulement | Désactivation ruleset |
-| Dismiss stale reviews | **Décidé** | `dismiss_stale_reviews_on_push = false` | pas de perturbation | N/A avec 0 approvals | Désactivation ruleset |
-| Code owners | **Décidé** | `require_code_owner_review = false` | pas de dépendance CO | faible | Désactivation ruleset |
-| Last push approval | **Décidé** | `require_last_push_approval = false` | évite contrainte impossible | faible | Désactivation ruleset |
-| Conversation resolution | **Décidé** | `required_review_thread_resolution = false` | pas de second gate humain initial | risque review threads non résolus | Désactivation ruleset |
-| Required status check | **Décidé** | rule `required_status_checks` | barrière CI | typo de contexte : STOP future | Désactivation ruleset |
-| Check context exact | **Décidé** | `context = "SFIA Studio Required Gate"` | nom exact attendu | dépendance au nom | Désactivation ruleset |
-| Check source (Actions app) | **Décidé (candidate)** | `integration_id = 15368` | pin source check (reconfirmer au runtime) | si id change ou check swap | Désactivation ruleset |
-| Strict/up-to-date | **Décidé** | `strict_required_status_checks_policy = false` | branches up-to-date non requises initialement | dérive possible | Désactivation ruleset |
-| Branches up to date | **Décidé** | false initialement (via strict policy false) | cohérent avec contrat | dérive possible | Désactivation ruleset |
-| Force pushes | **Décidé** | rule `non_fast_forward` activée | interdiction force push | faible | Désactivation ruleset |
-| Deletions | **Décidé** | rule `deletion` activée | interdiction suppression de `main` | faible | Désactivation ruleset |
-| Linear history | **Décidé** | rule `required_linear_history` non incluse | non requise | faible | Désactivation ruleset |
-| Signed commits | **Décidé** | rule `required_signatures` non incluse | non requis | faible | Désactivation ruleset |
-| Merge queue | **Décidé** | `merge_queue` non incluse | non activée | faible | Désactivation ruleset |
-| Deployments requis | **Décidé** | `required_deployments` non incluse | aucun | faible | Désactivation ruleset |
-| Bypass | **Décidé** | B2 explicit user, PR-only, jamais exempt | récupération/maintenance | misuse possible (governance) | Désactivation ruleset |
-| Bypass actor | **Décidé** | actor `{type:"User", id:295557155}` | acteur explicite | doit être reconfirmé avant apply | Désactivation ruleset |
-| Bypass mode | **Décidé** | `bypass_mode = "pull_request"` | bypass PR-only | faible | Désactivation ruleset |
-| “Portée” bypass | **Décidé (règle de conduite)** | exceptionnel ; usage normal interdit | tracabilité via PR/handoff | humain | Désactivation ruleset |
-| Mécanismes concurrents | **Décidé** | pas de classic protection en parallèle | un seul mécanisme actif | double gate si cumulé | Désactivation ruleset |
+| Mécanisme | Décidé | repository ruleset unique | un seul mécanisme actif | duplication si déjà appliqué ailleurs | désactiver ruleset |
+| Target | Décidé | branch | cible main uniquement | erreur si cible élargie | désactiver ruleset |
+| Include refs | Décidé | `ref_name.include=["main"]` | évite élargissement | typo | désactiver |
+| PR obligatoire | Décidé | rule `pull_request` | push direct normal interdit | friction mineure | désactiver |
+| Required status check | Décidé | `required_status_checks` : context `SFIA Studio Required Gate` | barrière CI | nom source différent | désactiver ruleset |
+| Source check | Décidé (candidate) | GitHub Actions ; app slug `github-actions` ; app id candidat `15368` | pin source | id/check drift | revalidation runtime |
+| Required approvals | Décidé | `required_approving_review_count = 0` | mono-contributeur ; barrière CI | pas de double regard | désactiver |
+| Dismiss stale reviews | Décidé | `dismiss_stale_reviews_on_push=false` | pas de bruit | faible | désactiver |
+| Code owners | Décidé | `require_code_owner_review=false` | pas de dépendance CO | aucune | désactiver |
+| Conversation resolution | Décidé | `required_review_thread_resolution=false` | pas de gate humain impossible | threads non résolus | désactiver |
+| Branches up to date | Décidé | policy loose via `strict_required_status_checks_policy=false` | up-to-date non requis initialement | drift possible | revalidate runtime |
+| Force push | Décidé | rule `non_fast_forward` | interdiction force pushes | faible | désactiver |
+| Suppression de main | Décidé | rule `deletion` | interdite sauf bypass | récup si nécessaire | désactiver |
+| Linear history | Décidé | non requis (rule omitted) | non requise | n/a | désactiver |
+| Signed commits | Décidé | non requis (rule omitted) | non requis | provenance non renforcée | désactiver |
+| Merge queue | Décidé | non incluse | non activée | n/a | désactiver |
+| Deployments requis | Décidé | aucun (rule omitted) | hors scope initial | n/a | désactiver |
+| Bypass | Décidé | B2 (PR-only) | recovery/maintenance exceptionnelle | abus possible | revalidation runtime |
+| Bypass actor | Décidé | `actor_type=User`, `actor_id=295557155` | acteur explicite | actor mismatch | désactiver ruleset |
+| Bypass mode | Décidé | `bypass_mode=pull_request` | pas de bypass sur pushes | API/UI drift | revalidate runtime |
+| Bypass exempt | Décidé | `exempt` : interdit (ne pas utiliser) | conserver évaluation rules | confusion possible | revalidate runtime |
 
-### 4.2 Target (branche) — “main uniquement”
+### 11.2 Targeting (obligatoire)
 
-La condition ref_name est :
+- Target branch : `branch` uniquement
+- `conditions.ref_name.include` : `["main"]`
+- `conditions.ref_name.exclude` : `[]`
+- aucune inclusion `~DEFAULT_BRANCH` ni wildcard.
 
-- `include: ["main"]`
-- `exclude: []`
+### 11.3 Required check (nom exact + source)
 
-Aucune inclusion de `~DEFAULT_BRANCH` (évite élargissement accidentel).
+- Contexte required status check : `SFIA Studio Required Gate`
+- Source : GitHub Actions
+- App slug observée : `github-actions`
+- App id candidat : `15368`
+- Changement stoppant à l’application future :
+  - nom différent / absent
+  - source non GitHub Actions
+  - app id incohérent
+  - check absent/pending systématique sur PR hors Studio.
 
-## 5. Bypass B2 décidé (capabilité vérifiée)
-
-### 5.1 Formalisation exacte
+### 11.4 Bypass B2 (décidé, PR-only)
 
 - acteur : `mcleland147`
 - type : `User`
-- id observé : `295557155`
-- mode : `pull_request` uniquement (bypass PR-only)
+- user id : `295557155`
+- mode : `pull_request` uniquement
 - `exempt` : interdit
-- usage : urgence documentée, récupération CI ou gouvernance
+- usage : urgence documentée (récupération CI ou gouvernance)
 - usage normal : interdit
-- traçabilité : obligatoire dans le handoff ou rapport d’incident
+- traçabilité : obligatoire dans handoff/rapport d’incident
 - revue post-usage : obligatoire
 
-### 5.2 Vérification “capability”
+Vérification capability (REST rulesets) :
 
-Capabilité vérifiée via documentation REST rulesets :
+- `actor_type` inclut `User`
+- `bypass_mode` supporte `pull_request` (et `exempt` distinct)
 
-- `bypass_mode` supporte `pull_request` et `exempt`.
-- Le mode `pull_request` est explicitement décrit comme “bypass uniquement sur pull requests”.
-- `actor_type` supporte `User`.
+Si au runtime l’UI/API ne reflète pas ce mode pour ce type d’acteur, stop application future et remonter :
+`B2 IMPLEMENTATION CAPABILITY UNCONFIRMED — MORRIS DECISION REQUIRED`.
 
-Donc B2 tel que défini est **implémentable** au niveau rulesets (REST).
+## 12. Intégrité décidée (un seul mécanisme actif)
 
-## 6. Required check décidé
+Règles d’intégrité :
 
-### 6.1 Formalisation
+- force pushes interdits : `non_fast_forward`
+- suppressions de la branche cible interdites : `deletion`
+- aucune “classic branch protection parallèle” (un seul ruleset M1 actif)
+- pas de ruleset dupliqué ciblant `main` avec required checks différents.
 
-- nom exact du check : `SFIA Studio Required Gate`
-- source : GitHub Actions
-- app/source attendue : `github-actions`
-- app id candidate observée : `15368` (reconfirmer immédiatement avant application future)
+## 13. Rollback préautorisé (contrat, non exécuté ici)
 
-### 6.2 Stop condition future (obligatoire)
+Procédure future (exécution sous gate Morris de rollback uniquement) :
 
-La future application doit STOP si au runtime :
-
-- le nom du check-run le plus récent n’est pas `SFIA Studio Required Gate` ;
-- la sourceeffective n’est pas GitHub Actions ;
-- `integration_id` effectif ≠ `15368` ;
-- le check n’est présent que sur un ancien head (pas sur les PR cibles attendues) ;
-- le check reste `pending` de façon systématique sur une PR hors Studio (indiquant fail-open/logiciel non conforme).
-
-## 7. Intégrité décidée (un seul mécanisme actif)
-
-Contrainte M1 :
-
-- force pushes interdits : `non_fast_forward`.
-- suppressions de `main` interdites : `deletion`.
-- pas de classic branch protection en parallèle : aucune seconde couche active.
-- une seule configuration de ruleset “M1” au niveau `main`.
-
-## 8. Rollback préautorisé (contrat, pas d’exécution autonome)
-
-Procédure future (exécution soumise à un gate Morris explicite de rollback) :
-
-1. Capturer le ruleset actif et son ID (celui appliqué par M1).
-2. Vérifier l’incident (symptômes CI/governance).
-3. Consommer le gate Morris de rollback.
-4. Désactiver le ruleset M1 (désactiver en priorité ; ne pas supprimer initialement).
-5. Vérifier que les “effective rules” sur `main` redeviennent vides pour le domaine ruleset M1.
-6. Vérifier que `SFIA Studio Required Gate` n’est plus requis et n’empêche plus des merges de PR.
-7. Conserver le workflow P3 (ne pas revenir en arrière sur `.github/workflows/sfia-studio-ci.yml`).
-8. Tester une PR temporaire (hors Studio) pour confirmer mergeability.
-9. Documenter l’incident (dans handoff/compte rendu).
-10. Décider séparément : réactivation ou suppression du ruleset M1.
+1. capturer ruleset actif et son `id` (celui M1)
+2. vérifier l’incident (blocage CI/governance, required check absent, etc.)
+3. consommer le gate Morris de rollback
+4. désactiver le ruleset M1 (ne pas supprimer initialement)
+5. vérifier “effective rules” vides pour le domaine M1
+6. vérifier required check non bloquant (PR redevient mergeable)
+7. conserver le workflow P3
+8. tester une PR temporaire hors Studio
+9. documenter l’incident
+10. décider séparément réactivation ou suppression
 
 Gate futur recommandé :
 
 `GO ROLLBACK OPTION A M1 RULESET — SFIA STUDIO V3-NATIVE`
 
-## 9. Payload d’application préparé (CANDIDATE — NOT EXECUTED)
+## 14. Payload candidat (complet, NOT EXECUTED)
 
-### 9.1 JSON candidate (complet, sans exécuter)
+### 14.1 JSON candidate complète
 
-> Remarque : certains champs sont des candidats à résoudre/reconfirmer au runtime avant exécution future (ex. `integration_id=15368` et `actor_id`).
+> `CANDIDATE — NOT EXECUTED`
 
 ```json
 {
   "name": "SFIA Studio Main Required Gate — M1",
   "target": "branch",
   "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "include": ["main"],
+      "exclude": []
+    }
+  },
   "bypass_actors": [
     {
       "actor_type": "User",
@@ -183,12 +221,6 @@ Gate futur recommandé :
       "bypass_mode": "pull_request"
     }
   ],
-  "conditions": {
-    "ref_name": {
-      "include": ["main"],
-      "exclude": []
-    }
-  },
   "rules": [
     {
       "type": "pull_request",
@@ -224,99 +256,121 @@ Gate futur recommandé :
 }
 ```
 
-### 9.2 Commande/API candidate (préparée ; NOT EXECUTED)
+### 14.2 Commande/API candidate (ordre des ops futur)
 
-Commande API candidate (exemple `curl`, à exécuter uniquement dans le cycle d’application futur) :
+> `CANDIDATE — NOT EXECUTED`
+
+Exemple de commande (runtime ; jamais exécutée dans ce cycle) :
 
 ```bash
 curl -L -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "X-GitHub-Api-Version: 2026-03-10" \
   -H "Authorization: Bearer $GITHUB_TOKEN" \
-  https://api.github.com/repos/mcleland147/sfia-workspace/rulesets \
+  "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets" \
   -d '<PASTE_JSON_CANDIDATE_ABOVE>'
 ```
 
-Ordre opérationnel (futur) :
+Champs à résoudre au runtime (stop conditions) :
 
-1. reconfirmer au runtime `integration_id` effectif du check-run le plus récent ;
-2. reconfirmer `actor_id=295557155` pour `mcleland147` ;
-3. créer le ruleset avec le JSON ci-dessus.
+- `integration_id` effectif du required check (reconfirmer `15368` au moment d’appliquer)
+- `bypass_actors.actor_id` effectif de `mcleland147` (reconfirmer `295557155`)
+- contexte exact `SFIA Studio Required Gate` (nom stable)
+- présence du required check sur les commits ciblés (éviter pending systématique).
 
-## 10. Protocole post-application (cycles séparés, non exécuté ici)
+## 15. Protocole post-application (cycles séparés)
 
-1. Cycle application M1 (mutation GitHub attendue).
-2. Vérification immédiate :
-   - `main` rules effective couvre uniquement le ruleset M1.
-   - check requis affiché : `SFIA Studio Required Gate`.
+Cycles futurs :
+
+1. application M1 (mutation ruleset uniquement)
+2. vérification immédiate :
+   - `main` effective rules OK
+   - required check affiché et requis
 3. PR hors Studio temporaire :
-   - vérifier gate success et merge possible.
-4. PR Studio en failure :
-   - vérifier blocage par required status checks.
-5. Correction Studio en success :
-   - vérifier autorisation.
-6. Contrôle blocage/autorisation :
-   - force push / suppression (si testable) doit échouer hors bypass.
-7. Vérifier bypass B2 si testable sans contournement réel :
-   - usage exceptionnel via PR et trace obligatoire.
-8. Rollback test sous gate séparé si Morris l’autorise.
-9. Fermeture PR sans merge des artefacts temporaires.
-10. Nettoyage des branches/worktrees sous gates séparés.
-11. Décision sur F-A6-PM-G01 (closure) après preuve.
-12. Correction du document 32 dans un cycle séparé.
+   - gate Required success
+   - merge autorisé
+4. PR Studio failure :
+   - blocage attendu
+5. correction Studio en success :
+   - autorisation attendue
+6. contrôle force-push/suppression (si testable) : doit échouer sauf bypass
+7. contrôle bypass B2 si testable sans contournement réel
+8. rollback test seulement sous gate de rollback si Morris l’autorise
+9. fermeture PR sans merge des artefacts temporaires
+10. nettoyage branches/worktrees sous gates séparés
+11. décision sur `F-A6-PM-G01` (MITIGATED/closure)
+12. correction du document 32 dans un cycle séparé
 
-## 11. Finding F-A6-PM-G01 (non modifié dans ce cycle)
+## 16. Finding F-A6-PM-G01 (règle)
 
-- statut cible recommandé après application/preuve : `MITIGATED`.
-- fermeture : interdite sans décision séparée.
-- statut actuel : conserver inchangé dans Git (aucune modification dans ce cycle).
+- Cible après application/preuve : `MITIGATED`
+- Fermeture : interdite sans décision séparée
+- Ce cycle : aucune modification/fermeture du registre finding (conserver inchangé).
 
-## 12. Dette documentaire (document 32)
+## 17. Dette documentaire (document 32)
 
-Conserver document 32 inchangé.
+- document 32 historiquement valide ; anti-claims P3/M1 obsolètes selon preuves distantes
+- correction recommandée dans un cycle séparé :
+  `GO CORRECT OPTION A DOCUMENT 32 POST-P3 AND M1 DECISION — SFIA STUDIO V3-NATIVE`
+- ce cycle : aucune modification du document 32.
 
-Correction recommandée dans un cycle séparé :
+## 18. Décisions Morris consommées vs non consommées
 
-`GO CORRECT OPTION A DOCUMENT 32 POST-P3 AND M1 DECISION — SFIA STUDIO V3-NATIVE`
+### Consommées
 
-## 13. Décisions Morris consommées vs non consommées
+- mécanisme : repository ruleset unique
+- target : `main` uniquement
+- bypass : B2 explicite `mcleland147` (User id `295557155`), PR-only, jamais exempt
+- approvals : 0 initialement
+- conversation resolution : désactivée initialement
+- branches up to date : non requises initialement
+- force pushes : interdits
+- suppression : restreinte (prohibée)
+- rollback : procédure prévalidée (exécution sous gate séparé)
+- finding F-A6-PM-G01 : cible MITIGATED après preuve (sans fermeture)
+- required check : `SFIA Studio Required Gate` source GitHub Actions ; app id `15368` candidat.
 
-### Décisions consommées (par ce gate)
+### Non consommées
 
-- mécanisme : repository ruleset unique.
-- target : `main` uniquement.
-- bypass : B2 explicite `mcleland147` (User id `295557155`), PR-only, jamais exempt.
-- approvals : 0 initialement.
-- conversation resolution : désactivée initialement.
-- branches up to date : non requises initialement.
-- force push : bloqué.
-- suppression : restreinte (prohibée).
-- rollback : procédure préautorisée dans le contrat (exécution sous gate séparé).
-- required status check : `SFIA Studio Required Gate` avec source GitHub Actions et app id candidat `15368`.
+- application effective M1
+- exécution effective de rollback
+- modification effective de finding
+- correction du document 32
+- déclaration Option A COMPLETE
+- ouverture T-A7
 
-### Décisions non consommées
+## 19. Risques (obligatoire)
 
-- application effective M1.
-- exécution de rollback.
-- modification effective de finding (F-A6-PM-G01).
-- correction du document 32.
-- déclaration Option A COMPLETE.
-- ouverture de T-A7.
+1. Drift du check-run : nom source ou `integration_id` changent ; required status check diverge → STOP runtime.
+2. Capability UI/API : si `bypass_mode=pull_request` n’est pas supporté exactement pour actor_type `User`, B2 devient incertain → stop apply.
+3. Approvals 0 : manque de revue humaine ; risque de gouvernance non “audit” → mitigé par CI gate.
+4. Policy “loose” : risque de drift main ; mitigé par protocol post-application et revalidation.
+5. Payload JSON : champs omis/incorrects peuvent invalider la création ruleset ; mitigé par stop conditions et verification post-creation.
 
-## 14. Actions non exécutées (ce cycle)
+## 20. Stop conditions (obligatoires pour l’application future)
 
-Zéro mutation :
+STOP si au moment d’appliquer :
 
-- aucun ruleset créé ;
-- aucun required check ajouté ;
-- aucune branch protection activée ;
-- aucun push/PR/merge projet ;
-- aucun test d’application réel ;
-- aucune modification workflow ;
-- aucune modification document 32 ;
-- aucun changement de finding.
+- workflow blob ne correspond plus à `801a8759…`
+- required check `SFIA Studio Required Gate` absent/différent
+- source du check non GitHub Actions ou `integration_id` ≠ 15368
+- ruleset déjà partiellement appliqué (conflit de mécanismes)
+- required status checks pending sur PR hors Studio
+- bypass B2 ne peut pas être défini en `pull_request` pour actor_type `User`.
 
-## 15. Gate suivant candidat et verdict attendu
+## 21. Actions non exécutées (ce cycle)
+
+Aucune exécution/mutation :
+
+- aucun ruleset créé
+- aucune activation branch protection
+- aucun required check ajouté
+- aucun push/PR/merge projet
+- aucune modification workflow
+- aucune modification document 32
+- aucune modification finding
+
+## 22. Gate suivant candidat et verdict exact
 
 Gate suivant candidat :
 
