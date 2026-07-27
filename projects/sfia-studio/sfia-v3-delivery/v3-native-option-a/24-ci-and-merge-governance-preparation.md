@@ -12,7 +12,7 @@
 | **Branche delivery** | `delivery/sfia-studio-v3-native-option-a-ci-merge-governance` (locale, **aucun upstream**) |
 | **Worktree delivery** | `/Users/morris/Projects/sfia-workspace-option-a-ci-governance` |
 | **Handoff source** | blob `69257aebdef7e351fb391d25447e5e92504f87ed` · Option F |
-| **Finding capitalisé** | **F-A6-PM-G01** — **CLOSED** (formalisation locale sous `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE`) ; états antérieurs supersédés : mitigation préparée → MITIGATED NOT CLOSED |
+| **Finding capitalisé** | **F-A6-PM-G01** — **CLOSED** (formalisation sous `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` ; état de publication au moment de la formalisation porté par la PR #279) ; états antérieurs supersédés : mitigation préparée → MITIGATED NOT CLOSED |
 | **CI GitHub run** | **prouvée** (M1 + post-merge ; voir Capitalisation F-A6-PM-G01) |
 | **Branch protection / required checks** | **APPLIED** via ruleset M1 `19798462` (état antérieur de préparation : PROPOSED — supersédé) |
 | **T-A6 COMPLETE** | **NON** |
@@ -494,7 +494,7 @@ Le workflow CI **ne ferme** aucune réserve métier/architecture · **ne débloq
 - GO review PR and CI — **consommé** dans les cycles postérieurs ;
 - GO apply branch protection / required checks — **consommé** via M1 (ruleset `19798462`) ;
 - GO merge (avec H1/H2/H3 explicite) — **consommé** pour les merges Studio gouvernés postérieurs ;
-- fermeture F-A6-PM-G01 — **consommé** : `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` (formalisation locale dans ce document ; intégration `main` en attente de PR/merge).
+- fermeture F-A6-PM-G01 — **consommé** : `GO CLOSE F-A6-PM-G01 AFTER M1 GOVERNANCE PROOFS — SFIA STUDIO V3-NATIVE` (état de publication au moment de la formalisation : portée par la PR #279 et non encore intégrée à `main` ; cette mention constitue une trace pré-intégration après merge).
 
 ---
 
@@ -536,6 +536,6 @@ Verdict historique du cycle de préparation (conservé) :
 
 `SFIA STUDIO V3-NATIVE OPTION A CI AND MERGE GOVERNANCE PREPARED — GITHUB RUN AND APPLICATION REQUIRE MORRIS GO`
 
-Addendum de clôture F-A6 (formalisation locale) :
+Addendum de clôture F-A6 (formalisation documentaire — trace pré-intégration via PR #279) :
 
-`SFIA STUDIO F-A6-PM-G01 MORRIS CLOSURE DECISION FORMALIZED LOCALLY — DOCUMENT 24 UPDATED — HISTORICAL CRITERIA, ROLLBACK AND BYPASS PROOFS RECORDED — LOOSE-CONFIG HARDENING KEPT DISTINCT — CANONICAL MAIN INTEGRATION PENDING — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
+`SFIA STUDIO F-A6-PM-G01 MORRIS CLOSURE DECISION FORMALIZED — DOCUMENT 24 UPDATED — HISTORICAL CRITERIA, ROLLBACK AND BYPASS PROOFS RECORDED — LOOSE-CONFIG HARDENING KEPT DISTINCT — PRE-MERGE PUBLICATION STATE RECORDED VIA PR #279 — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
