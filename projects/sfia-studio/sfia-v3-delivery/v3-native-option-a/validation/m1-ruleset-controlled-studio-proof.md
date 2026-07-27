@@ -24,4 +24,4 @@ puis que la même PR peut se rétablir après correction minimale.
 
 ## Erreur volontaire déterministe
 
-CONTROLLED_WHITESPACE_ERROR_LINE: intentional trailing space follows. 
+CONTROLLED_WHITESPACE_ERROR_LINE: intentional trailing space follows.
