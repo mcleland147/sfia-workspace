@@ -1,67 +1,32 @@
 # ChatGPT Review Pack — FULL
-## Option A M1 capitalization draft (REX)
+## Option A M1 capitalization local commit
 
 ### 0. En-tête
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-07-27 17:55:33 CEST (+0200) |
-| Cycle | 15 — Capitalisation / REX (+ 9/7/14/1) |
+| Date/heure/fuseau | 2026-07-27 18:14:29 CEST (+0200) |
+| Cycle | 8 — Delivery ; complémentaires 15 Capitalisation · 9 QA · 13 PR readiness préparatoire |
 | Profil | Capitalization — Critical |
-| Gate consommé | `GO CAPITALIZE OPTION A M1 IMPLEMENTATION AND PROOFS — SFIA STUDIO V3-NATIVE` |
+| Gate consommé | `GO COMMIT OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE` |
 | Repo | `mcleland147/sfia-workspace` |
-| Workspace capitalisation | `/Users/morris/Projects/sfia-workspace-m1-capitalization` |
-| Branche locale | `docs/sfia-studio-m1-capitalization-rex` |
-| HEAD / origin/main | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
-| Status initial | workspace stable sale uniquement `?? .tmp-sfia-review/` ; worktree capitalisation propre depuis main |
-| Handoff initial | blob `7830dcbf4537622169d921bb5da439b175c554ce` — vérifié |
-| CKC | capitalisation/REX ; guidance expérimentale ; aucune autorité d’exécution |
+| Workspace | `/Users/morris/Projects/sfia-workspace-m1-capitalization` |
+| Branche | `docs/sfia-studio-m1-capitalization-rex` |
+| HEAD avant | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
+| origin/main avant | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
+| Status initial | `?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` ; staged vide ; pas d’upstream ; aucune op Git active |
+| Handoff initial | blob `95c423cc53ea853076657a7388db6e12b06d0201` — vérifié |
+| CKC | capitalisation / commit local ; guidance expérimentale |
 
-### 1. Chemins documentaires découverts
-
-- Option A root docs `23`–`32` → **NEXT = 33**
-- Aucun REX M1 existant sur `main`
-- Conventions : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/<NN>-…md`
-- Doc F-A6 : `24-ci-and-merge-governance-preparation.md`
-- Path-aware : `32-path-aware-required-check-and-main-protection-preparation.md`
-- POC 32 corrigé : `projects/sfia-studio/32-poc-vertical-slice-functional-design.md`
-- Workflow : `.github/workflows/sfia-studio-ci.yml` blob `801a8759…`
-
-### 2. Justification du chemin livrable
-
-Path retenu :
-
-`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md`
-
-Justification : numérotation racine Option A continue après `32` ; basename aligné sur la recommandation du gate ; aucun conflit avec un REX existant.
-
-### 3. Sources consultées / PR / runs / ruleset
-
-| PR | state | head | merge | title |
-|----|-------|------|-------|-------|
-| #268 | MERGED | `dc7a24cfed4c` | `508ef7c4619e` | ci(sfia-studio): add project validation workflow and merge governance |
-| #269 | MERGED | `a42a85c0c0b3` | `60d9ac9bdf8b` | docs(sfia-studio): publish CI governance post-merge reviews |
-| #270 | MERGED | `9f03916243c4` | `4e2d5cf2f7e6` | ci(sfia-studio): add path-aware required gate preparation |
-| #271 | CLOSED | `ffa36fdef905` | `-` | test(ci): prove SFIA Studio required gate on non-Studio PR |
-| #272 | CLOSED | `09a2c093427b` | `-` | test(ci): verify M1 ruleset on non-Studio PR |
-| #273 | CLOSED | `1b8ea24afc33` | `-` | test(ci): verify M1 ruleset on Studio failure and recovery |
-| #274 | MERGED | `67f140a19cf4` | `b89065fa92d8` | docs(sfia-studio): formalize F-A6 as mitigated after M1 |
-| #275 | MERGED | `dd2a68c6a1e4` | `ae61c3ed48d4` | docs(sfia-studio): align document 32 after P3 and M1 |
-
-Runs clés : `30239805289` (#271) · `30248284607` (#272) · `30248328467`/#273 fail · `30248480927`/#273 recovery · `30277076735` (#275 PR) · `30278533761` (#275 post-merge).
-
-Ruleset `19798462` active · required check `SFIA Studio Required Gate` · integration `15368` · bypass User `295557155` mode PR · loose approvals 0.
-
-### 4. Fichier créé
+### 1. Fichier avant commit
 
 | Champ | Valeur |
 |-------|--------|
 | Path | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` |
-| Statut Git local | `??` (untracked) — **aucun commit** |
-| Autres fichiers projet | **aucun** |
-| Workflow/ruleset | **inchangés** |
+| Lignes | **441** |
+| Statut | untracked → staged `A` → committed `A` |
 
-### 5. Contenu complet du fichier
+#### Contenu complet
 
 ```markdown
 # SFIA Studio — REX M1 : implémentation du required gate et preuves comportementales
@@ -508,7 +473,7 @@ Aucune de ces décisions n’est tranchée par la rédaction de ce document.
 
 ```
 
-### 6. Diff complet (ajout fichier)
+#### Diff complet avant staging / staged / commit (identique)
 
 ```diff
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
@@ -961,58 +926,123 @@ index 0000000..6c87cf4
 
 ```
 
-### 7. Stat / name-status
-
-```
-1 file changed, 441 insertions(+)
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
-```
-
-### 8. Validation documentaire
+### 2. Anti-claims (revalidation)
 
 | Contrôle | Résultat |
 |----------|----------|
-| 15 sections complètes | OK |
-| `git diff --check` | OK (trailing whitespace corrigés) |
-| Mono-fichier | OK |
-| Contradiction doc 24 / 32 | aucune (F-A6 MITIGATED NOT CLOSED conservé) |
-| Matrice preuves 5 scénarios | OK |
-| Distinction observation/preuve/recommandation/décision | OK |
+| F-A6 MITIGATED NOT CLOSED | présent |
+| Option A non COMPLETE | présent (négations/anti-claims) |
+| T-A7 non ouverte | présent |
+| D1–D7 NOT DECIDED | présent |
+| REX non présenté comme versionné sur main | présent (`draft local` / non versionné) |
+| Claims positifs interdits comme verdict | absents |
 
-### 9. Anti-claims
+### 3. Staging
 
-- pas de F-A6 CLOSED comme verdict
-- pas d’Option A COMPLETE
-- pas de T-A7 OPEN
-- pas de production ready / validated baseline comme promotion
-- recommandations ≠ décisions (`NOT DECIDED`)
+| Champ | Valeur |
+|-------|--------|
+| Commande | `git add -- projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` |
+| name-status | `A\tprojects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` |
+| stat | `1 file changed, 441 insertions(+)` |
+| numstat | `441 0 projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` |
+| `git diff --cached --check` | OK |
+| Autres fichiers | **aucun** |
 
-### 10. États trajectoire
+### 4. Commit
 
-| Sujet | État |
-|-------|------|
-| F-A6 | **MITIGATED NOT CLOSED** |
-| Option A | **non COMPLETE** |
-| T-A7 | **non ouverte** |
-| Rollback / bypass | **non testés** |
-| Décisions Morris D1–D7 | **NOT DECIDED** |
+| Champ | Valeur |
+|-------|--------|
+| Commande | `git commit -m "docs(sfia-studio): capitalize M1 implementation and proofs"` |
+| Date/heure | 2026-07-27 18:14:00 CEST (+0200) |
+| Exit code | 0 |
+| SHA | `fa0eebe00ce3b765a8a486aa660dddfab40123a0` |
+| Parent | `ae61c3ed48d4d1c9fe751eddd73617ba15480734` |
+| Subject | `docs(sfia-studio): capitalize M1 implementation and proofs` |
+| Trailer | `Co-authored-by: Cursor <cursoragent@cursor.com>` (auto ; **pas d’amend**) |
 
-### 11. Actions non exécutées
+#### stdout/stderr
 
-- commit/push/PR/merge projet
-- modification workflow/ruleset/docs 24/32
-- tests rollback/bypass
-- suppressions branches/worktrees
-- F-A6 CLOSED / Option A COMPLETE / T-A7
-- Notion/CMP
+```
+[docs/sfia-studio-m1-capitalization-rex fa0eebe] docs(sfia-studio): capitalize M1 implementation and proofs
+ Committer: Morris Cleland <morris@macbook-air1.home>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
 
-### 12. Gates candidats (NOT CONSUMED)
+    git config --global --edit
 
-- `GO COMMIT OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE`
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 441 insertions(+)
+ create mode 100644 projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md
+
+```
+
+#### metadata fuller
+
+```
+commit fa0eebe00ce3b765a8a486aa660dddfab40123a0
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Mon Jul 27 18:14:00 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Mon Jul 27 18:14:00 2026 +0200
+
+    docs(sfia-studio): capitalize M1 implementation and proofs
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+```
+
+### 5. Vérification commit
+
+| Champ | Valeur |
+|-------|--------|
+| name-status | `A projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md` |
+| stat | `441 insertions(+)` |
+| blob HEAD | `6c87cf4016d6a33f096df921acf8bafd4d73af4e` |
+| ahead/behind (`origin/main...HEAD`) | `0 / 1` |
+| upstream | **aucun** |
+| push | **non** |
+| PR | **non** |
+| merge | **non** |
+
+#### Status final
+
+```
+## docs/sfia-studio-m1-capitalization-rex
+
+```
+
+### 6. Réserves après commit
+
+- F-A6 = **MITIGATED NOT CLOSED**
+- Option A = **non COMPLETE**
+- T-A7 = **non ouverte**
+- rollback / bypass = **non testés**
+- config M1 loose = inchangée
+- commit local ≠ intégré sur `main`
+- commit local ≠ décision de trajectoire
+
+### 7. Actions non exécutées
+
+- push projet / PR / merge
+- amend / rebase / cherry-pick / force push
+- modification substantielle du document
+- suppression branche/worktree
+- workflow/ruleset / rollback/bypass tests
+- F-A6 CLOSED / Option A COMPLETE / T-A7 / Notion
+
+### 8. Gates candidats (NOT CONSUMED)
+
+- `GO PUSH AND OPEN PR FOR OPTION A M1 CAPITALIZATION — SFIA STUDIO V3-NATIVE`
 - gate séparé réévaluation F-A6
 - gate séparé test rollback/bypass
-- gate séparé nettoyage branches/worktrees
+- gate séparé cleanup branches/worktrees
 
-### 13. Verdict
+### 9. Verdict
 
-`SFIA STUDIO V3-NATIVE OPTION A M1 CAPITALIZATION DRAFTED LOCALLY — IMPLEMENTATION AND BEHAVIORAL PROOFS DOCUMENTED — F-A6 MITIGATED NOT CLOSED — ROLLBACK AND BYPASS UNTESTED — NO PROJECT COMMIT — NO PROJECT PUSH`
+`SFIA STUDIO V3-NATIVE OPTION A M1 CAPITALIZATION COMMITTED LOCALLY — COMPLETE REX SINGLE-FILE COMMIT VERIFIED — F-A6 MITIGATED NOT CLOSED — ROLLBACK AND BYPASS UNTESTED — OPTION A NOT COMPLETE — T-A7 NOT OPEN — NO PUSH — NO PR`
