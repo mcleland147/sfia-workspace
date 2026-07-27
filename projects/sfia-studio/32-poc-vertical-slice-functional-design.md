@@ -9,8 +9,9 @@
 | **Typologie** | DOC / CONCEPTION / POC |
 | **Baseline méthode** | SFIA v2.6 |
 | **Branche conception** | `design/sfia-studio-poc-vertical-slice` (**locale uniquement**) |
-| **Base Git** | `origin/main` @ `eb180638ad334a29a86b9fb757f401814003a0d8` |
+| **Base Git** | `origin/main` @ `b89065fa92d823843f1eb1014c304e7d13233556` (post P3 #270 + F-A6 #274) |
 | **Statut** | `validated-for-versioning` — conception fonctionnelle **validée Morris** ; merge PR = GO distinct |
+| **Alignement gouvernance (post-P3/M1)** | P3 intégré (PR #270) ; M1 actif et prouvé ; F-A6-PM-G01 **MITIGATED** explicitement **NOT CLOSED** — ni Option A COMPLETE ni ouverture T-A7 |
 | **Autorité** | Morris (L0) |
 | **Décisions** | `VS-CAND-01` à `VS-CAND-13` et `VS-CAND-15` **validées** ; `VS-CAND-14` **validée avec réserve** — plafond GPT obligatoire, valeur numérique à définir, aucun retry automatique |
 | **Code / live** | **Aucun** dans ce cycle |
@@ -32,6 +33,7 @@
 | `#224`–`#225` | Harness-only + spike Cursor sandbox |
 | `#226` / `30`–`31` | GPT live + e2e GPT→Cursor sandbox **prouvé avec réserves** |
 | `#227` | Sync documentaire post-merge |
+| P3 / M1 / F-A6 (post-conception) | Workflow `SFIA Studio CI` + ruleset M1 actifs sur `main` (PR #270 ; preuves #272/#273 ; F-A6 formalisé #274) — **hors livrable de ce POC** ; F-A6 **MITIGATED NOT CLOSED** |
 
 ### Écart motivant ce document
 
@@ -93,7 +95,7 @@ Faisabilité du **BeB gouverné** bout-en-bout sous autorité Morris, sans faire
 | Écriture Git distante (commit/push/PR/merge) | Interdite dans le slice |
 | L5 global | Interdit |
 | MVP produit validé | Non |
-| Industrialisation / CI SFIA Studio | Non |
+| Industrialisation / CI SFIA Studio (livrable de ce POC) | Non — hors slice ; la CI plateforme P3/M1 existe désormais sur `main` sans faire partie de ce contrat POC |
 | Multi-cycle / multi-projet | Non |
 | Modification `app/**` / harness (ce cycle) | Conception seule |
 
@@ -283,7 +285,7 @@ Depuis SFIA Studio, Morris doit pouvoir saisir une demande, contrôler la qualif
 
 - Non-déterminisme GPT documenté ;
 - journalisation commandes Cursor non exhaustive (contrôle post-facto) ;
-- absence de CI SFIA Studio.
+- CI plateforme SFIA Studio désormais en place (P3/M1) mais hors critères d’acceptation de ce POC ; F-A6-PM-G01 reste **MITIGATED NOT CLOSED**.
 
 ### Échec de faisabilité
 
@@ -303,7 +305,7 @@ Critères détaillés `VS-AC-*` : voir `33`.
 
 ## 12. Réserves
 
-1. Pas de CI GitHub Actions pour `projects/sfia-studio/**`
+1. P3 est intégré sur `main` via PR #270 et M1 est actif/prouvé ; F-A6-PM-G01 est **MITIGATED** mais reste explicitement **NOT CLOSED** ; REX M1, rollback et bypass restent ouverts — ceci ne vaut ni Option A COMPLETE ni ouverture de T-A7
 2. Spike expérimental / scénario unique
 3. Commandes internes Cursor non journalisées une à une
 4. Réseau Cursor Agent non mesuré finement
