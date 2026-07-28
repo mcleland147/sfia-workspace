@@ -61,10 +61,10 @@
 
 ## 6. Preuves nécessaires avant F13
 
-1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.  
-2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.  
-3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.  
-4. Inventaire allowlist `method/` : usages réels vs legacy.  
+1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.
+2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.
+3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.
+4. Inventaire allowlist `method/` : usages réels vs legacy.
 5. Gate Morris F13 **contenu** (pas seulement calendrier).
 
 ## 7. Anti-claims

@@ -19,7 +19,7 @@
 | Création projet | `NewProjectForm` force default interne (pas choix user C1) | `ACTIVE — EVIDENCED` |
 | Confirmation flow | `executeConfirmation.ts` injecte `D1_GOVERNANCE_METHOD_MODE` | `ACTIVE — EVIDENCED` |
 
-**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`  
+**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`
 **Interdit (claims) :** V3-ADOPTED / V3-IMPLEMENTED global (documenté dans claims).
 
 ## 2. Occurrences significatives

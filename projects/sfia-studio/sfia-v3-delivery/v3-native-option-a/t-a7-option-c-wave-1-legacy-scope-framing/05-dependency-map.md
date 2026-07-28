@@ -43,9 +43,9 @@
 
 ## 3. Lecture normative
 
-1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.  
-2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.  
-3. **Ne pas** fusionner OPS1 et Option A.  
+1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.
+2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.
+3. **Ne pas** fusionner OPS1 et Option A.
 4. Cutover exige preuves P03–P11 avant retrait — encore largement `MISSING`/`PARTIAL`.
 
 ## 4. Anti-claims
