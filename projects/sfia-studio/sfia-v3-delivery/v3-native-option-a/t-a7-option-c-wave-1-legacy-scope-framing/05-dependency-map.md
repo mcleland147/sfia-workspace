@@ -21,7 +21,9 @@
 | `method/**` → OPS1 allowlist | sécurité | `"method/"` in allowlist | High | Y | actions deny/allow faux | inventaire ACL | SC-03 · F13 |
 | OPS1 → authorization allowlist | sécurité | actionGate/allowlist* | High | Y | exécutions unsafe/bloquées | e2e I3–I4 | F13 |
 | OPS1 → runtime/API/UI | exécution | lib/features/ops1 · route | High | Y | POC mort | e2e I1–I6 | — |
-| OPS1 → canonical resolver | exécution/gouv | sessionContext | High | Y | contexte faux | tests canonical | P03–P05 |
+| OPS1/platform → 3 fichiers `method/.../core/*` | exécution/gouv | `canonicalPaths.ts` `SFIA_CANONICAL_CORE_PATHS` | High | Y | contexte CT/OPS1 faux | tests canonicalEngine | P03–P05 · F03 |
+| Control Tower → OPS1 lib | exécution extension | docs/tools CT | High | Y | CT cassé si retrait OPS1 | inventaire CT | F13 |
+| D1 intake → OPS1 conversation provider | exécution partagée | resolveProvider | Med–High | Y | live D1 cassé | tests D1 provider | F13 |
 | OPS1 ↛ D1 | sécurité boundary | import-boundaries | High | Y (garde) | double identité | CI | SC-12 |
 | legacy → rollback/RUN | RUN | P23 PARTIAL | Med | I | cutover non rollbackable | design RUN | F03 · F09 |
 | legacy → cutover | gouvernance | T-A7 def | High | I | cutover unsafe | F09 | SC-04/05 |

@@ -72,6 +72,9 @@ P07 (pack T-A7) : MethodMode **MISSING** comme « retiré de cible OA » — enc
 |------|--------|
 | Volume de lignes SQLite production avec chaque mode | `UNKNOWN — INVESTIGATION REQUIRED` (DB locale/dev) |
 | Exposition API HTTP dédiée hors actions serveur | `ACTIVE — INFERRED` (via server actions D1) |
-| Couplage MethodMode → lectures `method/**` runtime D1 | `UNKNOWN — INVESTIGATION REQUIRED` (pas de grep exhaustif path loader D1 dans ce cycle ; pas d’évidence directe dans types) |
+| `actionSelectMethodMode` | exporté (`actions.ts`) · **aucun appelant UI** trouvé — `DEAD CANDIDATE — NOT VALIDATED` (commandes testées) |
+| Couplage MethodMode → lectures `method/**` runtime D1 | `UNKNOWN — INVESTIGATION REQUIRED` (pas d’évidence directe path loader D1) |
+| **Vocabulaire dual** runtime vs modeled | `ACTIVE — EVIDENCED` (écart) — runtime `SFIA_V2_6\|TRANSITION\|V3_CANDIDATE` vs schemas `sfia-v3-modeled` `v2.6_manual\|v2.6_assisted\|transition\|v3_studio_native\|fallback` · **aucun mapper** trouvé |
+| `MethodModeGate` / route `/projects/[id]/method-mode` | `DOCUMENTATION ONLY` / non implémenté runtime |
 
-**Anti-claim :** occurrence textuelle dans docs T-A* ≠ usage runtime.
+**Anti-claim :** occurrence textuelle dans docs T-A* ≠ usage runtime · enum modeled ≠ enum runtime.

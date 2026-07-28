@@ -43,7 +43,8 @@ method/
 | `prompts/README.md` · `prompts/prompt-catalog.md` | gouvernance prompts | liens engines/core/checklists | `ACTIVE — EVIDENCED` (référence opératoire) |
 | Template / operating model | exécution cycles | core files | `ACTIVE — EVIDENCED` |
 | OPS1 allowlist | sécurité chemins | `app/lib/ops1/allowlistEvaluation.ts` · `types.ts` incluent `"method/"` | `ACTIVE — EVIDENCED` |
-| OPS1 canonical session | résolution contexte | `ops1/sfia/sessionContext.ts` → `resolveSfiaCanonicalContext` | `ACTIVE — INFERRED` (couplage canonique ; valider lecture disque `method/**`) |
+| OPS1 / platform canonical loader | lecture disque allowlist fermée | `app/lib/platform/sfia-context/canonicalPaths.ts` → `SFIA_CANONICAL_CORE_PATHS` (re-export OPS1) | `ACTIVE — EVIDENCED` |
+| Control Tower / CMP | docs + config | docs CT · `tools/cmp-001/config/…` (chemins method) | `ACTIVE — EVIDENCED` / `DOCUMENTATION ONLY` |
 | CI `.github/**` | build | **aucune** référence `method/` trouvée | `UNKNOWN` / non bloquant CI path |
 | `lib/oa/**` | runtime OA | antiLegacy interdit MethodMode/fallback ; P08 vise no `method/**` reads | cible cutover `MISSING` |
 | Anciens chemins `methods/` racine | historique | `docs/practices/methods-structure-check.md` — absents | `DEAD CANDIDATE — NOT VALIDATED` (déjà retirés) |
@@ -56,13 +57,26 @@ method/
 
 | Zone | Rôle actuel | Consommateurs | Preuves | Risque retrait | Candidat cible | Décision requise |
 |------|-------------|---------------|---------|----------------|----------------|------------------|
-| `sfia-fast-track/core` | canon méthode v2.6 ops | prompts · cycles Cursor/ChatGPT | liens prompts + foundation docs | **High** — casse operating model | conserver / isoler / remplacer (ultérieur) | F03 · Morris |
+| `sfia-fast-track/core` (trio runtime) | spine chargé runtime | `canonicalPaths` + prompts | chemins exacts ci-dessous | **Critical** | conserver / isoler / remplacer (ultérieur) | F03 · Morris |
+| `sfia-fast-track/core` (autres refs) | référence / historique | prompts · docs | README core | Med–High | conserver / archiver (`rules-update` superseded) | Morris |
 | `sfia-fast-track/automation` | engines doc | prompt-catalog | liens | High | conserver / remplacer | F03 |
 | `sfia-fast-track/templates` · `checklists` · `cycles` | ops delivery | docs architecture | liens | Med–High | conserver | F03 |
 | `sfia-fast-track/documentation` (hors archive) | capitalisation | docs internes | volume | Med | archiver partiel / conserver | inventaire fin |
 | `sfia-fast-track/archive` | historique | peu | structure | Low–Med | archiver / conserver | Morris |
 | `complementary/controlled-delivery` | méthode complémentaire | README method | structure | Med | conserver / investigation | Morris |
 | Allowlist entry `"method/"` OPS1 | ACL path | action gate | code | High si retiré sans politique | isoler / migrer | F13 · F03 |
+
+### Chemins `method/**` chargés runtime (`ACTIVE — EVIDENCED`)
+
+Source : `SFIA_CANONICAL_CORE_PATHS` dans `app/lib/platform/sfia-context/canonicalPaths.ts` :
+
+1. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+2. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+3. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+
+(+ template prompts hors `method/` : `prompts/templates/sfia-cycle-execution-template.md`)
+
+**Asymétrie :** allowlist d’**action** OPS1 interdit souvent l’écriture/`tool read` large sur `method/` · le **canonical loader** lit quand même ce trio fermé.
 
 ## 5. Protections / historique
 

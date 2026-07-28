@@ -24,8 +24,10 @@
 |-----------|---------|--------|
 | Fonctionnelle | Chat libre + action Markdown facultative ; pas MVP global | docs 41–47 |
 | Technique | Session, conversation providers, actionGate, allowlist, control tower tools, exécution I5/I6 | `lib/ops1/**` |
-| Sécurité | Allowlist chemins (incl. `"method/"`), gates d’action, isolation vs D1/OA | allowlist + import boundaries + P10 |
+| Sécurité | Allowlist chemins + gates Morris (L0) — **pas** un IAM/RBAC multi-user | allowlist + import boundaries + P10 |
 | Gouvernance cutover | OPS1 **ne doit pas** être présenté comme v3 Option A ; isolation avant cutover | SC-03 · SC-12 · F13 / P10–P11 |
+| Extension in-place | Control Tower construit **sur** `lib/ops1` (pas un fork) | docs `66`–`74` · tools CT |
+| Surface partagée | D1 intake réutilise provider conversation OPS1 ; état co-hébergé `.sfia-exec/…/state/` (fichiers DB séparés) | `d1` paths / resolveProvider |
 
 ## 3. Producteurs / consommateurs de droits
 
@@ -34,16 +36,17 @@
 | Allowlist evaluation / service | actionGate · exécutions bornées |
 | Session / repository OPS1 | UI `Ops1SessionScreen` · e2e |
 | Control tower tools / reinjection | flux CT ↔ OPS1 (tests dédiés) |
-| Canonical context resolver (sfia) | `ops1/sfia/sessionContext.ts` |
+| Canonical context resolver (sfia/platform) | sessionContext · CT SFIA engine |
+| Types/provider conversation OPS1 | D1 intake (`SHARED_SURFACE`) |
 
-**ACL IAM produit globale :** non SELECTED — droits OPS1 = allowlist + gates locaux (`NOT SELECTED` IAM inchangé).
+**ACL IAM produit globale :** non SELECTED — « ACL OPS1 » dans T-A7 = **path policy + gates**, pas multi-user IAM (`NOT SELECTED` IAM inchangé).
 
 ## 4. Dépendances legacy / MethodMode / `method/**`
 
 | Lien | Nature | Statut | Risque |
 |------|--------|--------|--------|
 | Allowlist contient `"method/"` | path ACL | `ACTIVE — EVIDENCED` | retrait method sans MAJ allowlist = actions bloquées ou trou |
-| `resolveSfiaCanonicalContext` | contexte canonique | `ACTIVE — INFERRED` | couplage cutover P03–P05 / loader |
+| `SFIA_CANONICAL_CORE_PATHS` (3 fichiers `method/.../core/*`) | lecture canonique | `ACTIVE — EVIDENCED` | couplage F03/F13 — retrait method sans remplacement doctrine = casse CT/OPS1 context |
 | MethodMode D1 | **interdit** import D1↔OPS1 | `ACTIVE — EVIDENCED` (boundary) | ne pas fusionner identités |
 | OA antiLegacy mentionne OPS1 cutover | garde | `ACTIVE — EVIDENCED` | double identité |
 

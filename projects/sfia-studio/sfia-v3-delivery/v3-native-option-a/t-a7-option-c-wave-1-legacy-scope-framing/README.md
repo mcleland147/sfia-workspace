@@ -20,6 +20,7 @@
 | **Option A** | `NOT COMPLETE` |
 | **Persistence / IAM / RGPD prod** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
 | **Push / PR** | **aucun** |
+| **Enrichissement post-inventaire** | subagents MethodMode / `method/**` / OPS1 — preuves `canonicalPaths` · dual enum · orphan select · CT/D1 coupling |
 
 ## Objectif
 

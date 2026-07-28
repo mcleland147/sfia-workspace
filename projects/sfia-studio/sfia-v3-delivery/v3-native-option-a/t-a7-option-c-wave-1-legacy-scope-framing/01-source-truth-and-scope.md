@@ -25,9 +25,10 @@
 | Exact / case-insensitive | `MethodMode`, `methodMode`, `method_mode`, `METHOD_MODE`, `selectMethodMode`, `assertMethodMode` |
 | Chemins | `method/`, `app/lib/ops1`, `app/features/ops1`, `.sfia-exec` |
 | Variantes OPS1 | `OPS1`, `ops1`, `Ops1`, `ops-1`, docs `41`–`65`, routes `/ops1` |
-| Concepts | legacy, fallback, `legacyV26`, `loadCanonicalSource`, `resolveSfiaCanonicalContext`, allowlist, ACL |
-| Surfaces | runtime, modeled, prompts, docs, tests, e2e, CI (`.github`), gitignore |
-| Négatif | absence CI de `method/` ≠ non-usage (consommateurs docs/prompts/OPS1 allowlist) |
+| Concepts | legacy, fallback, `legacyV26`, `loadCanonicalSource`, `resolveSfiaCanonicalContext`, `SFIA_CANONICAL_CORE_PATHS`, allowlist, ACL |
+| Surfaces | runtime, modeled, prompts, docs, tests, e2e, CI (`.github`), gitignore · `app/lib/platform/sfia-context` |
+| Négatif | absence CI de `method/` ≠ non-usage (consommateurs docs/prompts/OPS1 allowlist + canonical loader) |
+| Écarts | dual enum MethodMode runtime vs `sfia-v3-modeled` · orphan `actionSelectMethodMode` |
 
 ## 3. Sources canoniques (blobs `origin/main`)
 
