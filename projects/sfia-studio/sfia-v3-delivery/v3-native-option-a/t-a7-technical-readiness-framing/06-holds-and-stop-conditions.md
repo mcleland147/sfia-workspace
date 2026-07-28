@@ -14,10 +14,10 @@
 | Hold | Statut exigé | Sens |
 |------|--------------|------|
 | T-A7 | `NOT OPEN` | framing readiness ≠ ouverture |
-| F03.3 | décidée ≠ satisfaite | set partiel ; prep technique exécutable interdite |
+| F03.3 | décidée ≠ satisfaite | set **partiel réduit** (`BLOCKERS REDUCED`) ; prep hors gate O2 interdite |
 | F11.2 | décidée ≠ API disponible | pas d’implémentation |
 | F13.4 | décidée ≠ historique RO disponible | pas de vue runtime |
-| Isolation OPS1 | requise ≠ réalisée | contrat proposé seulement |
+| Isolation OPS1 | design **validé tech** ≠ réalisée | contrat validé O2 · **non implémenté** |
 | B5 | `OPEN` | STOP BEFORE DELIVERY |
 | R1 | `OPEN` | atomicité non résolue |
 | R-M01 | `OPEN` | ClaimEvaluator readiness |
@@ -99,4 +99,4 @@
 
 ## 6. Verdict section
 
-`HOLDS ACTIVE — ANTI-BYPASS AND STOP CONDITIONS DOCUMENTED — T-A7 REMAINS NOT OPEN — HARD NOT IGNORED`
+`HOLDS ACTIVE — ANTI-BYPASS AND STOP CONDITIONS DOCUMENTED — O2 DOES NOT LIFT T-A7 NOT OPEN — HARD NOT IGNORED`

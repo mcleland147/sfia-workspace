@@ -3,10 +3,13 @@
 | Champ | Valeur |
 |-------|--------|
 | **Document** | `03-ops1-isolation-contract.md` |
-| **Statut** | `DESIGN PROPOSED — NOT IMPLEMENTED — MORRIS VALIDATION REQUIRED` |
-| **Ancrage** | W1-D04 · F13.4 · P10 · SC-03 · SC-12 |
-| **Date/heure/fuseau** | 2026-07-28 20:36:49 CEST (+0200) |
-| **Code / ACL runtime** | **aucune modification** |
+| **Statut** | `OPS1 ISOLATION CONTRACT VALIDATED FOR FUTURE IMPLEMENTATION — NOT IMPLEMENTED` |
+| **Statut précédent** | `DESIGN PROPOSED — NOT IMPLEMENTED — MORRIS VALIDATION REQUIRED` |
+| **Ancrage** | W1-D04 · F13.4 · P10 · SC-03 · SC-12 · campagne O2 |
+| **Date design** | 2026-07-28 20:36:49 CEST (+0200) |
+| **Date validation technique** | 2026-07-28 20:54:03 CEST (+0200) |
+| **Code / ACL runtime** | **aucune modification fonctionnelle** (probes tests only) |
+| **Adoption Morris d’implémentation** | **non** — validation technique ≠ GO d’implémentation |
 
 ---
 
@@ -144,6 +147,18 @@
 
 ---
 
-## 12. Verdict section
+## 12. Validation technique O2 (preuves)
 
-`OPS1 ISOLATION CONTRACT DESIGN PROPOSED — NOT IMPLEMENTED — MORRIS VALIDATION REQUIRED — PATH-POLICY DISTINCT FROM IAM — NO CODE CHANGE`
+| Axe | Résultat O2 |
+|-----|-------------|
+| Cohérence code | 0 imports OPS1↔OA / OPS1↔D1 / D1↔OPS1 (probe + import-boundaries) |
+| Testabilité | probes reproductibles verts |
+| Réversibilité | tests revertibles · aucun état persisté modifié |
+| Path-policy ≠ IAM | confirmé · asymétrie loader qualifiée **sans** changement policy |
+| Résiduel | live dynamic call probe non exécutée (env worktree) · surface partagée D1/platform documentée |
+
+**Recommandation (non décision) :** conserver le contrat ; avant implémentation, ajouter probe live optionnelle + inventaire hits allowlist hors local.
+
+## 13. Verdict section
+
+`OPS1 ISOLATION CONTRACT VALIDATED FOR FUTURE IMPLEMENTATION — NOT IMPLEMENTED — PATH-POLICY DISTINCT FROM IAM — NO FUNCTIONAL OPS1 CHANGE`
