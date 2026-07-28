@@ -3,12 +3,47 @@
 | Champ | Valeur |
 |-------|--------|
 | **Document** | `05-morris-decision-pack.md` |
-| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
-| **Décisions** | D-T-A7-F01…F14 — toutes **`NOT DECIDED`** |
+| **Statut** | **MORRIS DECISIONS RECORDED — PARTIAL SET** |
+| **Date/heure/fuseau** | 2026-07-28 07:14:00 CEST (+0200) — Europe/Paris |
+| **Autorité** | Morris |
+| **Gate d’enregistrement** | `GO RECORD MORRIS DECISIONS — A1=A1.1 — A2=A2.1 — A3=A3.2 — A4=A4.1 — A5=A5.1 — RESERVE=THEN A5.2 VIA DISTINCT GATE — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` |
 | **T-A7** | **NOT OPEN** |
-| **Autorité** | Morris uniquement — aucune décision consommée ici |
+| **Décisions consommées** | F01 · F02 · F04 · F05 · F06 · F07 · F14 |
+| **Décisions non consommées** | F03 · F08 · F09 · F10 · F11 · F12 · F13 — **`NOT DECIDED`** |
 
-> Les recommandations Cursor/ChatGPT sont **explicites et non contraignantes**. Morris tranche.
+---
+
+## Bulletin Morris enregistré
+
+```
+A1 = A1.1
+A2 = A2.1
+A3 = A3.2
+A4 = A4.1
+A5 = A5.1
+Réserves / modifications Morris : enchaîner ensuite sur A5.2 via un gate distinct
+```
+
+---
+
+## Matrice décisionnelle
+
+| Décision | Choix Morris | Statut | Effet | Non-effet |
+|----------|--------------|--------|-------|-----------|
+| **F01** | A1.1 | `DECIDED — ACCEPTED BY MORRIS` | framing VALIDATED | pas T-A7 OPEN |
+| **F02** | A1.1 | `DECIDED — ACCEPTED BY MORRIS` | A/B/C/D ADOPTED · gates distincts | pas transition auto |
+| **F04** | A4.1 | `DECIDED — ADOPTED BY MORRIS` | T-A6 COMPLETE définition mémoire DEFINED | pas T-A6 COMPLETE declared · pas persistence |
+| **F05** | A2.1 | `DECIDED — ADOPTED BY MORRIS` | foundation complete taxonomie DEFINED | pas product COMPLETE |
+| **F06** | A3.2 | `DECIDED — ADOPTED BY MORRIS` | product complete = opérable + API/UI min DEFINED | pas Option A COMPLETE · pas cutover · pas impl UI |
+| **F07** | A2.1 | `DECIDED — ADOPTED BY MORRIS` | product ≠ production ready | pas production ready declared |
+| **F14** | A5.1 (+ réserve A5.2) | `DECIDED — ADOPTED BY MORRIS` | next = documentary PR readiness | pas delivery · A5.2 non exécuté |
+| **F03** | — | `NOT DECIDED` | — | — |
+| **F08** | — | `NOT DECIDED` | — | — |
+| **F09** | — | `NOT DECIDED` | — | — |
+| **F10** | — | `NOT DECIDED` | — | — |
+| **F11** | — | `NOT DECIDED` | — | — |
+| **F12** | — | `NOT DECIDED` | — | — |
+| **F13** | — | `NOT DECIDED` | — | — |
 
 ---
 
@@ -18,27 +53,28 @@
 
 | Champ | Contenu |
 |-------|---------|
-| **Statut** | `NOT DECIDED` |
+| **Statut** | `DECIDED — ACCEPTED BY MORRIS` |
+| **Choix** | **A1.1** — ACCEPT pack et modèle A/B/C/D |
+| **Date** | 2026-07-28 07:14:00 CEST |
 | **Question** | Le pack `t-a7-legacy-cutover-framing` et son périmètre (niveaux A only) sont-ils validés ? |
-| **Options** | (1) ACCEPT · (2) ACCEPT WITH CHANGES · (3) REJECT · (4) DEFER |
-| **Recommandation Cursor/ChatGPT** | (2) ACCEPT WITH CHANGES après corrections M01/M02 — puis ACCEPT si re-review PASS |
-| **Impacts** | autorise la **re-review** puis, si PASS, un gate de **décision framing** ; n’ouvre pas T-A7 |
+| **Impacts** | framing T-A7 **VALIDATED** ; n’ouvre pas T-A7 |
 | **Dette** | faible |
-| **Réversibilité** | haute |
-| **Gate futur** | `GO RE-REVIEW T-A7 FRAMING PACK AFTER CORRECTIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` puis, si PASS, `GO DECIDE T-A7 FRAMING SCOPE AND OPTION A COMPLETION DEFINITIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` |
+| **Réversibilité** | haute (documentaire) |
+| **Gate futur** | documentary PR readiness · puis A5.2 distinct |
 
 ### D-T-A7-F02 — Framing vs delivery vs cutover
 
 | Champ | Contenu |
 |-------|---------|
-| **Statut** | `NOT DECIDED` |
+| **Statut** | `DECIDED — ACCEPTED BY MORRIS` |
+| **Choix** | **A1.1** — ADOPT 4 niveaux A/B/C/D |
+| **Date** | 2026-07-28 07:14:00 CEST |
 | **Question** | Les quatre niveaux A/B/C/D sont-ils la définition normative de T-A7 ? |
-| **Options** | (1) ADOPT 4 niveaux · (2) ADOPT 3 niveaux (fusion B+C) · (3) REDEFINE |
-| **Recommandation Cursor/ChatGPT** | (1) ADOPT 4 niveaux — réduit les confusions framing/open/delivery/cutover |
+| **Norme** | A=framing · B=delivery preparation · C=delivery · D=cutover · gate Morris distinct par niveau · aucune transition automatique |
 | **Impacts** | gates séparés obligatoires |
 | **Dette** | cycles supplémentaires |
 | **Réversibilité** | moyenne |
-| **Gate futur** | re-review puis decide framing ; ensuite gates delivery/cutover **distincts** (non ouverts) |
+| **Gate futur** | gates delivery/cutover **distincts** (non ouverts) |
 
 ### D-T-A7-F03 — Préconditions d’entrée en delivery
 
@@ -46,23 +82,20 @@
 |-------|---------|
 | **Statut** | `NOT DECIDED` |
 | **Question** | Quelles préconditions P0x sont obligatoires avant delivery T-A7 ? |
-| **Options** | (1) Set minimal (P02, P03–P05, HARD reserves strategy, P17–P19 design) · (2) Set maximal (presque toutes) · (3) Custom |
-| **Recommandation Cursor/ChatGPT** | (1) Set minimal documenté dans `02` §3 — éviter de bloquer delivery prep inutilement |
-| **Impacts** | séquence post-framing |
-| **Dette** | si trop minimal → reprise AT |
-| **Réversibilité** | moyenne |
-| **Gate futur** | `GO PREPARE T-A7 DELIVERY` (NOT CONSUMED / NOT PROPOSED as open) |
+| **Options** | (1) Set minimal · (2) Set maximal · (3) Custom |
+| **Recommandation Cursor/ChatGPT** | (1) Set minimal documenté dans `02` §3 |
+| **Gate futur** | `GO PREPARE T-A7 DELIVERY` (NOT OPEN) |
 
 ### D-T-A7-F04 — Définition T-A6 COMPLETE
 
 | Champ | Contenu |
 |-------|---------|
-| **Statut** | `NOT DECIDED` |
-| **Question** | La matrice T6-C01…C15 est-elle adoptée ? T-A6 COMPLETE exige-t-il T6-C11 (réserves) et T6-C15 (GO explicite) ? |
-| **Options** | (1) ADOPT as-is · (2) ADOPT with memory justification only (relax C11 for U-M02) · (3) REQUIRE persistence for T-A6 COMPLETE · (4) REJECT |
-| **Recommandation Cursor/ChatGPT** | (2) — D1–D5 + docs/CI + GO Morris ; accepter U-M02 OPEN **documenté** pour COMPLETE mémoire ; exiger traitement/acceptation R-M01 et C1–C4 |
-| **Impacts** | clôture T-A6 vs product |
-| **Dette** | U-M02 reporté |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
+| **Choix** | **A4.1** — COMPLETE mémoire borné |
+| **Date** | 2026-07-28 07:14:00 CEST |
+| **Norme** | D1–D5 + docs/CI + réserves CLOSED/ACCEPTED/bornées + U-M02 OPEN seulement si acceptation mémoire explicite + R-M01/C1–C4 arbitrés ou bornés + **T6-C15** + GO Morris dédié ultérieur |
+| **Impacts** | définition **DEFINED** · T-A6 COMPLETE **NOT DECLARED** · persistence **NOT SELECTED** · real execution **NOT AUTHORIZED** |
+| **Dette** | U-M02 / R-M01 / C1–C4 à traiter avant déclaration |
 | **Réversibilité** | moyenne |
 | **Gate futur** | `GO DECLARE T-A6 COMPLETE` (ultérieur, distinct) |
 
@@ -70,157 +103,135 @@
 
 | Champ | Contenu |
 |-------|---------|
-| **Statut** | `NOT DECIDED` |
-| **Question** | Confirmer que « foundation complete » = FD/FA/UX/Modeled/AT VALIDATED (déjà vrai) ? |
-| **Options** | (1) CONFIRM · (2) REDEFINE |
-| **Recommandation Cursor/ChatGPT** | (1) CONFIRM — ne pas confondre avec product COMPLETE |
-| **Impacts** | vocabulaire |
-| **Dette** | nulle si confirmé |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
+| **Choix** | **A2.1** — CONFIRM foundation = FD/FA/UX/Modeled/AT VALIDATED dans taxonomie à 6 niveaux |
+| **Date** | 2026-07-28 07:14:00 CEST |
+| **Impacts** | taxonomie foundation **DEFINED** · ≠ product COMPLETE |
+| **Dette** | nulle |
 | **Réversibilité** | haute |
-| **Gate futur** | inclus dans review framing |
+| **Gate futur** | — |
 
 ### D-T-A7-F06 — Option A product complete
 
 | Champ | Contenu |
 |-------|---------|
-| **Statut** | `NOT DECIDED` |
-| **Question** | Que signifie Option A product complete (couche C) ? |
-| **Options** | (1) A+B + T-A6 COMPLETE mémoire · (2) A+B+C avec API/UI · (3) A+B+C+F cutover inclus · (4) Custom |
-| **Recommandation Cursor/ChatGPT** | (2) — produit opérable nécessite surfaces ; cutover (F) séparé |
-| **Impacts** | roadmap UI/API |
-| **Dette** | UI/API avant COMPLETE |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
+| **Choix** | **A3.2** — produit opérable : foundation + integrated runtime + API/UI minimale utilisable |
+| **Date** | 2026-07-28 07:14:00 CEST |
+| **Exclut auto** | cutover · production readiness · persistence · IAM complet · RGPD prod · obs prod |
+| **Impacts** | product complete **DEFINED** · Option A COMPLETE **NOT DECLARED** · API/UI exigence future · implémentation **NOT AUTHORIZED** ici |
+| **Dette** | UI/API avant satisfaction product complete |
 | **Réversibilité** | faible une fois communiqué |
-| **Gate futur** | gate critères Option A |
+| **Gate futur** | delivery produit / surfaces (ultérieur) |
 
 ### D-T-A7-F07 — Product complete vs production ready
 
 | Champ | Contenu |
 |-------|---------|
-| **Statut** | `NOT DECIDED` |
-| **Question** | Production ready (E) est-il requis pour product complete (C) ? |
-| **Options** | (1) SEPARATE — E non requis pour C · (2) MERGE — C implique E · (3) STAGED labels |
-| **Recommandation Cursor/ChatGPT** | (1) SEPARATE — évite inflation de COMPLETE |
-| **Impacts** | IAM/RGPD/RUN hors chemin critique produit étroit |
-| **Dette** | risque de sous-qualifier « produit » |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
+| **Choix** | **A2.1** — SEPARATE · `product complete ≠ production ready` |
+| **Date** | 2026-07-28 07:14:00 CEST |
+| **Impacts** | IAM/RGPD/RUN hors chemin critique product complete |
+| **Dette** | risque de sous-qualifier « produit » si mal communiqué |
 | **Réversibilité** | moyenne |
-| **Gate futur** | inclus review framing |
+| **Gate futur** | — |
 
 ### D-T-A7-F08 — Réserves obligatoires avant delivery
 
 | Champ | Contenu |
 |-------|---------|
 | **Statut** | `NOT DECIDED` |
-| **Question** | Quelles réserves doivent être CLOSED ou ACCEPTED avant delivery T-A7 ? |
-| **Options** | (1) R-T-A3-1/2 + B5/R1 strategy + R-M01 · (2) Toutes OPEN · (3) Aucune (delivery prep only) |
-| **Recommandation Cursor/ChatGPT** | (3) pour **delivery preparation** ; (1) avant **delivery code cutover-bound** |
-| **Impacts** | parallélisation possible |
-| **Dette** | si (3) trop long → dette technique |
-| **Réversibilité** | moyenne |
-| **Gate futur** | gate reserve arbitration |
+| **Note** | A5.2 (trajectoire) **ne consomme pas** F08 |
 
 ### D-T-A7-F09 — Réserves obligatoires avant cutover
 
 | Champ | Contenu |
 |-------|---------|
 | **Statut** | `NOT DECIDED` |
-| **Question** | Quelles réserves bloquent le cutover ? |
-| **Options** | (1) HARD + persistence/IAM/RGPD + MethodMode proofs · (2) HARD only · (3) Custom |
-| **Recommandation Cursor/ChatGPT** | (1) — cutover sans persistence/IAM est un faux cutover |
-| **Impacts** | retarde cutover |
-| **Dette** | faible vs risque blast radius |
-| **Réversibilité** | faible après cutover |
-| **Gate futur** | `GO AUTHORIZE T-A7 CUTOVER` (ultérieur) |
 
 ### D-T-A7-F10 — Ordre persistence / IAM / RGPD
 
 | Champ | Contenu |
 |-------|---------|
 | **Statut** | `NOT DECIDED` |
-| **Question** | Quel ordre cadrer/décider persistence, IAM, RGPD/Evidence ? |
-| **Options** | (1) Persistence+atomicité → IAM → RGPD/U-M02 · (2) IAM d’abord · (3) Parallèle borné · (4) Différer après UI |
-| **Recommandation Cursor/ChatGPT** | (1) — R1/R-T-A3-2 d’abord ; IAM pour authority réelle ; RGPD lié Evidence vendor |
-| **Impacts** | séquence post-framing |
-| **Dette** | cycles AT/sécurité |
-| **Réversibilité** | moyenne |
-| **Gate futur** | `GO FRAME OPTION A PERSISTENCE, IAM AND RGPD FOUNDATIONS` |
 
 ### D-T-A7-F11 — API/UI avant cutover
 
 | Champ | Contenu |
 |-------|---------|
 | **Statut** | `NOT DECIDED` |
-| **Question** | Une API/UI Option A native est-elle requise avant cutover ? |
-| **Options** | (1) OUI minimale · (2) NON si cutover technique headless · (3) OUI complète |
-| **Recommandation Cursor/ChatGPT** | (1) — preuves MethodMode/badges/UX cutover sinon non démontrables |
-| **Impacts** | delivery produit |
-| **Dette** | si (2) : cutover invisible |
-| **Réversibilité** | moyenne |
-| **Gate futur** | gate product delivery |
+| **Note** | A3.2 impose API/UI pour **product complete** ; F11 (cutover) reste distinct et `NOT DECIDED` |
 
 ### D-T-A7-F12 — Moment du hardening M1
 
 | Champ | Contenu |
 |-------|---------|
 | **Statut** | `NOT DECIDED` |
-| **Question** | Quand durcir approvals/strict/conversation resolution/bypass ? |
-| **Options** | (1) Maintenant · (2) Avant delivery T-A7 · (3) Avant cutover/production · (4) Jamais |
-| **Recommandation Cursor/ChatGPT** | (3) — NOT JUSTIFIED NOW pour framing ; REQUIRED BEFORE PRODUCTION |
-| **Impacts** | friction PR |
-| **Dette** | loose prolongé |
-| **Réversibilité** | haute |
-| **Gate futur** | gate hardening M1 |
 
 ### D-T-A7-F13 — Legacy history read-only
 
 | Champ | Contenu |
-|-------|--------|
+|-------|---------|
 | **Statut** | `NOT DECIDED` |
-| **Question** | Quelle politique pour l’historique OPS1/v2.6 après cutover ? |
-| **Options** | (1) Read-only ACL gated · (2) Archive offline only · (3) Purge après retention · (4) Keep writable legacy |
-| **Recommandation Cursor/ChatGPT** | (1) — aligné AT-11 ; interdire (4) |
-| **Impacts** | sécurité / RGPD |
-| **Dette** | ACL à construire |
-| **Réversibilité** | faible après purge |
-| **Gate futur** | inclus architecture cutover |
 
 ### D-T-A7-F14 — Validation du prochain cycle
 
 | Champ | Contenu |
-|-------|--------|
-| **Statut** | `NOT DECIDED` |
-| **Question** | Quel est le prochain cycle après correction du framing ? |
-| **Options** | (1) Re-review pack corrigé · (2) Décision Morris framing/définitions après PASS · (3) Arbitrage HARD/réserves · (4) Persistence/IAM/RGPD · (5) Delivery prep T-A7 immédiat |
-| **Recommandation Cursor/ChatGPT** | (1) puis (2) — **ne pas** sauter à (5) ; (3)/(4) après définitions |
-| **Impacts** | trajectoire ; empêche delivery prématuré |
+|-------|---------|
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
+| **Choix** | **A5.1** — formalisation documentaire des décisions puis PR readiness documentaire |
+| **Réserve Morris** | **Enchaîner ensuite sur A5.2 via un gate distinct** (arbitrage réserves / autorité / atomicité / B5 / R1 / R-T-A3-1 / R-T-A3-2 / R-M01 / C1–C4 si nécessaire) |
+| **Date** | 2026-07-28 07:14:00 CEST |
+| **Interdit** | A5.4 delivery preparation **non autorisé** comme conséquence |
+| **Impacts** | next = documentary PR readiness · A5.2 = trajectoire suivante **non exécutée** |
 | **Dette** | nulle si suivi |
 | **Réversibilité** | haute |
-| **Gate futur** | `GO RE-REVIEW T-A7 FRAMING PACK AFTER CORRECTIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` ; ensuite `GO DECIDE T-A7 FRAMING SCOPE AND OPTION A COMPLETION DEFINITIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` |
+| **Gate futur immédiat** | `GO REVIEW T-A7 MORRIS DECISION RECORD AND PREPARE DOCUMENTARY PR READINESS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` |
 
 ---
 
-## Séquence candidate après framing (non validée)
+## Séquence après décisions (normative partielle)
 
-| # | Étape | Cycle SFIA | Profil | Dépendances | Fichiers probables | Gate | Stop | Preuve |
-|---|-------|------------|--------|-------------|--------------------|------|------|--------|
-| 1 | Re-review pack corrigé puis décision Morris framing + critères | 9 / 1 / 15 | Critical | ce pack | pack T-A7 | `GO RE-REVIEW…` puis `GO DECIDE…` | reject → stop · **pas delivery** | décisions F01–F07 |
-| 2 | Arbitrage autorité / atomicité / réserves | 2 / 3 / 6 | Critical | F08 | docs décision · éventuellement T-A3/T-A1 | reserve arbitration | pas de runtime cutover | ACCEPTED/CLOSED plan |
-| 3 | Architecture persistence / IAM / RGPD | 6 / 10 | Critical | F10 | AT docs · threat/privacy | persistence/IAM/RGPD framing | pas DB live | ADR candidats |
-| 4 | Préparation delivery T-A7 | 1 / 6 | Critical | F03 | backlog · tests candidats | prepare delivery | pas code cutover | pack prep |
-| 5 | Delivery incrémental sous hold | 4 / 9 | Critical | F03/F08 | `app/**` boundaries · flags | delivery GO | pas activation | PRs + CI |
-| 6 | QA / sécurité / RUN | 9 / 10 / 12 | Critical | delivery | tests E2E · RUN pack | QA/RUN GO | pas cutover | preuves |
-| 7 | Décision cutover | 1 / 15 | Critical | F09 | decision pack cutover | authorize cutover | rollback non prêt → stop | GO cutover |
-| 8 | Cutover contrôlé | 7 / 12 | Critical | F09/F11/F13 | MethodMode/method/**/OPS1 | execute cutover | incident → hold | boundary proofs |
-| 9 | Post-merge / post-cutover | 9 / 15 | Critical | cutover | review docs | post-cutover review | — | review COMPLETE |
-| 10 | Capitalisation / cleanup | 15 | Standard | post | REX · branches | cleanup GO | — | cleanup evidence |
+| # | Étape | Statut | Gate |
+|---|-------|--------|------|
+| 1 | Enregistrement A1–A5 | **fait** (ce commit) | `GO RECORD…` consommé |
+| 2 | Review decision record + PR readiness documentaire | **suivant** | `GO REVIEW T-A7 MORRIS DECISION RECORD AND PREPARE DOCUMENTARY PR READINESS…` |
+| 3 | A5.2 — arbitrage réserves / autorité / atomicité | **trajectoire** · gate **distinct** requis | à formuler · **NOT CONSUMED** |
+| 4+ | F03/F08… delivery / cutover | **NOT DECIDED / NOT AUTHORIZED** | gates ultérieurs |
+
+---
+
+## Matrice d’état après décision
+
+| Objet | État |
+|-------|------|
+| framing T-A7 | **VALIDATED** |
+| modèle A/B/C/D | **ADOPTED** |
+| T-A7 OPEN | **NOT OPEN** |
+| delivery preparation | **NOT AUTHORIZED** |
+| delivery | **NOT AUTHORIZED** |
+| cutover | **NOT AUTHORIZED** |
+| T-A6 COMPLETE definition | **DEFINED** |
+| T-A6 COMPLETE | **NOT DECLARED** |
+| Option A foundation taxonomy | **DEFINED** |
+| Option A product complete definition | **DEFINED** |
+| Option A product complete | **NOT DECLARED** |
+| Option A COMPLETE | **NOT DECLARED** |
+| production readiness | **NOT DECLARED** |
+| réserves | **UNCHANGED** |
+| persistence/IAM/RGPD | **REQUIRES SEPARATE GATE** |
+| API/UI implementation | **NOT AUTHORIZED** |
+| prochain cycle | **DOCUMENTARY PR READINESS** |
+| cycle suivant | **A5.2 VIA DISTINCT MORRIS GATE** |
 
 ---
 
 ## Anti-claims
 
-Aucune décision D-T-A7-F* n’est **DECIDED**. Aucune recommandation n’est un GO. Aucune ouverture T-A7. Aucune clôture Option A. Aucune réserve fermée.
+Décision enregistrée ≠ critères satisfaits · framing validated ≠ T-A7 OPEN · T-A7 OPEN ≠ delivery · delivery ≠ cutover · T-A6 COMPLETE definition ≠ declaration · Option A product complete definition ≠ Option A COMPLETE · A5.1 ≠ PR autorisée · A5.2 trajectory ≠ A5.2 executed · F03/F08–F13 restent NOT DECIDED · aucune réserve fermée · aucun delivery/cutover.
 
 ---
 
 ## Verdict
 
-`MORRIS DECISION PACK T-A7 FRAMING READY FOR RE-REVIEW — ALL DECISIONS NOT DECIDED — NEXT GATE CANDIDATE NOT CONSUMED`
+`MORRIS DECISIONS RECORDED — A1.1 A2.1 A3.2 A4.1 A5.1 — F01 F02 F04 F05 F06 F07 F14 DECIDED — F03 AND F08 TO F13 NOT DECIDED — NO DECISION OVERREACH — T-A7 NOT OPEN`

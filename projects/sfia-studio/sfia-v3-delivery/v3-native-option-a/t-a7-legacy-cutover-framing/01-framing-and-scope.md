@@ -4,10 +4,10 @@
 |-------|--------|
 | **Document** | `01-framing-and-scope.md` |
 | **Pack** | `t-a7-legacy-cutover-framing` |
-| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **Statut** | **FRAMING VALIDATED — MORRIS A1.1** |
 | **T-A7** | **NOT OPEN** |
 | **Delivery / cutover / real execution** | **NOT AUTHORIZED** |
-| **Décisions** | D-T-A7-F01 · D-T-A7-F02 — **NOT DECIDED** |
+| **Décisions** | D-T-A7-F01 · D-T-A7-F02 — **`DECIDED — ACCEPTED BY MORRIS`** (A1.1 · 2026-07-28) |
 
 ---
 
@@ -58,7 +58,9 @@ T-A6 **ne lance pas** T-A7. Aucune exécution réelle ouverte par T-A6.
 | **C. Delivery** | code / frontières / flags / tests / migration progressive **sous hold** | prep validée + jeu préconditions C + F03/F08 | PRs + CI sous hold | delivery GO dédié (futur) | Git · CI · hold flags | revert commit · hold | activation cutover · claim COMPLETE non prouvé |
 | **D. Cutover** | retrait/désactivation effective legacy + preuves | delivery validé + jeu D + rollback prouvé + F09 | boundary proofs runtime | authorize + execute cutover (futurs) | preuves P03–P11 · rollback test · ACL | hold flag · restore | cutover sans rollback · élargissement hors Option A |
 
-**Règle :** ces quatre niveaux ne sont **pas** équivalents et **ne s’autorisent pas cumulativement**. Framing ≠ open ≠ delivery preparation ≠ delivery ≠ cutover ≠ real execution. La satisfaction d’un niveau inférieur n’autorise pas le suivant sans gate Morris dédié.
+**Règle (normative — A1.1 / F01 · F02) :** ces quatre niveaux sont **ADOPTED**. Ils ne sont **pas** équivalents et **ne s’autorisent pas cumulativement**. Framing ≠ open ≠ delivery preparation ≠ delivery ≠ cutover ≠ real execution. La satisfaction d’un niveau inférieur n’autorise pas le suivant sans gate Morris dédié.
+
+**Effets A1.1 :** framing T-A7 = **VALIDATED** · T-A7 OPEN = **NOT OPEN** · delivery preparation / delivery / cutover = **NOT AUTHORIZED**.
 
 ---
 
@@ -132,16 +134,16 @@ T-A6 **ne lance pas** T-A7. Aucune exécution réelle ouverte par T-A6.
 | Framing = ouverture T-A7 ? | **Non** |
 | HARD R-T-A3 bloquent-ils le framing ? | **Non** — ils bloquent delivery/cutover/real execution |
 | Persistence/IAM/RGPD requis pour framing ? | **Non** — requis avant delivery/real execution/cutover selon matrice |
-| UI/API requise pour framing ? | **Non** — à arbitrer pour cutover (D-T-A7-F11) |
+| UI/API requise pour framing ? | **Non** — exigence future de **product complete** (A3.2 / F06) ; F11 cutover reste `NOT DECIDED` |
 
 ---
 
 ## 7. Anti-claims
 
-Pas T-A7 OPEN · Pas T-A7 COMPLETE · Pas READY FOR DELIVERY · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas RESERVE CLOSED · Pas Option A COMPLETE · Pas T-A6 COMPLETE · Pas DECIDED pour D-T-A7-F*.
+Pas T-A7 OPEN · Pas T-A7 COMPLETE · Pas READY FOR DELIVERY · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas RESERVE CLOSED · Pas Option A COMPLETE · Pas T-A6 COMPLETE · framing VALIDATED ≠ T-A7 OPEN · F03/F08–F13 restent NOT DECIDED.
 
 ---
 
 ## 8. Verdict documentaire
 
-`T-A7 FRAMING SCOPE DEFINED — LEVEL A ONLY — DELIVERY AND CUTOVER OUT OF SCOPE — MORRIS VALIDATION REQUIRED`
+`T-A7 FRAMING SCOPE VALIDATED BY MORRIS A1.1 — LEVELS A/B/C/D ADOPTED — LEVEL A ONLY EXECUTED — T-A7 NOT OPEN — DELIVERY AND CUTOVER NOT AUTHORIZED`

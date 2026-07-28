@@ -3,9 +3,10 @@
 | Champ | Valeur |
 |-------|--------|
 | **Document** | `04-reservations-risks-and-stop-conditions.md` |
-| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **Statut** | **FRAMING VALIDATED — RÉSERVES INCHANGÉES — F08/F09 NOT DECIDED** |
 | **T-A7** | **NOT OPEN** |
 | **Réserves fermées dans ce cycle** | **aucune** |
+| **Note** | A5.2 (trajectoire) ≠ exécution · ne consomme pas F08 |
 
 ---
 

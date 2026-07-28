@@ -3,8 +3,8 @@
 | Champ | Valeur |
 |-------|--------|
 | **Document** | `02-t-a7-cutover-preconditions.md` |
-| **Statut** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
-| **Matrice** | `RECOMMENDATION — NOT DECIDED` |
+| **Statut** | **FRAMING VALIDATED (A1.1) — PRECONDITION MATRIX FOR B/C/D STILL CANDIDATE** |
+| **Matrice B/C/D** | `RECOMMENDATION — NOT DECIDED` (F03 · F08 · F09) |
 | **T-A7** | **NOT OPEN** |
 | **Delivery / cutover** | **NOT AUTHORIZED** |
 
