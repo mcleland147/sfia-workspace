@@ -1,1478 +1,1588 @@
-# ChatGPT Review Pack — FULL — Accelerated T-A7 Next-Step Decision Integration
+# ChatGPT Review Pack — FULL — T-A7 Option C Wave 1 Legacy Scope Framing
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-28 13:56:16 CEST (+0200) |
-| **Cycle / profil** | 13 PR readiness (+9 · 14 · 15 · 1) · Critical |
-| **Gate consommé** | `GO ACCELERATED REVIEW PUBLISH PR MERGE AND POST-MERGE FOR T-A7 NEXT-STEP DECISION RECORD — PUSH BRANCH — CREATE PR — MERGE ONLY IF REQUIRED CHECKS PASS AND SCOPE REMAINS EXACT — NO BRANCH DELETION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 14:43:17 CEST (+0200) |
+| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
+| **Gate consommé** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — READ-ONLY DOCUMENTARY FRAMING — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-next-decision` |
-| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step` |
-| **Base historique** | `53bff7fac6e25c7db34ee48fbb56503ab416cad3` |
-| **HEAD publié** | `33ea3e87facc8c99c9c5619d6d2424030d3918a2` |
-| **Merge commit** | `7a3e512f562f480c345a12a744806aa4f2ef625b` |
-| **origin/main** | `7a3e512f562f480c345a12a744806aa4f2ef625b` |
-| **Tree merge** | `025ca7a5d8074dfca679a35a029907f7b1872fd3` |
-| **Parents merge** | `53bff7fa…` + `33ea3e87…` |
-| **mergedBy** | `mcleland147` |
-| **mergedAt** | 2026-07-28T11:53:22Z |
-| **Merge timestamp local** | 2026-07-28 13:53:20 CEST (+0200) |
-| **PR** | #282 · https://github.com/mcleland147/sfia-workspace/pull/282 |
-| **Branche source** | **préservée** @ `33ea3e87…` |
-| **Push contenu projet** | **aucun nouveau commit** après `33ea3e87…` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope` |
+| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
+| **Base / HEAD / Parent** | `7a3e512f562f480c345a12a744806aa4f2ef625b` / `e16201ee9e9de971625c272627102d8499940fa7` / `7a3e512f…` |
+| **Upstream / remote projet** | **aucun** / **absente** |
+| **Status** | clean après commit |
+| **Push projet** | **non** |
 
 ## Verdict exact
 
-`T-A7 NEXT-STEP DECISION RECORD REVIEWED PUBLISHED AND MERGED — REQUIRED CHECKS PASS — MORRIS DECISIONS D01=.1 D02=.3 D03=.1 D04=.1 D05=.3 CONFIRMED ON MAIN — OPTION C TRAJECTORY ADOPTED WITHOUT OPENING ANY WAVE — TECHNICAL RESERVES REMAIN OPEN — F08 F09 AND F10 TIMING DECIDED WHILE CONTENT REMAINS NOT DECIDED — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — SOURCE BRANCH PRESERVED — POST-MERGE VERIFIED`
+`T-A7 OPTION C WAVE 1 LEGACY AND SCOPE FRAMING COMPLETED — METHODMODE METHOD DIRECTORY AND OPS1 INVENTORIED — DEPENDENCIES AND FUTURE REMOVAL OPTIONS DOCUMENTED — MORRIS DECISIONS PREPARED WITHOUT PRESELECTION — F03 F11 AND F13 REMAIN NOT DECIDED — TECHNICAL RESERVES REMAIN OPEN — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
 
-## Chaîne exécutée
+## Gate candidat
 
-| Étape | Verdict |
-|-------|---------|
-| Truth check | HEAD/parent/base exacts · 2 commits · clean · pack-only |
-| Revue finale | D01–D05 adoptés · Option C trajectoire · T-A7 NOT OPEN · pas d’overreach |
-| PR readiness | `T-A7 NEXT-STEP DECISION RECORD PR READY` |
-| Push | `PROJECT BRANCH PUSHED — REMOTE HEAD VERIFIED` |
-| PR | #282 créée · scope exact 6 fichiers · +639/−0 · 2 commits |
-| Checks PR | run `30356436296` SUCCESS · Detect/Build/Required Gate SUCCESS |
-| Merge | merge commit · `PR MERGED — SOURCE BRANCH PRESERVED` |
-| Post-merge | run `30356608584` SUCCESS · blobs main = HEAD · `T-A7 NEXT-STEP DECISION RECORD POST-MERGE VERIFIED` |
+`GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
 
-## Commits
+**Statut :** `NOT CONSUMED`
 
-1. `019ce31f2efc45f0a6f53e1b1420102702a994f1` — `docs(sfia-studio): close A5.2 and frame next T-A7 decision step`
-2. `33ea3e87facc8c99c9c5619d6d2424030d3918a2` — `docs(sfia-studio): record Morris T-A7 next-step decisions`
-3. Merge `7a3e512f562f480c345a12a744806aa4f2ef625b` — Merge pull request #282
-
-## Scope / blobs sur main
-
-| Fichier | Blob |
-|---------|------|
-| README.md | `4a0ad4942ea5734690076d0fee9b5896fa5dc7b6` |
-| 01-a5-2-documentary-closure.md | `329606765520f6ba392e078244abe5ca8c4b4d1b` |
-| 02-t-a7-decision-landscape.md | `26ab19220b518ac4064c78f6099865ebbc8f1894` |
-| 03-open-reserves-and-gates.md | `769ebb115e5be7164ff1367b9dace3f9948093e6` |
-| 04-sequencing-options.md | `77b02b95162f11b25fa61a5fe076c8a360a497b2` |
-| 05-morris-decision-pack.md | `be080d725ac82664e8dad085fc02a04805bbf317` |
-
-Cumulatif `53bff7fa…`→`7a3e512…` : 6×A · +639/−0 · pack only.
-
-## Décisions confirmées sur main
-
-| ID | Choix | Statut |
-|----|-------|--------|
-| T-A7-D01 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D02 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D03 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
-
-**Option C :** `DECIDED — ADOPTED BY MORRIS` · **aucune vague ouverte**
-
-## Gouvernance
-
-| Item | Statut |
-|------|--------|
-| B5 / R1 / R-M01 | `OPEN` |
-| R-T-A3-1 / R-T-A3-2 | `OPEN HARD` |
-| F08/F09/F10 | calendrier décidé · contenu `NOT DECIDED` |
-| F03 / F11–F13 | `NOT DECIDED` |
-| F04 | `DECIDED — UNCHANGED` |
-| T-A6 COMPLETE | `NOT DECLARED` |
-| Option A | `NOT COMPLETE` |
-| T-A7 | `NOT OPEN` |
-| Delivery prep / delivery / cutover | `NOT AUTHORIZED` |
-| Persistence / IAM / RGPD | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
-
-## Checks PR (#282)
-
-| Job | ID | Conclusion |
-|-----|-----|------------|
-| Detect SFIA Studio changes | 90265620101 | SUCCESS |
-| Build and validate SFIA Studio | 90265643155 | SUCCESS |
-| SFIA Studio Required Gate | 90265931878 | SUCCESS |
-
-Run : `30356436296` · SUCCESS · warnings : aucun bloquant · aucun required skipped/pending/failed
-
-## Checks post-merge (main)
-
-| Job | ID | Conclusion |
-|-----|-----|------------|
-| Detect SFIA Studio changes | 90266167013 | SUCCESS |
-| Build and validate SFIA Studio | 90266205124 | SUCCESS |
-| SFIA Studio Required Gate | 90266513742 | SUCCESS |
-
-Run : `30356608584` · SUCCESS
-
-## Findings
-
-Critical / Major / Minor = **0 / 0 / 0**
-
-Observation : branche source volontairement préservée (gate + body PR).
-
-## Actions non exécutées
-
-- modification contenu projet · 3e commit · amend · rebase · force push
-- suppression branche / worktree
-- ouverture T-A7 / vague Option C
-- delivery prep / delivery / cutover
-- fermeture réserve · conso contenu F · COMPLETE · persistence/IAM
-- runtime/modeled/workflow/method/OPS1 · Notion/CMP
-
----
-
-## Contenu complet des six fichiers (origin/main)
-
-
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/README.md`
-
-```markdown
-# T-A7 — Next Decision Step Framing (après A5.2)
+## Commit / blobs
 
 | Champ | Valeur |
 |-------|--------|
-| **Gate framing (historique)** | `GO CLOSE A5.2 DOCUMENTARY INTEGRATION AND FRAME NEXT T-A7 DECISION STEP — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Gate décisions consommé** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
-| **Cycle / profil** | 15 — Capitalisation / enregistrement de décisions (+1 · 2 · 9 · 13) · Critical |
-| **Base historique** | `origin/main` @ `53bff7fac6e25c7db34ee48fbb56503ab416cad3` |
-| **Commit framing parent** | `019ce31f2efc45f0a6f53e1b1420102702a994f1` |
-| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step` |
-| **Worktree local** | `sfia-workspace-t-a7-next-decision` (hors repo path absolu) |
-| **Statut pack** | `MORRIS T-A7-D01…D05 RECORDED — IMPLEMENTATION AND WAVE OPENING NOT AUTHORIZED` |
-| **A5.2 documentaire** | `CLOSED` |
-| **Option C (séquencement)** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague ouverte** |
-| **Réserves techniques** | `OPEN` / `OPEN HARD` (inchangées) |
+| Commit | `e16201ee9e9de971625c272627102d8499940fa7` |
+| Message | `docs(sfia-studio): frame T-A7 Option C wave 1 legacy scope` |
+| Scope | 9×A · +704/−0 · pack only |
+| README | `baf31659171213ba1f22fc5bef85147654a38442` |
+| 01 | `98a88e463251d9e0a3e999572878ac4e96a0dd67` |
+| 02 | `18ced263ec4db8a750899817595b594d33a35aa7` |
+| 03 | `834ddf0051d2d64aef1dee771ef49e36ce993bc7` |
+| 04 | `14ecc67bbbebc5f5d21a836c19e3834c00980f73` |
+| 05 | `1d4e7a55c275359b2178396e982d3d8736926c69` |
+| 06 | `e87ec9db2e5cddc516c3abe46b7ad098f681f577` |
+| 07 | `4f02388b04a952450a5185b9ffb16218cba4d596` |
+| 08 | `9fbd2295998de966aa51421e174b239a34b403b0` |
+
+## Recherches
+
+Exact/CI/case · chemins · concepts legacy/allowlist/canonical · prompts · docs · tests · gitignore `.sfia-exec` · négatif CI sans `method/`.
+
+## Synthèses inventaires
+
+- **MethodMode :** ACTIVE D1 (enum/DB/UI/commands) ; OA antiLegacy ; 3 valeurs ; default V3_CANDIDATE
+- **method/** :** 263 fichiers ; core/automation/prompts ACTIVE ; archive candidat ; OPS1 allowlist `method/`
+- **OPS1 :** POC runtime `lib/ops1` + docs 41–65 + e2e ; isolé de D1 ; F13/P10–P11
+- **Options :** W1-A/B/C · reco W1-B `RECOMMENDED — NOT DECIDED`
+- **Décisions :** T-A7-W1-D01…D05 `MORRIS DECISION REQUIRED`
+
+## Gouvernance
+
+B5/R1/R-M01 OPEN · HARD OPEN HARD · F03/F11/F13 NOT DECIDED · F08–F10 contenu NOT DECIDED · T-A6 NOT DECLARED · Option A NOT COMPLETE · T-A7 NOT OPEN · delivery/cutover NOT AUTHORIZED
+
+## Findings
+
+Critical/Major/Minor = **0 / 0 / 0**
+
+Observations : (1) volume DB MethodMode par valeur UNKNOWN ; (2) profondeur lecture disque `method/**` via canonical resolver = INFERRED ; (3) CI n’importe pas `method/` — usage via prompts/OPS1.
+
+## Actions non exécutées
+
+push/PR · mod method/OPS1/runtime/modeled/workflow/CI/tests · ouverture T-A7/vague · conso F · fermeture réserve · COMPLETE · Notion/CMP
+
+---
+
+## Contenu complet des fichiers créés
+
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md`
+
+```markdown
+# T-A7 Option C — Wave 1 Framing — Legacy and Scope Inventory
+
+| Champ | Valeur |
+|-------|--------|
+| **Gate consommé** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — READ-ONLY DOCUMENTARY FRAMING — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 14:39:41 CEST (+0200) |
+| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
+| **Base** | `origin/main` @ `7a3e512f562f480c345a12a744806aa4f2ef625b` |
+| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
+| **Worktree local** | `sfia-workspace-t-a7-wave-1-legacy-scope` (hors path absolu) |
+| **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague technique ouverte** |
+| **Vague 1** | **cadrage documentaire uniquement** (inventaire) |
 | **T-A7** | `NOT OPEN` |
-| **Delivery preparation** | `NOT AUTHORIZED` |
-| **Delivery** | `NOT AUTHORIZED` |
-| **Cutover** | `NOT AUTHORIZED` |
+| **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
+| **F03 / F11 / F13** | `NOT DECIDED` (préparés, non consommés) |
+| **F08 / F09 / F10** | calendrier décidé (T-A7-D05) · contenu `NOT DECIDED` |
+| **B5 / R1 / R-M01** | `OPEN` |
+| **R-T-A3-1 / R-T-A3-2** | `OPEN HARD` |
 | **T-A6 COMPLETE** | `NOT DECLARED` |
 | **Option A** | `NOT COMPLETE` |
-| **F03 / F08–F13 contenu** | `NOT DECIDED` |
-| **F08/F09/F10 calendrier** | timing adopté (T-A7-D05=.3) — contenu toujours `NOT DECIDED` |
-| **F04** | `DECIDED — UNCHANGED` |
 | **Persistence / IAM / RGPD prod** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
 | **Push / PR** | **aucun** |
 
 ## Objectif
 
-1. Enregistrer strictement les décisions Morris T-A7-D01…D05.
-2. Adopter documentairement le séquencement Option C (gates/vagues) **sans** ouvrir de vague.
-3. **Ne pas** ouvrir T-A7 · **ne pas** autoriser delivery/cutover · **ne pas** fermer de réserve · **ne pas** consommer le contenu des décisions F.
-
-## Décisions Morris enregistrées
-
-| ID | Choix | Sens résumé | Statut |
-|----|-------|-------------|--------|
-| T-A7-D01 | `.1` | cadrage documentaire complémentaire borné **futur** (gate séparé) · sans B/C/D | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D02 | `.3` | séquencement Option C (5 vagues) · **aucune vague ouverte** | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D03 | `.1` | sujets techniques peuvent rester ouverts pendant framing documentaire | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D04 | `.1` | HARD/B5 ne bloquent pas *par elles-mêmes* une future prep documentaire | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D05 | `.3` | calendrier F : F08 avant delivery · F09 avant Critical/cutover · F10 avant persistence/IAM durable | `DECIDED — ADOPTED BY MORRIS` |
+Produire un inventaire documentaire exploitable de MethodMode, de `method/**`, d’OPS1 et de leurs dépendances, afin de préparer les arbitrages futurs F03 / F11 / F13 **sans** modifier ces composants et **sans** ouvrir T-A7.
 
 ## Périmètre
 
-- enregistrement documentaire T-A7-D01…D05 ;
-- adoption Option C comme **trajectoire** (pas comme exécution) ;
-- conservation des réserves, stops A5.2 et anti-claims.
+- inventaire MethodMode (runtime D1, UI, tests, docs) ;
+- inventaire `method/**` (structure, consommateurs, candidats) ;
+- inventaire OPS1 (docs, runtime `app/lib/ops1`, allowlist, ACL/frontières) ;
+- carte de dépendances et frontières de scope T-A7 ;
+- options W1-A/B/C · validations / rollback / stops ;
+- bulletin Morris T-A7-W1-D01…D05 (`MORRIS DECISION REQUIRED`).
 
 ## Hors périmètre
 
-- ouverture T-A7 niveaux B/C/D · ouverture d’une vague Option C ;
+- modification / suppression `method/**` · OPS1 · runtime · modeled · workflow · tests applicatifs · CI ;
+- ouverture technique de vague · T-A7 B/C/D ;
 - delivery preparation / delivery / cutover ;
-- implémentation runtime / modeled / workflow / `method/**` / OPS1 ;
-- fermeture B5 / R1 / R-T-A3-1 / R-T-A3-2 / R-M01 ;
-- validation C1–C4 · consommation contenu F03/F08–F13 ;
-- déclaration T-A6 COMPLETE / Option A COMPLETE ;
-- sélection persistence / IAM.
+- fermeture de réserves · consommation F03/F08–F13 ;
+- sélection persistence / IAM · déclaration COMPLETE.
 
-## Fichiers
+## Sources principales
+
+| Source | Rôle |
+|--------|------|
+| Pack T-A7 next-step (PR #282) | Option C · D01–D05 · vague 1 = legacy/périmètre |
+| Pack T-A7 legacy/cutover (PR #280) | P03–P11 · SC-02…SC-05 · F03/F11/F13 |
+| Code `app/lib/d1` · `app/features/d1` | MethodMode ACTIVE |
+| Code `app/lib/ops1` · `app/features/ops1` | OPS1 ACTIVE + allowlist `method/` |
+| Arbre `method/` | méthode Fast Track + complementary |
+| Template SFIA cycle | méthode d’exécution |
+
+## Livrables
 
 | Fichier | Rôle |
 |---------|------|
-| `01-a5-2-documentary-closure.md` | Preuve clôture documentaire A5.2 (inchangé) |
-| `02-t-a7-decision-landscape.md` | Paysage + effets post-décisions |
-| `03-open-reserves-and-gates.md` | Matrice réserves / gates + calendrier F |
-| `04-sequencing-options.md` | Options A/B/C · Option C adoptée |
-| `05-morris-decision-pack.md` | Bulletin T-A7-D01…D05 enregistré |
-
-## Anti-claims
-
-- `DECIDED — ADOPTED BY MORRIS` ≠ vague ouverte ≠ T-A7 `OPEN`
-- Option C adoptée ≠ exécution lancée
-- T-A7-D01 `.1` ≠ cadrage complémentaire déjà ouvert
-- T-A7-D04 `.1` ≠ delivery preparation `AUTHORIZED`
-- T-A7-D05 `.3` = calendrier F ≠ contenu F `DECIDED`
-- A5.2 `CLOSED` (documentaire) ≠ réserves `CLOSED`
-- T-A7 framing pack (PR #280) `VALIDATED` ≠ T-A7 ouvert
-- aucun delivery / cutover autorisé
-- T-A6 / Option A restent non COMPLETE
-
-## Verdict
-
-`MORRIS T-A7 NEXT-STEP DECISIONS RECORDED — D01=.1 D02=.3 D03=.1 D04=.1 D05=.3 ADOPTED — OPTION C GATE-BASED SEQUENCING ADOPTED WITHOUT OPENING ANY WAVE — TECHNICAL RESERVES REMAIN OPEN — F08 F09 AND F10 TIMING DECIDED BUT CONTENT REMAINS NOT DECIDED — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 NOT DECLARED COMPLETE — OPTION A NOT COMPLETE — PROJECT BRANCH NOT PUSHED`
-
-## Gate candidat suivant
-
-`GO REVIEW MORRIS T-A7 NEXT-STEP DECISION RECORD — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
-
-**Statut :** `NOT CONSUMED`
-```
-
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/01-a5-2-documentary-closure.md`
-
-```markdown
-# 01 — Clôture documentaire A5.2
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | `A5.2 DOCUMENTARY INTEGRATION CLOSED` |
-| **PR** | #281 · MERGED |
-| **Merge commit** | `53bff7fac6e25c7db34ee48fbb56503ab416cad3` |
-| **Parents** | `9f578ea…` + `bd3608c…` |
-| **Tree** | `75f903b3c3f4779dce897922edf97b212e3bc9bd` |
-| **Run post-merge** | `30343103225` · SUCCESS |
-| **Pack** | `a5-2-reservations-authority-atomicity-framing/` |
-
-## 1. Preuve d’intégration
-
-| Élément | Valeur |
-|---------|--------|
-| Base pré-merge | `9f578ea1677ce65cffb4b05ddf5649a21a5b240c` |
-| Head source | `bd3608c6220e820cc3fa017422a7564a565a1296` |
-| Commits source | `cd7c00e…` (framing) · `bd3608c…` (décisions) |
-| Scope | 7 fichiers · +785/−0 · pack only |
-| Checks PR | Detect / Build / Required Gate SUCCESS (`30341472032`) |
-| Checks post-merge | Detect `90222984648` · Build `90223022463` · Required Gate `90223349307` — SUCCESS |
-
-### Blobs sur `main` (inchangés)
-
-| Fichier | Blob |
-|---------|------|
-| README.md | `146eb122b898b21b6a8bda3f14d57c8f60253d05` |
-| 01-scope-and-source-truth.md | `884ed9a9940c628a61d91a0b433645434766eeee` |
-| 02-reservation-dependency-matrix.md | `5cadcde061fb3c350ac52a222dc5da7614e4ce2c` |
-| 03-authority-model-and-gaps.md | `87bf876878427964e81a4ffd35b8e0b8beab3a3e` |
-| 04-atomicity-model-and-options.md | `f693709a487d8023b9fa9e7b9afd61b87351c691` |
-| 05-r-m01-and-c1-c4-assessment.md | `1d1b8cf5d3ba50e792ec061a29c9b6575660baeb` |
-| 06-morris-arbitration-pack.md | `0fd1c10a3ef92e1f9ea24634f6394a3ca5dcddda` |
-
-## 2. Sens de la clôture
-
-`A5.2 DOCUMENTARY INTEGRATION CLOSED` signifie **uniquement** :
-
-- pack cadré ;
-- décisions Morris A52-D01…D05 enregistrées ;
-- PR #281 intégrée ;
-- checks PASS ;
-- contenu versionné sur `main` ;
-- preuves Git disponibles.
-
-Elle **ne signifie jamais** :
-
-- réserve fermée ;
-- implémentation terminée ;
-- T-A6 COMPLETE ;
-- Option A COMPLETE ;
-- T-A7 OPEN ;
-- delivery / cutover autorisés.
-
-## 3. Réalisé / non réalisé
-
-### Réalisé
-
-- cadrage réserves / autorité / atomicité ;
-- cinq décisions Morris (A52-D01…D05) ;
-- normes : simulation Critical · mémoire bornée · STOP BEFORE DELIVERY · C4→B5 tracking · C1–C3→R-M01 ;
-- préparation documentaire F08/F09/F10 **sans** consommation.
-
-### Non réalisé
-
-- API Critical (`.1`) · persistence · IAM ;
-- fermeture B5 / R1 / R-T-A3-1 / R-T-A3-2 / R-M01 ;
-- validation C1–C4 ;
-- consommation F03/F08–F13 ;
-- ouverture T-A7 · delivery · cutover.
-
-## 4. Décisions Morris A5.2 (versionnées sur main)
-
-| ID | Choix | Statut |
-|----|-------|--------|
-| A52-D01 | `.3` + `STOP BEFORE DELIVERY` | `DECIDED — ADOPTED BY MORRIS` |
-| A52-D02 | `.2` | `DECIDED — ADOPTED BY MORRIS` |
-| A52-D03 | `.3` puis `.1` avant real Critical | `DECIDED — ADOPTED BY MORRIS` |
-| A52-D04 | `.4` | `DECIDED — ADOPTED BY MORRIS` |
-| A52-D05 | `.2 + .4` | `DECIDED — ADOPTED BY MORRIS` |
-
-## 5. Statuts techniques inchangés
-
-| Item | Statut |
-|------|--------|
-| B5 / R1 / R-M01 | `OPEN` |
-| R-T-A3-1 / R-T-A3-2 | `OPEN HARD` |
-| C1–C3 | `RECOMMENDED — NOT VALIDATED` |
-| C4 | `TRACKING MERGED INTO B5 — NOT VALIDATED` |
-| F04 | `DECIDED — UNCHANGED` |
-| F03 / F08–F13 | `NOT DECIDED` |
-| T-A6 COMPLETE | `NOT DECLARED` |
-| Option A | `NOT COMPLETE` |
-| T-A7 | `NOT OPEN` |
-| Delivery preparation / delivery / cutover | `NOT AUTHORIZED` |
-| Persistence / IAM | `NOT SELECTED` |
-| RGPD production | `NOT VALIDATED` |
-
-## Verdict
-
-`A5.2 DOCUMENTARY CLOSURE CONFIRMED — TECHNICAL RESERVES REMAIN OPEN`
-```
-
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/02-t-a7-decision-landscape.md`
-
-```markdown
-# 02 — Paysage décisionnel T-A7 (post-A5.2)
-
-| Champ | Valeur |
-|-------|--------|
-| **T-A7** | `NOT OPEN` |
-| **Niveaux A–D** | ADOPTED (A1.1) — transitions = gates distincts |
-| **Framing T-A7 (pack #280)** | VALIDATED — **≠** T-A7 ouvert |
-| **Séquencement** | Option C `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague ouverte** |
-| **Cadrage complémentaire borné** | autorisable ultérieurement (T-A7-D01=.1) · **pas ouvert** |
-| **Ce document** | cartographie mise à jour · **pas** une autorisation d’exécution |
-
-## 1. Niveaux T-A7 (rappel)
-
-| Niveau | Contenu | Statut maintenant |
-|--------|---------|-------------------|
-| A. Framing | définition · préconditions · critères · aucune modif runtime | pack VALIDATED · **T-A7 NOT OPEN** |
-| B. Delivery preparation | backlog · AT · plan · tests candidats · aucun cutover | `NOT AUTHORIZED` |
-| C. Delivery | code/frontières · hold flags · migration progressive | `NOT AUTHORIZED` |
-| D. Cutover | retrait/désactivation · preuves · rollback · GO dédié | `NOT AUTHORIZED` |
-
-## 2. Sujets ouverts
-
-Légende effets : **N** = non · **Y** = oui · **C** = candidate / selon F · **I** = indirect · **S** = stop documentaire A52
-
-| Sujet | Statut actuel | Framing | Delivery prep | Delivery | Real Critical | Gate Morris | Dépendances |
-|-------|---------------|---------|---------------|----------|---------------|-------------|-------------|
-| Dette legacy / MethodMode / `method/**` | PARTIAL / MISSING (P03–P09, P24) | N (inventaire OK · D03=.1) | C (F03) | Y | I | F03 · F11 · vague 1 future | AT-11 · UX |
-| OPS1 isolation | PARTIAL (P10) | N | C | Y | I | F13 | shared surfaces |
-| B5 LPS satellites | `OPEN` + A52-D01 STOP before delivery · D04=.1 | N | N (peut rester ouvert pour *future* prep) | **S/Y** | I | F08 · A52-D01 | T-A1 · C4 |
-| R1 Project↔Cycle | `OPEN` · A52-D02 `.2` · D03=.1 | N | N (stratégie) | Y | Y | F08 · F10 | persistence |
-| Autorité Critical | R-T-A3-1 `OPEN HARD` · A52-D03 · D03=.1 | N | N (design) | C | **Y HARD** | F09 · F10 · vague 2 | IAM |
-| Atomicité Decision links | R-T-A3-2 `OPEN HARD` · A52-D04 · D03=.1 | N | N (design) | Y | **Y HARD** | F08 · F10 · vague 3 | R1 |
-| Persistence | `NOT SELECTED` | N | design OK | Y | Y | F10 (calendrier D05) | R1 · U-M02 |
-| IAM | `NOT SELECTED` | N | design OK | C | Y | F10 (calendrier D05) | R-T-A3-1/3 |
-| F08 réserves avant delivery | contenu `NOT DECIDED` · timing = avant delivery (D05) | N | C | Y | I | F08 bulletin | A52-D01/D02/D04 |
-| F09 Critical/cutover | contenu `NOT DECIDED` · timing = avant Critical/cutover (D05) | N | C | C | Y | F09 bulletin | A52-D03 |
-| F10 persistence/IAM order | contenu `NOT DECIDED` · timing = avant durable (D05) | N | C | Y | Y | F10 bulletin | A52-D02/D03/D04 |
-| R-M01 / C1–C3 | `OPEN` / NOT VALIDATED · A52-D05 · D03=.1 | N | C | C | I | F04 bornage | T-A6 |
-| Cutover (niveau D) | `NOT AUTHORIZED` | N | N | N | I | F09 + GO D · vague 5 | legacy + HARD |
-| Real Critical execution | `NOT AUTHORIZED` | N | N | N | **Y** | A52-D03 `.1` + F09 | API + IAM |
-
-## 3. Effets A5.2 + T-A7-D0x sur le paysage
-
-- **Autorité** : simulation/read-only maintenant ; `.1` obligatoire avant real Critical (précondition future, pas implémentation).
-- **Atomicité** : mémoire/logique maintenant ; durable avant real execution ; R1 et R-T-A3-2 restent ouverts.
-- **B5** : tracking C4 fusionné ; **STOP BEFORE DELIVERY** (pas avant delivery preparation) — confirmé T-A7-D04=.1.
-- **R-M01/C*** : rattachement + bornage avant future déclaration T-A6 COMPLETE ; F04 UNCHANGED.
-- **Séquencement** : Option C adoptée ; vagues 1–5 = gates futurs uniquement.
-- **Calendrier F** : D05=.3 · contenu F08/F09/F10 toujours `NOT DECIDED`.
-- **Aucune F** consommée automatiquement.
-
-## 4. Ce que ce pack n’autorise pas
-
-- ouvrir T-A7 ;
-- ouvrir une vague Option C ;
-- entrer en delivery preparation / delivery / cutover ;
-- sélectionner persistence ou IAM ;
-- déclarer T-A6 ou Option A COMPLETE ;
-- fermer une réserve technique ;
-- consommer le contenu de F03/F08–F13.
-```
-
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/03-open-reserves-and-gates.md`
-
-```markdown
-# 03 — Réserves ouvertes et gates
-
-| Champ | Valeur |
-|-------|--------|
-| **Nature** | matrice alignée T-A7-D03=.1 · T-A7-D04=.1 · T-A7-D05=.3 · **pas** une fermeture |
-| **Séquencement** | Option C adoptée · **aucune vague ouverte** |
-| **T-A7** | `NOT OPEN` |
-| **Aucune réserve fermée ici** | oui |
-
-## 1. Matrice réserves / gates
-
-Légende : **N** = non · **Y** = oui · **C** = candidate · **I** = indirect · **S** = stop A52
-
-| Réserve / sujet | Peut rester ouvert pendant framing | Bloque ouverture framing | Bloque delivery prep | Bloque delivery | Bloque cutover | Bloque real Critical | F nécessaire | Morris nécessaire |
-|-----------------|------------------------------------|--------------------------|----------------------|-----------------|----------------|----------------------|---------------|-------------------|
-| B5 | **Y** (D03=.1) | N | N (D04=.1 · stratégie) | **S/Y** (STOP BEFORE DELIVERY) | Y | I | F08 | A52-D01 suivi / F08 |
-| R1 | Y (D03=.1) | N | N | Y | Y | Y | F08 · F10 | stratégie durable |
-| R-T-A3-1 HARD | Y (simu OK · D03=.1) | N | N (design · D04=.1) | C | C | **Y** | F09 · F10 | API `.1` avant real |
-| R-T-A3-2 HARD | Y (mémoire OK · D03=.1) | N | N (design · D04=.1) | Y | Y | **Y** | F08 · F10 | pattern durable |
-| R-M01 | Y (D03=.1) | N | C | C | I | I | F04 bornage | A52-D05.4 |
-| C1–C3 | Y | N | N | Dette | I | I | via R-M01 | A52-D05 |
-| C4 tracking | Y (via B5) | N | via B5 | via B5 | via B5 | I | via B5 | A52-D01 |
-| Legacy / MethodMode / `method/**` | Y (inventaire · D03=.1) | N | C | Y | Y | I | F03 · F11 | inventaire/plan · vague 1 |
-| OPS1 | Y | N | C | Y | Y | I | F13 | ACL |
-| Persistence | Y (NOT SELECTED · D03=.1) | N | design OK | Y | Y | Y | F10 | SELECTED futur |
-| IAM | Y (NOT SELECTED · D03=.1) | N | design OK | C | C | Y | F10 | SELECTED futur |
-| F08 | contenu NOT DECIDED · timing = avant delivery (D05) | N | C | Y | Y | I | — | bulletin F08 |
-| F09 | contenu NOT DECIDED · timing = avant Critical/cutover (D05) | N | C | C | Y | Y | — | bulletin F09 |
-| F10 | contenu NOT DECIDED · timing = avant durable/IAM (D05) | N | C | Y | Y | Y | — | bulletin F10 |
-
-### Lecture normative
-
-- **Framing** : aucune réserve HARD n’empêche un cadrage read-only (T-A7-D03=.1 · T-A7 doc 04 + A5.2).
-- **Delivery preparation** : HARD/B5 ne bloquent pas *par elles-mêmes* une *future* prep documentaire (T-A7-D04=.1) ; prep reste `NOT AUTHORIZED` maintenant.
-- **Delivery** : STOP B5 ; F08 à arbitrer avant delivery (calendrier D05) ; HARD / R1 bloquants selon chemin.
-- **Real Critical** : A52-D03 `.1` + fail-closed + IAM + F09 — **interdit maintenant**.
-- **Cutover** : niveau D · F09 · legacy/OPS1 — **interdit maintenant**.
-- **Option C** : vagues futures uniquement · aucune ouverte.
-
-## 2. Décisions F (relation — aucune auto-consommation de contenu)
-
-| F | Statut contenu | Calendrier (T-A7-D05=.3) | Relation |
-|---|----------------|--------------------------|----------|
-| F04 | `DECIDED — UNCHANGED` | — | A52-D05 borne application future |
-| F03 | `NOT DECIDED` | vague 1 / inventaire | legacy / MethodMode |
-| F08 | `NOT DECIDED` | **avant delivery** | réserves avant delivery |
-| F09 | `NOT DECIDED` | **avant real Critical / cutover** | Critical / cutover |
-| F10 | `NOT DECIDED` | **avant persistence/IAM durable** | persistence / IAM order |
-| F11–F13 | `NOT DECIDED` | selon vagues | UX / gouvernance / OPS1 |
-
-`NO F-DECISION CONTENT AUTO-CONSUMPTION` — seul le **calendrier** F08/F09/F10 est adopté (D05).
-
-## 3. Anti-claims
-
-- matrice ≠ fermeture
-- « peut rester ouvert pendant framing » ≠ « résolu »
-- « ne bloque pas delivery prep » ≠ « delivery prep AUTHORIZED »
-- calendrier F adopté ≠ contenu F `DECIDED`
-- Option C adoptée ≠ vague ouverte
-- T-A7 reste `NOT OPEN`
-```
-
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/04-sequencing-options.md`
-
-```markdown
-# 04 — Options de séquencement (prochain pas)
-
-| Champ | Valeur |
-|-------|--------|
-| **Gate décisions** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
-| **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) |
-| **Options A / B** | `NOT SELECTED` |
-| **Vagues Option C** | **aucune ouverte** |
-| **T-A7** | `NOT OPEN` |
-| **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
-
-## Option A — Réserves critiques d’abord
-
-**Statut :** `NOT SELECTED`
-
-**Idée :** traiter d’abord R-T-A3-1 / R-T-A3-2 (autorité + atomicité Decision), puis B5 ; arbitrer F09/F10 ; ensuite élargir le cadrage legacy/cutover.
-
-| Critère | Évaluation |
-|---------|------------|
-| Bénéfices | aligne A52-D02/D03/D04 ; réduit risque d’ouvrir un framing cutover avant stops Critical |
-| Risques | retarde inventaire MethodMode/`method/**`/OPS1 ; peut surinvestir design API trop tôt |
-| Dette | design API/atomicité sans SELECTED techno |
-| Décisions requises | F09/F10 · évent. F08 partiel · gates design |
-| Laissés ouverts | legacy P03–P11 · OPS1 · UX |
-| Stops | STOP BEFORE DELIVERY (B5) · `.1` avant real Critical |
-| Réversibilité | haute (documentaire) |
-| Complexité | moyenne-haute |
-
-**Challenge (historique) :** utile si priorité Critical ; Option C jugée plus progressive.
-
-## Option B — Legacy / cutover d’abord en framing
-
-**Statut :** `NOT SELECTED`
-
-**Idée :** cadrer dette legacy, MethodMode, `method/**`, OPS1 et rollback ; maintenir les réserves techniques comme **stops avant delivery** (pas comme prérequis de framing).
-
-| Critère | Évaluation |
-|---------|------------|
-| Bénéfices | complète le pack T-A7 (#280) côté P03–P11/P24 ; clarifie F03/F11/F13 |
-| Risques | illusion de « T-A7 ready » ; sous-estimer HARD Critical |
-| Dette | inventaires sans preuve CI boundary |
-| Décisions requises | F03 · F11 · F13 candidates (pas auto) |
-| Laissés ouverts | HARD · B5 · persistence/IAM |
-| Stops | A52-D01 · A52-D03 · HARD · F08/F09 |
-| Réversibilité | haute |
-| Complexité | moyenne |
-
-**Challenge (historique) :** réduction risque Critical faible à court terme ; anti-claims obligatoires.
-
-## Option C — Séquencement par gates — **ADOPTÉE**
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3)
-
-**Idée (trajectoire adoptée) :** framing global **borné** (read-only), puis vagues Morris **distinctes** et **successives** — chacune ouverte uniquement par gate dédié :
-
-1. legacy et périmètre (F03/F11/F13 inventaire) ;
-2. autorité (F09 · trajectoire `.1`) ;
-3. atomicité / persistence (F08/F10 · A52-D02/D04) ;
-4. delivery readiness (F08 · B5 STOP) ;
-5. cutover (niveau D · GO dédié).
-
-| Critère | Évaluation |
-|---------|------------|
-| Bénéfices | préserve niveaux A–D ; évite big-bang ; compatible A5.2 |
-| Risques | durée ; fatigue de gates ; sous-spécifier une vague |
-| Dette | packs documentaires successifs |
-| Décisions requises | une vague à la fois · F non consommées d’avance |
-| Laissés ouverts | tout hors vague active |
-| Stops | chaque vague réaffirme NOT OPEN / NOT AUTHORIZED |
-| Réversibilité | très haute |
-| Complexité | moyenne (orchestration) |
-
-### Conséquences immédiates vs futures
-
-| Immédiat (ce cycle) | Futur (gates séparés) |
-|---------------------|------------------------|
-| trajectoire Option C versionnée | vague 1+ = GO dédiés |
-| aucune vague ouverte | cadrage complémentaire borné (T-A7-D01=.1) |
-| T-A7 `NOT OPEN` | niveaux B/C/D restent à autoriser séparément |
-| F contenu `NOT DECIDED` | F08/F09/F10 selon calendrier T-A7-D05 |
-
-**Anti-claim :** adoption Option C ≠ lancement d’exécution ≠ ouverture vague 1 ≠ delivery preparation.
-
-## Synthèse sélection
-
-| Option | Statut |
-|--------|--------|
-| A | `NOT SELECTED` |
-| B | `NOT SELECTED` |
-| C | `DECIDED — ADOPTED BY MORRIS` |
-
-**Trajectoire adoptée · exécution non autorisée.**
-```
-
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/05-morris-decision-pack.md`
-
-```markdown
-# 05 — Pack d’arbitrage Morris (prochain pas T-A7)
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut pack** | `MORRIS T-A7-D01…D05 RECORDED` |
-| **Gate consommé** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
-| **T-A7** | `NOT OPEN` |
-| **A5.2 documentaire** | `CLOSED` |
-| **Option C** | `DECIDED — ADOPTED BY MORRIS` — aucune vague ouverte |
-| **F03 / F08–F13 contenu** | `NOT DECIDED` |
-| **F08/F09/F10 calendrier** | adopté (D05=.3) · contenu `NOT DECIDED` |
-| **F04** | `DECIDED — UNCHANGED` |
-
----
-
-## T-A7-D01 — Ouvrir un cadrage complémentaire T-A7 ?
-
-**Question :** Faut-il ouvrir un cycle de cadrage documentaire complémentaire (sans ouvrir T-A7 B/C/D) ?
-
-| Option | Description |
-|--------|-------------|
-| .1 | Oui — cadrage complémentaire borné (legacy inventaire + stops A5.2) |
-| .2 | Non — attendre d’abord une autre priorité (ex. B5 / HARD design) |
-| .3 | Différer / autre |
-
-**Choix Morris :** `.1`
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
-
-**Sens :** autoriser *ultérieurement* un cycle de cadrage documentaire complémentaire borné, sans ouvrir T-A7 niveaux B/C/D.
-
-**Conséquences :**
-
-- un gate séparé sera requis pour ouvrir ce cadrage ;
-- ce cycle n’ouvre pas le cadrage complémentaire ;
-- compatible Option C vague 1 (legacy/périmètre) — vague **non** ouverte ici.
-
-**Anti-claims :**
-
-- T-A7-D01 ≠ ouverture actuelle du cadrage complémentaire ;
-- T-A7-D01 ≠ T-A7 `OPEN` ;
-- T-A7-D01 ≠ delivery preparation / delivery / cutover.
-
-**Restant ouvert :** gate d’ouverture du cadrage complémentaire · inventaire legacy concret.
-
----
-
-## T-A7-D02 — Quel séquencement ?
-
-**Question :** Quel séquencement adopter pour la trajectoire post-A5.2 ?
-
-| Option | Description |
-|--------|-------------|
-| .1 | Option A — réserves critiques d’abord (HARD puis B5 · F09/F10) |
-| .2 | Option B — legacy/cutover framing d’abord (F03/F11/F13) |
-| .3 | Option C — séquencement par gates / vagues |
-| .4 | Custom |
-
-**Choix Morris :** `.3`
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
-
-**Sens :** adopter le séquencement Option C par gates et vagues :
-
-1. legacy et périmètre ;
-2. autorité ;
-3. atomicité / persistence ;
-4. delivery readiness ;
-5. cutover.
-
-**Conséquences :**
-
-- Options A et B = `NOT SELECTED` ;
-- trajectoire documentaire versionnée ;
-- **aucune vague n’est ouverte automatiquement**.
-
-**Anti-claims :**
-
-- Option C adoptée ≠ vague 1…5 lancée ;
-- Option C ≠ niveaux B/C/D autorisés ;
-- chaque vague exige un GO Morris dédié.
-
-**Restant ouvert :** ouverture de chaque vague · contenu des F associées.
-
----
-
-## T-A7-D03 — Sujets ouverts pendant framing
-
-**Question :** Quels sujets peuvent rester ouverts pendant un cadrage documentaire ?
-
-| Option | Description |
-|--------|-------------|
-| .1 | Tous les sujets techniques listés (B5, HARD, R1, R-M01, legacy, persistence/IAM NOT SELECTED) — framing N pour toutes |
-| .2 | Exiger fermeture HARD avant tout cadrage complémentaire |
-| .3 | Custom |
-
-**Choix Morris :** `.1`
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
-
-**Sens :** les sujets techniques suivants peuvent rester ouverts pendant un cadrage documentaire borné :
-
-- B5 ;
-- R-T-A3-1 / R-T-A3-2 (`OPEN HARD`) ;
-- R1 ;
-- R-M01 ;
-- legacy ;
-- persistence / IAM `NOT SELECTED`.
-
-**Conséquences :**
-
-- framing documentaire n’exige pas la fermeture préalable des HARD ;
-- aligné T-A7 doc 04 + A5.2.
-
-**Anti-claims :**
-
-- « peut rester ouvert pendant framing » ≠ résolu ;
-- ≠ acceptable pour delivery ;
-- ≠ fermeture différée automatique.
-
-**Restant ouvert :** toutes les réserves listées (statuts techniques inchangés).
-
----
-
-## T-A7-D04 — Bloqueurs delivery preparation
-
-**Question :** Quels sujets bloquent la **delivery preparation** (niveau B) ?
-
-| Option | Description |
-|--------|-------------|
-| .1 | Aucun HARD n’interdit la prep documentaire ; B5 peut rester OPEN (A52-D01) ; F08/F09/F10 restent NOT DECIDED jusqu’à bulletin |
-| .2 | Exiger F08/F09/F10 DECIDED avant toute prep |
-| .3 | Exiger fermeture B5 avant prep |
-| .4 | Custom |
-
-**Choix Morris :** `.1`
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
-
-**Sens :** les réserves HARD et B5 ne bloquent pas, *par elles-mêmes*, une **future** préparation documentaire du delivery.
-
-**Conséquences :**
-
-- STOP B5 reste **avant delivery** (A52-D01), pas avant prep ;
-- une future prep documentaire reste conditionnée à un gate dédié.
-
-**Anti-claims :**
-
-- delivery preparation reste actuellement `NOT AUTHORIZED` ;
-- B5 reste `STOP BEFORE DELIVERY` ;
-- cette décision ne ferme aucune réserve ;
-- cette décision ne consomme aucune F ;
-- choisir `.1` ≠ autoriser prep maintenant.
-
-**Restant ouvert :** gate `GO PREPARE T-A7 DELIVERY` (ou équivalent) · contenu F08.
-
----
-
-## T-A7-D05 — Quand arbitrer F08/F09/F10 ?
-
-**Question :** Faut-il arbitrer F08/F09/F10 avant le cadrage documentaire, ou avant delivery / real Critical ?
-
-| Option | Description |
-|--------|-------------|
-| .1 | Avant tout cadrage complémentaire |
-| .2 | Avant delivery preparation (B) |
-| .3 | Avant delivery (C) / real Critical / cutover selon F (F08 delivery · F09 Critical/cutover · F10 persistence/IAM) |
-| .4 | Custom |
-
-**Choix Morris :** `.3`
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
-
-**Sens :** arbitrer chaque décision F à son point de risque :
-
-- **F08** avant delivery ;
-- **F09** avant real Critical / cutover ;
-- **F10** avant choix durable persistence / IAM.
-
-**Conséquences :**
-
-- calendrier F adopté ;
-- préparation documentaire A5.2 déjà faite reste valide ;
-- consommation F = bulletins séparés futurs.
-
-**Anti-claims :**
-
-- F08 / F09 / F10 restent actuellement `NOT DECIDED` (contenu) ;
-- le calendrier est décidé, **pas** le contenu ;
-- aucun bulletin F n’est consommé dans ce cycle ;
-- F03 / F11–F13 restent `NOT DECIDED`.
-
-**Restant ouvert :** contenu de chaque F · GO bulletins F dédiés.
-
----
-
-## Bulletin Morris consommé (enregistrement)
-
-```
-GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
-```
-
-**Statut gate :** `CONSUMED` (enregistrement documentaire uniquement).
-
-Interdit suite à ce GO : ouvrir T-A7 · ouvrir une vague · delivery/cutover · fermeture implicite · consommation contenu F · COMPLETE.
-
----
-
-## Synthèse décisions
+| `01-source-truth-and-scope.md` | Base Git · recherches · in/out scope |
+| `02-methodmode-inventory.md` | Inventaire MethodMode |
+| `03-method-directory-inventory.md` | Inventaire `method/**` |
+| `04-ops1-boundary-assessment.md` | OPS1 frontières |
+| `05-dependency-map.md` | Carte de dépendances |
+| `06-removal-and-isolation-options.md` | Options W1-A/B/C |
+| `07-validation-rollback-and-stop-conditions.md` | Preuves · stops |
+| `08-morris-decision-pack.md` | T-A7-W1-D01…D05 |
+
+## Décisions existantes (rappel)
 
 | ID | Choix | Statut |
 |----|-------|--------|
 | T-A7-D01 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D02 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-D02 | `.3` Option C | `DECIDED — ADOPTED BY MORRIS` |
 | T-A7-D03 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
 | T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
 | T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
 
-## Garde-fous absolus
+## Décisions futures (ce pack)
 
-- A5.2 documentaire : `CLOSED`
-- réserves techniques : `OPEN` / `OPEN HARD`
-- T-A6 COMPLETE : `NOT DECLARED`
-- Option A : `NOT COMPLETE`
-- T-A7 : `NOT OPEN`
-- delivery preparation / delivery / cutover : `NOT AUTHORIZED`
-- F03 / F08–F13 contenu : `NOT DECIDED`
-- F08/F09/F10 calendrier : adopté (D05) · contenu `NOT DECIDED`
-- persistence / IAM : `NOT SELECTED`
-- RGPD production : `NOT VALIDATED`
+T-A7-W1-D01…D05 — toutes `MORRIS DECISION REQUIRED` — **aucune présélection**.
 
-Formulations interdites : « T-A7 ready to execute » · « T-A7 opened » · « delivery ready » · « cutover approved » · « reserves resolved » · « Option A complete » · « Option C waves started » · « F08/F09/F10 content decided ».
+## Anti-claims
+
+- cadrage de vague ≠ vague technique ouverte
+- inventaire ≠ autorisation de retrait
+- candidat au retrait ≠ décision de suppression
+- référence trouvée ≠ usage actif
+- absence de référence ≠ preuve de non-usage
+- Option C adoptée ≠ exécution lancée
+- F préparée ≠ F consommée
+- rollback documenté ≠ rollback validé
+- T-A7 framing ≠ T-A7 OPEN
+
+## Verdict
+
+`T-A7 OPTION C WAVE 1 LEGACY AND SCOPE FRAMING COMPLETED — METHODMODE METHOD DIRECTORY AND OPS1 INVENTORIED — DEPENDENCIES AND FUTURE REMOVAL OPTIONS DOCUMENTED — MORRIS DECISIONS PREPARED WITHOUT PRESELECTION — F03 F11 AND F13 REMAIN NOT DECIDED — TECHNICAL RESERVES REMAIN OPEN — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
+
+## Gate candidat suivant
+
+`GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
+
+**Statut :** `NOT CONSUMED`
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/01-source-truth-and-scope.md`
+
+```markdown
+# 01 — Source truth and scope
+
+| Champ | Valeur |
+|-------|--------|
+| **Base** | `origin/main` @ `7a3e512f562f480c345a12a744806aa4f2ef625b` |
+| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
+| **Nature** | vérité Git + méthodes de recherche · **pas** une autorisation |
+
+## 1. Vérité Git
+
+| Check | Résultat |
+|-------|----------|
+| `origin/main` | `7a3e512f562f480c345a12a744806aa4f2ef625b` (merge PR #282) |
+| HEAD worktree | identique |
+| merge-base | identique |
+| Upstream projet | **aucun** |
+| Remote branche projet | **absente** |
+| Opérations Git actives | aucune |
+| Contenu hors pack | **aucune modification** (read-only bound) |
+
+## 2. Stratégies de recherche
+
+| Stratégie | Cibles |
+|-----------|--------|
+| Exact / case-insensitive | `MethodMode`, `methodMode`, `method_mode`, `METHOD_MODE`, `selectMethodMode`, `assertMethodMode` |
+| Chemins | `method/`, `app/lib/ops1`, `app/features/ops1`, `.sfia-exec` |
+| Variantes OPS1 | `OPS1`, `ops1`, `Ops1`, `ops-1`, docs `41`–`65`, routes `/ops1` |
+| Concepts | legacy, fallback, `legacyV26`, `loadCanonicalSource`, `resolveSfiaCanonicalContext`, allowlist, ACL |
+| Surfaces | runtime, modeled, prompts, docs, tests, e2e, CI (`.github`), gitignore |
+| Négatif | absence CI de `method/` ≠ non-usage (consommateurs docs/prompts/OPS1 allowlist) |
+
+## 3. Sources canoniques (blobs `origin/main`)
+
+| Path | Blob | Rôle |
+|------|------|------|
+| `prompts/templates/sfia-cycle-execution-template.md` | `b9ce0a9f…` | template cycle |
+| `…/t-a7-next-decision-step-framing/README.md` | `4a0ad494…` | Option C · D01–D05 |
+| `…/t-a7-next-decision-step-framing/05-morris-decision-pack.md` | `be080d72…` | décisions enregistrées |
+| `…/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md` | `dbf50357…` | P03–P25 |
+| `…/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md` | `dc0514ed…` | SC-02…SC-05 |
+| `…/t-a7-legacy-cutover-framing/05-morris-decision-pack.md` | `aacef4d7…` | F03/F11/F13 NOT DECIDED |
+| `projects/sfia-studio/app/lib/d1/types.ts` | (HEAD) | METHOD_MODES |
+| `projects/sfia-studio/sfia-v3-technical-architecture/.../11-legacy-isolation-migration-and-cutover-architecture.md` | (HEAD) | AT cutover |
+
+## 4. Scope T-A7 — futur périmètre **potentiel** (candidat)
+
+| Bloc | Justification | Dette évitée | Risque d’élargissement | Gate |
+|------|---------------|--------------|------------------------|------|
+| MethodMode D1 (types/DB/UI/commands) | P06–P07 · cutover OA | faux claim « déjà retiré » | retrait UI avant remplacement OA | F03 · F11 |
+| Lectures / allowlist `method/**` | P08 · SC-02 · OPS1 allowlist | régression silent method reads | supprimer allowlist trop tôt | F03 |
+| Remplacements P03–P05 (doctrine/loader/CKC) | cutover loader | fallback silencieux | élargir hors Option A | F03 |
+| Badges / claims v2.6 surfaces OA | P09 | confusion produit | refonte UX globale | F11 |
+| OPS1 isolation / ACL / historique | P10–P11 · F13 · SC-03 | double identité OPS1/v3 | « retirer OPS1 » = produit | F13 |
+| Import boundaries / CI candidates | P24 | réintroduction method | hardening M1 hors vague | F03 · F12 |
+| Rollback / RUN observabilité | P23 | cutover non observable | RUN-ready claim | F03 · F09 |
+
+## 5. Hors périmètre T-A7 sauf nouveau GO Morris
+
+| Bloc | Justification |
+|------|---------------|
+| Architecture v3-native OA non legacy (`lib/oa/**` hors anti-legacy) | hors cutover |
+| Réserves A5.2 (B5, HARD, R1, R-M01, C*) | vague 2–4 Option C |
+| Autorité réelle Critical / IAM | vague 2 · F09/F10 |
+| Atomicité durable / persistence SELECTED | vague 3 · F08/F10 |
+| Delivery non legacy · refonte produit · automatisation globale | hors Option A cutover |
+| Modification code/method/OPS1 dans ce cycle | gate interdit |
+
+## 6. Anti-claims scope
+
+- inventaire Wave 1 ≠ satisfaction P03–P25
+- « potentiellement dans T-A7 » ≠ autorisé maintenant
+- T-A7 reste `NOT OPEN`
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md`
+
+```markdown
+# 02 — MethodMode inventory
+
+| Champ | Valeur |
+|-------|--------|
+| **Objet** | inventaire MethodMode · **aucune suppression** |
+| **T-A7** | `NOT OPEN` |
+| **F03 / F11** | `NOT DECIDED` |
+
+## 1. Définition
+
+| Élément | Preuve | Statut |
+|---------|--------|--------|
+| Type / enum | `METHOD_MODES = ["SFIA_V2_6","TRANSITION","V3_CANDIDATE"]` · `app/lib/d1/types.ts` | `ACTIVE — EVIDENCED` |
+| Défaut gouvernance D1 | `D1_GOVERNANCE_METHOD_MODE = "V3_CANDIDATE"` | `ACTIVE — EVIDENCED` |
+| Validation | `assertMethodMode` · `app/lib/d1/domain.ts` | `ACTIVE — EVIDENCED` |
+| Persistance SQLite | `method_mode TEXT CHECK (... IN (...))` · `app/lib/d1/db.ts` | `ACTIVE — EVIDENCED` |
+| Labels / claims UI | `METHOD_MODE_LABELS` · `METHOD_MODE_CLAIMS` | `ACTIVE — EVIDENCED` |
+| Commande | `selectMethodMode` · `commands.ts` / `actions.ts` / `repository.ts` | `ACTIVE — EVIDENCED` |
+| Création projet | `NewProjectForm` force default interne (pas choix user C1) | `ACTIVE — EVIDENCED` |
+| Confirmation flow | `executeConfirmation.ts` injecte `D1_GOVERNANCE_METHOD_MODE` | `ACTIVE — EVIDENCED` |
+
+**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`  
+**Interdit (claims) :** V3-ADOPTED / V3-IMPLEMENTED global (documenté dans claims).
+
+## 2. Occurrences significatives
+
+| Path / symbole | Rôle | Direction | Criticité | Statut | Risque retrait | Validation future |
+|----------------|------|-----------|-----------|--------|----------------|-------------------|
+| `lib/d1/types.ts` METHOD_MODES | définition | — | High | `ACTIVE — EVIDENCED` | casse D1 | tests foundation + schéma |
+| `lib/d1/db.ts` method_mode | stockage | D1→DB | High | `ACTIVE — EVIDENCED` | migration/corruption | migration plan + backup |
+| `lib/d1/commands.ts` selectMethodMode | producteur état | API→repo | High | `ACTIVE — EVIDENCED` | commandes mortes / UI cassée | e2e D1 |
+| `features/d1/Badges.tsx` MethodModeBadge | UI | state→UI | Med | `ACTIVE — EVIDENCED` | labels orphelins | UI tests |
+| `features/d1/*View.tsx` | consommateurs UI | state→UI | Med | `ACTIVE — EVIDENCED` | cockpit incohérent | UI tests |
+| `features/d1/NewProjectForm.tsx` | producteur default | form→create | High | `ACTIVE — EVIDENCED` | création sans mode | C1 tests |
+| `__tests__/d1/*` | tests | — | Med | `TEST ONLY` | faux verts | garder jusqu’à remplacement |
+| `__tests__/oa/*/antiLegacy.test.ts` | garde OA | OA↛MethodMode | High | `ACTIVE — EVIDENCED` | OA réintroduit MethodMode | CI antiLegacy |
+| `lib/oa/*/index.ts` mentions | anti-claim / export surface | doc code | Low | `COMPATIBILITY ONLY` / doc | — | antiLegacy |
+| Design/docs D1 & T-A* | documentation | — | Low–Med | `DOCUMENTATION ONLY` | docs stale | sync post-cutover |
+| `75-next-product-increment-framing.md` | framing produit | — | Low | `DOCUMENTATION ONLY` | — | — |
+
+## 3. Producteurs / consommateurs
+
+| Producteurs | Consommateurs |
+|-------------|----------------|
+| `createProject` / confirmation (default V3_CANDIDATE) | Badges, ContextualRail, ProjectCockpit, WorkspaceHome |
+| `selectMethodMode` (+ activate) | repository atomic update · audit `PROJECT_MODE_SELECTED` |
+| Tests D1 (fixtures) | assertions domain |
+
+**OA runtime (`lib/oa/**`)** : MethodMode **n’est pas** autorité — tests `antiLegacy` l’interdisent explicitement (`ACTIVE — EVIDENCED` comme garde).
+
+## 4. Liens baseline v1 / v2 / v3
+
+| Mode | Sens documenté |
+|------|----------------|
+| `SFIA_V2_6` | baseline opérationnelle v2.6 |
+| `TRANSITION` | transition v2.6 → v3 candidate |
+| `V3_CANDIDATE` | Studio-native candidate — **non adopté** |
+
+P07 (pack T-A7) : MethodMode **MISSING** comme « retiré de cible OA » — encore présent hors OA mémoire.
+
+## 5. Synthèse risques
+
+| Risque | Impact | Stop lié |
+|--------|--------|----------|
+| Retrait MethodMode sans inventaire UI/API/import | cutover prématuré | SC-04 · P07 |
+| Confondre absence MethodMode dans OA avec absence globale | faux READY | anti-claims |
+| Migrer schéma sans HOLD | perte projets D1 | P18/F10 (ultérieur) |
+
+## 6. Gaps / UNKNOWN
+
+| Item | Statut |
+|------|--------|
+| Volume de lignes SQLite production avec chaque mode | `UNKNOWN — INVESTIGATION REQUIRED` (DB locale/dev) |
+| Exposition API HTTP dédiée hors actions serveur | `ACTIVE — INFERRED` (via server actions D1) |
+| Couplage MethodMode → lectures `method/**` runtime D1 | `UNKNOWN — INVESTIGATION REQUIRED` (pas de grep exhaustif path loader D1 dans ce cycle ; pas d’évidence directe dans types) |
+
+**Anti-claim :** occurrence textuelle dans docs T-A* ≠ usage runtime.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/03-method-directory-inventory.md`
+
+```markdown
+# 03 — `method/**` directory inventory
+
+| Champ | Valeur |
+|-------|--------|
+| **Objet** | cartographie `method/**` · **aucune modification** |
+| **Volume (HEAD)** | **263** fichiers sous `method/` |
+| **F03** | `NOT DECIDED` |
+
+## 1. Structure
+
+```
+method/
+├── README.md
+├── sfia-fast-track/     # méthode active de delivery (majoritaire)
+│   ├── core/            # 9 — operating model, rules, knowledge layer
+│   ├── automation/      # 5 — prompt/repo/validation engines
+│   ├── templates/       # 6
+│   ├── checklists/      # 3
+│   ├── cycles/          # 3
+│   ├── documentation/   # ~220 — capitalization, archive, maps
+│   ├── archive/         # 3
+│   ├── audit-rex/       # 2
+│   └── ui/              # 2
+└── complementary/
+    ├── README.md
+    └── controlled-delivery/  # 7
+```
+
+| Zone | Types dominants | Ownership apparent | Généré ? |
+|------|-----------------|--------------------|----------|
+| `sfia-fast-track/core` | markdown méthode | méthode SFIA / Morris | manuel |
+| `sfia-fast-track/automation` | markdown engines | méthode / automation | manuel |
+| `sfia-fast-track/templates` · `checklists` · `cycles` | markdown ops | méthode | manuel |
+| `sfia-fast-track/documentation` | markdown + archives | capitalisation | manuel (+ archives) |
+| `sfia-fast-track/archive` | archives | historique | archive |
+| `complementary/controlled-delivery` | markdown | méthodes complémentaires | manuel |
+
+## 2. Consommateurs entrants (preuves)
+
+| Consommateur | Nature | Preuve | Statut usage |
+|--------------|--------|--------|--------------|
+| `README.md` / `docs/**` | documentation routing | chemins `method/sfia-fast-track/**` | `DOCUMENTATION ONLY` / actifs éditoriaux |
+| `prompts/README.md` · `prompts/prompt-catalog.md` | gouvernance prompts | liens engines/core/checklists | `ACTIVE — EVIDENCED` (référence opératoire) |
+| Template / operating model | exécution cycles | core files | `ACTIVE — EVIDENCED` |
+| OPS1 allowlist | sécurité chemins | `app/lib/ops1/allowlistEvaluation.ts` · `types.ts` incluent `"method/"` | `ACTIVE — EVIDENCED` |
+| OPS1 canonical session | résolution contexte | `ops1/sfia/sessionContext.ts` → `resolveSfiaCanonicalContext` | `ACTIVE — INFERRED` (couplage canonique ; valider lecture disque `method/**`) |
+| CI `.github/**` | build | **aucune** référence `method/` trouvée | `UNKNOWN` / non bloquant CI path |
+| `lib/oa/**` | runtime OA | antiLegacy interdit MethodMode/fallback ; P08 vise no `method/**` reads | cible cutover `MISSING` |
+| Anciens chemins `methods/` racine | historique | `docs/practices/methods-structure-check.md` — absents | `DEAD CANDIDATE — NOT VALIDATED` (déjà retirés) |
+
+## 3. Dépendances sortantes
+
+`method/**` est principalement **contenu markdown** (pas de package TS importé). Sorties = références documentaires vers `docs/`, `prompts/`, projets — **pas** d’import runtime npm détecté.
+
+## 4. Matrice zones → candidats (≠ décisions)
+
+| Zone | Rôle actuel | Consommateurs | Preuves | Risque retrait | Candidat cible | Décision requise |
+|------|-------------|---------------|---------|----------------|----------------|------------------|
+| `sfia-fast-track/core` | canon méthode v2.6 ops | prompts · cycles Cursor/ChatGPT | liens prompts + foundation docs | **High** — casse operating model | conserver / isoler / remplacer (ultérieur) | F03 · Morris |
+| `sfia-fast-track/automation` | engines doc | prompt-catalog | liens | High | conserver / remplacer | F03 |
+| `sfia-fast-track/templates` · `checklists` · `cycles` | ops delivery | docs architecture | liens | Med–High | conserver | F03 |
+| `sfia-fast-track/documentation` (hors archive) | capitalisation | docs internes | volume | Med | archiver partiel / conserver | inventaire fin |
+| `sfia-fast-track/archive` | historique | peu | structure | Low–Med | archiver / conserver | Morris |
+| `complementary/controlled-delivery` | méthode complémentaire | README method | structure | Med | conserver / investigation | Morris |
+| Allowlist entry `"method/"` OPS1 | ACL path | action gate | code | High si retiré sans politique | isoler / migrer | F13 · F03 |
+
+## 5. Protections / historique
+
+- SC-02 : modification `method/**` hors gate Morris → `STOP`
+- P08 / P24 : lectures `method/**` et import boundaries à prouver avant cutover
+- Structure check : ne pas recréer `sfia/methods/` ou `methods/` racine
+
+## 6. Anti-claims
+
+- volume documentation ≠ usage runtime applicatif
+- absence de référence CI ≠ non-usage (prompts/OPS1)
+- candidat « archiver » ≠ archive exécutée
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md`
+
+```markdown
+# 04 — OPS1 boundary assessment
+
+| Champ | Valeur |
+|-------|--------|
+| **Objet** | identifier OPS1 · frontières · **aucune modif ACL/code** |
+| **F13** | `NOT DECIDED` |
+| **T-A7** | `NOT OPEN` |
+
+## 1. Qu’est-ce qu’OPS1 dans ce repository ?
+
+**OPS1 = Operational Vertical Slice 1** — POC Studio de conversation GPT réelle + action Markdown gouvernée (allowlist), distinct du runtime Option A (`lib/oa`) et de D1 Project Foundation (`lib/d1`).
+
+| Couche | Emplacement | Statut |
+|--------|-------------|--------|
+| Cadrage / design / UX / tech / backlog / devops docs | `projects/sfia-studio/41`–`65` (+ companions ops1-named) | `DOCUMENTATION ONLY` (canon sur main) + décisions historiques |
+| Runtime applicatif | `app/lib/ops1/**` (~48 fichiers) · `app/features/ops1/**` · route `app/app/ops1/**` | `ACTIVE — EVIDENCED` |
+| Tests | `app/__tests__/ops1/**` · e2e `ops1-i*.spec.ts` | `TEST ONLY` / `ACTIVE — EVIDENCED` |
+| État local d’exécution | `projects/sfia-studio/.sfia-exec/**` (**gitignored**) | `ACTIVE — EVIDENCED` (runtime local ; hors Git) |
+| Import boundaries | `import-boundaries.test.ts` : D1↛OPS1 · platform↛OPS1/D1 | `ACTIVE — EVIDENCED` |
+
+## 2. Frontières
+
+| Frontière | Contenu | Preuve |
+|-----------|---------|--------|
+| Fonctionnelle | Chat libre + action Markdown facultative ; pas MVP global | docs 41–47 |
+| Technique | Session, conversation providers, actionGate, allowlist, control tower tools, exécution I5/I6 | `lib/ops1/**` |
+| Sécurité | Allowlist chemins (incl. `"method/"`), gates d’action, isolation vs D1/OA | allowlist + import boundaries + P10 |
+| Gouvernance cutover | OPS1 **ne doit pas** être présenté comme v3 Option A ; isolation avant cutover | SC-03 · SC-12 · F13 / P10–P11 |
+
+## 3. Producteurs / consommateurs de droits
+
+| Producteurs | Consommateurs |
+|-------------|----------------|
+| Allowlist evaluation / service | actionGate · exécutions bornées |
+| Session / repository OPS1 | UI `Ops1SessionScreen` · e2e |
+| Control tower tools / reinjection | flux CT ↔ OPS1 (tests dédiés) |
+| Canonical context resolver (sfia) | `ops1/sfia/sessionContext.ts` |
+
+**ACL IAM produit globale :** non SELECTED — droits OPS1 = allowlist + gates locaux (`NOT SELECTED` IAM inchangé).
+
+## 4. Dépendances legacy / MethodMode / `method/**`
+
+| Lien | Nature | Statut | Risque |
+|------|--------|--------|--------|
+| Allowlist contient `"method/"` | path ACL | `ACTIVE — EVIDENCED` | retrait method sans MAJ allowlist = actions bloquées ou trou |
+| `resolveSfiaCanonicalContext` | contexte canonique | `ACTIVE — INFERRED` | couplage cutover P03–P05 / loader |
+| MethodMode D1 | **interdit** import D1↔OPS1 | `ACTIVE — EVIDENCED` (boundary) | ne pas fusionner identités |
+| OA antiLegacy mentionne OPS1 cutover | garde | `ACTIVE — EVIDENCED` | double identité |
+
+## 5. Risques retrait / isolation
+
+| Action candidate | Risque | Preuve avant F13 |
+|------------------|--------|------------------|
+| Isoler OPS1 (garder POC, ACL stricte) | faible si boundaries OK | tests import + no cross-call OA |
+| Migrer allowlist hors `method/` | casse actions Campus/méthode | inventaire allowlist hits |
+| Retrait futur OPS1 | perte POC + e2e + CT bridges | GO produit distinct · ≠ cutover OA |
+| Présenter OPS1 comme v3 | SC-12 | anti-claims |
+
+## 6. Preuves nécessaires avant F13
+
+1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.  
+2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.  
+3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.  
+4. Inventaire allowlist `method/` : usages réels vs legacy.  
+5. Gate Morris F13 **contenu** (pas seulement calendrier).
+
+## 7. Anti-claims
+
+- OPS1 documenté ≠ OPS1 retiré
+- allowlist `method/` ≠ MethodMode
+- isolation candidate ≠ isolation appliquée
+- F13 préparée ≠ F13 `DECIDED`
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md`
+
+```markdown
+# 05 — Dependency map
+
+| Champ | Valeur |
+|-------|--------|
+| **Nature** | carte candidate · **pas** une décision |
+| **T-A7** | `NOT OPEN` |
+
+## 1. Axes principaux
+
+| Source → cible | Nature | Preuve | Criticité | Direct ? | Impact si supprimée | Validation future | Stop |
+|----------------|--------|--------|-----------|----------|---------------------|-------------------|------|
+| MethodMode → D1 runtime | exécution | types/db/commands | High | Y | D1 cassé | tests D1 | SC-04 |
+| MethodMode → D1 UI | exécution UI | Badges/Views | Med | Y | labels/cockpit | UI tests | SC-04 |
+| MethodMode → D1 tests | test | `__tests__/d1` | Med | Y | faux couverture | — | — |
+| MethodMode ↛ OA runtime | gouvernance (interdiction) | antiLegacy | High | Y (garde) | régression autorité | CI antiLegacy | SC-12 |
+| MethodMode → documentation | doc | design/T-A packs | Low | Y | docs stale | sync | — |
+| `method/**` → prompts/templates | gouvernance | prompt-catalog | High | Y | cycles mal guidés | revue prompts | SC-02 |
+| `method/**` → docs architecture | doc | docs/** liens | Med | Y | navigation cassée | link check | — |
+| `method/**` → tests app | test | **peu/aucune** lecture runtime prouvée | Low | N? | — | grep loader | P08 |
+| `method/**` → CI | build | **aucune** ref `.github` | — | N | — | P24 candidates | — |
+| `method/**` → OPS1 allowlist | sécurité | `"method/"` in allowlist | High | Y | actions deny/allow faux | inventaire ACL | SC-03 · F13 |
+| OPS1 → authorization allowlist | sécurité | actionGate/allowlist* | High | Y | exécutions unsafe/bloquées | e2e I3–I4 | F13 |
+| OPS1 → runtime/API/UI | exécution | lib/features/ops1 · route | High | Y | POC mort | e2e I1–I6 | — |
+| OPS1 → canonical resolver | exécution/gouv | sessionContext | High | Y | contexte faux | tests canonical | P03–P05 |
+| OPS1 ↛ D1 | sécurité boundary | import-boundaries | High | Y (garde) | double identité | CI | SC-12 |
+| legacy → rollback/RUN | RUN | P23 PARTIAL | Med | I | cutover non rollbackable | design RUN | F03 · F09 |
+| legacy → cutover | gouvernance | T-A7 def | High | I | cutover unsafe | F09 | SC-04/05 |
+| legacy → F03/F11/F13 | gouvernance | packs T-A7 | High | Y | décisions mal informées | ce pack + bulletin | — |
+
+## 2. Classification par type
+
+| Type | Exemples |
+|------|----------|
+| Exécution | MethodMode D1 · OPS1 session/execution · canonical resolver |
+| Build | (peu pour method/) |
+| Test | D1/OPS1/antiLegacy/e2e |
+| Documentaire | docs · prompts · packs T-A* |
+| Gouvernance | SC-* · P03–P11 · Option C vague 1 |
+| Sécurité | allowlist · import boundaries · anti double identité |
+| Historique sans usage actif prouvé | `method/**/archive` · anciens `methods/` racine (absents) |
+
+## 3. Lecture normative
+
+1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.  
+2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.  
+3. **Ne pas** fusionner OPS1 et Option A.  
+4. Cutover exige preuves P03–P11 avant retrait — encore largement `MISSING`/`PARTIAL`.
+
+## 4. Anti-claims
+
+- dépendance documentaire ≠ dépendance d’exécution
+- garde antiLegacy ≠ MethodMode déjà retiré de D1
+- carte ≠ plan de suppression approuvé
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md`
+
+```markdown
+# 06 — Removal and isolation options (Wave 1)
+
+| Champ | Valeur |
+|-------|--------|
+| **Nature** | options · **aucune présélection exécutoire** |
+| **Recommandations** | `RECOMMENDED — NOT DECIDED` uniquement |
+| **F03 / F11 / F13** | `NOT DECIDED` |
+
+## Option W1-A — Inventaire seulement
+
+**Idée :** figer la vérité et les dépendances (ce pack) ; aucun plan détaillé de retrait.
+
+| Critère | Évaluation |
+|---------|------------|
+| Bénéfices | risque minimal · conforme gate read-only · base pour Morris |
+| Risques | laisse F03/F11/F13 sans séquence opérationnelle |
+| Dette | rework plan dans un cycle suivant |
+| Coût / complexité | bas |
+| Réversibilité | totale |
+| Impact tests/CI/sécu/RUN | nul (doc only) |
+| F concernées | préparation seulement |
+| Stops | T-A7 NOT OPEN · no method/OPS1 mod |
+
+## Option W1-B — Inventaire + plan de retrait candidat
+
+**Idée :** ajouter séquences candidates (MethodMode → remplacements OA → CI boundary → OPS1 isolation → historique RO) avec rollback papier.
+
+| Critère | Évaluation |
+|---------|------------|
+| Bénéfices | accélère F03 ; aligne P03–P11 |
+| Risques | plan pris pour autorisation ; sous-estime HARD A5.2 |
+| Dette | plans obsolètes si runtime change |
+| Coût / complexité | moyen |
+| Réversibilité | haute (doc) |
+| Impact tests/CI | design de tests candidats seulement |
+| F | F03/F11/F13 timing+contenu futurs |
+| Stops | SC-02…05 · STOP BEFORE DELIVERY |
+
+## Option W1-C — Inventaire + isolation préalable candidate
+
+**Idée :** prioriser façades / boundaries (allowlist, import CI, anti cross-call OPS1/OA/D1) **avant** tout retrait.
+
+| Critère | Évaluation |
+|---------|------------|
+| Bénéfices | réduit risque double identité · compatible SC-03/SC-12 |
+| Risques | isolation présentée comme cutover ; travail technique anticipé sans GO |
+| Dette | wrappers temporaires (déjà notés platform/OPS1) |
+| Coût / complexité | moyen–haut (si exécuté plus tard) |
+| Réversibilité | moyenne une fois code touché (**hors ce cycle**) |
+| Impact sécu | positif si bien borné |
+| F | F13 en tête · F03 ensuite |
+| Stops | aucune mod code dans Wave 1 framing |
+
+## Challenge
+
+| Question | W1-A | W1-B | W1-C |
+|----------|------|------|------|
+| Utile maintenant ? | **oui** | oui si Morris veut séquence | oui si priorise sécu OPS1 |
+| Réduit risque cutover ? | partiel | mieux | mieux sur isolation |
+| Crée dette doc ? | faible | moyenne | moyenne |
+| Plus simple ? | **oui** | non | non |
+| Préparable sans ouvrir T-A7 ? | **oui** | oui (doc) | oui (doc only ici) |
+| Respecte STOP BEFORE DELIVERY / `.1` ? | oui | oui | oui |
+
+## Recommandation
+
+`RECOMMENDED — NOT DECIDED` → **W1-B** (inventaire déjà produit + plan de retrait **candidat** dans cycle suivant ou annexe Morris), **sans** exécution.
+
+Alternative acceptable : rester en **W1-A** si Morris veut limiter la vague 1 à la vérité pure.
+
+**Aucune option adoptée tant que T-A7-W1-D01 n’est pas tranché.**
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md`
+
+```markdown
+# 07 — Validation, rollback and stop conditions
+
+| Champ | Valeur |
+|-------|--------|
+| **Nature** | exigences **futures** · aucune validation exécutée ici |
+| **Rollback** | documenté ≠ validé |
+
+## 1. Preuves avant modification future
+
+| Domaine | Preuves minimales |
+|---------|-------------------|
+| MethodMode | inventaire UI/API/DB · tests D1 verts · plan remplacement OA session (P06/P07) · hold flag |
+| `method/**` | diff path filter · consommateurs prompts/OPS1 mis à jour · P08/P24 CI boundary |
+| OPS1 | P10 ACL · no cross-call OA · allowlist revue · e2e I1–I6 · anti SC-12 |
+| Cutover | P03–P11 + F09 · RUN/rollback P23 · GO niveau D |
+
+## 2. Stop conditions (héritage T-A7 + Wave 1)
+
+| ID | Trigger | Action |
+|----|---------|--------|
+| SC-02 | mod `method/**` hors gate | STOP merge/cycle |
+| SC-03 | mod OPS1 hors gate | STOP · isoler |
+| SC-04 | MethodMode retiré sans P03–P09 | STOP cutover |
+| SC-05 | remplacements legacy incomplets | STOP activation |
+| SC-12 | OPS1 présenté comme v3 / hors Option A | STOP recentrage |
+| W1-S1 | inventaire traité comme autorisation retrait | STOP · anti-claim |
+| W1-S2 | F03/F11/F13 consommées sans bulletin | STOP |
+| W1-S3 | vague 1 présentée comme T-A7 OPEN | STOP |
+| A52 | B5 STOP BEFORE DELIVERY | inchangé |
+| A52-D03 | `.1` avant real Critical | inchangé |
+
+## 3. Rollback (candidat documentaire)
+
+| Couche | Mécanisme candidat |
+|--------|--------------------|
+| Git | revert merge/commits pack ou code futur |
+| Feature/hold | hold flags cutover (P07–P09) |
+| ACL | restore allowlist / ruleset |
+| Data D1 | backup SQLite avant migration method_mode |
+| OPS1 local | `.sfia-exec` hors Git — procédures locales |
+
+**Anti-claim :** rollback documenté ≠ rollback testé runtime.
+
+## 4. Liens F
+
+| F | Rôle Wave 1 | Statut |
+|---|-------------|--------|
+| F03 | préconditions delivery / inventaire legacy | `NOT DECIDED` |
+| F11 | API/UI avant cutover (badges/surfaces) | `NOT DECIDED` |
+| F13 | historique RO + isolation OPS1 (P10–P11) | `NOT DECIDED` |
+| F08–F10 | hors vague 1 (calendrier D05 seulement) | contenu `NOT DECIDED` |
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md`
+
+```markdown
+# 08 — Morris decision pack (Wave 1)
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut pack** | `PREPARED — MORRIS DECISION REQUIRED` |
+| **Aucune option auto-sélectionnée** | oui |
+| **T-A7** | `NOT OPEN` |
+| **Vague 1 technique** | **non ouverte** |
+| **F03 / F11 / F13** | `NOT DECIDED` |
+
+---
+
+## T-A7-W1-D01 — Niveau de cadrage suite
+
+**Question :** Quel niveau retenir pour la suite de la vague 1 ?
+
+| Option | Description |
+|--------|-------------|
+| .1 | Inventaire seulement (W1-A) — vérité figée |
+| .2 | Inventaire + plan de retrait candidat (W1-B) |
+| .3 | Inventaire + isolation préalable candidate (W1-C) |
+| .4 | Autre / différer |
+
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (W1-B).
+
+**Statut :** `MORRIS DECISION REQUIRED`
+
+---
+
+## T-A7-W1-D02 — Blocs legacy confirmés actifs
+
+**Question :** Quels blocs sont confirmés **actifs** (évidence) ?
+
+| Option | Description |
+|--------|-------------|
+| .1 | MethodMode D1 + prompts/`method` core + OPS1 runtime/allowlist (recommandé comme socle minimal évidencé) |
+| .2 | Étendre à tout `method/documentation` comme actif |
+| .3 | Restreindre à MethodMode D1 seulement |
+| .4 | Custom / investigation complémentaire obligatoire avant claim |
+
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1**.
+
+**Statut :** `MORRIS DECISION REQUIRED`
+
+**Anti-claim :** choisir .1 ≠ autoriser retrait.
+
+---
+
+## T-A7-W1-D03 — Candidats au retrait futur
+
+**Question :** Quels blocs sont **candidats** au retrait futur (pas maintenant) ?
+
+| Option | Description |
+|--------|-------------|
+| .1 | MethodMode hors OA + lectures `method/**` produit OA + badges v2.6 OA (P07–P09) — après preuves |
+| .2 | Inclure archive `method/**/archive` en priorité basse |
+| .3 | Inclure retrait OPS1 runtime (au-delà isolation) |
+| .4 | Aucun candidat tant que P03–P11 non inventoriés finement |
+| .5 | Custom |
+
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1** (+ .2 optionnel).
+
+**Statut :** `MORRIS DECISION REQUIRED`
+
+---
+
+## T-A7-W1-D04 — Traitement OPS1
+
+**Question :** Quel traitement pour OPS1 ?
+
+| Option | Description |
+|--------|-------------|
+| .1 | Conserver POC + renforcer isolation (boundaries) |
+| .2 | Isoler (ACL/historique RO) sans retrait |
+| .3 | Migrer allowlist / canonical coupling hors `method/` |
+| .4 | Retrait futur (GO produit distinct) |
+| .5 | Investigation complémentaire avant toute option |
+
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (aligné P10–P11 / F13).
+
+**Statut :** `MORRIS DECISION REQUIRED`
+
+---
+
+## T-A7-W1-D05 — Quand arbitrer F03, F11, F13 ?
+
+**Question :** Quand consommer le **contenu** de F03 / F11 / F13 ?
+
+| Option | Description |
+|--------|-------------|
+| .1 | Immédiatement après ce framing (bulletin dédié) |
+| .2 | F13 (OPS1/historique) avant F03 ; F11 avec surfaces UI cutover |
+| .3 | Selon T-A7-D05 : F au point de risque (F03 avant delivery prep/delivery selon bulletin ; F11 avant cutover UI ; F13 avant isolation/historique) |
+| .4 | Différer tout F jusqu’à vague 4 delivery readiness |
+| .5 | Custom |
+
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.3** (cohérent T-A7-D05 ; **sans** consommer ici).
+
+**Statut :** `MORRIS DECISION REQUIRED`
+
+---
+
+## Bulletin Morris vierge
+
+```
+GO DECIDE T-A7 OPTION C WAVE 1 — T-A7-W1-D01=… — T-A7-W1-D02=… — T-A7-W1-D03=… — T-A7-W1-D04=… — T-A7-W1-D05=… — SFIA STUDIO V3-NATIVE — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
+```
+
+**Statut GO :** `NOT CONSUMED / NOT DRAFTED AS DECISION`.
+
+## Synthèse recommandations (non décisionnelles)
+
+| ID | Option | Label |
+|----|--------|-------|
+| T-A7-W1-D01 | .2 | `RECOMMENDED — NOT DECIDED` |
+| T-A7-W1-D02 | .1 | `RECOMMENDED — NOT DECIDED` |
+| T-A7-W1-D03 | .1 | `RECOMMENDED — NOT DECIDED` |
+| T-A7-W1-D04 | .2 | `RECOMMENDED — NOT DECIDED` |
+| T-A7-W1-D05 | .3 | `RECOMMENDED — NOT DECIDED` |
+
+## Garde-fous
+
+- Option C adoptée · vague 1 = doc only
+- T-A7 `NOT OPEN` · delivery/cutover `NOT AUTHORIZED`
+- B5/R1/R-M01 `OPEN` · HARD `OPEN HARD`
+- F03/F11/F13 `NOT DECIDED` · F08–F10 contenu `NOT DECIDED`
+- T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE`
+- persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
 ```
 
 ---
 
-## Diff complet utile (`53bff7fa…` → `7a3e512…` / main)
+## Diff complet (`7a3e512…` → `e16201ee…`)
 
 ```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/01-a5-2-documentary-closure.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/01-a5-2-documentary-closure.md
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/01-source-truth-and-scope.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/01-source-truth-and-scope.md
 new file mode 100644
-index 0000000..3296067
+index 0000000..98a88e4
 --- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/01-a5-2-documentary-closure.md
-@@ -0,0 +1,102 @@
-+# 01 — Clôture documentaire A5.2
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/01-source-truth-and-scope.md
+@@ -0,0 +1,72 @@
++# 01 — Source truth and scope
 +
 +| Champ | Valeur |
 +|-------|--------|
-+| **Statut** | `A5.2 DOCUMENTARY INTEGRATION CLOSED` |
-+| **PR** | #281 · MERGED |
-+| **Merge commit** | `53bff7fac6e25c7db34ee48fbb56503ab416cad3` |
-+| **Parents** | `9f578ea…` + `bd3608c…` |
-+| **Tree** | `75f903b3c3f4779dce897922edf97b212e3bc9bd` |
-+| **Run post-merge** | `30343103225` · SUCCESS |
-+| **Pack** | `a5-2-reservations-authority-atomicity-framing/` |
++| **Base** | `origin/main` @ `7a3e512f562f480c345a12a744806aa4f2ef625b` |
++| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
++| **Nature** | vérité Git + méthodes de recherche · **pas** une autorisation |
 +
-+## 1. Preuve d’intégration
++## 1. Vérité Git
 +
-+| Élément | Valeur |
-+|---------|--------|
-+| Base pré-merge | `9f578ea1677ce65cffb4b05ddf5649a21a5b240c` |
-+| Head source | `bd3608c6220e820cc3fa017422a7564a565a1296` |
-+| Commits source | `cd7c00e…` (framing) · `bd3608c…` (décisions) |
-+| Scope | 7 fichiers · +785/−0 · pack only |
-+| Checks PR | Detect / Build / Required Gate SUCCESS (`30341472032`) |
-+| Checks post-merge | Detect `90222984648` · Build `90223022463` · Required Gate `90223349307` — SUCCESS |
++| Check | Résultat |
++|-------|----------|
++| `origin/main` | `7a3e512f562f480c345a12a744806aa4f2ef625b` (merge PR #282) |
++| HEAD worktree | identique |
++| merge-base | identique |
++| Upstream projet | **aucun** |
++| Remote branche projet | **absente** |
++| Opérations Git actives | aucune |
++| Contenu hors pack | **aucune modification** (read-only bound) |
 +
-+### Blobs sur `main` (inchangés)
++## 2. Stratégies de recherche
 +
-+| Fichier | Blob |
-+|---------|------|
-+| README.md | `146eb122b898b21b6a8bda3f14d57c8f60253d05` |
-+| 01-scope-and-source-truth.md | `884ed9a9940c628a61d91a0b433645434766eeee` |
-+| 02-reservation-dependency-matrix.md | `5cadcde061fb3c350ac52a222dc5da7614e4ce2c` |
-+| 03-authority-model-and-gaps.md | `87bf876878427964e81a4ffd35b8e0b8beab3a3e` |
-+| 04-atomicity-model-and-options.md | `f693709a487d8023b9fa9e7b9afd61b87351c691` |
-+| 05-r-m01-and-c1-c4-assessment.md | `1d1b8cf5d3ba50e792ec061a29c9b6575660baeb` |
-+| 06-morris-arbitration-pack.md | `0fd1c10a3ef92e1f9ea24634f6394a3ca5dcddda` |
++| Stratégie | Cibles |
++|-----------|--------|
++| Exact / case-insensitive | `MethodMode`, `methodMode`, `method_mode`, `METHOD_MODE`, `selectMethodMode`, `assertMethodMode` |
++| Chemins | `method/`, `app/lib/ops1`, `app/features/ops1`, `.sfia-exec` |
++| Variantes OPS1 | `OPS1`, `ops1`, `Ops1`, `ops-1`, docs `41`–`65`, routes `/ops1` |
++| Concepts | legacy, fallback, `legacyV26`, `loadCanonicalSource`, `resolveSfiaCanonicalContext`, allowlist, ACL |
++| Surfaces | runtime, modeled, prompts, docs, tests, e2e, CI (`.github`), gitignore |
++| Négatif | absence CI de `method/` ≠ non-usage (consommateurs docs/prompts/OPS1 allowlist) |
 +
-+## 2. Sens de la clôture
++## 3. Sources canoniques (blobs `origin/main`)
 +
-+`A5.2 DOCUMENTARY INTEGRATION CLOSED` signifie **uniquement** :
++| Path | Blob | Rôle |
++|------|------|------|
++| `prompts/templates/sfia-cycle-execution-template.md` | `b9ce0a9f…` | template cycle |
++| `…/t-a7-next-decision-step-framing/README.md` | `4a0ad494…` | Option C · D01–D05 |
++| `…/t-a7-next-decision-step-framing/05-morris-decision-pack.md` | `be080d72…` | décisions enregistrées |
++| `…/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md` | `dbf50357…` | P03–P25 |
++| `…/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md` | `dc0514ed…` | SC-02…SC-05 |
++| `…/t-a7-legacy-cutover-framing/05-morris-decision-pack.md` | `aacef4d7…` | F03/F11/F13 NOT DECIDED |
++| `projects/sfia-studio/app/lib/d1/types.ts` | (HEAD) | METHOD_MODES |
++| `projects/sfia-studio/sfia-v3-technical-architecture/.../11-legacy-isolation-migration-and-cutover-architecture.md` | (HEAD) | AT cutover |
 +
-+- pack cadré ;
-+- décisions Morris A52-D01…D05 enregistrées ;
-+- PR #281 intégrée ;
-+- checks PASS ;
-+- contenu versionné sur `main` ;
-+- preuves Git disponibles.
++## 4. Scope T-A7 — futur périmètre **potentiel** (candidat)
 +
-+Elle **ne signifie jamais** :
++| Bloc | Justification | Dette évitée | Risque d’élargissement | Gate |
++|------|---------------|--------------|------------------------|------|
++| MethodMode D1 (types/DB/UI/commands) | P06–P07 · cutover OA | faux claim « déjà retiré » | retrait UI avant remplacement OA | F03 · F11 |
++| Lectures / allowlist `method/**` | P08 · SC-02 · OPS1 allowlist | régression silent method reads | supprimer allowlist trop tôt | F03 |
++| Remplacements P03–P05 (doctrine/loader/CKC) | cutover loader | fallback silencieux | élargir hors Option A | F03 |
++| Badges / claims v2.6 surfaces OA | P09 | confusion produit | refonte UX globale | F11 |
++| OPS1 isolation / ACL / historique | P10–P11 · F13 · SC-03 | double identité OPS1/v3 | « retirer OPS1 » = produit | F13 |
++| Import boundaries / CI candidates | P24 | réintroduction method | hardening M1 hors vague | F03 · F12 |
++| Rollback / RUN observabilité | P23 | cutover non observable | RUN-ready claim | F03 · F09 |
 +
-+- réserve fermée ;
-+- implémentation terminée ;
-+- T-A6 COMPLETE ;
-+- Option A COMPLETE ;
-+- T-A7 OPEN ;
-+- delivery / cutover autorisés.
++## 5. Hors périmètre T-A7 sauf nouveau GO Morris
 +
-+## 3. Réalisé / non réalisé
++| Bloc | Justification |
++|------|---------------|
++| Architecture v3-native OA non legacy (`lib/oa/**` hors anti-legacy) | hors cutover |
++| Réserves A5.2 (B5, HARD, R1, R-M01, C*) | vague 2–4 Option C |
++| Autorité réelle Critical / IAM | vague 2 · F09/F10 |
++| Atomicité durable / persistence SELECTED | vague 3 · F08/F10 |
++| Delivery non legacy · refonte produit · automatisation globale | hors Option A cutover |
++| Modification code/method/OPS1 dans ce cycle | gate interdit |
 +
-+### Réalisé
++## 6. Anti-claims scope
 +
-+- cadrage réserves / autorité / atomicité ;
-+- cinq décisions Morris (A52-D01…D05) ;
-+- normes : simulation Critical · mémoire bornée · STOP BEFORE DELIVERY · C4→B5 tracking · C1–C3→R-M01 ;
-+- préparation documentaire F08/F09/F10 **sans** consommation.
++- inventaire Wave 1 ≠ satisfaction P03–P25
++- « potentiellement dans T-A7 » ≠ autorisé maintenant
++- T-A7 reste `NOT OPEN`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md
+new file mode 100644
+index 0000000..18ced26
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md
+@@ -0,0 +1,77 @@
++# 02 — MethodMode inventory
 +
-+### Non réalisé
++| Champ | Valeur |
++|-------|--------|
++| **Objet** | inventaire MethodMode · **aucune suppression** |
++| **T-A7** | `NOT OPEN` |
++| **F03 / F11** | `NOT DECIDED` |
 +
-+- API Critical (`.1`) · persistence · IAM ;
-+- fermeture B5 / R1 / R-T-A3-1 / R-T-A3-2 / R-M01 ;
-+- validation C1–C4 ;
-+- consommation F03/F08–F13 ;
-+- ouverture T-A7 · delivery · cutover.
++## 1. Définition
 +
-+## 4. Décisions Morris A5.2 (versionnées sur main)
++| Élément | Preuve | Statut |
++|---------|--------|--------|
++| Type / enum | `METHOD_MODES = ["SFIA_V2_6","TRANSITION","V3_CANDIDATE"]` · `app/lib/d1/types.ts` | `ACTIVE — EVIDENCED` |
++| Défaut gouvernance D1 | `D1_GOVERNANCE_METHOD_MODE = "V3_CANDIDATE"` | `ACTIVE — EVIDENCED` |
++| Validation | `assertMethodMode` · `app/lib/d1/domain.ts` | `ACTIVE — EVIDENCED` |
++| Persistance SQLite | `method_mode TEXT CHECK (... IN (...))` · `app/lib/d1/db.ts` | `ACTIVE — EVIDENCED` |
++| Labels / claims UI | `METHOD_MODE_LABELS` · `METHOD_MODE_CLAIMS` | `ACTIVE — EVIDENCED` |
++| Commande | `selectMethodMode` · `commands.ts` / `actions.ts` / `repository.ts` | `ACTIVE — EVIDENCED` |
++| Création projet | `NewProjectForm` force default interne (pas choix user C1) | `ACTIVE — EVIDENCED` |
++| Confirmation flow | `executeConfirmation.ts` injecte `D1_GOVERNANCE_METHOD_MODE` | `ACTIVE — EVIDENCED` |
 +
-+| ID | Choix | Statut |
-+|----|-------|--------|
-+| A52-D01 | `.3` + `STOP BEFORE DELIVERY` | `DECIDED — ADOPTED BY MORRIS` |
-+| A52-D02 | `.2` | `DECIDED — ADOPTED BY MORRIS` |
-+| A52-D03 | `.3` puis `.1` avant real Critical | `DECIDED — ADOPTED BY MORRIS` |
-+| A52-D04 | `.4` | `DECIDED — ADOPTED BY MORRIS` |
-+| A52-D05 | `.2 + .4` | `DECIDED — ADOPTED BY MORRIS` |
++**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`  
++**Interdit (claims) :** V3-ADOPTED / V3-IMPLEMENTED global (documenté dans claims).
 +
-+## 5. Statuts techniques inchangés
++## 2. Occurrences significatives
++
++| Path / symbole | Rôle | Direction | Criticité | Statut | Risque retrait | Validation future |
++|----------------|------|-----------|-----------|--------|----------------|-------------------|
++| `lib/d1/types.ts` METHOD_MODES | définition | — | High | `ACTIVE — EVIDENCED` | casse D1 | tests foundation + schéma |
++| `lib/d1/db.ts` method_mode | stockage | D1→DB | High | `ACTIVE — EVIDENCED` | migration/corruption | migration plan + backup |
++| `lib/d1/commands.ts` selectMethodMode | producteur état | API→repo | High | `ACTIVE — EVIDENCED` | commandes mortes / UI cassée | e2e D1 |
++| `features/d1/Badges.tsx` MethodModeBadge | UI | state→UI | Med | `ACTIVE — EVIDENCED` | labels orphelins | UI tests |
++| `features/d1/*View.tsx` | consommateurs UI | state→UI | Med | `ACTIVE — EVIDENCED` | cockpit incohérent | UI tests |
++| `features/d1/NewProjectForm.tsx` | producteur default | form→create | High | `ACTIVE — EVIDENCED` | création sans mode | C1 tests |
++| `__tests__/d1/*` | tests | — | Med | `TEST ONLY` | faux verts | garder jusqu’à remplacement |
++| `__tests__/oa/*/antiLegacy.test.ts` | garde OA | OA↛MethodMode | High | `ACTIVE — EVIDENCED` | OA réintroduit MethodMode | CI antiLegacy |
++| `lib/oa/*/index.ts` mentions | anti-claim / export surface | doc code | Low | `COMPATIBILITY ONLY` / doc | — | antiLegacy |
++| Design/docs D1 & T-A* | documentation | — | Low–Med | `DOCUMENTATION ONLY` | docs stale | sync post-cutover |
++| `75-next-product-increment-framing.md` | framing produit | — | Low | `DOCUMENTATION ONLY` | — | — |
++
++## 3. Producteurs / consommateurs
++
++| Producteurs | Consommateurs |
++|-------------|----------------|
++| `createProject` / confirmation (default V3_CANDIDATE) | Badges, ContextualRail, ProjectCockpit, WorkspaceHome |
++| `selectMethodMode` (+ activate) | repository atomic update · audit `PROJECT_MODE_SELECTED` |
++| Tests D1 (fixtures) | assertions domain |
++
++**OA runtime (`lib/oa/**`)** : MethodMode **n’est pas** autorité — tests `antiLegacy` l’interdisent explicitement (`ACTIVE — EVIDENCED` comme garde).
++
++## 4. Liens baseline v1 / v2 / v3
++
++| Mode | Sens documenté |
++|------|----------------|
++| `SFIA_V2_6` | baseline opérationnelle v2.6 |
++| `TRANSITION` | transition v2.6 → v3 candidate |
++| `V3_CANDIDATE` | Studio-native candidate — **non adopté** |
++
++P07 (pack T-A7) : MethodMode **MISSING** comme « retiré de cible OA » — encore présent hors OA mémoire.
++
++## 5. Synthèse risques
++
++| Risque | Impact | Stop lié |
++|--------|--------|----------|
++| Retrait MethodMode sans inventaire UI/API/import | cutover prématuré | SC-04 · P07 |
++| Confondre absence MethodMode dans OA avec absence globale | faux READY | anti-claims |
++| Migrer schéma sans HOLD | perte projets D1 | P18/F10 (ultérieur) |
++
++## 6. Gaps / UNKNOWN
 +
 +| Item | Statut |
 +|------|--------|
-+| B5 / R1 / R-M01 | `OPEN` |
-+| R-T-A3-1 / R-T-A3-2 | `OPEN HARD` |
-+| C1–C3 | `RECOMMENDED — NOT VALIDATED` |
-+| C4 | `TRACKING MERGED INTO B5 — NOT VALIDATED` |
-+| F04 | `DECIDED — UNCHANGED` |
-+| F03 / F08–F13 | `NOT DECIDED` |
-+| T-A6 COMPLETE | `NOT DECLARED` |
-+| Option A | `NOT COMPLETE` |
-+| T-A7 | `NOT OPEN` |
-+| Delivery preparation / delivery / cutover | `NOT AUTHORIZED` |
-+| Persistence / IAM | `NOT SELECTED` |
-+| RGPD production | `NOT VALIDATED` |
++| Volume de lignes SQLite production avec chaque mode | `UNKNOWN — INVESTIGATION REQUIRED` (DB locale/dev) |
++| Exposition API HTTP dédiée hors actions serveur | `ACTIVE — INFERRED` (via server actions D1) |
++| Couplage MethodMode → lectures `method/**` runtime D1 | `UNKNOWN — INVESTIGATION REQUIRED` (pas de grep exhaustif path loader D1 dans ce cycle ; pas d’évidence directe dans types) |
 +
-+## Verdict
-+
-+`A5.2 DOCUMENTARY CLOSURE CONFIRMED — TECHNICAL RESERVES REMAIN OPEN`
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/02-t-a7-decision-landscape.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/02-t-a7-decision-landscape.md
++**Anti-claim :** occurrence textuelle dans docs T-A* ≠ usage runtime.
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/03-method-directory-inventory.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/03-method-directory-inventory.md
 new file mode 100644
-index 0000000..26ab192
+index 0000000..834ddf0
 --- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/02-t-a7-decision-landscape.md
-@@ -0,0 +1,60 @@
-+# 02 — Paysage décisionnel T-A7 (post-A5.2)
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/03-method-directory-inventory.md
+@@ -0,0 +1,77 @@
++# 03 — `method/**` directory inventory
 +
 +| Champ | Valeur |
 +|-------|--------|
++| **Objet** | cartographie `method/**` · **aucune modification** |
++| **Volume (HEAD)** | **263** fichiers sous `method/` |
++| **F03** | `NOT DECIDED` |
++
++## 1. Structure
++
++```
++method/
++├── README.md
++├── sfia-fast-track/     # méthode active de delivery (majoritaire)
++│   ├── core/            # 9 — operating model, rules, knowledge layer
++│   ├── automation/      # 5 — prompt/repo/validation engines
++│   ├── templates/       # 6
++│   ├── checklists/      # 3
++│   ├── cycles/          # 3
++│   ├── documentation/   # ~220 — capitalization, archive, maps
++│   ├── archive/         # 3
++│   ├── audit-rex/       # 2
++│   └── ui/              # 2
++└── complementary/
++    ├── README.md
++    └── controlled-delivery/  # 7
++```
++
++| Zone | Types dominants | Ownership apparent | Généré ? |
++|------|-----------------|--------------------|----------|
++| `sfia-fast-track/core` | markdown méthode | méthode SFIA / Morris | manuel |
++| `sfia-fast-track/automation` | markdown engines | méthode / automation | manuel |
++| `sfia-fast-track/templates` · `checklists` · `cycles` | markdown ops | méthode | manuel |
++| `sfia-fast-track/documentation` | markdown + archives | capitalisation | manuel (+ archives) |
++| `sfia-fast-track/archive` | archives | historique | archive |
++| `complementary/controlled-delivery` | markdown | méthodes complémentaires | manuel |
++
++## 2. Consommateurs entrants (preuves)
++
++| Consommateur | Nature | Preuve | Statut usage |
++|--------------|--------|--------|--------------|
++| `README.md` / `docs/**` | documentation routing | chemins `method/sfia-fast-track/**` | `DOCUMENTATION ONLY` / actifs éditoriaux |
++| `prompts/README.md` · `prompts/prompt-catalog.md` | gouvernance prompts | liens engines/core/checklists | `ACTIVE — EVIDENCED` (référence opératoire) |
++| Template / operating model | exécution cycles | core files | `ACTIVE — EVIDENCED` |
++| OPS1 allowlist | sécurité chemins | `app/lib/ops1/allowlistEvaluation.ts` · `types.ts` incluent `"method/"` | `ACTIVE — EVIDENCED` |
++| OPS1 canonical session | résolution contexte | `ops1/sfia/sessionContext.ts` → `resolveSfiaCanonicalContext` | `ACTIVE — INFERRED` (couplage canonique ; valider lecture disque `method/**`) |
++| CI `.github/**` | build | **aucune** référence `method/` trouvée | `UNKNOWN` / non bloquant CI path |
++| `lib/oa/**` | runtime OA | antiLegacy interdit MethodMode/fallback ; P08 vise no `method/**` reads | cible cutover `MISSING` |
++| Anciens chemins `methods/` racine | historique | `docs/practices/methods-structure-check.md` — absents | `DEAD CANDIDATE — NOT VALIDATED` (déjà retirés) |
++
++## 3. Dépendances sortantes
++
++`method/**` est principalement **contenu markdown** (pas de package TS importé). Sorties = références documentaires vers `docs/`, `prompts/`, projets — **pas** d’import runtime npm détecté.
++
++## 4. Matrice zones → candidats (≠ décisions)
++
++| Zone | Rôle actuel | Consommateurs | Preuves | Risque retrait | Candidat cible | Décision requise |
++|------|-------------|---------------|---------|----------------|----------------|------------------|
++| `sfia-fast-track/core` | canon méthode v2.6 ops | prompts · cycles Cursor/ChatGPT | liens prompts + foundation docs | **High** — casse operating model | conserver / isoler / remplacer (ultérieur) | F03 · Morris |
++| `sfia-fast-track/automation` | engines doc | prompt-catalog | liens | High | conserver / remplacer | F03 |
++| `sfia-fast-track/templates` · `checklists` · `cycles` | ops delivery | docs architecture | liens | Med–High | conserver | F03 |
++| `sfia-fast-track/documentation` (hors archive) | capitalisation | docs internes | volume | Med | archiver partiel / conserver | inventaire fin |
++| `sfia-fast-track/archive` | historique | peu | structure | Low–Med | archiver / conserver | Morris |
++| `complementary/controlled-delivery` | méthode complémentaire | README method | structure | Med | conserver / investigation | Morris |
++| Allowlist entry `"method/"` OPS1 | ACL path | action gate | code | High si retiré sans politique | isoler / migrer | F13 · F03 |
++
++## 5. Protections / historique
++
++- SC-02 : modification `method/**` hors gate Morris → `STOP`
++- P08 / P24 : lectures `method/**` et import boundaries à prouver avant cutover
++- Structure check : ne pas recréer `sfia/methods/` ou `methods/` racine
++
++## 6. Anti-claims
++
++- volume documentation ≠ usage runtime applicatif
++- absence de référence CI ≠ non-usage (prompts/OPS1)
++- candidat « archiver » ≠ archive exécutée
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md
+new file mode 100644
+index 0000000..14ecc67
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md
+@@ -0,0 +1,72 @@
++# 04 — OPS1 boundary assessment
++
++| Champ | Valeur |
++|-------|--------|
++| **Objet** | identifier OPS1 · frontières · **aucune modif ACL/code** |
++| **F13** | `NOT DECIDED` |
 +| **T-A7** | `NOT OPEN` |
-+| **Niveaux A–D** | ADOPTED (A1.1) — transitions = gates distincts |
-+| **Framing T-A7 (pack #280)** | VALIDATED — **≠** T-A7 ouvert |
-+| **Séquencement** | Option C `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague ouverte** |
-+| **Cadrage complémentaire borné** | autorisable ultérieurement (T-A7-D01=.1) · **pas ouvert** |
-+| **Ce document** | cartographie mise à jour · **pas** une autorisation d’exécution |
 +
-+## 1. Niveaux T-A7 (rappel)
++## 1. Qu’est-ce qu’OPS1 dans ce repository ?
 +
-+| Niveau | Contenu | Statut maintenant |
-+|--------|---------|-------------------|
-+| A. Framing | définition · préconditions · critères · aucune modif runtime | pack VALIDATED · **T-A7 NOT OPEN** |
-+| B. Delivery preparation | backlog · AT · plan · tests candidats · aucun cutover | `NOT AUTHORIZED` |
-+| C. Delivery | code/frontières · hold flags · migration progressive | `NOT AUTHORIZED` |
-+| D. Cutover | retrait/désactivation · preuves · rollback · GO dédié | `NOT AUTHORIZED` |
++**OPS1 = Operational Vertical Slice 1** — POC Studio de conversation GPT réelle + action Markdown gouvernée (allowlist), distinct du runtime Option A (`lib/oa`) et de D1 Project Foundation (`lib/d1`).
 +
-+## 2. Sujets ouverts
++| Couche | Emplacement | Statut |
++|--------|-------------|--------|
++| Cadrage / design / UX / tech / backlog / devops docs | `projects/sfia-studio/41`–`65` (+ companions ops1-named) | `DOCUMENTATION ONLY` (canon sur main) + décisions historiques |
++| Runtime applicatif | `app/lib/ops1/**` (~48 fichiers) · `app/features/ops1/**` · route `app/app/ops1/**` | `ACTIVE — EVIDENCED` |
++| Tests | `app/__tests__/ops1/**` · e2e `ops1-i*.spec.ts` | `TEST ONLY` / `ACTIVE — EVIDENCED` |
++| État local d’exécution | `projects/sfia-studio/.sfia-exec/**` (**gitignored**) | `ACTIVE — EVIDENCED` (runtime local ; hors Git) |
++| Import boundaries | `import-boundaries.test.ts` : D1↛OPS1 · platform↛OPS1/D1 | `ACTIVE — EVIDENCED` |
 +
-+Légende effets : **N** = non · **Y** = oui · **C** = candidate / selon F · **I** = indirect · **S** = stop documentaire A52
++## 2. Frontières
 +
-+| Sujet | Statut actuel | Framing | Delivery prep | Delivery | Real Critical | Gate Morris | Dépendances |
-+|-------|---------------|---------|---------------|----------|---------------|-------------|-------------|
-+| Dette legacy / MethodMode / `method/**` | PARTIAL / MISSING (P03–P09, P24) | N (inventaire OK · D03=.1) | C (F03) | Y | I | F03 · F11 · vague 1 future | AT-11 · UX |
-+| OPS1 isolation | PARTIAL (P10) | N | C | Y | I | F13 | shared surfaces |
-+| B5 LPS satellites | `OPEN` + A52-D01 STOP before delivery · D04=.1 | N | N (peut rester ouvert pour *future* prep) | **S/Y** | I | F08 · A52-D01 | T-A1 · C4 |
-+| R1 Project↔Cycle | `OPEN` · A52-D02 `.2` · D03=.1 | N | N (stratégie) | Y | Y | F08 · F10 | persistence |
-+| Autorité Critical | R-T-A3-1 `OPEN HARD` · A52-D03 · D03=.1 | N | N (design) | C | **Y HARD** | F09 · F10 · vague 2 | IAM |
-+| Atomicité Decision links | R-T-A3-2 `OPEN HARD` · A52-D04 · D03=.1 | N | N (design) | Y | **Y HARD** | F08 · F10 · vague 3 | R1 |
-+| Persistence | `NOT SELECTED` | N | design OK | Y | Y | F10 (calendrier D05) | R1 · U-M02 |
-+| IAM | `NOT SELECTED` | N | design OK | C | Y | F10 (calendrier D05) | R-T-A3-1/3 |
-+| F08 réserves avant delivery | contenu `NOT DECIDED` · timing = avant delivery (D05) | N | C | Y | I | F08 bulletin | A52-D01/D02/D04 |
-+| F09 Critical/cutover | contenu `NOT DECIDED` · timing = avant Critical/cutover (D05) | N | C | C | Y | F09 bulletin | A52-D03 |
-+| F10 persistence/IAM order | contenu `NOT DECIDED` · timing = avant durable (D05) | N | C | Y | Y | F10 bulletin | A52-D02/D03/D04 |
-+| R-M01 / C1–C3 | `OPEN` / NOT VALIDATED · A52-D05 · D03=.1 | N | C | C | I | F04 bornage | T-A6 |
-+| Cutover (niveau D) | `NOT AUTHORIZED` | N | N | N | I | F09 + GO D · vague 5 | legacy + HARD |
-+| Real Critical execution | `NOT AUTHORIZED` | N | N | N | **Y** | A52-D03 `.1` + F09 | API + IAM |
++| Frontière | Contenu | Preuve |
++|-----------|---------|--------|
++| Fonctionnelle | Chat libre + action Markdown facultative ; pas MVP global | docs 41–47 |
++| Technique | Session, conversation providers, actionGate, allowlist, control tower tools, exécution I5/I6 | `lib/ops1/**` |
++| Sécurité | Allowlist chemins (incl. `"method/"`), gates d’action, isolation vs D1/OA | allowlist + import boundaries + P10 |
++| Gouvernance cutover | OPS1 **ne doit pas** être présenté comme v3 Option A ; isolation avant cutover | SC-03 · SC-12 · F13 / P10–P11 |
 +
-+## 3. Effets A5.2 + T-A7-D0x sur le paysage
++## 3. Producteurs / consommateurs de droits
 +
-+- **Autorité** : simulation/read-only maintenant ; `.1` obligatoire avant real Critical (précondition future, pas implémentation).
-+- **Atomicité** : mémoire/logique maintenant ; durable avant real execution ; R1 et R-T-A3-2 restent ouverts.
-+- **B5** : tracking C4 fusionné ; **STOP BEFORE DELIVERY** (pas avant delivery preparation) — confirmé T-A7-D04=.1.
-+- **R-M01/C*** : rattachement + bornage avant future déclaration T-A6 COMPLETE ; F04 UNCHANGED.
-+- **Séquencement** : Option C adoptée ; vagues 1–5 = gates futurs uniquement.
-+- **Calendrier F** : D05=.3 · contenu F08/F09/F10 toujours `NOT DECIDED`.
-+- **Aucune F** consommée automatiquement.
++| Producteurs | Consommateurs |
++|-------------|----------------|
++| Allowlist evaluation / service | actionGate · exécutions bornées |
++| Session / repository OPS1 | UI `Ops1SessionScreen` · e2e |
++| Control tower tools / reinjection | flux CT ↔ OPS1 (tests dédiés) |
++| Canonical context resolver (sfia) | `ops1/sfia/sessionContext.ts` |
 +
-+## 4. Ce que ce pack n’autorise pas
++**ACL IAM produit globale :** non SELECTED — droits OPS1 = allowlist + gates locaux (`NOT SELECTED` IAM inchangé).
 +
-+- ouvrir T-A7 ;
-+- ouvrir une vague Option C ;
-+- entrer en delivery preparation / delivery / cutover ;
-+- sélectionner persistence ou IAM ;
-+- déclarer T-A6 ou Option A COMPLETE ;
-+- fermer une réserve technique ;
-+- consommer le contenu de F03/F08–F13.
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/03-open-reserves-and-gates.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/03-open-reserves-and-gates.md
++## 4. Dépendances legacy / MethodMode / `method/**`
++
++| Lien | Nature | Statut | Risque |
++|------|--------|--------|--------|
++| Allowlist contient `"method/"` | path ACL | `ACTIVE — EVIDENCED` | retrait method sans MAJ allowlist = actions bloquées ou trou |
++| `resolveSfiaCanonicalContext` | contexte canonique | `ACTIVE — INFERRED` | couplage cutover P03–P05 / loader |
++| MethodMode D1 | **interdit** import D1↔OPS1 | `ACTIVE — EVIDENCED` (boundary) | ne pas fusionner identités |
++| OA antiLegacy mentionne OPS1 cutover | garde | `ACTIVE — EVIDENCED` | double identité |
++
++## 5. Risques retrait / isolation
++
++| Action candidate | Risque | Preuve avant F13 |
++|------------------|--------|------------------|
++| Isoler OPS1 (garder POC, ACL stricte) | faible si boundaries OK | tests import + no cross-call OA |
++| Migrer allowlist hors `method/` | casse actions Campus/méthode | inventaire allowlist hits |
++| Retrait futur OPS1 | perte POC + e2e + CT bridges | GO produit distinct · ≠ cutover OA |
++| Présenter OPS1 comme v3 | SC-12 | anti-claims |
++
++## 6. Preuves nécessaires avant F13
++
++1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.  
++2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.  
++3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.  
++4. Inventaire allowlist `method/` : usages réels vs legacy.  
++5. Gate Morris F13 **contenu** (pas seulement calendrier).
++
++## 7. Anti-claims
++
++- OPS1 documenté ≠ OPS1 retiré
++- allowlist `method/` ≠ MethodMode
++- isolation candidate ≠ isolation appliquée
++- F13 préparée ≠ F13 `DECIDED`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md
 new file mode 100644
-index 0000000..769ebb1
+index 0000000..1d4e7a5
 --- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/03-open-reserves-and-gates.md
-@@ -0,0 +1,60 @@
-+# 03 — Réserves ouvertes et gates
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md
+@@ -0,0 +1,53 @@
++# 05 — Dependency map
 +
 +| Champ | Valeur |
 +|-------|--------|
-+| **Nature** | matrice alignée T-A7-D03=.1 · T-A7-D04=.1 · T-A7-D05=.3 · **pas** une fermeture |
-+| **Séquencement** | Option C adoptée · **aucune vague ouverte** |
++| **Nature** | carte candidate · **pas** une décision |
 +| **T-A7** | `NOT OPEN` |
-+| **Aucune réserve fermée ici** | oui |
 +
-+## 1. Matrice réserves / gates
++## 1. Axes principaux
 +
-+Légende : **N** = non · **Y** = oui · **C** = candidate · **I** = indirect · **S** = stop A52
++| Source → cible | Nature | Preuve | Criticité | Direct ? | Impact si supprimée | Validation future | Stop |
++|----------------|--------|--------|-----------|----------|---------------------|-------------------|------|
++| MethodMode → D1 runtime | exécution | types/db/commands | High | Y | D1 cassé | tests D1 | SC-04 |
++| MethodMode → D1 UI | exécution UI | Badges/Views | Med | Y | labels/cockpit | UI tests | SC-04 |
++| MethodMode → D1 tests | test | `__tests__/d1` | Med | Y | faux couverture | — | — |
++| MethodMode ↛ OA runtime | gouvernance (interdiction) | antiLegacy | High | Y (garde) | régression autorité | CI antiLegacy | SC-12 |
++| MethodMode → documentation | doc | design/T-A packs | Low | Y | docs stale | sync | — |
++| `method/**` → prompts/templates | gouvernance | prompt-catalog | High | Y | cycles mal guidés | revue prompts | SC-02 |
++| `method/**` → docs architecture | doc | docs/** liens | Med | Y | navigation cassée | link check | — |
++| `method/**` → tests app | test | **peu/aucune** lecture runtime prouvée | Low | N? | — | grep loader | P08 |
++| `method/**` → CI | build | **aucune** ref `.github` | — | N | — | P24 candidates | — |
++| `method/**` → OPS1 allowlist | sécurité | `"method/"` in allowlist | High | Y | actions deny/allow faux | inventaire ACL | SC-03 · F13 |
++| OPS1 → authorization allowlist | sécurité | actionGate/allowlist* | High | Y | exécutions unsafe/bloquées | e2e I3–I4 | F13 |
++| OPS1 → runtime/API/UI | exécution | lib/features/ops1 · route | High | Y | POC mort | e2e I1–I6 | — |
++| OPS1 → canonical resolver | exécution/gouv | sessionContext | High | Y | contexte faux | tests canonical | P03–P05 |
++| OPS1 ↛ D1 | sécurité boundary | import-boundaries | High | Y (garde) | double identité | CI | SC-12 |
++| legacy → rollback/RUN | RUN | P23 PARTIAL | Med | I | cutover non rollbackable | design RUN | F03 · F09 |
++| legacy → cutover | gouvernance | T-A7 def | High | I | cutover unsafe | F09 | SC-04/05 |
++| legacy → F03/F11/F13 | gouvernance | packs T-A7 | High | Y | décisions mal informées | ce pack + bulletin | — |
 +
-+| Réserve / sujet | Peut rester ouvert pendant framing | Bloque ouverture framing | Bloque delivery prep | Bloque delivery | Bloque cutover | Bloque real Critical | F nécessaire | Morris nécessaire |
-+|-----------------|------------------------------------|--------------------------|----------------------|-----------------|----------------|----------------------|---------------|-------------------|
-+| B5 | **Y** (D03=.1) | N | N (D04=.1 · stratégie) | **S/Y** (STOP BEFORE DELIVERY) | Y | I | F08 | A52-D01 suivi / F08 |
-+| R1 | Y (D03=.1) | N | N | Y | Y | Y | F08 · F10 | stratégie durable |
-+| R-T-A3-1 HARD | Y (simu OK · D03=.1) | N | N (design · D04=.1) | C | C | **Y** | F09 · F10 | API `.1` avant real |
-+| R-T-A3-2 HARD | Y (mémoire OK · D03=.1) | N | N (design · D04=.1) | Y | Y | **Y** | F08 · F10 | pattern durable |
-+| R-M01 | Y (D03=.1) | N | C | C | I | I | F04 bornage | A52-D05.4 |
-+| C1–C3 | Y | N | N | Dette | I | I | via R-M01 | A52-D05 |
-+| C4 tracking | Y (via B5) | N | via B5 | via B5 | via B5 | I | via B5 | A52-D01 |
-+| Legacy / MethodMode / `method/**` | Y (inventaire · D03=.1) | N | C | Y | Y | I | F03 · F11 | inventaire/plan · vague 1 |
-+| OPS1 | Y | N | C | Y | Y | I | F13 | ACL |
-+| Persistence | Y (NOT SELECTED · D03=.1) | N | design OK | Y | Y | Y | F10 | SELECTED futur |
-+| IAM | Y (NOT SELECTED · D03=.1) | N | design OK | C | C | Y | F10 | SELECTED futur |
-+| F08 | contenu NOT DECIDED · timing = avant delivery (D05) | N | C | Y | Y | I | — | bulletin F08 |
-+| F09 | contenu NOT DECIDED · timing = avant Critical/cutover (D05) | N | C | C | Y | Y | — | bulletin F09 |
-+| F10 | contenu NOT DECIDED · timing = avant durable/IAM (D05) | N | C | Y | Y | Y | — | bulletin F10 |
++## 2. Classification par type
 +
-+### Lecture normative
++| Type | Exemples |
++|------|----------|
++| Exécution | MethodMode D1 · OPS1 session/execution · canonical resolver |
++| Build | (peu pour method/) |
++| Test | D1/OPS1/antiLegacy/e2e |
++| Documentaire | docs · prompts · packs T-A* |
++| Gouvernance | SC-* · P03–P11 · Option C vague 1 |
++| Sécurité | allowlist · import boundaries · anti double identité |
++| Historique sans usage actif prouvé | `method/**/archive` · anciens `methods/` racine (absents) |
 +
-+- **Framing** : aucune réserve HARD n’empêche un cadrage read-only (T-A7-D03=.1 · T-A7 doc 04 + A5.2).
-+- **Delivery preparation** : HARD/B5 ne bloquent pas *par elles-mêmes* une *future* prep documentaire (T-A7-D04=.1) ; prep reste `NOT AUTHORIZED` maintenant.
-+- **Delivery** : STOP B5 ; F08 à arbitrer avant delivery (calendrier D05) ; HARD / R1 bloquants selon chemin.
-+- **Real Critical** : A52-D03 `.1` + fail-closed + IAM + F09 — **interdit maintenant**.
-+- **Cutover** : niveau D · F09 · legacy/OPS1 — **interdit maintenant**.
-+- **Option C** : vagues futures uniquement · aucune ouverte.
++## 3. Lecture normative
 +
-+## 2. Décisions F (relation — aucune auto-consommation de contenu)
++1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.  
++2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.  
++3. **Ne pas** fusionner OPS1 et Option A.  
++4. Cutover exige preuves P03–P11 avant retrait — encore largement `MISSING`/`PARTIAL`.
 +
-+| F | Statut contenu | Calendrier (T-A7-D05=.3) | Relation |
-+|---|----------------|--------------------------|----------|
-+| F04 | `DECIDED — UNCHANGED` | — | A52-D05 borne application future |
-+| F03 | `NOT DECIDED` | vague 1 / inventaire | legacy / MethodMode |
-+| F08 | `NOT DECIDED` | **avant delivery** | réserves avant delivery |
-+| F09 | `NOT DECIDED` | **avant real Critical / cutover** | Critical / cutover |
-+| F10 | `NOT DECIDED` | **avant persistence/IAM durable** | persistence / IAM order |
-+| F11–F13 | `NOT DECIDED` | selon vagues | UX / gouvernance / OPS1 |
++## 4. Anti-claims
 +
-+`NO F-DECISION CONTENT AUTO-CONSUMPTION` — seul le **calendrier** F08/F09/F10 est adopté (D05).
-+
-+## 3. Anti-claims
-+
-+- matrice ≠ fermeture
-+- « peut rester ouvert pendant framing » ≠ « résolu »
-+- « ne bloque pas delivery prep » ≠ « delivery prep AUTHORIZED »
-+- calendrier F adopté ≠ contenu F `DECIDED`
-+- Option C adoptée ≠ vague ouverte
-+- T-A7 reste `NOT OPEN`
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/04-sequencing-options.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/04-sequencing-options.md
++- dépendance documentaire ≠ dépendance d’exécution
++- garde antiLegacy ≠ MethodMode déjà retiré de D1
++- carte ≠ plan de suppression approuvé
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md
 new file mode 100644
-index 0000000..77b02b9
+index 0000000..e87ec9d
 --- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/04-sequencing-options.md
-@@ -0,0 +1,93 @@
-+# 04 — Options de séquencement (prochain pas)
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md
+@@ -0,0 +1,71 @@
++# 06 — Removal and isolation options (Wave 1)
 +
 +| Champ | Valeur |
 +|-------|--------|
-+| **Gate décisions** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-+| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
-+| **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) |
-+| **Options A / B** | `NOT SELECTED` |
-+| **Vagues Option C** | **aucune ouverte** |
++| **Nature** | options · **aucune présélection exécutoire** |
++| **Recommandations** | `RECOMMENDED — NOT DECIDED` uniquement |
++| **F03 / F11 / F13** | `NOT DECIDED` |
++
++## Option W1-A — Inventaire seulement
++
++**Idée :** figer la vérité et les dépendances (ce pack) ; aucun plan détaillé de retrait.
++
++| Critère | Évaluation |
++|---------|------------|
++| Bénéfices | risque minimal · conforme gate read-only · base pour Morris |
++| Risques | laisse F03/F11/F13 sans séquence opérationnelle |
++| Dette | rework plan dans un cycle suivant |
++| Coût / complexité | bas |
++| Réversibilité | totale |
++| Impact tests/CI/sécu/RUN | nul (doc only) |
++| F concernées | préparation seulement |
++| Stops | T-A7 NOT OPEN · no method/OPS1 mod |
++
++## Option W1-B — Inventaire + plan de retrait candidat
++
++**Idée :** ajouter séquences candidates (MethodMode → remplacements OA → CI boundary → OPS1 isolation → historique RO) avec rollback papier.
++
++| Critère | Évaluation |
++|---------|------------|
++| Bénéfices | accélère F03 ; aligne P03–P11 |
++| Risques | plan pris pour autorisation ; sous-estime HARD A5.2 |
++| Dette | plans obsolètes si runtime change |
++| Coût / complexité | moyen |
++| Réversibilité | haute (doc) |
++| Impact tests/CI | design de tests candidats seulement |
++| F | F03/F11/F13 timing+contenu futurs |
++| Stops | SC-02…05 · STOP BEFORE DELIVERY |
++
++## Option W1-C — Inventaire + isolation préalable candidate
++
++**Idée :** prioriser façades / boundaries (allowlist, import CI, anti cross-call OPS1/OA/D1) **avant** tout retrait.
++
++| Critère | Évaluation |
++|---------|------------|
++| Bénéfices | réduit risque double identité · compatible SC-03/SC-12 |
++| Risques | isolation présentée comme cutover ; travail technique anticipé sans GO |
++| Dette | wrappers temporaires (déjà notés platform/OPS1) |
++| Coût / complexité | moyen–haut (si exécuté plus tard) |
++| Réversibilité | moyenne une fois code touché (**hors ce cycle**) |
++| Impact sécu | positif si bien borné |
++| F | F13 en tête · F03 ensuite |
++| Stops | aucune mod code dans Wave 1 framing |
++
++## Challenge
++
++| Question | W1-A | W1-B | W1-C |
++|----------|------|------|------|
++| Utile maintenant ? | **oui** | oui si Morris veut séquence | oui si priorise sécu OPS1 |
++| Réduit risque cutover ? | partiel | mieux | mieux sur isolation |
++| Crée dette doc ? | faible | moyenne | moyenne |
++| Plus simple ? | **oui** | non | non |
++| Préparable sans ouvrir T-A7 ? | **oui** | oui (doc) | oui (doc only ici) |
++| Respecte STOP BEFORE DELIVERY / `.1` ? | oui | oui | oui |
++
++## Recommandation
++
++`RECOMMENDED — NOT DECIDED` → **W1-B** (inventaire déjà produit + plan de retrait **candidat** dans cycle suivant ou annexe Morris), **sans** exécution.
++
++Alternative acceptable : rester en **W1-A** si Morris veut limiter la vague 1 à la vérité pure.
++
++**Aucune option adoptée tant que T-A7-W1-D01 n’est pas tranché.**
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md
+new file mode 100644
+index 0000000..4f02388
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md
+@@ -0,0 +1,51 @@
++# 07 — Validation, rollback and stop conditions
++
++| Champ | Valeur |
++|-------|--------|
++| **Nature** | exigences **futures** · aucune validation exécutée ici |
++| **Rollback** | documenté ≠ validé |
++
++## 1. Preuves avant modification future
++
++| Domaine | Preuves minimales |
++|---------|-------------------|
++| MethodMode | inventaire UI/API/DB · tests D1 verts · plan remplacement OA session (P06/P07) · hold flag |
++| `method/**` | diff path filter · consommateurs prompts/OPS1 mis à jour · P08/P24 CI boundary |
++| OPS1 | P10 ACL · no cross-call OA · allowlist revue · e2e I1–I6 · anti SC-12 |
++| Cutover | P03–P11 + F09 · RUN/rollback P23 · GO niveau D |
++
++## 2. Stop conditions (héritage T-A7 + Wave 1)
++
++| ID | Trigger | Action |
++|----|---------|--------|
++| SC-02 | mod `method/**` hors gate | STOP merge/cycle |
++| SC-03 | mod OPS1 hors gate | STOP · isoler |
++| SC-04 | MethodMode retiré sans P03–P09 | STOP cutover |
++| SC-05 | remplacements legacy incomplets | STOP activation |
++| SC-12 | OPS1 présenté comme v3 / hors Option A | STOP recentrage |
++| W1-S1 | inventaire traité comme autorisation retrait | STOP · anti-claim |
++| W1-S2 | F03/F11/F13 consommées sans bulletin | STOP |
++| W1-S3 | vague 1 présentée comme T-A7 OPEN | STOP |
++| A52 | B5 STOP BEFORE DELIVERY | inchangé |
++| A52-D03 | `.1` avant real Critical | inchangé |
++
++## 3. Rollback (candidat documentaire)
++
++| Couche | Mécanisme candidat |
++|--------|--------------------|
++| Git | revert merge/commits pack ou code futur |
++| Feature/hold | hold flags cutover (P07–P09) |
++| ACL | restore allowlist / ruleset |
++| Data D1 | backup SQLite avant migration method_mode |
++| OPS1 local | `.sfia-exec` hors Git — procédures locales |
++
++**Anti-claim :** rollback documenté ≠ rollback testé runtime.
++
++## 4. Liens F
++
++| F | Rôle Wave 1 | Statut |
++|---|-------------|--------|
++| F03 | préconditions delivery / inventaire legacy | `NOT DECIDED` |
++| F11 | API/UI avant cutover (badges/surfaces) | `NOT DECIDED` |
++| F13 | historique RO + isolation OPS1 (P10–P11) | `NOT DECIDED` |
++| F08–F10 | hors vague 1 (calendrier D05 seulement) | contenu `NOT DECIDED` |
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md
+new file mode 100644
+index 0000000..9fbd229
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md
+@@ -0,0 +1,128 @@
++# 08 — Morris decision pack (Wave 1)
++
++| Champ | Valeur |
++|-------|--------|
++| **Statut pack** | `PREPARED — MORRIS DECISION REQUIRED` |
++| **Aucune option auto-sélectionnée** | oui |
++| **T-A7** | `NOT OPEN` |
++| **Vague 1 technique** | **non ouverte** |
++| **F03 / F11 / F13** | `NOT DECIDED` |
++
++---
++
++## T-A7-W1-D01 — Niveau de cadrage suite
++
++**Question :** Quel niveau retenir pour la suite de la vague 1 ?
++
++| Option | Description |
++|--------|-------------|
++| .1 | Inventaire seulement (W1-A) — vérité figée |
++| .2 | Inventaire + plan de retrait candidat (W1-B) |
++| .3 | Inventaire + isolation préalable candidate (W1-C) |
++| .4 | Autre / différer |
++
++**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (W1-B).
++
++**Statut :** `MORRIS DECISION REQUIRED`
++
++---
++
++## T-A7-W1-D02 — Blocs legacy confirmés actifs
++
++**Question :** Quels blocs sont confirmés **actifs** (évidence) ?
++
++| Option | Description |
++|--------|-------------|
++| .1 | MethodMode D1 + prompts/`method` core + OPS1 runtime/allowlist (recommandé comme socle minimal évidencé) |
++| .2 | Étendre à tout `method/documentation` comme actif |
++| .3 | Restreindre à MethodMode D1 seulement |
++| .4 | Custom / investigation complémentaire obligatoire avant claim |
++
++**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1**.
++
++**Statut :** `MORRIS DECISION REQUIRED`
++
++**Anti-claim :** choisir .1 ≠ autoriser retrait.
++
++---
++
++## T-A7-W1-D03 — Candidats au retrait futur
++
++**Question :** Quels blocs sont **candidats** au retrait futur (pas maintenant) ?
++
++| Option | Description |
++|--------|-------------|
++| .1 | MethodMode hors OA + lectures `method/**` produit OA + badges v2.6 OA (P07–P09) — après preuves |
++| .2 | Inclure archive `method/**/archive` en priorité basse |
++| .3 | Inclure retrait OPS1 runtime (au-delà isolation) |
++| .4 | Aucun candidat tant que P03–P11 non inventoriés finement |
++| .5 | Custom |
++
++**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1** (+ .2 optionnel).
++
++**Statut :** `MORRIS DECISION REQUIRED`
++
++---
++
++## T-A7-W1-D04 — Traitement OPS1
++
++**Question :** Quel traitement pour OPS1 ?
++
++| Option | Description |
++|--------|-------------|
++| .1 | Conserver POC + renforcer isolation (boundaries) |
++| .2 | Isoler (ACL/historique RO) sans retrait |
++| .3 | Migrer allowlist / canonical coupling hors `method/` |
++| .4 | Retrait futur (GO produit distinct) |
++| .5 | Investigation complémentaire avant toute option |
++
++**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (aligné P10–P11 / F13).
++
++**Statut :** `MORRIS DECISION REQUIRED`
++
++---
++
++## T-A7-W1-D05 — Quand arbitrer F03, F11, F13 ?
++
++**Question :** Quand consommer le **contenu** de F03 / F11 / F13 ?
++
++| Option | Description |
++|--------|-------------|
++| .1 | Immédiatement après ce framing (bulletin dédié) |
++| .2 | F13 (OPS1/historique) avant F03 ; F11 avec surfaces UI cutover |
++| .3 | Selon T-A7-D05 : F au point de risque (F03 avant delivery prep/delivery selon bulletin ; F11 avant cutover UI ; F13 avant isolation/historique) |
++| .4 | Différer tout F jusqu’à vague 4 delivery readiness |
++| .5 | Custom |
++
++**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.3** (cohérent T-A7-D05 ; **sans** consommer ici).
++
++**Statut :** `MORRIS DECISION REQUIRED`
++
++---
++
++## Bulletin Morris vierge
++
++```
++GO DECIDE T-A7 OPTION C WAVE 1 — T-A7-W1-D01=… — T-A7-W1-D02=… — T-A7-W1-D03=… — T-A7-W1-D04=… — T-A7-W1-D05=… — SFIA STUDIO V3-NATIVE — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
++```
++
++**Statut GO :** `NOT CONSUMED / NOT DRAFTED AS DECISION`.
++
++## Synthèse recommandations (non décisionnelles)
++
++| ID | Option | Label |
++|----|--------|-------|
++| T-A7-W1-D01 | .2 | `RECOMMENDED — NOT DECIDED` |
++| T-A7-W1-D02 | .1 | `RECOMMENDED — NOT DECIDED` |
++| T-A7-W1-D03 | .1 | `RECOMMENDED — NOT DECIDED` |
++| T-A7-W1-D04 | .2 | `RECOMMENDED — NOT DECIDED` |
++| T-A7-W1-D05 | .3 | `RECOMMENDED — NOT DECIDED` |
++
++## Garde-fous
++
++- Option C adoptée · vague 1 = doc only
++- T-A7 `NOT OPEN` · delivery/cutover `NOT AUTHORIZED`
++- B5/R1/R-M01 `OPEN` · HARD `OPEN HARD`
++- F03/F11/F13 `NOT DECIDED` · F08–F10 contenu `NOT DECIDED`
++- T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE`
++- persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md
+new file mode 100644
+index 0000000..baf3165
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md
+@@ -0,0 +1,103 @@
++# T-A7 Option C — Wave 1 Framing — Legacy and Scope Inventory
++
++| Champ | Valeur |
++|-------|--------|
++| **Gate consommé** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — READ-ONLY DOCUMENTARY FRAMING — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
++| **Date/heure/fuseau** | 2026-07-28 14:39:41 CEST (+0200) |
++| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
++| **Base** | `origin/main` @ `7a3e512f562f480c345a12a744806aa4f2ef625b` |
++| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
++| **Worktree local** | `sfia-workspace-t-a7-wave-1-legacy-scope` (hors path absolu) |
++| **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague technique ouverte** |
++| **Vague 1** | **cadrage documentaire uniquement** (inventaire) |
 +| **T-A7** | `NOT OPEN` |
 +| **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
-+
-+## Option A — Réserves critiques d’abord
-+
-+**Statut :** `NOT SELECTED`
-+
-+**Idée :** traiter d’abord R-T-A3-1 / R-T-A3-2 (autorité + atomicité Decision), puis B5 ; arbitrer F09/F10 ; ensuite élargir le cadrage legacy/cutover.
-+
-+| Critère | Évaluation |
-+|---------|------------|
-+| Bénéfices | aligne A52-D02/D03/D04 ; réduit risque d’ouvrir un framing cutover avant stops Critical |
-+| Risques | retarde inventaire MethodMode/`method/**`/OPS1 ; peut surinvestir design API trop tôt |
-+| Dette | design API/atomicité sans SELECTED techno |
-+| Décisions requises | F09/F10 · évent. F08 partiel · gates design |
-+| Laissés ouverts | legacy P03–P11 · OPS1 · UX |
-+| Stops | STOP BEFORE DELIVERY (B5) · `.1` avant real Critical |
-+| Réversibilité | haute (documentaire) |
-+| Complexité | moyenne-haute |
-+
-+**Challenge (historique) :** utile si priorité Critical ; Option C jugée plus progressive.
-+
-+## Option B — Legacy / cutover d’abord en framing
-+
-+**Statut :** `NOT SELECTED`
-+
-+**Idée :** cadrer dette legacy, MethodMode, `method/**`, OPS1 et rollback ; maintenir les réserves techniques comme **stops avant delivery** (pas comme prérequis de framing).
-+
-+| Critère | Évaluation |
-+|---------|------------|
-+| Bénéfices | complète le pack T-A7 (#280) côté P03–P11/P24 ; clarifie F03/F11/F13 |
-+| Risques | illusion de « T-A7 ready » ; sous-estimer HARD Critical |
-+| Dette | inventaires sans preuve CI boundary |
-+| Décisions requises | F03 · F11 · F13 candidates (pas auto) |
-+| Laissés ouverts | HARD · B5 · persistence/IAM |
-+| Stops | A52-D01 · A52-D03 · HARD · F08/F09 |
-+| Réversibilité | haute |
-+| Complexité | moyenne |
-+
-+**Challenge (historique) :** réduction risque Critical faible à court terme ; anti-claims obligatoires.
-+
-+## Option C — Séquencement par gates — **ADOPTÉE**
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3)
-+
-+**Idée (trajectoire adoptée) :** framing global **borné** (read-only), puis vagues Morris **distinctes** et **successives** — chacune ouverte uniquement par gate dédié :
-+
-+1. legacy et périmètre (F03/F11/F13 inventaire) ;
-+2. autorité (F09 · trajectoire `.1`) ;
-+3. atomicité / persistence (F08/F10 · A52-D02/D04) ;
-+4. delivery readiness (F08 · B5 STOP) ;
-+5. cutover (niveau D · GO dédié).
-+
-+| Critère | Évaluation |
-+|---------|------------|
-+| Bénéfices | préserve niveaux A–D ; évite big-bang ; compatible A5.2 |
-+| Risques | durée ; fatigue de gates ; sous-spécifier une vague |
-+| Dette | packs documentaires successifs |
-+| Décisions requises | une vague à la fois · F non consommées d’avance |
-+| Laissés ouverts | tout hors vague active |
-+| Stops | chaque vague réaffirme NOT OPEN / NOT AUTHORIZED |
-+| Réversibilité | très haute |
-+| Complexité | moyenne (orchestration) |
-+
-+### Conséquences immédiates vs futures
-+
-+| Immédiat (ce cycle) | Futur (gates séparés) |
-+|---------------------|------------------------|
-+| trajectoire Option C versionnée | vague 1+ = GO dédiés |
-+| aucune vague ouverte | cadrage complémentaire borné (T-A7-D01=.1) |
-+| T-A7 `NOT OPEN` | niveaux B/C/D restent à autoriser séparément |
-+| F contenu `NOT DECIDED` | F08/F09/F10 selon calendrier T-A7-D05 |
-+
-+**Anti-claim :** adoption Option C ≠ lancement d’exécution ≠ ouverture vague 1 ≠ delivery preparation.
-+
-+## Synthèse sélection
-+
-+| Option | Statut |
-+|--------|--------|
-+| A | `NOT SELECTED` |
-+| B | `NOT SELECTED` |
-+| C | `DECIDED — ADOPTED BY MORRIS` |
-+
-+**Trajectoire adoptée · exécution non autorisée.**
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/05-morris-decision-pack.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/05-morris-decision-pack.md
-new file mode 100644
-index 0000000..be080d7
---- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/05-morris-decision-pack.md
-@@ -0,0 +1,233 @@
-+# 05 — Pack d’arbitrage Morris (prochain pas T-A7)
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| **Statut pack** | `MORRIS T-A7-D01…D05 RECORDED` |
-+| **Gate consommé** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-+| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
-+| **T-A7** | `NOT OPEN` |
-+| **A5.2 documentaire** | `CLOSED` |
-+| **Option C** | `DECIDED — ADOPTED BY MORRIS` — aucune vague ouverte |
-+| **F03 / F08–F13 contenu** | `NOT DECIDED` |
-+| **F08/F09/F10 calendrier** | adopté (D05=.3) · contenu `NOT DECIDED` |
-+| **F04** | `DECIDED — UNCHANGED` |
-+
-+---
-+
-+## T-A7-D01 — Ouvrir un cadrage complémentaire T-A7 ?
-+
-+**Question :** Faut-il ouvrir un cycle de cadrage documentaire complémentaire (sans ouvrir T-A7 B/C/D) ?
-+
-+| Option | Description |
-+|--------|-------------|
-+| .1 | Oui — cadrage complémentaire borné (legacy inventaire + stops A5.2) |
-+| .2 | Non — attendre d’abord une autre priorité (ex. B5 / HARD design) |
-+| .3 | Différer / autre |
-+
-+**Choix Morris :** `.1`
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
-+
-+**Sens :** autoriser *ultérieurement* un cycle de cadrage documentaire complémentaire borné, sans ouvrir T-A7 niveaux B/C/D.
-+
-+**Conséquences :**
-+
-+- un gate séparé sera requis pour ouvrir ce cadrage ;
-+- ce cycle n’ouvre pas le cadrage complémentaire ;
-+- compatible Option C vague 1 (legacy/périmètre) — vague **non** ouverte ici.
-+
-+**Anti-claims :**
-+
-+- T-A7-D01 ≠ ouverture actuelle du cadrage complémentaire ;
-+- T-A7-D01 ≠ T-A7 `OPEN` ;
-+- T-A7-D01 ≠ delivery preparation / delivery / cutover.
-+
-+**Restant ouvert :** gate d’ouverture du cadrage complémentaire · inventaire legacy concret.
-+
-+---
-+
-+## T-A7-D02 — Quel séquencement ?
-+
-+**Question :** Quel séquencement adopter pour la trajectoire post-A5.2 ?
-+
-+| Option | Description |
-+|--------|-------------|
-+| .1 | Option A — réserves critiques d’abord (HARD puis B5 · F09/F10) |
-+| .2 | Option B — legacy/cutover framing d’abord (F03/F11/F13) |
-+| .3 | Option C — séquencement par gates / vagues |
-+| .4 | Custom |
-+
-+**Choix Morris :** `.3`
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
-+
-+**Sens :** adopter le séquencement Option C par gates et vagues :
-+
-+1. legacy et périmètre ;
-+2. autorité ;
-+3. atomicité / persistence ;
-+4. delivery readiness ;
-+5. cutover.
-+
-+**Conséquences :**
-+
-+- Options A et B = `NOT SELECTED` ;
-+- trajectoire documentaire versionnée ;
-+- **aucune vague n’est ouverte automatiquement**.
-+
-+**Anti-claims :**
-+
-+- Option C adoptée ≠ vague 1…5 lancée ;
-+- Option C ≠ niveaux B/C/D autorisés ;
-+- chaque vague exige un GO Morris dédié.
-+
-+**Restant ouvert :** ouverture de chaque vague · contenu des F associées.
-+
-+---
-+
-+## T-A7-D03 — Sujets ouverts pendant framing
-+
-+**Question :** Quels sujets peuvent rester ouverts pendant un cadrage documentaire ?
-+
-+| Option | Description |
-+|--------|-------------|
-+| .1 | Tous les sujets techniques listés (B5, HARD, R1, R-M01, legacy, persistence/IAM NOT SELECTED) — framing N pour toutes |
-+| .2 | Exiger fermeture HARD avant tout cadrage complémentaire |
-+| .3 | Custom |
-+
-+**Choix Morris :** `.1`
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
-+
-+**Sens :** les sujets techniques suivants peuvent rester ouverts pendant un cadrage documentaire borné :
-+
-+- B5 ;
-+- R-T-A3-1 / R-T-A3-2 (`OPEN HARD`) ;
-+- R1 ;
-+- R-M01 ;
-+- legacy ;
-+- persistence / IAM `NOT SELECTED`.
-+
-+**Conséquences :**
-+
-+- framing documentaire n’exige pas la fermeture préalable des HARD ;
-+- aligné T-A7 doc 04 + A5.2.
-+
-+**Anti-claims :**
-+
-+- « peut rester ouvert pendant framing » ≠ résolu ;
-+- ≠ acceptable pour delivery ;
-+- ≠ fermeture différée automatique.
-+
-+**Restant ouvert :** toutes les réserves listées (statuts techniques inchangés).
-+
-+---
-+
-+## T-A7-D04 — Bloqueurs delivery preparation
-+
-+**Question :** Quels sujets bloquent la **delivery preparation** (niveau B) ?
-+
-+| Option | Description |
-+|--------|-------------|
-+| .1 | Aucun HARD n’interdit la prep documentaire ; B5 peut rester OPEN (A52-D01) ; F08/F09/F10 restent NOT DECIDED jusqu’à bulletin |
-+| .2 | Exiger F08/F09/F10 DECIDED avant toute prep |
-+| .3 | Exiger fermeture B5 avant prep |
-+| .4 | Custom |
-+
-+**Choix Morris :** `.1`
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
-+
-+**Sens :** les réserves HARD et B5 ne bloquent pas, *par elles-mêmes*, une **future** préparation documentaire du delivery.
-+
-+**Conséquences :**
-+
-+- STOP B5 reste **avant delivery** (A52-D01), pas avant prep ;
-+- une future prep documentaire reste conditionnée à un gate dédié.
-+
-+**Anti-claims :**
-+
-+- delivery preparation reste actuellement `NOT AUTHORIZED` ;
-+- B5 reste `STOP BEFORE DELIVERY` ;
-+- cette décision ne ferme aucune réserve ;
-+- cette décision ne consomme aucune F ;
-+- choisir `.1` ≠ autoriser prep maintenant.
-+
-+**Restant ouvert :** gate `GO PREPARE T-A7 DELIVERY` (ou équivalent) · contenu F08.
-+
-+---
-+
-+## T-A7-D05 — Quand arbitrer F08/F09/F10 ?
-+
-+**Question :** Faut-il arbitrer F08/F09/F10 avant le cadrage documentaire, ou avant delivery / real Critical ?
-+
-+| Option | Description |
-+|--------|-------------|
-+| .1 | Avant tout cadrage complémentaire |
-+| .2 | Avant delivery preparation (B) |
-+| .3 | Avant delivery (C) / real Critical / cutover selon F (F08 delivery · F09 Critical/cutover · F10 persistence/IAM) |
-+| .4 | Custom |
-+
-+**Choix Morris :** `.3`
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
-+
-+**Sens :** arbitrer chaque décision F à son point de risque :
-+
-+- **F08** avant delivery ;
-+- **F09** avant real Critical / cutover ;
-+- **F10** avant choix durable persistence / IAM.
-+
-+**Conséquences :**
-+
-+- calendrier F adopté ;
-+- préparation documentaire A5.2 déjà faite reste valide ;
-+- consommation F = bulletins séparés futurs.
-+
-+**Anti-claims :**
-+
-+- F08 / F09 / F10 restent actuellement `NOT DECIDED` (contenu) ;
-+- le calendrier est décidé, **pas** le contenu ;
-+- aucun bulletin F n’est consommé dans ce cycle ;
-+- F03 / F11–F13 restent `NOT DECIDED`.
-+
-+**Restant ouvert :** contenu de chaque F · GO bulletins F dédiés.
-+
-+---
-+
-+## Bulletin Morris consommé (enregistrement)
-+
-+```
-+GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
-+```
-+
-+**Statut gate :** `CONSUMED` (enregistrement documentaire uniquement).
-+
-+Interdit suite à ce GO : ouvrir T-A7 · ouvrir une vague · delivery/cutover · fermeture implicite · consommation contenu F · COMPLETE.
-+
-+---
-+
-+## Synthèse décisions
-+
-+| ID | Choix | Statut |
-+|----|-------|--------|
-+| T-A7-D01 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D02 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D03 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
-+
-+## Garde-fous absolus
-+
-+- A5.2 documentaire : `CLOSED`
-+- réserves techniques : `OPEN` / `OPEN HARD`
-+- T-A6 COMPLETE : `NOT DECLARED`
-+- Option A : `NOT COMPLETE`
-+- T-A7 : `NOT OPEN`
-+- delivery preparation / delivery / cutover : `NOT AUTHORIZED`
-+- F03 / F08–F13 contenu : `NOT DECIDED`
-+- F08/F09/F10 calendrier : adopté (D05) · contenu `NOT DECIDED`
-+- persistence / IAM : `NOT SELECTED`
-+- RGPD production : `NOT VALIDATED`
-+
-+Formulations interdites : « T-A7 ready to execute » · « T-A7 opened » · « delivery ready » · « cutover approved » · « reserves resolved » · « Option A complete » · « Option C waves started » · « F08/F09/F10 content decided ».
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/README.md
-new file mode 100644
-index 0000000..4a0ad49
---- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-next-decision-step-framing/README.md
-@@ -0,0 +1,91 @@
-+# T-A7 — Next Decision Step Framing (après A5.2)
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| **Gate framing (historique)** | `GO CLOSE A5.2 DOCUMENTARY INTEGRATION AND FRAME NEXT T-A7 DECISION STEP — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-+| **Gate décisions consommé** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-+| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
-+| **Cycle / profil** | 15 — Capitalisation / enregistrement de décisions (+1 · 2 · 9 · 13) · Critical |
-+| **Base historique** | `origin/main` @ `53bff7fac6e25c7db34ee48fbb56503ab416cad3` |
-+| **Commit framing parent** | `019ce31f2efc45f0a6f53e1b1420102702a994f1` |
-+| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step` |
-+| **Worktree local** | `sfia-workspace-t-a7-next-decision` (hors repo path absolu) |
-+| **Statut pack** | `MORRIS T-A7-D01…D05 RECORDED — IMPLEMENTATION AND WAVE OPENING NOT AUTHORIZED` |
-+| **A5.2 documentaire** | `CLOSED` |
-+| **Option C (séquencement)** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague ouverte** |
-+| **Réserves techniques** | `OPEN` / `OPEN HARD` (inchangées) |
-+| **T-A7** | `NOT OPEN` |
-+| **Delivery preparation** | `NOT AUTHORIZED` |
-+| **Delivery** | `NOT AUTHORIZED` |
-+| **Cutover** | `NOT AUTHORIZED` |
++| **F03 / F11 / F13** | `NOT DECIDED` (préparés, non consommés) |
++| **F08 / F09 / F10** | calendrier décidé (T-A7-D05) · contenu `NOT DECIDED` |
++| **B5 / R1 / R-M01** | `OPEN` |
++| **R-T-A3-1 / R-T-A3-2** | `OPEN HARD` |
 +| **T-A6 COMPLETE** | `NOT DECLARED` |
 +| **Option A** | `NOT COMPLETE` |
-+| **F03 / F08–F13 contenu** | `NOT DECIDED` |
-+| **F08/F09/F10 calendrier** | timing adopté (T-A7-D05=.3) — contenu toujours `NOT DECIDED` |
-+| **F04** | `DECIDED — UNCHANGED` |
 +| **Persistence / IAM / RGPD prod** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
 +| **Push / PR** | **aucun** |
 +
 +## Objectif
 +
-+1. Enregistrer strictement les décisions Morris T-A7-D01…D05.
-+2. Adopter documentairement le séquencement Option C (gates/vagues) **sans** ouvrir de vague.
-+3. **Ne pas** ouvrir T-A7 · **ne pas** autoriser delivery/cutover · **ne pas** fermer de réserve · **ne pas** consommer le contenu des décisions F.
-+
-+## Décisions Morris enregistrées
-+
-+| ID | Choix | Sens résumé | Statut |
-+|----|-------|-------------|--------|
-+| T-A7-D01 | `.1` | cadrage documentaire complémentaire borné **futur** (gate séparé) · sans B/C/D | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D02 | `.3` | séquencement Option C (5 vagues) · **aucune vague ouverte** | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D03 | `.1` | sujets techniques peuvent rester ouverts pendant framing documentaire | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D04 | `.1` | HARD/B5 ne bloquent pas *par elles-mêmes* une future prep documentaire | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-D05 | `.3` | calendrier F : F08 avant delivery · F09 avant Critical/cutover · F10 avant persistence/IAM durable | `DECIDED — ADOPTED BY MORRIS` |
++Produire un inventaire documentaire exploitable de MethodMode, de `method/**`, d’OPS1 et de leurs dépendances, afin de préparer les arbitrages futurs F03 / F11 / F13 **sans** modifier ces composants et **sans** ouvrir T-A7.
 +
 +## Périmètre
 +
-+- enregistrement documentaire T-A7-D01…D05 ;
-+- adoption Option C comme **trajectoire** (pas comme exécution) ;
-+- conservation des réserves, stops A5.2 et anti-claims.
++- inventaire MethodMode (runtime D1, UI, tests, docs) ;
++- inventaire `method/**` (structure, consommateurs, candidats) ;
++- inventaire OPS1 (docs, runtime `app/lib/ops1`, allowlist, ACL/frontières) ;
++- carte de dépendances et frontières de scope T-A7 ;
++- options W1-A/B/C · validations / rollback / stops ;
++- bulletin Morris T-A7-W1-D01…D05 (`MORRIS DECISION REQUIRED`).
 +
 +## Hors périmètre
 +
-+- ouverture T-A7 niveaux B/C/D · ouverture d’une vague Option C ;
++- modification / suppression `method/**` · OPS1 · runtime · modeled · workflow · tests applicatifs · CI ;
++- ouverture technique de vague · T-A7 B/C/D ;
 +- delivery preparation / delivery / cutover ;
-+- implémentation runtime / modeled / workflow / `method/**` / OPS1 ;
-+- fermeture B5 / R1 / R-T-A3-1 / R-T-A3-2 / R-M01 ;
-+- validation C1–C4 · consommation contenu F03/F08–F13 ;
-+- déclaration T-A6 COMPLETE / Option A COMPLETE ;
-+- sélection persistence / IAM.
++- fermeture de réserves · consommation F03/F08–F13 ;
++- sélection persistence / IAM · déclaration COMPLETE.
 +
-+## Fichiers
++## Sources principales
++
++| Source | Rôle |
++|--------|------|
++| Pack T-A7 next-step (PR #282) | Option C · D01–D05 · vague 1 = legacy/périmètre |
++| Pack T-A7 legacy/cutover (PR #280) | P03–P11 · SC-02…SC-05 · F03/F11/F13 |
++| Code `app/lib/d1` · `app/features/d1` | MethodMode ACTIVE |
++| Code `app/lib/ops1` · `app/features/ops1` | OPS1 ACTIVE + allowlist `method/` |
++| Arbre `method/` | méthode Fast Track + complementary |
++| Template SFIA cycle | méthode d’exécution |
++
++## Livrables
 +
 +| Fichier | Rôle |
 +|---------|------|
-+| `01-a5-2-documentary-closure.md` | Preuve clôture documentaire A5.2 (inchangé) |
-+| `02-t-a7-decision-landscape.md` | Paysage + effets post-décisions |
-+| `03-open-reserves-and-gates.md` | Matrice réserves / gates + calendrier F |
-+| `04-sequencing-options.md` | Options A/B/C · Option C adoptée |
-+| `05-morris-decision-pack.md` | Bulletin T-A7-D01…D05 enregistré |
++| `01-source-truth-and-scope.md` | Base Git · recherches · in/out scope |
++| `02-methodmode-inventory.md` | Inventaire MethodMode |
++| `03-method-directory-inventory.md` | Inventaire `method/**` |
++| `04-ops1-boundary-assessment.md` | OPS1 frontières |
++| `05-dependency-map.md` | Carte de dépendances |
++| `06-removal-and-isolation-options.md` | Options W1-A/B/C |
++| `07-validation-rollback-and-stop-conditions.md` | Preuves · stops |
++| `08-morris-decision-pack.md` | T-A7-W1-D01…D05 |
++
++## Décisions existantes (rappel)
++
++| ID | Choix | Statut |
++|----|-------|--------|
++| T-A7-D01 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
++| T-A7-D02 | `.3` Option C | `DECIDED — ADOPTED BY MORRIS` |
++| T-A7-D03 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
++| T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
++| T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
++
++## Décisions futures (ce pack)
++
++T-A7-W1-D01…D05 — toutes `MORRIS DECISION REQUIRED` — **aucune présélection**.
 +
 +## Anti-claims
 +
-+- `DECIDED — ADOPTED BY MORRIS` ≠ vague ouverte ≠ T-A7 `OPEN`
++- cadrage de vague ≠ vague technique ouverte
++- inventaire ≠ autorisation de retrait
++- candidat au retrait ≠ décision de suppression
++- référence trouvée ≠ usage actif
++- absence de référence ≠ preuve de non-usage
 +- Option C adoptée ≠ exécution lancée
-+- T-A7-D01 `.1` ≠ cadrage complémentaire déjà ouvert
-+- T-A7-D04 `.1` ≠ delivery preparation `AUTHORIZED`
-+- T-A7-D05 `.3` = calendrier F ≠ contenu F `DECIDED`
-+- A5.2 `CLOSED` (documentaire) ≠ réserves `CLOSED`
-+- T-A7 framing pack (PR #280) `VALIDATED` ≠ T-A7 ouvert
-+- aucun delivery / cutover autorisé
-+- T-A6 / Option A restent non COMPLETE
++- F préparée ≠ F consommée
++- rollback documenté ≠ rollback validé
++- T-A7 framing ≠ T-A7 OPEN
 +
 +## Verdict
 +
-+`MORRIS T-A7 NEXT-STEP DECISIONS RECORDED — D01=.1 D02=.3 D03=.1 D04=.1 D05=.3 ADOPTED — OPTION C GATE-BASED SEQUENCING ADOPTED WITHOUT OPENING ANY WAVE — TECHNICAL RESERVES REMAIN OPEN — F08 F09 AND F10 TIMING DECIDED BUT CONTENT REMAINS NOT DECIDED — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 NOT DECLARED COMPLETE — OPTION A NOT COMPLETE — PROJECT BRANCH NOT PUSHED`
++`T-A7 OPTION C WAVE 1 LEGACY AND SCOPE FRAMING COMPLETED — METHODMODE METHOD DIRECTORY AND OPS1 INVENTORIED — DEPENDENCIES AND FUTURE REMOVAL OPTIONS DOCUMENTED — MORRIS DECISIONS PREPARED WITHOUT PRESELECTION — F03 F11 AND F13 REMAIN NOT DECIDED — TECHNICAL RESERVES REMAIN OPEN — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
 +
 +## Gate candidat suivant
 +
-+`GO REVIEW MORRIS T-A7 NEXT-STEP DECISION RECORD — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
++`GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
 +
 +**Statut :** `NOT CONSUMED`
 ```
