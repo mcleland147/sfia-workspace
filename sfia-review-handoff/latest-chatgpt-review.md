@@ -1,169 +1,111 @@
 # ChatGPT Review Pack — FULL
-## T-A7 Lot 1 Post-Merge Closure & Next Blocker Framing
+## T-A7 N3 — F11.2 / F13.4 Completion Framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-28 22:17:46 CEST (+0200) |
+| **Date/heure/fuseau** | 2026-07-28 22:47:39 CEST (+0200) |
 | **Niveau** | FULL |
-| **Cycle** | 14 — Post-merge (+ cadrage / arch / QA / RUN / capitalisation) |
-| **Profil** | Critical |
-| **Gate consommé** | `GO POST-MERGE T-A7 FIRST BOUNDED DEVELOPMENT LOT — CONFIRM MAIN INTEGRATION — CORRECT STALE LOCAL-ONLY README STATUS IF NEEDED — FRAME NEXT BLOCKER-REDUCTION CYCLE — NO DELIVERY OR CUTOVER` |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
-| **Branche** | `docs/sfia-studio-t-a7-lot1-post-merge-next-blocker-framing` |
-| **Base / HEAD parent** | `origin/main` / `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-| **HEAD commit local** | `ed62367f8c6b286c49191076e929271ea70965a3` |
-| **Tree** | `da04d74b6fbd1310f755122acce66155acd00dcf` |
-| **Parent** | `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-| **Upstream projet** | aucun |
-| **Push / PR / merge projet** | **non exécutés** |
+| **Workspace** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
+| **Branche projet** | `docs/sfia-studio-t-a7-lot1-post-merge-next-blocker-framing` |
+| **HEAD projet (inchangé)** | `ed62367f8c6b286c49191076e929271ea70965a3` |
+| **origin/main** | `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
+| **Commit projet N3** | **aucun** (gate : pas de commit projet) |
+| **Working tree** | docs 12–16 untracked + README modified (local only) |
+| **Cycle** | 1 — Cadrage (+ arch fonc/tech, QA, sécu, RUN) |
+| **Profil** | Standard |
+| **Typologie** | DOC |
+| **Gate Morris N3** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 FOR F11.2 AND F13.4 COMPLETION FRAMING ONLY — DEFINE FINAL SURFACE GAPS DEPENDENCIES IAM PERSISTENCE AND RUNTIME BOUNDARIES — NO IMPLEMENTATION DELIVERY OR CUTOVER` |
+| **N3** | `DECIDED — ADOPTED BY MORRIS` |
 
 ---
 
-## 1. Confirmation post-merge
+## 1. Local Git Truth Check
 
-`T-A7 LOT 1 MAIN INTEGRATION CONFIRMED — POST-MERGE VERIFIED`
-
-| Contrôle | Verdict |
-|----------|---------|
-| PR #287 MERGED | PASS |
-| Merge `770605bc…` parents `2a3c59c…`+`b6a19335…` tree `712720a1…` | PASS |
-| 4 commits intégrés | PASS |
-| Branche source préservée @ `b6a19335…` | PASS |
-| Checks PR run `30393629328` SUCCESS | PASS |
-| Checks post-merge run `30393814783` SUCCESS | PASS |
-| Blobs hold/test-only/F11/F13/boundaries | PASS |
-| Barrel clean | PASS |
-| Pas de déploiement/cutover | PASS |
-
-Blobs critiques (inchangés sur main) :
-
-- hold `302203274ff942ccec1d0317908c5e7827765be2`
-- test-only `ad9d1a5c7331d842acdf51db79390791fa7e6c8b`
-- store `e90d3f0df8aed59411a0b23fabb9a534101b9f70`
-- barrel `73e45f6fdcdbb67c20e11b82ebdb71fbfcd25815`
-- F11 `1ae8deac7792a78db3e9745c24b21cd7666e24f4`
-- F13 `2be059afa57d18b117c5cbd8d9148a7dad06344d`
-- boundaries `422fdd417359de0c4f19a7244b14e33e317a29b3`
+| Contrôle | Résultat |
+|----------|----------|
+| branche | PASS |
+| HEAD `ed62367…` | PASS |
+| parent `770605bc…` | PASS |
+| origin/main | PASS (identique) |
+| clean avant N3 | PASS |
+| après N3 | modifications **documentaires locales uniquement** (attendu) |
 
 ---
 
-## 2. README correction
+## 2. Sources consultées
 
-### Avant (état courant stale)
-
-Contenait comme statut courant : base `2a3c59c…` · Push/PR aucun · gate INTEGRATE NOT CONSUMED · verdict `PROJECT BRANCH NOT PUSHED`.
-
-### Après
-
-État courant aligné sur main (#287 · `770605bc…` · checks · INTEGRATED ON MAIN).
-Section **Historique du lot local pré-intégration** conserve les formulations obsolètes, datées et qualifiées.
-
-Blobs docs :
-
-- README `e73f40b50c85c53a6da06a991a4f429974f6e5b2`
-- doc 11 `7b4435ae12c07347bfd9dcc33b77a88098658ef5`
+- template / routing / OM / guardrails (workspace)
+- handoff post-merge blob `b16cbd94…` (contexte)
+- pack T-A7 `01`–`11` + README
+- pack F03/F11/F13 arbitration `01`–`07`
+- modules main : `operationalReadiness.ts`, `boundedHistoryRead.ts`, hold types, tests F11/F13
+- PR #287 / merge `770605bc…`
 
 ---
 
-## 3. P03–P11 / F03.3 / Blockers
+## 3. État F11.2 / F13.4
 
-- P03–P07 · P10–P11 PARTIAL · P08 · P09 MISSING · 0 SATISFIED remplacement
-- F03.3 `PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED`
-- Blockers structurés : P08/P09 · live OPS1 · F11/F13 finales · R1–R3 · B5 · R1 · R-M01 · HARD · persistence/IAM/RGPD
+| Surface | État | Complete ? |
+|---------|------|------------|
+| F11.2 | `queryOperationalReadiness` RO interne · lot1 schema | **NON** |
+| F13.4 | documentary provider max 50 · gitCanonical | **NON** |
 
----
-
-## 4. Options N1–N5
-
-| Option | Résumé |
-|--------|--------|
-| N1 | Cadrage P08/P09 replacement foundations |
-| N2 | Evidence live OPS1↔OA (no OPS1 functional change) |
-| N3 | Cadrage écart F11.2/F13.4 completion *(recommandé)* |
-| N4 | Cadrage rollback R1–R3 + contrôles blockers (sans fermer) |
-| N5 | Différer / custom |
-
-**Recommandation :** N3 — `RECOMMENDED — NOT DECIDED`
-**Bulletin :** `MORRIS DECISION REQUIRED`
-
-Gate générique : `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER` · `NOT CONSUMED`
+Gaps majeurs : HTTP/audit/health F11 · politique/pagination/audit/rétention F13 · IAM/persistence NOT SELECTED.
 
 ---
 
-## 5. Gouvernance
+## 4. Frontières
 
-O3 DECIDED · T-A7 OPEN borné · lot 1 INTEGRATED ON MAIN · F03.3 partielle · F11/F13 fondations ≠ finales · B5/R1/R-M01 OPEN · HARD OPEN HARD · T-A6/OA NOT · persistence/IAM NOT SELECTED · RGPD NOT VALIDATED · delivery/cutover NOT AUTHORIZED
-
----
-
-## 6. Actions non exécutées
-
-code · tests · push projet · PR · merge · delivery · cutover · Notion · fermeture blockers · mod method/OPS1/hold/F11/F13
+- IAM **NOT SELECTED** · hold ≠ ACL
+- Persistence **NOT SELECTED** · Git canonique
+- Runtime : F11→F13 read-only · pas de write · test-only hors barrel
+- HTTP/UI : absents · UI admin hors F11.2
 
 ---
 
-## 7. Findings
+## 5. Options / recommandation
 
-Critical/Major : aucun.
-Info : `move_agent_to_root` a échoué (conflit branche delivery existante) — worktree local utilisé sans blocage.
-
----
-
-## 8. Verdict
-
-`T-A7 LOT 1 POST-MERGE CONFIRMED — PR #287 MERGE AND POST-MERGE CHECKS VERIFIED — SOURCE BRANCH PRESERVED — STALE LOCAL-ONLY README STATUS CORRECTED AND HISTORICALLY QUALIFIED — CURRENT MAIN STATUS ALIGNED — P03 TO P11 AND F03.3 REASSESSED WITHOUT ARTIFICIAL PROMOTION — REMAINING BLOCKERS STRUCTURED — NEXT BLOCKER-REDUCTION OPTIONS N1 TO N5 FRAMED — MORRIS DECISION PACK PREPARED WITHOUT PRESELECTION — NO CODE PUSH PR MERGE DELIVERY OR CUTOVER`
+Lots futurs : L-F11A · L-F11B · L-F13A · L-F13B · L-F11F13 · L-DEFER
+**Recommandation :** L-F11F13 interne (ou L-F13A→L-F11A) · `RECOMMENDED — NOT DECIDED`
+Decision pack D1–D8 · `MORRIS DECISION REQUIRED` · `READY FOR MORRIS DECISION`
 
 ---
 
-## 9. README avant (complet)
+## 6. Gouvernance préservée
 
-```
-# T-A7 — Technical readiness framing
+O3 DECIDED · T-A7 borné · lot1 INTEGRATED · F03.3 partielle · P08/P09 MISSING · B5/R1/R-M01 OPEN · HARD OPEN HARD · T-A6/OA NOT · delivery/cutover NOT AUTHORIZED
 
-| Champ | Valeur |
-|-------|--------|
-| **Gate O3 (consommé)** | `GO DECIDE T-A7 OPENING — SELECT O3 FOR A FIRST BOUNDED DEVELOPMENT LOT LIMITED TO METHODMODE HOLD F11.2 READINESS CONTRACT AND F13.4 READ-ONLY FOUNDATION — NO DELIVERY OR CUTOVER — KEEP B5 R1 R-M01 AND HARD OPEN` |
-| **O3** | `DECIDED — ADOPTED BY MORRIS` |
-| **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
-| **Date lot 1** | 2026-07-28 21:19:12 CEST (+0200) |
-| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` |
-| **Base** | `origin/main` @ `2a3c59c46c105bae458d1a7329079c5f591da421` |
-| **Push / PR projet** | **aucun** |
-| **F03.3 évaluation** | `F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
-| **F11.2 / F13.4 décisions** | `DECIDED` · fondations lot 1 livrées (≠ finales) |
-| **B5 / R1 / R-M01** | `OPEN` |
-| **HARD** | `OPEN HARD` |
-| **Delivery / cutover** | `NOT AUTHORIZED` |
-| **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
-| **Persistence / IAM / RGPD** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
+---
 
-## Lot 1 livré
+## 7. Validations
 
-1. MethodMode hold (défaut actif)
-2. F11.2 readiness read-only interne
-3. F13.4 historique RO borné (Git canonique)
+| Check | Résultat |
+|-------|----------|
+| Truth check | PASS |
+| Scope docs-only | PASS |
+| F11/F13 not falsely complete | PASS |
+| IAM/Persistence NOT SELECTED | PASS |
+| Blockers open preserved | PASS |
+| `git diff --check` | PASS |
+| No app/** changes | PASS |
+| No project commit | PASS |
 
-Détail : `10-t-a7-first-bounded-development-lot.md`
+---
 
-## Anti-claims
+## 8. Actions non exécutées
 
-- T-A7 borné ≠ fully open · ≠ delivery/cutover ready
-- hold ≠ blockers fermés
-- fondations ≠ API/UI/vue finales
+commit projet · push projet · PR · merge · implémentation · IAM/persistence select · delivery/cutover
 
-## Gate candidat suivant
+---
 
-`GO INTEGRATE T-A7 FIRST BOUNDED DEVELOPMENT LOT — PUSH PR MERGE IF REQUIRED CHECKS PASS — PRESERVE SOURCE BRANCH — NO DELIVERY OR CUTOVER`
+## 9. Verdict
 
-**Statut :** `NOT CONSUMED` (après revue PR readiness)
+`T-A7 N3 F11.2 AND F13.4 COMPLETION FRAMING COMPLETE — FINAL SURFACE GAPS DEPENDENCIES IAM PERSISTENCE AND RUNTIME BOUNDARIES DOCUMENTED — FUTURE BOUNDED LOT OPTIONS PREPARED — MORRIS DECISION REQUIRED — NO IMPLEMENTATION PROJECT PUSH PR MERGE DELIVERY OR CUTOVER — HANDOFF UPDATED AND REMOTE VERIFIED`
 
-## Verdict
+---
 
-`T-A7 FIRST BOUNDED DEVELOPMENT LOT IMPLEMENTED LOCALLY — O3 DECISION RECORDED — METHODMODE HOLD IMPLEMENTED — F11.2 READINESS FOUNDATION IMPLEMENTED READ-ONLY — F13.4 READ-ONLY FOUNDATION IMPLEMENTED WITH GIT REMAINING CANONICAL — TESTS PASS — NO MIGRATION IAM ADMIN UI DELIVERY OR CUTOVER — B5 R1 R-M01 AND HARD REMAIN OPEN — T-A7 OPEN FOR FIRST BOUNDED DEVELOPMENT LOT ONLY — PROJECT BRANCH NOT PUSHED`
-```
-
-## 10. README après (complet)
+## 10. README avant (complet — HEAD)
 
 ```
 # T-A7 — Technical readiness framing
@@ -241,786 +183,912 @@ Ces formulations étaient **vraies avant** push/PR/merge #287 (2026-07-28 ~21:49
 Elles sont **obsolètes** pour l’état courant documenté en tête de ce README.
 ```
 
-## 11. Document 11 (complet)
+## 11. README après (complet — working tree)
 
 ```
-# 11 — T-A7 lot 1 post-merge & next blocker-reduction framing
+# T-A7 — Technical readiness framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Document** | `11-t-a7-lot1-post-merge-and-next-blocker-framing.md` |
-| **Date/heure/fuseau** | 2026-07-28 22:16:12 CEST (+0200) |
-| **Gate consommé** | `GO POST-MERGE T-A7 FIRST BOUNDED DEVELOPMENT LOT — CONFIRM MAIN INTEGRATION — CORRECT STALE LOCAL-ONLY README STATUS IF NEEDED — FRAME NEXT BLOCKER-REDUCTION CYCLE — NO DELIVERY OR CUTOVER` |
-| **Base** | `origin/main` @ `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-| **Branche locale** | `docs/sfia-studio-t-a7-lot1-post-merge-next-blocker-framing` |
-| **Push / PR projet** | **aucun** (cycle documentaire local) |
-| **Code / tests** | **aucune modification** |
+| **Mise à jour N3** | 2026-07-28 22:45:18 CEST (+0200) |
+| **N3** | `DECIDED — ADOPTED BY MORRIS` — cadrage F11.2/F13.4 completion **exécuté localement** |
+| **Gate N3 (consommé)** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 FOR F11.2 AND F13.4 COMPLETION FRAMING ONLY — DEFINE FINAL SURFACE GAPS DEPENDENCIES IAM PERSISTENCE AND RUNTIME BOUNDARIES — NO IMPLEMENTATION DELIVERY OR CUTOVER` |
+| **O3** | `DECIDED — ADOPTED BY MORRIS` |
+| **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
+| **Lot 1** | `INTEGRATED ON MAIN` (PR [#287](https://github.com/mcleland147/sfia-workspace/pull/287) · merge `770605bc…`) |
+| **F03.3** | `PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
+| **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** |
+| **F11.2** | fondation intégrée · **API finale non complète** · gaps cadrés (docs 12–16) |
+| **F13.4** | fondation intégrée · **vue runtime finale non complète** · gaps cadrés (docs 12–16) |
+| **IAM / Persistence** | `NOT SELECTED` / `NOT SELECTED` |
+| **B5 / R1 / R-M01** | `OPEN` |
+| **HARD** | `OPEN HARD` |
+| **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
+| **Delivery / cutover** | `NOT AUTHORIZED` |
+| **Push / PR projet (branche docs courante)** | **aucun** |
+
+## Index du pack
+
+| Doc | Sujet |
+|-----|-------|
+| `01`–`09` | framing readiness / O2 |
+| `10` | lot 1 borné (O3) |
+| `11` | post-merge + options N1–N5 |
+| `12` | F11.2 completion surface & gaps |
+| `13` | F13.4 completion surface & gaps |
+| `14` | dépendances & frontières runtime |
+| `15` | options de lots bornés futurs |
+| `16` | decision pack Morris F11/F13 |
+
+## Lot 1 intégré sur `main`
+
+1. MethodMode hold (défaut actif ; override test-only hors barrel)
+2. F11.2 readiness read-only interne
+3. F13.4 historique RO borné (Git canonique)
+
+## Cadrage N3 (local)
+
+Documents `12`–`16` : surfaces finales, gaps, IAM/persistence **non sélectionnés**, frontières runtime, options L-F11*/L-F13*, bulletin Morris.
+
+**N3 ≠ implémentation ≠ F11/F13 complete.**
+
+## Anti-claims
+
+- lot 1 intégré ≠ T-A7 entièrement ouvert ≠ delivery/cutover ready
+- N3 décidé ≠ lot technique autorisé
+- fondations F11/F13 ≠ surfaces finales
+- recommandation lots ≠ décision Morris
+- hold ≠ blockers fermés
+
+## Gate candidat suivant
+
+Un **GO Morris distinct** issu du decision pack `16` (ex. lot interne L-F11F13, ou D1 surface access).
+
+**Statut :** `NOT CONSUMED` · `READY FOR MORRIS DECISION`
+
+## Verdict courant
+
+`T-A7 N3 F11.2/F13.4 COMPLETION FRAMING EXECUTED LOCALLY — GAPS AND BOUNDARIES DOCUMENTED — F11.2 AND F13.4 REMAIN NOT COMPLETE — IAM AND PERSISTENCE NOT SELECTED — LOT 1 REMAINS INTEGRATED ON MAIN — NO IMPLEMENTATION PROJECT PUSH PR MERGE DELIVERY OR CUTOVER`
 
 ---
 
-## 1. Sources Git
+## Historique post-merge (lot 1)
 
-| Source | Référence |
-|--------|-----------|
-| PR | [#287](https://github.com/mcleland147/sfia-workspace/pull/287) |
-| Merge | `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-| Parents | `2a3c59c…` + `b6a19335…` |
-| Tree | `712720a1a2371f98c137a6c8b29299ac556299c7` |
-| Checks PR | run `30393629328` SUCCESS |
-| Checks post-merge | run `30393814783` SUCCESS |
-| Branche source | `origin/framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` @ `b6a19335…` |
-| Handoff intégration | blob `2d0959c456f728a1ef0ad7be43ef3197108eba47` |
-| Pack | `t-a7-technical-readiness-framing/` (01–10 + README) |
+> Section **historique**. Voir aussi `11-t-a7-lot1-post-merge-and-next-blocker-framing.md`.
 
-Quatre commits intégrés :
+Post-merge confirmé 2026-07-28 : PR #287 · checks `30393629328` / `30393814783` · branche source préservée · README aligné main.
 
-1. `a33f4a32…` docs framing
-2. `01410377…` test evidence O2
-3. `47e26fdc…` feat foundations
-4. `b6a19335…` fix harden override
+Gate d’intégration et options N1–N5 : document `11`. N3 a depuis été **sélectionné** par Morris (ce cycle).
 
 ---
 
-## 2. Confirmation post-merge
+## Historique du lot local pré-intégration
 
-| Contrôle | Attendu | Observé | Preuve | Verdict |
-|----------|---------|---------|--------|---------|
-| PR #287 mergée | MERGED | MERGED 2026-07-28T19:52:20Z | `gh pr view 287` | PASS |
-| Merge commit | `770605bc…` | exact | `origin/main` | PASS |
-| Parents | main pré + HEAD lot | `2a3c59c…` + `b6a19335…` | `git cat-file -p` | PASS |
-| Tree | tree lot | `712720a1…` | merge object | PASS |
-| 4 commits | présents | 4 | log PR | PASS |
-| Branche source | préservée | `b6a19335…` remote | `ls-remote` | PASS |
-| Checks PR | verts | Detect/Build/Gate SUCCESS | run `30393629328` | PASS |
-| Checks post-merge | verts | Detect/Build/Gate SUCCESS | run `30393814783` | PASS |
-| Blobs hold/F11/F13 | présents | hold `30220327…` · test-only `ad9d1a5c…` · F11 `1ae8deac…` · F13 `2be059af…` | `git rev-parse main:path` | PASS |
-| Barrel D1 | sans override | BARREL_CLEAN | `index.ts` | PASS |
-| Override | test-only | `methodModeHold.test-only.ts` | blob `ad9d1a5c…` | PASS |
-| Hold | ACTIVE défaut | module + raisons B5/R1/… | code main | PASS |
-| F11.2 | RO fondation | `operationalReadiness.ts` | main | PASS |
-| F13.4 | RO bornée | `boundedHistoryRead.ts` | main | PASS |
-| Déploiement/cutover | non déclenché | CI Studio seulement | runs GitHub | PASS |
+> Section **historique** uniquement. Ne décrit **pas** l’état courant sur `main`.
 
-**Verdict :** `T-A7 LOT 1 MAIN INTEGRATION CONFIRMED — POST-MERGE VERIFIED`
+Avant PR #287, le lot 1 existait uniquement en local sur
+`framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness`
+au-dessus de `origin/main` @ `2a3c59c46c105bae458d1a7329079c5f591da421`.
+
+À cette étape, le résumé d’état indiquait correctement :
+
+- `Push / PR projet : aucun`
+- gate d’intégration candidat `NOT CONSUMED`
+- verdict se terminant par `PROJECT BRANCH NOT PUSHED`
+
+Ces formulations étaient **vraies avant** push/PR/merge #287 (2026-07-28 ~21:49–21:52 CEST).
+Elles sont **obsolètes** pour l’état courant documenté en tête de ce README.
+```
+
+## 12. Diff README
+
+```diff
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md
+index e73f40b..87d46bf 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md
+@@ -2,56 +2,75 @@
+
+ | Champ | Valeur |
+ |-------|--------|
+-| **Mise à jour post-merge** | 2026-07-28 22:16:12 CEST (+0200) |
+-| **Gate post-merge (consommé)** | `GO POST-MERGE T-A7 FIRST BOUNDED DEVELOPMENT LOT — CONFIRM MAIN INTEGRATION — CORRECT STALE LOCAL-ONLY README STATUS IF NEEDED — FRAME NEXT BLOCKER-REDUCTION CYCLE — NO DELIVERY OR CUTOVER` |
++| **Mise à jour N3** | 2026-07-28 22:45:18 CEST (+0200) |
++| **N3** | `DECIDED — ADOPTED BY MORRIS` — cadrage F11.2/F13.4 completion **exécuté localement** |
++| **Gate N3 (consommé)** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 FOR F11.2 AND F13.4 COMPLETION FRAMING ONLY — DEFINE FINAL SURFACE GAPS DEPENDENCIES IAM PERSISTENCE AND RUNTIME BOUNDARIES — NO IMPLEMENTATION DELIVERY OR CUTOVER` |
+ | **O3** | `DECIDED — ADOPTED BY MORRIS` |
+ | **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
+-| **Lot 1** | `INTEGRATED ON MAIN` |
+-| **PR** | [#287](https://github.com/mcleland147/sfia-workspace/pull/287) — `feat(sfia-studio): integrate T-A7 bounded readiness foundations` |
+-| **Merge commit** | `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
+-| **Parents** | `2a3c59c46c105bae458d1a7329079c5f591da421` + `b6a19335f5116940175f5986492e3693722563bc` |
+-| **Tree** | `712720a1a2371f98c137a6c8b29299ac556299c7` |
+-| **Branche source** | `framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` **préservée** @ `b6a19335…` |
+-| **Checks PR** | run `30393629328` — Detect / Build / Required Gate **SUCCESS** |
+-| **Checks post-merge** | run `30393814783` — Detect / Build / Required Gate **SUCCESS** |
++| **Lot 1** | `INTEGRATED ON MAIN` (PR [#287](https://github.com/mcleland147/sfia-workspace/pull/287) · merge `770605bc…`) |
+ | **F03.3** | `PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
+-| **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** · 0 SATISFIED remplacement OA |
+-| **F11.2** | fondation intégrée · API finale **non complète** |
+-| **F13.4** | fondation intégrée · vue runtime finale **non complète** |
+-| **MethodMode hold** | intégré · défaut ACTIVE |
++| **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** |
++| **F11.2** | fondation intégrée · **API finale non complète** · gaps cadrés (docs 12–16) |
++| **F13.4** | fondation intégrée · **vue runtime finale non complète** · gaps cadrés (docs 12–16) |
++| **IAM / Persistence** | `NOT SELECTED` / `NOT SELECTED` |
+ | **B5 / R1 / R-M01** | `OPEN` |
+ | **HARD** | `OPEN HARD` |
+ | **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
+-| **Persistence / IAM / RGPD** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
+ | **Delivery / cutover** | `NOT AUTHORIZED` |
++| **Push / PR projet (branche docs courante)** | **aucun** |
++
++## Index du pack
++
++| Doc | Sujet |
++|-----|-------|
++| `01`–`09` | framing readiness / O2 |
++| `10` | lot 1 borné (O3) |
++| `11` | post-merge + options N1–N5 |
++| `12` | F11.2 completion surface & gaps |
++| `13` | F13.4 completion surface & gaps |
++| `14` | dépendances & frontières runtime |
++| `15` | options de lots bornés futurs |
++| `16` | decision pack Morris F11/F13 |
+
+ ## Lot 1 intégré sur `main`
+
+ 1. MethodMode hold (défaut actif ; override test-only hors barrel)
+-2. F11.2 readiness read-only interne (`mutable/adminUi/writeCommands=false`)
+-3. F13.4 historique RO borné (Git canonique ; max 50)
++2. F11.2 readiness read-only interne
++3. F13.4 historique RO borné (Git canonique)
++
++## Cadrage N3 (local)
+
+-Détails : `10-t-a7-first-bounded-development-lot.md` · clôture : `11-t-a7-lot1-post-merge-and-next-blocker-framing.md`
++Documents `12`–`16` : surfaces finales, gaps, IAM/persistence **non sélectionnés**, frontières runtime, options L-F11*/L-F13*, bulletin Morris.
++
++**N3 ≠ implémentation ≠ F11/F13 complete.**
+
+ ## Anti-claims
+
+ - lot 1 intégré ≠ T-A7 entièrement ouvert ≠ delivery/cutover ready
++- N3 décidé ≠ lot technique autorisé
++- fondations F11/F13 ≠ surfaces finales
++- recommandation lots ≠ décision Morris
+ - hold ≠ blockers fermés
+-- fondations F11/F13 ≠ API / vue finales
+-- post-merge confirmé ≠ autorisation de nouveau lot
+-- recommandation N1–N5 ≠ décision Morris
+
+ ## Gate candidat suivant
+
+-`GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER`
+-
+-**Statut :** `NOT CONSUMED`
++Un **GO Morris distinct** issu du decision pack `16` (ex. lot interne L-F11F13, ou D1 surface access).
+
+-Gates précis par option : voir document `11`.
++**Statut :** `NOT CONSUMED` · `READY FOR MORRIS DECISION`
+
+ ## Verdict courant
+
+-`T-A7 LOT 1 INTEGRATED ON MAIN — PR #287 MERGED — POST-MERGE CHECKS PASSED — SOURCE BRANCH PRESERVED — O3 DECIDED — T-A7 OPEN FOR FIRST BOUNDED DEVELOPMENT LOT ONLY — F03.3 PARTIALLY SATISFIED — B5 R1 R-M01 AND HARD REMAIN OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED`
++`T-A7 N3 F11.2/F13.4 COMPLETION FRAMING EXECUTED LOCALLY — GAPS AND BOUNDARIES DOCUMENTED — F11.2 AND F13.4 REMAIN NOT COMPLETE — IAM AND PERSISTENCE NOT SELECTED — LOT 1 REMAINS INTEGRATED ON MAIN — NO IMPLEMENTATION PROJECT PUSH PR MERGE DELIVERY OR CUTOVER`
++
++---
++
++## Historique post-merge (lot 1)
++
++> Section **historique**. Voir aussi `11-t-a7-lot1-post-merge-and-next-blocker-framing.md`.
++
++Post-merge confirmé 2026-07-28 : PR #287 · checks `30393629328` / `30393814783` · branche source préservée · README aligné main.
++
++Gate d’intégration et options N1–N5 : document `11`. N3 a depuis été **sélectionné** par Morris (ce cycle).
+
+ ---
+```
+
+## 13. Document 12 (complet)
+
+```
+# 12 — F11.2 completion surface & gaps
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `12-f11-2-completion-surface-and-gaps.md` |
+| **Date/heure/fuseau** | 2026-07-28 22:45:18 CEST (+0200) |
+| **Décision parent** | D-T-A7-F11 = **F11.2** (`DECIDED`) |
+| **Gate N3** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 …` · **N3 DECIDED** |
+| **Base Git** | `origin/main` @ `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
+| **Implémentation** | **interdite** dans ce cycle |
+| **Statut F11.2** | fondation lot 1 intégrée · **API finale non complète** |
 
 ---
 
-## 3. Surfaces intégrées (état)
+## 1. État actuel (main)
 
-| Surface | État | Limite |
-|---------|------|--------|
-| MethodMode hold | intégré · défaut ACTIVE · CONFLICT | pas de hold DB persistant · pas IAM |
-| Test override | test-only · hors barrel · boundary tests | store module-level résiduel Info |
-| F11.2 | query interne RO · frozen snapshot | pas d’API HTTP · pas d’UI admin |
-| F13.4 | provider documentary/Git · max 50 · immutable | pas de vue runtime finale · pas ACL |
+| Élément | Preuve | Limite |
+|---------|--------|--------|
+| Module | `app/lib/d1/operationalReadiness.ts` | interne TypeScript |
+| Entrée | `queryOperationalReadiness(input?)` | pas de route HTTP |
+| Snapshot | `schemaVersion: t-a7-f11.2-lot1` · frozen | `completeness: BOUNDED_LOT_1` |
+| Flags | `mutable=false` · `adminUi=false` · `writeCommands=false` | contrats RO |
+| Hold | lu via `readMethodModeHold` / `decideMethodModeTransition` | défaut ACTIVE |
+| History | résumé F13 page (`availability`, `returned`, `gitCanonical`) | pas d’items complets |
+| Health | `SIMULATED` | pas de probe prod |
+| Migration | `NOT_STARTED` | pas de schéma |
+| Tests | `t-a7-operational-readiness.test.ts` | fondation seulement |
+| Barrel | exporté depuis `lib/d1/index.ts` (API produit lecture) | ≠ HTTP public |
 
----
-
-## 4. P03–P11 (sans promotion artificielle)
-
-| ID | État actuel | Preuves sur main | Écart restant | Bloquant pour |
-|----|-------------|------------------|---------------|---------------|
-| P03 | PARTIAL | `canonicalPaths` · probes | adoption produit globale | cutover / remplacement OA |
-| P04 | PARTIAL | `sourceLoader` · asymmetry probe | loader cutover unique | cutover |
-| P05 | PARTIAL | CKC · OA sans import method | guidance-only | cutover |
-| P06 | PARTIAL | hold lot 1 | session OA correlation | cutover · delivery prep |
-| P07 | PARTIAL | hold bloque transitions | MethodMode toujours présent | cutover |
-| P08 | MISSING | allowlist method active | lectures `method/**` absentes OA | cutover · lot N1 |
-| P09 | MISSING | UI OA native absente | badges/surfaces OA | cutover · lot N1 |
-| P10 | PARTIAL | import boundaries · isolation probe | live runtime OPS1↔OA | cutover · lot N2 |
-| P11 | PARTIAL | F13.4 fondation | vue RO finale | cutover · lot N3 |
-
-Aucun P03–P11 en `SATISFIED` pour le **remplacement** Option A.
-
-Distinction :
-
-- **prochain développement borné** : peut cibler une fondation/preuve (N1–N4) sous gate Morris ;
-- **delivery preparation / delivery / cutover** : toujours `NOT AUTHORIZED`.
+**Anti-claim :** fondation ≠ API F11.2 complète · ≠ cutover ready · ≠ IAM.
 
 ---
 
-## 5. F03.3
+## 2. Finalité cible F11.2
 
-`F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED`
+Exigence décidée (pack F03/F11/F13) : **API minimale de lecture / readiness sans UI admin dédiée**, avant tout cutover futur.
 
-- critères documentaires / décisions : largement satisfaits ;
-- critères d’implémentation cutover : **non** satisfaits ;
-- lot 1 a réduit des blockers d’implémentation (hold · F11/F13 fondations) **sans** fermer B5/R1/R-M01/HARD.
+Finalité :
 
-**Ne pas déclarer** F03.3 fully satisfied.
+- exposer un **état opérationnel observé** (MethodMode, hold, blockers, deps legacy, migration, health, historique borné) ;
+- séparer **observed / decision / recommendation / authorization** ;
+- rester **strictement read-only** ;
+- permettre audit / support / gouvernance **sans** mutation ni console admin.
 
----
+Consommateurs candidats (non autorisés ici) :
 
-## 6. Blockers ouverts
-
-| Blocker | Preuve | Risque | Dépendances | Réductible maintenant ? | Gate requis |
-|---------|--------|--------|-------------|-------------------------|-------------|
-| P08 lectures method | allowlist active · probes | lecture legacy silencieuse | F03 · path-policy | cadrage oui · code sous gate N1 | N1 |
-| P09 badges/UI OA | absence UI OA | confusion UX | F11 · design | cadrage oui · UI sous gate futur | N1 |
-| Live OPS1↔OA isolation | static PARTIAL · live UNKNOWN | double identité | W1-D04 · env `.sfia-exec` | preuve oui · pas de mod OPS1 | N2 |
-| F11.2 API/exposition finale | fondation RO seule | claim cutover prématuré | IAM? UI? | cadrage écart oui | N3 |
-| F13.4 vue runtime finale | fondation métadonnées | mutation historique | persistence? ACL? | cadrage écart oui | N3 |
-| Rollback R1–R3 | doc `04` NOT TESTED | rollback non prouvé | delivery futur | cadrage oui · pas d’exécution | N4 |
-| B5 | OPEN · STOP BEFORE DELIVERY | delivery prématuré | HARD | **non fermer** | N4 / gate delivery |
-| R1 atomicité | OPEN | incohérence état | delivery | **non fermer** | N4 |
-| R-M01 ClaimEvaluator | OPEN | claims non prêts | T-A6 | **non fermer** | N4 |
-| HARD | OPEN HARD | exécution réelle | B5 | **non fermer** | delivery/cutover |
-| Persistence | NOT SELECTED | store caché | F13 | **ne pas sélectionner** | gate futur |
-| IAM | NOT SELECTED | exposition ACL | F11 | **ne pas sélectionner** | gate futur |
-| RGPD production | NOT VALIDATED | conformité | IAM/data | hors lot | gate futur |
+| Consommateur | Besoin | Statut |
+|--------------|--------|--------|
+| Services serveur internes OA/D1 | snapshot local | partiel (appel direct) |
+| Opérateur / Morris (via surface future) | lecture gouvernée | **non exposé** |
+| CI / probes | non-régression RO | tests unitaires existants |
+| UI admin | — | **hors F11.2** (F11.3 non retenue) |
+| Clients HTTP externes | — | **non sélectionné** |
 
 ---
 
-## 7. Dette / limites du lot 1
+## 3. Contrat fonctionnel cible (minimal)
 
-- hold non persistant DB ;
-- F11/F13 incomplets vs surfaces finales ;
-- P08/P09 toujours MISSING ;
-- live OPS1 non instrumenté ;
-- R1–R3 non testés ;
-- README local pré-intégration était stale (corrigé dans ce cycle).
+### 3.1 Données exposées (cible)
+
+| Domaine | Fondation actuelle | Cible minimale complète | Gap |
+|---------|--------------------|-------------------------|-----|
+| Identity projet | `projectId` optionnel injecté | résolution projet bornée documentée | qui fournit le projet ? |
+| MethodMode | mode + state si projet fourni | lecture mode/state stable + version/optimistic si pertinent | pas de binding session OA |
+| Hold | actif + reasons codes | hold + provenance + evaluatedAt + codes stables | OK partiel |
+| Blockers | codes hold | mapping explicite B5/R1/R-M01/HARD ≠ fermeture | OK partiel |
+| Legacy deps | METHOD_MODES + canonical paths | inventaire versionné / digest éventuel | digest non exposé |
+| Migration | NOT_STARTED | enum élargi + détail non-bavard | pas de pipeline |
+| Health | SIMULATED | états observés documentés (local/unknown/degraded) | pas de probe |
+| History summary | availability/returned | lien stable vers page F13 + fraîcheur | pas de cursor/page id |
+| Decision layer | BLOCK/ALLOW + authz strings | inchangé fonctionnellement | OK |
+| Audit lecture | absente | événement borné (qui/quand/quoi résumé) | **MISSING** |
+
+### 3.2 Contrat read-only (normatif)
+
+- `mutable=false` · `adminUi=false` · `writeCommands=false` obligatoires ;
+- aucune commande write via cette surface ;
+- aucune mutation MethodMode / history / DB via F11.2 ;
+- résultat immuable (freeze / copie) ;
+- erreurs non bavardes (pas de secrets, pas de chemins utilisateur absolus).
+
+### 3.3 Erreurs / disponibilité / fraîcheur
+
+| Aspect | Fondation | Cible | Gap |
+|--------|-----------|-------|-----|
+| Erreurs | throw D1Error côté hold transitions (pas F11 query) | codes readiness explicites (INVALID_INPUT, UNAVAILABLE, FORBIDDEN_IF_IAM) | codes non formalisés |
+| Disponibilité | toujours local-sync | documenter dégradé si provider history/hold unavailable | partiel (history provider injectable) |
+| Fraîcheur | `evaluatedAt` ISO Z | TTL/freshness note (sans SLA prod) | pas de TTL |
+| Observabilité | logs D1 hold séparés | event `readiness_queried` borné | **MISSING** |
 
 ---
 
-## 8. Options prochain cycle
+## 4. IAM / sécurité / RGPD
 
-### N1 — P08/P09 replacement foundations
+| Frontière | Statut | Note |
+|-----------|--------|------|
+| Authentification | **NOT SELECTED** | pas d’identité d’acteur sur la query actuelle |
+| Autorisation | hold ≠ IAM | `authorization` = décision hold, **pas** ACL produit |
+| IAM production | **NOT SELECTED** | décision Morris future obligatoire avant exposition HTTP |
+| Path-policy | distincte IAM | inchangée par F11.2 |
+| Données | métadonnées gouvernance / ids projet | pas de PII documentée ; minimisation requise |
+| RGPD production | **NOT VALIDATED** | si HTTP/UI futurs → DPIA/cycle distinct |
+
+**Règle N3 :** ne **pas** sélectionner de mécanisme IAM dans ce document.
+
+---
+
+## 5. Gaps / dépendances / blockers
+
+| ID | Type | Description | Bloque | Décision Morris ? |
+|----|------|-------------|--------|-------------------|
+| G-F11-01 | gap fonc. | pas d’API HTTP / port serveur formalisé | « API finale » | oui (lot futur) |
+| G-F11-02 | gap fonc. | pas d’audit de lecture | conformité F11 normative | oui/non selon lot |
+| G-F11-03 | gap tech. | health SIMULATED seulement | readiness prod claim | oui (probe) |
+| G-F11-04 | dépendance | F13 summary → fondation F13.4 | cohérence historique | N3 (ce pack) |
+| G-F11-05 | dépendance | hold MethodMode | décision transition | déjà lot 1 |
+| G-F11-06 | blocker | IAM NOT SELECTED | exposition multi-acteur | **oui avant HTTP** |
+| G-F11-07 | blocker | B5/HARD OPEN | delivery/cutover | ne pas fermer |
+| G-F11-08 | gap | pas de binding session OA (P06) | cutover | hors N3 impl |
+
+---
+
+## 6. Critères de complétion F11.2 (documentaires)
+
+F11.2 peut être déclaré **complete** seulement si **toutes** les conditions suivantes sont vraies sous preuves Git + gate Morris d’implémentation/validation :
+
+1. contrat read-only normatif respecté runtime ;
+2. surface d’accès **décidée et validée** (interne-only **ou** HTTP — choix Morris) ;
+3. champs cibles §3.1 exposés avec provenance ;
+4. audit de lecture minimal présent **ou** explicitement différé par décision Morris ;
+5. health non-simulé **ou** statut UNKNOWN/DEGRADED honnête documenté pour le niveau revendiqué ;
+6. tests de non-régression RO + frontières import ;
+7. IAM : soit surface server-only mono-opérateur documentée, soit IAM sélectionné+validé ;
+8. **aucune** claim delivery/cutover.
+
+**Statut actuel :** `NOT COMPLETE`.
+
+---
+
+## 7. Non-objectifs
+
+- UI admin (F11.3) ;
+- mutations / write commands ;
+- sélection IAM/persistence ;
+- fermeture B5/R1/R-M01/HARD ;
+- product-complete API OA (A3.2) ;
+- delivery / cutover.
+
+---
+
+## 8. Stop conditions
+
+- besoin d’écrire via readiness ;
+- besoin d’UI admin pour « compléter » F11.2 ;
+- sélection IAM forcée sans gate ;
+- claim « F11.2 complete » sans preuves §6 ;
+- modification OPS1 / `method/**` pour readiness.
+
+---
+
+## 9. Questions d’arbitrage Morris
+
+1. Surface d’accès cible : **server-internal only** vs **HTTP read** (sans UI) ?
+2. Audit de lecture : **requis pour complete** vs **différé** ?
+3. Health : accepter **UNKNOWN/SIMULATED** comme complete documentaire, ou exiger probe ?
+4. Faut-il un lot technique F11-only avant tout lot HTTP ?
+
+Toutes réponses = futurs GO · `RECOMMENDED — NOT DECIDED` hors N3.
+```
+
+## 14. Document 13 (complet)
+
+```
+# 13 — F13.4 completion surface & gaps
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `13-f13-4-completion-surface-and-gaps.md` |
+| **Date/heure/fuseau** | 2026-07-28 22:45:18 CEST (+0200) |
+| **Décision parent** | D-T-A7-F13 = **F13.4** (`DECIDED`) |
+| **Gate N3** | N3 **DECIDED — ADOPTED BY MORRIS** |
+| **Base Git** | `770605bc…` |
+| **Implémentation** | **interdite** |
+| **Statut F13.4** | fondation lot 1 intégrée · **vue runtime finale non complète** |
+
+---
+
+## 1. État actuel (main)
+
+| Élément | Preuve | Limite |
+|---------|--------|--------|
+| Module | `app/lib/platform/t-a7/boundedHistoryRead.ts` | documentary seed |
+| Max | `BOUNDED_HISTORY_MAX_ITEMS = 50` | hard cap |
+| Providers | documentary · unavailable | pas de Git live fetch |
+| Page | frozen · `gitCanonical=true` · `mutable=false` | `BOUNDED_LOT_1` |
+| Seed | 3 entrées packs/PR refs | ≠ archive complète |
+| Availability | PARTIAL / NOT_AVAILABLE / EMPTY | cohérent |
+| Tests | `t-a7-bounded-history.test.ts` | limites/immutabilité |
+| Persist store | **aucun** | Git canonique |
+
+**Anti-claim :** fondation ≠ vue runtime finale · ≠ ACL · ≠ source concurrente à Git.
+
+---
+
+## 2. Git canonique (normatif)
+
+- Git / packs documentaires = **vérité historique** ;
+- la vue runtime est une **projection bornée** ;
+- interdiction de mutations historiques ;
+- path-policy ≠ IAM ;
+- isolation OPS1 (W1-D04) reste **préalable** à retrait legacy — **non réalisée** ici.
+
+---
+
+## 3. Cible fonctionnelle minimale — vue runtime bornée
+
+| Aspect | Fondation | Cible minimale complète | Gap |
+|--------|-----------|-------------------------|-----|
+| Rôle | métadonnées packs | support/audit/traçabilité RO | pas de parcours opérateur |
+| Périmètre | seed documentary fixe | politique d’inclusion/exclusion documentée (catégories) | politique incomplete |
+| Profondeur | max 50 | max borné + justification + overflow behavior | OK partiel |
+| Pagination | slice prefix only | cursor/offset **ou** explicite « prefix-only » décidé | **MISSING** si multi-page requis |
+| Provenance | git-ref / documentary-pack / synthetic | provenance obligatoire + vérifiabilité | OK partiel |
+| Fraîcheur | `evaluatedAt` | relation à tip Git / pack SHA | pas de tie to HEAD |
+| Cohérence Git | claim `gitCanonical` | preuve que items ⊆ refs Git/packs | seed manuel |
+| Actif vs historique | status enum | frontière sémantique documentée + tests | OK partiel |
+| États dégradés | NOT_AVAILABLE | matrice dégradée + messages | OK partiel |
+| Audit accès | absent | log borné lectures | **MISSING** |
+| Rétention | UNKNOWN | durée conservation (cycle distinct si besoin) | **UNKNOWN** |
+
+---
+
+## 4. Sécurité / observabilité / rétention
+
+| Frontière | Statut |
+|-----------|--------|
+| IAM / ACL | **NOT SELECTED** — lectures actuelles = in-process |
+| AuthN/AuthZ acteur | non modélisées |
+| Contenu sensible | métadonnées packs/PR seulement ; pas de blobs method |
+| Observabilité | pas d’event dédié |
+| Rétention | **UNKNOWN** — à cadrer sous gate distinct si conservation ≠ Git |
+| RGPD | **NOT VALIDATED** — minimisation : pas de PII dans seed actuel |
+
+**Ne pas sélectionner** store durable / cache produit / IAM dans N3.
+
+---
+
+## 5. Gaps / dépendances / blockers
+
+| ID | Type | Description | Bloque | Décision ? |
+|----|------|-------------|--------|------------|
+| G-F13-01 | gap fonc. | seed ≠ archive Git live | vue « runtime » riche | oui (stratégie lecture) |
+| G-F13-02 | gap tech. | pas de pagination multi-page | volumes > 50 | oui si besoin |
+| G-F13-03 | gap | pas d’audit accès | norme F13 | oui/non |
+| G-F13-04 | dépendance | F11 consomme summary | cohérence couple | docs N3 |
+| G-F13-05 | dépendance | OPS1 isolation (P10) | retrait legacy | N2/autre |
+| G-F13-06 | blocker | persistence NOT SELECTED | si cache/index requis | **oui avant store** |
+| G-F13-07 | blocker | IAM NOT SELECTED | si exposition multi-acteur | **oui avant HTTP** |
+| G-F13-08 | unknown | durée conservation | conformité | cycle rétention |
+
+---
+
+## 6. Critères de complétion F13.4
+
+Déclarable **complete** seulement si :
+
+1. Git reste canonique (preuve + tests anti-mutation) ;
+2. politique d’inclusion des items documentée et testée ;
+3. profondeur/pagination décidées et implémentées sous gate ;
+4. états dégradés couverts ;
+5. cohérence provenance ↔ Git/packs démontrable ;
+6. audit accès présent **ou** différé explicitement ;
+7. rétention clarifiée **ou** « Git-only retention » décidé ;
+8. IAM/persistence : soit in-process mono-opérateur documenté, soit sélectionnés+validés ;
+9. **aucune** mutation historique ; **aucune** claim cutover.
+
+**Statut actuel :** `NOT COMPLETE`.
+
+---
+
+## 7. Non-objectifs
+
+- store concurrent à Git ;
+- migration DB historique ;
+- ACL production sans gate ;
+- exposition de contenu `method/**` brut ;
+- UI archive ;
+- retrait OPS1/legacy.
+
+---
+
+## 8. Stop conditions
+
+- tentative de faire de la vue runtime une source canonique ;
+- écriture / « repair » d’historique ;
+- sélection persistence/IAM sans GO ;
+- lecture arbitraire filesystem hors politique ;
+- claim complete sans §6.
+
+---
+
+## 9. Questions d’arbitrage Morris
+
+1. Lecture Git live (bornée) vs seed documentary enrichi vs index dérivé **non persistant** ?
+2. Pagination multi-page requise pour complete ?
+3. Audit accès requis maintenant ?
+4. Rétention = Git only (décider) vs cycle rétention séparé ?
+5. Couplage F11 summary : stable page-id / evaluatedAt contract ?
+```
+
+## 15. Document 14 (complet)
+
+```
+# 14 — F11/F13 dependencies & runtime boundaries
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `14-f11-f13-dependencies-and-runtime-boundaries.md` |
+| **Date/heure/fuseau** | 2026-07-28 22:45:18 CEST (+0200) |
+| **Gate N3** | DECIDED — cadrage only |
+| **IAM / Persistence** | **NOT SELECTED** (préservés) |
+
+---
+
+## 1. Cartographie composants (existant)
+
+```
+[Git / packs docs] ──canonique──► (humain / CI)
+        ▲
+        │ provenance refs (seed)
+        │
+[boundedHistoryRead F13.4] ──summary──► [operationalReadiness F11.2]
+        │                                    │
+        │                                    ├── readMethodModeHold
+        │                                    ├── decideMethodModeTransition
+        │                                    └── optional D1Project input
+        ▼
+   (no durable store)
+
+[selectMethodMode / commands] ──assert hold──► CONFLICT if ACTIVE
+[methodModeHold.test-only] ──tests only──► store slot (non-barrel)
+```
+
+Ownership :
+
+| Composant | Owner logique | Module |
+|-----------|---------------|--------|
+| Hold | D1 gouvernance transitions | `lib/d1/methodModeHold*` |
+| F11.2 readiness | D1 observation | `lib/d1/operationalReadiness.ts` |
+| F13.4 history | platform t-a7 | `lib/platform/t-a7/boundedHistoryRead.ts` |
+| Canon paths | platform sfia-context | `canonicalPaths` (lecture) |
+
+---
+
+## 2. Frontières Git / runtime
+
+| Règle | Statut |
+|-------|--------|
+| Git = vérité historique | **obligatoire** |
+| Runtime view = projection | **obligatoire** |
+| Pas de write historique | **obligatoire** |
+| Seed documentary ≠ full Git walk | **état actuel** |
+| Cache / index durable | **interdit sans GO persistence** |
+| Concurrent writers | **hors scope** |
+
+---
+
+## 3. Frontières IAM / identité
+
+| Couche | État | Interdit N3 |
+|--------|------|-------------|
+| AuthN | non présent sur F11/F13 | sélection produit IAM |
+| AuthZ | hold = gouvernance transition, pas ACL data | confondre hold et IAM |
+| Acteur | non typé sur query | inventer roles |
+| Path-policy | distincte | fusionner path-policy↔IAM |
+| Fail-closed | hold ACTIVE par défaut | backdoor env pour désactiver hold |
+
+Exposition future HTTP ⇒ **GO IAM** distinct avant claim multi-acteur.
+
+---
+
+## 4. Frontières persistance
+
+| Élément | Autorisé maintenant | Interdit sans GO |
+|---------|---------------------|------------------|
+| Lecture Git/packs | oui (conceptuel) | — |
+| Seed in-memory | oui (lot 1) | — |
+| SQLite/DB history store | non | **oui interdit** |
+| Migration schéma | non | **oui interdit** |
+| Cache process local non durable | candidat futur (doc) | durable/shared store |
+
+---
+
+## 5. API interne / HTTP / UI
+
+| Surface | État | Décision requise |
+|---------|------|------------------|
+| API interne TS | **existante** (fonctions) | formaliser version contrat |
+| Barrel `@/lib/d1` | export F11 + hold produit | ne pas exporter test-only |
+| HTTP route | absente | GO surface access |
+| UI admin | absente (F11.2) | F11.3 non retenue |
+| Server actions write | hors F11/F13 | gate write distinct |
+
+---
+
+## 6. Flux de lecture (cible documentaire)
+
+1. Consommateur autorisé (à décider) appelle readiness **read**.
+2. F11 lit hold + (optionnel) projet + F13 summary.
+3. F13 lit provider borné ; Git reste référence.
+4. Snapshot frozen renvoyé ; audit éventuel (futur).
+5. Aucun write ; erreurs fail-closed.
+
+Source de vérité par donnée :
+
+| Donnée | Source |
+|--------|--------|
+| Historique canonique | Git |
+| Projection items | provider F13 (dérivé) |
+| Hold | évaluation gouvernance (défaut code) |
+| Projet mode/state | D1 store existant (si fourni) — **pas** créé par F11 |
+
+Données temporaires autorisées : copies frozen, timestamps d’évaluation.
+Interdites : files d’attente durables, outbox history, dual-write.
+
+---
+
+## 7. Observabilité / audit / erreurs
+
+| Besoin | Actuel | Cible cadrée |
+|--------|--------|--------------|
+| Logs hold block/allow | oui (codes) | conserver borné |
+| Logs readiness query | non | event optionnel futur |
+| Logs history read | non | event optionnel futur |
+| Erreurs | RangeError limit ; D1 CONFLICT hold | catalogue codes readiness/history |
+| Métriques | non | compteurs lectures (futur) sans PII |
+
+---
+
+## 8. Dépendances
+
+### Obligatoires pour complétion documentaire N3 (ce pack)
+
+- décisions F11.2 / F13.4 déjà adoptées ;
+- lot 1 sur main ;
+- hold ACTIVE governance ;
+- Git canonique.
+
+### Différables
+
+- IAM product ;
+- persistence ;
+- HTTP ;
+- live Git walk ;
+- OPS1 isolation runtime evidence (N2) ;
+- P08/P09 replacement (N1) ;
+- rollback drills (N4).
+
+### Anti-couplages
+
+- F11 ↛ OPS1 imports ;
+- F13 ↛ D1 writes ;
+- F13 ↛ `method/**` content dump ;
+- readiness ↛ auto-clear blockers ;
+- test-only ↛ barrels runtime.
+
+---
+
+## 9. Risques de dette
+
+| Risque | Mitigation documentaire |
+|--------|-------------------------|
+| Traiter lot 1 comme API finale | critères complete §12/§13 |
+| Ajouter HTTP sans IAM | stop condition |
+| Index durable « pour perf » | persistence NOT SELECTED |
+| Seed manuel diverge de Git | exiger preuve provenance |
+| F11/F13 circular writes | F11→F13 read only (déjà) |
+
+---
+
+## 10. Matrice capacité (synthèse)
+
+| Capacité | Existant | Gap | Dépendance | Blocker | Preuve | Statut | Décision |
+|----------|----------|-----|------------|---------|--------|--------|----------|
+| F11 query RO | oui | HTTP/audit/health | hold, F13 | IAM si HTTP | tests + module | PARTIAL | surface access |
+| F13 page RO | oui | politique/pagination/audit | Git | persistence si store | tests + module | PARTIAL | read strategy |
+| Hold | oui | — | gouvernance | B5/HARD open | tests | PARTIAL control | ne pas fermer |
+| IAM | non | sélection | — | NOT SELECTED | — | MISSING | futur GO |
+| Persistence | non | sélection | — | NOT SELECTED | — | MISSING | futur GO |
+```
+
+## 16. Document 15 (complet)
+
+```
+# 15 — F11/F13 completion options & bounded lots
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `15-f11-f13-completion-options-and-bounded-lots.md` |
+| **Date/heure/fuseau** | 2026-07-28 22:45:18 CEST (+0200) |
+| **N3** | cadrage terminé localement · **pas d’implémentation** |
+| **Recommandations** | `RECOMMENDED — NOT DECIDED` |
+
+---
+
+## 1. Options distinctes (futurs lots)
+
+### L-F11A — Formaliser contrat interne F11 (sans HTTP)
 
 | Champ | Contenu |
 |-------|---------|
-| Objectif | Cadrer capacités manquantes pour lectures `method/**` absentes OA (P08) et surfaces/badges OA (P09) **sans implémenter** |
-| Valeur immédiate | Empêche un lot code trop large ; clarifie fichiers protégés |
-| Blockers réduits | compréhension P08/P09 (pas fermeture) |
-| Non réduits | B5 · HARD · F11/F13 finales · live OPS1 |
-| Code potentiel futur | loader/CI no-fallback · design UI OA (gates distincts) |
-| Dépendances | F03 · path-policy · design UX |
-| Risques | glissement vers retrait legacy / cutover |
-| Dette | pack doc supplémentaire |
-| Réversibilité | haute (doc) |
-| Gate Morris | `GO FRAME T-A7 N1 P08 P09 REPLACEMENT FOUNDATIONS — NO METHOD RETIREMENT UI DELIVERY OR CUTOVER` |
-| Impact delivery/cutover | aucun autorisé |
-| Profil | Critical |
+| Objectif | Versionner le contrat snapshot, codes d’erreur, audit différé/explicite, health UNKNOWN honnête |
+| Valeur | réduit ambiguïté « API » sans surface réseau |
+| Risques | sous-estimer besoin HTTP plus tard |
+| Dette | doc + tests contrat |
+| Rollback | revert Git |
+| Tests | schema/contract tests |
+| Gate | `GO IMPLEMENT T-A7 F11.2 INTERNAL CONTRACT HARDENING — NO HTTP IAM UI DELIVERY OR CUTOVER` |
 
-### N2 — OPS1 runtime isolation evidence
+### L-F11B — Surface HTTP read-only F11 (sans UI)
 
 | Champ | Contenu |
 |-------|---------|
-| Objectif | Compléter preuves dynamiques live OPS1↔OA et hits allowlist **sans modifier OPS1** |
-| Valeur immédiate | réduit UNKNOWN live / volumes |
-| Blockers réduits | profondeur P10 evidence |
-| Non réduits | P08/P09 · F11/F13 finales · B5 |
-| Code potentiel futur | probes/instrumentation read-only |
-| Dépendances | environnement `.sfia-exec` / session live |
-| Risques | fausse confiance « isolation cutover » |
-| Dette | campagne evidence |
-| Réversibilité | haute |
-| Gate Morris | `GO COLLECT T-A7 N2 OPS1 RUNTIME ISOLATION EVIDENCE — NO OPS1 FUNCTIONAL CHANGE DELIVERY OR CUTOVER` |
-| Impact delivery/cutover | aucun |
-| Profil | Critical |
+| Objectif | Exposer readiness via HTTP GET borné |
+| Dépendances | **IAM sélection** ou décision mono-opérateur documentée |
+| Risques | exposition prématurée |
+| Gate | `GO IMPLEMENT T-A7 F11.2 HTTP READ SURFACE — IAM DECISION REQUIRED FIRST — NO UI WRITE DELIVERY OR CUTOVER` |
 
-### N3 — F11.2/F13.4 completion framing
+### L-F13A — Politique + pagination F13 (in-process)
 
 | Champ | Contenu |
 |-------|---------|
-| Objectif | Définir l’écart fondations intégrées ↔ surfaces finales **sans** choisir persistence, IAM ou UI |
-| Valeur immédiate | cadre le prochain lot technique sur surfaces déjà livrées |
-| Blockers réduits | ambiguïté F11/F13 « done » |
-| Non réduits | P08/P09 · live OPS1 · B5/HARD |
-| Code potentiel futur | API interne élargie / vue RO (gates futurs) |
-| Dépendances | lot 1 sur main · décisions F11.2/F13.4 |
-| Risques | sélection implicite IAM/persistence |
-| Dette | doc d’écart |
-| Réversibilité | haute |
-| Gate Morris | `GO FRAME T-A7 N3 F11.2 F13.4 COMPLETION GAP — NO PERSISTENCE IAM UI DELIVERY OR CUTOVER` |
-| Impact delivery/cutover | aucun |
-| Profil | Critical |
+| Objectif | Politique d’inclusion, pagination/prefix décidé, tie-to-pack SHA |
+| Dépendances | pas de store |
+| Gate | `GO IMPLEMENT T-A7 F13.4 POLICY AND PAGINATION — GIT CANONICAL — NO PERSISTENCE IAM DELIVERY OR CUTOVER` |
 
-### N4 — Rollback and blocker-control readiness
+### L-F13B — Lecteur Git borné (refs only)
 
 | Champ | Contenu |
 |-------|---------|
-| Objectif | Cadrer R1–R3, B5, R1, R-M01, HARD **sans les fermer** |
-| Valeur immédiate | readiness gouvernance avant tout lot delivery-adjacent |
-| Blockers réduits | flou sur rollback / stop conditions |
-| Non réduits | P08/P09 · F11/F13 finales |
-| Code potentiel futur | drills rollback (gate distinct) |
-| Dépendances | doc `04` · `06` |
-| Risques | pseudo-fermeture de blockers |
-| Dette | pack gouvernance |
-| Réversibilité | haute |
-| Gate Morris | `GO FRAME T-A7 N4 ROLLBACK AND BLOCKER CONTROLS — KEEP B5 R1 R-M01 HARD OPEN — NO DELIVERY OR CUTOVER` |
-| Impact delivery/cutover | aucun |
-| Profil | Critical |
+| Objectif | Remplacer/enrichir seed par lecture Git bornée (metadata) |
+| Risques | perf, chemins, secrets |
+| Gate | `GO IMPLEMENT T-A7 F13.4 BOUNDED GIT METADATA READER — NO CONTENT DUMP PERSISTENCE DELIVERY OR CUTOVER` |
 
-### N5 — Custom / différer
+### L-F11F13 — Lot couplé minimal (interne only)
 
-Différer tout nouveau lot T-A7 ; capitaliser ailleurs ; attendre décision produit.
+| Champ | Contenu |
+|-------|---------|
+| Objectif | L-F11A + L-F13A ensemble si périmètre reste interne |
+| Condition | **pas** HTTP, **pas** IAM, **pas** persistence |
+| Gate | `GO IMPLEMENT T-A7 F11.2 F13.4 INTERNAL COMPLETION LOT — NO HTTP IAM PERSISTENCE DELIVERY OR CUTOVER` |
 
-Gate : `GO DEFER T-A7 NEXT BLOCKER-REDUCTION LOT — NO DEVELOPMENT DELIVERY OR CUTOVER`
+### L-DEFER — Différer
+
+Aucun lot technique F11/F13 ; attendre N1/N2/N4 ou autre priorité.
 
 ---
 
-## 9. Comparaison
+## 2. Lot minimal recommandé (non décidé)
 
-| Critère | N1 | N2 | N3 | N4 | N5 |
-|---------|----|----|----|----|-----|
-| Utile maintenant | moyen | fort (UNKNOWN) | **fort** (suite lot 1) | moyen | contexte-dépendant |
-| Proximité produit | élevée (risque) | preuve | cadrage produit | gouvernance | nulle |
-| Risque cutover drift | élevé | moyen | contrôlé | bas | nul |
-| Besoin code | futur | probes possibles | non | non | non |
-| Continuité lot 1 | partielle | faible | **directe** | latérale | — |
+**L-F11F13 (interne)** ou séquentiel **L-F13A → L-F11A**.
 
-**Combinaison** N3+N2 possible seulement si périmètre reste purement cadrage/evidence — sinon séparer.
-
----
-
-## 10. Recommandation
-
-**Statut :** `RECOMMENDED — NOT DECIDED`
-
-**Option recommandée :** **N3** — F11.2/F13.4 completion framing
-
-### Challenge
+Justification challenge :
 
 | Question | Réponse |
 |----------|---------|
-| Utile maintenant ? | oui — évite de traiter les fondations comme finales |
-| Blocker réduit ? | ambiguïté « F11/F13 done » ; prépare lot technique borné |
-| Dette ? | documentaire seulement |
-| Plus simple ? | oui vs N1 (retrait/UI) ou code immédiat |
-| Repo-first ? | s’appuie sur blobs main lot 1 |
-| Exécution vs arbitrage ? | arbitrage Morris puis cadrage Cursor |
-| Gate nécessaire ? | oui |
-| Produit vs preuve ? | rapproche du **cadrage produit** des surfaces déjà intégrées |
+| Utile maintenant ? | oui — transforme gaps N3 en lots exécutables |
+| Blocker réduit ? | ambiguïté complete ; pas B5/HARD |
+| Dette ? | code borné + tests |
+| Plus simple ? | éviter L-F11B tant qu’IAM NOT SELECTED |
+| Repo-first ? | s’appuie sur modules main |
+| Gate nécessaire ? | **oui** — N3 ≠ autorisation d’implémenter |
 
-**Alternatives fortes :** N2 (si priorité = UNKNOWN live) · N4 (si priorité = stop/rollback avant tout code).
+**Statut :** `RECOMMENDED — NOT DECIDED`
 
-**Non recommandé maintenant :** N1 comme premier lot post-intégration (trop proche cutover/retrait/UI sans écart F11/F13 clarifié).
+**Non recommandé maintenant :** L-F11B (HTTP) avant arbitrage IAM.
 
 ---
 
-## 11. Bulletin Morris
+## 3. Lots complémentaires (hors N3 exécution)
+
+- N2 evidence OPS1 (indépendant) ;
+- N1 P08/P09 framing/impl sous gates séparés ;
+- N4 rollback framing ;
+- cycle rétention F13 si conservation ≠ Git.
+
+---
+
+## 4. Impacts delivery/cutover
+
+Aucun lot ci-dessus n’autorise delivery preparation, delivery ou cutover.
+Complete F11/F13 ≠ Option A complete ≠ T-A6 complete.
+```
+
+## 17. Document 16 (complet)
+
+```
+# 16 — Morris decision pack — F11.2 / F13.4 completion
+
+| Champ | Valeur |
+|-------|--------|
+| **Document** | `16-morris-f11-f13-completion-decision-pack.md` |
+| **Date/heure/fuseau** | 2026-07-28 22:45:18 CEST (+0200) |
+| **N3** | `DECIDED — ADOPTED BY MORRIS` (cadrage) |
+| **Implémentation** | **NOT AUTHORIZED** par N3 |
+| **Statut pack** | `READY FOR MORRIS DECISION` |
+
+---
+
+## 1. Décisions requises (non préconsommées)
+
+| ID | Question | Options | Exclusion |
+|----|----------|---------|-----------|
+| D1 | Surface d’accès F11 complete | Internal-only · HTTP read · Différer | UI admin |
+| D2 | Audit lecture F11/F13 | Requis · Différé explicite | logs verbeux/PII |
+| D3 | Stratégie F13 data | Seed enrichi · Git metadata reader · Différer | store durable |
+| D4 | Pagination F13 | Prefix-only formalisé · Multi-page · Différer | unbounded |
+| D5 | Rétention F13 | Git-only · Cycle rétention séparé | silence |
+| D6 | Prochain lot technique | L-F11A · L-F13A · L-F11F13 · L-F11B · L-F13B · L-DEFER | delivery |
+| D7 | IAM | Rester NOT SELECTED · Ouvrir cycle IAM | sélection produit dans N3 |
+| D8 | Persistence | Rester NOT SELECTED · Ouvrir cycle persistence | migration N3 |
+
+---
+
+## 2. Impacts / risques / dépendances
+
+| Décision | Impact si oui | Risque | Dépendances |
+|----------|---------------|--------|-------------|
+| D1 HTTP | surface réseau | expo sans IAM | D7 |
+| D3 Git reader | moins de drift seed | perf/path | path-policy |
+| D6 L-F11F13 | avance complete interne | scope creep | docs 12–14 |
+| D7/D8 select | débloque HTTP/store | dette prod | B5/HARD restent open |
+
+---
+
+## 3. Recommandation (non décidée)
+
+1. **D1 = Internal-only** pour le prochain lot.
+2. **D6 = L-F11F13** (ou L-F13A puis L-F11A).
+3. **D7/D8 = rester NOT SELECTED**.
+4. **D2 = Différé explicite** OK si consigné dans critères complete.
+5. **D3 = Seed enrichi + tie-to-SHA** d’abord ; Git reader = lot suivant.
+6. **D4 = Prefix-only formalisé** si volumes restent ≤50.
+7. **D5 = Git-only** jusqu’à cycle rétention.
+
+**Statut :** `RECOMMENDED — NOT DECIDED`
+
+---
+
+## 4. Bulletin Morris
 
 ### Question
 
-Quel prochain cycle T-A7 doit être ouvert après l’intégration du lot 1 ?
-
-### Options
-
-- **N1** — P08/P09 replacement foundations (cadrage)
-- **N2** — OPS1 runtime isolation evidence
-- **N3** — F11.2/F13.4 completion framing *(recommandé, non décidé)*
-- **N4** — Rollback and blocker-control readiness
-- **N5** — Custom / différer
+Quelles décisions D1–D8 adopter pour la suite F11.2/F13.4 après le cadrage N3 ?
 
 ### État repo
 
-- `main` @ `770605bc…` · lot 1 intégré · hold/F11/F13 fondations présentes
-- T-A7 `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY`
-- B5/R1/R-M01/HARD OPEN · delivery/cutover NOT AUTHORIZED
+- `main` @ `770605bc…` · lot 1 INTEGRATED · fondations F11/F13 présentes
+- N3 cadrage documents 12–16 (local, non poussé)
+- IAM/Persistence NOT SELECTED · B5/R1/R-M01/HARD OPEN · delivery/cutover NOT AUTHORIZED
 
-### Bénéfices / blockers / risques / dette
+### Anti-claims
 
-Voir §8–§10. Aucune option ne ferme B5/HARD ni n’autorise delivery.
-
-### Fichiers candidats (futurs, non touchés ici)
-
-- pack `t-a7-technical-readiness-framing/` extensions
-- éventuellement probes read-only (N2) sous gate
-
-### Fichiers protégés
-
-- `method/**` · OPS1 fonctionnel · migrations · IAM · UI runtime · CI
-
-### Tests candidats
-
-- aucune exécution dans ce cycle ; futurs : boundaries · probes live (N2) · non-régression hold
+- N3 done ≠ F11/F13 complete
+- recommandation ≠ GO implémentation
+- internal contract ≠ HTTP
+- Git canonical ≠ vue runtime finale
 
 ### Stop conditions
 
-- toute demande de fermer B5/HARD ;
-- sélection persistence/IAM dans un lot « cadrage » ;
-- push/PR non autorisés ;
-- retrait `method/**` ;
-- claim delivery/cutover.
+- fermer B5/HARD via « complete » ;
+- sélection IAM/persistence sans cycle dédié ;
+- UI admin pour F11.2 ;
+- push/PR sans GO.
 
-### Profil
+### Gates candidats
 
-Critical
+```
+GO IMPLEMENT T-A7 F11.2 F13.4 INTERNAL COMPLETION LOT — NO HTTP IAM PERSISTENCE DELIVERY OR CUTOVER
 
-### Gate générique
+GO IMPLEMENT T-A7 F13.4 POLICY AND PAGINATION — GIT CANONICAL — NO PERSISTENCE IAM DELIVERY OR CUTOVER
 
-`GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER`
+GO IMPLEMENT T-A7 F11.2 INTERNAL CONTRACT HARDENING — NO HTTP IAM UI DELIVERY OR CUTOVER
+
+GO DECIDE T-A7 F11 ACCESS SURFACE — INTERNAL ONLY OR HTTP READ — IAM RULES — NO DELIVERY OR CUTOVER
+
+GO DEFER T-A7 F11 F13 IMPLEMENTATION — NO DEVELOPMENT DELIVERY OR CUTOVER
+```
 
 **Statut bulletin :** `MORRIS DECISION REQUIRED`
 
 ---
 
-## 12. Anti-claims
+## 5. Verdict document
 
-- post-merge confirmé ≠ delivery ready ;
-- lot 1 intégré ≠ T-A7 entièrement ouvert ;
-- README corrigé ≠ nouvelle baseline produit ;
-- cadrage suivant ≠ lot autorisé ;
-- recommandation ≠ décision ;
-- fondations F11/F13 ≠ surfaces finales ;
-- blockers documentés ≠ blockers fermés.
-
----
-
-## 13. Gate candidat
-
-`GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER`
-
-**Statut :** `NOT CONSUMED`
-
----
-
-## 14. Verdict
-
-`T-A7 LOT 1 POST-MERGE CONFIRMED — PR #287 AND POST-MERGE CHECKS VERIFIED — SOURCE BRANCH PRESERVED — README ALIGNED TO MAIN WITH HISTORICAL LOCAL-ONLY SECTION — P03 TO P11 AND F03.3 REASSESSED WITHOUT PROMOTION — BLOCKERS STRUCTURED — N1 TO N5 FRAMED — MORRIS DECISION REQUIRED — NO CODE PUSH PR MERGE DELIVERY OR CUTOVER`
+`N3 F11.2/F13.4 COMPLETION FRAMING PACK READY — DECISIONS D1–D8 AWAIT MORRIS — NO IMPLEMENTATION AUTHORIZED`
 ```
 
-## 12. Diff utile complet
-
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/11-t-a7-lot1-post-merge-and-next-blocker-framing.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/11-t-a7-lot1-post-merge-and-next-blocker-framing.md
-new file mode 100644
-index 0000000..7b4435a
---- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/11-t-a7-lot1-post-merge-and-next-blocker-framing.md
-@@ -0,0 +1,335 @@
-+# 11 — T-A7 lot 1 post-merge & next blocker-reduction framing
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| **Document** | `11-t-a7-lot1-post-merge-and-next-blocker-framing.md` |
-+| **Date/heure/fuseau** | 2026-07-28 22:16:12 CEST (+0200) |
-+| **Gate consommé** | `GO POST-MERGE T-A7 FIRST BOUNDED DEVELOPMENT LOT — CONFIRM MAIN INTEGRATION — CORRECT STALE LOCAL-ONLY README STATUS IF NEEDED — FRAME NEXT BLOCKER-REDUCTION CYCLE — NO DELIVERY OR CUTOVER` |
-+| **Base** | `origin/main` @ `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-+| **Branche locale** | `docs/sfia-studio-t-a7-lot1-post-merge-next-blocker-framing` |
-+| **Push / PR projet** | **aucun** (cycle documentaire local) |
-+| **Code / tests** | **aucune modification** |
-+
-+---
-+
-+## 1. Sources Git
-+
-+| Source | Référence |
-+|--------|-----------|
-+| PR | [#287](https://github.com/mcleland147/sfia-workspace/pull/287) |
-+| Merge | `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-+| Parents | `2a3c59c…` + `b6a19335…` |
-+| Tree | `712720a1a2371f98c137a6c8b29299ac556299c7` |
-+| Checks PR | run `30393629328` SUCCESS |
-+| Checks post-merge | run `30393814783` SUCCESS |
-+| Branche source | `origin/framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` @ `b6a19335…` |
-+| Handoff intégration | blob `2d0959c456f728a1ef0ad7be43ef3197108eba47` |
-+| Pack | `t-a7-technical-readiness-framing/` (01–10 + README) |
-+
-+Quatre commits intégrés :
-+
-+1. `a33f4a32…` docs framing
-+2. `01410377…` test evidence O2
-+3. `47e26fdc…` feat foundations
-+4. `b6a19335…` fix harden override
-+
-+---
-+
-+## 2. Confirmation post-merge
-+
-+| Contrôle | Attendu | Observé | Preuve | Verdict |
-+|----------|---------|---------|--------|---------|
-+| PR #287 mergée | MERGED | MERGED 2026-07-28T19:52:20Z | `gh pr view 287` | PASS |
-+| Merge commit | `770605bc…` | exact | `origin/main` | PASS |
-+| Parents | main pré + HEAD lot | `2a3c59c…` + `b6a19335…` | `git cat-file -p` | PASS |
-+| Tree | tree lot | `712720a1…` | merge object | PASS |
-+| 4 commits | présents | 4 | log PR | PASS |
-+| Branche source | préservée | `b6a19335…` remote | `ls-remote` | PASS |
-+| Checks PR | verts | Detect/Build/Gate SUCCESS | run `30393629328` | PASS |
-+| Checks post-merge | verts | Detect/Build/Gate SUCCESS | run `30393814783` | PASS |
-+| Blobs hold/F11/F13 | présents | hold `30220327…` · test-only `ad9d1a5c…` · F11 `1ae8deac…` · F13 `2be059af…` | `git rev-parse main:path` | PASS |
-+| Barrel D1 | sans override | BARREL_CLEAN | `index.ts` | PASS |
-+| Override | test-only | `methodModeHold.test-only.ts` | blob `ad9d1a5c…` | PASS |
-+| Hold | ACTIVE défaut | module + raisons B5/R1/… | code main | PASS |
-+| F11.2 | RO fondation | `operationalReadiness.ts` | main | PASS |
-+| F13.4 | RO bornée | `boundedHistoryRead.ts` | main | PASS |
-+| Déploiement/cutover | non déclenché | CI Studio seulement | runs GitHub | PASS |
-+
-+**Verdict :** `T-A7 LOT 1 MAIN INTEGRATION CONFIRMED — POST-MERGE VERIFIED`
-+
-+---
-+
-+## 3. Surfaces intégrées (état)
-+
-+| Surface | État | Limite |
-+|---------|------|--------|
-+| MethodMode hold | intégré · défaut ACTIVE · CONFLICT | pas de hold DB persistant · pas IAM |
-+| Test override | test-only · hors barrel · boundary tests | store module-level résiduel Info |
-+| F11.2 | query interne RO · frozen snapshot | pas d’API HTTP · pas d’UI admin |
-+| F13.4 | provider documentary/Git · max 50 · immutable | pas de vue runtime finale · pas ACL |
-+
-+---
-+
-+## 4. P03–P11 (sans promotion artificielle)
-+
-+| ID | État actuel | Preuves sur main | Écart restant | Bloquant pour |
-+|----|-------------|------------------|---------------|---------------|
-+| P03 | PARTIAL | `canonicalPaths` · probes | adoption produit globale | cutover / remplacement OA |
-+| P04 | PARTIAL | `sourceLoader` · asymmetry probe | loader cutover unique | cutover |
-+| P05 | PARTIAL | CKC · OA sans import method | guidance-only | cutover |
-+| P06 | PARTIAL | hold lot 1 | session OA correlation | cutover · delivery prep |
-+| P07 | PARTIAL | hold bloque transitions | MethodMode toujours présent | cutover |
-+| P08 | MISSING | allowlist method active | lectures `method/**` absentes OA | cutover · lot N1 |
-+| P09 | MISSING | UI OA native absente | badges/surfaces OA | cutover · lot N1 |
-+| P10 | PARTIAL | import boundaries · isolation probe | live runtime OPS1↔OA | cutover · lot N2 |
-+| P11 | PARTIAL | F13.4 fondation | vue RO finale | cutover · lot N3 |
-+
-+Aucun P03–P11 en `SATISFIED` pour le **remplacement** Option A.
-+
-+Distinction :
-+
-+- **prochain développement borné** : peut cibler une fondation/preuve (N1–N4) sous gate Morris ;
-+- **delivery preparation / delivery / cutover** : toujours `NOT AUTHORIZED`.
-+
-+---
-+
-+## 5. F03.3
-+
-+`F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED`
-+
-+- critères documentaires / décisions : largement satisfaits ;
-+- critères d’implémentation cutover : **non** satisfaits ;
-+- lot 1 a réduit des blockers d’implémentation (hold · F11/F13 fondations) **sans** fermer B5/R1/R-M01/HARD.
-+
-+**Ne pas déclarer** F03.3 fully satisfied.
-+
-+---
-+
-+## 6. Blockers ouverts
-+
-+| Blocker | Preuve | Risque | Dépendances | Réductible maintenant ? | Gate requis |
-+|---------|--------|--------|-------------|-------------------------|-------------|
-+| P08 lectures method | allowlist active · probes | lecture legacy silencieuse | F03 · path-policy | cadrage oui · code sous gate N1 | N1 |
-+| P09 badges/UI OA | absence UI OA | confusion UX | F11 · design | cadrage oui · UI sous gate futur | N1 |
-+| Live OPS1↔OA isolation | static PARTIAL · live UNKNOWN | double identité | W1-D04 · env `.sfia-exec` | preuve oui · pas de mod OPS1 | N2 |
-+| F11.2 API/exposition finale | fondation RO seule | claim cutover prématuré | IAM? UI? | cadrage écart oui | N3 |
-+| F13.4 vue runtime finale | fondation métadonnées | mutation historique | persistence? ACL? | cadrage écart oui | N3 |
-+| Rollback R1–R3 | doc `04` NOT TESTED | rollback non prouvé | delivery futur | cadrage oui · pas d’exécution | N4 |
-+| B5 | OPEN · STOP BEFORE DELIVERY | delivery prématuré | HARD | **non fermer** | N4 / gate delivery |
-+| R1 atomicité | OPEN | incohérence état | delivery | **non fermer** | N4 |
-+| R-M01 ClaimEvaluator | OPEN | claims non prêts | T-A6 | **non fermer** | N4 |
-+| HARD | OPEN HARD | exécution réelle | B5 | **non fermer** | delivery/cutover |
-+| Persistence | NOT SELECTED | store caché | F13 | **ne pas sélectionner** | gate futur |
-+| IAM | NOT SELECTED | exposition ACL | F11 | **ne pas sélectionner** | gate futur |
-+| RGPD production | NOT VALIDATED | conformité | IAM/data | hors lot | gate futur |
-+
-+---
-+
-+## 7. Dette / limites du lot 1
-+
-+- hold non persistant DB ;
-+- F11/F13 incomplets vs surfaces finales ;
-+- P08/P09 toujours MISSING ;
-+- live OPS1 non instrumenté ;
-+- R1–R3 non testés ;
-+- README local pré-intégration était stale (corrigé dans ce cycle).
-+
-+---
-+
-+## 8. Options prochain cycle
-+
-+### N1 — P08/P09 replacement foundations
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Cadrer capacités manquantes pour lectures `method/**` absentes OA (P08) et surfaces/badges OA (P09) **sans implémenter** |
-+| Valeur immédiate | Empêche un lot code trop large ; clarifie fichiers protégés |
-+| Blockers réduits | compréhension P08/P09 (pas fermeture) |
-+| Non réduits | B5 · HARD · F11/F13 finales · live OPS1 |
-+| Code potentiel futur | loader/CI no-fallback · design UI OA (gates distincts) |
-+| Dépendances | F03 · path-policy · design UX |
-+| Risques | glissement vers retrait legacy / cutover |
-+| Dette | pack doc supplémentaire |
-+| Réversibilité | haute (doc) |
-+| Gate Morris | `GO FRAME T-A7 N1 P08 P09 REPLACEMENT FOUNDATIONS — NO METHOD RETIREMENT UI DELIVERY OR CUTOVER` |
-+| Impact delivery/cutover | aucun autorisé |
-+| Profil | Critical |
-+
-+### N2 — OPS1 runtime isolation evidence
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Compléter preuves dynamiques live OPS1↔OA et hits allowlist **sans modifier OPS1** |
-+| Valeur immédiate | réduit UNKNOWN live / volumes |
-+| Blockers réduits | profondeur P10 evidence |
-+| Non réduits | P08/P09 · F11/F13 finales · B5 |
-+| Code potentiel futur | probes/instrumentation read-only |
-+| Dépendances | environnement `.sfia-exec` / session live |
-+| Risques | fausse confiance « isolation cutover » |
-+| Dette | campagne evidence |
-+| Réversibilité | haute |
-+| Gate Morris | `GO COLLECT T-A7 N2 OPS1 RUNTIME ISOLATION EVIDENCE — NO OPS1 FUNCTIONAL CHANGE DELIVERY OR CUTOVER` |
-+| Impact delivery/cutover | aucun |
-+| Profil | Critical |
-+
-+### N3 — F11.2/F13.4 completion framing
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Définir l’écart fondations intégrées ↔ surfaces finales **sans** choisir persistence, IAM ou UI |
-+| Valeur immédiate | cadre le prochain lot technique sur surfaces déjà livrées |
-+| Blockers réduits | ambiguïté F11/F13 « done » |
-+| Non réduits | P08/P09 · live OPS1 · B5/HARD |
-+| Code potentiel futur | API interne élargie / vue RO (gates futurs) |
-+| Dépendances | lot 1 sur main · décisions F11.2/F13.4 |
-+| Risques | sélection implicite IAM/persistence |
-+| Dette | doc d’écart |
-+| Réversibilité | haute |
-+| Gate Morris | `GO FRAME T-A7 N3 F11.2 F13.4 COMPLETION GAP — NO PERSISTENCE IAM UI DELIVERY OR CUTOVER` |
-+| Impact delivery/cutover | aucun |
-+| Profil | Critical |
-+
-+### N4 — Rollback and blocker-control readiness
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Cadrer R1–R3, B5, R1, R-M01, HARD **sans les fermer** |
-+| Valeur immédiate | readiness gouvernance avant tout lot delivery-adjacent |
-+| Blockers réduits | flou sur rollback / stop conditions |
-+| Non réduits | P08/P09 · F11/F13 finales |
-+| Code potentiel futur | drills rollback (gate distinct) |
-+| Dépendances | doc `04` · `06` |
-+| Risques | pseudo-fermeture de blockers |
-+| Dette | pack gouvernance |
-+| Réversibilité | haute |
-+| Gate Morris | `GO FRAME T-A7 N4 ROLLBACK AND BLOCKER CONTROLS — KEEP B5 R1 R-M01 HARD OPEN — NO DELIVERY OR CUTOVER` |
-+| Impact delivery/cutover | aucun |
-+| Profil | Critical |
-+
-+### N5 — Custom / différer
-+
-+Différer tout nouveau lot T-A7 ; capitaliser ailleurs ; attendre décision produit.
-+
-+Gate : `GO DEFER T-A7 NEXT BLOCKER-REDUCTION LOT — NO DEVELOPMENT DELIVERY OR CUTOVER`
-+
-+---
-+
-+## 9. Comparaison
-+
-+| Critère | N1 | N2 | N3 | N4 | N5 |
-+|---------|----|----|----|----|-----|
-+| Utile maintenant | moyen | fort (UNKNOWN) | **fort** (suite lot 1) | moyen | contexte-dépendant |
-+| Proximité produit | élevée (risque) | preuve | cadrage produit | gouvernance | nulle |
-+| Risque cutover drift | élevé | moyen | contrôlé | bas | nul |
-+| Besoin code | futur | probes possibles | non | non | non |
-+| Continuité lot 1 | partielle | faible | **directe** | latérale | — |
-+
-+**Combinaison** N3+N2 possible seulement si périmètre reste purement cadrage/evidence — sinon séparer.
-+
-+---
-+
-+## 10. Recommandation
-+
-+**Statut :** `RECOMMENDED — NOT DECIDED`
-+
-+**Option recommandée :** **N3** — F11.2/F13.4 completion framing
-+
-+### Challenge
-+
-+| Question | Réponse |
-+|----------|---------|
-+| Utile maintenant ? | oui — évite de traiter les fondations comme finales |
-+| Blocker réduit ? | ambiguïté « F11/F13 done » ; prépare lot technique borné |
-+| Dette ? | documentaire seulement |
-+| Plus simple ? | oui vs N1 (retrait/UI) ou code immédiat |
-+| Repo-first ? | s’appuie sur blobs main lot 1 |
-+| Exécution vs arbitrage ? | arbitrage Morris puis cadrage Cursor |
-+| Gate nécessaire ? | oui |
-+| Produit vs preuve ? | rapproche du **cadrage produit** des surfaces déjà intégrées |
-+
-+**Alternatives fortes :** N2 (si priorité = UNKNOWN live) · N4 (si priorité = stop/rollback avant tout code).
-+
-+**Non recommandé maintenant :** N1 comme premier lot post-intégration (trop proche cutover/retrait/UI sans écart F11/F13 clarifié).
-+
-+---
-+
-+## 11. Bulletin Morris
-+
-+### Question
-+
-+Quel prochain cycle T-A7 doit être ouvert après l’intégration du lot 1 ?
-+
-+### Options
-+
-+- **N1** — P08/P09 replacement foundations (cadrage)
-+- **N2** — OPS1 runtime isolation evidence
-+- **N3** — F11.2/F13.4 completion framing *(recommandé, non décidé)*
-+- **N4** — Rollback and blocker-control readiness
-+- **N5** — Custom / différer
-+
-+### État repo
-+
-+- `main` @ `770605bc…` · lot 1 intégré · hold/F11/F13 fondations présentes
-+- T-A7 `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY`
-+- B5/R1/R-M01/HARD OPEN · delivery/cutover NOT AUTHORIZED
-+
-+### Bénéfices / blockers / risques / dette
-+
-+Voir §8–§10. Aucune option ne ferme B5/HARD ni n’autorise delivery.
-+
-+### Fichiers candidats (futurs, non touchés ici)
-+
-+- pack `t-a7-technical-readiness-framing/` extensions
-+- éventuellement probes read-only (N2) sous gate
-+
-+### Fichiers protégés
-+
-+- `method/**` · OPS1 fonctionnel · migrations · IAM · UI runtime · CI
-+
-+### Tests candidats
-+
-+- aucune exécution dans ce cycle ; futurs : boundaries · probes live (N2) · non-régression hold
-+
-+### Stop conditions
-+
-+- toute demande de fermer B5/HARD ;
-+- sélection persistence/IAM dans un lot « cadrage » ;
-+- push/PR non autorisés ;
-+- retrait `method/**` ;
-+- claim delivery/cutover.
-+
-+### Profil
-+
-+Critical
-+
-+### Gate générique
-+
-+`GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER`
-+
-+**Statut bulletin :** `MORRIS DECISION REQUIRED`
-+
-+---
-+
-+## 12. Anti-claims
-+
-+- post-merge confirmé ≠ delivery ready ;
-+- lot 1 intégré ≠ T-A7 entièrement ouvert ;
-+- README corrigé ≠ nouvelle baseline produit ;
-+- cadrage suivant ≠ lot autorisé ;
-+- recommandation ≠ décision ;
-+- fondations F11/F13 ≠ surfaces finales ;
-+- blockers documentés ≠ blockers fermés.
-+
-+---
-+
-+## 13. Gate candidat
-+
-+`GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER`
-+
-+**Statut :** `NOT CONSUMED`
-+
-+---
-+
-+## 14. Verdict
-+
-+`T-A7 LOT 1 POST-MERGE CONFIRMED — PR #287 AND POST-MERGE CHECKS VERIFIED — SOURCE BRANCH PRESERVED — README ALIGNED TO MAIN WITH HISTORICAL LOCAL-ONLY SECTION — P03 TO P11 AND F03.3 REASSESSED WITHOUT PROMOTION — BLOCKERS STRUCTURED — N1 TO N5 FRAMED — MORRIS DECISION REQUIRED — NO CODE PUSH PR MERGE DELIVERY OR CUTOVER`
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md
-index 123c752..e73f40b 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-technical-readiness-framing/README.md
-@@ -2,41 +2,72 @@
-
- | Champ | Valeur |
- |-------|--------|
--| **Gate O3 (consommé)** | `GO DECIDE T-A7 OPENING — SELECT O3 FOR A FIRST BOUNDED DEVELOPMENT LOT LIMITED TO METHODMODE HOLD F11.2 READINESS CONTRACT AND F13.4 READ-ONLY FOUNDATION — NO DELIVERY OR CUTOVER — KEEP B5 R1 R-M01 AND HARD OPEN` |
-+| **Mise à jour post-merge** | 2026-07-28 22:16:12 CEST (+0200) |
-+| **Gate post-merge (consommé)** | `GO POST-MERGE T-A7 FIRST BOUNDED DEVELOPMENT LOT — CONFIRM MAIN INTEGRATION — CORRECT STALE LOCAL-ONLY README STATUS IF NEEDED — FRAME NEXT BLOCKER-REDUCTION CYCLE — NO DELIVERY OR CUTOVER` |
- | **O3** | `DECIDED — ADOPTED BY MORRIS` |
- | **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
--| **Date lot 1** | 2026-07-28 21:19:12 CEST (+0200) |
--| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` |
--| **Base** | `origin/main` @ `2a3c59c46c105bae458d1a7329079c5f591da421` |
--| **Push / PR projet** | **aucun** |
--| **F03.3 évaluation** | `F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
--| **F11.2 / F13.4 décisions** | `DECIDED` · fondations lot 1 livrées (≠ finales) |
-+| **Lot 1** | `INTEGRATED ON MAIN` |
-+| **PR** | [#287](https://github.com/mcleland147/sfia-workspace/pull/287) — `feat(sfia-studio): integrate T-A7 bounded readiness foundations` |
-+| **Merge commit** | `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-+| **Parents** | `2a3c59c46c105bae458d1a7329079c5f591da421` + `b6a19335f5116940175f5986492e3693722563bc` |
-+| **Tree** | `712720a1a2371f98c137a6c8b29299ac556299c7` |
-+| **Branche source** | `framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` **préservée** @ `b6a19335…` |
-+| **Checks PR** | run `30393629328` — Detect / Build / Required Gate **SUCCESS** |
-+| **Checks post-merge** | run `30393814783` — Detect / Build / Required Gate **SUCCESS** |
-+| **F03.3** | `PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
-+| **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** · 0 SATISFIED remplacement OA |
-+| **F11.2** | fondation intégrée · API finale **non complète** |
-+| **F13.4** | fondation intégrée · vue runtime finale **non complète** |
-+| **MethodMode hold** | intégré · défaut ACTIVE |
- | **B5 / R1 / R-M01** | `OPEN` |
- | **HARD** | `OPEN HARD` |
--| **Delivery / cutover** | `NOT AUTHORIZED` |
- | **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
- | **Persistence / IAM / RGPD** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
-+| **Delivery / cutover** | `NOT AUTHORIZED` |
-
--## Lot 1 livré
-+## Lot 1 intégré sur `main`
-
--1. MethodMode hold (défaut actif)
--2. F11.2 readiness read-only interne
--3. F13.4 historique RO borné (Git canonique)
-+1. MethodMode hold (défaut actif ; override test-only hors barrel)
-+2. F11.2 readiness read-only interne (`mutable/adminUi/writeCommands=false`)
-+3. F13.4 historique RO borné (Git canonique ; max 50)
-
--Détail : `10-t-a7-first-bounded-development-lot.md`
-+Détails : `10-t-a7-first-bounded-development-lot.md` · clôture : `11-t-a7-lot1-post-merge-and-next-blocker-framing.md`
-
- ## Anti-claims
-
--- T-A7 borné ≠ fully open · ≠ delivery/cutover ready
-+- lot 1 intégré ≠ T-A7 entièrement ouvert ≠ delivery/cutover ready
- - hold ≠ blockers fermés
--- fondations ≠ API/UI/vue finales
-+- fondations F11/F13 ≠ API / vue finales
-+- post-merge confirmé ≠ autorisation de nouveau lot
-+- recommandation N1–N5 ≠ décision Morris
-
- ## Gate candidat suivant
-
--`GO INTEGRATE T-A7 FIRST BOUNDED DEVELOPMENT LOT — PUSH PR MERGE IF REQUIRED CHECKS PASS — PRESERVE SOURCE BRANCH — NO DELIVERY OR CUTOVER`
-+`GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER`
-+
-+**Statut :** `NOT CONSUMED`
-+
-+Gates précis par option : voir document `11`.
-+
-+## Verdict courant
-+
-+`T-A7 LOT 1 INTEGRATED ON MAIN — PR #287 MERGED — POST-MERGE CHECKS PASSED — SOURCE BRANCH PRESERVED — O3 DECIDED — T-A7 OPEN FOR FIRST BOUNDED DEVELOPMENT LOT ONLY — F03.3 PARTIALLY SATISFIED — B5 R1 R-M01 AND HARD REMAIN OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED`
-+
-+---
-+
-+## Historique du lot local pré-intégration
-+
-+> Section **historique** uniquement. Ne décrit **pas** l’état courant sur `main`.
-+
-+Avant PR #287, le lot 1 existait uniquement en local sur
-+`framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness`
-+au-dessus de `origin/main` @ `2a3c59c46c105bae458d1a7329079c5f591da421`.
-
--**Statut :** `NOT CONSUMED` (après revue PR readiness)
-+À cette étape, le résumé d’état indiquait correctement :
-
--## Verdict
-+- `Push / PR projet : aucun`
-+- gate d’intégration candidat `NOT CONSUMED`
-+- verdict se terminant par `PROJECT BRANCH NOT PUSHED`
-
--`T-A7 FIRST BOUNDED DEVELOPMENT LOT IMPLEMENTED LOCALLY — O3 DECISION RECORDED — METHODMODE HOLD IMPLEMENTED — F11.2 READINESS FOUNDATION IMPLEMENTED READ-ONLY — F13.4 READ-ONLY FOUNDATION IMPLEMENTED WITH GIT REMAINING CANONICAL — TESTS PASS — NO MIGRATION IAM ADMIN UI DELIVERY OR CUTOVER — B5 R1 R-M01 AND HARD REMAIN OPEN — T-A7 OPEN FOR FIRST BOUNDED DEVELOPMENT LOT ONLY — PROJECT BRANCH NOT PUSHED`
-+Ces formulations étaient **vraies avant** push/PR/merge #287 (2026-07-28 ~21:49–21:52 CEST).
-+Elles sont **obsolètes** pour l’état courant documenté en tête de ce README.
-```
-
-FIN REVIEW PACK FULL — T-A7 LOT 1 POST-MERGE
+FIN REVIEW PACK FULL — T-A7 N3 F11/F13 COMPLETION FRAMING
