@@ -1,48 +1,72 @@
-# ChatGPT Review Pack — FULL — A5.2 Reservations Authority Atomicity Framing
+# ChatGPT Review Pack — FULL — A5.2 Framing Review
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-28 08:47:04 CEST (+0200) |
-| **Cycle / profil** | 1 — Cadrage (+3 · 6 · 9 · 10 · 12 · 15) · Critical |
-| **Gate consommé** | `GO FRAME A5.2 T-A7 RESERVATIONS AUTHORITY AND ATOMICITY — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Repo** | `mcleland147/sfia-workspace` |
-| **Base / HEAD main** | `9f578ea1677ce65cffb4b05ddf5649a21a5b240c` |
-| **Branche** | `framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-a5-2-framing` |
-| **Commit** | `cd7c00e918c721738e792594bdd22907cf859cf2` |
-| **Parent** | `9f578ea1677ce65cffb4b05ddf5649a21a5b240c` |
-| **Upstream / push** | **aucun** |
-| **Handoff initial** | `ad2e758de2c0704b1a2dda97a478c70f41422e33` |
+| **Date/heure/fuseau** | 2026-07-28 09:10:33 CEST (+0200) |
+| **Cycle / profil** | 9 — QA (+1 · 3 · 6 · 10 · 12 · 13 · 15) · Critical |
+| **Gate consommé** | `GO REVIEW A5.2 RESERVATIONS AUTHORITY AND ATOMICITY FRAMING — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Repo / worktree / branche** | `mcleland147/sfia-workspace` · `/Users/morris/Projects/sfia-workspace-a5-2-framing` · `framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity` |
+| **HEAD / parent / MB / main** | `cd7c00e918c721738e792594bdd22907cf859cf2` / `9f578ea1677ce65cffb4b05ddf5649a21a5b240c` / idem / idem |
+| **Upstream / remote branch** | **aucun** / **absente** |
+| **Handoff initial** | `c8ea7118cf28ebf35f48df0cf83d8b637198487b` |
+| **Modification projet** | **aucune** (read-only) |
 
 ## Verdict exact
 
-`SFIA STUDIO A5.2 RESERVATIONS AUTHORITY AND ATOMICITY FRAMING PREPARED — B5 R1 R-T-A3-1 R-T-A3-2 R-M01 AND C1-C4 ASSESSED — AUTHORITY AND ATOMICITY MATRICES PRODUCED — FIVE MORRIS ARBITRATIONS STRUCTURED — NO OPTION AUTO-SELECTED — NO RESERVE CLOSED — F03 AND F08 TO F13 REMAIN NOT DECIDED — PROJECT BRANCH NOT PUSHED — T-A7 NOT OPEN — DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 NOT DECLARED COMPLETE — OPTION A NOT COMPLETE`
+`SFIA STUDIO A5.2 RESERVATIONS AUTHORITY AND ATOMICITY FRAMING REVIEWED — PACK ELIGIBLE FOR MORRIS DECISION SESSION WITH NON-BLOCKING RESERVATIONS — NO RESERVE CLOSED — F03 AND F08 TO F13 REMAIN NOT DECIDED — PROJECT BRANCH NOT PUSHED — T-A7 NOT OPEN — DELIVERY AND CUTOVER NOT AUTHORIZED — OPTION A NOT COMPLETE`
 
-## Auto-review
+## Review classification
 
-`A5.2 FRAMING REVIEW PASS — MORRIS ARBITRATION REQUIRED`
+**PASS WITH RESERVATIONS**
 
-- Critical: 0 · Major: 0 · Minor: 0
-- Observations: AT-11/13 noms canoniques (substituts traçables) ; F08/F09 cellules candidate
+| Verdicts partiels | Résultat |
+|-------------------|----------|
+| Truth / périmètre | PASS |
+| Post-merge checks | `POST-MERGE CHECKS PASS` |
+| Dependency matrix | `RESERVATION DEPENDENCY MATRIX COHERENT` |
+| Authority model | `AUTHORITY MODEL COHERENT — HARD GAP PRESERVED` |
+| Atomicity model | `ATOMICITY MODEL COHERENT — NO TECHNOLOGY PRESELECTED` |
+| F overreach | `NO F-DECISION OVERREACH` |
 
-## 1. Truth + post-merge checks
-
-- `origin/main` = `9f578ea…` = merge PR #280
-- Ancestry `b7a5e827…` : OK
-- Pack T-A7 blobs inchangés
-- Checks run `30335038884` : Detect/Build/Required Gate = **success**
-- Verdict : `POST-MERGE CHECKS PASS`
-
-## 2. Commit evidence
+## 1. Truth excerpt
 
 ```
-COMMIT=cd7c00e918c721738e792594bdd22907cf859cf2
-PARENT=9f578ea1677ce65cffb4b05ddf5649a21a5b240c
+=== TRUTH 2026-07-28 09:08:52 CEST ===
+/Users/morris/Projects/sfia-workspace-a5-2-framing
+/Users/morris/Projects/sfia-workspace-a5-2-framing
+origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
+origin	https://github.com/mcleland147/sfia-workspace.git (push)
 BRANCH=framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity
+HEAD=cd7c00e918c721738e792594bdd22907cf859cf2
+PARENT=9f578ea1677ce65cffb4b05ddf5649a21a5b240c
+MAIN=9f578ea1677ce65cffb4b05ddf5649a21a5b240c
+MB=9f578ea1677ce65cffb4b05ddf5649a21a5b240c
+## framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity
+--- untracked ---
 UPSTREAM=NONE
-cd7c00e docs(sfia-studio): frame A5.2 reservations authority and atomicity
+NO_ACTIVE_OP
+SHOW_CHECK_OK
+commit cd7c00e918c721738e792594bdd22907cf859cf2
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Tue Jul 28 08:46:36 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Tue Jul 28 08:46:36 2026 +0200
+
+    docs(sfia-studio): frame A5.2 reservations authority and atomicity
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../01-scope-and-source-truth.md                   |  85 ++++++++++++
+ .../02-reservation-dependency-matrix.md            |  63 +++++++++
+ .../03-authority-model-and-gaps.md                 |  74 ++++++++++
+ .../04-atomicity-model-and-options.md              |  58 ++++++++
+ .../05-r-m01-and-c1-c4-assessment.md               |  87 ++++++++++++
+ .../06-morris-arbitration-pack.md                  | 151 +++++++++++++++++++++
+ .../README.md                                      |  63 +++++++++
+ 7 files changed, 581 insertions(+)
+--- name-status ---
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/01-scope-and-source-truth.md
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/02-reservation-dependency-matrix.md
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/03-authority-model-and-gaps.md
@@ -50,32 +74,117 @@ A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-aut
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/05-r-m01-and-c1-c4-assessment.md
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/06-morris-arbitration-pack.md
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/README.md
-BLOB README.md 8d612c069c787a5ed02331b2a9d72d9dcf52288d
-BLOB 01-scope-and-source-truth.md 9713b0b13b185a0b9f43e3b35909258f9a8cf3f3
-BLOB 02-reservation-dependency-matrix.md 60cc3f4c047ad1c4c8004c0132ca62063580a53f
-BLOB 03-authority-model-and-gaps.md 6e66ee921b92baabb081f128be488ec80be3718e
-BLOB 04-atomicity-model-and-options.md 7a538772a78a4ccbcc6dd36fff3ac6a8661422e8
-BLOB 05-r-m01-and-c1-c4-assessment.md 059e058aaee64165a39b2a678f0c47e080efe7ef
-BLOB 06-morris-arbitration-pack.md 6eeb37482bb8570500b6674383769107d51035a6
+--- stat ---
+ .../01-scope-and-source-truth.md                   |  85 ++++++++++++
+ .../02-reservation-dependency-matrix.md            |  63 +++++++++
+ .../03-authority-model-and-gaps.md                 |  74 ++++++++++
+ .../04-atomicity-model-and-options.md              |  58 ++++++++
+ .../05-r-m01-and-c1-c4-assessment.md               |  87 ++++++++++++
+ .../06-morris-arbitration-pack.md                  | 151 +++++++++++++++++++++
+ .../README.md                                      |  63 +++++++++
+ 7 files changed, 581 insertions(+)
+DIFF_CHECK_OK
+--- blobs ---
+README.md 8d612c069c787a5ed02331b2a9d72d9dcf52288d
+01-scope-and-source-truth.md 9713b0b13b185a0b9f43e3b35909258f9a8cf3f3
+02-reservation-dependency-matrix.md 60cc3f4c047ad1c4c8004c0132ca62063580a53f
+03-authority-model-and-gaps.md 6e66ee921b92baabb081f128be488ec80be3718e
+04-atomicity-model-and-options.md 7a538772a78a4ccbcc6dd36fff3ac6a8661422e8
+05-r-m01-and-c1-c4-assessment.md 059e058aaee64165a39b2a678f0c47e080efe7ef
+06-morris-arbitration-pack.md 6eeb37482bb8570500b6674383769107d51035a6
 ```
 
-## 3. Recommandations (NOT DECIDED)
+## 2. Post-merge checks
 
-| ID | Recommandation |
-|----|----------------|
-| A52-D01 | .3 (+ stops delivery) |
-| A52-D02 | .2 |
-| A52-D03 | .3 →.1 avant real Critical |
-| A52-D04 | .4 |
-| A52-D05 | .2 + .4 |
+Run `30335038884` · head `9f578ea…` · Detect/Build/Required Gate = success.
 
-## 4. F / T-A6 / Option A / T-A7
+## 3. Sources (critique)
 
-- F04 DECIDED UNCHANGED · F03/F08–F13 NOT DECIDED
-- T-A6 NOT DECLARED · Option A NOT COMPLETE · T-A7 NOT OPEN
-- delivery/cutover NOT AUTHORIZED · aucune réserve fermée
+| Source | Statut review |
+|--------|---------------|
+| Pack T-A7 (6 fichiers) | fidèle · statuts B5/R1/HARD/C* alignés |
+| T-A1/T-A2/T-A3/T-A4/T-A6 | utilisés sans généralisation excessive |
+| AT-11/12/13 | **noms canoniques** `11-legacy-isolation…` / `12-delivery-slices…` / `13-technical-architecture-validation…` — observation déjà documentée |
+| D-T-A6-09/10 | présents via T-A6 `03-decisions` |
+| Docs 20/23/24/31/33 | contextuels · non présentés comme décisions |
 
-## 5. Contenu final complet des sept fichiers
+## 4. Registre réserves (review)
+
+| ID | Statut pack | Review |
+|----|-------------|--------|
+| B5 | OPEN | OK · C4 liée · pas de fermeture |
+| R1 | OPEN | OK · mémoire/durable séparés · pas de DB |
+| R-T-A3-1 | OPEN HARD | OK · fail-closed ≠ résolution · sim/real séparés |
+| R-T-A3-2 | OPEN HARD | OK · options txn/outbox/saga sans techno |
+| R-M01 | OPEN | OK · bornage optionnel · pas fermé |
+| C1–C4 | RECOMMENDED — NOT VALIDATED | OK · C4→B5 tracking · pas de validation implicite |
+
+## 5. Matrices
+
+- Dépendances : framing N partout · delivery/cutover **C** où F08/F09 NOT DECIDED · HARD → real-exec Y · R-M01/C* → T-A6 COMPLETE Y.
+- Autorité : Morris = gouvernance · Confirm Critical fail-closed · IAM NOT SELECTED · gap API publique préservé.
+- Atomicité : flux requis couverts · R1 ≠ R-T-A3-2 · pas de sélection techno · double-write non autorisé.
+
+## 6. Arbitrages et challenge recommandations
+
+| ID | Reco pack | Challenge review | Commentaire |
+|----|-----------|------------------|-------------|
+| A52-D01 | .3 + stops (esprit .2) | **CONFIRMED WITH RESERVATION** | Hybrid tracking+stops clair mais à expliciter en session Morris |
+| A52-D02 | .2 | **CONFIRMED** | Mémoire/durable séparés · pas promesse prod |
+| A52-D03 | .3 →.1 avant real Critical | **CONFIRMED** | Fail-closed conservé · pas IAM |
+| A52-D04 | .4 | **CONFIRMED WITH RESERVATION** | Horizon « jusqu’à T-A6 COMPLETE déclaré » = borne temporelle candidate · ≠ déclaration |
+| A52-D05 | .2 + .4 | **CONFIRMED** | C4→B5 · C1–C3→R-M01 · F04 inchangé |
+
+Ces statuts sont des classifications de review — **pas** des décisions Morris.
+
+## 7. Matrice F
+
+| F | Avant | Prépare A5.2 | Risque implicite | Après review |
+|---|-------|--------------|-----------------|--------------|
+| F04 | DECIDED | bornage R-M01/C* pour déclaration future | rouvrir F04 | `DECIDED — UNCHANGED` |
+| F03 | NOT DECIDED | hors | — | `NOT DECIDED` |
+| F08 | NOT DECIDED | critères réserves delivery | A52-D01 décide F08 | `NOT DECIDED` (mitigé) |
+| F09 | NOT DECIDED | Critical/cutover | A52-D03 décide F09 | `NOT DECIDED` |
+| F10 | NOT DECIDED | persistence/IAM order | A52-D02/D04 décident F10 | `NOT DECIDED` |
+| F11–F13 | NOT DECIDED | hors | — | `NOT DECIDED` |
+
+`NO F-DECISION OVERREACH`
+
+## 8. Bulletin Morris / séquencement
+
+- Bulletin `06` exploitable : questions · options · reco · risques · GO vierge non présélectionné.
+- Densité inégale (D01 plus riche que D02/D03) — **Observation** non bloquante.
+- **Séquencement recommandé (non décisionnel)** : **deux vagues**
+  1. Vague 1 — HARD exécution : A52-D03 · A52-D04 · A52-D02
+  2. Vague 2 — état / complétude : A52-D01 · A52-D05
+- Alternative : session groupée possible si Morris veut un seul GO multi-slots.
+
+## 9. Findings
+
+| ID | Sévérité | Fichier | Preuve | Impact | Correction | Bloque arbitrage ? | Bloque PR future ? |
+|----|----------|---------|--------|--------|------------|--------------------|--------------------|
+| O-A52-R01 | Observation | `06` A52-D01 | reco hybride `.3` + stops style `.2` | clarté session | expliciter slots en bulletin Morris | non | non |
+| O-A52-R02 | Observation | `06`/`04` A52-D04.4 | horizon « T-A6 COMPLETE déclaré » | confusion définition/déclaration | rappeler NOT DECLARED en session | non | non |
+| O-A52-R03 | Observation | `06` | densités inégales D02/D03 | confort décision | enrichir preuves en session | non | non |
+| O-A52-R04 | Observation | `01` | AT-11/13 noms canoniques | traçabilité | déjà documenté | non | non |
+
+Critical: **0** · Major: **0** · Minor: **0**
+
+**Blockers arbitrage :** aucun · **Blockers PR future :** aucun (hors gate push/PR distinct)
+
+## 10. T-A6 / Option A / T-A7
+
+- T-A6 COMPLETE : NOT DECLARED
+- Option A : NOT COMPLETE
+- T-A7 : NOT OPEN · delivery/cutover NOT AUTHORIZED
+
+## 11. Actions non exécutées
+
+- aucune modification des 7 fichiers · aucun commit projet · aucun push/PR/merge
+- aucune fermeture réserve · aucune consommation A52/F · aucune sélection persistence/IAM
+- aucune ouverture T-A7 / delivery / cutover
+
+## 12. Contenu final complet des sept fichiers
 
 ### FILE `README.md`
 
@@ -693,7 +802,7 @@ GO DECIDE A5.2 ARBITRATIONS — A52-D01=… — A52-D02=… — A52-D03=… — 
 | A52-D05 | .2 + .4 | `RECOMMENDED — NOT DECIDED` |
 ```
 
-## 6. Diff complet
+## 13. Diff complet
 
 ```diff
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/01-scope-and-source-truth.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/a5-2-reservations-authority-atomicity-framing/01-scope-and-source-truth.md
@@ -1321,14 +1430,8 @@ index 0000000..8d612c0
 +**Statut :** `NOT CONSUMED`
 ```
 
-## 7. Actions non exécutées
+## 14. Gate candidat
 
-- push branche projet · PR · merge · main modification
-- delivery/cutover/T-A7 OPEN · runtime/modeled/workflow/method/OPS1
-- persistence/IAM selected · F consommées · réserves fermées · A5.2 executed as decision
-
-## 8. Gate candidat
-
-`GO REVIEW A5.2 RESERVATIONS AUTHORITY AND ATOMICITY FRAMING — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
+`GO DECIDE A5.2 RESERVATIONS AUTHORITY AND ATOMICITY — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
 
 **Statut :** `NOT CONSUMED`
