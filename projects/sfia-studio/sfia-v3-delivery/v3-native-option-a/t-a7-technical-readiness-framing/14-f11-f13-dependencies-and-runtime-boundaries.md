@@ -107,7 +107,7 @@ Source de vérité par donnée :
 | Hold | évaluation gouvernance (défaut code) |
 | Projet mode/state | D1 store existant (si fourni) — **pas** créé par F11 |
 
-Données temporaires autorisées : copies frozen, timestamps d’évaluation.  
+Données temporaires autorisées : copies frozen, timestamps d’évaluation.
 Interdites : files d’attente durables, outbox history, dual-write.
 
 ---

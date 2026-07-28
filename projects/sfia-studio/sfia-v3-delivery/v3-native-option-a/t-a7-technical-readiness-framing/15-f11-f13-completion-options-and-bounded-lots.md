@@ -94,5 +94,5 @@ Justification challenge :
 
 ## 4. Impacts delivery/cutover
 
-Aucun lot ci-dessus n’autorise delivery preparation, delivery ou cutover.  
+Aucun lot ci-dessus n’autorise delivery preparation, delivery ou cutover.
 Complete F11/F13 ≠ Option A complete ≠ T-A6 complete.

@@ -123,10 +123,19 @@ describe("T-A7 L-F11F13 F13.4 bounded history foundation", () => {
     expect(snap.accessSurface).toBe("INTERNAL_ONLY");
   });
 
-  it("preserves back-compat seed-array factory signature", () => {
-    const page = createDocumentaryBoundedHistoryProvider([]).read({ limit: 5 });
-    expect(page.availability).toBe("EMPTY");
-    expect(page.returned).toBe(0);
-    expect(page.gitCanonicalSha).toBe(DEFAULT_BOUNDED_HISTORY_GIT_SHA);
+  it("preserves back-compat seed-array and options overloads", () => {
+    const fromArray = createDocumentaryBoundedHistoryProvider([]).read({
+      limit: 5,
+    });
+    expect(fromArray.availability).toBe("EMPTY");
+    expect(fromArray.returned).toBe(0);
+    expect(fromArray.gitCanonicalSha).toBe(DEFAULT_BOUNDED_HISTORY_GIT_SHA);
+
+    const fromOptions = createDocumentaryBoundedHistoryProvider({
+      seed: [],
+      gitCanonicalSha: ALT_SHA,
+    }).read({ limit: 5 });
+    expect(fromOptions.availability).toBe("EMPTY");
+    expect(fromOptions.gitCanonicalSha).toBe(ALT_SHA);
   });
 });

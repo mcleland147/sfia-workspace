@@ -267,13 +267,41 @@ function buildPage(args: {
   });
 }
 
+function isDocumentarySeedArray(
+  value: DocumentaryBoundedHistoryProviderOptions | readonly BoundedHistoryEntry[],
+): value is readonly BoundedHistoryEntry[] {
+  return Array.isArray(value);
+}
+
+function normalizeDocumentaryProviderOptions(
+  optionsOrSeed:
+    | DocumentaryBoundedHistoryProviderOptions
+    | readonly BoundedHistoryEntry[]
+    | undefined,
+): DocumentaryBoundedHistoryProviderOptions {
+  if (optionsOrSeed === undefined) {
+    return {};
+  }
+  if (isDocumentarySeedArray(optionsOrSeed)) {
+    return { seed: optionsOrSeed };
+  }
+  return optionsOrSeed;
+}
+
+/** Historical call: seed array as first argument. */
 export function createDocumentaryBoundedHistoryProvider(
-  options: DocumentaryBoundedHistoryProviderOptions | readonly BoundedHistoryEntry[] = {},
+  seed: readonly BoundedHistoryEntry[],
+): BoundedHistoryProvider;
+/** Modern call: options object (seed and/or gitCanonicalSha). */
+export function createDocumentaryBoundedHistoryProvider(
+  options?: DocumentaryBoundedHistoryProviderOptions,
+): BoundedHistoryProvider;
+export function createDocumentaryBoundedHistoryProvider(
+  optionsOrSeed:
+    | DocumentaryBoundedHistoryProviderOptions
+    | readonly BoundedHistoryEntry[] = {},
 ): BoundedHistoryProvider {
-  // Back-compat: previous signature accepted seed array as first arg.
-  const opts: DocumentaryBoundedHistoryProviderOptions = Array.isArray(options)
-    ? { seed: options }
-    : options;
+  const opts = normalizeDocumentaryProviderOptions(optionsOrSeed);
 
   const frozenSeed = Object.freeze(
     (opts.seed ?? DOCUMENTARY_SEED).map(freezeEntry),
