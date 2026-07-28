@@ -2,11 +2,13 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut pack** | `PREPARED — MORRIS DECISION REQUIRED` |
-| **Aucune option auto-sélectionnée** | oui |
+| **Statut pack** | `RECORDED — DECIDED BY MORRIS` |
+| **Gate d’enregistrement** | `GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — … — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 18:50:00 CEST (+0200) |
 | **T-A7** | `NOT OPEN` |
 | **Vague 1 technique** | **non ouverte** |
-| **F03 / F11 / F13** | `NOT DECIDED` |
+| **F03 / F11 / F13 (contenu)** | `NOT DECIDED` |
+| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
 
 ---
 
@@ -21,9 +23,19 @@
 | .3 | Inventaire + isolation préalable candidate (W1-C) |
 | .4 | Autre / différer |
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (W1-B).
+**Choix Morris :** `.2` — `W1-B — INVENTORY PLUS CANDIDATE REMOVAL PLAN`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
+
+**Effet autorisé :**
+
+- préparer un **plan documentaire candidat** de retrait et d’isolation ;
+- définir séquences, validations, rollback et gates (doc only).
+
+**Anti-claims :**
+
+- W1-B adopté ≠ préparation technique autorisée ;
+- plan candidat ≠ retrait autorisé.
 
 ---
 
@@ -31,18 +43,18 @@
 
 **Question :** Quels blocs sont confirmés **actifs** (évidence) ?
 
-| Option | Description |
-|--------|-------------|
-| .1 | MethodMode D1 + prompts/`method` core + OPS1 runtime/allowlist (recommandé comme socle minimal évidencé) |
-| .2 | Étendre à tout `method/documentation` comme actif |
-| .3 | Restreindre à MethodMode D1 seulement |
-| .4 | Custom / investigation complémentaire obligatoire avant claim |
+**Choix Morris :** confirmer comme actifs :
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1**.
+1. MethodMode dans D1 ;
+2. le trio exact référencé dans `SFIA_CANONICAL_CORE_PATHS` ;
+3. les consommateurs de `method/**` via prompts · loader canonique · OPS1 path-policy / allowlist.
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
 
-**Anti-claim :** choisir .1 ≠ autoriser retrait.
+**Anti-claims :**
+
+- actif confirmé ≠ composant à conserver définitivement ;
+- actif confirmé ≠ architecture cible.
 
 ---
 
@@ -50,17 +62,19 @@
 
 **Question :** Quels blocs sont **candidats** au retrait futur (pas maintenant) ?
 
-| Option | Description |
-|--------|-------------|
-| .1 | MethodMode hors OA + lectures `method/**` produit OA + badges v2.6 OA (P07–P09) — après preuves |
-| .2 | Inclure archive `method/**/archive` en priorité basse |
-| .3 | Inclure retrait OPS1 runtime (au-delà isolation) |
-| .4 | Aucun candidat tant que P03–P11 non inventoriés finement |
-| .5 | Custom |
+**Choix Morris :** classer comme candidats au retrait futur :
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1** (+ .2 optionnel).
+1. `actionSelectMethodMode` orpheline ;
+2. MethodModeGate et route qualifiés `DOCUMENTATION ONLY` ;
+3. archives et duplications non canoniques identifiées.
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES`
+
+**Anti-claims :**
+
+- candidat au retrait ≠ suppression décidée ;
+- aucune suppression ou modification n’est autorisée dans ce cycle d’enregistrement ;
+- une preuve complémentaire reste obligatoire avant retrait effectif.
 
 ---
 
@@ -68,17 +82,20 @@
 
 **Question :** Quel traitement pour OPS1 ?
 
-| Option | Description |
-|--------|-------------|
-| .1 | Conserver POC + renforcer isolation (boundaries) |
-| .2 | Isoler (ACL/historique RO) sans retrait |
-| .3 | Migrer allowlist / canonical coupling hors `method/` |
-| .4 | Retrait futur (GO produit distinct) |
-| .5 | Investigation complémentaire avant toute option |
+**Choix Morris :** `ISOLATE OPS1 BEFORE ANY REMOVAL`
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (aligné P10–P11 / F13).
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Effet :**
+
+- toute trajectoire future de retrait doit d’abord définir une frontière d’isolation OPS1 ;
+- conserver explicitement path-policy ≠ IAM ;
+- tenir compte du couplage CT/D1.
+
+**Anti-claims :**
+
+- isolation décidée comme trajectoire ≠ isolation implémentée ;
+- aucune modification OPS1 autorisée maintenant.
 
 ---
 
@@ -86,43 +103,54 @@
 
 **Question :** Quand consommer le **contenu** de F03 / F11 / F13 ?
 
-| Option | Description |
-|--------|-------------|
-| .1 | Immédiatement après ce framing (bulletin dédié) |
-| .2 | F13 (OPS1/historique) avant F03 ; F11 avec surfaces UI cutover |
-| .3 | Selon T-A7-D05 : F au point de risque (F03 avant delivery prep/delivery selon bulletin ; F11 avant cutover UI ; F13 avant isolation/historique) |
-| .4 | Différer tout F jusqu’à vague 4 delivery readiness |
-| .5 | Custom |
+**Choix Morris :** `DECIDE F03 F11 AND F13 BEFORE ANY TECHNICAL REMOVAL PREPARATION`
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.3** (cohérent T-A7-D05 ; **sans** consommer ici).
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Effet :**
+
+- F03, F11 et F13 deviennent des **gates obligatoires** avant toute préparation technique de retrait ;
+- leur **contenu** reste à arbitrer séparément.
+
+**Anti-claims :**
+
+- calendrier / obligation d’arbitrage décidé ≠ contenu F décidé ;
+- F03 / F11 / F13 restent `NOT DECIDED` (contenu).
 
 ---
 
-## Bulletin Morris vierge
+## Bulletin Morris consommé (enregistrement)
 
 ```
-GO DECIDE T-A7 OPTION C WAVE 1 — T-A7-W1-D01=… — T-A7-W1-D02=… — T-A7-W1-D03=… — T-A7-W1-D04=… — T-A7-W1-D05=… — SFIA STUDIO V3-NATIVE — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
+GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — W1-D01=W1-B — W1-D02=CONFIRM ACTIVE LEGACY BLOCKS — W1-D03=CONFIRM FUTURE REMOVAL CANDIDATES WITHOUT AUTHORIZING REMOVAL — W1-D04=ISOLATE OPS1 BEFORE ANY REMOVAL — W1-D05=DECIDE F03 F11 F13 BEFORE ANY TECHNICAL REMOVAL PREPARATION — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
 ```
 
-**Statut GO :** `NOT CONSUMED / NOT DRAFTED AS DECISION`.
+**Statut GO :** `CONSUMED — DECISIONS RECORDED` (enregistrement documentaire uniquement).
 
-## Synthèse recommandations (non décisionnelles)
+## Synthèse décisions
 
-| ID | Option | Label |
-|----|--------|-------|
-| T-A7-W1-D01 | .2 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-W1-D02 | .1 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-W1-D03 | .1 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-W1-D04 | .2 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-W1-D05 | .3 | `RECOMMENDED — NOT DECIDED` |
+| ID | Choix | Statut |
+|----|-------|--------|
+| T-A7-W1-D01 | W1-B (`.2`) | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-W1-D02 | actifs D1 MethodMode + trio canonical + consumers method | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-W1-D03 | orphan select · MethodModeGate/route DOC ONLY · archives/duplications | `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES` |
+| T-A7-W1-D04 | isolate OPS1 before any removal | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-W1-D05 | decide F03/F11/F13 before technical removal prep | `DECIDED — ADOPTED BY MORRIS` |
+| W1-B | adopté via D01 | `DECIDED — ADOPTED BY MORRIS` |
+
+## Séquencement futur (documentaire — non exécuté)
+
+1. Plan candidat W1-B (séquences / validations / rollback / gates) — **doc only** · gate Morris distinct.
+2. Isolation OPS1 (frontière) **avant** tout retrait — D04 · **pas** implémentée ici.
+3. Arbitrage **contenu** F03 / F11 / F13 **avant** toute préparation technique de retrait — D05 · contenu encore `NOT DECIDED`.
+4. Preuves complémentaires avant retrait effectif des candidats D03.
+5. Aucune ouverture T-A7 · aucune delivery preparation / delivery / cutover.
 
 ## Garde-fous
 
-- Option C adoptée · vague 1 = doc only
+- Option C adoptée · vague 1 = doc only (inventaire + décisions enregistrées)
 - T-A7 `NOT OPEN` · delivery/cutover `NOT AUTHORIZED`
 - B5/R1/R-M01 `OPEN` · HARD `OPEN HARD`
-- F03/F11/F13 `NOT DECIDED` · F08–F10 contenu `NOT DECIDED`
+- F03/F11/F13 contenu `NOT DECIDED` · F08–F10 contenu `NOT DECIDED`
 - T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE`
 - persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
