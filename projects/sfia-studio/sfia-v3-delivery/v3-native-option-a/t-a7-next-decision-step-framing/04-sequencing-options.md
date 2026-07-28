@@ -2,11 +2,17 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Nature** | options distinctes · **aucune présélection** |
-| **Recommandations** | `RECOMMENDED — NOT DECIDED` uniquement |
+| **Gate décisions** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
+| **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) |
+| **Options A / B** | `NOT SELECTED` |
+| **Vagues Option C** | **aucune ouverte** |
 | **T-A7** | `NOT OPEN` |
+| **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
 
 ## Option A — Réserves critiques d’abord
+
+**Statut :** `NOT SELECTED`
 
 **Idée :** traiter d’abord R-T-A3-1 / R-T-A3-2 (autorité + atomicité Decision), puis B5 ; arbitrer F09/F10 ; ensuite élargir le cadrage legacy/cutover.
 
@@ -21,9 +27,11 @@
 | Réversibilité | haute (documentaire) |
 | Complexité | moyenne-haute |
 
-**Challenge :** utile maintenant ? **oui** si Morris priorise le chemin Critical. Plus simple ? Option C (gates) peut être plus progressive. Respecte STOP BEFORE DELIVERY / `.1` ? **oui**.
+**Challenge (historique) :** utile si priorité Critical ; Option C jugée plus progressive.
 
 ## Option B — Legacy / cutover d’abord en framing
+
+**Statut :** `NOT SELECTED`
 
 **Idée :** cadrer dette legacy, MethodMode, `method/**`, OPS1 et rollback ; maintenir les réserves techniques comme **stops avant delivery** (pas comme prérequis de framing).
 
@@ -38,13 +46,15 @@
 | Réversibilité | haute |
 | Complexité | moyenne |
 
-**Challenge :** réduit-il le risque Critical ? **peu** à court terme. Compatible A5.2 ? **oui** si stops explicites. Risque de confusion framing/open ? **élevé** — anti-claims obligatoires.
+**Challenge (historique) :** réduction risque Critical faible à court terme ; anti-claims obligatoires.
 
-## Option C — Séquencement par gates (recommandée)
+## Option C — Séquencement par gates — **ADOPTÉE**
 
-**Idée :** framing global **borné** (read-only), puis vagues Morris distinctes :
+**Statut :** `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3)
 
-1. legacy et scope (F03/F11/F13 inventaire) ;
+**Idée (trajectoire adoptée) :** framing global **borné** (read-only), puis vagues Morris **distinctes** et **successives** — chacune ouverte uniquement par gate dédié :
+
+1. legacy et périmètre (F03/F11/F13 inventaire) ;
 2. autorité (F09 · trajectoire `.1`) ;
 3. atomicité / persistence (F08/F10 · A52-D02/D04) ;
 4. delivery readiness (F08 · B5 STOP) ;
@@ -61,14 +71,23 @@
 | Réversibilité | très haute |
 | Complexité | moyenne (orchestration) |
 
-**Challenge :** plus simple qu’Option A seule ? **oui** opérationnellement. Répétable ? **oui** (pattern gates). Préparable sans ouvrir T-A7 ? **oui** — ce pack en est la preuve.
+### Conséquences immédiates vs futures
 
-## Recommandation Cursor/ChatGPT
+| Immédiat (ce cycle) | Futur (gates séparés) |
+|---------------------|------------------------|
+| trajectoire Option C versionnée | vague 1+ = GO dédiés |
+| aucune vague ouverte | cadrage complémentaire borné (T-A7-D01=.1) |
+| T-A7 `NOT OPEN` | niveaux B/C/D restent à autoriser séparément |
+| F contenu `NOT DECIDED` | F08/F09/F10 selon calendrier T-A7-D05 |
 
-`RECOMMENDED — NOT DECIDED` → **Option C** (séquencement par gates), avec :
+**Anti-claim :** adoption Option C ≠ lancement d’exécution ≠ ouverture vague 1 ≠ delivery preparation.
 
-- première vague candidate = **cadrage complémentaire borné** (inventaire legacy + rappel stops A5.2) **sans** ouvrir T-A7 niveau B/C/D ;
-- aucune consommation F automatique ;
-- F08/F09/F10 **avant delivery / real Critical**, pas nécessairement avant tout cadrage documentaire.
+## Synthèse sélection
 
-**Aucune option n’est adoptée tant que Morris n’a pas tranché (T-A7-D02).**
+| Option | Statut |
+|--------|--------|
+| A | `NOT SELECTED` |
+| B | `NOT SELECTED` |
+| C | `DECIDED — ADOPTED BY MORRIS` |
+
+**Trajectoire adoptée · exécution non autorisée.**

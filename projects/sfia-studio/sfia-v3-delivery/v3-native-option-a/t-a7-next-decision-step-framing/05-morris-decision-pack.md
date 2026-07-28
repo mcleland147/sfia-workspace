@@ -2,11 +2,14 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut pack** | `PREPARED — MORRIS DECISION REQUIRED` |
-| **Aucune option auto-sélectionnée** | oui |
+| **Statut pack** | `MORRIS T-A7-D01…D05 RECORDED` |
+| **Gate consommé** | `GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 13:36:06 CEST (+0200) |
 | **T-A7** | `NOT OPEN` |
 | **A5.2 documentaire** | `CLOSED` |
-| **F03 / F08–F13** | `NOT DECIDED` |
+| **Option C** | `DECIDED — ADOPTED BY MORRIS` — aucune vague ouverte |
+| **F03 / F08–F13 contenu** | `NOT DECIDED` |
+| **F08/F09/F10 calendrier** | adopté (D05=.3) · contenu `NOT DECIDED` |
 | **F04** | `DECIDED — UNCHANGED` |
 
 ---
@@ -21,9 +24,25 @@
 | .2 | Non — attendre d’abord une autre priorité (ex. B5 / HARD design) |
 | .3 | Différer / autre |
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1** (compatible Option C).
+**Choix Morris :** `.1`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
+
+**Sens :** autoriser *ultérieurement* un cycle de cadrage documentaire complémentaire borné, sans ouvrir T-A7 niveaux B/C/D.
+
+**Conséquences :**
+
+- un gate séparé sera requis pour ouvrir ce cadrage ;
+- ce cycle n’ouvre pas le cadrage complémentaire ;
+- compatible Option C vague 1 (legacy/périmètre) — vague **non** ouverte ici.
+
+**Anti-claims :**
+
+- T-A7-D01 ≠ ouverture actuelle du cadrage complémentaire ;
+- T-A7-D01 ≠ T-A7 `OPEN` ;
+- T-A7-D01 ≠ delivery preparation / delivery / cutover.
+
+**Restant ouvert :** gate d’ouverture du cadrage complémentaire · inventaire legacy concret.
 
 ---
 
@@ -38,9 +57,31 @@
 | .3 | Option C — séquencement par gates / vagues |
 | .4 | Custom |
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.3**
+**Choix Morris :** `.3`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
+
+**Sens :** adopter le séquencement Option C par gates et vagues :
+
+1. legacy et périmètre ;
+2. autorité ;
+3. atomicité / persistence ;
+4. delivery readiness ;
+5. cutover.
+
+**Conséquences :**
+
+- Options A et B = `NOT SELECTED` ;
+- trajectoire documentaire versionnée ;
+- **aucune vague n’est ouverte automatiquement**.
+
+**Anti-claims :**
+
+- Option C adoptée ≠ vague 1…5 lancée ;
+- Option C ≠ niveaux B/C/D autorisés ;
+- chaque vague exige un GO Morris dédié.
+
+**Restant ouvert :** ouverture de chaque vague · contenu des F associées.
 
 ---
 
@@ -54,9 +95,31 @@
 | .2 | Exiger fermeture HARD avant tout cadrage complémentaire |
 | .3 | Custom |
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1** (aligné T-A7 doc 04 + A5.2).
+**Choix Morris :** `.1`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
+
+**Sens :** les sujets techniques suivants peuvent rester ouverts pendant un cadrage documentaire borné :
+
+- B5 ;
+- R-T-A3-1 / R-T-A3-2 (`OPEN HARD`) ;
+- R1 ;
+- R-M01 ;
+- legacy ;
+- persistence / IAM `NOT SELECTED`.
+
+**Conséquences :**
+
+- framing documentaire n’exige pas la fermeture préalable des HARD ;
+- aligné T-A7 doc 04 + A5.2.
+
+**Anti-claims :**
+
+- « peut rester ouvert pendant framing » ≠ résolu ;
+- ≠ acceptable pour delivery ;
+- ≠ fermeture différée automatique.
+
+**Restant ouvert :** toutes les réserves listées (statuts techniques inchangés).
 
 ---
 
@@ -71,11 +134,26 @@
 | .3 | Exiger fermeture B5 avant prep |
 | .4 | Custom |
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1** (STOP = avant **delivery**, pas avant prep).
+**Choix Morris :** `.1`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
 
-**Anti-claim :** choisir .1 ≠ autoriser delivery preparation maintenant. Prep reste `NOT AUTHORIZED` jusqu’à gate dédié.
+**Sens :** les réserves HARD et B5 ne bloquent pas, *par elles-mêmes*, une **future** préparation documentaire du delivery.
+
+**Conséquences :**
+
+- STOP B5 reste **avant delivery** (A52-D01), pas avant prep ;
+- une future prep documentaire reste conditionnée à un gate dédié.
+
+**Anti-claims :**
+
+- delivery preparation reste actuellement `NOT AUTHORIZED` ;
+- B5 reste `STOP BEFORE DELIVERY` ;
+- cette décision ne ferme aucune réserve ;
+- cette décision ne consomme aucune F ;
+- choisir `.1` ≠ autoriser prep maintenant.
+
+**Restant ouvert :** gate `GO PREPARE T-A7 DELIVERY` (ou équivalent) · contenu F08.
 
 ---
 
@@ -90,33 +168,54 @@
 | .3 | Avant delivery (C) / real Critical / cutover selon F (F08 delivery · F09 Critical/cutover · F10 persistence/IAM) |
 | .4 | Custom |
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.3** (préparation documentaire A5.2 déjà faite ; consommation F = bulletin séparé).
+**Choix Morris :** `.3`
 
-**Statut :** `MORRIS DECISION REQUIRED`
+**Statut :** `DECIDED — ADOPTED BY MORRIS`
+
+**Sens :** arbitrer chaque décision F à son point de risque :
+
+- **F08** avant delivery ;
+- **F09** avant real Critical / cutover ;
+- **F10** avant choix durable persistence / IAM.
+
+**Conséquences :**
+
+- calendrier F adopté ;
+- préparation documentaire A5.2 déjà faite reste valide ;
+- consommation F = bulletins séparés futurs.
+
+**Anti-claims :**
+
+- F08 / F09 / F10 restent actuellement `NOT DECIDED` (contenu) ;
+- le calendrier est décidé, **pas** le contenu ;
+- aucun bulletin F n’est consommé dans ce cycle ;
+- F03 / F11–F13 restent `NOT DECIDED`.
+
+**Restant ouvert :** contenu de chaque F · GO bulletins F dédiés.
 
 ---
 
-## Bulletin Morris vierge
+## Bulletin Morris consommé (enregistrement)
 
 ```
-GO DECIDE NEXT T-A7 DECISION STEP — T-A7-D01=… — T-A7-D02=… — T-A7-D03=… — T-A7-D04=… — T-A7-D05=… — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
+GO RECORD MORRIS T-A7 NEXT STEP DECISIONS — T-A7-D01=.1 — T-A7-D02=.3 — T-A7-D03=.1 — T-A7-D04=.1 — T-A7-D05=.3 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
 ```
 
-- Remplacer `…` par options choisies.
-- Interdit : ouvrir T-A7 · delivery/cutover · fermeture implicite · consommation F automatique · COMPLETE.
-- Statut actuel de ce GO : **NOT CONSUMED / NOT DRAFTED AS DECISION**.
+**Statut gate :** `CONSUMED` (enregistrement documentaire uniquement).
+
+Interdit suite à ce GO : ouvrir T-A7 · ouvrir une vague · delivery/cutover · fermeture implicite · consommation contenu F · COMPLETE.
 
 ---
 
-## Synthèse recommandations (non décisionnelles)
+## Synthèse décisions
 
-| ID | Option recommandée | Label |
-|----|--------------------|-------|
-| T-A7-D01 | .1 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-D02 | .3 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-D03 | .1 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-D04 | .1 | `RECOMMENDED — NOT DECIDED` |
-| T-A7-D05 | .3 | `RECOMMENDED — NOT DECIDED` |
+| ID | Choix | Statut |
+|----|-------|--------|
+| T-A7-D01 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-D02 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-D03 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
 
 ## Garde-fous absolus
 
@@ -126,8 +225,9 @@ GO DECIDE NEXT T-A7 DECISION STEP — T-A7-D01=… — T-A7-D02=… — T-A7-D03
 - Option A : `NOT COMPLETE`
 - T-A7 : `NOT OPEN`
 - delivery preparation / delivery / cutover : `NOT AUTHORIZED`
-- F03/F08–F13 : `NOT DECIDED`
+- F03 / F08–F13 contenu : `NOT DECIDED`
+- F08/F09/F10 calendrier : adopté (D05) · contenu `NOT DECIDED`
 - persistence / IAM : `NOT SELECTED`
 - RGPD production : `NOT VALIDATED`
 
-Formulations interdites : « T-A7 ready to execute » · « T-A7 opened » · « delivery ready » · « cutover approved » · « reserves resolved » · « Option A complete ».
+Formulations interdites : « T-A7 ready to execute » · « T-A7 opened » · « delivery ready » · « cutover approved » · « reserves resolved » · « Option A complete » · « Option C waves started » · « F08/F09/F10 content decided ».
