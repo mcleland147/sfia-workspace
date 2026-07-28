@@ -1,80 +1,148 @@
-# ChatGPT Review Pack — FULL — T-A7 Option C Wave 1 Legacy Scope Framing (enriched)
+# ChatGPT Review Pack — FULL — T-A7 Option C Wave 1 Accelerated Integration (STOPPED BEFORE MERGE)
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-28 14:46:44 CEST (+0200) |
-| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
-| **Gate consommé** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — READ-ONLY DOCUMENTARY FRAMING — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Enrichissement** | post-inventaire subagents MethodMode / method/** / OPS1 — preuves canonicalPaths, dual enum, orphan select, CT/D1 coupling |
+| **Date/heure/fuseau** | 2026-07-28 15:30:41 CEST (+0200) |
+| **Cycle / profil** | 13 — PR readiness (+9 · 14 · 15 · 1 · 10) · Critical |
+| **Gate consommé** | `GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
-| **Base / HEAD / Parent enrichissement** | `7a3e512f562f480c345a12a744806aa4f2ef625b` / `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` / `e16201ee9e9de971625c272627102d8499940fa7` |
-| **Upstream / remote projet** | **aucun** / **absente** |
-| **Status** | clean après commit enrichissement |
-| **Push projet** | **non** |
+| **Base / HEAD / Parent** | `7a3e512f562f480c345a12a744806aa4f2ef625b` / `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` / `e16201ee9e9de971625c272627102d8499940fa7` |
+| **Push projet** | **oui** — remote HEAD = `9b53f3ba…` |
+| **PR** | [#283](https://github.com/mcleland147/sfia-workspace/pull/283) — OPEN · **NOT MERGED** |
+| **Merge** | **non** — required checks FAILURE |
 
 ## Verdict exact
 
-`T-A7 OPTION C WAVE 1 LEGACY AND SCOPE FRAMING ENRICHED — METHODMODE DUAL ENUM AND ORPHAN SELECT DOCUMENTED — METHOD CANONICAL CORE PATHS EVIDENCED — OPS1 ACL PATH-POLICY PLUS CT D1 COUPLING DOCUMENTED — F03 F11 AND F13 REMAIN NOT DECIDED — TECHNICAL RESERVES REMAIN OPEN — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
+`T-A7 OPTION C WAVE 1 INTEGRATION STOPPED BEFORE MERGE — HEAD SCOPE CONTENT PR OR CHECKS BLOCKER — T-A7 NOT OPEN — NO DELIVERY OR CUTOVER`
 
-## Gate candidat
+**Bloqueur :** CI `Trailing whitespace check` (job Build and validate) → Required Gate FAILURE. Gate interdit correction dans ce cycle.
 
-`GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
+## Truth check
 
-**Statut :** `NOT CONSUMED`
+| Check | Résultat |
+|-------|----------|
+| Branche | exacte |
+| HEAD | `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` |
+| Parent | `e16201ee9e9de971625c272627102d8499940fa7` |
+| Base / merge-base | `7a3e512f562f480c345a12a744806aa4f2ef625b` |
+| Working tree | clean tracked · untracked local `.tmp-sfia-review/` seulement |
+| Staged / ops actives | aucun |
+| Scope cumulé | 9 fichiers A sous pack Wave 1 uniquement · +728/−0 |
 
-## Commits / blobs
+## Commits
 
-| Champ | Valeur |
-|-------|--------|
-| Commit framing | `e16201ee9e9de971625c272627102d8499940fa7` |
-| Commit enrichissement | `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` |
-| Message enrichissement | `docs(sfia-studio): enrich T-A7 wave 1 legacy inventory evidence` |
-| Delta enrichissement |  6 files changed, 36 insertions(+), 12 deletions(-) |
-| README | `025599e7ba3857966b8f6a1ea9612ef394f06195` |
+1. `e16201ee9e9de971625c272627102d8499940fa7` — `docs(sfia-studio): frame T-A7 Option C wave 1 legacy scope`
+2. `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` — `docs(sfia-studio): enrich T-A7 wave 1 legacy inventory evidence`
+
+## Blobs (HEAD)
+
+| Fichier | Blob |
+|---------|------|
+| README.md | `025599e7ba3857966b8f6a1ea9612ef394f06195` |
 | 01 | `d37e26d4a8254f38eb314fef9e6e38991cf38e06` |
 | 02 | `8093ff00b0fbb6db4762307a1c88dd713ac74e56` |
 | 03 | `583888496b7b1e02169eb58cfb920d63bb552bf9` |
 | 04 | `2a650d24c2cf3592f95b825ff085a71e1d17c056` |
 | 05 | `6ea4f40c9a012fd62e8c659c2cb3ffa220ac3604` |
-| 06 | `e87ec9db2e5cddc516c3abe46b7ad098f681f577` (inchangé) |
-| 07 | `4f02388b04a952450a5185b9ffb16218cba4d596` (inchangé) |
-| 08 | `9fbd2295998de966aa51421e174b239a34b403b0` (inchangé) |
+| 06 | `e87ec9db2e5cddc516c3abe46b7ad098f681f577` |
+| 07 | `4f02388b04a952450a5185b9ffb16218cba4d596` |
+| 08 | `9fbd2295998de966aa51421e174b239a34b403b0` |
 
-## Synthèses inventaires (enrichies)
+## Revue documentaire finale
 
-- **MethodMode :** ACTIVE D1 `SFIA_V2_6|TRANSITION|V3_CANDIDATE` (default governance `V3_CANDIDATE`) ; OA antiLegacy ; **dual enum** vs modeled `v2.6_manual|…|fallback` sans mapper ; `actionSelectMethodMode` **orphan UI** ; MethodModeGate / route method-mode = DOCUMENTATION ONLY ; P07 MISSING
-- **method/** :** ~263 fichiers ; **exactement 3** chemins `method/.../core/*` dans `SFIA_CANONICAL_CORE_PATHS` (`app/lib/platform/sfia-context/canonicalPaths.ts`) — `ACTIVE — EVIDENCED` ; asymétrie allowlist action vs canonical loader ; archives/Notion = archivables candidats
-- **OPS1 :** slice complète `lib/ops1` ; ACL = allowlist+gates (**pas** IAM) ; CT extension in-place ; D1 réutilise conversation provider OPS1 ; `.sfia-exec` gitignored ; F13 NOT DECIDED
-- **Options :** W1-A/B/C · reco W1-B `RECOMMENDED — NOT DECIDED`
-- **Décisions :** T-A7-W1-D01…D05 `MORRIS DECISION REQUIRED`
+| Domaine | Conformité |
+|---------|------------|
+| MethodMode dual enum + no mapper + orphan select + MethodModeGate DOC ONLY + DB UNKNOWN | **OK** |
+| method/** ~263 · trio `SFIA_CANONICAL_CORE_PATHS` EVIDENCED · CI absence ≠ non-usage · candidats ≠ décisions | **OK** |
+| OPS1 path-policy (pas IAM) · CT/D1 coupling · `.sfia-exec` gitignored · F13 NOT DECIDED | **OK** |
+| W1-A/B/C · W1-B RECOMMENDED NOT DECIDED · W1-D01…D05 MORRIS DECISION REQUIRED · F03/F11/F13 NOT DECIDED · T-A7 NOT OPEN · delivery/cutover NOT AUTHORIZED | **OK** |
+| Aucune mod method/OPS1/runtime/modeled/workflow | **OK** |
 
-## Gouvernance
+**Observation pré-push :** `git diff --check` signalait déjà trailing whitespace (qualifié Minor) — **CI required** l’élève en FAILURE.
 
-B5/R1/R-M01 OPEN · HARD OPEN HARD · F03/F11/F13 NOT DECIDED · F08–F10 contenu NOT DECIDED · T-A6 NOT DECLARED · Option A NOT COMPLETE · T-A7 NOT OPEN · delivery/cutover NOT AUTHORIZED
+## PR readiness (intermédiaire)
+
+`T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING PR READY` — puis push/PR créés. **Post-checks :** merge bloqué.
+
+## Push / PR
+
+| Champ | Valeur |
+|-------|--------|
+| Push | `PROJECT BRANCH PUSHED — REMOTE HEAD VERIFIED` |
+| Remote HEAD | `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` |
+| PR | **#283** — https://github.com/mcleland147/sfia-workspace/pull/283 |
+| Base / Head OID | `7a3e512f…` / `9b53f3ba…` |
+| Files / +/− / commits | 9 / +728/−0 / 2 |
+
+## Checks PR
+
+| Champ | Valeur |
+|-------|--------|
+| Run | [30363553421](https://github.com/mcleland147/sfia-workspace/actions/runs/30363553421) |
+| Detect SFIA Studio changes | SUCCESS (job 90288933787) |
+| Build and validate SFIA Studio | **FAILURE** (job 90288997063) — step **Trailing whitespace check** |
+| SFIA Studio Required Gate | **FAILURE** (job 90289377406) |
+| Head SHA pendant checks | inchangé `9b53f3ba…` |
+
+Lignes `git diff --check` fautives : 02 L22 · 04 L64–67 · 05 L46–48 (espaces de fin Markdown).
+
+## Merge / post-merge
+
+| Champ | Valeur |
+|-------|--------|
+| Merge | **NON exécuté** |
+| Post-merge | **N/A** |
+| `origin/main` | inchangé `7a3e512f562f480c345a12a744806aa4f2ef625b` |
+| Branche source | **préservée** (remote existante) |
+
+## Statuts gouvernance (inchangés)
+
+W1-B `RECOMMENDED — NOT DECIDED` · T-A7-W1-D01…D05 `MORRIS DECISION REQUIRED` · F03/F11/F13 `NOT DECIDED` · F08–F10 contenu `NOT DECIDED` · B5/R1/R-M01 `OPEN` · HARD `OPEN HARD` · T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE` · T-A7 `NOT OPEN` · delivery prep/delivery/cutover `NOT AUTHORIZED` · persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
 
 ## Findings
 
-Critical/Major/Minor = **0 / 0 / 0**
-
-Observations : (1) volume DB MethodMode par valeur UNKNOWN ; (2) dual enum runtime/modeled = gap High pour tout travail schema-driven ; (3) CI n’importe pas `method/` — usage via prompts + canonical loader + OPS1 allowlist.
+| Sévérité | Count | Détail |
+|----------|-------|--------|
+| Critical | **0** | — |
+| Major | **1** | Required CI FAILURE — trailing whitespace dans 3 fichiers doc → merge interdit |
+| Minor | **1** | trailing whitespace Markdown (cause du Major CI) |
 
 ## Actions non exécutées
 
-push/PR projet · mod method/OPS1/runtime/modeled/workflow/CI/tests · ouverture T-A7/vague · conso F · fermeture réserve · COMPLETE · Notion/CMP
+merge · post-merge · correction whitespace (interdite ce cycle) · nouveau commit projet · amend/rebase/force-push · mod method/OPS1/runtime/modeled/workflow/CI/tests · conso F · ouverture T-A7 · delivery/cutover · COMPLETE · suppression branche
 
-## Subagents (preuve)
+## Diff utile (name-status / stat)
 
-- [Inventory MethodMode](14559e52-5891-493f-b6a6-3c110bb045b8)
-- [Inventory method directory](d417f581-7297-494e-bce6-4743b3ffe53d)
-- [Inventory OPS1 boundaries](0de91583-ffa1-41a0-af59-0fe86573130d)
+```
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/01-source-truth-and-scope.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/03-method-directory-inventory.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md
+
+ .../01-source-truth-and-scope.md                   |  73 ++++++++++++
+ .../02-methodmode-inventory.md                     |  80 +++++++++++++
+ .../03-method-directory-inventory.md               |  91 +++++++++++++++
+ .../04-ops1-boundary-assessment.md                 |  75 ++++++++++++
+ .../05-dependency-map.md                           |  55 +++++++++
+ .../06-removal-and-isolation-options.md            |  71 ++++++++++++
+ .../07-validation-rollback-and-stop-conditions.md  |  51 ++++++++
+ .../08-morris-decision-pack.md                     | 128 +++++++++++++++++++++
+ .../README.md                                      | 104 +++++++++++++++++
+ 9 files changed, 728 insertions(+)
+```
 
 ---
 
-## Contenu complet des fichiers du pack
+## Contenu complet des neuf fichiers du pack
 
 
 ### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md`
