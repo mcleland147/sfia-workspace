@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import fs from "node:fs";
-import os from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import {
   assertMethodMode,
@@ -15,6 +15,10 @@ import {
   resetD1DbForTests,
   selectMethodMode,
 } from "@/lib/d1/commands";
+import {
+  resetMethodModeHoldForTests,
+  setMethodModeHoldForTests,
+} from "@/lib/d1/methodModeHold";
 
 describe("d1 domain", () => {
   it("accepts authorized method modes", () => {
@@ -51,12 +55,15 @@ describe("d1 repository commands", () => {
 
   beforeEach(() => {
     resetD1DbForTests();
-    tmpDir = fs.mkdtempSync(path.join(require("node:os").tmpdir(), "d1-i1-"));
+    resetMethodModeHoldForTests();
+    setMethodModeHoldForTests({ active: false, reasons: [] });
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "d1-i1-"));
     process.env.D1_SQLITE_PATH = path.join(tmpDir, "d1.sqlite");
   });
 
   afterEach(() => {
     resetD1DbForTests();
+    resetMethodModeHoldForTests();
     delete process.env.D1_SQLITE_PATH;
     fs.rmSync(tmpDir, { recursive: true, force: true });
   });

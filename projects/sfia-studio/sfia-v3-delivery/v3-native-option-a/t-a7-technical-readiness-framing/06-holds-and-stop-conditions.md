@@ -13,11 +13,14 @@
 
 | Hold | Statut exigé | Sens |
 |------|--------------|------|
-| T-A7 | `NOT OPEN` | framing readiness ≠ ouverture |
-| F03.3 | décidée ≠ satisfaite | set **partiel réduit** (`BLOCKERS REDUCED`) ; prep hors gate O2 interdite |
+| T-A7 | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` | ≠ fully open · ≠ delivery |
+| F03.3 | décidée ≠ satisfaite | `IMPLEMENTATION BLOCKERS REDUCED` · pas SATISFIED global |
 | F11.2 | décidée ≠ API disponible | pas d’implémentation |
 | F13.4 | décidée ≠ historique RO disponible | pas de vue runtime |
-| Isolation OPS1 | design **validé tech** ≠ réalisée | contrat validé O2 · **non implémenté** |
+| Isolation OPS1 | design **validé tech** ≠ réalisée | inchangé lot 1 |
+| MethodMode hold | **implémenté (défaut actif)** | ≠ blockers fermés |
+| F11.2 fondation | **implémentée RO** | ≠ API finale / cutover |
+| F13.4 fondation | **implémentée RO bornée** | ≠ vue runtime finale |
 | B5 | `OPEN` | STOP BEFORE DELIVERY |
 | R1 | `OPEN` | atomicité non résolue |
 | R-M01 | `OPEN` | ClaimEvaluator readiness |
@@ -100,3 +103,8 @@
 ## 6. Verdict section
 
 `HOLDS ACTIVE — ANTI-BYPASS AND STOP CONDITIONS DOCUMENTED — O2 DOES NOT LIFT T-A7 NOT OPEN — HARD NOT IGNORED`
+
+
+## Lot 1 note
+
+T-A7 ouvert **uniquement** pour le lot borné. Delivery/cutover restent NOT AUTHORIZED.

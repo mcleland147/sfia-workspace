@@ -162,3 +162,8 @@ Résiduels : probe live dynamique optionnelle ; surface partagée D1/platform do
 ## 11. Verdict section
 
 `BOUNDED TECHNICAL PREPARATION CAMPAIGN COMPLETED — 63 TESTS PASSED — BLOCKERS REDUCED WITHOUT PRODUCT IMPLEMENTATION — T-A7 NOT OPEN`
+
+
+## LOT 1 FOLLOW-ON
+
+O3 adopté · fondations implémentées localement · voir `10`.

@@ -80,3 +80,19 @@ P06 · P07 · P08 · P09 · P11
 ## 5. Verdict section
 
 `P03–P11 REASSESSED AFTER O2 — 0 SATISFIED / 4 PARTIAL / 5 MISSING — GAPS REDUCED ON EVIDENCE DEPTH — NO AUTHORIZATION`
+
+
+---
+
+## 8. Lot 1 update (O3)
+
+| ID | Effet lot 1 |
+|----|-------------|
+| P06 | hold/transition control **PARTIAL** (hold actif ; session OA remplacement toujours MISSING) |
+| P07 | MethodMode **toujours présent** ; retrait toujours MISSING ; hold empêche transition prématurée |
+| P08 | lectures method allowlist toujours actives — MISSING remplacement |
+| P09 | UI OA absente — MISSING |
+| P10 | OPS1 isolation inchangée (pas de mod OPS1) |
+| P11 | fondation F13.4 RO **PARTIAL** (métadonnées) — pas enforcement produit final |
+
+`0 SATISFIED remplacement OA` conservé. Progression = contrôles/fondations, pas cutover.

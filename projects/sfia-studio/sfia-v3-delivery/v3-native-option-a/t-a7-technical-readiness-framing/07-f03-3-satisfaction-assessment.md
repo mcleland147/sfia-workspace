@@ -7,7 +7,8 @@
 | **Date initiale** | 2026-07-28 20:36:49 CEST (+0200) |
 | **Date réévaluation O2** | 2026-07-28 20:54:03 CEST (+0200) |
 | **Verdict avant** | `F03.3 PARTIALLY SATISFIED — BLOCKERS IDENTIFIED` |
-| **Verdict après** | `F03.3 PARTIALLY SATISFIED — BLOCKERS REDUCED` |
+| **Verdict après O2** | `F03.3 PARTIALLY SATISFIED — BLOCKERS REDUCED` |
+| **Verdict après lot 1** | `F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
 | **Prep technique O2** | autorisée par gate courant · **bornée** |
 | **Prep au-delà / delivery / cutover** | `PROHIBITED` |
 | **T-A7** | `NOT OPEN` |
@@ -92,3 +93,12 @@
 ## 5. Verdict
 
 `F03.3 PARTIALLY SATISFIED — BLOCKERS REDUCED`
+
+
+---
+
+## LOT 1 VERDICT
+
+`F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED`
+
+Motifs de non-SATISFIED : P06–P09/P11 non verts pour remplacement ; HARD/B5 ouverts ; F11/F13 non finales ; rollback R1–R3 non testés.

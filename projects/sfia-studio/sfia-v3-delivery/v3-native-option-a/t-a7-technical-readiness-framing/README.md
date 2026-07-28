@@ -2,70 +2,41 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Gate framing (historique)** | `GO FRAME T-A7 TECHNICAL READINESS — … — KEEP T-A7 NOT OPEN` |
-| **Gate O2 (consommé)** | `GO ADDRESS T-A7 TECHNICAL READINESS BLOCKERS — AUTHORIZE BOUNDED TECHNICAL PREPARATION FOR OPS1 VALIDATION EVIDENCE COLLECTION AND P03-P11 GAP REDUCTION ONLY — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Option O2** | `OUVRIR UNIQUEMENT UNE PRÉPARATION TECHNIQUE BORNÉE` — **consommée** (preuves) · **≠** ouverture T-A7 |
-| **Date framing** | 2026-07-28 20:36:49 CEST (+0200) |
-| **Date campagne O2** | 2026-07-28 20:54:03 CEST (+0200) |
-| **Cycle / profil** | 9 — QA (+6 · 7 · 10 · 12 · 15 · 1) · Critical |
+| **Gate O3 (consommé)** | `GO DECIDE T-A7 OPENING — SELECT O3 FOR A FIRST BOUNDED DEVELOPMENT LOT LIMITED TO METHODMODE HOLD F11.2 READINESS CONTRACT AND F13.4 READ-ONLY FOUNDATION — NO DELIVERY OR CUTOVER — KEEP B5 R1 R-M01 AND HARD OPEN` |
+| **O3** | `DECIDED — ADOPTED BY MORRIS` |
+| **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
+| **Date lot 1** | 2026-07-28 21:19:12 CEST (+0200) |
+| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` |
 | **Base** | `origin/main` @ `2a3c59c46c105bae458d1a7329079c5f591da421` |
-| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-technical-readiness` |
-| **Push / PR / merge projet** | **aucun** |
-| **T-A7** | `NOT OPEN` |
-| **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
-| **Développement fonctionnel T-A7** | **non** |
-| **F03 / F11 / F13 / combinaison** | `DECIDED — ADOPTED BY MORRIS` (F03.3 · F11.2 · F13.4) |
-| **Évaluation F03.3** | `F03.3 PARTIALLY SATISFIED — BLOCKERS REDUCED` |
-| **Contrat OPS1** | `VALIDATED FOR FUTURE IMPLEMENTATION — NOT IMPLEMENTED` |
-| **W1-B / W1-D01…D05** | `DECIDED` (inchangées) |
+| **Push / PR projet** | **aucun** |
+| **F03.3 évaluation** | `F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
+| **F11.2 / F13.4 décisions** | `DECIDED` · fondations lot 1 livrées (≠ finales) |
 | **B5 / R1 / R-M01** | `OPEN` |
 | **HARD** | `OPEN HARD` |
-| **T-A6 COMPLETE** | `NOT DECLARED` |
-| **Option A** | `NOT COMPLETE` |
-| **Persistence / IAM** | `NOT SELECTED` |
-| **RGPD production** | `NOT VALIDATED` |
+| **Delivery / cutover** | `NOT AUTHORIZED` |
+| **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
+| **Persistence / IAM / RGPD** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
 
-## Objectif
+## Lot 1 livré
 
-Readiness documentaire + **campagne O2 bornée** : valider le contrat OPS1 par preuves, collecter UNKNOWN/PARTIAL, réévaluer F03.3, mettre à jour le bulletin Morris — **sans** développement produit.
+1. MethodMode hold (défaut actif)
+2. F11.2 readiness read-only interne
+3. F13.4 historique RO borné (Git canonique)
 
-## Périmètre O2
-
-- tests/probes non destructifs ;
-- MAJ pack readiness ;
-- commit local ;
-- review pack + handoff.
-
-## Hors périmètre
-
-- ouverture T-A7 · développement fonctionnel ;
-- implémentation F11.2 / F13.4 · API · UI · migrations ;
-- mod `method/**` · OPS1/MethodMode fonctionnels ;
-- delivery / cutover · push/PR/merge projet.
-
-## Livrables
-
-| Fichier | Rôle |
-|---------|------|
-| `01`–`08` | framing + matrices + bulletin (MAJ O2) |
-| `09-bounded-technical-preparation-results.md` | résultats campagne O2 |
-| `README.md` | synthèse |
-| 6 probes sous `app/__tests__/**` | preuves techniques |
+Détail : `10-t-a7-first-bounded-development-lot.md`
 
 ## Anti-claims
 
-- O2 ≠ T-A7 OPEN ;
-- validation OPS1 ≠ isolation implémentée ;
-- tests verts ≠ delivery/cutover ;
-- F03.3 BLOCKERS REDUCED ≠ SATISFIED global.
+- T-A7 borné ≠ fully open · ≠ delivery/cutover ready
+- hold ≠ blockers fermés
+- fondations ≠ API/UI/vue finales
 
 ## Gate candidat suivant
 
-`GO CONTINUE T-A7 BOUNDED TECHNICAL PREPARATION — ADDRESS REMAINING EVIDENCE AND CONTRACT BLOCKERS ONLY — KEEP T-A7 NOT OPEN`
+`GO REVIEW T-A7 FIRST BOUNDED DEVELOPMENT LOT — ASSESS PR READINESS FOR METHODMODE HOLD F11.2 READINESS FOUNDATION AND F13.4 READ-ONLY FOUNDATION — NO DELIVERY OR CUTOVER`
 
 **Statut :** `NOT CONSUMED`
 
 ## Verdict
 
-`T-A7 BOUNDED TECHNICAL PREPARATION COMPLETED — OPS1 VALIDATION EVIDENCE COLLECTED — P03 TO P11 GAPS REASSESSED — READINESS BLOCKERS REDUCED WITHOUT PRODUCT IMPLEMENTATION — F03.3 REEVALUATED FROM EXECUTED EVIDENCE — MORRIS DECISION PACK UPDATED WITHOUT PRESELECTION — NO FUNCTIONAL DEVELOPMENT — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
+`T-A7 FIRST BOUNDED DEVELOPMENT LOT IMPLEMENTED LOCALLY — O3 DECISION RECORDED — METHODMODE HOLD IMPLEMENTED — F11.2 READINESS FOUNDATION IMPLEMENTED READ-ONLY — F13.4 READ-ONLY FOUNDATION IMPLEMENTED WITH GIT REMAINING CANONICAL — TESTS PASS — NO MIGRATION IAM ADMIN UI DELIVERY OR CUTOVER — B5 R1 R-M01 AND HARD REMAIN OPEN — T-A7 OPEN FOR FIRST BOUNDED DEVELOPMENT LOT ONLY — PROJECT BRANCH NOT PUSHED`

@@ -54,3 +54,15 @@
 ## 3. Verdict section
 
 `EVIDENCE CATALOGUE UPDATED AFTER O2 — PRIORITY UNKNOWN/PARTIAL IDS ADVANCED — F11/F13 FINAL STILL MISSING — NO PRODUCT IMPLEMENTATION`
+
+
+---
+
+## LOT 1 UPDATE
+
+| ID | Après lot 1 |
+|----|-------------|
+| E-MM-03 | `PARTIAL — EVIDENCED` — hold implémenté (défaut actif) |
+| E-F11-01 | `PARTIAL — EVIDENCED` — contrat interne read-only |
+| E-F13-02 | `PARTIAL — EVIDENCED` — fondation RO bornée (≠ vue finale) |
+| E-OBS-01 | `PARTIAL — EVIDENCED` — health SIMULATED exposé |

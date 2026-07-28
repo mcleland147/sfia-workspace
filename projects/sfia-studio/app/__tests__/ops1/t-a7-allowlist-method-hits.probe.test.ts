@@ -5,7 +5,6 @@
  * Does not persist, does not mutate workspace files, does not call network.
  */
 import os from "node:os";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   CAMPUS360_ALLOWLIST_POLICY,
@@ -41,7 +40,7 @@ describe("T-A7 probe — allowlist method/ hits (E-OPS-05)", () => {
     }> = [];
 
     for (const candidate of METHOD_CANDIDATES) {
-      for (const mode of ["read", "modify", "create"] as const) {
+      for (const mode of ["READ", "MODIFY", "CREATE"] as const) {
         const result = evaluateAllowlist({
           actionCandidateId: ACTION_ID,
           actionVersion: 1,
