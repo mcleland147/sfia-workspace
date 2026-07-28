@@ -1,65 +1,55 @@
-# ChatGPT Review Pack — FULL — T-A7 Option C Wave 1 Morris Decisions Record + Merge
+# ChatGPT Review Pack — FULL — T-A7 F03 / F11 / F13 Documentary Arbitration
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-28 18:55:49 CEST (+0200) |
-| **Cycle / profil** | 15 — Capitalisation (+1 · 2 · 9 · 13 · 14) · Critical |
-| **Gate consommé** | `GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — W1-D01=W1-B — W1-D02=CONFIRM ACTIVE LEGACY BLOCKS — W1-D03=CONFIRM FUTURE REMOVAL CANDIDATES WITHOUT AUTHORIZING REMOVAL — W1-D04=ISOLATE OPS1 BEFORE ANY REMOVAL — W1-D05=DECIDE F03 F11 F13 BEFORE ANY TECHNICAL REMOVAL PREPARATION — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 19:12:49 CEST (+0200) |
+| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
+| **Gate consommé** | `GO FRAME DOCUMENTARY ARBITRATION FOR T-A7 F03 F11 AND F13 — PREPARE OPTIONS IMPACTS RISKS RECOMMENDATIONS AND MORRIS DECISION PACK — NO TECHNICAL PREPARATION — NO METHOD OR OPS1 MODIFICATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-wave-1-decisions` |
-| **Branche** | `record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions` |
-| **Base** | `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
-| **HEAD commit** | `f89ba5fb6cfca4e3de97667d944569a20266a8aa` |
-| **Merge** | `9011bb2c7e27a78979d310b628da48b9cfbd400f` |
-| **origin/main** | `9011bb2c7e27a78979d310b628da48b9cfbd400f` |
-| **PR** | [#284](https://github.com/mcleland147/sfia-workspace/pull/284) |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-arbitration` |
+| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration` |
+| **Base / HEAD** | `9011bb2c7e27a78979d310b628da48b9cfbd400f` / `4c9bbd7c78c603d63b5926ac625503fa7d2fc387` |
+| **Push projet** | **non** |
 
 ## Verdict exact
 
-`T-A7 OPTION C WAVE 1 MORRIS DECISIONS RECORDED AND MERGED — W1-D01 W1-B ADOPTED — ACTIVE LEGACY BLOCKS CONFIRMED — FUTURE REMOVAL CANDIDATES CONFIRMED WITHOUT AUTHORIZING REMOVAL — OPS1 ISOLATION REQUIRED BEFORE ANY REMOVAL — F03 F11 AND F13 REQUIRED BEFORE ANY TECHNICAL REMOVAL PREPARATION WHILE CONTENT REMAINS NOT DECIDED — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — SOURCE BRANCH PRESERVED — POST-MERGE VERIFIED`
+`T-A7 F03 F11 F13 DOCUMENTARY ARBITRATION FRAMED — ENTRY PRECONDITIONS API UI AND LEGACY HISTORY READ-ONLY OPTIONS DOCUMENTED — CROSS-DECISION CONSISTENCY ANALYZED — RECOMMENDATIONS PREPARED WITHOUT PRESELECTION — F03 F11 AND F13 REMAIN NOT DECIDED — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
 
-## Sources
+## Sources / preuves
 
-Pack Wave 1 (PR #283) · T-A7 next-step (#282) · legacy cutover (#280) · handoff post-merge #283 · template SFIA v2.6
+Packs T-A7 cutover / next-step / Wave 1 (PR #283–#284) · MethodMode D1 ACTIVE · trio `SFIA_CANONICAL_CORE_PATHS` · OPS1 path-policy ≠ IAM · P03–P11 PARTIAL/MISSING · OA UI MISSING · volumes DB UNKNOWN · explore [Gather F03 F11 F13 evidence](de36a6fc-93df-4c67-b601-7d3b360007a2)
 
-## Décisions enregistrées
+## Recommandations (`RECOMMENDED — NOT DECIDED`)
 
-| ID | Choix | Statut |
-|----|-------|--------|
-| W1-D01 | W1-B — inventory + candidate removal plan | `DECIDED — ADOPTED BY MORRIS` |
-| W1-D02 | MethodMode D1 · trio canonical · consumers method | `DECIDED — ADOPTED BY MORRIS` |
-| W1-D03 | orphan select · Gate/route DOC ONLY · archives/duplications | `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES` |
-| W1-D04 | isolate OPS1 before any removal | `DECIDED — ADOPTED BY MORRIS` |
-| W1-D05 | decide F03/F11/F13 before technical removal prep | `DECIDED — ADOPTED BY MORRIS` |
-| W1-B | via D01 | `DECIDED — ADOPTED BY MORRIS` |
-| F03/F11/F13 contenu | — | `NOT DECIDED` |
-| T-A7 | — | `NOT OPEN` |
-| delivery/cutover | — | `NOT AUTHORIZED` |
+| Domaine | Option |
+|---------|--------|
+| F03 | **F03.3** set custom intermédiaire |
+| F11 | **F11.2** API minimale sans UI dédiée |
+| F13 | **F13.4** hybrid archive + RO bornée |
+| Combo | F03.3 × F11.2 × F13.4 |
 
 ## Commit / blobs
 
 | Champ | Valeur |
 |-------|--------|
-| Commit | `f89ba5fb6cfca4e3de97667d944569a20266a8aa` |
-| Parent | `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
-| Tree | `2f8489ce464c846cd719acf815a6bb4c49176007` |
-| README | `e165e368daf78de7542b496a27bc34879024b5a6` |
-| 06 | `e6494fc33bd4c70a90f16ec57a01a20f5ad0922f` |
-| 07 | `455d36fdfdb78e4ba89f3de8aba5957f26a3beb1` |
-| 08 | `37878b451a873339ce5227b35dfc30fd3e2cfe0a` |
-| Diff | 4 files · +159/−119 |
+| Commit | `4c9bbd7c78c603d63b5926ac625503fa7d2fc387` |
+| Parent | `9011bb2c7e27a78979d310b628da48b9cfbd400f` |
+| Tree | `62921f8366d4a9b2d029387cbf39083c4d3a03ae` |
+| Scope | 8 fichiers A · +737/−0 · pack only |
+| README | `4f335c2548f6fa7f8528a1f445976326bef6f4f0` |
+| 01 | `6dcdd7900d58be922a470e331ee3eee6a6f56202` |
+| 02 | `be285f6dc7ad6d0e5f5cde27beb4ef0b5f58252f` |
+| 03 | `628626948b5539b49910846b5702876d89696d4a` |
+| 04 | `fab5e9a2fe4258051e04b3e2313879acd933e28e` |
+| 05 | `553b3cfabe5d21fb0d32e683f6402a886338e56d` |
+| 06 | `fd589426376eebdef6f22b3fb51b3d18abdbcc44` |
+| 07 | `d01a3a408a591bf9626879165069052b847929a3` |
 
-## PR / checks / merge
+## Gouvernance
 
-| Champ | Valeur |
-|-------|--------|
-| PR checks run | [30380214266](https://github.com/mcleland147/sfia-workspace/actions/runs/30380214266) SUCCESS |
-| Merge | merge commit `9011bb2c7e27a78979d310b628da48b9cfbd400f` · parents `7746ea2…` + `f89ba5fb6cfca4e3de97667d944569a20266a8aa` · tree `2f8489ce…` |
-| mergedBy / at | `mcleland147` / `2026-07-28T16:53:39Z` |
-| Post-merge run | [30380381156](https://github.com/mcleland147/sfia-workspace/actions/runs/30380381156) SUCCESS |
-| Branche source | préservée @ `f89ba5fb6cfca4e3de97667d944569a20266a8aa` |
+F03/F11/F13 `NOT DECIDED` · W1-B/D01–D05 inchangés · B5/R1/R-M01 OPEN · HARD OPEN HARD · T-A6 NOT DECLARED · Option A NOT COMPLETE · T-A7 NOT OPEN · delivery/cutover NOT AUTHORIZED · persistence/IAM NOT SELECTED · RGPD NOT VALIDATED
 
 ## Findings
 
@@ -67,911 +57,812 @@ Pack Wave 1 (PR #283) · T-A7 next-step (#282) · legacy cutover (#280) · hando
 
 ## Actions non exécutées
 
-prep technique · mod method/OPS1/runtime · conso contenu F · ouverture T-A7 · delivery/cutover · fermeture réserve · suppression branche
+push/PR/merge projet · décision F · prep technique · mod method/OPS1/runtime · ouverture T-A7 · delivery/cutover · fermeture réserve
 
----
+## Gate candidat
 
-## Diff complet utile
+`GO DECIDE T-A7 F03 F11 AND F13 — SELECT OPTIONS FROM DOCUMENTARY ARBITRATION PACK — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` — `NOT CONSUMED`
 
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md
-index e87ec9d..e6494fc 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md
-@@ -2,9 +2,10 @@
- 
- | Champ | Valeur |
- |-------|--------|
--| **Nature** | options · **aucune présélection exécutoire** |
--| **Recommandations** | `RECOMMENDED — NOT DECIDED` uniquement |
--| **F03 / F11 / F13** | `NOT DECIDED` |
-+| **Nature** | options historisées · **W1-B adopté** (T-A7-W1-D01) |
-+| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
-+| **F03 / F11 / F13 (contenu)** | `NOT DECIDED` |
-+| **Préparation technique** | `NOT AUTHORIZED` |
- 
- ## Option W1-A — Inventaire seulement
- 
-@@ -21,7 +22,7 @@
- | F concernées | préparation seulement |
- | Stops | T-A7 NOT OPEN · no method/OPS1 mod |
- 
--## Option W1-B — Inventaire + plan de retrait candidat
-+## Option W1-B — Inventaire + plan de retrait candidat — **ADOPTÉE**
- 
- **Idée :** ajouter séquences candidates (MethodMode → remplacements OA → CI boundary → OPS1 isolation → historique RO) avec rollback papier.
- 
-@@ -33,8 +34,12 @@
- | Coût / complexité | moyen |
- | Réversibilité | haute (doc) |
- | Impact tests/CI | design de tests candidats seulement |
--| F | F03/F11/F13 timing+contenu futurs |
--| Stops | SC-02…05 · STOP BEFORE DELIVERY |
-+| F | F03/F11/F13 gates avant prep technique (D05) · contenu futurs |
-+| Stops | SC-02…05 · STOP BEFORE DELIVERY · D04 isolation OPS1 d’abord |
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS` (via T-A7-W1-D01).
-+
-+**Effet autorisé maintenant :** plan documentaire candidat uniquement (séquences, validations, rollback, gates) — **pas** d’exécution technique.
- 
- ## Option W1-C — Inventaire + isolation préalable candidate
- 
-@@ -51,7 +56,9 @@
- | F | F13 en tête · F03 ensuite |
- | Stops | aucune mod code dans Wave 1 framing |
- 
--## Challenge
-+**Note :** D04 impose l’isolation OPS1 **avant tout retrait** comme trajectoire ; cela **n’adopte pas** W1-C comme niveau de cadrage (W1-B reste le choix D01) et **n’autorise pas** l’implémentation.
-+
-+## Challenge (historique)
- 
- | Question | W1-A | W1-B | W1-C |
- |----------|------|------|------|
-@@ -62,10 +69,8 @@
- | Préparable sans ouvrir T-A7 ? | **oui** | oui (doc) | oui (doc only ici) |
- | Respecte STOP BEFORE DELIVERY / `.1` ? | oui | oui | oui |
- 
--## Recommandation
--
--`RECOMMENDED — NOT DECIDED` → **W1-B** (inventaire déjà produit + plan de retrait **candidat** dans cycle suivant ou annexe Morris), **sans** exécution.
-+## Décision
- 
--Alternative acceptable : rester en **W1-A** si Morris veut limiter la vague 1 à la vérité pure.
-+`DECIDED — ADOPTED BY MORRIS` → **W1-B**.
- 
--**Aucune option adoptée tant que T-A7-W1-D01 n’est pas tranché.**
-+**Anti-claims :** W1-B adopté ≠ préparation technique autorisée · plan candidat ≠ retrait autorisé · isolation OPS1 (D04) ≠ isolation implémentée.
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md
-index 4f02388..455d36f 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md
-@@ -4,6 +4,8 @@
- |-------|--------|
- | **Nature** | exigences **futures** · aucune validation exécutée ici |
- | **Rollback** | documenté ≠ validé |
-+| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
-+| **Prep technique retrait** | bloquée tant que F03/F11/F13 contenu `NOT DECIDED` (T-A7-W1-D05) |
- 
- ## 1. Preuves avant modification future
- 
-@@ -11,8 +13,9 @@
- |---------|-------------------|
- | MethodMode | inventaire UI/API/DB · tests D1 verts · plan remplacement OA session (P06/P07) · hold flag |
- | `method/**` | diff path filter · consommateurs prompts/OPS1 mis à jour · P08/P24 CI boundary |
--| OPS1 | P10 ACL · no cross-call OA · allowlist revue · e2e I1–I6 · anti SC-12 |
-+| OPS1 | P10 ACL · no cross-call OA · allowlist revue · e2e I1–I6 · anti SC-12 · **isolation frontière avant retrait** (D04) |
- | Cutover | P03–P11 + F09 · RUN/rollback P23 · GO niveau D |
-+| Candidats D03 | preuves complémentaires avant retrait effectif (orphan select · Gate/route DOC ONLY · archives) |
- 
- ## 2. Stop conditions (héritage T-A7 + Wave 1)
- 
-@@ -26,6 +29,8 @@
- | W1-S1 | inventaire traité comme autorisation retrait | STOP · anti-claim |
- | W1-S2 | F03/F11/F13 consommées sans bulletin | STOP |
- | W1-S3 | vague 1 présentée comme T-A7 OPEN | STOP |
-+| W1-S4 | préparation technique de retrait **sans** contenu F03/F11/F13 décidé | STOP (D05) |
-+| W1-S5 | retrait sans isolation OPS1 définie | STOP (D04) |
- | A52 | B5 STOP BEFORE DELIVERY | inchangé |
- | A52-D03 | `.1` avant real Critical | inchangé |
- 
-@@ -43,9 +48,11 @@
- 
- ## 4. Liens F
- 
--| F | Rôle Wave 1 | Statut |
--|---|-------------|--------|
--| F03 | préconditions delivery / inventaire legacy | `NOT DECIDED` |
--| F11 | API/UI avant cutover (badges/surfaces) | `NOT DECIDED` |
--| F13 | historique RO + isolation OPS1 (P10–P11) | `NOT DECIDED` |
--| F08–F10 | hors vague 1 (calendrier D05 seulement) | contenu `NOT DECIDED` |
-+| F | Rôle Wave 1 | Statut contenu | Gate (D05) |
-+|---|-------------|----------------|------------|
-+| F03 | préconditions delivery / inventaire legacy | `NOT DECIDED` | **obligatoire avant** prep technique retrait |
-+| F11 | API/UI avant cutover (badges/surfaces) | `NOT DECIDED` | **obligatoire avant** prep technique retrait |
-+| F13 | historique RO + isolation OPS1 (P10–P11) | `NOT DECIDED` | **obligatoire avant** prep technique retrait |
-+| F08–F10 | hors vague 1 (calendrier T-A7-D05) | contenu `NOT DECIDED` | — |
-+
-+**Anti-claim :** obligation d’arbitrer F03/F11/F13 avant prep technique ≠ contenu F déjà décidé.
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md
-index 9fbd229..37878b4 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md
-@@ -2,11 +2,13 @@
- 
- | Champ | Valeur |
- |-------|--------|
--| **Statut pack** | `PREPARED — MORRIS DECISION REQUIRED` |
--| **Aucune option auto-sélectionnée** | oui |
-+| **Statut pack** | `RECORDED — DECIDED BY MORRIS` |
-+| **Gate d’enregistrement** | `GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — … — KEEP T-A7 NOT OPEN` |
-+| **Date/heure/fuseau** | 2026-07-28 18:50:00 CEST (+0200) |
- | **T-A7** | `NOT OPEN` |
- | **Vague 1 technique** | **non ouverte** |
--| **F03 / F11 / F13** | `NOT DECIDED` |
-+| **F03 / F11 / F13 (contenu)** | `NOT DECIDED` |
-+| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
- 
- ---
- 
-@@ -21,9 +23,19 @@
- | .3 | Inventaire + isolation préalable candidate (W1-C) |
- | .4 | Autre / différer |
- 
--**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (W1-B).
-+**Choix Morris :** `.2` — `W1-B — INVENTORY PLUS CANDIDATE REMOVAL PLAN`
- 
--**Statut :** `MORRIS DECISION REQUIRED`
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
-+
-+**Effet autorisé :**
-+
-+- préparer un **plan documentaire candidat** de retrait et d’isolation ;
-+- définir séquences, validations, rollback et gates (doc only).
-+
-+**Anti-claims :**
-+
-+- W1-B adopté ≠ préparation technique autorisée ;
-+- plan candidat ≠ retrait autorisé.
- 
- ---
- 
-@@ -31,18 +43,18 @@
- 
- **Question :** Quels blocs sont confirmés **actifs** (évidence) ?
- 
--| Option | Description |
--|--------|-------------|
--| .1 | MethodMode D1 + prompts/`method` core + OPS1 runtime/allowlist (recommandé comme socle minimal évidencé) |
--| .2 | Étendre à tout `method/documentation` comme actif |
--| .3 | Restreindre à MethodMode D1 seulement |
--| .4 | Custom / investigation complémentaire obligatoire avant claim |
-+**Choix Morris :** confirmer comme actifs :
- 
--**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1**.
-+1. MethodMode dans D1 ;
-+2. le trio exact référencé dans `SFIA_CANONICAL_CORE_PATHS` ;
-+3. les consommateurs de `method/**` via prompts · loader canonique · OPS1 path-policy / allowlist.
- 
--**Statut :** `MORRIS DECISION REQUIRED`
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
- 
--**Anti-claim :** choisir .1 ≠ autoriser retrait.
-+**Anti-claims :**
-+
-+- actif confirmé ≠ composant à conserver définitivement ;
-+- actif confirmé ≠ architecture cible.
- 
- ---
- 
-@@ -50,17 +62,19 @@
- 
- **Question :** Quels blocs sont **candidats** au retrait futur (pas maintenant) ?
- 
--| Option | Description |
--|--------|-------------|
--| .1 | MethodMode hors OA + lectures `method/**` produit OA + badges v2.6 OA (P07–P09) — après preuves |
--| .2 | Inclure archive `method/**/archive` en priorité basse |
--| .3 | Inclure retrait OPS1 runtime (au-delà isolation) |
--| .4 | Aucun candidat tant que P03–P11 non inventoriés finement |
--| .5 | Custom |
-+**Choix Morris :** classer comme candidats au retrait futur :
- 
--**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.1** (+ .2 optionnel).
-+1. `actionSelectMethodMode` orpheline ;
-+2. MethodModeGate et route qualifiés `DOCUMENTATION ONLY` ;
-+3. archives et duplications non canoniques identifiées.
- 
--**Statut :** `MORRIS DECISION REQUIRED`
-+**Statut :** `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES`
-+
-+**Anti-claims :**
-+
-+- candidat au retrait ≠ suppression décidée ;
-+- aucune suppression ou modification n’est autorisée dans ce cycle d’enregistrement ;
-+- une preuve complémentaire reste obligatoire avant retrait effectif.
- 
- ---
- 
-@@ -68,17 +82,20 @@
- 
- **Question :** Quel traitement pour OPS1 ?
- 
--| Option | Description |
--|--------|-------------|
--| .1 | Conserver POC + renforcer isolation (boundaries) |
--| .2 | Isoler (ACL/historique RO) sans retrait |
--| .3 | Migrer allowlist / canonical coupling hors `method/` |
--| .4 | Retrait futur (GO produit distinct) |
--| .5 | Investigation complémentaire avant toute option |
-+**Choix Morris :** `ISOLATE OPS1 BEFORE ANY REMOVAL`
-+
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
-+
-+**Effet :**
- 
--**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.2** (aligné P10–P11 / F13).
-+- toute trajectoire future de retrait doit d’abord définir une frontière d’isolation OPS1 ;
-+- conserver explicitement path-policy ≠ IAM ;
-+- tenir compte du couplage CT/D1.
- 
--**Statut :** `MORRIS DECISION REQUIRED`
-+**Anti-claims :**
-+
-+- isolation décidée comme trajectoire ≠ isolation implémentée ;
-+- aucune modification OPS1 autorisée maintenant.
- 
- ---
- 
-@@ -86,43 +103,54 @@
- 
- **Question :** Quand consommer le **contenu** de F03 / F11 / F13 ?
- 
--| Option | Description |
--|--------|-------------|
--| .1 | Immédiatement après ce framing (bulletin dédié) |
--| .2 | F13 (OPS1/historique) avant F03 ; F11 avec surfaces UI cutover |
--| .3 | Selon T-A7-D05 : F au point de risque (F03 avant delivery prep/delivery selon bulletin ; F11 avant cutover UI ; F13 avant isolation/historique) |
--| .4 | Différer tout F jusqu’à vague 4 delivery readiness |
--| .5 | Custom |
-+**Choix Morris :** `DECIDE F03 F11 AND F13 BEFORE ANY TECHNICAL REMOVAL PREPARATION`
- 
--**Recommandation :** `RECOMMENDED — NOT DECIDED` → **.3** (cohérent T-A7-D05 ; **sans** consommer ici).
-+**Statut :** `DECIDED — ADOPTED BY MORRIS`
- 
--**Statut :** `MORRIS DECISION REQUIRED`
-+**Effet :**
-+
-+- F03, F11 et F13 deviennent des **gates obligatoires** avant toute préparation technique de retrait ;
-+- leur **contenu** reste à arbitrer séparément.
-+
-+**Anti-claims :**
-+
-+- calendrier / obligation d’arbitrage décidé ≠ contenu F décidé ;
-+- F03 / F11 / F13 restent `NOT DECIDED` (contenu).
- 
- ---
- 
--## Bulletin Morris vierge
-+## Bulletin Morris consommé (enregistrement)
- 
- ```
--GO DECIDE T-A7 OPTION C WAVE 1 — T-A7-W1-D01=… — T-A7-W1-D02=… — T-A7-W1-D03=… — T-A7-W1-D04=… — T-A7-W1-D05=… — SFIA STUDIO V3-NATIVE — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
-+GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — W1-D01=W1-B — W1-D02=CONFIRM ACTIVE LEGACY BLOCKS — W1-D03=CONFIRM FUTURE REMOVAL CANDIDATES WITHOUT AUTHORIZING REMOVAL — W1-D04=ISOLATE OPS1 BEFORE ANY REMOVAL — W1-D05=DECIDE F03 F11 F13 BEFORE ANY TECHNICAL REMOVAL PREPARATION — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
- ```
- 
--**Statut GO :** `NOT CONSUMED / NOT DRAFTED AS DECISION`.
-+**Statut GO :** `CONSUMED — DECISIONS RECORDED` (enregistrement documentaire uniquement).
-+
-+## Synthèse décisions
-+
-+| ID | Choix | Statut |
-+|----|-------|--------|
-+| T-A7-W1-D01 | W1-B (`.2`) | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-W1-D02 | actifs D1 MethodMode + trio canonical + consumers method | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-W1-D03 | orphan select · MethodModeGate/route DOC ONLY · archives/duplications | `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES` |
-+| T-A7-W1-D04 | isolate OPS1 before any removal | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-W1-D05 | decide F03/F11/F13 before technical removal prep | `DECIDED — ADOPTED BY MORRIS` |
-+| W1-B | adopté via D01 | `DECIDED — ADOPTED BY MORRIS` |
- 
--## Synthèse recommandations (non décisionnelles)
-+## Séquencement futur (documentaire — non exécuté)
- 
--| ID | Option | Label |
--|----|--------|-------|
--| T-A7-W1-D01 | .2 | `RECOMMENDED — NOT DECIDED` |
--| T-A7-W1-D02 | .1 | `RECOMMENDED — NOT DECIDED` |
--| T-A7-W1-D03 | .1 | `RECOMMENDED — NOT DECIDED` |
--| T-A7-W1-D04 | .2 | `RECOMMENDED — NOT DECIDED` |
--| T-A7-W1-D05 | .3 | `RECOMMENDED — NOT DECIDED` |
-+1. Plan candidat W1-B (séquences / validations / rollback / gates) — **doc only** · gate Morris distinct.
-+2. Isolation OPS1 (frontière) **avant** tout retrait — D04 · **pas** implémentée ici.
-+3. Arbitrage **contenu** F03 / F11 / F13 **avant** toute préparation technique de retrait — D05 · contenu encore `NOT DECIDED`.
-+4. Preuves complémentaires avant retrait effectif des candidats D03.
-+5. Aucune ouverture T-A7 · aucune delivery preparation / delivery / cutover.
- 
- ## Garde-fous
- 
--- Option C adoptée · vague 1 = doc only
-+- Option C adoptée · vague 1 = doc only (inventaire + décisions enregistrées)
- - T-A7 `NOT OPEN` · delivery/cutover `NOT AUTHORIZED`
- - B5/R1/R-M01 `OPEN` · HARD `OPEN HARD`
--- F03/F11/F13 `NOT DECIDED` · F08–F10 contenu `NOT DECIDED`
-+- F03/F11/F13 contenu `NOT DECIDED` · F08–F10 contenu `NOT DECIDED`
- - T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE`
- - persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md
-index 025599e..e165e36 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md
-@@ -2,72 +2,68 @@
- 
- | Champ | Valeur |
- |-------|--------|
--| **Gate consommé** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — READ-ONLY DOCUMENTARY FRAMING — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
--| **Date/heure/fuseau** | 2026-07-28 14:39:41 CEST (+0200) |
--| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
--| **Base** | `origin/main` @ `7a3e512f562f480c345a12a744806aa4f2ef625b` |
--| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
--| **Worktree local** | `sfia-workspace-t-a7-wave-1-legacy-scope` (hors path absolu) |
-+| **Gate inventaire (historique)** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — … — KEEP T-A7 NOT OPEN` |
-+| **Gate décisions (consommé)** | `GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — W1-D01=W1-B — … — KEEP T-A7 NOT OPEN` |
-+| **Date inventaire** | 2026-07-28 14:39:41 CEST (+0200) |
-+| **Date décisions** | 2026-07-28 18:50:00 CEST (+0200) |
-+| **Cycle / profil** | 15 — Capitalisation (+1 · 2 · 9 · 13 · 14) · Critical |
-+| **Base** | `origin/main` @ `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
-+| **Branche locale** | `record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions` |
-+| **Worktree local** | `sfia-workspace-t-a7-wave-1-decisions` (hors path absolu) |
- | **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague technique ouverte** |
--| **Vague 1** | **cadrage documentaire uniquement** (inventaire) |
-+| **Vague 1** | inventaire + **décisions W1-D01…D05 enregistrées** · **pas** de vague technique |
-+| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
- | **T-A7** | `NOT OPEN` |
- | **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
--| **F03 / F11 / F13** | `NOT DECIDED` (préparés, non consommés) |
-+| **F03 / F11 / F13** | contenu `NOT DECIDED` · **gates obligatoires** avant prep technique retrait (W1-D05) |
- | **F08 / F09 / F10** | calendrier décidé (T-A7-D05) · contenu `NOT DECIDED` |
- | **B5 / R1 / R-M01** | `OPEN` |
- | **R-T-A3-1 / R-T-A3-2** | `OPEN HARD` |
- | **T-A6 COMPLETE** | `NOT DECLARED` |
- | **Option A** | `NOT COMPLETE` |
- | **Persistence / IAM / RGPD prod** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
--| **Push / PR** | **aucun** |
--| **Enrichissement post-inventaire** | subagents MethodMode / `method/**` / OPS1 — preuves `canonicalPaths` · dual enum · orphan select · CT/D1 coupling |
- 
- ## Objectif
- 
--Produire un inventaire documentaire exploitable de MethodMode, de `method/**`, d’OPS1 et de leurs dépendances, afin de préparer les arbitrages futurs F03 / F11 / F13 **sans** modifier ces composants et **sans** ouvrir T-A7.
-+Inventorier MethodMode, `method/**` et OPS1, puis **enregistrer** les décisions Morris T-A7-W1-D01…D05 **sans** préparation technique, **sans** consommer le contenu F03/F11/F13, et **sans** ouvrir T-A7.
- 
- ## Périmètre
- 
--- inventaire MethodMode (runtime D1, UI, tests, docs) ;
--- inventaire `method/**` (structure, consommateurs, candidats) ;
--- inventaire OPS1 (docs, runtime `app/lib/ops1`, allowlist, ACL/frontières) ;
--- carte de dépendances et frontières de scope T-A7 ;
--- options W1-A/B/C · validations / rollback / stops ;
--- bulletin Morris T-A7-W1-D01…D05 (`MORRIS DECISION REQUIRED`).
-+- inventaire MethodMode / `method/**` / OPS1 (PR #283) ;
-+- enregistrement W1-D01…D05 · W1-B adopté ;
-+- séquencement documentaire futur · stops D04/D05 ;
-+- hors : exécution technique · retrait · isolation code · delivery/cutover.
- 
- ## Hors périmètre
- 
--- modification / suppression `method/**` · OPS1 · runtime · modeled · workflow · tests applicatifs · CI ;
-+- modification / suppression `method/**` · OPS1 · runtime · modeled · workflow · tests · CI ;
-+- plan technique exécutable · préparation technique de retrait ;
- - ouverture technique de vague · T-A7 B/C/D ;
- - delivery preparation / delivery / cutover ;
--- fermeture de réserves · consommation F03/F08–F13 ;
-+- fermeture de réserves · consommation **contenu** F03/F08–F13 ;
- - sélection persistence / IAM · déclaration COMPLETE.
- 
- ## Sources principales
- 
- | Source | Rôle |
- |--------|------|
--| Pack T-A7 next-step (PR #282) | Option C · D01–D05 · vague 1 = legacy/périmètre |
--| Pack T-A7 legacy/cutover (PR #280) | P03–P11 · SC-02…SC-05 · F03/F11/F13 |
--| Code `app/lib/d1` · `app/features/d1` | MethodMode ACTIVE |
--| Code `app/lib/ops1` · `app/features/ops1` | OPS1 ACTIVE + allowlist `method/` |
--| Arbre `method/` | méthode Fast Track + complementary |
-+| Pack Wave 1 sur main (PR #283) | inventaires + options + bulletin |
-+| Pack T-A7 next-step (PR #282) | Option C · D01–D05 |
-+| Pack T-A7 legacy/cutover (PR #280) | P03–P11 · SC · F03/F11/F13 |
-+| Handoff post-merge PR #283 | preuve integration inventaire |
- | Template SFIA cycle | méthode d’exécution |
- 
- ## Livrables
- 
- | Fichier | Rôle |
- |---------|------|
--| `01-source-truth-and-scope.md` | Base Git · recherches · in/out scope |
--| `02-methodmode-inventory.md` | Inventaire MethodMode |
--| `03-method-directory-inventory.md` | Inventaire `method/**` |
--| `04-ops1-boundary-assessment.md` | OPS1 frontières |
--| `05-dependency-map.md` | Carte de dépendances |
--| `06-removal-and-isolation-options.md` | Options W1-A/B/C |
--| `07-validation-rollback-and-stop-conditions.md` | Preuves · stops |
--| `08-morris-decision-pack.md` | T-A7-W1-D01…D05 |
-+| `01`–`05` | Inventaires / dépendances (inchangés ce cycle) |
-+| `06-removal-and-isolation-options.md` | W1-B adopté |
-+| `07-validation-rollback-and-stop-conditions.md` | stops D04/D05 · F gates |
-+| `08-morris-decision-pack.md` | T-A7-W1-D01…D05 **enregistrées** |
-+| `README.md` | synthèse · verdict · gate suivant |
- 
--## Décisions existantes (rappel)
-+## Décisions T-A7 (rappel)
- 
- | ID | Choix | Statut |
- |----|-------|--------|
-@@ -77,28 +73,32 @@ Produire un inventaire documentaire exploitable de MethodMode, de `method/**`, d
- | T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
- | T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
- 
--## Décisions futures (ce pack)
-+## Décisions Wave 1 (ce cycle)
- 
--T-A7-W1-D01…D05 — toutes `MORRIS DECISION REQUIRED` — **aucune présélection**.
-+| ID | Choix | Statut |
-+|----|-------|--------|
-+| T-A7-W1-D01 | W1-B — inventory + candidate removal plan | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-W1-D02 | actifs : MethodMode D1 · trio `SFIA_CANONICAL_CORE_PATHS` · consumers method | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-W1-D03 | candidats futurs : orphan select · Gate/route DOC ONLY · archives/duplications | `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES` |
-+| T-A7-W1-D04 | isolate OPS1 before any removal | `DECIDED — ADOPTED BY MORRIS` |
-+| T-A7-W1-D05 | decide F03/F11/F13 before any technical removal preparation | `DECIDED — ADOPTED BY MORRIS` |
- 
- ## Anti-claims
- 
--- cadrage de vague ≠ vague technique ouverte
--- inventaire ≠ autorisation de retrait
--- candidat au retrait ≠ décision de suppression
--- référence trouvée ≠ usage actif
--- absence de référence ≠ preuve de non-usage
--- Option C adoptée ≠ exécution lancée
--- F préparée ≠ F consommée
--- rollback documenté ≠ rollback validé
--- T-A7 framing ≠ T-A7 OPEN
-+- W1-B adopté ≠ préparation technique autorisée
-+- plan candidat ≠ retrait autorisé
-+- actif confirmé ≠ architecture cible / conservation définitive
-+- candidat au retrait ≠ suppression décidée
-+- isolation OPS1 décidée ≠ isolation implémentée
-+- obligation F03/F11/F13 ≠ contenu F décidé
-+- T-A7 framing / décisions Wave 1 ≠ T-A7 OPEN
- 
- ## Verdict
- 
--`T-A7 OPTION C WAVE 1 LEGACY AND SCOPE FRAMING COMPLETED — METHODMODE METHOD DIRECTORY AND OPS1 INVENTORIED — DEPENDENCIES AND FUTURE REMOVAL OPTIONS DOCUMENTED — MORRIS DECISIONS PREPARED WITHOUT PRESELECTION — F03 F11 AND F13 REMAIN NOT DECIDED — TECHNICAL RESERVES REMAIN OPEN — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
-+`T-A7 OPTION C WAVE 1 MORRIS DECISIONS RECORDED — W1-D01 W1-B ADOPTED — ACTIVE LEGACY BLOCKS CONFIRMED — FUTURE REMOVAL CANDIDATES CONFIRMED WITHOUT AUTHORIZING REMOVAL — OPS1 ISOLATION REQUIRED BEFORE ANY REMOVAL — F03 F11 AND F13 REQUIRED BEFORE ANY TECHNICAL REMOVAL PREPARATION WHILE CONTENT REMAINS NOT DECIDED — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED`
- 
- ## Gate candidat suivant
- 
--`GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
-+`GO FRAME T-A7 OPTION C WAVE 1 CANDIDATE REMOVAL PLAN — DOCUMENTARY W1-B SEQUENCES VALIDATIONS ROLLBACK AND GATES ONLY — NO TECHNICAL PREPARATION — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONTENT CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
- 
- **Statut :** `NOT CONSUMED`
+## Diff stat
+
+```
+ .../01-source-truth-and-scope.md                   |  65 +++++++++++
+ .../02-f03-entry-preconditions-options.md          | 130 +++++++++++++++++++++
+ .../03-f11-api-ui-options.md                       | 110 +++++++++++++++++
+ .../04-f13-legacy-history-read-only-options.md     | 111 ++++++++++++++++++
+ .../05-cross-decision-consistency.md               |  49 ++++++++
+ .../06-recommendation-and-risks.md                 |  49 ++++++++
+ .../07-morris-decision-pack.md                     | 120 +++++++++++++++++++
+ .../README.md                                      | 103 ++++++++++++++++
+ 8 files changed, 737 insertions(+)
 ```
 
 ---
 
-## Contenu complet des fichiers modifiés (main)
+## Contenu complet des fichiers créés
 
 
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md`
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/README.md`
 
 ```markdown
-# T-A7 Option C — Wave 1 Framing — Legacy and Scope Inventory
+# T-A7 — Arbitrage documentaire F03 / F11 / F13
 
 | Champ | Valeur |
 |-------|--------|
-| **Gate inventaire (historique)** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — … — KEEP T-A7 NOT OPEN` |
-| **Gate décisions (consommé)** | `GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — W1-D01=W1-B — … — KEEP T-A7 NOT OPEN` |
-| **Date inventaire** | 2026-07-28 14:39:41 CEST (+0200) |
-| **Date décisions** | 2026-07-28 18:50:00 CEST (+0200) |
-| **Cycle / profil** | 15 — Capitalisation (+1 · 2 · 9 · 13 · 14) · Critical |
-| **Base** | `origin/main` @ `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
-| **Branche locale** | `record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions` |
-| **Worktree local** | `sfia-workspace-t-a7-wave-1-decisions` (hors path absolu) |
-| **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague technique ouverte** |
-| **Vague 1** | inventaire + **décisions W1-D01…D05 enregistrées** · **pas** de vague technique |
-| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
+| **Gate consommé** | `GO FRAME DOCUMENTARY ARBITRATION FOR T-A7 F03 F11 AND F13 — PREPARE OPTIONS IMPACTS RISKS RECOMMENDATIONS AND MORRIS DECISION PACK — NO TECHNICAL PREPARATION — NO METHOD OR OPS1 MODIFICATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 19:09:51 CEST (+0200) |
+| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
+| **Base** | `origin/main` @ `9011bb2c7e27a78979d310b628da48b9cfbd400f` |
+| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration` |
+| **Worktree local** | `sfia-workspace-t-a7-f03-f11-f13-arbitration` (hors path absolu) |
 | **T-A7** | `NOT OPEN` |
 | **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
-| **F03 / F11 / F13** | contenu `NOT DECIDED` · **gates obligatoires** avant prep technique retrait (W1-D05) |
-| **F08 / F09 / F10** | calendrier décidé (T-A7-D05) · contenu `NOT DECIDED` |
-| **B5 / R1 / R-M01** | `OPEN` |
-| **R-T-A3-1 / R-T-A3-2** | `OPEN HARD` |
-| **T-A6 COMPLETE** | `NOT DECLARED` |
-| **Option A** | `NOT COMPLETE` |
-| **Persistence / IAM / RGPD prod** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
+| **F03 / F11 / F13** | `NOT DECIDED` |
+| **W1-B / W1-D01…D05** | `DECIDED — ADOPTED BY MORRIS` (enregistrés PR #284) |
+| **Push / PR** | **aucun** |
 
 ## Objectif
 
-Inventorier MethodMode, `method/**` et OPS1, puis **enregistrer** les décisions Morris T-A7-W1-D01…D05 **sans** préparation technique, **sans** consommer le contenu F03/F11/F13, et **sans** ouvrir T-A7.
+Préparer un arbitrage documentaire **complet** de D-T-A7-F03, D-T-A7-F11 et D-T-A7-F13 : options, impacts, risques, dettes, preuves, stops et recommandations — **sans** sélectionner à la place de Morris et **sans** autoriser une préparation technique.
 
 ## Périmètre
 
-- inventaire MethodMode / `method/**` / OPS1 (PR #283) ;
-- enregistrement W1-D01…D05 · W1-B adopté ;
-- séquencement documentaire futur · stops D04/D05 ;
-- hors : exécution technique · retrait · isolation code · delivery/cutover.
+- options F03.1–.3 · F11.1–.4 · F13.1–.4 ;
+- matrice croisée · recommandation `RECOMMENDED — NOT DECIDED` ;
+- bulletin Morris D-T-A7-F03 / F11 / F13 (`MORRIS DECISION REQUIRED`).
 
 ## Hors périmètre
 
-- modification / suppression `method/**` · OPS1 · runtime · modeled · workflow · tests · CI ;
-- plan technique exécutable · préparation technique de retrait ;
-- ouverture technique de vague · T-A7 B/C/D ;
-- delivery preparation / delivery / cutover ;
-- fermeture de réserves · consommation **contenu** F03/F08–F13 ;
-- sélection persistence / IAM · déclaration COMPLETE.
+- décision automatique / présélection exécutoire ;
+- modification `method/**` · OPS1 · MethodMode · runtime · modeled · workflow · tests · CI ;
+- préparation technique · backlog delivery exécutable · implémentation ;
+- ouverture T-A7 · delivery preparation / delivery / cutover ;
+- fermeture B5 / R1 / R-M01 / HARD ;
+- push projet · PR · merge.
 
-## Sources principales
+## Sources
 
 | Source | Rôle |
 |--------|------|
-| Pack Wave 1 sur main (PR #283) | inventaires + options + bulletin |
-| Pack T-A7 next-step (PR #282) | Option C · D01–D05 |
-| Pack T-A7 legacy/cutover (PR #280) | P03–P11 · SC · F03/F11/F13 |
-| Handoff post-merge PR #283 | preuve integration inventaire |
-| Template SFIA cycle | méthode d’exécution |
+| Template + trio `SFIA_CANONICAL_CORE_PATHS` | méthode d’exécution / loader |
+| Pack `t-a7-legacy-cutover-framing` | P03–P11 · SC · bulletin F |
+| Pack `t-a7-next-decision-step-framing` | Option C · calendrier F |
+| Pack `t-a7-option-c-wave-1-legacy-scope-framing` | inventaires · W1-B · D01–D05 |
+| PR #283 / #284 + handoffs | vérité Git intégrée |
+| Code D1 / OPS1 / platform | MethodMode · path-policy · UI existantes |
+
+## Décisions existantes (rappel)
+
+| ID | Statut |
+|----|--------|
+| T-A7-D01…D05 · Option C | `DECIDED — ADOPTED BY MORRIS` |
+| W1-B · W1-D01…D05 | `DECIDED — ADOPTED BY MORRIS` (D03 = futurs candidats) |
+| W1-D05 | F03/F11/F13 = **gates** avant prep technique · **contenu** encore ouvert |
+
+## Décisions ouvertes (ce pack)
+
+| ID | Statut |
+|----|--------|
+| D-T-A7-F03 | `MORRIS DECISION REQUIRED` · contenu `NOT DECIDED` |
+| D-T-A7-F11 | `MORRIS DECISION REQUIRED` · contenu `NOT DECIDED` |
+| D-T-A7-F13 | `MORRIS DECISION REQUIRED` · contenu `NOT DECIDED` |
 
 ## Livrables
 
 | Fichier | Rôle |
 |---------|------|
-| `01`–`05` | Inventaires / dépendances (inchangés ce cycle) |
-| `06-removal-and-isolation-options.md` | W1-B adopté |
-| `07-validation-rollback-and-stop-conditions.md` | stops D04/D05 · F gates |
-| `08-morris-decision-pack.md` | T-A7-W1-D01…D05 **enregistrées** |
-| `README.md` | synthèse · verdict · gate suivant |
+| `01-source-truth-and-scope.md` | Base · preuves · in/out |
+| `02-f03-entry-preconditions-options.md` | F03.1–.3 |
+| `03-f11-api-ui-options.md` | F11.1–.4 |
+| `04-f13-legacy-history-read-only-options.md` | F13.1–.4 |
+| `05-cross-decision-consistency.md` | Matrice croisée |
+| `06-recommendation-and-risks.md` | Recommandation non décisionnelle |
+| `07-morris-decision-pack.md` | Bulletin D-T-A7-F03/F11/F13 |
 
-## Décisions T-A7 (rappel)
+## Recommandations (non décisionnelles)
 
-| ID | Choix | Statut |
-|----|-------|--------|
-| T-A7-D01 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D02 | `.3` Option C | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D03 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
-
-## Décisions Wave 1 (ce cycle)
-
-| ID | Choix | Statut |
-|----|-------|--------|
-| T-A7-W1-D01 | W1-B — inventory + candidate removal plan | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-W1-D02 | actifs : MethodMode D1 · trio `SFIA_CANONICAL_CORE_PATHS` · consumers method | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-W1-D03 | candidats futurs : orphan select · Gate/route DOC ONLY · archives/duplications | `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES` |
-| T-A7-W1-D04 | isolate OPS1 before any removal | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-W1-D05 | decide F03/F11/F13 before any technical removal preparation | `DECIDED — ADOPTED BY MORRIS` |
+| Domaine | Reco | Statut |
+|---------|------|--------|
+| F03 | **F03.3** (intermédiaire borné) | `RECOMMENDED — NOT DECIDED` |
+| F11 | **F11.2** (API opérationnelle minimale, pas d’UI dédiée maintenant) | `RECOMMENDED — NOT DECIDED` |
+| F13 | **F13.4** (hybrid archive Git + vue RO bornée) | `RECOMMENDED — NOT DECIDED` |
+| Combinaison | F03.3 × F11.2 × F13.4 | `RECOMMENDED — NOT DECIDED` |
 
 ## Anti-claims
 
-- W1-B adopté ≠ préparation technique autorisée
-- plan candidat ≠ retrait autorisé
-- actif confirmé ≠ architecture cible / conservation définitive
-- candidat au retrait ≠ suppression décidée
-- isolation OPS1 décidée ≠ isolation implémentée
-- obligation F03/F11/F13 ≠ contenu F décidé
-- T-A7 framing / décisions Wave 1 ≠ T-A7 OPEN
-
-## Verdict
-
-`T-A7 OPTION C WAVE 1 MORRIS DECISIONS RECORDED — W1-D01 W1-B ADOPTED — ACTIVE LEGACY BLOCKS CONFIRMED — FUTURE REMOVAL CANDIDATES CONFIRMED WITHOUT AUTHORIZING REMOVAL — OPS1 ISOLATION REQUIRED BEFORE ANY REMOVAL — F03 F11 AND F13 REQUIRED BEFORE ANY TECHNICAL REMOVAL PREPARATION WHILE CONTENT REMAINS NOT DECIDED — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED`
+- arbitrage préparé ≠ décision prise
+- recommandation ≠ validation Morris
+- F03 décidée ultérieurement ≠ delivery autorisée
+- F11 décidée ultérieurement ≠ API/UI implémentée
+- F13 décidée ultérieurement ≠ isolation OPS1 implémentée
+- read-only documenté ≠ ACL validée
+- W1-B adopté ≠ préparation technique
+- T-A7 framing ≠ T-A7 OPEN
 
 ## Gate candidat suivant
 
-`GO FRAME T-A7 OPTION C WAVE 1 CANDIDATE REMOVAL PLAN — DOCUMENTARY W1-B SEQUENCES VALIDATIONS ROLLBACK AND GATES ONLY — NO TECHNICAL PREPARATION — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONTENT CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
+`GO DECIDE T-A7 F03 F11 AND F13 — SELECT OPTIONS FROM DOCUMENTARY ARBITRATION PACK — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
 
 **Statut :** `NOT CONSUMED`
+
+## Verdict
+
+`T-A7 F03 F11 F13 DOCUMENTARY ARBITRATION FRAMED — ENTRY PRECONDITIONS API UI AND LEGACY HISTORY READ-ONLY OPTIONS DOCUMENTED — CROSS-DECISION CONSISTENCY ANALYZED — RECOMMENDATIONS PREPARED WITHOUT PRESELECTION — F03 F11 AND F13 REMAIN NOT DECIDED — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
 ```
 
 
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md`
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/01-source-truth-and-scope.md`
 
 ```markdown
-# 06 — Removal and isolation options (Wave 1)
+# 01 — Source truth and scope
 
 | Champ | Valeur |
 |-------|--------|
-| **Nature** | options historisées · **W1-B adopté** (T-A7-W1-D01) |
-| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
-| **F03 / F11 / F13 (contenu)** | `NOT DECIDED` |
-| **Préparation technique** | `NOT AUTHORIZED` |
+| **Base** | `origin/main` @ `9011bb2c7e27a78979d310b628da48b9cfbd400f` |
+| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration` |
+| **Nature** | vérité + preuves · **pas** une autorisation |
 
-## Option W1-A — Inventaire seulement
+## 1. Vérité Git
 
-**Idée :** figer la vérité et les dépendances (ce pack) ; aucun plan détaillé de retrait.
+| Check | Résultat |
+|-------|----------|
+| `origin/main` | `9011bb2c…` (merge PR #284) |
+| HEAD / merge-base | identiques |
+| Upstream projet | **aucun** |
+| Remote branche | **absente** |
+| Contenu hors pack | **aucune** modification (bound) |
 
-| Critère | Évaluation |
-|---------|------------|
-| Bénéfices | risque minimal · conforme gate read-only · base pour Morris |
-| Risques | laisse F03/F11/F13 sans séquence opérationnelle |
-| Dette | rework plan dans un cycle suivant |
-| Coût / complexité | bas |
-| Réversibilité | totale |
-| Impact tests/CI/sécu/RUN | nul (doc only) |
-| F concernées | préparation seulement |
-| Stops | T-A7 NOT OPEN · no method/OPS1 mod |
+## 2. Preuves structurantes (synthèse)
 
-## Option W1-B — Inventaire + plan de retrait candidat — **ADOPTÉE**
+| Domaine | Preuve | Statut |
+|---------|--------|--------|
+| MethodMode D1 | `METHOD_MODES` · DB · badges · default `V3_CANDIDATE` | `ACTIVE — EVIDENCED` |
+| Orphan `actionSelectMethodMode` | export sans UI | `ACTIVE — EVIDENCED` (dead export) |
+| Dual enum modeled | `v2.6_manual|…|fallback` sans mapper | `ACTIVE — EVIDENCED` (écart) |
+| Trio `SFIA_CANONICAL_CORE_PATHS` | 3 fichiers `method/.../core/*` | `ACTIVE — EVIDENCED` |
+| OPS1 path-policy | allowlist/forbidden + gates · ≠ IAM | `ACTIVE — EVIDENCED` / IAM `NOT SELECTED` |
+| Asymétrie | deny action `method/` vs lecture canonical trio | `ACTIVE — EVIDENCED` |
+| CT / platform / OPS1 wrappers | extension in-place | `ACTIVE — EVIDENCED` |
+| D1 ↛ OPS1 import boundary | tests | `ACTIVE — EVIDENCED` |
+| Surfaces D1 UI | badges · cockpit · home | `ACTIVE — EVIDENCED` |
+| OA UI product | OA-11 / P22 | `MISSING` |
+| MethodModeGate / route | design | `DOCUMENTATION ONLY` |
+| Volume DB `method_mode` | — | `UNKNOWN` |
+| P03–P05 | remplacements doctrine/loader | `PARTIAL` |
+| P06–P09 · P11 | MethodMode/OA UI/method reads/historique RO | `MISSING` |
+| P10 | OPS1 isolation cutover | `PARTIAL` |
+| Rollback runtime testé | — | `MISSING` / `UNKNOWN` |
+| B5 / R1 / R-M01 / HARD | ouverts | `OPEN` / `OPEN HARD` |
 
-**Idée :** ajouter séquences candidates (MethodMode → remplacements OA → CI boundary → OPS1 isolation → historique RO) avec rollback papier.
+## 3. Contraintes héritées (W1)
 
-| Critère | Évaluation |
-|---------|------------|
-| Bénéfices | accélère F03 ; aligne P03–P11 |
-| Risques | plan pris pour autorisation ; sous-estime HARD A5.2 |
-| Dette | plans obsolètes si runtime change |
-| Coût / complexité | moyen |
-| Réversibilité | haute (doc) |
-| Impact tests/CI | design de tests candidats seulement |
-| F | F03/F11/F13 gates avant prep technique (D05) · contenu futurs |
-| Stops | SC-02…05 · STOP BEFORE DELIVERY · D04 isolation OPS1 d’abord |
+| Contrainte | Effet |
+|------------|-------|
+| W1-B | plan candidat **documentaire** autorisé · prep technique **non** |
+| W1-D02 | blocs actifs confirmés (ne pas traiter comme morts) |
+| W1-D03 | candidats futurs ≠ suppression décidée |
+| W1-D04 | isolation OPS1 **avant** tout retrait (trajectoire) |
+| W1-D05 | F03/F11/F13 **décidées (contenu)** avant prep technique retrait |
 
-**Statut :** `DECIDED — ADOPTED BY MORRIS` (via T-A7-W1-D01).
+## 4. Scope de cet arbitrage
 
-**Effet autorisé maintenant :** plan documentaire candidat uniquement (séquences, validations, rollback, gates) — **pas** d’exécution technique.
+| In | Out |
+|----|-----|
+| Contenu options F03/F11/F13 | Implémentation · prep technique |
+| Impacts / risques / dettes / preuves | Modification code/method/OPS1 |
+| Recommandations non décisionnelles | Delivery / cutover / T-A7 OPEN |
+| Bulletin Morris | Fermeture réserves |
 
-## Option W1-C — Inventaire + isolation préalable candidate
+## 5. Anti-claims
 
-**Idée :** prioriser façades / boundaries (allowlist, import CI, anti cross-call OPS1/OA/D1) **avant** tout retrait.
-
-| Critère | Évaluation |
-|---------|------------|
-| Bénéfices | réduit risque double identité · compatible SC-03/SC-12 |
-| Risques | isolation présentée comme cutover ; travail technique anticipé sans GO |
-| Dette | wrappers temporaires (déjà notés platform/OPS1) |
-| Coût / complexité | moyen–haut (si exécuté plus tard) |
-| Réversibilité | moyenne une fois code touché (**hors ce cycle**) |
-| Impact sécu | positif si bien borné |
-| F | F13 en tête · F03 ensuite |
-| Stops | aucune mod code dans Wave 1 framing |
-
-**Note :** D04 impose l’isolation OPS1 **avant tout retrait** comme trajectoire ; cela **n’adopte pas** W1-C comme niveau de cadrage (W1-B reste le choix D01) et **n’autorise pas** l’implémentation.
-
-## Challenge (historique)
-
-| Question | W1-A | W1-B | W1-C |
-|----------|------|------|------|
-| Utile maintenant ? | **oui** | oui si Morris veut séquence | oui si priorise sécu OPS1 |
-| Réduit risque cutover ? | partiel | mieux | mieux sur isolation |
-| Crée dette doc ? | faible | moyenne | moyenne |
-| Plus simple ? | **oui** | non | non |
-| Préparable sans ouvrir T-A7 ? | **oui** | oui (doc) | oui (doc only ici) |
-| Respecte STOP BEFORE DELIVERY / `.1` ? | oui | oui | oui |
-
-## Décision
-
-`DECIDED — ADOPTED BY MORRIS` → **W1-B**.
-
-**Anti-claims :** W1-B adopté ≠ préparation technique autorisée · plan candidat ≠ retrait autorisé · isolation OPS1 (D04) ≠ isolation implémentée.
+- inventaire Wave 1 ≠ F03 satisfait
+- P* PARTIAL/MISSING ≠ prêt cutover
+- surface D1 existante ≠ surface cutover OA
+- path-policy ≠ IAM
 ```
 
 
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md`
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/02-f03-entry-preconditions-options.md`
 
 ```markdown
-# 07 — Validation, rollback and stop conditions
+# 02 — F03 — Préconditions avant préparation technique
 
 | Champ | Valeur |
 |-------|--------|
-| **Nature** | exigences **futures** · aucune validation exécutée ici |
-| **Rollback** | documenté ≠ validé |
-| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
-| **Prep technique retrait** | bloquée tant que F03/F11/F13 contenu `NOT DECIDED` (T-A7-W1-D05) |
+| **Décision** | D-T-A7-F03 |
+| **Question** | Quelles préconditions sont **obligatoires** avant toute préparation technique de retrait / delivery T-A7 ? |
+| **Statut contenu** | `NOT DECIDED` |
+| **Reco** | `RECOMMENDED — NOT DECIDED` → **F03.3** |
 
-## 1. Preuves avant modification future
+## Distinctions
 
-| Domaine | Preuves minimales |
-|---------|-------------------|
-| MethodMode | inventaire UI/API/DB · tests D1 verts · plan remplacement OA session (P06/P07) · hold flag |
-| `method/**` | diff path filter · consommateurs prompts/OPS1 mis à jour · P08/P24 CI boundary |
-| OPS1 | P10 ACL · no cross-call OA · allowlist revue · e2e I1–I6 · anti SC-12 · **isolation frontière avant retrait** (D04) |
-| Cutover | P03–P11 + F09 · RUN/rollback P23 · GO niveau D |
-| Candidats D03 | preuves complémentaires avant retrait effectif (orphan select · Gate/route DOC ONLY · archives) |
-
-## 2. Stop conditions (héritage T-A7 + Wave 1)
-
-| ID | Trigger | Action |
-|----|---------|--------|
-| SC-02 | mod `method/**` hors gate | STOP merge/cycle |
-| SC-03 | mod OPS1 hors gate | STOP · isoler |
-| SC-04 | MethodMode retiré sans P03–P09 | STOP cutover |
-| SC-05 | remplacements legacy incomplets | STOP activation |
-| SC-12 | OPS1 présenté comme v3 / hors Option A | STOP recentrage |
-| W1-S1 | inventaire traité comme autorisation retrait | STOP · anti-claim |
-| W1-S2 | F03/F11/F13 consommées sans bulletin | STOP |
-| W1-S3 | vague 1 présentée comme T-A7 OPEN | STOP |
-| W1-S4 | préparation technique de retrait **sans** contenu F03/F11/F13 décidé | STOP (D05) |
-| W1-S5 | retrait sans isolation OPS1 définie | STOP (D04) |
-| A52 | B5 STOP BEFORE DELIVERY | inchangé |
-| A52-D03 | `.1` avant real Critical | inchangé |
-
-## 3. Rollback (candidat documentaire)
-
-| Couche | Mécanisme candidat |
-|--------|--------------------|
-| Git | revert merge/commits pack ou code futur |
-| Feature/hold | hold flags cutover (P07–P09) |
-| ACL | restore allowlist / ruleset |
-| Data D1 | backup SQLite avant migration method_mode |
-| OPS1 local | `.sfia-exec` hors Git — procédures locales |
-
-**Anti-claim :** rollback documenté ≠ rollback testé runtime.
-
-## 4. Liens F
-
-| F | Rôle Wave 1 | Statut contenu | Gate (D05) |
-|---|-------------|----------------|------------|
-| F03 | préconditions delivery / inventaire legacy | `NOT DECIDED` | **obligatoire avant** prep technique retrait |
-| F11 | API/UI avant cutover (badges/surfaces) | `NOT DECIDED` | **obligatoire avant** prep technique retrait |
-| F13 | historique RO + isolation OPS1 (P10–P11) | `NOT DECIDED` | **obligatoire avant** prep technique retrait |
-| F08–F10 | hors vague 1 (calendrier T-A7-D05) | contenu `NOT DECIDED` | — |
-
-**Anti-claim :** obligation d’arbitrer F03/F11/F13 avant prep technique ≠ contenu F déjà décidé.
-```
-
-
-### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md`
-
-```markdown
-# 08 — Morris decision pack (Wave 1)
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut pack** | `RECORDED — DECIDED BY MORRIS` |
-| **Gate d’enregistrement** | `GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — … — KEEP T-A7 NOT OPEN` |
-| **Date/heure/fuseau** | 2026-07-28 18:50:00 CEST (+0200) |
-| **T-A7** | `NOT OPEN` |
-| **Vague 1 technique** | **non ouverte** |
-| **F03 / F11 / F13 (contenu)** | `NOT DECIDED` |
-| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
+| Niveau | Sens |
+|--------|------|
+| Avant **prep technique retrait** | contenu F03 (+ F11/F13 per W1-D05) décidé · inventaire/plan doc |
+| Avant **delivery preparation** | + B5 / R1 / HARD non ignorés · P* critiques |
+| Avant **cutover** | + P03–P11 satisfaits ou explicitement gated · F09 · rollback/observabilité |
 
 ---
 
-## T-A7-W1-D01 — Niveau de cadrage suite
+## F03.1 — Set minimal
 
-**Question :** Quel niveau retenir pour la suite de la vague 1 ?
+**Idée :** set strictement nécessaire pour ouvrir un cadrage de prep **ultérieur**, sans exiger la satisfaction runtime de tout P03–P11.
+
+### Contenu candidat obligatoire
+
+| Élément | Obligatoire ? | Note |
+|---------|---------------|------|
+| Inventaire legacy validé (Wave 1) | **oui** | déjà sur main |
+| Dépendances actives confirmées (W1-D02) | **oui** | MethodMode · trio · consumers |
+| Candidats retrait identifiés (W1-D03) | **oui** | sans autoriser retrait |
+| Plan documentaire W1-B | **oui** | séquences/validations/rollback/gates doc |
+| Isolation OPS1 **définie** (D04) | **oui** (cadrage) | ≠ implémentée |
+| Stratégie rollback documentaire | **oui** | ≠ testée |
+| Preuves non-régression **candidates** | **oui** (liste) | ≠ exécutées |
+| F11 et F13 **décidées** (contenu) | **oui** (W1-D05) | avant prep |
+| Aucun blocker HARD **ignoré** | **oui** | B5/R1/HARD restent OPEN → documenter non-bypass |
+
+### Différable / hors scope immédiat
+
+| Élément | Classement |
+|---------|------------|
+| Satisfaction runtime P07–P09 | différé (cutover / F11) |
+| IAM SELECTED | hors scope (NOT SELECTED) |
+| RUN readiness complète | différé delivery/cutover |
+| Volume DB mesuré | UNKNOWN → preuve à planifier |
+
+| Critère | Éval |
+|---------|------|
+| Bénéfices | proportionné · aligné W1-B · évite faux READY |
+| Risques | sous-estime dettes HARD / P* MISSING |
+| Dette | plan trop mince pour delivery |
+| Réversibilité | haute (doc) |
+
+---
+
+## F03.2 — Set maximal
+
+**Idée :** toutes préconditions P03–P11 pertinentes + preuves runtime + tests détaillés + observabilité + sécu + données + IAM + rollback validable + RUN + cutover readiness documentaire.
+
+| Inclus en plus vs F03.1 | Risque |
+|-------------------------|--------|
+| P03–P05 preuves runtime | charge élevée ; P encore PARTIAL |
+| P06–P09 satisfaits | MethodMode/OA UI encore ACTIVE/MISSING |
+| P10–P11 appliqués | isolation/historique non implémentés |
+| IAM / RGPD prod | NOT SELECTED / NOT VALIDATED — bloquant |
+| HARD fermés | hors ce cycle |
+
+| Critère | Éval |
+|---------|------|
+| Bénéfices | filet maximal avant prep |
+| Risques | **sur-cadrage** · conflation F03 avec cutover complete |
+| Dette | documentaire + paralysie |
+| Réversibilité | moyenne (attentes figées) |
+
+---
+
+## F03.3 — Set custom (intermédiaire) — **RECO**
+
+**Idée :** F03.1 **+** exigences explicites de **traçabilité** et de **non-conflation**, sans exiger satisfaction cutover.
+
+### Obligatoire (prep technique retrait)
+
+1. Tout F03.1.
+2. Matrice P03–P11 avec statut PARTIAL/MISSING **à jour** (pas de claim SATISFIED implicite).
+3. Frontière OPS1 **spécifiée** (path-policy · CT/D1 · anti SC-12) — design only.
+4. Liste preuves non-régression **par surface** (D1 MethodMode · canonical trio · OPS1 allowlist).
+5. Hold/rollback **candidats** documentés (P07–P09 concepts) sans implémentation.
+6. Contenu F11 + F13 **déjà décidés**.
+7. Déclaration : B5 / R1 / HARD **OPEN** → aucun bypass.
+
+### Avant delivery preparation (rappel — hors F03 seul)
+
+- Bulletin B5 / décisions HARD associées ;
+- persistence/IAM selon trajectoire produit (encore NOT SELECTED).
+
+### Avant cutover (rappel)
+
+- P03–P11 selon F09 + preuves runtime ;
+- F11 surfaces cutover satisfaites ;
+- F13 historique RO opérationnel.
+
+### Volontairement différé
+
+| Élément | Pourquoi |
+|---------|----------|
+| Mesure volume DB | UNKNOWN — campagne dédiée |
+| IAM multi-user | NOT SELECTED |
+| UI OA product complete (A3.2) | distinct F11 cutover vs product |
+| Fermeture HARD | vagues Option C 2–4 |
+
+| Critère | Éval |
+|---------|------|
+| Bénéfices | borné · compatible W1-B/D04/D05 · évite maximalisme |
+| Risques | encore une marge d’interprétation « prep » |
+| Dette | faible si gates clairs |
+| Réversibilité | haute |
+
+**Gates Morris associés :** W1-S4 · SC-02…05 · SC-12 · B5 STOP BEFORE DELIVERY.
+
+---
+
+## Synthèse F03
+
+| Option | Label reco |
+|--------|------------|
+| F03.1 | acceptable si Morris veut minimalisme |
+| F03.2 | trop lourd pour « entrée prep » |
+| F03.3 | `RECOMMENDED — NOT DECIDED` |
+
+**Anti-claim :** F03.3 recommandé ≠ F03 décidé · F03 décidé ≠ delivery autorisée.
+```
+
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/03-f11-api-ui-options.md`
+
+```markdown
+# 03 — F11 — API / UI avant retrait et cutover
+
+| Champ | Valeur |
+|-------|--------|
+| **Décision** | D-T-A7-F11 |
+| **Question** | Quelles exigences API/UI pour retrait legacy et cutover ? |
+| **Statut contenu** | `NOT DECIDED` |
+| **Reco** | `RECOMMENDED — NOT DECIDED` → **F11.2** |
+
+## Distinctions (obligatoires)
+
+| Couche | Sens | État actuel |
+|--------|------|-------------|
+| API/UI **product complete** (A3.2) | produit OA utilisable | OA UI **MISSING** |
+| API/UI **retrait legacy** | opérer/observer retrait MethodMode/`method` | **MISSING** (hors badges D1) |
+| API/UI **avant cutover** | readiness · hold · audit cutover | **MISSING** |
+| UI **administration** | opérateurs / Morris | partiel D1/OPS1 existants ≠ cutover |
+| Surfaces **preuve / audit / rollback / monitoring** | preuves opérables | concepts doc · runtime limité |
+
+**Surfaces existantes (ne pas confondre avec F11 cutover) :** MethodModeBadge · cockpit D1 · OPS1 session/allowlist UI.
+
+**Mutations dans ce cycle :** **aucune**. Options = exigences **futures**.
+
+---
+
+## F11.1 — Aucune nouvelle surface avant cutover
+
+| Critère | Éval |
+|---------|------|
+| Usages | cutover via Git/docs/ops manuelles |
+| Utilisateurs | Morris / agents seulement |
+| Droits | L0 gates existants |
+| Données affichées | aucune nouvelle |
+| Mutations | interdites (status quo) |
+| Audit | logs Git/CI seulement |
+| Avantages | simplicité · peu de dette UI |
+| Risques | visibilité faible · rollback fragile · audit insuffisant · erreur humaine |
+| Accessibilité | N/A nouvelles surfaces |
+| Dette | dette **opérationnelle** |
+| Preuve readiness | difficile |
+| Impact cutover | élevé |
+| Réversibilité | haute (rien ajouté) |
+
+---
+
+## F11.2 — API opérationnelle minimale sans UI dédiée — **RECO**
+
+| Critère | Éval |
+|---------|------|
+| Usages | lecture état MethodMode · compat/dépendances · statut migration/hold · health/readiness |
+| Utilisateurs | automation · Morris via outils · CI candidats |
+| Droits | lecture bornée · **pas** IAM multi-user (NOT SELECTED) |
+| Données | mode projet · flags hold · digest/loader status · allowlist hits (agrégats) |
+| Mutations | **interdites** dans exigence minimale ; commandes write = gate ultérieur séparé |
+| Audit | événements lecture/écriture si write gated |
+| Sécurité | surface server-only · pas d’exposition publique |
+| Accessibilité | N/A UI |
+| Avantages | observabilité sans dette UI · aligne P07–P09 holds |
+| Risques | UX opérateur faible · tentation d’étendre write trop tôt |
+| Dette | API contracts à maintenir |
+| Preuve readiness | tests API candidats |
+| Impact cutover | réduit le risque « à l’aveugle » |
+| Réversibilité | moyenne (contrats) |
+
+---
+
+## F11.3 — API + UI minimale d’administration
+
+| Critère | Éval |
+|---------|------|
+| Usages | F11.2 + écrans : état legacy · compat · historique · statut OPS1 · readiness · rollback · audit · badges/warnings |
+| Utilisateurs | Morris · éventuels opérateurs futurs |
+| Droits | admin borné · ≠ IAM produit |
+| Données | + historique RO (dépend F13) · statut OPS1 |
+| Mutations | hold/rollback **candidats** seulement sous gate |
+| Audit | UI actions journalisées |
+| Sécurité | risque surface admin |
+| Accessibilité | WCAG candidat (exigence) |
+| Avantages | opérabilité humaine |
+| Risques | dette UX · conflation product UI vs cutover UI · SC-12 si OPS1 mal présenté |
+| Dette | haute |
+| Preuve readiness | e2e UI + API |
+| Impact cutover | positif si borné |
+| Réversibilité | basse une fois shippé |
+
+---
+
+## F11.4 — Custom
+
+**Proposition intermédiaire :** F11.2 **maintenant (exigence)** + **jalon UI admin optionnelle** seulement si cutover réel approche et F13.2/F13.4 l’exige — UI **hors** product OA A3.2.
+
+| Critère | Éval |
+|---------|------|
+| Bénéfices | évite UI prématurée · laisse porte ouverte |
+| Risques | ambiguïté de calendrier UI |
+| Dette | faible si jalon explicite |
+| Réversibilité | haute |
+
+---
+
+## Synthèse F11
+
+| Option | Label |
+|--------|-------|
+| F11.1 | trop risqué pour cutover gouverné |
+| F11.2 | `RECOMMENDED — NOT DECIDED` |
+| F11.3 | acceptable plus tard / cutover proche |
+| F11.4 | acceptable alternative à F11.2 |
+
+**Anti-claim :** F11.2 recommandé ≠ API implémentée · ≠ product complete A3.2 · ≠ retrait MethodMode.
+```
+
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/04-f13-legacy-history-read-only-options.md`
+
+```markdown
+# 04 — F13 — Historique legacy read-only & frontière OPS1
+
+| Champ | Valeur |
+|-------|--------|
+| **Décision** | D-T-A7-F13 |
+| **Question** | Comment conserver l’historique legacy en read-only et isoler OPS1 ? |
+| **Statut contenu** | `NOT DECIDED` |
+| **Reco** | `RECOMMENDED — NOT DECIDED` → **F13.4** |
+
+## Définitions
+
+| Terme | Périmètre candidat |
+|-------|-------------------|
+| **Historique legacy** | états/audit D1 liés MethodMode · artefacts `.sfia-exec` locaux · docs/archives `method/**` non canoniques · journaux OPS1 locaux |
+| **Données** | SQLite `method_mode` + audit events · fichiers state gitignored · markdown method |
+| **Chemins** | `app/lib/d1/**` (données) · `method/**` · `app/lib/ops1/**` · `.sfia-exec/**` |
+| **Consommateurs** | D1 UI · canonical loader · OPS1/CT · prompts · docs |
+| **Droits** | path-policy + gates Morris (**≠** IAM multi-user) |
+| **Mutations interdites (cible RO)** | update/delete historique · réactivation silencieuse MethodMode retiré · write `method/` hors gate |
+| **Durée** | **NOT DECIDED** — candidat : jusqu’à GO archive finale distinct |
+| **Frontière OPS1** | D04 : isolation **avant** retrait · POC ≠ Option A (SC-12) |
+| **Après retrait** | lectures RO seulement · pas d’autorité runtime cutover |
+| **Rollback** | restore ACL/allowlist · Git · backup DB · procédures locales `.sfia-exec` |
+
+---
+
+## F13.1 — Conservation in-place read-only
+
+Legacy reste en place ; mutations interdites par politique/tests.
+
+| Critère | Éval |
+|---------|------|
+| Périmètre | chemins actuels |
+| Accès | same surfaces ; deny writes |
+| Contrôle | path-policy + antiLegacy étendu |
+| Migration | minimale |
+| Avantages | simplicité |
+| Risques | confusion actif/historique · réactivation accidentelle |
+| Dette | structure legacy visible |
+| Durée | indéterminée |
+| Preuves | tests mutation deny |
+| Conditions retrait final | GO distinct |
+
+---
+
+## F13.2 — Isolation dédiée read-only
+
+Frontière dédiée ultérieure : namespace · API lecture · ACL · journalisation · no mutation · dépendances actives isolées.
+
+| Critère | Éval |
+|---------|------|
+| Périmètre | store/API « legacy history » |
+| Accès | API RO bornée (lien F11.2/F11.3) |
+| Contrôle | ACL path + audit |
+| Migration | copie/move contrôlé |
+| Avantages | clarté · SC-12 · D04 |
+| Risques | coût · double écriture pendant transition |
+| Dette | service RO à maintenir |
+| Rollback | reverse migrate |
+| Preuves | e2e no-write · boundary tests |
+| Conditions retrait final | empty store + GO |
+
+---
+
+## F13.3 — Archive documentaire uniquement
+
+Git/docs seulement · **pas** d’exposition runtime.
+
+| Critère | Éval |
+|---------|------|
+| Périmètre | repo markdown + history Git |
+| Accès | lecteurs Git |
+| Contrôle | Git permissions |
+| Avantages | très simple |
+| Risques | perte traçabilité produit · support runtime impossible · `.sfia-exec`/DB non couverts |
+| Dette | faible doc · **trou** opérationnel |
+| Preuves | tags Git |
+| Limites | **insuffisant seul** si D1/OPS1 restent |
+
+---
+
+## F13.4 — Hybrid — **RECO**
+
+Archive Git/docs **+** vue/politique RO **bornée** runtime pour données encore nécessaires (MethodMode history · audit) · OPS1 isolé (D04) sans retrait forcé.
+
+| Critère | Éval |
+|---------|------|
+| Périmètre | Git archives `method` non-canon · RO DB/audit D1 · OPS1 path-policy renforcée |
+| Accès | F11.2 lecture · pas d’UI obligatoire |
+| Contrôle | path-policy ≠ IAM · gates |
+| Migration | progressive |
+| Avantages | couvre UNKNOWN volumes · compatible W1-D03/D04 · évite F13.3 trop faible et F13.2 trop tôt |
+| Risques | complexité hybride · discipline anti-réactivation |
+| Dette | moyenne |
+| Rollback | Git + backup DB + ACL |
+| Durée | jusqu’à GO archive finale |
+| Preuves | deny mutation · boundary OPS1 · inventaire allowlist |
+| Conditions retrait final | preuves + F03/F11 satisfaits + GO Morris |
+
+---
+
+## Synthèse F13
+
+| Option | Label |
+|--------|-------|
+| F13.1 | acceptable court terme |
+| F13.2 | cible forte si cutover proche |
+| F13.3 | insuffisante seule |
+| F13.4 | `RECOMMENDED — NOT DECIDED` |
+
+**Anti-claim :** F13.4 recommandé ≠ isolation implémentée · ≠ ACL validée · ≠ retrait OPS1.
+```
+
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/05-cross-decision-consistency.md`
+
+```markdown
+# 05 — Cohérence croisée F03 × F11 × F13
+
+| Champ | Valeur |
+|-------|--------|
+| **Nature** | matrice · **pas** une décision |
+| **Reco combinaison** | `RECOMMENDED — NOT DECIDED` → **F03.3 × F11.2 × F13.4** |
+
+## 1. Matrice (échantillon structurant)
+
+| F03 | F11 | F13 | Cohérence | Risque | Dette | Préconditions + |
+|-----|-----|-----|-----------|--------|-------|-----------------|
+| .1 | .1 | .3 | **faible** | cutover aveugle · historique runtime perdu | op. haute | preuves manuelles lourdes |
+| .1 | .2 | .1 | moyenne | confusion actif/historique | basse | deny-write tests |
+| .1 | .2 | .4 | **bonne** | sous-spécif. P* | basse–moy | matrice P à jour |
+| .3 | .2 | .4 | **forte** | discipline « prep » | moyenne | F11/F13 décidés · D04 design |
+| .3 | .3 | .2 | forte | dette UI précoce | haute | a11y · audit UI |
+| .3 | .3 | .4 | forte | sur-build UI | haute | jalon UI explicite |
+| .2 | .3 | .2 | **lourde** | conflation cutover-complete | très haute | IAM/HARD quasi requis |
+| .2 | .1 | .3 | **incohérente** | maximal F03 + aveugle F11 | — | — |
+| .1 | .3 | .3 | **tendue** | UI sans runtime history | — | — |
+| .3 | .4 | .4 | **bonne** | calendrier UI flou | basse | jalon cutover UI |
+
+## 2. Combinaisons
+
+| Type | Exemples |
+|------|----------|
+| **Cohérentes** | F03.3×F11.2×F13.4 · F03.3×F11.4×F13.4 · F03.1×F11.2×F13.1 |
+| **Incompatibles / tendues** | F03.2×F11.1×F13.3 · F11.3 sans F13 capable de fournir données RO · F13.3 seul si D1/OPS1 actifs |
+| **Trop lourdes** | F03.2×F11.3×F13.2 (surtout avec HARD OPEN) |
+
+## 3. Combinaison recommandée (non décisionnelle)
+
+**F03.3 × F11.2 × F13.4**
+
+| Pourquoi | Lien W1 |
+|----------|---------|
+| Borné avant prep | W1-B · W1-D05 |
+| Observabilité sans UI prématurée | évite dette F11.3 |
+| Historique + OPS1 sans archive-only | W1-D04 · SC-12 |
+| N’exige pas cutover-complete | T-A7 NOT OPEN |
+
+## 4. Séquence documentaire future (candidate)
+
+1. Morris décide F03 / F11 / F13 (bulletin).
+2. Plan W1-B détaillé **doc** aligné sur les trois choix.
+3. Design isolation OPS1 (D04) — encore non implémenté.
+4. Seulement ensuite : gate prep technique (si F + B5 le permettent).
+
+**Anti-claim :** combinaison recommandée ≠ options adoptées.
+```
+
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/06-recommendation-and-risks.md`
+
+```markdown
+# 06 — Recommandation et risques
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut global** | `RECOMMENDED — NOT DECIDED` |
+| **Autorité** | aucune hors Morris |
+
+## 1. Recommandation
+
+| Domaine | Option | Justification courte |
+|---------|--------|----------------------|
+| F03 | **F03.3** | minimal + traçabilité P* / HARD / D04 sans maximalisme cutover |
+| F11 | **F11.2** | API lecture/hold/readiness · pas d’UI admin prématurée |
+| F13 | **F13.4** | hybrid Git archive + RO runtime borné · OPS1 isolable |
+| Combo | **F03.3 × F11.2 × F13.4** | cohérente · proportionnée · réversible |
+
+## 2. Compatibilité
+
+| Contrainte | Respect reco ? |
+|------------|----------------|
+| W1-B plan candidat | oui (doc) |
+| Isolation OPS1 avant retrait (D04) | oui (F13.4/F13.2 path) |
+| F gates avant prep (D05) | oui |
+| T-A7 NOT OPEN | oui |
+| Pas de dette UI inutile | oui (évite F11.3 immédiat) |
+| Repo-informed | oui (preuves Wave 1 + P*) |
+
+## 3. Risques résiduels
+
+| Risque | Sévérité | Mitigation documentaire |
+|--------|----------|-------------------------|
+| « Prep » mal définie malgré F03.3 | Med | W1-S4 · liste exclusions |
+| API F11.2 étendue en write trop tôt | Med | mutations = gate séparé |
+| Hybrid F13.4 mal discipliné | Med | deny-write · inventaire allowlist |
+| HARD ignorés | High | anti-bypass B5/R1/HARD |
+| Volume DB UNKNOWN | Med | campagne mesure avant retrait D1 |
+
+## 4. Ce qui n’est **pas** recommandé maintenant
+
+- F03.2 comme entrée prep (sur-cadrage)
+- F11.1 (aveugle)
+- F13.3 seul (trou runtime)
+- Toute implémentation / prep technique / cutover
+
+## 5. Anti-claims
+
+- recommandation ≠ validation Morris
+- combo reco ≠ décision
+- F décidées plus tard ≠ delivery/cutover autorisés
+```
+
+
+### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-f03-f11-f13-documentary-arbitration/07-morris-decision-pack.md`
+
+```markdown
+# 07 — Morris decision pack — D-T-A7-F03 / F11 / F13
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut pack** | `PREPARED — MORRIS DECISION REQUIRED` |
+| **Aucune option auto-sélectionnée** | oui |
+| **F03 / F11 / F13** | contenu `NOT DECIDED` |
+| **T-A7** | `NOT OPEN` |
+| **Prep technique / delivery / cutover** | `NOT AUTHORIZED` |
+
+---
+
+## D-T-A7-F03 — Préconditions avant préparation technique
+
+**Question :** Quel set de préconditions obligatoires avant toute préparation technique de retrait / delivery T-A7 ?
 
 | Option | Description |
 |--------|-------------|
-| .1 | Inventaire seulement (W1-A) — vérité figée |
-| .2 | Inventaire + plan de retrait candidat (W1-B) |
-| .3 | Inventaire + isolation préalable candidate (W1-C) |
-| .4 | Autre / différer |
+| F03.1 | Set minimal (inventaire · actifs · candidats · W1-B · isolation définie · rollback doc · preuves candidates · F11/F13 décidées · HARD non ignorés) |
+| F03.2 | Set maximal (P03–P11 + runtime + tests + obs + sécu + données + IAM + RUN + cutover readiness) |
+| F03.3 | Set custom intermédiaire (F03.1 + matrice P* + frontière OPS1 design + holds candidats + anti-bypass) |
+| Autre / différer | — |
 
-**Choix Morris :** `.2` — `W1-B — INVENTORY PLUS CANDIDATE REMOVAL PLAN`
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **F03.3**
 
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
+**Impacts :** borne l’entrée en prep · n’autorise pas delivery.
 
-**Effet autorisé :**
+**Dette :** doc P* à maintenir.
 
-- préparer un **plan documentaire candidat** de retrait et d’isolation ;
-- définir séquences, validations, rollback et gates (doc only).
+**Réversibilité :** haute.
 
-**Anti-claims :**
+**Gate futur :** plan W1-B détaillé · puis prep seulement si GO.
 
-- W1-B adopté ≠ préparation technique autorisée ;
-- plan candidat ≠ retrait autorisé.
+**Anti-claims :** F03 décidé ≠ delivery · ≠ cutover · ≠ T-A7 OPEN.
 
----
-
-## T-A7-W1-D02 — Blocs legacy confirmés actifs
-
-**Question :** Quels blocs sont confirmés **actifs** (évidence) ?
-
-**Choix Morris :** confirmer comme actifs :
-
-1. MethodMode dans D1 ;
-2. le trio exact référencé dans `SFIA_CANONICAL_CORE_PATHS` ;
-3. les consommateurs de `method/**` via prompts · loader canonique · OPS1 path-policy / allowlist.
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
-
-**Anti-claims :**
-
-- actif confirmé ≠ composant à conserver définitivement ;
-- actif confirmé ≠ architecture cible.
+**Statut :** `MORRIS DECISION REQUIRED`
 
 ---
 
-## T-A7-W1-D03 — Candidats au retrait futur
+## D-T-A7-F11 — API / UI retrait et cutover
 
-**Question :** Quels blocs sont **candidats** au retrait futur (pas maintenant) ?
+**Question :** Quelles exigences API/UI pour opérer/observer le retrait legacy et le cutover ?
 
-**Choix Morris :** classer comme candidats au retrait futur :
+| Option | Description |
+|--------|-------------|
+| F11.1 | Aucune nouvelle surface avant cutover |
+| F11.2 | API opérationnelle minimale **sans** UI dédiée (lecture état/holds/readiness) |
+| F11.3 | API + UI minimale d’administration |
+| F11.4 | Custom (API maintenant · UI jalonnée plus tard) |
+| Autre / différer | — |
 
-1. `actionSelectMethodMode` orpheline ;
-2. MethodModeGate et route qualifiés `DOCUMENTATION ONLY` ;
-3. archives et duplications non canoniques identifiées.
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **F11.2**
 
-**Statut :** `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES`
+**Impacts :** exige contrats lecture futurs · pas d’UI shippée par cette décision seule.
 
-**Anti-claims :**
+**Dette :** API contracts.
 
-- candidat au retrait ≠ suppression décidée ;
-- aucune suppression ou modification n’est autorisée dans ce cycle d’enregistrement ;
-- une preuve complémentaire reste obligatoire avant retrait effectif.
+**Réversibilité :** moyenne.
 
----
+**Gate futur :** design/API gate distinct · mutations write séparées.
 
-## T-A7-W1-D04 — Traitement OPS1
+**Anti-claims :** F11 ≠ product complete A3.2 · ≠ implémentation · ≠ retrait MethodMode.
 
-**Question :** Quel traitement pour OPS1 ?
-
-**Choix Morris :** `ISOLATE OPS1 BEFORE ANY REMOVAL`
-
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
-
-**Effet :**
-
-- toute trajectoire future de retrait doit d’abord définir une frontière d’isolation OPS1 ;
-- conserver explicitement path-policy ≠ IAM ;
-- tenir compte du couplage CT/D1.
-
-**Anti-claims :**
-
-- isolation décidée comme trajectoire ≠ isolation implémentée ;
-- aucune modification OPS1 autorisée maintenant.
+**Statut :** `MORRIS DECISION REQUIRED`
 
 ---
 
-## T-A7-W1-D05 — Quand arbitrer F03, F11, F13 ?
+## D-T-A7-F13 — Historique legacy read-only / OPS1
 
-**Question :** Quand consommer le **contenu** de F03 / F11 / F13 ?
+**Question :** Quelle politique d’historique legacy read-only et de frontière OPS1 ?
 
-**Choix Morris :** `DECIDE F03 F11 AND F13 BEFORE ANY TECHNICAL REMOVAL PREPARATION`
+| Option | Description |
+|--------|-------------|
+| F13.1 | Conservation in-place read-only |
+| F13.2 | Isolation dédiée read-only (namespace/API/ACL) |
+| F13.3 | Archive documentaire uniquement (Git/docs) |
+| F13.4 | Hybrid (archive Git + vue/politique RO runtime bornée + OPS1 isolable) |
+| Autre / différer | — |
 
-**Statut :** `DECIDED — ADOPTED BY MORRIS`
+**Recommandation :** `RECOMMENDED — NOT DECIDED` → **F13.4**
 
-**Effet :**
+**Impacts :** impose discipline deny-write + design isolation OPS1 (D04).
 
-- F03, F11 et F13 deviennent des **gates obligatoires** avant toute préparation technique de retrait ;
-- leur **contenu** reste à arbitrer séparément.
+**Dette :** politique hybride.
 
-**Anti-claims :**
+**Réversibilité :** moyenne.
 
-- calendrier / obligation d’arbitrage décidé ≠ contenu F décidé ;
-- F03 / F11 / F13 restent `NOT DECIDED` (contenu).
+**Gate futur :** isolation design · puis implémentation sous GO distinct.
+
+**Anti-claims :** F13 ≠ isolation implémentée · ≠ ACL validée · ≠ retrait OPS1 · path-policy ≠ IAM.
+
+**Statut :** `MORRIS DECISION REQUIRED`
 
 ---
 
-## Bulletin Morris consommé (enregistrement)
+## Bulletin Morris (vierge)
 
 ```
-GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — W1-D01=W1-B — W1-D02=CONFIRM ACTIVE LEGACY BLOCKS — W1-D03=CONFIRM FUTURE REMOVAL CANDIDATES WITHOUT AUTHORIZING REMOVAL — W1-D04=ISOLATE OPS1 BEFORE ANY REMOVAL — W1-D05=DECIDE F03 F11 F13 BEFORE ANY TECHNICAL REMOVAL PREPARATION — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
+GO DECIDE T-A7 F03 F11 AND F13 — D-T-A7-F03=… — D-T-A7-F11=… — D-T-A7-F13=… — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
 ```
 
-**Statut GO :** `CONSUMED — DECISIONS RECORDED` (enregistrement documentaire uniquement).
+**Statut GO :** `NOT CONSUMED / NOT DRAFTED AS DECISION`.
 
-## Synthèse décisions
+## Synthèse recommandations (non décisionnelles)
 
-| ID | Choix | Statut |
-|----|-------|--------|
-| T-A7-W1-D01 | W1-B (`.2`) | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-W1-D02 | actifs D1 MethodMode + trio canonical + consumers method | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-W1-D03 | orphan select · MethodModeGate/route DOC ONLY · archives/duplications | `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES` |
-| T-A7-W1-D04 | isolate OPS1 before any removal | `DECIDED — ADOPTED BY MORRIS` |
-| T-A7-W1-D05 | decide F03/F11/F13 before technical removal prep | `DECIDED — ADOPTED BY MORRIS` |
-| W1-B | adopté via D01 | `DECIDED — ADOPTED BY MORRIS` |
-
-## Séquencement futur (documentaire — non exécuté)
-
-1. Plan candidat W1-B (séquences / validations / rollback / gates) — **doc only** · gate Morris distinct.
-2. Isolation OPS1 (frontière) **avant** tout retrait — D04 · **pas** implémentée ici.
-3. Arbitrage **contenu** F03 / F11 / F13 **avant** toute préparation technique de retrait — D05 · contenu encore `NOT DECIDED`.
-4. Preuves complémentaires avant retrait effectif des candidats D03.
-5. Aucune ouverture T-A7 · aucune delivery preparation / delivery / cutover.
+| ID | Option | Label |
+|----|--------|-------|
+| D-T-A7-F03 | F03.3 | `RECOMMENDED — NOT DECIDED` |
+| D-T-A7-F11 | F11.2 | `RECOMMENDED — NOT DECIDED` |
+| D-T-A7-F13 | F13.4 | `RECOMMENDED — NOT DECIDED` |
 
 ## Garde-fous
 
-- Option C adoptée · vague 1 = doc only (inventaire + décisions enregistrées)
-- T-A7 `NOT OPEN` · delivery/cutover `NOT AUTHORIZED`
+- W1-B · W1-D01…D05 : décisions Wave 1 inchangées
+- F03/F11/F13 contenu : `NOT DECIDED`
 - B5/R1/R-M01 `OPEN` · HARD `OPEN HARD`
-- F03/F11/F13 contenu `NOT DECIDED` · F08–F10 contenu `NOT DECIDED`
 - T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE`
+- T-A7 `NOT OPEN`
+- delivery preparation / delivery / cutover `NOT AUTHORIZED`
 - persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
 ```
 
