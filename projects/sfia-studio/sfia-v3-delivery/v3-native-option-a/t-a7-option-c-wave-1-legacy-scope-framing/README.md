@@ -2,72 +2,68 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Gate consommé** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — READ-ONLY DOCUMENTARY FRAMING — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
-| **Date/heure/fuseau** | 2026-07-28 14:39:41 CEST (+0200) |
-| **Cycle / profil** | 2 — Cadrage (+3 · 6 · 9 · 10 · 15) · Critical |
-| **Base** | `origin/main` @ `7a3e512f562f480c345a12a744806aa4f2ef625b` |
-| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
-| **Worktree local** | `sfia-workspace-t-a7-wave-1-legacy-scope` (hors path absolu) |
+| **Gate inventaire (historique)** | `GO FRAME T-A7 OPTION C WAVE 1 — LEGACY AND SCOPE INVENTORY — … — KEEP T-A7 NOT OPEN` |
+| **Gate décisions (consommé)** | `GO RECORD AND INTEGRATE T-A7 OPTION C WAVE 1 DECISIONS — W1-D01=W1-B — … — KEEP T-A7 NOT OPEN` |
+| **Date inventaire** | 2026-07-28 14:39:41 CEST (+0200) |
+| **Date décisions** | 2026-07-28 18:50:00 CEST (+0200) |
+| **Cycle / profil** | 15 — Capitalisation (+1 · 2 · 9 · 13 · 14) · Critical |
+| **Base** | `origin/main` @ `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
+| **Branche locale** | `record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions` |
+| **Worktree local** | `sfia-workspace-t-a7-wave-1-decisions` (hors path absolu) |
 | **Option C** | `DECIDED — ADOPTED BY MORRIS` (T-A7-D02=.3) — **aucune vague technique ouverte** |
-| **Vague 1** | **cadrage documentaire uniquement** (inventaire) |
+| **Vague 1** | inventaire + **décisions W1-D01…D05 enregistrées** · **pas** de vague technique |
+| **W1-B** | `DECIDED — ADOPTED BY MORRIS` |
 | **T-A7** | `NOT OPEN` |
 | **Delivery preparation / delivery / cutover** | `NOT AUTHORIZED` |
-| **F03 / F11 / F13** | `NOT DECIDED` (préparés, non consommés) |
+| **F03 / F11 / F13** | contenu `NOT DECIDED` · **gates obligatoires** avant prep technique retrait (W1-D05) |
 | **F08 / F09 / F10** | calendrier décidé (T-A7-D05) · contenu `NOT DECIDED` |
 | **B5 / R1 / R-M01** | `OPEN` |
 | **R-T-A3-1 / R-T-A3-2** | `OPEN HARD` |
 | **T-A6 COMPLETE** | `NOT DECLARED` |
 | **Option A** | `NOT COMPLETE` |
 | **Persistence / IAM / RGPD prod** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
-| **Push / PR** | **aucun** |
-| **Enrichissement post-inventaire** | subagents MethodMode / `method/**` / OPS1 — preuves `canonicalPaths` · dual enum · orphan select · CT/D1 coupling |
 
 ## Objectif
 
-Produire un inventaire documentaire exploitable de MethodMode, de `method/**`, d’OPS1 et de leurs dépendances, afin de préparer les arbitrages futurs F03 / F11 / F13 **sans** modifier ces composants et **sans** ouvrir T-A7.
+Inventorier MethodMode, `method/**` et OPS1, puis **enregistrer** les décisions Morris T-A7-W1-D01…D05 **sans** préparation technique, **sans** consommer le contenu F03/F11/F13, et **sans** ouvrir T-A7.
 
 ## Périmètre
 
-- inventaire MethodMode (runtime D1, UI, tests, docs) ;
-- inventaire `method/**` (structure, consommateurs, candidats) ;
-- inventaire OPS1 (docs, runtime `app/lib/ops1`, allowlist, ACL/frontières) ;
-- carte de dépendances et frontières de scope T-A7 ;
-- options W1-A/B/C · validations / rollback / stops ;
-- bulletin Morris T-A7-W1-D01…D05 (`MORRIS DECISION REQUIRED`).
+- inventaire MethodMode / `method/**` / OPS1 (PR #283) ;
+- enregistrement W1-D01…D05 · W1-B adopté ;
+- séquencement documentaire futur · stops D04/D05 ;
+- hors : exécution technique · retrait · isolation code · delivery/cutover.
 
 ## Hors périmètre
 
-- modification / suppression `method/**` · OPS1 · runtime · modeled · workflow · tests applicatifs · CI ;
+- modification / suppression `method/**` · OPS1 · runtime · modeled · workflow · tests · CI ;
+- plan technique exécutable · préparation technique de retrait ;
 - ouverture technique de vague · T-A7 B/C/D ;
 - delivery preparation / delivery / cutover ;
-- fermeture de réserves · consommation F03/F08–F13 ;
+- fermeture de réserves · consommation **contenu** F03/F08–F13 ;
 - sélection persistence / IAM · déclaration COMPLETE.
 
 ## Sources principales
 
 | Source | Rôle |
 |--------|------|
-| Pack T-A7 next-step (PR #282) | Option C · D01–D05 · vague 1 = legacy/périmètre |
-| Pack T-A7 legacy/cutover (PR #280) | P03–P11 · SC-02…SC-05 · F03/F11/F13 |
-| Code `app/lib/d1` · `app/features/d1` | MethodMode ACTIVE |
-| Code `app/lib/ops1` · `app/features/ops1` | OPS1 ACTIVE + allowlist `method/` |
-| Arbre `method/` | méthode Fast Track + complementary |
+| Pack Wave 1 sur main (PR #283) | inventaires + options + bulletin |
+| Pack T-A7 next-step (PR #282) | Option C · D01–D05 |
+| Pack T-A7 legacy/cutover (PR #280) | P03–P11 · SC · F03/F11/F13 |
+| Handoff post-merge PR #283 | preuve integration inventaire |
 | Template SFIA cycle | méthode d’exécution |
 
 ## Livrables
 
 | Fichier | Rôle |
 |---------|------|
-| `01-source-truth-and-scope.md` | Base Git · recherches · in/out scope |
-| `02-methodmode-inventory.md` | Inventaire MethodMode |
-| `03-method-directory-inventory.md` | Inventaire `method/**` |
-| `04-ops1-boundary-assessment.md` | OPS1 frontières |
-| `05-dependency-map.md` | Carte de dépendances |
-| `06-removal-and-isolation-options.md` | Options W1-A/B/C |
-| `07-validation-rollback-and-stop-conditions.md` | Preuves · stops |
-| `08-morris-decision-pack.md` | T-A7-W1-D01…D05 |
+| `01`–`05` | Inventaires / dépendances (inchangés ce cycle) |
+| `06-removal-and-isolation-options.md` | W1-B adopté |
+| `07-validation-rollback-and-stop-conditions.md` | stops D04/D05 · F gates |
+| `08-morris-decision-pack.md` | T-A7-W1-D01…D05 **enregistrées** |
+| `README.md` | synthèse · verdict · gate suivant |
 
-## Décisions existantes (rappel)
+## Décisions T-A7 (rappel)
 
 | ID | Choix | Statut |
 |----|-------|--------|
@@ -77,28 +73,32 @@ Produire un inventaire documentaire exploitable de MethodMode, de `method/**`, d
 | T-A7-D04 | `.1` | `DECIDED — ADOPTED BY MORRIS` |
 | T-A7-D05 | `.3` | `DECIDED — ADOPTED BY MORRIS` |
 
-## Décisions futures (ce pack)
+## Décisions Wave 1 (ce cycle)
 
-T-A7-W1-D01…D05 — toutes `MORRIS DECISION REQUIRED` — **aucune présélection**.
+| ID | Choix | Statut |
+|----|-------|--------|
+| T-A7-W1-D01 | W1-B — inventory + candidate removal plan | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-W1-D02 | actifs : MethodMode D1 · trio `SFIA_CANONICAL_CORE_PATHS` · consumers method | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-W1-D03 | candidats futurs : orphan select · Gate/route DOC ONLY · archives/duplications | `DECIDED — ADOPTED BY MORRIS AS FUTURE REMOVAL CANDIDATES` |
+| T-A7-W1-D04 | isolate OPS1 before any removal | `DECIDED — ADOPTED BY MORRIS` |
+| T-A7-W1-D05 | decide F03/F11/F13 before any technical removal preparation | `DECIDED — ADOPTED BY MORRIS` |
 
 ## Anti-claims
 
-- cadrage de vague ≠ vague technique ouverte
-- inventaire ≠ autorisation de retrait
-- candidat au retrait ≠ décision de suppression
-- référence trouvée ≠ usage actif
-- absence de référence ≠ preuve de non-usage
-- Option C adoptée ≠ exécution lancée
-- F préparée ≠ F consommée
-- rollback documenté ≠ rollback validé
-- T-A7 framing ≠ T-A7 OPEN
+- W1-B adopté ≠ préparation technique autorisée
+- plan candidat ≠ retrait autorisé
+- actif confirmé ≠ architecture cible / conservation définitive
+- candidat au retrait ≠ suppression décidée
+- isolation OPS1 décidée ≠ isolation implémentée
+- obligation F03/F11/F13 ≠ contenu F décidé
+- T-A7 framing / décisions Wave 1 ≠ T-A7 OPEN
 
 ## Verdict
 
-`T-A7 OPTION C WAVE 1 LEGACY AND SCOPE FRAMING COMPLETED — METHODMODE METHOD DIRECTORY AND OPS1 INVENTORIED — DEPENDENCIES AND FUTURE REMOVAL OPTIONS DOCUMENTED — MORRIS DECISIONS PREPARED WITHOUT PRESELECTION — F03 F11 AND F13 REMAIN NOT DECIDED — TECHNICAL RESERVES REMAIN OPEN — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — PROJECT BRANCH NOT PUSHED`
+`T-A7 OPTION C WAVE 1 MORRIS DECISIONS RECORDED — W1-D01 W1-B ADOPTED — ACTIVE LEGACY BLOCKS CONFIRMED — FUTURE REMOVAL CANDIDATES CONFIRMED WITHOUT AUTHORIZING REMOVAL — OPS1 ISOLATION REQUIRED BEFORE ANY REMOVAL — F03 F11 AND F13 REQUIRED BEFORE ANY TECHNICAL REMOVAL PREPARATION WHILE CONTENT REMAINS NOT DECIDED — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED`
 
 ## Gate candidat suivant
 
-`GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
+`GO FRAME T-A7 OPTION C WAVE 1 CANDIDATE REMOVAL PLAN — DOCUMENTARY W1-B SEQUENCES VALIDATIONS ROLLBACK AND GATES ONLY — NO TECHNICAL PREPARATION — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONTENT CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
 
 **Statut :** `NOT CONSUMED`
