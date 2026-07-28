@@ -51,38 +51,14 @@ T-A6 **ne lance pas** T-A7. Aucune exécution réelle ouverte par T-A6.
 
 ### Quatre niveaux (obligatoires)
 
-#### A. T-A7 framing — **ce cycle**
+| Niveau | Objectif | Entrée | Sortie | Gate | Preuve | Rollback / retour | Interdits |
+|--------|----------|--------|--------|------|--------|-------------------|-----------|
+| **A. Framing** | définir T-A7, préconditions, critères, décisions | pack créé · base `origin/main` stable | Morris valide ou demande correction | frame / review / re-review / decide framing | docs pack · anti-claims | révision documentaire | runtime · modeled · workflow · `method/**` · OPS1 · delivery · cutover |
+| **B. Delivery preparation** | backlog, AT détaillée, plan migration, tests candidats, hold/rollback **design** | framing validé + jeu préconditions B | pack prep prêt | `GO PREPARE T-A7 DELIVERY` (futur, NOT OPEN) | backlog · AT · plans tests | abandon prep / re-cadrage | cutover · retrait MethodMode · exécution réelle |
+| **C. Delivery** | code / frontières / flags / tests / migration progressive **sous hold** | prep validée + jeu préconditions C + F03/F08 | PRs + CI sous hold | delivery GO dédié (futur) | Git · CI · hold flags | revert commit · hold | activation cutover · claim COMPLETE non prouvé |
+| **D. Cutover** | retrait/désactivation effective legacy + preuves | delivery validé + jeu D + rollback prouvé + F09 | boundary proofs runtime | authorize + execute cutover (futurs) | preuves P03–P11 · rollback test · ACL | hold flag · restore | cutover sans rollback · élargissement hors Option A |
 
-- définition exacte ;
-- préconditions ;
-- critères de complétude candidats ;
-- décision pack Morris ;
-- **aucune** modification runtime, modeled, workflow, `method/**`, OPS1.
-
-#### B. T-A7 delivery preparation — **hors cycle**
-
-- backlog découpé ;
-- architecture détaillée ;
-- plan de migration ;
-- tests candidats ;
-- hold/rollback design ;
-- **aucun** cutover.
-
-#### C. T-A7 delivery — **hors cycle**
-
-- modifications code et frontières d’import ;
-- feature / hold flags ;
-- tests unitaires et d’intégration ;
-- migration progressive sous hold.
-
-#### D. T-A7 cutover — **hors cycle**
-
-- retrait ou désactivation effective ;
-- preuves runtime ;
-- rollback éprouvé ;
-- décision Morris **dédiée** et distincte.
-
-**Règle :** ces quatre niveaux ne sont **pas** équivalents. Framing ≠ open ≠ delivery ≠ cutover ≠ real execution.
+**Règle :** ces quatre niveaux ne sont **pas** équivalents et **ne s’autorisent pas cumulativement**. Framing ≠ open ≠ delivery preparation ≠ delivery ≠ cutover ≠ real execution. La satisfaction d’un niveau inférieur n’autorise pas le suivant sans gate Morris dédié.
 
 ---
 

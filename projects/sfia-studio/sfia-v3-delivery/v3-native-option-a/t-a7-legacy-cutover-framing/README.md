@@ -59,11 +59,12 @@ D-T-A7-F01…F14 — toutes **`NOT DECIDED`** — voir [05-morris-decision-pack.
 ## Gate suivant candidat
 
 ```
-GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA
-— SFIA STUDIO V3-NATIVE
+GO RE-REVIEW T-A7 FRAMING PACK AFTER CORRECTIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER
 ```
 
 **NOT CONSUMED.**
+
+> Gates déjà consommés (historique) : `GO FRAME…` · `GO REVIEW…` · `GO CORRECT…` — **ne plus** les présenter comme prochains gates.
 
 ## Anti-claims
 

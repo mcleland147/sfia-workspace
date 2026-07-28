@@ -40,7 +40,7 @@
 | T6-C07 | Non-régression T-A3–T-A5 | suites Vitest pass | documenté post-merge | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
 | T6-C08 | Erreurs fail-closed documentées | codes + tests adversariaux | présents | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
 | T6-C09 | Autorité humaine respectée (pas auto-ack Critical) | tests Critical fail-closed | présent | **SATISFIED** | non | R-T-A3-1 (hors T-A6 mémoire) | Morris | D-T-A7-F04 |
-| T6-C10 | Périmètre mémoire justifié **ou** persistence réelle | décision Morris explicite | fake-only justifié docs ; persistence absente | **PARTIAL** | si COMPLETE exige persistence | U-M02 · R1 | Morris | D-T-A7-F04 · F07 |
+| T6-C10 | Périmètre mémoire justifié **ou** persistence réelle | décision Morris explicite (F04) | fake-only justifié docs ; persistence absente | **PARTIAL** | si F04 exige persistence pour T-A6 COMPLETE | U-M02 · R1 | Morris | **D-T-A7-F04** (F07 = product vs production Option A — **distinct**, non implicite ici) |
 | T6-C11 | Réserves T-A6 traitées ou acceptées formellement | registre réserves CLOSED ou ACCEPTED | R-M01 · U-M02 · C1–C4 OPEN / NOT VALIDATED | **MISSING** | **oui** candidate | R-M01 · U-M02 · C1–C4 | Morris | D-T-A7-F04 · F08 |
 | T6-C12 | Tests T-A6 observés sous CI Required Gate | CI success sur paths Studio | workflow + gate M1 actifs post-#268 | **SATISFIED** | non | F-CI-* residual | Morris | D-T-A7-F04 |
 | T6-C13 | Documentation delivery + post-merge présents | docs 01–22 + README | présents sur main | **SATISFIED** | non | — | Morris | D-T-A7-F04 |
@@ -51,7 +51,7 @@
 
 - Techniquement : D1–D5 et CI/docs largement **SATISFIED**.
 - Gouvernance : T6-C11 + T6-C15 **MISSING** → **T-A6 COMPLETE NOT DECLARED**.
-- T6-C10 dépend de D-T-A7-F07 (product vs production) : mémoire peut rester acceptable pour un COMPLETE étroit.
+- T6-C10 dépend de **D-T-A7-F04** (définition T-A6 COMPLETE mémoire vs persistence). **D-T-A7-F07** (product complete vs production ready) est une décision **Option A**, distincte : elle n’est **pas** une condition implicite d’un T-A6 COMPLETE mémoire.
 
 ---
 
@@ -79,7 +79,7 @@
 | OA-01 | FD/FA/UX/Modeled/AT | fondation design VALIDATED | packs design | VALIDATED | **SATISFIED** | A | non | non | Morris |
 | OA-02 | T-A0…T-A6 intégrés | merges #261–#267 | Git | OUI | **SATISFIED** | B | non | non | Morris |
 | OA-03 | T-A6 COMPLETE | critères T6 + GO Morris | matrices + décision | NON | **MISSING** | B/C | **oui** candidat | oui | Morris |
-| OA-04 | T-A7 | cutover complete **ou** hors product étroit | pack + preuves | NOT OPEN | **N/A ou MISSING** | C/F | selon F06/F07 | oui cutover | Morris |
+| OA-04 | T-A7 | cutover complete **si** product inclut F ; sinon hors product étroit | pack + preuves cutover **ou** décision F06 excluant F | NOT OPEN · cutover non démarré | **CONDITIONAL — dépend F06** : `N/A` si product étroit exclut F ; `MISSING` si product/cutover exige F | C et/ou F | selon F06 | **oui** si couche F retenue | Morris |
 | OA-05 | Persistence | DB SELECTED + repos durables | ADR + migrations | absente | **MISSING** | C/D/E | selon F07 | **oui** | Morris |
 | OA-06 | Atomicité | R1 + R-T-A3-2 résolus ou acceptés | design + tests | OPEN HARD | **MISSING** | D/E | selon F07 | **oui** | Morris |
 | OA-07 | Autorité | Critical ack + supersession | API + tests | R-T-A3-1 OPEN | **MISSING** | D | **oui** real-exec | oui | Morris |

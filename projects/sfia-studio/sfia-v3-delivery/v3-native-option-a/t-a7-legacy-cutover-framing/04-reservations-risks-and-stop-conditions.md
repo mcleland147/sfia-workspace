@@ -58,44 +58,55 @@ Git **ne démontre pas** que R-T-A3-1/2 bloquent un cadrage read-only. Ils reste
 
 ---
 
-## 3. Stop conditions (obligatoires)
+## 3. Stop conditions actionnables (obligatoires)
 
-1. **Pas de delivery** sans validation Morris du framing (D-T-A7-F01…F03).
-2. **Pas de modification** `method/**` ou OPS1 sans gate dédié.
-3. **Pas de suppression MethodMode** sans preuve des remplacements (P03–P09).
-4. **Pas de cutover** sans rollback éprouvé et GO cutover distinct.
-5. **Pas d’exécution réelle** sans autorité (R-T-A3-1), atomicité (R-T-A3-2/R1), persistence, IAM et sécurité adaptées.
-6. **Pas de migration Evidence** sans politique RGPD/rétention (U-M02).
-7. **Pas de claim Option A COMPLETE** sans critères validés + preuves + GO Morris.
-8. **Pas de claim production ready** sans E2E, RUN et observabilité.
-9. **Pas de fermeture de réserve** par simple cadrage.
-10. **Divergence de `main`** affectant Option A / T-A6 / T-A7 / réserves = **re-review obligatoire** avant tout acte suivant.
-11. **Pas de push projet** de cette branche sous le gate courant.
-12. **Pas de double write** ni présentation OPS1 comme v3.
+**Règle :** aucune reprise automatique. Pour toute condition Critical : action immédiate = `STOP` · état = `BLOCKED` · reprise = gate Morris explicite **après** preuve.
+
+Responsables autorisés (rôles, non nominatifs) : Cursor (arrêt exécution locale) · ChatGPT (qualification / remontée) · Morris (décision de reprise) · owner technique / sécurité / RUN (preuve spécialisée).
+
+| ID | Niveau | Trigger | Action immédiate | Responsable | Preuve | État | Gate de reprise |
+|----|--------|---------|------------------|-------------|--------|------|-----------------|
+| **SC-01** | framing → production | `origin/main` (ou base Option A) diverge d’une façon qui affecte T-A6 / T-A7 / réserves / frontières legacy | `STOP` — geler tout acte suivant (prep/delivery/cutover/claim) | Cursor arrête ; ChatGPT qualifie l’écart ; Morris tranche | `git fetch` · `rev-parse origin/main` · merge-base · diff paths Option A / T-A* | `BLOCKED` | Gate Morris de **re-review** après rebase/relecture sur nouvelle base — **pas** de reprise auto |
+| **SC-02** | delivery preparation → cutover | Modification de `method/**` détectée hors gate Morris dédié | `STOP` — ne pas merger / ne pas continuer le cycle | Cursor arrête ; ChatGPT remonte ; owner technique produit inventaire diff | `git diff` / CI path filter · liste fichiers `method/**` touchés · absence de gate | `BLOCKED` | Gate Morris **méthode/legacy** explicite après justification — **pas** de reprise auto |
+| **SC-03** | delivery preparation → cutover | Modification OPS1 (contrats / surfaces OPS1) hors gate Morris dédié | `STOP` — isoler le changement ; pas de présentation comme v3 | Cursor arrête ; ChatGPT remonte ; owner technique/sécurité | diff OPS1 · preuve d’absence de gate · anti-claim double identité | `BLOCKED` | Gate Morris **OPS1 isolation** dédié — **pas** de reprise auto |
+| **SC-04** | delivery → cutover | Suppression ou désactivation `MethodMode` sans preuves P03–P09 / inventaire dépendances | `STOP` — hold flag ; pas de cutover | Cursor arrête ; ChatGPT qualifie ; owner technique | inventaire dépendances · tests UI/API/import · gaps P03–P09 | `BLOCKED` | Gate Morris cutover **uniquement** si preuves remplacements SATISFIED — **pas** de reprise auto |
+| **SC-05** | delivery → cutover | Remplacement legacy incomplet (canonicalPaths / sourceLoader / contextResolver / session / badges / method reads) | `STOP` — pas d’activation cutover | Cursor arrête ; ChatGPT ; owner technique | matrice P03–P09 · preuves CI/runtime manquantes | `BLOCKED` | Gate Morris après preuves remplacements — **pas** de reprise auto |
+| **SC-06** | cutover / production | Rollback / hold / restore absents ou non prouvés avant cutover | `STOP` — interdire GO cutover | Cursor arrête ; ChatGPT ; owner RUN | absence de test rollback · hold flag non vérifié · runbook manquant | `BLOCKED` | Gate Morris `GO AUTHORIZE T-A7 CUTOVER` **après** preuves rollback — **pas** de reprise auto |
+| **SC-07** | real execution / cutover / production | Exécution réelle sans autorité (R-T-A3-1), atomicité (R-T-A3-2/R1), persistence et IAM adaptés | `STOP` — aucune exécution réelle | Cursor arrête ; ChatGPT ; owner technique/sécurité | statut HARD OPEN · anti-claims DATABASE/IAM · absence adapter réel | `BLOCKED` | Gate Morris real-execution **après** résolution/acceptation formelle — **pas** de reprise auto |
+| **SC-08** | delivery → production | Evidence physique / migration blob sans politique RGPD / rétention (U-M02) | `STOP` — pas de migration Evidence | Cursor arrête ; ChatGPT ; owner sécurité/privacy | U-M02 OPEN · absence politique/vendor/purge | `BLOCKED` | Gate Morris privacy/RGPD après politique + preuves — **pas** de reprise auto |
+| **SC-09** | framing → production | Claim `T-A6 COMPLETE` ou `Option A COMPLETE` sans critères décidés + preuves + GO Morris | `STOP` — retirer/neutraliser le claim | Cursor arrête ; ChatGPT qualifie ; Morris refuse le claim | matrices T6/OA · absence T6-C15/OA-22 · absence gate COMPLETE | `BLOCKED` | Gate Morris COMPLETE dédié **après** critères + preuves — **pas** de reprise auto |
+| **SC-10** | production | Claim `production ready` sans E2E, RUN pack et observabilité | `STOP` — pas de claim production | Cursor arrête ; ChatGPT ; owner RUN | absence E2E/CI · RUN manquant · obs PARTIAL | `BLOCKED` | Gate Morris production readiness après preuves E2E/RUN/obs — **pas** de reprise auto |
+| **SC-11** | framing → production | Fermeture implicite d’une réserve (texte, matrice ou commit sans décision Morris) | `STOP` — restaurer statut OPEN / NOT VALIDATED ; pas de CLOSED implicite | Cursor corrige/arrête ; ChatGPT signale ; Morris seule autorité de fermeture | diff registre réserves · absence gate ACCEPTED/CLOSED | `BLOCKED` | Gate Morris d’arbitrage réserves explicite — **pas** de reprise auto |
+| **SC-12** | framing → cutover | Élargissement hors Option A (adoption globale, double write, OPS1 présenté comme v3, hors périmètre pack) | `STOP` — recentrer sur Option A ; pas de merge élargi | Cursor arrête ; ChatGPT qualifie le hors-scope ; Morris tranche | diff hors paths Option A · anti-claims · inventaire scope | `BLOCKED` | Gate Morris de **re-cadrage** scope Option A — **pas** de reprise auto |
+
+### Couverture complémentaire (rappel, non IDs séparés)
+
+- Delivery / delivery preparation sans framing validé → couvert par SC-09 (claims) + anti-claims pack + gates F01–F03.
+- Push branche projet hors gate → stop opérationnel Cursor/ChatGPT (hors tableau cutover) ; ne constitue **pas** une autorisation T-A7.
 
 ---
 
 ## 4. Dette acceptable temporairement
 
-| Item | Acceptable pendant framing | Acceptable jusqu’à delivery | Acceptable jusqu’à production |
-|------|----------------------------|-----------------------------|-------------------------------|
-| B5 / R1 OPEN | oui | non (sauf acceptation) | non |
-| R-T-A3-1/2 OPEN | oui | non si Critical/persistence | non |
-| R-T-A3-4 | oui | oui | oui (low) |
-| C1–C4 NOT VALIDATED | oui | à arbitrer | à arbitrer |
-| F-CI-01/04 | oui | oui | partiel |
-| M1 loose | oui | oui | **non recommandé** |
-| Absence API/UI | oui | non pour cutover opérable | non |
-| Absence persistence | oui (mémoire) | non pour cutover durable | non |
+| Item | Acceptable pendant framing | Acceptable jusqu’à delivery preparation (B) | Acceptable jusqu’à delivery (C) | Acceptable jusqu’à production |
+|------|----------------------------|-----------------------------------------------|----------------------------------|-------------------------------|
+| B5 / R1 OPEN | oui | stratégie documentée | non (sauf acceptation) | non |
+| R-T-A3-1/2 OPEN | oui | oui (design) | non si Critical/persistence | non |
+| R-T-A3-4 | oui | oui | oui | oui (low) |
+| C1–C4 NOT VALIDATED | oui | oui | à arbitrer | à arbitrer |
+| F-CI-01/04 | oui | oui | oui | partiel |
+| M1 loose | oui | oui | oui | **non recommandé** |
+| Absence API/UI | oui | oui (design) | non pour cutover opérable | non |
+| Absence persistence | oui (mémoire) | design only | non pour cutover durable | non |
 
 ---
 
 ## 5. Anti-claims
 
-Pas RESERVE CLOSED · Pas HARD résolu · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas IAM SELECTED · Pas DECIDED.
+Pas RESERVE CLOSED · Pas HARD résolu · Pas READY FOR CUTOVER · Pas PRODUCTION READY · Pas DATABASE SELECTED · Pas IAM SELECTED · Pas DECIDED · Pas reprise automatique après STOP · Pas stop condition = rollback prouvé.
 
 ---
 
 ## 6. Verdict
 
-`RESERVATIONS AND STOP CONDITIONS FRAMED — HARD BLOCKERS CLASSIFIED FOR EXECUTION NOT FRAMING — NO RESERVE CLOSED`
+`RESERVATIONS AND STOP CONDITIONS FRAMED — TWELVE ACTIONABLE STOPS WITH TRIGGERS OWNERS PROOFS AND RESUME GATES — HARD BLOCKERS CLASSIFIED FOR EXECUTION NOT FRAMING — NO RESERVE CLOSED`

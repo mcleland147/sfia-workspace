@@ -21,11 +21,11 @@
 | **Statut** | `NOT DECIDED` |
 | **Question** | Le pack `t-a7-legacy-cutover-framing` et son périmètre (niveaux A only) sont-ils validés ? |
 | **Options** | (1) ACCEPT · (2) ACCEPT WITH CHANGES · (3) REJECT · (4) DEFER |
-| **Recommandation Cursor/ChatGPT** | (1) ACCEPT — pack borné, cohérent AT-11/12 et D-T-A6-10 |
-| **Impacts** | autorise la review ; n’ouvre pas T-A7 |
+| **Recommandation Cursor/ChatGPT** | (2) ACCEPT WITH CHANGES après corrections M01/M02 — puis ACCEPT si re-review PASS |
+| **Impacts** | autorise la **re-review** puis, si PASS, un gate de **décision framing** ; n’ouvre pas T-A7 |
 | **Dette** | faible |
 | **Réversibilité** | haute |
-| **Gate futur** | `GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` |
+| **Gate futur** | `GO RE-REVIEW T-A7 FRAMING PACK AFTER CORRECTIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` puis, si PASS, `GO DECIDE T-A7 FRAMING SCOPE AND OPTION A COMPLETION DEFINITIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` |
 
 ### D-T-A7-F02 — Framing vs delivery vs cutover
 
@@ -38,7 +38,7 @@
 | **Impacts** | gates séparés obligatoires |
 | **Dette** | cycles supplémentaires |
 | **Réversibilité** | moyenne |
-| **Gate futur** | même gate review ; puis gates delivery/cutover distincts |
+| **Gate futur** | re-review puis decide framing ; ensuite gates delivery/cutover **distincts** (non ouverts) |
 
 ### D-T-A7-F03 — Préconditions d’entrée en delivery
 
@@ -188,13 +188,13 @@
 | Champ | Contenu |
 |-------|--------|
 | **Statut** | `NOT DECIDED` |
-| **Question** | Quel est le prochain cycle après validation du framing ? |
-| **Options** | (1) Review framing pack · (2) Arbitrage HARD/réserves · (3) Persistence/IAM/RGPD · (4) Delivery prep T-A7 immédiat |
-| **Recommandation Cursor/ChatGPT** | (1) puis (2) — ne pas sauter à (4) |
-| **Impacts** | trajectoire |
+| **Question** | Quel est le prochain cycle après correction du framing ? |
+| **Options** | (1) Re-review pack corrigé · (2) Décision Morris framing/définitions après PASS · (3) Arbitrage HARD/réserves · (4) Persistence/IAM/RGPD · (5) Delivery prep T-A7 immédiat |
+| **Recommandation Cursor/ChatGPT** | (1) puis (2) — **ne pas** sauter à (5) ; (3)/(4) après définitions |
+| **Impacts** | trajectoire ; empêche delivery prématuré |
 | **Dette** | nulle si suivi |
 | **Réversibilité** | haute |
-| **Gate futur** | `GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` |
+| **Gate futur** | `GO RE-REVIEW T-A7 FRAMING PACK AFTER CORRECTIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` ; ensuite `GO DECIDE T-A7 FRAMING SCOPE AND OPTION A COMPLETION DEFINITIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` |
 
 ---
 
@@ -202,7 +202,7 @@
 
 | # | Étape | Cycle SFIA | Profil | Dépendances | Fichiers probables | Gate | Stop | Preuve |
 |---|-------|------------|--------|-------------|--------------------|------|------|--------|
-| 1 | Validation Morris framing + critères | 1 / 15 | Critical | ce pack | pack T-A7 | `GO REVIEW T-A7 FRAMING…` | reject → stop | décisions F01–F07 |
+| 1 | Re-review pack corrigé puis décision Morris framing + critères | 9 / 1 / 15 | Critical | ce pack | pack T-A7 | `GO RE-REVIEW…` puis `GO DECIDE…` | reject → stop · **pas delivery** | décisions F01–F07 |
 | 2 | Arbitrage autorité / atomicité / réserves | 2 / 3 / 6 | Critical | F08 | docs décision · éventuellement T-A3/T-A1 | reserve arbitration | pas de runtime cutover | ACCEPTED/CLOSED plan |
 | 3 | Architecture persistence / IAM / RGPD | 6 / 10 | Critical | F10 | AT docs · threat/privacy | persistence/IAM/RGPD framing | pas DB live | ADR candidats |
 | 4 | Préparation delivery T-A7 | 1 / 6 | Critical | F03 | backlog · tests candidats | prepare delivery | pas code cutover | pack prep |
@@ -223,4 +223,4 @@ Aucune décision D-T-A7-F* n’est **DECIDED**. Aucune recommandation n’est un
 
 ## Verdict
 
-`MORRIS DECISION PACK T-A7 FRAMING READY FOR REVIEW — ALL DECISIONS NOT DECIDED — NEXT GATE CANDIDATE NOT CONSUMED`
+`MORRIS DECISION PACK T-A7 FRAMING READY FOR RE-REVIEW — ALL DECISIONS NOT DECIDED — NEXT GATE CANDIDATE NOT CONSUMED`
