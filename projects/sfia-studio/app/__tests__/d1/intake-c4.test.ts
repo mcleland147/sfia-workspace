@@ -20,7 +20,7 @@ import {
 import {
   resetMethodModeHoldForTests,
   setMethodModeHoldForTests,
-} from "@/lib/d1/methodModeHold";
+} from "@/lib/d1/methodModeHold.test-only";
 
 describe("D1-C4 confirmation contracts", () => {
   it("allowlists actionType and requires explicit confirmation", () => {

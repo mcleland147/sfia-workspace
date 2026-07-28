@@ -8,7 +8,7 @@ import {
   BoundedHistoryMutationError,
 } from "@/lib/platform/t-a7/boundedHistoryRead";
 import { queryOperationalReadiness } from "@/lib/d1/operationalReadiness";
-import { resetMethodModeHoldForTests } from "@/lib/d1/methodModeHold";
+import { resetMethodModeHoldForTests } from "@/lib/d1/methodModeHold.test-only";
 
 describe("T-A7 lot1 F13.4 bounded history foundation", () => {
   it("reads a bounded immutable documentary page with Git canonical", () => {

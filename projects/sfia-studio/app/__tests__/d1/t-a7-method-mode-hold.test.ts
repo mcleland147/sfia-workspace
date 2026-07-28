@@ -11,9 +11,11 @@ import {
   decideMethodModeTransition,
   getDefaultMethodModeHoldState,
   readMethodModeHold,
+} from "@/lib/d1/methodModeHold";
+import {
   resetMethodModeHoldForTests,
   setMethodModeHoldForTests,
-} from "@/lib/d1/methodModeHold";
+} from "@/lib/d1/methodModeHold.test-only";
 
 describe("T-A7 lot1 MethodMode hold", () => {
   let tmpDir: string;
@@ -91,6 +93,20 @@ describe("T-A7 lot1 MethodMode hold", () => {
       activate: true,
     });
     expect(updated.methodMode).toBe("TRANSITION");
+  });
+
+  it("blocks when hold is active even with empty reasons", () => {
+    setMethodModeHoldForTests({ active: true, reasons: [] });
+    expect(decideMethodModeTransition().allowed).toBe(false);
+    expect(() => assertMethodModeTransitionAllowed()).toThrow(/ACTIVE_NO_REASONS|hold/i);
+  });
+
+  it("resets override to default active hold between tests", () => {
+    setMethodModeHoldForTests({ active: false, reasons: [] });
+    expect(decideMethodModeTransition().allowed).toBe(true);
+    resetMethodModeHoldForTests();
+    expect(readMethodModeHold().active).toBe(true);
+    expect(decideMethodModeTransition().allowed).toBe(false);
   });
 
   it("readMethodModeHold is deterministic for reason codes", () => {

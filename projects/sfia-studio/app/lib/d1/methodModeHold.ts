@@ -1,44 +1,26 @@
 /**
  * T-A7 Lot 1 — MethodMode hold (evaluation-only, no schema migration).
  * Default: ACTIVE while structural blockers remain open.
- * TEST/DIAGNOSTIC overrides are test-only and must not ship as product IAM.
+ *
+ * Test overrides: `methodModeHold.test-only.ts` only (never barrel-exported).
  */
 
 import { D1Error } from "./errors";
 import { logD1 } from "./observability";
+import { methodModeHoldOverrideSlot } from "./methodModeHold.store";
+import type {
+  MethodModeHoldReason,
+  MethodModeHoldState,
+  MethodModeTransitionDecision,
+} from "./methodModeHold.types";
 
-export const METHOD_MODE_HOLD_REASON_CODES = [
-  "B5_OPEN",
-  "R1_OPEN",
-  "R_M01_OPEN",
-  "HARD_OPEN",
-  "T_A7_BOUNDED_LOT_ACTIVE",
-  "F11_2_INCOMPLETE",
-  "F13_4_INCOMPLETE",
-] as const;
-
-export type MethodModeHoldReasonCode =
-  (typeof METHOD_MODE_HOLD_REASON_CODES)[number];
-
-export interface MethodModeHoldReason {
-  code: MethodModeHoldReasonCode;
-  detail: string;
-}
-
-export interface MethodModeHoldState {
-  active: boolean;
-  reasons: readonly MethodModeHoldReason[];
-  evaluatedAt: string;
-  provenance: "governance-default" | "test-override";
-  completeness: "BOUNDED_LOT_1";
-}
-
-export interface MethodModeTransitionDecision {
-  allowed: boolean;
-  hold: MethodModeHoldState;
-  decision: "ALLOW" | "BLOCK";
-  authorization: "NOT_AUTHORIZED_WHEN_HOLD_ACTIVE" | "ALLOWED_WHEN_HOLD_INACTIVE";
-}
+export {
+  METHOD_MODE_HOLD_REASON_CODES,
+  type MethodModeHoldReasonCode,
+  type MethodModeHoldReason,
+  type MethodModeHoldState,
+  type MethodModeTransitionDecision,
+} from "./methodModeHold.types";
 
 const DEFAULT_REASONS: readonly MethodModeHoldReason[] = [
   {
@@ -71,8 +53,6 @@ const DEFAULT_REASONS: readonly MethodModeHoldReason[] = [
   },
 ] as const;
 
-let testOverride: MethodModeHoldState | null = null;
-
 function nowIso(): string {
   return new Date().toISOString();
 }
@@ -92,11 +72,12 @@ export function getDefaultMethodModeHoldState(
 export function readMethodModeHold(
   evaluatedAt = nowIso(),
 ): MethodModeHoldState {
-  if (testOverride) {
+  const override = methodModeHoldOverrideSlot.current;
+  if (override) {
     return {
-      ...testOverride,
+      ...override,
       evaluatedAt,
-      reasons: [...testOverride.reasons],
+      reasons: [...override.reasons],
     };
   }
   return getDefaultMethodModeHoldState(evaluatedAt);
@@ -104,7 +85,8 @@ export function readMethodModeHold(
 
 export function decideMethodModeTransition(): MethodModeTransitionDecision {
   const hold = readMethodModeHold();
-  if (hold.active && hold.reasons.length > 0) {
+  // Conservative: any active hold blocks, even with empty reasons.
+  if (hold.active) {
     return {
       allowed: false,
       hold,
@@ -123,7 +105,8 @@ export function decideMethodModeTransition(): MethodModeTransitionDecision {
 export function assertMethodModeTransitionAllowed(): MethodModeTransitionDecision {
   const decision = decideMethodModeTransition();
   if (!decision.allowed) {
-    const codes = decision.hold.reasons.map((r) => r.code).join(",");
+    const codes =
+      decision.hold.reasons.map((r) => r.code).join(",") || "ACTIVE_NO_REASONS";
     logD1("method_mode_hold_blocked", {
       status: "blocked",
       reasonCount: decision.hold.reasons.length,
@@ -139,25 +122,4 @@ export function assertMethodModeTransitionAllowed(): MethodModeTransitionDecisio
     provenance: decision.hold.provenance,
   });
   return decision;
-}
-
-/** TEST ONLY — restore default conservative hold. */
-export function resetMethodModeHoldForTests(): void {
-  testOverride = null;
-}
-
-/** TEST ONLY — override hold state (e.g. inactive for legacy foundation tests). */
-export function setMethodModeHoldForTests(
-  state: Omit<MethodModeHoldState, "evaluatedAt" | "provenance" | "completeness"> &
-    Partial<
-      Pick<MethodModeHoldState, "evaluatedAt" | "provenance" | "completeness">
-    >,
-): void {
-  testOverride = {
-    active: state.active,
-    reasons: Object.freeze([...state.reasons]),
-    evaluatedAt: state.evaluatedAt ?? nowIso(),
-    provenance: state.provenance ?? "test-override",
-    completeness: state.completeness ?? "BOUNDED_LOT_1",
-  };
 }

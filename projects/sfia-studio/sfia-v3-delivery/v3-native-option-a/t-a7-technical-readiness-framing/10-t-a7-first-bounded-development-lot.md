@@ -21,10 +21,13 @@
 ## Architecture minimale
 
 ```
-lib/d1/methodModeHold.ts          → hold + gate selectMethodMode
-lib/d1/operationalReadiness.ts    → F11.2 query (compose hold + history)
-lib/d1/commands.ts                → assert hold before transition
-lib/platform/t-a7/boundedHistoryRead.ts → F13.4 provider documentary/Git refs
+lib/d1/methodModeHold.ts                 → hold + gate selectMethodMode (product)
+lib/d1/methodModeHold.types.ts           → types only
+lib/d1/methodModeHold.store.ts           → override slot (internal; not barrel-exported)
+lib/d1/methodModeHold.test-only.ts       → set/reset TEST ONLY (not barrel-exported)
+lib/d1/operationalReadiness.ts           → F11.2 query (compose hold + history)
+lib/d1/commands.ts                       → assert hold before transition
+lib/platform/t-a7/boundedHistoryRead.ts  → F13.4 provider documentary/Git refs
 ```
 
 Couplage lecture : F11.2 → hold + F13 page summary. Aucune mutation croisée.
@@ -32,8 +35,9 @@ Couplage lecture : F11.2 → hold + F13 page summary. Aucune mutation croisée.
 ## MethodMode hold
 
 - Défaut **ACTIVE** avec raisons : B5 · R1 · R-M01 · HARD · T-A7 lot · F11 incomplete · F13 incomplete.
-- `selectMethodMode` refuse si hold actif (`D1Error CONFLICT`).
-- Overrides **TEST ONLY**.
+- `selectMethodMode` refuse si hold actif (`D1Error CONFLICT`), y compris `active=true` avec raisons vides.
+- Overrides **TEST ONLY** via `methodModeHold.test-only.ts` — **non réexportés** par `lib/d1/index.ts`.
+- Frontière statique : `__tests__/d1/t-a7-method-mode-hold-boundaries.test.ts`.
 - Anti-claim : hold ≠ blockers fermés · ≠ IAM.
 
 ## F11.2
@@ -54,8 +58,8 @@ Couplage lecture : F11.2 → hold + F13 page summary. Aucune mutation croisée.
 
 ## Tests
 
-- hold · readiness · history · integration · foundation · intake-c4 (hold override) · probes O2 · import-boundaries
-- **93 passed** (suite d1 + probes ciblés) · typecheck OK
+- hold · readiness · history · boundaries override · integration · foundation · intake-c4 (hold override) · probes O2 · import-boundaries
+- **99 passed** (suite d1 + probes ciblés après harden) · typecheck OK · lint OK · build OK
 
 ## Limitations / blockers restants
 

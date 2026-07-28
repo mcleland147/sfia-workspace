@@ -7,7 +7,7 @@ import {
 import {
   resetMethodModeHoldForTests,
   setMethodModeHoldForTests,
-} from "@/lib/d1/methodModeHold";
+} from "@/lib/d1/methodModeHold.test-only";
 import {
   createUnavailableBoundedHistoryProvider,
 } from "@/lib/platform/t-a7/boundedHistoryRead";

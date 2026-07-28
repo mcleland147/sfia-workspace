@@ -11,7 +11,7 @@
 | **Verdict après lot 1** | `F03.3 PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
 | **Prep technique O2** | autorisée par gate courant · **bornée** |
 | **Prep au-delà / delivery / cutover** | `PROHIBITED` |
-| **T-A7** | `NOT OPEN` |
+| **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
 
 ---
 

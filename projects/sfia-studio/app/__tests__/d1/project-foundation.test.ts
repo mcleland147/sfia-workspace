@@ -18,7 +18,7 @@ import {
 import {
   resetMethodModeHoldForTests,
   setMethodModeHoldForTests,
-} from "@/lib/d1/methodModeHold";
+} from "@/lib/d1/methodModeHold.test-only";
 
 describe("d1 domain", () => {
   it("accepts authorized method modes", () => {
