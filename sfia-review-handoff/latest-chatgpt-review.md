@@ -1,426 +1,322 @@
-# ChatGPT Review Pack — FULL — T-A7 Documentary PR Creation
+# ChatGPT Review Pack — FULL — T-A7 PR #280 Merge Readiness
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-28 08:11:59 CEST (+0200) |
-| **Cycle principal** | 7 — Intégration / DevOps |
-| **Cycles complémentaires** | 13 — PR readiness · 9 — QA / validation · 15 — Capitalisation · 1 — Cadrage de gouvernance |
+| **Date/heure/fuseau** | 2026-07-28 08:21:11 CEST (+0200) |
+| **Cycle principal** | 13 — PR readiness |
+| **Cycles complémentaires** | 9 — QA · 7 — DevOps · 15 — Capitalisation · 1 — Cadrage / gouvernance |
 | **Profil** | Critical |
-| **Typologie** | GIT-PUSH / PR-CREATION / DOCUMENTATION / T-A7 / NO-MERGE / NO-DELIVERY |
-| **Gate consommé** | `GO PUSH T-A7 FRAMING DECISION BRANCH AND CREATE DOCUMENTARY PR — SFIA STUDIO V3-NATIVE — NO MERGE — NO DELIVERY OR CUTOVER` |
+| **Typologie** | PR-REVIEW / MERGE-READINESS / DOCUMENTATION / T-A7 / NO-MERGE / NO-DELIVERY |
+| **Gate consommé** | `GO REVIEW T-A7 DOCUMENTARY PR AND DECIDE MERGE — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER` |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
-| **Branche projet** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
-| **HEAD** | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` |
-| **Parent** | `822a312476d42c31d5feebba0be801b553641f8a` |
-| **Base / merge-base** | `c472eb412f3ade3e94fee9201042794fee502d8f` (`origin/main`) |
-| **Template / handoff lus** | template v2.6 + handoff PR readiness `ae57ad92792223897de63d8c5c517a06084b604a` |
-| **CKC** | candidate/absent — experimental cognitive guidance only — no authority beyond Morris gate |
+| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
+| **PR** | **#280** — https://github.com/mcleland147/sfia-workspace/pull/280 |
+| **Template / handoff lus** | template v2.6 · handoff création blob `0433e55cbad28fdbd3b5efbee25d94361981b0a2` |
+| **CKC** | candidate/absent — guidance expérimentale — **aucune autorité de merge** |
 
 ## Verdict exact
 
-`SFIA STUDIO T-A7 FRAMING DECISION BRANCH PUSHED AND DOCUMENTARY PR CREATED — REMOTE HEAD VERIFIED — PR BASE MAIN AND HEAD SCOPE CONFIRMED — SIX DOCUMENTARY FILES ONLY — NO AUTO-MERGE — MORRIS MERGE GATE REQUIRED — T-A7 NOT OPEN — DELIVERY AND CUTOVER NOT AUTHORIZED — OPTION A NOT COMPLETE`
+`SFIA STUDIO T-A7 DOCUMENTARY PR #280 REVIEWED — MERGE RECOMMENDED WITH NON-BLOCKING RESERVATIONS UNDER DISTINCT MORRIS MERGE GATE — T-A7 NOT OPEN — DELIVERY AND CUTOVER NOT AUTHORIZED — OPTION A NOT COMPLETE`
 
-## Anti-claims
+## Décision de recommandation
 
-- PR créée ≠ PR mergée
-- framing VALIDATED ≠ T-A7 OPEN
-- définition COMPLETE ≠ déclaration COMPLETE
-- product complete ≠ production ready
+**MERGE RECOMMENDED WITH RESERVATIONS**
+
+`MERGE NOT EXECUTED — DISTINCT MORRIS MERGE GATE REQUIRED`
+
+## Anti-claims (post-merge éventuel)
+
+- merge documentaire ≠ ouverture T-A7
+- merge documentaire ≠ delivery preparation / delivery / cutover
+- définition T-A6 COMPLETE ≠ déclaration T-A6 COMPLETE
+- définition Option A product complete ≠ Option A COMPLETE
 - A5.2 trajectory ≠ A5.2 executed
 - F03/F08–F13 restent NOT DECIDED
-- merge ≠ delivery
-- merge ne doit pas ouvrir T-A7
-- push ≠ autorisation de merge
-- handoff publish ≠ modification projet
+- aucune réserve fermée par ce merge
+- recommandation ≠ merge exécuté
 
 ---
 
-## 1. Local Git Truth Check (avant action distante)
+## 1. Local Git Truth
 
-Horodatage truth-pre : 2026-07-28 08:09:13 CEST
-
-```
-BRANCH=framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
-HEAD=b7a5e827fddb7e80f03a71b3b64ca89271ede0a6
-PARENT=822a312476d42c31d5feebba0be801b553641f8a
-MAIN=c472eb412f3ade3e94fee9201042794fee502d8f
-MB=c472eb412f3ade3e94fee9201042794fee502d8f
-UPSTREAM=aucun (fatal: no upstream configured)
-worktree=propre · staged=aucun · untracked=aucun · opération Git active=aucune
-SHOW_CHECK_OK
-```
-
-Périmètre `origin/main...HEAD` :
-
-- 6 fichiers **A** uniquement sous `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/`
-- 897 insertions / 0 deletions
-- aucun fichier hors pack ; aucun runtime / modeled / workflow / method/** / OPS1
-- 3 commits exacts :
-  1. `27dbf60574b8ec82990600827934dc56e256b50f` — frame T-A7 cutover and Option A completion criteria
-  2. `822a312476d42c31d5feebba0be801b553641f8a` — correct T-A7 framing review findings
-  3. `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` — record Morris T-A7 framing decisions
-
-**Verdict truth :** PASS — aucune divergence — remote action autorisée par le gate.
-
----
-
-## 2. PR readiness initiale (revalidation)
-
-Handoff initial :
-
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- blob : `ae57ad92792223897de63d8c5c517a06084b604a`
-
-Confirmations :
-
-| Contrôle | Résultat |
-|----------|----------|
-| Verdict | `DOCUMENTARY PR READINESS PASS WITH NON-BLOCKING RESERVATIONS` |
-| Critical | aucun |
-| Major | aucun |
-| Blocker PR | aucun |
-| Blocker merge documentaire | aucun |
-| A1–A5 transcrites | PASS (A1.1 / A2.1 / A3.2 / A4.1 / A5.1) |
-| F01/F02/F04/F05/F06/F07/F14 | DECIDED |
-| F03/F08–F13 | NOT DECIDED |
-| T-A7 | NOT OPEN |
-| delivery/cutover | NOT AUTHORIZED |
-| Option A | NOT COMPLETE |
-
-Réserves non bloquantes acceptées (pack non modifié) :
-
-- **O-PR-01** : gate README historique
-- **O-PR-02** : taxonomie encore locale au pack
-- **O-PR-03** : A5.2 non exécuté
-- **O-PR-04** : chemins `/Users/...` comme métadonnées
-
----
-
-## 3. Recherche de PR existante
-
-Commandes :
-
-- `gh pr list --state all --head framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions`
-- recherche titre proche : `docs(sfia-studio): validate T-A7 framing and completion definitions`
-
-Résultat : **aucune PR ouverte/fermée/mergée** associée avant push.
-
-→ Push + création PR autorisés.
-
----
-
-## 4. Push branche projet
-
-Commande exacte :
-
-```
-git push -u origin framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
-```
-
-Horodatage : 2026-07-28 08:09:41 CEST
-
-Résultat :
-
-- nouvelle branche distante créée
-- upstream configuré : `origin/framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions`
-- remote SHA = `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6`
-- local HEAD = remote branch
-- `origin/main` inchangé = `c472eb412f3ade3e94fee9201042794fee502d8f`
-- **aucun** `--force` / `--force-with-lease` / tag / push main / push handoff
-
-**Verdict push :** `PROJECT BRANCH PUSHED — REMOTE HEAD VERIFIED`
-
----
-
-## 5. Création PR documentaire
-
-Commande : `gh pr create --base main --head framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions`
-
-| Champ | Valeur |
-|-------|--------|
-| **Numéro** | **#280** |
-| **URL** | https://github.com/mcleland147/sfia-workspace/pull/280 |
-| **Titre** | `docs(sfia-studio): validate T-A7 framing and completion definitions` |
-| **État** | OPEN |
-| **Draft** | non — ready for review |
-| **Base** | `main` |
-| **Head** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
-| **Head SHA** | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` |
-| **Commits** | 3 |
-| **Fichiers** | 6 (tous ADDED dans le pack) |
-| **Additions / deletions** | +897 / −0 |
-| **Auteur** | `mcleland147` |
-| **CreatedAt** | 2026-07-28T06:09:45Z |
-| **mergeable** | MERGEABLE |
-| **mergeStateStatus** | BLOCKED (ruleset / checks — attendu ; **pas** un merge) |
-| **auto-merge** | **absent** (`autoMergeRequest: null`) |
-| **Labels** | aucun |
-| **Reviewers** | aucun |
-
-### Description PR complète
-
-```markdown
-## Contexte
-
-Cette PR ajoute le pack documentaire de framing T-A7 pour SFIA Studio Option A et enregistre les décisions Morris relatives :
-
-- au périmètre T-A7 ;
-- au modèle A/B/C/D ;
-- à la taxonomie de complétude ;
-- à la définition T-A6 COMPLETE ;
-- à la définition Option A product complete ;
-- au prochain cycle documentaire.
-
-Base initiale du travail :
-
-`main` @ `c472eb412f3ade3e94fee9201042794fee502d8f`
-
-Historique de la branche :
-
-- framing initial ;
-- correction après review ;
-- enregistrement des décisions Morris.
-
-## Périmètre
-
-La PR ajoute uniquement les six fichiers du pack :
-
-- `README.md`
-- `01-framing-and-scope.md`
-- `02-t-a7-cutover-preconditions.md`
-- `03-t-a6-and-option-a-completion-criteria.md`
-- `04-reservations-risks-and-stop-conditions.md`
-- `05-morris-decision-pack.md`
-
-Path :
-
-`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/`
-
-Aucune modification :
-
-- runtime ;
-- modeled ;
-- workflow ;
-- `method/**` ;
-- OPS1 ;
-- code applicatif ;
-- CI ;
-- configuration de production.
-
-## Décisions Morris
-
-Décisions enregistrées :
-
-- A1.1 — framing et niveaux A/B/C/D acceptés ;
-- A2.1 — taxonomie de complétude adoptée ;
-- A3.2 — product complete exige une surface API/UI minimale utilisable ;
-- A4.1 — T-A6 COMPLETE peut être défini dans un périmètre mémoire borné ;
-- A5.1 — formalisation documentaire puis PR readiness.
-
-Réserve Morris :
-
-- enchaîner ensuite sur A5.2 via un gate distinct.
-
-Décisions consommées :
-
-- F01 ;
-- F02 ;
-- F04 ;
-- F05 ;
-- F06 ;
-- F07 ;
-- F14.
-
-Décisions restant `NOT DECIDED` :
-
-- F03 ;
-- F08 ;
-- F09 ;
-- F10 ;
-- F11 ;
-- F12 ;
-- F13.
-
-## Effets
-
-- framing T-A7 : `VALIDATED`
-- modèle A/B/C/D : `ADOPTED`
-- T-A6 COMPLETE definition : `DEFINED`
-- Option A product complete definition : `DEFINED`
-- `product complete ≠ production ready`
-- prochain cycle : traitement documentaire de cette PR
-- cycle suivant prévu : A5.2 via gate Morris distinct.
-
-## Non-effets
-
-Cette PR :
-
-- n’ouvre pas T-A7 ;
-- n’autorise pas le delivery preparation ;
-- n’autorise pas le delivery ;
-- n’autorise pas le cutover ;
-- ne déclare pas T-A6 COMPLETE ;
-- ne déclare pas Option A COMPLETE ;
-- ne ferme aucune réserve ;
-- ne sélectionne aucune persistance ;
-- ne lance aucune implémentation API/UI ;
-- n’exécute pas A5.2.
-
-## Validations
-
-- PR readiness documentaire : PASS WITH NON-BLOCKING RESERVATIONS
-- transcription A1–A5 : PASS
-- décision overreach : aucun
-- `git diff --check` : PASS
-- périmètre : six fichiers uniquement
-- aucun secret ou contenu temporaire identifié.
-
-## Réserves non bloquantes
-
-- certains gates restent cités comme historique ;
-- la taxonomie de complétude reste locale au pack avant propagation ultérieure ;
-- A5.2 est une trajectoire, pas une autorisation ;
-- certains chemins locaux sont conservés comme métadonnées de traçabilité.
-
-## Anti-claims
-
-- PR créée ≠ PR mergée ;
-- framing VALIDATED ≠ T-A7 OPEN ;
-- définition COMPLETE ≠ déclaration COMPLETE ;
-- product complete ≠ production ready ;
-- A5.2 trajectory ≠ A5.2 executed ;
-- F03/F08–F13 restent NOT DECIDED ;
-- merge ≠ delivery ;
-- merge ne doit pas ouvrir T-A7.
-
-## Checklist de review
-
-- [ ] Les décisions A1.1/A2.1/A3.2/A4.1/A5.1 sont transcrites exactement.
-- [ ] F01/F02/F04/F05/F06/F07/F14 sont décidées.
-- [ ] F03/F08–F13 restent `NOT DECIDED`.
-- [ ] T-A7 reste `NOT OPEN`.
-- [ ] T-A6 et Option A restent non déclarées COMPLETE.
-- [ ] Aucune réserve n’est fermée.
-- [ ] Le périmètre reste limité aux six fichiers documentaires.
-- [ ] Aucun merge sans GO Morris dédié.
-
-## Gate suivant
-
-Le merge reste soumis à un GO Morris séparé après review de la PR.
-
-Ne pas inclure de formule pouvant être interprétée comme autorisation de merge.
-
-Made with [Cursor](https://cursor.com)
-```
-
----
-
-## 6. Checks initiaux
-
-Au moment de la vérification post-création :
-
-| Check | Status |
-|-------|--------|
-| Detect SFIA Studio changes | pass (~4s) |
-| Build and validate SFIA Studio | pending |
-
-Run : https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429
-
-Aucun auto-merge activé. Aucun merge effectué.
-
----
-
-## 7. Contrôles post-création
-
-Après `git fetch origin --prune` :
+Horodatage : 2026-07-28 08:18:48 CEST
 
 | Contrôle | Valeur |
 |----------|--------|
-| Local HEAD | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` (inchangé) |
+| BRANCH | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
+| HEAD local | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` |
 | Parent | `822a312476d42c31d5feebba0be801b553641f8a` |
-| Remote branch SHA | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` |
+| Remote branch | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` |
 | Upstream | `origin/framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
-| `origin/main` avant | `c472eb412f3ade3e94fee9201042794fee502d8f` |
-| `origin/main` après | `c472eb412f3ade3e94fee9201042794fee502d8f` (inchangé) |
-| Worktree | propre |
-| Nouveau commit projet | **aucun** |
-| Fichiers projet modifiés | **aucun** |
+| `origin/main` | `c472eb412f3ade3e94fee9201042794fee502d8f` |
+| merge-base | `c472eb412f3ade3e94fee9201042794fee502d8f` |
+| Worktree | propre · aucun staged/untracked · aucune op. Git active |
+| Commits vs main | 3 exacts |
+| Périmètre | 6 fichiers A · +897/−0 · pack uniquement |
+| `git diff --check` | PASS |
+
+**Verdict truth :** PASS — aucune divergence.
 
 ---
 
-## 8. Six blobs finaux (HEAD)
+## 2. État PR #280
 
-Path prefix : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/`
+| Champ | Valeur |
+|-------|--------|
+| État | **OPEN** |
+| Draft | non |
+| Merged | non (`mergedAt: null`) |
+| Titre | `docs(sfia-studio): validate T-A7 framing and completion definitions` |
+| Base | `main` @ `c472eb412f3ade3e94fee9201042794fee502d8f` |
+| Head | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
+| Head SHA | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` |
+| Commits | 3 |
+| Fichiers | 6 |
+| Stats | +897 / −0 |
+| mergeable | **MERGEABLE** |
+| mergeStateStatus | **CLEAN** |
+| auto-merge | **absent** |
+| Labels | aucun |
+| Reviewers | aucun |
+| reviewDecision | vide (0 approving review requis par ruleset) |
+| Approvals | 0 (non requis) |
+
+Head SHA inchangé depuis création — **pas** de `STOP — PR #280 HEAD CHANGED`.
+
+---
+
+## 3. Checks
+
+Verdict checks : **`CI REQUIRED CHECKS PASS`**
+
+Tous les check-runs portent le head SHA exact `b7a5e827fddb…`.
+
+| Check | Required? | Status | Conclusion | Start (UTC) | End (UTC) | URL |
+|-------|-----------|--------|------------|-------------|-----------|-----|
+| Detect SFIA Studio changes | non (facultatif observé) | completed | **success** | 2026-07-28T06:09:50Z | 2026-07-28T06:09:54Z | https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429/job/90194622055 |
+| Build and validate SFIA Studio | non (facultatif observé) | completed | **success** | 2026-07-28T06:10:03Z | 2026-07-28T06:11:25Z | https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429/job/90194638563 |
+| SFIA Studio Required Gate | **oui** (ruleset main) | completed | **success** | 2026-07-28T06:11:29Z | 2026-07-28T06:11:33Z | https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429/job/90194879892 |
+
+Run associé : https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429
+
+`gh pr checks` :
+
+```
+Build and validate SFIA Studio	pass	1m22s	https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429/job/90194638563
+Detect SFIA Studio changes	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429/job/90194622055
+SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/30333894429/job/90194879892
+```
+
+Ruleset `main` : required context = `SFIA Studio Required Gate` ; `required_approving_review_count` = 0.
+
+---
+
+## 4. Reviews / commentaires / threads
+
+| Source | Count |
+|--------|-------|
+| Reviews GitHub | **0** |
+| Issue comments | **0** |
+| Review (inline) comments | **0** |
+| Review threads | **0** |
+| Threads non résolus | **0** |
+| CHANGES_REQUESTED | **aucun** |
+| Bot / security findings | **aucun observé** |
+
+Aucun commentaire créé après le handoff de création. **Aucun blocker review.**
+
+---
+
+## 5. Diff complet
+
+Comparaison :
+
+- `git diff origin/main...HEAD` (local)
+- `gh pr diff 280` (GitHub)
+
+Résultat : **contenu identique** (seule différence cosmétique : longueur d’abbréviation des lignes `index` SHA). Name-status identique. 6 fichiers **added** uniquement.
+
+```
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md
+```
+
+Path prefix exclusif :
+
+`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/`
+
+Aucune suppression · aucun renommage · aucun runtime/modeled/workflow/`method/**`/OPS1 · aucun secret détecté.
+
+### Six blobs (HEAD)
 
 | Fichier | Blob |
 |---------|------|
-| `README.md` | `4ca57f0f88f11a1b33084490542ca7c2df86b428` |
-| `01-framing-and-scope.md` | `0713d7184cc40fb1e5867780f15bedd670c60d52` |
-| `02-t-a7-cutover-preconditions.md` | `dbf5035713257628f012d318a2831777838ed7cb` |
-| `03-t-a6-and-option-a-completion-criteria.md` | `0714e6feb024983d4a04d7f69cd31a01a2db8148` |
-| `04-reservations-risks-and-stop-conditions.md` | `dc0514ed73c2511de80373aa919ad6686900ec11` |
-| `05-morris-decision-pack.md` | `aacef4d7a3448b08c940e7cbfa0bfe51bdc1b983` |
+| README.md | `4ca57f0f88f11a1b33084490542ca7c2df86b428` |
+| 01-framing-and-scope.md | `0713d7184cc40fb1e5867780f15bedd670c60d52` |
+| 02-t-a7-cutover-preconditions.md | `dbf5035713257628f012d318a2831777838ed7cb` |
+| 03-t-a6-and-option-a-completion-criteria.md | `0714e6feb024983d4a04d7f69cd31a01a2db8148` |
+| 04-reservations-risks-and-stop-conditions.md | `dc0514ed73c2511de80373aa919ad6686900ec11` |
+| 05-morris-decision-pack.md | `aacef4d7a3448b08c940e7cbfa0bfe51bdc1b983` |
 
-Contenu intégral non répété — blobs vérifiés inchangés depuis le handoff PR readiness.
+Identiques au handoff PR readiness / création.
+
+Diff complet archivé : `.tmp-sfia-review/t-a7-pr280-review/pr.diff` (933 lignes).
 
 ---
 
-## 9. Décisions F / T-A6 / Option A / T-A7
+## 6. Décisions Morris
+
+**`DECISION TRANSCRIPTION PASS`** · **`NO DECISION OVERREACH`**
+
+| Ballot | Choix | F liées | Statut |
+|--------|-------|---------|--------|
+| A1 | **A1.1** | F01 · F02 | `DECIDED — ACCEPTED BY MORRIS` |
+| A2 | **A2.1** | F05 · F07 | `DECIDED — ADOPTED BY MORRIS` |
+| A3 | **A3.2** | F06 | `DECIDED — ADOPTED BY MORRIS` |
+| A4 | **A4.1** | F04 | `DECIDED — ADOPTED BY MORRIS` |
+| A5 | **A5.1** | F14 | `DECIDED — ADOPTED BY MORRIS` |
+| Réserve | **THEN A5.2 VIA DISTINCT GATE** | — | trajectoire · **non exécutée** |
+
+### F01–F14
+
+| ID | Statut |
+|----|--------|
+| F01 | `DECIDED — ACCEPTED BY MORRIS` |
+| F02 | `DECIDED — ACCEPTED BY MORRIS` |
+| F03 | `NOT DECIDED` |
+| F04 | `DECIDED — ADOPTED BY MORRIS` |
+| F05 | `DECIDED — ADOPTED BY MORRIS` |
+| F06 | `DECIDED — ADOPTED BY MORRIS` |
+| F07 | `DECIDED — ADOPTED BY MORRIS` |
+| F08 | `NOT DECIDED` |
+| F09 | `NOT DECIDED` |
+| F10 | `NOT DECIDED` |
+| F11 | `NOT DECIDED` |
+| F12 | `NOT DECIDED` |
+| F13 | `NOT DECIDED` |
+| F14 | `DECIDED — ADOPTED BY MORRIS` |
+
+Vérifié : A5.2 non exécuté · aucune réserve fermée · aucune persistance sélectionnée · aucune implémentation API/UI autorisée · aucun claim COMPLETE satisfait.
+
+---
+
+## 7. T-A6 / Option A / T-A7
 
 | Item | Statut |
 |------|--------|
-| F01, F02, F04, F05, F06, F07, F14 | DECIDED |
-| F03, F08, F09, F10, F11, F12, F13 | NOT DECIDED |
-| framing T-A7 | VALIDATED (documentaire) |
+| framing T-A7 | VALIDATED |
 | T-A7 | **NOT OPEN** |
-| T-A6 COMPLETE | définition DEFINED — **NOT DECLARED** |
-| Option A product complete | définition DEFINED — Option A **NOT COMPLETE** |
+| T-A6 COMPLETE | définition **DEFINED** — **NOT DECLARED** |
+| Option A product complete | définition **DEFINED** — Option A **NOT COMPLETE** |
 | delivery / cutover | **NOT AUTHORIZED** |
 
----
-
-## 10. Actions non exécutées
-
-- amend / rebase / reset / squash / cherry-pick / force push
-- modification fichier projet / nouveau commit projet
-- merge / auto-merge / approbation automatique
-- changement de base PR
-- ouverture T-A7
-- delivery preparation / delivery / cutover
-- déclaration T-A6 COMPLETE / Option A COMPLETE
-- fermeture de réserve
-- consommation F03 ou F08–F13
-- action Notion/CMP
-- A5.2
+État attendu après un futur merge (sous gate distinct) : pack sur `main` · framing validé · définitions intégrées · T-A7 toujours NOT OPEN · Option A toujours NOT COMPLETE.
 
 ---
 
-## 11. Gate candidat
+## 8. Réserves non bloquantes O-PR (réévaluation)
 
-`GO REVIEW T-A7 DOCUMENTARY PR AND DECIDE MERGE — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER`
+| ID | Toujours présente ? | Aggravée ? | Blocker merge ? | Dette post-merge ? | Action future |
+|----|---------------------|------------|-----------------|--------------------|---------------|
+| **O-PR-01** gates historiques README | oui | non | **non** | faible (clarification doc) | cycle doc ultérieur / A5.2 |
+| **O-PR-02** taxonomie locale au pack | oui | non | **non** | moyenne (propagation doctrine) | gate propagation dédié |
+| **O-PR-03** A5.2 non exécuté | oui (trajectoire) | non | **non** | attendue | gate A5.2 distinct |
+| **O-PR-04** chemins `/Users/...` métadonnées | oui (2 occurrences) | non | **non** | faible | optionnel nettoyage doc |
+
+Aucune reclassification silencieuse — restent **non bloquantes**.
+
+---
+
+## 9. Risques de merge
+
+| Risque | Sévérité | Probabilité | Mitigation | Blocker ? | Dette ? | Gate futur |
+|--------|----------|-------------|------------|-----------|---------|------------|
+| Taxonomie encore locale | M | M | documenter dette ; ne pas propager sans gate | non | oui | propagation doctrine |
+| Chemins locaux métadonnées | L | H | accepter comme trace ; cleanup optionnel | non | faible | doc cleanup |
+| Interprétation `FRAMING VALIDATED` = T-A7 OPEN | H | M | anti-claims PR + gate merge explicite KEEP NOT OPEN | non si gate respecté | — | merge gate wording |
+| Confusion merge ↔ delivery/cutover | H | M | gate `NO DELIVERY OR CUTOVER` | non si gate respecté | — | merge gate |
+| Confusion définitions ↔ satisfaction | H | M | pack dit NOT DECLARED / NOT COMPLETE | non | — | A5.2 / F08 |
+| Oubli A5.2 | M | M | réserve Morris explicite | non | oui | A5.2 |
+| Divergence `main` | L | L | `main` inchangé `c472eb41` ; PR CLEAN | non | non | — |
+| Rebase nécessaire ? | — | — | **non** — mergeable CLEAN sans conflit | non | non | — |
+
+---
+
+## 10. Findings
+
+| Sévérité | Count | Détail |
+|----------|-------|--------|
+| Critical | **0** | — |
+| Major | **0** | — |
+| Minor | **0** nouveaux | réserves O-PR déjà connues |
+| Observations | 4 | O-PR-01…04 |
+
+**Blocker merge :** aucun.
+
+---
+
+## 11. Justification de la recommandation
+
+Conditions MERGE RECOMMENDED (strict) remplies pour head/scope/checks/reviews/décisions/mergeable.
+
+Réserves O-PR-01…04 toujours présentes et documentées → classification **WITH RESERVATIONS** (non bloquantes).
+
+Pas de rebase demandé : `origin/main` = base de création ; `mergeStateStatus=CLEAN`.
+
+---
+
+## 12. Actions non exécutées
+
+- `gh pr merge` / Merge UI / auto-merge
+- approbation GitHub automatique
+- modification branche / commit / amend / rebase / reset / push projet / force push
+- changement titre/corps PR / labels / reviewers
+- fermeture PR / suppression branche
+- ouverture T-A7 · delivery · cutover
+- déclaration COMPLETE · fermeture réserve
+- consommation F03/F08–F13 · A5.2 · Notion/CMP
+
+---
+
+## 13. Gate candidat
+
+`GO MERGE T-A7 DOCUMENTARY PR #280 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN`
 
 **Statut :** `NOT CONSUMED`
 
 ---
 
-## 12. Review Handoff Git (ce cycle)
+## 14. Review Handoff Git
 
-- décision : required
-- mode : publish-in-cycle
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- source : `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/chatgpt-review.md`
-- commit attendu : `docs(review-handoff): publish T-A7 documentary PR creation`
-- push L3 borné : oui (séparé du push projet)
+- required · publish-in-cycle
+- branche `sfia/review-handoff`
+- fichier `sfia-review-handoff/latest-chatgpt-review.md`
+- commit attendu : `docs(review-handoff): review T-A7 PR #280 merge readiness`
+- push L3 borné uniquement (pas de push branche projet)
 
-*(commit/blob handoff renseignés après publication)*
+Evidence locale : `.tmp-sfia-review/t-a7-pr280-review/`
 
----
+## 15. Evidence inventory
 
-## Evidence path
+Path : `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/t-a7-pr280-review/`
 
-`/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/t-a7-push-pr/`
+- `truth.txt`
+- `pr-view.json`
+- `pr-checks.txt`
+- `check-runs.json`
+- `commit-status.json`
+- `reviews.json` (empty array)
+- `issue-comments.json` (empty array)
+- `review-comments.json` (empty array)
+- `review-threads.json` (0 threads)
+- `pr.diff` / `local.diff` (content-identical)
+- `pr-files.json`
+- `pr-name-only.txt`
+- `branch-rules.json`
