@@ -1,110 +1,216 @@
-# SFIA Review Pack — T-A7 Framing and Option A Completion Criteria (FULL)
+# ChatGPT Review Pack — FULL — T-A7 Framing Pack
 
-## Metadata
-- date/heure/fuseau: 2026-07-27 22:45:16 CEST (+0200)
-- cycle: 1 Cadrage (+2 Conception fonctionnelle · 3 Architecture fonctionnelle · 6 Architecture technique · 9 QA · 10 Sécurité/RSSI · 12 RUN · 15 Capitalisation)
-- profil: Critical
-- typologie: CADRAGE / T-A7 / CUTOVER / COMPLETION-CRITERIA / GOVERNANCE / DOCUMENTATION
-- gate consommé: `GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION`
-- repo: `mcleland147/sfia-workspace`
-- worktree source connu: `/Users/morris/Projects/sfia-workspace`
-- worktree créé: `/Users/morris/Projects/sfia-workspace-t-a7-framing`
-- branche locale: `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions`
-- upstream: **aucun**
-- origin/main: `c472eb412f3ade3e94fee9201042794fee502d8f`
-- HEAD framing: `27dbf60574b8ec82990600827934dc56e256b50f`
-- parent: `c472eb412f3ade3e94fee9201042794fee502d8f`
-- handoff initial: blob `f89afcecb793d0d4e77307b8ec6344a584389862`
-- template: blob `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`
-- statut pack: `FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED`
-- T-A7: **NOT OPEN**
-- T-A7 delivery: **NOT AUTHORIZED**
-- cutover: **NOT AUTHORIZED**
-- T-A6 COMPLETE: **NOT DECLARED**
-- Option A COMPLETE: **NOT DECLARED**
-- real execution: **NOT AUTHORIZED**
+## Meta
 
-## 1. Truth check (extrait)
-```text
-pwd=/Users/morris/Projects/sfia-workspace
-toplevel=/Users/morris/Projects/sfia-workspace
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure/fuseau** | 2026-07-28 03:42:43 CEST (+0200) |
+| **Cycle principal** | 9 — QA / validation |
+| **Cycles complémentaires** | 1 · 2 · 3 · 6 · 10 · 12 · 13 · 15 |
+| **Profil SFIA** | Critical |
+| **Typologie** | REVIEW / QA / T-A7 / CUTOVER-FRAMING / COMPLETION-CRITERIA / GOVERNANCE |
+| **Gate consommé** | `GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` |
+| **Repo** | `mcleland147/sfia-workspace` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
+| **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
+| **HEAD** | `27dbf60574b8ec82990600827934dc56e256b50f` |
+| **Parent** | `c472eb412f3ade3e94fee9201042794fee502d8f` |
+| **Base canonique** | `origin/main` @ `c472eb412f3ade3e94fee9201042794fee502d8f` |
+| **Merge-base** | `c472eb412f3ade3e94fee9201042794fee502d8f` |
+| **Upstream** | **aucun** |
+| **Handoff initial** | `sfia/review-handoff` · `sfia-review-handoff/latest-chatgpt-review.md` · blob `db2bd3723420b2ceac57255f780afd285a75c807` |
+| **Pack** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/` |
+| **Niveau review pack** | FULL |
+| **Modification pack** | **aucune** |
+| **Push branche projet** | **aucun** |
+
+## Verdict exact
+
+`SFIA STUDIO T-A7 FRAMING PACK NOT READY — DOCUMENTARY OR DECISION-MODEL CORRECTIONS REQUIRED — NO T-A7 OPENING OR PROJECT PUBLICATION`
+
+## Gate candidat (NOT CONSUMED)
+
+```
+GO CORRECT T-A7 FRAMING PACK AFTER REVIEW — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER
+```
+
+## Anti-claims (review)
+
+- review PASS ≠ framing validé
+- pack éligible ≠ décisions consommées
+- décision framing ≠ T-A7 delivery
+- T-A7 framing validé ≠ T-A7 OPEN
+- T-A7 OPEN ≠ cutover
+- critères cohérents ≠ critères décidés
+- critères décidés ≠ critères satisfaits
+- T-A6 COMPLETE ≠ Option A COMPLETE
+- Option A product complete ≠ production ready
+- review locale ≠ publication projet
+
+---
+
+## 1. Local Git Truth Check
+
+```
+=== TRUTH 2026-07-28 03:41:00 CEST ===
+/Users/morris/Projects/sfia-workspace-t-a7-framing
+/Users/morris/Projects/sfia-workspace-t-a7-framing
 origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
 origin	https://github.com/mcleland147/sfia-workspace.git (push)
-branch=delivery/sfia-studio-control-tower-fast-track
-HEAD=c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf
-origin_main=c472eb412f3ade3e94fee9201042794fee502d8f
-## delivery/sfia-studio-control-tower-fast-track...origin/delivery/sfia-studio-control-tower-fast-track
-?? .tmp-sfia-review/
-diff:
-cached:
-untracked_non_tmp:
-active_ops:
-(none if blank)
-worktrees:
-worktree /Users/morris/Projects/sfia-workspace
-HEAD c895a96b02ebd8c9a740dee5483fa4b9e48aa4cf
-branch refs/heads/delivery/sfia-studio-control-tower-fast-track
+framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
+HEAD=27dbf60574b8ec82990600827934dc56e256b50f
+PARENT=c472eb412f3ade3e94fee9201042794fee502d8f
+ORIGIN_MAIN=c472eb412f3ade3e94fee9201042794fee502d8f
+MERGE_BASE=c472eb412f3ade3e94fee9201042794fee502d8f
+## framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
+UPSTREAM=fatal: no upstream configured for branch 'framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions'
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md
+ .../01-framing-and-scope.md                        | 171 ++++++++++++++++
+ .../02-t-a7-cutover-preconditions.md               | 107 ++++++++++
+ .../03-t-a6-and-option-a-completion-criteria.md    | 134 ++++++++++++
+ .../04-reservations-risks-and-stop-conditions.md   | 101 +++++++++
+ .../05-morris-decision-pack.md                     | 226 +++++++++++++++++++++
+ .../t-a7-legacy-cutover-framing/README.md          |  80 ++++++++
+ 6 files changed, 819 insertions(+)
 
-worktree /Users/morris/Projects/sfia-codex-pilot
-HEAD ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
-branch refs/heads/method/codex-operating-model-pilot
-
-worktree /Users/morris/Projects/sfia-task-tracker
-HEAD b763a318fb84e23e482ed23a0bd561c1d9e719e6
-branch refs/heads/cadrage/task-tracker-light
-
-worktree /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts
-HEAD cae841519ed1d2dd825e6ecb998337cd47b4a1e1
-branch refs/heads/method/sfia-cycle-knowledge-contracts
-
-worktree /Users/morris/Projects/sfia-workspace-d1-conversational-convergence
-HEAD 7dc6f9fc7e16f13de08a1003b492b0b6e243f05e
-branch refs/heads/ux/sfia-studio-d1-conversational-convergence
-
-worktree /Users/morris/Projects/sfia-workspace-d1-platform-integration
-HEAD c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9
-branch refs/heads/delivery/sfia-studio-d1-shared-platform-integration
-
-worktree /Users/morris/Projects/sfia-workspace-doc32-post-p3-m1
 ```
-Worktree framing aligné sur `origin/main` avant commit ; aucun pack `t-a7-*` préexistant.
 
-## 2. Sources et blobs déterminants
-```text
-prompts/templates/sfia-cycle-execution-template.md|b9ce0a9fe57bb0f675afb8505ee0584180f830d7
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/11-legacy-isolation-migration-and-cutover-architecture.md|fc2e410be49e0b736f2914fdbb1c0795ddf0c996
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md|493634be2ebeabb42ee453765e7ba7f5d2c7e7f9
-projects/sfia-studio/sfia-v3-technical-architecture/v3-native-option-a/13-technical-architecture-validation-and-decision-pack.md|b93b7cae57ddef0d5f7f7239a51545522edfb2a0
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/23-next-option-a-step-after-t-a6.md|e87deff78f5662dccae84557b061ad3aec9ea461
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/24-ci-and-merge-governance-preparation.md|27c7934799d19e5fc3401eb55e95c0d99b1e36e2
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/32-path-aware-required-check-and-main-protection-preparation.md|1bc7b6544d27d687bf9e33757863f1397b1494b6
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/33-m1-implementation-and-proofs-rex.md|6c87cf4016d6a33f096df921acf8bafd4d73af4e
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/README.md|08f33f517b599215e8a1d3f27bdd69c01fad3053
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/03-decisions.md|5e8f2f1ac7e352f34963a80265a0d60afb34107e
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a6-evidence-review-claims-maturity/22-post-merge-review.md|8a76bc2126837e6a9d4136257a07396eb732a560
-projects/sfia-studio/sfia-v3-design/v3-native-option-a/README.md|7bcfb5588979d08cd775a47d0b96aaf41d69d1dc
-projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/08-evidence-review-bundle-maturity-and-debt-model.md|d38896185e3c6d6e82a32a0bc2d6dc34598eef53
+### show --format=fuller --stat HEAD
+
 ```
-Assessment post-F-A6 handoff blob `f89afcecb793d0d4e77307b8ec6344a584389862` relu.
+commit 27dbf60574b8ec82990600827934dc56e256b50f
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Mon Jul 27 22:44:36 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Mon Jul 27 22:44:36 2026 +0200
 
-## 3. Path final du pack
-`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/`
+    docs(sfia-studio): frame T-A7 cutover and Option A completion criteria
 
-Convention: suffixe `framing` tant que T-A7 n’est pas ouvert ; cohérent avec `t-a0-…`…`t-a6-…` ; aucune collision.
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-## 4. Fichiers créés
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md` · blob `4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd` · 171 lignes
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md` · blob `eda7106103490798a6b379811eefe90156c46172` · 107 lignes
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md` · blob `232d73a9b021734dc8ba0f3c7c69d036cfe579d6` · 134 lignes
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md` · blob `da6d67448841b267c849b72a3692ea10d3b4d98c` · 101 lignes
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md` · blob `01a8482862467cbc0116e11dde1d8a946ace3a01` · 226 lignes
-- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md` · blob `efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c` · 80 lignes
+ .../01-framing-and-scope.md                        | 171 ++++++++++++++++
+ .../02-t-a7-cutover-preconditions.md               | 107 ++++++++++
+ .../03-t-a6-and-option-a-completion-criteria.md    | 134 ++++++++++++
+ .../04-reservations-risks-and-stop-conditions.md   | 101 +++++++++
+ .../05-morris-decision-pack.md                     | 226 +++++++++++++++++++++
+ .../t-a7-legacy-cutover-framing/README.md          |  80 ++++++++
+ 6 files changed, 819 insertions(+)
 
-## 5. Contenu complet des fichiers créés
+```
 
-### 01-framing-and-scope.md
+**Verdict truth :** `PASS` — branche / HEAD / parent / merge-base / blobs / 6×A only / worktree propre / aucun upstream / aucune opération Git active.
 
-Blob: `4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd`
+---
+
+## 2. Blobs attendus vs observés
+
+| Fichier | Blob attendu | Blob observé | Match |
+|---------|--------------|--------------|-------|
+| `README.md` | `efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c` | `efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c` | PASS |
+| `01-framing-and-scope.md` | `4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd` | `4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd` | PASS |
+| `02-t-a7-cutover-preconditions.md` | `eda7106103490798a6b379811eefe90156c46172` | `eda7106103490798a6b379811eefe90156c46172` | PASS |
+| `03-t-a6-and-option-a-completion-criteria.md` | `232d73a9b021734dc8ba0f3c7c69d036cfe579d6` | `232d73a9b021734dc8ba0f3c7c69d036cfe579d6` | PASS |
+| `04-reservations-risks-and-stop-conditions.md` | `da6d67448841b267c849b72a3692ea10d3b4d98c` | `da6d67448841b267c849b72a3692ea10d3b4d98c` | PASS |
+| `05-morris-decision-pack.md` | `01a8482862467cbc0116e11dde1d8a946ace3a01` | `01a8482862467cbc0116e11dde1d8a946ace3a01` | PASS |
+
+**Verdict blobs :** `PASS`
+
+---
+
+## 3. Contenu complet des six fichiers
+
+### `README.md` — blob `efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c`
+
+```markdown
+# T-A7 — Legacy Cutover Framing (Option A)
+
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure/fuseau** | 2026-07-27 22:39:24 CEST (+0200) — Europe/Paris |
+| **Cycle** | 1 — Cadrage (+2 Conception fonctionnelle · 3 Architecture fonctionnelle · 6 Architecture technique · 9 QA · 10 Sécurité/RSSI · 12 RUN readiness · 15 Capitalisation) |
+| **Profil** | Critical |
+| **Typologie** | CADRAGE / T-A7 / CUTOVER / COMPLETION-CRITERIA / GOVERNANCE / DOCUMENTATION |
+| **Gate consommé** | `GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION` |
+| **Repo** | `mcleland147/sfia-workspace` |
+| **Base SHA** | `c472eb412f3ade3e94fee9201042794fee502d8f` (`origin/main`) |
+| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
+| **Upstream** | **aucun** |
+| **Pack path** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/` |
+| **Statut pack** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **T-A7** | **NOT OPEN** |
+| **T-A7 delivery** | **NOT AUTHORIZED** |
+| **Cutover** | **NOT AUTHORIZED** |
+| **T-A6 COMPLETE** | **NOT DECLARED** |
+| **Option A COMPLETE** | **NOT DECLARED** |
+| **Real execution** | **NOT AUTHORIZED** |
+| **Verdict** | `SFIA STUDIO T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETION CRITERIA FRAMED — DOCUMENTARY PACK CREATED LOCALLY — T-A7 FRAMING DEFINED — DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — MORRIS DECISIONS REQUIRED — OPTION A NOT COMPLETE — T-A7 NOT OPEN` |
+
+---
+
+## Objectif
+
+Définir le cadrage documentaire candidat de T-A7 et les matrices affirmatives de complétude T-A6 / Option A, sans ouvrir le delivery, sans cutover et sans fermer Option A.
+
+## Définition T-A7 (candidate)
+
+`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
+
+Source AT : `sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md` · D-T-A6-10 BOUNDARY APPROVED.
+
+## Niveaux T-A7
+
+| Niveau | Contenu | Autorisé dans ce cycle |
+|--------|---------|------------------------|
+| **A. Framing** | définition · préconditions · critères · décisions · aucune modification runtime | **OUI — ce pack** |
+| **B. Delivery preparation** | backlog · AT détaillée · plan migration · tests candidats · aucun cutover | NON |
+| **C. Delivery** | modifications code/frontières · hold flags · tests · migration progressive | NON |
+| **D. Cutover** | retrait/désactivation effective · preuves runtime · rollback · GO Morris dédié | NON |
+
+## Livrables
+
+1. [README.md](./README.md) — ce fichier
+2. [01-framing-and-scope.md](./01-framing-and-scope.md)
+3. [02-t-a7-cutover-preconditions.md](./02-t-a7-cutover-preconditions.md)
+4. [03-t-a6-and-option-a-completion-criteria.md](./03-t-a6-and-option-a-completion-criteria.md)
+5. [04-reservations-risks-and-stop-conditions.md](./04-reservations-risks-and-stop-conditions.md)
+6. [05-morris-decision-pack.md](./05-morris-decision-pack.md)
+
+## Décisions Morris attendues
+
+D-T-A7-F01…F14 — toutes **`NOT DECIDED`** — voir [05-morris-decision-pack.md](./05-morris-decision-pack.md).
+
+## Gate suivant candidat
+
+```
+GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA
+— SFIA STUDIO V3-NATIVE
+```
+
+**NOT CONSUMED.**
+
+## Anti-claims
+
+- pack créé ≠ framing validé
+- framing défini ≠ T-A7 OPEN
+- T-A7 OPEN ultérieurement ≠ delivery autorisé
+- delivery autorisé ≠ cutover autorisé
+- critères proposés ≠ critères décidés
+- critères techniquement satisfaits ≠ Option A COMPLETE
+- product complete ≠ production ready
+- intégration T-A0–T-A6 ≠ cutover readiness
+- commit local ≠ publication
+- assessment ≠ décision Morris
+- aucune réserve fermée · aucun runtime/modeled/workflow modifié · aucun push projet
+
+```
+
+### `01-framing-and-scope.md` — blob `4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd`
 
 ```markdown
 # 01 — Framing and Scope
@@ -278,11 +384,10 @@ Pas T-A7 OPEN · Pas T-A7 COMPLETE · Pas READY FOR DELIVERY · Pas READY FOR CU
 ## 8. Verdict documentaire
 
 `T-A7 FRAMING SCOPE DEFINED — LEVEL A ONLY — DELIVERY AND CUTOVER OUT OF SCOPE — MORRIS VALIDATION REQUIRED`
+
 ```
 
-### 02-t-a7-cutover-preconditions.md
-
-Blob: `eda7106103490798a6b379811eefe90156c46172`
+### `02-t-a7-cutover-preconditions.md` — blob `eda7106103490798a6b379811eefe90156c46172`
 
 ```markdown
 # 02 — T-A7 Cutover Preconditions
@@ -392,11 +497,10 @@ Pas READY FOR DELIVERY · Pas READY FOR CUTOVER · Pas DATABASE SELECTED · Pas 
 ## 6. Verdict
 
 `T-A7 CUTOVER PRECONDITION MATRIX FRAMED — CANDIDATE ONLY — FRAMING DOES NOT REQUIRE FULL SATISFACTION — MORRIS DECISIONS REQUIRED`
+
 ```
 
-### 03-t-a6-and-option-a-completion-criteria.md
-
-Blob: `232d73a9b021734dc8ba0f3c7c69d036cfe579d6`
+### `03-t-a6-and-option-a-completion-criteria.md` — blob `232d73a9b021734dc8ba0f3c7c69d036cfe579d6`
 
 ```markdown
 # 03 — T-A6 and Option A Completion Criteria
@@ -533,11 +637,10 @@ Pas T-A6 COMPLETE · Pas Option A COMPLETE · Pas PRODUCTION READY · Pas READY 
 ## 6. Verdict
 
 `T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — RECOMMENDATION NOT DECIDED — NO COMPLETE DECLARATION`
+
 ```
 
-### 04-reservations-risks-and-stop-conditions.md
-
-Blob: `da6d67448841b267c849b72a3692ea10d3b4d98c`
+### `04-reservations-risks-and-stop-conditions.md` — blob `da6d67448841b267c849b72a3692ea10d3b4d98c`
 
 ```markdown
 # 04 — Reservations, Risks and Stop Conditions
@@ -641,11 +744,10 @@ Pas RESERVE CLOSED · Pas HARD résolu · Pas READY FOR CUTOVER · Pas PRODUCTIO
 ## 6. Verdict
 
 `RESERVATIONS AND STOP CONDITIONS FRAMED — HARD BLOCKERS CLASSIFIED FOR EXECUTION NOT FRAMING — NO RESERVE CLOSED`
+
 ```
 
-### 05-morris-decision-pack.md
-
-Blob: `01a8482862467cbc0116e11dde1d8a946ace3a01`
+### `05-morris-decision-pack.md` — blob `01a8482862467cbc0116e11dde1d8a946ace3a01`
 
 ```markdown
 # 05 — Morris Decision Pack
@@ -874,187 +976,13 @@ Aucune décision D-T-A7-F* n’est **DECIDED**. Aucune recommandation n’est un
 ## Verdict
 
 `MORRIS DECISION PACK T-A7 FRAMING READY FOR REVIEW — ALL DECISIONS NOT DECIDED — NEXT GATE CANDIDATE NOT CONSUMED`
+
 ```
-
-### README.md
-
-Blob: `efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c`
-
-```markdown
-# T-A7 — Legacy Cutover Framing (Option A)
-
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure/fuseau** | 2026-07-27 22:39:24 CEST (+0200) — Europe/Paris |
-| **Cycle** | 1 — Cadrage (+2 Conception fonctionnelle · 3 Architecture fonctionnelle · 6 Architecture technique · 9 QA · 10 Sécurité/RSSI · 12 RUN readiness · 15 Capitalisation) |
-| **Profil** | Critical |
-| **Typologie** | CADRAGE / T-A7 / CUTOVER / COMPLETION-CRITERIA / GOVERNANCE / DOCUMENTATION |
-| **Gate consommé** | `GO FRAME T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETE CRITERIA — SFIA STUDIO V3-NATIVE — NO DELIVERY OR REAL EXECUTION` |
-| **Repo** | `mcleland147/sfia-workspace` |
-| **Base SHA** | `c472eb412f3ade3e94fee9201042794fee502d8f` (`origin/main`) |
-| **Branche locale** | `framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions` |
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-framing` |
-| **Upstream** | **aucun** |
-| **Pack path** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/` |
-| **Statut pack** | **FRAMING CANDIDATE — MORRIS VALIDATION REQUIRED** |
-| **T-A7** | **NOT OPEN** |
-| **T-A7 delivery** | **NOT AUTHORIZED** |
-| **Cutover** | **NOT AUTHORIZED** |
-| **T-A6 COMPLETE** | **NOT DECLARED** |
-| **Option A COMPLETE** | **NOT DECLARED** |
-| **Real execution** | **NOT AUTHORIZED** |
-| **Verdict** | `SFIA STUDIO T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETION CRITERIA FRAMED — DOCUMENTARY PACK CREATED LOCALLY — T-A7 FRAMING DEFINED — DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — MORRIS DECISIONS REQUIRED — OPTION A NOT COMPLETE — T-A7 NOT OPEN` |
 
 ---
 
-## Objectif
+## 4. Diff complet du commit (`origin/main...HEAD`)
 
-Définir le cadrage documentaire candidat de T-A7 et les matrices affirmatives de complétude T-A6 / Option A, sans ouvrir le delivery, sans cutover et sans fermer Option A.
-
-## Définition T-A7 (candidate)
-
-`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
-
-Source AT : `sfia-v3-technical-architecture/v3-native-option-a/12-delivery-slices-dependencies-and-technical-gates.md` · D-T-A6-10 BOUNDARY APPROVED.
-
-## Niveaux T-A7
-
-| Niveau | Contenu | Autorisé dans ce cycle |
-|--------|---------|------------------------|
-| **A. Framing** | définition · préconditions · critères · décisions · aucune modification runtime | **OUI — ce pack** |
-| **B. Delivery preparation** | backlog · AT détaillée · plan migration · tests candidats · aucun cutover | NON |
-| **C. Delivery** | modifications code/frontières · hold flags · tests · migration progressive | NON |
-| **D. Cutover** | retrait/désactivation effective · preuves runtime · rollback · GO Morris dédié | NON |
-
-## Livrables
-
-1. [README.md](./README.md) — ce fichier
-2. [01-framing-and-scope.md](./01-framing-and-scope.md)
-3. [02-t-a7-cutover-preconditions.md](./02-t-a7-cutover-preconditions.md)
-4. [03-t-a6-and-option-a-completion-criteria.md](./03-t-a6-and-option-a-completion-criteria.md)
-5. [04-reservations-risks-and-stop-conditions.md](./04-reservations-risks-and-stop-conditions.md)
-6. [05-morris-decision-pack.md](./05-morris-decision-pack.md)
-
-## Décisions Morris attendues
-
-D-T-A7-F01…F14 — toutes **`NOT DECIDED`** — voir [05-morris-decision-pack.md](./05-morris-decision-pack.md).
-
-## Gate suivant candidat
-
-```
-GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA
-— SFIA STUDIO V3-NATIVE
-```
-
-**NOT CONSUMED.**
-
-## Anti-claims
-
-- pack créé ≠ framing validé
-- framing défini ≠ T-A7 OPEN
-- T-A7 OPEN ultérieurement ≠ delivery autorisé
-- delivery autorisé ≠ cutover autorisé
-- critères proposés ≠ critères décidés
-- critères techniquement satisfaits ≠ Option A COMPLETE
-- product complete ≠ production ready
-- intégration T-A0–T-A6 ≠ cutover readiness
-- commit local ≠ publication
-- assessment ≠ décision Morris
-- aucune réserve fermée · aucun runtime/modeled/workflow modifié · aucun push projet
-```
-
-## 6. Définition T-A7
-`Legacy cutover, MethodMode/method/** retirement and OPS1 isolation`
-
-Sources: AT-12 L23 · AT-11 · D-T-A6-10 APPROVED.
-
-## 7. Niveaux framing / delivery / cutover
-- A Framing: ce pack uniquement
-- B Delivery preparation: hors cycle
-- C Delivery: hors cycle
-- D Cutover: hors cycle
-
-## 8. Matrice préconditions
-Voir fichier `02` intégral ci-dessus (P01–P25). Framing n’exige pas satisfaction complète.
-
-## 9. Critères T-A6 COMPLETE
-Matrice T6-C01…C15 — `RECOMMENDATION — NOT DECIDED`. T-A6 **NOT DECLARED**.
-
-## 10. Critères Option A COMPLETE
-Couches A–F + OA-01…OA-22 — `RECOMMENDATION — NOT DECIDED`. Option A **NOT DECLARED**. Product complete ≠ production ready (D-T-A7-F07).
-
-## 11. Réserves / blockers
-R-T-A3-1/2 = HARD pour real execution / delivery-cutover, **pas** pour framing read-only. B5 · R1 · R-M01 · U-M02 · C1–C4 OPEN/NOT VALIDATED. F-A6 CLOSED. M1 loose NOT DECIDED (F12).
-
-## 12. Stop conditions
-12 stop conditions dans `04` — delivery/cutover/MethodMode/OPS1/real execution/COMPLETE/reserve closure interdits sans gates dédiés.
-
-## 13. Decision pack
-D-T-A7-F01…F14 toutes `NOT DECIDED`. Recommandations Cursor/ChatGPT non contraignantes.
-
-## 14. Séquence candidate
-1 review framing → 2 arbitrage réserves → 3 persistence/IAM/RGPD → 4 prep delivery → 5 delivery hold → 6 QA/RUN → 7 authorize cutover → 8 cutover → 9 post → 10 capitalisation.
-
-## 15. Validations documentaires
-- `git diff --cached --check`: PASS
-- 6 fichiers A only
-- aucun fichier existant modifié
-- aucun runtime/modeled/workflow modifié
-- aucun upstream
-- aucune branche projet poussée
-- NOT DECIDED présents pour D-T-A7-F*
-- anti-claims présents
-
-## 16. Commit local
-```text
-commit 27dbf60574b8ec82990600827934dc56e256b50f
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Mon Jul 27 22:44:36 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Mon Jul 27 22:44:36 2026 +0200
-
-    docs(sfia-studio): frame T-A7 cutover and Option A completion criteria
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-```
-
-### name-status
-```text
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md
-```
-
-### stat
-```text
- .../01-framing-and-scope.md                        | 171 ++++++++++++++++
- .../02-t-a7-cutover-preconditions.md               | 107 ++++++++++
- .../03-t-a6-and-option-a-completion-criteria.md    | 134 ++++++++++++
- .../04-reservations-risks-and-stop-conditions.md   | 101 +++++++++
- .../05-morris-decision-pack.md                     | 226 +++++++++++++++++++++
- .../t-a7-legacy-cutover-framing/README.md          |  80 ++++++++
- 6 files changed, 819 insertions(+)
-```
-
-### blobs
-```text
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md|4d342a5c5bb66cd8cbef80d4fd7437cf2ce3b9fd
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/02-t-a7-cutover-preconditions.md|eda7106103490798a6b379811eefe90156c46172
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/03-t-a6-and-option-a-completion-criteria.md|232d73a9b021734dc8ba0f3c7c69d036cfe579d6
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/04-reservations-risks-and-stop-conditions.md|da6d67448841b267c849b72a3692ea10d3b4d98c
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/05-morris-decision-pack.md|01a8482862467cbc0116e11dde1d8a946ace3a01
-projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/README.md|efd3a4bed4bbc164cb9a21f2fc10e79fbe8aff5c
-```
-
-### status final
-```text
-## framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
-```
-
-### diff complet
 ```diff
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-legacy-cutover-framing/01-framing-and-scope.md
 new file mode 100644
@@ -1913,38 +1841,389 @@ index 0000000..efd3a4b
 +- aucune réserve fermée · aucun runtime/modeled/workflow modifié · aucun push projet
 ```
 
-## 17. Actions non exécutées
+---
+
+## 5. Sources canoniques relues (autorité)
+
+| Source | Blob cité pack / rôle | Autorité | Contradiction pack ? |
+|--------|----------------------|----------|----------------------|
+| AT-11 legacy/cutover | `fc2e410…` | AT VALIDATED | Non — définition MethodMode/OPS1 alignée |
+| AT-12 delivery slices T-A7 | `493634b…` | AT VALIDATED | Non — libellé T-A7 conforme |
+| AT-13 validation | `b93b7ca…` | AT VALIDATED | Non — ordre T-A0…T-A7 |
+| D-T-A6-10 | `5e8f2f1…` | BOUNDARY APPROVED | Non — frontière respectée ; « activation opérationnelle globale » bornée par exclusions Option A |
+| Doc 23 post-T-A6 | `e87deff…` | trajectoire | Non — gaps persistence/API/UI repris |
+| Doc 24 F-A6/CI | `27c7934…` | F-A6 CLOSED | Non — Option A NOT COMPLETE · T-A7 NON OUVERTE |
+| Assessment handoff | `f89afce…` | advisory | Non — framing utile maintenant |
+| T-A6 D1–D5 | merges #261–#267 | VALIDATED | Non — ≠ COMPLETE |
+| Réserves B5/R1/R-T-A3/R-M01/U-M02/C1–C4 | docs T-A* | OPEN / HARD | Non — framing non bloqué ; execution bloquée |
+| MethodMode / method/** / OPS1 | AT-11 + runtime | présents hors cutover | Non — retrait cible seulement |
+
+**Verdict source authority :** `PASS`
+
+---
+
+## 6. Review par fichier
+
+### README.md — `PASS WITH RESERVATION`
+
+- Anti-claims forts ; niveaux A–D ; NOT OPEN / NOT AUTHORIZED explicites.
+- Réserve : « Gate suivant » encore `GO REVIEW…` (déjà consommé par ce cycle) — attendu pour pack figé ; à corriger en cycle correctif (pointer `GO DECIDE…` ou `GO CORRECT…`).
+- Aucune autorisation implicite.
+
+### 01-framing-and-scope.md — `PASS WITH RESERVATION`
+
+- Définition T-A7 conforme AT-12 / D-T-A6-10.
+- Scope + exclusions + anti-claims cohérents.
+- Réserve Minor : niveaux A–D décrivent objectifs/interdits mais **sans** tables formelles entrée/sortie/gate/rollback/preuve par niveau (partiellement compensé par 02/04/05).
+- HARD ≠ framing blocker : explicite — PASS.
+
+### 02-t-a7-cutover-preconditions.md — `FAIL` (Major F-TA7-REV-M01)
+
+- P01–P25 complets ; PARTIAL/MISSING justifiés ; persistence/IAM/RGPD hors framing obligatoire — bon.
+- **FAIL local :** P01 colonnes `Entrée delivery=OK` / `Entrée cutover=OK` sans légende « nécessaire mais non suffisant » → lecture possible que l’intégration seule autorise l’entrée delivery/cutover, contredisant l’exigence « P01 ne suffit pas à autoriser T-A7 ».
+- Confusion légère B vs C : §3 titre « avant delivery (niveau C) » saute le niveau B.
+
+### 03-t-a6-and-option-a-completion-criteria.md — `PASS WITH RESERVATION`
+
+- T6-C01…C15 et OA-01…OA-22 complets ; couches A–F ; `RECOMMENDATION — NOT DECIDED`.
+- T6-C11/C15 MISSING → COMPLETE non déclaré — correct.
+- Réserve : OA-04 état `N/A ou MISSING` et quatre définitions candidates → le terme nu « Option A COMPLETE » reste multi-valué jusqu’à F06/F07 (ambiguïté **exposée**, pas masquée) — acceptable pour framing si decision brief force F05–F07 avant tout claim.
+- T6-C10 lié F07 (product vs production) : couplage un peu flou avec COMPLETE mémoire — Minor.
+
+### 04-reservations-risks-and-stop-conditions.md — `FAIL` (Major F-TA7-REV-M02)
+
+- Registre réserves excellent ; R-T-A3-1/2 **Non** framing blocker — conforme.
+- Aucune réserve fermée.
+- **FAIL local :** 12 stop conditions déclaratives (« Pas de… ») **sans** trigger / action immédiate / responsable / preuve / gate de reprise → non actionnables au sens RUN/QA exigé.
+
+### 05-morris-decision-pack.md — `PASS WITH RESERVATION`
+
+- F01–F14 présents, tous `NOT DECIDED` ; options + reco non contraignantes.
+- Réserves : F01/F14 « Gate futur » = gate REVIEW déjà consommé ; F08 distingue bien prep vs delivery ; ordre F01→F14 globalement logique.
+- 14 décisions trop larges pour un seul gate — pack le reconnaît en séquence, mais step 1 regroupe encore F01–F07.
+
+**Verdict intégrité IDs :** P01–P25 · T6-C01–C15 · OA-01–OA-22 · D-T-A7-F01–F14 — `PASS` (aucun doublon/manquant).
+
+---
+
+## 7. Review définition T-A7 et niveaux A/B/C/D
+
+| Contrôle | Verdict |
+|----------|---------|
+| Libellé conforme AT-11/12/13 | PASS |
+| Cohérent D-T-A6-10 | PASS |
+| Non élargi hors Option A | PASS (exclusions) |
+| Non confondu avec exécution | PASS |
+| Non présenté comme ouvert | PASS |
+| Séparation A/B/C/D | PASS WITH RESERVATION |
+| Autorisation cumulative implicite | **PASS** (anti-claims bloquent) |
+
+Par niveau (synthèse review) :
+
+| Niveau | Objectif | Permis | Interdit | Gate | Entrée | Sortie | Rollback | Preuve |
+|--------|----------|--------|----------|------|--------|--------|----------|--------|
+| A Framing | cadrer | docs | runtime/cutover | frame/review/decide | pack | Morris validate | n/a docs | ce pack |
+| B Prep | préparer | backlog/AT/tests candidats | cutover/code retrait | prepare delivery | framing validé | prep pack | n/a | prep artifacts |
+| C Delivery | coder sous hold | code/flags/tests | activation cutover | delivery GO | F03/F08 | PRs+CI | revert/hold | Git+CI |
+| D Cutover | retirer legacy | retrait contrôlé | sans rollback/GO | authorize+execute | F09+preuves | boundary proofs | hold/restore | runtime proofs |
+
+Gap pack : formalisation tabulaire incomplète dans 01 → Minor F-TA7-REV-m02.
+
+---
+
+## 8. Scope / exclusions / anti-claims
+
+Couverture scope candidat (canonicalPaths, sourceLoader, contextResolver, sessionContext, MethodMode, method/**, badges, OPS1, history, adapter, hold/rollback) : **PASS**.
+
+Exclusions (no impl, no real delete, no double write, no silent compat, no global adoption, no production ready) : **PASS**.
+
+---
+
+## 9. Préconditions P01–P25
+
+| Contrôle | Verdict |
+|----------|---------|
+| Couverture 25 IDs | PASS |
+| Affirmatifs + preuves + gaps | PASS |
+| PARTIAL/MISSING justifiés | PASS |
+| Persistence/IAM/RGPD non requis framing | PASS |
+| Remplacements démontrables (P03–P09) | PASS (candidats) |
+| Circularité | PASS (pas de cycle bloquant) |
+| P01 seul ≠ autorisation T-A7 | **FAIL** — colonnes OK ambiguës (M01) |
+| Ordre dépendance recommandé | P01→P02→P03–P05→P12–P17→P18–P21→P07–P11/P22–P25 |
+
+Duplications : P13/P14 croisent R-T-A3-1 ; P15/P19 croisent R-T-A3-2 — acceptables (angles distincts).
+
+Manques : précondition affirmative explicite « no double write » (présent en stop/exclusion seulement) — Observation.
+
+---
+
+## 10. Critères T6-C01…C15
+
+| ID | État pack | Review |
+|----|-----------|--------|
+| T6-C01…C09 | SATISFIED | PASS — aligné D1–D5 |
+| T6-C10 | PARTIAL | PASS WITH RESERVATION — mémoire vs persistence à trancher F04/F07 |
+| T6-C11 | MISSING | PASS — blocker gouvernance candidat correct |
+| T6-C12…C14 | SATISFIED | PASS |
+| T6-C15 | MISSING | PASS — GO Morris obligatoire |
+
+Questions (options, **non décidées**) :
+
+1. **T-A6 COMPLETE en mémoire ?** Oui possible si F04 option (2) + U-M02 borné — reco review.
+2. **Persistence critère T-A6 ?** Non par défaut — couche ultérieure / production — reco.
+3. **Autorité humaine réelle pour T-A6 COMPLETE ?** Non pour slice mémoire fail-closed ; oui pour real-exec — reco.
+4. **Réserves CLOSED vs ACCEPTED ?** ACCEPTED formel OK pour COMPLETE étroit ; R-M01 devrait être traité — reco F04.
+5. **Intégration ≠ validation ≠ complétude ≠ production ?** Oui, pack distingue — PASS.
+
+---
+
+## 11. Critères OA-01…OA-22 + couches
+
+| Couche | Définie | Relations | Verdict |
+|--------|---------|-----------|---------|
+| A Foundation | oui | déjà vrai design | PASS |
+| B Integrated runtime | oui | T-A0…T-A6 | PASS |
+| C Product | oui | ≠ E | PASS WITH RESERVATION (dépend F06) |
+| D Real-execution | oui | HARD | PASS |
+| E Production | oui | ≠ C | PASS |
+| F Cutover | oui | optionnel pour C étroit | PASS |
+
+Matrice revue (condensée) : OA-01/02/15 SATISFIED ; OA-03/05–14/16–18/20–22 MISSING/PARTIAL selon couche ; OA-04 multi-état.
+
+**Risque Major évité de justesse :** l’ambiguïté COMPLETE est **déclarée** et routée vers F06/F07 — pas de claim unique masquant des états incompatibles. Si Morris utilise le terme nu sans qualificatif → stop condition 7.
+
+---
+
+## 12. Réserves / blockers
+
+| ID | Framing blocker? | Review |
+|----|------------------|--------|
+| B5 | Non | PASS |
+| R1 | Non | PASS |
+| R-T-A3-1/2 | **Non** framing ; Oui exec/cutover | PASS — point critique confirmé |
+| R-T-A3-3/4 | Non framing | PASS |
+| R-M01 / U-M02 | Non framing | PASS |
+| C1–C4 | Non framing | PASS |
+| F-CI-* | Non framing | PASS |
+| M1 loose | Non framing ; prod | PASS |
+| Fermeture implicite | aucune | PASS |
+
+---
+
+## 13. Sécurité / RGPD / RUN
+
+| Domaine | Avant framing | Avant delivery | Avant cutover | Avant production | Verdict |
+|---------|---------------|----------------|---------------|------------------|---------|
+| Sécurité OPS1/IAM/authority/rollback | doc only | design + boundaries | IAM+ACL+hold | hardening+audit | PASS WITH RESERVATION |
+| RGPD Evidence/U-M02 | non bloquant | si Evidence physique | politique+vendor | purge/legal hold | PASS |
+| RUN obs/health/runbooks | non | design | preuves rollback | E2E+RUN pack | PASS WITH RESERVATION |
+
+Pas de threat model / RACI RGPD dédiés dans le pack — acceptable framing ; cycle 10 ultérieur.
+
+---
+
+## 14. Stop conditions
+
+12 présentes. Structure opérationnelle **manquante** → **FAIL** (Major M02).
+
+Correction attendue : pour chaque stop — trigger · action immédiate · responsable · preuve · gate de reprise.
+
+---
+
+## 15. Décisions F01…F14
+
+| Groupe | Décisions | Timing |
+|--------|-----------|--------|
+| A — nécessaires framing | F01 · F02 · F05 · F06 · F07 (+ F04 si COMPLETE vocabulaire) | maintenant / post-correction |
+| B — avant delivery prep | F03 · F08 · F14 | après framing validé |
+| C — différables cutover/prod | F09 · F10 · F11 · F12 · F13 | cycles spécialisés |
+
+**Challenge :** les 14 doivent-elles être consommées dans un seul gate ? **Non.**
+
+Doublons : F01≈validation pack ; F14≈next cycle — partiellement chevauchants (Minor).
+
+---
+
+## 16. Decision brief (≤5 arbitrages immédiats) — NON DÉCISIONS
+
+### A1 — Valider le framing et les 4 niveaux
+- Couvre : F01 · F02
+- Question : Pack niveau A + modèle A/B/C/D acceptés ?
+- Options : ACCEPT / ACCEPT WITH CHANGES / REJECT
+- Reco : ACCEPT WITH CHANGES après correction M01/M02
+- Gate : post-correctif puis `GO DECIDE T-A7 FRAMING SCOPE AND OPTION A COMPLETION DEFINITIONS — … — NO DELIVERY OR CUTOVER`
+
+### A2 — Vocabulaire foundation vs product vs production
+- Couvre : F05 · F07
+- Question : Séparer foundation (déjà vrai), product complete, production ready ?
+- Options : SEPARATE / MERGE / STAGED
+- Reco : SEPARATE
+
+### A3 — Définition Option A product complete
+- Couvre : F06 (et impact OA-04/OA-11)
+- Question : A+B+T-A6 mémoire vs A+B+C avec API/UI vs +cutover F ?
+- Options : (1)(2)(3)(4) du pack
+- Reco : (2) produit opérable avec surfaces ; F hors product
+
+### A4 — Définition T-A6 COMPLETE
+- Couvre : F04
+- Question : Adopter T6 avec mémoire justifiée + GO Morris ; U-M02 OPEN documenté ?
+- Options : as-is / memory+relax U-M02 / require persistence / reject
+- Reco : (2)
+
+### A5 — Next cycle seulement (pas delivery)
+- Couvre : F14 (borné) ; **différer** F03/F08–F13
+- Question : Après framing, review→decide définitions, puis réserves/persistence — pas delivery prep immédiat ?
+- Options : decide defs / reserve arb / persistence / delivery prep now
+- Reco : decide defs puis reserve arb ; **pas** (4)
+
+---
+
+## 17. Findings
+
+### Critical
+*Aucun.*
+
+### Major
+
+#### F-TA7-REV-M01
+- **Sévérité :** Major
+- **Fichier/ligne :** `02-t-a7-cutover-preconditions.md` L29 (P01) + légende L15–22
+- **Description :** P01 marque `Entrée delivery=OK` et `Entrée cutover=OK` sans qualifier « nécessaire ≠ suffisant », permettant une lecture d’autorisation par intégration seule.
+- **Preuve :** matrice P01 ; anti-claim pack vs colonnes OK ; exigence review « P01 ne suffit pas ».
+- **Impact :** risque d’interprétation cumulative A→D / entrée cutover prématurée.
+- **Correction :** légende explicite + remplacer OK par `SATISFIED (necessary≠sufficient)` / `n/a alone` ; rappeler P01≠GO T-A7.
+- **Blocker validation :** **oui**
+- **Cycle correctif :** `GO CORRECT T-A7 FRAMING PACK AFTER REVIEW…`
+- **Gate Morris :** non pour corriger ; oui après pour F01
+
+#### F-TA7-REV-M02
+- **Sévérité :** Major
+- **Fichier/ligne :** `04-…md` §3 L61–74
+- **Description :** 12 stop conditions déclaratives non actionnables (pas de trigger/action/owner/preuve/gate reprise).
+- **Preuve :** liste « Pas de… » uniquement.
+- **Impact :** stops non opérables en RUN/QA ; fausse assurance de contrôle.
+- **Correction :** table opérationnelle 12×5 champs.
+- **Blocker validation :** **oui**
+- **Cycle correctif :** même gate CORRECT
+- **Gate Morris :** non pour corriger
+
+### Minor
+
+#### F-TA7-REV-m01
+Niveaux A–D sans tables entrée/sortie/gate/rollback/preuve dans `01`.
+
+#### F-TA7-REV-m02
+§3 `02` confond/saute delivery preparation (B) vs delivery (C).
+
+#### F-TA7-REV-m03
+F01/F14 gates futurs pointent encore `GO REVIEW…` déjà consommé ; README « Gate suivant » stale.
+
+#### F-TA7-REV-m04
+T6-C10 couplé F07 (product/production) alors que sujet = COMPLETE mémoire T-A6 — clarifier F04 seul.
+
+#### F-TA7-REV-m05
+OA-04 état `N/A ou MISSING` — imposer qualificatif de couche dans la cellule État.
+
+#### F-TA7-REV-m06
+F01 impacts « autorise la review » obsolète post-review ; chevauchement F01/F14.
+
+### Observations
+
+#### F-TA7-REV-o01
+Pas de Pxx dédié « no double write » (couvert stops/exclusions).
+
+#### F-TA7-REV-o02
+Pas de threat model / RACI RGPD dans le framing — OK différé cycle 10.
+
+#### F-TA7-REV-o03
+M1 hardening correctement NOT JUSTIFIED NOW.
+
+#### F-TA7-REV-o04
+Pack documentaire strict — aucun runtime/method/OPS1 touché ; branche non poussée.
+
+---
+
+## 18. Matrice de review
+
+| Axe | Verdict |
+|-----|---------|
+| truth Git | PASS |
+| périmètre commit | PASS |
+| source authority | PASS |
+| README | PASS WITH RESERVATION |
+| fichier 01 | PASS WITH RESERVATION |
+| fichier 02 | FAIL |
+| fichier 03 | PASS WITH RESERVATION |
+| fichier 04 | FAIL |
+| fichier 05 | PASS WITH RESERVATION |
+| définition T-A7 | PASS |
+| niveaux A/B/C/D | PASS WITH RESERVATION |
+| scope | PASS |
+| exclusions | PASS |
+| P01–P25 | FAIL (M01) |
+| T6-C01…C15 | PASS WITH RESERVATION |
+| OA-01…OA-22 | PASS WITH RESERVATION |
+| réserves | PASS |
+| sécurité | PASS WITH RESERVATION |
+| RGPD | PASS |
+| RUN | PASS WITH RESERVATION |
+| stop conditions | FAIL (M02) |
+| D-T-A7-F01…F14 | PASS WITH RESERVATION |
+| decision brief | PASS |
+| anti-claims | PASS |
+| liens | PASS |
+| timestamps | PASS |
+| absence modification/push | PASS |
+
+---
+
+## 19. Blockers de validation review
+
+1. F-TA7-REV-M01 (P01 colonnes OK)
+2. F-TA7-REV-M02 (stops non actionnables)
+
+## 20. Réserves review (non fermeture projet)
+
+- Toutes réserves projet restent OPEN / NOT VALIDATED / MITIGATED selon registre 04.
+- Review n’accepte ni ne ferme aucune réserve.
+
+## 21. Actions non exécutées (interdites)
+
+- modification des six fichiers
+- commit correctif projet
+- amend `27dbf605…`
 - push branche projet
-- PR projet
-- merge
-- modification main
-- delivery T-A7
-- runtime / modeled / method/** / OPS1 / MethodMode
-- DB / IAM / API/UI / adapter / worker
-- ruleset / hardening M1
-- clôture réserve
-- déclaration T-A6/Option A COMPLETE
-- déclaration T-A7 OPEN
-- consommation décisions Morris
-- Notion/CMP
+- PR / merge
+- ouverture T-A7 / delivery / cutover
+- décisions D-T-A7-F*
+- fermeture réserves
+- claims COMPLETE
 
-## 18. Statuts
-- T-A6 COMPLETE: **NOT DECLARED**
-- Option A COMPLETE: **NOT DECLARED**
-- T-A7: **NOT OPEN**
+## 22. Statuts finaux
 
-## 19. Gate candidat
-`GO REVIEW T-A7 FRAMING PACK AND OPTION A COMPLETION CRITERIA — SFIA STUDIO V3-NATIVE` — **NOT CONSUMED**
+| Objet | Statut |
+|-------|--------|
+| T-A6 | NOT COMPLETE (matrices proposées) |
+| Option A | NOT COMPLETE |
+| T-A7 | NOT OPEN · framing pack NOT READY for Morris decide without correction |
+| Branche projet | locale only · not pushed |
+| Review pack | FULL écrit ici |
+| Handoff | à publier |
 
-## 20. Verdict
-`SFIA STUDIO T-A7 CUTOVER PRECONDITIONS AND OPTION A COMPLETION CRITERIA FRAMED — DOCUMENTARY PACK CREATED LOCALLY — T-A7 FRAMING DEFINED — DELIVERY AND CUTOVER NOT AUTHORIZED — T-A6 AND OPTION A COMPLETION MATRICES PROPOSED — MORRIS DECISIONS REQUIRED — OPTION A NOT COMPLETE — T-A7 NOT OPEN`
+## 23. Gate candidat
 
-## Anti-claims
-- pack créé ≠ framing validé
-- framing défini ≠ T-A7 OPEN
-- T-A7 OPEN ≠ delivery autorisé
-- delivery ≠ cutover
-- critères proposés ≠ critères décidés
-- product complete ≠ production ready
-- commit local ≠ publication
-- assessment ≠ décision Morris
+```
+GO CORRECT T-A7 FRAMING PACK AFTER REVIEW — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER
+```
+
+**NOT CONSUMED.**
+
+Après correction + re-review PASS, gate decide candidat :
+
+```
+GO DECIDE T-A7 FRAMING SCOPE AND OPTION A COMPLETION DEFINITIONS — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER
+```
+
+**NOT CONSUMED.**
