@@ -1,148 +1,192 @@
-# ChatGPT Review Pack — FULL — T-A7 Option C Wave 1 Accelerated Integration (STOPPED BEFORE MERGE)
+# ChatGPT Review Pack — FULL — T-A7 Option C Wave 1 PR #283 Whitespace Fix + Merge
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-28 15:30:41 CEST (+0200) |
-| **Cycle / profil** | 13 — PR readiness (+9 · 14 · 15 · 1 · 10) · Critical |
-| **Gate consommé** | `GO REVIEW AND INTEGRATE T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING — ACCELERATED DOCUMENTARY CHAIN — PUSH PR MERGE IF CHECKS PASS — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 18:13:34 CEST (+0200) |
+| **Cycle / profil** | 9 — QA corrective (+13 · 14 · 15 · 1) · Critical |
+| **Gate consommé** | `GO FIX T-A7 WAVE 1 TRAILING WHITESPACE AND COMPLETE PR 283 — CORRECT ONLY IDENTIFIED WHITESPACE — PUSH EXISTING BRANCH — MERGE IF REQUIRED CHECKS PASS — POST-MERGE VERIFY — NO CONTENT CHANGE — NO METHOD OR OPS1 MODIFICATION — NO F03 F11 OR F13 CONSUMPTION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope` |
 | **Branche** | `framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope` |
-| **Base / HEAD / Parent** | `7a3e512f562f480c345a12a744806aa4f2ef625b` / `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` / `e16201ee9e9de971625c272627102d8499940fa7` |
-| **Push projet** | **oui** — remote HEAD = `9b53f3ba…` |
-| **PR** | [#283](https://github.com/mcleland147/sfia-workspace/pull/283) — OPEN · **NOT MERGED** |
-| **Merge** | **non** — required checks FAILURE |
+| **HEAD initial** | `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` |
+| **Commit correctif** | `4fad47f72a7d6cde655d98a64351bb4624ed9ad1` |
+| **Merge commit** | `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
+| **origin/main** | `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
 
 ## Verdict exact
 
-`T-A7 OPTION C WAVE 1 INTEGRATION STOPPED BEFORE MERGE — HEAD SCOPE CONTENT PR OR CHECKS BLOCKER — T-A7 NOT OPEN — NO DELIVERY OR CUTOVER`
+`T-A7 OPTION C WAVE 1 PR 283 WHITESPACE FIXED AND MERGED — FIX LIMITED TO IDENTIFIED TRAILING WHITESPACE — REQUIRED CHECKS PASS — NINE-FILE DOCUMENTARY SCOPE CONFIRMED ON MAIN — W1-B REMAINS RECOMMENDED NOT DECIDED — T-A7-W1-D01 THROUGH D05 REMAIN MORRIS DECISION REQUIRED — F03 F11 AND F13 REMAIN NOT DECIDED — NO METHOD OPS1 RUNTIME MODELED OR WORKFLOW MODIFICATION — T-A7 NOT OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED — SOURCE BRANCH PRESERVED — POST-MERGE VERIFIED`
 
-**Bloqueur :** CI `Trailing whitespace check` (job Build and validate) → Required Gate FAILURE. Gate interdit correction dans ce cycle.
+## Correctif whitespace
 
-## Truth check
+| Fichier | Lignes | Nature |
+|---------|--------|--------|
+| `02-methodmode-inventory.md` | L22 | suppression espaces de fin (2 espaces Markdown soft-break) |
+| `04-ops1-boundary-assessment.md` | L64–L67 | idem |
+| `05-dependency-map.md` | L46–L48 | idem |
 
-| Check | Résultat |
-|-------|----------|
-| Branche | exacte |
-| HEAD | `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` |
-| Parent | `e16201ee9e9de971625c272627102d8499940fa7` |
-| Base / merge-base | `7a3e512f562f480c345a12a744806aa4f2ef625b` |
-| Working tree | clean tracked · untracked local `.tmp-sfia-review/` seulement |
-| Staged / ops actives | aucun |
-| Scope cumulé | 9 fichiers A sous pack Wave 1 uniquement · +728/−0 |
+Preuve sémantique : contenu normalisé (rstrip espaces/tabs EOL) **identique** avant/après · diff = 8 lignes −/+ · **whitespace-only**.
 
-## Commits
+`git diff --check` après correctif / sur `main` : **aucune erreur**.
 
-1. `e16201ee9e9de971625c272627102d8499940fa7` — `docs(sfia-studio): frame T-A7 Option C wave 1 legacy scope`
-2. `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` — `docs(sfia-studio): enrich T-A7 wave 1 legacy inventory evidence`
+### Commit correctif
 
-## Blobs (HEAD)
+| Champ | Valeur |
+|-------|--------|
+| SHA | `4fad47f72a7d6cde655d98a64351bb4624ed9ad1` |
+| Message | `docs(sfia-studio): remove trailing whitespace from wave 1 pack` |
+| Parent | `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` |
+| Tree | `40764ebf1aa8ef3d2171c75c16f32c4ed37df53b` |
+| Blob 02 | `696e920fb46169fe996eea9a4c41b01226b0283c` |
+| Blob 04 | `db0aa51e17e3fd50c99dad1386a5c59d3782edc7` |
+| Blob 05 | `1932a5fb7589fb46f488d0c8170668cd4a6d8000` |
+
+### Diff correctif (complet)
+
+```diff
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md
+index 8093ff0..696e920 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md
+@@ -19,7 +19,7 @@
+ | Création projet | `NewProjectForm` force default interne (pas choix user C1) | `ACTIVE — EVIDENCED` |
+ | Confirmation flow | `executeConfirmation.ts` injecte `D1_GOVERNANCE_METHOD_MODE` | `ACTIVE — EVIDENCED` |
+ 
+-**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`  
++**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`
+ **Interdit (claims) :** V3-ADOPTED / V3-IMPLEMENTED global (documenté dans claims).
+ 
+ ## 2. Occurrences significatives
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md
+index 2a650d2..db0aa51 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md
+@@ -61,10 +61,10 @@
+ 
+ ## 6. Preuves nécessaires avant F13
+ 
+-1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.  
+-2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.  
+-3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.  
+-4. Inventaire allowlist `method/` : usages réels vs legacy.  
++1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.
++2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.
++3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.
++4. Inventaire allowlist `method/` : usages réels vs legacy.
+ 5. Gate Morris F13 **contenu** (pas seulement calendrier).
+ 
+ ## 7. Anti-claims
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md
+index 6ea4f40..1932a5f 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md
+@@ -43,9 +43,9 @@
+ 
+ ## 3. Lecture normative
+ 
+-1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.  
+-2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.  
+-3. **Ne pas** fusionner OPS1 et Option A.  
++1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.
++2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.
++3. **Ne pas** fusionner OPS1 et Option A.
+ 4. Cutover exige preuves P03–P11 avant retrait — encore largement `MISSING`/`PARTIAL`.
+ 
+ ## 4. Anti-claims
+```
+
+## Push / PR #283
+
+| Champ | Valeur |
+|-------|--------|
+| Push | `WHITESPACE FIX PUSHED — REMOTE HEAD VERIFIED` |
+| Remote HEAD | `4fad47f72a7d6cde655d98a64351bb4624ed9ad1` |
+| PR | [#283](https://github.com/mcleland147/sfia-workspace/pull/283) |
+| Base / Head | `7a3e512f…` / `4fad47f72a7d6cde655d98a64351bb4624ed9ad1` |
+| Commits | 3 (frame + enrich + whitespace) |
+| Fichiers | 9 (pack only) · +728/−0 vs main (additions doc) |
+
+## Checks PR (nouveau HEAD)
+
+| Champ | Valeur |
+|-------|--------|
+| Run | [30376792607](https://github.com/mcleland147/sfia-workspace/actions/runs/30376792607) |
+| Detect | SUCCESS (90334410784) |
+| Build and validate | SUCCESS (90334448902) — Trailing whitespace check SUCCESS |
+| Required Gate | SUCCESS (90334852592) |
+| Head | `4fad47f72a7d6cde655d98a64351bb4624ed9ad1` inchangé |
+
+## Merge
+
+| Champ | Valeur |
+|-------|--------|
+| Stratégie | **merge commit** (pas squash / rebase) |
+| Merge SHA | `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
+| Parents | `7a3e512f562f480c345a12a744806aa4f2ef625b` + `4fad47f72a7d6cde655d98a64351bb4624ed9ad1` |
+| Tree | `40764ebf1aa8ef3d2171c75c16f32c4ed37df53b` (= tip branch tree) |
+| mergedBy | `mcleland147` |
+| mergedAt | `2026-07-28T16:11:03Z` |
+| Branche source | **préservée** @ `4fad47f72a7d6cde655d98a64351bb4624ed9ad1` |
+
+`PR 283 MERGED — SOURCE BRANCH PRESERVED`
+
+## Post-merge
+
+| Champ | Valeur |
+|-------|--------|
+| `origin/main` | `7746ea293ed1fe13d7c515ebf9962ebdd9b71a9a` |
+| Diff check main | OK |
+| Neuf fichiers présents | oui |
+| Run post-merge | [30377023858](https://github.com/mcleland147/sfia-workspace/actions/runs/30377023858) SUCCESS |
+| Detect / Build / Gate | SUCCESS / SUCCESS / SUCCESS |
+
+`T-A7 WAVE 1 PR 283 POST-MERGE VERIFIED`
+
+### Blobs sur main
 
 | Fichier | Blob |
 |---------|------|
-| README.md | `025599e7ba3857966b8f6a1ea9612ef394f06195` |
+| README | `025599e7ba3857966b8f6a1ea9612ef394f06195` |
 | 01 | `d37e26d4a8254f38eb314fef9e6e38991cf38e06` |
-| 02 | `8093ff00b0fbb6db4762307a1c88dd713ac74e56` |
+| 02 | `696e920fb46169fe996eea9a4c41b01226b0283c` |
 | 03 | `583888496b7b1e02169eb58cfb920d63bb552bf9` |
-| 04 | `2a650d24c2cf3592f95b825ff085a71e1d17c056` |
-| 05 | `6ea4f40c9a012fd62e8c659c2cb3ffa220ac3604` |
+| 04 | `db0aa51e17e3fd50c99dad1386a5c59d3782edc7` |
+| 05 | `1932a5fb7589fb46f488d0c8170668cd4a6d8000` |
 | 06 | `e87ec9db2e5cddc516c3abe46b7ad098f681f577` |
 | 07 | `4f02388b04a952450a5185b9ffb16218cba4d596` |
 | 08 | `9fbd2295998de966aa51421e174b239a34b403b0` |
 
-## Revue documentaire finale
+## Gouvernance (inchangée)
 
-| Domaine | Conformité |
-|---------|------------|
-| MethodMode dual enum + no mapper + orphan select + MethodModeGate DOC ONLY + DB UNKNOWN | **OK** |
-| method/** ~263 · trio `SFIA_CANONICAL_CORE_PATHS` EVIDENCED · CI absence ≠ non-usage · candidats ≠ décisions | **OK** |
-| OPS1 path-policy (pas IAM) · CT/D1 coupling · `.sfia-exec` gitignored · F13 NOT DECIDED | **OK** |
-| W1-A/B/C · W1-B RECOMMENDED NOT DECIDED · W1-D01…D05 MORRIS DECISION REQUIRED · F03/F11/F13 NOT DECIDED · T-A7 NOT OPEN · delivery/cutover NOT AUTHORIZED | **OK** |
-| Aucune mod method/OPS1/runtime/modeled/workflow | **OK** |
+- W1-B : `RECOMMENDED — NOT DECIDED`
+- T-A7-W1-D01…D05 : `MORRIS DECISION REQUIRED`
+- F03/F11/F13 : `NOT DECIDED`
+- F08–F10 contenu : `NOT DECIDED`
+- B5/R1/R-M01 : `OPEN` · HARD : `OPEN HARD`
+- T-A6 COMPLETE : `NOT DECLARED` · Option A : `NOT COMPLETE`
+- T-A7 : `NOT OPEN`
+- delivery preparation / delivery / cutover : `NOT AUTHORIZED`
+- persistence/IAM : `NOT SELECTED` · RGPD : `NOT VALIDATED`
 
-**Observation pré-push :** `git diff --check` signalait déjà trailing whitespace (qualifié Minor) — **CI required** l’élève en FAILURE.
+## Inventaires (rappel, sur main)
 
-## PR readiness (intermédiaire)
-
-`T-A7 OPTION C WAVE 1 LEGACY SCOPE FRAMING PR READY` — puis push/PR créés. **Post-checks :** merge bloqué.
-
-## Push / PR
-
-| Champ | Valeur |
-|-------|--------|
-| Push | `PROJECT BRANCH PUSHED — REMOTE HEAD VERIFIED` |
-| Remote HEAD | `9b53f3baba0ec54c4d56fea7fa472496d0157ab3` |
-| PR | **#283** — https://github.com/mcleland147/sfia-workspace/pull/283 |
-| Base / Head OID | `7a3e512f…` / `9b53f3ba…` |
-| Files / +/− / commits | 9 / +728/−0 / 2 |
-
-## Checks PR
-
-| Champ | Valeur |
-|-------|--------|
-| Run | [30363553421](https://github.com/mcleland147/sfia-workspace/actions/runs/30363553421) |
-| Detect SFIA Studio changes | SUCCESS (job 90288933787) |
-| Build and validate SFIA Studio | **FAILURE** (job 90288997063) — step **Trailing whitespace check** |
-| SFIA Studio Required Gate | **FAILURE** (job 90289377406) |
-| Head SHA pendant checks | inchangé `9b53f3ba…` |
-
-Lignes `git diff --check` fautives : 02 L22 · 04 L64–67 · 05 L46–48 (espaces de fin Markdown).
-
-## Merge / post-merge
-
-| Champ | Valeur |
-|-------|--------|
-| Merge | **NON exécuté** |
-| Post-merge | **N/A** |
-| `origin/main` | inchangé `7a3e512f562f480c345a12a744806aa4f2ef625b` |
-| Branche source | **préservée** (remote existante) |
-
-## Statuts gouvernance (inchangés)
-
-W1-B `RECOMMENDED — NOT DECIDED` · T-A7-W1-D01…D05 `MORRIS DECISION REQUIRED` · F03/F11/F13 `NOT DECIDED` · F08–F10 contenu `NOT DECIDED` · B5/R1/R-M01 `OPEN` · HARD `OPEN HARD` · T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE` · T-A7 `NOT OPEN` · delivery prep/delivery/cutover `NOT AUTHORIZED` · persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
+- MethodMode dual enum + orphan select + no mapper
+- `method/**` ~263 + trio `SFIA_CANONICAL_CORE_PATHS` EVIDENCED
+- OPS1 path-policy (pas IAM) + CT/D1 coupling + `.sfia-exec` gitignored
 
 ## Findings
 
-| Sévérité | Count | Détail |
-|----------|-------|--------|
-| Critical | **0** | — |
-| Major | **1** | Required CI FAILURE — trailing whitespace dans 3 fichiers doc → merge interdit |
-| Minor | **1** | trailing whitespace Markdown (cause du Major CI) |
+Critical/Major/Minor = **0 / 0 / 0** (correctif whitespace-only ; checks verts)
 
 ## Actions non exécutées
 
-merge · post-merge · correction whitespace (interdite ce cycle) · nouveau commit projet · amend/rebase/force-push · mod method/OPS1/runtime/modeled/workflow/CI/tests · conso F · ouverture T-A7 · delivery/cutover · COMPLETE · suppression branche
-
-## Diff utile (name-status / stat)
-
-```
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/01-source-truth-and-scope.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/02-methodmode-inventory.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/03-method-directory-inventory.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/04-ops1-boundary-assessment.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/05-dependency-map.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/06-removal-and-isolation-options.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/07-validation-rollback-and-stop-conditions.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/08-morris-decision-pack.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md
-
- .../01-source-truth-and-scope.md                   |  73 ++++++++++++
- .../02-methodmode-inventory.md                     |  80 +++++++++++++
- .../03-method-directory-inventory.md               |  91 +++++++++++++++
- .../04-ops1-boundary-assessment.md                 |  75 ++++++++++++
- .../05-dependency-map.md                           |  55 +++++++++
- .../06-removal-and-isolation-options.md            |  71 ++++++++++++
- .../07-validation-rollback-and-stop-conditions.md  |  51 ++++++++
- .../08-morris-decision-pack.md                     | 128 +++++++++++++++++++++
- .../README.md                                      | 104 +++++++++++++++++
- 9 files changed, 728 insertions(+)
-```
+amend · rebase · force push · nouvelle PR · mod contenu/mots · mod method/OPS1/runtime/modeled/workflow/CI/tests · conso F · ouverture T-A7 · delivery/cutover · fermeture réserve · suppression branche
 
 ---
 
-## Contenu complet des neuf fichiers du pack
+## Contenu complet des neuf fichiers (état main / tip)
 
 
 ### `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/t-a7-option-c-wave-1-legacy-scope-framing/README.md`
@@ -358,7 +402,7 @@ T-A7-W1-D01…D05 — toutes `MORRIS DECISION REQUIRED` — **aucune présélect
 | Création projet | `NewProjectForm` force default interne (pas choix user C1) | `ACTIVE — EVIDENCED` |
 | Confirmation flow | `executeConfirmation.ts` injecte `D1_GOVERNANCE_METHOD_MODE` | `ACTIVE — EVIDENCED` |
 
-**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`  
+**Valeurs autorisées :** `SFIA_V2_6` · `TRANSITION` · `V3_CANDIDATE`
 **Interdit (claims) :** V3-ADOPTED / V3-IMPLEMENTED global (documenté dans claims).
 
 ## 2. Occurrences significatives
@@ -583,10 +627,10 @@ Source : `SFIA_CANONICAL_CORE_PATHS` dans `app/lib/platform/sfia-context/canonic
 
 ## 6. Preuves nécessaires avant F13
 
-1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.  
-2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.  
-3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.  
-4. Inventaire allowlist `method/` : usages réels vs legacy.  
+1. Matrice P10–P11 (ACL isolation · historique read-only) documentée et testable.
+2. Preuve runtime : aucun cross-call OPS1 ↔ `lib/oa` non autorisé.
+3. Politique historique legacy (mutation interdite) — aujourd’hui `MISSING`.
+4. Inventaire allowlist `method/` : usages réels vs legacy.
 5. Gate Morris F13 **contenu** (pas seulement calendrier).
 
 ## 7. Anti-claims
@@ -646,9 +690,9 @@ Source : `SFIA_CANONICAL_CORE_PATHS` dans `app/lib/platform/sfia-context/canonic
 
 ## 3. Lecture normative
 
-1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.  
-2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.  
-3. **Ne pas** fusionner OPS1 et Option A.  
+1. **Ne pas** traiter `method/**` comme mort : prompts + allowlist OPS1 = actifs.
+2. **Ne pas** traiter MethodMode comme limité à OA : il est central à D1.
+3. **Ne pas** fusionner OPS1 et Option A.
 4. Cutover exige preuves P03–P11 avant retrait — encore largement `MISSING`/`PARTIAL`.
 
 ## 4. Anti-claims
