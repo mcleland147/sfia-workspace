@@ -17,6 +17,10 @@ import {
   resetD1DbForTests,
   selectMethodMode,
 } from "@/lib/d1/commands";
+import {
+  resetMethodModeHoldForTests,
+  setMethodModeHoldForTests,
+} from "@/lib/d1/methodModeHold.test-only";
 
 describe("D1-C4 confirmation contracts", () => {
   it("allowlists actionType and requires explicit confirmation", () => {
@@ -86,12 +90,15 @@ describe("D1-C4 bounded mutations", () => {
 
   beforeEach(() => {
     resetD1DbForTests();
+    resetMethodModeHoldForTests();
+    setMethodModeHoldForTests({ active: false, reasons: [] });
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "d1-c4-"));
     process.env.D1_SQLITE_PATH = path.join(tmpDir, "d1.sqlite");
   });
 
   afterEach(() => {
     resetD1DbForTests();
+    resetMethodModeHoldForTests();
     delete process.env.D1_SQLITE_PATH;
     fs.rmSync(tmpDir, { recursive: true, force: true });
   });

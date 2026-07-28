@@ -12,6 +12,7 @@ import {
   type SelectMethodModeInput,
 } from "./types";
 import { logD1 } from "./observability";
+import { assertMethodModeTransitionAllowed } from "./methodModeHold";
 
 export { resetD1DbForTests };
 
@@ -151,6 +152,7 @@ export function selectMethodMode(
   try {
     const actorId = requireMonoOperator();
     assertMethodMode(input.methodMode);
+    assertMethodModeTransitionAllowed();
     const current = repo.getProject(input.projectId);
     if (!current) {
       throw new D1Error("NOT_FOUND", "Projet introuvable.");
