@@ -7,8 +7,8 @@
 | **Décision parent** | D-T-A7-F13 = **F13.4** (`DECIDED`) |
 | **Gate N3** | N3 **DECIDED — ADOPTED BY MORRIS** |
 | **Base Git** | `770605bc…` |
-| **Implémentation** | **interdite** |
-| **Statut F13.4** | fondation lot 1 intégrée · **vue runtime finale non complète** |
+| **Implémentation** | **interdite** en N3 · **réalisée localement** en L-F11F13 (voir `17`) |
+| **Statut F13.4** | seed+SHA · PREFIX_ONLY · GIT_ONLY · **≠ cutover-complete** |
 
 ---
 
@@ -18,14 +18,17 @@
 |---------|--------|--------|
 | Module | `app/lib/platform/t-a7/boundedHistoryRead.ts` | documentary seed |
 | Max | `BOUNDED_HISTORY_MAX_ITEMS = 50` | hard cap |
-| Providers | documentary · unavailable | pas de Git live fetch |
-| Page | frozen · `gitCanonical=true` · `mutable=false` | `BOUNDED_LOT_1` |
-| Seed | 3 entrées packs/PR refs | ≠ archive complète |
+| Providers | documentary · unavailable | pas de Git live shell |
+| Page | frozen · `gitCanonical=true` · `gitCanonicalSha` · `mutable=false` | `BOUNDED_L_F11F13` |
+| Pagination | `PREFIX_ONLY` · `nextCursor=null` | D4 |
+| Retention | `GIT_ONLY` | D5 |
+| Audit | `DEFERRED_EXPLICITLY` | D2 |
+| Seed | enrichi (incl. merge #287 / `770605bc…`) | ≠ archive complète |
 | Availability | PARTIAL / NOT_AVAILABLE / EMPTY | cohérent |
-| Tests | `t-a7-bounded-history.test.ts` | limites/immutabilité |
+| Tests | `t-a7-bounded-history.test.ts` | SHA / prefix / volume |
 | Persist store | **aucun** | Git canonique |
 
-**Anti-claim :** fondation ≠ vue runtime finale · ≠ ACL · ≠ source concurrente à Git.
+**Anti-claim :** seed+SHA L-F11F13 ≠ vue runtime cutover · ≠ ACL · ≠ store concurrent à Git.
 
 ---
 

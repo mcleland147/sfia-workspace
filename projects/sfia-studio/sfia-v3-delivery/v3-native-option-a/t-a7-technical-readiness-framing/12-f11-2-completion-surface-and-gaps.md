@@ -7,8 +7,8 @@
 | **Décision parent** | D-T-A7-F11 = **F11.2** (`DECIDED`) |
 | **Gate N3** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 …` · **N3 DECIDED** |
 | **Base Git** | `origin/main` @ `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-| **Implémentation** | **interdite** dans ce cycle |
-| **Statut F11.2** | fondation lot 1 intégrée · **API finale non complète** |
+| **Implémentation** | **interdite** dans le cycle N3 · **réalisée localement** en L-F11F13 (voir `17`) |
+| **Statut F11.2** | contrat INTERNAL_ONLY L-F11F13 · **≠ cutover-complete** |
 
 ---
 
@@ -18,16 +18,19 @@
 |---------|--------|--------|
 | Module | `app/lib/d1/operationalReadiness.ts` | interne TypeScript |
 | Entrée | `queryOperationalReadiness(input?)` | pas de route HTTP |
-| Snapshot | `schemaVersion: t-a7-f11.2-lot1` · frozen | `completeness: BOUNDED_LOT_1` |
+| Snapshot | `schemaVersion: t-a7-f11.2-l-f11f13` · frozen | `completeness: BOUNDED_L_F11F13` · `accessSurface: INTERNAL_ONLY` |
+| Readiness | `READY` \| `NOT_READY` \| `UNKNOWN` | absence signal ≠ READY |
 | Flags | `mutable=false` · `adminUi=false` · `writeCommands=false` | contrats RO |
 | Hold | lu via `readMethodModeHold` / `decideMethodModeTransition` | défaut ACTIVE |
-| History | résumé F13 page (`availability`, `returned`, `gitCanonical`) | pas d’items complets |
+| History | résumé F13 (`availability`, `returned`, `gitCanonical`, `gitCanonicalSha`, `PREFIX_ONLY`) | pas d’items complets |
 | Health | `SIMULATED` | pas de probe prod |
+| Audit | `DEFERRED_EXPLICITLY` | D2 |
+| IAM / Persistence | `NOT_SELECTED` | D7 / D8 |
 | Migration | `NOT_STARTED` | pas de schéma |
-| Tests | `t-a7-operational-readiness.test.ts` | fondation seulement |
+| Tests | `t-a7-operational-readiness.test.ts` | L-F11F13 |
 | Barrel | exporté depuis `lib/d1/index.ts` (API produit lecture) | ≠ HTTP public |
 
-**Anti-claim :** fondation ≠ API F11.2 complète · ≠ cutover ready · ≠ IAM.
+**Anti-claim :** contrat interne L-F11F13 ≠ API HTTP · ≠ cutover ready · ≠ IAM.
 
 ---
 

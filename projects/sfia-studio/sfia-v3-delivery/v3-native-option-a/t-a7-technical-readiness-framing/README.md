@@ -4,17 +4,18 @@
 |-------|--------|
 | **Mise à jour N3** | 2026-07-28 22:45:18 CEST (+0200) |
 | **Mise à jour D1–D8 / L-F11F13** | 2026-07-28 22:58:09 CEST (+0200) |
+| **Mise à jour résultats L-F11F13** | 2026-07-28 23:22:34 CEST (+0200) |
 | **N3** | `DECIDED — ADOPTED BY MORRIS` — cadrage F11.2/F13.4 completion |
 | **D1–D8** | `DECIDED — ADOPTED BY MORRIS` (voir `16`) |
-| **Gate L-F11F13** | `DECIDED — ADOPTED BY MORRIS — IMPLEMENTATION AUTHORIZED LOCALLY` |
+| **Gate L-F11F13** | `DECIDED — ADOPTED BY MORRIS — IMPLEMENTATION AUTHORIZED LOCALLY` · **implémenté localement** (voir `17`) |
 | **Gate N3 (consommé)** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 FOR F11.2 AND F13.4 COMPLETION FRAMING ONLY — DEFINE FINAL SURFACE GAPS DEPENDENCIES IAM PERSISTENCE AND RUNTIME BOUNDARIES — NO IMPLEMENTATION DELIVERY OR CUTOVER` |
 | **O3** | `DECIDED — ADOPTED BY MORRIS` |
 | **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
 | **Lot 1** | `INTEGRATED ON MAIN` (PR [#287](https://github.com/mcleland147/sfia-workspace/pull/287) · merge `770605bc…`) |
 | **F03.3** | `PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
 | **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** |
-| **F11.2** | fondation intégrée · **API finale non complète** · gaps cadrés (docs 12–16) |
-| **F13.4** | fondation intégrée · **vue runtime finale non complète** · gaps cadrés (docs 12–16) |
+| **F11.2** | contrat **INTERNAL_ONLY** durci (L-F11F13) · pas HTTP/UI · **≠ cutover-complete** |
+| **F13.4** | seed enrichi + SHA Git · PREFIX_ONLY · GIT_ONLY · **≠ archive complète / cutover** |
 | **IAM / Persistence** | `NOT SELECTED` / `NOT SELECTED` |
 | **B5 / R1 / R-M01** | `OPEN` |
 | **HARD** | `OPEN HARD` |
@@ -34,6 +35,7 @@
 | `14` | dépendances & frontières runtime |
 | `15` | options de lots bornés futurs |
 | `16` | decision pack Morris F11/F13 |
+| `17` | résultats lot L-F11F13 (implémentation locale) |
 
 ## Lot 1 intégré sur `main`
 
@@ -41,29 +43,30 @@
 2. F11.2 readiness read-only interne
 3. F13.4 historique RO borné (Git canonique)
 
-## Cadrage N3 (local)
+## Cadrage N3 + lot L-F11F13 (local)
 
-Documents `12`–`16` : surfaces finales, gaps, IAM/persistence **non sélectionnés**, frontières runtime, options L-F11*/L-F13*, bulletin Morris.
+Documents `12`–`16` : surfaces, gaps, D1–D8. Document `17` : résultats d’implémentation locale.
 
-**N3 ≠ implémentation ≠ F11/F13 complete.**
+**N3 ≠ cutover. L-F11F13 local ≠ push/PR/delivery.**
 
 ## Anti-claims
 
 - lot 1 intégré ≠ T-A7 entièrement ouvert ≠ delivery/cutover ready
-- N3 décidé ≠ lot technique autorisé
-- fondations F11/F13 ≠ surfaces finales
-- recommandation lots ≠ décision Morris
+- L-F11F13 local ≠ HTTP public ≠ IAM ≠ persistence
+- contrat interne F11 ≠ API réseau
+- seed F13 + SHA ≠ store concurrent à Git
 - hold ≠ blockers fermés
+- tests verts ≠ RUN READY / RGPD VALIDATED
 
 ## Gate candidat suivant
 
 `GO REVIEW T-A7 F11.2 F13.4 INTERNAL COMPLETION LOT PR READINESS — NO PUSH PR MERGE DELIVERY OR CUTOVER`
 
-**Statut :** `NOT CONSUMED` · `READY FOR PR READINESS` (après implémentation locale L-F11F13)
+**Statut :** `NOT CONSUMED` · `READY FOR PR READINESS`
 
 ## Verdict courant
 
-`T-A7 N3 FRAMING RECORDED — D1–D8 DECIDED — L-F11F13 IMPLEMENTATION AUTHORIZED LOCALLY — F11.2 AND F13.4 REMAIN NOT CUTOVER-COMPLETE — IAM AND PERSISTENCE NOT SELECTED — NO PROJECT PUSH PR MERGE DELIVERY OR CUTOVER`
+`T-A7 F11.2 F13.4 INTERNAL COMPLETION LOT IMPLEMENTED LOCALLY — F11 INTERNAL-ONLY — F13 SEED+SHA PREFIX-ONLY GIT-ONLY — AUDIT DEFERRED — IAM AND PERSISTENCE NOT SELECTED — TESTS PASSED — BLOCKERS OPEN — NO PROJECT PUSH PR MERGE DELIVERY OR CUTOVER — READY FOR PR READINESS`
 
 ---
 

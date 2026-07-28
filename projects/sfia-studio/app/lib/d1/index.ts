@@ -25,5 +25,7 @@ export {
 export type {
   OperationalReadinessSnapshot,
   OperationalReadinessQueryInput,
+  OperationalReadinessStatus,
+  OperationalReadinessAccessSurface,
 } from "./operationalReadiness";
 export { resetD1DbForTests } from "./db";

@@ -65,6 +65,12 @@ Cette section ne constitue **pas** l’état courant des décisions.
 
 ---
 
-## 5. Verdict document
+## 5. Résultats L-F11F13
 
-`D1–D8 DECIDED — L-F11F13 IMPLEMENTATION AUTHORIZED LOCALLY — IAM AND PERSISTENCE REMAIN NOT SELECTED — NO PROJECT PUSH PR MERGE DELIVERY OR CUTOVER`
+Voir `17-f11-f13-internal-completion-lot-results.md` pour l’implémentation locale, tests et anti-claims.
+
+---
+
+## 6. Verdict document
+
+`D1–D8 DECIDED — L-F11F13 IMPLEMENTED LOCALLY — IAM AND PERSISTENCE REMAIN NOT SELECTED — NO PROJECT PUSH PR MERGE DELIVERY OR CUTOVER — READY FOR PR READINESS`
