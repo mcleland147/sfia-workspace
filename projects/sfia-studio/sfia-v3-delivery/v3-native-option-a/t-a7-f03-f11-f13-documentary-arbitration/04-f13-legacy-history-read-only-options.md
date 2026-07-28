@@ -3,109 +3,56 @@
 | Champ | Valeur |
 |-------|--------|
 | **Décision** | D-T-A7-F13 |
-| **Question** | Comment conserver l’historique legacy en read-only et isoler OPS1 ? |
-| **Statut contenu** | `NOT DECIDED` |
-| **Reco** | `RECOMMENDED — NOT DECIDED` → **F13.4** |
+| **Choix** | **F13.4** — `HYBRID GIT ARCHIVE PLUS BOUNDED READ-ONLY RUNTIME VIEW` |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
+| **Date** | 2026-07-28 19:25:19 CEST (+0200) |
 
-## Définitions
+## Contenu normatif F13.4 (adopté)
 
-| Terme | Périmètre candidat |
-|-------|-------------------|
-| **Historique legacy** | états/audit D1 liés MethodMode · artefacts `.sfia-exec` locaux · docs/archives `method/**` non canoniques · journaux OPS1 locaux |
-| **Données** | SQLite `method_mode` + audit events · fichiers state gitignored · markdown method |
-| **Chemins** | `app/lib/d1/**` (données) · `method/**` · `app/lib/ops1/**` · `.sfia-exec/**` |
-| **Consommateurs** | D1 UI · canonical loader · OPS1/CT · prompts · docs |
-| **Droits** | path-policy + gates Morris (**≠** IAM multi-user) |
-| **Mutations interdites (cible RO)** | update/delete historique · réactivation silencieuse MethodMode retiré · write `method/` hors gate |
-| **Durée** | **NOT DECIDED** — candidat : jusqu’à GO archive finale distinct |
-| **Frontière OPS1** | D04 : isolation **avant** retrait · POC ≠ Option A (SC-12) |
-| **Après retrait** | lectures RO seulement · pas d’autorité runtime cutover |
-| **Rollback** | restore ACL/allowlist · Git · backup DB · procédures locales `.sfia-exec` |
+La cible documentaire retenue combine :
 
----
+- conservation **Git/documentaire** de la vérité historique ;
+- **vue runtime read-only bornée** pour support, audit et traçabilité ;
+- **isolation OPS1 préalable** à tout retrait (W1-D04) ;
+- **mutations historiques interdites** ;
+- journalisation des accès ;
+- frontière explicite **actif vs historique** ;
+- **path-policy distincte de l’IAM** ;
+- rollback documenté ;
+- durée de conservation à préciser dans un cycle distinct si nécessaire.
 
-## F13.1 — Conservation in-place read-only
+**Git reste source de vérité historique.** La vue RO n’est pas une source canonique concurrente.
 
-Legacy reste en place ; mutations interdites par politique/tests.
-
-| Critère | Éval |
-|---------|------|
-| Périmètre | chemins actuels |
-| Accès | same surfaces ; deny writes |
-| Contrôle | path-policy + antiLegacy étendu |
-| Migration | minimale |
-| Avantages | simplicité |
-| Risques | confusion actif/historique · réactivation accidentelle |
-| Dette | structure legacy visible |
-| Durée | indéterminée |
-| Preuves | tests mutation deny |
-| Conditions retrait final | GO distinct |
+**Ce cycle n’autorise aucune implémentation de frontière runtime, migration, ni modification OPS1.**
 
 ---
 
-## F13.2 — Isolation dédiée read-only
+## Options d’arbitrage (historique)
 
-Frontière dédiée ultérieure : namespace · API lecture · ACL · journalisation · no mutation · dépendances actives isolées.
+### F13.1 — In-place read-only — **non retenue**
 
-| Critère | Éval |
-|---------|------|
-| Périmètre | store/API « legacy history » |
-| Accès | API RO bornée (lien F11.2/F11.3) |
-| Contrôle | ACL path + audit |
-| Migration | copie/move contrôlé |
-| Avantages | clarté · SC-12 · D04 |
-| Risques | coût · double écriture pendant transition |
-| Dette | service RO à maintenir |
-| Rollback | reverse migrate |
-| Preuves | e2e no-write · boundary tests |
-| Conditions retrait final | empty store + GO |
+Simple · risque confusion actif/historique.
 
----
+### F13.2 — Isolation dédiée RO — **non retenue (maintenant)**
 
-## F13.3 — Archive documentaire uniquement
+Cible forte possible plus tard · coût élevé pour l’instant.
 
-Git/docs seulement · **pas** d’exposition runtime.
+### F13.3 — Archive documentaire uniquement — **non retenue**
 
-| Critère | Éval |
-|---------|------|
-| Périmètre | repo markdown + history Git |
-| Accès | lecteurs Git |
-| Contrôle | Git permissions |
-| Avantages | très simple |
-| Risques | perte traçabilité produit · support runtime impossible · `.sfia-exec`/DB non couverts |
-| Dette | faible doc · **trou** opérationnel |
-| Preuves | tags Git |
-| Limites | **insuffisant seul** si D1/OPS1 restent |
+Insuffisante seule tant que D1/OPS1 restent actifs.
+
+### F13.4 — Hybrid — **ADOPTÉE**
+
+Archive Git + politique/vue RO bornée + OPS1 isolable.
 
 ---
 
-## F13.4 — Hybrid — **RECO**
+## Anti-claims
 
-Archive Git/docs **+** vue/politique RO **bornée** runtime pour données encore nécessaires (MethodMode history · audit) · OPS1 isolé (D04) sans retrait forcé.
-
-| Critère | Éval |
-|---------|------|
-| Périmètre | Git archives `method` non-canon · RO DB/audit D1 · OPS1 path-policy renforcée |
-| Accès | F11.2 lecture · pas d’UI obligatoire |
-| Contrôle | path-policy ≠ IAM · gates |
-| Migration | progressive |
-| Avantages | couvre UNKNOWN volumes · compatible W1-D03/D04 · évite F13.3 trop faible et F13.2 trop tôt |
-| Risques | complexité hybride · discipline anti-réactivation |
-| Dette | moyenne |
-| Rollback | Git + backup DB + ACL |
-| Durée | jusqu’à GO archive finale |
-| Preuves | deny mutation · boundary OPS1 · inventaire allowlist |
-| Conditions retrait final | preuves + F03/F11 satisfaits + GO Morris |
-
----
-
-## Synthèse F13
-
-| Option | Label |
-|--------|-------|
-| F13.1 | acceptable court terme |
-| F13.2 | cible forte si cutover proche |
-| F13.3 | insuffisante seule |
-| F13.4 | `RECOMMENDED — NOT DECIDED` |
-
-**Anti-claim :** F13.4 recommandé ≠ isolation implémentée · ≠ ACL validée · ≠ retrait OPS1.
+- F13.4 décidée ≠ frontière runtime implémentée
+- read-only documenté ≠ ACL validée
+- archive Git ≠ exposition produit suffisante à elle seule
+- vue read-only ≠ source canonique concurrente à Git
+- isolation OPS1 requise ≠ isolation réalisée
+- conservation ≠ maintien d’un usage actif
+- F13 décidée ≠ prep technique / delivery / cutover

@@ -1,49 +1,55 @@
-# 06 — Recommandation et risques
+# 06 — Impacts, risques et séquence (post-décision)
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut global** | `RECOMMENDED — NOT DECIDED` |
-| **Autorité** | aucune hors Morris |
+| **Statut** | décisions F03.3 / F11.2 / F13.4 **enregistrées** |
+| **Autorisation technique** | **aucune** |
 
-## 1. Recommandation
+## 1. Décisions (rappel)
 
-| Domaine | Option | Justification courte |
-|---------|--------|----------------------|
-| F03 | **F03.3** | minimal + traçabilité P* / HARD / D04 sans maximalisme cutover |
-| F11 | **F11.2** | API lecture/hold/readiness · pas d’UI admin prématurée |
-| F13 | **F13.4** | hybrid Git archive + RO runtime borné · OPS1 isolable |
-| Combo | **F03.3 × F11.2 × F13.4** | cohérente · proportionnée · réversible |
+| Domaine | Choix | Statut |
+|---------|-------|--------|
+| F03 | F03.3 | `DECIDED — ADOPTED BY MORRIS` |
+| F11 | F11.2 | `DECIDED — ADOPTED BY MORRIS` |
+| F13 | F13.4 | `DECIDED — ADOPTED BY MORRIS` |
+| Combo | F03.3 × F11.2 × F13.4 | `DECIDED — ADOPTED BY MORRIS` |
 
-## 2. Compatibilité
+## 2. Impacts
 
-| Contrainte | Respect reco ? |
-|------------|----------------|
-| W1-B plan candidat | oui (doc) |
-| Isolation OPS1 avant retrait (D04) | oui (F13.4/F13.2 path) |
-| F gates avant prep (D05) | oui |
-| T-A7 NOT OPEN | oui |
-| Pas de dette UI inutile | oui (évite F11.3 immédiat) |
-| Repo-informed | oui (preuves Wave 1 + P*) |
+| Impact | Effet |
+|--------|-------|
+| Prep technique | bloquée tant que set F03.3 non satisfait / non borné |
+| API | exigence lecture/readiness future · pas d’implémentation maintenant |
+| UI admin | non exigée |
+| Historique | cible hybrid Git + RO bornée · pas d’implémentation maintenant |
+| OPS1 | isolation avant retrait (D04) · pas de mod code |
 
 ## 3. Risques résiduels
 
-| Risque | Sévérité | Mitigation documentaire |
-|--------|----------|-------------------------|
-| « Prep » mal définie malgré F03.3 | Med | W1-S4 · liste exclusions |
-| API F11.2 étendue en write trop tôt | Med | mutations = gate séparé |
-| Hybrid F13.4 mal discipliné | Med | deny-write · inventaire allowlist |
-| HARD ignorés | High | anti-bypass B5/R1/HARD |
-| Volume DB UNKNOWN | Med | campagne mesure avant retrait D1 |
+| Risque | Mitigation |
+|--------|------------|
+| Confusion « décidé = prêt à coder » | anti-claims · gate integrate ≠ prep |
+| Extension write API | gate mutation distinct |
+| Hybrid mal discipliné | deny-write · inventaire allowlist (futurs) |
+| HARD ignorés | anti-bypass B5/R1/HARD |
 
-## 4. Ce qui n’est **pas** recommandé maintenant
+## 4. Dette / réversibilité
 
-- F03.2 comme entrée prep (sur-cadrage)
-- F11.1 (aveugle)
-- F13.3 seul (trou runtime)
-- Toute implémentation / prep technique / cutover
+| Couche | Dette | Réversibilité |
+|--------|-------|---------------|
+| Documentaire | faible (options non retenues conservées) | haute (Git revert) |
+| Technique | **nulle** ce cycle | N/A |
 
-## 5. Anti-claims
+## 5. Stop conditions ajoutées
 
-- recommandation ≠ validation Morris
-- combo reco ≠ décision
-- F décidées plus tard ≠ delivery/cutover autorisés
+| ID | Trigger | Action |
+|----|---------|--------|
+| F-S1 | prep technique sans set F03.3 | STOP |
+| F-S2 | implémentation API/UI hors gate | STOP |
+| F-S3 | mutation historique / retrait sans isolation OPS1 | STOP |
+
+## 6. Anti-claims
+
+- décisions ≠ implémentation
+- décisions ≠ delivery preparation / delivery / cutover
+- décisions ≠ T-A7 OPEN

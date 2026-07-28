@@ -2,119 +2,98 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut pack** | `PREPARED — MORRIS DECISION REQUIRED` |
-| **Aucune option auto-sélectionnée** | oui |
-| **F03 / F11 / F13** | contenu `NOT DECIDED` |
+| **Statut pack** | `RECORDED — DECIDED BY MORRIS` |
+| **Gate** | `GO DECIDE T-A7 F03 F11 AND F13 — F03=F03.3 — F11=F11.2 — F13=F13.4 — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 19:25:19 CEST (+0200) |
 | **T-A7** | `NOT OPEN` |
 | **Prep technique / delivery / cutover** | `NOT AUTHORIZED` |
 
 ---
 
-## D-T-A7-F03 — Préconditions avant préparation technique
+## D-T-A7-F03
 
-**Question :** Quel set de préconditions obligatoires avant toute préparation technique de retrait / delivery T-A7 ?
+| Champ | Valeur |
+|-------|--------|
+| **Choix** | **F03.3** |
+| **Libellé** | `CUSTOM INTERMEDIATE ENTRY PRECONDITION SET` |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
 
-| Option | Description |
-|--------|-------------|
-| F03.1 | Set minimal (inventaire · actifs · candidats · W1-B · isolation définie · rollback doc · preuves candidates · F11/F13 décidées · HARD non ignorés) |
-| F03.2 | Set maximal (P03–P11 + runtime + tests + obs + sécu + données + IAM + RUN + cutover readiness) |
-| F03.3 | Set custom intermédiaire (F03.1 + matrice P* + frontière OPS1 design + holds candidats + anti-bypass) |
-| Autre / différer | — |
+**Options non retenues :** F03.1 · F03.2 · autre/différer.
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **F03.3**
+**Impacts / dette / réversibilité :** borne l’entrée prep · dette doc P* · réversibilité Git haute.
 
-**Impacts :** borne l’entrée en prep · n’autorise pas delivery.
+**Gate futur :** satisfaction/bornage set · puis prep sous GO distinct.
 
-**Dette :** doc P* à maintenir.
-
-**Réversibilité :** haute.
-
-**Gate futur :** plan W1-B détaillé · puis prep seulement si GO.
-
-**Anti-claims :** F03 décidé ≠ delivery · ≠ cutover · ≠ T-A7 OPEN.
-
-**Statut :** `MORRIS DECISION REQUIRED`
+**Anti-claims :** F03 ≠ préconditions satisfaites · ≠ delivery preparation · ≠ set maximal · ≠ validation runtime.
 
 ---
 
-## D-T-A7-F11 — API / UI retrait et cutover
+## D-T-A7-F11
 
-**Question :** Quelles exigences API/UI pour opérer/observer le retrait legacy et le cutover ?
+| Champ | Valeur |
+|-------|--------|
+| **Choix** | **F11.2** |
+| **Libellé** | `MINIMAL OPERATIONAL READ API WITHOUT DEDICATED UI` |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
 
-| Option | Description |
-|--------|-------------|
-| F11.1 | Aucune nouvelle surface avant cutover |
-| F11.2 | API opérationnelle minimale **sans** UI dédiée (lecture état/holds/readiness) |
-| F11.3 | API + UI minimale d’administration |
-| F11.4 | Custom (API maintenant · UI jalonnée plus tard) |
-| Autre / différer | — |
+**Options non retenues :** F11.1 · F11.3 · F11.4 · autre/différer.
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **F11.2**
+**Impacts / dette / réversibilité :** exigence contrats lecture futurs · dette API · réversibilité moyenne.
 
-**Impacts :** exige contrats lecture futurs · pas d’UI shippée par cette décision seule.
+**Gate futur :** design/validation API · mutations = gate séparé · pas d’UI obligatoire.
 
-**Dette :** API contracts.
-
-**Réversibilité :** moyenne.
-
-**Gate futur :** design/API gate distinct · mutations write séparées.
-
-**Anti-claims :** F11 ≠ product complete A3.2 · ≠ implémentation · ≠ retrait MethodMode.
-
-**Statut :** `MORRIS DECISION REQUIRED`
+**Anti-claims :** ≠ API implémentée · ≠ mutation · ≠ product complete · ≠ IAM.
 
 ---
 
-## D-T-A7-F13 — Historique legacy read-only / OPS1
+## D-T-A7-F13
 
-**Question :** Quelle politique d’historique legacy read-only et de frontière OPS1 ?
+| Champ | Valeur |
+|-------|--------|
+| **Choix** | **F13.4** |
+| **Libellé** | `HYBRID GIT ARCHIVE PLUS BOUNDED READ-ONLY RUNTIME VIEW` |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
 
-| Option | Description |
-|--------|-------------|
-| F13.1 | Conservation in-place read-only |
-| F13.2 | Isolation dédiée read-only (namespace/API/ACL) |
-| F13.3 | Archive documentaire uniquement (Git/docs) |
-| F13.4 | Hybrid (archive Git + vue/politique RO runtime bornée + OPS1 isolable) |
-| Autre / différer | — |
+**Options non retenues :** F13.1 · F13.2 · F13.3 · autre/différer.
 
-**Recommandation :** `RECOMMENDED — NOT DECIDED` → **F13.4**
+**Impacts / dette / réversibilité :** cible hybrid · dette politique · réversibilité moyenne.
 
-**Impacts :** impose discipline deny-write + design isolation OPS1 (D04).
+**Gate futur :** design isolation OPS1 + vue RO · durée conservation si besoin.
 
-**Dette :** politique hybride.
-
-**Réversibilité :** moyenne.
-
-**Gate futur :** isolation design · puis implémentation sous GO distinct.
-
-**Anti-claims :** F13 ≠ isolation implémentée · ≠ ACL validée · ≠ retrait OPS1 · path-policy ≠ IAM.
-
-**Statut :** `MORRIS DECISION REQUIRED`
+**Anti-claims :** ≠ frontière implémentée · ≠ ACL validée · ≠ archive seule suffisante · Git reste vérité · ≠ isolation réalisée.
 
 ---
 
-## Bulletin Morris (vierge)
+## Combinaison
+
+| Champ | Valeur |
+|-------|--------|
+| **Choix** | **F03.3 × F11.2 × F13.4** |
+| **Statut** | `DECIDED — ADOPTED BY MORRIS` |
+
+## Bulletin consommé
 
 ```
-GO DECIDE T-A7 F03 F11 AND F13 — D-T-A7-F03=… — D-T-A7-F11=… — D-T-A7-F13=… — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
+GO DECIDE T-A7 F03 F11 AND F13 — F03=F03.3 — F11=F11.2 — F13=F13.4 — NO TECHNICAL PREPARATION — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN
 ```
 
-**Statut GO :** `NOT CONSUMED / NOT DRAFTED AS DECISION`.
+**Statut GO :** `CONSUMED — DECISIONS RECORDED` (documentaire uniquement).
 
-## Synthèse recommandations (non décisionnelles)
+## Synthèse
 
-| ID | Option | Label |
-|----|--------|-------|
-| D-T-A7-F03 | F03.3 | `RECOMMENDED — NOT DECIDED` |
-| D-T-A7-F11 | F11.2 | `RECOMMENDED — NOT DECIDED` |
-| D-T-A7-F13 | F13.4 | `RECOMMENDED — NOT DECIDED` |
+| ID | Choix | Statut |
+|----|-------|--------|
+| D-T-A7-F03 | F03.3 | `DECIDED — ADOPTED BY MORRIS` |
+| D-T-A7-F11 | F11.2 | `DECIDED — ADOPTED BY MORRIS` |
+| D-T-A7-F13 | F13.4 | `DECIDED — ADOPTED BY MORRIS` |
+| Combinaison | F03.3 × F11.2 × F13.4 | `DECIDED — ADOPTED BY MORRIS` |
 
 ## Garde-fous
 
-- W1-B · W1-D01…D05 : décisions Wave 1 inchangées
-- F03/F11/F13 contenu : `NOT DECIDED`
+- W1-B · W1-D01…D05 : inchangées (`DECIDED`)
 - B5/R1/R-M01 `OPEN` · HARD `OPEN HARD`
 - T-A6 COMPLETE `NOT DECLARED` · Option A `NOT COMPLETE`
 - T-A7 `NOT OPEN`
 - delivery preparation / delivery / cutover `NOT AUTHORIZED`
 - persistence/IAM `NOT SELECTED` · RGPD `NOT VALIDATED`
+- **Aucune** implémentation autorisée par ces décisions
