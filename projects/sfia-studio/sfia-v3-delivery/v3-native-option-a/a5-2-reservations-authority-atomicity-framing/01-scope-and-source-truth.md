@@ -2,7 +2,10 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `PREPARED — MORRIS ARBITRATION REQUIRED` |
+| **Statut framing (historique)** | `PREPARED — MORRIS ARBITRATION REQUIRED` (commit `cd7c00e…`) |
+| **Statut actuel** | `MORRIS DECISIONS RECORDED — IMPLEMENTATION AND RESERVE CLOSURE NOT AUTHORIZED` |
+| **Gate décisions** | `GO RECORD MORRIS A5.2 DECISIONS — A52-D01=.3+STOP-BEFORE-DELIVERY — A52-D02=.2 — A52-D03=.3-THEN-.1-BEFORE-REAL-CRITICAL — A52-D04=.4 — A52-D05=.2+.4 — SFIA STUDIO V3-NATIVE — NO DELIVERY OR CUTOVER — KEEP T-A7 NOT OPEN` |
+| **Date/heure/fuseau** | 2026-07-28 09:50:54 CEST (+0200) |
 | **Base** | `9f578ea1677ce65cffb4b05ddf5649a21a5b240c` |
 | **PR intégrée** | #280 MERGED |
 | **Head historique** | `b7a5e827fddb7e80f03a71b3b64ca89271ede0a6` (ancêtre de main) |
@@ -13,13 +16,16 @@
 - `origin/main` = merge commit PR #280.
 - Pack T-A7 présent (6 fichiers, blobs inchangés).
 - Worktree A5.2 créé depuis `origin/main` ; upstream **absent** ; aucun push.
+- Framing A5.2 préparé au commit `cd7c00e918c721738e792594bdd22907cf859cf2` (7 fichiers, +581).
+- Enregistrement décisions Morris = commit documentaire distinct **sur** ce framing (pas d’amend).
 
 ## 2. Périmètre inclus
 
 - B5, R1, R-T-A3-1, R-T-A3-2, R-M01, C1–C4
 - modèles d’autorité et d’atomicité
 - options d’arbitrage A52-D01…D05
-- relation avec F04 (inchangée) et F08–F10 (préparation uniquement)
+- **transcription documentaire** des choix Morris A52-D01…D05
+- relation avec F04 (inchangée) et F08–F10 (préparation uniquement — **non consommées**)
 
 ## 3. Périmètre exclu
 
@@ -28,10 +34,10 @@
 - sélection persistence/IAM/RGPD opérationnelle
 - consommation F03/F08–F13
 - déclaration T-A6 COMPLETE / Option A COMPLETE
-- fermeture ou acceptation implicite de réserve
+- fermeture ou acceptation implicite de réserve technique
 - U-M02 (hors arbitrage principal ; cité comme dépendance)
 
-## 4. Sources consultées (ref = HEAD)
+## 4. Sources consultées (ref = HEAD framing)
 
 | Path | Blob | Statut | Utilité |
 |------|------|--------|---------|
@@ -56,6 +62,7 @@
 | `…/13-technical-architecture-validation-and-decision-pack.md` | `b93b7cae…` | PRESENT | outbox / ordre T-A* |
 | `v3-native-option-a/23-next-option-a-step-after-t-a6.md` | `e87deff7…` | PRESENT | B5/R1 structurantes |
 | docs studio `20`/`23`/`24`/`31`/`33` (POC/framing) | divers | PRESENT | contexte historique ; non décisionnels A5.2 |
+| handoff session décision blob `37a101d1…` | `37a101d1…` | PRESENT | bulletin vierge → choix Morris |
 
 ### Observation source naming
 
@@ -65,21 +72,23 @@ Les chemins AT-11/AT-13 cités parfois sous d’autres intitulés ; **substituts
 
 | Terme | Sens A5.2 |
 |-------|-----------|
-| **OPEN** | réserve non arbitrée / non bornée formellement |
+| **OPEN** | réserve non fermée / non résolue techniquement |
 | **OPEN HARD** | bloque exécution réelle / Confirm Critical réel / persistence saine |
 | **RECOMMENDED — NOT VALIDATED** | recommandation technique T-A6 non validée Morris |
-| **RECOMMENDED — NOT DECIDED** | recommandation A5.2 ; **pas** une décision |
+| **DECIDED — ADOPTED BY MORRIS** | choix A52 enregistré ; **≠** fermeture réserve / VALIDATED |
+| **TRACKING MERGED INTO B5 — NOT VALIDATED** | C4 suivi via B5 ; **≠** VALIDATED |
 | **mémoire** | fake-only / in-memory ; ≠ production |
 | **durable** | persistence réelle future ; **NOT SELECTED** |
+| **STOP BEFORE DELIVERY** | stop avant delivery (pas avant delivery preparation) |
 
-## 6. Hypothèses (explicites, non décisions)
+## 6. Hypothèses (explicites, non décisions nouvelles)
 
 1. Le cadrage read-only reste possible avec HARD OPEN (confirmé pack T-A7).
-2. T-A6 COMPLETE mémoire (F04) exige arbitrage/bornage R-M01 + C1–C4 avant déclaration, pas avant ce framing.
-3. F08/F09/F10 resteront NOT DECIDED après A5.2 jusqu’à bulletin Morris séparé.
+2. T-A6 COMPLETE mémoire (F04) exige arbitrage/bornage R-M01 + C1–C4 avant déclaration — A52-D05 borne cette future application sans déclarer COMPLETE.
+3. F08/F09/F10 restent NOT DECIDED après enregistrement A5.2 jusqu’à bulletin Morris séparé.
 
 ## 7. Ambiguïtés / obsolescences
 
 - Matrices delivery/cutover restent **candidate** tant que F08/F09 NOT DECIDED.
 - « VALIDATION SATISFIED » côté delivery T-A6 (R-M01 technique) ≠ fermeture réserve.
-- Fusion C4→B5 recommandée historiquement, **jamais validée** Morris.
+- Fusion C4→B5 : **adoptée comme tracking** (A52-D01.3) ; C4 **NOT VALIDATED** ; B5 **OPEN**.
