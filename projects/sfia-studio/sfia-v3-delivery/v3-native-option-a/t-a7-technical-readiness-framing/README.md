@@ -2,56 +2,78 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Mise à jour post-merge** | 2026-07-28 22:16:12 CEST (+0200) |
-| **Gate post-merge (consommé)** | `GO POST-MERGE T-A7 FIRST BOUNDED DEVELOPMENT LOT — CONFIRM MAIN INTEGRATION — CORRECT STALE LOCAL-ONLY README STATUS IF NEEDED — FRAME NEXT BLOCKER-REDUCTION CYCLE — NO DELIVERY OR CUTOVER` |
+| **Mise à jour N3** | 2026-07-28 22:45:18 CEST (+0200) |
+| **Mise à jour D1–D8 / L-F11F13** | 2026-07-28 22:58:09 CEST (+0200) |
+| **N3** | `DECIDED — ADOPTED BY MORRIS` — cadrage F11.2/F13.4 completion |
+| **D1–D8** | `DECIDED — ADOPTED BY MORRIS` (voir `16`) |
+| **Gate L-F11F13** | `DECIDED — ADOPTED BY MORRIS — IMPLEMENTATION AUTHORIZED LOCALLY` |
+| **Gate N3 (consommé)** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 FOR F11.2 AND F13.4 COMPLETION FRAMING ONLY — DEFINE FINAL SURFACE GAPS DEPENDENCIES IAM PERSISTENCE AND RUNTIME BOUNDARIES — NO IMPLEMENTATION DELIVERY OR CUTOVER` |
 | **O3** | `DECIDED — ADOPTED BY MORRIS` |
 | **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
-| **Lot 1** | `INTEGRATED ON MAIN` |
-| **PR** | [#287](https://github.com/mcleland147/sfia-workspace/pull/287) — `feat(sfia-studio): integrate T-A7 bounded readiness foundations` |
-| **Merge commit** | `770605bcfa4cc3e403ee2c4615c1a115ccd38458` |
-| **Parents** | `2a3c59c46c105bae458d1a7329079c5f591da421` + `b6a19335f5116940175f5986492e3693722563bc` |
-| **Tree** | `712720a1a2371f98c137a6c8b29299ac556299c7` |
-| **Branche source** | `framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness` **préservée** @ `b6a19335…` |
-| **Checks PR** | run `30393629328` — Detect / Build / Required Gate **SUCCESS** |
-| **Checks post-merge** | run `30393814783` — Detect / Build / Required Gate **SUCCESS** |
+| **Lot 1** | `INTEGRATED ON MAIN` (PR [#287](https://github.com/mcleland147/sfia-workspace/pull/287) · merge `770605bc…`) |
 | **F03.3** | `PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
-| **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** · 0 SATISFIED remplacement OA |
-| **F11.2** | fondation intégrée · API finale **non complète** |
-| **F13.4** | fondation intégrée · vue runtime finale **non complète** |
-| **MethodMode hold** | intégré · défaut ACTIVE |
+| **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** |
+| **F11.2** | fondation intégrée · **API finale non complète** · gaps cadrés (docs 12–16) |
+| **F13.4** | fondation intégrée · **vue runtime finale non complète** · gaps cadrés (docs 12–16) |
+| **IAM / Persistence** | `NOT SELECTED` / `NOT SELECTED` |
 | **B5 / R1 / R-M01** | `OPEN` |
 | **HARD** | `OPEN HARD` |
 | **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
-| **Persistence / IAM / RGPD** | `NOT SELECTED` / `NOT SELECTED` / `NOT VALIDATED` |
 | **Delivery / cutover** | `NOT AUTHORIZED` |
+| **Push / PR projet (branche docs courante)** | **aucun** |
+
+## Index du pack
+
+| Doc | Sujet |
+|-----|-------|
+| `01`–`09` | framing readiness / O2 |
+| `10` | lot 1 borné (O3) |
+| `11` | post-merge + options N1–N5 |
+| `12` | F11.2 completion surface & gaps |
+| `13` | F13.4 completion surface & gaps |
+| `14` | dépendances & frontières runtime |
+| `15` | options de lots bornés futurs |
+| `16` | decision pack Morris F11/F13 |
 
 ## Lot 1 intégré sur `main`
 
 1. MethodMode hold (défaut actif ; override test-only hors barrel)
-2. F11.2 readiness read-only interne (`mutable/adminUi/writeCommands=false`)
-3. F13.4 historique RO borné (Git canonique ; max 50)
+2. F11.2 readiness read-only interne
+3. F13.4 historique RO borné (Git canonique)
 
-Détails : `10-t-a7-first-bounded-development-lot.md` · clôture : `11-t-a7-lot1-post-merge-and-next-blocker-framing.md`
+## Cadrage N3 (local)
+
+Documents `12`–`16` : surfaces finales, gaps, IAM/persistence **non sélectionnés**, frontières runtime, options L-F11*/L-F13*, bulletin Morris.
+
+**N3 ≠ implémentation ≠ F11/F13 complete.**
 
 ## Anti-claims
 
 - lot 1 intégré ≠ T-A7 entièrement ouvert ≠ delivery/cutover ready
+- N3 décidé ≠ lot technique autorisé
+- fondations F11/F13 ≠ surfaces finales
+- recommandation lots ≠ décision Morris
 - hold ≠ blockers fermés
-- fondations F11/F13 ≠ API / vue finales
-- post-merge confirmé ≠ autorisation de nouveau lot
-- recommandation N1–N5 ≠ décision Morris
 
 ## Gate candidat suivant
 
-`GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N1 N2 N3 N4 OR CUSTOM — NO DELIVERY OR CUTOVER`
+`GO REVIEW T-A7 F11.2 F13.4 INTERNAL COMPLETION LOT PR READINESS — NO PUSH PR MERGE DELIVERY OR CUTOVER`
 
-**Statut :** `NOT CONSUMED`
-
-Gates précis par option : voir document `11`.
+**Statut :** `NOT CONSUMED` · `READY FOR PR READINESS` (après implémentation locale L-F11F13)
 
 ## Verdict courant
 
-`T-A7 LOT 1 INTEGRATED ON MAIN — PR #287 MERGED — POST-MERGE CHECKS PASSED — SOURCE BRANCH PRESERVED — O3 DECIDED — T-A7 OPEN FOR FIRST BOUNDED DEVELOPMENT LOT ONLY — F03.3 PARTIALLY SATISFIED — B5 R1 R-M01 AND HARD REMAIN OPEN — DELIVERY PREPARATION DELIVERY AND CUTOVER NOT AUTHORIZED`
+`T-A7 N3 FRAMING RECORDED — D1–D8 DECIDED — L-F11F13 IMPLEMENTATION AUTHORIZED LOCALLY — F11.2 AND F13.4 REMAIN NOT CUTOVER-COMPLETE — IAM AND PERSISTENCE NOT SELECTED — NO PROJECT PUSH PR MERGE DELIVERY OR CUTOVER`
+
+---
+
+## Historique post-merge (lot 1)
+
+> Section **historique**. Voir aussi `11-t-a7-lot1-post-merge-and-next-blocker-framing.md`.
+
+Post-merge confirmé 2026-07-28 : PR #287 · checks `30393629328` / `30393814783` · branche source préservée · README aligné main.
+
+Gate d’intégration et options N1–N5 : document `11`. N3 a depuis été **sélectionné** par Morris (ce cycle).
 
 ---
 
