@@ -2,27 +2,30 @@
 
 | Champ | Valeur |
 |-------|--------|
+| **Mise à jour post-merge PR #288** | 2026-07-29 02:09:00 CEST (+0200) |
 | **Mise à jour N3** | 2026-07-28 22:45:18 CEST (+0200) |
 | **Mise à jour D1–D8 / L-F11F13** | 2026-07-28 22:58:09 CEST (+0200) |
 | **Mise à jour résultats L-F11F13** | 2026-07-28 23:22:34 CEST (+0200) |
 | **Mise à jour correctif F-PR-01** | 2026-07-29 00:27:00 CEST (+0200) |
 | **N3** | `DECIDED — ADOPTED BY MORRIS` — cadrage F11.2/F13.4 completion |
 | **D1–D8** | `DECIDED — ADOPTED BY MORRIS` (voir `16`) |
-| **Gate L-F11F13** | `DECIDED — ADOPTED BY MORRIS — IMPLEMENTATION AUTHORIZED LOCALLY` · **implémenté localement** (voir `17`) |
-| **Gate N3 (consommé)** | `GO DECIDE T-A7 NEXT BLOCKER-REDUCTION LOT — SELECT N3 FOR F11.2 AND F13.4 COMPLETION FRAMING ONLY — DEFINE FINAL SURFACE GAPS DEPENDENCIES IAM PERSISTENCE AND RUNTIME BOUNDARIES — NO IMPLEMENTATION DELIVERY OR CUTOVER` |
+| **Lot L-F11F13** | `INTEGRATED ON MAIN` (PR [#288](https://github.com/mcleland147/sfia-workspace/pull/288) · merge `a105431…`) |
+| **F-PR-01** | `RESOLVED` (TS2322 · commit `5afe095…`) |
+| **CI post-merge** | run `30407614333` — **SUCCESS** |
 | **O3** | `DECIDED — ADOPTED BY MORRIS` |
 | **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
 | **Lot 1** | `INTEGRATED ON MAIN` (PR [#287](https://github.com/mcleland147/sfia-workspace/pull/287) · merge `770605bc…`) |
 | **F03.3** | `PARTIALLY SATISFIED — IMPLEMENTATION BLOCKERS REDUCED` |
 | **P03–P11** | P03–P07 · P10–P11 **PARTIAL** · P08 · P09 **MISSING** |
-| **F11.2** | contrat **INTERNAL_ONLY** durci (L-F11F13) · pas HTTP/UI · **≠ cutover-complete** |
-| **F13.4** | seed enrichi + SHA Git · PREFIX_ONLY · GIT_ONLY · **≠ archive complète / cutover** |
+| **F11.2** | contrat **INTERNAL_ONLY** intégré sur `main` · pas HTTP/UI · **≠ cutover-complete** |
+| **F13.4** | seed+SHA · PREFIX_ONLY · GIT_ONLY intégré · **≠ archive / cutover** |
 | **IAM / Persistence** | `NOT SELECTED` / `NOT SELECTED` |
 | **B5 / R1 / R-M01** | `OPEN` |
 | **HARD** | `OPEN HARD` |
 | **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
 | **Delivery / cutover** | `NOT AUTHORIZED` |
-| **Push / PR projet (branche docs courante)** | **aucun** |
+| **Main validé** | `a10543143f88ac3bd886c717d49e2d6163c6b360` |
+| **Push / PR (branche docs courante)** | **aucun** |
 
 ## Index du pack
 
@@ -30,44 +33,54 @@
 |-----|-------|
 | `01`–`09` | framing readiness / O2 |
 | `10` | lot 1 borné (O3) |
-| `11` | post-merge + options N1–N5 |
+| `11` | post-merge lot 1 + options N1–N5 |
 | `12` | F11.2 completion surface & gaps |
 | `13` | F13.4 completion surface & gaps |
 | `14` | dépendances & frontières runtime |
 | `15` | options de lots bornés futurs |
 | `16` | decision pack Morris F11/F13 |
-| `17` | résultats lot L-F11F13 (implémentation locale) |
+| `17` | résultats lot L-F11F13 (pré-merge) |
+| `18` | post-merge validation & capitalisation PR #288 |
 
-## Lot 1 intégré sur `main`
+## État courant sur `main`
 
-1. MethodMode hold (défaut actif ; override test-only hors barrel)
-2. F11.2 readiness read-only interne
-3. F13.4 historique RO borné (Git canonique)
-
-## Cadrage N3 + lot L-F11F13 (local)
-
-Documents `12`–`16` : surfaces, gaps, D1–D8. Document `17` : résultats d’implémentation locale.
-
-**N3 ≠ cutover. L-F11F13 local ≠ push/PR/delivery.**
+1. MethodMode hold (lot 1) — défaut actif ; override test-only hors barrel
+2. F11.2 INTERNAL_ONLY + états READY/NOT_READY/UNKNOWN — **intégré** (PR #288)
+3. F13.4 seed enrichi + SHA + PREFIX_ONLY + GIT_ONLY — **intégré** (PR #288)
+4. F-PR-01 typings — **résolu** et validé par CI post-merge
 
 ## Anti-claims
 
-- lot 1 intégré ≠ T-A7 entièrement ouvert ≠ delivery/cutover ready
-- L-F11F13 local ≠ HTTP public ≠ IAM ≠ persistence
+- PR #288 mergée ≠ T-A7 entièrement ouvert ≠ delivery/cutover ready
+- F11/F13 internal completion ≠ HTTP public ≠ IAM ≠ persistence
 - contrat interne F11 ≠ API réseau
 - seed F13 + SHA ≠ store concurrent à Git
 - hold ≠ blockers fermés
-- tests verts ≠ RUN READY / RGPD VALIDATED
+- CI verte ≠ RUN READY / RGPD VALIDATED
+- capitalisation ≠ nouvelle décision Morris
 
 ## Gate candidat suivant
 
-`GO REVIEW T-A7 F11.2 F13.4 INTERNAL COMPLETION LOT PR READINESS RE-RUN — NO PUSH PR MERGE DELIVERY OR CUTOVER`
+`GO REVIEW T-A7 F11 F13 POST-MERGE CAPITALIZATION DOCUMENTATION PR READINESS — NO PUSH PR MERGE DELIVERY OR CUTOVER`
 
-**Statut :** `NOT CONSUMED` · `READY FOR PR READINESS RE-RUN` (après correctif F-PR-01 TS2322)
+**Statut :** `NOT CONSUMED` · `READY FOR DOCUMENTATION PR READINESS`
+
+Trajectoire ultérieure candidate (non sélectionnée) : réduction de blockers — exige un GO Morris distinct.
 
 ## Verdict courant
 
-`T-A7 F11 F13 CORRECTIVE TYPING APPLIED LOCALLY — F-PR-01 TS2322 RESOLVED — TYPECHECK TO BE RECONFIRMED — NO PROJECT PUSH PR MERGE DELIVERY OR CUTOVER — READY FOR PR READINESS RE-RUN`
+`PR #288 POST-MERGE VALIDATED — MAIN A105431 — CI GREEN — F11.2 F13.4 INTERNAL COMPLETION INTEGRATED — F-PR-01 RESOLVED — BLOCKERS OPEN — NO DELIVERY OR CUTOVER — CAPITALIZATION DOCUMENTED LOCALLY`
+
+---
+
+## Historique — lot L-F11F13 (pré-intégration)
+
+> Section **historique**. Voir `17` et `18`.
+
+Avant merge #288, le lot existait sur
+`delivery/sfia-studio-t-a7-f11-f13-internal-completion` @ `5afe095…`.
+Les formulations « READY FOR PR READINESS RE-RUN » / « TYPECHECK TO BE RECONFIRMED »
+étaient **vraies avant** push/PR/merge #288 ; elles sont **obsolètes** pour l’état courant en tête de README.
 
 ---
 
@@ -77,11 +90,11 @@ Documents `12`–`16` : surfaces, gaps, D1–D8. Document `17` : résultats d’
 
 Post-merge confirmé 2026-07-28 : PR #287 · checks `30393629328` / `30393814783` · branche source préservée · README aligné main.
 
-Gate d’intégration et options N1–N5 : document `11`. N3 a depuis été **sélectionné** par Morris (ce cycle).
+Gate d’intégration et options N1–N5 : document `11`. N3 a depuis été **sélectionné** par Morris.
 
 ---
 
-## Historique du lot local pré-intégration
+## Historique du lot local pré-intégration (lot 1)
 
 > Section **historique** uniquement. Ne décrit **pas** l’état courant sur `main`.
 
