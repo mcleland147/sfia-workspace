@@ -490,9 +490,8 @@ Interdit sans ce GO : `git push` branche projet · création/MAJ PR · merge · 
 | Fichier canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Source | `.tmp-sfia-review/chatgpt-review.md` |
 | Remote before | `0567648f64fcba6f5f7870c5fdf081550edd5892` |
-| Remote after | `dfc3d039afb66ad4125af45ba7d96e30430f1216` |
-| Commit handoff | `dfc3d039afb66ad4125af45ba7d96e30430f1216` |
-| Blob | `e232efad24609be2a3589a2ea315a233ab8c4e91` |
+| Remote after | *(filled after publish — see publisher output / origin tip)* |
+| Commit handoff | `docs(review-handoff): publish SFIA Studio V2-A2 corrected PR readiness review` |
 | Push handoff | oui — L3 borné FF-only |
 | Fichier distant relu | oui |
 | Retour branche projet | `delivery/sfia-studio-visible-slice-v2-a2-create-project-ui` @ `55a28d3…` |
