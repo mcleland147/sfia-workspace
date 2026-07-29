@@ -1,204 +1,200 @@
-# SFIA Studio first visible slice V1 — PR #292 pre-merge handoff refresh FULL
+# SFIA Studio first visible slice V1 — PR #292 merge result FULL
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-07-29 17:02:29 CEST (+0200) |
-| Cycle / profil | 13 — PR readiness / pré-merge (+9/7/15) / Standard |
-| Typologie | QA / DOC / CAPA |
+| Date/heure/fuseau | 2026-07-29 17:12:21 CEST (+0200) |
+| Cycle / profil | 14 — Post-merge / intégration contrôlée (+13/7/9/15) / Standard |
+| Typologie | DEV / QA / DOC / CAPA |
 | Repo | `mcleland147/sfia-workspace` |
 | Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
-| Branche projet | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
-| HEAD local / distant / upstream | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
-| Base V1 (framing) | `c1955179a36079e060c41a845c2a1950084966c8` |
-| origin/main | `7916066310777abce4fd5a64ff0c87759c375fd6` |
+| Branche projet locale | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
+| HEAD projet | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
+| Upstream / branche source distante | `origin/delivery/sfia-studio-visible-slice-v1-project-core-composition` @ `ca93e080…` (**conservée**) |
+| Ancien main | `7916066310777abce4fd5a64ff0c87759c375fd6` |
+| Nouveau main / merge commit | `634a7fb0cc2e202e7530eda940fb421f1c17eade` |
 | PR | [#292](https://github.com/mcleland147/sfia-workspace/pull/292) |
-| Handoff parent | commit `9141d190edf4a30b0584b3896bc1a16e7ec78f15` / blob `314b52c11addc0f6848aec37e50a53ee259a18bc` |
+| Handoff pré-merge parent | commit `2a99b8ee368d719be8a7e4bd2498cfcb89c93ece` / blob `b0a6bb5d230a8c9a82b108ee88b5d786f6ae0c75` |
 | Niveau | FULL |
-| Scope cycle | documentaire uniquement — aucun fichier projet modifié |
+| Scope cycle | merge contrôlé uniquement — aucun fichier projet modifié |
 
 ## Gate consommé
 
-`GO REFRESH PR #292 PRE-MERGE HANDOFF — RECORD CI RUN 30463059711 SUCCESS — VERIFY PR STILL OPEN AND HEAD CA93E080 — NO MERGE IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER`
+`GO MERGE SFIA STUDIO FIRST VISIBLE SLICE V1 PR #292 — CI PASSED — NO IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER`
 
-Autorisé : vérification Git, PR, CI, review pack, handoff.  
-Non autorisé / non exécuté : code/tests/docs projet, commit/push projet, modification PR, merge, rebase, force-push, UI V2, Figma, IAM, persistance produit, agent, delivery, cutover.
+Autorisé et exécuté : truth check, vérification PR/CI, merge commit, vérification main, observation CI post-merge, review pack, handoff.  
+Non autorisé / non exécuté : code/tests/docs projet, squash/rebase, delete-branch, force-push, UI V2, IAM, persistance produit, agent, delivery, cutover, fermeture HARD/T-A6/B5/R1/R-M01.
 
-## Truth check
+## Truth check pré-merge
 
 PASSED.
 
 - workspace/toplevel exacts
-- branche projet exacte
-- HEAD local = distant = upstream = `ca93e080…`
-- `origin/main` inchangé `7916066…`
+- branche/HEAD/upstream exacts `ca93e080…`
+- origin/main pré-merge `7916066…`
 - tracked propre, staged vide
 - untracked `.tmp-sfia-review/**` uniquement
 - aucune opération Git inachevée
-- handoff parent SHA/blob exacts
+- handoff pré-merge SHA/blob exacts
 
-## PR #292
+## PR #292 avant merge
 
 | Champ | Valeur |
 |-------|--------|
 | State | OPEN |
-| Merged | false (`mergedAt: null`) |
 | Draft | false |
-| Base | `main` |
-| Head branch | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
+| Merged | false |
+| Mergeable | true / MERGEABLE |
+| Merge state | CLEAN |
+| Base | main |
+| Head | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
 | Head SHA | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
 | Commits | 5 |
-| Changed files | 19 |
-| Additions / deletions | +2024 / −0 |
-| Mergeable | MERGEABLE |
-| Merge state | CLEAN |
-| Merge exécuté | **non** |
+| Files | 19 |
+| Diff | +2024 / −0 |
 
-Aucun nouveau commit depuis le handoff parent. Head SHA inchangé.
-
-### Commits (inchangés)
-
-1. `c1955179` — docs framing vertical slice
-2. `f4337b3` — feat local project core composition
-3. `7be7e67` — test local project core composition
-4. `449213c` — docs V1 foundation
-5. `ca93e08` — fix shared injected clock
-
-### Fichiers (19, inchangés)
-
-Code/tests V1 :
-
-- `app/lib/vertical-slice-core/{types,audit,localSqliteAudit,localProjectComposition,index}.ts`
-- `app/__tests__/vertical-slice-core/{localProjectComposition,importBoundaries}.test.ts`
-
-Framing pack :
-
-- `first-user-visible-vertical-slice-framing/README.md` + `01`…`11`
-
-Aucun fichier UI V2, package/lockfile, `db.ts`, migration, `.github`, method, prompt.
-
-## CI — run 30463059711 (remplace CI pending)
+## CI pré-merge
 
 | Champ | Valeur |
 |-------|--------|
 | Workflow | SFIA Studio CI |
 | Run | [30463059711](https://github.com/mcleland147/sfia-workspace/actions/runs/30463059711) |
-| Event | `pull_request` |
-| Head SHA | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
-| Status | **completed** |
-| Conclusion | **success** |
+| Head SHA | `ca93e080…` |
+| Status | completed |
+| Conclusion | success |
 
-### Jobs (tous verts)
+Jobs :
 
-| Job ID | Nom | Status | Conclusion |
-|--------|-----|--------|------------|
-| 90613860126 | Detect SFIA Studio changes | completed | success |
-| 90614244540 | Build and validate SFIA Studio | completed | success |
-| 90614666610 | SFIA Studio Required Gate | completed | success |
+| Job | ID | Conclusion |
+|-----|-----|------------|
+| Detect SFIA Studio changes | 90613860126 | success |
+| Build and validate SFIA Studio | 90614244540 | success |
+| SFIA Studio Required Gate | 90614666610 | success |
 
-### Étapes obligatoires — Build and validate (job 90614244540)
+Étapes Build and validate : Setup Node.js, Install, Typecheck, Lint, Build, Unit tests Vitest, Modeled governance, Secret pattern scan, Trailing whitespace — toutes success.
 
-| Étape | Conclusion |
-|-------|------------|
-| Setup Node.js | success |
-| Install dependencies | success |
-| Typecheck | success |
-| Lint | success |
-| Build | success |
-| Unit tests (Vitest) | success |
-| Modeled governance tests | success |
-| Secret pattern scan (targeted) | success |
-| Trailing whitespace check | success |
+## Périmètre V1 intégré
 
-Detect job : Checkout / Detect Studio scope = success.  
-Required Gate : Aggregate required gate = success.
-
-Aucune étape failed, cancelled, ou skipped bloquante.
-
-### Remplacement du statut obsolète du handoff parent
-
-| Avant (parent 9141d19) | Maintenant |
-|------------------------|------------|
-| CI pending | completed / success |
-| Build and validate pending | success (1m18s) |
-| Detect success seulement | Detect + Build + Required Gate success |
-| mergeStateStatus BLOCKED (checks) | CLEAN |
-| Verdict CI PENDING | CI SUCCESS — PR STILL OPEN — NO MERGE |
-
-## Périmètre V1 inchangé (rappel autonome)
-
-Architecture :
+Architecture headless :
 
 ```text
 future UI
   → LocalProjectFacade
-    → T-A0 ResolveDoctrinePackage (registry + AJV + SHA-256)
+    → T-A0 ResolveDoctrinePackage
     → T-A1 CreateProject / GetProject / GetCurrentLivingProjectState
-      → MemoryProjectStore transaction
     → optional LocalProjectCreationAuditPort
     → immutable LocalProjectCreationView
 ```
 
-Chemin : `app/lib/vertical-slice-core/**`.
+Décisions D-VS-01→04 adoptées ; D-VS-05 non consommée.
 
-Décisions D-VS :
+Fichiers intégrés (19) :
 
-- D-VS-01→04 : `DECIDED — ADOPTED BY MORRIS`
-- D-VS-05 : `NOT DECIDED — NOT CONSUMED`
+- `app/lib/vertical-slice-core/{types,audit,localSqliteAudit,localProjectComposition,index}.ts`
+- `app/__tests__/vertical-slice-core/{localProjectComposition,importBoundaries}.test.ts`
+- framing pack `01`…`11` + README
 
-Projection anti-claims : `REAL_LOCAL_CORE`, `fixture=false`, IAM/product persistence NOT_SELECTED, agent NOT_AVAILABLE, delivery/cutover NOT_AUTHORIZED. Pas de HARD CLOSED / T-A6 COMPLETE / RUN READY.
+Absents : UI V2, package/lockfile, migration, `db.ts`, workflow CI, IAM, agent, delivery/cutover.
 
-LPS.scope envelope `sfia-visible-slice-project-ui.1` : dette Info documentée, non décidée comme migration produit.
-
-Audit : no-op / mémoire / D1 existant, non bloquant, sans changement `db.ts`.
-
-## Résultats locaux (inchangés, rappel)
-
-| Validation | Résultat |
-|------------|----------|
-| V1 nouveaux | 16/16 |
-| ciblés T-A0/T-A1/D1/T-A7/V1 | 109/109 |
-| suite Vitest | 752/752 |
-| typecheck / lint / build / diff-check | green |
-
-## Findings (inchangés)
+## Findings / dette (inchangés)
 
 | ID | Sévérité | Observation |
 |----|----------|-------------|
-| F-01 | Info | envelope UI dans LPS.scope |
+| F-01 | Info | envelope `sfia-visible-slice-project-ui.1` dans LPS.scope |
 | F-02 | Info | audit D1 réutilise phases T-A7 |
 
-Critical : 0 — Major : 0
+Critical : 0 — Major : 0  
+Dette : LPS.scope envelope ; mémoire volatile mono-instance.
 
-## Dette / risques (inchangés + CI)
+## Stratégie et commande de merge
 
-- dette LPS.scope envelope
-- mémoire volatile mono-instance
-- chemins registry/schemas injectés pour V2
-- **risque CI pending : levé** — run 30463059711 success
-- merge toujours non autorisé sans gate Morris distinct
+Stratégie : **merge commit uniquement**.
+
+Commande :
+
+```bash
+gh pr merge 292 --merge
+```
+
+Non utilisés : `--squash`, `--rebase`, `--delete-branch`, `--admin`, auto-merge.
+
+## Résultat du merge
+
+| Champ | Valeur |
+|-------|--------|
+| State | MERGED |
+| Closed | true |
+| mergedAt | 2026-07-29T15:11:59Z |
+| mergedBy | `mcleland147` |
+| Merge commit | `634a7fb0cc2e202e7530eda940fb421f1c17eade` |
+| Message | `Merge pull request #292 from mcleland147/delivery/sfia-studio-visible-slice-v1-project-core-composition` |
+
+## Parents du merge commit
+
+```text
+Parents = 7916066310777abce4fd5a64ff0c87759c375fd6 ca93e0805b499f9cae6cacd84e37cbb122d89a1c
+```
+
+- Parent 1 = ancien main `7916066…` — OK
+- Parent 2 = head V1 `ca93e080…` — OK
+- Exactement deux parents — OK
+- Présent sur `origin/main` — OK
+
+## Branche source
+
+`origin/delivery/sfia-studio-visible-slice-v1-project-core-composition` toujours présente @ `ca93e080…`.  
+Aucune suppression locale ou distante.
+
+## Diff intégré sur main
+
+`git diff --name-status 7916066..634a7fb` : **19 fichiers**, +2024 / −0.  
+`git diff --check` : green.  
+Aucun fichier supplémentaire hors périmètre PR.
+
+## CI post-merge (instantané)
+
+| Champ | Valeur |
+|-------|--------|
+| Workflow | SFIA Studio CI |
+| Run | [30464688065](https://github.com/mcleland147/sfia-workspace/actions/runs/30464688065) |
+| Event | push |
+| Head SHA | `634a7fb0cc2e202e7530eda940fb421f1c17eade` |
+| Status | in_progress / queued |
+| Conclusion | (vide — non terminée) |
+
+Jobs observés :
+
+| Job | ID | Status |
+|-----|-----|--------|
+| Detect SFIA Studio changes | 90619364551 | completed / success |
+| Build and validate SFIA Studio | 90619437189 | queued |
+
+**Post-merge validation COMPLETE : non déclarée.** CI post-merge encore pending/running.
 
 ## Anti-claims
 
-Pas d’IAM, persistance produit, UI V2, Figma claim, agent réel, delivery, cutover, HARD closed, T-A6 complete, merge exécuté.
+Pas d’IAM, persistance produit, UI V2, Figma claim, agent réel, delivery, cutover, HARD closed, T-A6 complete, suppression de branche, squash/rebase.
 
 ## Actions non exécutées
 
-Aucun commit/push projet, aucune modification PR, aucun merge, aucun rebase/force-push, aucun fichier projet touché.
+Aucun commit/push projet, aucune modification code/tests/docs, aucun delete-branch, aucune suite V2, aucun wait indéfini sur CI post-merge.
 
 ## Git final projet
 
-- branche : `delivery/sfia-studio-visible-slice-v1-project-core-composition`
-- HEAD local/distant/upstream : `ca93e0805b499f9cae6cacd84e37cbb122d89a1c`
-- origin/main : `7916066310777abce4fd5a64ff0c87759c375fd6`
-- tracked propre
-- untracked `.tmp-sfia-review/**` uniquement
+- branche locale : `delivery/sfia-studio-visible-slice-v1-project-core-composition`
+- HEAD local : `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` (inchangé)
+- upstream : inchangé @ `ca93e080…`
+- branche source distante : conservée
+- origin/main : `634a7fb0cc2e202e7530eda940fb421f1c17eade`
+- tracked propre ; untracked `.tmp-sfia-review/**` uniquement
 
 ## Verdict
 
-`PR #292 PRE-MERGE HANDOFF REFRESHED — HEAD CA93E080 VERIFIED — CI RUN 30463059711 COMPLETED SUCCESSFULLY — ALL REQUIRED JOBS GREEN — PR STILL OPEN AND UNMERGED — NO IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER — HANDOFF UPDATED AND REMOTE VERIFIED`
+`PR #292 MERGED INTO MAIN — MERGE COMMIT VERIFIED — SOURCE BRANCH PRESERVED — PRE-MERGE CI GREEN — POST-MERGE CI PENDING OR NOT YET OBSERVED — NO IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER — HANDOFF UPDATED AND REMOTE VERIFIED`
+
+Précision : merge commit `634a7fb…` à deux parents exacts ; CI post-merge run `30464688065` in_progress (Detect success, Build queued).
 
 ## Gate candidat suivant
 
-`GO MERGE SFIA STUDIO FIRST VISIBLE SLICE V1 PR #292 — CI PASSED — NO IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER`
+`GO VALIDATE PR #292 POST-MERGE CI AND CLOSE V1 INTEGRATION LOT — NO UI V2 IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
 
-Aucun merge automatique.
+Aucune implémentation V2 automatique.
