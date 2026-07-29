@@ -29,3 +29,12 @@ export type {
   OperationalReadinessAccessSurface,
 } from "./operationalReadiness";
 export { resetD1DbForTests } from "./db";
+export {
+  BoundedAtomicAuditStore,
+  BOUNDED_ATOMIC_AUDIT_SCHEMA_VERSION,
+} from "./boundedAtomicAudit";
+export type {
+  BoundedAtomicAuditRecord,
+  BoundedAtomicPhase,
+  BoundedAtomicOutcome,
+} from "./boundedAtomicAudit";

@@ -50,12 +50,46 @@ CREATE TABLE IF NOT EXISTS d1_idempotency_keys (
   created_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS d1_atomic_audit (
+  row_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  op_id TEXT NOT NULL,
+  idempotency_key TEXT NOT NULL,
+  phase TEXT NOT NULL CHECK (
+    phase IN (
+      'prepare',
+      'apply_project',
+      'apply_cycle',
+      'verify',
+      'commit',
+      'rollback'
+    )
+  ),
+  outcome TEXT NOT NULL CHECK (
+    outcome IN (
+      'IN_PROGRESS',
+      'COMMITTED',
+      'ROLLED_BACK',
+      'FAILED',
+      'CONFLICT'
+    )
+  ),
+  correlation_id TEXT NOT NULL,
+  project_ref TEXT,
+  cycle_ref TEXT,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  schema_version TEXT NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_d1_projects_workspace
   ON d1_projects(workspace_id, state);
 CREATE INDEX IF NOT EXISTS idx_d1_audit_project
   ON d1_audit_events(project_id, occurred_at);
+CREATE INDEX IF NOT EXISTS idx_d1_atomic_audit_op
+  ON d1_atomic_audit(op_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_d1_atomic_audit_idem
+  ON d1_atomic_audit(idempotency_key, created_at);
 `;
-
 let singleton: DatabaseSync | null = null;
 let singletonPath: string | null = null;
 
