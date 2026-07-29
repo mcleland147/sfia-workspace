@@ -8,7 +8,7 @@
 | Branche projet | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
 | Base framing | `c1955179a36079e060c41a845c2a1950084966c8` |
 | Base distante framing | `origin/main` @ `7916066310777abce4fd5a64ff0c87759c375fd6` |
-| HEAD final | `449213c5485a006cec0bad89332bcd99a15920d2` |
+| HEAD final | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
 | Cycle / profil | 6 (+7/8/9/3/15) / Standard renforcé |
 | Typologie | EVOL / DEV / QA / DOC |
 | Niveau | FULL |
@@ -177,7 +177,7 @@ export class BoundedSqliteLocalProjectCreationAudit
 
 L'adapter réutilise exclusivement `d1_atomic_audit`. `db.ts` et le schéma ne changent pas. Objectif, contexte et contraintes ne sont pas des propriétés possibles du port.
 
-### `app/lib/vertical-slice-core/localProjectComposition.ts` — ajouté, 489 lignes
+### `app/lib/vertical-slice-core/localProjectComposition.ts` — ajouté, 498 lignes
 
 Surface :
 
@@ -197,11 +197,16 @@ export function createLocalVerticalSliceServices(
 Composition :
 
 ```ts
-const doctrineResolver = createLocalDoctrineResolver({
-  registryRoot: options.registryRoot,
-  schemasRoot: options.schemasRoot,
-  audit: new MemoryDoctrineAuditJournal(),
-});
+const clock = options.nowIso
+  ? new FixedClock(options.nowIso)
+  : new SystemClock();
+const doctrineResolver = new ResolveDoctrinePackage(
+  new FilesystemDoctrinePackageRepository({ registryRoot: options.registryRoot }),
+  new AjvSchemaValidationAdapter({ schemasRoot: options.schemasRoot }),
+  new Sha256DigestVerificationAdapter(),
+  clock,
+  new MemoryDoctrineAuditJournal(),
+);
 const projectServices = createInMemoryProjectServices({
   doctrineResolver,
   clock,
@@ -226,7 +231,7 @@ const result = await this.projects.createProject.execute({
 });
 ```
 
-Le pin par défaut est le package réel `pkg:studio-v3-oa@1.0.0` et son digest canonique. L'acteur local a `authorityLevel: none`; ce n'est pas IAM et ce n'est pas une identité Morris.
+Le pin par défaut est le package réel `pkg:studio-v3-oa@1.0.0` et son digest canonique. La même horloge injectable gouverne T-A0 et T-A1. L'acteur local a `authorityLevel: none`; ce n'est pas IAM et ce n'est pas une identité Morris.
 
 Lecture :
 
@@ -358,13 +363,14 @@ Note d'exécution : un typecheck lancé en parallèle du build a rencontré la s
 
 ## Diff et commits
 
-Diff base..HEAD : `10 files changed, 1385 insertions(+), 15 deletions(-)`.
+Diff base..HEAD : `10 files changed, 1394 insertions(+), 15 deletions(-)`.
 
 Commits :
 
 1. `f4337b3` — `feat(sfia-studio): add local project core composition`
 2. `7be7e67` — `test(sfia-studio): validate local project core composition`
 3. `449213c` — `docs(sfia-studio): document visible slice V1 foundation`
+4. `ca93e08` — `fix(sfia-studio): share injected clock across V1 composition`
 
 Fichiers interdits absents du diff :
 
@@ -400,7 +406,7 @@ Le lot ne revendique pas :
 ## Git final projet
 
 - branche : `delivery/sfia-studio-visible-slice-v1-project-core-composition`
-- HEAD : `449213c5485a006cec0bad89332bcd99a15920d2`
+- HEAD : `ca93e0805b499f9cae6cacd84e37cbb122d89a1c`
 - upstream : aucun
 - tracked : propre
 - staged : vide
