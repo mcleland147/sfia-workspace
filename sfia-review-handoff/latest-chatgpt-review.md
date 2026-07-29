@@ -1,96 +1,52 @@
-# SFIA Studio V2-A1 — Server-only Runtime Bridge FULL
+# SFIA Studio V2-A1 — PR Readiness FULL
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-07-29 21:47:00 CEST (+0200) |
-| Cycle | 8 — Delivery / implémentation |
+| Date/heure/fuseau | 2026-07-29 22:01:12 CEST (+0200) |
+| Cycle | 13 — PR readiness |
 | Profil | Standard |
 | Typologie | EVOL |
 | Repo | `mcleland147/sfia-workspace` |
 | Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
-| Branche | `delivery/sfia-studio-visible-slice-v2-a1-server-only-runtime-bridge` |
-| HEAD | `7ef160c6fd8a99267a9e553fd77d13aa7e6f95da` |
-| Base | `origin/main` @ `634a7fb0cc2e202e7530eda940fb421f1c17eade` |
-| Upstream | **aucun** |
+| Gate | `GO REVIEW AND INTEGRATE SFIA STUDIO V2-A1 SERVER-ONLY RUNTIME BRIDGE — PUSH BRANCH AND CREATE PR IF PR READINESS PASSES — NO MERGE UI IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER` |
 | Niveau | FULL |
 
-## Gate / objectif
+## Truth check initial
 
-Implémenter la frontière runtime server-only entre futures UI Studio et le moteur V1 — **sans UI**.
+PASSED.
+
+| Champ | Attendu | Observé |
+|-------|---------|---------|
+| Branche | `delivery/sfia-studio-visible-slice-v2-a1-server-only-runtime-bridge` | OK |
+| HEAD | `7ef160c6fd8a99267a9e553fd77d13aa7e6f95da` | OK |
+| origin/main | `634a7fb0cc2e202e7530eda940fb421f1c17eade` | OK |
+| Upstream avant push | aucun | OK |
+| Staged | vide | OK |
+| Tracked dirty | aucun | OK |
+| Untracked | `.tmp-sfia-review/**` uniquement | OK |
+| PR existante | aucune | OK |
+
+## Handoff précédent
+
+| Champ | Valeur |
+|-------|--------|
+| Commit | `e245286b7ef9c869820f49c12a10493c3130980f` |
+| Blob | `b6705e493ead13f84cd0d042bbcc911737907140` |
+| Cohérence | V2-A1 · HEAD `7ef160c…` · base `634a7fb…` · 764/764 · NO UI · READY FOR V2-A2 |
 
 ## Sources consultées
 
-- Moteur V1 `app/lib/vertical-slice-core/**` (types, composition, audit, sqlite adapter)
-- Tests V1 `app/__tests__/vertical-slice-core/**`
-- Cadrage V2 (décisions D-V2-01…05) — pack framing (branche séparée) + consignes Morris
-- Patterns Server Action existants (D1/OPS1) — non copiés en UI
+- `app/lib/vertical-slice-runtime/**` (diff complet)
+- `app/__tests__/vertical-slice-runtime/**`
+- `app/lib/vertical-slice-core/**` (référence, non modifié)
+- `first-user-visible-vertical-slice-v2-a1-runtime-bridge/README.md`
+- Handoff distant V2-A1 implementation
+- `origin/main...HEAD` name-status / stat / check
+- package scripts : typecheck, lint, build, vitest
 
-## Décisions Morris utilisées
+CKC PR readiness : absent / fallback méthode — aucune autorité d’exécution.
 
-| ID | Consommation V2-A1 |
-|----|-------------------|
-| D-V2-01 | `RuntimeApplicationService` + `actions.ts` `"use server"` |
-| D-V2-02 | singleton process-local + reset test-only |
-| D-V2-03 | audit noop défaut ; memory/sqlite opt-in |
-| D-V2-04 | namespace studio préparé (pas de routes créées) |
-| D-V2-05 | disclosures obligatoires sur chaque résultat |
-
-## Fichiers créés
-
-### Runtime
-
-- `app/lib/vertical-slice-runtime/serverGuard.ts`
-- `disclosures.ts` — `LOCAL_PROCESS` / `NOT_GUARANTEED` / `DISABLED` + readiness `NOT_READY`
-- `types.ts` — `CreateProjectRuntimeInput`, résultats sérialisables
-- `mapping.ts` — `criticality` → `perceivedCriticality` ; projection runtime
-- `paths.ts` — racines doctrine/schemas
-- `service.ts` — `RuntimeApplicationService` / `createRuntimeApplicationService`
-- `singleton.ts` — `getRuntimeApplicationService` / reset tests
-- `actions.ts` — `createProjectRuntimeAction` / `getProjectRuntimeAction`
-- `index.ts`
-
-### Tests
-
-- `app/__tests__/vertical-slice-runtime/runtimeApplicationService.test.ts` (8)
-- `app/__tests__/vertical-slice-runtime/importBoundaries.test.ts` (4)
-
-### Docs
-
-- `.../first-user-visible-vertical-slice-v2-a1-runtime-bridge/README.md`
-
-**Aucun** fichier UI, route, CSS, V1 core, package.json, CI.
-
-## Contrats runtime
-
-### CreateProject
-
-Entrée : name, objective, context, criticality, constraints, shortReference?, idempotencyKey  
-Sortie ok : projectId, project, doctrine, livingState, readiness, disclosures, reusedFromIdempotencyKey, auditStatus
-
-### GetProject
-
-Sortie ok : project, livingState, doctrine, readiness, disclosures
-
-## Garde-fous
-
-- `runtimeMode: LOCAL_PROCESS`
-- `persistence: NOT_GUARANTEED`
-- `agentExecution: DISABLED`
-- `readiness.runReady: false` / `productReady: false`
-- Pas de claim produit prêt / production runtime / agent actif
-- Boundary tests : pas UI/client/fixtures ; pas wiring UI→runtime ; V1 sans dépendance runtime
-
-## Validation exécutée
-
-| Check | Résultat |
-|-------|----------|
-| typecheck | OK |
-| lint | OK |
-| build | OK |
-| vitest ciblé V1+V2-A1 | 28/28 |
-| vitest suite | **764/764** |
-
-## Commits locaux
+## Commits `origin/main..HEAD`
 
 ```text
 1bbc3ac feat(sfia-studio): add V2-A1 server-only runtime bridge
@@ -98,24 +54,151 @@ Sortie ok : project, livingState, doctrine, readiness, disclosures
 7ef160c docs(sfia-studio): document V2-A1 runtime bridge
 ```
 
+## Diff
+
+- **12 fichiers**, **+950 / −0**
+- `git diff --check` : green
+- Périmètre : runtime + tests + README V2-A1 uniquement
+- **Aucun** V1 core, UI, route Studio, CSS, package.json, CI
+
+Fichiers :
+
+```text
+A  app/lib/vertical-slice-runtime/{actions,disclosures,index,mapping,paths,serverGuard,service,singleton,types}.ts
+A  app/__tests__/vertical-slice-runtime/{importBoundaries,runtimeApplicationService}.test.ts
+A  .../first-user-visible-vertical-slice-v2-a1-runtime-bridge/README.md
+```
+
+## Analyse architecture
+
+```text
+actions.ts ("use server")
+  → singleton getRuntimeApplicationService()
+    → RuntimeApplicationService
+      → LocalProjectFacade (V1) — pas de duplication T-A0/T-A1
+```
+
+| Contrôle | Résultat |
+|----------|----------|
+| Runtime → V1 core | oui |
+| Core → runtime | non (boundary test) |
+| UI → runtime | non (boundary test) |
+| Runtime → UI/client/fixtures | non |
+| Mapping criticality → perceivedCriticality | oui (`mapping.ts`) |
+| Singleton process-local | oui |
+| Reset hors test | bloqué (`NODE_ENV=test` / allow flag) |
+| Audit défaut | noop ; memory/sqlite opt-in |
+| Disclosures | `LOCAL_PROCESS` / `NOT_GUARANTEED` / `DISABLED` |
+| Readiness | `NOT_READY`, `runReady:false`, `productReady:false` |
+| Actions branchées UI | **non** |
+| IAM claim | **aucun** |
+| Persistance produit | **non** |
+
+## Décisions D-V2 consommées
+
+| ID | Conforme |
+|----|----------|
+| D-V2-01 server-only service | oui |
+| D-V2-02 singleton process-local | oui |
+| D-V2-03 audit noop/opt-in | oui |
+| D-V2-04 studio namespace reserved | oui (pas de routes) |
+| D-V2-05 disclosures | oui |
+
+## Validations locales ré-exécutées
+
+| Commande | Résultat |
+|----------|----------|
+| `npm run typecheck` | OK |
+| `npm run lint` | OK |
+| `npm run build` | OK |
+| vitest V1+V2-A1 | **28/28** |
+| vitest full | **764/764** |
+
+## Findings
+
+| Sévérité | Count | Notes |
+|----------|-------|-------|
+| Critical | **0** | — |
+| Major | **0** | — |
+| Minor | **0** bloquant | — |
+| Info | 3 | (1) pas de package npm `server-only` — garde window + boundaries ; (2) volatilité HMR/multi-instance documentée ; (3) actions non branchées UI — intentionnel |
+
+## Corrections
+
+Aucune correction requise. Aucun commit supplémentaire.
+
+## Verdict readiness local
+
+**READY FOR PR** — 0 Critical / 0 Major ; périmètre conforme ; validations vertes ; handoff précédent cohérent.
+
+## Push projet
+
+| Champ | Valeur |
+|-------|--------|
+| Effectué | **oui** |
+| Branche | `delivery/sfia-studio-visible-slice-v2-a1-server-only-runtime-bridge` |
+| SHA distant | `7ef160c6fd8a99267a9e553fd77d13aa7e6f95da` |
+| Match HEAD local | **oui** |
+| Force push | **non** |
+
+## Pull Request
+
+| Champ | Valeur |
+|-------|--------|
+| Créée | **oui** |
+| Numéro | **#293** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/293 |
+| État | OPEN |
+| Base | `main` |
+| Head | `delivery/sfia-studio-visible-slice-v2-a1-server-only-runtime-bridge` |
+| Head OID | `7ef160c6fd8a99267a9e553fd77d13aa7e6f95da` |
+| Fichiers PR | 12 — identiques au périmètre local |
+| Additions/deletions | +950 / −0 |
+| Mergeable | MERGEABLE |
+| Merge state | BLOCKED (ruleset / checks) |
+| **Merge exécuté** | **NON** |
+
+## CI
+
+| Champ | Valeur |
+|-------|--------|
+| État | **PENDING** |
+| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/30486832509 |
+| Job vu | Detect SFIA Studio changes — QUEUED |
+| Verdict CI cycle | `PR CREATED — CI PENDING` |
+
+## Actions interdites respectées
+
+Pas de merge, auto-merge, force push, delete-branch, UI, IAM, product persistence, agent, delivery, cutover, modification main/V1 core/package.json.
+
 ## Risques / réserves
 
-| Item | Note |
-|------|------|
-| Singleton HMR | état perdu au reload — disclosures |
-| Multi-instance | non supporté — process-local only |
-| `server-only` npm | non ajouté (package.json hors périmètre) ; garde `window` + boundaries |
-| SQLite opt-in | requiert store injecté ; pas rehydrate métier |
-| Actions non branchées UI | volontaire V2-A1 |
+- Singleton volatile (restart/HMR) — disclosures honnêtes
+- Multi-instance non supporté
+- CI non encore green au moment de la publication handoff
+- Ne pas confondre Server Actions avec sécurité IAM
+- V2-A1 **non intégré** tant que PR non mergée
 
-## Actions non exécutées
+## Décisions Morris
 
-Pas de push projet, PR, merge, UI, IAM, persistence produit, agent, delivery, cutover.
+- Gate actuel consommé : revue + push + PR si readiness passe
+- **Nouveau gate requis pour merge** (et tout élargissement hors périmètre)
 
 ## Verdict
 
-`SFIA STUDIO V2-A1 SERVER-ONLY RUNTIME BRIDGE IMPLEMENTED — V1 CORE REUSED — RUNTIME BOUNDARY CREATED — SERVER-ONLY CONTRACT PRESERVED — LOCAL PROCESS STATE ONLY — NO UI — NO IAM — NO PRODUCT PERSISTENCE — NO REAL AGENT — NO DELIVERY OR CUTOVER — READY FOR V2-A2 CREATE PROJECT UI`
+`SFIA STUDIO V2-A1 PR READINESS PASSED — PROJECT BRANCH PUSHED — PR CREATED — NO MERGE — READY FOR MORRIS PR REVIEW`
 
-## Gate candidat suivant
+Statut opérationnel : `READY FOR MORRIS PR REVIEW — PR CREATED — CI PENDING — NO MERGE`
 
-`GO IMPLEMENT SFIA STUDIO FIRST VISIBLE SLICE V2-A2 — CREATE PROJECT UI — REUSE STUDIOSHELL AND V2-A1 RUNTIME — NO IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
+## Action Morris suivante
+
+Revue PR #293 ; attendre CI ; puis uniquement sous nouveau gate :
+
+`GO MERGE SFIA STUDIO V2-A1 SERVER-ONLY RUNTIME BRIDGE PR #293 — NO UI IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
+
+## Handoff
+
+| Champ | Valeur |
+|-------|--------|
+| Mode | publish-in-cycle |
+| Commit attendu | `docs(review-handoff): publish SFIA Studio V2-A1 PR readiness` |
