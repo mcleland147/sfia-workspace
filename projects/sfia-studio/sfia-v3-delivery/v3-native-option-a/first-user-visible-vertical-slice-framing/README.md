@@ -2,15 +2,17 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING COMPLETE — AWAITING MORRIS DECISIONS D-VS-01→05` |
+| **Statut** | `FRAMING HISTORICAL — D-VS-01→04 ADOPTED — V1 EXECUTED LOCALLY — V2 NOT AUTHORIZED` |
 | **Date** | 2026-07-29 15:45:00 CEST (+0200) |
 | **Cycle** | 2 — Conception fonctionnelle (+1/3/4/5/9/15) |
 | **Profil** | Standard |
 | **Gate** | `GO FRAME FIRST USER-VISIBLE SFIA STUDIO VERTICAL SLICE — PROJECT CREATION TO CYCLE RECOMMENDATION AND MORRIS DECISION DASHBOARD — REUSE T-A0 TO T-A7 CORE — LOCAL BOUNDED DATA ONLY — NO IAM REAL AGENT EXECUTION DELIVERY OR CUTOVER` |
-| **Branche** | `framing/sfia-studio-first-user-visible-vertical-slice` |
+| **Branche framing** | `framing/sfia-studio-first-user-visible-vertical-slice` @ `c1955179a36079e060c41a845c2a1950084966c8` |
+| **Branche V1 locale** | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
 | **Base** | `origin/main` @ `7916066310777abce4fd5a64ff0c87759c375fd6` |
-| **Code applicatif** | **aucune modification** |
-| **Push / PR projet** | **aucun** (ce cycle) |
+| **Code applicatif framing** | **aucune modification** |
+| **Exécution V1** | facade headless T-A0/T-A1, OA mémoire, projection et audit optionnel — voir `11` |
+| **Push / PR / merge projet V1** | **non autorisés, non exécutés** |
 
 ## Objectif
 
@@ -76,15 +78,23 @@ V1 Composition locale Project → V2 Create UI → V3 Recommendation → V4 Deci
 
 Recommandation de livraison : **plusieurs PR** (une par lot V1–V5), commits atomiques ; V6 peut accompagner ou suivre.
 
-## Décisions Morris candidates (non validées)
+## Décisions Morris
 
-| ID | Sujet | Recommandation Cursor |
-|----|-------|----------------------|
-| D-VS-01 | Stratégie UI | **ADAPT** routes POC + namespace dédié optionnel `/studio/v1/*` |
-| D-VS-02 | Composition locale | **Hybride** mémoire OA + audit SQLite optionnel |
-| D-VS-03 | Démo | Fixtures **désactivées** sur happy path ; mode demo séparé |
-| D-VS-04 | Premier lot | **V1 Project creation + composition** |
-| D-VS-05 | Figma | **Nouvelle page** dans fichier existant après GO |
+| ID | Statut | Décision |
+|----|--------|----------|
+| D-VS-01 | `DECIDED — ADOPTED BY MORRIS` | adapter l'UI et StudioShell, sans modification UI en V1 |
+| D-VS-02 | `DECIDED — ADOPTED BY MORRIS` | mémoire OA + audit SQLite local optionnel |
+| D-VS-03 | `DECIDED — ADOPTED BY MORRIS` | fixtures hors happy path |
+| D-VS-04 | `DECIDED — ADOPTED BY MORRIS` | V1 Project creation + core composition |
+| D-VS-05 | `NOT DECIDED — NOT CONSUMED` | aucune écriture ou conformité Figma revendiquée |
+
+## Statut d'exécution V1
+
+V1 est exécuté localement sur une branche descendante du commit de framing. La facade compose la résolution Doctrine T-A0 et la création atomique Project/LPS v1 T-A1, puis expose une projection read-only reconstruite depuis T-A1. Les fixtures et le storage navigateur sont hors de cette surface.
+
+Validations : 16 nouveaux tests ; régressions ciblées 109/109 ; suite complète 752/752 ; typecheck, lint et build green. Aucun fichier UI, OA existant, schéma SQLite, package ou lockfile n'est modifié.
+
+V2 reste `NOT AUTHORIZED`. Aucun écran Create Project ni parcours visuel n'est implémenté.
 
 ## Anti-claims
 
@@ -109,13 +119,16 @@ Recommandation de livraison : **plusieurs PR** (une par lot V1–V5), commits at
 | `08` | Backlog & slicing |
 | `09` | Plan validation / preuves |
 | `10` | Risques & decision pack Morris |
+| `11` | Exécution locale V1 — Project core composition |
 
 ## Gate candidat suivant
 
-`GO IMPLEMENT FIRST USER-VISIBLE SFIA STUDIO VERTICAL SLICE LOT V1 — LOCAL PROJECT CREATION AND CORE COMPOSITION — REUSE EXISTING UI SHELL — NO IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
+`GO REVIEW AND INTEGRATE SFIA STUDIO FIRST VISIBLE SLICE V1 — PUSH BRANCH AND CREATE PR IF PR READINESS PASSES — NO MERGE IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
 
-**Condition** : Morris tranche au minimum D-VS-01, D-VS-02, D-VS-04 (et idéalement D-VS-03).
+Après intégration distincte de V1 : `GO IMPLEMENT SFIA STUDIO FIRST VISIBLE SLICE LOT V2 — CREATE PROJECT UI — REUSE STUDIOSHELL AND V1 CORE COMPOSITION — NO IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`.
+
+Aucun gate automatique.
 
 ## Verdict
 
-`FIRST USER-VISIBLE SFIA STUDIO VERTICAL SLICE FRAMING COMPLETE — EXISTING POC UI AUDITED — PROJECT TO CYCLE RECOMMENDATION TO MORRIS DECISION TO READINESS DASHBOARD CONTRACT DEFINED — T-A0 TO T-A7 REUSE MAPPED — LOCAL BOUNDED DATA ONLY — IMPLEMENTATION BACKLOG READY FOR MORRIS DECISION — NO APPLICATION CODE IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
+`SFIA STUDIO FIRST VISIBLE SLICE V1 IMPLEMENTED LOCALLY — PROJECT AND LPS CREATION COMPOSED THROUGH T-A0 AND T-A1 — UI PROJECTION AVAILABLE — OA MEMORY ACTIVE — OPTIONAL LOCAL AUDIT BOUNDED — FIXTURES OFF HAPPY PATH — NO UI ROUTE IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER — TESTS GREEN — PROJECT BRANCH NOT PUSHED`

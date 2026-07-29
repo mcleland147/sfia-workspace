@@ -7,6 +7,8 @@ Branche framing docs séparée. Pas de big-bang unique.
 
 ## Lot V1 — Composition locale Project
 
+**Statut au 2026-07-29** : `EXECUTED LOCALLY — TESTS GREEN — PROJECT BRANCH NOT PUSHED`. Voir `11-v1-local-project-core-composition.md`. Ce statut d'exécution complète le backlog historique sans autoriser V2.
+
 | Item | Contenu |
 |------|---------|
 | Objectif | Facade + CreateProject/LPS + doctrine resolve + tests |
@@ -20,6 +22,8 @@ Branche framing docs séparée. Pas de big-bang unique.
 | Verdict attendu | V1 COMPLETE — NO UI REQUIRED OR MINIMAL HOOK |
 
 ## Lot V2 — Parcours Create Project
+
+**Statut** : `NOT AUTHORIZED`.
 
 | Item | Contenu |
 |------|---------|
