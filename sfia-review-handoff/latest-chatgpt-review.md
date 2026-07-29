@@ -1,18 +1,17 @@
 # ChatGPT Review Pack — FULL
-## T-A7 consolidated B5/R1/R-M01 — Push + PR creation
+## PR #290 merge — T-A7 consolidated B5/R1/R-M01 blocker reduction
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-29 11:56:09 CEST (+0200) |
+| **Date/heure/fuseau** | 2026-07-29 12:14:37 CEST (+0200) |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Workspace** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
-| **Branche** | `delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
-| **HEAD** | `c24da112ed3d67479d7b3e7715c78da3c26be78e` |
-| **Base** | `origin/main` @ `bddfc6ac821b5684cd4b611d397596aa8e310802` |
-| **Gate consommé** | `GO PUSH AND OPEN PR — T-A7 CONSOLIDATED B5 R1 R-M01 BLOCKER REDUCTION — NO MERGE DELIVERY OR CUTOVER` |
-| **Cycle** | 8 — Delivery / intégration Git bornée (+ 13/7/9/15) |
+| **Branche locale** | `delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
+| **HEAD local** | `c24da112ed3d67479d7b3e7715c78da3c26be78e` |
+| **Gate consommé** | `GO MERGE PR #290 — T-A7 CONSOLIDATED B5 R1 R-M01 BLOCKER REDUCTION — CI PASSED — NO BLOCKER CLOSURE DELIVERY OR CUTOVER` |
+| **Cycle** | 14 — Post-merge / intégration contrôlée (+ 13/7/9/15) |
 | **Profil** | Critical · EVOL / QA / DOC |
-| **Handoff parent** | `33cbec7f35f36b83df9a8726846450828620cc98` · blob `fcbadd12e72003a7de44aaeeb321d1c60627d82f` |
+| **Handoff parent** | `13cf138ba8faf0f1d9668f18dd48af237cf8e595` · blob `933a5940470f071ee9b0123e892164edd199cac6` |
 
 ---
 
@@ -21,77 +20,52 @@
 | Check | Résultat |
 |-------|----------|
 | workspace / branche / HEAD | PASS |
-| parent chain | `c24da11` ← `27fd257` ← `bddfc6a` |
-| commits | **2** |
-| fichiers | **8** · +1350 / −10 |
+| upstream | `origin/delivery/…-consolidated-blocker-reduction` |
+| head distant | `c24da112…` |
+| origin/main avant | `bddfc6a…` |
+| commits / fichiers / stat | 2 / 8 / +1350/−10 |
 | tracked / staged | propre / vide |
 | untracked | `.tmp-sfia-review/**` only |
-| upstream initial | **aucun** |
-| branche distante initiale | **absente** |
-| PR existante | **aucune** |
-| `git diff --check` | PASS |
-| gh auth | PASS |
+| ops | aucune inachevée |
 
 **Verdict truth check :** PASS
 
 ---
 
-## 2. Branche distante avant / après
-
-| Moment | SHA |
-|--------|-----|
-| Avant | *(absente)* |
-| Après | `c24da112ed3d67479d7b3e7715c78da3c26be78e` |
-
----
-
-## 3. Push projet
+## 2. État PR avant merge
 
 | Champ | Valeur |
 |-------|--------|
-| Commande | `git push -u origin delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
-| Force | **non** |
-| Résultat | SUCCESS — `[new branch]` |
-| Upstream | `origin/delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
-| SHA distant | `c24da112…` — **exact match** |
-
----
-
-## 4. PR créée
-
-| Champ | Valeur |
-|-------|--------|
-| Numéro | **#290** |
+| Number | 290 |
 | URL | https://github.com/mcleland147/sfia-workspace/pull/290 |
-| Titre | `feat(sfia-studio): reduce T-A7 B5 R1 R-M01 blockers` |
+| Title | `feat(sfia-studio): reduce T-A7 B5 R1 R-M01 blockers` |
 | State | OPEN |
-| draft | **false** |
-| base | main |
-| head | `delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
-| head SHA | `c24da112ed3d67479d7b3e7715c78da3c26be78e` |
-| commits | **2** (`27fd257`, `c24da11`) |
-| fichiers | **8** |
-| additions / deletions | +1350 / −10 |
+| draft | false |
+| base | main @ `bddfc6a…` |
+| head | `delivery/…` @ `c24da112…` |
+| commits | 2 |
+| files | 8 |
+| +/- | +1350 / −10 |
 | mergeable | MERGEABLE |
-| mergeStateStatus | BLOCKED |
-| autoMergeRequest | **null** |
-| merged | **false** |
-| branche source | **conservée** |
+| mergeStateStatus | CLEAN |
+| autoMergeRequest | null |
 
-### Fichiers
+### Checks (run 30441606867)
 
-1. A `__tests__/platform/t-a7-consolidated-blocker-reduction.test.ts`
-2. A `blockerAggregation.ts`
-3. A `blockerControlPlane.ts`
-4. A `boundedClaimEvaluator.ts`
-5. M `index.ts`
-6. A `simulatedAtomicOperation.ts`
-7. A `19-consolidated-b5-r1-r-m01-blocker-reduction-lot.md`
-8. M `README.md`
+```
+Build and validate SFIA Studio	pass	1m26s	https://github.com/mcleland147/sfia-workspace/actions/runs/30441606867/job/90542030478	
+Detect SFIA Studio changes	pass	5s	https://github.com/mcleland147/sfia-workspace/actions/runs/30441606867/job/90541978330	
+SFIA Studio Required Gate	pass	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/30441606867/job/90542353871
+```
 
----
+| Job / étape | Conclusion |
+|-------------|------------|
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate | SUCCESS |
+| → Typecheck / Lint / Build / Unit / Governance / Secret / Whitespace | SUCCESS |
+| SFIA Studio Required Gate | SUCCESS |
 
-## 5. Corps PR complet
+### Corps PR — anti-claims
 
 ```markdown
 ## Summary
@@ -155,82 +129,138 @@ Merge, blocker closure, HARD treatment, IAM, persistence, delivery, and cutover 
 Made with [Cursor](https://cursor.com)
 ```
 
-### Anti-claims vérifiés
-
-- B5/R1/R-M01 — REDUCED — REMAINS OPEN — **présent**
-- HARD — OPEN HARD — UNCHANGED — **présent**
-- IAM / persistence NOT_SELECTED — **présent**
-- pas de B5/R1/R-M01 CLOSED — **PASS**
-- CI green ≠ RUN READY — **présent**
-- no delivery/cutover authorization — **présent**
+Anti-claims : B5/R1/R-M01 REMAIN OPEN · HARD UNCHANGED · IAM/persistence NOT_SELECTED · sim ≠ prod rollback · ≠ T-A6 complete · CI ≠ RUN READY · no delivery/cutover — **PASS**
 
 ---
 
-## 6. Checks GitHub (initial)
+## 3. Stratégie et commande
 
-```
-Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/30441606867/job/90542030478	
-Detect SFIA Studio changes	pass	5s	https://github.com/mcleland147/sfia-workspace/actions/runs/30441606867/job/90541978330
-```
-
-Run observé : `30441606867` — Detect SFIA Studio changes = **pending**.
-
-**Statut :** PR CREATED — CHECKS PENDING — NO MERGE AUTHORIZED
+| Champ | Valeur |
+|-------|--------|
+| Stratégie | **merge commit** |
+| Commande | `gh pr merge 290 --merge` |
+| Flags interdits | absents (`--delete-branch` / `--auto` / `--admin`) |
+| Exit code | 0 |
 
 ---
 
-## 7. Blockers / HARD / IAM
+## 4. État PR après merge
+
+| Champ | Valeur |
+|-------|--------|
+| State | **MERGED** |
+| mergedAt | `2026-07-29T10:13:43Z` |
+| mergedBy | `mcleland147` |
+| mergeCommit | `1068ddb37dd8eb9e94c2fca9963fe32ad79a801f` |
+| headRefOid | `c24da112…` (inchangé) |
+| autoMergeRequest | null |
+| admin override | **non** |
+| delete branch | **non** |
+
+---
+
+## 5. Main / parents / branche source
+
+| Moment | SHA |
+|--------|-----|
+| Main avant | `bddfc6ac821b5684cd4b611d397596aa8e310802` |
+| Main après | `1068ddb37dd8eb9e94c2fca9963fe32ad79a801f` |
+
+Merge subject : `Merge pull request #290 from mcleland147/delivery/sfia-studio-t-a7-consolidated-blocker-reduction`
+
+Parents :
+
+- parent1 : `bddfc6ac821b5684cd4b611d397596aa8e310802`
+- parent2 : `c24da112ed3d67479d7b3e7715c78da3c26be78e`
+
+Branche source : **conservée** @ `c24da112…`
+
+---
+
+## 6. Fichiers intégrés (8) — présents sur main
+
+1. A `__tests__/platform/t-a7-consolidated-blocker-reduction.test.ts`
+2. A `blockerAggregation.ts`
+3. A `blockerControlPlane.ts`
+4. A `boundedClaimEvaluator.ts`
+5. M `index.ts`
+6. A `simulatedAtomicOperation.ts`
+7. A `19-consolidated-…-lot.md`
+8. M `README.md`
+
+Diff merge : 8 files · +1350 / −10
+
+### Fichiers interdits absents du merge
+
+package.json / lockfiles / migrations / method/** / routes HTTP / UI / OPS1 fonctionnel — **aucun**
+
+---
+
+## 7. Gouvernance préservée sur main
 
 | Item | Statut |
 |------|--------|
-| B5 | REDUCED — REMAINS OPEN |
-| R1 | REDUCED — REMAINS OPEN |
-| R-M01 | REDUCED — REMAINS OPEN |
-| HARD | OPEN HARD — UNCHANGED |
+| B5 / R1 / R-M01 | **REDUCED — REMAIN OPEN** |
+| HARD | **OPEN HARD — UNCHANGED** |
 | IAM / Persistence | NOT_SELECTED |
+| T-A6 / T-A7 / Option A | NOT COMPLETE (pas de claim complete) |
+| RUN READY | non claimé |
 | Delivery / cutover | NOT AUTHORIZED |
+| production rollback | NOT PROVEN (`productionRollbackProven=false`) |
 
 ---
 
-## 8. Git final
+## 8. CI post-merge
+
+| Champ | Valeur |
+|-------|--------|
+| Workflow | SFIA Studio CI |
+| Run | [30442840312](https://github.com/mcleland147/sfia-workspace/actions/runs/30442840312) |
+| headSha | `1068ddb37dd8eb9e94c2fca9963fe32ad79a801f` |
+| Status | **in_progress** |
+| Conclusion | `(vide)` |
+
+**Report :** PR #290 MERGED — POST-MERGE CI PENDING — NO BLOCKER CLOSURE DELIVERY OR CUTOVER
+
+---
+
+## 9. Git local final
 
 | Champ | Valeur |
 |-------|--------|
 | Branche | `delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
 | HEAD | `c24da112ed3d67479d7b3e7715c78da3c26be78e` |
-| Upstream | `origin/delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
-| Sync | up to date |
+| Upstream | inchangé |
 | tracked | propre |
 | untracked | `.tmp-sfia-review/**` only |
+| checkout main | **non** |
 
 ---
 
-## 9. Actions non exécutées
+## 10. Actions non exécutées
 
-- merge PR #290
-- auto-merge
-- delete branch
-- force push / amend / rebase
+- suppression branche source
+- admin override / auto-merge / squash
 - modification code/tests/docs
-- fermeture blockers / HARD
-- delivery / cutover
+- fermeture B5/R1/R-M01 / HARD
+- IAM / persistence / delivery / cutover
+- correction ou retry CI post-merge
 
 ---
 
-## 10. Risques / réserves
+## 11. Risques / réserves
 
-- Checks CI encore pending — ne pas merger
-- mergeStateStatus=BLOCKED attendu tant que required checks non verts
-- Cursor peut appendre « Made with Cursor » au corps — n’altère pas les anti-claims
-
----
-
-## 11. Gate candidat suivant
-
-`GO REVIEW CI AND DECIDE MERGE — T-A7 CONSOLIDATED BLOCKER REDUCTION PR #290 — NO BLOCKER CLOSURE DELIVERY OR CUTOVER`
+- CI post-merge encore pending au moment du pack
+- Doc 19 verdict encore formulé « LOCAL COMMITS READY… » (snapshot pré-push) — Info historique, pas de contradiction de gouvernance
 
 ---
 
-## 12. Verdict
+## 12. Gate suivant (candidat)
 
-`T-A7 CONSOLIDATED BLOCKER REDUCTION BRANCH PUSHED — NON-DRAFT PR CREATED AGAINST MAIN — TWO COMMITS AND EIGHT FILES VERIFIED — B5 R1 R-M01 REDUCED AND REMAIN OPEN — HARD REMAINS OPEN HARD — NO IAM PERSISTENCE MERGE DELIVERY OR CUTOVER — PR CREATED — CHECKS PENDING — NO MERGE AUTHORIZED — READY FOR CI AND MORRIS MERGE DECISION — HANDOFF UPDATED AND REMOTE VERIFIED`
+`GO POST-MERGE VALIDATE AND CLOSE CONSOLIDATED T-A7 BLOCKER REDUCTION LOT — PR #290 — MAIN 1068DDB — NO BLOCKER CLOSURE DELIVERY OR CUTOVER`
+
+---
+
+## 13. Verdict
+
+`PR #290 MERGED INTO MAIN — CONSOLIDATED T-A7 BLOCKER REDUCTION INTEGRATED — PR #290 MERGED — POST-MERGE CI PENDING — NO BLOCKER CLOSURE DELIVERY OR CUTOVER — B5 R1 R-M01 REDUCED AND REMAIN OPEN — HARD REMAINS OPEN HARD — IAM PERSISTENCE NOT SELECTED — NO BLOCKER CLOSURE DELIVERY OR CUTOVER — SOURCE BRANCH PRESERVED — HANDOFF UPDATED AND REMOTE VERIFIED`
