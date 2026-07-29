@@ -94,8 +94,11 @@ describe("Increment B — adapter mapping (no authority)", () => {
     ).toBe("probe-invalid-head");
   });
 
-  it("keeps exactly four routes", () => {
-    expect(STUDIO_ROUTES).toHaveLength(4);
+  it("keeps four POC routes while adding one real Studio rail route", () => {
+    expect(STUDIO_ROUTES).toHaveLength(5);
+    expect(STUDIO_ROUTES.map((item) => item.route)).toContain(
+      "/studio/projects/new",
+    );
     expect(STUDIO_ROUTES_ONLY).toHaveLength(4);
   });
 });
