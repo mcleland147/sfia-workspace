@@ -1,93 +1,132 @@
-# SFIA Studio first visible slice V1 — PR readiness Review pack FULL
+# SFIA Studio first visible slice V1 — PR #292 pre-merge handoff refresh FULL
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-07-29 16:52:43 CEST (+0200) |
-| Cycle / profil | 13 — PR readiness (+7/8/9/14/15) / Standard renforcé |
-| Typologie | EVOL / DEV / QA / DOC |
+| Date/heure/fuseau | 2026-07-29 17:02:29 CEST (+0200) |
+| Cycle / profil | 13 — PR readiness / pré-merge (+9/7/15) / Standard |
+| Typologie | QA / DOC / CAPA |
 | Repo | `mcleland147/sfia-workspace` |
 | Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
 | Branche projet | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
-| HEAD | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
+| HEAD local / distant / upstream | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
 | Base V1 (framing) | `c1955179a36079e060c41a845c2a1950084966c8` |
-| Base distante framing / origin/main | `7916066310777abce4fd5a64ff0c87759c375fd6` |
-| Handoff parent | commit `57d9001cbef15185a97aa569c83cd29eab934a99` / blob `7bb8c3daff4b0917f383baa8e5819d8d3e7b30d8` |
+| origin/main | `7916066310777abce4fd5a64ff0c87759c375fd6` |
+| PR | [#292](https://github.com/mcleland147/sfia-workspace/pull/292) |
+| Handoff parent | commit `9141d190edf4a30b0584b3896bc1a16e7ec78f15` / blob `314b52c11addc0f6848aec37e50a53ee259a18bc` |
 | Niveau | FULL |
-| PR | https://github.com/mcleland147/sfia-workspace/pull/292 |
+| Scope cycle | documentaire uniquement — aucun fichier projet modifié |
 
 ## Gate consommé
 
-`GO REVIEW AND INTEGRATE SFIA STUDIO FIRST VISIBLE SLICE V1 — PUSH BRANCH AND CREATE PR IF PR READINESS PASSES — NO MERGE IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
+`GO REFRESH PR #292 PRE-MERGE HANDOFF — RECORD CI RUN 30463059711 SUCCESS — VERIFY PR STILL OPEN AND HEAD CA93E080 — NO MERGE IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER`
 
-Autorisé et exécuté : lecture Git, validation, tests, push, création PR, consultation checks, handoff.  
-Non autorisé / non exécuté : merge, force-push, UI V2, Figma, IAM, persistance produit, agent réel, delivery, cutover, fermeture HARD/T-A6/B5/R1/R-M01.
-
-Décisions D-VS :
-
-- D-VS-01→04 : `DECIDED — ADOPTED BY MORRIS`
-- D-VS-05 : `NOT DECIDED — NOT CONSUMED`
+Autorisé : vérification Git, PR, CI, review pack, handoff.  
+Non autorisé / non exécuté : code/tests/docs projet, commit/push projet, modification PR, merge, rebase, force-push, UI V2, Figma, IAM, persistance produit, agent, delivery, cutover.
 
 ## Truth check
 
 PASSED.
 
 - workspace/toplevel exacts
-- branche exacte
-- HEAD exact `ca93e080…`
-- aucun upstream avant push
+- branche projet exacte
+- HEAD local = distant = upstream = `ca93e080…`
+- `origin/main` inchangé `7916066…`
 - tracked propre, staged vide
 - untracked `.tmp-sfia-review/**` uniquement
 - aucune opération Git inachevée
-- `origin/main` inchangé à `7916066…` (aucun nouveau commit)
-- framing `c1955179` ancêtre de HEAD
 - handoff parent SHA/blob exacts
 
-## Sources
+## PR #292
 
-- méthode SFIA / operating model / guardrails (fallback)
-- pack framing `first-user-visible-vertical-slice-framing/` (README, 03, 06, 08–11 prioritaires)
-- handoff parent V1 clock composition
-- `app/lib/vertical-slice-core/**`
-- tests V1 + T-A0/T-A1/D1/T-A7
-- `boundedAtomicAudit.ts` / `db.ts` (lecture)
+| Champ | Valeur |
+|-------|--------|
+| State | OPEN |
+| Merged | false (`mergedAt: null`) |
+| Draft | false |
+| Base | `main` |
+| Head branch | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
+| Head SHA | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
+| Commits | 5 |
+| Changed files | 19 |
+| Additions / deletions | +2024 / −0 |
+| Mergeable | MERGEABLE |
+| Merge state | CLEAN |
+| Merge exécuté | **non** |
 
-Cycle Knowledge Contract : recherché ; aucune autorité d’exécution. Fallback méthode + framing + handoff V1.
+Aucun nouveau commit depuis le handoff parent. Head SHA inchangé.
 
-## Commits (depuis framing base)
+### Commits (inchangés)
 
-| SHA | Message |
-|-----|---------|
-| `f4337b3` | `feat(sfia-studio): add local project core composition` |
-| `7be7e67` | `test(sfia-studio): validate local project core composition` |
-| `449213c` | `docs(sfia-studio): document visible slice V1 foundation` |
-| `ca93e08` | `fix(sfia-studio): share injected clock across V1 composition` |
+1. `c1955179` — docs framing vertical slice
+2. `f4337b3` — feat local project core composition
+3. `7be7e67` — test local project core composition
+4. `449213c` — docs V1 foundation
+5. `ca93e08` — fix shared injected clock
 
-Aucun commit supplémentaire non qualifié.
+### Fichiers (19, inchangés)
 
-## Diff
+Code/tests V1 :
 
-Depuis `c1955179..HEAD` (lot V1 code/docs) :
+- `app/lib/vertical-slice-core/{types,audit,localSqliteAudit,localProjectComposition,index}.ts`
+- `app/__tests__/vertical-slice-core/{localProjectComposition,importBoundaries}.test.ts`
 
-`10 files changed, 1394 insertions(+), 15 deletions(-)`
+Framing pack :
 
-| Status | Path |
-|--------|------|
-| A | `app/__tests__/vertical-slice-core/importBoundaries.test.ts` |
-| A | `app/__tests__/vertical-slice-core/localProjectComposition.test.ts` |
-| A | `app/lib/vertical-slice-core/audit.ts` |
-| A | `app/lib/vertical-slice-core/index.ts` |
-| A | `app/lib/vertical-slice-core/localProjectComposition.ts` |
-| A | `app/lib/vertical-slice-core/localSqliteAudit.ts` |
-| A | `app/lib/vertical-slice-core/types.ts` |
-| M | framing `08-implementation-backlog-and-slicing.md` |
-| A | framing `11-v1-local-project-core-composition.md` |
-| M | framing `README.md` |
+- `first-user-visible-vertical-slice-framing/README.md` + `01`…`11`
 
-PR vs `main` inclut aussi le commit framing `c1955179` (pack 01–10 + README initial) → 19 fichiers, +2024 / −0 côté GitHub.
+Aucun fichier UI V2, package/lockfile, `db.ts`, migration, `.github`, method, prompt.
 
-Fichiers interdits absents : `app/app/**`, `components/**`, `features/**`, `vertical-slice` fixtures, harness, package/lockfile, `db.ts`, migrations, `.github`, method, prompts.
+## CI — run 30463059711 (remplace CI pending)
 
-## Architecture
+| Champ | Valeur |
+|-------|--------|
+| Workflow | SFIA Studio CI |
+| Run | [30463059711](https://github.com/mcleland147/sfia-workspace/actions/runs/30463059711) |
+| Event | `pull_request` |
+| Head SHA | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
+| Status | **completed** |
+| Conclusion | **success** |
+
+### Jobs (tous verts)
+
+| Job ID | Nom | Status | Conclusion |
+|--------|-----|--------|------------|
+| 90613860126 | Detect SFIA Studio changes | completed | success |
+| 90614244540 | Build and validate SFIA Studio | completed | success |
+| 90614666610 | SFIA Studio Required Gate | completed | success |
+
+### Étapes obligatoires — Build and validate (job 90614244540)
+
+| Étape | Conclusion |
+|-------|------------|
+| Setup Node.js | success |
+| Install dependencies | success |
+| Typecheck | success |
+| Lint | success |
+| Build | success |
+| Unit tests (Vitest) | success |
+| Modeled governance tests | success |
+| Secret pattern scan (targeted) | success |
+| Trailing whitespace check | success |
+
+Detect job : Checkout / Detect Studio scope = success.  
+Required Gate : Aggregate required gate = success.
+
+Aucune étape failed, cancelled, ou skipped bloquante.
+
+### Remplacement du statut obsolète du handoff parent
+
+| Avant (parent 9141d19) | Maintenant |
+|------------------------|------------|
+| CI pending | completed / success |
+| Build and validate pending | success (1m18s) |
+| Detect success seulement | Detect + Build + Required Gate success |
+| mergeStateStatus BLOCKED (checks) | CLEAN |
+| Verdict CI PENDING | CI SUCCESS — PR STILL OPEN — NO MERGE |
+
+## Périmètre V1 inchangé (rappel autonome)
+
+Architecture :
 
 ```text
 future UI
@@ -99,258 +138,66 @@ future UI
     → immutable LocalProjectCreationView
 ```
 
-Chemin : `app/lib/vertical-slice-core/**` — composition interne, pas de domaine parallèle.
+Chemin : `app/lib/vertical-slice-core/**`.
 
-Horloge partagée :
+Décisions D-VS :
 
-```ts
-const clock = options.nowIso ? new FixedClock(options.nowIso) : new SystemClock();
-const doctrineResolver = new ResolveDoctrinePackage(
-  new FilesystemDoctrinePackageRepository({ registryRoot: options.registryRoot }),
-  new AjvSchemaValidationAdapter({ schemasRoot: options.schemasRoot }),
-  new Sha256DigestVerificationAdapter(),
-  clock,
-  new MemoryDoctrineAuditJournal(),
-);
-const projectServices = createInMemoryProjectServices({ doctrineResolver, clock, ... });
-```
+- D-VS-01→04 : `DECIDED — ADOPTED BY MORRIS`
+- D-VS-05 : `NOT DECIDED — NOT CONSUMED`
 
-## Contenu modifié substantiel
+Projection anti-claims : `REAL_LOCAL_CORE`, `fixture=false`, IAM/product persistence NOT_SELECTED, agent NOT_AVAILABLE, delivery/cutover NOT_AUTHORIZED. Pas de HARD CLOSED / T-A6 COMPLETE / RUN READY.
 
-### `types.ts` (129 lignes)
+LPS.scope envelope `sfia-visible-slice-project-ui.1` : dette Info documentée, non décidée comme migration produit.
 
-```ts
-export interface CreateLocalProjectCommand {
-  readonly name: string;
-  readonly objective: string;
-  readonly context: string;
-  readonly perceivedCriticality: PerceivedCriticality;
-  readonly constraints: readonly string[];
-  readonly shortReference?: string;
-  readonly idempotencyKey: string;
-}
+Audit : no-op / mémoire / D1 existant, non bloquant, sans changement `db.ts`.
 
-export interface LocalProjectCreationView {
-  readonly projectId: string;
-  readonly projectName: string;
-  readonly shortReference?: string;
-  readonly objective: string;
-  readonly contextSummary: string;
-  readonly perceivedCriticality: PerceivedCriticality;
-  readonly constraints: readonly string[];
-  readonly doctrine: LocalProjectDoctrineProjection;
-  readonly lps: LocalProjectLpsProjection;
-  readonly localMode: true;
-  readonly iam: "NOT_SELECTED";
-  readonly productPersistence: "NOT_SELECTED";
-  readonly realAgentExecution: "NOT_AVAILABLE";
-  readonly delivery: "NOT_AUTHORIZED";
-  readonly cutover: "NOT_AUTHORIZED";
-  readonly source: "REAL_LOCAL_CORE";
-  readonly fixture: false;
-}
-```
-
-### `audit.ts` (49 lignes)
-
-Événements : `LOCAL_PROJECT_CREATION_REQUESTED`, `DOCTRINE_RESOLVED`, `PROJECT_CREATED`, `LPS_INITIALIZED`, `LOCAL_PROJECT_CREATION_FAILED`.  
-Adapters : `NoOp`, `Memory`, `Failing` (preuve non-bloquant).
-
-### `localSqliteAudit.ts` (63 lignes)
-
-```ts
-export class BoundedSqliteLocalProjectCreationAudit
-  implements LocalProjectCreationAuditPort {
-  append(event: LocalProjectCreationAuditEvent): void {
-    this.store.append({
-      opId: event.correlationId,
-      idempotencyKey: event.idempotencyKey,
-      phase: phaseFor(event),
-      outcome: outcomeFor(event),
-      correlationId: event.correlationId,
-      projectRef: event.projectId ?? null,
-      cycleRef: null,
-      payload: {
-        event: event.event,
-        doctrinePackageId: event.doctrinePackageId,
-        doctrineStatus: event.doctrineStatus,
-        lpsVersion: event.lpsVersion,
-        errorCode: event.errorCode,
-      },
-    });
-  }
-}
-```
-
-Aucun objectif/contexte/contrainte dans le payload. Aucun changement `db.ts`.
-
-### `localProjectComposition.ts` (498 lignes)
-
-- `createLocalVerticalSliceServices`
-- `LocalProjectFacade.createProject` / `getProjectOverview`
-- envelope `sfia-visible-slice-project-ui.1` dans LPS `scope`
-- pin défaut `pkg:studio-v3-oa@1.0.0`
-- acteur `authorityLevel: none`
-- audit `try/catch` → `FAILED_NON_BLOCKING`
-
-### Tests
-
-- `localProjectComposition.test.ts` — 13 tests (happy path, doctrine fail, size, idempotence, audit, SQLite, lecture)
-- `importBoundaries.test.ts` — 3 tests (pas React/Next/storage/fetch/harness/OPS1/agents ; OA ≠ V1/D1 ; UI n’importe pas V1)
-
-### Docs
-
-- `11-v1-local-project-core-composition.md` — exécution complète
-- README + `08` — D-VS adoptées, V1 EXECUTED LOCALLY, V2 NOT AUTHORIZED
-
-## T-A0
-
-- registry réel + AJV + digest SHA-256
-- même clock que T-A1
-- fail-closed (missing / digest mismatch → aucune création Project/LPS)
-- happy path = registry local injecté, pas VsDemoContext/harness
-
-## T-A1
-
-- CreateProject atomique Project + LPS v1
-- idempotencyKey transmise
-- GetProject + GetCurrentLivingProjectState pour lecture
-- mutex/transaction mémoire inchangés
-- aucune projection partielle
-
-## Projection
-
-Immutable, `REAL_LOCAL_CORE`, `fixture=false`, anti-claims honnêtes. Aucun HARD CLOSED / T-A6 COMPLETE / RUN READY.
-
-## LPS.scope envelope
-
-- schema `sfia-visible-slice-project-ui.1`
-- parsing fail-closed → `PROJECTION_INVALID`
-- pas de mutation modèle T-A1
-- taille bornée par `MAX_LPS_SNAPSHOT_BYTES`
-- dette documentée ; migration future non décidée
-
-## Audit
-
-no-op / mémoire / D1 existant ; échec non bloquant ; pas de secret ; pas de claim persistance produit.
-
-## Boundaries
-
-Confirmé code + tests :
-
-- pas React / Next / sessionStorage / localStorage / fetch / window/document
-- pas harness / VsDemoContext / OPS1 / agents / IAM
-- OA n’importe pas V1 ni D1
-- UI n’importe pas V1
-
-## Tests (PR readiness)
+## Résultats locaux (inchangés, rappel)
 
 | Validation | Résultat |
 |------------|----------|
 | V1 nouveaux | 16/16 |
 | ciblés T-A0/T-A1/D1/T-A7/V1 | 109/109 |
-| suite Vitest | 85 fichiers, 752/752 |
-| typecheck | green |
-| lint | green, 0 warning |
-| build | green |
-| diff check | green |
+| suite Vitest | 752/752 |
+| typecheck / lint / build / diff-check | green |
 
-Aucune baisse du nombre de tests.
+## Findings (inchangés)
 
-## Findings
+| ID | Sévérité | Observation |
+|----|----------|-------------|
+| F-01 | Info | envelope UI dans LPS.scope |
+| F-02 | Info | audit D1 réutilise phases T-A7 |
 
-| ID | Sévérité | Surface | Observation | Preuve | Impact | Correction | Gate |
-|----|----------|---------|-------------|--------|--------|------------|------|
-| F-01 | Info | LPS.scope | envelope UI versionné dans champ OA existant | `serializeUiMetadata` / doc 11 | dette temporaire | documentée ; pas de correction readiness | futur produit si modèle dédié |
-| F-02 | Info | audit D1 | réutilise vocabulaire phases T-A7 | `localSqliteAudit.ts` | journal local seulement | aucune | aucun |
+Critical : 0 — Major : 0
 
-Critical : 0  
-Major : 0  
-Corrections readiness ce cycle : aucune (correctif horloge déjà dans `ca93e08`).
+## Dette / risques (inchangés + CI)
 
-## PR readiness matrix
-
-| Critère | Statut |
-|---------|--------|
-| Git truth | PASS |
-| Périmètre | PASS |
-| Architecture headless | PASS |
-| T-A0 réel | PASS |
-| T-A1 atomique | PASS |
-| Projection / anti-claims | PASS |
-| LPS.scope | PASS (dette Info) |
-| Audit borné | PASS |
-| Boundaries | PASS |
-| Tests / typecheck / lint / build | PASS |
-| Docs | PASS |
-| Critical/Major | PASS (0) |
-
-**Verdict readiness locale : PASS**
-
-## Push
-
-- `git push -u origin HEAD`
-- local = remote = `ca93e0805b499f9cae6cacd84e37cbb122d89a1c`
-- upstream : `origin/delivery/sfia-studio-visible-slice-v1-project-core-composition`
-- aucun force-push
-
-## PR
-
-| Champ | Valeur |
-|-------|--------|
-| Numéro | 292 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/292 |
-| Title | `feat(sfia-studio): add visible slice V1 project core composition` |
-| Base | `main` |
-| Head | `delivery/sfia-studio-visible-slice-v1-project-core-composition` |
-| Head OID | `ca93e0805b499f9cae6cacd84e37cbb122d89a1c` |
-| Draft | false (ready for review) |
-| State | OPEN |
-| Mergeable | MERGEABLE |
-| Merge state | BLOCKED (checks / rules) |
-| Merge exécuté | **non** |
-
-## Checks (instantané 16:52 CEST)
-
-| Check | Status |
-|-------|--------|
-| Detect SFIA Studio changes (SFIA Studio CI) | pending / QUEUED |
-
-Aucun check success/failure encore. Pas d’attente indéfinie. **Aucun merge.**
-
-## Git final projet (pré-handoff)
-
-- branche : `delivery/sfia-studio-visible-slice-v1-project-core-composition`
-- HEAD : `ca93e0805b499f9cae6cacd84e37cbb122d89a1c`
-- upstream = remote SHA
-- tracked propre
-- untracked `.tmp-sfia-review/**` uniquement
-- `origin/main` inchangé `7916066…`
-
-## Dette / risques
-
-- envelope `sfia-visible-slice-project-ui.1` dans LPS.scope
+- dette LPS.scope envelope
 - mémoire volatile mono-instance
-- chemins registry/schemas injectés (wiring V2)
-- CI encore pending
+- chemins registry/schemas injectés pour V2
+- **risque CI pending : levé** — run 30463059711 success
+- merge toujours non autorisé sans gate Morris distinct
 
 ## Anti-claims
 
-Pas d’IAM, persistance produit, agent réel, UI V2, Figma claim, HARD closed, T-A6 complete, delivery, cutover, merge autorisé.
+Pas d’IAM, persistance produit, UI V2, Figma claim, agent réel, delivery, cutover, HARD closed, T-A6 complete, merge exécuté.
 
 ## Actions non exécutées
 
-merge PR, suppression branche, rebase, force-push, modification main, UI, Figma, IAM, HTTP, agent, delivery, cutover, fermeture blockers.
+Aucun commit/push projet, aucune modification PR, aucun merge, aucun rebase/force-push, aucun fichier projet touché.
+
+## Git final projet
+
+- branche : `delivery/sfia-studio-visible-slice-v1-project-core-composition`
+- HEAD local/distant/upstream : `ca93e0805b499f9cae6cacd84e37cbb122d89a1c`
+- origin/main : `7916066310777abce4fd5a64ff0c87759c375fd6`
+- tracked propre
+- untracked `.tmp-sfia-review/**` uniquement
 
 ## Verdict
 
-`SFIA STUDIO FIRST VISIBLE SLICE V1 PR OPENED — LOCAL PR READINESS PASSED — CI PENDING — NO MERGE AUTHORIZED`
-
-Avec précision locale : readiness PASS, branche poussée, PR #292 ouverte, T-A0/T-A1 composition et projection vérifiées, tests green, 0 Critical/Major, aucun merge/IAM/persistance produit/UI V2/agent/delivery/cutover.
+`PR #292 PRE-MERGE HANDOFF REFRESHED — HEAD CA93E080 VERIFIED — CI RUN 30463059711 COMPLETED SUCCESSFULLY — ALL REQUIRED JOBS GREEN — PR STILL OPEN AND UNMERGED — NO IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER — HANDOFF UPDATED AND REMOTE VERIFIED`
 
 ## Gate candidat suivant
-
-Après CI verte uniquement :
 
 `GO MERGE SFIA STUDIO FIRST VISIBLE SLICE V1 PR #292 — CI PASSED — NO IAM PRODUCT PERSISTENCE UI V2 REAL AGENT DELIVERY OR CUTOVER`
 
