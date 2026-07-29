@@ -1,9 +1,12 @@
 import { randomUUID } from "node:crypto";
 import {
+  AjvSchemaValidationAdapter,
+  FilesystemDoctrinePackageRepository,
   FixedClock,
   MemoryDoctrineAuditJournal,
+  ResolveDoctrinePackage,
+  Sha256DigestVerificationAdapter,
   SystemClock,
-  createLocalDoctrineResolver,
   type DoctrinePackagePin,
 } from "@/lib/oa/doctrine";
 import {
@@ -457,14 +460,20 @@ export const LOCAL_VERTICAL_SLICE_ARCHITECTURE: LocalVerticalSliceArchitecture =
 export function createLocalVerticalSliceServices(
   options: LocalVerticalSliceCompositionOptions,
 ): LocalVerticalSliceServices {
-  const doctrineResolver = createLocalDoctrineResolver({
-    registryRoot: options.registryRoot,
-    schemasRoot: options.schemasRoot,
-    audit: new MemoryDoctrineAuditJournal(),
-  });
   const clock = options.nowIso
     ? new FixedClock(options.nowIso)
     : new SystemClock();
+  const doctrineResolver = new ResolveDoctrinePackage(
+    new FilesystemDoctrinePackageRepository({
+      registryRoot: options.registryRoot,
+    }),
+    new AjvSchemaValidationAdapter({
+      schemasRoot: options.schemasRoot,
+    }),
+    new Sha256DigestVerificationAdapter(),
+    clock,
+    new MemoryDoctrineAuditJournal(),
+  );
   const projectServices = createInMemoryProjectServices({
     doctrineResolver,
     clock,

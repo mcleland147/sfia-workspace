@@ -76,7 +76,7 @@ Les identifiants `prj:`, `lps:` et `cor:` sont fournis par un port injectable ; 
 
 ## Doctrine réelle
 
-La factory compose `createLocalDoctrineResolver` avec :
+La factory compose `ResolveDoctrinePackage` avec la même horloge injectable que T-A1 et :
 
 - le registry local T-A0 ;
 - la validation AJV contre les schemas OA ;
