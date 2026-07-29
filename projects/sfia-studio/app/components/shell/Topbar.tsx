@@ -5,7 +5,7 @@ import { StatusPill } from "@/components/ui/StatusPill";
 import { CtaButton } from "@/components/ui/CtaButton";
 import {
   FLUSH_TABS,
-  type StudioRoute,
+  type StudioShellRoute,
 } from "@/lib/navigation";
 import styles from "./topbar.module.css";
 
@@ -15,13 +15,22 @@ interface TopbarPill {
   testId?: string;
 }
 
+export interface TopbarPrimaryAction {
+  label: string;
+  href: string;
+}
+
 interface TopbarProps {
   variant: "floating" | "flush";
   title: string;
-  activeRoute: StudioRoute;
+  activeRoute: StudioShellRoute;
   pills?: TopbarPill[];
   showTabs?: boolean;
   floatingTabs?: string[];
+  /**
+   * `undefined` preserves the historical CTA; `null` hides it.
+   */
+  primaryAction?: TopbarPrimaryAction | null;
 }
 
 export function Topbar({
@@ -29,10 +38,15 @@ export function Topbar({
   title,
   activeRoute,
   pills = [],
-  showTabs = variant === "flush",
+  showTabs = true,
   floatingTabs = ["Demande", "Contexte", "Pièces jointes", "Qualification"],
+  primaryAction,
 }: TopbarProps) {
   const isFloating = variant === "floating";
+  const resolvedPrimaryAction =
+    primaryAction === undefined
+      ? { label: "Nouvelle demande", href: "/nouvelle-demande" }
+      : primaryAction;
 
   if (isFloating) {
     return (
@@ -55,20 +69,28 @@ export function Topbar({
             </div>
           </div>
         </div>
-        <div className={styles.tabsFloating} role="tablist" aria-label="Sections demande">
-          {floatingTabs.map((tab, index) => (
-            <span
-              key={tab}
-              className={
-                index === 0 ? styles.tabFloatingActive : styles.tabFloating
-              }
-              role="tab"
-              aria-selected={index === 0}
-            >
-              {tab}
-            </span>
-          ))}
-        </div>
+        {showTabs ? (
+          <div
+            className={styles.tabsFloating}
+            role="tablist"
+            aria-label="Sections demande"
+          >
+            {floatingTabs.map((tab, index) => (
+              <span
+                key={tab}
+                className={
+                  index === 0
+                    ? styles.tabFloatingActive
+                    : styles.tabFloating
+                }
+                role="tab"
+                aria-selected={index === 0}
+              >
+                {tab}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </header>
     );
   }
@@ -88,7 +110,11 @@ export function Topbar({
               </StatusPill>
             </span>
           ))}
-          <CtaButton href="/nouvelle-demande">Nouvelle demande</CtaButton>
+          {resolvedPrimaryAction ? (
+            <CtaButton href={resolvedPrimaryAction.href}>
+              {resolvedPrimaryAction.label}
+            </CtaButton>
+          ) : null}
         </div>
       </div>
       {showTabs && (

@@ -4,12 +4,18 @@ export type StudioRoute =
   | "/cycle-actif"
   | "/decision";
 
+/**
+ * Shell-level routes include the real Studio namespace while preserving the
+ * legacy POC union consumed exhaustively by vertical-slice/mapping.ts.
+ */
+export type StudioShellRoute = StudioRoute | "/studio/projects/new";
+
 export interface NavItem {
   id: string;
-  route: StudioRoute;
+  route: StudioShellRoute;
   label: string;
   railIcon: string;
-  railKey: "home" | "plus" | "grid" | "diamond" | "gear";
+  railKey: "home" | "plus" | "grid" | "diamond" | "project" | "gear";
 }
 
 export interface TabItem {
@@ -34,6 +40,13 @@ export const STUDIO_ROUTES: NavItem[] = [
     label: "Nouvelle demande",
     railIcon: "＋",
     railKey: "plus",
+  },
+  {
+    id: "studio-create-project",
+    route: "/studio/projects/new",
+    label: "Créer un projet Studio",
+    railIcon: "◆",
+    railKey: "project",
   },
   {
     id: "cycle-actif",
@@ -71,8 +84,8 @@ export function routeForTab(tabId: string): StudioRoute | undefined {
 }
 
 export function isActiveRoute(
-  activeRoute: StudioRoute,
-  route: StudioRoute,
+  activeRoute: StudioShellRoute,
+  route: StudioShellRoute,
 ): boolean {
   return activeRoute === route;
 }
