@@ -2,6 +2,7 @@
 
 | Champ | Valeur |
 |-------|--------|
+| **Mise à jour lot consolidé B5/R1/R-M01** | 2026-07-29 10:08:00 CEST (+0200) |
 | **Mise à jour post-merge PR #288** | 2026-07-29 02:09:00 CEST (+0200) |
 | **Mise à jour N3** | 2026-07-28 22:45:18 CEST (+0200) |
 | **Mise à jour D1–D8 / L-F11F13** | 2026-07-28 22:58:09 CEST (+0200) |
@@ -12,6 +13,9 @@
 | **Lot L-F11F13** | `INTEGRATED ON MAIN` (PR [#288](https://github.com/mcleland147/sfia-workspace/pull/288) · merge `a105431…`) |
 | **F-PR-01** | `RESOLVED` (TS2322 · commit `5afe095…`) |
 | **CI post-merge** | run `30407614333` — **SUCCESS** |
+| **Lot consolidé B5/R1/R-M01** | `EXECUTED LOCALLY` — voir `19` |
+| **B5 / R1 / R-M01** | `REDUCED — REMAINS OPEN` |
+| **HARD** | `OPEN HARD — UNCHANGED` |
 | **O3** | `DECIDED — ADOPTED BY MORRIS` |
 | **T-A7** | `OPEN — FIRST BOUNDED DEVELOPMENT LOT ONLY` |
 | **Lot 1** | `INTEGRATED ON MAIN` (PR [#287](https://github.com/mcleland147/sfia-workspace/pull/287) · merge `770605bc…`) |
@@ -20,12 +24,12 @@
 | **F11.2** | contrat **INTERNAL_ONLY** intégré sur `main` · pas HTTP/UI · **≠ cutover-complete** |
 | **F13.4** | seed+SHA · PREFIX_ONLY · GIT_ONLY intégré · **≠ archive / cutover** |
 | **IAM / Persistence** | `NOT SELECTED` / `NOT SELECTED` |
-| **B5 / R1 / R-M01** | `OPEN` |
-| **HARD** | `OPEN HARD` |
 | **T-A6 / Option A** | `NOT DECLARED` / `NOT COMPLETE` |
 | **Delivery / cutover** | `NOT AUTHORIZED` |
-| **Main validé** | `a10543143f88ac3bd886c717d49e2d6163c6b360` |
-| **Push / PR (branche docs courante)** | **aucun** |
+| **Main tip (docs #289)** | `bddfc6ac821b5684cd4b611d397596aa8e310802` |
+| **Main validé (technique #288)** | `a10543143f88ac3bd886c717d49e2d6163c6b360` (snapshot historique) |
+| **Branche lot consolidé** | `delivery/sfia-studio-t-a7-consolidated-blocker-reduction` |
+| **Push / PR (branche lot)** | **aucun** |
 
 ## Index du pack
 
@@ -41,13 +45,16 @@
 | `16` | decision pack Morris F11/F13 |
 | `17` | résultats lot L-F11F13 (pré-merge) |
 | `18` | post-merge validation & capitalisation PR #288 |
+| `19` | lot consolidé réduction B5 / R1 / R-M01 (local) |
 
-## État courant sur `main`
+## État courant sur `main` (+ lot local)
 
 1. MethodMode hold (lot 1) — défaut actif ; override test-only hors barrel
 2. F11.2 INTERNAL_ONLY + états READY/NOT_READY/UNKNOWN — **intégré** (PR #288)
 3. F13.4 seed enrichi + SHA + PREFIX_ONLY + GIT_ONLY — **intégré** (PR #288)
 4. F-PR-01 typings — **résolu** et validé par CI post-merge
+5. Doc 18 capitalisation PR #288 — **intégré** (PR #289 · main `bddfc6a…`)
+6. Lot consolidé B5/R1/R-M01 — **exécuté localement** (doc `19`) · **non poussé**
 
 ## Anti-claims
 
@@ -58,18 +65,21 @@
 - hold ≠ blockers fermés
 - CI verte ≠ RUN READY / RGPD VALIDATED
 - capitalisation ≠ nouvelle décision Morris
+- B5/R1/R-M01 REDUCED ≠ CLOSED / SATISFIED / DELIVERY READY
+- simulation R1 ≠ rollback production prouvé
+- claim evaluator borné ≠ T-A6 complete
 
 ## Gate candidat suivant
 
-`GO REVIEW T-A7 F11 F13 POST-MERGE CAPITALIZATION DOCUMENTATION PR READINESS — NO PUSH PR MERGE DELIVERY OR CUTOVER`
+`GO PUSH AND OPEN PR — T-A7 CONSOLIDATED B5 R1 R-M01 BLOCKER REDUCTION — NO MERGE DELIVERY OR CUTOVER`
 
-**Statut :** `NOT CONSUMED` · `READY FOR DOCUMENTATION PR READINESS`
+**Statut :** `NOT CONSUMED` · `READY FOR MORRIS PUSH AND PR DECISION` (après PR readiness locale)
 
-Trajectoire ultérieure candidate (non sélectionnée) : réduction de blockers — exige un GO Morris distinct.
+HARD reste `OPEN HARD`. Aucune autorisation delivery/cutover.
 
 ## Verdict courant
 
-`PR #288 POST-MERGE VALIDATED — MAIN A105431 — CI GREEN — F11.2 F13.4 INTERNAL COMPLETION INTEGRATED — F-PR-01 RESOLVED — BLOCKERS OPEN — NO DELIVERY OR CUTOVER — CAPITALIZATION DOCUMENTED LOCALLY`
+`T-A7 CONSOLIDATED B5 R1 R-M01 BLOCKER REDUCTION EXECUTED LOCALLY — REDUCED AND REMAIN OPEN — HARD UNCHANGED — NO IAM PERSISTENCE DELIVERY OR CUTOVER — PROJECT BRANCH NOT PUSHED`
 
 ---
 
