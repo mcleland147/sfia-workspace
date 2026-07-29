@@ -55,7 +55,8 @@ INCOMPLETE.
       → createProjectRuntimeAction (Server Action)
         → RuntimeApplicationService V2-A1
           → LocalProjectFacade V1
-            → T-A0 Project + T-A1 initial LPS
+            → T-A0 doctrine-package resolution
+            → T-A1 Project + initial Living Project State creation
       ← serializable real-local projection rendered inline
 ```
 

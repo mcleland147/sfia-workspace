@@ -385,6 +385,37 @@ describe("V2-A2 Create Project UI", () => {
     expect(screen.getByLabelText(/Nom du projet/)).toHaveValue("");
   });
 
+  it("renders identical constraints twice without duplicate React key warnings", async () => {
+    const consoleError = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => undefined);
+    createProjectRuntimeActionMock.mockResolvedValue({
+      ...SUCCESS_RESULT,
+      project: {
+        ...SUCCESS_RESULT.project,
+        constraints: ["Sans IAM", "Sans IAM"],
+      },
+    });
+    const user = userEvent.setup();
+    render(<CreateProjectForm />);
+    await fillRequiredFields(user);
+
+    await user.click(screen.getByTestId("create-project-submit"));
+
+    const constraints = await screen.findByLabelText("Contraintes");
+    expect(within(constraints).getAllByText("Sans IAM")).toHaveLength(2);
+    expect(
+      consoleError.mock.calls.some((args) =>
+        args.some(
+          (arg) =>
+            typeof arg === "string" &&
+            /Encountered two children with the same key/i.test(arg),
+        ),
+      ),
+    ).toBe(false);
+    consoleError.mockRestore();
+  });
+
   it("keeps StudioShell defaults and allows V2-A2 to hide tabs and primary CTA", () => {
     const copilot = {
       variant: "flush" as const,

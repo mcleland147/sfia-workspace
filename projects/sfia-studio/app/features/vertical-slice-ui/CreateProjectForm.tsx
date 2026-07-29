@@ -171,8 +171,8 @@ function ProjectCreationResult({
         </dl>
         {result.project.constraints.length > 0 ? (
           <ul className={styles.constraintList} aria-label="Contraintes">
-            {result.project.constraints.map((constraint) => (
-              <li key={constraint}>{constraint}</li>
+            {result.project.constraints.map((constraint, index) => (
+              <li key={`${index}:${constraint}`}>{constraint}</li>
             ))}
           </ul>
         ) : (
