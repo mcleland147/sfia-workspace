@@ -9,6 +9,7 @@ export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
 export * from "./domain/qualification";
+export * from "./domain/cycleTypeCatalog";
 
 export * from "./ports/cycleRepository";
 export * from "./ports/trajectoryRepository";
