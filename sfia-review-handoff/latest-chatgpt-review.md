@@ -1,44 +1,58 @@
-# SFIA Studio V3.1-D1 — Corrective Delivery Review Pack (FULL)
+# SFIA Studio V3.1-D1 — QA Revalidation Review Pack (FULL)
 
 ## Meta
-- **Date/heure/fuseau :** 2026-07-30 21:22:41 CEST (+0200)
-- **Cycle :** 8 — Delivery / implémentation (correctif post-QA)
+- **Date/heure/fuseau :** 2026-07-30 21:33:07 CEST (+0200)
+- **Cycle :** 9 — QA / validation (revalidation)
 - **Profil :** Critical
 - **Typologie :** EVOL
-- **Gate :** GO DELIVERY CORRECTIVE SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — ADDRESS QA FINDINGS — PRODUCTION CONTRACT ONLY — NO D2 — NO UI — NO CREATECYCLE (2026-07-30 21:14 CEST)
-- **CKC Delivery :** synthetic map + §4.8 · method-candidate · obligatoire · executionAuthority=false
+- **Gate :** GO QA REVALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — VALIDATOR CORRECTED — R-QA-01 TO R-QA-09 — FULL NEGATIVE SUITE — NO D2 — NO UI — NO CREATECYCLE (2026-07-30 21:26 CEST)
+- **CKC QA :** pilots/04-qa-validation.md · candidate · v0.1.0 · obligatoire · executionAuthority=false
 
 ## Local Git Truth Check
 - branche delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime
 - HEAD = origin/main = 3e8a4374405dce98866e35fb60c5c7329701f191 · 0/0
 - remote Delivery absente · staged aucun
-- handoff QA : a2e2e1a165fa0bb4d175b1cf7ee38c53791ff9ee · blob 9de8a7f960cbf2984e58b52aa0f0b924a8ba5eb3
-- catalog initial hash 1674243863d015411c602848404e2e41c046afa7
-- index 3daf57578e528878ef8a9298813019bb3b86af3c · docs 12/13 protégés
+- handoff correctif : 2d52ac68b214cc1b461872963c720ef588b44c77 · blob d40e8f2432fa264063f73e1964d76e349ea53c68
 
-## Baseline avant correction
-- catalog 34 PASS / 12 FAIL (46)
-- suite oa/cycle 82 PASS / 12 FAIL (94)
+## Hashes (figés pendant revalidation)
+| Artefact | Hash |
+|----------|------|
+| catalog | 9968f040283d8f626c65db48bbec7abd69c56e2d UNCHANGED |
+| test | 0102fc02edb6e6f16420ea0de31a0d6361b221ba UNCHANGED |
+| index | 3daf57578e528878ef8a9298813019bb3b86af3c UNCHANGED |
+| 01 | 2c74966f37644c682b841371de0925f14332932e UNCHANGED |
+| 02 | b287899b8ad595bc37055c9ba425d7663c5f3038 UNCHANGED |
+| 12 | 82be657cb3b88be0ac72d41e172106a557be101b UNCHANGED |
+| 13 | 3ecb0256e14662a0e8244029a1329a6afb525444 UNCHANGED |
 
-## Findings R-QA-01…09 adressés
-CATALOG_VERSION · LIFECYCLE_STATUS_INVALID · CKC_DOCTRINE_STATUS · CKC_UNAVAILABLE_BEHAVIOR · CKC_PRIMARY_LEVEL · CKC_SYNTHETIC_FALLBACK_POLICY · CKC_SYNTHETIC_FALLBACK_REF · METHOD_NUMBER_RANGE · METHOD_NUMBER_SET · DISPLAY_ORDER_RANGE · DISPLAY_ORDER_SET · ALIAS_COLLIDES_WITH_ID
+## Historique
+Delivery D1 → QA FAIL (01) → Correctif (02) → Revalidation PASS (03)
 
-## Mini-plan
-validator-only · helpers privés · tests oracle inchangés · données/API/version inchangées
+## Matrice R-QA-01…09
+Tous CLOSED BY REVALIDATION (oracle PASS, codes présents, tests/production figés)
 
-## Preuves après
-- catalog 46/46 · suite 94/94 · npm test 827/827 · typecheck/lint/build PASS
-- test QA hash 0102fc02edb6e6f16420ea0de31a0d6361b221ba UNCHANGED
-- index / QA01 / 12 / 13 UNCHANGED
+## Preuves rejouées
+- catalog 46/46 PASS (~0.73s)
+- oa/cycle 94/94 PASS (~0.72s)
+- npm test 827/827 PASS (~6.63s)
+- typecheck/lint/build PASS
+
+## QA-G2
+suite renforcée verte
+
+## QA-G3 proposé
+PASS — décision Morris attendue — PR readiness / D2/D3 non autorisés
 
 ## Content coverage
-- initial/final production full : yes
-- production diff complete : yes
-- QA test unchanged proof : yes
-- index/QA01/12/13 unchanged : yes
-- corrective report full : yes
-- modified docs full : yes
-- findings/command/test evidence : yes
+- production catalog full content : yes
+- QA test oracle full content : yes
+- production/test/index/01/02/12/13 unchanged proof : yes
+- R-QA matrix complete : yes
+- invariants matrix complete : yes
+- command/negative/regression evidence complete : yes
+- QA revalidation report full content : yes
+- modified docs complete : yes
+- reserves classified : yes
 - synthesis only : no
 - review pack verdict : complete
 
@@ -58,9 +72,9 @@ validator-only · helpers privés · tests oracle inchangés · données/API/ver
 ## git diff --stat
 ```
  projects/sfia-studio/app/lib/oa/cycle/index.ts     |   1 +
- .../08-implementation-backlog-and-slicing.md       |  82 ++++++-----
- .../README.md                                      | 152 +++++----------------
- 3 files changed, 82 insertions(+), 153 deletions(-)
+ .../08-implementation-backlog-and-slicing.md       |  82 +++++++-----
+ .../README.md                                      | 145 ++++-----------------
+ 3 files changed, 73 insertions(+), 155 deletions(-)
 ```
 ## git diff --name-status
 ```
@@ -70,556 +84,17 @@ M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-ve
 ```
 
 ## Verdict
-V3.1-D1 CORRECTIVE DELIVERY IMPLEMENTED —
-QA FINDINGS R-QA-01 TO R-QA-09 ADDRESSED —
-READY FOR QA REVALIDATION DECISION —
+V3.1-D1 QA REVALIDATION EVIDENCE COMPLETE —
+PASS —
+R-QA-01 TO R-QA-09 CLOSED BY REVALIDATION —
+READY FOR MORRIS QA-G3 DECISION —
 PR READINESS AND D2/D3 NOT AUTHORIZED
 
 ## Prochain gate
-GO QA REVALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — VALIDATOR CORRECTED — R-QA-01 TO R-QA-09 — FULL NEGATIVE SUITE — NO D2 — NO UI — NO CREATECYCLE
+GO QA-G3 ACCEPT SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — PASS — R-QA-01 TO R-QA-09 CLOSED — PR READINESS NEXT — NO D2 — NO UI — NO CREATECYCLE
 
 ---
-# INITIAL production cycleTypeCatalog.ts FULL
-/**
- * V3.1-D1 — Cycle Type Catalog runtime contract (pure domain).
- *
- * Immutable projection of the fifteen Morris-adopted cycle types and their
- * mandatory CKC mapping metadata. No I/O, no resolver orchestration, no UI.
- *
- * Decisions: D-V3.1-CAT-01…08 (see framing doc 14).
- */
-
-import { isOaIdentifier } from "./invariants";
-import { CAPITALIZATION_CYCLE_TYPE_ID } from "./types";
-
-/** Contract version of the static catalog snapshot. */
-export const CYCLE_TYPE_CATALOG_VERSION = "0.1.0-v3.1-d1" as const;
-
-/** Canonical Git path of the fifteen-cycles synthetic CKC map. */
-export const CKC_SYNTHETIC_MAP_PATH =
-  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md" as const;
-
-/** Method candidate document used for doctrinal provenance. */
-export const METHOD_CYCLES_DOC_PATH =
-  "method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md" as const;
-
-export const CKC_PILOT_CADRAGE_PATH =
-  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md" as const;
-
-export const CKC_PILOT_CONCEPTION_PATH =
-  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md" as const;
-
-export const CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH =
-  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md" as const;
-
-export const CKC_PILOT_QA_VALIDATION_PATH =
-  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md" as const;
-
-export type CycleTypeLifecycleStatus =
-  | "active"
-  | "deprecated"
-  | "unavailable";
-
-/** Primary CKC resolution level for catalog mapping (D1 static contract). */
-export type CycleTypeCkcPrimaryLevel = "detailed" | "synthetic";
-
-/**
- * Mandatory CKC mapping carried by each catalog entry.
- * Orchestrated resolution remains D2 — this is static contract metadata only.
- */
-export type CycleTypeCkcMapping = {
-  /** Always true for V3.1 catalog entries. */
-  mandatory: true;
-  primaryLevel: CycleTypeCkcPrimaryLevel;
-  /** Git-relative path of the primary CKC source. */
-  primaryReference: string;
-  /**
-   * Fallback policy:
-   * - synthetic_map: use fifteen-cycles synthetic map
-   * - none: synthetic primary with no further fallback (fail-closed if invalid)
-   */
-  fallbackPolicy: "synthetic_map" | "none";
-  /** Present when primaryLevel is detailed (mandatory synthetic fallback). */
-  fallbackReference?: typeof CKC_SYNTHETIC_MAP_PATH;
-  /** CKC never holds execution authority. */
-  executionAuthority: false;
-  /** Candidate doctrine maturity — not optional, not global baseline. */
-  doctrineStatus: "method-candidate";
-  /** Expected product behaviour when no valid source can be resolved. */
-  unavailableBehavior: "fail-closed";
-};
-
-export type CycleTypeDefinition = {
-  cycleTypeId: string;
-  /** Harness/method slug for traceability — never used as cycleTypeId. */
-  canonicalKey: string;
-  label: string;
-  shortDescription: string;
-  displayOrder: number;
-  lifecycleStatus: CycleTypeLifecycleStatus;
-  methodCycleNumber: number;
-  methodReference: string;
-  ckc: CycleTypeCkcMapping;
-  /** Controlled aliases (1→1). Empty in D1 — no initial aliases. */
-  aliases: readonly string[];
-};
-
-export type CycleTypeCatalog = {
-  version: typeof CYCLE_TYPE_CATALOG_VERSION;
-  entries: readonly CycleTypeDefinition[];
-};
-
-export type CycleTypeCatalogValidationIssue = {
-  code: string;
-  message: string;
-};
-
-function detailedCkc(primaryReference: string): CycleTypeCkcMapping {
-  return {
-    mandatory: true,
-    primaryLevel: "detailed",
-    primaryReference,
-    fallbackPolicy: "synthetic_map",
-    fallbackReference: CKC_SYNTHETIC_MAP_PATH,
-    executionAuthority: false,
-    doctrineStatus: "method-candidate",
-    unavailableBehavior: "fail-closed",
-  };
-}
-
-function syntheticCkc(): CycleTypeCkcMapping {
-  return {
-    mandatory: true,
-    primaryLevel: "synthetic",
-    primaryReference: CKC_SYNTHETIC_MAP_PATH,
-    fallbackPolicy: "none",
-    executionAuthority: false,
-    doctrineStatus: "method-candidate",
-    unavailableBehavior: "fail-closed",
-  };
-}
-
-function methodRef(section: string): string {
-  return `${METHOD_CYCLES_DOC_PATH} ${section}`;
-}
-
-/**
- * Immutable catalog entries — Morris-adopted CAT-I1 IDs.
- * Order is displayOrder / methodCycleNumber 1…15.
- */
-const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
-  Object.freeze({
-    cycleTypeId: "cyc:framing",
-    canonicalKey: "cadrage",
-    label: "Cadrage",
-    shortDescription: "Clarifier intention, périmètre, contraintes",
-    displayOrder: 1,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 1,
-    methodReference: methodRef("§4.1"),
-    ckc: Object.freeze(detailedCkc(CKC_PILOT_CADRAGE_PATH)),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:functional-design",
-    canonicalKey: "conception-fonctionnelle",
-    label: "Conception fonctionnelle",
-    shortDescription: "Usages, règles, objets métier",
-    displayOrder: 2,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 2,
-    methodReference: methodRef("§4.2"),
-    ckc: Object.freeze(detailedCkc(CKC_PILOT_CONCEPTION_PATH)),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:functional-architecture",
-    canonicalKey: "architecture-fonctionnelle",
-    label: "Architecture fonctionnelle",
-    shortDescription: "Structure, flux, découpage",
-    displayOrder: 3,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 3,
-    methodReference: methodRef("§4.3"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:ux-ui",
-    canonicalKey: "ux-ui",
-    label: "UX/UI",
-    shortDescription: "Expérience et interface",
-    displayOrder: 4,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 4,
-    methodReference: methodRef("§4.4"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:backlog",
-    canonicalKey: "backlog-user-stories",
-    label: "Backlog / user stories",
-    shortDescription: "Stories testables",
-    displayOrder: 5,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 5,
-    methodReference: methodRef("§4.5"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:technical-architecture",
-    canonicalKey: "architecture-technique",
-    label: "Architecture technique",
-    shortDescription: "Stack, patterns, ADR",
-    displayOrder: 6,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 6,
-    methodReference: methodRef("§4.6"),
-    ckc: Object.freeze(detailedCkc(CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH)),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:integration-devops",
-    canonicalKey: "integration-devops",
-    label: "Intégration / DevOps",
-    shortDescription: "CI/CD, environnements",
-    displayOrder: 7,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 7,
-    methodReference: methodRef("§4.7"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:delivery",
-    canonicalKey: "delivery-implementation",
-    label: "Delivery / implémentation",
-    shortDescription: "Implémentation bornée",
-    displayOrder: 8,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 8,
-    methodReference: methodRef("§4.8"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:qa-validation",
-    canonicalKey: "qa-validation",
-    label: "QA / validation",
-    shortDescription: "Preuves et réserves",
-    displayOrder: 9,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 9,
-    methodReference: methodRef("§4.9"),
-    ckc: Object.freeze(detailedCkc(CKC_PILOT_QA_VALIDATION_PATH)),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:security",
-    canonicalKey: "securite-rssi",
-    label: "Sécurité / RSSI",
-    shortDescription: "Menaces et contrôles",
-    displayOrder: 10,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 10,
-    methodReference: methodRef("§4.10"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:release",
-    canonicalKey: "deploiement-release",
-    label: "Déploiement / release",
-    shortDescription: "Release contrôlée",
-    displayOrder: 11,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 11,
-    methodReference: methodRef("§4.11"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:observability",
-    canonicalKey: "observabilite-run-readiness",
-    label: "Observabilité / RUN readiness",
-    shortDescription: "Exploitabilité mesurable",
-    displayOrder: 12,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 12,
-    methodReference: methodRef("§4.12"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:pr-readiness",
-    canonicalKey: "pr-readiness",
-    label: "PR readiness",
-    shortDescription: "Branche prête à PR",
-    displayOrder: 13,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 13,
-    methodReference: methodRef("§4.13"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: "cyc:post-merge",
-    canonicalKey: "post-merge",
-    label: "Post-merge",
-    shortDescription: "Clôture après merge",
-    displayOrder: 14,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 14,
-    methodReference: methodRef("§4.14"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-  Object.freeze({
-    cycleTypeId: CAPITALIZATION_CYCLE_TYPE_ID,
-    canonicalKey: "capitalisation-rex",
-    label: "Capitalisation / REX",
-    shortDescription: "Apprentissage réutilisable",
-    displayOrder: 15,
-    lifecycleStatus: "active" as const,
-    methodCycleNumber: 15,
-    methodReference: methodRef("§4.15"),
-    ckc: Object.freeze(syntheticCkc()),
-    aliases: Object.freeze([] as string[]),
-  }),
-]) as readonly CycleTypeDefinition[];
-
-/** Immutable catalog singleton (read-only contract). */
-export const CYCLE_TYPE_CATALOG: CycleTypeCatalog = Object.freeze({
-  version: CYCLE_TYPE_CATALOG_VERSION,
-  entries: CYCLE_TYPE_ENTRIES,
-});
-
-const BY_ID: ReadonlyMap<string, CycleTypeDefinition> = new Map(
-  CYCLE_TYPE_ENTRIES.map((entry) => [entry.cycleTypeId, entry]),
-);
-
-/** Adopted contractual IDs in method order. */
-export const ADOPTED_CYCLE_TYPE_IDS: readonly string[] = Object.freeze(
-  CYCLE_TYPE_ENTRIES.map((entry) => entry.cycleTypeId),
-);
-
-/**
- * List active catalog entries in display order.
- * Returns a shallow copy so callers cannot mutate the registry.
- */
-export function listCycleTypes(): CycleTypeDefinition[] {
-  return CYCLE_TYPE_ENTRIES.filter(
-    (entry) => entry.lifecycleStatus === "active",
-  ).map((entry) => entry);
-}
-
-/** Exact lookup by cycleTypeId — no label/canonicalKey fallback. */
-export function getCycleTypeById(
-  cycleTypeId: string,
-): CycleTypeDefinition | undefined {
-  return BY_ID.get(cycleTypeId);
-}
-
-/** Pure membership check for catalog IDs. */
-export function isKnownCycleTypeId(cycleTypeId: string): boolean {
-  return BY_ID.has(cycleTypeId);
-}
-
-/**
- * Pure validation of a catalog snapshot (used by tests / future governance).
- * Does not mutate production data.
- */
-export function validateCycleTypeCatalog(
-  catalog: CycleTypeCatalog,
-): CycleTypeCatalogValidationIssue[] {
-  const issues: CycleTypeCatalogValidationIssue[] = [];
-  const entries = catalog.entries;
-
-  if (entries.length !== 15) {
-    issues.push({
-      code: "COUNT",
-      message: `expected 15 entries, got ${entries.length}`,
-    });
-  }
-
-  const ids = new Set<string>();
-  const keys = new Set<string>();
-  const numbers = new Set<number>();
-  const orders = new Set<number>();
-  let detailedCount = 0;
-  let syntheticCount = 0;
-
-  for (const entry of entries) {
-    if (!isOaIdentifier(entry.cycleTypeId)) {
-      issues.push({
-        code: "ID_PATTERN",
-        message: `invalid OA identifier: ${entry.cycleTypeId}`,
-      });
-    }
-    if (!entry.cycleTypeId.startsWith("cyc:")) {
-      issues.push({
-        code: "ID_PREFIX",
-        message: `missing cyc: prefix: ${entry.cycleTypeId}`,
-      });
-    }
-    if (ids.has(entry.cycleTypeId)) {
-      issues.push({
-        code: "ID_DUPLICATE",
-        message: `duplicate cycleTypeId: ${entry.cycleTypeId}`,
-      });
-    }
-    ids.add(entry.cycleTypeId);
-
-    if (keys.has(entry.canonicalKey)) {
-      issues.push({
-        code: "CANONICAL_KEY_DUPLICATE",
-        message: `duplicate canonicalKey: ${entry.canonicalKey}`,
-      });
-    }
-    keys.add(entry.canonicalKey);
-
-    if (numbers.has(entry.methodCycleNumber)) {
-      issues.push({
-        code: "METHOD_NUMBER_DUPLICATE",
-        message: `duplicate methodCycleNumber: ${entry.methodCycleNumber}`,
-      });
-    }
-    numbers.add(entry.methodCycleNumber);
-
-    if (orders.has(entry.displayOrder)) {
-      issues.push({
-        code: "DISPLAY_ORDER_DUPLICATE",
-        message: `duplicate displayOrder: ${entry.displayOrder}`,
-      });
-    }
-    orders.add(entry.displayOrder);
-
-    if (!entry.label.trim()) {
-      issues.push({
-        code: "LABEL_EMPTY",
-        message: `empty label for ${entry.cycleTypeId}`,
-      });
-    }
-    if (!entry.shortDescription.trim()) {
-      issues.push({
-        code: "DESCRIPTION_EMPTY",
-        message: `empty description for ${entry.cycleTypeId}`,
-      });
-    }
-    if (!entry.methodReference.trim()) {
-      issues.push({
-        code: "METHOD_REF_EMPTY",
-        message: `empty methodReference for ${entry.cycleTypeId}`,
-      });
-    }
-
-    if (!entry.ckc || entry.ckc.mandatory !== true) {
-      issues.push({
-        code: "CKC_MISSING",
-        message: `CKC mapping missing/non-mandatory for ${entry.cycleTypeId}`,
-      });
-      continue;
-    }
-    if (entry.ckc.executionAuthority !== false) {
-      issues.push({
-        code: "CKC_EXECUTION_AUTHORITY",
-        message: `executionAuthority must be false for ${entry.cycleTypeId}`,
-      });
-    }
-    if (!entry.ckc.primaryReference?.trim()) {
-      issues.push({
-        code: "CKC_PRIMARY_REF",
-        message: `missing primaryReference for ${entry.cycleTypeId}`,
-      });
-    }
-    if (entry.ckc.primaryLevel === "detailed") {
-      detailedCount += 1;
-      if (
-        entry.ckc.fallbackPolicy !== "synthetic_map" ||
-        entry.ckc.fallbackReference !== CKC_SYNTHETIC_MAP_PATH
-      ) {
-        issues.push({
-          code: "CKC_DETAILED_FALLBACK",
-          message: `detailed entry requires synthetic_map fallback: ${entry.cycleTypeId}`,
-        });
-      }
-    } else if (entry.ckc.primaryLevel === "synthetic") {
-      syntheticCount += 1;
-      if (entry.ckc.primaryReference !== CKC_SYNTHETIC_MAP_PATH) {
-        issues.push({
-          code: "CKC_SYNTHETIC_REF",
-          message: `synthetic entry must reference synthetic map: ${entry.cycleTypeId}`,
-        });
-      }
-    }
-
-    // Alias ambiguity: more than one alias pointing to same string across entries
-    // is checked globally below; per-entry duplicates:
-    const aliasSet = new Set<string>();
-    for (const alias of entry.aliases) {
-      if (aliasSet.has(alias)) {
-        issues.push({
-          code: "ALIAS_AMBIGUOUS",
-          message: `duplicate alias on ${entry.cycleTypeId}: ${alias}`,
-        });
-      }
-      aliasSet.add(alias);
-      if (alias === entry.cycleTypeId) {
-        issues.push({
-          code: "ALIAS_AMBIGUOUS",
-          message: `alias equals cycleTypeId on ${entry.cycleTypeId}`,
-        });
-      }
-    }
-  }
-
-  if (!ids.has(CAPITALIZATION_CYCLE_TYPE_ID)) {
-    issues.push({
-      code: "CAPITALIZATION_MISSING",
-      message: `missing ${CAPITALIZATION_CYCLE_TYPE_ID}`,
-    });
-  } else if (CAPITALIZATION_CYCLE_TYPE_ID !== "cyc:capitalization") {
-    issues.push({
-      code: "CAPITALIZATION_MODIFIED",
-      message: "cyc:capitalization value changed",
-    });
-  }
-
-  if (detailedCount !== 4) {
-    issues.push({
-      code: "DETAILED_COUNT",
-      message: `expected 4 detailed CKC mappings, got ${detailedCount}`,
-    });
-  }
-  if (syntheticCount !== 11) {
-    issues.push({
-      code: "SYNTHETIC_COUNT",
-      message: `expected 11 synthetic CKC mappings, got ${syntheticCount}`,
-    });
-  }
-
-  // Cross-entry alias collisions
-  const aliasOwners = new Map<string, string>();
-  for (const entry of entries) {
-    for (const alias of entry.aliases) {
-      const owner = aliasOwners.get(alias);
-      if (owner && owner !== entry.cycleTypeId) {
-        issues.push({
-          code: "ALIAS_AMBIGUOUS",
-          message: `alias ${alias} owned by both ${owner} and ${entry.cycleTypeId}`,
-        });
-      }
-      aliasOwners.set(alias, entry.cycleTypeId);
-    }
-  }
-
-  return issues;
-}
-
----
-# FINAL production cycleTypeCatalog.ts FULL
+# PRODUCTION CATALOG FULL
 /**
  * V3.1-D1 — Cycle Type Catalog runtime contract (pure domain).
  *
@@ -1265,219 +740,7 @@ export function validateCycleTypeCatalog(
 }
 
 ---
-# PRODUCTION DIFF (before → after)
---- .tmp-sfia-review/before-corrective/cycleTypeCatalog.ts	2026-07-30 21:20:09
-+++ projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts	2026-07-30 21:22:41
-@@ -343,11 +343,43 @@
- /** Pure membership check for catalog IDs. */
- export function isKnownCycleTypeId(cycleTypeId: string): boolean {
-   return BY_ID.has(cycleTypeId);
-+}
-+
-+const ALLOWED_LIFECYCLE_STATUSES: ReadonlySet<string> = new Set([
-+  "active",
-+  "deprecated",
-+  "unavailable",
-+]);
-+
-+const ALLOWED_PRIMARY_LEVELS: ReadonlySet<string> = new Set([
-+  "detailed",
-+  "synthetic",
-+]);
-+
-+const CANONICAL_ONE_TO_FIFTEEN: readonly number[] = Object.freeze([
-+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-+]);
-+
-+/** Exact membership of the closed set {1…15}. */
-+function isExactOneToFifteen(values: ReadonlySet<number>): boolean {
-+  if (values.size !== 15) {
-+    return false;
-+  }
-+  for (const n of CANONICAL_ONE_TO_FIFTEEN) {
-+    if (!values.has(n)) {
-+      return false;
-+    }
-+  }
-+  return true;
-+}
-+
-+function isIntegerInOneToFifteen(value: number): boolean {
-+  return Number.isInteger(value) && value >= 1 && value <= 15;
- }
-
- /**
-  * Pure validation of a catalog snapshot (used by tests / future governance).
-- * Does not mutate production data.
-+ * Does not mutate production data. Returns issues — never throws on invalid entries.
-  */
- export function validateCycleTypeCatalog(
-   catalog: CycleTypeCatalog,
-@@ -355,6 +387,13 @@
-   const issues: CycleTypeCatalogValidationIssue[] = [];
-   const entries = catalog.entries;
-
-+  if (catalog.version !== CYCLE_TYPE_CATALOG_VERSION) {
-+    issues.push({
-+      code: "CATALOG_VERSION",
-+      message: `catalog version mismatch: expected ${CYCLE_TYPE_CATALOG_VERSION}, got ${String(catalog.version)}`,
-+    });
-+  }
-+
-   if (entries.length !== 15) {
-     issues.push({
-       code: "COUNT",
-@@ -362,6 +401,12 @@
-     });
-   }
-
-+  // Collect all cycleTypeIds first for alias↔id collision checks.
-+  const allCycleTypeIds = new Set<string>();
-+  for (const entry of entries) {
-+    allCycleTypeIds.add(entry.cycleTypeId);
-+  }
-+
-   const ids = new Set<string>();
-   const keys = new Set<string>();
-   const numbers = new Set<number>();
-@@ -405,6 +450,12 @@
-       });
-     }
-     numbers.add(entry.methodCycleNumber);
-+    if (!isIntegerInOneToFifteen(entry.methodCycleNumber)) {
-+      issues.push({
-+        code: "METHOD_NUMBER_RANGE",
-+        message: `methodCycleNumber out of range 1…15 for ${entry.cycleTypeId}: ${String(entry.methodCycleNumber)}`,
-+      });
-+    }
-
-     if (orders.has(entry.displayOrder)) {
-       issues.push({
-@@ -413,6 +464,19 @@
-       });
-     }
-     orders.add(entry.displayOrder);
-+    if (!isIntegerInOneToFifteen(entry.displayOrder)) {
-+      issues.push({
-+        code: "DISPLAY_ORDER_RANGE",
-+        message: `displayOrder out of range 1…15 for ${entry.cycleTypeId}: ${String(entry.displayOrder)}`,
-+      });
-+    }
-+
-+    if (!ALLOWED_LIFECYCLE_STATUSES.has(entry.lifecycleStatus as string)) {
-+      issues.push({
-+        code: "LIFECYCLE_STATUS_INVALID",
-+        message: `invalid lifecycleStatus for ${entry.cycleTypeId}: ${String(entry.lifecycleStatus)}`,
-+      });
-+    }
-
-     if (!entry.label.trim()) {
-       issues.push({
-@@ -446,13 +510,32 @@
-         message: `executionAuthority must be false for ${entry.cycleTypeId}`,
-       });
-     }
-+    if (entry.ckc.doctrineStatus !== "method-candidate") {
-+      issues.push({
-+        code: "CKC_DOCTRINE_STATUS",
-+        message: `doctrineStatus must be method-candidate for ${entry.cycleTypeId}`,
-+      });
-+    }
-+    if (entry.ckc.unavailableBehavior !== "fail-closed") {
-+      issues.push({
-+        code: "CKC_UNAVAILABLE_BEHAVIOR",
-+        message: `unavailableBehavior must be fail-closed for ${entry.cycleTypeId}`,
-+      });
-+    }
-     if (!entry.ckc.primaryReference?.trim()) {
-       issues.push({
-         code: "CKC_PRIMARY_REF",
-         message: `missing primaryReference for ${entry.cycleTypeId}`,
-       });
-     }
--    if (entry.ckc.primaryLevel === "detailed") {
-+
-+    const primaryLevel = entry.ckc.primaryLevel as string;
-+    if (!ALLOWED_PRIMARY_LEVELS.has(primaryLevel)) {
-+      issues.push({
-+        code: "CKC_PRIMARY_LEVEL",
-+        message: `unknown primaryLevel for ${entry.cycleTypeId}: ${String(entry.ckc.primaryLevel)}`,
-+      });
-+    } else if (entry.ckc.primaryLevel === "detailed") {
-       detailedCount += 1;
-       if (
-         entry.ckc.fallbackPolicy !== "synthetic_map" ||
-@@ -471,10 +554,20 @@
-           message: `synthetic entry must reference synthetic map: ${entry.cycleTypeId}`,
-         });
-       }
-+      if (entry.ckc.fallbackPolicy !== "none") {
-+        issues.push({
-+          code: "CKC_SYNTHETIC_FALLBACK_POLICY",
-+          message: `synthetic entry requires fallbackPolicy none: ${entry.cycleTypeId}`,
-+        });
-+      }
-+      if (entry.ckc.fallbackReference !== undefined) {
-+        issues.push({
-+          code: "CKC_SYNTHETIC_FALLBACK_REF",
-+          message: `synthetic entry must not carry fallbackReference: ${entry.cycleTypeId}`,
-+        });
-+      }
-     }
-
--    // Alias ambiguity: more than one alias pointing to same string across entries
--    // is checked globally below; per-entry duplicates:
-     const aliasSet = new Set<string>();
-     for (const alias of entry.aliases) {
-       if (aliasSet.has(alias)) {
-@@ -484,15 +577,28 @@
-         });
-       }
-       aliasSet.add(alias);
--      if (alias === entry.cycleTypeId) {
-+      if (allCycleTypeIds.has(alias)) {
-         issues.push({
--          code: "ALIAS_AMBIGUOUS",
--          message: `alias equals cycleTypeId on ${entry.cycleTypeId}`,
-+          code: "ALIAS_COLLIDES_WITH_ID",
-+          message: `alias collides with cycleTypeId (${alias}) on ${entry.cycleTypeId}`,
-         });
-       }
-     }
-   }
-
-+  if (!isExactOneToFifteen(numbers)) {
-+    issues.push({
-+      code: "METHOD_NUMBER_SET",
-+      message: "methodCycleNumber set must be exactly 1…15",
-+    });
-+  }
-+  if (!isExactOneToFifteen(orders)) {
-+    issues.push({
-+      code: "DISPLAY_ORDER_SET",
-+      message: "displayOrder set must be exactly 1…15",
-+    });
-+  }
-+
-   if (!ids.has(CAPITALIZATION_CYCLE_TYPE_ID)) {
-     issues.push({
-       code: "CAPITALIZATION_MISSING",
-@@ -518,7 +624,7 @@
-     });
-   }
-
--  // Cross-entry alias collisions
-+  // Cross-entry alias collisions (shared alias between two entries).
-   const aliasOwners = new Map<string, string>();
-   for (const entry of entries) {
-     for (const alias of entry.aliases) {
-
----
-# QA TEST DIFF (must be empty)
-(empty — test unchanged)
-
----
-# QA TEST FULL (oracle preserved)
+# QA TEST ORACLE FULL
 /**
  * V3.1-D1 — Cycle Type Catalog contract tests.
  * @vitest-environment node
@@ -2200,117 +1463,166 @@ describe("V3.1-D1 QA reinforcement — validator negatives & edges", () => {
 });
 
 ---
-# CORRECTIVE REPORT 02 FULL
-# V3.1-D1 — Corrective Delivery Report
+# UNCHANGED DIFFS (must be empty)
+
+### catalog
+(empty — unchanged)
+
+### test
+(empty — unchanged)
+
+### index
+(empty — unchanged)
+
+### 01
+(empty — unchanged)
+
+### 02
+(empty — unchanged)
+
+### 12
+(empty — unchanged)
+
+### 13
+(empty — unchanged)
+
+---
+# 03 QA REVALIDATION REPORT FULL
+# V3.1-D1 — QA Revalidation Report (Critical)
 
 ## A. Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-30 21:22:00 CEST (+0200) |
-| **Cycle** | 8 — Delivery / implémentation (correctif post-QA) |
+| **Date/heure/fuseau** | 2026-07-30 21:32:00 CEST (+0200) |
+| **Cycle** | 9 — QA / validation (revalidation post-correctif) |
 | **Profil** | **Critical** |
 | **Typologie** | EVOL |
-| **GO Morris consommé** | `GO DELIVERY CORRECTIVE SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — ADDRESS QA FINDINGS — PRODUCTION CONTRACT ONLY — NO D2 — NO UI — NO CREATECYCLE` (2026-07-30 21:14 CEST) |
+| **GO Morris consommé** | `GO QA REVALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — VALIDATOR CORRECTED — R-QA-01 TO R-QA-09 — FULL NEGATIVE SUITE — NO D2 — NO UI — NO CREATECYCLE` (2026-07-30 21:26 CEST) |
 | **Branche** | `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
 | **Base / HEAD** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` · 0/0 |
-| **CKC Delivery** | carte synthétique + méthode §4.8 · method-candidate · obligatoire · `executionAuthority=false` |
-| **Handoff QA source** | tip `a2e2e1a…` · blob `9de8a7f…` |
-| **Statut** | `V3.1-D1 CORRECTIVE DELIVERY IMPLEMENTED — QA FINDINGS R-QA-01 TO R-QA-09 ADDRESSED — READY FOR QA REVALIDATION DECISION — PR READINESS AND D2/D3 NOT AUTHORIZED` |
+| **CKC QA** | `method/.../pilots/04-qa-validation.md` · candidate · v0.1.0 · obligatoire · `executionAuthority=false` |
+| **Handoff correctif** | tip `2d52ac6…` · blob `d40e8f24…` |
+| **Statut** | `V3.1-D1 QA REVALIDATION EVIDENCE COMPLETE — PASS — R-QA-01 TO R-QA-09 CLOSED BY REVALIDATION — READY FOR MORRIS QA-G3 DECISION — PR READINESS AND D2/D3 NOT AUTHORIZED` |
+| **Décision Morris QA-G3** | **non consommée** — proposition Cursor uniquement |
 
-## B. Contexte
+## B. Historique
 
-QA Critical (cycle 9) a produit **FAIL** : données de production nominales conformes, mais `validateCycleTypeCatalog` incomplet → **12 tests** QA en échec / **9 réserves majeures** R-QA-01…09. Rapport historique inchangé : [`01-qa-validation-report.md`](./01-qa-validation-report.md).
+1. **Delivery D1** — contrat runtime + mapping CKC (15 IDs).
+2. **QA Critical** — FAIL · 12 tests négatifs · R-QA-01…09 · rapport [`01`](./01-qa-validation-report.md).
+3. **Delivery correctif** — `validateCycleTypeCatalog` renforcé · rapport [`02`](./02-corrective-delivery-report.md).
+4. **Revalidation** — ce rapport · production et tests **figés**.
 
-## C. Périmètre
+## C. Référentiel
 
-| Autorisé | Réalisé |
-|----------|---------|
-| `cycleTypeCatalog.ts` — `validateCycleTypeCatalog` + helpers privés | **oui** |
-| Tests QA | **inchangés** (oracle) |
-| `index.ts` / données / version / API / mapping | **inchangés** |
-| D2 / D3 / UI / CreateCycle | **absents** |
+- Décisions D-V3.1-CAT-01…08 · document `14`.
+- Quinze IDs CAT-I1 · version `0.1.0-v3.1-d1`.
+- Rapport QA 01 (FAIL historique) · correctif 02.
+- Oracle : `cycleTypeCatalog.test.ts` hash `0102fc02…` **inchangé**.
+- Invariants identité / CKC / immuabilité / alias / fail-closed.
 
-## D. Findings
+## D. Protections
 
-| Finding | Invariant | Sévérité QA | Contrôle ajouté | Code | Test oracle | Résultat |
-|---------|-----------|-------------|-----------------|------|-------------|----------|
-| R-QA-01 | lifecycleStatus fermé | majeure | enum `active\|deprecated\|unavailable` | `LIFECYCLE_STATUS_INVALID` | detects invalid lifecycleStatus | **PASS** |
-| R-QA-02 | doctrineStatus | majeure | `=== method-candidate` | `CKC_DOCTRINE_STATUS` | detects doctrineStatus… | **PASS** |
-| R-QA-03 | unavailableBehavior | majeure | `=== fail-closed` | `CKC_UNAVAILABLE_BEHAVIOR` | detects unavailableBehavior… | **PASS** |
-| R-QA-04 | synthetic fallbackPolicy | majeure | `=== none` | `CKC_SYNTHETIC_FALLBACK_POLICY` | incoherent fallbackPolicy | **PASS** |
-| R-QA-05 | synthetic fallbackReference | majeure | must be `undefined` | `CKC_SYNTHETIC_FALLBACK_REF` | contradictory / unauthorized fallbackReference | **PASS** |
-| R-QA-06 | methodCycleNumber 1…15 | majeure | range + exact set | `METHOD_NUMBER_RANGE` / `METHOD_NUMBER_SET` | hors plage + set inexact | **PASS** |
-| R-QA-07 | displayOrder 1…15 | majeure | range + exact set | `DISPLAY_ORDER_RANGE` / `DISPLAY_ORDER_SET` | hors plage + set inexact | **PASS** |
-| R-QA-08 | alias ↔ cycleTypeId | majeure | collect IDs puis collision | `ALIAS_COLLIDES_WITH_ID` | alias = autre cycleTypeId | **PASS** |
-| R-QA-09 | catalog.version | majeure | `=== CYCLE_TYPE_CATALOG_VERSION` | `CATALOG_VERSION` | incorrect catalog version | **PASS** |
+| Artefact | Hash | Pendant revalidation |
+|----------|------|----------------------|
+| `cycleTypeCatalog.ts` | `9968f040…` | **inchangé** |
+| `cycleTypeCatalog.test.ts` | `0102fc02…` | **inchangé** |
+| `index.ts` | `3daf5757…` | **inchangé** |
+| `01-qa-validation-report.md` | `2c74966f…` | **inchangé** |
+| `02-corrective-delivery-report.md` | `b287899b…` | **inchangé** |
+| document 12 | `82be657c…` | **inchangé** |
+| document 13 | `3ecb0256…` | **inchangé** |
 
-Également : `CKC_PRIMARY_LEVEL` pour primaryLevel inconnu (déjà couvert via counts + code dédié).
+Aucune correction technique · aucun test modifié · package/lockfile/config inchangés.
 
-## E. Implémentation
+## E. Stratégie
 
-Helpers privés purs :
-- `isExactOneToFifteen`
-- `isIntegerInOneToFifteen`
-- sets fermés `ALLOWED_LIFECYCLE_STATUSES` / `ALLOWED_PRIMARY_LEVELS`
+Conformité statique → exécution oracle complète (nominal + négatifs + bords) → non-régression suite domaine + applicative → typecheck/lint/build → matrice fermeture R-QA → classification réserves → proposition QA-G3 (Morris).
 
-Ordre déterministe : version → COUNT → collecte IDs → boucle entrées → ensembles 1…15 → capitalization → cardinalité CKC → alias globaux.
+## F. Matrice R-QA-01 à R-QA-09
 
-Pas d’I/O · pas de throw sur entrée invalide · liste d’issues · multi-issues.
+| Finding | Invariant | Test oracle | Code | Avant correctif | Correctif | Revalidation | Statut |
+|---------|-----------|-------------|------|-----------------|-----------|--------------|--------|
+| R-QA-01 | lifecycle fermé | detects invalid lifecycleStatus | `LIFECYCLE_STATUS_INVALID` | FAIL | enum check | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-02 | doctrineStatus | detects doctrineStatus… | `CKC_DOCTRINE_STATUS` | FAIL | exact match | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-03 | unavailableBehavior | detects unavailableBehavior… | `CKC_UNAVAILABLE_BEHAVIOR` | FAIL | fail-closed | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-04 | synthetic fallbackPolicy | incoherent fallbackPolicy | `CKC_SYNTHETIC_FALLBACK_POLICY` | FAIL | `=== none` | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-05 | synthetic fallbackReference | contradictory / unauthorized | `CKC_SYNTHETIC_FALLBACK_REF` | FAIL | must be undefined | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-06 | methodCycleNumber 1…15 | hors plage + set inexact | `METHOD_NUMBER_RANGE` / `SET` | FAIL | range + set | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-07 | displayOrder 1…15 | hors plage + set inexact | `DISPLAY_ORDER_RANGE` / `SET` | FAIL | range + set | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-08 | alias ↔ cycleTypeId | alias = autre cycleTypeId | `ALIAS_COLLIDES_WITH_ID` | FAIL | IDs first | **PASS** | **CLOSED BY REVALIDATION** |
+| R-QA-09 | catalog.version | incorrect catalog version | `CATALOG_VERSION` | FAIL | version check | **PASS** | **CLOSED BY REVALIDATION** |
 
-## F. Non-modifications
+Conditions de fermeture : test oracle PASS · code présent en production · tests non modifiés · production inchangée pendant revalidation · pas de régression.
 
-- Quinze entrées statiques · IDs · labels · mapping 4/11 · aliases vides · `CYCLE_TYPE_CATALOG_VERSION=0.1.0-v3.1-d1`
-- Types / opérations / exports publics
-- `cycleTypeCatalog.test.ts` (hash inchangé)
-- `index.ts` · `01-qa-validation-report.md` · docs 12/13
+## G. Catalogue nominal
 
-## G. Preuves avant
-
-| Commande | Résultat |
+| Contrôle | Résultat |
 |----------|----------|
-| catalog test | 34 PASS / **12 FAIL** (46) |
-| suite oa/cycle | 82 PASS / 12 FAIL (94) |
+| Version `0.1.0-v3.1-d1` | **PASS** |
+| Exactement 15 IDs CAT-I1 ordre 1…15 | **PASS** |
+| Unicité id/key/number/order · ensembles 1…15 | **PASS** |
+| `cyc:capitalization` exact | **PASS** |
+| Labels/descriptions/methodRef non vides · lifecycle active | **PASS** |
+| CKC mandatory · execAuth false · doctrine · fail-closed | **PASS** |
+| 4 detailed / 11 synthetic · fallbacks | **PASS** |
+| Chemins Git existent · pas d’I/O runtime | **PASS** |
+| Object.isFrozen profond · list non mutante · lookup id-only | **PASS** |
+| Pas profil/gate/Morris dans entrées | **PASS** |
 
-## H. Preuves après
+## H. Résultats techniques
 
-| Commande | Répertoire | Code | Résultat | Durée |
-|----------|------------|------|----------|-------|
-| `npm test -- __tests__/oa/cycle/cycleTypeCatalog.test.ts` | `app/` | 0 | **46/46 PASS** | ~0.57s |
-| `npm test -- __tests__/oa/cycle/` | `app/` | 0 | **94/94 PASS** | ~0.71s |
-| `npm test` | `app/` | 0 | **827/827 PASS** (90 files) | ~7.23s |
-| `npm run typecheck` | `app/` | 0 | PASS | ~1.47s |
-| `npm run lint` | `app/` | 0 | PASS | ~1.66s |
-| `npm run build` | `app/` | 0 | PASS | ~7.44s |
-| `git diff --check` | repo | 0 | PASS | — |
+| Commande | Répertoire | Date | Code | Résultat | Durée |
+|----------|------------|------|------|----------|-------|
+| `npm test -- __tests__/oa/cycle/cycleTypeCatalog.test.ts` | `app/` | 2026-07-30 21:31:19 CEST | 0 | **46/46 PASS** | ~0.73s |
+| `npm test -- __tests__/oa/cycle/` | `app/` | 2026-07-30 21:31:24 CEST | 0 | **94/94 PASS** | ~0.72s |
+| `npm test` | `app/` | 2026-07-30 21:31:25 CEST | 0 | **827/827 PASS** (90 files) | ~6.63s |
+| `npm run typecheck` | `app/` | suite | 0 | PASS | ~0.89s |
+| `npm run lint` | `app/` | suite | 0 | PASS | ~1.65s |
+| `npm run build` | `app/` | suite | 0 | PASS | ~7.00s |
+| `git diff --check` | repo | post | 0 | PASS | — |
 
-## I. Compatibilité
+Toutes les commandes **rejouées** dans ce cycle (aucun PASS réutilisé d’une exécution antérieure).
 
-15 IDs CAT-I1 · `cyc:capitalization` · 4 detailed / 11 synthetic · `executionAuthority=false` · fail-closed · Object.freeze inchangé · signature `validateCycleTypeCatalog` préservée.
+## I. Analyse des écarts
 
-## J. Réserves
+Aucun écart technique. Aucun finding R-QA restant ouvert. Aucune régression. Aucune réserve cachée.
 
-- R-QA-01…09 **corrigés** dans le validateur.
-- QA-G3 **non** accepté — **revalidation QA** obligatoire.
-- Orchestration CKC / resolver / QualifyCycle bridge = **D2** (non autorisé).
-- PR readiness **fermée**.
+## J. QA-Gates
 
-## K. Anti-claims
+| Gate | État |
+|------|------|
+| **QA-G2** | Tests automatisés implémentés — suite renforcée **verte** (46/46 · 94/94 · 827/827). |
+| **QA-G3** | **PASS proposé** — décision Morris **attendue**. |
 
-Correctif vert ≠ QA-G3 · delivery correctif ≠ PR ready · D1 ≠ resolver D2 · mapping ≠ orchestration · pas PRODUCT/RUN/IAM/AGENT READY · pas DELIVERY/CUTOVER AUTHORIZED · pas HARD CLOSED / T-A6 COMPLETE · D2/D3 non autorisés.
+## K. Frontières
 
-## L. Verdict
+Resolver / QualifyCycle bridge / vertical-slice / UI / CreateCycle / persistance / D2 / D3 : **absents** de ce cycle. Production et tests **non modifiés**.
+
+## L. Anti-claims
+
+- Revalidation PASS ≠ sans bug absolu.
+- Revalidation PASS ≠ QA-G3 Morris accepté.
+- QA-G3 ≠ PR readiness automatique.
+- Catalogue D1 ≠ resolver D2.
+- Mapping CKC ≠ orchestration CKC.
+- Build PASS ≠ production ready.
+- D2/D3 non validés.
+- Aucun GO implicite · pas PRODUCT/RUN/IAM/AGENT READY · pas DELIVERY/CUTOVER AUTHORIZED · pas HARD CLOSED / T-A6 COMPLETE.
+
+## M. Verdict
 
 ```
-V3.1-D1 CORRECTIVE DELIVERY IMPLEMENTED —
-QA FINDINGS R-QA-01 TO R-QA-09 ADDRESSED —
-READY FOR QA REVALIDATION DECISION —
+V3.1-D1 QA REVALIDATION EVIDENCE COMPLETE —
+PASS —
+R-QA-01 TO R-QA-09 CLOSED BY REVALIDATION —
+READY FOR MORRIS QA-G3 DECISION —
 PR READINESS AND D2/D3 NOT AUTHORIZED
 ```
 
 **Gate suivant candidat (non ouvert) :**
 
-`GO QA REVALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — VALIDATOR CORRECTED — R-QA-01 TO R-QA-09 — FULL NEGATIVE SUITE — NO D2 — NO UI — NO CREATECYCLE`
+`GO QA-G3 ACCEPT SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — PASS — R-QA-01 TO R-QA-09 CLOSED — PR READINESS NEXT — NO D2 — NO UI — NO CREATECYCLE`
 
 ---
 # D1 README FULL
@@ -2329,9 +1641,9 @@ PR READINESS AND D2/D3 NOT AUTHORIZED
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
 | **CKC Delivery** | fallback carte synthétique + méthode §4.8 · method-candidate · consommation obligatoire · `executionAuthority=false` |
 | **Statut Delivery** | `V3.1-D1 CYCLE TYPE CATALOG RUNTIME CONTRACT IMPLEMENTED — MANDATORY CKC MAPPING IMPLEMENTED` |
-| **Statut QA (historique)** | `QA EVIDENCE COMPLETE — FAIL — MAJOR VALIDATOR GAPS` — voir [`01-qa-validation-report.md`](./01-qa-validation-report.md) |
-| **Statut correctif** | `CORRECTIVE DELIVERY IMPLEMENTED — R-QA-01…09 ADDRESSED — READY FOR QA REVALIDATION — QA-G3 NO-GO UNTIL REVALIDATION — PR READINESS AND D2/D3 NOT AUTHORIZED` |
-| **Rapport correctif** | [`02-corrective-delivery-report.md`](./02-corrective-delivery-report.md) |
+| **Statut QA (historique)** | `QA EVIDENCE COMPLETE — FAIL — MAJOR VALIDATOR GAPS` — [`01`](./01-qa-validation-report.md) |
+| **Statut correctif** | `CORRECTIVE DELIVERY IMPLEMENTED — R-QA-01…09 ADDRESSED` — [`02`](./02-corrective-delivery-report.md) |
+| **Statut revalidation** | `QA REVALIDATION EVIDENCE COMPLETE — PASS — R-QA-01…09 CLOSED — READY FOR MORRIS QA-G3 DECISION — PR READINESS AND D2/D3 NOT AUTHORIZED` — [`03`](./03-qa-revalidation-report.md) |
 | **Commit / push / PR projet** | **non** |
 
 ## B. Objectif
@@ -2410,9 +1722,16 @@ Résultats Delivery (2026-07-30) : catalog 24/24 PASS · suite oa/cycle 72/72 PA
 ### Delivery correctif (cycle 8 — 2026-07-30)
 
 - `validateCycleTypeCatalog` renforcé (R-QA-01…09) — données/API/tests **inchangés**.
-- Après correctif : catalog **46/46 PASS** · suite oa/cycle **94/94** · `npm test` **827/827** · typecheck/lint/build **PASS**.
+- Après correctif : catalog **46/46 PASS** · suite oa/cycle **94/94** · `npm test` **827/827**.
 - Rapport : [`02-corrective-delivery-report.md`](./02-corrective-delivery-report.md).
-- QA-G3 **toujours NO-GO** jusqu’à revalidation QA séparée. D2/D3 **interdits**.
+
+### QA revalidation (cycle 9 — 2026-07-30)
+
+- Production + tests **figés** (rejeu indépendant des preuves).
+- Résultats rejoués : **46/46** · **94/94** · **827/827** · typecheck/lint/build **PASS**.
+- R-QA-01…09 : **CLOSED BY REVALIDATION**.
+- Rapport : [`03-qa-revalidation-report.md`](./03-qa-revalidation-report.md).
+- Verdict Cursor : **PASS** — QA-G3 **en attente Morris** · PR readiness / D2/D3 **fermés**.
 
 ## H. Frontières
 
@@ -2436,16 +1755,19 @@ Registry D1 ≠ mécanisme CKC complet · mapping ≠ résolution · export doma
 
 **QA (historique) :** FAIL — gaps validator (rapport 01).
 
-**Correctif (Cursor) :**
+**Correctif (historique) :** R-QA-01…09 adressés (rapport 02).
+
+**Revalidation (Cursor) :**
 
 ```
-V3.1-D1 CORRECTIVE DELIVERY IMPLEMENTED —
-QA FINDINGS R-QA-01 TO R-QA-09 ADDRESSED —
-READY FOR QA REVALIDATION DECISION —
+V3.1-D1 QA REVALIDATION EVIDENCE COMPLETE —
+PASS —
+R-QA-01 TO R-QA-09 CLOSED BY REVALIDATION —
+READY FOR MORRIS QA-G3 DECISION —
 PR READINESS AND D2/D3 NOT AUTHORIZED
 ```
 
-QA-G3 **non** accepté. Revalidation QA requise. D2/D3 **non autorisés**.
+Revalidation Cursor ≠ décision Morris QA-G3. PR readiness / D2/D3 **non autorisés**.
 
 ---
 # framing README FULL
@@ -2453,52 +1775,41 @@ QA-G3 **non** accepté. Revalidation QA requise. D2/D3 **non autorisés**.
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D1 DELIVERY COMPLETE — QA FAIL HISTORIQUE — CORRECTIVE DELIVERY IMPLEMENTED — READY FOR QA REVALIDATION — PR READINESS NOT AUTHORIZED — D2/D3 NOT AUTHORIZED` |
-| **Date** | 2026-07-30 21:22:00 CEST (+0200) |
-| **Cycle courant** | 8 — Delivery correctif V3.1-D1 |
+| **Statut** | `FRAMING LIVING — V3.1-D1 DELIVERY + CORRECTIF COMPLETE — QA REVALIDATION PASS — READY FOR MORRIS QA-G3 DECISION — PR READINESS NOT AUTHORIZED — D2/D3 NOT AUTHORIZED` |
+| **Date** | 2026-07-30 21:32:00 CEST (+0200) |
+| **Cycle courant** | 9 — QA revalidation V3.1-D1 |
 | **Profil** | **Critical** |
 | **Typologie** | EVOL |
-| **Gate courant** | `GO DELIVERY CORRECTIVE SFIA STUDIO V3.1-D1 …` **consommé** (2026-07-30 21:14 CEST) |
+| **Gate courant** | `GO QA REVALIDATION SFIA STUDIO V3.1-D1 …` **consommé** (2026-07-30 21:26 CEST) |
 | **Branche Delivery** | `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
-| **Code D1** | `validateCycleTypeCatalog` corrigé · données/API/tests inchangés |
-| **Rapports** | QA [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) · correctif [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) |
-| **Docs protégées** | `12` / `13` / QA `01` **inchangés** |
+| **Code D1** | catalogue + validateur corrigé · **figés** pendant revalidation |
+| **Rapports** | [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) · [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) · [`03`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md) |
+| **Docs protégées** | `12` / `13` / QA `01` / correctif `02` **inchangés** |
 
 ## Synthèse
 
 | Lot | État |
 |-----|------|
 | V1 / V2 | intégrés `main` |
-| V3 arbitrage D-V3 | terminé (`12`) |
-| V3.1 conception | terminée (`13`) |
-| V3.1 catalogue décisions | adoptées (`14`) |
-| **V3.1-D1 Delivery** | **terminé** — contrat runtime + mapping CKC |
-| **V3.1-D1 QA** | **FAIL historique** (validator gaps) — rapport 01 |
-| **V3.1-D1 Correctif** | **exécuté** — R-QA-01…09 adressés · 46/46 verts |
-| **QA revalidation** | **prochaine** — QA-G3 non accepté |
-| V3.1-D2 | **non autorisé** |
-| V3.1-D3 UI | **non autorisé** · D-VS-05 / Figma |
-| PR readiness | **fermée** |
+| V3 / V3.1 cadrage–conception–adoption | terminés (`12`/`13`/`14`) |
+| **V3.1-D1 Delivery** | **terminé** |
+| **V3.1-D1 QA** | **FAIL historique** (01) |
+| **V3.1-D1 Correctif** | **terminé** (02) |
+| **V3.1-D1 Revalidation** | **PASS** — R-QA-01…09 CLOSED (03) |
+| **QA-G3** | **en attente Morris** |
+| V3.1-D2 / D3 / PR readiness | **non ouverts** · Figma D3 inchangé |
 | V3.2 / V4–V6 | non autorisés |
 
-**R-V3.1-CATALOG-01 :** contrat + arbitrage résolus · runtime D1 · validateur corrigé · orchestration **pending D2**.
-
-## Index
-
-| Doc | Sujet |
-|-----|-------|
-| `12` / `13` | cadrage / conception (protégés) |
-| `14` | catalogue + évidence |
-| D1 README / 01 / 02 | contrat · QA · correctif |
+**R-V3.1-CATALOG-01 :** contrat résolu · runtime D1 · validateur corrigé · revalidation PASS · orchestration **pending D2** · QA-G3 **non décidé**.
 
 ## Gate candidat suivant
 
-`GO QA REVALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — VALIDATOR CORRECTED — R-QA-01 TO R-QA-09 — FULL NEGATIVE SUITE — NO D2 — NO UI — NO CREATECYCLE`
+`GO QA-G3 ACCEPT SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — PASS — R-QA-01 TO R-QA-09 CLOSED — PR READINESS NEXT — NO D2 — NO UI — NO CREATECYCLE`
 
 ## Verdict
 
-`V3.1-D1 CORRECTIVE DELIVERY IMPLEMENTED — QA FINDINGS R-QA-01 TO R-QA-09 ADDRESSED — READY FOR QA REVALIDATION DECISION — PR READINESS AND D2/D3 NOT AUTHORIZED`
+`V3.1-D1 QA REVALIDATION EVIDENCE COMPLETE — PASS — R-QA-01 TO R-QA-09 CLOSED BY REVALIDATION — READY FOR MORRIS QA-G3 DECISION — PR READINESS AND D2/D3 NOT AUTHORIZED`
 
 ---
 # backlog 08 FULL
@@ -2528,42 +1839,42 @@ Plusieurs PR (lots), commits atomiques. Framing docs séparés. Pas de big-bang.
 
 **Statut Delivery initial :** `IMPLEMENTATION COMPLETE`.
 
-**Statut QA :** `FAIL historique` — [`01-qa-validation-report.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) (inchangé).
+**Statut QA initiale :** `FAIL historique` — [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) (inchangé).
 
-**Statut correctif :** `CORRECTIVE DELIVERY IMPLEMENTED — R-QA-01…09 ADDRESSED — READY FOR QA REVALIDATION`.
+**Statut correctif :** `CORRECTIVE DELIVERY IMPLEMENTED` — [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) (inchangé).
+
+**Statut revalidation :** `QA REVALIDATION PASS — R-QA-01…09 CLOSED` — [`03`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md).
 
 Docs :
 - [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md)
-- [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md)
-- [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md)
+- rapports `01` / `02` / `03`
 
 | Preuve | Résultat |
 |--------|----------|
-| 15 IDs CAT-I1 | inchangés |
-| Mapping CKC | 4 detailed + 11 synthetic inchangé |
-| Tests QA renforcés (après correctif) | **46/46 PASS** (tests non modifiés) |
+| 15 IDs / mapping CKC | conformes · inchangés |
+| Revalidation catalog | **46/46 PASS** (tests figés) |
 | Suite oa/cycle | **94/94 PASS** |
-| `npm test` complet | **827/827 PASS** |
+| `npm test` | **827/827 PASS** |
 | typecheck / lint / build | PASS |
-| QA-G3 | **NO-GO** jusqu’à revalidation |
-| PR readiness | **fermée** |
-| D2 / D3 | **non ouverts** |
+| QA-G2 | **final vert** |
+| QA-G3 | **PASS proposé** — **non décidé Morris** |
+| PR readiness / D2 / D3 | **fermés** |
 
 ### Slicing CAT-08
 
 | Lot | Contenu | Statut |
 |-----|---------|--------|
-| **V3.1-D1** | Catalogue · mapping · validateur | Delivery + correctif · **QA revalidation requise** |
+| **V3.1-D1** | Catalogue · mapping · validateur | Delivery + correctif + **revalidation PASS** · QA-G3 pending |
 | **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **non autorisé** |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
-### Réserves QA (historique → correctif)
+### Réserves QA
 
-Gaps validator R-QA-01…09 **adressés** dans `validateCycleTypeCatalog`. Données catalogue inchangées. Revalidation QA obligatoire avant tout QA-G3.
+R-QA-01…09 **CLOSED BY REVALIDATION**. Aucune réserve bloquante/majeure ouverte. QA-G3 ≠ PR readiness automatique.
 
 ### Réserves D2
 
-Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit du résultat.
+Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit.
 
 ## Lot V3.2 / V4 / V5 / V6
 
@@ -2587,7 +1898,7 @@ Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · 
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
 | **CKC (ce cycle)** | Pilote détaillé **absent** · fallback carte synthétique + méthode §4.3 · `method-candidate` · **consommation obligatoire** · **executionAuthority=false** |
 | **Entrées héritées** | `12` (lecture seule) · `13` (conception V3.1) |
-| **Statut documentaire** | `V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME + VALIDATOR CORRECTED — READY FOR QA REVALIDATION — D2/D3 NOT AUTHORIZED` |
+| **Statut documentaire** | `V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME + VALIDATOR CORRECTED — QA REVALIDATION PASS — READY FOR MORRIS QA-G3 — D2/D3 NOT AUTHORIZED` |
 | **Commit / push / PR projet** | **non** |
 | **Code / registry / resolver / Figma** | **non** |
 
@@ -2845,7 +2156,7 @@ Fenêtre pré-persistance · IDs adoptés contractuellement · runtime pending �
 
 | Lot | Contenu | Statut |
 |-----|---------|--------|
-| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC · validateur | **Implémenté + correctif** · QA revalidation requise |
+| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC · validateur | **Implémenté + correctif + revalidation PASS** · QA-G3 pending Morris |
 | **V3.1-D2** | Projection · validate ID · résolution CKC obligatoire · QualifyCycle bridge read-only | Adopté · non commencé |
 | **V3.1-D3** | UI Profile Qualification · type/profil/justification/disclosures/état CKC | Adopté · non commencé · réserve Figma |
 
@@ -2927,16 +2238,22 @@ La recommandation §W initiale a été acceptée pour CAT-01/02/04/05/06/08, **e
 
 ### Evidence corrective V3.1-D1
 
-- Rapport : `first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md`
+- Rapport : `first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md` (**historique — inchangé**)
 - Validateur renforcé : version · lifecycle · doctrine · fail-closed · primaryLevel · synthetic fallback · ensembles 1…15 · alias↔IDs
 - Données catalogue / version / API / tests QA : **inchangés**
-- Suite QA renforcée : **46/46 PASS** sans adaptation des tests
-- Distinction : **données catalogue** · **validateur** · **resolver D2** (pending)
-- R-V3.1-CATALOG-01 : contrat résolu · runtime D1 · **validateur corrigé** · orchestration CKC **pending D2** · QA-G3 **non accepté**
+
+### Evidence QA revalidation V3.1-D1
+
+- Rapport : `first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md`
+- Production + tests + rapports 01/02 **figés** pendant revalidation
+- Rejeu : 46/46 · 94/94 · 827/827 · typecheck/lint/build PASS
+- R-QA-01…09 : **CLOSED BY REVALIDATION**
+- Distinction : **contrat adopté** · **runtime D1** · **validateur corrigé** · **revalidation QA** · **QA-G3 Morris** · **D2 orchestration** (pending)
+- R-V3.1-CATALOG-01 : contrat résolu · runtime D1 · validateur corrigé · revalidation PASS · orchestration **pending D2** · QA-G3 **non accepté**
 
 ## Y. Risques et réserves
 
-Runtime D1 · validateur corrigé · QA revalidation pending · orchestration D2 absente · divergence méthode/catalogue · dette migration · alias · localisation · process-local · Figma (D3) · confusion candidate doctrine vs baseline méthode · harness ≠ autorité · QualifyCycle domaine vs exploitabilité produit.
+Runtime D1 · validateur corrigé · revalidation PASS · QA-G3 pending Morris · orchestration D2 absente · divergence méthode/catalogue · dette migration · alias · localisation · process-local · Figma (D3) · confusion candidate doctrine vs baseline méthode · harness ≠ autorité · QualifyCycle domaine vs exploitabilité produit.
 
 ## Z. Anti-claims
 
@@ -2952,335 +2269,18 @@ Runtime D1 · validateur corrigé · QA revalidation pending · orchestration D2
 
 ## AA. Verdict
 
-**V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME + VALIDATOR CORRECTED — READY FOR QA REVALIDATION — D2/D3 NOT AUTHORIZED**
+**V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME + VALIDATOR CORRECTED — QA REVALIDATION PASS — READY FOR MORRIS QA-G3 — D2/D3 NOT AUTHORIZED**
 
 Prochain gate candidat (non ouvert) :
 
-`GO QA REVALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG — VALIDATOR CORRECTED — R-QA-01 TO R-QA-09 — FULL NEGATIVE SUITE — NO D2 — NO UI — NO CREATECYCLE`
+`GO QA-G3 ACCEPT SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — PASS — R-QA-01 TO R-QA-09 CLOSED — PR READINESS NEXT — NO D2 — NO UI — NO CREATECYCLE`
 
-Statut : **READY FOR QA REVALIDATION DECISION** (QA-G3 non accepté)
-
----
-# PROOFS hashes
-catalog: 9968f040283d8f626c65db48bbec7abd69c56e2d
-index: 3daf57578e528878ef8a9298813019bb3b86af3c
-test: 0102fc02edb6e6f16420ea0de31a0d6361b221ba
-qa01: 2c74966f37644c682b841371de0925f14332932e
-12: 82be657cb3b88be0ac72d41e172106a557be101b
-13: 3ecb0256e14662a0e8244029a1329a6afb525444
+Statut : **READY FOR MORRIS QA-G3 DECISION** (proposition Cursor : PASS)
 
 ---
 # COMMAND EVIDENCE
 
-### corr-baseline-catalog.txt
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/oa/cycle/cycleTypeCatalog.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests | 12 failed) 10ms
-   ✓ V3.1-D1 cycle type catalog > exposes catalog version and exactly fifteen entries 1ms
-   ✓ V3.1-D1 cycle type catalog > lists exact adopted cycleTypeId set in order 0ms
-   ✓ V3.1-D1 cycle type catalog > enforces uniqueness of ids, canonical keys, numbers and orders 0ms
-   ✓ V3.1-D1 cycle type catalog > uses OA cyc: identifiers and preserves cyc:capitalization 0ms
-   ✓ V3.1-D1 cycle type catalog > requires non-empty french labels/descriptions and active lifecycle 0ms
-   ✓ V3.1-D1 cycle type catalog > maps mandatory CKC for all fifteen with executionAuthority false 0ms
-   ✓ V3.1-D1 cycle type catalog > has exactly four detailed and eleven synthetic CKC mappings 0ms
-   ✓ V3.1-D1 cycle type catalog > requires synthetic fallback for detailed pilots 0ms
-   ✓ V3.1-D1 cycle type catalog > uses canonical Git CKC paths for pilots and synthetic map 0ms
-   ✓ V3.1-D1 cycle type catalog > looks up by cycleTypeId only — never label or canonicalKey 0ms
-   ✓ V3.1-D1 cycle type catalog > returns a non-mutating list copy 0ms
-   ✓ V3.1-D1 cycle type catalog > contains no profile, gate or morris decision fields 1ms
-   ✓ V3.1-D1 cycle type catalog > passes production catalog validation 0ms
-   ✓ V3.1-D1 cycle type catalog > starts with empty aliases (controlled aliases supported, none required) 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects duplicate cycleTypeId 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects duplicate displayOrder 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects duplicate methodCycleNumber 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects invalid OA pattern 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects missing capitalization id 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects missing CKC mapping 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects executionAuthority true 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects detailed without synthetic fallback 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects synthetic without synthetic map reference 0ms
-   ✓ V3.1-D1 cycle type catalog negatives > rejects ambiguous aliases 0ms
-   ✓ V3.1-D1 QA reinforcement — production data & immutability > keeps all fifteen production entries lifecycleStatus active 0ms
-   ✓ V3.1-D1 QA reinforcement — production data & immutability > freezes catalog, entries, each entry, each ckc and each aliases 0ms
-   ✓ V3.1-D1 QA reinforcement — production data & immutability > rejects deep mutation attempts against the registry 0ms
-   ✓ V3.1-D1 QA reinforcement — production data & immutability > binds methodReference to §4.1 … §4.15 in method cycle order 0ms
-   ✓ V3.1-D1 QA reinforcement — production data & immutability > confirms Git paths exist for four detailed pilots and synthetic map 0ms
-   ✓ V3.1-D1 QA reinforcement — production data & immutability > uses exact catalog version 0.1.0-v3.1-d1 0ms
-   ✓ V3.1-D1 QA reinforcement — production data & immutability > keeps synthetic fallbackPolicy none without fallbackReference 0ms
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects invalid lifecycleStatus 2ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects doctrineStatus other than method-candidate 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects unavailableBehavior other than fail-closed 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects synthetic mapping with incoherent fallbackPolicy 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects synthetic mapping with contradictory fallbackReference 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects methodCycleNumber unique but outside 1…15 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects displayOrder unique but outside 1…15 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects incomplete methodCycleNumber set (unique but not exact 1…15) 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects incomplete displayOrder set (unique but not exact 1…15) 0ms
-     → expected false to be true // Object.is equality
-   ✓ V3.1-D1 QA reinforcement — validator negatives & edges > detects alias collision between two entries 0ms
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects alias equal to another entry cycleTypeId 0ms
-     → expected false to be true // Object.is equality
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects incorrect catalog version 0ms
-     → expected false to be true // Object.is equality
-   ✓ V3.1-D1 QA reinforcement — validator negatives & edges > detects unknown primaryLevel 0ms
-   × V3.1-D1 QA reinforcement — validator negatives & edges > detects unauthorized fallbackReference on synthetic 0ms
-     → expected false to be true // Object.is equality
-   ✓ V3.1-D1 QA reinforcement — validator negatives & edges > detects empty primaryReference 0ms
-
-⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects invalid lifecycleStatus
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:464:7
-    462|           i.message.toLowerCase().includes("lifecycle"),
-    463|       ),
-    464|     ).toBe(true);
-       |       ^
-    465|   });
-    466|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects doctrineStatus other than method-candidate
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:484:7
-    482|           i.message.toLowerCase().includes("doctrine"),
-    483|       ),
-    484|     ).toBe(true);
-       |       ^
-    485|   });
-    486|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects unavailableBehavior other than fail-closed
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:505:7
-    503|           i.message.toLowerCase().includes("unavailable"),
-    504|       ),
-    505|     ).toBe(true);
-       |       ^
-    506|   });
-    507|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects synthetic mapping with incoherent fallbackPolicy
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:528:7
-    526|             i.message.toLowerCase().includes("fallback"),
-    527|       ),
-    528|     ).toBe(true);
-       |       ^
-    529|   });
-    530|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects synthetic mapping with contradictory fallbackReference
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:551:7
-    549|             i.message.toLowerCase().includes("synthetic")),
-    550|       ),
-    551|     ).toBe(true);
-       |       ^
-    552|   });
-    553|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects methodCycleNumber unique but outside 1…15
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:566:7
-    564|           i.message.toLowerCase().includes("methodcyclenumber"),
-    565|       ),
-    566|     ).toBe(true);
-       |       ^
-    567|   });
-    568|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects displayOrder unique but outside 1…15
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:581:7
-    579|           i.message.toLowerCase().includes("displayorder"),
-    580|       ),
-    581|     ).toBe(true);
-       |       ^
-    582|   });
-    583|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects incomplete methodCycleNumber set (unique but not exact 1…15)
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:598:7
-    596|           i.message.includes("1") && i.message.includes("15"),
-    597|       ),
-    598|     ).toBe(true);
-       |       ^
-    599|   });
-    600|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects incomplete displayOrder set (unique but not exact 1…15)
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:613:7
-    611|           i.message.toLowerCase().includes("displayorder"),
-    612|       ),
-    613|     ).toBe(true);
-       |       ^
-    614|   });
-    615|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects alias equal to another entry cycleTypeId
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:641:7
-    639|           i.message.toLowerCase().includes("alias"),
-    640|       ),
-    641|     ).toBe(true);
-       |       ^
-    642|   });
-    643|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects incorrect catalog version
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:659:7
-    657|           i.message.toLowerCase().includes("version"),
-    658|       ),
-    659|     ).toBe(true);
-       |       ^
-    660|   });
-    661|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
-
- FAIL  __tests__/oa/cycle/cycleTypeCatalog.test.ts > V3.1-D1 QA reinforcement — validator negatives & edges > detects unauthorized fallbackReference on synthetic
-AssertionError: expected false to be true // Object.is equality
-
-- Expected
-+ Received
-
-- true
-+ false
-
- ❯ __tests__/oa/cycle/cycleTypeCatalog.test.ts:703:7
-    701|           i.message.toLowerCase().includes("fallback"),
-    702|       ),
-    703|     ).toBe(true);
-       |       ^
-    704|   });
-    705|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
-
-
- Test Files  1 failed (1)
-      Tests  12 failed | 34 passed (46)
-   Start at  21:20:09
-   Duration  343ms (transform 84ms, setup 52ms, collect 118ms, tests 10ms, environment 0ms, prepare 35ms)
-
-real 0.79
-user 1.13
-sys 0.33
-
-### corr-after-catalog.txt
+### reval-catalog.txt
 
 > sfia-studio@0.1.0 test
 > vitest run __tests__/oa/cycle/cycleTypeCatalog.test.ts
@@ -3292,14 +2292,14 @@ sys 0.33
 
  Test Files  1 passed (1)
       Tests  46 passed (46)
-   Start at  21:20:49
-   Duration  298ms (transform 80ms, setup 37ms, collect 112ms, tests 7ms, environment 0ms, prepare 27ms)
+   Start at  21:31:20
+   Duration  307ms (transform 84ms, setup 39ms, collect 115ms, tests 7ms, environment 0ms, prepare 30ms)
 
-real 0.57
-user 1.09
-sys 0.25
+real 0.73
+user 1.12
+sys 0.29
 
-### corr-suite.txt
+### reval-suite.txt
 
 > sfia-studio@0.1.0 test
 > vitest run __tests__/oa/cycle/
@@ -3307,21 +2307,21 @@ sys 0.25
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
 
- ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 7ms
- ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 8ms
- ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 58ms
- ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 61ms
+ ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 6ms
+ ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 9ms
+ ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 71ms
+ ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 71ms
 
  Test Files  4 passed (4)
       Tests  94 passed (94)
-   Start at  21:20:56
-   Duration  445ms (transform 187ms, setup 157ms, collect 464ms, tests 135ms, environment 0ms, prepare 132ms)
+   Start at  21:31:24
+   Duration  393ms (transform 191ms, setup 91ms, collect 513ms, tests 156ms, environment 0ms, prepare 107ms)
 
-real 0.71
-user 1.78
+real 0.72
+user 1.85
 sys 0.40
 
-### corr-full.txt
+### reval-full.txt
 
 > sfia-studio@0.1.0 test
 > vitest run
@@ -3330,91 +2330,80 @@ sys 0.40
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
 
 stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > loads canonical core sources and returns telemetry
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-07-30T19:20:57.916Z","status":"started","intentLength":53,"sessionLocalId":"plat-1"}
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-07-30T19:31:25.936Z","status":"started","intentLength":53,"sessionLocalId":"plat-1"}
 
 stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > loads canonical core sources and returns telemetry
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-07-30T19:20:57.984Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"plat-1","durationMs":69,"providerMode":"fake"}
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-07-30T19:31:26.016Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"plat-1","durationMs":80,"providerMode":"fake"}
 
+ ✓ __tests__/oa/doctrine/resolveDoctrinePackage.test.ts (22 tests) 79ms
 stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > runs a read-only git tool when fixture marker present
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-07-30T19:20:57.985Z","status":"started","intentLength":76,"sessionLocalId":"plat-2"}
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-07-30T19:31:26.017Z","status":"started","intentLength":76,"sessionLocalId":"plat-2"}
 
+ ✓ __tests__/oa/project/projectLpsFoundation.test.ts (26 tests) 120ms
 stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > runs a read-only git tool when fixture marker present
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-07-30T19:20:58.111Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":76,"sessionLocalId":"plat-2","durationMs":126,"providerMode":"fake"}
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-07-30T19:31:26.145Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":76,"sessionLocalId":"plat-2","durationMs":128,"providerMode":"fake"}
+...
+{"event":"d1.method_mode_selected","ts":"2026-07-30T19:31:30.710Z","status":"ok","projectId":"proj-49225b3b-a886-4fd2-831d-f70c73b5920c","durationMs":0}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-07-30T19:31:30.711Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-07-30T19:31:30.711Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
 
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > denies reading .env via tool (POLICY) without fake success
-...
-...
-{"event":"d1.method_mode_selected","ts":"2026-07-30T19:21:02.866Z","status":"ok","projectId":"proj-0b9639bc-12a5-4fb6-9196-bcedaf592a50","durationMs":0}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:21:02.866Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s5","proposalId":"rrp-5"}
-[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-07-30T19:21:02.867Z","status":"STALE","projectId":"proj-0b9639bc-12a5-4fb6-9196-bcedaf592a50","sessionLocalId":"s5","durationMs":1,"errorCode":"CONFLICT","proposalId":"rrp-5"}
+ ✓ __tests__/d1/project-foundation.test.ts (7 tests) 22ms
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > existing project confirm is NO_MUTATION without invented link
+{"event":"d1.project_create","ts":"2026-07-30T19:31:30.713Z","status":"ok","projectId":"proj-94787c24-83b4-4d5f-a46d-296b7d649e69","durationMs":0}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:31:30.713Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s4","proposalId":"rrp-4"}
+[d1.intake] {"event":"intake_existing_project_confirmed","ts":"2026-07-30T19:31:30.713Z","status":"NO_MUTATION","projectId":"proj-94787c24-83b4-4d5f-a46d-296b7d649e69","sessionLocalId":"s4","durationMs":0,"proposalId":"rrp-4"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > detects stale existing project conflict
+{"event":"d1.project_create","ts":"2026-07-30T19:31:30.717Z","status":"ok","projectId":"proj-c7c3f21c-95a2-4bb0-8186-312b5ef6b8c1","durationMs":1}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-07-30T19:31:30.717Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-07-30T19:31:30.717Z","status":"ok","projectId":"proj-c7c3f21c-95a2-4bb0-8186-312b5ef6b8c1","durationMs":0}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:31:30.718Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s5","proposalId":"rrp-5"}
+[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-07-30T19:31:30.718Z","status":"STALE","projectId":"proj-c7c3f21c-95a2-4bb0-8186-312b5ef6b8c1","sessionLocalId":"s5","durationMs":0,"errorCode":"CONFLICT","proposalId":"rrp-5"}
 
 stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > analyze-only and cancel produce no mutation
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:21:02.870Z","status":"ANALYZE_ONLY","sessionLocalId":"s6","proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_analyze_only_completed","ts":"2026-07-30T19:21:02.870Z","status":"NO_MUTATION","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:21:02.870Z","status":"CANCEL","sessionLocalId":"s6","proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_confirmation_cancelled","ts":"2026-07-30T19:21:02.870Z","status":"CANCELLED","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:31:30.723Z","status":"ANALYZE_ONLY","sessionLocalId":"s6","proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_analyze_only_completed","ts":"2026-07-30T19:31:30.723Z","status":"NO_MUTATION","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:31:30.723Z","status":"CANCEL","sessionLocalId":"s6","proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_confirmation_cancelled","ts":"2026-07-30T19:31:30.723Z","status":"CANCELLED","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
 
 stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > missing existing project returns CONFLICT
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:21:02.874Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s7","proposalId":"rrp-7"}
-[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-07-30T19:21:02.874Z","status":"NOT_FOUND","projectId":"proj-missing-does-not-exist","sessionLocalId":"s7","durationMs":0,"errorCode":"NOT_FOUND","proposalId":"rrp-7"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-07-30T19:31:30.727Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s7","proposalId":"rrp-7"}
+[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-07-30T19:31:30.727Z","status":"NOT_FOUND","projectId":"proj-missing-does-not-exist","sessionLocalId":"s7","durationMs":0,"errorCode":"NOT_FOUND","proposalId":"rrp-7"}
 
- ✓ __tests__/d1/intake-c4.test.ts (10 tests) 37ms
- ✓ __tests__/increment-c.test.tsx (8 tests) 1262ms
-   ✓ Increment C — editable demand + confirmation > accepts editable Campus360 demand and shows exact text in confirmation  316ms
-   ✓ Increment C — editable demand + confirmation > transmits exact demandText to qualifyAction (anti-substitution)  302ms
- ✓ __tests__/gates.test.tsx (1 test) 97ms
- ✓ __tests__/ops1/executionI5.test.ts (5 tests) 1846ms
-   ✓ ops1 I5 execution contract + fixture run > creates contract, records GO linked to hash, runs fixture, blocks double exec  799ms
-   ✓ ops1 I5 execution contract + fixture run > refuses HEAD drift and remote flags stay true  330ms
-   ✓ ops1 I5 execution contract + fixture run > rejects run adapterMode mismatch (no silent real→fixture swap)  303ms
- ✓ __tests__/increment-b.test.tsx (6 tests) 26ms
-stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > creates project with audit and mono-operator assignments
-{"event":"d1.project_create","ts":"2026-07-30T19:21:03.266Z","status":"ok","projectId":"proj-cb11b026-6e9d-467a-b283-7a745049bedf","durationMs":2}
-
-stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > is idempotent on duplicate key
-{"event":"d1.project_create","ts":"2026-07-30T19:21:03.273Z","status":"ok","projectId":"proj-c0e2e8c0-bf6f-410b-a00c-034a90bf3c03","durationMs":1}
-{"event":"d1.project_create","ts":"2026-07-30T19:21:03.273Z","status":"idempotent","projectId":"proj-c0e2e8c0-bf6f-410b-a00c-034a90bf3c03","durationMs":0}
-
- ✓ __tests__/status-pill.test.tsx (1 test) 16ms
-stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > selects method mode with optimistic locking
-{"event":"d1.project_create","ts":"2026-07-30T19:21:03.278Z","status":"ok","projectId":"proj-855c699a-d354-47bf-90db-0053d14ec874","durationMs":0}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-07-30T19:21:03.278Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-07-30T19:21:03.279Z","status":"ok","projectId":"proj-855c699a-d354-47bf-90db-0053d14ec874","durationMs":1}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-07-30T19:21:03.279Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-07-30T19:21:03.279Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
-
- ✓ __tests__/d1/project-foundation.test.ts (7 tests) 20ms
- ✓ __tests__/fixtures.test.ts (2 tests) 2ms
- ✓ __tests__/ops1/domain.test.ts (6 tests) 4ms
+ ✓ __tests__/d1/intake-c4.test.ts (10 tests) 39ms
+ ✓ __tests__/increment-b.test.tsx (6 tests) 31ms
+ ✓ __tests__/status-pill.test.tsx (1 test) 12ms
  ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 16ms
+ ✓ __tests__/ops1/domain.test.ts (6 tests) 3ms
+ ✓ __tests__/fixtures.test.ts (2 tests) 2ms
  ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 1ms
- ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 3012ms
-   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1718ms
- ✓ __tests__/ops1/executionI6.test.ts (10 tests) 2998ms
-   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  721ms
-   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  639ms
-   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  339ms
-   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  359ms
+ ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 2854ms
+   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1592ms
+   ✓ V2-A2 Create Project UI > calls only the runtime action with the exact DTO and parsed constraints  305ms
+ ✓ __tests__/ops1/executionI6.test.ts (10 tests) 2807ms
+   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  591ms
+   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  622ms
+   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  372ms
 
  Test Files  90 passed (90)
       Tests  827 passed (827)
-   Start at  21:20:57
-   Duration  6.95s (transform 2.79s, setup 3.02s, collect 12.20s, tests 19.29s, environment 5.96s, prepare 3.40s)
+   Start at  21:31:25
+   Duration  6.36s (transform 2.78s, setup 2.74s, collect 10.83s, tests 17.63s, environment 5.43s, prepare 3.18s)
 
-real 7.23
+real 6.63
 user 33.03
-sys 9.87
+sys 9.68
 
-### corr-typecheck.txt
+### reval-typecheck.txt
 
 > sfia-studio@0.1.0 typecheck
 > tsc --noEmit
 
-real 1.47
-user 2.51
-sys 0.24
+real 0.89
+user 1.52
+sys 0.13
 
-### corr-lint.txt
+### reval-lint.txt
 
 > sfia-studio@0.1.0 lint
 > next lint
@@ -3425,11 +2414,11 @@ For existing projects, migrate to the ESLint CLI:
 npx @next/codemod@canary next-lint-to-eslint-cli .
 
 ✔ No ESLint warnings or errors
-real 1.66
-user 0.98
-sys 0.19
+real 1.65
+user 0.99
+sys 0.18
 
-### corr-build.txt
+### reval-build.txt
 
 > sfia-studio@0.1.0 build
 > next build
@@ -3437,7 +2426,7 @@ sys 0.19
    ▲ Next.js 15.5.20
 
    Creating an optimized production build ...
- ✓ Compiled successfully in 934ms
+ ✓ Compiled successfully in 895ms
    Linting and checking validity of types ...
    Collecting page data ...
    Generating static pages (0/10) ...
@@ -3470,6 +2459,6 @@ Route (app)                                 Size  First Load JS
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 
-real 7.44
-user 13.57
-sys 1.60
+real 7.00
+user 13.12
+sys 1.39
