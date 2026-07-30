@@ -1,155 +1,137 @@
-# ChatGPT Review Pack — FULL
+# SFIA Studio V3 Cycle Recommendation — Arbitration Review Pack (FULL)
 
 ## Meta
-
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure/fuseau** | 2026-07-30 18:30:00 CEST (+0200) |
-| **Niveau** | Full |
-| **Mono-cycle** | SFIA Studio Lot V3 Cycle Recommendation — Cadrage |
-| **Repository** | mcleland147/sfia-workspace |
-| **Workspace** | /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge |
-| **Cycle** | 1 — Cadrage |
-| **Profil** | Standard |
-| **Typologie** | DOC |
-| **Gate Morris consommé** | GO CADRAGE SFIA STUDIO LOT V3 CYCLE RECOMMENDATION |
-| **Branche** | framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage |
-| **HEAD / base** | 3e8a4374405dce98866e35fb60c5c7329701f191 |
-| **Commit projet** | aucun |
-| **Push / PR / merge projet** | non |
-| **Verdict unique** | **CADRAGE V3 CYCLE RECOMMENDATION COMPLETE — MORRIS DECISIONS REQUIRED — IMPLEMENTATION NOT AUTHORIZED** |
-
-## Objectif
-
-Cadrer le Lot V3 Cycle Recommendation : promesse, parcours, écart T-A2 (profil vs type), options, decision pack D-V3, slicing candidat — sans implémentation.
-
-## Git Review Index
-
-| Champ | Valeur |
-|-------|--------|
-| HEAD | 3e8a4374405dce98866e35fb60c5c7329701f191 |
-| origin/main | 3e8a4374405dce98866e35fb60c5c7329701f191 |
-| branche | framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage |
-| commits ahead | 0 |
-| tracked dirty | 2 fichiers M + 1 untracked doc |
-| staged | vide |
-| code modifié | non |
-| review pack | full · mono-cycle · non synthesis-only |
-| verdict | CADRAGE V3 COMPLETE — MORRIS DECISIONS REQUIRED |
-
-## Review pack content coverage
-
-| Critère | Statut |
-|---------|--------|
-| created files full content | yes |
-| modified sections complete | yes (fichiers entiers post-édition) |
-| useful diff included | yes |
-| decisions visible | yes |
-| synthesis only | **no** |
-| review pack verdict | **complete** |
+- **Date/heure/fuseau :** 2026-07-30 18:57:00 CEST (+0200)
+- **Cycle :** 1 — Cadrage (phase arbitrage / validation)
+- **Profil :** Standard
+- **Typologie :** DOC
+- **CKC Cadrage :** pilots/01-cadrage.md · candidate · aucune autorité d'exécution
+- **Gate Morris réel :** « ok pour les différents choix, on continue et on avance » (2026-07-30 vers 18:46 CEST +0200)
+- **Gate normalisé (traçabilité) :** GO ARBITRATE SFIA STUDIO V3 CYCLE RECOMMENDATION — D-V3-01=1 — D-V3-02=1 — D-V3-03=2 — D-V3-04=1 — D-V3-05=1 — D-V3-06=CONFIRM CRITICAL FAIL-CLOSED — D-V3-07=1 WITH FIGMA REASSESSMENT RESERVE — D-V3-08=1
+- **Note :** la formulation normalisée ne remplace pas la citation réelle Morris.
 
 ## Local Git Truth Check
+- workspace : /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
+- repository : mcleland147/sfia-workspace
+- branche : framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage
+- HEAD : 3e8a4374405dce98866e35fb60c5c7329701f191
+- origin/main : 3e8a4374405dce98866e35fb60c5c7329701f191
+- ahead/behind : 0 0
+- branche distante cadrage : absente
+- staged : aucun
+- tracked modifiés : README.md · 08-implementation-backlog-and-slicing.md
+- untracked projet : 12-v3-cycle-recommendation-cadrage.md
+- artefact tmp : .tmp-sfia-review/**
 
-```text
-timestamp = 2026-07-30 18:21:56 CEST (+0200)
-start = detached HEAD @ 3e8a437…
-origin/main = 3e8a437…
-status = ?? .tmp-sfia-review/ only
-framing branch before = absent
-created = framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage from origin/main
-HEAD after switch = 3e8a437…
-handoff tip before = 1f9c582714d13ec4fd035401a02f26de743f8632
 ```
-
-## Qualification
-
-| Champ | Valeur |
-|-------|--------|
-| Cycle | 1 Cadrage |
-| Profil | Standard |
-| Typologie | DOC |
-| CKC | pilots/01-cadrage.md · candidate · v0.1.0 · aucune autorité |
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+?? .tmp-sfia-review/
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/12-v3-cycle-recommendation-cadrage.md
+```
 
 ## Sources consultées
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+- method/sfia-fast-track/checklists/sfia-validation-checklist.md
+- docs/architecture/2026-06-27-sfia-decision-engine.md
+- framing docs README / 08 / 12
+- app/lib/oa/cycle/domain/types.ts · qualification.ts · qualifyCycle.ts · createCycle.ts (lecture seule, non modifiés)
+- branche sfia/review-handoff · tip pré-cycle attendu cd8cec83d7c6f0998d27b24e92dfd2051bee1927
 
-Framing `01`–`11` (lecture ciblée) · V2-A2/A3 READMEs · T-A2 README/02/04 · `qualifyCycle` / `createCycle` / `qualification.ts` / `types.ts` · vertical-slice-runtime (pas d’API cycle) · ProjectWorkspaceView · CKC 01-cadrage · handoff tip 1f9c582 · PR #294/#295 contexte.
+## Qualification
+- Type cycle : 1 — Cadrage
+- Phase : Arbitrage et validation du cadrage
+- Profil : Standard
+- Typologie : DOC
+- CKC : Cadrage candidate — aucune autorité d'exécution
+- Aucune implémentation · aucun code
 
-## Observation structurante
+## Décisions D-V3 (complètes)
 
-QualifyCycle → recommendedProfile (pas cycleTypeId). CreateCycle → cycleTypeId obligatoire. Runtime V2 n’expose pas encore ces use cases. Workspace sans CTA recommendation.
+| ID | Option | Conséquence | Réserve | Statut |
+|----|--------|-------------|---------|--------|
+| D-V3-01 | 1 | type sélectionné · profil T-A2 | — | DECIDED — ADOPTED BY MORRIS |
+| D-V3-02 | 1 | cycleTypeId explicite catalogue | catalogue contrôlé | DECIDED — ADOPTED BY MORRIS |
+| D-V3-03 | 2 | CTA create explicite · jamais auto | create hors V3.1 | DECIDED — ADOPTED BY MORRIS |
+| D-V3-04 | 1 | pas de lien LPS actif V3.1 | réévaluer V3.2+ | DECIDED — ADOPTED BY MORRIS |
+| D-V3-05 | 1 | reco non persistée V3.1 | réévaluer V3.2+ | DECIDED — ADOPTED BY MORRIS |
+| D-V3-06 | CONFIRM CRITICAL FAIL-CLOSED | proposed · justification · no act/ack/gate | bascule V4 | DECIDED — ADOPTED BY MORRIS |
+| D-V3-07 | 1 + réserve Figma | contrat Git temporaire | réévaluer Figma avant UI substantielle | DECIDED — ADOPTED BY MORRIS |
+| D-V3-08 | 1 | V3.1 read-only → V3.2 create | — | DECIDED — ADOPTED BY MORRIS |
 
-## Observations / hypothèses / options / reco / décisions
+## Réserves maintenues
+- D-VS-05 NOT DECIDED — NOT CONSUMED
+- Réévaluation Figma avant UI substantielle / fidélité visuelle
+- B5 / R1 ouverts
+- Volatilité process-local
+- Implémentation non autorisée sans GO delivery distinct
+- D-VS-01→04 préservées
 
-| Classe | Contenu |
-|--------|---------|
-| Observations | V1+V2 sur main · T-A2 profil-only · runtime sans cycle bridge |
-| Hypothèses | catalogue de types pourra être guidé UI sans logique domaine React |
-| Options | V3-A/B/C · L1–L5 · S1–S3 (doc 12) |
-| Recommandations | V3-A + L2 + L4a/L5a + S1 — **NON DÉCIDÉES** |
-| Décisions validées | D-VS-01…04 adopted · D-VS-05 not consumed · Critical fail-closed T-A2 |
-| Décisions requises | D-V3-01…08 |
-
-## Fichiers créés / modifiés
-
-| Path | Action |
-|------|--------|
-| …/12-v3-cycle-recommendation-cadrage.md | créé |
-| …/README.md | modifié |
-| …/08-implementation-backlog-and-slicing.md | modifié |
-
-## Validations
-
-| Contrôle | Résultat |
-|----------|----------|
-| git diff --check | PASS |
-| fichiers projet | exactement 3 |
-| code / tests / T-A2 | non modifiés |
-| tests applicatifs | **non exécutés** — aucun code modifié |
-| commit / push / PR projet | NON |
-| Figma write | NON |
-
-## Diff stat
-
-```text
-2 files changed (tracked), +1 untracked doc 12
+## Diff controls
+### git diff --stat
+```
+ .../08-implementation-backlog-and-slicing.md       | 46 ++++++++-----
+ .../README.md                                      | 80 ++++++++++++++--------
+ 2 files changed, 81 insertions(+), 45 deletions(-)
 ```
 
-## Diff name-status
-
-```text
-M …/08-implementation-backlog-and-slicing.md
-M …/README.md
-A …/12-v3-cycle-recommendation-cadrage.md (untracked until commit — not committed this cycle)
+### git diff --name-status
+```
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 ```
 
-## Garde-fous / réserves
+### git diff --check
+```
+EXIT:0
+```
 
-Options ≠ décisions · profil ≠ type · acknowledged ≠ Morris · CKC ≠ autorité · pas d’implémentation · D-VS-05 non consommée · B5/R1 ouverts · process-local volatil.
+## Tests
+- **Non exécutés** — justification : aucun code / test modifié ; cycle documentaire DOC uniquement.
+
+## Content coverage
+- created file 12 full content : yes
+- modified sections complete : yes (README + backlog full files)
+- decisions visible : yes
+- source Morris visible : yes
+- useful diff included : yes
+- synthesis only : no
+- review pack verdict : complete
 
 ## Prochain cycle candidat
+Conception fonctionnelle V3.1 — profile qualification UI — user selects cycle type — T-A2 recommends profile — read-only first — NO CREATE CYCLE
 
-Arbitrage Morris D-V3-01…08 puis conception fonctionnelle et/ou architecture selon option — **non ouvert**.
+Gate : `GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE`
 
-## Contenu complet — fichier créé `12-v3-cycle-recommendation-cadrage.md`
+## Verdict
+V3 CYCLE RECOMMENDATION ARBITRATION RECORDED — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED
 
-```markdown
+---
+
+# FULL FILE: 12-v3-cycle-recommendation-cadrage.md
+
 # 12 — Lot V3 Cycle Recommendation — Cadrage
 
 ## A. Meta et cycle record
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-30 18:25:00 CEST (+0200) |
-| **Cycle** | 1 — Cadrage |
+| **Date/heure/fuseau** | 2026-07-30 18:52:00 CEST (+0200) |
+| **Cycle** | 1 — Cadrage (phase arbitrage / validation) |
 | **Profil** | Standard |
 | **Typologie** | DOC |
 | **Profondeur** | Standard |
-| **Gate Morris consommé** | `GO CADRAGE SFIA STUDIO LOT V3 CYCLE RECOMMENDATION` |
+| **Gate cadrage** | `GO CADRAGE SFIA STUDIO LOT V3 CYCLE RECOMMENDATION` (consommé) |
+| **Gate arbitrage (normalisé)** | voir Decision record Morris |
 | **Branche** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
 | **Commit V2-A3 intégré** | `e1db1f52c12d2e0fdb5ac5c9f66b8984015d14ba` (via merge `3e8a437…`) |
 | **CKC Cadrage** | `pilots/01-cadrage.md` · status `candidate` · v0.1.0 · **aucune autorité d’exécution** |
-| **Statut documentaire** | `CADRAGE COMPLET — OPTIONS NON DÉCIDÉES — IMPLÉMENTATION NON AUTORISÉE` |
+| **Statut documentaire** | `ARBITRATION RECORDED — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED` |
 | **Commit / push / PR projet** | **non** |
 
 ## B. Résumé exécutif
@@ -296,7 +278,7 @@ Depuis `/studio/projects/[id]` :
 
 - **Hors trajectoire actuelle** : agent réel indisponible, pas d’autorité d’exécution, pas de dépendance réseau autorisée pour ce démonstrateur.
 
-**Aucune option n’est décidée dans ce cycle.**
+**Arbitrage :** option **V3-A** retenue (D-V3-01/02 = 1). V3-B et V3-C non retenues pour ce lot.
 
 ## L. Options de mutation
 
@@ -392,13 +374,13 @@ Aucune implémentation n’est spécifiée ici.
 - anti-claims visibles ;
 - preuves : tests unit/composant + captures runtime définies au delivery.
 
-## S. Slicing candidat (non décidé)
+## S. Slicing (D-V3-08 = option 1 adoptée)
 
-| Option | Contenu | Dette / valeur |
-|--------|---------|----------------|
-| **S1 — V3-A puis V3-B** | A: UI + Qualify read-only · B: Create + options LPS/épistémiques | claire, progressive |
-| **S2 — lot unique borné** | Qualify + Create explicite + disclosures | plus dense, moins de gates |
-| **S3 — recadrage** | si D-V3-01/02 imposent V3-B type recommandé | architecture avant UI |
+| Option | Contenu | Statut |
+|--------|---------|--------|
+| **S1 — V3.1 puis V3.2** | A: UI + Qualify read-only · B: Create + options LPS/épistémiques | **retenu** |
+| **S2 — lot unique borné** | Qualify + Create explicite + disclosures | non retenu |
+| **S3 — recadrage** | si type recommandé (V3-B) | non applicable (V3-A retenu) |
 
 ## T. Risques et réserves
 
@@ -415,98 +397,168 @@ Aucune implémentation n’est spécifiée ici.
 
 ## U. Decision pack Morris
 
+### Decision record Morris
+
+| Champ | Valeur |
+|-------|--------|
+| **Formulation réelle (Morris)** | « ok pour les différents choix, on continue et on avance » |
+| **Date/heure/fuseau** | 2026-07-30 vers 18:46 CEST (+0200) |
+| **Interprétation** | Acceptation explicite des recommandations du cadrage V3 (D-V3-01…08) |
+| **Formulation normalisée (traçabilité)** | `GO ARBITRATE SFIA STUDIO V3 CYCLE RECOMMENDATION — D-V3-01=1 — D-V3-02=1 — D-V3-03=2 — D-V3-04=1 — D-V3-05=1 — D-V3-06=CONFIRM CRITICAL FAIL-CLOSED — D-V3-07=1 WITH FIGMA REASSESSMENT RESERVE — D-V3-08=1` |
+| **Note** | La formulation normalisée trace la décision ; elle ne remplace pas la citation réelle ci-dessus. |
+
+| ID | Option retenue | Conséquence | Réserve | Statut |
+|----|----------------|-------------|---------|--------|
+| D-V3-01 | **1** — type sélectionné + profil T-A2 | Promesse = sélection type + recommandation profil | — | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-02 | **1** — sélection explicite catalogue | Pas de recommandation auto du `cycleTypeId` | catalogue contrôlé, non inventé dans React | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-03 | **2** — CTA explicite de création | Pas de création automatique | création hors 1er incrément read-only | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-04 | **1** — pas de lien LPS actif au 1er incrément | `linkAsActiveCycle` hors V3.1 | réévaluer en V3.2+ | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-05 | **1** — reco non persistée | Pas d’EpistemicItem Recommendation au 1er incrément | réévaluer en V3.2+ | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-06 | **CONFIRM CRITICAL FAIL-CLOSED** | proposed · justification · pas d’activation/ack/gate | bascule V4 | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-07 | **1** + réserve Figma | Contrat Git temporaire | réévaluer Figma avant UI substantielle / fidélité | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-08 | **1** — slicing progressif | V3.1 read-only puis V3.2 create explicite | — | `DECIDED — ADOPTED BY MORRIS` |
+
 ### D-V3-01 — Promesse fonctionnelle
+
+Options initiales :
 
 1. Cycle type **sélectionné** + profil **recommandé** (V3-A).
 2. Type de cycle **et** profil **recommandés** (V3-B).
 3. Autre.
 
-**Statut : NOT DECIDED.**
+Recommandation historique (cadrage) : option **1**.
+
+**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
+Conséquence : l’utilisateur sélectionne le type ; T-A2 recommande le profil.
 
 ### D-V3-02 — Source du cycleTypeId
+
+Options initiales :
 
 1. Sélection explicite utilisateur.
 2. Règles déterministes à concevoir.
 3. Agent / LLM live.
 4. Autre.
 
-**Statut : NOT DECIDED.** (3 hors trajectoire actuelle.)
+Recommandation historique : option **1** (3 hors trajectoire).
+
+**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
+Conséquence : catalogue contrôlé · aucune recommandation automatique du type.
 
 ### D-V3-03 — Mutation
+
+Options initiales :
 
 1. Qualification read-only.
 2. CTA explicite de création.
 3. Création automatique.
 
-**3 = non recommandée.** **Statut : NOT DECIDED.**
+Recommandation historique : option **2** · **3 non recommandée**.
+
+**Décision : option 2 — DECIDED — ADOPTED BY MORRIS.**
+Conséquence : création uniquement via CTA ; jamais automatique. Le 1er incrément (V3.1) reste read-only ; la création relève du 2e incrément (V3.2).
 
 ### D-V3-04 — Liaison au LPS
+
+Options initiales :
 
 1. Ne pas lier comme actif dans V3.
 2. Lier uniquement après CTA explicite.
 3. Autre.
 
-**Statut : NOT DECIDED.**
+Recommandation historique : option **1** au premier incrément.
+
+**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
+Conséquence : pas de `linkAsActiveCycle` dans V3.1.
 
 ### D-V3-05 — Épistémologie
+
+Options initiales :
 
 1. Recommandation calculée **non persistée**.
 2. `Recommendation` EpistemicItem persisté après action explicite.
 3. Autre.
 
-**Statut : NOT DECIDED.**
+Recommandation historique : option **1** au premier incrément.
+
+**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
+Conséquence : pas de persistance EpistemicItem Recommendation en V3.1.
 
 ### D-V3-06 — Critical
 
-Confirmer la contrainte T-A2 existante : `proposed` uniquement · justification obligatoire · aucune activation / décision automatique · bascule V4 distincte.
+Contrainte T-A2 réaffirmée : `proposed` · justification obligatoire · aucune activation / ack / gate auto · bascule V4.
 
-**Présenté comme contrainte existante à réaffirmer — pas comme nouvelle invention.**
+**Décision : CONFIRM CRITICAL FAIL-CLOSED — DECIDED — ADOPTED BY MORRIS.**
 
 ### D-V3-07 — UX / Figma
+
+Options initiales :
 
 1. Contrat Git temporaire.
 2. Cycle Figma dédié avant delivery.
 3. Autre.
 
-**D-VS-05 reste NOT DECIDED / NOT CONSUMED.**
+Recommandation historique : option **1** pour démarrer.
+
+**Décision : option 1 WITH FIGMA REASSESSMENT RESERVE — DECIDED — ADOPTED BY MORRIS.**
+Conséquence : contrat Git temporaire · **D-VS-05 reste NOT DECIDED / NOT CONSUMED** · réévaluer un cycle Figma avant toute UI substantielle ou revendication de fidélité visuelle.
 
 ### D-V3-08 — Slicing
 
-1. V3-A puis V3-B (S1).
+Options initiales :
+
+1. V3-A puis V3-B (S1) — read-only puis création.
 2. Lot unique borné (S2).
 3. Recadrage (S3).
 
-**Statut : NOT DECIDED.**
+Recommandation historique : option **1**.
 
-## V. Recommandation ChatGPT/Cursor — **NON DÉCIDÉE**
+**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
+Conséquence :
 
-Recommandation de cadrage (à arbitrer par Morris) :
+- **V3.1** — conception puis delivery (gates distincts) : qualification **read-only** (type sélectionné + profil recommandé).
+- **V3.2** — création explicite CycleInstance (± options LPS/épistémiques ultérieures si nouveaux GO).
 
-1. **D-V3-01/02 → Option V3-A** : sélection explicite du type + QualifyCycle pour le profil — seule option immédiatement compatible avec T-A2 sans moteur parallèle.
-2. **D-V3-03 → L2** : CTA explicite de création ; **rejeter L3**.
-3. **D-V3-04 → L4a** en premier incrément (pas de lien actif) sauf besoin démontré.
-4. **D-V3-05 → L5a** en premier incrément (pas de persistance épistémique obligatoire).
-5. **D-V3-06** : réaffirmer Critical fail-closed.
-6. **D-V3-07** : contrat Git + disclosures pour un premier delivery ; Figma dédié seulement si Morris ouvre D-VS-05 / D-V3-07=2.
-7. **D-V3-08 → S1** : surface + qualify read-only d’abord, puis Create explicite.
+## V. Recommandation ChatGPT/Cursor — **ARBITRÉE**
 
-Cette recommandation **n’est pas une décision Morris**.
+La recommandation de cadrage ci-dessous a été **présentée** puis **acceptée** par Morris (formulation réelle du Decision record). Elle n’est plus « à arbitrer » ; la **source de décision** est Morris, pas la recommandation elle-même.
+
+Recommandation historique (consommée) :
+
+1. D-V3-01/02 → Option V3-A.
+2. D-V3-03 → L2 (CTA explicite ; rejeter L3).
+3. D-V3-04 → L4a au 1er incrément.
+4. D-V3-05 → L5a au 1er incrément.
+5. D-V3-06 → Critical fail-closed.
+6. D-V3-07 → contrat Git + réserve Figma.
+7. D-V3-08 → S1 (read-only puis create).
+
+**Réserves maintenues (non levées par l’arbitrage) :**
+
+- réévaluation Figma avant UI substantielle (D-V3-07) ;
+- D-VS-05 non consommée ;
+- B5 / R1 ouverts ;
+- volatilité process-local ;
+- pas d’implémentation sans GO delivery distinct.
 
 ## W. Transition candidate
 
-| Si… | Alors cycle candidat |
-|-----|----------------------|
-| D-V3 retenues pour V3-A + L2 | Conception fonctionnelle (puis UX/delivery) |
-| D-V3-01/02 = type recommandé (V3-B) | **Architecture fonctionnelle** avant UI |
-| D-V3-07 = Figma dédié | UX/UI + Figma (lecture/écriture selon GO) |
-| Aucune décision | **STOP** — pas de delivery |
+| Étape | Statut |
+|-------|--------|
+| Arbitrage D-V3 | **fait** |
+| Prochain cycle candidat | **Conception fonctionnelle V3.1** — profile qualification UI · type sélectionné · profil T-A2 · **read-only** · pas de CreateCycle |
+| Architecture moteur type recommandé | **non requise** (D-V3-01/02 = sélection explicite) |
+| Delivery / implémentation | **non autorisée** tant que GO conception puis GO delivery absents |
+| V3.2 CreateCycle explicite | après V3.1 · GO distinct |
 
-**Aucun delivery automatique.**
+Gate candidat suivant (non ouvert) :
+
+`GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE`
 
 ## X. Anti-claims
 
-- Cadrage ≠ conception validée ≠ delivery autorisé
-- Recommandation ≠ décision Morris
+- Cadrage / arbitrage ≠ conception validée ≠ delivery autorisé
+- Recommandation historique ≠ source de décision (Morris décide)
 - Profil recommandé ≠ type de cycle recommandé
 - `acknowledged` ≠ autorité Morris
 - Cycle créé ≠ cycle actif si non lié
@@ -517,33 +569,31 @@ Cette recommandation **n’est pas une décision Morris**.
 
 ## Y. Verdict et prochain gate candidat
 
-**CADRAGE V3 CYCLE RECOMMENDATION COMPLETE — MORRIS DECISIONS REQUIRED — IMPLEMENTATION NOT AUTHORIZED**
+**V3 CYCLE RECOMMENDATION ARBITRATION RECORDED — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED**
 
 Prochain gate candidat (non ouvert) :
 
-`GO ARBITRATE SFIA STUDIO V3 CYCLE RECOMMENDATION DECISIONS D-V3-01 TO D-V3-08`
+`GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE`
 
-Puis, selon arbitrage : conception fonctionnelle et/ou architecture fonctionnelle — **pas** d’implémentation sans GO distinct.
-```
+---
 
-## Contenu complet — `README.md` (état final)
+# FULL FILE: README.md (modified)
 
-```markdown
 # First user-visible SFIA Studio vertical slice — Framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — D-VS-01→04 ADOPTED — V1+V2-A1/A2/A3 ON MAIN — V3 CADRAGE COMPLETE — V3 IMPLEMENTATION NOT AUTHORIZED` |
-| **Date** | 2026-07-30 18:25:00 CEST (+0200) |
-| **Cycle courant** | 1 — Cadrage Lot V3 Cycle Recommendation |
+| **Statut** | `FRAMING LIVING — D-VS-01→04 ADOPTED — V1+V2 ON MAIN — V3 ARBITRATION COMPLETE — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED` |
+| **Date** | 2026-07-30 18:54:00 CEST (+0200) |
+| **Cycle courant** | 1 — Cadrage Lot V3 (phase arbitrage / validation) |
 | **Profil** | Standard |
 | **Typologie** | DOC |
-| **Gate courant** | `GO CADRAGE SFIA STUDIO LOT V3 CYCLE RECOMMENDATION` |
+| **Gate courant** | arbitrage D-V3 **consommé** (voir Decision record dans `12`) |
 | **Branche cadrage V3** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
 | **Commit V2-A3** | `e1db1f52c12d2e0fdb5ac5c9f66b8984015d14ba` (PR #295 MERGED) |
 | **Code applicatif (ce cycle)** | **aucune modification** |
-| **Framing historique** | conservé ci-dessous · docs `01`–`11` · décisions D-VS inchangées |
+| **Framing historique** | conservé ci-dessous · docs `01`–`11` · D-VS-01→04 inchangées · D-VS-05 non consommée |
 
 ## Objectif
 
@@ -561,10 +611,10 @@ en réutilisant le cœur T-A0→T-A7, sans IAM, sans persistance produit, sans a
 | V2-A1 — runtime bridge server-only | intégré · create/get Project |
 | V2-A2 — Create Project UI | intégré · `/studio/projects/new` |
 | V2-A3 — Project Workspace UI | intégré · `/studio/projects/[id]` · PR #295 |
-| V3 — Cycle Recommendation | **cadrage documentaire complet** · **implémentation non autorisée** |
+| V3 — Cycle Recommendation | **arbitrage D-V3 enregistré** · **implémentation non autorisée** · prêt conception V3.1 |
 | V4 / V5 / V6 | non autorisés |
 
-**Écart V3 :** T-A2 `QualifyCycle` recommande un **profil**, pas un `cycleTypeId`. Voir `12`.
+**Décisions V3 (synthèse) :** type sélectionné par l’utilisateur · profil recommandé par T-A2 · CTA create explicite · pas de lien LPS / pas d’épistémique au 1er incrément · Critical fail-closed · contrat Git + réserve Figma · slicing V3.1 read-only → V3.2 create. Tableau complet : `12` Decision record.
 
 ### Contexte UI historique (inchangé)
 
@@ -616,11 +666,13 @@ Aucun composant React ne décide Critical / HARD closed / preuve suffisante / au
 
 ## Backlog recommandé
 
-V1 Composition locale Project → V2 Create UI (A1/A2/A3) → **V3 Recommendation (cadrage ✓ · delivery ✗)** → V4 Decision → V5 Dashboard → V6 Consolidation visuelle.
+V1 Composition locale Project → V2 Create UI (A1/A2/A3) → **V3 Recommendation (arbitrage ✓ · conception V3.1 candidate · delivery ✗)** → V4 Decision → V5 Dashboard → V6 Consolidation visuelle.
 
-Recommandation de livraison : **plusieurs PR** (une par lot), commits atomiques. Tout slicing V3 reste **candidat** jusqu’aux décisions D-V3 (voir `12`).
+Slicing V3 adopté (D-V3-08) : **V3.1** qualification read-only · **V3.2** création explicite. Détail : `12`.
 
 ## Décisions Morris
+
+### D-VS (historique)
 
 | ID | Statut | Décision |
 |----|--------|----------|
@@ -630,19 +682,35 @@ Recommandation de livraison : **plusieurs PR** (une par lot), commits atomiques.
 | D-VS-04 | `DECIDED — ADOPTED BY MORRIS` | V1 Project creation + core composition |
 | D-VS-05 | `NOT DECIDED — NOT CONSUMED` | aucune écriture ou conformité Figma revendiquée |
 
+### D-V3 (Lot Cycle Recommendation) — adoptées 2026-07-30
+
+| ID | Option | Statut |
+|----|--------|--------|
+| D-V3-01 | 1 — type sélectionné · profil T-A2 | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-02 | 1 — cycleTypeId sélection explicite | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-03 | 2 — CTA create explicite | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-04 | 1 — pas de lien LPS actif (1er incrément) | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-05 | 1 — reco non persistée (1er incrément) | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-06 | CONFIRM CRITICAL FAIL-CLOSED | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-07 | 1 + réserve réévaluation Figma | `DECIDED — ADOPTED BY MORRIS` |
+| D-V3-08 | 1 — V3.1 read-only puis V3.2 create | `DECIDED — ADOPTED BY MORRIS` |
+
+Source réelle Morris : « ok pour les différents choix, on continue et on avance » (2026-07-30 ~18:46 CEST). Record complet : `12`.
+
 ## Statut d’exécution V1 → V2 (historique + intégration)
 
 V1 a composé Doctrine T-A0 et Project/LPS T-A1 en mémoire process-local. V2-A1 a ajouté le bridge Server Action. V2-A2 a livré Create Project UI. V2-A3 a livré Project Workspace UI (merge PR #295 @ `3e8a437…`).
 
-V3 : **cadrage uniquement** — voir `12-v3-cycle-recommendation-cadrage.md`. Aucune Server Action cycle, aucune UI recommendation, aucune CreateCycle dans ce cycle.
+V3 : **cadrage + arbitrage documentaires** — voir `12`. Aucune Server Action cycle, aucune UI recommendation, aucune CreateCycle. **Implémentation non autorisée.**
 
 ## Anti-claims
 
-- Framing ≠ produit ready ≠ MVP validé
+- Framing / arbitrage ≠ produit ready ≠ MVP validé
 - UI POC ≠ cœur OA branché
 - Décision locale ≠ autorité IAM
 - Local SQLite ≠ persistance produit
 - Recommandation ≠ décision Morris
+- Arbitrage ≠ autorisation d’implémentation
 - HARD/T-A6 restent ouverts
 
 ## Index du pack
@@ -660,24 +728,22 @@ V3 : **cadrage uniquement** — voir `12-v3-cycle-recommendation-cadrage.md`. Au
 | `09` | Plan validation / preuves |
 | `10` | Risques & decision pack Morris |
 | `11` | Exécution locale V1 — Project core composition |
-| `12` | **Lot V3 Cycle Recommendation — Cadrage** |
+| `12` | **Lot V3 Cycle Recommendation — Cadrage + arbitrage** |
 
 ## Gate candidat suivant
 
-`GO ARBITRATE SFIA STUDIO V3 CYCLE RECOMMENDATION DECISIONS D-V3-01 TO D-V3-08`
+`GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE`
 
-Puis, selon arbitrage : conception fonctionnelle et/ou architecture fonctionnelle. **Aucun delivery V3 automatique.**
-
-Aucun gate automatique.
+**Aucun delivery V3 automatique.** Aucun gate automatique.
 
 ## Verdict
 
-`CADRAGE V3 CYCLE RECOMMENDATION COMPLETE — MORRIS DECISIONS REQUIRED — IMPLEMENTATION NOT AUTHORIZED`
-```
+`V3 CYCLE RECOMMENDATION ARBITRATION RECORDED — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED`
 
-## Contenu complet — `08-implementation-backlog-and-slicing.md` (état final)
+---
 
-```markdown
+# FULL FILE: 08-implementation-backlog-and-slicing.md (modified)
+
 # 08 — Implementation backlog and slicing
 
 ## Stratégie de livraison (recommandation, non décision)
@@ -706,16 +772,20 @@ Branche framing docs séparée. Pas de big-bang unique.
 
 ## Lot V3 — Cycle Recommendation
 
-**Statut** : `CADRAGE COMPLETE — IMPLEMENTATION NOT AUTHORIZED`.
+**Statut** : `CADRAGE + ARBITRATION COMPLETE — IMPLEMENTATION NOT AUTHORIZED — READY FOR FUNCTIONAL DESIGN V3.1`.
 
-Cadrage détaillé : [`12-v3-cycle-recommendation-cadrage.md`](./12-v3-cycle-recommendation-cadrage.md).
+Cadrage et décisions : [`12-v3-cycle-recommendation-cadrage.md`](./12-v3-cycle-recommendation-cadrage.md).
 
 | Item | Contenu |
 |------|---------|
-| Objectif candidat | Surface de qualification (± CreateCycle explicite) au-dessus de T-A2 |
-| Écart structurant | QualifyCycle recommande un **profil**, pas un `cycleTypeId` |
-| Slicing | **candidat uniquement** (V3-A/V3-B ou lot unique) — décisions D-V3-01…08 |
-| Interdit sans GO | code · Server Action · UI · CreateCycle implicite · Figma write |
+| Objectif | Surface de qualification (± CreateCycle explicite plus tard) au-dessus de T-A2 |
+| Écart structurant (conservé) | QualifyCycle recommande un **profil**, pas un `cycleTypeId` |
+| D-V3 | **adoptées** (2026-07-30) — type sélectionné · profil T-A2 · CTA create · pas LPS/épistémique au 1er incrément · Critical fail-closed · Git + réserve Figma · slicing progressif |
+| **V3.1 (candidat)** | Conception fonctionnelle puis delivery (gates distincts) : qualification **read-only** |
+| **V3.2 (candidat)** | Création explicite CycleInstance via CTA |
+| Hors 1er incrément | liaison LPS actif · persistance EpistemicItem Recommendation |
+| Interdit sans GO | code · Server Action · UI · CreateCycle · Figma write · delivery |
+| V3 delivery ouvert | **non** |
 
 ## Lot V4 — Morris Decision
 
@@ -737,17 +807,17 @@ Responsive, a11y, captures, Figma page compare, REX.
 
 ## D-VS-04 (historique)
 
-V1 only a été la recommandation initiale de composition. V2 a ensuite été autorisé et intégré par gates distincts. V3 reste au stade cadrage.
-```
+V1 only a été la recommandation initiale de composition. V2 a ensuite été autorisé et intégré par gates distincts. V3 : cadrage + arbitrage terminés ; conception V3.1 et delivery restent à ouvrir par GO distincts.
 
-## Diff utile — README + 08
+---
 
-```diff
+# Useful diffs (tracked files)
+
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-index 2cb96a4..f09fa72 100644
+index 2cb96a4..6e4c138 100644
 --- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
 +++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-@@ -2,53 +2,59 @@
+@@ -2,53 +2,63 @@
 
  ## Stratégie de livraison (recommandation, non décision)
 
@@ -791,16 +861,20 @@ index 2cb96a4..f09fa72 100644
  ## Lot V3 — Cycle Recommendation
 
 -T-A2 qualify/create + projection + bandeau ≠ décision.
-+**Statut** : `CADRAGE COMPLETE — IMPLEMENTATION NOT AUTHORIZED`.
++**Statut** : `CADRAGE + ARBITRATION COMPLETE — IMPLEMENTATION NOT AUTHORIZED — READY FOR FUNCTIONAL DESIGN V3.1`.
 +
-+Cadrage détaillé : [`12-v3-cycle-recommendation-cadrage.md`](./12-v3-cycle-recommendation-cadrage.md).
++Cadrage et décisions : [`12-v3-cycle-recommendation-cadrage.md`](./12-v3-cycle-recommendation-cadrage.md).
 +
 +| Item | Contenu |
 +|------|---------|
-+| Objectif candidat | Surface de qualification (± CreateCycle explicite) au-dessus de T-A2 |
-+| Écart structurant | QualifyCycle recommande un **profil**, pas un `cycleTypeId` |
-+| Slicing | **candidat uniquement** (V3-A/V3-B ou lot unique) — décisions D-V3-01…08 |
-+| Interdit sans GO | code · Server Action · UI · CreateCycle implicite · Figma write |
++| Objectif | Surface de qualification (± CreateCycle explicite plus tard) au-dessus de T-A2 |
++| Écart structurant (conservé) | QualifyCycle recommande un **profil**, pas un `cycleTypeId` |
++| D-V3 | **adoptées** (2026-07-30) — type sélectionné · profil T-A2 · CTA create · pas LPS/épistémique au 1er incrément · Critical fail-closed · Git + réserve Figma · slicing progressif |
++| **V3.1 (candidat)** | Conception fonctionnelle puis delivery (gates distincts) : qualification **read-only** |
++| **V3.2 (candidat)** | Création explicite CycleInstance via CTA |
++| Hors 1er incrément | liaison LPS actif · persistance EpistemicItem Recommendation |
++| Interdit sans GO | code · Server Action · UI · CreateCycle · Figma write · delivery |
++| V3 delivery ouvert | **non** |
 
  ## Lot V4 — Morris Decision
 
@@ -824,9 +898,9 @@ index 2cb96a4..f09fa72 100644
 +## D-VS-04 (historique)
 
 -Commencer par **V1 only** (composition). Ne pas livrer V1–V5 d’un coup.
-+V1 only a été la recommandation initiale de composition. V2 a ensuite été autorisé et intégré par gates distincts. V3 reste au stade cadrage.
++V1 only a été la recommandation initiale de composition. V2 a ensuite été autorisé et intégré par gates distincts. V3 : cadrage + arbitrage terminés ; conception V3.1 et delivery restent à ouvrir par GO distincts.
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-index dae31b5..911ea25 100644
+index dae31b5..0f3a69d 100644
 --- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 +++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 @@ -2,17 +2,17 @@
@@ -836,9 +910,9 @@ index dae31b5..911ea25 100644
 -| **Statut** | `FRAMING HISTORICAL — D-VS-01→04 ADOPTED — V1 EXECUTED LOCALLY — V2 NOT AUTHORIZED` |
 -| **Date** | 2026-07-29 15:45:00 CEST (+0200) |
 -| **Cycle** | 2 — Conception fonctionnelle (+1/3/4/5/9/15) |
-+| **Statut** | `FRAMING LIVING — D-VS-01→04 ADOPTED — V1+V2-A1/A2/A3 ON MAIN — V3 CADRAGE COMPLETE — V3 IMPLEMENTATION NOT AUTHORIZED` |
-+| **Date** | 2026-07-30 18:25:00 CEST (+0200) |
-+| **Cycle courant** | 1 — Cadrage Lot V3 Cycle Recommendation |
++| **Statut** | `FRAMING LIVING — D-VS-01→04 ADOPTED — V1+V2 ON MAIN — V3 ARBITRATION COMPLETE — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED` |
++| **Date** | 2026-07-30 18:54:00 CEST (+0200) |
++| **Cycle courant** | 1 — Cadrage Lot V3 (phase arbitrage / validation) |
  | **Profil** | Standard |
 -| **Gate** | `GO FRAME FIRST USER-VISIBLE SFIA STUDIO VERTICAL SLICE — PROJECT CREATION TO CYCLE RECOMMENDATION AND MORRIS DECISION DASHBOARD — REUSE T-A0 TO T-A7 CORE — LOCAL BOUNDED DATA ONLY — NO IAM REAL AGENT EXECUTION DELIVERY OR CUTOVER` |
 -| **Branche framing** | `framing/sfia-studio-first-user-visible-vertical-slice` @ `c1955179a36079e060c41a845c2a1950084966c8` |
@@ -848,12 +922,12 @@ index dae31b5..911ea25 100644
 -| **Exécution V1** | facade headless T-A0/T-A1, OA mémoire, projection et audit optionnel — voir `11` |
 -| **Push / PR / merge projet V1** | **non autorisés, non exécutés** |
 +| **Typologie** | DOC |
-+| **Gate courant** | `GO CADRAGE SFIA STUDIO LOT V3 CYCLE RECOMMENDATION` |
++| **Gate courant** | arbitrage D-V3 **consommé** (voir Decision record dans `12`) |
 +| **Branche cadrage V3** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
 +| **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
 +| **Commit V2-A3** | `e1db1f52c12d2e0fdb5ac5c9f66b8984015d14ba` (PR #295 MERGED) |
 +| **Code applicatif (ce cycle)** | **aucune modification** |
-+| **Framing historique** | conservé ci-dessous · docs `01`–`11` · décisions D-VS inchangées |
++| **Framing historique** | conservé ci-dessous · docs `01`–`11` · D-VS-01→04 inchangées · D-VS-05 non consommée |
 
  ## Objectif
 
@@ -871,10 +945,10 @@ index dae31b5..911ea25 100644
 +| V2-A1 — runtime bridge server-only | intégré · create/get Project |
 +| V2-A2 — Create Project UI | intégré · `/studio/projects/new` |
 +| V2-A3 — Project Workspace UI | intégré · `/studio/projects/[id]` · PR #295 |
-+| V3 — Cycle Recommendation | **cadrage documentaire complet** · **implémentation non autorisée** |
++| V3 — Cycle Recommendation | **arbitrage D-V3 enregistré** · **implémentation non autorisée** · prêt conception V3.1 |
 +| V4 / V5 / V6 | non autorisés |
 +
-+**Écart V3 :** T-A2 `QualifyCycle` recommande un **profil**, pas un `cycleTypeId`. Voir `12`.
++**Décisions V3 (synthèse) :** type sélectionné par l’utilisateur · profil recommandé par T-A2 · CTA create explicite · pas de lien LPS / pas d’épistémique au 1er incrément · Critical fail-closed · contrat Git + réserve Figma · slicing V3.1 read-only → V3.2 create. Tableau complet : `12` Decision record.
 +
 +### Contexte UI historique (inchangé)
 +
@@ -891,72 +965,81 @@ index dae31b5..911ea25 100644
 
  ## Scope / hors scope
 
-@@ -74,9 +85,9 @@ Aucun composant React ne décide Critical / HARD closed / preuve suffisante / au
+@@ -74,12 +85,14 @@ Aucun composant React ne décide Critical / HARD closed / preuve suffisante / au
 
  ## Backlog recommandé
 
 -V1 Composition locale Project → V2 Create UI → V3 Recommendation → V4 Decision → V5 Dashboard → V6 Consolidation visuelle.
-+V1 Composition locale Project → V2 Create UI (A1/A2/A3) → **V3 Recommendation (cadrage ✓ · delivery ✗)** → V4 Decision → V5 Dashboard → V6 Consolidation visuelle.
++V1 Composition locale Project → V2 Create UI (A1/A2/A3) → **V3 Recommendation (arbitrage ✓ · conception V3.1 candidate · delivery ✗)** → V4 Decision → V5 Dashboard → V6 Consolidation visuelle.
 
 -Recommandation de livraison : **plusieurs PR** (une par lot V1–V5), commits atomiques ; V6 peut accompagner ou suivre.
-+Recommandation de livraison : **plusieurs PR** (une par lot), commits atomiques. Tout slicing V3 reste **candidat** jusqu’aux décisions D-V3 (voir `12`).
++Slicing V3 adopté (D-V3-08) : **V3.1** qualification read-only · **V3.2** création explicite. Détail : `12`.
 
  ## Décisions Morris
 
-@@ -88,13 +99,11 @@ Recommandation de livraison : **plusieurs PR** (une par lot V1–V5), commits at
++### D-VS (historique)
++
+ | ID | Statut | Décision |
+ |----|--------|----------|
+ | D-VS-01 | `DECIDED — ADOPTED BY MORRIS` | adapter l'UI et StudioShell, sans modification UI en V1 |
+@@ -88,21 +101,35 @@ Recommandation de livraison : **plusieurs PR** (une par lot V1–V5), commits at
  | D-VS-04 | `DECIDED — ADOPTED BY MORRIS` | V1 Project creation + core composition |
  | D-VS-05 | `NOT DECIDED — NOT CONSUMED` | aucune écriture ou conformité Figma revendiquée |
 
 -## Statut d'exécution V1
--
++### D-V3 (Lot Cycle Recommendation) — adoptées 2026-07-30
++
++| ID | Option | Statut |
++|----|--------|--------|
++| D-V3-01 | 1 — type sélectionné · profil T-A2 | `DECIDED — ADOPTED BY MORRIS` |
++| D-V3-02 | 1 — cycleTypeId sélection explicite | `DECIDED — ADOPTED BY MORRIS` |
++| D-V3-03 | 2 — CTA create explicite | `DECIDED — ADOPTED BY MORRIS` |
++| D-V3-04 | 1 — pas de lien LPS actif (1er incrément) | `DECIDED — ADOPTED BY MORRIS` |
++| D-V3-05 | 1 — reco non persistée (1er incrément) | `DECIDED — ADOPTED BY MORRIS` |
++| D-V3-06 | CONFIRM CRITICAL FAIL-CLOSED | `DECIDED — ADOPTED BY MORRIS` |
++| D-V3-07 | 1 + réserve réévaluation Figma | `DECIDED — ADOPTED BY MORRIS` |
++| D-V3-08 | 1 — V3.1 read-only puis V3.2 create | `DECIDED — ADOPTED BY MORRIS` |
+
 -V1 est exécuté localement sur une branche descendante du commit de framing. La facade compose la résolution Doctrine T-A0 et la création atomique Project/LPS v1 T-A1, puis expose une projection read-only reconstruite depuis T-A1. Les fixtures et le storage navigateur sont hors de cette surface.
-+## Statut d’exécution V1 → V2 (historique + intégration)
++Source réelle Morris : « ok pour les différents choix, on continue et on avance » (2026-07-30 ~18:46 CEST). Record complet : `12`.
 
 -Validations : 16 nouveaux tests ; régressions ciblées 109/109 ; suite complète 752/752 ; typecheck, lint et build green. Aucun fichier UI, OA existant, schéma SQLite, package ou lockfile n'est modifié.
-+V1 a composé Doctrine T-A0 et Project/LPS T-A1 en mémoire process-local. V2-A1 a ajouté le bridge Server Action. V2-A2 a livré Create Project UI. V2-A3 a livré Project Workspace UI (merge PR #295 @ `3e8a437…`).
++## Statut d’exécution V1 → V2 (historique + intégration)
 
 -V2 reste `NOT AUTHORIZED`. Aucun écran Create Project ni parcours visuel n'est implémenté.
-+V3 : **cadrage uniquement** — voir `12-v3-cycle-recommendation-cadrage.md`. Aucune Server Action cycle, aucune UI recommendation, aucune CreateCycle dans ce cycle.
++V1 a composé Doctrine T-A0 et Project/LPS T-A1 en mémoire process-local. V2-A1 a ajouté le bridge Server Action. V2-A2 a livré Create Project UI. V2-A3 a livré Project Workspace UI (merge PR #295 @ `3e8a437…`).
++
++V3 : **cadrage + arbitrage documentaires** — voir `12`. Aucune Server Action cycle, aucune UI recommendation, aucune CreateCycle. **Implémentation non autorisée.**
 
  ## Anti-claims
 
-@@ -120,15 +129,16 @@ V2 reste `NOT AUTHORIZED`. Aucun écran Create Project ni parcours visuel n'est
+-- Framing ≠ produit ready ≠ MVP validé
++- Framing / arbitrage ≠ produit ready ≠ MVP validé
+ - UI POC ≠ cœur OA branché
+ - Décision locale ≠ autorité IAM
+ - Local SQLite ≠ persistance produit
+ - Recommandation ≠ décision Morris
++- Arbitrage ≠ autorisation d’implémentation
+ - HARD/T-A6 restent ouverts
+
+ ## Index du pack
+@@ -120,15 +147,14 @@ V2 reste `NOT AUTHORIZED`. Aucun écran Create Project ni parcours visuel n'est
  | `09` | Plan validation / preuves |
  | `10` | Risques & decision pack Morris |
  | `11` | Exécution locale V1 — Project core composition |
-+| `12` | **Lot V3 Cycle Recommendation — Cadrage** |
++| `12` | **Lot V3 Cycle Recommendation — Cadrage + arbitrage** |
 
  ## Gate candidat suivant
 
 -`GO REVIEW AND INTEGRATE SFIA STUDIO FIRST VISIBLE SLICE V1 — PUSH BRANCH AND CREATE PR IF PR READINESS PASSES — NO MERGE IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`
-+`GO ARBITRATE SFIA STUDIO V3 CYCLE RECOMMENDATION DECISIONS D-V3-01 TO D-V3-08`
-
+-
 -Après intégration distincte de V1 : `GO IMPLEMENT SFIA STUDIO FIRST VISIBLE SLICE LOT V2 — CREATE PROJECT UI — REUSE STUDIOSHELL AND V1 CORE COMPOSITION — NO IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER`.
-+Puis, selon arbitrage : conception fonctionnelle et/ou architecture fonctionnelle. **Aucun delivery V3 automatique.**
++`GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE`
 
- Aucun gate automatique.
+-Aucun gate automatique.
++**Aucun delivery V3 automatique.** Aucun gate automatique.
 
  ## Verdict
 
 -`SFIA STUDIO FIRST VISIBLE SLICE V1 IMPLEMENTED LOCALLY — PROJECT AND LPS CREATION COMPOSED THROUGH T-A0 AND T-A1 — UI PROJECTION AVAILABLE — OA MEMORY ACTIVE — OPTIONAL LOCAL AUDIT BOUNDED — FIXTURES OFF HAPPY PATH — NO UI ROUTE IAM PRODUCT PERSISTENCE REAL AGENT DELIVERY OR CUTOVER — TESTS GREEN — PROJECT BRANCH NOT PUSHED`
-+`CADRAGE V3 CYCLE RECOMMENDATION COMPLETE — MORRIS DECISIONS REQUIRED — IMPLEMENTATION NOT AUTHORIZED`
-```
-
-## Review Handoff Git
-
-| Champ | Valeur |
-|-------|--------|
-| Decision | required |
-| Mode | publish-in-cycle |
-| Branche | sfia/review-handoff |
-| Fichier | sfia-review-handoff/latest-chatgpt-review.md |
-| Message | docs(review-handoff): publish SFIA Studio V3 cycle recommendation framing report |
-| Handoff remote before | 1f9c582714d13ec4fd035401a02f26de743f8632 |
-
-## Verdict unique
-
-**CADRAGE V3 CYCLE RECOMMENDATION COMPLETE — MORRIS DECISIONS REQUIRED — IMPLEMENTATION NOT AUTHORIZED**
-
-## Instruction ChatGPT
-
-Lire sfia/review-handoff → sfia-review-handoff/latest-chatgpt-review.md avant réponse à Morris. Vérifier cycle 1, doc 12 complet, distinction type/profil, D-V3-01…08 non décidées, absence de code, et verdict CADRAGE V3 CYCLE RECOMMENDATION COMPLETE — MORRIS DECISIONS REQUIRED — IMPLEMENTATION NOT AUTHORIZED.
++`V3 CYCLE RECOMMENDATION ARBITRATION RECORDED — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED`
