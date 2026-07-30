@@ -1,72 +1,73 @@
-# SFIA Studio V3.1 Cycle Type Catalog — Adoption Review Pack (FULL)
+# SFIA Studio V3.1-D1 Cycle Type Catalog — Delivery Review Pack (FULL)
 
 ## Meta
-- **Date/heure/fuseau :** 2026-07-30 20:31:05 CEST (+0200)
-- **Cycle :** 3 — Architecture fonctionnelle (arbitrage / adoption / correction)
+- **Date/heure/fuseau :** 2026-07-30 20:49:15 CEST (+0200)
+- **Cycle :** 8 — Delivery / implémentation
 - **Profil :** Critical
-- **Typologie :** DOC
-- **CKC fallback :** 02-fifteen-cycles-synthetic-map.md + méthode §4.3 · method-candidate · consommation obligatoire · executionAuthority=false
-- **Clarification Morris :** « par contre le CKC doit faire partie intégrante du mécanisme, c'est candidate parce que le projet lui meme est candidate mais c'est la base de la doctrine de ce produit, donc toute la doctrine meme si elle est candidate doit faire partie intégrante de la solution, de sa conception a sa réalisation, jusqu'a que la solution soit en production »
-- **Confirmation Morris :** « pour le reste des décisions c'est ok »
-- **GO formel (2026-07-30 20:23 CEST) :** GO ADOPT SFIA STUDIO V3.1 CYCLE TYPE CATALOG — D-V3.1-CAT-01=CAT-S1 — D-V3.1-CAT-02=CAT-I1 — D-V3.1-CAT-03=MINIMAL_WITH_MANDATORY_CKC_CORE — D-V3.1-CAT-04=CONTROLLED_ALIASES — D-V3.1-CAT-05=MORRIS_FOR_STRUCTURAL_CHANGES — D-V3.1-CAT-06=NEUTRAL_ID_LOCALIZED_LABELS — D-V3.1-CAT-07=INTEGRATED_MANDATORY_CKC_MECHANISM — D-V3.1-CAT-08=D1_THEN_D2_THEN_D3
+- **Typologie :** EVOL
+- **Gate :** GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE (2026-07-30 20:35 CEST)
+- **CKC Delivery :** synthetic map + méthode §4.8 · method-candidate · obligatoire · executionAuthority=false
 
-## Local Git Truth Check
-- workspace / repo / branche cadrage OK
-- HEAD = origin/main = 3e8a4374405dce98866e35fb60c5c7329701f191
-- ahead/behind 0/0 · remote cadrage absente · staged aucun
-- handoff tip pré-cycle : 8c9c2fe0e56ed25415db2f15a851a03e1b6b3fca · blob 69feab5a4094f1792f21192fa891989d68c71c30
+## Local Git Truth Check (phase 1 — framing)
+- branche initiale : framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage
+- HEAD = origin/main = 3e8a4374405dce98866e35fb60c5c7329701f191 · 0/0
+- remote framing absente · remote delivery absente · staged aucun
+- handoff tip pré-cycle : becff779c08aeb9e0a8b009eec0045192fe1f5ed · blob e73e1fe65bdf9bd41c24b3a1bae54bb9510e0c25
 
+## Branche Delivery
+- créée : delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime depuis HEAD
+- HEAD inchangé · working tree documentaire préservé · hashes 12/13 inchangés
+
+## Design d'implémentation
+- Fichier unique domaine : cycleTypeCatalog.ts (types + données + ops + validate)
+- Export via index.ts
+- Tests : __tests__/oa/cycle/cycleTypeCatalog.test.ts
+- Pas de modification application/* · pas de vertical-slice · pas UI
+- CKC paths = string constants Git (pas d'import/fs runtime)
+- 4 detailed + synthetic fallback · 11 synthetic primary
+
+## Conventions
+- Tests sous app/__tests__/oa/cycle/ (vitest)
+- package manager : npm
+- scripts : test / typecheck / lint / build
+
+## Hashes documents hérités
+| Doc | Hash (inchangé pour 12/13) |
+|-----|----------------------------|
+| 12 | 82be657cb3b88be0ac72d41e172106a557be101b UNCHANGED |
+| 13 | 3ecb0256e14662a0e8244029a1329a6afb525444 UNCHANGED |
+
+## Preuves tests
+- npm test -- __tests__/oa/cycle/cycleTypeCatalog.test.ts → 24/24 PASS
+- npm test -- __tests__/oa/cycle/ → 72/72 PASS
+- npm run typecheck → PASS
+- npm run lint → PASS
+- npm run build → PASS
+
+## Diff controls
+### status
 ```
+ M projects/sfia-studio/app/lib/oa/cycle/index.ts
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 ?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/12-v3-cycle-recommendation-cadrage.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/13-v3-1-profile-qualification-functional-design.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/
 ```
-
-## Hashes
-| Fichier | Initial | Final |
-|---------|---------|-------|
-| README | fd343fca9e04e77c775816be4939c8e78d5a7e73 | modifié |
-| 08 | 921d10500e7bcae4f195a926609c2c6e582b8632 | modifié |
-| 12 | 82be657cb3b88be0ac72d41e172106a557be101b | 82be657c… UNCHANGED |
-| 13 | b910a4e75231cadaffe27c11b79995a22b3dddcc | 3ecb0256e14662a0e8244029a1329a6afb525444 scoped |
-| 14 | bd78d5b9770fef587327688080180df390c6df87 | 403c1d175c442e09ecf10bc17a8303d1cee1cc9c |
-
-## Preuve 12
-FILE_12_UNCHANGED_OK
-
-## Preuve 13 scoped
-Meta/statut · réserve catalogue · intégrations CKC · risques · slicing · anti-claims · gate/verdict. CA/scénarios/règles qualification intactes.
-
-## Décisions D-V3.1-CAT-01…08
-Toutes DECIDED — ADOPTED BY MORRIS (voir tableau Decision record dans 14).
-
-## Mapping 15 IDs adoptés
-cyc:framing · cyc:functional-design · cyc:functional-architecture · cyc:ux-ui · cyc:backlog · cyc:technical-architecture · cyc:integration-devops · cyc:delivery · cyc:qa-validation · cyc:security · cyc:release · cyc:observability · cyc:pr-readiness · cyc:post-merge · cyc:capitalization
-Statut chacun : ADOPTED BY MORRIS — CONTRACTUAL ID — NOT YET IMPLEMENTED
-cyc:capitalization inchangé.
-
-## CKC conséquences
-Obligatoire dans mécanisme produit · candidate ≠ optionnel · ≠ baseline méthode globale · detailed→synthetic→fail-closed · executionAuthority=false · QualifyCycle domaine OK mais parcours produit non exploitable sans CKC valide · traçabilité jusqu'à production.
-
-## CAT-03 / CAT-07
-CAT-03 = MINIMAL_WITH_MANDATORY_CKC_CORE (enrichit reco initiale)
-CAT-07 = INTEGRATED_MANDATORY_CKC_MECHANISM (corrige reco « séparée/informative »)
-
-## R-V3.1-CATALOG-01
-RESOLVED AT FUNCTIONAL CONTRACT AND MORRIS ARBITRATION LEVEL · runtime pending · D1 requires separate GO
-
-## Diff controls
 ### git diff --stat
 ```
- .../08-implementation-backlog-and-slicing.md       |  80 ++++++-----
- .../README.md                                      | 153 +++++++--------------
- 2 files changed, 92 insertions(+), 141 deletions(-)
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |   1 +
+ .../08-implementation-backlog-and-slicing.md       |  68 +++++-----
+ .../README.md                                      | 144 +++++----------------
+ 3 files changed, 65 insertions(+), 148 deletions(-)
 ```
 ### git diff --name-status
 ```
+M	projects/sfia-studio/app/lib/oa/cycle/index.ts
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 ```
@@ -75,980 +76,1179 @@ M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-ve
 EXIT:0
 ```
 
-## Tests
-Non exécutés — aucun code/test modifié.
+## R-V3.1-CATALOG-01
+contract/arbitration resolved · runtime catalog implemented by D1 · mandatory resolution orchestration pending D2
 
 ## Content coverage
-- inherited file 12 full content : yes
+- created catalog file full content : yes
+- created test file full content : yes
+- created D1 README full content : yes
+- modified code useful full diff : yes
+- modified project docs complete : yes
 - inherited file 12 unchanged proof : yes
-- modified file 13 full content : yes
-- modified file 14 full content : yes
-- README final full content : yes
-- backlog final full content : yes
-- current-cycle diffs : yes
-- decision record complete : yes
+- inherited file 13 unchanged proof : yes
 - fifteen IDs complete : yes
-- mandatory CKC consequences complete : yes
+- CKC mapping complete : yes
+- test evidence complete : yes
 - synthesis only : no
 - review pack verdict : complete
 
 ## Prochain gate
-GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE
+GO QA VALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — FIFTEEN IDS — CONTRACT INVARIANTS AND NEGATIVE TESTS — NO D2 — NO UI — NO CREATECYCLE
 
 ## Verdict
-V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED
+V3.1-D1 CYCLE TYPE CATALOG RUNTIME CONTRACT IMPLEMENTED — MANDATORY CKC MAPPING IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED
 
 ---
 
-# FULL FILE (unchanged): 12
+# FULL FILE: cycleTypeCatalog.ts
 
-# 12 — Lot V3 Cycle Recommendation — Cadrage
+/**
+ * V3.1-D1 — Cycle Type Catalog runtime contract (pure domain).
+ *
+ * Immutable projection of the fifteen Morris-adopted cycle types and their
+ * mandatory CKC mapping metadata. No I/O, no resolver orchestration, no UI.
+ *
+ * Decisions: D-V3.1-CAT-01…08 (see framing doc 14).
+ */
 
-## A. Meta et cycle record
+import { isOaIdentifier } from "./invariants";
+import { CAPITALIZATION_CYCLE_TYPE_ID } from "./types";
+
+/** Contract version of the static catalog snapshot. */
+export const CYCLE_TYPE_CATALOG_VERSION = "0.1.0-v3.1-d1" as const;
+
+/** Canonical Git path of the fifteen-cycles synthetic CKC map. */
+export const CKC_SYNTHETIC_MAP_PATH =
+  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md" as const;
+
+/** Method candidate document used for doctrinal provenance. */
+export const METHOD_CYCLES_DOC_PATH =
+  "method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md" as const;
+
+export const CKC_PILOT_CADRAGE_PATH =
+  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md" as const;
+
+export const CKC_PILOT_CONCEPTION_PATH =
+  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md" as const;
+
+export const CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH =
+  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md" as const;
+
+export const CKC_PILOT_QA_VALIDATION_PATH =
+  "method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md" as const;
+
+export type CycleTypeLifecycleStatus =
+  | "active"
+  | "deprecated"
+  | "unavailable";
+
+/** Primary CKC resolution level for catalog mapping (D1 static contract). */
+export type CycleTypeCkcPrimaryLevel = "detailed" | "synthetic";
+
+/**
+ * Mandatory CKC mapping carried by each catalog entry.
+ * Orchestrated resolution remains D2 — this is static contract metadata only.
+ */
+export type CycleTypeCkcMapping = {
+  /** Always true for V3.1 catalog entries. */
+  mandatory: true;
+  primaryLevel: CycleTypeCkcPrimaryLevel;
+  /** Git-relative path of the primary CKC source. */
+  primaryReference: string;
+  /**
+   * Fallback policy:
+   * - synthetic_map: use fifteen-cycles synthetic map
+   * - none: synthetic primary with no further fallback (fail-closed if invalid)
+   */
+  fallbackPolicy: "synthetic_map" | "none";
+  /** Present when primaryLevel is detailed (mandatory synthetic fallback). */
+  fallbackReference?: typeof CKC_SYNTHETIC_MAP_PATH;
+  /** CKC never holds execution authority. */
+  executionAuthority: false;
+  /** Candidate doctrine maturity — not optional, not global baseline. */
+  doctrineStatus: "method-candidate";
+  /** Expected product behaviour when no valid source can be resolved. */
+  unavailableBehavior: "fail-closed";
+};
+
+export type CycleTypeDefinition = {
+  cycleTypeId: string;
+  /** Harness/method slug for traceability — never used as cycleTypeId. */
+  canonicalKey: string;
+  label: string;
+  shortDescription: string;
+  displayOrder: number;
+  lifecycleStatus: CycleTypeLifecycleStatus;
+  methodCycleNumber: number;
+  methodReference: string;
+  ckc: CycleTypeCkcMapping;
+  /** Controlled aliases (1→1). Empty in D1 — no initial aliases. */
+  aliases: readonly string[];
+};
+
+export type CycleTypeCatalog = {
+  version: typeof CYCLE_TYPE_CATALOG_VERSION;
+  entries: readonly CycleTypeDefinition[];
+};
+
+export type CycleTypeCatalogValidationIssue = {
+  code: string;
+  message: string;
+};
+
+function detailedCkc(primaryReference: string): CycleTypeCkcMapping {
+  return {
+    mandatory: true,
+    primaryLevel: "detailed",
+    primaryReference,
+    fallbackPolicy: "synthetic_map",
+    fallbackReference: CKC_SYNTHETIC_MAP_PATH,
+    executionAuthority: false,
+    doctrineStatus: "method-candidate",
+    unavailableBehavior: "fail-closed",
+  };
+}
+
+function syntheticCkc(): CycleTypeCkcMapping {
+  return {
+    mandatory: true,
+    primaryLevel: "synthetic",
+    primaryReference: CKC_SYNTHETIC_MAP_PATH,
+    fallbackPolicy: "none",
+    executionAuthority: false,
+    doctrineStatus: "method-candidate",
+    unavailableBehavior: "fail-closed",
+  };
+}
+
+function methodRef(section: string): string {
+  return `${METHOD_CYCLES_DOC_PATH} ${section}`;
+}
+
+/**
+ * Immutable catalog entries — Morris-adopted CAT-I1 IDs.
+ * Order is displayOrder / methodCycleNumber 1…15.
+ */
+const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
+  Object.freeze({
+    cycleTypeId: "cyc:framing",
+    canonicalKey: "cadrage",
+    label: "Cadrage",
+    shortDescription: "Clarifier intention, périmètre, contraintes",
+    displayOrder: 1,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 1,
+    methodReference: methodRef("§4.1"),
+    ckc: Object.freeze(detailedCkc(CKC_PILOT_CADRAGE_PATH)),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:functional-design",
+    canonicalKey: "conception-fonctionnelle",
+    label: "Conception fonctionnelle",
+    shortDescription: "Usages, règles, objets métier",
+    displayOrder: 2,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 2,
+    methodReference: methodRef("§4.2"),
+    ckc: Object.freeze(detailedCkc(CKC_PILOT_CONCEPTION_PATH)),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:functional-architecture",
+    canonicalKey: "architecture-fonctionnelle",
+    label: "Architecture fonctionnelle",
+    shortDescription: "Structure, flux, découpage",
+    displayOrder: 3,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 3,
+    methodReference: methodRef("§4.3"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:ux-ui",
+    canonicalKey: "ux-ui",
+    label: "UX/UI",
+    shortDescription: "Expérience et interface",
+    displayOrder: 4,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 4,
+    methodReference: methodRef("§4.4"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:backlog",
+    canonicalKey: "backlog-user-stories",
+    label: "Backlog / user stories",
+    shortDescription: "Stories testables",
+    displayOrder: 5,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 5,
+    methodReference: methodRef("§4.5"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:technical-architecture",
+    canonicalKey: "architecture-technique",
+    label: "Architecture technique",
+    shortDescription: "Stack, patterns, ADR",
+    displayOrder: 6,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 6,
+    methodReference: methodRef("§4.6"),
+    ckc: Object.freeze(detailedCkc(CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH)),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:integration-devops",
+    canonicalKey: "integration-devops",
+    label: "Intégration / DevOps",
+    shortDescription: "CI/CD, environnements",
+    displayOrder: 7,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 7,
+    methodReference: methodRef("§4.7"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:delivery",
+    canonicalKey: "delivery-implementation",
+    label: "Delivery / implémentation",
+    shortDescription: "Implémentation bornée",
+    displayOrder: 8,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 8,
+    methodReference: methodRef("§4.8"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:qa-validation",
+    canonicalKey: "qa-validation",
+    label: "QA / validation",
+    shortDescription: "Preuves et réserves",
+    displayOrder: 9,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 9,
+    methodReference: methodRef("§4.9"),
+    ckc: Object.freeze(detailedCkc(CKC_PILOT_QA_VALIDATION_PATH)),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:security",
+    canonicalKey: "securite-rssi",
+    label: "Sécurité / RSSI",
+    shortDescription: "Menaces et contrôles",
+    displayOrder: 10,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 10,
+    methodReference: methodRef("§4.10"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:release",
+    canonicalKey: "deploiement-release",
+    label: "Déploiement / release",
+    shortDescription: "Release contrôlée",
+    displayOrder: 11,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 11,
+    methodReference: methodRef("§4.11"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:observability",
+    canonicalKey: "observabilite-run-readiness",
+    label: "Observabilité / RUN readiness",
+    shortDescription: "Exploitabilité mesurable",
+    displayOrder: 12,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 12,
+    methodReference: methodRef("§4.12"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:pr-readiness",
+    canonicalKey: "pr-readiness",
+    label: "PR readiness",
+    shortDescription: "Branche prête à PR",
+    displayOrder: 13,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 13,
+    methodReference: methodRef("§4.13"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: "cyc:post-merge",
+    canonicalKey: "post-merge",
+    label: "Post-merge",
+    shortDescription: "Clôture après merge",
+    displayOrder: 14,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 14,
+    methodReference: methodRef("§4.14"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+  Object.freeze({
+    cycleTypeId: CAPITALIZATION_CYCLE_TYPE_ID,
+    canonicalKey: "capitalisation-rex",
+    label: "Capitalisation / REX",
+    shortDescription: "Apprentissage réutilisable",
+    displayOrder: 15,
+    lifecycleStatus: "active" as const,
+    methodCycleNumber: 15,
+    methodReference: methodRef("§4.15"),
+    ckc: Object.freeze(syntheticCkc()),
+    aliases: Object.freeze([] as string[]),
+  }),
+]) as readonly CycleTypeDefinition[];
+
+/** Immutable catalog singleton (read-only contract). */
+export const CYCLE_TYPE_CATALOG: CycleTypeCatalog = Object.freeze({
+  version: CYCLE_TYPE_CATALOG_VERSION,
+  entries: CYCLE_TYPE_ENTRIES,
+});
+
+const BY_ID: ReadonlyMap<string, CycleTypeDefinition> = new Map(
+  CYCLE_TYPE_ENTRIES.map((entry) => [entry.cycleTypeId, entry]),
+);
+
+/** Adopted contractual IDs in method order. */
+export const ADOPTED_CYCLE_TYPE_IDS: readonly string[] = Object.freeze(
+  CYCLE_TYPE_ENTRIES.map((entry) => entry.cycleTypeId),
+);
+
+/**
+ * List active catalog entries in display order.
+ * Returns a shallow copy so callers cannot mutate the registry.
+ */
+export function listCycleTypes(): CycleTypeDefinition[] {
+  return CYCLE_TYPE_ENTRIES.filter(
+    (entry) => entry.lifecycleStatus === "active",
+  ).map((entry) => entry);
+}
+
+/** Exact lookup by cycleTypeId — no label/canonicalKey fallback. */
+export function getCycleTypeById(
+  cycleTypeId: string,
+): CycleTypeDefinition | undefined {
+  return BY_ID.get(cycleTypeId);
+}
+
+/** Pure membership check for catalog IDs. */
+export function isKnownCycleTypeId(cycleTypeId: string): boolean {
+  return BY_ID.has(cycleTypeId);
+}
+
+/**
+ * Pure validation of a catalog snapshot (used by tests / future governance).
+ * Does not mutate production data.
+ */
+export function validateCycleTypeCatalog(
+  catalog: CycleTypeCatalog,
+): CycleTypeCatalogValidationIssue[] {
+  const issues: CycleTypeCatalogValidationIssue[] = [];
+  const entries = catalog.entries;
+
+  if (entries.length !== 15) {
+    issues.push({
+      code: "COUNT",
+      message: `expected 15 entries, got ${entries.length}`,
+    });
+  }
+
+  const ids = new Set<string>();
+  const keys = new Set<string>();
+  const numbers = new Set<number>();
+  const orders = new Set<number>();
+  let detailedCount = 0;
+  let syntheticCount = 0;
+
+  for (const entry of entries) {
+    if (!isOaIdentifier(entry.cycleTypeId)) {
+      issues.push({
+        code: "ID_PATTERN",
+        message: `invalid OA identifier: ${entry.cycleTypeId}`,
+      });
+    }
+    if (!entry.cycleTypeId.startsWith("cyc:")) {
+      issues.push({
+        code: "ID_PREFIX",
+        message: `missing cyc: prefix: ${entry.cycleTypeId}`,
+      });
+    }
+    if (ids.has(entry.cycleTypeId)) {
+      issues.push({
+        code: "ID_DUPLICATE",
+        message: `duplicate cycleTypeId: ${entry.cycleTypeId}`,
+      });
+    }
+    ids.add(entry.cycleTypeId);
+
+    if (keys.has(entry.canonicalKey)) {
+      issues.push({
+        code: "CANONICAL_KEY_DUPLICATE",
+        message: `duplicate canonicalKey: ${entry.canonicalKey}`,
+      });
+    }
+    keys.add(entry.canonicalKey);
+
+    if (numbers.has(entry.methodCycleNumber)) {
+      issues.push({
+        code: "METHOD_NUMBER_DUPLICATE",
+        message: `duplicate methodCycleNumber: ${entry.methodCycleNumber}`,
+      });
+    }
+    numbers.add(entry.methodCycleNumber);
+
+    if (orders.has(entry.displayOrder)) {
+      issues.push({
+        code: "DISPLAY_ORDER_DUPLICATE",
+        message: `duplicate displayOrder: ${entry.displayOrder}`,
+      });
+    }
+    orders.add(entry.displayOrder);
+
+    if (!entry.label.trim()) {
+      issues.push({
+        code: "LABEL_EMPTY",
+        message: `empty label for ${entry.cycleTypeId}`,
+      });
+    }
+    if (!entry.shortDescription.trim()) {
+      issues.push({
+        code: "DESCRIPTION_EMPTY",
+        message: `empty description for ${entry.cycleTypeId}`,
+      });
+    }
+    if (!entry.methodReference.trim()) {
+      issues.push({
+        code: "METHOD_REF_EMPTY",
+        message: `empty methodReference for ${entry.cycleTypeId}`,
+      });
+    }
+
+    if (!entry.ckc || entry.ckc.mandatory !== true) {
+      issues.push({
+        code: "CKC_MISSING",
+        message: `CKC mapping missing/non-mandatory for ${entry.cycleTypeId}`,
+      });
+      continue;
+    }
+    if (entry.ckc.executionAuthority !== false) {
+      issues.push({
+        code: "CKC_EXECUTION_AUTHORITY",
+        message: `executionAuthority must be false for ${entry.cycleTypeId}`,
+      });
+    }
+    if (!entry.ckc.primaryReference?.trim()) {
+      issues.push({
+        code: "CKC_PRIMARY_REF",
+        message: `missing primaryReference for ${entry.cycleTypeId}`,
+      });
+    }
+    if (entry.ckc.primaryLevel === "detailed") {
+      detailedCount += 1;
+      if (
+        entry.ckc.fallbackPolicy !== "synthetic_map" ||
+        entry.ckc.fallbackReference !== CKC_SYNTHETIC_MAP_PATH
+      ) {
+        issues.push({
+          code: "CKC_DETAILED_FALLBACK",
+          message: `detailed entry requires synthetic_map fallback: ${entry.cycleTypeId}`,
+        });
+      }
+    } else if (entry.ckc.primaryLevel === "synthetic") {
+      syntheticCount += 1;
+      if (entry.ckc.primaryReference !== CKC_SYNTHETIC_MAP_PATH) {
+        issues.push({
+          code: "CKC_SYNTHETIC_REF",
+          message: `synthetic entry must reference synthetic map: ${entry.cycleTypeId}`,
+        });
+      }
+    }
+
+    // Alias ambiguity: more than one alias pointing to same string across entries
+    // is checked globally below; per-entry duplicates:
+    const aliasSet = new Set<string>();
+    for (const alias of entry.aliases) {
+      if (aliasSet.has(alias)) {
+        issues.push({
+          code: "ALIAS_AMBIGUOUS",
+          message: `duplicate alias on ${entry.cycleTypeId}: ${alias}`,
+        });
+      }
+      aliasSet.add(alias);
+      if (alias === entry.cycleTypeId) {
+        issues.push({
+          code: "ALIAS_AMBIGUOUS",
+          message: `alias equals cycleTypeId on ${entry.cycleTypeId}`,
+        });
+      }
+    }
+  }
+
+  if (!ids.has(CAPITALIZATION_CYCLE_TYPE_ID)) {
+    issues.push({
+      code: "CAPITALIZATION_MISSING",
+      message: `missing ${CAPITALIZATION_CYCLE_TYPE_ID}`,
+    });
+  } else if (CAPITALIZATION_CYCLE_TYPE_ID !== "cyc:capitalization") {
+    issues.push({
+      code: "CAPITALIZATION_MODIFIED",
+      message: "cyc:capitalization value changed",
+    });
+  }
+
+  if (detailedCount !== 4) {
+    issues.push({
+      code: "DETAILED_COUNT",
+      message: `expected 4 detailed CKC mappings, got ${detailedCount}`,
+    });
+  }
+  if (syntheticCount !== 11) {
+    issues.push({
+      code: "SYNTHETIC_COUNT",
+      message: `expected 11 synthetic CKC mappings, got ${syntheticCount}`,
+    });
+  }
+
+  // Cross-entry alias collisions
+  const aliasOwners = new Map<string, string>();
+  for (const entry of entries) {
+    for (const alias of entry.aliases) {
+      const owner = aliasOwners.get(alias);
+      if (owner && owner !== entry.cycleTypeId) {
+        issues.push({
+          code: "ALIAS_AMBIGUOUS",
+          message: `alias ${alias} owned by both ${owner} and ${entry.cycleTypeId}`,
+        });
+      }
+      aliasOwners.set(alias, entry.cycleTypeId);
+    }
+  }
+
+  return issues;
+}
+
+---
+
+# FULL FILE: cycleTypeCatalog.test.ts
+
+/**
+ * V3.1-D1 — Cycle Type Catalog contract tests.
+ * @vitest-environment node
+ */
+import { existsSync } from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import {
+  ADOPTED_CYCLE_TYPE_IDS,
+  CAPITALIZATION_CYCLE_TYPE_ID,
+  CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH,
+  CKC_PILOT_CADRAGE_PATH,
+  CKC_PILOT_CONCEPTION_PATH,
+  CKC_PILOT_QA_VALIDATION_PATH,
+  CKC_SYNTHETIC_MAP_PATH,
+  CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_VERSION,
+  getCycleTypeById,
+  isKnownCycleTypeId,
+  listCycleTypes,
+  validateCycleTypeCatalog,
+  type CycleTypeCatalog,
+  type CycleTypeDefinition,
+} from "@/lib/oa/cycle";
+
+const EXPECTED_IDS = [
+  "cyc:framing",
+  "cyc:functional-design",
+  "cyc:functional-architecture",
+  "cyc:ux-ui",
+  "cyc:backlog",
+  "cyc:technical-architecture",
+  "cyc:integration-devops",
+  "cyc:delivery",
+  "cyc:qa-validation",
+  "cyc:security",
+  "cyc:release",
+  "cyc:observability",
+  "cyc:pr-readiness",
+  "cyc:post-merge",
+  "cyc:capitalization",
+] as const;
+
+const DETAILED_IDS = new Set([
+  "cyc:framing",
+  "cyc:functional-design",
+  "cyc:technical-architecture",
+  "cyc:qa-validation",
+]);
+
+const WORKSPACE_ROOT = path.resolve(__dirname, "../../../../../../");
+
+function cloneCatalog(
+  mutate: (entries: CycleTypeDefinition[]) => CycleTypeDefinition[],
+): CycleTypeCatalog {
+  const entries = mutate(
+    CYCLE_TYPE_CATALOG.entries.map((entry) => ({
+      ...entry,
+      ckc: { ...entry.ckc },
+      aliases: [...entry.aliases],
+    })),
+  );
+  return { version: CYCLE_TYPE_CATALOG_VERSION, entries };
+}
+
+describe("V3.1-D1 cycle type catalog", () => {
+  it("exposes catalog version and exactly fifteen entries", () => {
+    expect(CYCLE_TYPE_CATALOG.version).toBe("0.1.0-v3.1-d1");
+    expect(CYCLE_TYPE_CATALOG.entries).toHaveLength(15);
+    expect(ADOPTED_CYCLE_TYPE_IDS).toEqual([...EXPECTED_IDS]);
+  });
+
+  it("lists exact adopted cycleTypeId set in order", () => {
+    expect(listCycleTypes().map((e) => e.cycleTypeId)).toEqual([
+      ...EXPECTED_IDS,
+    ]);
+  });
+
+  it("enforces uniqueness of ids, canonical keys, numbers and orders", () => {
+    const ids = CYCLE_TYPE_CATALOG.entries.map((e) => e.cycleTypeId);
+    const keys = CYCLE_TYPE_CATALOG.entries.map((e) => e.canonicalKey);
+    const numbers = CYCLE_TYPE_CATALOG.entries.map((e) => e.methodCycleNumber);
+    const orders = CYCLE_TYPE_CATALOG.entries.map((e) => e.displayOrder);
+    expect(new Set(ids).size).toBe(15);
+    expect(new Set(keys).size).toBe(15);
+    expect(new Set(numbers).size).toBe(15);
+    expect(new Set(orders).size).toBe(15);
+    expect(numbers.sort((a, b) => a - b)).toEqual([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+    ]);
+    expect(orders.sort((a, b) => a - b)).toEqual([
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+    ]);
+  });
+
+  it("uses OA cyc: identifiers and preserves cyc:capitalization", () => {
+    for (const id of EXPECTED_IDS) {
+      expect(id.startsWith("cyc:")).toBe(true);
+      expect(isKnownCycleTypeId(id)).toBe(true);
+    }
+    expect(CAPITALIZATION_CYCLE_TYPE_ID).toBe("cyc:capitalization");
+    expect(getCycleTypeById("cyc:capitalization")?.cycleTypeId).toBe(
+      "cyc:capitalization",
+    );
+  });
+
+  it("requires non-empty french labels/descriptions and active lifecycle", () => {
+    for (const entry of CYCLE_TYPE_CATALOG.entries) {
+      expect(entry.label.trim().length).toBeGreaterThan(0);
+      expect(entry.shortDescription.trim().length).toBeGreaterThan(0);
+      expect(entry.methodReference.trim().length).toBeGreaterThan(0);
+      expect(entry.lifecycleStatus).toBe("active");
+    }
+  });
+
+  it("maps mandatory CKC for all fifteen with executionAuthority false", () => {
+    for (const entry of CYCLE_TYPE_CATALOG.entries) {
+      expect(entry.ckc.mandatory).toBe(true);
+      expect(entry.ckc.executionAuthority).toBe(false);
+      expect(entry.ckc.doctrineStatus).toBe("method-candidate");
+      expect(entry.ckc.unavailableBehavior).toBe("fail-closed");
+      expect(entry.ckc.primaryReference.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("has exactly four detailed and eleven synthetic CKC mappings", () => {
+    const detailed = CYCLE_TYPE_CATALOG.entries.filter(
+      (e) => e.ckc.primaryLevel === "detailed",
+    );
+    const synthetic = CYCLE_TYPE_CATALOG.entries.filter(
+      (e) => e.ckc.primaryLevel === "synthetic",
+    );
+    expect(detailed).toHaveLength(4);
+    expect(synthetic).toHaveLength(11);
+    expect(detailed.map((e) => e.cycleTypeId).sort()).toEqual(
+      [...DETAILED_IDS].sort(),
+    );
+  });
+
+  it("requires synthetic fallback for detailed pilots", () => {
+    for (const entry of CYCLE_TYPE_CATALOG.entries) {
+      if (entry.ckc.primaryLevel === "detailed") {
+        expect(entry.ckc.fallbackPolicy).toBe("synthetic_map");
+        expect(entry.ckc.fallbackReference).toBe(CKC_SYNTHETIC_MAP_PATH);
+      } else {
+        expect(entry.ckc.primaryReference).toBe(CKC_SYNTHETIC_MAP_PATH);
+      }
+    }
+  });
+
+  it("uses canonical Git CKC paths for pilots and synthetic map", () => {
+    expect(getCycleTypeById("cyc:framing")?.ckc.primaryReference).toBe(
+      CKC_PILOT_CADRAGE_PATH,
+    );
+    expect(
+      getCycleTypeById("cyc:functional-design")?.ckc.primaryReference,
+    ).toBe(CKC_PILOT_CONCEPTION_PATH);
+    expect(
+      getCycleTypeById("cyc:technical-architecture")?.ckc.primaryReference,
+    ).toBe(CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH);
+    expect(getCycleTypeById("cyc:qa-validation")?.ckc.primaryReference).toBe(
+      CKC_PILOT_QA_VALIDATION_PATH,
+    );
+
+    for (const rel of [
+      CKC_SYNTHETIC_MAP_PATH,
+      CKC_PILOT_CADRAGE_PATH,
+      CKC_PILOT_CONCEPTION_PATH,
+      CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH,
+      CKC_PILOT_QA_VALIDATION_PATH,
+    ]) {
+      expect(existsSync(path.join(WORKSPACE_ROOT, rel))).toBe(true);
+    }
+  });
+
+  it("looks up by cycleTypeId only — never label or canonicalKey", () => {
+    expect(getCycleTypeById("cyc:delivery")?.label).toBe(
+      "Delivery / implémentation",
+    );
+    expect(getCycleTypeById("delivery-implementation")).toBeUndefined();
+    expect(getCycleTypeById("Delivery / implémentation")).toBeUndefined();
+    expect(getCycleTypeById("cadrage")).toBeUndefined();
+    expect(isKnownCycleTypeId("unknown")).toBe(false);
+    expect(getCycleTypeById("cyc:unknown")).toBeUndefined();
+  });
+
+  it("returns a non-mutating list copy", () => {
+    const listed = listCycleTypes();
+    listed.pop();
+    expect(listCycleTypes()).toHaveLength(15);
+    expect(CYCLE_TYPE_CATALOG.entries).toHaveLength(15);
+  });
+
+  it("contains no profile, gate or morris decision fields", () => {
+    for (const entry of CYCLE_TYPE_CATALOG.entries) {
+      const keys = Object.keys(entry);
+      expect(keys).not.toContain("profile");
+      expect(keys).not.toContain("recommendedProfile");
+      expect(keys).not.toContain("gate");
+      expect(keys).not.toContain("isMorrisDecision");
+      expect(keys).not.toContain("Light");
+      expect(entry.ckc.executionAuthority).toBe(false);
+    }
+  });
+
+  it("passes production catalog validation", () => {
+    expect(validateCycleTypeCatalog(CYCLE_TYPE_CATALOG)).toEqual([]);
+  });
+
+  it("starts with empty aliases (controlled aliases supported, none required)", () => {
+    for (const entry of CYCLE_TYPE_CATALOG.entries) {
+      expect(entry.aliases).toEqual([]);
+    }
+  });
+});
+
+describe("V3.1-D1 cycle type catalog negatives", () => {
+  it("rejects duplicate cycleTypeId", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[1] = { ...entries[1], cycleTypeId: entries[0].cycleTypeId };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some((i) => i.code === "ID_DUPLICATE"),
+    ).toBe(true);
+  });
+
+  it("rejects duplicate displayOrder", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[1] = { ...entries[1], displayOrder: entries[0].displayOrder };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "DISPLAY_ORDER_DUPLICATE",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects duplicate methodCycleNumber", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[1] = {
+        ...entries[1],
+        methodCycleNumber: entries[0].methodCycleNumber,
+      };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "METHOD_NUMBER_DUPLICATE",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects invalid OA pattern", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[0] = { ...entries[0], cycleTypeId: "not-an-oa-id" };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "ID_PATTERN" || i.code === "ID_PREFIX",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects missing capitalization id", () => {
+    const catalog = cloneCatalog((entries) =>
+      entries.filter((e) => e.cycleTypeId !== "cyc:capitalization"),
+    );
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "CAPITALIZATION_MISSING" || i.code === "COUNT",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects missing CKC mapping", () => {
+    const catalog = cloneCatalog((entries) => {
+      const { ckc: _ckc, ...rest } = entries[0];
+      entries[0] = rest as CycleTypeDefinition;
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some((i) => i.code === "CKC_MISSING"),
+    ).toBe(true);
+  });
+
+  it("rejects executionAuthority true", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        ckc: {
+          ...entries[0].ckc,
+          executionAuthority: true as unknown as false,
+        },
+      };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "CKC_EXECUTION_AUTHORITY",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects detailed without synthetic fallback", () => {
+    const catalog = cloneCatalog((entries) => {
+      const framing = entries.find((e) => e.cycleTypeId === "cyc:framing")!;
+      const idx = entries.indexOf(framing);
+      entries[idx] = {
+        ...framing,
+        ckc: {
+          ...framing.ckc,
+          fallbackPolicy: "none",
+          fallbackReference: undefined,
+        },
+      };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "CKC_DETAILED_FALLBACK",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects synthetic without synthetic map reference", () => {
+    const catalog = cloneCatalog((entries) => {
+      const entry = entries.find(
+        (e) => e.cycleTypeId === "cyc:delivery",
+      )!;
+      const idx = entries.indexOf(entry);
+      entries[idx] = {
+        ...entry,
+        ckc: {
+          ...entry.ckc,
+          primaryReference: "method/invented.md",
+        },
+      };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "CKC_SYNTHETIC_REF",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects ambiguous aliases", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[0] = { ...entries[0], aliases: ["alias:dup", "alias:dup"] };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(catalog).some(
+        (i) => i.code === "ALIAS_AMBIGUOUS",
+      ),
+    ).toBe(true);
+  });
+});
+
+---
+
+# FULL DIFF: index.ts
+
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+index 78aea88..3daf575 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+@@ -9,6 +9,7 @@ export * from "./domain/types";
+ export * from "./domain/errors";
+ export * from "./domain/invariants";
+ export * from "./domain/qualification";
++export * from "./domain/cycleTypeCatalog";
+
+ export * from "./ports/cycleRepository";
+ export * from "./ports/trajectoryRepository";
+
+---
+
+# FULL FILE: D1 README
+
+# V3.1-D1 — Cycle Type Catalog Runtime Contract
+
+## A. Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-30 18:52:00 CEST (+0200) |
-| **Cycle** | 1 — Cadrage (phase arbitrage / validation) |
-| **Profil** | Standard |
-| **Typologie** | DOC |
-| **Profondeur** | Standard |
-| **Gate cadrage** | `GO CADRAGE SFIA STUDIO LOT V3 CYCLE RECOMMENDATION` (consommé) |
-| **Gate arbitrage (normalisé)** | voir Decision record Morris |
-| **Branche** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
+| **Date/heure/fuseau** | 2026-07-30 20:48:00 CEST (+0200) |
+| **Cycle** | 8 — Delivery / implémentation |
+| **Profil** | **Critical** |
+| **Typologie** | EVOL |
+| **GO Morris consommé** | `GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE` (2026-07-30 20:35 CEST) |
+| **Branche** | `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
-| **Commit V2-A3 intégré** | `e1db1f52c12d2e0fdb5ac5c9f66b8984015d14ba` (via merge `3e8a437…`) |
-| **CKC Cadrage** | `pilots/01-cadrage.md` · status `candidate` · v0.1.0 · **aucune autorité d’exécution** |
-| **Statut documentaire** | `ARBITRATION RECORDED — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED` |
+| **CKC Delivery** | fallback carte synthétique + méthode §4.8 · method-candidate · consommation obligatoire · `executionAuthority=false` |
+| **Statut** | `V3.1-D1 CYCLE TYPE CATALOG RUNTIME CONTRACT IMPLEMENTED — MANDATORY CKC MAPPING IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED` |
 | **Commit / push / PR projet** | **non** |
 
-## B. Résumé exécutif
+## B. Objectif
 
-L’utilisateur local (Morris en démonstrateur) dispose désormais d’un Project Workspace process-local (`/studio/projects/[id]`) après Create Project. Le parcours historique prévoit ensuite une **recommandation de cycle**.
+Produire le **contrat runtime pur** des quinze types de cycle adoptés et leur **mapping CKC obligatoire**, sans orchestration resolver, sans bridge QualifyCycle, sans UI, sans CreateCycle.
 
-**Écart structurant :** le runtime T-A2 (`QualifyCycle`) recommande un **profil** (`Light` \| `Standard` \| `Critical`) à partir de signaux structurés. Il **ne recommande pas** un `cycleTypeId`. `CreateCycle` **exige** un `cycleTypeId` déjà fourni. Afficher honnêtement « cycle recommandé » sans arbitrage Morris sur la **source du type** serait une sur-promesse.
+## C. Décisions Morris consommées
 
-Ce cadrage formalise la promesse, les options, les frontières T-A2 et le decision pack D-V3 — **sans** implémentation ni sélection implicite.
+D-V3.1-CAT-01…08 adoptées — voir [`14`](../first-user-visible-vertical-slice-framing/14-v3-1-cycle-type-catalog-functional-architecture.md).
 
-## C. Intention vs solution
+Quinze IDs CAT-I1 : `cyc:framing` … `cyc:capitalization` (inchangé).
 
-### Problème
+## D. Implémentation
 
-Après création et consultation d’un Project + LPS, l’utilisateur doit comprendre **quel type de travail SFIA** engager ensuite et sous **quel profil de contrôle**, sans confondre recommandation et décision Morris.
-
-### Ce que « Cycle Recommendation » peut signifier
-
-1. Recommander un **profil** (déjà supporté par T-A2 QualifyCycle).
-2. Recommander un **type de cycle** (`cycleTypeId`) — **non supporté** aujourd’hui par QualifyCycle.
-3. Préparer / créer un `CycleInstance` — CreateCycle, mutation explicite.
-4. Persister un `EpistemicItem` de type Recommendation — option épistémique distincte.
-5. Lier le cycle comme actif dans le LPS — `linkAsActiveCycle`, option mutation distincte.
-
-### Solutions non présélectionnées
-
-Aucune architecture, aucun moteur parallèle, aucune dépendance LLM, aucune frame Figma V3 ne sont retenus ici.
-
-## D. Bénéficiaire et autorité
-
-| Élément | Position |
-|---------|----------|
-| Bénéficiaire | Morris local — opérateur du démonstrateur Studio |
-| Identité | **aucune** authentification IAM |
-| Autorité Critical réelle | **absente** — Critical reste `proposed` |
-| Stakeholder inventé | **interdit** |
-| Décision Morris | Lot **V4** / T-A3 — hors V3 |
-
-## E. État actuel repo-informed
-
-| Élément | État |
+| Fichier | Rôle |
 |---------|------|
-| V1 composition Project/LPS | intégré (fondation) |
-| V2-A1 runtime bridge | intégré · create/get Project only |
-| V2-A2 Create Project UI | intégré · `/studio/projects/new` |
-| V2-A3 Project Workspace UI | intégré · `/studio/projects/[id]` · PR #295 MERGED |
-| Singleton process-local | `globalThis` · volatil |
-| Contrats T-A2 | présents sous `lib/oa/cycle/**` |
-| Runtime vertical-slice | **n’expose pas** QualifyCycle / CreateCycle |
-| Workspace UI | projection Project/LPS · CTA « Créer un autre projet » uniquement |
-| Agent / LLM live | indisponible |
-| Figma V3 | **non validé** comme source d’exécution · D-VS-05 non consommée |
+| `app/lib/oa/cycle/domain/cycleTypeCatalog.ts` | Types + données immuables + opérations pures + validation |
+| `app/lib/oa/cycle/index.ts` | Export public du contrat |
+| `app/__tests__/oa/cycle/cycleTypeCatalog.test.ts` | Preuves positives / négatives |
 
-## F. Écart fonctionnel majeur
+**Version catalogue :** `0.1.0-v3.1-d1`
 
-```text
-Promesse produit historique (J4) :
-  « Affiche : cycle recommandé, profil, justification… »
+**Opérations publiques :** `listCycleTypes` · `getCycleTypeById` · `isKnownCycleTypeId` · `validateCycleTypeCatalog` · constantes/paths CKC · `CYCLE_TYPE_CATALOG` · `ADOPTED_CYCLE_TYPE_IDS`
 
-Contrat T-A2 réel :
-  QualifyCycle  → recommendedProfile (+ rationale, flags)
-                  cycleTypeId optionnel (capitalization hint only)
-  CreateCycle   → cycleTypeId OBLIGATOIRE
-                  status Critical=proposed | Light/Standard=acknowledged
-                  isMorrisDecision toujours false sur qualification
+**CycleTypeDefinition :** id · canonicalKey · label · shortDescription · displayOrder · lifecycleStatus · methodCycleNumber · methodReference · ckc · aliases
+
+**CycleTypeCkcMapping :** mandatory · primaryLevel · primaryReference · fallbackPolicy · fallbackReference? · executionAuthority=false · doctrineStatus · unavailableBehavior
+
+Aucun I/O · aucun fs runtime · aucun React · aucun singleton mutable.
+
+## E. Mapping complet
+
+| # | cycleTypeId | Label | CKC |
+|---|-------------|-------|-----|
+| 1 | `cyc:framing` | Cadrage | detailed → pilots/01 + synthetic fallback |
+| 2 | `cyc:functional-design` | Conception fonctionnelle | detailed → pilots/02 + synthetic fallback |
+| 3 | `cyc:functional-architecture` | Architecture fonctionnelle | synthetic map |
+| 4 | `cyc:ux-ui` | UX/UI | synthetic map |
+| 5 | `cyc:backlog` | Backlog / user stories | synthetic map |
+| 6 | `cyc:technical-architecture` | Architecture technique | detailed → pilots/03 + synthetic fallback |
+| 7 | `cyc:integration-devops` | Intégration / DevOps | synthetic map |
+| 8 | `cyc:delivery` | Delivery / implémentation | synthetic map |
+| 9 | `cyc:qa-validation` | QA / validation | detailed → pilots/04 + synthetic fallback |
+| 10 | `cyc:security` | Sécurité / RSSI | synthetic map |
+| 11 | `cyc:release` | Déploiement / release | synthetic map |
+| 12 | `cyc:observability` | Observabilité / RUN readiness | synthetic map |
+| 13 | `cyc:pr-readiness` | PR readiness | synthetic map |
+| 14 | `cyc:post-merge` | Post-merge | synthetic map |
+| 15 | `cyc:capitalization` | Capitalisation / REX | synthetic map |
+
+Synthetic map path : `method/.../02-fifteen-cycles-synthetic-map.md`
+
+## F. Invariants
+
+Exactement 15 · IDs/keys/numbers/orders uniques · pattern OA `cyc:` · `cyc:capitalization` exact · labels/descriptions non vides · CKC mandatory · `executionAuthority=false` · 4 detailed + 11 synthetic · detailed ⇒ fallback synthétique · type ≠ profil · immuabilité · fail-closed metadata · pas de parsing Markdown runtime.
+
+## G. Tests
+
+```bash
+cd projects/sfia-studio/app
+npm test -- __tests__/oa/cycle/cycleTypeCatalog.test.ts
+npm test -- __tests__/oa/cycle/
+npm run typecheck
+npm run lint
+npm run build
 ```
 
-**Conséquence :** le produit ne peut pas afficher honnêtement « cycle (type) recommandé » sans décision Morris sur D-V3-01 / D-V3-02. Il peut déjà, en principe, afficher « profil recommandé » si V3 se borne à QualifyCycle + saisie des signaux + `cycleTypeId` fourni autrement.
+Résultats (2026-07-30) : catalog 24/24 PASS · suite oa/cycle 72/72 PASS · typecheck PASS · lint PASS · build PASS.
 
-## G. Définitions fonctionnelles distinctes
+## H. Frontières
 
-| Terme | Définition |
-|-------|------------|
-| **Type de cycle** | Identifiant `cycleTypeId` (ex. catalogue méthode) — entrée de CreateCycle |
-| **Profil** | `Light` \| `Standard` \| `Critical` — sortie de QualifyCycle |
-| **Signaux** | Booléens structurés : structuralChange, securityImpact, architectureImpact, dataImpact, irreversible, lowRiskBounded |
-| **Recommandation** | Sortie QualifyCycle · `isMorrisDecision=false` |
-| **CycleInstance** | Entité persistée process-local via CreateCycle |
-| **proposed** | Statut Critical à la création — pas d’ack auto |
-| **acknowledged** | Statut Light/Standard à la création — **≠** décision Morris |
-| **activeCycleInstanceId** | Champ LPS — liaison optionnelle `linkAsActiveCycle` |
-| **EpistemicItem Recommendation** | Type épistémique modélisé — persistance **optionnelle** et séparée |
-| **Décision Morris** | Acte humain V4/T-A3 — hors V3 |
+- Resolver opérationnel : **NON** (D2)
+- Bridge QualifyCycle : **NON** (D2)
+- Vertical-slice runtime : **NON**
+- UI / CreateCycle / LPS / epistemic : **NON**
+- method/** import runtime : **NON**
 
-## H. Parcours utilisateur candidat
+## I. Risques et réserves
 
-Depuis `/studio/projects/[id]` :
+D2 requis pour résolution orchestrée · D3 réserve Figma · process-local hors D1 · aucune CycleInstance · pas de preuve produit end-to-end.
 
-1. Consulter le contexte Project + LPS (V2-A3).
-2. Ouvrir une surface « préparation / recommandation » (route ou section — **non décidée**).
-3. Fournir ou confirmer les entrées (signaux, éventuellement type, justification Critical).
-4. Obtenir une **qualification** (profil + rationale + réserves).
-5. Comprendre que **recommandation ≠ décision Morris**.
-6. Éventuellement, via CTA explicite (si option retenue), **créer** un CycleInstance.
-7. Ne **jamais** activer Critical, consommer un gate, ni simuler une autorité IAM.
+## J. Anti-claims
 
-## I. Entrées candidates
+Registry D1 ≠ mécanisme CKC complet · mapping ≠ résolution · export domaine ≠ exposition vertical-slice · tests unitaires ≠ validation produit · implementation ≠ PR readiness · D2/D3 non ouverts · pas PRODUCT/RUN/IAM/AGENT READY · pas DELIVERY/CUTOVER AUTHORIZED · pas HARD CLOSED / T-A6 COMPLETE.
 
-| Entrée | Rôle | Note |
-|--------|------|------|
-| projectId | contexte | depuis workspace |
-| objectif / scope | narration UI | non scorés implicitement |
-| cycleTypeId | selon D-V3-02 | requis pour CreateCycle |
-| structuralChange | signal | booléen explicite |
-| securityImpact | signal | booléen explicite |
-| architectureImpact | signal | booléen explicite |
-| dataImpact | signal | booléen explicite |
-| irreversible | signal | booléen explicite |
-| lowRiskBounded | signal | booléen explicite |
-| requestedProfile | optionnel | peut être ajusté par règles |
-| justification Critical | obligatoire si Critical | CreateCycle |
+## K. Verdict
 
-**Interdit :** score implicite, analyse IA live, scraping navigateur, déduction silencieuse de signaux.
-
-## J. Sorties candidates
-
-| Sortie | Source |
-|--------|--------|
-| recommendedProfile | QualifyCycle |
-| rationale | QualifyCycle |
-| criticalSignalsPresent | QualifyCycle |
-| requiresJustificationForCritical | QualifyCycle |
-| isMorrisDecision=false | QualifyCycle (toujours) |
-| capitalizationViaCycleTypeId | si cycleTypeId fourni |
-| état CKC (detailed/synthetic/absent/unavailable) | ResolveCKC — guidance only |
-| réserves process-local / B5 / R1 | disclosures |
-| CycleInstance | **uniquement** après CreateCycle explicite si option validée |
-
-## K. Options de promesse produit
-
-### Option V3-A — Type sélectionné + profil recommandé *(compatible T-A2 actuel)*
-
-- L’utilisateur **sélectionne** explicitement un `cycleTypeId` (catalogue guidé, non inventé dans React).
-- QualifyCycle recommande le **profil**.
-- CTA explicite éventuel → CreateCycle.
-
-### Option V3-B — Type + profil tous deux recommandés
-
-- Nécessite une **conception** (et probablement architecture) pour produire `cycleTypeId` de façon déterministe.
-- Risque : moteur parallèle / duplication de la méthode.
-- Hors « simple bridge » runtime.
-
-### Option V3-C — Agent / LLM live
-
-- **Hors trajectoire actuelle** : agent réel indisponible, pas d’autorité d’exécution, pas de dépendance réseau autorisée pour ce démonstrateur.
-
-**Arbitrage :** option **V3-A** retenue (D-V3-01/02 = 1). V3-B et V3-C non retenues pour ce lot.
-
-## L. Options de mutation
-
-| Option | Description | Note |
-|--------|-------------|------|
-| L1 | Qualification **read-only** | aucune CreateCycle |
-| L2 | Qualification puis **CTA explicite** de création | recommandé comme candidate |
-| L3 | Création **automatique** après qualify | **non recommandée** — création implicite |
-| L4a | Ne **pas** lier LPS actif dans V3 | |
-| L4b | Lier LPS actif **après CTA** (`linkAsActiveCycle`) | |
-| L5a | Recommandation **non persistée** épistémiquement | |
-| L5b | Persister `Recommendation` EpistemicItem après action explicite | |
-
-Chaque axe (L1–L3, L4, L5) est un arbitrage **séparé** (D-V3-03…05).
-
-## M. Critical
-
-Contraintes **déjà imposées** par T-A2 (à confirmer / rappeler, pas à inventer) :
-
-- signaux Critical → profil Critical ;
-- justification **obligatoire** à la création ;
-- status **`proposed`** uniquement ;
-- **aucun** acknowledgement Critical dans T-A2 ;
-- **aucun** gate Morris consommé ;
-- UI attendue : état **blocked / Morris decision required** → Lot **V4** ;
-- fail-closed.
-
-## N. CKC
-
-| Règle | Position |
-|-------|----------|
-| Statut | candidate / guidance |
-| detailed / synthetic / absent | informatif |
-| unavailable | **ne pas** inventer d’autorité |
-| executionAuthority | **false** |
-| Visibilité UI V3 | **à décider** (détail technique vs bandeau utilisateur) |
-
-## O. États UI candidats
-
-| État | Description |
-|------|-------------|
-| initial | workspace projet, pas encore de qualification |
-| saisie | formulaire signaux / type |
-| qualification en cours | loading |
-| recommandation disponible | profil + rationale + disclosures |
-| Critical proposé / bloqué | proposed · CTA V4 · pas d’activation |
-| cycle déjà existant | conflit id / navigation |
-| projet introuvable | PROJECT_NOT_FOUND process-local |
-| conflit LPS | LPS_VERSION_CONFLICT |
-| erreur de persistance | PERSISTENCE_FAILURE |
-| CKC unavailable | guidance absente, qualify/create non bloqués par CKC |
-| état local perdu | restart / hot reload |
-
-## P. Erreurs et recovery
-
-| Code | Comportement utilisateur attendu |
-|------|----------------------------------|
-| CYCLE_INVALID | corriger les champs ; message clair |
-| CYCLE_ALREADY_EXISTS | afficher l’existant ou demander autre id |
-| CYCLE_CRITICAL_JUSTIFICATION_REQUIRED | bloquer create ; saisir justification |
-| PROJECT_NOT_FOUND | retour création / recommencer process-local |
-| CKC_UNAVAILABLE | continuer sans autorité inventée ; disclosure |
-| LPS_VERSION_CONFLICT | recharger LPS ; retenter lien actif si applicable |
-| CONTEXT_STALE | rafraîchir projection workspace |
-| STATE_CONFLICT | message borné ; pas de retry silencieux destructif |
-| PERSISTENCE_FAILURE | état process-local ; proposer recommencer |
-
-Aucune implémentation n’est spécifiée ici.
-
-## Q. Scope
-
-### Pourrait inclure (futur, si décisions favorables)
-
-- surface UI sur workspace ;
-- bridge Server Action → QualifyCycle (± CreateCycle) ;
-- disclosures et bandeau ≠ décision ;
-- états loading / error / Critical blocked ;
-- tests boundaries + preuves captures.
-
-### Hors scope V3
-
-- IAM · décision Critical réelle · agent live · dashboard V5 · delivery/cutover · fermeture HARD/T-A6/B5/R1 · moteur LLM · Figma write · logique domaine React · création automatique · push/PR sans GO.
-
-## R. Critères de succès (cycles suivants)
-
-- profil recommandé compris ;
-- justification / rationale lisible ;
-- distinction recommandation / décision explicite ;
-- aucun cycle créé sans action explicite **si** L2 retenu ;
-- aucun Critical activé ;
-- aucune fixture happy path ;
-- aucune règle T-A2 dupliquée dans React ;
-- anti-claims visibles ;
-- preuves : tests unit/composant + captures runtime définies au delivery.
-
-## S. Slicing (D-V3-08 = option 1 adoptée)
-
-| Option | Contenu | Statut |
-|--------|---------|--------|
-| **S1 — V3.1 puis V3.2** | A: UI + Qualify read-only · B: Create + options LPS/épistémiques | **retenu** |
-| **S2 — lot unique borné** | Qualify + Create explicite + disclosures | non retenu |
-| **S3 — recadrage** | si type recommandé (V3-B) | non applicable (V3-A retenu) |
-
-## T. Risques et réserves
-
-1. Promesse « cycle recommandé » > contrat QualifyCycle.
-2. Duplication de la méthode / scoring dans React.
-3. Création implicite (L3).
-4. Confusion `acknowledged` ≠ décision Morris.
-5. Critical overclaim.
-6. Volatilité process-local / singleton.
-7. LPS conflict (R1) · B5 ouvert.
-8. CKC candidate.
-9. Absence de Figma V3 validé (D-VS-05 / D-V3-07).
-10. Framing pack historique encore partiellement stale sur V2 (corrigé par ce cadrage / README).
-
-## U. Decision pack Morris
-
-### Decision record Morris
-
-| Champ | Valeur |
-|-------|--------|
-| **Formulation réelle (Morris)** | « ok pour les différents choix, on continue et on avance » |
-| **Date/heure/fuseau** | 2026-07-30 vers 18:46 CEST (+0200) |
-| **Interprétation** | Acceptation explicite des recommandations du cadrage V3 (D-V3-01…08) |
-| **Formulation normalisée (traçabilité)** | `GO ARBITRATE SFIA STUDIO V3 CYCLE RECOMMENDATION — D-V3-01=1 — D-V3-02=1 — D-V3-03=2 — D-V3-04=1 — D-V3-05=1 — D-V3-06=CONFIRM CRITICAL FAIL-CLOSED — D-V3-07=1 WITH FIGMA REASSESSMENT RESERVE — D-V3-08=1` |
-| **Note** | La formulation normalisée trace la décision ; elle ne remplace pas la citation réelle ci-dessus. |
-
-| ID | Option retenue | Conséquence | Réserve | Statut |
-|----|----------------|-------------|---------|--------|
-| D-V3-01 | **1** — type sélectionné + profil T-A2 | Promesse = sélection type + recommandation profil | — | `DECIDED — ADOPTED BY MORRIS` |
-| D-V3-02 | **1** — sélection explicite catalogue | Pas de recommandation auto du `cycleTypeId` | catalogue contrôlé, non inventé dans React | `DECIDED — ADOPTED BY MORRIS` |
-| D-V3-03 | **2** — CTA explicite de création | Pas de création automatique | création hors 1er incrément read-only | `DECIDED — ADOPTED BY MORRIS` |
-| D-V3-04 | **1** — pas de lien LPS actif au 1er incrément | `linkAsActiveCycle` hors V3.1 | réévaluer en V3.2+ | `DECIDED — ADOPTED BY MORRIS` |
-| D-V3-05 | **1** — reco non persistée | Pas d’EpistemicItem Recommendation au 1er incrément | réévaluer en V3.2+ | `DECIDED — ADOPTED BY MORRIS` |
-| D-V3-06 | **CONFIRM CRITICAL FAIL-CLOSED** | proposed · justification · pas d’activation/ack/gate | bascule V4 | `DECIDED — ADOPTED BY MORRIS` |
-| D-V3-07 | **1** + réserve Figma | Contrat Git temporaire | réévaluer Figma avant UI substantielle / fidélité | `DECIDED — ADOPTED BY MORRIS` |
-| D-V3-08 | **1** — slicing progressif | V3.1 read-only puis V3.2 create explicite | — | `DECIDED — ADOPTED BY MORRIS` |
-
-### D-V3-01 — Promesse fonctionnelle
-
-Options initiales :
-
-1. Cycle type **sélectionné** + profil **recommandé** (V3-A).
-2. Type de cycle **et** profil **recommandés** (V3-B).
-3. Autre.
-
-Recommandation historique (cadrage) : option **1**.
-
-**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
-Conséquence : l’utilisateur sélectionne le type ; T-A2 recommande le profil.
-
-### D-V3-02 — Source du cycleTypeId
-
-Options initiales :
-
-1. Sélection explicite utilisateur.
-2. Règles déterministes à concevoir.
-3. Agent / LLM live.
-4. Autre.
-
-Recommandation historique : option **1** (3 hors trajectoire).
-
-**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
-Conséquence : catalogue contrôlé · aucune recommandation automatique du type.
-
-### D-V3-03 — Mutation
-
-Options initiales :
-
-1. Qualification read-only.
-2. CTA explicite de création.
-3. Création automatique.
-
-Recommandation historique : option **2** · **3 non recommandée**.
-
-**Décision : option 2 — DECIDED — ADOPTED BY MORRIS.**
-Conséquence : création uniquement via CTA ; jamais automatique. Le 1er incrément (V3.1) reste read-only ; la création relève du 2e incrément (V3.2).
-
-### D-V3-04 — Liaison au LPS
-
-Options initiales :
-
-1. Ne pas lier comme actif dans V3.
-2. Lier uniquement après CTA explicite.
-3. Autre.
-
-Recommandation historique : option **1** au premier incrément.
-
-**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
-Conséquence : pas de `linkAsActiveCycle` dans V3.1.
-
-### D-V3-05 — Épistémologie
-
-Options initiales :
-
-1. Recommandation calculée **non persistée**.
-2. `Recommendation` EpistemicItem persisté après action explicite.
-3. Autre.
-
-Recommandation historique : option **1** au premier incrément.
-
-**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
-Conséquence : pas de persistance EpistemicItem Recommendation en V3.1.
-
-### D-V3-06 — Critical
-
-Contrainte T-A2 réaffirmée : `proposed` · justification obligatoire · aucune activation / ack / gate auto · bascule V4.
-
-**Décision : CONFIRM CRITICAL FAIL-CLOSED — DECIDED — ADOPTED BY MORRIS.**
-
-### D-V3-07 — UX / Figma
-
-Options initiales :
-
-1. Contrat Git temporaire.
-2. Cycle Figma dédié avant delivery.
-3. Autre.
-
-Recommandation historique : option **1** pour démarrer.
-
-**Décision : option 1 WITH FIGMA REASSESSMENT RESERVE — DECIDED — ADOPTED BY MORRIS.**
-Conséquence : contrat Git temporaire · **D-VS-05 reste NOT DECIDED / NOT CONSUMED** · réévaluer un cycle Figma avant toute UI substantielle ou revendication de fidélité visuelle.
-
-### D-V3-08 — Slicing
-
-Options initiales :
-
-1. V3-A puis V3-B (S1) — read-only puis création.
-2. Lot unique borné (S2).
-3. Recadrage (S3).
-
-Recommandation historique : option **1**.
-
-**Décision : option 1 — DECIDED — ADOPTED BY MORRIS.**
-Conséquence :
-
-- **V3.1** — conception puis delivery (gates distincts) : qualification **read-only** (type sélectionné + profil recommandé).
-- **V3.2** — création explicite CycleInstance (± options LPS/épistémiques ultérieures si nouveaux GO).
-
-## V. Recommandation ChatGPT/Cursor — **ARBITRÉE**
-
-La recommandation de cadrage ci-dessous a été **présentée** puis **acceptée** par Morris (formulation réelle du Decision record). Elle n’est plus « à arbitrer » ; la **source de décision** est Morris, pas la recommandation elle-même.
-
-Recommandation historique (consommée) :
-
-1. D-V3-01/02 → Option V3-A.
-2. D-V3-03 → L2 (CTA explicite ; rejeter L3).
-3. D-V3-04 → L4a au 1er incrément.
-4. D-V3-05 → L5a au 1er incrément.
-5. D-V3-06 → Critical fail-closed.
-6. D-V3-07 → contrat Git + réserve Figma.
-7. D-V3-08 → S1 (read-only puis create).
-
-**Réserves maintenues (non levées par l’arbitrage) :**
-
-- réévaluation Figma avant UI substantielle (D-V3-07) ;
-- D-VS-05 non consommée ;
-- B5 / R1 ouverts ;
-- volatilité process-local ;
-- pas d’implémentation sans GO delivery distinct.
-
-## W. Transition candidate
-
-| Étape | Statut |
-|-------|--------|
-| Arbitrage D-V3 | **fait** |
-| Prochain cycle candidat | **Conception fonctionnelle V3.1** — profile qualification UI · type sélectionné · profil T-A2 · **read-only** · pas de CreateCycle |
-| Architecture moteur type recommandé | **non requise** (D-V3-01/02 = sélection explicite) |
-| Delivery / implémentation | **non autorisée** tant que GO conception puis GO delivery absents |
-| V3.2 CreateCycle explicite | après V3.1 · GO distinct |
-
-Gate candidat suivant (non ouvert) :
-
-`GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE`
-
-## X. Anti-claims
-
-- Cadrage / arbitrage ≠ conception validée ≠ delivery autorisé
-- Recommandation historique ≠ source de décision (Morris décide)
-- Profil recommandé ≠ type de cycle recommandé
-- `acknowledged` ≠ autorité Morris
-- Cycle créé ≠ cycle actif si non lié
-- CKC ≠ autorité d’exécution
-- V3 framing ≠ V3 implementation
-- Tests futurs ≠ PRODUCT READY / RUN READY
-- Pas IAM / agent / delivery / cutover / HARD CLOSED / T-A6 COMPLETE
-
-## Y. Verdict et prochain gate candidat
-
-**V3 CYCLE RECOMMENDATION ARBITRATION RECORDED — READY FOR FUNCTIONAL DESIGN V3.1 — IMPLEMENTATION NOT AUTHORIZED**
-
-Prochain gate candidat (non ouvert) :
-
-`GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE`
+**V3.1-D1 CYCLE TYPE CATALOG RUNTIME CONTRACT IMPLEMENTED — MANDATORY CKC MAPPING IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED**
 
 ---
 
-# FULL FILE (final): 13
+# FULL FILE: framing README
 
-# 13 — V3.1 Profile Qualification UI — Conception fonctionnelle
-
-## A. Meta et cycle record
+# First user-visible SFIA Studio vertical slice — Framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-30 19:09:00 CEST (+0200) |
-| **Cycle** | 2 — Conception fonctionnelle |
-| **Profil** | Standard |
-| **Typologie** | DOC |
-| **Profondeur** | Standard |
-| **GO Morris consommé** | `GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1 PROFILE QUALIFICATION UI — USER SELECTS CYCLE TYPE — T-A2 RECOMMENDS PROFILE — READ-ONLY FIRST — NO CREATE CYCLE` |
-| **Branche** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
+| **Statut** | `FRAMING LIVING — CATALOG DECISIONS ADOPTED — V3.1-D1 RUNTIME CONTRACT IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED` |
+| **Date** | 2026-07-30 20:48:00 CEST (+0200) |
+| **Cycle courant** | 8 — Delivery V3.1-D1 Cycle Type Catalog Runtime |
+| **Profil** | **Critical** |
+| **Typologie** | EVOL |
+| **Gate courant** | `GO DELIVERY SFIA STUDIO V3.1-D1 …` **consommé** (2026-07-30 20:35 CEST) |
+| **Branche Delivery** | `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
-| **CKC** | `pilots/02-conception-fonctionnelle.md` · status `candidate` · v0.1.0 · **aucune autorité d’exécution** |
-| **Document d’arbitrage hérité** | `12-v3-cycle-recommendation-cadrage.md` (**lecture seule** — non modifié) |
-| **Architecture catalogue** | `14` — décisions D-V3.1-CAT **adoptées** · CKC obligatoire intégré · runtime **non** implémenté |
-| **Statut documentaire** | `V3.1 FUNCTIONAL DESIGN COMPLETE — CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
-| **Commit / push / PR projet** | **non** |
-| **Code / tests / Figma** | **non modifiés** |
+| **Code D1** | `lib/oa/cycle/domain/cycleTypeCatalog.ts` · tests · exports |
+| **Docs protégées** | `12` / `13` **inchangés** |
 
-## B. Décisions d’entrée (D-V3)
+## Synthèse
 
-| ID | Décision | Conséquence exacte sur V3.1 |
-|----|----------|------------------------------|
-| D-V3-01 = 1 | Type sélectionné · profil T-A2 | L’UI exige une sélection de type ; QualifyCycle produit uniquement le profil |
-| D-V3-02 = 1 | Catalogue contrôlé | Aucun moteur de recommandation du type ; pas de saisie libre |
-| D-V3-03 = 2 | CTA create (cible globale) | **Hors V3.1** : aucun CreateCycle, aucun CTA create actif |
-| D-V3-04 = 1 | Pas de lien LPS actif | Aucun `linkAsActiveCycle` |
-| D-V3-05 = 1 | Reco non persistée | Aucun EpistemicItem Recommendation |
-| D-V3-06 | Critical fail-closed | Résultat Critical informatif ; pas d’activation / ack / gate |
-| D-V3-07 = 1 + réserve | Contrat Git temporaire | Aucune frame Figma baseline ; réévaluation avant UI substantielle |
-| D-V3-08 = 1 | Slicing progressif | V3.1 = read-only · V3.2 = create explicite |
+| Lot | État |
+|-----|------|
+| V1 / V2 | intégrés `main` |
+| V3 arbitrage D-V3 | terminé (`12`) |
+| V3.1 conception | terminée (`13`) |
+| V3.1 catalogue décisions | adoptées (`14`) |
+| **V3.1-D1** catalogue runtime + mapping CKC | **implémenté** — [README D1](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md) |
+| V3.1-D2 resolver + QualifyCycle bridge | **non autorisé** |
+| V3.1-D3 UI | **non autorisé** · D-VS-05 / Figma |
+| V3.2 / V4–V6 | non autorisés |
 
-**Réserves maintenues :** D-VS-05 NOT CONSUMED · B5 / R1 hors périmètre · volatilité process-local · runtime catalogue / resolver **pending** (contrat + arbitrage résolus — voir `14`).
+**R-V3.1-CATALOG-01 :** contrat + arbitrage résolus · **runtime catalog D1 implémenté** · résolution orchestrée **pending D2**.
 
-## C. Objectif fonctionnel et valeur
+**CKC :** obligatoire dans le mécanisme produit · mapping statique D1 · consommation orchestrée = D2 · `executionAuthority=false` · candidate ≠ optionnel ≠ baseline méthode globale.
 
-### Problème
+## Décisions (synthèse)
 
-Après Create Project et Project Workspace, l’opérateur local doit préparer un cycle en comprenant **quel profil de contrôle** T-A2 recommande, sans confondre cela avec une décision Morris ni avec la création d’un CycleInstance.
+D-VS-01…04 adoptées · D-VS-05 NOT CONSUMED · D-V3-01…08 adoptées · D-V3.1-CAT-01…08 adoptées · quinze IDs CAT-I1 implémentés dans le contrat runtime.
 
-### Valeur
+## Index
 
-- Rendre **observable** la qualification de profil à partir de réponses explicites.
-- Afficher une **justification compréhensible** et des **réserves honnêtes**.
-- Préparer V3.2 (create) sans anticiper la mutation.
+| Doc | Sujet |
+|-----|-------|
+| `12` | V3 cadrage + arbitrage |
+| `13` | V3.1 conception fonctionnelle |
+| `14` | V3.1 catalogue architecture + adoption |
+| V3.1-D1 README | Contrat runtime catalogue |
 
-### Résultat observable
+## Gate candidat suivant
 
-Une surface où l’utilisateur sélectionne un type, répond aux six signaux, lance la qualification, et lit un profil Light / Standard / Critical avec explications — **sans** création, lien LPS, ni persistance épistémique.
+`GO QA VALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — FIFTEEN IDS — CONTRACT INVARIANTS AND NEGATIVE TESTS — NO D2 — NO UI — NO CREATECYCLE`
 
-### Ce que V3.1 ne fait pas
+## Verdict
 
-CreateCycle · linkAsActiveCycle · EpistemicItem · décision Morris · recommandation auto du type · requestedProfile · agent/LLM · IAM · Figma write · delivery.
-
-## D. Usager, rôle et autorité
-
-| Élément | Position |
-|---------|----------|
-| Usager | Morris local — opérateur du démonstrateur Studio |
-| Rôle | Lecture contexte projet + qualification read-only |
-| IAM | **aucune** |
-| Autorité Critical réelle | **absente** |
-| Stakeholder inventé | **interdit** |
-
-## E. Glossaire fonctionnel
-
-| Terme | Définition V3.1 |
-|-------|-----------------|
-| Projet | Agrégat Project process-local créé en V2 |
-| LPS | Living Project State — contexte read-only ; non muté |
-| Type de cycle | Entrée catalogue contrôlée (identité stable + label) |
-| cycleTypeId | Identifiant technique de l’entrée catalogue |
-| Signal | Réponse Oui/Non explicite mappée vers T-A2 |
-| Profil recommandé | Light \| Standard \| Critical — sortie QualifyCycle |
-| Rationale | Code interne T-A2 — **non affiché brut** ; mappé en texte utilisateur |
-| Recommandation | Sortie QualifyCycle · `isMorrisDecision=false` |
-| Décision Morris | Acte humain (V4) — hors V3.1 |
-| CycleInstance | Entité créée par CreateCycle — **absente** de V3.1 |
-
-## F. Périmètre fonctionnel
-
-### Inclus
-
-- Entrée depuis Project Workspace.
-- Sélection type (catalogue contrôlé).
-- Six signaux explicites.
-- Appel fonctionnel à QualifyCycle (contrat T-A2).
-- Affichage profil + justification + disclosures.
-- États, erreurs read-only, critères d’acceptation, a11y, plan de preuves.
-
-### Hors périmètre
-
-CreateCycle · CTA create · LPS link · EpistemicItem · UpdateEpistemicState · V4 · V3.2 · moteur type · scoring · LLM · Figma · architecture technique · code.
-
-### Préconditions
-
-- Un Project process-local accessible via `projectId`.
-- Runtime capable de lire le projet (existant V2).
-- Catalogue contrôlé **résolu** pour delivery (voir réserve).
-- Contrat T-A2 QualifyCycle inchangé.
-
-### Résultat de sortie
-
-Projection volatile de recommandation de profil + contexte sélectionné — **non persistée**.
-
-## G. Position dans le parcours
-
-**Départ :** `/studio/projects/[id]` (Project Workspace V2-A3).
-
-**Entrée recommandée (fonctionnelle, non décision d’architecture) :**
-
-- CTA / lien sémantique **« Préparer un cycle »** depuis la zone d’actions du workspace (aujourd’hui : lien « Créer un autre projet » uniquement).
-- Placement candidat le plus simple : **même namespace** `/studio/projects/[id]/…` (section ou sous-route) — *recommandation de placement*, pas choix technique figé.
-
-**Retour :** lien « Retour à l’espace projet » vers `/studio/projects/[id]`.
-
-**Interdit :** CTA CreateCycle, activation, décision Morris, redirection auto V4.
-
-## H. Parcours nominal
-
-1. Consulter le Project Workspace (projet + LPS + disclosures runtime).
-2. Ouvrir « Préparer un cycle ».
-3. Voir le contexte projet (objectif, résumé) en **lecture seule**, avec mention qu’il **n’influence pas** l’algorithme de qualification actuel.
-4. Sélectionner un type de cycle dans le catalogue (obligatoire, non libre).
-5. Répondre **explicitement** Oui ou Non aux **six** signaux (aucun précoché).
-6. Activer « Qualifier le profil » (désactivé ou refusé si incomplet).
-7. Obtenir le profil recommandé + explication + signaux contributeurs + disclosures.
-8. Modifier les réponses et re-qualifier si besoin.
-9. Revenir au workspace.
-10. **Aucun** CycleInstance créé · **aucune** mutation LPS · **aucune** persistance épistémique.
-
-## I. Contrat du catalogue des types de cycle
-
-### Exigences fonctionnelles
-
-| Règle | Position |
-|-------|----------|
-| Sélection | **Obligatoire** avant qualification |
-| Saisie libre | **Interdite** |
-| Champs par entrée | `cycleTypeId` stable · label · description courte |
-| Recommandation du type | **Interdite** |
-| Influence sur le profil | **Aucune** (le type ne détermine pas Light/Standard/Critical) |
-| Capitalization | Si `cycleTypeId = cyc:capitalization`, l’indicateur `capitalizationViaCycleTypeId` peut être vrai — **ce n’est pas un profil** |
-
-### Comportements
-
-| Situation | Comportement |
-|-----------|--------------|
-| Catalogue en chargement | État dédié · pas de qualification |
-| Catalogue indisponible / vide | État bloquant · message clair · pas de fallback inventé |
-| ID inconnu / invalide | Refus · message · pas de QualifyCycle |
-| Refresh | Resélection requise si état volatile perdu |
-
-### Investigation repo (constat)
-
-| Source | Contenu | Statut pour V3.1 runtime |
-|--------|---------|--------------------------|
-| `CAPITALIZATION_CYCLE_TYPE_ID = cyc:capitalization` | Un seul ID OA runtime explicite | Partiel |
-| `SFIA_CYCLE_LABELS` (harness Increment C) | 15 labels slugs (`cadrage`, …) **sans** préfixe `cyc:` | Labels UI hors contrat OA — **non catalogue runtime** |
-| Méthode — 15 cycles (`02-fifteen-cycles-synthetic-map.md`) | Noms canoniques 1…15 | Documentaire méthode — **non IDs runtime** |
-| Schema CycleType modélisé | Entité citée ; **pas** de registry runtime des 15 | Absent |
-| D1 intake `proposedCycleType` | Valeurs ad hoc (ex. `FRAMING`) | Stack legacy — **hors** vertical-slice |
-
-### Réserve catalogue (requalifiée)
-
-**R-V3.1-CATALOG-01**
-
-| Aspect | État |
-|--------|------|
-| Constat runtime | Registry des 15 **toujours absente** (non implémentée) |
-| Contrat + arbitrage | **RESOLVED** — D-V3.1-CAT-01…08 adoptées (`14`) |
-| IDs | Quinze CAT-I1 **adoptés contractuellement** · non implémentés |
-| CKC | **Obligatoire** dans le mécanisme produit · candidate ≠ optionnel · `executionAuthority=false` |
-| Delivery D1 | **Non autorisé** — GO distinct requis |
-
-- L’UI ne hardcode pas de liste d’autorité.
-- Le résultat de QualifyCycle n’est **contractuellement exploitable** dans le parcours produit qu’avec une résolution CKC **valide** (detailed ou synthetic fallback).
-- Les règles de qualification, CA et scénarios ci-dessous restent inchangés.
-
-## J. Contrat des signaux
-
-Tous les signaux : réponse **Oui / Non obligatoire** · **aucune** valeur précochée · absence ≠ `false`.
-
-| Signal T-A2 | Libellé utilisateur | Aide contextuelle | Mapping |
-|-------------|---------------------|-------------------|---------|
-| `structuralChange` | Changement structurel | Ce travail modifie-t-il durablement la structure du produit, de la méthode ou du dépôt ? | `true`/`false` explicite |
-| `securityImpact` | Impact sécurité | Ce travail touche-t-il à la sécurité, aux secrets, aux contrôles d’accès ou à une surface d’attaque ? | idem |
-| `architectureImpact` | Impact architecture | Ce travail engage-t-il un choix ou une modification d’architecture significative ? | idem |
-| `dataImpact` | Impact données | Ce travail affecte-t-il des données sensibles, des migrations ou des pertes potentielles ? | idem |
-| `irreversible` | Caractère difficilement réversible | Une erreur serait-elle difficile ou coûteuse à annuler ? | idem |
-| `lowRiskBounded` | Risque faible et borné | Le périmètre est-il clairement limité et le risque faible **en l’absence** de signaux critiques ? | idem |
-
-### Règles UI
-
-1. Les six réponses doivent être présentes avant QualifyCycle.
-2. Une réponse absente **bloque** la qualification (pas d’envoi de `undefined` assimilé à false).
-3. Les contradictions restent visibles (ex. Critical + lowRiskBounded) ; le moteur applique la priorité Critical.
-4. Aucun score implicite depuis objectif / scope / contexte.
-
-## K. Données de contexte
-
-| Donnée | Usage V3.1 |
-|--------|------------|
-| `projectId` | Précondition · navigation |
-| Objectif projet | Affichage read-only · **n’influence pas** QualifyCycle actuel |
-| Scope / contexte résumé | Affichage read-only · idem |
-| LPS (id, version) | Affichage contextuel · **non muté** |
-| `requestedProfile` | **Non exposé** |
-| Justification Critical | **Non collectée / non persistée** ; info future V3.2 uniquement |
-| `cycleTypeId` | Sélection catalogue · passé à QualifyCycle (hint capitalization) |
-
-## L. Règles de qualification (contrat T-A2 exact)
-
-Source : `recommendProfile` / `hasCriticalSignals` (`lib/oa/cycle/domain/invariants.ts`).
-
-1. Si **un** parmi `structuralChange`, `securityImpact`, `architectureImpact`, `dataImpact`, `irreversible` vaut `true` → profil **Critical** · rationale `critical_signal_present`.
-2. Sinon, si `lowRiskBounded === true` → profil **Light** · rationale `low_risk_bounded_no_critical_signals`.
-3. Sinon → profil **Standard** · rationale `default_standard` (parcours V3.1 sans `requestedProfile`).
-4. **Critical gagne toujours** sur `lowRiskBounded` (règle 1 avant règle 2).
-5. `cycleTypeId` **ne détermine pas** le profil.
-6. `capitalizationViaCycleTypeId` = true seulement si `cycleTypeId === cyc:capitalization` — indicateur, **pas** un profil Capitalization.
-7. `isMorrisDecision` est **toujours** `false`.
-8. Aucun gate Morris consommé.
-9. Rationales hors parcours V3.1 (car `requestedProfile` non exposé) : `default_standard_light_requires_low_risk_bounded`, `requested_critical_without_signals`.
-
-## M. Sortie fonctionnelle
-
-### Afficher
-
-- Type sélectionné (label + id).
-- Profil recommandé (texte : Light / Standard / Critical — compréhensible **sans** couleur).
-- Explication utilisateur (mapping N).
-- Liste des signaux Oui ayant conduit au résultat (et mention des Non si utile à la compréhension).
-- Disclosure : **« Ceci est une recommandation, pas une décision Morris. »**
-- Disclosure : résultat **process-local / non persisté** · un refresh peut le perdre.
-- Si Critical : indication fail-closed + « une justification sera requise lors d’une future création (V3.2) » — **sans** formulaire de justification.
-- Prochaine étape **informative** uniquement (ex. « La création explicite du cycle relèvera d’un prochain incrément »).
-
-### Ne pas afficher
-
-- Codes rationale bruts.
-- Statut `acknowledged` / `proposed` de CycleInstance (aucune instance).
-- Faux score / pourcentage de confiance.
-- CTA CreateCycle / activation / décision.
-- Claim d’autorité humaine ou IAM.
-
-## N. Mapping des rationales → contenus utilisateurs
-
-| Code T-A2 | Texte utilisateur (V3.1) |
-|-----------|-------------------------|
-| `critical_signal_present` | « Au moins un signal de criticité est positif. Le profil recommandé est Critical. Aucune activation n’est effectuée. » |
-| `low_risk_bounded_no_critical_signals` | « Aucun signal de criticité n’est positif et le risque est déclaré faible et borné. Le profil recommandé est Light. » |
-| `default_standard` | « Aucun signal de criticité n’est positif et le risque n’est pas déclaré faible et borné. Le profil recommandé est Standard. » |
-| `default_standard_light_requires_low_risk_bounded` | Hors parcours V3.1 (`requestedProfile` non exposé). |
-| `requested_critical_without_signals` | Hors parcours V3.1. |
-
-## O. États fonctionnels
-
-| État | Description |
-|------|-------------|
-| initial | Surface ouverte · pas encore de saisie |
-| contexte projet chargé | Project/LPS affichés |
-| catalogue en chargement | Attente catalogue |
-| catalogue indisponible | Bloqué · pas de qualify |
-| formulaire incomplet | Type et/ou signaux manquants · action refuse |
-| prêt à qualifier | Type + 6 réponses · CTA actif |
-| qualification en cours | Attente résultat |
-| résultat Light | Affichage Light + disclosures |
-| résultat Standard | Affichage Standard + disclosures |
-| résultat Critical | Affichage Critical fail-closed + info V3.2 |
-| erreur technique | Bridge/runtime/qualification inattendue |
-| projet introuvable | Contexte perdu · recovery vers création |
-| état local perdu après refresh | Message volatilité · reprise |
-| retour / nouvelle qualification | Re-saisie ou modification puis re-qualify |
-
-## P. Critical
-
-- Résultat Critical **clairement identifiable** (texte + structure, pas seulement couleur).
-- QualifyCycle **non bloqué** par Critical.
-- Aucune création · aucune activation · aucun acknowledgement · aucun gate.
-- Information : justification **requise à la création future** (V3.2).
-- Aucune autorité simulée · aucune redirection automatique V4.
-- Fail-closed respecté.
-
-## Q. Exceptions et recovery V3.1
-
-### Pertinentes (read-only)
-
-| Situation | Comportement |
-|-----------|--------------|
-| Projet introuvable / contexte perdu | Message + CTA retour création projet |
-| Catalogue indisponible | Bloquer qualify · message · pas d’IDs inventés |
-| cycleTypeId invalide / inconnu | Refus · corriger la sélection |
-| Formulaire incomplet | CTA désactivé ou refus explicite + résumé d’erreurs |
-| Runtime / bridge QualifyCycle indisponible | Erreur technique · retry · disclosure process-local |
-| Qualification inattendue | Message borné · pas de mutation |
-| Refresh / hot reload | Perte possible du résultat · reprendre |
-
-### Explicitement **non applicables** en V3.1
-
-- `CYCLE_ALREADY_EXISTS`
-- `LPS_VERSION_CONFLICT`
-- `PERSISTENCE_FAILURE` liée à CreateCycle
-- Erreurs d’activation / lien LPS
-- Erreurs épistémiques de persistance (`EPISTEMIC_*`)
-- `CYCLE_CRITICAL_JUSTIFICATION_REQUIRED` (création uniquement)
-
-## R. Permissions et visibilité
-
-Opérateur local unique · aucune gestion de rôles · aucune authentification · aucune autorisation Critical · aucun masquage présenté comme sécurité.
-
-## S. Intégrations fonctionnelles (quoi, pas comment)
-
-| Intégration | Rôle |
-|-------------|------|
-| Project Workspace | Contexte projet / LPS read-only |
-| Catalogue contrôlé (contrat `14`) | Type id/label/description + métadonnées CKC |
-| CKC Resolver | Résolution obligatoire · consommation orchestration · `executionAuthority=false` |
-| T-A2 QualifyCycle | Recommandation de profil (domaine) |
-| UI | Projection volatile · état CKC sans contrat brut |
-
-**Aucune** mutation projet, cycle, trajectoire, LPS ou épistémique.
-
-Le parcours produit ne présente pas le résultat de qualification comme contractuellement exploitable sans CKC valide.
-
-**Non défini ici :** Server Action · classes · fichiers · protocole · stockage.
-
-## T. Accessibilité
-
-1. Navigation clavier complète de tous les contrôles.
-2. Ordre de focus cohérent : contexte → type → signaux → CTA → résultat.
-3. Groupe de questions signaux correctement labellisé (`fieldset` / équivalent sémantique).
-4. Chaque Oui / Non accessible **sans dépendre de la couleur** (texte visible).
-5. Erreurs associées aux champs concernés.
-6. Résumé d’erreur annoncé (région appropriée).
-7. Changement de résultat annoncé via région live appropriée.
-8. Titres hiérarchisés (h1/h2/h3 cohérents avec StudioShell).
-9. Texte du profil compréhensible sans badge coloré.
-10. État Critical compréhensible sans couleur.
-11. CTA « Qualifier le profil » — libellé explicite.
-12. Aucun verdict de conformité a11y sans tests futurs.
-
-## U. Critères d’acceptation (observables)
-
-| ID | Critère |
-|----|---------|
-| CA-01 | Depuis un projet existant, l’opérateur ouvre la surface de qualification. |
-| CA-02 | La sélection d’un type de cycle est obligatoire ; aucune saisie libre. |
-| CA-03 | Les six signaux exigent chacun une réponse Oui/Non explicite. |
-| CA-04 | Si type ou signal manquant, l’action de qualification est désactivée ou refusée avec message. |
-| CA-05 | `structuralChange=Oui` (seuls les autres Non) → profil Critical. |
-| CA-06 | `securityImpact=Oui` → Critical. |
-| CA-07 | `architectureImpact=Oui` → Critical. |
-| CA-08 | `dataImpact=Oui` → Critical. |
-| CA-09 | `irreversible=Oui` → Critical. |
-| CA-10 | Tous Critical Non + `lowRiskBounded=Oui` → Light. |
-| CA-11 | Tous Non (y compris lowRiskBounded) → Standard. |
-| CA-12 | Au moins un Critical Oui + `lowRiskBounded=Oui` → Critical (Critical gagne). |
-| CA-13 | Le type sélectionné (label) est visible dans le résultat. |
-| CA-14 | Profil + justification utilisateur visibles. |
-| CA-15 | Aucun code rationale brut visible. |
-| CA-16 | Disclosure « recommandation ≠ décision Morris » visible. |
-| CA-17 | Aucune création de CycleInstance observable. |
-| CA-18 | Aucune persistance EpistemicItem Recommendation observable. |
-| CA-19 | Aucun lien LPS / `linkAsActiveCycle` observable. |
-| CA-20 | Aucun contrôle `requestedProfile` exposé. |
-| CA-21 | Après refresh, le résultat peut être perdu ; message/état cohérent. |
-| CA-22 | Catalogue indisponible : qualification impossible + message clair. |
-| CA-23 | Parcours clavier complet sans piège au clavier. |
-
-## V. Scénarios fonctionnels
-
-| ID | Scénario | Attendu |
-|----|----------|---------|
-| S-01 | Nominal Light | lowRiskBounded Oui · 5 Critical Non → Light |
-| S-02 | Nominal Standard | 6 Non → Standard |
-| S-03 | Critical structural | structuralChange Oui → Critical |
-| S-04 | Critical security | securityImpact Oui → Critical |
-| S-05 | Critical architecture | architectureImpact Oui → Critical |
-| S-06 | Critical data | dataImpact Oui → Critical |
-| S-07 | Critical irreversible | irreversible Oui → Critical |
-| S-08 | Contradiction Critical + lowRiskBounded | Critical |
-| S-09 | Formulaire incomplet | Refus · pas d’appel qualify |
-| S-10 | Catalogue absent | État bloquant |
-| S-11 | Project missing | Recovery création |
-| S-12 | Retry après erreur technique | Reprise sans mutation |
-| S-13 | Nouvelle qualification après modification | Nouveau résultat cohérent |
-
-## W. Plan de preuves futur
-
-- Tests unitaires des règles (déjà T-A2) + mapping UI textes.
-- Tests composant états / formulaire / a11y.
-- Tests boundary : **aucun** CreateCycle · **aucune** mutation LPS/épistémique.
-- Captures desktop + responsive.
-- **Aucune preuve exécutée dans ce cycle documentaire.**
-
-## X. Contrat UX temporaire et réserve Figma
-
-### Hiérarchie fonctionnelle des zones
-
-1. Bandeau disclosures runtime (réutiliser le langage V2).
-2. Titre « Préparer un cycle » + rappel read-only.
-3. Contexte projet (compact).
-4. Sélection type.
-5. Signaux (groupe unique).
-6. CTA qualification.
-7. Zone résultat + réserves.
-8. Navigation retour.
-
-### Priorités de contenu
-
-Profil + type + justification + disclosure décision > détails techniques.
-
-### Figma
-
-- Source design : **contrat Git temporaire**.
-- Aucune frame V3 baseline.
-- D-VS-05 **NOT CONSUMED**.
-- Réévaluer un cycle UX/UI + Figma **avant** delivery si la surface est jugée substantielle ou si une fidélité visuelle est revendiquée.
-- Recommandation non décisionnelle : un cycle UX/UI dédié est **probable** avant un delivery UI dense ; **Morris décide**.
-
-## Y. Risques et réserves
-
-| ID | Risque / réserve | Sévérité |
-|----|------------------|----------|
-| R-V3.1-CATALOG-01 | Contrat+arbitrage résolus · runtime pending | Delivery D1 bloqué jusqu’à GO |
-| R-V3.1-02 | Duplication méthode / scoring dans React | Haute — interdite |
-| R-V3.1-03 | Exposition codes rationale bruts | Moyenne |
-| R-V3.1-04 | Fausse influence objectif/scope | Haute |
-| R-V3.1-05 | `undefined` assimilé à false | Haute — UI doit bloquer |
-| R-V3.1-06 | Critical overclaim / autorité simulée | Haute |
-| R-V3.1-07 | `requestedProfile` prématuré | Moyenne |
-| R-V3.1-08 | Confusion recommandation / décision | Haute |
-| R-V3.1-09 | Volatilité process-local | Acceptée · disclosure |
-| R-V3.1-10 | D-VS-05 / Figma | Maintenue |
-| R-V3.1-11 | B5 / R1 | Hors périmètre |
-| R-V3.1-12 | Absence de preuve visuelle ce cycle | Acceptée |
-
-## Z. Slicing et transition
-
-| Étape | Statut |
-|-------|--------|
-| V3 cadrage + arbitrage | Terminé (`12`) |
-| V3.1 conception fonctionnelle | Terminée (`13`) |
-| V3.1 architecture + adoption catalogue | Terminée (`14`) · D-V3.1-CAT adoptées · CKC obligatoire |
-| V3.1-D1 catalogue runtime + CKC mapping | **Candidat** · non ouvert |
-| V3.1-D2 projection + resolver + QualifyCycle bridge | Après D1 |
-| V3.1-D3 UI | Après D2 · réserve Figma |
-| V3.2 CreateCycle | Non ouvert |
-| V4 décision Morris | Non ouvert |
-
-Aucun cycle suivant ouvert automatiquement.
-
-## AA. Anti-claims
-
-- Conception fonctionnelle ≠ implémentation.
-- IDs adoptés ≠ registry runtime.
-- CKC obligatoire ≠ baseline méthode globale ≠ autorité d’exécution.
-- Candidate ≠ optionnel (produit candidate).
-- Profil recommandé ≠ type recommandé automatiquement.
-- Recommandation ≠ décision Morris.
-- Read-only ≠ CycleInstance créé.
-- Résultat Critical ≠ autorisation.
-- Contrat Git ≠ Figma validé.
-- Tests planifiés ≠ tests exécutés.
-- Aucun PRODUCT / RUN / IAM / AGENT READY · DELIVERY / CUTOVER AUTHORIZED · HARD CLOSED · T-A6 COMPLETE.
-
-## AB. Verdict
-
-**V3.1 FUNCTIONAL DESIGN COMPLETE — CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED**
-
-Prochain gate candidat (non ouvert) :
-
-`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
-
-**Précondition D1 :** GO delivery distinct · respect contrat `14` · pas d’élargissement D2/D3/V3.2.
+`V3.1-D1 CYCLE TYPE CATALOG RUNTIME CONTRACT IMPLEMENTED — MANDATORY CKC MAPPING IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED`
 
 ---
 
-# FULL FILE (final): 14
+# FULL FILE: backlog 08
+
+# 08 — Implementation backlog and slicing
+
+## Stratégie
+
+Plusieurs PR (lots), commits atomiques. Framing docs séparés. Pas de big-bang.
+
+## Lot V1 / V2
+
+**INTEGRATED ON MAIN** (V2-A3 PR #295 @ `3e8a437…`).
+
+## Lot V3 — Cycle Recommendation
+
+**CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md).
+
+## Lot V3.1 — Profile Qualification (conception)
+
+**FUNCTIONAL DESIGN COMPLETE** — [`13`](./13-v3-1-profile-qualification-functional-design.md).
+
+## Lot V3.1 — Cycle Type Catalog (architecture + adoption)
+
+**DECISIONS ADOPTED** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
+
+## Lot V3.1-D1 — Catalogue runtime + mapping CKC
+
+**Statut :** `IMPLEMENTATION COMPLETE — READY FOR QA/VALIDATION DECISION`.
+
+Doc : [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md)
+
+| Preuve | Résultat |
+|--------|----------|
+| 15 IDs CAT-I1 | implémentés |
+| Mapping CKC obligatoire | 4 detailed + 11 synthetic |
+| Tests catalog | 24 PASS |
+| Suite oa/cycle | 72 PASS |
+| typecheck / lint / build | PASS |
+| Resolver / bridge / UI | **hors lot** |
+
+### Slicing CAT-08
+
+| Lot | Contenu | Statut |
+|-----|---------|--------|
+| **V3.1-D1** | Catalogue runtime · mapping CKC | **implémenté** · QA pending |
+| **V3.1-D2** | Projection · validate · resolver obligatoire · QualifyCycle bridge | **non autorisé** |
+| **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
+
+### Réserves D2
+
+Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit du résultat.
+
+## Lot V3.2 / V4 / V5 / V6
+
+**NOT AUTHORIZED.**
+
+---
+
+# FULL FILE: 14 (updated)
 
 # 14 — V3.1 Cycle Type Catalog — Architecture fonctionnelle
 
@@ -1066,7 +1266,7 @@ Prochain gate candidat (non ouvert) :
 | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
 | **CKC (ce cycle)** | Pilote détaillé **absent** · fallback carte synthétique + méthode §4.3 · `method-candidate` · **consommation obligatoire** · **executionAuthority=false** |
 | **Entrées héritées** | `12` (lecture seule) · `13` (conception V3.1) |
-| **Statut documentaire** | `V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
+| **Statut documentaire** | `V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME CONTRACT IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED` |
 | **Commit / push / PR projet** | **non** |
 | **Code / registry / resolver / Figma** | **non** |
 
@@ -1233,7 +1433,7 @@ Recommandation historique : CAT-I1.
 ## M. Mapping des quinze IDs — **ADOPTÉ**
 
 **Stratégie :** CAT-I1. Exactement quinze entrées.
-Chaque ID : **`ADOPTED BY MORRIS — CONTRACTUAL ID — NOT YET IMPLEMENTED`**.
+Chaque ID : **`ADOPTED BY MORRIS — CONTRACTUAL ID — IMPLEMENTED BY V3.1-D1`**.
 `cyc:capitalization` : valeur et sens **inchangés**.
 
 | # | Nom canonique | cycleTypeId | Label FR | Description courte | Ordre | CKC path | Source |
@@ -1324,7 +1524,7 @@ Fenêtre pré-persistance · IDs adoptés contractuellement · runtime pending �
 
 | Lot | Contenu | Statut |
 |-----|---------|--------|
-| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | **Adopté comme slicing** · delivery **non commencé** |
+| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | **Implémenté** · QA pending |
 | **V3.1-D2** | Projection · validate ID · résolution CKC obligatoire · QualifyCycle bridge read-only | Adopté · non commencé |
 | **V3.1-D3** | UI Profile Qualification · type/profil/justification/disclosures/état CKC | Adopté · non commencé · réserve Figma |
 
@@ -1385,1285 +1585,324 @@ La recommandation §W initiale a été acceptée pour CAT-01/02/04/05/06/08, **e
 |--------|------|
 | Source / IDs / métadonnées / CKC / gouvernance / slicing | **Décidés** |
 | R-V3.1-CATALOG-01 | **RESOLVED AT FUNCTIONAL CONTRACT AND MORRIS ARBITRATION LEVEL** |
-| Runtime catalogue / resolver | **Pending** |
-| Delivery D1 | **Requires separate GO** · **not authorized** |
+| Runtime catalogue / mapping CKC | **IMPLEMENTED BY V3.1-D1** |
+| Résolution orchestrée / resolver consommation | **Pending D2** |
+| Delivery D2/D3 | **Not authorized** |
+
+### Évidence V3.1-D1
+
+- Contrat runtime : `app/lib/oa/cycle/domain/cycleTypeCatalog.ts`
+- Quinze IDs CAT-I1 : **ADOPTED BY MORRIS — CONTRACTUAL ID — IMPLEMENTED BY V3.1-D1**
+- Mapping CKC statique obligatoire : 4 detailed + 11 synthetic · `executionAuthority=false`
+- Distinction : **mapping statique (D1)** ≠ **résolution orchestrée (D2)**
+- Doc lot : `first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`
+- Historique des décisions Morris (Decision record) : **conservé** ci-dessus
 
 ## Y. Risques et réserves
 
-Runtime absent · divergence méthode/catalogue · dette migration · alias · localisation · sur-architecture delivery · process-local · Figma (D3) · confusion candidate doctrine vs baseline méthode · harness ≠ autorité · QualifyCycle domaine vs exploitabilité produit.
+Runtime D1 livré · orchestration D2 absente · divergence méthode/catalogue · dette migration · alias · localisation · process-local · Figma (D3) · confusion candidate doctrine vs baseline méthode · harness ≠ autorité · QualifyCycle domaine vs exploitabilité produit.
 
 ## Z. Anti-claims
 
-- Adoption contractuelle ≠ implémentation runtime.
-- IDs adoptés ≠ registry disponible.
+- Adoption contractuelle ≠ implémentation runtime (historique) · **D1 a implémenté le contrat runtime**.
+- Mapping CKC D1 ≠ résolution orchestrée D2.
+- IDs implémentés dans le catalogue ≠ CycleInstance créés.
 - CKC obligatoire ≠ baseline méthode globale.
 - CKC obligatoire ≠ autorité d’exécution.
 - Candidate ≠ optionnel (dans le produit candidate).
 - Type ≠ profil · catalogue ≠ moteur · recommandation ≠ décision.
-- Delivery **non** autorisé.
+- D2/D3 **non** autorisés.
 - Pas PRODUCT / RUN / IAM / AGENT READY · DELIVERY / CUTOVER AUTHORIZED · HARD CLOSED · T-A6 COMPLETE.
 
 ## AA. Verdict
 
-**V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED**
+**V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME CONTRACT IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED**
 
 Prochain gate candidat (non ouvert) :
 
-`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
+`GO QA VALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — FIFTEEN IDS — CONTRACT INVARIANTS AND NEGATIVE TESTS — NO D2 — NO UI — NO CREATECYCLE`
 
-Statut : **READY FOR DELIVERY D1 DECISION**
-
----
-
-# FULL FILE (final): README
-
-# First user-visible SFIA Studio vertical slice — Framing
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | `FRAMING LIVING — V3 ARBITRATION COMPLETE — V3.1 DESIGN COMPLETE — CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
-| **Date** | 2026-07-30 20:29:00 CEST (+0200) |
-| **Cycle courant** | 3 — Architecture fonctionnelle (adoption catalogue + correction CKC) |
-| **Profil** | **Critical** |
-| **Typologie** | DOC |
-| **Gate courant** | `GO ADOPT SFIA STUDIO V3.1 CYCLE TYPE CATALOG …` **consommé** (2026-07-30 20:23 CEST) |
-| **Branche** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
-| **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
-| **Code applicatif** | **aucune modification** |
-| **Docs** | `12` inchangé · `13` scoped · `14` adoption enregistrée |
-
-## Objectif
-
-Parcours cible : **Project Creation → Cycle Recommendation → Morris Decision → Readiness Dashboard** — cœur T-A0→T-A7, sans IAM, sans persistance produit, sans agent, sans delivery/cutover autorisés.
-
-## Synthèse d’état
-
-| Lot | État |
-|-----|------|
-| V1 / V2 | intégrés `main` |
-| V3 arbitrage D-V3 | terminé (`12`) |
-| V3.1 conception | terminée (`13`) |
-| V3.1 catalogue | **D-V3.1-CAT-01…08 adoptées** (`14`) |
-| R-V3.1-CATALOG-01 | **résolue au niveau contrat/arbitrage** · runtime pending |
-| CKC | **obligatoire** dans le mécanisme produit · candidate ≠ optionnel · `executionAuthority=false` · ≠ baseline méthode globale |
-| V3.1-D1 / D2 / D3 | slicing adopté · **non commencés** |
-| V3.2 / V4–V6 | non autorisés |
-
-**Runtime catalogue / resolver : absents.** IDs contractuels adoptés · **pas implémentés**.
-
-## Décisions Morris (synthèse)
-
-### D-VS / D-V3
-
-D-VS-01…04 adoptées · D-VS-05 NOT CONSUMED · D-V3-01…08 adoptées (`12`).
-
-### D-V3.1-CAT — adoptées 2026-07-30 20:23 CEST
-
-| ID | Décision |
-|----|----------|
-| CAT-01 | CAT-S1 — contrat Git catalogue |
-| CAT-02 | CAT-I1 — quinze IDs `cyc:<english-slug>` · `cyc:capitalization` inchangé |
-| CAT-03 | MINIMAL_WITH_MANDATORY_CKC_CORE |
-| CAT-04 | CONTROLLED_ALIASES |
-| CAT-05 | MORRIS_FOR_STRUCTURAL_CHANGES |
-| CAT-06 | NEUTRAL_ID_LOCALIZED_LABELS |
-| CAT-07 | INTEGRATED_MANDATORY_CKC_MECHANISM |
-| CAT-08 | D1_THEN_D2_THEN_D3 |
-
-Détail : `14`.
-
-## Figma / process-local
-
-Contrat Git temporaire · D-VS-05 non consommée · réévaluation avant D3 · process-local maintenu.
-
-## Index
-
-| Doc | Sujet |
-|-----|-------|
-| `01`–`11` | Framing historique + V1 |
-| `12` | V3 cadrage + arbitrage |
-| `13` | V3.1 conception fonctionnelle |
-| `14` | V3.1 catalogue — architecture + **adoption** |
-
-## Gate candidat suivant
-
-`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
-
-## Verdict
-
-`V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED`
+Statut : **READY FOR QA/VALIDATION DECISION**
 
 ---
 
-# FULL FILE (final): 08
+# PROOF 12 unchanged (hash)
 
-# 08 — Implementation backlog and slicing
+82be657cb3b88be0ac72d41e172106a557be101b
 
-## Stratégie
+# PROOF 13 unchanged (hash)
 
-Plusieurs PR (lots), commits atomiques. Framing docs séparés. Pas de big-bang.
-
-## Lot V1 / V2
-
-**INTEGRATED ON MAIN** (V2-A3 PR #295 @ `3e8a437…`).
-
-## Lot V3 — Cycle Recommendation
-
-**CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md). D-V3 adoptées.
-
-## Lot V3.1 — Profile Qualification (conception)
-
-**FUNCTIONAL DESIGN COMPLETE** — [`13`](./13-v3-1-profile-qualification-functional-design.md).
-
-## Lot V3.1 — Cycle Type Catalog (architecture + adoption)
-
-**DECISIONS ADOPTED — CONTRACT LEVEL** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
-
-| Item | État |
-|------|------|
-| D-V3.1-CAT-01…08 | `DECIDED — ADOPTED BY MORRIS` |
-| Quinze IDs CAT-I1 | Adoptés contractuellement · **non implémentés** |
-| CKC | Obligatoire intégré · candidate ≠ optionnel · `executionAuthority=false` |
-| R-V3.1-CATALOG-01 | **RESOLVED AT CONTRACT/ARBITRATION LEVEL** · runtime pending |
-| Registry / resolver runtime | **Absent** |
-
-### Slicing adopté (CAT-08) — non commencé
-
-| Lot | Contenu | Statut |
-|-----|---------|--------|
-| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | Candidat · **non ouvert** |
-| **V3.1-D2** | Projection · validate · resolver obligatoire · QualifyCycle bridge | Après D1 |
-| **V3.1-D3** | UI Profile Qualification · état CKC | Après D2 · réserve Figma |
-
-### Critères d’entrée V3.1-D1
-
-1. GO delivery D1 distinct.
-2. Respect contrat `14` (IDs + CKC metadata).
-3. Aucun QualifyCycle bridge / UI / CreateCycle dans D1.
-4. Pas de promotion CKC baseline méthode globale.
-5. Tests bornés au catalogue + mapping CKC (au delivery).
-6. `.tmp-sfia-review/**` hors commit.
-
-### Gates
-
-- Structurants catalogue : Morris (CAT-05).
-- Delivery D1/D2/D3 : GO distincts.
-- Fusion d’incréments : nouvel arbitrage.
-
-## Lot V3.2 — CreateCycle
-
-**NOT AUTHORIZED.**
-
-## Lots V4 / V5 / V6
-
-**NOT AUTHORIZED.**
-
-## Note
-
-D1 **non commencé**. Catalogue **non implémenté**. Resolver **non implémenté**.
+3ecb0256e14662a0e8244029a1329a6afb525444
 
 ---
 
-# CURRENT-CYCLE DIFF README
+# CURRENT-CYCLE DIFF framing README
 
---- .tmp-sfia-review/before/README.md	2026-07-30 20:29:15
-+++ projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md	2026-07-30 20:30:46
-@@ -2,143 +2,74 @@
+--- .tmp-sfia-review/before-d1/README.md	2026-07-30 20:45:48
++++ projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md	2026-07-30 20:48:57
+@@ -2,74 +2,51 @@
 
  | Champ | Valeur |
  |-------|--------|
--| **Statut** | `FRAMING LIVING — V3 ARBITRATION COMPLETE — V3.1 FUNCTIONAL DESIGN COMPLETE — CATALOG ARCHITECTURE CONTRACT PRODUCED — MORRIS CATALOG DECISIONS PENDING — DELIVERY NOT AUTHORIZED` |
--| **Date** | 2026-07-30 19:35:00 CEST (+0200) |
--| **Cycle courant** | 3 — Architecture fonctionnelle V3.1 Cycle Type Catalog |
-+| **Statut** | `FRAMING LIVING — V3 ARBITRATION COMPLETE — V3.1 DESIGN COMPLETE — CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
-+| **Date** | 2026-07-30 20:29:00 CEST (+0200) |
-+| **Cycle courant** | 3 — Architecture fonctionnelle (adoption catalogue + correction CKC) |
+-| **Statut** | `FRAMING LIVING — V3 ARBITRATION COMPLETE — V3.1 DESIGN COMPLETE — CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
+-| **Date** | 2026-07-30 20:29:00 CEST (+0200) |
+-| **Cycle courant** | 3 — Architecture fonctionnelle (adoption catalogue + correction CKC) |
++| **Statut** | `FRAMING LIVING — CATALOG DECISIONS ADOPTED — V3.1-D1 RUNTIME CONTRACT IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED` |
++| **Date** | 2026-07-30 20:48:00 CEST (+0200) |
++| **Cycle courant** | 8 — Delivery V3.1-D1 Cycle Type Catalog Runtime |
  | **Profil** | **Critical** |
- | **Typologie** | DOC |
--| **Gate courant** | `GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1 CYCLE TYPE CATALOG …` **consommé** |
-+| **Gate courant** | `GO ADOPT SFIA STUDIO V3.1 CYCLE TYPE CATALOG …` **consommé** (2026-07-30 20:23 CEST) |
- | **Branche** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
+-| **Typologie** | DOC |
+-| **Gate courant** | `GO ADOPT SFIA STUDIO V3.1 CYCLE TYPE CATALOG …` **consommé** (2026-07-30 20:23 CEST) |
+-| **Branche** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
++| **Typologie** | EVOL |
++| **Gate courant** | `GO DELIVERY SFIA STUDIO V3.1-D1 …` **consommé** (2026-07-30 20:35 CEST) |
++| **Branche Delivery** | `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
  | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
--| **Commit V2-A3** | `e1db1f52c12d2e0fdb5ac5c9f66b8984015d14ba` (PR #295 MERGED) |
--| **Code applicatif (ce cycle)** | **aucune modification** |
--| **Docs protégées** | `12` **inchangé** · `13` règles fonctionnelles intactes (réf. catalogue + réserve requalifiée uniquement) |
-+| **Code applicatif** | **aucune modification** |
-+| **Docs** | `12` inchangé · `13` scoped · `14` adoption enregistrée |
+-| **Code applicatif** | **aucune modification** |
+-| **Docs** | `12` inchangé · `13` scoped · `14` adoption enregistrée |
++| **Code D1** | `lib/oa/cycle/domain/cycleTypeCatalog.ts` · tests · exports |
++| **Docs protégées** | `12` / `13` **inchangés** |
 
- ## Objectif
+-## Objectif
++## Synthèse
 
--Cadrer le premier parcours **réellement visible et compréhensible** :
-+Parcours cible : **Project Creation → Cycle Recommendation → Morris Decision → Readiness Dashboard** — cœur T-A0→T-A7, sans IAM, sans persistance produit, sans agent, sans delivery/cutover autorisés.
-
--**Project Creation → Cycle Recommendation → Morris Decision → Readiness Dashboard**
+-Parcours cible : **Project Creation → Cycle Recommendation → Morris Decision → Readiness Dashboard** — cœur T-A0→T-A7, sans IAM, sans persistance produit, sans agent, sans delivery/cutover autorisés.
 -
--en réutilisant le cœur T-A0→T-A7, sans IAM, sans persistance produit, sans agent réel, sans delivery/cutover.
+-## Synthèse d’état
 -
- ## Synthèse d’état
-
  | Lot | État |
  |-----|------|
--| V1 / V2-A1 / V2-A2 / V2-A3 | intégrés sur `main` |
--| V3 — Cycle Recommendation | cadrage + arbitrage D-V3 (`12`) |
--| V3.1 — Profile Qualification | conception fonctionnelle (`13`) |
--| V3.1 — Cycle Type Catalog | **contrat d’architecture** (`14`) · **D-V3.1-CAT NOT DECIDED** |
--| R-V3.1-CATALOG-01 | contrat produit · **toujours bloquante** avant arbitrage |
--| V3.1 delivery / V3.2 / V4–V6 | **non autorisés** |
-+| V1 / V2 | intégrés `main` |
-+| V3 arbitrage D-V3 | terminé (`12`) |
-+| V3.1 conception | terminée (`13`) |
-+| V3.1 catalogue | **D-V3.1-CAT-01…08 adoptées** (`14`) |
-+| R-V3.1-CATALOG-01 | **résolue au niveau contrat/arbitrage** · runtime pending |
-+| CKC | **obligatoire** dans le mécanisme produit · candidate ≠ optionnel · `executionAuthority=false` · ≠ baseline méthode globale |
-+| V3.1-D1 / D2 / D3 | slicing adopté · **non commencés** |
-+| V3.2 / V4–V6 | non autorisés |
+ | V1 / V2 | intégrés `main` |
+ | V3 arbitrage D-V3 | terminé (`12`) |
+ | V3.1 conception | terminée (`13`) |
+-| V3.1 catalogue | **D-V3.1-CAT-01…08 adoptées** (`14`) |
+-| R-V3.1-CATALOG-01 | **résolue au niveau contrat/arbitrage** · runtime pending |
+-| CKC | **obligatoire** dans le mécanisme produit · candidate ≠ optionnel · `executionAuthority=false` · ≠ baseline méthode globale |
+-| V3.1-D1 / D2 / D3 | slicing adopté · **non commencés** |
++| V3.1 catalogue décisions | adoptées (`14`) |
++| **V3.1-D1** catalogue runtime + mapping CKC | **implémenté** — [README D1](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md) |
++| V3.1-D2 resolver + QualifyCycle bridge | **non autorisé** |
++| V3.1-D3 UI | **non autorisé** · D-VS-05 / Figma |
+ | V3.2 / V4–V6 | non autorisés |
 
--**Contrat vs décision :** le document `14` produit options, mapping candidat et decision pack. **Aucun identifiant ni source n’est adopté** tant que Morris n’arbitre pas D-V3.1-CAT-01…08.
-+**Runtime catalogue / resolver : absents.** IDs contractuels adoptés · **pas implémentés**.
+-**Runtime catalogue / resolver : absents.** IDs contractuels adoptés · **pas implémentés**.
++**R-V3.1-CATALOG-01 :** contrat + arbitrage résolus · **runtime catalog D1 implémenté** · résolution orchestrée **pending D2**.
 
--### Contexte UI historique (inchangé)
-+## Décisions Morris (synthèse)
+-## Décisions Morris (synthèse)
++**CKC :** obligatoire dans le mécanisme produit · mapping statique D1 · consommation orchestrée = D2 · `executionAuthority=false` · candidate ≠ optionnel ≠ baseline méthode globale.
 
--Trois stacks UI coexistent et **ne sont pas unifiées** :
-+### D-VS / D-V3
+-### D-VS / D-V3
++## Décisions (synthèse)
 
--1. **VS POC** — StudioShell + fixtures/harness.
--2. **OPS1** — session conversationnelle legacy.
--3. **D1** — workspace/intake SQLite local.
-+D-VS-01…04 adoptées · D-VS-05 NOT CONSUMED · D-V3-01…08 adoptées (`12`).
+-D-VS-01…04 adoptées · D-VS-05 NOT CONSUMED · D-V3-01…08 adoptées (`12`).
++D-VS-01…04 adoptées · D-VS-05 NOT CONSUMED · D-V3-01…08 adoptées · D-V3.1-CAT-01…08 adoptées · quinze IDs CAT-I1 implémentés dans le contrat runtime.
 
--Le vertical-slice runtime expose **create/get Project** uniquement — pas Qualify/Create cycle · **pas de catalogue runtime**.
-+### D-V3.1-CAT — adoptées 2026-07-30 20:23 CEST
+-### D-V3.1-CAT — adoptées 2026-07-30 20:23 CEST
+-
+-| ID | Décision |
+-|----|----------|
+-| CAT-01 | CAT-S1 — contrat Git catalogue |
+-| CAT-02 | CAT-I1 — quinze IDs `cyc:<english-slug>` · `cyc:capitalization` inchangé |
+-| CAT-03 | MINIMAL_WITH_MANDATORY_CKC_CORE |
+-| CAT-04 | CONTROLLED_ALIASES |
+-| CAT-05 | MORRIS_FOR_STRUCTURAL_CHANGES |
+-| CAT-06 | NEUTRAL_ID_LOCALIZED_LABELS |
+-| CAT-07 | INTEGRATED_MANDATORY_CKC_MECHANISM |
+-| CAT-08 | D1_THEN_D2_THEN_D3 |
+-
+-Détail : `14`.
+-
+-## Figma / process-local
+-
+-Contrat Git temporaire · D-VS-05 non consommée · réévaluation avant D3 · process-local maintenu.
+-
+ ## Index
 
--## Scope / hors scope
-+| ID | Décision |
-+|----|----------|
-+| CAT-01 | CAT-S1 — contrat Git catalogue |
-+| CAT-02 | CAT-I1 — quinze IDs `cyc:<english-slug>` · `cyc:capitalization` inchangé |
-+| CAT-03 | MINIMAL_WITH_MANDATORY_CKC_CORE |
-+| CAT-04 | CONTROLLED_ALIASES |
-+| CAT-05 | MORRIS_FOR_STRUCTURAL_CHANGES |
-+| CAT-06 | NEUTRAL_ID_LOCALIZED_LABELS |
-+| CAT-07 | INTEGRATED_MANDATORY_CKC_MECHANISM |
-+| CAT-08 | D1_THEN_D2_THEN_D3 |
-
--**Dans le scope (cible produit local borné)** : création Project/LPS · doctrine T-A0 · qualification T-A2 · décision locale T-A3 · dashboard T-A6/T-A7 · historique borné.
-+Détail : `14`.
-
--**Hors scope** : IAM · Critical ack réel · agent réel · persistance produit · delivery/cutover · HARD/T-A6/B5/R1 · nouveau design system · registry catalogue runtime (avant arbitrage).
-+## Figma / process-local
-
--## Parcours cible (résumé)
-+Contrat Git temporaire · D-VS-05 non consommée · réévaluation avant D3 · process-local maintenu.
-
--1. Arrivée — disclosure · CTA Créer un projet
--2. Création — T-A0+T-A1
--3. Fiche projet — workspace
--4. Recommandation — T-A2 (conception ✓ · catalogue contrat ✓ · delivery ✗)
--5. Décision Morris — V4
--6. Readiness dashboard — V5
--7. Historique borné
-+## Index
-
--## Architecture (résumé)
--
--```text
--UI (StudioShell + screens)
--  → VerticalSliceFacade
--    → ports T-A0…T-A7
--      → adapters mémoire OA
--        → UI projections read-only
--```
--
--Catalogue (cible post-arbitrage) : Méthode → Contrat catalogue → Projection → UI → `cycleTypeId` validé → QualifyCycle. Voir `14`.
--
--## Figma
--
--| Item | Valeur |
--|------|--------|
--| Contrat visuel | **Git** temporaire |
--| D-VS-05 | `NOT DECIDED — NOT CONSUMED` |
--| Écriture Figma | **non** |
--| Réévaluation | avant UI substantielle (D-V3-07) |
--
--## Backlog recommandé
--
--V1 → V2 → V3 arbitrage → V3.1 design → **catalogue archi contrat (`14`) → arbitrage D-V3.1-CAT** → delivery V3.1 → V3.2 CreateCycle → V4 → V5 → V6.
--
--## Décisions Morris
--
--### D-VS (historique)
--
--| ID | Statut |
--|----|--------|
--| D-VS-01…04 | `DECIDED — ADOPTED BY MORRIS` |
--| D-VS-05 | `NOT DECIDED — NOT CONSUMED` |
--
--### D-V3 (adoptées)
--
--| ID | Option | Statut |
--|----|--------|--------|
--| D-V3-01…08 | voir `12` | `DECIDED — ADOPTED BY MORRIS` |
--
--### D-V3.1-CAT (catalogue) — **NOT DECIDED**
--
--| ID | Sujet | Statut |
--|----|-------|--------|
--| D-V3.1-CAT-01 | Source de vérité | `NOT DECIDED` |
--| D-V3.1-CAT-02 | Stratégie d’identifiants | `NOT DECIDED` |
--| D-V3.1-CAT-03 | Noyau métadonnées | `NOT DECIDED` |
--| D-V3.1-CAT-04 | Dépréciation / alias | `NOT DECIDED` |
--| D-V3.1-CAT-05 | Gouvernance | `NOT DECIDED` |
--| D-V3.1-CAT-06 | Localisation | `NOT DECIDED` |
--| D-V3.1-CAT-07 | Mapping CKC | `NOT DECIDED` |
--| D-V3.1-CAT-08 | Slicing delivery | `NOT DECIDED` |
--
--Détail et recommandations non décidées : `14`.
--
--## Anti-claims
--
--- Contrat catalogue ≠ implémentation ≠ IDs adoptés
--- Conception / architecture ≠ delivery autorisé
--- Recommandation ≠ décision Morris
--- Type ≠ profil
--- HARD/T-A6 ouverts
--
--## Index du pack
--
  | Doc | Sujet |
  |-----|-------|
- | `01`–`11` | Framing historique + V1 |
--| `12` | V3 Cycle Recommendation — cadrage + arbitrage |
--| `13` | V3.1 Profile Qualification — conception fonctionnelle |
--| `14` | **V3.1 Cycle Type Catalog — architecture fonctionnelle** |
-+| `12` | V3 cadrage + arbitrage |
-+| `13` | V3.1 conception fonctionnelle |
-+| `14` | V3.1 catalogue — architecture + **adoption** |
+-| `01`–`11` | Framing historique + V1 |
+ | `12` | V3 cadrage + arbitrage |
+ | `13` | V3.1 conception fonctionnelle |
+-| `14` | V3.1 catalogue — architecture + **adoption** |
++| `14` | V3.1 catalogue architecture + adoption |
++| V3.1-D1 README | Contrat runtime catalogue |
 
  ## Gate candidat suivant
 
--`GO ARBITRATE SFIA STUDIO V3.1 CYCLE TYPE CATALOG DECISIONS D-V3.1-CAT-01 TO D-V3.1-CAT-08`
-+`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
+-`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
++`GO QA VALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — FIFTEEN IDS — CONTRACT INVARIANTS AND NEGATIVE TESTS — NO D2 — NO UI — NO CREATECYCLE`
 
--**Aucun delivery automatique.**
--
  ## Verdict
 
--`R-V3.1-CATALOG-01 RESOLUTION CONTRACT COMPLETE — MORRIS CATALOG DECISIONS REQUIRED — DELIVERY NOT AUTHORIZED`
-+`V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED`
+-`V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED`
++`V3.1-D1 CYCLE TYPE CATALOG RUNTIME CONTRACT IMPLEMENTED — MANDATORY CKC MAPPING IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED`
 
 ---
 
 # CURRENT-CYCLE DIFF 08
 
---- .tmp-sfia-review/before/08-implementation-backlog-and-slicing.md	2026-07-30 20:29:15
-+++ projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md	2026-07-30 20:30:46
-@@ -1,78 +1,64 @@
- # 08 — Implementation backlog and slicing
+--- .tmp-sfia-review/before-d1/08-implementation-backlog-and-slicing.md	2026-07-30 20:45:48
++++ projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md	2026-07-30 20:48:57
+@@ -10,7 +10,7 @@
 
--## Stratégie de livraison (recommandation, non décision)
-+## Stratégie
+ ## Lot V3 — Cycle Recommendation
 
--**Plusieurs PR** (lots V1…V5), chacune mergeable ; commits atomiques 1–3.
--Branche framing docs séparée. Pas de big-bang unique.
-+Plusieurs PR (lots), commits atomiques. Framing docs séparés. Pas de big-bang.
+-**CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md). D-V3 adoptées.
++**CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md).
 
--## Lot V1 — Composition locale Project
-+## Lot V1 / V2
+ ## Lot V3.1 — Profile Qualification (conception)
 
--**Statut** : `INTEGRATED ON MAIN`. Voir `11`.
-+**INTEGRATED ON MAIN** (V2-A3 PR #295 @ `3e8a437…`).
+@@ -18,47 +18,35 @@
 
--## Lot V2 — Create Project + Workspace (A1 / A2 / A3)
-+## Lot V3 — Cycle Recommendation
+ ## Lot V3.1 — Cycle Type Catalog (architecture + adoption)
 
--**Statut** : `INTEGRATED ON MAIN` (PR #295 @ `3e8a437…`).
-+**CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md). D-V3 adoptées.
+-**DECISIONS ADOPTED — CONTRACT LEVEL** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
++**DECISIONS ADOPTED** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
 
--## Lot V3 — Cycle Recommendation (cadrage + arbitrage)
-+## Lot V3.1 — Profile Qualification (conception)
+-| Item | État |
+-|------|------|
+-| D-V3.1-CAT-01…08 | `DECIDED — ADOPTED BY MORRIS` |
+-| Quinze IDs CAT-I1 | Adoptés contractuellement · **non implémentés** |
+-| CKC | Obligatoire intégré · candidate ≠ optionnel · `executionAuthority=false` |
+-| R-V3.1-CATALOG-01 | **RESOLVED AT CONTRACT/ARBITRATION LEVEL** · runtime pending |
+-| Registry / resolver runtime | **Absent** |
++## Lot V3.1-D1 — Catalogue runtime + mapping CKC
 
--**Statut** : `CADRAGE + ARBITRATION COMPLETE` — [`12`](./12-v3-cycle-recommendation-cadrage.md).
--D-V3-01…08 adoptées. Aucun delivery.
-+**FUNCTIONAL DESIGN COMPLETE** — [`13`](./13-v3-1-profile-qualification-functional-design.md).
+-### Slicing adopté (CAT-08) — non commencé
++**Statut :** `IMPLEMENTATION COMPLETE — READY FOR QA/VALIDATION DECISION`.
 
--## Lot V3.1 — Profile Qualification UI (read-only)
-+## Lot V3.1 — Cycle Type Catalog (architecture + adoption)
+-| Lot | Contenu | Statut |
+-|-----|---------|--------|
+-| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | Candidat · **non ouvert** |
+-| **V3.1-D2** | Projection · validate · resolver obligatoire · QualifyCycle bridge | Après D1 |
+-| **V3.1-D3** | UI Profile Qualification · état CKC | Après D2 · réserve Figma |
++Doc : [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md)
 
--**Statut** : `FUNCTIONAL DESIGN COMPLETE` — [`13`](./13-v3-1-profile-qualification-functional-design.md).
-+**DECISIONS ADOPTED — CONTRACT LEVEL** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
+-### Critères d’entrée V3.1-D1
++| Preuve | Résultat |
++|--------|----------|
++| 15 IDs CAT-I1 | implémentés |
++| Mapping CKC obligatoire | 4 detailed + 11 synthetic |
++| Tests catalog | 24 PASS |
++| Suite oa/cycle | 72 PASS |
++| typecheck / lint / build | PASS |
++| Resolver / bridge / UI | **hors lot** |
 
--| Item | Contenu |
--|------|---------|
--| Objectif | Type sélectionné · six signaux · QualifyCycle · disclosures |
--| Invariants | Pas CreateCycle · pas LPS link · pas epistemic · pas requestedProfile |
--| Delivery | **non ouvert** |
-+| Item | État |
-+|------|------|
-+| D-V3.1-CAT-01…08 | `DECIDED — ADOPTED BY MORRIS` |
-+| Quinze IDs CAT-I1 | Adoptés contractuellement · **non implémentés** |
-+| CKC | Obligatoire intégré · candidate ≠ optionnel · `executionAuthority=false` |
-+| R-V3.1-CATALOG-01 | **RESOLVED AT CONTRACT/ARBITRATION LEVEL** · runtime pending |
-+| Registry / resolver runtime | **Absent** |
+-1. GO delivery D1 distinct.
+-2. Respect contrat `14` (IDs + CKC metadata).
+-3. Aucun QualifyCycle bridge / UI / CreateCycle dans D1.
+-4. Pas de promotion CKC baseline méthode globale.
+-5. Tests bornés au catalogue + mapping CKC (au delivery).
+-6. `.tmp-sfia-review/**` hors commit.
++### Slicing CAT-08
 
--## Lot V3.1 — Cycle Type Catalog (architecture fonctionnelle)
-+### Slicing adopté (CAT-08) — non commencé
-
--**Statut** : `ARCHITECTURE CONTRACT COMPLETE — MORRIS DECISIONS REQUIRED` — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
+-### Gates
 +| Lot | Contenu | Statut |
 +|-----|---------|--------|
-+| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | Candidat · **non ouvert** |
-+| **V3.1-D2** | Projection · validate · resolver obligatoire · QualifyCycle bridge | Après D1 |
-+| **V3.1-D3** | UI Profile Qualification · état CKC | Après D2 · réserve Figma |
++| **V3.1-D1** | Catalogue runtime · mapping CKC | **implémenté** · QA pending |
++| **V3.1-D2** | Projection · validate · resolver obligatoire · QualifyCycle bridge | **non autorisé** |
++| **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
--| Item | Contenu |
--|------|---------|
--| Objectif | Résoudre R-V3.1-CATALOG-01 au niveau contrat |
--| Produit | Inventaire · options source/IDs · mapping candidat 15 · invariants · gouvernance · decision pack |
--| D-V3.1-CAT-01…08 | **NOT DECIDED** |
--| R-V3.1-CATALOG-01 | Contrat produit · **toujours bloquante** avant arbitrage |
--| Implémentation / registry | **non** |
-+### Critères d’entrée V3.1-D1
+-- Structurants catalogue : Morris (CAT-05).
+-- Delivery D1/D2/D3 : GO distincts.
+-- Fusion d’incréments : nouvel arbitrage.
++### Réserves D2
 
--### Critères d’entrée delivery V3.1 (futurs)
-+1. GO delivery D1 distinct.
-+2. Respect contrat `14` (IDs + CKC metadata).
-+3. Aucun QualifyCycle bridge / UI / CreateCycle dans D1.
-+4. Pas de promotion CKC baseline méthode globale.
-+5. Tests bornés au catalogue + mapping CKC (au delivery).
-+6. `.tmp-sfia-review/**` hors commit.
+-## Lot V3.2 — CreateCycle
++Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit du résultat.
 
--1. Arbitrage Morris D-V3.1-CAT-01…08.
--2. Mapping / source adoptés (plus seulement candidats).
--3. GO delivery V3.1 distinct.
--4. Conception `13` respectée.
--5. Pas d’élargissement V3.2 / LPS / épistémique.
--6. Réévaluation Figma si UI substantielle.
-+### Gates
+-**NOT AUTHORIZED.**
++## Lot V3.2 / V4 / V5 / V6
 
--### Slicing delivery candidat (après arbitrage — NOT DECIDED)
-+- Structurants catalogue : Morris (CAT-05).
-+- Delivery D1/D2/D3 : GO distincts.
-+- Fusion d’incréments : nouvel arbitrage.
-
--| Lot | Contenu |
--|-----|---------|
--| V3.1-D1 | Contrat/registry runtime catalogue |
--| V3.1-D2 | Projection read-only + QualifyCycle bridge |
--| V3.1-D3 | UI Profile Qualification |
-+## Lot V3.2 — CreateCycle
-
--## Lot V3.2 — CreateCycle explicite
-+**NOT AUTHORIZED.**
-
--**Statut** : `NOT AUTHORIZED`.
-+## Lots V4 / V5 / V6
-
--## Lot V4 — Morris Decision
-+**NOT AUTHORIZED.**
-
--**Statut** : `NOT AUTHORIZED`.
-+## Note
-
--## Lot V5 — Readiness Dashboard
+-## Lots V4 / V5 / V6
 -
--**Statut** : `NOT AUTHORIZED`.
+ **NOT AUTHORIZED.**
 -
--## Lot V6 — Consolidation visuelle
+-## Note
 -
--**Statut** : `NOT AUTHORIZED`.
--
--## Historique D-VS-04
--
--V1→V2 intégrés. V3 arbitrage terminé. V3.1 design + contrat catalogue produits. Delivery non ouvert. Catalogue **non implémenté**.
-+D1 **non commencé**. Catalogue **non implémenté**. Resolver **non implémenté**.
-
----
-
-# CURRENT-CYCLE DIFF 13
-
---- .tmp-sfia-review/before/13-v3-1-profile-qualification-functional-design.md	2026-07-30 20:29:15
-+++ projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/13-v3-1-profile-qualification-functional-design.md	2026-07-30 20:30:46
-@@ -14,8 +14,8 @@
- | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
- | **CKC** | `pilots/02-conception-fonctionnelle.md` · status `candidate` · v0.1.0 · **aucune autorité d’exécution** |
- | **Document d’arbitrage hérité** | `12-v3-cycle-recommendation-cadrage.md` (**lecture seule** — non modifié) |
--| **Architecture catalogue** | `14-v3-1-cycle-type-catalog-functional-architecture.md` — contrat produit · décisions Morris pending |
--| **Statut documentaire** | `V3.1 FUNCTIONAL DESIGN COMPLETE — CATALOG ARCHITECTURE CONTRACT PRODUCED — MORRIS CATALOG DECISIONS PENDING — DELIVERY NOT AUTHORIZED` |
-+| **Architecture catalogue** | `14` — décisions D-V3.1-CAT **adoptées** · CKC obligatoire intégré · runtime **non** implémenté |
-+| **Statut documentaire** | `V3.1 FUNCTIONAL DESIGN COMPLETE — CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
- | **Commit / push / PR projet** | **non** |
- | **Code / tests / Figma** | **non modifiés** |
-
-@@ -32,7 +32,7 @@
- | D-V3-07 = 1 + réserve | Contrat Git temporaire | Aucune frame Figma baseline ; réévaluation avant UI substantielle |
- | D-V3-08 = 1 | Slicing progressif | V3.1 = read-only · V3.2 = create explicite |
-
--**Réserves maintenues :** D-VS-05 NOT CONSUMED · B5 / R1 hors périmètre · volatilité process-local · **R-V3.1-CATALOG-01** (contrat d’architecture produit · arbitrage Morris pending · **toujours bloquante delivery** — voir `14`).
-+**Réserves maintenues :** D-VS-05 NOT CONSUMED · B5 / R1 hors périmètre · volatilité process-local · runtime catalogue / resolver **pending** (contrat + arbitrage résolus — voir `14`).
-
- ## C. Objectif fonctionnel et valeur
-
-@@ -163,21 +163,21 @@
- | Schema CycleType modélisé | Entité citée ; **pas** de registry runtime des 15 | Absent |
- | D1 intake `proposedCycleType` | Valeurs ad hoc (ex. `FRAMING`) | Stack legacy — **hors** vertical-slice |
-
--### Réserve bloquante (requalifiée)
-+### Réserve catalogue (requalifiée)
-
--**R-V3.1-CATALOG-01 — Source runtime du catalogue `cycleTypeId` absente / non canonique.**
-+**R-V3.1-CATALOG-01**
-
- | Aspect | État |
- |--------|------|
--| Constat initial | inchangé — pas de registry runtime des 15 |
--| Contrat d’architecture | **produit** — [`14-v3-1-cycle-type-catalog-functional-architecture.md`](./14-v3-1-cycle-type-catalog-functional-architecture.md) |
--| Decision pack | D-V3.1-CAT-01…08 **NOT DECIDED** |
--| Réserve | **toujours bloquante** jusqu’à arbitrage Morris |
--| Delivery | **non autorisé** |
-+| Constat runtime | Registry des 15 **toujours absente** (non implémentée) |
-+| Contrat + arbitrage | **RESOLVED** — D-V3.1-CAT-01…08 adoptées (`14`) |
-+| IDs | Quinze CAT-I1 **adoptés contractuellement** · non implémentés |
-+| CKC | **Obligatoire** dans le mécanisme produit · candidate ≠ optionnel · `executionAuthority=false` |
-+| Delivery D1 | **Non autorisé** — GO distinct requis |
-
--- Le delivery V3.1 **ne peut pas** inventer ni coder des IDs dans React.
--- Les labels méthode / harness peuvent informer le mapping ; ils ne le remplacent pas.
--- Les règles, critères d’acceptation et scénarios de ce document **13** restent inchangés.
-+- L’UI ne hardcode pas de liste d’autorité.
-+- Le résultat de QualifyCycle n’est **contractuellement exploitable** dans le parcours produit qu’avec une résolution CKC **valide** (detailed ou synthetic fallback).
-+- Les règles de qualification, CA et scénarios ci-dessous restent inchangés.
-
- ## J. Contrat des signaux
-
-@@ -315,15 +315,18 @@
-
- | Intégration | Rôle |
- |-------------|------|
--| Project Workspace | Fournit le contexte projet / LPS read-only |
--| Catalogue contrôlé | Fournit type (id, label, description) |
--| T-A2 QualifyCycle | Calcule la recommandation de profil |
--| UI | Affiche une projection volatile |
-+| Project Workspace | Contexte projet / LPS read-only |
-+| Catalogue contrôlé (contrat `14`) | Type id/label/description + métadonnées CKC |
-+| CKC Resolver | Résolution obligatoire · consommation orchestration · `executionAuthority=false` |
-+| T-A2 QualifyCycle | Recommandation de profil (domaine) |
-+| UI | Projection volatile · état CKC sans contrat brut |
-
- **Aucune** mutation projet, cycle, trajectoire, LPS ou épistémique.
-
--**Non défini ici :** Server Action précise · classes · fichiers · protocole · stockage.
-+Le parcours produit ne présente pas le résultat de qualification comme contractuellement exploitable sans CKC valide.
-
-+**Non défini ici :** Server Action · classes · fichiers · protocole · stockage.
-+
- ## T. Accessibilité
-
- 1. Navigation clavier complète de tous les contrôles.
-@@ -422,7 +425,7 @@
-
- | ID | Risque / réserve | Sévérité |
- |----|------------------|----------|
--| R-V3.1-CATALOG-01 | Source runtime absente · contrat archi `14` produit · Morris pending | **Bloquante delivery** |
-+| R-V3.1-CATALOG-01 | Contrat+arbitrage résolus · runtime pending | Delivery D1 bloqué jusqu’à GO |
- | R-V3.1-02 | Duplication méthode / scoring dans React | Haute — interdite |
- | R-V3.1-03 | Exposition codes rationale bruts | Moyenne |
- | R-V3.1-04 | Fausse influence objectif/scope | Haute |
-@@ -441,9 +444,11 @@
- |-------|--------|
- | V3 cadrage + arbitrage | Terminé (`12`) |
- | V3.1 conception fonctionnelle | Terminée (`13`) |
--| V3.1 architecture catalogue | Contrat produit (`14`) · arbitrage Morris pending |
--| V3.1 delivery read-only | **Non ouvert** — après D-V3.1-CAT + GO delivery |
--| V3.2 CreateCycle explicite | Non ouvert |
-+| V3.1 architecture + adoption catalogue | Terminée (`14`) · D-V3.1-CAT adoptées · CKC obligatoire |
-+| V3.1-D1 catalogue runtime + CKC mapping | **Candidat** · non ouvert |
-+| V3.1-D2 projection + resolver + QualifyCycle bridge | Après D1 |
-+| V3.1-D3 UI | Après D2 · réserve Figma |
-+| V3.2 CreateCycle | Non ouvert |
- | V4 décision Morris | Non ouvert |
-
- Aucun cycle suivant ouvert automatiquement.
-@@ -451,23 +456,23 @@
- ## AA. Anti-claims
-
- - Conception fonctionnelle ≠ implémentation.
--- Profil recommandé ≠ type de cycle recommandé automatiquement.
-+- IDs adoptés ≠ registry runtime.
-+- CKC obligatoire ≠ baseline méthode globale ≠ autorité d’exécution.
-+- Candidate ≠ optionnel (produit candidate).
-+- Profil recommandé ≠ type recommandé automatiquement.
- - Recommandation ≠ décision Morris.
- - Read-only ≠ CycleInstance créé.
- - Résultat Critical ≠ autorisation.
- - Contrat Git ≠ Figma validé.
--- Contrat catalogue ≠ IDs adoptés ≠ runtime disponible.
- - Tests planifiés ≠ tests exécutés.
- - Aucun PRODUCT / RUN / IAM / AGENT READY · DELIVERY / CUTOVER AUTHORIZED · HARD CLOSED · T-A6 COMPLETE.
-
- ## AB. Verdict
-
--**V3.1 FUNCTIONAL DESIGN COMPLETE — CATALOG ARCHITECTURE CONTRACT PRODUCED — MORRIS CATALOG DECISIONS PENDING — DELIVERY NOT AUTHORIZED**
-+**V3.1 FUNCTIONAL DESIGN COMPLETE — CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED**
-
- Prochain gate candidat (non ouvert) :
-
--`GO ARBITRATE SFIA STUDIO V3.1 CYCLE TYPE CATALOG DECISIONS D-V3.1-CAT-01 TO D-V3.1-CAT-08`
-+`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
-
--Puis, après arbitrage catalogue : gate delivery V3.1 (inchangé dans son intention read-only).
--
--**Précondition delivery :** arbitrage **D-V3.1-CAT-01…08** + résolution effective de **R-V3.1-CATALOG-01** · réévaluation Figma selon D-V3-07.
-+**Précondition D1 :** GO delivery distinct · respect contrat `14` · pas d’élargissement D2/D3/V3.2.
+-D1 **non commencé**. Catalogue **non implémenté**. Resolver **non implémenté**.
 
 ---
 
 # CURRENT-CYCLE DIFF 14
 
---- .tmp-sfia-review/before/14-v3-1-cycle-type-catalog-functional-architecture.md	2026-07-30 20:29:15
-+++ projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/14-v3-1-cycle-type-catalog-functional-architecture.md	2026-07-30 20:30:46
-@@ -4,432 +4,359 @@
-
- | Champ | Valeur |
- |-------|--------|
--| **Date/heure/fuseau** | 2026-07-30 19:35:00 CEST (+0200) |
--| **Cycle** | 3 — Architecture fonctionnelle |
-+| **Date/heure/fuseau** | 2026-07-30 20:29:00 CEST (+0200) |
-+| **Cycle** | 3 — Architecture fonctionnelle (phase arbitrage / adoption / correction) |
- | **Profil** | **Critical** |
- | **Typologie** | DOC |
--| **GO Morris consommé** | `GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1 CYCLE TYPE CATALOG — RESOLVE R-V3.1-CATALOG-01 — CONTRACT ONLY — NO IMPLEMENTATION` |
-+| **GO architecture (historique)** | `GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1 CYCLE TYPE CATALOG — RESOLVE R-V3.1-CATALOG-01 — CONTRACT ONLY — NO IMPLEMENTATION` (consommé) |
-+| **GO adoption (consommé)** | voir Decision record Morris |
- | **Branche** | `framing/sfia-studio-visible-slice-v3-cycle-recommendation-cadrage` |
+--- .tmp-sfia-review/before-d1/14-v3-1-cycle-type-catalog-functional-architecture.md	2026-07-30 20:45:48
++++ projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/14-v3-1-cycle-type-catalog-functional-architecture.md	2026-07-30 20:48:57
+@@ -14,7 +14,7 @@
  | **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
--| **CKC** | Pilote détaillé **absent** · fallback `02-fifteen-cycles-synthetic-map.md` · statut `method-candidate` · **aucune autorité d’exécution** |
--| **Entrées héritées** | `12` (arbitrage D-V3, lecture seule) · `13` (conception V3.1) |
--| **Statut documentaire** | `R-V3.1-CATALOG-01 RESOLUTION CONTRACT COMPLETE — MORRIS CATALOG DECISIONS REQUIRED — DELIVERY NOT AUTHORIZED` |
-+| **CKC (ce cycle)** | Pilote détaillé **absent** · fallback carte synthétique + méthode §4.3 · `method-candidate` · **consommation obligatoire** · **executionAuthority=false** |
-+| **Entrées héritées** | `12` (lecture seule) · `13` (conception V3.1) |
-+| **Statut documentaire** | `V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
+ | **CKC (ce cycle)** | Pilote détaillé **absent** · fallback carte synthétique + méthode §4.3 · `method-candidate` · **consommation obligatoire** · **executionAuthority=false** |
+ | **Entrées héritées** | `12` (lecture seule) · `13` (conception V3.1) |
+-| **Statut documentaire** | `V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED` |
++| **Statut documentaire** | `V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME CONTRACT IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED` |
  | **Commit / push / PR projet** | **non** |
--| **Code / registry / Figma** | **non** |
-+| **Code / registry / resolver / Figma** | **non** |
-
--## B. Problème et objectif
-+## Decision record Morris
-
--### R-V3.1-CATALOG-01
-+| Champ | Valeur |
-+|-------|--------|
-+| **Clarification Morris** | « par contre le CKC doit faire partie intégrante du mécanisme, c'est candidate parce que le projet lui meme est candidate mais c'est la base de la doctrine de ce produit, donc toute la doctrine meme si elle est candidate doit faire partie intégrante de la solution, de sa conception a sa réalisation, jusqu'a que la solution soit en production » |
-+| **Confirmation Morris** | « pour le reste des décisions c'est ok » |
-+| **GO formel** | `GO ADOPT SFIA STUDIO V3.1 CYCLE TYPE CATALOG — D-V3.1-CAT-01=CAT-S1 — D-V3.1-CAT-02=CAT-I1 — D-V3.1-CAT-03=MINIMAL_WITH_MANDATORY_CKC_CORE — D-V3.1-CAT-04=CONTROLLED_ALIASES — D-V3.1-CAT-05=MORRIS_FOR_STRUCTURAL_CHANGES — D-V3.1-CAT-06=NEUTRAL_ID_LOCALIZED_LABELS — D-V3.1-CAT-07=INTEGRATED_MANDATORY_CKC_MECHANISM — D-V3.1-CAT-08=D1_THEN_D2_THEN_D3` |
-+| **Date/heure/fuseau GO** | 2026-07-30 20:23 CEST (+0200) |
-
--**CYCLE TYPE CATALOG SOURCE REQUIRED BEFORE DELIVERY** — aucune source runtime canonique ne fournit les quinze définitions de cycle pour V3.1.
-+| ID | Décision adoptée | Conséquence | Réserve | Statut |
-+|----|------------------|-------------|---------|--------|
-+| D-V3.1-CAT-01 | **CAT-S1** | Contrat Git catalogue = projection opérationnelle des 15 cycles méthode | Runtime non implémenté | `DECIDED — ADOPTED BY MORRIS` |
-+| D-V3.1-CAT-02 | **CAT-I1** | Quinze IDs `cyc:<english-slug>` adoptés · `cyc:capitalization` inchangé | Runtime pending | `DECIDED — ADOPTED BY MORRIS` |
-+| D-V3.1-CAT-03 | **MINIMAL_WITH_MANDATORY_CKC_CORE** | Noyau minimal **+** socle CKC obligatoire | Pas de sur-modélisation TS | `DECIDED — ADOPTED BY MORRIS` |
-+| D-V3.1-CAT-04 | **CONTROLLED_ALIASES** | Alias 1→1 gouvernés · pas de recyclage | Alias initiaux absents OK | `DECIDED — ADOPTED BY MORRIS` |
-+| D-V3.1-CAT-05 | **MORRIS_FOR_STRUCTURAL_CHANGES** | Gate Morris sur changements structurants | Labels non structurants : revue proportionnée | `DECIDED — ADOPTED BY MORRIS` |
-+| D-V3.1-CAT-06 | **NEUTRAL_ID_LOCALIZED_LABELS** | ID neutre · labels FR · futur multi | Fallback label explicite | `DECIDED — ADOPTED BY MORRIS` |
-+| D-V3.1-CAT-07 | **INTEGRATED_MANDATORY_CKC_MECHANISM** | CKC obligatoire dans le mécanisme produit · candidate ≠ optionnel | Candidate ≠ baseline méthode globale · `executionAuthority=false` | `DECIDED — ADOPTED BY MORRIS` |
-+| D-V3.1-CAT-08 | **D1_THEN_D2_THEN_D3** | Trois incréments séparés adoptés | Delivery non ouvert | `DECIDED — ADOPTED BY MORRIS` |
-
--### Pourquoi ça bloque le delivery
-+**Décision produit SFIA Studio :** le CKC est obligatoire de la conception à la production dans le produit candidate. Cela **ne** promeut **pas** les documents CKC en baseline officielle de la méthode SFIA globale.
-
--Sans contrat d’identifiants stables et de métadonnées, l’UI ne peut pas proposer une sélection contrôlée sans inventer des IDs, hardcoder des listes, ou dériver incorrectement depuis harness/méthode Markdown.
-+## B. Problème et objectif
-
--### Résultat attendu de ce cycle
-+### R-V3.1-CATALOG-01 (historique → requalifiée)
-
--Un **contrat d’architecture fonctionnelle** décisionnable : options, mapping candidat, invariants, gouvernance, decision pack Morris — **sans** adoption implicite ni implémentation.
-+Historique : aucune source runtime canonique des quinze types.
-
-+**État actuel :** résolue au **niveau contrat fonctionnel et arbitrage Morris**. Runtime / delivery D1 **pending** (GO distinct).
-+
- ### Contrat ≠ implémentation
-
--Ce document ne crée aucun registre, constante, enum, fichier runtime, ni bridge.
-+Ce document enregistre l’adoption. Il ne crée aucun registre, constante, enum, resolver, bridge ni UI.
-
--## C. Décisions d’entrée
-+## C. Décisions d’entrée (D-V3 — inchangées)
-
--| Contrainte | Effet |
--|------------|-------|
--| D-V3-01=1 | Type sélectionné · profil T-A2 |
--| D-V3-02=1 | Catalogue contrôlé · pas de reco auto du type |
--| D-V3-03=2 | CreateCycle hors V3.1 |
--| D-V3-04=1 | Pas de lien LPS V3.1 |
--| D-V3-05=1 | Pas d’EpistemicItem Recommendation V3.1 |
--| D-V3-06 | Critical fail-closed |
--| D-V3-07=1 | Contrat Git · réserve Figma |
--| D-V3-08=1 | V3.1 read-only → V3.2 create |
--| Doc `13` | Règles fonctionnelles V3.1 inchangées |
--| T-A2 | QualifyCycle : profil seul · `cycleTypeId` optionnel · CreateCycle exige ID OA |
--| Préexistant | `cyc:capitalization` **immuable** dans le sens et la valeur |
-+D-V3-01…08 restent adoptées (`12`). `cyc:capitalization` immuable. Type sélectionné · profil T-A2 · V3.1 read-only · pas CreateCycle / LPS / epistemic.
-
- ## D. Inventaire repo-informed
-
--| Source | Type | Identifiants | Autorité réelle | Usages | Compatibilité OA | Canonique ? | Risque |
--|--------|------|--------------|-----------------|--------|------------------|-------------|--------|
--| Méthode §3.1 + carte 15 cycles | Doc méthode | Noms FR 1…15 · pas d’IDs `cyc:` | Conceptuelle (candidate) | Référence humaine | N/A (pas d’IDs) | Conceptuelle | Divergence si non projetée |
--| Matrice CKC `04` | Doc méthode | Mapping # → CKC path/fallback | Guidance cognitive | Routage CKC | N/A | Non runtime | Couplage CKC trop tôt |
--| `CAPITALIZATION_CYCLE_TYPE_ID` | Constante domaine OA | `cyc:capitalization` | Domaine T-A2 | Flag capitalization | Pattern OA OK | **Oui (singleton)** | Doit être préservé |
--| `isOaIdentifier` / `validateCycleIds` | Invariants T-A2 | Pattern `prefix:…` · longueur | Domaine | CreateCycle | Oui | Règle technique | N’est pas un catalogue |
--| Tests OA (`cyc:delivery`, etc.) | Fixtures | IDs ad hoc | Aucune | Tests | Pattern OK | **Non** | Réutilisation erronée comme catalogue |
--| `SFIA_CYCLES` / `SFIA_CYCLE_LABELS` (harness) | Enum labels Increment C | Slugs FR sans `cyc:` | Harness qualification | Affichage / prompt | **Non** (pas OA) | **Non** | Autorité usurpée |
--| `sfiaCanonicalLabels.ts` (Studio) | Miroir labels | Mêmes slugs FR | Miroir harness | UI Increment C | Non | Non | Duplication |
--| D1 `proposedCycleType` | Legacy | Ex. `FRAMING` | Stack D1 | Intake | Non | Non | Confusion namespaces |
--| Entité CycleType (modeled) | Doc/schema candidate | Concept sans registry 15 | Modeled | Modélisation | Partiel | Non runtime | Sur-attente |
--| Registry runtime 15 types | — | — | — | — | — | **ABSENT** | Bloque delivery |
-+*(inchangé dans le constat)* — registry runtime 15 **toujours absente** · harness non autorité · méthode = autorité conceptuelle · `cyc:capitalization` seul ID OA domaine explicite préexistant · fixtures test ≠ catalogue.
-
--**Sources absentes :** contrat catalogue versionné · projection runtime · mapping officiel harness↔OA · schema CycleType registry des 15.
-+**Post-adoption :** les quinze IDs CAT-I1 sont **contractuels** (adoptés) mais **pas encore implémentés**.
-
--**Contradictions :** `capitalisation-rex` (harness) ≠ `cyc:capitalization` (OA) · fixtures `cyc:delivery` ≠ catalogue · doctrine « aucune lecture runtime `method/**` ».
--
--**Réutilisable :** noms canoniques méthode · labels FR harness (comme **labels**, pas IDs) · `cyc:capitalization` · pattern OA · CKC matrix (métadonnée informative).
--
- ## E. Principes d’architecture fonctionnelle
-
--1. **Méthode** = autorité conceptuelle des quinze cycles.
--2. **Contrat catalogue** = projection opérationnelle explicite et traçable.
--3. **Projection runtime** = consommation du contrat — pas inventaire parallèle.
--4. **UI** = sélection contrôlée · jamais sa propre liste hardcodée.
--5. **T-A2** = reçoit un `cycleTypeId` **déjà validé** · ne recommande pas le type.
--6. Identité stable ≠ label localisé.
-+1. Méthode = autorité conceptuelle des 15 cycles.
-+2. Contrat catalogue = projection opérationnelle traçable (**CAT-S1**).
-+3. Projection runtime = consommation du contrat.
-+4. UI = sélection contrôlée · aucune liste d’autorité hardcodée.
-+5. T-A2 = reçoit un `cycleTypeId` validé · ne recommande pas le type.
-+6. Identité ≠ label.
- 7. Type ≠ profil.
- 8. Catalogue ≠ moteur de recommandation.
- 9. Recommandation ≠ décision Morris.
--10. Git = source de vérité documentaire / contractuelle.
--11. Fail-closed : unknown / unavailable bloquent sans fallback texte libre.
--12. Aucune lecture runtime Markdown méthode comme chemin recommandé.
-+10. Git = source de vérité contractuelle.
-+11. Fail-closed unknown / unavailable / CKC invalid sans fallback.
-+12. Pas de parsing runtime Markdown méthode.
-+13. **CKC obligatoire** dans l’orchestration produit (candidate ≠ optionnel).
-+14. **CKC `executionAuthority=false`** · ne décide pas · ne consomme pas de gate.
-+15. Candidate doctrine ≠ baseline méthode globale.
-
- ## F. Vue fonctionnelle des composants
-
--| Composant conceptuel | Responsabilité |
--|----------------------|----------------|
--| **SFIA Method Cycle Reference** | Définit les 15 cycles (noms, finalités) dans Git méthode |
--| **Cycle Type Catalog Contract** | Projection opérationnelle versionnée : IDs, labels, métadonnées, lifecycle |
--| **Cycle Type Catalog Projection** | Exposition read-only des entrées actives pour l’UI / validateurs |
--| **Project Workspace / Profile Qualification UI** | Sélection type + signaux · affiche labels du catalogue |
--| **T-A2 QualifyCycle** | Recommande profil depuis signaux · hint capitalization si ID connu |
--| **Futur T-A2 CreateCycle** | Persiste CycleInstance avec `cycleTypeId` validé |
--| **CKC Resolver** | Résolution cognitive par `cycleTypeId` · `executionAuthority=false` |
--| **Gouvernance Morris** | Adopte IDs, source, gouvernance, slicing delivery |
-+| Composant | Responsabilité |
-+|-----------|----------------|
-+| **SFIA Method Cycle Reference** | 15 cycles conceptuels (méthode Git) |
-+| **Cycle Type Catalog Contract** | IDs adoptés · labels · lifecycle · **métadonnées CKC obligatoires** |
-+| **Cycle Type Catalog Projection** | Exposition read-only post-D1 |
-+| **CKC Resolver** | Résout doctrine (detailed → synthetic → fail-closed) · `executionAuthority=false` · **consommation obligatoire** dans l’orchestration |
-+| **Orchestration produit** | Exige résolution CKC valide avant résultat contractuellement exploitable / executable / ready |
-+| **Profile Qualification UI** | Sélection type · signaux · profil · disclosures · **état CKC** (sans contrat brut) |
-+| **T-A2 QualifyCycle** | Profil depuis signaux · indépendant du type · domaine |
-+| **Futur CreateCycle** | Hors V3.1 · ID catalogue validé |
-+| **Gouvernance Morris** | Changements structurants |
-
--## G. Flux fonctionnel
-+## G. Flux fonctionnel (corrigé)
-
- ```text
- Méthode (15 cycles)
--  → (gouverné) Cycle Type Catalog Contract
-+  → Cycle Type Catalog Contract (CAT-S1)
-     → Cycle Type Catalog Projection
--      → UI (liste contrôlée)
--        → cycleTypeId validé + signaux explicites
--          → QualifyCycle → profil + rationale
--            → UI (projection volatile)
-+      → sélection cycleTypeId (validé)
-+        → résolution CKC obligatoire (detailed → synthetic fallback → fail-closed)
-+          → validation résolution CKC
-+            → signaux explicites
-+              → QualifyCycle (domaine)
-+                → résultat read-only (exploitable seulement si CKC valide)
-+                  → futurs delivery / QA / readiness avec preuve CKC tracée
- ```
-
- Aucun flux inverse ne crée une décision Morris, un gate, ni un CycleInstance en V3.1.
-
- ## H. Contrat conceptuel CycleTypeDefinition
-
--### H.1 Noyau minimal (recommandé candidat)
-+### H.1 Noyau minimal **avec socle CKC obligatoire** (CAT-03 adopté)
-
--| Champ | Rôle | Obl. | Mutable | Consommateur | Risque |
--|-------|------|------|---------|--------------|--------|
--| `cycleTypeId` | Identité stable | oui | **non** | UI · T-A2 · CKC · instances | Adoption prématurée |
--| `canonicalKey` | Clé stable non localisée (ex. slug méthode/harness) | oui | non* | Gouvernance · sync | Confusion avec ID |
--| `label` | Libellé utilisateur (FR initial) | oui | **oui** | UI | ID ≠ label |
--| `shortDescription` | Aide courte | oui | oui | UI | Sur-rédaction |
--| `displayOrder` | Ordre d’affichage | oui | oui | UI | Non identitaire |
--| `lifecycleStatus` | active \| deprecated \| unavailable | oui | gouverné | UI · validate | Oubli dépréciation |
--| `methodCycleNumber` | 1…15 | oui | non* | Traçabilité | Renumérotation méthode |
--| `methodReference` | Pointeur doc méthode | oui | oui | Audit | Lien cassé |
-+| Champ | Rôle | Obl. | Mutable | Consommateur |
-+|-------|------|------|---------|--------------|
-+| `cycleTypeId` | Identité stable | oui | **non** | UI · T-A2 · CKC · instances |
-+| `canonicalKey` | Clé stable non localisée (traçabilité harness/méthode) | oui | non* | Sync · gouvernance |
-+| `label` | Libellé FR initial | oui | oui | UI |
-+| `shortDescription` | Aide courte | oui | oui | UI |
-+| `displayOrder` | Ordre affichage | oui | oui | UI |
-+| `lifecycleStatus` | active \| deprecated \| unavailable | oui | gouverné | UI · validate |
-+| `methodCycleNumber` | 1…15 | oui | non* | Traçabilité |
-+| `methodReference` / provenance | Pointeur doctrinal | oui | oui | Audit |
-+| `ckcLevel` | detailed \| synthetic \| … | oui | gouverné | Resolver · orchestration |
-+| `ckcReference` / clé résolution | Cible pilote ou clé stable | oui | gouverné | Resolver |
-+| `ckcFallbackPolicy` | Politique fallback (ex. synthetic map) | oui | gouverné | Resolver |
-+| Exigences statut résolution | Règles valid / invalid / unavailable | oui | gouverné | Orchestration |
-
--\* changement = décision Morris + stratégie migration.
-+\* = gate Morris + migration.
-
--### H.2 Extension optionnelle
-+**Historique :** la recommandation initiale « CKC en extension » est **corrigée** par Morris → CKC dans le noyau obligatoire.
-
--| Champ | Rôle | Obl. | Note |
--|-------|------|------|------|
--| `category` | A/B méthode | non | Informative |
--| `ckcLevel` / `ckcReference` | Guidance CKC | non | Pas d’autorité |
--| `aliases` | Anciens IDs | non | Si CAT-D alias |
--| `deprecatedAt` / `replacedBy` | Lifecycle | non | Si dépréciation |
--| `availability` | Disponibilité projection | non | Peut coller à lifecycle |
-+### H.2 Extension optionnelle (hors noyau)
-
--**Interdit dans la définition :** profil · gate · décision · score · autorité · exécution.
-+`category` · `aliases` · `deprecatedAt` / `replacedBy` · `availability` — selon CAT-04/lifecycle. Pas de profil/gate/décision/autorité.
-
-+**Contrat fonctionnel ≠ structure TypeScript** : choix de fichiers/classes/stockage = delivery futur.
-+
- ## I. Contrat conceptuel CycleTypeCatalog
-
--Opérations fonctionnelles (sans langage/fichier/classe) :
-+Opérations inchangées conceptuellement + exigences :
-
--| Opération | Comportement |
--|-----------|--------------|
--| `listActiveCycleTypes` | Entrées `active` ordonnées |
--| `getCycleTypeById` | Définition ou unknown |
--| `validateCycleTypeId` | ok \| unknown \| deprecated \| unavailable |
--| `resolveAlias` | Si retenu — cible unique sans ambiguïté |
--| `listDeprecatedCycleTypes` | Optionnel audit |
--| `catalogVersion` / fingerprint | Traçabilité divergence |
--| État `unavailable` | Bloque sélection · pas de fallback libre |
-+- `validateCycleTypeId` fail-closed unknown/deprecated.
-+- Métadonnées CKC présentes pour chaque entrée active.
-+- Fingerprint / version catalogue.
-+- Unavailable → bloque sélection · pas de texte libre.
-
- ## J. Invariants
-
--1. Unicité des `cycleTypeId`.
--2. Pattern OA (`isOaIdentifier`) · longueur ≤ 128.
--3. Préfixe candidat `cyc:` pour les types (compatible CreateCycle).
--4. `cyc:capitalization` **inchangé** (valeur et sens).
--5. Identifiant **immuable** après adoption.
--6. Identifiant **jamais recyclé** pour un autre cycle.
--7. Label modifiable sans changer l’ID.
--8. `displayOrder` non identitaire.
--9. Aucun profil dans le type.
--10. Aucune décision / gate / autorité dans le catalogue.
--11. Unknown → fail-closed.
--12. Catalogue unavailable → fail-closed.
--13. Alias sans ambiguïté (1→1).
--14. `replacedBy` cible existante.
--15. Exactement les quinze cycles méthode — pas de 16ᵉ, pas de fusion.
--16. UI n’embarque pas sa propre liste d’autorité.
-+1–16 (précédents) conservés, **plus** :
-
-+17. Métadonnées CKC **obligatoires** par type actif.
-+18. Pilote détaillé **prioritaire** s’il existe.
-+19. Fallback synthétique **obligatoire** sinon.
-+20. Invalid/unavailable **sans** fallback valide → **stop** fail-closed.
-+21. Aucun cycle déclaré executable / ready for delivery / QA / production **sans** CKC résolu et consommé.
-+22. `executionAuthority=false` toujours.
-+23. Identité du type **indépendante** du statut CKC (l’identité reste ; l’exploitabilité produit est bloquée).
-+24. Quinze `cycleTypeId` CAT-I1 **adoptés contractuellement**.
-+
- ## K. Options de source de vérité
-
--### CAT-S1 — Contrat Git canonique explicite *(recommandation candidate)*
-+Options historiques CAT-S1…S4 conservées.
-
--Projection opérationnelle versionnée des 15 cycles méthode · sync gouvernée · projection runtime dérivée.
-+Recommandation historique : CAT-S1.
-
--| Critère | Évaluation |
--|---------|------------|
--| Traçabilité | Forte |
--| Couplage | Faible au Markdown runtime |
--| Alignement doctrine | Compatible « pas de lecture runtime method/** » |
--| Dette | Maintenance sync méthode↔contrat |
-+**Décision : CAT-S1 — DECIDED — ADOPTED BY MORRIS.** (aligne la recommandation)
-
--### CAT-S2 — Parsing runtime Markdown méthode
--
--Fragile · performance · couplage fort · **non recommandé**.
--
--### CAT-S3 — Harness labels comme catalogue
--
--Pas d’autorité · slugs non OA · `capitalisation-rex` ≠ `cyc:capitalization` · **non recommandé**.
--
--### CAT-S4 — Catalogue indépendant sans traçabilité méthode
--
--Divergence certaine · **non recommandé**.
--
--**Statut global options source : NOT DECIDED — Morris (D-V3.1-CAT-01).**
--
- ## L. Options de stratégie d’identifiants
-
--### CAT-I1 — `cyc:<stable-english-slug>` *(recommandation candidate)*
-+Options historiques CAT-I1…I4 conservées.
-
--Exemples candidats (NOT ADOPTED) : `cyc:framing`, `cyc:delivery`, **`cyc:capitalization` (existant)**.
-+Recommandation historique : CAT-I1.
-
--| Critère | Éval. |
--|---------|-------|
--| Pattern OA | Oui |
--| Lisibilité | Haute |
--| Compat `cyc:capitalization` | Native |
--| Réversibilité | Bonne avant persistance |
--| Dette | Mapping harness FR → slug EN |
-+**Décision : CAT-I1 — DECIDED — ADOPTED BY MORRIS.**
-
--### CAT-I2 — `cyc:<number>-<slug>`
-+## M. Mapping des quinze IDs — **ADOPTÉ**
-
--Ex. `cyc:01-framing`. Impact renumérotation méthode · moins réversible.
--
--### CAT-I3 — Opaque / UUID
--
--Stabilité maximale · lisibilité nulle · migration humaine coûteuse · **peu adapté** démonstrateur.
--
--### CAT-I4 — Slugs harness sans préfixe
--
--Ex. `cadrage`. **Incompatible** validation OA CreateCycle · **non recommandé**.
--
--**Statut : NOT DECIDED — Morris (D-V3.1-CAT-02).**
--
--## M. Mapping candidat complet
-+**Stratégie :** CAT-I1. Exactement quinze entrées.
-+Chaque ID : **`ADOPTED BY MORRIS — CONTRACTUAL ID — NOT YET IMPLEMENTED`**.
-+`cyc:capitalization` : valeur et sens **inchangés**.
-
--**Stratégie illustrée :** CAT-I1.
--**Tous les IDs ci-dessous : `CANDIDATE — NOT ADOPTED`** sauf la valeur préexistante `cyc:capitalization` (déjà domaine OA ; son **appartenance catalogue + métadonnées** restent à arbitrer).
--
--| # | Nom canonique méthode | ID candidat | Label FR | Description courte | Ordre | CKC | Source |
--|---|----------------------|-------------|----------|--------------------|-------|-----|--------|
--| 1 | Cadrage | `cyc:framing` | Cadrage | Clarifier intention, périmètre, contraintes | 1 | detailed pilot | méthode §3.1 / §4.1 |
--| 2 | Conception fonctionnelle | `cyc:functional-design` | Conception fonctionnelle | Usages, règles, objets métier | 2 | detailed pilot | §4.2 |
--| 3 | Architecture fonctionnelle | `cyc:functional-architecture` | Architecture fonctionnelle | Structure, flux, découpage | 3 | synthetic map | §4.3 |
-+| # | Nom canonique | cycleTypeId | Label FR | Description courte | Ordre | CKC path | Source |
-+|---|---------------|-------------|---------|--------------------|-------|----------|--------|
-+| 1 | Cadrage | `cyc:framing` | Cadrage | Clarifier intention, périmètre, contraintes | 1 | pilot detailed | §4.1 |
-+| 2 | Conception fonctionnelle | `cyc:functional-design` | Conception fonctionnelle | Usages, règles, objets métier | 2 | pilot detailed | §4.2 |
-+| 3 | Architecture fonctionnelle | `cyc:functional-architecture` | Architecture fonctionnelle | Structure, flux, découpage | 3 | synthetic fallback | §4.3 |
- | 4 | UX/UI | `cyc:ux-ui` | UX/UI | Expérience et interface | 4 | synthetic | §4.4 |
- | 5 | Backlog / user stories | `cyc:backlog` | Backlog / user stories | Stories testables | 5 | synthetic | §4.5 |
--| 6 | Architecture technique | `cyc:technical-architecture` | Architecture technique | Stack, patterns, ADR | 6 | detailed pilot | §4.6 |
-+| 6 | Architecture technique | `cyc:technical-architecture` | Architecture technique | Stack, patterns, ADR | 6 | pilot detailed | §4.6 |
- | 7 | Intégration / DevOps | `cyc:integration-devops` | Intégration / DevOps | CI/CD, environnements | 7 | synthetic | §4.7 |
- | 8 | Delivery / implémentation | `cyc:delivery` | Delivery / implémentation | Implémentation bornée | 8 | synthetic | §4.8 |
--| 9 | QA / validation | `cyc:qa-validation` | QA / validation | Preuves et réserves | 9 | detailed pilot | §4.9 |
-+| 9 | QA / validation | `cyc:qa-validation` | QA / validation | Preuves et réserves | 9 | pilot detailed | §4.9 |
- | 10 | Sécurité / RSSI | `cyc:security` | Sécurité / RSSI | Menaces et contrôles | 10 | synthetic | §4.10 |
- | 11 | Déploiement / release | `cyc:release` | Déploiement / release | Release contrôlée | 11 | synthetic | §4.11 |
- | 12 | Observabilité / RUN readiness | `cyc:observability` | Observabilité / RUN readiness | Exploitabilité mesurable | 12 | synthetic | §4.12 |
- | 13 | PR readiness | `cyc:pr-readiness` | PR readiness | Branche prête à PR | 13 | synthetic | §4.13 |
- | 14 | Post-merge | `cyc:post-merge` | Post-merge | Clôture après merge | 14 | synthetic | §4.14 |
--| 15 | Capitalisation / REX | `cyc:capitalization` | Capitalisation / REX | Apprentissage réutilisable | 15 | synthetic | §4.15 · **ID OA préexistant** |
-+| 15 | Capitalisation / REX | `cyc:capitalization` | Capitalisation / REX | Apprentissage réutilisable | 15 | synthetic | §4.15 · **préexistant OA** |
-
--`canonicalKey` candidats (NOT ADOPTED) alignés harness : `cadrage` … `capitalisation-rex` — pour traçabilité, **pas** comme `cycleTypeId`.
-+`canonicalKey` harness (`cadrage` … `capitalisation-rex`) = **traçabilité uniquement**, jamais `cycleTypeId`.
-
--Exactement **quinze** entrées · aucun 16ᵉ · aucune fusion.
-+## N. Gouvernance et cycle de vie (CAT-04 / CAT-05)
-
--## N. Gouvernance et cycle de vie
--
- | Événement | Règle |
- |-----------|-------|
--| Ajout type | Gate Morris · MAJ méthode + contrat · version catalogue |
--| Renommage label | Sans changer ID · revue doc |
--| Description | Idem |
--| Dépréciation | `deprecated` · `replacedBy` obligatoire si remplacement · pas de sélection default |
--| Alias | Si autorisé : 1→1 · pas d’ambiguïté |
--| Suppression | **Interdite** si déjà référencé par instances |
--| Versionnement | Fingerprint / version contrat |
--| Divergence méthode/catalogue | Contrôle vérifiable · fail visible |
--| Impact instances | Validation historique · pas de rewrite silencieux |
-+| Ajout type / ID / dépréciation / remplacement / alias structurant / mapping doctrinal / impact instances | **Gate Morris** |
-+| Label / description non structurants | Revue documentaire proportionnée |
-+| Alias | 1→1 · pas d’ambiguïté · pas de recyclage · `replacedBy` valide |
-+| Alias initiaux | Absents OK tant qu’aucune migration |
-+| Suppression | Interdite si référencé |
-+| Rewrite silencieux instances | **Interdit** |
-
--## O. Localisation
-+## O. Localisation (CAT-06)
-
--- ID indépendant de la langue.
--- Label FR initial (V3.1).
--- Futur multilingue = labels additionnels · **jamais** dans l’ID.
--- Fallback : label FR si traduction absente.
-+ID neutre · labels FR · futur multi · jamais de traduction dans l’ID · fallback label explicite · changement de label sans changement d’identité.
-
- ## P. Relation avec T-A2
-
--- QualifyCycle : ID validé optionnel · profil indépendant du type.
-+- QualifyCycle reste une fonction de domaine (profil depuis signaux).
-+- Le **parcours produit** ne présente pas le résultat comme contractuellement exploitable / executable tant que la résolution CKC obligatoire n’est pas valide.
- - `capitalizationViaCycleTypeId` inchangé pour `cyc:capitalization`.
--- CreateCycle futur : ID valide catalogue + pattern OA.
--- Aucune recommandation automatique du type.
--- **Aucun changement T-A2 dans ce cycle.**
-+- CreateCycle hors V3.1.
-+- **Aucun changement code T-A2 dans ce cycle.**
-
--## Q. Relation avec CKC
-+## Q. Relation avec CKC (CAT-07 corrigé)
-
--- Mapping type → CKC **informatif**.
--- CKC candidate · `executionAuthority=false`.
--- CKC absent / unavailable **ne change pas** l’identité du type.
--- QualifyCycle **non bloqué** par CKC (comportement T-A2 actuel).
-+**Historique :** recommandation « résolution séparée / métadonnée informative » — **corrigée** par Morris.
-
-+| Règle | Position |
-+|-------|----------|
-+| CKC dans le mécanisme produit | **Obligatoire** |
-+| Candidate | Maturité projet/doctrine · **≠ optionnel** · **≠ baseline méthode globale** |
-+| Chemin de résolution | Obligatoire pour tout type |
-+| Priorité | Pilote détaillé si existant |
-+| Fallback | Synthétique obligatoire sinon |
-+| Fail-closed | Invalid/unavailable sans fallback valide |
-+| Ready / executable / delivery / QA / production | Exige CKC résolu et consommé |
-+| Traçabilité | Conception → prompt → delivery → QA → readiness → production |
-+| `executionAuthority` | **false** |
-+| Décision / gate Morris | **Non** |
-+| Remplace routing/template/guardrails | **Non** |
-+| Resolver | Responsabilité distincte possible · **consommation obligatoire** |
-+| UI | État de résolution pertinent · **pas** questionnaire CKC brut |
-+| Identité type | Indépendante du statut CKC |
-+
- ## R. Relation avec l’UI
-
--- Liste contrôlée depuis projection catalogue.
--- Pas de saisie libre · pas de hardcode d’autorité.
--- Labels / descriptions / ordre fournis par le catalogue.
--- États : loading · unavailable · unknown.
--- ID peut être masqué à l’affichage.
--- Aucun moteur de recommandation du type.
-+Liste contrôlée · pas de hardcode · labels du catalogue · états loading/unavailable/unknown · état CKC · pas de moteur de type · ID masquable.
-
- ## S. Erreurs et recovery
-
-+Ajouts CKC :
-+
- | Situation | Comportement |
- |-----------|--------------|
--| Catalogue unavailable | Bloquer sélection · message · pas de texte libre |
--| Catalogue invalid | Idem · delivery fail-closed |
--| Duplicate ID | Rejet contrat · non déployable |
--| Unknown ID | Fail-closed · corriger sélection |
--| Deprecated ID | Refus sélection active · message + remplacement si `replacedBy` |
--| Alias ambiguity | Rejet · correction gouvernance |
--| Method/catalog drift | Signal visible · gate Morris |
--| Capitalization mismatch | Stop — compatibilité cassée |
--| Fallback silencieux | **Interdit** |
-+| CKC invalid / unavailable sans fallback | Stop fail-closed · pas d’exploitabilité produit |
-+| Fallback synthétique manquant | Stop · corriger contrat catalogue |
-+| CKC non consommé / non tracé | Cycle non ready |
-
-+Autres erreurs catalogue (unavailable, unknown, duplicate, alias, drift, capitalization mismatch) inchangées · pas de fallback silencieux.
-+
- ## T. Compatibilité et migration
-
--- V3.1 ne crée **aucune** CycleInstance aujourd’hui → fenêtre pour fixer le contrat **avant** persistance.
--- Changement d’ID post-persistance = migration + alias/`replacedBy`.
--- Fixtures test (`cyc:delivery`, etc.) ≠ adoption catalogue.
--- Rollback contractuel = version précédente du contrat Git · pas rewrite opaque.
-+Fenêtre pré-persistance · IDs adoptés contractuellement · runtime pending · alias/`replacedBy` post-persistance · fixtures ≠ catalogue.
-
--## U. Découpage delivery candidat *(non ouvert)*
-+## U. Slicing delivery (CAT-08 adopté — non ouvert)
-
--| Lot candidat | Contenu | Valeur | Dépendance |
--|--------------|---------|--------|------------|
--| **V3.1-D1** | Registry/contrat runtime du catalogue (post-arbitrage) | Débloque sélection | D-V3.1-CAT décidées |
--| **V3.1-D2** | Projection read-only + validate + QualifyCycle bridge | Qualification réelle | D1 |
--| **V3.1-D3** | UI Profile Qualification | Surface visible | D2 · réserve Figma |
-+| Lot | Contenu | Statut |
-+|-----|---------|--------|
-+| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | **Adopté comme slicing** · delivery **non commencé** |
-+| **V3.1-D2** | Projection · validate ID · résolution CKC obligatoire · QualifyCycle bridge read-only | Adopté · non commencé |
-+| **V3.1-D3** | UI Profile Qualification · type/profil/justification/disclosures/état CKC | Adopté · non commencé · réserve Figma |
-
--Alternative bornée : D1+D2 fusionnés si scope Git acceptable — **NOT DECIDED**.
-+Pas de CreateCycle en V3.1 · V3.2 = create explicite futur.
-+Fusion D1/D2/D3 = nouvel arbitrage Morris.
-
--## V. Decision pack Morris
-+## V. Decision pack Morris — détail
-
- ### D-V3.1-CAT-01 — Source de vérité
-
--Options : CAT-S1 · CAT-S2 · CAT-S3 · CAT-S4.
--**Recommandation :** CAT-S1.
--**Statut : NOT DECIDED.**
-+Options : CAT-S1…S4. Recommandation historique : CAT-S1.
-+**Décision : CAT-S1 — DECIDED — ADOPTED BY MORRIS.**
-
--### D-V3.1-CAT-02 — Stratégie d’identifiants
-+### D-V3.1-CAT-02 — Identifiants
-
--Options : CAT-I1 · CAT-I2 · CAT-I3 · CAT-I4.
--**Recommandation :** CAT-I1 (préserve `cyc:capitalization`).
--**Statut : NOT DECIDED.**
-+Options : CAT-I1…I4. Recommandation historique : CAT-I1.
-+**Décision : CAT-I1 — DECIDED — ADOPTED BY MORRIS.** Mapping §M adopté.
-
- ### D-V3.1-CAT-03 — Noyau métadonnées
-
--Options : minimal (H.1) · étendu (H.1+H.2).
--**Recommandation :** minimal pour V3.1 ; CKC/alias en extension ultérieure.
--**Statut : NOT DECIDED.**
-+Options historiques : minimal / étendu. Recommandation historique : minimal sans CKC obligatoire.
-+**Décision : MINIMAL_WITH_MANDATORY_CKC_CORE — DECIDED — ADOPTED BY MORRIS.**
-+**Enrichit** la recommandation initiale (CKC dans le noyau).
-
--### D-V3.1-CAT-04 — Dépréciation et alias
-+### D-V3.1-CAT-04 — Alias
-
--Options : sans alias · alias contrôlés · migration forcée.
--**Recommandation :** alias contrôlés (1→1) pour évolutions post-persistance.
--**Statut : NOT DECIDED.**
-+Options : sans / contrôlés / migration forcée. Recommandation : contrôlés.
-+**Décision : CONTROLLED_ALIASES — DECIDED — ADOPTED BY MORRIS.**
-
--### D-V3.1-CAT-05 — Gouvernance de changement
-+### D-V3.1-CAT-05 — Gouvernance
-
--Options : Morris pour IDs/ajout/dépréciation · labels sans gate si non structurants.
--**Recommandation :** gate Morris pour toute mutation d’ID / ajout / dépréciation ; labels descriptifs revue légère.
--**Statut : NOT DECIDED.**
-+Recommandation : Morris structural.
-+**Décision : MORRIS_FOR_STRUCTURAL_CHANGES — DECIDED — ADOPTED BY MORRIS.**
-
- ### D-V3.1-CAT-06 — Localisation
-
--Options : ID neutre + labels localisés · ID localisé.
--**Recommandation :** ID neutre + labels FR (puis multi).
--**Statut : NOT DECIDED.**
-+Recommandation : ID neutre + labels.
-+**Décision : NEUTRAL_ID_LOCALIZED_LABELS — DECIDED — ADOPTED BY MORRIS.**
-
--### D-V3.1-CAT-07 — Mapping CKC
-+### D-V3.1-CAT-07 — CKC
-
--Options : métadonnée intégrée · résolution séparée.
--**Recommandation :** résolution séparée (CKC resolver) ; référence optionnelle dans contrat.
--**Statut : NOT DECIDED.**
-+Recommandation historique : résolution séparée / référence optionnelle.
-+**Décision : INTEGRATED_MANDATORY_CKC_MECHANISM — DECIDED — ADOPTED BY MORRIS.**
-+**Corrige** la recommandation initiale.
-
--### D-V3.1-CAT-08 — Slicing delivery
-+### D-V3.1-CAT-08 — Slicing
-
--Options : D1→D2→D3 · D1+D2 fusion · autre.
--**Recommandation :** D1 puis D2 puis D3.
--**Statut : NOT DECIDED.**
-+Recommandation : D1→D2→D3.
-+**Décision : D1_THEN_D2_THEN_D3 — DECIDED — ADOPTED BY MORRIS.**
-
--## W. Recommandation d’architecture
-+## W. Recommandation historique — **ARBITRÉE / CONSOMMÉE**
-
--**RECOMMENDATION — NOT DECIDED**
-+La recommandation §W initiale a été acceptée pour CAT-01/02/04/05/06/08, **enrichie** pour CAT-03, **corrigée** pour CAT-07. Source de décision = Morris.
-
--1. Source : **CAT-S1** (contrat Git explicite).
--2. IDs : **CAT-I1** (`cyc:<english-slug>`) · préserver **`cyc:capitalization`**.
--3. Métadonnées : noyau minimal.
--4. Alias contrôlés pour l’avenir.
--5. UI / T-A2 / méthode séparés · pas de harness autorité · pas de parsing Markdown runtime.
--6. Mapping §M = candidat d’arbitrage, **pas** registre.
--
--Assez de contrat pour implémenter **après** décisions Morris — sans sur-modélisation.
--
- ## X. Résolution de la réserve
-
- | Aspect | État |
+ | **Code / registry / resolver / Figma** | **non** |
+
+@@ -181,7 +181,7 @@
+ ## M. Mapping des quinze IDs — **ADOPTÉ**
+
+ **Stratégie :** CAT-I1. Exactement quinze entrées.
+-Chaque ID : **`ADOPTED BY MORRIS — CONTRACTUAL ID — NOT YET IMPLEMENTED`**.
++Chaque ID : **`ADOPTED BY MORRIS — CONTRACTUAL ID — IMPLEMENTED BY V3.1-D1`**.
+ `cyc:capitalization` : valeur et sens **inchangés**.
+
+ | # | Nom canonique | cycleTypeId | Label FR | Description courte | Ordre | CKC path | Source |
+@@ -272,7 +272,7 @@
+
+ | Lot | Contenu | Statut |
+ |-----|---------|--------|
+-| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | **Adopté comme slicing** · delivery **non commencé** |
++| **V3.1-D1** | Catalogue runtime · 15 IDs · mapping CKC obligatoire | **Implémenté** · QA pending |
+ | **V3.1-D2** | Projection · validate ID · résolution CKC obligatoire · QualifyCycle bridge read-only | Adopté · non commencé |
+ | **V3.1-D3** | UI Profile Qualification · type/profil/justification/disclosures/état CKC | Adopté · non commencé · réserve Figma |
+
+@@ -333,30 +333,41 @@
  |--------|------|
--| Architecture contract produced | **oui** (ce document) |
--| Decision pack ready | **oui** (D-V3.1-CAT-01…08) |
--| Reserve still blocking | **oui** jusqu’à arbitrage Morris |
--| Delivery authorized | **non** |
-+| Source / IDs / métadonnées / CKC / gouvernance / slicing | **Décidés** |
-+| R-V3.1-CATALOG-01 | **RESOLVED AT FUNCTIONAL CONTRACT AND MORRIS ARBITRATION LEVEL** |
-+| Runtime catalogue / resolver | **Pending** |
-+| Delivery D1 | **Requires separate GO** · **not authorized** |
+ | Source / IDs / métadonnées / CKC / gouvernance / slicing | **Décidés** |
+ | R-V3.1-CATALOG-01 | **RESOLVED AT FUNCTIONAL CONTRACT AND MORRIS ARBITRATION LEVEL** |
+-| Runtime catalogue / resolver | **Pending** |
+-| Delivery D1 | **Requires separate GO** · **not authorized** |
++| Runtime catalogue / mapping CKC | **IMPLEMENTED BY V3.1-D1** |
++| Résolution orchestrée / resolver consommation | **Pending D2** |
++| Delivery D2/D3 | **Not authorized** |
 
--**R-V3.1-CATALOG-01 n’est pas résolue.**
--
++### Évidence V3.1-D1
++
++- Contrat runtime : `app/lib/oa/cycle/domain/cycleTypeCatalog.ts`
++- Quinze IDs CAT-I1 : **ADOPTED BY MORRIS — CONTRACTUAL ID — IMPLEMENTED BY V3.1-D1**
++- Mapping CKC statique obligatoire : 4 detailed + 11 synthetic · `executionAuthority=false`
++- Distinction : **mapping statique (D1)** ≠ **résolution orchestrée (D2)**
++- Doc lot : `first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`
++- Historique des décisions Morris (Decision record) : **conservé** ci-dessus
++
  ## Y. Risques et réserves
 
--Divergence méthode/catalogue · stabilité IDs · migration · alias · localisation · couplage CKC · sur-architecture · catalogue trop pauvre/riche · absence tests delivery · process-local · Figma hors sujet · confusion fixtures test / catalogue · conflit harness `capitalisation-rex` vs OA `cyc:capitalization`.
-+Runtime absent · divergence méthode/catalogue · dette migration · alias · localisation · sur-architecture delivery · process-local · Figma (D3) · confusion candidate doctrine vs baseline méthode · harness ≠ autorité · QualifyCycle domaine vs exploitabilité produit.
+-Runtime absent · divergence méthode/catalogue · dette migration · alias · localisation · sur-architecture delivery · process-local · Figma (D3) · confusion candidate doctrine vs baseline méthode · harness ≠ autorité · QualifyCycle domaine vs exploitabilité produit.
++Runtime D1 livré · orchestration D2 absente · divergence méthode/catalogue · dette migration · alias · localisation · process-local · Figma (D3) · confusion candidate doctrine vs baseline méthode · harness ≠ autorité · QualifyCycle domaine vs exploitabilité produit.
 
  ## Z. Anti-claims
 
--- Contrat ≠ implémentation.
--- Mapping candidat ≠ IDs adoptés.
--- Source recommandée ≠ décision Morris.
--- Architecture fonctionnelle ≠ architecture technique.
--- Catalogue ≠ moteur de recommandation.
--- Type ≠ profil.
--- Git contract ≠ runtime disponible.
-+- Adoption contractuelle ≠ implémentation runtime.
-+- IDs adoptés ≠ registry disponible.
-+- CKC obligatoire ≠ baseline méthode globale.
-+- CKC obligatoire ≠ autorité d’exécution.
-+- Candidate ≠ optionnel (dans le produit candidate).
-+- Type ≠ profil · catalogue ≠ moteur · recommandation ≠ décision.
- - Delivery **non** autorisé.
+-- Adoption contractuelle ≠ implémentation runtime.
+-- IDs adoptés ≠ registry disponible.
++- Adoption contractuelle ≠ implémentation runtime (historique) · **D1 a implémenté le contrat runtime**.
++- Mapping CKC D1 ≠ résolution orchestrée D2.
++- IDs implémentés dans le catalogue ≠ CycleInstance créés.
+ - CKC obligatoire ≠ baseline méthode globale.
+ - CKC obligatoire ≠ autorité d’exécution.
+ - Candidate ≠ optionnel (dans le produit candidate).
+ - Type ≠ profil · catalogue ≠ moteur · recommandation ≠ décision.
+-- Delivery **non** autorisé.
++- D2/D3 **non** autorisés.
  - Pas PRODUCT / RUN / IAM / AGENT READY · DELIVERY / CUTOVER AUTHORIZED · HARD CLOSED · T-A6 COMPLETE.
 
  ## AA. Verdict
 
--**R-V3.1-CATALOG-01 RESOLUTION CONTRACT COMPLETE — MORRIS CATALOG DECISIONS REQUIRED — DELIVERY NOT AUTHORIZED**
-+**V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED**
+-**V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — READY FOR DELIVERY D1 DECISION — IMPLEMENTATION NOT AUTHORIZED**
++**V3.1 CYCLE TYPE CATALOG DECISIONS ADOPTED — R-V3.1-CATALOG-01 RESOLVED AT CONTRACT LEVEL — V3.1-D1 RUNTIME CONTRACT IMPLEMENTED — READY FOR QA/VALIDATION DECISION — D2/D3 NOT AUTHORIZED**
 
  Prochain gate candidat (non ouvert) :
 
--`GO ARBITRATE SFIA STUDIO V3.1 CYCLE TYPE CATALOG DECISIONS D-V3.1-CAT-01 TO D-V3.1-CAT-08`
-+`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
+-`GO DELIVERY SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — ADOPTED FIFTEEN IDS — RUNTIME CONTRACT ONLY — NO QUALIFYCYCLE BRIDGE — NO UI — NO CREATECYCLE`
++`GO QA VALIDATION SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — FIFTEEN IDS — CONTRACT INVARIANTS AND NEGATIVE TESTS — NO D2 — NO UI — NO CREATECYCLE`
 
--Statut : **READY FOR MORRIS CATALOG ARBITRATION**
-+Statut : **READY FOR DELIVERY D1 DECISION**
+-Statut : **READY FOR DELIVERY D1 DECISION**
++Statut : **READY FOR QA/VALIDATION DECISION**
