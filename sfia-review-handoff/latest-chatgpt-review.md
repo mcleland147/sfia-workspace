@@ -549,7 +549,7 @@ D2/D3 NOT AUTHORIZED
 
 ---
 
-## 21. Review Handoff Git (plan)
+## 21. Review Handoff Git
 
 - Décision : required
 - Mode : publish-in-cycle
@@ -560,4 +560,17 @@ D2/D3 NOT AUTHORIZED
 - Tip pré-cycle attendu : `49bb5a77a7f98f9df44843a96559d9b2b64df0ab`
 - Push handoff : autorisé — L3 borné
 
-(Statut de publication handoff renseigné après exécution.)
+### Preuve publication
+
+| Champ | Valeur |
+|---|---|
+| Tip pré-cycle | `49bb5a77a7f98f9df44843a96559d9b2b64df0ab` |
+| Commit handoff | `5cc42202c481725b3a8a3d7292f8129198e2ed22` |
+| Blob | `672622ed17cea8757622fcc2f8c9a18eb8a57730` |
+| Remote tip `origin/sfia/review-handoff` | `5cc42202c481725b3a8a3d7292f8129198e2ed22` |
+| Remote blob | `672622ed17cea8757622fcc2f8c9a18eb8a57730` |
+| Fichier unique publié | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Retour branche Delivery | OUI — `e2e898405c0a555573187e04dd6c3de777595f19` |
+| Review pack ajouté à la PR projet | NON |
+
+**Statut handoff :** `HANDOFF UPDATED — REMOTE VERIFIED`
