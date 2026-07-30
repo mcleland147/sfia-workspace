@@ -4,241 +4,166 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-30 08:26:21 CEST (+0200) |
+| **Date/heure/fuseau** | 2026-07-30 11:29:23 CEST (+0200) |
 | **Niveau** | Full |
-| **Mono-cycle** | PR #294 merge + post-merge uniquement |
-| **Repository** | `mcleland147/sfia-workspace` |
-| **Workspace** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
-| **Cycle** | 14 — Post-merge |
-| **Profil** | Standard · profondeur Standard renforcé · typologie EVOL |
-| **QA** | Post-merge L1 read-only renforcé |
-| **Gate Morris consommé** | `GO MERGE PR #294 SFIA STUDIO V2-A2 CREATE PROJECT UI` |
-| **PR** | [#294](https://github.com/mcleland147/sfia-workspace/pull/294) |
-| **Méthode de merge** | merge commit (`--merge`) |
-| **MERGE_SHA** | `d0e498ec1636122246e0de0103c50fb3ccb9fdd7` |
-| **origin/main** | `d0e498ec1636122246e0de0103c50fb3ccb9fdd7` |
-| **Modification projet** | aucune |
-| **Commit projet supplémentaire** | aucun |
-| **Verdict unique** | **POST-MERGE COMPLETE WITH RESERVES** |
+| **Mono-cycle** | V2-A3 Project Workspace UI — delivery |
+| **Repository** |  |
+| **Workspace** |  |
+| **Cycle** | 8 — Delivery / implémentation UI |
+| **Profil** | Standard · Standard renforcé · EVOL |
+| **Gate Morris consommé** |  |
+| **Branche** |  |
+| **Base / HEAD** |  |
+| **Commits projet** | aucun (working tree local non commitée) |
+| **Push / PR / merge** | non |
+| **Verdict unique** | **STOP — V2-A1 MODIFICATION REQUIRED — PROCESS-LOCAL SINGLETON NOT SHARED ACROSS NEXT ROUTES — MORRIS DECISION REQUIRED** |
 
 ## Git Review Index
 
 | Champ | Valeur |
 |-------|--------|
-| base avant | `169e1a71fcd8625ff87565c1b7112d63d9044492` |
-| HEAD source | `55a28d3cb30adb5b00ac347ffe9876879e199458` |
-| merge SHA | `d0e498ec1636122246e0de0103c50fb3ccb9fdd7` |
-| parents | `169e1a71…` + `55a28d3…` |
-| commits intégrés | 4 |
-| fichiers intégrés | 12 · 1830+/36- |
-| CI pré-merge | GREEN (run 30518281799) |
-| CI post-merge main | GREEN (run 30519427180 @ MERGE_SHA) |
-| remote branch cleanup | complete (deleted) |
-| local branch cleanup | retained — active worktree |
-| handoff tip before | `ed320aa633211f76779ca42e18c043730105ffb6` |
+| base |  @  |
+| branche |  |
+| HEAD |  (identique main ; 0 commits ahead) |
+| tracked dirty | oui — lot UI local non commit |
+| stage | vide |
+| untracked |  + nouveaux fichiers V2-A3 |
 | review pack | full |
-| verdict | POST-MERGE COMPLETE WITH RESERVES |
+| verdict | STOP — V2-A1 modification required |
 
 ## Review pack content coverage
 
 | Critère | Statut |
 |---------|--------|
-| created project files full content | not applicable |
-| modified project sections complete | not applicable |
-| merge metadata complete | yes |
-| integration proof complete | yes |
-| parentage verified | yes |
-| post-merge CI verified | yes |
-| remote branch cleanup | complete |
-| local branch cleanup | retained |
-| PR and merge evidence included | yes |
+| modified/created UI content included | yes |
+| blocker evidence included | yes |
+| validations included | yes |
 | synthesis only | **no** |
 | review pack verdict | **complete** |
 
-## Sources
+## Sources consultées
 
 | Source | Rôle |
 |--------|------|
-| handoff tip `ed320aa…` | PR CREATED — CI GREEN — READY FOR MORRIS REVIEW |
-| templates post-merge / cleanup | méthode cycle 14 |
-| `.github/workflows/sfia-studio-ci.yml` | triggers PR + push main |
-| GitHub PR #294 / Actions | merge + CI preuve |
-| CKC cycle 14 | experimental guidance only (non baseline) |
+| handoff tip  / post-merge V2-A2 | fondation main |
+| V2-A2 create UI + README | parcours / patterns |
+|  |  déjà présent |
+|  | D-V2-02 module-level  |
+| StudioShell / navigation | extension shell route |
+| import boundary tests | garde-fous UI |
 
-## Local Git Truth Check (pré-merge)
+## Local Git Truth Check
 
-```text
-branch = delivery/sfia-studio-visible-slice-v2-a2-create-project-ui
-HEAD = 55a28d3cb30adb5b00ac347ffe9876879e199458
-tracked = propre ; stage vide ; untracked = .tmp-sfia-review/ only
-origin/main before = 169e1a71fcd8625ff87565c1b7112d63d9044492
-origin/head before = 55a28d3cb30adb5b00ac347ffe9876879e199458
-merge-base = 169e1a71…
-rev-list = 0 4
-diff = 12 files, 1830 insertions(+), 36 deletions(-)
-diff --check = PASS
-PR state = OPEN · draft false · MERGEABLE · CLEAN
-baseRefOid = 169e1a71… · headRefOid = 55a28d3…
-autoMergeRequest = null
-required checks = SFIA Studio Required Gate PASS
-reviews = [] · threads unresolved = []
-```
 
-Truth check : **PASSED**.
 
-## Merge
+## Travail UI réalisé (local, non commit)
 
-| Champ | Valeur |
-|-------|--------|
-| Commande | `gh pr merge 294 --repo mcleland147/sfia-workspace --merge --match-head-commit 55a28d3cb30adb5b00ac347ffe9876879e199458` |
-| Méthode | merge commit |
-| Bypass admin / auto / squash / rebase | non |
-| `--delete-branch` dans merge | non |
-| mergedAt | 2026-07-30T06:23:28Z |
-| mergedBy | mcleland147 |
-| state après | MERGED |
-| headRefOid après | 55a28d3cb30adb5b00ac347ffe9876879e199458 |
-| autoMergeRequest | null |
-| MERGE_SHA réel | `d0e498ec1636122246e0de0103c50fb3ccb9fdd7` |
+### Fichiers nouveaux
 
-Note : tout SHA de test de mergeabilité pré-merge a été ignoré ; seul `mergeCommit.oid` post-merge a été utilisé.
+-
+-
+-
+-
+-  (4 tests)
+-
 
-## Preuve d’intégration
+### Fichiers modifiés
+
+-  — CTA
+-  —
+-  —  + helper
+-  — allowlist client loader
+-  — assert lien workspace
+
+### Architecture UI proposée
+
+
+
+Disclosures : LOCAL_PROCESS · NOT_GUARANTEED · DISABLED · NOT_READY.
+
+Core V1 et contrats V2-A1 **non modifiés**.
+
+## Blocker runtime (stop condition)
+
+Preuve locale :
+
+1.  crée un Project (HTTP 200, success UI).
+2. Navigation vers .
+3.  appelle  ( 200).
+4. Réponse  alors que l’id vient d’être créé dans le même processus Node.
+
+Cause la plus probable :
+
+-  stocke le runtime dans un  module-scope ;
+- Next.js 15 charge des graphes/chunks distincts pour les Server Actions des routes  et  ;
+- chaque chunk obtient sa propre instance du module → stores V1 mémoire distincts.
+
+Contournements UI essayés :
+
+- chargement via Server Component direct → même échec ;
+- chargement via Client + Server Action () → même échec.
+
+Correction minimale requise (hors allowlist actuelle) :
+
+- ancrer le singleton V2-A1 sur  (ou équivalent process-global) dans
+   pour honorer D-V2-02 sous Next multi-chunk.
+
+Cela constitue une **modification V2-A1** → stop condition du gate.
+
+## Validations (hors parcours runtime create→workspace)
 
 | Contrôle | Résultat |
 |----------|----------|
-| `git rev-parse origin/main` | `d0e498ec1636122246e0de0103c50fb3ccb9fdd7` |
-| parents | parent1=`169e1a71fcd8625ff87565c1b7112d63d9044492` · parent2=`55a28d3cb30adb5b00ac347ffe9876879e199458` |
-| `merge-base --is-ancestor 55a28d3… origin/main` | code 0 |
-| diff stat vs ancien main | 12 files, 1830+/36- |
-| name-status | 12 chemins identiques à la PR |
-| `git diff --check` | PASS |
-| contenu additionnel | aucun |
+| UI + runtime + increments ciblés | PASS · 43 tests |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS · route  générée |
+|  | PASS |
+| suite complète | non rejouée après le STOP (déjà 780 verts avant fix client) |
+| parcours create → workspace réel | **FAIL** · PROJECT_NOT_FOUND |
 
-### Quatre commits intégrés
+## Preuves
 
-1. `8ce9391` — feat(sfia-studio): add V2-A2 create project UI
-2. `58141b2` — test(sfia-studio): validate V2-A2 create project UI
-3. `d7126be` — docs(sfia-studio): document V2-A2 create project UI
-4. `55a28d3` — fix(sfia-studio): resolve V2-A2 readiness findings
+| Fichier | SHA-256 | Contenu |
+|---------|---------|---------|
+|  |  | workspace id inconnu + disclosures |
+|  |  | après create, même processus, PROJECT_NOT_FOUND |
 
-### Douze chemins intégrés
+1440×1024 · non trackées.
 
-```text
-M projects/sfia-studio/app/__tests__/increment-a.test.tsx
-M projects/sfia-studio/app/__tests__/increment-b.test.tsx
-M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-A projects/sfia-studio/app/__tests__/vertical-slice-ui/createProjectUi.test.tsx
-A projects/sfia-studio/app/app/studio/projects/new/page.tsx
-M projects/sfia-studio/app/components/shell/StudioShell.tsx
-M projects/sfia-studio/app/components/shell/Topbar.tsx
-A projects/sfia-studio/app/features/vertical-slice-ui/CreateProjectForm.tsx
-A projects/sfia-studio/app/features/vertical-slice-ui/RuntimeDisclosureBanner.tsx
-A projects/sfia-studio/app/features/vertical-slice-ui/create-project.module.css
-M projects/sfia-studio/app/lib/navigation.ts
-A projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v2-a2-create-project-ui/README.md
-```
+## Garde-fous respectés
 
-## CI
+- pas de push / PR / merge ;
+- pas de modification Core V1 ;
+- pas de modification V2-A1 (malgré le besoin) ;
+- pas d’IAM / D1 / browser storage / agent / dashboard ;
+- pas de dépendance / lockfile / workflow.
 
-### Pré-merge (PR)
+## Réserves / anti-claims
 
-Run `30518281799` — Detect / Build and validate / Required Gate — **SUCCESS**.
+Anti-claims inchangés : pas PRODUCT/RUN READY, pas HARD CLOSED, pas delivery/cutover.
 
-### Post-merge (main push)
+Réserve structurelle ouverte : singleton process-local non partagé entre routes Next.
 
-Workflow `sfia-studio-ci.yml` déclenché sur `push` vers `main` (paths `projects/sfia-studio/**`).
+## Décision Morris suivante (candidate)
 
-| Run | headSha | Conclusion |
-|-----|---------|------------|
-| [30519427180](https://github.com/mcleland147/sfia-workspace/actions/runs/30519427180) | `d0e498ec1636122246e0de0103c50fb3ccb9fdd7` | **success** |
 
-Jobs : Detect · Build and validate · Required Gate — tous **success**.
 
-## Nettoyage
-
-### Branche distante
-
-- avant : présente @ `55a28d3…`
-- `git push origin --delete delivery/sfia-studio-visible-slice-v2-a2-create-project-ui`
-- après : **absente**
-- force push : non
-
-### Branche locale
-
-- worktree actif : `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` reste sur `delivery/sfia-studio-visible-slice-v2-a2-create-project-ui`
-- `main` est porté par un autre worktree (`sfia-workspace-main-ckc-postmerge`)
-- ce worktree main a été aligné en `git merge --ff-only origin/main` → `d0e498ec1636122246e0de0103c50fb3ccb9fdd7`
-- suppression locale `-d` non applicable sans switch hors branche active
-- verdict local : **LOCAL BRANCH RETAINED — ACTIVE WORKTREE** (non bloquant)
-
-### Worktrees
-
-Aucun `worktree remove` · aucun `branch -D` · `sfia/review-handoff` conservée.
-
-## Confirmations
-
-- aucun fichier projet modifié dans ce cycle ;
-- aucun commit projet supplémentaire ;
-- aucun amend / rebase / squash / force push ;
-- aucune modification directe de main hors merge GitHub ;
-- aucun auto-merge ;
-- aucun bypass admin ;
-- aucun autre PR mergée ;
-- aucune écriture Figma / Notion ;
-- aucun prochain lot produit ouvert automatiquement ;
-- tracked working tree projet : propre (`?? .tmp-sfia-review/` only).
-
-## Réserves restantes (non bloquantes)
-
-- aucune frame Figma V2-A2 dédiée validée ;
-- responsive 390 px hors lot ;
-- migration future `next lint` ;
-- futur `allowedDevOrigins` ;
-- état runtime process-local volatil ;
-- cast non bloquant `StudioShellRoute` → `StudioRoute` ;
-- branche locale conservée (worktree actif).
-
-## Anti-claims
-
-Le merge ne signifie pas : HARD CLOSED · T-A6 COMPLETE · RUN READY · PRODUCT READY · persistance produit · IAM sélectionné · agent réel actif · recommendation engine · dashboard complet · delivery produit · cutover · prochaine version automatiquement ouverte.
-
-## Décisions Morris consommées (chaîne)
-
-1. correctif readiness findings
-2. push + create PR
-3. **GO MERGE PR #294 SFIA STUDIO V2-A2 CREATE PROJECT UI** (présent)
-
-## Options / recommandations (non décidées)
-
-Toute suite produit (prochain lot vertical slice, UX/Figma, responsive, dette shell typing) reste une **option roadmap** soumise à décision Morris explicite. Aucune ouverture automatique.
+Option alternative (non recommandée) : autoriser un contournement UI non process-local (interdit par les anti-claims actuels).
 
 ## Review Handoff Git
 
 | Champ | Valeur |
 |-------|--------|
-| Décision | required |
 | Mode | publish-in-cycle |
-| Branche | `sfia/review-handoff` |
-| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Source | `.tmp-sfia-review/chatgpt-review.md` |
-| Remote before | `ed320aa633211f76779ca42e18c043730105ffb6` |
-| Commit message | `docs(review-handoff): publish SFIA Studio V2-A2 post-merge review` |
-| Push projet | non |
-
-## Prochaine décision Morris
-
-Aucune décision automatique. Morris choisira explicitement le prochain cycle.
+| Branche |  |
+| Fichier |  |
+| Message |  |
 
 ## Verdict unique
 
-**POST-MERGE COMPLETE WITH RESERVES**
+**STOP — V2-A1 MODIFICATION REQUIRED — PROCESS-LOCAL SINGLETON NOT SHARED ACROSS NEXT ROUTES — MORRIS DECISION REQUIRED**
 
-## Instruction ChatGPT obligatoire
+## Instruction ChatGPT
 
-Avant de répondre à Morris, lire depuis Git :
-
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier : gate merge · PR #294 · méthode merge commit · MERGE_SHA `d0e498ec1636122246e0de0103c50fb3ccb9fdd7` · parentage · origin/main · CI main green · 12 fichiers / 4 commits · cleanup distant complete · local retained · réserves · absence modification projet · absence ouverture implicite prochain cycle · handoff · verdict.
+Lire  →  et vérifier gate, branche, HEAD, fichiers UI locaux, preuve PROJECT_NOT_FOUND, absence de commit/push, et verdict STOP.
