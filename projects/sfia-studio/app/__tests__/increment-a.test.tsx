@@ -50,8 +50,11 @@ beforeEach(() => {
 });
 
 describe("Increment A — mapping & fixtures", () => {
-  it("exposes exactly four Studio routes", () => {
-    expect(STUDIO_ROUTES).toHaveLength(4);
+  it("keeps four POC routes and exposes the V2-A2 project route in the rail", () => {
+    expect(STUDIO_ROUTES).toHaveLength(5);
+    expect(STUDIO_ROUTES.map((item) => item.route)).toContain(
+      "/studio/projects/new",
+    );
     expect(STUDIO_ROUTES_ONLY).toEqual([
       "/nouvelle-demande",
       "/decision",

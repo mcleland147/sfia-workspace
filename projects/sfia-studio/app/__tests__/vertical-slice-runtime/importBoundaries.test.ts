@@ -53,7 +53,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
     expect(violations).toEqual([]);
   });
 
-  it("does not wire runtime into application UI routes or features yet", () => {
+  it("allows only the bounded V2-A2 UI runtime entrypoints", () => {
     const uiRoots = [
       path.join(APP_ROOT, "app"),
       path.join(APP_ROOT, "components"),
@@ -69,12 +69,45 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
             line: index + 1,
             text: line.trim(),
           }))
-          .filter((entry) =>
-            /@\/lib\/vertical-slice-runtime/.test(entry.text),
-          ),
+          .filter((entry) => /@\/lib\/vertical-slice-runtime/.test(entry.text)),
       ),
     );
-    expect(imports).toEqual([]);
+
+    const allowed = new Set([
+      "features/vertical-slice-ui/CreateProjectForm.tsx:@/lib/vertical-slice-runtime/actions",
+      "features/vertical-slice-ui/RuntimeDisclosureBanner.tsx:@/lib/vertical-slice-runtime/disclosures",
+    ]);
+    const normalized = imports.map((entry) => {
+      const modulePath = entry.text.match(
+        /@\/lib\/vertical-slice-runtime(?:\/[^"']+)?/,
+      )?.[0];
+      return `${entry.file}:${modulePath}`;
+    });
+
+    expect(new Set(normalized)).toEqual(allowed);
+  });
+
+  it("keeps V2-A2 UI free of core, internal runtime, D1, fixtures, storage, network, and agents", () => {
+    const roots = [
+      path.join(APP_ROOT, "app/studio/projects/new"),
+      path.join(APP_ROOT, "features/vertical-slice-ui"),
+    ];
+    const forbidden =
+      /@\/lib\/(?:vertical-slice-core|vertical-slice-runtime\/(?:service|singleton|mapping|paths|serverGuard|index)|d1|harness|ops1|agents)|@\/features\/d1|@\/fixtures|\b(?:sessionStorage|localStorage|fetch)\s*[.(]/;
+    const violations = roots.flatMap((root) =>
+      listSourceFiles(root).flatMap((file) =>
+        fs
+          .readFileSync(file, "utf8")
+          .split("\n")
+          .map((line, index) => ({
+            file: path.relative(APP_ROOT, file),
+            line: index + 1,
+            text: line.trim(),
+          }))
+          .filter((entry) => forbidden.test(entry.text)),
+      ),
+    );
+    expect(violations).toEqual([]);
   });
 
   it("keeps V1 core free of runtime dependency (one-way reuse)", () => {

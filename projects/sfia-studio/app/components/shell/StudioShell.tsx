@@ -1,7 +1,13 @@
 import { UtilityRail } from "./UtilityRail";
-import { Topbar } from "./Topbar";
+import {
+  Topbar,
+  type TopbarPrimaryAction,
+} from "./Topbar";
 import { CopilotPanel, type CopilotProps } from "./CopilotPanel";
-import type { StudioRoute } from "@/lib/navigation";
+import type {
+  StudioRoute,
+  StudioShellRoute,
+} from "@/lib/navigation";
 import shellStyles from "@/styles/shell.module.css";
 
 interface TopbarPill {
@@ -12,11 +18,16 @@ interface TopbarPill {
 
 interface StudioShellProps {
   variant: "floating" | "flush";
-  activeRoute: StudioRoute;
+  activeRoute: StudioShellRoute;
   title: string;
   pills?: TopbarPill[];
   children: React.ReactNode;
   copilot: CopilotProps;
+  showTabs?: boolean;
+  /**
+   * `undefined` preserves the historical CTA; `null` hides it.
+   */
+  primaryAction?: TopbarPrimaryAction | null;
 }
 
 export function StudioShell({
@@ -26,6 +37,8 @@ export function StudioShell({
   pills,
   children,
   copilot,
+  showTabs,
+  primaryAction,
 }: StudioShellProps) {
   const isFloating = variant === "floating";
 
@@ -34,7 +47,10 @@ export function StudioShell({
       <div className={shellStyles.pageFloating} data-testid="studio-shell">
         <div className={shellStyles.brandAccent} aria-hidden="true" />
         <div className={shellStyles.railFloating}>
-          <UtilityRail variant="floating" activeRoute={activeRoute} />
+          <UtilityRail
+            variant="floating"
+            activeRoute={activeRoute as StudioRoute}
+          />
         </div>
         <div className={shellStyles.workspaceFloating}>
           <Topbar
@@ -42,6 +58,8 @@ export function StudioShell({
             title={title}
             activeRoute={activeRoute}
             pills={pills}
+            showTabs={showTabs}
+            primaryAction={primaryAction}
           />
           <main className={shellStyles.workspaceInner} id="main-content">
             {children}
@@ -58,7 +76,10 @@ export function StudioShell({
     <div className={shellStyles.pageFlush} data-testid="studio-shell">
       <div className={shellStyles.brandAccent} aria-hidden="true" />
       <div className={shellStyles.railFlush}>
-        <UtilityRail variant="flush" activeRoute={activeRoute} />
+        <UtilityRail
+          variant="flush"
+          activeRoute={activeRoute as StudioRoute}
+        />
       </div>
       <div className={shellStyles.mainFlush}>
         <Topbar
@@ -66,6 +87,8 @@ export function StudioShell({
           title={title}
           activeRoute={activeRoute}
           pills={pills}
+          showTabs={showTabs}
+          primaryAction={primaryAction}
         />
         <div className={shellStyles.bodyFlush}>
           <main
