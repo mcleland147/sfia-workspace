@@ -565,10 +565,12 @@ D2/D3 NOT AUTHORIZED
 | Champ | Valeur |
 |---|---|
 | Tip pré-cycle | `49bb5a77a7f98f9df44843a96559d9b2b64df0ab` |
-| Commit handoff | `5cc42202c481725b3a8a3d7292f8129198e2ed22` |
-| Blob | `672622ed17cea8757622fcc2f8c9a18eb8a57730` |
-| Remote tip `origin/sfia/review-handoff` | `5cc42202c481725b3a8a3d7292f8129198e2ed22` |
-| Remote blob | `672622ed17cea8757622fcc2f8c9a18eb8a57730` |
+| Commit handoff (publication principale) | `5cc42202c481725b3a8a3d7292f8129198e2ed22` |
+| Blob publication principale | `672622ed17cea8757622fcc2f8c9a18eb8a57730` |
+| Commit handoff (complément statut) | `396ec4a9a1c5fdf2f039cc840e8d00ffc0099a68` |
+| Blob tip courant | `95bbc69d95fa135196be1486a0679296947d0dba` |
+| Remote tip `origin/sfia/review-handoff` | `396ec4a9a1c5fdf2f039cc840e8d00ffc0099a68` |
+| Remote blob tip | `95bbc69d95fa135196be1486a0679296947d0dba` |
 | Fichier unique publié | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Retour branche Delivery | OUI — `e2e898405c0a555573187e04dd6c3de777595f19` |
 | Review pack ajouté à la PR projet | NON |
