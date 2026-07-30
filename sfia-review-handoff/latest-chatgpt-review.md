@@ -4,19 +4,19 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-07-30 11:30:00 CEST (+0200) |
+| **Date/heure/fuseau** | 2026-07-30 13:09:00 CEST (+0200) |
 | **Niveau** | Full |
-| **Mono-cycle** | V2-A3 Project Workspace UI — delivery |
+| **Mono-cycle** | V2-A3 Project Workspace UI — runtime verification after approved singleton fix |
 | **Repository** | mcleland147/sfia-workspace |
 | **Workspace** | /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge |
-| **Cycle** | 8 — Delivery / implémentation UI |
-| **Profil** | Standard · Standard renforcé · EVOL |
-| **Gate Morris consommé** | GO CYCLE V2-A3 PROJECT WORKSPACE UI |
+| **Cycle** | Validation corrective / reprise de cycle |
+| **Profil** | Standard renforcé |
+| **Gate Morris consommé** | GO AUTHORIZE V2-A1 SINGLETON GLOBALTHIS FIX FOR V2-A3 WORKSPACE THEN RESUME V2-A3 |
 | **Branche** | delivery/sfia-studio-visible-slice-v2-a3-project-workspace-ui |
 | **Base / HEAD** | d0e498ec1636122246e0de0103c50fb3ccb9fdd7 |
 | **Commits projet** | aucun (working tree local non commitée) |
 | **Push / PR / merge** | non |
-| **Verdict unique** | **STOP — V2-A1 MODIFICATION REQUIRED — PROCESS-LOCAL SINGLETON NOT SHARED ACROSS NEXT ROUTES — MORRIS DECISION REQUIRED** |
+| **Verdict unique** | **V2-A3 RESUMED — CREATE → WORKSPACE VERIFIED** |
 
 ## Git Review Index
 
@@ -25,19 +25,19 @@
 | base | origin/main @ d0e498ec1636122246e0de0103c50fb3ccb9fdd7 |
 | branche | delivery/sfia-studio-visible-slice-v2-a3-project-workspace-ui |
 | HEAD | d0e498ec1636122246e0de0103c50fb3ccb9fdd7 (0 commits ahead) |
-| tracked dirty | oui — lot UI local non commit |
+| tracked dirty | oui — V2-A3 UI + singleton globalThis + tests |
 | stage | vide |
-| untracked | .tmp-sfia-review/** + nouveaux fichiers V2-A3 |
+| untracked | .tmp-sfia-review/** + fichiers UI workspace |
 | review pack | full |
-| verdict | STOP — V2-A1 modification required |
+| verdict | V2-A3 RESUMED — CREATE → WORKSPACE VERIFIED |
 
 ## Review pack content coverage
 
 | Critère | Statut |
 |---------|--------|
-| modified/created UI content included | yes |
-| blocker evidence included | yes |
-| validations included | yes |
+| correctif singleton inclus | yes |
+| preuves create → workspace | yes |
+| validations inclus | yes |
 | synthesis only | **no** |
 | review pack verdict | **complete** |
 
@@ -45,12 +45,11 @@
 
 | Source | Rôle |
 |--------|------|
-| handoff tip cb0636f / post-merge V2-A2 | fondation main |
-| V2-A2 create UI + README | parcours / patterns |
-| vertical-slice-runtime/actions.ts | getProjectRuntimeAction déjà présent |
-| vertical-slice-runtime/singleton.ts | D-V2-02 module-level let |
-| StudioShell / navigation | extension shell route |
-| import boundary tests | garde-fous UI |
+| handoff tip 60a7348 / STOP V2-A3 | contexte blocker PROJECT_NOT_FOUND |
+| lib/vertical-slice-runtime/singleton.ts | correctif autorisé |
+| actions.ts / RuntimeApplicationService | chaîne create/get |
+| CreateProjectForm + ProjectWorkspace* | parcours UI |
+| tests V2-A2 / V2-A3 / runtime | régression |
 
 ## Local Git Truth Check
 
@@ -60,105 +59,116 @@ HEAD = d0e498ec1636122246e0de0103c50fb3ccb9fdd7
 origin/main = d0e498ec1636122246e0de0103c50fb3ccb9fdd7
 rev-list = 0 0
 pre-check base = OK
+working tree = dirty attendu (lot V2-A3 + fix singleton)
 ```
 
-## Travail UI réalisé (local, non commit)
+## Correctif appliqué (borné)
 
-### Fichiers nouveaux
+Fichier : projects/sfia-studio/app/lib/vertical-slice-runtime/singleton.ts
 
-- projects/sfia-studio/app/app/studio/projects/[id]/page.tsx
-- projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceClient.tsx
-- projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx
-- projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css
-- projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx (4 tests)
-- projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v2-a3-project-workspace-ui/README.md
+- Ancrage du slot process-local sur globalThis sous la clé
+  __SFIA_V2_RUNTIME_APPLICATION_SERVICE__
+- Conserve D-V2-02 (process-local, volatile, non multi-instance)
+- Pas de nouveau contrat runtime
+- Pas de persistance, D1, IAM, agent
+- resetRuntimeApplicationServiceForTests continue de vider le slot
 
-### Fichiers modifiés
+Test runtime mis à jour : assertion que le service est bien porté par le slot globalThis.
 
-- CreateProjectForm.tsx — CTA Ouvrir l espace de travail
-- RuntimeDisclosureBanner.tsx — surface=workspace
-- navigation.ts — StudioProjectWorkspaceRoute + helper
-- importBoundaries.test.ts — allowlist client loader
-- createProjectUi.test.tsx — assert lien workspace
+## Fichiers créés / modifiés (local)
 
-### Architecture UI proposée
+### Correctif runtime (autorisé)
+
+- singleton.ts (globalThis)
+- runtimeApplicationService.test.ts (assertion slot)
+
+### UI V2-A3 (déjà présente + commentaire client)
+
+- app/studio/projects/[id]/page.tsx
+- ProjectWorkspaceClient.tsx / ProjectWorkspaceView.tsx / project-workspace.module.css
+- CreateProjectForm.tsx (CTA workspace)
+- RuntimeDisclosureBanner.tsx (surface=workspace)
+- navigation.ts
+- importBoundaries + createProjectUi + projectWorkspaceUi tests
+- README V2-A3
+
+## Validation fonctionnelle runtime
+
+Scénario réel sur http://localhost:3021 :
+
+1. /studio/projects/new — formulaire rempli
+2. Création Project + LPS — succès HTTP 200
+3. Navigation CTA → /studio/projects/prj%3A6994ae3a-3160-45d1-b4db-010c051084f6
+4. Workspace chargé — projection présente
+5. PROJECT_NOT_FOUND absent
+
+Preuve d identité :
+
+| Champ | Valeur |
+|-------|--------|
+| Project ID create | prj:6994ae3a-3160-45d1-b4db-010c051084f6 |
+| Project ID workspace | prj:6994ae3a-3160-45d1-b4db-010c051084f6 |
+| Nom | V2-A3 Workspace Verify |
+| Source | REAL_LOCAL_CORE |
+| Fixture | false |
+| LPS | présent (lps:…) |
+| Disclosures | LOCAL_PROCESS · NOT_GUARANTEED · DISABLED · NOT_READY |
+
+Logs Next :
 
 ```text
-UI Create → createProjectRuntimeAction → V2-A1 → V1
-UI Workspace Client → getProjectRuntimeAction → V2-A1 → V1 getProjectOverview
-→ ProjectWorkspaceView projection
+POST /studio/projects/new 200
+GET /studio/projects/prj%3A… 200
+POST /studio/projects/prj%3A… 200
 ```
-
-Disclosures : LOCAL_PROCESS · NOT_GUARANTEED · DISABLED · NOT_READY.
-
-Core V1 et contrats V2-A1 non modifiés.
-
-## Blocker runtime (stop condition)
-
-Preuve locale :
-
-1. POST /studio/projects/new crée un Project (HTTP 200, success UI).
-2. Navigation vers /studio/projects/prj%3A….
-3. ProjectWorkspaceClient appelle getProjectRuntimeAction (POST 200).
-4. Réponse PROJECT_NOT_FOUND alors que l id vient d être créé dans le même processus Node.
-
-Cause la plus probable :
-
-- singleton.ts stocke le runtime dans un let module-scope ;
-- Next.js 15 charge des graphes/chunks distincts pour les Server Actions des routes /new et /[id] ;
-- chaque chunk obtient sa propre instance du module → stores V1 mémoire distincts.
-
-Contournements UI essayés :
-
-- chargement via Server Component direct → même échec ;
-- chargement via Client + Server Action (ProjectWorkspaceClient) → même échec.
-
-Correction minimale requise (hors allowlist actuelle) :
-
-- ancrer le singleton V2-A1 sur globalThis (ou équivalent process-global) dans
-  lib/vertical-slice-runtime/singleton.ts pour honorer D-V2-02 sous Next multi-chunk.
-
-Cela constitue une modification V2-A1 → stop condition du gate.
-
-## Validations (hors parcours runtime create→workspace)
-
-| Contrôle | Résultat |
-|----------|----------|
-| UI + runtime + increments ciblés | PASS · 43 tests |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS · route /studio/projects/[id] générée |
-| git diff --check | PASS |
-| parcours create → workspace réel | FAIL · PROJECT_NOT_FOUND |
 
 ## Preuves
 
 | Fichier | SHA-256 | Contenu |
 |---------|---------|---------|
-| evidence/v2-a3/01-workspace-missing.png | 0696d8508e8f49205dd6795c9c0009e1253a5bebbee611ff7a780b265f5a03d3 | workspace id inconnu + disclosures |
-| evidence/v2-a3/02-workspace-after-create-not-found.png | 8a8124bbcc3f1b6b5c7eedab35e9d4ee7578368cd46d7874ec97af605c666402 | après create, même processus, PROJECT_NOT_FOUND |
+| evidence/v2-a3/01-workspace-missing.png | (prior STOP) | workspace id inconnu |
+| evidence/v2-a3/02-workspace-after-create-not-found.png | (prior STOP) | PROJECT_NOT_FOUND avant fix |
+| evidence/v2-a3/03-create-form-filled.png | e43ee9c8b298f901e050c75d69e433c90482e742e6ae7005f8596e3f54f08448 | formulaire création |
+| evidence/v2-a3/04-create-success.png | 8b8666ec618eb73e1f939a498f5e7c36e4fe97a89a178ed908a8d04d5e732a2d | succès création + LPS |
+| evidence/v2-a3/05-workspace-loaded.png | bff616a9a4de23476ee6b594efdcc2ff08dfe4f4e684d5e475de072f9f9ad228 | workspace après navigation |
 
-1440×1024 · non trackées.
+## Validations
+
+| Contrôle | Résultat |
+|----------|----------|
+| Tests ciblés (runtime + UI A2/A3 + increments + boundaries) | PASS · 43 |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS · route /studio/projects/[id] |
+| git diff --check | PASS |
+| parcours create → workspace réel | **PASS** |
 
 ## Garde-fous respectés
 
 - pas de push / PR / merge ;
-- pas de modification Core V1 ;
-- pas de modification V2-A1 (malgré le besoin) ;
+- Core V1 non modifié ;
+- contrats runtime non modifiés ;
+- architecture runtime inchangée hors holder singleton ;
 - pas d IAM / D1 / browser storage / agent / dashboard ;
 - pas de dépendance / lockfile / workflow.
 
 ## Réserves / anti-claims
 
-Anti-claims inchangés : pas PRODUCT/RUN READY, pas HARD CLOSED, pas delivery/cutover.
+Anti-claims inchangés :
 
-Réserve structurelle ouverte : singleton process-local non partagé entre routes Next.
+- pas PRODUCT READY ;
+- pas RUN READY ;
+- pas HARD CLOSED ;
+- pas IAM / agent / persistance produit ;
+- pas delivery / cutover.
 
-## Décision Morris suivante (candidate)
+Réserve ouverte : état toujours process-local volatil (redémarrage / multi-instance = perte).
 
-GO AUTHORIZE V2-A1 SINGLETON GLOBALTHIS FIX FOR V2-A3 WORKSPACE THEN RESUME V2-A3
+## Décision Morris
 
-Option alternative (non recommandée) : autoriser un contournement UI non process-local (interdit par les anti-claims actuels).
+Gate consommé : GO AUTHORIZE V2-A1 SINGLETON GLOBALTHIS FIX FOR V2-A3 WORKSPACE THEN RESUME V2-A3
+
+Prochaine décision candidate (hors scope) : GO COMMIT V2-A3 / GO PR READINESS — non demandée ici.
 
 ## Review Handoff Git
 
@@ -167,12 +177,12 @@ Option alternative (non recommandée) : autoriser un contournement UI non proces
 | Mode | publish-in-cycle |
 | Branche | sfia/review-handoff |
 | Fichier | sfia-review-handoff/latest-chatgpt-review.md |
-| Message | docs(review-handoff): publish SFIA Studio V2-A3 workspace STOP review |
+| Message | docs(review-handoff): publish SFIA Studio V2-A3 create-workspace verified |
 
 ## Verdict unique
 
-**STOP — V2-A1 MODIFICATION REQUIRED — PROCESS-LOCAL SINGLETON NOT SHARED ACROSS NEXT ROUTES — MORRIS DECISION REQUIRED**
+**V2-A3 RESUMED — CREATE → WORKSPACE VERIFIED**
 
 ## Instruction ChatGPT
 
-Lire sfia/review-handoff → sfia-review-handoff/latest-chatgpt-review.md et vérifier gate, branche, HEAD, fichiers UI locaux, preuve PROJECT_NOT_FOUND, absence de commit/push, et verdict STOP.
+Lire sfia/review-handoff → sfia-review-handoff/latest-chatgpt-review.md et vérifier gate, correctif globalThis, preuves create/success/workspace, Project ID identique, absence de PROJECT_NOT_FOUND, absence de commit/push, et verdict V2-A3 RESUMED — CREATE → WORKSPACE VERIFIED.
