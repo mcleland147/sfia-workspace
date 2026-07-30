@@ -1,54 +1,68 @@
 # 08 — Implementation backlog and slicing
 
-## Stratégie de livraison (recommandation, non décision)
+## Stratégie
 
-**Plusieurs PR** (V1…V5), chacune mergeable ; commits atomiques 1–3.
-Branche framing docs séparée. Pas de big-bang unique.
+Plusieurs PR (lots), commits atomiques. Framing docs séparés. Pas de big-bang.
 
-## Lot V1 — Composition locale Project
+## Lot V1 / V2
 
-**Statut au 2026-07-29** : `EXECUTED LOCALLY — TESTS GREEN — PROJECT BRANCH NOT PUSHED`. Voir `11-v1-local-project-core-composition.md`. Ce statut d'exécution complète le backlog historique sans autoriser V2.
-
-| Item | Contenu |
-|------|---------|
-| Objectif | Facade + CreateProject/LPS + doctrine resolve + tests |
-| Fichiers probables | `app/lib/studio-vertical-slice/**` (nouveau), tests |
-| Dépendances | T-A0/T-A1 memory factories |
-| Tests | unit facade, idempotency, doctrine fail |
-| Captures | non (pas UI obligatoire) |
-| Stop | IAM, HTTP, package.json sans GO |
-| Dette | facade initiale |
-| Gate | `GO IMPLEMENT … LOT V1 …` |
-| Verdict attendu | V1 COMPLETE — NO UI REQUIRED OR MINIMAL HOOK |
-
-## Lot V2 — Parcours Create Project
-
-**Statut** : `NOT AUTHORIZED`.
-
-| Item | Contenu |
-|------|---------|
-| Objectif | Écran create + validation + navigation overview |
-| UI | StudioShell + form |
-| Tests | component + parcours |
-| Captures | desktop create + error |
-| Gate | distinct après V1 |
+**INTEGRATED ON MAIN** (V2-A3 PR #295 @ `3e8a437…`).
 
 ## Lot V3 — Cycle Recommendation
 
-T-A2 qualify/create + projection + bandeau ≠ décision.
+**CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md).
 
-## Lot V4 — Morris Decision
+## Lot V3.1 — Profile Qualification (conception)
 
-T-A3 record + LOCAL DEMO mode + Critical blocked + history.
+**FUNCTIONAL DESIGN COMPLETE** — [`13`](./13-v3-1-profile-qualification-functional-design.md).
 
-## Lot V5 — Readiness Dashboard
+## Lot V3.1 — Cycle Type Catalog (architecture + adoption)
 
-T-A6/T-A7 projections + anti-claims + blockers.
+**DECISIONS ADOPTED** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
 
-## Lot V6 — Consolidation visuelle
+## Lot V3.1-D1 — Catalogue runtime + mapping CKC
 
-Responsive, a11y, captures, Figma page compare, REX.
+**Statut Delivery initial :** `IMPLEMENTATION COMPLETE`.
 
-## D-VS-04 recommandation
+**Statut QA initiale :** `FAIL historique` — [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) (inchangé).
 
-Commencer par **V1 only** (composition). Ne pas livrer V1–V5 d’un coup.
+**Statut correctif :** `CORRECTIVE DELIVERY IMPLEMENTED` — [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) (inchangé).
+
+**Statut revalidation :** `QA REVALIDATION PASS — R-QA-01…09 CLOSED` — [`03`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md) (inchangé).
+
+**QA-G3 Morris :** **PASS** (2026-07-30 21:36 CEST).
+
+**Statut PR readiness :** `READY FOR PR` — [`04`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/04-pr-readiness-report.md) — commit/push/draft PR **soumis à GO**.
+
+Docs :
+- [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md)
+- rapports `01` / `02` / `03` / `04`
+
+| Preuve | Résultat |
+|--------|----------|
+| 15 IDs / mapping CKC | conformes |
+| Revalidation / readiness tests | 46/46 · 94/94 · 827/827 · typecheck/lint/build PASS |
+| QA-G2 | vert |
+| QA-G3 | **PASS Morris** |
+| PR readiness | **READY FOR PR** · package 13 fichiers · PR **non créée** |
+| D2 / D3 | **non ouverts** |
+
+### Slicing CAT-08
+
+| Lot | Contenu | Statut |
+|-----|---------|--------|
+| **V3.1-D1** | Catalogue · mapping · validateur | Delivery + QA-G3 PASS · **PR readiness READY** · Git pending GO |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **non autorisé** |
+| **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
+
+### Réserves QA
+
+R-QA-01…09 **CLOSED**. QA-G3 PASS. PR readiness ≠ autorisation commit/push/PR.
+
+### Réserves D2
+
+Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit.
+
+## Lot V3.2 / V4 / V5 / V6
+
+**NOT AUTHORIZED.**
