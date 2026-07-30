@@ -53,7 +53,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
     expect(violations).toEqual([]);
   });
 
-  it("allows only the bounded V2-A2 UI runtime entrypoints", () => {
+  it("allows only the bounded V2 UI runtime entrypoints", () => {
     const uiRoots = [
       path.join(APP_ROOT, "app"),
       path.join(APP_ROOT, "components"),
@@ -75,6 +75,8 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
 
     const allowed = new Set([
       "features/vertical-slice-ui/CreateProjectForm.tsx:@/lib/vertical-slice-runtime/actions",
+      "features/vertical-slice-ui/ProjectWorkspaceClient.tsx:@/lib/vertical-slice-runtime/actions",
+      "features/vertical-slice-ui/ProjectWorkspaceView.tsx:@/lib/vertical-slice-runtime/actions",
       "features/vertical-slice-ui/RuntimeDisclosureBanner.tsx:@/lib/vertical-slice-runtime/disclosures",
     ]);
     const normalized = imports.map((entry) => {
@@ -87,9 +89,10 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
     expect(new Set(normalized)).toEqual(allowed);
   });
 
-  it("keeps V2-A2 UI free of core, internal runtime, D1, fixtures, storage, network, and agents", () => {
+  it("keeps V2-A2/V2-A3 UI free of core, internal runtime, D1, fixtures, storage, network, and agents", () => {
     const roots = [
       path.join(APP_ROOT, "app/studio/projects/new"),
+      path.join(APP_ROOT, "app/studio/projects/[id]"),
       path.join(APP_ROOT, "features/vertical-slice-ui"),
     ];
     const forbidden =

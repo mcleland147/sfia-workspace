@@ -371,7 +371,9 @@ describe("V2-A2 Create Project UI", () => {
     expect(screen.getByText("lps:v2-a2-1")).toBeVisible();
     expect(screen.getAllByText("NOT_READY").length).toBeGreaterThan(0);
     expect(screen.getAllByText("NOT_GUARANTEED").length).toBeGreaterThan(0);
-    expect(screen.queryByRole("link", { name: /projet/i })).toBeNull();
+    expect(
+      screen.getByRole("link", { name: "Ouvrir l’espace de travail" }),
+    ).toHaveAttribute("href", "/studio/projects/prj%3Av2-a2-1");
     expect(screen.queryByText(/recommendation|dashboard/i)).toBeNull();
 
     await user.click(

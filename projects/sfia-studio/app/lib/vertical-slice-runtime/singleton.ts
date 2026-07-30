@@ -9,9 +9,27 @@ import {
  * D-V2-02: process-local singleton holder.
  * Business state lives in the underlying V1 in-memory stores for this process only.
  * Not safe across serverless multi-instance deployments — disclosures say so.
+ *
+ * Anchored on `globalThis` so Next.js route/chunk graphs that reload this module
+ * still share one process-local instance (create on /new → get on /[id]).
+ * This is not durable persistence and not a cross-process store.
  */
-let processLocalRuntime: RuntimeApplicationService | null = null;
-let processLocalOptions: RuntimeApplicationServiceOptions | undefined;
+const RUNTIME_GLOBAL_KEY = "__SFIA_V2_RUNTIME_APPLICATION_SERVICE__" as const;
+
+type ProcessLocalRuntimeSlot = {
+  service: RuntimeApplicationService | null;
+  options: RuntimeApplicationServiceOptions | undefined;
+};
+
+function getProcessLocalRuntimeSlot(): ProcessLocalRuntimeSlot {
+  const g = globalThis as typeof globalThis & {
+    [RUNTIME_GLOBAL_KEY]?: ProcessLocalRuntimeSlot;
+  };
+  if (!g[RUNTIME_GLOBAL_KEY]) {
+    g[RUNTIME_GLOBAL_KEY] = { service: null, options: undefined };
+  }
+  return g[RUNTIME_GLOBAL_KEY];
+}
 
 function envAuditMode(): RuntimeApplicationServiceOptions["auditMode"] {
   const raw = process.env.SFIA_V2_RUNTIME_AUDIT?.trim().toLowerCase();
@@ -33,15 +51,16 @@ function defaultSingletonOptions(): RuntimeApplicationServiceOptions {
 export function getRuntimeApplicationService(
   options?: RuntimeApplicationServiceOptions,
 ): RuntimeApplicationService {
-  if (!processLocalRuntime) {
-    processLocalOptions = options ?? defaultSingletonOptions();
-    processLocalRuntime = createRuntimeApplicationService(processLocalOptions);
+  const slot = getProcessLocalRuntimeSlot();
+  if (!slot.service) {
+    slot.options = options ?? defaultSingletonOptions();
+    slot.service = createRuntimeApplicationService(slot.options);
   }
-  return processLocalRuntime;
+  return slot.service;
 }
 
 export function isRuntimeApplicationServiceInitialized(): boolean {
-  return processLocalRuntime !== null;
+  return getProcessLocalRuntimeSlot().service !== null;
 }
 
 /**
@@ -56,6 +75,7 @@ export function resetRuntimeApplicationServiceForTests(): void {
       "resetRuntimeApplicationServiceForTests is only allowed in test environments.",
     );
   }
-  processLocalRuntime = null;
-  processLocalOptions = undefined;
+  const slot = getProcessLocalRuntimeSlot();
+  slot.service = null;
+  slot.options = undefined;
 }

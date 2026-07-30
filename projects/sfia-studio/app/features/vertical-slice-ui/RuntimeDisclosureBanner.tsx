@@ -10,16 +10,22 @@ import styles from "./create-project.module.css";
  * Server component: the disclosure contract is read directly from V2-A1.
  * It must remain visible before and after the client form submits.
  */
-export function RuntimeDisclosureBanner() {
+export function RuntimeDisclosureBanner({
+  surface = "create",
+}: {
+  surface?: "create" | "workspace";
+} = {}) {
+  const intro =
+    surface === "workspace"
+      ? "Cette interface consulte un Project et son LPS dans le processus Node local uniquement."
+      : "Cette interface crée un Project et son LPS dans le processus Node local uniquement.";
+
   return (
     <Card variant="flush" className={styles.disclosure}>
       <div className={styles.disclosureHeader}>
         <div>
           <h2>Mode local borné</h2>
-          <p>
-            Cette interface crée un Project et son LPS dans le processus Node
-            local uniquement.
-          </p>
+          <p>{intro}</p>
         </div>
         <div className={styles.pillGroup} aria-label="Statuts runtime">
           <StatusPill tone="orangeFlush">

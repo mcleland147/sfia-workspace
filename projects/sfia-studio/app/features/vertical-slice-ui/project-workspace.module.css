@@ -1,0 +1,133 @@
+.page {
+  display: grid;
+  gap: var(--sfia-space-lg);
+  padding-bottom: var(--sfia-space-xl);
+}
+
+.workspaceCard,
+.missingCard {
+  display: grid;
+  gap: var(--sfia-space-lg);
+}
+
+.workspaceHeader,
+.actions,
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sfia-space-md);
+  flex-wrap: wrap;
+}
+
+.pillGroup {
+  display: flex;
+  gap: var(--sfia-space-xs);
+  flex-wrap: wrap;
+}
+
+.workspaceCard h2,
+.missingCard h2 {
+  margin: 0;
+  color: var(--sfia-ink);
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.hint,
+.empty {
+  margin: 0;
+  color: var(--sfia-muted);
+  font-size: 13px;
+  line-height: var(--sfia-line-body);
+}
+
+.section {
+  display: grid;
+  gap: var(--sfia-space-md);
+}
+
+.section h3 {
+  margin: 0;
+  color: var(--sfia-ink);
+  font-size: 15px;
+}
+
+.definitionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--sfia-border-soft);
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-sm);
+  overflow: hidden;
+}
+
+.definitionItem {
+  min-width: 0;
+  background: #fff;
+  padding: 11px 12px;
+}
+
+.definitionItem dt {
+  color: var(--sfia-muted);
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.definitionItem dd {
+  margin: 4px 0 0;
+  color: var(--sfia-ink);
+  font-size: 13px;
+  line-height: var(--sfia-line-body);
+  overflow-wrap: anywhere;
+}
+
+.valueCode {
+  color: var(--sfia-ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.constraintList {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 5px;
+  color: var(--sfia-ink);
+  font-size: 13px;
+}
+
+.truthBox {
+  display: grid;
+  gap: var(--sfia-space-sm);
+  padding: 14px;
+  border: 1px solid var(--sfia-border);
+  border-radius: var(--sfia-radius-sm);
+  background: var(--sfia-surface);
+}
+
+.actions {
+  justify-content: flex-end;
+  padding-top: var(--sfia-space-xs);
+  border-top: 1px solid var(--sfia-border-soft);
+}
+
+.missingCard {
+  border-left: 4px solid var(--sfia-orange);
+}
+
+.navLink {
+  color: var(--sfia-blue);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.navLink:focus-visible {
+  outline: 3px solid var(--sfia-blue-soft);
+  outline-offset: 2px;
+}

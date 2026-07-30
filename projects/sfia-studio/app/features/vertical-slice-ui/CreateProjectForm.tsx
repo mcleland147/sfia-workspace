@@ -248,6 +248,12 @@ function ProjectCreationResult({
         <CtaButton type="button" variant="secondary" onClick={onReset}>
           Créer un autre projet
         </CtaButton>
+        <CtaButton
+          href={`/studio/projects/${encodeURIComponent(result.projectId)}`}
+          data-testid="open-project-workspace"
+        >
+          Ouvrir l’espace de travail
+        </CtaButton>
       </div>
     </Card>
   );

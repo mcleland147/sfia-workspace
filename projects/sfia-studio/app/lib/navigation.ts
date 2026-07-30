@@ -7,8 +7,22 @@ export type StudioRoute =
 /**
  * Shell-level routes include the real Studio namespace while preserving the
  * legacy POC union consumed exhaustively by vertical-slice/mapping.ts.
+ * Dynamic project workspace routes are typed but not added to the rail.
  */
-export type StudioShellRoute = StudioRoute | "/studio/projects/new";
+export type StudioProjectWorkspaceRoute = `/studio/projects/${string}`;
+
+export type StudioShellRoute =
+  | StudioRoute
+  | "/studio/projects/new"
+  | StudioProjectWorkspaceRoute;
+
+export function isStudioProjectWorkspaceRoute(
+  route: StudioShellRoute,
+): boolean {
+  return (
+    route.startsWith("/studio/projects/") && route !== "/studio/projects/new"
+  );
+}
 
 export interface NavItem {
   id: string;

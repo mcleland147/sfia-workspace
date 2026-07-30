@@ -164,6 +164,14 @@ describe("V2-A1 RuntimeApplicationService", () => {
     expect(a).toBe(b);
     expect(isRuntimeApplicationServiceInitialized()).toBe(true);
 
+    const slotKey = "__SFIA_V2_RUNTIME_APPLICATION_SERVICE__";
+    const slot = (
+      globalThis as typeof globalThis & {
+        [slotKey]?: { service: unknown };
+      }
+    )[slotKey];
+    expect(slot?.service).toBe(a);
+
     const created = await a.createProject({
       ...INPUT,
       idempotencyKey: "idem:singleton",
@@ -175,6 +183,7 @@ describe("V2-A1 RuntimeApplicationService", () => {
 
     resetRuntimeApplicationServiceForTests();
     expect(isRuntimeApplicationServiceInitialized()).toBe(false);
+    expect(slot?.service).toBeNull();
   });
 
   it("defaults audit mode to noop (D-V2-03)", async () => {
