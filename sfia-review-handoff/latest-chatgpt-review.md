@@ -1,4 +1,4 @@
-# SFIA Review Pack — FULL — V3.1-D1 Post-merge resume (worktree blocker)
+# SFIA Review Pack — FULL — V3.1-D1 Archive + Post-merge Cleanup Complete
 
 ## Niveau
 FULL — obligatoire
@@ -11,23 +11,23 @@ FULL — obligatoire
 | CKC complete | yes |
 | handoff source complete | yes |
 | primary Git Truth complete | yes |
-| external worktree inspection complete | yes |
-| tracked/staged/untracked evidence complete | yes |
-| unique commit evidence complete | yes |
-| interrupted Git operation evidence complete | yes |
-| worktree safety gate complete | yes |
-| no-force removal evidence complete | yes (non-exécution documentée — gate BLOCKED) |
-| worktree absence proof complete | N/A — worktree préservé |
-| main ff-only sync complete | no — STOP avant sync |
-| merge evidence complete | yes (distant / PR) ; locale post-FF absente |
-| post-merge CI complete | yes |
-| accepted reserve complete | yes |
-| cleanup safety gate complete | yes (BLOCKED — préconditions) |
-| local branch deletion proof complete | blocked documenté |
-| remote branch deletion proof complete | blocked documenté |
-| final Git state complete | yes |
-| temporary report full content | yes |
-| reserves classified | yes |
+| source file metadata + hashes | yes |
+| archive paths + pre-state | yes |
+| copy commands | yes |
+| archive hashes + cmp proofs | yes |
+| no divergent overwrite | yes |
+| concurrent re-check | yes |
+| exact original deletion | yes |
+| originals absent + archives intact | yes |
+| worktree safety gate + no-force remove | yes |
+| worktree absence proof | yes |
+| main ff-only sync | yes |
+| merge + CI + reserve | yes |
+| cleanup safety gate | yes |
+| local + remote branch deletion | yes |
+| final Git state | yes |
+| temporary report full | yes |
+| reserves / anti-claims / next gate | yes |
 | synthesis only | no |
 | review pack verdict | complete |
 
@@ -37,188 +37,157 @@ FULL — obligatoire
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-07-31 06:25:51 CEST (+0200) |
+| Date/heure/fuseau | 2026-07-31 06:38:49 CEST (+0200) |
 | Cycle | 14 — Post-merge |
 | Profil | Critical |
 | Typologie | EVOL |
-| Gate Morris | `GO RESOLVE MAIN WORKTREE BLOCKER AND RESUME POST-MERGE CLEANUP PR #296 SFIA STUDIO V3.1-D1 — INSPECT /Users/morris/Projects/sfia-workspace-main-ckc-postmerge — REQUIRE CLEAN WORKTREE AND NO UNIQUE UNTRACKED FILES — REMOVE STALE MAIN WORKTREE SAFELY IF CLEAN — NO FORCE — RETURN TO /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge — SWITCH MAIN — FF-ONLY MAIN TO b553f0aaec120e03b8cfca27f3f0e5fc03f1480e — VERIFY POST-MERGE CI PASS AND ACCEPTED RESERVE — DELETE SOURCE BRANCH LOCAL AND REMOTE IF CLEANUP SAFETY GATE PASSES — NO D2 — NO UI — NO CREATECYCLE` |
-| Date GO | 2026-07-31 00:53 CEST (+0200) |
-| CKC | Cycle 14 Post-merge ; fallback `02-fifteen-cycles-synthetic-map.md` + §4.14 ; method-candidate ; P2/léger ; `executionAuthority=false` ; objet = sync + preuve merge + réserves + cleanup ; risque = perte données locales |
-
-## Sources consultées
-
-- Template / gouvernance : cycle-execution-template, routing-guide, operating-model, rules-and-guardrails, validation-checklist, engineering-principles, delivery-pipeline
-- Post-merge : CKC synthetic map, §4.14, closure-standard, 07-write-post-merge-status
-- Handoff source tip `e6edd3f…` / blob `3b0716fc…`
-- Inspection live des deux workspaces + registre worktrees + PR #296 + CI run 30585808183
+| Gate Morris | `GO ARCHIVE UNTRACKED MAIN WORKTREE CONTENT AND RESUME POST-MERGE CLEANUP PR #296 SFIA STUDIO V3.1-D1 — SOURCE WORKTREE /Users/morris/Projects/sfia-workspace-main-ckc-postmerge — ARCHIVE EXACTLY .tmp-sfia-review/chatgpt-review.md + .tmp-sfia-review/v3-inventory.txt TO /Users/morris/Projects/sfia-workspace-local-archive/main-ckc-postmerge-2026-07-23/ — RECORD SOURCE AND ARCHIVE SHA256 — REQUIRE BYTE-FOR-BYTE MATCH — DELETE ORIGINALS ONLY AFTER VERIFIED ARCHIVE — NO OTHER FILE MOVE OR DELETE — REMOVE WORKTREE WITHOUT FORCE IF CLEAN — RETURN TO /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge — SWITCH MAIN — FF-ONLY MAIN TO b553f0aaec120e03b8cfca27f3f0e5fc03f1480e — DELETE SOURCE BRANCH LOCAL AND REMOTE IF CLEANUP SAFETY GATE PASSES — NO D2 — NO UI — NO CREATECYCLE` |
+| Date GO | 2026-07-31 06:30 CEST (+0200) |
+| CKC | Cycle 14 ; fallback `02-fifteen-cycles-synthetic-map.md` + §4.14 ; method-candidate ; P2 ; `executionAuthority=false` |
 
 ## Handoff source
 
-- Tip : `e6edd3f65fd8310f72103d3afa1e11b739338204`
-- Blob : `3b0716fc200ce8c99c62aa2f894f903afa7c0069`
-- Verdict précédent : post-merge bloqué uniquement par worktree main externe stale
+- Tip : `6a7ed6947338f1937fee6b93be1a5794d08b00d9`
+- Blob : `e95846a1fa49083de5c1049ef9bfd9f0256d1a4e`
+- Verdict précédent : cleanup bloqué par 2 untracked
 
 ---
 
-## 1. Local Git Truth Check — workspace principal
+## 1. Git Truth principal
 
 | Contrôle | Résultat |
 |----------|----------|
-| pwd / toplevel | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
-| remote | `mcleland147/sfia-workspace` |
-| branche | Delivery `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
+| Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
+| Repo | `mcleland147/sfia-workspace` |
+| Branche initiale | Delivery |
 | HEAD | `e2e898405c0a555573187e04dd6c3de777595f19` |
 | origin/main | `b553f0aaec120e03b8cfca27f3f0e5fc03f1480e` |
-| remote Delivery | `e2e898405c0a555573187e04dd6c3de777595f19` |
+| Delivery remote | `e2e8984…` ; 0/0 |
 | vs main | 1 behind / 0 ahead |
-| vs remote Delivery | 0 / 0 |
-| projet modifié | NON |
-| staged | vide |
-| untracked autorisé | `.tmp-sfia-review/**` uniquement |
-| PR #296 | MERGED |
-| comments/reviews | 0 actionable |
-| worktree externe dans registre | OUI — branch `main` |
+| Projet | propre ; staged vide ; `.tmp-sfia-review/**` |
+| PR #296 | MERGED ; 0 comments/reviews |
+| Worktree externe | enregistré sur main @ `3e8a437…` |
 
-**Verdict Truth principal :** PASS
+**PASS**
 
 ---
 
-## 2. Inspection Critical — worktree externe
+## 2. Sources non suivies — métadonnées et hashes
 
-`MAIN_WT=/Users/morris/Projects/sfia-workspace-main-ckc-postmerge`
+| Source | Régulier | Symlink | Octets | Lignes | SHA-256 |
+|--------|----------|---------|--------|--------|---------|
+| `.../main-ckc-postmerge/.tmp-sfia-review/chatgpt-review.md` | oui | non | 32868 | 594 | `c9b9cc5b58ad1ad4654add2a9e380f53069f42ab14366e7af03bebf69d4ab309` |
+| `.../main-ckc-postmerge/.tmp-sfia-review/v3-inventory.txt` | oui | non | 17921 | 205 | `73b1e1e43f310bc36aa8963cd28bbee9ca0c3cb883e9ebd67eec20e75299cdfb` |
 
-### Identité
+Untracked exact : ces 2 seuls. Tracked/staged vides. Unique commits = 0. Ops Git interrompues : absentes. Tailles = dernière revue → pas de modification concurrente.
 
-| Contrôle | Valeur |
-|----------|--------|
-| test chemin exact | PASS |
-| top-level | `/Users/morris/Projects/sfia-workspace-main-ckc-postmerge` |
-| remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| branche | `main` |
-| HEAD | `3e8a4374405dce98866e35fb60c5c7329701f191` |
+Preuve : `.tmp-sfia-review/archive-source-sha256.txt`
 
-### Status complet (sorties)
-
-**status --porcelain=v1 --untracked-files=all :**
-```
-?? .tmp-sfia-review/chatgpt-review.md
-?? .tmp-sfia-review/v3-inventory.txt
-```
-
-**status --branch --short :**
-```
-## main...origin/main [behind 3]
-?? .tmp-sfia-review/
-```
-
-**diff tracked :** (vide)
-
-**diff staged :** (vide)
-
-**ls-files --others --exclude-standard :**
-```
-.tmp-sfia-review/chatgpt-review.md
-.tmp-sfia-review/v3-inventory.txt
-```
-
-**Commits uniques :** `origin/main..main = 0` ; `main` est ancêtre de `origin/main` ; behind 3.
-
-**Opérations Git interrompues (git-dir = `/Users/morris/Projects/sfia-workspace/.git/worktrees/sfia-workspace-main-ckc-postmerge`) :**
-- ABSENT MERGE_HEAD
-- ABSENT CHERRY_PICK_HEAD
-- ABSENT REVERT_HEAD
-- ABSENT rebase-apply
-- ABSENT rebase-merge
-- ABSENT sequencer
-
-### Contenu untracked (lecture seule)
-
-| Fichier | Taille | Date | Nature |
-|---------|--------|------|--------|
-| `.tmp-sfia-review/chatgpt-review.md` | 32868 B / 594 lignes | 2026-07-23 | Review Pack FULL audit doctrine SFIA Studio v3 |
-| `.tmp-sfia-review/v3-inventory.txt` | 17921 B / 205 lignes | 2026-07-23 | Inventaire fichiers sfia-v3-framing / design |
-
-**Aucun fichier déplacé, modifié ou supprimé.** Aucun `git clean`. Aucun stash.
+Nature : review pack audit doctrine v3 (2026-07-23) + inventaire framing/design.
 
 ---
 
-## 3. Worktree Removal Safety Gate
+## 3. Archivage
 
-| # | Condition | Résultat |
-|---|-----------|----------|
-| 1 | chemin exact | PASS |
-| 2 | repository exact | PASS |
-| 3 | branche main | PASS |
-| 4 | HEAD ancêtre de origin/main | PASS |
-| 5 | aucun commit unique | PASS |
-| 6 | tracked propre | FAIL (porcelain non vide) |
-| 7 | staged vide | PASS |
-| 8 | untracked vide | FAIL |
-| 9 | aucune opération Git interrompue | PASS |
-| 10 | pas le workspace courant | PASS |
-| 11 | pas de worktree imbriqué | PASS |
-| 12 | origin/main attendu (`b553f0aa…`) | PASS |
-| 13 | suppression sans force | PENDING → **NON EXÉCUTÉE** |
+### Chemins archive
 
-**Verdict :** `MAIN WORKTREE REMOVAL SAFETY GATE — BLOCKED`
+- Dir : `/Users/morris/Projects/sfia-workspace-local-archive/main-ckc-postmerge-2026-07-23`
+- F1 : `.../chatgpt-review.md`
+- F2 : `.../v3-inventory.txt`
+- Résolu exact ; externe repo + worktree ; non symlink
+
+### État préalable destinations
+
+Absentes → copie `cp -p` (pas `mv`, pas écrasement).
+
+### Archive Safety Gate
+
+01–12 PASS → **ARCHIVE SAFETY GATE — PASS**
+
+### Vérification
+
+| Pair | hash match | size match | cmp |
+|------|------------|------------|-----|
+| source1↔archive1 | PASS `c9b9cc5b…` | 32868 | PASS |
+| source2↔archive2 | PASS `73b1e1e4…` | 17921 | PASS |
+
+**ARCHIVE BYTE-FOR-BYTE VERIFICATION — PASS**  
+Preuves : `archive-target-sha256.txt`, `archive-comparison.txt`
+
+### Re-check concurrent
+
+Hashes sources = capture pré-copie ; toujours exactement 2 untracked ; pas d’autre fichier.
+
+### Suppression originaux
+
+```
+rm "$SOURCE_1" "$SOURCE_2"
+```
+
+Aucun wildcard / `rm -rf` / `git clean`. Sources absentes. Archives présentes, hashes inchangés. Status WT vide.
+
+**UNTRACKED CONTENT ARCHIVED AND SOURCES REMOVED — VERIFIED**
 
 ---
 
-## 4. Suppression worktree
+## 4. Worktree removal
 
-- Commande `git worktree remove /Users/morris/Projects/sfia-workspace-main-ckc-postmerge` : **NON EXÉCUTÉE**
-- `--force` : NON
-- `rm -rf` : NON
-- Preuve filesystem : `test -d` → WORKTREE_STILL_PRESENT
-- Preuve registre : toujours listé (`HEAD 3e8a437…`, `branch refs/heads/main`)
+**MAIN WORKTREE REMOVAL SAFETY GATE — PASS**
 
-**STOP condition déclenchée :**
-`MAIN WORKTREE CONTAINS UNTRACKED CONTENT — NO FILE MOVED OR DELETED — MAIN WORKTREE PRESERVED — SOURCE BRANCH PRESERVED — MANUAL MORRIS DECISION REQUIRED`
+```
+git worktree remove /Users/morris/Projects/sfia-workspace-main-ckc-postmerge
+```
+
+`--force` NON. FS absent. Registre absent (`.tmp-sfia-review/worktree-after.txt`).
 
 ---
 
 ## 5. Synchronisation main
 
-- Retour workspace principal : OUI (déjà courant)
-- `git switch main` : **NON EXÉCUTÉ**
-- `git merge --ff-only origin/main` : **NON EXÉCUTÉ**
-- HEAD principal reste Delivery `e2e8984…`
-- `origin/main` reste `b553f0aa…`
+```
+git switch main
+git merge --ff-only origin/main
+```
+
+- Avant HEAD : `3e8a4374405dce98866e35fb60c5c7329701f191`
+- Après : `b553f0aaec120e03b8cfca27f3f0e5fc03f1480e` = origin/main ; 0/0
+- FF only ; aucun commit local
 
 ---
 
-## 6. Merge / CI / réserve (état distant inchangé)
+## 6. Merge / CI / réserve
 
 ### Merge
 
-- SHA : `b553f0aaec120e03b8cfca27f3f0e5fc03f1480e`
-- Parents attendus : `3e8a437…` + `e2e8984…`
-- Commits source : `9123252…`, `e2e8984…`
-- PR #296 : MERGED
-- Revalidation locale post-FF des 13 fichiers : **non faite** (FF bloqué)
+- SHA `b553f0aa…` ; parents `3e8a437…` + `e2e8984…`
+- Ancêtres : `9123252…`, `e2e8984…`, `3e8a437…`
+- 13 fichiers ; +3667/−155 ; arbre ≡ source ; diff check PASS
 
-### CI post-merge
+### CI
 
-- Run `30585808183` — SFIA Studio CI — push — headSha `b553f0aa…` — completed / **success**
-- Non-répétition locale des 827 tests : confirmée
+- Run `30585808183` ; push ; headSha `b553f0aa…` ; success
+- Detect / Build and validate / Required Gate — success ; tous steps Build success
+- Aucun rerun failed sur même SHA
+- 827 tests locaux non rejoués (redondance évitée)
 
 ### Réserve
 
-`ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED`
+**ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED**
 
-Sources de conservation : docs 12/13/14 ; rapports V3.1-D1 01–04.
+Framing README condensé ; docs 12/13/14 + rapports 01–04 présents ; D2 fermé ; method-candidate non promu.
 
 ---
 
-## 7. Cleanup Safety Gate
+## 7. Cleanup branches
 
-**BLOCKED** — préconditions (worktree retiré + main sync) non satisfaites.
+**CLEANUP SAFETY GATE — PASS** (24/24)
 
-Aucune suppression de branche locale (`git branch -d` non exécuté).
-Aucune suppression distante (`git push --delete` non exécuté).
-`-D` non utilisé. Force non utilisée.
+```
+git branch -d delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime
+git push origin --delete delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime
+```
 
-Branches source **préservées** localement et à distance @ `e2e8984…`.
+Locale absente ; distante absente ; tracking absent. `-D` NON ; force NON.
 
 ---
 
@@ -227,108 +196,75 @@ Branches source **préservées** localement et à distance @ `e2e8984…`.
 | Champ | Valeur |
 |-------|--------|
 | Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
-| Branche | Delivery |
-| HEAD | `e2e898405c0a555573187e04dd6c3de777595f19` |
-| origin/main | `b553f0aaec120e03b8cfca27f3f0e5fc03f1480e` |
-| Worktree externe | **présent** |
-| Source locale | **présente** |
-| Source distante | **présente** |
-| Projet modifié | NON |
-| Staged | vide |
-| Untracked principal | `.tmp-sfia-review/**` |
+| Branche | main |
+| HEAD = origin/main | `b553f0aaec120e03b8cfca27f3f0e5fc03f1480e` |
+| Écart | 0 / 0 |
+| Worktree externe | absent |
+| Source locale/distante | absentes |
+| Archives | 2 fichiers ; hashes `c9b9cc5b…` / `73b1e1e4…` |
+| Projet | propre ; staged vide ; `.tmp-sfia-review/**` |
 
 ---
 
 ## 9. Rapport temporaire
 
-Fichier : `.tmp-sfia-review/pr-296-resumed-post-merge-cleanup-report.md`  
-Contenu sections A–S : complet (voir fichier).
+`.tmp-sfia-review/pr-296-archive-and-cleanup-report.md` — sections A–Z complètes.
 
 ---
 
-## 10. Réserves classifiées
-
-| Classe | Item |
-|--------|------|
-| Bloquante environnementale | 2 fichiers untracked dans MAIN_WT |
-| Cleanup | branches source non nettoyées |
-| Mineure acceptée | framing README condensé — NOT LIFTED |
-| Majeure | aucune nouvelle |
-
----
-
-## 11. Confirmations d’absence d’actions interdites
+## 10. Confirmations
 
 | Action | Statut |
 |--------|--------|
 | fichier projet modifié | NON |
-| fichier worktree déplacé | NON |
-| git clean | NON |
-| stash | NON |
-| reset hard | NON |
-| worktree remove --force | NON |
-| rm -rf | NON |
-| worktree supprimé | **BLOCKED** |
-| main synchronisée | **BLOCKED** |
-| commit projet | NON |
-| push main | NON |
-| branche locale supprimée | **BLOCKED / préservée** |
-| branche distante supprimée | **BLOCKED / préservée** |
-| git branch -D | NON |
-| force push | NON |
-| D2 | NON |
-| D3 | NON |
-| resolver CKC | NON |
-| UI | NON |
-| CreateCycle | NON |
-| méthode | NON |
+| autre fichier déplacé/supprimé | NON |
+| git clean / stash / reset hard | NON |
+| worktree remove --force / rm -rf | NON |
+| worktree supprimé | OUI |
+| main synchronisée FF-only | OUI |
+| commit projet / push main | NON |
+| branche locale/distante supprimées | OUI |
+| git branch -D / force push | NON |
+| D2 / D3 / UI / CreateCycle / méthode | NON |
+| écrasement archive divergent | NON |
 
 ---
 
-## 12. Anti-claims
+## 11. Réserves / anti-claims
 
-- Cleanup incomplet ≠ D2 ouvert
-- Untracked découvert ≠ licence de suppression/déplacement
-- CI verte ≠ main locale synchronisée
-- Réserve acceptée ≠ levée
-- Préservation worktree ≠ preuve de propreté
-- Merge PR #296 ≠ cycle post-merge cleanup terminé
+- Mineure acceptée framing README — NOT LIFTED
+- Cleanup ≠ D2 ; archive locale ≠ commit projet ; CI verte ≠ zero-bug ; sync main ≠ promotion method-candidate
 
----
-
-## 13. Recommandation / gate suivant
-
-Décision Morris manuelle sur le sort des deux fichiers untracked du worktree externe, puis nouveau GO de reprise cleanup.
-
-Gate candidat :
+## 12. Gate suivant
 
 ```
-GO RESOLVE UNTRACKED CONTENT IN MAIN WORKTREE THEN RESUME POST-MERGE CLEANUP PR #296 —
-MORRIS DECIDES FATE OF
-  /Users/morris/Projects/sfia-workspace-main-ckc-postmerge/.tmp-sfia-review/chatgpt-review.md
-  /Users/morris/Projects/sfia-workspace-main-ckc-postmerge/.tmp-sfia-review/v3-inventory.txt —
-THEN IF WORKTREE CLEAN: SAFE REMOVE WITHOUT FORCE —
-FF-ONLY MAIN TO b553f0aa… —
-DELETE SOURCE BRANCH LOCAL AND REMOTE IF CLEANUP SAFETY GATE PASSES —
+GO CAPITALIZATION / REX SFIA STUDIO V3.1-D1 —
+CAPTURE CATALOG DELIVERY QA PR MERGE POST-MERGE ARCHIVE AND CLEANUP LESSONS —
+KEEP OBSERVATIONS RECOMMENDATIONS AND MORRIS DECISIONS DISTINCT —
+NO METHOD PROMOTION WITHOUT MORRIS GO —
 NO D2 — NO UI — NO CREATECYCLE
 ```
 
-Sans nouveau GO : pas de D2, pas de CreateCycle, pas de promotion method-candidate.
+Sans nouveau GO Morris : pas d’exécution.
 
 ---
 
 ## Verdict
 
 ```
-V3.1-D1 POST-MERGE CLEANUP BLOCKED —
-MAIN WORKTREE CONTAINS LOCAL OR UNTRACKED CONTENT —
-NO FORCE OR DATA MOVEMENT PERFORMED —
-WORKTREE AND SOURCE BRANCH PRESERVED —
-MANUAL MORRIS DECISION REQUIRED —
+V3.1-D1 POST-MERGE COMPLETE WITH ACCEPTED MINOR DOCUMENTATION RESERVE —
+UNTRACKED AUDIT CONTENT ARCHIVED AND VERIFIED —
+ORIGINAL UNTRACKED FILES REMOVED AFTER BYTE-FOR-BYTE PROOF —
+STALE MAIN WORKTREE REMOVED SAFELY WITHOUT FORCE —
+MAIN SYNCED —
+MERGE COMMIT AND SOURCE COMMITS VERIFIED —
+POST-MERGE CI PASS —
+SOURCE BRANCHES DELETED —
+REVIEW HANDOFF VERIFIED —
 D2/D3 NOT AUTHORIZED
 ```
 
 **Statut final :**  
-`POST-MERGE CLEANUP BLOCKED — UNTRACKED CONTENT IN EXTERNAL MAIN WORKTREE — D2 NOT OPENED`
+`POST-MERGE COMPLETE WITH ACCEPTED MINOR RESERVE — AUDIT FILES ARCHIVED — MAIN SYNCED — WORKTREE AND SOURCE BRANCH CLEANUP COMPLETE — D2 NOT OPENED`
 
-**Instruction ChatGPT :** consulter `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` avant réponse à Morris ; confirmer le blocker untracked ; ne pas minimiser ; ne pas recréer/supprimer ; ne pas ouvrir D2 ; ne pas générer le prompt suivant sans nouveau GO Morris.
+**Instruction ChatGPT :** consulter `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` ; vérifier archivage SHA256/cmp, worktree remove sans force, FF main, suppressions branches, réserve non levée, D2 fermé ; ne pas générer le prompt suivant sans nouveau GO Morris.
