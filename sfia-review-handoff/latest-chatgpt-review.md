@@ -3876,16 +3876,17 @@ Nom commercial ; stack production ; Supabase ; backend ; modèle IA ; multi-tena
 - mode : publish-in-cycle
 - branche : `sfia/review-handoff`
 - path canonique : `sfia-review-handoff/latest-chatgpt-review.md`
-- commit : `738723d336b73d905036284d7aa07882c825aa22`
-- message : `docs(review-handoff): publish eventops poc visible slice 01 review`
-- push : effectué sur `origin/sfia/review-handoff` (L3 borné)
-- SHA local : `738723d336b73d905036284d7aa07882c825aa22`
-- SHA distant : `738723d336b73d905036284d7aa07882c825aa22`
-- blob source SHA-256 : `b17b83da02e9a78836c821a5dbf5ee2fefeaad37f96e4e8fcd65d41b4c3be8ec`
-- relecture distante : tip local = tip remote ; contenu canonique aligné sur la source au moment de la première publication
-- verdict handoff initial : `HANDOFF UPDATED — REMOTE VERIFIED` (push `0fe120a..738723d`)
-- vérification ultérieure publisher : `HANDOFF ALREADY CURRENT — REMOTE VERIFIED`
-- note : cette section 26 a été finalisée après la première publication ; une republication suit pour aligner le fichier canonique distant.
+- commit tip : `aa298a01125a2775c0011975946f17e6f80d0b32`
+- message tip : `docs(review-handoff): finalize eventops poc visible slice 01 handoff section`
+- push : effectué sur `origin/sfia/review-handoff` (L3 borné uniquement)
+- SHA local : `aa298a01125a2775c0011975946f17e6f80d0b32`
+- SHA distant : `aa298a01125a2775c0011975946f17e6f80d0b32`
+- SHA-256 contenu source/canonique : `65c51ec39efc4dd7f1dc9fa8992a801f4bf17c43a225d69e7bcc4af9a7b676fe` (après finalisation)
+- historique publication :
+  1. `738723d` — première publication pack Full
+  2. `aa298a0` — finalisation section handoff
+- relecture distante : tip local = tip remote ; blob source = blob canonique
+- verdict handoff : `HANDOFF UPDATED — REMOTE VERIFIED` puis confirmation `HANDOFF ALREADY CURRENT — REMOTE VERIFIED`
 
 ## 27. Verdict
 READY FOR MORRIS FUNCTIONAL REVIEW
