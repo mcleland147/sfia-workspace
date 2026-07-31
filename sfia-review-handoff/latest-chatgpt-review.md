@@ -1,4 +1,4 @@
-# SFIA Review Pack — FULL — V3.1-D1 Capitalization PR Readiness
+# SFIA Review Pack — FULL — V3.1-D1 Capitalization Draft PR Publication
 
 ## Niveau
 FULL — obligatoire
@@ -11,16 +11,19 @@ FULL — obligatoire
 | handoff source complete | yes |
 | Git Truth complete | yes |
 | document 05 full content | yes |
-| package diff complete | yes |
-| structure review complete | yes |
-| traceability matrix complete | yes |
-| Morris decisions complete | yes |
-| epistemic distinctions complete | yes |
-| metrics complete | yes |
-| reserves complete | yes |
-| findings classified | yes |
-| package manifest complete | yes |
-| PR body complete | yes |
+| document hash complete | yes |
+| approved PR body complete | yes |
+| publication body complete | yes |
+| body delta complete | yes |
+| staged diff complete | yes |
+| commit proof complete | yes |
+| push proof complete | yes |
+| remote branch proof complete | yes |
+| PR metadata complete | yes |
+| remote PR body complete | yes |
+| CI initial state complete | yes |
+| reserve complete | yes |
+| boundaries complete | yes |
 | final Git state complete | yes |
 | temporary report full content | yes |
 | synthesis only | no |
@@ -31,27 +34,21 @@ FULL — obligatoire
 ## Métadonnées
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-07-31 07:09:03 CEST (+0200) |
-| Cycle | 13 — PR readiness |
+| Date/heure/fuseau | 2026-07-31 07:49:02 CEST (+0200) |
+| Cycle | 7 — Intégration / DevOps |
 | Profil | Standard |
 | Typologie | DOC |
-| Gate Morris | `GO PR READINESS SFIA STUDIO V3.1-D1 CAPITALIZATION REX — REVIEW DOCUMENT 05 CONTENT TRACEABILITY OBSERVATIONS RECOMMENDATIONS DECISIONS AND RESERVES — PREPARE DOCUMENTATION-ONLY PUBLICATION PACKAGE — NO COMMIT — NO PUSH — NO PR — NO METHOD PROMOTION — NO D2 — NO UI — NO CREATECYCLE` |
-| Date GO | 2026-07-31 06:57 CEST (+0200) |
-| CKC | synthetic map + §4.13 · method-candidate · P1/moyen · `executionAuthority=false` |
+| Gate Morris | `GO COMMIT PUSH AND OPEN DRAFT PR SFIA STUDIO V3.1-D1 CAPITALIZATION REX — USE APPROVED DOCUMENTATION-ONLY PACKAGE — ONE FILE DOCUMENT 05 ONLY — TARGET MAIN — ACCEPTED MINOR DOCUMENTATION RESERVE EXPLICIT — NO MERGE — NO METHOD PROMOTION — NO D2 — NO UI — NO CREATECYCLE` |
+| Date GO | 2026-07-31 07:41 CEST |
+| CKC | cycle 7 fallback · method-candidate · `executionAuthority=false` |
 
 ## Handoff source
-tip `40bff3c50aa34a0f21e3388f04fca8301e906059` · blob `a5e41a2db08a47abbe3ecef882476081e1f71814`
+tip `7f095ca595c9fb8a7b5f13b249a27e6c7d1d1e3b` · blob `c924b521f0b5a6477cd714a41946afc48aabbb31`
 
-## Git Truth
-branch `capitalization/sfia-studio-v3-1-d1-rex` · HEAD=main=origin/main=`b553f0aa…` · 0/0 · remote cap absente · doc 05 untracked · staged vide · PR #296 MERGED · comments 0 · **PASS**
+## Git Truth initial
+PASS — capitalization @ b553f0aa… · remote/PR absents · doc untracked · hash `6d6e7f7bdec33902b3ee3632f64088bd0eed893342bd7fbe1a0a49ad3b596577`
 
-## Fichier 05 — métriques
-- path: `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md`
-- 436 lines · 24796 bytes
-- SHA-256: `6d6e7f7bdec33902b3ee3632f64088bd0eed893342bd7fbe1a0a49ad3b596577`
-- UTF-8 · no BOM · final newline · trailing ws none · no conflict markers · no `/Users/` · no `file://` · no local archive path
-
-## Contenu complet du fichier 05
+## Document 05 complet
 
 ```markdown
 # V3.1-D1 — Capitalisation / REX
@@ -492,7 +489,314 @@ D2/D3 NOT AUTHORIZED
 **Statut :** `CAPITALIZATION COMPLETE LOCALLY — DOCUMENT 05 READY FOR DOCUMENTARY PR READINESS — NO PUBLICATION — D2 NOT OPENED`
 ```
 
-## Diff complet (package)
+Hash `6d6e7f7bdec33902b3ee3632f64088bd0eed893342bd7fbe1a0a49ad3b596577` · 436/24796 · unchanged since PR readiness
+
+## Bodies
+### Approved
+
+```markdown
+# docs(sfia-studio): add V3.1-D1 capitalization REX
+
+## 1. Summary
+
+This draft PR adds a single documentation file: the V3.1-D1 Capitalization / REX for the Cycle Type Catalog Runtime Contract lot.
+
+It captures lessons from framing through delivery, QA, PR, merge, post-merge worktree incidents, controlled archiving, and cleanup — without promoting method assets and without opening D2/D3.
+
+## 2. Context
+
+- Lot V3.1-D1 already merged via PR #296 (`b553f0aaec120e03b8cfca27f3f0e5fc03f1480e`).
+- Capitalization cycle 15 produced document 05 locally on branch `capitalization/sfia-studio-v3-1-d1-rex`.
+- This publication is documentation-only and remains subject to a distinct Morris merge GO.
+
+## 3. Scope
+
+**In scope (exactly one file):**
+
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md`
+
+**Out of scope:**
+
+- framing README / backlog 08 / documents 12–14
+- D1 reports 01–04
+- code / tests / config / dependencies
+- method / templates / CKC
+- D2 resolver / QualifyCycle bridge
+- D3 / UI / Figma / CreateCycle / persistence
+
+## 4. Capitalization coverage
+
+Document sections A–T cover:
+
+- chronology (framing → cleanup → local capitalization)
+- Morris decisions consumed
+- factual observations
+- lessons and candidate reusable practices
+- candidate recommendations (not applied)
+- future decision pack D-REX-01…06 (NOT DECIDED)
+- reserves register
+- anti-claims and next-gate candidate
+
+## 5. Morris decisions
+
+Referenced as already adopted/executed (not reinvented):
+
+- D-V3-01…08 and D-V3.1-CAT-01…08
+- QA-G3 PASS
+- publication / ready-for-review / merge of PR #296
+- post-merge / worktree / archive / cleanup GOs
+- capitalization GO (local document only)
+
+No new Morris decision is created by this PR.
+
+## 6. Evidence and metrics
+
+- Catalog: 15 entries · 4 detailed / 11 synthetic CKC mappings
+- QA reinforced before fix: 34 PASS / 12 FAIL
+- After corrective + revalidation: 46/46 · 94/94 · 827/827 · typecheck/lint/build PASS
+- PR #296: 13 files · 2 source commits · +3667 / −155
+- Code commit: `91232520440b77fe8200427f3321c7ff0454ad24`
+- Docs commit: `e2e898405c0a555573187e04dd6c3de777595f19`
+- Merge: `b553f0aaec120e03b8cfca27f3f0e5fc03f1480e`
+- CI pre-merge: run `30577786752` PASS
+- CI post-merge: run `30585808183` PASS
+- Archive SHA-256 proofs (event only; not Git truth):
+  - `c9b9cc5b58ad1ad4654add2a9e380f53069f42ab14366e7af03bebf69d4ab309`
+  - `73b1e1e43f310bc36aa8963cd28bbee9ca0c3cb883e9ebd67eec20e75299cdfb`
+
+## 7. Epistemic distinctions
+
+The document keeps strict prefixes/status labels:
+
+- `Observation —`
+- `Enseignement —`
+- `Pratique candidate réutilisable —`
+- `Recommandation candidate —`
+- Morris decisions: adopted / executed
+- D-REX-01…06: `NOT DECIDED — MORRIS DECISION REQUIRED`
+
+Candidate practices are **not** method baseline.
+Recommendations are **not** applied in this PR.
+
+## 8. Risks and reserves
+
+**Inherited minor reserve (not a new defect of document 05):**
+
+`ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED`
+
+Framing README condensation remains accepted and traceable via docs 12/13/14, reports 01–05, PR #296, and handoffs. Not lifted. Not D2.
+
+**Other risks:**
+
+- misreading capitalization as method promotion → mitigated by anti-claims and boundaries
+- misreading D-REX-06 as D2 authorization → explicitly NOT DECIDED / not automatic
+
+## 9. Boundaries
+
+This PR does **not** claim:
+
+- D2/D3 open
+- resolver / QualifyCycle / UI / CreateCycle / persistence implemented
+- method baseline promotion
+- PRODUCT / RUN / IAM / AGENT READY or CUTOVER AUTHORIZED
+- zero bugs
+
+## 10. Validation
+
+- Local Git Truth on capitalization branch @ `b553f0aa…` (0/0 vs main)
+- Document structure A–T complete
+- Metrics/SHAs cross-checked against PR #296, CI runs, and D1 reports
+- Epistemic distinctions verified
+- No project mutation during PR readiness
+- Full Studio test suite not re-run (documentation-only; metrics already evidenced)
+
+## 11. Review guidance
+
+Reviewers should verify:
+
+1. single-file documentation scope
+2. no method/code/test changes
+3. observations ≠ recommendations ≠ Morris decisions
+4. D-REX remain NOT DECIDED
+5. README reserve remains accepted and not lifted
+6. no implicit D2/D3 authorization
+
+## 12. Checklist
+
+- [x] Capitalization cycle complete
+- [x] Observations and recommendations separated
+- [x] Morris decisions identifiable
+- [x] Future decision pack remains NOT DECIDED
+- [x] Accepted README reserve remains traceable and not lifted
+- [x] No code, tests, dependencies or method changes
+- [x] No D2/D3, UI or CreateCycle
+- [ ] Commit and push authorized by Morris
+- [ ] Draft PR opened
+- [ ] Remote CI completed
+- [ ] Morris merge GO granted
+```
+
+### Publication
+
+```markdown
+# docs(sfia-studio): add V3.1-D1 capitalization REX
+
+## 1. Summary
+
+This draft PR adds a single documentation file: the V3.1-D1 Capitalization / REX for the Cycle Type Catalog Runtime Contract lot.
+
+It captures lessons from framing through delivery, QA, PR, merge, post-merge worktree incidents, controlled archiving, and cleanup — without promoting method assets and without opening D2/D3.
+
+## 2. Context
+
+- Lot V3.1-D1 already merged via PR #296 (`b553f0aaec120e03b8cfca27f3f0e5fc03f1480e`).
+- Capitalization cycle 15 produced document 05 locally on branch `capitalization/sfia-studio-v3-1-d1-rex`.
+- This publication is documentation-only and remains subject to a distinct Morris merge GO.
+
+## 3. Scope
+
+**In scope (exactly one file):**
+
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md`
+
+**Out of scope:**
+
+- framing README / backlog 08 / documents 12–14
+- D1 reports 01–04
+- code / tests / config / dependencies
+- method / templates / CKC
+- D2 resolver / QualifyCycle bridge
+- D3 / UI / Figma / CreateCycle / persistence
+
+## 4. Capitalization coverage
+
+Document sections A–T cover:
+
+- chronology (framing → cleanup → local capitalization)
+- Morris decisions consumed
+- factual observations
+- lessons and candidate reusable practices
+- candidate recommendations (not applied)
+- future decision pack D-REX-01…06 (NOT DECIDED)
+- reserves register
+- anti-claims and next-gate candidate
+
+## 5. Morris decisions
+
+Referenced as already adopted/executed (not reinvented):
+
+- D-V3-01…08 and D-V3.1-CAT-01…08
+- QA-G3 PASS
+- publication / ready-for-review / merge of PR #296
+- post-merge / worktree / archive / cleanup GOs
+- capitalization GO (local document only)
+
+No new Morris decision is created by this PR.
+
+## 6. Evidence and metrics
+
+- Catalog: 15 entries · 4 detailed / 11 synthetic CKC mappings
+- QA reinforced before fix: 34 PASS / 12 FAIL
+- After corrective + revalidation: 46/46 · 94/94 · 827/827 · typecheck/lint/build PASS
+- PR #296: 13 files · 2 source commits · +3667 / −155
+- Code commit: `91232520440b77fe8200427f3321c7ff0454ad24`
+- Docs commit: `e2e898405c0a555573187e04dd6c3de777595f19`
+- Merge: `b553f0aaec120e03b8cfca27f3f0e5fc03f1480e`
+- CI pre-merge: run `30577786752` PASS
+- CI post-merge: run `30585808183` PASS
+- Archive SHA-256 proofs (event only; not Git truth):
+  - `c9b9cc5b58ad1ad4654add2a9e380f53069f42ab14366e7af03bebf69d4ab309`
+  - `73b1e1e43f310bc36aa8963cd28bbee9ca0c3cb883e9ebd67eec20e75299cdfb`
+
+## 7. Epistemic distinctions
+
+The document keeps strict prefixes/status labels:
+
+- `Observation —`
+- `Enseignement —`
+- `Pratique candidate réutilisable —`
+- `Recommandation candidate —`
+- Morris decisions: adopted / executed
+- D-REX-01…06: `NOT DECIDED — MORRIS DECISION REQUIRED`
+
+Candidate practices are **not** method baseline.
+Recommendations are **not** applied in this PR.
+
+## 8. Risks and reserves
+
+**Inherited minor reserve (not a new defect of document 05):**
+
+`ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED`
+
+Framing README condensation remains accepted and traceable via docs 12/13/14, reports 01–05, PR #296, and handoffs. Not lifted. Not D2.
+
+**Other risks:**
+
+- misreading capitalization as method promotion → mitigated by anti-claims and boundaries
+- misreading D-REX-06 as D2 authorization → explicitly NOT DECIDED / not automatic
+
+## 9. Boundaries
+
+This PR does **not** claim:
+
+- D2/D3 open
+- resolver / QualifyCycle / UI / CreateCycle / persistence implemented
+- method baseline promotion
+- PRODUCT / RUN / IAM / AGENT READY or CUTOVER AUTHORIZED
+- zero bugs
+
+## 10. Validation
+
+- Local Git Truth on capitalization branch @ `b553f0aa…` (0/0 vs main)
+- Document structure A–T complete
+- Metrics/SHAs cross-checked against PR #296, CI runs, and D1 reports
+- Epistemic distinctions verified
+- No project mutation during PR readiness
+- Full Studio test suite not re-run (documentation-only; metrics already evidenced)
+
+## 11. Review guidance
+
+Reviewers should verify:
+
+1. single-file documentation scope
+2. no method/code/test changes
+3. observations ≠ recommendations ≠ Morris decisions
+4. D-REX remain NOT DECIDED
+5. README reserve remains accepted and not lifted
+6. no implicit D2/D3 authorization
+
+## 12. Checklist
+
+- [x] Capitalization cycle complete
+- [x] Observations and recommendations separated
+- [x] Morris decisions identifiable
+- [x] Future decision pack remains NOT DECIDED
+- [x] Accepted README reserve remains traceable and not lifted
+- [x] No code, tests, dependencies or method changes
+- [x] No D2/D3, UI or CreateCycle
+- [x] Commit and push authorized by Morris
+- [x] Draft PR opened
+- [ ] Remote CI completed
+- [ ] Morris merge GO granted
+```
+
+### Delta (exactly 2 checklist lines)
+
+```
+L136:
+- - [ ] Commit and push authorized by Morris
++ - [x] Commit and push authorized by Morris
+L137:
+- - [ ] Draft PR opened
++ - [x] Draft PR opened
+```
+
+## Staged / commit diff
+
+```
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md
+
+```
 
 ```diff
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md
@@ -939,70 +1243,52 @@ index 0000000..785256a
 +**Statut :** `CAPITALIZATION COMPLETE LOCALLY — DOCUMENT 05 READY FOR DOCUMENTARY PR READINESS — NO PUBLICATION — D2 NOT OPENED`
 ```
 
-## Structure A–T
-All 20 sections present and non-empty · PASS
+## Commit / push
+PUBLICATION_SHA `d77c775f6114eddd04af330cc943a869a5c4f6a2` · parent `b553f0aa…` · message exact · remote tip equal · no force
 
-## Sources consultées
-Gouvernance · §4.13 · synthetic map · template `2026-07-04-05-validate-pr-readiness.md` · framing/README/08/12/13/14 · D1 README/01–04 · code/tests ciblés · PR #296 · CI 30577786752 & 30585808183 · handoff capitalization · archives locales lecture seule (hashes match)
+```
+commit d77c775f6114eddd04af330cc943a869a5c4f6a2
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Fri Jul 31 07:47:50 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Fri Jul 31 07:47:50 2026 +0200
 
-## Matrice de traçabilité (synthèse)
-| Réf | Existence | Concordance |
-|-----|-----------|-------------|
-| docs 12/13/14 | yes | yes |
-| reports 01–04 + README D1 | yes | yes |
-| cycleTypeCatalog.ts / index / tests | yes | yes |
-| PR #296 / commits / merge | yes | yes |
-| CI pré/post | yes | yes |
-| archive hashes | yes (handoff + local corroboration) | yes |
+    docs(sfia-studio): add V3.1-D1 capitalization REX
 
-## Décisions Morris vérifiées
-D-V3 · CAT-01…08 · QA-G3 · publication · ready · merge · archive/cleanup · capitalization — no invented decisions — no D2/D3 authorization
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-## Distinctions épistémiques
-Observation 13 · Enseignement 12 · Pratique candidate 14 · Recommandation candidate 9 · D-REX NOT DECIDED ×6 · PASS
+A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md
+---
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md
 
-## Métriques vérifiées
-15 · 4/11 · 34/12 · 46/46 · 94/94 · 827/827 · 13 files · +3667/−155 · SHAs · CI IDs · archive hashes — PASS
-
-## Réserves
-ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED (héritée) · abréviations chemins (mineure lisibilité)
-
-## Findings
-Bloquants: 0 · Majeurs: 0 · Mineurs: 2 (réserve héritée + abréviations) · Environnementaux: 0
-
-## Granularité Git
-1 file · commit `docs(sfia-studio): add V3.1-D1 capitalization REX` · draft PR title same · mono-file justified
-
-## Manifest complet
-
-```markdown
-# V3.1-D1 Capitalization — documentation-only publication package manifest
-
-| Champ | Valeur |
-|-------|--------|
-| Repository | mcleland147/sfia-workspace |
-| Base | main @ b553f0aaec120e03b8cfca27f3f0e5fc03f1480e |
-| Branch (local) | capitalization/sfia-studio-v3-1-d1-rex |
-| HEAD | b553f0aaec120e03b8cfca27f3f0e5fc03f1480e |
-| Remote capitalization branch | absente |
-| File | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md` |
-| Status | untracked |
-| Lines / bytes | 436 / 24796 |
-| SHA-256 | `6d6e7f7bdec33902b3ee3632f64088bd0eed893342bd7fbe1a0a49ad3b596577` |
-| Encoding | UTF-8 text · no BOM · final newline · no trailing whitespace |
-| Commit candidat | `docs(sfia-studio): add V3.1-D1 capitalization REX` |
-| PR title | `docs(sfia-studio): add V3.1-D1 capitalization REX` |
-| PR type | draft PR recommended |
-| Scope | document 05 only |
-| Hors scope | README, backlog, 12–14, 01–04, code, tests, method, `.tmp-sfia-review/**` |
-| Réserve | ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED |
-| Validations | structure A–T PASS · metrics PASS · epistemics PASS · no secrets/abs paths PASS |
-| Prochain gate | GO COMMIT PUSH AND OPEN DRAFT PR … (not executed) |
-| Anti-claims | no method promotion · no D2/D3 · no PRODUCT/RUN/IAM/AGENT READY |
-| Package executed | **NO** (readiness only) |
 ```
 
-## Body PR complet
+```
+PUBLICATION_SHA=d77c775f6114eddd04af330cc943a869a5c4f6a2
+local=d77c775f6114eddd04af330cc943a869a5c4f6a2
+remote=d77c775f6114eddd04af330cc943a869a5c4f6a2
+LR=0	0
+=== ls-remote exact ===
+d77c775f6114eddd04af330cc943a869a5c4f6a2	refs/heads/capitalization/sfia-studio-v3-1-d1-rex
+=== ls-remote neighbor (should be empty) ===
+branch=capitalization/sfia-studio-v3-1-d1-rex
+HEAD=d77c775f6114eddd04af330cc943a869a5c4f6a2
+upstream=origin/capitalization/sfia-studio-v3-1-d1-rex
+origin_branch=d77c775f6114eddd04af330cc943a869a5c4f6a2
+main=b553f0aaec120e03b8cfca27f3f0e5fc03f1480e
+origin_main=b553f0aaec120e03b8cfca27f3f0e5fc03f1480e
+LR_branch=0	0
+=== status ===
+PROJECT_CLEAN
+=== staged ===
+
+```
+
+## Draft PR #297
+URL https://github.com/mcleland147/sfia-workspace/pull/297
+OPEN · draft · base main @ b553f0aa… · head capitalization @ `d77c775f6114eddd04af330cc943a869a5c4f6a2` · 1 commit · 1 file · +436/−0 · body exact match · comments 0
+
+### Remote body
 
 ```markdown
 # docs(sfia-studio): add V3.1-D1 capitalization REX
@@ -1140,45 +1426,56 @@ Reviewers should verify:
 - [x] Accepted README reserve remains traceable and not lifted
 - [x] No code, tests, dependencies or method changes
 - [x] No D2/D3, UI or CreateCycle
-- [ ] Commit and push authorized by Morris
-- [ ] Draft PR opened
+- [x] Commit and push authorized by Morris
+- [x] Draft PR opened
 - [ ] Remote CI completed
 - [ ] Morris merge GO granted
 ```
 
-## Validations
-Truth/structure/epistemics/metrics/reserves/boundaries PASS · no project mutation · no 827 re-run (doc-only)
+## CI initiale
+**PENDING** — Detect SUCCESS · Build IN_PROGRESS/QUEUED · head `d77c775f6114eddd04af330cc943a869a5c4f6a2` · no wait · checklist CI untouched
 
-## État Git final
-capitalization branch @ b553f0aa… · doc 05 untracked · staged empty · no project commit/push/PR · main unchanged
+```
+=== gh pr checks ===
+Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/30607787551/job/91083759279
+Detect SFIA Studio changes	pass	11s	https://github.com/mcleland147/sfia-workspace/actions/runs/30607787551/job/91083728085
+=== statusCheckRollup ===
+{"headRefOid":"d77c775f6114eddd04af330cc943a869a5c4f6a2","statusCheckRollup":[{"__typename":"CheckRun","completedAt":"2026-07-31T05:48:12Z","conclusion":"SUCCESS","detailsUrl":"https://github.com/mcleland147/sfia-workspace/actions/runs/30607787551/job/91083728085","name":"Detect SFIA Studio changes","startedAt":"2026-07-31T05:48:01Z","status":"COMPLETED","workflowName":"SFIA Studio CI"},{"__typename":"CheckRun","completedAt":"0001-01-01T00:00:00Z","conclusion":"","detailsUrl":"https://github.com/mcleland147/sfia-workspace/actions/runs/30607787551/job/91083759279","name":"Build and validate SFIA Studio","startedAt":"2026-07-31T05:48:14Z","status":"IN_PROGRESS","workflowName":"SFIA Studio CI"}]}
+```
+
+## Réserve / frontières
+ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED
+no ready · no merge · no method promotion · no D2/D3
 
 ## Rapport temporaire
-`.tmp-sfia-review/v3-1-d1-capitalization-pr-readiness-report.md` — sections A–U + annexe contenu 05
+`.tmp-sfia-review/v3-1-d1-capitalization-publication-report.md` — sections A–R + contenus complets
 
-## Confirmations
-document modifié NON · autre fichier projet NON · staged/commit/push/PR projet NON · méthode/baseline/D2/D3/UI/CreateCycle NON
+## État Git final
+capitalization @ `d77c775f6114eddd04af330cc943a869a5c4f6a2` · upstream aligned · main `b553f0aa…` · project clean · staged empty
 
 ## Gate suivant
 ```
-GO COMMIT PUSH AND OPEN DRAFT PR SFIA STUDIO V3.1-D1 CAPITALIZATION REX —
-USE APPROVED DOCUMENTATION-ONLY PACKAGE —
-ONE FILE DOCUMENT 05 ONLY —
-TARGET MAIN —
-ACCEPTED MINOR DOCUMENTATION RESERVE EXPLICIT —
-NO MERGE — NO METHOD PROMOTION — NO D2 — NO UI — NO CREATECYCLE
+GO REMOTE REVIEW DRAFT PR SFIA STUDIO V3.1-D1 CAPITALIZATION REX —
+VERIFY ONE-FILE DIFF COMMIT BODY CHECKLIST REMOTE CI AND ACCEPTED MINOR RESERVE —
+CLASSIFY REMOTE FINDINGS —
+NO READY FOR REVIEW — NO MERGE — NO METHOD PROMOTION — NO D2 — NO UI — NO CREATECYCLE
 ```
 
 ## Verdict
 ```
-V3.1-D1 CAPITALIZATION PR READINESS COMPLETE —
-READY FOR DOCUMENTATION-ONLY PR WITH ACCEPTED MINOR RESERVE —
-DOCUMENT 05 CONTENT TRACEABILITY DECISIONS RECOMMENDATIONS AND RESERVES VERIFIED —
-ONE-FILE PUBLICATION PACKAGE COMPLETE —
-NO PROJECT COMMIT PUSH OR PR PERFORMED —
+V3.1-D1 CAPITALIZATION DOCUMENTATION DRAFT PR OPENED —
+ONE-FILE COMMIT VERIFIED —
+REMOTE BRANCH PUBLISHED —
+DRAFT PR BASE MAIN AND HEAD VERIFIED —
+APPROVED BODY PUBLISHED —
+ACCEPTED MINOR DOCUMENTATION RESERVE EXPLICIT AND NOT LIFTED —
+REMOTE CI INITIAL STATE CAPTURED —
+NO READY-FOR-REVIEW —
+NO MERGE —
 NO METHOD PROMOTION —
 D2/D3 NOT AUTHORIZED
 ```
 
-**Statut :** `DOCUMENT 05 READY FOR DOCUMENTATION-ONLY PUBLICATION DECISION — PACKAGE PREPARED — NO PUBLICATION — D2 NOT OPENED`
+**Statut :** `DOCUMENT 05 PUBLISHED IN DRAFT PR — REMOTE REVIEW NEXT — D2 NOT OPENED`
 
-**Instruction ChatGPT :** consulter `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` ; confirmer readiness WITH ACCEPTED MINOR RESERVE ; ne pas publier le document ; ne pas ouvrir D2 ; proposer uniquement le gate commit/push/draft PR ; ne pas générer le prompt suivant sans nouveau GO Morris.
+**Instruction ChatGPT :** consulter `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` ; confirmer publication draft PR #297 mono-fichier ; vérifier body/checklist/réserve ; ne pas ready/merge ; proposer uniquement remote review ; ne pas générer le prompt suivant sans nouveau GO Morris.
