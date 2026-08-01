@@ -1,31 +1,35 @@
 # SFIA Review Pack — Full
-# SFIA Studio V3.1-D2 Cadrage — CKC Resolver & QualifyCycle Bridge
+# SFIA Studio V3.1-D2 — Conception fonctionnelle
 
 ## Meta
-- Date/heure/fuseau: 2026-08-01 14:34:28 CEST (+0200)
-- Rôle: Cursor (cadrage DOC)
-- Niveau: Full — obligatoire
-- Branche: framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage
-- HEAD: e1befcb80ed5e3c789a7de9036a8207d6b3e6771
+- Date/heure/fuseau: 2026-08-01 15:05:34 CEST (+0200)
+- Rôle: Cursor
+- Niveau: Full
+- Branche: framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage @ e1befcb8…
 
 ## Gate Morris (complet)
-Formulation Morris: « après c'est logique que D1 ne couvre pas l'ensemble mais si elle respecte la doctrine 3.0 c'est ok, donc ok pour lancer le cadrage de D2 »
-Interprétation bornée: GO CADRAGE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE — DEFINE PRODUCT PROBLEM, D2 BOUNDARIES, CKC RESOLUTION, CKC CONSUMPTION, QUALIFYCYCLE BRIDGE, MULTI-CKC OPTIONS, FAIL-CLOSED BEHAVIOUR AND DECISION PACK — NO IMPLEMENTATION — NO DELIVERY — NO D3 — NO UI — NO FIGMA — NO CREATECYCLE — NO METHOD PROMOTION
-Date GO: 2026-08-01 14:03 CEST (+0200)
+GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+APPLY ADOPTED D-V3.1-D2-01…12 —
+NO ARCHITECTURE — NO DELIVERY — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
+Date GO: 2026-08-01 14:58 CEST (+0200)
+
+Morris adoption (immediate prior):
+D2-01=B D2-02=B D2-03=statuts détaillés+mapping T-A2 D2-04=C
+D2-05=fail-closed strict produit D2-06=A D2-07=C
+D2-08=catalogue explicite plus tard D2-09=A→B→C D2-D gated
+D2-10=sans UI D2-11=version+hash+correlationId D2-12=conception ensuite
+« Ok pour le recommandations »
+
+## Décisions Morris D-V3.1-D2-01…12
+Toutes `DECIDED — ADOPTED BY MORRIS` — détail document 15 §B2/§U et document 16 §B.
 
 ## Cycle / profil / typologie / CKC
-- Cycle: 1 — Cadrage
-- Profil: Standard
-- Typologie: DOC
-- CKC détaillé: method/.../pilots/01-cadrage.md (candidate 0.1.0)
-- Template: sfia-cycle-execution-template.md (lu / appliqué)
-- executionAuthority=false
-- Limite: clarifier intention/périmètre/options — aucune exécution
+- Cycle: 2 — Conception fonctionnelle
+- Profil: Standard · Typologie: DOC
+- CKC: pilots/02-conception-fonctionnelle.md · method-candidate · executionAuthority=false
 
 ## Handoff source
-- tip: 9ac1ad6b23d9e11a8306e2c936b88c0e6c8d68f0
-- blob: 87a8670747989cca3c6d3c8bf7c1d6362448b893
-- archive local cleanup pack: pr-297-cleanup-chatgpt-review-preserved.md (cmp OK)
+tip 5d4f3bbafe93a1baa4d6583307d1bb8ddbf31e00 · blob 579865fee30dd96e0d69ec8f63360e1afa4cd4c5
 
 ## Git Truth initial
 ```
@@ -34,24 +38,32 @@ Date GO: 2026-08-01 14:03 CEST (+0200)
 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
 origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
 origin	https://github.com/mcleland147/sfia-workspace.git (push)
-current=main
+current=framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage
 HEAD=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 origin/main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 L/R main...origin/main=0	0
-=== STATUS NON-TMP ===
-(none)
+=== STATUS ===
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
 === STAGED ===
+=== DIFF NAME ===
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+=== DIFF STAT ===
+ .../08-implementation-backlog-and-slicing.md       | 15 +++----
+ .../README.md                                      | 48 ++++++++++++++--------
+ 2 files changed, 38 insertions(+), 25 deletions(-)
+=== UNTRACKED PROJECT ===
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
 wt_count=77
-=== PRUNE DRY-RUN ===
-local_d2=ABSENT
-=== LS-REMOTE D2 ===
-=== HANDOFF ===
-9ac1ad6b23d9e11a8306e2c936b88c0e6c8d68f0	refs/heads/sfia/review-handoff
-handoff_tip=9ac1ad6b23d9e11a8306e2c936b88c0e6c8d68f0
-handoff_blob=87a8670747989cca3c6d3c8bf7c1d6362448b893
-expected_tip_ancestor=YES
-=== GH AUTH ===
+=== PRUNE ===
+=== REMOTE BRANCHES ===
+handoff_tip=5d4f3bbafe93a1baa4d6583307d1bb8ddbf31e00
+handoff_blob=579865fee30dd96e0d69ec8f63360e1afa4cd4c5
+expected_ancestor=YES
+DOC15_PRESENT
 github.com
   ✓ Logged in to github.com account mcleland147 (keyring)
   - Active account: true
@@ -60,21 +72,478 @@ github.com
   - Token scopes: 'gist', 'read:org', 'repo', 'workflow'
 
 ```
-- worktrees: 77 (inchangé vs handoff cleanup)
-- prune dry-run: vide
-- branche D2 absente puis créée localement uniquement
 
-## Sources consultées
-Gouvernance + framing 08/12/13/14/README + D1 README/05 + cycleTypeCatalog + QualifyCycle/CKC ports T-A2 + handoff.
+## Sources + T-A2
+CkcLevel/Status/Source · QualifyCycle inchangé · MemoryCkcResolver observation · detail codes CYCLE_INVALID/CKC_UNAVAILABLE/CONTEXT_STALE/PERSISTENCE_FAILURE
 
-## Observations / options / recommandations / décisions
-- **Observations:** D1 sur main ; ports T-A2 CKC/QualifyCycle existants mais non équivalents au produit D2 ; réserve README NOT LIFTED.
-- **Options:** multi-CKC A/B/C ; slicing D2-A..D ; modes Delivery.
-- **Recommandations candidates:** promesse enrichie read-only ; resolver=b ; consommation=c ; multi=C ; slicing A→B→C ; prochain=conception.
-- **Décisions:** aucune adoptée — D-V3.1-D2-01…12 NOT DECIDED.
+## Fichiers
+CREATED 16 · MODIFIED 15/08/README · no app/** · no method/**
 
-## Fichiers créés/modifiés
-CREATED 15 · MODIFIED 08 · MODIFIED README · aucun app/** · aucun method/**
+## Document 16 complet
+```markdown
+# 16 — V3.1-D2 CKC Resolver & QualifyCycle Bridge — Conception fonctionnelle
+
+## A. Métadonnées
+
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure/fuseau** | 2026-08-01 15:05:34 CEST (+0200) |
+| **Cycle projet** | 2 — Conception fonctionnelle |
+| **Profil SFIA** | Standard |
+| **Typologie** | DOC |
+| **Gate Morris** | `GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE — APPLY ADOPTED D-V3.1-D2-01…12 — NO ARCHITECTURE — NO DELIVERY — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` (2026-08-01 14:58 CEST +0200) |
+| **Branche** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
+| **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| **CKC** | `pilots/02-conception-fonctionnelle.md` · method-candidate · `executionAuthority=false` |
+| **Statut** | `V3.1-D2 FUNCTIONAL DESIGN COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO ARCHITECTURE ADOPTED — NO DELIVERY` |
+| **Code / UI / D3 / CreateCycle** | **non** |
+
+## B. Gate Morris et décision record
+
+**Adoption Morris (immédiatement antérieure au GO conception) :**
+
+```text
+D2-01 = B · D2-02 = B · D2-03 = statuts détaillés avec mapping T-A2 · D2-04 = C
+D2-05 = fail-closed strict pour l'exploitabilité produit · D2-06 = A · D2-07 = C
+D2-08 = catalogue explicite plus tard · D2-09 = D2-A → D2-B → D2-C, D2-D gated
+D2-10 = D2 sans UI · D2-11 = version + hash + correlationId · D2-12 = conception fonctionnelle ensuite
+Ok pour le recommandations
+```
+
+Enregistrement documentaire : **2026-08-01 15:05:34 CEST (+0200)** — heure d’adoption transcript non disponible ; adoption immédiatement antérieure au GO 14:58 CEST.
+
+Décisions complètes : voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) §B2 et §U — statut `DECIDED — ADOPTED BY MORRIS`.
+
+## C. Sources consultées
+
+Gouvernance SFIA · CKC `02-conception-fonctionnelle` · carte synthétique · méthode v2.5 · framing `08`/`12`/`13`/`14`/`15`/README · D1 README/`05`/`cycleTypeCatalog` · T-A2 `ckcResolver`/`resolveCycleKnowledgeContract`/`qualifyCycle`/`qualification`/`invariants`/`types`/`errors`/`memoryCkcResolver` · handoff tip `5d4f3bb…`.
+
+## D. Héritage D1, cadrage D2 et contrats T-A2
+
+| Héritage | Rôle | Limite |
+|----------|------|--------|
+| Catalogue D1 | 15 types + mapping CKC mandatory | Pas de résolution produit |
+| Cadrage doc 15 | Problème, options, décisions | Arbitré |
+| `QualifyCycle` / `qualifyCycle` | Recommandation profil | Inchangé |
+| `CkcResolverPort` / `MemoryCkcResolver` | Port guidance T-A2 | Non équivalent au produit D2 ; observation seulement |
+| `ResolveCycleKnowledgeContract` | Guidance ; absent n’bloque pas CreateCycle | **≠** fail-closed produit D2 |
+| CreateCycle | Hors V3.1-D2 | Ne modifie pas la règle D2 |
+
+Ce document **ne duplique pas** et **ne remplace pas** le domaine T-A2 ; il définit le comportement produit D2 qui **consomme** ces contrats.
+
+## E. Objectif fonctionnel
+
+À partir d’un `cycleTypeId` sélectionné, d’un catalogue D1 compatible (version + hash), d’un mapping CKC valide, de six signaux explicites et d’un `correlationId`, D2 produit :
+
+1. **Succès** read-only exploitable : type + CKC résolu + preuve de consommation + profil T-A2 + traçabilité + disclosures + `isMorrisDecision=false` ; **ou**
+2. **Échec** structuré fail-closed : aucun résultat exploitable, aucun `consumed=true`.
+
+Aucune mutation (`CycleInstance`, LPS, EpistemicItem, gate Morris).
+
+## F. Valeur et bénéficiaires
+
+- Opérateur / QA / revueur : résultat structuré testable sans UI.
+- Futur D3 : contrat d’entrée stable.
+- Morris : frontières d’autorité explicites.
+
+## G. Périmètre inclus
+
+Projection catalogue · validation sélection · résolution CKC Core · preuve de consommation · bridge QualifyCycle · résultat enrichi · fail-closed · traçabilité version/hash/correlationId · contrat de données pour D3.
+
+## H. Hors périmètre
+
+Architecture technique · Delivery · D3/UI/Figma · CreateCycle · multi-CKC extensions (D2-D) · parsing Markdown · scoring · recommandation automatique du type · promotion méthode · IAM · agent/LLM live.
+
+## I. Acteurs et limites d’autorité
+
+| Acteur | Fait | N’a pas d’autorité de |
+|--------|------|------------------------|
+| Utilisateur (futur D3) | Sélectionne type ; répond signaux | Décider du profil à la place de T-A2 ; exécuter |
+| Bridge D2 | Orchestre ; bloque si non consommable | Modifier règles T-A2 ; créer |
+| Resolver CKC | Résout + invariants | Appeler QualifyCycle ; exécuter |
+| QualifyCycle | Recommande profil | Décision Morris ; création |
+| CKC | Guidance method-candidate | `executionAuthority` |
+| Morris | Adopte décisions / gates | — |
+
+## J. Glossaire fonctionnel
+
+| Terme | Définition |
+|-------|------------|
+| Mapping CKC | Métadonnées D1 `CycleTypeCkcMapping` |
+| Résolution | Statut détaillé D2 + projection T-A2 |
+| Consommation | Résolution valide **et** preuve structurée |
+| Fallback | Substitution du Core indisponible — jamais un 2ᵉ CKC simultané |
+| Exploitable | Succès D2 avec `consumed=true` et recommandation T-A2 |
+| Core CKC | Unique CKC effectif du type (detailed ou synthetic primaire) |
+
+## K. Préconditions
+
+- Catalogue D1 versionné et empreinte cohérente.
+- `cycleTypeId` sélectionné via catalogue (pas de saisie libre non validée).
+- Six signaux Oui/Non explicites avant QualifyCycle.
+- `correlationId` fourni.
+- `requestedProfile` **non** exposé / non utilisé.
+- Aucune extension CKC active.
+
+## L. Entrées fonctionnelles
+
+| Entrée | Obligatoire | Règles |
+|--------|-------------|--------|
+| `cycleTypeId` | Oui | Connu, actif, sélectionnable |
+| `catalogVersion` | Oui | Version D1 |
+| `catalogHash` | Oui (fonctionnel) | Empreinte déterministe du contenu pertinent ; algo → architecture ; mismatch → stale |
+| `correlationId` | Oui | Bout-en-bout ; pas d’identité IAM |
+| Six signaux | Oui pour QualifyCycle | Absence ≠ `false` |
+| `objective` / `scope` | Non | Non scorés |
+| `requestedProfile` | Non | Non exposé |
+
+## M. Parcours nominal
+
+1. Recevoir type + traçabilité (version, hash, correlationId).
+2. Vérifier compatibilité version/hash.
+3. Vérifier existence et sélectionnabilité du type.
+4. Lire mapping CKC Core obligatoire.
+5. Résoudre selon priorité (N).
+6. Valider invariants (`executionAuthority=false`, doctrine method-candidate, sources).
+7. Produire preuve structurée (P) → `consumed=true` si resolved_*.
+8. Vérifier six signaux complets.
+9. Appeler QualifyCycle **une fois** (contrat existant).
+10. Enrichir avec métadonnées cycle, état CKC, preuve, disclosures.
+11. Retourner succès read-only.
+12–15. Ne pas créer CycleInstance / LPS / EpistemicItem / gate.
+
+Si une étape avant 9 échoue → échec structuré ; QualifyCycle **non appelé**.
+
+## N. Résolution CKC
+
+### Mapping detailed
+
+1. Detailed valide/disponible → `resolved_detailed`.
+2. Sinon fallback synthétique valide → `resolved_fallback_synthetic`.
+3. Sinon → non exploitable (`unresolved_*`).
+
+### Mapping synthetic
+
+1. Synthétique primaire valide → `resolved_synthetic`.
+2. Sinon → non exploitable.
+
+Fallback = **substitution**, jamais addition.
+
+## O. Statuts détaillés et mapping T-A2
+
+### Statuts D2
+
+| Statut D2 | fallbackUsed | exploitable | QualifyCycle |
+|-----------|--------------|-------------|--------------|
+| `resolved_detailed` | false | true | Oui (si signaux OK) |
+| `resolved_synthetic` | false | true | Oui |
+| `resolved_fallback_synthetic` | true | true | Oui + disclosure |
+| `unresolved_invalid_mapping` | — | false | Non |
+| `unresolved_unavailable` | — | false | Non |
+| `unresolved_catalog_incompatible` | — | false | Non |
+| `unresolved_cycle_not_selectable` | — | false | Non |
+
+### Mapping vers types T-A2 existants (sans modifier les enums)
+
+| Statut D2 | `CkcLevel` | `CkcStatus` | `CkcSource` | Perte d’info T-A2 |
+|-----------|------------|-------------|-------------|-------------------|
+| `resolved_detailed` | `detailed` | `resolved` | `repository_candidate` | Aucune significative |
+| `resolved_synthetic` | `synthetic` | `synthetic` | `intra_v3_synthetic` | Aucune |
+| `resolved_fallback_synthetic` | `synthetic` | `synthetic` | `intra_v3_synthetic` | **Perte** primary vs fallback → **statut D2 obligatoire** dans résultat enrichi |
+| `unresolved_invalid_mapping` | `absent` | `invalid` | `unavailable` | Cause fine dans code D2 |
+| `unresolved_unavailable` | `absent` | `unavailable` | `unavailable` | Idem |
+| `unresolved_catalog_incompatible` | `absent` | `unavailable` | `unavailable` | Cause = catalogue ; code D2 |
+| `unresolved_cycle_not_selectable` | `absent` | `invalid` | `unavailable` | Cause = lifecycle ; code D2 |
+
+`fallbackPolicy` T-A2 candidat : `intra_v3_only` lorsque le mapping D1 déclare un fallback ; sinon `none` pour synthetic-only — détail d’implémentation réservé architecture.
+
+## P. Définition et preuve de consommation CKC
+
+### Consommé si et seulement si
+
+- type sélectionnable ;
+- mapping D1 valide ;
+- statut ∈ {`resolved_detailed`,`resolved_synthetic`,`resolved_fallback_synthetic`} ;
+- `executionAuthority=false` ;
+- `doctrineStatus=method-candidate` ;
+- source identifiée ;
+- preuve structurée complète ;
+- aucun invariant bloquant violé.
+
+### Preuve structurée (minimum)
+
+`cycleTypeId` · statut détaillé D2 · level/status/source T-A2 · référence primaire attendue · référence utilisée · `fallbackUsed` · `fallbackReference?` · `catalogVersion` · `catalogHash` · `correlationId` · `resolvedAt` · `doctrineStatus=method-candidate` · `executionAuthority=false` · `consumed=true` · réserves/disclosures.
+
+La preuve **ne** contient **pas** le texte brut du CKC, **ne** parse **pas** Markdown, **n’est pas** un gate ni une décision.
+
+## Q. Bridge QualifyCycle
+
+### Responsabilités
+
+Orchestrer · empêcher QualifyCycle si CKC non consommé ou signaux incomplets · transmettre uniquement les champs T-A2 acceptés (`signals`, `cycleTypeId` hint, objective/scope optionnels non scorés) · ne pas dupliquer `recommendProfile` · conserver `isMorrisDecision=false` · enrichir après · erreur structurée sinon.
+
+### QualifyCycle reste responsable de
+
+Priorité Critical · Light si `lowRiskBounded` sans critique · Standard défaut · rationale · `criticalSignalsPresent` · `requiresJustificationForCritical` · `capitalizationViaCycleTypeId` · `isMorrisDecision=false`.
+
+### Interdits bridge
+
+Recalcul profil · score parallèle · changer priorité signaux · transformer Critical en décision · créer/persister.
+
+## R. Résultat fonctionnel D2
+
+### Succès
+
+`state=success` · `cycleTypeId` · label/description · `lifecycleStatus` · `catalogVersion` · `catalogHash` · `correlationId` · statut détaillé CKC · preuve consommation · `recommendedProfile` · `rationale` · `criticalSignalsPresent` · `requiresJustificationForCritical` · `capitalizationViaCycleTypeId` · `isMorrisDecision=false` · disclosures · `resolvedAt`/`qualifiedAt`.
+
+### Échec
+
+`state=failure` · code fonctionnel · message · `blocking` · `retryable` · `recoverable` · `correlationId` · `cycleTypeId?` · timestamp · **aucune** recommandation exploitable · **aucune** preuve `consumed=true`.
+
+## S. Fail-closed, erreurs et recovery
+
+| Cas | Statut D2 | Code candidat | Blocking | QualifyCycle | Retry | Recovery |
+|-----|-----------|---------------|----------|--------------|-------|----------|
+| `cycleTypeId` absent | — | `CYCLE_TYPE_REQUIRED` | oui | non | oui | fournir type |
+| invalide | — | `CYCLE_TYPE_INVALID` | oui | non | oui | corriger |
+| inconnu | `unresolved_cycle_not_selectable` | `CYCLE_TYPE_UNKNOWN` | oui | non | non* | catalogue |
+| deprecated/unavailable | idem | `CYCLE_TYPE_NOT_SELECTABLE` | oui | non | non* | catalogue |
+| mapping absent/incohérent | `unresolved_invalid_mapping` | `CKC_MAPPING_INVALID` | oui | non | non | correctif D1 |
+| detailed+fallback KO | `unresolved_unavailable` | `CKC_UNAVAILABLE` | oui | non | non | correctif |
+| synthetic primaire KO | idem | `CKC_SYNTHETIC_INVALID` | oui | non | non | correctif |
+| detailed KO + fallback OK | `resolved_fallback_synthetic` | `CKC_FALLBACK_USED` (info) | non | oui | — | disclosure |
+| version incompatible | `unresolved_catalog_incompatible` | `CATALOG_VERSION_INCOMPATIBLE` | oui | non | oui | aligner version |
+| hash stale | idem | `CATALOG_STALE` | oui | non | oui | recharger catalogue |
+| signaux incomplets | (CKC peut être OK) | `SIGNALS_INCOMPLETE` | oui | non | oui | compléter |
+| résolution incohérente | `unresolved_*` | `CKC_RESOLUTION_INCOHERENT` | oui | non | non | correctif |
+| `executionAuthority≠false` | — | `CKC_EXECUTION_AUTHORITY_FORBIDDEN` | oui | non | non | correctif |
+| erreur interne | — | `D2_INTERNAL_ERROR` | oui | non | limité | support |
+
+\* sauf réactivation catalogue / nouveau type.
+
+### Mapping candidat vers `CycleDetailCode` T-A2 (sans modifier enums)
+
+| Code D2 | Detail T-A2 candidat |
+|---------|----------------------|
+| `CYCLE_TYPE_*` (sauf NOT_SELECTABLE métier) | `CYCLE_INVALID` |
+| `CYCLE_TYPE_NOT_SELECTABLE` / UNKNOWN | `CYCLE_INVALID` |
+| `CKC_*` (sauf FALLBACK_USED) | `CKC_UNAVAILABLE` |
+| `CATALOG_VERSION_INCOMPATIBLE` / `CATALOG_STALE` | `CONTEXT_STALE` |
+| `SIGNALS_INCOMPLETE` | `CYCLE_INVALID` |
+| `D2_INTERNAL_ERROR` | `PERSISTENCE_FAILURE` |
+| `CKC_FALLBACK_USED` | pas une erreur — disclosure |
+
+Implémentation du mapping = architecture.
+
+## T. Invariants T-A2 et règles de profil
+
+Hérités, non modifiés :
+
+1. Un signal Critical (`structuralChange|securityImpact|architectureImpact|dataImpact|irreversible`) → Critical.
+2. Sinon `lowRiskBounded=true` → Light.
+3. Sinon → Standard.
+4. Critical gagne sur `lowRiskBounded`.
+5. `isMorrisDecision=false` toujours.
+6. `requestedProfile` non exposé dans D2.
+7. Capitalization = `cycleTypeId`, pas un profil.
+
+## U. Mono-CKC Core et extensibilité future
+
+- Exactement **un** CKC Core effectif.
+- **Zéro** extension active.
+- Fallback = substitution.
+- Aucun tableau d’extensions consommées.
+- Aucun résultat ne revendique le support multi-CKC.
+- Extensibilité future : ne pas empêcher D2-D ; déclaration catalogue explicite ; GO Morris distinct ; pas de structure technique imposée ici.
+
+## V. Versionnement, hash et correlationId
+
+| Champ | Règle |
+|-------|-------|
+| `catalogVersion` | Version contractuelle D1 |
+| `catalogHash` | Change si identité, lifecycle ou mapping CKC pertinent change ; algo/périmètre exact → architecture |
+| `correlationId` | Obligatoire ; propagé succès/erreurs/audit futur ; pas d’autorité IAM |
+
+## W. Contrat de projection futur D3
+
+D3 pourra lire : type · profil · rationale · état CKC · source · fallbackUsed · disclosures · erreurs · Critical informatif · non-persistance · absence de décision Morris.
+
+**Non produits :** écrans, parcours UI, Figma, composants, routes, textes UI finaux.
+
+## X. Critères d’acceptation
+
+| ID | Critère |
+|----|---------|
+| AC-D2-FD-01 | Detailed valide → `resolved_detailed` + `consumed=true` |
+| AC-D2-FD-02 | Synthetic valide → `resolved_synthetic` |
+| AC-D2-FD-03 | Detailed KO + fallback OK → `resolved_fallback_synthetic` + disclosure |
+| AC-D2-FD-04 | Mapping invalide bloque avant QualifyCycle |
+| AC-D2-FD-05 | Catalogue incompatible/stale bloque avant QualifyCycle |
+| AC-D2-FD-06 | Signaux incomplets bloquent QualifyCycle |
+| AC-D2-FD-07 | Succès CKC → QualifyCycle **une** fois |
+| AC-D2-FD-08 | Bridge ne modifie pas la recommandation T-A2 |
+| AC-D2-FD-09 | Critical + `isMorrisDecision=false` |
+| AC-D2-FD-10 | Aucun succès avec CycleInstance/LPS/EpistemicItem |
+| AC-D2-FD-11 | Aucune extension CKC activée |
+| AC-D2-FD-12 | version + hash + correlationId présents si exploitable |
+| AC-D2-FD-13 | `executionAuthority=false` |
+| AC-D2-FD-14 | Distinction synthetic primaire vs fallback conservée (statut D2) |
+| AC-D2-FD-15 | D3 peut consommer sans réimplémenter les règles métier |
+
+## Y. Scénarios fonctionnels
+
+### Y1 — Cadrage detailed + aucun critique + lowRiskBounded=true
+
+- **Précond. :** `cyc:framing` detailed OK ; catalogue OK.
+- **Entrée :** six signaux ; seul `lowRiskBounded=true`.
+- **Étapes :** M1–11.
+- **Résultat :** success · `resolved_detailed` · profil **Light** · QualifyCycle **oui**.
+- **Anti-claim :** pas de CreateCycle.
+- **Recovery :** n/a.
+
+### Y2 — Architecture technique detailed + securityImpact=true
+
+- **Résultat :** success · `resolved_detailed` · profil **Critical** · `requiresJustificationForCritical=true` · `isMorrisDecision=false` · QualifyCycle oui.
+- **Anti-claim :** Critical ≠ gate.
+
+### Y3 — QA detailed indisponible + fallback synthétique valide
+
+- **Résultat :** success · `resolved_fallback_synthetic` · `fallbackUsed=true` · disclosure · QualifyCycle oui.
+
+### Y4 — Delivery synthetic + aucun critique + lowRiskBounded=false
+
+- **Résultat :** success · `resolved_synthetic` · profil **Standard** · QualifyCycle oui.
+
+### Y5 — Cycle inconnu
+
+- **Résultat :** failure · `CYCLE_TYPE_UNKNOWN` · QualifyCycle **non**.
+
+### Y6 — Cycle unavailable
+
+- **Résultat :** failure · `CYCLE_TYPE_NOT_SELECTABLE` · QualifyCycle non.
+
+### Y7 — Mapping detailed et fallback invalides
+
+- **Résultat :** failure · `CKC_UNAVAILABLE` · QualifyCycle non.
+
+### Y8 — Catalogue stale
+
+- **Résultat :** failure · `CATALOG_STALE` · QualifyCycle non · retry après rechargement.
+
+### Y9 — Signaux incomplets
+
+- **Précond. :** CKC pourrait être OK.
+- **Résultat :** failure · `SIGNALS_INCOMPLETE` · QualifyCycle non · retry.
+
+### Y10 — Critical + lowRiskBounded simultanés
+
+- **Résultat :** success · profil **Critical** (priorité) · QualifyCycle oui.
+
+### Y11 — Capitalization via cycleTypeId
+
+- **Entrée :** `cyc:capitalization`.
+- **Résultat :** success · `capitalizationViaCycleTypeId=true` · profil selon signaux · QualifyCycle oui.
+
+### Y12 — Resolver renvoie executionAuthority=true
+
+- **Résultat :** failure · `CKC_EXECUTION_AUTHORITY_FORBIDDEN` · QualifyCycle non · `consumed` jamais true.
+
+### Y13 — Erreur interne
+
+- **Résultat :** failure · `D2_INTERNAL_ERROR` · QualifyCycle non · retry limité.
+
+### Y14 — Tentative implicite d’extension CKC
+
+- **Résultat :** failure ou rejet fonctionnel · aucune extension consommée · anti-claim multi-CKC · QualifyCycle non si Core non consommé.
+
+## Z. Anti-claims
+
+D2 conception **n’est pas** : implémenté · architecture adoptée · Delivery ouverte · D3 ouvert · multi-CKC supporté · extensions actives · CreateCycle · exécution autorisée · baseline méthode · recommandation automatique du type · parsing Markdown · UI.
+
+## AA. Risques et réserves
+
+| ID | Risque | Mitigation |
+|----|--------|------------|
+| R-D2-FD-01 | Confusion CreateCycle vs fail-closed D2 | §D, §S |
+| R-D2-FD-02 | Perte primary/fallback dans T-A2 | Statut D2 obligatoire |
+| R-D2-FD-03 | Duplication règles profil | Bridge n’appelle que QualifyCycle |
+| R-D2-FD-04 | Hash mal borné | Question architecture |
+| R-D2-FD-05 | Sur-interprétation MemoryCkcResolver | Observation ≠ produit |
+| R-D2-FD-06 | Ouverture implicite D2-D | §U fermé |
+| **INHERITED-R-01** | Condensation README | **ACCEPTED — STILL TRACEABLE — NOT LIFTED** |
+
+## AB. Slicing D2-A / D2-B / D2-C / D2-D
+
+| Lot | Contenu fonctionnel | Entrée | Sortie | Dépend |
+|-----|---------------------|--------|--------|--------|
+| **D2-A** | Projection catalogue · validation lifecycle · version/hash · contrat projection | Catalogue D1 | Projection validée / erreurs sélection | D1 |
+| **D2-B** | Resolver Core · priorités · statuts · mapping T-A2 · preuve · fail-closed | Sortie A | Résolution + preuve ou erreur CKC | D2-A |
+| **D2-C** | Bridge · signaux · QualifyCycle · enrichissement · disclosures | Sortie B + signaux | Résultat D2 success/failure | D2-B + T-A2 |
+| **D2-D** | Extensions multi-CKC | GO Morris | — | **gated — non ouvert** |
+
+Critères de sortie d’incrément = AC pertinents (§X). Delivery **non ouverte**. Tests futurs = unitaires/intégration après architecture.
+
+## AC. Questions réservées à l’architecture
+
+1. Emplacement exact du bridge.
+2. Réutilisation / adaptation de `CkcResolverPort`.
+3. Représentation TypeScript des statuts détaillés.
+4. Mapping des erreurs D2 → `CycleDetailCode`.
+5. Calcul et périmètre de `catalogHash`.
+6. Source runtime des références CKC sans parsing Markdown.
+7. Stratégie de validation des références.
+8. Audit / observabilité.
+9. Injection des dépendances.
+10. Compatibilité avec `ResolveCycleKnowledgeContract` / CreateCycle.
+11. Frontière domaine / application.
+12. Plan de tests unitaires et d’intégration.
+
+**Aucune de ces questions n’est tranchée ici.**
+
+## AD. Gate suivant candidat
+
+```text
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
+NO DELIVERY —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION
+```
+
+Ne pas exécuter sans nouveau GO Morris.
+
+## AE. Verdict
+
+```text
+V3.1-D2 FUNCTIONAL DESIGN COMPLETE —
+D-V3.1-D2-01…12 RECORDED AS ADOPTED BY MORRIS —
+READ-ONLY TYPE TO CKC CONSUMPTION TO PROFILE FUNCTIONAL CONTRACT DEFINED —
+DETAILED CKC RESOLUTION STATUSES AND T-A2 MAPPING DEFINED —
+STRUCTURED CKC CONSUMPTION PROOF SPECIFIED —
+FAIL-CLOSED BEHAVIOUR DEFINED —
+QUALIFYCYCLE REMAINS UNCHANGED —
+CORE CKC ONLY —
+MULTI-CKC EXTENSIONS NOT OPENED —
+D2-A TO D2-B TO D2-C FUNCTIONAL SLICING DEFINED —
+D2-D GATED —
+VERSION HASH AND CORRELATIONID TRACEABILITY DEFINED —
+NO ARCHITECTURE ADOPTED —
+NO IMPLEMENTATION —
+NO DELIVERY —
+NO D3 —
+NO UI —
+NO FIGMA —
+NO CREATECYCLE —
+NO METHOD PROMOTION
+```
+
+**Statut :** `V3.1-D2 FUNCTIONAL DESIGN READY FOR MORRIS VALIDATION — ARCHITECTURE FUNCTIONAL GATE REQUIRES DISTINCT MORRIS GO — DELIVERY NOT OPENED — D3 NOT OPENED`
+
+```
 
 ## Document 15 complet
 ```markdown
@@ -92,7 +561,7 @@ CREATED 15 · MODIFIED 08 · MODIFIED README · aucun app/** · aucun method/**
 | **Branche locale** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
 | **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
 | **CKC (ce cycle)** | Pilote détaillé `pilots/01-cadrage.md` · method-candidate · consommation obligatoire · `executionAuthority=false` |
-| **Statut documentaire** | `V3.1-D2 FRAMING COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION — NO DECISION ADOPTED — NO IMPLEMENTATION` |
+| **Statut documentaire** | `V3.1-D2 FRAMING ARBITRATED — FUNCTIONAL DESIGN AUTHORIZED — D-V3.1-D2-01…12 ADOPTED BY MORRIS — NO ARCHITECTURE — NO DELIVERY` |
 | **Code / Delivery / D3 / UI / Figma / CreateCycle** | **non** |
 | **Commit / push / PR projet** | **non autorisés** |
 
@@ -101,6 +570,18 @@ CREATED 15 · MODIFIED 08 · MODIFIED README · aucun app/** · aucun method/**
 **Autorisé :** cadrage repo-informed D2 ; options ; recommandation candidate ; decision pack ; mise à jour de traçabilité (`08`, README framing) ; Review Handoff Git.
 
 **Interdit :** implémentation ; Delivery ; architecture adoptée ; D3 ; UI ; Figma ; CreateCycle ; modification catalogue D1 ; modification QualifyCycle ; promotion méthode ; commit/push/PR projet.
+
+
+## B2. Decision record Morris (arbitrage)
+
+| Champ | Valeur |
+|-------|--------|
+| **Formulation réelle Morris** | `D2-01 = B` · `D2-02 = B` · `D2-03 = statuts détaillés avec mapping T-A2` · `D2-04 = C` · `D2-05 = fail-closed strict pour l'exploitabilité produit` · `D2-06 = A` · `D2-07 = C` · `D2-08 = catalogue explicite plus tard` · `D2-09 = D2-A → D2-B → D2-C, D2-D gated` · `D2-10 = D2 sans UI` · `D2-11 = version + hash + correlationId` · `D2-12 = conception fonctionnelle ensuite` · « Ok pour le recommandations » |
+| **Interprétation** | Morris adopte les recommandations candidates du decision pack D-V3.1-D2-01…12 |
+| **Heure d'adoption** | Non horodatée dans le transcript ; adoption **immédiatement antérieure** au GO conception |
+| **Enregistrement documentaire** | 2026-08-01 15:05:34 CEST (+0200) |
+| **GO conception lié** | `GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1-D2 …` — 2026-08-01 14:58 CEST (+0200) |
+| **Conséquence** | Conception fonctionnelle autorisée · architecture / Delivery / D3 **non** autorisées |
 
 ## C. Sources consultées
 
@@ -272,7 +753,7 @@ Sorties candidates d’un résultat D2 read-only :
 
 ## K. Résolution et statuts
 
-### Statuts candidats (NOT DECIDED)
+### Statuts détaillés (ADOPTED — D-V3.1-D2-03)
 
 | Statut candidat | Signification |
 |-----------------|---------------|
@@ -364,8 +845,8 @@ D3 consommera le **même contrat de sortie** ; le bridge ne connaît pas le parc
 
 ## N. Multi-CKC — options
 
-**Statut : NOT DECIDED — MORRIS DECISION REQUIRED.**
-Le multi-CKC n’est **pas** adopté.
+**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**
+Le multi-CKC n’est **pas** activé ; approche progressive Core-only maintenant.
 
 ### Option D2-CKC-A — Mono-CKC D1 conservé
 
@@ -404,10 +885,9 @@ Le multi-CKC n’est **pas** adopté.
 
 Le multi-CKC est-il utile **dès** le premier D2, ou suffit-il de rendre le contrat **extensible** sans implémenter les extensions ?
 
-### Recommandation candidate (non adoptée)
+### Recommandation historique (devenue décision D-V3.1-D2-07)
 
-**D2-CKC-C** : livrer D2 sur le mono-CKC D1 ; préparer des champs d’extension **vides/optionnels** dans le contrat de sortie ; **ne pas** activer d’extensions avant preuve d’usage et GO Morris.
-Évite le big-bang B tout en réduisant la rigidité de A.
+**D2-CKC-C** adoptée : livrer D2 sur le mono-CKC D1 ; préparer l’extensibilité **sans** activer d’extensions ; D2-D gated.
 
 ## O. Fail-closed
 
@@ -440,7 +920,7 @@ D2 **ne** :
 - rend pas le produit production-ready ;
 - promeut pas les CKC en baseline méthode globale ;
 - constitue pas D3 ;
-- n’est pas « IMPLEMENTED / ADOPTED / READY FOR DELIVERY » tant que Morris n’a pas tranché et qu’aucun GO Delivery n’existe.
+- n’est pas « IMPLEMENTED / READY FOR DELIVERY / ARCHITECTURE ADOPTED » : le cadrage est arbitré et la conception fonctionnelle autorisée/réalisée localement, mais architecture et Delivery restent fermées.
 
 ## Q. Frontières D2 / D3
 
@@ -470,14 +950,14 @@ D2 **ne** :
 2. **Trois incréments** A → B → C (recommandation candidate).
 3. **A+B puis C** (compromis).
 
-**Aucun slicing n’est adopté sans décision Morris (D-V3.1-D2-09).**
+**Slicing D2 :** **D2-A → D2-B → D2-C** adopté (D-V3.1-D2-09) ; **D2-D gated**.
 
 ## S. Critères de succès du cadrage
 
 - Problème D2 clair ; D1/D2/D3 séparés.
 - Resolver ≠ bridge ; résolution ≠ consommation.
 - Règles T-A2 non dupliquées.
-- Multi-CKC traité sans adoption implicite.
+- Multi-CKC traité avec décision C (Core-only) ; extensions non activées.
 - Fail-closed et authority boundaries explicites.
 - Decision pack complet ; options comparables.
 - Aucun code ; aucune architecture adoptée ; aucune Delivery ; aucun D3.
@@ -502,110 +982,94 @@ D2 **ne** :
 
 ## U. Decision pack Morris
 
-Toutes les décisions ci-dessous : **NOT DECIDED — MORRIS DECISION REQUIRED.**
+**Statut global :** `DECIDED — ADOPTED BY MORRIS` (D-V3.1-D2-01…12).
+
+Les options historiques et risques sont conservés. Les recommandations retenues deviennent décisions.
 
 ### D-V3.1-D2-01 — Promesse produit D2
 
 - **Problème :** que garantit D2 sans UI ?
 - **Options :** (a) contrat + projection testable seule ; (b) + bridge QualifyCycle enrichi ; (c) inclure UI minimale.
-- **Reco candidate :** (b) — promesse = type validé → CKC consommé → profil recommandé traçable, read-only.
-- **Bénéfices / risques / dette :** clarté produit / sur-scope si UI / dette faible si borné.
-- **Réversibilité :** haute (doc).
-- **Impact D1/D3 :** aucun runtime D1 ; D3 consomme le contrat.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Reco candidate historique :** (b).
+- **Décision :** **B** — type validé → CKC consommé → profil recommandé traçable → résultat read-only → **aucune UI**.
+- **Conséquence fonctionnelle :** le succès D2 inclut toujours preuve de consommation + recommandation T-A2 enrichie.
+- **Risques / dette :** sur-scope UI évité ; dette de bridge à concevoir.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-02 — Contrat du resolver CKC
 
-- **Problème :** responsabilités exactes du resolver.
-- **Options :** (a) resolver = mapping lookup only ; (b) resolver = résolution + validation invariants ; (c) resolver = + QualifyCycle.
-- **Reco candidate :** (b).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Options :** (a) lookup only ; (b) résolution + invariants ; (c) + QualifyCycle.
+- **Décision :** **B** — résout, applique priorités/fallback, contrôle invariants, produit résolution ; **n'appelle pas** QualifyCycle ; **aucune** autorité d'exécution.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-03 — Statuts de résolution
 
-- **Problème :** vocabulaire des statuts §K.
-- **Options :** jeu minimal (resolved/unresolved) ; jeu détaillé §K ; alignement strict types T-A2 `CkcStatus` existants.
-- **Reco candidate :** jeu détaillé §K **avec** mapping explicite vers types T-A2 si réutilisation — sans imposer l’archi.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** statuts fonctionnels **détaillés** (§K) **avec mapping explicite** vers `CkcLevel` / `CkcStatus` / `CkcSource` T-A2 ; conserver le statut détaillé D2 dans le résultat pour ne pas perdre primary vs fallback.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-04 — Définition de « CKC consommé »
 
-- **Problème :** critère d’exploitabilité.
-- **Options :** (a) mapping présent suffit ; (b) résolution valide suffit ; (c) résolution valide + preuve structurée dans le payload.
-- **Reco candidate :** (c).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **C** — résolution valide **et** preuve structurée de consommation dans le payload.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-05 — Règle fail-closed
 
-- **Problème :** matrice §O.
-- **Options :** adopter matrice telle quelle ; assouplir fallback ; aligner sur « absent n’bloque pas CreateCycle ».
-- **Reco candidate :** adopter esprit matrice §O pour **exploitabilité produit** ; CreateCycle hors scope.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** fail-closed **strict** pour l'exploitabilité produit D2 ; CKC invalide/non résolvable → résultat non exploitable **et** QualifyCycle **non appelé** dans le bridge D2 ; CreateCycle historique hors périmètre.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-06 — Contrat du bridge QualifyCycle
 
-- **Problème :** orchestration et non-duplication T-A2.
-- **Options :** (a) bridge unique ; (b) appels séparés laissés à D3 ; (c) fusion dans QualifyCycle.
-- **Reco candidate :** (a) — bridge orchestre ; QualifyCycle domaine inchangé.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **A** — bridge unique orchestre catalogue → resolver → validation consommation → QualifyCycle → enrichissement ; QualifyCycle **inchangé**.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-07 — Mono-CKC ou multi-CKC contrôlé
 
-- **Problème :** A / B / C §N.
-- **Reco candidate :** **C** (progressif) — mono maintenant, extensible.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **C** — D2 initial = un seul CKC Core effectif ; fallback = **substitution** (pas d'addition) ; contrat extensible ; **aucune** extension activée maintenant.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-08 — Activation des extensions CKC
 
-- **Problème :** si multi, qui active quoi.
-- **Options :** catalogue explicite ; config runtime ; invention dynamique (interdite).
-- **Reco candidate :** si B un jour — liste explicite dans catalogue ; **sinon N/A sous C**.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** si extensions ultérieures → déclaration **explicite** dans le catalogue ; pas d'invention dynamique ; GO Morris distinct ; **capacité fermée** sous D2 actuel.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-09 — Slicing D2
 
-- **Problème :** A/B/C/D et mode livraison.
-- **Reco candidate :** incréments **D2-A → D2-B → D2-C** ; D2-D gated.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **D2-A → D2-B → D2-C** ; **D2-D gated**.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-10 — Frontière D2/D3
 
-- **Problème :** données consommables par D3.
-- **Reco candidate :** liste §Q ; aucun parcours UI dans D2.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** D2 **sans UI** ; D3 consommera ultérieurement données/états D2.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-11 — Versionnement et traçabilité
 
-- **Problème :** fingerprint catalogue + preuve consommation.
-- **Options :** version string seule ; version + hash contenu ; correlationId obligatoire.
-- **Reco candidate :** version + hash candidat + correlationId.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** `catalogVersion` + empreinte déterministe (`catalogHash`) + `correlationId`.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
-### D-V3.1-D2-12 — Gate de sortie vers conception/architecture
+### D-V3.1-D2-12 — Gate de sortie
 
-- **Problème :** après arbitrage, quel GO.
-- **Options :** conception fonctionnelle D2 ; architecture fonctionnelle D2 ; Delivery directe (déconseillé).
-- **Reco candidate :** **conception fonctionnelle D2** (cycle 2) après arbitrage des D-V3.1-D2-01…11 ; architecture ensuite ; Delivery seulement après.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** après arbitrage → **conception fonctionnelle** ; puis architecture fonctionnelle ; puis technique si besoin ; Delivery D2-A seulement après GO Morris distinct.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
+- **Note :** le présent cycle exécute la conception fonctionnelle autorisée par cette décision et le GO du 2026-08-01 14:58 CEST.
 
-## V. Recommandation candidate (synthèse — non adoptée)
+## V. Synthèse post-arbitrage
 
-1. Promesse D2 = exploitabilité read-only type→CKC consommé→profil.
-2. Resolver = résolution + validation ; bridge = orchestration ; T-A2 inchangé.
-3. « Consommé » = résolution valide + preuve structurée.
-4. Fail-closed produit selon §O ; CreateCycle hors scope.
-5. Multi-CKC : option **C** ; pas d’extensions dans le premier Delivery D2.
-6. Slicing : D2-A → D2-B → D2-C.
-7. Prochain cycle après arbitrage : **conception fonctionnelle D2**, pas Delivery.
+1. Promesse B adoptée.
+2. Resolver B ; bridge A ; QualifyCycle inchangé.
+3. Consommation = C ; fail-closed strict produit.
+4. Multi-CKC = C (Core seul maintenant) ; extensions fermées (08).
+5. Slicing A→B→C ; D2-D gated.
+6. Traçabilité version+hash+correlationId.
+7. Conception fonctionnelle = cycle courant ; architecture / Delivery **non** ouvertes.
 
 ## W. Gates suivants candidats
 
 ```text
-GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-DECIDE D-V3.1-D2-01…12 —
-KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-NO FUNCTIONAL DESIGN —
-NO ARCHITECTURE —
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
 NO DELIVERY —
 NO D3 —
 NO UI —
@@ -613,39 +1077,27 @@ NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-Puis, seulement après arbitrage :
-
-```text
-GO FUNCTIONAL DESIGN SFIA STUDIO V3.1-D2 …
-```
-
-**Aucun GO Delivery / D3 / UI / Figma n’est proposé en enchaînement automatique.**
+**Aucun GO Delivery / D3 / UI n'est proposé en enchaînement automatique.**
 
 ## X. Verdict
 
 ```text
-V3.1-D2 FRAMING COMPLETE —
-D1 BASELINE AND D2 PROBLEM VERIFIED —
-CKC RESOLUTION, CONSUMPTION AND QUALIFYCYCLE BRIDGE BOUNDARIES DOCUMENTED —
-MONO-CKC AND CONTROLLED MULTI-CKC OPTIONS COMPARED —
-FAIL-CLOSED AND AUTHORITY BOUNDARIES DEFINED —
-MORRIS DECISION PACK PREPARED —
-NO DECISION ADOPTED —
+V3.1-D2 FRAMING ARBITRATED —
+D-V3.1-D2-01…12 ADOPTED BY MORRIS —
+FUNCTIONAL DESIGN AUTHORIZED —
 NO ARCHITECTURE ADOPTED —
-NO IMPLEMENTATION —
 NO DELIVERY —
 NO D3 —
 NO UI —
-NO FIGMA —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-**Statut :** `V3.1-D2 FRAMING READY FOR MORRIS ARBITRATION — FUNCTIONAL DESIGN AND ARCHITECTURE REQUIRE DISTINCT MORRIS GO — D3 NOT OPENED`
+**Statut :** `FRAMING ARBITRATED — FUNCTIONAL DESIGN AUTHORIZED — ARCHITECTURE AND DELIVERY REQUIRE DISTINCT MORRIS GO — D3 NOT OPENED`
 
 ```
 
-## 08 complet après modification
+## 08 complet
 ```markdown
 # 08 — Implementation backlog and slicing
 
@@ -694,15 +1146,19 @@ Docs :
 | QA-G2 | vert |
 | QA-G3 | **PASS Morris** |
 | PR / merge / capitalisation | PR #296 + #297 mergées · D1 techniquement clos sur `main` @ `e1befcb8…` |
-| D2 cadrage | **réalisé** — [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · arbitrage Morris **requis** |
-| Delivery D2 / D3 | **non autorisées** |
+| D2 cadrage | **terminé et arbitré** — [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · D-V3.1-D2-01…12 **ADOPTED BY MORRIS** |
+| D2 conception fonctionnelle | **terminée localement** — [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) |
+| Architecture D2 | **non ouverte** |
+| Delivery D2-A/B/C | **non ouvertes** |
+| D2-D (extensions) | **gated** · non ouvert |
+| D3 | **non ouvert** |
 
 ### Slicing CAT-08
 
 | Lot | Contenu | Statut |
 |-----|---------|--------|
 | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage réalisé** · Delivery **non autorisée** · décisions NOT DECIDED |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception fonctionnelle locale** · architecture/Delivery **non ouvertes** · slicing **A→B→C** · D2-D gated |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
 ### Réserves QA
@@ -711,7 +1167,7 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
 
 ### Réserves D2
 
-Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit · multi-CKC **non adopté** — voir decision pack doc [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md).
+Orchestration CKC · consommation fail-closed · bridge QualifyCycle · Core-only (extensions fermées) · questions architecture réservées — voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) / [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md).
 
 ## Lot V3.2 / V4 / V5 / V6
 
@@ -719,20 +1175,21 @@ Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · 
 
 ```
 
-## README complet après modification
+## README complet
 ```markdown
 # First user-visible SFIA Studio vertical slice — Framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D1 TECHNICALLY CLOSED ON MAIN — V3.1-D2 CADRAGE COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION — DELIVERY D2/D3 NOT AUTHORIZED` |
-| **Date** | 2026-08-01 14:34:28 CEST (+0200) |
-| **Cycle courant** | 1 — Cadrage V3.1-D2 |
+| **Statut** | `FRAMING LIVING — V3.1-D1 CLOSED — V3.1-D2 FRAMING ARBITRATED — FUNCTIONAL DESIGN COMPLETE LOCALLY — ARCHITECTURE/DELIVERY/D3 NOT OPENED` |
+| **Date** | 2026-08-01 15:05:34 CEST (+0200) |
+| **Cycle courant** | 2 — Conception fonctionnelle V3.1-D2 |
 | **Profil** | **Standard** |
 | **Typologie** | DOC |
-| **Gate courant** | Cadrage D2 **consommé** (2026-08-01 14:03 CEST) — formulation Morris bornée |
+| **Gate courant** | Conception fonctionnelle D2 **consommé** (2026-08-01 14:58 CEST) |
+| **Décisions D2** | D-V3.1-D2-01…12 **ADOPTED BY MORRIS** (arbitrage immédiatement antérieur au GO conception) |
 | **Base `main`** | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| **Doc D2** | [`15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) |
+| **Docs D2** | [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) (arbitré) · [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) (conception) |
 | **Docs protégées** | `12` / `13` / `14` **inchangés** |
 | **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
 
@@ -742,24 +1199,24 @@ Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · 
 |-----|------|
 | V1 / V2 | intégrés `main` |
 | V3 / V3.1 cadrage–conception–adoption | terminés (`12`/`13`/`14`) |
-| **V3.1-D1** | **techniquement clos** (Delivery · QA · PR #296 · capitalisation #297 · cleanup) |
-| **V3.1-D2 cadrage** | **terminé localement** — decision pack D-V3.1-D2-01…12 **NOT DECIDED** |
-| V3.1-D2 Delivery / conception / architecture | **non ouverts** — GO Morris distinct requis |
-| V3.1-D3 | **non ouvert** · réserve Figma inchangée |
+| **V3.1-D1** | **techniquement clos** sur `main` |
+| **V3.1-D2 cadrage** | **arbitré** — décisions 01…12 adoptées |
+| **V3.1-D2 conception fonctionnelle** | **terminée localement** — doc 16 |
+| Architecture fonctionnelle D2 | **candidate suivante** — GO Morris distinct |
+| Delivery D2-A/B/C | **fermées** |
+| D2-D extensions | **gated** |
+| V3.1-D3 | **fermé** · réserve Figma |
 | V3.2 / V4–V6 | non autorisés |
 
-**R-V3.1-CATALOG-01 :** contrat + runtime D1 résolus · orchestration / consommation CKC / bridge QualifyCycle = **objet du cadrage D2** (doc 15) — **aucune adoption** dans ce cycle.
-
-**INHERITED-R-01 (README) :** condensation du framing en index vivant — **ACCEPTED — STILL TRACEABLE — NOT LIFTED** — non bloquant — pas une autorisation D2 Delivery.
+**INHERITED-R-01 (README) :** condensation framing — **ACCEPTED — STILL TRACEABLE — NOT LIFTED** — non bloquant — pas une autorisation Delivery/D3.
 
 ## Gate candidat suivant
 
 ```text
-GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-DECIDE D-V3.1-D2-01…12 —
-KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-NO FUNCTIONAL DESIGN —
-NO ARCHITECTURE —
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
 NO DELIVERY —
 NO D3 —
 NO UI —
@@ -769,276 +1226,15 @@ NO METHOD PROMOTION
 
 ## Verdict
 
-`V3.1-D2 FRAMING COMPLETE — READY FOR MORRIS ARBITRATION — NO DECISION ADOPTED — NO IMPLEMENTATION — NO DELIVERY — D3 NOT OPENED`
+`V3.1-D2 FUNCTIONAL DESIGN COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO ARCHITECTURE ADOPTED — NO DELIVERY — D3 NOT OPENED`
 
 ```
 
-## Diffs
-### 08
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-index c138afc..c46c2f9 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-@@ -1,68 +1,69 @@
- # 08 — Implementation backlog and slicing
-
- ## Stratégie
-
- Plusieurs PR (lots), commits atomiques. Framing docs séparés. Pas de big-bang.
-
- ## Lot V1 / V2
-
- **INTEGRATED ON MAIN** (V2-A3 PR #295 @ `3e8a437…`).
-
- ## Lot V3 — Cycle Recommendation
-
- **CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md).
-
- ## Lot V3.1 — Profile Qualification (conception)
-
- **FUNCTIONAL DESIGN COMPLETE** — [`13`](./13-v3-1-profile-qualification-functional-design.md).
-
- ## Lot V3.1 — Cycle Type Catalog (architecture + adoption)
-
- **DECISIONS ADOPTED** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
-
- ## Lot V3.1-D1 — Catalogue runtime + mapping CKC
-
- **Statut Delivery initial :** `IMPLEMENTATION COMPLETE`.
-
- **Statut QA initiale :** `FAIL historique` — [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) (inchangé).
-
- **Statut correctif :** `CORRECTIVE DELIVERY IMPLEMENTED` — [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) (inchangé).
-
- **Statut revalidation :** `QA REVALIDATION PASS — R-QA-01…09 CLOSED` — [`03`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md) (inchangé).
-
- **QA-G3 Morris :** **PASS** (2026-07-30 21:36 CEST).
-
--**Statut PR readiness :** `READY FOR PR` — [`04`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/04-pr-readiness-report.md) — commit/push/draft PR **soumis à GO**.
-+**Statut PR / merge / capitalisation (historique) :** PR #296 + capitalisation #297 **mergées** · D1 **techniquement clos** sur `main`.
-
- Docs :
- - [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md)
- - rapports `01` / `02` / `03` / `04`
-
- | Preuve | Résultat |
- |--------|----------|
- | 15 IDs / mapping CKC | conformes |
- | Revalidation / readiness tests | 46/46 · 94/94 · 827/827 · typecheck/lint/build PASS |
- | QA-G2 | vert |
- | QA-G3 | **PASS Morris** |
--| PR readiness | **READY FOR PR** · package 13 fichiers · PR **non créée** |
--| D2 / D3 | **non ouverts** |
-+| PR / merge / capitalisation | PR #296 + #297 mergées · D1 techniquement clos sur `main` @ `e1befcb8…` |
-+| D2 cadrage | **réalisé** — [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · arbitrage Morris **requis** |
-+| Delivery D2 / D3 | **non autorisées** |
-
- ### Slicing CAT-08
-
- | Lot | Contenu | Statut |
- |-----|---------|--------|
--| **V3.1-D1** | Catalogue · mapping · validateur | Delivery + QA-G3 PASS · **PR readiness READY** · Git pending GO |
--| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **non autorisé** |
-+| **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage réalisé** · Delivery **non autorisée** · décisions NOT DECIDED |
- | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
-
- ### Réserves QA
-
--R-QA-01…09 **CLOSED**. QA-G3 PASS. PR readiness ≠ autorisation commit/push/PR.
-+R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
-
- ### Réserves D2
-
--Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit.
-+Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit · multi-CKC **non adopté** — voir decision pack doc [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md).
-
- ## Lot V3.2 / V4 / V5 / V6
-
- **NOT AUTHORIZED.**
-
-```
-### README
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-index 23b6c6f..bf3f107 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-@@ -1,37 +1,49 @@
- # First user-visible SFIA Studio vertical slice — Framing
-
- | Champ | Valeur |
- |-------|--------|
--| **Statut** | `FRAMING LIVING — V3.1-D1 QA-G3 PASS — PR READINESS READY FOR PR — COMMIT/PUSH/PR REQUIRE MORRIS GO — D2/D3 NOT AUTHORIZED` |
--| **Date** | 2026-07-30 21:45:00 CEST (+0200) |
--| **Cycle courant** | 13 — PR readiness V3.1-D1 |
--| **Profil** | **Critical** |
--| **Typologie** | EVOL |
--| **Gate courant** | `GO PR READINESS SFIA STUDIO V3.1-D1 …` **consommé** (2026-07-30 21:37 CEST) |
--| **QA-G3 Morris** | **PASS** (2026-07-30 21:36 CEST) — R-QA-01…09 CLOSED |
--| **Branche Delivery** | `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
--| **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
--| **Rapports D1** | [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) · [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) · [`03`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md) · [`04`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/04-pr-readiness-report.md) |
--| **Docs protégées** | `12` / `13` / rapports `01`–`03` **inchangés** pendant readiness |
-+| **Statut** | `FRAMING LIVING — V3.1-D1 TECHNICALLY CLOSED ON MAIN — V3.1-D2 CADRAGE COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION — DELIVERY D2/D3 NOT AUTHORIZED` |
-+| **Date** | 2026-08-01 14:34:28 CEST (+0200) |
-+| **Cycle courant** | 1 — Cadrage V3.1-D2 |
-+| **Profil** | **Standard** |
-+| **Typologie** | DOC |
-+| **Gate courant** | Cadrage D2 **consommé** (2026-08-01 14:03 CEST) — formulation Morris bornée |
-+| **Base `main`** | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-+| **Doc D2** | [`15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) |
-+| **Docs protégées** | `12` / `13` / `14` **inchangés** |
-+| **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
-
- ## Synthèse
-
- | Lot | État |
- |-----|------|
- | V1 / V2 | intégrés `main` |
- | V3 / V3.1 cadrage–conception–adoption | terminés (`12`/`13`/`14`) |
--| **V3.1-D1 Delivery + correctif + revalidation** | **terminés** |
--| **QA-G3** | **PASS Morris** |
--| **PR readiness** | **READY FOR PR** — package 13 fichiers · **aucune** PR créée |
--| V3.1-D2 / D3 | **non ouverts** · Figma D3 inchangé |
-+| **V3.1-D1** | **techniquement clos** (Delivery · QA · PR #296 · capitalisation #297 · cleanup) |
-+| **V3.1-D2 cadrage** | **terminé localement** — decision pack D-V3.1-D2-01…12 **NOT DECIDED** |
-+| V3.1-D2 Delivery / conception / architecture | **non ouverts** — GO Morris distinct requis |
-+| V3.1-D3 | **non ouvert** · réserve Figma inchangée |
- | V3.2 / V4–V6 | non autorisés |
-
--**R-V3.1-CATALOG-01 :** contrat résolu · runtime D1 · validateur corrigé · QA-G3 PASS · orchestration **pending D2**.
-+**R-V3.1-CATALOG-01 :** contrat + runtime D1 résolus · orchestration / consommation CKC / bridge QualifyCycle = **objet du cadrage D2** (doc 15) — **aucune adoption** dans ce cycle.
-+
-+**INHERITED-R-01 (README) :** condensation du framing en index vivant — **ACCEPTED — STILL TRACEABLE — NOT LIFTED** — non bloquant — pas une autorisation D2 Delivery.
-
- ## Gate candidat suivant
-
--`GO COMMIT PUSH AND OPEN DRAFT PR SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — USE APPROVED PR PACKAGE — TARGET MAIN — NO MERGE — NO D2 — NO UI — NO CREATECYCLE`
-+```text
-+GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-+DECIDE D-V3.1-D2-01…12 —
-+KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-+NO FUNCTIONAL DESIGN —
-+NO ARCHITECTURE —
-+NO DELIVERY —
-+NO D3 —
-+NO UI —
-+NO CREATECYCLE —
-+NO METHOD PROMOTION
-+```
-
- ## Verdict
-
--`V3.1-D1 PR READINESS COMPLETE — READY FOR PR — QA-G3 PASS RECORDED — PR PACKAGE COMPLETE — COMMIT PUSH AND PR REQUIRE MORRIS GO — D2/D3 NOT AUTHORIZED`
-+`V3.1-D2 FRAMING COMPLETE — READY FOR MORRIS ARBITRATION — NO DECISION ADOPTED — NO IMPLEMENTATION — NO DELIVERY — D3 NOT OPENED`
-
-```
-
-## Decision pack complet
-```markdown
-## U. Decision pack Morris
-
-Toutes les décisions ci-dessous : **NOT DECIDED — MORRIS DECISION REQUIRED.**
-
-### D-V3.1-D2-01 — Promesse produit D2
-
-- **Problème :** que garantit D2 sans UI ?
-- **Options :** (a) contrat + projection testable seule ; (b) + bridge QualifyCycle enrichi ; (c) inclure UI minimale.
-- **Reco candidate :** (b) — promesse = type validé → CKC consommé → profil recommandé traçable, read-only.
-- **Bénéfices / risques / dette :** clarté produit / sur-scope si UI / dette faible si borné.
-- **Réversibilité :** haute (doc).
-- **Impact D1/D3 :** aucun runtime D1 ; D3 consomme le contrat.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-02 — Contrat du resolver CKC
-
-- **Problème :** responsabilités exactes du resolver.
-- **Options :** (a) resolver = mapping lookup only ; (b) resolver = résolution + validation invariants ; (c) resolver = + QualifyCycle.
-- **Reco candidate :** (b).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-03 — Statuts de résolution
-
-- **Problème :** vocabulaire des statuts §K.
-- **Options :** jeu minimal (resolved/unresolved) ; jeu détaillé §K ; alignement strict types T-A2 `CkcStatus` existants.
-- **Reco candidate :** jeu détaillé §K **avec** mapping explicite vers types T-A2 si réutilisation — sans imposer l’archi.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-04 — Définition de « CKC consommé »
-
-- **Problème :** critère d’exploitabilité.
-- **Options :** (a) mapping présent suffit ; (b) résolution valide suffit ; (c) résolution valide + preuve structurée dans le payload.
-- **Reco candidate :** (c).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-05 — Règle fail-closed
-
-- **Problème :** matrice §O.
-- **Options :** adopter matrice telle quelle ; assouplir fallback ; aligner sur « absent n’bloque pas CreateCycle ».
-- **Reco candidate :** adopter esprit matrice §O pour **exploitabilité produit** ; CreateCycle hors scope.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-06 — Contrat du bridge QualifyCycle
-
-- **Problème :** orchestration et non-duplication T-A2.
-- **Options :** (a) bridge unique ; (b) appels séparés laissés à D3 ; (c) fusion dans QualifyCycle.
-- **Reco candidate :** (a) — bridge orchestre ; QualifyCycle domaine inchangé.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-07 — Mono-CKC ou multi-CKC contrôlé
-
-- **Problème :** A / B / C §N.
-- **Reco candidate :** **C** (progressif) — mono maintenant, extensible.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-08 — Activation des extensions CKC
-
-- **Problème :** si multi, qui active quoi.
-- **Options :** catalogue explicite ; config runtime ; invention dynamique (interdite).
-- **Reco candidate :** si B un jour — liste explicite dans catalogue ; **sinon N/A sous C**.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-09 — Slicing D2
-
-- **Problème :** A/B/C/D et mode livraison.
-- **Reco candidate :** incréments **D2-A → D2-B → D2-C** ; D2-D gated.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-10 — Frontière D2/D3
-
-- **Problème :** données consommables par D3.
-- **Reco candidate :** liste §Q ; aucun parcours UI dans D2.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-11 — Versionnement et traçabilité
-
-- **Problème :** fingerprint catalogue + preuve consommation.
-- **Options :** version string seule ; version + hash contenu ; correlationId obligatoire.
-- **Reco candidate :** version + hash candidat + correlationId.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-12 — Gate de sortie vers conception/architecture
-
-- **Problème :** après arbitrage, quel GO.
-- **Options :** conception fonctionnelle D2 ; architecture fonctionnelle D2 ; Delivery directe (déconseillé).
-- **Reco candidate :** **conception fonctionnelle D2** (cycle 2) après arbitrage des D-V3.1-D2-01…11 ; architecture ensuite ; Delivery seulement après.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-
-```
-
-## Multi-CKC non décidé
-Oui — options A/B/C · reco candidate C · statut NOT DECIDED
-
-## Garde-fous / réserves
-- Anti-claims §P
-- INHERITED-R-01 NOT LIFTED
-- CreateCycle / UI / D3 / method promotion interdits
-
-## Absence code / tests / méthode
-Confirmée — aucun test produit lancé ; scans wording OK (occurrences historiques/négatives/NOT DECIDED)
+## Couverture
+entrées/sorties/parcours/statuts/mapping T-A2/preuve/bridge/fail-closed/Core-only/version-hash-correlationId/AC/scénarios/slicing/questions archi/réserve README NOT LIFTED
+
+## Absence code/archi/Delivery/D3
+Confirmée
 
 ## État Git final
 ```
@@ -1046,65 +1242,61 @@ current=framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage
 HEAD=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 origin/main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
-=== status project ===
+=== project status ===
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
 === staged ===
-=== diff name-status ===
+=== name-status ===
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-=== diff stat ===
- .../08-implementation-backlog-and-slicing.md       | 15 +++----
- .../README.md                                      | 48 ++++++++++++++--------
- 2 files changed, 38 insertions(+), 25 deletions(-)
-wt_count=77
-remote_d2=local_d2=PRESENT
+=== stat ===
+ .../08-implementation-backlog-and-slicing.md       | 19 +++++----
+ .../README.md                                      | 49 ++++++++++++++--------
+ 2 files changed, 43 insertions(+), 25 deletions(-)
+wt=77
+remote_framing=
 ```
-- aucun staged · aucun commit · aucun push · remote D2 absente
 
 ## Rapport temporaire complet
---- BEGIN FRAMING REPORT ---
-# V3.1-D2 Framing Report
+--- BEGIN FD REPORT ---
+# V3.1-D2 Functional Design Report
 
-## Meta
-- Horodatage: 2026-08-01 14:34:28 CEST (+0200)
-- Branche: framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage @ e1befcb8…
-- Cycle 1 Cadrage · Profil Standard · Typologie DOC
-
-## Gate Morris
-Formulation Morris: « après c'est logique que D1 ne couvre pas l'ensemble mais si elle respecte la doctrine 3.0 c'est ok, donc ok pour lancer le cadrage de D2 »
-Interprétation bornée: GO CADRAGE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE — DEFINE PRODUCT PROBLEM, D2 BOUNDARIES, CKC RESOLUTION, CKC CONSUMPTION, QUALIFYCYCLE BRIDGE, MULTI-CKC OPTIONS, FAIL-CLOSED BEHAVIOUR AND DECISION PACK — NO IMPLEMENTATION — NO DELIVERY — NO D3 — NO UI — NO FIGMA — NO CREATECYCLE — NO METHOD PROMOTION
-Date GO: 2026-08-01 14:03 CEST (+0200)
-
-## CKC
-pilots/01-cadrage.md · method-candidate · executionAuthority=false · consommation obligatoire
-
-## Git Truth
+1. Horodatage: 2026-08-01 15:05:34 CEST (+0200)
+2. Git Truth:
 ```
 === GIT TRUTH ===
 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
 origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
 origin	https://github.com/mcleland147/sfia-workspace.git (push)
-current=main
+current=framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage
 HEAD=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 origin/main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 L/R main...origin/main=0	0
-=== STATUS NON-TMP ===
-(none)
+=== STATUS ===
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
 === STAGED ===
+=== DIFF NAME ===
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+=== DIFF STAT ===
+ .../08-implementation-backlog-and-slicing.md       | 15 +++----
+ .../README.md                                      | 48 ++++++++++++++--------
+ 2 files changed, 38 insertions(+), 25 deletions(-)
+=== UNTRACKED PROJECT ===
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
 wt_count=77
-=== PRUNE DRY-RUN ===
-local_d2=ABSENT
-=== LS-REMOTE D2 ===
-=== HANDOFF ===
-9ac1ad6b23d9e11a8306e2c936b88c0e6c8d68f0	refs/heads/sfia/review-handoff
-handoff_tip=9ac1ad6b23d9e11a8306e2c936b88c0e6c8d68f0
-handoff_blob=87a8670747989cca3c6d3c8bf7c1d6362448b893
-expected_tip_ancestor=YES
-=== GH AUTH ===
+=== PRUNE ===
+=== REMOTE BRANCHES ===
+handoff_tip=5d4f3bbafe93a1baa4d6583307d1bb8ddbf31e00
+handoff_blob=579865fee30dd96e0d69ec8f63360e1afa4cd4c5
+expected_ancestor=YES
+DOC15_PRESENT
 github.com
   ✓ Logged in to github.com account mcleland147 (keyring)
   - Active account: true
@@ -1113,38 +1305,490 @@ github.com
   - Token scopes: 'gist', 'read:org', 'repo', 'workflow'
 
 ```
+3. Gate Morris:
+GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+APPLY ADOPTED D-V3.1-D2-01…12 —
+NO ARCHITECTURE — NO DELIVERY — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
+Date GO: 2026-08-01 14:58 CEST (+0200)
 
-## Sources
-Voir inventaire:
+Morris adoption (immediate prior):
+D2-01=B D2-02=B D2-03=statuts détaillés+mapping T-A2 D2-04=C
+D2-05=fail-closed strict produit D2-06=A D2-07=C
+D2-08=catalogue explicite plus tard D2-09=A→B→C D2-D gated
+D2-10=sans UI D2-11=version+hash+correlationId D2-12=conception ensuite
+« Ok pour le recommandations »
+4. Décisions adoptées: D-V3.1-D2-01…12 DECIDED — ADOPTED BY MORRIS
+5. Cycle 2 Conception fonctionnelle · Standard · DOC
+6. CKC: pilots/02-conception-fonctionnelle.md · executionAuthority=false
+7. Sources: gouvernance + framing 08/12-16 + D1 + T-A2
+8. Héritage D1/T-A2: catalogue OK ; ports guidance ≠ produit D2
+9. Fichiers: CREATED 16 · MODIFIED 15/08/README
+10. Document 16 complet:
+```markdown
+# 16 — V3.1-D2 CKC Resolver & QualifyCycle Bridge — Conception fonctionnelle
+
+## A. Métadonnées
+
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure/fuseau** | 2026-08-01 15:05:34 CEST (+0200) |
+| **Cycle projet** | 2 — Conception fonctionnelle |
+| **Profil SFIA** | Standard |
+| **Typologie** | DOC |
+| **Gate Morris** | `GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE — APPLY ADOPTED D-V3.1-D2-01…12 — NO ARCHITECTURE — NO DELIVERY — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` (2026-08-01 14:58 CEST +0200) |
+| **Branche** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
+| **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| **CKC** | `pilots/02-conception-fonctionnelle.md` · method-candidate · `executionAuthority=false` |
+| **Statut** | `V3.1-D2 FUNCTIONAL DESIGN COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO ARCHITECTURE ADOPTED — NO DELIVERY` |
+| **Code / UI / D3 / CreateCycle** | **non** |
+
+## B. Gate Morris et décision record
+
+**Adoption Morris (immédiatement antérieure au GO conception) :**
+
+```text
+D2-01 = B · D2-02 = B · D2-03 = statuts détaillés avec mapping T-A2 · D2-04 = C
+D2-05 = fail-closed strict pour l'exploitabilité produit · D2-06 = A · D2-07 = C
+D2-08 = catalogue explicite plus tard · D2-09 = D2-A → D2-B → D2-C, D2-D gated
+D2-10 = D2 sans UI · D2-11 = version + hash + correlationId · D2-12 = conception fonctionnelle ensuite
+Ok pour le recommandations
 ```
-# V3.1-D2 Source Inventory
 
-## Git Truth
-See v3-1-d2-git-truth.txt — main@e1befcb8, 0/0, 77 worktrees, handoff 9ac1ad6/87a8670
+Enregistrement documentaire : **2026-08-01 15:05:34 CEST (+0200)** — heure d’adoption transcript non disponible ; adoption immédiatement antérieure au GO 14:58 CEST.
 
-## Created
-- framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
+Décisions complètes : voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) §B2 et §U — statut `DECIDED — ADOPTED BY MORRIS`.
 
-## Modified
-- framing/08-implementation-backlog-and-slicing.md (D1 closed + D2 cadrage status)
-- framing/README.md (living index + reserve NOT LIFTED)
+## C. Sources consultées
 
-## Unchanged (protected)
-- 12, 13, 14
-- D1 runtime / tests / method / app code
+Gouvernance SFIA · CKC `02-conception-fonctionnelle` · carte synthétique · méthode v2.5 · framing `08`/`12`/`13`/`14`/`15`/README · D1 README/`05`/`cycleTypeCatalog` · T-A2 `ckcResolver`/`resolveCycleKnowledgeContract`/`qualifyCycle`/`qualification`/`invariants`/`types`/`errors`/`memoryCkcResolver` · handoff tip `5d4f3bb…`.
 
-## Observed inheritance (read-only)
-- cycleTypeCatalog.ts D1
-- CkcResolverPort / ResolveCycleKnowledgeContract / QualifyCycle T-A2
+## D. Héritage D1, cadrage D2 et contrats T-A2
 
+| Héritage | Rôle | Limite |
+|----------|------|--------|
+| Catalogue D1 | 15 types + mapping CKC mandatory | Pas de résolution produit |
+| Cadrage doc 15 | Problème, options, décisions | Arbitré |
+| `QualifyCycle` / `qualifyCycle` | Recommandation profil | Inchangé |
+| `CkcResolverPort` / `MemoryCkcResolver` | Port guidance T-A2 | Non équivalent au produit D2 ; observation seulement |
+| `ResolveCycleKnowledgeContract` | Guidance ; absent n’bloque pas CreateCycle | **≠** fail-closed produit D2 |
+| CreateCycle | Hors V3.1-D2 | Ne modifie pas la règle D2 |
+
+Ce document **ne duplique pas** et **ne remplace pas** le domaine T-A2 ; il définit le comportement produit D2 qui **consomme** ces contrats.
+
+## E. Objectif fonctionnel
+
+À partir d’un `cycleTypeId` sélectionné, d’un catalogue D1 compatible (version + hash), d’un mapping CKC valide, de six signaux explicites et d’un `correlationId`, D2 produit :
+
+1. **Succès** read-only exploitable : type + CKC résolu + preuve de consommation + profil T-A2 + traçabilité + disclosures + `isMorrisDecision=false` ; **ou**
+2. **Échec** structuré fail-closed : aucun résultat exploitable, aucun `consumed=true`.
+
+Aucune mutation (`CycleInstance`, LPS, EpistemicItem, gate Morris).
+
+## F. Valeur et bénéficiaires
+
+- Opérateur / QA / revueur : résultat structuré testable sans UI.
+- Futur D3 : contrat d’entrée stable.
+- Morris : frontières d’autorité explicites.
+
+## G. Périmètre inclus
+
+Projection catalogue · validation sélection · résolution CKC Core · preuve de consommation · bridge QualifyCycle · résultat enrichi · fail-closed · traçabilité version/hash/correlationId · contrat de données pour D3.
+
+## H. Hors périmètre
+
+Architecture technique · Delivery · D3/UI/Figma · CreateCycle · multi-CKC extensions (D2-D) · parsing Markdown · scoring · recommandation automatique du type · promotion méthode · IAM · agent/LLM live.
+
+## I. Acteurs et limites d’autorité
+
+| Acteur | Fait | N’a pas d’autorité de |
+|--------|------|------------------------|
+| Utilisateur (futur D3) | Sélectionne type ; répond signaux | Décider du profil à la place de T-A2 ; exécuter |
+| Bridge D2 | Orchestre ; bloque si non consommable | Modifier règles T-A2 ; créer |
+| Resolver CKC | Résout + invariants | Appeler QualifyCycle ; exécuter |
+| QualifyCycle | Recommande profil | Décision Morris ; création |
+| CKC | Guidance method-candidate | `executionAuthority` |
+| Morris | Adopte décisions / gates | — |
+
+## J. Glossaire fonctionnel
+
+| Terme | Définition |
+|-------|------------|
+| Mapping CKC | Métadonnées D1 `CycleTypeCkcMapping` |
+| Résolution | Statut détaillé D2 + projection T-A2 |
+| Consommation | Résolution valide **et** preuve structurée |
+| Fallback | Substitution du Core indisponible — jamais un 2ᵉ CKC simultané |
+| Exploitable | Succès D2 avec `consumed=true` et recommandation T-A2 |
+| Core CKC | Unique CKC effectif du type (detailed ou synthetic primaire) |
+
+## K. Préconditions
+
+- Catalogue D1 versionné et empreinte cohérente.
+- `cycleTypeId` sélectionné via catalogue (pas de saisie libre non validée).
+- Six signaux Oui/Non explicites avant QualifyCycle.
+- `correlationId` fourni.
+- `requestedProfile` **non** exposé / non utilisé.
+- Aucune extension CKC active.
+
+## L. Entrées fonctionnelles
+
+| Entrée | Obligatoire | Règles |
+|--------|-------------|--------|
+| `cycleTypeId` | Oui | Connu, actif, sélectionnable |
+| `catalogVersion` | Oui | Version D1 |
+| `catalogHash` | Oui (fonctionnel) | Empreinte déterministe du contenu pertinent ; algo → architecture ; mismatch → stale |
+| `correlationId` | Oui | Bout-en-bout ; pas d’identité IAM |
+| Six signaux | Oui pour QualifyCycle | Absence ≠ `false` |
+| `objective` / `scope` | Non | Non scorés |
+| `requestedProfile` | Non | Non exposé |
+
+## M. Parcours nominal
+
+1. Recevoir type + traçabilité (version, hash, correlationId).
+2. Vérifier compatibilité version/hash.
+3. Vérifier existence et sélectionnabilité du type.
+4. Lire mapping CKC Core obligatoire.
+5. Résoudre selon priorité (N).
+6. Valider invariants (`executionAuthority=false`, doctrine method-candidate, sources).
+7. Produire preuve structurée (P) → `consumed=true` si resolved_*.
+8. Vérifier six signaux complets.
+9. Appeler QualifyCycle **une fois** (contrat existant).
+10. Enrichir avec métadonnées cycle, état CKC, preuve, disclosures.
+11. Retourner succès read-only.
+12–15. Ne pas créer CycleInstance / LPS / EpistemicItem / gate.
+
+Si une étape avant 9 échoue → échec structuré ; QualifyCycle **non appelé**.
+
+## N. Résolution CKC
+
+### Mapping detailed
+
+1. Detailed valide/disponible → `resolved_detailed`.
+2. Sinon fallback synthétique valide → `resolved_fallback_synthetic`.
+3. Sinon → non exploitable (`unresolved_*`).
+
+### Mapping synthetic
+
+1. Synthétique primaire valide → `resolved_synthetic`.
+2. Sinon → non exploitable.
+
+Fallback = **substitution**, jamais addition.
+
+## O. Statuts détaillés et mapping T-A2
+
+### Statuts D2
+
+| Statut D2 | fallbackUsed | exploitable | QualifyCycle |
+|-----------|--------------|-------------|--------------|
+| `resolved_detailed` | false | true | Oui (si signaux OK) |
+| `resolved_synthetic` | false | true | Oui |
+| `resolved_fallback_synthetic` | true | true | Oui + disclosure |
+| `unresolved_invalid_mapping` | — | false | Non |
+| `unresolved_unavailable` | — | false | Non |
+| `unresolved_catalog_incompatible` | — | false | Non |
+| `unresolved_cycle_not_selectable` | — | false | Non |
+
+### Mapping vers types T-A2 existants (sans modifier les enums)
+
+| Statut D2 | `CkcLevel` | `CkcStatus` | `CkcSource` | Perte d’info T-A2 |
+|-----------|------------|-------------|-------------|-------------------|
+| `resolved_detailed` | `detailed` | `resolved` | `repository_candidate` | Aucune significative |
+| `resolved_synthetic` | `synthetic` | `synthetic` | `intra_v3_synthetic` | Aucune |
+| `resolved_fallback_synthetic` | `synthetic` | `synthetic` | `intra_v3_synthetic` | **Perte** primary vs fallback → **statut D2 obligatoire** dans résultat enrichi |
+| `unresolved_invalid_mapping` | `absent` | `invalid` | `unavailable` | Cause fine dans code D2 |
+| `unresolved_unavailable` | `absent` | `unavailable` | `unavailable` | Idem |
+| `unresolved_catalog_incompatible` | `absent` | `unavailable` | `unavailable` | Cause = catalogue ; code D2 |
+| `unresolved_cycle_not_selectable` | `absent` | `invalid` | `unavailable` | Cause = lifecycle ; code D2 |
+
+`fallbackPolicy` T-A2 candidat : `intra_v3_only` lorsque le mapping D1 déclare un fallback ; sinon `none` pour synthetic-only — détail d’implémentation réservé architecture.
+
+## P. Définition et preuve de consommation CKC
+
+### Consommé si et seulement si
+
+- type sélectionnable ;
+- mapping D1 valide ;
+- statut ∈ {`resolved_detailed`,`resolved_synthetic`,`resolved_fallback_synthetic`} ;
+- `executionAuthority=false` ;
+- `doctrineStatus=method-candidate` ;
+- source identifiée ;
+- preuve structurée complète ;
+- aucun invariant bloquant violé.
+
+### Preuve structurée (minimum)
+
+`cycleTypeId` · statut détaillé D2 · level/status/source T-A2 · référence primaire attendue · référence utilisée · `fallbackUsed` · `fallbackReference?` · `catalogVersion` · `catalogHash` · `correlationId` · `resolvedAt` · `doctrineStatus=method-candidate` · `executionAuthority=false` · `consumed=true` · réserves/disclosures.
+
+La preuve **ne** contient **pas** le texte brut du CKC, **ne** parse **pas** Markdown, **n’est pas** un gate ni une décision.
+
+## Q. Bridge QualifyCycle
+
+### Responsabilités
+
+Orchestrer · empêcher QualifyCycle si CKC non consommé ou signaux incomplets · transmettre uniquement les champs T-A2 acceptés (`signals`, `cycleTypeId` hint, objective/scope optionnels non scorés) · ne pas dupliquer `recommendProfile` · conserver `isMorrisDecision=false` · enrichir après · erreur structurée sinon.
+
+### QualifyCycle reste responsable de
+
+Priorité Critical · Light si `lowRiskBounded` sans critique · Standard défaut · rationale · `criticalSignalsPresent` · `requiresJustificationForCritical` · `capitalizationViaCycleTypeId` · `isMorrisDecision=false`.
+
+### Interdits bridge
+
+Recalcul profil · score parallèle · changer priorité signaux · transformer Critical en décision · créer/persister.
+
+## R. Résultat fonctionnel D2
+
+### Succès
+
+`state=success` · `cycleTypeId` · label/description · `lifecycleStatus` · `catalogVersion` · `catalogHash` · `correlationId` · statut détaillé CKC · preuve consommation · `recommendedProfile` · `rationale` · `criticalSignalsPresent` · `requiresJustificationForCritical` · `capitalizationViaCycleTypeId` · `isMorrisDecision=false` · disclosures · `resolvedAt`/`qualifiedAt`.
+
+### Échec
+
+`state=failure` · code fonctionnel · message · `blocking` · `retryable` · `recoverable` · `correlationId` · `cycleTypeId?` · timestamp · **aucune** recommandation exploitable · **aucune** preuve `consumed=true`.
+
+## S. Fail-closed, erreurs et recovery
+
+| Cas | Statut D2 | Code candidat | Blocking | QualifyCycle | Retry | Recovery |
+|-----|-----------|---------------|----------|--------------|-------|----------|
+| `cycleTypeId` absent | — | `CYCLE_TYPE_REQUIRED` | oui | non | oui | fournir type |
+| invalide | — | `CYCLE_TYPE_INVALID` | oui | non | oui | corriger |
+| inconnu | `unresolved_cycle_not_selectable` | `CYCLE_TYPE_UNKNOWN` | oui | non | non* | catalogue |
+| deprecated/unavailable | idem | `CYCLE_TYPE_NOT_SELECTABLE` | oui | non | non* | catalogue |
+| mapping absent/incohérent | `unresolved_invalid_mapping` | `CKC_MAPPING_INVALID` | oui | non | non | correctif D1 |
+| detailed+fallback KO | `unresolved_unavailable` | `CKC_UNAVAILABLE` | oui | non | non | correctif |
+| synthetic primaire KO | idem | `CKC_SYNTHETIC_INVALID` | oui | non | non | correctif |
+| detailed KO + fallback OK | `resolved_fallback_synthetic` | `CKC_FALLBACK_USED` (info) | non | oui | — | disclosure |
+| version incompatible | `unresolved_catalog_incompatible` | `CATALOG_VERSION_INCOMPATIBLE` | oui | non | oui | aligner version |
+| hash stale | idem | `CATALOG_STALE` | oui | non | oui | recharger catalogue |
+| signaux incomplets | (CKC peut être OK) | `SIGNALS_INCOMPLETE` | oui | non | oui | compléter |
+| résolution incohérente | `unresolved_*` | `CKC_RESOLUTION_INCOHERENT` | oui | non | non | correctif |
+| `executionAuthority≠false` | — | `CKC_EXECUTION_AUTHORITY_FORBIDDEN` | oui | non | non | correctif |
+| erreur interne | — | `D2_INTERNAL_ERROR` | oui | non | limité | support |
+
+\* sauf réactivation catalogue / nouveau type.
+
+### Mapping candidat vers `CycleDetailCode` T-A2 (sans modifier enums)
+
+| Code D2 | Detail T-A2 candidat |
+|---------|----------------------|
+| `CYCLE_TYPE_*` (sauf NOT_SELECTABLE métier) | `CYCLE_INVALID` |
+| `CYCLE_TYPE_NOT_SELECTABLE` / UNKNOWN | `CYCLE_INVALID` |
+| `CKC_*` (sauf FALLBACK_USED) | `CKC_UNAVAILABLE` |
+| `CATALOG_VERSION_INCOMPATIBLE` / `CATALOG_STALE` | `CONTEXT_STALE` |
+| `SIGNALS_INCOMPLETE` | `CYCLE_INVALID` |
+| `D2_INTERNAL_ERROR` | `PERSISTENCE_FAILURE` |
+| `CKC_FALLBACK_USED` | pas une erreur — disclosure |
+
+Implémentation du mapping = architecture.
+
+## T. Invariants T-A2 et règles de profil
+
+Hérités, non modifiés :
+
+1. Un signal Critical (`structuralChange|securityImpact|architectureImpact|dataImpact|irreversible`) → Critical.
+2. Sinon `lowRiskBounded=true` → Light.
+3. Sinon → Standard.
+4. Critical gagne sur `lowRiskBounded`.
+5. `isMorrisDecision=false` toujours.
+6. `requestedProfile` non exposé dans D2.
+7. Capitalization = `cycleTypeId`, pas un profil.
+
+## U. Mono-CKC Core et extensibilité future
+
+- Exactement **un** CKC Core effectif.
+- **Zéro** extension active.
+- Fallback = substitution.
+- Aucun tableau d’extensions consommées.
+- Aucun résultat ne revendique le support multi-CKC.
+- Extensibilité future : ne pas empêcher D2-D ; déclaration catalogue explicite ; GO Morris distinct ; pas de structure technique imposée ici.
+
+## V. Versionnement, hash et correlationId
+
+| Champ | Règle |
+|-------|-------|
+| `catalogVersion` | Version contractuelle D1 |
+| `catalogHash` | Change si identité, lifecycle ou mapping CKC pertinent change ; algo/périmètre exact → architecture |
+| `correlationId` | Obligatoire ; propagé succès/erreurs/audit futur ; pas d’autorité IAM |
+
+## W. Contrat de projection futur D3
+
+D3 pourra lire : type · profil · rationale · état CKC · source · fallbackUsed · disclosures · erreurs · Critical informatif · non-persistance · absence de décision Morris.
+
+**Non produits :** écrans, parcours UI, Figma, composants, routes, textes UI finaux.
+
+## X. Critères d’acceptation
+
+| ID | Critère |
+|----|---------|
+| AC-D2-FD-01 | Detailed valide → `resolved_detailed` + `consumed=true` |
+| AC-D2-FD-02 | Synthetic valide → `resolved_synthetic` |
+| AC-D2-FD-03 | Detailed KO + fallback OK → `resolved_fallback_synthetic` + disclosure |
+| AC-D2-FD-04 | Mapping invalide bloque avant QualifyCycle |
+| AC-D2-FD-05 | Catalogue incompatible/stale bloque avant QualifyCycle |
+| AC-D2-FD-06 | Signaux incomplets bloquent QualifyCycle |
+| AC-D2-FD-07 | Succès CKC → QualifyCycle **une** fois |
+| AC-D2-FD-08 | Bridge ne modifie pas la recommandation T-A2 |
+| AC-D2-FD-09 | Critical + `isMorrisDecision=false` |
+| AC-D2-FD-10 | Aucun succès avec CycleInstance/LPS/EpistemicItem |
+| AC-D2-FD-11 | Aucune extension CKC activée |
+| AC-D2-FD-12 | version + hash + correlationId présents si exploitable |
+| AC-D2-FD-13 | `executionAuthority=false` |
+| AC-D2-FD-14 | Distinction synthetic primaire vs fallback conservée (statut D2) |
+| AC-D2-FD-15 | D3 peut consommer sans réimplémenter les règles métier |
+
+## Y. Scénarios fonctionnels
+
+### Y1 — Cadrage detailed + aucun critique + lowRiskBounded=true
+
+- **Précond. :** `cyc:framing` detailed OK ; catalogue OK.
+- **Entrée :** six signaux ; seul `lowRiskBounded=true`.
+- **Étapes :** M1–11.
+- **Résultat :** success · `resolved_detailed` · profil **Light** · QualifyCycle **oui**.
+- **Anti-claim :** pas de CreateCycle.
+- **Recovery :** n/a.
+
+### Y2 — Architecture technique detailed + securityImpact=true
+
+- **Résultat :** success · `resolved_detailed` · profil **Critical** · `requiresJustificationForCritical=true` · `isMorrisDecision=false` · QualifyCycle oui.
+- **Anti-claim :** Critical ≠ gate.
+
+### Y3 — QA detailed indisponible + fallback synthétique valide
+
+- **Résultat :** success · `resolved_fallback_synthetic` · `fallbackUsed=true` · disclosure · QualifyCycle oui.
+
+### Y4 — Delivery synthetic + aucun critique + lowRiskBounded=false
+
+- **Résultat :** success · `resolved_synthetic` · profil **Standard** · QualifyCycle oui.
+
+### Y5 — Cycle inconnu
+
+- **Résultat :** failure · `CYCLE_TYPE_UNKNOWN` · QualifyCycle **non**.
+
+### Y6 — Cycle unavailable
+
+- **Résultat :** failure · `CYCLE_TYPE_NOT_SELECTABLE` · QualifyCycle non.
+
+### Y7 — Mapping detailed et fallback invalides
+
+- **Résultat :** failure · `CKC_UNAVAILABLE` · QualifyCycle non.
+
+### Y8 — Catalogue stale
+
+- **Résultat :** failure · `CATALOG_STALE` · QualifyCycle non · retry après rechargement.
+
+### Y9 — Signaux incomplets
+
+- **Précond. :** CKC pourrait être OK.
+- **Résultat :** failure · `SIGNALS_INCOMPLETE` · QualifyCycle non · retry.
+
+### Y10 — Critical + lowRiskBounded simultanés
+
+- **Résultat :** success · profil **Critical** (priorité) · QualifyCycle oui.
+
+### Y11 — Capitalization via cycleTypeId
+
+- **Entrée :** `cyc:capitalization`.
+- **Résultat :** success · `capitalizationViaCycleTypeId=true` · profil selon signaux · QualifyCycle oui.
+
+### Y12 — Resolver renvoie executionAuthority=true
+
+- **Résultat :** failure · `CKC_EXECUTION_AUTHORITY_FORBIDDEN` · QualifyCycle non · `consumed` jamais true.
+
+### Y13 — Erreur interne
+
+- **Résultat :** failure · `D2_INTERNAL_ERROR` · QualifyCycle non · retry limité.
+
+### Y14 — Tentative implicite d’extension CKC
+
+- **Résultat :** failure ou rejet fonctionnel · aucune extension consommée · anti-claim multi-CKC · QualifyCycle non si Core non consommé.
+
+## Z. Anti-claims
+
+D2 conception **n’est pas** : implémenté · architecture adoptée · Delivery ouverte · D3 ouvert · multi-CKC supporté · extensions actives · CreateCycle · exécution autorisée · baseline méthode · recommandation automatique du type · parsing Markdown · UI.
+
+## AA. Risques et réserves
+
+| ID | Risque | Mitigation |
+|----|--------|------------|
+| R-D2-FD-01 | Confusion CreateCycle vs fail-closed D2 | §D, §S |
+| R-D2-FD-02 | Perte primary/fallback dans T-A2 | Statut D2 obligatoire |
+| R-D2-FD-03 | Duplication règles profil | Bridge n’appelle que QualifyCycle |
+| R-D2-FD-04 | Hash mal borné | Question architecture |
+| R-D2-FD-05 | Sur-interprétation MemoryCkcResolver | Observation ≠ produit |
+| R-D2-FD-06 | Ouverture implicite D2-D | §U fermé |
+| **INHERITED-R-01** | Condensation README | **ACCEPTED — STILL TRACEABLE — NOT LIFTED** |
+
+## AB. Slicing D2-A / D2-B / D2-C / D2-D
+
+| Lot | Contenu fonctionnel | Entrée | Sortie | Dépend |
+|-----|---------------------|--------|--------|--------|
+| **D2-A** | Projection catalogue · validation lifecycle · version/hash · contrat projection | Catalogue D1 | Projection validée / erreurs sélection | D1 |
+| **D2-B** | Resolver Core · priorités · statuts · mapping T-A2 · preuve · fail-closed | Sortie A | Résolution + preuve ou erreur CKC | D2-A |
+| **D2-C** | Bridge · signaux · QualifyCycle · enrichissement · disclosures | Sortie B + signaux | Résultat D2 success/failure | D2-B + T-A2 |
+| **D2-D** | Extensions multi-CKC | GO Morris | — | **gated — non ouvert** |
+
+Critères de sortie d’incrément = AC pertinents (§X). Delivery **non ouverte**. Tests futurs = unitaires/intégration après architecture.
+
+## AC. Questions réservées à l’architecture
+
+1. Emplacement exact du bridge.
+2. Réutilisation / adaptation de `CkcResolverPort`.
+3. Représentation TypeScript des statuts détaillés.
+4. Mapping des erreurs D2 → `CycleDetailCode`.
+5. Calcul et périmètre de `catalogHash`.
+6. Source runtime des références CKC sans parsing Markdown.
+7. Stratégie de validation des références.
+8. Audit / observabilité.
+9. Injection des dépendances.
+10. Compatibilité avec `ResolveCycleKnowledgeContract` / CreateCycle.
+11. Frontière domaine / application.
+12. Plan de tests unitaires et d’intégration.
+
+**Aucune de ces questions n’est tranchée ici.**
+
+## AD. Gate suivant candidat
+
+```text
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
+NO DELIVERY —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION
 ```
 
-## Fichiers créés/modifiés
-- CREATED: 15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-- MODIFIED: 08-implementation-backlog-and-slicing.md
-- MODIFIED: README.md (framing)
+Ne pas exécuter sans nouveau GO Morris.
 
-## Document 15 complet
+## AE. Verdict
+
+```text
+V3.1-D2 FUNCTIONAL DESIGN COMPLETE —
+D-V3.1-D2-01…12 RECORDED AS ADOPTED BY MORRIS —
+READ-ONLY TYPE TO CKC CONSUMPTION TO PROFILE FUNCTIONAL CONTRACT DEFINED —
+DETAILED CKC RESOLUTION STATUSES AND T-A2 MAPPING DEFINED —
+STRUCTURED CKC CONSUMPTION PROOF SPECIFIED —
+FAIL-CLOSED BEHAVIOUR DEFINED —
+QUALIFYCYCLE REMAINS UNCHANGED —
+CORE CKC ONLY —
+MULTI-CKC EXTENSIONS NOT OPENED —
+D2-A TO D2-B TO D2-C FUNCTIONAL SLICING DEFINED —
+D2-D GATED —
+VERSION HASH AND CORRELATIONID TRACEABILITY DEFINED —
+NO ARCHITECTURE ADOPTED —
+NO IMPLEMENTATION —
+NO DELIVERY —
+NO D3 —
+NO UI —
+NO FIGMA —
+NO CREATECYCLE —
+NO METHOD PROMOTION
+```
+
+**Statut :** `V3.1-D2 FUNCTIONAL DESIGN READY FOR MORRIS VALIDATION — ARCHITECTURE FUNCTIONAL GATE REQUIRES DISTINCT MORRIS GO — DELIVERY NOT OPENED — D3 NOT OPENED`
+
+```
+11. Document 15 complet (après):
 ```markdown
 # 15 — V3.1-D2 Cadrage — CKC Resolver & QualifyCycle Bridge
 
@@ -1160,7 +1804,7 @@ See v3-1-d2-git-truth.txt — main@e1befcb8, 0/0, 77 worktrees, handoff 9ac1ad6/
 | **Branche locale** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
 | **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
 | **CKC (ce cycle)** | Pilote détaillé `pilots/01-cadrage.md` · method-candidate · consommation obligatoire · `executionAuthority=false` |
-| **Statut documentaire** | `V3.1-D2 FRAMING COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION — NO DECISION ADOPTED — NO IMPLEMENTATION` |
+| **Statut documentaire** | `V3.1-D2 FRAMING ARBITRATED — FUNCTIONAL DESIGN AUTHORIZED — D-V3.1-D2-01…12 ADOPTED BY MORRIS — NO ARCHITECTURE — NO DELIVERY` |
 | **Code / Delivery / D3 / UI / Figma / CreateCycle** | **non** |
 | **Commit / push / PR projet** | **non autorisés** |
 
@@ -1169,6 +1813,18 @@ See v3-1-d2-git-truth.txt — main@e1befcb8, 0/0, 77 worktrees, handoff 9ac1ad6/
 **Autorisé :** cadrage repo-informed D2 ; options ; recommandation candidate ; decision pack ; mise à jour de traçabilité (`08`, README framing) ; Review Handoff Git.
 
 **Interdit :** implémentation ; Delivery ; architecture adoptée ; D3 ; UI ; Figma ; CreateCycle ; modification catalogue D1 ; modification QualifyCycle ; promotion méthode ; commit/push/PR projet.
+
+
+## B2. Decision record Morris (arbitrage)
+
+| Champ | Valeur |
+|-------|--------|
+| **Formulation réelle Morris** | `D2-01 = B` · `D2-02 = B` · `D2-03 = statuts détaillés avec mapping T-A2` · `D2-04 = C` · `D2-05 = fail-closed strict pour l'exploitabilité produit` · `D2-06 = A` · `D2-07 = C` · `D2-08 = catalogue explicite plus tard` · `D2-09 = D2-A → D2-B → D2-C, D2-D gated` · `D2-10 = D2 sans UI` · `D2-11 = version + hash + correlationId` · `D2-12 = conception fonctionnelle ensuite` · « Ok pour le recommandations » |
+| **Interprétation** | Morris adopte les recommandations candidates du decision pack D-V3.1-D2-01…12 |
+| **Heure d'adoption** | Non horodatée dans le transcript ; adoption **immédiatement antérieure** au GO conception |
+| **Enregistrement documentaire** | 2026-08-01 15:05:34 CEST (+0200) |
+| **GO conception lié** | `GO CONCEPTION FONCTIONNELLE SFIA STUDIO V3.1-D2 …` — 2026-08-01 14:58 CEST (+0200) |
+| **Conséquence** | Conception fonctionnelle autorisée · architecture / Delivery / D3 **non** autorisées |
 
 ## C. Sources consultées
 
@@ -1340,7 +1996,7 @@ Sorties candidates d’un résultat D2 read-only :
 
 ## K. Résolution et statuts
 
-### Statuts candidats (NOT DECIDED)
+### Statuts détaillés (ADOPTED — D-V3.1-D2-03)
 
 | Statut candidat | Signification |
 |-----------------|---------------|
@@ -1432,8 +2088,8 @@ D3 consommera le **même contrat de sortie** ; le bridge ne connaît pas le parc
 
 ## N. Multi-CKC — options
 
-**Statut : NOT DECIDED — MORRIS DECISION REQUIRED.**
-Le multi-CKC n’est **pas** adopté.
+**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**
+Le multi-CKC n’est **pas** activé ; approche progressive Core-only maintenant.
 
 ### Option D2-CKC-A — Mono-CKC D1 conservé
 
@@ -1472,10 +2128,9 @@ Le multi-CKC n’est **pas** adopté.
 
 Le multi-CKC est-il utile **dès** le premier D2, ou suffit-il de rendre le contrat **extensible** sans implémenter les extensions ?
 
-### Recommandation candidate (non adoptée)
+### Recommandation historique (devenue décision D-V3.1-D2-07)
 
-**D2-CKC-C** : livrer D2 sur le mono-CKC D1 ; préparer des champs d’extension **vides/optionnels** dans le contrat de sortie ; **ne pas** activer d’extensions avant preuve d’usage et GO Morris.
-Évite le big-bang B tout en réduisant la rigidité de A.
+**D2-CKC-C** adoptée : livrer D2 sur le mono-CKC D1 ; préparer l’extensibilité **sans** activer d’extensions ; D2-D gated.
 
 ## O. Fail-closed
 
@@ -1508,7 +2163,7 @@ D2 **ne** :
 - rend pas le produit production-ready ;
 - promeut pas les CKC en baseline méthode globale ;
 - constitue pas D3 ;
-- n’est pas « IMPLEMENTED / ADOPTED / READY FOR DELIVERY » tant que Morris n’a pas tranché et qu’aucun GO Delivery n’existe.
+- n’est pas « IMPLEMENTED / READY FOR DELIVERY / ARCHITECTURE ADOPTED » : le cadrage est arbitré et la conception fonctionnelle autorisée/réalisée localement, mais architecture et Delivery restent fermées.
 
 ## Q. Frontières D2 / D3
 
@@ -1538,14 +2193,14 @@ D2 **ne** :
 2. **Trois incréments** A → B → C (recommandation candidate).
 3. **A+B puis C** (compromis).
 
-**Aucun slicing n’est adopté sans décision Morris (D-V3.1-D2-09).**
+**Slicing D2 :** **D2-A → D2-B → D2-C** adopté (D-V3.1-D2-09) ; **D2-D gated**.
 
 ## S. Critères de succès du cadrage
 
 - Problème D2 clair ; D1/D2/D3 séparés.
 - Resolver ≠ bridge ; résolution ≠ consommation.
 - Règles T-A2 non dupliquées.
-- Multi-CKC traité sans adoption implicite.
+- Multi-CKC traité avec décision C (Core-only) ; extensions non activées.
 - Fail-closed et authority boundaries explicites.
 - Decision pack complet ; options comparables.
 - Aucun code ; aucune architecture adoptée ; aucune Delivery ; aucun D3.
@@ -1570,110 +2225,94 @@ D2 **ne** :
 
 ## U. Decision pack Morris
 
-Toutes les décisions ci-dessous : **NOT DECIDED — MORRIS DECISION REQUIRED.**
+**Statut global :** `DECIDED — ADOPTED BY MORRIS` (D-V3.1-D2-01…12).
+
+Les options historiques et risques sont conservés. Les recommandations retenues deviennent décisions.
 
 ### D-V3.1-D2-01 — Promesse produit D2
 
 - **Problème :** que garantit D2 sans UI ?
 - **Options :** (a) contrat + projection testable seule ; (b) + bridge QualifyCycle enrichi ; (c) inclure UI minimale.
-- **Reco candidate :** (b) — promesse = type validé → CKC consommé → profil recommandé traçable, read-only.
-- **Bénéfices / risques / dette :** clarté produit / sur-scope si UI / dette faible si borné.
-- **Réversibilité :** haute (doc).
-- **Impact D1/D3 :** aucun runtime D1 ; D3 consomme le contrat.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Reco candidate historique :** (b).
+- **Décision :** **B** — type validé → CKC consommé → profil recommandé traçable → résultat read-only → **aucune UI**.
+- **Conséquence fonctionnelle :** le succès D2 inclut toujours preuve de consommation + recommandation T-A2 enrichie.
+- **Risques / dette :** sur-scope UI évité ; dette de bridge à concevoir.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-02 — Contrat du resolver CKC
 
-- **Problème :** responsabilités exactes du resolver.
-- **Options :** (a) resolver = mapping lookup only ; (b) resolver = résolution + validation invariants ; (c) resolver = + QualifyCycle.
-- **Reco candidate :** (b).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Options :** (a) lookup only ; (b) résolution + invariants ; (c) + QualifyCycle.
+- **Décision :** **B** — résout, applique priorités/fallback, contrôle invariants, produit résolution ; **n'appelle pas** QualifyCycle ; **aucune** autorité d'exécution.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-03 — Statuts de résolution
 
-- **Problème :** vocabulaire des statuts §K.
-- **Options :** jeu minimal (resolved/unresolved) ; jeu détaillé §K ; alignement strict types T-A2 `CkcStatus` existants.
-- **Reco candidate :** jeu détaillé §K **avec** mapping explicite vers types T-A2 si réutilisation — sans imposer l’archi.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** statuts fonctionnels **détaillés** (§K) **avec mapping explicite** vers `CkcLevel` / `CkcStatus` / `CkcSource` T-A2 ; conserver le statut détaillé D2 dans le résultat pour ne pas perdre primary vs fallback.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-04 — Définition de « CKC consommé »
 
-- **Problème :** critère d’exploitabilité.
-- **Options :** (a) mapping présent suffit ; (b) résolution valide suffit ; (c) résolution valide + preuve structurée dans le payload.
-- **Reco candidate :** (c).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **C** — résolution valide **et** preuve structurée de consommation dans le payload.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-05 — Règle fail-closed
 
-- **Problème :** matrice §O.
-- **Options :** adopter matrice telle quelle ; assouplir fallback ; aligner sur « absent n’bloque pas CreateCycle ».
-- **Reco candidate :** adopter esprit matrice §O pour **exploitabilité produit** ; CreateCycle hors scope.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** fail-closed **strict** pour l'exploitabilité produit D2 ; CKC invalide/non résolvable → résultat non exploitable **et** QualifyCycle **non appelé** dans le bridge D2 ; CreateCycle historique hors périmètre.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-06 — Contrat du bridge QualifyCycle
 
-- **Problème :** orchestration et non-duplication T-A2.
-- **Options :** (a) bridge unique ; (b) appels séparés laissés à D3 ; (c) fusion dans QualifyCycle.
-- **Reco candidate :** (a) — bridge orchestre ; QualifyCycle domaine inchangé.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **A** — bridge unique orchestre catalogue → resolver → validation consommation → QualifyCycle → enrichissement ; QualifyCycle **inchangé**.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-07 — Mono-CKC ou multi-CKC contrôlé
 
-- **Problème :** A / B / C §N.
-- **Reco candidate :** **C** (progressif) — mono maintenant, extensible.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **C** — D2 initial = un seul CKC Core effectif ; fallback = **substitution** (pas d'addition) ; contrat extensible ; **aucune** extension activée maintenant.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-08 — Activation des extensions CKC
 
-- **Problème :** si multi, qui active quoi.
-- **Options :** catalogue explicite ; config runtime ; invention dynamique (interdite).
-- **Reco candidate :** si B un jour — liste explicite dans catalogue ; **sinon N/A sous C**.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** si extensions ultérieures → déclaration **explicite** dans le catalogue ; pas d'invention dynamique ; GO Morris distinct ; **capacité fermée** sous D2 actuel.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-09 — Slicing D2
 
-- **Problème :** A/B/C/D et mode livraison.
-- **Reco candidate :** incréments **D2-A → D2-B → D2-C** ; D2-D gated.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** **D2-A → D2-B → D2-C** ; **D2-D gated**.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-10 — Frontière D2/D3
 
-- **Problème :** données consommables par D3.
-- **Reco candidate :** liste §Q ; aucun parcours UI dans D2.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** D2 **sans UI** ; D3 consommera ultérieurement données/états D2.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
 ### D-V3.1-D2-11 — Versionnement et traçabilité
 
-- **Problème :** fingerprint catalogue + preuve consommation.
-- **Options :** version string seule ; version + hash contenu ; correlationId obligatoire.
-- **Reco candidate :** version + hash candidat + correlationId.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** `catalogVersion` + empreinte déterministe (`catalogHash`) + `correlationId`.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
 
-### D-V3.1-D2-12 — Gate de sortie vers conception/architecture
+### D-V3.1-D2-12 — Gate de sortie
 
-- **Problème :** après arbitrage, quel GO.
-- **Options :** conception fonctionnelle D2 ; architecture fonctionnelle D2 ; Delivery directe (déconseillé).
-- **Reco candidate :** **conception fonctionnelle D2** (cycle 2) après arbitrage des D-V3.1-D2-01…11 ; architecture ensuite ; Delivery seulement après.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
+- **Décision :** après arbitrage → **conception fonctionnelle** ; puis architecture fonctionnelle ; puis technique si besoin ; Delivery D2-A seulement après GO Morris distinct.
+- **Statut :** `DECIDED — ADOPTED BY MORRIS`.
+- **Note :** le présent cycle exécute la conception fonctionnelle autorisée par cette décision et le GO du 2026-08-01 14:58 CEST.
 
-## V. Recommandation candidate (synthèse — non adoptée)
+## V. Synthèse post-arbitrage
 
-1. Promesse D2 = exploitabilité read-only type→CKC consommé→profil.
-2. Resolver = résolution + validation ; bridge = orchestration ; T-A2 inchangé.
-3. « Consommé » = résolution valide + preuve structurée.
-4. Fail-closed produit selon §O ; CreateCycle hors scope.
-5. Multi-CKC : option **C** ; pas d’extensions dans le premier Delivery D2.
-6. Slicing : D2-A → D2-B → D2-C.
-7. Prochain cycle après arbitrage : **conception fonctionnelle D2**, pas Delivery.
+1. Promesse B adoptée.
+2. Resolver B ; bridge A ; QualifyCycle inchangé.
+3. Consommation = C ; fail-closed strict produit.
+4. Multi-CKC = C (Core seul maintenant) ; extensions fermées (08).
+5. Slicing A→B→C ; D2-D gated.
+6. Traçabilité version+hash+correlationId.
+7. Conception fonctionnelle = cycle courant ; architecture / Delivery **non** ouvertes.
 
 ## W. Gates suivants candidats
 
 ```text
-GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-DECIDE D-V3.1-D2-01…12 —
-KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-NO FUNCTIONAL DESIGN —
-NO ARCHITECTURE —
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
 NO DELIVERY —
 NO D3 —
 NO UI —
@@ -1681,39 +2320,26 @@ NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-Puis, seulement après arbitrage :
-
-```text
-GO FUNCTIONAL DESIGN SFIA STUDIO V3.1-D2 …
-```
-
-**Aucun GO Delivery / D3 / UI / Figma n’est proposé en enchaînement automatique.**
+**Aucun GO Delivery / D3 / UI n'est proposé en enchaînement automatique.**
 
 ## X. Verdict
 
 ```text
-V3.1-D2 FRAMING COMPLETE —
-D1 BASELINE AND D2 PROBLEM VERIFIED —
-CKC RESOLUTION, CONSUMPTION AND QUALIFYCYCLE BRIDGE BOUNDARIES DOCUMENTED —
-MONO-CKC AND CONTROLLED MULTI-CKC OPTIONS COMPARED —
-FAIL-CLOSED AND AUTHORITY BOUNDARIES DEFINED —
-MORRIS DECISION PACK PREPARED —
-NO DECISION ADOPTED —
+V3.1-D2 FRAMING ARBITRATED —
+D-V3.1-D2-01…12 ADOPTED BY MORRIS —
+FUNCTIONAL DESIGN AUTHORIZED —
 NO ARCHITECTURE ADOPTED —
-NO IMPLEMENTATION —
 NO DELIVERY —
 NO D3 —
 NO UI —
-NO FIGMA —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-**Statut :** `V3.1-D2 FRAMING READY FOR MORRIS ARBITRATION — FUNCTIONAL DESIGN AND ARCHITECTURE REQUIRE DISTINCT MORRIS GO — D3 NOT OPENED`
+**Statut :** `FRAMING ARBITRATED — FUNCTIONAL DESIGN AUTHORIZED — ARCHITECTURE AND DELIVERY REQUIRE DISTINCT MORRIS GO — D3 NOT OPENED`
 
 ```
-
-## 08 complet (après modification)
+12. 08 complet:
 ```markdown
 # 08 — Implementation backlog and slicing
 
@@ -1762,15 +2388,19 @@ Docs :
 | QA-G2 | vert |
 | QA-G3 | **PASS Morris** |
 | PR / merge / capitalisation | PR #296 + #297 mergées · D1 techniquement clos sur `main` @ `e1befcb8…` |
-| D2 cadrage | **réalisé** — [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · arbitrage Morris **requis** |
-| Delivery D2 / D3 | **non autorisées** |
+| D2 cadrage | **terminé et arbitré** — [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · D-V3.1-D2-01…12 **ADOPTED BY MORRIS** |
+| D2 conception fonctionnelle | **terminée localement** — [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) |
+| Architecture D2 | **non ouverte** |
+| Delivery D2-A/B/C | **non ouvertes** |
+| D2-D (extensions) | **gated** · non ouvert |
+| D3 | **non ouvert** |
 
 ### Slicing CAT-08
 
 | Lot | Contenu | Statut |
 |-----|---------|--------|
 | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage réalisé** · Delivery **non autorisée** · décisions NOT DECIDED |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception fonctionnelle locale** · architecture/Delivery **non ouvertes** · slicing **A→B→C** · D2-D gated |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
 ### Réserves QA
@@ -1779,28 +2409,28 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
 
 ### Réserves D2
 
-Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit · multi-CKC **non adopté** — voir decision pack doc [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md).
+Orchestration CKC · consommation fail-closed · bridge QualifyCycle · Core-only (extensions fermées) · questions architecture réservées — voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) / [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md).
 
 ## Lot V3.2 / V4 / V5 / V6
 
 **NOT AUTHORIZED.**
 
 ```
-
-## README complet (après modification)
+13. README complet:
 ```markdown
 # First user-visible SFIA Studio vertical slice — Framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D1 TECHNICALLY CLOSED ON MAIN — V3.1-D2 CADRAGE COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION — DELIVERY D2/D3 NOT AUTHORIZED` |
-| **Date** | 2026-08-01 14:34:28 CEST (+0200) |
-| **Cycle courant** | 1 — Cadrage V3.1-D2 |
+| **Statut** | `FRAMING LIVING — V3.1-D1 CLOSED — V3.1-D2 FRAMING ARBITRATED — FUNCTIONAL DESIGN COMPLETE LOCALLY — ARCHITECTURE/DELIVERY/D3 NOT OPENED` |
+| **Date** | 2026-08-01 15:05:34 CEST (+0200) |
+| **Cycle courant** | 2 — Conception fonctionnelle V3.1-D2 |
 | **Profil** | **Standard** |
 | **Typologie** | DOC |
-| **Gate courant** | Cadrage D2 **consommé** (2026-08-01 14:03 CEST) — formulation Morris bornée |
+| **Gate courant** | Conception fonctionnelle D2 **consommé** (2026-08-01 14:58 CEST) |
+| **Décisions D2** | D-V3.1-D2-01…12 **ADOPTED BY MORRIS** (arbitrage immédiatement antérieur au GO conception) |
 | **Base `main`** | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| **Doc D2** | [`15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) |
+| **Docs D2** | [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) (arbitré) · [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) (conception) |
 | **Docs protégées** | `12` / `13` / `14` **inchangés** |
 | **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
 
@@ -1810,24 +2440,24 @@ Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · 
 |-----|------|
 | V1 / V2 | intégrés `main` |
 | V3 / V3.1 cadrage–conception–adoption | terminés (`12`/`13`/`14`) |
-| **V3.1-D1** | **techniquement clos** (Delivery · QA · PR #296 · capitalisation #297 · cleanup) |
-| **V3.1-D2 cadrage** | **terminé localement** — decision pack D-V3.1-D2-01…12 **NOT DECIDED** |
-| V3.1-D2 Delivery / conception / architecture | **non ouverts** — GO Morris distinct requis |
-| V3.1-D3 | **non ouvert** · réserve Figma inchangée |
+| **V3.1-D1** | **techniquement clos** sur `main` |
+| **V3.1-D2 cadrage** | **arbitré** — décisions 01…12 adoptées |
+| **V3.1-D2 conception fonctionnelle** | **terminée localement** — doc 16 |
+| Architecture fonctionnelle D2 | **candidate suivante** — GO Morris distinct |
+| Delivery D2-A/B/C | **fermées** |
+| D2-D extensions | **gated** |
+| V3.1-D3 | **fermé** · réserve Figma |
 | V3.2 / V4–V6 | non autorisés |
 
-**R-V3.1-CATALOG-01 :** contrat + runtime D1 résolus · orchestration / consommation CKC / bridge QualifyCycle = **objet du cadrage D2** (doc 15) — **aucune adoption** dans ce cycle.
-
-**INHERITED-R-01 (README) :** condensation du framing en index vivant — **ACCEPTED — STILL TRACEABLE — NOT LIFTED** — non bloquant — pas une autorisation D2 Delivery.
+**INHERITED-R-01 (README) :** condensation framing — **ACCEPTED — STILL TRACEABLE — NOT LIFTED** — non bloquant — pas une autorisation Delivery/D3.
 
 ## Gate candidat suivant
 
 ```text
-GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-DECIDE D-V3.1-D2-01…12 —
-KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-NO FUNCTIONAL DESIGN —
-NO ARCHITECTURE —
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
 NO DELIVERY —
 NO D3 —
 NO UI —
@@ -1837,302 +2467,55 @@ NO METHOD PROMOTION
 
 ## Verdict
 
-`V3.1-D2 FRAMING COMPLETE — READY FOR MORRIS ARBITRATION — NO DECISION ADOPTED — NO IMPLEMENTATION — NO DELIVERY — D3 NOT OPENED`
+`V3.1-D2 FUNCTIONAL DESIGN COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO ARCHITECTURE ADOPTED — NO DELIVERY — D3 NOT OPENED`
 
 ```
-
-## Diff 08
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-index c138afc..c46c2f9 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-@@ -1,68 +1,69 @@
- # 08 — Implementation backlog and slicing
-
- ## Stratégie
-
- Plusieurs PR (lots), commits atomiques. Framing docs séparés. Pas de big-bang.
-
- ## Lot V1 / V2
-
- **INTEGRATED ON MAIN** (V2-A3 PR #295 @ `3e8a437…`).
-
- ## Lot V3 — Cycle Recommendation
-
- **CADRAGE + ARBITRATION COMPLETE** — [`12`](./12-v3-cycle-recommendation-cadrage.md).
-
- ## Lot V3.1 — Profile Qualification (conception)
-
- **FUNCTIONAL DESIGN COMPLETE** — [`13`](./13-v3-1-profile-qualification-functional-design.md).
-
- ## Lot V3.1 — Cycle Type Catalog (architecture + adoption)
-
- **DECISIONS ADOPTED** — [`14`](./14-v3-1-cycle-type-catalog-functional-architecture.md).
-
- ## Lot V3.1-D1 — Catalogue runtime + mapping CKC
-
- **Statut Delivery initial :** `IMPLEMENTATION COMPLETE`.
-
- **Statut QA initiale :** `FAIL historique` — [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) (inchangé).
-
- **Statut correctif :** `CORRECTIVE DELIVERY IMPLEMENTED` — [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) (inchangé).
-
- **Statut revalidation :** `QA REVALIDATION PASS — R-QA-01…09 CLOSED` — [`03`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md) (inchangé).
-
- **QA-G3 Morris :** **PASS** (2026-07-30 21:36 CEST).
-
--**Statut PR readiness :** `READY FOR PR` — [`04`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/04-pr-readiness-report.md) — commit/push/draft PR **soumis à GO**.
-+**Statut PR / merge / capitalisation (historique) :** PR #296 + capitalisation #297 **mergées** · D1 **techniquement clos** sur `main`.
-
- Docs :
- - [`../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/README.md)
- - rapports `01` / `02` / `03` / `04`
-
- | Preuve | Résultat |
- |--------|----------|
- | 15 IDs / mapping CKC | conformes |
- | Revalidation / readiness tests | 46/46 · 94/94 · 827/827 · typecheck/lint/build PASS |
- | QA-G2 | vert |
- | QA-G3 | **PASS Morris** |
--| PR readiness | **READY FOR PR** · package 13 fichiers · PR **non créée** |
--| D2 / D3 | **non ouverts** |
-+| PR / merge / capitalisation | PR #296 + #297 mergées · D1 techniquement clos sur `main` @ `e1befcb8…` |
-+| D2 cadrage | **réalisé** — [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · arbitrage Morris **requis** |
-+| Delivery D2 / D3 | **non autorisées** |
-
- ### Slicing CAT-08
-
- | Lot | Contenu | Statut |
- |-----|---------|--------|
--| **V3.1-D1** | Catalogue · mapping · validateur | Delivery + QA-G3 PASS · **PR readiness READY** · Git pending GO |
--| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **non autorisé** |
-+| **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage réalisé** · Delivery **non autorisée** · décisions NOT DECIDED |
- | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
-
- ### Réserves QA
-
--R-QA-01…09 **CLOSED**. QA-G3 PASS. PR readiness ≠ autorisation commit/push/PR.
-+R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
-
- ### Réserves D2
-
--Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit.
-+Orchestration CKC · consommation fail-closed runtime · bridge QualifyCycle · exposition vertical-slice · exploitabilité produit · multi-CKC **non adopté** — voir decision pack doc [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md).
-
- ## Lot V3.2 / V4 / V5 / V6
-
- **NOT AUTHORIZED.**
-
-```
-
-## Diff README
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-index 23b6c6f..bf3f107 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-@@ -1,37 +1,49 @@
- # First user-visible SFIA Studio vertical slice — Framing
-
- | Champ | Valeur |
- |-------|--------|
--| **Statut** | `FRAMING LIVING — V3.1-D1 QA-G3 PASS — PR READINESS READY FOR PR — COMMIT/PUSH/PR REQUIRE MORRIS GO — D2/D3 NOT AUTHORIZED` |
--| **Date** | 2026-07-30 21:45:00 CEST (+0200) |
--| **Cycle courant** | 13 — PR readiness V3.1-D1 |
--| **Profil** | **Critical** |
--| **Typologie** | EVOL |
--| **Gate courant** | `GO PR READINESS SFIA STUDIO V3.1-D1 …` **consommé** (2026-07-30 21:37 CEST) |
--| **QA-G3 Morris** | **PASS** (2026-07-30 21:36 CEST) — R-QA-01…09 CLOSED |
--| **Branche Delivery** | `delivery/sfia-studio-visible-slice-v3-1-d1-cycle-type-catalog-runtime` |
--| **Base** | `origin/main` @ `3e8a4374405dce98866e35fb60c5c7329701f191` |
--| **Rapports D1** | [`01`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/01-qa-validation-report.md) · [`02`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/02-corrective-delivery-report.md) · [`03`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/03-qa-revalidation-report.md) · [`04`](../first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/04-pr-readiness-report.md) |
--| **Docs protégées** | `12` / `13` / rapports `01`–`03` **inchangés** pendant readiness |
-+| **Statut** | `FRAMING LIVING — V3.1-D1 TECHNICALLY CLOSED ON MAIN — V3.1-D2 CADRAGE COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION — DELIVERY D2/D3 NOT AUTHORIZED` |
-+| **Date** | 2026-08-01 14:34:28 CEST (+0200) |
-+| **Cycle courant** | 1 — Cadrage V3.1-D2 |
-+| **Profil** | **Standard** |
-+| **Typologie** | DOC |
-+| **Gate courant** | Cadrage D2 **consommé** (2026-08-01 14:03 CEST) — formulation Morris bornée |
-+| **Base `main`** | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-+| **Doc D2** | [`15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) |
-+| **Docs protégées** | `12` / `13` / `14` **inchangés** |
-+| **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
-
- ## Synthèse
-
- | Lot | État |
- |-----|------|
- | V1 / V2 | intégrés `main` |
- | V3 / V3.1 cadrage–conception–adoption | terminés (`12`/`13`/`14`) |
--| **V3.1-D1 Delivery + correctif + revalidation** | **terminés** |
--| **QA-G3** | **PASS Morris** |
--| **PR readiness** | **READY FOR PR** — package 13 fichiers · **aucune** PR créée |
--| V3.1-D2 / D3 | **non ouverts** · Figma D3 inchangé |
-+| **V3.1-D1** | **techniquement clos** (Delivery · QA · PR #296 · capitalisation #297 · cleanup) |
-+| **V3.1-D2 cadrage** | **terminé localement** — decision pack D-V3.1-D2-01…12 **NOT DECIDED** |
-+| V3.1-D2 Delivery / conception / architecture | **non ouverts** — GO Morris distinct requis |
-+| V3.1-D3 | **non ouvert** · réserve Figma inchangée |
- | V3.2 / V4–V6 | non autorisés |
-
--**R-V3.1-CATALOG-01 :** contrat résolu · runtime D1 · validateur corrigé · QA-G3 PASS · orchestration **pending D2**.
-+**R-V3.1-CATALOG-01 :** contrat + runtime D1 résolus · orchestration / consommation CKC / bridge QualifyCycle = **objet du cadrage D2** (doc 15) — **aucune adoption** dans ce cycle.
-+
-+**INHERITED-R-01 (README) :** condensation du framing en index vivant — **ACCEPTED — STILL TRACEABLE — NOT LIFTED** — non bloquant — pas une autorisation D2 Delivery.
-
- ## Gate candidat suivant
-
--`GO COMMIT PUSH AND OPEN DRAFT PR SFIA STUDIO V3.1-D1 CYCLE TYPE CATALOG AND MANDATORY CKC MAPPING — USE APPROVED PR PACKAGE — TARGET MAIN — NO MERGE — NO D2 — NO UI — NO CREATECYCLE`
-+```text
-+GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-+DECIDE D-V3.1-D2-01…12 —
-+KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-+NO FUNCTIONAL DESIGN —
-+NO ARCHITECTURE —
-+NO DELIVERY —
-+NO D3 —
-+NO UI —
-+NO CREATECYCLE —
-+NO METHOD PROMOTION
-+```
-
- ## Verdict
-
--`V3.1-D1 PR READINESS COMPLETE — READY FOR PR — QA-G3 PASS RECORDED — PR PACKAGE COMPLETE — COMMIT PUSH AND PR REQUIRE MORRIS GO — D2/D3 NOT AUTHORIZED`
-+`V3.1-D2 FRAMING COMPLETE — READY FOR MORRIS ARBITRATION — NO DECISION ADOPTED — NO IMPLEMENTATION — NO DELIVERY — D3 NOT OPENED`
-
-```
-
-## Decision pack
-```markdown
-## U. Decision pack Morris
-
-Toutes les décisions ci-dessous : **NOT DECIDED — MORRIS DECISION REQUIRED.**
-
-### D-V3.1-D2-01 — Promesse produit D2
-
-- **Problème :** que garantit D2 sans UI ?
-- **Options :** (a) contrat + projection testable seule ; (b) + bridge QualifyCycle enrichi ; (c) inclure UI minimale.
-- **Reco candidate :** (b) — promesse = type validé → CKC consommé → profil recommandé traçable, read-only.
-- **Bénéfices / risques / dette :** clarté produit / sur-scope si UI / dette faible si borné.
-- **Réversibilité :** haute (doc).
-- **Impact D1/D3 :** aucun runtime D1 ; D3 consomme le contrat.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-02 — Contrat du resolver CKC
-
-- **Problème :** responsabilités exactes du resolver.
-- **Options :** (a) resolver = mapping lookup only ; (b) resolver = résolution + validation invariants ; (c) resolver = + QualifyCycle.
-- **Reco candidate :** (b).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-03 — Statuts de résolution
-
-- **Problème :** vocabulaire des statuts §K.
-- **Options :** jeu minimal (resolved/unresolved) ; jeu détaillé §K ; alignement strict types T-A2 `CkcStatus` existants.
-- **Reco candidate :** jeu détaillé §K **avec** mapping explicite vers types T-A2 si réutilisation — sans imposer l’archi.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-04 — Définition de « CKC consommé »
-
-- **Problème :** critère d’exploitabilité.
-- **Options :** (a) mapping présent suffit ; (b) résolution valide suffit ; (c) résolution valide + preuve structurée dans le payload.
-- **Reco candidate :** (c).
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-05 — Règle fail-closed
-
-- **Problème :** matrice §O.
-- **Options :** adopter matrice telle quelle ; assouplir fallback ; aligner sur « absent n’bloque pas CreateCycle ».
-- **Reco candidate :** adopter esprit matrice §O pour **exploitabilité produit** ; CreateCycle hors scope.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-06 — Contrat du bridge QualifyCycle
-
-- **Problème :** orchestration et non-duplication T-A2.
-- **Options :** (a) bridge unique ; (b) appels séparés laissés à D3 ; (c) fusion dans QualifyCycle.
-- **Reco candidate :** (a) — bridge orchestre ; QualifyCycle domaine inchangé.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-07 — Mono-CKC ou multi-CKC contrôlé
-
-- **Problème :** A / B / C §N.
-- **Reco candidate :** **C** (progressif) — mono maintenant, extensible.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-08 — Activation des extensions CKC
-
-- **Problème :** si multi, qui active quoi.
-- **Options :** catalogue explicite ; config runtime ; invention dynamique (interdite).
-- **Reco candidate :** si B un jour — liste explicite dans catalogue ; **sinon N/A sous C**.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-09 — Slicing D2
-
-- **Problème :** A/B/C/D et mode livraison.
-- **Reco candidate :** incréments **D2-A → D2-B → D2-C** ; D2-D gated.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-10 — Frontière D2/D3
-
-- **Problème :** données consommables par D3.
-- **Reco candidate :** liste §Q ; aucun parcours UI dans D2.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-11 — Versionnement et traçabilité
-
-- **Problème :** fingerprint catalogue + preuve consommation.
-- **Options :** version string seule ; version + hash contenu ; correlationId obligatoire.
-- **Reco candidate :** version + hash candidat + correlationId.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-### D-V3.1-D2-12 — Gate de sortie vers conception/architecture
-
-- **Problème :** après arbitrage, quel GO.
-- **Options :** conception fonctionnelle D2 ; architecture fonctionnelle D2 ; Delivery directe (déconseillé).
-- **Reco candidate :** **conception fonctionnelle D2** (cycle 2) après arbitrage des D-V3.1-D2-01…11 ; architecture ensuite ; Delivery seulement après.
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED.
-
-
-```
-
-## Multi-CKC
-Options A/B/C documentées · reco candidate C · NOT DECIDED
-
-## Risques / réserves
-R-D2-01…12 · INHERITED-R-01 NOT LIFTED
-
-## État Git final
+14–27. Voir document 16 sections L–AC.
+28. État Git final:
 ```
 current=framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage
 HEAD=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 origin/main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
-=== status project ===
+=== project status ===
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
 === staged ===
-=== diff name-status ===
+=== name-status ===
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-=== diff stat ===
- .../08-implementation-backlog-and-slicing.md       | 15 +++----
- .../README.md                                      | 48 ++++++++++++++--------
- 2 files changed, 38 insertions(+), 25 deletions(-)
-wt_count=77
-remote_d2=local_d2=PRESENT
+=== stat ===
+ .../08-implementation-backlog-and-slicing.md       | 19 +++++----
+ .../README.md                                      | 49 ++++++++++++++--------
+ 2 files changed, 43 insertions(+), 25 deletions(-)
+wt=77
+remote_framing=
 ```
-
-## Verdict
-V3.1-D2 FRAMING COMPLETE —
-D1 BASELINE AND D2 PROBLEM VERIFIED —
-CKC RESOLUTION, CONSUMPTION AND QUALIFYCYCLE BRIDGE BOUNDARIES DOCUMENTED —
-MONO-CKC AND CONTROLLED MULTI-CKC OPTIONS COMPARED —
-FAIL-CLOSED AND AUTHORITY BOUNDARIES DEFINED —
-MORRIS DECISION PACK PREPARED —
-NO DECISION ADOPTED —
+29. Gate suivant:
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
+NO DELIVERY —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION
+30. Verdict:
+V3.1-D2 FUNCTIONAL DESIGN COMPLETE —
+D-V3.1-D2-01…12 RECORDED AS ADOPTED BY MORRIS —
+READ-ONLY TYPE TO CKC CONSUMPTION TO PROFILE FUNCTIONAL CONTRACT DEFINED —
+DETAILED CKC RESOLUTION STATUSES AND T-A2 MAPPING DEFINED —
+STRUCTURED CKC CONSUMPTION PROOF SPECIFIED —
+FAIL-CLOSED BEHAVIOUR DEFINED —
+QUALIFYCYCLE REMAINS UNCHANGED —
+CORE CKC ONLY —
+MULTI-CKC EXTENSIONS NOT OPENED —
+D2-A TO D2-B TO D2-C FUNCTIONAL SLICING DEFINED —
+D2-D GATED —
+VERSION HASH AND CORRELATIONID TRACEABILITY DEFINED —
 NO ARCHITECTURE ADOPTED —
 NO IMPLEMENTATION —
 NO DELIVERY —
@@ -2142,44 +2525,39 @@ NO FIGMA —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 
-Statut: V3.1-D2 FRAMING READY FOR MORRIS ARBITRATION — FUNCTIONAL DESIGN AND ARCHITECTURE REQUIRE DISTINCT MORRIS GO — D3 NOT OPENED
+Statut: V3.1-D2 FUNCTIONAL DESIGN READY FOR MORRIS VALIDATION — ARCHITECTURE FUNCTIONAL GATE REQUIRES DISTINCT MORRIS GO — DELIVERY NOT OPENED — D3 NOT OPENED
 
-## Gate suivant candidat
-GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-DECIDE D-V3.1-D2-01…12 —
-KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-NO FUNCTIONAL DESIGN —
-NO ARCHITECTURE —
-NO DELIVERY —
-NO D3 —
-NO UI —
-NO CREATECYCLE —
-NO METHOD PROMOTION
-
---- END FRAMING REPORT ---
+--- END FD REPORT ---
 
 ## Content coverage
 - gate Morris complete: yes
+- Morris decisions complete: yes
 - CKC complete: yes
 - Git Truth complete: yes
 - source documents complete: yes
 - created document full content: yes
 - modified sections complete: yes
-- D2 options complete: yes
-- multi-CKC options complete: yes
-- decision pack complete: yes
+- functional inputs/outputs complete: yes
+- detailed statuses complete: yes
+- T-A2 mapping complete: yes
+- consumption proof complete: yes
+- bridge complete: yes
+- fail-closed complete: yes
+- acceptance criteria complete: yes
+- scenarios complete: yes
+- slicing complete: yes
+- architecture questions complete: yes
 - risks and reserves complete: yes
 - final Git state complete: yes
 - temporary report full content: yes
 - synthesis only: no
 - review pack verdict: complete
 
-## Gate suivant candidat
-GO ARBITRATE SFIA STUDIO V3.1-D2 DECISION PACK —
-DECIDE D-V3.1-D2-01…12 —
-KEEP MULTI-CKC EXTENSIBLE WITHOUT ADOPTING EXTENSIONS UNLESS EXPLICIT —
-NO FUNCTIONAL DESIGN —
-NO ARCHITECTURE —
+## Gate suivant
+GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO V3.1-D2 CKC RESOLVER AND QUALIFYCYCLE BRIDGE —
+USE VALIDATED FUNCTIONAL DESIGN —
+DEFINE COMPONENT RESPONSIBILITIES, CONTRACT BOUNDARIES, DATA FLOWS, STATUS MAPPING, CONSUMPTION PROOF AND SLICING —
+NO TECHNICAL ARCHITECTURE —
 NO DELIVERY —
 NO D3 —
 NO UI —
@@ -2187,13 +2565,18 @@ NO CREATECYCLE —
 NO METHOD PROMOTION
 
 ## Verdict
-V3.1-D2 FRAMING COMPLETE —
-D1 BASELINE AND D2 PROBLEM VERIFIED —
-CKC RESOLUTION, CONSUMPTION AND QUALIFYCYCLE BRIDGE BOUNDARIES DOCUMENTED —
-MONO-CKC AND CONTROLLED MULTI-CKC OPTIONS COMPARED —
-FAIL-CLOSED AND AUTHORITY BOUNDARIES DEFINED —
-MORRIS DECISION PACK PREPARED —
-NO DECISION ADOPTED —
+V3.1-D2 FUNCTIONAL DESIGN COMPLETE —
+D-V3.1-D2-01…12 RECORDED AS ADOPTED BY MORRIS —
+READ-ONLY TYPE TO CKC CONSUMPTION TO PROFILE FUNCTIONAL CONTRACT DEFINED —
+DETAILED CKC RESOLUTION STATUSES AND T-A2 MAPPING DEFINED —
+STRUCTURED CKC CONSUMPTION PROOF SPECIFIED —
+FAIL-CLOSED BEHAVIOUR DEFINED —
+QUALIFYCYCLE REMAINS UNCHANGED —
+CORE CKC ONLY —
+MULTI-CKC EXTENSIONS NOT OPENED —
+D2-A TO D2-B TO D2-C FUNCTIONAL SLICING DEFINED —
+D2-D GATED —
+VERSION HASH AND CORRELATIONID TRACEABILITY DEFINED —
 NO ARCHITECTURE ADOPTED —
 NO IMPLEMENTATION —
 NO DELIVERY —
@@ -2203,4 +2586,4 @@ NO FIGMA —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 
-Statut: V3.1-D2 FRAMING READY FOR MORRIS ARBITRATION — FUNCTIONAL DESIGN AND ARCHITECTURE REQUIRE DISTINCT MORRIS GO — D3 NOT OPENED
+Statut: V3.1-D2 FUNCTIONAL DESIGN READY FOR MORRIS VALIDATION — ARCHITECTURE FUNCTIONAL GATE REQUIRES DISTINCT MORRIS GO — DELIVERY NOT OPENED — D3 NOT OPENED
