@@ -1,31 +1,887 @@
-# SFIA Studio V3.1-D2 — Review pack Full — Architecture technique
+# SFIA Studio V3.1-D2 — Review pack Full — Delivery Backlog
 
 ## Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-08-01 16:32:34 CEST (+0200) |
-| **Rôle Cursor** | Exécution cycle 6 Architecture technique (Critical / DOC) — sans implémentation |
-| **Gate Morris** | GO ARCHITECTURE TECHNIQUE SFIA STUDIO V3.1-D2 — APPLY ADOPTED D-V3.1-D2-FA-01…12 — NO DELIVERY — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION |
-| **Date gate** | 2026-08-01 16:16 CEST (+0200) |
-| **Adoption FA** | FA-01=FA-C · FA-02=preuve autonome colocalisée · FA-03=résolution+projection T-A2 · FA-04=orch+Result Projection · FA-05=statut par resolver · FA-06=version/hash Catalog Projection · FA-07=correlationId+événements · FA-08=contrat unique D3 · FA-09=A/B/C · FA-10=adaptation T-A2 · FA-11=événements minimaux · FA-12=TA avant backlog · ok pour les recommandations |
-| **Cycle** | 6 — Architecture technique |
-| **Profil** | Critical |
-| **Justification Critical** | Frontières modules, adaptation T-A2, hash, ports, wiring, slicing conditionnent Delivery ; mauvaise borne → dette. Critical ≠ code/Delivery. |
+| **Date/heure/fuseau** | 2026-08-01 16:59:56 CEST (+0200) |
+| **Rôle Cursor** | Exécution cycle 5 Backlog / user stories (Standard / DOC) — sans implémentation |
+| **Gate Morris** | GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C — APPLY ADOPTED D-V3.1-D2-TA-01…12 — PREPARE TESTABLE DELIVERY SLICES — NO IMPLEMENTATION — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION |
+| **Date gate** | 2026-08-01 16:45 CEST (+0200) |
+| **Adoption TA** | TA-01=TA-P-A · TA-02=fonctions pures · TA-03=HASH-A · TA-04=CKC-S-A · TA-05=PORT-B · TA-06=TYPE-B · TA-07=PROOF-A · TA-08=ORCH-A · TA-09=ERR-B · TA-10=AUDIT-A · TA-11=COMP-B · TA-12=backlog A/B/C séparé · ok pour les recommandations |
+| **Cycle** | 5 — Backlog / user stories |
+| **Profil** | Standard — découpage d’architectures déjà arbitrées ; pas de nouvelle stack/code/Delivery |
 | **Typologie** | DOC |
-| **CKC** | pilots/03-architecture-technique.md · candidate 0.1.0 · executionAuthority=false |
+| **CKC** | Fallback carte synthétique + §4.5 · method-candidate · executionAuthority=false |
 | **Template** | prompts/templates/sfia-cycle-execution-template.md |
 | **Branche** | framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage |
 | **HEAD/main** | e1befcb80ed5e3c789a7de9036a8207d6b3e6771 |
-| **Handoff pré tip/blob** | fa0ceebc6d60da18c607015ec6029506f0cdf7fb / 4e7648901f9616a83a4c2c794748d28e9125b6be |
-| **Pre-check ChatGPT** | limitation déclarée — contrôle local Cursor PASS |
-| **Content coverage** | all required fields yes · synthesis only : no · review pack verdict : complete |
+| **Handoff pré tip/blob** | 84963516cc9f3685a0c7a2d2986224952522e98a / 92130ad0fbe65302a1338cde169c09adfb03b83a |
+| **Pre-check ChatGPT** | limitation déclarée — contrôle local PASS |
+| **Stories** | 17 (A4 · B6 · C7) |
+| **Content coverage** | all required yes · synthesis only : no · review pack verdict : complete |
 
 ## Anti-claims
 
-Pas de TA adoptée · pas de backlog/Delivery/D3/UI/CreateCycle · pas de code/tests/method · pas de claims scalable/secure/production-ready/zero-debt · INHERITED-R-01 NOT LIFTED · QualifyCycle inchangé · Core only · reco TA non adoptées.
+Backlog ≠ Delivery · aucune story Delivery authorized · pas de code/tests/branche projet · pas D3/UI/CreateCycle/D2-D · pas d’estimations · INHERITED-R-01 NOT LIFTED · TA non rouvertes.
 
-## Document 18 — Architecture technique (complet)
+## Document 19 — Backlog (complet)
+
+# 19 — V3.1-D2-A/B/C — Backlog de Delivery
+
+## A. Métadonnées
+
+| Champ | Valeur |
+|-------|--------|
+| **Date/heure/fuseau** | 2026-08-01 16:55:05 CEST (+0200) |
+| **Cycle projet** | 5 — Backlog / user stories |
+| **Profil SFIA** | **Standard** |
+| **Typologie** | DOC |
+| **Gate Morris** | `GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C — APPLY ADOPTED D-V3.1-D2-TA-01…12 — PREPARE TESTABLE DELIVERY SLICES — NO IMPLEMENTATION — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` (2026-08-01 16:45 CEST) |
+| **Branche** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
+| **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| **CKC** | Fallback carte synthétique + §4.5 · method-candidate · `executionAuthority=false` |
+| **Statut** | `V3.1-D2 DELIVERY BACKLOG COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO DELIVERY AUTHORIZED` |
+| **Stories** | D2-A×4 · D2-B×6 · D2-C×7 = **17** |
+| **Code / Delivery / D3** | **non** |
+
+## B. Gate Morris et décision record TA
+
+Adoption immédiatement antérieure au GO Backlog — formulation Morris TA-01…12 = recommandations · « ok pour les recommandations » · heure transcript **indisponible** · enregistrement documentaire 2026-08-01 16:55:05 CEST (+0200) · GO Backlog 16:45 CEST.
+
+| ID | Retenu |
+|----|--------|
+| TA-01 | TA-P-A |
+| TA-02 | Fonctions domaine pures |
+| TA-03 | HASH-A |
+| TA-04 | CKC-S-A |
+| TA-05 | PORT-B |
+| TA-06 | TYPE-B |
+| TA-07 | PROOF-A |
+| TA-08 | ORCH-A |
+| TA-09 | ERR-B |
+| TA-10 | AUDIT-A |
+| TA-11 | COMP-B |
+| TA-12 | Backlog A→B→C séparé |
+
+Voir [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) §B2 — `DECIDED — ADOPTED BY MORRIS`.
+
+## C. Sources consultées
+
+Gouvernance · carte synthétique · routing · §4.5 · framing 08/12–18/README · D1/T-A2 chemins confirmés · handoff `84963516…`.
+
+**Limite pre-check ChatGPT :** état local non inspecté par ChatGPT ; contrôle Cursor **PASS**.
+
+## D. Git Truth
+
+framing @ `e1befcb8…` · main 0/0 · staged vide · 15–18 non suivis · 08/README modifiés · 77 WT · handoff tip `84963516…` blob `92130ad0…` · doc15 `534904ea…` · doc16 `d65088ac…`.
+
+## E. CKC Backlog et fallback
+
+Pilote détaillé **absent** → fallback `02-fifteen-cycles-synthetic-map.md` + §4.5 · finalité stories testables · risque stories fourre-tout · `executionAuthority=false`.
+
+## F. Héritage fonctionnel et technique adopté
+
+FA-C · docs 15–17 · TA-01…12 · QualifyCycle inchangé · Core-only · D2-D gated · pas de domaine parallèle.
+
+## G. Objectif du backlog
+
+Découper D2-A/B/C en stories testables pour futurs prompts Delivery — **sans** implémenter ni autoriser Delivery.
+
+## H. Principes de découpage
+
+Une story = un résultat vérifiable · pas de fourre-tout « implémenter D2-A » · INVEST · dépendances explicites · pas d’exigence inventée · pas d’implémentation anticipée · backlog ≠ autorisation Delivery · ordre A→B→C.
+
+## I. Périmètre global inclus
+
+Contrats · fingerprint · Catalog Projection · manifest · port/resolver · erreurs · preuve · events · Result Projection · signaux · orch · factory read-only · tests futurs documentés.
+
+## J. Hors périmètre global
+
+Code · tests exécutés · package/CI · D3/UI/Figma · CreateCycle/mutation · Markdown parse · multi-CKC · D2-D · API/Server Action · nouveau package · rouvrir TA · Delivery.
+
+## K. Ordonnancement D2-A → D2-B → D2-C
+
+```mermaid
+flowchart LR
+  A[D2-A 4 stories] --> B[D2-B 6 stories]
+  B --> C[D2-C 7 stories]
+  D2D[D2-D] -.->|gated| X[hors trajectoire]
+```
+
+B n’entre en Delivery qu’après A intégré/validé. C après A+B. Chaque incrément = GO Delivery distinct.
+
+### Challenge d’ordonnancement (non adopté)
+
+Option alternative : démarrer BL-D2-B-04 en parallèle de BL-D2-B-03 après B-02, et BL-D2-C-01 en parallèle de fin B si contrats preuve stables.
+
+**Impact :** accélération locale possible · **dette :** intégration plus risquée · **risque :** contrats instables.
+
+**Ordre retenu :** A-01→…→A-04 · B-01→…→B-06 · C-01→…→C-07. Aucune adoption d’ordre alternatif.
+
+## L. Vue des épics
+
+| Epic | Stories | Profil candidat | Objectif |
+|------|---------|-----------------|----------|
+| **D2-A** | A-01…A-04 | Standard | Projection catalogue + fingerprint |
+| **D2-B** | B-01…B-06 | Critical | Résolution + preuve |
+| **D2-C** | C-01…C-07 | Critical | Bridge + résultat unique |
+
+## M. Epic D2-A — Catalog Projection
+
+Objectif : projection pure déterministe du catalogue D1 avec version et empreinte contractuelle.
+
+**Critères de sortie D2-A :** contracts · fingerprint protégé · Catalog Projection · erreurs catalogue · tests · aucun resolver/profil/mutation · validable indépendamment.
+
+## N. Stories D2-A
+
+### BL-D2-A-01 — Contrats D2 et projection contractuelle du fingerprint
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-A-01` |
+| **Epic** | D2-A Catalog Projection |
+| **Résultat vérifiable** | Contrats TypeScript D2 dans fichier domaine sémantique dédié ; projection fingerprint contractuelle ; labels/descriptions exclus ; aucune résolution CKC ; aucune dépendance Next/infra. |
+| **Formulation** | En tant que développeur D2, je veux des contrats D2 typés et une définition d’empreinte contractuelle, afin d’ancrer Catalog Projection sans surcharger types.ts. |
+| **Justification** | TYPE-B + HASH-A exigent une base de contrats avant constante et projection. |
+| **Décisions héritées** | TYPE-B · HASH-A · TA-P-A · FA-C |
+| **Préconditions** | TA-01…12 adoptées · catalogue D1 stable · docs 16–18 |
+| **Périmètre inclus** | Fichier contrats sémantique · types Selection Context / Validated Projection / fingerprint fields · exclusion labels |
+| **Hors périmètre** | Resolver · QualifyCycle · factory · hash constante · UI · D3 |
+| **Contrats** | CatalogSelectionContext · fingerprint field set · ValidatedCycleTypeProjection (squelette) |
+| **Fichiers candidats** | `domain/ckcQualificationContracts.ts` · export additif `index.ts` si nécessaire |
+| **Dépendances** | Aucune story D2 antérieure |
+| **Tests futurs** | Compilation TS · tests de type/contrat · absence import infra/node:crypto |
+| **Preuves de fin** | Diff limité · typecheck futur · review pack Delivery |
+| **Risques** | Surcharge types.ts · duplication T-A2 · domaine parallèle |
+| **Stop conditions** | Besoin d’enrichir D1 · rupture API publique · nouveau package |
+| **Réversibilité** | Haute — fichier dédié isolable |
+| **Profil Delivery candidat** | Standard |
+| **Gate Morris** | GO DELIVERY D2-A |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given TypeScript strict, When les contrats D2 sont déclarés dans un fichier dédié, Then ils compilent sans étendre domain/types.ts de façon fourre-tout.
+2. Given le fingerprint contractuel, When on liste ses champs, Then seuls cycleTypeId, canonicalKey, lifecycleStatus, methodCycleNumber, mapping CKC, références, fallback, doctrineStatus, executionAuthority, unavailableBehavior sont inclus.
+3. Given labels/descriptions, When l’empreinte est définie, Then ils sont explicitement exclus.
+4. Given les contrats, When on inspecte les imports, Then aucun import infrastructure, Next ou node:crypto n’existe.
+5. Given T-A2, When on compare, Then pas de duplication complète des types historiques ; adaptation contrôlée seulement.
+
+### BL-D2-A-02 — Constante catalogFingerprint et garde de cohérence
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-A-02` |
+| **Epic** | D2-A Catalog Projection |
+| **Résultat vérifiable** | Constante versionnée exposée ; test de cohérence avec projection contractuelle ; changement contractuel sans MAJ empreinte → échec test ; pas d’artefact build ; pas de crypto runtime. |
+| **Formulation** | En tant que développeur D2, je veux une empreinte HASH-A testée, afin de détecter les drifts catalogue sans package crypto. |
+| **Justification** | HASH-A adopté ; 15 entrées — constante + test proportionné. |
+| **Décisions héritées** | HASH-A · TA-P-A |
+| **Préconditions** | BL-D2-A-01 |
+| **Périmètre inclus** | Constante fingerprint · test cohérence · doc mécanisme simple |
+| **Hors périmètre** | HASH-B/C · script CI · dépendance crypto · resolver |
+| **Contrats** | catalogFingerprint constant + projection contractuelle |
+| **Fichiers candidats** | `domain/catalogFingerprint.ts` · tests `__tests__/oa/cycle/**` |
+| **Dépendances** | BL-D2-A-01 |
+| **Tests futurs** | Même projection → même empreinte · changement champ contractuel → fail · changement label → pas d’obligation MAJ |
+| **Preuves de fin** | Tests fingerprint verts · aucune dep ajoutée |
+| **Risques** | Dérive manuelle · sérialisation non documentée |
+| **Stop conditions** | HASH-A exige artefact/package non adopté |
+| **Réversibilité** | Haute → HASH-B possible plus tard |
+| **Profil Delivery candidat** | Standard |
+| **Gate Morris** | GO DELIVERY D2-A |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given deux projections contractuelles identiques, When on compare à la constante, Then elles correspondent.
+2. Given un champ contractuel modifié sans MAJ constante, When le test de garde s’exécute, Then il échoue.
+3. Given un label/description modifié seulement, When le test s’exécute, Then aucune obligation de changer l’empreinte.
+4. Given le module fingerprint, When on inspecte, Then aucune dépendance crypto runtime ni script CI n’est ajouté.
+
+### BL-D2-A-03 — Catalog Projection pure et fail-closed catalogue
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-A-03` |
+| **Epic** | D2-A Catalog Projection |
+| **Résultat vérifiable** | Fonction pure (cycleTypeId, catalogVersion, catalogHash, correlationId) → Validated Projection ou erreur D2 locale ; validations version/hash/existence/lifecycle/sélectionnabilité ; aucun resolver/QC. |
+| **Formulation** | En tant que consommateur D2, je veux une projection catalogue fail-closed, afin de bloquer les contextes stale avant résolution CKC. |
+| **Justification** | FA-06 + TA-02 ; point de contrôle version/hash. |
+| **Décisions héritées** | TA-02 · HASH-A · FA-06 · ERR-B |
+| **Préconditions** | BL-D2-A-01 · BL-D2-A-02 |
+| **Périmètre inclus** | catalogProjection pure · erreurs catalogue · mapping CKC exposé |
+| **Hors périmètre** | Resolver · preuve · QualifyCycle · factory complète |
+| **Contrats** | ValidatedCycleTypeProjection · erreurs CATALOG_* |
+| **Fichiers candidats** | `domain/catalogProjection.ts` |
+| **Dépendances** | BL-D2-A-01 · BL-D2-A-02 |
+| **Tests futurs** | nominal · version KO · hash stale · type inconnu · deprecated · unavailable · correlationId absent · mapping invalide |
+| **Preuves de fin** | Tests purs · typecheck |
+| **Risques** | Lifecycle mal mappé · fail-open accidentel |
+| **Stop conditions** | Modification contrat D1 requise · parsing Markdown |
+| **Réversibilité** | Haute |
+| **Profil Delivery candidat** | Standard |
+| **Gate Morris** | GO DELIVERY D2-A |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given un type sélectionnable et version/hash valides, When projectSelectableCycleType, Then Validated Projection est retournée avec mapping CKC.
+2. Given version incompatible ou hash stale, When projection, Then erreur catalogue structurée et aucun appel resolver.
+3. Given type inconnu/deprecated/unavailable, When projection, Then fail-closed avec code approprié.
+4. Given correlationId absent, When projection, Then erreur locale (pas de parcours silencieux).
+5. Given la fonction, When imports inspectés, Then aucun QualifyCycle ni resolver.
+
+### BL-D2-A-04 — Validation et régression D2-A
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-A-04` |
+| **Epic** | D2-A Catalog Projection |
+| **Résultat vérifiable** | Suite tests D2-A complète ; tests D1 conservés ; exports additifs strictement nécessaires ; pas d’import serveur dans logique pure ; preuves typecheck/lint/tests/build futurs. |
+| **Formulation** | En tant que reviewer, je veux une validation D2-A indépendante, afin de livrer A sans B/C. |
+| **Justification** | Critères de sortie D2-A ; non-régression D1. |
+| **Décisions héritées** | TA-P-A · COMP-B (pas de factory complète dans A) |
+| **Préconditions** | BL-D2-A-01…03 |
+| **Périmètre inclus** | Tests D2-A · exports additifs minimaux · checklist sortie A |
+| **Hors périmètre** | Factory D2 complète · D2-B/C · UI |
+| **Contrats** | Exports publics minimaux contrats/projection/fingerprint |
+| **Fichiers candidats** | `index.ts` (additif) · tests `__tests__/oa/cycle/**` |
+| **Dépendances** | BL-D2-A-01…03 |
+| **Tests futurs** | Suite A · régression cycleTypeCatalog · absence node:crypto dans purs |
+| **Preuves de fin** | Rapport Delivery A · suite verte · build futur |
+| **Risques** | Export trop large · couplage prématuré factory |
+| **Stop conditions** | Inclusion resolver/QC dans A |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Standard |
+| **Gate Morris** | GO DELIVERY D2-A |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given D2-A implémenté, When tests D2-A et D1 s’exécutent, Then tous passent sans ignore.
+2. Given barrel index, When exports D2-A ajoutés, Then ils sont additifs et minimaux.
+3. Given modules purs A, When graphe d’imports, Then aucun import serveur/crypto.
+4. Given critères sortie A, When checklist, Then contracts+fingerprint+projection+erreurs catalogue présents ; aucun resolver/profil/mutation.
+
+
+## O. Epic D2-B — CKC Resolution and Consumption
+
+Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-A2 + preuve structurée.
+
+**Critères de sortie D2-B :** manifest · port · resolver fail-closed · preuve · erreurs · events · tests · aucun QC · aucun résultat D3 final · validable après A.
+
+## P. Stories D2-B
+
+### BL-D2-B-01 — Manifest CKC typé et contrôle de cohérence D1
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-B-01` |
+| **Epic** | D2-B CKC Resolution and Consumption |
+| **Résultat vérifiable** | Manifest statique typé (référence, niveau, version, statut, source, disponibilité) ; aucun Markdown ; test cohérence catalogue↔manifest. |
+| **Formulation** | En tant que développeur D2, je veux un registre CKC typé, afin de résoudre sans parser Markdown ni lire des chemins. |
+| **Justification** | CKC-S-A adopté. |
+| **Décisions héritées** | CKC-S-A · TA-P-A |
+| **Préconditions** | BL-D2-A-04 intégré/validé |
+| **Périmètre inclus** | ckcReferenceManifest · test cohérence D1 |
+| **Hors périmètre** | Enrichissement contrat D1 · MemoryCkcResolver comme autorité · Markdown |
+| **Contrats** | CkcReferenceManifest entries |
+| **Fichiers candidats** | `infrastructure/ckcReferenceManifest.ts` · tests |
+| **Dépendances** | BL-D2-A-04 |
+| **Tests futurs** | primaires D1 autorisées · fallbacks autorisés · ref inconnue · niveau incohérent · orphelin documenté |
+| **Preuves de fin** | Tests cohérence · diff limité |
+| **Risques** | Double source vs catalogue · dérive manuelle |
+| **Stop conditions** | Story exige enrichir contrat D1 |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-B (après A) |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given catalogue D1, When manifest est validé, Then toutes références primary/fallback D1 sont autorisées.
+2. Given référence inconnue, When contrôle, Then détection d’erreur.
+3. Given le manifest, When runtime, Then aucun contenu Markdown n’est chargé et aucun chemin arbitraire n’est lu.
+
+### BL-D2-B-02 — Port resolver D2 spécialisé
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-B-02` |
+| **Epic** | D2-B CKC Resolution and Consumption |
+| **Résultat vérifiable** | Port D2 borné ; entrée projection validée + traçabilité ; sortie detailed/synthetic/fallback/unresolved_* + projection T-A2 ; CkcResolverPort historique inchangé ; pas de QualifyCycle. |
+| **Formulation** | En tant qu’architecte, je veux un port D2 distinct, afin de préserver le port guidance T-A2. |
+| **Justification** | PORT-B adopté. |
+| **Décisions héritées** | PORT-B · FA-03 |
+| **Préconditions** | BL-D2-B-01 · contrats A |
+| **Périmètre inclus** | Interface port D2 · types résolution D2 |
+| **Hors périmètre** | Modification CkcResolverPort · wrapper ResolveCKC · QC |
+| **Contrats** | CkcQualificationResolverPort · CkcQualificationResolution |
+| **Fichiers candidats** | `ports/ckcQualificationResolver.ts` |
+| **Dépendances** | BL-D2-B-01 · BL-D2-A-01 |
+| **Tests futurs** | Contrat port · non-régression CkcResolverPort |
+| **Preuves de fin** | Diff ports · tests contrat |
+| **Risques** | Élargissement cassant du port historique |
+| **Stop conditions** | Modification fonctionnelle port historique requise sans GO |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-B |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given le port D2, When déclaré, Then il accepte projection validée + correlationId et produit statuts détaillés D2 + projection T-A2.
+2. Given CkcResolverPort historique, When Delivery B, Then il reste inchangé.
+3. Given le port D2, When dépendances, Then QualifyCycle n’est pas référencé.
+
+### BL-D2-B-03 — Resolver Core detailed / synthetic / fallback
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-B-03` |
+| **Epic** | D2-B CKC Resolution and Consumption |
+| **Résultat vérifiable** | Stratégie résolution docs 16–18 ; detailed prioritaire ; fallback substitution ; synthetic primaire sans second fallback ; fail-closed ; executionAuthority=false ; pas d’extension ; pas de randomBytes pour décision. |
+| **Formulation** | En tant que consommateur D2, je veux une résolution Core fail-closed, afin d’obtenir un statut détaillé exploitable uniquement si valide. |
+| **Justification** | Cœur D2-B ; FA fail-closed. |
+| **Décisions héritées** | PORT-B · CKC-S-A · FA-03 · FA-05 |
+| **Préconditions** | BL-D2-B-02 |
+| **Périmètre inclus** | Adaptateur infra resolver · mapping T-A2 · statut D2 |
+| **Hors périmètre** | QualifyCycle · multi-CKC · Memory comme autorité |
+| **Contrats** | Resolution Result · detailed statuses |
+| **Fichiers candidats** | adaptateur sous `infrastructure/` · utilise manifest |
+| **Dépendances** | BL-D2-B-01 · BL-D2-B-02 |
+| **Tests futurs** | detailed · synthetic · fallback · both invalid · ref non autorisée · executionAuthority=true · extension implicite |
+| **Preuves de fin** | Tests résolution · pas de random dans décision |
+| **Risques** | Perte primary/fallback · fail-open · héritage MemoryCkcResolver |
+| **Stop conditions** | Extension multi-CKC · randomBytes requis pour décision métier |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-B |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given detailed valide, When resolve, Then resolved_detailed + fallbackUsed=false + executionAuthority=false.
+2. Given detailed KO et fallback OK, When resolve, Then resolved_fallback_synthetic + disclosure fallback.
+3. Given aucune source valide, When resolve, Then unresolved_* fail-closed, pas de profil.
+4. Given executionAuthority=true ou extension implicite, When resolve, Then rejet.
+5. Given la décision fonctionnelle, When code, Then aucun randomBytes n’influence le statut.
+
+### BL-D2-B-04 — Erreurs D2 et adaptation T-A2
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-B-04` |
+| **Epic** | D2-B CKC Resolution and Consumption |
+| **Résultat vérifiable** | Erreurs D2 typées ; adaptateur enveloppe T-A2 si utile ; codes doc 16 ; blocking/retryable/recoverable ; pas d’exception générique ; pas de mélange CycleInstance. |
+| **Formulation** | En tant que développeur, je veux des erreurs D2 structurées, afin de normaliser Failures sans fuites. |
+| **Justification** | ERR-B adopté. |
+| **Décisions héritées** | ERR-B · FA-04 |
+| **Préconditions** | Contrats A · port B (BL-D2-B-02) |
+| **Périmètre inclus** | ckcQualificationErrors · mapping codes |
+| **Hors périmètre** | ERR-C · élargissement massif CycleDetailCode sans besoin |
+| **Contrats** | Erreurs D2 typées · adaptateur optionnel |
+| **Fichiers candidats** | `domain/ckcQualificationErrors.ts` |
+| **Dépendances** | BL-D2-B-02 (préparation parallèle possible après B-02 ; intégration ordonnée) |
+| **Tests futurs** | Codes catalogue/CKC · pas de fuite internalCauseRef vers D3 |
+| **Preuves de fin** | Tests erreurs |
+| **Risques** | Dilution codes CycleInstance · fuite info |
+| **Stop conditions** | Exceptions génériques comme contrat |
+| **Réversibilité** | Haute |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-B |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given codes fonctionnels doc 16, When erreurs D2, Then ils sont typés et mappables.
+2. Given erreur interne, When exposition, Then message sûr sans fuite.
+3. Given CycleInstance errors, When D2 errors, Then pas de mélange implicite.
+
+### BL-D2-B-05 — Consumption Proof Builder pur
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-B-05` |
+| **Epic** | D2-B CKC Resolution and Consumption |
+| **Résultat vérifiable** | Validator/builder pur ; consumed=true seulement après validation complète ; champs preuve adoptés ; statut D2+T-A2 conservés ; version/hash/correlationId ; pas I/O/profil/mutation. |
+| **Formulation** | En tant que bridge, je veux une preuve structurée, afin de n’appeler QualifyCycle qu’après consommation valide. |
+| **Justification** | PROOF-A · FA-02/04. |
+| **Décisions héritées** | PROOF-A · FA-02 · FA-05 |
+| **Préconditions** | BL-D2-B-03 · BL-D2-B-04 |
+| **Périmètre inclus** | ckcConsumptionProof pur |
+| **Hors périmètre** | Preuve dans orchestrateur · I/O · profil |
+| **Contrats** | CkcConsumptionProof |
+| **Fichiers candidats** | `domain/ckcConsumptionProof.ts` |
+| **Dépendances** | BL-D2-B-03 · BL-D2-B-04 |
+| **Tests futurs** | nominal detailed/synthetic/fallback · incomplète · mismatch · doctrine invalide · authority · correlationId · consumed après échec interdit |
+| **Preuves de fin** | Tests purs preuve |
+| **Risques** | consumed=true trop tôt · confusion resolver/preuve |
+| **Stop conditions** | I/O dans proof · appel QC |
+| **Réversibilité** | Haute |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-B |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given résolution valide complète, When buildProof, Then consumed=true avec statut D2 + projection T-A2.
+2. Given preuve incomplète ou mismatch, When buildProof, Then erreur et consumed≠true.
+3. Given échec, When résultat, Then aucune preuve consumed=true.
+4. Given le module, When imports, Then aucune I/O/Next.
+
+### BL-D2-B-06 — Événements résolution/consommation et validation D2-B
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-B-06` |
+| **Epic** | D2-B CKC Resolution and Consumption |
+| **Résultat vérifiable** | Extension additive CycleAuditEvent pour events B ; CycleAuditPort conservé ; tests B ; non-régression T-A2 ; pas de factory mutation. |
+| **Formulation** | En tant qu’opérateur, je veux des événements minimaux B, afin de tracer résolution/consommation sans audit prod. |
+| **Justification** | AUDIT-A · FA-07/11. |
+| **Décisions héritées** | AUDIT-A |
+| **Préconditions** | BL-D2-B-01…05 |
+| **Périmètre inclus** | Events resolution/consumption · suite tests B · checklist sortie B |
+| **Hors périmètre** | Modèle audit complet · factory CreateCycle · D2-C orch |
+| **Contrats** | CycleAuditEvent additif |
+| **Fichiers candidats** | `ports/cycleAudit.ts` (additif) · tests |
+| **Dépendances** | BL-D2-B-01…05 |
+| **Tests futurs** | events started/succeeded/failed/fallback/validated/rejected · régression oa.ckc.resolved historique |
+| **Preuves de fin** | Suite B verte · non-régression T-A2 |
+| **Risques** | Union audit surchargée |
+| **Stop conditions** | Port audit breaking · events sensibles |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-B |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given résolution/consommation, When audit, Then events minimaux B émis avec correlationId.
+2. Given CycleAuditPort, When extension, Then additive et non breaking pour events historiques.
+3. Given checklist sortie B, When validation, Then manifest+port+resolver+preuve+erreurs+events ; aucun QC ; aucun résultat D3 final.
+
+
+## Q. Epic D2-C — QualifyCycle Bridge and Result Projection
+
+Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
+
+**Critères de sortie D2-C :** bridge · contrat unique · QC inchangé · erreurs normalisées · events · factory read-only · intégration · aucune mutation · aucun D3.
+
+## R. Stories D2-C
+
+### BL-D2-C-01 — Result Projection pure
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-C-01` |
+| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
+| **Résultat vérifiable** | Fonctions pures Success/Failure ; contrat unique ; statut D2 + preuve en succès ; pas de profil/consumed en Failure ; disclosures ; pas de règle qualification ; pas d’infra. |
+| **Formulation** | En tant que futur D3, je veux un contrat résultat unique, afin de consommer D2 sans appeler resolver/QC. |
+| **Justification** | FA-08 · Result Projection. |
+| **Décisions héritées** | FA-08 · COMP-B (contrat) |
+| **Préconditions** | BL-D2-B-06 |
+| **Périmètre inclus** | ckcQualificationResult · Success/Failure builders |
+| **Hors périmètre** | Règles profil · infra · UI |
+| **Contrats** | D2 Success/Failure Result |
+| **Fichiers candidats** | `domain/ckcQualificationResult.ts` |
+| **Dépendances** | BL-D2-B-05/06 · contrats A |
+| **Tests futurs** | Success conserve preuve · Failure sans profil/consumed · disclosures fallback |
+| **Preuves de fin** | Tests purs résultat |
+| **Risques** | Règle métier glissée dans projection |
+| **Stop conditions** | Import infra · recalcul profil |
+| **Réversibilité** | Haute |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-C (après A+B) |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given pièces succès, When assemble, Then Success Result unique avec statut D2 + preuve.
+2. Given erreur, When assemble Failure, Then aucun recommendedProfile exploitable ni consumed=true.
+3. Given module, When imports, Then aucun infra/QC.
+
+### BL-D2-C-02 — Validation des six signaux
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-C-02` |
+| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
+| **Résultat vérifiable** | Six signaux T-A2 obligatoires/explicites ; absence≠false ; requestedProfile non exposé ; objective/scope non scorés ; SIGNALS_INCOMPLETE avant QC. |
+| **Formulation** | En tant que bridge, je veux valider les signaux avant QC, afin d’éviter un appel QualifyCycle invalide. |
+| **Justification** | Doc 16 signaux · fail-closed. |
+| **Décisions héritées** | ORCH-A · FA bridge |
+| **Préconditions** | BL-D2-C-01 · QualifyCycleRequest T-A2 |
+| **Périmètre inclus** | Validation signaux pure ou helper orch |
+| **Hors périmètre** | requestedProfile · scoring parallèle |
+| **Contrats** | Qualification Input / signaux |
+| **Fichiers candidats** | helper dans domain ou application (candidat) |
+| **Dépendances** | BL-D2-C-01 |
+| **Tests futurs** | complets · incomplets · absence vs false · requestedProfile rejeté |
+| **Preuves de fin** | Tests signaux |
+| **Risques** | Absence traitée comme false |
+| **Stop conditions** | Exposition requestedProfile dans parcours D2 |
+| **Réversibilité** | Haute |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-C |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given un signal manquant, When validation, Then SIGNALS_INCOMPLETE et QC non appelé.
+2. Given absence de booléen, When validation, Then ce n’est pas équivalent à false.
+3. Given requestedProfile, When parcours D2, Then non exposé/rejeté.
+
+### BL-D2-C-03 — Use case QualifyCycle Bridge
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-C-03` |
+| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
+| **Résultat vérifiable** | Use case injecté read-only ; CP→resolver→proof→QC×1 si validé ; QC jamais si échec amont ; pas de duplication recommendProfile ; isMorrisDecision=false ; pas de mutation. |
+| **Formulation** | En tant que système D2, je veux orchestrer A+B+QC, afin de produire une recommandation seulement après CKC consommé. |
+| **Justification** | ORCH-A cœur D2-C. |
+| **Décisions héritées** | ORCH-A · FA-C · COMP-B deps |
+| **Préconditions** | BL-D2-C-01 · BL-D2-C-02 · A+B intégrés |
+| **Périmètre inclus** | qualifyCycleWithCkc use case |
+| **Hors périmètre** | modifier QualifyCycle/ResolveCKC · CreateCycle · mutation |
+| **Contrats** | Orchestration I/O → Result |
+| **Fichiers candidats** | `application/qualifyCycleWithCkc.ts` |
+| **Dépendances** | BL-D2-A-03 · BL-D2-B-03/05 · BL-D2-C-01/02 |
+| **Tests futurs** | Light/Standard/Critical/Capitalization · signaux KO · stale · CKC KO · fallback · erreur QC · correlationId perdu · QC×1 |
+| **Preuves de fin** | Tests use case avec QC mock |
+| **Risques** | Fail-open · double appel QC · duplication règles |
+| **Stop conditions** | Modification fonctionnelle QualifyCycle |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-C |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given parcours nominal, When execute, Then QC appelé exactement une fois après preuve valide.
+2. Given échec amont, When execute, Then QC jamais appelé et Failure produit.
+3. Given QualifyCycle, When Delivery C, Then fonctionnellement inchangé.
+4. Given isMorrisDecision, When résultat, Then false.
+5. Given deps, When factory wiring, Then aucun repository mutation.
+
+### BL-D2-C-04 — Normalisation des erreurs bout en bout
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-C-04` |
+| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
+| **Résultat vérifiable** | Orchestrateur arrête le flux ; Result Projection construit Failure ; origine/code conservés ; erreur interne masquée ; retryable/recoverable ; pas de résultat partiel exploitable. |
+| **Formulation** | En tant que consommateur, je veux des Failures normalisées, afin de traiter les erreurs sans ambiguïté. |
+| **Justification** | FA-04 · ERR-B. |
+| **Décisions héritées** | FA-04 · ERR-B |
+| **Préconditions** | BL-D2-C-01 · BL-D2-C-03 · BL-D2-B-04 |
+| **Périmètre inclus** | Chemin normalisation orch→Result |
+| **Hors périmètre** | Exceptions brutes vers D3 |
+| **Contrats** | D2 Failure Result |
+| **Fichiers candidats** | qualifyCycleWithCkc + ckcQualificationResult |
+| **Dépendances** | BL-D2-C-01 · BL-D2-C-03 |
+| **Tests futurs** | chaque famille d’erreur amont → Failure · pas de profil |
+| **Preuves de fin** | Tests normalisation |
+| **Risques** | Normalisation trop tardive · fuite |
+| **Stop conditions** | Résultat partiel avec profil |
+| **Réversibilité** | Haute |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-C |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given erreur locale composant, When orch, Then flux arrêté et Failure normalisé.
+2. Given erreur interne, When Failure, Then message sûr.
+3. Given Failure, When champs, Then pas de recommendedProfile exploitable ni consumed=true.
+
+### BL-D2-C-05 — Événements qualification et résultat
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-C-05` |
+| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
+| **Résultat vérifiable** | Events additifs : qualification started/succeeded · result produced · request failed ; correlationId ; pas de données sensibles ; pas d’audit prod. |
+| **Formulation** | En tant qu’observateur, je veux des events C minimaux, afin de tracer le bridge sans RUN readiness. |
+| **Justification** | AUDIT-A · FA-07/11. |
+| **Décisions héritées** | AUDIT-A |
+| **Préconditions** | BL-D2-C-03 |
+| **Périmètre inclus** | Events C additifs sur CycleAuditEvent |
+| **Hors périmètre** | Audit production complet |
+| **Contrats** | CycleAuditEvent additif |
+| **Fichiers candidats** | `ports/cycleAudit.ts` |
+| **Dépendances** | BL-D2-C-03 |
+| **Tests futurs** | events émis · correlationId · pas de payload sensible |
+| **Preuves de fin** | Tests audit C |
+| **Risques** | Union surchargée · claim prod |
+| **Stop conditions** | Données sensibles dans events |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-C |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given succès/échec D2, When audit, Then events C minimaux avec correlationId.
+2. Given events, When contenu, Then aucune donnée sensible et aucun claim production-ready.
+
+### BL-D2-C-06 — Factory/façade D2 read-only
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-C-06` |
+| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
+| **Résultat vérifiable** | Factory/façade séparée ; deps resolver D2 + clock + audit + QualifyCycle ; pas de repos mutation ; pas CreateCycle ; API additive ; D3 peut importer contrats sans infra. |
+| **Formulation** | En tant qu’intégrateur, je veux une façade read-only, afin de composer D2 sans CreateCycle. |
+| **Justification** | COMP-B adopté. |
+| **Décisions héritées** | COMP-B |
+| **Préconditions** | BL-D2-C-03…05 |
+| **Périmètre inclus** | createCkcQualificationServices (nom candidat) · exports additifs |
+| **Hors périmètre** | Extension CycleServices mutation · construction depuis D3/UI |
+| **Contrats** | Factory API publique additive |
+| **Fichiers candidats** | composition près de `index.ts` · exports `index.ts` |
+| **Dépendances** | BL-D2-C-03 |
+| **Tests futurs** | Factory sans repos écriture · coexistence createInMemoryCycleServices |
+| **Preuves de fin** | Tests composition · review imports |
+| **Risques** | Couplage CreateCycle · fuite infra vers D3 |
+| **Stop conditions** | Exposition repositories mutation |
+| **Réversibilité** | Moyenne |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-C |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given factory D2, When créée, Then aucun repository mutation ni CreateCycle n’est exposé.
+2. Given exports, When D3 futur, Then contrats résultat importables sans infrastructure.
+3. Given API, When changement, Then additif ou arbitrage Morris explicite.
+
+### BL-D2-C-07 — Validation intégrée D2-A→B→C
+
+| Champ | Valeur |
+|-------|--------|
+| **ID** | `BL-D2-C-07` |
+| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
+| **Résultat vérifiable** | Parcours nominal/fallback/fail-closed ; QC×1 succès ; QC jamais échec amont ; aucune mutation ; coexistence T-A2 ; typecheck/lint/tests/build futurs ; contrat D3 unique sans UI. |
+| **Formulation** | En tant que reviewer, je veux une validation bout en bout, afin de clôturer D2-C sans ouvrir D3. |
+| **Justification** | Critères sortie D2-C. |
+| **Décisions héritées** | TA-12 · FA-C |
+| **Préconditions** | BL-D2-C-01…06 · A+B intégrés |
+| **Périmètre inclus** | Tests intégration A→B→C · checklist sortie C |
+| **Hors périmètre** | UI D3 · Delivery D2-D · CreateCycle |
+| **Contrats** | Success/Failure unique vérifié |
+| **Fichiers candidats** | tests `__tests__/oa/cycle/**` |
+| **Dépendances** | BL-D2-C-01…06 |
+| **Tests futurs** | intégration · régression oa/cycle · suite complète future |
+| **Preuves de fin** | Rapport Delivery C · preuves commandes futures |
+| **Risques** | Big-bang · ignore tests · snapshot aveugle |
+| **Stop conditions** | Mutation détectée · D3 UI inclus |
+| **Réversibilité** | Faible une fois intégré — tests protègent |
+| **Profil Delivery candidat** | Critical |
+| **Gate Morris** | GO DELIVERY D2-C |
+| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+
+**Critères d’acceptation :**
+
+1. Given parcours nominal/fallback, When intégration, Then Success et QC×1.
+2. Given échec amont, When intégration, Then Failure et QC=0.
+3. Given services T-A2 historiques, When coexistence, Then non-régression.
+4. Given checklist sortie C, When validation, Then bridge+Failure/Success+factory+events ; aucune mutation ; aucun D3.
+
+
+## S. Dépendances inter-stories
+
+```text
+A-01 → A-02 → A-03 → A-04
+A-04 → B-01 → B-02 → B-03 → B-04 → B-05 → B-06
+B-06 → C-01 → C-02 → C-03 → C-04 → C-05 → C-06 → C-07
+```
+
+## T. Matrice story → architecture adoptée
+
+| Story | FA-C / TA clés |
+|-------|----------------|
+| A-01 | TYPE-B · HASH-A · TA-P-A |
+| A-02 | HASH-A |
+| A-03 | TA-02 · FA-06 · ERR-B |
+| A-04 | Sortie A · non-régression D1 |
+| B-01 | CKC-S-A |
+| B-02 | PORT-B · FA-03 |
+| B-03 | PORT-B · CKC-S-A · FA-05 |
+| B-04 | ERR-B · FA-04 |
+| B-05 | PROOF-A · FA-02 |
+| B-06 | AUDIT-A · FA-07/11 |
+| C-01 | FA-08 Result Projection |
+| C-02 | Signaux · fail-closed |
+| C-03 | ORCH-A |
+| C-04 | FA-04 normalisation |
+| C-05 | AUDIT-A |
+| C-06 | COMP-B |
+| C-07 | Intégration A→B→C · TA-12 |
+
+## U. Matrice story → fichiers candidats
+
+| Story | Fichiers candidats (non autorisés ce cycle) |
+|-------|---------------------------------------------|
+| A-01 | `domain/ckcQualificationContracts.ts` · `index.ts` additif |
+| A-02 | `domain/catalogFingerprint.ts` · tests |
+| A-03 | `domain/catalogProjection.ts` |
+| A-04 | `index.ts` · tests oa/cycle |
+| B-01 | `infrastructure/ckcReferenceManifest.ts` |
+| B-02 | `ports/ckcQualificationResolver.ts` |
+| B-03 | adaptateur `infrastructure/*Resolver*` |
+| B-04 | `domain/ckcQualificationErrors.ts` |
+| B-05 | `domain/ckcConsumptionProof.ts` |
+| B-06 | `ports/cycleAudit.ts` additif · tests |
+| C-01 | `domain/ckcQualificationResult.ts` |
+| C-02 | helper domain/application |
+| C-03 | `application/qualifyCycleWithCkc.ts` |
+| C-04 | orch + result |
+| C-05 | `ports/cycleAudit.ts` |
+| C-06 | factory composition · `index.ts` |
+| C-07 | tests intégration |
+
+**Règles :** recommandations de backlog seulement · futur Delivery confirme Git · noms métier stables · pas de sous-domaine externe.
+
+## V. Matrice story → tests futurs
+
+| Story | Domaine | Contrat | Adaptateur | Use case | Intégration | Non-régression |
+|-------|---------|---------|------------|----------|-------------|----------------|
+| A-01 | ● | ● | | | | |
+| A-02 | ● | ● | | | | D1 |
+| A-03 | ● | | | | | |
+| A-04 | | | | | ● | D1/oa |
+| B-01 | | ● | ● | | | D1 |
+| B-02 | | ● | | | | port hist. |
+| B-03 | | | ● | | | |
+| B-04 | ● | ● | | | | |
+| B-05 | ● | | | | | |
+| B-06 | | | | | ● | audit hist. |
+| C-01 | ● | ● | | | | |
+| C-02 | ● | | | | | |
+| C-03 | | | | ● | | QualifyCycle |
+| C-04 | | | | ● | | |
+| C-05 | | | | | ● | |
+| C-06 | | | | | ● | CycleServices |
+| C-07 | | | | | ● | suite oa/cycle |
+
+Contrôles globaux futurs : tests ciblés · suite oa/cycle · suite complète · typecheck · lint · build — **non exécutés** ici.
+
+## W. Matrice story → risques
+
+| Story | Risque principal |
+|-------|------------------|
+| A-01 | Domaine parallèle / types.ts |
+| A-02 | Drift fingerprint manuel |
+| A-03 | Fail-open catalogue |
+| A-04 | Export trop large |
+| B-01 | Double source / enrichir D1 |
+| B-02 | Casser port historique |
+| B-03 | Fail-open CKC / random |
+| B-04 | Fuite erreur |
+| B-05 | consumed trop tôt |
+| B-06 | Audit surchargé |
+| C-01 | Règle métier dans projection |
+| C-02 | absence=false |
+| C-03 | Double QC / modifier QC |
+| C-04 | Résultat partiel |
+| C-05 | Données sensibles |
+| C-06 | Mutation via factory |
+| C-07 | Big-bang / ignore tests |
+
+## X. Critères d’entrée Delivery
+
+**D2-A :** backlog validé Morris · doc 19 · TA adoptées · archi adoptée · branche/base explicites · main à jour · fichiers A confirmés · profil requalifié · tests identifiés · handoff courant · pas de réserve bloquante.
+
+**D2-B :** A intégré/validé · contrats A stables · fingerprint+projection dispo · tests A verts · REX/post-merge A · GO B distinct.
+
+**D2-C :** A+B intégrés/validés · preuve+resolver+events B · GO C distinct.
+
+## Y. Critères de sortie par incrément
+
+Voir §§ M/O/Q. Preuves Delivery futures : Git Truth · diff limité · tests complets · pas d’ignore · pas de package · pas CreateCycle/mutation · non-régression · review Full · handoff.
+
+## Z. Profils Delivery candidats
+
+| Incrément | Profil candidat | Justification |
+|-----------|-----------------|---------------|
+| D2-A | **Standard** | Purs · pas resolver/orch · risque fingerprint |
+| D2-B | **Critical** | Fail-closed · preuve · authority · statut |
+| D2-C | **Critical** | Orchestration · QC · frontière D3 · mutation |
+
+Recommandations de backlog — chaque Delivery requalifie repo-informed.
+
+## AA. Gates Morris futurs
+
+```text
+GO DELIVERY SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+USE VALIDATED BACKLOG AND ADOPTED TA-01…12 —
+IMPLEMENT CONTRACTS, CATALOG FINGERPRINT AND PURE CATALOG PROJECTION —
+NO D2-B — NO D2-C — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
+```
+
+D2-B/C : gates distincts après intégration amont. **D2-D :** aucun gate.
+
+## AB. Stratégie de branches, commits et PR candidate
+
+Branche Delivery distincte par incrément · PR par incrément · commits atomiques · pas de big-bang · B sur A intégré · C sur B intégré · **aucune création** dans ce cycle.
+
+## AC. Stratégie QA future
+
+Tests domaine/contrat/adaptateur/use case/intégration/non-régression · suites A/B/C · contrôles globaux · pas de snapshot aveugle · revalidation profil Critical pour B/C.
+
+## AD. Anti-claims
+
+- Backlog ≠ Delivery autorisée
+- Aucune story `DELIVERY AUTHORIZED`
+- Aucune implémentation / test modifié / branche projet
+- Aucun D3 / UI / CreateCycle / multi-CKC / D2-D
+- Aucune estimation jours/points/heures
+- QualifyCycle / ResolveCKC / D1 non modifiés ici
+- INHERITED-R-01 NOT LIFTED
+
+## AE. Risques et réserves
+
+Stories fourre-tout (évitées) · drift fingerprint · double source CKC · fail-open · consumed prématuré · factory mutation · big-bang · rouvrir TA · **INHERITED-R-01 ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
+
+## AF. Readiness du backlog
+
+READY si : 17 stories à résultat vérifiable · AC complets · deps explicites · fichiers candidats · tests futurs · profils justifiés · A/B/C séparés · pas D2-D · pas d’implémentation · pas Delivery · TA non rouvertes · review pack + handoff.
+
+**Statut readiness local :** `BACKLOG COMPLETE LOCALLY — AWAITING MORRIS VALIDATION`
+
+## AG. Verdict
+
+```text
+V3.1-D2 DELIVERY BACKLOG COMPLETE —
+D-V3.1-D2-TA-01…12 RECORDED AS ADOPTED BY MORRIS —
+D2-A D2-B AND D2-C DECOMPOSED INTO TESTABLE STORIES —
+DEPENDENCIES AND ACCEPTANCE CRITERIA DOCUMENTED —
+CANDIDATE FILES AND FUTURE TESTS DOCUMENTED —
+DELIVERY PROFILES RECOMMENDED —
+D2-A TO D2-B TO D2-C ORDER PRESERVED —
+D2-D NOT OPENED —
+NO IMPLEMENTATION —
+NO TEST MODIFIED —
+NO BRANCH CREATED —
+NO BACKLOG DELIVERY EXECUTED —
+NO DELIVERY AUTHORIZED —
+NO D3 —
+NO UI —
+NO FIGMA —
+NO CREATECYCLE —
+NO METHOD PROMOTION
+```
+
+**Statut :** `V3.1-D2 DELIVERY BACKLOG READY FOR MORRIS VALIDATION — D2-A DELIVERY REQUIRES DISTINCT MORRIS GO — D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`
+
+
+## Document 18 — sections modifiées
+
+#### Métadonnées statut
 
 # 18 — V3.1-D2 CKC Resolver & QualifyCycle Bridge — Architecture technique
 
@@ -41,551 +897,134 @@ Pas de TA adoptée · pas de backlog/Delivery/D3/UI/CreateCycle · pas de code/t
 | **Branche** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
 | **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
 | **CKC** | `pilots/03-architecture-technique.md` · candidate v0.1.0 · `executionAuthority=false` |
-| **Statut** | `V3.1-D2 TECHNICAL ARCHITECTURE COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION OF D-V3.1-D2-TA-01…12 — NO TA DECISION ADOPTED — NO BACKLOG — NO DELIVERY` |
+| **Statut** | `TECHNICAL ARCHITECTURE ADOPTED — BACKLOG D2-A/B/C AUTHORIZED — NO DELIVERY — D3 NOT OPENED` |
+| **Doc backlog** | [`19-v3-1-d2-a-b-c-delivery-backlog.md`](./19-v3-1-d2-a-b-c-delivery-backlog.md) |
 | **Docs protégés** | 12–16 **inchangés** · 15 SHA `534904ea…` |
 | **Code / tests / Delivery / D3** | **non** |
 
 ## B. Gate Morris et décision record FA
 
-**Adoption FA (immédiatement antérieure au GO TA) :** formulation Morris FA-01…12 = recommandations candidates · « ok pour les recommandations ». Heure transcript **indisponible**. Enregistrement documentaire : 2026-08-01 16:29:26 CEST (+0200). GO TA : 2026-08-01 16:16 CEST.
 
-| ID | Retenu |
-|----|--------|
-| FA-01 | **FA-C** |
-| FA-02 | Preuve autonome logiquement, colocalisée composant 2 |
-| FA-03 | Resolver = résolution + projection T-A2 |
-| FA-04 | Normalisation orchestrateur + Result Projection |
-| FA-05 | Statut détaillé produit par resolver, conservé ensuite |
-| FA-06 | Version/hash dans Catalog Projection |
-| FA-07 | correlationId + événements minimaux |
-| FA-08 | Contrat résultat unique D3 |
-| FA-09 | D2-A / D2-B / D2-C séparés · D2-D gated |
-| FA-10 | Adaptation contrôlée T-A2 |
-| FA-11 | Événements fonctionnels minimaux |
-| FA-12 | Architecture technique avant backlog Delivery |
+## B2. Decision record Morris — TA adoptées · Backlog autorisé
 
-Voir [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) §B2 — `DECIDED — ADOPTED BY MORRIS`.
+| Champ | Valeur |
+|-------|--------|
+| **Formulation réelle Morris** | `TA-01 = TA-P-A` · `TA-02 = fonctions de domaine pures` · `TA-03 = HASH-A` · `TA-04 = CKC-S-A` · `TA-05 = PORT-B` · `TA-06 = TYPE-B` · `TA-07 = PROOF-A` · `TA-08 = ORCH-A` · `TA-09 = ERR-B` · `TA-10 = AUDIT-A` · `TA-11 = COMP-B` · `TA-12 = backlog D2-A/B/C séparé après arbitrage` · « ok pour les recommandations » |
+| **Adoption** | Immédiatement antérieure au GO Backlog |
+| **Heure d’adoption transcript** | **indisponible** |
+| **Date documentaire d’enregistrement** | 2026-08-01 16:55:05 CEST (+0200) |
+| **GO Backlog** | 2026-08-01 16:45 CEST (+0200) — `GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C — APPLY ADOPTED D-V3.1-D2-TA-01…12 — PREPARE TESTABLE DELIVERY SLICES — NO IMPLEMENTATION — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` |
+| **Option globale retenue** | TA-P-A · HASH-A · CKC-S-A · PORT-B · TYPE-B · PROOF-A · ORCH-A · ERR-B · AUDIT-A · COMP-B · backlog A→B→C |
+| **Conséquence** | Backlog D2-A/B/C **autorisé** · Delivery / D3 / UI / CreateCycle / D2-D **fermés** · aucune implémentation |
+| **Document 19** | [`19-v3-1-d2-a-b-c-delivery-backlog.md`](./19-v3-1-d2-a-b-c-delivery-backlog.md) |
 
 ## C. Sources consultées
 
-Gouvernance · CKC `03-architecture-technique` · routing matrix · §4.6 · framing 08/12–17/README · D1 · T-A2 intégral (`types`/`errors`/`invariants`/`qualification`/`ckcResolver`/`cycleAudit`/`resolveCycleKnowledgeContract`/`qualifyCycle`/`createCycle`/`memoryCkcResolver`/`observability`/`index`) · tests `oa/cycle/**` · `package.json`/`tsconfig`/`vitest`/`next.config` · handoff `fa0ceebc…`.
-
-**Limite pre-check ChatGPT :** état local non inspecté directement par ChatGPT ; contrôle local Cursor obligatoire — **exécuté et conforme**.
-
-## D. Git Truth
-
-Branche framing @ `e1befcb8…` · main/origin/main alignés 0/0 · staged vide · 08/README modifiés · 15/16/17 non suivis · 77 WT · prune vide · branche projet distante absente · handoff tip `fa0ceebc…` blob `4e764890…` · doc15 `534904ea…`.
-
-## E. CKC Architecture technique
-
-Pilote `03-architecture-technique.md` · candidate · héritage §4.6 · guidance cognitive · **pas** d’autorité d’exécution. Dimensions 1–11 couvertes. Interdictions : stack par habitude · mono-option · benchmark inventé · sécu cosmétique · astronaut · code sous archi · claims scalable/secure/prod/zéro dette sans preuve.
-
-## F. Architecture fonctionnelle adoptée
-
-FA-C : (1) Catalog Projection (2) CKC Resolution and Consumption — resolver + proof logique distincte (3) Qualification Orchestrator (4) Read-only Result Projection (T) Error/Traceability Envelope.
-
-## G. État technique actuel
-
-### Observations confirmées localement
-
-| Élément | Observation |
-|---------|-------------|
-| `cycleTypeCatalog.ts` | Domaine pur · 15 entrées · version `0.1.0-v3.1-d1` · mapping CKC · **pas de hash** · pas d’I/O |
-| `CkcResolverPort` | `cycleTypeId`/`resolvedAt`/`correlationId?` → `CkcResolution` |
-| `MemoryCkcResolver` | Registre mémoire indépendant catalogue · `randomBytes` · unavailable si absent · **pas** primary vs fallback · **pas** preuve D2 |
-| `ResolveCycleKnowledgeContract` | Guidance · absent/unavailable = `ok:true` · ≠ fail-closed D2 |
-| `QualifyCycle` | Recommandation · `isMorrisDecision=false` · ne résout pas CKC |
-| `CycleAuditEvent` | Union T-A2 · `oa.ckc.resolved` / `oa.cycle.qualified` · pas d’événements D2 |
-| `createInMemoryCycleServices` | Composition T-A2 + repos mutation |
-| `node:crypto`/`randomBytes` | createCycle, trajectories, epistemic, **MemoryCkcResolver** |
-| Socle | Next 15 · React 19 · TS strict · bundler · Vitest · **pas** de lib hash dédiée |
-
-## H. Contraintes et NFR
-
-| NFR | Exigence |
-|-----|----------|
-| Déterminisme | Mêmes entrées contractuelles → même résultat hors timestamps/IDs variables · hash reproductible · mapping stable |
-| Testabilité | Domaine pur · clock/audit injectables · pas de Next obligatoire · fail-closed vérifiable |
-| Compatibilité | QualifyCycle inchangé · adaptation T-A2 · API publique additive · pas de domaine parallèle |
-| Sécurité | Pas de Markdown parse · refs typées · pas de secret · correlationId ≠ identité · pas de payload sensible |
-| Performance | 15 entrées · pas de cache disproportionné · coût hash explicite · **aucun claim sans mesure** |
-| Résilience | Fail-closed · pas de profil/`consumed=true` après échec · pas de mutation partielle |
-| Observabilité | Événements minimaux · correlationId · pas de RUN readiness |
-| DevOps | Next/Vitest/TS · pas de nouvelle dépendance sans justification · **pas de CI dans ce cycle** |
-
-## I. Principes techniques
-
-Les 25 principes du GO (catalogue autoritatif, no Markdown, QualifyCycle inchangé, adaptation T-A2, proof distincte, fail-closed avant QualifyCycle, `executionAuthority=false`, Core seul, contrat D3 unique, pas de mutation, noms sémantiques hors dette « D2 », API additive).
-
-## J. Frontière serveur/client
-
-```mermaid
-flowchart TB
-  subgraph shareable [Partageable / pur]
-    Cat[cycleTypeCatalog]
-    Types[Contrats D2 types]
-    Proj[Catalog Projection pure]
-    Proof[Proof Builder pur]
-    ResProj[Result Projection pure]
-  end
-  subgraph serverish [Serveur ou neutre injecté]
-    Orch[Orchestrator use case]
-    Manifest[CKC metadata manifest]
-    Audit[CycleAuditPort sink]
-    Crypto[node:crypto — INTERDIT côté client D2]
-  end
-  D3[Futur D3] -->|importe seulement| Types
-  D3 -->|importe seulement| ResProj
-  D3 -.->|interdit| Crypto
-  D3 -.->|interdit| ManifestInfra[Infra résolution]
-```
-
-- Modules purs : catalogue, projection, preuve, types résultat, mapping statut.
-- Orchestrateur : neutre si dépendances injectées (clock/audit/resolver) — **pas** d’import `node:crypto`.
-- Toute crypto/hash runtime Node : **adaptateur serveur** ou constante précalculée (HASH-A).
-- Aucune route / Server Action / React dans ce cycle.
-
-## K. Cartographie des modules actuels
-
-```mermaid
-flowchart LR
-  index[index.ts barrel + factory]
-  domain[domain/*]
-  app[application/*]
-  ports[ports/*]
-  infra[infrastructure/*]
-  index --> domain
-  index --> app
-  index --> ports
-  index --> infra
-  app --> domain
-  app --> ports
-  infra --> ports
-  infra --> domain
-  createCycle[CreateCycle] --> repos[Repos mutation]
-  resolveCKC[ResolveCKC guidance] --> ckcPort[CkcResolverPort]
-  qualify[QualifyCycle] --> qualDom[qualification.ts]
-```
-
-## L. Options de packaging technique
-
-| | TA-P-A Extension répertoires existants | TA-P-B Sous-module sémantique borné | TA-P-C Domaine parallèle |
-|--|--|--|--|
-| Cohésion | Moyenne | Haute | Fausse isolation |
-| Couplage T-A2 | Faible-moyen | Contrôlé | Duplication |
-| API | Barrel existant | Facade bornée | Divergence |
-| Dette | Fichiers nombreux | Structure nouvelle | **Élevée** |
-| Slicing A/B/C | Possible par fichiers | Clair | Risqué |
-| Réversibilité | Haute | Moyenne | Faible |
-
-**Reco candidate : TA-P-A** — fichiers sémantiques sous `domain/`/`application/`/`ports/`/`infrastructure/` avec noms **métier** (ex. `catalogProjection`, `ckcConsumptionProof`, `qualifyCycleBridge`) — **pas** un package externe. TA-P-C **rejeté**. TA-P-B optionnellement si Morris veut façade plus stricte.
-
-## M. Architecture cible candidate (non adoptée)
-
-Nommage sémantique candidat (documentaire) :
-
-| Rôle FA-C | Emplacement candidat | Nature |
-|-----------|----------------------|--------|
-| Catalog Projection | `domain/catalogProjection.ts` | Fonctions pures |
-| catalogHash | `domain/catalogFingerprint.ts` (+ constante) | Pur |
-| Contrats D2 | `domain/ckcQualificationContracts.ts` | Types |
-| Resolver D2 | `ports/ckcQualificationResolver.ts` + infra adaptateur | Port + infra |
-| Manifest CKC | `infrastructure/ckcReferenceManifest.ts` | Données typées |
-| Proof Builder | `domain/ckcConsumptionProof.ts` | Pur |
-| Orchestrator | `application/qualifyCycleWithCkc.ts` | Use case |
-| Result Projection | `domain/ckcQualificationResult.ts` | Pur |
-| Erreurs D2 | `domain/ckcQualificationErrors.ts` | Types + adaptateur |
-| Factory | `createCkcQualificationServices` dans `index.ts` ou voisin | Composition |
-
-```mermaid
-flowchart TB
-  CP[catalogProjection] --> OR[qualifyCycleWithCkc]
-  RES[ckcQualificationResolver] --> OR
-  PRF[ckcConsumptionProof] --> OR
-  QC[QualifyCycle T-A2] --> OR
-  OR --> RP[ckcQualificationResult]
-  MAN[ckcReferenceManifest] --> RES
-  AUD[CycleAuditPort] --> OR
-  CLK[ClockPort] --> OR
-```
-
-**Imports interdits :** CreateCycle repos · Markdown FS · `node:crypto` dans modules purs · QualifyCycle modifié · UI.
-
-### Séquence nominale technique
-
-```mermaid
-sequenceDiagram
-  participant Caller
-  participant CP as catalogProjection
-  participant RES as ckcQualificationResolver
-  participant PRF as ckcConsumptionProof
-  participant OR as qualifyCycleWithCkc
-  participant QC as QualifyCycle
-  participant RP as resultProjection
-  Caller->>OR: Selection Context + signals + correlationId
-  OR->>CP: projectSelectableCycleType
-  CP-->>OR: Validated Projection
-  OR->>RES: resolve(mapping)
-  RES-->>OR: Resolution Result + detailedStatus
-  OR->>PRF: buildProof
-  PRF-->>OR: consumed=true
-  OR->>QC: execute(QualifyCycleRequest)
-  QC-->>OR: recommendation
-  OR->>RP: assemble Success
-  RP-->>Caller: Success Result
-```
-
-### Séquence fail-closed technique
-
-```mermaid
-sequenceDiagram
-  participant Caller
-  participant CP as catalogProjection
-  participant RES as ckcQualificationResolver
-  participant OR as qualifyCycleWithCkc
-  participant RP as resultProjection
-  Caller->>OR: contexte
-  alt catalog/version/hash KO
-    OR->>CP: project
-    CP-->>OR: erreur locale
-    OR->>RP: normalize Failure
-    RP-->>Caller: Failure (QC non appelé)
-  else CKC/preuve KO
-    OR->>CP: project OK
-    OR->>RES: resolve
-    RES-->>OR: erreur locale
-    OR->>RP: normalize Failure
-    RP-->>Caller: Failure (QC non appelé)
-  end
-```
-
-## N. Mapping FA-C → technique
-
-### Dépendances entre composants techniques
-
-```mermaid
-flowchart LR
-  CP[catalogProjection] --> OR[qualifyCycleWithCkc]
-  MAN[ckcReferenceManifest] --> RES[ckcQualificationResolver]
-  RES --> OR
-  RES --> PRF[ckcConsumptionProof]
-  PRF --> OR
-  QC[QualifyCycle] --> OR
-  OR --> RP[ckcQualificationResult]
-  AUD[CycleAuditPort] --> OR
-  CLK[ClockPort] --> OR
-```
-
-| FA-C | Type | Entrées | Sorties | Deps OK | Deps interdites | Public? | Lot | Tests | Réversibilité |
-|------|------|---------|---------|---------|-----------------|---------|-----|-------|---------------|
-| Catalog Projection | domaine pur | Selection Context | Validated Projection / erreur | catalogue D1 | resolver, QC | oui (lecture) | A | purs | haute |
-| Resolver (+ statut D2 + T-A2) | port+infra | mapping validé | Resolution Result | manifest | QC, CreateCycle | interne/port | B | unit+contrat | moyenne |
-| Proof Builder | domaine pur | Resolution Result | Proof / erreur | aucun I/O | QC | interne | B | purs | haute |
-| Orchestrator | application | contexte+signaux | assemblage | CP,RES,PRF,QC,clock,audit | repos écriture | façade | C | intégration | moyenne |
-| Result Projection | domaine pur | pièces + erreurs | Success/Failure | aucun I/O | rules métier | **contrat D3** | C | purs | haute |
-| Envelope T | transverse | correlationId | events/erreurs | audit port | IAM | via orch | A–C | unit | haute |
-
-## O. Contrats et types TypeScript candidats
-
-**Reco TYPE-B :** fichier `domain/ckcQualificationContracts.ts` (ou nom sémantique équivalent) exporté additivement via `index.ts`.
-
-Types candidats (documentaires) :
-
-- `CatalogSelectionContext`
-- `ValidatedCycleTypeProjection`
-- `D2DetailedCkcStatus` (statuts doc 16)
-- `CkcQualificationResolution`
-- `CkcConsumptionProof`
-- `CkcQualificationSuccessResult` / `CkcQualificationFailureResult`
-- Réutilisation : `CkcLevel`/`CkcStatus`/`CkcSource`/`QualifyCycleRequest`/`QualifyCycleRecommendation` T-A2
-
-TYPE-C rejeté (perte primary/fallback/preuve). TYPE-A acceptable mais fichier `types.ts` déjà large.
-
-## P. D2-A — Catalog Projection
-
-API candidate pure :
-
-- `projectSelectableCycleType(ctx) → ValidatedCycleTypeProjection | CatalogProjectionError`
-- Réutilise `getCycleTypeById` / validateurs D1 existants
-- Vérifie `catalogVersion` / `catalogHash` / lifecycle / sélectionnabilité
-- Expose mapping CKC Core
-- **N’appelle pas** resolver ni QualifyCycle
-
-## Q. Version et catalogHash
-
-Contenu contractuel de l’empreinte (candidat) :
-
-`cycleTypeId` · `canonicalKey` · `lifecycleStatus` · `methodCycleNumber` · mapping CKC (level, primary, fallback, doctrine, executionAuthority, unavailableBehavior) · références.
-
-**Labels/descriptions :** **exclure** de l’empreinte (changement i18n ≠ stale contractuel) — option à confirmer Morris via TA-03.
-
-| | HASH-A constante+test | HASH-B sérialisation+adaptateur | HASH-C artefact build |
-|--|--|--|--|
-| Client-safe | Oui | Selon adaptateur | Oui si statique |
-| Dérive | Manuelle | Faible | Pipeline |
-| Dette | Faible | Crypto/env | CI/script |
-| Proportion 15 entrées | **Bonne** | Moyenne | Disproportionnée |
-
-**Reco candidate : HASH-A** — constante versionnée exportée + test de cohérence sur projection contractuelle. HASH-B en réserve si dérive manuelle observée. HASH-C déconseillé pour cette taille.
-
-Algo : **non choisi** ici (SHA-256 vs autre) — si HASH-A, l’algo est hors runtime (empreinte figée).
-
-## R. D2-B — CKC Resolution
-
-**Reco PORT-B :** port spécialisé `CkcQualificationResolverPort` (fail-closed, detailed/fallback, statut D2) + projection vers champs T-A2 (`level`/`status`/`source`) sans casser `CkcResolverPort` historique.
-
-PORT-A risque de rupture CreateCycle. PORT-C incompatible (guidance `ok` sur unavailable).
-
-Flux : detailed → fallback synthetic → synthetic primaire · Core seul · `executionAuthority=false` forcé · pas de QualifyCycle.
-
-## S. Source runtime des métadonnées CKC
-
-| | CKC-S-A manifest typé | CKC-S-B enrichir D1 | CKC-S-C MemoryCkcResolver |
-|--|--|--|--|
-| Autorité | Registre contrôlé | Catalogue | Double source |
-| Markdown | Non | Non | Non |
-| Fallback détaillé | Oui si modélisé | Possible | **Non** |
-| Preuve D2 | Compatible | Couplage | **Absente** |
-| Impact D1 | Nul | **Fort** | Nul mais incorrect |
-
-**Reco candidate : CKC-S-A** — manifest TypeScript des références autorisées (niveau, version, disponibilité, source). Paths Git = provenance, **pas** ouverts. CKC-S-C **rejeté** comme source autoritative produit. CKC-S-B nécessite GO D1 distinct.
-
-## T. CKC Consumption Validator / Proof Builder
-
-**Reco PROOF-A :** fonction pure domaine — reçoit résolution + contexte validé → Proof ou erreur. Aucune I/O. Colocalisé module Resolution+Consumption (FA-02). PROOF-C viole FA-02. PROOF-B inutile sans deps.
-
-## U. Statuts détaillés et mapping T-A2
-
-Resolver produit statut D2 (doc 16) **et** projection `CkcLevel`/`CkcStatus`/`CkcSource`. Proof + Success conservent le détail pour compenser perte primary/fallback dans T-A2. Pas de nouveaux enums T-A2.
-
-## V. D2-C — Qualification Orchestrator
-
-**Reco ORCH-A :** use case `QualifyCycleWithCkc` (nom candidat) injecté :
-
-dépendances : CatalogProjection · CkcQualificationResolver · ProofBuilder · **QualifyCycle existant** · ClockPort · Audit · ResultProjection.
-
-ORCH-B / ORCH-C **rejetés** (mélange responsabilités / guidance).
-
-Règles : signaux 6 · pas `requestedProfile` · QualifyCycle **une fois** · stop si non consommé · normalisation FA-04.
-
-## W. Réutilisation de QualifyCycle
-
-Fonctionnellement **inchangé**. Orchestrateur appelle `execute(QualifyCycleRequest)`. Domaine `qualification.ts` non dupliqué. `isMorrisDecision=false` conservé.
-
-## X. Read-only Result Projection
-
-Fonctions pures assemblant Success/Failure (doc 16). Disclosures (fallback). Frontière unique D3. Aucune règle métier. Aucune persistance.
-
-## Y. Erreurs et normalisation
-
-**Reco ERR-B :** codes/erreurs D2 typés (`CATALOG_*`, `CKC_*`, `SIGNALS_*`, … doc 16) + adaptateur optionnel vers enveloppe `CycleStructuredError` si besoin de sink commun. ERR-A élargit fortement `CycleDetailCode` (risque dilution). ERR-C rejeté.
-
-Flux : erreur locale composant → orchestrateur arrête → Result Projection émet Failure (pas de profil, pas `consumed=true`).
-
-## Z. Traçabilité et événements
-
-**Reco AUDIT-A :** extension **additive** de `CycleAuditEvent` avec événements D2 minimaux (catalog validated, resolution started/succeeded/failed, fallback used, consumption validated/rejected, qualification started/succeeded, result produced, request failed). AUDIT-C incompatible FA-07/11. AUDIT-B si union devient trop large.
-
-Champs : `correlationId` obligatoire · `ts` · codes · **pas** de données sensibles.
-
-## AA. Composition root et API publique
-
-**Reco COMP-B :** factory/façade `createCkcQualificationServices` (nom candidat) — **sans** repos mutation. Réutilise `QualifyCycle` + clock + audit. COMP-A couple D2 à CreateCycle. COMP-C rejeté (UI).
-
-Exports additifs via `index.ts` : contrats résultat + factory. **Pas** de breaking change obligatoire.
-
-## AB. Déterminisme, horloge et identifiants
-
-- `resolvedAt`/`qualifiedAt` : ClockPort injectable.
-- `correlationId` : fourni par appelant ; absent → Failure.
-- `ckcResolutionId` historique (`randomBytes`) : **ne pas** hériter pour logique déterministe D2 ; ID résultat read-only **optionnel** — si requis, générateur injecté ou dérivé déterministe du contexte (décision TA ouverte).
-- Pas de dépendance à l’ordre d’un `Map` mutable pour le hash.
-
-## AC. Sécurité
-
-Analyse bornée : refs CKC via manifest typé · pas de FS/Markdown · pas de secrets · correlationId non-IAM · Failure sans fuite `internalCauseRef` côté D3 · pas d’exposition infra à D3.
-
-**Aucun claim « sécurisé ».**
-
-## AD. Performance et résilience
-
-15 entrées · projection O(n) négligeable · hash constante (HASH-A) O(1) runtime · **aucune mesure** → **aucun claim perf**. Résilience = fail-closed documenté.
-
-## AE. Observabilité et DevOps fit
-
-Événements minimaux · journals mémoire/console existants · Vitest pour domaine · **pas** de CI/script dans ce cycle · **pas** de nouvelle dépendance proposée (HASH-A / WebCrypto non requis).
-
-## AF. Compatibilité et migration T-A2
-
-| Artefact | Stratégie |
-|----------|-----------|
-| QualifyCycle | Inchangé |
-| ResolveCycleKnowledgeContract | Conservé pour CreateCycle/guidance · **non** utilisé comme exploitabilité D2 |
-| CkcResolverPort / MemoryCkcResolver | Conservés historiques · non source autoritative D2 |
-| CycleServices | Inchangé ou extension additive optionnelle |
-| Tests historiques | Régression obligatoire en Delivery |
-
-## AG. Stratégie de tests future (aucun test créé)
-
-**D2-A :** version/hash · inconnu · lifecycle · stale · déterminisme fingerprint.
-
-**D2-B :** detailed/synthetic/fallback · mapping invalide · ref non autorisée · executionAuthority · preuve · extension implicite · mapping T-A2.
-
-**D2-C :** signaux · QC ×1 · QC jamais si amont KO · Critical/Capitalization · Success/Failure · correlationId · events.
-
-**Intégration :** A→B→C · frontière unique · aucune mutation · coexistence factory T-A2 · régression.
-
-```mermaid
-flowchart TB
-  unitA[Unit D2-A purs] --> int[Intégration A-B-C]
-  unitB[Unit D2-B port+proof] --> int
-  unitC[Unit D2-C orch+QC mock] --> int
-  regr[Régression T-A2 historiques] --> int
-```
-
-## AH. Packaging D2-A / D2-B / D2-C
-
-```mermaid
-flowchart LR
-  A[D2-A Catalog Projection + fingerprint] --> B[D2-B Resolver + Manifest + Proof]
-  B --> C[D2-C Orchestrator + Result + Audit events]
-  C -.->|futur| D3[D3 consomme Result]
-```
-
-Chaque lot : contrats de sortie testables · gate Morris Delivery distinct · D2-D gated.
-
-## AI. Dépendances et impacts build
-
-Aucune nouvelle dépendance runtime recommandée. Impact : fichiers TS additifs · typecheck/Vitest · attention imports `node:crypto` hors client. **package.json / CI non modifiés** dans ce cycle.
-
-## AJ. Alternatives et trade-offs
-
-Synthèse : packaging A vs B · HASH A/B/C · CKC-S A/B/C · PORT A/B/C · TYPE A/B/C · PROOF A/B/C · ORCH A/B/C · ERR A/B/C · AUDIT A/B/C · COMP A/B/C — voir §§ L–AA et decision pack.
-
-**Recommandation technique candidate globale (non adoptée) :**
-
-TA-P-A · Catalog Projection pure · HASH-A · CKC-S-A · PORT-B · TYPE-B · PROOF-A · ORCH-A · ERR-B · AUDIT-A · COMP-B · slicing A→B→C après arbitrage TA.
 
 ## AK. Decision pack Morris
 
-Toutes : **NOT DECIDED — MORRIS DECISION REQUIRED.**
+**Statut pack :** `DECIDED — ADOPTED BY MORRIS` pour D-V3.1-D2-TA-01…12 (formulation §B2). Options et trade-offs historiques **conservés**.
 
 ### D-V3.1-D2-TA-01 — Packaging
 
 - Problème : où placer le code D2 sans domaine parallèle.
 - Options : extension répertoires / sous-module borné / domaine parallèle.
 - Reco : **extension sémantique (TA-P-A)** ; parallèle rejeté.
+- **Retenu :** TA-P-A
 - NFR : cohésion, dette, réversibilité.
 - Impact API : additive via barrel.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-02 — Catalog Projection
 
 - Options : fonctions pures / service applicatif / extension comportementale catalogue.
 - Reco : **fonctions de domaine pures**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** fonctions de domaine pures
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-03 — catalogHash
 
 - Options : constante+test / sérialisation+adaptateur / artefact build.
 - Reco : **HASH-A**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** HASH-A (labels/descriptions exclus)
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-04 — Source métadonnées CKC
 
 - Options : manifest typé / enrichir D1 / MemoryCkcResolver.
 - Reco : **CKC-S-A** ; Memory comme autorité **rejeté**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** CKC-S-A
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-05 — Resolver port
 
 - Options : évoluer port / port D2+adaptateur / wrapper ResolveCKC.
 - Reco : **PORT-B**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** PORT-B
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-06 — Placement contrats
 
 - Options : types.ts / fichier dédié / T-A2 exclusive.
 - Reco : **fichier domaine sémantique dédié (TYPE-B)**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** TYPE-B
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-07 — Preuve
 
 - Options : validator pur / service / orchestrateur.
 - Reco : **PROOF-A**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** PROOF-A
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-08 — Orchestration
 
 - Options : nouveau use case / modifier QualifyCycle / modifier ResolveCKC.
 - Reco : **ORCH-A** ; B/C rejetés.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** ORCH-A
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-09 — Erreurs
 
 - Options : étendre CycleDetailCode / erreurs D2+adaptateur / génériques.
 - Reco : **ERR-B**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** ERR-B
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-10 — Audit
 
 - Options : extension CycleAuditEvent / port D2+adaptateur / aucun.
 - Reco : **AUDIT-A**.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** AUDIT-A
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-11 — Composition / API
 
 - Options : étendre CycleServices / factory D2 séparée / depuis D3.
 - Reco : **COMP-B** ; depuis D3 rejeté.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** COMP-B
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
 ### D-V3.1-D2-TA-12 — Slicing / gate sortie
 
 - Options : backlog A/B/C séparé / lot unique / Delivery directe.
 - Reco : **backlog séparé après arbitrage TA** ; Delivery directe déconseillée.
-- Statut : NOT DECIDED — MORRIS DECISION REQUIRED
+- **Retenu :** backlog D2-A/B/C séparé
+- Statut : **DECIDED — ADOPTED BY MORRIS**
 
-Pour chaque décision : options et reco ci-dessus · dette/réversibilité documentées · impact D1 limité (sauf si CKC-S-B) · T-A2 préservé · D3 consomme résultat · **aucune adoption dans ce cycle**.
+Pour chaque décision : options et reco historiques conservés · **retenues adoptées** · dette/réversibilité documentées · T-A2 préservé · D3 consomme résultat · Delivery **non autorisée** dans ce cycle.
 
-## AL. Questions ouvertes
 
-- Nom exact des fichiers/modules sémantiques.
-- Inclusion labels dans fingerprint.
-- Algorithme si HASH-B choisi plus tard.
-- Besoin d’un `qualificationResultId`.
-- Étendue exacte des événements additifs vs port dédié si union grossit.
-- Export public minimal pour D3 (types only vs helpers).
-- Stratégie de versionnement `CYCLE_TYPE_CATALOG_VERSION` vs fingerprint.
-- Migration progressive MemoryCkcResolver (tests only) vs dépréciation documentation.
-
-## AM. Risques, dette et réversibilité
-
-Sur-architecture · nommage « D2 » · types.ts surchargé · domaine parallèle · duplication T-A2 · port cassant · ResolveCKC mal réutilisé · double source CKC · Markdown · hash manuel divergent · sérialisation non canonique · `node:crypto` client · artefact build · random ID · correlationId perdu · erreurs diluées · audit/factory surchargés · D3↔infra · fail-open · mutation · package inutile · slicing non livrable · Delivery implicite · claims prod sans preuve · **INHERITED-R-01 ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
-
-Réversible facilement : HASH-A→B · AUDIT-A→B · COMP-B wiring. Coûteux : PORT-A cassant · domaine parallèle · enrichissement D1.
 
 ## AN. Backlog handoff candidat
 
-Après arbitrage TA uniquement : préparer backlog D2-A/B/C testable — **non ouvert** ici.
+Backlog D2-A/B/C : voir [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) — **autorisé** ; Delivery **fermée**.
 
 ## AO. Gates suivants candidats
 
 ```text
-GO ARBITRATE SFIA STUDIO V3.1-D2 TECHNICAL ARCHITECTURE DECISION PACK —
-DECIDE D-V3.1-D2-TA-01…12 —
-NO BACKLOG —
-NO DELIVERY —
-NO D3 —
-NO UI —
-NO CREATECYCLE —
-NO METHOD PROMOTION
-```
-
-Ultérieur (après arbitrage TA) :
-
-```text
 GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C —
-USE ADOPTED FUNCTIONAL AND TECHNICAL ARCHITECTURE —
+APPLY ADOPTED D-V3.1-D2-TA-01…12 —
 PREPARE TESTABLE DELIVERY SLICES —
 NO IMPLEMENTATION —
 NO D3 —
@@ -594,7 +1033,9 @@ NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-Ne pas exécuter sans nouveau GO Morris.
+**Statut :** **consommé** (2026-08-01 16:45 CEST) — voir document 19.
+
+Gate Delivery candidat (ne pas exécuter) : GO DELIVERY V3.1-D2-A …
 
 ## AP. Critères d’acceptation AC-D2-TA-01…24
 
@@ -607,19 +1048,10 @@ Couvrent : import pur · hash stable/stale · labels · type inconnu · detailed
 ## AR. Verdict
 
 ```text
-V3.1-D2 TECHNICAL ARCHITECTURE COMPLETE —
-D-V3.1-D2-FA-01…12 RECORDED AS ADOPTED BY MORRIS —
-FA-C TECHNICALLY MAPPED —
-CURRENT D1 AND T-A2 BASELINE ANALYZED —
-PACKAGING, HASH, CKC SOURCE, RESOLVER, PROOF, ORCHESTRATOR, ERROR, AUDIT AND COMPOSITION OPTIONS COMPARED —
-SERVER CLIENT BOUNDARY DOCUMENTED —
-NFR AND REVERSIBILITY DOCUMENTED —
-D2-A D2-B AND D2-C TECHNICAL SLICING DOCUMENTED —
-D-V3.1-D2-TA-01…12 PREPARED FOR MORRIS ARBITRATION —
-NO TECHNICAL ARCHITECTURE DECISION ADOPTED —
+V3.1-D2 TECHNICAL ARCHITECTURE ADOPTED —
+D-V3.1-D2-TA-01…12 RECORDED AS ADOPTED BY MORRIS —
+BACKLOG D2-A/B/C AUTHORIZED —
 NO IMPLEMENTATION —
-NO TEST MODIFIED —
-NO BACKLOG —
 NO DELIVERY —
 NO D3 —
 NO UI —
@@ -628,193 +1060,7 @@ NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-**Statut :** `V3.1-D2 TECHNICAL ARCHITECTURE READY FOR MORRIS ARBITRATION — BACKLOG AND DELIVERY REQUIRE DISTINCT MORRIS GATES — D3 NOT OPENED`
-
-
-## Document 17 — sections modifiées
-
-### Document 17 — sections modifiées
-
-#### A+B2
-
-# 17 — V3.1-D2 CKC Resolver & QualifyCycle Bridge — Architecture fonctionnelle
-
-## A. Métadonnées
-
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure/fuseau** | 2026-08-01 15:20:47 CEST (+0200) |
-| **Cycle projet** | 3 — Architecture fonctionnelle |
-| **Profil SFIA** | **Critical** |
-| **Typologie** | DOC |
-| **Gate Morris** | Formulation : « ok go architecture fonctionnelle D2 » — 2026-08-01 15:13 CEST (+0200) |
-| **Branche** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
-| **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| **CKC** | Fallback : carte synthétique + §4.3 · method-candidate · `executionAuthority=false` |
-| **Statut** | `FUNCTIONAL ARCHITECTURE ADOPTED — TECHNICAL ARCHITECTURE AUTHORIZED — NO DELIVERY — D3 NOT OPENED` |
-| **Doc 15** | **strictement inchangé** |
-| **Doc technique** | [`18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) |
-| **Code / UI / D3 / CreateCycle** | **non** |
-
-## B. Gate Morris et autorité
-
-**Autorisé (cycle FA historique) :** architecture fonctionnelle ; options FA-A/B/C ; decision pack D-V3.1-D2-FA ; traçabilité ; handoff.
-
-**Interdit (cycle FA historique) :** architecture technique ; code ; Delivery ; D3 ; UI ; Figma ; CreateCycle ; D2-D ; adoption implicite des décisions FA ; promotion méthode.
-
-**Justification Critical :** frontières structurantes catalogue / resolver / consommation / bridge / résultat / D3 ; mauvais découpage → duplication, fail-open, dette, incohérence T-A2. Critical ≠ autorité d’exécution ni Delivery.
-
-## B2. Decision record Morris — FA adoptées · architecture technique autorisée
-
-| Champ | Valeur |
-|-------|--------|
-| **Formulation réelle Morris** | `FA-01 = FA-C` · `FA-02 = preuve autonome logiquement, colocalisée dans le composant 2` · `FA-03 = resolver : résolution + projection T-A2` · `FA-04 = normalisation orchestrateur + Result Projection` · `FA-05 = statut détaillé produit par le resolver et conservé ensuite` · `FA-06 = contrôle version/hash dans Catalog Projection` · `FA-07 = correlationId + événements minimaux` · `FA-08 = contrat résultat unique pour D3` · `FA-09 = composants répartis clairement entre D2-A/B/C` · `FA-10 = adaptation contrôlée de T-A2` · `FA-11 = événements fonctionnels minimaux` · `FA-12 = architecture technique avant backlog Delivery` · « ok pour les recommandations » |
-| **Adoption** | Immédiatement antérieure au GO architecture technique |
-| **Heure d’adoption transcript** | **indisponible** |
-| **Date documentaire d’enregistrement** | 2026-08-01 16:29:26 CEST (+0200) |
-| **GO architecture technique** | 2026-08-01 16:16 CEST (+0200) — `GO ARCHITECTURE TECHNIQUE SFIA STUDIO V3.1-D2 — APPLY ADOPTED D-V3.1-D2-FA-01…12 — NO DELIVERY — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` |
-| **Option retenue** | **FA-C** (Catalog Projection · Resolution+Consumption · Orchestrator · Result Projection · Envelope T) |
-| **Conséquence** | Architecture technique **autorisée** · Delivery / backlog / D3 / UI / CreateCycle / D2-D **fermés** |
-| **Document 18** | [`18-…-technical-architecture.md`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) |
-
-## C. Sources consultées
-
-Gouvernance · carte synthétique · routing matrix · §4.3 · framing 08/12–16/README · D1 · T-A2 ports/types/qualify/errors/MemoryCkcResolver (observations) · handoff `308130e…`.
-
-## D. Héritage validé
-
-#### AI+AM
-
-## AI. Decision pack Morris
-
-**Statut pack :** `DECIDED — ADOPTED BY MORRIS` pour D-V3.1-D2-FA-01…12 (formulation §B2). Options et trade-offs historiques **conservés**.
-
-### D-V3.1-D2-FA-01 — Modèle de composants
-
-- Options : FA-A / FA-B / FA-C
-- Reco candidate : **FA-C**
-- **Retenu :** FA-C
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-02 — Propriétaire de la preuve
-
-- Options : resolver / autonome / bridge
-- Reco candidate : **autonome** (logique ; colocated en FA-C dans comp. 2)
-- **Retenu :** preuve autonome logiquement, colocalisée dans le composant 2
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-03 — Frontière du resolver
-
-- Options : résolution only / + projection T-A2 / + consommation
-- Reco candidate : **résolution + projection T-A2** ; consommation séparée logiquement (même comp. si FA-C)
-- **Retenu :** résolution + projection T-A2
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-04 — Point de normalisation des erreurs
-
-- Options : chaque composant / orchestrateur / projection
-- Reco candidate : **orchestrateur + projection résultat**
-- **Retenu :** orchestrateur + Result Projection
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-05 — Propriétaire du statut détaillé D2
-
-- Options : resolver / preuve / résultat final only
-- Reco candidate : **resolver** (produit) ; preuve et résultat le **conservent**
-- **Retenu :** statut détaillé produit par le resolver et conservé ensuite
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-06 — Point de contrôle version/hash
-
-- Options : projection catalogue / bridge / double contrôle
-- Reco candidate : **projection catalogue** (principal)
-- **Retenu :** contrôle version/hash dans Catalog Projection
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-07 — Modèle de traçabilité
-
-- Options : correlationId minimal / +événements / enveloppe complète
-- Reco candidate : **correlationId + événements fonctionnels minimaux**
-- **Retenu :** correlationId + événements minimaux
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-08 — Frontière D3
-
-- Options : contrat unique / appels séparés / projection spécifique
-- Reco candidate : **contrat résultat unique**
-- **Retenu :** contrat résultat unique pour D3
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-09 — Allocation D2-A/B/C
-
-- Options : séparés par lot / partagés progressifs / lot unique
-- Reco candidate : **composants séparés par lot**
-- **Retenu :** composants répartis clairement entre D2-A/B/C · D2-D gated
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-10 — Compatibilité T-A2
-
-- Options : réutilisation directe / adaptation contrôlée / domaine parallèle
-- Reco candidate : **adaptation contrôlée** ; domaine parallèle **rejeté** sauf preuve exceptionnelle
-- **Retenu :** adaptation contrôlée de T-A2
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-11 — Formalisation des événements
-
-- Options : aucun / minimaux / audit complet
-- Reco candidate : **événements fonctionnels minimaux**
-- **Retenu :** événements fonctionnels minimaux
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-FA-12 — Gate de sortie
-
-- Options : arbitrage puis archi technique / arbitrage puis backlog D2-A / Delivery directe
-- Reco candidate : **arbitrage Morris puis architecture technique** (ou backlog D2-A si archi technique légère différée) — **pas** Delivery directe
-- **Retenu :** architecture technique avant backlog Delivery
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-## AJ. Questions réservées à l’architecture technique
-
-Fichiers/modules · classes · CkcResolverPort · ResolveCycleKnowledgeContract · composition root · DI · TS contracts · enums · erreurs · hash algo · sérialisation · validation refs sans Markdown · source métadonnées · cache · perf · audit · tests · migration · packaging D2-A/B/C.
-
-**Traitées comme options dans le document 18 — non tranchées ici.** Voir [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md).
-
-## AK. Risques et réserves
-
-Sur-architecture · composants artificiels · chevauchements · confusion resolver/consommation/bridge · domaine parallèle · duplication T-A2 · perte primary/fallback · hash mal borné · correlationId perdu · normalisation trop tardive · fail-open · D3 multi-couplé · multi-CKC implicite · slicing non livrable · audit disproportionné · tech anticipée · Delivery implicite · **INHERITED-R-01 ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
-
-## AL. Gates suivants candidats
-
-```text
-GO ARCHITECTURE TECHNIQUE SFIA STUDIO V3.1-D2 —
-APPLY ADOPTED D-V3.1-D2-FA-01…12 —
-NO DELIVERY —
-NO D3 —
-NO UI —
-NO CREATECYCLE —
-NO METHOD PROMOTION
-```
-
-**Statut :** **consommé** (2026-08-01 16:16 CEST) — voir document 18.
-
-Gate ultérieur (ne pas exécuter ici) : arbitrage decision pack D-V3.1-D2-TA-01…12.
-
-## AM. Verdict
-
-```text
-V3.1-D2 FUNCTIONAL ARCHITECTURE ADOPTED —
-D-V3.1-D2-FA-01…12 RECORDED AS ADOPTED BY MORRIS —
-FA-C RETAINED —
-TECHNICAL ARCHITECTURE AUTHORIZED —
-NO DELIVERY —
-NO D3 —
-NO UI —
-NO FIGMA —
-NO CREATECYCLE —
-NO METHOD PROMOTION
-```
-
-**Statut :** `FUNCTIONAL ARCHITECTURE ADOPTED — TECHNICAL ARCHITECTURE AUTHORIZED — BACKLOG AND DELIVERY REQUIRE DISTINCT MORRIS GATES — D3 NOT OPENED`
+**Statut :** `TECHNICAL ARCHITECTURE ADOPTED — BACKLOG D2-A/B/C AUTHORIZED — DELIVERY REQUIRES DISTINCT MORRIS GO — D3 NOT OPENED`
 
 
 ## Document 08 — complet
@@ -869,9 +1115,11 @@ Docs :
 | D2 cadrage | **terminé et arbitré** — [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · D-V3.1-D2-01…12 **ADOPTED BY MORRIS** |
 | D2 conception fonctionnelle | **validée** — [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) |
 | Architecture fonctionnelle D2 | **adoptée (FA-C)** — [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) · D-V3.1-D2-FA-01…12 **ADOPTED BY MORRIS** |
-| Architecture technique D2 | **terminée localement** — [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) · D-V3.1-D2-TA-01…12 **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| Backlog D2-A/B/C | **non ouvert** |
-| Delivery D2-A/B/C | **non ouvertes** |
+| Architecture technique D2 | **adoptée** — [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) · D-V3.1-D2-TA-01…12 **ADOPTED BY MORRIS** |
+| Backlog D2-A/B/C | **terminé localement** — [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) · prêt pour validation Morris · **Delivery non autorisée** |
+| Delivery D2-A | **non ouverte** |
+| Delivery D2-B | **non ouverte** |
+| Delivery D2-C | **non ouverte** |
 | D2-D (extensions) | **gated** · non ouvert |
 | D3 | **non ouvert** |
 
@@ -880,7 +1128,7 @@ Docs :
 | Lot | Contenu | Statut |
 |-----|---------|--------|
 | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **architecture technique locale** · décisions TA **en attente Morris** · backlog/Delivery **fermés** · slicing **A→B→C** · D2-D gated |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog local 17 stories** · Delivery A/B/C **fermées** · slicing **A→B→C** · D2-D gated |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
 ### Réserves QA
@@ -889,7 +1137,7 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
 
 ### Réserves D2
 
-Orchestration CKC · consommation fail-closed · bridge QualifyCycle · Core-only · FA-C adoptée · decision pack TA en attente · questions ouvertes doc 18 — voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) / [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) / [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) / [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md).
+Orchestration CKC · fail-closed · bridge QualifyCycle · Core-only · FA-C+TA adoptées · backlog 19 prêt validation · Delivery fermée — voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) / [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) / [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) / [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) / [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md).
 
 ## Lot V3.2 / V4 / V5 / V6
 
@@ -902,18 +1150,19 @@ Orchestration CKC · consommation fail-closed · bridge QualifyCycle · Core-onl
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D1 CLOSED — V3.1-D2 FA-C ADOPTED — TECHNICAL ARCHITECTURE COMPLETE LOCALLY — TA DECISIONS PENDING MORRIS — BACKLOG/DELIVERY/D3 NOT OPENED` |
-| **Date** | 2026-08-01 16:29:26 CEST (+0200) |
-| **Cycle courant** | 6 — Architecture technique V3.1-D2 |
-| **Profil** | **Critical** |
+| **Statut** | `FRAMING LIVING — V3.1-D1 CLOSED — V3.1-D2 FA+TA ADOPTED — BACKLOG COMPLETE LOCALLY — DELIVERY/D3 NOT OPENED` |
+| **Date** | 2026-08-01 16:55:05 CEST (+0200) |
+| **Cycle courant** | 5 — Backlog / user stories V3.1-D2-A/B/C |
+| **Profil** | **Standard** |
 | **Typologie** | DOC |
-| **Gate courant** | Architecture technique D2 **consommé** (2026-08-01 16:16 CEST) |
+| **Gate courant** | Backlog D2 **consommé** (2026-08-01 16:45 CEST) |
 | **Décisions D2 produit** | D-V3.1-D2-01…12 **ADOPTED BY MORRIS** |
 | **Décisions D2-FA** | D-V3.1-D2-FA-01…12 **ADOPTED BY MORRIS** (FA-C) |
-| **Décisions D2-TA** | D-V3.1-D2-TA-01…12 **NOT DECIDED — MORRIS DECISION REQUIRED** |
+| **Décisions D2-TA** | D-V3.1-D2-TA-01…12 **ADOPTED BY MORRIS** |
+| **Backlog** | [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) — 17 stories (A×4 · B×6 · C×7) · ordre A→B→C · **Delivery non autorisée** |
 | **Base `main`** | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| **Docs D2** | [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) (arbitré, **inchangé**) · [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) (validée, **inchangée**) · [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) (**FA adoptée**) · [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) (architecture technique locale) |
-| **Docs protégées** | `12` / `13` / `14` / `15` / `16` **inchangés** (ce cycle) |
+| **Docs D2** | [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) · [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) · [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) (**TA adoptée**) · [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) |
+| **Docs protégées** | `12`–`17` **inchangés** (ce cycle) |
 | **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
 
 ## Synthèse
@@ -923,86 +1172,76 @@ Orchestration CKC · consommation fail-closed · bridge QualifyCycle · Core-onl
 | V1 / V2 | intégrés `main` |
 | V3 / V3.1 cadrage–conception–adoption | terminés (`12`/`13`/`14`) |
 | **V3.1-D1** | **techniquement clos** sur `main` |
-| **V3.1-D2 cadrage** | **arbitré** |
-| **V3.1-D2 conception** | **validée** |
-| **V3.1-D2 architecture fonctionnelle** | **FA-C adoptée** — doc 17 |
-| **V3.1-D2 architecture technique** | **terminée localement** — doc 18 · **non adoptée** tant que TA non arbitré |
-| Backlog D2-A/B/C | **fermé** |
-| Delivery D2-A/B/C | **fermée** |
+| **V3.1-D2 FA/TA** | **adoptées** |
+| **V3.1-D2 backlog** | **terminé localement** — validation Morris requise |
+| Delivery D2-A/B/C | **fermées** |
 | D2-D extensions | **gated** |
 | V3.1-D3 | **fermé** · réserve Figma |
 | V3.2 / V4–V6 | non autorisés |
 
-**INHERITED-R-01 (README) :** condensation framing — **ACCEPTED — STILL TRACEABLE — NOT LIFTED** — non bloquant — pas une autorisation Delivery/D3.
+**INHERITED-R-01 (README) :** condensation framing — **ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
 
 ## Gate candidat suivant
 
 ```text
-GO ARBITRATE SFIA STUDIO V3.1-D2 TECHNICAL ARCHITECTURE DECISION PACK —
-DECIDE D-V3.1-D2-TA-01…12 —
-NO BACKLOG —
-NO DELIVERY —
-NO D3 —
-NO UI —
-NO CREATECYCLE —
-NO METHOD PROMOTION
+GO DELIVERY SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+USE VALIDATED BACKLOG AND ADOPTED TA-01…12 —
+IMPLEMENT CONTRACTS, CATALOG FINGERPRINT AND PURE CATALOG PROJECTION —
+NO D2-B — NO D2-C — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
 ```
 
 ## Verdict
 
-`V3.1-D2 TECHNICAL ARCHITECTURE COMPLETE LOCALLY — READY FOR MORRIS ARBITRATION OF D-V3.1-D2-TA-01…12 — NO TA DECISION ADOPTED — NO BACKLOG — NO DELIVERY — D3 NOT OPENED`
+`V3.1-D2 DELIVERY BACKLOG COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO DELIVERY AUTHORIZED — D2-B/C CLOSED — D3 NOT OPENED`
 
 
 ## Rapport temporaire
 
-Voir aussi `.tmp-sfia-review/v3-1-d2-technical-architecture-report.md` (même fond).
+`.tmp-sfia-review/v3-1-d2-backlog-report.md`
 
 ## État Git final
 
 ```
-=== Git Truth Final 2026-08-01T16:32:15+02:00 ===
+=== Git Truth Final 2026-08-01T16:59:55+02:00 ===
 branch=framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage
 HEAD=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 origin/main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 lr=0	0
---- framing status ---
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md
---- cached ---
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
+cached:
 wt_count=77
---- remote framing ---
-From https://github.com/mcleland147/sfia-workspace
  * branch            sfia/review-handoff -> FETCH_HEAD
-tip=fa0ceebc6d60da18c607015ec6029506f0cdf7fb
-blob=4e7648901f9616a83a4c2c794748d28e9125b6be
+tip=84963516cc9f3685a0c7a2d2986224952522e98a
+blob=92130ad0fbe65302a1338cde169c09adfb03b83a
 534904ea71555d89388c03a72ef84418ea4ce6a1c67cbbb6c7a03a0f559bb9bc  projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
 d65088ac9a6546b8c77ca00981bc101e5d412431948c95b6455fc1adbb349bf4  projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
-mermaid18=8
+968add603817539b01196b00b5f6f37d1031638b544a8b94e4a2bdb5f98e3af5  projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md
 
 ```
 
 ## Verdict
 
 ```text
-V3.1-D2 TECHNICAL ARCHITECTURE COMPLETE —
-D-V3.1-D2-FA-01…12 RECORDED AS ADOPTED BY MORRIS —
-FA-C TECHNICALLY MAPPED —
-CURRENT D1 AND T-A2 BASELINE ANALYZED —
-PACKAGING, HASH, CKC SOURCE, RESOLVER, PROOF, ORCHESTRATOR, ERROR, AUDIT AND COMPOSITION OPTIONS COMPARED —
-SERVER CLIENT BOUNDARY DOCUMENTED —
-NFR AND REVERSIBILITY DOCUMENTED —
-D2-A D2-B AND D2-C TECHNICAL SLICING DOCUMENTED —
-D-V3.1-D2-TA-01…12 PREPARED FOR MORRIS ARBITRATION —
-NO TECHNICAL ARCHITECTURE DECISION ADOPTED —
+V3.1-D2 DELIVERY BACKLOG COMPLETE —
+D-V3.1-D2-TA-01…12 RECORDED AS ADOPTED BY MORRIS —
+D2-A D2-B AND D2-C DECOMPOSED INTO TESTABLE STORIES —
+DEPENDENCIES AND ACCEPTANCE CRITERIA DOCUMENTED —
+CANDIDATE FILES AND FUTURE TESTS DOCUMENTED —
+DELIVERY PROFILES RECOMMENDED —
+D2-A TO D2-B TO D2-C ORDER PRESERVED —
+D2-D NOT OPENED —
 NO IMPLEMENTATION —
 NO TEST MODIFIED —
-NO BACKLOG —
-NO DELIVERY —
+NO BRANCH CREATED —
+NO BACKLOG DELIVERY EXECUTED —
+NO DELIVERY AUTHORIZED —
 NO D3 —
 NO UI —
 NO FIGMA —
@@ -1010,41 +1249,34 @@ NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-**Statut :** `V3.1-D2 TECHNICAL ARCHITECTURE READY FOR MORRIS ARBITRATION — BACKLOG AND DELIVERY REQUIRE DISTINCT MORRIS GATES — D3 NOT OPENED`
+**Statut :** `V3.1-D2 DELIVERY BACKLOG READY FOR MORRIS VALIDATION — D2-A DELIVERY REQUIRES DISTINCT MORRIS GO — D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`
 
 ## Review pack completeness
 
 - gate Morris complete : yes
-- FA decisions complete : yes
-- Critical justification complete : yes
-- CKC complete : yes
+- TA decisions complete : yes
+- profile justification complete : yes
+- CKC fallback complete : yes
 - Git Truth complete : yes
 - pre-check limitation declared : yes
 - source documents complete : yes
-- technical baseline complete : yes
+- adopted architecture complete : yes
 - created document full content : yes
 - modified sections complete : yes
-- diagrams complete : yes
-- NFR complete : yes
-- server/client boundary complete : yes
-- packaging options complete : yes
-- FA-C mapping complete : yes
-- contracts complete : yes
-- hash options complete : yes
-- resolver options complete : yes
-- CKC source options complete : yes
-- proof complete : yes
-- errors complete : yes
-- audit complete : yes
-- composition complete : yes
-- determinism complete : yes
-- security complete : yes
-- performance/resilience complete : yes
-- migration complete : yes
-- tests future complete : yes
-- slicing complete : yes
-- decision pack complete : yes
-- risks and reserves complete : yes
+- epics complete : yes
+- D2-A stories complete : yes
+- D2-B stories complete : yes
+- D2-C stories complete : yes
+- acceptance criteria complete : yes
+- dependencies complete : yes
+- candidate files complete : yes
+- future tests complete : yes
+- risk matrix complete : yes
+- entry criteria complete : yes
+- exit criteria complete : yes
+- candidate profiles complete : yes
+- future branch/PR strategy complete : yes
+- future QA strategy complete : yes
 - final Git state complete : yes
 - temporary report full content : yes
 - synthesis only : no
