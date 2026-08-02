@@ -1,1069 +1,930 @@
-# SFIA Studio V3.1-D2 — Review pack Full — Delivery Backlog
+# Full Review Pack — SFIA Studio V3.1-D2-A
 
-## Meta
+## Métadonnées et rôle
 
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure/fuseau** | 2026-08-01 16:59:56 CEST (+0200) |
-| **Rôle Cursor** | Exécution cycle 5 Backlog / user stories (Standard / DOC) — sans implémentation |
-| **Gate Morris** | GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C — APPLY ADOPTED D-V3.1-D2-TA-01…12 — PREPARE TESTABLE DELIVERY SLICES — NO IMPLEMENTATION — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION |
-| **Date gate** | 2026-08-01 16:45 CEST (+0200) |
-| **Adoption TA** | TA-01=TA-P-A · TA-02=fonctions pures · TA-03=HASH-A · TA-04=CKC-S-A · TA-05=PORT-B · TA-06=TYPE-B · TA-07=PROOF-A · TA-08=ORCH-A · TA-09=ERR-B · TA-10=AUDIT-A · TA-11=COMP-B · TA-12=backlog A/B/C séparé · ok pour les recommandations |
-| **Cycle** | 5 — Backlog / user stories |
-| **Profil** | Standard — découpage d’architectures déjà arbitrées ; pas de nouvelle stack/code/Delivery |
-| **Typologie** | DOC |
-| **CKC** | Fallback carte synthétique + §4.5 · method-candidate · executionAuthority=false |
-| **Template** | prompts/templates/sfia-cycle-execution-template.md |
-| **Branche** | framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage |
-| **HEAD/main** | e1befcb80ed5e3c789a7de9036a8207d6b3e6771 |
-| **Handoff pré tip/blob** | 84963516cc9f3685a0c7a2d2986224952522e98a / 92130ad0fbe65302a1338cde169c09adfb03b83a |
-| **Pre-check ChatGPT** | limitation déclarée — contrôle local PASS |
-| **Stories** | 17 (A4 · B6 · C7) |
-| **Content coverage** | all required yes · synthesis only : no · review pack verdict : complete |
+Date/heure/fuseau : 2026-08-02 03:28:43 CEST (+0200). Rôle Cursor : exécution bornée du cycle 8
+Delivery / implémentation. Profil Standard justifié par le caractère pur,
+local, read-only et sans dépendance du diff. Typologie EVOL.
 
-## Anti-claims
-
-Backlog ≠ Delivery · aucune story Delivery authorized · pas de code/tests/branche projet · pas D3/UI/CreateCycle/D2-D · pas d’estimations · INHERITED-R-01 NOT LIFTED · TA non rouvertes.
-
-## Document 19 — Backlog (complet)
-
-# 19 — V3.1-D2-A/B/C — Backlog de Delivery
-
-## A. Métadonnées
-
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure/fuseau** | 2026-08-01 16:55:05 CEST (+0200) |
-| **Cycle projet** | 5 — Backlog / user stories |
-| **Profil SFIA** | **Standard** |
-| **Typologie** | DOC |
-| **Gate Morris** | `GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C — APPLY ADOPTED D-V3.1-D2-TA-01…12 — PREPARE TESTABLE DELIVERY SLICES — NO IMPLEMENTATION — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` (2026-08-01 16:45 CEST) |
-| **Branche** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
-| **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| **CKC** | Fallback carte synthétique + §4.5 · method-candidate · `executionAuthority=false` |
-| **Statut** | `V3.1-D2 DELIVERY BACKLOG COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO DELIVERY AUTHORIZED` |
-| **Stories** | D2-A×4 · D2-B×6 · D2-C×7 = **17** |
-| **Code / Delivery / D3** | **non** |
-
-## B. Gate Morris et décision record TA
-
-Adoption immédiatement antérieure au GO Backlog — formulation Morris TA-01…12 = recommandations · « ok pour les recommandations » · heure transcript **indisponible** · enregistrement documentaire 2026-08-01 16:55:05 CEST (+0200) · GO Backlog 16:45 CEST.
-
-| ID | Retenu |
-|----|--------|
-| TA-01 | TA-P-A |
-| TA-02 | Fonctions domaine pures |
-| TA-03 | HASH-A |
-| TA-04 | CKC-S-A |
-| TA-05 | PORT-B |
-| TA-06 | TYPE-B |
-| TA-07 | PROOF-A |
-| TA-08 | ORCH-A |
-| TA-09 | ERR-B |
-| TA-10 | AUDIT-A |
-| TA-11 | COMP-B |
-| TA-12 | Backlog A→B→C séparé |
-
-Voir [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) §B2 — `DECIDED — ADOPTED BY MORRIS`.
-
-## C. Sources consultées
-
-Gouvernance · carte synthétique · routing · §4.5 · framing 08/12–18/README · D1/T-A2 chemins confirmés · handoff `84963516…`.
-
-**Limite pre-check ChatGPT :** état local non inspecté par ChatGPT ; contrôle Cursor **PASS**.
-
-## D. Git Truth
-
-framing @ `e1befcb8…` · main 0/0 · staged vide · 15–18 non suivis · 08/README modifiés · 77 WT · handoff tip `84963516…` blob `92130ad0…` · doc15 `534904ea…` · doc16 `d65088ac…`.
-
-## E. CKC Backlog et fallback
-
-Pilote détaillé **absent** → fallback `02-fifteen-cycles-synthetic-map.md` + §4.5 · finalité stories testables · risque stories fourre-tout · `executionAuthority=false`.
-
-## F. Héritage fonctionnel et technique adopté
-
-FA-C · docs 15–17 · TA-01…12 · QualifyCycle inchangé · Core-only · D2-D gated · pas de domaine parallèle.
-
-## G. Objectif du backlog
-
-Découper D2-A/B/C en stories testables pour futurs prompts Delivery — **sans** implémenter ni autoriser Delivery.
-
-## H. Principes de découpage
-
-Une story = un résultat vérifiable · pas de fourre-tout « implémenter D2-A » · INVEST · dépendances explicites · pas d’exigence inventée · pas d’implémentation anticipée · backlog ≠ autorisation Delivery · ordre A→B→C.
-
-## I. Périmètre global inclus
-
-Contrats · fingerprint · Catalog Projection · manifest · port/resolver · erreurs · preuve · events · Result Projection · signaux · orch · factory read-only · tests futurs documentés.
-
-## J. Hors périmètre global
-
-Code · tests exécutés · package/CI · D3/UI/Figma · CreateCycle/mutation · Markdown parse · multi-CKC · D2-D · API/Server Action · nouveau package · rouvrir TA · Delivery.
-
-## K. Ordonnancement D2-A → D2-B → D2-C
-
-```mermaid
-flowchart LR
-  A[D2-A 4 stories] --> B[D2-B 6 stories]
-  B --> C[D2-C 7 stories]
-  D2D[D2-D] -.->|gated| X[hors trajectoire]
-```
-
-B n’entre en Delivery qu’après A intégré/validé. C après A+B. Chaque incrément = GO Delivery distinct.
-
-### Challenge d’ordonnancement (non adopté)
-
-Option alternative : démarrer BL-D2-B-04 en parallèle de BL-D2-B-03 après B-02, et BL-D2-C-01 en parallèle de fin B si contrats preuve stables.
-
-**Impact :** accélération locale possible · **dette :** intégration plus risquée · **risque :** contrats instables.
-
-**Ordre retenu :** A-01→…→A-04 · B-01→…→B-06 · C-01→…→C-07. Aucune adoption d’ordre alternatif.
-
-## L. Vue des épics
-
-| Epic | Stories | Profil candidat | Objectif |
-|------|---------|-----------------|----------|
-| **D2-A** | A-01…A-04 | Standard | Projection catalogue + fingerprint |
-| **D2-B** | B-01…B-06 | Critical | Résolution + preuve |
-| **D2-C** | C-01…C-07 | Critical | Bridge + résultat unique |
-
-## M. Epic D2-A — Catalog Projection
-
-Objectif : projection pure déterministe du catalogue D1 avec version et empreinte contractuelle.
-
-**Critères de sortie D2-A :** contracts · fingerprint protégé · Catalog Projection · erreurs catalogue · tests · aucun resolver/profil/mutation · validable indépendamment.
-
-## N. Stories D2-A
-
-### BL-D2-A-01 — Contrats D2 et projection contractuelle du fingerprint
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-A-01` |
-| **Epic** | D2-A Catalog Projection |
-| **Résultat vérifiable** | Contrats TypeScript D2 dans fichier domaine sémantique dédié ; projection fingerprint contractuelle ; labels/descriptions exclus ; aucune résolution CKC ; aucune dépendance Next/infra. |
-| **Formulation** | En tant que développeur D2, je veux des contrats D2 typés et une définition d’empreinte contractuelle, afin d’ancrer Catalog Projection sans surcharger types.ts. |
-| **Justification** | TYPE-B + HASH-A exigent une base de contrats avant constante et projection. |
-| **Décisions héritées** | TYPE-B · HASH-A · TA-P-A · FA-C |
-| **Préconditions** | TA-01…12 adoptées · catalogue D1 stable · docs 16–18 |
-| **Périmètre inclus** | Fichier contrats sémantique · types Selection Context / Validated Projection / fingerprint fields · exclusion labels |
-| **Hors périmètre** | Resolver · QualifyCycle · factory · hash constante · UI · D3 |
-| **Contrats** | CatalogSelectionContext · fingerprint field set · ValidatedCycleTypeProjection (squelette) |
-| **Fichiers candidats** | `domain/ckcQualificationContracts.ts` · export additif `index.ts` si nécessaire |
-| **Dépendances** | Aucune story D2 antérieure |
-| **Tests futurs** | Compilation TS · tests de type/contrat · absence import infra/node:crypto |
-| **Preuves de fin** | Diff limité · typecheck futur · review pack Delivery |
-| **Risques** | Surcharge types.ts · duplication T-A2 · domaine parallèle |
-| **Stop conditions** | Besoin d’enrichir D1 · rupture API publique · nouveau package |
-| **Réversibilité** | Haute — fichier dédié isolable |
-| **Profil Delivery candidat** | Standard |
-| **Gate Morris** | GO DELIVERY D2-A |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given TypeScript strict, When les contrats D2 sont déclarés dans un fichier dédié, Then ils compilent sans étendre domain/types.ts de façon fourre-tout.
-2. Given le fingerprint contractuel, When on liste ses champs, Then seuls cycleTypeId, canonicalKey, lifecycleStatus, methodCycleNumber, mapping CKC, références, fallback, doctrineStatus, executionAuthority, unavailableBehavior sont inclus.
-3. Given labels/descriptions, When l’empreinte est définie, Then ils sont explicitement exclus.
-4. Given les contrats, When on inspecte les imports, Then aucun import infrastructure, Next ou node:crypto n’existe.
-5. Given T-A2, When on compare, Then pas de duplication complète des types historiques ; adaptation contrôlée seulement.
-
-### BL-D2-A-02 — Constante catalogFingerprint et garde de cohérence
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-A-02` |
-| **Epic** | D2-A Catalog Projection |
-| **Résultat vérifiable** | Constante versionnée exposée ; test de cohérence avec projection contractuelle ; changement contractuel sans MAJ empreinte → échec test ; pas d’artefact build ; pas de crypto runtime. |
-| **Formulation** | En tant que développeur D2, je veux une empreinte HASH-A testée, afin de détecter les drifts catalogue sans package crypto. |
-| **Justification** | HASH-A adopté ; 15 entrées — constante + test proportionné. |
-| **Décisions héritées** | HASH-A · TA-P-A |
-| **Préconditions** | BL-D2-A-01 |
-| **Périmètre inclus** | Constante fingerprint · test cohérence · doc mécanisme simple |
-| **Hors périmètre** | HASH-B/C · script CI · dépendance crypto · resolver |
-| **Contrats** | catalogFingerprint constant + projection contractuelle |
-| **Fichiers candidats** | `domain/catalogFingerprint.ts` · tests `__tests__/oa/cycle/**` |
-| **Dépendances** | BL-D2-A-01 |
-| **Tests futurs** | Même projection → même empreinte · changement champ contractuel → fail · changement label → pas d’obligation MAJ |
-| **Preuves de fin** | Tests fingerprint verts · aucune dep ajoutée |
-| **Risques** | Dérive manuelle · sérialisation non documentée |
-| **Stop conditions** | HASH-A exige artefact/package non adopté |
-| **Réversibilité** | Haute → HASH-B possible plus tard |
-| **Profil Delivery candidat** | Standard |
-| **Gate Morris** | GO DELIVERY D2-A |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given deux projections contractuelles identiques, When on compare à la constante, Then elles correspondent.
-2. Given un champ contractuel modifié sans MAJ constante, When le test de garde s’exécute, Then il échoue.
-3. Given un label/description modifié seulement, When le test s’exécute, Then aucune obligation de changer l’empreinte.
-4. Given le module fingerprint, When on inspecte, Then aucune dépendance crypto runtime ni script CI n’est ajouté.
-
-### BL-D2-A-03 — Catalog Projection pure et fail-closed catalogue
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-A-03` |
-| **Epic** | D2-A Catalog Projection |
-| **Résultat vérifiable** | Fonction pure (cycleTypeId, catalogVersion, catalogHash, correlationId) → Validated Projection ou erreur D2 locale ; validations version/hash/existence/lifecycle/sélectionnabilité ; aucun resolver/QC. |
-| **Formulation** | En tant que consommateur D2, je veux une projection catalogue fail-closed, afin de bloquer les contextes stale avant résolution CKC. |
-| **Justification** | FA-06 + TA-02 ; point de contrôle version/hash. |
-| **Décisions héritées** | TA-02 · HASH-A · FA-06 · ERR-B |
-| **Préconditions** | BL-D2-A-01 · BL-D2-A-02 |
-| **Périmètre inclus** | catalogProjection pure · erreurs catalogue · mapping CKC exposé |
-| **Hors périmètre** | Resolver · preuve · QualifyCycle · factory complète |
-| **Contrats** | ValidatedCycleTypeProjection · erreurs CATALOG_* |
-| **Fichiers candidats** | `domain/catalogProjection.ts` |
-| **Dépendances** | BL-D2-A-01 · BL-D2-A-02 |
-| **Tests futurs** | nominal · version KO · hash stale · type inconnu · deprecated · unavailable · correlationId absent · mapping invalide |
-| **Preuves de fin** | Tests purs · typecheck |
-| **Risques** | Lifecycle mal mappé · fail-open accidentel |
-| **Stop conditions** | Modification contrat D1 requise · parsing Markdown |
-| **Réversibilité** | Haute |
-| **Profil Delivery candidat** | Standard |
-| **Gate Morris** | GO DELIVERY D2-A |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given un type sélectionnable et version/hash valides, When projectSelectableCycleType, Then Validated Projection est retournée avec mapping CKC.
-2. Given version incompatible ou hash stale, When projection, Then erreur catalogue structurée et aucun appel resolver.
-3. Given type inconnu/deprecated/unavailable, When projection, Then fail-closed avec code approprié.
-4. Given correlationId absent, When projection, Then erreur locale (pas de parcours silencieux).
-5. Given la fonction, When imports inspectés, Then aucun QualifyCycle ni resolver.
-
-### BL-D2-A-04 — Validation et régression D2-A
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-A-04` |
-| **Epic** | D2-A Catalog Projection |
-| **Résultat vérifiable** | Suite tests D2-A complète ; tests D1 conservés ; exports additifs strictement nécessaires ; pas d’import serveur dans logique pure ; preuves typecheck/lint/tests/build futurs. |
-| **Formulation** | En tant que reviewer, je veux une validation D2-A indépendante, afin de livrer A sans B/C. |
-| **Justification** | Critères de sortie D2-A ; non-régression D1. |
-| **Décisions héritées** | TA-P-A · COMP-B (pas de factory complète dans A) |
-| **Préconditions** | BL-D2-A-01…03 |
-| **Périmètre inclus** | Tests D2-A · exports additifs minimaux · checklist sortie A |
-| **Hors périmètre** | Factory D2 complète · D2-B/C · UI |
-| **Contrats** | Exports publics minimaux contrats/projection/fingerprint |
-| **Fichiers candidats** | `index.ts` (additif) · tests `__tests__/oa/cycle/**` |
-| **Dépendances** | BL-D2-A-01…03 |
-| **Tests futurs** | Suite A · régression cycleTypeCatalog · absence node:crypto dans purs |
-| **Preuves de fin** | Rapport Delivery A · suite verte · build futur |
-| **Risques** | Export trop large · couplage prématuré factory |
-| **Stop conditions** | Inclusion resolver/QC dans A |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Standard |
-| **Gate Morris** | GO DELIVERY D2-A |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given D2-A implémenté, When tests D2-A et D1 s’exécutent, Then tous passent sans ignore.
-2. Given barrel index, When exports D2-A ajoutés, Then ils sont additifs et minimaux.
-3. Given modules purs A, When graphe d’imports, Then aucun import serveur/crypto.
-4. Given critères sortie A, When checklist, Then contracts+fingerprint+projection+erreurs catalogue présents ; aucun resolver/profil/mutation.
-
-
-## O. Epic D2-B — CKC Resolution and Consumption
-
-Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-A2 + preuve structurée.
-
-**Critères de sortie D2-B :** manifest · port · resolver fail-closed · preuve · erreurs · events · tests · aucun QC · aucun résultat D3 final · validable après A.
-
-## P. Stories D2-B
-
-### BL-D2-B-01 — Manifest CKC typé et contrôle de cohérence D1
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-B-01` |
-| **Epic** | D2-B CKC Resolution and Consumption |
-| **Résultat vérifiable** | Manifest statique typé (référence, niveau, version, statut, source, disponibilité) ; aucun Markdown ; test cohérence catalogue↔manifest. |
-| **Formulation** | En tant que développeur D2, je veux un registre CKC typé, afin de résoudre sans parser Markdown ni lire des chemins. |
-| **Justification** | CKC-S-A adopté. |
-| **Décisions héritées** | CKC-S-A · TA-P-A |
-| **Préconditions** | BL-D2-A-04 intégré/validé |
-| **Périmètre inclus** | ckcReferenceManifest · test cohérence D1 |
-| **Hors périmètre** | Enrichissement contrat D1 · MemoryCkcResolver comme autorité · Markdown |
-| **Contrats** | CkcReferenceManifest entries |
-| **Fichiers candidats** | `infrastructure/ckcReferenceManifest.ts` · tests |
-| **Dépendances** | BL-D2-A-04 |
-| **Tests futurs** | primaires D1 autorisées · fallbacks autorisés · ref inconnue · niveau incohérent · orphelin documenté |
-| **Preuves de fin** | Tests cohérence · diff limité |
-| **Risques** | Double source vs catalogue · dérive manuelle |
-| **Stop conditions** | Story exige enrichir contrat D1 |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-B (après A) |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given catalogue D1, When manifest est validé, Then toutes références primary/fallback D1 sont autorisées.
-2. Given référence inconnue, When contrôle, Then détection d’erreur.
-3. Given le manifest, When runtime, Then aucun contenu Markdown n’est chargé et aucun chemin arbitraire n’est lu.
-
-### BL-D2-B-02 — Port resolver D2 spécialisé
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-B-02` |
-| **Epic** | D2-B CKC Resolution and Consumption |
-| **Résultat vérifiable** | Port D2 borné ; entrée projection validée + traçabilité ; sortie detailed/synthetic/fallback/unresolved_* + projection T-A2 ; CkcResolverPort historique inchangé ; pas de QualifyCycle. |
-| **Formulation** | En tant qu’architecte, je veux un port D2 distinct, afin de préserver le port guidance T-A2. |
-| **Justification** | PORT-B adopté. |
-| **Décisions héritées** | PORT-B · FA-03 |
-| **Préconditions** | BL-D2-B-01 · contrats A |
-| **Périmètre inclus** | Interface port D2 · types résolution D2 |
-| **Hors périmètre** | Modification CkcResolverPort · wrapper ResolveCKC · QC |
-| **Contrats** | CkcQualificationResolverPort · CkcQualificationResolution |
-| **Fichiers candidats** | `ports/ckcQualificationResolver.ts` |
-| **Dépendances** | BL-D2-B-01 · BL-D2-A-01 |
-| **Tests futurs** | Contrat port · non-régression CkcResolverPort |
-| **Preuves de fin** | Diff ports · tests contrat |
-| **Risques** | Élargissement cassant du port historique |
-| **Stop conditions** | Modification fonctionnelle port historique requise sans GO |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given le port D2, When déclaré, Then il accepte projection validée + correlationId et produit statuts détaillés D2 + projection T-A2.
-2. Given CkcResolverPort historique, When Delivery B, Then il reste inchangé.
-3. Given le port D2, When dépendances, Then QualifyCycle n’est pas référencé.
-
-### BL-D2-B-03 — Resolver Core detailed / synthetic / fallback
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-B-03` |
-| **Epic** | D2-B CKC Resolution and Consumption |
-| **Résultat vérifiable** | Stratégie résolution docs 16–18 ; detailed prioritaire ; fallback substitution ; synthetic primaire sans second fallback ; fail-closed ; executionAuthority=false ; pas d’extension ; pas de randomBytes pour décision. |
-| **Formulation** | En tant que consommateur D2, je veux une résolution Core fail-closed, afin d’obtenir un statut détaillé exploitable uniquement si valide. |
-| **Justification** | Cœur D2-B ; FA fail-closed. |
-| **Décisions héritées** | PORT-B · CKC-S-A · FA-03 · FA-05 |
-| **Préconditions** | BL-D2-B-02 |
-| **Périmètre inclus** | Adaptateur infra resolver · mapping T-A2 · statut D2 |
-| **Hors périmètre** | QualifyCycle · multi-CKC · Memory comme autorité |
-| **Contrats** | Resolution Result · detailed statuses |
-| **Fichiers candidats** | adaptateur sous `infrastructure/` · utilise manifest |
-| **Dépendances** | BL-D2-B-01 · BL-D2-B-02 |
-| **Tests futurs** | detailed · synthetic · fallback · both invalid · ref non autorisée · executionAuthority=true · extension implicite |
-| **Preuves de fin** | Tests résolution · pas de random dans décision |
-| **Risques** | Perte primary/fallback · fail-open · héritage MemoryCkcResolver |
-| **Stop conditions** | Extension multi-CKC · randomBytes requis pour décision métier |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given detailed valide, When resolve, Then resolved_detailed + fallbackUsed=false + executionAuthority=false.
-2. Given detailed KO et fallback OK, When resolve, Then resolved_fallback_synthetic + disclosure fallback.
-3. Given aucune source valide, When resolve, Then unresolved_* fail-closed, pas de profil.
-4. Given executionAuthority=true ou extension implicite, When resolve, Then rejet.
-5. Given la décision fonctionnelle, When code, Then aucun randomBytes n’influence le statut.
-
-### BL-D2-B-04 — Erreurs D2 et adaptation T-A2
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-B-04` |
-| **Epic** | D2-B CKC Resolution and Consumption |
-| **Résultat vérifiable** | Erreurs D2 typées ; adaptateur enveloppe T-A2 si utile ; codes doc 16 ; blocking/retryable/recoverable ; pas d’exception générique ; pas de mélange CycleInstance. |
-| **Formulation** | En tant que développeur, je veux des erreurs D2 structurées, afin de normaliser Failures sans fuites. |
-| **Justification** | ERR-B adopté. |
-| **Décisions héritées** | ERR-B · FA-04 |
-| **Préconditions** | Contrats A · port B (BL-D2-B-02) |
-| **Périmètre inclus** | ckcQualificationErrors · mapping codes |
-| **Hors périmètre** | ERR-C · élargissement massif CycleDetailCode sans besoin |
-| **Contrats** | Erreurs D2 typées · adaptateur optionnel |
-| **Fichiers candidats** | `domain/ckcQualificationErrors.ts` |
-| **Dépendances** | BL-D2-B-02 (préparation parallèle possible après B-02 ; intégration ordonnée) |
-| **Tests futurs** | Codes catalogue/CKC · pas de fuite internalCauseRef vers D3 |
-| **Preuves de fin** | Tests erreurs |
-| **Risques** | Dilution codes CycleInstance · fuite info |
-| **Stop conditions** | Exceptions génériques comme contrat |
-| **Réversibilité** | Haute |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given codes fonctionnels doc 16, When erreurs D2, Then ils sont typés et mappables.
-2. Given erreur interne, When exposition, Then message sûr sans fuite.
-3. Given CycleInstance errors, When D2 errors, Then pas de mélange implicite.
-
-### BL-D2-B-05 — Consumption Proof Builder pur
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-B-05` |
-| **Epic** | D2-B CKC Resolution and Consumption |
-| **Résultat vérifiable** | Validator/builder pur ; consumed=true seulement après validation complète ; champs preuve adoptés ; statut D2+T-A2 conservés ; version/hash/correlationId ; pas I/O/profil/mutation. |
-| **Formulation** | En tant que bridge, je veux une preuve structurée, afin de n’appeler QualifyCycle qu’après consommation valide. |
-| **Justification** | PROOF-A · FA-02/04. |
-| **Décisions héritées** | PROOF-A · FA-02 · FA-05 |
-| **Préconditions** | BL-D2-B-03 · BL-D2-B-04 |
-| **Périmètre inclus** | ckcConsumptionProof pur |
-| **Hors périmètre** | Preuve dans orchestrateur · I/O · profil |
-| **Contrats** | CkcConsumptionProof |
-| **Fichiers candidats** | `domain/ckcConsumptionProof.ts` |
-| **Dépendances** | BL-D2-B-03 · BL-D2-B-04 |
-| **Tests futurs** | nominal detailed/synthetic/fallback · incomplète · mismatch · doctrine invalide · authority · correlationId · consumed après échec interdit |
-| **Preuves de fin** | Tests purs preuve |
-| **Risques** | consumed=true trop tôt · confusion resolver/preuve |
-| **Stop conditions** | I/O dans proof · appel QC |
-| **Réversibilité** | Haute |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given résolution valide complète, When buildProof, Then consumed=true avec statut D2 + projection T-A2.
-2. Given preuve incomplète ou mismatch, When buildProof, Then erreur et consumed≠true.
-3. Given échec, When résultat, Then aucune preuve consumed=true.
-4. Given le module, When imports, Then aucune I/O/Next.
-
-### BL-D2-B-06 — Événements résolution/consommation et validation D2-B
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-B-06` |
-| **Epic** | D2-B CKC Resolution and Consumption |
-| **Résultat vérifiable** | Extension additive CycleAuditEvent pour events B ; CycleAuditPort conservé ; tests B ; non-régression T-A2 ; pas de factory mutation. |
-| **Formulation** | En tant qu’opérateur, je veux des événements minimaux B, afin de tracer résolution/consommation sans audit prod. |
-| **Justification** | AUDIT-A · FA-07/11. |
-| **Décisions héritées** | AUDIT-A |
-| **Préconditions** | BL-D2-B-01…05 |
-| **Périmètre inclus** | Events resolution/consumption · suite tests B · checklist sortie B |
-| **Hors périmètre** | Modèle audit complet · factory CreateCycle · D2-C orch |
-| **Contrats** | CycleAuditEvent additif |
-| **Fichiers candidats** | `ports/cycleAudit.ts` (additif) · tests |
-| **Dépendances** | BL-D2-B-01…05 |
-| **Tests futurs** | events started/succeeded/failed/fallback/validated/rejected · régression oa.ckc.resolved historique |
-| **Preuves de fin** | Suite B verte · non-régression T-A2 |
-| **Risques** | Union audit surchargée |
-| **Stop conditions** | Port audit breaking · events sensibles |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given résolution/consommation, When audit, Then events minimaux B émis avec correlationId.
-2. Given CycleAuditPort, When extension, Then additive et non breaking pour events historiques.
-3. Given checklist sortie B, When validation, Then manifest+port+resolver+preuve+erreurs+events ; aucun QC ; aucun résultat D3 final.
-
-
-## Q. Epic D2-C — QualifyCycle Bridge and Result Projection
-
-Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
-
-**Critères de sortie D2-C :** bridge · contrat unique · QC inchangé · erreurs normalisées · events · factory read-only · intégration · aucune mutation · aucun D3.
-
-## R. Stories D2-C
-
-### BL-D2-C-01 — Result Projection pure
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-C-01` |
-| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
-| **Résultat vérifiable** | Fonctions pures Success/Failure ; contrat unique ; statut D2 + preuve en succès ; pas de profil/consumed en Failure ; disclosures ; pas de règle qualification ; pas d’infra. |
-| **Formulation** | En tant que futur D3, je veux un contrat résultat unique, afin de consommer D2 sans appeler resolver/QC. |
-| **Justification** | FA-08 · Result Projection. |
-| **Décisions héritées** | FA-08 · COMP-B (contrat) |
-| **Préconditions** | BL-D2-B-06 |
-| **Périmètre inclus** | ckcQualificationResult · Success/Failure builders |
-| **Hors périmètre** | Règles profil · infra · UI |
-| **Contrats** | D2 Success/Failure Result |
-| **Fichiers candidats** | `domain/ckcQualificationResult.ts` |
-| **Dépendances** | BL-D2-B-05/06 · contrats A |
-| **Tests futurs** | Success conserve preuve · Failure sans profil/consumed · disclosures fallback |
-| **Preuves de fin** | Tests purs résultat |
-| **Risques** | Règle métier glissée dans projection |
-| **Stop conditions** | Import infra · recalcul profil |
-| **Réversibilité** | Haute |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-C (après A+B) |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given pièces succès, When assemble, Then Success Result unique avec statut D2 + preuve.
-2. Given erreur, When assemble Failure, Then aucun recommendedProfile exploitable ni consumed=true.
-3. Given module, When imports, Then aucun infra/QC.
-
-### BL-D2-C-02 — Validation des six signaux
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-C-02` |
-| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
-| **Résultat vérifiable** | Six signaux T-A2 obligatoires/explicites ; absence≠false ; requestedProfile non exposé ; objective/scope non scorés ; SIGNALS_INCOMPLETE avant QC. |
-| **Formulation** | En tant que bridge, je veux valider les signaux avant QC, afin d’éviter un appel QualifyCycle invalide. |
-| **Justification** | Doc 16 signaux · fail-closed. |
-| **Décisions héritées** | ORCH-A · FA bridge |
-| **Préconditions** | BL-D2-C-01 · QualifyCycleRequest T-A2 |
-| **Périmètre inclus** | Validation signaux pure ou helper orch |
-| **Hors périmètre** | requestedProfile · scoring parallèle |
-| **Contrats** | Qualification Input / signaux |
-| **Fichiers candidats** | helper dans domain ou application (candidat) |
-| **Dépendances** | BL-D2-C-01 |
-| **Tests futurs** | complets · incomplets · absence vs false · requestedProfile rejeté |
-| **Preuves de fin** | Tests signaux |
-| **Risques** | Absence traitée comme false |
-| **Stop conditions** | Exposition requestedProfile dans parcours D2 |
-| **Réversibilité** | Haute |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given un signal manquant, When validation, Then SIGNALS_INCOMPLETE et QC non appelé.
-2. Given absence de booléen, When validation, Then ce n’est pas équivalent à false.
-3. Given requestedProfile, When parcours D2, Then non exposé/rejeté.
-
-### BL-D2-C-03 — Use case QualifyCycle Bridge
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-C-03` |
-| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
-| **Résultat vérifiable** | Use case injecté read-only ; CP→resolver→proof→QC×1 si validé ; QC jamais si échec amont ; pas de duplication recommendProfile ; isMorrisDecision=false ; pas de mutation. |
-| **Formulation** | En tant que système D2, je veux orchestrer A+B+QC, afin de produire une recommandation seulement après CKC consommé. |
-| **Justification** | ORCH-A cœur D2-C. |
-| **Décisions héritées** | ORCH-A · FA-C · COMP-B deps |
-| **Préconditions** | BL-D2-C-01 · BL-D2-C-02 · A+B intégrés |
-| **Périmètre inclus** | qualifyCycleWithCkc use case |
-| **Hors périmètre** | modifier QualifyCycle/ResolveCKC · CreateCycle · mutation |
-| **Contrats** | Orchestration I/O → Result |
-| **Fichiers candidats** | `application/qualifyCycleWithCkc.ts` |
-| **Dépendances** | BL-D2-A-03 · BL-D2-B-03/05 · BL-D2-C-01/02 |
-| **Tests futurs** | Light/Standard/Critical/Capitalization · signaux KO · stale · CKC KO · fallback · erreur QC · correlationId perdu · QC×1 |
-| **Preuves de fin** | Tests use case avec QC mock |
-| **Risques** | Fail-open · double appel QC · duplication règles |
-| **Stop conditions** | Modification fonctionnelle QualifyCycle |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given parcours nominal, When execute, Then QC appelé exactement une fois après preuve valide.
-2. Given échec amont, When execute, Then QC jamais appelé et Failure produit.
-3. Given QualifyCycle, When Delivery C, Then fonctionnellement inchangé.
-4. Given isMorrisDecision, When résultat, Then false.
-5. Given deps, When factory wiring, Then aucun repository mutation.
-
-### BL-D2-C-04 — Normalisation des erreurs bout en bout
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-C-04` |
-| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
-| **Résultat vérifiable** | Orchestrateur arrête le flux ; Result Projection construit Failure ; origine/code conservés ; erreur interne masquée ; retryable/recoverable ; pas de résultat partiel exploitable. |
-| **Formulation** | En tant que consommateur, je veux des Failures normalisées, afin de traiter les erreurs sans ambiguïté. |
-| **Justification** | FA-04 · ERR-B. |
-| **Décisions héritées** | FA-04 · ERR-B |
-| **Préconditions** | BL-D2-C-01 · BL-D2-C-03 · BL-D2-B-04 |
-| **Périmètre inclus** | Chemin normalisation orch→Result |
-| **Hors périmètre** | Exceptions brutes vers D3 |
-| **Contrats** | D2 Failure Result |
-| **Fichiers candidats** | qualifyCycleWithCkc + ckcQualificationResult |
-| **Dépendances** | BL-D2-C-01 · BL-D2-C-03 |
-| **Tests futurs** | chaque famille d’erreur amont → Failure · pas de profil |
-| **Preuves de fin** | Tests normalisation |
-| **Risques** | Normalisation trop tardive · fuite |
-| **Stop conditions** | Résultat partiel avec profil |
-| **Réversibilité** | Haute |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given erreur locale composant, When orch, Then flux arrêté et Failure normalisé.
-2. Given erreur interne, When Failure, Then message sûr.
-3. Given Failure, When champs, Then pas de recommendedProfile exploitable ni consumed=true.
-
-### BL-D2-C-05 — Événements qualification et résultat
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-C-05` |
-| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
-| **Résultat vérifiable** | Events additifs : qualification started/succeeded · result produced · request failed ; correlationId ; pas de données sensibles ; pas d’audit prod. |
-| **Formulation** | En tant qu’observateur, je veux des events C minimaux, afin de tracer le bridge sans RUN readiness. |
-| **Justification** | AUDIT-A · FA-07/11. |
-| **Décisions héritées** | AUDIT-A |
-| **Préconditions** | BL-D2-C-03 |
-| **Périmètre inclus** | Events C additifs sur CycleAuditEvent |
-| **Hors périmètre** | Audit production complet |
-| **Contrats** | CycleAuditEvent additif |
-| **Fichiers candidats** | `ports/cycleAudit.ts` |
-| **Dépendances** | BL-D2-C-03 |
-| **Tests futurs** | events émis · correlationId · pas de payload sensible |
-| **Preuves de fin** | Tests audit C |
-| **Risques** | Union surchargée · claim prod |
-| **Stop conditions** | Données sensibles dans events |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given succès/échec D2, When audit, Then events C minimaux avec correlationId.
-2. Given events, When contenu, Then aucune donnée sensible et aucun claim production-ready.
-
-### BL-D2-C-06 — Factory/façade D2 read-only
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-C-06` |
-| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
-| **Résultat vérifiable** | Factory/façade séparée ; deps resolver D2 + clock + audit + QualifyCycle ; pas de repos mutation ; pas CreateCycle ; API additive ; D3 peut importer contrats sans infra. |
-| **Formulation** | En tant qu’intégrateur, je veux une façade read-only, afin de composer D2 sans CreateCycle. |
-| **Justification** | COMP-B adopté. |
-| **Décisions héritées** | COMP-B |
-| **Préconditions** | BL-D2-C-03…05 |
-| **Périmètre inclus** | createCkcQualificationServices (nom candidat) · exports additifs |
-| **Hors périmètre** | Extension CycleServices mutation · construction depuis D3/UI |
-| **Contrats** | Factory API publique additive |
-| **Fichiers candidats** | composition près de `index.ts` · exports `index.ts` |
-| **Dépendances** | BL-D2-C-03 |
-| **Tests futurs** | Factory sans repos écriture · coexistence createInMemoryCycleServices |
-| **Preuves de fin** | Tests composition · review imports |
-| **Risques** | Couplage CreateCycle · fuite infra vers D3 |
-| **Stop conditions** | Exposition repositories mutation |
-| **Réversibilité** | Moyenne |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given factory D2, When créée, Then aucun repository mutation ni CreateCycle n’est exposé.
-2. Given exports, When D3 futur, Then contrats résultat importables sans infrastructure.
-3. Given API, When changement, Then additif ou arbitrage Morris explicite.
-
-### BL-D2-C-07 — Validation intégrée D2-A→B→C
-
-| Champ | Valeur |
-|-------|--------|
-| **ID** | `BL-D2-C-07` |
-| **Epic** | D2-C QualifyCycle Bridge and Result Projection |
-| **Résultat vérifiable** | Parcours nominal/fallback/fail-closed ; QC×1 succès ; QC jamais échec amont ; aucune mutation ; coexistence T-A2 ; typecheck/lint/tests/build futurs ; contrat D3 unique sans UI. |
-| **Formulation** | En tant que reviewer, je veux une validation bout en bout, afin de clôturer D2-C sans ouvrir D3. |
-| **Justification** | Critères sortie D2-C. |
-| **Décisions héritées** | TA-12 · FA-C |
-| **Préconditions** | BL-D2-C-01…06 · A+B intégrés |
-| **Périmètre inclus** | Tests intégration A→B→C · checklist sortie C |
-| **Hors périmètre** | UI D3 · Delivery D2-D · CreateCycle |
-| **Contrats** | Success/Failure unique vérifié |
-| **Fichiers candidats** | tests `__tests__/oa/cycle/**` |
-| **Dépendances** | BL-D2-C-01…06 |
-| **Tests futurs** | intégration · régression oa/cycle · suite complète future |
-| **Preuves de fin** | Rapport Delivery C · preuves commandes futures |
-| **Risques** | Big-bang · ignore tests · snapshot aveugle |
-| **Stop conditions** | Mutation détectée · D3 UI inclus |
-| **Réversibilité** | Faible une fois intégré — tests protègent |
-| **Profil Delivery candidat** | Critical |
-| **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
-
-**Critères d’acceptation :**
-
-1. Given parcours nominal/fallback, When intégration, Then Success et QC×1.
-2. Given échec amont, When intégration, Then Failure et QC=0.
-3. Given services T-A2 historiques, When coexistence, Then non-régression.
-4. Given checklist sortie C, When validation, Then bridge+Failure/Success+factory+events ; aucune mutation ; aucun D3.
-
-
-## S. Dépendances inter-stories
-
-```text
-A-01 → A-02 → A-03 → A-04
-A-04 → B-01 → B-02 → B-03 → B-04 → B-05 → B-06
-B-06 → C-01 → C-02 → C-03 → C-04 → C-05 → C-06 → C-07
-```
-
-## T. Matrice story → architecture adoptée
-
-| Story | FA-C / TA clés |
-|-------|----------------|
-| A-01 | TYPE-B · HASH-A · TA-P-A |
-| A-02 | HASH-A |
-| A-03 | TA-02 · FA-06 · ERR-B |
-| A-04 | Sortie A · non-régression D1 |
-| B-01 | CKC-S-A |
-| B-02 | PORT-B · FA-03 |
-| B-03 | PORT-B · CKC-S-A · FA-05 |
-| B-04 | ERR-B · FA-04 |
-| B-05 | PROOF-A · FA-02 |
-| B-06 | AUDIT-A · FA-07/11 |
-| C-01 | FA-08 Result Projection |
-| C-02 | Signaux · fail-closed |
-| C-03 | ORCH-A |
-| C-04 | FA-04 normalisation |
-| C-05 | AUDIT-A |
-| C-06 | COMP-B |
-| C-07 | Intégration A→B→C · TA-12 |
-
-## U. Matrice story → fichiers candidats
-
-| Story | Fichiers candidats (non autorisés ce cycle) |
-|-------|---------------------------------------------|
-| A-01 | `domain/ckcQualificationContracts.ts` · `index.ts` additif |
-| A-02 | `domain/catalogFingerprint.ts` · tests |
-| A-03 | `domain/catalogProjection.ts` |
-| A-04 | `index.ts` · tests oa/cycle |
-| B-01 | `infrastructure/ckcReferenceManifest.ts` |
-| B-02 | `ports/ckcQualificationResolver.ts` |
-| B-03 | adaptateur `infrastructure/*Resolver*` |
-| B-04 | `domain/ckcQualificationErrors.ts` |
-| B-05 | `domain/ckcConsumptionProof.ts` |
-| B-06 | `ports/cycleAudit.ts` additif · tests |
-| C-01 | `domain/ckcQualificationResult.ts` |
-| C-02 | helper domain/application |
-| C-03 | `application/qualifyCycleWithCkc.ts` |
-| C-04 | orch + result |
-| C-05 | `ports/cycleAudit.ts` |
-| C-06 | factory composition · `index.ts` |
-| C-07 | tests intégration |
-
-**Règles :** recommandations de backlog seulement · futur Delivery confirme Git · noms métier stables · pas de sous-domaine externe.
-
-## V. Matrice story → tests futurs
-
-| Story | Domaine | Contrat | Adaptateur | Use case | Intégration | Non-régression |
-|-------|---------|---------|------------|----------|-------------|----------------|
-| A-01 | ● | ● | | | | |
-| A-02 | ● | ● | | | | D1 |
-| A-03 | ● | | | | | |
-| A-04 | | | | | ● | D1/oa |
-| B-01 | | ● | ● | | | D1 |
-| B-02 | | ● | | | | port hist. |
-| B-03 | | | ● | | | |
-| B-04 | ● | ● | | | | |
-| B-05 | ● | | | | | |
-| B-06 | | | | | ● | audit hist. |
-| C-01 | ● | ● | | | | |
-| C-02 | ● | | | | | |
-| C-03 | | | | ● | | QualifyCycle |
-| C-04 | | | | ● | | |
-| C-05 | | | | | ● | |
-| C-06 | | | | | ● | CycleServices |
-| C-07 | | | | | ● | suite oa/cycle |
-
-Contrôles globaux futurs : tests ciblés · suite oa/cycle · suite complète · typecheck · lint · build — **non exécutés** ici.
-
-## W. Matrice story → risques
-
-| Story | Risque principal |
-|-------|------------------|
-| A-01 | Domaine parallèle / types.ts |
-| A-02 | Drift fingerprint manuel |
-| A-03 | Fail-open catalogue |
-| A-04 | Export trop large |
-| B-01 | Double source / enrichir D1 |
-| B-02 | Casser port historique |
-| B-03 | Fail-open CKC / random |
-| B-04 | Fuite erreur |
-| B-05 | consumed trop tôt |
-| B-06 | Audit surchargé |
-| C-01 | Règle métier dans projection |
-| C-02 | absence=false |
-| C-03 | Double QC / modifier QC |
-| C-04 | Résultat partiel |
-| C-05 | Données sensibles |
-| C-06 | Mutation via factory |
-| C-07 | Big-bang / ignore tests |
-
-## X. Critères d’entrée Delivery
-
-**D2-A :** backlog validé Morris · doc 19 · TA adoptées · archi adoptée · branche/base explicites · main à jour · fichiers A confirmés · profil requalifié · tests identifiés · handoff courant · pas de réserve bloquante.
-
-**D2-B :** A intégré/validé · contrats A stables · fingerprint+projection dispo · tests A verts · REX/post-merge A · GO B distinct.
-
-**D2-C :** A+B intégrés/validés · preuve+resolver+events B · GO C distinct.
-
-## Y. Critères de sortie par incrément
-
-Voir §§ M/O/Q. Preuves Delivery futures : Git Truth · diff limité · tests complets · pas d’ignore · pas de package · pas CreateCycle/mutation · non-régression · review Full · handoff.
-
-## Z. Profils Delivery candidats
-
-| Incrément | Profil candidat | Justification |
-|-----------|-----------------|---------------|
-| D2-A | **Standard** | Purs · pas resolver/orch · risque fingerprint |
-| D2-B | **Critical** | Fail-closed · preuve · authority · statut |
-| D2-C | **Critical** | Orchestration · QC · frontière D3 · mutation |
-
-Recommandations de backlog — chaque Delivery requalifie repo-informed.
-
-## AA. Gates Morris futurs
+## Gate Morris complet
 
 ```text
 GO DELIVERY SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
 USE VALIDATED BACKLOG AND ADOPTED TA-01…12 —
 IMPLEMENT CONTRACTS, CATALOG FINGERPRINT AND PURE CATALOG PROJECTION —
-NO D2-B — NO D2-C — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
-```
-
-D2-B/C : gates distincts après intégration amont. **D2-D :** aucun gate.
-
-## AB. Stratégie de branches, commits et PR candidate
-
-Branche Delivery distincte par incrément · PR par incrément · commits atomiques · pas de big-bang · B sur A intégré · C sur B intégré · **aucune création** dans ce cycle.
-
-## AC. Stratégie QA future
-
-Tests domaine/contrat/adaptateur/use case/intégration/non-régression · suites A/B/C · contrôles globaux · pas de snapshot aveugle · revalidation profil Critical pour B/C.
-
-## AD. Anti-claims
-
-- Backlog ≠ Delivery autorisée
-- Aucune story `DELIVERY AUTHORIZED`
-- Aucune implémentation / test modifié / branche projet
-- Aucun D3 / UI / CreateCycle / multi-CKC / D2-D
-- Aucune estimation jours/points/heures
-- QualifyCycle / ResolveCKC / D1 non modifiés ici
-- INHERITED-R-01 NOT LIFTED
-
-## AE. Risques et réserves
-
-Stories fourre-tout (évitées) · drift fingerprint · double source CKC · fail-open · consumed prématuré · factory mutation · big-bang · rouvrir TA · **INHERITED-R-01 ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
-
-## AF. Readiness du backlog
-
-READY si : 17 stories à résultat vérifiable · AC complets · deps explicites · fichiers candidats · tests futurs · profils justifiés · A/B/C séparés · pas D2-D · pas d’implémentation · pas Delivery · TA non rouvertes · review pack + handoff.
-
-**Statut readiness local :** `BACKLOG COMPLETE LOCALLY — AWAITING MORRIS VALIDATION`
-
-## AG. Verdict
-
-```text
-V3.1-D2 DELIVERY BACKLOG COMPLETE —
-D-V3.1-D2-TA-01…12 RECORDED AS ADOPTED BY MORRIS —
-D2-A D2-B AND D2-C DECOMPOSED INTO TESTABLE STORIES —
-DEPENDENCIES AND ACCEPTANCE CRITERIA DOCUMENTED —
-CANDIDATE FILES AND FUTURE TESTS DOCUMENTED —
-DELIVERY PROFILES RECOMMENDED —
-D2-A TO D2-B TO D2-C ORDER PRESERVED —
-D2-D NOT OPENED —
-NO IMPLEMENTATION —
-NO TEST MODIFIED —
-NO BRANCH CREATED —
-NO BACKLOG DELIVERY EXECUTED —
-NO DELIVERY AUTHORIZED —
-NO D3 —
-NO UI —
-NO FIGMA —
-NO CREATECYCLE —
-NO METHOD PROMOTION
-```
-
-**Statut :** `V3.1-D2 DELIVERY BACKLOG READY FOR MORRIS VALIDATION — D2-A DELIVERY REQUIRES DISTINCT MORRIS GO — D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`
-
-
-## Document 18 — sections modifiées
-
-#### Métadonnées statut
-
-# 18 — V3.1-D2 CKC Resolver & QualifyCycle Bridge — Architecture technique
-
-## A. Métadonnées
-
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure/fuseau** | 2026-08-01 16:29:26 CEST (+0200) |
-| **Cycle projet** | 6 — Architecture technique |
-| **Profil SFIA** | **Critical** |
-| **Typologie** | DOC |
-| **Gate Morris** | `GO ARCHITECTURE TECHNIQUE SFIA STUDIO V3.1-D2 — APPLY ADOPTED D-V3.1-D2-FA-01…12 — NO DELIVERY — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` (2026-08-01 16:16 CEST +0200) |
-| **Branche** | `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` |
-| **Base** | `main` @ `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| **CKC** | `pilots/03-architecture-technique.md` · candidate v0.1.0 · `executionAuthority=false` |
-| **Statut** | `TECHNICAL ARCHITECTURE ADOPTED — BACKLOG D2-A/B/C AUTHORIZED — NO DELIVERY — D3 NOT OPENED` |
-| **Doc backlog** | [`19-v3-1-d2-a-b-c-delivery-backlog.md`](./19-v3-1-d2-a-b-c-delivery-backlog.md) |
-| **Docs protégés** | 12–16 **inchangés** · 15 SHA `534904ea…` |
-| **Code / tests / Delivery / D3** | **non** |
-
-## B. Gate Morris et décision record FA
-
-
-## B2. Decision record Morris — TA adoptées · Backlog autorisé
-
-| Champ | Valeur |
-|-------|--------|
-| **Formulation réelle Morris** | `TA-01 = TA-P-A` · `TA-02 = fonctions de domaine pures` · `TA-03 = HASH-A` · `TA-04 = CKC-S-A` · `TA-05 = PORT-B` · `TA-06 = TYPE-B` · `TA-07 = PROOF-A` · `TA-08 = ORCH-A` · `TA-09 = ERR-B` · `TA-10 = AUDIT-A` · `TA-11 = COMP-B` · `TA-12 = backlog D2-A/B/C séparé après arbitrage` · « ok pour les recommandations » |
-| **Adoption** | Immédiatement antérieure au GO Backlog |
-| **Heure d’adoption transcript** | **indisponible** |
-| **Date documentaire d’enregistrement** | 2026-08-01 16:55:05 CEST (+0200) |
-| **GO Backlog** | 2026-08-01 16:45 CEST (+0200) — `GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C — APPLY ADOPTED D-V3.1-D2-TA-01…12 — PREPARE TESTABLE DELIVERY SLICES — NO IMPLEMENTATION — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION` |
-| **Option globale retenue** | TA-P-A · HASH-A · CKC-S-A · PORT-B · TYPE-B · PROOF-A · ORCH-A · ERR-B · AUDIT-A · COMP-B · backlog A→B→C |
-| **Conséquence** | Backlog D2-A/B/C **autorisé** · Delivery / D3 / UI / CreateCycle / D2-D **fermés** · aucune implémentation |
-| **Document 19** | [`19-v3-1-d2-a-b-c-delivery-backlog.md`](./19-v3-1-d2-a-b-c-delivery-backlog.md) |
-
-## C. Sources consultées
-
-
-## AK. Decision pack Morris
-
-**Statut pack :** `DECIDED — ADOPTED BY MORRIS` pour D-V3.1-D2-TA-01…12 (formulation §B2). Options et trade-offs historiques **conservés**.
-
-### D-V3.1-D2-TA-01 — Packaging
-
-- Problème : où placer le code D2 sans domaine parallèle.
-- Options : extension répertoires / sous-module borné / domaine parallèle.
-- Reco : **extension sémantique (TA-P-A)** ; parallèle rejeté.
-- **Retenu :** TA-P-A
-- NFR : cohésion, dette, réversibilité.
-- Impact API : additive via barrel.
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-02 — Catalog Projection
-
-- Options : fonctions pures / service applicatif / extension comportementale catalogue.
-- Reco : **fonctions de domaine pures**.
-- **Retenu :** fonctions de domaine pures
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-03 — catalogHash
-
-- Options : constante+test / sérialisation+adaptateur / artefact build.
-- Reco : **HASH-A**.
-- **Retenu :** HASH-A (labels/descriptions exclus)
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-04 — Source métadonnées CKC
-
-- Options : manifest typé / enrichir D1 / MemoryCkcResolver.
-- Reco : **CKC-S-A** ; Memory comme autorité **rejeté**.
-- **Retenu :** CKC-S-A
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-05 — Resolver port
-
-- Options : évoluer port / port D2+adaptateur / wrapper ResolveCKC.
-- Reco : **PORT-B**.
-- **Retenu :** PORT-B
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-06 — Placement contrats
-
-- Options : types.ts / fichier dédié / T-A2 exclusive.
-- Reco : **fichier domaine sémantique dédié (TYPE-B)**.
-- **Retenu :** TYPE-B
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-07 — Preuve
-
-- Options : validator pur / service / orchestrateur.
-- Reco : **PROOF-A**.
-- **Retenu :** PROOF-A
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-08 — Orchestration
-
-- Options : nouveau use case / modifier QualifyCycle / modifier ResolveCKC.
-- Reco : **ORCH-A** ; B/C rejetés.
-- **Retenu :** ORCH-A
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-09 — Erreurs
-
-- Options : étendre CycleDetailCode / erreurs D2+adaptateur / génériques.
-- Reco : **ERR-B**.
-- **Retenu :** ERR-B
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-10 — Audit
-
-- Options : extension CycleAuditEvent / port D2+adaptateur / aucun.
-- Reco : **AUDIT-A**.
-- **Retenu :** AUDIT-A
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-11 — Composition / API
-
-- Options : étendre CycleServices / factory D2 séparée / depuis D3.
-- Reco : **COMP-B** ; depuis D3 rejeté.
-- **Retenu :** COMP-B
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-### D-V3.1-D2-TA-12 — Slicing / gate sortie
-
-- Options : backlog A/B/C séparé / lot unique / Delivery directe.
-- Reco : **backlog séparé après arbitrage TA** ; Delivery directe déconseillée.
-- **Retenu :** backlog D2-A/B/C séparé
-- Statut : **DECIDED — ADOPTED BY MORRIS**
-
-Pour chaque décision : options et reco historiques conservés · **retenues adoptées** · dette/réversibilité documentées · T-A2 préservé · D3 consomme résultat · Delivery **non autorisée** dans ce cycle.
-
-
-
-## AN. Backlog handoff candidat
-
-Backlog D2-A/B/C : voir [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) — **autorisé** ; Delivery **fermée**.
-
-## AO. Gates suivants candidats
-
-```text
-GO BACKLOG SFIA STUDIO V3.1-D2-A/B/C —
-APPLY ADOPTED D-V3.1-D2-TA-01…12 —
-PREPARE TESTABLE DELIVERY SLICES —
-NO IMPLEMENTATION —
+NO D2-B —
+NO D2-C —
 NO D3 —
 NO UI —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-**Statut :** **consommé** (2026-08-01 16:45 CEST) — voir document 19.
+## CKC et template
 
-Gate Delivery candidat (ne pas exécuter) : GO DELIVERY V3.1-D2-A …
+CKC Delivery détaillé absent ; fallback carte synthétique + méthode §4.8,
+`method-candidate`, guidance expérimentale sans autorité. Template canonique
+`prompts/templates/sfia-cycle-execution-template.md` consulté.
 
-## AP. Critères d’acceptation AC-D2-TA-01…24
+## Git Truth, transition et handoff source
 
-Respect FA-C · pas de domaine parallèle · QualifyCycle inchangé · ResolveCKC ≠ D2 fail-closed · catalogue autoritatif · no Markdown · source CKC typée · hash déterministe selon option · frontière serveur/client · pas de crypto client implicite · preuve isolable · resolver≠QC · orch≠recalcul · Success/Failure unique · erreurs structurées · correlationId · events mappés · pas de mutation · slicing testable · TS/Next/Vitest · pas de dep sans justification · réversibilité identifiée · **aucun code modifié** · décisions TA soumises à Morris.
+Base initiale `e1befcb8…`, branche framing attendue, main/origin alignées,
+staged vide, 77 worktrees, cible locale/distante absente. Transition vers la
+branche Delivery autorisée avec empreintes documentaires identiques.
+Handoff source tip `dbb4e80…`, blob `85596ce…`.
 
-## AQ. Scénarios techniques 1–30
+## Backlog, architecture et stories
 
-Couvrent : import pur · hash stable/stale · labels · type inconnu · detailed/synthetic/fallback · ref non autorisée · executionAuthority · mismatch · preuve · signaux · QC ×1 / jamais · Critical · Capitalization · correlationId · event fallback · Failure normalisée · D3 types-only · coexistence factory · Memory non autoritatif · randomBytes isolé · extension CKC · aucune mutation · bundle client · tests A indépendants · rollback sans casser D1.
+Backlog `19` validé ; TA-01…12 `DECIDED — ADOPTED BY MORRIS`.
+BL-D2-A-01…04 exécutées. D2-B, D2-C, D2-D et D3 fermés.
 
-## AR. Verdict
+## Fichiers, contrats, fingerprint, projection et erreurs
+
+Trois modules de production et deux tests créés ; `index.ts` modifié par trois
+exports additifs uniquement. Fingerprint contractuel exclut labels/descriptions,
+normalise fallback absent à null et conserve l'ordre des quinze entrées.
+HASH-A statique :
+`sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc`.
+SHA-256 uniquement dans le test Node. Projection pure et fail-closed :
+correlationId/version/hash/type/lifecycle/mapping. Six erreurs structurées.
+
+## Validations
+
+Baseline 46/46 et 94/94. Final : fingerprint 8/8, projection 16/16,
+D1 46/46, OA cycle 118/118, suite 851/851, typecheck PASS, lint PASS,
+build PASS, diff check PASS, imports boundaries PASS.
+
+## Anti-claims et réserve
+
+Aucune crypto runtime, mutation, dépendance, package, resolver, preuve,
+QualifyCycle, audit, factory, CreateCycle, UI, commit/push/PR projet ou
+promotion méthode. Delivery locale ≠ QA validée ≠ PR ready.
+INHERITED-R-01 non levée.
+
+## Rapport temporaire complet
+
+# Rapport Delivery SFIA Studio V3.1-D2-A
+
+## 1. Date/heure/fuseau
+
+2026-08-02 03:28:43 CEST (+0200)
+
+## 2. Git Truth initial
+
+Branche initiale `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage`.
+`HEAD = main = origin/main = e1befcb80ed5e3c789a7de9036a8207d6b3e6771`,
+divergence `0/0`, staged vide, 77 worktrees, prune dry-run vide.
+Branche Delivery locale/distante absente. Handoff source tip
+`dbb4e800ec76ea0aa30f44c048b9f79fd9b8d071`, blob
+`85596ce446e31818eaddaf60ed6b5cbfcef05761`.
+
+## 3. Transition de branche
+
+Création locale de
+`delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` depuis
+`e1befcb8…`. Empreintes de `15` à `19`, `08` et README strictement identiques
+avant/après transition. Aucun fichier staged.
+
+## 4. Gate Morris
 
 ```text
-V3.1-D2 TECHNICAL ARCHITECTURE ADOPTED —
-D-V3.1-D2-TA-01…12 RECORDED AS ADOPTED BY MORRIS —
-BACKLOG D2-A/B/C AUTHORIZED —
-NO IMPLEMENTATION —
-NO DELIVERY —
+GO DELIVERY SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+USE VALIDATED BACKLOG AND ADOPTED TA-01…12 —
+IMPLEMENT CONTRACTS, CATALOG FINGERPRINT AND PURE CATALOG PROJECTION —
+NO D2-B —
+NO D2-C —
 NO D3 —
 NO UI —
-NO FIGMA —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-**Statut :** `TECHNICAL ARCHITECTURE ADOPTED — BACKLOG D2-A/B/C AUTHORIZED — DELIVERY REQUIRES DISTINCT MORRIS GO — D3 NOT OPENED`
+## 5. Cycle / profil / typologie
+
+Cycle 8 — Delivery / implémentation ; profil Standard ; typologie EVOL.
+Standard est justifié par un diff de types et fonctions pures, sans
+infrastructure, mutation, UI, nouvelle dépendance ni changement architectural.
+
+## 6. CKC
+
+Recherché : oui. Contrat détaillé Delivery absent. Fallback :
+`02-fifteen-cycles-synthetic-map.md` + méthode cycle §4.8. Statut
+`method-candidate`, guidance cognitive expérimentale, aucune autorité
+d'exécution, `executionAuthority=false`.
+
+## 7. Sources
+
+Template d'exécution, routing guide, operating model, guardrails, validation
+checklist, engineering principles, delivery pipeline, carte/matrice CKC,
+méthode §4.8, documents D2 `15`–`19`, `08`, README framing, D1
+`cycleTypeCatalog.ts`, types/errors/invariants/index T-A2, tests OA cycle,
+README D1, package/TypeScript/Vitest/Next.
+
+## 8. Stories consommées
+
+BL-D2-A-01, BL-D2-A-02, BL-D2-A-03 et BL-D2-A-04 exécutées.
+
+## 9. Décisions TA
+
+TA-01…12 adoptées. D2-A applique TA-01/02/03/06, erreurs locales TA-09 et
+ordre TA-12. TA-04/05/07/08/10/11 restent hors périmètre D2-A.
+
+## 10. Baseline tests
+
+Avant modification : catalogue D1 **46/46 PASS** ; suite OA cycle
+**94/94 PASS**.
+
+## 11. Fichiers créés/modifiés
+
+Créés :
+```text
+projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.test.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/catalogFingerprint.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/catalogProjection.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
+```
+
+Tracked modifiés :
+```text
+M	projects/sfia-studio/app/lib/oa/cycle/index.ts
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+```
+
+## 12. Contenu complet des trois fichiers de production créés
+
+### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts`
+
+```typescript
+import type {
+  CycleTypeCkcMapping,
+  CycleTypeLifecycleStatus,
+} from "./cycleTypeCatalog";
+
+/** Read-only context required to select a cycle type from the D1 catalog. */
+export type CatalogSelectionContext = {
+  readonly cycleTypeId: string;
+  readonly catalogVersion: string;
+  readonly catalogHash: string;
+  readonly correlationId: string;
+};
+
+/** Closed projection of contractually relevant catalog fields for HASH-A. */
+export type CatalogFingerprintEntry = {
+  readonly cycleTypeId: string;
+  readonly canonicalKey: string;
+  readonly lifecycleStatus: CycleTypeLifecycleStatus;
+  readonly methodCycleNumber: number;
+  readonly ckc: {
+    readonly mandatory: true;
+    readonly primaryLevel: "detailed" | "synthetic";
+    readonly primaryReference: string;
+    readonly fallbackPolicy: "synthetic_map" | "none";
+    readonly fallbackReference: string | null;
+    readonly executionAuthority: false;
+    readonly doctrineStatus: "method-candidate";
+    readonly unavailableBehavior: "fail-closed";
+  };
+};
+
+/** Validated read-only D1 projection passed to the later D2-B boundary. */
+export type ValidatedCycleTypeProjection = {
+  readonly cycleTypeId: string;
+  readonly label: string;
+  readonly shortDescription: string;
+  readonly lifecycleStatus: CycleTypeLifecycleStatus;
+  readonly ckc: Readonly<CycleTypeCkcMapping>;
+  readonly catalogVersion: string;
+  readonly catalogHash: string;
+  readonly correlationId: string;
+};
+
+export type CatalogProjectionErrorCode =
+  | "CATALOG_CORRELATION_ID_REQUIRED"
+  | "CATALOG_VERSION_INCOMPATIBLE"
+  | "CATALOG_FINGERPRINT_STALE"
+  | "CYCLE_TYPE_UNKNOWN"
+  | "CYCLE_TYPE_NOT_SELECTABLE"
+  | "CYCLE_TYPE_MAPPING_INVALID";
+
+export type CatalogProjectionError = {
+  readonly code: CatalogProjectionErrorCode;
+  readonly message: string;
+  readonly blocking: true;
+  readonly retryable: boolean;
+  readonly recoverable: boolean;
+  readonly correlationId?: string;
+  readonly cycleTypeId?: string;
+  readonly lifecycleStatus?: CycleTypeLifecycleStatus;
+};
+
+export type CatalogProjectionSuccess = {
+  readonly ok: true;
+  readonly projection: ValidatedCycleTypeProjection;
+};
+
+export type CatalogProjectionFailure = {
+  readonly ok: false;
+  readonly error: CatalogProjectionError;
+};
+
+export type CatalogProjectionResult =
+  | CatalogProjectionSuccess
+  | CatalogProjectionFailure;
+```
+
+### `projects/sfia-studio/app/lib/oa/cycle/domain/catalogFingerprint.ts`
+
+```typescript
+import {
+  CYCLE_TYPE_CATALOG,
+  type CycleTypeCatalog,
+} from "./cycleTypeCatalog";
+import type { CatalogFingerprintEntry } from "./ckcQualificationContracts";
+
+/** HASH-A representation format. Cryptographic verification is test-only. */
+export const CYCLE_TYPE_CATALOG_FINGERPRINT_FORMAT =
+  "sha256-canonical-json-v1" as const;
+
+/**
+ * Static, versioned HASH-A fingerprint of the canonical D1 contract projection.
+ * It is guarded by a Node-only SHA-256 test; no runtime hashing is required.
+ */
+export const CYCLE_TYPE_CATALOG_FINGERPRINT =
+  "sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc" as const;
+
+/** Build the closed, ordered projection used by the catalog fingerprint. */
+export function projectCatalogFingerprint(
+  catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,
+): readonly CatalogFingerprintEntry[] {
+  return Object.freeze(
+    catalog.entries.map((entry) =>
+      Object.freeze({
+        cycleTypeId: entry.cycleTypeId,
+        canonicalKey: entry.canonicalKey,
+        lifecycleStatus: entry.lifecycleStatus,
+        methodCycleNumber: entry.methodCycleNumber,
+        ckc: Object.freeze({
+          mandatory: entry.ckc.mandatory,
+          primaryLevel: entry.ckc.primaryLevel,
+          primaryReference: entry.ckc.primaryReference,
+          fallbackPolicy: entry.ckc.fallbackPolicy,
+          fallbackReference: entry.ckc.fallbackReference ?? null,
+          executionAuthority: entry.ckc.executionAuthority,
+          doctrineStatus: entry.ckc.doctrineStatus,
+          unavailableBehavior: entry.ckc.unavailableBehavior,
+        }),
+      }),
+    ),
+  );
+}
+
+/** Deterministic serialization of the canonical, fixed-property projection. */
+export function serializeCatalogFingerprint(
+  catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,
+): string {
+  return JSON.stringify(projectCatalogFingerprint(catalog));
+}
+```
+
+### `projects/sfia-studio/app/lib/oa/cycle/domain/catalogProjection.ts`
+
+```typescript
+import {
+  CKC_SYNTHETIC_MAP_PATH,
+  CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_VERSION,
+  type CycleTypeCatalog,
+  type CycleTypeCkcMapping,
+  type CycleTypeDefinition,
+} from "./cycleTypeCatalog";
+import { CYCLE_TYPE_CATALOG_FINGERPRINT } from "./catalogFingerprint";
+import type {
+  CatalogProjectionError,
+  CatalogProjectionErrorCode,
+  CatalogProjectionResult,
+  CatalogSelectionContext,
+} from "./ckcQualificationContracts";
+
+const SAFE_MESSAGES: Readonly<Record<CatalogProjectionErrorCode, string>> =
+  Object.freeze({
+    CATALOG_CORRELATION_ID_REQUIRED: "A correlation identifier is required.",
+    CATALOG_VERSION_INCOMPATIBLE: "The catalog version is incompatible.",
+    CATALOG_FINGERPRINT_STALE: "The catalog fingerprint is stale.",
+    CYCLE_TYPE_UNKNOWN: "The cycle type is unknown.",
+    CYCLE_TYPE_NOT_SELECTABLE: "The cycle type is not selectable.",
+    CYCLE_TYPE_MAPPING_INVALID: "The cycle type mapping is invalid.",
+  });
+
+const ALLOWED_MAPPING_KEYS = new Set([
+  "mandatory",
+  "primaryLevel",
+  "primaryReference",
+  "fallbackPolicy",
+  "fallbackReference",
+  "executionAuthority",
+  "doctrineStatus",
+  "unavailableBehavior",
+]);
+
+function failure(
+  code: CatalogProjectionErrorCode,
+  context: CatalogSelectionContext,
+  options: {
+    readonly lifecycleStatus?: CycleTypeDefinition["lifecycleStatus"];
+    readonly retryable?: boolean;
+    readonly recoverable?: boolean;
+  } = {},
+): CatalogProjectionResult {
+  const error: CatalogProjectionError = Object.freeze({
+    code,
+    message: SAFE_MESSAGES[code],
+    blocking: true,
+    retryable: options.retryable ?? false,
+    recoverable: options.recoverable ?? true,
+    ...(context.correlationId.trim()
+      ? { correlationId: context.correlationId }
+      : {}),
+    ...(context.cycleTypeId ? { cycleTypeId: context.cycleTypeId } : {}),
+    ...(options.lifecycleStatus
+      ? { lifecycleStatus: options.lifecycleStatus }
+      : {}),
+  });
+  return Object.freeze({ ok: false, error });
+}
+
+function hasValidMapping(mapping: CycleTypeCkcMapping): boolean {
+  if (
+    Object.keys(mapping).some((key) => !ALLOWED_MAPPING_KEYS.has(key)) ||
+    mapping.mandatory !== true ||
+    !mapping.primaryReference.trim() ||
+    mapping.executionAuthority !== false ||
+    mapping.doctrineStatus !== "method-candidate" ||
+    mapping.unavailableBehavior !== "fail-closed"
+  ) {
+    return false;
+  }
+
+  if (mapping.primaryLevel === "detailed") {
+    return (
+      mapping.fallbackPolicy === "synthetic_map" &&
+      mapping.fallbackReference === CKC_SYNTHETIC_MAP_PATH
+    );
+  }
+
+  if (mapping.primaryLevel === "synthetic") {
+    return (
+      mapping.primaryReference === CKC_SYNTHETIC_MAP_PATH &&
+      mapping.fallbackPolicy === "none" &&
+      mapping.fallbackReference === undefined
+    );
+  }
+
+  return false;
+}
+
+function freezeMapping(
+  mapping: CycleTypeCkcMapping,
+): Readonly<CycleTypeCkcMapping> {
+  return Object.freeze({
+    mandatory: mapping.mandatory,
+    primaryLevel: mapping.primaryLevel,
+    primaryReference: mapping.primaryReference,
+    fallbackPolicy: mapping.fallbackPolicy,
+    ...(mapping.fallbackReference
+      ? { fallbackReference: mapping.fallbackReference }
+      : {}),
+    executionAuthority: mapping.executionAuthority,
+    doctrineStatus: mapping.doctrineStatus,
+    unavailableBehavior: mapping.unavailableBehavior,
+  });
+}
+
+/**
+ * Pure, fail-closed D2-A selection from the authoritative D1 catalog.
+ * The optional catalog is a pure test seam; production callers use the singleton.
+ */
+export function projectSelectableCycleType(
+  context: CatalogSelectionContext,
+  catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,
+): CatalogProjectionResult {
+  if (!context.correlationId.trim()) {
+    return failure("CATALOG_CORRELATION_ID_REQUIRED", context);
+  }
+  if (context.catalogVersion !== CYCLE_TYPE_CATALOG_VERSION) {
+    return failure("CATALOG_VERSION_INCOMPATIBLE", context, {
+      retryable: true,
+    });
+  }
+  if (context.catalogHash !== CYCLE_TYPE_CATALOG_FINGERPRINT) {
+    return failure("CATALOG_FINGERPRINT_STALE", context, {
+      retryable: true,
+    });
+  }
+
+  const entry = catalog.entries.find(
+    (candidate) => candidate.cycleTypeId === context.cycleTypeId,
+  );
+  if (!entry) {
+    return failure("CYCLE_TYPE_UNKNOWN", context);
+  }
+  if (entry.lifecycleStatus !== "active") {
+    return failure("CYCLE_TYPE_NOT_SELECTABLE", context, {
+      lifecycleStatus: entry.lifecycleStatus,
+    });
+  }
+  if (!entry.ckc || !hasValidMapping(entry.ckc)) {
+    return failure("CYCLE_TYPE_MAPPING_INVALID", context, {
+      lifecycleStatus: entry.lifecycleStatus,
+      recoverable: false,
+    });
+  }
+
+  return Object.freeze({
+    ok: true,
+    projection: Object.freeze({
+      cycleTypeId: entry.cycleTypeId,
+      label: entry.label,
+      shortDescription: entry.shortDescription,
+      lifecycleStatus: entry.lifecycleStatus,
+      ckc: freezeMapping(entry.ckc),
+      catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
+      catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+      correlationId: context.correlationId,
+    }),
+  });
+}
+```
+
+## 13. Contenu complet des deux fichiers de test créés
+
+### `projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts`
+
+```typescript
+/**
+ * V3.1-D2-A — canonical catalog fingerprint tests.
+ * @vitest-environment node
+ */
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import {
+  CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_FINGERPRINT,
+  projectCatalogFingerprint,
+  serializeCatalogFingerprint,
+  type CycleTypeCatalog,
+  type CycleTypeDefinition,
+} from "@/lib/oa/cycle";
+
+function cloneCatalog(
+  mutate?: (entries: CycleTypeDefinition[]) => void,
+): CycleTypeCatalog {
+  const entries = CYCLE_TYPE_CATALOG.entries.map((entry) => ({
+    ...entry,
+    ckc: { ...entry.ckc },
+    aliases: [...entry.aliases],
+  }));
+  mutate?.(entries);
+  return { version: CYCLE_TYPE_CATALOG.version, entries };
+}
+
+function sha256(serialized: string): string {
+  return `sha256:${createHash("sha256").update(serialized).digest("hex")}`;
+}
+
+describe("V3.1-D2-A catalog fingerprint", () => {
+  it("projects exactly fifteen entries in contractual order", () => {
+    const projection = projectCatalogFingerprint();
+    expect(projection).toHaveLength(15);
+    expect(projection.map((entry) => entry.cycleTypeId)).toEqual(
+      CYCLE_TYPE_CATALOG.entries.map((entry) => entry.cycleTypeId),
+    );
+  });
+
+  it("includes only the closed contractual field set", () => {
+    for (const entry of projectCatalogFingerprint()) {
+      expect(Object.keys(entry)).toEqual([
+        "cycleTypeId",
+        "canonicalKey",
+        "lifecycleStatus",
+        "methodCycleNumber",
+        "ckc",
+      ]);
+      expect(Object.keys(entry.ckc)).toEqual([
+        "mandatory",
+        "primaryLevel",
+        "primaryReference",
+        "fallbackPolicy",
+        "fallbackReference",
+        "executionAuthority",
+        "doctrineStatus",
+        "unavailableBehavior",
+      ]);
+      expect(entry).not.toHaveProperty("label");
+      expect(entry).not.toHaveProperty("shortDescription");
+      expect(entry).not.toHaveProperty("displayOrder");
+      expect(entry).not.toHaveProperty("methodReference");
+      expect(entry).not.toHaveProperty("aliases");
+    }
+  });
+
+  it("serializes deterministically and matches the static SHA-256", () => {
+    const first = serializeCatalogFingerprint();
+    const second = serializeCatalogFingerprint();
+    expect(second).toBe(first);
+    expect(sha256(first)).toBe(CYCLE_TYPE_CATALOG_FINGERPRINT);
+    expect(CYCLE_TYPE_CATALOG_FINGERPRINT).toMatch(/^sha256:[0-9a-f]{64}$/);
+  });
+
+  it("detects a contractual field change", () => {
+    const changed = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        canonicalKey: `${entries[0].canonicalKey}-changed`,
+      };
+    });
+    expect(sha256(serializeCatalogFingerprint(changed))).not.toBe(
+      CYCLE_TYPE_CATALOG_FINGERPRINT,
+    );
+  });
+
+  it("ignores label and shortDescription changes", () => {
+    const changed = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        label: "Changed presentation",
+        shortDescription: "Changed description",
+      };
+    });
+    expect(serializeCatalogFingerprint(changed)).toBe(
+      serializeCatalogFingerprint(),
+    );
+  });
+
+  it("normalizes absent fallbackReference to explicit null", () => {
+    const synthetic = projectCatalogFingerprint().find(
+      (entry) => entry.ckc.primaryLevel === "synthetic",
+    );
+    expect(synthetic?.ckc.fallbackReference).toBeNull();
+    expect(serializeCatalogFingerprint()).toContain(
+      '"fallbackReference":null',
+    );
+  });
+
+  it("returns frozen projections without mutating the D1 catalog", () => {
+    const before = serializeCatalogFingerprint();
+    const projection = projectCatalogFingerprint();
+    expect(Object.isFrozen(projection)).toBe(true);
+    expect(projection.every(Object.isFrozen)).toBe(true);
+    expect(projection.every((entry) => Object.isFrozen(entry.ckc))).toBe(true);
+    expect(serializeCatalogFingerprint()).toBe(before);
+  });
+
+  it("keeps production fingerprint code client-safe and dependency-free", () => {
+    const source = readFileSync(
+      path.resolve(
+        __dirname,
+        "../../../lib/oa/cycle/domain/catalogFingerprint.ts",
+      ),
+      "utf8",
+    );
+    expect(source).not.toMatch(/node:crypto|node:fs|from ["']next/);
+    expect(source).not.toMatch(/infrastructure\//);
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.test.ts`
+
+```typescript
+/**
+ * V3.1-D2-A — pure fail-closed catalog projection tests.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  CKC_SYNTHETIC_MAP_PATH,
+  CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_FINGERPRINT,
+  CYCLE_TYPE_CATALOG_VERSION,
+  projectSelectableCycleType,
+  serializeCatalogFingerprint,
+  type CatalogProjectionErrorCode,
+  type CatalogSelectionContext,
+  type CycleTypeCatalog,
+  type CycleTypeDefinition,
+} from "@/lib/oa/cycle";
+
+function context(
+  overrides: Partial<CatalogSelectionContext> = {},
+): CatalogSelectionContext {
+  return {
+    cycleTypeId: "cyc:delivery",
+    catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
+    catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+    correlationId: "cor:d2-a-test",
+    ...overrides,
+  };
+}
+
+function cloneCatalog(
+  mutate: (entries: CycleTypeDefinition[]) => void,
+): CycleTypeCatalog {
+  const entries = CYCLE_TYPE_CATALOG.entries.map((entry) => ({
+    ...entry,
+    ckc: { ...entry.ckc },
+    aliases: [...entry.aliases],
+  }));
+  mutate(entries);
+  return { version: CYCLE_TYPE_CATALOG_VERSION, entries };
+}
+
+function expectFailure(
+  result: ReturnType<typeof projectSelectableCycleType>,
+  code: CatalogProjectionErrorCode,
+): void {
+  expect(result.ok).toBe(false);
+  if (result.ok) throw new Error("Expected catalog projection failure");
+  expect(result.error.code).toBe(code);
+  expect(result.error.blocking).toBe(true);
+  expect(result).not.toHaveProperty("projection");
+  expect(result.error).not.toHaveProperty("projection");
+  expect(result.error).not.toHaveProperty("ckc");
+}
+
+describe("V3.1-D2-A catalog projection", () => {
+  it("projects an active type and preserves canonical context", () => {
+    const result = projectSelectableCycleType(context());
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error(result.error.message);
+    expect(result.projection).toMatchObject({
+      cycleTypeId: "cyc:delivery",
+      label: "Delivery / implémentation",
+      lifecycleStatus: "active",
+      catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
+      catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+      correlationId: "cor:d2-a-test",
+    });
+    expect(result.projection.ckc).toMatchObject({
+      mandatory: true,
+      primaryLevel: "synthetic",
+      primaryReference: CKC_SYNTHETIC_MAP_PATH,
+      fallbackPolicy: "none",
+      executionAuthority: false,
+      doctrineStatus: "method-candidate",
+      unavailableBehavior: "fail-closed",
+    });
+    expect(Object.isFrozen(result.projection)).toBe(true);
+    expect(Object.isFrozen(result.projection.ckc)).toBe(true);
+  });
+
+  it("rejects an absent correlationId first", () => {
+    expectFailure(
+      projectSelectableCycleType(
+        context({
+          correlationId: "  ",
+          catalogVersion: "wrong",
+          catalogHash: "wrong",
+          cycleTypeId: "cyc:unknown",
+        }),
+      ),
+      "CATALOG_CORRELATION_ID_REQUIRED",
+    );
+  });
+
+  it("rejects an incompatible catalog version", () => {
+    expectFailure(
+      projectSelectableCycleType(context({ catalogVersion: "stale" })),
+      "CATALOG_VERSION_INCOMPATIBLE",
+    );
+  });
+
+  it("rejects a stale catalog fingerprint", () => {
+    expectFailure(
+      projectSelectableCycleType(
+        context({ catalogHash: `sha256:${"0".repeat(64)}` }),
+      ),
+      "CATALOG_FINGERPRINT_STALE",
+    );
+  });
+
+  it("rejects an unknown cycle type", () => {
+    expectFailure(
+      projectSelectableCycleType(context({ cycleTypeId: "cyc:unknown" })),
+      "CYCLE_TYPE_UNKNOWN",
+    );
+  });
+
+  it.each(["deprecated", "unavailable"] as const)(
+    "rejects lifecycle %s",
+    (lifecycleStatus) => {
+      const catalog = cloneCatalog((entries) => {
+        entries[7] = { ...entries[7], lifecycleStatus };
+      });
+      const result = projectSelectableCycleType(context(), catalog);
+      expectFailure(result, "CYCLE_TYPE_NOT_SELECTABLE");
+      if (!result.ok) {
+        expect(result.error.lifecycleStatus).toBe(lifecycleStatus);
+      }
+    },
+  );
+
+  it("fails closed for an unknown runtime lifecycle status", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        lifecycleStatus:
+          "future-status" as CycleTypeDefinition["lifecycleStatus"],
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_NOT_SELECTABLE",
+    );
+  });
+
+  it("rejects mandatory false", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          mandatory: false as unknown as true,
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects executionAuthority true", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          executionAuthority: true as unknown as false,
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects invalid doctrineStatus and unavailableBehavior", () => {
+    for (const field of ["doctrineStatus", "unavailableBehavior"] as const) {
+      const catalog = cloneCatalog((entries) => {
+        entries[7] = {
+          ...entries[7],
+          ckc: { ...entries[7].ckc, [field]: "invalid" },
+        } as CycleTypeDefinition;
+      });
+      expectFailure(
+        projectSelectableCycleType(context(), catalog),
+        "CYCLE_TYPE_MAPPING_INVALID",
+      );
+    }
+  });
+
+  it("rejects a detailed mapping without canonical fallback", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        ckc: {
+          ...entries[0].ckc,
+          fallbackPolicy: "none",
+          fallbackReference: undefined,
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(
+        context({ cycleTypeId: "cyc:framing" }),
+        catalog,
+      ),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects a synthetic mapping with a non-canonical reference", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          primaryReference: "method/non-canonical.md",
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects an extended mapping", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          dynamicResolution: true,
+        } as CycleTypeDefinition["ckc"],
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("does not expose profile, Morris decision, or partial failure data", () => {
+    const success = projectSelectableCycleType(context());
+    expect(success.ok).toBe(true);
+    if (!success.ok) throw new Error(success.error.message);
+    expect(success.projection).not.toHaveProperty("profile");
+    expect(success.projection).not.toHaveProperty("recommendedProfile");
+    expect(success.projection).not.toHaveProperty("isMorrisDecision");
+    expect(success.projection).not.toHaveProperty("consumed");
+
+    const failure = projectSelectableCycleType(
+      context({ cycleTypeId: "cyc:unknown" }),
+    );
+    expectFailure(failure, "CYCLE_TYPE_UNKNOWN");
+  });
+
+  it("does not mutate the production catalog", () => {
+    const before = serializeCatalogFingerprint();
+    const firstEntry = CYCLE_TYPE_CATALOG.entries[0];
+    projectSelectableCycleType(context());
+    expect(serializeCatalogFingerprint()).toBe(before);
+    expect(CYCLE_TYPE_CATALOG.entries[0]).toBe(firstEntry);
+    expect(Object.isFrozen(CYCLE_TYPE_CATALOG.entries[0])).toBe(true);
+  });
+});
+```
+
+## 14. Diff utile complet de index.ts
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+index 3daf575..9ad18b7 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+@@ -10,6 +10,9 @@ export * from "./domain/errors";
+ export * from "./domain/invariants";
+ export * from "./domain/qualification";
+ export * from "./domain/cycleTypeCatalog";
++export * from "./domain/ckcQualificationContracts";
++export * from "./domain/catalogFingerprint";
++export * from "./domain/catalogProjection";
+
+ export * from "./ports/cycleRepository";
+ export * from "./ports/trajectoryRepository";
+```
+
+## 15. Section modifiée complète de 19
+
+## AH. Registre d'exécution D2-A — 2026-08-02
+
+Ce registre complète l'historique du backlog sans réécrire le statut initial
+des dix-sept stories.
+
+| Élément | État d'exécution |
+|---------|------------------|
+| GO Delivery D2-A | **consommé** — 2026-08-02 03:16 CEST (+0200) |
+| Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` créée depuis `e1befcb8…` |
+| BL-D2-A-01 | **exécutée** — contrats D2-A et projection fingerprint fermée |
+| BL-D2-A-02 | **exécutée** — HASH-A statique + garde SHA-256 test-only |
+| BL-D2-A-03 | **exécutée** — Catalog Projection pure et fail-closed |
+| BL-D2-A-04 | **exécutée** — 24 tests D2-A + non-régression D1 |
+| Tests ciblés | fingerprint **8/8** · projection **16/16** |
+| Baseline pré-mutation | catalogue D1 **46/46** · cycle OA **94/94** |
+| Delivery D2-A | **complète localement** |
+| QA D2-A indépendante | **non exécutée** |
+| PR readiness D2-A | **non ouverte** |
+| D2-B / D2-C | **fermés** — aucun élément implémenté |
+| D2-D / D3 | **fermés** |
+| Git projet | aucun commit · aucun push · aucune PR |
+
+**Statut d'exécution :**
+`D2-A DELIVERY COMPLETE LOCALLY — READY FOR QA — NOT PR READY`.
 
 
-## Document 08 — complet
+## 16. Sections modifiées complètes de 08
 
 # 08 — Implementation backlog and slicing
 
@@ -1116,10 +977,12 @@ Docs :
 | D2 conception fonctionnelle | **validée** — [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) |
 | Architecture fonctionnelle D2 | **adoptée (FA-C)** — [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) · D-V3.1-D2-FA-01…12 **ADOPTED BY MORRIS** |
 | Architecture technique D2 | **adoptée** — [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) · D-V3.1-D2-TA-01…12 **ADOPTED BY MORRIS** |
-| Backlog D2-A/B/C | **terminé localement** — [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) · prêt pour validation Morris · **Delivery non autorisée** |
-| Delivery D2-A | **non ouverte** |
-| Delivery D2-B | **non ouverte** |
-| Delivery D2-C | **non ouverte** |
+| Backlog D2-A/B/C | **validé** — [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) · 17 stories préservées |
+| Delivery D2-A | **complète localement** — contrats, HASH-A, projection pure · [rapport](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md) |
+| QA D2-A | **non exécutée** — gate distinct requis |
+| PR readiness D2-A | **non ouverte** |
+| Delivery D2-B | **fermée** — gate distinct requis après validation/intégration D2-A |
+| Delivery D2-C | **fermée** |
 | D2-D (extensions) | **gated** · non ouvert |
 | D3 | **non ouvert** |
 
@@ -1128,7 +991,7 @@ Docs :
 | Lot | Contenu | Statut |
 |-----|---------|--------|
 | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog local 17 stories** · Delivery A/B/C **fermées** · slicing **A→B→C** · D2-D gated |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A Delivery **complète localement / prête QA** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
 ### Réserves QA
@@ -1137,32 +1000,41 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
 
 ### Réserves D2
 
-Orchestration CKC · fail-closed · bridge QualifyCycle · Core-only · FA-C+TA adoptées · backlog 19 prêt validation · Delivery fermée — voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) / [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) / [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) / [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) / [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md).
+Catalog Projection D2-A complète localement ; QA indépendante requise.
+Orchestration CKC, resolver et bridge QualifyCycle restent fermés en D2-B/C —
+voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) /
+[`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) /
+[`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) /
+[`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) /
+[`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md).
 
 ## Lot V3.2 / V4 / V5 / V6
 
 **NOT AUTHORIZED.**
 
 
-## README — complet
+## 17. Sections modifiées complètes du README framing
 
 # First user-visible SFIA Studio vertical slice — Framing
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D1 CLOSED — V3.1-D2 FA+TA ADOPTED — BACKLOG COMPLETE LOCALLY — DELIVERY/D3 NOT OPENED` |
-| **Date** | 2026-08-01 16:55:05 CEST (+0200) |
-| **Cycle courant** | 5 — Backlog / user stories V3.1-D2-A/B/C |
+| **Statut** | `FRAMING LIVING — V3.1-D2-A DELIVERY COMPLETE LOCALLY — READY FOR QA — NOT PR READY` |
+| **Date** | 2026-08-02 03:26 CEST (+0200) |
+| **Cycle courant** | 8 — Delivery / implémentation V3.1-D2-A |
 | **Profil** | **Standard** |
-| **Typologie** | DOC |
-| **Gate courant** | Backlog D2 **consommé** (2026-08-01 16:45 CEST) |
+| **Typologie** | EVOL |
+| **Gate courant** | GO Delivery D2-A **consommé** (2026-08-02 03:16 CEST) |
+| **Branche Delivery** | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
 | **Décisions D2 produit** | D-V3.1-D2-01…12 **ADOPTED BY MORRIS** |
 | **Décisions D2-FA** | D-V3.1-D2-FA-01…12 **ADOPTED BY MORRIS** (FA-C) |
 | **Décisions D2-TA** | D-V3.1-D2-TA-01…12 **ADOPTED BY MORRIS** |
-| **Backlog** | [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) — 17 stories (A×4 · B×6 · C×7) · ordre A→B→C · **Delivery non autorisée** |
+| **Backlog** | [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) **validé** — 17 stories (A×4 · B×6 · C×7) · ordre A→B→C |
+| **Delivery D2-A** | [rapport](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md) — quatre stories exécutées · 24 tests D2-A |
 | **Base `main`** | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
 | **Docs D2** | [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) · [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) · [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) (**TA adoptée**) · [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) |
-| **Docs protégées** | `12`–`17` **inchangés** (ce cycle) |
+| **Docs protégées** | `12`–`18` et documents D1 **inchangés** (ce cycle) |
+| **Git projet** | aucun commit · aucun push · aucune PR |
 | **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
 
 ## Synthèse
@@ -1173,8 +1045,9 @@ Orchestration CKC · fail-closed · bridge QualifyCycle · Core-only · FA-C+TA 
 | V3 / V3.1 cadrage–conception–adoption | terminés (`12`/`13`/`14`) |
 | **V3.1-D1** | **techniquement clos** sur `main` |
 | **V3.1-D2 FA/TA** | **adoptées** |
-| **V3.1-D2 backlog** | **terminé localement** — validation Morris requise |
-| Delivery D2-A/B/C | **fermées** |
+| **V3.1-D2 backlog** | **validé** |
+| **Delivery D2-A** | **complète localement** · QA indépendante requise · pas PR ready |
+| Delivery D2-B/C | **fermées** |
 | D2-D extensions | **gated** |
 | V3.1-D3 | **fermé** · réserve Figma |
 | V3.2 / V4–V6 | non autorisés |
@@ -1184,100 +1057,2409 @@ Orchestration CKC · fail-closed · bridge QualifyCycle · Core-only · FA-C+TA 
 ## Gate candidat suivant
 
 ```text
-GO DELIVERY SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
-USE VALIDATED BACKLOG AND ADOPTED TA-01…12 —
-IMPLEMENT CONTRACTS, CATALOG FINGERPRINT AND PURE CATALOG PROJECTION —
-NO D2-B — NO D2-C — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
+GO QA VALIDATION SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+VERIFY CONTRACTS, FINGERPRINT DETERMINISM, FAIL-CLOSED CATALOG PROJECTION, IMPORT BOUNDARIES AND NON-REGRESSION —
+NO CORRECTIVE IMPLEMENTATION UNLESS DISTINCT MORRIS GO —
+NO D2-B —
+NO D2-C —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION
 ```
 
 ## Verdict
 
-`V3.1-D2 DELIVERY BACKLOG COMPLETE LOCALLY — READY FOR MORRIS VALIDATION — NO DELIVERY AUTHORIZED — D2-B/C CLOSED — D3 NOT OPENED`
+`V3.1-D2-A DELIVERY COMPLETE LOCALLY — READY FOR INDEPENDENT QA — NOT PR READY — D2-B/C CLOSED — D3 NOT OPENED`
 
 
-## Rapport temporaire
+## 18. Contenu complet du README Delivery
 
-`.tmp-sfia-review/v3-1-d2-backlog-report.md`
+# V3.1-D2-A — Catalog Projection
 
-## État Git final
+## A. Métadonnées
 
+| Champ | Valeur |
+|-------|--------|
+| Date/heure/fuseau | 2026-08-02 03:26 CEST (+0200) |
+| Cycle | 8 — Delivery / implémentation |
+| Profil | Standard |
+| Typologie | EVOL |
+| Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
+| Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| Statut | `D2-A DELIVERY COMPLETE LOCALLY — READY FOR QA — NOT PR READY` |
+
+Le profil Standard est proportionné à un diff de fonctions de domaine pures,
+types readonly, constante statique et tests, sans resolver, infrastructure,
+mutation, UI, dépendance ni changement d'architecture.
+
+## B. Gate Morris
+
+Gate consommé le 2026-08-02 à 03:16 CEST :
+
+```text
+GO DELIVERY SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+USE VALIDATED BACKLOG AND ADOPTED TA-01…12 —
+IMPLEMENT CONTRACTS, CATALOG FINGERPRINT AND PURE CATALOG PROJECTION —
+NO D2-B —
+NO D2-C —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION
 ```
-=== Git Truth Final 2026-08-01T16:59:55+02:00 ===
-branch=framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage
-HEAD=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
-main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
-origin/main=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
-lr=0	0
+
+## C. Sources
+
+Template d'exécution SFIA, routing guide, operating model, guardrails,
+validation checklist, engineering principles, delivery pipeline, carte CKC,
+matrice CKC, méthode cycle §4.8, documents D2 `15` à `19`, backlog `08`,
+README framing, contrat catalogue D1, types/erreurs/invariants/index T-A2,
+tests cycle OA, README D1 et configurations TypeScript/Vitest/Next.
+
+CKC : contrat détaillé absent ; fallback carte synthétique + méthode §4.8,
+statut `method-candidate`, guidance cognitive expérimentale,
+`executionAuthority=false`.
+
+## D. Git Truth et transition de branche
+
+- branche initiale : `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` ;
+- `HEAD = main = origin/main = e1befcb8…` ; divergence `0/0` ;
+- staged vide ; état documentaire attendu uniquement ;
+- 77 worktrees ; prune dry-run vide ;
+- branche Delivery locale et distante absentes ;
+- handoff source : tip `dbb4e80…`, blob `85596ce…` ;
+- branche créée localement, sans commit ni push ;
+- empreintes SHA-256 de `15` à `19`, `08` et README identiques avant/après.
+
+## E. Stories consommées
+
+- BL-D2-A-01 — contrats dédiés et projection contractuelle ;
+- BL-D2-A-02 — fingerprint statique et garde SHA-256 ;
+- BL-D2-A-03 — projection pure et fail-closed ;
+- BL-D2-A-04 — tests et non-régression.
+
+## F. Décisions TA consommées
+
+TA-01, TA-02, TA-03, TA-06 et la partie locale de TA-09 sont implémentées.
+TA-04/05/07 appartiennent à D2-B ; TA-08/11 à D2-C ; TA-10 à D2-B/C.
+TA-12 est respectée : D2-B et D2-C restent fermés.
+
+## G. Périmètre
+
+Contrats D2-A, projection fermée du catalogue, sérialisation canonique,
+HASH-A statique, contrôle SHA-256 test-only, projection de sélection pure,
+erreurs locales, exports additifs, tests et documentation.
+
+## H. Hors périmètre
+
+Resolver, manifest CKC, preuve de consommation, bridge QualifyCycle,
+résultat global D2, audit, factory, infrastructure, CreateCycle, mutation,
+UI, API, D2-B, D2-C, D2-D et D3.
+
+## I. Contrats D2-A
+
+`CatalogSelectionContext` conserve `cycleTypeId`, `catalogVersion`,
+`catalogHash`, `correlationId`. `CatalogFingerprintEntry` ferme exactement
+les champs identitaires, lifecycle, numéro de méthode et mapping CKC.
+`ValidatedCycleTypeProjection` expose présentation D1, lifecycle, mapping CKC,
+version, hash et corrélation, sans profil, décision ni consommation.
+
+## J. Projection contractuelle du fingerprint
+
+La projection conserve l'ordre contractuel des quinze entrées et un ordre fixe
+des propriétés. `fallbackReference` absent est normalisé en `null`.
+Labels, descriptions, displayOrder, methodReference et aliases sont exclus.
+
+## K. HASH-A et mécanisme de garde
+
+- format : `sha256-canonical-json-v1` ;
+- valeur : `sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc` ;
+- production : sérialisation JSON déterministe uniquement ;
+- test : `createHash("sha256")` depuis `node:crypto`, jamais importé en production ;
+- aucun artefact généré, script permanent, package ou changement CI.
+
+## L. Catalog Projection
+
+`projectSelectableCycleType` applique dans l'ordre : corrélation, version,
+fingerprint, existence, lifecycle active, puis cohérence du mapping CKC.
+Elle accepte un seam de catalogue pur pour les tests négatifs et utilise le
+singleton D1 par défaut. Le résultat de succès et le mapping sont gelés.
+
+## M. Erreurs locales
+
+Erreurs structurées, bloquantes et sans projection partielle :
+`CATALOG_CORRELATION_ID_REQUIRED`, `CATALOG_VERSION_INCOMPATIBLE`,
+`CATALOG_FINGERPRINT_STALE`, `CYCLE_TYPE_UNKNOWN`,
+`CYCLE_TYPE_NOT_SELECTABLE`, `CYCLE_TYPE_MAPPING_INVALID`.
+`CycleDetailCode` et `CycleStructuredError` restent inchangés.
+
+## N. Fichiers
+
+Créés : trois modules de domaine, deux suites de tests et ce rapport.
+Modifiés : barrel `index.ts` par trois exports uniquement, documents framing
+`19`, `08` et `README`. Aucun autre fichier projet.
+
+## O. Tests
+
+Baseline avant modification : catalogue D1 **46/46 PASS** ; cycle OA
+**94/94 PASS**. D2-A ciblé : fingerprint **8/8 PASS** ; projection
+**16/16 PASS**.
+
+## P. Résultats complets
+
+- fingerprint D2-A : **8/8 PASS** ;
+- Catalog Projection D2-A : **16/16 PASS** ;
+- catalogue D1 historique : **46/46 PASS** ;
+- suite `oa/cycle` : **118/118 PASS** ;
+- suite complète : **851/851 PASS** ;
+- typecheck : **PASS** ;
+- lint : **PASS**, aucun warning ni erreur ;
+- build Next : **PASS**, compilation et 10 pages statiques ;
+- frontières d'import : **PASS**.
+
+Le détail reproductible est conservé dans le review pack et le rapport
+temporaire du cycle.
+
+## Q. Diff et volumétrie
+
+Diff borné aux fichiers autorisés. Les documents `12` à `18`, les documents
+D1, les dépendances, configurations et modules T-A2 protégés sont inchangés.
+
+## R. Anti-claims
+
+Delivery locale ≠ QA indépendante ; tests verts ≠ PR ready ; mapping CKC ≠
+résolution ; fingerprint ≠ preuve de consommation ; projection ≠ bridge
+QualifyCycle. Aucun commit/push/PR projet, aucune promotion méthode.
+
+## S. Risques et réserves
+
+Le fingerprint doit être mis à jour explicitement si un champ contractuel D1
+change ; le test empêche une dérive silencieuse. `INHERITED-R-01` reste
+acceptée, traçable et non levée. D2-B dépend d'une intégration/validation
+ultérieure de D2-A et d'un gate Morris distinct.
+
+## T. Readiness QA
+
+La Delivery D2-A est complète localement et prête pour une QA indépendante.
+La QA n'est pas exécutée par ce cycle et la PR readiness n'est pas ouverte.
+
+## U. Verdict
+
+```text
+V3.1-D2-A CATALOG PROJECTION DELIVERY COMPLETE —
+BL-D2-A-01…04 IMPLEMENTED —
+STATIC HASH-A AND TEST-ONLY SHA-256 GUARD IMPLEMENTED —
+PURE FAIL-CLOSED CATALOG PROJECTION IMPLEMENTED —
+D1 PRESERVED —
+READY FOR INDEPENDENT QA —
+NOT PR READY —
+NO D2-B — NO D2-C — NO D2-D — NO D3 —
+NO PROJECT COMMIT — NO PROJECT PUSH — NO PR
+```
+
+
+## 19. Contrats
+
+Contrats readonly dédiés : Selection Context, projection fingerprint fermée,
+projection validée, erreurs locales et résultat discriminé. Aucun changement
+de `domain/types.ts` ou des erreurs T-A2.
+
+## 20. Fingerprint
+
+`sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc`
+au format `sha256-canonical-json-v1`.
+
+## 21. Sérialisation
+
+Projection ordonnée de quinze entrées, propriétés fixes,
+`fallbackReference` absent normalisé en `null`, labels/descriptions exclus,
+`JSON.stringify` déterministe.
+
+## 22. Catalog Projection
+
+Validation ordonnée : correlationId, version, hash, existence, lifecycle,
+mapping. Active uniquement ; tout autre statut fail-closed. Mapping détaillé
+ou synthétique canonique uniquement. Résultat et mapping gelés.
+
+## 23. Erreurs
+
+Six erreurs locales structurées : correlation requise, version incompatible,
+fingerprint stale, type inconnu, type non sélectionnable, mapping invalide.
+Toutes sont bloquantes et n'exposent aucune projection partielle.
+
+## 24. Tests et résultats complets
+
+```text
+---
+pid: 70737
+cwd: "/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app"
+command: "set -e\nnpm test -- __tests__/oa/cycle/catalogFingerprint.test.ts\nnpm test -- __tests__/oa/cycle/catalogProjection.test.ts\nnpm test -- __tests__/oa/cycle/cycleTypeCatalog.test.ts\nnpm test -- __tests__/oa/cycle/\nnpm test\nnpm run typecheck\nnpm run lint\nnpm run build"
+title: "Exécuter toute la matrice de validation D2-A"
+status: succeeded
+started_at: 2026-08-02T01:25:45.182Z
+running_for_ms: 19472
+---
+
+> sfia-studio@0.1.0 test
+> vitest run __tests__/oa/cycle/catalogFingerprint.test.ts
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
+
+ ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  03:25:45
+   Duration  295ms (transform 72ms, setup 41ms, collect 106ms, tests 3ms, environment 0ms, prepare 27ms)
+
+
+> sfia-studio@0.1.0 test
+> vitest run __tests__/oa/cycle/catalogProjection.test.ts
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
+
+ ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  03:25:45
+   Duration  281ms (transform 84ms, setup 21ms, collect 119ms, tests 3ms, environment 0ms, prepare 22ms)
+
+
+> sfia-studio@0.1.0 test
+> vitest run __tests__/oa/cycle/cycleTypeCatalog.test.ts
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
+
+ ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  46 passed (46)
+   Start at  03:25:46
+   Duration  265ms (transform 77ms, setup 20ms, collect 108ms, tests 7ms, environment 0ms, prepare 23ms)
+
+
+> sfia-studio@0.1.0 test
+> vitest run __tests__/oa/cycle/
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
+
+ ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 7ms
+ ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 4ms
+ ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 4ms
+ ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 12ms
+ ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 73ms
+ ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 74ms
+
+ Test Files  6 passed (6)
+      Tests  118 passed (118)
+   Start at  03:25:47
+   Duration  411ms (transform 207ms, setup 202ms, collect 822ms, tests 172ms, environment 0ms, prepare 202ms)
+
+
+> sfia-studio@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
+
+ ✓ __tests__/d1/t-a7-method-mode-hold-boundaries.test.ts (4 tests) 60ms
+ ✓ __tests__/ops1/actionGate.test.ts (10 tests) 116ms
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > loads canonical core sources and returns telemetry
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:48.118Z","status":"started","intentLength":53,"sessionLocalId":"plat-1"}
+
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > loads canonical core sources and returns telemetry
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T01:25:48.215Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"plat-1","durationMs":97,"providerMode":"fake"}
+
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > runs a read-only git tool when fixture marker present
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:48.216Z","status":"started","intentLength":76,"sessionLocalId":"plat-2"}
+
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > runs a read-only git tool when fixture marker present
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T01:25:48.353Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":76,"sessionLocalId":"plat-2","durationMs":137,"providerMode":"fake"}
+
+ ✓ __tests__/oa/project/projectLpsFoundation.test.ts (26 tests) 105ms
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > denies reading .env via tool (POLICY) without fake success
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:48.353Z","status":"started","intentLength":77,"sessionLocalId":"plat-3"}
+
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > denies reading .env via tool (POLICY) without fake success
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T01:25:48.432Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":77,"sessionLocalId":"plat-3","durationMs":79,"providerMode":"fake"}
+
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > legacy path when flag disabled skips tool loop sources optional
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:48.432Z","status":"started","intentLength":53,"sessionLocalId":"plat-4"}
+
+stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > legacy path when flag disabled skips tool loop sources optional
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T01:25:48.432Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"plat-4","durationMs":0,"providerMode":"fake"}
+
+ ✓ __tests__/d1/intake-platform-integration.test.ts (5 tests) 317ms
+stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
+[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-5bf85351-7963-4d37-b69c-c9a30c4c25e4 ops1-att-1b069140-5333-43f8-af21-ea9183e8c5f0 fake-test
+
+stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
+[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-5bf85351-7963-4d37-b69c-c9a30c4c25e4 ops1-att-1b069140-5333-43f8-af21-ea9183e8c5f0 15 tools=0
+
+stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
+[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-5bf85351-7963-4d37-b69c-c9a30c4c25e4 ops1-att-f6e797b9-65df-4d63-9e01-ca2c3521833b fake-test
+
+stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
+[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-5bf85351-7963-4d37-b69c-c9a30c4c25e4 ops1-att-f6e797b9-65df-4d63-9e01-ca2c3521833b 30 tools=0
+
+stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
+[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-5bf85351-7963-4d37-b69c-c9a30c4c25e4 ops1-att-2f784076-4928-4a3b-a6e6-620242c5ee8d fake-test
+
+stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
+[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-5bf85351-7963-4d37-b69c-c9a30c4c25e4 ops1-att-2f784076-4928-4a3b-a6e6-620242c5ee8d 45 tools=0
+
+ ✓ __tests__/oa/decision/decisionConfirmationAuthority.test.ts (26 tests) 103ms
+ ✓ __tests__/oa/execution-contract/supersedeCancelAuthz.test.ts (11 tests) 92ms
+ ✓ __tests__/oa/execution-contract/runtimeValidationHardening.test.ts (16 tests) 120ms
+stdout | __tests__/ops1/controlTowerTools.test.ts > GitLocalReadAdapter + ToolRouter > live fake provider runs tool loop for git status marker
+[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-5b2c9be0-d002-4f2b-a1a0-64ef18570cb6 ops1-att-d6a61ce0-8cf2-4aed-82e9-b1f22b58b0e0 fake-test
+
+ ✓ __tests__/oa/execution-attempt/lifecycleFoundation.test.ts (24 tests) 276ms
+stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > keeps user turn and marks attempt failed without fake assistant on provider error
+[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-0f3692c1-e211-440c-9eff-77550d30145a ops1-att-b45ef9e4-9fbc-491f-8275-ef6a93f72252 fake-test
+
+stderr | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > keeps user turn and marks attempt failed without fake assistant on provider error
+[ops1] CONVERSATION_ATTEMPT_FAILED ops1-sess-0f3692c1-e211-440c-9eff-77550d30145a ops1-att-b45ef9e4-9fbc-491f-8275-ef6a93f72252 INTERNAL
+
+stdout | __tests__/ops1/controlTowerTools.test.ts > GitLocalReadAdapter + ToolRouter > live fake provider runs tool loop for git status marker
+[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-5b2c9be0-d002-4f2b-a1a0-64ef18570cb6 ops1-att-d6a61ce0-8cf2-4aed-82e9-b1f22b58b0e0 45 tools=1
+
+ ✓ __tests__/ops1/controlTowerTools.test.ts (7 tests) 566ms
+   ✓ GitLocalReadAdapter + ToolRouter > live fake provider runs tool loop for git status marker  343ms
+ ✓ __tests__/ops1/conversation-repository.test.ts (9 tests) 643ms
+ ✓ __tests__/oa/execution-contract/executionContractGovernance.test.ts (18 tests) 190ms
+ ✓ __tests__/oa/execution-attempt/qaAdversarialValidation.test.ts (12 tests) 142ms
+ ✓ __tests__/vertical-slice-core/localProjectComposition.test.ts (13 tests) 91ms
+ ✓ __tests__/oa/doctrine/resolveDoctrinePackage.test.ts (22 tests) 113ms
+ ✓ __tests__/oa/execution-contract/adversarialCriticalAntiTa5.test.ts (12 tests) 131ms
+ ✓ __tests__/vertical-slice-runtime/runtimeApplicationService.test.ts (8 tests) 60ms
+ ✓ __tests__/oa/decision/validationAdversarial.test.ts (12 tests) 77ms
+ ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 103ms
+ ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 97ms
+ ✓ __tests__/vertical-slice-core/importBoundaries.test.ts (3 tests) 40ms
+ ✓ __tests__/ops1/repository.test.ts (6 tests) 66ms
+ ✓ __tests__/oa/decision/adversarialAuthority.test.ts (8 tests) 124ms
+ ✓ __tests__/platform/t-a7-path-policy-loader-asymmetry.probe.test.ts (5 tests) 40ms
+ ✓ __tests__/vertical-slice-runtime/importBoundaries.test.ts (5 tests) 56ms
+ ✓ __tests__/platform/t-a7-ops1-oa-isolation.probe.test.ts (5 tests) 31ms
+ ✓ __tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts (15 tests) 49ms
+ ✓ __tests__/oa/doctrine/schemaValidation.test.ts (3 tests) 72ms
+ ✓ __tests__/platform/t-a7-canonical-consumers.probe.test.ts (3 tests) 20ms
+ ✓ __tests__/oa/doctrine/antiLegacy.test.ts (3 tests) 18ms
+stdout | __tests__/d1/t-a7-method-mode-hold.test.ts > T-A7 lot1 MethodMode hold > blocks transitions while hold is active
+{"event":"d1.method_mode_hold_blocked","ts":"2026-08-02T01:25:49.667Z","status":"blocked","reasonCount":7,"codes":"B5_OPEN,R1_OPEN,R_M01_OPEN,HARD_OPEN,T_A7_BOUNDED_LOT_ACTIVE,F11_2_INCOMPLETE,F13_4_INCOMPLETE"}
+{"event":"d1.project_create","ts":"2026-08-02T01:25:49.671Z","status":"ok","projectId":"proj-3c6ed89d-504d-46c1-983e-13543e69d2a3","durationMs":0}
+{"event":"d1.method_mode_hold_blocked","ts":"2026-08-02T01:25:49.672Z","status":"blocked","reasonCount":7,"codes":"B5_OPEN,R1_OPEN,R_M01_OPEN,HARD_OPEN,T_A7_BOUNDED_LOT_ACTIVE,F11_2_INCOMPLETE,F13_4_INCOMPLETE"}
+{"event":"d1.method_mode_selected","ts":"2026-08-02T01:25:49.672Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
+
+stdout | __tests__/d1/t-a7-method-mode-hold.test.ts > T-A7 lot1 MethodMode hold > allows transitions when hold is inactive (test override)
+{"event":"d1.project_create","ts":"2026-08-02T01:25:49.676Z","status":"ok","projectId":"proj-fb9e3704-d54a-4426-b853-b44147abcfb9","durationMs":0}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T01:25:49.677Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-08-02T01:25:49.677Z","status":"ok","projectId":"proj-fb9e3704-d54a-4426-b853-b44147abcfb9","durationMs":0}
+
+stdout | __tests__/d1/t-a7-method-mode-hold.test.ts > T-A7 lot1 MethodMode hold > blocks when hold is active even with empty reasons
+{"event":"d1.method_mode_hold_blocked","ts":"2026-08-02T01:25:49.678Z","status":"blocked","reasonCount":0,"codes":"ACTIVE_NO_REASONS"}
+
+ ✓ __tests__/d1/t-a7-method-mode-hold.test.ts (6 tests) 13ms
+ ✓ __tests__/ops1/controlTowerReinjection.test.ts (2 tests) 23ms
+ ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 10ms
+ ✓ __tests__/oa/evidence-review/adversarialMaturityValidation.test.ts (3 tests) 5ms
+ ✓ __tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts (10 tests) 11ms
+ ✓ __tests__/oa/evidence-review/adversarialCoordinationValidation.test.ts (7 tests) 16ms
+ ✓ __tests__/oa/evidence-review/recommendNextGate.test.ts (11 tests) 27ms
+ ✓ __tests__/oa/execution-contract/antiLegacy.test.ts (4 tests) 11ms
+ ✓ __tests__/d1/t-a7-operational-readiness.test.ts (7 tests) 7ms
+ ✓ __tests__/oa/evidence-review/claimEvaluationLifecycle.test.ts (14 tests) 18ms
+ ✓ __tests__/oa/evidence-review/registerEvidence.test.ts (8 tests) 6ms
+ ✓ __tests__/oa/decision/antiLegacy.test.ts (4 tests) 11ms
+ ✓ __tests__/oa/evidence-review/adversarialClaimEvaluationValidation.test.ts (4 tests) 6ms
+ ✓ __tests__/oa/project/antiLegacy.test.ts (4 tests) 4ms
+ ✓ __tests__/oa/evidence-review/reviewBundleLifecycle.test.ts (14 tests) 17ms
+ ✓ __tests__/platform/import-boundaries.test.ts (3 tests) 7ms
+ ✓ __tests__/oa/execution-attempt/attemptRepository.test.ts (33 tests) 15ms
+ ✓ __tests__/oa/execution-attempt/registryAndAdapters.test.ts (19 tests) 4ms
+ ✓ __tests__/oa/evidence-review/ingestExecutionAttemptEvidence.test.ts (7 tests) 7ms
+ ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 10ms
+ ✓ __tests__/ops1/openai-provider.test.ts (2 tests) 16ms
+ ✓ __tests__/platform/t-a7-bounded-history.test.ts (10 tests) 4ms
+ ✓ __tests__/oa/evidence-review/adversarialValidation.test.ts (9 tests) 8ms
+ ✓ __tests__/oa/evidence-review/reviewBundleDomain.test.ts (12 tests) 9ms
+ ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 2ms
+ ✓ __tests__/oa/evidence-review/adversarialReviewBundleValidation.test.ts (4 tests) 11ms
+ ✓ __tests__/oa/evidence-review/verifyAndUnavailable.test.ts (13 tests) 9ms
+ ✓ __tests__/platform/t-a7-consolidated-blocker-reduction.test.ts (19 tests) 9ms
+ ✓ __tests__/oa/evidence-review/evidenceRepository.test.ts (7 tests) 5ms
+ ✓ __tests__/platform/platform-ai.test.ts (5 tests) 3ms
+ ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 6ms
+ ✓ __tests__/ops1/t-a7-allowlist-method-hits.probe.test.ts (3 tests) 6ms
+ ✓ __tests__/platform/t-a7-local-volume.probe.test.ts (1 test) 6ms
+ ✓ __tests__/ops1/conversation-domain.test.ts (7 tests) 2ms
+ ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 14ms
+ ✓ __tests__/platform/t-a7-f11-f13-absence.probe.test.ts (3 tests) 2ms
+ ✓ __tests__/oa/evidence-review/maturityAssessmentDomain.test.ts (4 tests) 3ms
+ ✓ __tests__/ops1/sfia/canonicalEngine.test.ts (17 tests) 3066ms
+   ✓ SFIA context resolver > detects context stale on head mismatch  334ms
+   ✓ SFIA action compiler > denies commit/push operations  306ms
+   ✓ SFIA action compiler > preserves exact content  306ms
+   ✓ SFIA action compiler > instantiates cursor prompt from real template  340ms
+   ✓ SFIA conversation integration (fixture markers) > CREATE marker → ActionCandidate live  384ms
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > produces a validated proposal without mutation side effects
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:51.369Z","status":"started","intentLength":53,"sessionLocalId":"s1"}
+
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > produces a validated proposal without mutation side effects
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T01:25:51.445Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"s1","durationMs":76,"providerMode":"fake"}
+
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:51.446Z","status":"started","intentLength":22,"sessionLocalId":"s2"}
+
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
+[d1.intake] {"event":"intake_clarification_requested","ts":"2026-08-02T01:25:51.556Z","status":"NEED_CLARIFICATION","intentLength":22,"sessionLocalId":"s2","durationMs":110,"providerMode":"fake"}
+
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:51.556Z","status":"started","intentLength":22,"sessionLocalId":"s2"}
+
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T01:25:51.666Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":22,"sessionLocalId":"s2","durationMs":110,"providerMode":"fake"}
+
+ ✓ __tests__/ops1/globalModeBadge.ui.test.tsx (5 tests) 268ms
+ ✓ __tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx (4 tests) 302ms
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:51.667Z","status":"started","intentLength":39,"sessionLocalId":"s4"}
+
+stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
+[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-02T01:25:51.760Z","status":"PROVIDER","intentLength":39,"sessionLocalId":"s4","durationMs":93,"providerMode":"fake","errorCode":"PROVIDER"}
+
+ ✓ __tests__/d1/intake-c2.test.ts (13 tests) 396ms
+ ✓ __tests__/ops1/Ops1SessionScreen.test.tsx (4 tests) 178ms
+stdout | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > sends system role separately from user intent
+[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T01:25:52.173Z","status":"started","intentLength":53,"sessionLocalId":"harden-1"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > sends system role separately from user intent
+[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T01:25:52.269Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"harden-1","durationMs":96,"providerMode":"fake"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > fails explicitly when live requested without secrets
+[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-02T01:25:52.271Z","status":"CONFIG","providerMode":"live","errorCode":"CONFIG"}
+[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-02T01:25:52.272Z","status":"CONFIG","providerMode":"live","errorCode":"CONFIG"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > exact name ranks first with strong evidence
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.274Z","status":"started","sessionLocalId":"m1","proposalId":"rrp-campus"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.275Z","status":"AVAILABLE","sessionLocalId":"m1","durationMs":1,"proposalId":"rrp-campus","sourceProjectCount":2,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T01:25:52.276Z","status":"STRONG_MATCH","sessionLocalId":"m1","durationMs":2,"proposalId":"rrp-campus","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > detects semantic proximity for contrats
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.276Z","status":"started","sessionLocalId":"m2","proposalId":"rrp-c"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.277Z","status":"AVAILABLE","sessionLocalId":"m2","durationMs":1,"proposalId":"rrp-c","sourceProjectCount":2,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T01:25:52.277Z","status":"STRONG_MATCH","sessionLocalId":"m2","durationMs":1,"proposalId":"rrp-c","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
+
+stderr | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > fails explicitly when live requested without secrets
+{"event":"d1_intake_live_config_unavailable","ts":"2026-08-02T01:25:52.271Z","message":"D1_INTAKE_LIVE=1 but live secrets unavailable — refusing silent fake fallback"}
+{"event":"d1_intake_live_config_unavailable","ts":"2026-08-02T01:25:52.272Z","message":"D1_INTAKE_LIVE=1 but live secrets unavailable — refusing silent fake fallback"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > flags multiple close matches as ambiguity
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.277Z","status":"started","sessionLocalId":"m3","proposalId":"rrp-multi"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.277Z","status":"AVAILABLE","sessionLocalId":"m3","durationMs":0,"proposalId":"rrp-multi","sourceProjectCount":2,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_match_ambiguous","ts":"2026-08-02T01:25:52.285Z","status":"MULTIPLE_MATCHES","sessionLocalId":"m3","durationMs":8,"proposalId":"rrp-multi","candidateCount":2,"topScoreBand":"WEAK_MATCH"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > returns no-match without inventing ids
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.286Z","status":"started","sessionLocalId":"m4","proposalId":"rrp-none"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.286Z","status":"AVAILABLE","sessionLocalId":"m4","durationMs":0,"proposalId":"rrp-none","sourceProjectCount":1,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_no_match","ts":"2026-08-02T01:25:52.286Z","status":"NO_MATCH","sessionLocalId":"m4","durationMs":0,"proposalId":"rrp-none","sourceProjectCount":1}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > warns on inactive project without auto-resume
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.286Z","status":"started","sessionLocalId":"m5","proposalId":"rrp-draft"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.286Z","status":"AVAILABLE","sessionLocalId":"m5","durationMs":0,"proposalId":"rrp-draft","sourceProjectCount":1,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T01:25:52.286Z","status":"STRONG_MATCH","sessionLocalId":"m5","durationMs":0,"proposalId":"rrp-draft","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > analyze-only does not force attachment
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.286Z","status":"started","sessionLocalId":"m6","proposalId":"rrp-ao"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.286Z","status":"AVAILABLE","sessionLocalId":"m6","durationMs":0,"proposalId":"rrp-ao","sourceProjectCount":1,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T01:25:52.286Z","status":"STRONG_MATCH","sessionLocalId":"m6","durationMs":0,"proposalId":"rrp-ao","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > distinguishes context unavailable from empty
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.287Z","status":"started","sessionLocalId":"m7","proposalId":"rrp-u"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.287Z","status":"UNAVAILABLE","sessionLocalId":"m7","durationMs":0,"proposalId":"rrp-u","sourceProjectCount":0,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_unavailable","ts":"2026-08-02T01:25:52.287Z","status":"CONTEXT_UNAVAILABLE","sessionLocalId":"m7","durationMs":0,"errorCode":"UNAVAILABLE","proposalId":"rrp-u"}
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.287Z","status":"started","sessionLocalId":"m8","proposalId":"rrp-e"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.287Z","status":"EMPTY","sessionLocalId":"m8","durationMs":0,"proposalId":"rrp-e","sourceProjectCount":0,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_no_match","ts":"2026-08-02T01:25:52.287Z","status":"NO_MATCH","sessionLocalId":"m8","durationMs":0,"proposalId":"rrp-e","sourceProjectCount":0}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > caps candidates at 5 and keeps scores bounded
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.287Z","status":"started","sessionLocalId":"m9","proposalId":"rrp-cap"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.287Z","status":"AVAILABLE","sessionLocalId":"m9","durationMs":0,"proposalId":"rrp-cap","sourceProjectCount":8,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_match_ambiguous","ts":"2026-08-02T01:25:52.287Z","status":"MULTIPLE_MATCHES","sessionLocalId":"m9","durationMs":0,"proposalId":"rrp-cap","candidateCount":5,"topScoreBand":"WEAK_MATCH"}
+
+stdout | __tests__/d1/intake-c3.test.ts > D1-C3 snapshot from real repository (read-only) > matches against created projects without mutation
+{"event":"d1.project_create","ts":"2026-08-02T01:25:52.311Z","status":"ok","projectId":"proj-e21a22c4-359a-44fa-8d77-4124b72e5f20","durationMs":2}
+{"event":"d1.project_create","ts":"2026-08-02T01:25:52.311Z","status":"ok","projectId":"proj-2db15d2f-18e2-487e-b29b-63b4c0629c50","durationMs":0}
+[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T01:25:52.311Z","status":"started","sessionLocalId":"repo-1","proposalId":"rrp-repo"}
+[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T01:25:52.311Z","status":"AVAILABLE","sessionLocalId":"repo-1","durationMs":0,"proposalId":"rrp-repo","sourceProjectCount":2,"truncationApplied":false}
+[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T01:25:52.311Z","status":"STRONG_MATCH","sessionLocalId":"repo-1","durationMs":0,"proposalId":"rrp-repo","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
+
+ ✓ __tests__/d1/intake-c3.test.ts (16 tests) 140ms
+ ✓ __tests__/d1/intake-c1.test.tsx (6 tests) 667ms
+   ✓ D1-C2 IntakeView > shows structured proposal without executable confirm  303ms
+ ✓ __tests__/increment-e.test.tsx (4 tests) 131ms
+ ✓ __tests__/shell.test.tsx (1 test) 100ms
+ ✓ __tests__/increment-a.test.tsx (8 tests) 165ms
+ ✓ __tests__/gates.test.tsx (1 test) 38ms
+ ✓ __tests__/increment-d.test.tsx (5 tests) 51ms
+ ✓ __tests__/navigation.test.tsx (2 tests) 53ms
+ ✓ __tests__/increment-c.test.tsx (8 tests) 1271ms
+   ✓ Increment C — editable demand + confirmation > accepts editable Campus360 demand and shows exact text in confirmation  336ms
+   ✓ Increment C — editable demand + confirmation > back from confirmation allows editing again  342ms
+ ✓ __tests__/ops1/executionI5.test.ts (5 tests) 1646ms
+   ✓ ops1 I5 execution contract + fixture run > creates contract, records GO linked to hash, runs fixture, blocks double exec  683ms
+   ✓ ops1 I5 execution contract + fixture run > refuses HEAD drift and remote flags stay true  305ms
+ ✓ __tests__/increment-b.test.tsx (6 tests) 35ms
+ ✓ __tests__/ops1/allowlistEvaluation.test.ts (9 tests) 43ms
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > creates project only with explicit confirmation and audits
+[d1.intake] {"event":"intake_mutation_failed","ts":"2026-08-02T01:25:53.220Z","status":"FAILED","sessionLocalId":"s1","durationMs":0,"errorCode":"VALIDATION","proposalId":"rrp-1"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.221Z","status":"CREATE_PROJECT","sessionLocalId":"s1","proposalId":"rrp-1"}
+[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T01:25:53.221Z","status":"confirmed","sessionLocalId":"s1","proposalId":"rrp-1"}
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.221Z","status":"ok","projectId":"proj-0931f1b4-3df6-4ffa-ba67-9eaf294d7710","durationMs":0}
+[d1.intake] {"event":"intake_project_created","ts":"2026-08-02T01:25:53.222Z","status":"SUCCEEDED","projectId":"proj-0931f1b4-3df6-4ffa-ba67-9eaf294d7710","sessionLocalId":"s1","durationMs":1,"proposalId":"rrp-1"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > replays same key same payload without duplicate
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.225Z","status":"CREATE_PROJECT","sessionLocalId":"s2","proposalId":"rrp-2"}
+[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T01:25:53.226Z","status":"confirmed","sessionLocalId":"s2","proposalId":"rrp-2"}
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.226Z","status":"ok","projectId":"proj-806618d5-66d8-4a9c-8113-d38cb844a85f","durationMs":0}
+[d1.intake] {"event":"intake_project_created","ts":"2026-08-02T01:25:53.227Z","status":"SUCCEEDED","projectId":"proj-806618d5-66d8-4a9c-8113-d38cb844a85f","sessionLocalId":"s2","durationMs":2,"proposalId":"rrp-2"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.227Z","status":"CREATE_PROJECT","sessionLocalId":"s2","proposalId":"rrp-2"}
+[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T01:25:53.227Z","status":"confirmed","sessionLocalId":"s2","proposalId":"rrp-2"}
+[d1.intake] {"event":"intake_project_creation_replayed","ts":"2026-08-02T01:25:53.227Z","status":"ALREADY_APPLIED","projectId":"proj-806618d5-66d8-4a9c-8113-d38cb844a85f","sessionLocalId":"s2","durationMs":0,"proposalId":"rrp-2"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > conflicts when same key different payload
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.230Z","status":"CREATE_PROJECT","sessionLocalId":"s3","proposalId":"rrp-3"}
+[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T01:25:53.230Z","status":"confirmed","sessionLocalId":"s3","proposalId":"rrp-3"}
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.230Z","status":"ok","projectId":"proj-c4d305e1-eb6f-4063-966c-089c1271be68","durationMs":0}
+[d1.intake] {"event":"intake_project_created","ts":"2026-08-02T01:25:53.230Z","status":"SUCCEEDED","projectId":"proj-c4d305e1-eb6f-4063-966c-089c1271be68","sessionLocalId":"s3","durationMs":0,"proposalId":"rrp-3"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.231Z","status":"CREATE_PROJECT","sessionLocalId":"s3","proposalId":"rrp-3"}
+[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T01:25:53.231Z","status":"confirmed","sessionLocalId":"s3","proposalId":"rrp-3"}
+[d1.intake] {"event":"intake_mutation_rejected","ts":"2026-08-02T01:25:53.231Z","status":"CONFLICT","sessionLocalId":"s3","durationMs":1,"errorCode":"IDEMPOTENCY","proposalId":"rrp-3"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > existing project confirm is NO_MUTATION without invented link
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.234Z","status":"ok","projectId":"proj-578af4ff-6b0c-4b20-afaa-740e7833b7e0","durationMs":1}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.234Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s4","proposalId":"rrp-4"}
+[d1.intake] {"event":"intake_existing_project_confirmed","ts":"2026-08-02T01:25:53.234Z","status":"NO_MUTATION","projectId":"proj-578af4ff-6b0c-4b20-afaa-740e7833b7e0","sessionLocalId":"s4","durationMs":0,"proposalId":"rrp-4"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > detects stale existing project conflict
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.238Z","status":"ok","projectId":"proj-2f7cf6df-99cc-491e-8d66-0d26b22e5b44","durationMs":0}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T01:25:53.238Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-08-02T01:25:53.239Z","status":"ok","projectId":"proj-2f7cf6df-99cc-491e-8d66-0d26b22e5b44","durationMs":1}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.239Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s5","proposalId":"rrp-5"}
+[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-08-02T01:25:53.239Z","status":"STALE","projectId":"proj-2f7cf6df-99cc-491e-8d66-0d26b22e5b44","sessionLocalId":"s5","durationMs":0,"errorCode":"CONFLICT","proposalId":"rrp-5"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > analyze-only and cancel produce no mutation
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.244Z","status":"ANALYZE_ONLY","sessionLocalId":"s6","proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_analyze_only_completed","ts":"2026-08-02T01:25:53.244Z","status":"NO_MUTATION","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.245Z","status":"CANCEL","sessionLocalId":"s6","proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_confirmation_cancelled","ts":"2026-08-02T01:25:53.245Z","status":"CANCELLED","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > missing existing project returns CONFLICT
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T01:25:53.248Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s7","proposalId":"rrp-7"}
+[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-08-02T01:25:53.248Z","status":"NOT_FOUND","projectId":"proj-missing-does-not-exist","sessionLocalId":"s7","durationMs":0,"errorCode":"NOT_FOUND","proposalId":"rrp-7"}
+
+stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > creates project with audit and mono-operator assignments
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.249Z","status":"ok","projectId":"proj-e450bfaa-b623-4851-a093-e41acc17cc01","durationMs":2}
+
+ ✓ __tests__/d1/intake-c4.test.ts (10 tests) 36ms
+stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > is idempotent on duplicate key
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.253Z","status":"ok","projectId":"proj-1de6f5bc-7fe7-4299-840d-9656e447d3d2","durationMs":0}
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.253Z","status":"idempotent","projectId":"proj-1de6f5bc-7fe7-4299-840d-9656e447d3d2","durationMs":0}
+
+stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > selects method mode with optimistic locking
+{"event":"d1.project_create","ts":"2026-08-02T01:25:53.258Z","status":"ok","projectId":"proj-064acafa-343e-404b-849e-0785996b4a04","durationMs":1}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T01:25:53.258Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-08-02T01:25:53.259Z","status":"ok","projectId":"proj-064acafa-343e-404b-849e-0785996b4a04","durationMs":1}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T01:25:53.260Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-08-02T01:25:53.260Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
+
+ ✓ __tests__/d1/project-foundation.test.ts (7 tests) 24ms
+ ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 13ms
+ ✓ __tests__/ops1/domain.test.ts (6 tests) 4ms
+ ✓ __tests__/fixtures.test.ts (2 tests) 2ms
+ ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 1ms
+ ✓ __tests__/status-pill.test.tsx (1 test) 13ms
+ ✓ __tests__/ops1/executionI6.test.ts (10 tests) 2928ms
+   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  613ms
+   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  649ms
+   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  423ms
+ ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 3023ms
+   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1715ms
+
+ Test Files  92 passed (92)
+      Tests  851 passed (851)
+   Start at  03:25:47
+   Duration  6.77s (transform 3.26s, setup 3.02s, collect 11.36s, tests 18.86s, environment 6.04s, prepare 3.37s)
+
+
+> sfia-studio@0.1.0 typecheck
+> tsc --noEmit
+
+
+> sfia-studio@0.1.0 lint
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+✔ No ESLint warnings or errors
+
+> sfia-studio@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.20
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 929ms
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10)
+   Generating static pages (4/10)
+   Generating static pages (7/10)
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      127 B         103 kB
+├ ○ /_not-found                            127 B         103 kB
+├ ○ /cycle-actif                         3.82 kB         119 kB
+├ ○ /decision                            5.53 kB         120 kB
+├ ƒ /nouvelle-demande                    10.1 kB         116 kB
+├ ○ /ops1/nouvelle-demande               18.5 kB         133 kB
+├ ƒ /projects/[id]                       2.66 kB         108 kB
+├ ○ /projects/new                        2.62 kB         108 kB
+├ ƒ /studio/projects/[id]                2.15 kB         112 kB
+├ ○ /studio/projects/new                 4.07 kB         114 kB
+├ ○ /synthese                            4.83 kB         120 kB
+└ ƒ /workspace                             571 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-3981a3d1f3561bd8.js       46.2 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.96 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+---
+exit_code: 0
+elapsed_ms: 19472
+ended_at: 2026-08-02T01:26:04.654Z
+---
+```
+
+## 25. Non-régression
+
+Fingerprint 8/8 ; projection 16/16 ; D1 46/46 ; OA cycle 118/118 ;
+suite complète 851/851 ; typecheck, lint et build PASS.
+`cycleTypeCatalog.test.ts` et le catalogue D1 sont inchangés.
+
+## 26. Contrôles import boundary
+
+Aucune occurrence de `node:crypto`, `node:fs`, Next ou infrastructure dans
+les trois modules de production. Aucune occurrence D2-B/C (`QualifyCycle`,
+resolver, audit, CreateCycle, consumed, profil ou décision Morris).
+
+## 27. Diff et volumétrie
+
+```text
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |  3 ++
+ .../08-implementation-backlog-and-slicing.md       | 31 ++++++++++---
+ .../README.md                                      | 53 +++++++++++++++-------
+ 3 files changed, 63 insertions(+), 24 deletions(-)
+```
+
+Numstat tracked + fichiers créés :
+
+```text
+3	0	projects/sfia-studio/app/lib/oa/cycle/index.ts
+24	7	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+36	17	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+75	0	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+49	0	projects/sfia-studio/app/lib/oa/cycle/domain/catalogFingerprint.ts
+164	0	projects/sfia-studio/app/lib/oa/cycle/domain/catalogProjection.ts
+133	0	projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts
+269	0	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.test.ts
+182	0	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
+```
+
+## 28. Anti-claims
+
+Delivery complète localement ≠ QA validée ≠ PR ready. Fingerprint ≠ preuve.
+Mapping ≠ résolution. Aucun resolver, bridge, audit, factory, mutation,
+package, artefact build, UI, D2-B/C/D, D3 ou promotion méthode.
+
+## 29. Risques / réserves
+
+Le test SHA-256 doit accompagner toute évolution contractuelle D1.
+INHERITED-R-01 reste acceptée, traçable et non levée. D2-B nécessite
+validation/intégration de D2-A et un gate distinct.
+
+## 30. État Git final
+
+```text
+ M projects/sfia-studio/app/lib/oa/cycle/index.ts
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
  M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+?? .tmp-sfia-review/MERGE_SHA.txt
+?? .tmp-sfia-review/_gen_d2a_reports.py
+?? .tmp-sfia-review/_gen_doc19.py
+?? .tmp-sfia-review/archive-comparison.txt
+?? .tmp-sfia-review/archive-source-sha256.txt
+?? .tmp-sfia-review/archive-target-sha256.txt
+?? .tmp-sfia-review/before-corrective/01-qa-validation-report.md
+?? .tmp-sfia-review/before-corrective/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-corrective/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-corrective/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-corrective/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-corrective/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-corrective/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-corrective/d1-README.md
+?? .tmp-sfia-review/before-corrective/framing-README.md
+?? .tmp-sfia-review/before-corrective/index.ts
+?? .tmp-sfia-review/before-d1/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-d1/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-d1/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-d1/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-d1/README.md
+?? .tmp-sfia-review/before-pr-readiness/01-qa-validation-report.md
+?? .tmp-sfia-review/before-pr-readiness/02-corrective-delivery-report.md
+?? .tmp-sfia-review/before-pr-readiness/03-qa-revalidation-report.md
+?? .tmp-sfia-review/before-pr-readiness/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-pr-readiness/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-pr-readiness/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-pr-readiness/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-pr-readiness/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-pr-readiness/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-pr-readiness/d1-README.md
+?? .tmp-sfia-review/before-pr-readiness/framing-README.md
+?? .tmp-sfia-review/before-pr-readiness/index.ts
+?? .tmp-sfia-review/before-publication/01.md
+?? .tmp-sfia-review/before-publication/02.md
+?? .tmp-sfia-review/before-publication/03.md
+?? .tmp-sfia-review/before-publication/04.md
+?? .tmp-sfia-review/before-publication/08.md
+?? .tmp-sfia-review/before-publication/12.md
+?? .tmp-sfia-review/before-publication/13.md
+?? .tmp-sfia-review/before-publication/14.md
+?? .tmp-sfia-review/before-publication/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-publication/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-publication/d1-README.md
+?? .tmp-sfia-review/before-publication/framing-README.md
+?? .tmp-sfia-review/before-publication/index.ts
+?? .tmp-sfia-review/before-qa/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-qa/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-qa/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-qa/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-qa/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-qa/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-qa/d1-README.md
+?? .tmp-sfia-review/before-qa/framing-README.md
+?? .tmp-sfia-review/before-qa/index.ts
+?? .tmp-sfia-review/before-revalidation/01-qa-validation-report.md
+?? .tmp-sfia-review/before-revalidation/02-corrective-delivery-report.md
+?? .tmp-sfia-review/before-revalidation/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-revalidation/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-revalidation/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-revalidation/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-revalidation/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-revalidation/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-revalidation/d1-README.md
+?? .tmp-sfia-review/before-revalidation/framing-README.md
+?? .tmp-sfia-review/before-revalidation/index.ts
+?? .tmp-sfia-review/before/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before/README.md
+?? .tmp-sfia-review/cap-truth.txt
+?? .tmp-sfia-review/chatgpt-review.md
+?? .tmp-sfia-review/ci-jobs.json
+?? .tmp-sfia-review/ci-run.json
+?? .tmp-sfia-review/evidence/v2-a2/01-initial.png
+?? .tmp-sfia-review/evidence/v2-a2/02-validation-errors.png
+?? .tmp-sfia-review/evidence/v2-a2/03-success-real-runtime.png
+?? .tmp-sfia-review/evidence/v2-a3/01-workspace-missing.png
+?? .tmp-sfia-review/evidence/v2-a3/02-workspace-after-create-not-found.png
+?? .tmp-sfia-review/evidence/v2-a3/03-create-form-filled.png
+?? .tmp-sfia-review/evidence/v2-a3/04-create-success.png
+?? .tmp-sfia-review/evidence/v2-a3/05-workspace-loaded.png
+?? .tmp-sfia-review/final-git-state.txt
+?? .tmp-sfia-review/framing-README-main.md
+?? .tmp-sfia-review/framing-README-pr.md
+?? .tmp-sfia-review/local-numstat.txt
+?? .tmp-sfia-review/main-worktree-inspection.txt
+?? .tmp-sfia-review/main-worktree-status.txt
+?? .tmp-sfia-review/main-worktree-untracked-evidence.txt
+?? .tmp-sfia-review/merge-commit-source.txt
+?? .tmp-sfia-review/merge-readiness-truth.txt
+?? .tmp-sfia-review/merge-revalidation.txt
+?? .tmp-sfia-review/merge-truth.txt
+?? .tmp-sfia-review/pr-296-after-api.json
+?? .tmp-sfia-review/pr-296-after-body-metadata.json
+?? .tmp-sfia-review/pr-296-after-merge.json
+?? .tmp-sfia-review/pr-296-archive-and-cleanup-report.md
+?? .tmp-sfia-review/pr-296-before-metadata.json
+?? .tmp-sfia-review/pr-296-before-view.json
+?? .tmp-sfia-review/pr-296-before.json
+?? .tmp-sfia-review/pr-296-body-after.md
+?? .tmp-sfia-review/pr-296-body-api-json.md
+?? .tmp-sfia-review/pr-296-body-api-raw.md
+?? .tmp-sfia-review/pr-296-body-authorized.diff
+?? .tmp-sfia-review/pr-296-body-before-vs-remote-after.diff
+?? .tmp-sfia-review/pr-296-body-before.md
+?? .tmp-sfia-review/pr-296-body-concurrent-check.md
+?? .tmp-sfia-review/pr-296-body-final.md
+?? .tmp-sfia-review/pr-296-body-hashes.txt
+?? .tmp-sfia-review/pr-296-body-remote-after.md
+?? .tmp-sfia-review/pr-296-body-update-response.json
+?? .tmp-sfia-review/pr-296-body-update.json
+?? .tmp-sfia-review/pr-296-body.md
+?? .tmp-sfia-review/pr-296-checks.json
+?? .tmp-sfia-review/pr-296-checks.txt
+?? .tmp-sfia-review/pr-296-comments.json
+?? .tmp-sfia-review/pr-296-commits.txt
+?? .tmp-sfia-review/pr-296-concurrent-meta.json
+?? .tmp-sfia-review/pr-296-concurrent.json
+?? .tmp-sfia-review/pr-296-diff-correspondence.txt
+?? .tmp-sfia-review/pr-296-fetch-main-attempt.txt
+?? .tmp-sfia-review/pr-296-files.txt
+?? .tmp-sfia-review/pr-296-final-metadata.json
+?? .tmp-sfia-review/pr-296-inline-comments-after.json
+?? .tmp-sfia-review/pr-296-inline-comments-before.json
+?? .tmp-sfia-review/pr-296-inline-comments-concurrent.json
+?? .tmp-sfia-review/pr-296-issue-comments-after.json
+?? .tmp-sfia-review/pr-296-issue-comments-before.json
+?? .tmp-sfia-review/pr-296-issue-comments-concurrent.json
+?? .tmp-sfia-review/pr-296-issue-comments.json
+?? .tmp-sfia-review/pr-296-jobs.json
+?? .tmp-sfia-review/pr-296-merge-body-after.md
+?? .tmp-sfia-review/pr-296-merge-body-authorized.diff
+?? .tmp-sfia-review/pr-296-merge-body-before.md
+?? .tmp-sfia-review/pr-296-merge-body-concurrent.md
+?? .tmp-sfia-review/pr-296-merge-body-final.md
+?? .tmp-sfia-review/pr-296-merge-body-remote-after.md
+?? .tmp-sfia-review/pr-296-merge-report.md
+?? .tmp-sfia-review/pr-296-merge-response.json
+?? .tmp-sfia-review/pr-296-metadata.json
+?? .tmp-sfia-review/pr-296-pm-inline-comments.json
+?? .tmp-sfia-review/pr-296-pm-issue-comments.json
+?? .tmp-sfia-review/pr-296-pm-reviews.json
+?? .tmp-sfia-review/pr-296-post-merge-cleanup-report.md
+?? .tmp-sfia-review/pr-296-post-merge-runs.json
+?? .tmp-sfia-review/pr-296-postmerge-body.md
+?? .tmp-sfia-review/pr-296-postmerge-jobs.json
+?? .tmp-sfia-review/pr-296-postmerge-pr.json
+?? .tmp-sfia-review/pr-296-postmerge-run.json
+?? .tmp-sfia-review/pr-296-pre-merge.json
+?? .tmp-sfia-review/pr-296-pre-ready.json
+?? .tmp-sfia-review/pr-296-ready-transition-report.md
+?? .tmp-sfia-review/pr-296-remote-review-report.md
+?? .tmp-sfia-review/pr-296-remote.diff
+?? .tmp-sfia-review/pr-296-resume-inline-comments.json
+?? .tmp-sfia-review/pr-296-resume-issue-comments.json
+?? .tmp-sfia-review/pr-296-resume-pr.json
+?? .tmp-sfia-review/pr-296-resume-reviews.json
+?? .tmp-sfia-review/pr-296-resumed-post-merge-cleanup-report.md
+?? .tmp-sfia-review/pr-296-reviews-after.json
+?? .tmp-sfia-review/pr-296-reviews-before.json
+?? .tmp-sfia-review/pr-296-reviews-concurrent.json
+?? .tmp-sfia-review/pr-296-reviews.json
+?? .tmp-sfia-review/pr-296-run.json
+?? .tmp-sfia-review/pr-296-runs-after.json
+?? .tmp-sfia-review/pr-296-switch-main-attempt.txt
+?? .tmp-sfia-review/pr-296-view.json
+?? .tmp-sfia-review/pr-297-after-ready.json
+?? .tmp-sfia-review/pr-297-before-ready.json
+?? .tmp-sfia-review/pr-297-body-after-ci-checkbox.md
+?? .tmp-sfia-review/pr-297-body-after-merge-go.md
+?? .tmp-sfia-review/pr-297-body-after-publish.md
+?? .tmp-sfia-review/pr-297-body-before-merge.md
+?? .tmp-sfia-review/pr-297-body-before-ready.md
+?? .tmp-sfia-review/pr-297-body-checkbox-diff.patch
+?? .tmp-sfia-review/pr-297-body-current.md
+?? .tmp-sfia-review/pr-297-body-final-merged.md
+?? .tmp-sfia-review/pr-297-body-merge-diff.patch
+?? .tmp-sfia-review/pr-297-body-only-correction-pack.md
+?? .tmp-sfia-review/pr-297-body-ready-f02-correction.md
+?? .tmp-sfia-review/pr-297-branch-inventory.txt
+?? .tmp-sfia-review/pr-297-ci-premerge.json
+?? .tmp-sfia-review/pr-297-cleanup-before-after-comparison.json
+?? .tmp-sfia-review/pr-297-cleanup-chatgpt-review-preserved.md
+?? .tmp-sfia-review/pr-297-cleanup-ci.json
+?? .tmp-sfia-review/pr-297-cleanup-command-log.txt
+?? .tmp-sfia-review/pr-297-cleanup-final-state.txt
+?? .tmp-sfia-review/pr-297-cleanup-findings.md
+?? .tmp-sfia-review/pr-297-cleanup-git-truth-initial.txt
+?? .tmp-sfia-review/pr-297-cleanup-handoff-ahead-note.txt
+?? .tmp-sfia-review/pr-297-cleanup-local-branches-after-source-cleanup.txt
+?? .tmp-sfia-review/pr-297-cleanup-local-branches-before.txt
+?? .tmp-sfia-review/pr-297-cleanup-local-branches-final.txt
+?? .tmp-sfia-review/pr-297-cleanup-pr.json
+?? .tmp-sfia-review/pr-297-cleanup-readiness.md
+?? .tmp-sfia-review/pr-297-cleanup-remote-heads-after-source-cleanup.txt
+?? .tmp-sfia-review/pr-297-cleanup-remote-heads-before.txt
+?? .tmp-sfia-review/pr-297-cleanup-remote-heads-final.txt
+?? .tmp-sfia-review/pr-297-cleanup-state-before-handoff.txt
+?? .tmp-sfia-review/pr-297-cleanup-tmp-evidence-before.json
+?? .tmp-sfia-review/pr-297-cleanup-tmp-evidence-verification.md
+?? .tmp-sfia-review/pr-297-cleanup-worktrees-after-source-cleanup.txt
+?? .tmp-sfia-review/pr-297-cleanup-worktrees-before.txt
+?? .tmp-sfia-review/pr-297-cleanup-worktrees-final.txt
+?? .tmp-sfia-review/pr-297-document-05.md
+?? .tmp-sfia-review/pr-297-final-findings.md
+?? .tmp-sfia-review/pr-297-main-proof.txt
+?? .tmp-sfia-review/pr-297-merge-commit-proof.txt
+?? .tmp-sfia-review/pr-297-merge-decision-pack.md
+?? .tmp-sfia-review/pr-297-merge-readiness-body.md
+?? .tmp-sfia-review/pr-297-merge-readiness-findings.md
+?? .tmp-sfia-review/pr-297-merge-readiness.diff
+?? .tmp-sfia-review/pr-297-merge-readiness.json
+?? .tmp-sfia-review/pr-297-pm-inline-comments.json
+?? .tmp-sfia-review/pr-297-pm-issue-comments.json
+?? .tmp-sfia-review/pr-297-pm-reviews.json
+?? .tmp-sfia-review/pr-297-post-merge-body.md
+?? .tmp-sfia-review/pr-297-post-merge-ci-initial.json
+?? .tmp-sfia-review/pr-297-post-merge-ci-list.json
+?? .tmp-sfia-review/pr-297-post-merge-ci-status.txt
+?? .tmp-sfia-review/pr-297-post-merge-ci-view.txt
+?? .tmp-sfia-review/pr-297-post-merge-ci.json
+?? .tmp-sfia-review/pr-297-post-merge-commit-proof.txt
+?? .tmp-sfia-review/pr-297-post-merge-doc-proof.txt
+?? .tmp-sfia-review/pr-297-post-merge-findings.md
+?? .tmp-sfia-review/pr-297-post-merge-pr.json
+?? .tmp-sfia-review/pr-297-post-merge-validation-chatgpt-review-preserved.md
+?? .tmp-sfia-review/pr-297-post-merge.json
+?? .tmp-sfia-review/pr-297-postmerge-final-git.txt
+?? .tmp-sfia-review/pr-297-postmerge-git-truth.txt
+?? .tmp-sfia-review/pr-297-pre-merge-final.json
+?? .tmp-sfia-review/pr-297-pre-merge.json
+?? .tmp-sfia-review/pr-297-pre-ready.json
+?? .tmp-sfia-review/pr-297-premerge-ci-ref.json
+?? .tmp-sfia-review/pr-297-ready-f02-body-diff.patch
+?? .tmp-sfia-review/pr-297-ready-findings.md
+?? .tmp-sfia-review/pr-297-source-one-file.diff
+?? .tmp-sfia-review/pr-297-worktree-inventory.txt
+?? .tmp-sfia-review/pr-297-worktree-paths.txt
+?? .tmp-sfia-review/pr-297-worktree-statuses.txt
+?? .tmp-sfia-review/pr-297-worktree-summary.json
+?? .tmp-sfia-review/pr-body-v2-a3.md
+?? .tmp-sfia-review/pr-body.md
+?? .tmp-sfia-review/pr-checks.txt
+?? .tmp-sfia-review/pr-readiness-truth.txt
+?? .tmp-sfia-review/primary-truth.txt
+?? .tmp-sfia-review/pub-truth.txt
+?? .tmp-sfia-review/ready-final-git.txt
+?? .tmp-sfia-review/ready-truth.txt
+?? .tmp-sfia-review/remote-review-commit.txt
+?? .tmp-sfia-review/remote-review-truth.txt
+?? .tmp-sfia-review/review-timestamp-cleanup.txt
+?? .tmp-sfia-review/review-timestamp-d2-fa.txt
+?? .tmp-sfia-review/review-timestamp-d2-fd.txt
+?? .tmp-sfia-review/review-timestamp-d2.txt
+?? .tmp-sfia-review/review-timestamp.txt
+?? .tmp-sfia-review/source-inspection.txt
+?? .tmp-sfia-review/v3-1-d1-cap-source-commit.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-body-delta.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-ci-initial.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-cleanup-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-commit-proof.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-merge-readiness-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-merge-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-package-manifest.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-package.diff
+?? .tmp-sfia-review/v3-1-d1-capitalization-post-merge-validation-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-pr-body.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-pr-proof.json
+?? .tmp-sfia-review/v3-1-d1-capitalization-pr-readiness-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-publication-body.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-publication-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-ready-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-body.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-ci-checks.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-ci.json
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-diff.patch
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-findings.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-pr.json
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-proof.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-review-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-rex-report.md
+?? .tmp-sfia-review/v3-1-d1-pr-body.md
+?? .tmp-sfia-review/v3-1-d2-08-after.md
+?? .tmp-sfia-review/v3-1-d2-08.diff
+?? .tmp-sfia-review/v3-1-d2-a-delivery-report.md
+?? .tmp-sfia-review/v3-1-d2-a-post-branch-doc-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-post-branch-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-pre-branch-doc-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-pre-branch-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-backlog-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-pre-mutation-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-report.md
+?? .tmp-sfia-review/v3-1-d2-backlog-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-bl-doc18-modified-sections.md
+?? .tmp-sfia-review/v3-1-d2-decision-pack.md
+?? .tmp-sfia-review/v3-1-d2-doc15-frozen-bl.md
+?? .tmp-sfia-review/v3-1-d2-doc15-frozen-ta.md
+?? .tmp-sfia-review/v3-1-d2-doc15-frozen.md
+?? .tmp-sfia-review/v3-1-d2-doc16-frozen-bl.md
+?? .tmp-sfia-review/v3-1-d2-doc16-frozen-ta.md
+?? .tmp-sfia-review/v3-1-d2-doc17-frozen-bl.md
+?? .tmp-sfia-review/v3-1-d2-document-15-after.md
+?? .tmp-sfia-review/v3-1-d2-document-15.md
+?? .tmp-sfia-review/v3-1-d2-document-16.md
+?? .tmp-sfia-review/v3-1-d2-fa-doc16-modified-sections.md
+?? .tmp-sfia-review/v3-1-d2-fa-pre-mutation-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-framing-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-framing-report.md
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-phrase-scan.txt
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-report.md
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-functional-design-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-functional-design-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-functional-design-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-functional-design-report.md
+?? .tmp-sfia-review/v3-1-d2-functional-design-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-readme-after.md
+?? .tmp-sfia-review/v3-1-d2-readme.diff
+?? .tmp-sfia-review/v3-1-d2-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-ta-doc17-modified-sections.md
+?? .tmp-sfia-review/v3-1-d2-ta-phrase-scan.txt
+?? .tmp-sfia-review/v3-1-d2-ta-pre-mutation-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-report.md
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-source-inventory.md
+?? .tmp-sfia-review/worktree-after.txt
+?? .tmp-sfia-review/worktree-before.txt
+?? projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts
+?? projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.test.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/catalogFingerprint.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/catalogProjection.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md
 ?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
-cached:
-wt_count=77
- * branch            sfia/review-handoff -> FETCH_HEAD
-tip=84963516cc9f3685a0c7a2d2986224952522e98a
-blob=92130ad0fbe65302a1338cde169c09adfb03b83a
-534904ea71555d89388c03a72ef84418ea4ce6a1c67cbbb6c7a03a0f559bb9bc  projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-d65088ac9a6546b8c77ca00981bc101e5d412431948c95b6455fc1adbb349bf4  projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
-968add603817539b01196b00b5f6f37d1031638b544a8b94e4a2bdb5f98e3af5  projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md
-
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
 ```
 
-## Verdict
+Branche et HEAD :
 
 ```text
-V3.1-D2 DELIVERY BACKLOG COMPLETE —
-D-V3.1-D2-TA-01…12 RECORDED AS ADOPTED BY MORRIS —
-D2-A D2-B AND D2-C DECOMPOSED INTO TESTABLE STORIES —
-DEPENDENCIES AND ACCEPTANCE CRITERIA DOCUMENTED —
-CANDIDATE FILES AND FUTURE TESTS DOCUMENTED —
-DELIVERY PROFILES RECOMMENDED —
-D2-A TO D2-B TO D2-C ORDER PRESERVED —
-D2-D NOT OPENED —
-NO IMPLEMENTATION —
-NO TEST MODIFIED —
-NO BRANCH CREATED —
-NO BACKLOG DELIVERY EXECUTED —
-NO DELIVERY AUTHORIZED —
+delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection
+e1befcb80ed5e3c789a7de9036a8207d6b3e6771
+```
+
+Staged vide ; branche distante Delivery absente ; aucun commit/push/PR projet.
+
+## 31. Gate suivant candidat
+
+```text
+GO QA VALIDATION SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+VERIFY CONTRACTS, FINGERPRINT DETERMINISM, FAIL-CLOSED CATALOG PROJECTION, IMPORT BOUNDARIES AND NON-REGRESSION —
+NO CORRECTIVE IMPLEMENTATION UNLESS DISTINCT MORRIS GO —
+NO D2-B —
+NO D2-C —
 NO D3 —
 NO UI —
-NO FIGMA —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-**Statut :** `V3.1-D2 DELIVERY BACKLOG READY FOR MORRIS VALIDATION — D2-A DELIVERY REQUIRES DISTINCT MORRIS GO — D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`
+Non exécuté automatiquement.
 
-## Review pack completeness
+## 32. Verdict
 
-- gate Morris complete : yes
-- TA decisions complete : yes
-- profile justification complete : yes
-- CKC fallback complete : yes
-- Git Truth complete : yes
-- pre-check limitation declared : yes
-- source documents complete : yes
-- adopted architecture complete : yes
-- created document full content : yes
-- modified sections complete : yes
-- epics complete : yes
-- D2-A stories complete : yes
-- D2-B stories complete : yes
-- D2-C stories complete : yes
-- acceptance criteria complete : yes
-- dependencies complete : yes
-- candidate files complete : yes
-- future tests complete : yes
-- risk matrix complete : yes
-- entry criteria complete : yes
-- exit criteria complete : yes
-- candidate profiles complete : yes
-- future branch/PR strategy complete : yes
-- future QA strategy complete : yes
-- final Git state complete : yes
-- temporary report full content : yes
-- synthesis only : no
-- review pack verdict : complete
+`V3.1-D2-A CATALOG PROJECTION DELIVERY COMPLETE — BL-D2-A-01…04 IMPLEMENTED —
+READY FOR INDEPENDENT QA — NOT PR READY — D2-B/C CLOSED — D3 NOT OPENED`.
+
+
+## Contenu complet des fichiers créés
+
+### Production
+
+### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts`
+
+```typescript
+import type {
+  CycleTypeCkcMapping,
+  CycleTypeLifecycleStatus,
+} from "./cycleTypeCatalog";
+
+/** Read-only context required to select a cycle type from the D1 catalog. */
+export type CatalogSelectionContext = {
+  readonly cycleTypeId: string;
+  readonly catalogVersion: string;
+  readonly catalogHash: string;
+  readonly correlationId: string;
+};
+
+/** Closed projection of contractually relevant catalog fields for HASH-A. */
+export type CatalogFingerprintEntry = {
+  readonly cycleTypeId: string;
+  readonly canonicalKey: string;
+  readonly lifecycleStatus: CycleTypeLifecycleStatus;
+  readonly methodCycleNumber: number;
+  readonly ckc: {
+    readonly mandatory: true;
+    readonly primaryLevel: "detailed" | "synthetic";
+    readonly primaryReference: string;
+    readonly fallbackPolicy: "synthetic_map" | "none";
+    readonly fallbackReference: string | null;
+    readonly executionAuthority: false;
+    readonly doctrineStatus: "method-candidate";
+    readonly unavailableBehavior: "fail-closed";
+  };
+};
+
+/** Validated read-only D1 projection passed to the later D2-B boundary. */
+export type ValidatedCycleTypeProjection = {
+  readonly cycleTypeId: string;
+  readonly label: string;
+  readonly shortDescription: string;
+  readonly lifecycleStatus: CycleTypeLifecycleStatus;
+  readonly ckc: Readonly<CycleTypeCkcMapping>;
+  readonly catalogVersion: string;
+  readonly catalogHash: string;
+  readonly correlationId: string;
+};
+
+export type CatalogProjectionErrorCode =
+  | "CATALOG_CORRELATION_ID_REQUIRED"
+  | "CATALOG_VERSION_INCOMPATIBLE"
+  | "CATALOG_FINGERPRINT_STALE"
+  | "CYCLE_TYPE_UNKNOWN"
+  | "CYCLE_TYPE_NOT_SELECTABLE"
+  | "CYCLE_TYPE_MAPPING_INVALID";
+
+export type CatalogProjectionError = {
+  readonly code: CatalogProjectionErrorCode;
+  readonly message: string;
+  readonly blocking: true;
+  readonly retryable: boolean;
+  readonly recoverable: boolean;
+  readonly correlationId?: string;
+  readonly cycleTypeId?: string;
+  readonly lifecycleStatus?: CycleTypeLifecycleStatus;
+};
+
+export type CatalogProjectionSuccess = {
+  readonly ok: true;
+  readonly projection: ValidatedCycleTypeProjection;
+};
+
+export type CatalogProjectionFailure = {
+  readonly ok: false;
+  readonly error: CatalogProjectionError;
+};
+
+export type CatalogProjectionResult =
+  | CatalogProjectionSuccess
+  | CatalogProjectionFailure;
+```
+
+### `projects/sfia-studio/app/lib/oa/cycle/domain/catalogFingerprint.ts`
+
+```typescript
+import {
+  CYCLE_TYPE_CATALOG,
+  type CycleTypeCatalog,
+} from "./cycleTypeCatalog";
+import type { CatalogFingerprintEntry } from "./ckcQualificationContracts";
+
+/** HASH-A representation format. Cryptographic verification is test-only. */
+export const CYCLE_TYPE_CATALOG_FINGERPRINT_FORMAT =
+  "sha256-canonical-json-v1" as const;
+
+/**
+ * Static, versioned HASH-A fingerprint of the canonical D1 contract projection.
+ * It is guarded by a Node-only SHA-256 test; no runtime hashing is required.
+ */
+export const CYCLE_TYPE_CATALOG_FINGERPRINT =
+  "sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc" as const;
+
+/** Build the closed, ordered projection used by the catalog fingerprint. */
+export function projectCatalogFingerprint(
+  catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,
+): readonly CatalogFingerprintEntry[] {
+  return Object.freeze(
+    catalog.entries.map((entry) =>
+      Object.freeze({
+        cycleTypeId: entry.cycleTypeId,
+        canonicalKey: entry.canonicalKey,
+        lifecycleStatus: entry.lifecycleStatus,
+        methodCycleNumber: entry.methodCycleNumber,
+        ckc: Object.freeze({
+          mandatory: entry.ckc.mandatory,
+          primaryLevel: entry.ckc.primaryLevel,
+          primaryReference: entry.ckc.primaryReference,
+          fallbackPolicy: entry.ckc.fallbackPolicy,
+          fallbackReference: entry.ckc.fallbackReference ?? null,
+          executionAuthority: entry.ckc.executionAuthority,
+          doctrineStatus: entry.ckc.doctrineStatus,
+          unavailableBehavior: entry.ckc.unavailableBehavior,
+        }),
+      }),
+    ),
+  );
+}
+
+/** Deterministic serialization of the canonical, fixed-property projection. */
+export function serializeCatalogFingerprint(
+  catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,
+): string {
+  return JSON.stringify(projectCatalogFingerprint(catalog));
+}
+```
+
+### `projects/sfia-studio/app/lib/oa/cycle/domain/catalogProjection.ts`
+
+```typescript
+import {
+  CKC_SYNTHETIC_MAP_PATH,
+  CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_VERSION,
+  type CycleTypeCatalog,
+  type CycleTypeCkcMapping,
+  type CycleTypeDefinition,
+} from "./cycleTypeCatalog";
+import { CYCLE_TYPE_CATALOG_FINGERPRINT } from "./catalogFingerprint";
+import type {
+  CatalogProjectionError,
+  CatalogProjectionErrorCode,
+  CatalogProjectionResult,
+  CatalogSelectionContext,
+} from "./ckcQualificationContracts";
+
+const SAFE_MESSAGES: Readonly<Record<CatalogProjectionErrorCode, string>> =
+  Object.freeze({
+    CATALOG_CORRELATION_ID_REQUIRED: "A correlation identifier is required.",
+    CATALOG_VERSION_INCOMPATIBLE: "The catalog version is incompatible.",
+    CATALOG_FINGERPRINT_STALE: "The catalog fingerprint is stale.",
+    CYCLE_TYPE_UNKNOWN: "The cycle type is unknown.",
+    CYCLE_TYPE_NOT_SELECTABLE: "The cycle type is not selectable.",
+    CYCLE_TYPE_MAPPING_INVALID: "The cycle type mapping is invalid.",
+  });
+
+const ALLOWED_MAPPING_KEYS = new Set([
+  "mandatory",
+  "primaryLevel",
+  "primaryReference",
+  "fallbackPolicy",
+  "fallbackReference",
+  "executionAuthority",
+  "doctrineStatus",
+  "unavailableBehavior",
+]);
+
+function failure(
+  code: CatalogProjectionErrorCode,
+  context: CatalogSelectionContext,
+  options: {
+    readonly lifecycleStatus?: CycleTypeDefinition["lifecycleStatus"];
+    readonly retryable?: boolean;
+    readonly recoverable?: boolean;
+  } = {},
+): CatalogProjectionResult {
+  const error: CatalogProjectionError = Object.freeze({
+    code,
+    message: SAFE_MESSAGES[code],
+    blocking: true,
+    retryable: options.retryable ?? false,
+    recoverable: options.recoverable ?? true,
+    ...(context.correlationId.trim()
+      ? { correlationId: context.correlationId }
+      : {}),
+    ...(context.cycleTypeId ? { cycleTypeId: context.cycleTypeId } : {}),
+    ...(options.lifecycleStatus
+      ? { lifecycleStatus: options.lifecycleStatus }
+      : {}),
+  });
+  return Object.freeze({ ok: false, error });
+}
+
+function hasValidMapping(mapping: CycleTypeCkcMapping): boolean {
+  if (
+    Object.keys(mapping).some((key) => !ALLOWED_MAPPING_KEYS.has(key)) ||
+    mapping.mandatory !== true ||
+    !mapping.primaryReference.trim() ||
+    mapping.executionAuthority !== false ||
+    mapping.doctrineStatus !== "method-candidate" ||
+    mapping.unavailableBehavior !== "fail-closed"
+  ) {
+    return false;
+  }
+
+  if (mapping.primaryLevel === "detailed") {
+    return (
+      mapping.fallbackPolicy === "synthetic_map" &&
+      mapping.fallbackReference === CKC_SYNTHETIC_MAP_PATH
+    );
+  }
+
+  if (mapping.primaryLevel === "synthetic") {
+    return (
+      mapping.primaryReference === CKC_SYNTHETIC_MAP_PATH &&
+      mapping.fallbackPolicy === "none" &&
+      mapping.fallbackReference === undefined
+    );
+  }
+
+  return false;
+}
+
+function freezeMapping(
+  mapping: CycleTypeCkcMapping,
+): Readonly<CycleTypeCkcMapping> {
+  return Object.freeze({
+    mandatory: mapping.mandatory,
+    primaryLevel: mapping.primaryLevel,
+    primaryReference: mapping.primaryReference,
+    fallbackPolicy: mapping.fallbackPolicy,
+    ...(mapping.fallbackReference
+      ? { fallbackReference: mapping.fallbackReference }
+      : {}),
+    executionAuthority: mapping.executionAuthority,
+    doctrineStatus: mapping.doctrineStatus,
+    unavailableBehavior: mapping.unavailableBehavior,
+  });
+}
+
+/**
+ * Pure, fail-closed D2-A selection from the authoritative D1 catalog.
+ * The optional catalog is a pure test seam; production callers use the singleton.
+ */
+export function projectSelectableCycleType(
+  context: CatalogSelectionContext,
+  catalog: Pick<CycleTypeCatalog, "entries"> = CYCLE_TYPE_CATALOG,
+): CatalogProjectionResult {
+  if (!context.correlationId.trim()) {
+    return failure("CATALOG_CORRELATION_ID_REQUIRED", context);
+  }
+  if (context.catalogVersion !== CYCLE_TYPE_CATALOG_VERSION) {
+    return failure("CATALOG_VERSION_INCOMPATIBLE", context, {
+      retryable: true,
+    });
+  }
+  if (context.catalogHash !== CYCLE_TYPE_CATALOG_FINGERPRINT) {
+    return failure("CATALOG_FINGERPRINT_STALE", context, {
+      retryable: true,
+    });
+  }
+
+  const entry = catalog.entries.find(
+    (candidate) => candidate.cycleTypeId === context.cycleTypeId,
+  );
+  if (!entry) {
+    return failure("CYCLE_TYPE_UNKNOWN", context);
+  }
+  if (entry.lifecycleStatus !== "active") {
+    return failure("CYCLE_TYPE_NOT_SELECTABLE", context, {
+      lifecycleStatus: entry.lifecycleStatus,
+    });
+  }
+  if (!entry.ckc || !hasValidMapping(entry.ckc)) {
+    return failure("CYCLE_TYPE_MAPPING_INVALID", context, {
+      lifecycleStatus: entry.lifecycleStatus,
+      recoverable: false,
+    });
+  }
+
+  return Object.freeze({
+    ok: true,
+    projection: Object.freeze({
+      cycleTypeId: entry.cycleTypeId,
+      label: entry.label,
+      shortDescription: entry.shortDescription,
+      lifecycleStatus: entry.lifecycleStatus,
+      ckc: freezeMapping(entry.ckc),
+      catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
+      catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+      correlationId: context.correlationId,
+    }),
+  });
+}
+```
+
+### Tests
+
+### `projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts`
+
+```typescript
+/**
+ * V3.1-D2-A — canonical catalog fingerprint tests.
+ * @vitest-environment node
+ */
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import {
+  CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_FINGERPRINT,
+  projectCatalogFingerprint,
+  serializeCatalogFingerprint,
+  type CycleTypeCatalog,
+  type CycleTypeDefinition,
+} from "@/lib/oa/cycle";
+
+function cloneCatalog(
+  mutate?: (entries: CycleTypeDefinition[]) => void,
+): CycleTypeCatalog {
+  const entries = CYCLE_TYPE_CATALOG.entries.map((entry) => ({
+    ...entry,
+    ckc: { ...entry.ckc },
+    aliases: [...entry.aliases],
+  }));
+  mutate?.(entries);
+  return { version: CYCLE_TYPE_CATALOG.version, entries };
+}
+
+function sha256(serialized: string): string {
+  return `sha256:${createHash("sha256").update(serialized).digest("hex")}`;
+}
+
+describe("V3.1-D2-A catalog fingerprint", () => {
+  it("projects exactly fifteen entries in contractual order", () => {
+    const projection = projectCatalogFingerprint();
+    expect(projection).toHaveLength(15);
+    expect(projection.map((entry) => entry.cycleTypeId)).toEqual(
+      CYCLE_TYPE_CATALOG.entries.map((entry) => entry.cycleTypeId),
+    );
+  });
+
+  it("includes only the closed contractual field set", () => {
+    for (const entry of projectCatalogFingerprint()) {
+      expect(Object.keys(entry)).toEqual([
+        "cycleTypeId",
+        "canonicalKey",
+        "lifecycleStatus",
+        "methodCycleNumber",
+        "ckc",
+      ]);
+      expect(Object.keys(entry.ckc)).toEqual([
+        "mandatory",
+        "primaryLevel",
+        "primaryReference",
+        "fallbackPolicy",
+        "fallbackReference",
+        "executionAuthority",
+        "doctrineStatus",
+        "unavailableBehavior",
+      ]);
+      expect(entry).not.toHaveProperty("label");
+      expect(entry).not.toHaveProperty("shortDescription");
+      expect(entry).not.toHaveProperty("displayOrder");
+      expect(entry).not.toHaveProperty("methodReference");
+      expect(entry).not.toHaveProperty("aliases");
+    }
+  });
+
+  it("serializes deterministically and matches the static SHA-256", () => {
+    const first = serializeCatalogFingerprint();
+    const second = serializeCatalogFingerprint();
+    expect(second).toBe(first);
+    expect(sha256(first)).toBe(CYCLE_TYPE_CATALOG_FINGERPRINT);
+    expect(CYCLE_TYPE_CATALOG_FINGERPRINT).toMatch(/^sha256:[0-9a-f]{64}$/);
+  });
+
+  it("detects a contractual field change", () => {
+    const changed = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        canonicalKey: `${entries[0].canonicalKey}-changed`,
+      };
+    });
+    expect(sha256(serializeCatalogFingerprint(changed))).not.toBe(
+      CYCLE_TYPE_CATALOG_FINGERPRINT,
+    );
+  });
+
+  it("ignores label and shortDescription changes", () => {
+    const changed = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        label: "Changed presentation",
+        shortDescription: "Changed description",
+      };
+    });
+    expect(serializeCatalogFingerprint(changed)).toBe(
+      serializeCatalogFingerprint(),
+    );
+  });
+
+  it("normalizes absent fallbackReference to explicit null", () => {
+    const synthetic = projectCatalogFingerprint().find(
+      (entry) => entry.ckc.primaryLevel === "synthetic",
+    );
+    expect(synthetic?.ckc.fallbackReference).toBeNull();
+    expect(serializeCatalogFingerprint()).toContain(
+      '"fallbackReference":null',
+    );
+  });
+
+  it("returns frozen projections without mutating the D1 catalog", () => {
+    const before = serializeCatalogFingerprint();
+    const projection = projectCatalogFingerprint();
+    expect(Object.isFrozen(projection)).toBe(true);
+    expect(projection.every(Object.isFrozen)).toBe(true);
+    expect(projection.every((entry) => Object.isFrozen(entry.ckc))).toBe(true);
+    expect(serializeCatalogFingerprint()).toBe(before);
+  });
+
+  it("keeps production fingerprint code client-safe and dependency-free", () => {
+    const source = readFileSync(
+      path.resolve(
+        __dirname,
+        "../../../lib/oa/cycle/domain/catalogFingerprint.ts",
+      ),
+      "utf8",
+    );
+    expect(source).not.toMatch(/node:crypto|node:fs|from ["']next/);
+    expect(source).not.toMatch(/infrastructure\//);
+  });
+});
+```
+
+### `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.test.ts`
+
+```typescript
+/**
+ * V3.1-D2-A — pure fail-closed catalog projection tests.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  CKC_SYNTHETIC_MAP_PATH,
+  CYCLE_TYPE_CATALOG,
+  CYCLE_TYPE_CATALOG_FINGERPRINT,
+  CYCLE_TYPE_CATALOG_VERSION,
+  projectSelectableCycleType,
+  serializeCatalogFingerprint,
+  type CatalogProjectionErrorCode,
+  type CatalogSelectionContext,
+  type CycleTypeCatalog,
+  type CycleTypeDefinition,
+} from "@/lib/oa/cycle";
+
+function context(
+  overrides: Partial<CatalogSelectionContext> = {},
+): CatalogSelectionContext {
+  return {
+    cycleTypeId: "cyc:delivery",
+    catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
+    catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+    correlationId: "cor:d2-a-test",
+    ...overrides,
+  };
+}
+
+function cloneCatalog(
+  mutate: (entries: CycleTypeDefinition[]) => void,
+): CycleTypeCatalog {
+  const entries = CYCLE_TYPE_CATALOG.entries.map((entry) => ({
+    ...entry,
+    ckc: { ...entry.ckc },
+    aliases: [...entry.aliases],
+  }));
+  mutate(entries);
+  return { version: CYCLE_TYPE_CATALOG_VERSION, entries };
+}
+
+function expectFailure(
+  result: ReturnType<typeof projectSelectableCycleType>,
+  code: CatalogProjectionErrorCode,
+): void {
+  expect(result.ok).toBe(false);
+  if (result.ok) throw new Error("Expected catalog projection failure");
+  expect(result.error.code).toBe(code);
+  expect(result.error.blocking).toBe(true);
+  expect(result).not.toHaveProperty("projection");
+  expect(result.error).not.toHaveProperty("projection");
+  expect(result.error).not.toHaveProperty("ckc");
+}
+
+describe("V3.1-D2-A catalog projection", () => {
+  it("projects an active type and preserves canonical context", () => {
+    const result = projectSelectableCycleType(context());
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error(result.error.message);
+    expect(result.projection).toMatchObject({
+      cycleTypeId: "cyc:delivery",
+      label: "Delivery / implémentation",
+      lifecycleStatus: "active",
+      catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
+      catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+      correlationId: "cor:d2-a-test",
+    });
+    expect(result.projection.ckc).toMatchObject({
+      mandatory: true,
+      primaryLevel: "synthetic",
+      primaryReference: CKC_SYNTHETIC_MAP_PATH,
+      fallbackPolicy: "none",
+      executionAuthority: false,
+      doctrineStatus: "method-candidate",
+      unavailableBehavior: "fail-closed",
+    });
+    expect(Object.isFrozen(result.projection)).toBe(true);
+    expect(Object.isFrozen(result.projection.ckc)).toBe(true);
+  });
+
+  it("rejects an absent correlationId first", () => {
+    expectFailure(
+      projectSelectableCycleType(
+        context({
+          correlationId: "  ",
+          catalogVersion: "wrong",
+          catalogHash: "wrong",
+          cycleTypeId: "cyc:unknown",
+        }),
+      ),
+      "CATALOG_CORRELATION_ID_REQUIRED",
+    );
+  });
+
+  it("rejects an incompatible catalog version", () => {
+    expectFailure(
+      projectSelectableCycleType(context({ catalogVersion: "stale" })),
+      "CATALOG_VERSION_INCOMPATIBLE",
+    );
+  });
+
+  it("rejects a stale catalog fingerprint", () => {
+    expectFailure(
+      projectSelectableCycleType(
+        context({ catalogHash: `sha256:${"0".repeat(64)}` }),
+      ),
+      "CATALOG_FINGERPRINT_STALE",
+    );
+  });
+
+  it("rejects an unknown cycle type", () => {
+    expectFailure(
+      projectSelectableCycleType(context({ cycleTypeId: "cyc:unknown" })),
+      "CYCLE_TYPE_UNKNOWN",
+    );
+  });
+
+  it.each(["deprecated", "unavailable"] as const)(
+    "rejects lifecycle %s",
+    (lifecycleStatus) => {
+      const catalog = cloneCatalog((entries) => {
+        entries[7] = { ...entries[7], lifecycleStatus };
+      });
+      const result = projectSelectableCycleType(context(), catalog);
+      expectFailure(result, "CYCLE_TYPE_NOT_SELECTABLE");
+      if (!result.ok) {
+        expect(result.error.lifecycleStatus).toBe(lifecycleStatus);
+      }
+    },
+  );
+
+  it("fails closed for an unknown runtime lifecycle status", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        lifecycleStatus:
+          "future-status" as CycleTypeDefinition["lifecycleStatus"],
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_NOT_SELECTABLE",
+    );
+  });
+
+  it("rejects mandatory false", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          mandatory: false as unknown as true,
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects executionAuthority true", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          executionAuthority: true as unknown as false,
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects invalid doctrineStatus and unavailableBehavior", () => {
+    for (const field of ["doctrineStatus", "unavailableBehavior"] as const) {
+      const catalog = cloneCatalog((entries) => {
+        entries[7] = {
+          ...entries[7],
+          ckc: { ...entries[7].ckc, [field]: "invalid" },
+        } as CycleTypeDefinition;
+      });
+      expectFailure(
+        projectSelectableCycleType(context(), catalog),
+        "CYCLE_TYPE_MAPPING_INVALID",
+      );
+    }
+  });
+
+  it("rejects a detailed mapping without canonical fallback", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        ckc: {
+          ...entries[0].ckc,
+          fallbackPolicy: "none",
+          fallbackReference: undefined,
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(
+        context({ cycleTypeId: "cyc:framing" }),
+        catalog,
+      ),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects a synthetic mapping with a non-canonical reference", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          primaryReference: "method/non-canonical.md",
+        },
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("rejects an extended mapping", () => {
+    const catalog = cloneCatalog((entries) => {
+      entries[7] = {
+        ...entries[7],
+        ckc: {
+          ...entries[7].ckc,
+          dynamicResolution: true,
+        } as CycleTypeDefinition["ckc"],
+      };
+    });
+    expectFailure(
+      projectSelectableCycleType(context(), catalog),
+      "CYCLE_TYPE_MAPPING_INVALID",
+    );
+  });
+
+  it("does not expose profile, Morris decision, or partial failure data", () => {
+    const success = projectSelectableCycleType(context());
+    expect(success.ok).toBe(true);
+    if (!success.ok) throw new Error(success.error.message);
+    expect(success.projection).not.toHaveProperty("profile");
+    expect(success.projection).not.toHaveProperty("recommendedProfile");
+    expect(success.projection).not.toHaveProperty("isMorrisDecision");
+    expect(success.projection).not.toHaveProperty("consumed");
+
+    const failure = projectSelectableCycleType(
+      context({ cycleTypeId: "cyc:unknown" }),
+    );
+    expectFailure(failure, "CYCLE_TYPE_UNKNOWN");
+  });
+
+  it("does not mutate the production catalog", () => {
+    const before = serializeCatalogFingerprint();
+    const firstEntry = CYCLE_TYPE_CATALOG.entries[0];
+    projectSelectableCycleType(context());
+    expect(serializeCatalogFingerprint()).toBe(before);
+    expect(CYCLE_TYPE_CATALOG.entries[0]).toBe(firstEntry);
+    expect(Object.isFrozen(CYCLE_TYPE_CATALOG.entries[0])).toBe(true);
+  });
+});
+```
+
+### README Delivery
+
+# V3.1-D2-A — Catalog Projection
+
+## A. Métadonnées
+
+| Champ | Valeur |
+|-------|--------|
+| Date/heure/fuseau | 2026-08-02 03:26 CEST (+0200) |
+| Cycle | 8 — Delivery / implémentation |
+| Profil | Standard |
+| Typologie | EVOL |
+| Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
+| Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| Statut | `D2-A DELIVERY COMPLETE LOCALLY — READY FOR QA — NOT PR READY` |
+
+Le profil Standard est proportionné à un diff de fonctions de domaine pures,
+types readonly, constante statique et tests, sans resolver, infrastructure,
+mutation, UI, dépendance ni changement d'architecture.
+
+## B. Gate Morris
+
+Gate consommé le 2026-08-02 à 03:16 CEST :
+
+```text
+GO DELIVERY SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+USE VALIDATED BACKLOG AND ADOPTED TA-01…12 —
+IMPLEMENT CONTRACTS, CATALOG FINGERPRINT AND PURE CATALOG PROJECTION —
+NO D2-B —
+NO D2-C —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION
+```
+
+## C. Sources
+
+Template d'exécution SFIA, routing guide, operating model, guardrails,
+validation checklist, engineering principles, delivery pipeline, carte CKC,
+matrice CKC, méthode cycle §4.8, documents D2 `15` à `19`, backlog `08`,
+README framing, contrat catalogue D1, types/erreurs/invariants/index T-A2,
+tests cycle OA, README D1 et configurations TypeScript/Vitest/Next.
+
+CKC : contrat détaillé absent ; fallback carte synthétique + méthode §4.8,
+statut `method-candidate`, guidance cognitive expérimentale,
+`executionAuthority=false`.
+
+## D. Git Truth et transition de branche
+
+- branche initiale : `framing/sfia-studio-v3-1-d2-ckc-resolver-cadrage` ;
+- `HEAD = main = origin/main = e1befcb8…` ; divergence `0/0` ;
+- staged vide ; état documentaire attendu uniquement ;
+- 77 worktrees ; prune dry-run vide ;
+- branche Delivery locale et distante absentes ;
+- handoff source : tip `dbb4e80…`, blob `85596ce…` ;
+- branche créée localement, sans commit ni push ;
+- empreintes SHA-256 de `15` à `19`, `08` et README identiques avant/après.
+
+## E. Stories consommées
+
+- BL-D2-A-01 — contrats dédiés et projection contractuelle ;
+- BL-D2-A-02 — fingerprint statique et garde SHA-256 ;
+- BL-D2-A-03 — projection pure et fail-closed ;
+- BL-D2-A-04 — tests et non-régression.
+
+## F. Décisions TA consommées
+
+TA-01, TA-02, TA-03, TA-06 et la partie locale de TA-09 sont implémentées.
+TA-04/05/07 appartiennent à D2-B ; TA-08/11 à D2-C ; TA-10 à D2-B/C.
+TA-12 est respectée : D2-B et D2-C restent fermés.
+
+## G. Périmètre
+
+Contrats D2-A, projection fermée du catalogue, sérialisation canonique,
+HASH-A statique, contrôle SHA-256 test-only, projection de sélection pure,
+erreurs locales, exports additifs, tests et documentation.
+
+## H. Hors périmètre
+
+Resolver, manifest CKC, preuve de consommation, bridge QualifyCycle,
+résultat global D2, audit, factory, infrastructure, CreateCycle, mutation,
+UI, API, D2-B, D2-C, D2-D et D3.
+
+## I. Contrats D2-A
+
+`CatalogSelectionContext` conserve `cycleTypeId`, `catalogVersion`,
+`catalogHash`, `correlationId`. `CatalogFingerprintEntry` ferme exactement
+les champs identitaires, lifecycle, numéro de méthode et mapping CKC.
+`ValidatedCycleTypeProjection` expose présentation D1, lifecycle, mapping CKC,
+version, hash et corrélation, sans profil, décision ni consommation.
+
+## J. Projection contractuelle du fingerprint
+
+La projection conserve l'ordre contractuel des quinze entrées et un ordre fixe
+des propriétés. `fallbackReference` absent est normalisé en `null`.
+Labels, descriptions, displayOrder, methodReference et aliases sont exclus.
+
+## K. HASH-A et mécanisme de garde
+
+- format : `sha256-canonical-json-v1` ;
+- valeur : `sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc` ;
+- production : sérialisation JSON déterministe uniquement ;
+- test : `createHash("sha256")` depuis `node:crypto`, jamais importé en production ;
+- aucun artefact généré, script permanent, package ou changement CI.
+
+## L. Catalog Projection
+
+`projectSelectableCycleType` applique dans l'ordre : corrélation, version,
+fingerprint, existence, lifecycle active, puis cohérence du mapping CKC.
+Elle accepte un seam de catalogue pur pour les tests négatifs et utilise le
+singleton D1 par défaut. Le résultat de succès et le mapping sont gelés.
+
+## M. Erreurs locales
+
+Erreurs structurées, bloquantes et sans projection partielle :
+`CATALOG_CORRELATION_ID_REQUIRED`, `CATALOG_VERSION_INCOMPATIBLE`,
+`CATALOG_FINGERPRINT_STALE`, `CYCLE_TYPE_UNKNOWN`,
+`CYCLE_TYPE_NOT_SELECTABLE`, `CYCLE_TYPE_MAPPING_INVALID`.
+`CycleDetailCode` et `CycleStructuredError` restent inchangés.
+
+## N. Fichiers
+
+Créés : trois modules de domaine, deux suites de tests et ce rapport.
+Modifiés : barrel `index.ts` par trois exports uniquement, documents framing
+`19`, `08` et `README`. Aucun autre fichier projet.
+
+## O. Tests
+
+Baseline avant modification : catalogue D1 **46/46 PASS** ; cycle OA
+**94/94 PASS**. D2-A ciblé : fingerprint **8/8 PASS** ; projection
+**16/16 PASS**.
+
+## P. Résultats complets
+
+- fingerprint D2-A : **8/8 PASS** ;
+- Catalog Projection D2-A : **16/16 PASS** ;
+- catalogue D1 historique : **46/46 PASS** ;
+- suite `oa/cycle` : **118/118 PASS** ;
+- suite complète : **851/851 PASS** ;
+- typecheck : **PASS** ;
+- lint : **PASS**, aucun warning ni erreur ;
+- build Next : **PASS**, compilation et 10 pages statiques ;
+- frontières d'import : **PASS**.
+
+Le détail reproductible est conservé dans le review pack et le rapport
+temporaire du cycle.
+
+## Q. Diff et volumétrie
+
+Diff borné aux fichiers autorisés. Les documents `12` à `18`, les documents
+D1, les dépendances, configurations et modules T-A2 protégés sont inchangés.
+
+## R. Anti-claims
+
+Delivery locale ≠ QA indépendante ; tests verts ≠ PR ready ; mapping CKC ≠
+résolution ; fingerprint ≠ preuve de consommation ; projection ≠ bridge
+QualifyCycle. Aucun commit/push/PR projet, aucune promotion méthode.
+
+## S. Risques et réserves
+
+Le fingerprint doit être mis à jour explicitement si un champ contractuel D1
+change ; le test empêche une dérive silencieuse. `INHERITED-R-01` reste
+acceptée, traçable et non levée. D2-B dépend d'une intégration/validation
+ultérieure de D2-A et d'un gate Morris distinct.
+
+## T. Readiness QA
+
+La Delivery D2-A est complète localement et prête pour une QA indépendante.
+La QA n'est pas exécutée par ce cycle et la PR readiness n'est pas ouverte.
+
+## U. Verdict
+
+```text
+V3.1-D2-A CATALOG PROJECTION DELIVERY COMPLETE —
+BL-D2-A-01…04 IMPLEMENTED —
+STATIC HASH-A AND TEST-ONLY SHA-256 GUARD IMPLEMENTED —
+PURE FAIL-CLOSED CATALOG PROJECTION IMPLEMENTED —
+D1 PRESERVED —
+READY FOR INDEPENDENT QA —
+NOT PR READY —
+NO D2-B — NO D2-C — NO D2-D — NO D3 —
+NO PROJECT COMMIT — NO PROJECT PUSH — NO PR
+```
+
+
+## État Git final et verdict
+
+```text
+ M projects/sfia-studio/app/lib/oa/cycle/index.ts
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+?? .tmp-sfia-review/MERGE_SHA.txt
+?? .tmp-sfia-review/_gen_d2a_reports.py
+?? .tmp-sfia-review/_gen_doc19.py
+?? .tmp-sfia-review/archive-comparison.txt
+?? .tmp-sfia-review/archive-source-sha256.txt
+?? .tmp-sfia-review/archive-target-sha256.txt
+?? .tmp-sfia-review/before-corrective/01-qa-validation-report.md
+?? .tmp-sfia-review/before-corrective/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-corrective/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-corrective/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-corrective/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-corrective/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-corrective/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-corrective/d1-README.md
+?? .tmp-sfia-review/before-corrective/framing-README.md
+?? .tmp-sfia-review/before-corrective/index.ts
+?? .tmp-sfia-review/before-d1/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-d1/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-d1/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-d1/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-d1/README.md
+?? .tmp-sfia-review/before-pr-readiness/01-qa-validation-report.md
+?? .tmp-sfia-review/before-pr-readiness/02-corrective-delivery-report.md
+?? .tmp-sfia-review/before-pr-readiness/03-qa-revalidation-report.md
+?? .tmp-sfia-review/before-pr-readiness/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-pr-readiness/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-pr-readiness/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-pr-readiness/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-pr-readiness/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-pr-readiness/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-pr-readiness/d1-README.md
+?? .tmp-sfia-review/before-pr-readiness/framing-README.md
+?? .tmp-sfia-review/before-pr-readiness/index.ts
+?? .tmp-sfia-review/before-publication/01.md
+?? .tmp-sfia-review/before-publication/02.md
+?? .tmp-sfia-review/before-publication/03.md
+?? .tmp-sfia-review/before-publication/04.md
+?? .tmp-sfia-review/before-publication/08.md
+?? .tmp-sfia-review/before-publication/12.md
+?? .tmp-sfia-review/before-publication/13.md
+?? .tmp-sfia-review/before-publication/14.md
+?? .tmp-sfia-review/before-publication/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-publication/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-publication/d1-README.md
+?? .tmp-sfia-review/before-publication/framing-README.md
+?? .tmp-sfia-review/before-publication/index.ts
+?? .tmp-sfia-review/before-qa/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-qa/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-qa/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-qa/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-qa/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-qa/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-qa/d1-README.md
+?? .tmp-sfia-review/before-qa/framing-README.md
+?? .tmp-sfia-review/before-qa/index.ts
+?? .tmp-sfia-review/before-revalidation/01-qa-validation-report.md
+?? .tmp-sfia-review/before-revalidation/02-corrective-delivery-report.md
+?? .tmp-sfia-review/before-revalidation/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before-revalidation/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before-revalidation/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before-revalidation/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before-revalidation/cycleTypeCatalog.test.ts
+?? .tmp-sfia-review/before-revalidation/cycleTypeCatalog.ts
+?? .tmp-sfia-review/before-revalidation/d1-README.md
+?? .tmp-sfia-review/before-revalidation/framing-README.md
+?? .tmp-sfia-review/before-revalidation/index.ts
+?? .tmp-sfia-review/before/08-implementation-backlog-and-slicing.md
+?? .tmp-sfia-review/before/12-v3-cycle-recommendation-cadrage.md
+?? .tmp-sfia-review/before/13-v3-1-profile-qualification-functional-design.md
+?? .tmp-sfia-review/before/14-v3-1-cycle-type-catalog-functional-architecture.md
+?? .tmp-sfia-review/before/README.md
+?? .tmp-sfia-review/cap-truth.txt
+?? .tmp-sfia-review/chatgpt-review.md
+?? .tmp-sfia-review/ci-jobs.json
+?? .tmp-sfia-review/ci-run.json
+?? .tmp-sfia-review/evidence/v2-a2/01-initial.png
+?? .tmp-sfia-review/evidence/v2-a2/02-validation-errors.png
+?? .tmp-sfia-review/evidence/v2-a2/03-success-real-runtime.png
+?? .tmp-sfia-review/evidence/v2-a3/01-workspace-missing.png
+?? .tmp-sfia-review/evidence/v2-a3/02-workspace-after-create-not-found.png
+?? .tmp-sfia-review/evidence/v2-a3/03-create-form-filled.png
+?? .tmp-sfia-review/evidence/v2-a3/04-create-success.png
+?? .tmp-sfia-review/evidence/v2-a3/05-workspace-loaded.png
+?? .tmp-sfia-review/final-git-state.txt
+?? .tmp-sfia-review/framing-README-main.md
+?? .tmp-sfia-review/framing-README-pr.md
+?? .tmp-sfia-review/local-numstat.txt
+?? .tmp-sfia-review/main-worktree-inspection.txt
+?? .tmp-sfia-review/main-worktree-status.txt
+?? .tmp-sfia-review/main-worktree-untracked-evidence.txt
+?? .tmp-sfia-review/merge-commit-source.txt
+?? .tmp-sfia-review/merge-readiness-truth.txt
+?? .tmp-sfia-review/merge-revalidation.txt
+?? .tmp-sfia-review/merge-truth.txt
+?? .tmp-sfia-review/pr-296-after-api.json
+?? .tmp-sfia-review/pr-296-after-body-metadata.json
+?? .tmp-sfia-review/pr-296-after-merge.json
+?? .tmp-sfia-review/pr-296-archive-and-cleanup-report.md
+?? .tmp-sfia-review/pr-296-before-metadata.json
+?? .tmp-sfia-review/pr-296-before-view.json
+?? .tmp-sfia-review/pr-296-before.json
+?? .tmp-sfia-review/pr-296-body-after.md
+?? .tmp-sfia-review/pr-296-body-api-json.md
+?? .tmp-sfia-review/pr-296-body-api-raw.md
+?? .tmp-sfia-review/pr-296-body-authorized.diff
+?? .tmp-sfia-review/pr-296-body-before-vs-remote-after.diff
+?? .tmp-sfia-review/pr-296-body-before.md
+?? .tmp-sfia-review/pr-296-body-concurrent-check.md
+?? .tmp-sfia-review/pr-296-body-final.md
+?? .tmp-sfia-review/pr-296-body-hashes.txt
+?? .tmp-sfia-review/pr-296-body-remote-after.md
+?? .tmp-sfia-review/pr-296-body-update-response.json
+?? .tmp-sfia-review/pr-296-body-update.json
+?? .tmp-sfia-review/pr-296-body.md
+?? .tmp-sfia-review/pr-296-checks.json
+?? .tmp-sfia-review/pr-296-checks.txt
+?? .tmp-sfia-review/pr-296-comments.json
+?? .tmp-sfia-review/pr-296-commits.txt
+?? .tmp-sfia-review/pr-296-concurrent-meta.json
+?? .tmp-sfia-review/pr-296-concurrent.json
+?? .tmp-sfia-review/pr-296-diff-correspondence.txt
+?? .tmp-sfia-review/pr-296-fetch-main-attempt.txt
+?? .tmp-sfia-review/pr-296-files.txt
+?? .tmp-sfia-review/pr-296-final-metadata.json
+?? .tmp-sfia-review/pr-296-inline-comments-after.json
+?? .tmp-sfia-review/pr-296-inline-comments-before.json
+?? .tmp-sfia-review/pr-296-inline-comments-concurrent.json
+?? .tmp-sfia-review/pr-296-issue-comments-after.json
+?? .tmp-sfia-review/pr-296-issue-comments-before.json
+?? .tmp-sfia-review/pr-296-issue-comments-concurrent.json
+?? .tmp-sfia-review/pr-296-issue-comments.json
+?? .tmp-sfia-review/pr-296-jobs.json
+?? .tmp-sfia-review/pr-296-merge-body-after.md
+?? .tmp-sfia-review/pr-296-merge-body-authorized.diff
+?? .tmp-sfia-review/pr-296-merge-body-before.md
+?? .tmp-sfia-review/pr-296-merge-body-concurrent.md
+?? .tmp-sfia-review/pr-296-merge-body-final.md
+?? .tmp-sfia-review/pr-296-merge-body-remote-after.md
+?? .tmp-sfia-review/pr-296-merge-report.md
+?? .tmp-sfia-review/pr-296-merge-response.json
+?? .tmp-sfia-review/pr-296-metadata.json
+?? .tmp-sfia-review/pr-296-pm-inline-comments.json
+?? .tmp-sfia-review/pr-296-pm-issue-comments.json
+?? .tmp-sfia-review/pr-296-pm-reviews.json
+?? .tmp-sfia-review/pr-296-post-merge-cleanup-report.md
+?? .tmp-sfia-review/pr-296-post-merge-runs.json
+?? .tmp-sfia-review/pr-296-postmerge-body.md
+?? .tmp-sfia-review/pr-296-postmerge-jobs.json
+?? .tmp-sfia-review/pr-296-postmerge-pr.json
+?? .tmp-sfia-review/pr-296-postmerge-run.json
+?? .tmp-sfia-review/pr-296-pre-merge.json
+?? .tmp-sfia-review/pr-296-pre-ready.json
+?? .tmp-sfia-review/pr-296-ready-transition-report.md
+?? .tmp-sfia-review/pr-296-remote-review-report.md
+?? .tmp-sfia-review/pr-296-remote.diff
+?? .tmp-sfia-review/pr-296-resume-inline-comments.json
+?? .tmp-sfia-review/pr-296-resume-issue-comments.json
+?? .tmp-sfia-review/pr-296-resume-pr.json
+?? .tmp-sfia-review/pr-296-resume-reviews.json
+?? .tmp-sfia-review/pr-296-resumed-post-merge-cleanup-report.md
+?? .tmp-sfia-review/pr-296-reviews-after.json
+?? .tmp-sfia-review/pr-296-reviews-before.json
+?? .tmp-sfia-review/pr-296-reviews-concurrent.json
+?? .tmp-sfia-review/pr-296-reviews.json
+?? .tmp-sfia-review/pr-296-run.json
+?? .tmp-sfia-review/pr-296-runs-after.json
+?? .tmp-sfia-review/pr-296-switch-main-attempt.txt
+?? .tmp-sfia-review/pr-296-view.json
+?? .tmp-sfia-review/pr-297-after-ready.json
+?? .tmp-sfia-review/pr-297-before-ready.json
+?? .tmp-sfia-review/pr-297-body-after-ci-checkbox.md
+?? .tmp-sfia-review/pr-297-body-after-merge-go.md
+?? .tmp-sfia-review/pr-297-body-after-publish.md
+?? .tmp-sfia-review/pr-297-body-before-merge.md
+?? .tmp-sfia-review/pr-297-body-before-ready.md
+?? .tmp-sfia-review/pr-297-body-checkbox-diff.patch
+?? .tmp-sfia-review/pr-297-body-current.md
+?? .tmp-sfia-review/pr-297-body-final-merged.md
+?? .tmp-sfia-review/pr-297-body-merge-diff.patch
+?? .tmp-sfia-review/pr-297-body-only-correction-pack.md
+?? .tmp-sfia-review/pr-297-body-ready-f02-correction.md
+?? .tmp-sfia-review/pr-297-branch-inventory.txt
+?? .tmp-sfia-review/pr-297-ci-premerge.json
+?? .tmp-sfia-review/pr-297-cleanup-before-after-comparison.json
+?? .tmp-sfia-review/pr-297-cleanup-chatgpt-review-preserved.md
+?? .tmp-sfia-review/pr-297-cleanup-ci.json
+?? .tmp-sfia-review/pr-297-cleanup-command-log.txt
+?? .tmp-sfia-review/pr-297-cleanup-final-state.txt
+?? .tmp-sfia-review/pr-297-cleanup-findings.md
+?? .tmp-sfia-review/pr-297-cleanup-git-truth-initial.txt
+?? .tmp-sfia-review/pr-297-cleanup-handoff-ahead-note.txt
+?? .tmp-sfia-review/pr-297-cleanup-local-branches-after-source-cleanup.txt
+?? .tmp-sfia-review/pr-297-cleanup-local-branches-before.txt
+?? .tmp-sfia-review/pr-297-cleanup-local-branches-final.txt
+?? .tmp-sfia-review/pr-297-cleanup-pr.json
+?? .tmp-sfia-review/pr-297-cleanup-readiness.md
+?? .tmp-sfia-review/pr-297-cleanup-remote-heads-after-source-cleanup.txt
+?? .tmp-sfia-review/pr-297-cleanup-remote-heads-before.txt
+?? .tmp-sfia-review/pr-297-cleanup-remote-heads-final.txt
+?? .tmp-sfia-review/pr-297-cleanup-state-before-handoff.txt
+?? .tmp-sfia-review/pr-297-cleanup-tmp-evidence-before.json
+?? .tmp-sfia-review/pr-297-cleanup-tmp-evidence-verification.md
+?? .tmp-sfia-review/pr-297-cleanup-worktrees-after-source-cleanup.txt
+?? .tmp-sfia-review/pr-297-cleanup-worktrees-before.txt
+?? .tmp-sfia-review/pr-297-cleanup-worktrees-final.txt
+?? .tmp-sfia-review/pr-297-document-05.md
+?? .tmp-sfia-review/pr-297-final-findings.md
+?? .tmp-sfia-review/pr-297-main-proof.txt
+?? .tmp-sfia-review/pr-297-merge-commit-proof.txt
+?? .tmp-sfia-review/pr-297-merge-decision-pack.md
+?? .tmp-sfia-review/pr-297-merge-readiness-body.md
+?? .tmp-sfia-review/pr-297-merge-readiness-findings.md
+?? .tmp-sfia-review/pr-297-merge-readiness.diff
+?? .tmp-sfia-review/pr-297-merge-readiness.json
+?? .tmp-sfia-review/pr-297-pm-inline-comments.json
+?? .tmp-sfia-review/pr-297-pm-issue-comments.json
+?? .tmp-sfia-review/pr-297-pm-reviews.json
+?? .tmp-sfia-review/pr-297-post-merge-body.md
+?? .tmp-sfia-review/pr-297-post-merge-ci-initial.json
+?? .tmp-sfia-review/pr-297-post-merge-ci-list.json
+?? .tmp-sfia-review/pr-297-post-merge-ci-status.txt
+?? .tmp-sfia-review/pr-297-post-merge-ci-view.txt
+?? .tmp-sfia-review/pr-297-post-merge-ci.json
+?? .tmp-sfia-review/pr-297-post-merge-commit-proof.txt
+?? .tmp-sfia-review/pr-297-post-merge-doc-proof.txt
+?? .tmp-sfia-review/pr-297-post-merge-findings.md
+?? .tmp-sfia-review/pr-297-post-merge-pr.json
+?? .tmp-sfia-review/pr-297-post-merge-validation-chatgpt-review-preserved.md
+?? .tmp-sfia-review/pr-297-post-merge.json
+?? .tmp-sfia-review/pr-297-postmerge-final-git.txt
+?? .tmp-sfia-review/pr-297-postmerge-git-truth.txt
+?? .tmp-sfia-review/pr-297-pre-merge-final.json
+?? .tmp-sfia-review/pr-297-pre-merge.json
+?? .tmp-sfia-review/pr-297-pre-ready.json
+?? .tmp-sfia-review/pr-297-premerge-ci-ref.json
+?? .tmp-sfia-review/pr-297-ready-f02-body-diff.patch
+?? .tmp-sfia-review/pr-297-ready-findings.md
+?? .tmp-sfia-review/pr-297-source-one-file.diff
+?? .tmp-sfia-review/pr-297-worktree-inventory.txt
+?? .tmp-sfia-review/pr-297-worktree-paths.txt
+?? .tmp-sfia-review/pr-297-worktree-statuses.txt
+?? .tmp-sfia-review/pr-297-worktree-summary.json
+?? .tmp-sfia-review/pr-body-v2-a3.md
+?? .tmp-sfia-review/pr-body.md
+?? .tmp-sfia-review/pr-checks.txt
+?? .tmp-sfia-review/pr-readiness-truth.txt
+?? .tmp-sfia-review/primary-truth.txt
+?? .tmp-sfia-review/pub-truth.txt
+?? .tmp-sfia-review/ready-final-git.txt
+?? .tmp-sfia-review/ready-truth.txt
+?? .tmp-sfia-review/remote-review-commit.txt
+?? .tmp-sfia-review/remote-review-truth.txt
+?? .tmp-sfia-review/review-timestamp-cleanup.txt
+?? .tmp-sfia-review/review-timestamp-d2-fa.txt
+?? .tmp-sfia-review/review-timestamp-d2-fd.txt
+?? .tmp-sfia-review/review-timestamp-d2.txt
+?? .tmp-sfia-review/review-timestamp.txt
+?? .tmp-sfia-review/source-inspection.txt
+?? .tmp-sfia-review/v3-1-d1-cap-source-commit.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-body-delta.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-ci-initial.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-cleanup-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-commit-proof.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-merge-readiness-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-merge-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-package-manifest.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-package.diff
+?? .tmp-sfia-review/v3-1-d1-capitalization-post-merge-validation-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-pr-body.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-pr-proof.json
+?? .tmp-sfia-review/v3-1-d1-capitalization-pr-readiness-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-publication-body.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-publication-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-ready-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-body.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-ci-checks.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-ci.json
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-diff.patch
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-findings.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-pr.json
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-proof.txt
+?? .tmp-sfia-review/v3-1-d1-capitalization-remote-review-report.md
+?? .tmp-sfia-review/v3-1-d1-capitalization-rex-report.md
+?? .tmp-sfia-review/v3-1-d1-pr-body.md
+?? .tmp-sfia-review/v3-1-d2-08-after.md
+?? .tmp-sfia-review/v3-1-d2-08.diff
+?? .tmp-sfia-review/v3-1-d2-a-delivery-report.md
+?? .tmp-sfia-review/v3-1-d2-a-post-branch-doc-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-post-branch-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-pre-branch-doc-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-pre-branch-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-backlog-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-pre-mutation-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-backlog-report.md
+?? .tmp-sfia-review/v3-1-d2-backlog-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-bl-doc18-modified-sections.md
+?? .tmp-sfia-review/v3-1-d2-decision-pack.md
+?? .tmp-sfia-review/v3-1-d2-doc15-frozen-bl.md
+?? .tmp-sfia-review/v3-1-d2-doc15-frozen-ta.md
+?? .tmp-sfia-review/v3-1-d2-doc15-frozen.md
+?? .tmp-sfia-review/v3-1-d2-doc16-frozen-bl.md
+?? .tmp-sfia-review/v3-1-d2-doc16-frozen-ta.md
+?? .tmp-sfia-review/v3-1-d2-doc17-frozen-bl.md
+?? .tmp-sfia-review/v3-1-d2-document-15-after.md
+?? .tmp-sfia-review/v3-1-d2-document-15.md
+?? .tmp-sfia-review/v3-1-d2-document-16.md
+?? .tmp-sfia-review/v3-1-d2-fa-doc16-modified-sections.md
+?? .tmp-sfia-review/v3-1-d2-fa-pre-mutation-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-framing-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-framing-report.md
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-phrase-scan.txt
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-report.md
+?? .tmp-sfia-review/v3-1-d2-functional-architecture-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-functional-design-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-functional-design-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-functional-design-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-functional-design-report.md
+?? .tmp-sfia-review/v3-1-d2-functional-design-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-readme-after.md
+?? .tmp-sfia-review/v3-1-d2-readme.diff
+?? .tmp-sfia-review/v3-1-d2-source-inventory.md
+?? .tmp-sfia-review/v3-1-d2-ta-doc17-modified-sections.md
+?? .tmp-sfia-review/v3-1-d2-ta-phrase-scan.txt
+?? .tmp-sfia-review/v3-1-d2-ta-pre-mutation-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-chatgpt-review-preserved.md
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-final-state.txt
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-report.md
+?? .tmp-sfia-review/v3-1-d2-technical-architecture-source-inventory.md
+?? .tmp-sfia-review/worktree-after.txt
+?? .tmp-sfia-review/worktree-before.txt
+?? projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts
+?? projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.test.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/catalogFingerprint.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/catalogProjection.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
+```
+
+`REVIEW PACK FULL — COMPLETE`.
+
+`V3.1-D2-A DELIVERY READY FOR INDEPENDENT QA — NOT PR READY —
+D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`.
