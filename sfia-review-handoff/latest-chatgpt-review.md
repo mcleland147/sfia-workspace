@@ -1,41 +1,34 @@
-# SFIA Studio V3.1-D2-B — QA Revalidation Full Review Pack
+# SFIA Studio V3.1-D2-B — PR Readiness Full Review Pack
 
-- **Date/heure/fuseau:** 2026-08-02 23:31:33 CEST (+0200)
-- **Rôle:** Cursor QA Critical read-only
-- **Cycle:** 9 — QA / validation
-- **Sous-type:** QA revalidation Critical du package corrigé V3.1-D2-B
+- **Date/heure/fuseau:** 2026-08-03 00:54:33 CEST (+0200)
+- **Rôle:** Cursor PR readiness Critical
+- **Cycle:** 13 — PR readiness
 - **Profil:** Critical
 - **Typologie:** INC
+- **CKC fallback:** method/.../02-fifteen-cycles-synthetic-map.md — method-candidate — experimental cognitive guidance — no execution authority
 - **Template:** prompts/templates/sfia-cycle-execution-template.md
-- **CKC:** method/.../pilots/04-qa-validation.md — candidate v0.1.0 — experimental cognitive guidance — no execution authority
-- **Anti-claims:** tests verts ≠ absence de bug ; QA PASS ≠ PR ready ; QA PASS ≠ production ready ; manifest validé ≠ Markdown consommé ; audit FAIL-CLOSED ≠ observabilité prod ; package corrigé ≠ D2-C ouvert ; candidate ≠ baseline
 
-## Gate Morris consommé
+## GO Morris consommé
 
 ```
-GO QA REVALIDATION SFIA STUDIO V3.1-D2-B CKC RESOLVER —
-REVIEW THE CORRECTED THIRTEEN-FILE PACKAGE AGAINST F-QA-01…06 AND BL-D2-B-01…06 —
-VERIFY PROOF DISCLOSURE AND FALLBACKPOLICY INVARIANTS, GLOBAL MANIFEST VALIDATION, RESOLVEDAT ISO VALIDATION, MORRIS-ADOPTED FAIL-CLOSED AUDIT POLICY, SANITIZATION, NO RECURSIVE AUDIT, FAIL-CLOSED NEGATIVES, T-A2 COMPATIBILITY, D2-A ISOLATION, D2-C EXCLUSION, REGRESSIONS, TYPECHECK, LINT, FULL TEST SUITE AND BUILD —
-NO COMMIT — NO PUSH — NO PR — NO D2-C — NO D2-D — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
+GO PR READINESS SFIA STUDIO V3.1-D2-B CKC RESOLVER —
+REVIEW THE QA-REVALIDATED THIRTEEN-FILE PACKAGE, FINAL DIFF, FILE INVENTORY, PACKAGE HASHES, TEST EVIDENCE, FINDINGS, RESERVES, COMMIT BOUNDARY, RISK AND ROLLBACK —
+VERIFY D2-A ISOLATION, D2-C EXCLUSION AND MORRIS FAIL-CLOSED AUDIT DECISION —
+PREPARE A PR CANDIDATE REVIEW PACK —
+NO PROJECT COMMIT — NO PROJECT PUSH — NO PR —
+NO D2-C — NO D2-D — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
 ```
 
-**Date/heure GO:** 2026-08-02 23:21 CEST (+0200)
+**Date/heure GO:** 2026-08-03 00:46 CEST (+0200)
 
-## Décision Morris FAIL-CLOSED (consommée, non rouverte)
+## Anti-claims
 
-Audit undefined → résolution pure OK.
-Audit injecté + append throw → ok=false, D2_INTERNAL_ERROR, blocking/retryable/recoverable=true, message public stable, aucune proof, aucun consumed=true, aucune exception brute, aucune récursion.
+QA PASS ≠ PR ready · PR readiness ≠ merge ready · tests verts ≠ absence de bug · package gelé ≠ D2-C · FAIL-CLOSED ≠ observabilité prod · CKC candidate ≠ baseline · body préparé ≠ PR créée · READY ≠ GO commit/push/PR/merge.
 
-## Handoff source pré-cycle
-
-- tip: `2aff75c8c0add92662a8ceab24cfe64579428882`
-- blob: `d87b8d57b9b542dd9d37e3ae359baf0d58cfca2a`
-- archive: `.tmp-sfia-review/v3-1-d2-b-fqa01-06-corrective-delivery-chatgpt-review-preserved.md` (hash-object = blob)
-
-## Git Truth initial
+## Local Git Truth initial
 
 ```
-=== QA REVALIDATION GIT TRUTH 2026-08-02 23:28:47 CEST (+0200) ===
+=== PR READINESS GIT TRUTH 2026-08-03 00:53:17 CEST (+0200) ===
 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
 origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
@@ -50,185 +43,45 @@ divergence=0	0
  M projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
  M projects/sfia-studio/app/lib/oa/cycle/index.ts
  M projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
-?? .tmp-sfia-review/MERGE_SHA.txt
-?? .tmp-sfia-review/_gen_d2a_corrective_reports.py
-?? .tmp-sfia-review/_gen_d2a_pr_readiness_reports.py
-?? .tmp-sfia-review/_gen_d2a_qa_reports.py
-?? .tmp-sfia-review/_gen_d2a_qa_revalidation_reports.py
-?? .tmp-sfia-review/_gen_d2a_reports.py
-?? .tmp-sfia-review/_gen_doc19.py
-?? .tmp-sfia-review/archive-comparison.txt
-?? .tmp-sfia-review/archive-source-sha256.txt
-?? .tmp-sfia-review/archive-target-sha256.txt
-?? .tmp-sfia-review/before-corrective/01-qa-validation-report.md
-?? .tmp-sfia-review/before-corrective/08-implementation-backlog-and-slicing.md
-?? .tmp-sfia-review/before-corrective/12-v3-cycle-recommendation-cadrage.md
-?? .tmp-sfia-review/before-corrective/13-v3-1-profile-qualification-functional-design.md
-?? .tmp-sfia-review/before-corrective/14-v3-1-cycle-type-catalog-functional-architecture.md
-?? .tmp-sfia-review/before-corrective/cycleTypeCatalog.test.ts
-?? .tmp-sfia-review/before-corrective/cycleTypeCatalog.ts
-?? .tmp-sfia-review/before-corrective/d1-README.md
-?? .tmp-sfia-review/before-corrective/framing-README.md
-?? .tmp-sfia-review/before-corrective/index.ts
-?? .tmp-sfia-review/before-d1/08-implementation-backlog-and-slicing.md
-?? .tmp-sfia-review/before-d1/12-v3-cycle-recommendation-cadrage.md
-?? .tmp-sfia-review/before-d1/13-v3-1-profile-qualification-functional-design.md
-?? .tmp-sfia-review/before-d1/14-v3-1-cycle-type-catalog-functional-architecture.md
-?? .tmp-sfia-review/before-d1/README.md
-?? .tmp-sfia-review/before-pr-readiness/01-qa-validation-report.md
-?? .tmp-sfia-review/before-pr-readiness/02-corrective-delivery-report.md
-?? .tmp-sfia-review/before-pr-readiness/03-qa-revalidation-report.md
-?? .tmp-sfia-review/before-pr-readiness/08-implementation-backlog-and-slicing.md
-?? .tmp-sfia-review/before-pr-readiness/12-v3-cycle-recommendation-cadrage.md
-?? .tmp-sfia-review/before-pr-readiness/13-v3-1-profile-qualification-functional-design.md
-?? .tmp-sfia-review/before-pr-readiness/14-v3-1-cycle-type-catalog-functional-architecture.md
-?? .tmp-sfia-review/before-pr-readiness/cycleTypeCatalog.test.ts
-?? .tmp-sfia-review/before-pr-readiness/cycleTypeCatalog.ts
-?? .tmp-sfia-review/before-pr-readiness/d1-README.md
-?? .tmp-sfia-review/before-pr-readiness/framing-README.md
-?? .tmp-sfia-review/before-pr-readiness/index.ts
-?? .tmp-sfia-review/before-publication/01.md
-?? .tmp-sfia-review/before-publication/02.md
-?? .tmp-sfia-review/before-publication/03.md
-?? .tmp-sfia-review/before-publication/04.md
-?? .tmp-sfia-review/before-publication/08.md
-?? .tmp-sfia-review/before-publication/12.md
-?? .tmp-sfia-review/before-publication/13.md
-?? .tmp-sfia-review/before-publication/14.md
-?? .tmp-sfia-review/before-publication/cycleTypeCatalog.test.ts
-?? .tmp-sfia-review/before-publication/cycleTypeCatalog.ts
-?? .tmp-sfia-review/before-publication/d1-README.md
-?? .tmp-sfia-review/before-publication/framing-README.md
-?? .tmp-sfia-review/before-publication/index.ts
-?? .tmp-sfia-review/before-qa/08-implementation-backlog-and-slicing.md
-?? .tmp-sfia-review/before-qa/12-v3-cycle-recommendation-cadrage.md
-?? .tmp-sfia-review/before-qa/13-v3-1-profile-qualification-functional-design.md
-?? .tmp-sfia-review/before-qa/14-v3-1-cycle-type-catalog-functional-architecture.md
-?? .tmp-sfia-review/before-qa/cycleTypeCatalog.test.ts
-?? .tmp-sfia-review/before-qa/cycleTypeCatalog.ts
-?? .tmp-sfia-review/before-qa/d1-README.md
-?? .tmp-sfia-review/before-qa/framing-README.md
-?? .tmp-sfia-review/before-qa/index.ts
-?? .tmp-sfia-review/before-revalidation/01-qa-validation-report.md
-?? .tmp-sfia-review/before-revalidation/02-corrective-delivery-report.md
-?? .tmp-sfia-review/before-revalidation/08-implementation-backlog-and-slicing.md
-?? .tmp-sfia-review/before-revalidation/12-v3-cycle-recommendation-cadrage.md
-?? .tmp-sfia-review/before-revalidation/13-v3-1-profile-qualification-functional-design.md
-?? .tmp-sfia-review/before-revalidation/14-v3-1-cycle-type-catalog-functional-architecture.md
-?? .tmp-sfia-review/before-revalidation/cycleTypeCatalog.test.ts
-?? .tmp-sfia-review/before-revalidation/cycleTypeCatalog.ts
-?? .tmp-sfia-review/before-revalidation/d1-README.md
-?? .tmp-sfia-review/before-revalidation/framing-README.md
-?? .tmp-sfia-review/before-revalidation/index.ts
-?? .tmp-sfia-review/before/08-implementation-backlog-and-slicing.md
-?? .tmp-sfia-review/before/12-v3-cycle-recommendation-cadrage.md
-?? .tmp-sfia-review/before/13-v3-1-profile-qualification-functional-design.md
-?? .tmp-sfia-review/before/14-v3-1-cycle-type-catalog-functional-architecture.md
-?? .tmp-sfia-review/before/README.md
-?? .tmp-sfia-review/cap-truth.txt
-?? .tmp-sfia-review/chatgpt-review.md
-?? .tmp-sfia-review/ci-jobs.json
-?? .tmp-sfia-review/ci-main-pr-readiness.json
-?? .tmp-sfia-review/ci-run.json
-?? .tmp-sfia-review/evidence/v2-a2/01-initial.png
-?? .tmp-sfia-review/evidence/v2-a2/02-validation-errors.png
-?? .tmp-sfia-review/evidence/v2-a2/03-success-real-runtime.png
-?? .tmp-sfia-review/evidence/v2-a3/01-workspace-missing.png
-?? .tmp-sfia-review/evidence/v2-a3/02-workspace-after-create-not-found.png
-?? .tmp-sfia-review/evidence/v2-a3/03-create-form-filled.png
-?? .tmp-sfia-review/evidence/v2-a3/04-create-success.png
-?? .tmp-sfia-review/evidence/v2-a3/05-workspace-loaded.png
-?? .tmp-sfia-review/final-git-state.txt
-?? .tmp-sfia-review/framing-README-main.md
-?? .tmp-sfia-review/framing-README-pr.md
-?? .tmp-sfia-review/local-numstat.txt
-?? .tmp-sfia-review/main-protection.err
-?? .tmp-sfia-review/main-protection.json
-?? .tmp-sfia-review/main-worktree-inspection.txt
-?? .tmp-sfia-review/main-worktree-status.txt
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts
+?? projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts
+?? projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.test.ts
+?? projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts
+?? projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts
+?? projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts
+?? projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts
+?? projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts
 --- cached ---
---- name-status ---
-M	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
-M	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
-M	projects/sfia-studio/app/lib/oa/cycle/index.ts
-M	projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
---- stat ---
- .../oa/cycle/catalogProjection.qa.test.ts          | 19 +++++++++--
- .../oa/cycle/domain/ckcQualificationContracts.ts   | 38 ++++++++++++++++++++++
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |  5 +++
- .../app/lib/oa/cycle/ports/cycleAudit.ts           | 16 +++++++++
- 4 files changed, 76 insertions(+), 2 deletions(-)
---- numstat ---
-17	2	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
-38	0	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
-5	0	projects/sfia-studio/app/lib/oa/cycle/index.ts
-16	0	projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
---- check ---
-DIFF_CHECK_PASS
---- remote D2-B ---
---- worktree ---
-worktree /Users/morris/Projects/sfia-workspace
-HEAD e1befcb80ed5e3c789a7de9036a8207d6b3e6771
-branch refs/heads/delivery/eventops-poc-visible-slice-01
-
-worktree /Users/morris/Projects/sfia-codex-pilot
-HEAD ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
-branch refs/heads/method/codex-operating-model-pilot
-
-worktree /Users/morris/Projects/sfia-task-tracker
-HEAD b763a318fb84e23e482ed23a0bd561c1d9e719e6
-branch refs/heads/cadrage/task-tracker-light
-
-worktree /Users/morris/Projects/sfia-workspace-a5-2-framing
-HEAD bd3608c6220e820cc3fa017422a7564a565a1296
-branch refs/heads/framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity
-
-worktree /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts
-HEAD cae841519ed1d2dd825e6ecb998337cd47b4a1e1
-branch refs/heads/method/sfia-cycle-knowledge-contracts
-
-worktree /Users/morris/Projects/sfia-workspace-d1-conversational-convergence
-HEAD 7dc6f9fc7e16f13de08a1003b492b0b6e243f05e
-branch refs/heads/ux/sfia-studio-d1-conversational-convergence
-
-worktree /Users/morris/Projects/sfia-workspace-d1-platform-integration
-HEAD c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9
-branch refs/heads/delivery/sfia-studio-d1-shared-platform-integration
-
-worktree /Users/morris/Projects/sfia-workspace-doc32-post-p3-m1
-HEAD dd2a68c6a1e45fee1e1f397cb644c2c082a3d877
-branch refs/heads/docs/sfia-studio-doc32-post-p3-m1-correction
-
-worktree /Users/morris/Projects/sfia-workspace-docs-recover
-HEAD 1a2fa31fab6343bdd0eab7211febb3bcc5326c33
-branch refs/heads/docs/sfia-studio-recover-unmerged-project-docs
-
-worktree /Users/morris/Projects/sfia-workspace-fa6-mitigated-clean
-HEAD 67f140a19cf4a992dbc0d7b053abfde579a9a68c
-branch refs/heads/docs/sfia-studio-fa6-mitigated-from-main
-
---- handoff ---
-handoff_tip=2aff75c8c0add92662a8ceab24cfe64579428882
-100644 blob d87b8d57b9b542dd9d37e3ae359baf0d58cfca2a	sfia-review-handoff/latest-chatgpt-review.md
---- gh ---
-github.com
-  ✓ Logged in to github.com account mcleland147 (keyring)
-  - Active account: true
-  - Git operations protocol: https
-  - Token: gho_************************************
-  - Token scopes: 'gist', 'read:org', 'repo', 'workflow'
---- branch vv (D2-B) ---
+CACHED_CHECK_PASS
+--- branch vv ---
 * delivery/sfia-studio-v3-1-d2-b-ckc-resolver                                   bb685f1 Merge pull request #300 from mcleland147/post-merge/sfia-studio-v3-1-d2-a-documentary-closure-final-status
+--- remote D2-B ---
+--- PRs ---
+--- handoff ---
+handoff_tip=883fccac003f58d642b1c40f5f05af3e4450224e
+100644 blob 6a84275f44e929ef6f57ceaec462087dce77382f	sfia-review-handoff/latest-chatgpt-review.md
+# SFIA Studio V3.1-D2-B — QA Revalidation Full Review Pack
+
+- **Date/heure/fuseau:** 2026-08-02 23:31:33 CEST (+0200)
+- **Rôle:** Cursor QA Critical read-only
+- **Cycle:** 9 — QA / validation
 
 ```
 
-## Inventaire et empreintes
+## Handoff QA source
+
+- tip: `883fccac003f58d642b1c40f5f05af3e4450224e`
+- blob: `6a84275f44e929ef6f57ceaec462087dce77382f`
+- titre: SFIA Studio V3.1-D2-B — QA Revalidation Full Review Pack
+- F-QA-01…06 CLOSED ; R-QA-REV-01/02 MINOR ; package gelé
+
+## Package freeze & inventory
 
 ```
-# Package hashes — QA revalidation pre-check
-date=2026-08-02 23:29:03 CEST (+0200)
-
-## Inventory existence
+# Package freeze & inventory — PR readiness
+date=2026-08-03 00:53:35 CEST (+0200)
 count=13
 OK projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
 OK projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts
@@ -244,22 +97,17 @@ OK projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts
 OK projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts
 OK projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
 
-## POST_D2B_ORIGINAL_12
-value=b9a4e5099ef7f27346f74686eb7f2a80a25222a2399728dd0bf62d41cc98f815
-expected=b9a4e5099ef7f27346f74686eb7f2a80a25222a2399728dd0bf62d41cc98f815
-MATCH
+POST_D2B_ORIGINAL_12=b9a4e5099ef7f27346f74686eb7f2a80a25222a2399728dd0bf62d41cc98f815
+expected_12=b9a4e5099ef7f27346f74686eb7f2a80a25222a2399728dd0bf62d41cc98f815
+MATCH_12
+POST_FULL_13=290dcb04ef4662096ab515db1eef19372ad03cb2351e4ee27d64ca113e7a632e
+expected_13=290dcb04ef4662096ab515db1eef19372ad03cb2351e4ee27d64ca113e7a632e
+MATCH_13
+POST_GIT_DIFF=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
+expected_git=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
+MATCH_GIT
 
-## POST_FULL_13
-value=290dcb04ef4662096ab515db1eef19372ad03cb2351e4ee27d64ca113e7a632e
-expected=290dcb04ef4662096ab515db1eef19372ad03cb2351e4ee27d64ca113e7a632e
-MATCH
-
-## POST_GIT_DIFF
-value=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
-expected=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
-MATCH
-
-## Protected-8 individual sha256
+## Protected-8
 89d528b3917c035f8b6ed5ae2300468a403a35459e5f77a75a8c734ef911507f  projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
 025f34191576c58222643356836fb7c62c193b3315d6b5be9085958e8609a279  projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts
 96e14671e3bd4aa9f3771589041ba81057759730182d2c234f6a1f9e54c75fda  projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts
@@ -268,1452 +116,225 @@ MATCH
 5eb4a81c40e6a33856320f725cbf2e50b008c5410365788d509e2815b7dbd42a  projects/sfia-studio/app/lib/oa/cycle/index.ts
 f2c7454ca20b07452777cff8129381f14e65c32ab0a28e7c6250a5c0342c7ba2  projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts
 e553dead1f56ae4c92699dfdedb90ed263a5f4bb46cf7dca174bc66e8b96966c  projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
-
-## vs corrective baseline
 PROTECTED8_UNCHANGED
 
-```
+## git diff package
+ .../oa/cycle/catalogProjection.qa.test.ts          | 19 +++++++++--
+ .../oa/cycle/domain/ckcQualificationContracts.ts   | 38 ++++++++++++++++++++++
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |  5 +++
+ .../app/lib/oa/cycle/ports/cycleAudit.ts           | 16 +++++++++
+ 4 files changed, 76 insertions(+), 2 deletions(-)
+M	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
+M	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+M	projects/sfia-studio/app/lib/oa/cycle/index.ts
+M	projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+17	2	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
+38	0	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+5	0	projects/sfia-studio/app/lib/oa/cycle/index.ts
+16	0	projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+DIFF_CHECK_PASS
 
-Gel confirmé pendant et après campagne: POST_FULL_13 inchangé = `290dcb04ef4662096ab515db1eef19372ad03cb2351e4ee27d64ca113e7a632e`.
-
-## Rapport
-
-```
-# V3.1-D2-B QA Revalidation Report
-
-**Date:** 2026-08-02 23:31:14 CEST (+0200)
-**Rôle:** Cursor QA Critical read-only
-**Cycle:** 9 — QA / validation
-**Gate Morris:** GO QA REVALIDATION … 2026-08-02 23:21 CEST
-
-## Résultats techniques
-- Proof 8/8
-- Resolver+QA 23/23
-- D2-B 36/36
-- D2-A 86/86
-- oa/cycle 216/216
-- typecheck PASS
-- lint PASS
-- suite 949/949
-- build PASS
-- probes 19/19 CLOSED
-- package freeze OK (POST_FULL_13 inchangé)
-- protected-8 inchangés
-
-## Verdict
-V3.1-D2-B CKC RESOLVER QA REVALIDATION PASS WITH RESERVES
+## unexpected project paths outside package+tmp
+NONE
 
 ```
 
-## Matrices
-
-### Stories
-# Matrice BL-D2-B-01…06
-
-| Story | Verdict QA | Preuves |
+| path | git | role |
 |---|---|---|
-| BL-D2-B-01 Manifest | PASS | validate avant lookup ; probes P1–P3,P9,P10,P11 ; tests manifest |
-| BL-D2-B-02 Port spécialisé | PASS | revue ports/ckcQualificationResolver.ts ; distinct CkcResolverPort |
-| BL-D2-B-03 Resolver | PASS | tests resolver 14+9 ; probes ; déterminisme P10 |
-| BL-D2-B-04 Erreurs T-A2 | PASS | codes autorisés ; D2_INTERNAL_ERROR audit ; pas d’alias |
-| BL-D2-B-05 Proof | PASS | F-QA-01…03 fermés ; builder pur |
-| BL-D2-B-06 Audit events | PASS | FAIL-CLOSED Morris ; 6 events ; sanitize ; no recursion |
+| domain/ckcQualificationContracts.ts | M tracked | D2-A/B contracts |
+| domain/ckcQualificationErrors.ts | ?? new | D2-B errors |
+| domain/ckcConsumptionProof.ts | ?? new | D2-B proof |
+| ports/ckcQualificationResolver.ts | ?? new | D2-B port |
+| infrastructure/ckcReferenceManifest.ts | ?? new | D2-B manifest |
+| infrastructure/ckcQualificationResolver.ts | ?? new | D2-B resolver |
+| ports/cycleAudit.ts | M tracked | T-A2 audit events additive |
+| index.ts | M tracked | barrel additive D2-B |
+| ckcReferenceManifest.test.ts | ?? new | tests |
+| ckcQualificationResolver.test.ts | ?? new | tests |
+| ckcConsumptionProof.test.ts | ?? new | tests |
+| ckcQualificationResolver.qa.test.ts | ?? new | tests |
+| catalogProjection.qa.test.ts | M tracked | D2-A boundary phase-aware |
 
 
-### F-QA
-# Matrice F-QA-01…06 — QA revalidation
+## Diff tracked (complet)
 
-| Finding | Preuve indépendante | Outcome observé | Fermé |
-|---|---|---|---|
-| F-QA-01 | P5 + tests proof | REJECT CKC_RESOLUTION_INCOHERENT ; dup rejetée | OUI |
-| F-QA-02 | P6 | PROOF_REJECTS detailed+synthetic | OUI |
-| F-QA-03 | P7 | incohérents rejetés ; cohérents acceptés | OUI |
-| F-QA-04 | P8×6 + P8b | D2_INTERNAL_ERROR ; 0 leak ; 0 récursion | OUI |
-| F-QA-05 | P1–P3,P9,P11 | REJECT avant lookup ; ORDER_OK | OUI |
-| F-QA-06 | P4 | invalides rejetés ; valides acceptés | OUI |
+```diff
+=== TRACKED DIFF vs HEAD ===
+diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
+index 1ba9408..9400a69 100644
+--- a/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
+@@ -613,7 +613,7 @@ describe("V3.1-D2-A QA — public fingerprint/catalog binding (critical)", () =>
+ });
 
+ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
+-  it("keeps index.ts limited to the three additive D2-A exports", () => {
++  it("keeps the public boundary limited to adopted D2-A and D2-B exports", () => {
+     const source = readFileSync(
+       path.resolve(__dirname, "../../../lib/oa/cycle/index.ts"),
+       "utf8",
+@@ -623,8 +623,23 @@ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
+     );
+     expect(source).toContain('export * from "./domain/catalogFingerprint";');
+     expect(source).toContain('export * from "./domain/catalogProjection";');
++    expect(source).toContain(
++      'export * from "./domain/ckcQualificationErrors";',
++    );
++    expect(source).toContain(
++      'export * from "./domain/ckcConsumptionProof";',
++    );
++    expect(source).toContain(
++      'export * from "./ports/ckcQualificationResolver";',
++    );
++    expect(source).toContain(
++      'export * from "./infrastructure/ckcReferenceManifest";',
++    );
++    expect(source).toContain(
++      'export * from "./infrastructure/ckcQualificationResolver";',
++    );
+     expect(source).not.toMatch(
+-      /ckcQualificationResolver|ConsumptionProof|QualifyCycleBridge|createD2|D2Factory/,
++      /QualifyCycleBridge|qualifyCycleWithCkc|ckcQualificationResult|createD2|D2Factory|createCkcQualificationServices/,
+     );
+   });
 
-### Proof
-# Proof matrix
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts b/projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+index d611410..b7b4256 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+@@ -2,6 +2,12 @@ import type {
+   CycleTypeCkcMapping,
+   CycleTypeLifecycleStatus,
+ } from "./cycleTypeCatalog";
++import type {
++  CkcFallbackPolicy,
++  CkcLevel,
++  CkcSource,
++  CkcStatus,
++} from "./types";
 
-| Cas | Résultat |
-|---|---|
-| fallback sans disclosure | REJECT |
-| disclosure dupliquée | REJECT |
-| detailed+CKC_FALLBACK_USED | REJECT |
-| synthetic+CKC_FALLBACK_USED | REJECT |
-| detailed+fallbackPolicy=none | REJECT |
-| synthetic+intra_v3_only | REJECT |
-| fallback+none | REJECT |
-| nominaux cohérents | ACCEPT consumed=true |
-| resolvedAt invalide dans resolution | REJECT (builder) |
+ /** Read-only context required to select a cycle type from the D1 catalog. */
+ export type CatalogSelectionContext = {
+@@ -73,3 +79,35 @@ export type CatalogProjectionFailure = {
+ export type CatalogProjectionResult =
+   | CatalogProjectionSuccess
+   | CatalogProjectionFailure;
++
++/** Detailed D2-B state retained alongside the deliberately coarser T-A2 types. */
++export type CkcQualificationDetailedStatus =
++  | "resolved_detailed"
++  | "resolved_synthetic"
++  | "resolved_fallback_synthetic"
++  | "unresolved_invalid_mapping"
++  | "unresolved_unavailable"
++  | "unresolved_catalog_incompatible"
++  | "unresolved_cycle_not_selectable";
++
++/** Immutable output of the D2-B resolver before consumption proof validation. */
++export type CkcQualificationResolution = {
++  readonly cycleTypeId: string;
++  readonly detailedStatus: CkcQualificationDetailedStatus;
++  readonly level: CkcLevel;
++  readonly status: CkcStatus;
++  readonly source: CkcSource;
++  readonly fallbackPolicy: CkcFallbackPolicy;
++  readonly expectedPrimaryReference: string;
++  readonly usedReference?: string;
++  readonly fallbackUsed: boolean;
++  readonly fallbackReference?: string;
++  readonly doctrineStatus: "method-candidate";
++  readonly executionAuthority: false;
++  readonly catalogVersion: string;
++  readonly catalogHash: string;
++  readonly correlationId: string;
++  readonly resolvedAt: string;
++  readonly exploitable: boolean;
++  readonly disclosures: readonly string[];
++};
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+index 9ad18b7..499b0cb 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+@@ -11,6 +11,8 @@ export * from "./domain/invariants";
+ export * from "./domain/qualification";
+ export * from "./domain/cycleTypeCatalog";
+ export * from "./domain/ckcQualificationContracts";
++export * from "./domain/ckcQualificationErrors";
++export * from "./domain/ckcConsumptionProof";
+ export * from "./domain/catalogFingerprint";
+ export * from "./domain/catalogProjection";
 
+@@ -18,6 +20,7 @@ export * from "./ports/cycleRepository";
+ export * from "./ports/trajectoryRepository";
+ export * from "./ports/epistemicRepository";
+ export * from "./ports/ckcResolver";
++export * from "./ports/ckcQualificationResolver";
+ export * from "./ports/cycleAudit";
 
-### Manifest
-# Manifest matrix
+ export { QualifyCycle } from "./application/qualifyCycle";
+@@ -46,6 +49,8 @@ export {
+   ConsoleCycleAuditJournal,
+   MemoryCycleAuditJournal,
+ } from "./infrastructure/observability";
++export * from "./infrastructure/ckcReferenceManifest";
++export * from "./infrastructure/ckcQualificationResolver";
 
-| Cas | Validator | Resolver |
-|---|---|---|
-| foreign | MANIFEST_UNKNOWN_REFERENCE | CKC_RESOLUTION_INCOHERENT |
-| missing nonselected | MANIFEST_REFERENCE_MISSING | CKC_RESOLUTION_INCOHERENT |
-| duplicate | MANIFEST_DUPLICATE | CKC_RESOLUTION_INCOHERENT |
-| metadata invalide nonselected | MANIFEST_METADATA_INVALID | CKC_RESOLUTION_INCOHERENT |
-| reorder valid | OK | EQUAL deterministic |
-| validate before this.manifest lookup | — | ORDER_OK (static) |
-
-
-### Audit
-# Audit FAIL-CLOSED matrix
-
-| Event | append calls | code | proof | recursion | leak |
-|---|---|---|---|---|---|
-| resolution_started | 1 | D2_INTERNAL_ERROR | absent | non | non |
-| resolution_succeeded | 2 | D2_INTERNAL_ERROR | absent | non | non |
-| fallback_used | 2 | D2_INTERNAL_ERROR | absent | non | non |
-| consumption_validated | 4 | D2_INTERNAL_ERROR | absent | non | non |
-| resolution_failed | 2 | D2_INTERNAL_ERROR | absent | non | non |
-| consumption_rejected | 3 | D2_INTERNAL_ERROR | absent | non | non |
-| audit undefined | 0 | n/a (ok=true) | present | n/a | n/a |
-| audit functional | 3 | n/a (ok=true) | present | n/a | n/a |
-
-
-### resolvedAt
-# resolvedAt matrix
-
-## Rejects (resolver → CKC_RESOLUTION_INCOHERENT, no proof)
-not-an-iso-timestamp · date seule · sans fuseau · vide · whitespace · leading space · 2026-02-31 · month 00/13 · day 00 · hour 24 · min/sec 60
-
-## Accepts
-Z · +02:00 · -02:00 · milliseconds · leap day 2024-02-29Z
-
-## Vigilance P12 (MINOR)
-resolution_started est émis AVANT validation ISO, donc `ts` peut reproduire la string invalide fournie.
-Événements de succès non émis. Outcome fail-closed correct. Port `ts: string` sans contrainte ISO explicite dans les sources D2.
-Classification: mineur — événement imprécis sans comportement faux / sans consumed=true.
-
-
-## Import boundaries
-
-```
-=== import boundaries 2026-08-02T23:30:43+02:00 ===
--- projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts
-(none)
--- projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts
-(none)
--- projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
-(none)
--- projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts
-(none)
--- projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts
-(none)
--- projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts
-(none)
--- projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
-9:      recommendedProfile: string;
-=== D2-C forbidden in index ===
-(none)
-=== freeze hashes ===
-POST_FULL_13=290dcb04ef4662096ab515db1eef19372ad03cb2351e4ee27d64ca113e7a632e
-FREEZE_OK
-GIT_DIFF=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
-STAGED=0
-
-```
-
-Note: `recommendedProfile` dans `cycleAudit.ts` appartient à l'événement historique `oa.cycle.qualified` T-A2 — non utilisé par le resolver D2-B.
-
-## Findings / réserves
-
-# Findings QA revalidation
-
-## Findings bloquants
-Aucun.
-
-## Findings majeurs
-Aucun. F-QA-01…06 fermés par probes indépendantes.
-
-## Findings mineurs / réserves
-1. **R-QA-REV-01 MINOR** — `oa.ckc.resolution_started` (et events d’échec associés) peuvent porter `ts` = resolvedAt invalide car l’émission started précède `isIso8601DateTime`. Pas de succès, pas de proof, pas de consumed=true. Hors fermeture F-QA-06 (qui exige validation avant résolution et avant succès).
-2. **R-QA-REV-02 MINOR** — Probes hors `__tests__/**` exécutées via `vite-node` temporaire (limite Vitest include, non mutante). Identique à la réserve de campagne QA initiale.
-
-## Environnementaux
-Aucun bloquant.
-
-
-## Probes indépendantes (sortie)
-
-```
-[PROBE] P1_foreign_entry: REJECT_CKC_RESOLUTION_INCOHERENT | validatorUnknown=true | CLOSED
-[PROBE] P2_missing_nonselected: REJECT_CKC_RESOLUTION_INCOHERENT | validatorMissing=true | CLOSED
-[PROBE] P3_duplicate_find: REJECT_CKC_RESOLUTION_INCOHERENT | validatorDuplicate=true | CLOSED
-[PROBE] P4_non_iso_resolvedAt: ALL_INVALID_REJECTED_AND_VALID_ACCEPTED | rejects=13 | CLOSED
-[PROBE] P5_fallback_no_disclosure: REJECT_CKC_RESOLUTION_INCOHERENT | dup=CKC_RESOLUTION_INCOHERENT | CLOSED
-[PROBE] P6_nonfallback_with_disclosure: PROOF_REJECTS_BOTH | detailed+synthetic | CLOSED
-[PROBE] P7_incoherent_fallbackPolicy: PROOF_REJECTS_INCOHERENT_ACCEPTS_COHERENT | CLOSED
-[PROBE] P8_oa.ckc.resolution_started: CONTROLLED_D2_INTERNAL_ERROR | calls=1 expected=1 afterThrow=0 leak=false | CLOSED
-[PROBE] P8_oa.ckc.resolution_succeeded: CONTROLLED_D2_INTERNAL_ERROR | calls=2 expected=2 afterThrow=0 leak=false | CLOSED
-[PROBE] P8_oa.ckc.fallback_used: CONTROLLED_D2_INTERNAL_ERROR | calls=2 expected=2 afterThrow=0 leak=false | CLOSED
-[PROBE] P8_oa.ckc.consumption_validated: CONTROLLED_D2_INTERNAL_ERROR | calls=4 expected=4 afterThrow=0 leak=false | CLOSED
-[PROBE] P8_oa.ckc.resolution_failed: CONTROLLED_D2_INTERNAL_ERROR | calls=2 expected=2 afterThrow=0 leak=false | CLOSED
-[PROBE] P8_oa.ckc.consumption_rejected: CONTROLLED_D2_INTERNAL_ERROR | calls=3 expected=3 afterThrow=0 leak=false | CLOSED
-[PROBE] P8_audit_matrix: ALL_SIX_FAIL_CLOSED | CLOSED
-[PROBE] P8b_audit_absent_and_functional: NOMINAL | events=oa.ckc.resolution_started|oa.ckc.resolution_succeeded|oa.ckc.consumption_validated | CLOSED
-[PROBE] P9_invalid_metadata_nonselected: REJECT_CKC_RESOLUTION_INCOHERENT | validatorInvalid=true | CLOSED
-[PROBE] P10_reorder_determinism: EQUAL | CLOSED
-[PROBE] P11_validate_before_lookup: ORDER_OK | validateAt=4991 primaryLookupAt=6159 | CLOSED
-[PROBE] P12_invalid_resolvedAt_event_ts: STARTED_EMITTED_WITH_TS=not-an-iso-timestamp | outcome=CKC_RESOLUTION_INCOHERENT; events=oa.ckc.resolution_started|oa.ckc.resolution_failed|oa.ckc.consumption_rejected | CLOSED
-PROBE_SUMMARY_JSON=[
-  {
-    "id": "P1_foreign_entry",
-    "observed": "REJECT_CKC_RESOLUTION_INCOHERENT",
-    "detail": "validatorUnknown=true",
-    "closed": true
-  },
-  {
-    "id": "P2_missing_nonselected",
-    "observed": "REJECT_CKC_RESOLUTION_INCOHERENT",
-    "detail": "validatorMissing=true",
-    "closed": true
-  },
-  {
-    "id": "P3_duplicate_find",
-    "observed": "REJECT_CKC_RESOLUTION_INCOHERENT",
-    "detail": "validatorDuplicate=true",
-    "closed": true
-  },
-  {
-    "id": "P4_non_iso_resolvedAt",
-    "observed": "ALL_INVALID_REJECTED_AND_VALID_ACCEPTED",
-    "detail": "rejects=13",
-    "closed": true
-  },
-  {
-    "id": "P5_fallback_no_disclosure",
-    "observed": "REJECT_CKC_RESOLUTION_INCOHERENT",
-    "detail": "dup=CKC_RESOLUTION_INCOHERENT",
-    "closed": true
-  },
-  {
-    "id": "P6_nonfallback_with_disclosure",
-    "observed": "PROOF_REJECTS_BOTH",
-    "detail": "detailed+synthetic",
-    "closed": true
-  },
-  {
-    "id": "P7_incoherent_fallbackPolicy",
-    "observed": "PROOF_REJECTS_INCOHERENT_ACCEPTS_COHERENT",
-    "closed": true
-  },
-  {
-    "id": "P8_oa.ckc.resolution_started",
-    "observed": "CONTROLLED_D2_INTERNAL_ERROR",
-    "detail": "calls=1 expected=1 afterThrow=0 leak=false",
-    "closed": true
-  },
-  {
-    "id": "P8_oa.ckc.resolution_succeeded",
-    "observed": "CONTROLLED_D2_INTERNAL_ERROR",
-    "detail": "calls=2 expected=2 afterThrow=0 leak=false",
-    "closed": true
-  },
-  {
-    "id": "P8_oa.ckc.fallback_used",
-    "observed": "CONTROLLED_D2_INTERNAL_ERROR",
-    "detail": "calls=2 expected=2 afterThrow=0 leak=false",
-    "closed": true
-  },
-  {
-    "id": "P8_oa.ckc.consumption_validated",
-    "observed": "CONTROLLED_D2_INTERNAL_ERROR",
-    "detail": "calls=4 expected=4 afterThrow=0 leak=false",
-    "closed": true
-  },
-  {
-    "id": "P8_oa.ckc.resolution_failed",
-    "observed": "CONTROLLED_D2_INTERNAL_ERROR",
-    "detail": "calls=2 expected=2 afterThrow=0 leak=false",
-    "closed": true
-  },
-  {
-    "id": "P8_oa.ckc.consumption_rejected",
-    "observed": "CONTROLLED_D2_INTERNAL_ERROR",
-    "detail": "calls=3 expected=3 afterThrow=0 leak=false",
-    "closed": true
-  },
-  {
-    "id": "P8_audit_matrix",
-    "observed": "ALL_SIX_FAIL_CLOSED",
-    "closed": true
-  },
-  {
-    "id": "P8b_audit_absent_and_functional",
-    "observed": "NOMINAL",
-    "detail": "events=oa.ckc.resolution_started|oa.ckc.resolution_succeeded|oa.ckc.consumption_validated",
-    "closed": true
-  },
-  {
-    "id": "P9_invalid_metadata_nonselected",
-    "observed": "REJECT_CKC_RESOLUTION_INCOHERENT",
-    "detail": "validatorInvalid=true",
-    "closed": true
-  },
-  {
-    "id": "P10_reorder_determinism",
-    "observed": "EQUAL",
-    "closed": true
-  },
-  {
-    "id": "P11_validate_before_lookup",
-    "observed": "ORDER_OK",
-    "detail": "validateAt=4991 primaryLookupAt=6159",
-    "closed": true
-  },
-  {
-    "id": "P12_invalid_resolvedAt_event_ts",
-    "observed": "STARTED_EMITTED_WITH_TS=not-an-iso-timestamp",
-    "detail": "outcome=CKC_RESOLUTION_INCOHERENT; events=oa.ckc.resolution_started|oa.ckc.resolution_failed|oa.ckc.consumption_rejected",
-    "closed": true
-  }
-]
-PROBE_CLOSED=19/19
-PROBE_OPEN=0
-```
-
-## Probe source (complet)
-
-```typescript
-/**
- * Independent QA revalidation probes — non-versioned, disposable.
- * Must not mutate the thirteen-file package.
- */
-import {
-  CKC_REFERENCE_MANIFEST,
-  CYCLE_TYPE_CATALOG_FINGERPRINT,
-  CYCLE_TYPE_CATALOG_VERSION,
-  CkcQualificationResolver,
-  buildCkcConsumptionProof,
-  projectSelectableCycleType,
-  validateCkcReferenceManifest,
-  type CkcQualificationResolution,
-  type CkcReferenceManifest,
-  type CycleAuditPort,
-  type ValidatedCycleTypeProjection,
-} from "../../projects/sfia-studio/app/lib/oa/cycle/index.ts";
-
-const RESOLVED_AT = "2026-08-02T21:29:00.000Z";
-const HOSTILE =
-  "/Users/private/secret.md payload=ckc-body token=sk-hostile-f4ke file=leak.md";
-
-type Obs = {
-  id: string;
-  observed: string;
-  detail?: string;
-  closed?: boolean;
-};
-const observations: Obs[] = [];
-
-function log(id: string, observed: string, detail?: string, closed?: boolean) {
-  observations.push({ id, observed, detail, closed });
-  const flag = closed === undefined ? "" : closed ? " | CLOSED" : " | OPEN";
-  console.log(
-    `[PROBE] ${id}: ${observed}${detail ? " | " + detail : ""}${flag}`,
-  );
-}
-
-function projection(cycleTypeId: string): ValidatedCycleTypeProjection {
-  const result = projectSelectableCycleType({
-    cycleTypeId,
-    catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
-    catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
-    correlationId: `cor:reval:${cycleTypeId}`,
-  });
-  if (!result.ok) throw new Error(result.error.message);
-  return result.projection;
-}
-
-function resolveOk(
-  selected: ValidatedCycleTypeProjection,
-  manifest?: CkcReferenceManifest,
-): CkcQualificationResolution {
-  const outcome = new CkcQualificationResolver(manifest).resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  if (!outcome.ok) throw new Error(outcome.error.message);
-  return outcome.resolution;
-}
-
-function hasProof(outcome: { ok: boolean }): boolean {
-  return Object.prototype.hasOwnProperty.call(outcome, "proof");
-}
-
-function sanitizationLeak(message: string): boolean {
-  return (
-    message.includes("/Users/") ||
-    message.includes("secret") ||
-    message.includes("sk-hostile") ||
-    message.includes("payload") ||
-    message.includes("leak.md")
-  );
-}
-
-// --- F-QA-05 / BL-D2-B-01 ---
-{
-  const selected = projection("cyc:framing");
-  const foreign: CkcReferenceManifest = {
-    entries: [
-      ...CKC_REFERENCE_MANIFEST.entries,
-      {
-        ...CKC_REFERENCE_MANIFEST.entries[0],
-        reference: "caller/private/foreign.md",
-      },
-    ],
-  };
-  const issues = validateCkcReferenceManifest(foreign);
-  const outcome = new CkcQualificationResolver(foreign).resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  const closed =
-    !outcome.ok &&
-    outcome.error.code === "CKC_RESOLUTION_INCOHERENT" &&
-    !hasProof(outcome) &&
-    issues.some((i) => i.code === "MANIFEST_UNKNOWN_REFERENCE");
-  log(
-    "P1_foreign_entry",
-    outcome.ok ? "RESOLVER_ACCEPTS" : `REJECT_${outcome.error.code}`,
-    `validatorUnknown=${issues.some((i) => i.code === "MANIFEST_UNKNOWN_REFERENCE")}`,
-    closed,
-  );
-}
-
-{
-  const selected = projection("cyc:framing");
-  const missing: CkcReferenceManifest = {
-    entries: CKC_REFERENCE_MANIFEST.entries.filter(
-      (e) => e.reference !== selected.ckc.fallbackReference,
-    ),
-  };
-  const issues = validateCkcReferenceManifest(missing);
-  const outcome = new CkcQualificationResolver(missing).resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  const closed =
-    !outcome.ok &&
-    outcome.error.code === "CKC_RESOLUTION_INCOHERENT" &&
-    !hasProof(outcome) &&
-    issues.some((i) => i.code === "MANIFEST_REFERENCE_MISSING");
-  log(
-    "P2_missing_nonselected",
-    outcome.ok ? "RESOLVER_ACCEPTS" : `REJECT_${outcome.error.code}`,
-    `validatorMissing=${issues.some((i) => i.code === "MANIFEST_REFERENCE_MISSING")}`,
-    closed,
-  );
-}
-
-{
-  const selected = projection("cyc:framing");
-  const duplicate: CkcReferenceManifest = {
-    entries: [...CKC_REFERENCE_MANIFEST.entries, CKC_REFERENCE_MANIFEST.entries[0]],
-  };
-  const issues = validateCkcReferenceManifest(duplicate);
-  const outcome = new CkcQualificationResolver(duplicate).resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  const closed =
-    !outcome.ok &&
-    outcome.error.code === "CKC_RESOLUTION_INCOHERENT" &&
-    !hasProof(outcome) &&
-    issues.some((i) => i.code === "MANIFEST_DUPLICATE");
-  log(
-    "P3_duplicate_find",
-    outcome.ok
-      ? `RESOLVER_ACCEPTS_FIRST status=${outcome.resolution.detailedStatus}`
-      : `REJECT_${outcome.error.code}`,
-    `validatorDuplicate=${issues.some((i) => i.code === "MANIFEST_DUPLICATE")}`,
-    closed,
-  );
-}
-
-// --- F-QA-06 ---
-{
-  const selected = projection("cyc:framing");
-  const rejects = [
-    "not-an-iso-timestamp",
-    "2026-08-02",
-    "2026-08-02T21:00:00",
-    "",
-    "   ",
-    " 2026-08-02T21:29:00.000Z",
-    "2026-02-31T00:00:00.000Z",
-    "2026-00-10T00:00:00.000Z",
-    "2026-13-10T00:00:00.000Z",
-    "2026-08-00T00:00:00.000Z",
-    "2026-08-02T24:00:00.000Z",
-    "2026-08-02T12:60:00.000Z",
-    "2026-08-02T12:00:60.000Z",
-  ];
-  let allRejected = true;
-  for (const resolvedAt of rejects) {
-    const outcome = new CkcQualificationResolver().resolve({
-      projection: selected,
-      resolvedAt,
-    });
-    if (
-      outcome.ok ||
-      outcome.error.code !== "CKC_RESOLUTION_INCOHERENT" ||
-      hasProof(outcome)
-    ) {
-      allRejected = false;
-      log("P4_non_iso_resolvedAt", "ACCEPTS_OR_WRONG_CODE", resolvedAt, false);
-      break;
-    }
-  }
-  if (allRejected) {
-    // also check accepts
-    const accepts = [
-      "2026-08-02T19:47:00.000Z",
-      "2026-08-02T21:47:00+02:00",
-      "2026-08-02T17:47:00-02:00",
-      "2026-08-02T19:47:00.123Z",
-      "2024-02-29T12:00:00.000Z",
-    ];
-    let acceptsOk = true;
-    for (const resolvedAt of accepts) {
-      const outcome = new CkcQualificationResolver().resolve({
-        projection: selected,
-        resolvedAt,
-      });
-      if (!outcome.ok || !outcome.proof.consumed) {
-        acceptsOk = false;
-        log("P4b_iso_accept", "REJECTS_VALID", resolvedAt, false);
-        break;
-      }
-    }
-    if (acceptsOk) {
-      log(
-        "P4_non_iso_resolvedAt",
-        "ALL_INVALID_REJECTED_AND_VALID_ACCEPTED",
-        `rejects=${rejects.length}`,
-        true,
-      );
-    }
-  }
-}
-
-// --- F-QA-01 ---
-{
-  const selected = projection("cyc:framing");
-  const manifest: CkcReferenceManifest = {
-    entries: CKC_REFERENCE_MANIFEST.entries.map((e) =>
-      e.reference === selected.ckc.primaryReference
-        ? { ...e, availability: "unavailable" as const }
-        : e,
-    ),
-  };
-  const valid = resolveOk(selected, manifest);
-  const missing = buildCkcConsumptionProof(selected, {
-    ...valid,
-    disclosures: [],
-  });
-  const dup = buildCkcConsumptionProof(selected, {
-    ...valid,
-    disclosures: ["CKC_FALLBACK_USED", "CKC_FALLBACK_USED"],
-  });
-  const closed =
-    !missing.ok &&
-    missing.error.code === "CKC_RESOLUTION_INCOHERENT" &&
-    !Object.prototype.hasOwnProperty.call(missing, "proof") &&
-    !dup.ok &&
-    dup.error.code === "CKC_RESOLUTION_INCOHERENT";
-  log(
-    "P5_fallback_no_disclosure",
-    missing.ok
-      ? "PROOF_ACCEPTS_CONSUMED_TRUE"
-      : `REJECT_${missing.error.code}`,
-    `dup=${dup.ok ? "ACCEPTS" : dup.error.code}`,
-    closed,
-  );
-}
-
-// --- F-QA-02 ---
-{
-  let closed = true;
-  for (const id of ["cyc:framing", "cyc:delivery"] as const) {
-    const selected = projection(id);
-    const valid = resolveOk(selected);
-    const r = buildCkcConsumptionProof(selected, {
-      ...valid,
-      disclosures: ["CKC_FALLBACK_USED"],
-    });
-    if (r.ok || r.error.code !== "CKC_RESOLUTION_INCOHERENT") {
-      closed = false;
-      log("P6_nonfallback_with_disclosure", "PROOF_ACCEPTS", id, false);
-    }
-  }
-  if (closed) {
-    log(
-      "P6_nonfallback_with_disclosure",
-      "PROOF_REJECTS_BOTH",
-      "detailed+synthetic",
-      true,
-    );
-  }
-}
-
-// --- F-QA-03 ---
-{
-  const detailed = projection("cyc:framing");
-  const detailedValid = resolveOk(detailed);
-  const dBad = buildCkcConsumptionProof(detailed, {
-    ...detailedValid,
-    fallbackPolicy: "none",
-  });
-  const synthetic = projection("cyc:delivery");
-  const syntheticValid = resolveOk(synthetic);
-  const sBad = buildCkcConsumptionProof(synthetic, {
-    ...syntheticValid,
-    fallbackPolicy: "intra_v3_only",
-  });
-  const fbManifest: CkcReferenceManifest = {
-    entries: CKC_REFERENCE_MANIFEST.entries.map((e) =>
-      e.reference === detailed.ckc.primaryReference
-        ? { ...e, availability: "unavailable" as const }
-        : e,
-    ),
-  };
-  const fbValid = resolveOk(detailed, fbManifest);
-  const fBad = buildCkcConsumptionProof(detailed, {
-    ...fbValid,
-    fallbackPolicy: "none",
-  });
-  const closed =
-    !dBad.ok &&
-    !sBad.ok &&
-    !fBad.ok &&
-    buildCkcConsumptionProof(detailed, detailedValid).ok &&
-    buildCkcConsumptionProof(synthetic, syntheticValid).ok &&
-    buildCkcConsumptionProof(detailed, fbValid).ok;
-  log(
-    "P7_incoherent_fallbackPolicy",
-    closed ? "PROOF_REJECTS_INCOHERENT_ACCEPTS_COHERENT" : "PROOF_ACCEPTS",
-    undefined,
-    closed,
-  );
-}
-
-// --- F-QA-04 six events ---
-{
-  const selected = projection("cyc:framing");
-  const scenarios: Array<{
-    failingEvent: string;
-    expectedCalls: number;
-    manifest: CkcReferenceManifest;
-  }> = [
-    {
-      failingEvent: "oa.ckc.resolution_started",
-      expectedCalls: 1,
-      manifest: CKC_REFERENCE_MANIFEST,
-    },
-    {
-      failingEvent: "oa.ckc.resolution_succeeded",
-      expectedCalls: 2,
-      manifest: CKC_REFERENCE_MANIFEST,
-    },
-    {
-      failingEvent: "oa.ckc.fallback_used",
-      expectedCalls: 2,
-      manifest: {
-        entries: CKC_REFERENCE_MANIFEST.entries.map((e) =>
-          e.reference === selected.ckc.primaryReference
-            ? { ...e, availability: "unavailable" as const }
-            : e,
-        ),
-      },
-    },
-    {
-      failingEvent: "oa.ckc.consumption_validated",
-      expectedCalls: 4,
-      manifest: {
-        entries: CKC_REFERENCE_MANIFEST.entries.map((e) =>
-          e.reference === selected.ckc.primaryReference
-            ? { ...e, availability: "unavailable" as const }
-            : e,
-        ),
-      },
-    },
-    {
-      failingEvent: "oa.ckc.resolution_failed",
-      expectedCalls: 2,
-      manifest: {
-        entries: CKC_REFERENCE_MANIFEST.entries.map((e) =>
-          e.reference === selected.ckc.primaryReference ||
-          e.reference === selected.ckc.fallbackReference
-            ? { ...e, availability: "unavailable" as const }
-            : e,
-        ),
-      },
-    },
-    {
-      failingEvent: "oa.ckc.consumption_rejected",
-      expectedCalls: 3,
-      manifest: {
-        entries: CKC_REFERENCE_MANIFEST.entries.map((e) =>
-          e.reference === selected.ckc.primaryReference ||
-          e.reference === selected.ckc.fallbackReference
-            ? { ...e, availability: "unavailable" as const }
-            : e,
-        ),
-      },
-    },
-  ];
-
-  let allClosed = true;
-  for (const scenario of scenarios) {
-    let appendCalls = 0;
-    let thrown = false;
-    const afterThrow: string[] = [];
-    const audit: CycleAuditPort = {
-      append(event) {
-        appendCalls += 1;
-        if (thrown) afterThrow.push(event.event);
-        if (event.event === scenario.failingEvent) {
-          thrown = true;
-          throw new Error(HOSTILE);
-        }
-      },
-    };
-    let outcome;
-    let threwOut = false;
-    try {
-      outcome = new CkcQualificationResolver(scenario.manifest, audit).resolve({
-        projection: selected,
-        resolvedAt: RESOLVED_AT,
-      });
-    } catch (e) {
-      threwOut = true;
-      outcome = null;
-      log(
-        `P8_${scenario.failingEvent}`,
-        "UNCONTROLLED_THROW",
-        e instanceof Error ? e.message : String(e),
-        false,
-      );
-      allClosed = false;
-      continue;
-    }
-    const closed =
-      outcome !== null &&
-      !outcome.ok &&
-      outcome.error.code === "D2_INTERNAL_ERROR" &&
-      outcome.error.blocking === true &&
-      outcome.error.retryable === true &&
-      outcome.error.recoverable === true &&
-      !hasProof(outcome) &&
-      outcome.resolution.exploitable === false &&
-      !sanitizationLeak(outcome.error.message) &&
-      appendCalls === scenario.expectedCalls &&
-      afterThrow.length === 0;
-    if (!closed) allClosed = false;
-    log(
-      `P8_${scenario.failingEvent}`,
-      outcome.ok
-        ? "ACCEPTS"
-        : `CONTROLLED_${outcome.error.code}`,
-      `calls=${appendCalls} expected=${scenario.expectedCalls} afterThrow=${afterThrow.length} leak=${sanitizationLeak(outcome.error.message)}`,
-      closed,
-    );
-  }
-  log(
-    "P8_audit_matrix",
-    allClosed ? "ALL_SIX_FAIL_CLOSED" : "GAPS",
-    undefined,
-    allClosed,
-  );
-}
-
-// audit undefined / functional
-{
-  const selected = projection("cyc:delivery");
-  const noAudit = new CkcQualificationResolver().resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  const events: string[] = [];
-  const audit: CycleAuditPort = {
-    append(e) {
-      events.push(e.event);
-    },
-  };
-  const withAudit = new CkcQualificationResolver(
-    CKC_REFERENCE_MANIFEST,
-    audit,
-  ).resolve({ projection: selected, resolvedAt: RESOLVED_AT });
-  const closed =
-    noAudit.ok &&
-    noAudit.proof.consumed === true &&
-    withAudit.ok &&
-    events.join(",") ===
-      "oa.ckc.resolution_started,oa.ckc.resolution_succeeded,oa.ckc.consumption_validated";
-  log(
-    "P8b_audit_absent_and_functional",
-    closed ? "NOMINAL" : "UNEXPECTED",
-    `events=${events.join("|")}`,
-    closed,
-  );
-}
-
-// invalid metadata nonselected
-{
-  const selected = projection("cyc:framing");
-  const invalid: CkcReferenceManifest = {
-    entries: CKC_REFERENCE_MANIFEST.entries.map((e) =>
-      e.reference === selected.ckc.fallbackReference
-        ? ({ ...e, availability: "maybe" } as unknown as typeof e)
-        : e,
-    ),
-  };
-  const issues = validateCkcReferenceManifest(invalid);
-  const outcome = new CkcQualificationResolver(invalid).resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  const closed =
-    !outcome.ok &&
-    outcome.error.code === "CKC_RESOLUTION_INCOHERENT" &&
-    issues.some((i) => i.code === "MANIFEST_METADATA_INVALID");
-  log(
-    "P9_invalid_metadata_nonselected",
-    outcome.ok ? "RESOLVER_ACCEPTS" : `REJECT_${outcome.error.code}`,
-    `validatorInvalid=${issues.some((i) => i.code === "MANIFEST_METADATA_INVALID")}`,
-    closed,
-  );
-}
-
-// reorder
-{
-  const selected = projection("cyc:delivery");
-  const reordered: CkcReferenceManifest = {
-    entries: [...CKC_REFERENCE_MANIFEST.entries].reverse(),
-  };
-  const a = new CkcQualificationResolver().resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  const b = new CkcQualificationResolver(reordered).resolve({
-    projection: selected,
-    resolvedAt: RESOLVED_AT,
-  });
-  const closed =
-    a.ok && b.ok && JSON.stringify(a) === JSON.stringify(b);
-  log(
-    "P10_reorder_determinism",
-    closed ? "EQUAL" : "DIVERGENT",
-    undefined,
-    closed,
-  );
-}
-
-// order: validate before injected-manifest lookup — static evidence via source order
-{
-  const fs = await import("node:fs");
-  const src = fs.readFileSync(
-    new URL(
-      "../../projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts",
-      import.meta.url,
-    ),
-    "utf8",
-  );
-  const vIdx = src.indexOf("validateCkcReferenceManifest(this.manifest)");
-  const lookupIdx = src.indexOf(
-    "getCkcManifestEntry(\n        projection.ckc.primaryReference,\n        this.manifest,",
-  );
-  // fallback if formatting differs
-  const lookupIdx2 = src.indexOf("this.manifest,\n      );");
-  const primaryLookup = src.indexOf(
-    "projection.ckc.primaryReference,\n        this.manifest",
-  );
-  const closed =
-    vIdx >= 0 && primaryLookup > vIdx;
-  log(
-    "P11_validate_before_lookup",
-    closed ? "ORDER_OK" : "ORDER_UNCLEAR",
-    `validateAt=${vIdx} primaryLookupAt=${primaryLookup}`,
-    closed,
-  );
-}
-
-// resolvedAt invalid still emits started with invalid ts? (documentation probe)
-{
-  const selected = projection("cyc:framing");
-  const events: Array<{ event: string; ts: string }> = [];
-  const audit: CycleAuditPort = {
-    append(e) {
-      events.push({ event: e.event, ts: e.ts });
-    },
-  };
-  const outcome = new CkcQualificationResolver(
-    CKC_REFERENCE_MANIFEST,
-    audit,
-  ).resolve({
-    projection: selected,
-    resolvedAt: "not-an-iso-timestamp",
-  });
-  const started = events.find((e) => e.event === "oa.ckc.resolution_started");
-  log(
-    "P12_invalid_resolvedAt_event_ts",
-    started
-      ? `STARTED_EMITTED_WITH_TS=${started.ts}`
-      : "STARTED_NOT_EMITTED",
-    `outcome=${outcome.ok ? "ok" : outcome.error.code}; events=${events.map((e) => e.event).join("|")}`,
-    // Not a F-QA reopen: document as minor reserve if started carries invalid ts
-    true,
-  );
-}
-
-const open = observations.filter((o) => o.closed === false);
-console.log("PROBE_SUMMARY_JSON=" + JSON.stringify(observations, null, 2));
-console.log(
-  `PROBE_CLOSED=${observations.filter((o) => o.closed).length}/${observations.length}`,
-);
-console.log(`PROBE_OPEN=${open.length}`);
-if (open.length) {
-  console.log("OPEN_IDS=" + open.map((o) => o.id).join(","));
-  process.exitCode = 2;
-}
+ import type { ClockPort } from "@/lib/oa/doctrine";
+ import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts b/projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+index 06c1b12..fa3875b 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+@@ -78,6 +78,22 @@ export type CycleAuditEvent =
+       detailCode?: string;
+       durationMs: number;
+     }
++  | {
++      event:
++        | "oa.ckc.resolution_started"
++        | "oa.ckc.resolution_succeeded"
++        | "oa.ckc.resolution_failed"
++        | "oa.ckc.fallback_used"
++        | "oa.ckc.consumption_validated"
++        | "oa.ckc.consumption_rejected";
++      ts: string;
++      correlationId: string;
++      cycleTypeId: string;
++      result: "started" | "ok" | "error" | "fallback";
++      detailedStatus?: string;
++      detailCode?: string;
++      durationMs?: number;
++    }
+   | {
+       event: "oa.cycle.load_failed";
+       ts: string;
 
 ```
 
-## Résultats tests (extrait + journal)
+## Numstat tracked / untracked
 
 ```
-=== 1 Proof 2026-08-02T23:29:15+02:00 ===
+17	2	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
+38	0	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
+5	0	projects/sfia-studio/app/lib/oa/cycle/index.ts
+16	0	projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts
+
+52	0	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts (new)
+207	0	projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts (new)
+30	0	projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts (new)
+172	0	projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts (new)
+466	0	projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts (new)
+116	0	projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts (new)
+331	0	projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.test.ts (new)
+227	0	projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts (new)
+323	0	projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (new)
 
-> sfia-studio@0.1.0 test
-> vitest run __tests__/oa/cycle/ckcConsumptionProof.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
-
- ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (8 tests) 3ms
-
- Test Files  1 passed (1)
-      Tests  8 passed (8)
-   Start at  23:29:15
-   Duration  365ms (transform 94ms, setup 51ms, collect 132ms, tests 3ms, environment 0ms, prepare 37ms)
-
-=== 2 Resolver ===
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/oa/cycle/ckcQualificationResolver.test.ts __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
-
- ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (9 tests) 5ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (14 tests) 5ms
-
- Test Files  2 passed (2)
-      Tests  23 passed (23)
-   Start at  23:29:16
-   Duration  338ms (transform 120ms, setup 56ms, collect 305ms, tests 10ms, environment 0ms, prepare 70ms)
-
-=== 3 D2-B ===
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/oa/cycle/ckcReferenceManifest.test.ts __tests__/oa/cycle/ckcQualificationResolver.test.ts __tests__/oa/cycle/ckcConsumptionProof.test.ts __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
-
- ✓ __tests__/oa/cycle/ckcReferenceManifest.test.ts (5 tests) 4ms
- ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (8 tests) 5ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (9 tests) 6ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (14 tests) 6ms
-
- Test Files  4 passed (4)
-      Tests  36 passed (36)
-   Start at  23:29:16
-   Duration  418ms (transform 204ms, setup 150ms, collect 814ms, tests 21ms, environment 0ms, prepare 165ms)
-
-=== 4 D2-A ===
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/oa/cycle/catalogFingerprint.test.ts __tests__/oa/cycle/catalogFingerprint.qa.test.ts __tests__/oa/cycle/catalogProjection.test.ts __tests__/oa/cycle/catalogProjection.qa.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
-
- ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 6ms
- ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 6ms
- ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 7ms
- ✓ __tests__/oa/cycle/catalogProjection.qa.test.ts (37 tests) 14ms
-
- Test Files  4 passed (4)
-      Tests  86 passed (86)
-   Start at  23:29:17
-   Duration  512ms (transform 245ms, setup 188ms, collect 971ms, tests 33ms, environment 0ms, prepare 215ms)
-
-=== 5 oa/cycle ===
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/oa/cycle
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
-
- ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 16ms
- ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 8ms
- ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 10ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (14 tests) 14ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (9 tests) 11ms
- ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 24ms
- ✓ __tests__/oa/cycle/catalogProjection.qa.test.ts (37 tests) 29ms
- ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 38ms
- ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 344ms
- ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 358ms
- ✓ __tests__/oa/cycle/ckcReferenceManifest.test.ts (5 tests) 5ms
- ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (8 tests) 8ms
-
- Test Files  12 passed (12)
-      Tests  216 passed (216)
-   Start at  23:29:18
-   Duration  1.12s (transform 754ms, setup 696ms, collect 3.10s, tests 863ms, environment 2ms, prepare 784ms)
-
-=== 6 typecheck ===
-
-> sfia-studio@0.1.0 typecheck
-> tsc --noEmit
-
-TYPECHECK_EXIT:0
-=== 7 lint ===
-
-> sfia-studio@0.1.0 lint
-> next lint
-
-`next lint` is deprecated and will be removed in Next.js 16.
-For new projects, use create-next-app to choose your preferred linter.
-For existing projects, migrate to the ESLint CLI:
-npx @next/codemod@canary next-lint-to-eslint-cli .
-
-✔ No ESLint warnings or errors
-LINT_EXIT:0
-=== 8 full suite ===
-
-> sfia-studio@0.1.0 test
-> vitest run
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
-
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > produces a validated proposal without mutation side effects
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:27.237Z","status":"started","intentLength":53,"sessionLocalId":"s1"}
-
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > produces a validated proposal without mutation side effects
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T21:29:27.366Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"s1","durationMs":129,"providerMode":"fake"}
-
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:27.367Z","status":"started","intentLength":22,"sessionLocalId":"s2"}
-
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
-[d1.intake] {"event":"intake_clarification_requested","ts":"2026-08-02T21:29:27.556Z","status":"NEED_CLARIFICATION","intentLength":22,"sessionLocalId":"s2","durationMs":189,"providerMode":"fake"}
-
- ✓ __tests__/ops1/globalModeBadge.ui.test.tsx (5 tests) 461ms
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:27.557Z","status":"started","intentLength":22,"sessionLocalId":"s2"}
-
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T21:29:27.857Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":22,"sessionLocalId":"s2","durationMs":300,"providerMode":"fake"}
-
- ✓ __tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx (4 tests) 519ms
-   ✓ V2-A3 Project Workspace UI > keeps workspace disclosures and shell defaults for V2-A3  361ms
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:27.858Z","status":"started","intentLength":39,"sessionLocalId":"s4"}
-
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
-[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-02T21:29:28.032Z","status":"PROVIDER","intentLength":39,"sessionLocalId":"s4","durationMs":174,"providerMode":"fake","errorCode":"PROVIDER"}
-
- ✓ __tests__/d1/intake-c2.test.ts (13 tests) 802ms
-   ✓ D1-C2 analyzeIntent service > asks for clarification then accepts an answer  490ms
- ✓ __tests__/increment-a.test.tsx (8 tests) 366ms
- ✓ __tests__/d1/intake-c1.test.tsx (6 tests) 1182ms
-   ✓ D1-C2 IntakeView > shows structured proposal without executable confirm  625ms
-stdout | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > sends system role separately from user intent
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:28.771Z","status":"started","intentLength":53,"sessionLocalId":"harden-1"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > sends system role separately from user intent
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T21:29:28.979Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"harden-1","durationMs":209,"providerMode":"fake"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > fails explicitly when live requested without secrets
-[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-02T21:29:28.981Z","status":"CONFIG","providerMode":"live","errorCode":"CONFIG"}
-[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-02T21:29:28.982Z","status":"CONFIG","providerMode":"live","errorCode":"CONFIG"}
-
-stderr | __tests__/d1/intake-c3.test.ts > D1-C2 hardening > fails explicitly when live requested without secrets
-{"event":"d1_intake_live_config_unavailable","ts":"2026-08-02T21:29:28.981Z","message":"D1_INTAKE_LIVE=1 but live secrets unavailable — refusing silent fake fallback"}
-{"event":"d1_intake_live_config_unavailable","ts":"2026-08-02T21:29:28.982Z","message":"D1_INTAKE_LIVE=1 but live secrets unavailable — refusing silent fake fallback"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > exact name ranks first with strong evidence
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:28.985Z","status":"started","sessionLocalId":"m1","proposalId":"rrp-campus"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:28.985Z","status":"AVAILABLE","sessionLocalId":"m1","durationMs":0,"proposalId":"rrp-campus","sourceProjectCount":2,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T21:29:28.987Z","status":"STRONG_MATCH","sessionLocalId":"m1","durationMs":2,"proposalId":"rrp-campus","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > detects semantic proximity for contrats
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:28.987Z","status":"started","sessionLocalId":"m2","proposalId":"rrp-c"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:28.987Z","status":"AVAILABLE","sessionLocalId":"m2","durationMs":0,"proposalId":"rrp-c","sourceProjectCount":2,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T21:29:28.988Z","status":"STRONG_MATCH","sessionLocalId":"m2","durationMs":1,"proposalId":"rrp-c","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > flags multiple close matches as ambiguity
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:28.988Z","status":"started","sessionLocalId":"m3","proposalId":"rrp-multi"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:28.988Z","status":"AVAILABLE","sessionLocalId":"m3","durationMs":0,"proposalId":"rrp-multi","sourceProjectCount":2,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_match_ambiguous","ts":"2026-08-02T21:29:29.000Z","status":"MULTIPLE_MATCHES","sessionLocalId":"m3","durationMs":12,"proposalId":"rrp-multi","candidateCount":2,"topScoreBand":"WEAK_MATCH"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > returns no-match without inventing ids
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:29.001Z","status":"started","sessionLocalId":"m4","proposalId":"rrp-none"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:29.001Z","status":"AVAILABLE","sessionLocalId":"m4","durationMs":0,"proposalId":"rrp-none","sourceProjectCount":1,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_no_match","ts":"2026-08-02T21:29:29.001Z","status":"NO_MATCH","sessionLocalId":"m4","durationMs":0,"proposalId":"rrp-none","sourceProjectCount":1}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > warns on inactive project without auto-resume
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:29.001Z","status":"started","sessionLocalId":"m5","proposalId":"rrp-draft"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:29.001Z","status":"AVAILABLE","sessionLocalId":"m5","durationMs":0,"proposalId":"rrp-draft","sourceProjectCount":1,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T21:29:29.001Z","status":"STRONG_MATCH","sessionLocalId":"m5","durationMs":0,"proposalId":"rrp-draft","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > analyze-only does not force attachment
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:29.002Z","status":"started","sessionLocalId":"m6","proposalId":"rrp-ao"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:29.002Z","status":"AVAILABLE","sessionLocalId":"m6","durationMs":0,"proposalId":"rrp-ao","sourceProjectCount":1,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T21:29:29.002Z","status":"STRONG_MATCH","sessionLocalId":"m6","durationMs":0,"proposalId":"rrp-ao","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > distinguishes context unavailable from empty
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:29.002Z","status":"started","sessionLocalId":"m7","proposalId":"rrp-u"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:29.002Z","status":"UNAVAILABLE","sessionLocalId":"m7","durationMs":0,"proposalId":"rrp-u","sourceProjectCount":0,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_unavailable","ts":"2026-08-02T21:29:29.002Z","status":"CONTEXT_UNAVAILABLE","sessionLocalId":"m7","durationMs":0,"errorCode":"UNAVAILABLE","proposalId":"rrp-u"}
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:29.002Z","status":"started","sessionLocalId":"m8","proposalId":"rrp-e"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:29.003Z","status":"EMPTY","sessionLocalId":"m8","durationMs":1,"proposalId":"rrp-e","sourceProjectCount":0,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_no_match","ts":"2026-08-02T21:29:29.003Z","status":"NO_MATCH","sessionLocalId":"m8","durationMs":1,"proposalId":"rrp-e","sourceProjectCount":0}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 matching engine > caps candidates at 5 and keeps scores bounded
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:29.003Z","status":"started","sessionLocalId":"m9","proposalId":"rrp-cap"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:29.003Z","status":"AVAILABLE","sessionLocalId":"m9","durationMs":0,"proposalId":"rrp-cap","sourceProjectCount":8,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_match_ambiguous","ts":"2026-08-02T21:29:29.004Z","status":"MULTIPLE_MATCHES","sessionLocalId":"m9","durationMs":1,"proposalId":"rrp-cap","candidateCount":5,"topScoreBand":"WEAK_MATCH"}
-
-stdout | __tests__/d1/intake-c3.test.ts > D1-C3 snapshot from real repository (read-only) > matches against created projects without mutation
-{"event":"d1.project_create","ts":"2026-08-02T21:29:29.015Z","status":"ok","projectId":"proj-2d071c99-5ae2-4e23-923c-be39a046fa8c","durationMs":1}
-{"event":"d1.project_create","ts":"2026-08-02T21:29:29.016Z","status":"ok","projectId":"proj-ce61f8e3-9394-4d9b-b102-25beac5f1c5c","durationMs":1}
-[d1.intake] {"event":"intake_context_lookup_started","ts":"2026-08-02T21:29:29.016Z","status":"started","sessionLocalId":"repo-1","proposalId":"rrp-repo"}
-[d1.intake] {"event":"intake_context_snapshot_built","ts":"2026-08-02T21:29:29.017Z","status":"AVAILABLE","sessionLocalId":"repo-1","durationMs":1,"proposalId":"rrp-repo","sourceProjectCount":2,"truncationApplied":false}
-[d1.intake] {"event":"intake_context_match_generated","ts":"2026-08-02T21:29:29.017Z","status":"STRONG_MATCH","sessionLocalId":"repo-1","durationMs":1,"proposalId":"rrp-repo","candidateCount":1,"topScoreBand":"STRONG_MATCH"}
-
- ✓ __tests__/d1/intake-c3.test.ts (16 tests) 250ms
- ✓ __tests__/shell.test.tsx (1 test) 101ms
- ✓ __tests__/ops1/Ops1SessionScreen.test.tsx (4 tests) 200ms
- ✓ __tests__/increment-e.test.tsx (4 tests) 131ms
- ✓ __tests__/increment-c.test.tsx (8 tests) 2058ms
-   ✓ Increment C — editable demand + confirmation > accepts editable Campus360 demand and shows exact text in confirmation  597ms
-   ✓ Increment C — editable demand + confirmation > back from confirmation allows editing again  494ms
-   ✓ Increment C — editable demand + confirmation > abandon from confirmation does not call GPT  408ms
-   ✓ Increment C — editable demand + confirmation > transmits exact demandText to qualifyAction (anti-substitution)  375ms
- ✓ __tests__/increment-d.test.tsx (5 tests) 105ms
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > creates project only with explicit confirmation and audits
-[d1.intake] {"event":"intake_mutation_failed","ts":"2026-08-02T21:29:29.917Z","status":"FAILED","sessionLocalId":"s1","durationMs":0,"errorCode":"VALIDATION","proposalId":"rrp-1"}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.918Z","status":"CREATE_PROJECT","sessionLocalId":"s1","proposalId":"rrp-1"}
-[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T21:29:29.918Z","status":"confirmed","sessionLocalId":"s1","proposalId":"rrp-1"}
-{"event":"d1.project_create","ts":"2026-08-02T21:29:29.920Z","status":"ok","projectId":"proj-2b3ffa36-83ee-4854-9353-0948ed1a3630","durationMs":2}
-[d1.intake] {"event":"intake_project_created","ts":"2026-08-02T21:29:29.921Z","status":"SUCCEEDED","projectId":"proj-2b3ffa36-83ee-4854-9353-0948ed1a3630","sessionLocalId":"s1","durationMs":3,"proposalId":"rrp-1"}
-
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > replays same key same payload without duplicate
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.930Z","status":"CREATE_PROJECT","sessionLocalId":"s2","proposalId":"rrp-2"}
-[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T21:29:29.930Z","status":"confirmed","sessionLocalId":"s2","proposalId":"rrp-2"}
-{"event":"d1.project_create","ts":"2026-08-02T21:29:29.931Z","status":"ok","projectId":"proj-4a0d8d3c-2fa6-4270-8a4f-86e29351e4ea","durationMs":1}
-[d1.intake] {"event":"intake_project_created","ts":"2026-08-02T21:29:29.932Z","status":"SUCCEEDED","projectId":"proj-4a0d8d3c-2fa6-4270-8a4f-86e29351e4ea","sessionLocalId":"s2","durationMs":2,"proposalId":"rrp-2"}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.932Z","status":"CREATE_PROJECT","sessionLocalId":"s2","proposalId":"rrp-2"}
-[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T21:29:29.932Z","status":"confirmed","sessionLocalId":"s2","proposalId":"rrp-2"}
-[d1.intake] {"event":"intake_project_creation_replayed","ts":"2026-08-02T21:29:29.932Z","status":"ALREADY_APPLIED","projectId":"proj-4a0d8d3c-2fa6-4270-8a4f-86e29351e4ea","sessionLocalId":"s2","durationMs":0,"proposalId":"rrp-2"}
-
- ✓ __tests__/ops1/allowlistEvaluation.test.ts (9 tests) 99ms
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > conflicts when same key different payload
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.941Z","status":"CREATE_PROJECT","sessionLocalId":"s3","proposalId":"rrp-3"}
-[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T21:29:29.941Z","status":"confirmed","sessionLocalId":"s3","proposalId":"rrp-3"}
-{"event":"d1.project_create","ts":"2026-08-02T21:29:29.943Z","status":"ok","projectId":"proj-822cde17-9719-4766-991e-d6ab0bab8770","durationMs":2}
-[d1.intake] {"event":"intake_project_created","ts":"2026-08-02T21:29:29.943Z","status":"SUCCEEDED","projectId":"proj-822cde17-9719-4766-991e-d6ab0bab8770","sessionLocalId":"s3","durationMs":2,"proposalId":"rrp-3"}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.943Z","status":"CREATE_PROJECT","sessionLocalId":"s3","proposalId":"rrp-3"}
-[d1.intake] {"event":"intake_project_creation_confirmed","ts":"2026-08-02T21:29:29.943Z","status":"confirmed","sessionLocalId":"s3","proposalId":"rrp-3"}
-[d1.intake] {"event":"intake_mutation_rejected","ts":"2026-08-02T21:29:29.943Z","status":"CONFLICT","sessionLocalId":"s3","durationMs":0,"errorCode":"IDEMPOTENCY","proposalId":"rrp-3"}
-
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > existing project confirm is NO_MUTATION without invented link
-{"event":"d1.project_create","ts":"2026-08-02T21:29:29.954Z","status":"ok","projectId":"proj-84f5b71b-98d1-4fb8-993c-0876c4e47cc6","durationMs":2}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.954Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s4","proposalId":"rrp-4"}
-[d1.intake] {"event":"intake_existing_project_confirmed","ts":"2026-08-02T21:29:29.954Z","status":"NO_MUTATION","projectId":"proj-84f5b71b-98d1-4fb8-993c-0876c4e47cc6","sessionLocalId":"s4","durationMs":0,"proposalId":"rrp-4"}
-
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > detects stale existing project conflict
-{"event":"d1.project_create","ts":"2026-08-02T21:29:29.962Z","status":"ok","projectId":"proj-e3524231-61c3-4c14-97ff-0e16b1e599be","durationMs":1}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T21:29:29.963Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-08-02T21:29:29.964Z","status":"ok","projectId":"proj-e3524231-61c3-4c14-97ff-0e16b1e599be","durationMs":2}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.964Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s5","proposalId":"rrp-5"}
-[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-08-02T21:29:29.964Z","status":"STALE","projectId":"proj-e3524231-61c3-4c14-97ff-0e16b1e599be","sessionLocalId":"s5","durationMs":0,"errorCode":"CONFLICT","proposalId":"rrp-5"}
-
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > analyze-only and cancel produce no mutation
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.973Z","status":"ANALYZE_ONLY","sessionLocalId":"s6","proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_analyze_only_completed","ts":"2026-08-02T21:29:29.973Z","status":"NO_MUTATION","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.974Z","status":"CANCEL","sessionLocalId":"s6","proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_confirmation_cancelled","ts":"2026-08-02T21:29:29.974Z","status":"CANCELLED","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
-
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > missing existing project returns CONFLICT
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T21:29:29.980Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s7","proposalId":"rrp-7"}
-[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-08-02T21:29:29.980Z","status":"NOT_FOUND","projectId":"proj-missing-does-not-exist","sessionLocalId":"s7","durationMs":0,"errorCode":"NOT_FOUND","proposalId":"rrp-7"}
-
- ✓ __tests__/d1/intake-c4.test.ts (10 tests) 78ms
- ✓ __tests__/navigation.test.tsx (2 tests) 148ms
- ✓ __tests__/gates.test.tsx (1 test) 76ms
- ✓ __tests__/ops1/executionI5.test.ts (5 tests) 3206ms
-   ✓ ops1 I5 execution contract + fixture run > creates contract, records GO linked to hash, runs fixture, blocks double exec  1506ms
-   ✓ ops1 I5 execution contract + fixture run > refuses HEAD drift and remote flags stay true  629ms
-   ✓ ops1 I5 execution contract + fixture run > refuses real adapter without OPS1_CURSOR_REAL and never falls back to fixture  346ms
-   ✓ ops1 I5 execution contract + fixture run > rejects run adapterMode mismatch (no silent real→fixture swap)  485ms
-stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > creates project with audit and mono-operator assignments
-{"event":"d1.project_create","ts":"2026-08-02T21:29:30.407Z","status":"ok","projectId":"proj-7899924c-ea7d-4c21-a5b1-9704f8b3b4f9","durationMs":2}
-
-stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > is idempotent on duplicate key
-{"event":"d1.project_create","ts":"2026-08-02T21:29:30.419Z","status":"ok","projectId":"proj-82f3588d-0e66-4585-a8b0-a0f763f7be0e","durationMs":2}
-{"event":"d1.project_create","ts":"2026-08-02T21:29:30.420Z","status":"idempotent","projectId":"proj-82f3588d-0e66-4585-a8b0-a0f763f7be0e","durationMs":1}
-
-stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > selects method mode with optimistic locking
-{"event":"d1.project_create","ts":"2026-08-02T21:29:30.427Z","status":"ok","projectId":"proj-c535e9a5-8acd-44e6-89ee-9c3e614fce77","durationMs":1}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T21:29:30.427Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-08-02T21:29:30.429Z","status":"ok","projectId":"proj-c535e9a5-8acd-44e6-89ee-9c3e614fce77","durationMs":2}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T21:29:30.429Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-08-02T21:29:30.429Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
-
- ✓ __tests__/d1/project-foundation.test.ts (7 tests) 36ms
- ✓ __tests__/increment-b.test.tsx (6 tests) 69ms
- ✓ __tests__/ops1/domain.test.ts (6 tests) 4ms
- ✓ __tests__/status-pill.test.tsx (1 test) 23ms
- ✓ __tests__/fixtures.test.ts (2 tests) 5ms
- ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 27ms
- ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 5ms
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > loads canonical core sources and returns telemetry
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:31.189Z","status":"started","intentLength":53,"sessionLocalId":"plat-1"}
-
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > loads canonical core sources and returns telemetry
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T21:29:31.349Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"plat-1","durationMs":161,"providerMode":"fake"}
-
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > runs a read-only git tool when fixture marker present
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:31.351Z","status":"started","intentLength":76,"sessionLocalId":"plat-2"}
-
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > runs a read-only git tool when fixture marker present
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T21:29:31.580Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":76,"sessionLocalId":"plat-2","durationMs":229,"providerMode":"fake"}
-
-stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
-[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-04ecd08d-dfff-4202-bb76-651487de04c1 ops1-att-50224224-f9e5-42ab-a23f-94040490243e fake-test
-
-stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
-[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-04ecd08d-dfff-4202-bb76-651487de04c1 ops1-att-50224224-f9e5-42ab-a23f-94040490243e 15 tools=0
-
-stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
-[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-04ecd08d-dfff-4202-bb76-651487de04c1 ops1-att-3b7c214d-e12a-4eb8-9145-65b038dc1e51 fake-test
-
-stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
-[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-04ecd08d-dfff-4202-bb76-651487de04c1 ops1-att-3b7c214d-e12a-4eb8-9145-65b038dc1e51 30 tools=0
-
-stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
-[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-04ecd08d-dfff-4202-bb76-651487de04c1 ops1-att-b7cc90cc-dbe8-48ee-a4a4-bf437f51595b fake-test
-
-stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write
-[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-04ecd08d-dfff-4202-bb76-651487de04c1 ops1-att-b7cc90cc-dbe8-48ee-a4a4-bf437f51595b 45 tools=0
-
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > denies reading .env via tool (POLICY) without fake success
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:31.581Z","status":"started","intentLength":77,"sessionLocalId":"plat-3"}
-
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > denies reading .env via tool (POLICY) without fake success
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T21:29:31.749Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":77,"sessionLocalId":"plat-3","durationMs":168,"providerMode":"fake"}
-
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > legacy path when flag disabled skips tool loop sources optional
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-02T21:29:31.749Z","status":"started","intentLength":53,"sessionLocalId":"plat-4"}
-
-stdout | __tests__/d1/intake-platform-integration.test.ts > D1 Shared Platform Integration > legacy path when flag disabled skips tool loop sources optional
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-02T21:29:31.750Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":53,"sessionLocalId":"plat-4","durationMs":1,"providerMode":"fake"}
-
- ✓ __tests__/d1/intake-platform-integration.test.ts (5 tests) 565ms
- ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 170ms
- ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 181ms
-stdout | __tests__/ops1/controlTowerTools.test.ts > GitLocalReadAdapter + ToolRouter > live fake provider runs tool loop for git status marker
-[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-8b33753f-6134-4a6e-b4ec-878a19950ff2 ops1-att-7955c7a8-a390-4d69-abc9-289686824714 fake-test
-
-stdout | __tests__/ops1/controlTowerTools.test.ts > GitLocalReadAdapter + ToolRouter > live fake provider runs tool loop for git status marker
-[ops1] CONVERSATION_ATTEMPT_SUCCEEDED ops1-sess-8b33753f-6134-4a6e-b4ec-878a19950ff2 ops1-att-7955c7a8-a390-4d69-abc9-289686824714 45 tools=1
-
- ✓ __tests__/ops1/controlTowerTools.test.ts (7 tests) 989ms
-   ✓ GitLocalReadAdapter + ToolRouter > live fake provider runs tool loop for git status marker  587ms
- ✓ __tests__/oa/execution-attempt/lifecycleFoundation.test.ts (24 tests) 279ms
-stdout | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > keeps user turn and marks attempt failed without fake assistant on provider error
-[ops1] CONVERSATION_ATTEMPT_STARTED ops1-sess-cc76a61e-7239-49e6-9c24-e305224a7dfe ops1-att-c8ecd4f7-5f36-494a-ae55-fc46d4ed0ca6 fake-test
-
-stderr | __tests__/ops1/conversation-repository.test.ts > ops1 i2 repository + immutable session mode > keeps user turn and marks attempt failed without fake assistant on provider error
-[ops1] CONVERSATION_ATTEMPT_FAILED ops1-sess-cc76a61e-7239-49e6-9c24-e305224a7dfe ops1-att-c8ecd4f7-5f36-494a-ae55-fc46d4ed0ca6 INTERNAL
-
- ✓ __tests__/ops1/conversation-repository.test.ts (9 tests) 1146ms
-   ✓ ops1 i2 repository + immutable session mode > persists live multi-turn with ordered history; rejects mode mismatch before write  523ms
-   ✓ ops1 i2 repository + immutable session mode > keeps user turn and marks attempt failed without fake assistant on provider error  470ms
- ✓ __tests__/ops1/actionGate.test.ts (10 tests) 244ms
- ✓ __tests__/oa/project/projectLpsFoundation.test.ts (26 tests) 272ms
- ✓ __tests__/oa/execution-contract/supersedeCancelAuthz.test.ts (11 tests) 185ms
- ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 5342ms
-   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  2540ms
-   ✓ V2-A2 Create Project UI > calls only the runtime action with the exact DTO and parsed constraints  581ms
-   ✓ V2-A2 Create Project UI > keeps the idempotency key stable across a retry  316ms
-   ✓ V2-A2 Create Project UI > disables submit and announces pending state  331ms
-   ✓ V2-A2 Create Project UI > renders the real success projection inline and renews the key on reset  329ms
-   ✓ V2-A2 Create Project UI > renders identical constraints twice without duplicate React key warnings  337ms
- ✓ __tests__/oa/execution-contract/executionContractGovernance.test.ts (18 tests) 239ms
- ✓ __tests__/oa/execution-attempt/qaAdversarialValidation.test.ts (12 tests) 198ms
- ✓ __tests__/oa/doctrine/resolveDoctrinePackage.test.ts (22 tests) 200ms
- ✓ __tests__/oa/execution-contract/runtimeValidationHardening.test.ts (16 tests) 272ms
- ✓ __tests__/oa/execution-contract/adversarialCriticalAntiTa5.test.ts (12 tests) 176ms
- ✓ __tests__/oa/decision/decisionConfirmationAuthority.test.ts (26 tests) 198ms
- ✓ __tests__/oa/decision/validationAdversarial.test.ts (12 tests) 254ms
- ✓ __tests__/ops1/repository.test.ts (6 tests) 129ms
- ✓ __tests__/d1/t-a7-method-mode-hold-boundaries.test.ts (4 tests) 153ms
- ✓ __tests__/oa/doctrine/schemaValidation.test.ts (3 tests) 105ms
- ✓ __tests__/vertical-slice-runtime/runtimeApplicationService.test.ts (8 tests) 114ms
- ✓ __tests__/vertical-slice-core/localProjectComposition.test.ts (13 tests) 158ms
- ✓ __tests__/oa/decision/adversarialAuthority.test.ts (8 tests) 176ms
- ✓ __tests__/vertical-slice-runtime/importBoundaries.test.ts (5 tests) 59ms
- ✓ __tests__/vertical-slice-core/importBoundaries.test.ts (3 tests) 57ms
- ✓ __tests__/platform/t-a7-path-policy-loader-asymmetry.probe.test.ts (5 tests) 42ms
- ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 19ms
- ✓ __tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts (15 tests) 84ms
- ✓ __tests__/ops1/executionI6.test.ts (10 tests) 6800ms
-   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  1323ms
-   ✓ ops1 I6 report + continuation > COMPLETED impossible without mandatory coverage evidence  329ms
-   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  1069ms
-   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  904ms
-   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  1061ms
-   ✓ ops1 I6 report + continuation > stores redacted refusal reasons on sealed report  1054ms
- ✓ __tests__/platform/t-a7-ops1-oa-isolation.probe.test.ts (5 tests) 39ms
- ✓ __tests__/platform/t-a7-f11-f13-absence.probe.test.ts (3 tests) 4ms
- ✓ __tests__/oa/evidence-review/reviewBundleLifecycle.test.ts (14 tests) 23ms
- ✓ __tests__/oa/evidence-review/claimEvaluationLifecycle.test.ts (14 tests) 34ms
- ✓ __tests__/oa/evidence-review/maturityAssessmentLifecycle.test.ts (10 tests) 29ms
- ✓ __tests__/oa/evidence-review/recommendNextGate.test.ts (11 tests) 51ms
- ✓ __tests__/ops1/controlTowerReinjection.test.ts (2 tests) 41ms
- ✓ __tests__/oa/cycle/catalogProjection.qa.test.ts (37 tests) 22ms
- ✓ __tests__/oa/evidence-review/adversarialCoordinationValidation.test.ts (7 tests) 37ms
- ✓ __tests__/oa/doctrine/antiLegacy.test.ts (3 tests) 29ms
- ✓ __tests__/platform/t-a7-canonical-consumers.probe.test.ts (3 tests) 33ms
- ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 17ms
- ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 37ms
-stdout | __tests__/d1/t-a7-method-mode-hold.test.ts > T-A7 lot1 MethodMode hold > blocks transitions while hold is active
-{"event":"d1.method_mode_hold_blocked","ts":"2026-08-02T21:29:34.934Z","status":"blocked","reasonCount":7,"codes":"B5_OPEN,R1_OPEN,R_M01_OPEN,HARD_OPEN,T_A7_BOUNDED_LOT_ACTIVE,F11_2_INCOMPLETE,F13_4_INCOMPLETE"}
-{"event":"d1.project_create","ts":"2026-08-02T21:29:34.944Z","status":"ok","projectId":"proj-8ad1af86-0118-48bb-8767-e55d52573a02","durationMs":2}
-{"event":"d1.method_mode_hold_blocked","ts":"2026-08-02T21:29:34.945Z","status":"blocked","reasonCount":7,"codes":"B5_OPEN,R1_OPEN,R_M01_OPEN,HARD_OPEN,T_A7_BOUNDED_LOT_ACTIVE,F11_2_INCOMPLETE,F13_4_INCOMPLETE"}
-{"event":"d1.method_mode_selected","ts":"2026-08-02T21:29:34.945Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
-
-stdout | __tests__/d1/t-a7-method-mode-hold.test.ts > T-A7 lot1 MethodMode hold > allows transitions when hold is inactive (test override)
-{"event":"d1.project_create","ts":"2026-08-02T21:29:34.953Z","status":"ok","projectId":"proj-09757636-948d-47c8-abff-7086df464da2","durationMs":2}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-08-02T21:29:34.953Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-08-02T21:29:34.954Z","status":"ok","projectId":"proj-09757636-948d-47c8-abff-7086df464da2","durationMs":1}
-
-stdout | __tests__/d1/t-a7-method-mode-hold.test.ts > T-A7 lot1 MethodMode hold > blocks when hold is active even with empty reasons
-{"event":"d1.method_mode_hold_blocked","ts":"2026-08-02T21:29:34.955Z","status":"blocked","reasonCount":0,"codes":"ACTIVE_NO_REASONS"}
-
- ✓ __tests__/d1/t-a7-method-mode-hold.test.ts (6 tests) 28ms
- ✓ __tests__/oa/evidence-review/reviewBundleDomain.test.ts (12 tests) 11ms
- ✓ __tests__/oa/decision/antiLegacy.test.ts (4 tests) 16ms
- ✓ __tests__/oa/execution-contract/antiLegacy.test.ts (4 tests) 17ms
- ✓ __tests__/platform/import-boundaries.test.ts (3 tests) 13ms
- ✓ __tests__/oa/evidence-review/adversarialMaturityValidation.test.ts (3 tests) 16ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (14 tests) 11ms
- ✓ __tests__/oa/evidence-review/adversarialClaimEvaluationValidation.test.ts (4 tests) 15ms
- ✓ __tests__/oa/execution-attempt/attemptRepository.test.ts (33 tests) 18ms
- ✓ __tests__/oa/evidence-review/adversarialReviewBundleValidation.test.ts (4 tests) 17ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (9 tests) 11ms
- ✓ __tests__/ops1/openai-provider.test.ts (2 tests) 24ms
- ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 11ms
- ✓ __tests__/oa/execution-attempt/registryAndAdapters.test.ts (19 tests) 13ms
- ✓ __tests__/oa/evidence-review/verifyAndUnavailable.test.ts (13 tests) 17ms
- ✓ __tests__/oa/project/antiLegacy.test.ts (4 tests) 9ms
- ✓ __tests__/d1/t-a7-operational-readiness.test.ts (7 tests) 10ms
- ✓ __tests__/oa/evidence-review/adversarialValidation.test.ts (9 tests) 14ms
- ✓ __tests__/platform/t-a7-consolidated-blocker-reduction.test.ts (19 tests) 13ms
- ✓ __tests__/oa/evidence-review/registerEvidence.test.ts (8 tests) 10ms
- ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (8 tests) 10ms
- ✓ __tests__/ops1/t-a7-allowlist-method-hits.probe.test.ts (3 tests) 8ms
- ✓ __tests__/platform/t-a7-bounded-history.test.ts (10 tests) 9ms
- ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 9ms
- ✓ __tests__/oa/evidence-review/ingestExecutionAttemptEvidence.test.ts (7 tests) 9ms
- ✓ __tests__/ops1/sfia/canonicalEngine.test.ts (17 tests) 5178ms
-   ✓ SFIA context resolver > builds context with hierarchy and does not promote candidate decisions  379ms
-   ✓ SFIA context resolver > detects context stale on head mismatch  533ms
-   ✓ SFIA action compiler > compiles valid CREATE and persists ActionCandidate  518ms
-   ✓ SFIA action compiler > denies commit/push operations  522ms
-   ✓ SFIA action compiler > denies protected path  498ms
-   ✓ SFIA action compiler > denies context stale  486ms
-   ✓ SFIA action compiler > preserves exact content  473ms
-   ✓ SFIA action compiler > instantiates cursor prompt from real template  556ms
-   ✓ SFIA conversation integration (fixture markers) > CREATE marker → ActionCandidate live  597ms
-   ✓ SFIA conversation integration (fixture markers) > commit marker → POLICY_DENIED  532ms
- ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 9ms
- ✓ __tests__/oa/cycle/ckcReferenceManifest.test.ts (5 tests) 5ms
- ✓ __tests__/platform/platform-ai.test.ts (5 tests) 11ms
- ✓ __tests__/ops1/conversation-domain.test.ts (7 tests) 4ms
- ✓ __tests__/oa/evidence-review/evidenceRepository.test.ts (7 tests) 8ms
- ✓ __tests__/platform/t-a7-local-volume.probe.test.ts (1 test) 3ms
- ✓ __tests__/oa/evidence-review/maturityAssessmentDomain.test.ts (4 tests) 3ms
-
- Test Files  98 passed (98)
-      Tests  949 passed (949)
-   Start at  23:29:26
-   Duration  10.54s (transform 4.76s, setup 5.97s, collect 17.86s, tests 34.71s, environment 10.08s, prepare 6.52s)
-
-TEST_EXIT:0
-=== 9 build ===
-
-> sfia-studio@0.1.0 build
-> next build
-
-   ▲ Next.js 15.5.20
-
-   Creating an optimized production build ...
- ✓ Compiled successfully in 1101ms
-   Linting and checking validity of types ...
-   Collecting page data ...
-   Generating static pages (0/10) ...
-   Generating static pages (2/10)
-   Generating static pages (4/10)
-   Generating static pages (7/10)
- ✓ Generating static pages (10/10)
-   Finalizing page optimization ...
-   Collecting build traces ...
-
-Route (app)                                 Size  First Load JS
-┌ ○ /                                      127 B         103 kB
-├ ○ /_not-found                            127 B         103 kB
-├ ○ /cycle-actif                         3.82 kB         119 kB
-├ ○ /decision                            5.53 kB         120 kB
-├ ƒ /nouvelle-demande                    10.1 kB         116 kB
-├ ○ /ops1/nouvelle-demande               18.5 kB         133 kB
-├ ƒ /projects/[id]                       2.66 kB         108 kB
-├ ○ /projects/new                        2.62 kB         108 kB
-├ ƒ /studio/projects/[id]                2.15 kB         112 kB
-├ ○ /studio/projects/new                 4.07 kB         114 kB
-├ ○ /synthese                            4.83 kB         120 kB
-└ ƒ /workspace                             571 B         106 kB
-+ First Load JS shared by all             102 kB
-  ├ chunks/255-3981a3d1f3561bd8.js       46.2 kB
-  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
-  └ other shared chunks (total)          1.96 kB
-
-
-○  (Static)   prerendered as static content
-ƒ  (Dynamic)  server-rendered on demand
-
-BUILD_EXIT:0
 ```
 
-## Contenu complet des treize fichiers du package
+## Contenu complet des treize fichiers
 
 
-### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts` (tracked modified — full post-change content)
 
 ```typescript
 import type {
@@ -1832,7 +453,7 @@ export type CkcQualificationResolution = {
 
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts` (untracked new — full content)
 
 ```typescript
 import type { CkcQualificationDetailedStatus } from "./ckcQualificationContracts";
@@ -1890,7 +511,7 @@ export function createCkcQualificationError(input: {
 
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts` (untracked new — full content)
 
 ```typescript
 import type {
@@ -2103,7 +724,7 @@ export function buildCkcConsumptionProof(
 
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts` (untracked new — full content)
 
 ```typescript
 import type {
@@ -2139,7 +760,7 @@ export interface CkcQualificationResolverPort {
 
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts` (untracked new — full content)
 
 ```typescript
 import {
@@ -2317,7 +938,7 @@ export function validateCkcReferenceManifest(
 
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts` (untracked new — full content)
 
 ```typescript
 import {
@@ -2789,7 +1410,7 @@ export class CkcQualificationResolver
 
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts` (tracked modified — full post-change content)
 
 ```typescript
 /**
@@ -2904,7 +1525,7 @@ export interface CycleAuditPort {
 
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/index.ts`
+### `projects/sfia-studio/app/lib/oa/cycle/index.ts` (tracked modified — full post-change content)
 
 ```typescript
 /**
@@ -3093,7 +1714,7 @@ export function createTestCycleServices(
 
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts`
+### `projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts` (untracked new — full content)
 
 ```typescript
 /** @vitest-environment node */
@@ -3215,7 +1836,7 @@ describe("V3.1-D2-B CKC reference manifest", () => {
 
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.test.ts`
+### `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.test.ts` (untracked new — full content)
 
 ```typescript
 /** @vitest-environment node */
@@ -3552,7 +2173,7 @@ describe("V3.1-D2-B CKC qualification resolver", () => {
 
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts`
+### `projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts` (untracked new — full content)
 
 ```typescript
 /** @vitest-environment node */
@@ -3785,7 +2406,7 @@ describe("V3.1-D2-B CKC consumption proof", () => {
 
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts`
+### `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts` (untracked new — full content)
 
 ```typescript
 /** @vitest-environment node */
@@ -4114,7 +2735,7 @@ describe("V3.1-D2-B resolver QA", () => {
 
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts`
+### `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts` (tracked modified — full post-change content)
 
 ```typescript
 /**
@@ -4798,57 +3419,365 @@ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
 ```
 
 
-## État Git final
+## Validations (extrait terminal)
 
 ```
-=== FINAL 2026-08-02 23:31:14 CEST (+0200) ===
-branch=delivery/sfia-studio-v3-1-d2-b-ckc-resolver
-HEAD=bb685f1205b33f887ee27b42ac918c96386a6e33
-main=bb685f1205b33f887ee27b42ac918c96386a6e33
-origin_main=bb685f1205b33f887ee27b42ac918c96386a6e33
-remote_d2b_count=0
-staged=0
-DIFF_CHECK_PASS
-POST_FULL_13=290dcb04ef4662096ab515db1eef19372ad03cb2351e4ee27d64ca113e7a632e
-POST_GIT_DIFF=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
-POST_12=b9a4e5099ef7f27346f74686eb7f2a80a25222a2399728dd0bf62d41cc98f815
+ ✓ __tests__/oa/cycle/catalogProjection.qa.test.ts (37 tests) 69ms
+ ✓ __tests__/oa/execution-attempt/registryAndAdapters.test.ts (19 tests) 9ms
+ ✓ __tests__/oa/evidence-review/reviewBundleDomain.test.ts (12 tests) 9ms
+ ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 21ms
+ ✓ __tests__/d1/t-a7-operational-readiness.test.ts (7 tests) 5ms
+ ✓ __tests__/oa/evidence-review/registerEvidence.test.ts (8 tests) 9ms
+ ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (8 tests) 5ms
+ ✓ __tests__/platform/t-a7-bounded-history.test.ts (10 tests) 5ms
+ ✓ __tests__/oa/project/antiLegacy.test.ts (4 tests) 9ms
+ ✓ __tests__/oa/evidence-review/ingestExecutionAttemptEvidence.test.ts (7 tests) 5ms
+ ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 4ms
+ ✓ __tests__/ops1/sfia/canonicalEngine.test.ts (17 tests) 3521ms
+   ✓ SFIA action compiler > compiles valid CREATE and persists ActionCandidate  303ms
+   ✓ SFIA action compiler > denies commit/push operations  336ms
+   ✓ SFIA action compiler > denies protected path  424ms
+   ✓ SFIA action compiler > denies context stale  357ms
+   ✓ SFIA action compiler > instantiates cursor prompt from real template  361ms
+   ✓ SFIA conversation integration (fixture markers) > CREATE marker → ActionCandidate live  406ms
+   ✓ SFIA conversation integration (fixture markers) > commit marker → POLICY_DENIED  466ms
+ ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (9 tests) 7ms
+ ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 7ms
+ ✓ __tests__/ops1/t-a7-allowlist-method-hits.probe.test.ts (3 tests) 6ms
+ ✓ __tests__/ops1/conversation-domain.test.ts (7 tests) 3ms
+ ✓ __tests__/platform/t-a7-f11-f13-absence.probe.test.ts (3 tests) 4ms
+ ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (14 tests) 6ms
+ ✓ __tests__/oa/evidence-review/evidenceRepository.test.ts (7 tests) 4ms
+ ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 7ms
+ ✓ __tests__/platform/t-a7-local-volume.probe.test.ts (1 test) 2ms
+ ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 5ms
+ ✓ __tests__/oa/evidence-review/maturityAssessmentDomain.test.ts (4 tests) 2ms
+ ✓ __tests__/oa/cycle/ckcReferenceManifest.test.ts (5 tests) 3ms
+
+ Test Files  98 passed (98)
+      Tests  949 passed (949)
+   Start at  00:53:46
+   Duration  7.28s (transform 3.93s, setup 4.31s, collect 13.67s, tests 21.91s, environment 7.67s, prepare 4.07s)
+
+FULL:0
+=== build ===
+
+> sfia-studio@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.20
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 968ms
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10)
+   Generating static pages (4/10)
+   Generating static pages (7/10)
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      127 B         103 kB
+├ ○ /_not-found                            127 B         103 kB
+├ ○ /cycle-actif                         3.82 kB         119 kB
+├ ○ /decision                            5.53 kB         120 kB
+├ ƒ /nouvelle-demande                    10.1 kB         116 kB
+├ ○ /ops1/nouvelle-demande               18.5 kB         133 kB
+├ ƒ /projects/[id]                       2.66 kB         108 kB
+├ ○ /projects/new                        2.62 kB         108 kB
+├ ƒ /studio/projects/[id]                2.15 kB         112 kB
+├ ○ /studio/projects/new                 4.07 kB         114 kB
+├ ○ /synthese                            4.83 kB         120 kB
+└ ƒ /workspace                             571 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-3981a3d1f3561bd8.js       46.2 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.96 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+BUILD:0
+```
+
+## Probes indépendantes
+
+```
+[PROBE] P1_foreign_entry: REJECT_CKC_RESOLUTION_INCOHERENT | validatorUnknown=true | CLOSED
+[PROBE] P2_missing_nonselected: REJECT_CKC_RESOLUTION_INCOHERENT | validatorMissing=true | CLOSED
+[PROBE] P3_duplicate_find: REJECT_CKC_RESOLUTION_INCOHERENT | validatorDuplicate=true | CLOSED
+[PROBE] P4_non_iso_resolvedAt: ALL_INVALID_REJECTED_AND_VALID_ACCEPTED | rejects=13 | CLOSED
+[PROBE] P5_fallback_no_disclosure: REJECT_CKC_RESOLUTION_INCOHERENT | dup=CKC_RESOLUTION_INCOHERENT | CLOSED
+[PROBE] P6_nonfallback_with_disclosure: PROOF_REJECTS_BOTH | detailed+synthetic | CLOSED
+[PROBE] P7_incoherent_fallbackPolicy: PROOF_REJECTS_INCOHERENT_ACCEPTS_COHERENT | CLOSED
+[PROBE] P8_oa.ckc.resolution_started: CONTROLLED_D2_INTERNAL_ERROR | calls=1 expected=1 afterThrow=0 leak=false | CLOSED
+[PROBE] P8_oa.ckc.resolution_succeeded: CONTROLLED_D2_INTERNAL_ERROR | calls=2 expected=2 afterThrow=0 leak=false | CLOSED
+[PROBE] P8_oa.ckc.fallback_used: CONTROLLED_D2_INTERNAL_ERROR | calls=2 expected=2 afterThrow=0 leak=false | CLOSED
+[PROBE] P8_oa.ckc.consumption_validated: CONTROLLED_D2_INTERNAL_ERROR | calls=4 expected=4 afterThrow=0 leak=false | CLOSED
+[PROBE] P8_oa.ckc.resolution_failed: CONTROLLED_D2_INTERNAL_ERROR | calls=2 expected=2 afterThrow=0 leak=false | CLOSED
+[PROBE] P8_oa.ckc.consumption_rejected: CONTROLLED_D2_INTERNAL_ERROR | calls=3 expected=3 afterThrow=0 leak=false | CLOSED
+[PROBE] P8_audit_matrix: ALL_SIX_FAIL_CLOSED | CLOSED
+[PROBE] P8b_audit_absent_and_functional: NOMINAL | events=oa.ckc.resolution_started|oa.ckc.resolution_succeeded|oa.ckc.consumption_validated | CLOSED
+[PROBE] P9_invalid_metadata_nonselected: REJECT_CKC_RESOLUTION_INCOHERENT | validatorInvalid=true | CLOSED
+[PROBE] P10_reorder_determinism: EQUAL | CLOSED
+[PROBE] P11_validate_before_lookup: ORDER_OK | validateAt=4991 primaryLookupAt=6159 | CLOSED
+[PROBE] P12_invalid_resolvedAt_event_ts: STARTED_EMITTED_WITH_TS=not-an-iso-timestamp | outcome=CKC_RESOLUTION_INCOHERENT; events=oa.ckc.resolution_started|oa.ckc.resolution_failed|oa.ckc.consumption_rejected | CLOSED
+PROBE_SUMMARY_JSON=[
+PROBE_CLOSED=19/19
+PROBE_OPEN=0
+```
+
+## Secrets scan
+
+```
+=== secrets scan package 2026-08-03T00:53:45+02:00 ===
+NO_SECRET_PATTERNS_IN_PACKAGE
+=== hostile fixtures in tests (expected adversarial strings only) ===
+projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts:128:          "/Users/private/secret.md should never cross the boundary",
+projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts:205:      "/Users/private/secret.md payload=ckc-body token=sk-hostile-f4ke";
+projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts:313:        expect(result.error.message).not.toContain("sk-hostile");
 
 ```
 
-## Absence mutation / commit / push / PR projet
+## Réserves
 
-Confirmée. Seuls artefacts `.tmp-sfia-review/**`. Push handoff L3 borné uniquement.
+### R-QA-REV-01 MINOR — retained
+`resolution_started` (and failure events) may carry invalid `ts` when `resolvedAt` is invalid because started precedes ISO validation. No success/proof/`consumed=true`. Document in PR body; do not fix in this cycle.
+
+### R-QA-REV-02 MINOR — retained
+Probes via temporary vite-node outside Vitest `__tests__/**`. Tooling limit; package unmodified.
+
+## Commit strategy
+
+# Commit strategy
+
+Recommendation: **one atomic commit** containing all thirteen package files.
+
+Rationale:
+- Atomic D2-B livrable (contracts + errors + proof + port + manifest + resolver + barrel/audit additives + tests)
+- Partial commits would leave non-coherent intermediate states
+- No functional split justifies multiple commits
+- Exclude `.tmp-sfia-review/**` entirely
+
+Candidate subject: `feat(sfia-studio): add V3.1-D2-B CKC resolver contract`
+
+
+## Draft PR title
+
+`feat(sfia-studio): add V3.1-D2-B CKC resolver contract`
+
+## Draft PR body (complete — NOT created)
+
+## Summary
+
+Adds the SFIA Studio V3.1-D2-B CKC Resolution and Consumption package as a thirteen-file local delivery against `main` (`bb685f1205b33f887ee27b42ac918c96386a6e33`): specialized CKC qualification resolver, static typed reference manifest, consumption proof builder, additive audit events, structured D2-B errors, and adversarial/regression tests. Preserves D2-A isolation and excludes D2-C / D2-D / D3 / UI / CreateCycle.
+
+## Morris decisions (already validated — not reopened)
+
+1. **Audit FAIL-CLOSED** when `CycleAuditPort` is injected and `append` throws:
+   - outcome `ok=false`, code `D2_INTERNAL_ERROR`, `blocking=true`, `retryable=true`, `recoverable=true`
+   - no raw exception, no proof, no `consumed=true`, no recursive audit attempt
+   - audit undefined remains pure-resolve OK
+2. **QA revalidation** closed F-QA-01…06 with package freeze; two minor non-blocking reserves retained (below).
+
+## Scope
+
+In scope: BL-D2-B-01…06 package only (13 files under `projects/sfia-studio/app/lib/oa/cycle/**` and related `__tests__/oa/cycle/**`).
+
+Out of scope: D2-C QualifyCycle bridge, D2-D, D3, UI, CreateCycle, method promotion, production observability, deploy/release.
+
+## File inventory
+
+| Path | Git | Role |
+|---|---|---|
+| `lib/oa/cycle/domain/ckcQualificationContracts.ts` | modified | D2 contracts / statuses |
+| `lib/oa/cycle/domain/ckcQualificationErrors.ts` | new | Safe D2-B error factory |
+| `lib/oa/cycle/domain/ckcConsumptionProof.ts` | new | Pure proof builder + ISO helper |
+| `lib/oa/cycle/ports/ckcQualificationResolver.ts` | new | Specialized sync port |
+| `lib/oa/cycle/infrastructure/ckcReferenceManifest.ts` | new | Static typed allowlist + validator |
+| `lib/oa/cycle/infrastructure/ckcQualificationResolver.ts` | new | Resolver adapter |
+| `lib/oa/cycle/ports/cycleAudit.ts` | modified | Additive D2-B events |
+| `lib/oa/cycle/index.ts` | modified | Additive public exports |
+| `__tests__/oa/cycle/ckcReferenceManifest.test.ts` | new | Manifest tests |
+| `__tests__/oa/cycle/ckcQualificationResolver.test.ts` | new | Resolver tests |
+| `__tests__/oa/cycle/ckcConsumptionProof.test.ts` | new | Proof tests |
+| `__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts` | new | Audit/QA tests |
+| `__tests__/oa/cycle/catalogProjection.qa.test.ts` | modified | Phase-aware D2-A/B allow, D2-C forbid |
+
+## Runtime / domain contract
+
+- Input: `ValidatedCycleTypeProjection` + `resolvedAt`
+- Success: resolution + immutable `consumed=true` proof
+- Failure: structured error, no proof property
+- Deterministic for identical inputs; no filesystem/Markdown I/O
+
+## Manifest validation
+
+`validateCkcReferenceManifest(this.manifest)` runs before any injected-manifest lookup. Unknown, missing, duplicate, incoherent level/source/doctrine/authority, and invalid metadata fail closed with `CKC_RESOLUTION_INCOHERENT`.
+
+## Consumption Proof invariants
+
+- Fallback requires `CKC_FALLBACK_USED` exactly once; builder does not auto-repair
+- Non-fallback statuses forbid that disclosure
+- `fallbackPolicy` compared to D2-A projection mapping (`intra_v3_only` / `none`)
+- Identity/catalog/reference/status mismatches never yield `consumed=true`
+
+## Audit FAIL-CLOSED policy
+
+Applies to all six D2-B events. Public message remains the existing `D2_INTERNAL_ERROR` safe string. Hostile append throws are sanitized; no recursive re-emit.
+
+## QA history
+
+- Initial QA: F-QA-01…06 MAJOR → FAIL
+- Morris arbitration: FAIL-CLOSED adopted
+- Corrective delivery: F-QA-01…06 fixed in five allowed files
+- QA revalidation: PASS WITH RESERVES (minor only)
+
+## F-QA-01…06 closure
+
+Closed by regression tests and independent probes (19/19 CLOSED). Not reopened by PR readiness.
+
+## Validation evidence (local, this cycle)
+
+- Proof 8/8
+- Resolver+QA 23/23
+- D2-B 36/36
+- D2-A 86/86
+- oa/cycle 216/216
+- typecheck PASS
+- lint PASS (no `--fix`)
+- full suite 949/949
+- build PASS
+- `git diff --check` PASS
+- probes 19/19 CLOSED, 0 OPEN
+- package freeze hashes unchanged vs QA revalidation
+
+## D2-A isolation
+
+Catalog projection production modules remain free of D2-B/C runtime I/O. Public boundary test asserts D2-A + D2-B exports and forbids D2-C factory/bridge symbols.
+
+## D2-C / D2-D / D3 exclusions
+
+No QualifyCycleBridge, qualifyCycleWithCkc, createCkcQualificationServices, Success/Failure D3 envelope, UI, or CreateCycle wiring in this package.
+
+## Risks and reserves
+
+### R-QA-REV-01 MINOR (retained)
+
+`oa.ckc.resolution_started` (and associated failure events) may carry `ts` equal to an invalid caller `resolvedAt` because started is emitted before ISO validation. No success event, no proof, no `consumed=true`. Document-only; not corrected in this PR candidate.
+
+### R-QA-REV-02 MINOR (retained)
+
+Independent adversarial probes run via temporary `vite-node` outside Vitest `__tests__/**` include. Tooling limit only; package not mutated.
+
+## Commit strategy
+
+**Single atomic commit** for all thirteen files. The package is one D2-B livrable; splitting would create non-buildable intermediate states. Exclude all `.tmp-sfia-review/**` artifacts.
+
+Candidate message:
+
+```
+feat(sfia-studio): add V3.1-D2-B CKC resolver contract
+
+Introduce the thirteen-file CKC resolution/consumption package with
+fail-closed audit policy, global manifest validation, ISO resolvedAt
+checks, and consumption-proof invariants. Preserve D2-A isolation and
+exclude D2-C/D2-D/D3.
+```
 
 ## Rollback
 
-N/A (aucune mutation package). Empreintes inchangées vs corrective.
+Revert the single commit (or discard the thirteen-file working tree changes) to restore `main` at `bb685f1205b33f887ee27b42ac918c96386a6e33`. No data migration.
 
-## Gate suivant candidat
+## Test plan
 
-```
-GO PR READINESS SFIA STUDIO V3.1-D2-B CKC RESOLVER —
-REVIEW THE QA-REVALIDATED THIRTEEN-FILE PACKAGE, FINAL DIFF, FILE INVENTORY, PACKAGE HASHES, TEST EVIDENCE, FINDINGS, RESERVES, COMMIT BOUNDARY, RISK AND ROLLBACK —
-VERIFY D2-A ISOLATION, D2-C EXCLUSION AND MORRIS FAIL-CLOSED AUDIT DECISION —
-PREPARE A PR CANDIDATE REVIEW PACK —
-NO COMMIT — NO PUSH — NO PR — NO D2-C — NO D2-D — NO D3 — NO UI — NO CREATECYCLE — NO METHOD PROMOTION
-```
+- [ ] Proof / resolver / D2-B / D2-A / oa/cycle suites green locally
+- [ ] typecheck, lint, full suite, build green
+- [ ] Confirm no method/UI/CreateCycle files in PR
+- [ ] Confirm R-QA-REV-01/02 disclosed in PR description
+- [ ] Confirm CI on draft PR once branch is pushed (future GO)
 
-Ne pas exécuter automatiquement.
+## Review guidance
+
+Focus on: proof disclosure/fallbackPolicy invariants; global manifest validation order; FAIL-CLOSED audit sanitization/no recursion; public boundary D2-A/B vs D2-C forbid; absence of secrets.
+
+## Checklist
+
+- [x] Package exactly 13 files vs main
+- [x] Freeze hashes match QA revalidation
+- [x] F-QA-01…06 remain closed
+- [x] Minor reserves disclosed
+- [x] No project commit/push/PR in readiness cycle
+- [ ] Future Morris GO for commit / project push / draft PR
+
+## Explicit boundaries
+
+- Not production-ready
+- Not method baseline / no method promotion
+- Not D2-C open
+- Not merge-authorized
+- Draft PR body prepared only — PR not created by this cycle
+
+
+## Readiness matrix
+
+# Readiness matrix
+
+| Control | Status |
+|---|---|
+| Git truth | PASS |
+| package inventory (13) | PASS |
+| package freeze | PASS |
+| diff scope | PASS |
+| forbidden paths | PASS |
+| tests (949) | PASS |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| probes 19/19 | PASS |
+| secrets | PASS |
+| D2-A isolation | PASS |
+| D2-C exclusion | PASS |
+| reserves disclosure | PASS WITH RESERVE |
+| rollback | PASS |
+| commit boundary | PASS |
+| PR body | PASS |
+| handoff readiness | PASS (pending publish) |
+
+
+## Risks / rollback
+
+- Risk: premature PR without disclosing minor reserves → mitigated by body sections
+- Risk: package drift before commit GO → freeze hashes verified before/after validations
+- Rollback: discard thirteen-file working tree / revert future single commit to `bb685f1205b33f887ee27b42ac918c96386a6e33`
+
+## Files created/modified by this cycle
+
+- overwritten: `.tmp-sfia-review/chatgpt-review.md`
+- created under: `.tmp-sfia-review/v3-1-d2-b-pr-readiness/**`
+- **zero** versioned project files modified
+
+## Décisions Morris requises (suivantes)
+
+GO distinct pour: commit projet + push branche projet + création draft PR (peut être groupé si READY WITH RESERVES). Aucun GO merge.
 
 ## Verdict
 
-V3.1-D2-B CKC RESOLVER QA REVALIDATION PASS WITH RESERVES —
-F-QA-01…06 CLOSED —
-CORE CONTRACT AND FULL VALIDATION PASS —
-MINOR NON-BLOCKING QA RESERVES DOCUMENTED —
-THIRTEEN-FILE PACKAGE UNCHANGED —
-READY FOR DISTINCT PR READINESS GATE WITH RESERVES —
-NO COMMIT —
-NO PUSH —
-NO PR —
+V3.1-D2-B CKC RESOLVER PR READINESS PASS WITH RESERVES —
+THIRTEEN-FILE PACKAGE FREEZE CONFIRMED —
+F-QA-01…06 REMAIN CLOSED —
+R-QA-REV-01 AND R-QA-REV-02 RETAINED AS MINOR NON-BLOCKING RESERVES —
+COMMIT BOUNDARY AND DRAFT PR BODY READY —
+READY FOR DISTINCT MORRIS GO COMMIT / PROJECT PUSH / DRAFT PR —
+NO PROJECT COMMIT —
+NO PROJECT PUSH —
+NO PR CREATED —
+NO MERGE —
 NO D2-C —
 NO D2-D —
 NO D3 —
-NO UI —
-NO CREATECYCLE —
 NO METHOD PROMOTION
