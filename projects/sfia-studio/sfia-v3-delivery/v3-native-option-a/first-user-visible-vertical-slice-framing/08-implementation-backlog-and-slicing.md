@@ -50,13 +50,16 @@ Docs :
 | Architecture fonctionnelle D2 | **adoptée (FA-C)** — [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) · D-V3.1-D2-FA-01…12 **ADOPTED BY MORRIS** |
 | Architecture technique D2 | **adoptée** — [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) · D-V3.1-D2-TA-01…12 **ADOPTED BY MORRIS** |
 | Backlog D2-A/B/C | **validé** — [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) · 17 stories préservées |
-| Delivery D2-A | **complète localement** — contrats, HASH-A, projection pure · [rapport](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md) |
-| QA D2-A | **exécutée — FAIL Cursor** · R-QA-D2A-01 bloquante · [01](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/01-qa-validation-report.md) |
-| Delivery corrective D2-A | **complète localement** · [02](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/02-corrective-delivery-report.md) |
+| Delivery D2-A | **complète localement** (historique) — contrats, HASH-A, projection pure · [rapport](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md) |
+| QA D2-A | **exécutée — FAIL Cursor** (historique) · R-QA-D2A-01 bloquante · [01](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/01-qa-validation-report.md) |
+| Delivery corrective D2-A | **complète localement** (historique) · [02](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/02-corrective-delivery-report.md) |
 | QA revalidation D2-A | **PASS** · R-QA-D2A-01 **CLOSED** · [03](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/03-qa-revalidation-report.md) |
 | QA-G3 D2-A | **ACCEPTED BY MORRIS** — 2026-08-02 14:01 CEST |
-| PR readiness D2-A | **READY FOR PR WITH RESERVES** · [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) · commit/push/PR non exécutés |
-| Delivery D2-B | **fermée** — gate distinct requis après validation/intégration D2-A |
+| PR readiness D2-A | **verdict historique** **READY FOR PR WITH RESERVES** ayant précédé la publication · [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) |
+| PR / merge D2-A | PR #298 mergée par merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` · branche Delivery conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+| Post-merge D2-A | intégration vérifiée · local main synchronisée · clôture documentaire non intégrée à main |
+| PR readiness corrective D2-A | PASS LOCALLY · R-PR-PM-D2A-01…03 CLOSED · publication et merge soumis à gates Morris distincts |
+| Delivery D2-B | **fermée** — aucun GO Delivery D2-B consommé |
 | Delivery D2-C | **fermée** |
 | D2-D (extensions) | **gated** · non ouvert |
 | D3 | **non ouvert** |
@@ -66,7 +69,7 @@ Docs :
 | Lot | Contenu | Statut |
 |-----|---------|--------|
 | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A Delivery/QA/correctif/revalidation **PASS** · QA-G3 **ACCEPTED** · PR readiness **READY WITH RESERVES** · commit/push/PR non exécutés · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A **intégré `main`** · QA/CI vertes · findings fermés · post-merge **validé localement** · documentation de clôture **pending final main integration** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
 ### Réserves QA
@@ -75,8 +78,11 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
 
 ### Réserves D2
 
-Catalog Projection D2-A Delivery/QA/correctif/revalidation complets ; R-QA-D2A-01 **CLOSED** ; QA-G3 **ACCEPTED BY MORRIS** ; PR readiness **READY FOR PR WITH RESERVES** ; commit/push/PR non exécutés.
-Orchestration CKC, resolver et bridge QualifyCycle restent fermés en D2-B/C —
+**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01 · R-PR-PM-D2A-02 · R-PR-PM-D2A-03.
+
+**Réserves conservées (mineures / NOT LIFTED) :** R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED.
+
+D2-B, D2-C et D3 restent **fermés** malgré l’intégration réussie de D2-A —
 voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) /
 [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) /
 [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) /
