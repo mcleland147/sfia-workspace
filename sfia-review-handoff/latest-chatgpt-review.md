@@ -1,254 +1,14 @@
-# Review Pack Full — SFIA Studio V3.1-D2-B CKC Resolver — Delivery corrective
+# Review Pack Full — SFIA Studio V3.1-D2-B — QA Validation
 
-- Date/heure/fuseau: 2026-08-02 22:22:00 CEST (+0200)
-- Rôle: Cursor (implémentation locale corrective)
-- Cycle: 8 — Delivery / implémentation corrective
-- Profil SFIA: Critical
+- Date/heure/fuseau: 2026-08-02 22:50:00 CEST (+0200)
+- Rôle: Cursor QA
+- Cycle: 9 — QA / validation
+- Profil: Critical
 - Typologie: INC
-- Template canonique: prompts/templates/sfia-cycle-execution-template.md
-- CKC fallback: method/.../02-fifteen-cycles-synthetic-map.md + méthode cycles candidate §4.8
-- Statut CKC: candidate — aucune autorité d'exécution
+- CKC: pilots/04-qa-validation.md candidate v0.1.0 — aucune autorité d'exécution
+- Template: prompts/templates/sfia-cycle-execution-template.md
 
-## Gate Morris consommé
-
-```
-GO DELIVERY CORRECTIVE SFIA STUDIO V3.1-D2-B CKC RESOLVER —
-ADDRESS ONLY THE STALE D2-A PUBLIC-BOUNDARY REGRESSION GUARD IN catalogProjection.qa.test.ts —
-AUTHORIZE THIS TEST AS THE THIRTEENTH FILE ONLY —
-PRESERVE ALL D2-A PRODUCTION ISOLATION ASSERTIONS —
-ALLOW ONLY THE ADOPTED D2-B PUBLIC EXPORTS —
-CONTINUE TO FORBID QUALIFYCYCLEBRIDGE, CREATED2, D2FACTORY AND ALL D2-C COMPOSITION —
-PRESERVE THE EXISTING D2-B IMPLEMENTATION DIFF —
-RERUN D2-B TARGETED TESTS, D2-A REGRESSIONS, OA/CYCLE, TYPECHECK, LINT, FULL TEST SUITE AND BUILD —
-NO COMMIT —
-NO PUSH —
-NO PR —
-NO D2-C —
-NO D2-D —
-NO D3 —
-NO UI —
-NO CREATECYCLE —
-NO METHOD PROMOTION
-```
-
-## Justification Critical
-
-Le package porte sur le resolver CKC fail-closed, `executionAuthority=false`, la preuve `consumed=true`,
-l'adaptation T-A2, les frontières publiques du package cycle et les contrôles empêchant l'ouverture
-prématurée de D2-C. La correction distingue précisément les exports D2-B autorisés des compositions D2-C interdites.
-
-## Git Truth initial
-
-- workspace: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge`
-- branche active: `delivery/sfia-studio-v3-1-d2-b-ckc-resolver`
-- HEAD = main = origin/main = `bb685f1205b33f887ee27b42ac918c96386a6e33`
-- divergence main/origin-main: 0/0
-- upstream: aucun
-- branche distante D2-B: absente
-- staged: vide
-- 12 fichiers D2-B présents avant correction
-- `git diff | shasum -a 256` initial = `61384b040499d937f04cab94c385d2668ee4e7b00f3f3401dd8302d243b44be9`
-- `git diff --check` PASS
-- handoff source tip `605cacb5c0eaa53bbe2038b981934b2b63f8a457`
-- handoff source blob `4683014a05343b1b671422ef3fc92b7d98c8cf09`
-
-## Handoff source préservé
-
-Archive locale: `.tmp-sfia-review/v3-1-d2-b-delivery-blocked-chatgpt-review-preserved.md`
-Blob vérifié = `4683014a05343b1b671422ef3fc92b7d98c8cf09`
-
-## Finding initial
-
-Le test historique mélangeait dans une seule regex négative:
-- exports D2-B adoptés: `ckcQualificationResolver`, `ConsumptionProof`
-- compositions D2-C interdites: `QualifyCycleBridge`, `createD2`, `D2Factory`
-
-## Empreintes
-
-| Empreinte | Valeur | Statut |
-|---|---|---|
-| FULL_DIFF initial (tracked) | `61384b040499d937f04cab94c385d2668ee4e7b00f3f3401dd8302d243b44be9` | pré-correction |
-| D2B_ORIGINAL_12_FILES_CONTENT_SHA256 | `e904b0d8ee0ed714f95043a4ffcf72e401a6400187f32969b7b9a76777dca3a3` | **inchangée** après correction |
-| FULL_13_FILES_DIFF_SHA256 | `3379ac64a4d093577de7de2c562338c9d140fea958030396bb7f980e6683070b` | post-correction |
-| GIT_DIFF_SHA256 (tracked post) | `c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5` | post-correction |
-
-## Inventaire initial des douze fichiers
-
-1. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts`
-2. `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-3. `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
-4. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts`
-5. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts`
-6. `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts`
-7. `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts`
-8. `projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts`
-9. `projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts`
-10. `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts`
-11. `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.test.ts`
-12. `projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts`
-
-Preuve de non-modification: comparaison baseline hash-object des 9 non suivis + sha du diff des 3 suivis → identité stricte avant/après.
-
-## Fichier correctif autorisé (13e)
-
-`projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts`
-
-## Correction appliquée
-
-- Titre: `keeps the public boundary limited to adopted D2-A and D2-B exports`
-- Assertions D2-A conservées (3 exports)
-- Assertions D2-B positives ajoutées (5 exports exacts)
-- Assertion négative limitée aux identifiants D2-C: `QualifyCycleBridge|qualifyCycleWithCkc|ckcQualificationResult|createD2|D2Factory|createCkcQualificationServices`
-- Test d'isolation production D2-A inchangé
-
-### Bloc describe corrigé
-
-```typescript
-describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
-  it("keeps the public boundary limited to adopted D2-A and D2-B exports", () => {
-    const source = readFileSync(
-      path.resolve(__dirname, "../../../lib/oa/cycle/index.ts"),
-      "utf8",
-    );
-    expect(source).toContain(
-      'export * from "./domain/ckcQualificationContracts";',
-    );
-    expect(source).toContain('export * from "./domain/catalogFingerprint";');
-    expect(source).toContain('export * from "./domain/catalogProjection";');
-    expect(source).toContain(
-      'export * from "./domain/ckcQualificationErrors";',
-    );
-    expect(source).toContain(
-      'export * from "./domain/ckcConsumptionProof";',
-    );
-    expect(source).toContain(
-      'export * from "./ports/ckcQualificationResolver";',
-    );
-    expect(source).toContain(
-      'export * from "./infrastructure/ckcReferenceManifest";',
-    );
-    expect(source).toContain(
-      'export * from "./infrastructure/ckcQualificationResolver";',
-    );
-    expect(source).not.toMatch(
-      /QualifyCycleBridge|qualifyCycleWithCkc|ckcQualificationResult|createD2|D2Factory|createCkcQualificationServices/,
-    );
-  });
-
-  it("keeps production projection free of D2-B/C and runtime I/O imports", () => {
-    for (const relative of [
-      "ckcQualificationContracts.ts",
-      "catalogFingerprint.ts",
-      "catalogProjection.ts",
-    ]) {
-      const source = readFileSync(
-        path.resolve(__dirname, `../../../lib/oa/cycle/domain/${relative}`),
-        "utf8",
-      );
-      expect(source).not.toMatch(/node:crypto|node:fs|from ["']next/);
-      expect(source).not.toMatch(/infrastructure\//);
-      expect(source).not.toMatch(
-        /QualifyCycle|ResolveCycleKnowledgeContract|CkcResolverPort|CycleAuditEvent|CreateCycle|consumed|recommendedProfile|isMorrisDecision/,
-      );
-    }
-  });
-```
-
-### Diff correctif complet
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
-index 1ba9408..9400a69 100644
---- a/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
-@@ -613,7 +613,7 @@ describe("V3.1-D2-A QA — public fingerprint/catalog binding (critical)", () =>
- });
-
- describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
--  it("keeps index.ts limited to the three additive D2-A exports", () => {
-+  it("keeps the public boundary limited to adopted D2-A and D2-B exports", () => {
-     const source = readFileSync(
-       path.resolve(__dirname, "../../../lib/oa/cycle/index.ts"),
-       "utf8",
-@@ -623,8 +623,23 @@ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
-     );
-     expect(source).toContain('export * from "./domain/catalogFingerprint";');
-     expect(source).toContain('export * from "./domain/catalogProjection";');
-+    expect(source).toContain(
-+      'export * from "./domain/ckcQualificationErrors";',
-+    );
-+    expect(source).toContain(
-+      'export * from "./domain/ckcConsumptionProof";',
-+    );
-+    expect(source).toContain(
-+      'export * from "./ports/ckcQualificationResolver";',
-+    );
-+    expect(source).toContain(
-+      'export * from "./infrastructure/ckcReferenceManifest";',
-+    );
-+    expect(source).toContain(
-+      'export * from "./infrastructure/ckcQualificationResolver";',
-+    );
-     expect(source).not.toMatch(
--      /ckcQualificationResolver|ConsumptionProof|QualifyCycleBridge|createD2|D2Factory/,
-+      /QualifyCycleBridge|qualifyCycleWithCkc|ckcQualificationResult|createD2|D2Factory|createCkcQualificationServices/,
-     );
-   });
-
-```
-
-## Inventaire final des treize fichiers
-
-1. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts`
-2. `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-3. `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
-4. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts`
-5. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts`
-6. `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts`
-7. `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts`
-8. `projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts`
-9. `projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts`
-10. `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts`
-11. `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.test.ts`
-12. `projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts`
-13. `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts`
-
-## Résultats validations
-
-| Contrôle | Résultat |
-|---|---|
-| Test correctif seul | **37/37 PASS** |
-| D2-B ciblés | **26/26 PASS** |
-| D2-A regressions | **86/86 PASS** |
-| Suite oa/cycle | **206/206 PASS** |
-| Typecheck | **PASS** |
-| Lint | **PASS** |
-| Suite complète | **939/939 PASS** (98 fichiers) |
-| Build | **PASS** |
-| git diff --check | **PASS** |
-| Fichiers hors scope | **0** |
-| Fichiers protégés | **0 bytes de diff** |
-
-## Findings
-
-Aucun finding bloquant résiduel. Le finding initial (garde-fou D2-A stale) est corrigé de façon phase-aware.
-
-## Réserves
-
-- Delivery complète localement ≠ QA indépendante
-- Tests verts ≠ PR ready
-- Autoriser les exports D2-B ≠ ouvrir D2-C
-- Aucun commit/push/PR projet dans ce cycle
-
-## Rollback
-
-Aucun commit créé. Abandon possible par restauration explicite des 13 paths sous GO Morris distinct. main inchangée.
-
-## Absence commit / push / PR projet
-
-Confirmée. Seule publication autorisée: handoff review L3 borné.
-
-## Gate suivant candidat
+## Gate Morris
 
 ```
 GO QA VALIDATION SFIA STUDIO V3.1-D2-B CKC RESOLVER —
@@ -265,24 +25,288 @@ NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
+## Justification Critical
+
+Composant contrôlant l'admissibilité CKC, fail-closed, executionAuthority=false, consumed=true, distinction primary/fallback, adaptation T-A2 et frontières publiques anti-D2-C.
+
+## Git Truth initial
+
+- branche `delivery/sfia-studio-v3-1-d2-b-ckc-resolver`
+- HEAD=main=origin/main=`bb685f1205b33f887ee27b42ac918c96386a6e33`
+- upstream absent ; remote D2-B absente ; staged vide ; 13 fichiers
+- handoff source tip `24d42a5017a445f741b9490de601896378899ba8` blob `e09bdbd7d140b64afadcc92ce21b5de029ebaf4b`
+- archive corrective préservée blob = `e09bdbd7d140b64afadcc92ce21b5de029ebaf4b`
+
+## Empreintes (méthodes corrective documentées)
+
+| Empreinte | Valeur | Avant QA | Après QA |
+|---|---|---|---|
+| D2B_ORIGINAL_12_FILES_CONTENT_SHA256 | `e904b0d8ee0ed714f95043a4ffcf72e401a6400187f32969b7b9a76777dca3a3` | OK | OK |
+| FULL_13_FILES_DIFF_SHA256 | `3379ac64a4d093577de7de2c562338c9d140fea958030396bb7f980e6683070b` | OK | OK |
+| GIT_DIFF_SHA256 | `c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5` | OK | OK |
+
+Méthode 12: `shasum -a 256` de chaque path trié, puis `shasum -a 256` du flux.
+Méthode 13: `git diff` des 4 fichiers modifiés + `BEGIN/cat/END` des 9 non suivis, puis `shasum -a 256`.
+Méthode tracked: `git diff | shasum -a 256`.
+
+## Inventaire treize fichiers
+
+1. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts`
+2. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts`
+3. `projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts`
+4. `projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts`
+5. `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts`
+6. `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts`
+7. `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
+8. `projects/sfia-studio/app/lib/oa/cycle/index.ts`
+9. `projects/sfia-studio/app/__tests__/oa/cycle/ckcReferenceManifest.test.ts`
+10. `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.test.ts`
+11. `projects/sfia-studio/app/__tests__/oa/cycle/ckcConsumptionProof.test.ts`
+12. `projects/sfia-studio/app/__tests__/oa/cycle/ckcQualificationResolver.qa.test.ts`
+13. `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts`
+
+## Gel du package
+
+Confirmé avant, pendant et après validations: 13 fichiers, hashes identiques, staged vide, aucune mutation versionnée.
+
+## Résultats techniques
+
+| Contrôle | Résultat |
+|---|---|
+| catalogProjection.qa | 37/37 PASS |
+| D2-B ciblés | 26/26 PASS |
+| D2-A | 86/86 PASS |
+| oa/cycle | 206/206 PASS |
+| typecheck | PASS |
+| lint (sans --fix) | PASS |
+| suite complète | 939/939 PASS |
+| build | PASS |
+| git diff --check | PASS |
+
+## Audit failure policy
+
+Les documents 16–19 exigent des événements minimaux mais **ne définissent pas** fail-closed vs best-effort si `CycleAuditPort.append` lève.
+Comportement observé: throw non contrôlé au `resolution_started` (hors try) avec message non sanitizé.
+→ **MORRIS ARBITRATION REQUIRED** + finding F-QA-04 MAJOR.
+
+## Probes QA
+
+Exécutées via `vite-node` (Vitest include limité à `__tests__/**` — limite de campagne, contournée sans modifier la config projet).
+
+```
+[PROBE] P1_foreign_entry: RESOLVER_ACCEPTS | validatorUnknown=true
+[PROBE] P2_missing_nonselected: RESOLVER_ACCEPTS | validatorMissing=true
+[PROBE] P3_duplicate_find: RESOLVER_ACCEPTS_FIRST | validatorDuplicate=true; status=resolved_detailed
+[PROBE] P4_non_iso_resolvedAt: ACCEPTS
+[PROBE] P5_fallback_no_disclosure: PROOF_ACCEPTS_CONSUMED_TRUE
+[PROBE] P6_nonfallback_with_disclosure: PROOF_ACCEPTS
+[PROBE] P7_incoherent_fallbackPolicy: PROOF_ACCEPTS
+[PROBE] P8_audit_throw_started: UNCONTROLLED_THROW | /Users/secret/path.md should not leak
+[PROBE] P9_invalid_metadata_nonselected: RESOLVER_ACCEPTS | validatorInvalid=true
+[PROBE] P10_reorder_determinism: EQUAL
+
+PROBE_SUMMARY_JSON=[
+  {
+    "id": "P1_foreign_entry",
+    "observed": "RESOLVER_ACCEPTS",
+    "detail": "validatorUnknown=true"
+  },
+  {
+    "id": "P2_missing_nonselected",
+    "observed": "RESOLVER_ACCEPTS",
+    "detail": "validatorMissing=true"
+  },
+  {
+    "id": "P3_duplicate_find",
+    "observed": "RESOLVER_ACCEPTS_FIRST",
+    "detail": "validatorDuplicate=true; status=resolved_detailed"
+  },
+  {
+    "id": "P4_non_iso_resolvedAt",
+    "observed": "ACCEPTS"
+  },
+  {
+    "id": "P5_fallback_no_disclosure",
+    "observed": "PROOF_ACCEPTS_CONSUMED_TRUE"
+  },
+  {
+    "id": "P6_nonfallback_with_disclosure",
+    "observed": "PROOF_ACCEPTS"
+  },
+  {
+    "id": "P7_incoherent_fallbackPolicy",
+    "observed": "PROOF_ACCEPTS"
+  },
+  {
+    "id": "P8_audit_throw_started",
+    "observed": "UNCONTROLLED_THROW",
+    "detail": "/Users/secret/path.md should not leak"
+  },
+  {
+    "id": "P9_invalid_metadata_nonselected",
+    "observed": "RESOLVER_ACCEPTS",
+    "detail": "validatorInvalid=true"
+  },
+  {
+    "id": "P10_reorder_determinism",
+    "observed": "EQUAL"
+  }
+]
+
+```
+
+## Findings
+
+# Findings QA — V3.1-D2-B
+
+## F-QA-01 — MAJOR — Disclosure fallback absente mais consumed=true
+- Preuve: probe P5 `PROOF_ACCEPTS_CONSUMED_TRUE`
+- Code: `ckcConsumptionProof.ts` `isProjectionConsistent` n'exige pas `CKC_FALLBACK_USED` pour `resolved_fallback_synthetic`
+- Contrat: doc 16 AC-D2-FD-03 / matrice QA BL-D2-B-05
+
+## F-QA-02 — MAJOR — Disclosure fallback acceptée hors fallback
+- Preuve: probe P6 `PROOF_ACCEPTS`
+- Code: disclosures copiées sans contrôle de cohérence statut/disclosure
+
+## F-QA-03 — MAJOR — fallbackPolicy incohérente acceptée par la preuve
+- Preuve: probe P7 `PROOF_ACCEPTS`
+- Code: aucune comparaison `resolution.fallbackPolicy` ↔ mapping projeté
+
+## F-QA-04 — MAJOR — Exception audit non contrôlée + fuite possible de message
+- Preuve: probe P8 `UNCONTROLLED_THROW` avec message contenant `/Users/secret/path.md`
+- Code: `resolution_started` émis hors `try` (`ckcQualificationResolver.ts` L136 avant L138)
+- Politique audit: **non définie** dans docs 16–19 → MORRIS ARBITRATION REQUIRED sur fail-closed vs best-effort ; comportement actuel = throw non encapsulé
+
+## F-QA-05 — MAJOR — Manifest globalement incohérent accepté par le resolver
+- Preuves: P1 foreign ACCEPTS, P2 missing ACCEPTS, P3 duplicate ACCEPTS_FIRST, P9 invalid metadata non-selected ACCEPTS
+- Code: `validateCkcReferenceManifest` n'est jamais appelé par `CkcQualificationResolver.resolve` ; lookup via `Array.find`
+- Le validateur détecte correctement ; le resolver ne le consomme pas
+- Note: allowlist des références sélectionnées utilise le manifest canonique, donc une référence primaire arbitraire reste bloquée ; le trou concerne les manifests injectés globalement incohérents
+
+## F-QA-06 — MAJOR — resolvedAt déclaré ISO non validé
+- Preuve: P4 `ACCEPTS` pour `not-an-iso-timestamp`
+- Code: seul `resolvedAt.trim()` est vérifié
+- Contrat port Delivery: `resolvedAt : string ISO`
+
+## Mineurs / réserves
+- M-QA-01 MINOR: déterminisme OK sous réordonnancement (P10 EQUAL)
+- M-QA-02 MINOR: Vitest include limité à `__tests__/**` — probes exécutées via vite-node temporaire
+- Les parcours nominaux Delivery + tests versionnés restent verts ; les gaps portent sur invariants de pureté/proof et composition injectée
+
+
+## Story matrix
+
+# Matrice story BL-D2-B-01…06
+
+## BL-D2-B-01 Manifest
+- Canonical 5 refs / 4 detailed / 1 synthetic: OUI (code+tests)
+- Validator pure: OUI (`validateCkcReferenceManifest`)
+- Consommation runtime par resolver: NON → F-QA-05
+- Gel Object.freeze: OUI
+- I/O/Markdown: absents
+
+## BL-D2-B-02 Port
+- Port distinct synchrone: OUI
+- Outcome discriminé sans proof en échec: OUI (tests)
+- Pas de QualifyCycle/CreateCycle: OUI
+
+## BL-D2-B-03 Resolver
+- Detailed/synthetic/fallback nominaux: OUI (tests 26/26)
+- Fail-closed mapping/authority/unavailable: OUI (tests)
+- Manifest injecté global: NON fail-closed → F-QA-05
+- Audit throw: NON contrôlé au start → F-QA-04
+- Déterminisme ordre: OUI (P10)
+
+## BL-D2-B-04 Erreurs/T-A2
+- Codes doc 16: OUI
+- Messages sûrs factory: OUI
+- Enums T-A2 non modifiés: OUI
+- Mapping états: OUI sur chemins resolver
+
+## BL-D2-B-05 Proof
+- Succès nominaux: OUI
+- Mismatches identité: OUI (tests)
+- Disclosure/fallbackPolicy: NON → F-QA-01/02/03
+- consumed=true seulement via builder succès: OUI pour outcome port ; MAIS builder peut accepter résolution artisanale incohérente → F-QA-01
+
+## BL-D2-B-06 Events
+- 6 events additifs + historique: OUI
+- Emission adapter: OUI
+- Audit failure policy: indéfinie → F-QA-04 / arbitrage
+
+
+## Negative matrix
+
+# Matrice négative
+
+| Scénario | Attendu QA | Observé | Sévérité |
+|---|---|---|---|
+| Manifest foreign extra | refuse ou validator consommé | resolver ACCEPTS | MAJOR |
+| Manifest missing non-selected | refuse ou validator consommé | ACCEPTS | MAJOR |
+| Duplicate find | refuse | ACCEPTS first | MAJOR |
+| Non-ISO resolvedAt | refuse si ISO contractuel | ACCEPTS | MAJOR |
+| Fallback proof sans disclosure | refuse | consumed=true | MAJOR |
+| Non-fallback + disclosure | refuse | ACCEPTS | MAJOR |
+| fallbackPolicy incoherent | refuse | ACCEPTS | MAJOR |
+| Audit throw started | fail-closed ou best-effort documenté | UNCONTROLLED_THROW | MAJOR + arbitrage |
+| Invalid metadata non-selected | refuse global | ACCEPTS | MAJOR |
+| Reorder determinism | equal | EQUAL | OK |
+| executionAuthority=true | refuse | refuse (tests) | OK |
+| primary+fallback unavailable | CKC_UNAVAILABLE | OK (tests) | OK |
+| synthetic unavailable | CKC_SYNTHETIC_INVALID | OK (tests) | OK |
+
+
+## Import boundaries
+
+```
+Import boundary scan (production D2-B files):
+QualifyCycle / CreateCycle / MemoryCkcResolver / ResolveCycleKnowledgeContract /
+node:fs / node:crypto / randomBytes / next/ / React / requestedProfile /
+recommendedProfile / qualifyCycleWithCkc / ckcQualificationResult /
+createCkcQualificationServices / createD2 / D2Factory / QualifyCycleBridge /
+readFile / fetch : NO MATCHES in production package files.
+
+Public boundary phase-aware test present and green (37/37).
+D2-A production isolation test unchanged and green.
+
+```
+
+## Claims interdits
+
+- tests verts ≠ absence de bug
+- QA FAIL ≠ correction effectuée
+- package local ≠ PR ready
+- D2-B ≠ D2-C ouvert
+
+## Rollback
+
+Aucun commit. Package inchangé. Aucune mutation à annuler.
+
+## Gate suivant candidat
+
+```
+GO DELIVERY CORRECTIVE SFIA STUDIO V3.1-D2-B CKC RESOLVER —
+ADDRESS ONLY THE CLASSIFIED QA FINDINGS —
+PRESERVE THE VALIDATED D2-B SCOPE UNLESS A DISTINCT MORRIS ARBITRATION IS REQUIRED —
+NO COMMIT —
+NO PUSH —
+NO PR —
+NO D2-C —
+NO D2-D —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION
+```
+
 ## Verdict
 
 ```
-V3.1-D2-B CKC RESOLVER CORRECTIVE DELIVERY COMPLETE —
-STALE D2-A PUBLIC-BOUNDARY REGRESSION GUARD UPDATED —
-D2-A PRODUCTION ISOLATION ASSERTIONS PRESERVED —
-ADOPTED D2-B PUBLIC EXPORTS EXPLICITLY ALLOWED —
-D2-C COMPOSITION REMAINS FORBIDDEN —
-ORIGINAL D2-B IMPLEMENTATION DIFF PRESERVED —
-THIRTEEN-FILE PACKAGE VERIFIED —
-D2-B TARGETED TESTS PASS —
-D2-A REGRESSIONS PASS —
-OA/CYCLE TESTS PASS —
-TYPECHECK PASS —
-LINT PASS —
-FULL TEST SUITE PASS —
-BUILD PASS —
-READY FOR DISTINCT QA VALIDATION GATE —
+V3.1-D2-B CKC RESOLVER QA FAIL —
+BLOCKING OR MAJOR QA FINDINGS DETECTED —
+PACKAGE NOT ELIGIBLE FOR PR READINESS —
+RETURN TO DISTINCT DELIVERY CORRECTIVE GATE —
+NO PROJECT CORRECTION EXECUTED —
 NO COMMIT —
 NO PUSH —
 NO PR —
@@ -296,7 +320,7 @@ NO METHOD PROMOTION
 
 ---
 
-# Contenu complet des neuf fichiers D2-B créés
+# Contenu complet des neuf fichiers créés
 
 ## `projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts`
 
@@ -1913,9 +1937,9 @@ index 06c1b12..fa3875b 100644
 
 ---
 
-# Contenu complet post-correction des fichiers modifiés (sections utiles)
+# Contenu complet des quatre fichiers modifiés
 
-## `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts` (fichier complet)
+## `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts`
 
 ```typescript
 import type {
@@ -2033,7 +2057,7 @@ export type CkcQualificationResolution = {
 };
 ```
 
-## `projects/sfia-studio/app/lib/oa/cycle/index.ts` (fichier complet)
+## `projects/sfia-studio/app/lib/oa/cycle/index.ts`
 
 ```typescript
 /**
@@ -2221,7 +2245,7 @@ export function createTestCycleServices(
 }
 ```
 
-## `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts` (fichier complet)
+## `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
 
 ```typescript
 /**
@@ -2335,7 +2359,7 @@ export interface CycleAuditPort {
 }
 ```
 
-## `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts` (fichier complet)
+## `projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts`
 
 ```typescript
 /**
@@ -3019,11 +3043,10 @@ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
 
 ---
 
-# Extraits de logs de validation
-
-## Corrective QA
+# Logs validations (extrait)
 
 ```
+=== 1 catalogProjection.qa ===
 
 > sfia-studio@0.1.0 test
 > vitest run __tests__/oa/cycle/catalogProjection.qa.test.ts
@@ -3035,132 +3058,68 @@ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
 
  Test Files  1 passed (1)
       Tests  37 passed (37)
-   Start at  22:21:13
-   Duration  354ms (transform 93ms, setup 49ms, collect 130ms, tests 7ms, environment 0ms, prepare 34ms)
+   Start at  22:48:32
+   Duration  363ms (transform 94ms, setup 50ms, collect 126ms, tests 7ms, environment 0ms, prepare 39ms)
 
-```
-
-## D2-B
-
-```
-
-> sfia-studio@0.1.0 test
+=== 2 D2-B ===
 > vitest run __tests__/oa/cycle/ckcReferenceManifest.test.ts __tests__/oa/cycle/ckcQualificationResolver.test.ts __tests__/oa/cycle/ckcConsumptionProof.test.ts __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts
 
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
 
  ✓ __tests__/oa/cycle/ckcReferenceManifest.test.ts (5 tests) 2ms
- ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (5 tests) 3ms
  ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (6 tests) 3ms
+ ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (5 tests) 3ms
  ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (10 tests) 3ms
 
  Test Files  4 passed (4)
       Tests  26 passed (26)
-   Start at  22:21:16
-   Duration  300ms (transform 129ms, setup 105ms, collect 512ms, tests 10ms, environment 0ms, prepare 115ms)
+   Start at  22:48:33
+   Duration  301ms (transform 123ms, setup 107ms, collect 512ms, tests 10ms, environment 0ms, prepare 109ms)
 
-```
-
-## D2-A
-
-```
-
-> sfia-studio@0.1.0 test
+=== 3 D2-A ===
 > vitest run __tests__/oa/cycle/catalogFingerprint.test.ts __tests__/oa/cycle/catalogFingerprint.qa.test.ts __tests__/oa/cycle/catalogProjection.test.ts __tests__/oa/cycle/catalogProjection.qa.test.ts
 
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
 
- ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 3ms
- ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 4ms
- ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 4ms
+ ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 4ms
+ ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 3ms
+ ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 5ms
  ✓ __tests__/oa/cycle/catalogProjection.qa.test.ts (37 tests) 10ms
 
  Test Files  4 passed (4)
       Tests  86 passed (86)
-   Start at  22:21:17
-   Duration  480ms (transform 248ms, setup 108ms, collect 1.16s, tests 22ms, environment 0ms, prepare 145ms)
+   Start at  22:48:33
+   Duration  327ms (transform 151ms, setup 110ms, collect 578ms, tests 22ms, environment 0ms, prepare 122ms)
 
-```
-
-## oa/cycle
-
-```
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/oa/cycle
-
-
+=== 4 oa/cycle ===
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/projects/sfia-studio/app
 
- ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 8ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (10 tests) 4ms
- ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 4ms
+ ✓ __tests__/oa/cycle/antiLegacy.test.ts (4 tests) 7ms
  ✓ __tests__/oa/cycle/catalogFingerprint.test.ts (8 tests) 5ms
- ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 6ms
+ ✓ __tests__/oa/cycle/catalogProjection.test.ts (16 tests) 4ms
+ ✓ __tests__/oa/cycle/ckcQualificationResolver.test.ts (10 tests) 4ms
  ✓ __tests__/oa/cycle/cycleTypeCatalog.test.ts (46 tests) 12ms
- ✓ __tests__/oa/cycle/catalogProjection.qa.test.ts (37 tests) 20ms
- ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (6 tests) 5ms
- ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 164ms
- ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 161ms
- ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (5 tests) 3ms
- ✓ __tests__/oa/cycle/ckcReferenceManifest.test.ts (5 tests) 3ms
+ ✓ __tests__/oa/cycle/catalogProjection.qa.test.ts (37 tests) 16ms
+ ✓ __tests__/oa/cycle/catalogFingerprint.qa.test.ts (25 tests) 16ms
+ ✓ __tests__/oa/cycle/ckcQualificationResolver.qa.test.ts (6 tests) 7ms
+ ✓ __tests__/oa/cycle/adversarialValidation.test.ts (22 tests) 111ms
+ ✓ __tests__/oa/cycle/cycleTrajectoryEpistemicCkc.test.ts (22 tests) 165ms
+ ✓ __tests__/oa/cycle/ckcReferenceManifest.test.ts (5 tests) 2ms
+ ✓ __tests__/oa/cycle/ckcConsumptionProof.test.ts (5 tests) 2ms
 
  Test Files  12 passed (12)
       Tests  206 passed (206)
-   Start at  22:21:21
-   Duration  635ms (transform 356ms, setup 384ms, collect 2.05s, tests 394ms, environment 1ms, prepare 459ms)
+   Start at  22:48:34
+   Duration  639ms (transform 415ms, setup 521ms, collect 1.80s, tests 349ms, environment 1ms, prepare 482ms)
 
-```
-
-## suite complète
-
-```
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > analyze-only and cancel produce no mutation
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T20:21:31.578Z","status":"ANALYZE_ONLY","sessionLocalId":"s6","proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_analyze_only_completed","ts":"2026-08-02T20:21:31.578Z","status":"NO_MUTATION","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T20:21:31.578Z","status":"CANCEL","sessionLocalId":"s6","proposalId":"rrp-6"}
-[d1.intake] {"event":"intake_confirmation_cancelled","ts":"2026-08-02T20:21:31.578Z","status":"CANCELLED","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
-
-stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > missing existing project returns CONFLICT
-[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T20:21:31.582Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s7","proposalId":"rrp-7"}
-[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-08-02T20:21:31.582Z","status":"NOT_FOUND","projectId":"proj-missing-does-not-exist","sessionLocalId":"s7","durationMs":0,"errorCode":"NOT_FOUND","proposalId":"rrp-7"}
-
- ✓ __tests__/d1/intake-c4.test.ts (10 tests) 34ms
- ✓ __tests__/status-pill.test.tsx (1 test) 13ms
- ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 14ms
- ✓ __tests__/ops1/domain.test.ts (6 tests) 3ms
- ✓ __tests__/fixtures.test.ts (2 tests) 3ms
- ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 1ms
- ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 2878ms
-   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1670ms
- ✓ __tests__/ops1/executionI6.test.ts (10 tests) 2831ms
-   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  573ms
-   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  625ms
-   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  384ms
-   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  301ms
-   ✓ ops1 I6 report + continuation > stores redacted refusal reasons on sealed report  301ms
-
- Test Files  98 passed (98)
-      Tests  939 passed (939)
-   Start at  22:21:25
-   Duration  7.03s (transform 2.75s, setup 3.41s, collect 12.16s, tests 18.59s, environment 5.74s, prepare 4.02s)
-
-```
-
-## typecheck
-
-```
+=== 5 typecheck ===
 
 > sfia-studio@0.1.0 typecheck
 > tsc --noEmit
 
-```
-
-## lint
-
-```
+=== 6 lint ===
 
 > sfia-studio@0.1.0 lint
 > next lint
@@ -3171,11 +3130,43 @@ For existing projects, migrate to the ESLint CLI:
 npx @next/codemod@canary next-lint-to-eslint-cli .
 
 ✔ No ESLint warnings or errors
-```
+=== 7 full suite ===
+ ✓ __tests__/d1/project-foundation.test.ts (7 tests) 23ms
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > missing existing project returns CONFLICT
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-08-02T20:48:52.920Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s7","proposalId":"rrp-7"}
+[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-08-02T20:48:52.920Z","status":"NOT_FOUND","projectId":"proj-missing-does-not-exist","sessionLocalId":"s7","durationMs":1,"errorCode":"NOT_FOUND","proposalId":"rrp-7"}
 
-## build
+ ✓ __tests__/d1/intake-c4.test.ts (10 tests) 41ms
+ ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 17ms
+ ✓ __tests__/ops1/domain.test.ts (6 tests) 2ms
+ ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 2ms
+ ✓ __tests__/fixtures.test.ts (2 tests) 3ms
+ ✓ __tests__/status-pill.test.tsx (1 test) 16ms
+ ✓ __tests__/ops1/executionI6.test.ts (10 tests) 2960ms
+   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  624ms
+   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  631ms
+   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  461ms
+   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  309ms
+   ✓ ops1 I6 report + continuation > stores redacted refusal reasons on sealed report  308ms
+ ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 3088ms
+   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1870ms
 
-```
+ Test Files  98 passed (98)
+      Tests  939 passed (939)
+   Start at  22:48:46
+   Duration  7.14s (transform 2.81s, setup 3.45s, collect 12.29s, tests 19.06s, environment 6.16s, prepare 3.87s)
+
+=== 8 build ===
+
+> sfia-studio@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.20
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 948ms
+   Linting and checking validity of types ...
+   Collecting page data ...
    Generating static pages (0/10) ...
    Generating static pages (2/10)
    Generating static pages (4/10)
@@ -3206,6 +3197,7 @@ Route (app)                                 Size  First Load JS
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 
+
 ```
 
 ---
@@ -3217,18 +3209,20 @@ BRANCH=delivery/sfia-studio-v3-1-d2-b-ckc-resolver
 HEAD=bb685f1205b33f887ee27b42ac918c96386a6e33
 MAIN=bb685f1205b33f887ee27b42ac918c96386a6e33
 ORIGIN_MAIN=bb685f1205b33f887ee27b42ac918c96386a6e33
-MAIN_DIV=0/0
+DIV=0/0
 UPSTREAM=<none>
 REMOTE_D2B=absent
 STAGED=empty
-INITIAL_FULL_DIFF_SHA256=61384b040499d937f04cab94c385d2668ee4e7b00f3f3401dd8302d243b44be9
+FILE_COUNT=13
 D2B_ORIGINAL_12_FILES_CONTENT_SHA256=e904b0d8ee0ed714f95043a4ffcf72e401a6400187f32969b7b9a76777dca3a3
 FULL_13_FILES_DIFF_SHA256=3379ac64a4d093577de7de2c562338c9d140fea958030396bb7f980e6683070b
-GIT_DIFF_SHA256_POST=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
-HANDOFF_PRE_TIP=605cacb5c0eaa53bbe2038b981934b2b63f8a457
-HANDOFF_PRE_BLOB=4683014a05343b1b671422ef3fc92b7d98c8cf09
-FILE_COUNT_INITIAL=12
-FILE_COUNT_FINAL=13
-DIFF_CHECK=PASS
-PROTECTED_DIFF_BYTES=0
+GIT_DIFF_SHA256=c6bd46e6c0cc38de1aaa61c048269f064832c0e4c768bcdda2f0a9724caf21f5
+HASH_METHODS=documented corrective inventory (sorted content sha for 12; git diff of 4 modified + BEGIN/END cat of 9 untracked for 13; git diff for tracked)
+PACKAGE_FROZEN_THROUGH_QA=yes
+HANDOFF_PRE_TIP=24d42a5017a445f741b9490de601896378899ba8
+HANDOFF_PRE_BLOB=e09bdbd7d140b64afadcc92ce21b5de029ebaf4b
+PACKAGE_MUTATION=no
+PROJECT_COMMIT=no
+PROJECT_PUSH=no
+PROJECT_PR=no
 ```
