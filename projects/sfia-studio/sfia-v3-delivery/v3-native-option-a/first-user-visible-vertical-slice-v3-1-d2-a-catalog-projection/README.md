@@ -10,9 +10,10 @@
 | Typologie | EVOL |
 | Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
 | Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| Statut | `V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION` |
-| Merge | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| Post-merge | cycle 14 validé · PR readiness corrective PASS · clôture documentaire pending final main integration |
+| Statut | `V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD` |
+| Merge product | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Documentary closure merge | PR #299 · `983cef38c972ef1646166669613e680efba8f487` |
+| Post-merge | cycle 14 final validé · main CI `30759197858` SUCCESS · branches préservées · final status update local |
 
 Le profil Standard est proportionné à un diff de fonctions de domaine pures,
 types readonly, constante statique et tests, sans resolver, infrastructure,
@@ -306,14 +307,19 @@ Les quatre sont mineures/résiduelles et **non bloquantes** pour l’intégratio
 
 ### Z.6 Statut post-merge
 
-`V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION`
+`V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN —
+POST-MERGE VALIDATED —
+RESERVES CARRIED FORWARD`
 
 ### Z.7 Publication documentaire
 
 - Quatre fichiers vivants modifiés localement sur `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` ;
-- Le cycle post-merge n’a exécuté aucun commit, push ou PR projet.
-- La clôture documentaire demeure non intégrée à main jusqu’au merge d’une PR distincte.
-- La publication de branche, la draft PR, la merge readiness et le merge restent gouvernés par des gates Morris distincts.
+- Le premier cycle post-merge n’a exécuté aucun commit, push ou PR projet.
+- Les quatre documents ont ensuite été publiés via la PR [#299](https://github.com/mcleland147/sfia-workspace/pull/299).
+- La PR #299 a été mergée par merge commit `983cef38c972ef1646166669613e680efba8f487`.
+- La clôture documentaire est désormais intégrée à main.
+- Le run main `30759197858` est SUCCESS.
+- Le présent cycle final n’exécute aucun commit, push ou PR.
 
 ### Z.8 PR readiness corrective
 
@@ -328,3 +334,22 @@ Les quatre sont mineures/résiduelles et **non bloquantes** pour l’intégratio
 - D3 fermé.
 - Aucun commit, push ou PR projet dans le cycle correctif.
 - Publication soumise à un gate Morris distinct.
+
+### Z.9 Merge et post-merge de la clôture documentaire
+
+- Date/heure/fuseau : 2026-08-02 19:51:05 CEST (+0200).
+- PR #299 MERGED.
+- Commit documentaire `99e55d4ff05af66445f2522f85910faebceaded4`.
+- Merge commit `983cef38c972ef1646166669613e680efba8f487`.
+- Parents : `a804f29df3015fe0c71213d09b95159f04065dfc` · `99e55d4ff05af66445f2522f85910faebceaded4`.
+- Quatre fichiers · +140/−30.
+- Run PR `30757998482` SUCCESS.
+- Run main `30759197858` SUCCESS.
+- Required Gate SUCCESS.
+- R-MR-PM-D2A-01 CLOSED.
+- Branches post-merge et Delivery préservées.
+- Findings fermés : R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01…03 · R-MR-PM-D2A-01.
+- Réserves conservées : R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED.
+- D2-B/C fermés · D2-D gated · D3 fermé.
+- Aucun commit, push ou PR dans le présent cycle final.
+- Statut : `V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD`.

@@ -2,21 +2,24 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION` |
-| **Date** | 2026-08-02 18:51:10 CEST (+0200) |
-| **Cycle courant** | 13 — PR readiness corrective V3.1-D2-A documentary closure |
+| **Statut** | `FRAMING LIVING — V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD` |
+| **Date** | 2026-08-02 19:51:05 CEST (+0200) |
+| **Cycle courant** | 14 — Post-merge final V3.1-D2-A documentary closure |
 | **Profil** | **Standard** |
 | **Typologie** | DOC |
-| **Gate courant** | GO PR READINESS CORRECTIVE consommé le 2026-08-02 18:41 CEST (+0200) |
-| **Branche post-merge** | `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` |
-| **Merge** | PR #298 · merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| **main** | `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| **Gate courant** | GO POST-MERGE consommé le 2026-08-02 19:43 CEST (+0200) |
+| **Product merge** | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| **Documentary closure merge** | PR #299 · `983cef38c972ef1646166669613e680efba8f487` |
+| **main** | `983cef38c972ef1646166669613e680efba8f487` |
+| **Post-merge branch** | conservée sur `99e55d4ff05af66445f2522f85910faebceaded4` |
 | **Delivery branch** | conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+| **Main CI** | run `30759197858` SUCCESS · Required Gate SUCCESS |
 | **QA-G3 D2-A** | **ACCEPTED BY MORRIS** |
-| **Package** | 20 fichiers intégrés |
-| **D2-B** | **fermé** — intégration D2-A satisfaite techniquement, mais aucun GO Delivery D2-B consommé |
+| **Package** | 20 fichiers produit + 4 fichiers clôture documentaire intégrés |
+| **Documentation** | **COMPLETE ON MAIN** |
+| **D2-B** | **fermé** — aucun GO Delivery consommé |
 | **D2-C** | **fermé** |
-| **D2-D** | **gated** |
+| **D2-D** | **gated** / non ouvert |
 | **D3** | **fermé** |
 | **Réserves** | R-PR-D2A-01…03 résiduelles mineures ; INHERITED-R-01 NOT LIFTED |
 | **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
@@ -30,11 +33,15 @@
 | **D2-A Delivery → QA → correctif → revalidation** | complets · R-QA-D2A-01 CLOSED |
 | **QA-G3** | **ACCEPTED BY MORRIS** |
 | **PR #298** | **MERGED** |
-| **CI** | **SUCCESS** |
-| **Post-merge** | **VALIDATED** |
-| **Documentation** | **PENDING FINAL MAIN INTEGRATION** |
-| **PR readiness corrective** | **PASS LOCALLY — R-PR-PM-D2A-01…03 CLOSED** |
+| **Product CI** | **SUCCESS** |
+| **Product post-merge** | **VALIDATED** |
+| **PR #299** | **MERGED** |
+| **Documentary main CI** | **SUCCESS** (`30759197858`) |
+| **Documentation** | **COMPLETE ON MAIN** |
+| **R-MR-PM-D2A-01** | **CLOSED** |
+| **Réserves** | **carried forward** |
 | Delivery D2-B/C | **fermées** |
+| D2-D | **gated** |
 | D3 | **fermé** |
 
 **INHERITED-R-01 (README) :** condensation framing — **ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
@@ -42,17 +49,19 @@
 ## Gate candidat suivant
 
 ```text
-GO MERGE READINESS SFIA STUDIO V3.1-D2-A POST-MERGE DOCUMENTARY CLOSURE —
-REVIEW FINAL DRAFT PR HEAD, FOUR-FILE PACKAGE, REMOTE CI, FINDINGS, RESERVES AND MERGE CONDITIONS —
-NO MERGE —
-PRESERVE DELIVERY BRANCH —
-NO BRANCH DELETION —
-NO D2-B —
-NO D2-C —
-NO D3 —
-NO METHOD PROMOTION
+NO AUTOMATIC NEXT CYCLE —
+D2-B AND D2-C REMAIN CLOSED —
+D2-D REMAINS GATED —
+D3 REMAINS CLOSED —
+ANY NEW DELIVERY OR METHOD CYCLE REQUIRES A DISTINCT MORRIS GO
 ```
 
 ## Verdict
 
-`V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION`
+`V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN —
+POST-MERGE VALIDATED —
+RESERVES CARRIED FORWARD —
+NO D2-B —
+NO D2-C —
+D2-D GATED —
+NO D3`
