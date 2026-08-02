@@ -1,25 +1,20 @@
-# ChatGPT Review Handoff — SFIA Studio V3.1-D2-A CI Corrective
+# ChatGPT Review Handoff — SFIA Studio V3.1-D2-A Merge Readiness
 
 ## Review level
 Full
 
 ## Date / time / timezone
-2026-08-02 15:07:07 CEST (+0200)
+2026-08-02 15:21:05 CEST (+0200)
 
 ## Role
-Cursor execution agent for Critical CI corrective cycle.
+Cursor — read-only merge readiness reviewer. Only authorized remote mutation: review-handoff publish.
 
 ## Gate Morris (consumed)
 ```
-GO CI CORRECTIVE SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
-REMOVE ONLY THE THREE TRAILING WHITESPACE OCCURRENCES REPORTED BY CI IN FRAMING 15 —
-PRESERVE CONTENT SEMANTICS AND TWENTY-FILE SCOPE —
-ADD ONE CORRECTIVE COMMIT —
-PUSH TO EXISTING BRANCH AND PR #298 —
-VERIFY REMOTE CI —
-NO AMEND —
-NO FORCE PUSH —
+GO MERGE READINESS SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+REVIEW PR #298 FINAL HEAD, THREE COMMITS, TWENTY FILES, REMOTE CI, RESERVES AND MERGE CONDITIONS —
 NO MERGE —
+NO BRANCH DELETION —
 NO D2-B —
 NO D2-C —
 NO D3 —
@@ -27,287 +22,52 @@ NO UI —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
-GO timestamp: 2026-08-02 14:56 CEST (+0200)
+GO timestamp: 2026-08-02 15:15 CEST (+0200)
 
 ## Cycle / profile / typology
-- Project cycle: **7 — Intégration / DevOps**
-- Subtype: **CI corrective**
+- Project cycle: **13 — PR readiness**
+- Subtype: **Merge readiness**
 - SFIA profile: **Critical**
-- Typology: **RUN**
-- Justification: remote branch/PR mutation + third commit + required gate + twenty-file scope preservation; CI green ≠ merge authority.
-- CKC: researched; detailed absent; fallback synthetic map; method-candidate; no execution authority.
+- Typology: **EVOL**
+- Justification: pre-merge decision over public catalog-selection contract + HASH-A + fail-closed projection + QA history + CI corrective + prospective D2-B/C framing; Critical does not authorize merge.
+- CKC: researched; detailed absent; fallback synthetic map + method §4.13; method-candidate; no execution authority.
 - Canonical template: `prompts/templates/sfia-cycle-execution-template.md` (guidance only).
 
 ## Initial Git Truth
 - Workspace: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge`
 - Branch: `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection`
-- HEAD = origin/Delivery = `b41173669be74e35620f9c1889d3bef0189bcac7`
+- HEAD = origin/Delivery = `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
 - main = origin/main = `e1befcb80ed5e3c789a7de9036a8207d6b3e6771`
-- Divergence main 0/0; Delivery 0/0
+- Divergence main...origin/main: 0/0
+- Divergence HEAD...origin/Delivery: 0/0
+- Divergence origin/main...HEAD: 0 behind / 3 ahead
+- merge-base(origin/main, HEAD) = origin/main
 - Staged empty; project clean except `.tmp-sfia-review`
-- Package `main...HEAD`: exactly 20 files
-- Handoff tip: `f7cca0001ce2115fa4d3dd97b6cbe65219bc679a`
-- Handoff blob: `39920afc9ca8762b0e0d032efdba815f486f7f9b`
+- `git diff --check origin/main...HEAD` PASS
+- Handoff tip: `29ec96647da11a1e41fa6ac77c02c0068828ecfc`
+- Handoff blob: `f814226976aa43b9af6d13b07ca7885277ce042c`
+- CI corrective review preserved: `.tmp-sfia-review/v3-1-d2-a-ci-corrective-chatgpt-review-preserved.md`
 
-## Handoff source
-Previous publication handoff tip/blob above.
-Publication review pack preserved at `.tmp-sfia-review/v3-1-d2-a-publication-chatgpt-review-preserved.md`.
-
-## PR #298 before correction
+## PR #298
 - URL: https://github.com/mcleland147/sfia-workspace/pull/298
-- state OPEN · isDraft true · base main · head Delivery
-- headRefOid `b41173669be74e35620f9c1889d3bef0189bcac7`
-- commits 2 · files 20 · mergedAt null
-- statusCheckRollup: Detect SUCCESS; Build FAILURE; Required Gate FAILURE
+- Title: feat(sfia-studio): add V3.1-D2-A catalog projection contract
+- state OPEN · isDraft true · mergedAt null
+- base: main / `e1befcb80ed5e3c789a7de9036a8207d6b3e6771`
+- head: delivery/... / `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
+- mergeable: MERGEABLE
+- mergeStateStatus: CLEAN
+- reviewDecision: (empty)
+- reviewRequests: []
+- autoMergeRequest: null
+- maintainerCanModify: False
 
-## Source CI failure
-- Workflow: SFIA Studio CI
-- Run: `30748438785` — https://github.com/mcleland147/sfia-workspace/actions/runs/30748438785
-- headSha: `b41173669be74e35620f9c1889d3bef0189bcac7`
-- Job Build and validate SFIA Studio failed solely at **Trailing whitespace check**
-- Prior green steps: Install, Typecheck, Lint, Build, Unit tests Vitest, Modeled governance tests, Secret pattern scan
-- Required gate failed by aggregation
+## Three commits
+1. `4911168b5b5fe80f36f45958b39cc27e516b63f5` feat(sfia-studio): add V3.1-D2-A catalog projection contract — parent `e1befcb…` — **8** code/test files
+2. `b41173669be74e35620f9c1889d3bef0189bcac7` docs(sfia-studio): document V3.1-D2 architecture and QA evidence — parent `4911168…` — **12** docs
+3. `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` docs(sfia-studio): fix D2 framing trailing whitespace — parent `b411736…` — **1** file, numstat 3/3 whitespace-only
+Order and parents verified; no history rewrite.
 
-## Finding R-CI-D2A-01
-- Nature: three trailing whitespace occurrences in framing doc 15
-- Severity: BLOCKING for CI / merge readiness
-- Pre-cycle status: OPEN
-- Authorized file: `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md`
-- Pre-fix blob: `c09f234c8257355f64fcab5c6405a3595a54e5ff`
-- Pre-fix sha256: `534904ea71555d89388c03a72ef84418ea4ce6a1c67cbbb6c7a03a0f559bb9bc`
-
-### Exact occurrences before correction
-1. Line 232 — `| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références |` + **1 trailing space**
-2. Line 242 — `Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).` + **2 trailing spaces**
-3. Line 299 — `**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**` + **2 trailing spaces**
-`git diff --check main...HEAD` reported **only** these three lines in this single file.
-
-### Context excerpt (lines 225–305; trailing annotated, not literal)
-```
-225|
-226|## L. Consommation CKC
-227|
-228|### Distinctions obligatoires
-229|
-230|| Concept | Définition cadrage |
-231||---------|-------------------|
-232|| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références |  <TRAILING_BLANK x1>
-233|| **Référence résolue** | Statut `resolved_*` avec source utilisée |
-234|| **Résolution valide** | Statut resolved + invariants (`executionAuthority=false`, chemins non vides, cohérence level) |
-235|| **Guidance consommée** | Le résultat D2 **porte** explicitement le contexte CKC résolu (ids, level, source, fallbackUsed, doctrineStatus) dans le payload exploitable |
-236|| **Preuve de consommation** | Champ structuré `ckcConsumptionProof` : `{ catalogVersion, cycleTypeId, resolutionStatus, sourceRef, fallbackUsed, resolvedAt, correlationId }` |
-237|| **QualifyCycle exploitable** | Profil produit **uniquement si** résolution valide **et** six signaux complets |
-238|| **Exécution autorisée** | **Jamais** par D2 / CKC / QualifyCycle |
-239|
-240|### Règle produit candidate (doc 13)
-241|
-242|Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).  <TRAILING_BLANK x2>
-243|Cela **ne** reprend **pas** la sémantique CreateCycle T-A2 (« absent n’bloque pas la création ») — CreateCycle reste hors V3.1-D2.
-244|
-245|### Confirmation d’autorité
-246|
-247|- Consommer un CKC ≠ accorder une autorité.
-248|- QualifyCycle reste une recommandation.
-249|- D2 ne consomme aucun gate Morris.
-250|- CKC invalide/indisponible → résultat produit **non exploitable** (fail-closed) selon le contrat adopté.
-251|
-252|## M. Bridge QualifyCycle
-253|
-254|### Flux candidat
-255|
-256|```text
-257|catalogue D1
-258|  → validate cycleTypeId
-259|  → resolver CKC (+ validation résolution)
-260|  → si résolution invalide : stop exploitabilité (codes §O)
-261|  → six signaux explicites complets
-262|  → QualifyCycle (domaine T-A2 inchangé)
-263|  → résultat read-only enrichi + preuve consommation CKC
-264|```
-265|
-266|### Responsabilités du bridge
-267|
-268|| Fait | Ne fait pas |
-269||------|-------------|
-270|| Orchestre l’ordre catalogue → CKC → QualifyCycle | Dupliquer `recommendProfile` / invariants T-A2 |
-271|| Enrichit le résultat avec état CKC + preuve | Créer une instance / persister |
-272|| Applique fail-closed d’exploitabilité produit | Recommander le type |
-273|| Passe `cycleTypeId` comme hint capitalization | Exposer `requestedProfile` (sauf décision contraire) |
-274|
-275|### Données vers QualifyCycle
-276|
-277|- `signals` (six booléens explicites)
-278|- `cycleTypeId` (hint capitalization)
-279|- éventuellement `objective`/`scope` **non scorés**
-280|
-281|### Données hors QualifyCycle (restent au bridge)
-282|
-283|- mapping / résolution / preuve CKC
-284|- version catalogue
-285|- disclosures doctrine
-286|- codes d’erreur CKC
-287|
-288|### Erreurs
-289|
-290|- Erreur CKC → pas d’appel QualifyCycle **ou** appel isolé non exposé comme exploitable (à trancher — recommandation : **ne pas exposer** de profil exploitable).
-291|- Signaux incomplets → refus avant QualifyCycle.
-292|
-293|### Relation D3
-294|
-295|D3 consommera le **même contrat de sortie** ; le bridge ne connaît pas le parcours UI.
-296|
-297|## N. Multi-CKC — options
-298|
-299|**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**  <TRAILING_BLANK x2>
-300|Le multi-CKC n’est **pas** activé ; approche progressive Core-only maintenant.
-301|
-302|### Option D2-CKC-A — Mono-CKC D1 conservé
-303|
-304|- Un CKC principal par type ; fallback de **remplacement** (déjà D1).
-305|- Pas de consommation simultanée d’extensions.
-```
-
-## Corrective change
-- Only trailing space/tab characters removed on the three lines
-- No textual/semantic/punctuation/case/blank-line/EOL-normalization changes
-- Post-fix blob: `ccefe447c70a94a46bb5aaa318a6161af60655d9`
-- Zero other project files modified
-- Exact binary patch retained locally: `.tmp-sfia-review/v3-1-d2-a-ci-corrective-diff.patch`
-- Embedded copy below is whitespace-sanitized for handoff `git diff --check` hygiene.
-
-### Full corrective diff (sanitized for handoff)
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-index c09f234..ccefe44 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-@@ -229,7 +229,7 @@ Sorties candidates d’un résultat D2 read-only :
-
- | Concept | Définition cadrage |
- |---------|-------------------|
--| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références |
-+| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références |
- | **Référence résolue** | Statut `resolved_*` avec source utilisée |
- | **Résolution valide** | Statut resolved + invariants (`executionAuthority=false`, chemins non vides, cohérence level) |
- | **Guidance consommée** | Le résultat D2 **porte** explicitement le contexte CKC résolu (ids, level, source, fallbackUsed, doctrineStatus) dans le payload exploitable |
-@@ -239,7 +239,7 @@ Sorties candidates d’un résultat D2 read-only :
-
- ### Règle produit candidate (doc 13)
-
--Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).
-+Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).
- Cela **ne** reprend **pas** la sémantique CreateCycle T-A2 (« absent n’bloque pas la création ») — CreateCycle reste hors V3.1-D2.
-
- ### Confirmation d’autorité
-@@ -296,7 +296,7 @@ D3 consommera le **même contrat de sortie** ; le bridge ne connaît pas le parc
-
- ## N. Multi-CKC — options
-
--**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**
-+**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**
- Le multi-CKC n’est **pas** activé ; approche progressive Core-only maintenant.
-
- ### Option D2-CKC-A — Mono-CKC D1 conservé
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-index c09f234..ccefe44 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-@@ -229,7 +229,7 @@ Sorties candidates d’un résultat D2 read-only :
-
- | Concept | Définition cadrage |
- |---------|-------------------|
--| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références |
-+| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références |
- | **Référence résolue** | Statut `resolved_*` avec source utilisée |
- | **Résolution valide** | Statut resolved + invariants (`executionAuthority=false`, chemins non vides, cohérence level) |
- | **Guidance consommée** | Le résultat D2 **porte** explicitement le contexte CKC résolu (ids, level, source, fallbackUsed, doctrineStatus) dans le payload exploitable |
-@@ -239,7 +239,7 @@ Sorties candidates d’un résultat D2 read-only :
-
- ### Règle produit candidate (doc 13)
-
--Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).
-+Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).
- Cela **ne** reprend **pas** la sémantique CreateCycle T-A2 (« absent n’bloque pas la création ») — CreateCycle reste hors V3.1-D2.
-
- ### Confirmation d’autorité
-@@ -296,7 +296,7 @@ D3 consommera le **même contrat de sortie** ; le bridge ne connaît pas le parc
-
- ## N. Multi-CKC — options
-
--**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**
-+**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**
- Le multi-CKC n’est **pas** activé ; approche progressive Core-only maintenant.
-
- ### Option D2-CKC-A — Mono-CKC D1 conservé
-
-[ANNOTATION] Pre-fix minus-lines had trailing blanks: L232 x1 space, L242 x2 spaces, L299 x2 spaces. Exact patch: v3-1-d2-a-ci-corrective-diff.patch
-```
-
-## Local validation
-- grep trailing TARGET → no matches
-- `git diff --check` PASS after commit on main...HEAD
-- One file changed; numstat 3/3 on TARGET only
-- LOCAL FUNCTIONAL TESTS NOT RE-RUN — CORRECTION IS DOCUMENTARY WHITESPACE ONLY — TECHNICAL STEPS ALREADY PASSED ON REMOTE CI RUN 30748438785
-
-## Commit proof
-- SHA: `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-- Message: `docs(sfia-studio): fix D2 framing trailing whitespace`
-- Explicit `git add -- TARGET` only
-- Parents preserved: HEAD~1=`b41173669be74e35620f9c1889d3bef0189bcac7` · HEAD~2=`4911168b5b5fe80f36f45958b39cc27e516b63f5`
-- No amend / rebase / squash / reset / history rewrite
-
-## Push proof
-- Pre-push: remote still `b41173669be74e35620f9c1889d3bef0189bcac7`; local ahead 1/0
-- Normal push (no --force / --force-with-lease)
-- Post-push local = remote = ls-remote = `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-
-## PR #298 after push
-- state OPEN · isDraft true · base main · head Delivery
-- headRefOid `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-- commits 3:
-  1. `4911168b5b5fe80f36f45958b39cc27e516b63f5` feat(sfia-studio): add V3.1-D2-A catalog projection contract
-  2. `b41173669be74e35620f9c1889d3bef0189bcac7` docs(sfia-studio): document V3.1-D2 architecture and QA evidence
-  3. `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` docs(sfia-studio): fix D2 framing trailing whitespace
-- files 20 (same paths)
-- mergedAt null
-- Body/title not modified; not marked ready; no auto-merge; no merge
-
-## New remote CI
-NEW_RUN_ID=30749102358
-NEW_RUN_URL=https://github.com/mcleland147/sfia-workspace/actions/runs/30749102358
-NEW_HEAD_SHA=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
-NEW_STATUS=completed
-NEW_CONCLUSION=success
-SOURCE_RUN_ID=30748438785
-SOURCE_CONCLUSION=failure
-VITEST=Test Files 94 passed (94); Tests 913 passed (913)
-MODELED_GOVERNANCE_TESTS=73
-STEPS:
-- Detect SFIA Studio changes: SUCCESS
-- Install dependencies: SUCCESS
-- Typecheck: SUCCESS
-- Lint: SUCCESS
-- Build: SUCCESS
-- Unit tests (Vitest): SUCCESS (913/913)
-- Modeled governance tests: SUCCESS (73)
-- Secret pattern scan: SUCCESS
-- Trailing whitespace check: SUCCESS
-- SFIA Studio Required Gate: SUCCESS
-
-## R-CI-D2A-01 status
-**CLOSED — TRAILING WHITESPACE REMOVED AND REMOTE REQUIRED GATE PASS**
-
-## Reserves retained
-- R-PR-D2A-01…03 (local Vitest paths / historical `.tmp` refs / doc volumetry)
-- INHERITED-R-01 not lifted
-- CI green does **not** authorize merge / ready-for-review / auto-merge / D2-B/C/D3
-
-## Absence claims
-- No amend · no force-push · no merge
-- No D2-B · no D2-C · no D3 · no UI · no CreateCycle · no method promotion
-- main unchanged at `e1befcb80ed5e3c789a7de9036a8207d6b3e6771`
-
-## Package verification
+## Twenty files
 ```
 A	projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.qa.test.ts
 A	projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts
@@ -330,36 +90,162 @@ A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-ve
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md
 A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
 ```
-Exactly 20 paths; third commit touches framing 15 only.
+Categories: code/export 4 · tests 4 · framing 7 · Delivery/QA/readiness 5.
+No binaries · no `.tmp` · no secrets · no dependency/config/workflow · no D2-B/C code · no D3/UI/CreateCycle · no method paths.
+
+## Diff final (stat)
+```
+ .../oa/cycle/catalogFingerprint.qa.test.ts         |  317 +++
+ .../__tests__/oa/cycle/catalogFingerprint.test.ts  |  133 ++
+ .../oa/cycle/catalogProjection.qa.test.ts          |  662 ++++++
+ .../__tests__/oa/cycle/catalogProjection.test.ts   |  269 +++
+ .../app/lib/oa/cycle/domain/catalogFingerprint.ts  |   49 +
+ .../app/lib/oa/cycle/domain/catalogProjection.ts   |  198 ++
+ .../oa/cycle/domain/ckcQualificationContracts.ts   |   75 +
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |    3 +
+ .../08-implementation-backlog-and-slicing.md       |   34 +-
+ ...d2-ckc-resolver-qualify-cycle-bridge-cadrage.md |  547 +++++
+ ...olver-qualify-cycle-bridge-functional-design.md |  473 ++++
+ ...qualify-cycle-bridge-functional-architecture.md |  562 +++++
+ ...-qualify-cycle-bridge-technical-architecture.md |  610 ++++++
+ .../19-v3-1-d2-a-b-c-delivery-backlog.md           |  950 ++++++++
+ .../README.md                                      |   57 +-
+ .../01-qa-validation-report.md                     | 2315 ++++++++++++++++++++
+ .../02-corrective-delivery-report.md               | 1459 ++++++++++++
+ .../03-qa-revalidation-report.md                   | 1099 ++++++++++
+ .../04-pr-readiness-report.md                      | 1157 ++++++++++
+ .../README.md                                      |  255 +++
+ 20 files changed, 11198 insertions(+), 26 deletions(-)
+```
+
+## Integrity anchors
+- HASH-A: `sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc`
+- catalogProjection.ts sha256: `235cc0030c5e42340086ef9e4452d668edaa440d6aabf11c27af1be18ca60a5d`
+- catalogProjection blob unchanged since commit 1
+- reports 01–04 unchanged since commit 2
+
+## CI final
+- Run: `30749102358` — https://github.com/mcleland147/sfia-workspace/actions/runs/30749102358
+- headSha: `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
+- event: pull_request · status: completed · conclusion: **success**
+- Detect SFIA Studio changes: SUCCESS
+- Build and validate SFIA Studio: SUCCESS
+  - Typecheck / Lint / Build: SUCCESS
+  - Unit tests Vitest: SUCCESS — **913/913** (94 files)
+  - Modeled governance tests: SUCCESS — **73**
+  - Secret pattern scan: SUCCESS
+  - Trailing whitespace check: SUCCESS
+- SFIA Studio Required Gate: **SUCCESS**
+- Prior failed run 30748438785 is historical only; not used as final proof.
+
+## Protections / rulesets
+- Classic branch protection API: HTTP 404 `Branch not protected` (documented; not interpreted as absence of all rules).
+- Active repository ruleset: `SFIA Studio Main Required Gate — M1` (id 19798462) on `refs/heads/main`, enforcement active.
+- required_status_checks: context `SFIA Studio Required Gate` — **satisfied** on current PR checks.
+- strict_required_status_checks_policy: false (branch not required to be strictly up-to-date beyond current CLEAN/MERGEABLE state; main has not advanced).
+- required_approving_review_count: **0**
+- require_code_owner_review: false
+- required_review_thread_resolution: false
+- allowed_merge_methods: merge, squash, rebase
+- non_fast_forward + deletion rules present
+- Repo settings: allow_merge_commit=true, allow_squash_merge=true, allow_rebase_merge=true, delete_branch_on_merge=false
+
+## CODEOWNERS
+No CODEOWNERS file found at `.github/CODEOWNERS`, `CODEOWNERS`, or `docs/CODEOWNERS`.
+
+## Reviews / comments / threads
+- Issue comments: 0
+- Inline review comments: 0
+- Reviews: 0
+- No CHANGES_REQUESTED · no unresolved required threads · no requested reviewers pending
+- Absence of comments is **not** treated as human approval; ruleset does not require approving reviews (count=0).
+
+## Mergeability
+- mergeable=MERGEABLE · mergeStateStatus=CLEAN · auto-merge inactive · merged=false
+- Draft remains a GitHub UI constraint: must mark ready before merge execution under a later Morris GO.
+
+## Draft state classification
+1. Technically ready to leave draft: **YES**
+2. Ready to receive approval/review: **YES** (optional; not ruleset-required)
+3. Ready for distinct Morris merge GO: **YES** (technical)
+4. Still blocked by correction/approval: **NO**
+Distinctions: technical readiness ≠ review readiness ≠ GitHub merge possibility ≠ Morris authorization.
+
+## Body freshness
+- Body still states checklist item unchecked: `Remote CI and review — pending / to verify on GitHub Checks.`
+- Reality: remote CI SUCCESS on final HEAD; human/Morris review still pending; merge still correctly unchecked.
+- Body mentions `two-commit plan` for the publication GO (historically accurate) but does not narrate the third CI-corrective commit.
+- Body still correctly forbids merge and keeps D2-B/C/D3 closed.
+- Finding **R-MR-D2A-01** (minor): stale CI checklist wording / incomplete third-commit narration; not a false merge claim; recommend refresh during mark-ready/merge gate; **not** a major/blocking merge-readiness defect.
+
+## Reserves
+### Closed
+- R-QA-D2A-01 CLOSED
+- R-PR-D2A-04 CLOSED
+- R-CI-D2A-01 CLOSED
+### Minor retained / new
+- R-PR-D2A-01 local Vitest paths in historical QA reports — acceptable
+- R-PR-D2A-02 `.tmp-sfia-review` refs in historical evidence — acceptable
+- R-PR-D2A-03 documentation volumetry — mastered
+- INHERITED-R-01 framing README condensation — NOT LIFTED
+- R-MR-D2A-01 PR body checklist CI freshness lag — minor
+### Blocking / major
+- None identified
+
+## Recommended merge strategy (not executed)
+- Prefer **merge commit** to preserve three intentional commits (feat / docs / whitespace fix).
+- Precedents: PR #296 and #297 landed as merge commits (two parents).
+- Squash would collapse intentional granularity; rebase merge unnecessary.
+- Do not rewrite history.
+
+## Rollback conditions (not executed)
+- Base parent of branch: `e1befcb80ed5e3c789a7de9036a8207d6b3e6771`
+- Final HEAD: `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
+- If later merged: revert the merge commit (or equivalent) to restore main
+- No migration / lockfile / workflow change in package → low rollback coupling
+- Public additive exports (`projectSelectableCycleType`, fingerprint symbols) would disappear on revert
+
+## Remaining conditions before merge execution
+- Distinct Morris GO for mark-ready + merge
+- Immediately re-verify HEAD/CI/base before merge
+- Mark draft ready (GitHub)
+- Recommended: refresh PR body checklist (CI SUCCESS; note 3 commits / CI corrective)
+- Prefer merge-commit strategy
+- Do not delete branch unless separately authorized (repo default delete_branch_on_merge=false; gate says NO BRANCH DELETION)
+
+## Proof of no project/PR mutation
+- No versioned file edited in this cycle
+- No PR title/body/comment/review/ready/auto-merge/merge
+- No commit/push/force on Delivery
+- Only planned remote mutation: `sfia/review-handoff` via publisher
+- Project HEAD remained `f048a9c…` throughout
 
 ## Final Git state
 ```
-DATE=2026-08-02 15:06:03 CEST (+0200)
+DATE=2026-08-02 15:21:05 CEST (+0200)
 BRANCH=delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection
 HEAD=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
-MAIN=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 ORIGIN_MAIN=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
 ORIGIN_DELIVERY=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
-COMMIT1=4911168b5b5fe80f36f45958b39cc27e516b63f5
-COMMIT2=b41173669be74e35620f9c1889d3bef0189bcac7
-COMMIT3=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
 COMMITS_ABOVE_MAIN=3
 PACKAGE_FILES=20
 PR=298
 PR_STATE=OPEN
 PR_DRAFT=true
+PR_MERGED=false
 PR_HEAD=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
-PR_MERGED_AT=None
+MERGEABLE=MERGEABLE
+MERGE_STATE_STATUS=CLEAN
+REVIEW_DECISION=(none)
+AUTO_MERGE=None
 CI_RUN=30749102358
 CI_CONCLUSION=success
 REQUIRED_GATE=SUCCESS
-R_CI_D2A_01=CLOSED — TRAILING WHITESPACE REMOVED AND REMOTE REQUIRED GATE PASS
+VERDICT=MERGE READINESS PASS WITH RESERVES
 MERGE_EXECUTED=false
-AMEND=false
-FORCE_PUSH=false
-D2B=false
-D2C=false
-D3=false
+PROJECT_MUTATION=false
+PR_MUTATION=false
+HANDOFF_MUTATION_ONLY=true
 ```
 
 ```
@@ -654,6 +540,7 @@ D3=false
 ?? .tmp-sfia-review/v3-1-d2-08-after.md
 ?? .tmp-sfia-review/v3-1-d2-08.diff
 ?? .tmp-sfia-review/v3-1-d2-a-ci-corrective-before-context.txt
+?? .tmp-sfia-review/v3-1-d2-a-ci-corrective-chatgpt-review-preserved.md
 ?? .tmp-sfia-review/v3-1-d2-a-ci-corrective-ci.txt
 ?? .tmp-sfia-review/v3-1-d2-a-ci-corrective-diff.patch
 ?? .tmp-sfia-review/v3-1-d2-a-ci-corrective-final-state.txt
@@ -678,6 +565,14 @@ D3=false
 ?? .tmp-sfia-review/v3-1-d2-a-corrective-red-baseline.txt
 ?? .tmp-sfia-review/v3-1-d2-a-delivery-chatgpt-review-preserved.md
 ?? .tmp-sfia-review/v3-1-d2-a-delivery-report.md
+?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-ci.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-inline-comments.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-issue-comments.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-pr.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-protections.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-reviews.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-settings.json
 ?? .tmp-sfia-review/v3-1-d2-a-post-branch-doc-hashes.txt
 ?? .tmp-sfia-review/v3-1-d2-a-post-branch-hashes.txt
 ?? .tmp-sfia-review/v3-1-d2-a-pr-body.md
@@ -714,6 +609,8 @@ D3=false
 ?? .tmp-sfia-review/v3-1-d2-a-pr-view.json
 ?? .tmp-sfia-review/v3-1-d2-a-pre-branch-doc-hashes.txt
 ?? .tmp-sfia-review/v3-1-d2-a-pre-branch-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-prot-branch.json
+?? .tmp-sfia-review/v3-1-d2-a-prot-err.txt
 ?? .tmp-sfia-review/v3-1-d2-a-publication-chatgpt-review-preserved.md
 ?? .tmp-sfia-review/v3-1-d2-a-publication-final-state.txt
 ?? .tmp-sfia-review/v3-1-d2-a-publication-git-truth.txt
@@ -734,6 +631,9 @@ D3=false
 ?? .tmp-sfia-review/v3-1-d2-a-qa-revalidation-report.md
 ?? .tmp-sfia-review/v3-1-d2-a-qa-revalidation-results.txt
 ?? .tmp-sfia-review/v3-1-d2-a-qa-revalidation-rv-adhoc.txt
+?? .tmp-sfia-review/v3-1-d2-a-rules-main.json
+?? .tmp-sfia-review/v3-1-d2-a-ruleset-detail.json
+?? .tmp-sfia-review/v3-1-d2-a-rulesets.json
 ?? .tmp-sfia-review/v3-1-d2-backlog-chatgpt-review-preserved.md
 ?? .tmp-sfia-review/v3-1-d2-backlog-final-state.txt
 ?? .tmp-sfia-review/v3-1-d2-backlog-git-truth.txt
@@ -791,9 +691,9 @@ b411736 docs(sfia-studio): document V3.1-D2 architecture and QA evidence
 
 ## Candidate next gate (NOT executed)
 ```
-GO MERGE READINESS SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
-REVIEW PR #298 FINAL HEAD, THREE COMMITS, TWENTY FILES, REMOTE CI, RESERVES AND MERGE CONDITIONS —
-NO MERGE —
+GO MARK READY AND MERGE PR #298 SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+USE VALIDATED MERGE STRATEGY —
+VERIFY FINAL HEAD AND CI IMMEDIATELY BEFORE MERGE —
 NO BRANCH DELETION —
 NO D2-B —
 NO D2-C —
@@ -802,28 +702,13 @@ NO UI —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
-
-## Post-success status
-V3.1-D2-A DRAFT PR #298 —
-REMOTE CI GREEN —
-TECHNICALLY ELIGIBLE FOR DISTINCT MERGE-READINESS REVIEW —
-MERGE NOT AUTHORIZED
+Collateral recommendation inside that gate: refresh body checklist for CI SUCCESS and third commit.
 
 ## Verdict
-**V3.1-D2-A CI CORRECTIVE COMPLETE —
-R-CI-D2A-01 CLOSED —
-THREE TRAILING WHITESPACE OCCURRENCES REMOVED FROM FRAMING 15 ONLY —
-CONTENT SEMANTICS PRESERVED —
-THIRD CORRECTIVE COMMIT CREATED WITHOUT HISTORY REWRITE —
-DELIVERY BRANCH PUSHED NORMALLY —
-PR #298 HEAD UPDATED —
-TWENTY-FILE SCOPE PRESERVED —
-REMOTE SFIA STUDIO CI PASS —
-REQUIRED GATE PASS —
-PR REMAINS DRAFT —
-NO AMEND —
-NO FORCE PUSH —
-NO MERGE —
+**V3.1-D2-A MERGE READINESS PASS WITH RESERVES —
+PR #298 TECHNICALLY READY FOR DISTINCT MORRIS MERGE GATE —
+NO MERGE EXECUTED —
+NO BRANCH DELETION —
 NO D2-B —
 NO D2-C —
 NO D3 —
@@ -834,13 +719,10 @@ NO METHOD PROMOTION**
 ## Completeness checklist
 - gate Morris complet: yes
 - Git Truth complet: yes
-- CI source complète: yes
-- occurrences avant: yes
-- diff exact: yes (binary patch local; sanitized embed here)
-- contenu modifié exploitable: yes
-- commit/push preuves: yes
-- nouvelle CI complète: yes
-- package vingt fichiers: yes
-- PR distante: yes
-- état final: yes
+- PR/commits/files: yes
+- CI/jobs/required gate: yes
+- protections/rulesets/CODEOWNERS: yes
+- reviews/comments: yes
+- body/reserves/strategy/rollback: yes
+- absence mutation: yes
 - synthesis only: no
