@@ -10,7 +10,9 @@
 | Typologie | EVOL |
 | Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
 | Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| Statut | `PR READINESS COMPLETE — READY FOR PR WITH RESERVES — QA-G3 ACCEPTED — NO COMMIT/PUSH/PR` |
+| Statut | `V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION` |
+| Merge | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Post-merge | cycle 14 validé · PR readiness corrective PASS · clôture documentaire pending final main integration |
 
 Le profil Standard est proportionné à un diff de fonctions de domaine pures,
 types readonly, constante statique et tests, sans resolver, infrastructure,
@@ -253,3 +255,76 @@ Rapport : [`03-qa-revalidation-report.md`](./03-qa-revalidation-report.md).
 | D2-B / D2-C / D3 | fermés |
 
 Rapport : [`04-pr-readiness-report.md`](./04-pr-readiness-report.md).
+
+## Z. Merge et post-merge — 2026-08-02
+
+### Z.1 Publication Git
+
+- Trois commits Delivery : `4911168…` (feat) · `b411736…` (docs) · `f048a9c…` (CI whitespace corrective).
+- PR [#298](https://github.com/mcleland147/sfia-workspace/pull/298) mergée.
+- Merge commit : `a804f29df3015fe0c71213d09b95159f04065dfc`.
+- Parents : `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` · `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
+- Vingt fichiers intégrés sur `main`.
+- Branche Delivery conservée localement et à distance sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
+
+### Z.2 Preuves finales
+
+- Run PR `30749102358` SUCCESS sur HEAD `f048a9c…`.
+- Vitest **913/913** · modeled governance **73**.
+- Typecheck / lint / build PASS.
+- Secret scan PASS · trailing whitespace PASS.
+- SFIA Studio Required Gate SUCCESS.
+- Run push main `30750099622` SUCCESS sur merge commit `a804f29…`.
+
+### Z.3 Findings
+
+Fermés :
+
+- R-QA-D2A-01 ;
+- R-PR-D2A-04 ;
+- R-CI-D2A-01 ;
+- R-MR-D2A-01.
+
+### Z.4 Réserves résiduelles
+
+- R-PR-D2A-01 — mineure (chemins Vitest locaux historiques) ;
+- R-PR-D2A-02 — mineure (références `.tmp-sfia-review` historiques) ;
+- R-PR-D2A-03 — mineure (volumétrie documentaire) ;
+- INHERITED-R-01 — NOT LIFTED (condensation framing README).
+
+Les quatre sont mineures/résiduelles et **non bloquantes** pour l’intégration D2-A. Elles ne sont **pas** fermées.
+
+### Z.5 Frontières
+
+- D2-B **fermé** ;
+- D2-C **fermé** ;
+- D2-D **gated** ;
+- D3 **fermé** ;
+- pas UI ;
+- pas CreateCycle ;
+- pas promotion méthode.
+
+### Z.6 Statut post-merge
+
+`V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION`
+
+### Z.7 Publication documentaire
+
+- Quatre fichiers vivants modifiés localement sur `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` ;
+- Le cycle post-merge n’a exécuté aucun commit, push ou PR projet.
+- La clôture documentaire demeure non intégrée à main jusqu’au merge d’une PR distincte.
+- La publication de branche, la draft PR, la merge readiness et le merge restent gouvernés par des gates Morris distincts.
+
+### Z.8 PR readiness corrective
+
+- Date/heure/fuseau : 2026-08-02 18:51:10 CEST (+0200).
+- R-PR-PM-D2A-01 CLOSED — D2-D aligned as gated.
+- R-PR-PM-D2A-02 CLOSED — consumed PR-readiness gate removed from living next gate.
+- R-PR-PM-D2A-03 CLOSED — living status durable through draft PR publication.
+- Quatre fichiers uniquement.
+- Réserves R-PR-D2A-01…03 et INHERITED-R-01 conservées.
+- D2-B/C fermés.
+- D2-D gated.
+- D3 fermé.
+- Aucun commit, push ou PR projet dans le cycle correctif.
+- Publication soumise à un gate Morris distinct.

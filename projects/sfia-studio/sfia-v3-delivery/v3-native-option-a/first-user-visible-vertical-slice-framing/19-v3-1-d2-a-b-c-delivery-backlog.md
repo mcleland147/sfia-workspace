@@ -948,3 +948,30 @@ des dix-sept stories.
 | D3 | **fermé** |
 
 **Statut :** `PR READINESS COMPLETE — READY FOR PR WITH RESERVES — QA-G3 ACCEPTED — NO COMMIT/PUSH/PR`.
+
+## AM. Registre merge / post-merge D2-A — 2026-08-02
+
+| Élément | État |
+|---------|------|
+| GO merge consommé | 2026-08-02 15:24 CEST (+0200) |
+| PR | [#298](https://github.com/mcleland147/sfia-workspace/pull/298) |
+| Stratégie | merge commit |
+| Merge SHA | `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Parent 1 | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| Parent 2 | `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+| Package | vingt fichiers intégrés |
+| CI finale | run `30749102358` SUCCESS · Vitest 913/913 · modeled 73 |
+| Required Gate | SUCCESS |
+| CI push main | run `30750099622` SUCCESS sur `a804f29…` |
+| Branche Delivery | conservée localement et à distance sur `f048a9c…` |
+| GO post-merge | consommé 2026-08-02 17:00 CEST (+0200) |
+| main local | synchronisée sur `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Branche post-merge au cycle post-merge | `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` — locale uniquement |
+| Findings fermés | R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 |
+| Réserves conservées | R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED |
+| D2-B / D2-C | **fermés** |
+| D2-D / D3 | **gated** / **fermé** — D2-D non ouvert — aucun GO Delivery consommé |
+| Commit / push / PR documentaire pendant le cycle post-merge | **non exécutés** |
+| PR readiness corrective | R-PR-PM-D2A-01…03 CLOSED LOCALLY · package soumis à publication et merge distincts |
+
+**Statut :** `D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION — D2-B AND D2-C REMAIN CLOSED — D2-D GATED — D3 NOT OPENED`.
