@@ -57,7 +57,8 @@ Docs :
 | QA-G3 D2-A | **ACCEPTED BY MORRIS** — 2026-08-02 14:01 CEST |
 | PR readiness D2-A | **verdict historique** **READY FOR PR WITH RESERVES** ayant précédé la publication · [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) |
 | PR / merge D2-A | PR #298 mergée par merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` · branche Delivery conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
-| Post-merge D2-A | intégration vérifiée · local main synchronisée · clôture documentaire non intégrée à main |
+| Post-merge D2-A | produit et documentation intégrés sur main · PR #298 et #299 mergées · main synchronisée · CI main finales vertes |
+| Documentary closure D2-A | PR #299 · merge commit `983cef38c972ef1646166669613e680efba8f487` · main CI run `30759197858` SUCCESS · Required Gate SUCCESS · R-MR-PM-D2A-01 CLOSED |
 | PR readiness corrective D2-A | PASS LOCALLY · R-PR-PM-D2A-01…03 CLOSED · publication et merge soumis à gates Morris distincts |
 | Delivery D2-B | **fermée** — aucun GO Delivery D2-B consommé |
 | Delivery D2-C | **fermée** |
@@ -69,7 +70,7 @@ Docs :
 | Lot | Contenu | Statut |
 |-----|---------|--------|
 | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A **intégré `main`** · QA/CI vertes · findings fermés · post-merge **validé localement** · documentation de clôture **pending final main integration** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A product **intégré `main`** · clôture documentaire **intégrée `main`** · QA/CI vertes · findings fermés · réserves conservées · post-merge final **validé** · documentary closure **complete on main** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated · D3 **non ouvert** |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
 ### Réserves QA
@@ -78,7 +79,7 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
 
 ### Réserves D2
 
-**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01 · R-PR-PM-D2A-02 · R-PR-PM-D2A-03.
+**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01 · R-PR-PM-D2A-02 · R-PR-PM-D2A-03 · R-MR-PM-D2A-01.
 
 **Réserves conservées (mineures / NOT LIFTED) :** R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED.
 

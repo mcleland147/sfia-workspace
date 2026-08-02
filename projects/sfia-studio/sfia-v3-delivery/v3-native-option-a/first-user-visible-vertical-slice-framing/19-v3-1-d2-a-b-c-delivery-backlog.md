@@ -975,3 +975,33 @@ des dix-sept stories.
 | PR readiness corrective | R-PR-PM-D2A-01…03 CLOSED LOCALLY · package soumis à publication et merge distincts |
 
 **Statut :** `D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION — D2-B AND D2-C REMAIN CLOSED — D2-D GATED — D3 NOT OPENED`.
+
+## AN. Registre clôture documentaire merge / post-merge — 2026-08-02
+
+| Élément | État |
+|---------|------|
+| GO mark-ready/merge documentaire | consommé 2026-08-02 19:26 CEST (+0200) |
+| PR | [#299](https://github.com/mcleland147/sfia-workspace/pull/299) |
+| Stratégie | merge commit |
+| Commit documentaire | `99e55d4ff05af66445f2522f85910faebceaded4` |
+| Merge SHA | `983cef38c972ef1646166669613e680efba8f487` |
+| Parent 1 | `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Parent 2 | `99e55d4ff05af66445f2522f85910faebceaded4` |
+| Package | quatre fichiers documentaires |
+| Diff | +140 / −30 |
+| CI PR | run `30757998482` SUCCESS |
+| CI main | run `30759197858` SUCCESS |
+| Required Gate | SUCCESS |
+| R-MR-PM-D2A-01 | CLOSED |
+| Branche post-merge | conservée localement et à distance sur `99e55d4…` |
+| Branche Delivery | conservée localement et à distance sur `f048a9c…` |
+| Local main | synchronisée sur `983cef38…` |
+| Findings fermés | R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01…03 · R-MR-PM-D2A-01 |
+| Réserves conservées | R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED |
+| D2-B / D2-C | **fermés** |
+| D2-D | **gated** / non ouvert |
+| D3 | **fermé** |
+| Suppression de branche | aucune |
+| Commit / push / PR du présent cycle post-merge final | **non exécutés** |
+
+**Statut :** `D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — POST-MERGE AND DELIVERY BRANCHES PRESERVED — RESERVES CARRIED FORWARD — D2-B AND D2-C REMAIN CLOSED — D2-D GATED — D3 NOT OPENED`.
