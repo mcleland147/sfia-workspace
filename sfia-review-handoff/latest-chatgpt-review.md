@@ -1,20 +1,21 @@
-# ChatGPT Review Handoff — SFIA Studio V3.1-D2-A Merge Execution
+# ChatGPT Review Handoff — SFIA Studio V3.1-D2-A Post-Merge
 
 ## Review level
 Full
 
 ## Date / time / timezone
-2026-08-02 15:31:43 CEST (+0200)
+2026-08-02 18:23:04 CEST (+0200)
 
 ## Role
-Cursor — mark-ready + controlled merge executor. Project files not modified. Handoff publish is the only post-merge remote mutation besides the PR merge itself.
+Cursor — post-merge validator and living-doc updater. No project commit/push/PR. Handoff publish authorized.
 
 ## Gate Morris (consumed)
 ```
-GO MARK READY AND MERGE PR #298 SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
-REFRESH PR BODY WITH FINAL CI SUCCESS AND THIRD CORRECTIVE COMMIT —
-USE MERGE COMMIT STRATEGY —
-VERIFY FINAL HEAD, BASE AND REQUIRED GATE IMMEDIATELY BEFORE MERGE —
+GO POST-MERGE SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+VERIFY MERGE COMMIT AND MAIN INTEGRATION —
+SYNC LOCAL MAIN —
+UPDATE D2-A LIVING STATUS AND RESERVES —
+PRESERVE DELIVERY BRANCH —
 NO BRANCH DELETION —
 NO D2-B —
 NO D2-C —
@@ -23,323 +24,558 @@ NO UI —
 NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
-GO timestamp: 2026-08-02 15:24 CEST (+0200)
+GO timestamp: 2026-08-02 17:00 CEST (+0200)
 
 ## Cycle / profile / typology
-- Project cycle: **7 — Intégration / DevOps**
-- Subtype: **Mark-ready + merge contrôlé**
-- SFIA profile: **Critical**
-- Typology: **EVOL**
-- CKC: researched; detailed absent; fallback synthetic map; method-candidate; no execution authority.
-- Canonical template: `prompts/templates/sfia-cycle-execution-template.md` (guidance only).
+- Cycle **14 — Post-merge** · Profile **Standard** · Typology **DOC**
+- CKC: researched; detailed absent; fallback synthetic map; method-candidate; no execution authority
+- Template: `prompts/templates/sfia-cycle-execution-template.md` (guidance)
+- Blocks on: DevOps verification + capitalization/REX; UX/security/deploy/etc. off
 
 ## Initial Git Truth
-- Workspace: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge`
-- Branch: `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection`
-- HEAD = origin/Delivery = `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-- main local / origin/main pre-merge = `e1befcb80ed5e3c789a7de9036a8207d6b3e6771`
-- Divergence main 0/0; Delivery 0/0; origin/main...HEAD = 0 behind / 3 ahead
-- merge-base = origin/main
-- Staged empty; project clean except `.tmp-sfia-review`
-- Package 20 files; `git diff --check` PASS
-- Handoff tip: `fe289bf973bcbd08d45982012c9f136a28dd86f9`
-- Handoff blob: `bae8764303f4377e1fb35b74fa9cfcbf324fac20`
-- Merge-readiness review preserved: `.tmp-sfia-review/v3-1-d2-a-merge-readiness-chatgpt-review-preserved.md`
+- Active branch Delivery @ `f048a9c…` · origin/Delivery same · origin/main `a804f29…` · local main was `e1befcb…`
+- PR #298 MERGED · mergeCommit `a804f29…` · post-merge branch absent · handoff tip `b26ec6d…` / blob `1fb9e7bc…`
+- Merge review preserved: `.tmp-sfia-review/v3-1-d2-a-merge-chatgpt-review-preserved.md`
 
-## PR before mutation
-- URL: https://github.com/mcleland147/sfia-workspace/pull/298
-- OPEN draft · MERGEABLE CLEAN · auto-merge null · 3 commits · 20 files
-- base `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` · head `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-- Required Gate SUCCESS; Detect/Build SUCCESS
-- Comments/reviews: 0/0/0
+## Merge / parents / package
+- Merge SHA `a804f29df3015fe0c71213d09b95159f04065dfc` · type commit · message Merge pull request #298
+- Parent1 `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` · Parent2 `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` · both ancestors
+- Exactly 20 files · +11198/−26 · `git diff --check` PASS
+- Tree identity Delivery HEAD vs merge for app+framing+D2-A paths: **no delta**
 
-## Three commits
-1. `4911168b5b5fe80f36f45958b39cc27e516b63f5` feat(sfia-studio): add V3.1-D2-A catalog projection contract
-2. `b41173669be74e35620f9c1889d3bef0189bcac7` docs(sfia-studio): document V3.1-D2 architecture and QA evidence
-3. `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` docs(sfia-studio): fix D2 framing trailing whitespace
+## CI
+- Final PR run `30749102358` SUCCESS on `f048a9c…` · Required Gate SUCCESS · 913/913 · modeled 73 · whitespace PASS
+- Distinct main push run `30750099622` SUCCESS on `a804f29…` (recorded; not red)
+- FUNCTIONAL TESTS NOT RE-RUN — MERGED APPLICATION TREE IDENTICAL TO VALIDATED PR HEAD — REMOTE REQUIRED GATE SUCCESS CARRIED FORWARD — POST-MERGE DIFF IS DOCUMENTARY ONLY
 
-## CI before mutation
-- Run `30749102358` on final HEAD SUCCESS
-- Vitest 913/913 · modeled 73 · trailing whitespace PASS · Required Gate PASS
+## Main sync
+- Case B: main not checked out in any worktree
+- `git merge-base --is-ancestor main origin/main` OK
+- `git branch -f main origin/main` → local main = origin/main = `a804f29…`
+- Fast-forward only (ref update); no reset/rebase/push
 
-## Body before (excerpt checklist)
-Contained stale item: Remote CI and review — pending.
+## Post-merge branch
+- Created: `git switch -c post-merge/sfia-studio-v3-1-d2-a-catalog-projection main`
+- HEAD `a804f29df3015fe0c71213d09b95159f04065dfc` · local only · no remote
 
-## Body final (complete)
-```markdown
-## Summary
+## Delivery preserved
+- Local Delivery `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` · remote Delivery `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` · not deleted
 
-- Add the V3.1-D2-A domain contracts for catalog selection.
-- Add the static HASH-A catalog fingerprint and its automated consistency guard.
-- Add the pure fail-closed Catalog Projection.
-- Bind the canonical fingerprint to the catalog actually used by the public API.
-- Add Delivery and independent QA evidence for D2-A, including the R-QA-D2A-01 corrective path.
-
-## Morris decisions
-
-- D-V3.1-D2-01…12 adopted.
-- D-V3.1-D2-FA-01…12 adopted with FA-C.
-- D-V3.1-D2-TA-01…12 adopted.
-- D2-A backlog BL-D2-A-01…04 validated.
-- QA-G3 accepted on 2026-08-02 at 14:01 CEST.
-- R-QA-D2A-01 closed by independent QA revalidation PASS.
-- Commit, push, PR and merge require separate Morris gates.
-- D2-B, D2-C, D2-D and D3 are not authorized by this package.
-
-## Scope
-
-### Code
-
-- D2-A catalog-selection contracts (`ckcQualificationContracts.ts`).
-- Contractual catalog fingerprint projection and static SHA-256 HASH-A.
-- Pure Catalog Projection with fail-closed binding of the catalog actually used.
-- Additive public exports only in `index.ts` (+3 lines).
-
-### Tests
-
-- Delivery tests for fingerprint and projection (8 + 16).
-- Independent QA tests for determinism, immutability, boundaries and fail-closed behavior (25 + 37).
-- Regression coverage for the public catalog/fingerprint binding finding.
-
-### Documentation
-
-- D2 framing, functional design, functional architecture and technical architecture (15–18).
-- D2-A/B/C validated backlog (19) — D2-B/C remain prospective only.
-- D2-A Delivery, initial QA FAIL, corrective Delivery, QA revalidation PASS and PR readiness evidence.
-
-## Runtime contract
-
-- Catalog version inherited from D1.
-- HASH-A: `sha256:27316864454634a45342baaa1782898bea12914a4ec9cd9b051622eef9efd2cc`
-- No runtime cryptographic dependency.
-- No I/O, Next.js or infrastructure dependency in D2-A domain modules.
-- Fail-closed validation order: correlationId → version → hash → type → lifecycle → mapping → catalog binding → success.
-
-## QA evidence
-
-- Initial independent QA identified R-QA-D2A-01 as blocking.
-- Corrective Delivery was limited to `catalogProjection.ts`.
-- Independent revalidation closed R-QA-D2A-01.
-- QA-G3 was accepted by Morris on 2026-08-02 at 14:01 CEST.
-- PR-readiness replay proofs:
-  - fingerprint Delivery: 8/8;
-  - projection Delivery: 16/16;
-  - fingerprint QA: 25/25;
-  - projection QA: 37/37;
-  - D1 catalog: 46/46;
-  - OA cycle: 180/180;
-  - full suite: 913/913;
-  - typecheck, lint and build: PASS.
-- CI corrective commit:
-  `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-  removed only three trailing-whitespace occurrences from framing document 15.
-- Final remote CI:
-  run `30749102358` on final HEAD `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` completed successfully.
-- Final remote evidence:
-  Vitest 913/913, modeled governance 73, secret scan PASS,
-  trailing-whitespace check PASS and SFIA Studio Required Gate PASS.
-- `R-CI-D2A-01` CLOSED.
-
-## Boundaries
-
-- No CKC resolver, manifest, Consumption Proof or QualifyCycle Bridge implementation in this package.
-- No D2-B or D2-C implementation.
-- No D2-D, D3, UI, Figma or CreateCycle.
-- No mutation, persistence, dependency or method change.
-
-The D2-B/C content in framing/backlog documents is prospective architecture and planning only. It does not authorize their Delivery.
-
-## Risks and reserves
-
-### Minor
-
-- Historical QA reports embed local Vitest paths (`/Users/morris/...`) and `.tmp-sfia-review` archive references as reproducible evidence. Not secrets; excluded from executable package paths; retained for auditability.
-- Documentation volumetry is high (~10k added lines) because Full QA reports embed complete command transcripts. Scope remains a single D2-A result.
-- INHERITED-R-01 (framing README condensation) remains accepted and not lifted.
-
-### Boundary retained
-
-- D2-B requires D2-A integration and a distinct Morris GO.
-- D2-C remains closed.
-- Local tests do not replace remote CI.
-- Draft PR does not imply merge readiness.
-
-## Test plan
-
-```bash
-cd projects/sfia-studio/app
-npm test -- __tests__/oa/cycle/catalogFingerprint.test.ts
-npm test -- __tests__/oa/cycle/catalogProjection.test.ts
-npm test -- __tests__/oa/cycle/catalogFingerprint.qa.test.ts
-npm test -- __tests__/oa/cycle/catalogProjection.qa.test.ts
-npm test -- __tests__/oa/cycle/cycleTypeCatalog.test.ts
-npm test -- __tests__/oa/cycle/
-npm test
-npm run typecheck
-npm run lint
-npm run build
-```
-
-## Review guidance
-
-1. framing/18 — adopted technical architecture.
-2. framing/19 — validated D2-A/B/C backlog and boundaries.
-3. `ckcQualificationContracts.ts`.
-4. `catalogFingerprint.ts`.
-5. `catalogProjection.ts`.
-6. four D2-A test files.
-7. `index.ts` additive exports.
-8. reports 01 → 04.
-9. framing 15 → 17, 08 and README.
-
-## Checklist
-
-- [x] QA revalidation PASS.
-- [x] R-QA-D2A-01 closed.
-- [x] QA-G3 accepted by Morris.
-- [x] No new dependency or migration.
-- [x] No D2-B/C implementation.
-- [x] No D3/UI/CreateCycle.
-- [x] PR package reviewed locally (20 files).
-- [x] Commit — executed under Morris GO 2026-08-02 14:31 CEST (two-commit plan).
-- [x] Push — executed to `origin/delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection`.
-- [x] Draft PR creation — this draft PR against `main`.
-- [x] Remote CI — SUCCESS on final HEAD `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` via run `30749102358`.
-- [x] CI corrective — third commit `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`; `R-CI-D2A-01` CLOSED.
-- [ ] Human review — optional and not required by the active main ruleset; no outstanding review or comment.
-- [ ] Merge — authorized by Morris GO 2026-08-02 15:24 CEST, not yet executed at body-refresh time.
-```
-
-## Body refresh diff (sanitized)
-```diff
---- pr-body-before
-+++ pr-body-final
-@@ -61,6 +61,15 @@
-   - OA cycle: 180/180;
-   - full suite: 913/913;
-   - typecheck, lint and build: PASS.
-+- CI corrective commit:
-+  `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-+  removed only three trailing-whitespace occurrences from framing document 15.
-+- Final remote CI:
-+  run `30749102358` on final HEAD `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` completed successfully.
-+- Final remote evidence:
-+  Vitest 913/913, modeled governance 73, secret scan PASS,
-+  trailing-whitespace check PASS and SFIA Studio Required Gate PASS.
-+- `R-CI-D2A-01` CLOSED.
-
- ## Boundaries
-
-@@ -126,5 +135,7 @@
- - [x] Commit — executed under Morris GO 2026-08-02 14:31 CEST (two-commit plan).
- - [x] Push — executed to `origin/delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection`.
- - [x] Draft PR creation — this draft PR against `main`.
--- [ ] Remote CI and review — pending / to verify on GitHub Checks.
--- [ ] Merge — **not executed**; requires a later distinct Morris GO.+- [x] Remote CI — SUCCESS on final HEAD `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` via run `30749102358`.
-+- [x] CI corrective — third commit `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`; `R-CI-D2A-01` CLOSED.
-+- [ ] Human review — optional and not required by the active main ruleset; no outstanding review or comment.
-+- [ ] Merge — authorized by Morris GO 2026-08-02 15:24 CEST, not yet executed at body-refresh time.
-```
-Exact local archives: `v3-1-d2-a-pr-body-before-merge.md`, `v3-1-d2-a-pr-body-final.md`, `v3-1-d2-a-pr-body-refresh.diff`.
-Scope limited to final CI evidence, third corrective commit, R-CI-D2A-01 CLOSED, and checklist refresh.
-Stale duplicate merge checklist line removed so only the GO-authorized/not-yet-executed merge item remained at refresh time.
-
-## R-MR-D2A-01
-**CLOSED — PR BODY REFRESHED WITH FINAL CI AND THIRD CORRECTIVE COMMIT**
-Remote body verified equal to prepared final body after `gh pr edit`.
-
-## Mark-ready
-- `gh pr ready 298`
-- Result: OPEN · isDraft=false · HEAD/base unchanged · MERGEABLE CLEAN
-- Checks remained SUCCESS; no new SFIA Studio CI run triggered for this HEAD
-- Decision: retain run `30749102358` as final CI proof for HEAD
-
-## Final pre-merge verification
-- FINAL_BASE=`e1befcb80ed5e3c789a7de9036a8207d6b3e6771`
-- FINAL_REMOTE_HEAD=`f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-- OPEN · not draft · MERGEABLE · CLEAN · 3 commits · 20 files · auto-merge null
-- Required Gate SUCCESS · 0 blocking comments/reviews
-
-## Merge
-- Command: `gh pr merge 298 --merge --match-head-commit f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-- No --squash / --rebase / --delete-branch / --admin / --auto
-- MERGE_SHA=`a804f29df3015fe0c71213d09b95159f04065dfc`
-- Parents: `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` (first) + `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` (second)
-- origin/main=`a804f29df3015fe0c71213d09b95159f04065dfc` (= MERGE_SHA)
-- PR state MERGED · mergedAt present · isDraft false
-
-## Integrated twenty files
-```
-A	projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.qa.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/catalogFingerprint.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.qa.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/catalogProjection.test.ts
-A	projects/sfia-studio/app/lib/oa/cycle/domain/catalogFingerprint.ts
-A	projects/sfia-studio/app/lib/oa/cycle/domain/catalogProjection.ts
-A	projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationContracts.ts
-M	projects/sfia-studio/app/lib/oa/cycle/index.ts
+## Authorized files (4)
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
 M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/01-qa-validation-report.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/02-corrective-delivery-report.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/03-qa-revalidation-report.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
+M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
+
+## Modified content — framing/README.md (complete)
+```markdown
+# First user-visible SFIA Studio vertical slice — Framing
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | `FRAMING LIVING — V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR` |
+| **Date** | 2026-08-02 18:21:34 CEST (+0200) |
+| **Cycle courant** | 14 — Post-merge V3.1-D2-A |
+| **Profil** | **Standard** |
+| **Typologie** | DOC |
+| **Gate courant** | GO POST-MERGE consommé le 2026-08-02 17:00 CEST (+0200) |
+| **Branche post-merge** | `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` |
+| **Merge** | PR #298 · merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| **main** | `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| **Delivery branch** | conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+| **QA-G3 D2-A** | **ACCEPTED BY MORRIS** |
+| **Package** | 20 fichiers intégrés |
+| **D2-B** | **fermé** — intégration D2-A satisfaite techniquement, mais aucun GO Delivery D2-B consommé |
+| **D2-C** | **fermé** |
+| **D2-D** | **gated** |
+| **D3** | **fermé** |
+| **Réserves** | R-PR-D2A-01…03 résiduelles mineures ; INHERITED-R-01 NOT LIFTED |
+| **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
+
+## Synthèse
+
+| Lot | État |
+|-----|------|
+| V1 / V2 / V3.1-D1 | intégrés / clos `main` |
+| **V3.1-D2 FA/TA/backlog** | adoptés / validé |
+| **D2-A Delivery → QA → correctif → revalidation** | complets · R-QA-D2A-01 CLOSED |
+| **QA-G3** | **ACCEPTED BY MORRIS** |
+| **PR #298** | **MERGED** |
+| **CI** | **SUCCESS** |
+| **Post-merge** | **VALIDATED LOCALLY** |
+| **Documentation** | **AWAITING PR** |
+| Delivery D2-B/C | **fermées** |
+| D3 | **fermé** |
+
+**INHERITED-R-01 (README) :** condensation framing — **ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
+
+## Gate candidat suivant
+
+```text
+GO PR READINESS SFIA STUDIO V3.1-D2-A POST-MERGE DOCUMENTARY CLOSURE —
+REVIEW FOUR-FILE DOCUMENTARY PACKAGE —
+VERIFY MAIN SYNC, MERGE TRACE AND RESERVES —
+NO COMMIT —
+NO PUSH —
+NO PR —
+PRESERVE DELIVERY BRANCH —
+NO BRANCH DELETION —
+NO D2-B —
+NO D2-C —
+NO D3 —
+NO METHOD PROMOTION
 ```
 
-## Delivery branch preserved
-- origin/delivery/... still at `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`
-- Local Delivery branch active and unchanged
-- Local main left unsynced at pre-merge tip by design (post-merge cycle)
+## Verdict
 
-## Reserves retained
-- R-PR-D2A-01 minor
-- R-PR-D2A-02 minor
-- R-PR-D2A-03 minor
-- INHERITED-R-01 NOT LIFTED
+`V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR`
+```
+
+## Modified content — 08 living D2 table / slicing / reserves
+```markdown
+| Backlog D2-A/B/C | **validé** — [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) · 17 stories préservées |
+| Delivery D2-A | **complète localement** (historique) — contrats, HASH-A, projection pure · [rapport](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md) |
+| QA D2-A | **exécutée — FAIL Cursor** (historique) · R-QA-D2A-01 bloquante · [01](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/01-qa-validation-report.md) |
+| Delivery corrective D2-A | **complète localement** (historique) · [02](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/02-corrective-delivery-report.md) |
+| QA revalidation D2-A | **PASS** · R-QA-D2A-01 **CLOSED** · [03](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/03-qa-revalidation-report.md) |
+| QA-G3 D2-A | **ACCEPTED BY MORRIS** — 2026-08-02 14:01 CEST |
+| PR readiness D2-A | **verdict historique** **READY FOR PR WITH RESERVES** ayant précédé la publication · [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) |
+| PR / merge D2-A | PR #298 mergée par merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` · branche Delivery conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+| Post-merge D2-A | intégration vérifiée · local main synchronisée · documentation de clôture préparée localement · publication documentaire en attente |
+| Delivery D2-B | **fermée** — aucun GO Delivery D2-B consommé |
+| Delivery D2-C | **fermée** |
+| D2-D (extensions) | **gated** · non ouvert |
+| D3 | **non ouvert** |
+
+### Slicing CAT-08
+
+| Lot | Contenu | Statut |
+|-----|---------|--------|
+| **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A **intégré `main`** · QA/CI vertes · findings fermés · post-merge **validé localement** · documentation de clôture **awaiting PR** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated |
+| **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
+
+### Réserves QA
+
+R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
+
+### Réserves D2
+
+**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01.
+
+**Réserves conservées (mineures / NOT LIFTED) :** R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED.
+
+D2-B, D2-C et D3 restent **fermés** malgré l’intégration réussie de D2-A —
+voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) /
+[`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) /
+[`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) /
+[`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) /
+[`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md).
+```
+
+## Modified content — 19 section AM (complete)
+```markdown
+## AM. Registre merge / post-merge D2-A — 2026-08-02
+
+| Élément | État |
+|---------|------|
+| GO merge consommé | 2026-08-02 15:24 CEST (+0200) |
+| PR | [#298](https://github.com/mcleland147/sfia-workspace/pull/298) |
+| Stratégie | merge commit |
+| Merge SHA | `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Parent 1 | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| Parent 2 | `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+| Package | vingt fichiers intégrés |
+| CI finale | run `30749102358` SUCCESS · Vitest 913/913 · modeled 73 |
+| Required Gate | SUCCESS |
+| CI push main | run `30750099622` SUCCESS sur `a804f29…` |
+| Branche Delivery | conservée localement et à distance sur `f048a9c…` |
+| GO post-merge | consommé 2026-08-02 17:00 CEST (+0200) |
+| main local | synchronisée sur `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Branche post-merge | `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` — locale uniquement |
+| Findings fermés | R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 |
+| Réserves conservées | R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED |
+| D2-B / D2-C | **fermés** |
+| D2-D / D3 | **fermés** / **fermé** |
+| Commit / push / PR documentaire | **non exécutés** |
+
+**Statut :** `D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR — D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`.
+```
+
+## Modified content — D2-A README metadata + section Z (complete)
+```markdown
+# V3.1-D2-A — Catalog Projection
+
+## A. Métadonnées
+
+| Champ | Valeur |
+|-------|--------|
+| Date/heure/fuseau | 2026-08-02 03:26 CEST (+0200) |
+| Cycle | 8 — Delivery / implémentation |
+| Profil | Standard |
+| Typologie | EVOL |
+| Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
+| Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+| Statut | `V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR` |
+| Merge | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
+| Post-merge | cycle 14 Standard · validation locale · documentation awaiting PR |
+
+Le profil Standard est proportionné à un diff de fonctions de domaine pures,
+types readonly, constante statique et tests, sans resolver, infrastructure,
+mutation, UI, dépendance ni changement d'architecture.
+```
+
+```markdown
+## Z. Merge et post-merge — 2026-08-02
+
+### Z.1 Publication Git
+
+- Trois commits Delivery : `4911168…` (feat) · `b411736…` (docs) · `f048a9c…` (CI whitespace corrective).
+- PR [#298](https://github.com/mcleland147/sfia-workspace/pull/298) mergée.
+- Merge commit : `a804f29df3015fe0c71213d09b95159f04065dfc`.
+- Parents : `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` · `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
+- Vingt fichiers intégrés sur `main`.
+- Branche Delivery conservée localement et à distance sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
+
+### Z.2 Preuves finales
+
+- Run PR `30749102358` SUCCESS sur HEAD `f048a9c…`.
+- Vitest **913/913** · modeled governance **73**.
+- Typecheck / lint / build PASS.
+- Secret scan PASS · trailing whitespace PASS.
+- SFIA Studio Required Gate SUCCESS.
+- Run push main `30750099622` SUCCESS sur merge commit `a804f29…`.
+
+### Z.3 Findings
+
+Fermés :
+
+- R-QA-D2A-01 ;
+- R-PR-D2A-04 ;
+- R-CI-D2A-01 ;
+- R-MR-D2A-01.
+
+### Z.4 Réserves résiduelles
+
+- R-PR-D2A-01 — mineure (chemins Vitest locaux historiques) ;
+- R-PR-D2A-02 — mineure (références `.tmp-sfia-review` historiques) ;
+- R-PR-D2A-03 — mineure (volumétrie documentaire) ;
+- INHERITED-R-01 — NOT LIFTED (condensation framing README).
+
+Les quatre sont mineures/résiduelles et **non bloquantes** pour l’intégration D2-A. Elles ne sont **pas** fermées.
+
+### Z.5 Frontières
+
+- D2-B **fermé** ;
+- D2-C **fermé** ;
+- D2-D **gated** ;
+- D3 **fermé** ;
+- pas UI ;
+- pas CreateCycle ;
+- pas promotion méthode.
+
+### Z.6 Statut post-merge
+
+`V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR`
+
+### Z.7 Publication documentaire
+
+- Quatre fichiers vivants modifiés localement sur `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` ;
+- aucun commit, push ou PR projet dans le cycle post-merge ;
+- publication Git soumise à un gate Morris distinct (PR readiness documentaire).
+```
+
+## Full documentary diff (whitespace-sanitized for handoff)
+```diff
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+index f011b4e..ead39c3 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+@@ -50,13 +50,15 @@ Docs :
+ | Architecture fonctionnelle D2 | **adoptée (FA-C)** — [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) · D-V3.1-D2-FA-01…12 **ADOPTED BY MORRIS** |
+ | Architecture technique D2 | **adoptée** — [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) · D-V3.1-D2-TA-01…12 **ADOPTED BY MORRIS** |
+ | Backlog D2-A/B/C | **validé** — [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) · 17 stories préservées |
+-| Delivery D2-A | **complète localement** — contrats, HASH-A, projection pure · [rapport](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md) |
+-| QA D2-A | **exécutée — FAIL Cursor** · R-QA-D2A-01 bloquante · [01](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/01-qa-validation-report.md) |
+-| Delivery corrective D2-A | **complète localement** · [02](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/02-corrective-delivery-report.md) |
++| Delivery D2-A | **complète localement** (historique) — contrats, HASH-A, projection pure · [rapport](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md) |
++| QA D2-A | **exécutée — FAIL Cursor** (historique) · R-QA-D2A-01 bloquante · [01](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/01-qa-validation-report.md) |
++| Delivery corrective D2-A | **complète localement** (historique) · [02](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/02-corrective-delivery-report.md) |
+ | QA revalidation D2-A | **PASS** · R-QA-D2A-01 **CLOSED** · [03](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/03-qa-revalidation-report.md) |
+ | QA-G3 D2-A | **ACCEPTED BY MORRIS** — 2026-08-02 14:01 CEST |
+-| PR readiness D2-A | **READY FOR PR WITH RESERVES** · [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) · commit/push/PR non exécutés |
+-| Delivery D2-B | **fermée** — gate distinct requis après validation/intégration D2-A |
++| PR readiness D2-A | **verdict historique** **READY FOR PR WITH RESERVES** ayant précédé la publication · [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) |
++| PR / merge D2-A | PR #298 mergée par merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` · branche Delivery conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
++| Post-merge D2-A | intégration vérifiée · local main synchronisée · documentation de clôture préparée localement · publication documentaire en attente |
++| Delivery D2-B | **fermée** — aucun GO Delivery D2-B consommé |
+ | Delivery D2-C | **fermée** |
+ | D2-D (extensions) | **gated** · non ouvert |
+ | D3 | **non ouvert** |
+@@ -66,7 +68,7 @@ Docs :
+ | Lot | Contenu | Statut |
+ |-----|---------|--------|
+ | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
+-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A Delivery/QA/correctif/revalidation **PASS** · QA-G3 **ACCEPTED** · PR readiness **READY WITH RESERVES** · commit/push/PR non exécutés · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated |
++| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A **intégré `main`** · QA/CI vertes · findings fermés · post-merge **validé localement** · documentation de clôture **awaiting PR** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated |
+ | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
+
+ ### Réserves QA
+@@ -75,8 +77,11 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
+
+ ### Réserves D2
+
+-Catalog Projection D2-A Delivery/QA/correctif/revalidation complets ; R-QA-D2A-01 **CLOSED** ; QA-G3 **ACCEPTED BY MORRIS** ; PR readiness **READY FOR PR WITH RESERVES** ; commit/push/PR non exécutés.
+-Orchestration CKC, resolver et bridge QualifyCycle restent fermés en D2-B/C —
++**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01.
++
++**Réserves conservées (mineures / NOT LIFTED) :** R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED.
++
++D2-B, D2-C et D3 restent **fermés** malgré l’intégration réussie de D2-A —
+ voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) /
+ [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) /
+ [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) /
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
+index 47a3037..7eaef84 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
+@@ -948,3 +948,29 @@ des dix-sept stories.
+ | D3 | **fermé** |
+
+ **Statut :** `PR READINESS COMPLETE — READY FOR PR WITH RESERVES — QA-G3 ACCEPTED — NO COMMIT/PUSH/PR`.
++
++## AM. Registre merge / post-merge D2-A — 2026-08-02
++
++| Élément | État |
++|---------|------|
++| GO merge consommé | 2026-08-02 15:24 CEST (+0200) |
++| PR | [#298](https://github.com/mcleland147/sfia-workspace/pull/298) |
++| Stratégie | merge commit |
++| Merge SHA | `a804f29df3015fe0c71213d09b95159f04065dfc` |
++| Parent 1 | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
++| Parent 2 | `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
++| Package | vingt fichiers intégrés |
++| CI finale | run `30749102358` SUCCESS · Vitest 913/913 · modeled 73 |
++| Required Gate | SUCCESS |
++| CI push main | run `30750099622` SUCCESS sur `a804f29…` |
++| Branche Delivery | conservée localement et à distance sur `f048a9c…` |
++| GO post-merge | consommé 2026-08-02 17:00 CEST (+0200) |
++| main local | synchronisée sur `a804f29df3015fe0c71213d09b95159f04065dfc` |
++| Branche post-merge | `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` — locale uniquement |
++| Findings fermés | R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 |
++| Réserves conservées | R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED |
++| D2-B / D2-C | **fermés** |
++| D2-D / D3 | **fermés** / **fermé** |
++| Commit / push / PR documentaire | **non exécutés** |
++
++**Statut :** `D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR — D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`.
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+index 93ca7a2..8bf17cb 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+@@ -2,23 +2,23 @@
+
+ | Champ | Valeur |
+ |-------|--------|
+-| **Statut** | `FRAMING LIVING — V3.1-D2-A PR READINESS READY WITH RESERVES — QA-G3 ACCEPTED — NO COMMIT/PUSH/PR` |
+-| **Date** | 2026-08-02 14:11:00 CEST (+0200) |
+-| **Cycle courant** | 13 — PR readiness V3.1-D2-A |
+-| **Profil** | **Critical** |
+-| **Typologie** | EVOL |
+-| **Gate courant** | GO ACCEPT QA-G3 + PR readiness **consommé** (2026-08-02 14:01 CEST) |
+-| **Branche Delivery** | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
++| **Statut** | `FRAMING LIVING — V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR` |
++| **Date** | 2026-08-02 18:21:34 CEST (+0200) |
++| **Cycle courant** | 14 — Post-merge V3.1-D2-A |
++| **Profil** | **Standard** |
++| **Typologie** | DOC |
++| **Gate courant** | GO POST-MERGE consommé le 2026-08-02 17:00 CEST (+0200) |
++| **Branche post-merge** | `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` |
++| **Merge** | PR #298 · merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` |
++| **main** | `a804f29df3015fe0c71213d09b95159f04065dfc` |
++| **Delivery branch** | conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+ | **QA-G3 D2-A** | **ACCEPTED BY MORRIS** |
+-| **PR readiness** | **READY FOR PR WITH RESERVES** — [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) |
+-| **Commit / push / PR** | **non exécutés** |
+-| **Base `main`** | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+-| **Docs D2** | [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) · [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) · [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) · [`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) · [`19`](./19-v3-1-d2-a-b-c-delivery-backlog.md) |
+-| **Package** | 20 fichiers prospectifs |
+-| **D2-B** | **fermé** jusqu’à intégration D2-A + GO distinct |
++| **Package** | 20 fichiers intégrés |
++| **D2-B** | **fermé** — intégration D2-A satisfaite techniquement, mais aucun GO Delivery D2-B consommé |
+ | **D2-C** | **fermé** |
+ | **D2-D** | **gated** |
+ | **D3** | **fermé** |
++| **Réserves** | R-PR-D2A-01…03 résiduelles mineures ; INHERITED-R-01 NOT LIFTED |
+ | **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
+
+ ## Synthèse
+@@ -29,8 +29,10 @@
+ | **V3.1-D2 FA/TA/backlog** | adoptés / validé |
+ | **D2-A Delivery → QA → correctif → revalidation** | complets · R-QA-D2A-01 CLOSED |
+ | **QA-G3** | **ACCEPTED BY MORRIS** |
+-| **PR readiness** | **READY WITH RESERVES** |
+-| **Commit/push/PR** | gates distincts requis |
++| **PR #298** | **MERGED** |
++| **CI** | **SUCCESS** |
++| **Post-merge** | **VALIDATED LOCALLY** |
++| **Documentation** | **AWAITING PR** |
+ | Delivery D2-B/C | **fermées** |
+ | D3 | **fermé** |
+
+@@ -39,18 +41,20 @@
+ ## Gate candidat suivant
+
+ ```text
+-GO COMMIT PUSH AND OPEN DRAFT PR SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
+-USE APPROVED PR PACKAGE AND COMMIT PLAN —
+-TARGET MAIN —
+-NO MERGE —
++GO PR READINESS SFIA STUDIO V3.1-D2-A POST-MERGE DOCUMENTARY CLOSURE —
++REVIEW FOUR-FILE DOCUMENTARY PACKAGE —
++VERIFY MAIN SYNC, MERGE TRACE AND RESERVES —
++NO COMMIT —
++NO PUSH —
++NO PR —
++PRESERVE DELIVERY BRANCH —
++NO BRANCH DELETION —
+ NO D2-B —
+ NO D2-C —
+ NO D3 —
+-NO UI —
+-NO CREATECYCLE —
+ NO METHOD PROMOTION
+ ```
+
+ ## Verdict
+
+-`V3.1-D2-A PR READINESS COMPLETE — READY FOR PR WITH CLASSIFIED RESERVES — NO BLOCKING OR MAJOR RESERVE — QA-G3 ACCEPTED — COMMIT PUSH AND PR REQUIRE DISTINCT MORRIS GO — D2-B AND D2-C REMAIN CLOSED — D3 NOT OPENED`
++`V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR`
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
+index ef9db9c..26db318 100644
+--- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
+@@ -10,7 +10,9 @@
+ | Typologie | EVOL |
+ | Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
+ | Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
+-| Statut | `PR READINESS COMPLETE — READY FOR PR WITH RESERVES — QA-G3 ACCEPTED — NO COMMIT/PUSH/PR` |
++| Statut | `V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR` |
++| Merge | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
++| Post-merge | cycle 14 Standard · validation locale · documentation awaiting PR |
+
+ Le profil Standard est proportionné à un diff de fonctions de domaine pures,
+ types readonly, constante statique et tests, sans resolver, infrastructure,
+@@ -253,3 +255,61 @@ Rapport : [`03-qa-revalidation-report.md`](./03-qa-revalidation-report.md).
+ | D2-B / D2-C / D3 | fermés |
+
+ Rapport : [`04-pr-readiness-report.md`](./04-pr-readiness-report.md).
++
++## Z. Merge et post-merge — 2026-08-02
++
++### Z.1 Publication Git
++
++- Trois commits Delivery : `4911168…` (feat) · `b411736…` (docs) · `f048a9c…` (CI whitespace corrective).
++- PR [#298](https://github.com/mcleland147/sfia-workspace/pull/298) mergée.
++- Merge commit : `a804f29df3015fe0c71213d09b95159f04065dfc`.
++- Parents : `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` · `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
++- Vingt fichiers intégrés sur `main`.
++- Branche Delivery conservée localement et à distance sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
++
++### Z.2 Preuves finales
++
++- Run PR `30749102358` SUCCESS sur HEAD `f048a9c…`.
++- Vitest **913/913** · modeled governance **73**.
++- Typecheck / lint / build PASS.
++- Secret scan PASS · trailing whitespace PASS.
++- SFIA Studio Required Gate SUCCESS.
++- Run push main `30750099622` SUCCESS sur merge commit `a804f29…`.
++
++### Z.3 Findings
++
++Fermés :
++
++- R-QA-D2A-01 ;
++- R-PR-D2A-04 ;
++- R-CI-D2A-01 ;
++- R-MR-D2A-01.
++
++### Z.4 Réserves résiduelles
++
++- R-PR-D2A-01 — mineure (chemins Vitest locaux historiques) ;
++- R-PR-D2A-02 — mineure (références `.tmp-sfia-review` historiques) ;
++- R-PR-D2A-03 — mineure (volumétrie documentaire) ;
++- INHERITED-R-01 — NOT LIFTED (condensation framing README).
++
++Les quatre sont mineures/résiduelles et **non bloquantes** pour l’intégration D2-A. Elles ne sont **pas** fermées.
++
++### Z.5 Frontières
++
++- D2-B **fermé** ;
++- D2-C **fermé** ;
++- D2-D **gated** ;
++- D3 **fermé** ;
++- pas UI ;
++- pas CreateCycle ;
++- pas promotion méthode.
++
++### Z.6 Statut post-merge
++
++`V3.1-D2-A MERGED TO MAIN — POST-MERGE VALIDATED LOCALLY — DOCUMENTARY CLOSURE AWAITING PR`
++
++### Z.7 Publication documentaire
++
++- Quatre fichiers vivants modifiés localement sur `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` ;
++- aucun commit, push ou PR projet dans le cycle post-merge ;
++- publication Git soumise à un gate Morris distinct (PR readiness documentaire).
+```
+Exact patch archive: `.tmp-sfia-review/v3-1-d2-a-post-merge-documentary-diff.patch`
+
+## Occurrence classification summary
+- Living obsolete pre-merge “NO COMMIT/PUSH/PR” / “READY FOR PR” as current product status: **removed** from framing living metadata
+- Historical AL/Y/AH–AK statuses and story BACKLOG READY lines: **preserved**
+- Next-gate `NO COMMIT/PUSH/PR` in documentary PR-readiness candidate: **correct living**
+- D2-B/C/D3 closed statements: **correct living**
 
 ## Findings closed
-- R-QA-D2A-01
-- R-PR-D2A-04
-- R-CI-D2A-01
-- R-MR-D2A-01
+- R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01
 
-## Absences
-- No branch deletion
-- No D2-B / D2-C / D3
-- No UI / CreateCycle / method promotion
-- No project file mutation
-- Post-merge validation NOT complete
+## Reserves carried
+- R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 NOT LIFTED
+
+## Boundaries
+- D2-B closed · D2-C closed · D2-D gated · D3 closed · no UI/CreateCycle/method promotion
+
+## Absence claims
+- No staging · no project commit · no project push · no project PR
+- No branch deletion · no code/test/config mutation
 
 ## Final Git state
 ```
-DATE=2026-08-02 15:31:43 CEST (+0200)
-LOCAL_BRANCH=delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection
-LOCAL_HEAD=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
-ORIGIN_DELIVERY=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
+DATE=2026-08-02 18:23:04 CEST (+0200)
+BRANCH=post-merge/sfia-studio-v3-1-d2-a-catalog-projection
+HEAD=a804f29df3015fe0c71213d09b95159f04065dfc
+MAIN=a804f29df3015fe0c71213d09b95159f04065dfc
 ORIGIN_MAIN=a804f29df3015fe0c71213d09b95159f04065dfc
-MERGE_SHA=a804f29df3015fe0c71213d09b95159f04065dfc
-PARENT1=e1befcb80ed5e3c789a7de9036a8207d6b3e6771
-PARENT2=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
-PR=298
-PR_STATE=MERGED
-PR_MERGED_AT=2026-08-02T13:31:06Z
-PACKAGE_FILES=20
+DELIVERY_LOCAL=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
+DELIVERY_REMOTE=f048a9c25e478bd7bf4cffb6617f6b085c8cf689
+MERGE=a804f29df3015fe0c71213d09b95159f04065dfc
+MODIFIED_FILES=4
+STAGED=empty
+PROJECT_COMMIT=false
+PROJECT_PUSH=false
+PROJECT_PR=false
 BRANCH_DELETED=false
-R_MR_D2A_01=CLOSED
-D2A_STATUS=MERGED TO MAIN — POST-MERGE VALIDATION NOT YET COMPLETE
 D2B=false
 D2C=false
 D3=false
-PROJECT_FILES_MUTATED=false
 ```
 
 ```
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
+ M projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
 ?? .tmp-sfia-review/MERGE_SHA.txt
 ?? .tmp-sfia-review/_gen_d2a_corrective_reports.py
 ?? .tmp-sfia-review/_gen_d2a_pr_readiness_reports.py
@@ -657,10 +893,13 @@ PROJECT_FILES_MUTATED=false
 ?? .tmp-sfia-review/v3-1-d2-a-delivery-chatgpt-review-preserved.md
 ?? .tmp-sfia-review/v3-1-d2-a-delivery-report.md
 ?? .tmp-sfia-review/v3-1-d2-a-mark-ready-state.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-chatgpt-review-preserved.md
 ?? .tmp-sfia-review/v3-1-d2-a-merge-exec-inline-comments.json
 ?? .tmp-sfia-review/v3-1-d2-a-merge-exec-issue-comments.json
 ?? .tmp-sfia-review/v3-1-d2-a-merge-exec-reviews.json
+?? .tmp-sfia-review/v3-1-d2-a-merge-execution-final-state.txt
 ?? .tmp-sfia-review/v3-1-d2-a-merge-execution-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-a-merge-execution-report.md
 ?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-chatgpt-review-preserved.md
 ?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-ci.json
 ?? .tmp-sfia-review/v3-1-d2-a-merge-readiness-final-state.txt
@@ -676,7 +915,13 @@ PROJECT_FILES_MUTATED=false
 ?? .tmp-sfia-review/v3-1-d2-a-new-run-decision.txt
 ?? .tmp-sfia-review/v3-1-d2-a-post-branch-doc-hashes.txt
 ?? .tmp-sfia-review/v3-1-d2-a-post-branch-hashes.txt
+?? .tmp-sfia-review/v3-1-d2-a-post-merge-documentary-diff.patch
+?? .tmp-sfia-review/v3-1-d2-a-post-merge-git-truth.txt
+?? .tmp-sfia-review/v3-1-d2-a-post-merge-integration.txt
 ?? .tmp-sfia-review/v3-1-d2-a-post-merge-state.json
+?? .tmp-sfia-review/v3-1-d2-a-postmerge-ci.json
+?? .tmp-sfia-review/v3-1-d2-a-postmerge-main-runs.json
+?? .tmp-sfia-review/v3-1-d2-a-postmerge-pr.json
 ?? .tmp-sfia-review/v3-1-d2-a-pr-after-body.json
 ?? .tmp-sfia-review/v3-1-d2-a-pr-before-mutation.json
 ?? .tmp-sfia-review/v3-1-d2-a-pr-body-before-merge.md
@@ -796,47 +1041,52 @@ PROJECT_FILES_MUTATED=false
 ?? .tmp-sfia-review/worktree-before.txt
 ```
 
+```
+ .../08-implementation-backlog-and-slicing.md       | 21 +++++---
+ .../19-v3-1-d2-a-b-c-delivery-backlog.md           | 26 +++++++++
+ .../README.md                                      | 48 +++++++++--------
+ .../README.md                                      | 62 +++++++++++++++++++++-
+ 4 files changed, 126 insertions(+), 31 deletions(-)
+```
+
 ## Candidate next gate (NOT executed)
 ```
-GO POST-MERGE SFIA STUDIO V3.1-D2-A CATALOG PROJECTION —
-VERIFY MERGE COMMIT AND MAIN INTEGRATION —
-SYNC LOCAL MAIN —
-UPDATE D2-A LIVING STATUS AND RESERVES —
+GO PR READINESS SFIA STUDIO V3.1-D2-A POST-MERGE DOCUMENTARY CLOSURE —
+REVIEW FOUR-FILE DOCUMENTARY PACKAGE —
+VERIFY MAIN SYNC, MERGE TRACE, FINDINGS AND RESERVES —
+NO COMMIT —
+NO PUSH —
+NO PR —
 PRESERVE DELIVERY BRANCH —
 NO BRANCH DELETION —
 NO D2-B —
 NO D2-C —
 NO D3 —
-NO UI —
-NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
 ## Verdict
-**V3.1-D2-A MERGE COMPLETE —
-PR #298 BODY REFRESHED —
-R-MR-D2A-01 CLOSED —
-PR MARKED READY —
-FINAL HEAD BASE AND REQUIRED GATE REVERIFIED —
-MERGE COMMIT STRATEGY USED —
-PR #298 MERGED INTO MAIN —
-MERGE COMMIT PARENTS VERIFIED —
-TWENTY-FILE PACKAGE INTEGRATED —
-DELIVERY BRANCH PRESERVED —
+**V3.1-D2-A POST-MERGE VALIDATION COMPLETE LOCALLY —
+PR #298 MERGE COMMIT AND PARENTS VERIFIED —
+TWENTY-FILE MAIN INTEGRATION VERIFIED —
+LOCAL MAIN SYNCHRONIZED BY FAST-FORWARD —
+DELIVERY BRANCH PRESERVED LOCALLY AND REMOTELY —
+FOUR LIVING DOCUMENTS UPDATED LOCALLY —
+CLOSED FINDINGS PRESERVED —
+MINOR RESERVES CARRIED FORWARD —
+DOCUMENTARY CLOSURE AWAITING PR —
+NO STAGING —
+NO PROJECT COMMIT —
+NO PROJECT PUSH —
+NO PROJECT PR —
 NO BRANCH DELETION —
 NO D2-B —
 NO D2-C —
 NO D3 —
 NO UI —
 NO CREATECYCLE —
-NO METHOD PROMOTION —
-POST-MERGE VALIDATION STILL REQUIRED**
+NO METHOD PROMOTION**
 
-## Completeness checklist
-- gate Morris: yes
-- body before/final/diff: yes
-- mark-ready + CI decision: yes
-- pre-merge reverify: yes
-- merge SHA + parents: yes
-- twenty files + branch preserved: yes
+## Completeness
+- modified content complete: yes
 - synthesis only: no
