@@ -10,6 +10,9 @@ export * from "./domain/errors";
 export * from "./domain/invariants";
 export * from "./domain/qualification";
 export * from "./domain/cycleTypeCatalog";
+export * from "./domain/ckcQualificationContracts";
+export * from "./domain/catalogFingerprint";
+export * from "./domain/catalogProjection";
 
 export * from "./ports/cycleRepository";
 export * from "./ports/trajectoryRepository";
