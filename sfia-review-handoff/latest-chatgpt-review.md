@@ -1,628 +1,608 @@
-# Review pack Full — SFIA Studio V3.1-D2-A final documentary status post-merge validation
+# Review pack Full — SFIA Studio V3.1-D2-B CKC resolver cadrage
 
 ## Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure/fuseau | 2026-08-02 21:06:00 CEST (+0200) |
-| Rôle Cursor | Exécution cycle 14 — validation post-merge finale statut documentaire |
-| Cycle | 14 — Post-merge |
-| Sous-type | Validation post-merge finale du statut documentaire V3.1-D2-A |
+| Date/heure/fuseau | 2026-08-02 21:40:13 CEST (+0200) |
+| Rôle Cursor | Exécution cycle 1 — cadrage repo-informed D2-B |
+| Cycle | 1 — Cadrage |
+| Sous-type | Cadrage future Delivery V3.1-D2-B CKC Resolver |
 | Profil | Standard |
 | Typologie | DOC |
-| CKC | Fallback `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` — method-candidate / experimental / aucune autorité d'exécution |
+| CKC | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` — candidate v0.1.0 — experimental — aucune autorité |
 | Template | `prompts/templates/sfia-cycle-execution-template.md` |
 | Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
+| Ref canonique | origin/main `bb685f1205b33f887ee27b42ac918c96386a6e33` |
 
-## Gate Morris consommé
+## Gate Morris
 
 ```text
-GO POST-MERGE SFIA STUDIO V3.1-D2-A FINAL DOCUMENTARY STATUS —
-VERIFY PR #300 MERGE COMMIT, MAIN INTEGRATION AND MAIN CI —
-SYNC LOCAL MAIN —
-VERIFY FINAL LIVING STATUS, HISTORICAL CLAIMS, FINDINGS, RESERVES AND BRANCH PRESERVATION —
-PRESERVE FINALIZATION, POST-MERGE HISTORICAL AND DELIVERY BRANCHES —
-NO BRANCH DELETION —
-NO D2-B —
+GO CADRAGE SFIA STUDIO V3.1-D2-B CKC RESOLVER —
+REVIEW VALIDATED D2 BACKLOG, ADOPTED FUNCTIONAL AND TECHNICAL ARCHITECTURE, D2-A CONTRACTS AND CKC SOURCE MODEL —
+CONFIRM D2-B STORIES, INPUTS, OUTPUTS, FALLBACK RULES, EVIDENCE, ERRORS, TEST STRATEGY AND FILE SCOPE —
+NO IMPLEMENTATION —
+NO COMMIT —
+NO PUSH —
+NO PR —
 NO D2-C —
+NO D2-D —
 NO D3 —
+NO UI —
+NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
 
-Date/heure/fuseau du GO : **2026-08-02 20:58 CEST (+0200)**
+GO : **2026-08-02 21:22 CEST (+0200)**
 
-## Handoff source pré-cycle
+## Handoff source
 
-| Champ | Valeur |
-|-------|--------|
-| Tip | `92f89b549f0c25c43f128934a43aaa6aa8c298f0` |
-| Blob | `c5e347ab5f71fe89b720eb717125dfcf2be9274d` |
-| Statut | MERGE COMPLETE — MAIN CI PENDING AT REPORT TIME — POST-MERGE VALIDATION STILL REQUIRED |
-| Archive | `.tmp-sfia-review/v3-1-d2-a-final-status-merge-chatgpt-review-preserved.md` |
+Tip `4b618cff5a13d2e08fb4db2fed7ea76542e703c9` · blob `8d4515f21bac12b336aa2e7012d24c0f93d3c34d`
+Archive : `.tmp-sfia-review/v3-1-d2-a-final-post-merge-chatgpt-review-preserved.md`
 
 ## Git Truth
 
 ```
-DATE=2026-08-02 21:07:50 CEST (+0200)
+DATE=2026-08-02 21:40:13 CEST (+0200)
 BRANCH=post-merge/sfia-studio-v3-1-d2-a-documentary-closure-final-status
 HEAD=664486753784282ae755e5b1ee2b91a0e805c8c8
-main_before_sync=983cef38c972ef1646166669613e680efba8f487
-main_after=bb685f1205b33f887ee27b42ac918c96386a6e33
+main=bb685f1205b33f887ee27b42ac918c96386a6e33
 origin/main=bb685f1205b33f887ee27b42ac918c96386a6e33
-sync_method=git branch -f main origin/main (Case B — main not checked out)
+main_div=0	0
 final_L/R=664486753784282ae755e5b1ee2b91a0e805c8c8/664486753784282ae755e5b1ee2b91a0e805c8c8
 post_L/R=99e55d4ff05af66445f2522f85910faebceaded4/99e55d4ff05af66445f2522f85910faebceaded4
 del_L/R=f048a9c25e478bd7bf4cffb6617f6b085c8cf689/f048a9c25e478bd7bf4cffb6617f6b085c8cf689
-MERGE_SHA=bb685f1205b33f887ee27b42ac918c96386a6e33
-PARENT1=983cef38c972ef1646166669613e680efba8f487
-PARENT2=664486753784282ae755e5b1ee2b91a0e805c8c8
+local_d2b=
+remote_d2b=
 staged=0
 wt=0
-handoff_pre=92f89b549f0c25c43f128934a43aaa6aa8c298f0
+handoff=4b618cff5a13d2e08fb4db2fed7ea76542e703c9
+handoff_blob=8d4515f21bac12b336aa2e7012d24c0f93d3c34d
 
 ```
 
-## PR #300
+## Sources consultées
 
-MERGED · mergeCommit `bb685f1205b33f887ee27b42ac918c96386a6e33` · head `664486753784282ae755e5b1ee2b91a0e805c8c8` · mergedAt `2026-08-02T18:51:02Z`
+Docs D2 15–19 · 08 · framing README · D2-A (`ckcQualificationContracts`, `catalogProjection`, `cycleTypeCatalog`, `catalogFingerprint`, `index`) · T-A2 (`types`, `errors`, `ckcResolver`, `cycleAudit`, `resolveCycleKnowledgeContract`, `qualifyCycle`, `memoryCkcResolver`) · CKC synthetic map + pilots 01–04 · matrice routing.
 
-### Body final distant (complet)
+## Décisions FA/TA non rouvertes
 
-```markdown
-## Summary
+FA-C · PORT-B · CKC-S-A · PROOF-A · ERR-B · AUDIT-A · TYPE-B · HASH-A · A→B→C · D2-D gated · executionAuthority=false · Core unique · fallback substitution · no Markdown runtime · QualifyCycle/CreateCycle inchangés · Memory non autoritatif.
 
-Final living-status update for **SFIA Studio V3.1-D2-A** after product and documentary closure are already on `main`.
+## Matrice stories (complet)
 
-- Product package merged through PR #298 (`a804f29…`)
-- Documentary closure merged through PR #299 (`983cef38…`)
-- This package updates **four living documents** only
-- Underlying product and documentary closure are **already complete on main**
-- At PR publication time, this final status update is not yet integrated into main; integration requires merge of this PR.
-- Documentation-only — no code / test / configuration / method change
+# Matrice stories BL-D2-B-01…06
 
-## Git and CI evidence
+Date : 2026-08-02 21:40:13 CEST (+0200)
+Ref : origin/main `bb685f1205b33f887ee27b42ac918c96386a6e33`
+Sources : doc 19 §§O–P · docs 16–18 · D2-A contracts
 
-- Base `main` SHA: `983cef38c972ef1646166669613e680efba8f487`
-- PR #299 MERGED (merge commit strategy)
-- Merge parents: `a804f29…` + `99e55d4…`
-- Documentary commit: `99e55d4ff05af66445f2522f85910faebceaded4`
-- CI PR `30757998482` SUCCESS
-- CI main `30759197858` SUCCESS
-- SFIA Studio Required Gate SUCCESS
-- Post-merge branch preserved at `99e55d4…`
-- Delivery branch preserved at `f048a9c…`
-- Final status PR CI: run `30760786462` SUCCESS on final HEAD `664486753784282ae755e5b1ee2b91a0e805c8c8`.
-- SFIA Studio Required Gate: SUCCESS.
-- Merge readiness: PASS WITH RESERVES on 2026-08-02 20:35 CEST (+0200).
-- R-MR-FS-D2A-01: CLOSED by body refresh on 2026-08-02 during the Morris-authorized mark-ready/merge cycle.
+## Séquencement confirmé
 
+`D2-A (fait) → B-01 → B-02 → B-03 → B-04 → B-05 → B-06 → D2-C (fermé)`
 
-## Files
+Ordre alternatif (B-04 // B-03) **non adopté** (§K doc 19). Profil Delivery candidat : **Critical**.
 
-1. `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md`
-2. `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md`
-3. `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md`
-4. `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md`
+| Story | Résultat | Préconditions | Dépendances | In | Out | Files candidats | Tests clés | Statut cadrage |
+|-------|----------|---------------|-------------|----|-----|-----------------|------------|----------------|
+| **B-01** Manifest CKC typé | Registre statique allowlisté cohérent D1 | A-04 / catalogue stable | A | `ckcReferenceManifest.ts` + tests | Markdown · path arbitraire · Memory authority · enrichir D1 | `infrastructure/ckcReferenceManifest.ts` | primaries · fallbacks · unknown · level incoherent · orphan | **CONFIRMED** |
+| **B-02** Port D2 spécialisé | `CkcQualificationResolverPort` | B-01 · projection A | B-01 · A-01 | port + types résolution | modifier `CkcResolverPort` · QC · CreateCycle | `ports/ckcQualificationResolver.ts` | contrat entrée/sortie · non-régression port historique | **CONFIRMED** |
+| **B-03** Resolver Core | detailed/synthetic/fallback fail-closed | B-01 · B-02 | B-01 · B-02 | adapter infra | multi-CKC · Memory authority · QC · randomBytes métier | `infrastructure/ckcQualificationResolver*.ts` (nom sémantique) | detailed · synthetic · fallback · double KO · unauthorized · authority=true · extension | **CONFIRMED** |
+| **B-04** Erreurs + T-A2 | codes doc 16 · adaptateur ERR-B | B-02 | B-02 (intégration après B-03) | `ckcQualificationErrors.ts` | ERR-C · mass CycleDetailCode | `domain/ckcQualificationErrors.ts` | mapping codes · messages sûrs · no leak | **CONFIRMED** |
+| **B-05** Proof Builder pur | preuve §P · consumed iff resolved_* | B-03 · B-04 | B-03 · B-04 | `ckcConsumptionProof.ts` | I/O · profil · orch | `domain/ckcConsumptionProof.ts` | nominal ×3 · mismatch · incomplete · failure ⇒ ¬consumed | **CONFIRMED** |
+| **B-06** Events + validation | audit additif · suite B · checklist sortie | B-01…05 | B-01…05 | events + tests | factory CreateCycle · orch D2-C | `ports/cycleAudit.ts` (additif) · `__tests__/oa/cycle/*d2b*` | started/succeeded/failed/fallback/validated/rejected · `oa.ckc.resolved` | **CONFIRMED** |
 
-## Status changes
+## Indépendance / testabilité
 
-- Living status → `PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN`
-- Living next gate → `NO AUTOMATIC NEXT CYCLE`
-- Section AN added (doc 19) — documentary merge / post-merge register
-- Section Z.9 added (D2-A README)
-- R-MR-PM-D2A-01 CLOSED
-- Reserves carried forward
-
-## Findings (closed)
-
-R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01…03 · R-MR-PM-D2A-01
-
-## Reserves (open)
-
-- R-PR-D2A-01 — historical local Vitest paths
-- R-PR-D2A-02 — historical `.tmp-sfia-review` references
-- R-PR-D2A-03 — documentary volume
-- INHERITED-R-01 — README condensation, NOT LIFTED
-
-## Boundaries
-
-- D2-B / D2-C **closed**
-- D2-D **gated / not opened**
-- D3 **closed**
-- No method promotion
-- No branch deletion
-
-## Test plan
-
-- [x] four-file documentary-only diff (+99/−34)
-- [x] `git diff --check` PASS
-- [x] PR #299 merge trace verified
-- [x] main CI `30759197858` SUCCESS
-- [x] COMPLETE ON MAIN status consistency
-- [x] historical PENDING occurrences classified (AM only)
-- [x] findings and reserves verified
-- [x] branch preservation verified
-- [x] remote CI — SUCCESS via run `30760786462` on final HEAD `664486753784282ae755e5b1ee2b91a0e805c8c8`
-- [x] merge readiness — PASS WITH RESERVES on 2026-08-02 20:35 CEST (+0200)
-- [x] R-MR-FS-D2A-01 — CLOSED by final CI evidence body refresh
-- [ ] merge — authorized by Morris GO 2026-08-02 20:42 CEST (+0200), not yet executed at body-refresh time
+- B-01 testable sans B-03 (cohérence catalogue↔manifest).
+- B-02 testable par contrat mocké.
+- B-03–B-05 forment le cœur fail-closed ; B-06 clôture et non-régression.
+- Aucune story n'exige D2-C/D2-D/D3 pour être testable.
 
 
-```
+## Contrat D2-B (complet)
 
-## Merge commit et parents
+# Contrat Delivery candidat — V3.1-D2-B CKC Resolution and Consumption
 
-| Champ | Valeur |
-|-------|--------|
-| MERGE_SHA | `bb685f1205b33f887ee27b42ac918c96386a6e33` |
-| Message | Merge pull request #300 from …documentary-closure-final-status |
-| Parent 1 | `983cef38c972ef1646166669613e680efba8f487` |
-| Parent 2 | `664486753784282ae755e5b1ee2b91a0e805c8c8` |
-| Ancêtres | confirmés |
+Date : 2026-08-02 21:40:13 CEST (+0200)
+Statut : **résultat de cadrage temporaire** — **pas** décision adoptée — **pas** autorisation Delivery.
 
-## Package / blobs / intégration
+## Intention
 
-```
-BASE=983cef38c972ef1646166669613e680efba8f487
-MERGE=bb685f1205b33f887ee27b42ac918c96386a6e33
-HEAD=664486753784282ae755e5b1ee2b91a0e805c8c8
-M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
-M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
- .../08-implementation-backlog-and-slicing.md       |  7 +--
- .../19-v3-1-d2-a-b-c-delivery-backlog.md           | 30 ++++++++++++
- .../README.md                                      | 57 +++++++++++++---------
- .../README.md                                      | 39 ++++++++++++---
- 4 files changed, 99 insertions(+), 34 deletions(-)
-4	3	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/08-implementation-backlog-and-slicing.md
-30	0	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/19-v3-1-d2-a-b-c-delivery-backlog.md
-33	24	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/README.md
-32	7	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/README.md
-BLOBS:
-README 0fc0a1254e914dcbafb032889281b574e643378e
-08 2a8609f8460f0077444ce77fc702258df7dbaa7d
-19 ff7af5d0355d6df82ab19b302b18984031495ef6
-D2A 56aa4684632098bd2709ff60f6dd60e41c5c2d2d
-IDENTITY_HEAD_MAIN=OK
+Résoudre le Core CKC à partir d'une `ValidatedCycleTypeProjection` D2-A, produire un statut D2 détaillé + projection T-A2 additive, et une preuve de consommation pure fail-closed — **sans** QualifyCycle, CreateCycle, UI, D2-C/D3.
 
-```
+## Préconditions
 
-## CI PR
+- D2-A intégré sur main (`bb685f1…` contient contrats + projection)
+- Catalogue D1 stable / fingerprint vert
+- FA-C · PORT-B · CKC-S-A · PROOF-A · ERR-B · AUDIT-A · TYPE-B adoptés
+- GO Delivery Morris **distinct** (non consommé)
 
-Run `30760786462` · HEAD `664486753784282ae755e5b1ee2b91a0e805c8c8` · SUCCESS · Required Gate SUCCESS.
+## Entrées
 
-## CI main
+### Principale — `ValidatedCycleTypeProjection`
 
-```json
-{"conclusion":"success","databaseId":30762051823,"event":"push","headSha":"bb685f1205b33f887ee27b42ac918c96386a6e33","jobs":[{"completedAt":"2026-08-02T18:51:19Z","conclusion":"success","databaseId":91534233610,"name":"Detect SFIA Studio changes","startedAt":"2026-08-02T18:51:12Z","status":"completed","steps":[{"completedAt":"2026-08-02T18:51:13Z","conclusion":"success","name":"Set up job","number":1,"startedAt":"2026-08-02T18:51:13Z","status":"completed"},{"completedAt":"2026-08-02T18:51:15Z","conclusion":"success","name":"Checkout","number":2,"startedAt":"2026-08-02T18:51:13Z","status":"completed"},{"completedAt":"2026-08-02T18:51:15Z","conclusion":"success","name":"Detect Studio scope","number":3,"startedAt":"2026-08-02T18:51:15Z","status":"completed"},{"completedAt":"2026-08-02T18:51:16Z","conclusion":"success","name":"Post Checkout","number":6,"startedAt":"2026-08-02T18:51:15Z","status":"completed"},{"completedAt":"2026-08-02T18:51:16Z","conclusion":"success","name":"Complete job","number":7,"startedAt":"2026-08-02T18:51:16Z","status":"completed"}],"url":"https://github.com/mcleland147/sfia-workspace/actions/runs/30762051823/job/91534233610"},{"completedAt":"2026-08-02T18:52:49Z","conclusion":"success","databaseId":91534261059,"name":"Build and validate SFIA Studio","startedAt":"2026-08-02T18:51:21Z","status":"completed","steps":[{"completedAt":"2026-08-02T18:51:23Z","conclusion":"success","name":"Set up job","number":1,"startedAt":"2026-08-02T18:51:22Z","status":"completed"},{"completedAt":"2026-08-02T18:51:25Z","conclusion":"success","name":"Checkout","number":2,"startedAt":"2026-08-02T18:51:23Z","status":"completed"},{"completedAt":"2026-08-02T18:51:27Z","conclusion":"success","name":"Setup Node.js","number":3,"startedAt":"2026-08-02T18:51:25Z","status":"completed"},{"completedAt":"2026-08-02T18:51:39Z","conclusion":"success","name":"Install dependencies","number":4,"startedAt":"2026-08-02T18:51:27Z","status":"completed"},{"completedAt":"2026-08-02T18:51:47Z","conclusion":"success","name":"Typecheck","number":5,"startedAt":"2026-08-02T18:51:39Z","status":"completed"},{"completedAt":"2026-08-02T18:51:53Z","conclusion":"success","name":"Lint","number":6,"startedAt":"2026-08-02T18:51:47Z","status":"completed"},{"completedAt":"2026-08-02T18:52:20Z","conclusion":"success","name":"Build","number":7,"startedAt":"2026-08-02T18:51:53Z","status":"completed"},{"completedAt":"2026-08-02T18:52:46Z","conclusion":"success","name":"Unit tests (Vitest)","number":8,"startedAt":"2026-08-02T18:52:20Z","status":"completed"},{"completedAt":"2026-08-02T18:52:47Z","conclusion":"success","name":"Modeled governance tests","number":9,"startedAt":"2026-08-02T18:52:46Z","status":"completed"},{"completedAt":"2026-08-02T18:52:47Z","conclusion":"success","name":"Secret pattern scan (targeted)","number":10,"startedAt":"2026-08-02T18:52:47Z","status":"completed"},{"completedAt":"2026-08-02T18:52:47Z","conclusion":"success","name":"Trailing whitespace check","number":11,"startedAt":"2026-08-02T18:52:47Z","status":"completed"},{"completedAt":"2026-08-02T18:52:47Z","conclusion":"success","name":"Post Setup Node.js","number":21,"startedAt":"2026-08-02T18:52:47Z","status":"completed"},{"completedAt":"2026-08-02T18:52:47Z","conclusion":"success","name":"Post Checkout","number":22,"startedAt":"2026-08-02T18:52:47Z","status":"completed"},{"completedAt":"2026-08-02T18:52:48Z","conclusion":"success","name":"Complete job","number":23,"startedAt":"2026-08-02T18:52:47Z","status":"completed"}],"url":"https://github.com/mcleland147/sfia-workspace/actions/runs/30762051823/job/91534261059"},{"completedAt":"2026-08-02T18:52:53Z","conclusion":"success","databaseId":91534410652,"name":"SFIA Studio Required Gate","startedAt":"2026-08-02T18:52:51Z","status":"completed","steps":[{"completedAt":"2026-08-02T18:52:52Z","conclusion":"success","name":"Set up job","number":1,"startedAt":"2026-08-02T18:52:52Z","status":"completed"},{"completedAt":"2026-08-02T18:52:52Z","conclusion":"success","name":"Aggregate required gate","number":2,"startedAt":"2026-08-02T18:52:52Z","status":"completed"},{"completedAt":"2026-08-02T18:52:52Z","conclusion":"success","name":"Complete job","number":3,"startedAt":"2026-08-02T18:52:52Z","status":"completed"}],"url":"https://github.com/mcleland147/sfia-workspace/actions/runs/30762051823/job/91534410652"}],"number":74,"status":"completed","url":"https://github.com/mcleland147/sfia-workspace/actions/runs/30762051823"}
+`cycleTypeId` · `label` · `shortDescription` · `lifecycleStatus` · `ckc` · `catalogVersion` · `catalogHash` · `correlationId`
 
-```
+### Mapping `ckc` (D1)
 
-Run `30762051823` (#74) · HEAD `bb685f1205b33f887ee27b42ac918c96386a6e33` · event push · completed **success** · Detect / Build / Required Gate SUCCESS · toutes étapes SUCCESS.
+`mandatory=true` · `primaryLevel` · `primaryReference` · `fallbackPolicy` (`synthetic_map`|`none`) · `fallbackReference?` · `executionAuthority=false` · `doctrineStatus=method-candidate` · `unavailableBehavior=fail-closed`
 
-## Synchronisation main
+### Autres
 
-- Avant : `main` = `983cef38c972ef1646166669613e680efba8f487`
-- Méthode : **Case B** — `git branch -f main origin/main` (main non checkout dans un worktree)
-- Après : `main` = `origin/main` = `bb685f1205b33f887ee27b42ac918c96386a6e33`
-- Fast-forward strict via repositionnement de ref (ancêtre vérifié) · pas de reset --hard · pas de push main
-- Retour branche finalisation @ `664486753784282ae755e5b1ee2b91a0e805c8c8`
+- `resolvedAt` : string ISO produite via **ClockPort** à la frontière adaptateur/use-case, injectée dans le domaine pur
+- manifest CKC typé (B-01)
+- `CycleAuditPort` pour émissions B-06 (adaptateur)
 
-## Branches préservées (avant/après)
+### Interdits en entrée B
 
-| Branche | SHA |
-|---------|-----|
-| finalisation | `664486753784282ae755e5b1ee2b91a0e805c8c8` |
-| post-merge historique | `99e55d4ff05af66445f2522f85910faebceaded4` |
-| Delivery | `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
+six signaux · objective/scope · requestedProfile · profil recommandé · appel QualifyCycle
 
-## Revue framing README (complet)
+## Sorties
 
-```markdown
-# First user-visible SFIA Studio vertical slice — Framing
+### `CkcQualificationResolution` (candidat)
 
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD` |
-| **Date** | 2026-08-02 19:51:05 CEST (+0200) |
-| **Cycle courant** | 14 — Post-merge final V3.1-D2-A documentary closure |
-| **Profil** | **Standard** |
-| **Typologie** | DOC |
-| **Gate courant** | GO POST-MERGE consommé le 2026-08-02 19:43 CEST (+0200) |
-| **Product merge** | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| **Documentary closure merge** | PR #299 · `983cef38c972ef1646166669613e680efba8f487` |
-| **main** | `983cef38c972ef1646166669613e680efba8f487` |
-| **Post-merge branch** | conservée sur `99e55d4ff05af66445f2522f85910faebceaded4` |
-| **Delivery branch** | conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
-| **Main CI** | run `30759197858` SUCCESS · Required Gate SUCCESS |
-| **QA-G3 D2-A** | **ACCEPTED BY MORRIS** |
-| **Package** | 20 fichiers produit + 4 fichiers clôture documentaire intégrés |
-| **Documentation** | **COMPLETE ON MAIN** |
-| **D2-B** | **fermé** — aucun GO Delivery consommé |
-| **D2-C** | **fermé** |
-| **D2-D** | **gated** / non ouvert |
-| **D3** | **fermé** |
-| **Réserves** | R-PR-D2A-01…03 résiduelles mineures ; INHERITED-R-01 NOT LIFTED |
-| **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
+statut D2 · level/status/source T-A2 · expectedPrimaryReference · usedReference? · fallbackUsed · fallbackReference? · doctrineStatus · executionAuthority=false · catalogVersion · catalogHash · correlationId · resolvedAt · exploitable · disclosures · erreur structurée si échec
 
-## Synthèse
+### `CkcConsumptionProof` (candidat, doc 16 §P)
 
-| Lot | État |
-|-----|------|
-| V1 / V2 / V3.1-D1 | intégrés / clos `main` |
-| **V3.1-D2 FA/TA/backlog** | adoptés / validé |
-| **D2-A Delivery → QA → correctif → revalidation** | complets · R-QA-D2A-01 CLOSED |
-| **QA-G3** | **ACCEPTED BY MORRIS** |
-| **PR #298** | **MERGED** |
-| **Product CI** | **SUCCESS** |
-| **Product post-merge** | **VALIDATED** |
-| **PR #299** | **MERGED** |
-| **Documentary main CI** | **SUCCESS** (`30759197858`) |
-| **Documentation** | **COMPLETE ON MAIN** |
-| **R-MR-PM-D2A-01** | **CLOSED** |
-| **Réserves** | **carried forward** |
-| Delivery D2-B/C | **fermées** |
-| D2-D | **gated** |
-| D3 | **fermé** |
+champs minimum §P · `consumed=true` **uniquement** si resolved_detailed|synthetic|fallback_synthetic + invariants · immutable · pas de texte CKC brut
 
-**INHERITED-R-01 (README) :** condensation framing — **ACCEPTED — STILL TRACEABLE — NOT LIFTED**.
+### Ne pas produire
 
-## Gate candidat suivant
+recommendedProfile · rationale QC · D2 Success/Failure final D3 · CycleInstance · persistance · mutation
+
+## Invariants
+
+- `executionAuthority=false` toujours
+- `doctrineStatus=method-candidate`
+- fallback = substitution
+- mono-CKC Core
+- fail-closed avant QualifyCycle
+- `consumed=true` jamais après échec
+- statut D2 conservé (perte info T-A2 sur fallback)
+- déterminisme hors timestamp injecté
+
+## Source model / priorité / fallback
+
+Voir `v3-1-d2-b-ckc-resolver-source-model.md`.
+
+## Statuts D2
+
+`resolved_detailed` · `resolved_synthetic` · `resolved_fallback_synthetic` · `unresolved_invalid_mapping` · `unresolved_unavailable` · `unresolved_catalog_incompatible` · `unresolved_cycle_not_selectable`
+
+## Adaptation T-A2
+
+Additive uniquement — enums `CkcLevel`/`CkcStatus`/`CkcSource` **non** étendus. Mapping doc 16 §O.
+
+## Preuve / erreurs / événements
+
+Voir matrices dédiées. Events additifs AUDIT-A ; non-régression `oa.ckc.resolved`.
+
+## Dépendances
+
+- D2-A projection + fingerprint + catalogue
+- ClockPort existant
+- CycleAuditPort (extension additive)
+- **Non-dépendances :** QualifyCycle · CreateCycle · D2-C · D2-D · D3 · Markdown I/O · nouveaux packages
+
+## Hors périmètre
+
+implémentation hors GO Delivery · UI · Figma · CreateCycle · multi-CKC · D2-D · API/Server Actions · promotion méthode · parsing Markdown · Memory comme autorité
+
+## Fichiers candidats / protégés
+
+Voir `v3-1-d2-b-ckc-resolver-file-scope.md`.
+
+## Stratégie de tests
+
+Voir `v3-1-d2-b-ckc-resolver-test-strategy.md`.
+
+## Stop conditions Delivery
+
+- besoin parsing Markdown / path arbitraire
+- besoin modifier catalogue D1 ou port historique fonctionnellement
+- besoin appeler QualifyCycle
+- preuve non séparable de D2-C
+- changement cassant enums T-A2
+- dépendance/package/CI nouvelle sans décision
+- rouvrir FA/TA
+
+## Risques
+
+| Risque | Mitigation |
+|--------|------------|
+| Confusion PORT historique vs PORT-B | tests non-régression + isolation |
+| Perte primary/fallback en T-A2 | statut D2 obligatoire dans résolution/preuve |
+| Boucle récursive doc | pas de doc living versionnée sauf preuve |
+| Surface Critical large | un seul cycle ordonné B-01…06 + checklist B-06 |
+| Alias codes stale | A garde ses codes ; B ne renomme pas |
+
+## Décisions couvertes (non rouvertes)
+
+FA-C · D2-02=B · PORT-B · CKC-S-A · PROOF-A · ERR-B · AUDIT-A · TYPE-B · HASH-A · slicing A→B→C · D2-D gated · executionAuthority=false · Core unique · fallback substitution · no Markdown runtime · QualifyCycle inchangé
+
+## Ambiguïtés restantes (non bloquantes)
+
+1. Littéraux exacts enum `availability` du manifest
+2. Noms littéraux TS des events additifs
+3. Port B sync Result **recommandé** vs `Promise` pour symétrie historique
+4. Alias `CATALOG_STALE` (doc 16) vs `CATALOG_FINGERPRINT_STALE` (A) — hors B si projection validée
+5. Nom exact fichier adapter B-03
+
+## Profil Delivery candidat
+
+**Critical** (backlog §L/Z) — **non consommé** par ce cadrage.
+
+## Gate Delivery candidat
 
 ```text
-NO AUTOMATIC NEXT CYCLE —
-D2-B AND D2-C REMAIN CLOSED —
-D2-D REMAINS GATED —
-D3 REMAINS CLOSED —
-ANY NEW DELIVERY OR METHOD CYCLE REQUIRES A DISTINCT MORRIS GO
-```
-
-## Verdict
-
-`V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN —
-POST-MERGE VALIDATED —
-RESERVES CARRIED FORWARD —
-NO D2-B —
+GO DELIVERY SFIA STUDIO V3.1-D2-B CKC RESOLVER —
+APPLY ADOPTED D2 FUNCTIONAL AND TECHNICAL ARCHITECTURE AND CONFIRMED BL-D2-B-01…06 —
+CONSUME VALIDATED D2-A CATALOG PROJECTION —
+IMPLEMENT TYPED CKC MANIFEST, SPECIALIZED D2 RESOLVER PORT, FAIL-CLOSED DETAILED/SYNTHETIC/FALLBACK RESOLUTION, BOUNDED T-A2 ADAPTATION, PURE CONSUMPTION PROOF, D2 ERRORS, MINIMAL EVENTS AND TESTS —
+USE CONFIRMED FILE SCOPE —
 NO D2-C —
-D2-D GATED —
-NO D3`
-
+NO D2-D —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION —
+NO COMMIT —
+NO PUSH —
+NO PR
 ```
 
-## Revue doc 08 (extrait statut D2)
-
-```markdown
-| QA revalidation D2-A | **PASS** · R-QA-D2A-01 **CLOSED** · [03](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/03-qa-revalidation-report.md) |
-| QA-G3 D2-A | **ACCEPTED BY MORRIS** — 2026-08-02 14:01 CEST |
-| PR readiness D2-A | **verdict historique** **READY FOR PR WITH RESERVES** ayant précédé la publication · [04](../first-user-visible-vertical-slice-v3-1-d2-a-catalog-projection/04-pr-readiness-report.md) |
-| PR / merge D2-A | PR #298 mergée par merge commit `a804f29df3015fe0c71213d09b95159f04065dfc` · branche Delivery conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
-| Post-merge D2-A | produit et documentation intégrés sur main · PR #298 et #299 mergées · main synchronisée · CI main finales vertes |
-| Documentary closure D2-A | PR #299 · merge commit `983cef38c972ef1646166669613e680efba8f487` · main CI run `30759197858` SUCCESS · Required Gate SUCCESS · R-MR-PM-D2A-01 CLOSED |
-| PR readiness corrective D2-A | PASS LOCALLY · R-PR-PM-D2A-01…03 CLOSED · publication et merge soumis à gates Morris distincts |
-| Delivery D2-B | **fermée** — aucun GO Delivery D2-B consommé |
-| Delivery D2-C | **fermée** |
-| D2-D (extensions) | **gated** · non ouvert |
-| D3 | **non ouvert** |
-
-### Slicing CAT-08
-
-| Lot | Contenu | Statut |
-|-----|---------|--------|
-| **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A product **intégré `main`** · clôture documentaire **intégrée `main`** · QA/CI vertes · findings fermés · réserves conservées · post-merge final **validé** · documentary closure **complete on main** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated · D3 **non ouvert** |
-| **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
-
-### Réserves QA
-
-R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
-
-### Réserves D2
-
-**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01 · R-PR-PM-D2A-02 · R-PR-PM-D2A-03 · R-MR-PM-D2A-01.
-
-**Réserves conservées (mineures / NOT LIFTED) :** R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED.
-
-D2-B, D2-C et D3 restent **fermés** malgré l’intégration réussie de D2-A —
-voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) /
-[`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) /
-[`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) /
-[`18`](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) /
-```
-
-## Revue AM/AN doc 19 (complet utile)
-
-```markdown
-## AM. Registre merge / post-merge D2-A — 2026-08-02
-
-| Élément | État |
-|---------|------|
-| GO merge consommé | 2026-08-02 15:24 CEST (+0200) |
-| PR | [#298](https://github.com/mcleland147/sfia-workspace/pull/298) |
-| Stratégie | merge commit |
-| Merge SHA | `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| Parent 1 | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| Parent 2 | `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
-| Package | vingt fichiers intégrés |
-| CI finale | run `30749102358` SUCCESS · Vitest 913/913 · modeled 73 |
-| Required Gate | SUCCESS |
-| CI push main | run `30750099622` SUCCESS sur `a804f29…` |
-| Branche Delivery | conservée localement et à distance sur `f048a9c…` |
-| GO post-merge | consommé 2026-08-02 17:00 CEST (+0200) |
-| main local | synchronisée sur `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| Branche post-merge au cycle post-merge | `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` — locale uniquement |
-| Findings fermés | R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 |
-| Réserves conservées | R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED |
-| D2-B / D2-C | **fermés** |
-| D2-D / D3 | **gated** / **fermé** — D2-D non ouvert — aucun GO Delivery consommé |
-| Commit / push / PR documentaire pendant le cycle post-merge | **non exécutés** |
-| PR readiness corrective | R-PR-PM-D2A-01…03 CLOSED LOCALLY · package soumis à publication et merge distincts |
-
-**Statut :** `D2-A MERGED TO MAIN — POST-MERGE VALIDATED — DOCUMENTARY CLOSURE PENDING FINAL MAIN INTEGRATION — D2-B AND D2-C REMAIN CLOSED — D2-D GATED — D3 NOT OPENED`.
-
-## AN. Registre clôture documentaire merge / post-merge — 2026-08-02
-
-| Élément | État |
-|---------|------|
-| GO mark-ready/merge documentaire | consommé 2026-08-02 19:26 CEST (+0200) |
-| PR | [#299](https://github.com/mcleland147/sfia-workspace/pull/299) |
-| Stratégie | merge commit |
-| Commit documentaire | `99e55d4ff05af66445f2522f85910faebceaded4` |
-| Merge SHA | `983cef38c972ef1646166669613e680efba8f487` |
-| Parent 1 | `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| Parent 2 | `99e55d4ff05af66445f2522f85910faebceaded4` |
-| Package | quatre fichiers documentaires |
-| Diff | +140 / −30 |
-| CI PR | run `30757998482` SUCCESS |
-| CI main | run `30759197858` SUCCESS |
-| Required Gate | SUCCESS |
-| R-MR-PM-D2A-01 | CLOSED |
-| Branche post-merge | conservée localement et à distance sur `99e55d4…` |
-| Branche Delivery | conservée localement et à distance sur `f048a9c…` |
-| Local main | synchronisée sur `983cef38…` |
-| Findings fermés | R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01…03 · R-MR-PM-D2A-01 |
-| Réserves conservées | R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED |
-| D2-B / D2-C | **fermés** |
-| D2-D | **gated** / non ouvert |
-| D3 | **fermé** |
-| Suppression de branche | aucune |
-| Commit / push / PR du présent cycle post-merge final | **non exécutés** |
-
-**Statut :** `D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — POST-MERGE AND DELIVERY BRANCHES PRESERVED — RESERVES CARRIED FORWARD — D2-B AND D2-C REMAIN CLOSED — D2-D GATED — D3 NOT OPENED`.
-```
-
-## Revue D2-A métadonnées + Z.6–Z.9
-
-Métadonnées A (extrait) :
 
-```markdown
-# V3.1-D2-A — Catalog Projection
+# Réponses aux questions de cadrage (depuis Git)
 
-## A. Métadonnées
-
-| Champ | Valeur |
-|-------|--------|
-| Date/heure/fuseau | 2026-08-02 03:26 CEST (+0200) |
-| Cycle | 8 — Delivery / implémentation |
-| Profil | Standard |
-| Typologie | EVOL |
-| Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
-| Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| Statut | `V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD` |
-| Merge product | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| Documentary closure merge | PR #299 · `983cef38c972ef1646166669613e680efba8f487` |
-| Post-merge | cycle 14 final validé · main CI `30759197858` SUCCESS · branches préservées · final status update local |
-
-```
-
-```markdown
-## Z. Merge et post-merge — 2026-08-02
-
-### Z.1 Publication Git
-
-- Trois commits Delivery : `4911168…` (feat) · `b411736…` (docs) · `f048a9c…` (CI whitespace corrective).
-- PR [#298](https://github.com/mcleland147/sfia-workspace/pull/298) mergée.
-- Merge commit : `a804f29df3015fe0c71213d09b95159f04065dfc`.
-- Parents : `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` · `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
-- Vingt fichiers intégrés sur `main`.
-- Branche Delivery conservée localement et à distance sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689`.
-
-### Z.2 Preuves finales
-
-- Run PR `30749102358` SUCCESS sur HEAD `f048a9c…`.
-- Vitest **913/913** · modeled governance **73**.
-- Typecheck / lint / build PASS.
-- Secret scan PASS · trailing whitespace PASS.
-- SFIA Studio Required Gate SUCCESS.
-- Run push main `30750099622` SUCCESS sur merge commit `a804f29…`.
-
-### Z.3 Findings
-
-Fermés :
-
-- R-QA-D2A-01 ;
-- R-PR-D2A-04 ;
-- R-CI-D2A-01 ;
-- R-MR-D2A-01.
-
-### Z.4 Réserves résiduelles
-
-- R-PR-D2A-01 — mineure (chemins Vitest locaux historiques) ;
-- R-PR-D2A-02 — mineure (références `.tmp-sfia-review` historiques) ;
-- R-PR-D2A-03 — mineure (volumétrie documentaire) ;
-- INHERITED-R-01 — NOT LIFTED (condensation framing README).
-
-Les quatre sont mineures/résiduelles et **non bloquantes** pour l’intégration D2-A. Elles ne sont **pas** fermées.
-
-### Z.5 Frontières
-
-- D2-B **fermé** ;
-- D2-C **fermé** ;
-- D2-D **gated** ;
-- D3 **fermé** ;
-- pas UI ;
-- pas CreateCycle ;
-- pas promotion méthode.
+1. **Stories indépendantes/séquencées ?** Oui — ordre B-01…06 adopté ; testables sans D2-C.
+2. **D2-A expose les données ?** Oui — `ValidatedCycleTypeProjection` + mapping CKC complets exportés.
+3. **Manifest entièrement statique ?** Oui — CKC-S-A typé, allowlist D1, pas de FS runtime.
+4. **Disponibilité définie ?** Oui via flag manifest statique (challenge clos sans I/O).
+5. **Port async ou sync ?** Domaine sync pur **recommandé** ; historique async non imposé à PORT-B.
+6. **resolvedAt ?** ClockPort injecté à la frontière ; domaine reçoit string ISO.
+7. **Types partagés vs locaux ?** Projection A partagée ; résolution/preuve/erreurs B en fichiers dédiés.
+8. **T-A2 additive ?** Oui — mapping §O sans nouveaux enums.
+9. **Proof pur/séparé ?** Oui — PROOF-A confirmé.
+10. **Events sans surcharge ?** Oui — AUDIT-A additif ; non-régression `oa.ckc.resolved`.
+11. **Périmètre minimal ?** Oui — créations listées + 3 fichiers additifs bornés.
+12. **Dépendance D2-C ?** Non pour B ; QC/signaux hors B.
+13. **Décision structurelle non couverte ?** Non — écarts doc15 vs 16 tranchés par **16** ; pas de réouverture FA/TA.
+14. **Delivery Critical bornée possible ?** Oui — un cycle B-01…06.
+15. **Un vs plusieurs incréments ?** **Un cycle** plus simple ; multi-incréments = plus de dette d'intégration. Observation seulement — slicing A→B→C inchangé.
 
-### Z.6 Statut post-merge
 
-`V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN —
-POST-MERGE VALIDATED —
-RESERVES CARRIED FORWARD`
+## Source model (complet)
 
-### Z.7 Publication documentaire
+# Source model CKC — D2-B
 
-- Quatre fichiers vivants modifiés localement sur `post-merge/sfia-studio-v3-1-d2-a-catalog-projection` ;
-- Le premier cycle post-merge n’a exécuté aucun commit, push ou PR projet.
-- Les quatre documents ont ensuite été publiés via la PR [#299](https://github.com/mcleland147/sfia-workspace/pull/299).
-- La PR #299 a été mergée par merge commit `983cef38c972ef1646166669613e680efba8f487`.
-- La clôture documentaire est désormais intégrée à main.
-- Le run main `30759197858` est SUCCESS.
-- Le présent cycle final n’exécute aucun commit, push ou PR.
+Date : 2026-08-02 21:40:13 CEST (+0200)
 
-### Z.8 PR readiness corrective
+## Sources autorisées (allowlist)
 
-- Date/heure/fuseau : 2026-08-02 18:51:10 CEST (+0200).
-- R-PR-PM-D2A-01 CLOSED — D2-D aligned as gated.
-- R-PR-PM-D2A-02 CLOSED — consumed PR-readiness gate removed from living next gate.
-- R-PR-PM-D2A-03 CLOSED — living status durable through draft PR publication.
-- Quatre fichiers uniquement.
-- Réserves R-PR-D2A-01…03 et INHERITED-R-01 conservées.
-- D2-B/C fermés.
-- D2-D gated.
-- D3 fermé.
-- Aucun commit, push ou PR projet dans le cycle correctif.
-- Publication soumise à un gate Morris distinct.
+### Detailed
 
-### Z.9 Merge et post-merge de la clôture documentaire
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md`
+- `…/pilots/02-conception-fonctionnelle.md`
+- `…/pilots/03-architecture-technique.md`
+- `…/pilots/04-qa-validation.md`
 
-- Date/heure/fuseau : 2026-08-02 19:51:05 CEST (+0200).
-- PR #299 MERGED.
-- Commit documentaire `99e55d4ff05af66445f2522f85910faebceaded4`.
-- Merge commit `983cef38c972ef1646166669613e680efba8f487`.
-- Parents : `a804f29df3015fe0c71213d09b95159f04065dfc` · `99e55d4ff05af66445f2522f85910faebceaded4`.
-- Quatre fichiers · +140/−30.
-- Run PR `30757998482` SUCCESS.
-- Run main `30759197858` SUCCESS.
-- Required Gate SUCCESS.
-- R-MR-PM-D2A-01 CLOSED.
-- Branches post-merge et Delivery préservées.
-- Findings fermés : R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01…03 · R-MR-PM-D2A-01.
-- Réserves conservées : R-PR-D2A-01…03 · INHERITED-R-01 — NOT LIFTED.
-- D2-B/C fermés · D2-D gated · D3 fermé.
-- Aucun commit, push ou PR dans le présent cycle final.
-- Statut : `V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD`.
-```
+### Synthetic
 
-## Classification claims
+- `…/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
 
-# Classification living / historique — claims sensibles
+## Manifest CKC-S-A (adopté TA-04)
 
-## A. Statut living commun — PASS
+Champs candidats par entrée :
 
-Statut affirmé et cohérent sur framing README, D2-A README (métadonnées + Z.6/Z.9) et doc 19 AN :
+| Champ | Rôle |
+|-------|------|
+| `reference` | path Git relatif (= `primaryReference` / `fallbackReference` D1) |
+| `level` | `detailed` \| `synthetic` |
+| `version` | version déclarée du contrat |
+| `status` | statut documentaire (ex. method-candidate) |
+| `source` | provenance typée (`repository_candidate` / `intra_v3_synthetic`) |
+| `availability` | **flag statique** (voir challenge) |
 
-`V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD`
+Règles :
 
-- Aucune occurrence living `PENDING FINAL MAIN INTEGRATION` (uniquement registre historique **AM** L977).
-- Gate durable `NO AUTOMATIC NEXT CYCLE` (framing README).
-- D2-B/C fermés · D2-D gated · D3 fermé.
-- Aucune ouverture automatique d'un cycle suivant.
+- références autorisées **dérivent** du catalogue D1 (toutes primary + fallback) ;
+- manifest **décrit** ; catalogue **autorise** ;
+- aucune découverte FS / glob / chemin utilisateur ;
+- aucun parsing Markdown runtime ;
+- aucun chargement du contenu brut dans le résultat ;
+- paths Git = provenance uniquement, **non ouverts** ;
+- MemoryCkcResolver **non** autoritatif.
 
-## B. Claims historiques — légitimes
+## Challenge disponibilité — conclusion
 
-| Occurrence | Classification |
-|------------|----------------|
-| AM `PENDING FINAL MAIN INTEGRATION` | Historique daté — état avant clôture documentaire #299 / AN |
-| Registres AH…AL NOT PR READY / QA FAIL | Historiques de parcours |
-| AN Local main `983cef38…` · « commit/push/PR du présent cycle non exécutés » | Registre historique du cycle de clôture #299 / post-merge final d'écriture |
-| Z.1–Z.5 / Z.7–Z.9 preuves #298/#299 | Registres historiques datés |
-| CI `30759197858` / `30757998482` | Preuves historiques #299 |
+| Terme | Définition cadrage (statique) |
+|-------|-------------------------------|
+| **présente** | entrée existante dans le manifest pour la référence |
+| **disponible** | `availability=available` (ou équivalent) **dans le manifest** — pas un check FS |
+| **valide** | présente + disponible + `level` cohérent avec mapping D1 + doctrine/authority conformes |
+| **version compatible** | champ version manifest compatible avec la règle de version retenue en Delivery (déclarative) |
+| **désactivée / indisponible** | `availability≠available` → traite comme source KO pour fail-closed / fallback |
 
-## C. Claims living potentiellement obsolètes — analyse
+**Aucune I/O runtime requise.** L'option la plus simple (flag manifest) est **compatible CKC-S-A** et **suffisante** pour Delivery.
 
-### 1. framing/README.md — champ `main` = `983cef38…`
+Ambiguïté restante **non bloquante** : littéraux exacts du enum `availability` (Delivery choisit sous CKC-S-A).
 
-- Contexte : table living datée **2026-08-02 19:51** · Cycle courant = cycle 14 d'écriture · Gate courant = GO POST-MERGE 19:43.
-- Champ adjacent **Documentary closure merge** = PR #299 / `983cef38…` (exact).
-- Tip `main` actuel distant = `bb685f1205b33f887ee27b42ac918c96386a6e33` (PR #300).
-- Classification : **métadonnée d'auteur / baseline de clôture documentaire #299**, non instruction opérationnelle de checkout.
-- Impact opérationnel du statut living (COMPLETE ON MAIN / NO AUTOMATIC NEXT CYCLE / frontières) : **aucun**.
-- Gravité : **mineure** — tip SHA non mis à jour après auto-intégration #300.
+## Priorité detailed / synthetic / fallback (doc 16 §N)
 
-### 2. D2-A README — « final status update local »
+### primaryLevel=detailed
 
-- Présent dans le champ Post-merge des métadonnées, rédigé quand le package final était encore local.
-- Statut living de la même table = COMPLETE ON MAIN — **cohérent après #300**.
-- Classification : formulation d'auteur **mineure**, non claim « package encore hors main ».
+1. detailed valide → `resolved_detailed` (`fallbackUsed=false`)
+2. sinon fallback synthetic valide → `resolved_fallback_synthetic` (`fallbackUsed=true`)
+3. sinon → `unresolved_unavailable` / codes associés
 
-### 3. Absence de trace PR #300 / `bb685f1205b33f887ee27b42ac918c96386a6e33` / CI `30762051823`
+### primaryLevel=synthetic
 
-- Classification : **non-défaut**.
-- Exiger une section living pour tracer le merge du document qui porte le statut créerait une **boucle documentaire récursive**.
+1. synthetic primaire valide → `resolved_synthetic`
+2. sinon → `unresolved_unavailable` / `CKC_SYNTHETIC_INVALID`
 
-## D. Analyse de récursivité documentaire
+Fallback = **substitution**, jamais addition. Mono-CKC Core. Pas de combinaison detailed+synthetic simultanée.
 
-Question : une correction tip-SHA / #300 apporterait-elle une information durable, ou une nouvelle clôture pour tracer son propre merge ?
+## Mapping vocabulaire fallback
 
-Réponse : **boucle récursive**. Chaque mise à jour living du tip `main` après merge du package de statut nécessiterait une nouvelle PR documentaire. Aucune ambiguïté opérationnelle réelle n'impose cette boucle maintenant.
+| D1 / D2-A | T-A2 `CkcResolution.fallbackPolicy` |
+|-----------|-------------------------------------|
+| `synthetic_map` | `intra_v3_only` (quand fallback déclaré) |
+| `none` | `none` |
 
-**R-PM-FS-D2A-01 : non créé** — aucun claim living matériellement faux ni trompeur opérationnellement au sens bloquant/majeur.
 
-**Réserve metadata mineure portée** (sans nouveau finding ID) : tip SHA / wording « local » d'auteur restent à la baseline #299 ; non bloquant ; aucune publication corrective utile.
+## Matrice erreurs (complet)
 
+# Matrice d'erreurs D2-B
+
+Date : 2026-08-02 21:40:13 CEST (+0200)
+Autorité codes : **doc 16 §S** (adopté). Ne pas inventer de code absent.
+
+## Codes catalogue — produits par D2-A (non redéfinis en B)
+
+| Code D2-A (code) | Blocking | Retryable | Notes |
+|------------------|----------|-----------|-------|
+| `CATALOG_CORRELATION_ID_REQUIRED` | true | recoverable | avant B |
+| `CATALOG_VERSION_INCOMPATIBLE` | true | oui | doc 16 même nom |
+| `CATALOG_FINGERPRINT_STALE` | true | oui | doc 16 table dit `CATALOG_STALE` — **alias observation** : B reçoit projection déjà validée ; ne pas renommer A |
+| `CYCLE_TYPE_UNKNOWN` | true | non* | A |
+| `CYCLE_TYPE_NOT_SELECTABLE` | true | non* | A |
+| `CYCLE_TYPE_MAPPING_INVALID` | true | non | A |
+
+## Codes D2-B — doc 16 §S (à typer en B-04)
+
+| Cas | Statut D2 | Code | Blocking | Retryable | Recoverable | QualifyCycle |
+|-----|-----------|------|----------|-----------|-------------|--------------|
+| mapping absent/incohérent | `unresolved_invalid_mapping` | `CKC_MAPPING_INVALID` | oui | non | non | **non** |
+| detailed+fallback KO | `unresolved_unavailable` | `CKC_UNAVAILABLE` | oui | non | non | **non** |
+| synthetic primaire KO | `unresolved_unavailable` | `CKC_SYNTHETIC_INVALID` | oui | non | non | **non** |
+| detailed KO + fallback OK | `resolved_fallback_synthetic` | `CKC_FALLBACK_USED` (info) | non | — | — | oui (+ disclosure) *D2-C* |
+| résolution incohérente / preuve mismatch | `unresolved_*` | `CKC_RESOLUTION_INCOHERENT` | oui | non | non | **non** |
+| `executionAuthority≠false` | — | `CKC_EXECUTION_AUTHORITY_FORBIDDEN` | oui | non | non | **non** |
+| erreur interne | — | `D2_INTERNAL_ERROR` | oui | limité | limité | **non** |
+
+## Codes doc 16 hors cœur B (ne pas implémenter comme comportement bridge B)
+
+| Code | Owner | Note |
+|------|-------|------|
+| `CYCLE_TYPE_REQUIRED` / `CYCLE_TYPE_INVALID` | entrée amont | A/orchestration ; B reçoit projection validée |
+| `CATALOG_VERSION_INCOMPATIBLE` / stale | A | avant B |
+| `SIGNALS_INCOMPLETE` | **D2-C** | après preuve |
+| `CKC_FALLBACK_USED` | disclosure B → consommé C | info, pas erreur bloquante |
 
-## Findings fermés confirmés
+## Noms listés dans le GO mais absents de doc 16
 
-R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01 · R-PR-PM-D2A-02 · R-PR-PM-D2A-03 · R-MR-PM-D2A-01 · R-MR-FS-D2A-01
+| Nom GO | Traitement cadrage |
+|--------|-------------------|
+| `CKC_EXECUTION_AUTHORITY_INVALID` | **Utiliser** `CKC_EXECUTION_AUTHORITY_FORBIDDEN` (doc 16) |
+| `CKC_DOCTRINE_STATUS_INVALID` | **Non inventé** — couvrir via `CKC_RESOLUTION_INCOHERENT` / rejet preuve |
+| `CKC_SOURCE_INVALID` | **Non inventé** — allowlist/manifest → `CKC_UNAVAILABLE` ou `CKC_RESOLUTION_INCOHERENT` |
+| `CKC_CONSUMPTION_PROOF_INVALID` | **Non inventé** — échec Proof Builder → `CKC_RESOLUTION_INCOHERENT` (ou erreur locale preuve mappée idem) |
 
-**R-PM-FS-D2A-01 : non ouvert.**
+## Adaptation T-A2 `CycleDetailCode` (sans élargir enums)
 
-## Réserves conservées
+| Code D2 | Detail T-A2 candidat |
+|---------|----------------------|
+| `CYCLE_TYPE_*` | `CYCLE_INVALID` |
+| `CKC_*` (sauf FALLBACK_USED) | `CKC_UNAVAILABLE` |
+| catalogue version/stale | `CONTEXT_STALE` |
+| `D2_INTERNAL_ERROR` | `PERSISTENCE_FAILURE` |
+| `CKC_FALLBACK_USED` | disclosure only |
 
-- R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED
-- Observation metadata mineure tip-SHA / wording « local » d'auteur (sans nouveau finding)
 
-## Frontières
+## Stratégie de tests (complet)
 
-D2-B/C fermés · D2-D gated · D3 fermé · pas resolver/bridge/UI/Figma/CreateCycle · pas promotion méthode.
+# Stratégie de tests — future Delivery D2-B
 
-## Tests
+Date : 2026-08-02 21:40:13 CEST (+0200)
+**Aucun test exécuté dans ce cadrage.**
 
-FUNCTIONAL TESTS NOT RE-RUN —
-FINAL STATUS PACKAGE IS DOCUMENTARY ONLY —
-PR CI 30760786462 AND MAIN CI 30762051823 ARE GREEN —
-REQUIRED GATE PASS —
-POST-MERGE VALIDATION IS BASED ON GIT, GITHUB, CONTENT AND GOVERNANCE EVIDENCE.
+## 1. Manifest (B-01)
+
+- toutes primary D1 allowlistées
+- tous fallbacks D1 allowlistés
+- référence inconnue
+- niveau incohérent vs mapping
+- `availability≠available`
+- entrée orpheline documentée
+- aucun Markdown/path arbitraire importable
+
+## 2. Port (B-02)
+
+- projection D2-A obligatoire
+- correlationId requis
+- sortie résolution D2 + projection T-A2
+- `CkcResolverPort` historique inchangé (compile + smoke)
+- aucun import QualifyCycle/CreateCycle
+
+## 3. Resolver (B-03)
+
+- `resolved_detailed`
+- `resolved_synthetic`
+- `resolved_fallback_synthetic`
+- detailed KO + fallback KO
+- synthetic primaire KO
+- référence non autorisée
+- doctrine ≠ method-candidate
+- `executionAuthority=true`
+- extension implicite multi-CKC
+- déterminisme (hors timestamp injecté)
+- aucun `randomBytes` métier
+
+## 4. Erreurs / T-A2 (B-04)
+
+- mapping codes doc 16
+- conservation distinction fallback (statut D2)
+- messages sûrs
+- pas de fuite chemin/contenu
+- pas de changement cassant enums T-A2
+
+## 5. Proof (B-05)
+
+- preuve nominale ×3 resolved_*
+- champ manquant / mismatch ids/refs/statut/hash
+- `consumed≠true` après échec
+- objet immutable
+- aucune I/O
+
+## 6. Événements (B-06)
+
+- started / succeeded / failed
+- fallback used
+- consumption validated / rejected
+- non-régression `oa.ckc.resolved`
+
+## 7. Régression
+
+- suites D2-A Delivery + QA
+- catalogue D1
+- `ResolveCycleKnowledgeContract` historique
+- `MemoryCkcResolver` historique
+- QualifyCycle
+- suite `oa/cycle`
+- typecheck / lint / build / gouvernance
+
+## Commandes Delivery (hors cadrage)
+
+À exécuter uniquement sous GO Delivery distinct — non listées comme exécutées ici.
+
+
+## File scope (complet)
+
+# File scope — future Delivery D2-B
+
+Date : 2026-08-02 21:40:13 CEST (+0200)
+
+## Créations candidates
+
+| Path | Story |
+|------|-------|
+| `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcReferenceManifest.ts` | B-01 |
+| `projects/sfia-studio/app/lib/oa/cycle/ports/ckcQualificationResolver.ts` | B-02 |
+| `projects/sfia-studio/app/lib/oa/cycle/infrastructure/ckcQualificationResolver.ts` *(nom sémantique recommandé ; éviter `filesystem*`)* | B-03 |
+| `projects/sfia-studio/app/lib/oa/cycle/domain/ckcQualificationErrors.ts` | B-04 |
+| `projects/sfia-studio/app/lib/oa/cycle/domain/ckcConsumptionProof.ts` | B-05 |
+| `projects/sfia-studio/app/__tests__/oa/cycle/*d2b*` / dedicated B tests | B-01…06 |
+
+## Modifications additives candidates
+
+| Path | Nature |
+|------|--------|
+| `domain/ckcQualificationContracts.ts` | **minimal** — types partagés A/B seulement si nécessaire ; préférer fichiers sémantiques B |
+| `ports/cycleAudit.ts` | union `CycleAuditEvent` additive |
+| `index.ts` | exports publics strictement nécessaires |
+
+## Challenge périmètre — recommandation
+
+1. Types résolution/preuve/erreurs B → **fichiers dédiés** (évite fourre-tout `ckcQualificationContracts.ts`).
+2. `ckcQualificationContracts.ts` reste le lieu des contrats **projection A** ; enrichir seulement si un type vraiment partagé A↔B l'exige.
+3. Pas de factory COMP-B complète avant D2-C.
+4. Pas de modification documentaire versionnée 15–19 pendant Delivery sauf preuve.
+5. Adapter sync pur + éventuel thin async wrapper **non requis** si port sync adopté.
+
+## Fichiers protégés (sauf nouvelle preuve + gate)
+
+- `domain/cycleTypeCatalog.ts`
+- `domain/catalogFingerprint.ts`
+- `domain/catalogProjection.ts`
+- `ports/ckcResolver.ts`
+- `application/resolveCycleKnowledgeContract.ts`
+- `application/qualifyCycle.ts`
+- `application/createCycle.ts`
+- `infrastructure/memoryCkcResolver.ts`
+- `domain/types.ts` / `qualification.ts` (enums T-A2)
+- package.json / lockfiles / tsconfig / vitest / Next / workflows
+- `method/**` / `prompts/**`
+- UI / routes / Server Actions
+- docs D2 15–19
+- rapports historiques D2-A
+
+## Granularité Delivery
+
+| Option | Avantages | Inconvénients |
+|--------|-----------|---------------|
+| **Un cycle Critical B-01…06** | slicing adopté · une intégration · une preuve de sortie | surface large mais bornée |
+| Plusieurs incréments Git B | PRs plus petites | dette d'intégration · risques d'ordre · plus de gates |
+
+**Recommandation cadrage :** un **seul** GO Delivery Critical couvrant B-01…06 dans l'ordre adopté.
+Ne change pas A→B→C. Ne crée pas la branche ici.
+
+
+## Ambiguïtés / risques / stop conditions
+
+Ambiguïtés restantes **non bloquantes** listées dans le contrat.
+Stop conditions Delivery listées dans le contrat — **aucune rencontrée** pour ce cadrage.
+
+## Profil Delivery candidat
+
+Critical — non consommé.
 
 ## Absence de mutation projet
 
-Aucun fichier versionné modifié · aucun commit/push/PR projet · seule mutation Git locale : repositionnement `main` · handoff seul distant.
+Aucun fichier versionné · aucune branche D2-B · aucun commit/push/PR projet · handoff seul autorisé.
 
-## Gate suivant / absence
+## Gate suivant candidat (ne pas exécuter)
 
 ```text
-NO AUTOMATIC NEXT CYCLE —
-D2-B AND D2-C REMAIN CLOSED —
-D2-D REMAINS GATED —
-D3 REMAINS CLOSED —
-ANY NEW DELIVERY OR METHOD CYCLE REQUIRES A DISTINCT MORRIS GO
+GO DELIVERY SFIA STUDIO V3.1-D2-B CKC RESOLVER —
+APPLY ADOPTED D2 FUNCTIONAL AND TECHNICAL ARCHITECTURE AND CONFIRMED BL-D2-B-01…06 —
+CONSUME VALIDATED D2-A CATALOG PROJECTION —
+IMPLEMENT TYPED CKC MANIFEST, SPECIALIZED D2 RESOLVER PORT, FAIL-CLOSED DETAILED/SYNTHETIC/FALLBACK RESOLUTION, BOUNDED T-A2 ADAPTATION, PURE CONSUMPTION PROOF, D2 ERRORS, MINIMAL EVENTS AND TESTS —
+USE CONFIRMED FILE SCOPE —
+NO D2-C —
+NO D2-D —
+NO D3 —
+NO UI —
+NO CREATECYCLE —
+NO METHOD PROMOTION —
+NO COMMIT —
+NO PUSH —
+NO PR
 ```
 
 ## Verdict
 
 ```text
-V3.1-D2-A FINAL DOCUMENTARY STATUS POST-MERGE VALIDATION PASS WITH RESERVES —
-MERGE AND MAIN CI VERIFIED —
-FINAL LIVING STATUS OPERATIONALLY CONSISTENT —
-MINOR HISTORICAL OR METADATA RESERVE CARRIED FORWARD —
-NO CORRECTIVE PUBLICATION REQUIRED —
-NO AUTOMATIC NEXT CYCLE —
-BRANCHES PRESERVED —
-NO BRANCH DELETION —
-NO D2-B —
+V3.1-D2-B CKC RESOLVER CADRAGE COMPLETE —
+BL-D2-B-01…06 CONFIRMED —
+D2-A INPUT CONTRACT SUFFICIENT —
+CKC SOURCE MODEL AND FALLBACK RULES CONFIRMED —
+FAIL-CLOSED RESOLUTION CONTRACT CONFIRMED —
+T-A2 ADAPTATION BOUNDED AND ADDITIVE —
+CONSUMPTION PROOF CONTRACT CONFIRMED —
+ERROR EVENT TEST AND FILE SCOPE CONFIRMED —
+FUTURE DELIVERY PROFILE CANDIDATE CRITICAL —
+READY FOR DISTINCT MORRIS DELIVERY GATE —
+NO IMPLEMENTATION —
+NO PROJECT MUTATION —
+NO COMMIT —
+NO PUSH —
+NO PR —
 NO D2-C —
-D2-D GATED —
+NO D2-D —
 NO D3 —
+NO UI —
+NO CREATECYCLE —
 NO METHOD PROMOTION
 ```
