@@ -11,6 +11,8 @@ export * from "./domain/invariants";
 export * from "./domain/qualification";
 export * from "./domain/cycleTypeCatalog";
 export * from "./domain/ckcQualificationContracts";
+export * from "./domain/ckcQualificationErrors";
+export * from "./domain/ckcConsumptionProof";
 export * from "./domain/catalogFingerprint";
 export * from "./domain/catalogProjection";
 
@@ -18,6 +20,7 @@ export * from "./ports/cycleRepository";
 export * from "./ports/trajectoryRepository";
 export * from "./ports/epistemicRepository";
 export * from "./ports/ckcResolver";
+export * from "./ports/ckcQualificationResolver";
 export * from "./ports/cycleAudit";
 
 export { QualifyCycle } from "./application/qualifyCycle";
@@ -46,6 +49,8 @@ export {
   ConsoleCycleAuditJournal,
   MemoryCycleAuditJournal,
 } from "./infrastructure/observability";
+export * from "./infrastructure/ckcReferenceManifest";
+export * from "./infrastructure/ckcQualificationResolver";
 
 import type { ClockPort } from "@/lib/oa/doctrine";
 import { FixedClock, SystemClock } from "@/lib/oa/doctrine";

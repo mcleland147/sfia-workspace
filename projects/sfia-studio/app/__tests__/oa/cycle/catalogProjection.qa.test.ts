@@ -613,7 +613,7 @@ describe("V3.1-D2-A QA — public fingerprint/catalog binding (critical)", () =>
 });
 
 describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
-  it("keeps index.ts limited to the three additive D2-A exports", () => {
+  it("keeps the public boundary limited to adopted D2-A and D2-B exports", () => {
     const source = readFileSync(
       path.resolve(__dirname, "../../../lib/oa/cycle/index.ts"),
       "utf8",
@@ -623,8 +623,23 @@ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
     );
     expect(source).toContain('export * from "./domain/catalogFingerprint";');
     expect(source).toContain('export * from "./domain/catalogProjection";');
+    expect(source).toContain(
+      'export * from "./domain/ckcQualificationErrors";',
+    );
+    expect(source).toContain(
+      'export * from "./domain/ckcConsumptionProof";',
+    );
+    expect(source).toContain(
+      'export * from "./ports/ckcQualificationResolver";',
+    );
+    expect(source).toContain(
+      'export * from "./infrastructure/ckcReferenceManifest";',
+    );
+    expect(source).toContain(
+      'export * from "./infrastructure/ckcQualificationResolver";',
+    );
     expect(source).not.toMatch(
-      /ckcQualificationResolver|ConsumptionProof|QualifyCycleBridge|createD2|D2Factory/,
+      /QualifyCycleBridge|qualifyCycleWithCkc|ckcQualificationResult|createD2|D2Factory|createCkcQualificationServices/,
     );
   });
 
