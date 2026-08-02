@@ -229,7 +229,7 @@ Sorties candidates d’un résultat D2 read-only :
 
 | Concept | Définition cadrage |
 |---------|-------------------|
-| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références | 
+| **Mapping présent** | Entrée D1 `ckc.mandatory=true` + références |
 | **Référence résolue** | Statut `resolved_*` avec source utilisée |
 | **Résolution valide** | Statut resolved + invariants (`executionAuthority=false`, chemins non vides, cohérence level) |
 | **Guidance consommée** | Le résultat D2 **porte** explicitement le contexte CKC résolu (ids, level, source, fallbackUsed, doctrineStatus) dans le payload exploitable |
@@ -239,7 +239,7 @@ Sorties candidates d’un résultat D2 read-only :
 
 ### Règle produit candidate (doc 13)
 
-Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).  
+Un résultat QualifyCycle n’est **contractuellement exploitable** dans le parcours produit que si la résolution CKC est **valide** (detailed ou synthetic/fallback).
 Cela **ne** reprend **pas** la sémantique CreateCycle T-A2 (« absent n’bloque pas la création ») — CreateCycle reste hors V3.1-D2.
 
 ### Confirmation d’autorité
@@ -296,7 +296,7 @@ D3 consommera le **même contrat de sortie** ; le bridge ne connaît pas le parc
 
 ## N. Multi-CKC — options
 
-**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**  
+**Statut : DECIDED — ADOPTED BY MORRIS (D-V3.1-D2-07 = C).**
 Le multi-CKC n’est **pas** activé ; approche progressive Core-only maintenant.
 
 ### Option D2-CKC-A — Mono-CKC D1 conservé
