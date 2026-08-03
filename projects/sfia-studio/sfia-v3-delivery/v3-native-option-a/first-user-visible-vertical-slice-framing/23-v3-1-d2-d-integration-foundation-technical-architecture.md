@@ -18,6 +18,7 @@
 | **Code / tests / config / UI** | **non** |
 | **Statut** | `D2-D TECHNICAL ARCHITECTURE — ARBITRATED BY MORRIS — DOCUMENTARY RECORD VERSIONED VIA GIT — AUTHORITATIVE PUBLICATION STATE FOLLOWS PR/MAIN — NO BACKLOG OR DELIVERY AUTHORIZED` |
 | **Publication branch candidate** | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
+| **Publication correction** | `2026-08-03 19:44 CEST (+0200) — correction de cohérence post-arbitrage AK/AQ ; aucune décision TA modifiée` |
 
 ### Légende des marqueurs
 
@@ -35,6 +36,31 @@
 | **RÉSERVE** | Ouverte, non levée |
 | **DETTE** | Coût différé explicite |
 | **GATE FUTURE** | Nécessite GO Morris distinct |
+
+### Règle de lecture post-arbitrage
+
+Le présent document conserve les options, ADR, recommandations,
+checklists et formulations candidates produites pendant le cycle
+d'architecture technique, avant l'arbitrage Morris du
+2026-08-03 19:24 CEST (+0200).
+
+Ces éléments constituent un historique de conception. Leur statut
+« NOT ADOPTED », « NOT DECIDED » ou équivalent décrit leur état
+au moment de leur rédaction ; il ne contredit pas l'arbitrage ultérieur.
+
+Après cet arbitrage :
+
+1. la section AN reste le decision pack historique pré-arbitrage ;
+2. les sections AM et AO restent l'historique des ADR et recommandations candidates ;
+3. la section AK reste le snapshot de validation du cycle pré-arbitrage ;
+4. la section AN2 est le record autoritatif des décisions Morris ;
+5. la section AR expose le verdict décisionnel courant ;
+6. la section AQ expose les anti-claims encore applicables après arbitrage.
+
+En cas d'écart de statut temporel :
+
+AN2 et AR priment pour les décisions adoptées.
+Les sections historiques restent conservées pour la traçabilité.
 
 ---
 
@@ -885,7 +911,16 @@ budgets configurables · no duplicate call · bounded retries · fixture first �
 
 ---
 
-## AK. Critères d'acceptation (ce cycle documentaire)
+## AK. Critères d'acceptation — snapshot historique du cycle pré-arbitrage
+
+> **Statut temporel :** cette checklist décrit l'état du document à la
+> clôture du cycle d'architecture technique, avant l'arbitrage Morris du
+> 2026-08-03 19:24 CEST (+0200). Les lignes
+> « Aucune architecture implicitement adoptée » et
+> « TA-01…14 NOT DECIDED » étaient exactes à cette date.
+> Elles sont désormais supplantées, pour l'état décisionnel courant,
+> par AN2 et AR. Elles sont conservées sans réécriture rétrospective.
+
 
 - [x] Plusieurs options par décision structurante
 - [x] Runtime owner options comparées (TECH-RUN-A/B/C)
@@ -908,6 +943,15 @@ budgets configurables · no duplicate call · bounded retries · fixture first �
 - [x] Aucune implémentation
 - [x] Aucune architecture implicitement adoptée
 - [x] TA-01…14 NOT DECIDED
+
+### État décisionnel courant après arbitrage
+
+- Architecture technique D2-D : **ARBITRATED BY MORRIS**.
+- D-V3.1-D2D-TA-01…14 : **DECIDED — ADOPTED BY MORRIS**.
+- Implémentation : **NON EXÉCUTÉE**.
+- Backlog : **NON CRÉÉ**.
+- Delivery : **NON AUTORISÉE**.
+- Références autoritatives : **AN2 et AR**.
 
 ---
 
@@ -1435,23 +1479,90 @@ Chaque item : **CANDIDATE — NOT ADOPTED.**
 
 Aucune transition automatique. Aucun backlog ni user story créé dans ce document.
 
-## AQ. Anti-claims
+## AQ. État décisionnel et anti-claims post-arbitrage
 
-Ce document **n'autorise pas** et **ne revendique pas** :
+### Décisions d'architecture désormais adoptées
 
-- technical architecture adopted
-- runtime selected
-- AJV strategy adopted
-- persistence selected
-- multi-instance ready
-- Cursor compatible
-- sandbox secure
-- secret store selected
-- provider integrated
-- production-ready / RUN READY / scalable / secure
-- backlog ready / Delivery ready / D3 ready
-- reserve lifted
-- Git write enabled / CreateCycle enabled / method promoted
+AN2 et AR autorisent les affirmations documentaires suivantes :
+
+- l'architecture technique D2-D a été arbitrée par Morris ;
+- TECH-RUN-B est adopté comme choix de runtime owner et de packaging ;
+- `execution-run` est la seule autorité technique d'état D2-D ;
+- CONTRACT-B est adopté :
+  TypeScript pour la représentation compile-time et
+  JSON Schema/AJV pour la validation runtime aux frontières non fiables ;
+- STORE-B est adopté comme stratégie de persistance progressive ;
+- ASYNC-B est adopté pour D2-D1 et D2-D2 ;
+- les provider ports et wrappers REUSE-B sont adoptés ;
+- AI-B, GIT-C, SECRET-B, EVENT-B et D3-TECH-C sont adoptés ;
+- CURSOR-B est adopté conditionnellement ;
+- le slicing D2-D1 → D2-D2 → D2-D3 est adopté ;
+- D2-D4 write reste hors trajectoire.
+
+### Distinctions obligatoires
+
+Les décisions ci-dessus ne signifient pas que :
+
+- l'implémentation existe ;
+- une cible de déploiement est sélectionnée ;
+- un store durable concret est sélectionné ;
+- le système est restart-safe ou multi-instance ;
+- Cursor est compatible ou validé ;
+- la sandbox est sécurisée ;
+- les fournisseurs sont intégrés ;
+- une interface D3 ou un transport HTTP/Server Action est sélectionné ;
+- le backlog, la Delivery ou D3 sont autorisés.
+
+En particulier :
+
+- « runtime owner et packaging sélectionnés » est autorisé ;
+- « runtime de déploiement ou environnement d'exécution sélectionné » reste interdit ;
+- « stratégie STORE-B adoptée » est autorisé ;
+- « technologie de persistance durable sélectionnée » reste interdit ;
+- « CONTRACT-B/AJV adopté » est autorisé ;
+- « implémentation et conformité AJV prouvées » reste interdit sans Delivery et tests.
+
+### Claims toujours interdits
+
+Ce document n'autorise pas et ne revendique pas :
+
+- implementation complete ;
+- provider integrated ;
+- live provider validated ;
+- production-ready ;
+- RUN READY ;
+- scalable ;
+- secure ;
+- SLO proven ;
+- durable store selected ;
+- restart-safe ;
+- multi-instance ready ;
+- queue or permanent worker selected ;
+- Cursor compatible ;
+- CURSOR PRODUCT CAPABILITIES VERIFIED ;
+- sandbox secure ;
+- secret manager selected ;
+- hosted GitHub authentication selected ;
+- D3 transport selected ;
+- backlog ready ;
+- Delivery ready ;
+- D3 ready ;
+- reserve lifted ;
+- Git write enabled ;
+- CreateCycle enabled ;
+- method promoted.
+
+### Réserves et gates maintenues
+
+- R-QA-REV-01 : **OPEN NOT LIFTED**.
+- R-QA-REV-02 : **OPEN NOT LIFTED**.
+- R-QA-D2C-01 : **OPEN NOT LIFTED**.
+- CURSOR PRODUCT CAPABILITIES : **UNVERIFIED**.
+- Correction D2-C : cycle et GO distincts.
+- Cursor capability verification : cycle et GO distincts.
+- Backlog : uniquement après merge documentaire et validation post-merge.
+- Delivery : GO distinct après backlog.
+- D3 : aucune ouverture automatique.
 
 ---
 
