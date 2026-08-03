@@ -2,26 +2,26 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | `FRAMING LIVING — V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD` |
-| **Date** | 2026-08-02 19:51:05 CEST (+0200) |
-| **Cycle courant** | 14 — Post-merge final V3.1-D2-A documentary closure |
+| **Statut** | `FRAMING LIVING — V3.1-D2-B PRODUCT PACKAGE INTEGRATED ON MAIN — POST-MERGE VALIDATED — R-QA-REV-01 AND R-QA-REV-02 CARRIED FORWARD — DOCUMENTARY CLOSURE CONTENT ALIGNED — VERSIONED PUBLICATION STATE IS GIT-AUTHORITATIVE` |
+| **Date** | 2026-08-03 08:20:00 CEST (+0200) |
+| **Cycle courant** | 14 — Post-merge V3.1-D2-B CKC Resolver |
 | **Profil** | **Standard** |
 | **Typologie** | DOC |
-| **Gate courant** | GO POST-MERGE consommé le 2026-08-02 19:43 CEST (+0200) |
-| **Product merge** | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
-| **Documentary closure merge** | PR #299 · `983cef38c972ef1646166669613e680efba8f487` |
-| **main** | `983cef38c972ef1646166669613e680efba8f487` |
-| **Post-merge branch** | conservée sur `99e55d4ff05af66445f2522f85910faebceaded4` |
-| **Delivery branch** | conservée sur `f048a9c25e478bd7bf4cffb6617f6b085c8cf689` |
-| **Main CI** | run `30759197858` SUCCESS · Required Gate SUCCESS |
-| **QA-G3 D2-A** | **ACCEPTED BY MORRIS** |
-| **Package** | 20 fichiers produit + 4 fichiers clôture documentaire intégrés |
-| **Documentation** | **COMPLETE ON MAIN** |
-| **D2-B** | **fermé** — aucun GO Delivery consommé |
-| **D2-C** | **fermé** |
+| **Gate courant** | GO POST-MERGE consommé le 2026-08-03 08:09 CEST (+0200) |
+| **Product merge D2-B** | PR #301 · `7084d2e9f3c67e1e76b05decdbebca3b30417e5b` |
+| **Delivery commit D2-B** | `dd63b20828e33d96be7c686d9e793bab4c4845b6` |
+| **main** | `7084d2e9f3c67e1e76b05decdbebca3b30417e5b` |
+| **Post-merge branch** | `post-merge/sfia-studio-v3-1-d2-b-ckc-resolver` (branche documentaire de clôture) |
+| **Delivery branch D2-B** | conservée sur `dd63b20828e33d96be7c686d9e793bab4c4845b6` |
+| **Main CI D2-B** | run `30788690355` SUCCESS · Required Gate SUCCESS |
+| **Package D2-B** | 13 fichiers produit intégrés (+2000 / −2) |
+| **D2-A** | product + documentary closure **complets sur main** (historique PR #298 / #299) |
+| **D2-B** | **intégré `main`** — post-merge validé · F-QA-01…06 CLOSED · réserves MINOR ouvertes |
+| **D2-C** | **fermé** — aucun GO Delivery consommé |
 | **D2-D** | **gated** / non ouvert |
 | **D3** | **fermé** |
-| **Réserves** | R-PR-D2A-01…03 résiduelles mineures ; INHERITED-R-01 NOT LIFTED |
+| **Réserves D2-B** | R-QA-REV-01 MINOR OPEN NOT LIFTED · R-QA-REV-02 MINOR OPEN NOT LIFTED |
+| **Réserves D2-A** | R-PR-D2A-01…03 résiduelles mineures · INHERITED-R-01 NOT LIFTED |
 | **Réserve README** | `ACCEPTED MINOR DOCUMENTATION RESERVE — STILL TRACEABLE — NOT LIFTED` |
 
 ## Synthèse
@@ -30,17 +30,11 @@
 |-----|------|
 | V1 / V2 / V3.1-D1 | intégrés / clos `main` |
 | **V3.1-D2 FA/TA/backlog** | adoptés / validé |
-| **D2-A Delivery → QA → correctif → revalidation** | complets · R-QA-D2A-01 CLOSED |
-| **QA-G3** | **ACCEPTED BY MORRIS** |
-| **PR #298** | **MERGED** |
-| **Product CI** | **SUCCESS** |
-| **Product post-merge** | **VALIDATED** |
-| **PR #299** | **MERGED** |
-| **Documentary main CI** | **SUCCESS** (`30759197858`) |
-| **Documentation** | **COMPLETE ON MAIN** |
-| **R-MR-PM-D2A-01** | **CLOSED** |
-| **Réserves** | **carried forward** |
-| Delivery D2-B/C | **fermées** |
+| **D2-A Delivery → QA → correctif → revalidation → merge → clôture doc** | complets sur `main` · findings fermés · réserves D2-A conservées |
+| **D2-B Delivery → QA → correctif → revalidation → PR → merge** | **intégré `main`** · PR #301 MERGED · CI main `30788690355` SUCCESS |
+| **Post-merge D2-B** | **VALIDATED** (présent cycle) · documentary closure content aligned — Git-authoritative |
+| **Réserves D2-B** | R-QA-REV-01 · R-QA-REV-02 — **ouvertes / non levées** |
+| Delivery D2-C | **fermée** |
 | D2-D | **gated** |
 | D3 | **fermé** |
 
@@ -50,18 +44,21 @@
 
 ```text
 NO AUTOMATIC NEXT CYCLE —
-D2-B AND D2-C REMAIN CLOSED —
+D2-C REMAINS CLOSED —
 D2-D REMAINS GATED —
 D3 REMAINS CLOSED —
-ANY NEW DELIVERY OR METHOD CYCLE REQUIRES A DISTINCT MORRIS GO
+DISTINCT MORRIS GO REQUIRED —
+ANY D2-C / D2-D / D3 OR METHOD CYCLE REQUIRES A DISTINCT MORRIS GO
 ```
 
 ## Verdict
 
-`V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN —
+`V3.1-D2-B PRODUCT PACKAGE INTEGRATED ON MAIN —
 POST-MERGE VALIDATED —
-RESERVES CARRIED FORWARD —
-NO D2-B —
-NO D2-C —
+R-QA-REV-01 AND R-QA-REV-02 CARRIED FORWARD WITHOUT LIFTING —
+DOCUMENTARY CLOSURE CONTENT ALIGNED —
+VERSIONED PUBLICATION STATE IS GIT-AUTHORITATIVE —
+D2-C CLOSED —
 D2-D GATED —
-NO D3`
+D3 CLOSED —
+NO METHOD PROMOTION`
