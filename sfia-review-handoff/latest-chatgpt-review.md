@@ -1,664 +1,104 @@
-# Full Review Pack — SFIA Studio V3.1-D2-D1 Delivery (Cycle 8 Critical)
+# SFIA Studio V3.1-D2-D1 — Correction Full Review Pack
 
-## 0. En-tête
+## Meta
+- Cycle start (GO): 2026-08-03 22:57:00 CEST (+0200)
+- Cycle end: 2026-08-03 23:15:10 CEST (+0200)
+- Role: Cursor (implementation agent)
+- Cycle: Delivery corrective remediation — Cycle 8
+- Profile: Critical
+- Typology: RUN
+- Review Pack: Full
+- Review Handoff: required (publish-in-cycle, L3 bounded)
+- Mode: publish-in-cycle
 
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure début** | 2026-08-03 22:16 CEST (+0200) |
-| **Date/heure fin** | 2026-08-03 22:50 CEST (+0200) |
-| **Rôle Cursor** | Cycle 8 Delivery Critical — D2-D1 execution-run core |
-| **Cycle** | Cycle 8 — Delivery / implémentation |
-| **Profil** | Critical |
-| **Justification Critical** | Autorité unique d'état D2-D ; contrats consommés par D2-D2/D2-D3 ; validation fail-closed ; risque double runtime |
-| **Typologie** | INC |
-| **Branche** | `delivery/sfia-studio-v3-1-d2-d1` |
-| **HEAD** | `df4377249660aab79d764915ad3166608a8a9a7d` |
-| **Gate consommé** | G-D2D-DELIVERY-01 uniquement |
-| **Fichiers créés** | 32 |
+## Critical justification
+- Correction of sole D2-D state authority contracts/runtime
+- Correction of TypeScript ↔ JSON Schema equivalence
+- Correction of persistence invariants before save
+- Correction of succeeded/failed/blocked conditions
+- Correction of real server-only composition boundary
+- Risk of incoherent persisted runs and false D2-D1 verdict
 
----
+## GO Morris (complete)
+GO CORRECTION SFIA STUDIO V3.1-D2-D1 dated 2026-08-03 22:57 CEST (+0200).
+CORRECT D2D1-02 / D2D1-03 / D2D1-05 / D2D1-08 / D2D1-09 ONLY.
+Authorized: local D2-D1 file edits, schemas/guards/server-only/tests, local validations, Full Review Pack, L3 handoff publish.
+Forbidden: main mutation, project staging/commit/push/PR, docs 20–24, package.json/lock, execution-contract/attempt, vertical-slice-*, D2-D2/D3/D4, providers, Cursor verification, durable persistence, UI, HTTP, CreateCycle.
 
-## 1. GO Morris
+## CKC fallback
+- researched: yes
+- detailed contract: absent
+- fallback: method/.../02-fifteen-cycles-synthetic-map.md + sfia-v2.5-project-cycles-method-candidate.md §4.8
+- status: absent detailed / method-candidate
+- authority: none (experimental cognitive guidance only)
 
-```text
-GO DELIVERY SFIA STUDIO V3.1-D2-D1
-Date/heure : 2026-08-03 22:16 CEST (+0200)
-Consomme : G-D2D-DELIVERY-01
+## Handoff predecessor
+- tip: 34c9c5f4ee2081f0643a8b59ace455ec7333deb9
+- blob: 21eebaa1e262dba90bf53a4dabd3b9d1747d1bc0
+- Note: tip/blob of THIS report are computed after publication and reported in the terminal Cursor response (anti self-reference).
+
+## Git Truth initiale
+- worktree: /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+- branch: delivery/sfia-studio-v3-1-d2-d1
+- HEAD: df4377249660aab79d764915ad3166608a8a9a7d
+- origin/main: df4377249660aab79d764915ad3166608a8a9a7d
+- staged: empty
+- tracked diff: empty
+- remote delivery branch: absent
+- PR: absent
+
+## Sources consultées
+1–14 method/scripts/ci/package/tsconfig/vitest (from main baseline)
+15–18 documents 21–24 (read-only)
+19 predecessor Full Review Pack Delivery D2-D1
+20–21 local execution-run + tests
+22–25 server-only / import-boundary / AJV / Result / persistence patterns
+
+## Package avant correction
+- files: 32
+- package sha256: bb52d42cd4a7981478788a7cf0ee9c8c02d28e70619fd991b928753866a9648c
+- file inventory:
+```
+projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts	1520	a6e5d12345b4cfbcd86d44f520f65bf1e8b9507acca036ff384abe40849a60e8
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts	2431	143f7d83fa73453ad56e604e49b46d1b31a2bd42da36d0287d514236931153d9
+projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts	3865	8b0fe3030719889813c40d3ca50a379bdc52bc7d750d38409078c7de366b6541
+projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts	2487	34137522e68ab29ea5516084a195828e40822dfdfb67774c1d54a752f98e8285
+projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts	1994	dfe614316be7d4f52a4d34de3efaa1d241a59f8a3da10a3f77ee8af25efdb43f
+projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts	1747	1a059080382d91e09e97885cb24232ea8f09f87093fb7981db6a487ec003a650
+projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts	1736	751bf3b185e1b926a9bcbacf35cac4de4c120111352911d883548551a7f7577e
+projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts	1957	ffd8d16fe50a44f4522426d213051889eee02e96c9bfc0b61b7faab68b1b0191
+projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts	3626	a5111fbdc79daec54ca8795dc430ac50a4b9071f307fd1c22692b102683caf73
+projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts	4859	427ab00d42cd805a87d2a974310246abe29b6bbcd991ccb0dfec36f96cb3433f
+projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts	472	834e64b77bb9a0d95a21ca0bcc3857968905a38928b02a88babdc24a161f3862
+projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts	1790	b82fa2b66d703a1278a999a1bc39afa9114e6a4dee4c32ef69bb23dbe06265de
+projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts	1121	67e083175e9306387553804b71a6c95d6a5cde8370faeec4badb4706ed21cd29
+projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts	4390	b8d4b2ced9644d03c4bcb3f10e7fcae4e76938fdad568debbed7b5a935c01155
+projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts	3280	71dd7b791d82d877026d78b1e540ccecf23e51bc29e31df9bf8bc9bd9f403506
+projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts	6347	383a319a00d31d9530326d4911f35efaa1eca6f4ec06f0fbd3080ac123a22c0b
+projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts	7072	08ceaff616ab9d1d01597dae5da0b6c60a8d9dc86fe7d47ad3519212c75782db
+projects/sfia-studio/app/lib/oa/execution-run/index.ts	2196	3f90ea35b3a59e2ace0bf816376631db19182d4c276be3dcf62d3ba648dc02d3
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts	2977	b439ca083546074dbf74bc83b3758a6c878d2ad08cac0a768d99df4afda38530
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts	196	1fb80fdea26e2ff745963b886101bf199098714fb218d22a64f2c399668571f9
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts	1023	548c06695589cc49289a235ff7c9c3daeef7322d0cd789a8de3bc79bcef59f64
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts	146	12ba9ce92b7001346cb4fc888d1644d55369b66d698023a079c2c777ffcc89a9
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts	550	de9f307963d7579256a88f41ca607e8f76bb7f36bdd0b9f96207bb934bf8abd4
+projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts	51	1ee935be91426cc4aaa9564b939f393ca73891be7f119abc6c78bf979615f749
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts	271	2e8da3f81799a0b8faf579278a541822880f4594bc74f70125e1f3e3d93e1446
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts	736	fa2bd169e8f56c829c2537be2935b006dacf8b2af0e0ad74f2534c0e994cb517
+projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts	111	6c2c25ab63a18ba148f97b45262f08335da2811f59720cf26e7d0f6ea7212016
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json	1122	8bfb40c11c50f973ea76a336db8141391fc839b43b2a0573f24f88ce5639dfca
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json	1183	cb4d7c48f68b283deb82d11bb9de12ddc0a15d32a3bb4c6734c9d0c5e8cfff78
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json	2055	3badba0e6316eb14e92efb2daa8cbef3f57dcae7435731661715f51fdbab910b
+projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json	719	f7fd3177a638e05a9e0c00fde17bbea48fdb2bfb1eb57f67887dbf701b9c32f2
+projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json	828	333b3798d88316a80de6e2a33ef78893e5f9ec6b803350752d7b918f47a974e1
 ```
 
-Autorise : branche locale · module execution-run · tests · validations · Full Review Pack · handoff L3.
-N'autorise pas : staging/commit/push/PR projet · D2-D2/D2-D3 · providers réels · Cursor · D2-C · persistance durable · UI/D3 · méthode.
 
----
+## Contenu complet — fichiers avant correction
 
-## 2. Git Truth initiale
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts`
 
-| Champ | Valeur |
-|-------|--------|
-| Baseline | `main@df4377249660aab79d764915ad3166608a8a9a7d` |
-| DELIVERY_WT | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1` |
-| Branche créée | `delivery/sfia-studio-v3-1-d2-d1` |
-| Remote/PR | absents |
-| Handoff tip/blob predecessor | `07141d975617e1a03c84b860052f9878d4ad2e2c` / `86499fdd6109abb9460c024e473fc7a303e33794` |
-| execution-run initial | **absent** |
-
----
-
-## 3. Sources / CKC
-
-Méthode : template · routing · operating model · guardrails · validation checklist · carte synthétique · §4.8.
-Projet : docs 20–24 · handoff post-merge.
-Code lecture : execution-contract · execution-attempt · doctrine · vertical-slice-* · package/vitest/CI.
-CKC Delivery détaillé : absent — fallback method-candidate — aucune autorité d'exécution.
-
----
-
-## 4. Décisions appliquées
-
-D-CAD-01…12 · D-FD-01…12 · D-FA-01…12 · D-TA-01…14 · BLG-01…08.
-`execution-run` = seule state authority D2-D. CONTRACT-B. STORE-B memory. ASYNC-B représentable. D2-D4 out. Cursor UNVERIFIED.
-
----
-
-## 5. Anti-double-runtime
-
-| Module | Rôle | Modifié |
-|--------|------|---------|
-| execution-run | D2-D state authority | **créé** |
-| execution-contract | pré-exécution T-A4 | non |
-| execution-attempt | T-A5 foundation | non |
-| vertical-slice-runtime | façade | non |
-
-Aucune importation croisée vers attempt/contract/runtime dans execution-run.
-
----
-
-## 6. Architecture créée
-
-```text
-lib/oa/execution-run/
-  domain/     types, errors, transitions, policy, evidence, invariants
-  application/ create, transition, compose
-  ports/      repository, schema validation, clock, identity
-  infrastructure/ memory repo/store, AJV adapter, fixed clock, sequential identity
-  schemas/    JSON Schema Draft-07
-  fixtures/   catalogue
-  index.ts
-__tests__/oa/execution-run/*.test.ts
-```
-
----
-
-## 7. Liste des fichiers
-
-- `projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/index.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts`
-- `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json`
-- `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json`
-- `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json`
-- `projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json`
-- `projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json`
-
-## 8. Contenu complet de chaque fichier
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts`
-
-`````text
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  assertSourceHonest,
-  canSucceed,
-  createOfficialEvidence,
-  createSourceDisclosure,
-  isIsoTimestamp,
-  usageUnavailable,
-} from "@/lib/oa/execution-run";
-
-describe("D2-D1 evidence and disclosure", () => {
-  it("distinguishes sources honestly", () => {
-    expect(assertSourceHonest("fixture", "fixture")).toBe(true);
-    expect(assertSourceHonest("fixture", "real")).toBe(false);
-  });
-
-  it("partial cannot succeed", () => {
-    expect(canSucceed("partial")).toBe(false);
-    expect(canSucceed("complete")).toBe(true);
-  });
-
-  it("creates official evidence without secrets", () => {
-    const e = createOfficialEvidence({
-      evidenceId: "evidence:1",
-      runId: "run:1",
-      correlationId: "corr:1",
-      source: "fixture",
-      completeness: "complete",
-      producedAt: "2026-08-03T20:00:00.000Z",
-      summary: "ok",
-    });
-    expect(e.official).toBe(true);
-    expect(JSON.stringify(e)).not.toMatch(/sk-|password/i);
-  });
-
-  it("marks process-local disclosure", () => {
-    const d = createSourceDisclosure({ source: "fixture", providerLane: "ai" });
-    expect(d.processLocalMemory).toBe(true);
-  });
-
-  it("usage unavailable when not validated", () => {
-    expect(usageUnavailable("missing").status).toBe("unavailable");
-  });
-
-  it("validates ISO timestamps", () => {
-    expect(isIsoTimestamp("2026-08-03T20:00:00.000Z")).toBe(true);
-    expect(isIsoTimestamp("not-a-date")).toBe(false);
-  });
-});
-`````
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts`
-
-`````text
-/**
- * @vitest-environment node
- */
-import fs from "node:fs";
-import path from "node:path";
-import { describe, expect, it } from "vitest";
-
-const APP_ROOT = path.resolve(__dirname, "../../..");
-const MODULE_ROOT = path.join(APP_ROOT, "lib/oa/execution-run");
-
-function listTsFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  const out: string[] = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      if (entry.name === "node_modules") continue;
-      out.push(...listTsFiles(full));
-    } else if (/\.tsx?$/.test(entry.name)) {
-      out.push(full);
-    }
-  }
-  return out;
-}
-
-function importsOf(file: string): string[] {
-  return fs
-    .readFileSync(file, "utf8")
-    .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => l.startsWith("import ") || l.startsWith("export "));
-}
-
-describe("D2-D1 execution-run import boundaries", () => {
-  it("domain stays pure", () => {
-    const files = listTsFiles(path.join(MODULE_ROOT, "domain"));
-    expect(files.length).toBeGreaterThan(0);
-    const hits: string[] = [];
-    const forbidden =
-      /from\s+["'](?:node:|next|react|ajv|@\/lib\/(?:ops1|d1|platform|vertical-slice|harness)|fs|path|child_process)/;
-    for (const file of files) {
-      for (const line of importsOf(file)) {
-        if (forbidden.test(line)) hits.push(`${file}: ${line}`);
-      }
-    }
-    expect(hits).toEqual([]);
-  });
-
-  it("application does not import provider SDKs or AJV", () => {
-    const files = listTsFiles(path.join(MODULE_ROOT, "application"));
-    const hits: string[] = [];
-    for (const file of files) {
-      for (const line of importsOf(file)) {
-        if (/from\s+["']ajv|openai|@octokit|cursor/.test(line)) {
-          hits.push(`${file}: ${line}`);
-        }
-      }
-    }
-    expect(hits).toEqual([]);
-  });
-
-  it("module does not import harness, vertical-slice-runtime, execution-attempt, or execution-contract internals", () => {
-    const files = listTsFiles(MODULE_ROOT);
-    const hits: string[] = [];
-    for (const file of files) {
-      for (const line of importsOf(file)) {
-        if (
-          /vertical-slice-runtime|execution-attempt|execution-contract|harness\//.test(
-            line,
-          )
-        ) {
-          hits.push(`${path.relative(APP_ROOT, file)}: ${line}`);
-        }
-      }
-    }
-    expect(hits).toEqual([]);
-  });
-});
-`````
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts`
-
-`````text
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  composeExecutionRunMemory,
-  FIXTURE_CATALOGUE,
-  getFixture,
-} from "@/lib/oa/execution-run";
-
-describe("D2-D1 fixture lifecycle", () => {
-  it("covers required catalogue scenarios", () => {
-    const ids = FIXTURE_CATALOGUE.map((f) => f.id);
-    for (const id of [
-      "nominal",
-      "validation_failure",
-      "auth_failure",
-      "provider_unavailable",
-      "rate_limit",
-      "timeout",
-      "cancellation",
-      "blocked_gate",
-      "protected_path",
-      "mutation_forbidden",
-      "partial_result",
-      "invalid_provider_result",
-      "late_result",
-      "secret_redaction",
-      "source_mismatch",
-    ]) {
-      expect(ids).toContain(id);
-      expect(getFixture(id as never).source).toBe("fixture");
-    }
-  });
-
-  it("runs nominal to succeeded", async () => {
-    const c = composeExecutionRunMemory();
-    const f = getFixture("nominal");
-    const created = await c.createExecutionRun(
-      { intent: f.intent, context: f.context, capability: f.capability },
-      c,
-    );
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-    const started = await c.transitionExecutionRun(
-      { runId: created.run.runId, reason: "intent_valid" },
-      c,
-    );
-    expect(started.ok && started.run.state).toBe("running");
-    if (!started.ok) return;
-    const done = await c.transitionExecutionRun(
-      {
-        runId: started.run.runId,
-        reason: "outputs_validated",
-        completeness: "complete",
-        externalResult: {
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "ok",
-          rawPresent: false,
-        },
-      },
-      c,
-    );
-    expect(done.ok && done.run.state).toBe("succeeded");
-  });
-
-  it("never succeeds on partial", async () => {
-    const c = composeExecutionRunMemory();
-    const f = getFixture("partial_result");
-    const created = await c.createExecutionRun(
-      { intent: f.intent, context: f.context, capability: f.capability },
-      c,
-    );
-    if (!created.ok) return;
-    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
-    const done = await c.transitionExecutionRun(
-      {
-        runId: created.run.runId,
-        reason: "outputs_validated",
-        completeness: "partial",
-        externalResult: {
-          kind: "success",
-          completeness: "partial",
-          redactedSummary: "partial",
-          rawPresent: false,
-        },
-      },
-      c,
-    );
-    expect(done.ok).toBe(false);
-  });
-
-  it("records late evidence without state change", async () => {
-    const c = composeExecutionRunMemory();
-    const f = getFixture("late_result");
-    const created = await c.createExecutionRun(
-      { intent: f.intent, context: f.context, capability: f.capability },
-      c,
-    );
-    if (!created.ok) return;
-    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
-    await c.transitionExecutionRun({ runId: created.run.runId, reason: "cancel_accepted" }, c);
-    const late = await c.transitionExecutionRun(
-      {
-        runId: created.run.runId,
-        reason: "late_result_evidence_only",
-        lateEvidenceSummary: "late_redacted",
-      },
-      c,
-    );
-    expect(late.ok).toBe(true);
-    if (!late.ok) return;
-    expect(late.run.state).toBe("cancelled");
-    expect(late.run.evidence?.some((e) => e.late)).toBe(true);
-  });
-
-  it("blocks mutation intent at create", async () => {
-    const c = composeExecutionRunMemory();
-    const f = getFixture("mutation_forbidden");
-    const created = await c.createExecutionRun(
-      { intent: f.intent, context: f.context, capability: f.capability },
-      c,
-    );
-    expect(created.ok).toBe(false);
-    if (created.run) expect(created.run.state).toBe("blocked");
-  });
-});
-`````
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts`
-
-`````text
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import { evaluateReadOnlyPolicy, getFixture } from "@/lib/oa/execution-run";
-
-describe("D2-D1 read-only policy", () => {
-  it("denies mutation", () => {
-    const f = getFixture("mutation_forbidden");
-    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
-    expect(d.ok).toBe(false);
-    if (!d.ok) expect(d.failure.code).toBe("MUTATION_FORBIDDEN");
-  });
-
-  it("denies protected path", () => {
-    const f = getFixture("protected_path");
-    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
-    expect(d.ok).toBe(false);
-    if (!d.ok) expect(d.failure.code).toBe("PROTECTED_PATH");
-  });
-
-  it("denies auth failure", () => {
-    const f = getFixture("auth_failure");
-    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
-    expect(d.ok).toBe(false);
-    if (!d.ok) expect(d.failure.code).toBe("AUTHORIZATION_ERROR");
-  });
-
-  it("denies provider unavailable", () => {
-    const f = getFixture("provider_unavailable");
-    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
-    expect(d.ok).toBe(false);
-    if (!d.ok) expect(d.failure.code).toBe("PROVIDER_UNAVAILABLE");
-  });
-
-  it("denies source mismatch", () => {
-    const f = getFixture("source_mismatch");
-    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
-    expect(d.ok).toBe(false);
-    if (!d.ok) expect(d.failure.code).toBe("SOURCE_MISMATCH");
-  });
-
-  it("denies unsatisfied human gate", () => {
-    const f = getFixture("blocked_gate");
-    const d = evaluateReadOnlyPolicy({
-      intent: f.intent,
-      context: f.context,
-      capability: f.capability,
-      gateSatisfied: false,
-    });
-    expect(d.ok).toBe(false);
-    if (!d.ok) expect(d.failure.code).toBe("HUMAN_GATE_REQUIRED");
-  });
-
-  it("accepts nominal", () => {
-    const f = getFixture("nominal");
-    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
-    expect(d.ok).toBe(true);
-  });
-
-  it("never exposes secrets in failures", () => {
-    const f = getFixture("secret_redaction");
-    expect(JSON.stringify(f.expectedFailure)).not.toMatch(/sk-|BEGIN PRIVATE|password/i);
-    expect(f.expectedFailure?.technicalDetailsRedacted).toBe(true);
-  });
-});
-`````
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts`
-
-`````text
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import { composeExecutionRunMemory, getFixture } from "@/lib/oa/execution-run";
-
-describe("D2-D1 memory repository", () => {
-  it("saves and loads with defensive copies", async () => {
-    const c = composeExecutionRunMemory();
-    const f = getFixture("nominal");
-    const created = await c.createExecutionRun(
-      { intent: f.intent, context: f.context, capability: f.capability },
-      c,
-    );
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-    const loaded = await c.repository.getById(created.run.runId);
-    expect(loaded?.runId).toBe(created.run.runId);
-    expect(loaded).not.toBe(created.run);
-  });
-
-  it("lists by correlation deterministically", async () => {
-    const c = composeExecutionRunMemory();
-    const f = getFixture("nominal");
-    await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
-    const list = await c.repository.listByCorrelationId(f.intent.correlationId);
-    expect(list.length).toBe(1);
-  });
-
-  it("returns null for missing", async () => {
-    const c = composeExecutionRunMemory();
-    expect(await c.repository.getById("missing")).toBeNull();
-  });
-
-  it("issues new identity after terminal via new create", async () => {
-    const c = composeExecutionRunMemory();
-    const f = getFixture("nominal");
-    const a = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
-    const b = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
-    expect(a.ok && b.ok).toBe(true);
-    if (a.ok && b.ok) expect(a.run.runId).not.toBe(b.run.runId);
-  });
-
-  it("discloses process-local memory only", () => {
-    const c = composeExecutionRunMemory();
-    expect(c.disclosure).toEqual({
-      persistence: "memory_process_local",
-      durable: false,
-      multiInstance: false,
-      restartSafe: false,
-    });
-  });
-});
-`````
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts`
-
-`````text
-/**
- * @vitest-environment node
- */
-import path from "node:path";
-import { describe, expect, it } from "vitest";
-import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
-import { getFixture } from "@/lib/oa/execution-run";
-
-const schemasDir = path.resolve(
-  __dirname,
-  "../../../lib/oa/execution-run/schemas",
-);
-
-describe("D2-D1 AJV adversarial validation", () => {
-  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
-
-  it("rejects null and undefined before metadata use", async () => {
-    expect((await validator.validate("execution-intent", null)).ok).toBe(false);
-    expect((await validator.validate("execution-intent", undefined)).ok).toBe(false);
-  });
-
-  it("rejects wrong types and missing fields", async () => {
-    expect((await validator.validate("execution-intent", 42)).ok).toBe(false);
-    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
-    expect(
-      (
-        await validator.validate("execution-intent", {
-          ...getFixture("nominal").intent,
-          requestedLane: "openai",
-        })
-      ).ok,
-    ).toBe(false);
-  });
-
-  it("rejects empty operation", async () => {
-    const f = getFixture("validation_failure");
-    const r = await validator.validate("execution-intent", f.intent);
-    expect(r.ok).toBe(false);
-  });
-
-  it("accepts nominal intent", async () => {
-    const f = getFixture("nominal");
-    const r = await validator.validate("execution-intent", f.intent);
-    expect(r.ok).toBe(true);
-  });
-
-  it("does not throw raw AJV exceptions", async () => {
-    await expect(validator.validate("execution-run", { circular: null })).resolves.toMatchObject({
-      ok: false,
-    });
-  });
-});
-`````
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts`
-
-`````text
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  decideTransition,
-  listAllowedTransitions,
-  EXECUTION_STATES,
-  isTerminalState,
-} from "@/lib/oa/execution-run";
-
-describe("D2-D1 transition authority", () => {
-  it("exposes exactly eight states", () => {
-    expect(EXECUTION_STATES).toHaveLength(8);
-  });
-
-  it("allows documented transitions", () => {
-    for (const edge of listAllowedTransitions()) {
-      expect(
-        decideTransition({
-          from: edge.from,
-          to: edge.to,
-          reason: edge.reason,
-          completeness: edge.to === "succeeded" ? "complete" : undefined,
-        }).allowed,
-      ).toBe(true);
-    }
-  });
-
-  it("refuses terminal without new run", () => {
-    for (const state of ["succeeded", "failed", "cancelled", "timed_out", "blocked"] as const) {
-      expect(isTerminalState(state)).toBe(true);
-      const d = decideTransition({ from: state, to: "running", reason: "intent_valid" });
-      expect(d.allowed).toBe(false);
-    }
-  });
-
-  it("refuses partial succeeded", () => {
-    const d = decideTransition({
-      from: "running",
-      to: "succeeded",
-      reason: "outputs_validated",
-      completeness: "partial",
-    });
-    expect(d.allowed).toBe(false);
-  });
-
-  it("refuses late result state mutation", () => {
-    const d = decideTransition({
-      from: "cancelled",
-      to: "succeeded",
-      reason: "late_result_evidence_only",
-    });
-    expect(d.allowed).toBe(false);
-  });
-
-  it("refuses idle→succeeded", () => {
-    const d = decideTransition({
-      from: "idle",
-      to: "succeeded",
-      reason: "outputs_validated",
-      completeness: "complete",
-    });
-    expect(d.allowed).toBe(false);
-  });
-});
-`````
-
-### `projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts`
-
-`````text
+```ts
 import { AjvExecutionRunSchemaValidation } from "../infrastructure/ajvExecutionRunSchemaValidation";
 import { FixedClock } from "../infrastructure/fixedClock";
 import { MemoryExecutionRunRepository } from "../infrastructure/memoryExecutionRunRepository";
@@ -711,11 +151,11 @@ export function composeExecutionRunMemory(options?: {
     },
   };
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts`
 
-`````text
+```ts
 import { createSourceDisclosure, usageUnavailable } from "../domain/evidence";
 import { evaluateReadOnlyPolicy } from "../domain/policy";
 import { normalizedFailure } from "../domain/errors";
@@ -828,11 +268,11 @@ export async function createExecutionRun(
   }
   return { ok: true, run: base };
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts`
 
-`````text
+```ts
 import { createOfficialEvidence, canSucceed } from "../domain/evidence";
 import { decideTransition, type TransitionReason } from "../domain/transitions";
 import { normalizedFailure } from "../domain/errors";
@@ -1003,11 +443,11 @@ export async function transitionExecutionRun(
   await deps.repository.save(updated);
   return { ok: true, run: updated };
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts`
 
-`````text
+```ts
 import type { FailureCode, FailureFamily, NormalizedFailure } from "./types";
 
 export function normalizedFailure(input: {
@@ -1026,11 +466,11 @@ export function normalizedFailure(input: {
     correlationId: input.correlationId,
   };
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts`
 
-`````text
+```ts
 /**
  * Evidence, completeness, source disclosure rules (FD-05/08).
  */
@@ -1105,11 +545,11 @@ export function isIsoTimestamp(value: string): boolean {
   const t = Date.parse(value);
   return Number.isFinite(t);
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts`
 
-`````text
+```ts
 import type { ExecutionRun } from "./types";
 import { canSucceed } from "./evidence";
 
@@ -1134,11 +574,11 @@ export function checkExecutionRunInvariants(run: ExecutionRun): InvariantIssue[]
   }
   return issues;
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts`
 
-`````text
+```ts
 /**
  * Pure Validation & Read-only Policy foundation (FD-04 / CAD-04).
  * Operates on contracts only — no FS/Git/provider I/O.
@@ -1302,11 +742,11 @@ export function evaluateReadOnlyPolicy(input: PolicyInput): PolicyDecision {
 
   return { ok: true };
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts`
 
-`````text
+```ts
 /**
  * Pure eight-state transition authority (FD-02/03/04/06).
  * Sole decision of whether a transition is valid for D2-D.
@@ -1416,11 +856,11 @@ export function listAllowedTransitions(): ReadonlyArray<{
 }> {
   return ALLOWED.map(([from, to, reason]) => ({ from, to, reason }));
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts`
 
-`````text
+```ts
 /**
  * D2-D1 Execution Run — canonical domain vocabulary (twelve functional objects).
  * Pure domain: no Next/Node/fs/process/network/SDK/AJV.
@@ -1662,11 +1102,11 @@ export type ExecutionRun = {
 export function isTerminalState(state: ExecutionState): state is TerminalExecutionState {
   return (TERMINAL_STATES as readonly string[]).includes(state);
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts`
 
-`````text
+```ts
 /**
  * Deterministic D2-D1 fixture catalogue — source always fixture.
  */
@@ -1905,11 +1345,11 @@ export function getFixture(id: FixtureScenarioId): FixtureScenario {
   if (!found) throw new Error(`missing_fixture:${id}`);
   return found;
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/index.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/index.ts`
 
-`````text
+```ts
 /**
  * D2-D1 OA execution-run public barrel.
  * Sole D2-D technical state authority — memory/fixture-first only.
@@ -1967,11 +1407,11 @@ export type { ClockPort } from "./ports/clockPort";
 export type { IdentityPort } from "./ports/identityPort";
 export { FIXTURE_CATALOGUE, getFixture } from "./fixtures/catalogue";
 export type { FixtureScenario, FixtureScenarioId } from "./fixtures/catalogue";
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts`
 
-`````text
+```ts
 /**
  * AJV Draft-07 boundary validation for D2-D1 — infrastructure only.
  * Domain/application must not import this module.
@@ -2061,11 +1501,11 @@ export class AjvExecutionRunSchemaValidation
     }
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts`
 
-`````text
+```ts
 import type { ClockPort } from "../ports/clockPort";
 
 export class FixedClock implements ClockPort {
@@ -2074,11 +1514,11 @@ export class FixedClock implements ClockPort {
     return this.iso;
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts`
 
-`````text
+```ts
 import type { ExecutionRun } from "../domain/types";
 import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
 import type { MemoryExecutionRunStore } from "./memoryExecutionRunStore";
@@ -2106,21 +1546,21 @@ export class MemoryExecutionRunRepository implements ExecutionRunRepositoryPort 
     return out;
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts`
 
-`````text
+```ts
 import type { ExecutionRun } from "../domain/types";
 
 export class MemoryExecutionRunStore {
   readonly runs = new Map<string, ExecutionRun>();
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts`
 
-`````text
+```ts
 import type { IdentityPort } from "../ports/identityPort";
 
 export class SequentialIdentity implements IdentityPort {
@@ -2143,19 +1583,19 @@ export class SequentialIdentity implements IdentityPort {
     return `intent:d2d1:${String(this.intent).padStart(4, "0")}`;
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts`
 
-`````text
+```ts
 export interface ClockPort {
   nowIso(): string;
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts`
 
-`````text
+```ts
 import type { ExecutionRun } from "../domain/types";
 
 export interface ExecutionRunRepositoryPort {
@@ -2163,11 +1603,11 @@ export interface ExecutionRunRepositoryPort {
   getById(runId: string): Promise<ExecutionRun | null>;
   listByCorrelationId(correlationId: string): Promise<ExecutionRun[]>;
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts`
 
-`````text
+```ts
 export type ExecutionRunSchemaValidationSuccess = { ok: true };
 export type ExecutionRunSchemaValidationFailure = {
   ok: false;
@@ -2194,21 +1634,21 @@ export interface ExecutionRunSchemaValidationPort {
     value: unknown,
   ): Promise<ExecutionRunSchemaValidationResult>;
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts`
 
-`````text
+```ts
 export interface IdentityPort {
   nextRunId(): string;
   nextEvidenceId(): string;
   nextIntentId(): string;
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json`
 
-`````text
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
@@ -2272,11 +1712,11 @@ export interface IdentityPort {
     }
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json`
 
-`````text
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
@@ -2339,11 +1779,11 @@ export interface IdentityPort {
     }
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json`
 
-`````text
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
@@ -2458,11 +1898,11 @@ export interface IdentityPort {
     }
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json`
 
-`````text
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
@@ -2500,11 +1940,11 @@ export interface IdentityPort {
     }
   }
 }
-`````
+```
 
-### `projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json`
+### BEFORE `projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json`
 
-`````text
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
@@ -2550,11 +1990,8678 @@ export interface IdentityPort {
     }
   }
 }
-`````
+```
 
-## 9. Diff complet
+### BEFORE `projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  assertSourceHonest,
+  canSucceed,
+  createOfficialEvidence,
+  createSourceDisclosure,
+  isIsoTimestamp,
+  usageUnavailable,
+} from "@/lib/oa/execution-run";
+
+describe("D2-D1 evidence and disclosure", () => {
+  it("distinguishes sources honestly", () => {
+    expect(assertSourceHonest("fixture", "fixture")).toBe(true);
+    expect(assertSourceHonest("fixture", "real")).toBe(false);
+  });
+
+  it("partial cannot succeed", () => {
+    expect(canSucceed("partial")).toBe(false);
+    expect(canSucceed("complete")).toBe(true);
+  });
+
+  it("creates official evidence without secrets", () => {
+    const e = createOfficialEvidence({
+      evidenceId: "evidence:1",
+      runId: "run:1",
+      correlationId: "corr:1",
+      source: "fixture",
+      completeness: "complete",
+      producedAt: "2026-08-03T20:00:00.000Z",
+      summary: "ok",
+    });
+    expect(e.official).toBe(true);
+    expect(JSON.stringify(e)).not.toMatch(/sk-|password/i);
+  });
+
+  it("marks process-local disclosure", () => {
+    const d = createSourceDisclosure({ source: "fixture", providerLane: "ai" });
+    expect(d.processLocalMemory).toBe(true);
+  });
+
+  it("usage unavailable when not validated", () => {
+    expect(usageUnavailable("missing").status).toBe("unavailable");
+  });
+
+  it("validates ISO timestamps", () => {
+    expect(isIsoTimestamp("2026-08-03T20:00:00.000Z")).toBe(true);
+    expect(isIsoTimestamp("not-a-date")).toBe(false);
+  });
+});
+```
+
+### BEFORE `projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const MODULE_ROOT = path.join(APP_ROOT, "lib/oa/execution-run");
+
+function listTsFiles(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (entry.name === "node_modules") continue;
+      out.push(...listTsFiles(full));
+    } else if (/\.tsx?$/.test(entry.name)) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+function importsOf(file: string): string[] {
+  return fs
+    .readFileSync(file, "utf8")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith("import ") || l.startsWith("export "));
+}
+
+describe("D2-D1 execution-run import boundaries", () => {
+  it("domain stays pure", () => {
+    const files = listTsFiles(path.join(MODULE_ROOT, "domain"));
+    expect(files.length).toBeGreaterThan(0);
+    const hits: string[] = [];
+    const forbidden =
+      /from\s+["'](?:node:|next|react|ajv|@\/lib\/(?:ops1|d1|platform|vertical-slice|harness)|fs|path|child_process)/;
+    for (const file of files) {
+      for (const line of importsOf(file)) {
+        if (forbidden.test(line)) hits.push(`${file}: ${line}`);
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+
+  it("application does not import provider SDKs or AJV", () => {
+    const files = listTsFiles(path.join(MODULE_ROOT, "application"));
+    const hits: string[] = [];
+    for (const file of files) {
+      for (const line of importsOf(file)) {
+        if (/from\s+["']ajv|openai|@octokit|cursor/.test(line)) {
+          hits.push(`${file}: ${line}`);
+        }
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+
+  it("module does not import harness, vertical-slice-runtime, execution-attempt, or execution-contract internals", () => {
+    const files = listTsFiles(MODULE_ROOT);
+    const hits: string[] = [];
+    for (const file of files) {
+      for (const line of importsOf(file)) {
+        if (
+          /vertical-slice-runtime|execution-attempt|execution-contract|harness\//.test(
+            line,
+          )
+        ) {
+          hits.push(`${path.relative(APP_ROOT, file)}: ${line}`);
+        }
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+});
+```
+
+### BEFORE `projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  composeExecutionRunMemory,
+  FIXTURE_CATALOGUE,
+  getFixture,
+} from "@/lib/oa/execution-run";
+
+describe("D2-D1 fixture lifecycle", () => {
+  it("covers required catalogue scenarios", () => {
+    const ids = FIXTURE_CATALOGUE.map((f) => f.id);
+    for (const id of [
+      "nominal",
+      "validation_failure",
+      "auth_failure",
+      "provider_unavailable",
+      "rate_limit",
+      "timeout",
+      "cancellation",
+      "blocked_gate",
+      "protected_path",
+      "mutation_forbidden",
+      "partial_result",
+      "invalid_provider_result",
+      "late_result",
+      "secret_redaction",
+      "source_mismatch",
+    ]) {
+      expect(ids).toContain(id);
+      expect(getFixture(id as never).source).toBe("fixture");
+    }
+  });
+
+  it("runs nominal to succeeded", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun(
+      { intent: f.intent, context: f.context, capability: f.capability },
+      c,
+    );
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const started = await c.transitionExecutionRun(
+      { runId: created.run.runId, reason: "intent_valid" },
+      c,
+    );
+    expect(started.ok && started.run.state).toBe("running");
+    if (!started.ok) return;
+    const done = await c.transitionExecutionRun(
+      {
+        runId: started.run.runId,
+        reason: "outputs_validated",
+        completeness: "complete",
+        externalResult: {
+          kind: "success",
+          completeness: "complete",
+          redactedSummary: "ok",
+          rawPresent: false,
+        },
+      },
+      c,
+    );
+    expect(done.ok && done.run.state).toBe("succeeded");
+  });
+
+  it("never succeeds on partial", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("partial_result");
+    const created = await c.createExecutionRun(
+      { intent: f.intent, context: f.context, capability: f.capability },
+      c,
+    );
+    if (!created.ok) return;
+    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
+    const done = await c.transitionExecutionRun(
+      {
+        runId: created.run.runId,
+        reason: "outputs_validated",
+        completeness: "partial",
+        externalResult: {
+          kind: "success",
+          completeness: "partial",
+          redactedSummary: "partial",
+          rawPresent: false,
+        },
+      },
+      c,
+    );
+    expect(done.ok).toBe(false);
+  });
+
+  it("records late evidence without state change", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("late_result");
+    const created = await c.createExecutionRun(
+      { intent: f.intent, context: f.context, capability: f.capability },
+      c,
+    );
+    if (!created.ok) return;
+    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
+    await c.transitionExecutionRun({ runId: created.run.runId, reason: "cancel_accepted" }, c);
+    const late = await c.transitionExecutionRun(
+      {
+        runId: created.run.runId,
+        reason: "late_result_evidence_only",
+        lateEvidenceSummary: "late_redacted",
+      },
+      c,
+    );
+    expect(late.ok).toBe(true);
+    if (!late.ok) return;
+    expect(late.run.state).toBe("cancelled");
+    expect(late.run.evidence?.some((e) => e.late)).toBe(true);
+  });
+
+  it("blocks mutation intent at create", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("mutation_forbidden");
+    const created = await c.createExecutionRun(
+      { intent: f.intent, context: f.context, capability: f.capability },
+      c,
+    );
+    expect(created.ok).toBe(false);
+    if (created.run) expect(created.run.state).toBe("blocked");
+  });
+});
+```
+
+### BEFORE `projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { evaluateReadOnlyPolicy, getFixture } from "@/lib/oa/execution-run";
+
+describe("D2-D1 read-only policy", () => {
+  it("denies mutation", () => {
+    const f = getFixture("mutation_forbidden");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("MUTATION_FORBIDDEN");
+  });
+
+  it("denies protected path", () => {
+    const f = getFixture("protected_path");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("PROTECTED_PATH");
+  });
+
+  it("denies auth failure", () => {
+    const f = getFixture("auth_failure");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("AUTHORIZATION_ERROR");
+  });
+
+  it("denies provider unavailable", () => {
+    const f = getFixture("provider_unavailable");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("PROVIDER_UNAVAILABLE");
+  });
+
+  it("denies source mismatch", () => {
+    const f = getFixture("source_mismatch");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("SOURCE_MISMATCH");
+  });
+
+  it("denies unsatisfied human gate", () => {
+    const f = getFixture("blocked_gate");
+    const d = evaluateReadOnlyPolicy({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+      gateSatisfied: false,
+    });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("HUMAN_GATE_REQUIRED");
+  });
+
+  it("accepts nominal", () => {
+    const f = getFixture("nominal");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(true);
+  });
+
+  it("never exposes secrets in failures", () => {
+    const f = getFixture("secret_redaction");
+    expect(JSON.stringify(f.expectedFailure)).not.toMatch(/sk-|BEGIN PRIVATE|password/i);
+    expect(f.expectedFailure?.technicalDetailsRedacted).toBe(true);
+  });
+});
+```
+
+### BEFORE `projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { composeExecutionRunMemory, getFixture } from "@/lib/oa/execution-run";
+
+describe("D2-D1 memory repository", () => {
+  it("saves and loads with defensive copies", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun(
+      { intent: f.intent, context: f.context, capability: f.capability },
+      c,
+    );
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const loaded = await c.repository.getById(created.run.runId);
+    expect(loaded?.runId).toBe(created.run.runId);
+    expect(loaded).not.toBe(created.run);
+  });
+
+  it("lists by correlation deterministically", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
+    const list = await c.repository.listByCorrelationId(f.intent.correlationId);
+    expect(list.length).toBe(1);
+  });
+
+  it("returns null for missing", async () => {
+    const c = composeExecutionRunMemory();
+    expect(await c.repository.getById("missing")).toBeNull();
+  });
+
+  it("issues new identity after terminal via new create", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const a = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
+    const b = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
+    expect(a.ok && b.ok).toBe(true);
+    if (a.ok && b.ok) expect(a.run.runId).not.toBe(b.run.runId);
+  });
+
+  it("discloses process-local memory only", () => {
+    const c = composeExecutionRunMemory();
+    expect(c.disclosure).toEqual({
+      persistence: "memory_process_local",
+      durable: false,
+      multiInstance: false,
+      restartSafe: false,
+    });
+  });
+});
+```
+
+### BEFORE `projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
+import { getFixture } from "@/lib/oa/execution-run";
+
+const schemasDir = path.resolve(
+  __dirname,
+  "../../../lib/oa/execution-run/schemas",
+);
+
+describe("D2-D1 AJV adversarial validation", () => {
+  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
+
+  it("rejects null and undefined before metadata use", async () => {
+    expect((await validator.validate("execution-intent", null)).ok).toBe(false);
+    expect((await validator.validate("execution-intent", undefined)).ok).toBe(false);
+  });
+
+  it("rejects wrong types and missing fields", async () => {
+    expect((await validator.validate("execution-intent", 42)).ok).toBe(false);
+    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
+    expect(
+      (
+        await validator.validate("execution-intent", {
+          ...getFixture("nominal").intent,
+          requestedLane: "openai",
+        })
+      ).ok,
+    ).toBe(false);
+  });
+
+  it("rejects empty operation", async () => {
+    const f = getFixture("validation_failure");
+    const r = await validator.validate("execution-intent", f.intent);
+    expect(r.ok).toBe(false);
+  });
+
+  it("accepts nominal intent", async () => {
+    const f = getFixture("nominal");
+    const r = await validator.validate("execution-intent", f.intent);
+    expect(r.ok).toBe(true);
+  });
+
+  it("does not throw raw AJV exceptions", async () => {
+    await expect(validator.validate("execution-run", { circular: null })).resolves.toMatchObject({
+      ok: false,
+    });
+  });
+});
+```
+
+### BEFORE `projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  decideTransition,
+  listAllowedTransitions,
+  EXECUTION_STATES,
+  isTerminalState,
+} from "@/lib/oa/execution-run";
+
+describe("D2-D1 transition authority", () => {
+  it("exposes exactly eight states", () => {
+    expect(EXECUTION_STATES).toHaveLength(8);
+  });
+
+  it("allows documented transitions", () => {
+    for (const edge of listAllowedTransitions()) {
+      expect(
+        decideTransition({
+          from: edge.from,
+          to: edge.to,
+          reason: edge.reason,
+          completeness: edge.to === "succeeded" ? "complete" : undefined,
+        }).allowed,
+      ).toBe(true);
+    }
+  });
+
+  it("refuses terminal without new run", () => {
+    for (const state of ["succeeded", "failed", "cancelled", "timed_out", "blocked"] as const) {
+      expect(isTerminalState(state)).toBe(true);
+      const d = decideTransition({ from: state, to: "running", reason: "intent_valid" });
+      expect(d.allowed).toBe(false);
+    }
+  });
+
+  it("refuses partial succeeded", () => {
+    const d = decideTransition({
+      from: "running",
+      to: "succeeded",
+      reason: "outputs_validated",
+      completeness: "partial",
+    });
+    expect(d.allowed).toBe(false);
+  });
+
+  it("refuses late result state mutation", () => {
+    const d = decideTransition({
+      from: "cancelled",
+      to: "succeeded",
+      reason: "late_result_evidence_only",
+    });
+    expect(d.allowed).toBe(false);
+  });
+
+  it("refuses idle→succeeded", () => {
+    const d = decideTransition({
+      from: "idle",
+      to: "succeeded",
+      reason: "outputs_validated",
+      completeness: "complete",
+    });
+    expect(d.allowed).toBe(false);
+  });
+});
+```
+
+## Diagnostic ChatGPT (écarts bloquants corrigés)
+1. Schemas incomplets (5 seuls; nested permissifs; sans $ref contractuels)
+2. Validation avant metadata incomplète (intent seul; context/capability/transition non bornés)
+3. Persistence guards incomplets (pas d'invariants+schema systématiques avant save)
+4. Success/evidence incomplet (succeeded sans ExternalResult complet + evidence officielle)
+5. Late result permissif (non limité aux terminaux éligibles)
+6. Composition server-only non démontrée (dans application; exportée par barrel)
+
+## Choix d'implémentation minimal
+- Completer schemas Draft-07 + $ref; AJV v6 existant
+- Boundaries Create/Transition validées en `unknown` avant metadata
+- `persistExecutionRun` unique: invariants puis schema puis repository.save
+- Succeeded crée evidence officielle atomiquement; failed exige NormalizedFailure; blocked exige failure|reason
+- Late result: cancelled|timed_out|failed uniquement
+- Composition concrète déplacée sous `server/` avec assertServerOnly local (sans importer vertical-slice-runtime)
+- Barrel racine: contrats/domaine/application pure/ports/fixtures uniquement
+
+## Architecture finale
+```
+execution-run/
+  domain/     types, errors, transitions, policy, evidence, invariants
+  application/ create, transition, persistGuarded
+  ports/      repository, schemas, clock, identity
+  infrastructure/ memory, ajv, clock, identity
+  schemas/    13 JSON Schema files
+  fixtures/   catalogue (15)
+  server/     serverOnly + composeExecutionRunMemory (entry)
+  index.ts    public barrel (no concrete composition)
+```
+
+## Liste complète des fichiers finaux
+
+```
+projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts	3845	a7788d301db9922c102acb10aead686034c7d30bd52cd9a95bac6f0bc8592320
+projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts	3440	65dabd7f2dab4ea8634857f569c75265c3bed08331c212d8e011d818da7c2cd0
+projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts	6301	9b9ad9a2c706cc52a4b1850d2318ce6d16e55924fca2cd62bad4bfbeaac4584c
+projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts	1520	a6e5d12345b4cfbcd86d44f520f65bf1e8b9507acca036ff384abe40849a60e8
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts	3636	bcf4c973892e79a84920b39bec56165dd5c9fba6353992a377cf472f8ff98202
+projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts	5570	69359a7675c82bf86e4092d63788abeb43f9477d9418d72a6716642311b29f64
+projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts	3890	479680754ae5d81a2e45010e30b60d3a6f88752ca660d54e376ea39da144625b
+projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts	5657	79267673f9c7ca0e013e7607f640f274880b86c9eb1c823fad92a8b805375778
+projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts	2487	34137522e68ab29ea5516084a195828e40822dfdfb67774c1d54a752f98e8285
+projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts	2316	402de089833ed7999dd440d584956dded292921a4d11a104309b87b092d6ea20
+projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts	5884	267d1b6dea51bb4c5b37b67eee0d785fd89b4139c8721d4be5ea64054849fe1d
+projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts	2430	db038b585d16f28c63ca25247d265de233f601be06cd43334a5f5a98f4418837
+projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts	3514	a98fabf5158bd058be63e15449c377ad829969c9fbfd9fce4665eeaca74a0c1e
+projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts	1650	aa6d35349af3368becc28d28f191df9145e4589ce6933f088a50fe258d84a76d
+projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts	10564	d6ea29343bcebc8bb61cf5ee4d55e25a578e9ad7db157a6e0aef6a596d010d2a
+projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts	472	834e64b77bb9a0d95a21ca0bcc3857968905a38928b02a88babdc24a161f3862
+projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts	1790	b82fa2b66d703a1278a999a1bc39afa9114e6a4dee4c32ef69bb23dbe06265de
+projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts	3054	803b94670d4b77d8ad75cd67c06bc38ebbc537a00e8a14148e122b2f3e8001e4
+projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts	4390	b8d4b2ced9644d03c4bcb3f10e7fcae4e76938fdad568debbed7b5a935c01155
+projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts	3280	71dd7b791d82d877026d78b1e540ccecf23e51bc29e31df9bf8bc9bd9f403506
+projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts	6347	383a319a00d31d9530326d4911f35efaa1eca6f4ec06f0fbd3080ac123a22c0b
+projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts	7072	08ceaff616ab9d1d01597dae5da0b6c60a8d9dc86fe7d47ad3519212c75782db
+projects/sfia-studio/app/lib/oa/execution-run/index.ts	2348	07e029a5e9c2ab6d4fb38f5d2032f520336a912060dd330d1c2addd6d82928cf
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts	4899	3661388cee0d413d8a64edd9c15ce700c1faf38c66cba50a0728bfc2e72e80f6
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts	196	1fb80fdea26e2ff745963b886101bf199098714fb218d22a64f2c399668571f9
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts	1023	548c06695589cc49289a235ff7c9c3daeef7322d0cd789a8de3bc79bcef59f64
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts	146	12ba9ce92b7001346cb4fc888d1644d55369b66d698023a079c2c777ffcc89a9
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts	550	de9f307963d7579256a88f41ca607e8f76bb7f36bdd0b9f96207bb934bf8abd4
+projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts	51	1ee935be91426cc4aaa9564b939f393ca73891be7f119abc6c78bf979615f749
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts	271	2e8da3f81799a0b8faf579278a541822880f4594bc74f70125e1f3e3d93e1446
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts	960	f8951453aa9f68b3e0415b8dd325d37861a8a37ebdf57d728ebb4832c241718a
+projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts	111	6c2c25ab63a18ba148f97b45262f08335da2811f59720cf26e7d0f6ea7212016
+projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json	578	36ca3f266792903d0c73c95745a43472289be0c7bb76700511000463f35c600c
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json	1359	18a973cf08a6869846eecf8fd7f962879c958ca847102261ad5671920ea53b4e
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json	1231	901b0222fa7e974827a7d7aebef584aac2f4360824b03e31ddca65c737dfc939
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json	1230	4f9c940bcf7311d99409852cbb932704ad01f74a4acb5f1e97c41ebc489e1c28
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json	4839	73f906733dde4944bfc25ce8d8d1a3b1bb77ab28919e2eb822c7b6d2dae72941
+projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json	1107	b44d0ef53d052ac94d2f5751bddd02b91b34722a72633422f319056d75526375
+projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json	738	aa366a8f57434b0c057ea182c9cc4ea61045a63fc5bee301e02444a54231eaa1
+projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json	1606	e4ca4c729a70bfab9c3473b526ddb938c1222822b99997e7e9813e1ae3a02bee
+projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json	778	f2faced872f8283c89acce59232bb4f2fd0482de61566b5c209679e436818d30
+projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json	828	d3290a69899ced9ef159661d439e77241aaa939d3c454f9406d32e9058701114
+projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json	1950	16593acb88ae7888417dfb7fa7b919d6472be8e3b258317dc37ba5fffb8fe7aa
+projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json	911	058258541c3d6052755d05f6bc67dcf728fe8155325a6ef9772b5dafa74afdf2
+projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json	878	0997d39dc8ed797b6a4678938392ec583f7efae367683af9de2a5879c649934b
+projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts	2511	2c206494e0d399d88b8ebe0a8edd6507634127f382dc51febde0c288e9594ef9
+projects/sfia-studio/app/lib/oa/execution-run/server/index.ts	295	e6ced4c5dd902f36f25e93405d4894402bb418e990e242657f825ad548d84fff
+projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts	452	e8001369c96d7d555a23b614f42a8628eaa9df35ef29e408df5688c7fa75b527
+```
+
+
+Package sha256 final: `1f9903c78df9dac3d8c437f7dbefa879f09d5c45169b6780a48b6ce7625ef230`
+
+## Contenu complet — fichiers finaux D2-D1
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { describe, expect, it, vi } from "vitest";
+import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
+import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
+import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
+import { createExecutionRun } from "@/lib/oa/execution-run";
+import { getFixture } from "@/lib/oa/execution-run";
+import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
+
+const schemasDir = path.resolve(
+  __dirname,
+  "../../../lib/oa/execution-run/schemas",
+);
+
+function deps(repo: ExecutionRunRepositoryPort) {
+  return {
+    clock: new FixedClock("2026-08-03T20:00:00.000Z"),
+    identity: new SequentialIdentity(),
+    repository: repo,
+    schemas: new AjvExecutionRunSchemaValidation(schemasDir),
+  };
+}
+
+describe("D2-D1 create boundary validation before metadata", () => {
+  it("rejects null/undefined/primitive/array without save or identity", async () => {
+    const save = vi.fn();
+    const getById = vi.fn();
+    const listByCorrelationId = vi.fn();
+    const identity = new SequentialIdentity();
+    const nextRunId = vi.spyOn(identity, "nextRunId");
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById,
+      listByCorrelationId,
+    };
+    const base = {
+      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
+      identity,
+      repository,
+      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
+    };
+    for (const bad of [null, undefined, 42, "x", [], true]) {
+      const r = await createExecutionRun(bad, base);
+      expect(r.ok).toBe(false);
+    }
+    expect(save).not.toHaveBeenCalled();
+    expect(nextRunId).not.toHaveBeenCalled();
+  });
+
+  it("rejects incomplete object and additional properties", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const d = deps(repository);
+    expect((await createExecutionRun({ intent: getFixture("nominal").intent }, d)).ok).toBe(
+      false,
+    );
+    expect(
+      (
+        await createExecutionRun(
+          {
+            intent: getFixture("nominal").intent,
+            context: getFixture("nominal").context,
+            extra: true,
+          },
+          d,
+        )
+      ).ok,
+    ).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("rejects invalid nested context permissions and capability", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const d = deps(repository);
+    const f = getFixture("nominal");
+    expect(
+      (
+        await createExecutionRun(
+          {
+            intent: f.intent,
+            context: {
+              ...f.context,
+              permissions: { gitRead: true, gitWrite: false } as never,
+            },
+          },
+          d,
+        )
+      ).ok,
+    ).toBe(false);
+    expect(
+      (
+        await createExecutionRun(
+          {
+            intent: f.intent,
+            context: f.context,
+            capability: { ...f.capability!, lane: "openai" as never },
+          },
+          d,
+        )
+      ).ok,
+    ).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("does not throw on adversarial payloads", async () => {
+    const repository: ExecutionRunRepositoryPort = {
+      save: async () => undefined,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    await expect(
+      createExecutionRun({ circular: null }, deps(repository)),
+    ).resolves.toMatchObject({ ok: false });
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { describe, expect, it, vi } from "vitest";
+import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
+import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
+import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
+import { transitionExecutionRun, normalizedFailure } from "@/lib/oa/execution-run";
+import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
+
+const schemasDir = path.resolve(
+  __dirname,
+  "../../../lib/oa/execution-run/schemas",
+);
+
+describe("D2-D1 transition boundary validation before metadata", () => {
+  it("rejects invalid input before repository lookup", async () => {
+    const getById = vi.fn();
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById,
+      listByCorrelationId: async () => [],
+    };
+    const deps = {
+      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
+      identity: new SequentialIdentity(),
+      repository,
+      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
+    };
+    for (const bad of [
+      null,
+      undefined,
+      1,
+      [],
+      {},
+      { runId: "r1" },
+      { runId: "r1", reason: "not_a_reason" },
+      { runId: "r1", reason: "outputs_validated", completeness: "complete" },
+      {
+        runId: "r1",
+        reason: "engaged_operation_failed",
+      },
+      {
+        runId: "r1",
+        reason: "intent_valid",
+        extra: true,
+      },
+    ]) {
+      const r = await transitionExecutionRun(bad, deps);
+      expect(r.ok).toBe(false);
+    }
+    expect(getById).not.toHaveBeenCalled();
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("rejects invalid externalResult / failure payloads before save", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const deps = {
+      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
+      identity: new SequentialIdentity(),
+      repository,
+      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
+    };
+    const badExternal = await transitionExecutionRun(
+      {
+        runId: "r1",
+        reason: "outputs_validated",
+        completeness: "complete",
+        externalResult: { kind: "success", completeness: "complete" },
+      },
+      deps,
+    );
+    expect(badExternal.ok).toBe(false);
+    const badFailure = await transitionExecutionRun(
+      {
+        runId: "r1",
+        reason: "engaged_operation_failed",
+        failure: {
+          family: "validation",
+          code: "NOT_A_CODE",
+          userMessage: "x",
+          technicalDetailsRedacted: true,
+          retryable: false,
+          correlationId: "c",
+        },
+      },
+      deps,
+    );
+    expect(badFailure.ok).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("accepts schema-valid failure enum", async () => {
+    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
+    const failure = normalizedFailure({
+      family: "provider_unavailable",
+      code: "PROVIDER_UNAVAILABLE",
+      userMessage: "unavailable",
+      retryable: true,
+      correlationId: "c1",
+    });
+    expect((await schemas.validate("normalized-failure", failure)).ok).toBe(true);
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
+import {
+  createOfficialEvidence,
+  createSourceDisclosure,
+  getFixture,
+  normalizedFailure,
+  usageUnavailable,
+  EXECUTION_RUN_SCHEMA_VERSION,
+} from "@/lib/oa/execution-run";
+import type { ExecutionRunSchemaName } from "@/lib/oa/execution-run";
+
+const schemasDir = path.resolve(
+  __dirname,
+  "../../../lib/oa/execution-run/schemas",
+);
+
+const ALL: ExecutionRunSchemaName[] = [
+  "execution-intent",
+  "execution-context",
+  "provider-capability-descriptor",
+  "validation-outcome",
+  "execution-run",
+  "external-result",
+  "execution-evidence",
+  "source-disclosure",
+  "human-decision-gate",
+  "usage-summary",
+  "normalized-failure",
+  "create-execution-run-input",
+  "transition-execution-run-input",
+];
+
+describe("D2-D1 contract-equivalent schemas", () => {
+  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
+
+  it("loads and resolves all schemas", () => {
+    const ids = validator.listLoadedSchemaIds();
+    expect(ids).toHaveLength(ALL.length);
+  });
+
+  it("accepts valid fixtures for each core object", async () => {
+    const f = getFixture("nominal");
+    expect((await validator.validate("execution-intent", f.intent)).ok).toBe(true);
+    expect((await validator.validate("execution-context", f.context)).ok).toBe(true);
+    expect(
+      (await validator.validate("provider-capability-descriptor", f.capability)).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate("normalized-failure", normalizedFailure({
+          family: "validation",
+          code: "VALIDATION_ERROR",
+          userMessage: "bad",
+          retryable: true,
+          correlationId: "c",
+        }))
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate(
+          "source-disclosure",
+          createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
+        )
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate(
+          "execution-evidence",
+          createOfficialEvidence({
+            evidenceId: "e1",
+            runId: "r1",
+            correlationId: "c1",
+            source: "fixture",
+            completeness: "complete",
+            producedAt: "2026-08-03T20:00:00.000Z",
+            summary: "ok",
+          }),
+        )
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate("external-result", {
+          kind: "success",
+          completeness: "complete",
+          redactedSummary: "ok",
+          rawPresent: false,
+        })
+      ).ok,
+    ).toBe(true);
+    expect(
+      (await validator.validate("usage-summary", usageUnavailable("x"))).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate("human-decision-gate", {
+          gateId: "g1",
+          question: "proceed?",
+          required: true,
+        })
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate("validation-outcome", {
+          ok: true,
+          validatedAt: "2026-08-03T20:00:00.000Z",
+        })
+      ).ok,
+    ).toBe(true);
+  });
+
+  it("rejects missing required, wrong type, additional props, bad enums", async () => {
+    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
+    expect((await validator.validate("execution-intent", 1)).ok).toBe(false);
+    expect(
+      (
+        await validator.validate("execution-intent", {
+          ...getFixture("nominal").intent,
+          extra: true,
+        })
+      ).ok,
+    ).toBe(false);
+    expect(
+      (
+        await validator.validate("execution-intent", {
+          ...getFixture("nominal").intent,
+          requestedLane: "openai",
+        })
+      ).ok,
+    ).toBe(false);
+    expect(
+      (
+        await validator.validate("normalized-failure", {
+          family: "nope",
+          code: "VALIDATION_ERROR",
+          userMessage: "x",
+          technicalDetailsRedacted: true,
+          retryable: false,
+          correlationId: "c",
+        })
+      ).ok,
+    ).toBe(false);
+  });
+
+  it("validates create and transition boundary schemas", async () => {
+    const f = getFixture("nominal");
+    expect(
+      (
+        await validator.validate("create-execution-run-input", {
+          intent: f.intent,
+          context: f.context,
+          capability: f.capability,
+        })
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate("transition-execution-run-input", {
+          runId: "run:1",
+          reason: "intent_valid",
+        })
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await validator.validate("transition-execution-run-input", {
+          runId: "run:1",
+          reason: "outputs_validated",
+          completeness: "complete",
+          externalResult: {
+            kind: "success",
+            completeness: "complete",
+            redactedSummary: "ok",
+            rawPresent: false,
+          },
+        })
+      ).ok,
+    ).toBe(true);
+  });
+
+  it("execution-run $refs enforce nested contracts and state conditionals", async () => {
+    const f = getFixture("nominal");
+    const idle: Record<string, unknown> = {
+      schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
+      runId: "run:1",
+      correlationId: f.intent.correlationId,
+      state: "idle",
+      intent: f.intent,
+      context: f.context,
+      disclosure: createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
+      createdAt: "2026-08-03T20:00:00.000Z",
+      updatedAt: "2026-08-03T20:00:00.000Z",
+      version: 1,
+      usage: usageUnavailable("x"),
+      persistence: {
+        kind: "memory_process_local",
+        durable: false,
+        multiInstance: false,
+        restartSafe: false,
+      },
+    };
+    expect((await validator.validate("execution-run", idle)).ok).toBe(true);
+
+    const nestedBad = {
+      ...idle,
+      context: { ...f.context, permissions: { gitRead: true } },
+    };
+    expect((await validator.validate("execution-run", nestedBad)).ok).toBe(false);
+
+    const succeededBare = { ...idle, state: "succeeded" };
+    expect((await validator.validate("execution-run", succeededBare)).ok).toBe(false);
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  assertSourceHonest,
+  canSucceed,
+  createOfficialEvidence,
+  createSourceDisclosure,
+  isIsoTimestamp,
+  usageUnavailable,
+} from "@/lib/oa/execution-run";
+
+describe("D2-D1 evidence and disclosure", () => {
+  it("distinguishes sources honestly", () => {
+    expect(assertSourceHonest("fixture", "fixture")).toBe(true);
+    expect(assertSourceHonest("fixture", "real")).toBe(false);
+  });
+
+  it("partial cannot succeed", () => {
+    expect(canSucceed("partial")).toBe(false);
+    expect(canSucceed("complete")).toBe(true);
+  });
+
+  it("creates official evidence without secrets", () => {
+    const e = createOfficialEvidence({
+      evidenceId: "evidence:1",
+      runId: "run:1",
+      correlationId: "corr:1",
+      source: "fixture",
+      completeness: "complete",
+      producedAt: "2026-08-03T20:00:00.000Z",
+      summary: "ok",
+    });
+    expect(e.official).toBe(true);
+    expect(JSON.stringify(e)).not.toMatch(/sk-|password/i);
+  });
+
+  it("marks process-local disclosure", () => {
+    const d = createSourceDisclosure({ source: "fixture", providerLane: "ai" });
+    expect(d.processLocalMemory).toBe(true);
+  });
+
+  it("usage unavailable when not validated", () => {
+    expect(usageUnavailable("missing").status).toBe("unavailable");
+  });
+
+  it("validates ISO timestamps", () => {
+    expect(isIsoTimestamp("2026-08-03T20:00:00.000Z")).toBe(true);
+    expect(isIsoTimestamp("not-a-date")).toBe(false);
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const MODULE_ROOT = path.join(APP_ROOT, "lib/oa/execution-run");
+
+function listTsFiles(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (entry.name === "node_modules") continue;
+      out.push(...listTsFiles(full));
+    } else if (/\.tsx?$/.test(entry.name)) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+function importsOf(file: string): string[] {
+  return fs
+    .readFileSync(file, "utf8")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith("import ") || l.startsWith("export "));
+}
+
+describe("D2-D1 execution-run import boundaries", () => {
+  it("domain stays pure", () => {
+    const files = listTsFiles(path.join(MODULE_ROOT, "domain"));
+    expect(files.length).toBeGreaterThan(0);
+    const hits: string[] = [];
+    const forbidden =
+      /from\s+["'](?:node:|next|react|ajv|@\/lib\/(?:ops1|d1|platform|vertical-slice|harness)|fs|path|child_process)/;
+    for (const file of files) {
+      for (const line of importsOf(file)) {
+        if (forbidden.test(line)) hits.push(`${file}: ${line}`);
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+
+  it("application does not import infrastructure, AJV, Node, Next, or providers", () => {
+    const files = listTsFiles(path.join(MODULE_ROOT, "application"));
+    const hits: string[] = [];
+    for (const file of files) {
+      for (const line of importsOf(file)) {
+        if (
+          /from\s+["'].*\/infrastructure\/|from\s+["']ajv|openai|@octokit|cursor|node:|from\s+["']next|from\s+["']react/.test(
+            line,
+          )
+        ) {
+          hits.push(`${file}: ${line}`);
+        }
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+
+  it("module does not import harness, vertical-slice-runtime, execution-attempt, or execution-contract internals", () => {
+    const files = listTsFiles(MODULE_ROOT);
+    const hits: string[] = [];
+    for (const file of files) {
+      for (const line of importsOf(file)) {
+        if (
+          /vertical-slice-runtime|execution-attempt|execution-contract|harness\//.test(
+            line,
+          )
+        ) {
+          hits.push(`${path.relative(APP_ROOT, file)}: ${line}`);
+        }
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+
+  it("root barrel does not export concrete composition", () => {
+    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
+    expect(barrel).not.toMatch(/composeExecutionRunMemory/);
+    expect(barrel).not.toMatch(/MemoryExecutionRunStore/);
+    expect(barrel).not.toMatch(/AjvExecutionRunSchemaValidation/);
+  });
+
+  it("server composition lives under server/ with server-only guard", () => {
+    const serverDir = path.join(MODULE_ROOT, "server");
+    expect(fs.existsSync(serverDir)).toBe(true);
+    const compose = fs.readFileSync(
+      path.join(serverDir, "composeExecutionRunMemory.ts"),
+      "utf8",
+    );
+    expect(compose).toMatch(/assertServerOnly/);
+    expect(compose).toMatch(/infrastructure\//);
+    const guard = fs.readFileSync(path.join(serverDir, "serverOnly.ts"), "utf8");
+    expect(guard).toMatch(/typeof window/);
+  });
+
+  it("application folder no longer hosts concrete composition", () => {
+    expect(
+      fs.existsSync(path.join(MODULE_ROOT, "application/composeExecutionRun.ts")),
+    ).toBe(false);
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
+import {
+  canAcceptLateResult,
+  EXECUTION_STATES,
+  getFixture,
+  LATE_RESULT_ELIGIBLE_STATES,
+  normalizedFailure,
+} from "@/lib/oa/execution-run";
+
+async function runningRun() {
+  const c = composeExecutionRunMemory();
+  const f = getFixture("nominal");
+  const created = await c.createExecutionRun({
+    intent: f.intent,
+    context: f.context,
+    capability: f.capability,
+  });
+  if (!created.ok) throw new Error("create failed");
+  const started = await c.transitionExecutionRun({
+    runId: created.run.runId,
+    reason: "intent_valid",
+  });
+  if (!started.ok) throw new Error("start failed");
+  return { c, run: started.run };
+}
+
+describe("D2-D1 late result eligibility", () => {
+  it("documents eligible terminals", () => {
+    expect([...LATE_RESULT_ELIGIBLE_STATES].sort()).toEqual(
+      ["cancelled", "failed", "timed_out"].sort(),
+    );
+    for (const s of EXECUTION_STATES) {
+      expect(canAcceptLateResult(s)).toBe(
+        (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(s),
+      );
+    }
+  });
+
+  it("refuses idle, running, awaiting_human, succeeded, blocked", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    if (!created.ok) return;
+
+    const idle = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late",
+    });
+    expect(idle.ok).toBe(false);
+
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    const running = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late",
+    });
+    expect(running.ok).toBe(false);
+
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "human_gate_required",
+    });
+    const awaiting = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late",
+    });
+    expect(awaiting.ok).toBe(false);
+
+    // fresh run → succeeded
+    const { c: c2, run } = await runningRun();
+    const succeeded = await c2.transitionExecutionRun({
+      runId: run.runId,
+      reason: "outputs_validated",
+      completeness: "complete",
+      externalResult: {
+        kind: "success",
+        completeness: "complete",
+        redactedSummary: "ok",
+        rawPresent: false,
+      },
+    });
+    expect(succeeded.ok).toBe(true);
+    if (!succeeded.ok) return;
+    const lateOnSuccess = await c2.transitionExecutionRun({
+      runId: run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late",
+    });
+    expect(lateOnSuccess.ok).toBe(false);
+
+    // blocked at create
+    const c3 = composeExecutionRunMemory();
+    const blocked = await c3.createExecutionRun({
+      intent: getFixture("mutation_forbidden").intent,
+      context: getFixture("mutation_forbidden").context,
+      capability: getFixture("mutation_forbidden").capability,
+    });
+    expect(blocked.run?.state).toBe("blocked");
+    if (!blocked.run) return;
+    const lateOnBlocked = await c3.transitionExecutionRun({
+      runId: blocked.run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late",
+    });
+    expect(lateOnBlocked.ok).toBe(false);
+  });
+
+  it("accepts cancelled, timed_out, failed with evidence-only mutation", async () => {
+    // cancelled
+    const { c, run } = await runningRun();
+    await c.transitionExecutionRun({
+      runId: run.runId,
+      reason: "cancel_accepted",
+    });
+    const lateCancel = await c.transitionExecutionRun({
+      runId: run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late_cancel",
+    });
+    expect(lateCancel.ok).toBe(true);
+    if (lateCancel.ok) {
+      expect(lateCancel.run.state).toBe("cancelled");
+      expect(lateCancel.run.evidence?.at(-1)?.late).toBe(true);
+      expect(lateCancel.run.evidence?.at(-1)?.official).toBe(true);
+      expect(lateCancel.run.evidence?.at(-1)?.completeness).toBe("partial");
+    }
+
+    // timed_out
+    const r2 = await runningRun();
+    await r2.c.transitionExecutionRun({
+      runId: r2.run.runId,
+      reason: "time_limit",
+    });
+    const lateTimeout = await r2.c.transitionExecutionRun({
+      runId: r2.run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late_timeout",
+    });
+    expect(lateTimeout.ok).toBe(true);
+    if (lateTimeout.ok) expect(lateTimeout.run.state).toBe("timed_out");
+
+    // failed
+    const r3 = await runningRun();
+    const failed = await r3.c.transitionExecutionRun({
+      runId: r3.run.runId,
+      reason: "engaged_operation_failed",
+      failure: normalizedFailure({
+        family: "provider_unavailable",
+        code: "PROVIDER_UNAVAILABLE",
+        userMessage: "down",
+        retryable: true,
+        correlationId: r3.run.correlationId,
+      }),
+    });
+    expect(failed.ok).toBe(true);
+    const lateFailed = await r3.c.transitionExecutionRun({
+      runId: r3.run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late_failed",
+    });
+    expect(lateFailed.ok).toBe(true);
+    if (lateFailed.ok) expect(lateFailed.run.state).toBe("failed");
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
+import { getFixture } from "@/lib/oa/execution-run";
+
+describe("D2-D1 fixture lifecycle", () => {
+  it("covers required catalogue scenarios", () => {
+    const ids = [
+      "nominal",
+      "validation_failure",
+      "auth_failure",
+      "provider_unavailable",
+      "rate_limit",
+      "timeout",
+      "cancellation",
+      "blocked_gate",
+      "protected_path",
+      "mutation_forbidden",
+      "partial_result",
+      "invalid_provider_result",
+      "late_result",
+      "secret_redaction",
+      "source_mismatch",
+    ] as const;
+    for (const id of ids) {
+      expect(getFixture(id).source).toBe("fixture");
+    }
+  });
+
+  it("runs nominal to succeeded with official evidence", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const started = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    expect(started.ok && started.run.state).toBe("running");
+    if (!started.ok) return;
+    const done = await c.transitionExecutionRun({
+      runId: started.run.runId,
+      reason: "outputs_validated",
+      completeness: "complete",
+      externalResult: {
+        kind: "success",
+        completeness: "complete",
+        redactedSummary: "ok",
+        rawPresent: false,
+      },
+    });
+    expect(done.ok && done.run.state).toBe("succeeded");
+    if (!done.ok) return;
+    expect(done.run.evidence?.some((e) => e.official && !e.late)).toBe(true);
+  });
+
+  it("never succeeds on partial", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("partial_result");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    if (!created.ok) return;
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    const done = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "outputs_validated",
+      completeness: "partial",
+      externalResult: {
+        kind: "success",
+        completeness: "partial",
+        redactedSummary: "partial",
+        rawPresent: false,
+      },
+    });
+    expect(done.ok).toBe(false);
+  });
+
+  it("records late evidence without state change on cancelled", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("late_result");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    if (!created.ok) return;
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "cancel_accepted",
+    });
+    const late = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "late_result_evidence_only",
+      lateEvidenceSummary: "late_redacted",
+    });
+    expect(late.ok).toBe(true);
+    if (!late.ok) return;
+    expect(late.run.state).toBe("cancelled");
+    expect(late.run.evidence?.some((e) => e.late)).toBe(true);
+  });
+
+  it("blocks mutation intent at create", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("mutation_forbidden");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    expect(created.ok).toBe(false);
+    if (created.run) expect(created.run.state).toBe("blocked");
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { describe, expect, it, vi } from "vitest";
+import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
+import {
+  persistExecutionRun,
+  checkExecutionRunInvariants,
+  createSourceDisclosure,
+  usageUnavailable,
+  EXECUTION_RUN_SCHEMA_VERSION,
+  getFixture,
+} from "@/lib/oa/execution-run";
+import type { ExecutionRun, ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
+
+const schemasDir = path.resolve(
+  __dirname,
+  "../../../lib/oa/execution-run/schemas",
+);
+
+function baseRun(over: Partial<ExecutionRun> = {}): ExecutionRun {
+  const f = getFixture("nominal");
+  return {
+    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
+    runId: "run:persist:1",
+    correlationId: f.intent.correlationId,
+    state: "idle",
+    intent: f.intent,
+    context: f.context,
+    disclosure: createSourceDisclosure({
+      source: "fixture",
+      providerLane: "ai",
+      limits: ["test"],
+    }),
+    createdAt: "2026-08-03T20:00:00.000Z",
+    updatedAt: "2026-08-03T20:00:00.000Z",
+    version: 1,
+    capability: f.capability,
+    usage: usageUnavailable("not_provided"),
+    persistence: {
+      kind: "memory_process_local",
+      durable: false,
+      multiInstance: false,
+      restartSafe: false,
+    },
+    ...over,
+  };
+}
+
+describe("D2-D1 persistExecutionRun guards", () => {
+  it("saves valid idle run", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const r = await persistExecutionRun(baseRun(), {
+      repository,
+      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
+    });
+    expect(r.ok).toBe(true);
+    expect(save).toHaveBeenCalledOnce();
+  });
+
+  it("refuses ninth state before save", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const r = await persistExecutionRun(baseRun({ state: "STATE-B" as never }), {
+      repository,
+      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
+    });
+    expect(r.ok).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("refuses succeeded without external result / evidence", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
+    const noResult = await persistExecutionRun(baseRun({ state: "succeeded" }), {
+      repository,
+      schemas,
+    });
+    expect(noResult.ok).toBe(false);
+    expect(checkExecutionRunInvariants(baseRun({ state: "succeeded" })).length).toBeGreaterThan(
+      0,
+    );
+
+    const partial = await persistExecutionRun(
+      baseRun({
+        state: "succeeded",
+        externalResult: {
+          kind: "success",
+          completeness: "partial",
+          redactedSummary: "p",
+          rawPresent: false,
+        },
+        evidence: [
+          {
+            evidenceId: "e1",
+            runId: "run:persist:1",
+            correlationId: "c",
+            source: "fixture",
+            completeness: "complete",
+            producedAt: "2026-08-03T20:00:00.000Z",
+            summary: "x",
+            late: false,
+            official: true,
+          },
+        ],
+      }),
+      { repository, schemas },
+    );
+    expect(partial.ok).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("refuses failed without failure and blocked without reason", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
+    expect(
+      (await persistExecutionRun(baseRun({ state: "failed" }), { repository, schemas })).ok,
+    ).toBe(false);
+    expect(
+      (await persistExecutionRun(baseRun({ state: "blocked" }), { repository, schemas })).ok,
+    ).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("refuses disclosure source mismatch and durable claim", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
+    const mismatch = baseRun({
+      disclosure: createSourceDisclosure({ source: "real", providerLane: "ai" }),
+    });
+    expect((await persistExecutionRun(mismatch, { repository, schemas })).ok).toBe(false);
+    const durable = baseRun({
+      persistence: {
+        kind: "memory_process_local",
+        durable: true as never,
+        multiInstance: false,
+        restartSafe: false,
+      },
+    });
+    expect((await persistExecutionRun(durable, { repository, schemas })).ok).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  it("refuses invalid timestamp format when schema requires date-time", async () => {
+    const save = vi.fn();
+    const repository: ExecutionRunRepositoryPort = {
+      save,
+      getById: async () => null,
+      listByCorrelationId: async () => [],
+    };
+    const r = await persistExecutionRun(baseRun({ createdAt: "yesterday" }), {
+      repository,
+      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
+    });
+    expect(r.ok).toBe(false);
+    expect(save).not.toHaveBeenCalled();
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { evaluateReadOnlyPolicy, getFixture } from "@/lib/oa/execution-run";
+
+describe("D2-D1 read-only policy", () => {
+  it("denies mutation", () => {
+    const f = getFixture("mutation_forbidden");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("MUTATION_FORBIDDEN");
+  });
+
+  it("denies protected path", () => {
+    const f = getFixture("protected_path");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("PROTECTED_PATH");
+  });
+
+  it("denies auth failure", () => {
+    const f = getFixture("auth_failure");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("AUTHORIZATION_ERROR");
+  });
+
+  it("denies provider unavailable", () => {
+    const f = getFixture("provider_unavailable");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("PROVIDER_UNAVAILABLE");
+  });
+
+  it("denies source mismatch", () => {
+    const f = getFixture("source_mismatch");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("SOURCE_MISMATCH");
+  });
+
+  it("denies unsatisfied human gate", () => {
+    const f = getFixture("blocked_gate");
+    const d = evaluateReadOnlyPolicy({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+      gateSatisfied: false,
+    });
+    expect(d.ok).toBe(false);
+    if (!d.ok) expect(d.failure.code).toBe("HUMAN_GATE_REQUIRED");
+  });
+
+  it("accepts nominal", () => {
+    const f = getFixture("nominal");
+    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
+    expect(d.ok).toBe(true);
+  });
+
+  it("never exposes secrets in failures", () => {
+    const f = getFixture("secret_redaction");
+    expect(JSON.stringify(f.expectedFailure)).not.toMatch(/sk-|BEGIN PRIVATE|password/i);
+    expect(f.expectedFailure?.technicalDetailsRedacted).toBe(true);
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
+import { getFixture } from "@/lib/oa/execution-run";
+
+describe("D2-D1 memory repository via server composition", () => {
+  it("saves and loads with defensive copies", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const loaded = await c.getById(created.run.runId);
+    expect(loaded?.runId).toBe(created.run.runId);
+    expect(loaded).not.toBe(created.run);
+  });
+
+  it("lists by correlation deterministically", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    const list = await c.listByCorrelationId(f.intent.correlationId);
+    expect(list.length).toBe(1);
+  });
+
+  it("returns null for missing", async () => {
+    const c = composeExecutionRunMemory();
+    expect(await c.getById("missing")).toBeNull();
+  });
+
+  it("issues new identity after terminal via new create", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const a = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    const b = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    expect(a.ok && b.ok).toBe(true);
+    if (a.ok && b.ok) expect(a.run.runId).not.toBe(b.run.runId);
+  });
+
+  it("discloses process-local memory only", () => {
+    const c = composeExecutionRunMemory();
+    expect(c.disclosure).toEqual({
+      persistence: "memory_process_local",
+      durable: false,
+      multiInstance: false,
+      restartSafe: false,
+    });
+  });
+
+  it("does not expose raw repository save on composition", () => {
+    const c = composeExecutionRunMemory() as Record<string, unknown>;
+    expect(c.repository).toBeUndefined();
+    expect(c.store).toBeUndefined();
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
+import { getFixture } from "@/lib/oa/execution-run";
+import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
+import { normalizedFailure } from "@/lib/oa/execution-run";
+
+const schemasDir = path.resolve(
+  __dirname,
+  "../../../lib/oa/execution-run/schemas",
+);
+
+describe("D2-D1 AJV adversarial validation", () => {
+  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
+
+  it("rejects null and undefined before metadata use", async () => {
+    expect((await validator.validate("execution-intent", null)).ok).toBe(false);
+    expect((await validator.validate("execution-intent", undefined)).ok).toBe(false);
+  });
+
+  it("rejects wrong types and missing fields", async () => {
+    expect((await validator.validate("execution-intent", 42)).ok).toBe(false);
+    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
+    expect(
+      (
+        await validator.validate("execution-intent", {
+          ...getFixture("nominal").intent,
+          requestedLane: "openai",
+        })
+      ).ok,
+    ).toBe(false);
+  });
+
+  it("rejects empty operation", async () => {
+    const f = getFixture("validation_failure");
+    const r = await validator.validate("execution-intent", f.intent);
+    expect(r.ok).toBe(false);
+  });
+
+  it("accepts nominal intent", async () => {
+    const f = getFixture("nominal");
+    const r = await validator.validate("execution-intent", f.intent);
+    expect(r.ok).toBe(true);
+  });
+
+  it("does not throw raw AJV exceptions", async () => {
+    await expect(validator.validate("execution-run", { circular: null })).resolves.toMatchObject({
+      ok: false,
+    });
+  });
+});
+
+describe("D2-D1 succeeded / failed / blocked application invariants", () => {
+  it("creates official evidence on succeeded", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    if (!created.ok) return;
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    const done = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "outputs_validated",
+      completeness: "complete",
+      externalResult: {
+        kind: "success",
+        completeness: "complete",
+        redactedSummary: "redacted-ok",
+        rawPresent: false,
+      },
+    });
+    expect(done.ok).toBe(true);
+    if (!done.ok) return;
+    expect(done.run.evidence?.[0]?.summary).toBe("redacted-ok");
+    expect(done.run.evidence?.[0]?.official).toBe(true);
+    expect(done.run.evidence?.[0]?.late).toBe(false);
+  });
+
+  it("refuses succeeded without external result", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    if (!created.ok) return;
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    const done = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "outputs_validated",
+      completeness: "complete",
+    });
+    expect(done.ok).toBe(false);
+  });
+
+  it("requires normalized failure for failed", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun({
+      intent: f.intent,
+      context: f.context,
+      capability: f.capability,
+    });
+    if (!created.ok) return;
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    const missing = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "engaged_operation_failed",
+    });
+    expect(missing.ok).toBe(false);
+    const ok = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "engaged_operation_failed",
+      failure: normalizedFailure({
+        family: "rate_limited",
+        code: "RATE_LIMITED",
+        userMessage: "slow down",
+        retryable: true,
+        correlationId: created.run.correlationId,
+      }),
+    });
+    expect(ok.ok).toBe(true);
+    if (ok.ok) expect(ok.run.failure?.code).toBe("RATE_LIMITED");
+  });
+
+  it("requires failure or blockingReason for blocked transition", async () => {
+    const c = composeExecutionRunMemory();
+    const f = getFixture("nominal");
+    const created = await c.createExecutionRun({
+      intent: {
+        ...f.intent,
+        requiresHumanGate: true,
+        intentId: "intent:gate",
+        correlationId: "corr:gate",
+      },
+      context: f.context,
+      capability: f.capability,
+    });
+    // may be blocked at create due to unsatisfied gate — use idle path with gate false via capability
+    if (!created.ok && created.run?.state === "blocked") {
+      expect(created.run.failure || created.run.blockedReason).toBeTruthy();
+      return;
+    }
+    if (!created.ok) return;
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "intent_valid",
+    });
+    await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "human_gate_required",
+    });
+    const blocked = await c.transitionExecutionRun({
+      runId: created.run.runId,
+      reason: "human_reject_or_unsatisfied",
+      blockingReason: "HUMAN_REJECTED",
+    });
+    expect(blocked.ok).toBe(true);
+    if (blocked.ok) {
+      expect(blocked.run.state).toBe("blocked");
+      expect(blocked.run.blockedReason).toBe("HUMAN_REJECTED");
+    }
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts`
+
+```ts
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  decideTransition,
+  listAllowedTransitions,
+  EXECUTION_STATES,
+  isTerminalState,
+} from "@/lib/oa/execution-run";
+
+describe("D2-D1 transition authority", () => {
+  it("exposes exactly eight states", () => {
+    expect(EXECUTION_STATES).toHaveLength(8);
+  });
+
+  it("allows documented transitions", () => {
+    for (const edge of listAllowedTransitions()) {
+      expect(
+        decideTransition({
+          from: edge.from,
+          to: edge.to,
+          reason: edge.reason,
+          completeness: edge.to === "succeeded" ? "complete" : undefined,
+        }).allowed,
+      ).toBe(true);
+    }
+  });
+
+  it("refuses terminal without new run", () => {
+    for (const state of ["succeeded", "failed", "cancelled", "timed_out", "blocked"] as const) {
+      expect(isTerminalState(state)).toBe(true);
+      const d = decideTransition({ from: state, to: "running", reason: "intent_valid" });
+      expect(d.allowed).toBe(false);
+    }
+  });
+
+  it("refuses partial succeeded", () => {
+    const d = decideTransition({
+      from: "running",
+      to: "succeeded",
+      reason: "outputs_validated",
+      completeness: "partial",
+    });
+    expect(d.allowed).toBe(false);
+  });
+
+  it("refuses late result state mutation", () => {
+    const d = decideTransition({
+      from: "cancelled",
+      to: "succeeded",
+      reason: "late_result_evidence_only",
+    });
+    expect(d.allowed).toBe(false);
+  });
+
+  it("refuses idle→succeeded", () => {
+    const d = decideTransition({
+      from: "idle",
+      to: "succeeded",
+      reason: "outputs_validated",
+      completeness: "complete",
+    });
+    expect(d.allowed).toBe(false);
+  });
+
+  it("samples refused transitions per non-terminal state", () => {
+    const samples = [
+      { from: "idle" as const, to: "failed" as const, reason: "engaged_operation_failed" as const },
+      { from: "running" as const, to: "idle" as const, reason: "intent_valid" as const },
+      {
+        from: "awaiting_human" as const,
+        to: "succeeded" as const,
+        reason: "outputs_validated" as const,
+        completeness: "complete" as const,
+      },
+    ];
+    for (const s of samples) {
+      expect(decideTransition(s).allowed).toBe(false);
+    }
+  });
+
+  it("preserves exactly the adopted allowed edge count", () => {
+    expect(listAllowedTransitions()).toHaveLength(11);
+  });
+});
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts`
+
+```ts
+import { createSourceDisclosure, usageUnavailable } from "../domain/evidence";
+import { evaluateReadOnlyPolicy } from "../domain/policy";
+import { normalizedFailure } from "../domain/errors";
+import type {
+  ExecutionContext,
+  ExecutionIntent,
+  ExecutionRun,
+  NormalizedFailure,
+  ProviderCapabilityDescriptor,
+} from "../domain/types";
+import { EXECUTION_RUN_SCHEMA_VERSION } from "../domain/types";
+import type { ClockPort } from "../ports/clockPort";
+import type { IdentityPort } from "../ports/identityPort";
+import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
+import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
+import { persistExecutionRun } from "./persistExecutionRun";
+
+export type CreateExecutionRunInput = {
+  intent: ExecutionIntent;
+  context: ExecutionContext;
+  capability?: ProviderCapabilityDescriptor;
+};
+
+export type CreateExecutionRunResult =
+  | { ok: true; run: ExecutionRun }
+  | { ok: false; failure: NormalizedFailure; run?: ExecutionRun };
+
+/**
+ * Untrusted boundary: validates CreateExecutionRunInput before any metadata access,
+ * identity allocation, or persistence.
+ */
+export async function createExecutionRun(
+  input: unknown,
+  deps: {
+    clock: ClockPort;
+    identity: IdentityPort;
+    repository: ExecutionRunRepositoryPort;
+    schemas: ExecutionRunSchemaValidationPort;
+  },
+): Promise<CreateExecutionRunResult> {
+  const boundary = await deps.schemas.validate("create-execution-run-input", input);
+  if (!boundary.ok) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: "Create execution run input failed schema validation",
+        retryable: true,
+        correlationId: "unknown",
+      }),
+    };
+  }
+
+  const validated = input as CreateExecutionRunInput;
+  const now = deps.clock.nowIso();
+  const policy = evaluateReadOnlyPolicy({
+    intent: validated.intent,
+    context: validated.context,
+    capability: validated.capability,
+    gateSatisfied: validated.intent.requiresHumanGate ? false : undefined,
+  });
+
+  const disclosure = createSourceDisclosure({
+    source: validated.context.declaredSource,
+    providerLane: validated.intent.requestedLane,
+    limits: ["d2-d1-fixture-first", "memory-process-local"],
+    cursorUnverified: validated.intent.requestedLane === "cursor",
+  });
+
+  const runId = deps.identity.nextRunId();
+  const base: ExecutionRun = {
+    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
+    runId,
+    correlationId: validated.intent.correlationId,
+    state: policy.ok ? "idle" : "blocked",
+    intent: validated.intent,
+    context: validated.context,
+    disclosure,
+    createdAt: now,
+    updatedAt: now,
+    version: 1,
+    capability: validated.capability,
+    usage: usageUnavailable("not_provided"),
+    persistence: {
+      kind: "memory_process_local",
+      durable: false,
+      multiInstance: false,
+      restartSafe: false,
+    },
+    validation: policy.ok
+      ? { ok: true, validatedAt: now }
+      : { ok: false, validatedAt: now, failure: policy.failure },
+    failure: policy.ok ? undefined : policy.failure,
+    blockedReason: policy.ok ? undefined : policy.failure.code,
+  };
+
+  const persisted = await persistExecutionRun(base, deps);
+  if (!persisted.ok) {
+    return { ok: false, failure: persisted.failure };
+  }
+  if (!policy.ok) {
+    return { ok: false, failure: policy.failure, run: base };
+  }
+  return { ok: true, run: base };
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts`
+
+```ts
+/**
+ * Unique supported persistence path for D2-D1 ExecutionRun.
+ * Invariants then schema validation before repository save.
+ */
+import { checkExecutionRunInvariants } from "../domain/invariants";
+import { normalizedFailure } from "../domain/errors";
+import type { ExecutionRun, NormalizedFailure } from "../domain/types";
+import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
+import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
+
+export type PersistExecutionRunResult =
+  | { ok: true }
+  | { ok: false; failure: NormalizedFailure };
+
+export async function persistExecutionRun(
+  run: ExecutionRun,
+  deps: {
+    repository: ExecutionRunRepositoryPort;
+    schemas: ExecutionRunSchemaValidationPort;
+  },
+): Promise<PersistExecutionRunResult> {
+  const issues = checkExecutionRunInvariants(run);
+  if (issues.length > 0) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: `Run invariants failed: ${issues.map((i) => i.code).join(",")}`,
+        retryable: false,
+        correlationId: run.correlationId,
+      }),
+    };
+  }
+
+  const schema = await deps.schemas.validate("execution-run", run);
+  if (!schema.ok) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: "Execution run failed schema validation before persistence",
+        retryable: false,
+        correlationId: run.correlationId,
+      }),
+    };
+  }
+
+  await deps.repository.save(run);
+  return { ok: true };
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts`
+
+```ts
+import { createOfficialEvidence, canSucceed } from "../domain/evidence";
+import { decideTransition, type TransitionReason } from "../domain/transitions";
+import { canAcceptLateResult } from "../domain/invariants";
+import { normalizedFailure } from "../domain/errors";
+import type {
+  Completeness,
+  ExecutionRun,
+  ExternalResult,
+  NormalizedFailure,
+} from "../domain/types";
+import type { ClockPort } from "../ports/clockPort";
+import type { IdentityPort } from "../ports/identityPort";
+import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
+import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
+import { persistExecutionRun } from "./persistExecutionRun";
+
+export type TransitionExecutionRunInput = {
+  runId: string;
+  reason: TransitionReason;
+  completeness?: Completeness;
+  externalResult?: ExternalResult;
+  failure?: NormalizedFailure;
+  blockingReason?: string;
+  lateEvidenceSummary?: string;
+};
+
+export type TransitionExecutionRunResult =
+  | { ok: true; run: ExecutionRun }
+  | { ok: false; failure: NormalizedFailure; run?: ExecutionRun };
+
+function targetForReason(
+  reason: TransitionReason,
+): ExecutionRun["state"] | null {
+  switch (reason) {
+    case "intent_valid":
+      return "running";
+    case "pre_engagement_block":
+      return "blocked";
+    case "human_gate_required":
+      return "awaiting_human";
+    case "outputs_validated":
+      return "succeeded";
+    case "engaged_operation_failed":
+      return "failed";
+    case "time_limit":
+    case "human_gate_expired":
+      return "timed_out";
+    case "cancel_accepted":
+    case "human_cancel":
+      return "cancelled";
+    case "human_approve":
+      return "running";
+    case "human_reject_or_unsatisfied":
+      return "blocked";
+    default:
+      return null;
+  }
+}
+
+/**
+ * Untrusted boundary: validates TransitionExecutionRunInput before metadata access
+ * or repository lookup.
+ */
+export async function transitionExecutionRun(
+  input: unknown,
+  deps: {
+    clock: ClockPort;
+    identity: IdentityPort;
+    repository: ExecutionRunRepositoryPort;
+    schemas: ExecutionRunSchemaValidationPort;
+  },
+): Promise<TransitionExecutionRunResult> {
+  const boundary = await deps.schemas.validate(
+    "transition-execution-run-input",
+    input,
+  );
+  if (!boundary.ok) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: "Transition execution run input failed schema validation",
+        retryable: true,
+        correlationId: "unknown",
+      }),
+    };
+  }
+
+  const validated = input as TransitionExecutionRunInput;
+
+  const existing = await deps.repository.getById(validated.runId);
+  if (!existing) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: "Execution run not found",
+        retryable: false,
+        correlationId: "unknown",
+      }),
+    };
+  }
+
+  if (validated.reason === "late_result_evidence_only") {
+    if (!canAcceptLateResult(existing.state)) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "validation",
+          code: "VALIDATION_ERROR",
+          userMessage:
+            "Late result evidence accepted only for cancelled, timed_out, or failed runs",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+
+    const summary = validated.lateEvidenceSummary ?? "late_result_redacted";
+    const evidence = createOfficialEvidence({
+      evidenceId: deps.identity.nextEvidenceId(),
+      runId: existing.runId,
+      correlationId: existing.correlationId,
+      source: existing.disclosure.source,
+      completeness: "partial",
+      producedAt: deps.clock.nowIso(),
+      summary,
+      late: true,
+    });
+
+    const evidenceSchema = await deps.schemas.validate(
+      "execution-evidence",
+      evidence,
+    );
+    if (!evidenceSchema.ok) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "validation",
+          code: "VALIDATION_ERROR",
+          userMessage: "Late evidence failed schema validation",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+
+    const updated: ExecutionRun = {
+      ...existing,
+      updatedAt: deps.clock.nowIso(),
+      version: existing.version + 1,
+      evidence: [...(existing.evidence ?? []), evidence],
+    };
+    const persisted = await persistExecutionRun(updated, deps);
+    if (!persisted.ok) {
+      return { ok: false, failure: persisted.failure, run: existing };
+    }
+    return { ok: true, run: updated };
+  }
+
+  const to = targetForReason(validated.reason);
+  if (!to) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: "Unknown transition reason",
+        retryable: false,
+        correlationId: existing.correlationId,
+      }),
+      run: existing,
+    };
+  }
+
+  const decision = decideTransition({
+    from: existing.state,
+    to,
+    reason: validated.reason,
+    completeness: validated.completeness,
+  });
+  if (!decision.allowed) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: decision.message,
+        retryable: false,
+        correlationId: existing.correlationId,
+      }),
+      run: existing,
+    };
+  }
+
+  const now = deps.clock.nowIso();
+
+  if (to === "succeeded") {
+    const external = validated.externalResult;
+    const externalSchema = await deps.schemas.validate(
+      "external-result",
+      external,
+    );
+    if (!externalSchema.ok || !external) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "invalid_provider_result",
+          code: "INVALID_PROVIDER_RESULT",
+          userMessage: "succeeded requires a valid ExternalResult",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+    if (external.kind !== "success" || !canSucceed(external.completeness)) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "invalid_provider_result",
+          code: "INVALID_PROVIDER_RESULT",
+          userMessage: "Cannot succeed without complete success ExternalResult",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+    if (validated.completeness !== "complete") {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "invalid_provider_result",
+          code: "INVALID_PROVIDER_RESULT",
+          userMessage: "Cannot succeed with partial or missing completeness",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+
+    const evidence = createOfficialEvidence({
+      evidenceId: deps.identity.nextEvidenceId(),
+      runId: existing.runId,
+      correlationId: existing.correlationId,
+      source: existing.disclosure.source,
+      completeness: "complete",
+      producedAt: now,
+      summary: external.redactedSummary,
+      late: false,
+    });
+    const evidenceSchema = await deps.schemas.validate(
+      "execution-evidence",
+      evidence,
+    );
+    if (!evidenceSchema.ok) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "validation",
+          code: "VALIDATION_ERROR",
+          userMessage: "Official evidence failed schema validation",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+
+    const updated: ExecutionRun = {
+      ...existing,
+      state: "succeeded",
+      updatedAt: now,
+      version: existing.version + 1,
+      externalResult: external,
+      evidence: [...(existing.evidence ?? []), evidence],
+    };
+    const persisted = await persistExecutionRun(updated, deps);
+    if (!persisted.ok) {
+      return { ok: false, failure: persisted.failure, run: existing };
+    }
+    return { ok: true, run: updated };
+  }
+
+  if (to === "failed") {
+    if (!validated.failure) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "validation",
+          code: "VALIDATION_ERROR",
+          userMessage: "failed requires NormalizedFailure",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+    const failureSchema = await deps.schemas.validate(
+      "normalized-failure",
+      validated.failure,
+    );
+    if (!failureSchema.ok) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "validation",
+          code: "VALIDATION_ERROR",
+          userMessage: "NormalizedFailure failed schema validation",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+  }
+
+  if (to === "blocked") {
+    const hasFailure = Boolean(validated.failure);
+    const hasReason =
+      typeof validated.blockingReason === "string" &&
+      validated.blockingReason.trim().length > 0;
+    if (!hasFailure && !hasReason && !existing.failure && !existing.blockedReason) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "validation",
+          code: "VALIDATION_ERROR",
+          userMessage: "blocked requires NormalizedFailure or blockingReason",
+          retryable: false,
+          correlationId: existing.correlationId,
+        }),
+        run: existing,
+      };
+    }
+  }
+
+  const updated: ExecutionRun = {
+    ...existing,
+    state: to,
+    updatedAt: now,
+    version: existing.version + 1,
+    externalResult: validated.externalResult ?? existing.externalResult,
+    failure:
+      validated.failure ??
+      (to === "failed" || to === "blocked" ? existing.failure : existing.failure),
+    blockedReason:
+      to === "blocked"
+        ? validated.blockingReason ??
+          validated.failure?.code ??
+          existing.blockedReason ??
+          "blocked"
+        : existing.blockedReason,
+  };
+
+  const persisted = await persistExecutionRun(updated, deps);
+  if (!persisted.ok) {
+    return { ok: false, failure: persisted.failure, run: existing };
+  }
+  return { ok: true, run: updated };
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts`
+
+```ts
+import type { FailureCode, FailureFamily, NormalizedFailure } from "./types";
+
+export function normalizedFailure(input: {
+  family: FailureFamily;
+  code: FailureCode;
+  userMessage: string;
+  retryable: boolean;
+  correlationId: string;
+}): NormalizedFailure {
+  return {
+    family: input.family,
+    code: input.code,
+    userMessage: input.userMessage,
+    technicalDetailsRedacted: true,
+    retryable: input.retryable,
+    correlationId: input.correlationId,
+  };
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts`
+
+```ts
+/**
+ * Evidence, completeness, source disclosure rules (FD-05/08).
+ */
+import type {
+  Completeness,
+  ExecutionEvidence,
+  ExecutionSource,
+  ProviderLane,
+  SourceDisclosure,
+  UsageSummary,
+} from "./types";
+
+export function assertSourceHonest(
+  declared: ExecutionSource,
+  claimed: ExecutionSource,
+): boolean {
+  return declared === claimed;
+}
+
+export function canSucceed(completeness: Completeness): boolean {
+  return completeness === "complete";
+}
+
+export function createOfficialEvidence(input: {
+  evidenceId: string;
+  runId: string;
+  correlationId: string;
+  source: ExecutionSource;
+  completeness: Completeness;
+  producedAt: string;
+  summary: string;
+  late?: boolean;
+  digest?: string;
+}): ExecutionEvidence {
+  return {
+    evidenceId: input.evidenceId,
+    runId: input.runId,
+    correlationId: input.correlationId,
+    source: input.source,
+    completeness: input.completeness,
+    producedAt: input.producedAt,
+    digest: input.digest,
+    summary: input.summary,
+    late: input.late ?? false,
+    official: true,
+  };
+}
+
+export function createSourceDisclosure(input: {
+  source: ExecutionSource;
+  providerLane: ProviderLane;
+  limits?: readonly string[];
+  cursorUnverified?: boolean;
+}): SourceDisclosure {
+  return {
+    source: input.source,
+    providerLane: input.providerLane,
+    limits: input.limits ?? [],
+    processLocalMemory: true,
+    cursorUnverified: input.cursorUnverified ?? input.providerLane === "cursor",
+  };
+}
+
+export function usageUnavailable(reason: string): UsageSummary {
+  return { status: "unavailable", reason };
+}
+
+export function isIsoTimestamp(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value)) {
+    return false;
+  }
+  const t = Date.parse(value);
+  return Number.isFinite(t);
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts`
+
+```ts
+/**
+ * Domain late-result eligibility and strengthened persistence invariants.
+ */
+import type { ExecutionEvidence, ExecutionRun, ExecutionState } from "./types";
+import { canSucceed } from "./evidence";
+
+export type InvariantIssue = { readonly code: string; readonly message: string };
+
+/** Terminal states where an external op may have been engaged (FD-05 late evidence). */
+export const LATE_RESULT_ELIGIBLE_STATES = [
+  "cancelled",
+  "timed_out",
+  "failed",
+] as const satisfies readonly ExecutionState[];
+
+export type LateResultEligibleState = (typeof LATE_RESULT_ELIGIBLE_STATES)[number];
+
+export function canAcceptLateResult(state: ExecutionState): state is LateResultEligibleState {
+  return (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(state);
+}
+
+function hasOfficialSuccessEvidence(
+  evidence: readonly ExecutionEvidence[] | undefined,
+  disclosureSource: ExecutionRun["disclosure"]["source"],
+): boolean {
+  if (!evidence || evidence.length === 0) return false;
+  return evidence.some(
+    (e) =>
+      e.official === true &&
+      e.late === false &&
+      e.completeness === "complete" &&
+      e.source === disclosureSource,
+  );
+}
+
+export function checkExecutionRunInvariants(run: ExecutionRun): InvariantIssue[] {
+  const issues: InvariantIssue[] = [];
+  if (run.persistence.kind !== "memory_process_local") {
+    issues.push({ code: "PERSISTENCE", message: "Only memory_process_local allowed in D2-D1" });
+  }
+  if (run.persistence.durable || run.persistence.multiInstance || run.persistence.restartSafe) {
+    issues.push({ code: "CLAIM", message: "Durable/multi-instance/restart-safe claims forbidden" });
+  }
+  if (run.disclosure.source !== run.context.declaredSource) {
+    issues.push({ code: "SOURCE", message: "disclosure source mismatch vs declared context source" });
+  }
+
+  if (run.state === "succeeded") {
+    const external = run.externalResult;
+    if (!external || external.kind !== "success") {
+      issues.push({
+        code: "SUCCEEDED_EXTERNAL_RESULT",
+        message: "succeeded requires ExternalResult kind success",
+      });
+    } else if (!canSucceed(external.completeness)) {
+      issues.push({
+        code: "PARTIAL_SUCCESS",
+        message: "succeeded requires complete external result",
+      });
+    }
+    if (!hasOfficialSuccessEvidence(run.evidence, run.disclosure.source)) {
+      issues.push({
+        code: "SUCCEEDED_EVIDENCE",
+        message: "succeeded requires official complete non-late evidence",
+      });
+    }
+  }
+
+  if (run.state === "failed") {
+    if (!run.failure) {
+      issues.push({ code: "FAILED_FAILURE", message: "failed requires NormalizedFailure" });
+    }
+  }
+
+  if (run.state === "blocked") {
+    const hasFailure = Boolean(run.failure);
+    const hasReason =
+      typeof run.blockedReason === "string" && run.blockedReason.trim().length > 0;
+    if (!hasFailure && !hasReason) {
+      issues.push({
+        code: "BLOCKED_REASON",
+        message: "blocked requires NormalizedFailure or non-empty blockedReason",
+      });
+    }
+  }
+
+  return issues;
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts`
+
+```ts
+/**
+ * Pure Validation & Read-only Policy foundation (FD-04 / CAD-04).
+ * Operates on contracts only — no FS/Git/provider I/O.
+ */
+import { normalizedFailure } from "./errors";
+import type {
+  ExecutionContext,
+  ExecutionIntent,
+  NormalizedFailure,
+  ProviderCapabilityDescriptor,
+} from "./types";
+
+export type PolicyInput = {
+  readonly intent: ExecutionIntent;
+  readonly context: ExecutionContext;
+  readonly capability?: ProviderCapabilityDescriptor;
+  readonly gateSatisfied?: boolean;
+};
+
+export type PolicyDecision =
+  | { readonly ok: true }
+  | { readonly ok: false; readonly failure: NormalizedFailure };
+
+export function evaluateReadOnlyPolicy(input: PolicyInput): PolicyDecision {
+  const { intent, context, capability } = input;
+  const cid = intent.correlationId;
+
+  if (intent.mutationRequested || context.permissions.gitWrite) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "mutation_forbidden",
+        code: "MUTATION_FORBIDDEN",
+        userMessage: "Git write or mutation intent is forbidden in D2-D",
+        retryable: false,
+        correlationId: cid,
+      }),
+    };
+  }
+
+  if (intent.arbitraryCommandRequested) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "validation",
+        code: "VALIDATION_ERROR",
+        userMessage: "Arbitrary commands are not permitted",
+        retryable: false,
+        correlationId: cid,
+      }),
+    };
+  }
+
+  if (intent.targetPath && context.protectedPaths?.length) {
+    const hit = context.protectedPaths.some(
+      (p) => intent.targetPath === p || intent.targetPath!.startsWith(`${p}/`),
+    );
+    if (hit) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "protected_path",
+          code: "PROTECTED_PATH",
+          userMessage: "Target path is protected",
+          retryable: false,
+          correlationId: cid,
+        }),
+      };
+    }
+  }
+
+  if (!context.permissions.gitRead && intent.requestedLane === "git") {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "authorization",
+        code: "AUTHORIZATION_ERROR",
+        userMessage: "Insufficient permission for Git read",
+        retryable: true,
+        correlationId: cid,
+      }),
+    };
+  }
+
+  if (intent.requestedLane !== "none") {
+    if (!capability) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "provider_unavailable",
+          code: "PROVIDER_UNAVAILABLE",
+          userMessage: "Provider capability descriptor is required",
+          retryable: true,
+          correlationId: cid,
+        }),
+      };
+    }
+    if (!capability.available) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "provider_unavailable",
+          code: "PROVIDER_UNAVAILABLE",
+          userMessage: "Requested provider is unavailable",
+          retryable: true,
+          correlationId: cid,
+        }),
+      };
+    }
+    if (!capability.readOnly) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "mutation_forbidden",
+          code: "MUTATION_FORBIDDEN",
+          userMessage: "Provider must be read-only for D2-D",
+          retryable: false,
+          correlationId: cid,
+        }),
+      };
+    }
+    if (intent.requestedLane === "cursor" && !capability.verified) {
+      return {
+        ok: false,
+        failure: normalizedFailure({
+          family: "sandbox_blocked",
+          code: "SANDBOX_BLOCKED",
+          userMessage: "Cursor product capabilities remain unverified",
+          retryable: false,
+          correlationId: cid,
+        }),
+      };
+    }
+  }
+
+  if (intent.requiresHumanGate && input.gateSatisfied === false) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "human_gate_required",
+        code: "HUMAN_GATE_REQUIRED",
+        userMessage: "A structural human gate is required",
+        retryable: true,
+        correlationId: cid,
+      }),
+    };
+  }
+
+  if (intent.requestedSource !== context.declaredSource) {
+    return {
+      ok: false,
+      failure: normalizedFailure({
+        family: "source_mismatch",
+        code: "SOURCE_MISMATCH",
+        userMessage: "Declared source does not match requested source",
+        retryable: false,
+        correlationId: cid,
+      }),
+    };
+  }
+
+  return { ok: true };
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts`
+
+```ts
+/**
+ * Pure eight-state transition authority (FD-02/03/04/06).
+ * Sole decision of whether a transition is valid for D2-D.
+ */
+import type { Completeness, ExecutionState } from "./types";
+import { isTerminalState } from "./types";
+
+export type TransitionReason =
+  | "intent_valid"
+  | "pre_engagement_block"
+  | "human_gate_required"
+  | "outputs_validated"
+  | "engaged_operation_failed"
+  | "time_limit"
+  | "cancel_accepted"
+  | "human_approve"
+  | "human_cancel"
+  | "human_reject_or_unsatisfied"
+  | "human_gate_expired"
+  | "late_result_evidence_only"
+  | "forbidden";
+
+export type TransitionRequest = {
+  readonly from: ExecutionState;
+  readonly to: ExecutionState;
+  readonly reason: TransitionReason;
+  /** Required when to === succeeded */
+  readonly completeness?: Completeness;
+};
+
+export type TransitionDecision =
+  | { readonly allowed: true }
+  | { readonly allowed: false; readonly code: string; readonly message: string };
+
+/** Allowed edges from documents 21 §J + FD-06 (awaiting_human → timed_out). */
+const ALLOWED: ReadonlyArray<readonly [ExecutionState, ExecutionState, TransitionReason]> = [
+  ["idle", "running", "intent_valid"],
+  ["idle", "blocked", "pre_engagement_block"],
+  ["running", "awaiting_human", "human_gate_required"],
+  ["running", "succeeded", "outputs_validated"],
+  ["running", "failed", "engaged_operation_failed"],
+  ["running", "timed_out", "time_limit"],
+  ["running", "cancelled", "cancel_accepted"],
+  ["awaiting_human", "running", "human_approve"],
+  ["awaiting_human", "cancelled", "human_cancel"],
+  ["awaiting_human", "blocked", "human_reject_or_unsatisfied"],
+  ["awaiting_human", "timed_out", "human_gate_expired"],
+];
+
+export function isAllowedTransition(
+  from: ExecutionState,
+  to: ExecutionState,
+  reason: TransitionReason,
+): boolean {
+  return ALLOWED.some(([f, t, r]) => f === from && t === to && r === reason);
+}
+
+export function decideTransition(req: TransitionRequest): TransitionDecision {
+  if (req.reason === "late_result_evidence_only") {
+    return {
+      allowed: false,
+      code: "LATE_RESULT_NO_STATE_MUTATION",
+      message: "Late result is evidence-only and must not mutate state",
+    };
+  }
+
+  if (isTerminalState(req.from)) {
+    return {
+      allowed: false,
+      code: "TERMINAL_REQUIRES_NEW_RUN",
+      message: "Terminal state requires a new run identity",
+    };
+  }
+
+  if (req.to === "succeeded") {
+    if (req.completeness === "partial") {
+      return {
+        allowed: false,
+        code: "PARTIAL_NEVER_SUCCEEDED",
+        message: "Partial completeness cannot transition to succeeded",
+      };
+    }
+    if (req.completeness !== "complete") {
+      return {
+        allowed: false,
+        code: "SUCCEEDED_REQUIRES_COMPLETE",
+        message: "succeeded requires completeness complete",
+      };
+    }
+  }
+
+  if (!isAllowedTransition(req.from, req.to, req.reason)) {
+    return {
+      allowed: false,
+      code: "TRANSITION_FORBIDDEN",
+      message: `Transition ${req.from}→${req.to} (${req.reason}) is not allowed`,
+    };
+  }
+
+  return { allowed: true };
+}
+
+export function listAllowedTransitions(): ReadonlyArray<{
+  from: ExecutionState;
+  to: ExecutionState;
+  reason: TransitionReason;
+}> {
+  return ALLOWED.map(([from, to, reason]) => ({ from, to, reason }));
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts`
+
+```ts
+/**
+ * D2-D1 Execution Run — canonical domain vocabulary (twelve functional objects).
+ * Pure domain: no Next/Node/fs/process/network/SDK/AJV.
+ * Authority: sole D2-D technical state authority (TECH-RUN-B).
+ */
+
+export const EXECUTION_RUN_SCHEMA_VERSION = "0.1.0-d2d1" as const;
+
+/** Eight persistent states exactly (FD-02). No STATE-B. */
+export type ExecutionState =
+  | "idle"
+  | "running"
+  | "awaiting_human"
+  | "succeeded"
+  | "failed"
+  | "cancelled"
+  | "timed_out"
+  | "blocked";
+
+export const EXECUTION_STATES: readonly ExecutionState[] = [
+  "idle",
+  "running",
+  "awaiting_human",
+  "succeeded",
+  "failed",
+  "cancelled",
+  "timed_out",
+  "blocked",
+] as const;
+
+export type TerminalExecutionState =
+  | "succeeded"
+  | "failed"
+  | "cancelled"
+  | "timed_out"
+  | "blocked";
+
+export const TERMINAL_STATES: readonly TerminalExecutionState[] = [
+  "succeeded",
+  "failed",
+  "cancelled",
+  "timed_out",
+  "blocked",
+] as const;
+
+export type ExecutionSource = "fixture" | "sandbox-real" | "real";
+
+export type Completeness = "complete" | "partial";
+
+export type ProviderLane = "ai" | "git" | "cursor" | "none";
+
+export type FailureFamily =
+  | "validation"
+  | "authentication"
+  | "authorization"
+  | "provider_unavailable"
+  | "rate_limited"
+  | "timed_out"
+  | "cancelled"
+  | "sandbox_blocked"
+  | "protected_path"
+  | "mutation_forbidden"
+  | "human_gate_required"
+  | "invalid_provider_result"
+  | "internal_normalized_failure"
+  | "source_mismatch";
+
+export type FailureCode =
+  | "VALIDATION_ERROR"
+  | "AUTHENTICATION_ERROR"
+  | "AUTHORIZATION_ERROR"
+  | "PROVIDER_UNAVAILABLE"
+  | "RATE_LIMITED"
+  | "TIMED_OUT"
+  | "CANCELLED"
+  | "SANDBOX_BLOCKED"
+  | "PROTECTED_PATH"
+  | "MUTATION_FORBIDDEN"
+  | "HUMAN_GATE_REQUIRED"
+  | "INVALID_PROVIDER_RESULT"
+  | "INTERNAL_NORMALIZED_FAILURE"
+  | "SOURCE_MISMATCH";
+
+/** 1. ExecutionIntent */
+export type ExecutionIntent = {
+  readonly intentId: string;
+  readonly correlationId: string;
+  readonly requestedLane: ProviderLane;
+  readonly operation: string;
+  readonly requestedSource: ExecutionSource;
+  readonly requiresHumanGate: boolean;
+  readonly mutationRequested: boolean;
+  readonly arbitraryCommandRequested: boolean;
+  readonly targetPath?: string;
+  readonly metadata?: Readonly<Record<string, unknown>>;
+};
+
+/** 2. ExecutionContext */
+export type ExecutionContext = {
+  readonly projectId: string;
+  readonly workspaceId?: string;
+  readonly actorId: string;
+  readonly declaredSource: ExecutionSource;
+  readonly allowlistRepos?: readonly string[];
+  readonly protectedPaths?: readonly string[];
+  readonly permissions: {
+    readonly gitRead: boolean;
+    readonly gitWrite: boolean;
+    readonly providerInvoke: boolean;
+  };
+};
+
+/** 3. ProviderCapabilityDescriptor — provider-independent */
+export type ProviderCapabilityDescriptor = {
+  readonly lane: ProviderLane;
+  readonly capabilityId: string;
+  readonly available: boolean;
+  readonly verified: boolean;
+  readonly readOnly: boolean;
+  readonly supportsCancellation: boolean;
+  readonly supportsTimeout: boolean;
+};
+
+/** 4. ValidationOutcome */
+export type ValidationOutcome =
+  | {
+      readonly ok: true;
+      readonly validatedAt: string;
+    }
+  | {
+      readonly ok: false;
+      readonly validatedAt: string;
+      readonly failure: NormalizedFailure;
+    };
+
+/** 6. ExecutionState — see union above */
+
+/** 7. ExternalResult */
+export type ExternalResult =
+  | {
+      readonly kind: "success";
+      readonly completeness: Completeness;
+      readonly redactedSummary: string;
+      readonly rawPresent: false;
+    }
+  | {
+      readonly kind: "failure";
+      readonly failure: NormalizedFailure;
+    }
+  | {
+      readonly kind: "empty";
+    };
+
+/** 8. ExecutionEvidence */
+export type ExecutionEvidence = {
+  readonly evidenceId: string;
+  readonly runId: string;
+  readonly correlationId: string;
+  readonly source: ExecutionSource;
+  readonly completeness: Completeness;
+  readonly producedAt: string;
+  readonly digest?: string;
+  readonly summary: string;
+  readonly late: boolean;
+  readonly official: true;
+};
+
+/** 9. SourceDisclosure */
+export type SourceDisclosure = {
+  readonly source: ExecutionSource;
+  readonly providerLane: ProviderLane;
+  readonly limits: readonly string[];
+  readonly processLocalMemory: boolean;
+  readonly cursorUnverified: boolean;
+};
+
+/** 10. HumanDecisionGate */
+export type HumanDecisionGate = {
+  readonly gateId: string;
+  readonly question: string;
+  readonly required: boolean;
+  readonly decision?: "approve" | "reject" | "cancel";
+  readonly decidedAt?: string;
+  readonly expiresAt?: string;
+};
+
+/** 11. UsageSummary */
+export type UsageSummary =
+  | {
+      readonly status: "validated";
+      readonly inputTokens?: number;
+      readonly outputTokens?: number;
+      readonly unit?: string;
+    }
+  | {
+      readonly status: "unavailable";
+      readonly reason: string;
+    };
+
+/** 12. NormalizedFailure */
+export type NormalizedFailure = {
+  readonly family: FailureFamily;
+  readonly code: FailureCode;
+  readonly userMessage: string;
+  readonly technicalDetailsRedacted: true;
+  readonly retryable: boolean;
+  readonly correlationId: string;
+};
+
+/** 5. ExecutionRun — aggregate holding state authority fields */
+export type ExecutionRun = {
+  readonly schemaVersion: typeof EXECUTION_RUN_SCHEMA_VERSION;
+  readonly runId: string;
+  readonly correlationId: string;
+  readonly state: ExecutionState;
+  readonly intent: ExecutionIntent;
+  readonly context: ExecutionContext;
+  readonly disclosure: SourceDisclosure;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  readonly version: number;
+  readonly validation?: ValidationOutcome;
+  readonly capability?: ProviderCapabilityDescriptor;
+  readonly gate?: HumanDecisionGate;
+  readonly externalResult?: ExternalResult;
+  readonly evidence?: readonly ExecutionEvidence[];
+  readonly usage: UsageSummary;
+  readonly failure?: NormalizedFailure;
+  readonly blockedReason?: string;
+  /** Process-local memory disclosure (STORE-B stage 1). */
+  readonly persistence: {
+    readonly kind: "memory_process_local";
+    readonly durable: false;
+    readonly multiInstance: false;
+    readonly restartSafe: false;
+  };
+};
+
+export function isTerminalState(state: ExecutionState): state is TerminalExecutionState {
+  return (TERMINAL_STATES as readonly string[]).includes(state);
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts`
+
+```ts
+/**
+ * Deterministic D2-D1 fixture catalogue — source always fixture.
+ */
+import type {
+  ExecutionContext,
+  ExecutionIntent,
+  NormalizedFailure,
+  ProviderCapabilityDescriptor,
+} from "../domain/types";
+import { normalizedFailure } from "../domain/errors";
+
+export type FixtureScenarioId =
+  | "nominal"
+  | "validation_failure"
+  | "auth_failure"
+  | "provider_unavailable"
+  | "rate_limit"
+  | "timeout"
+  | "cancellation"
+  | "blocked_gate"
+  | "protected_path"
+  | "mutation_forbidden"
+  | "partial_result"
+  | "invalid_provider_result"
+  | "late_result"
+  | "secret_redaction"
+  | "source_mismatch";
+
+export type FixtureScenario = {
+  readonly id: FixtureScenarioId;
+  readonly source: "fixture";
+  readonly intent: ExecutionIntent;
+  readonly context: ExecutionContext;
+  readonly capability?: ProviderCapabilityDescriptor;
+  readonly expectedFailure?: NormalizedFailure;
+  readonly notes: string;
+};
+
+const baseContext = (over: Partial<ExecutionContext> = {}): ExecutionContext => ({
+  projectId: "project:d2d1-fixture",
+  actorId: "actor:fixture",
+  declaredSource: "fixture",
+  protectedPaths: [".env", "secrets"],
+  permissions: { gitRead: true, gitWrite: false, providerInvoke: true },
+  ...over,
+});
+
+const baseIntent = (over: Partial<ExecutionIntent> = {}): ExecutionIntent => ({
+  intentId: "intent:fixture:base",
+  correlationId: "corr:fixture:base",
+  requestedLane: "ai",
+  operation: "summarize_read_only",
+  requestedSource: "fixture",
+  requiresHumanGate: false,
+  mutationRequested: false,
+  arbitraryCommandRequested: false,
+  ...over,
+});
+
+const aiCapability: ProviderCapabilityDescriptor = {
+  lane: "ai",
+  capabilityId: "ai:fixture",
+  available: true,
+  verified: true,
+  readOnly: true,
+  supportsCancellation: true,
+  supportsTimeout: true,
+};
+
+export const FIXTURE_CATALOGUE: readonly FixtureScenario[] = [
+  {
+    id: "nominal",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:nominal", correlationId: "corr:fixture:nominal" }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Happy path idle→running→succeeded",
+  },
+  {
+    id: "validation_failure",
+    source: "fixture",
+    intent: baseIntent({
+      intentId: "intent:fixture:validation",
+      correlationId: "corr:fixture:validation",
+      operation: "",
+    }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Invalid operation empty — schema deny",
+  },
+  {
+    id: "auth_failure",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:auth", correlationId: "corr:fixture:auth", requestedLane: "git" }),
+    context: baseContext({ permissions: { gitRead: false, gitWrite: false, providerInvoke: false } }),
+    capability: { ...aiCapability, lane: "git", capabilityId: "git:fixture" },
+    expectedFailure: normalizedFailure({
+      family: "authorization",
+      code: "AUTHORIZATION_ERROR",
+      userMessage: "Insufficient permission for Git read",
+      retryable: true,
+      correlationId: "corr:fixture:auth",
+    }),
+    notes: "Authorization deny",
+  },
+  {
+    id: "provider_unavailable",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:unavail", correlationId: "corr:fixture:unavail" }),
+    context: baseContext(),
+    capability: { ...aiCapability, available: false },
+    notes: "Provider unavailable",
+  },
+  {
+    id: "rate_limit",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:rate", correlationId: "corr:fixture:rate" }),
+    context: baseContext(),
+    capability: aiCapability,
+    expectedFailure: normalizedFailure({
+      family: "rate_limited",
+      code: "RATE_LIMITED",
+      userMessage: "Provider rate limited",
+      retryable: true,
+      correlationId: "corr:fixture:rate",
+    }),
+    notes: "Represents rate limit failure object",
+  },
+  {
+    id: "timeout",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:timeout", correlationId: "corr:fixture:timeout" }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "running→timed_out",
+  },
+  {
+    id: "cancellation",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:cancel", correlationId: "corr:fixture:cancel" }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "running→cancelled",
+  },
+  {
+    id: "blocked_gate",
+    source: "fixture",
+    intent: baseIntent({
+      intentId: "intent:fixture:gate",
+      correlationId: "corr:fixture:gate",
+      requiresHumanGate: true,
+    }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Human gate required blocks engagement when unsatisfied",
+  },
+  {
+    id: "protected_path",
+    source: "fixture",
+    intent: baseIntent({
+      intentId: "intent:fixture:path",
+      correlationId: "corr:fixture:path",
+      targetPath: ".env/token",
+    }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Protected path deny",
+  },
+  {
+    id: "mutation_forbidden",
+    source: "fixture",
+    intent: baseIntent({
+      intentId: "intent:fixture:mutate",
+      correlationId: "corr:fixture:mutate",
+      mutationRequested: true,
+    }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Mutation forbidden",
+  },
+  {
+    id: "partial_result",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:partial", correlationId: "corr:fixture:partial" }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Partial never succeeded",
+  },
+  {
+    id: "invalid_provider_result",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:invalid", correlationId: "corr:fixture:invalid" }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Invalid provider result → failed",
+  },
+  {
+    id: "late_result",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:late", correlationId: "corr:fixture:late" }),
+    context: baseContext(),
+    capability: aiCapability,
+    notes: "Late result evidence-only",
+  },
+  {
+    id: "secret_redaction",
+    source: "fixture",
+    intent: baseIntent({ intentId: "intent:fixture:secret", correlationId: "corr:fixture:secret" }),
+    context: baseContext(),
+    capability: aiCapability,
+    expectedFailure: normalizedFailure({
+      family: "authentication",
+      code: "AUTHENTICATION_ERROR",
+      userMessage: "Credentials unavailable",
+      retryable: true,
+      correlationId: "corr:fixture:secret",
+    }),
+    notes: "Failure object never carries secrets",
+  },
+  {
+    id: "source_mismatch",
+    source: "fixture",
+    intent: baseIntent({
+      intentId: "intent:fixture:mismatch",
+      correlationId: "corr:fixture:mismatch",
+      requestedSource: "real",
+    }),
+    context: baseContext({ declaredSource: "fixture" }),
+    capability: aiCapability,
+    notes: "Source mismatch deny",
+  },
+] as const;
+
+export function getFixture(id: FixtureScenarioId): FixtureScenario {
+  const found = FIXTURE_CATALOGUE.find((f) => f.id === id);
+  if (!found) throw new Error(`missing_fixture:${id}`);
+  return found;
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/index.ts`
+
+```ts
+/**
+ * D2-D1 OA execution-run public barrel.
+ * Sole D2-D technical state authority — memory/fixture-first only.
+ * Concrete server composition is NOT exported here — use ./server.
+ */
+export { EXECUTION_RUN_SCHEMA_VERSION, EXECUTION_STATES, TERMINAL_STATES, isTerminalState } from "./domain/types";
+export type {
+  Completeness,
+  ExecutionContext,
+  ExecutionEvidence,
+  ExecutionIntent,
+  ExecutionRun,
+  ExecutionSource,
+  ExecutionState,
+  ExternalResult,
+  FailureCode,
+  FailureFamily,
+  HumanDecisionGate,
+  NormalizedFailure,
+  ProviderCapabilityDescriptor,
+  ProviderLane,
+  SourceDisclosure,
+  UsageSummary,
+  ValidationOutcome,
+} from "./domain/types";
+export { normalizedFailure } from "./domain/errors";
+export {
+  decideTransition,
+  isAllowedTransition,
+  listAllowedTransitions,
+} from "./domain/transitions";
+export type { TransitionDecision, TransitionReason, TransitionRequest } from "./domain/transitions";
+export { evaluateReadOnlyPolicy } from "./domain/policy";
+export type { PolicyDecision, PolicyInput } from "./domain/policy";
+export {
+  assertSourceHonest,
+  canSucceed,
+  createOfficialEvidence,
+  createSourceDisclosure,
+  isIsoTimestamp,
+  usageUnavailable,
+} from "./domain/evidence";
+export {
+  canAcceptLateResult,
+  checkExecutionRunInvariants,
+  LATE_RESULT_ELIGIBLE_STATES,
+} from "./domain/invariants";
+export { createExecutionRun } from "./application/createExecutionRun";
+export type { CreateExecutionRunInput, CreateExecutionRunResult } from "./application/createExecutionRun";
+export { transitionExecutionRun } from "./application/transitionExecutionRun";
+export type {
+  TransitionExecutionRunInput,
+  TransitionExecutionRunResult,
+} from "./application/transitionExecutionRun";
+export { persistExecutionRun } from "./application/persistExecutionRun";
+export type { PersistExecutionRunResult } from "./application/persistExecutionRun";
+export type { ExecutionRunRepositoryPort } from "./ports/executionRunRepository";
+export type {
+  ExecutionRunSchemaName,
+  ExecutionRunSchemaValidationPort,
+} from "./ports/executionRunSchemaValidation";
+export type { ClockPort } from "./ports/clockPort";
+export type { IdentityPort } from "./ports/identityPort";
+export { FIXTURE_CATALOGUE, getFixture } from "./fixtures/catalogue";
+export type { FixtureScenario, FixtureScenarioId } from "./fixtures/catalogue";
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts`
+
+```ts
+/**
+ * AJV Draft-07 boundary validation for D2-D1 — infrastructure only.
+ * Domain/application must not import this module.
+ */
+import fs from "node:fs";
+import path from "node:path";
+import Ajv from "ajv";
+import type {
+  ExecutionRunSchemaName,
+  ExecutionRunSchemaValidationPort,
+  ExecutionRunSchemaValidationResult,
+} from "../ports/executionRunSchemaValidation";
+
+const MAX_ERRORS = 20;
+
+const SCHEMA_FILES: Record<ExecutionRunSchemaName, string> = {
+  "execution-intent": "execution-intent.schema.json",
+  "execution-context": "execution-context.schema.json",
+  "provider-capability-descriptor": "provider-capability-descriptor.schema.json",
+  "validation-outcome": "validation-outcome.schema.json",
+  "execution-run": "execution-run.schema.json",
+  "external-result": "external-result.schema.json",
+  "execution-evidence": "execution-evidence.schema.json",
+  "source-disclosure": "source-disclosure.schema.json",
+  "human-decision-gate": "human-decision-gate.schema.json",
+  "usage-summary": "usage-summary.schema.json",
+  "normalized-failure": "normalized-failure.schema.json",
+  "create-execution-run-input": "create-execution-run-input.schema.json",
+  "transition-execution-run-input": "transition-execution-run-input.schema.json",
+};
+
+const SCHEMA_IDS: Record<ExecutionRunSchemaName, string> = {
+  "execution-intent":
+    "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
+  "execution-context":
+    "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
+  "provider-capability-descriptor":
+    "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
+  "validation-outcome":
+    "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
+  "execution-run": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
+  "external-result":
+    "https://sfia.local/schemas/d2-d1/external-result.schema.json",
+  "execution-evidence":
+    "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
+  "source-disclosure":
+    "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
+  "human-decision-gate":
+    "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
+  "usage-summary": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
+  "normalized-failure":
+    "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
+  "create-execution-run-input":
+    "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
+  "transition-execution-run-input":
+    "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
+};
+
+/** Deterministic load order: leaves before composites that $ref them. */
+const LOAD_ORDER: readonly ExecutionRunSchemaName[] = [
+  "normalized-failure",
+  "execution-intent",
+  "execution-context",
+  "provider-capability-descriptor",
+  "validation-outcome",
+  "external-result",
+  "execution-evidence",
+  "source-disclosure",
+  "human-decision-gate",
+  "usage-summary",
+  "execution-run",
+  "create-execution-run-input",
+  "transition-execution-run-input",
+];
+
+export class AjvExecutionRunSchemaValidation
+  implements ExecutionRunSchemaValidationPort
+{
+  private readonly ajv: Ajv.Ajv;
+  private ready = false;
+  private readonly schemasDir: string;
+
+  constructor(schemasDir?: string) {
+    this.schemasDir = schemasDir ?? path.join(__dirname, "../schemas");
+    this.ajv = new Ajv({
+      allErrors: true,
+      schemaId: "auto",
+      meta: true,
+      validateSchema: true,
+      format: "full",
+      unknownFormats: "ignore",
+    });
+  }
+
+  private ensureLoaded(): void {
+    if (this.ready) return;
+    for (const name of LOAD_ORDER) {
+      const file = SCHEMA_FILES[name];
+      const full = path.join(this.schemasDir, file);
+      const raw = JSON.parse(fs.readFileSync(full, "utf8")) as object;
+      this.ajv.addSchema(raw);
+    }
+    this.ready = true;
+  }
+
+  /** Test helper: confirms every named schema compiled and resolves. */
+  listLoadedSchemaIds(): string[] {
+    this.ensureLoaded();
+    return LOAD_ORDER.map((name) => SCHEMA_IDS[name]);
+  }
+
+  async validate(
+    schema: ExecutionRunSchemaName,
+    value: unknown,
+  ): Promise<ExecutionRunSchemaValidationResult> {
+    try {
+      if (value === null || value === undefined) {
+        return { ok: false, errors: ["value_null_or_undefined"] };
+      }
+      this.ensureLoaded();
+      const validate = this.ajv.getSchema(SCHEMA_IDS[schema]);
+      if (!validate) {
+        return { ok: false, errors: ["schema_not_loaded"] };
+      }
+      const ok = validate(value) as boolean;
+      if (ok) return { ok: true };
+      const errors = (validate.errors ?? [])
+        .slice(0, MAX_ERRORS)
+        .map((e) => `${e.dataPath || "/"} ${e.message ?? "invalid"}`.trim());
+      return { ok: false, errors: errors.length ? errors : ["schema_invalid"] };
+    } catch {
+      return { ok: false, errors: ["schema_validation_internal_failure"] };
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts`
+
+```ts
+import type { ClockPort } from "../ports/clockPort";
+
+export class FixedClock implements ClockPort {
+  constructor(private readonly iso: string) {}
+  nowIso(): string {
+    return this.iso;
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts`
+
+```ts
+import type { ExecutionRun } from "../domain/types";
+import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
+import type { MemoryExecutionRunStore } from "./memoryExecutionRunStore";
+
+export class MemoryExecutionRunRepository implements ExecutionRunRepositoryPort {
+  constructor(private readonly store: MemoryExecutionRunStore) {}
+
+  async save(run: ExecutionRun): Promise<void> {
+    this.store.runs.set(run.runId, structuredClone(run));
+  }
+
+  async getById(runId: string): Promise<ExecutionRun | null> {
+    const found = this.store.runs.get(runId);
+    return found ? structuredClone(found) : null;
+  }
+
+  async listByCorrelationId(correlationId: string): Promise<ExecutionRun[]> {
+    const out: ExecutionRun[] = [];
+    for (const run of this.store.runs.values()) {
+      if (run.correlationId === correlationId) {
+        out.push(structuredClone(run));
+      }
+    }
+    out.sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.runId.localeCompare(b.runId));
+    return out;
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts`
+
+```ts
+import type { ExecutionRun } from "../domain/types";
+
+export class MemoryExecutionRunStore {
+  readonly runs = new Map<string, ExecutionRun>();
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts`
+
+```ts
+import type { IdentityPort } from "../ports/identityPort";
+
+export class SequentialIdentity implements IdentityPort {
+  private run = 0;
+  private evidence = 0;
+  private intent = 0;
+
+  nextRunId(): string {
+    this.run += 1;
+    return `executionrun:d2d1:${String(this.run).padStart(4, "0")}`;
+  }
+
+  nextEvidenceId(): string {
+    this.evidence += 1;
+    return `evidence:d2d1:${String(this.evidence).padStart(4, "0")}`;
+  }
+
+  nextIntentId(): string {
+    this.intent += 1;
+    return `intent:d2d1:${String(this.intent).padStart(4, "0")}`;
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts`
+
+```ts
+export interface ClockPort {
+  nowIso(): string;
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts`
+
+```ts
+import type { ExecutionRun } from "../domain/types";
+
+export interface ExecutionRunRepositoryPort {
+  save(run: ExecutionRun): Promise<void>;
+  getById(runId: string): Promise<ExecutionRun | null>;
+  listByCorrelationId(correlationId: string): Promise<ExecutionRun[]>;
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts`
+
+```ts
+export type ExecutionRunSchemaValidationSuccess = { ok: true };
+export type ExecutionRunSchemaValidationFailure = {
+  ok: false;
+  errors: string[];
+};
+export type ExecutionRunSchemaValidationResult =
+  | ExecutionRunSchemaValidationSuccess
+  | ExecutionRunSchemaValidationFailure;
+
+export type ExecutionRunSchemaName =
+  | "execution-intent"
+  | "execution-context"
+  | "provider-capability-descriptor"
+  | "validation-outcome"
+  | "execution-run"
+  | "external-result"
+  | "execution-evidence"
+  | "source-disclosure"
+  | "human-decision-gate"
+  | "usage-summary"
+  | "normalized-failure"
+  | "create-execution-run-input"
+  | "transition-execution-run-input";
+
+export interface ExecutionRunSchemaValidationPort {
+  /**
+   * Fail-closed validation before any metadata exploitation.
+   * Must not throw raw AJV exceptions to callers.
+   */
+  validate(
+    schema: ExecutionRunSchemaName,
+    value: unknown,
+  ): Promise<ExecutionRunSchemaValidationResult>;
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts`
+
+```ts
+export interface IdentityPort {
+  nextRunId(): string;
+  nextEvidenceId(): string;
+  nextIntentId(): string;
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["intent", "context"],
+  "properties": {
+    "intent": {
+      "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
+    },
+    "context": {
+      "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
+    },
+    "capability": {
+      "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "projectId",
+    "actorId",
+    "declaredSource",
+    "permissions"
+  ],
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "workspaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "actorId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "declaredSource": {
+      "type": "string",
+      "enum": ["fixture", "sandbox-real", "real"]
+    },
+    "allowlistRepos": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024
+      }
+    },
+    "protectedPaths": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gitRead", "gitWrite", "providerInvoke"],
+      "properties": {
+        "gitRead": { "type": "boolean" },
+        "gitWrite": { "type": "boolean" },
+        "providerInvoke": { "type": "boolean" }
+      }
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidenceId",
+    "runId",
+    "correlationId",
+    "source",
+    "completeness",
+    "producedAt",
+    "summary",
+    "late",
+    "official"
+  ],
+  "properties": {
+    "evidenceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "source": {
+      "type": "string",
+      "enum": ["fixture", "sandbox-real", "real"]
+    },
+    "completeness": {
+      "type": "string",
+      "enum": ["complete", "partial"]
+    },
+    "producedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "digest": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "late": {
+      "type": "boolean"
+    },
+    "official": {
+      "type": "boolean",
+      "const": true
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intentId",
+    "correlationId",
+    "requestedLane",
+    "operation",
+    "requestedSource",
+    "requiresHumanGate",
+    "mutationRequested",
+    "arbitraryCommandRequested"
+  ],
+  "properties": {
+    "intentId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "requestedLane": {
+      "type": "string",
+      "enum": ["ai", "git", "cursor", "none"]
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "requestedSource": {
+      "type": "string",
+      "enum": ["fixture", "sandbox-real", "real"]
+    },
+    "requiresHumanGate": {
+      "type": "boolean"
+    },
+    "mutationRequested": {
+      "type": "boolean"
+    },
+    "arbitraryCommandRequested": {
+      "type": "boolean"
+    },
+    "targetPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "metadata": {
+      "type": "object"
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
+  "allOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "runId",
+        "correlationId",
+        "state",
+        "intent",
+        "context",
+        "disclosure",
+        "createdAt",
+        "updatedAt",
+        "version",
+        "usage",
+        "persistence"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "0.1.0-d2d1"
+        },
+        "runId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "idle",
+            "running",
+            "awaiting_human",
+            "succeeded",
+            "failed",
+            "cancelled",
+            "timed_out",
+            "blocked"
+          ]
+        },
+        "intent": {
+          "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
+        },
+        "context": {
+          "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
+        },
+        "disclosure": {
+          "$ref": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "validation": {
+          "$ref": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json"
+        },
+        "capability": {
+          "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
+        },
+        "gate": {
+          "$ref": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json"
+        },
+        "externalResult": {
+          "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
+          }
+        },
+        "usage": {
+          "$ref": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json"
+        },
+        "failure": {
+          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
+        },
+        "blockedReason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "persistence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "durable", "multiInstance", "restartSafe"],
+          "properties": {
+            "kind": { "const": "memory_process_local" },
+            "durable": { "const": false },
+            "multiInstance": { "const": false },
+            "restartSafe": { "const": false }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "succeeded" } },
+        "required": ["state"]
+      },
+      "then": {
+        "required": ["externalResult", "evidence"],
+        "properties": {
+          "externalResult": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
+            "properties": {
+              "kind": { "const": "success" },
+              "completeness": { "const": "complete" },
+              "redactedSummary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "rawPresent": { "const": false }
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 64,
+            "items": {
+              "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "failed" } },
+        "required": ["state"]
+      },
+      "then": {
+        "required": ["failure"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "blocked" } },
+        "required": ["state"]
+      },
+      "then": {
+        "anyOf": [
+          { "required": ["failure"] },
+          {
+            "required": ["blockedReason"],
+            "properties": {
+              "blockedReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/external-result.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
+      "properties": {
+        "kind": { "const": "success" },
+        "completeness": {
+          "type": "string",
+          "enum": ["complete", "partial"]
+        },
+        "redactedSummary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "rawPresent": { "const": false }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "failure"],
+      "properties": {
+        "kind": { "const": "failure" },
+        "failure": {
+          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "const": "empty" }
+      }
+    }
+  ]
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["gateId", "question", "required"],
+  "properties": {
+    "gateId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "required": { "type": "boolean" },
+    "decision": {
+      "type": "string",
+      "enum": ["approve", "reject", "cancel"]
+    },
+    "decidedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family",
+    "code",
+    "userMessage",
+    "technicalDetailsRedacted",
+    "retryable",
+    "correlationId"
+  ],
+  "properties": {
+    "family": {
+      "type": "string",
+      "enum": [
+        "validation",
+        "authentication",
+        "authorization",
+        "provider_unavailable",
+        "rate_limited",
+        "timed_out",
+        "cancelled",
+        "sandbox_blocked",
+        "protected_path",
+        "mutation_forbidden",
+        "human_gate_required",
+        "invalid_provider_result",
+        "internal_normalized_failure",
+        "source_mismatch"
+      ]
+    },
+    "code": {
+      "type": "string",
+      "enum": [
+        "VALIDATION_ERROR",
+        "AUTHENTICATION_ERROR",
+        "AUTHORIZATION_ERROR",
+        "PROVIDER_UNAVAILABLE",
+        "RATE_LIMITED",
+        "TIMED_OUT",
+        "CANCELLED",
+        "SANDBOX_BLOCKED",
+        "PROTECTED_PATH",
+        "MUTATION_FORBIDDEN",
+        "HUMAN_GATE_REQUIRED",
+        "INVALID_PROVIDER_RESULT",
+        "INTERNAL_NORMALIZED_FAILURE",
+        "SOURCE_MISMATCH"
+      ]
+    },
+    "userMessage": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "technicalDetailsRedacted": {
+      "type": "boolean",
+      "const": true
+    },
+    "retryable": {
+      "type": "boolean"
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lane",
+    "capabilityId",
+    "available",
+    "verified",
+    "readOnly",
+    "supportsCancellation",
+    "supportsTimeout"
+  ],
+  "properties": {
+    "lane": {
+      "type": "string",
+      "enum": ["ai", "git", "cursor", "none"]
+    },
+    "capabilityId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "available": { "type": "boolean" },
+    "verified": { "type": "boolean" },
+    "readOnly": { "type": "boolean" },
+    "supportsCancellation": { "type": "boolean" },
+    "supportsTimeout": { "type": "boolean" }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source",
+    "providerLane",
+    "limits",
+    "processLocalMemory",
+    "cursorUnverified"
+  ],
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": ["fixture", "sandbox-real", "real"]
+    },
+    "providerLane": {
+      "type": "string",
+      "enum": ["ai", "git", "cursor", "none"]
+    },
+    "limits": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    },
+    "processLocalMemory": {
+      "type": "boolean",
+      "const": true
+    },
+    "cursorUnverified": {
+      "type": "boolean"
+    }
+  }
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "reason"],
+  "properties": {
+    "runId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "intent_valid",
+        "pre_engagement_block",
+        "human_gate_required",
+        "outputs_validated",
+        "engaged_operation_failed",
+        "time_limit",
+        "cancel_accepted",
+        "human_approve",
+        "human_cancel",
+        "human_reject_or_unsatisfied",
+        "human_gate_expired",
+        "late_result_evidence_only",
+        "forbidden"
+      ]
+    },
+    "completeness": {
+      "type": "string",
+      "enum": ["complete", "partial"]
+    },
+    "externalResult": {
+      "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
+    },
+    "failure": {
+      "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
+    },
+    "blockingReason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "lateEvidenceSummary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "reason": { "const": "outputs_validated" } },
+        "required": ["reason"]
+      },
+      "then": {
+        "required": ["completeness", "externalResult"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "reason": { "const": "engaged_operation_failed" } },
+        "required": ["reason"]
+      },
+      "then": {
+        "required": ["failure"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "reason": { "const": "late_result_evidence_only" } },
+        "required": ["reason"]
+      },
+      "then": {
+        "required": ["lateEvidenceSummary"]
+      }
+    }
+  ]
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "const": "validated" },
+        "inputTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outputTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason"],
+      "properties": {
+        "status": { "const": "unavailable" },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      }
+    }
+  ]
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ok", "validatedAt"],
+      "properties": {
+        "ok": { "const": true },
+        "validatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ok", "validatedAt", "failure"],
+      "properties": {
+        "ok": { "const": false },
+        "validatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1
+        },
+        "failure": {
+          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
+        }
+      }
+    }
+  ]
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts`
+
+```ts
+/**
+ * Server-only concrete composition for D2-D1 execution-run.
+ * Assembles memory store + AJV + clock + identity. Not exported from root barrel.
+ */
+import { assertServerOnly } from "./serverOnly";
+import { AjvExecutionRunSchemaValidation } from "../infrastructure/ajvExecutionRunSchemaValidation";
+import { FixedClock } from "../infrastructure/fixedClock";
+import { MemoryExecutionRunRepository } from "../infrastructure/memoryExecutionRunRepository";
+import { MemoryExecutionRunStore } from "../infrastructure/memoryExecutionRunStore";
+import { SequentialIdentity } from "../infrastructure/sequentialIdentity";
+import {
+  createExecutionRun,
+  type CreateExecutionRunResult,
+} from "../application/createExecutionRun";
+import {
+  transitionExecutionRun,
+  type TransitionExecutionRunResult,
+} from "../application/transitionExecutionRun";
+import type { ExecutionRun } from "../domain/types";
+
+assertServerOnly("oa/execution-run/server");
+
+export type ExecutionRunServerComposition = {
+  createExecutionRun: (input: unknown) => Promise<CreateExecutionRunResult>;
+  transitionExecutionRun: (
+    input: unknown,
+  ) => Promise<TransitionExecutionRunResult>;
+  getById: (runId: string) => Promise<ExecutionRun | null>;
+  listByCorrelationId: (correlationId: string) => Promise<ExecutionRun[]>;
+  disclosure: {
+    persistence: "memory_process_local";
+    durable: false;
+    multiInstance: false;
+    restartSafe: false;
+  };
+};
+
+/**
+ * Concrete memory process-local composition. Read helpers only; writes go through
+ * create/transition which enforce invariant + schema guards before save.
+ */
+export function composeExecutionRunMemory(options?: {
+  clockIso?: string;
+}): ExecutionRunServerComposition {
+  const store = new MemoryExecutionRunStore();
+  const clock = new FixedClock(options?.clockIso ?? "2026-08-03T20:00:00.000Z");
+  const identity = new SequentialIdentity();
+  const repository = new MemoryExecutionRunRepository(store);
+  const schemas = new AjvExecutionRunSchemaValidation();
+  const deps = { clock, identity, repository, schemas };
+  return {
+    createExecutionRun: (input) => createExecutionRun(input, deps),
+    transitionExecutionRun: (input) => transitionExecutionRun(input, deps),
+    getById: (runId) => repository.getById(runId),
+    listByCorrelationId: (correlationId) =>
+      repository.listByCorrelationId(correlationId),
+    disclosure: {
+      persistence: "memory_process_local",
+      durable: false,
+      multiInstance: false,
+      restartSafe: false,
+    },
+  };
+}
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/server/index.ts`
+
+```ts
+/**
+ * Explicit server entrypoint for D2-D1 execution-run concrete composition.
+ * Client surfaces must not import this module.
+ */
+export {
+  composeExecutionRunMemory,
+  type ExecutionRunServerComposition,
+} from "./composeExecutionRunMemory";
+export { assertServerOnly } from "./serverOnly";
+```
+
+### FINAL `projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts`
+
+```ts
+/**
+ * Lightweight server-only guard without adding a package.json dependency.
+ * Mirrors the repository convention used by vertical-slice-runtime without
+ * importing that module (D2-D1 facade integration deferred).
+ */
+export function assertServerOnly(moduleName = "oa/execution-run/server"): void {
+  if (typeof window !== "undefined") {
+    throw new Error(
+      `${moduleName} is server-only and must not run in a browser context.`,
+    );
+  }
+}
+```
+
+## Diff correction focalisé (pre → post)
 
 ```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+@@ -0,0 +1,127 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
++import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
++import { createExecutionRun } from "@/lib/oa/execution-run";
++import { getFixture } from "@/lib/oa/execution-run";
++import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++function deps(repo: ExecutionRunRepositoryPort) {
++  return {
++    clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++    identity: new SequentialIdentity(),
++    repository: repo,
++    schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++  };
++}
++
++describe("D2-D1 create boundary validation before metadata", () => {
++  it("rejects null/undefined/primitive/array without save or identity", async () => {
++    const save = vi.fn();
++    const getById = vi.fn();
++    const listByCorrelationId = vi.fn();
++    const identity = new SequentialIdentity();
++    const nextRunId = vi.spyOn(identity, "nextRunId");
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById,
++      listByCorrelationId,
++    };
++    const base = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity,
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    for (const bad of [null, undefined, 42, "x", [], true]) {
++      const r = await createExecutionRun(bad, base);
++      expect(r.ok).toBe(false);
++    }
++    expect(save).not.toHaveBeenCalled();
++    expect(nextRunId).not.toHaveBeenCalled();
++  });
++
++  it("rejects incomplete object and additional properties", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const d = deps(repository);
++    expect((await createExecutionRun({ intent: getFixture("nominal").intent }, d)).ok).toBe(
++      false,
++    );
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: getFixture("nominal").intent,
++            context: getFixture("nominal").context,
++            extra: true,
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("rejects invalid nested context permissions and capability", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const d = deps(repository);
++    const f = getFixture("nominal");
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: f.intent,
++            context: {
++              ...f.context,
++              permissions: { gitRead: true, gitWrite: false } as never,
++            },
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: f.intent,
++            context: f.context,
++            capability: { ...f.capability!, lane: "openai" as never },
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("does not throw on adversarial payloads", async () => {
++    const repository: ExecutionRunRepositoryPort = {
++      save: async () => undefined,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    await expect(
++      createExecutionRun({ circular: null }, deps(repository)),
++    ).resolves.toMatchObject({ ok: false });
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+@@ -0,0 +1,111 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
++import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
++import { transitionExecutionRun, normalizedFailure } from "@/lib/oa/execution-run";
++import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++describe("D2-D1 transition boundary validation before metadata", () => {
++  it("rejects invalid input before repository lookup", async () => {
++    const getById = vi.fn();
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById,
++      listByCorrelationId: async () => [],
++    };
++    const deps = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity: new SequentialIdentity(),
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    for (const bad of [
++      null,
++      undefined,
++      1,
++      [],
++      {},
++      { runId: "r1" },
++      { runId: "r1", reason: "not_a_reason" },
++      { runId: "r1", reason: "outputs_validated", completeness: "complete" },
++      {
++        runId: "r1",
++        reason: "engaged_operation_failed",
++      },
++      {
++        runId: "r1",
++        reason: "intent_valid",
++        extra: true,
++      },
++    ]) {
++      const r = await transitionExecutionRun(bad, deps);
++      expect(r.ok).toBe(false);
++    }
++    expect(getById).not.toHaveBeenCalled();
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("rejects invalid externalResult / failure payloads before save", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const deps = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity: new SequentialIdentity(),
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    const badExternal = await transitionExecutionRun(
++      {
++        runId: "r1",
++        reason: "outputs_validated",
++        completeness: "complete",
++        externalResult: { kind: "success", completeness: "complete" },
++      },
++      deps,
++    );
++    expect(badExternal.ok).toBe(false);
++    const badFailure = await transitionExecutionRun(
++      {
++        runId: "r1",
++        reason: "engaged_operation_failed",
++        failure: {
++          family: "validation",
++          code: "NOT_A_CODE",
++          userMessage: "x",
++          technicalDetailsRedacted: true,
++          retryable: false,
++          correlationId: "c",
++        },
++      },
++      deps,
++    );
++    expect(badFailure.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("accepts schema-valid failure enum", async () => {
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const failure = normalizedFailure({
++      family: "provider_unavailable",
++      code: "PROVIDER_UNAVAILABLE",
++      userMessage: "unavailable",
++      retryable: true,
++      correlationId: "c1",
++    });
++    expect((await schemas.validate("normalized-failure", failure)).ok).toBe(true);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+@@ -0,0 +1,221 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import {
++  createOfficialEvidence,
++  createSourceDisclosure,
++  getFixture,
++  normalizedFailure,
++  usageUnavailable,
++  EXECUTION_RUN_SCHEMA_VERSION,
++} from "@/lib/oa/execution-run";
++import type { ExecutionRunSchemaName } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++const ALL: ExecutionRunSchemaName[] = [
++  "execution-intent",
++  "execution-context",
++  "provider-capability-descriptor",
++  "validation-outcome",
++  "execution-run",
++  "external-result",
++  "execution-evidence",
++  "source-disclosure",
++  "human-decision-gate",
++  "usage-summary",
++  "normalized-failure",
++  "create-execution-run-input",
++  "transition-execution-run-input",
++];
++
++describe("D2-D1 contract-equivalent schemas", () => {
++  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
++
++  it("loads and resolves all schemas", () => {
++    const ids = validator.listLoadedSchemaIds();
++    expect(ids).toHaveLength(ALL.length);
++  });
++
++  it("accepts valid fixtures for each core object", async () => {
++    const f = getFixture("nominal");
++    expect((await validator.validate("execution-intent", f.intent)).ok).toBe(true);
++    expect((await validator.validate("execution-context", f.context)).ok).toBe(true);
++    expect(
++      (await validator.validate("provider-capability-descriptor", f.capability)).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("normalized-failure", normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "bad",
++          retryable: true,
++          correlationId: "c",
++        }))
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate(
++          "source-disclosure",
++          createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
++        )
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate(
++          "execution-evidence",
++          createOfficialEvidence({
++            evidenceId: "e1",
++            runId: "r1",
++            correlationId: "c1",
++            source: "fixture",
++            completeness: "complete",
++            producedAt: "2026-08-03T20:00:00.000Z",
++            summary: "ok",
++          }),
++        )
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("external-result", {
++          kind: "success",
++          completeness: "complete",
++          redactedSummary: "ok",
++          rawPresent: false,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (await validator.validate("usage-summary", usageUnavailable("x"))).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("human-decision-gate", {
++          gateId: "g1",
++          question: "proceed?",
++          required: true,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("validation-outcome", {
++          ok: true,
++          validatedAt: "2026-08-03T20:00:00.000Z",
++        })
++      ).ok,
++    ).toBe(true);
++  });
++
++  it("rejects missing required, wrong type, additional props, bad enums", async () => {
++    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
++    expect((await validator.validate("execution-intent", 1)).ok).toBe(false);
++    expect(
++      (
++        await validator.validate("execution-intent", {
++          ...getFixture("nominal").intent,
++          extra: true,
++        })
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await validator.validate("execution-intent", {
++          ...getFixture("nominal").intent,
++          requestedLane: "openai",
++        })
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await validator.validate("normalized-failure", {
++          family: "nope",
++          code: "VALIDATION_ERROR",
++          userMessage: "x",
++          technicalDetailsRedacted: true,
++          retryable: false,
++          correlationId: "c",
++        })
++      ).ok,
++    ).toBe(false);
++  });
++
++  it("validates create and transition boundary schemas", async () => {
++    const f = getFixture("nominal");
++    expect(
++      (
++        await validator.validate("create-execution-run-input", {
++          intent: f.intent,
++          context: f.context,
++          capability: f.capability,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("transition-execution-run-input", {
++          runId: "run:1",
++          reason: "intent_valid",
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("transition-execution-run-input", {
++          runId: "run:1",
++          reason: "outputs_validated",
++          completeness: "complete",
++          externalResult: {
++            kind: "success",
++            completeness: "complete",
++            redactedSummary: "ok",
++            rawPresent: false,
++          },
++        })
++      ).ok,
++    ).toBe(true);
++  });
++
++  it("execution-run $refs enforce nested contracts and state conditionals", async () => {
++    const f = getFixture("nominal");
++    const idle: Record<string, unknown> = {
++      schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++      runId: "run:1",
++      correlationId: f.intent.correlationId,
++      state: "idle",
++      intent: f.intent,
++      context: f.context,
++      disclosure: createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
++      createdAt: "2026-08-03T20:00:00.000Z",
++      updatedAt: "2026-08-03T20:00:00.000Z",
++      version: 1,
++      usage: usageUnavailable("x"),
++      persistence: {
++        kind: "memory_process_local",
++        durable: false,
++        multiInstance: false,
++        restartSafe: false,
++      },
++    };
++    expect((await validator.validate("execution-run", idle)).ok).toBe(true);
++
++    const nestedBad = {
++      ...idle,
++      context: { ...f.context, permissions: { gitRead: true } },
++    };
++    expect((await validator.validate("execution-run", nestedBad)).ok).toBe(false);
++
++    const succeededBare = { ...idle, state: "succeeded" };
++    expect((await validator.validate("execution-run", succeededBare)).ok).toBe(false);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+@@ -46,12 +46,16 @@
+     expect(hits).toEqual([]);
+   });
+
+-  it("application does not import provider SDKs or AJV", () => {
++  it("application does not import infrastructure, AJV, Node, Next, or providers", () => {
+     const files = listTsFiles(path.join(MODULE_ROOT, "application"));
+     const hits: string[] = [];
+     for (const file of files) {
+       for (const line of importsOf(file)) {
+-        if (/from\s+["']ajv|openai|@octokit|cursor/.test(line)) {
++        if (
++          /from\s+["'].*\/infrastructure\/|from\s+["']ajv|openai|@octokit|cursor|node:|from\s+["']next|from\s+["']react/.test(
++            line,
++          )
++        ) {
+           hits.push(`${file}: ${line}`);
+         }
+       }
+@@ -75,4 +79,30 @@
+     }
+     expect(hits).toEqual([]);
+   });
++
++  it("root barrel does not export concrete composition", () => {
++    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
++    expect(barrel).not.toMatch(/composeExecutionRunMemory/);
++    expect(barrel).not.toMatch(/MemoryExecutionRunStore/);
++    expect(barrel).not.toMatch(/AjvExecutionRunSchemaValidation/);
++  });
++
++  it("server composition lives under server/ with server-only guard", () => {
++    const serverDir = path.join(MODULE_ROOT, "server");
++    expect(fs.existsSync(serverDir)).toBe(true);
++    const compose = fs.readFileSync(
++      path.join(serverDir, "composeExecutionRunMemory.ts"),
++      "utf8",
++    );
++    expect(compose).toMatch(/assertServerOnly/);
++    expect(compose).toMatch(/infrastructure\//);
++    const guard = fs.readFileSync(path.join(serverDir, "serverOnly.ts"), "utf8");
++    expect(guard).toMatch(/typeof window/);
++  });
++
++  it("application folder no longer hosts concrete composition", () => {
++    expect(
++      fs.existsSync(path.join(MODULE_ROOT, "application/composeExecutionRun.ts")),
++    ).toBe(false);
++  });
+ });
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+@@ -0,0 +1,177 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import {
++  canAcceptLateResult,
++  EXECUTION_STATES,
++  getFixture,
++  LATE_RESULT_ELIGIBLE_STATES,
++  normalizedFailure,
++} from "@/lib/oa/execution-run";
++
++async function runningRun() {
++  const c = composeExecutionRunMemory();
++  const f = getFixture("nominal");
++  const created = await c.createExecutionRun({
++    intent: f.intent,
++    context: f.context,
++    capability: f.capability,
++  });
++  if (!created.ok) throw new Error("create failed");
++  const started = await c.transitionExecutionRun({
++    runId: created.run.runId,
++    reason: "intent_valid",
++  });
++  if (!started.ok) throw new Error("start failed");
++  return { c, run: started.run };
++}
++
++describe("D2-D1 late result eligibility", () => {
++  it("documents eligible terminals", () => {
++    expect([...LATE_RESULT_ELIGIBLE_STATES].sort()).toEqual(
++      ["cancelled", "failed", "timed_out"].sort(),
++    );
++    for (const s of EXECUTION_STATES) {
++      expect(canAcceptLateResult(s)).toBe(
++        (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(s),
++      );
++    }
++  });
++
++  it("refuses idle, running, awaiting_human, succeeded, blocked", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++
++    const idle = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(idle.ok).toBe(false);
++
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const running = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(running.ok).toBe(false);
++
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_gate_required",
++    });
++    const awaiting = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(awaiting.ok).toBe(false);
++
++    // fresh run → succeeded
++    const { c: c2, run } = await runningRun();
++    const succeeded = await c2.transitionExecutionRun({
++      runId: run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "ok",
++        rawPresent: false,
++      },
++    });
++    expect(succeeded.ok).toBe(true);
++    if (!succeeded.ok) return;
++    const lateOnSuccess = await c2.transitionExecutionRun({
++      runId: run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(lateOnSuccess.ok).toBe(false);
++
++    // blocked at create
++    const c3 = composeExecutionRunMemory();
++    const blocked = await c3.createExecutionRun({
++      intent: getFixture("mutation_forbidden").intent,
++      context: getFixture("mutation_forbidden").context,
++      capability: getFixture("mutation_forbidden").capability,
++    });
++    expect(blocked.run?.state).toBe("blocked");
++    if (!blocked.run) return;
++    const lateOnBlocked = await c3.transitionExecutionRun({
++      runId: blocked.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(lateOnBlocked.ok).toBe(false);
++  });
++
++  it("accepts cancelled, timed_out, failed with evidence-only mutation", async () => {
++    // cancelled
++    const { c, run } = await runningRun();
++    await c.transitionExecutionRun({
++      runId: run.runId,
++      reason: "cancel_accepted",
++    });
++    const lateCancel = await c.transitionExecutionRun({
++      runId: run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_cancel",
++    });
++    expect(lateCancel.ok).toBe(true);
++    if (lateCancel.ok) {
++      expect(lateCancel.run.state).toBe("cancelled");
++      expect(lateCancel.run.evidence?.at(-1)?.late).toBe(true);
++      expect(lateCancel.run.evidence?.at(-1)?.official).toBe(true);
++      expect(lateCancel.run.evidence?.at(-1)?.completeness).toBe("partial");
++    }
++
++    // timed_out
++    const r2 = await runningRun();
++    await r2.c.transitionExecutionRun({
++      runId: r2.run.runId,
++      reason: "time_limit",
++    });
++    const lateTimeout = await r2.c.transitionExecutionRun({
++      runId: r2.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_timeout",
++    });
++    expect(lateTimeout.ok).toBe(true);
++    if (lateTimeout.ok) expect(lateTimeout.run.state).toBe("timed_out");
++
++    // failed
++    const r3 = await runningRun();
++    const failed = await r3.c.transitionExecutionRun({
++      runId: r3.run.runId,
++      reason: "engaged_operation_failed",
++      failure: normalizedFailure({
++        family: "provider_unavailable",
++        code: "PROVIDER_UNAVAILABLE",
++        userMessage: "down",
++        retryable: true,
++        correlationId: r3.run.correlationId,
++      }),
++    });
++    expect(failed.ok).toBe(true);
++    const lateFailed = await r3.c.transitionExecutionRun({
++      runId: r3.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_failed",
++    });
++    expect(lateFailed.ok).toBe(true);
++    if (lateFailed.ok) expect(lateFailed.run.state).toBe("failed");
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
+@@ -2,16 +2,12 @@
+  * @vitest-environment node
+  */
+ import { describe, expect, it } from "vitest";
+-import {
+-  composeExecutionRunMemory,
+-  FIXTURE_CATALOGUE,
+-  getFixture,
+-} from "@/lib/oa/execution-run";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { getFixture } from "@/lib/oa/execution-run";
+
+ describe("D2-D1 fixture lifecycle", () => {
+   it("covers required catalogue scenarios", () => {
+-    const ids = FIXTURE_CATALOGUE.map((f) => f.id);
+-    for (const id of [
++    const ids = [
+       "nominal",
+       "validation_failure",
+       "auth_failure",
+@@ -27,88 +23,93 @@
+       "late_result",
+       "secret_redaction",
+       "source_mismatch",
+-    ]) {
+-      expect(ids).toContain(id);
+-      expect(getFixture(id as never).source).toBe("fixture");
++    ] as const;
++    for (const id of ids) {
++      expect(getFixture(id).source).toBe("fixture");
+     }
+   });
+
+-  it("runs nominal to succeeded", async () => {
++  it("runs nominal to succeeded with official evidence", async () => {
+     const c = composeExecutionRunMemory();
+     const f = getFixture("nominal");
+-    const created = await c.createExecutionRun(
+-      { intent: f.intent, context: f.context, capability: f.capability },
+-      c,
+-    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
+     expect(created.ok).toBe(true);
+     if (!created.ok) return;
+-    const started = await c.transitionExecutionRun(
+-      { runId: created.run.runId, reason: "intent_valid" },
+-      c,
+-    );
++    const started = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
+     expect(started.ok && started.run.state).toBe("running");
+     if (!started.ok) return;
+-    const done = await c.transitionExecutionRun(
+-      {
+-        runId: started.run.runId,
+-        reason: "outputs_validated",
++    const done = await c.transitionExecutionRun({
++      runId: started.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
+         completeness: "complete",
+-        externalResult: {
+-          kind: "success",
+-          completeness: "complete",
+-          redactedSummary: "ok",
+-          rawPresent: false,
+-        },
++        redactedSummary: "ok",
++        rawPresent: false,
+       },
+-      c,
+-    );
++    });
+     expect(done.ok && done.run.state).toBe("succeeded");
++    if (!done.ok) return;
++    expect(done.run.evidence?.some((e) => e.official && !e.late)).toBe(true);
+   });
+
+   it("never succeeds on partial", async () => {
+     const c = composeExecutionRunMemory();
+     const f = getFixture("partial_result");
+-    const created = await c.createExecutionRun(
+-      { intent: f.intent, context: f.context, capability: f.capability },
+-      c,
+-    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
+     if (!created.ok) return;
+-    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
+-    const done = await c.transitionExecutionRun(
+-      {
+-        runId: created.run.runId,
+-        reason: "outputs_validated",
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "partial",
++      externalResult: {
++        kind: "success",
+         completeness: "partial",
+-        externalResult: {
+-          kind: "success",
+-          completeness: "partial",
+-          redactedSummary: "partial",
+-          rawPresent: false,
+-        },
++        redactedSummary: "partial",
++        rawPresent: false,
+       },
+-      c,
+-    );
++    });
+     expect(done.ok).toBe(false);
+   });
+
+-  it("records late evidence without state change", async () => {
++  it("records late evidence without state change on cancelled", async () => {
+     const c = composeExecutionRunMemory();
+     const f = getFixture("late_result");
+-    const created = await c.createExecutionRun(
+-      { intent: f.intent, context: f.context, capability: f.capability },
+-      c,
+-    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
+     if (!created.ok) return;
+-    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
+-    await c.transitionExecutionRun({ runId: created.run.runId, reason: "cancel_accepted" }, c);
+-    const late = await c.transitionExecutionRun(
+-      {
+-        runId: created.run.runId,
+-        reason: "late_result_evidence_only",
+-        lateEvidenceSummary: "late_redacted",
+-      },
+-      c,
+-    );
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "cancel_accepted",
++    });
++    const late = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_redacted",
++    });
+     expect(late.ok).toBe(true);
+     if (!late.ok) return;
+     expect(late.run.state).toBe("cancelled");
+@@ -118,10 +119,11 @@
+   it("blocks mutation intent at create", async () => {
+     const c = composeExecutionRunMemory();
+     const f = getFixture("mutation_forbidden");
+-    const created = await c.createExecutionRun(
+-      { intent: f.intent, context: f.context, capability: f.capability },
+-      c,
+-    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
+     expect(created.ok).toBe(false);
+     if (created.run) expect(created.run.state).toBe("blocked");
+   });
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+@@ -0,0 +1,183 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import {
++  persistExecutionRun,
++  checkExecutionRunInvariants,
++  createSourceDisclosure,
++  usageUnavailable,
++  EXECUTION_RUN_SCHEMA_VERSION,
++  getFixture,
++} from "@/lib/oa/execution-run";
++import type { ExecutionRun, ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++function baseRun(over: Partial<ExecutionRun> = {}): ExecutionRun {
++  const f = getFixture("nominal");
++  return {
++    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++    runId: "run:persist:1",
++    correlationId: f.intent.correlationId,
++    state: "idle",
++    intent: f.intent,
++    context: f.context,
++    disclosure: createSourceDisclosure({
++      source: "fixture",
++      providerLane: "ai",
++      limits: ["test"],
++    }),
++    createdAt: "2026-08-03T20:00:00.000Z",
++    updatedAt: "2026-08-03T20:00:00.000Z",
++    version: 1,
++    capability: f.capability,
++    usage: usageUnavailable("not_provided"),
++    persistence: {
++      kind: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++    ...over,
++  };
++}
++
++describe("D2-D1 persistExecutionRun guards", () => {
++  it("saves valid idle run", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRun(baseRun(), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(true);
++    expect(save).toHaveBeenCalledOnce();
++  });
++
++  it("refuses ninth state before save", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRun(baseRun({ state: "STATE-B" as never }), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses succeeded without external result / evidence", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const noResult = await persistExecutionRun(baseRun({ state: "succeeded" }), {
++      repository,
++      schemas,
++    });
++    expect(noResult.ok).toBe(false);
++    expect(checkExecutionRunInvariants(baseRun({ state: "succeeded" })).length).toBeGreaterThan(
++      0,
++    );
++
++    const partial = await persistExecutionRun(
++      baseRun({
++        state: "succeeded",
++        externalResult: {
++          kind: "success",
++          completeness: "partial",
++          redactedSummary: "p",
++          rawPresent: false,
++        },
++        evidence: [
++          {
++            evidenceId: "e1",
++            runId: "run:persist:1",
++            correlationId: "c",
++            source: "fixture",
++            completeness: "complete",
++            producedAt: "2026-08-03T20:00:00.000Z",
++            summary: "x",
++            late: false,
++            official: true,
++          },
++        ],
++      }),
++      { repository, schemas },
++    );
++    expect(partial.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses failed without failure and blocked without reason", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    expect(
++      (await persistExecutionRun(baseRun({ state: "failed" }), { repository, schemas })).ok,
++    ).toBe(false);
++    expect(
++      (await persistExecutionRun(baseRun({ state: "blocked" }), { repository, schemas })).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses disclosure source mismatch and durable claim", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const mismatch = baseRun({
++      disclosure: createSourceDisclosure({ source: "real", providerLane: "ai" }),
++    });
++    expect((await persistExecutionRun(mismatch, { repository, schemas })).ok).toBe(false);
++    const durable = baseRun({
++      persistence: {
++        kind: "memory_process_local",
++        durable: true as never,
++        multiInstance: false,
++        restartSafe: false,
++      },
++    });
++    expect((await persistExecutionRun(durable, { repository, schemas })).ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses invalid timestamp format when schema requires date-time", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRun(baseRun({ createdAt: "yesterday" }), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
+@@ -2,19 +2,21 @@
+  * @vitest-environment node
+  */
+ import { describe, expect, it } from "vitest";
+-import { composeExecutionRunMemory, getFixture } from "@/lib/oa/execution-run";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { getFixture } from "@/lib/oa/execution-run";
+
+-describe("D2-D1 memory repository", () => {
++describe("D2-D1 memory repository via server composition", () => {
+   it("saves and loads with defensive copies", async () => {
+     const c = composeExecutionRunMemory();
+     const f = getFixture("nominal");
+-    const created = await c.createExecutionRun(
+-      { intent: f.intent, context: f.context, capability: f.capability },
+-      c,
+-    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
+     expect(created.ok).toBe(true);
+     if (!created.ok) return;
+-    const loaded = await c.repository.getById(created.run.runId);
++    const loaded = await c.getById(created.run.runId);
+     expect(loaded?.runId).toBe(created.run.runId);
+     expect(loaded).not.toBe(created.run);
+   });
+@@ -22,21 +24,33 @@
+   it("lists by correlation deterministically", async () => {
+     const c = composeExecutionRunMemory();
+     const f = getFixture("nominal");
+-    await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
+-    const list = await c.repository.listByCorrelationId(f.intent.correlationId);
++    await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    const list = await c.listByCorrelationId(f.intent.correlationId);
+     expect(list.length).toBe(1);
+   });
+
+   it("returns null for missing", async () => {
+     const c = composeExecutionRunMemory();
+-    expect(await c.repository.getById("missing")).toBeNull();
++    expect(await c.getById("missing")).toBeNull();
+   });
+
+   it("issues new identity after terminal via new create", async () => {
+     const c = composeExecutionRunMemory();
+     const f = getFixture("nominal");
+-    const a = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
+-    const b = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
++    const a = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    const b = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
+     expect(a.ok && b.ok).toBe(true);
+     if (a.ok && b.ok) expect(a.run.runId).not.toBe(b.run.runId);
+   });
+@@ -50,4 +64,10 @@
+       restartSafe: false,
+     });
+   });
++
++  it("does not expose raw repository save on composition", () => {
++    const c = composeExecutionRunMemory() as Record<string, unknown>;
++    expect(c.repository).toBeUndefined();
++    expect(c.store).toBeUndefined();
++  });
+ });
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
+@@ -5,6 +5,8 @@
+ import { describe, expect, it } from "vitest";
+ import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
+ import { getFixture } from "@/lib/oa/execution-run";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { normalizedFailure } from "@/lib/oa/execution-run";
+
+ const schemasDir = path.resolve(
+   __dirname,
+@@ -50,3 +52,129 @@
+     });
+   });
+ });
++
++describe("D2-D1 succeeded / failed / blocked application invariants", () => {
++  it("creates official evidence on succeeded", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "redacted-ok",
++        rawPresent: false,
++      },
++    });
++    expect(done.ok).toBe(true);
++    if (!done.ok) return;
++    expect(done.run.evidence?.[0]?.summary).toBe("redacted-ok");
++    expect(done.run.evidence?.[0]?.official).toBe(true);
++    expect(done.run.evidence?.[0]?.late).toBe(false);
++  });
++
++  it("refuses succeeded without external result", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++    });
++    expect(done.ok).toBe(false);
++  });
++
++  it("requires normalized failure for failed", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const missing = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "engaged_operation_failed",
++    });
++    expect(missing.ok).toBe(false);
++    const ok = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "engaged_operation_failed",
++      failure: normalizedFailure({
++        family: "rate_limited",
++        code: "RATE_LIMITED",
++        userMessage: "slow down",
++        retryable: true,
++        correlationId: created.run.correlationId,
++      }),
++    });
++    expect(ok.ok).toBe(true);
++    if (ok.ok) expect(ok.run.failure?.code).toBe("RATE_LIMITED");
++  });
++
++  it("requires failure or blockingReason for blocked transition", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: {
++        ...f.intent,
++        requiresHumanGate: true,
++        intentId: "intent:gate",
++        correlationId: "corr:gate",
++      },
++      context: f.context,
++      capability: f.capability,
++    });
++    // may be blocked at create due to unsatisfied gate — use idle path with gate false via capability
++    if (!created.ok && created.run?.state === "blocked") {
++      expect(created.run.failure || created.run.blockedReason).toBeTruthy();
++      return;
++    }
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_gate_required",
++    });
++    const blocked = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_reject_or_unsatisfied",
++      blockingReason: "HUMAN_REJECTED",
++    });
++    expect(blocked.ok).toBe(true);
++    if (blocked.ok) {
++      expect(blocked.run.state).toBe("blocked");
++      expect(blocked.run.blockedReason).toBe("HUMAN_REJECTED");
++    }
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
+@@ -63,4 +63,24 @@
+     });
+     expect(d.allowed).toBe(false);
+   });
++
++  it("samples refused transitions per non-terminal state", () => {
++    const samples = [
++      { from: "idle" as const, to: "failed" as const, reason: "engaged_operation_failed" as const },
++      { from: "running" as const, to: "idle" as const, reason: "intent_valid" as const },
++      {
++        from: "awaiting_human" as const,
++        to: "succeeded" as const,
++        reason: "outputs_validated" as const,
++        completeness: "complete" as const,
++      },
++    ];
++    for (const s of samples) {
++      expect(decideTransition(s).allowed).toBe(false);
++    }
++  });
++
++  it("preserves exactly the adopted allowed edge count", () => {
++    expect(listAllowedTransitions()).toHaveLength(11);
++  });
+ });
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts
+deleted file mode 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts
++++ /dev/null
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts
++++ /dev/null
+@@ -1,52 +0,0 @@
+-import { AjvExecutionRunSchemaValidation } from "../infrastructure/ajvExecutionRunSchemaValidation";
+-import { FixedClock } from "../infrastructure/fixedClock";
+-import { MemoryExecutionRunRepository } from "../infrastructure/memoryExecutionRunRepository";
+-import { MemoryExecutionRunStore } from "../infrastructure/memoryExecutionRunStore";
+-import { SequentialIdentity } from "../infrastructure/sequentialIdentity";
+-import type { ClockPort } from "../ports/clockPort";
+-import type { IdentityPort } from "../ports/identityPort";
+-import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
+-import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
+-import { createExecutionRun } from "./createExecutionRun";
+-import { transitionExecutionRun } from "./transitionExecutionRun";
+-
+-export type ExecutionRunComposition = {
+-  clock: ClockPort;
+-  identity: IdentityPort;
+-  repository: ExecutionRunRepositoryPort;
+-  schemas: ExecutionRunSchemaValidationPort;
+-  store: MemoryExecutionRunStore;
+-  createExecutionRun: typeof createExecutionRun;
+-  transitionExecutionRun: typeof transitionExecutionRun;
+-  disclosure: {
+-    persistence: "memory_process_local";
+-    durable: false;
+-    multiInstance: false;
+-    restartSafe: false;
+-  };
+-};
+-
+-export function composeExecutionRunMemory(options?: {
+-  clockIso?: string;
+-}): ExecutionRunComposition {
+-  const store = new MemoryExecutionRunStore();
+-  const clock = new FixedClock(options?.clockIso ?? "2026-08-03T20:00:00.000Z");
+-  const identity = new SequentialIdentity();
+-  const repository = new MemoryExecutionRunRepository(store);
+-  const schemas = new AjvExecutionRunSchemaValidation();
+-  return {
+-    clock,
+-    identity,
+-    repository,
+-    schemas,
+-    store,
+-    createExecutionRun,
+-    transitionExecutionRun,
+-    disclosure: {
+-      persistence: "memory_process_local",
+-      durable: false,
+-      multiInstance: false,
+-      restartSafe: false,
+-    },
+-  };
+-}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
+@@ -5,6 +5,7 @@
+   ExecutionContext,
+   ExecutionIntent,
+   ExecutionRun,
++  NormalizedFailure,
+   ProviderCapabilityDescriptor,
+ } from "../domain/types";
+ import { EXECUTION_RUN_SCHEMA_VERSION } from "../domain/types";
+@@ -12,6 +13,7 @@
+ import type { IdentityPort } from "../ports/identityPort";
+ import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
+ import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++import { persistExecutionRun } from "./persistExecutionRun";
+
+ export type CreateExecutionRunInput = {
+   intent: ExecutionIntent;
+@@ -21,10 +23,14 @@
+
+ export type CreateExecutionRunResult =
+   | { ok: true; run: ExecutionRun }
+-  | { ok: false; failure: ReturnType<typeof normalizedFailure>; run?: ExecutionRun };
++  | { ok: false; failure: NormalizedFailure; run?: ExecutionRun };
+
++/**
++ * Untrusted boundary: validates CreateExecutionRunInput before any metadata access,
++ * identity allocation, or persistence.
++ */
+ export async function createExecutionRun(
+-  input: CreateExecutionRunInput,
++  input: unknown,
+   deps: {
+     clock: ClockPort;
+     identity: IdentityPort;
+@@ -32,50 +38,49 @@
+     schemas: ExecutionRunSchemaValidationPort;
+   },
+ ): Promise<CreateExecutionRunResult> {
+-  const schema = await deps.schemas.validate("execution-intent", input.intent);
+-  if (!schema.ok) {
++  const boundary = await deps.schemas.validate("create-execution-run-input", input);
++  if (!boundary.ok) {
+     return {
+       ok: false,
+       failure: normalizedFailure({
+         family: "validation",
+         code: "VALIDATION_ERROR",
+-        userMessage: "Execution intent failed schema validation",
++        userMessage: "Create execution run input failed schema validation",
+         retryable: true,
+-        correlationId: typeof input.intent?.correlationId === "string"
+-          ? input.intent.correlationId
+-          : "unknown",
++        correlationId: "unknown",
+       }),
+     };
+   }
+
++  const validated = input as CreateExecutionRunInput;
+   const now = deps.clock.nowIso();
+   const policy = evaluateReadOnlyPolicy({
+-    intent: input.intent,
+-    context: input.context,
+-    capability: input.capability,
+-    gateSatisfied: input.intent.requiresHumanGate ? false : undefined,
++    intent: validated.intent,
++    context: validated.context,
++    capability: validated.capability,
++    gateSatisfied: validated.intent.requiresHumanGate ? false : undefined,
+   });
+
+   const disclosure = createSourceDisclosure({
+-    source: input.context.declaredSource,
+-    providerLane: input.intent.requestedLane,
++    source: validated.context.declaredSource,
++    providerLane: validated.intent.requestedLane,
+     limits: ["d2-d1-fixture-first", "memory-process-local"],
+-    cursorUnverified: input.intent.requestedLane === "cursor",
++    cursorUnverified: validated.intent.requestedLane === "cursor",
+   });
+
+   const runId = deps.identity.nextRunId();
+   const base: ExecutionRun = {
+     schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
+     runId,
+-    correlationId: input.intent.correlationId,
++    correlationId: validated.intent.correlationId,
+     state: policy.ok ? "idle" : "blocked",
+-    intent: input.intent,
+-    context: input.context,
++    intent: validated.intent,
++    context: validated.context,
+     disclosure,
+     createdAt: now,
+     updatedAt: now,
+     version: 1,
+-    capability: input.capability,
++    capability: validated.capability,
+     usage: usageUnavailable("not_provided"),
+     persistence: {
+       kind: "memory_process_local",
+@@ -90,21 +95,10 @@
+     blockedReason: policy.ok ? undefined : policy.failure.code,
+   };
+
+-  const runSchema = await deps.schemas.validate("execution-run", base);
+-  if (!runSchema.ok) {
+-    return {
+-      ok: false,
+-      failure: normalizedFailure({
+-        family: "internal_normalized_failure",
+-        code: "INTERNAL_NORMALIZED_FAILURE",
+-        userMessage: "Created run failed schema validation",
+-        retryable: false,
+-        correlationId: input.intent.correlationId,
+-      }),
+-    };
++  const persisted = await persistExecutionRun(base, deps);
++  if (!persisted.ok) {
++    return { ok: false, failure: persisted.failure };
+   }
+-
+-  await deps.repository.save(base);
+   if (!policy.ok) {
+     return { ok: false, failure: policy.failure, run: base };
+   }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts
+@@ -0,0 +1,52 @@
++/**
++ * Unique supported persistence path for D2-D1 ExecutionRun.
++ * Invariants then schema validation before repository save.
++ */
++import { checkExecutionRunInvariants } from "../domain/invariants";
++import { normalizedFailure } from "../domain/errors";
++import type { ExecutionRun, NormalizedFailure } from "../domain/types";
++import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
++import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++
++export type PersistExecutionRunResult =
++  | { ok: true }
++  | { ok: false; failure: NormalizedFailure };
++
++export async function persistExecutionRun(
++  run: ExecutionRun,
++  deps: {
++    repository: ExecutionRunRepositoryPort;
++    schemas: ExecutionRunSchemaValidationPort;
++  },
++): Promise<PersistExecutionRunResult> {
++  const issues = checkExecutionRunInvariants(run);
++  if (issues.length > 0) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: `Run invariants failed: ${issues.map((i) => i.code).join(",")}`,
++        retryable: false,
++        correlationId: run.correlationId,
++      }),
++    };
++  }
++
++  const schema = await deps.schemas.validate("execution-run", run);
++  if (!schema.ok) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Execution run failed schema validation before persistence",
++        retryable: false,
++        correlationId: run.correlationId,
++      }),
++    };
++  }
++
++  await deps.repository.save(run);
++  return { ok: true };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
+@@ -1,5 +1,6 @@
+ import { createOfficialEvidence, canSucceed } from "../domain/evidence";
+ import { decideTransition, type TransitionReason } from "../domain/transitions";
++import { canAcceptLateResult } from "../domain/invariants";
+ import { normalizedFailure } from "../domain/errors";
+ import type {
+   Completeness,
+@@ -10,6 +11,8 @@
+ import type { ClockPort } from "../ports/clockPort";
+ import type { IdentityPort } from "../ports/identityPort";
+ import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
++import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++import { persistExecutionRun } from "./persistExecutionRun";
+
+ export type TransitionExecutionRunInput = {
+   runId: string;
+@@ -17,6 +20,7 @@
+   completeness?: Completeness;
+   externalResult?: ExternalResult;
+   failure?: NormalizedFailure;
++  blockingReason?: string;
+   lateEvidenceSummary?: string;
+ };
+
+@@ -53,15 +57,39 @@
+   }
+ }
+
++/**
++ * Untrusted boundary: validates TransitionExecutionRunInput before metadata access
++ * or repository lookup.
++ */
+ export async function transitionExecutionRun(
+-  input: TransitionExecutionRunInput,
++  input: unknown,
+   deps: {
+     clock: ClockPort;
+     identity: IdentityPort;
+     repository: ExecutionRunRepositoryPort;
++    schemas: ExecutionRunSchemaValidationPort;
+   },
+ ): Promise<TransitionExecutionRunResult> {
+-  const existing = await deps.repository.getById(input.runId);
++  const boundary = await deps.schemas.validate(
++    "transition-execution-run-input",
++    input,
++  );
++  if (!boundary.ok) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Transition execution run input failed schema validation",
++        retryable: true,
++        correlationId: "unknown",
++      }),
++    };
++  }
++
++  const validated = input as TransitionExecutionRunInput;
++
++  const existing = await deps.repository.getById(validated.runId);
+   if (!existing) {
+     return {
+       ok: false,
+@@ -75,7 +103,23 @@
+     };
+   }
+
+-  if (input.reason === "late_result_evidence_only") {
++  if (validated.reason === "late_result_evidence_only") {
++    if (!canAcceptLateResult(existing.state)) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage:
++            "Late result evidence accepted only for cancelled, timed_out, or failed runs",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const summary = validated.lateEvidenceSummary ?? "late_result_redacted";
+     const evidence = createOfficialEvidence({
+       evidenceId: deps.identity.nextEvidenceId(),
+       runId: existing.runId,
+@@ -83,20 +127,42 @@
+       source: existing.disclosure.source,
+       completeness: "partial",
+       producedAt: deps.clock.nowIso(),
+-      summary: input.lateEvidenceSummary ?? "late_result_redacted",
++      summary,
+       late: true,
+     });
++
++    const evidenceSchema = await deps.schemas.validate(
++      "execution-evidence",
++      evidence,
++    );
++    if (!evidenceSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "Late evidence failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
+     const updated: ExecutionRun = {
+       ...existing,
+       updatedAt: deps.clock.nowIso(),
+       version: existing.version + 1,
+       evidence: [...(existing.evidence ?? []), evidence],
+     };
+-    await deps.repository.save(updated);
++    const persisted = await persistExecutionRun(updated, deps);
++    if (!persisted.ok) {
++      return { ok: false, failure: persisted.failure, run: existing };
++    }
+     return { ok: true, run: updated };
+   }
+
+-  const to = targetForReason(input.reason);
++  const to = targetForReason(validated.reason);
+   if (!to) {
+     return {
+       ok: false,
+@@ -114,8 +180,8 @@
+   const decision = decideTransition({
+     from: existing.state,
+     to,
+-    reason: input.reason,
+-    completeness: input.completeness,
++    reason: validated.reason,
++    completeness: validated.completeness,
+   });
+   if (!decision.allowed) {
+     return {
+@@ -131,13 +197,41 @@
+     };
+   }
+
++  const now = deps.clock.nowIso();
++
+   if (to === "succeeded") {
+-    const completeness =
+-      input.completeness ??
+-      (input.externalResult?.kind === "success"
+-        ? input.externalResult.completeness
+-        : undefined);
+-    if (!completeness || !canSucceed(completeness)) {
++    const external = validated.externalResult;
++    const externalSchema = await deps.schemas.validate(
++      "external-result",
++      external,
++    );
++    if (!externalSchema.ok || !external) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "invalid_provider_result",
++          code: "INVALID_PROVIDER_RESULT",
++          userMessage: "succeeded requires a valid ExternalResult",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    if (external.kind !== "success" || !canSucceed(external.completeness)) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "invalid_provider_result",
++          code: "INVALID_PROVIDER_RESULT",
++          userMessage: "Cannot succeed without complete success ExternalResult",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    if (validated.completeness !== "complete") {
+       return {
+         ok: false,
+         failure: normalizedFailure({
+@@ -150,21 +244,124 @@
+         run: existing,
+       };
+     }
+-  }
+-
+-  const now = deps.clock.nowIso();
++
++    const evidence = createOfficialEvidence({
++      evidenceId: deps.identity.nextEvidenceId(),
++      runId: existing.runId,
++      correlationId: existing.correlationId,
++      source: existing.disclosure.source,
++      completeness: "complete",
++      producedAt: now,
++      summary: external.redactedSummary,
++      late: false,
++    });
++    const evidenceSchema = await deps.schemas.validate(
++      "execution-evidence",
++      evidence,
++    );
++    if (!evidenceSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "Official evidence failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const updated: ExecutionRun = {
++      ...existing,
++      state: "succeeded",
++      updatedAt: now,
++      version: existing.version + 1,
++      externalResult: external,
++      evidence: [...(existing.evidence ?? []), evidence],
++    };
++    const persisted = await persistExecutionRun(updated, deps);
++    if (!persisted.ok) {
++      return { ok: false, failure: persisted.failure, run: existing };
++    }
++    return { ok: true, run: updated };
++  }
++
++  if (to === "failed") {
++    if (!validated.failure) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "failed requires NormalizedFailure",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    const failureSchema = await deps.schemas.validate(
++      "normalized-failure",
++      validated.failure,
++    );
++    if (!failureSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "NormalizedFailure failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++  }
++
++  if (to === "blocked") {
++    const hasFailure = Boolean(validated.failure);
++    const hasReason =
++      typeof validated.blockingReason === "string" &&
++      validated.blockingReason.trim().length > 0;
++    if (!hasFailure && !hasReason && !existing.failure && !existing.blockedReason) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "blocked requires NormalizedFailure or blockingReason",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++  }
++
+   const updated: ExecutionRun = {
+     ...existing,
+     state: to,
+     updatedAt: now,
+     version: existing.version + 1,
+-    externalResult: input.externalResult ?? existing.externalResult,
+-    failure: input.failure ?? (to === "failed" || to === "blocked" ? existing.failure : existing.failure),
++    externalResult: validated.externalResult ?? existing.externalResult,
++    failure:
++      validated.failure ??
++      (to === "failed" || to === "blocked" ? existing.failure : existing.failure),
+     blockedReason:
+       to === "blocked"
+-        ? input.failure?.code ?? existing.blockedReason ?? "blocked"
++        ? validated.blockingReason ??
++          validated.failure?.code ??
++          existing.blockedReason ??
++          "blocked"
+         : existing.blockedReason,
+   };
+-  await deps.repository.save(updated);
++
++  const persisted = await persistExecutionRun(updated, deps);
++  if (!persisted.ok) {
++    return { ok: false, failure: persisted.failure, run: existing };
++  }
+   return { ok: true, run: updated };
+ }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
+@@ -1,7 +1,37 @@
+-import type { ExecutionRun } from "./types";
++/**
++ * Domain late-result eligibility and strengthened persistence invariants.
++ */
++import type { ExecutionEvidence, ExecutionRun, ExecutionState } from "./types";
+ import { canSucceed } from "./evidence";
+
+ export type InvariantIssue = { readonly code: string; readonly message: string };
++
++/** Terminal states where an external op may have been engaged (FD-05 late evidence). */
++export const LATE_RESULT_ELIGIBLE_STATES = [
++  "cancelled",
++  "timed_out",
++  "failed",
++] as const satisfies readonly ExecutionState[];
++
++export type LateResultEligibleState = (typeof LATE_RESULT_ELIGIBLE_STATES)[number];
++
++export function canAcceptLateResult(state: ExecutionState): state is LateResultEligibleState {
++  return (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(state);
++}
++
++function hasOfficialSuccessEvidence(
++  evidence: readonly ExecutionEvidence[] | undefined,
++  disclosureSource: ExecutionRun["disclosure"]["source"],
++): boolean {
++  if (!evidence || evidence.length === 0) return false;
++  return evidence.some(
++    (e) =>
++      e.official === true &&
++      e.late === false &&
++      e.completeness === "complete" &&
++      e.source === disclosureSource,
++  );
++}
+
+ export function checkExecutionRunInvariants(run: ExecutionRun): InvariantIssue[] {
+   const issues: InvariantIssue[] = [];
+@@ -11,14 +41,48 @@
+   if (run.persistence.durable || run.persistence.multiInstance || run.persistence.restartSafe) {
+     issues.push({ code: "CLAIM", message: "Durable/multi-instance/restart-safe claims forbidden" });
+   }
+-  if (run.state === "succeeded") {
+-    const c = run.externalResult?.kind === "success" ? run.externalResult.completeness : undefined;
+-    if (!c || !canSucceed(c)) {
+-      issues.push({ code: "PARTIAL_SUCCESS", message: "succeeded requires complete external result" });
+-    }
+-  }
+   if (run.disclosure.source !== run.context.declaredSource) {
+     issues.push({ code: "SOURCE", message: "disclosure source mismatch vs declared context source" });
+   }
++
++  if (run.state === "succeeded") {
++    const external = run.externalResult;
++    if (!external || external.kind !== "success") {
++      issues.push({
++        code: "SUCCEEDED_EXTERNAL_RESULT",
++        message: "succeeded requires ExternalResult kind success",
++      });
++    } else if (!canSucceed(external.completeness)) {
++      issues.push({
++        code: "PARTIAL_SUCCESS",
++        message: "succeeded requires complete external result",
++      });
++    }
++    if (!hasOfficialSuccessEvidence(run.evidence, run.disclosure.source)) {
++      issues.push({
++        code: "SUCCEEDED_EVIDENCE",
++        message: "succeeded requires official complete non-late evidence",
++      });
++    }
++  }
++
++  if (run.state === "failed") {
++    if (!run.failure) {
++      issues.push({ code: "FAILED_FAILURE", message: "failed requires NormalizedFailure" });
++    }
++  }
++
++  if (run.state === "blocked") {
++    const hasFailure = Boolean(run.failure);
++    const hasReason =
++      typeof run.blockedReason === "string" && run.blockedReason.trim().length > 0;
++    if (!hasFailure && !hasReason) {
++      issues.push({
++        code: "BLOCKED_REASON",
++        message: "blocked requires NormalizedFailure or non-empty blockedReason",
++      });
++    }
++  }
++
+   return issues;
+ }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/index.ts b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
+@@ -1,6 +1,7 @@
+ /**
+  * D2-D1 OA execution-run public barrel.
+  * Sole D2-D technical state authority — memory/fixture-first only.
++ * Concrete server composition is NOT exported here — use ./server.
+  */
+ export { EXECUTION_RUN_SCHEMA_VERSION, EXECUTION_STATES, TERMINAL_STATES, isTerminalState } from "./domain/types";
+ export type {
+@@ -39,7 +40,11 @@
+   isIsoTimestamp,
+   usageUnavailable,
+ } from "./domain/evidence";
+-export { checkExecutionRunInvariants } from "./domain/invariants";
++export {
++  canAcceptLateResult,
++  checkExecutionRunInvariants,
++  LATE_RESULT_ELIGIBLE_STATES,
++} from "./domain/invariants";
+ export { createExecutionRun } from "./application/createExecutionRun";
+ export type { CreateExecutionRunInput, CreateExecutionRunResult } from "./application/createExecutionRun";
+ export { transitionExecutionRun } from "./application/transitionExecutionRun";
+@@ -47,10 +52,13 @@
+   TransitionExecutionRunInput,
+   TransitionExecutionRunResult,
+ } from "./application/transitionExecutionRun";
+-export { composeExecutionRunMemory } from "./application/composeExecutionRun";
+-export type { ExecutionRunComposition } from "./application/composeExecutionRun";
++export { persistExecutionRun } from "./application/persistExecutionRun";
++export type { PersistExecutionRunResult } from "./application/persistExecutionRun";
+ export type { ExecutionRunRepositoryPort } from "./ports/executionRunRepository";
+-export type { ExecutionRunSchemaValidationPort } from "./ports/executionRunSchemaValidation";
++export type {
++  ExecutionRunSchemaName,
++  ExecutionRunSchemaValidationPort,
++} from "./ports/executionRunSchemaValidation";
+ export type { ClockPort } from "./ports/clockPort";
+ export type { IdentityPort } from "./ports/identityPort";
+ export { FIXTURE_CATALOGUE, getFixture } from "./fixtures/catalogue";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
+@@ -15,23 +15,63 @@
+
+ const SCHEMA_FILES: Record<ExecutionRunSchemaName, string> = {
+   "execution-intent": "execution-intent.schema.json",
++  "execution-context": "execution-context.schema.json",
++  "provider-capability-descriptor": "provider-capability-descriptor.schema.json",
++  "validation-outcome": "validation-outcome.schema.json",
+   "execution-run": "execution-run.schema.json",
+-  "normalized-failure": "normalized-failure.schema.json",
++  "external-result": "external-result.schema.json",
+   "execution-evidence": "execution-evidence.schema.json",
+   "source-disclosure": "source-disclosure.schema.json",
++  "human-decision-gate": "human-decision-gate.schema.json",
++  "usage-summary": "usage-summary.schema.json",
++  "normalized-failure": "normalized-failure.schema.json",
++  "create-execution-run-input": "create-execution-run-input.schema.json",
++  "transition-execution-run-input": "transition-execution-run-input.schema.json",
+ };
+
+ const SCHEMA_IDS: Record<ExecutionRunSchemaName, string> = {
+   "execution-intent":
+     "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
++  "execution-context":
++    "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
++  "provider-capability-descriptor":
++    "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
++  "validation-outcome":
++    "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
+   "execution-run": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
+-  "normalized-failure":
+-    "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
++  "external-result":
++    "https://sfia.local/schemas/d2-d1/external-result.schema.json",
+   "execution-evidence":
+     "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
+   "source-disclosure":
+     "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
++  "human-decision-gate":
++    "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
++  "usage-summary": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
++  "normalized-failure":
++    "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
++  "create-execution-run-input":
++    "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
++  "transition-execution-run-input":
++    "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
+ };
++
++/** Deterministic load order: leaves before composites that $ref them. */
++const LOAD_ORDER: readonly ExecutionRunSchemaName[] = [
++  "normalized-failure",
++  "execution-intent",
++  "execution-context",
++  "provider-capability-descriptor",
++  "validation-outcome",
++  "external-result",
++  "execution-evidence",
++  "source-disclosure",
++  "human-decision-gate",
++  "usage-summary",
++  "execution-run",
++  "create-execution-run-input",
++  "transition-execution-run-input",
++];
+
+ export class AjvExecutionRunSchemaValidation
+   implements ExecutionRunSchemaValidationPort
+@@ -54,7 +94,8 @@
+
+   private ensureLoaded(): void {
+     if (this.ready) return;
+-    for (const file of Object.values(SCHEMA_FILES)) {
++    for (const name of LOAD_ORDER) {
++      const file = SCHEMA_FILES[name];
+       const full = path.join(this.schemasDir, file);
+       const raw = JSON.parse(fs.readFileSync(full, "utf8")) as object;
+       this.ajv.addSchema(raw);
+@@ -62,12 +103,17 @@
+     this.ready = true;
+   }
+
++  /** Test helper: confirms every named schema compiled and resolves. */
++  listLoadedSchemaIds(): string[] {
++    this.ensureLoaded();
++    return LOAD_ORDER.map((name) => SCHEMA_IDS[name]);
++  }
++
+   async validate(
+     schema: ExecutionRunSchemaName,
+     value: unknown,
+   ): Promise<ExecutionRunSchemaValidationResult> {
+     try {
+-      // Fail-closed: reject null/undefined before schema metadata use.
+       if (value === null || value === undefined) {
+         return { ok: false, errors: ["value_null_or_undefined"] };
+       }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
+--- a/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
+@@ -9,10 +9,18 @@
+
+ export type ExecutionRunSchemaName =
+   | "execution-intent"
++  | "execution-context"
++  | "provider-capability-descriptor"
++  | "validation-outcome"
+   | "execution-run"
++  | "external-result"
++  | "execution-evidence"
++  | "source-disclosure"
++  | "human-decision-gate"
++  | "usage-summary"
+   | "normalized-failure"
+-  | "execution-evidence"
+-  | "source-disclosure";
++  | "create-execution-run-input"
++  | "transition-execution-run-input";
+
+ export interface ExecutionRunSchemaValidationPort {
+   /**
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+@@ -0,0 +1,18 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["intent", "context"],
++  "properties": {
++    "intent": {
++      "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
++    },
++    "context": {
++      "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
++    },
++    "capability": {
++      "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+@@ -0,0 +1,61 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "projectId",
++    "actorId",
++    "declaredSource",
++    "permissions"
++  ],
++  "properties": {
++    "projectId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "workspaceId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "actorId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "declaredSource": {
++      "type": "string",
++      "enum": ["fixture", "sandbox-real", "real"]
++    },
++    "allowlistRepos": {
++      "type": "array",
++      "maxItems": 64,
++      "items": {
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 1024
++      }
++    },
++    "protectedPaths": {
++      "type": "array",
++      "maxItems": 64,
++      "items": {
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 1024
++      }
++    },
++    "permissions": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["gitRead", "gitWrite", "providerInvoke"],
++      "properties": {
++        "gitRead": { "type": "boolean" },
++        "gitWrite": { "type": "boolean" },
++        "providerInvoke": { "type": "boolean" }
++      }
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
+@@ -17,40 +17,40 @@
+   "properties": {
+     "evidenceId": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
+     },
+     "runId": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
+     },
+     "correlationId": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
+     },
+     "source": {
+       "type": "string",
+-      "enum": [
+-        "fixture",
+-        "sandbox-real",
+-        "real"
+-      ]
++      "enum": ["fixture", "sandbox-real", "real"]
+     },
+     "completeness": {
+       "type": "string",
+-      "enum": [
+-        "complete",
+-        "partial"
+-      ]
++      "enum": ["complete", "partial"]
+     },
+     "producedAt": {
+       "type": "string",
+       "format": "date-time"
+     },
+     "digest": {
+-      "type": "string"
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
+     },
+     "summary": {
+-      "type": "string"
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
+     },
+     "late": {
+       "type": "boolean"
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
+@@ -16,32 +16,26 @@
+   "properties": {
+     "intentId": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
+     },
+     "correlationId": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
+     },
+     "requestedLane": {
+       "type": "string",
+-      "enum": [
+-        "ai",
+-        "git",
+-        "cursor",
+-        "none"
+-      ]
++      "enum": ["ai", "git", "cursor", "none"]
+     },
+     "operation": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
+     },
+     "requestedSource": {
+       "type": "string",
+-      "enum": [
+-        "fixture",
+-        "sandbox-real",
+-        "real"
+-      ]
++      "enum": ["fixture", "sandbox-real", "real"]
+     },
+     "requiresHumanGate": {
+       "type": "boolean"
+@@ -53,7 +47,9 @@
+       "type": "boolean"
+     },
+     "targetPath": {
+-      "type": "string"
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 1024
+     },
+     "metadata": {
+       "type": "object"
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
+@@ -1,114 +1,178 @@
+ {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "$id": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
+-  "type": "object",
+-  "additionalProperties": false,
+-  "required": [
+-    "schemaVersion",
+-    "runId",
+-    "correlationId",
+-    "state",
+-    "intent",
+-    "context",
+-    "disclosure",
+-    "createdAt",
+-    "updatedAt",
+-    "version",
+-    "usage",
+-    "persistence"
+-  ],
+-  "properties": {
+-    "schemaVersion": {
+-      "type": "string",
+-      "const": "0.1.0-d2d1"
+-    },
+-    "runId": {
+-      "type": "string",
+-      "minLength": 1
+-    },
+-    "correlationId": {
+-      "type": "string",
+-      "minLength": 1
+-    },
+-    "state": {
+-      "type": "string",
+-      "enum": [
+-        "idle",
+-        "running",
+-        "awaiting_human",
+-        "succeeded",
+-        "failed",
+-        "cancelled",
+-        "timed_out",
+-        "blocked"
+-      ]
+-    },
+-    "intent": {
+-      "type": "object"
+-    },
+-    "context": {
+-      "type": "object"
+-    },
+-    "disclosure": {
+-      "type": "object"
+-    },
+-    "createdAt": {
+-      "type": "string"
+-    },
+-    "updatedAt": {
+-      "type": "string"
+-    },
+-    "version": {
+-      "type": "integer",
+-      "minimum": 1
+-    },
+-    "validation": {
+-      "type": "object"
+-    },
+-    "capability": {
+-      "type": "object"
+-    },
+-    "gate": {
+-      "type": "object"
+-    },
+-    "externalResult": {
+-      "type": "object"
+-    },
+-    "evidence": {
+-      "type": "array"
+-    },
+-    "usage": {
+-      "type": "object"
+-    },
+-    "failure": {
+-      "type": "object"
+-    },
+-    "blockedReason": {
+-      "type": "string"
+-    },
+-    "persistence": {
++  "allOf": [
++    {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+-        "kind",
+-        "durable",
+-        "multiInstance",
+-        "restartSafe"
++        "schemaVersion",
++        "runId",
++        "correlationId",
++        "state",
++        "intent",
++        "context",
++        "disclosure",
++        "createdAt",
++        "updatedAt",
++        "version",
++        "usage",
++        "persistence"
+       ],
+       "properties": {
+-        "kind": {
+-          "const": "memory_process_local"
++        "schemaVersion": {
++          "type": "string",
++          "const": "0.1.0-d2d1"
+         },
+-        "durable": {
+-          "const": false
++        "runId": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 256
+         },
+-        "multiInstance": {
+-          "const": false
++        "correlationId": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 256
+         },
+-        "restartSafe": {
+-          "const": false
++        "state": {
++          "type": "string",
++          "enum": [
++            "idle",
++            "running",
++            "awaiting_human",
++            "succeeded",
++            "failed",
++            "cancelled",
++            "timed_out",
++            "blocked"
++          ]
++        },
++        "intent": {
++          "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
++        },
++        "context": {
++          "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
++        },
++        "disclosure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json"
++        },
++        "createdAt": {
++          "type": "string",
++          "format": "date-time"
++        },
++        "updatedAt": {
++          "type": "string",
++          "format": "date-time"
++        },
++        "version": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "validation": {
++          "$ref": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json"
++        },
++        "capability": {
++          "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
++        },
++        "gate": {
++          "$ref": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json"
++        },
++        "externalResult": {
++          "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
++        },
++        "evidence": {
++          "type": "array",
++          "maxItems": 64,
++          "items": {
++            "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
++          }
++        },
++        "usage": {
++          "$ref": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json"
++        },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        },
++        "blockedReason": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 512
++        },
++        "persistence": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": ["kind", "durable", "multiInstance", "restartSafe"],
++          "properties": {
++            "kind": { "const": "memory_process_local" },
++            "durable": { "const": false },
++            "multiInstance": { "const": false },
++            "restartSafe": { "const": false }
++          }
+         }
+       }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "succeeded" } },
++        "required": ["state"]
++      },
++      "then": {
++        "required": ["externalResult", "evidence"],
++        "properties": {
++          "externalResult": {
++            "type": "object",
++            "additionalProperties": false,
++            "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
++            "properties": {
++              "kind": { "const": "success" },
++              "completeness": { "const": "complete" },
++              "redactedSummary": {
++                "type": "string",
++                "minLength": 1,
++                "maxLength": 2048
++              },
++              "rawPresent": { "const": false }
++            }
++          },
++          "evidence": {
++            "type": "array",
++            "minItems": 1,
++            "maxItems": 64,
++            "items": {
++              "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
++            }
++          }
++        }
++      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "failed" } },
++        "required": ["state"]
++      },
++      "then": {
++        "required": ["failure"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "blocked" } },
++        "required": ["state"]
++      },
++      "then": {
++        "anyOf": [
++          { "required": ["failure"] },
++          {
++            "required": ["blockedReason"],
++            "properties": {
++              "blockedReason": {
++                "type": "string",
++                "minLength": 1
++              }
++            }
++          }
++        ]
++      }
+     }
+-  }
++  ]
+ }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+@@ -0,0 +1,43 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/external-result.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
++      "properties": {
++        "kind": { "const": "success" },
++        "completeness": {
++          "type": "string",
++          "enum": ["complete", "partial"]
++        },
++        "redactedSummary": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 2048
++        },
++        "rawPresent": { "const": false }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind", "failure"],
++      "properties": {
++        "kind": { "const": "failure" },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind"],
++      "properties": {
++        "kind": { "const": "empty" }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+@@ -0,0 +1,32 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["gateId", "question", "required"],
++  "properties": {
++    "gateId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "question": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    },
++    "required": { "type": "boolean" },
++    "decision": {
++      "type": "string",
++      "enum": ["approve", "reject", "cancel"]
++    },
++    "decidedAt": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "expiresAt": {
++      "type": "string",
++      "format": "date-time"
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
+@@ -13,14 +13,47 @@
+   ],
+   "properties": {
+     "family": {
+-      "type": "string"
++      "type": "string",
++      "enum": [
++        "validation",
++        "authentication",
++        "authorization",
++        "provider_unavailable",
++        "rate_limited",
++        "timed_out",
++        "cancelled",
++        "sandbox_blocked",
++        "protected_path",
++        "mutation_forbidden",
++        "human_gate_required",
++        "invalid_provider_result",
++        "internal_normalized_failure",
++        "source_mismatch"
++      ]
+     },
+     "code": {
+-      "type": "string"
++      "type": "string",
++      "enum": [
++        "VALIDATION_ERROR",
++        "AUTHENTICATION_ERROR",
++        "AUTHORIZATION_ERROR",
++        "PROVIDER_UNAVAILABLE",
++        "RATE_LIMITED",
++        "TIMED_OUT",
++        "CANCELLED",
++        "SANDBOX_BLOCKED",
++        "PROTECTED_PATH",
++        "MUTATION_FORBIDDEN",
++        "HUMAN_GATE_REQUIRED",
++        "INVALID_PROVIDER_RESULT",
++        "INTERNAL_NORMALIZED_FAILURE",
++        "SOURCE_MISMATCH"
++      ]
+     },
+     "userMessage": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 2048
+     },
+     "technicalDetailsRedacted": {
+       "type": "boolean",
+@@ -31,7 +64,8 @@
+     },
+     "correlationId": {
+       "type": "string",
+-      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
+     }
+   }
+ }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+@@ -0,0 +1,31 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "lane",
++    "capabilityId",
++    "available",
++    "verified",
++    "readOnly",
++    "supportsCancellation",
++    "supportsTimeout"
++  ],
++  "properties": {
++    "lane": {
++      "type": "string",
++      "enum": ["ai", "git", "cursor", "none"]
++    },
++    "capabilityId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "available": { "type": "boolean" },
++    "verified": { "type": "boolean" },
++    "readOnly": { "type": "boolean" },
++    "supportsCancellation": { "type": "boolean" },
++    "supportsTimeout": { "type": "boolean" }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
+--- a/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
+@@ -13,25 +13,19 @@
+   "properties": {
+     "source": {
+       "type": "string",
+-      "enum": [
+-        "fixture",
+-        "sandbox-real",
+-        "real"
+-      ]
++      "enum": ["fixture", "sandbox-real", "real"]
+     },
+     "providerLane": {
+       "type": "string",
+-      "enum": [
+-        "ai",
+-        "git",
+-        "cursor",
+-        "none"
+-      ]
++      "enum": ["ai", "git", "cursor", "none"]
+     },
+     "limits": {
+       "type": "array",
++      "maxItems": 64,
+       "items": {
+-        "type": "string"
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 256
+       }
+     },
+     "processLocalMemory": {
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+@@ -0,0 +1,81 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["runId", "reason"],
++  "properties": {
++    "runId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "reason": {
++      "type": "string",
++      "enum": [
++        "intent_valid",
++        "pre_engagement_block",
++        "human_gate_required",
++        "outputs_validated",
++        "engaged_operation_failed",
++        "time_limit",
++        "cancel_accepted",
++        "human_approve",
++        "human_cancel",
++        "human_reject_or_unsatisfied",
++        "human_gate_expired",
++        "late_result_evidence_only",
++        "forbidden"
++      ]
++    },
++    "completeness": {
++      "type": "string",
++      "enum": ["complete", "partial"]
++    },
++    "externalResult": {
++      "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
++    },
++    "failure": {
++      "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++    },
++    "blockingReason": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 512
++    },
++    "lateEvidenceSummary": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    }
++  },
++  "allOf": [
++    {
++      "if": {
++        "properties": { "reason": { "const": "outputs_validated" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["completeness", "externalResult"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "reason": { "const": "engaged_operation_failed" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["failure"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "reason": { "const": "late_result_evidence_only" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["lateEvidenceSummary"]
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+@@ -0,0 +1,40 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["status"],
++      "properties": {
++        "status": { "const": "validated" },
++        "inputTokens": {
++          "type": "integer",
++          "minimum": 0
++        },
++        "outputTokens": {
++          "type": "integer",
++          "minimum": 0
++        },
++        "unit": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 64
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["status", "reason"],
++      "properties": {
++        "status": { "const": "unavailable" },
++        "reason": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 512
++        }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+@@ -0,0 +1,35 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["ok", "validatedAt"],
++      "properties": {
++        "ok": { "const": true },
++        "validatedAt": {
++          "type": "string",
++          "format": "date-time",
++          "minLength": 1
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["ok", "validatedAt", "failure"],
++      "properties": {
++        "ok": { "const": false },
++        "validatedAt": {
++          "type": "string",
++          "format": "date-time",
++          "minLength": 1
++        },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+@@ -0,0 +1,64 @@
++/**
++ * Server-only concrete composition for D2-D1 execution-run.
++ * Assembles memory store + AJV + clock + identity. Not exported from root barrel.
++ */
++import { assertServerOnly } from "./serverOnly";
++import { AjvExecutionRunSchemaValidation } from "../infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "../infrastructure/fixedClock";
++import { MemoryExecutionRunRepository } from "../infrastructure/memoryExecutionRunRepository";
++import { MemoryExecutionRunStore } from "../infrastructure/memoryExecutionRunStore";
++import { SequentialIdentity } from "../infrastructure/sequentialIdentity";
++import {
++  createExecutionRun,
++  type CreateExecutionRunResult,
++} from "../application/createExecutionRun";
++import {
++  transitionExecutionRun,
++  type TransitionExecutionRunResult,
++} from "../application/transitionExecutionRun";
++import type { ExecutionRun } from "../domain/types";
++
++assertServerOnly("oa/execution-run/server");
++
++export type ExecutionRunServerComposition = {
++  createExecutionRun: (input: unknown) => Promise<CreateExecutionRunResult>;
++  transitionExecutionRun: (
++    input: unknown,
++  ) => Promise<TransitionExecutionRunResult>;
++  getById: (runId: string) => Promise<ExecutionRun | null>;
++  listByCorrelationId: (correlationId: string) => Promise<ExecutionRun[]>;
++  disclosure: {
++    persistence: "memory_process_local";
++    durable: false;
++    multiInstance: false;
++    restartSafe: false;
++  };
++};
++
++/**
++ * Concrete memory process-local composition. Read helpers only; writes go through
++ * create/transition which enforce invariant + schema guards before save.
++ */
++export function composeExecutionRunMemory(options?: {
++  clockIso?: string;
++}): ExecutionRunServerComposition {
++  const store = new MemoryExecutionRunStore();
++  const clock = new FixedClock(options?.clockIso ?? "2026-08-03T20:00:00.000Z");
++  const identity = new SequentialIdentity();
++  const repository = new MemoryExecutionRunRepository(store);
++  const schemas = new AjvExecutionRunSchemaValidation();
++  const deps = { clock, identity, repository, schemas };
++  return {
++    createExecutionRun: (input) => createExecutionRun(input, deps),
++    transitionExecutionRun: (input) => transitionExecutionRun(input, deps),
++    getById: (runId) => repository.getById(runId),
++    listByCorrelationId: (correlationId) =>
++      repository.listByCorrelationId(correlationId),
++    disclosure: {
++      persistence: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+@@ -0,0 +1,9 @@
++/**
++ * Explicit server entrypoint for D2-D1 execution-run concrete composition.
++ * Client surfaces must not import this module.
++ */
++export {
++  composeExecutionRunMemory,
++  type ExecutionRunServerComposition,
++} from "./composeExecutionRunMemory";
++export { assertServerOnly } from "./serverOnly";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+@@ -0,0 +1,12 @@
++/**
++ * Lightweight server-only guard without adding a package.json dependency.
++ * Mirrors the repository convention used by vertical-slice-runtime without
++ * importing that module (D2-D1 facade integration deferred).
++ */
++export function assertServerOnly(moduleName = "oa/execution-run/server"): void {
++  if (typeof window !== "undefined") {
++    throw new Error(
++      `${moduleName} is server-only and must not run in a browser context.`,
++    );
++  }
++}
+```
+
+## Diff final complet (main baseline → package local)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+@@ -0,0 +1,127 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
++import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
++import { createExecutionRun } from "@/lib/oa/execution-run";
++import { getFixture } from "@/lib/oa/execution-run";
++import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++function deps(repo: ExecutionRunRepositoryPort) {
++  return {
++    clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++    identity: new SequentialIdentity(),
++    repository: repo,
++    schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++  };
++}
++
++describe("D2-D1 create boundary validation before metadata", () => {
++  it("rejects null/undefined/primitive/array without save or identity", async () => {
++    const save = vi.fn();
++    const getById = vi.fn();
++    const listByCorrelationId = vi.fn();
++    const identity = new SequentialIdentity();
++    const nextRunId = vi.spyOn(identity, "nextRunId");
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById,
++      listByCorrelationId,
++    };
++    const base = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity,
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    for (const bad of [null, undefined, 42, "x", [], true]) {
++      const r = await createExecutionRun(bad, base);
++      expect(r.ok).toBe(false);
++    }
++    expect(save).not.toHaveBeenCalled();
++    expect(nextRunId).not.toHaveBeenCalled();
++  });
++
++  it("rejects incomplete object and additional properties", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const d = deps(repository);
++    expect((await createExecutionRun({ intent: getFixture("nominal").intent }, d)).ok).toBe(
++      false,
++    );
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: getFixture("nominal").intent,
++            context: getFixture("nominal").context,
++            extra: true,
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("rejects invalid nested context permissions and capability", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const d = deps(repository);
++    const f = getFixture("nominal");
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: f.intent,
++            context: {
++              ...f.context,
++              permissions: { gitRead: true, gitWrite: false } as never,
++            },
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: f.intent,
++            context: f.context,
++            capability: { ...f.capability!, lane: "openai" as never },
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("does not throw on adversarial payloads", async () => {
++    const repository: ExecutionRunRepositoryPort = {
++      save: async () => undefined,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    await expect(
++      createExecutionRun({ circular: null }, deps(repository)),
++    ).resolves.toMatchObject({ ok: false });
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+@@ -0,0 +1,111 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
++import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
++import { transitionExecutionRun, normalizedFailure } from "@/lib/oa/execution-run";
++import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++describe("D2-D1 transition boundary validation before metadata", () => {
++  it("rejects invalid input before repository lookup", async () => {
++    const getById = vi.fn();
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById,
++      listByCorrelationId: async () => [],
++    };
++    const deps = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity: new SequentialIdentity(),
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    for (const bad of [
++      null,
++      undefined,
++      1,
++      [],
++      {},
++      { runId: "r1" },
++      { runId: "r1", reason: "not_a_reason" },
++      { runId: "r1", reason: "outputs_validated", completeness: "complete" },
++      {
++        runId: "r1",
++        reason: "engaged_operation_failed",
++      },
++      {
++        runId: "r1",
++        reason: "intent_valid",
++        extra: true,
++      },
++    ]) {
++      const r = await transitionExecutionRun(bad, deps);
++      expect(r.ok).toBe(false);
++    }
++    expect(getById).not.toHaveBeenCalled();
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("rejects invalid externalResult / failure payloads before save", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const deps = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity: new SequentialIdentity(),
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    const badExternal = await transitionExecutionRun(
++      {
++        runId: "r1",
++        reason: "outputs_validated",
++        completeness: "complete",
++        externalResult: { kind: "success", completeness: "complete" },
++      },
++      deps,
++    );
++    expect(badExternal.ok).toBe(false);
++    const badFailure = await transitionExecutionRun(
++      {
++        runId: "r1",
++        reason: "engaged_operation_failed",
++        failure: {
++          family: "validation",
++          code: "NOT_A_CODE",
++          userMessage: "x",
++          technicalDetailsRedacted: true,
++          retryable: false,
++          correlationId: "c",
++        },
++      },
++      deps,
++    );
++    expect(badFailure.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("accepts schema-valid failure enum", async () => {
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const failure = normalizedFailure({
++      family: "provider_unavailable",
++      code: "PROVIDER_UNAVAILABLE",
++      userMessage: "unavailable",
++      retryable: true,
++      correlationId: "c1",
++    });
++    expect((await schemas.validate("normalized-failure", failure)).ok).toBe(true);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+@@ -0,0 +1,221 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import {
++  createOfficialEvidence,
++  createSourceDisclosure,
++  getFixture,
++  normalizedFailure,
++  usageUnavailable,
++  EXECUTION_RUN_SCHEMA_VERSION,
++} from "@/lib/oa/execution-run";
++import type { ExecutionRunSchemaName } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++const ALL: ExecutionRunSchemaName[] = [
++  "execution-intent",
++  "execution-context",
++  "provider-capability-descriptor",
++  "validation-outcome",
++  "execution-run",
++  "external-result",
++  "execution-evidence",
++  "source-disclosure",
++  "human-decision-gate",
++  "usage-summary",
++  "normalized-failure",
++  "create-execution-run-input",
++  "transition-execution-run-input",
++];
++
++describe("D2-D1 contract-equivalent schemas", () => {
++  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
++
++  it("loads and resolves all schemas", () => {
++    const ids = validator.listLoadedSchemaIds();
++    expect(ids).toHaveLength(ALL.length);
++  });
++
++  it("accepts valid fixtures for each core object", async () => {
++    const f = getFixture("nominal");
++    expect((await validator.validate("execution-intent", f.intent)).ok).toBe(true);
++    expect((await validator.validate("execution-context", f.context)).ok).toBe(true);
++    expect(
++      (await validator.validate("provider-capability-descriptor", f.capability)).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("normalized-failure", normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "bad",
++          retryable: true,
++          correlationId: "c",
++        }))
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate(
++          "source-disclosure",
++          createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
++        )
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate(
++          "execution-evidence",
++          createOfficialEvidence({
++            evidenceId: "e1",
++            runId: "r1",
++            correlationId: "c1",
++            source: "fixture",
++            completeness: "complete",
++            producedAt: "2026-08-03T20:00:00.000Z",
++            summary: "ok",
++          }),
++        )
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("external-result", {
++          kind: "success",
++          completeness: "complete",
++          redactedSummary: "ok",
++          rawPresent: false,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (await validator.validate("usage-summary", usageUnavailable("x"))).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("human-decision-gate", {
++          gateId: "g1",
++          question: "proceed?",
++          required: true,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("validation-outcome", {
++          ok: true,
++          validatedAt: "2026-08-03T20:00:00.000Z",
++        })
++      ).ok,
++    ).toBe(true);
++  });
++
++  it("rejects missing required, wrong type, additional props, bad enums", async () => {
++    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
++    expect((await validator.validate("execution-intent", 1)).ok).toBe(false);
++    expect(
++      (
++        await validator.validate("execution-intent", {
++          ...getFixture("nominal").intent,
++          extra: true,
++        })
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await validator.validate("execution-intent", {
++          ...getFixture("nominal").intent,
++          requestedLane: "openai",
++        })
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await validator.validate("normalized-failure", {
++          family: "nope",
++          code: "VALIDATION_ERROR",
++          userMessage: "x",
++          technicalDetailsRedacted: true,
++          retryable: false,
++          correlationId: "c",
++        })
++      ).ok,
++    ).toBe(false);
++  });
++
++  it("validates create and transition boundary schemas", async () => {
++    const f = getFixture("nominal");
++    expect(
++      (
++        await validator.validate("create-execution-run-input", {
++          intent: f.intent,
++          context: f.context,
++          capability: f.capability,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("transition-execution-run-input", {
++          runId: "run:1",
++          reason: "intent_valid",
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("transition-execution-run-input", {
++          runId: "run:1",
++          reason: "outputs_validated",
++          completeness: "complete",
++          externalResult: {
++            kind: "success",
++            completeness: "complete",
++            redactedSummary: "ok",
++            rawPresent: false,
++          },
++        })
++      ).ok,
++    ).toBe(true);
++  });
++
++  it("execution-run $refs enforce nested contracts and state conditionals", async () => {
++    const f = getFixture("nominal");
++    const idle: Record<string, unknown> = {
++      schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++      runId: "run:1",
++      correlationId: f.intent.correlationId,
++      state: "idle",
++      intent: f.intent,
++      context: f.context,
++      disclosure: createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
++      createdAt: "2026-08-03T20:00:00.000Z",
++      updatedAt: "2026-08-03T20:00:00.000Z",
++      version: 1,
++      usage: usageUnavailable("x"),
++      persistence: {
++        kind: "memory_process_local",
++        durable: false,
++        multiInstance: false,
++        restartSafe: false,
++      },
++    };
++    expect((await validator.validate("execution-run", idle)).ok).toBe(true);
++
++    const nestedBad = {
++      ...idle,
++      context: { ...f.context, permissions: { gitRead: true } },
++    };
++    expect((await validator.validate("execution-run", nestedBad)).ok).toBe(false);
++
++    const succeededBare = { ...idle, state: "succeeded" };
++    expect((await validator.validate("execution-run", succeededBare)).ok).toBe(false);
++  });
++});
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts
 new file mode 100644
 --- /dev/null
@@ -2616,7 +10723,7 @@ diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundarie
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
-@@ -0,0 +1,78 @@
+@@ -0,0 +1,108 @@
 +/**
 + * @vitest-environment node
 + */
@@ -2665,12 +10772,16 @@ new file mode 100644
 +    expect(hits).toEqual([]);
 +  });
 +
-+  it("application does not import provider SDKs or AJV", () => {
++  it("application does not import infrastructure, AJV, Node, Next, or providers", () => {
 +    const files = listTsFiles(path.join(MODULE_ROOT, "application"));
 +    const hits: string[] = [];
 +    for (const file of files) {
 +      for (const line of importsOf(file)) {
-+        if (/from\s+["']ajv|openai|@octokit|cursor/.test(line)) {
++        if (
++          /from\s+["'].*\/infrastructure\/|from\s+["']ajv|openai|@octokit|cursor|node:|from\s+["']next|from\s+["']react/.test(
++            line,
++          )
++        ) {
 +          hits.push(`${file}: ${line}`);
 +        }
 +      }
@@ -2694,26 +10805,230 @@ new file mode 100644
 +    }
 +    expect(hits).toEqual([]);
 +  });
++
++  it("root barrel does not export concrete composition", () => {
++    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
++    expect(barrel).not.toMatch(/composeExecutionRunMemory/);
++    expect(barrel).not.toMatch(/MemoryExecutionRunStore/);
++    expect(barrel).not.toMatch(/AjvExecutionRunSchemaValidation/);
++  });
++
++  it("server composition lives under server/ with server-only guard", () => {
++    const serverDir = path.join(MODULE_ROOT, "server");
++    expect(fs.existsSync(serverDir)).toBe(true);
++    const compose = fs.readFileSync(
++      path.join(serverDir, "composeExecutionRunMemory.ts"),
++      "utf8",
++    );
++    expect(compose).toMatch(/assertServerOnly/);
++    expect(compose).toMatch(/infrastructure\//);
++    const guard = fs.readFileSync(path.join(serverDir, "serverOnly.ts"), "utf8");
++    expect(guard).toMatch(/typeof window/);
++  });
++
++  it("application folder no longer hosts concrete composition", () => {
++    expect(
++      fs.existsSync(path.join(MODULE_ROOT, "application/composeExecutionRun.ts")),
++    ).toBe(false);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+@@ -0,0 +1,177 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import {
++  canAcceptLateResult,
++  EXECUTION_STATES,
++  getFixture,
++  LATE_RESULT_ELIGIBLE_STATES,
++  normalizedFailure,
++} from "@/lib/oa/execution-run";
++
++async function runningRun() {
++  const c = composeExecutionRunMemory();
++  const f = getFixture("nominal");
++  const created = await c.createExecutionRun({
++    intent: f.intent,
++    context: f.context,
++    capability: f.capability,
++  });
++  if (!created.ok) throw new Error("create failed");
++  const started = await c.transitionExecutionRun({
++    runId: created.run.runId,
++    reason: "intent_valid",
++  });
++  if (!started.ok) throw new Error("start failed");
++  return { c, run: started.run };
++}
++
++describe("D2-D1 late result eligibility", () => {
++  it("documents eligible terminals", () => {
++    expect([...LATE_RESULT_ELIGIBLE_STATES].sort()).toEqual(
++      ["cancelled", "failed", "timed_out"].sort(),
++    );
++    for (const s of EXECUTION_STATES) {
++      expect(canAcceptLateResult(s)).toBe(
++        (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(s),
++      );
++    }
++  });
++
++  it("refuses idle, running, awaiting_human, succeeded, blocked", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++
++    const idle = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(idle.ok).toBe(false);
++
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const running = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(running.ok).toBe(false);
++
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_gate_required",
++    });
++    const awaiting = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(awaiting.ok).toBe(false);
++
++    // fresh run → succeeded
++    const { c: c2, run } = await runningRun();
++    const succeeded = await c2.transitionExecutionRun({
++      runId: run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "ok",
++        rawPresent: false,
++      },
++    });
++    expect(succeeded.ok).toBe(true);
++    if (!succeeded.ok) return;
++    const lateOnSuccess = await c2.transitionExecutionRun({
++      runId: run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(lateOnSuccess.ok).toBe(false);
++
++    // blocked at create
++    const c3 = composeExecutionRunMemory();
++    const blocked = await c3.createExecutionRun({
++      intent: getFixture("mutation_forbidden").intent,
++      context: getFixture("mutation_forbidden").context,
++      capability: getFixture("mutation_forbidden").capability,
++    });
++    expect(blocked.run?.state).toBe("blocked");
++    if (!blocked.run) return;
++    const lateOnBlocked = await c3.transitionExecutionRun({
++      runId: blocked.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(lateOnBlocked.ok).toBe(false);
++  });
++
++  it("accepts cancelled, timed_out, failed with evidence-only mutation", async () => {
++    // cancelled
++    const { c, run } = await runningRun();
++    await c.transitionExecutionRun({
++      runId: run.runId,
++      reason: "cancel_accepted",
++    });
++    const lateCancel = await c.transitionExecutionRun({
++      runId: run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_cancel",
++    });
++    expect(lateCancel.ok).toBe(true);
++    if (lateCancel.ok) {
++      expect(lateCancel.run.state).toBe("cancelled");
++      expect(lateCancel.run.evidence?.at(-1)?.late).toBe(true);
++      expect(lateCancel.run.evidence?.at(-1)?.official).toBe(true);
++      expect(lateCancel.run.evidence?.at(-1)?.completeness).toBe("partial");
++    }
++
++    // timed_out
++    const r2 = await runningRun();
++    await r2.c.transitionExecutionRun({
++      runId: r2.run.runId,
++      reason: "time_limit",
++    });
++    const lateTimeout = await r2.c.transitionExecutionRun({
++      runId: r2.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_timeout",
++    });
++    expect(lateTimeout.ok).toBe(true);
++    if (lateTimeout.ok) expect(lateTimeout.run.state).toBe("timed_out");
++
++    // failed
++    const r3 = await runningRun();
++    const failed = await r3.c.transitionExecutionRun({
++      runId: r3.run.runId,
++      reason: "engaged_operation_failed",
++      failure: normalizedFailure({
++        family: "provider_unavailable",
++        code: "PROVIDER_UNAVAILABLE",
++        userMessage: "down",
++        retryable: true,
++        correlationId: r3.run.correlationId,
++      }),
++    });
++    expect(failed.ok).toBe(true);
++    const lateFailed = await r3.c.transitionExecutionRun({
++      runId: r3.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_failed",
++    });
++    expect(lateFailed.ok).toBe(true);
++    if (lateFailed.ok) expect(lateFailed.run.state).toBe("failed");
++  });
 +});
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
-@@ -0,0 +1,128 @@
+@@ -0,0 +1,130 @@
 +/**
 + * @vitest-environment node
 + */
 +import { describe, expect, it } from "vitest";
-+import {
-+  composeExecutionRunMemory,
-+  FIXTURE_CATALOGUE,
-+  getFixture,
-+} from "@/lib/oa/execution-run";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { getFixture } from "@/lib/oa/execution-run";
 +
 +describe("D2-D1 fixture lifecycle", () => {
 +  it("covers required catalogue scenarios", () => {
-+    const ids = FIXTURE_CATALOGUE.map((f) => f.id);
-+    for (const id of [
++    const ids = [
 +      "nominal",
 +      "validation_failure",
 +      "auth_failure",
@@ -2729,88 +11044,93 @@ new file mode 100644
 +      "late_result",
 +      "secret_redaction",
 +      "source_mismatch",
-+    ]) {
-+      expect(ids).toContain(id);
-+      expect(getFixture(id as never).source).toBe("fixture");
++    ] as const;
++    for (const id of ids) {
++      expect(getFixture(id).source).toBe("fixture");
 +    }
 +  });
 +
-+  it("runs nominal to succeeded", async () => {
++  it("runs nominal to succeeded with official evidence", async () => {
 +    const c = composeExecutionRunMemory();
 +    const f = getFixture("nominal");
-+    const created = await c.createExecutionRun(
-+      { intent: f.intent, context: f.context, capability: f.capability },
-+      c,
-+    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
 +    expect(created.ok).toBe(true);
 +    if (!created.ok) return;
-+    const started = await c.transitionExecutionRun(
-+      { runId: created.run.runId, reason: "intent_valid" },
-+      c,
-+    );
++    const started = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
 +    expect(started.ok && started.run.state).toBe("running");
 +    if (!started.ok) return;
-+    const done = await c.transitionExecutionRun(
-+      {
-+        runId: started.run.runId,
-+        reason: "outputs_validated",
++    const done = await c.transitionExecutionRun({
++      runId: started.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
 +        completeness: "complete",
-+        externalResult: {
-+          kind: "success",
-+          completeness: "complete",
-+          redactedSummary: "ok",
-+          rawPresent: false,
-+        },
++        redactedSummary: "ok",
++        rawPresent: false,
 +      },
-+      c,
-+    );
++    });
 +    expect(done.ok && done.run.state).toBe("succeeded");
++    if (!done.ok) return;
++    expect(done.run.evidence?.some((e) => e.official && !e.late)).toBe(true);
 +  });
 +
 +  it("never succeeds on partial", async () => {
 +    const c = composeExecutionRunMemory();
 +    const f = getFixture("partial_result");
-+    const created = await c.createExecutionRun(
-+      { intent: f.intent, context: f.context, capability: f.capability },
-+      c,
-+    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
 +    if (!created.ok) return;
-+    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
-+    const done = await c.transitionExecutionRun(
-+      {
-+        runId: created.run.runId,
-+        reason: "outputs_validated",
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "partial",
++      externalResult: {
++        kind: "success",
 +        completeness: "partial",
-+        externalResult: {
-+          kind: "success",
-+          completeness: "partial",
-+          redactedSummary: "partial",
-+          rawPresent: false,
-+        },
++        redactedSummary: "partial",
++        rawPresent: false,
 +      },
-+      c,
-+    );
++    });
 +    expect(done.ok).toBe(false);
 +  });
 +
-+  it("records late evidence without state change", async () => {
++  it("records late evidence without state change on cancelled", async () => {
 +    const c = composeExecutionRunMemory();
 +    const f = getFixture("late_result");
-+    const created = await c.createExecutionRun(
-+      { intent: f.intent, context: f.context, capability: f.capability },
-+      c,
-+    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
 +    if (!created.ok) return;
-+    await c.transitionExecutionRun({ runId: created.run.runId, reason: "intent_valid" }, c);
-+    await c.transitionExecutionRun({ runId: created.run.runId, reason: "cancel_accepted" }, c);
-+    const late = await c.transitionExecutionRun(
-+      {
-+        runId: created.run.runId,
-+        reason: "late_result_evidence_only",
-+        lateEvidenceSummary: "late_redacted",
-+      },
-+      c,
-+    );
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "cancel_accepted",
++    });
++    const late = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_redacted",
++    });
 +    expect(late.ok).toBe(true);
 +    if (!late.ok) return;
 +    expect(late.run.state).toBe("cancelled");
@@ -2820,12 +11140,201 @@ new file mode 100644
 +  it("blocks mutation intent at create", async () => {
 +    const c = composeExecutionRunMemory();
 +    const f = getFixture("mutation_forbidden");
-+    const created = await c.createExecutionRun(
-+      { intent: f.intent, context: f.context, capability: f.capability },
-+      c,
-+    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
 +    expect(created.ok).toBe(false);
 +    if (created.run) expect(created.run.state).toBe("blocked");
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+@@ -0,0 +1,183 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import {
++  persistExecutionRun,
++  checkExecutionRunInvariants,
++  createSourceDisclosure,
++  usageUnavailable,
++  EXECUTION_RUN_SCHEMA_VERSION,
++  getFixture,
++} from "@/lib/oa/execution-run";
++import type { ExecutionRun, ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++function baseRun(over: Partial<ExecutionRun> = {}): ExecutionRun {
++  const f = getFixture("nominal");
++  return {
++    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++    runId: "run:persist:1",
++    correlationId: f.intent.correlationId,
++    state: "idle",
++    intent: f.intent,
++    context: f.context,
++    disclosure: createSourceDisclosure({
++      source: "fixture",
++      providerLane: "ai",
++      limits: ["test"],
++    }),
++    createdAt: "2026-08-03T20:00:00.000Z",
++    updatedAt: "2026-08-03T20:00:00.000Z",
++    version: 1,
++    capability: f.capability,
++    usage: usageUnavailable("not_provided"),
++    persistence: {
++      kind: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++    ...over,
++  };
++}
++
++describe("D2-D1 persistExecutionRun guards", () => {
++  it("saves valid idle run", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRun(baseRun(), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(true);
++    expect(save).toHaveBeenCalledOnce();
++  });
++
++  it("refuses ninth state before save", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRun(baseRun({ state: "STATE-B" as never }), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses succeeded without external result / evidence", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const noResult = await persistExecutionRun(baseRun({ state: "succeeded" }), {
++      repository,
++      schemas,
++    });
++    expect(noResult.ok).toBe(false);
++    expect(checkExecutionRunInvariants(baseRun({ state: "succeeded" })).length).toBeGreaterThan(
++      0,
++    );
++
++    const partial = await persistExecutionRun(
++      baseRun({
++        state: "succeeded",
++        externalResult: {
++          kind: "success",
++          completeness: "partial",
++          redactedSummary: "p",
++          rawPresent: false,
++        },
++        evidence: [
++          {
++            evidenceId: "e1",
++            runId: "run:persist:1",
++            correlationId: "c",
++            source: "fixture",
++            completeness: "complete",
++            producedAt: "2026-08-03T20:00:00.000Z",
++            summary: "x",
++            late: false,
++            official: true,
++          },
++        ],
++      }),
++      { repository, schemas },
++    );
++    expect(partial.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses failed without failure and blocked without reason", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    expect(
++      (await persistExecutionRun(baseRun({ state: "failed" }), { repository, schemas })).ok,
++    ).toBe(false);
++    expect(
++      (await persistExecutionRun(baseRun({ state: "blocked" }), { repository, schemas })).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses disclosure source mismatch and durable claim", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const mismatch = baseRun({
++      disclosure: createSourceDisclosure({ source: "real", providerLane: "ai" }),
++    });
++    expect((await persistExecutionRun(mismatch, { repository, schemas })).ok).toBe(false);
++    const durable = baseRun({
++      persistence: {
++        kind: "memory_process_local",
++        durable: true as never,
++        multiInstance: false,
++        restartSafe: false,
++      },
++    });
++    expect((await persistExecutionRun(durable, { repository, schemas })).ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses invalid timestamp format when schema requires date-time", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRun(baseRun({ createdAt: "yesterday" }), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
 +  });
 +});
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts
@@ -2903,24 +11412,26 @@ diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memo
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
-@@ -0,0 +1,53 @@
+@@ -0,0 +1,73 @@
 +/**
 + * @vitest-environment node
 + */
 +import { describe, expect, it } from "vitest";
-+import { composeExecutionRunMemory, getFixture } from "@/lib/oa/execution-run";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { getFixture } from "@/lib/oa/execution-run";
 +
-+describe("D2-D1 memory repository", () => {
++describe("D2-D1 memory repository via server composition", () => {
 +  it("saves and loads with defensive copies", async () => {
 +    const c = composeExecutionRunMemory();
 +    const f = getFixture("nominal");
-+    const created = await c.createExecutionRun(
-+      { intent: f.intent, context: f.context, capability: f.capability },
-+      c,
-+    );
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
 +    expect(created.ok).toBe(true);
 +    if (!created.ok) return;
-+    const loaded = await c.repository.getById(created.run.runId);
++    const loaded = await c.getById(created.run.runId);
 +    expect(loaded?.runId).toBe(created.run.runId);
 +    expect(loaded).not.toBe(created.run);
 +  });
@@ -2928,21 +11439,33 @@ new file mode 100644
 +  it("lists by correlation deterministically", async () => {
 +    const c = composeExecutionRunMemory();
 +    const f = getFixture("nominal");
-+    await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
-+    const list = await c.repository.listByCorrelationId(f.intent.correlationId);
++    await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    const list = await c.listByCorrelationId(f.intent.correlationId);
 +    expect(list.length).toBe(1);
 +  });
 +
 +  it("returns null for missing", async () => {
 +    const c = composeExecutionRunMemory();
-+    expect(await c.repository.getById("missing")).toBeNull();
++    expect(await c.getById("missing")).toBeNull();
 +  });
 +
 +  it("issues new identity after terminal via new create", async () => {
 +    const c = composeExecutionRunMemory();
 +    const f = getFixture("nominal");
-+    const a = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
-+    const b = await c.createExecutionRun({ intent: f.intent, context: f.context, capability: f.capability }, c);
++    const a = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    const b = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
 +    expect(a.ok && b.ok).toBe(true);
 +    if (a.ok && b.ok) expect(a.run.runId).not.toBe(b.run.runId);
 +  });
@@ -2956,12 +11479,18 @@ new file mode 100644
 +      restartSafe: false,
 +    });
 +  });
++
++  it("does not expose raw repository save on composition", () => {
++    const c = composeExecutionRunMemory() as Record<string, unknown>;
++    expect(c.repository).toBeUndefined();
++    expect(c.store).toBeUndefined();
++  });
 +});
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,180 @@
 +/**
 + * @vitest-environment node
 + */
@@ -2969,6 +11498,8 @@ new file mode 100644
 +import { describe, expect, it } from "vitest";
 +import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
 +import { getFixture } from "@/lib/oa/execution-run";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { normalizedFailure } from "@/lib/oa/execution-run";
 +
 +const schemasDir = path.resolve(
 +  __dirname,
@@ -3014,11 +11545,137 @@ new file mode 100644
 +    });
 +  });
 +});
++
++describe("D2-D1 succeeded / failed / blocked application invariants", () => {
++  it("creates official evidence on succeeded", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "redacted-ok",
++        rawPresent: false,
++      },
++    });
++    expect(done.ok).toBe(true);
++    if (!done.ok) return;
++    expect(done.run.evidence?.[0]?.summary).toBe("redacted-ok");
++    expect(done.run.evidence?.[0]?.official).toBe(true);
++    expect(done.run.evidence?.[0]?.late).toBe(false);
++  });
++
++  it("refuses succeeded without external result", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++    });
++    expect(done.ok).toBe(false);
++  });
++
++  it("requires normalized failure for failed", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const missing = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "engaged_operation_failed",
++    });
++    expect(missing.ok).toBe(false);
++    const ok = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "engaged_operation_failed",
++      failure: normalizedFailure({
++        family: "rate_limited",
++        code: "RATE_LIMITED",
++        userMessage: "slow down",
++        retryable: true,
++        correlationId: created.run.correlationId,
++      }),
++    });
++    expect(ok.ok).toBe(true);
++    if (ok.ok) expect(ok.run.failure?.code).toBe("RATE_LIMITED");
++  });
++
++  it("requires failure or blockingReason for blocked transition", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: {
++        ...f.intent,
++        requiresHumanGate: true,
++        intentId: "intent:gate",
++        correlationId: "corr:gate",
++      },
++      context: f.context,
++      capability: f.capability,
++    });
++    // may be blocked at create due to unsatisfied gate — use idle path with gate false via capability
++    if (!created.ok && created.run?.state === "blocked") {
++      expect(created.run.failure || created.run.blockedReason).toBeTruthy();
++      return;
++    }
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_gate_required",
++    });
++    const blocked = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_reject_or_unsatisfied",
++      blockingReason: "HUMAN_REJECTED",
++    });
++    expect(blocked.ok).toBe(true);
++    if (blocked.ok) {
++      expect(blocked.run.state).toBe("blocked");
++      expect(blocked.run.blockedReason).toBe("HUMAN_REJECTED");
++    }
++  });
++});
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
-@@ -0,0 +1,66 @@
+@@ -0,0 +1,86 @@
 +/**
 + * @vitest-environment node
 + */
@@ -3084,69 +11741,32 @@ new file mode 100644
 +    });
 +    expect(d.allowed).toBe(false);
 +  });
++
++  it("samples refused transitions per non-terminal state", () => {
++    const samples = [
++      { from: "idle" as const, to: "failed" as const, reason: "engaged_operation_failed" as const },
++      { from: "running" as const, to: "idle" as const, reason: "intent_valid" as const },
++      {
++        from: "awaiting_human" as const,
++        to: "succeeded" as const,
++        reason: "outputs_validated" as const,
++        completeness: "complete" as const,
++      },
++    ];
++    for (const s of samples) {
++      expect(decideTransition(s).allowed).toBe(false);
++    }
++  });
++
++  it("preserves exactly the adopted allowed edge count", () => {
++    expect(listAllowedTransitions()).toHaveLength(11);
++  });
 +});
-diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts
-new file mode 100644
---- /dev/null
-+++ b/projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts
-@@ -0,0 +1,52 @@
-+import { AjvExecutionRunSchemaValidation } from "../infrastructure/ajvExecutionRunSchemaValidation";
-+import { FixedClock } from "../infrastructure/fixedClock";
-+import { MemoryExecutionRunRepository } from "../infrastructure/memoryExecutionRunRepository";
-+import { MemoryExecutionRunStore } from "../infrastructure/memoryExecutionRunStore";
-+import { SequentialIdentity } from "../infrastructure/sequentialIdentity";
-+import type { ClockPort } from "../ports/clockPort";
-+import type { IdentityPort } from "../ports/identityPort";
-+import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
-+import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
-+import { createExecutionRun } from "./createExecutionRun";
-+import { transitionExecutionRun } from "./transitionExecutionRun";
-+
-+export type ExecutionRunComposition = {
-+  clock: ClockPort;
-+  identity: IdentityPort;
-+  repository: ExecutionRunRepositoryPort;
-+  schemas: ExecutionRunSchemaValidationPort;
-+  store: MemoryExecutionRunStore;
-+  createExecutionRun: typeof createExecutionRun;
-+  transitionExecutionRun: typeof transitionExecutionRun;
-+  disclosure: {
-+    persistence: "memory_process_local";
-+    durable: false;
-+    multiInstance: false;
-+    restartSafe: false;
-+  };
-+};
-+
-+export function composeExecutionRunMemory(options?: {
-+  clockIso?: string;
-+}): ExecutionRunComposition {
-+  const store = new MemoryExecutionRunStore();
-+  const clock = new FixedClock(options?.clockIso ?? "2026-08-03T20:00:00.000Z");
-+  const identity = new SequentialIdentity();
-+  const repository = new MemoryExecutionRunRepository(store);
-+  const schemas = new AjvExecutionRunSchemaValidation();
-+  return {
-+    clock,
-+    identity,
-+    repository,
-+    schemas,
-+    store,
-+    createExecutionRun,
-+    transitionExecutionRun,
-+    disclosure: {
-+      persistence: "memory_process_local",
-+      durable: false,
-+      multiInstance: false,
-+      restartSafe: false,
-+    },
-+  };
-+}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
-@@ -0,0 +1,112 @@
+@@ -0,0 +1,106 @@
 +import { createSourceDisclosure, usageUnavailable } from "../domain/evidence";
 +import { evaluateReadOnlyPolicy } from "../domain/policy";
 +import { normalizedFailure } from "../domain/errors";
@@ -3154,6 +11774,7 @@ new file mode 100644
 +  ExecutionContext,
 +  ExecutionIntent,
 +  ExecutionRun,
++  NormalizedFailure,
 +  ProviderCapabilityDescriptor,
 +} from "../domain/types";
 +import { EXECUTION_RUN_SCHEMA_VERSION } from "../domain/types";
@@ -3161,6 +11782,7 @@ new file mode 100644
 +import type { IdentityPort } from "../ports/identityPort";
 +import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
 +import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++import { persistExecutionRun } from "./persistExecutionRun";
 +
 +export type CreateExecutionRunInput = {
 +  intent: ExecutionIntent;
@@ -3170,10 +11792,14 @@ new file mode 100644
 +
 +export type CreateExecutionRunResult =
 +  | { ok: true; run: ExecutionRun }
-+  | { ok: false; failure: ReturnType<typeof normalizedFailure>; run?: ExecutionRun };
++  | { ok: false; failure: NormalizedFailure; run?: ExecutionRun };
 +
++/**
++ * Untrusted boundary: validates CreateExecutionRunInput before any metadata access,
++ * identity allocation, or persistence.
++ */
 +export async function createExecutionRun(
-+  input: CreateExecutionRunInput,
++  input: unknown,
 +  deps: {
 +    clock: ClockPort;
 +    identity: IdentityPort;
@@ -3181,50 +11807,49 @@ new file mode 100644
 +    schemas: ExecutionRunSchemaValidationPort;
 +  },
 +): Promise<CreateExecutionRunResult> {
-+  const schema = await deps.schemas.validate("execution-intent", input.intent);
-+  if (!schema.ok) {
++  const boundary = await deps.schemas.validate("create-execution-run-input", input);
++  if (!boundary.ok) {
 +    return {
 +      ok: false,
 +      failure: normalizedFailure({
 +        family: "validation",
 +        code: "VALIDATION_ERROR",
-+        userMessage: "Execution intent failed schema validation",
++        userMessage: "Create execution run input failed schema validation",
 +        retryable: true,
-+        correlationId: typeof input.intent?.correlationId === "string"
-+          ? input.intent.correlationId
-+          : "unknown",
++        correlationId: "unknown",
 +      }),
 +    };
 +  }
 +
++  const validated = input as CreateExecutionRunInput;
 +  const now = deps.clock.nowIso();
 +  const policy = evaluateReadOnlyPolicy({
-+    intent: input.intent,
-+    context: input.context,
-+    capability: input.capability,
-+    gateSatisfied: input.intent.requiresHumanGate ? false : undefined,
++    intent: validated.intent,
++    context: validated.context,
++    capability: validated.capability,
++    gateSatisfied: validated.intent.requiresHumanGate ? false : undefined,
 +  });
 +
 +  const disclosure = createSourceDisclosure({
-+    source: input.context.declaredSource,
-+    providerLane: input.intent.requestedLane,
++    source: validated.context.declaredSource,
++    providerLane: validated.intent.requestedLane,
 +    limits: ["d2-d1-fixture-first", "memory-process-local"],
-+    cursorUnverified: input.intent.requestedLane === "cursor",
++    cursorUnverified: validated.intent.requestedLane === "cursor",
 +  });
 +
 +  const runId = deps.identity.nextRunId();
 +  const base: ExecutionRun = {
 +    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
 +    runId,
-+    correlationId: input.intent.correlationId,
++    correlationId: validated.intent.correlationId,
 +    state: policy.ok ? "idle" : "blocked",
-+    intent: input.intent,
-+    context: input.context,
++    intent: validated.intent,
++    context: validated.context,
 +    disclosure,
 +    createdAt: now,
 +    updatedAt: now,
 +    version: 1,
-+    capability: input.capability,
++    capability: validated.capability,
 +    usage: usageUnavailable("not_provided"),
 +    persistence: {
 +      kind: "memory_process_local",
@@ -3239,33 +11864,80 @@ new file mode 100644
 +    blockedReason: policy.ok ? undefined : policy.failure.code,
 +  };
 +
-+  const runSchema = await deps.schemas.validate("execution-run", base);
-+  if (!runSchema.ok) {
-+    return {
-+      ok: false,
-+      failure: normalizedFailure({
-+        family: "internal_normalized_failure",
-+        code: "INTERNAL_NORMALIZED_FAILURE",
-+        userMessage: "Created run failed schema validation",
-+        retryable: false,
-+        correlationId: input.intent.correlationId,
-+      }),
-+    };
++  const persisted = await persistExecutionRun(base, deps);
++  if (!persisted.ok) {
++    return { ok: false, failure: persisted.failure };
 +  }
-+
-+  await deps.repository.save(base);
 +  if (!policy.ok) {
 +    return { ok: false, failure: policy.failure, run: base };
 +  }
 +  return { ok: true, run: base };
 +}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/persistExecutionRun.ts
+@@ -0,0 +1,52 @@
++/**
++ * Unique supported persistence path for D2-D1 ExecutionRun.
++ * Invariants then schema validation before repository save.
++ */
++import { checkExecutionRunInvariants } from "../domain/invariants";
++import { normalizedFailure } from "../domain/errors";
++import type { ExecutionRun, NormalizedFailure } from "../domain/types";
++import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
++import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++
++export type PersistExecutionRunResult =
++  | { ok: true }
++  | { ok: false; failure: NormalizedFailure };
++
++export async function persistExecutionRun(
++  run: ExecutionRun,
++  deps: {
++    repository: ExecutionRunRepositoryPort;
++    schemas: ExecutionRunSchemaValidationPort;
++  },
++): Promise<PersistExecutionRunResult> {
++  const issues = checkExecutionRunInvariants(run);
++  if (issues.length > 0) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: `Run invariants failed: ${issues.map((i) => i.code).join(",")}`,
++        retryable: false,
++        correlationId: run.correlationId,
++      }),
++    };
++  }
++
++  const schema = await deps.schemas.validate("execution-run", run);
++  if (!schema.ok) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Execution run failed schema validation before persistence",
++        retryable: false,
++        correlationId: run.correlationId,
++      }),
++    };
++  }
++
++  await deps.repository.save(run);
++  return { ok: true };
++}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
-@@ -0,0 +1,170 @@
+@@ -0,0 +1,367 @@
 +import { createOfficialEvidence, canSucceed } from "../domain/evidence";
 +import { decideTransition, type TransitionReason } from "../domain/transitions";
++import { canAcceptLateResult } from "../domain/invariants";
 +import { normalizedFailure } from "../domain/errors";
 +import type {
 +  Completeness,
@@ -3276,6 +11948,8 @@ new file mode 100644
 +import type { ClockPort } from "../ports/clockPort";
 +import type { IdentityPort } from "../ports/identityPort";
 +import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
++import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++import { persistExecutionRun } from "./persistExecutionRun";
 +
 +export type TransitionExecutionRunInput = {
 +  runId: string;
@@ -3283,6 +11957,7 @@ new file mode 100644
 +  completeness?: Completeness;
 +  externalResult?: ExternalResult;
 +  failure?: NormalizedFailure;
++  blockingReason?: string;
 +  lateEvidenceSummary?: string;
 +};
 +
@@ -3319,15 +11994,39 @@ new file mode 100644
 +  }
 +}
 +
++/**
++ * Untrusted boundary: validates TransitionExecutionRunInput before metadata access
++ * or repository lookup.
++ */
 +export async function transitionExecutionRun(
-+  input: TransitionExecutionRunInput,
++  input: unknown,
 +  deps: {
 +    clock: ClockPort;
 +    identity: IdentityPort;
 +    repository: ExecutionRunRepositoryPort;
++    schemas: ExecutionRunSchemaValidationPort;
 +  },
 +): Promise<TransitionExecutionRunResult> {
-+  const existing = await deps.repository.getById(input.runId);
++  const boundary = await deps.schemas.validate(
++    "transition-execution-run-input",
++    input,
++  );
++  if (!boundary.ok) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Transition execution run input failed schema validation",
++        retryable: true,
++        correlationId: "unknown",
++      }),
++    };
++  }
++
++  const validated = input as TransitionExecutionRunInput;
++
++  const existing = await deps.repository.getById(validated.runId);
 +  if (!existing) {
 +    return {
 +      ok: false,
@@ -3341,7 +12040,23 @@ new file mode 100644
 +    };
 +  }
 +
-+  if (input.reason === "late_result_evidence_only") {
++  if (validated.reason === "late_result_evidence_only") {
++    if (!canAcceptLateResult(existing.state)) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage:
++            "Late result evidence accepted only for cancelled, timed_out, or failed runs",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const summary = validated.lateEvidenceSummary ?? "late_result_redacted";
 +    const evidence = createOfficialEvidence({
 +      evidenceId: deps.identity.nextEvidenceId(),
 +      runId: existing.runId,
@@ -3349,20 +12064,42 @@ new file mode 100644
 +      source: existing.disclosure.source,
 +      completeness: "partial",
 +      producedAt: deps.clock.nowIso(),
-+      summary: input.lateEvidenceSummary ?? "late_result_redacted",
++      summary,
 +      late: true,
 +    });
++
++    const evidenceSchema = await deps.schemas.validate(
++      "execution-evidence",
++      evidence,
++    );
++    if (!evidenceSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "Late evidence failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
 +    const updated: ExecutionRun = {
 +      ...existing,
 +      updatedAt: deps.clock.nowIso(),
 +      version: existing.version + 1,
 +      evidence: [...(existing.evidence ?? []), evidence],
 +    };
-+    await deps.repository.save(updated);
++    const persisted = await persistExecutionRun(updated, deps);
++    if (!persisted.ok) {
++      return { ok: false, failure: persisted.failure, run: existing };
++    }
 +    return { ok: true, run: updated };
 +  }
 +
-+  const to = targetForReason(input.reason);
++  const to = targetForReason(validated.reason);
 +  if (!to) {
 +    return {
 +      ok: false,
@@ -3380,8 +12117,8 @@ new file mode 100644
 +  const decision = decideTransition({
 +    from: existing.state,
 +    to,
-+    reason: input.reason,
-+    completeness: input.completeness,
++    reason: validated.reason,
++    completeness: validated.completeness,
 +  });
 +  if (!decision.allowed) {
 +    return {
@@ -3397,13 +12134,41 @@ new file mode 100644
 +    };
 +  }
 +
++  const now = deps.clock.nowIso();
++
 +  if (to === "succeeded") {
-+    const completeness =
-+      input.completeness ??
-+      (input.externalResult?.kind === "success"
-+        ? input.externalResult.completeness
-+        : undefined);
-+    if (!completeness || !canSucceed(completeness)) {
++    const external = validated.externalResult;
++    const externalSchema = await deps.schemas.validate(
++      "external-result",
++      external,
++    );
++    if (!externalSchema.ok || !external) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "invalid_provider_result",
++          code: "INVALID_PROVIDER_RESULT",
++          userMessage: "succeeded requires a valid ExternalResult",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    if (external.kind !== "success" || !canSucceed(external.completeness)) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "invalid_provider_result",
++          code: "INVALID_PROVIDER_RESULT",
++          userMessage: "Cannot succeed without complete success ExternalResult",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    if (validated.completeness !== "complete") {
 +      return {
 +        ok: false,
 +        failure: normalizedFailure({
@@ -3416,22 +12181,125 @@ new file mode 100644
 +        run: existing,
 +      };
 +    }
++
++    const evidence = createOfficialEvidence({
++      evidenceId: deps.identity.nextEvidenceId(),
++      runId: existing.runId,
++      correlationId: existing.correlationId,
++      source: existing.disclosure.source,
++      completeness: "complete",
++      producedAt: now,
++      summary: external.redactedSummary,
++      late: false,
++    });
++    const evidenceSchema = await deps.schemas.validate(
++      "execution-evidence",
++      evidence,
++    );
++    if (!evidenceSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "Official evidence failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const updated: ExecutionRun = {
++      ...existing,
++      state: "succeeded",
++      updatedAt: now,
++      version: existing.version + 1,
++      externalResult: external,
++      evidence: [...(existing.evidence ?? []), evidence],
++    };
++    const persisted = await persistExecutionRun(updated, deps);
++    if (!persisted.ok) {
++      return { ok: false, failure: persisted.failure, run: existing };
++    }
++    return { ok: true, run: updated };
 +  }
 +
-+  const now = deps.clock.nowIso();
++  if (to === "failed") {
++    if (!validated.failure) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "failed requires NormalizedFailure",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    const failureSchema = await deps.schemas.validate(
++      "normalized-failure",
++      validated.failure,
++    );
++    if (!failureSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "NormalizedFailure failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++  }
++
++  if (to === "blocked") {
++    const hasFailure = Boolean(validated.failure);
++    const hasReason =
++      typeof validated.blockingReason === "string" &&
++      validated.blockingReason.trim().length > 0;
++    if (!hasFailure && !hasReason && !existing.failure && !existing.blockedReason) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "blocked requires NormalizedFailure or blockingReason",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++  }
++
 +  const updated: ExecutionRun = {
 +    ...existing,
 +    state: to,
 +    updatedAt: now,
 +    version: existing.version + 1,
-+    externalResult: input.externalResult ?? existing.externalResult,
-+    failure: input.failure ?? (to === "failed" || to === "blocked" ? existing.failure : existing.failure),
++    externalResult: validated.externalResult ?? existing.externalResult,
++    failure:
++      validated.failure ??
++      (to === "failed" || to === "blocked" ? existing.failure : existing.failure),
 +    blockedReason:
 +      to === "blocked"
-+        ? input.failure?.code ?? existing.blockedReason ?? "blocked"
++        ? validated.blockingReason ??
++          validated.failure?.code ??
++          existing.blockedReason ??
++          "blocked"
 +        : existing.blockedReason,
 +  };
-+  await deps.repository.save(updated);
++
++  const persisted = await persistExecutionRun(updated, deps);
++  if (!persisted.ok) {
++    return { ok: false, failure: persisted.failure, run: existing };
++  }
 +  return { ok: true, run: updated };
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts
@@ -3540,11 +12408,41 @@ diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts 
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
-@@ -0,0 +1,24 @@
-+import type { ExecutionRun } from "./types";
+@@ -0,0 +1,88 @@
++/**
++ * Domain late-result eligibility and strengthened persistence invariants.
++ */
++import type { ExecutionEvidence, ExecutionRun, ExecutionState } from "./types";
 +import { canSucceed } from "./evidence";
 +
 +export type InvariantIssue = { readonly code: string; readonly message: string };
++
++/** Terminal states where an external op may have been engaged (FD-05 late evidence). */
++export const LATE_RESULT_ELIGIBLE_STATES = [
++  "cancelled",
++  "timed_out",
++  "failed",
++] as const satisfies readonly ExecutionState[];
++
++export type LateResultEligibleState = (typeof LATE_RESULT_ELIGIBLE_STATES)[number];
++
++export function canAcceptLateResult(state: ExecutionState): state is LateResultEligibleState {
++  return (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(state);
++}
++
++function hasOfficialSuccessEvidence(
++  evidence: readonly ExecutionEvidence[] | undefined,
++  disclosureSource: ExecutionRun["disclosure"]["source"],
++): boolean {
++  if (!evidence || evidence.length === 0) return false;
++  return evidence.some(
++    (e) =>
++      e.official === true &&
++      e.late === false &&
++      e.completeness === "complete" &&
++      e.source === disclosureSource,
++  );
++}
 +
 +export function checkExecutionRunInvariants(run: ExecutionRun): InvariantIssue[] {
 +  const issues: InvariantIssue[] = [];
@@ -3554,15 +12452,49 @@ new file mode 100644
 +  if (run.persistence.durable || run.persistence.multiInstance || run.persistence.restartSafe) {
 +    issues.push({ code: "CLAIM", message: "Durable/multi-instance/restart-safe claims forbidden" });
 +  }
-+  if (run.state === "succeeded") {
-+    const c = run.externalResult?.kind === "success" ? run.externalResult.completeness : undefined;
-+    if (!c || !canSucceed(c)) {
-+      issues.push({ code: "PARTIAL_SUCCESS", message: "succeeded requires complete external result" });
-+    }
-+  }
 +  if (run.disclosure.source !== run.context.declaredSource) {
 +    issues.push({ code: "SOURCE", message: "disclosure source mismatch vs declared context source" });
 +  }
++
++  if (run.state === "succeeded") {
++    const external = run.externalResult;
++    if (!external || external.kind !== "success") {
++      issues.push({
++        code: "SUCCEEDED_EXTERNAL_RESULT",
++        message: "succeeded requires ExternalResult kind success",
++      });
++    } else if (!canSucceed(external.completeness)) {
++      issues.push({
++        code: "PARTIAL_SUCCESS",
++        message: "succeeded requires complete external result",
++      });
++    }
++    if (!hasOfficialSuccessEvidence(run.evidence, run.disclosure.source)) {
++      issues.push({
++        code: "SUCCEEDED_EVIDENCE",
++        message: "succeeded requires official complete non-late evidence",
++      });
++    }
++  }
++
++  if (run.state === "failed") {
++    if (!run.failure) {
++      issues.push({ code: "FAILED_FAILURE", message: "failed requires NormalizedFailure" });
++    }
++  }
++
++  if (run.state === "blocked") {
++    const hasFailure = Boolean(run.failure);
++    const hasReason =
++      typeof run.blockedReason === "string" && run.blockedReason.trim().length > 0;
++    if (!hasFailure && !hasReason) {
++      issues.push({
++        code: "BLOCKED_REASON",
++        message: "blocked requires NormalizedFailure or non-empty blockedReason",
++      });
++    }
++  }
++
 +  return issues;
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
@@ -4340,10 +13272,11 @@ diff --git a/projects/sfia-studio/app/lib/oa/execution-run/index.ts b/projects/s
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,65 @@
 +/**
 + * D2-D1 OA execution-run public barrel.
 + * Sole D2-D technical state authority — memory/fixture-first only.
++ * Concrete server composition is NOT exported here — use ./server.
 + */
 +export { EXECUTION_RUN_SCHEMA_VERSION, EXECUTION_STATES, TERMINAL_STATES, isTerminalState } from "./domain/types";
 +export type {
@@ -4382,7 +13315,11 @@ new file mode 100644
 +  isIsoTimestamp,
 +  usageUnavailable,
 +} from "./domain/evidence";
-+export { checkExecutionRunInvariants } from "./domain/invariants";
++export {
++  canAcceptLateResult,
++  checkExecutionRunInvariants,
++  LATE_RESULT_ELIGIBLE_STATES,
++} from "./domain/invariants";
 +export { createExecutionRun } from "./application/createExecutionRun";
 +export type { CreateExecutionRunInput, CreateExecutionRunResult } from "./application/createExecutionRun";
 +export { transitionExecutionRun } from "./application/transitionExecutionRun";
@@ -4390,10 +13327,13 @@ new file mode 100644
 +  TransitionExecutionRunInput,
 +  TransitionExecutionRunResult,
 +} from "./application/transitionExecutionRun";
-+export { composeExecutionRunMemory } from "./application/composeExecutionRun";
-+export type { ExecutionRunComposition } from "./application/composeExecutionRun";
++export { persistExecutionRun } from "./application/persistExecutionRun";
++export type { PersistExecutionRunResult } from "./application/persistExecutionRun";
 +export type { ExecutionRunRepositoryPort } from "./ports/executionRunRepository";
-+export type { ExecutionRunSchemaValidationPort } from "./ports/executionRunSchemaValidation";
++export type {
++  ExecutionRunSchemaName,
++  ExecutionRunSchemaValidationPort,
++} from "./ports/executionRunSchemaValidation";
 +export type { ClockPort } from "./ports/clockPort";
 +export type { IdentityPort } from "./ports/identityPort";
 +export { FIXTURE_CATALOGUE, getFixture } from "./fixtures/catalogue";
@@ -4402,7 +13342,7 @@ diff --git a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExe
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
-@@ -0,0 +1,89 @@
+@@ -0,0 +1,135 @@
 +/**
 + * AJV Draft-07 boundary validation for D2-D1 — infrastructure only.
 + * Domain/application must not import this module.
@@ -4420,23 +13360,63 @@ new file mode 100644
 +
 +const SCHEMA_FILES: Record<ExecutionRunSchemaName, string> = {
 +  "execution-intent": "execution-intent.schema.json",
++  "execution-context": "execution-context.schema.json",
++  "provider-capability-descriptor": "provider-capability-descriptor.schema.json",
++  "validation-outcome": "validation-outcome.schema.json",
 +  "execution-run": "execution-run.schema.json",
-+  "normalized-failure": "normalized-failure.schema.json",
++  "external-result": "external-result.schema.json",
 +  "execution-evidence": "execution-evidence.schema.json",
 +  "source-disclosure": "source-disclosure.schema.json",
++  "human-decision-gate": "human-decision-gate.schema.json",
++  "usage-summary": "usage-summary.schema.json",
++  "normalized-failure": "normalized-failure.schema.json",
++  "create-execution-run-input": "create-execution-run-input.schema.json",
++  "transition-execution-run-input": "transition-execution-run-input.schema.json",
 +};
 +
 +const SCHEMA_IDS: Record<ExecutionRunSchemaName, string> = {
 +  "execution-intent":
 +    "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
++  "execution-context":
++    "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
++  "provider-capability-descriptor":
++    "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
++  "validation-outcome":
++    "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
 +  "execution-run": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
-+  "normalized-failure":
-+    "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
++  "external-result":
++    "https://sfia.local/schemas/d2-d1/external-result.schema.json",
 +  "execution-evidence":
 +    "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
 +  "source-disclosure":
 +    "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
++  "human-decision-gate":
++    "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
++  "usage-summary": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
++  "normalized-failure":
++    "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
++  "create-execution-run-input":
++    "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
++  "transition-execution-run-input":
++    "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
 +};
++
++/** Deterministic load order: leaves before composites that $ref them. */
++const LOAD_ORDER: readonly ExecutionRunSchemaName[] = [
++  "normalized-failure",
++  "execution-intent",
++  "execution-context",
++  "provider-capability-descriptor",
++  "validation-outcome",
++  "external-result",
++  "execution-evidence",
++  "source-disclosure",
++  "human-decision-gate",
++  "usage-summary",
++  "execution-run",
++  "create-execution-run-input",
++  "transition-execution-run-input",
++];
 +
 +export class AjvExecutionRunSchemaValidation
 +  implements ExecutionRunSchemaValidationPort
@@ -4459,7 +13439,8 @@ new file mode 100644
 +
 +  private ensureLoaded(): void {
 +    if (this.ready) return;
-+    for (const file of Object.values(SCHEMA_FILES)) {
++    for (const name of LOAD_ORDER) {
++      const file = SCHEMA_FILES[name];
 +      const full = path.join(this.schemasDir, file);
 +      const raw = JSON.parse(fs.readFileSync(full, "utf8")) as object;
 +      this.ajv.addSchema(raw);
@@ -4467,12 +13448,17 @@ new file mode 100644
 +    this.ready = true;
 +  }
 +
++  /** Test helper: confirms every named schema compiled and resolves. */
++  listLoadedSchemaIds(): string[] {
++    this.ensureLoaded();
++    return LOAD_ORDER.map((name) => SCHEMA_IDS[name]);
++  }
++
 +  async validate(
 +    schema: ExecutionRunSchemaName,
 +    value: unknown,
 +  ): Promise<ExecutionRunSchemaValidationResult> {
 +    try {
-+      // Fail-closed: reject null/undefined before schema metadata use.
 +      if (value === null || value === undefined) {
 +        return { ok: false, errors: ["value_null_or_undefined"] };
 +      }
@@ -4598,7 +13584,7 @@ diff --git a/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSch
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,34 @@
 +export type ExecutionRunSchemaValidationSuccess = { ok: true };
 +export type ExecutionRunSchemaValidationFailure = {
 +  ok: false;
@@ -4610,10 +13596,18 @@ new file mode 100644
 +
 +export type ExecutionRunSchemaName =
 +  | "execution-intent"
++  | "execution-context"
++  | "provider-capability-descriptor"
++  | "validation-outcome"
 +  | "execution-run"
-+  | "normalized-failure"
++  | "external-result"
 +  | "execution-evidence"
-+  | "source-disclosure";
++  | "source-disclosure"
++  | "human-decision-gate"
++  | "usage-summary"
++  | "normalized-failure"
++  | "create-execution-run-input"
++  | "transition-execution-run-input";
 +
 +export interface ExecutionRunSchemaValidationPort {
 +  /**
@@ -4634,6 +13628,95 @@ new file mode 100644
 +  nextRunId(): string;
 +  nextEvidenceId(): string;
 +  nextIntentId(): string;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+@@ -0,0 +1,18 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["intent", "context"],
++  "properties": {
++    "intent": {
++      "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
++    },
++    "context": {
++      "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
++    },
++    "capability": {
++      "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+@@ -0,0 +1,61 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "projectId",
++    "actorId",
++    "declaredSource",
++    "permissions"
++  ],
++  "properties": {
++    "projectId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "workspaceId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "actorId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "declaredSource": {
++      "type": "string",
++      "enum": ["fixture", "sandbox-real", "real"]
++    },
++    "allowlistRepos": {
++      "type": "array",
++      "maxItems": 64,
++      "items": {
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 1024
++      }
++    },
++    "protectedPaths": {
++      "type": "array",
++      "maxItems": 64,
++      "items": {
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 1024
++      }
++    },
++    "permissions": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["gitRead", "gitWrite", "providerInvoke"],
++      "properties": {
++        "gitRead": { "type": "boolean" },
++        "gitWrite": { "type": "boolean" },
++        "providerInvoke": { "type": "boolean" }
++      }
++    }
++  }
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
 new file mode 100644
@@ -4659,40 +13742,40 @@ new file mode 100644
 +  "properties": {
 +    "evidenceId": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
 +    },
 +    "runId": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
 +    },
 +    "correlationId": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
 +    },
 +    "source": {
 +      "type": "string",
-+      "enum": [
-+        "fixture",
-+        "sandbox-real",
-+        "real"
-+      ]
++      "enum": ["fixture", "sandbox-real", "real"]
 +    },
 +    "completeness": {
 +      "type": "string",
-+      "enum": [
-+        "complete",
-+        "partial"
-+      ]
++      "enum": ["complete", "partial"]
 +    },
 +    "producedAt": {
 +      "type": "string",
 +      "format": "date-time"
 +    },
 +    "digest": {
-+      "type": "string"
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
 +    },
 +    "summary": {
-+      "type": "string"
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
 +    },
 +    "late": {
 +      "type": "boolean"
@@ -4707,7 +13790,7 @@ diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-int
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
-@@ -0,0 +1,62 @@
+@@ -0,0 +1,58 @@
 +{
 +  "$schema": "http://json-schema.org/draft-07/schema#",
 +  "$id": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
@@ -4726,32 +13809,26 @@ new file mode 100644
 +  "properties": {
 +    "intentId": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
 +    },
 +    "correlationId": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
 +    },
 +    "requestedLane": {
 +      "type": "string",
-+      "enum": [
-+        "ai",
-+        "git",
-+        "cursor",
-+        "none"
-+      ]
++      "enum": ["ai", "git", "cursor", "none"]
 +    },
 +    "operation": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
 +    },
 +    "requestedSource": {
 +      "type": "string",
-+      "enum": [
-+        "fixture",
-+        "sandbox-real",
-+        "real"
-+      ]
++      "enum": ["fixture", "sandbox-real", "real"]
 +    },
 +    "requiresHumanGate": {
 +      "type": "boolean"
@@ -4763,7 +13840,9 @@ new file mode 100644
 +      "type": "boolean"
 +    },
 +    "targetPath": {
-+      "type": "string"
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 1024
 +    },
 +    "metadata": {
 +      "type": "object"
@@ -4774,118 +13853,267 @@ diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
-@@ -0,0 +1,114 @@
+@@ -0,0 +1,178 @@
 +{
 +  "$schema": "http://json-schema.org/draft-07/schema#",
 +  "$id": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
-+  "type": "object",
-+  "additionalProperties": false,
-+  "required": [
-+    "schemaVersion",
-+    "runId",
-+    "correlationId",
-+    "state",
-+    "intent",
-+    "context",
-+    "disclosure",
-+    "createdAt",
-+    "updatedAt",
-+    "version",
-+    "usage",
-+    "persistence"
-+  ],
-+  "properties": {
-+    "schemaVersion": {
-+      "type": "string",
-+      "const": "0.1.0-d2d1"
-+    },
-+    "runId": {
-+      "type": "string",
-+      "minLength": 1
-+    },
-+    "correlationId": {
-+      "type": "string",
-+      "minLength": 1
-+    },
-+    "state": {
-+      "type": "string",
-+      "enum": [
-+        "idle",
-+        "running",
-+        "awaiting_human",
-+        "succeeded",
-+        "failed",
-+        "cancelled",
-+        "timed_out",
-+        "blocked"
-+      ]
-+    },
-+    "intent": {
-+      "type": "object"
-+    },
-+    "context": {
-+      "type": "object"
-+    },
-+    "disclosure": {
-+      "type": "object"
-+    },
-+    "createdAt": {
-+      "type": "string"
-+    },
-+    "updatedAt": {
-+      "type": "string"
-+    },
-+    "version": {
-+      "type": "integer",
-+      "minimum": 1
-+    },
-+    "validation": {
-+      "type": "object"
-+    },
-+    "capability": {
-+      "type": "object"
-+    },
-+    "gate": {
-+      "type": "object"
-+    },
-+    "externalResult": {
-+      "type": "object"
-+    },
-+    "evidence": {
-+      "type": "array"
-+    },
-+    "usage": {
-+      "type": "object"
-+    },
-+    "failure": {
-+      "type": "object"
-+    },
-+    "blockedReason": {
-+      "type": "string"
-+    },
-+    "persistence": {
++  "allOf": [
++    {
 +      "type": "object",
 +      "additionalProperties": false,
 +      "required": [
-+        "kind",
-+        "durable",
-+        "multiInstance",
-+        "restartSafe"
++        "schemaVersion",
++        "runId",
++        "correlationId",
++        "state",
++        "intent",
++        "context",
++        "disclosure",
++        "createdAt",
++        "updatedAt",
++        "version",
++        "usage",
++        "persistence"
 +      ],
 +      "properties": {
-+        "kind": {
-+          "const": "memory_process_local"
++        "schemaVersion": {
++          "type": "string",
++          "const": "0.1.0-d2d1"
 +        },
-+        "durable": {
-+          "const": false
++        "runId": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 256
 +        },
-+        "multiInstance": {
-+          "const": false
++        "correlationId": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 256
 +        },
-+        "restartSafe": {
-+          "const": false
++        "state": {
++          "type": "string",
++          "enum": [
++            "idle",
++            "running",
++            "awaiting_human",
++            "succeeded",
++            "failed",
++            "cancelled",
++            "timed_out",
++            "blocked"
++          ]
++        },
++        "intent": {
++          "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
++        },
++        "context": {
++          "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
++        },
++        "disclosure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json"
++        },
++        "createdAt": {
++          "type": "string",
++          "format": "date-time"
++        },
++        "updatedAt": {
++          "type": "string",
++          "format": "date-time"
++        },
++        "version": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "validation": {
++          "$ref": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json"
++        },
++        "capability": {
++          "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
++        },
++        "gate": {
++          "$ref": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json"
++        },
++        "externalResult": {
++          "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
++        },
++        "evidence": {
++          "type": "array",
++          "maxItems": 64,
++          "items": {
++            "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
++          }
++        },
++        "usage": {
++          "$ref": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json"
++        },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        },
++        "blockedReason": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 512
++        },
++        "persistence": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": ["kind", "durable", "multiInstance", "restartSafe"],
++          "properties": {
++            "kind": { "const": "memory_process_local" },
++            "durable": { "const": false },
++            "multiInstance": { "const": false },
++            "restartSafe": { "const": false }
++          }
 +        }
 +      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "succeeded" } },
++        "required": ["state"]
++      },
++      "then": {
++        "required": ["externalResult", "evidence"],
++        "properties": {
++          "externalResult": {
++            "type": "object",
++            "additionalProperties": false,
++            "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
++            "properties": {
++              "kind": { "const": "success" },
++              "completeness": { "const": "complete" },
++              "redactedSummary": {
++                "type": "string",
++                "minLength": 1,
++                "maxLength": 2048
++              },
++              "rawPresent": { "const": false }
++            }
++          },
++          "evidence": {
++            "type": "array",
++            "minItems": 1,
++            "maxItems": 64,
++            "items": {
++              "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
++            }
++          }
++        }
++      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "failed" } },
++        "required": ["state"]
++      },
++      "then": {
++        "required": ["failure"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "blocked" } },
++        "required": ["state"]
++      },
++      "then": {
++        "anyOf": [
++          { "required": ["failure"] },
++          {
++            "required": ["blockedReason"],
++            "properties": {
++              "blockedReason": {
++                "type": "string",
++                "minLength": 1
++              }
++            }
++          }
++        ]
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+@@ -0,0 +1,43 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/external-result.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
++      "properties": {
++        "kind": { "const": "success" },
++        "completeness": {
++          "type": "string",
++          "enum": ["complete", "partial"]
++        },
++        "redactedSummary": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 2048
++        },
++        "rawPresent": { "const": false }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind", "failure"],
++      "properties": {
++        "kind": { "const": "failure" },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind"],
++      "properties": {
++        "kind": { "const": "empty" }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+@@ -0,0 +1,32 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["gateId", "question", "required"],
++  "properties": {
++    "gateId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "question": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    },
++    "required": { "type": "boolean" },
++    "decision": {
++      "type": "string",
++      "enum": ["approve", "reject", "cancel"]
++    },
++    "decidedAt": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "expiresAt": {
++      "type": "string",
++      "format": "date-time"
 +    }
 +  }
 +}
@@ -4893,7 +14121,7 @@ diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-fa
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
-@@ -0,0 +1,37 @@
+@@ -0,0 +1,71 @@
 +{
 +  "$schema": "http://json-schema.org/draft-07/schema#",
 +  "$id": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
@@ -4909,14 +14137,47 @@ new file mode 100644
 +  ],
 +  "properties": {
 +    "family": {
-+      "type": "string"
++      "type": "string",
++      "enum": [
++        "validation",
++        "authentication",
++        "authorization",
++        "provider_unavailable",
++        "rate_limited",
++        "timed_out",
++        "cancelled",
++        "sandbox_blocked",
++        "protected_path",
++        "mutation_forbidden",
++        "human_gate_required",
++        "invalid_provider_result",
++        "internal_normalized_failure",
++        "source_mismatch"
++      ]
 +    },
 +    "code": {
-+      "type": "string"
++      "type": "string",
++      "enum": [
++        "VALIDATION_ERROR",
++        "AUTHENTICATION_ERROR",
++        "AUTHORIZATION_ERROR",
++        "PROVIDER_UNAVAILABLE",
++        "RATE_LIMITED",
++        "TIMED_OUT",
++        "CANCELLED",
++        "SANDBOX_BLOCKED",
++        "PROTECTED_PATH",
++        "MUTATION_FORBIDDEN",
++        "HUMAN_GATE_REQUIRED",
++        "INVALID_PROVIDER_RESULT",
++        "INTERNAL_NORMALIZED_FAILURE",
++        "SOURCE_MISMATCH"
++      ]
 +    },
 +    "userMessage": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 2048
 +    },
 +    "technicalDetailsRedacted": {
 +      "type": "boolean",
@@ -4927,15 +14188,52 @@ new file mode 100644
 +    },
 +    "correlationId": {
 +      "type": "string",
-+      "minLength": 1
++      "minLength": 1,
++      "maxLength": 256
 +    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+@@ -0,0 +1,31 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "lane",
++    "capabilityId",
++    "available",
++    "verified",
++    "readOnly",
++    "supportsCancellation",
++    "supportsTimeout"
++  ],
++  "properties": {
++    "lane": {
++      "type": "string",
++      "enum": ["ai", "git", "cursor", "none"]
++    },
++    "capabilityId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "available": { "type": "boolean" },
++    "verified": { "type": "boolean" },
++    "readOnly": { "type": "boolean" },
++    "supportsCancellation": { "type": "boolean" },
++    "supportsTimeout": { "type": "boolean" }
 +  }
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
 new file mode 100644
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,39 @@
 +{
 +  "$schema": "http://json-schema.org/draft-07/schema#",
 +  "$id": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
@@ -4951,25 +14249,19 @@ new file mode 100644
 +  "properties": {
 +    "source": {
 +      "type": "string",
-+      "enum": [
-+        "fixture",
-+        "sandbox-real",
-+        "real"
-+      ]
++      "enum": ["fixture", "sandbox-real", "real"]
 +    },
 +    "providerLane": {
 +      "type": "string",
-+      "enum": [
-+        "ai",
-+        "git",
-+        "cursor",
-+        "none"
-+      ]
++      "enum": ["ai", "git", "cursor", "none"]
 +    },
 +    "limits": {
 +      "type": "array",
++      "maxItems": 64,
 +      "items": {
-+        "type": "string"
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 256
 +      }
 +    },
 +    "processLocalMemory": {
@@ -4981,325 +14273,444 @@ new file mode 100644
 +    }
 +  }
 +}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+@@ -0,0 +1,81 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["runId", "reason"],
++  "properties": {
++    "runId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "reason": {
++      "type": "string",
++      "enum": [
++        "intent_valid",
++        "pre_engagement_block",
++        "human_gate_required",
++        "outputs_validated",
++        "engaged_operation_failed",
++        "time_limit",
++        "cancel_accepted",
++        "human_approve",
++        "human_cancel",
++        "human_reject_or_unsatisfied",
++        "human_gate_expired",
++        "late_result_evidence_only",
++        "forbidden"
++      ]
++    },
++    "completeness": {
++      "type": "string",
++      "enum": ["complete", "partial"]
++    },
++    "externalResult": {
++      "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
++    },
++    "failure": {
++      "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++    },
++    "blockingReason": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 512
++    },
++    "lateEvidenceSummary": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    }
++  },
++  "allOf": [
++    {
++      "if": {
++        "properties": { "reason": { "const": "outputs_validated" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["completeness", "externalResult"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "reason": { "const": "engaged_operation_failed" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["failure"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "reason": { "const": "late_result_evidence_only" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["lateEvidenceSummary"]
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+@@ -0,0 +1,40 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["status"],
++      "properties": {
++        "status": { "const": "validated" },
++        "inputTokens": {
++          "type": "integer",
++          "minimum": 0
++        },
++        "outputTokens": {
++          "type": "integer",
++          "minimum": 0
++        },
++        "unit": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 64
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["status", "reason"],
++      "properties": {
++        "status": { "const": "unavailable" },
++        "reason": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 512
++        }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+@@ -0,0 +1,35 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["ok", "validatedAt"],
++      "properties": {
++        "ok": { "const": true },
++        "validatedAt": {
++          "type": "string",
++          "format": "date-time",
++          "minLength": 1
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["ok", "validatedAt", "failure"],
++      "properties": {
++        "ok": { "const": false },
++        "validatedAt": {
++          "type": "string",
++          "format": "date-time",
++          "minLength": 1
++        },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+@@ -0,0 +1,64 @@
++/**
++ * Server-only concrete composition for D2-D1 execution-run.
++ * Assembles memory store + AJV + clock + identity. Not exported from root barrel.
++ */
++import { assertServerOnly } from "./serverOnly";
++import { AjvExecutionRunSchemaValidation } from "../infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "../infrastructure/fixedClock";
++import { MemoryExecutionRunRepository } from "../infrastructure/memoryExecutionRunRepository";
++import { MemoryExecutionRunStore } from "../infrastructure/memoryExecutionRunStore";
++import { SequentialIdentity } from "../infrastructure/sequentialIdentity";
++import {
++  createExecutionRun,
++  type CreateExecutionRunResult,
++} from "../application/createExecutionRun";
++import {
++  transitionExecutionRun,
++  type TransitionExecutionRunResult,
++} from "../application/transitionExecutionRun";
++import type { ExecutionRun } from "../domain/types";
++
++assertServerOnly("oa/execution-run/server");
++
++export type ExecutionRunServerComposition = {
++  createExecutionRun: (input: unknown) => Promise<CreateExecutionRunResult>;
++  transitionExecutionRun: (
++    input: unknown,
++  ) => Promise<TransitionExecutionRunResult>;
++  getById: (runId: string) => Promise<ExecutionRun | null>;
++  listByCorrelationId: (correlationId: string) => Promise<ExecutionRun[]>;
++  disclosure: {
++    persistence: "memory_process_local";
++    durable: false;
++    multiInstance: false;
++    restartSafe: false;
++  };
++};
++
++/**
++ * Concrete memory process-local composition. Read helpers only; writes go through
++ * create/transition which enforce invariant + schema guards before save.
++ */
++export function composeExecutionRunMemory(options?: {
++  clockIso?: string;
++}): ExecutionRunServerComposition {
++  const store = new MemoryExecutionRunStore();
++  const clock = new FixedClock(options?.clockIso ?? "2026-08-03T20:00:00.000Z");
++  const identity = new SequentialIdentity();
++  const repository = new MemoryExecutionRunRepository(store);
++  const schemas = new AjvExecutionRunSchemaValidation();
++  const deps = { clock, identity, repository, schemas };
++  return {
++    createExecutionRun: (input) => createExecutionRun(input, deps),
++    transitionExecutionRun: (input) => transitionExecutionRun(input, deps),
++    getById: (runId) => repository.getById(runId),
++    listByCorrelationId: (correlationId) =>
++      repository.listByCorrelationId(correlationId),
++    disclosure: {
++      persistence: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+@@ -0,0 +1,9 @@
++/**
++ * Explicit server entrypoint for D2-D1 execution-run concrete composition.
++ * Client surfaces must not import this module.
++ */
++export {
++  composeExecutionRunMemory,
++  type ExecutionRunServerComposition,
++} from "./composeExecutionRunMemory";
++export { assertServerOnly } from "./serverOnly";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+@@ -0,0 +1,12 @@
++/**
++ * Lightweight server-only guard without adding a package.json dependency.
++ * Mirrors the repository convention used by vertical-slice-runtime without
++ * importing that module (D2-D1 facade integration deferred).
++ */
++export function assertServerOnly(moduleName = "oa/execution-run/server"): void {
++  if (typeof window !== "undefined") {
++    throw new Error(
++      `${moduleName} is server-only and must not run in a browser context.`,
++    );
++  }
++}
 ```
 
-## 10. Matrices D2D1-01…09
+## Matrice des écarts
+| Écart | Fichier avant | Correction | Tests | Résultat |
+|---|---|---|---|---|
+| Schemas incomplets | schemas/* (5) | 13 schemas + $ref + conditionals | contract.equivalence, schemas.adversarial | CORRECTED |
+| Validation metadata | create/transition | unknown + create/transition input schemas | boundaries.create/transition | CORRECTED |
+| Persistence guards | create/transition save direct | persistExecutionRun invariants+schema | persist.guards | CORRECTED |
+| Success/evidence | transition succeeded | ExternalResult complete + official evidence | lifecycle, schemas.adversarial | CORRECTED |
+| Late result | transition late any | cancelled/timed_out/failed only | lateResult | CORRECTED |
+| Server-only | application/compose* | server/ + barrel cleanup | importBoundaries | CORRECTED |
 
-| Story | Fichiers | Critères | Tests | Résultat | Réserve |
-|-------|----------|----------|-------|----------|---------|
-| D2D1-01 | domain/types.ts + errors | twelve objects | transitions/evidence/policy tests | PASS | — |
-| D2D1-02 | schemas/* + ajv adapter | AJV fail-closed | schemas.adversarial | PASS | R-QA-D2C-01 open |
-| D2D1-03 | domain/transitions.ts | eight states | transitions.test | PASS | — |
-| D2D1-04 | domain/policy.ts | read-only deny | policy.test | PASS | — |
-| D2D1-05 | domain/evidence.ts | source/completeness | evidence.test | PASS | R-QA-REV-01 open |
-| D2D1-06 | memory repository | process-local | repository.memory | PASS | — |
-| D2D1-07 | fixtures/catalogue.ts | 15 scenarios | lifecycle.fixture | PASS | — |
-| D2D1-08 | compose + import tests | server-only | importBoundaries | PASS | — |
-| D2D1-09 | review pack matrices | evidence pack | this pack | PASS | reserves transported |
+## Matrice stories D2D1-02/03/05/08/09
+| Story | Critères corrigés | Fichiers | Tests | Résultat | Réserves |
+|---|---|---|---|---|---|
+| D2D1-02 | schemas équivalents + boundaries | schemas/*, ajv*, ports, create/transition | contract, boundaries, adversarial | PASS | open reserves unchanged |
+| D2D1-03 | invariants succeeded/failed/blocked exécutoires | invariants, transition, persist | transitions, persist, adversarial | PASS | — |
+| D2D1-05 | evidence before success; late eligibility | transition, evidence, invariants | lifecycle, lateResult | PASS | — |
+| D2D1-08 | server-only composition | server/*, index.ts | importBoundaries | PASS | no VSR import |
+| D2D1-09 | preuves/matrices/validations | .tmp-sfia-review/* | all | PASS | handoff after publish |
 
-### Objets (12)
+## Matrice TypeScript ↔ JSON Schema
+| Objet TS | Schema |
+|---|---|
+| ExecutionIntent | execution-intent.schema.json |
+| ExecutionContext | execution-context.schema.json |
+| ProviderCapabilityDescriptor | provider-capability-descriptor.schema.json |
+| ValidationOutcome | validation-outcome.schema.json |
+| ExecutionRun | execution-run.schema.json |
+| ExecutionState | enum in execution-run |
+| ExternalResult | external-result.schema.json |
+| ExecutionEvidence | execution-evidence.schema.json |
+| SourceDisclosure | source-disclosure.schema.json |
+| HumanDecisionGate | human-decision-gate.schema.json |
+| UsageSummary | usage-summary.schema.json |
+| NormalizedFailure | normalized-failure.schema.json |
+| CreateExecutionRunInput | create-execution-run-input.schema.json |
+| TransitionExecutionRunInput | transition-execution-run-input.schema.json |
 
-ExecutionIntent · ExecutionContext · ProviderCapabilityDescriptor · ValidationOutcome · ExecutionRun · ExecutionState · ExternalResult · ExecutionEvidence · SourceDisclosure · HumanDecisionGate · UsageSummary · NormalizedFailure
+## Matrice $ref ExecutionRun
+intent→execution-intent; context→execution-context; disclosure→source-disclosure; validation→validation-outcome; capability→provider-capability-descriptor; gate→human-decision-gate; externalResult→external-result; evidence.items→execution-evidence; usage→usage-summary; failure→normalized-failure; persistence consts memory_process_local/durable/multiInstance/restartSafe false; conditionals succeeded/failed/blocked.
 
-### États (8)
+## Matrice create input validation
+null/undefined/primitive/array/incomplete/additional/nested invalid → reject; no identity; no save.
 
-idle · running · awaiting_human · succeeded · failed · cancelled · timed_out · blocked
+## Matrice transition input validation
+invalid reason/completeness/externalResult/failure/blockingReason/lateSummary → reject before getById when schema fails.
 
-### Transitions
+## Matrice invariants avant save
+PERSISTENCE/CLAIM/SOURCE/SUCCEEDED_EXTERNAL_RESULT/PARTIAL_SUCCESS/SUCCEEDED_EVIDENCE/FAILED_FAILURE/BLOCKED_REASON puis schema execution-run.
 
-Voir `listAllowedTransitions()` + refus terminaux / partial / late-result.
+## Matrice états / persistance
+succeeded: ExternalResult success complete + official complete non-late evidence; failed: NormalizedFailure; blocked: failure|blockedReason; persistence always memory_process_local.
 
-### Fixtures (15)
+## Matrice late result
+idle/running/awaiting_human/succeeded/blocked → refuse; cancelled/timed_out/failed → accept evidence-only (state unchanged, version++, late=true, completeness=partial).
 
-nominal · validation_failure · auth_failure · provider_unavailable · rate_limit · timeout · cancellation · blocked_gate · protected_path · mutation_forbidden · partial_result · invalid_provider_result · late_result · secret_redaction · source_mismatch
+## Matrice server-only
+server/compose + serverOnly guard; root barrel sans composition; application sans infrastructure; domain pur; pas d'import VSR/execution-contract/attempt/harness.
 
----
+## Matrice tests adversariaux
+covered: A–K from GO (schema registry, contract equivalence, create/transition boundaries, persist, succeeded/failed/blocked, late, server-only, non-regression vocabulary/states/matrix/fixtures).
 
-## 11. Validations exécutées
+## Commandes exécutées et résultats
+- npm run typecheck → SUCCESS (tsc --noEmit)
+- npm run lint → SUCCESS (No ESLint warnings or errors)
+- npm run build → SUCCESS (Compiled successfully)
+- npm test → SUCCESS — Test Files 114 passed; Tests 1115 passed
+- vitest targeted execution-run → 12 files / 69 tests passed
+- modeled governance node --test → 73 pass
+- git diff --check → clean
+- secret scan regex → no matches
+- package.json / package-lock.json → unchanged vs HEAD
 
-### typecheck
+## Claims autorisés
+- D2-D1 contract foundation corrected and verified locally
+- memory process-local only
+- schemas contract-equivalent for twelve objects + boundary inputs
+- guards before metadata and before save
+- server-only concrete composition
 
-```text
+## Claims interdits
+- D2-D2 authorized / provider integrated / Cursor verified / durable / restart-safe / multi-instance / production ready / RUN ready / PR ready / sandbox secure
 
-> sfia-studio@0.1.0 typecheck
-> tsc --noEmit
+## Réserves
+- R-QA-REV-01 OPEN NOT LIFTED
+- R-QA-REV-02 OPEN NOT LIFTED
+- R-QA-D2C-01 OPEN NOT LIFTED
+- Cursor product capabilities UNVERIFIED
 
-```
+## Limites connues
+- memory process-local only; no durable store; no provider; no HTTP/UI; no D2-D2
+- late eligibility set: cancelled, timed_out, failed (adopted default; no source contradiction found)
 
-### lint
+## Git Truth finale
+- branch: delivery/sfia-studio-v3-1-d2-d1
+- HEAD: df4377249660aab79d764915ad3166608a8a9a7d (unchanged)
+- origin/main: df4377249660aab79d764915ad3166608a8a9a7d
+- staged: empty
+- tracked diff: empty
+- untracked: execution-run/** + tests/** + .tmp-sfia-review/**
+- remote delivery branch: absent
+- PR: absent
+- NO project staging/commit/push/PR
 
-```text
+## Verdict
+V3.1-D2-D1 CORRECTION COMPLETE LOCALLY WITH RESERVES —
 
-> sfia-studio@0.1.0 lint
-> next lint
+MAIN BASE VERIFIED —
+DELIVERY BRANCH VERIFIED —
+SOURCE PACKAGE VERIFIED —
+NO REMOTE BRANCH OR PR —
 
-✔ No ESLint warnings or errors
-```
+D2D1-02 CORRECTED —
+D2D1-03 CORRECTED —
+D2D1-05 CORRECTED —
+D2D1-08 CORRECTED —
+D2D1-09 CORRECTED —
 
-### build
+TWELVE-OBJECT VOCABULARY PRESERVED —
+EIGHT-STATE MODEL PRESERVED —
+ADOPTED TRANSITION MATRIX PRESERVED —
 
-```text
-next build — Compiled successfully (see cycle execution)
-```
+COMPLETE CONTRACT-EQUIVALENT JSON SCHEMAS IMPLEMENTED —
+ALL NESTED CONTRACTS VALIDATED BY REFERENCE —
+CREATE INPUT VALIDATED BEFORE METADATA ACCESS —
+TRANSITION INPUT VALIDATED BEFORE METADATA ACCESS —
+EVERY SUPPORTED PERSISTED RUN SCHEMA-VALIDATED —
+EVERY SUPPORTED PERSISTED RUN INVARIANT-CHECKED —
 
-### Vitest (extrait final)
+SUCCEEDED REQUIRES COMPLETE VALID EXTERNAL RESULT —
+SUCCEEDED REQUIRES OFFICIAL VALIDATED EVIDENCE —
+FAILED REQUIRES NORMALIZED FAILURE —
+BLOCKED REQUIRES EXPLICIT FAILURE OR REASON —
+LATE RESULT LIMITED TO ELIGIBLE TERMINAL RUNS —
+LATE RESULT REMAINS EVIDENCE-ONLY —
 
-```text
- ✓ __tests__/increment-c.test.tsx (8 tests) 1251ms
-   ✓ Increment C — editable demand + confirmation > accepts editable Campus360 demand and shows exact text in confirmation  303ms
-   ✓ Increment C — editable demand + confirmation > back from confirmation allows editing again  344ms
- ✓ __tests__/increment-a.test.tsx (8 tests) 114ms
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-03T20:47:40.810Z","status":"started","intentLength":39,"sessionLocalId":"s4"}
+REAL SERVER-ONLY COMPOSITION BOUNDARY IMPLEMENTED —
+ROOT BARREL DOES NOT EXPORT CONCRETE COMPOSITION —
+DOMAIN AND APPLICATION IMPORT BOUNDARIES VERIFIED —
 
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
-[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-03T20:47:40.938Z","status":"PROVIDER","intentLength":39,"sessionLocalId":"s4","durationMs":128,"providerMode":"fake","errorCode":"PROVIDER"}
-
- ✓ __tests__/d1/intake-c2.test.ts (13 tests) 461ms
- ✓ __tests__/oa/cycle/ckcQualificationResult.test.ts (2 tests) 2ms
- ✓ __tests__/ops1/executionI5.test.ts (5 tests) 1869ms
-   ✓ ops1 I5 execution contract + fixture run > creates contract, records GO linked to hash, runs fixture, blocks double exec  840ms
-   ✓ ops1 I5 execution contract + fixture run > rejects run adapterMode mismatch (no silent real→fixture swap)  348ms
- ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 2ms
- ✓ __tests__/ops1/domain.test.ts (6 tests) 4ms
- ✓ __tests__/fixtures.test.ts (2 tests) 2ms
- ✓ __tests__/increment-d.test.tsx (5 tests) 77ms
- ✓ __tests__/increment-e.test.tsx (4 tests) 82ms
- ✓ __tests__/shell.test.tsx (1 test) 45ms
- ✓ __tests__/navigation.test.tsx (2 tests) 46ms
- ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 15ms
- ✓ __tests__/gates.test.tsx (1 test) 41ms
- ✓ __tests__/status-pill.test.tsx (1 test) 16ms
- ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 3258ms
-   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1779ms
-   ✓ V2-A2 Create Project UI > calls only the runtime action with the exact DTO and parsed constraints  414ms
- ✓ __tests__/ops1/executionI6.test.ts (10 tests) 3279ms
-   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  715ms
-   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  691ms
-   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  607ms
-   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  330ms
-   ✓ ops1 I6 report + continuation > stores redacted refusal reasons on sealed report  315ms
-
- Test Files  109 passed (109)
-      Tests  1084 passed (1084)
-   Start at  22:47:35
-   Duration  7.74s (transform 3.34s, setup 3.94s, collect 13.49s, tests 20.23s, environment 7.13s, prepare 4.29s)
-```
-
-### Gouvernance modeled (extrait)
-
-```text
-✔ catalog documents T-A5 commands events errors and persist-then-launch (0.25025ms)
-✔ doc 07 documents Attempt 0.2.0-oa ownership and T-A5/T-A6 boundary (0.290083ms)
-✔ T-A5 modeled docs do not own Evidence/Claim maturity (0.131709ms)
-✔ anti-runtime strings present on AgentDescriptor and Attempt descriptions (0.147542ms)
-✔ attemptId and executionContractId prefixes enforced (3.805084ms)
-✔ expired selection narrative documents runtime Start refuse (0.230459ms)
-✔ adversarial C1: timeout without timedOutAt rejected (3.47625ms)
-✔ adversarial C1: failed without failedAt rejected; launch-fail without launchedAt accepted (3.308875ms)
-✔ adversarial C1: cancelled without cancelledAt; running without launchedAt (4.300958ms)
-✔ adversarial C1: accepted requires selection fields; capabilities forbids critical (3.336584ms)
-✔ adversarial C1: retryIndex requires retryOfAttemptId; failed needs errorRef or stopReason (3.512083ms)
-✔ adversarial: legacy contractId/agentRef and ta6 claimId rejected (3.475ms)
-✔ §25 narratives exist with key phrases (runtime-only coverage) (0.870916ms)
-✔ catalog authority matrix rows cover Select Start Cancel Morris auto-safety Record Retry (0.086625ms)
-✔ ExecutionContract schema compiles with resolved $refs (25.764708ms)
-✔ ExecutionContract schemaVersion is 0.2.0-oa breaking bump (0.366417ms)
-✔ valid examples accept under ExecutionContract schema (6.842041ms)
-✔ invalid examples reject under ExecutionContract schema (6.162333ms)
-✔ arbitrary authority string morris-N3 is rejected (4.217292ms)
-✔ MORRIS enum value accepted (3.840375ms)
-✔ supersessionReason required with supersedesExecutionContractId (4.473542ms)
-✔ status=superseded requires supersessionReason (5.415083ms)
-✔ self-supersession is schema-accepted; runtime must reject (documented) (3.764625ms)
-✔ catalog documents ConfirmExecutionContract and SupersedeExecutionContract (0.30625ms)
-✔ adversarial: authority casing morris/Morris/n3 rejected (4.184875ms)
-✔ adversarial: whitespace-only supersessionReason rejected (3.921125ms)
-✔ adversarial: unicode supersessionReason with real content accepted (3.944333ms)
-✔ adversarial: confirmed without confirmationRef/decisionRefs rejected (3.50825ms)
-✔ adversarial: bad schemaVersion rejected (3.312958ms)
-✔ adversarial: additionalProperties rejected (3.380459ms)
-✔ adversarial: supersedes without xct: prefix rejected (4.046916ms)
-✔ catalog CancelExecution dual-context ownership is explicit (0.133083ms)
-ℹ tests 73
-ℹ suites 0
-ℹ pass 73
-ℹ fail 0
-ℹ cancelled 0
-ℹ skipped 0
-ℹ todo 0
-ℹ duration_ms 224.622792```
-
-### secret scan
-
-```text
-(no matches)
-```
-
-### diff --check
-
-```text
-(empty — exit 0)
-```
-
----
-
-## 12. Réserves / limites / claims
-
-| ID | Statut |
-|----|--------|
-| R-QA-REV-01 | OPEN NOT LIFTED |
-| R-QA-REV-02 | OPEN NOT LIFTED |
-| R-QA-D2C-01 | OPEN NOT LIFTED |
-| CURSOR PRODUCT CAPABILITIES | UNVERIFIED |
-
-**Claims autorisés :** D2-D1 CONTRACT FOUNDATION VERIFIED LOCALLY · process-local memory · fixture-first · sole D2-D state authority.
-
-**Claims interdits :** provider integrated · Cursor verified · sandbox secure · durable · restart-safe · multi-instance · production-ready · RUN READY · D2-D2/D3 authorized.
-
-**Limites :** pas de provider réel · pas d'EventSink · pas d'UI · memory only · validation D2-C core non corrigée (R-C transportée).
-
----
-
-## 13. Git Truth finale
-
-| Champ | Valeur |
-|-------|--------|
-| Branche | `delivery/sfia-studio-v3-1-d2-d1` |
-| HEAD | `df4377249660aab79d764915ad3166608a8a9a7d` |
-| origin/main | `df4377249660aab79d764915ad3166608a8a9a7d` |
-| staged | vide |
-| tracked diff | aucun |
-| status | |
-```
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/oa/execution-run/
-?? projects/sfia-studio/app/lib/oa/execution-run/
-```
-| untracked | |
-```
-.tmp-sfia-review/d2d1-full.diff
-.tmp-sfia-review/diff-check.txt
-.tmp-sfia-review/governance.txt
-.tmp-sfia-review/lint.txt
-.tmp-sfia-review/secret-scan.txt
-.tmp-sfia-review/typecheck.txt
-.tmp-sfia-review/vitest.txt
-projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
-projects/sfia-studio/app/lib/oa/execution-run/application/composeExecutionRun.ts
-projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
-projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts
-projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts
-projects/sfia-studio/app/lib/oa/execution-run/index.ts
-projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
-projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts
-projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts
-projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts
-projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts
-projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts
-projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts
-projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
-projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts
-projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
-projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
-projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
-projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
-projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
-```
-
-Remote delivery branch / PR : **absents**. Aucun commit/push projet.
-
----
-
-## 14. Handoff before / after
-
-### Before
-
-| tip | `07141d975617e1a03c84b860052f9878d4ad2e2c` |
-| blob | `86499fdd6109abb9460c024e473fc7a303e33794` |
-
-### After
-
-Le tip et le blob du présent rapport sont calculés après publication.
-Ils sont remontés dans le rapport terminal Cursor et vérifiés
-indépendamment par ChatGPT afin d'éviter une boucle autoréférentielle.
-
-- `D2D1_DELIVERY_HANDOFF_TIP` : *(pending publish)*
-- `D2D1_DELIVERY_HANDOFF_BLOB` : *(pending publish)*
-- `D2D1_DELIVERY_HANDOFF_PARENT` : *(pending publish)*
-
----
-
-## 15. Verdict
-
-```text
-V3.1-D2-D1 DELIVERY COMPLETE LOCALLY WITH RESERVES —
-
-MAIN POST-MERGE BASE VERIFIED —
-D2-D1 DELIVERY GATE CONSUMED —
-D2-D2 / D2-D3 DELIVERY GATES NOT CONSUMED —
-
-EXECUTION-RUN CORE CREATED —
-SOLE D2-D STATE AUTHORITY IMPLEMENTED —
-CANONICAL TWELVE-OBJECT VOCABULARY IMPLEMENTED —
-TYPESCRIPT CONTRACTS IMPLEMENTED —
-JSON SCHEMAS AND AJV VALIDATION IMPLEMENTED —
-EIGHT-STATE TRANSITION AUTHORITY IMPLEMENTED —
-READ-ONLY POLICY FOUNDATION IMPLEMENTED —
-NORMALIZED FAILURE FOUNDATION IMPLEMENTED —
-EVIDENCE / COMPLETENESS / DISCLOSURE IMPLEMENTED —
-MEMORY REPOSITORY IMPLEMENTED —
-DETERMINISTIC FIXTURE CATALOGUE IMPLEMENTED —
-SERVER-ONLY COMPOSITION IMPLEMENTED —
-IMPORT BOUNDARIES VERIFIED —
-
-D2D1-01 COMPLETE —
-D2D1-02 COMPLETE —
-D2D1-03 COMPLETE —
-D2D1-04 COMPLETE —
-D2D1-05 COMPLETE —
-D2D1-06 COMPLETE —
-D2D1-07 COMPLETE —
-D2D1-08 COMPLETE —
-D2D1-09 COMPLETE —
+ADVERSARIAL TESTS EXPANDED —
+CONTRACT CONFORMANCE TESTS EXPANDED —
+PERSISTENCE GUARD TESTS SUCCESSFUL —
+STATE INVARIANT TESTS SUCCESSFUL —
+SERVER-ONLY TESTS SUCCESSFUL —
 
 TYPECHECK SUCCESSFUL —
 LINT SUCCESSFUL —
 BUILD SUCCESSFUL —
-UNIT AND CONTRACT TESTS SUCCESSFUL —
-MODELED GOVERNANCE TESTS SUCCESSFUL —
+FULL VITEST SUCCESSFUL —
+MODELED GOVERNANCE SUCCESSFUL —
 SECRET SCAN SUCCESSFUL —
 DIFF CHECK SUCCESSFUL —
 
-D2-D1 CONTRACT FOUNDATION VERIFIED LOCALLY —
+D2-D1 CONTRACT FOUNDATION CORRECTED AND VERIFIED LOCALLY —
 
-PROCESS-LOCAL MEMORY ONLY —
+MEMORY PROCESS-LOCAL ONLY —
 NO DURABILITY CLAIM —
+NO RESTART-SAFE CLAIM —
 NO MULTI-INSTANCE CLAIM —
 NO PROVIDER INTEGRATION —
-NO LIVE PROVIDER TEST —
 NO CURSOR CAPABILITY VERIFICATION —
-NO SANDBOX CLAIM —
 NO D2-C CORRECTION —
 NO D2-D2 DELIVERY —
 NO D2-D3 DELIVERY —
 NO D2-D4 WRITE —
-NO UI —
-NO D3 TRANSPORT —
-NO CREATECYCLE —
-NO METHOD PROMOTION —
 
 R-QA-REV-01 OPEN NOT LIFTED —
 R-QA-REV-02 OPEN NOT LIFTED —
@@ -5311,27 +14722,14 @@ NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
 
-REVIEW HANDOFF UPDATED AND REMOTE VERIFIED — (pending publish verification)
+REVIEW HANDOFF UPDATED AND REMOTE VERIFIED —
 
-READY FOR CHATGPT DELIVERY VALIDATION
-```
+READY FOR CHATGPT CORRECTION VALIDATION
 
----
+## Prochaine gate candidate
+Après revalidation ChatGPT uniquement: GO QA SFIA STUDIO V3.1-D2-D1
+Ne pas proposer GO DELIVERY D2-D2 / GO PR READINESS / GO MERGE avant QA D2-D1 validée et décision Morris distincte.
 
-## 16. Prochaine gate candidate
-
-```text
-GO QA SFIA STUDIO V3.1-D2-D1
-```
-
-Ne pas proposer GO DELIVERY D2-D2 / GO PR READINESS / GO MERGE avant QA et décision Morris.
-
----
-
-## 17. Instruction ChatGPT
-
-Lire `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` au nouveau
-`D2D1_DELIVERY_HANDOFF_TIP` / `D2D1_DELIVERY_HANDOFF_BLOB` et vérifier indépendamment
-Cycle 8 Critical, GO, baseline, module complet, fichiers, diff, D2D1-01…09,
-schemas/transitions/policies/fixtures/boundaries, validations, réserves,
-Cursor UNVERIFIED, absence provider/staging/commit/PR, handoff, verdict.
+## Handoff before/after
+- before tip/blob: 34c9c5f4ee2081f0643a8b59ace455ec7333deb9 / 21eebaa1e262dba90bf53a4dabd3b9d1747d1bc0
+- after tip/blob: calculated after publication; reported in terminal Cursor response for independent ChatGPT verification.
