@@ -268,7 +268,7 @@ Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-
 | **Réversibilité** | Moyenne |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-B (après A) |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #301 — POST-MERGE VALIDATED — R-QA-REV-01/02 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -299,7 +299,7 @@ Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-
 | **Réversibilité** | Moyenne |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #301 — POST-MERGE VALIDATED — R-QA-REV-01/02 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -330,7 +330,7 @@ Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-
 | **Réversibilité** | Moyenne |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #301 — POST-MERGE VALIDATED — R-QA-REV-01/02 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -363,7 +363,7 @@ Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-
 | **Réversibilité** | Haute |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #301 — POST-MERGE VALIDATED — R-QA-REV-01/02 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -394,7 +394,7 @@ Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-
 | **Réversibilité** | Haute |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #301 — POST-MERGE VALIDATED — R-QA-REV-01/02 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -426,7 +426,7 @@ Objectif : résoudre CKC Core depuis mapping validé ; statut D2 + projection T-
 | **Réversibilité** | Moyenne |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-B |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #301 — POST-MERGE VALIDATED — R-QA-REV-01/02 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -1005,3 +1005,41 @@ des dix-sept stories.
 | Commit / push / PR du présent cycle post-merge final | **non exécutés** |
 
 **Statut :** `D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — POST-MERGE AND DELIVERY BRANCHES PRESERVED — RESERVES CARRIED FORWARD — D2-B AND D2-C REMAIN CLOSED — D2-D GATED — D3 NOT OPENED`.
+
+## AO. Registre merge / post-merge D2-B — 2026-08-03
+
+Ce registre complète l'historique du backlog sans réécrire les registres D2-A datés AH–AN.
+
+| Élément | État |
+|---------|------|
+| GO mark-ready + merge D2-B | consommé 2026-08-03 07:52 CEST (+0200) |
+| GO post-merge D2-B | consommé 2026-08-03 08:09 CEST (+0200) |
+| PR | [#301](https://github.com/mcleland147/sfia-workspace/pull/301) **MERGED** |
+| Stratégie | merge commit |
+| Delivery commit | `dd63b20828e33d96be7c686d9e793bab4c4845b6` |
+| Merge SHA | `7084d2e9f3c67e1e76b05decdbebca3b30417e5b` |
+| Parent 1 | `bb685f1205b33f887ee27b42ac918c96386a6e33` |
+| Parent 2 | `dd63b20828e33d96be7c686d9e793bab4c4845b6` |
+| Package | treize fichiers · +2000 / −2 |
+| Stories | BL-D2-B-01…06 **intégrées** |
+| CI PR (historique) | run `30771445892` / #75 SUCCESS |
+| CI main | run `30788690355` SUCCESS · Required Gate SUCCESS |
+| Branche Delivery | conservée à distance sur `dd63b208…` |
+| Branche post-merge | `post-merge/sfia-studio-v3-1-d2-b-ckc-resolver` — branche documentaire de clôture |
+| Findings fermés | F-QA-01…06 |
+| Réserves ouvertes | **R-QA-REV-01 MINOR** · **R-QA-REV-02 MINOR** — NOT LIFTED |
+| D2-C | **fermé** — aucun GO Delivery |
+| D2-D | **gated** / non ouvert |
+| D3 | **fermé** |
+| Commit / push / PR documentaire dans ce cycle post-merge | **hors cycle 14** — publication versionnée Git-authoritative |
+| Clôture documentaire | contenu aligné — VERSIONED PUBLICATION STATE IS GIT-AUTHORITATIVE |
+
+### R-QA-REV-01 MINOR — OPEN NOT LIFTED
+
+`oa.ckc.resolution_started` et événements d'échec associés peuvent porter un `ts` dérivé d'un `resolvedAt` invalide (émission started avant validation ISO). Aucun succès, aucune preuve, aucun `consumed=true`.
+
+### R-QA-REV-02 MINOR — OPEN NOT LIFTED
+
+Sondes adversariales indépendantes exécutées via `vite-node` temporaire hors include Vitest `__tests__/**`. Limitation d'outillage uniquement ; package non muté.
+
+**Statut :** `D2-B PRODUCT PACKAGE INTEGRATED ON MAIN — POST-MERGE VALIDATED — R-QA-REV-01 AND R-QA-REV-02 CARRIED FORWARD WITHOUT LIFTING — DOCUMENTARY CLOSURE CONTENT ALIGNED — VERSIONED PUBLICATION STATE IS GIT-AUTHORITATIVE — D2-C CLOSED — D2-D GATED — D3 NOT OPENED — NO METHOD PROMOTION`.

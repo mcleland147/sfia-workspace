@@ -60,7 +60,8 @@ Docs :
 | Post-merge D2-A | produit et documentation intégrés sur main · PR #298 et #299 mergées · main synchronisée · CI main finales vertes |
 | Documentary closure D2-A | PR #299 · merge commit `983cef38c972ef1646166669613e680efba8f487` · main CI run `30759197858` SUCCESS · Required Gate SUCCESS · R-MR-PM-D2A-01 CLOSED |
 | PR readiness corrective D2-A | PASS LOCALLY · R-PR-PM-D2A-01…03 CLOSED · publication et merge soumis à gates Morris distincts |
-| Delivery D2-B | **fermée** — aucun GO Delivery D2-B consommé |
+| Delivery D2-B | **intégrée `main`** — PR #301 · merge commit `7084d2e9f3c67e1e76b05decdbebca3b30417e5b` · Delivery `dd63b20828e33d96be7c686d9e793bab4c4845b6` · CI main `30788690355` SUCCESS |
+| Post-merge D2-B | **validé** (cycle 14) · F-QA-01…06 CLOSED · R-QA-REV-01 / R-QA-REV-02 MINOR ouvertes · documentary closure content aligned — Git-authoritative |
 | Delivery D2-C | **fermée** |
 | D2-D (extensions) | **gated** · non ouvert |
 | D3 | **non ouvert** |
@@ -70,7 +71,7 @@ Docs :
 | Lot | Contenu | Statut |
 |-----|---------|--------|
 | **V3.1-D1** | Catalogue · mapping · validateur | **intégré `main`** · capitalisation REX publiée |
-| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A product **intégré `main`** · clôture documentaire **intégrée `main`** · QA/CI vertes · findings fermés · réserves conservées · post-merge final **validé** · documentary closure **complete on main** · D2-B/C **fermées** · slicing **A→B→C** · D2-D gated · D3 **non ouvert** |
+| **V3.1-D2** | Projection · resolver · QualifyCycle bridge | **cadrage arbitré** · **conception validée** · **FA-C adoptée** · **TA adoptée** · **backlog validé** · D2-A product **intégré `main`** · clôture documentaire D2-A **intégrée `main`** · D2-B product **intégré `main`** (PR #301) · post-merge D2-B **validé** · F-QA-01…06 CLOSED · R-QA-REV-01/02 ouvertes · D2-C **fermée** · slicing **A→B→C** · D2-D gated · D3 **non ouvert** |
 | **V3.1-D3** | UI · état CKC | **non autorisé** · réserve Figma |
 
 ### Réserves QA
@@ -79,11 +80,14 @@ R-QA-01…09 **CLOSED**. QA-G3 PASS. Historique PR readiness conservé.
 
 ### Réserves D2
 
-**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01 · R-PR-PM-D2A-02 · R-PR-PM-D2A-03 · R-MR-PM-D2A-01.
+**Findings fermés :** R-QA-D2A-01 · R-PR-D2A-04 · R-CI-D2A-01 · R-MR-D2A-01 · R-PR-PM-D2A-01 · R-PR-PM-D2A-02 · R-PR-PM-D2A-03 · R-MR-PM-D2A-01 · F-QA-01…06 (D2-B).
 
-**Réserves conservées (mineures / NOT LIFTED) :** R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED.
+**Réserves D2-A conservées (mineures / NOT LIFTED) :** R-PR-D2A-01 · R-PR-D2A-02 · R-PR-D2A-03 · INHERITED-R-01 — NOT LIFTED.
 
-D2-B, D2-C et D3 restent **fermés** malgré l’intégration réussie de D2-A —
+**Réserves D2-B conservées (mineures / NOT LIFTED) :** R-QA-REV-01 · R-QA-REV-02 — OPEN — NOT LIFTED.
+
+D2-B product est **intégré sur main** ; D2-C et D3 restent **fermés** ; D2-D reste **gated** —
+toute ouverture D2-C / D2-D / D3 exige un GO Morris distinct —
 voir [`15`](./15-v3-1-d2-ckc-resolver-qualify-cycle-bridge-cadrage.md) /
 [`16`](./16-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-design.md) /
 [`17`](./17-v3-1-d2-ckc-resolver-qualify-cycle-bridge-functional-architecture.md) /

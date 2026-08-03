@@ -10,10 +10,10 @@
 | Typologie | EVOL |
 | Branche locale | `delivery/sfia-studio-visible-slice-v3-1-d2-a-catalog-projection` |
 | Base / HEAD | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| Statut | `V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — POST-MERGE VALIDATED — RESERVES CARRIED FORWARD` |
+| Statut | `V3.1-D2-A PRODUCT AND DOCUMENTARY CLOSURE COMPLETE ON MAIN — D2-B PRODUCT ALSO INTEGRATED ON MAIN (PR #301) — POST-MERGE D2-B VALIDATED — R-QA-REV-01/02 OPEN — D2-A RESERVES CARRIED FORWARD` |
 | Merge product | PR #298 · `a804f29df3015fe0c71213d09b95159f04065dfc` |
 | Documentary closure merge | PR #299 · `983cef38c972ef1646166669613e680efba8f487` |
-| Post-merge | cycle 14 final validé · main CI `30759197858` SUCCESS · branches préservées · final status update local |
+| Post-merge | D2-A clôture validée (historique) · D2-B product merge `7084d2e9…` · main CI `30788690355` SUCCESS · Delivery D2-B préservée `dd63b208…` · frontières D2-C/D2-D/D3 inchangées |
 
 Le profil Standard est proportionné à un diff de fonctions de domaine pures,
 types readonly, constante statique et tests, sans resolver, infrastructure,
@@ -162,8 +162,10 @@ QualifyCycle. Aucun commit/push/PR projet, aucune promotion méthode.
 
 Le fingerprint doit être mis à jour explicitement si un champ contractuel D1
 change ; le test empêche une dérive silencieuse. `INHERITED-R-01` reste
-acceptée, traçable et non levée. D2-B dépend d'une intégration/validation
-ultérieure de D2-A et d'un gate Morris distinct.
+acceptée, traçable et non levée. D2-A est intégré et validé sur `main`.
+D2-B product est désormais aussi intégré sur `main` (PR #301) avec ses propres
+réserves MINOR R-QA-REV-01 / R-QA-REV-02 ouvertes et non levées. D2-C, D2-D et D3
+restent soumis à un gate Morris distinct.
 
 ## T. Readiness QA
 
@@ -297,7 +299,7 @@ Les quatre sont mineures/résiduelles et **non bloquantes** pour l’intégratio
 
 ### Z.5 Frontières
 
-- D2-B **fermé** ;
+- D2-B product **intégré `main`** (PR #301 · merge `7084d2e9…`) — réserves R-QA-REV-01/02 ouvertes ;
 - D2-C **fermé** ;
 - D2-D **gated** ;
 - D3 **fermé** ;
