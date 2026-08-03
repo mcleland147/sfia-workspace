@@ -466,7 +466,7 @@ Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
 | **Réversibilité** | Haute |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-C (après A+B) |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #303 — POST-MERGE VALIDATED — R-QA-REV-01/02 AND R-QA-D2C-01 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -497,7 +497,7 @@ Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
 | **Réversibilité** | Haute |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #303 — POST-MERGE VALIDATED — R-QA-REV-01/02 AND R-QA-D2C-01 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -528,7 +528,7 @@ Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
 | **Réversibilité** | Moyenne |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #303 — POST-MERGE VALIDATED — R-QA-REV-01/02 AND R-QA-D2C-01 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -561,7 +561,7 @@ Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
 | **Réversibilité** | Haute |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #303 — POST-MERGE VALIDATED — R-QA-REV-01/02 AND R-QA-D2C-01 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -592,7 +592,7 @@ Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
 | **Réversibilité** | Moyenne |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #303 — POST-MERGE VALIDATED — R-QA-REV-01/02 AND R-QA-D2C-01 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -622,7 +622,7 @@ Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
 | **Réversibilité** | Moyenne |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #303 — POST-MERGE VALIDATED — R-QA-REV-01/02 AND R-QA-D2C-01 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -653,7 +653,7 @@ Objectif : orchestrer A+B+QualifyCycle ; Success/Failure read-only unique.
 | **Réversibilité** | Faible une fois intégré — tests protègent |
 | **Profil Delivery candidat** | Critical |
 | **Gate Morris** | GO DELIVERY D2-C |
-| **Statut** | `BACKLOG READY — DELIVERY NOT AUTHORIZED` |
+| **Statut** | `INTEGRATED ON MAIN — PR #303 — POST-MERGE VALIDATED — R-QA-REV-01/02 AND R-QA-D2C-01 OPEN` |
 
 **Critères d’acceptation :**
 
@@ -1043,3 +1043,43 @@ Ce registre complète l'historique du backlog sans réécrire les registres D2-A
 Sondes adversariales indépendantes exécutées via `vite-node` temporaire hors include Vitest `__tests__/**`. Limitation d'outillage uniquement ; package non muté.
 
 **Statut :** `D2-B PRODUCT PACKAGE INTEGRATED ON MAIN — POST-MERGE VALIDATED — R-QA-REV-01 AND R-QA-REV-02 CARRIED FORWARD WITHOUT LIFTING — DOCUMENTARY CLOSURE CONTENT ALIGNED — VERSIONED PUBLICATION STATE IS GIT-AUTHORITATIVE — D2-C CLOSED — D2-D GATED — D3 NOT OPENED — NO METHOD PROMOTION`.
+
+## AP. Registre merge / post-merge D2-C — 2026-08-03
+
+Ce registre complète l'historique du backlog sans réécrire les registres D2-A / D2-B datés AH–AO.
+
+| Élément | État |
+|---------|------|
+| GO publication D2-C | consommé 2026-08-03 13:58 CEST (+0200) |
+| GO merge / post-merge D2-C | consommé 2026-08-03 14:40 CEST (+0200) |
+| GO documentary alignment D2-C | consommé 2026-08-03 14:59 CEST (+0200) |
+| PR | [#303](https://github.com/mcleland147/sfia-workspace/pull/303) **MERGED** |
+| Stratégie | merge commit |
+| Delivery commit | `f4ee487ffa8d30cb3762deb13843f1f804012415` |
+| Merge SHA | `570ff3e8bd0085ec3c52b12f2b55ccaf656cba18` |
+| Parent 1 | `5ca7a2603b000a468f6baea81ffc6c53acf0cd70` |
+| Parent 2 | `f4ee487ffa8d30cb3762deb13843f1f804012415` |
+| Package | neuf fichiers · +2224 / −2 |
+| Stories | BL-D2-C-01…07 **intégrées** |
+| CI PR | run `30813089908` SUCCESS |
+| CI main | run `30814936022` SUCCESS · Required Gate SUCCESS |
+| Branche Delivery | conservée à distance sur `f4ee487…` |
+| Branche documentaire locale | `post-merge/sfia-studio-v3-1-d2-c-documentary-alignment` — aucun commit / push / PR projet dans ce cycle |
+| Correction / revert / suppression branche | **aucune** |
+| D2-D | **gated** / non ouvert |
+| D3 | **fermé** |
+| UI / CreateCycle / méthode | **non ouverts** — aucune promotion |
+
+### R-QA-REV-01 MINOR — OPEN NOT LIFTED
+
+`oa.ckc.resolution_started` et événements d'échec associés peuvent porter un `ts` dérivé d'un `resolvedAt` invalide (émission started avant validation ISO). Aucun succès, aucune preuve, aucun `consumed=true`. Non corrigé ; non levé ; transporté depuis D2-B.
+
+### R-QA-REV-02 MINOR — OPEN NOT LIFTED
+
+Sondes adversariales indépendantes historiques D2-B exécutées via `vite-node` temporaire hors include Vitest `__tests__/**`. Limitation d'outillage uniquement ; package D2-B non muté ; campagne D2-C versionnée Vitest. Non levé.
+
+### R-QA-D2C-01 MINOR — OPEN
+
+Runtime `null`/`undefined` requests, exclus par le contrat TypeScript courant, peuvent encore lever une exception tandis que le catch externe relit des métadonnées de requête. Aucun résultat succès ou exploitable n'est exposé. Réserve acceptée pour transport ; à reconsidérer avant toute frontière runtime externe non validée. Non corrigée ; non levée.
+
+**Statut :** `D2-C PRODUCT PACKAGE INTEGRATED ON MAIN — POST-MERGE VALIDATED — DOCUMENTARY ALIGNMENT CONTENT ALIGNED — R-QA-REV-01 / R-QA-REV-02 / R-QA-D2C-01 CARRIED FORWARD WITHOUT LIFTING — D2-D GATED — D3 CLOSED — NO METHOD PROMOTION — NO PROJECT COMMIT/PUSH/PR IN THIS CYCLE`.
