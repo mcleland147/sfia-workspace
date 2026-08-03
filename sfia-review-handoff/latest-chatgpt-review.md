@@ -1,4062 +1,438 @@
-# Full Review Pack — SFIA Studio V3.1-D2-D Technical Architecture Post-Merge
+# Full Review Pack — SFIA Studio V3.1-D2-D Integration Foundation — Backlog (Cycle 5)
 
-## Métadonnées
+## 0. En-tête
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure début** | 2026-08-03 20:32:12 CEST +0200 |
-| **Date/heure fin** | 2026-08-03 20:35:47 CEST +0200 |
-| **Rôle** | Cursor (Cycle 14 — Post-merge) |
-| **Cycle** | Cycle 14 — Post-merge |
+| **Date/heure/fuseau** | 2026-08-03 21:10 CEST (+0200) |
+| **Rôle Cursor** | Exécution Cycle 5 Backlog / user stories — DOC — Standard |
+| **Cycle** | Cycle 5 — Backlog / user stories |
 | **Profil** | Standard |
 | **Typologie** | DOC |
-| **MERGE_EXECUTED** | **true** |
-| **MERGE_SHA** | `9231858a82a252c0bea5bdd60256cee480eebb87` |
-| **PR** | #306 |
-| **Verdict** | READY FOR CHATGPT POST-MERGE VALIDATION |
+| **Niveau Review Pack** | Full |
+| **Document produit** | `24-v3-1-d2-d-integration-foundation-backlog.md` |
+| **SHA-256 document 24** | `aaf9f4e3e6d96df71cb301cbdb5c73e5f29036e0dcbe595cf3a8318defd74dae` |
+| **Branche locale** | `backlog/sfia-studio-v3-1-d2-d-integration-foundation` |
+| **HEAD** | `9231858a82a252c0bea5bdd60256cee480eebb87` |
+| **origin/main** | `9231858a82a252c0bea5bdd60256cee480eebb87` |
 
-## GO Morris consommé
+---
+
+## 1. GO Morris complet
 
 ```text
-GO MERGE SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE PUBLICATION PR #306
-
-AUTHORIZE:
-- FINAL BASE / HEAD / CI REVALIDATION
-- MARK READY IF REQUIRED
-- MERGE PR #306
-- POST-MERGE VALIDATION
-
-PRESERVE THE SOURCE BRANCH.
-NO BRANCH DELETION.
-
-NO BACKLOG
-NO DELIVERY
-NO CURSOR CAPABILITY VERIFICATION
-NO D2-C CORRECTION
-NO UI
-NO D3
-NO CREATECYCLE
-NO METHOD PROMOTION
+GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3
+Date/heure du GO : 2026-08-03 20:46 CEST (+0200)
 ```
 
-Date/heure GO : **2026-08-03 20:24 CEST (+0200)**
+### Autorise
 
-### Autorisations / interdictions
+- analyse repo-informed des documents 20–23 ;
+- création d'une branche locale backlog ;
+- création locale du document 24 ;
+- découpage des slices en épics, stories et enablers ;
+- critères d'acceptation et preuves futures ;
+- priorisation découlant des décisions adoptées ;
+- dépendances et gates ;
+- Full Review Pack ;
+- publication L3 bornée du Review Handoff.
 
-Autorisé : revalidation · mark ready · merge commit · post-merge · CI main · conservation branche · handoff L3.
-Interdit : squash/rebase/auto/admin/delete-branch · backlog · Delivery · Cursor capability · D2-C · UI · D3 · CreateCycle · méthode · rollback/revert auto.
+### N'autorise pas
 
-## CKC fallback
+- adoption automatique du backlog ;
+- staging / commit / push / PR projet ;
+- merge ;
+- code / tests applicatifs / dépendances / configurations ;
+- Delivery D2-D1/D2-D2/D2-D3 ;
+- correction D2-C ;
+- vérification capacités Cursor ;
+- adapter Cursor live ;
+- exécution sandbox-real ;
+- technologie de persistance durable ;
+- cible de déploiement ;
+- queue ou worker permanent ;
+- UI ou transport D3 ;
+- CreateCycle ;
+- D2-D4 write ;
+- promotion méthode.
 
-Cycle 14 — Post-merge : contrat détaillé absent ; fallback synthetic map + v2.5 §4.14 ; experimental ; aucune autorité d'exécution. Risque évité : validation sans CI main exacte.
+### Interprétation Git
 
-## Sources consultées
+- branche locale dédiée : autorisée ;
+- document 24 local non tracké : autorisé ;
+- index, commit, remote et PR projet : interdits ;
+- push du handoff `sfia/review-handoff` : autorisé comme flux L3 distinct.
 
-Méthode 1–11 ; document 23 ; handoff PR readiness `18789d0…`/`1d1cf49…` ; PR #306 ; CI PR `30838670663` ; CI main `30841765663`.
+---
 
-## Git Truth initial
+## 2. Interprétation bornée
 
-Branche publication @ `08d6cd0…` · origin/main `e273b2af…` · divergence 0 2 · staged/tracked vides · `.tmp-sfia-review/**`.
+Ce cycle transforme les décisions CAD/FD/FA/TA adoptées en backlog candidat exploitable.
+Il ne redécide pas l'architecture, n'ouvre pas la Delivery, ne lève aucune réserve,
+ne vérifie pas Cursor, et ne produit aucun code.
 
-## PR avant mark ready
+---
 
-OPEN · Draft=true · base `e273b2af…` · head `08d6cd0…` · 2 commits · 1 file · +1628/−0 · MERGEABLE · CLEAN · CI `30838670663` success · aucun feedback actionnable.
+## 3. Git Truth initial
 
-## Repository settings
-
-| Setting | Value |
-|---------|-------|
-| allow_merge_commit | **true** |
-| delete_branch_on_merge | **false** |
-| Branche distante avant merge | `08d6cd0…` présente |
-
-## Handoff PR readiness source
-
-| Tip | Blob |
-|-----|------|
-| `18789d0dd14a713c5025f8df90db07663bfbeac3` | `1d1cf495f06ba6bd2feac9047fd0af4840138261` |
-
-Verdict source : READY FOR MORRIS MERGE DECISION WITH RESERVES.
-
-## Mark ready
-
-| Champ | Valeur |
-|-------|--------|
-| Commande | `gh pr ready 306` |
-| Heure | 2026-08-03 20:32:51 CEST +0200 |
-| Après | OPEN · isDraft=false · base/head inchangés · MERGEABLE · CLEAN |
-| Checks | toujours pass sur head exact |
-
-## Merge
-
-| Champ | Valeur |
-|-------|--------|
-| Commande | `gh pr merge 306 --merge --match-head-commit 08d6cd0…` |
-| Heure | 2026-08-03 20:32:56 CEST +0200 |
-| Strategy | **merge commit** |
-| PRE_MERGE_MAIN | `e273b2afc33445154f63226fdfe8357c75df67f8` |
-| EXPECTED_HEAD | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| Élément | Valeur |
+|---------|--------|
+| Repository | `mcleland147/sfia-workspace` |
+| Workspace principal | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge` |
+| Baseline | `main@9231858a82a252c0bea5bdd60256cee480eebb87` |
+| Merge amont | PR #306 |
 | MERGE_SHA | `9231858a82a252c0bea5bdd60256cee480eebb87` |
 | Parent 1 | `e273b2afc33445154f63226fdfe8357c75df67f8` |
 | Parent 2 | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| Ancestry init+head | **OK** |
-| Tree head == merge | **OK** |
-| MERGE_EXECUTED | **true** |
+| Handoff tip predecessor | `26b7f0907ed7981fbe4fe57f964a8b23eb1f73c1` |
+| Handoff blob predecessor | `08a8f2aee5b478ca3eba9feb007f1d804f6bb448` |
+| Branche backlog locale avant | absente |
+| Branche distante backlog | absente |
+| PR backlog | absente |
 
-### Merge commit
+---
+
+## 4. Worktree sélectionné
+
+| Champ | Valeur |
+|-------|--------|
+| MAIN_WT | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge` |
+| Branche avant switch | `main` |
+| HEAD vérifié | `9231858a82a252c0bea5bdd60256cee480eebb87` = origin/main |
+| Tracked clean | oui (`.tmp-sfia-review/**` éventuel hors MAIN_WT) |
+
+---
+
+## 5. Création branche locale
 
 ```text
-commit 9231858a82a252c0bea5bdd60256cee480eebb87
-Merge: e273b2a 08d6cd0
-Author:     mcleland147 <m.cleland@live.fr>
-AuthorDate: Mon Aug 3 20:32:57 2026 +0200
-Commit:     GitHub <noreply@github.com>
-CommitDate: Mon Aug 3 20:32:57 2026 +0200
-
-    Merge pull request #306 from mcleland147/docs/sfia-studio-v3-1-d2-d-technical-architecture-publication
-
-    docs(sfia-studio): publish V3.1-D2-D technical architecture
-
+git switch -c backlog/sfia-studio-v3-1-d2-d-integration-foundation \
+  9231858a82a252c0bea5bdd60256cee480eebb87
 ```
 
-## Diff merge complet (parent1 → MERGE_SHA)
+| Vérification | Résultat |
+|--------------|----------|
+| Branche active | `backlog/sfia-studio-v3-1-d2-d-integration-foundation` |
+| HEAD | `9231858a82a252c0bea5bdd60256cee480eebb87` |
+| Staged | vide |
+| Tracked diff | aucun |
+| Push projet | aucun |
 
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
-new file mode 100644
-index 0000000..c190151
---- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
-@@ -0,0 +1,1628 @@
-+# 23 — SFIA Studio V3.1-D2-D Integration Foundation — Architecture technique
-+
-+## A. Métadonnées
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| **Document** | `23-v3-1-d2-d-integration-foundation-technical-architecture.md` |
-+| **Date/heure** | 2026-08-03 19:07 CEST (+0200) |
-+| **Cycle** | Cycle 6 — Architecture technique |
-+| **Profil** | Critical |
-+| **Typologie** | DOC — architecture-only |
-+| **Branche locale** | `architecture/sfia-studio-v3-1-d2-d-integration-foundation-technical-architecture` |
-+| **Base Git** | `main@e273b2afc33445154f63226fdfe8357c75df67f8` |
-+| **GO Morris** | `GO ARCHITECTURE TECHNIQUE SFIA STUDIO V3.1-D2-D` (2026-08-03 18:54 CEST) |
-+| **Documents amont (immutables)** | [20](./20-v3-1-d2-d-integration-foundation-cadrage.md) · [21](./21-v3-1-d2-d-integration-foundation-functional-design.md) · [22](./22-v3-1-d2-d-integration-foundation-functional-architecture.md) |
-+| **Précédent structure (non copié)** | [18](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) — structure only ; décisions D2-A/B/C non applicables à D2-D |
-+| **CKC** | `method/.../pilots/03-architecture-technique.md` — candidate v0.1.0 — experimental cognitive guidance — **aucune autorité d'exécution** |
-+| **Code / tests / config / UI** | **non** |
-+| **Statut** | `D2-D TECHNICAL ARCHITECTURE — ARBITRATED BY MORRIS — DOCUMENTARY RECORD VERSIONED VIA GIT — AUTHORITATIVE PUBLICATION STATE FOLLOWS PR/MAIN — NO BACKLOG OR DELIVERY AUTHORIZED` |
-+| **Publication branch candidate** | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-+| **Publication correction** | `2026-08-03 19:44 CEST (+0200) — correction de cohérence post-arbitrage AK/AQ ; aucune décision TA modifiée` |
-+
-+### Légende des marqueurs
-+
-+| Marqueur | Signification |
-+|----------|---------------|
-+| **ADOPTED** | Décision Morris déjà adoptée (CAD/FD/FA) |
-+| **OBSERVATION** | Fait Git vérifié |
-+| **CONTRAINTE** | Borne non négociable dans ce cycle |
-+| **HYPOTHÈSE** | À vérifier ; non prouvée |
-+| **OPTION** | Alternative comparable |
-+| **RECOMMANDATION CANDIDATE** | Proposition Cursor — **NOT ADOPTED** |
-+| **ADR CANDIDATE** | ADR PROPOSED — NOT ADOPTED |
-+| **DÉCISION TECHNIQUE CANDIDATE** | TA-xx — NOT DECIDED |
-+| **INCONNUE** | Ouvert |
-+| **RÉSERVE** | Ouverte, non levée |
-+| **DETTE** | Coût différé explicite |
-+| **GATE FUTURE** | Nécessite GO Morris distinct |
-+
-+### Règle de lecture post-arbitrage
-+
-+Le présent document conserve les options, ADR, recommandations,
-+checklists et formulations candidates produites pendant le cycle
-+d'architecture technique, avant l'arbitrage Morris du
-+2026-08-03 19:24 CEST (+0200).
-+
-+Ces éléments constituent un historique de conception. Leur statut
-+« NOT ADOPTED », « NOT DECIDED » ou équivalent décrit leur état
-+au moment de leur rédaction ; il ne contredit pas l'arbitrage ultérieur.
-+
-+Après cet arbitrage :
-+
-+1. la section AN reste le decision pack historique pré-arbitrage ;
-+2. les sections AM et AO restent l'historique des ADR et recommandations candidates ;
-+3. la section AK reste le snapshot de validation du cycle pré-arbitrage ;
-+4. la section AN2 est le record autoritatif des décisions Morris ;
-+5. la section AR expose le verdict décisionnel courant ;
-+6. la section AQ expose les anti-claims encore applicables après arbitrage.
-+
-+En cas d'écart de statut temporel :
-+
-+AN2 et AR priment pour les décisions adoptées.
-+Les sections historiques restent conservées pour la traçabilité.
-+
-+---
-+
-+## B. Décisions héritées (ADOPTED)
-+
-+### B.1 D-CAD-01…12 — ADOPTED BY MORRIS (2026-08-03 16:56 CEST)
-+
-+| ID | Résumé |
-+|----|--------|
-+| CAD-01 | Strict Minimal Foundation ; walking skeleton réel reporté à D2-D3 |
-+| CAD-02 | Contrats D2-D avant Delivery UI D3 ; exploration UX possible après D2-D1 stable |
-+| CAD-03 | Ports provider avant couplage SDK ; réutilisation platform/harness = hypothèse jusqu'à validation TA |
-+| CAD-04 | Read-only first ; pas de Git write en D2-D1/D2/D3 ; D2-D4 hors trajectoire |
-+| CAD-05 | STATE-A extensible (`timed_out`, `blocked`) ; pas de STATE-B complet |
-+| CAD-06 | INT-C hybrid contract-first : fixtures puis walking skeleton read-only sandboxed |
-+| CAD-07 | Sandbox validée avant Cursor réel ; capacités Cursor produit **UNVERIFIED** |
-+| CAD-08 | Secret Provider server-only ; GitHub read-only ; aucune techno secret store sélectionnée |
-+| CAD-09 | Events structurés + redaction stricte ; pas de claim RUN-READY/SLO |
-+| CAD-10 | R-C défense en profondeur : correction D2-C et frontière D2-D = cycles/gates séparés |
-+| CAD-11 | Séquence D2-D1 → D2-D2 → D2-D3 ; D2-D4 hors trajectoire |
-+| CAD-12 | Exploration UX D3 après stabilité D2-D1 ; Delivery UI + strong runtime après D2-D2/D3 |
-+
-+### B.2 D-FD-01…12 — ADOPTED BY MORRIS (2026-08-03 17:19 CEST)
-+
-+Douze objets fonctionnels ; huit états persistants exacts ; transitions documentées ; partial ≠ succeeded ; gates humains ; cancellation terminale + late result evidence-only ; sources `fixture`/`sandbox-real`/`real` ; familles d'échec normalisées ; catalogue d'événements ; projection D3 provider-independent ; trois niveaux de readiness.
-+
-+### B.3 D-FA-01…12 — ADOPTED BY MORRIS (2026-08-03 17:42 CEST)
-+
-+| Décision clé | Valeur ADOPTED |
-+|--------------|----------------|
-+| **MOD-B** | Décomposition fonctionnelle capability-centric minimale (pas packages/déploiement) |
-+| **Huit capacités** | Intake · Coordination · Validation/Policy · Provider Boundary · State/Human Gate · Evidence/Disclosure · Events/Usage · Fixture Catalogue |
-+| **Autorités uniques** | State Authority ; Evidence Authority ; Policy pre-engagement |
-+| **Provider Boundary** | Une frontière, trois lanes AI/Git/Cursor |
-+| **RUNTIME-C (fonctionnel)** | Une autorité fonctionnelle D2-D ; `vertical-slice-runtime` = option façade future uniquement ; **aucun runtime technique sélectionné** |
-+| **REUSE-B** | Principe d'évaluation : évaluer platform/harness derrière frontières ; **aucune compatibilité supposée** |
-+| **Slicing** | D2-D1 → D2-D2 → D2-D3 ; **D2-D4 write hors trajectoire** |
-+
-+### B.4 Réserves transportées — OPEN NOT LIFTED
-+
-+| ID | Statut |
-+|----|--------|
-+| R-QA-REV-01 MINOR | OPEN NOT LIFTED |
-+| R-QA-REV-02 MINOR | OPEN NOT LIFTED |
-+| R-QA-D2C-01 MINOR | OPEN — NOT LIFTED (R-C : deux travaux futurs séparés) |
-+
-+---
-+
-+## C. Finalité technique
-+
-+Construire une architecture technique **minimale**, **provider-independent**, **server-only** et **read-only** permettant de valider les contrats D2-D, puis d'intégrer progressivement AI, GitHub et Cursor **sans** exposer les fournisseurs à D3 et **sans** créer un second runtime concurrent.
-+
-+Cette finalité est une **contrainte de conception** pour les options ; elle n'adopte aucune stack, aucun package, aucun adapter.
-+
-+---
-+
-+## D. Périmètre et hors périmètre
-+
-+### Périmètre
-+
-+Architecture · modules candidats · ports · adapters · contrats · validation · état · persistance · async · erreurs · events · secrets · sandbox · tests · slicing · impacts DevOps (analyse seule).
-+
-+### Hors périmètre
-+
-+Code · migration · SDK install · endpoints · UI · backlog · Delivery · déploiement · RUN readiness · Git write · CreateCycle · promotion méthode · adoption de décision technique.
-+
-+---
-+
-+## E. Baseline Git-authoritative (OBSERVATION)
-+
-+**Base :** `main@e273b2afc33445154f63226fdfe8357c75df67f8`
-+**Preuves :** lecture de `projects/sfia-studio/app/lib/**` et `projects/sfia-studio/harness/src/**` ; `package.json` ; workflows CI.
-+
-+### E.1 Inventaire synthétique
-+
-+| Élément | Path | Rôle | Server/client | Persistance | Réutilisation candidate | Écart D2-D | Preuve |
-+|---------|------|------|---------------|-------------|-------------------------|------------|--------|
-+| OA cycle | `app/lib/oa/cycle/**` | Domaine cycle + D2-A/B/C qualification | Server/composition (`node:crypto`) | Memory | Compatible (qualify read-only) ; extract si durable | Pas d'exécution AI/Git/Cursor | `createCkcQualificationServices` read-only |
-+| OA execution-contract | `app/lib/oa/execution-contract/**` | Gouvernance contrat jusqu'à confirmed | Server | Memory | Compatible comme gate amont | Refuse explicitement états T-A5 | `assertNotTa5Injection` / `TA5_STATUS_REFUSED` |
-+| OA decision | `app/lib/oa/decision/**` | HumanDecision / Confirmation | Server | Memory | Compatible pour gates humains futurs | Pas d'exécution | T-A3 |
-+| OA project | `app/lib/oa/project/**` | Project + LPS | Server | Memory | Compatible | Pas d'exécution | T-A1 |
-+| OA execution-attempt | `app/lib/oa/execution-attempt/**` | Tentative T-A5 | Server | Memory | Wrapper candidat | Adapters NoOp/Test only ; **pas** exécuteur réel | Commentaire : foundation does not execute |
-+| vertical-slice-runtime | `app/lib/vertical-slice-runtime/**` | Facade Next Create/Get project | Server (`serverGuard`, `"use server"`) | Business = OA memory ; audit noop/memory/sqlite | Wrapper/facade seulement | `agentExecution: "DISABLED"` ; process-local singleton | `disclosures.ts`, `singleton.ts` |
-+| vertical-slice-core | `app/lib/vertical-slice-core/**` | Composition locale Project | Server | OA memory + audit | Compatible create/get | `realAgentExecution: "NOT_AVAILABLE"` | `localProjectComposition.ts` |
-+| platform AI | `app/lib/platform/ai/**` | ConversationProvider OpenAI + Fake | Server-only (comment) | Aucune | Compatible transport derrière wrapper | Contrat conversation ≠ contrat D2-D ; pas d'evidence OA | `openaiProvider.ts` |
-+| platform tools | `app/lib/platform/tools/**` | Tool router deny-by-default | Server | Aucune | Compatible reads | `cursor_*` refusés ; pas runtime D2-D | `toolRouter.ts` |
-+| platform repository | `app/lib/platform/repository/**` | Git local + GitHub read | Server (`child_process`/`fs`) | Aucune | Compatible read ports | Read-only ; pas Cursor | `GithubReadPort`, `GhCli` / `Rest` |
-+| platform observability | `app/lib/platform/observability/**` | EventSink injectable | Server | Noop défaut | Compatible | Catalogue ≠ events fonctionnels D2-D | `eventSink.ts` |
-+| platform security | `app/lib/platform/security/**` | Path/repo policy + redaction | Server | N/A | Compatible | Policy seule | `pathPolicy.ts`, `redaction.ts` |
-+| harness ports | `harness/src/ports/**` | Cursor/GPT/Git POC | Node harness | Process/FS | Extract/wrapper | Schémas ≠ OA ; flags live | `CursorExecutorPort` |
-+| harness increment-d | `harness/src/increment-d/**` | Sandbox Cursor + GO + proof | Node | FS sandbox/proof | Extract pattern | Non intégré Studio runtime | `runIncrementDSandbox` |
-+| harness gate/proof/journal | `harness/src/gate|proof|journal/**` | Gate fail-closed · proof pack · events.jsonl | Node | FS | Extract | Distinct EventSink platform | comments S1 |
-+
-+### E.2 Dépendances (OBSERVATION)
-+
-+| Dep | Version déclarée | Note |
-+|-----|------------------|------|
-+| Next | `^15.3.3` | App Studio |
-+| React | `^19.1.0` | UI — hors D2-D TA |
-+| TypeScript | `^5.8.3` | Strict |
-+| AJV | `^6.15.0` | Déjà via doctrine `AjvSchemaValidationAdapter` Draft-07 |
-+| OpenAI SDK | `^6.48.0` | Platform AI |
-+
-+**CONTRAINTE :** aucune nouvelle dépendance justifiée par défaut. Zod = CONTRACT-C = décision Morris.
-+
-+### E.3 Observations confirmées (liste GO)
-+
-+1. **vertical-slice-runtime** — server-only (guard custom) ; compose vertical-slice-core ; CreateProject/GetProject ; audit noop/memory/sqlite ; **pas** autorité D2-D ; process-local.
-+2. **oa/cycle** — domaine/application/ports/infra ; `createCkcQualificationServices` read-only ; services mutationnels distincts ; composition in-memory.
-+3. **oa/execution-contract** — préparation/confirmation ; in-memory ; refuse T-A5 ; **ne doit pas** devenir runtime D2-D implicite.
-+4. **Platform AI** — OpenAI Responses + fake ; config server ; usage dispo ; contrat conversation ≠ D2-D.
-+5. **Platform GitHub** — port read-only ; `gh` CLI ou REST ; allowlist ; redaction ; pas de mutation ; transport env-dépendant.
-+6. **Platform tools** — deny-by-default ; `cursor_*` refusés ; timeout borné ; events techniques.
-+7. **Platform observability** — EventSink injectable ; Noop défaut ; catalogue technique ≠ D2-D fonctionnel.
-+8. **Harness Cursor** — fixture/live ; gate avant spawn ; branch/HEAD ancrés ; sandbox/allowlist ; FS + child_process ; capacité produit exacte **UNVERIFIED** ; intégration Next **non prouvée**.
-+9. **Deps** — Next 15 / TS strict / Vitest / AJV / OpenAI déjà présents.
-+
-+### E.4 Signaux double-runtime (OBSERVATION)
-+
-+| Signal | Emplacements | Implication |
-+|--------|--------------|-------------|
-+| Cursor | harness Increment D · OPS1 `cursorExecutionAdapter` · OA T-A5 NoOp | Trois histoires d'exécution |
-+| AI | platform/ai · harness GPT spikes · OPS1 toolLoop | Pas de spine D2-D unique |
-+| Contract | OA ExecutionContract vs harness S1 ExecutionContract | Schémas incompatibles |
-+
-+### E.5 Multi-instance / client-bundle (OBSERVATION)
-+
-+- Singleton process-local `vertical-slice-runtime` ; disclosures `LOCAL_PROCESS` / restart may lose state.
-+- Imports client-unsafe : `node:crypto`, `child_process`, `fs`, `sqlite`, OpenAI SDK, server actions.
-+
-+---
-+
-+## F. Exigences non fonctionnelles
-+
-+| NFR | Exigence | Raison | Preuve attendue | Slice | Dette si report |
-+|-----|----------|--------|-----------------|-------|-----------------|
-+| Déterminisme fixtures | Même input → même ValidationOutcome / état | Reproductibilité CI | Tests fixtures | D1 | Flaky CI |
-+| Fail-closed | Rejet avant engagement provider | Sécurité / R-QA-D2C-01 | Tests adversariaux | D1–D2 | Fuite partielle |
-+| Provider independence | Aucun type SDK vers D3 | FD-11 / FA-08 | Import-boundary tests | D1–D3 | Lock-in |
-+| Server-only | Adapters hors client bundle | Secrets / spawn | Boundary tests | D2 | Leak |
-+| Minimisation | Prompt/contexte minimisés | RGPD / FinOps | Review + redaction tests | D2–D3 | Coût / fuite |
-+| Read-only | Aucune méthode write Git/produit | CAD-04 | Port surface tests | D1–D3 | Mutation |
-+| Réversibilité | Choix packagés derrière ports | CKC | Wrappers | Tous | Refactor coûteux |
-+| Testabilité | Domaine pur + ports injectés | Delivery future | Vitest unit/contract | D1 | Couplage |
-+| Résilience | Timeout/cancel/late result | FD-07 | Tests async | D2 | Races |
-+| Cancellation | Best-effort provider + autorité locale | FD-07 | Tests | D2 | État incohérent |
-+| Timeout | Opérationnel + global candidats | FD | Tests | D2 | Hang |
-+| Late result | Evidence-only post-terminal | FD-07 | Tests | D2–D3 | Spoof success |
-+| Multi-instance | Claim interdit sans store durable | OBS | Disclosures | D3 | Claims faux |
-+| Persistance | Staged ; durable non sélectionné | STORE-B candidat | ADR | D1–D3 | Perte état |
-+| Observabilité | Events redacted + correlation | CAD-09 | Event schema tests | D2 | Blind ops |
-+| FinOps | Usage validé ; pas de prix hardcodé | CAD | Usage fields | D2–D3 | Coût opaque |
-+| Next/TS/Vitest | Compatibilité stack existante | DevOps fit | CI existante | Tous | Divergence |
-+| Pas de métrique inventée | Aucun SLO/latency inventé | Anti-claim CKC | Revue | Tous | — |
-+
-+---
-+
-+## G. Principes techniques (CONTRAINTES de conception)
-+
-+1. Un seul core d'exécution D2-D (autorité d'état unique).
-+2. Domaine sans SDK fournisseur.
-+3. Ports avant adapters.
-+4. Validation avant lecture de métadonnées (R-QA-D2C-01 / R-C).
-+5. Résultats discriminés (complete / partial / failure).
-+6. État géré par fonctions pures.
-+7. Side effects derrière ports.
-+8. Secrets hors domaine.
-+9. No provider object vers D3.
-+10. No Git write.
-+11. No shell arbitraire.
-+12. Fixtures conformes aux mêmes contrats que adapters réels.
-+13. Aucun succès sans preuve complète.
-+14. Aucune technologie durable sans besoin prouvé.
-+15. Pas de nouvelle dépendance sans gain démontré + arbitrage Morris.
-+
-+---
-+
-+## H. Inventaire et classification de réutilisation (REUSE-B)
-+
-+| Brique | Classification | Note |
-+|--------|----------------|------|
-+| `oa/cycle` | Compatible (qualify) / Extract si durable | Read-only D2-C composition |
-+| `oa/execution-contract` | Compatible (gate amont) | **Incompatible** comme runtime ; refuse T-A5 |
-+| `vertical-slice-runtime` | Compatible derrière wrapper/facade | **Incompatible** comme state authority D2-D |
-+| platform AI | Compatible derrière wrapper | Contract-fit **UNVERIFIED** |
-+| platform GitHub | Compatible derrière wrapper | Transports env-dépendants |
-+| platform tools | Compatible (reads) | Pas Cursor exec |
-+| platform observability | Compatible derrière port D2-D | Catalogue différent |
-+| harness Cursor | Extract / wrapper | Capacité produit **UNVERIFIED** ; intégration Next **UNVERIFIED** |
-+
-+**REUSE-B respecté :** aucune compatibilité supposée ; décisions de réutilisation = TA candidates.
-+
-+---
-+
-+## I. Options runtime et packaging
-+
-+### TECH-RUN-A — `vertical-slice-runtime` = autorité technique D2-D
-+
-+| Critère | Analyse |
-+|---------|---------|
-+| Alignement RUNTIME-C | Faible — VS runtime = Create/Get project, agentExecution DISABLED |
-+| Double runtime | Risque élevé d'étendre un host incompatible |
-+| Next coupling | Fort |
-+| Testabilité | Faible (Server Actions / singleton) |
-+| Persistance | Process-local |
-+| Réversibilité | Faible après Delivery |
-+
-+### TECH-RUN-B — Nouveau core OA sémantique frère (`oa/execution-run`) + VS runtime = facade/composition server-only
-+
-+| Critère | Analyse |
-+|---------|---------|
-+| Alignement RUNTIME-C | Fort — une autorité core ; facade optionnelle |
-+| Double runtime | Mitigé si state authority **uniquement** dans core |
-+| Imports | Domaine pur testable |
-+| Next | Composition root server seule |
-+| Migration | Progressive |
-+| Dette | Nouveau module OA |
-+| Réversibilité | Haute avant Delivery |
-+
-+### TECH-RUN-C — Service/package autonome séparé de l'app
-+
-+| Critère | Analyse |
-+|---------|---------|
-+| Cohésion | Séparation nette |
-+| Ops | Complexité déploiement prématurée |
-+| Double runtime | Possible si Studio garde un second path |
-+| GreenOps | Worker/service permanent sans besoin prouvé |
-+
-+**RECOMMANDATION CANDIDATE :** TECH-RUN-B.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## J. Architecture technique cible candidate (NOT ADOPTED)
-+
-+```mermaid
-+flowchart TB
-+  D3["D3 consumer futur
-+(projection only)"]
-+  SF["Server facade
-+(transport-neutral)"]
-+  IN["Execution Intake"]
-+  CO["Coordination"]
-+  VP["Validation & Policy"]
-+  SA["State Authority
-+(unique)"]
-+  EV["Evidence / Disclosure"]
-+  EU["Event / Usage"]
-+  PB["Provider Boundary"]
-+  AI["AI adapter"]
-+  GIT["Git adapter"]
-+  CUR["Cursor adapter"]
-+  SEC["Secret Source"]
-+  SBX["Sandbox"]
-+  REPO["ExecutionRunRepository"]
-+  D2C["D2-C Qualification Core
-+(read-only)"]
-+
-+  D3 --> SF
-+  SF --> IN
-+  IN --> CO
-+  CO --> VP
-+  CO --> SA
-+  CO --> PB
-+  VP --> SA
-+  PB --> AI
-+  PB --> GIT
-+  PB --> CUR
-+  AI --> SEC
-+  GIT --> SEC
-+  CUR --> SEC
-+  CUR --> SBX
-+  SA --> REPO
-+  SA --> EV
-+  CO --> EU
-+  EV --> EU
-+  IN -.-> D2C
-+
-+  classDef forbid fill:#fee,stroke:#c00
-+```
-+
-+### Dépendances autorisées (candidates)
-+
-+- D3 → Server facade → Intake/Coordination uniquement (read projection).
-+- Coordination → Policy → State Authority.
-+- Providers → ports uniquement ; résultats vers State/Evidence, jamais vers D3.
-+
-+### Dépendances interdites
-+
-+- D3 → SDK / Secret / Cursor spawn / Git write.
-+- Provider → State Authority mutateur direct.
-+- `vertical-slice-runtime` et `execution-run` comme **deux** state authorities.
-+- `execution-contract` muté en runtime d'exécution.
-+
-+---
-+
-+## K. Découpage en couches (RECOMMANDATION CANDIDATE)
-+
-+| Couche | Contenu | Interdits |
-+|--------|---------|-----------|
-+| **1. Domain** | objets, états, transitions, erreurs, disclosures, evidence, invariants | Next/Node/SDK |
-+| **2. Application** | coordination, state authority, policy, cancellation, human gates | SDK types |
-+| **3. Ports** | repositories, AI, Git, Cursor, secret, event sink, clock, id | Implémentations |
-+| **4. Adapters** | memory, AI wrapper, GitHub wrapper, Cursor process, env secrets, event sink | Domaine pollué |
-+| **5. Server composition** | composition root | Domaine dans client bundle ; transport D3 figé |
-+
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## L. Contrats et validation runtime
-+
-+### CONTRACT-A — Types TS + guards manuels
-+
-+Simple ; risque de drift ; pas de JSON Schema partageable fixtures/adapters.
-+
-+### CONTRACT-B — Types TS + JSON Schema validé via AJV existant
-+
-+Réutilise AJV déjà présent (doctrine) ; duplication type/schema à gouverner par tests de conformité ; pas de nouvelle dépendance.
-+
-+### CONTRACT-C — Zod (nouvelle dépendance)
-+
-+Gain DX ; **nouvelle dépendance** ; bundle/compat ; nécessite arbitrage Morris.
-+
-+**RECOMMANDATION CANDIDATE :** CONTRACT-B + tests conformité types/schemas/fixtures.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+### Contrats candidats pour les 12 objets fonctionnels (noms techniques candidats — NOT ADOPTED)
-+
-+| Objet fonctionnel | Contrat technique candidat |
-+|-------------------|----------------------------|
-+| Execution Intent | `ExecutionIntent` |
-+| Execution Context | `ExecutionContext` |
-+| Provider Capability | `ProviderCapabilityDescriptor` |
-+| Validation Outcome | `ValidationOutcome` |
-+| Execution Run | `ExecutionRun` |
-+| Execution State | `ExecutionState` (union 8) |
-+| External Result | `ExternalResult` |
-+| Execution Evidence | `ExecutionEvidence` |
-+| Source Disclosure | `SourceDisclosure` |
-+| Human Decision Gate | `HumanDecisionGate` |
-+| Usage Summary | `UsageSummary` |
-+| Normalized Failure | `NormalizedFailure` |
-+
-+Aucune implémentation dans ce cycle.
-+
-+---
-+
-+## M. États et transitions
-+
-+### Huit états persistants exacts (ADOPTED FD-02)
-+
-+`idle` · `running` · `awaiting_human` · `succeeded` · `failed` · `cancelled` · `timed_out` · `blocked`
-+
-+**Aucun** état STATE-B supplémentaire (`created`, `queued`, `validating`, …).
-+
-+### Transition authority (candidate)
-+
-+- Reducer / fonctions de transition **pures**.
-+- Table de transitions explicite (héritée FD/FA).
-+- Événements transitoires non persistants.
-+- Nouveau run + nouvelle identité après terminal.
-+- `blocked` vs `failed` ; `timed_out` vs blocked human gate ; `cancelled` terminal ; late result evidence-only.
-+
-+### Représentation
-+
-+| Option | Analyse |
-+|--------|---------|
-+| Enum simple | Fragile pour payloads |
-+| Discriminated union | Alignée TypeScript strict |
-+| Machine externe | Nouvelle dépendance / astronaut |
-+
-+**RECOMMANDATION CANDIDATE :** discriminated union + transition functions pures, sans state-machine dependency.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## N. Identité, repository et persistance
-+
-+### Identités candidates
-+
-+- `ExecutionRunId`
-+- `correlationId`
-+- `providerOperationId`
-+- Nouvelle identité après terminal
-+- Champ version/optimistic concurrency **candidat**
-+
-+### Port
-+
-+`ExecutionRunRepository` (save/get/list by correlation — surface candidate).
-+
-+### STORE-A — Memory uniquement
-+
-+OK D2-D1 ; interdit claim multi-instance / strong durability.
-+
-+### STORE-B — Staged : memory D2-D1 ; durable adapter requis avant strong runtime verdict
-+
-+Aligné CAD/FA ; durable **non sélectionné** maintenant.
-+
-+### STORE-C — Durable immédiat
-+
-+Prématuré sans cible déploiement / NFR.
-+
-+Technologies candidates si repo permet : memory · SQLite borné · store externe.
-+**Aucune** sélection durable dans ce cycle.
-+
-+**RECOMMANDATION CANDIDATE :** STORE-B.
-+**Déclarations :** D2-D1 process-local acceptable ; D2-D3 ne peut revendiquer multi-instance/durabilité sans décision durable distincte.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## O. Coordination et modèle async
-+
-+| Option | Analyse |
-+|--------|---------|
-+| **ASYNC-A** sync request/response | Insuffisant Cursor / longs appels |
-+| **ASYNC-B** in-process Promise + AbortSignal + repository/state | Aligné Next server ; cancel/timeout ; restart limite process |
-+| **ASYNC-C** queue + worker | Ops/DevOps ; GreenOps ; besoin non prouvé |
-+
-+**RECOMMANDATION CANDIDATE :** ASYNC-B pour D2-D1/D2-D2 ; queue différée.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## P. Provider Capability Boundary — ports techniques candidats
-+
-+| Port | Responsabilité | Entrée | Sortie | Cancel/Timeout | Evidence | Server-only | Fixture/real |
-+|------|----------------|--------|--------|----------------|----------|-------------|--------------|
-+| `AiExecutionPort` | Lane AI | intent minimisé, limits | result/failure/usage | AbortSignal | redacted | oui | fake+real |
-+| `GitReadPort` | Lane Git read-only | ref/path allowlisted | read result | timeout | redacted | oui | fixture+real |
-+| `CursorExecutionPort` | Lane Cursor | sandbox contract, GO | result/proof | AbortSignal | proof pack | oui | fixture ; live UNVERIFIED |
-+| `SecretSourcePort` | Secrets | secret id | handle opaque | n/a | never value | oui | env/future |
-+| `ExecutionEventSink` | Events D2-D | technical+functional events | void | n/a | redacted | oui | noop/adapter |
-+| `ExecutionRunRepository` | Persistance run | run aggregate | run | n/a | n/a | oui | memory→durable |
-+| `ClockPort` | Temps | — | Instant | n/a | n/a | oui | system/fake |
-+| `IdSource` | Identités | — | ids | n/a | n/a | oui | uuid/fake |
-+
-+**Aucun type SDK** dans les ports.
-+**Statut ports :** CANDIDATES — NOT ADOPTED.
-+
-+---
-+
-+## Q. AI Provider
-+
-+| Option | Analyse |
-+|--------|---------|
-+| **AI-A** réutiliser directement `ConversationProvider` | Couplage contrat conversation |
-+| **AI-B** wrapper D2-D autour platform AI | Réutilise OpenAI/fake/usage ; contract-fit tests requis |
-+| **AI-C** nouvel adapter indépendant | Duplication ; lock-in risk différent |
-+
-+**RECOMMANDATION CANDIDATE :** AI-B sous réserve contract-fit tests.
-+**Déclarations :** aucun modèle hardcodé ; aucune clé dans domaine/D3 ; aucune réponse brute dans events ; aucun appel live CI par défaut.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## R. GitHub Provider
-+
-+| Option | Analyse |
-+|--------|---------|
-+| **GIT-A** `gh` CLI only | Indispo en hosted |
-+| **GIT-B** REST only | Token/App ; testabilité |
-+| **GIT-C** port transport-neutral existant (`gh` local ; REST/App hosted) | Aligné baseline `resolveGithubReadTransport` |
-+
-+**RECOMMANDATION CANDIDATE :** GIT-C derrière wrapper D2-D.
-+**Contraintes :** read-only strict ; aucune méthode write dans port D2-D ; pas de fallback silencieux ; transport = disclosure technique ; PAT ≠ production par défaut.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## S. Cursor Worker et sandbox
-+
-+| Option | Analyse |
-+|--------|---------|
-+| **CURSOR-A** import direct harness dans Next | Risque FS/child_process/ESM ; client-unsafe |
-+| **CURSOR-B** process boundary / extract adapter partagé derrière `CursorExecutionPort` | Isolation ; capability gate |
-+| **CURSOR-C** réécriture indépendante | Coût ; perte preuves harness |
-+
-+**RECOMMANDATION CANDIDATE :** CURSOR-B **uniquement après** capability verification dédiée.
-+**Déclaration :** `CURSOR PRODUCT CAPABILITIES — UNVERIFIED`
-+**Interdits :** import harness dans client bundle ; commande arbitraire browser ; mutation Git distante ; live sans gate Morris ; claim sandbox sécurisée sans preuve.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## T. Secret Source
-+
-+| Option | Analyse |
-+|--------|---------|
-+| **SECRET-A** `process.env` direct partout | Fuite / rotation difficile |
-+| **SECRET-B** `SecretSourcePort` + env local + manager futur | Réversible |
-+| **SECRET-C** secret manager immédiat | Techno sans contexte déploiement |
-+
-+**RECOMMANDATION CANDIDATE :** SECRET-B.
-+Définir : identité secret · disponibilité · expiration · révocation · rotation · aucune valeur sérialisable · redaction · server-only.
-+**Statut :** CANDIDATE — NOT ADOPTED.
-+
-+---
-+
-+## U. Frontières sécurité
-+
-+### Trust-boundary (candidate)
-+
-+```mermaid
-+flowchart LR
-+  Client["Client / D3 UI"] -->|DTO only| Facade["Server facade"]
-+  Facade --> Core["execution-run core"]
-+  Core --> Ports["Ports"]
-+  Ports --> Adapters["Adapters server-only"]
-+  Adapters --> Ext["OpenAI / GitHub / Cursor / FS"]
-+  Adapters --> Secrets["SecretSource"]
-+```
-+
-+| Menace | Acteur | Surface | Mitigation candidate | Preuve | Réserve |
-+|--------|--------|---------|----------------------|--------|---------|
-+| Secret leakage | insider/log | events/evidence/D3 | SecretSource + redaction | tests redaction | — |
-+| Prompt injection | provider/user | AI lane | minimisation + validation sortie | contract-fit | — |
-+| Malicious provider result | provider | adapters | INVALID_PROVIDER_RESULT ; Evidence authority | tests | — |
-+| Arbitrary command | attacker | Cursor/tools | deny-by-default ; no browser spawn | policy tests | UNVERIFIED Cursor |
-+| Sandbox escape | Cursor | FS | allowlist paths ; gate | sandbox tests | UNVERIFIED |
-+| Protected path | tool | repo FS | pathPolicy | tests | — |
-+| Git mutation | adapter | GitHub/git | read-only ports | surface tests | — |
-+| Branch/HEAD drift | Cursor | spawn | gate revalidation | harness pattern | — |
-+| Result spoofing | late result | state | terminal authority ; evidence-only | tests | — |
-+| Event leakage | sink | observability | redaction catalogue | tests | R-QA-REV-01/02 |
-+| Late result | provider | async | ignore state mutate | tests | — |
-+| Cancellation race | concurrent | AbortSignal | local terminal authoritative | tests | — |
-+| Unauthorized human gate | system | awaiting_human | Morris-only structural | FA-07 | — |
-+| Client import adapter | bundler | Next | import-boundary tests | Vitest | — |
-+
-+---
-+
-+## V. Erreurs techniques (candidates — NOT ADOPTED)
-+
-+| Code candidat | Producteur | Normalisateur | Retryable | État | Evidence | D3 message | Redaction |
-+|---------------|------------|---------------|-----------|------|----------|------------|-----------|
-+| `VALIDATION_ERROR` | Policy | Evidence | after fix | blocked | yes | normalized | no raw |
-+| `AUTHENTICATION_ERROR` | Policy/Provider | Evidence | after creds | blocked/failed | yes | normalized | no secret |
-+| `AUTHORIZATION_ERROR` | Policy/Provider | Evidence | after rights | blocked/failed | yes | normalized | — |
-+| `PROVIDER_UNAVAILABLE` | Provider | Evidence | new run | failed/blocked | yes | normalized | — |
-+| `RATE_LIMITED` | Provider | Evidence | deferred bounded | failed/blocked | yes | normalized | — |
-+| `TIMED_OUT` | State/Provider | Evidence | new run | timed_out | yes | normalized | — |
-+| `CANCELLED` | State | Evidence | new run | cancelled | yes | normalized | — |
-+| `SANDBOX_BLOCKED` | Policy | Evidence | after conform | blocked | yes | normalized | — |
-+| `PROTECTED_PATH` | Policy | Evidence | no if forbid | blocked/failed | yes | normalized | path only |
-+| `MUTATION_FORBIDDEN` | Policy | Evidence | change intent | blocked | yes | normalized | — |
-+| `HUMAN_GATE_REQUIRED` | Human Gate | Evidence | after decision | awaiting_human/blocked | yes | gate info | — |
-+| `INVALID_PROVIDER_RESULT` | Provider | Evidence | new run | failed | yes | normalized | no raw |
-+| `INTERNAL_NORMALIZED_FAILURE` | Coord | Evidence | limited | failed | yes | normalized | no stack to D3 |
-+
-+Codes restent **candidats** jusqu'à arbitrage.
-+
-+---
-+
-+## W. Evidence, completeness et disclosures
-+
-+| Concept | Définition candidate |
-+|---------|----------------------|
-+| Evidence officielle | Produite uniquement par Evidence Authority |
-+| Evidence brute redacted | Candidat provider après redaction ; non autoritaire pour success |
-+| Completeness | complete \| partial — explicite |
-+| Partiality | Partial **jamais** `succeeded` |
-+| Source | `fixture` \| `sandbox-real` \| `real` |
-+| Provider abstraction | Lane + type abstrait ; pas SDK |
-+| Late evidence | Post-terminal ; n'altère pas l'état |
-+| Evidence id / digest | Identité + hash contenu redacted |
-+| Timestamps | ISO validés (lien R-QA-REV-01) |
-+
-+Frontières : provider result → normalized result → official evidence → D3 projection.
-+
-+---
-+
-+## X. Events, observabilité, usage et FinOps
-+
-+| Option | Analyse |
-+|--------|---------|
-+| **EVENT-A** réutiliser catalogue EventSink actuel | Catalogue ≠ D2-D fonctionnel |
-+| **EVENT-B** port D2-D → adapter EventSink | Aligné REUSE-B |
-+| **EVENT-C** nouveau service observabilité | Prématuré |
-+
-+**RECOMMANDATION CANDIDATE :** EVENT-B.
-+
-+Événements techniques nécessaires pour couvrir le catalogue fonctionnel adopté (intent_validated, execution_started/blocked/cancelled/timed_out/failed/succeeded, external_operation_*, awaiting_human, human_decision_recorded, …).
-+
-+Champs : correlationId · runId · provider lane · state transition · validation · gate · cancellation · timeout · late result · completeness · source disclosure · usage validé.
-+
-+**Interdits :** secret · prompt complet · réponse complète · stack brute vers D3 · prix inventé.
-+
-+---
-+
-+## Y. Cancellation, timeout, retries et idempotency
-+
-+- `AbortSignal` pour opérations provider.
-+- Timeout opérationnel + timeout global **candidats** (durées non inventées en production).
-+- Cancellation best-effort provider ; **état terminal local autoritatif**.
-+- Late result → evidence-only.
-+- Retry seulement erreurs classées retryable ; aucun retry infini.
-+- Aucun retry structurel après décision Morris sans nouvelle gate.
-+- Idempotency de commande ; nouveau run après terminal.
-+
-+---
-+
-+## Z. R-QA-D2C-01 — défense en profondeur (R-C ADOPTED)
-+
-+### 1. Frontière D2-D (ce cycle documente ; n'implémente pas)
-+
-+- Valider **avant** toute lecture de métadonnées.
-+- Fail-closed.
-+- Aucun résultat partiel exploitable comme succès.
-+- Tests adversariaux `null`/`undefined` → NormalizedFailure.
-+
-+### 2. Correction D2-C (GATE FUTURE séparée)
-+
-+- Cycle séparé · périmètre borné · avant exposition réelle frontière externe non validée.
-+
-+| Élément | Statut |
-+|---------|--------|
-+| Dépendance D2-D1 | Validation avant metadata |
-+| Gate correction D2-C | Distincte |
-+| Preuve | Tests adversariaux + QA |
-+| **R-QA-D2C-01** | **OPEN NOT LIFTED** |
-+
-+---
-+
-+## AA. Frontière D3
-+
-+| Option | Analyse |
-+|--------|---------|
-+| **D3-TECH-A** Server Action couplée runtime | Couplage transport |
-+| **D3-TECH-B** Route/API maintenant | Figé trop tôt |
-+| **D3-TECH-C** Facade application transport-neutral | Transport UI ultérieur |
-+
-+**RECOMMANDATION CANDIDATE :** D3-TECH-C.
-+
-+### DTO technique provider-independent (candidat)
-+
-+run id · état · source · progression · completeness · result redacted · failure redacted · blocked reason · human gate · evidence summary · usage validé · réserves · readiness.
-+
-+**Interdits DTO :** SDK object · secret · raw provider error · command · Git write · provider-specific type.
-+
-+---
-+
-+## AB. Double runtime et composition
-+
-+| Composant | Rôle candidat |
-+|-----------|---------------|
-+| `oa/execution-run` | **Core** — state authority unique |
-+| `vertical-slice-runtime` | Facade/composition server-only optionnelle |
-+| `execution-contract` | Amont contractuel (confirmed) — **pas** runtime |
-+| D2-C | Capacité read-only qualification |
-+| platform/harness | Adapters derrière ports |
-+
-+### Imports autorisés (candidats)
-+
-+composition → application → domain ; adapters → ports ; facade → composition.
-+
-+### Interdits
-+
-+- State authority dans VS runtime **et** core.
-+- Duplication du reducer.
-+- Provider direct vers D3.
-+- `execution-contract` muté en runtime.
-+- Deux repositories d'état concurrents.
-+
-+---
-+
-+## AC. Déploiement et multi-instance (sans sélection de cible)
-+
-+| Dimension | Observation / contrainte |
-+|-----------|--------------------------|
-+| Processus unique | Baseline actuelle |
-+| Restart | Memory loss |
-+| Serverless | Multi-instance hazard |
-+| Long-running server | Cancel/timeout plus naturels |
-+| Worker | ASYNC-C — besoin non prouvé |
-+| Persistence | STORE-B ; durable undecided |
-+| Locking | Requis si multi-instance |
-+| Sandbox locality | Cursor FS local |
-+
-+### Claims autorisés par slice
-+
-+| Slice | Claims autorisés | Claims interdits |
-+|-------|------------------|------------------|
-+| D2-D1 | local/process-only ; fixtures déterministes | multi-instance ; production-ready |
-+| D2-D2 | adapters réels read-only sous env borné | sandbox secure sans preuve ; Cursor compatible |
-+| D2-D3 | strong runtime **seulement** avec preuves explicites persistance/worker/sandbox/env | scalable ; RUN READY |
-+
-+---
-+
-+## AD. Stratégie de tests (documentaire — aucun test exécuté)
-+
-+- Unitaires domaine (transitions, invariants).
-+- Matrice complète transitions.
-+- Contract schema tests (AJV candidat).
-+- Fixtures vs adapters conformance.
-+- Policy deny · redaction · error normalization.
-+- Timeout · cancellation · late results.
-+- Partial never succeeded · human gate · source disclosure.
-+- D3 projection · adversarial R-QA-D2C-01.
-+- Import-boundary · provider fake · sandbox-real opt-in · live hors CI défaut.
-+
-+---
-+
-+## AE. Catalogue de fixtures obligatoires
-+
-+1. nominal fixture
-+2. nominal sandbox-real candidat
-+3. validation failure
-+4. auth failure
-+5. provider unavailable
-+6. rate limit
-+7. timeout
-+8. cancellation
-+9. blocked gate
-+10. protected path
-+11. mutation forbidden
-+12. partial result
-+13. invalid provider result
-+14. late result
-+15. secret redaction
-+16. source mismatch
-+
-+Mêmes schemas pour fixtures et adapters réels.
-+
-+---
-+
-+## AF. Slicing technique
-+
-+### D2-D1
-+
-+**Objectif :** core `execution-run` candidat · contrats · AJV schemas · reducer · policy · errors · evidence/disclosure · memory repo · fixtures.
-+**Pas** d'intégration fournisseur réelle.
-+**Sortie :** contrats validables + matrice états.
-+**Gate :** GO Delivery D2-D1 (futur, non ouvert).
-+**Claims interdits :** provider integrated · production-ready.
-+
-+### D2-D2
-+
-+**Objectif :** AI/Git wrappers · Cursor capability verification · sandbox · SecretSource · EventSink adapter · timeout/cancel · R-QA-D2C-01 defence · read-only.
-+**Gate :** GO Delivery D2-D2.
-+**Claims interdits :** Cursor compatible sans preuve · reserve lifted.
-+
-+### D2-D3
-+
-+**Objectif :** coordination E2E · sandbox-real · D3 projection · evidence · strong runtime proofs · décision persistance/déploiement **si** nécessaire.
-+**Gate :** GO Delivery D2-D3.
-+**Claims interdits :** multi-instance sans décision durable.
-+
-+### D2-D4
-+
-+Writes — **hors trajectoire**.
-+
-+Aucune user story rédigée.
-+
-+---
-+
-+## AG. Cartographie de fichiers candidate (NOT ADOPTED)
-+
-+```text
-+projects/sfia-studio/app/lib/oa/execution-run/
-+  domain/
-+    executionRun.ts
-+    executionState.ts
-+    executionTransitions.ts
-+    executionErrors.ts
-+    executionEvidence.ts
-+    executionDisclosure.ts
-+    executionPolicy.ts
-+  application/
-+    executionCoordinator.ts
-+    executionProjection.ts
-+  ports/
-+    executionRunRepository.ts
-+    aiExecutionPort.ts
-+    gitReadPort.ts
-+    cursorExecutionPort.ts
-+    secretSourcePort.ts
-+    executionEventSink.ts
-+    clockPort.ts
-+    idSource.ts
-+  infrastructure/
-+    memoryExecutionRunRepository.ts
-+    # wrappers platform/harness
-+  index.ts
-+```
-+
-+Noms métier préférés aux préfixes `d2d-*`. Wrappers sous `infrastructure/` ou `platform/*` selon arbitrage.
-+
-+---
-+
-+## AH. Compatibilité et migration
-+
-+| Brique | Contrat actuel | Cible candidate | Wrapper | Rupture | Tests | Rollback | Dette |
-+|--------|----------------|-----------------|---------|---------|-------|----------|-------|
-+| ConversationProvider | conversation tools | AiExecutionPort | AI-B | contract-fit | conformance | garder platform | drift |
-+| GithubReadPort | read tools | GitReadPort D2-D | GIT-C | surface write absente | allowlist | inchangé | transport env |
-+| EventSink | TechnicalEvent | ExecutionEventSink | EVENT-B | catalogue | schema | noop | dual catalogues |
-+| Cursor harness | S1 contract | CursorExecutionPort | CURSOR-B | schema dual | capability gate | harness alone | UNVERIFIED |
-+| execution-contract | T-A4 | amont only | none mutate | — | refuse T-A5 | — | confusion runtime |
-+| D2-C | qualify read-only | Intake optional | compose | — | unit | — | — |
-+| vertical-slice-runtime | Create/Get | facade | TECH-RUN-B | no state dual | disclosure | keep VS | double runtime |
-+
-+---
-+
-+## AI. FinOps et GreenOps
-+
-+### Signaux
-+
-+nombre d'appels · tokens · durée · retries · timeouts · provider · model · bytes · sandbox duration.
-+
-+**Aucun prix codé en dur.**
-+
-+### Leviers
-+
-+budgets configurables · no duplicate call · bounded retries · fixture first · no permanent worker before need · bounded evidence retention · no provider call after cancellation terminale.
-+
-+---
-+
-+## AJ. Risques et dette
-+
-+| Risque | P | I | Mitigation | Preuve | Dette | Slice | Gate |
-+|--------|---|---|------------|--------|-------|-------|------|
-+| Architecture astronaut | M | H | Minimal foundation | revue options | overdesign | TA | arbitration |
-+| Nouveau domaine parallèle | M | H | TECH-RUN-B + mapping FA | imports | dual models | D1 | Delivery |
-+| Double runtime | H | H | state authority unique | AB | OPS1/harness | D1–D3 | Delivery |
-+| State authority dupliquée | M | H | Interdit AB | tests | — | D1 | — |
-+| Provider lock-in | M | H | ports + wrappers | contract-fit | — | D2 | — |
-+| AJV/types drift | M | M | conformance tests | CI | dual source | D1 | — |
-+| Memory state loss | H | M | disclosures ; STORE-B | docs | durable later | D1–D3 | durable GO |
-+| Queue prématurée | M | M | ASYNC-B | ADR | ops | D2 | — |
-+| CLI unavailable | M | H | GIT-C REST path | probe | auth | D2 | — |
-+| REST auth leakage | M | H | SecretSource + redaction | tests | — | D2 | — |
-+| Cursor incompatibility | H | H | capability verification | UNVERIFIED | rewrite | D2 | capability GO |
-+| Sandbox escape | M | H | allowlist + gate | tests | — | D2–D3 | — |
-+| Direct harness import | M | H | CURSOR-B boundary | import tests | — | D2 | — |
-+| Secret leakage | M | H | SECRET-B | redaction | — | D2 | — |
-+| D3 provider leakage | M | H | D3-TECH-C DTO | projection tests | — | D3 | — |
-+| Partial-as-success | M | H | Evidence authority | tests | — | D1 | — |
-+| Late result race | M | H | terminal authority | tests | — | D2 | — |
-+| Cancellation race | M | H | AbortSignal + local state | tests | — | D2 | — |
-+| Event inconsistency | M | M | EVENT-B catalogue | schema | — | D2 | — |
-+| No multi-instance | H | M | claims bornés | disclosures | durable | D3 | — |
-+| Live tests flaky | M | M | live hors CI | policy | — | D2–D3 | — |
-+| R-QA-D2C-01 | H | H | R-C two lines | adversarial | OPEN | D1 + D2-C | D2-C GO |
-+| R-QA-REV-01 | M | M | ISO timestamps | tests | OPEN | D1–D2 | — |
-+| R-QA-REV-02 | M | M | conserve | docs | OPEN | — | — |
-+
-+---
-+
-+## AK. Critères d'acceptation — snapshot historique du cycle pré-arbitrage
-+
-+> **Statut temporel :** cette checklist décrit l'état du document à la
-+> clôture du cycle d'architecture technique, avant l'arbitrage Morris du
-+> 2026-08-03 19:24 CEST (+0200). Les lignes
-+> « Aucune architecture implicitement adoptée » et
-+> « TA-01…14 NOT DECIDED » étaient exactes à cette date.
-+> Elles sont désormais supplantées, pour l'état décisionnel courant,
-+> par AN2 et AR. Elles sont conservées sans réécriture rétrospective.
-+
-+
-+- [x] Plusieurs options par décision structurante
-+- [x] Runtime owner options comparées (TECH-RUN-A/B/C)
-+- [x] Package boundary / couches documentées
-+- [x] Domain sans SDK exigé
-+- [x] Contrats validables options (CONTRACT-A/B/C)
-+- [x] Huit états exacts
-+- [x] Transition authority documentée
-+- [x] Repository port + STORE-A/B/C
-+- [x] Async A/B/C
-+- [x] Provider ports
-+- [x] AI / Git / Cursor options
-+- [x] Secrets / sandbox / sécurité
-+- [x] Errors / evidence / disclosures / events
-+- [x] Cancellation / timeout / late result
-+- [x] D2-C defence R-C
-+- [x] D3 independence
-+- [x] Test + fixture strategy
-+- [x] Slicing D2-D1/D2/D3 ; D2-D4 hors
-+- [x] Aucune implémentation
-+- [x] Aucune architecture implicitement adoptée
-+- [x] TA-01…14 NOT DECIDED
-+
-+### État décisionnel courant après arbitrage
-+
-+- Architecture technique D2-D : **ARBITRATED BY MORRIS**.
-+- D-V3.1-D2D-TA-01…14 : **DECIDED — ADOPTED BY MORRIS**.
-+- Implémentation : **NON EXÉCUTÉE**.
-+- Backlog : **NON CRÉÉ**.
-+- Delivery : **NON AUTORISÉE**.
-+- Références autoritatives : **AN2 et AR**.
-+
-+---
-+
-+## AL. Questions ouvertes (INCONNUES)
-+
-+- Cible de déploiement
-+- Durabilité / multi-instance
-+- Choix du durable store
-+- Technologie de worker
-+- Auth GitHub hosted (App vs token)
-+- Secret manager
-+- Capacités Cursor exactes (**UNVERIFIED**)
-+- Disponibilité Cursor dans l'environnement cible
-+- Streaming AI
-+- Structured output exact
-+- Provider cancellation guarantees
-+- Rétention des preuves
-+- Transport événement / sink observabilité
-+- SLO (non inventés)
-+- Budgets FinOps numériques
-+- Transport D3 (Server Action vs Route vs autre)
-+
-+---
-+
-+## AM. ADR candidates (PROPOSED — NOT ADOPTED)
-+
-+### ADR-TA-01 — Runtime owner / packaging
-+
-+- **Contexte :** RUNTIME-C fonctionnel ; VS runtime ≠ autorité D2-D aujourd'hui.
-+- **Problème :** où placer le core d'exécution sans double runtime.
-+- **Options :** TECH-RUN-A / B / C.
-+- **Recommandation candidate :** TECH-RUN-B.
-+- **+ :** alignement RUNTIME-C ; testabilité ; facade optionnelle.
-+- **− :** nouveau module OA ; discipline imports.
-+- **Risques :** confusion avec execution-contract / OPS1.
-+- **Réversibilité :** haute avant Delivery.
-+- **Dette :** migration composition.
-+- **Préconditions :** arbitrage Morris TA-01.
-+- **Gate :** GO ARBITRATION TA.
-+- **Statut :** PROPOSED — NOT ADOPTED.
-+
-+### ADR-TA-02 — Contrats / AJV
-+
-+Options CONTRACT-A/B/C ; reco CONTRACT-B ; PROPOSED — NOT ADOPTED.
-+
-+### ADR-TA-03 — Persistance staged
-+
-+Options STORE-A/B/C ; reco STORE-B ; durable undecided ; PROPOSED — NOT ADOPTED.
-+
-+### ADR-TA-04 — Async in-process
-+
-+Options ASYNC-A/B/C ; reco ASYNC-B ; queue différée ; PROPOSED — NOT ADOPTED.
-+
-+### ADR-TA-05 — Provider wrappers
-+
-+Ports + AI-B / GIT-C / CURSOR-B ; capability Cursor UNVERIFIED ; PROPOSED — NOT ADOPTED.
-+
-+### ADR-TA-06 — Secrets
-+
-+SECRET-A/B/C ; reco SECRET-B ; PROPOSED — NOT ADOPTED.
-+
-+### ADR-TA-07 — Events
-+
-+EVENT-A/B/C ; reco EVENT-B ; PROPOSED — NOT ADOPTED.
-+
-+### ADR-TA-08 — D3 transport-neutral facade
-+
-+D3-TECH-A/B/C ; reco D3-TECH-C ; PROPOSED — NOT ADOPTED.
-+
-+*(Chaque ADR structurante ci-dessus reste PROPOSED — NOT ADOPTED ; détails opérationnels dans §I–AA et decision pack §AN.)*
-+
-+---
-+
-+## AN. Decision pack Morris — D-V3.1-D2D-TA-01…14
-+
-+> **Statut commun de chaque décision :** `NOT DECIDED — MORRIS ARBITRATION REQUIRED`
-+
-+### D-V3.1-D2D-TA-01 — Runtime owner et packaging
-+
-+- **Question :** Qui est l'autorité technique d'exécution D2-D et comment packager ?
-+- **Options :** TECH-RUN-A / TECH-RUN-B / TECH-RUN-C
-+- **Recommandation candidate :** TECH-RUN-B
-+- **Justification :** RUNTIME-C ; VS runtime disclosures agentExecution DISABLED ; évite double state authority
-+- **Impacts :** nouveau module OA ; facade optionnelle
-+- **Sécurité :** server composition only
-+- **Performance :** in-process ; pas de claim SLO
-+- **FinOps :** pas de service permanent
-+- **Dette :** migration composition
-+- **Réversibilité :** haute pré-Delivery
-+- **Dépendances :** aucune nouvelle npm
-+- **Réserves :** —
-+- **Gate suivante :** TA arbitration → backlog D2-D1
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-02 — Découpage domain/application/ports/adapters/server composition
-+
-+- **Question :** Quelle structure de couches ?
-+- **Options :** (1) couches §K (2) tout dans vertical-slice-runtime (3) package npm séparé immédiat
-+- **Recommandation candidate :** couches §K
-+- **Justification :** domain pur ; ports injectés ; Next hors domaine
-+- **Impacts / sécu / perf / FinOps / dette / réversibilité :** testabilité ↑ ; bundling risk ↓
-+- **Dépendances :** —
-+- **Réserves :** —
-+- **Gate :** TA arbitration
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-03 — Représentation contrats et validation
-+
-+- **Options :** CONTRACT-A / B / C
-+- **Recommandation candidate :** CONTRACT-B (TS + JSON Schema/AJV existant)
-+- **Justification :** AJV déjà présent ; fixtures/adapters share schemas ; évite Zod sans GO
-+- **Dette :** dual type/schema gouvernée par tests
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-04 — État, repository et persistance
-+
-+- **Options :** STORE-A / B / C
-+- **Recommandation candidate :** STORE-B
-+- **Justification :** D2-D1 process-local OK ; strong runtime exige durable gate séparée
-+- **Réserves :** multi-instance claims interdits sans durable
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-05 — Coordination async, cancellation et timeout
-+
-+- **Options :** ASYNC-A / B / C
-+- **Recommandation candidate :** ASYNC-B
-+- **Justification :** AbortSignal ; Cursor longs ; queue non prouvée
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-06 — Provider Capability Boundary et wrappers
-+
-+- **Question :** Ports + stratégie wrappers vs rewrite
-+- **Options :** reuse direct / wrappers D2-D / rewrite ciblé
-+- **Recommandation candidate :** wrappers D2-D (REUSE-B)
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-07 — AI adapter, model/config et contract-fit
-+
-+- **Options :** AI-A / B / C
-+- **Recommandation candidate :** AI-B
-+- **Sécurité :** secrets hors domaine ; no raw in events
-+- **FinOps :** usage validé ; model configurable
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-08 — GitHub transport, auth et read-only policy
-+
-+- **Options :** GIT-A / B / C
-+- **Recommandation candidate :** GIT-C
-+- **Sécurité :** read-only ; allowlist ; redaction ; PAT ≠ prod défaut
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-09 — Cursor process boundary, sandbox et capability gate
-+
-+- **Options :** CURSOR-A / B / C
-+- **Recommandation candidate :** CURSOR-B after capability verification
-+- **Réserves :** CURSOR PRODUCT CAPABILITIES — UNVERIFIED
-+- **Gate :** capability verification GO distinct
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-10 — SecretSource et frontières sécurité/redaction
-+
-+- **Options :** SECRET-A / B / C
-+- **Recommandation candidate :** SECRET-B
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-11 — Events, evidence, usage et observability adapter
-+
-+- **Options :** EVENT-A / B / C
-+- **Recommandation candidate :** EVENT-B
-+- **Réserves :** R-QA-REV-01/02 timestamps/events
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-12 — D3 projection et transport-neutral server boundary
-+
-+- **Options :** D3-TECH-A / B / C
-+- **Recommandation candidate :** D3-TECH-C
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-13 — Test strategy, fixtures et traitement R-QA-D2C-01
-+
-+- **Question :** Stratégie tests + défense R-C
-+- **Options :** (1) fixtures-first + adversarial D2-D boundary (2) live-first (3) report correction D2-C only
-+- **Recommandation candidate :** (1) + gate D2-C séparée
-+- **Réserves :** R-QA-D2C-01 OPEN NOT LIFTED
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+### D-V3.1-D2D-TA-14 — Slicing D2-D1/D2-D2/D2-D3 et critères de sortie vers backlog
-+
-+- **Question :** Critères de sortie techniques vers backlog futur
-+- **Options :** slicing FA-11 tel quel / fusion D2-D1+D2 / walking skeleton dès D2-D1
-+- **Recommandation candidate :** D2-D1 → D2-D2 → D2-D3 ; D2-D4 hors trajectoire
-+- **Gate suivante après arbitrage :** GO BACKLOG D2-D1/D2/D3 (distinct)
-+- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-+
-+---
-+
-+## AN2. Decision record Morris — 2026-08-03 19:24 CEST (+0200)
-+
-+### GO Morris consommé (arbitrage + autorisation de publication documentaire)
-+
-+```text
-+GO ARBITRATION SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE
-+
-+ADOPT:
-+
-+D-V3.1-D2D-TA-01:
-+ADOPT TECH-RUN-B.
-+
-+CREATE ONE SEMANTIC OA EXECUTION-RUN CORE
-+AS THE SOLE TECHNICAL AUTHORITY FOR D2-D EXECUTION STATE.
-+
-+VERTICAL-SLICE-RUNTIME REMAINS A SERVER-ONLY FACADE
-+AND COMPOSITION ROOT.
-+
-+EXECUTION-CONTRACT REMAINS A PRE-EXECUTION GOVERNANCE COMPONENT.
-+
-+NO SECOND STATE AUTHORITY.
-+NO TECHNICAL MICROSERVICE OR DEPLOYMENT UNIT IS IMPLIED.
-+
-+D-V3.1-D2D-TA-02:
-+ADOPT THE DOMAIN / APPLICATION / PORTS / ADAPTERS /
-+SERVER-COMPOSITION LAYERING.
-+
-+DOMAIN MUST REMAIN FREE OF NEXT, NODE, PROVIDER SDK,
-+FILESYSTEM, PROCESS AND NETWORK DEPENDENCIES.
-+
-+APPLICATION COORDINATES THROUGH INJECTED PORTS.
-+SIDE EFFECTS REMAIN BEHIND ADAPTERS.
-+
-+D-V3.1-D2D-TA-03:
-+ADOPT CONTRACT-B.
-+
-+USE TYPESCRIPT TYPES PLUS JSON SCHEMA VALIDATION
-+WITH THE EXISTING AJV CAPABILITY.
-+
-+JSON SCHEMAS ARE THE RUNTIME VALIDATION AUTHORITY
-+AT EXTERNAL AND UNTRUSTED BOUNDARIES.
-+
-+TYPESCRIPT TYPES PROVIDE COMPILE-TIME REPRESENTATION.
-+
-+CONFORMANCE TESTS MUST PREVENT TYPE / SCHEMA / FIXTURE DRIFT.
-+
-+NO NEW VALIDATION DEPENDENCY IS ADOPTED.
-+
-+D-V3.1-D2D-TA-04:
-+ADOPT STORE-B.
-+
-+USE A SINGLE EXECUTION-RUN REPOSITORY PORT.
-+
-+D2-D1 MAY USE A PROCESS-LOCAL MEMORY ADAPTER.
-+
-+A DISTINCT DURABLE-PERSISTENCE DECISION AND PROOF
-+ARE REQUIRED BEFORE ANY STRONG RUNTIME,
-+RESTART-SAFETY OR MULTI-INSTANCE CLAIM.
-+
-+USE THE EIGHT ADOPTED STATES ONLY,
-+WITH DISCRIMINATED UNIONS AND PURE TRANSITION FUNCTIONS.
-+
-+NO EXTERNAL STATE-MACHINE DEPENDENCY.
-+
-+D-V3.1-D2D-TA-05:
-+ADOPT ASYNC-B FOR D2-D1 AND D2-D2.
-+
-+USE IN-PROCESS ASYNCHRONOUS COORDINATION,
-+PROMISES, ABORTSIGNAL, BOUNDED TIMEOUTS
-+AND THE EXECUTION-RUN REPOSITORY.
-+
-+NO QUEUE OR PERMANENT WORKER WITHOUT A PROVEN NEED.
-+
-+REOPEN THIS DECISION BEFORE D2-D3
-+IF THE TARGET ENVIRONMENT CANNOT GUARANTEE
-+THE REQUIRED PROCESS LIFETIME OR CANCELLATION SEMANTICS.
-+
-+D-V3.1-D2D-TA-06:
-+ADOPT D2-D PROVIDER PORTS AND WRAPPERS
-+AS THE REUSE-B IMPLEMENTATION PRINCIPLE.
-+
-+EXISTING PLATFORM AND HARNESS CAPABILITIES
-+MUST BE EVALUATED BEHIND D2-D CONTRACTS.
-+
-+NO DIRECT PROVIDER SDK TYPE IN DOMAIN,
-+APPLICATION CONTRACTS OR D3 PROJECTIONS.
-+
-+NO COMPATIBILITY IS ASSUMED.
-+
-+TARGETED REWRITE REMAINS PERMITTED
-+WHEN CONTRACT-FIT TESTS FAIL.
-+
-+D-V3.1-D2D-TA-07:
-+ADOPT AI-B.
-+
-+USE A D2-D AI ADAPTER AROUND THE EXISTING
-+PLATFORM AI CAPABILITY, SUBJECT TO CONTRACT-FIT TESTS.
-+
-+MODEL AND PROVIDER CONFIGURATION MUST REMAIN CONFIGURABLE.
-+
-+SECRETS REMAIN SERVER-ONLY.
-+
-+NO COMPLETE PROMPT OR PROVIDER RESPONSE
-+IN EVENTS OR D3 BY DEFAULT.
-+
-+USAGE MAY BE EXPOSED ONLY AFTER VALIDATION.
-+
-+NO LIVE PROVIDER CALL IN DEFAULT CI.
-+
-+D-V3.1-D2D-TA-08:
-+ADOPT GIT-C.
-+
-+USE A TRANSPORT-NEUTRAL, STRICTLY READ-ONLY GIT PROVIDER PORT.
-+
-+GH CLI MAY BE USED IN CONTROLLED LOCAL OR SANDBOX CONTEXTS.
-+
-+REST OR GITHUB APP AUTHENTICATION MAY BE USED
-+IN A FUTURE HOSTED CONTEXT AFTER A DISTINCT DECISION.
-+
-+NO SILENT TRANSPORT FALLBACK.
-+
-+REPOSITORY ALLOWLIST, TIMEOUT AND REDACTION ARE MANDATORY.
-+
-+PAT IS NOT ADOPTED AS THE DEFAULT PRODUCTION AUTHENTICATION MODEL.
-+
-+D-V3.1-D2D-TA-09:
-+ADOPT CURSOR-B CONDITIONALLY.
-+
-+CURSOR MUST BE ISOLATED BEHIND A SERVER-ONLY
-+CURSOR EXECUTION PORT AND A PROCESS OR EXTRACTED ADAPTER BOUNDARY.
-+
-+NO DIRECT HARNESS IMPORT INTO CLIENT OR DOMAIN CODE.
-+
-+NO ARBITRARY COMMAND FROM D3.
-+
-+NO REMOTE GIT WRITE.
-+
-+NO LIVE EXECUTION WITHOUT MORRIS GATE REVALIDATION.
-+
-+CURSOR PRODUCT CAPABILITIES REMAIN UNVERIFIED.
-+
-+A DISTINCT CURSOR CAPABILITY-VERIFICATION GO
-+IS REQUIRED BEFORE LIVE ADAPTER DELIVERY.
-+
-+D-V3.1-D2D-TA-10:
-+ADOPT SECRET-B.
-+
-+USE A SECRETSOURCE PORT.
-+
-+A LOCAL ENVIRONMENT ADAPTER MAY BE USED
-+FOR CONTROLLED DEVELOPMENT AND TESTING.
-+
-+A FUTURE SECRET-MANAGER ADAPTER REQUIRES
-+DEPLOYMENT CONTEXT AND A DISTINCT DECISION.
-+
-+SECRET VALUES MUST NEVER ENTER DOMAIN OBJECTS,
-+EVENTS, EVIDENCE, FIXTURES OR D3 PROJECTIONS.
-+
-+D-V3.1-D2D-TA-11:
-+ADOPT EVENT-B.
-+
-+USE A D2-D EXECUTION-EVENT PORT
-+ADAPTED TO THE EXISTING PLATFORM EVENT SINK.
-+
-+THE D2-D PORT OWNS THE EXECUTION SEMANTICS;
-+THE PLATFORM SINK OWNS TECHNICAL TRANSPORT ONLY.
-+
-+EVENTS MUST BE CORRELATED, REDACTED
-+AND PROVIDER-INDEPENDENT.
-+
-+R-QA-REV-01 AND R-QA-REV-02 REMAIN OPEN NOT LIFTED
-+UNTIL THEIR TIMESTAMP AND EVENT REQUIREMENTS ARE PROVEN.
-+
-+NO RUN-READY OR SLO CLAIM.
-+
-+D-V3.1-D2D-TA-12:
-+ADOPT D3-TECH-C.
-+
-+EXPOSE A PROVIDER-INDEPENDENT,
-+TRANSPORT-NEUTRAL SERVER APPLICATION FACADE.
-+
-+NO SERVER ACTION, HTTP ROUTE OR API TRANSPORT
-+IS SELECTED BY THIS DECISION.
-+
-+D3 REMAINS A READ-ONLY PRESENTATION CONSUMER.
-+
-+D3 MUST NOT RECEIVE SDK OBJECTS, SECRETS,
-+RAW PROVIDER ERRORS, COMMANDS OR GIT-WRITE CAPABILITIES.
-+
-+D-V3.1-D2D-TA-13:
-+ADOPT FIXTURES-FIRST CONTRACT TESTING
-+AND ADVERSARIAL D2-D BOUNDARY TESTING.
-+
-+FIXTURES AND REAL ADAPTERS MUST USE
-+THE SAME CONTRACTS AND SCHEMAS.
-+
-+R-QA-D2C-01 REMAINS OPEN NOT LIFTED.
-+
-+D2-D MUST VALIDATE BEFORE READING METADATA.
-+
-+THE BOUNDED D2-C CORRECTION REQUIRES
-+A SEPARATE CYCLE AND MORRIS GO
-+BEFORE EXPOSURE TO AN UNVALIDATED EXTERNAL RUNTIME BOUNDARY.
-+
-+LIVE PROVIDER TESTS REMAIN OPT-IN
-+AND OUTSIDE DEFAULT CI.
-+
-+D-V3.1-D2D-TA-14:
-+ADOPT THE TECHNICAL SLICING:
-+
-+D2-D1:
-+EXECUTION-RUN CORE,
-+CONTRACTS,
-+RUNTIME VALIDATION,
-+STATE TRANSITIONS,
-+POLICY,
-+NORMALIZED ERRORS,
-+EVIDENCE / DISCLOSURE,
-+MEMORY REPOSITORY
-+AND CONTRACT FIXTURES.
-+
-+D2-D2:
-+PROVIDER WRAPPERS,
-+AI AND GIT READ-ONLY ADAPTERS,
-+CURSOR CAPABILITY VERIFICATION,
-+SANDBOX,
-+SECRETSOURCE,
-+EVENT ADAPTER,
-+TIMEOUT / CANCELLATION
-+AND R-QA-D2C-01 DEFENCE.
-+
-+D2-D3:
-+END-TO-END READ-ONLY COORDINATION,
-+SANDBOX-REAL PROOF,
-+D3 PROJECTION
-+AND STRONG RUNTIME EVIDENCE.
-+
-+D2-D4 WRITE CAPABILITIES REMAIN OUT OF TRAJECTORY.
-+
-+NEXT:
-+GO DOCUMENTARY PUBLICATION SFIA STUDIO V3.1-D2-D
-+TECHNICAL ARCHITECTURE
-+
-+PUBLISH DOCUMENT 23 AS THE AUTHORITATIVE
-+TECHNICAL ARCHITECTURE RECORD BEFORE BACKLOG.
-+
-+AFTER PUBLICATION AND POST-MERGE VALIDATION ONLY:
-+GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3
-+
-+NO BACKLOG IN THIS ARBITRATION CYCLE
-+NO DELIVERY
-+NO CODE
-+NO UI
-+NO CREATECYCLE
-+NO D3
-+NO GIT WRITE CAPABILITY
-+NO METHOD PROMOTION
-+```
-+
-+Date/heure décision Morris : **2026-08-03 19:24 CEST (+0200)**
-+
-+### Déclaration d'autorité du record
-+
-+- Le decision pack **AN**, les **ADR** (§AM) et les recommandations **AO** sont conservés comme **historique candidat**.
-+- Ils **ne sont pas** réécrits rétrospectivement.
-+- **AN2** est le record **autoritatif** de l'arbitrage Morris.
-+- Les lignes TA-01…14 dans AN initial restent des propositions historiques (`NOT DECIDED` à l'époque de rédaction).
-+
-+### Table des décisions adoptées
-+
-+| ID | Choix adopté | Statut | Conséquences obligatoires | Décision ou gate future restante |
-+|----|--------------|--------|---------------------------|----------------------------------|
-+| D-V3.1-D2D-TA-01 | TECH-RUN-B — core OA sémantique `execution-run` = seule autorité technique d'état D2-D ; `vertical-slice-runtime` = façade/composition server-only ; `execution-contract` = gouvernance pré-exécution ; aucun second state authority ; aucun microservice/deployment unit impliqué | DECIDED — ADOPTED BY MORRIS | Core unique ; facade optionnelle ; pas de dual authority | Delivery D2-D1 (après backlog) |
-+| D-V3.1-D2D-TA-02 | Couches domain / application / ports / adapters / server composition ; domaine sans Next, Node, SDK, FS, process, réseau ; side effects derrière adapters | DECIDED — ADOPTED BY MORRIS | Import-boundary ; ports injectés | — |
-+| D-V3.1-D2D-TA-03 | CONTRACT-B — TypeScript compile-time + JSON Schema/AJV runtime aux frontières non fiables ; tests de conformité ; aucune nouvelle dépendance | DECIDED — ADOPTED BY MORRIS | Schemas = autorité runtime externe ; conformance tests | — |
-+| D-V3.1-D2D-TA-04 | STORE-B — repository port unique ; memory D2-D1 ok ; huit états exacts ; discriminated unions + transitions pures ; pas de state-machine externe ; durable distinct avant claims restart/multi-instance | DECIDED — ADOPTED BY MORRIS | Claims multi-instance interdits sans décision durable | Décision durable distincte |
-+| D-V3.1-D2D-TA-05 | ASYNC-B pour D2-D1 et D2-D2 — Promise, AbortSignal, timeouts bornés, repository ; pas de queue/worker permanent sans besoin prouvé ; réouverture avant D2-D3 si environnement incompatible | DECIDED — ADOPTED BY MORRIS | In-process async ; queue différée | Réouverture avant D2-D3 si besoin |
-+| D-V3.1-D2D-TA-06 | Provider ports + wrappers D2-D (REUSE-B) ; aucune compatibilité supposée ; targeted rewrite si contract-fit échoue ; aucun type SDK dans domain/application/D3 | DECIDED — ADOPTED BY MORRIS | Wrappers derrière contrats D2-D | Contract-fit par provider |
-+| D-V3.1-D2D-TA-07 | AI-B — wrapper D2-D autour platform AI ; contract-fit obligatoire ; modèle configurable ; secrets server-only ; usage validé seulement ; pas de live CI défaut | DECIDED — ADOPTED BY MORRIS | Fake/fixtures en CI | — |
-+| D-V3.1-D2D-TA-08 | GIT-C — port transport-neutral strictement read-only ; `gh` en local/sandbox contrôlé ; REST/GitHub App futur après décision distincte ; pas de fallback silencieux ; allowlist/timeout/redaction ; PAT ≠ défaut production | DECIDED — ADOPTED BY MORRIS | Read-only only | Auth hosted distincte |
-+| D-V3.1-D2D-TA-09 | CURSOR-B **conditionnel** — port Cursor server-only ; process/extracted adapter ; pas d'import harness client/domain ; pas de commande arbitraire D3 ; pas de remote Git write ; gate Morris avant live ; **CURSOR PRODUCT CAPABILITIES UNVERIFIED** | DECIDED — ADOPTED BY MORRIS | Capability verification avant live adapter | **GO Cursor capability verification** distinct |
-+| D-V3.1-D2D-TA-10 | SECRET-B — SecretSourcePort ; env local contrôlé ; secret-manager futur après décision distincte ; aucune valeur secrète dans domaine/events/evidence/fixtures/D3 | DECIDED — ADOPTED BY MORRIS | Opaque handles only | Secret manager GO futur |
-+| D-V3.1-D2D-TA-11 | EVENT-B — port événements D2-D → EventSink ; sémantique D2-D au port ; transport technique platform ; correlation/redaction/provider-independence ; R-QA-REV-01/02 OPEN ; pas de RUN-ready/SLO | DECIDED — ADOPTED BY MORRIS | Dual catalogue gouverné | Preuve timestamps (réserves) |
-+| D-V3.1-D2D-TA-12 | D3-TECH-C — facade application provider-independent transport-neutral ; aucun Server Action/HTTP/API sélectionné ; D3 read-only ; pas de SDK/secret/raw error/command/Git write vers D3 | DECIDED — ADOPTED BY MORRIS | Transport UI ultérieur | GO D3 distinct |
-+| D-V3.1-D2D-TA-13 | Fixtures-first + adversarial D2-D boundary testing ; mêmes contrats/schemas fixtures/adapters ; validation avant metadata ; R-QA-D2C-01 OPEN ; correction D2-C distincte ; live opt-in hors CI | DECIDED — ADOPTED BY MORRIS | Défense R-C ligne D2-D | **GO correction D2-C** distinct |
-+| D-V3.1-D2D-TA-14 | Slicing D2-D1 → D2-D2 → D2-D3 ; D2-D4 write hors trajectoire ; contenu exact des slices du GO ; backlog seulement après publication + post-merge | DECIDED — ADOPTED BY MORRIS | Pas de backlog dans ce cycle | Après merge+post-merge : **GO BACKLOG** |
-+
-+## AO. Recommandations candidates (CANDIDATE — NOT ADOPTED)
-+
-+1. **TECH-RUN-B** — core OA `execution-run` ; vertical-slice-runtime facade/composition uniquement.
-+2. **Domain/application/ports/adapters** — aucun SDK dans domain/application contracts.
-+3. **CONTRACT-B** — TypeScript + JSON Schema/AJV existant.
-+4. **Reducer pur + discriminated unions** — aucune state-machine dependency.
-+5. **STORE-B** — repository port ; memory D2-D1 ; durable gate avant strong runtime.
-+6. **ASYNC-B** — Promise/AbortSignal in-process ; aucune queue sans besoin prouvé.
-+7. **Wrappers D2-D** sur capacités platform existantes.
-+8. **AI-B** — wrapper platform AI + contract-fit tests.
-+9. **GIT-C** — transport-neutral read-only.
-+10. **CURSOR-B** — process boundary/extract après capability verification.
-+11. **SECRET-B** — SecretSourcePort ; env local ; manager futur.
-+12. **EVENT-B** — port D2-D → EventSink existant.
-+13. **D3-TECH-C** — facade transport-neutral ; aucun endpoint décidé.
-+14. **Slicing** D2-D1 → D2-D2 → D2-D3 ; D2-D4 hors trajectoire.
-+
-+Chaque item : **CANDIDATE — NOT ADOPTED.**
-+
-+---
-+
-+## AP. Trajectoire candidate
-+
-+### État après arbitrage Morris (2026-08-03 19:24 CEST)
-+
-+- Arbitrage TA-01…14 **reçu et consommé** (record autoritatif : §AN2).
-+- Publication documentaire du document 23 **autorisée** (ce cycle).
-+- La branche `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` et la draft PR deviennent la **Git Truth de publication** tant que le document n'est pas mergé.
-+- **main** devient l'autorité après merge.
-+- **Backlog interdit** avant merge et validation post-merge.
-+- Gate **Cursor capability verification** distincte avant tout live adapter (TA-09).
-+- **Correction D2-C** distincte avant exposition à une frontière externe non validée (TA-13 / R-C).
-+- Aucun GO Delivery, D3, UI ou CreateCycle implicite.
-+
-+### Après publication et post-merge uniquement
-+
-+1. Backlog D2-D1 / D2-D2 / D2-D3 (GO distinct).
-+2. Cycles Delivery séparés.
-+3. Correction D2-C séparée si autorisée.
-+4. Capability verification Cursor.
-+5. **Aucune** ouverture automatique de D3.
-+
-+Aucune transition automatique. Aucun backlog ni user story créé dans ce document.
-+
-+## AQ. État décisionnel et anti-claims post-arbitrage
-+
-+### Décisions d'architecture désormais adoptées
-+
-+AN2 et AR autorisent les affirmations documentaires suivantes :
-+
-+- l'architecture technique D2-D a été arbitrée par Morris ;
-+- TECH-RUN-B est adopté comme choix de runtime owner et de packaging ;
-+- `execution-run` est la seule autorité technique d'état D2-D ;
-+- CONTRACT-B est adopté :
-+  TypeScript pour la représentation compile-time et
-+  JSON Schema/AJV pour la validation runtime aux frontières non fiables ;
-+- STORE-B est adopté comme stratégie de persistance progressive ;
-+- ASYNC-B est adopté pour D2-D1 et D2-D2 ;
-+- les provider ports et wrappers REUSE-B sont adoptés ;
-+- AI-B, GIT-C, SECRET-B, EVENT-B et D3-TECH-C sont adoptés ;
-+- CURSOR-B est adopté conditionnellement ;
-+- le slicing D2-D1 → D2-D2 → D2-D3 est adopté ;
-+- D2-D4 write reste hors trajectoire.
-+
-+### Distinctions obligatoires
-+
-+Les décisions ci-dessus ne signifient pas que :
-+
-+- l'implémentation existe ;
-+- une cible de déploiement est sélectionnée ;
-+- un store durable concret est sélectionné ;
-+- le système est restart-safe ou multi-instance ;
-+- Cursor est compatible ou validé ;
-+- la sandbox est sécurisée ;
-+- les fournisseurs sont intégrés ;
-+- une interface D3 ou un transport HTTP/Server Action est sélectionné ;
-+- le backlog, la Delivery ou D3 sont autorisés.
-+
-+En particulier :
-+
-+- « runtime owner et packaging sélectionnés » est autorisé ;
-+- « runtime de déploiement ou environnement d'exécution sélectionné » reste interdit ;
-+- « stratégie STORE-B adoptée » est autorisé ;
-+- « technologie de persistance durable sélectionnée » reste interdit ;
-+- « CONTRACT-B/AJV adopté » est autorisé ;
-+- « implémentation et conformité AJV prouvées » reste interdit sans Delivery et tests.
-+
-+### Claims toujours interdits
-+
-+Ce document n'autorise pas et ne revendique pas :
-+
-+- implementation complete ;
-+- provider integrated ;
-+- live provider validated ;
-+- production-ready ;
-+- RUN READY ;
-+- scalable ;
-+- secure ;
-+- SLO proven ;
-+- durable store selected ;
-+- restart-safe ;
-+- multi-instance ready ;
-+- queue or permanent worker selected ;
-+- Cursor compatible ;
-+- CURSOR PRODUCT CAPABILITIES VERIFIED ;
-+- sandbox secure ;
-+- secret manager selected ;
-+- hosted GitHub authentication selected ;
-+- D3 transport selected ;
-+- backlog ready ;
-+- Delivery ready ;
-+- D3 ready ;
-+- reserve lifted ;
-+- Git write enabled ;
-+- CreateCycle enabled ;
-+- method promoted.
-+
-+### Réserves et gates maintenues
-+
-+- R-QA-REV-01 : **OPEN NOT LIFTED**.
-+- R-QA-REV-02 : **OPEN NOT LIFTED**.
-+- R-QA-D2C-01 : **OPEN NOT LIFTED**.
-+- CURSOR PRODUCT CAPABILITIES : **UNVERIFIED**.
-+- Correction D2-C : cycle et GO distincts.
-+- Cursor capability verification : cycle et GO distincts.
-+- Backlog : uniquement après merge documentaire et validation post-merge.
-+- Delivery : GO distinct après backlog.
-+- D3 : aucune ouverture automatique.
-+
-+---
-+
-+## AR. Verdict documentaire
-+
-+```text
-+D2-D TECHNICAL ARCHITECTURE —
-+ARBITRATED BY MORRIS —
-+
-+D-CAD-01…12 ADOPTED —
-+D-FD-01…12 ADOPTED —
-+D-FA-01…12 ADOPTED —
-+D-TA-01…14 ADOPTED —
-+
-+DOCUMENT 23 VERSIONED VIA GIT —
-+AUTHORITATIVE PUBLICATION STATE FOLLOWS PR/MAIN —
-+
-+TECH-RUN-B ADOPTED —
-+CONTRACT-B ADOPTED —
-+STORE-B ADOPTED —
-+ASYNC-B ADOPTED FOR D2-D1 AND D2-D2 —
-+PROVIDER WRAPPERS ADOPTED —
-+AI-B ADOPTED —
-+GIT-C ADOPTED —
-+CURSOR-B CONDITIONALLY ADOPTED —
-+SECRET-B ADOPTED —
-+EVENT-B ADOPTED —
-+D3-TECH-C ADOPTED —
-+D2-D1 / D2-D2 / D2-D3 SLICING ADOPTED —
-+D2-D4 WRITE OUT OF TRAJECTORY —
-+
-+R-QA-REV-01 OPEN NOT LIFTED —
-+R-QA-REV-02 OPEN NOT LIFTED —
-+R-QA-D2C-01 OPEN NOT LIFTED —
-+CURSOR PRODUCT CAPABILITIES UNVERIFIED —
-+
-+NO BACKLOG CREATED —
-+NO DELIVERY AUTHORIZED —
-+NO CODE —
-+NO CONFIG —
-+NO NEW DEPENDENCY —
-+NO UI —
-+NO CREATECYCLE —
-+NO D3 DELIVERY —
-+NO PRODUCT GIT WRITE CAPABILITY —
-+NO METHOD PROMOTION
-+```
-+
-+## AS. Prochaine gate
-+
-+```text
-+GO PR READINESS SFIA STUDIO V3.1-D2-D
-+TECHNICAL ARCHITECTURE PUBLICATION
-+```
-+
-+Précisions :
-+
-+- aucun GO merge implicite ;
-+- aucun GO backlog implicite ;
-+- aucun GO Delivery implicite ;
-+- après merge et validation post-merge uniquement :
-+  `GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3` ;
-+- Cursor capability verification et correction D2-C restent des gates distinctes.
+---
 
-```
+## 6. Sources consultées
 
-## Scope / stats
+### Méthode (lecture)
 
-1 fichier A · +1628/−0 · diff-check vide.
+1. prompts/templates/sfia-cycle-execution-template.md
+2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+3. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+4. method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+5. method/sfia-fast-track/checklists/sfia-validation-checklist.md
+6. method/.../cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
+7. method/.../cycle-knowledge-contracts/04-cycle-to-ckc-routing-matrix.md
+8. method/.../sfia-v2.5-project-cycles-method-candidate.md §4.5
+9. scripts/sfia/README.md
+10. scripts/sfia/publish-review-handoff.sh
 
-## PR finale
+### Projet (lecture)
+
+11–14. Documents 20, 21, 22, 23 (immutables)
+15. Document 19 — précédent structurel uniquement
+16. README framing
+17. Conventions backlog existantes
+
+### Code / config (lecture seule)
+
+18–26. execution-contract · execution-attempt · vertical-slice-runtime · platform/ai · repository · observability · security · harness ports · increment-d
+27–30. package.json · tsconfig · vitest · CI workflow
+
+**Aucun fichier source modifié. Aucun npm/build/lint/test exécuté.**
+
+---
+
+## 7. CKC fallback et limites
 
 | Champ | Valeur |
 |-------|--------|
-| state | MERGED |
-| isDraft | False |
-| mergedAt | 2026-08-03T18:32:57Z |
-| mergeCommit | `9231858a82a252c0bea5bdd60256cee480eebb87` |
-| headRefOid | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| commits / files / +/− | 2 / 1 / 1628 / 0 |
+| Contrat détaillé trouvé | non |
+| Fallback | carte synthétique 15 cycles + §4.5 |
+| Statut | method-candidate |
+| Usage | experimental cognitive guidance |
+| Autorité | aucune autorité d'exécution |
+| Objet | stories, taille, INVEST, priorités, dépendances, critères |
+| Preuve centrale | une story = un résultat vérifiable |
+| Risque principal | stories fourre-tout / mélange gates-architecture-Delivery |
+| Limite | ne pas inventer de CKC détaillé |
 
-Note : GitHub PR state and main are authoritative after merge. The PR body remains the immutable pre-merge documentary snapshot.
+---
 
-### Body PR (snapshot pré-merge)
-
----BEGIN PR BODY---
-## Objectif
-
-Publier le document 23 — architecture technique V3.1-D2-D Integration Foundation — comme record Git autoritatif après arbitrage Morris D-V3.1-D2D-TA-01…14.
-
-## GO Morris (arbitrage + publication)
-
-```text
-GO ARBITRATION SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE
-(+ autorisation de publication documentaire du document 23)
-ADOPT D-V3.1-D2D-TA-01…14
-```
-
-Date/heure décision Morris : **2026-08-03 19:24 CEST (+0200)**
-
-## Correction de cohérence post-arbitrage
-
-```text
-GO CORRECTION SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE PUBLICATION PR #306
-
-DOCUMENT 23 ONLY
-NO AMEND
-NO FORCE PUSH
-NO MARK READY
-NO MERGE
-NO BACKLOG
-NO DELIVERY
-```
-
-Date/heure du GO : **2026-08-03 19:44 CEST (+0200)**
-
-**Cause du blocage ChatGPT :** sections AK et AQ présentaient encore des formulations pré-arbitrage (« TA-01…14 NOT DECIDED », anti-claims « technical architecture adopted / runtime selected / AJV strategy adopted / persistence selected ») comme si elles contredisaient AN2/AR.
+## 8. Handoff source (before)
 
 | Champ | Valeur |
 |-------|--------|
-| Commit initial | `7df15936fc843b08ce2a59e39455d78bb92c2464` |
-| Commit correctif | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| Commits totaux | **2** |
-| Scope | document 23 uniquement |
-| Modifications | métadonnée Publication correction · règle de lecture post-arbitrage · AK qualifié historique + état courant · AQ post-arbitrage |
-| AN / AM / AO | **préservés** (historique) |
-| AN2 / AR / AS / AP | **inchangés** |
-| PRE_CORRECTION_DOCUMENT_23_SHA256 | `4525acf987c20054aefc1f1e79267f5f592a1a0afb6e25d5803b731e970e6548` |
-| CORRECTED_DOCUMENT_23_SHA256 | `6dd4546728e981d4cdfcfc2997e06f8afa46493adff4e905013e7b9bf33b4ce9` |
-| PRE_CORRECTION_PACKAGE_HASH | `0a22c4a33fbdbd3b7e1a01aa3f64dcad328b011edfb8cf1f6f8665471e9125e8` |
-| CORRECTED_TECH_ARCH_PACKAGE_HASH | `c69f17095525eb1f0ae3dde5dc4208af39952bdce1fb71efe3f8d04cb92f684c` |
-| CI corrective | `30838670663` — https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663 — **success** |
-| Required Gate | success |
-| PR | **OPEN Draft** — no mark ready — no merge — branche préservée |
-| Réserves | R-QA-REV-01/02 · R-QA-D2C-01 — OPEN NOT LIFTED |
-| Cursor | PRODUCT CAPABILITIES **UNVERIFIED** |
+| tip | `26b7f0907ed7981fbe4fe57f964a8b23eb1f73c1` |
+| blob | `08a8f2aee5b478ca3eba9feb007f1d804f6bb448` |
+| Contenu vérifié | Cycle 14 Post-merge · PR #306 · MERGE_SHA · docs 20–23 · D-CAD/FD/FA/TA adoptées · réserves OPEN · Cursor UNVERIFIED · CI `30841765663` |
 
-## Git
+---
 
-| Champ | Valeur |
-|-------|--------|
-| PR | #306 — https://github.com/mcleland147/sfia-workspace/pull/306 |
-| Base | `main@e273b2afc33445154f63226fdfe8357c75df67f8` |
-| Head | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| Branche | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-| Commits | 2 |
-| Scope | document 23 uniquement |
-| Stats PR | +1628 / −0 |
-| État | **OPEN Draft** — mergedAt=null |
+## 9. Décisions CAD / FD / FA / TA appliquées
 
-## Provenance / hashes (publication initiale)
+| Pack | Statut |
+|------|--------|
+| D-CAD-01…12 | ADOPTED — APPLIED |
+| D-FD-01…12 | ADOPTED — APPLIED |
+| D-FA-01…12 | ADOPTED — APPLIED |
+| D-TA-01…14 | ADOPTED — APPLIED |
 
-| Champ | Valeur |
-|-------|--------|
-| Handoff tip publication | `b88c79d84a2384fa323c17544f1d5d4344ca4b02` |
-| Handoff blob publication | `839e3efcb06b0aa4dcefc0715514099ffafd2dca` |
-| SOURCE_DOCUMENT_23_SHA256 | `a722822251533049e65c68de497151d2fed2c283559529a81dd9a85906fa1a41` |
-| Document hash pré-correction | `4525acf987c20054aefc1f1e79267f5f592a1a0afb6e25d5803b731e970e6548` |
-| Package hash pré-correction | `0a22c4a33fbdbd3b7e1a01aa3f64dcad328b011edfb8cf1f6f8665471e9125e8` |
+Aucune décision TA redécidée. Aucune nouvelle décision d'architecture.
 
-Méthode package hash : path UTF-8 + `\0` + len + `\0` + bytes.
+---
 
-## CI
+## 10. Réserves et Cursor
 
-| Champ | Valeur |
-|-------|--------|
-| CI initiale | `30837359308` success sur `7df1593…` |
-| CI corrective (actuelle) | `30838670663` success sur `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| Jobs | Detect · Build · Required Gate — **success** |
+| ID | Statut |
+|----|--------|
+| R-QA-REV-01 | OPEN NOT LIFTED |
+| R-QA-REV-02 | OPEN NOT LIFTED |
+| R-QA-D2C-01 | OPEN NOT LIFTED |
+| CURSOR PRODUCT CAPABILITIES | UNVERIFIED |
 
-## Décisions enregistrées
+---
 
-- D-CAD-01…12 · D-FD-01…12 · D-FA-01…12 · **D-TA-01…14 ADOPTED** (AN2 inchangé)
+## 11. Principes de découpage
 
-## Absences
+Une story = un résultat vérifiable · slice unique · dépendances explicites · gates séparées · fixtures-first · read-only first · evidence before success · partial never succeeded · aucun claim excessif · aucun second runtime · NOT ESTIMATED · pas de dates inventées.
 
-aucun code/config/dépendance · aucun backlog/Delivery/UI/D3/CreateCycle · aucune product Git write · **Draft** · pas de mark ready · pas de merge · pas d'amend · pas de force-push
+---
 
-## Gates
+## 12. Definition of Ready (globale)
 
-- Prochaine : `GO PR READINESS SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE PUBLICATION`
-- Merge : GO distinct
-- Backlog : après merge + CI main + post-merge + ChatGPT
+Voir document 24 §I — Ready uniquement si décisions sources, critères, négatifs, dépendances, gates consommées, fichiers candidats, preuves, pas d'archi cachée, réserves non levées, pas de live sans gate, pas d'estimation inventée, scope borné, **GO Delivery spécifique**.
 
----END PR BODY---
+---
 
-## Synchronisation main
+## 13. Definition of Done (globale)
 
-MAIN_WT=`/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge`
-`git worktree add` + `merge --ff-only origin/main`
-HEAD = origin/main = `9231858a82a252c0bea5bdd60256cee480eebb87` · tracked propre · staged vide.
+Voir document 24 §J — Done uniquement si résultat vérifiable, tests verts, négatifs verts, sécurité, pas de secret/SDK exposé, preuves/disclosures, source explicite, partial≠succeeded, docs, CI, réserves honnêtes, diff borné, review pack, PR readiness/merge = cycles distincts.
 
-## Document 23 complet sur main
+---
 
----BEGIN DOCUMENT 23---
-# 23 — SFIA Studio V3.1-D2-D Integration Foundation — Architecture technique
+## 14. Registre gates
+
+| Gate | Statut |
+|------|--------|
+| G-D2D-CURSOR-01 | REQUIRED — NOT EXECUTED |
+| G-D2D-D2C-01 | REQUIRED BEFORE UNVALIDATED EXTERNAL BOUNDARY — NOT EXECUTED |
+| G-D2D-PERSIST-01 | UNDECIDED — NOT REQUIRED FOR D2-D1 — REOPEN BEFORE STRONG D2-D3 CLAIM |
+| G-D2D-DELIVERY-01 | NOT AUTHORIZED |
+| G-D2D-DELIVERY-02 | NOT AUTHORIZED |
+| G-D2D-DELIVERY-03 | NOT AUTHORIZED |
+
+---
+
+## 15. Epic D2-D1 — Execution Run Core and Contract Foundation
+
+Objectif : socle pur, local, fixture-first. Memory OK. Pas de provider réel. Pas de Cursor live. Pas de D3 transport.
+
+### Stories D2-D1
+
+| ID | Titre | Type | Statut |
+|----|-------|------|--------|
+| D2D1-01 | Canonical execution-run domain vocabulary | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-02 | Runtime schemas and AJV boundary validation | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-03 | Eight-state transition authority | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-04 | Read-only policy and normalized failure foundation | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-05 | Evidence, completeness and source disclosure | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-06 | ExecutionRunRepository memory adapter | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-07 | Deterministic contract fixture catalogue | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-08 | Server-only composition and import boundaries | STORY CANDIDATE | NOT ADOPTED |
+| D2D1-09 | D2-D1 slice evidence and readiness pack | STORY CANDIDATE | NOT ADOPTED |
+
+Détail complet (valeur, décisions, AC, tests, risques, fichiers) : document 24 §K ci-dessous.
+
+---
+
+## 16. Epic D2-D2 — Provider Boundaries and Controlled Read-only Adapters
+
+Précondition : D2-D1 validé. Wrappers read-only. Pas de live CI défaut.
+
+### Stories D2-D2
+
+| ID | Titre | Type | Statut |
+|----|-------|------|--------|
+| D2D2-01 | Provider port conformance harness | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-02 | AI-B platform adapter | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-03 | GIT-C read-only adapter | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-04 | SECRET-B source boundary | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-05 | EVENT-B execution event adapter | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-06 | Async, timeout, cancellation and late-result handling | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-07 | D2-D adversarial input boundary | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-08 | Sandbox and protected-path contract without live Cursor | STORY CANDIDATE | NOT ADOPTED |
+| D2D2-09 | Cursor adapter eligibility gate | EXTERNAL GATE LINK | BLOCKED — DISTINCT MORRIS GATE REQUIRED |
+| D2D2-10 | D2-D2 slice conformance and evidence pack | STORY CANDIDATE | NOT ADOPTED |
+
+Détail complet : document 24 §L.
+
+---
+
+## 17. Epic D2-D3 — End-to-end Read-only Coordination and Strong Evidence
+
+Préconditions : D2-D1 + D2-D2 validés. D2-D4 hors trajectoire.
+
+### Stories D2-D3
+
+| ID | Titre | Type | Statut |
+|----|-------|------|--------|
+| D2D3-01 | End-to-end execution coordination | STORY CANDIDATE | NOT ADOPTED |
+| D2D3-02 | Provider-independent server projection | STORY CANDIDATE | NOT ADOPTED |
+| D2D3-03 | End-to-end evidence and truthfulness | STORY CANDIDATE | NOT ADOPTED |
+| D2D3-04 | Cursor sandbox-real proof | BLOCKED ENABLER CANDIDATE | BLOCKED — CURSOR UNVERIFIED |
+| D2D3-05 | Strong-runtime environment and persistence gate | EXTERNAL GATE LINK | BLOCKED — G-D2D-PERSIST-01 |
+| D2D3-06 | End-to-end negative and resilience scenarios | STORY CANDIDATE | NOT ADOPTED |
+| D2D3-07 | D2-D3 strong evidence readiness review | STORY CANDIDATE | NOT ADOPTED |
+
+**D2-D4 :** OUT OF TRAJECTORY — aucune story.
+
+Détail complet : document 24 §M.
+
+---
+
+## 18. Dépendances
+
+Voir document 24 §N. Points clés :
+
+- toutes D2-D2 dépendent des contrats D2-D1 ;
+- D2D2-02 → D2D2-01 + D2D1-02/05 + D2D2-04 ;
+- D2D2-03 → D2D2-01 + D2D1-04/05 + D2D2-04 ;
+- D2D2-05 → D2D1-03/05 ;
+- D2D2-06 → D2D1-03/06 ;
+- D2D2-07 → D2D1-02/04 ;
+- D2D2-09 → G-D2D-CURSOR-01 ;
+- D2-D3 → D2-D1 + D2-D2 validés ;
+- D2D3-04 → G-D2D-CURSOR-01 ;
+- D2D3-05 → décision Morris distincte (G-D2D-PERSIST-01).
+
+---
+
+## 19. Ordre candidat
+
+D2D1-01 → … → D2D1-09 → validation D2-D1 → D2-D2 → validation D2-D2 + gates → D2-D3.
+**NOT ESTIMATED.** Aucune date/sprint/story point.
+
+---
+
+## 20. Couverture décisions
+
+Voir document 24 §P — chaque CAD/FD/FA/TA mappée à ≥1 story/gate/critère. TA-01…14 couvertes. D2-D4 sans story.
+
+---
+
+## 21. Couverture risques
+
+Voir document 24 §Q — double runtime, drift, state dupliquée, memory loss, lock-in, secrets, Git mutation, commandes, sandbox, Cursor, events, partial-as-success, races, D3 leakage, multi-instance, live flaky, R-QA-*.
+
+---
+
+## 22. BLG-01…08
+
+Tous : `NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED`
+
+1. Structure 3 épics
+2. Catalogue D2-D1
+3. Catalogue D2-D2
+4. Catalogue D2-D3
+5. DoR/DoD
+6. Ordre et dépendances
+7. Registre gates
+8. Trajectoire validation → publication → post-merge → GO Delivery D2-D1 uniquement
+
+---
+
+## 23. Document 24 complet
+
+SHA-256 : `aaf9f4e3e6d96df71cb301cbdb5c73e5f29036e0dcbe595cf3a8318defd74dae`
+
+`````markdown
+# 24 — SFIA Studio V3.1-D2-D Integration Foundation — Backlog / user stories
 
 ## A. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Document** | `23-v3-1-d2-d-integration-foundation-technical-architecture.md` |
-| **Date/heure** | 2026-08-03 19:07 CEST (+0200) |
-| **Cycle** | Cycle 6 — Architecture technique |
-| **Profil** | Critical |
-| **Typologie** | DOC — architecture-only |
-| **Branche locale** | `architecture/sfia-studio-v3-1-d2-d-integration-foundation-technical-architecture` |
-| **Base Git** | `main@e273b2afc33445154f63226fdfe8357c75df67f8` |
-| **GO Morris** | `GO ARCHITECTURE TECHNIQUE SFIA STUDIO V3.1-D2-D` (2026-08-03 18:54 CEST) |
-| **Documents amont (immutables)** | [20](./20-v3-1-d2-d-integration-foundation-cadrage.md) · [21](./21-v3-1-d2-d-integration-foundation-functional-design.md) · [22](./22-v3-1-d2-d-integration-foundation-functional-architecture.md) |
-| **Précédent structure (non copié)** | [18](./18-v3-1-d2-ckc-resolver-qualify-cycle-bridge-technical-architecture.md) — structure only ; décisions D2-A/B/C non applicables à D2-D |
-| **CKC** | `method/.../pilots/03-architecture-technique.md` — candidate v0.1.0 — experimental cognitive guidance — **aucune autorité d'exécution** |
-| **Code / tests / config / UI** | **non** |
-| **Statut** | `D2-D TECHNICAL ARCHITECTURE — ARBITRATED BY MORRIS — DOCUMENTARY RECORD VERSIONED VIA GIT — AUTHORITATIVE PUBLICATION STATE FOLLOWS PR/MAIN — NO BACKLOG OR DELIVERY AUTHORIZED` |
-| **Publication branch candidate** | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-| **Publication correction** | `2026-08-03 19:44 CEST (+0200) — correction de cohérence post-arbitrage AK/AQ ; aucune décision TA modifiée` |
+| **Document** | `24-v3-1-d2-d-integration-foundation-backlog.md` |
+| **Date/heure** | 2026-08-03 21:02 CEST (+0200) |
+| **Cycle** | Cycle 5 — Backlog / user stories |
+| **Profil** | Standard |
+| **Typologie** | DOC |
+| **Branche locale** | `backlog/sfia-studio-v3-1-d2-d-integration-foundation` |
+| **Base Git** | `main@9231858a82a252c0bea5bdd60256cee480eebb87` |
+| **GO Morris** | `GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3` (2026-08-03 20:46 CEST) |
+| **Documents amont (immutables)** | [20](./20-v3-1-d2-d-integration-foundation-cadrage.md) · [21](./21-v3-1-d2-d-integration-foundation-functional-design.md) · [22](./22-v3-1-d2-d-integration-foundation-functional-architecture.md) · [23](./23-v3-1-d2-d-integration-foundation-technical-architecture.md) |
+| **Précédent structure (non copié)** | [19](./19-v3-1-d2-a-b-c-delivery-backlog.md) — conventions de présentation uniquement |
+| **CKC** | Fallback `02-fifteen-cycles-synthetic-map.md` + §4.5 — method-candidate — **aucune autorité d'exécution** |
+| **Code / tests / config exécutés** | **non** |
+| **Statut** | `D2-D BACKLOG COMPLETE LOCALLY — READY FOR MORRIS BACKLOG VALIDATION — NO DELIVERY AUTHORIZED` |
 
-### Légende des marqueurs
+---
+
+## B. Règles de lecture
 
 | Marqueur | Signification |
 |----------|---------------|
-| **ADOPTED** | Décision Morris déjà adoptée (CAD/FD/FA) |
+| **ADOPTED** | Décision Morris CAD/FD/FA/TA déjà adoptée |
 | **OBSERVATION** | Fait Git vérifié |
-| **CONTRAINTE** | Borne non négociable dans ce cycle |
-| **HYPOTHÈSE** | À vérifier ; non prouvée |
-| **OPTION** | Alternative comparable |
-| **RECOMMANDATION CANDIDATE** | Proposition Cursor — **NOT ADOPTED** |
-| **ADR CANDIDATE** | ADR PROPOSED — NOT ADOPTED |
-| **DÉCISION TECHNIQUE CANDIDATE** | TA-xx — NOT DECIDED |
-| **INCONNUE** | Ouvert |
-| **RÉSERVE** | Ouverte, non levée |
-| **DETTE** | Coût différé explicite |
-| **GATE FUTURE** | Nécessite GO Morris distinct |
+| **STORY CANDIDATE** | Story Delivery proposée — **NOT ADOPTED** |
+| **ENABLER CANDIDATE** | Enabler technique proposé — **NOT ADOPTED** |
+| **EXTERNAL GATE** | Gate humaine/technique distincte — **NOT CONSUMED** |
+| **RESERVE** | Réserve ouverte, non levée |
+| **BLOCKED** | Story/enabler non Ready sans gate |
+| **READY CANDIDATE** | Peut devenir Ready après DoR + GO Delivery |
+| **NOT ESTIMATED** | Aucune charge/date/story point inventée |
+| **MORRIS VALIDATION REQUIRED** | Décision backlog BLG non encore prise |
 
-### Règle de lecture post-arbitrage
-
-Le présent document conserve les options, ADR, recommandations,
-checklists et formulations candidates produites pendant le cycle
-d'architecture technique, avant l'arbitrage Morris du
-2026-08-03 19:24 CEST (+0200).
-
-Ces éléments constituent un historique de conception. Leur statut
-« NOT ADOPTED », « NOT DECIDED » ou équivalent décrit leur état
-au moment de leur rédaction ; il ne contredit pas l'arbitrage ultérieur.
-
-Après cet arbitrage :
-
-1. la section AN reste le decision pack historique pré-arbitrage ;
-2. les sections AM et AO restent l'historique des ADR et recommandations candidates ;
-3. la section AK reste le snapshot de validation du cycle pré-arbitrage ;
-4. la section AN2 est le record autoritatif des décisions Morris ;
-5. la section AR expose le verdict décisionnel courant ;
-6. la section AQ expose les anti-claims encore applicables après arbitrage.
-
-En cas d'écart de statut temporel :
-
-AN2 et AR priment pour les décisions adoptées.
-Les sections historiques restent conservées pour la traçabilité.
+Aucune story candidate n'est un backlog adopté. Aucune Delivery n'est autorisée par ce document.
 
 ---
 
-## B. Décisions héritées (ADOPTED)
+## C. Baseline et décisions héritées
 
-### B.1 D-CAD-01…12 — ADOPTED BY MORRIS (2026-08-03 16:56 CEST)
+### C.1 Baseline Git (OBSERVATION)
 
-| ID | Résumé |
-|----|--------|
-| CAD-01 | Strict Minimal Foundation ; walking skeleton réel reporté à D2-D3 |
-| CAD-02 | Contrats D2-D avant Delivery UI D3 ; exploration UX possible après D2-D1 stable |
-| CAD-03 | Ports provider avant couplage SDK ; réutilisation platform/harness = hypothèse jusqu'à validation TA |
-| CAD-04 | Read-only first ; pas de Git write en D2-D1/D2/D3 ; D2-D4 hors trajectoire |
-| CAD-05 | STATE-A extensible (`timed_out`, `blocked`) ; pas de STATE-B complet |
-| CAD-06 | INT-C hybrid contract-first : fixtures puis walking skeleton read-only sandboxed |
-| CAD-07 | Sandbox validée avant Cursor réel ; capacités Cursor produit **UNVERIFIED** |
-| CAD-08 | Secret Provider server-only ; GitHub read-only ; aucune techno secret store sélectionnée |
-| CAD-09 | Events structurés + redaction stricte ; pas de claim RUN-READY/SLO |
-| CAD-10 | R-C défense en profondeur : correction D2-C et frontière D2-D = cycles/gates séparés |
-| CAD-11 | Séquence D2-D1 → D2-D2 → D2-D3 ; D2-D4 hors trajectoire |
-| CAD-12 | Exploration UX D3 après stabilité D2-D1 ; Delivery UI + strong runtime après D2-D2/D3 |
-
-### B.2 D-FD-01…12 — ADOPTED BY MORRIS (2026-08-03 17:19 CEST)
-
-Douze objets fonctionnels ; huit états persistants exacts ; transitions documentées ; partial ≠ succeeded ; gates humains ; cancellation terminale + late result evidence-only ; sources `fixture`/`sandbox-real`/`real` ; familles d'échec normalisées ; catalogue d'événements ; projection D3 provider-independent ; trois niveaux de readiness.
-
-### B.3 D-FA-01…12 — ADOPTED BY MORRIS (2026-08-03 17:42 CEST)
-
-| Décision clé | Valeur ADOPTED |
-|--------------|----------------|
-| **MOD-B** | Décomposition fonctionnelle capability-centric minimale (pas packages/déploiement) |
-| **Huit capacités** | Intake · Coordination · Validation/Policy · Provider Boundary · State/Human Gate · Evidence/Disclosure · Events/Usage · Fixture Catalogue |
-| **Autorités uniques** | State Authority ; Evidence Authority ; Policy pre-engagement |
-| **Provider Boundary** | Une frontière, trois lanes AI/Git/Cursor |
-| **RUNTIME-C (fonctionnel)** | Une autorité fonctionnelle D2-D ; `vertical-slice-runtime` = option façade future uniquement ; **aucun runtime technique sélectionné** |
-| **REUSE-B** | Principe d'évaluation : évaluer platform/harness derrière frontières ; **aucune compatibilité supposée** |
-| **Slicing** | D2-D1 → D2-D2 → D2-D3 ; **D2-D4 write hors trajectoire** |
-
-### B.4 Réserves transportées — OPEN NOT LIFTED
-
-| ID | Statut |
-|----|--------|
-| R-QA-REV-01 MINOR | OPEN NOT LIFTED |
-| R-QA-REV-02 MINOR | OPEN NOT LIFTED |
-| R-QA-D2C-01 MINOR | OPEN — NOT LIFTED (R-C : deux travaux futurs séparés) |
-
----
-
-## C. Finalité technique
-
-Construire une architecture technique **minimale**, **provider-independent**, **server-only** et **read-only** permettant de valider les contrats D2-D, puis d'intégrer progressivement AI, GitHub et Cursor **sans** exposer les fournisseurs à D3 et **sans** créer un second runtime concurrent.
-
-Cette finalité est une **contrainte de conception** pour les options ; elle n'adopte aucune stack, aucun package, aucun adapter.
-
----
-
-## D. Périmètre et hors périmètre
-
-### Périmètre
-
-Architecture · modules candidats · ports · adapters · contrats · validation · état · persistance · async · erreurs · events · secrets · sandbox · tests · slicing · impacts DevOps (analyse seule).
-
-### Hors périmètre
-
-Code · migration · SDK install · endpoints · UI · backlog · Delivery · déploiement · RUN readiness · Git write · CreateCycle · promotion méthode · adoption de décision technique.
-
----
-
-## E. Baseline Git-authoritative (OBSERVATION)
-
-**Base :** `main@e273b2afc33445154f63226fdfe8357c75df67f8`
-**Preuves :** lecture de `projects/sfia-studio/app/lib/**` et `projects/sfia-studio/harness/src/**` ; `package.json` ; workflows CI.
-
-### E.1 Inventaire synthétique
-
-| Élément | Path | Rôle | Server/client | Persistance | Réutilisation candidate | Écart D2-D | Preuve |
-|---------|------|------|---------------|-------------|-------------------------|------------|--------|
-| OA cycle | `app/lib/oa/cycle/**` | Domaine cycle + D2-A/B/C qualification | Server/composition (`node:crypto`) | Memory | Compatible (qualify read-only) ; extract si durable | Pas d'exécution AI/Git/Cursor | `createCkcQualificationServices` read-only |
-| OA execution-contract | `app/lib/oa/execution-contract/**` | Gouvernance contrat jusqu'à confirmed | Server | Memory | Compatible comme gate amont | Refuse explicitement états T-A5 | `assertNotTa5Injection` / `TA5_STATUS_REFUSED` |
-| OA decision | `app/lib/oa/decision/**` | HumanDecision / Confirmation | Server | Memory | Compatible pour gates humains futurs | Pas d'exécution | T-A3 |
-| OA project | `app/lib/oa/project/**` | Project + LPS | Server | Memory | Compatible | Pas d'exécution | T-A1 |
-| OA execution-attempt | `app/lib/oa/execution-attempt/**` | Tentative T-A5 | Server | Memory | Wrapper candidat | Adapters NoOp/Test only ; **pas** exécuteur réel | Commentaire : foundation does not execute |
-| vertical-slice-runtime | `app/lib/vertical-slice-runtime/**` | Facade Next Create/Get project | Server (`serverGuard`, `"use server"`) | Business = OA memory ; audit noop/memory/sqlite | Wrapper/facade seulement | `agentExecution: "DISABLED"` ; process-local singleton | `disclosures.ts`, `singleton.ts` |
-| vertical-slice-core | `app/lib/vertical-slice-core/**` | Composition locale Project | Server | OA memory + audit | Compatible create/get | `realAgentExecution: "NOT_AVAILABLE"` | `localProjectComposition.ts` |
-| platform AI | `app/lib/platform/ai/**` | ConversationProvider OpenAI + Fake | Server-only (comment) | Aucune | Compatible transport derrière wrapper | Contrat conversation ≠ contrat D2-D ; pas d'evidence OA | `openaiProvider.ts` |
-| platform tools | `app/lib/platform/tools/**` | Tool router deny-by-default | Server | Aucune | Compatible reads | `cursor_*` refusés ; pas runtime D2-D | `toolRouter.ts` |
-| platform repository | `app/lib/platform/repository/**` | Git local + GitHub read | Server (`child_process`/`fs`) | Aucune | Compatible read ports | Read-only ; pas Cursor | `GithubReadPort`, `GhCli` / `Rest` |
-| platform observability | `app/lib/platform/observability/**` | EventSink injectable | Server | Noop défaut | Compatible | Catalogue ≠ events fonctionnels D2-D | `eventSink.ts` |
-| platform security | `app/lib/platform/security/**` | Path/repo policy + redaction | Server | N/A | Compatible | Policy seule | `pathPolicy.ts`, `redaction.ts` |
-| harness ports | `harness/src/ports/**` | Cursor/GPT/Git POC | Node harness | Process/FS | Extract/wrapper | Schémas ≠ OA ; flags live | `CursorExecutorPort` |
-| harness increment-d | `harness/src/increment-d/**` | Sandbox Cursor + GO + proof | Node | FS sandbox/proof | Extract pattern | Non intégré Studio runtime | `runIncrementDSandbox` |
-| harness gate/proof/journal | `harness/src/gate|proof|journal/**` | Gate fail-closed · proof pack · events.jsonl | Node | FS | Extract | Distinct EventSink platform | comments S1 |
-
-### E.2 Dépendances (OBSERVATION)
-
-| Dep | Version déclarée | Note |
-|-----|------------------|------|
-| Next | `^15.3.3` | App Studio |
-| React | `^19.1.0` | UI — hors D2-D TA |
-| TypeScript | `^5.8.3` | Strict |
-| AJV | `^6.15.0` | Déjà via doctrine `AjvSchemaValidationAdapter` Draft-07 |
-| OpenAI SDK | `^6.48.0` | Platform AI |
-
-**CONTRAINTE :** aucune nouvelle dépendance justifiée par défaut. Zod = CONTRACT-C = décision Morris.
-
-### E.3 Observations confirmées (liste GO)
-
-1. **vertical-slice-runtime** — server-only (guard custom) ; compose vertical-slice-core ; CreateProject/GetProject ; audit noop/memory/sqlite ; **pas** autorité D2-D ; process-local.
-2. **oa/cycle** — domaine/application/ports/infra ; `createCkcQualificationServices` read-only ; services mutationnels distincts ; composition in-memory.
-3. **oa/execution-contract** — préparation/confirmation ; in-memory ; refuse T-A5 ; **ne doit pas** devenir runtime D2-D implicite.
-4. **Platform AI** — OpenAI Responses + fake ; config server ; usage dispo ; contrat conversation ≠ D2-D.
-5. **Platform GitHub** — port read-only ; `gh` CLI ou REST ; allowlist ; redaction ; pas de mutation ; transport env-dépendant.
-6. **Platform tools** — deny-by-default ; `cursor_*` refusés ; timeout borné ; events techniques.
-7. **Platform observability** — EventSink injectable ; Noop défaut ; catalogue technique ≠ D2-D fonctionnel.
-8. **Harness Cursor** — fixture/live ; gate avant spawn ; branch/HEAD ancrés ; sandbox/allowlist ; FS + child_process ; capacité produit exacte **UNVERIFIED** ; intégration Next **non prouvée**.
-9. **Deps** — Next 15 / TS strict / Vitest / AJV / OpenAI déjà présents.
-
-### E.4 Signaux double-runtime (OBSERVATION)
-
-| Signal | Emplacements | Implication |
-|--------|--------------|-------------|
-| Cursor | harness Increment D · OPS1 `cursorExecutionAdapter` · OA T-A5 NoOp | Trois histoires d'exécution |
-| AI | platform/ai · harness GPT spikes · OPS1 toolLoop | Pas de spine D2-D unique |
-| Contract | OA ExecutionContract vs harness S1 ExecutionContract | Schémas incompatibles |
-
-### E.5 Multi-instance / client-bundle (OBSERVATION)
-
-- Singleton process-local `vertical-slice-runtime` ; disclosures `LOCAL_PROCESS` / restart may lose state.
-- Imports client-unsafe : `node:crypto`, `child_process`, `fs`, `sqlite`, OpenAI SDK, server actions.
-
----
-
-## F. Exigences non fonctionnelles
-
-| NFR | Exigence | Raison | Preuve attendue | Slice | Dette si report |
-|-----|----------|--------|-----------------|-------|-----------------|
-| Déterminisme fixtures | Même input → même ValidationOutcome / état | Reproductibilité CI | Tests fixtures | D1 | Flaky CI |
-| Fail-closed | Rejet avant engagement provider | Sécurité / R-QA-D2C-01 | Tests adversariaux | D1–D2 | Fuite partielle |
-| Provider independence | Aucun type SDK vers D3 | FD-11 / FA-08 | Import-boundary tests | D1–D3 | Lock-in |
-| Server-only | Adapters hors client bundle | Secrets / spawn | Boundary tests | D2 | Leak |
-| Minimisation | Prompt/contexte minimisés | RGPD / FinOps | Review + redaction tests | D2–D3 | Coût / fuite |
-| Read-only | Aucune méthode write Git/produit | CAD-04 | Port surface tests | D1–D3 | Mutation |
-| Réversibilité | Choix packagés derrière ports | CKC | Wrappers | Tous | Refactor coûteux |
-| Testabilité | Domaine pur + ports injectés | Delivery future | Vitest unit/contract | D1 | Couplage |
-| Résilience | Timeout/cancel/late result | FD-07 | Tests async | D2 | Races |
-| Cancellation | Best-effort provider + autorité locale | FD-07 | Tests | D2 | État incohérent |
-| Timeout | Opérationnel + global candidats | FD | Tests | D2 | Hang |
-| Late result | Evidence-only post-terminal | FD-07 | Tests | D2–D3 | Spoof success |
-| Multi-instance | Claim interdit sans store durable | OBS | Disclosures | D3 | Claims faux |
-| Persistance | Staged ; durable non sélectionné | STORE-B candidat | ADR | D1–D3 | Perte état |
-| Observabilité | Events redacted + correlation | CAD-09 | Event schema tests | D2 | Blind ops |
-| FinOps | Usage validé ; pas de prix hardcodé | CAD | Usage fields | D2–D3 | Coût opaque |
-| Next/TS/Vitest | Compatibilité stack existante | DevOps fit | CI existante | Tous | Divergence |
-| Pas de métrique inventée | Aucun SLO/latency inventé | Anti-claim CKC | Revue | Tous | — |
-
----
-
-## G. Principes techniques (CONTRAINTES de conception)
-
-1. Un seul core d'exécution D2-D (autorité d'état unique).
-2. Domaine sans SDK fournisseur.
-3. Ports avant adapters.
-4. Validation avant lecture de métadonnées (R-QA-D2C-01 / R-C).
-5. Résultats discriminés (complete / partial / failure).
-6. État géré par fonctions pures.
-7. Side effects derrière ports.
-8. Secrets hors domaine.
-9. No provider object vers D3.
-10. No Git write.
-11. No shell arbitraire.
-12. Fixtures conformes aux mêmes contrats que adapters réels.
-13. Aucun succès sans preuve complète.
-14. Aucune technologie durable sans besoin prouvé.
-15. Pas de nouvelle dépendance sans gain démontré + arbitrage Morris.
-
----
-
-## H. Inventaire et classification de réutilisation (REUSE-B)
-
-| Brique | Classification | Note |
-|--------|----------------|------|
-| `oa/cycle` | Compatible (qualify) / Extract si durable | Read-only D2-C composition |
-| `oa/execution-contract` | Compatible (gate amont) | **Incompatible** comme runtime ; refuse T-A5 |
-| `vertical-slice-runtime` | Compatible derrière wrapper/facade | **Incompatible** comme state authority D2-D |
-| platform AI | Compatible derrière wrapper | Contract-fit **UNVERIFIED** |
-| platform GitHub | Compatible derrière wrapper | Transports env-dépendants |
-| platform tools | Compatible (reads) | Pas Cursor exec |
-| platform observability | Compatible derrière port D2-D | Catalogue différent |
-| harness Cursor | Extract / wrapper | Capacité produit **UNVERIFIED** ; intégration Next **UNVERIFIED** |
-
-**REUSE-B respecté :** aucune compatibilité supposée ; décisions de réutilisation = TA candidates.
-
----
-
-## I. Options runtime et packaging
-
-### TECH-RUN-A — `vertical-slice-runtime` = autorité technique D2-D
-
-| Critère | Analyse |
-|---------|---------|
-| Alignement RUNTIME-C | Faible — VS runtime = Create/Get project, agentExecution DISABLED |
-| Double runtime | Risque élevé d'étendre un host incompatible |
-| Next coupling | Fort |
-| Testabilité | Faible (Server Actions / singleton) |
-| Persistance | Process-local |
-| Réversibilité | Faible après Delivery |
-
-### TECH-RUN-B — Nouveau core OA sémantique frère (`oa/execution-run`) + VS runtime = facade/composition server-only
-
-| Critère | Analyse |
-|---------|---------|
-| Alignement RUNTIME-C | Fort — une autorité core ; facade optionnelle |
-| Double runtime | Mitigé si state authority **uniquement** dans core |
-| Imports | Domaine pur testable |
-| Next | Composition root server seule |
-| Migration | Progressive |
-| Dette | Nouveau module OA |
-| Réversibilité | Haute avant Delivery |
-
-### TECH-RUN-C — Service/package autonome séparé de l'app
-
-| Critère | Analyse |
-|---------|---------|
-| Cohésion | Séparation nette |
-| Ops | Complexité déploiement prématurée |
-| Double runtime | Possible si Studio garde un second path |
-| GreenOps | Worker/service permanent sans besoin prouvé |
-
-**RECOMMANDATION CANDIDATE :** TECH-RUN-B.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## J. Architecture technique cible candidate (NOT ADOPTED)
-
-```mermaid
-flowchart TB
-  D3["D3 consumer futur
-(projection only)"]
-  SF["Server facade
-(transport-neutral)"]
-  IN["Execution Intake"]
-  CO["Coordination"]
-  VP["Validation & Policy"]
-  SA["State Authority
-(unique)"]
-  EV["Evidence / Disclosure"]
-  EU["Event / Usage"]
-  PB["Provider Boundary"]
-  AI["AI adapter"]
-  GIT["Git adapter"]
-  CUR["Cursor adapter"]
-  SEC["Secret Source"]
-  SBX["Sandbox"]
-  REPO["ExecutionRunRepository"]
-  D2C["D2-C Qualification Core
-(read-only)"]
-
-  D3 --> SF
-  SF --> IN
-  IN --> CO
-  CO --> VP
-  CO --> SA
-  CO --> PB
-  VP --> SA
-  PB --> AI
-  PB --> GIT
-  PB --> CUR
-  AI --> SEC
-  GIT --> SEC
-  CUR --> SEC
-  CUR --> SBX
-  SA --> REPO
-  SA --> EV
-  CO --> EU
-  EV --> EU
-  IN -.-> D2C
-
-  classDef forbid fill:#fee,stroke:#c00
-```
-
-### Dépendances autorisées (candidates)
-
-- D3 → Server facade → Intake/Coordination uniquement (read projection).
-- Coordination → Policy → State Authority.
-- Providers → ports uniquement ; résultats vers State/Evidence, jamais vers D3.
-
-### Dépendances interdites
-
-- D3 → SDK / Secret / Cursor spawn / Git write.
-- Provider → State Authority mutateur direct.
-- `vertical-slice-runtime` et `execution-run` comme **deux** state authorities.
-- `execution-contract` muté en runtime d'exécution.
-
----
-
-## K. Découpage en couches (RECOMMANDATION CANDIDATE)
-
-| Couche | Contenu | Interdits |
-|--------|---------|-----------|
-| **1. Domain** | objets, états, transitions, erreurs, disclosures, evidence, invariants | Next/Node/SDK |
-| **2. Application** | coordination, state authority, policy, cancellation, human gates | SDK types |
-| **3. Ports** | repositories, AI, Git, Cursor, secret, event sink, clock, id | Implémentations |
-| **4. Adapters** | memory, AI wrapper, GitHub wrapper, Cursor process, env secrets, event sink | Domaine pollué |
-| **5. Server composition** | composition root | Domaine dans client bundle ; transport D3 figé |
-
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## L. Contrats et validation runtime
-
-### CONTRACT-A — Types TS + guards manuels
-
-Simple ; risque de drift ; pas de JSON Schema partageable fixtures/adapters.
-
-### CONTRACT-B — Types TS + JSON Schema validé via AJV existant
-
-Réutilise AJV déjà présent (doctrine) ; duplication type/schema à gouverner par tests de conformité ; pas de nouvelle dépendance.
-
-### CONTRACT-C — Zod (nouvelle dépendance)
-
-Gain DX ; **nouvelle dépendance** ; bundle/compat ; nécessite arbitrage Morris.
-
-**RECOMMANDATION CANDIDATE :** CONTRACT-B + tests conformité types/schemas/fixtures.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
-### Contrats candidats pour les 12 objets fonctionnels (noms techniques candidats — NOT ADOPTED)
-
-| Objet fonctionnel | Contrat technique candidat |
-|-------------------|----------------------------|
-| Execution Intent | `ExecutionIntent` |
-| Execution Context | `ExecutionContext` |
-| Provider Capability | `ProviderCapabilityDescriptor` |
-| Validation Outcome | `ValidationOutcome` |
-| Execution Run | `ExecutionRun` |
-| Execution State | `ExecutionState` (union 8) |
-| External Result | `ExternalResult` |
-| Execution Evidence | `ExecutionEvidence` |
-| Source Disclosure | `SourceDisclosure` |
-| Human Decision Gate | `HumanDecisionGate` |
-| Usage Summary | `UsageSummary` |
-| Normalized Failure | `NormalizedFailure` |
-
-Aucune implémentation dans ce cycle.
-
----
-
-## M. États et transitions
-
-### Huit états persistants exacts (ADOPTED FD-02)
-
-`idle` · `running` · `awaiting_human` · `succeeded` · `failed` · `cancelled` · `timed_out` · `blocked`
-
-**Aucun** état STATE-B supplémentaire (`created`, `queued`, `validating`, …).
-
-### Transition authority (candidate)
-
-- Reducer / fonctions de transition **pures**.
-- Table de transitions explicite (héritée FD/FA).
-- Événements transitoires non persistants.
-- Nouveau run + nouvelle identité après terminal.
-- `blocked` vs `failed` ; `timed_out` vs blocked human gate ; `cancelled` terminal ; late result evidence-only.
-
-### Représentation
-
-| Option | Analyse |
-|--------|---------|
-| Enum simple | Fragile pour payloads |
-| Discriminated union | Alignée TypeScript strict |
-| Machine externe | Nouvelle dépendance / astronaut |
-
-**RECOMMANDATION CANDIDATE :** discriminated union + transition functions pures, sans state-machine dependency.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## N. Identité, repository et persistance
-
-### Identités candidates
-
-- `ExecutionRunId`
-- `correlationId`
-- `providerOperationId`
-- Nouvelle identité après terminal
-- Champ version/optimistic concurrency **candidat**
-
-### Port
-
-`ExecutionRunRepository` (save/get/list by correlation — surface candidate).
-
-### STORE-A — Memory uniquement
-
-OK D2-D1 ; interdit claim multi-instance / strong durability.
-
-### STORE-B — Staged : memory D2-D1 ; durable adapter requis avant strong runtime verdict
-
-Aligné CAD/FA ; durable **non sélectionné** maintenant.
-
-### STORE-C — Durable immédiat
-
-Prématuré sans cible déploiement / NFR.
-
-Technologies candidates si repo permet : memory · SQLite borné · store externe.
-**Aucune** sélection durable dans ce cycle.
-
-**RECOMMANDATION CANDIDATE :** STORE-B.
-**Déclarations :** D2-D1 process-local acceptable ; D2-D3 ne peut revendiquer multi-instance/durabilité sans décision durable distincte.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## O. Coordination et modèle async
-
-| Option | Analyse |
-|--------|---------|
-| **ASYNC-A** sync request/response | Insuffisant Cursor / longs appels |
-| **ASYNC-B** in-process Promise + AbortSignal + repository/state | Aligné Next server ; cancel/timeout ; restart limite process |
-| **ASYNC-C** queue + worker | Ops/DevOps ; GreenOps ; besoin non prouvé |
-
-**RECOMMANDATION CANDIDATE :** ASYNC-B pour D2-D1/D2-D2 ; queue différée.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## P. Provider Capability Boundary — ports techniques candidats
-
-| Port | Responsabilité | Entrée | Sortie | Cancel/Timeout | Evidence | Server-only | Fixture/real |
-|------|----------------|--------|--------|----------------|----------|-------------|--------------|
-| `AiExecutionPort` | Lane AI | intent minimisé, limits | result/failure/usage | AbortSignal | redacted | oui | fake+real |
-| `GitReadPort` | Lane Git read-only | ref/path allowlisted | read result | timeout | redacted | oui | fixture+real |
-| `CursorExecutionPort` | Lane Cursor | sandbox contract, GO | result/proof | AbortSignal | proof pack | oui | fixture ; live UNVERIFIED |
-| `SecretSourcePort` | Secrets | secret id | handle opaque | n/a | never value | oui | env/future |
-| `ExecutionEventSink` | Events D2-D | technical+functional events | void | n/a | redacted | oui | noop/adapter |
-| `ExecutionRunRepository` | Persistance run | run aggregate | run | n/a | n/a | oui | memory→durable |
-| `ClockPort` | Temps | — | Instant | n/a | n/a | oui | system/fake |
-| `IdSource` | Identités | — | ids | n/a | n/a | oui | uuid/fake |
-
-**Aucun type SDK** dans les ports.
-**Statut ports :** CANDIDATES — NOT ADOPTED.
-
----
-
-## Q. AI Provider
-
-| Option | Analyse |
-|--------|---------|
-| **AI-A** réutiliser directement `ConversationProvider` | Couplage contrat conversation |
-| **AI-B** wrapper D2-D autour platform AI | Réutilise OpenAI/fake/usage ; contract-fit tests requis |
-| **AI-C** nouvel adapter indépendant | Duplication ; lock-in risk différent |
-
-**RECOMMANDATION CANDIDATE :** AI-B sous réserve contract-fit tests.
-**Déclarations :** aucun modèle hardcodé ; aucune clé dans domaine/D3 ; aucune réponse brute dans events ; aucun appel live CI par défaut.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## R. GitHub Provider
-
-| Option | Analyse |
-|--------|---------|
-| **GIT-A** `gh` CLI only | Indispo en hosted |
-| **GIT-B** REST only | Token/App ; testabilité |
-| **GIT-C** port transport-neutral existant (`gh` local ; REST/App hosted) | Aligné baseline `resolveGithubReadTransport` |
-
-**RECOMMANDATION CANDIDATE :** GIT-C derrière wrapper D2-D.
-**Contraintes :** read-only strict ; aucune méthode write dans port D2-D ; pas de fallback silencieux ; transport = disclosure technique ; PAT ≠ production par défaut.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## S. Cursor Worker et sandbox
-
-| Option | Analyse |
-|--------|---------|
-| **CURSOR-A** import direct harness dans Next | Risque FS/child_process/ESM ; client-unsafe |
-| **CURSOR-B** process boundary / extract adapter partagé derrière `CursorExecutionPort` | Isolation ; capability gate |
-| **CURSOR-C** réécriture indépendante | Coût ; perte preuves harness |
-
-**RECOMMANDATION CANDIDATE :** CURSOR-B **uniquement après** capability verification dédiée.
-**Déclaration :** `CURSOR PRODUCT CAPABILITIES — UNVERIFIED`
-**Interdits :** import harness dans client bundle ; commande arbitraire browser ; mutation Git distante ; live sans gate Morris ; claim sandbox sécurisée sans preuve.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## T. Secret Source
-
-| Option | Analyse |
-|--------|---------|
-| **SECRET-A** `process.env` direct partout | Fuite / rotation difficile |
-| **SECRET-B** `SecretSourcePort` + env local + manager futur | Réversible |
-| **SECRET-C** secret manager immédiat | Techno sans contexte déploiement |
-
-**RECOMMANDATION CANDIDATE :** SECRET-B.
-Définir : identité secret · disponibilité · expiration · révocation · rotation · aucune valeur sérialisable · redaction · server-only.
-**Statut :** CANDIDATE — NOT ADOPTED.
-
----
-
-## U. Frontières sécurité
-
-### Trust-boundary (candidate)
-
-```mermaid
-flowchart LR
-  Client["Client / D3 UI"] -->|DTO only| Facade["Server facade"]
-  Facade --> Core["execution-run core"]
-  Core --> Ports["Ports"]
-  Ports --> Adapters["Adapters server-only"]
-  Adapters --> Ext["OpenAI / GitHub / Cursor / FS"]
-  Adapters --> Secrets["SecretSource"]
-```
-
-| Menace | Acteur | Surface | Mitigation candidate | Preuve | Réserve |
-|--------|--------|---------|----------------------|--------|---------|
-| Secret leakage | insider/log | events/evidence/D3 | SecretSource + redaction | tests redaction | — |
-| Prompt injection | provider/user | AI lane | minimisation + validation sortie | contract-fit | — |
-| Malicious provider result | provider | adapters | INVALID_PROVIDER_RESULT ; Evidence authority | tests | — |
-| Arbitrary command | attacker | Cursor/tools | deny-by-default ; no browser spawn | policy tests | UNVERIFIED Cursor |
-| Sandbox escape | Cursor | FS | allowlist paths ; gate | sandbox tests | UNVERIFIED |
-| Protected path | tool | repo FS | pathPolicy | tests | — |
-| Git mutation | adapter | GitHub/git | read-only ports | surface tests | — |
-| Branch/HEAD drift | Cursor | spawn | gate revalidation | harness pattern | — |
-| Result spoofing | late result | state | terminal authority ; evidence-only | tests | — |
-| Event leakage | sink | observability | redaction catalogue | tests | R-QA-REV-01/02 |
-| Late result | provider | async | ignore state mutate | tests | — |
-| Cancellation race | concurrent | AbortSignal | local terminal authoritative | tests | — |
-| Unauthorized human gate | system | awaiting_human | Morris-only structural | FA-07 | — |
-| Client import adapter | bundler | Next | import-boundary tests | Vitest | — |
-
----
-
-## V. Erreurs techniques (candidates — NOT ADOPTED)
-
-| Code candidat | Producteur | Normalisateur | Retryable | État | Evidence | D3 message | Redaction |
-|---------------|------------|---------------|-----------|------|----------|------------|-----------|
-| `VALIDATION_ERROR` | Policy | Evidence | after fix | blocked | yes | normalized | no raw |
-| `AUTHENTICATION_ERROR` | Policy/Provider | Evidence | after creds | blocked/failed | yes | normalized | no secret |
-| `AUTHORIZATION_ERROR` | Policy/Provider | Evidence | after rights | blocked/failed | yes | normalized | — |
-| `PROVIDER_UNAVAILABLE` | Provider | Evidence | new run | failed/blocked | yes | normalized | — |
-| `RATE_LIMITED` | Provider | Evidence | deferred bounded | failed/blocked | yes | normalized | — |
-| `TIMED_OUT` | State/Provider | Evidence | new run | timed_out | yes | normalized | — |
-| `CANCELLED` | State | Evidence | new run | cancelled | yes | normalized | — |
-| `SANDBOX_BLOCKED` | Policy | Evidence | after conform | blocked | yes | normalized | — |
-| `PROTECTED_PATH` | Policy | Evidence | no if forbid | blocked/failed | yes | normalized | path only |
-| `MUTATION_FORBIDDEN` | Policy | Evidence | change intent | blocked | yes | normalized | — |
-| `HUMAN_GATE_REQUIRED` | Human Gate | Evidence | after decision | awaiting_human/blocked | yes | gate info | — |
-| `INVALID_PROVIDER_RESULT` | Provider | Evidence | new run | failed | yes | normalized | no raw |
-| `INTERNAL_NORMALIZED_FAILURE` | Coord | Evidence | limited | failed | yes | normalized | no stack to D3 |
-
-Codes restent **candidats** jusqu'à arbitrage.
-
----
-
-## W. Evidence, completeness et disclosures
-
-| Concept | Définition candidate |
-|---------|----------------------|
-| Evidence officielle | Produite uniquement par Evidence Authority |
-| Evidence brute redacted | Candidat provider après redaction ; non autoritaire pour success |
-| Completeness | complete \| partial — explicite |
-| Partiality | Partial **jamais** `succeeded` |
-| Source | `fixture` \| `sandbox-real` \| `real` |
-| Provider abstraction | Lane + type abstrait ; pas SDK |
-| Late evidence | Post-terminal ; n'altère pas l'état |
-| Evidence id / digest | Identité + hash contenu redacted |
-| Timestamps | ISO validés (lien R-QA-REV-01) |
-
-Frontières : provider result → normalized result → official evidence → D3 projection.
-
----
-
-## X. Events, observabilité, usage et FinOps
-
-| Option | Analyse |
-|--------|---------|
-| **EVENT-A** réutiliser catalogue EventSink actuel | Catalogue ≠ D2-D fonctionnel |
-| **EVENT-B** port D2-D → adapter EventSink | Aligné REUSE-B |
-| **EVENT-C** nouveau service observabilité | Prématuré |
-
-**RECOMMANDATION CANDIDATE :** EVENT-B.
-
-Événements techniques nécessaires pour couvrir le catalogue fonctionnel adopté (intent_validated, execution_started/blocked/cancelled/timed_out/failed/succeeded, external_operation_*, awaiting_human, human_decision_recorded, …).
-
-Champs : correlationId · runId · provider lane · state transition · validation · gate · cancellation · timeout · late result · completeness · source disclosure · usage validé.
-
-**Interdits :** secret · prompt complet · réponse complète · stack brute vers D3 · prix inventé.
-
----
-
-## Y. Cancellation, timeout, retries et idempotency
-
-- `AbortSignal` pour opérations provider.
-- Timeout opérationnel + timeout global **candidats** (durées non inventées en production).
-- Cancellation best-effort provider ; **état terminal local autoritatif**.
-- Late result → evidence-only.
-- Retry seulement erreurs classées retryable ; aucun retry infini.
-- Aucun retry structurel après décision Morris sans nouvelle gate.
-- Idempotency de commande ; nouveau run après terminal.
-
----
-
-## Z. R-QA-D2C-01 — défense en profondeur (R-C ADOPTED)
-
-### 1. Frontière D2-D (ce cycle documente ; n'implémente pas)
-
-- Valider **avant** toute lecture de métadonnées.
-- Fail-closed.
-- Aucun résultat partiel exploitable comme succès.
-- Tests adversariaux `null`/`undefined` → NormalizedFailure.
-
-### 2. Correction D2-C (GATE FUTURE séparée)
-
-- Cycle séparé · périmètre borné · avant exposition réelle frontière externe non validée.
-
-| Élément | Statut |
+| Élément | Valeur |
 |---------|--------|
-| Dépendance D2-D1 | Validation avant metadata |
-| Gate correction D2-C | Distincte |
-| Preuve | Tests adversariaux + QA |
-| **R-QA-D2C-01** | **OPEN NOT LIFTED** |
-
----
-
-## AA. Frontière D3
-
-| Option | Analyse |
-|--------|---------|
-| **D3-TECH-A** Server Action couplée runtime | Couplage transport |
-| **D3-TECH-B** Route/API maintenant | Figé trop tôt |
-| **D3-TECH-C** Facade application transport-neutral | Transport UI ultérieur |
-
-**RECOMMANDATION CANDIDATE :** D3-TECH-C.
-
-### DTO technique provider-independent (candidat)
-
-run id · état · source · progression · completeness · result redacted · failure redacted · blocked reason · human gate · evidence summary · usage validé · réserves · readiness.
-
-**Interdits DTO :** SDK object · secret · raw provider error · command · Git write · provider-specific type.
-
----
-
-## AB. Double runtime et composition
-
-| Composant | Rôle candidat |
-|-----------|---------------|
-| `oa/execution-run` | **Core** — state authority unique |
-| `vertical-slice-runtime` | Facade/composition server-only optionnelle |
-| `execution-contract` | Amont contractuel (confirmed) — **pas** runtime |
-| D2-C | Capacité read-only qualification |
-| platform/harness | Adapters derrière ports |
-
-### Imports autorisés (candidats)
-
-composition → application → domain ; adapters → ports ; facade → composition.
-
-### Interdits
-
-- State authority dans VS runtime **et** core.
-- Duplication du reducer.
-- Provider direct vers D3.
-- `execution-contract` muté en runtime.
-- Deux repositories d'état concurrents.
-
----
-
-## AC. Déploiement et multi-instance (sans sélection de cible)
-
-| Dimension | Observation / contrainte |
-|-----------|--------------------------|
-| Processus unique | Baseline actuelle |
-| Restart | Memory loss |
-| Serverless | Multi-instance hazard |
-| Long-running server | Cancel/timeout plus naturels |
-| Worker | ASYNC-C — besoin non prouvé |
-| Persistence | STORE-B ; durable undecided |
-| Locking | Requis si multi-instance |
-| Sandbox locality | Cursor FS local |
-
-### Claims autorisés par slice
-
-| Slice | Claims autorisés | Claims interdits |
-|-------|------------------|------------------|
-| D2-D1 | local/process-only ; fixtures déterministes | multi-instance ; production-ready |
-| D2-D2 | adapters réels read-only sous env borné | sandbox secure sans preuve ; Cursor compatible |
-| D2-D3 | strong runtime **seulement** avec preuves explicites persistance/worker/sandbox/env | scalable ; RUN READY |
-
----
-
-## AD. Stratégie de tests (documentaire — aucun test exécuté)
-
-- Unitaires domaine (transitions, invariants).
-- Matrice complète transitions.
-- Contract schema tests (AJV candidat).
-- Fixtures vs adapters conformance.
-- Policy deny · redaction · error normalization.
-- Timeout · cancellation · late results.
-- Partial never succeeded · human gate · source disclosure.
-- D3 projection · adversarial R-QA-D2C-01.
-- Import-boundary · provider fake · sandbox-real opt-in · live hors CI défaut.
-
----
-
-## AE. Catalogue de fixtures obligatoires
-
-1. nominal fixture
-2. nominal sandbox-real candidat
-3. validation failure
-4. auth failure
-5. provider unavailable
-6. rate limit
-7. timeout
-8. cancellation
-9. blocked gate
-10. protected path
-11. mutation forbidden
-12. partial result
-13. invalid provider result
-14. late result
-15. secret redaction
-16. source mismatch
-
-Mêmes schemas pour fixtures et adapters réels.
-
----
-
-## AF. Slicing technique
-
-### D2-D1
-
-**Objectif :** core `execution-run` candidat · contrats · AJV schemas · reducer · policy · errors · evidence/disclosure · memory repo · fixtures.
-**Pas** d'intégration fournisseur réelle.
-**Sortie :** contrats validables + matrice états.
-**Gate :** GO Delivery D2-D1 (futur, non ouvert).
-**Claims interdits :** provider integrated · production-ready.
-
-### D2-D2
-
-**Objectif :** AI/Git wrappers · Cursor capability verification · sandbox · SecretSource · EventSink adapter · timeout/cancel · R-QA-D2C-01 defence · read-only.
-**Gate :** GO Delivery D2-D2.
-**Claims interdits :** Cursor compatible sans preuve · reserve lifted.
-
-### D2-D3
-
-**Objectif :** coordination E2E · sandbox-real · D3 projection · evidence · strong runtime proofs · décision persistance/déploiement **si** nécessaire.
-**Gate :** GO Delivery D2-D3.
-**Claims interdits :** multi-instance sans décision durable.
-
-### D2-D4
-
-Writes — **hors trajectoire**.
-
-Aucune user story rédigée.
-
----
-
-## AG. Cartographie de fichiers candidate (NOT ADOPTED)
-
-```text
-projects/sfia-studio/app/lib/oa/execution-run/
-  domain/
-    executionRun.ts
-    executionState.ts
-    executionTransitions.ts
-    executionErrors.ts
-    executionEvidence.ts
-    executionDisclosure.ts
-    executionPolicy.ts
-  application/
-    executionCoordinator.ts
-    executionProjection.ts
-  ports/
-    executionRunRepository.ts
-    aiExecutionPort.ts
-    gitReadPort.ts
-    cursorExecutionPort.ts
-    secretSourcePort.ts
-    executionEventSink.ts
-    clockPort.ts
-    idSource.ts
-  infrastructure/
-    memoryExecutionRunRepository.ts
-    # wrappers platform/harness
-  index.ts
-```
-
-Noms métier préférés aux préfixes `d2d-*`. Wrappers sous `infrastructure/` ou `platform/*` selon arbitrage.
-
----
-
-## AH. Compatibilité et migration
-
-| Brique | Contrat actuel | Cible candidate | Wrapper | Rupture | Tests | Rollback | Dette |
-|--------|----------------|-----------------|---------|---------|-------|----------|-------|
-| ConversationProvider | conversation tools | AiExecutionPort | AI-B | contract-fit | conformance | garder platform | drift |
-| GithubReadPort | read tools | GitReadPort D2-D | GIT-C | surface write absente | allowlist | inchangé | transport env |
-| EventSink | TechnicalEvent | ExecutionEventSink | EVENT-B | catalogue | schema | noop | dual catalogues |
-| Cursor harness | S1 contract | CursorExecutionPort | CURSOR-B | schema dual | capability gate | harness alone | UNVERIFIED |
-| execution-contract | T-A4 | amont only | none mutate | — | refuse T-A5 | — | confusion runtime |
-| D2-C | qualify read-only | Intake optional | compose | — | unit | — | — |
-| vertical-slice-runtime | Create/Get | facade | TECH-RUN-B | no state dual | disclosure | keep VS | double runtime |
-
----
-
-## AI. FinOps et GreenOps
-
-### Signaux
-
-nombre d'appels · tokens · durée · retries · timeouts · provider · model · bytes · sandbox duration.
-
-**Aucun prix codé en dur.**
-
-### Leviers
-
-budgets configurables · no duplicate call · bounded retries · fixture first · no permanent worker before need · bounded evidence retention · no provider call after cancellation terminale.
-
----
-
-## AJ. Risques et dette
-
-| Risque | P | I | Mitigation | Preuve | Dette | Slice | Gate |
-|--------|---|---|------------|--------|-------|-------|------|
-| Architecture astronaut | M | H | Minimal foundation | revue options | overdesign | TA | arbitration |
-| Nouveau domaine parallèle | M | H | TECH-RUN-B + mapping FA | imports | dual models | D1 | Delivery |
-| Double runtime | H | H | state authority unique | AB | OPS1/harness | D1–D3 | Delivery |
-| State authority dupliquée | M | H | Interdit AB | tests | — | D1 | — |
-| Provider lock-in | M | H | ports + wrappers | contract-fit | — | D2 | — |
-| AJV/types drift | M | M | conformance tests | CI | dual source | D1 | — |
-| Memory state loss | H | M | disclosures ; STORE-B | docs | durable later | D1–D3 | durable GO |
-| Queue prématurée | M | M | ASYNC-B | ADR | ops | D2 | — |
-| CLI unavailable | M | H | GIT-C REST path | probe | auth | D2 | — |
-| REST auth leakage | M | H | SecretSource + redaction | tests | — | D2 | — |
-| Cursor incompatibility | H | H | capability verification | UNVERIFIED | rewrite | D2 | capability GO |
-| Sandbox escape | M | H | allowlist + gate | tests | — | D2–D3 | — |
-| Direct harness import | M | H | CURSOR-B boundary | import tests | — | D2 | — |
-| Secret leakage | M | H | SECRET-B | redaction | — | D2 | — |
-| D3 provider leakage | M | H | D3-TECH-C DTO | projection tests | — | D3 | — |
-| Partial-as-success | M | H | Evidence authority | tests | — | D1 | — |
-| Late result race | M | H | terminal authority | tests | — | D2 | — |
-| Cancellation race | M | H | AbortSignal + local state | tests | — | D2 | — |
-| Event inconsistency | M | M | EVENT-B catalogue | schema | — | D2 | — |
-| No multi-instance | H | M | claims bornés | disclosures | durable | D3 | — |
-| Live tests flaky | M | M | live hors CI | policy | — | D2–D3 | — |
-| R-QA-D2C-01 | H | H | R-C two lines | adversarial | OPEN | D1 + D2-C | D2-C GO |
-| R-QA-REV-01 | M | M | ISO timestamps | tests | OPEN | D1–D2 | — |
-| R-QA-REV-02 | M | M | conserve | docs | OPEN | — | — |
-
----
-
-## AK. Critères d'acceptation — snapshot historique du cycle pré-arbitrage
-
-> **Statut temporel :** cette checklist décrit l'état du document à la
-> clôture du cycle d'architecture technique, avant l'arbitrage Morris du
-> 2026-08-03 19:24 CEST (+0200). Les lignes
-> « Aucune architecture implicitement adoptée » et
-> « TA-01…14 NOT DECIDED » étaient exactes à cette date.
-> Elles sont désormais supplantées, pour l'état décisionnel courant,
-> par AN2 et AR. Elles sont conservées sans réécriture rétrospective.
-
-
-- [x] Plusieurs options par décision structurante
-- [x] Runtime owner options comparées (TECH-RUN-A/B/C)
-- [x] Package boundary / couches documentées
-- [x] Domain sans SDK exigé
-- [x] Contrats validables options (CONTRACT-A/B/C)
-- [x] Huit états exacts
-- [x] Transition authority documentée
-- [x] Repository port + STORE-A/B/C
-- [x] Async A/B/C
-- [x] Provider ports
-- [x] AI / Git / Cursor options
-- [x] Secrets / sandbox / sécurité
-- [x] Errors / evidence / disclosures / events
-- [x] Cancellation / timeout / late result
-- [x] D2-C defence R-C
-- [x] D3 independence
-- [x] Test + fixture strategy
-- [x] Slicing D2-D1/D2/D3 ; D2-D4 hors
-- [x] Aucune implémentation
-- [x] Aucune architecture implicitement adoptée
-- [x] TA-01…14 NOT DECIDED
-
-### État décisionnel courant après arbitrage
-
-- Architecture technique D2-D : **ARBITRATED BY MORRIS**.
-- D-V3.1-D2D-TA-01…14 : **DECIDED — ADOPTED BY MORRIS**.
-- Implémentation : **NON EXÉCUTÉE**.
-- Backlog : **NON CRÉÉ**.
-- Delivery : **NON AUTORISÉE**.
-- Références autoritatives : **AN2 et AR**.
-
----
-
-## AL. Questions ouvertes (INCONNUES)
-
-- Cible de déploiement
-- Durabilité / multi-instance
-- Choix du durable store
-- Technologie de worker
-- Auth GitHub hosted (App vs token)
-- Secret manager
-- Capacités Cursor exactes (**UNVERIFIED**)
-- Disponibilité Cursor dans l'environnement cible
-- Streaming AI
-- Structured output exact
-- Provider cancellation guarantees
-- Rétention des preuves
-- Transport événement / sink observabilité
-- SLO (non inventés)
-- Budgets FinOps numériques
-- Transport D3 (Server Action vs Route vs autre)
-
----
-
-## AM. ADR candidates (PROPOSED — NOT ADOPTED)
-
-### ADR-TA-01 — Runtime owner / packaging
-
-- **Contexte :** RUNTIME-C fonctionnel ; VS runtime ≠ autorité D2-D aujourd'hui.
-- **Problème :** où placer le core d'exécution sans double runtime.
-- **Options :** TECH-RUN-A / B / C.
-- **Recommandation candidate :** TECH-RUN-B.
-- **+ :** alignement RUNTIME-C ; testabilité ; facade optionnelle.
-- **− :** nouveau module OA ; discipline imports.
-- **Risques :** confusion avec execution-contract / OPS1.
-- **Réversibilité :** haute avant Delivery.
-- **Dette :** migration composition.
-- **Préconditions :** arbitrage Morris TA-01.
-- **Gate :** GO ARBITRATION TA.
-- **Statut :** PROPOSED — NOT ADOPTED.
-
-### ADR-TA-02 — Contrats / AJV
-
-Options CONTRACT-A/B/C ; reco CONTRACT-B ; PROPOSED — NOT ADOPTED.
-
-### ADR-TA-03 — Persistance staged
-
-Options STORE-A/B/C ; reco STORE-B ; durable undecided ; PROPOSED — NOT ADOPTED.
-
-### ADR-TA-04 — Async in-process
-
-Options ASYNC-A/B/C ; reco ASYNC-B ; queue différée ; PROPOSED — NOT ADOPTED.
-
-### ADR-TA-05 — Provider wrappers
-
-Ports + AI-B / GIT-C / CURSOR-B ; capability Cursor UNVERIFIED ; PROPOSED — NOT ADOPTED.
-
-### ADR-TA-06 — Secrets
-
-SECRET-A/B/C ; reco SECRET-B ; PROPOSED — NOT ADOPTED.
-
-### ADR-TA-07 — Events
-
-EVENT-A/B/C ; reco EVENT-B ; PROPOSED — NOT ADOPTED.
-
-### ADR-TA-08 — D3 transport-neutral facade
-
-D3-TECH-A/B/C ; reco D3-TECH-C ; PROPOSED — NOT ADOPTED.
-
-*(Chaque ADR structurante ci-dessus reste PROPOSED — NOT ADOPTED ; détails opérationnels dans §I–AA et decision pack §AN.)*
-
----
-
-## AN. Decision pack Morris — D-V3.1-D2D-TA-01…14
-
-> **Statut commun de chaque décision :** `NOT DECIDED — MORRIS ARBITRATION REQUIRED`
-
-### D-V3.1-D2D-TA-01 — Runtime owner et packaging
-
-- **Question :** Qui est l'autorité technique d'exécution D2-D et comment packager ?
-- **Options :** TECH-RUN-A / TECH-RUN-B / TECH-RUN-C
-- **Recommandation candidate :** TECH-RUN-B
-- **Justification :** RUNTIME-C ; VS runtime disclosures agentExecution DISABLED ; évite double state authority
-- **Impacts :** nouveau module OA ; facade optionnelle
-- **Sécurité :** server composition only
-- **Performance :** in-process ; pas de claim SLO
-- **FinOps :** pas de service permanent
-- **Dette :** migration composition
-- **Réversibilité :** haute pré-Delivery
-- **Dépendances :** aucune nouvelle npm
-- **Réserves :** —
-- **Gate suivante :** TA arbitration → backlog D2-D1
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-02 — Découpage domain/application/ports/adapters/server composition
-
-- **Question :** Quelle structure de couches ?
-- **Options :** (1) couches §K (2) tout dans vertical-slice-runtime (3) package npm séparé immédiat
-- **Recommandation candidate :** couches §K
-- **Justification :** domain pur ; ports injectés ; Next hors domaine
-- **Impacts / sécu / perf / FinOps / dette / réversibilité :** testabilité ↑ ; bundling risk ↓
-- **Dépendances :** —
-- **Réserves :** —
-- **Gate :** TA arbitration
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-03 — Représentation contrats et validation
-
-- **Options :** CONTRACT-A / B / C
-- **Recommandation candidate :** CONTRACT-B (TS + JSON Schema/AJV existant)
-- **Justification :** AJV déjà présent ; fixtures/adapters share schemas ; évite Zod sans GO
-- **Dette :** dual type/schema gouvernée par tests
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-04 — État, repository et persistance
-
-- **Options :** STORE-A / B / C
-- **Recommandation candidate :** STORE-B
-- **Justification :** D2-D1 process-local OK ; strong runtime exige durable gate séparée
-- **Réserves :** multi-instance claims interdits sans durable
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-05 — Coordination async, cancellation et timeout
-
-- **Options :** ASYNC-A / B / C
-- **Recommandation candidate :** ASYNC-B
-- **Justification :** AbortSignal ; Cursor longs ; queue non prouvée
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-06 — Provider Capability Boundary et wrappers
-
-- **Question :** Ports + stratégie wrappers vs rewrite
-- **Options :** reuse direct / wrappers D2-D / rewrite ciblé
-- **Recommandation candidate :** wrappers D2-D (REUSE-B)
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-07 — AI adapter, model/config et contract-fit
-
-- **Options :** AI-A / B / C
-- **Recommandation candidate :** AI-B
-- **Sécurité :** secrets hors domaine ; no raw in events
-- **FinOps :** usage validé ; model configurable
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-08 — GitHub transport, auth et read-only policy
-
-- **Options :** GIT-A / B / C
-- **Recommandation candidate :** GIT-C
-- **Sécurité :** read-only ; allowlist ; redaction ; PAT ≠ prod défaut
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-09 — Cursor process boundary, sandbox et capability gate
-
-- **Options :** CURSOR-A / B / C
-- **Recommandation candidate :** CURSOR-B after capability verification
-- **Réserves :** CURSOR PRODUCT CAPABILITIES — UNVERIFIED
-- **Gate :** capability verification GO distinct
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-10 — SecretSource et frontières sécurité/redaction
-
-- **Options :** SECRET-A / B / C
-- **Recommandation candidate :** SECRET-B
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-11 — Events, evidence, usage et observability adapter
-
-- **Options :** EVENT-A / B / C
-- **Recommandation candidate :** EVENT-B
-- **Réserves :** R-QA-REV-01/02 timestamps/events
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-12 — D3 projection et transport-neutral server boundary
-
-- **Options :** D3-TECH-A / B / C
-- **Recommandation candidate :** D3-TECH-C
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-13 — Test strategy, fixtures et traitement R-QA-D2C-01
-
-- **Question :** Stratégie tests + défense R-C
-- **Options :** (1) fixtures-first + adversarial D2-D boundary (2) live-first (3) report correction D2-C only
-- **Recommandation candidate :** (1) + gate D2-C séparée
-- **Réserves :** R-QA-D2C-01 OPEN NOT LIFTED
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
-### D-V3.1-D2D-TA-14 — Slicing D2-D1/D2-D2/D2-D3 et critères de sortie vers backlog
-
-- **Question :** Critères de sortie techniques vers backlog futur
-- **Options :** slicing FA-11 tel quel / fusion D2-D1+D2 / walking skeleton dès D2-D1
-- **Recommandation candidate :** D2-D1 → D2-D2 → D2-D3 ; D2-D4 hors trajectoire
-- **Gate suivante après arbitrage :** GO BACKLOG D2-D1/D2/D3 (distinct)
-- **Statut :** NOT DECIDED — MORRIS ARBITRATION REQUIRED
-
----
-
-## AN2. Decision record Morris — 2026-08-03 19:24 CEST (+0200)
-
-### GO Morris consommé (arbitrage + autorisation de publication documentaire)
-
-```text
-GO ARBITRATION SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE
-
-ADOPT:
-
-D-V3.1-D2D-TA-01:
-ADOPT TECH-RUN-B.
-
-CREATE ONE SEMANTIC OA EXECUTION-RUN CORE
-AS THE SOLE TECHNICAL AUTHORITY FOR D2-D EXECUTION STATE.
-
-VERTICAL-SLICE-RUNTIME REMAINS A SERVER-ONLY FACADE
-AND COMPOSITION ROOT.
-
-EXECUTION-CONTRACT REMAINS A PRE-EXECUTION GOVERNANCE COMPONENT.
-
-NO SECOND STATE AUTHORITY.
-NO TECHNICAL MICROSERVICE OR DEPLOYMENT UNIT IS IMPLIED.
-
-D-V3.1-D2D-TA-02:
-ADOPT THE DOMAIN / APPLICATION / PORTS / ADAPTERS /
-SERVER-COMPOSITION LAYERING.
-
-DOMAIN MUST REMAIN FREE OF NEXT, NODE, PROVIDER SDK,
-FILESYSTEM, PROCESS AND NETWORK DEPENDENCIES.
-
-APPLICATION COORDINATES THROUGH INJECTED PORTS.
-SIDE EFFECTS REMAIN BEHIND ADAPTERS.
-
-D-V3.1-D2D-TA-03:
-ADOPT CONTRACT-B.
-
-USE TYPESCRIPT TYPES PLUS JSON SCHEMA VALIDATION
-WITH THE EXISTING AJV CAPABILITY.
-
-JSON SCHEMAS ARE THE RUNTIME VALIDATION AUTHORITY
-AT EXTERNAL AND UNTRUSTED BOUNDARIES.
-
-TYPESCRIPT TYPES PROVIDE COMPILE-TIME REPRESENTATION.
-
-CONFORMANCE TESTS MUST PREVENT TYPE / SCHEMA / FIXTURE DRIFT.
-
-NO NEW VALIDATION DEPENDENCY IS ADOPTED.
-
-D-V3.1-D2D-TA-04:
-ADOPT STORE-B.
-
-USE A SINGLE EXECUTION-RUN REPOSITORY PORT.
-
-D2-D1 MAY USE A PROCESS-LOCAL MEMORY ADAPTER.
-
-A DISTINCT DURABLE-PERSISTENCE DECISION AND PROOF
-ARE REQUIRED BEFORE ANY STRONG RUNTIME,
-RESTART-SAFETY OR MULTI-INSTANCE CLAIM.
-
-USE THE EIGHT ADOPTED STATES ONLY,
-WITH DISCRIMINATED UNIONS AND PURE TRANSITION FUNCTIONS.
-
-NO EXTERNAL STATE-MACHINE DEPENDENCY.
-
-D-V3.1-D2D-TA-05:
-ADOPT ASYNC-B FOR D2-D1 AND D2-D2.
-
-USE IN-PROCESS ASYNCHRONOUS COORDINATION,
-PROMISES, ABORTSIGNAL, BOUNDED TIMEOUTS
-AND THE EXECUTION-RUN REPOSITORY.
-
-NO QUEUE OR PERMANENT WORKER WITHOUT A PROVEN NEED.
-
-REOPEN THIS DECISION BEFORE D2-D3
-IF THE TARGET ENVIRONMENT CANNOT GUARANTEE
-THE REQUIRED PROCESS LIFETIME OR CANCELLATION SEMANTICS.
-
-D-V3.1-D2D-TA-06:
-ADOPT D2-D PROVIDER PORTS AND WRAPPERS
-AS THE REUSE-B IMPLEMENTATION PRINCIPLE.
-
-EXISTING PLATFORM AND HARNESS CAPABILITIES
-MUST BE EVALUATED BEHIND D2-D CONTRACTS.
-
-NO DIRECT PROVIDER SDK TYPE IN DOMAIN,
-APPLICATION CONTRACTS OR D3 PROJECTIONS.
-
-NO COMPATIBILITY IS ASSUMED.
-
-TARGETED REWRITE REMAINS PERMITTED
-WHEN CONTRACT-FIT TESTS FAIL.
-
-D-V3.1-D2D-TA-07:
-ADOPT AI-B.
-
-USE A D2-D AI ADAPTER AROUND THE EXISTING
-PLATFORM AI CAPABILITY, SUBJECT TO CONTRACT-FIT TESTS.
-
-MODEL AND PROVIDER CONFIGURATION MUST REMAIN CONFIGURABLE.
-
-SECRETS REMAIN SERVER-ONLY.
-
-NO COMPLETE PROMPT OR PROVIDER RESPONSE
-IN EVENTS OR D3 BY DEFAULT.
-
-USAGE MAY BE EXPOSED ONLY AFTER VALIDATION.
-
-NO LIVE PROVIDER CALL IN DEFAULT CI.
-
-D-V3.1-D2D-TA-08:
-ADOPT GIT-C.
-
-USE A TRANSPORT-NEUTRAL, STRICTLY READ-ONLY GIT PROVIDER PORT.
-
-GH CLI MAY BE USED IN CONTROLLED LOCAL OR SANDBOX CONTEXTS.
-
-REST OR GITHUB APP AUTHENTICATION MAY BE USED
-IN A FUTURE HOSTED CONTEXT AFTER A DISTINCT DECISION.
-
-NO SILENT TRANSPORT FALLBACK.
-
-REPOSITORY ALLOWLIST, TIMEOUT AND REDACTION ARE MANDATORY.
-
-PAT IS NOT ADOPTED AS THE DEFAULT PRODUCTION AUTHENTICATION MODEL.
-
-D-V3.1-D2D-TA-09:
-ADOPT CURSOR-B CONDITIONALLY.
-
-CURSOR MUST BE ISOLATED BEHIND A SERVER-ONLY
-CURSOR EXECUTION PORT AND A PROCESS OR EXTRACTED ADAPTER BOUNDARY.
-
-NO DIRECT HARNESS IMPORT INTO CLIENT OR DOMAIN CODE.
-
-NO ARBITRARY COMMAND FROM D3.
-
-NO REMOTE GIT WRITE.
-
-NO LIVE EXECUTION WITHOUT MORRIS GATE REVALIDATION.
-
-CURSOR PRODUCT CAPABILITIES REMAIN UNVERIFIED.
-
-A DISTINCT CURSOR CAPABILITY-VERIFICATION GO
-IS REQUIRED BEFORE LIVE ADAPTER DELIVERY.
-
-D-V3.1-D2D-TA-10:
-ADOPT SECRET-B.
-
-USE A SECRETSOURCE PORT.
-
-A LOCAL ENVIRONMENT ADAPTER MAY BE USED
-FOR CONTROLLED DEVELOPMENT AND TESTING.
-
-A FUTURE SECRET-MANAGER ADAPTER REQUIRES
-DEPLOYMENT CONTEXT AND A DISTINCT DECISION.
-
-SECRET VALUES MUST NEVER ENTER DOMAIN OBJECTS,
-EVENTS, EVIDENCE, FIXTURES OR D3 PROJECTIONS.
-
-D-V3.1-D2D-TA-11:
-ADOPT EVENT-B.
-
-USE A D2-D EXECUTION-EVENT PORT
-ADAPTED TO THE EXISTING PLATFORM EVENT SINK.
-
-THE D2-D PORT OWNS THE EXECUTION SEMANTICS;
-THE PLATFORM SINK OWNS TECHNICAL TRANSPORT ONLY.
-
-EVENTS MUST BE CORRELATED, REDACTED
-AND PROVIDER-INDEPENDENT.
-
-R-QA-REV-01 AND R-QA-REV-02 REMAIN OPEN NOT LIFTED
-UNTIL THEIR TIMESTAMP AND EVENT REQUIREMENTS ARE PROVEN.
-
-NO RUN-READY OR SLO CLAIM.
-
-D-V3.1-D2D-TA-12:
-ADOPT D3-TECH-C.
-
-EXPOSE A PROVIDER-INDEPENDENT,
-TRANSPORT-NEUTRAL SERVER APPLICATION FACADE.
-
-NO SERVER ACTION, HTTP ROUTE OR API TRANSPORT
-IS SELECTED BY THIS DECISION.
-
-D3 REMAINS A READ-ONLY PRESENTATION CONSUMER.
-
-D3 MUST NOT RECEIVE SDK OBJECTS, SECRETS,
-RAW PROVIDER ERRORS, COMMANDS OR GIT-WRITE CAPABILITIES.
-
-D-V3.1-D2D-TA-13:
-ADOPT FIXTURES-FIRST CONTRACT TESTING
-AND ADVERSARIAL D2-D BOUNDARY TESTING.
-
-FIXTURES AND REAL ADAPTERS MUST USE
-THE SAME CONTRACTS AND SCHEMAS.
-
-R-QA-D2C-01 REMAINS OPEN NOT LIFTED.
-
-D2-D MUST VALIDATE BEFORE READING METADATA.
-
-THE BOUNDED D2-C CORRECTION REQUIRES
-A SEPARATE CYCLE AND MORRIS GO
-BEFORE EXPOSURE TO AN UNVALIDATED EXTERNAL RUNTIME BOUNDARY.
-
-LIVE PROVIDER TESTS REMAIN OPT-IN
-AND OUTSIDE DEFAULT CI.
-
-D-V3.1-D2D-TA-14:
-ADOPT THE TECHNICAL SLICING:
-
-D2-D1:
-EXECUTION-RUN CORE,
-CONTRACTS,
-RUNTIME VALIDATION,
-STATE TRANSITIONS,
-POLICY,
-NORMALIZED ERRORS,
-EVIDENCE / DISCLOSURE,
-MEMORY REPOSITORY
-AND CONTRACT FIXTURES.
-
-D2-D2:
-PROVIDER WRAPPERS,
-AI AND GIT READ-ONLY ADAPTERS,
-CURSOR CAPABILITY VERIFICATION,
-SANDBOX,
-SECRETSOURCE,
-EVENT ADAPTER,
-TIMEOUT / CANCELLATION
-AND R-QA-D2C-01 DEFENCE.
-
-D2-D3:
-END-TO-END READ-ONLY COORDINATION,
-SANDBOX-REAL PROOF,
-D3 PROJECTION
-AND STRONG RUNTIME EVIDENCE.
-
-D2-D4 WRITE CAPABILITIES REMAIN OUT OF TRAJECTORY.
-
-NEXT:
-GO DOCUMENTARY PUBLICATION SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE
-
-PUBLISH DOCUMENT 23 AS THE AUTHORITATIVE
-TECHNICAL ARCHITECTURE RECORD BEFORE BACKLOG.
-
-AFTER PUBLICATION AND POST-MERGE VALIDATION ONLY:
-GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3
-
-NO BACKLOG IN THIS ARBITRATION CYCLE
-NO DELIVERY
-NO CODE
-NO UI
-NO CREATECYCLE
-NO D3
-NO GIT WRITE CAPABILITY
-NO METHOD PROMOTION
-```
-
-Date/heure décision Morris : **2026-08-03 19:24 CEST (+0200)**
-
-### Déclaration d'autorité du record
-
-- Le decision pack **AN**, les **ADR** (§AM) et les recommandations **AO** sont conservés comme **historique candidat**.
-- Ils **ne sont pas** réécrits rétrospectivement.
-- **AN2** est le record **autoritatif** de l'arbitrage Morris.
-- Les lignes TA-01…14 dans AN initial restent des propositions historiques (`NOT DECIDED` à l'époque de rédaction).
-
-### Table des décisions adoptées
-
-| ID | Choix adopté | Statut | Conséquences obligatoires | Décision ou gate future restante |
-|----|--------------|--------|---------------------------|----------------------------------|
-| D-V3.1-D2D-TA-01 | TECH-RUN-B — core OA sémantique `execution-run` = seule autorité technique d'état D2-D ; `vertical-slice-runtime` = façade/composition server-only ; `execution-contract` = gouvernance pré-exécution ; aucun second state authority ; aucun microservice/deployment unit impliqué | DECIDED — ADOPTED BY MORRIS | Core unique ; facade optionnelle ; pas de dual authority | Delivery D2-D1 (après backlog) |
-| D-V3.1-D2D-TA-02 | Couches domain / application / ports / adapters / server composition ; domaine sans Next, Node, SDK, FS, process, réseau ; side effects derrière adapters | DECIDED — ADOPTED BY MORRIS | Import-boundary ; ports injectés | — |
-| D-V3.1-D2D-TA-03 | CONTRACT-B — TypeScript compile-time + JSON Schema/AJV runtime aux frontières non fiables ; tests de conformité ; aucune nouvelle dépendance | DECIDED — ADOPTED BY MORRIS | Schemas = autorité runtime externe ; conformance tests | — |
-| D-V3.1-D2D-TA-04 | STORE-B — repository port unique ; memory D2-D1 ok ; huit états exacts ; discriminated unions + transitions pures ; pas de state-machine externe ; durable distinct avant claims restart/multi-instance | DECIDED — ADOPTED BY MORRIS | Claims multi-instance interdits sans décision durable | Décision durable distincte |
-| D-V3.1-D2D-TA-05 | ASYNC-B pour D2-D1 et D2-D2 — Promise, AbortSignal, timeouts bornés, repository ; pas de queue/worker permanent sans besoin prouvé ; réouverture avant D2-D3 si environnement incompatible | DECIDED — ADOPTED BY MORRIS | In-process async ; queue différée | Réouverture avant D2-D3 si besoin |
-| D-V3.1-D2D-TA-06 | Provider ports + wrappers D2-D (REUSE-B) ; aucune compatibilité supposée ; targeted rewrite si contract-fit échoue ; aucun type SDK dans domain/application/D3 | DECIDED — ADOPTED BY MORRIS | Wrappers derrière contrats D2-D | Contract-fit par provider |
-| D-V3.1-D2D-TA-07 | AI-B — wrapper D2-D autour platform AI ; contract-fit obligatoire ; modèle configurable ; secrets server-only ; usage validé seulement ; pas de live CI défaut | DECIDED — ADOPTED BY MORRIS | Fake/fixtures en CI | — |
-| D-V3.1-D2D-TA-08 | GIT-C — port transport-neutral strictement read-only ; `gh` en local/sandbox contrôlé ; REST/GitHub App futur après décision distincte ; pas de fallback silencieux ; allowlist/timeout/redaction ; PAT ≠ défaut production | DECIDED — ADOPTED BY MORRIS | Read-only only | Auth hosted distincte |
-| D-V3.1-D2D-TA-09 | CURSOR-B **conditionnel** — port Cursor server-only ; process/extracted adapter ; pas d'import harness client/domain ; pas de commande arbitraire D3 ; pas de remote Git write ; gate Morris avant live ; **CURSOR PRODUCT CAPABILITIES UNVERIFIED** | DECIDED — ADOPTED BY MORRIS | Capability verification avant live adapter | **GO Cursor capability verification** distinct |
-| D-V3.1-D2D-TA-10 | SECRET-B — SecretSourcePort ; env local contrôlé ; secret-manager futur après décision distincte ; aucune valeur secrète dans domaine/events/evidence/fixtures/D3 | DECIDED — ADOPTED BY MORRIS | Opaque handles only | Secret manager GO futur |
-| D-V3.1-D2D-TA-11 | EVENT-B — port événements D2-D → EventSink ; sémantique D2-D au port ; transport technique platform ; correlation/redaction/provider-independence ; R-QA-REV-01/02 OPEN ; pas de RUN-ready/SLO | DECIDED — ADOPTED BY MORRIS | Dual catalogue gouverné | Preuve timestamps (réserves) |
-| D-V3.1-D2D-TA-12 | D3-TECH-C — facade application provider-independent transport-neutral ; aucun Server Action/HTTP/API sélectionné ; D3 read-only ; pas de SDK/secret/raw error/command/Git write vers D3 | DECIDED — ADOPTED BY MORRIS | Transport UI ultérieur | GO D3 distinct |
-| D-V3.1-D2D-TA-13 | Fixtures-first + adversarial D2-D boundary testing ; mêmes contrats/schemas fixtures/adapters ; validation avant metadata ; R-QA-D2C-01 OPEN ; correction D2-C distincte ; live opt-in hors CI | DECIDED — ADOPTED BY MORRIS | Défense R-C ligne D2-D | **GO correction D2-C** distinct |
-| D-V3.1-D2D-TA-14 | Slicing D2-D1 → D2-D2 → D2-D3 ; D2-D4 write hors trajectoire ; contenu exact des slices du GO ; backlog seulement après publication + post-merge | DECIDED — ADOPTED BY MORRIS | Pas de backlog dans ce cycle | Après merge+post-merge : **GO BACKLOG** |
-
-## AO. Recommandations candidates (CANDIDATE — NOT ADOPTED)
-
-1. **TECH-RUN-B** — core OA `execution-run` ; vertical-slice-runtime facade/composition uniquement.
-2. **Domain/application/ports/adapters** — aucun SDK dans domain/application contracts.
-3. **CONTRACT-B** — TypeScript + JSON Schema/AJV existant.
-4. **Reducer pur + discriminated unions** — aucune state-machine dependency.
-5. **STORE-B** — repository port ; memory D2-D1 ; durable gate avant strong runtime.
-6. **ASYNC-B** — Promise/AbortSignal in-process ; aucune queue sans besoin prouvé.
-7. **Wrappers D2-D** sur capacités platform existantes.
-8. **AI-B** — wrapper platform AI + contract-fit tests.
-9. **GIT-C** — transport-neutral read-only.
-10. **CURSOR-B** — process boundary/extract après capability verification.
-11. **SECRET-B** — SecretSourcePort ; env local ; manager futur.
-12. **EVENT-B** — port D2-D → EventSink existant.
-13. **D3-TECH-C** — facade transport-neutral ; aucun endpoint décidé.
-14. **Slicing** D2-D1 → D2-D2 → D2-D3 ; D2-D4 hors trajectoire.
-
-Chaque item : **CANDIDATE — NOT ADOPTED.**
-
----
-
-## AP. Trajectoire candidate
-
-### État après arbitrage Morris (2026-08-03 19:24 CEST)
-
-- Arbitrage TA-01…14 **reçu et consommé** (record autoritatif : §AN2).
-- Publication documentaire du document 23 **autorisée** (ce cycle).
-- La branche `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` et la draft PR deviennent la **Git Truth de publication** tant que le document n'est pas mergé.
-- **main** devient l'autorité après merge.
-- **Backlog interdit** avant merge et validation post-merge.
-- Gate **Cursor capability verification** distincte avant tout live adapter (TA-09).
-- **Correction D2-C** distincte avant exposition à une frontière externe non validée (TA-13 / R-C).
-- Aucun GO Delivery, D3, UI ou CreateCycle implicite.
-
-### Après publication et post-merge uniquement
-
-1. Backlog D2-D1 / D2-D2 / D2-D3 (GO distinct).
-2. Cycles Delivery séparés.
-3. Correction D2-C séparée si autorisée.
-4. Capability verification Cursor.
-5. **Aucune** ouverture automatique de D3.
-
-Aucune transition automatique. Aucun backlog ni user story créé dans ce document.
-
-## AQ. État décisionnel et anti-claims post-arbitrage
-
-### Décisions d'architecture désormais adoptées
-
-AN2 et AR autorisent les affirmations documentaires suivantes :
-
-- l'architecture technique D2-D a été arbitrée par Morris ;
-- TECH-RUN-B est adopté comme choix de runtime owner et de packaging ;
-- `execution-run` est la seule autorité technique d'état D2-D ;
-- CONTRACT-B est adopté :
-  TypeScript pour la représentation compile-time et
-  JSON Schema/AJV pour la validation runtime aux frontières non fiables ;
-- STORE-B est adopté comme stratégie de persistance progressive ;
-- ASYNC-B est adopté pour D2-D1 et D2-D2 ;
-- les provider ports et wrappers REUSE-B sont adoptés ;
-- AI-B, GIT-C, SECRET-B, EVENT-B et D3-TECH-C sont adoptés ;
-- CURSOR-B est adopté conditionnellement ;
-- le slicing D2-D1 → D2-D2 → D2-D3 est adopté ;
-- D2-D4 write reste hors trajectoire.
-
-### Distinctions obligatoires
-
-Les décisions ci-dessus ne signifient pas que :
-
-- l'implémentation existe ;
-- une cible de déploiement est sélectionnée ;
-- un store durable concret est sélectionné ;
-- le système est restart-safe ou multi-instance ;
-- Cursor est compatible ou validé ;
-- la sandbox est sécurisée ;
-- les fournisseurs sont intégrés ;
-- une interface D3 ou un transport HTTP/Server Action est sélectionné ;
-- le backlog, la Delivery ou D3 sont autorisés.
-
-En particulier :
-
-- « runtime owner et packaging sélectionnés » est autorisé ;
-- « runtime de déploiement ou environnement d'exécution sélectionné » reste interdit ;
-- « stratégie STORE-B adoptée » est autorisé ;
-- « technologie de persistance durable sélectionnée » reste interdit ;
-- « CONTRACT-B/AJV adopté » est autorisé ;
-- « implémentation et conformité AJV prouvées » reste interdit sans Delivery et tests.
-
-### Claims toujours interdits
-
-Ce document n'autorise pas et ne revendique pas :
-
-- implementation complete ;
-- provider integrated ;
-- live provider validated ;
-- production-ready ;
-- RUN READY ;
-- scalable ;
-- secure ;
-- SLO proven ;
-- durable store selected ;
-- restart-safe ;
-- multi-instance ready ;
-- queue or permanent worker selected ;
-- Cursor compatible ;
-- CURSOR PRODUCT CAPABILITIES VERIFIED ;
-- sandbox secure ;
-- secret manager selected ;
-- hosted GitHub authentication selected ;
-- D3 transport selected ;
-- backlog ready ;
-- Delivery ready ;
-- D3 ready ;
-- reserve lifted ;
-- Git write enabled ;
-- CreateCycle enabled ;
-- method promoted.
-
-### Réserves et gates maintenues
-
-- R-QA-REV-01 : **OPEN NOT LIFTED**.
-- R-QA-REV-02 : **OPEN NOT LIFTED**.
-- R-QA-D2C-01 : **OPEN NOT LIFTED**.
-- CURSOR PRODUCT CAPABILITIES : **UNVERIFIED**.
-- Correction D2-C : cycle et GO distincts.
-- Cursor capability verification : cycle et GO distincts.
-- Backlog : uniquement après merge documentaire et validation post-merge.
-- Delivery : GO distinct après backlog.
-- D3 : aucune ouverture automatique.
-
----
-
-## AR. Verdict documentaire
-
-```text
-D2-D TECHNICAL ARCHITECTURE —
-ARBITRATED BY MORRIS —
-
-D-CAD-01…12 ADOPTED —
-D-FD-01…12 ADOPTED —
-D-FA-01…12 ADOPTED —
-D-TA-01…14 ADOPTED —
-
-DOCUMENT 23 VERSIONED VIA GIT —
-AUTHORITATIVE PUBLICATION STATE FOLLOWS PR/MAIN —
-
-TECH-RUN-B ADOPTED —
-CONTRACT-B ADOPTED —
-STORE-B ADOPTED —
-ASYNC-B ADOPTED FOR D2-D1 AND D2-D2 —
-PROVIDER WRAPPERS ADOPTED —
-AI-B ADOPTED —
-GIT-C ADOPTED —
-CURSOR-B CONDITIONALLY ADOPTED —
-SECRET-B ADOPTED —
-EVENT-B ADOPTED —
-D3-TECH-C ADOPTED —
-D2-D1 / D2-D2 / D2-D3 SLICING ADOPTED —
-D2-D4 WRITE OUT OF TRAJECTORY —
-
-R-QA-REV-01 OPEN NOT LIFTED —
-R-QA-REV-02 OPEN NOT LIFTED —
-R-QA-D2C-01 OPEN NOT LIFTED —
-CURSOR PRODUCT CAPABILITIES UNVERIFIED —
-
-NO BACKLOG CREATED —
-NO DELIVERY AUTHORIZED —
-NO CODE —
-NO CONFIG —
-NO NEW DEPENDENCY —
-NO UI —
-NO CREATECYCLE —
-NO D3 DELIVERY —
-NO PRODUCT GIT WRITE CAPABILITY —
-NO METHOD PROMOTION
-```
-
-## AS. Prochaine gate
-
-```text
-GO PR READINESS SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE PUBLICATION
-```
-
-Précisions :
-
-- aucun GO merge implicite ;
-- aucun GO backlog implicite ;
-- aucun GO Delivery implicite ;
-- après merge et validation post-merge uniquement :
-  `GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3` ;
-- Cursor capability verification et correction D2-C restent des gates distinctes.
-
----END DOCUMENT 23---
-
-## Hashes sur main
-
-| Artefact | SHA-256 |
-|----------|---------|
-| Document 23 | `6dd4546728e981d4cdfcfc2997e06f8afa46493adff4e905013e7b9bf33b4ce9` |
-| **PACKAGE_HASH** | `c69f17095525eb1f0ae3dde5dc4208af39952bdce1fb71efe3f8d04cb92f684c` |
-
-Méthode : path + `\0` + len + `\0` + bytes. **MATCH**.
-
-## Validation AK / AQ / AN2 / AR
-
-### AK (extrait)
-
-## AK. Critères d'acceptation — snapshot historique du cycle pré-arbitrage
-
-> **Statut temporel :** cette checklist décrit l'état du document à la
-> clôture du cycle d'architecture technique, avant l'arbitrage Morris du
-> 2026-08-03 19:24 CEST (+0200). Les lignes
-> « Aucune architecture implicitement adoptée » et
-> « TA-01…14 NOT DECIDED » étaient exactes à cette date.
-> Elles sont désormais supplantées, pour l'état décisionnel courant,
-> par AN2 et AR. Elles sont conservées sans réécriture rétrospective.
-
-
-- [x] Plusieurs options par décision structurante
-- [x] Runtime owner options comparées (TECH-RUN-A/B/C)
-- [x] Package boundary / couches documentées
-- [x] Domain sans SDK exigé
-- [x] Contrats validables options (CONTRACT-A/B/C)
-- [x] Huit états exacts
-- [x] Transition authority documentée
-- [x] Repository port + STORE-A/B/C
-- [x] Async A/B/C
-- [x] Provider ports
-- [x] AI / Git / Cursor options
-- [x] Secrets / sandbox / sécurité
-- [x] Errors / evidence / disclosures / events
-- [x] Cancellation / timeout / late result
-- [x] D2-C defence R-C
-- [x] D3 independence
-- [x] Test + fixture strategy
-- [x] Slicing D2-D1/D2/D3 ; D2-D4 hors
-- [x] Aucune implémentation
-- [x] Aucune architecture implicitement adoptée
-- [x] TA-01…14 NOT DECIDED
-
-### État décisionnel courant après arbitrage
-
-- Architecture technique D2-D : **ARBITRATED BY MORRIS**.
-- D-V3.1-D2D-TA-01…14 : **DECIDED — ADOPTED BY MORRIS**.
-- Implémentation : **NON EXÉCUTÉE**.
-- Backlog : **NON CRÉÉ**.
-- Delivery : **NON AUTORISÉE**.
-- Références autoritatives : **AN2 et AR**.
-
----
-
-
-
-### AN2 (extrait)
-
-## AN2. Decision record Morris — 2026-08-03 19:24 CEST (+0200)
-
-### GO Morris consommé (arbitrage + autorisation de publication documentaire)
-
-```text
-GO ARBITRATION SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE
-
-ADOPT:
-
-D-V3.1-D2D-TA-01:
-ADOPT TECH-RUN-B.
-
-CREATE ONE SEMANTIC OA EXECUTION-RUN CORE
-AS THE SOLE TECHNICAL AUTHORITY FOR D2-D EXECUTION STATE.
-
-VERTICAL-SLICE-RUNTIME REMAINS A SERVER-ONLY FACADE
-AND COMPOSITION ROOT.
-
-EXECUTION-CONTRACT REMAINS A PRE-EXECUTION GOVERNANCE COMPONENT.
-
-NO SECOND STATE AUTHORITY.
-NO TECHNICAL MICROSERVICE OR DEPLOYMENT UNIT IS IMPLIED.
-
-D-V3.1-D2D-TA-02:
-ADOPT THE DOMAIN / APPLICATION / PORTS / ADAPTERS /
-SERVER-COMPOSITION LAYERING.
-
-DOMAIN MUST REMAIN FREE OF NEXT, NODE, PROVIDER SDK,
-FILESYSTEM, PROCESS AND NETWORK DEPENDENCIES.
-
-APPLICATION COORDINATES THROUGH INJECTED PORTS.
-SIDE EFFECTS REMAIN BEHIND ADAPTERS.
-
-D-V3.1-D2D-TA-03:
-ADOPT CONTRACT-B.
-
-USE TYPESCRIPT TYPES PLUS JSON SCHEMA VALIDATION
-WITH THE EXISTING AJV CAPABILITY.
-
-JSON SCHEMAS ARE THE RUNTIME VALIDATION AUTHORITY
-AT EXTERNAL AND UNTRUSTED BOUNDARIES.
-
-TYPESCRIPT TYPES PROVIDE COMPILE-TIME REPRESENTATION.
-
-CONFORMANCE TESTS MUST PREVENT TYPE / SCHEMA / FIXTURE DRIFT.
-
-NO NEW VALIDATION DEPENDENCY IS ADOPTED.
-
-D-V3.1-D2D-TA-04:
-ADOPT STORE-B.
-
-USE A SINGLE EXECUTION-RUN REPOSITORY PORT.
-
-D2-D1 MAY USE A PROCESS-LOCAL MEMORY ADAPTER.
-
-A DISTINCT DURABLE-PERSISTENCE DECISION AND PROOF
-ARE REQUIRED BEFORE ANY STRONG RUNTIME,
-RESTART-SAFETY OR MULTI-INSTANCE CLAIM.
-
-USE THE EIGHT ADOPTED STATES ONLY,
-WITH DISCRIMINATED UNIONS AND PURE TRANSITION FUNCTIONS.
-
-NO EXTERNAL STATE-MACHINE DEPENDENCY.
-
-D-V3.1-D2D-TA-05:
-ADOPT ASYNC-B FOR D2-D1 AND D2-D2.
-
-USE IN-PROCESS ASYNCHRONOUS COORDINATION,
-PROMISES, ABORTSIGNAL, BOUNDED TIMEOUTS
-AND THE EXECUTION-RUN REPOSITORY.
-
-NO QUEUE OR PERMANENT WORKER WITHOUT A PROVEN NEED.
-
-REOPEN THIS DECISION BEFORE D2-D3
-IF THE TARGET ENVIRONMENT CANNOT GUARANTEE
-THE REQUIRED PROCESS LIFETIME OR CANCELLATION SEMANTICS.
-
-D-V3.1-D2D-TA-06:
-ADOPT D2-D PROVIDER PORTS AND WRAPPERS
-AS THE REUSE-B IMPLEMENTATION PRINCIPLE.
-
-EXISTING PLATFORM AND HARNESS CAPABILITIES
-MUST BE EVALUATED BEHIND D2-D CONTRACTS.
-
-NO DIRECT PROVIDER SDK TYPE IN DOMAIN,
-APPLICATION CONTRACTS OR D3 PROJECTIONS.
-
-NO COMPATIBILITY IS ASSUMED.
-
-TARGETED REWRITE REMAINS PERMITTED
-WHEN CONTRACT-FIT TESTS FAIL.
-
-D-V3.1-D2D-TA-07:
-ADOPT AI-B.
-
-USE A D2-D AI ADAPTER AROUND THE EXISTING
-PLATFORM AI CAPABILITY, SUBJECT TO CONTRACT-FIT TESTS.
-
-MODEL AND PROVIDER CONFIGURATION MUST REMAIN CONFIGURABLE.
-
-SECRETS REMAIN SERVER-ONLY.
-
-NO COMPLETE PROMPT OR PROVIDER RESPONSE
-IN EVENTS OR D3 BY DEFAULT.
-
-USAGE MAY BE EXPOSED ONLY AFTER VALIDATION.
-
-NO LIVE PROVIDER CALL IN DEFAULT CI.
-
-D-V3.1-D2D-TA-08:
-ADOPT GIT-C.
-
-USE A TRANSPORT-NEUTRAL, STRICTLY READ-ONLY GIT PROVIDER PORT.
-
-GH CLI MAY BE USED IN CONTROLLED LOCAL OR SANDBOX CONTEXTS.
-
-REST OR GITHUB APP AUTHENTICATION MAY BE USED
-IN A FUTURE HOSTED CONTEXT AFTER A DISTINCT DECISION.
-
-NO SILENT TRANSPORT FALLBACK.
-
-REPOSITORY ALLOWLIST, TIMEOUT AND REDACTION ARE MANDATORY.
-
-PAT IS NOT ADOPTED AS THE DEFAULT PRODUCTION AUTHENTICATION MODEL.
-
-D-V3.1-D2D-TA-09:
-ADOPT CURSOR-B CONDITIONALLY.
-
-CURSOR MUST BE ISOLATED BEHIND A SERVER-ONLY
-CURSOR EXECUTION PORT AND A PROCESS OR EXTRACTED ADAPTER BOUNDARY.
-
-NO DIRECT HARNESS IMPORT INTO CLIENT OR DOMAIN CODE.
-
-NO ARBITRARY COMMAND FROM D3.
-
-NO REMOTE GIT WRITE.
-
-NO LIVE EXECUTION WITHOUT MORRIS GATE REVALIDATION.
-
-CURSOR PRODUCT CAPABILITIES REMAIN UNVERIFIED.
-
-A DISTINCT CURSOR CAPABILITY-VERIFICATION GO
-IS REQUIRED BEFORE LIVE ADAPTER DELIVERY.
-
-D-V3.1-D2D-TA-10:
-ADOPT SECRET-B.
-
-USE A SECRETSOURCE PORT.
-
-A LOCAL ENVIRONMENT ADAPTER MAY BE USED
-FOR CONTROLLED DEVELOPMENT AND TESTING.
-
-A FUTURE SECRET-MANAGER ADAPTER REQUIRES
-DEPLOYMENT CONTEXT AND A DISTINCT DECISION.
-
-SECRET VALUES MUST NEVER ENTER DOMAIN OBJECTS,
-EVENTS, EVIDENCE, FIXTURES OR D3 PROJECTIONS.
-
-D-V3.1-D2D-TA-11:
-ADOPT EVENT-B.
-
-USE A D2-D EXECUTION-EVENT PORT
-ADAPTED TO THE EXISTING PLATFORM EVENT SINK.
-
-THE D2-D PORT OWNS THE EXECUTION SEMANTICS;
-THE PLATFORM SINK OWNS TECHNICAL TRANSPORT ONLY.
-
-EVENTS MUST BE CORRELATED, REDACTED
-AND PROVIDER-INDEPENDENT.
-
-R-QA-REV-01 AND R-QA-REV-02 REMAIN OPEN NOT LIFTED
-UNTIL THEIR TIMESTAMP AND EVENT REQUIREMENTS ARE PROVEN.
-
-NO RUN-READY OR SLO CLAIM.
-
-D-V3.1-D2D-TA-12:
-ADOPT D3-TECH-C.
-
-EXPOSE A PROVIDER-INDEPENDENT,
-TRANSPORT-NEUTRAL SERVER APPLICATION FACADE.
-
-NO SERVER ACTION, HTTP ROUTE OR API TRANSPORT
-IS SELECTED BY THIS DECISION.
-
-D3 REMAINS A READ-ONLY PRESENTATION CONSUMER.
-
-D3 MUST NOT RECEIVE SDK OBJECTS, SECRETS,
-RAW PROVIDER ERRORS, COMMANDS OR GIT-WRITE CAPABILITIES.
-
-D-V3.1-D2D-TA-13:
-ADOPT FIXTURES-FIRST CONTRACT TESTING
-AND ADVERSARIAL D2-D BOUNDARY TESTING.
-
-FIXTURES AND REAL ADAPTERS MUST USE
-THE SAME CONTRACTS AND SCHEMAS.
-
-R-QA-D2C-01 REMAINS OPEN NOT LIFTED.
-
-D2-D MUST VALIDATE BEFORE READING METADATA.
-
-THE BOUNDED D2-C CORRECTION REQUIRES
-A SEPARATE CYCLE AND MORRIS GO
-BEFORE EXPOSURE TO AN UNVALIDATED EXTERNAL RUNTIME BOUNDARY.
-
-LIVE PROVIDER TESTS REMAIN OPT-IN
-AND OUTSIDE DEFAULT CI.
-
-D-V3.1-D2D-TA-14:
-ADOPT THE TECHNICAL SLICING:
-
-D2-D1:
-EXECUTION-RUN CORE,
-CONTRACTS,
-RUNTIME VALIDATION,
-STATE TRANSITIONS,
-POLICY,
-NORMALIZED ERRORS,
-EVIDENCE / DISCLOSURE,
-MEMORY REPOSITORY
-AND CONTRACT FIXTURES.
-
-D2-D2:
-PROVIDER WRAPPERS,
-AI AND GIT READ-ONLY ADAPTERS,
-CURSOR CAPABILITY VERIFICATION,
-SANDBOX,
-SECRETSOURCE,
-EVENT ADAPTER,
-TIMEOUT / CANCELLATION
-AND R-QA-D2C-01 DEFENCE.
-
-D2-D3:
-END-TO-END READ-ONLY COORDINATION,
-SANDBOX-REAL PROOF,
-D3 PROJECTION
-AND STRONG RUNTIME EVIDENCE.
-
-D2-D4 WRITE CAPABILITIES REMAIN OUT OF TRAJECTORY.
-
-NEXT:
-GO DOCUMENTARY PUBLICATION SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE
-
-PUBLISH DOCUMENT 23 AS THE AUTHORITATIVE
-TECHNICAL ARCHITECTURE RECORD BEFORE BACKLOG.
-
-AFTER PUBLICATION AND POST-MERGE VALIDATION ONLY:
-GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3
-
-NO BACKLOG IN THIS ARBITRATION CYCLE
-NO DELIVERY
-NO CODE
-NO UI
-NO CREATECYCLE
-NO D3
-NO GIT WRITE CAPABILITY
-NO METHOD PROMOTION
-```
-
-Date/heure décision Morris : **2026-08-03 19:24 CEST (+0200)**
-
-### Déclaration d'autorité du record
-
-- Le decision pack **AN**, les **ADR** (§AM) et les recommandations **AO** sont conservés comme **historique candidat**.
-- Ils **ne sont pas** réécrits rétrospectivement.
-- **AN2** est le record **autoritatif** de l'arbitrage Morris.
-- Les lignes TA-01…14 dans AN initial restent des propositions historiques (`NOT DECIDED` à l'époque de rédaction).
-
-### Table des décisions adoptées
-
-| ID | Choix adopté | Statut | Conséquences obligatoires | Décision ou gate future restante |
-|----|--------------|--------|---------------------------|----------------------------------|
-| D-V3.1-D2D-TA-01 | TECH-RUN-B — core OA sémantique `execution-run` = seule autorité technique d'état D2-D ; `vertical-slice-runtime` = façade/composition server-only ; `execution-contract` = gouvernance pré-exécution ; aucun second state authority ; aucun microservice/deployment unit impliqué | DECIDED — ADOPTED BY MORRIS | Core unique ; facade optionnelle ; pas de dual authority | Delivery D2-D1 (après backlog) |
-| D-V3.1-D2D-TA-02 | Couches domain / application / ports / adapters / server composition ; domaine sans Next, Node, SDK, FS, process, réseau ; side effects derrière adapters | DECIDED — ADOPTED BY MORRIS | Import-boundary ; ports injectés | — |
-| D-V3.1-D2D-TA-03 | CONTRACT-B — TypeScript compile-time + JSON Schema/AJV runtime aux frontières non fiables ; tests de conformité ; aucune nouvelle dépendance | DECIDED — ADOPTED BY MORRIS | Schemas = autorité runtime externe ; conformance tests | — |
-| D-V3.1-D2D-TA-04 | STORE-B — repository port unique ; memory D2-D1 ok ; huit états exacts ; discriminated unions + transitions pures ; pas de state-machine externe ; durable distinct avant claims restart/multi-instance | DECIDED — ADOPTED BY MORRIS | Claims multi-instance interdits sans décision durable | Décision durable distincte |
-| D-V3.1-D2D-TA-05 | ASYNC-B pour D2-D1 et D2-D2 — Promise, AbortSignal, timeouts bornés, repository ; pas de queue/worker permanent sans besoin prouvé ; réouverture avant D2-D3 si environnement incompatible | DECIDED — ADOPTED BY MORRIS | In-process async ; queue différée | Réouverture avant D2-D3 si besoin |
-| D-V3.1-D2D-TA-06 | Provider ports + wrappers D2-D (REUSE-B) ; aucune compatibilité supposée ; targeted rewrite si contract-fit échoue ; aucun type SDK dans domain/application/D3 | DECIDED — ADOPTED BY MORRIS | Wrappers derrière contrats D2-D | Contract-fit par provider |
-| D-V3.1-D2D-TA-07 | AI-B — wrapper D2-D autour platform AI ; contract-fit obligatoire ; modèle configurable ; secrets server-only ; usage validé seulement ; pas de live CI défaut | DECIDED — ADOPTED BY MORRIS | Fake/fixtures en CI | — |
-| D-V3.1-D2D-TA-08 | GIT-C — port transport-neutral strictement read-only ; `gh` en local/sandbox contrôlé ; REST/GitHub App futur après décision distincte ; pas de fallback silencieux ; allowlist/timeout/redaction ; PAT ≠ défaut production | DECIDED — ADOPTED BY MORRIS | Read-only only | Auth hosted distincte |
-| D-V3.1-D2D-TA-09 | CURSOR-B **conditionnel** — port Cursor server-only ; process/extracted adapter ; pas d'import harness client/domain ; pas de commande arbitraire D3 ; pas de remote Git write ; gate Morris avant live ; **CURSOR PRODUCT CAPABILITIES UNVERIFIED** | DECIDED — ADOPTED BY MORRIS | Capability verification avant live adapter | **GO Cursor capability verification** distinct |
-| D-V3.1-D2D-TA-10 | SECRET-B — SecretSourcePort ; env local contrôlé ; secret-manager futur après décision distincte ; aucune valeur secrète dans domaine/events/evidence/fixtures/D3 | DECIDED — ADOPTED BY MORRIS | Opaque handles only | Secret manager GO futur |
-| D-V3.1-D2D-TA-11 | EVENT-B — port événements D2-D → EventSink ; sémantique D2-D au port ; transport technique platform ; correlation/redaction/provider-independence ; R-QA-REV-01/02 OPEN ; pas de RUN-ready/SLO | DECIDED — ADOPTED BY MORRIS | Dual catalogue gouverné | Preuve timestamps (réserves) |
-| D-V3.1-D2D-TA-12 | D3-TECH-C — facade application provider-independent transport-neutral ; aucun Server Action/HTTP/API sélectionné ; D3 read-only ; pas de SDK/secret/raw error/command/Git write vers D3 | DECIDED — ADOPTED BY MORRIS | Transport UI ultérieur | GO D3 distinct |
-| D-V3.1-D2D-TA-13 | Fixtures-first + adversarial D2-D boundary testing ; mêmes contrats/schemas fixtures/adapters ; validation avant metadata ; R-QA-D2C-01 OPEN ; correction D2-C distincte ; live opt-in hors CI | DECIDED — ADOPTED BY MORRIS | Défense R-C ligne D2-D | **GO correction D2-C** distinct |
-| D-V3.1-D2D-TA-14 | Slicing D2-D1 → D2-D2 → D2-D3 ; D2-D4 write hors trajectoire ; contenu exact des slices du GO ; backlog seulement après publication + post-merge | DECIDED — ADOPTED BY MORRIS | Pas de backlog dans ce cycle | Après merge+post-merge : **GO BACKLOG** |
-
-
-
-### AQ (extrait)
-
-## AQ. État décisionnel et anti-claims post-arbitrage
-
-### Décisions d'architecture désormais adoptées
-
-AN2 et AR autorisent les affirmations documentaires suivantes :
-
-- l'architecture technique D2-D a été arbitrée par Morris ;
-- TECH-RUN-B est adopté comme choix de runtime owner et de packaging ;
-- `execution-run` est la seule autorité technique d'état D2-D ;
-- CONTRACT-B est adopté :
-  TypeScript pour la représentation compile-time et
-  JSON Schema/AJV pour la validation runtime aux frontières non fiables ;
-- STORE-B est adopté comme stratégie de persistance progressive ;
-- ASYNC-B est adopté pour D2-D1 et D2-D2 ;
-- les provider ports et wrappers REUSE-B sont adoptés ;
-- AI-B, GIT-C, SECRET-B, EVENT-B et D3-TECH-C sont adoptés ;
-- CURSOR-B est adopté conditionnellement ;
-- le slicing D2-D1 → D2-D2 → D2-D3 est adopté ;
-- D2-D4 write reste hors trajectoire.
-
-### Distinctions obligatoires
-
-Les décisions ci-dessus ne signifient pas que :
-
-- l'implémentation existe ;
-- une cible de déploiement est sélectionnée ;
-- un store durable concret est sélectionné ;
-- le système est restart-safe ou multi-instance ;
-- Cursor est compatible ou validé ;
-- la sandbox est sécurisée ;
-- les fournisseurs sont intégrés ;
-- une interface D3 ou un transport HTTP/Server Action est sélectionné ;
-- le backlog, la Delivery ou D3 sont autorisés.
-
-En particulier :
-
-- « runtime owner et packaging sélectionnés » est autorisé ;
-- « runtime de déploiement ou environnement d'exécution sélectionné » reste interdit ;
-- « stratégie STORE-B adoptée » est autorisé ;
-- « technologie de persistance durable sélectionnée » reste interdit ;
-- « CONTRACT-B/AJV adopté » est autorisé ;
-- « implémentation et conformité AJV prouvées » reste interdit sans Delivery et tests.
-
-### Claims toujours interdits
-
-Ce document n'autorise pas et ne revendique pas :
-
-- implementation complete ;
-- provider integrated ;
-- live provider validated ;
-- production-ready ;
-- RUN READY ;
-- scalable ;
-- secure ;
-- SLO proven ;
-- durable store selected ;
-- restart-safe ;
-- multi-instance ready ;
-- queue or permanent worker selected ;
-- Cursor compatible ;
-- CURSOR PRODUCT CAPABILITIES VERIFIED ;
-- sandbox secure ;
-- secret manager selected ;
-- hosted GitHub authentication selected ;
-- D3 transport selected ;
-- backlog ready ;
-- Delivery ready ;
-- D3 ready ;
-- reserve lifted ;
-- Git write enabled ;
-- CreateCycle enabled ;
-- method promoted.
-
-### Réserves et gates maintenues
-
-- R-QA-REV-01 : **OPEN NOT LIFTED**.
-- R-QA-REV-02 : **OPEN NOT LIFTED**.
-- R-QA-D2C-01 : **OPEN NOT LIFTED**.
-- CURSOR PRODUCT CAPABILITIES : **UNVERIFIED**.
-- Correction D2-C : cycle et GO distincts.
-- Cursor capability verification : cycle et GO distincts.
-- Backlog : uniquement après merge documentaire et validation post-merge.
-- Delivery : GO distinct après backlog.
-- D3 : aucune ouverture automatique.
-
----
-
-
-
-### AR (extrait)
-
-## AR. Verdict documentaire
-
-```text
-D2-D TECHNICAL ARCHITECTURE —
-ARBITRATED BY MORRIS —
-
-D-CAD-01…12 ADOPTED —
-D-FD-01…12 ADOPTED —
-D-FA-01…12 ADOPTED —
-D-TA-01…14 ADOPTED —
-
-DOCUMENT 23 VERSIONED VIA GIT —
-AUTHORITATIVE PUBLICATION STATE FOLLOWS PR/MAIN —
-
-TECH-RUN-B ADOPTED —
-CONTRACT-B ADOPTED —
-STORE-B ADOPTED —
-ASYNC-B ADOPTED FOR D2-D1 AND D2-D2 —
-PROVIDER WRAPPERS ADOPTED —
-AI-B ADOPTED —
-GIT-C ADOPTED —
-CURSOR-B CONDITIONALLY ADOPTED —
-SECRET-B ADOPTED —
-EVENT-B ADOPTED —
-D3-TECH-C ADOPTED —
-D2-D1 / D2-D2 / D2-D3 SLICING ADOPTED —
-D2-D4 WRITE OUT OF TRAJECTORY —
-
-R-QA-REV-01 OPEN NOT LIFTED —
-R-QA-REV-02 OPEN NOT LIFTED —
-R-QA-D2C-01 OPEN NOT LIFTED —
-CURSOR PRODUCT CAPABILITIES UNVERIFIED —
-
-NO BACKLOG CREATED —
-NO DELIVERY AUTHORIZED —
-NO CODE —
-NO CONFIG —
-NO NEW DEPENDENCY —
-NO UI —
-NO CREATECYCLE —
-NO D3 DELIVERY —
-NO PRODUCT GIT WRITE CAPABILITY —
-NO METHOD PROMOTION
-```
-
-
-
-## Décisions
-
-D-CAD-01…12 · D-FD-01…12 · D-FA-01…12 · **D-TA-01…14 ADOPTED**
-TECH-RUN-B · CONTRACT-B · STORE-B · ASYNC-B D1/D2 · wrappers · AI-B · GIT-C · CURSOR-B conditionnel · SECRET-B · EVENT-B · D3-TECH-C · slicing · D2-D4 hors trajectoire.
-
-## CI main (exact MERGE_SHA)
-
-| Champ | Valeur |
-|-------|--------|
-| Run ID | `30841765663` |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30841765663 |
-| event | push |
-| headSha | `9231858a82a252c0bea5bdd60256cee480eebb87` |
-| conclusion | **success** |
-| Jobs | {'Detect SFIA Studio changes': 'success', 'Build and validate SFIA Studio': 'success', 'SFIA Studio Required Gate': 'success'} |
-
-Steps Build:
-```text
-Set up job: success
-Checkout: success
-Setup Node.js: success
-Install dependencies: success
-Typecheck: success
-Lint: success
-Build: success
-Unit tests (Vitest): success
-Modeled governance tests: success
-Secret pattern scan (targeted): success
-Trailing whitespace check: success
-Post Setup Node.js: success
-Post Checkout: success
-Complete job: success
-```
-
-CI PR héritée : `30838670663` success.
-
-## Branche source préservée
-
-| Emplacement | État |
-|-------------|------|
-| Distante | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed	refs/heads/docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-| Locale | `* docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-
-**Aucune** suppression.
-
-## Réserves
+| main | `9231858a82a252c0bea5bdd60256cee480eebb87` |
+| PR amont | #306 MERGED |
+| Document 23 | sur main · hash `6dd45467…` · package `c69f1709…` |
+| CI main | `30841765663` success |
+
+### C.2 Décisions ADOPTED (appliquées sans réinterprétation)
+
+| Pack | Statut |
+|------|--------|
+| D-CAD-01…12 | ADOPTED |
+| D-FD-01…12 | ADOPTED |
+| D-FA-01…12 | ADOPTED |
+| D-TA-01…14 | ADOPTED |
+
+### C.3 Contraintes centrales (ADOPTED)
+
+1. Ordre D2-D1 → D2-D2 → D2-D3.
+2. D2-D4 write **hors trajectoire**.
+3. Core OA `execution-run` = seule autorité technique d'état.
+4. `vertical-slice-runtime` = façade/composition server-only.
+5. `execution-contract` = gouvernance pré-exécution.
+6. Couches domain / application / ports / adapters / server composition.
+7. CONTRACT-B : TypeScript compile-time + JSON Schema/AJV runtime.
+8. Huit états : `idle` · `running` · `awaiting_human` · `succeeded` · `failed` · `cancelled` · `timed_out` · `blocked`.
+9. Repository port unique ; memory OK en D2-D1.
+10. ASYNC-B pour D2-D1/D2-D2.
+11. Wrappers provider REUSE-B ; AI-B ; GIT-C read-only ; CURSOR-B conditionnel ; SECRET-B ; EVENT-B ; D3-TECH-C.
+12. Fixtures-first ; validation avant metadata ; pas de live CI par défaut.
+13. Aucun SDK/secret vers domaine, events, evidence, fixtures, D3.
+
+### C.4 Réserves et capacités (RESERVE)
 
 | ID | Statut |
 |----|--------|
@@ -4065,99 +441,3012 @@ CI PR héritée : `30838670663` success.
 | R-QA-D2C-01 MINOR | OPEN NOT LIFTED |
 | CURSOR PRODUCT CAPABILITIES | UNVERIFIED |
 
-Non bloquantes pour le merge documentaire effectué ; non levées ; D2-C et Cursor capability = gates distinctes.
+---
 
-## Absences
+## D. Finalité du backlog
 
-Aucune suppression branche · backlog · Delivery · Cursor capability verification · D2-C correction · UI · D3 · CreateCycle · product Git write · méthode · revert · mutation projet supplémentaire.
+Transformer les décisions D2-D en unités de Delivery vérifiables, **sans** redécider l'architecture et **sans** ouvrir automatiquement la Delivery.
 
-## Handoff predecessor
+---
 
-| Tip | Blob |
-|-----|------|
-| `18789d0dd14a713c5025f8df90db07663bfbeac3` | `1d1cf495f06ba6bd2feac9047fd0af4840138261` |
+## E. Périmètre et hors périmètre
 
-### Note anti-autoréférence
+### Périmètre
 
-Le tip et le blob du présent rapport sont calculés après publication. Ils sont remontés dans le rapport terminal Cursor et vérifiés indépendamment par ChatGPT afin d'éviter une boucle autoréférentielle.
+Épics · stories · enablers · critères · tests futurs · dépendances · priorités · gates · DoR · DoD · réserves.
 
-## Git Truth final
+### Hors périmètre
+
+Code · configuration · dépendances · CI · provider live · Cursor live · correction D2-C · UI · transport D3 · persistance durable · déploiement · RUN readiness · estimation équipe · publication Git projet · CreateCycle · D2-D4 write · méthode.
+
+---
+
+## F. Principes de découpage
+
+1. Une story = un résultat vérifiable.
+2. Slice unique principale.
+3. Dépendances explicites.
+4. Gates séparées des stories Delivery.
+5. Aucun scope caché.
+6. Fixtures avant réel.
+7. Read-only first.
+8. Evidence before success.
+9. Partial never succeeded.
+10. Aucun claim au-delà des preuves.
+11. Aucun fournisseur exposé à D3.
+12. Aucun second runtime / double state authority.
+13. INVEST pragmatique ; **NOT ESTIMATED**.
+14. Pas de dates, sprints, story points ou engagements inventés.
+
+---
+
+## G. Vue d'ensemble
+
+| Slice | Objectif | Priorité candidate | Entrée | Sortie | Dépendances | Gates | Claims autorisés | Claims interdits |
+|-------|----------|--------------------|--------|--------|-------------|-------|------------------|------------------|
+| **D2-D1** | Socle contrats + core local | P0 | Docs 20–23 ; TA adoptées | Contract foundation verified (candidate) | — | G-D2D-DELIVERY-01 | D2-D1 CONTRACT FOUNDATION VERIFIED | provider integrated · production-ready · multi-instance |
+| **D2-D2** | Wrappers et frontières read-only | P1 | D2-D1 validé | Conformance wrappers (candidate) | D2-D1 | G-D2D-DELIVERY-02 · G-D2D-CURSOR-01 (pour live) · G-D2D-D2C-01 | read-only wrappers conformes | Cursor verified · durable store · Git write |
+| **D2-D3** | Coordination E2E + preuves fortes | P2 | D2-D1+D2-D2 validés | Strong evidence readiness (candidate) | D2-D2 · gates | G-D2D-DELIVERY-03 · G-D2D-CURSOR-01 · G-D2D-PERSIST-01 | levels de readiness sourcés | production-ready · RUN READY · D3 ready |
+| **D2-D4** | Write | **OUT OF TRAJECTORY** | — | — | — | — | **aucune story** | Git write enabled |
+
+P0/P1/P2 = ordre de dépendance uniquement, **pas** un calendrier.
+
+---
+
+## H. Registre des gates externes
+
+### G-D2D-CURSOR-01
+
+| Champ | Valeur |
+|-------|--------|
+| **Objet** | Cursor capability verification |
+| **Statut** | REQUIRED — NOT EXECUTED |
+| **EXTERNAL GATE** | oui |
+| **Conséquence** | Bloque adapter Cursor live et preuve sandbox-real Cursor ; ne bloque pas contrats/fixtures/policies sans Cursor réel |
+| **GO requis** | `GO CURSOR CAPABILITY VERIFICATION SFIA STUDIO V3.1-D2-D` |
+
+### G-D2D-D2C-01
+
+| Champ | Valeur |
+|-------|--------|
+| **Objet** | Correction bornée R-QA-D2C-01 |
+| **Statut** | REQUIRED BEFORE UNVALIDATED EXTERNAL BOUNDARY — NOT EXECUTED |
+| **EXTERNAL GATE** | oui |
+| **Conséquence** | D2-D valide toujours avant metadata ; correction core D2-C = cycle distinct ; **jamais** intégrée dans une story D2-D |
+| **GO requis** | `GO CORRECTION SFIA STUDIO D2-C R-QA-D2C-01` |
+
+### G-D2D-PERSIST-01
+
+| Champ | Valeur |
+|-------|--------|
+| **Objet** | Persistance durable / environnement cible |
+| **Statut** | UNDECIDED — NOT REQUIRED FOR D2-D1 — REOPEN BEFORE STRONG D2-D3 CLAIM |
+| **EXTERNAL GATE** | oui |
+| **Conséquence** | Memory OK D2-D1 ; aucun claim restart-safe/multi-instance ; décision distincte si D2-D3 l'exige |
+
+### G-D2D-DELIVERY-01 / 02 / 03
+
+| Gate | Objet | Statut |
+|------|-------|--------|
+| G-D2D-DELIVERY-01 | Delivery D2-D1 | **NOT AUTHORIZED** |
+| G-D2D-DELIVERY-02 | Delivery D2-D2 | **NOT AUTHORIZED** |
+| G-D2D-DELIVERY-03 | Delivery D2-D3 | **NOT AUTHORIZED** |
+
+Aucun gate n'est consommé par ce cycle.
+
+---
+
+## I. Definition of Ready globale
+
+Une story future est Ready uniquement si :
+
+1. décisions sources identifiées ;
+2. valeur et résultat vérifiable définis ;
+3. critères d'acceptation complets ;
+4. scénarios négatifs définis ;
+5. dépendances satisfaites ;
+6. gates nécessaires consommées ;
+7. fichiers candidats identifiés ;
+8. tests et preuves définis ;
+9. aucune décision d'architecture ouverte cachée ;
+10. aucune réserve présentée comme levée ;
+11. aucun provider live requis sans gate ;
+12. aucune estimation ou date inventée ;
+13. scope Delivery borné ;
+14. **GO Delivery spécifique obtenu**.
+
+---
+
+## J. Definition of Done globale
+
+Une story future est Done uniquement si :
+
+1. résultat vérifiable livré ;
+2. tests unitaires/contractuels attendus verts ;
+3. scénarios négatifs verts ;
+4. invariants de sécurité vérifiés ;
+5. aucun secret ou type SDK exposé ;
+6. preuves et disclosures produits ;
+7. source `fixture`/`sandbox-real`/`real` explicite ;
+8. partial ne produit jamais `succeeded` ;
+9. documentation utile mise à jour ;
+10. CI applicable verte ;
+11. réserves mises à jour sans levée implicite ;
+12. diff borné ;
+13. review pack conforme ;
+14. PR readiness et merge = cycles distincts.
+
+---
+
+## K. Epic D2-D1 — Execution Run Core and Contract Foundation
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Créer le socle pur, local et fixture-first de l'exécution D2-D |
+| **Priorité** | P0 |
+| **Profil candidat Delivery** | Critical (structurant) — GO Delivery distinct requis |
+| **Contraintes** | Aucune intégration fournisseur réelle · aucun SDK dans domain/application · memory uniquement · aucun claim durable/multi-instance · aucun transport D3 · aucun Cursor live |
+| **Statut epic** | EPIC CANDIDATE — NOT ADOPTED |
+
+
+#### D2D1-01 — Canonical execution-run domain vocabulary
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les douze objets fonctionnels adoptés disposent de représentations techniques cohérentes dans le core `execution-run`. |
+| **Source decisions** | FD-01 · FA-01/02 · TA-01 · TA-02 |
+| **Dépendances** | Aucune (premier résultat D2-D1) |
+| **Réserves** | R-QA-REV-01/02 transportées (timestamps plus tard) · R-QA-D2C-01 non levée |
+| **Fichiers candidats** | `app/lib/oa/execution-run/domain/**` — CANDIDATE DELIVERY SCOPE — NOT AUTHORIZED |
+| **Hors périmètre** | Adapters · providers · UI · persistance durable · Server Actions |
+
+**Critères d'acceptation :**
+
+1. Les 12 objets sont représentés : ExecutionIntent, ExecutionContext, ProviderCapabilityDescriptor, ValidationOutcome, ExecutionRun, ExecutionState, ExternalResult, ExecutionEvidence, SourceDisclosure, HumanDecisionGate, UsageSummary, NormalizedFailure.
+2. Aucune dépendance Next/Node/SDK/FS/process/réseau dans domain.
+3. Aucune donnée secrète dans les objets.
+4. Aucun type provider-specific (OpenAI/GitHub/Cursor SDK).
+5. Discriminated unions utilisées lorsque pertinent pour l'état et les résultats.
+6. Invariants documentés et testables à la compilation.
+
+**Tests / preuves futures :**
+
+- Tests de compilation TypeScript strict.
+- Tests d'invariants de forme (guards unitaires).
+- Import-boundary smoke (domain n'importe pas adapters).
+
+**Risques :**
+
+- Domaine parallèle / vocabulaire divergent.
+- Fuite de types SDK.
+
+
+#### D2D1-02 — Runtime schemas and AJV boundary validation
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les frontières non fiables valident les contrats avec JSON Schema/AJV existant (CONTRACT-B). |
+| **Source decisions** | CAD-01 · FD-09 · TA-03 · TA-13 |
+| **Dépendances** | D2D1-01 |
+| **Réserves** | R-QA-D2C-01 OPEN — défense frontière D2-D uniquement |
+| **Fichiers candidats** | `execution-run` schemas + reuse doctrine AJV — CANDIDATE |
+| **Hors périmètre** | Zod · nouvelle lib · correction D2-C core · live providers |
+
+**Critères d'acceptation :**
+
+1. Schemas JSON = autorité runtime aux frontières non fiables.
+2. Types TypeScript = représentation compile-time.
+3. Validation **avant** lecture de metadata.
+4. Fail-closed sur null, undefined, champs invalides, payloads incomplets.
+5. Aucune nouvelle dépendance validation.
+6. Conformance types/schemas/fixtures vérifiable.
+7. Erreurs normalisées (pas d'exception brute vers D3).
+
+**Tests / preuves futures :**
+
+- Tests AJV sur payloads valides/invalides.
+- Tests adversariaux null/undefined.
+- Tests de drift type/schema/fixture.
+
+**Risques :**
+
+AJV/types drift · validation après metadata
+
+
+#### D2D1-03 — Eight-state transition authority
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le core possède une autorité unique et pure des transitions d'état. |
+| **Source decisions** | FD-02…07 · FA-03 · TA-04 |
+| **Dépendances** | D2D1-01 |
+| **Réserves** | — |
+| **Fichiers candidats** | `execution-run/domain/executionState.ts` · `executionTransitions.ts` — CANDIDATE |
+| **Hors périmètre** | Queue · worker · provider adapters |
+
+**Critères d'acceptation :**
+
+1. Exactement huit états persistants listés.
+2. Aucun état STATE-B (`created`/`queued`/`validating`).
+3. Table transitions autorisées/refusées explicite.
+4. Nouveau run + nouvelle identité après terminal.
+5. `blocked` vs `failed` discriminés.
+6. `awaiting_human` + timeout humain → `timed_out` / gate manquante → `blocked`.
+7. Cancellation terminale ; late result evidence-only (n'altère pas l'état).
+8. Fonctions de transition pures ; aucune state-machine dependency externe.
+
+**Tests / preuves futures :**
+
+- Matrice complète transitions (unit).
+- Tests late-result / cancel / timeout / human gate.
+
+**Risques :**
+
+State authority dupliquée · partial-as-success
+
+
+#### D2D1-04 — Read-only policy and normalized failure foundation
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Toute intention incompatible avec les politiques D2-D est refusée de manière normalisée. |
+| **Source decisions** | CAD-04 · FD-09 · FA-06 · TA-06 · V erreurs |
+| **Dépendances** | D2D1-01 · D2D1-02 |
+| **Réserves** | R-QA-D2C-01 OPEN |
+| **Fichiers candidats** | `execution-run/domain/executionPolicy.ts` · `executionErrors.ts` — CANDIDATE |
+| **Hors périmètre** | Git write story · Cursor live · secret manager |
+
+**Critères d'acceptation :**
+
+1. Git write refusé.
+2. Commande arbitraire refusée.
+3. Provider indisponible / permission insuffisante / protected path / sandbox blocked normalisés.
+4. Erreurs brutes non exposées.
+5. Classification retryable explicite.
+6. Aucun succès partiel.
+7. Codes candidats alignés TA (VALIDATION_ERROR, MUTATION_FORBIDDEN, …) sans adoption d'implémentation.
+
+**Tests / preuves futures :**
+
+- Policy deny matrix tests.
+- Normalization tests (raw → NormalizedFailure).
+
+**Risques :**
+
+Git mutation · arbitrary command · secret leakage via erreurs
+
+
+#### D2D1-05 — Evidence, completeness and source disclosure
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les résultats exposent une preuve, une complétude et une source honnêtes. |
+| **Source decisions** | FD-05 · FD-08 · FA-04 · TA-11 |
+| **Dépendances** | D2D1-01 · D2D1-03 |
+| **Réserves** | R-QA-REV-01 OPEN NOT LIFTED |
+| **Fichiers candidats** | `executionEvidence.ts` · `executionDisclosure.ts` — CANDIDATE |
+| **Hors périmètre** | Provider live · D3 UI |
+
+**Critères d'acceptation :**
+
+1. Sources `fixture` / `sandbox-real` / `real` obligatoires.
+2. Fixture jamais présentée comme réel.
+3. Completeness complete/partial explicite.
+4. Partial **jamais** `succeeded`.
+5. Evidence officielle ≠ résultat provider brut.
+6. Timestamps ISO validables (lien R-QA-REV-01).
+7. Données sensibles exclues.
+8. Late evidence sans mutation d'état.
+
+**Tests / preuves futures :**
+
+- Evidence unit tests.
+- Partial-never-succeeded tests.
+- Source disclosure mismatch tests.
+
+**Risques :**
+
+Partial-as-success · event leakage · timestamp drift
+
+
+#### D2D1-06 — ExecutionRunRepository memory adapter
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le core dispose d'un repository port unique et d'un adapter memory déterministe (STORE-B stage 1). |
+| **Source decisions** | TA-04 · FA-09 |
+| **Dépendances** | D2D1-01 · D2D1-03 |
+| **Réserves** | — |
+| **Fichiers candidats** | `ports/executionRunRepository.ts` · `infrastructure/memoryExecutionRunRepository.ts` — CANDIDATE |
+| **Hors périmètre** | SQLite/Postgres sélection · G-D2D-PERSIST-01 consommé |
+
+**Critères d'acceptation :**
+
+1. Port unique ExecutionRunRepository.
+2. ExecutionRunId · correlationId.
+3. Nouvelle identité après terminal.
+4. save/get nécessaires au slice.
+5. Aucune seconde autorité d'état.
+6. État process-local **divulgué**.
+7. Aucun claim restart-safe / multi-instance.
+8. Aucun choix durable implicite.
+
+**Tests / preuves futures :**
+
+- Memory repository unit tests.
+- Identity-after-terminal tests.
+- Disclosure LOCAL_PROCESS tests.
+
+**Risques :**
+
+Memory state loss · multi-instance claim
+
+
+#### D2D1-07 — Deterministic contract fixture catalogue
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le catalogue de fixtures couvre les contrats et scénarios nécessaires (fixtures-first). |
+| **Source decisions** | CAD-06 · FA-02 (Fixture Catalogue) · TA-13 · AE |
+| **Dépendances** | D2D1-02 · D2D1-04 · D2D1-05 |
+| **Réserves** | — |
+| **Fichiers candidats** | `execution-run` fixtures catalog — CANDIDATE |
+| **Hors périmètre** | Live providers · sandbox-real Cursor |
+
+**Critères d'acceptation :**
+
+1. Fixtures : nominal · validation failure · auth failure · provider unavailable · rate limit · timeout · cancellation · blocked gate · protected path · mutation forbidden · partial · invalid provider result · late result · secret redaction · source mismatch.
+2. Mêmes schemas que futurs adapters réels.
+3. Données déterministes.
+4. Aucune clé/donnée sensible.
+5. Source déclarée `fixture`.
+6. Divergence contrat/fixture détectable.
+
+**Tests / preuves futures :**
+
+- Fixture load + schema validate.
+- Determinism tests.
+- Secret-absence scan on fixtures.
+
+**Risques :**
+
+Flaky fixtures · secret in fixtures
+
+
+#### D2D1-08 — Server-only composition and import boundaries
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le core peut être composé côté serveur sans créer un second runtime. |
+| **Source decisions** | RUNTIME-C · TA-01 · TA-02 · TA-12 · AB |
+| **Dépendances** | D2D1-01…06 |
+| **Réserves** | — |
+| **Fichiers candidats** | `execution-run/index.ts` · composition root server — CANDIDATE |
+| **Hors périmètre** | UI · HTTP route · OPS1 Cursor path |
+
+**Critères d'acceptation :**
+
+1. `execution-run` = seule state authority.
+2. `vertical-slice-runtime` = façade/composition seulement.
+3. `execution-contract` = pré-exécution seulement.
+4. Aucun import client-unsafe dans domain.
+5. Aucune Server Action ou route choisie (D3-TECH-C).
+6. Aucun adapter provider réel.
+7. Tests de frontières d'import identifiés.
+
+**Tests / preuves futures :**
+
+- Import-boundary Vitest.
+- Composition smoke in-process sans providers.
+
+**Risques :**
+
+Double runtime · client bundle leak
+
+
+#### D2D1-09 — D2-D1 slice evidence and readiness pack
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D1 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les preuves permettant de décider la clôture D2-D1 sont définies et reproductibles. |
+| **Source decisions** | CAD-01 · TA-14 · AK |
+| **Dépendances** | D2D1-01…08 |
+| **Réserves** | R-QA-REV-01/02 · R-QA-D2C-01 OPEN |
+| **Fichiers candidats** | Review pack Delivery futur — CANDIDATE |
+| **Hors périmètre** | Merge Delivery sans PR readiness distincte |
+
+**Critères d'acceptation :**
+
+1. Matrice objets/schemas/tests.
+2. Matrice complète transitions.
+3. Conformance fixtures.
+4. Policy deny tests.
+5. Redaction tests.
+6. Aucune intégration réelle revendiquée.
+7. Réserves transportées.
+8. Verdict autorisé candidat : `D2-D1 CONTRACT FOUNDATION VERIFIED`.
+9. Verdicts interdits : provider integrated · production-ready · multi-instance ready.
+
+**Tests / preuves futures :**
+
+- Pack de preuves documentaire + CI unit/contract.
+- Checklist anti-claims.
+
+**Risques :**
+
+Claim excessif · DoD flou
+
+
+## L. Epic D2-D2 — Provider Boundaries and Controlled Read-only Adapters
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Brancher progressivement les capacités externes read-only derrière les contrats D2-D |
+| **Priorité** | P1 |
+| **Précondition** | D2-D1 validé |
+| **Contraintes** | Wrappers uniquement · pas de SDK vers domaine/application/D3 · pas de Git write · pas de Cursor live sans gate · pas de live CI défaut |
+| **Statut epic** | EPIC CANDIDATE — NOT ADOPTED |
+
+
+#### D2D2-01 — Provider port conformance harness
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | AI, Git et Cursor peuvent être évalués derrière une même discipline de contrats, erreurs, cancellation, evidence et disclosures. |
+| **Source decisions** | FA-05 · TA-06 · REUSE-B |
+| **Dépendances** | D2-D1 stable (surtout D2D1-02/04/05) |
+| **Réserves** | — |
+| **Fichiers candidats** | `ports/aiExecutionPort.ts` · `gitReadPort.ts` · `cursorExecutionPort.ts` — CANDIDATE |
+| **Hors périmètre** | Live CI · rewrite non justifié |
+
+**Critères d'acceptation :**
+
+1. Ports provider-independent.
+2. Fake et real adapters conformes aux mêmes contrats.
+3. Contract-fit observable.
+4. Incompatibilité explicite.
+5. Targeted rewrite permis si échec.
+6. Aucun fallback silencieux.
+
+**Tests / preuves futures :**
+
+- Conformance suite fake ports.
+- Contract-fit report format.
+
+**Risques :**
+
+Provider lock-in · silent fallback
+
+
+#### D2D2-02 — AI-B platform adapter
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | La capacité AI existante est accessible via un wrapper D2-D (AI-B). |
+| **Source decisions** | TA-07 · platform AI OBSERVATION |
+| **Dépendances** | D2D2-01 · D2D1-02 · D2D1-05 · D2D2-04 |
+| **Réserves** | — |
+| **Fichiers candidats** | `infrastructure` AI wrapper — CANDIDATE DELIVERY SCOPE |
+| **Hors périmètre** | Nouveau SDK · modèle hardcodé · live default CI |
+
+**Critères d'acceptation :**
+
+1. Wrapper autour de platform AI.
+2. Modèle configurable (pas hardcodé).
+3. Secret server-only.
+4. Sortie validée.
+5. Usage exposé uniquement si validé.
+6. Timeout/cancel normalisés.
+7. Aucun prompt/résultat complet dans events/D3.
+8. Fake provider pour CI.
+9. Live opt-in uniquement.
+
+**Tests / preuves futures :**
+
+- Fake AI conformance.
+- Redaction tests.
+- Live opt-in hors CI défaut.
+
+**Risques :**
+
+Prompt leakage · live flaky
+
+
+#### D2D2-03 — GIT-C read-only adapter
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | La Git Truth distante peut être lue derrière un port transport-neutral strictement read-only. |
+| **Source decisions** | TA-08 · CAD-04 · CAD-08 |
+| **Dépendances** | D2D2-01 · D2D1-04 · D2D1-05 · D2D2-04 |
+| **Réserves** | — |
+| **Fichiers candidats** | Wrapper `GithubReadPort` — CANDIDATE |
+| **Hors périmètre** | Git write · PAT production default · silent REST fallback |
+
+**Critères d'acceptation :**
+
+1. Read-only strict ; aucune méthode write.
+2. Repository allowlist.
+3. Refs/paths validés.
+4. Timeout · rate-limit normalisé · redaction.
+5. Transport divulgué.
+6. `gh` local/sandbox possible.
+7. REST/GitHub App **non sélectionné** sans décision distincte.
+8. Aucun fallback silencieux.
+9. PAT ≠ défaut production.
+
+**Tests / preuves futures :**
+
+- Allowlist deny tests.
+- Transport disclosure tests.
+- Write-surface absence tests.
+
+**Risques :**
+
+Git mutation · auth leakage · CLI unavailable
+
+
+#### D2D2-04 — SECRET-B source boundary
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les adapters obtiennent des secrets via une frontière opaque (SECRET-B). |
+| **Source decisions** | TA-10 · CAD-08 |
+| **Dépendances** | D2D1-04/05 |
+| **Réserves** | — |
+| **Fichiers candidats** | `ports/secretSourcePort.ts` · env adapter — CANDIDATE |
+| **Hors périmètre** | Secret manager sélection · valeurs dans events |
+
+**Critères d'acceptation :**
+
+1. SecretSourcePort.
+2. Adapter env local contrôlé.
+3. Aucune valeur sérialisable.
+4. Aucune valeur dans domaine/events/evidence/fixtures/D3.
+5. Secret absent/expiré/révoqué normalisé.
+6. Aucune techno secret manager adoptée.
+
+**Tests / preuves futures :**
+
+- Opaque handle tests.
+- Redaction scan.
+- Missing-secret failure normalization.
+
+**Risques :**
+
+Secret leakage
+
+
+#### D2D2-05 — EVENT-B execution event adapter
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les événements D2-D sont adaptés vers l'EventSink existant (EVENT-B). |
+| **Source decisions** | TA-11 · FD-10 · CAD-09 |
+| **Dépendances** | D2D1-03 · D2D1-05 |
+| **Réserves** | R-QA-REV-01 OPEN · R-QA-REV-02 OPEN |
+| **Fichiers candidats** | `ports/executionEventSink.ts` · adapter EventSink — CANDIDATE |
+| **Hors périmètre** | Nouveau bus · prix inventé · prompt complet |
+
+**Critères d'acceptation :**
+
+1. Sémantique D2-D au port ; transport platform.
+2. Champs : correlationId · runId · transitions · validation · gate · cancel · timeout · late result · completeness · source · usage validé.
+3. Redaction stricte.
+4. Timestamp ISO validé.
+5. R-QA-REV-01/02 restent OPEN jusqu'aux preuves.
+6. Aucun RUN-ready/SLO.
+
+**Tests / preuves futures :**
+
+- Event schema tests.
+- Redaction tests.
+- Timestamp validation tests (REV-01).
+
+**Risques :**
+
+Event leakage · timestamp drift · dual catalogues
+
+
+#### D2D2-06 — Async, timeout, cancellation and late-result handling
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les opérations provider suivent ASYNC-B de manière déterministe. |
+| **Source decisions** | TA-05 · FD-07 · Y |
+| **Dépendances** | D2D1-03 · D2D1-06 |
+| **Réserves** | — |
+| **Fichiers candidats** | `application/executionCoordinator.ts` — CANDIDATE |
+| **Hors périmètre** | ASYNC-C queue · SLO inventé |
+
+**Critères d'acceptation :**
+
+1. Promise + AbortSignal.
+2. Timeout opérationnel et global configurables.
+3. Aucune durée production inventée.
+4. Cancellation best-effort provider.
+5. État terminal local autoritatif.
+6. Résultat tardif evidence-only.
+7. Retries uniquement sur erreurs classées ; aucun retry infini.
+8. Aucune queue ou worker permanent.
+
+**Tests / preuves futures :**
+
+- Cancel/timeout/late-result unit+integration-in-process tests.
+
+**Risques :**
+
+Cancellation race · late result race · queue prématurée
+
+
+#### D2D2-07 — D2-D adversarial input boundary
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | La frontière D2-D refuse tout payload invalide avant exploitation de metadata. |
+| **Source decisions** | CAD-10 · TA-13 · R-C · Z |
+| **Dépendances** | D2D1-02 · D2D1-04 |
+| **Réserves** | R-QA-D2C-01 OPEN NOT LIFTED |
+| **Fichiers candidats** | Policy/validation boundary — CANDIDATE |
+| **Hors périmètre** | Story D2-C correction · reserve lift |
+
+**Critères d'acceptation :**
+
+1. Validation avant metadata.
+2. null/undefined · payload partiel · enums invalides · tailles hors limites · champs interdits.
+3. Aucune exception brute.
+4. Aucun résultat partiel exploitable.
+5. R-QA-D2C-01 **non levée**.
+6. Correction du core D2-C **exclue** (G-D2D-D2C-01).
+
+**Tests / preuves futures :**
+
+- Adversarial suite.
+- Metadata-access-order tests.
+
+**Risques :**
+
+R-QA-D2C-01 · partial exploit
+
+
+#### D2D2-08 — Sandbox and protected-path contract without live Cursor
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les exigences de sandbox et de chemins protégés sont testables sans supposer Cursor compatible. |
+| **Source decisions** | CAD-07 · TA-09 · U |
+| **Dépendances** | D2D1-04 · D2D2-01 |
+| **Réserves** | CURSOR PRODUCT CAPABILITIES UNVERIFIED |
+| **Fichiers candidats** | Reuse platform/security + harness patterns — CANDIDATE |
+| **Hors périmètre** | Live Cursor · G-D2D-CURSOR-01 consommé |
+
+**Critères d'acceptation :**
+
+1. Allowlist · deny-by-default · protected paths.
+2. Aucune commande navigateur.
+3. Aucune remote Git mutation.
+4. Branch/head anchors.
+5. Timeout.
+6. Fixture adapter.
+7. Aucun claim sandbox secure.
+8. Cursor reste UNVERIFIED.
+
+**Tests / preuves futures :**
+
+- Path policy tests.
+- Fixture sandbox contract tests.
+
+**Risques :**
+
+Sandbox escape claim · Cursor compatibility claim
+
+
+#### D2D2-09 — Cursor adapter eligibility gate
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | EXTERNAL GATE LINK — NOT A DELIVERY STORY |
+| **Slice** | D2-D2 |
+| **Statut** | BLOCKED — DISTINCT MORRIS GATE REQUIRED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le backlog identifie les preuves nécessaires avant toute story Cursor live. |
+| **Source decisions** | TA-09 · G-D2D-CURSOR-01 |
+| **Dépendances** | G-D2D-CURSOR-01 |
+| **Réserves** | CURSOR UNVERIFIED |
+| **Fichiers candidats** | N/A — gate documentation only |
+| **Hors périmètre** | Cursor live adapter Delivery |
+
+**Critères d'acceptation :**
+
+1. Référence G-D2D-CURSOR-01.
+2. Capabilities exactes à vérifier.
+3. Disponibilité environnement.
+4. Process boundary.
+5. Cancellation · sandbox · preuves.
+6. Aucune implémentation live dans D2-D2 sans GO distinct.
+
+**Tests / preuves futures :**
+
+- Gate checklist (non exécutée dans ce cycle).
+
+**Risques :**
+
+Live without gate
+
+
+#### D2D2-10 — D2-D2 slice conformance and evidence pack
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D2 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Les wrappers read-only peuvent être évalués sans claim excessif. |
+| **Source decisions** | TA-14 · L |
+| **Dépendances** | D2D2-01…08 |
+| **Réserves** | R-QA-REV-01/02 · R-QA-D2C-01 · Cursor UNVERIFIED |
+| **Fichiers candidats** | Evidence pack — CANDIDATE |
+| **Hors périmètre** | Cursor live · production-ready |
+
+**Critères d'acceptation :**
+
+1. AI fake conformance.
+2. Git read conformance.
+3. SecretSource redaction.
+4. Events.
+5. Timeout/cancel.
+6. Adversarial boundary.
+7. Sandbox contract.
+8. Source disclosure.
+9. Aucun live default CI.
+10. Réserves visibles · Cursor UNVERIFIED.
+
+**Tests / preuves futures :**
+
+- Slice evidence pack + CI fake suites.
+
+**Risques :**
+
+Claim excessif
+
+
+## M. Epic D2-D3 — End-to-end Read-only Coordination and Strong Evidence
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Prouver une coordination end-to-end read-only et provider-independent |
+| **Priorité** | P2 |
+| **Préconditions** | D2-D1 et D2-D2 validés |
+| **Contraintes** | Aucun Git write · aucun D3 UI · aucun transport D3 sélectionné · Cursor sandbox-real soumis au gate · aucune durabilité/multi-instance sans décision |
+| **Statut epic** | EPIC CANDIDATE — NOT ADOPTED |
+
+
+#### D2D3-01 — End-to-end execution coordination
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D3 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Une intention validée traverse intake, policy, state, provider boundary, evidence et events jusqu'à un résultat normalisé. |
+| **Source decisions** | FA-02/03/04 · TA-01 · TA-14 |
+| **Dépendances** | D2-D1 + D2-D2 validés |
+| **Réserves** | — |
+| **Fichiers candidats** | Coordinator composition — CANDIDATE |
+| **Hors périmètre** | UI · write · Cursor live sans gate |
+
+**Critères d'acceptation :**
+
+1. Ordre des autorités respecté.
+2. Aucune mutation d'état par provider.
+3. Aucune décision Morris automatisée.
+4. Fixture nominale.
+5. Provider read-only réel seulement si gate applicable.
+6. Erreurs normalisées · source explicite · partial jamais succeeded.
+
+**Tests / preuves futures :**
+
+- E2E fixture path.
+- Authority-order tests.
+
+**Risques :**
+
+Double runtime · provider mutates state
+
+
+#### D2D3-02 — Provider-independent server projection
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D3 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Une façade application transport-neutral expose une projection D3 provider-independent (D3-TECH-C). |
+| **Source decisions** | FD-11 · FA-08 · TA-12 |
+| **Dépendances** | D2D3-01 · D2D1-05 |
+| **Réserves** | — |
+| **Fichiers candidats** | `executionProjection.ts` · server facade — CANDIDATE |
+| **Hors périmètre** | UI Delivery · route selection |
+
+**Critères d'acceptation :**
+
+1. Champs : runId · état · source · progression · completeness · result redacted · failure redacted · blocked reason · human gate · evidence summary · usage validé · réserves · readiness.
+2. Aucun SDK object · secret · erreur brute · commande · Git write.
+3. Aucun Server Action/HTTP transport choisi.
+
+**Tests / preuves futures :**
+
+- Projection shape tests.
+- Leakage absence tests.
+
+**Risques :**
+
+D3 provider leakage · transport premature
+
+
+#### D2D3-03 — End-to-end evidence and truthfulness
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D3 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le parcours permet de distinguer sans ambiguïté fixture, sandbox-real et real. |
+| **Source decisions** | FD-08 · FA-04 · TA-11 |
+| **Dépendances** | D2D3-01 · D2D1-05 · D2D2-05 |
+| **Réserves** | R-QA-REV-01 OPEN |
+| **Fichiers candidats** | Evidence pipeline — CANDIDATE |
+| **Hors périmètre** | Production-ready claim |
+
+**Critères d'acceptation :**
+
+1. Evidence officielle · provider result distinct · digest/id · timestamps validés · completeness · source · late evidence · usage validé.
+2. Aucune donnée sensible.
+3. Fixture jamais présentée comme réel.
+
+**Tests / preuves futures :**
+
+- Source truthfulness suite.
+- Late evidence tests.
+
+**Risques :**
+
+Source spoof · sensitive data leak
+
+
+#### D2D3-04 — Cursor sandbox-real proof
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | BLOCKED ENABLER CANDIDATE |
+| **Slice** | D2-D3 |
+| **Statut** | BLOCKED — CURSOR PRODUCT CAPABILITIES UNVERIFIED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Une exécution Cursor sandbox-real read-only produit une preuve conforme. |
+| **Source decisions** | TA-09 · CAD-07 · G-D2D-CURSOR-01 |
+| **Dépendances** | G-D2D-CURSOR-01 consommé · sandbox contract · branch/head anchors · aucune remote Git write · gate Morris revalidée |
+| **Réserves** | CURSOR PRODUCT CAPABILITIES UNVERIFIED |
+| **Fichiers candidats** | CursorExecutionPort adapter — BLOCKED |
+| **Hors périmètre** | Live without GO · client import harness |
+
+**Critères d'acceptation :**
+
+1. Préconditions gate listées et satisfaites.
+2. Preuve conforme (evidence + source `sandbox-real`).
+3. Aucune remote Git write.
+4. Pas de claim sandbox secure sans preuve.
+
+**Tests / preuves futures :**
+
+- Opt-in sandbox-real harness (hors CI défaut) — seulement après gate.
+
+**Risques :**
+
+Cursor incompatibility · sandbox escape
+
+
+#### D2D3-05 — Strong-runtime environment and persistence gate
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | EXTERNAL GATE LINK — NOT A DELIVERY STORY |
+| **Slice** | D2-D3 |
+| **Statut** | BLOCKED — G-D2D-PERSIST-01 |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le backlog rend explicites les décisions nécessaires avant tout claim restart-safe ou multi-instance. |
+| **Source decisions** | TA-04 · TA-05 · G-D2D-PERSIST-01 · AC |
+| **Dépendances** | G-D2D-PERSIST-01 |
+| **Réserves** | — |
+| **Fichiers candidats** | N/A — gate documentation |
+| **Hors périmètre** | STORE-C adoption · queue worker |
+
+**Critères d'acceptation :**
+
+1. Environnement cible identifié.
+2. Process lifetime évalué.
+3. ASYNC-B réévalué.
+4. Persistance durable décidée si nécessaire.
+5. Locking/concurrency · cancellation après restart évalués.
+6. Aucune technologie sélectionnée dans ce backlog.
+
+**Tests / preuves futures :**
+
+- Decision pack futur (hors cycle).
+
+**Risques :**
+
+Multi-instance claim · premature durable store
+
+
+#### D2D3-06 — End-to-end negative and resilience scenarios
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D3 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Le parcours end-to-end prouve les comportements d'échec. |
+| **Source decisions** | FD-09 · TA-13 · AE |
+| **Dépendances** | D2D3-01 · D2D2-06/07 · D2D1-07 |
+| **Réserves** | — |
+| **Fichiers candidats** | Test suites — CANDIDATE |
+| **Hors périmètre** | Live-only negatives |
+
+**Critères d'acceptation :**
+
+1. Couvrir : validation failure · auth failure · provider unavailable · rate limit · timeout · cancellation · blocked gate · invalid result · partial · late result · secret redaction · source mismatch · protected path · mutation forbidden.
+2. Chaque scénario : état attendu · evidence · disclosure · pas de succeeded partiel.
+
+**Tests / preuves futures :**
+
+- E2E negative suite (fixtures first).
+
+**Risques :**
+
+Incomplete negative coverage
+
+
+#### D2D3-07 — D2-D3 strong evidence readiness review
+
+| Champ | Valeur |
+|-------|--------|
+| **Type** | STORY CANDIDATE |
+| **Slice** | D2-D3 |
+| **Statut** | STORY CANDIDATE — NOT ADOPTED |
+| **Estimation** | NOT ESTIMATED |
+| **Valeur / résultat** | Un pack de preuves permet à Morris de distinguer les niveaux de readiness (FD-12). |
+| **Source decisions** | FD-12 · CAD-12 · TA-14 |
+| **Dépendances** | D2D3-01…03 · D2D3-06 · gates applicables pour niveaux élevés |
+| **Réserves** | R-QA-* OPEN · Cursor UNVERIFIED |
+| **Fichiers candidats** | Readiness pack — CANDIDATE |
+| **Hors périmètre** | D3 Delivery · RUN READY |
+
+**Critères d'acceptation :**
+
+1. Niveaux : UX exploration · UI Delivery · strong runtime verdict.
+2. Preuves de chaque niveau.
+3. Absence de claim si preuve manquante.
+4. Cursor UNVERIFIED si gate non consommé.
+5. Persistance/multi-instance non revendiquées sans décision.
+6. Réserves transportées.
+7. Aucun verdict production-ready ou RUN READY.
+
+**Tests / preuves futures :**
+
+- Readiness matrix document + evidence checklist.
+
+**Risques :**
+
+Premature readiness claim
+
+
+## N. Matrice de dépendances
+
+| Story | Dépend de |
+|-------|-----------|
+| D2D1-01 | — |
+| D2D1-02 | D2D1-01 |
+| D2D1-03 | D2D1-01 |
+| D2D1-04 | D2D1-01 · D2D1-02 |
+| D2D1-05 | D2D1-01 · D2D1-03 |
+| D2D1-06 | D2D1-01 · D2D1-03 |
+| D2D1-07 | D2D1-02 · D2D1-04 · D2D1-05 |
+| D2D1-08 | D2D1-01…06 |
+| D2D1-09 | D2D1-01…08 |
+| D2D2-* (toutes) | Stabilité contrats D2-D1 pertinents |
+| D2D2-02 | D2D2-01 · D2D1-02/05 · D2D2-04 |
+| D2D2-03 | D2D2-01 · D2D1-04/05 · D2D2-04 |
+| D2D2-05 | D2D1-03/05 |
+| D2D2-06 | D2D1-03/06 |
+| D2D2-07 | D2D1-02/04 |
+| D2D2-09 | **G-D2D-CURSOR-01** |
+| D2D2-10 | D2D2-01…08 |
+| D2D3-* | D2-D1 + D2-D2 validés |
+| D2D3-04 | **G-D2D-CURSOR-01** |
+| D2D3-05 | **G-D2D-PERSIST-01** |
+| Strong runtime verdict | D2D3-04/05 si requis par le niveau de claim |
+
+---
+
+## O. Ordre de réalisation candidat
+
+Fondé uniquement sur les dépendances — **NOT ESTIMATED** — aucune date/sprint :
+
+1. D2D1-01
+2. D2D1-02
+3. D2D1-03
+4. D2D1-04
+5. D2D1-05
+6. D2D1-06
+7. D2D1-07
+8. D2D1-08
+9. D2D1-09
+10. **Validation D2-D1** puis D2-D2 (D2D2-01 → … → D2D2-10 ; D2D2-09 reste BLOCKED)
+11. **Validation D2-D2** + gates applicables puis D2-D3 (D2D3-01…07 ; 04/05 BLOCKED tant que gates absents)
+
+Toute modification d'ordre doit rester justifiée par les dépendances.
+
+---
+
+## P. Matrice de couverture des décisions
+
+| Décision | Couverture backlog |
+|----------|-------------------|
+| CAD-01 Minimal Foundation | D2D1-* |
+| CAD-04 Read-only / D2-D4 out | D2D1-04 · D2D2-03 · **aucune story D2-D4** |
+| CAD-05/FD-02 États | D2D1-03 |
+| CAD-06 Fixtures first | D2D1-07 |
+| CAD-07 Sandbox / Cursor UNVERIFIED | D2D2-08 · D2D2-09 · D2D3-04 |
+| CAD-08 Secrets | D2D2-04 |
+| CAD-09 Events | D2D2-05 |
+| CAD-10 R-C | D2D2-07 · G-D2D-D2C-01 |
+| CAD-11/FA-11/TA-14 Slicing | Épics K/L/M · ordre O |
+| FD-01 12 objets | D2D1-01 |
+| FD-05 Partial | D2D1-05 · D2D3-06 |
+| FD-07 Cancel/late | D2D1-03 · D2D2-06 |
+| FD-08 Sources | D2D1-05 · D2D3-03 |
+| FD-09 Failures | D2D1-04 · D2D3-06 |
+| FD-11/FA-08 D3 indep. | D2D3-02 |
+| FD-12 Readiness levels | D2D3-07 |
+| FA-03 State authority | D2D1-03 · D2D1-08 |
+| FA-04 Evidence authority | D2D1-05 |
+| FA-05 Provider boundary | D2D2-01 |
+| FA-06 Policy | D2D1-04 |
+| FA-09 RUNTIME-C | D2D1-08 |
+| FA-10 REUSE-B | D2D2-01…03 |
+| TA-01 TECH-RUN-B | D2D1-08 |
+| TA-02 Layering | D2D1-01/08 |
+| TA-03 CONTRACT-B | D2D1-02 |
+| TA-04 STORE-B | D2D1-06 · G-D2D-PERSIST-01 |
+| TA-05 ASYNC-B | D2D2-06 |
+| TA-06 Wrappers | D2D2-01 |
+| TA-07 AI-B | D2D2-02 |
+| TA-08 GIT-C | D2D2-03 |
+| TA-09 CURSOR-B | D2D2-09 · D2D3-04 |
+| TA-10 SECRET-B | D2D2-04 |
+| TA-11 EVENT-B | D2D2-05 |
+| TA-12 D3-TECH-C | D2D3-02 |
+| TA-13 Fixtures/adversarial | D2D1-07 · D2D2-07 |
+| TA-14 Slicing | G · O · BLG |
+
+**D2-D4 :** explicitement **sans story**.
+
+---
+
+## Q. Matrice de couverture des risques
+
+| Risque | Stories / gates | Mitigation | Preuve future | Statut |
+|--------|-----------------|------------|---------------|--------|
+| Double runtime | D2D1-08 | state authority unique | import-boundary | ouvert |
+| Type/schema drift | D2D1-02 · D2D1-07 | conformance | CI | ouvert |
+| State authority dupliquée | D2D1-03/08 | interdit AB | tests | ouvert |
+| Memory state loss | D2D1-06 · G-D2D-PERSIST-01 | disclosures | docs | ouvert |
+| Provider lock-in | D2D2-01 | ports | contract-fit | ouvert |
+| Secret leakage | D2D2-04 | opaque + redaction | scans | ouvert |
+| Git mutation | D2D2-03 · D2D1-04 | read-only surface | tests | ouvert |
+| Arbitrary command | D2D1-04 · D2D2-08 | deny-by-default | tests | ouvert |
+| Sandbox escape | D2D2-08 · D2D3-04 | allowlist + gate | tests | UNVERIFIED Cursor |
+| Cursor incompatibility | D2D2-09 · D2D3-04 | G-D2D-CURSOR-01 | capability GO | UNVERIFIED |
+| Event leakage | D2D2-05 | redaction | tests | ouvert |
+| Partial-as-success | D2D1-05 · D2D3-06 | Evidence authority | tests | ouvert |
+| Timeout/cancel race | D2D2-06 | AbortSignal + terminal local | tests | ouvert |
+| Late result race | D2D1-03 · D2D2-06 | evidence-only | tests | ouvert |
+| Provider/D3 leakage | D2D3-02 | DTO rules | leakage tests | ouvert |
+| Multi-instance claim | D2D1-06 · D2D3-05 | claims bornés | gate | BLOCKED claim |
+| Live tests flaky | D2D2-02/10 | live hors CI | policy | ouvert |
+| R-QA-D2C-01 | D2D2-07 · G-D2D-D2C-01 | R-C two lines | adversarial | OPEN |
+| R-QA-REV-01 | D2D2-05 · D2D1-05 | ISO timestamps | tests | OPEN |
+| R-QA-REV-02 | D2D2-05 | conserve | docs | OPEN |
+
+---
+
+## R. Fichiers candidats par story
+
+Référence candidate (non autorisée) :
 
 ```text
-MAIN_WT branch: main
-MAIN_WT HEAD: 9231858a82a252c0bea5bdd60256cee480eebb87
-MAIN_WT origin/main: 9231858a82a252c0bea5bdd60256cee480eebb87
-MAIN_WT status: (clean)
-publication branch current: docs/sfia-studio-v3-1-d2-d-technical-architecture-publication @ 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
-source remote: 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed	refs/heads/docs/sfia-studio-v3-1-d2-d-technical-architecture-publication
-source local: * docs/sfia-studio-v3-1-d2-d-technical-architecture-publication
+projects/sfia-studio/app/lib/oa/execution-run/
+  domain/
+  application/
+  ports/
+  infrastructure/
+  index.ts
 ```
 
-## Verdict
+Wrappers candidats : `platform/ai` · `platform/repository` · `platform/observability` · `platform/security` · `infrastructure` du core · patterns harness (extract/wrapper uniquement).
+
+**Marqueur :** `CANDIDATE DELIVERY SCOPE — NOT AUTHORIZED BY THIS BACKLOG CYCLE.`
+
+Une meilleure réutilisation conforme au repo peut remplacer un chemin candidat en Delivery, sans redécider TA.
+
+---
+
+## S. Critères d'acceptation du backlog (ce cycle)
+
+- [x] Trois épics distincts
+- [x] Stories requises présentes
+- [x] Une story = un résultat vérifiable
+- [x] Critères observables + scénarios négatifs
+- [x] Dépendances · gates · réserves · preuves
+- [x] DoR/DoD
+- [x] Ordre sans dates
+- [x] D2-D4 sans story
+- [x] Cursor UNVERIFIED
+- [x] D2-C correction séparée
+- [x] Persistance durable non sélectionnée
+- [x] Aucun code · aucune Delivery autorisée
+- [x] Aucun claim production-ready
+- [x] Aucune décision TA redécidée
+- [x] BLG-01…08 NOT DECIDED
+
+---
+
+## T. Decision pack Morris — D-V3.1-D2D-BLG-01…08
+
+> **Statut commun :** `NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED`
+
+### D-V3.1-D2D-BLG-01 — Structure à trois épics
+
+- **Question :** Adopter D2-D1 / D2-D2 / D2-D3 comme structure de backlog ?
+- **Options :** (1) trois épics (2) epic unique (3) fusion D1+D2
+- **Recommandation candidate :** trois épics (TA-14)
+- **Impacts :** clarté des GO Delivery futurs
+- **Risques :** sous-estimer dépendances inter-épics
+- **Dette / réversibilité :** haute pré-Delivery
+- **Dépendances :** TA-14
+- **Réserves :** —
+- **Gate suivante :** BLG arbitration
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+### D-V3.1-D2D-BLG-02 — Catalogue D2-D1
+
+- **Question :** Adopter D2D1-01…09 ?
+- **Recommandation candidate :** oui
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+### D-V3.1-D2D-BLG-03 — Catalogue D2-D2
+
+- **Question :** Adopter D2D2-01…10 (avec D2D2-09 = gate link) ?
+- **Recommandation candidate :** oui
+- **Réserves :** Cursor UNVERIFIED
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+### D-V3.1-D2D-BLG-04 — Catalogue D2-D3
+
+- **Question :** Adopter D2D3-01…07 (04/05 BLOCKED) ?
+- **Recommandation candidate :** oui
+- **Gates :** G-D2D-CURSOR-01 · G-D2D-PERSIST-01
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+### D-V3.1-D2D-BLG-05 — DoR / DoD globaux
+
+- **Question :** Adopter DoR §I et DoD §J ?
+- **Recommandation candidate :** oui
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+### D-V3.1-D2D-BLG-06 — Ordre et dépendances
+
+- **Question :** Adopter matrice N et ordre O ?
+- **Recommandation candidate :** oui
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+### D-V3.1-D2D-BLG-07 — Registre de gates
+
+- **Question :** Adopter G-D2D-CURSOR-01 · G-D2D-D2C-01 · G-D2D-PERSIST-01 · G-D2D-DELIVERY-01/02/03 ?
+- **Recommandation candidate :** oui
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+### D-V3.1-D2D-BLG-08 — Trajectoire
+
+- **Question :** Adopter trajectoire validation → publication → post-merge → GO Delivery D2-D1 uniquement ?
+- **Recommandation candidate :** oui
+- **Gate suivante :** après BLG + publication + merge + post-merge : GO Delivery D2-D1
+- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
+
+---
+
+## U. Trajectoire candidate
+
+1. Validation Morris du backlog (BLG-01…08).
+2. Publication documentaire du document 24.
+3. PR readiness documentaire.
+4. Merge documentaire.
+5. Validation post-merge.
+6. **GO Delivery D2-D1** distinct.
+7. QA et PR readiness D2-D1.
+8. **GO Delivery D2-D2** après clôture D2-D1.
+9. **GO Delivery D2-D3** après clôture D2-D2 et gates applicables.
+
+Aucune ouverture automatique. Aucun GO Delivery consommé ici.
+
+---
+
+## V. Anti-claims
+
+Ce document **n'autorise pas** et **ne revendique pas** :
+
+- backlog adopted · stories approved · Delivery authorized · D2-D1 ready for implementation
+- provider integrated · Cursor compatible · Cursor verified · sandbox secure
+- D2-C reserve lifted · durable store selected · restart-safe · multi-instance ready
+- production-ready · RUN READY · D3 ready · Git write enabled · CreateCycle enabled · method promoted
+
+---
+
+## W. Verdict documentaire
 
 ```text
-V3.1-D2-D TECHNICAL ARCHITECTURE
-PUBLICATION MERGED AND POST-MERGE VALIDATED WITH RESERVES —
+D2-D BACKLOG COMPLETE LOCALLY WITH RESERVES —
 
-PR #306 MERGED —
-MERGE COMMIT STRATEGY VERIFIED —
-MERGE SHA VERIFIED —
-PARENT 1 VERIFIED —
-PARENT 2 VERIFIED —
-INITIAL AND CORRECTION COMMITS INCLUDED —
-MAIN SYNCHRONIZED —
-EXACT SINGLE-FILE PACKAGE INTEGRATED ON MAIN —
-+1628 / -0 VERIFIED —
-DOCUMENT 23 HASH VERIFIED —
-TECHNICAL ARCHITECTURE PACKAGE HASH VERIFIED —
-MAIN CI SUCCESSFUL ON EXACT MERGE SHA —
-REQUIRED GATE SUCCESSFUL —
+MAIN POST-MERGE BASE VERIFIED —
+DOCUMENTS 20 / 21 / 22 / 23 APPLIED —
+D-CAD-01…12 APPLIED —
+D-FD-01…12 APPLIED —
+D-FA-01…12 APPLIED —
+D-TA-01…14 APPLIED —
 
-SOURCE BRANCH PRESERVED LOCALLY —
-SOURCE BRANCH PRESERVED REMOTELY —
-NO BRANCH DELETION —
+D2-D1 EPIC AND STORIES DOCUMENTED —
+D2-D2 EPIC AND STORIES DOCUMENTED —
+D2-D3 EPIC AND STORIES DOCUMENTED —
+D2-D4 WRITE OUT OF TRAJECTORY —
 
-D-CAD-01…12 ADOPTED —
-D-FD-01…12 ADOPTED —
-D-FA-01…12 ADOPTED —
-D-TA-01…14 ADOPTED —
-
-POST-ARBITRATION READING RULE VERIFIED —
-AK HISTORICAL SNAPSHOT VERIFIED —
-AQ POST-ARBITRATION CLAIMS VERIFIED —
-AN / AM / AO HISTORY PRESERVED —
-AN2 / AR AUTHORITATIVE —
+DEFINITIONS OF READY AND DONE DOCUMENTED —
+DEPENDENCIES DOCUMENTED —
+GATES DOCUMENTED —
+RISKS AND RESERVES TRANSPORTED —
+TEST AND EVIDENCE EXPECTATIONS DOCUMENTED —
+BLG-01…08 READY FOR MORRIS VALIDATION —
 
 R-QA-REV-01 OPEN NOT LIFTED —
 R-QA-REV-02 OPEN NOT LIFTED —
 R-QA-D2C-01 OPEN NOT LIFTED —
 CURSOR PRODUCT CAPABILITIES UNVERIFIED —
 
-NO BACKLOG —
-NO DELIVERY —
+NO BACKLOG DECISION ADOPTED —
+NO DELIVERY AUTHORIZED —
+NO CODE —
+NO CONFIG —
+NO DEPENDENCY CHANGE —
+NO PROVIDER LIVE —
 NO CURSOR CAPABILITY VERIFICATION —
 NO D2-C CORRECTION —
 NO UI —
-NO D3 —
+NO D3 DELIVERY —
 NO CREATECYCLE —
 NO PRODUCT GIT WRITE CAPABILITY —
 NO METHOD PROMOTION —
-NO REVERT —
-NO ADDITIONAL PROJECT MUTATION —
 
-REVIEW HANDOFF UPDATED AND REMOTE VERIFIED —
-
-READY FOR CHATGPT POST-MERGE VALIDATION
+READY FOR MORRIS BACKLOG VALIDATION
 ```
 
-## Prochaine gate candidate
+---
+
+## X. Prochaine gate candidate
 
 ```text
-GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3
+GO ARBITRATION SFIA STUDIO V3.1-D2-D BACKLOG
+APPLY D-V3.1-D2D-BLG-01…08
 ```
 
-Après validation ChatGPT du post-merge uniquement. Aucun GO backlog consommé ici.
+Après arbitrage uniquement :
 
-## Instruction ChatGPT
+```text
+GO DOCUMENTARY PUBLICATION SFIA STUDIO V3.1-D2-D BACKLOG
+```
 
-Lire handoff au nouveau TECH_ARCH_POST_MERGE_HANDOFF_TIP / BLOB. Vérifier Cycle 14, merge, parents, main, hashes, CI main, branche préservée, réserves, Cursor UNVERIFIED, absences, verdict.
+Ne pas proposer immédiatement : GO DELIVERY D2-D1 / D2-D2 / D2-D3.
+`````
+
+## 24. Diff complet (document 24 vs /dev/null)
+
+```diff
+diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/24-v3-1-d2-d-integration-foundation-backlog.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/24-v3-1-d2-d-integration-foundation-backlog.md
+new file mode 100644
+index 0000000..b179493
+--- /dev/null
++++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/24-v3-1-d2-d-integration-foundation-backlog.md
+@@ -0,0 +1,1472 @@
++# 24 — SFIA Studio V3.1-D2-D Integration Foundation — Backlog / user stories
++
++## A. Métadonnées
++
++| Champ | Valeur |
++|-------|--------|
++| **Document** | `24-v3-1-d2-d-integration-foundation-backlog.md` |
++| **Date/heure** | 2026-08-03 21:02 CEST (+0200) |
++| **Cycle** | Cycle 5 — Backlog / user stories |
++| **Profil** | Standard |
++| **Typologie** | DOC |
++| **Branche locale** | `backlog/sfia-studio-v3-1-d2-d-integration-foundation` |
++| **Base Git** | `main@9231858a82a252c0bea5bdd60256cee480eebb87` |
++| **GO Morris** | `GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3` (2026-08-03 20:46 CEST) |
++| **Documents amont (immutables)** | [20](./20-v3-1-d2-d-integration-foundation-cadrage.md) · [21](./21-v3-1-d2-d-integration-foundation-functional-design.md) · [22](./22-v3-1-d2-d-integration-foundation-functional-architecture.md) · [23](./23-v3-1-d2-d-integration-foundation-technical-architecture.md) |
++| **Précédent structure (non copié)** | [19](./19-v3-1-d2-a-b-c-delivery-backlog.md) — conventions de présentation uniquement |
++| **CKC** | Fallback `02-fifteen-cycles-synthetic-map.md` + §4.5 — method-candidate — **aucune autorité d'exécution** |
++| **Code / tests / config exécutés** | **non** |
++| **Statut** | `D2-D BACKLOG COMPLETE LOCALLY — READY FOR MORRIS BACKLOG VALIDATION — NO DELIVERY AUTHORIZED` |
++
++---
++
++## B. Règles de lecture
++
++| Marqueur | Signification |
++|----------|---------------|
++| **ADOPTED** | Décision Morris CAD/FD/FA/TA déjà adoptée |
++| **OBSERVATION** | Fait Git vérifié |
++| **STORY CANDIDATE** | Story Delivery proposée — **NOT ADOPTED** |
++| **ENABLER CANDIDATE** | Enabler technique proposé — **NOT ADOPTED** |
++| **EXTERNAL GATE** | Gate humaine/technique distincte — **NOT CONSUMED** |
++| **RESERVE** | Réserve ouverte, non levée |
++| **BLOCKED** | Story/enabler non Ready sans gate |
++| **READY CANDIDATE** | Peut devenir Ready après DoR + GO Delivery |
++| **NOT ESTIMATED** | Aucune charge/date/story point inventée |
++| **MORRIS VALIDATION REQUIRED** | Décision backlog BLG non encore prise |
++
++Aucune story candidate n'est un backlog adopté. Aucune Delivery n'est autorisée par ce document.
++
++---
++
++## C. Baseline et décisions héritées
++
++### C.1 Baseline Git (OBSERVATION)
++
++| Élément | Valeur |
++|---------|--------|
++| main | `9231858a82a252c0bea5bdd60256cee480eebb87` |
++| PR amont | #306 MERGED |
++| Document 23 | sur main · hash `6dd45467…` · package `c69f1709…` |
++| CI main | `30841765663` success |
++
++### C.2 Décisions ADOPTED (appliquées sans réinterprétation)
++
++| Pack | Statut |
++|------|--------|
++| D-CAD-01…12 | ADOPTED |
++| D-FD-01…12 | ADOPTED |
++| D-FA-01…12 | ADOPTED |
++| D-TA-01…14 | ADOPTED |
++
++### C.3 Contraintes centrales (ADOPTED)
++
++1. Ordre D2-D1 → D2-D2 → D2-D3.
++2. D2-D4 write **hors trajectoire**.
++3. Core OA `execution-run` = seule autorité technique d'état.
++4. `vertical-slice-runtime` = façade/composition server-only.
++5. `execution-contract` = gouvernance pré-exécution.
++6. Couches domain / application / ports / adapters / server composition.
++7. CONTRACT-B : TypeScript compile-time + JSON Schema/AJV runtime.
++8. Huit états : `idle` · `running` · `awaiting_human` · `succeeded` · `failed` · `cancelled` · `timed_out` · `blocked`.
++9. Repository port unique ; memory OK en D2-D1.
++10. ASYNC-B pour D2-D1/D2-D2.
++11. Wrappers provider REUSE-B ; AI-B ; GIT-C read-only ; CURSOR-B conditionnel ; SECRET-B ; EVENT-B ; D3-TECH-C.
++12. Fixtures-first ; validation avant metadata ; pas de live CI par défaut.
++13. Aucun SDK/secret vers domaine, events, evidence, fixtures, D3.
++
++### C.4 Réserves et capacités (RESERVE)
++
++| ID | Statut |
++|----|--------|
++| R-QA-REV-01 MINOR | OPEN NOT LIFTED |
++| R-QA-REV-02 MINOR | OPEN NOT LIFTED |
++| R-QA-D2C-01 MINOR | OPEN NOT LIFTED |
++| CURSOR PRODUCT CAPABILITIES | UNVERIFIED |
++
++---
++
++## D. Finalité du backlog
++
++Transformer les décisions D2-D en unités de Delivery vérifiables, **sans** redécider l'architecture et **sans** ouvrir automatiquement la Delivery.
++
++---
++
++## E. Périmètre et hors périmètre
++
++### Périmètre
++
++Épics · stories · enablers · critères · tests futurs · dépendances · priorités · gates · DoR · DoD · réserves.
++
++### Hors périmètre
++
++Code · configuration · dépendances · CI · provider live · Cursor live · correction D2-C · UI · transport D3 · persistance durable · déploiement · RUN readiness · estimation équipe · publication Git projet · CreateCycle · D2-D4 write · méthode.
++
++---
++
++## F. Principes de découpage
++
++1. Une story = un résultat vérifiable.
++2. Slice unique principale.
++3. Dépendances explicites.
++4. Gates séparées des stories Delivery.
++5. Aucun scope caché.
++6. Fixtures avant réel.
++7. Read-only first.
++8. Evidence before success.
++9. Partial never succeeded.
++10. Aucun claim au-delà des preuves.
++11. Aucun fournisseur exposé à D3.
++12. Aucun second runtime / double state authority.
++13. INVEST pragmatique ; **NOT ESTIMATED**.
++14. Pas de dates, sprints, story points ou engagements inventés.
++
++---
++
++## G. Vue d'ensemble
++
++| Slice | Objectif | Priorité candidate | Entrée | Sortie | Dépendances | Gates | Claims autorisés | Claims interdits |
++|-------|----------|--------------------|--------|--------|-------------|-------|------------------|------------------|
++| **D2-D1** | Socle contrats + core local | P0 | Docs 20–23 ; TA adoptées | Contract foundation verified (candidate) | — | G-D2D-DELIVERY-01 | D2-D1 CONTRACT FOUNDATION VERIFIED | provider integrated · production-ready · multi-instance |
++| **D2-D2** | Wrappers et frontières read-only | P1 | D2-D1 validé | Conformance wrappers (candidate) | D2-D1 | G-D2D-DELIVERY-02 · G-D2D-CURSOR-01 (pour live) · G-D2D-D2C-01 | read-only wrappers conformes | Cursor verified · durable store · Git write |
++| **D2-D3** | Coordination E2E + preuves fortes | P2 | D2-D1+D2-D2 validés | Strong evidence readiness (candidate) | D2-D2 · gates | G-D2D-DELIVERY-03 · G-D2D-CURSOR-01 · G-D2D-PERSIST-01 | levels de readiness sourcés | production-ready · RUN READY · D3 ready |
++| **D2-D4** | Write | **OUT OF TRAJECTORY** | — | — | — | — | **aucune story** | Git write enabled |
++
++P0/P1/P2 = ordre de dépendance uniquement, **pas** un calendrier.
++
++---
++
++## H. Registre des gates externes
++
++### G-D2D-CURSOR-01
++
++| Champ | Valeur |
++|-------|--------|
++| **Objet** | Cursor capability verification |
++| **Statut** | REQUIRED — NOT EXECUTED |
++| **EXTERNAL GATE** | oui |
++| **Conséquence** | Bloque adapter Cursor live et preuve sandbox-real Cursor ; ne bloque pas contrats/fixtures/policies sans Cursor réel |
++| **GO requis** | `GO CURSOR CAPABILITY VERIFICATION SFIA STUDIO V3.1-D2-D` |
++
++### G-D2D-D2C-01
++
++| Champ | Valeur |
++|-------|--------|
++| **Objet** | Correction bornée R-QA-D2C-01 |
++| **Statut** | REQUIRED BEFORE UNVALIDATED EXTERNAL BOUNDARY — NOT EXECUTED |
++| **EXTERNAL GATE** | oui |
++| **Conséquence** | D2-D valide toujours avant metadata ; correction core D2-C = cycle distinct ; **jamais** intégrée dans une story D2-D |
++| **GO requis** | `GO CORRECTION SFIA STUDIO D2-C R-QA-D2C-01` |
++
++### G-D2D-PERSIST-01
++
++| Champ | Valeur |
++|-------|--------|
++| **Objet** | Persistance durable / environnement cible |
++| **Statut** | UNDECIDED — NOT REQUIRED FOR D2-D1 — REOPEN BEFORE STRONG D2-D3 CLAIM |
++| **EXTERNAL GATE** | oui |
++| **Conséquence** | Memory OK D2-D1 ; aucun claim restart-safe/multi-instance ; décision distincte si D2-D3 l'exige |
++
++### G-D2D-DELIVERY-01 / 02 / 03
++
++| Gate | Objet | Statut |
++|------|-------|--------|
++| G-D2D-DELIVERY-01 | Delivery D2-D1 | **NOT AUTHORIZED** |
++| G-D2D-DELIVERY-02 | Delivery D2-D2 | **NOT AUTHORIZED** |
++| G-D2D-DELIVERY-03 | Delivery D2-D3 | **NOT AUTHORIZED** |
++
++Aucun gate n'est consommé par ce cycle.
++
++---
++
++## I. Definition of Ready globale
++
++Une story future est Ready uniquement si :
++
++1. décisions sources identifiées ;
++2. valeur et résultat vérifiable définis ;
++3. critères d'acceptation complets ;
++4. scénarios négatifs définis ;
++5. dépendances satisfaites ;
++6. gates nécessaires consommées ;
++7. fichiers candidats identifiés ;
++8. tests et preuves définis ;
++9. aucune décision d'architecture ouverte cachée ;
++10. aucune réserve présentée comme levée ;
++11. aucun provider live requis sans gate ;
++12. aucune estimation ou date inventée ;
++13. scope Delivery borné ;
++14. **GO Delivery spécifique obtenu**.
++
++---
++
++## J. Definition of Done globale
++
++Une story future est Done uniquement si :
++
++1. résultat vérifiable livré ;
++2. tests unitaires/contractuels attendus verts ;
++3. scénarios négatifs verts ;
++4. invariants de sécurité vérifiés ;
++5. aucun secret ou type SDK exposé ;
++6. preuves et disclosures produits ;
++7. source `fixture`/`sandbox-real`/`real` explicite ;
++8. partial ne produit jamais `succeeded` ;
++9. documentation utile mise à jour ;
++10. CI applicable verte ;
++11. réserves mises à jour sans levée implicite ;
++12. diff borné ;
++13. review pack conforme ;
++14. PR readiness et merge = cycles distincts.
++
++---
++
++## K. Epic D2-D1 — Execution Run Core and Contract Foundation
++
++| Champ | Valeur |
++|-------|--------|
++| **Objectif** | Créer le socle pur, local et fixture-first de l'exécution D2-D |
++| **Priorité** | P0 |
++| **Profil candidat Delivery** | Critical (structurant) — GO Delivery distinct requis |
++| **Contraintes** | Aucune intégration fournisseur réelle · aucun SDK dans domain/application · memory uniquement · aucun claim durable/multi-instance · aucun transport D3 · aucun Cursor live |
++| **Statut epic** | EPIC CANDIDATE — NOT ADOPTED |
++
++
++#### D2D1-01 — Canonical execution-run domain vocabulary
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les douze objets fonctionnels adoptés disposent de représentations techniques cohérentes dans le core `execution-run`. |
++| **Source decisions** | FD-01 · FA-01/02 · TA-01 · TA-02 |
++| **Dépendances** | Aucune (premier résultat D2-D1) |
++| **Réserves** | R-QA-REV-01/02 transportées (timestamps plus tard) · R-QA-D2C-01 non levée |
++| **Fichiers candidats** | `app/lib/oa/execution-run/domain/**` — CANDIDATE DELIVERY SCOPE — NOT AUTHORIZED |
++| **Hors périmètre** | Adapters · providers · UI · persistance durable · Server Actions |
++
++**Critères d'acceptation :**
++
++1. Les 12 objets sont représentés : ExecutionIntent, ExecutionContext, ProviderCapabilityDescriptor, ValidationOutcome, ExecutionRun, ExecutionState, ExternalResult, ExecutionEvidence, SourceDisclosure, HumanDecisionGate, UsageSummary, NormalizedFailure.
++2. Aucune dépendance Next/Node/SDK/FS/process/réseau dans domain.
++3. Aucune donnée secrète dans les objets.
++4. Aucun type provider-specific (OpenAI/GitHub/Cursor SDK).
++5. Discriminated unions utilisées lorsque pertinent pour l'état et les résultats.
++6. Invariants documentés et testables à la compilation.
++
++**Tests / preuves futures :**
++
++- Tests de compilation TypeScript strict.
++- Tests d'invariants de forme (guards unitaires).
++- Import-boundary smoke (domain n'importe pas adapters).
++
++**Risques :**
++
++- Domaine parallèle / vocabulaire divergent.
++- Fuite de types SDK.
++
++
++#### D2D1-02 — Runtime schemas and AJV boundary validation
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les frontières non fiables valident les contrats avec JSON Schema/AJV existant (CONTRACT-B). |
++| **Source decisions** | CAD-01 · FD-09 · TA-03 · TA-13 |
++| **Dépendances** | D2D1-01 |
++| **Réserves** | R-QA-D2C-01 OPEN — défense frontière D2-D uniquement |
++| **Fichiers candidats** | `execution-run` schemas + reuse doctrine AJV — CANDIDATE |
++| **Hors périmètre** | Zod · nouvelle lib · correction D2-C core · live providers |
++
++**Critères d'acceptation :**
++
++1. Schemas JSON = autorité runtime aux frontières non fiables.
++2. Types TypeScript = représentation compile-time.
++3. Validation **avant** lecture de metadata.
++4. Fail-closed sur null, undefined, champs invalides, payloads incomplets.
++5. Aucune nouvelle dépendance validation.
++6. Conformance types/schemas/fixtures vérifiable.
++7. Erreurs normalisées (pas d'exception brute vers D3).
++
++**Tests / preuves futures :**
++
++- Tests AJV sur payloads valides/invalides.
++- Tests adversariaux null/undefined.
++- Tests de drift type/schema/fixture.
++
++**Risques :**
++
++AJV/types drift · validation après metadata
++
++
++#### D2D1-03 — Eight-state transition authority
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le core possède une autorité unique et pure des transitions d'état. |
++| **Source decisions** | FD-02…07 · FA-03 · TA-04 |
++| **Dépendances** | D2D1-01 |
++| **Réserves** | — |
++| **Fichiers candidats** | `execution-run/domain/executionState.ts` · `executionTransitions.ts` — CANDIDATE |
++| **Hors périmètre** | Queue · worker · provider adapters |
++
++**Critères d'acceptation :**
++
++1. Exactement huit états persistants listés.
++2. Aucun état STATE-B (`created`/`queued`/`validating`).
++3. Table transitions autorisées/refusées explicite.
++4. Nouveau run + nouvelle identité après terminal.
++5. `blocked` vs `failed` discriminés.
++6. `awaiting_human` + timeout humain → `timed_out` / gate manquante → `blocked`.
++7. Cancellation terminale ; late result evidence-only (n'altère pas l'état).
++8. Fonctions de transition pures ; aucune state-machine dependency externe.
++
++**Tests / preuves futures :**
++
++- Matrice complète transitions (unit).
++- Tests late-result / cancel / timeout / human gate.
++
++**Risques :**
++
++State authority dupliquée · partial-as-success
++
++
++#### D2D1-04 — Read-only policy and normalized failure foundation
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Toute intention incompatible avec les politiques D2-D est refusée de manière normalisée. |
++| **Source decisions** | CAD-04 · FD-09 · FA-06 · TA-06 · V erreurs |
++| **Dépendances** | D2D1-01 · D2D1-02 |
++| **Réserves** | R-QA-D2C-01 OPEN |
++| **Fichiers candidats** | `execution-run/domain/executionPolicy.ts` · `executionErrors.ts` — CANDIDATE |
++| **Hors périmètre** | Git write story · Cursor live · secret manager |
++
++**Critères d'acceptation :**
++
++1. Git write refusé.
++2. Commande arbitraire refusée.
++3. Provider indisponible / permission insuffisante / protected path / sandbox blocked normalisés.
++4. Erreurs brutes non exposées.
++5. Classification retryable explicite.
++6. Aucun succès partiel.
++7. Codes candidats alignés TA (VALIDATION_ERROR, MUTATION_FORBIDDEN, …) sans adoption d'implémentation.
++
++**Tests / preuves futures :**
++
++- Policy deny matrix tests.
++- Normalization tests (raw → NormalizedFailure).
++
++**Risques :**
++
++Git mutation · arbitrary command · secret leakage via erreurs
++
++
++#### D2D1-05 — Evidence, completeness and source disclosure
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les résultats exposent une preuve, une complétude et une source honnêtes. |
++| **Source decisions** | FD-05 · FD-08 · FA-04 · TA-11 |
++| **Dépendances** | D2D1-01 · D2D1-03 |
++| **Réserves** | R-QA-REV-01 OPEN NOT LIFTED |
++| **Fichiers candidats** | `executionEvidence.ts` · `executionDisclosure.ts` — CANDIDATE |
++| **Hors périmètre** | Provider live · D3 UI |
++
++**Critères d'acceptation :**
++
++1. Sources `fixture` / `sandbox-real` / `real` obligatoires.
++2. Fixture jamais présentée comme réel.
++3. Completeness complete/partial explicite.
++4. Partial **jamais** `succeeded`.
++5. Evidence officielle ≠ résultat provider brut.
++6. Timestamps ISO validables (lien R-QA-REV-01).
++7. Données sensibles exclues.
++8. Late evidence sans mutation d'état.
++
++**Tests / preuves futures :**
++
++- Evidence unit tests.
++- Partial-never-succeeded tests.
++- Source disclosure mismatch tests.
++
++**Risques :**
++
++Partial-as-success · event leakage · timestamp drift
++
++
++#### D2D1-06 — ExecutionRunRepository memory adapter
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le core dispose d'un repository port unique et d'un adapter memory déterministe (STORE-B stage 1). |
++| **Source decisions** | TA-04 · FA-09 |
++| **Dépendances** | D2D1-01 · D2D1-03 |
++| **Réserves** | — |
++| **Fichiers candidats** | `ports/executionRunRepository.ts` · `infrastructure/memoryExecutionRunRepository.ts` — CANDIDATE |
++| **Hors périmètre** | SQLite/Postgres sélection · G-D2D-PERSIST-01 consommé |
++
++**Critères d'acceptation :**
++
++1. Port unique ExecutionRunRepository.
++2. ExecutionRunId · correlationId.
++3. Nouvelle identité après terminal.
++4. save/get nécessaires au slice.
++5. Aucune seconde autorité d'état.
++6. État process-local **divulgué**.
++7. Aucun claim restart-safe / multi-instance.
++8. Aucun choix durable implicite.
++
++**Tests / preuves futures :**
++
++- Memory repository unit tests.
++- Identity-after-terminal tests.
++- Disclosure LOCAL_PROCESS tests.
++
++**Risques :**
++
++Memory state loss · multi-instance claim
++
++
++#### D2D1-07 — Deterministic contract fixture catalogue
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le catalogue de fixtures couvre les contrats et scénarios nécessaires (fixtures-first). |
++| **Source decisions** | CAD-06 · FA-02 (Fixture Catalogue) · TA-13 · AE |
++| **Dépendances** | D2D1-02 · D2D1-04 · D2D1-05 |
++| **Réserves** | — |
++| **Fichiers candidats** | `execution-run` fixtures catalog — CANDIDATE |
++| **Hors périmètre** | Live providers · sandbox-real Cursor |
++
++**Critères d'acceptation :**
++
++1. Fixtures : nominal · validation failure · auth failure · provider unavailable · rate limit · timeout · cancellation · blocked gate · protected path · mutation forbidden · partial · invalid provider result · late result · secret redaction · source mismatch.
++2. Mêmes schemas que futurs adapters réels.
++3. Données déterministes.
++4. Aucune clé/donnée sensible.
++5. Source déclarée `fixture`.
++6. Divergence contrat/fixture détectable.
++
++**Tests / preuves futures :**
++
++- Fixture load + schema validate.
++- Determinism tests.
++- Secret-absence scan on fixtures.
++
++**Risques :**
++
++Flaky fixtures · secret in fixtures
++
++
++#### D2D1-08 — Server-only composition and import boundaries
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le core peut être composé côté serveur sans créer un second runtime. |
++| **Source decisions** | RUNTIME-C · TA-01 · TA-02 · TA-12 · AB |
++| **Dépendances** | D2D1-01…06 |
++| **Réserves** | — |
++| **Fichiers candidats** | `execution-run/index.ts` · composition root server — CANDIDATE |
++| **Hors périmètre** | UI · HTTP route · OPS1 Cursor path |
++
++**Critères d'acceptation :**
++
++1. `execution-run` = seule state authority.
++2. `vertical-slice-runtime` = façade/composition seulement.
++3. `execution-contract` = pré-exécution seulement.
++4. Aucun import client-unsafe dans domain.
++5. Aucune Server Action ou route choisie (D3-TECH-C).
++6. Aucun adapter provider réel.
++7. Tests de frontières d'import identifiés.
++
++**Tests / preuves futures :**
++
++- Import-boundary Vitest.
++- Composition smoke in-process sans providers.
++
++**Risques :**
++
++Double runtime · client bundle leak
++
++
++#### D2D1-09 — D2-D1 slice evidence and readiness pack
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D1 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les preuves permettant de décider la clôture D2-D1 sont définies et reproductibles. |
++| **Source decisions** | CAD-01 · TA-14 · AK |
++| **Dépendances** | D2D1-01…08 |
++| **Réserves** | R-QA-REV-01/02 · R-QA-D2C-01 OPEN |
++| **Fichiers candidats** | Review pack Delivery futur — CANDIDATE |
++| **Hors périmètre** | Merge Delivery sans PR readiness distincte |
++
++**Critères d'acceptation :**
++
++1. Matrice objets/schemas/tests.
++2. Matrice complète transitions.
++3. Conformance fixtures.
++4. Policy deny tests.
++5. Redaction tests.
++6. Aucune intégration réelle revendiquée.
++7. Réserves transportées.
++8. Verdict autorisé candidat : `D2-D1 CONTRACT FOUNDATION VERIFIED`.
++9. Verdicts interdits : provider integrated · production-ready · multi-instance ready.
++
++**Tests / preuves futures :**
++
++- Pack de preuves documentaire + CI unit/contract.
++- Checklist anti-claims.
++
++**Risques :**
++
++Claim excessif · DoD flou
++
++
++## L. Epic D2-D2 — Provider Boundaries and Controlled Read-only Adapters
++
++| Champ | Valeur |
++|-------|--------|
++| **Objectif** | Brancher progressivement les capacités externes read-only derrière les contrats D2-D |
++| **Priorité** | P1 |
++| **Précondition** | D2-D1 validé |
++| **Contraintes** | Wrappers uniquement · pas de SDK vers domaine/application/D3 · pas de Git write · pas de Cursor live sans gate · pas de live CI défaut |
++| **Statut epic** | EPIC CANDIDATE — NOT ADOPTED |
++
++
++#### D2D2-01 — Provider port conformance harness
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | AI, Git et Cursor peuvent être évalués derrière une même discipline de contrats, erreurs, cancellation, evidence et disclosures. |
++| **Source decisions** | FA-05 · TA-06 · REUSE-B |
++| **Dépendances** | D2-D1 stable (surtout D2D1-02/04/05) |
++| **Réserves** | — |
++| **Fichiers candidats** | `ports/aiExecutionPort.ts` · `gitReadPort.ts` · `cursorExecutionPort.ts` — CANDIDATE |
++| **Hors périmètre** | Live CI · rewrite non justifié |
++
++**Critères d'acceptation :**
++
++1. Ports provider-independent.
++2. Fake et real adapters conformes aux mêmes contrats.
++3. Contract-fit observable.
++4. Incompatibilité explicite.
++5. Targeted rewrite permis si échec.
++6. Aucun fallback silencieux.
++
++**Tests / preuves futures :**
++
++- Conformance suite fake ports.
++- Contract-fit report format.
++
++**Risques :**
++
++Provider lock-in · silent fallback
++
++
++#### D2D2-02 — AI-B platform adapter
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | La capacité AI existante est accessible via un wrapper D2-D (AI-B). |
++| **Source decisions** | TA-07 · platform AI OBSERVATION |
++| **Dépendances** | D2D2-01 · D2D1-02 · D2D1-05 · D2D2-04 |
++| **Réserves** | — |
++| **Fichiers candidats** | `infrastructure` AI wrapper — CANDIDATE DELIVERY SCOPE |
++| **Hors périmètre** | Nouveau SDK · modèle hardcodé · live default CI |
++
++**Critères d'acceptation :**
++
++1. Wrapper autour de platform AI.
++2. Modèle configurable (pas hardcodé).
++3. Secret server-only.
++4. Sortie validée.
++5. Usage exposé uniquement si validé.
++6. Timeout/cancel normalisés.
++7. Aucun prompt/résultat complet dans events/D3.
++8. Fake provider pour CI.
++9. Live opt-in uniquement.
++
++**Tests / preuves futures :**
++
++- Fake AI conformance.
++- Redaction tests.
++- Live opt-in hors CI défaut.
++
++**Risques :**
++
++Prompt leakage · live flaky
++
++
++#### D2D2-03 — GIT-C read-only adapter
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | La Git Truth distante peut être lue derrière un port transport-neutral strictement read-only. |
++| **Source decisions** | TA-08 · CAD-04 · CAD-08 |
++| **Dépendances** | D2D2-01 · D2D1-04 · D2D1-05 · D2D2-04 |
++| **Réserves** | — |
++| **Fichiers candidats** | Wrapper `GithubReadPort` — CANDIDATE |
++| **Hors périmètre** | Git write · PAT production default · silent REST fallback |
++
++**Critères d'acceptation :**
++
++1. Read-only strict ; aucune méthode write.
++2. Repository allowlist.
++3. Refs/paths validés.
++4. Timeout · rate-limit normalisé · redaction.
++5. Transport divulgué.
++6. `gh` local/sandbox possible.
++7. REST/GitHub App **non sélectionné** sans décision distincte.
++8. Aucun fallback silencieux.
++9. PAT ≠ défaut production.
++
++**Tests / preuves futures :**
++
++- Allowlist deny tests.
++- Transport disclosure tests.
++- Write-surface absence tests.
++
++**Risques :**
++
++Git mutation · auth leakage · CLI unavailable
++
++
++#### D2D2-04 — SECRET-B source boundary
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les adapters obtiennent des secrets via une frontière opaque (SECRET-B). |
++| **Source decisions** | TA-10 · CAD-08 |
++| **Dépendances** | D2D1-04/05 |
++| **Réserves** | — |
++| **Fichiers candidats** | `ports/secretSourcePort.ts` · env adapter — CANDIDATE |
++| **Hors périmètre** | Secret manager sélection · valeurs dans events |
++
++**Critères d'acceptation :**
++
++1. SecretSourcePort.
++2. Adapter env local contrôlé.
++3. Aucune valeur sérialisable.
++4. Aucune valeur dans domaine/events/evidence/fixtures/D3.
++5. Secret absent/expiré/révoqué normalisé.
++6. Aucune techno secret manager adoptée.
++
++**Tests / preuves futures :**
++
++- Opaque handle tests.
++- Redaction scan.
++- Missing-secret failure normalization.
++
++**Risques :**
++
++Secret leakage
++
++
++#### D2D2-05 — EVENT-B execution event adapter
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les événements D2-D sont adaptés vers l'EventSink existant (EVENT-B). |
++| **Source decisions** | TA-11 · FD-10 · CAD-09 |
++| **Dépendances** | D2D1-03 · D2D1-05 |
++| **Réserves** | R-QA-REV-01 OPEN · R-QA-REV-02 OPEN |
++| **Fichiers candidats** | `ports/executionEventSink.ts` · adapter EventSink — CANDIDATE |
++| **Hors périmètre** | Nouveau bus · prix inventé · prompt complet |
++
++**Critères d'acceptation :**
++
++1. Sémantique D2-D au port ; transport platform.
++2. Champs : correlationId · runId · transitions · validation · gate · cancel · timeout · late result · completeness · source · usage validé.
++3. Redaction stricte.
++4. Timestamp ISO validé.
++5. R-QA-REV-01/02 restent OPEN jusqu'aux preuves.
++6. Aucun RUN-ready/SLO.
++
++**Tests / preuves futures :**
++
++- Event schema tests.
++- Redaction tests.
++- Timestamp validation tests (REV-01).
++
++**Risques :**
++
++Event leakage · timestamp drift · dual catalogues
++
++
++#### D2D2-06 — Async, timeout, cancellation and late-result handling
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les opérations provider suivent ASYNC-B de manière déterministe. |
++| **Source decisions** | TA-05 · FD-07 · Y |
++| **Dépendances** | D2D1-03 · D2D1-06 |
++| **Réserves** | — |
++| **Fichiers candidats** | `application/executionCoordinator.ts` — CANDIDATE |
++| **Hors périmètre** | ASYNC-C queue · SLO inventé |
++
++**Critères d'acceptation :**
++
++1. Promise + AbortSignal.
++2. Timeout opérationnel et global configurables.
++3. Aucune durée production inventée.
++4. Cancellation best-effort provider.
++5. État terminal local autoritatif.
++6. Résultat tardif evidence-only.
++7. Retries uniquement sur erreurs classées ; aucun retry infini.
++8. Aucune queue ou worker permanent.
++
++**Tests / preuves futures :**
++
++- Cancel/timeout/late-result unit+integration-in-process tests.
++
++**Risques :**
++
++Cancellation race · late result race · queue prématurée
++
++
++#### D2D2-07 — D2-D adversarial input boundary
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | La frontière D2-D refuse tout payload invalide avant exploitation de metadata. |
++| **Source decisions** | CAD-10 · TA-13 · R-C · Z |
++| **Dépendances** | D2D1-02 · D2D1-04 |
++| **Réserves** | R-QA-D2C-01 OPEN NOT LIFTED |
++| **Fichiers candidats** | Policy/validation boundary — CANDIDATE |
++| **Hors périmètre** | Story D2-C correction · reserve lift |
++
++**Critères d'acceptation :**
++
++1. Validation avant metadata.
++2. null/undefined · payload partiel · enums invalides · tailles hors limites · champs interdits.
++3. Aucune exception brute.
++4. Aucun résultat partiel exploitable.
++5. R-QA-D2C-01 **non levée**.
++6. Correction du core D2-C **exclue** (G-D2D-D2C-01).
++
++**Tests / preuves futures :**
++
++- Adversarial suite.
++- Metadata-access-order tests.
++
++**Risques :**
++
++R-QA-D2C-01 · partial exploit
++
++
++#### D2D2-08 — Sandbox and protected-path contract without live Cursor
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les exigences de sandbox et de chemins protégés sont testables sans supposer Cursor compatible. |
++| **Source decisions** | CAD-07 · TA-09 · U |
++| **Dépendances** | D2D1-04 · D2D2-01 |
++| **Réserves** | CURSOR PRODUCT CAPABILITIES UNVERIFIED |
++| **Fichiers candidats** | Reuse platform/security + harness patterns — CANDIDATE |
++| **Hors périmètre** | Live Cursor · G-D2D-CURSOR-01 consommé |
++
++**Critères d'acceptation :**
++
++1. Allowlist · deny-by-default · protected paths.
++2. Aucune commande navigateur.
++3. Aucune remote Git mutation.
++4. Branch/head anchors.
++5. Timeout.
++6. Fixture adapter.
++7. Aucun claim sandbox secure.
++8. Cursor reste UNVERIFIED.
++
++**Tests / preuves futures :**
++
++- Path policy tests.
++- Fixture sandbox contract tests.
++
++**Risques :**
++
++Sandbox escape claim · Cursor compatibility claim
++
++
++#### D2D2-09 — Cursor adapter eligibility gate
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | EXTERNAL GATE LINK — NOT A DELIVERY STORY |
++| **Slice** | D2-D2 |
++| **Statut** | BLOCKED — DISTINCT MORRIS GATE REQUIRED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le backlog identifie les preuves nécessaires avant toute story Cursor live. |
++| **Source decisions** | TA-09 · G-D2D-CURSOR-01 |
++| **Dépendances** | G-D2D-CURSOR-01 |
++| **Réserves** | CURSOR UNVERIFIED |
++| **Fichiers candidats** | N/A — gate documentation only |
++| **Hors périmètre** | Cursor live adapter Delivery |
++
++**Critères d'acceptation :**
++
++1. Référence G-D2D-CURSOR-01.
++2. Capabilities exactes à vérifier.
++3. Disponibilité environnement.
++4. Process boundary.
++5. Cancellation · sandbox · preuves.
++6. Aucune implémentation live dans D2-D2 sans GO distinct.
++
++**Tests / preuves futures :**
++
++- Gate checklist (non exécutée dans ce cycle).
++
++**Risques :**
++
++Live without gate
++
++
++#### D2D2-10 — D2-D2 slice conformance and evidence pack
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D2 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Les wrappers read-only peuvent être évalués sans claim excessif. |
++| **Source decisions** | TA-14 · L |
++| **Dépendances** | D2D2-01…08 |
++| **Réserves** | R-QA-REV-01/02 · R-QA-D2C-01 · Cursor UNVERIFIED |
++| **Fichiers candidats** | Evidence pack — CANDIDATE |
++| **Hors périmètre** | Cursor live · production-ready |
++
++**Critères d'acceptation :**
++
++1. AI fake conformance.
++2. Git read conformance.
++3. SecretSource redaction.
++4. Events.
++5. Timeout/cancel.
++6. Adversarial boundary.
++7. Sandbox contract.
++8. Source disclosure.
++9. Aucun live default CI.
++10. Réserves visibles · Cursor UNVERIFIED.
++
++**Tests / preuves futures :**
++
++- Slice evidence pack + CI fake suites.
++
++**Risques :**
++
++Claim excessif
++
++
++## M. Epic D2-D3 — End-to-end Read-only Coordination and Strong Evidence
++
++| Champ | Valeur |
++|-------|--------|
++| **Objectif** | Prouver une coordination end-to-end read-only et provider-independent |
++| **Priorité** | P2 |
++| **Préconditions** | D2-D1 et D2-D2 validés |
++| **Contraintes** | Aucun Git write · aucun D3 UI · aucun transport D3 sélectionné · Cursor sandbox-real soumis au gate · aucune durabilité/multi-instance sans décision |
++| **Statut epic** | EPIC CANDIDATE — NOT ADOPTED |
++
++
++#### D2D3-01 — End-to-end execution coordination
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D3 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Une intention validée traverse intake, policy, state, provider boundary, evidence et events jusqu'à un résultat normalisé. |
++| **Source decisions** | FA-02/03/04 · TA-01 · TA-14 |
++| **Dépendances** | D2-D1 + D2-D2 validés |
++| **Réserves** | — |
++| **Fichiers candidats** | Coordinator composition — CANDIDATE |
++| **Hors périmètre** | UI · write · Cursor live sans gate |
++
++**Critères d'acceptation :**
++
++1. Ordre des autorités respecté.
++2. Aucune mutation d'état par provider.
++3. Aucune décision Morris automatisée.
++4. Fixture nominale.
++5. Provider read-only réel seulement si gate applicable.
++6. Erreurs normalisées · source explicite · partial jamais succeeded.
++
++**Tests / preuves futures :**
++
++- E2E fixture path.
++- Authority-order tests.
++
++**Risques :**
++
++Double runtime · provider mutates state
++
++
++#### D2D3-02 — Provider-independent server projection
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D3 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Une façade application transport-neutral expose une projection D3 provider-independent (D3-TECH-C). |
++| **Source decisions** | FD-11 · FA-08 · TA-12 |
++| **Dépendances** | D2D3-01 · D2D1-05 |
++| **Réserves** | — |
++| **Fichiers candidats** | `executionProjection.ts` · server facade — CANDIDATE |
++| **Hors périmètre** | UI Delivery · route selection |
++
++**Critères d'acceptation :**
++
++1. Champs : runId · état · source · progression · completeness · result redacted · failure redacted · blocked reason · human gate · evidence summary · usage validé · réserves · readiness.
++2. Aucun SDK object · secret · erreur brute · commande · Git write.
++3. Aucun Server Action/HTTP transport choisi.
++
++**Tests / preuves futures :**
++
++- Projection shape tests.
++- Leakage absence tests.
++
++**Risques :**
++
++D3 provider leakage · transport premature
++
++
++#### D2D3-03 — End-to-end evidence and truthfulness
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D3 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le parcours permet de distinguer sans ambiguïté fixture, sandbox-real et real. |
++| **Source decisions** | FD-08 · FA-04 · TA-11 |
++| **Dépendances** | D2D3-01 · D2D1-05 · D2D2-05 |
++| **Réserves** | R-QA-REV-01 OPEN |
++| **Fichiers candidats** | Evidence pipeline — CANDIDATE |
++| **Hors périmètre** | Production-ready claim |
++
++**Critères d'acceptation :**
++
++1. Evidence officielle · provider result distinct · digest/id · timestamps validés · completeness · source · late evidence · usage validé.
++2. Aucune donnée sensible.
++3. Fixture jamais présentée comme réel.
++
++**Tests / preuves futures :**
++
++- Source truthfulness suite.
++- Late evidence tests.
++
++**Risques :**
++
++Source spoof · sensitive data leak
++
++
++#### D2D3-04 — Cursor sandbox-real proof
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | BLOCKED ENABLER CANDIDATE |
++| **Slice** | D2-D3 |
++| **Statut** | BLOCKED — CURSOR PRODUCT CAPABILITIES UNVERIFIED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Une exécution Cursor sandbox-real read-only produit une preuve conforme. |
++| **Source decisions** | TA-09 · CAD-07 · G-D2D-CURSOR-01 |
++| **Dépendances** | G-D2D-CURSOR-01 consommé · sandbox contract · branch/head anchors · aucune remote Git write · gate Morris revalidée |
++| **Réserves** | CURSOR PRODUCT CAPABILITIES UNVERIFIED |
++| **Fichiers candidats** | CursorExecutionPort adapter — BLOCKED |
++| **Hors périmètre** | Live without GO · client import harness |
++
++**Critères d'acceptation :**
++
++1. Préconditions gate listées et satisfaites.
++2. Preuve conforme (evidence + source `sandbox-real`).
++3. Aucune remote Git write.
++4. Pas de claim sandbox secure sans preuve.
++
++**Tests / preuves futures :**
++
++- Opt-in sandbox-real harness (hors CI défaut) — seulement après gate.
++
++**Risques :**
++
++Cursor incompatibility · sandbox escape
++
++
++#### D2D3-05 — Strong-runtime environment and persistence gate
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | EXTERNAL GATE LINK — NOT A DELIVERY STORY |
++| **Slice** | D2-D3 |
++| **Statut** | BLOCKED — G-D2D-PERSIST-01 |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le backlog rend explicites les décisions nécessaires avant tout claim restart-safe ou multi-instance. |
++| **Source decisions** | TA-04 · TA-05 · G-D2D-PERSIST-01 · AC |
++| **Dépendances** | G-D2D-PERSIST-01 |
++| **Réserves** | — |
++| **Fichiers candidats** | N/A — gate documentation |
++| **Hors périmètre** | STORE-C adoption · queue worker |
++
++**Critères d'acceptation :**
++
++1. Environnement cible identifié.
++2. Process lifetime évalué.
++3. ASYNC-B réévalué.
++4. Persistance durable décidée si nécessaire.
++5. Locking/concurrency · cancellation après restart évalués.
++6. Aucune technologie sélectionnée dans ce backlog.
++
++**Tests / preuves futures :**
++
++- Decision pack futur (hors cycle).
++
++**Risques :**
++
++Multi-instance claim · premature durable store
++
++
++#### D2D3-06 — End-to-end negative and resilience scenarios
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D3 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Le parcours end-to-end prouve les comportements d'échec. |
++| **Source decisions** | FD-09 · TA-13 · AE |
++| **Dépendances** | D2D3-01 · D2D2-06/07 · D2D1-07 |
++| **Réserves** | — |
++| **Fichiers candidats** | Test suites — CANDIDATE |
++| **Hors périmètre** | Live-only negatives |
++
++**Critères d'acceptation :**
++
++1. Couvrir : validation failure · auth failure · provider unavailable · rate limit · timeout · cancellation · blocked gate · invalid result · partial · late result · secret redaction · source mismatch · protected path · mutation forbidden.
++2. Chaque scénario : état attendu · evidence · disclosure · pas de succeeded partiel.
++
++**Tests / preuves futures :**
++
++- E2E negative suite (fixtures first).
++
++**Risques :**
++
++Incomplete negative coverage
++
++
++#### D2D3-07 — D2-D3 strong evidence readiness review
++
++| Champ | Valeur |
++|-------|--------|
++| **Type** | STORY CANDIDATE |
++| **Slice** | D2-D3 |
++| **Statut** | STORY CANDIDATE — NOT ADOPTED |
++| **Estimation** | NOT ESTIMATED |
++| **Valeur / résultat** | Un pack de preuves permet à Morris de distinguer les niveaux de readiness (FD-12). |
++| **Source decisions** | FD-12 · CAD-12 · TA-14 |
++| **Dépendances** | D2D3-01…03 · D2D3-06 · gates applicables pour niveaux élevés |
++| **Réserves** | R-QA-* OPEN · Cursor UNVERIFIED |
++| **Fichiers candidats** | Readiness pack — CANDIDATE |
++| **Hors périmètre** | D3 Delivery · RUN READY |
++
++**Critères d'acceptation :**
++
++1. Niveaux : UX exploration · UI Delivery · strong runtime verdict.
++2. Preuves de chaque niveau.
++3. Absence de claim si preuve manquante.
++4. Cursor UNVERIFIED si gate non consommé.
++5. Persistance/multi-instance non revendiquées sans décision.
++6. Réserves transportées.
++7. Aucun verdict production-ready ou RUN READY.
++
++**Tests / preuves futures :**
++
++- Readiness matrix document + evidence checklist.
++
++**Risques :**
++
++Premature readiness claim
++
++
++## N. Matrice de dépendances
++
++| Story | Dépend de |
++|-------|-----------|
++| D2D1-01 | — |
++| D2D1-02 | D2D1-01 |
++| D2D1-03 | D2D1-01 |
++| D2D1-04 | D2D1-01 · D2D1-02 |
++| D2D1-05 | D2D1-01 · D2D1-03 |
++| D2D1-06 | D2D1-01 · D2D1-03 |
++| D2D1-07 | D2D1-02 · D2D1-04 · D2D1-05 |
++| D2D1-08 | D2D1-01…06 |
++| D2D1-09 | D2D1-01…08 |
++| D2D2-* (toutes) | Stabilité contrats D2-D1 pertinents |
++| D2D2-02 | D2D2-01 · D2D1-02/05 · D2D2-04 |
++| D2D2-03 | D2D2-01 · D2D1-04/05 · D2D2-04 |
++| D2D2-05 | D2D1-03/05 |
++| D2D2-06 | D2D1-03/06 |
++| D2D2-07 | D2D1-02/04 |
++| D2D2-09 | **G-D2D-CURSOR-01** |
++| D2D2-10 | D2D2-01…08 |
++| D2D3-* | D2-D1 + D2-D2 validés |
++| D2D3-04 | **G-D2D-CURSOR-01** |
++| D2D3-05 | **G-D2D-PERSIST-01** |
++| Strong runtime verdict | D2D3-04/05 si requis par le niveau de claim |
++
++---
++
++## O. Ordre de réalisation candidat
++
++Fondé uniquement sur les dépendances — **NOT ESTIMATED** — aucune date/sprint :
++
++1. D2D1-01
++2. D2D1-02
++3. D2D1-03
++4. D2D1-04
++5. D2D1-05
++6. D2D1-06
++7. D2D1-07
++8. D2D1-08
++9. D2D1-09
++10. **Validation D2-D1** puis D2-D2 (D2D2-01 → … → D2D2-10 ; D2D2-09 reste BLOCKED)
++11. **Validation D2-D2** + gates applicables puis D2-D3 (D2D3-01…07 ; 04/05 BLOCKED tant que gates absents)
++
++Toute modification d'ordre doit rester justifiée par les dépendances.
++
++---
++
++## P. Matrice de couverture des décisions
++
++| Décision | Couverture backlog |
++|----------|-------------------|
++| CAD-01 Minimal Foundation | D2D1-* |
++| CAD-04 Read-only / D2-D4 out | D2D1-04 · D2D2-03 · **aucune story D2-D4** |
++| CAD-05/FD-02 États | D2D1-03 |
++| CAD-06 Fixtures first | D2D1-07 |
++| CAD-07 Sandbox / Cursor UNVERIFIED | D2D2-08 · D2D2-09 · D2D3-04 |
++| CAD-08 Secrets | D2D2-04 |
++| CAD-09 Events | D2D2-05 |
++| CAD-10 R-C | D2D2-07 · G-D2D-D2C-01 |
++| CAD-11/FA-11/TA-14 Slicing | Épics K/L/M · ordre O |
++| FD-01 12 objets | D2D1-01 |
++| FD-05 Partial | D2D1-05 · D2D3-06 |
++| FD-07 Cancel/late | D2D1-03 · D2D2-06 |
++| FD-08 Sources | D2D1-05 · D2D3-03 |
++| FD-09 Failures | D2D1-04 · D2D3-06 |
++| FD-11/FA-08 D3 indep. | D2D3-02 |
++| FD-12 Readiness levels | D2D3-07 |
++| FA-03 State authority | D2D1-03 · D2D1-08 |
++| FA-04 Evidence authority | D2D1-05 |
++| FA-05 Provider boundary | D2D2-01 |
++| FA-06 Policy | D2D1-04 |
++| FA-09 RUNTIME-C | D2D1-08 |
++| FA-10 REUSE-B | D2D2-01…03 |
++| TA-01 TECH-RUN-B | D2D1-08 |
++| TA-02 Layering | D2D1-01/08 |
++| TA-03 CONTRACT-B | D2D1-02 |
++| TA-04 STORE-B | D2D1-06 · G-D2D-PERSIST-01 |
++| TA-05 ASYNC-B | D2D2-06 |
++| TA-06 Wrappers | D2D2-01 |
++| TA-07 AI-B | D2D2-02 |
++| TA-08 GIT-C | D2D2-03 |
++| TA-09 CURSOR-B | D2D2-09 · D2D3-04 |
++| TA-10 SECRET-B | D2D2-04 |
++| TA-11 EVENT-B | D2D2-05 |
++| TA-12 D3-TECH-C | D2D3-02 |
++| TA-13 Fixtures/adversarial | D2D1-07 · D2D2-07 |
++| TA-14 Slicing | G · O · BLG |
++
++**D2-D4 :** explicitement **sans story**.
++
++---
++
++## Q. Matrice de couverture des risques
++
++| Risque | Stories / gates | Mitigation | Preuve future | Statut |
++|--------|-----------------|------------|---------------|--------|
++| Double runtime | D2D1-08 | state authority unique | import-boundary | ouvert |
++| Type/schema drift | D2D1-02 · D2D1-07 | conformance | CI | ouvert |
++| State authority dupliquée | D2D1-03/08 | interdit AB | tests | ouvert |
++| Memory state loss | D2D1-06 · G-D2D-PERSIST-01 | disclosures | docs | ouvert |
++| Provider lock-in | D2D2-01 | ports | contract-fit | ouvert |
++| Secret leakage | D2D2-04 | opaque + redaction | scans | ouvert |
++| Git mutation | D2D2-03 · D2D1-04 | read-only surface | tests | ouvert |
++| Arbitrary command | D2D1-04 · D2D2-08 | deny-by-default | tests | ouvert |
++| Sandbox escape | D2D2-08 · D2D3-04 | allowlist + gate | tests | UNVERIFIED Cursor |
++| Cursor incompatibility | D2D2-09 · D2D3-04 | G-D2D-CURSOR-01 | capability GO | UNVERIFIED |
++| Event leakage | D2D2-05 | redaction | tests | ouvert |
++| Partial-as-success | D2D1-05 · D2D3-06 | Evidence authority | tests | ouvert |
++| Timeout/cancel race | D2D2-06 | AbortSignal + terminal local | tests | ouvert |
++| Late result race | D2D1-03 · D2D2-06 | evidence-only | tests | ouvert |
++| Provider/D3 leakage | D2D3-02 | DTO rules | leakage tests | ouvert |
++| Multi-instance claim | D2D1-06 · D2D3-05 | claims bornés | gate | BLOCKED claim |
++| Live tests flaky | D2D2-02/10 | live hors CI | policy | ouvert |
++| R-QA-D2C-01 | D2D2-07 · G-D2D-D2C-01 | R-C two lines | adversarial | OPEN |
++| R-QA-REV-01 | D2D2-05 · D2D1-05 | ISO timestamps | tests | OPEN |
++| R-QA-REV-02 | D2D2-05 | conserve | docs | OPEN |
++
++---
++
++## R. Fichiers candidats par story
++
++Référence candidate (non autorisée) :
++
++```text
++projects/sfia-studio/app/lib/oa/execution-run/
++  domain/
++  application/
++  ports/
++  infrastructure/
++  index.ts
++```
++
++Wrappers candidats : `platform/ai` · `platform/repository` · `platform/observability` · `platform/security` · `infrastructure` du core · patterns harness (extract/wrapper uniquement).
++
++**Marqueur :** `CANDIDATE DELIVERY SCOPE — NOT AUTHORIZED BY THIS BACKLOG CYCLE.`
++
++Une meilleure réutilisation conforme au repo peut remplacer un chemin candidat en Delivery, sans redécider TA.
++
++---
++
++## S. Critères d'acceptation du backlog (ce cycle)
++
++- [x] Trois épics distincts
++- [x] Stories requises présentes
++- [x] Une story = un résultat vérifiable
++- [x] Critères observables + scénarios négatifs
++- [x] Dépendances · gates · réserves · preuves
++- [x] DoR/DoD
++- [x] Ordre sans dates
++- [x] D2-D4 sans story
++- [x] Cursor UNVERIFIED
++- [x] D2-C correction séparée
++- [x] Persistance durable non sélectionnée
++- [x] Aucun code · aucune Delivery autorisée
++- [x] Aucun claim production-ready
++- [x] Aucune décision TA redécidée
++- [x] BLG-01…08 NOT DECIDED
++
++---
++
++## T. Decision pack Morris — D-V3.1-D2D-BLG-01…08
++
++> **Statut commun :** `NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED`
++
++### D-V3.1-D2D-BLG-01 — Structure à trois épics
++
++- **Question :** Adopter D2-D1 / D2-D2 / D2-D3 comme structure de backlog ?
++- **Options :** (1) trois épics (2) epic unique (3) fusion D1+D2
++- **Recommandation candidate :** trois épics (TA-14)
++- **Impacts :** clarté des GO Delivery futurs
++- **Risques :** sous-estimer dépendances inter-épics
++- **Dette / réversibilité :** haute pré-Delivery
++- **Dépendances :** TA-14
++- **Réserves :** —
++- **Gate suivante :** BLG arbitration
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++### D-V3.1-D2D-BLG-02 — Catalogue D2-D1
++
++- **Question :** Adopter D2D1-01…09 ?
++- **Recommandation candidate :** oui
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++### D-V3.1-D2D-BLG-03 — Catalogue D2-D2
++
++- **Question :** Adopter D2D2-01…10 (avec D2D2-09 = gate link) ?
++- **Recommandation candidate :** oui
++- **Réserves :** Cursor UNVERIFIED
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++### D-V3.1-D2D-BLG-04 — Catalogue D2-D3
++
++- **Question :** Adopter D2D3-01…07 (04/05 BLOCKED) ?
++- **Recommandation candidate :** oui
++- **Gates :** G-D2D-CURSOR-01 · G-D2D-PERSIST-01
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++### D-V3.1-D2D-BLG-05 — DoR / DoD globaux
++
++- **Question :** Adopter DoR §I et DoD §J ?
++- **Recommandation candidate :** oui
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++### D-V3.1-D2D-BLG-06 — Ordre et dépendances
++
++- **Question :** Adopter matrice N et ordre O ?
++- **Recommandation candidate :** oui
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++### D-V3.1-D2D-BLG-07 — Registre de gates
++
++- **Question :** Adopter G-D2D-CURSOR-01 · G-D2D-D2C-01 · G-D2D-PERSIST-01 · G-D2D-DELIVERY-01/02/03 ?
++- **Recommandation candidate :** oui
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++### D-V3.1-D2D-BLG-08 — Trajectoire
++
++- **Question :** Adopter trajectoire validation → publication → post-merge → GO Delivery D2-D1 uniquement ?
++- **Recommandation candidate :** oui
++- **Gate suivante :** après BLG + publication + merge + post-merge : GO Delivery D2-D1
++- **Statut :** NOT DECIDED — MORRIS BACKLOG VALIDATION REQUIRED
++
++---
++
++## U. Trajectoire candidate
++
++1. Validation Morris du backlog (BLG-01…08).
++2. Publication documentaire du document 24.
++3. PR readiness documentaire.
++4. Merge documentaire.
++5. Validation post-merge.
++6. **GO Delivery D2-D1** distinct.
++7. QA et PR readiness D2-D1.
++8. **GO Delivery D2-D2** après clôture D2-D1.
++9. **GO Delivery D2-D3** après clôture D2-D2 et gates applicables.
++
++Aucune ouverture automatique. Aucun GO Delivery consommé ici.
++
++---
++
++## V. Anti-claims
++
++Ce document **n'autorise pas** et **ne revendique pas** :
++
++- backlog adopted · stories approved · Delivery authorized · D2-D1 ready for implementation
++- provider integrated · Cursor compatible · Cursor verified · sandbox secure
++- D2-C reserve lifted · durable store selected · restart-safe · multi-instance ready
++- production-ready · RUN READY · D3 ready · Git write enabled · CreateCycle enabled · method promoted
++
++---
++
++## W. Verdict documentaire
++
++```text
++D2-D BACKLOG COMPLETE LOCALLY WITH RESERVES —
++
++MAIN POST-MERGE BASE VERIFIED —
++DOCUMENTS 20 / 21 / 22 / 23 APPLIED —
++D-CAD-01…12 APPLIED —
++D-FD-01…12 APPLIED —
++D-FA-01…12 APPLIED —
++D-TA-01…14 APPLIED —
++
++D2-D1 EPIC AND STORIES DOCUMENTED —
++D2-D2 EPIC AND STORIES DOCUMENTED —
++D2-D3 EPIC AND STORIES DOCUMENTED —
++D2-D4 WRITE OUT OF TRAJECTORY —
++
++DEFINITIONS OF READY AND DONE DOCUMENTED —
++DEPENDENCIES DOCUMENTED —
++GATES DOCUMENTED —
++RISKS AND RESERVES TRANSPORTED —
++TEST AND EVIDENCE EXPECTATIONS DOCUMENTED —
++BLG-01…08 READY FOR MORRIS VALIDATION —
++
++R-QA-REV-01 OPEN NOT LIFTED —
++R-QA-REV-02 OPEN NOT LIFTED —
++R-QA-D2C-01 OPEN NOT LIFTED —
++CURSOR PRODUCT CAPABILITIES UNVERIFIED —
++
++NO BACKLOG DECISION ADOPTED —
++NO DELIVERY AUTHORIZED —
++NO CODE —
++NO CONFIG —
++NO DEPENDENCY CHANGE —
++NO PROVIDER LIVE —
++NO CURSOR CAPABILITY VERIFICATION —
++NO D2-C CORRECTION —
++NO UI —
++NO D3 DELIVERY —
++NO CREATECYCLE —
++NO PRODUCT GIT WRITE CAPABILITY —
++NO METHOD PROMOTION —
++
++READY FOR MORRIS BACKLOG VALIDATION
++```
++
++---
++
++## X. Prochaine gate candidate
++
++```text
++GO ARBITRATION SFIA STUDIO V3.1-D2-D BACKLOG
++APPLY D-V3.1-D2D-BLG-01…08
++```
++
++Après arbitrage uniquement :
++
++```text
++GO DOCUMENTARY PUBLICATION SFIA STUDIO V3.1-D2-D BACKLOG
++```
++
++Ne pas proposer immédiatement : GO DELIVERY D2-D1 / D2-D2 / D2-D3.
+```
+
+## 25. Git Truth final (avant publication handoff)
+
+| Champ | Valeur |
+|-------|--------|
+| Branche | `backlog/sfia-studio-v3-1-d2-d-integration-foundation` |
+| HEAD | `9231858a82a252c0bea5bdd60256cee480eebb87` |
+| origin/main | `9231858a82a252c0bea5bdd60256cee480eebb87` |
+| status --short | |
+```
+?? projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/24-v3-1-d2-d-integration-foundation-backlog.md
+```
+| staged | `(vide)` |
+| tracked diff | `(vide)` |
+| untracked | |
+```
+projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/24-v3-1-d2-d-integration-foundation-backlog.md
+```
+| remote backlog branch | `(absente)` |
+| PR backlog | `(absente)` |
+
+### Preuves
+
+- staged vide : **oui**
+- aucun tracked modifié : **oui**
+- aucun commit/push/PR projet : **oui**
+- document 24 non tracké uniquement (projet) : **oui**
+
+---
+
+## 26. Handoff before / after
+
+### Before
+
+| Champ | Valeur |
+|-------|--------|
+| tip | `26b7f0907ed7981fbe4fe57f964a8b23eb1f73c1` |
+| blob | `08a8f2aee5b478ca3eba9feb007f1d804f6bb448` |
+
+### After
+
+Le tip et le blob du présent rapport sont calculés après publication.
+Ils sont remontés dans le rapport terminal Cursor et vérifiés
+indépendamment par ChatGPT afin d'éviter une boucle autoréférentielle.
+
+Placeholders post-publication (remplis après publisher) :
+
+- `D2D_BACKLOG_HANDOFF_TIP` : *(pending publish)*
+- `D2D_BACKLOG_HANDOFF_BLOB` : *(pending publish)*
+- `D2D_BACKLOG_HANDOFF_PARENT` : *(pending publish)*
+
+---
+
+## 27. Verdict
+
+```text
+V3.1-D2-D BACKLOG COMPLETE LOCALLY WITH RESERVES —
+
+MAIN POST-MERGE BASE VERIFIED —
+DOCUMENTS 20 / 21 / 22 / 23 APPLIED —
+D-CAD-01…12 APPLIED —
+D-FD-01…12 APPLIED —
+D-FA-01…12 APPLIED —
+D-TA-01…14 APPLIED —
+
+D2-D1 EPIC AND STORIES DOCUMENTED —
+D2-D2 EPIC AND STORIES DOCUMENTED —
+D2-D3 EPIC AND STORIES DOCUMENTED —
+D2-D4 WRITE OUT OF TRAJECTORY —
+
+DEFINITIONS OF READY AND DONE DOCUMENTED —
+DEPENDENCY MATRIX DOCUMENTED —
+EXTERNAL GATES DOCUMENTED —
+DECISION COVERAGE DOCUMENTED —
+RISK COVERAGE DOCUMENTED —
+TEST AND EVIDENCE EXPECTATIONS DOCUMENTED —
+D-V3.1-D2D-BLG-01…08 READY FOR MORRIS VALIDATION —
+
+R-QA-REV-01 OPEN NOT LIFTED —
+R-QA-REV-02 OPEN NOT LIFTED —
+R-QA-D2C-01 OPEN NOT LIFTED —
+CURSOR PRODUCT CAPABILITIES UNVERIFIED —
+
+NO BACKLOG DECISION ADOPTED —
+NO DELIVERY AUTHORIZED —
+NO CODE —
+NO CONFIG —
+NO DEPENDENCY CHANGE —
+NO PROVIDER LIVE —
+NO CURSOR CAPABILITY VERIFICATION —
+NO D2-C CORRECTION —
+NO UI —
+NO D3 DELIVERY —
+NO CREATECYCLE —
+NO PRODUCT GIT WRITE CAPABILITY —
+NO METHOD PROMOTION —
+
+REVIEW HANDOFF UPDATED AND REMOTE VERIFIED — (pending publish verification)
+
+READY FOR CHATGPT VALIDATION
+READY FOR MORRIS BACKLOG VALIDATION
+```
+
+---
+
+## 28. Prochaine gate candidate
+
+```text
+GO ARBITRATION SFIA STUDIO V3.1-D2-D BACKLOG
+APPLY D-V3.1-D2D-BLG-01…08
+```
+
+Après arbitrage uniquement :
+
+```text
+GO DOCUMENTARY PUBLICATION SFIA STUDIO V3.1-D2-D BACKLOG
+```
+
+Après publication, merge et post-merge uniquement :
+
+```text
+GO DELIVERY SFIA STUDIO V3.1-D2-D1
+```
+
+D2-D2 et D2-D3 nécessiteront ensuite leurs propres GO Delivery.
+
+---
+
+## 29. Instruction ChatGPT finale
+
+Avant toute réponse à Morris, ChatGPT doit lire depuis Git :
+
+`sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md`
+
+au nouveau `D2D_BACKLOG_HANDOFF_TIP` et `D2D_BACKLOG_HANDOFF_BLOB` remontés par Cursor,
+et vérifier indépendamment Cycle 5, GO, main@9231858a…, docs 20–23, document 24 complet,
+CKC fallback, trois épics, stories, DoR/DoD, gates, dépendances, ordre, couverture,
+BLG-01…08 non décidées, réserves ouvertes, Cursor UNVERIFIED, aucun code/config/dépendance,
+aucun staging/commit/push/PR projet, handoff mono-fichier, verdict.
