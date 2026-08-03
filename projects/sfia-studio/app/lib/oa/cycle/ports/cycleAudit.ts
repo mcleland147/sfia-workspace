@@ -79,6 +79,22 @@ export type CycleAuditEvent =
       durationMs: number;
     }
   | {
+      event:
+        | "oa.ckc.resolution_started"
+        | "oa.ckc.resolution_succeeded"
+        | "oa.ckc.resolution_failed"
+        | "oa.ckc.fallback_used"
+        | "oa.ckc.consumption_validated"
+        | "oa.ckc.consumption_rejected";
+      ts: string;
+      correlationId: string;
+      cycleTypeId: string;
+      result: "started" | "ok" | "error" | "fallback";
+      detailedStatus?: string;
+      detailCode?: string;
+      durationMs?: number;
+    }
+  | {
       event: "oa.cycle.load_failed";
       ts: string;
       correlationId?: string;

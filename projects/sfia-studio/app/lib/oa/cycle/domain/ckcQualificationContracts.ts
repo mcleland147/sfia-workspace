@@ -2,6 +2,12 @@ import type {
   CycleTypeCkcMapping,
   CycleTypeLifecycleStatus,
 } from "./cycleTypeCatalog";
+import type {
+  CkcFallbackPolicy,
+  CkcLevel,
+  CkcSource,
+  CkcStatus,
+} from "./types";
 
 /** Read-only context required to select a cycle type from the D1 catalog. */
 export type CatalogSelectionContext = {
@@ -73,3 +79,35 @@ export type CatalogProjectionFailure = {
 export type CatalogProjectionResult =
   | CatalogProjectionSuccess
   | CatalogProjectionFailure;
+
+/** Detailed D2-B state retained alongside the deliberately coarser T-A2 types. */
+export type CkcQualificationDetailedStatus =
+  | "resolved_detailed"
+  | "resolved_synthetic"
+  | "resolved_fallback_synthetic"
+  | "unresolved_invalid_mapping"
+  | "unresolved_unavailable"
+  | "unresolved_catalog_incompatible"
+  | "unresolved_cycle_not_selectable";
+
+/** Immutable output of the D2-B resolver before consumption proof validation. */
+export type CkcQualificationResolution = {
+  readonly cycleTypeId: string;
+  readonly detailedStatus: CkcQualificationDetailedStatus;
+  readonly level: CkcLevel;
+  readonly status: CkcStatus;
+  readonly source: CkcSource;
+  readonly fallbackPolicy: CkcFallbackPolicy;
+  readonly expectedPrimaryReference: string;
+  readonly usedReference?: string;
+  readonly fallbackUsed: boolean;
+  readonly fallbackReference?: string;
+  readonly doctrineStatus: "method-candidate";
+  readonly executionAuthority: false;
+  readonly catalogVersion: string;
+  readonly catalogHash: string;
+  readonly correlationId: string;
+  readonly resolvedAt: string;
+  readonly exploitable: boolean;
+  readonly disclosures: readonly string[];
+};
