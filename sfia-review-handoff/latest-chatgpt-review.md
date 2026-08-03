@@ -1,215 +1,126 @@
-# Full Review Pack — SFIA Studio V3.1-D2-D Technical Architecture PR Readiness
+# Full Review Pack — SFIA Studio V3.1-D2-D Technical Architecture Post-Merge
 
 ## Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure début** | 2026-08-03 20:10:22 CEST (+0200) |
-| **Date/heure fin** | 2026-08-03 20:12:29 CEST +0200 |
-| **Rôle** | Cursor (Cycle 13 — PR readiness) |
-| **Cycle** | Cycle 13 — PR readiness |
+| **Date/heure début** | 2026-08-03 20:32:12 CEST +0200 |
+| **Date/heure fin** | 2026-08-03 20:35:47 CEST +0200 |
+| **Rôle** | Cursor (Cycle 14 — Post-merge) |
+| **Cycle** | Cycle 14 — Post-merge |
 | **Profil** | Standard |
 | **Typologie** | DOC |
+| **MERGE_EXECUTED** | **true** |
+| **MERGE_SHA** | `9231858a82a252c0bea5bdd60256cee480eebb87` |
 | **PR** | #306 |
-| **Verdict** | READY FOR CHATGPT VALIDATION — CANDIDATE: READY FOR MORRIS MERGE DECISION WITH RESERVES |
+| **Verdict** | READY FOR CHATGPT POST-MERGE VALIDATION |
 
-## GO Morris
+## GO Morris consommé
 
 ```text
-GO PR READINESS SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE PUBLICATION
+GO MERGE SFIA STUDIO V3.1-D2-D
+TECHNICAL ARCHITECTURE PUBLICATION PR #306
+
+AUTHORIZE:
+- FINAL BASE / HEAD / CI REVALIDATION
+- MARK READY IF REQUIRED
+- MERGE PR #306
+- POST-MERGE VALIDATION
+
+PRESERVE THE SOURCE BRANCH.
+NO BRANCH DELETION.
+
+NO BACKLOG
+NO DELIVERY
+NO CURSOR CAPABILITY VERIFICATION
+NO D2-C CORRECTION
+NO UI
+NO D3
+NO CREATECYCLE
+NO METHOD PROMOTION
 ```
 
-Date/heure : **2026-08-03 20:00 CEST (+0200)**
+Date/heure GO : **2026-08-03 20:24 CEST (+0200)**
 
-Autorisé : contrôles read-only Git/GitHub · inspection PR · document · commits · hashes · CI · réserves · Full Review Pack · handoff L3.
-Interdit : toute mutation projet/PR · mark ready · merge · backlog · Delivery · code · UI · D3 · CreateCycle · Cursor capability · D2-C · levée réserve · méthode.
+### Autorisations / interdictions
+
+Autorisé : revalidation · mark ready · merge commit · post-merge · CI main · conservation branche · handoff L3.
+Interdit : squash/rebase/auto/admin/delete-branch · backlog · Delivery · Cursor capability · D2-C · UI · D3 · CreateCycle · méthode · rollback/revert auto.
 
 ## CKC fallback
 
-Cycle 13 — PR readiness : contrat détaillé absent ; fallback synthetic map + v2.5 §4.13 ; experimental ; aucune autorité d'exécution. Risque évité : READY uniquement parce que CI verte.
-
-## Git Truth initial
-
-| Check | Résultat |
-|-------|----------|
-| Branche | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-| HEAD / origin/pub | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| origin/main | `e273b2afc33445154f63226fdfe8357c75df67f8` |
-| Divergence | 0 2 |
-| Staged / tracked | vides |
-| Untracked | `.tmp-sfia-review/**` |
-| Handoff tip/blob | `fff8a520…` / `d3aad2e2…` |
+Cycle 14 — Post-merge : contrat détaillé absent ; fallback synthetic map + v2.5 §4.14 ; experimental ; aucune autorité d'exécution. Risque évité : validation sans CI main exacte.
 
 ## Sources consultées
 
-Méthode 1–11 ; document 23 @ initial + head ; handoff correction ; PR #306 ; CI `30838670663`.
+Méthode 1–11 ; document 23 ; handoff PR readiness `18789d0…`/`1d1cf49…` ; PR #306 ; CI PR `30838670663` ; CI main `30841765663`.
 
-## Métadonnées PR #306
+## Git Truth initial
+
+Branche publication @ `08d6cd0…` · origin/main `e273b2af…` · divergence 0 2 · staged/tracked vides · `.tmp-sfia-review/**`.
+
+## PR avant mark ready
+
+OPEN · Draft=true · base `e273b2af…` · head `08d6cd0…` · 2 commits · 1 file · +1628/−0 · MERGEABLE · CLEAN · CI `30838670663` success · aucun feedback actionnable.
+
+## Repository settings
+
+| Setting | Value |
+|---------|-------|
+| allow_merge_commit | **true** |
+| delete_branch_on_merge | **false** |
+| Branche distante avant merge | `08d6cd0…` présente |
+
+## Handoff PR readiness source
+
+| Tip | Blob |
+|-----|------|
+| `18789d0dd14a713c5025f8df90db07663bfbeac3` | `1d1cf495f06ba6bd2feac9047fd0af4840138261` |
+
+Verdict source : READY FOR MORRIS MERGE DECISION WITH RESERVES.
+
+## Mark ready
 
 | Champ | Valeur |
 |-------|--------|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/306 |
-| state / isDraft / mergedAt | OPEN / True / None |
-| title | docs(sfia-studio): publish V3.1-D2-D technical architecture |
-| base | main @ `e273b2afc33445154f63226fdfe8357c75df67f8` |
-| head | docs/sfia-studio-v3-1-d2-d-technical-architecture-publication @ `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| commits | 2 |
-| files | 1 |
-| +/− | 1628 / 0 |
-| mergeable / mergeStateStatus | MERGEABLE / CLEAN |
-| reviewDecision |  |
-| reviews | 0 |
+| Commande | `gh pr ready 306` |
+| Heure | 2026-08-03 20:32:51 CEST +0200 |
+| Après | OPEN · isDraft=false · base/head inchangés · MERGEABLE · CLEAN |
+| Checks | toujours pass sur head exact |
 
-### Body PR complet
+## Merge
 
----BEGIN PR BODY---
-## Objectif
+| Champ | Valeur |
+|-------|--------|
+| Commande | `gh pr merge 306 --merge --match-head-commit 08d6cd0…` |
+| Heure | 2026-08-03 20:32:56 CEST +0200 |
+| Strategy | **merge commit** |
+| PRE_MERGE_MAIN | `e273b2afc33445154f63226fdfe8357c75df67f8` |
+| EXPECTED_HEAD | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| MERGE_SHA | `9231858a82a252c0bea5bdd60256cee480eebb87` |
+| Parent 1 | `e273b2afc33445154f63226fdfe8357c75df67f8` |
+| Parent 2 | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| Ancestry init+head | **OK** |
+| Tree head == merge | **OK** |
+| MERGE_EXECUTED | **true** |
 
-Publier le document 23 — architecture technique V3.1-D2-D Integration Foundation — comme record Git autoritatif après arbitrage Morris D-V3.1-D2D-TA-01…14.
-
-## GO Morris (arbitrage + publication)
+### Merge commit
 
 ```text
-GO ARBITRATION SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE
-(+ autorisation de publication documentaire du document 23)
-ADOPT D-V3.1-D2D-TA-01…14
-```
+commit 9231858a82a252c0bea5bdd60256cee480eebb87
+Merge: e273b2a 08d6cd0
+Author:     mcleland147 <m.cleland@live.fr>
+AuthorDate: Mon Aug 3 20:32:57 2026 +0200
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Aug 3 20:32:57 2026 +0200
 
-Date/heure décision Morris : **2026-08-03 19:24 CEST (+0200)**
-
-## Correction de cohérence post-arbitrage
-
-```text
-GO CORRECTION SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE PUBLICATION PR #306
-
-DOCUMENT 23 ONLY
-NO AMEND
-NO FORCE PUSH
-NO MARK READY
-NO MERGE
-NO BACKLOG
-NO DELIVERY
-```
-
-Date/heure du GO : **2026-08-03 19:44 CEST (+0200)**
-
-**Cause du blocage ChatGPT :** sections AK et AQ présentaient encore des formulations pré-arbitrage (« TA-01…14 NOT DECIDED », anti-claims « technical architecture adopted / runtime selected / AJV strategy adopted / persistence selected ») comme si elles contredisaient AN2/AR.
-
-| Champ | Valeur |
-|-------|--------|
-| Commit initial | `7df15936fc843b08ce2a59e39455d78bb92c2464` |
-| Commit correctif | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| Commits totaux | **2** |
-| Scope | document 23 uniquement |
-| Modifications | métadonnée Publication correction · règle de lecture post-arbitrage · AK qualifié historique + état courant · AQ post-arbitrage |
-| AN / AM / AO | **préservés** (historique) |
-| AN2 / AR / AS / AP | **inchangés** |
-| PRE_CORRECTION_DOCUMENT_23_SHA256 | `4525acf987c20054aefc1f1e79267f5f592a1a0afb6e25d5803b731e970e6548` |
-| CORRECTED_DOCUMENT_23_SHA256 | `6dd4546728e981d4cdfcfc2997e06f8afa46493adff4e905013e7b9bf33b4ce9` |
-| PRE_CORRECTION_PACKAGE_HASH | `0a22c4a33fbdbd3b7e1a01aa3f64dcad328b011edfb8cf1f6f8665471e9125e8` |
-| CORRECTED_TECH_ARCH_PACKAGE_HASH | `c69f17095525eb1f0ae3dde5dc4208af39952bdce1fb71efe3f8d04cb92f684c` |
-| CI corrective | `30838670663` — https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663 — **success** |
-| Required Gate | success |
-| PR | **OPEN Draft** — no mark ready — no merge — branche préservée |
-| Réserves | R-QA-REV-01/02 · R-QA-D2C-01 — OPEN NOT LIFTED |
-| Cursor | PRODUCT CAPABILITIES **UNVERIFIED** |
-
-## Git
-
-| Champ | Valeur |
-|-------|--------|
-| PR | #306 — https://github.com/mcleland147/sfia-workspace/pull/306 |
-| Base | `main@e273b2afc33445154f63226fdfe8357c75df67f8` |
-| Head | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| Branche | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-| Commits | 2 |
-| Scope | document 23 uniquement |
-| Stats PR | +1628 / −0 |
-| État | **OPEN Draft** — mergedAt=null |
-
-## Provenance / hashes (publication initiale)
-
-| Champ | Valeur |
-|-------|--------|
-| Handoff tip publication | `b88c79d84a2384fa323c17544f1d5d4344ca4b02` |
-| Handoff blob publication | `839e3efcb06b0aa4dcefc0715514099ffafd2dca` |
-| SOURCE_DOCUMENT_23_SHA256 | `a722822251533049e65c68de497151d2fed2c283559529a81dd9a85906fa1a41` |
-| Document hash pré-correction | `4525acf987c20054aefc1f1e79267f5f592a1a0afb6e25d5803b731e970e6548` |
-| Package hash pré-correction | `0a22c4a33fbdbd3b7e1a01aa3f64dcad328b011edfb8cf1f6f8665471e9125e8` |
-
-Méthode package hash : path UTF-8 + `\0` + len + `\0` + bytes.
-
-## CI
-
-| Champ | Valeur |
-|-------|--------|
-| CI initiale | `30837359308` success sur `7df1593…` |
-| CI corrective (actuelle) | `30838670663` success sur `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
-| Jobs | Detect · Build · Required Gate — **success** |
-
-## Décisions enregistrées
-
-- D-CAD-01…12 · D-FD-01…12 · D-FA-01…12 · **D-TA-01…14 ADOPTED** (AN2 inchangé)
-
-## Absences
-
-aucun code/config/dépendance · aucun backlog/Delivery/UI/D3/CreateCycle · aucune product Git write · **Draft** · pas de mark ready · pas de merge · pas d'amend · pas de force-push
-
-## Gates
-
-- Prochaine : `GO PR READINESS SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE PUBLICATION`
-- Merge : GO distinct
-- Backlog : après merge + CI main + post-merge + ChatGPT
-
----END PR BODY---
-
-## Chaîne de commits
-
-```text
-08d6cd0dd1503a7f261bf1fe527dba782d8f27ed 7df15936fc843b08ce2a59e39455d78bb92c2464 docs(sfia-studio): align D2-D technical architecture post-arbitration claims
-7df15936fc843b08ce2a59e39455d78bb92c2464 e273b2afc33445154f63226fdfe8357c75df67f8 docs(sfia-studio): publish V3.1-D2-D technical architecture
-
-```
-
-### Commit initial
-
-```text
-commit 7df15936fc843b08ce2a59e39455d78bb92c2464
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Mon Aug 3 19:33:57 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Mon Aug 3 19:33:57 2026 +0200
+    Merge pull request #306 from mcleland147/docs/sfia-studio-v3-1-d2-d-technical-architecture-publication
 
     docs(sfia-studio): publish V3.1-D2-D technical architecture
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
-
 ```
 
-### Commit correctif
-
-```text
-commit 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Mon Aug 3 19:51:57 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Mon Aug 3 19:51:57 2026 +0200
-
-    docs(sfia-studio): align D2-D technical architecture post-arbitration claims
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-M	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
-
-```
-
-Preuves : ancestry-path linéaire exacte · parent initial = main · parent correctif = initial · **aucun** amend/rebase/squash/merge commit.
-
-## Diff complet main → head
+## Diff merge complet (parent1 → MERGE_SHA)
 
 ```diff
 diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
@@ -1849,212 +1760,134 @@ index 0000000..c190151
 
 ```
 
-## Diff correctif initial → head
-
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
-index e2bb683..c190151 100644
---- a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-framing/23-v3-1-d2-d-integration-foundation-technical-architecture.md
-@@ -18,6 +18,7 @@
- | **Code / tests / config / UI** | **non** |
- | **Statut** | `D2-D TECHNICAL ARCHITECTURE — ARBITRATED BY MORRIS — DOCUMENTARY RECORD VERSIONED VIA GIT — AUTHORITATIVE PUBLICATION STATE FOLLOWS PR/MAIN — NO BACKLOG OR DELIVERY AUTHORIZED` |
- | **Publication branch candidate** | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
-+| **Publication correction** | `2026-08-03 19:44 CEST (+0200) — correction de cohérence post-arbitrage AK/AQ ; aucune décision TA modifiée` |
-
- ### Légende des marqueurs
-
-@@ -36,6 +37,31 @@
- | **DETTE** | Coût différé explicite |
- | **GATE FUTURE** | Nécessite GO Morris distinct |
-
-+### Règle de lecture post-arbitrage
-+
-+Le présent document conserve les options, ADR, recommandations,
-+checklists et formulations candidates produites pendant le cycle
-+d'architecture technique, avant l'arbitrage Morris du
-+2026-08-03 19:24 CEST (+0200).
-+
-+Ces éléments constituent un historique de conception. Leur statut
-+« NOT ADOPTED », « NOT DECIDED » ou équivalent décrit leur état
-+au moment de leur rédaction ; il ne contredit pas l'arbitrage ultérieur.
-+
-+Après cet arbitrage :
-+
-+1. la section AN reste le decision pack historique pré-arbitrage ;
-+2. les sections AM et AO restent l'historique des ADR et recommandations candidates ;
-+3. la section AK reste le snapshot de validation du cycle pré-arbitrage ;
-+4. la section AN2 est le record autoritatif des décisions Morris ;
-+5. la section AR expose le verdict décisionnel courant ;
-+6. la section AQ expose les anti-claims encore applicables après arbitrage.
-+
-+En cas d'écart de statut temporel :
-+
-+AN2 et AR priment pour les décisions adoptées.
-+Les sections historiques restent conservées pour la traçabilité.
-+
- ---
-
- ## B. Décisions héritées (ADOPTED)
-@@ -885,7 +911,16 @@ budgets configurables · no duplicate call · bounded retries · fixture first
-
- ---
-
--## AK. Critères d'acceptation (ce cycle documentaire)
-+## AK. Critères d'acceptation — snapshot historique du cycle pré-arbitrage
-+
-+> **Statut temporel :** cette checklist décrit l'état du document à la
-+> clôture du cycle d'architecture technique, avant l'arbitrage Morris du
-+> 2026-08-03 19:24 CEST (+0200). Les lignes
-+> « Aucune architecture implicitement adoptée » et
-+> « TA-01…14 NOT DECIDED » étaient exactes à cette date.
-+> Elles sont désormais supplantées, pour l'état décisionnel courant,
-+> par AN2 et AR. Elles sont conservées sans réécriture rétrospective.
-+
-
- - [x] Plusieurs options par décision structurante
- - [x] Runtime owner options comparées (TECH-RUN-A/B/C)
-@@ -909,6 +944,15 @@ budgets configurables · no duplicate call · bounded retries · fixture first
- - [x] Aucune architecture implicitement adoptée
- - [x] TA-01…14 NOT DECIDED
-
-+### État décisionnel courant après arbitrage
-+
-+- Architecture technique D2-D : **ARBITRATED BY MORRIS**.
-+- D-V3.1-D2D-TA-01…14 : **DECIDED — ADOPTED BY MORRIS**.
-+- Implémentation : **NON EXÉCUTÉE**.
-+- Backlog : **NON CRÉÉ**.
-+- Delivery : **NON AUTORISÉE**.
-+- Références autoritatives : **AN2 et AR**.
-+
- ---
-
- ## AL. Questions ouvertes (INCONNUES)
-@@ -1435,23 +1479,90 @@ Chaque item : **CANDIDATE — NOT ADOPTED.**
-
- Aucune transition automatique. Aucun backlog ni user story créé dans ce document.
-
--## AQ. Anti-claims
--
--Ce document **n'autorise pas** et **ne revendique pas** :
--
--- technical architecture adopted
--- runtime selected
--- AJV strategy adopted
--- persistence selected
--- multi-instance ready
--- Cursor compatible
--- sandbox secure
--- secret store selected
--- provider integrated
--- production-ready / RUN READY / scalable / secure
--- backlog ready / Delivery ready / D3 ready
--- reserve lifted
--- Git write enabled / CreateCycle enabled / method promoted
-+## AQ. État décisionnel et anti-claims post-arbitrage
-+
-+### Décisions d'architecture désormais adoptées
-+
-+AN2 et AR autorisent les affirmations documentaires suivantes :
-+
-+- l'architecture technique D2-D a été arbitrée par Morris ;
-+- TECH-RUN-B est adopté comme choix de runtime owner et de packaging ;
-+- `execution-run` est la seule autorité technique d'état D2-D ;
-+- CONTRACT-B est adopté :
-+  TypeScript pour la représentation compile-time et
-+  JSON Schema/AJV pour la validation runtime aux frontières non fiables ;
-+- STORE-B est adopté comme stratégie de persistance progressive ;
-+- ASYNC-B est adopté pour D2-D1 et D2-D2 ;
-+- les provider ports et wrappers REUSE-B sont adoptés ;
-+- AI-B, GIT-C, SECRET-B, EVENT-B et D3-TECH-C sont adoptés ;
-+- CURSOR-B est adopté conditionnellement ;
-+- le slicing D2-D1 → D2-D2 → D2-D3 est adopté ;
-+- D2-D4 write reste hors trajectoire.
-+
-+### Distinctions obligatoires
-+
-+Les décisions ci-dessus ne signifient pas que :
-+
-+- l'implémentation existe ;
-+- une cible de déploiement est sélectionnée ;
-+- un store durable concret est sélectionné ;
-+- le système est restart-safe ou multi-instance ;
-+- Cursor est compatible ou validé ;
-+- la sandbox est sécurisée ;
-+- les fournisseurs sont intégrés ;
-+- une interface D3 ou un transport HTTP/Server Action est sélectionné ;
-+- le backlog, la Delivery ou D3 sont autorisés.
-+
-+En particulier :
-+
-+- « runtime owner et packaging sélectionnés » est autorisé ;
-+- « runtime de déploiement ou environnement d'exécution sélectionné » reste interdit ;
-+- « stratégie STORE-B adoptée » est autorisé ;
-+- « technologie de persistance durable sélectionnée » reste interdit ;
-+- « CONTRACT-B/AJV adopté » est autorisé ;
-+- « implémentation et conformité AJV prouvées » reste interdit sans Delivery et tests.
-+
-+### Claims toujours interdits
-+
-+Ce document n'autorise pas et ne revendique pas :
-+
-+- implementation complete ;
-+- provider integrated ;
-+- live provider validated ;
-+- production-ready ;
-+- RUN READY ;
-+- scalable ;
-+- secure ;
-+- SLO proven ;
-+- durable store selected ;
-+- restart-safe ;
-+- multi-instance ready ;
-+- queue or permanent worker selected ;
-+- Cursor compatible ;
-+- CURSOR PRODUCT CAPABILITIES VERIFIED ;
-+- sandbox secure ;
-+- secret manager selected ;
-+- hosted GitHub authentication selected ;
-+- D3 transport selected ;
-+- backlog ready ;
-+- Delivery ready ;
-+- D3 ready ;
-+- reserve lifted ;
-+- Git write enabled ;
-+- CreateCycle enabled ;
-+- method promoted.
-+
-+### Réserves et gates maintenues
-+
-+- R-QA-REV-01 : **OPEN NOT LIFTED**.
-+- R-QA-REV-02 : **OPEN NOT LIFTED**.
-+- R-QA-D2C-01 : **OPEN NOT LIFTED**.
-+- CURSOR PRODUCT CAPABILITIES : **UNVERIFIED**.
-+- Correction D2-C : cycle et GO distincts.
-+- Cursor capability verification : cycle et GO distincts.
-+- Backlog : uniquement après merge documentaire et validation post-merge.
-+- Delivery : GO distinct après backlog.
-+- D3 : aucune ouverture automatique.
-
- ---
-
-
-```
-
 ## Scope / stats
 
-| Diff | Résultat |
-|------|----------|
-| main…head | A document 23 · +1628/−0 |
-| initial→correctif | M document 23 · +129/−18 |
-| diff-check | vide |
-| Autre fichier | **aucun** |
+1 fichier A · +1628/−0 · diff-check vide.
 
-## Document 23 complet (head corrigé)
+## PR finale
 
-Hash : `6dd4546728e981d4cdfcfc2997e06f8afa46493adff4e905013e7b9bf33b4ce9`
-Package : `c69f17095525eb1f0ae3dde5dc4208af39952bdce1fb71efe3f8d04cb92f684c`
-Pré-correction : `4525acf9…` / `0a22c4a3…`
+| Champ | Valeur |
+|-------|--------|
+| state | MERGED |
+| isDraft | False |
+| mergedAt | 2026-08-03T18:32:57Z |
+| mergeCommit | `9231858a82a252c0bea5bdd60256cee480eebb87` |
+| headRefOid | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| commits / files / +/− | 2 / 1 / 1628 / 0 |
+
+Note : GitHub PR state and main are authoritative after merge. The PR body remains the immutable pre-merge documentary snapshot.
+
+### Body PR (snapshot pré-merge)
+
+---BEGIN PR BODY---
+## Objectif
+
+Publier le document 23 — architecture technique V3.1-D2-D Integration Foundation — comme record Git autoritatif après arbitrage Morris D-V3.1-D2D-TA-01…14.
+
+## GO Morris (arbitrage + publication)
+
+```text
+GO ARBITRATION SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE
+(+ autorisation de publication documentaire du document 23)
+ADOPT D-V3.1-D2D-TA-01…14
+```
+
+Date/heure décision Morris : **2026-08-03 19:24 CEST (+0200)**
+
+## Correction de cohérence post-arbitrage
+
+```text
+GO CORRECTION SFIA STUDIO V3.1-D2-D
+TECHNICAL ARCHITECTURE PUBLICATION PR #306
+
+DOCUMENT 23 ONLY
+NO AMEND
+NO FORCE PUSH
+NO MARK READY
+NO MERGE
+NO BACKLOG
+NO DELIVERY
+```
+
+Date/heure du GO : **2026-08-03 19:44 CEST (+0200)**
+
+**Cause du blocage ChatGPT :** sections AK et AQ présentaient encore des formulations pré-arbitrage (« TA-01…14 NOT DECIDED », anti-claims « technical architecture adopted / runtime selected / AJV strategy adopted / persistence selected ») comme si elles contredisaient AN2/AR.
+
+| Champ | Valeur |
+|-------|--------|
+| Commit initial | `7df15936fc843b08ce2a59e39455d78bb92c2464` |
+| Commit correctif | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| Commits totaux | **2** |
+| Scope | document 23 uniquement |
+| Modifications | métadonnée Publication correction · règle de lecture post-arbitrage · AK qualifié historique + état courant · AQ post-arbitrage |
+| AN / AM / AO | **préservés** (historique) |
+| AN2 / AR / AS / AP | **inchangés** |
+| PRE_CORRECTION_DOCUMENT_23_SHA256 | `4525acf987c20054aefc1f1e79267f5f592a1a0afb6e25d5803b731e970e6548` |
+| CORRECTED_DOCUMENT_23_SHA256 | `6dd4546728e981d4cdfcfc2997e06f8afa46493adff4e905013e7b9bf33b4ce9` |
+| PRE_CORRECTION_PACKAGE_HASH | `0a22c4a33fbdbd3b7e1a01aa3f64dcad328b011edfb8cf1f6f8665471e9125e8` |
+| CORRECTED_TECH_ARCH_PACKAGE_HASH | `c69f17095525eb1f0ae3dde5dc4208af39952bdce1fb71efe3f8d04cb92f684c` |
+| CI corrective | `30838670663` — https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663 — **success** |
+| Required Gate | success |
+| PR | **OPEN Draft** — no mark ready — no merge — branche préservée |
+| Réserves | R-QA-REV-01/02 · R-QA-D2C-01 — OPEN NOT LIFTED |
+| Cursor | PRODUCT CAPABILITIES **UNVERIFIED** |
+
+## Git
+
+| Champ | Valeur |
+|-------|--------|
+| PR | #306 — https://github.com/mcleland147/sfia-workspace/pull/306 |
+| Base | `main@e273b2afc33445154f63226fdfe8357c75df67f8` |
+| Head | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| Branche | `docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
+| Commits | 2 |
+| Scope | document 23 uniquement |
+| Stats PR | +1628 / −0 |
+| État | **OPEN Draft** — mergedAt=null |
+
+## Provenance / hashes (publication initiale)
+
+| Champ | Valeur |
+|-------|--------|
+| Handoff tip publication | `b88c79d84a2384fa323c17544f1d5d4344ca4b02` |
+| Handoff blob publication | `839e3efcb06b0aa4dcefc0715514099ffafd2dca` |
+| SOURCE_DOCUMENT_23_SHA256 | `a722822251533049e65c68de497151d2fed2c283559529a81dd9a85906fa1a41` |
+| Document hash pré-correction | `4525acf987c20054aefc1f1e79267f5f592a1a0afb6e25d5803b731e970e6548` |
+| Package hash pré-correction | `0a22c4a33fbdbd3b7e1a01aa3f64dcad328b011edfb8cf1f6f8665471e9125e8` |
+
+Méthode package hash : path UTF-8 + `\0` + len + `\0` + bytes.
+
+## CI
+
+| Champ | Valeur |
+|-------|--------|
+| CI initiale | `30837359308` success sur `7df1593…` |
+| CI corrective (actuelle) | `30838670663` success sur `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| Jobs | Detect · Build · Required Gate — **success** |
+
+## Décisions enregistrées
+
+- D-CAD-01…12 · D-FD-01…12 · D-FA-01…12 · **D-TA-01…14 ADOPTED** (AN2 inchangé)
+
+## Absences
+
+aucun code/config/dépendance · aucun backlog/Delivery/UI/D3/CreateCycle · aucune product Git write · **Draft** · pas de mark ready · pas de merge · pas d'amend · pas de force-push
+
+## Gates
+
+- Prochaine : `GO PR READINESS SFIA STUDIO V3.1-D2-D TECHNICAL ARCHITECTURE PUBLICATION`
+- Merge : GO distinct
+- Backlog : après merge + CI main + post-merge + ChatGPT
+
+---END PR BODY---
+
+## Synchronisation main
+
+MAIN_WT=`/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge`
+`git worktree add` + `merge --ff-only origin/main`
+HEAD = origin/main = `9231858a82a252c0bea5bdd60256cee480eebb87` · tracked propre · staged vide.
+
+## Document 23 complet sur main
 
 ---BEGIN DOCUMENT 23---
 # 23 — SFIA Studio V3.1-D2-D Integration Foundation — Architecture technique
@@ -3688,22 +3521,18 @@ Précisions :
 
 ---END DOCUMENT 23---
 
-## Validations sections (synthèse evidence-based)
+## Hashes sur main
 
-| Section | Résultat |
-|---------|----------|
-| A métadonnées | ARBITRATED · pub branch · correction 19:44 · base exacte |
-| Règle lecture post-arbitrage | présente ; AN2/AR priment |
-| AN historique | TA-01…14 NOT DECIDED préservés |
-| AM | PROPOSED — NOT ADOPTED préservé |
-| AO | CANDIDATE — NOT ADOPTED préservé |
-| AN2 | 14× DECIDED — ADOPTED BY MORRIS ; TECH-RUN-B…slicing |
-| AK | snapshot historique + état courant |
-| AQ | décisions adoptées + distinctions + claims interdits |
-| AR | verdict courant TA adoptées · réserves · Cursor UNVERIFIED |
-| AS | GO PR READINESS ; pas de merge/backlog implicite |
+| Artefact | SHA-256 |
+|----------|---------|
+| Document 23 | `6dd4546728e981d4cdfcfc2997e06f8afa46493adff4e905013e7b9bf33b4ce9` |
+| **PACKAGE_HASH** | `c69f17095525eb1f0ae3dde5dc4208af39952bdce1fb71efe3f8d04cb92f684c` |
 
-### Extraits AK / AN2 / AQ / AR / AS
+Méthode : path + `\0` + len + `\0` + bytes. **MATCH**.
+
+## Validation AK / AQ / AN2 / AR
+
+### AK (extrait)
 
 ## AK. Critères d'acceptation — snapshot historique du cycle pré-arbitrage
 
@@ -3750,6 +3579,8 @@ Précisions :
 ---
 
 
+
+### AN2 (extrait)
 
 ## AN2. Decision record Morris — 2026-08-03 19:24 CEST (+0200)
 
@@ -4040,6 +3871,8 @@ Date/heure décision Morris : **2026-08-03 19:24 CEST (+0200)**
 
 
 
+### AQ (extrait)
+
 ## AQ. État décisionnel et anti-claims post-arbitrage
 
 ### Décisions d'architecture désormais adoptées
@@ -4129,6 +3962,8 @@ Ce document n'autorise pas et ne revendique pas :
 
 
 
+### AR (extrait)
+
 ## AR. Verdict documentaire
 
 ```text
@@ -4176,61 +4011,23 @@ NO METHOD PROMOTION
 
 
 
-## AS. Prochaine gate
+## Décisions
 
-```text
-GO PR READINESS SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE PUBLICATION
-```
+D-CAD-01…12 · D-FD-01…12 · D-FA-01…12 · **D-TA-01…14 ADOPTED**
+TECH-RUN-B · CONTRACT-B · STORE-B · ASYNC-B D1/D2 · wrappers · AI-B · GIT-C · CURSOR-B conditionnel · SECRET-B · EVENT-B · D3-TECH-C · slicing · D2-D4 hors trajectoire.
 
-Précisions :
-
-- aucun GO merge implicite ;
-- aucun GO backlog implicite ;
-- aucun GO Delivery implicite ;
-- après merge et validation post-merge uniquement :
-  `GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3` ;
-- Cursor capability verification et correction D2-C restent des gates distinctes.
-
-
-## Décisions D-TA-01…14
-
-Toutes **DECIDED — ADOPTED BY MORRIS** (AN2) : TECH-RUN-B · layering · CONTRACT-B · STORE-B · ASYNC-B D1/D2 · wrappers REUSE-B · AI-B · GIT-C · CURSOR-B conditionnel · SECRET-B · EVENT-B · D3-TECH-C · fixtures-first/R-QA-D2C-01 · slicing D2-D1→D2-D2→D2-D3 · D2-D4 hors trajectoire.
-
-## Commentaires / reviews
-
-```text
-checks:
-Build and validate SFIA Studio	pass	1m36s	https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663/job/91770110844
-Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663/job/91770067841
-SFIA Studio Required Gate	pass	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663/job/91770520177
-
-
-required:
-SFIA Studio Required Gate	pass	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663/job/91770520177
-
-
-comments:
-(empty)
-```
-
-Inline comments : 0 · Reviews : 0 · reviewDecision : null · **aucun feedback actionnable**.
-
-## Mergeability
-
-MERGEABLE · CLEAN · Draft · non mergée.
-
-## CI exacte
+## CI main (exact MERGE_SHA)
 
 | Champ | Valeur |
 |-------|--------|
-| Run ID | `30838670663` |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30838670663 |
-| event / headSha | pull_request / `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed` |
+| Run ID | `30841765663` |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/30841765663 |
+| event | push |
+| headSha | `9231858a82a252c0bea5bdd60256cee480eebb87` |
 | conclusion | **success** |
 | Jobs | {'Detect SFIA Studio changes': 'success', 'Build and validate SFIA Studio': 'success', 'SFIA Studio Required Gate': 'success'} |
 
-Steps Build :
+Steps Build:
 ```text
 Set up job: success
 Checkout: success
@@ -4248,124 +4045,119 @@ Post Checkout: success
 Complete job: success
 ```
 
-Secret pattern scan : success · Trailing whitespace : success · Required Gate : success.
+CI PR héritée : `30838670663` success.
+
+## Branche source préservée
+
+| Emplacement | État |
+|-------------|------|
+| Distante | `08d6cd0dd1503a7f261bf1fe527dba782d8f27ed	refs/heads/docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
+| Locale | `* docs/sfia-studio-v3-1-d2-d-technical-architecture-publication` |
+
+**Aucune** suppression.
 
 ## Réserves
 
-| ID | Statut | Readiness |
-|----|--------|-----------|
-| R-QA-REV-01 MINOR | OPEN NOT LIFTED | non bloquante pour merge documentaire si visible |
-| R-QA-REV-02 MINOR | OPEN NOT LIFTED | non bloquante pour merge documentaire si visible |
-| R-QA-D2C-01 MINOR | OPEN NOT LIFTED | non bloquante pour cette PR ; GO D2-C distinct avant frontière externe |
-| CURSOR PRODUCT CAPABILITIES | UNVERIFIED | non bloquante pour publication ; bloquante avant live adapter claim |
+| ID | Statut |
+|----|--------|
+| R-QA-REV-01 MINOR | OPEN NOT LIFTED |
+| R-QA-REV-02 MINOR | OPEN NOT LIFTED |
+| R-QA-D2C-01 MINOR | OPEN NOT LIFTED |
+| CURSOR PRODUCT CAPABILITIES | UNVERIFIED |
 
-**Non transformé en « réserve levée » ni « capacité validée ».**
+Non bloquantes pour le merge documentaire effectué ; non levées ; D2-C et Cursor capability = gates distinctes.
 
-## Handoff source (correction)
+## Absences
 
-| Tip | Blob |
-|-----|------|
-| `fff8a520af7543fb03bb677c17cda27c7908221a` | `d3aad2e251f29884336f56611ef3ec3da5bfa387` |
+Aucune suppression branche · backlog · Delivery · Cursor capability verification · D2-C correction · UI · D3 · CreateCycle · product Git write · méthode · revert · mutation projet supplémentaire.
 
-Contient Cycle 9 · GO correction · before/after · hashes · PR #306 · CI 30838670663 · AK/AQ · AN2 inchangé · READY FOR CHATGPT REVALIDATION. **Complet.**
-
-## Anti-claims respectés
-
-Aucun claim : MERGE AUTHORIZED · MERGED · READY FOR BACKLOG · DELIVERY AUTHORIZED · CURSOR VERIFIED · D3 AUTHORIZED · production-ready · reserve lifted.
-
-## Absence de mutation (ce cycle)
-
-Aucune modification fichier projet · aucun `gh pr edit/ready/merge` · aucun commit/push projet · staged vide · HEAD inchangé.
-
-## Handoff predecessor (ce cycle)
+## Handoff predecessor
 
 | Tip | Blob |
 |-----|------|
-| `fff8a520af7543fb03bb677c17cda27c7908221a` | `d3aad2e251f29884336f56611ef3ec3da5bfa387` |
+| `18789d0dd14a713c5025f8df90db07663bfbeac3` | `1d1cf495f06ba6bd2feac9047fd0af4840138261` |
 
 ### Note anti-autoréférence
 
 Le tip et le blob du présent rapport sont calculés après publication. Ils sont remontés dans le rapport terminal Cursor et vérifiés indépendamment par ChatGPT afin d'éviter une boucle autoréférentielle.
 
-## Git Truth final (pré-handoff publish)
+## Git Truth final
 
 ```text
-branch: docs/sfia-studio-v3-1-d2-d-technical-architecture-publication
-HEAD: 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
-origin/main: e273b2afc33445154f63226fdfe8357c75df67f8
-origin/pub: 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
-divergence: 0	2
-status:
-?? .tmp-sfia-review/
+MAIN_WT branch: main
+MAIN_WT HEAD: 9231858a82a252c0bea5bdd60256cee480eebb87
+MAIN_WT origin/main: 9231858a82a252c0bea5bdd60256cee480eebb87
+MAIN_WT status: (clean)
+publication branch current: docs/sfia-studio-v3-1-d2-d-technical-architecture-publication @ 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
+source remote: 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed	refs/heads/docs/sfia-studio-v3-1-d2-d-technical-architecture-publication
+source local: * docs/sfia-studio-v3-1-d2-d-technical-architecture-publication
 ```
 
 ## Verdict
 
 ```text
 V3.1-D2-D TECHNICAL ARCHITECTURE
-PUBLICATION PR READINESS PASS WITH RESERVES —
+PUBLICATION MERGED AND POST-MERGE VALIDATED WITH RESERVES —
 
-PR #306 VERIFIED —
-PR OPEN AND DRAFT —
-BASE / HEAD VERIFIED —
-TWO-COMMIT LINEAR HISTORY VERIFIED —
-INITIAL PUBLICATION COMMIT PRESERVED —
-CORRECTION COMMIT VERIFIED —
-NO AMEND / REBASE / SQUASH VERIFIED —
-EXACT SINGLE-FILE SCOPE VERIFIED —
+PR #306 MERGED —
+MERGE COMMIT STRATEGY VERIFIED —
+MERGE SHA VERIFIED —
+PARENT 1 VERIFIED —
+PARENT 2 VERIFIED —
+INITIAL AND CORRECTION COMMITS INCLUDED —
+MAIN SYNCHRONIZED —
+EXACT SINGLE-FILE PACKAGE INTEGRATED ON MAIN —
 +1628 / -0 VERIFIED —
+DOCUMENT 23 HASH VERIFIED —
+TECHNICAL ARCHITECTURE PACKAGE HASH VERIFIED —
+MAIN CI SUCCESSFUL ON EXACT MERGE SHA —
+REQUIRED GATE SUCCESSFUL —
 
-DOCUMENT 23 COMPLETE —
+SOURCE BRANCH PRESERVED LOCALLY —
+SOURCE BRANCH PRESERVED REMOTELY —
+NO BRANCH DELETION —
+
+D-CAD-01…12 ADOPTED —
+D-FD-01…12 ADOPTED —
+D-FA-01…12 ADOPTED —
+D-TA-01…14 ADOPTED —
+
 POST-ARBITRATION READING RULE VERIFIED —
 AK HISTORICAL SNAPSHOT VERIFIED —
 AQ POST-ARBITRATION CLAIMS VERIFIED —
 AN / AM / AO HISTORY PRESERVED —
-AN2 MORRIS DECISION RECORD VERIFIED —
-AR CURRENT VERDICT VERIFIED —
-D-TA-01…14 ADOPTED —
-
-DOCUMENT HASH VERIFIED —
-PACKAGE HASH VERIFIED —
-PR BODY VERIFIED —
-NO ACTIONABLE REVIEW FEEDBACK —
-MERGEABLE WITHOUT CONFLICT —
-EXACT PR CI SUCCESSFUL —
-REQUIRED GATE SUCCESSFUL —
-CORRECTED REVIEW HANDOFF VERIFIED —
+AN2 / AR AUTHORITATIVE —
 
 R-QA-REV-01 OPEN NOT LIFTED —
 R-QA-REV-02 OPEN NOT LIFTED —
 R-QA-D2C-01 OPEN NOT LIFTED —
 CURSOR PRODUCT CAPABILITIES UNVERIFIED —
 
-RESERVES NON-BLOCKING FOR THIS DOCUMENTARY MERGE ONLY —
-
-NO PROJECT MUTATION —
-NO PR MUTATION —
-NO MARK READY —
-NO MERGE —
-NO BRANCH DELETION —
 NO BACKLOG —
 NO DELIVERY —
-NO CODE —
+NO CURSOR CAPABILITY VERIFICATION —
+NO D2-C CORRECTION —
 NO UI —
 NO D3 —
 NO CREATECYCLE —
+NO PRODUCT GIT WRITE CAPABILITY —
 NO METHOD PROMOTION —
+NO REVERT —
+NO ADDITIONAL PROJECT MUTATION —
 
-READY FOR CHATGPT VALIDATION —
-CANDIDATE: READY FOR MORRIS MERGE DECISION WITH RESERVES
+REVIEW HANDOFF UPDATED AND REMOTE VERIFIED —
+
+READY FOR CHATGPT POST-MERGE VALIDATION
 ```
 
 ## Prochaine gate candidate
 
 ```text
-GO MERGE SFIA STUDIO V3.1-D2-D
-TECHNICAL ARCHITECTURE PUBLICATION PR #306
+GO BACKLOG SFIA STUDIO V3.1-D2-D1 / D2-D2 / D2-D3
 ```
 
-Après validation ChatGPT uniquement. Ne pas autoriser automatiquement : suppression branche · backlog · Delivery · Cursor capability · D2-C · D3.
+Après validation ChatGPT du post-merge uniquement. Aucun GO backlog consommé ici.
 
 ## Instruction ChatGPT
 
-Lire handoff au nouveau TECH_ARCH_PR_READINESS_HANDOFF_TIP / BLOB. Vérifier Cycle 13, PR #306, 2 commits, scope, doc23, AK/AQ/AN2/AR, hashes, CI `30838670663`, réserves, absence mutation, verdict.
+Lire handoff au nouveau TECH_ARCH_POST_MERGE_HANDOFF_TIP / BLOB. Vérifier Cycle 14, merge, parents, main, hashes, CI main, branche préservée, réserves, Cursor UNVERIFIED, absences, verdict.
