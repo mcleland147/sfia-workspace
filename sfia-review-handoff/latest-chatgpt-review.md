@@ -6841,7 +6841,27 @@ cached: (empty)
 | | Tip | Blob |
 |--|-----|------|
 | **Before** | `7419cb222b1121bff095af92e47ca775c953fd4b` | `5c64fad83476aaad56369b676679c14117cff001` |
-| **After** | *(vérifier via git après publish)* | *(vérifier via git après publish)* |
+| **After — publication documentaire initiale** | `da77aaede74ac5b8ed115af66bbbbaa5bae44038` | `9dfec6c596aeb10e976fdae32b51e021d8e9ed9d` |
+
+### Note de régularisation — 2026-08-03 18:05 CEST (+0200)
+
+Les valeurs « After » ci-dessus décrivent le tip et le blob produits à l'issue du cycle documentaire initial.
+
+Elles ont été vérifiées depuis Git avant cette régularisation :
+
+- tip : `da77aaede74ac5b8ed115af66bbbbaa5bae44038`
+- blob : `9dfec6c596aeb10e976fdae32b51e021d8e9ed9d`
+
+La présente régularisation modifie uniquement cette métadonnée de traçabilité.
+
+Le tip et le blob du nouveau commit de régularisation sont nécessairement calculés après création du commit. Ils ne sont donc pas auto-inscrits comme les propres identifiants du fichier, afin d'éviter une boucle autoréférentielle. Ils doivent être :
+
+1. calculés après publication ;
+2. vérifiés sur `origin/sfia/review-handoff` ;
+3. remontés dans le rapport terminal Cursor ;
+4. vérifiés indépendamment par ChatGPT.
+
+Aucun fichier projet, état de PR, décision, réserve ou contenu documentaire 20–22 n'est modifié.
 
 ## Verdict
 
