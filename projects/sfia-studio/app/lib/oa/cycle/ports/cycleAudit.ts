@@ -95,6 +95,21 @@ export type CycleAuditEvent =
       durationMs?: number;
     }
   | {
+      event:
+        | "oa.ckc.qualification_started"
+        | "oa.ckc.qualification_succeeded"
+        | "oa.ckc.result_produced"
+        | "oa.ckc.request_failed";
+      ts: string;
+      correlationId: string;
+      cycleTypeId: string;
+      result: "started" | "ok" | "error";
+      detailedStatus?: string;
+      recommendedProfile?: string;
+      detailCode?: string;
+      durationMs?: number;
+    }
+  | {
       event: "oa.cycle.load_failed";
       ts: string;
       correlationId?: string;

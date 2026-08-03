@@ -613,7 +613,7 @@ describe("V3.1-D2-A QA — public fingerprint/catalog binding (critical)", () =>
 });
 
 describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
-  it("keeps the public boundary limited to adopted D2-A and D2-B exports", () => {
+  it("allows adopted D2-A/B/C exports while forbidding later-cycle wiring", () => {
     const source = readFileSync(
       path.resolve(__dirname, "../../../lib/oa/cycle/index.ts"),
       "utf8",
@@ -638,8 +638,15 @@ describe("V3.1-D2-A QA — public boundary, immutability and imports", () => {
     expect(source).toContain(
       'export * from "./infrastructure/ckcQualificationResolver";',
     );
+    expect(source).toContain(
+      'export * from "./domain/ckcQualificationResult";',
+    );
+    expect(source).toContain(
+      'export * from "./application/qualifyCycleWithCkc";',
+    );
+    expect(source).toContain("createCkcQualificationServices");
     expect(source).not.toMatch(
-      /QualifyCycleBridge|qualifyCycleWithCkc|ckcQualificationResult|createD2|D2Factory|createCkcQualificationServices/,
+      /QualifyCycleBridge|createD2|D2Factory|D2-D|D3|createInMemoryCycleServices\([^)]*qualifyCycleWithCkc/,
     );
   });
 
