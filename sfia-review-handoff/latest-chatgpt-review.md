@@ -81,7 +81,7 @@ Le Success reprend les métadonnées D2-A, la preuve D2-B originale, la recomman
 - QualifyCycle ×1: tests mock + événement T-A2 réel; ×0 sur catalogue, resolver, preuve ou signaux invalides.
 - Audit hostile: fail-closed, message sûr, aucune réémission récursive après échec d'audit.
 - Clock hostile: Failure sûre avec timestamp de secours déterministe; exception non exposée.
-- Factory: uniquement audit, resolver, qualifyCycle, qualifyCycleWithCkc; aucun repository/store/CreateCycle exposé.
+- Factory: uniquement audit, resolver et qualifyCycleWithCkc; aucun repository/store/CreateCycle exposé.
 
 ## Fichiers créés — contenu complet
 
