@@ -365,7 +365,7 @@ export class QualifyCycleWithCkc {
         resolvedAt: this.clock.nowIso(),
       });
     } catch {
-      return this.internalFailure(request, true);
+      return this.internalFailure(request, this.auditHasFailed());
     }
     if (!resolutionOutcome.ok) {
       if (resolutionOutcome.error.code === "D2_INTERNAL_ERROR") {
@@ -433,7 +433,7 @@ export class QualifyCycleWithCkc {
         ...(request.scope !== undefined ? { scope: request.scope } : {}),
       });
     } catch {
-      return this.internalFailure(request, true);
+      return this.internalFailure(request, this.auditHasFailed());
     }
 
     const qualifiedAt = this.clock.nowIso();
@@ -537,6 +537,13 @@ export class QualifyCycleWithCkc {
     } catch {
       return "1970-01-01T00:00:00.000Z";
     }
+  }
+
+  private auditHasFailed(): boolean {
+    const audit = this.audit as
+      | (CycleAuditPort & { readonly hasFailed?: () => boolean })
+      | undefined;
+    return audit?.hasFailed?.() ?? false;
   }
 
   private tryEmit(
@@ -1101,6 +1108,29 @@ describe("V3.1-D2-C integrated A → B → C", () => {
     expect(appendCalls).toBe(1);
   });
 
+  it("emits request_failed for an ordinary executor exception while audit is healthy", async () => {
+    const audit = new MemoryCycleAuditJournal();
+    const qualifyCycle = {
+      execute: vi
+        .fn<QualifyCycleExecutor["execute"]>()
+        .mockRejectedValue(new Error("ordinary dependency failure")),
+    };
+    const result = await createCkcQualificationServices({
+      clock: new FixedClock(NOW),
+      audit,
+      qualifyCycle,
+    }).qualifyCycleWithCkc.execute(request("cyc:delivery"));
+
+    expect(result).toMatchObject({
+      state: "failure",
+      code: "D2_INTERNAL_ERROR",
+    });
+    expect(
+      audit.events.filter((event) => event.event === "oa.ckc.request_failed"),
+    ).toHaveLength(1);
+    expect(JSON.stringify(result)).not.toContain("ordinary dependency failure");
+  });
+
   it("rejects a mutable injected proof instead of exposing its alias", async () => {
     const canonical = new CkcQualificationResolver().resolve({
       projection: projection(),
@@ -1220,7 +1250,7 @@ index 9400a6949608f7fd521b778f2b42c105509c8fcb..5dbce54a258a8ed726cbfcdfe747400f
    });
 
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-index 499b0cbb1f74f086562e87d3d5694aa73847ec31..772307a4bbe578b49f31ef947402691cae506776 100644
+index 499b0cbb1f74f086562e87d3d5694aa73847ec31..e55755cba2f262169ca8b03ad825d51bb00d2691 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
 @@ -13,6 +13,7 @@ export * from "./domain/cycleTypeCatalog";
@@ -1261,7 +1291,7 @@ index 499b0cbb1f74f086562e87d3d5694aa73847ec31..772307a4bbe578b49f31ef947402691c
 
  export type CycleServices = {
    store: MemoryCycleStore;
-@@ -103,6 +111,44 @@ export type CreateInMemoryCycleServicesOptions = {
+@@ -103,6 +111,66 @@ export type CreateInMemoryCycleServicesOptions = {
    ckcResolver?: CkcResolverPort;
  };
 
@@ -1279,16 +1309,38 @@ index 499b0cbb1f74f086562e87d3d5694aa73847ec31..772307a4bbe578b49f31ef947402691c
 +  readonly qualifyCycle?: QualifyCycleExecutor;
 +};
 +
++function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
++  readonly hasFailed: () => boolean;
++} {
++  let failed = false;
++  return {
++    append(event): void {
++      if (failed) {
++        throw new Error("Audit sink unavailable.");
++      }
++      try {
++        audit.append(event);
++      } catch {
++        failed = true;
++        throw new Error("Audit sink unavailable.");
++      }
++    },
++    hasFailed: () => failed,
++  };
++}
++
 +/** Read-only D2-A → D2-B → D2-C composition without repositories or mutation. */
 +export function createCkcQualificationServices(
 +  options: CreateCkcQualificationServicesOptions = {},
 +): CkcQualificationServices {
 +  const clock = options.clock ?? new SystemClock();
 +  const audit = options.audit ?? new ConsoleCycleAuditJournal();
++  const failureAwareAudit = createFailureAwareAudit(audit);
 +  const resolver =
-+    options.resolver ?? new CkcQualificationResolver(undefined, audit);
++    options.resolver ??
++    new CkcQualificationResolver(undefined, failureAwareAudit);
 +  const qualifyCycle =
-+    options.qualifyCycle ?? new QualifyCycle(clock, audit);
++    options.qualifyCycle ?? new QualifyCycle(clock, failureAwareAudit);
 +
 +  return Object.freeze({
 +    audit,
@@ -1298,7 +1350,7 @@ index 499b0cbb1f74f086562e87d3d5694aa73847ec31..772307a4bbe578b49f31ef947402691c
 +      resolver,
 +      qualifyCycle,
 +      clock,
-+      audit,
++      failureAwareAudit,
 +    ),
 +  });
 +}
@@ -1334,20 +1386,24 @@ index fa3875b80c1dc375cadb1d150671880fd249ef56..b6d90df80ab89890ff311d986d56bfbb
        ts: string;
 ```
 
+## Revue ciblée et durcissements de suivi
+
+La revue ciblée a conduit à: rejet runtime de `requestedProfile` et des signaux supplémentaires; copie exacte des six signaux; refus des preuves injectées mutables; absence de réémission après `D2_INTERNAL_ERROR` resolver; suivi interne de panne audit; émission `request_failed` pour exception ordinaire lorsque le sink reste sain. L’exposition de `qualifyCycle` dans la façade est conservée car elle est explicitement imposée par l’API minimale du GO; seul `qualifyCycleWithCkc` constitue le parcours D2-C fail-closed.
+
 ## Tests et validations finales
 
 Tests ciblés D2-C finaux:
 - Result Projection: 2/2
 - bridge unit: 13/13
-- bridge QA/intégration: 11/11
+- bridge QA/intégration: 12/12
 - frontière publique: 37/37
-- total ciblé: 63/63, 4/4 fichiers
+- total ciblé: 64/64, 4/4 fichiers
 
 Régressions D2-A/D2-B finales: 122/122, 8/8 fichiers.
 
-Suite `__tests__/oa/cycle/`: 242/242, 15/15 fichiers.
+Suite `__tests__/oa/cycle/`: 243/243, 15/15 fichiers.
 
-Suite complète: 975/975, 101/101 fichiers.
+Suite complète: 976/976, 101/101 fichiers.
 
 - typecheck: PASS
 - lint: PASS, aucune alerte/erreur
@@ -1405,7 +1461,7 @@ Suite complète: 975/975, 101/101 fichiers.
 
 Sondes adversariales D2-B historiques via `vite-node` temporaire hors include Vitest. Limitation d'outillage; package D2-B non muté. Non corrigée, non fermée, non levée.
 
-Aucune nouvelle réserve D2-C identifiée.
+Aucune nouvelle réserve D2-C identifiée. Les six constats de revue ont été traités ou, pour l’exposition explicite de `qualifyCycle`, conservés conformément au contrat API du GO.
 
 ## Frontières et non-actions
 
