@@ -11,7 +11,7 @@
 | **Product merge D2-C** | PR #303 · `570ff3e8bd0085ec3c52b12f2b55ccaf656cba18` |
 | **Delivery commit D2-C** | `f4ee487ffa8d30cb3762deb13843f1f804012415` |
 | **main** | `570ff3e8bd0085ec3c52b12f2b55ccaf656cba18` |
-| **Post-merge branch** | `post-merge/sfia-studio-v3-1-d2-c-documentary-alignment` (branche documentaire locale — publication projet non exécutée) |
+| **Documentary publication D2-C** | PR #304 · branche `post-merge/sfia-studio-v3-1-d2-c-documentary-alignment` · état de publication Git-authoritative : PR tant que non mergée, `main` après merge |
 | **Delivery branch D2-C** | conservée sur `f4ee487ffa8d30cb3762deb13843f1f804012415` |
 | **Main CI D2-C** | run `30814936022` SUCCESS · Required Gate SUCCESS |
 | **Package D2-C** | 9 fichiers produit intégrés (+2224 / −2) |
@@ -38,7 +38,7 @@
 | **D2-B Delivery → QA → correctif → revalidation → PR → merge** | **intégré `main`** · PR #301 MERGED · CI main `30788690355` SUCCESS |
 | **Post-merge D2-B** | **VALIDATED** (historique) · documentary closure content aligned — Git-authoritative |
 | **D2-C Delivery → QA → PR → merge** | **intégré `main`** · PR #303 MERGED · CI main `30814936022` SUCCESS |
-| **Post-merge / documentary alignment D2-C** | **VALIDATED** (présent cycle) · content aligned locally — publication projet non exécutée |
+| **Post-merge / documentary alignment D2-C** | **VALIDATED** · content aligned · publication versionnée traçable via PR #304 puis `main` selon l’état Git |
 | **Réserves ouvertes** | R-QA-REV-01 · R-QA-REV-02 · R-QA-D2C-01 — **ouvertes / non levées** |
 | D2-D | **gated** |
 | D3 | **fermé** |

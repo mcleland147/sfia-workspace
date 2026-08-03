@@ -1064,7 +1064,7 @@ Ce registre complète l'historique du backlog sans réécrire les registres D2-A
 | CI PR | run `30813089908` SUCCESS |
 | CI main | run `30814936022` SUCCESS · Required Gate SUCCESS |
 | Branche Delivery | conservée à distance sur `f4ee487…` |
-| Branche documentaire locale | `post-merge/sfia-studio-v3-1-d2-c-documentary-alignment` — aucun commit / push / PR projet dans ce cycle |
+| Cycle local d’alignement documentaire (2026-08-03 14:59 CEST) | branche `post-merge/sfia-studio-v3-1-d2-c-documentary-alignment` — à la clôture de ce sous-cycle : aucun commit / push / PR projet ; publication documentaire ultérieure tracée par PR #304 |
 | Correction / revert / suppression branche | **aucune** |
 | D2-D | **gated** / non ouvert |
 | D3 | **fermé** |
@@ -1082,4 +1082,4 @@ Sondes adversariales indépendantes historiques D2-B exécutées via `vite-node`
 
 Runtime `null`/`undefined` requests, exclus par le contrat TypeScript courant, peuvent encore lever une exception tandis que le catch externe relit des métadonnées de requête. Aucun résultat succès ou exploitable n'est exposé. Réserve acceptée pour transport ; à reconsidérer avant toute frontière runtime externe non validée. Non corrigée ; non levée.
 
-**Statut :** `D2-C PRODUCT PACKAGE INTEGRATED ON MAIN — POST-MERGE VALIDATED — DOCUMENTARY ALIGNMENT CONTENT ALIGNED — R-QA-REV-01 / R-QA-REV-02 / R-QA-D2C-01 CARRIED FORWARD WITHOUT LIFTING — D2-D GATED — D3 CLOSED — NO METHOD PROMOTION — NO PROJECT COMMIT/PUSH/PR IN THIS CYCLE`.
+**Statut :** `D2-C PRODUCT PACKAGE INTEGRATED ON MAIN — POST-MERGE VALIDATED — DOCUMENTARY ALIGNMENT CONTENT ALIGNED — R-QA-REV-01 / R-QA-REV-02 / R-QA-D2C-01 CARRIED FORWARD WITHOUT LIFTING — D2-D GATED — D3 CLOSED — NO METHOD PROMOTION — NO PROJECT COMMIT/PUSH/PR DURING THE 14:59 LOCAL ALIGNMENT SUB-CYCLE — SUBSEQUENT DOCUMENTARY PUBLICATION TRACKED BY PR #304`.
