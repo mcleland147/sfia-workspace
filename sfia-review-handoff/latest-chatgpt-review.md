@@ -1203,7 +1203,6 @@ describe("V3.1-D2-C integrated A → B → C", () => {
     });
     expect(Object.keys(factory).sort()).toEqual([
       "audit",
-      "qualifyCycle",
       "qualifyCycleWithCkc",
       "resolver",
     ]);
@@ -1250,7 +1249,7 @@ index 9400a6949608f7fd521b778f2b42c105509c8fcb..5dbce54a258a8ed726cbfcdfe747400f
    });
 
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-index 499b0cbb1f74f086562e87d3d5694aa73847ec31..e55755cba2f262169ca8b03ad825d51bb00d2691 100644
+index 499b0cbb1f74f086562e87d3d5694aa73847ec31..6a4699fe42b4e336488978f1814ab1017965853e 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
 @@ -13,6 +13,7 @@ export * from "./domain/cycleTypeCatalog";
@@ -1291,14 +1290,13 @@ index 499b0cbb1f74f086562e87d3d5694aa73847ec31..e55755cba2f262169ca8b03ad825d51b
 
  export type CycleServices = {
    store: MemoryCycleStore;
-@@ -103,6 +111,66 @@ export type CreateInMemoryCycleServicesOptions = {
+@@ -103,6 +111,64 @@ export type CreateInMemoryCycleServicesOptions = {
    ckcResolver?: CkcResolverPort;
  };
 
 +export type CkcQualificationServices = {
 +  readonly audit: CycleAuditPort;
 +  readonly resolver: CkcQualificationResolverPort;
-+  readonly qualifyCycle: QualifyCycleExecutor;
 +  readonly qualifyCycleWithCkc: QualifyCycleWithCkc;
 +};
 +
@@ -1345,7 +1343,6 @@ index 499b0cbb1f74f086562e87d3d5694aa73847ec31..e55755cba2f262169ca8b03ad825d51b
 +  return Object.freeze({
 +    audit,
 +    resolver,
-+    qualifyCycle,
 +    qualifyCycleWithCkc: new QualifyCycleWithCkc(
 +      resolver,
 +      qualifyCycle,
@@ -1388,7 +1385,7 @@ index fa3875b80c1dc375cadb1d150671880fd249ef56..b6d90df80ab89890ff311d986d56bfbb
 
 ## Revue ciblée et durcissements de suivi
 
-La revue ciblée a conduit à: rejet runtime de `requestedProfile` et des signaux supplémentaires; copie exacte des six signaux; refus des preuves injectées mutables; absence de réémission après `D2_INTERNAL_ERROR` resolver; suivi interne de panne audit; émission `request_failed` pour exception ordinaire lorsque le sink reste sain. L’exposition de `qualifyCycle` dans la façade est conservée car elle est explicitement imposée par l’API minimale du GO; seul `qualifyCycleWithCkc` constitue le parcours D2-C fail-closed.
+La revue ciblée a conduit à: rejet runtime de `requestedProfile` et des signaux supplémentaires; copie exacte des six signaux; refus des preuves injectées mutables; absence de réémission après `D2_INTERNAL_ERROR` resolver; suivi interne de panne audit; émission `request_failed` pour exception ordinaire lorsque le sink reste sain. Le `qualifyCycle` brut reste une dépendance injectable interne mais n’est plus exposé par la façade D2-C, empêchant le contournement du bridge fail-closed.
 
 ## Tests et validations finales
 
@@ -1461,7 +1458,7 @@ Suite complète: 976/976, 101/101 fichiers.
 
 Sondes adversariales D2-B historiques via `vite-node` temporaire hors include Vitest. Limitation d'outillage; package D2-B non muté. Non corrigée, non fermée, non levée.
 
-Aucune nouvelle réserve D2-C identifiée. Les six constats de revue ont été traités ou, pour l’exposition explicite de `qualifyCycle`, conservés conformément au contrat API du GO.
+Aucune nouvelle réserve D2-C identifiée. Les six constats de revue ont été traités, dont la suppression du `qualifyCycle` brut de la façade publique D2-C.
 
 ## Frontières et non-actions
 
