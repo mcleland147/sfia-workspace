@@ -13,6 +13,7 @@ export * from "./domain/cycleTypeCatalog";
 export * from "./domain/ckcQualificationContracts";
 export * from "./domain/ckcQualificationErrors";
 export * from "./domain/ckcConsumptionProof";
+export * from "./domain/ckcQualificationResult";
 export * from "./domain/catalogFingerprint";
 export * from "./domain/catalogProjection";
 
@@ -24,6 +25,7 @@ export * from "./ports/ckcQualificationResolver";
 export * from "./ports/cycleAudit";
 
 export { QualifyCycle } from "./application/qualifyCycle";
+export * from "./application/qualifyCycleWithCkc";
 export { CreateCycle } from "./application/createCycle";
 export { GetCycle } from "./application/getCycle";
 export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
@@ -63,8 +65,13 @@ import { GetEpistemicState } from "./application/getEpistemicState";
 import { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
 import { ProposeTrajectoryVersion } from "./application/proposeTrajectoryVersion";
 import { QualifyCycle } from "./application/qualifyCycle";
+import {
+  QualifyCycleWithCkc,
+  type QualifyCycleExecutor,
+} from "./application/qualifyCycleWithCkc";
 import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
 import { UpdateEpistemicState } from "./application/updateEpistemicState";
+import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
 import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
 import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
 import { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
@@ -76,6 +83,7 @@ import {
 } from "./infrastructure/observability";
 import type { CycleAuditPort } from "./ports/cycleAudit";
 import type { CkcResolverPort } from "./ports/ckcResolver";
+import type { CkcQualificationResolverPort } from "./ports/ckcQualificationResolver";
 
 export type CycleServices = {
   store: MemoryCycleStore;
@@ -102,6 +110,64 @@ export type CreateInMemoryCycleServicesOptions = {
   audit?: CycleAuditPort;
   ckcResolver?: CkcResolverPort;
 };
+
+export type CkcQualificationServices = {
+  readonly audit: CycleAuditPort;
+  readonly resolver: CkcQualificationResolverPort;
+  readonly qualifyCycleWithCkc: QualifyCycleWithCkc;
+};
+
+export type CreateCkcQualificationServicesOptions = {
+  readonly clock?: ClockPort;
+  readonly audit?: CycleAuditPort;
+  readonly resolver?: CkcQualificationResolverPort;
+  readonly qualifyCycle?: QualifyCycleExecutor;
+};
+
+function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
+  readonly hasFailed: () => boolean;
+} {
+  let failed = false;
+  return {
+    append(event): void {
+      if (failed) {
+        throw new Error("Audit sink unavailable.");
+      }
+      try {
+        audit.append(event);
+      } catch {
+        failed = true;
+        throw new Error("Audit sink unavailable.");
+      }
+    },
+    hasFailed: () => failed,
+  };
+}
+
+/** Read-only D2-A → D2-B → D2-C composition without repositories or mutation. */
+export function createCkcQualificationServices(
+  options: CreateCkcQualificationServicesOptions = {},
+): CkcQualificationServices {
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleCycleAuditJournal();
+  const failureAwareAudit = createFailureAwareAudit(audit);
+  const resolver =
+    options.resolver ??
+    new CkcQualificationResolver(undefined, failureAwareAudit);
+  const qualifyCycle =
+    options.qualifyCycle ?? new QualifyCycle(clock, failureAwareAudit);
+
+  return Object.freeze({
+    audit,
+    resolver,
+    qualifyCycleWithCkc: new QualifyCycleWithCkc(
+      resolver,
+      qualifyCycle,
+      clock,
+      failureAwareAudit,
+    ),
+  });
+}
 
 /** Factory for in-memory Cycle/Trajectory/Epistemic/CKC services. */
 export function createInMemoryCycleServices(
