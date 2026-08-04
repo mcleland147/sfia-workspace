@@ -1,17 +1,20 @@
-# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Critical QA Revalidation 3
+# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Publication
 
 ## 1. Date / heure / fuseau
 
-2026-08-04 14:30:00 CEST (+0200)
-System capture start: 2026-08-04 14:26:09 CEST +0200 / 12:26:09 UTC
+Cycle start capture: 2026-08-04 14:51:08 CEST +0200 / 2026-08-04 12:51:08 UTC
+Post-publication capture: 2026-08-04 14:53:03 CEST +0200 / 2026-08-04 12:53:03 UTC
+
+R-QA-REV3-D2D3-TIME-01 — OPEN — MINOR TRACEABILITY RESERVE — transported; no claim of perfect historical chronology.
 
 ## 2. Cycle
 
-9 — QA / validation — QA Critical Revalidation 3
+7 — Intégration / DevOps
+Sous-cycle : Publication Git atomique et création de PR Draft
 
 ## 3. Profil
 
-Critical
+Standard
 
 ## 4. Typologie
 
@@ -19,54 +22,122 @@ EVOL
 
 ## 5. GO consommé
 
-`GO QA SFIA STUDIO V3.1-D2-D3 — PROFILE CRITICAL — REVALIDATION 3`
-
-2026-08-04 14:19 CEST (+0200)
+GO PUBLICATION SFIA STUDIO V3.1-D2-D3
+Date/heure décision Morris : 2026-08-04 14:37 CEST (+0200)
+Autorise uniquement : staging exact 18 fichiers, commit projet atomique, push initial Delivery, PR GitHub Draft, Review Handoff L3 borné.
 
 ## 6. Gates non consommés
 
-G-D2D-CURSOR-01 (D2D3-04 BLOCKED) ; G-D2D-PERSIST-01 (D2D3-05 BLOCKED) ; G-D2D-D2C-01 ; GO PUBLICATION ; GO PR READINESS
+- G-D2D-CURSOR-01 — UNVERIFIED — D2D3-04 BLOCKED
+- G-D2D-PERSIST-01 — process-local only — D2D3-05 BLOCKED
+- G-D2D-D2C-01 — R-QA-D2C-01 OPEN
+- GO PR READINESS — non consommé
+- GO MARK READY — non consommé
+- GO MERGE — non consommé
+- GO BRANCH DELETION — non consommé
 
-## 7–8. CKC / Fallback
+## 7. CKC recherché et absent
 
-CKC absent. Fallback routing/checklist/QA standard/template/D2-D 20–24/handoffs/package.
+CKC recherché : oui
+Cycle qualifié : Intégration / DevOps
+Contrat détaillé trouvé : non
+Statut : absent
+Autorité d'exécution supplémentaire : aucune
+
+## 8. Fallback
+
+- routing guide
+- template canonique v2.6
+- operating model
+- rules and guardrails
+- validation checklist
+- QA Revalidation 3
+- précédent publication D2-D2 (PR #309)
+- package local réel
 
 ## 9. Sources consultées
 
-Template, routing, OM, rules, checklist, QA standard, D2-D 20–24, six handoffs historiques, package 18, deps, tests, publisher.
+1. prompts/templates/sfia-cycle-execution-template.md
+2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+3. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+4. method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+5. method/sfia-fast-track/checklists/sfia-validation-checklist.md
+6. method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md
+7. document 24 (framing backlog D2-D)
+8. handoff QA Revalidation 3 @ 4052b19de7bd2ddfff94ae91a906ee8c02fc5160
+9. 18 fichiers du package
+10. précédent PR #309 (opérationnel commit/push/Draft)
 
-## 10. Local Git Truth Check initial
+## 10. Précédent D2-D2 consulté
 
-Branche delivery ; HEAD/main `de2800aa…` ; staged vide ; remote delivery absente.
+PR #309 — utilisé uniquement comme précédent opérationnel de commit atomique + push + PR Draft. Aucune reprise de contenu fonctionnel.
 
-## 11. Contrôle des horodatages
+## 11. Local Git Truth Check initial
 
-| Source | Valeur |
-|---|---|
-| Système local début QA | 2026-08-04 14:26:09 CEST (+0200) |
-| UTC | 2026-08-04 12:26:09 UTC |
-| Corr3 commit author/committer | 2026-08-04T14:02:48+02:00 |
-| Corr3 handoff §1 déclaré | 2026-08-04 14:05:00 CEST (+0200) |
+```
+=== timestamps ===
+2026-08-04 14:51:08 CEST +0200
+2026-08-04 12:51:08 UTC
+=== git truth ===
+toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+branch=delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination
+HEAD=de2800aa836bb8221dc2912414126b7a3e6a1f58
+main=de2800aa836bb8221dc2912414126b7a3e6a1f58
+upstream=fatal: no upstream configured for branch 'delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination'
+staged=0
+remote_delivery=
+```
 
-**Observation :** l’heure déclarée dans le handoff Corrections 3 (14:05:00) est postérieure à l’author/committer date du commit qui le contient (14:02:48).
-→ Réserve **R-QA-REV3-D2D3-TIME-01** (MINOR, traçabilité). N’invalide pas les preuves techniques du package.
-Cycle QA 3 : horodatages cohérents (génération après GO 14:19, après commit Corr3).
+## 12. Contrôle origin/main
 
-## 12–13. Handoffs historiques
+origin/main = `de2800aa836bb8221dc2912414126b7a3e6a1f58` — inchangé avant staging, commit, push et post-publication.
+Pas de divergence → pas de rebase.
 
-| | Commit | Blob |
-|---|---|---|
-| QA initiale | 2ea275d3… | a669da7f… |
-| Corr 1 | 6b00c678… | 42f4b0b7… |
-| QA Rev1 | 5dbcee99… | e4c6d6ba… |
-| Corr 2 | 9b2d199… | 208208a8… |
-| QA Rev2 | 4b031e2… | 770f27f4… |
-| Corr 3 | cabb7deb… | bcfb6a91… |
+## 13. Absence initiale de branche distante
 
-## 14–15. Manifest / hash initial
+`git ls-remote --heads origin refs/heads/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` → vide avant push.
 
-count=18
-hash=`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` match Corr3 OUI
+## 14. Absence initiale de PR
+
+`gh pr list --state all --head delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` → `[]`
+
+## 15. Handoff QA consulté
+
+Branche `sfia/review-handoff`
+Fichier `sfia-review-handoff/latest-chatgpt-review.md`
+Commit `4052b19de7bd2ddfff94ae91a906ee8c02fc5160`
+Blob `d8e35e908eb350d4dd5d87fe09f7a70d84a15de8`
+Parent `cabb7deb6b02f259cf274140581c6456bbfbca52`
+Message : `docs(review-handoff): publish D2-D3 QA revalidation 3 status`
+
+## 16. Commit / blob QA
+
+Commit : `4052b19de7bd2ddfff94ae91a906ee8c02fc5160`
+Blob : `d8e35e908eb350d4dd5d87fe09f7a70d84a15de8`
+
+## 17. Verdict QA
+
+D2-D3 CRITICAL QA REVALIDATION 3 PASS WITH RESERVES —
+ALL D2-D3 QA FINDINGS VERIFIED —
+D2D3-04/05 REMAIN BLOCKED —
+READY FOR MORRIS PUBLICATION DECISION
+
+## 18. Réserves
+
+- R-QA-REV-01 — OPEN NOT LIFTED
+- R-QA-REV-02 — OPEN NOT LIFTED
+- R-QA-D2C-01 — OPEN NOT LIFTED
+- Cursor product capabilities — UNVERIFIED
+- memory process-local only
+- R-PR-D2D2-01 — MINOR
+- R-CORR-D2D3-01 — timeout 60 000 ms local D2-D3
+- R-QA-REV3-D2D3-TIME-01 — OPEN MINOR, traçabilité
+- R-CORR-D2D3-02 — SATISFIED — CLOSURE RECOMMENDED
+
+Findings : VERIFIED IN QA — CLOSURE RECOMMENDED (not formally CLOSED).
+D2D3-04 / D2D3-05 remain BLOCKED.
+
+## 19. Manifest initial
 
 ```
 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
@@ -88,9999 +159,5191 @@ projects/sfia-studio/app/lib/oa/execution-run/index.ts
 projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
 projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
 ```
+Count = 18
 
-## 16. Inspection 18 fichiers
+## 20. Hash initial
 
-Tous lus. Surfaces D2D3-04/05 absentes. Mémoire process-local. Pas de Git write/réseau/transport D3.
+SHA-256 length-prefixed = `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f`
+Vérifié avant staging.
 
-## 17. Inspection diff Corrections 3
+## 21. Validations pré-publication
 
-Trois fichiers vs `16430166…` → `cb937ada…` :
-1. `untrustedExecutionData.ts` — STRUCTURED_SENSITIVE_KEY + FORBIDDEN_ASSIGNMENT_OR_PREFIX ; aggregation `containsSensitiveLateContent` ; pas de flag `g` (non-stateful).
-2. regression tests — REV2-01 structured + safe near-keys ; REV2-02 arbitrage.
-3. evidence.truthfulness — structured token + safe JSON.
+Aucune modification de contenu. Résultats observés :
 
-Quinze autres fichiers inchangés (hash package).
+- regression : **95 PASS**
+- targeted (regression+evidence) : **105 PASS**
+- execution-run : **28 fichiers / 270 PASS**
+- typecheck : **PASS**
+- lint : **PASS**
+- build : **PASS**
+- full Vitest : **130 fichiers / 1316 PASS**
+- governance : **73 PASS**
+- `git diff --check` : **PASS**
 
-## 18. Représentation complète exploitable du package
+### regression tail
+```
+> vitest run __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
 
-### untrustedExecutionData.ts
 
-```typescript
-/**
- * Pure application helper for untrusted execution payloads.
- * No Node, infrastructure, or provider imports.
- * Rejects accessors, non-plain prototypes, functions, symbols, and cycles.
- */
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1/projects/sfia-studio/app
 
-const DEFAULT_MAX_DEPTH = 8;
-const DEFAULT_MAX_KEYS = 64;
-const DEFAULT_MAX_ARRAY = 64;
-const DEFAULT_MAX_STRING = 4096;
+ ✓ __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts (95 tests) 220ms
 
-const FORBIDDEN_KEY =
-  /^(.*[_-]?)?(secret|password|token|api[_-]?key|authorization|cookie|prompt|rawResponse|raw_prompt|raw_response)([_-].*)?$/i;
+ Test Files  1 passed (1)
+      Tests  95 passed (95)
+   Start at  14:51:19
+   Duration  579ms (transform 91ms, setup 46ms, collect 120ms, tests 220ms, environment 0ms, prepare 34ms)
 
-/**
- * Canonical D2-D3 late-evidence / display redaction detectors.
- * Single aggregation point: containsSensitiveLateContent → sanitizeLateEvidenceSummary.
- * Fail-closed: any hit means the whole late summary becomes late_result_redacted.
- */
-
-/** Assignments, headers, query params, and known secret prefixes. */
-const FORBIDDEN_ASSIGNMENT_OR_PREFIX =
-  /sk-|ghp_|github_pat_|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY|private\s+key|xox[baprs]-|password\s*[:=]|secret\s*[:=]|(?:access_|refresh_|client_)?token\s*[:=]|api[_-]?key\s*[:=]|authorization\s*[:=]|authorization\s*:\s*bearer\b|\bbearer\s+[^\s]+|cookie\s*[:=]|session\s*[:=]|[?&](?:access_|refresh_|client_)?token=/i;
-
-/**
- * JSON-like structured sensitive keys (exact key names inside quotes).
- * Matches "token": / 'token': / with optional whitespace around ':'.
- * Does NOT match longer keys such as tokenCount, authorizationStatus, apiVersion.
- */
-const STRUCTURED_SENSITIVE_KEY =
-  /['"](?:password|secret|token|access[_-]token|refresh[_-]token|client[_-]secret|api[_-]?key|authorization|cookie|session)['"]\s*:/i;
-
-/** Local D2-D3 late-evidence sensitive content detector (canonical). */
-export function containsSensitiveLateContent(value: string): boolean {
-  if (typeof value !== "string" || value.length === 0) return false;
-  if (STRUCTURED_SENSITIVE_KEY.test(value)) return true;
-  if (FORBIDDEN_ASSIGNMENT_OR_PREFIX.test(value)) return true;
-  return false;
-}
-
-export type UntrustedReadOk = {
-  readonly ok: true;
-  readonly value: unknown;
-};
-
-export type UntrustedReadFail = {
-  readonly ok: false;
-  readonly reason: string;
-};
-
-export type UntrustedReadResult = UntrustedReadOk | UntrustedReadFail;
-
-export type UntrustedReadOptions = {
-  readonly maxDepth?: number;
-  readonly maxKeys?: number;
-  readonly maxArrayLength?: number;
-  readonly maxStringLength?: number;
-  readonly redact?: boolean;
-};
-
-function isPlainObject(value: object): boolean {
-  const proto = Object.getPrototypeOf(value);
-  return proto === Object.prototype || proto === null;
-}
-
-function ownDataKeys(obj: object): string[] | null {
-  const names = Object.getOwnPropertyNames(obj);
-  const symbols = Object.getOwnPropertySymbols(obj);
-  if (symbols.length > 0) return null;
-  for (const name of names) {
-    const desc = Object.getOwnPropertyDescriptor(obj, name);
-    if (!desc) return null;
-    if (desc.get !== undefined || desc.set !== undefined) return null;
-    if (typeof desc.value === "function" || typeof desc.value === "symbol") {
-      return null;
-    }
-  }
-  return names;
-}
-
-function redactString(value: string, maxLength: number): string {
-  const cleaned = value
-    .replace(STRUCTURED_SENSITIVE_KEY, '"[REDACTED_KEY]":')
-    .replace(FORBIDDEN_ASSIGNMENT_OR_PREFIX, "[REDACTED]");
-  return cleaned.slice(0, maxLength);
-}
-
-function readInner(
-  input: unknown,
-  depth: number,
-  ancestors: WeakSet<object>,
-  options: Required<UntrustedReadOptions>,
-): UntrustedReadResult {
-  if (depth > options.maxDepth) {
-    return { ok: false, reason: "depth_exceeded" };
-  }
-  if (input === null || typeof input === "boolean") {
-    return { ok: true, value: input };
-  }
-  if (input === undefined) {
-    return { ok: true, value: undefined };
-  }
-  if (typeof input === "number") {
-    if (!Number.isFinite(input)) {
-      return { ok: false, reason: "non_finite_number" };
-    }
-    return { ok: true, value: input };
-  }
-  if (typeof input === "string") {
-    if (input.length > options.maxStringLength) {
-      return { ok: false, reason: "string_too_long" };
-    }
-    if (options.redact && containsSensitiveLateContent(input)) {
-      return { ok: true, value: redactString(input, options.maxStringLength) };
-    }
-    if (options.redact) {
-      return { ok: true, value: input.slice(0, options.maxStringLength) };
-    }
-    return { ok: true, value: input };
-  }
-  if (typeof input === "function" || typeof input === "symbol") {
-    return { ok: false, reason: "forbidden_type" };
-  }
-  if (typeof input !== "object") {
-    return { ok: false, reason: "unsupported_type" };
-  }
-  if (ancestors.has(input)) {
-    return { ok: false, reason: "cycle" };
-  }
-  ancestors.add(input);
-
-  if (Array.isArray(input)) {
-    if (input.length > options.maxArrayLength) {
-      ancestors.delete(input);
-      return { ok: false, reason: "array_too_large" };
-    }
-    const out: unknown[] = [];
-    for (let i = 0; i < input.length; i += 1) {
-      const desc = Object.getOwnPropertyDescriptor(input, i);
-      if (!desc || desc.get !== undefined || desc.set !== undefined) {
-        ancestors.delete(input);
-        return { ok: false, reason: "array_accessor" };
-      }
-      const nested = readInner(desc.value, depth + 1, ancestors, options);
-      if (!nested.ok) {
-        ancestors.delete(input);
-        return nested;
-      }
-      out.push(nested.value);
-    }
-    ancestors.delete(input);
-    return { ok: true, value: out };
-  }
-
-  if (!isPlainObject(input)) {
-    ancestors.delete(input);
-    return { ok: false, reason: "non_plain_object" };
-  }
-  const keys = ownDataKeys(input);
-  if (keys === null) {
-    ancestors.delete(input);
-    return { ok: false, reason: "accessors_or_symbols" };
-  }
-  if (keys.length > options.maxKeys) {
-    ancestors.delete(input);
-    return { ok: false, reason: "too_many_keys" };
-  }
-  const out: Record<string, unknown> = {};
-  for (const key of keys) {
-    if (options.redact && FORBIDDEN_KEY.test(key)) {
-      ancestors.delete(input);
-      return { ok: false, reason: `forbidden_key:${key}` };
-    }
-    const desc = Object.getOwnPropertyDescriptor(input, key);
-    if (!desc || desc.get !== undefined || desc.set !== undefined) {
-      ancestors.delete(input);
-      return { ok: false, reason: "accessor" };
-    }
-    const nested = readInner(desc.value, depth + 1, ancestors, options);
-    if (!nested.ok) {
-      ancestors.delete(input);
-      return nested;
-    }
-    out[key] = nested.value;
-  }
-  ancestors.delete(input);
-  return { ok: true, value: out };
-}
-
-/**
- * Inspect descriptors without invoking getters. Produce a detached plain copy
- * or a structured rejection reason.
- */
-export function readUntrustedPlainData(
-  input: unknown,
-  options?: UntrustedReadOptions,
-): UntrustedReadResult {
-  const resolved: Required<UntrustedReadOptions> = {
-    maxDepth: options?.maxDepth ?? DEFAULT_MAX_DEPTH,
-    maxKeys: options?.maxKeys ?? DEFAULT_MAX_KEYS,
-    maxArrayLength: options?.maxArrayLength ?? DEFAULT_MAX_ARRAY,
-    maxStringLength: options?.maxStringLength ?? DEFAULT_MAX_STRING,
-    redact: options?.redact ?? false,
-  };
-  return readInner(input, 0, new WeakSet<object>(), resolved);
-}
-
-export function redactBoundedText(
-  value: unknown,
-  maxLength = 240,
-): string | null {
-  if (typeof value !== "string") return null;
-  return redactString(value, maxLength);
-}
-
-export function sanitizeLateEvidenceSummary(input: unknown): string {
-  // Official late evidence: non-string / hostile shapes never become caller content.
-  if (typeof input !== "string") {
-    return "late_result_redacted";
-  }
-  // Detect on the original before any truncation.
-  if (containsSensitiveLateContent(input)) {
-    return "late_result_redacted";
-  }
-  const bounded = input.slice(0, 240).trim();
-  if (!bounded) {
-    return "late_result_redacted";
-  }
-  // Re-check after normalization/bounding (fail closed on ambiguity).
-  if (containsSensitiveLateContent(bounded)) {
-    return "late_result_redacted";
-  }
-  return bounded;
-}
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts`
-
-```typescript
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import { getFixture } from "@/lib/oa/execution-run";
-import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
-
-describe("D2-D3 fixture coordination", () => {
-  it("coordinates AI through idle, running, succeeded and official evidence", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "bounded fixture summary" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-
-    expect(result.ok).toBe(true);
-    expect(result.providerInvoked).toBe(true);
-    expect(result.providerCompleted).toBe(true);
-    expect(result.stateTrace).toEqual(["idle", "running", "succeeded"]);
-    expect(result.run?.evidence).toHaveLength(1);
-    expect(result.run?.evidence?.[0]).toMatchObject({
-      official: true,
-      source: "fixture",
-      completeness: "complete",
-      late: false,
-    });
-
-    if (!result.run) return;
-    const projection = await composition.projectById(result.run.runId);
-    expect(projection.ok).toBe(true);
-    if (!projection.ok) return;
-    expect(projection.projection.state).toBe("succeeded");
-    expect(projection.projection.source).toBe("fixture");
-    expect(projection.projection.providerLane).toBe("ai");
-  });
-
-  it("coordinates a read-only Git fixture without a write surface", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const intent = {
-      ...fixture.intent,
-      intentId: "intent:d2d3:git",
-      correlationId: "corr:d2d3:git",
-      requestedLane: "git" as const,
-    };
-    const result = await composition.coordinate({
-      intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: intent.correlationId,
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "repository",
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-
-    expect(result.run?.state).toBe("succeeded");
-    expect(result.run?.disclosure.providerLane).toBe("git");
-    expect(composition.disclosure.gitWrite).toBe(false);
-  });
-
-  it("keeps Cursor fixture-only and blocked while Cursor is unverified", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const intent = {
-      ...fixture.intent,
-      intentId: "intent:d2d3:cursor",
-      correlationId: "corr:d2d3:cursor",
-      requestedLane: "cursor" as const,
-    };
-    const result = await composition.coordinate({
-      intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: intent.correlationId,
-        lane: "cursor",
-        operation: "fixture",
-        instructionSummary: "read-only fixture",
-        allowlistRepos: ["projects/sfia-studio/"],
-        protectedPaths: [".env"],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-
-    expect(result.ok).toBe(false);
-    expect(result.run?.state).toBe("blocked");
-    expect(result.providerInvoked).toBe(false);
-    expect(composition.disclosure.cursorVerified).toBe(false);
-  });
-
-  it("blocks lane none without invoking a provider", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        requestedLane: "none",
-        intentId: "intent:d2d3:none",
-        correlationId: "corr:d2d3:none",
-      },
-      context: fixture.context,
-      timeoutMs: 100,
-    });
-
-    expect(result.ok).toBe(false);
-    expect(result.run?.state).toBe("blocked");
-    expect(result.providerInvoked).toBe(false);
-    expect(result.stateTrace).toEqual(["idle", "blocked"]);
-  });
-
-  it("does not invoke providers before validation and policy acceptance", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("validation_failure");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "must not execute" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-
-    expect(result.ok).toBe(false);
-    expect(result.providerInvoked).toBe(false);
-    expect(result.stateTrace).toEqual([]);
-  });
-});
+### targeted tail
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts`
 
-```typescript
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  getFixture,
-  isIsoTimestamp,
-  normalizedFailure,
-  type AiExecutionPort,
-} from "@/lib/oa/execution-run";
-import {
-  composeExecutionRunD2D3,
-  composeExecutionRunProviders,
-  composeExecutionRunProvidersFake,
-} from "@/lib/oa/execution-run/server";
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1/projects/sfia-studio/app
 
-describe("D2-D3 evidence truthfulness", () => {
-  it("keeps run, official evidence, and projection source on fixture", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "truthful fixture input" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-    if (!result.run) throw new Error("expected run");
-    const evidence = result.run.evidence?.[0];
-    const projection = await composition.projectById(result.run.runId);
-    expect(projection.ok).toBe(true);
-    if (!projection.ok) return;
+ ✓ __tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts (10 tests) 68ms
+ ✓ __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts (95 tests) 221ms
 
-    expect(result.run.disclosure.source).toBe("fixture");
-    expect(evidence?.source).toBe("fixture");
-    expect(projection.projection.source).toBe("fixture");
-    expect(evidence?.official).toBe(true);
-    expect(evidence?.completeness).toBe("complete");
-    expect(isIsoTimestamp(evidence?.producedAt ?? "")).toBe(true);
-    expect(evidence?.evidenceId.length).toBeLessThan(128);
-    expect(evidence).not.toHaveProperty("rawResult");
-  });
+ Test Files  2 passed (2)
+      Tests  105 passed (105)
+   Start at  14:51:20
+   Duration  488ms (transform 88ms, setup 39ms, collect 209ms, tests 290ms, environment 0ms, prepare 50ms)
 
-  it.each(["sandbox-real", "real"] as const)(
-    "blocks requested source %s without fallback or provider invocation",
-    async (source) => {
-      const composition = composeExecutionRunD2D3();
-      const fixture = getFixture("nominal");
-      const result = await composition.coordinate({
-        intent: {
-          ...fixture.intent,
-          intentId: `intent:d2d3:${source}`,
-          correlationId: `corr:d2d3:${source}`,
-          requestedSource: source,
-        },
-        context: { ...fixture.context, declaredSource: source },
-        providerRequest: {
-          correlationId: `corr:d2d3:${source}`,
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "must not run" }],
-          timeoutMs: 100,
-        },
-        timeoutMs: 100,
-      });
-
-      expect(result.ok).toBe(false);
-      expect(result.run).toBeUndefined();
-      expect(result.providerInvoked).toBe(false);
-      expect(result.stateTrace).toEqual([]);
-      if (result.ok) throw new Error("expected failure");
-      expect(result.failure.code).toBe("SOURCE_MISMATCH");
-    },
-  );
-
-  it("records late evidence without changing a cancelled terminal", async () => {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => ({
-        kind: "cancelled",
-        failure: normalizedFailure({
-          family: "cancelled",
-          code: "CANCELLED",
-          userMessage: "Cancelled fixture operation",
-          retryable: false,
-          correlationId: request.correlationId,
-        }),
-      }),
-    };
-    const providers = composeExecutionRunProviders({ ...base, ai });
-    const composition = composeExecutionRunD2D3({ providers });
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "cancel fixture" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-      lateEvidenceSummary: "late bounded result",
-    });
-
-    expect(result.ok).toBe(false);
-    expect(result.run?.state).toBe("cancelled");
-    expect(result.lateEvidenceRecorded).toBe(true);
-    expect(result.run?.evidence?.at(-1)).toMatchObject({
-      source: "fixture",
-      late: true,
-      official: true,
-    });
-  });
-
-  it("marks usage unavailable unless provider usage validates", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "usage fixture" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-
-    expect(result.validatedUsage.status).toBe("validated");
-    expect(result.run?.usage.status).toBe("unavailable");
-  });
-
-  it.each([
-    "token=abc",
-    "apiKey=k",
-    "Authorization: Bearer xyz",
-    '{"token":"structured-secret-z9"}',
-  ])(
-    "official late evidence redacts secret-like summary %j to late_result_redacted",
-    async (summary) => {
-      const base = composeExecutionRunProvidersFake();
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async (request) => ({
-          kind: "cancelled",
-          failure: normalizedFailure({
-            family: "cancelled",
-            code: "CANCELLED",
-            userMessage: "Cancelled fixture operation",
-            retryable: false,
-            correlationId: request.correlationId,
-          }),
-        }),
-      };
-      const providers = composeExecutionRunProviders({ ...base, ai });
-      const composition = composeExecutionRunD2D3({ providers });
-      const fixture = getFixture("nominal");
-      const result = await composition.coordinate({
-        intent: fixture.intent,
-        context: fixture.context,
-        providerRequest: {
-          correlationId: fixture.intent.correlationId,
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "cancel fixture" }],
-          timeoutMs: 100,
-        },
-        timeoutMs: 100,
-        lateEvidenceSummary: summary,
-      });
-
-      expect(result.run?.state).toBe("cancelled");
-      expect(result.lateEvidenceRecorded).toBe(true);
-      expect(result.run?.evidence?.at(-1)).toMatchObject({
-        source: "fixture",
-        late: true,
-        official: true,
-        summary: "late_result_redacted",
-      });
-      expect(JSON.stringify(result)).not.toContain("abc");
-      expect(JSON.stringify(result)).not.toContain("xyz");
-      expect(JSON.stringify(result)).not.toMatch(/apiKey=k/i);
-      expect(JSON.stringify(result)).not.toContain("structured-secret-z9");
-    },
-  );
-
-  it('preserves non-sensitive structured late summary {"status":"complete"}', async () => {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => ({
-        kind: "cancelled",
-        failure: normalizedFailure({
-          family: "cancelled",
-          code: "CANCELLED",
-          userMessage: "Cancelled fixture operation",
-          retryable: false,
-          correlationId: request.correlationId,
-        }),
-      }),
-    };
-    const providers = composeExecutionRunProviders({ ...base, ai });
-    const composition = composeExecutionRunD2D3({ providers });
-    const fixture = getFixture("nominal");
-    const summary = '{"status":"complete"}';
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "cancel fixture" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-      lateEvidenceSummary: summary,
-    });
-    expect(result.run?.state).toBe("cancelled");
-    expect(result.lateEvidenceRecorded).toBe(true);
-    expect(result.run?.evidence?.at(-1)).toMatchObject({
-      source: "fixture",
-      late: true,
-      official: true,
-      summary,
-    });
-  });
-});
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts`
+### execution-run tail
+```
+ ✓ __tests__/oa/execution-run/adapter.secrets.opaque.test.ts (2 tests) 6ms
+ ✓ __tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts (6 tests) 32ms
+ ✓ __tests__/oa/execution-run/adapter.ai.fake.test.ts (2 tests) 3ms
+ ✓ __tests__/oa/execution-run/policy.test.ts (9 tests) 3ms
+ ✓ __tests__/oa/execution-run/transitions.test.ts (8 tests) 2ms
+ ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 2ms
 
-```typescript
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  getFixture,
-  normalizedFailure,
-  type AiExecutionPort,
-  type FailureCode,
-  type FailureFamily,
-  type ProviderInvocationResult,
-} from "@/lib/oa/execution-run";
-import {
-  composeExecutionRunD2D3,
-  composeExecutionRunProviders,
-  composeExecutionRunProvidersFake,
-} from "@/lib/oa/execution-run/server";
+ Test Files  28 passed (28)
+      Tests  270 passed (270)
+   Start at  14:51:21
+   Duration  1.24s (transform 417ms, setup 1.25s, collect 1.79s, tests 1.96s, environment 2ms, prepare 1.16s)
 
-function failureResult(
-  family: FailureFamily,
-  code: FailureCode,
-  correlationId: string,
-): ProviderInvocationResult {
-  return {
-    kind: "failure",
-    failure: normalizedFailure({
-      family,
-      code,
-      userMessage: `Bounded ${family} fixture failure`,
-      retryable: false,
-      correlationId,
-    }),
-  };
-}
-
-async function runWithAiResult(
-  makeResult: (correlationId: string) => ProviderInvocationResult,
-  options?: { lateEvidenceSummary?: string },
-) {
-  const base = composeExecutionRunProvidersFake();
-  let calls = 0;
-  let receivedKeys: string[] = [];
-  const ai: AiExecutionPort = {
-    lane: "ai",
-    describeCapability: () => base.ai.describeCapability(),
-    complete: async (request) => {
-      calls += 1;
-      receivedKeys = Object.keys(request);
-      return makeResult(request.correlationId);
-    },
-  };
-  const providers = composeExecutionRunProviders({ ...base, ai });
-  const composition = composeExecutionRunD2D3({ providers });
-  const fixture = getFixture("nominal");
-  const result = await composition.coordinate({
-    intent: fixture.intent,
-    context: fixture.context,
-    providerRequest: {
-      correlationId: fixture.intent.correlationId,
-      lane: "ai",
-      operation: "complete",
-      messages: [{ role: "user", content: "deterministic fixture" }],
-      timeoutMs: 100,
-    },
-    timeoutMs: 100,
-    ...options,
-  });
-  return { result, calls, receivedKeys };
-}
-
-describe("D2-D3 deterministic negative and resilience scenarios", () => {
-  it.each([
-    ["authentication", "AUTHENTICATION_ERROR"],
-    ["authorization", "AUTHORIZATION_ERROR"],
-    ["provider_unavailable", "PROVIDER_UNAVAILABLE"],
-    ["rate_limited", "RATE_LIMITED"],
-  ] as const)(
-    "normalizes %s failure to the exact failed terminal",
-    async (family, code) => {
-      const { result, calls } = await runWithAiResult((correlationId) =>
-        failureResult(family, code, correlationId),
-      );
-      expect(calls).toBe(1);
-      expect(result.run?.state).toBe("failed");
-      if (result.ok) throw new Error("expected failed result");
-      expect(result.failure).toMatchObject({ family, code });
-      expect(result.run?.evidence).toBeUndefined();
-      expect(result.run?.disclosure.source).toBe("fixture");
-    },
-  );
-
-  it("maps provider timeout to timed_out", async () => {
-    const { result } = await runWithAiResult((correlationId) => ({
-      kind: "timed_out",
-      failure: normalizedFailure({
-        family: "timed_out",
-        code: "TIMED_OUT",
-        userMessage: "Bounded timeout",
-        retryable: true,
-        correlationId,
-      }),
-    }));
-    expect(result.run?.state).toBe("timed_out");
-    if (result.ok) throw new Error("expected timed-out result");
-    expect(result.failure.code).toBe("TIMED_OUT");
-  });
-
-  it("maps provider cancellation to cancelled and preserves it after late evidence", async () => {
-    const { result } = await runWithAiResult(
-      (correlationId) => ({
-        kind: "cancelled",
-        failure: normalizedFailure({
-          family: "cancelled",
-          code: "CANCELLED",
-          userMessage: "Bounded cancellation",
-          retryable: false,
-          correlationId,
-        }),
-      }),
-      { lateEvidenceSummary: "late redacted fixture result" },
-    );
-    expect(result.run?.state).toBe("cancelled");
-    if (result.ok) throw new Error("expected cancelled result");
-    expect(result.failure.code).toBe("CANCELLED");
-    expect(result.run?.evidence?.at(-1)?.late).toBe(true);
-  });
-
-  it("fails partial provider success and preserves explicit partiality", async () => {
-    const { result } = await runWithAiResult(() => ({
-      kind: "success",
-      completeness: "partial",
-      redactedSummary: "bounded partial result",
-      rawPresent: false,
-      usage: { status: "unavailable", reason: "partial" },
-      disclosureNotes: ["fixture"],
-    }));
-    expect(result.run?.state).toBe("failed");
-    if (result.ok) throw new Error("expected partial failure");
-    expect(result.failure.code).toBe("INVALID_PROVIDER_RESULT");
-    expect(result.run?.externalResult).toMatchObject({
-      kind: "success",
-      completeness: "partial",
-    });
-    expect(result.run?.state).not.toBe("succeeded");
-  });
-
-  it("rejects an invalid provider result without leaking raw content", async () => {
-    const { result } = await runWithAiResult(
-      () =>
-        ({
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "password=do-not-leak",
-          rawPresent: true,
-          usage: { status: "unavailable", reason: "invalid" },
-          disclosureNotes: [],
-        }) as ProviderInvocationResult,
-    );
-    expect(result.run?.state).toBe("failed");
-    if (result.ok) throw new Error("expected invalid provider failure");
-    expect(result.failure.code).toBe("INVALID_PROVIDER_RESULT");
-    expect(JSON.stringify(result.run)).not.toContain("do-not-leak");
-  });
-
-  it.each([
-    ["validation_failure", "VALIDATION_ERROR"],
-    ["blocked_gate", "HUMAN_GATE_REQUIRED"],
-    ["protected_path", "PROTECTED_PATH"],
-    ["mutation_forbidden", "MUTATION_FORBIDDEN"],
-    ["source_mismatch", "SOURCE_MISMATCH"],
-  ] as const)("blocks %s before provider invocation", async (scenario, code) => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture(scenario);
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest:
-        fixture.intent.requestedLane === "ai"
-          ? {
-              correlationId: fixture.intent.correlationId,
-              lane: "ai",
-              operation: "complete",
-              messages: [{ role: "user", content: "must not execute" }],
-              timeoutMs: 100,
-            }
-          : undefined,
-      timeoutMs: 100,
-    });
-    expect(result.ok).toBe(false);
-    expect(result.providerInvoked).toBe(false);
-    if (result.ok) throw new Error("expected pre-engagement block");
-    expect(result.failure.code).toBe(code);
-    if (result.run) {
-      expect(result.run.state).toBe("blocked");
-      expect(result.run.evidence).toBeUndefined();
-      expect(result.run.disclosure.source).toBe(
-        fixture.context.declaredSource,
-      );
-    }
-  });
-
-  it("blocks a sensitive provider request at the boundary and redacts output", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const sensitive = "fixture-sensitive-value";
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "safe" }],
-        timeoutMs: 100,
-        apiKey: sensitive,
-      } as never,
-      timeoutMs: 100,
-    });
-    expect(result.ok).toBe(false);
-    expect(result.run).toBeUndefined();
-    expect(result.providerInvoked).toBe(false);
-    expect(JSON.stringify(result)).not.toContain(sensitive);
-    if (result.ok) throw new Error("expected failure");
-    expect(result.failure.code).toBe("VALIDATION_ERROR");
-  });
-
-  it("blocks providerRequest correlationId mismatch before engagement", async () => {
-    const base = composeExecutionRunProvidersFake();
-    let describeCalls = 0;
-    let completeCalls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => {
-        describeCalls += 1;
-        return base.ai.describeCapability();
-      },
-      complete: async (request) => {
-        completeCalls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        correlationId: "corr:neg:intent",
-        intentId: "intent:neg:corr",
-      },
-      context: fixture.context,
-      providerRequest: {
-        correlationId: "corr:neg:request",
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "must not execute" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-    expect(result.ok).toBe(false);
-    expect(result.run).toBeUndefined();
-    expect(result.stateTrace).toEqual([]);
-    expect(result.providerAttempted).toBe(false);
-    expect(result.providerInvoked).toBe(false);
-    expect(result.providerCompleted).toBe(false);
-    expect(describeCalls).toBe(0);
-    expect(completeCalls).toBe(0);
-    if (result.ok) throw new Error("expected correlation mismatch rejection");
-    expect(result.failure.code).toBe("VALIDATION_ERROR");
-    expect(result.failure.family).toBe("validation");
-  });
-
-  it("gives providers no run, repository, save, or transition authority", async () => {
-    const { result, receivedKeys } = await runWithAiResult(() => ({
-      kind: "success",
-      completeness: "complete",
-      redactedSummary: "bounded complete fixture",
-      rawPresent: false,
-      usage: { status: "validated", inputTokens: 1, outputTokens: 1 },
-      disclosureNotes: ["fixture"],
-    }));
-    expect(result.run?.state).toBe("succeeded");
-    expect(receivedKeys).not.toEqual(
-      expect.arrayContaining([
-        "executionRun",
-        "repository",
-        "save",
-        "transitionExecutionRun",
-      ]),
-    );
-    expect(result.stateTrace).toEqual(["idle", "running", "succeeded"]);
-  });
-});
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts`
+### vitest full tail
+```
+ ✓ __tests__/oa/evidence-review/maturityAssessmentDomain.test.ts (4 tests) 2ms
+ ✓ __tests__/oa/execution-run/policy.test.ts (9 tests) 12ms
+ ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 3ms
+ ✓ __tests__/platform/platform-ai.test.ts (5 tests) 3ms
+ ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 3ms
+ ✓ __tests__/oa/execution-run/transitions.test.ts (8 tests) 3ms
 
-```typescript
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import { getFixture } from "@/lib/oa/execution-run";
-import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
+ Test Files  130 passed (130)
+      Tests  1316 passed (1316)
+   Start at  14:51:33
+   Duration  8.36s (transform 3.91s, setup 5.27s, collect 15.09s, tests 25.78s, environment 6.94s, prepare 5.44s)
 
-async function succeededProjection() {
-  const composition = composeExecutionRunD2D3();
-  const fixture = getFixture("nominal");
-  const coordinated = await composition.coordinate({
-    intent: fixture.intent,
-    context: fixture.context,
-    providerRequest: {
-      correlationId: fixture.intent.correlationId,
-      lane: "ai",
-      operation: "complete",
-      messages: [{ role: "user", content: "fixture-only input" }],
-      timeoutMs: 100,
-    },
-    timeoutMs: 100,
-  });
-  if (!coordinated.run) throw new Error("expected run");
-  const projection = await composition.projectById(coordinated.run.runId);
-  if (!projection.ok) throw new Error(projection.failure.message);
-  return projection.projection;
-}
-
-describe("D2-D3 provider-independent projection", () => {
-  it("projects the bounded transport-neutral shape and disclosures", async () => {
-    const projection = await succeededProjection();
-
-    expect(projection).toMatchObject({
-      state: "succeeded",
-      source: "fixture",
-      providerLane: "ai",
-      phase: "terminal",
-      completeness: "complete",
-      cursorUnverified: true,
-      gitWrite: false,
-      persistence: {
-        kind: "memory_process_local",
-        durable: false,
-        multiInstance: false,
-        restartSafe: false,
-      },
-    });
-    expect(projection.evidenceSummary[0]).toMatchObject({
-      official: true,
-      source: "fixture",
-      late: false,
-    });
-    expect(projection.readinessAssessment.uiDelivery.status).toBe(
-      "not_demonstrated",
-    );
-    expect(projection.readinessAssessment.strongRuntimeVerdict.status).toBe(
-      "blocked",
-    );
-  });
-
-  it("contains no executable, SDK, adapter, command, signal, or raw surface", async () => {
-    const projection = await succeededProjection();
-    const seenKeys: string[] = [];
-    const visit = (value: unknown): void => {
-      if (!value || typeof value !== "object") {
-        expect(typeof value).not.toBe("function");
-        return;
-      }
-      for (const [key, nested] of Object.entries(value)) {
-        seenKeys.push(key);
-        expect(typeof nested).not.toBe("function");
-        visit(nested);
-      }
-    };
-    visit(projection);
-
-    expect(seenKeys).not.toEqual(
-      expect.arrayContaining([
-        "sdk",
-        "adapter",
-        "command",
-        "signal",
-        "abortSignal",
-        "rawPrompt",
-        "rawResponse",
-        "rawError",
-        "secret",
-      ]),
-    );
-    expect(JSON.stringify(projection)).not.toMatch(
-      /fixture-only input|AbortSignal|executeFixture|complete\(/,
-    );
-  });
-
-  it("is JSON serializable and exposes no Git write capability", async () => {
-    const projection = await succeededProjection();
-    expect(() => JSON.stringify(projection)).not.toThrow();
-    expect(JSON.parse(JSON.stringify(projection))).toEqual(projection);
-    expect(Object.keys(projection)).not.toContain("gitWriteCommand");
-    expect(projection.gitWrite).toBe(false);
-  });
-});
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts`
-
-```typescript
-/**
- * @vitest-environment node
- *
- * Permanent regression matrix for F-QA-D2D3-01…10.
- * Findings remain OPEN until Critical QA revalidation — these tests prove
- * technical addressing only.
- */
-import { describe, expect, it } from "vitest";
-import {
-  assessExecutionReadiness,
-  createExecutionProjection,
-  getFixture,
-  MAX_COORDINATOR_TIMEOUT_MS,
-  normalizedFailure,
-  type AiExecutionPort,
-  type ProviderInvocationResult,
-} from "@/lib/oa/execution-run";
-import {
-  composeExecutionRunD2D3,
-  composeExecutionRunMemory,
-  composeExecutionRunProviders,
-  composeExecutionRunProvidersFake,
-  coordinateExecutionRun,
-} from "@/lib/oa/execution-run/server";
-
-describe("F-QA-D2D3 permanent regression matrix", () => {
-  it("F01 — fake provider cannot be promoted to real via injected availableSources", async () => {
-    const core = composeExecutionRunMemory({
-      clockIso: "2026-08-04T10:00:00.000Z",
-    });
-    const providers = composeExecutionRunProvidersFake();
-    const fixture = getFixture("nominal");
-    const result = await coordinateExecutionRun(
-      {
-        intent: {
-          ...fixture.intent,
-          correlationId: "corr:f01",
-          intentId: "intent:f01",
-          requestedSource: "real",
-        },
-        context: { ...fixture.context, declaredSource: "real" },
-        providerRequest: {
-          correlationId: "corr:f01",
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "must not run" }],
-          timeoutMs: 50,
-        },
-        timeoutMs: 50,
-        availableSources: ["fixture", "real", "sandbox-real"],
-      },
-      {
-        execution: core,
-        providers,
-        events: providers.events,
-        clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
-      },
-    );
-
-    expect(result.ok).toBe(false);
-    expect(result.providerInvoked).toBe(false);
-    expect(result.run).toBeUndefined();
-    if (result.ok) throw new Error("expected failure");
-    expect(result.failure.code).toBe("SOURCE_MISMATCH");
-    expect(JSON.stringify(result)).not.toMatch(/"source":"real"/);
-  });
-
-  it("F02 — UX readiness cannot become demonstrated from boolean-only proofs", () => {
-    const assessment = assessExecutionReadiness({
-      fixturePathDemonstrated: true,
-      projectionDemonstrated: true,
-      disclosuresDemonstrated: true,
-    });
-    expect(assessment.uxExploration.status).toBe("not_demonstrated");
-    expect(assessment.uiDelivery.status).toBe("not_demonstrated");
-    expect(assessment.strongRuntimeVerdict.status).toBe("blocked");
-  });
-
-  it.each([1, 2, 4] as const)(
-    "F03 — sink throw at event %s continues workflow without raw error",
-    async (throwAt) => {
-      const core = composeExecutionRunMemory({
-        clockIso: "2026-08-04T10:00:00.000Z",
-      });
-      const providers = composeExecutionRunProvidersFake();
-      let eventCount = 0;
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => providers.ai.describeCapability(),
-        complete: async (request) => providers.ai.complete(request),
-      };
-      const throwing = composeExecutionRunProviders({
-        ...providers,
-        ai,
-        events: {
-          emit: () => {
-            eventCount += 1;
-            if (eventCount === throwAt) {
-              throw new Error(`sink_raw_${throwAt}`);
-            }
-          },
-        },
-      });
-      const fixture = getFixture("nominal");
-      let rawError = "";
-      let result;
-      try {
-        result = await coordinateExecutionRun(
-          {
-            intent: {
-              ...fixture.intent,
-              correlationId: `corr:f03:${throwAt}`,
-              intentId: `intent:f03:${throwAt}`,
-            },
-            context: fixture.context,
-            providerRequest: {
-              correlationId: `corr:f03:${throwAt}`,
-              lane: "ai",
-              operation: "complete",
-              messages: [{ role: "user", content: "sink" }],
-              timeoutMs: 50,
-            },
-            timeoutMs: 50,
-          },
-          {
-            execution: core,
-            providers: throwing,
-            events: throwing.events,
-            clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
-          },
-        );
-      } catch (error) {
-        rawError = error instanceof Error ? error.message : String(error);
-      }
-
-      expect(rawError).toBe("");
-      expect(result).toBeDefined();
-      const stored = await core.listByCorrelationId(`corr:f03:${throwAt}`);
-      expect(stored.at(-1)?.state).toBe(result!.run?.state);
-      expect(result!.run?.state).toBe("succeeded");
-      expect(result!.ok).toBe(true);
-      expect(result!.eventDelivery.status).toBe("degraded");
-      expect(result!.eventDelivery.failureCount).toBeGreaterThan(0);
-      expect(JSON.stringify(result)).not.toContain(`sink_raw_${throwAt}`);
-    },
-  );
-
-  it("F04 — malicious projection rejects secrets, functions, and claim promotion", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const coordinated = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "proj" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    expect(coordinated.run?.state).toBe("succeeded");
-    const injectedFunction = () => "executable";
-    const malicious = {
-      run: {
-        ...coordinated.run,
-        externalResult: {
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "password=projection-plain-secret",
-          rawPresent: false,
-        },
-        blockedReason: "apiKey=projection-key",
-        disclosure: {
-          ...coordinated.run!.disclosure,
-          limits: [injectedFunction],
-        },
-        persistence: {
-          kind: "memory_process_local",
-          durable: true,
-          multiInstance: true,
-          restartSafe: true,
-        },
-        evidence: [
-          {
-            ...coordinated.run!.evidence![0],
-            source: "real",
-            official: false,
-          },
-        ],
-      },
-      openReserves: ["password=reserve-plain-secret"],
-    };
-    const projection = createExecutionProjection(malicious);
-    expect(projection.ok).toBe(false);
-    if (projection.ok) throw new Error("expected rejection");
-    expect(JSON.stringify(projection)).not.toContain("projection-plain-secret");
-    expect(JSON.stringify(projection)).not.toContain("reserve-plain-secret");
-  });
-
-  it("F05 — sensitive late evidence is redacted before persistence", async () => {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => ({
-        kind: "cancelled",
-        failure: normalizedFailure({
-          family: "cancelled",
-          code: "CANCELLED",
-          userMessage: "cancelled",
-          retryable: false,
-          correlationId: request.correlationId,
-        }),
-      }),
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        correlationId: "corr:f05",
-        intentId: "intent:f05",
-      },
-      context: fixture.context,
-      providerRequest: {
-        correlationId: "corr:f05",
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "late" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-      lateEvidenceSummary: "password=late-plain-secret",
-    });
-
-    expect(result.run?.state).toBe("cancelled");
-    expect(result.lateEvidenceRecorded).toBe(true);
-    const late = result.run?.evidence?.at(-1);
-    expect(late).toMatchObject({
-      late: true,
-      official: true,
-      source: "fixture",
-    });
-    expect(late?.summary).toBe("late_result_redacted");
-    expect(late?.summary).not.toContain("late-plain-secret");
-    expect(JSON.stringify(result)).not.toContain("late-plain-secret");
-  });
-
-  it("F-QA-REV-D2D3-01 — matching correlationId keeps nominal engagement", async () => {
-    const base = composeExecutionRunProvidersFake();
-    let describeCalls = 0;
-    let completeCalls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => {
-        describeCalls += 1;
-        return base.ai.describeCapability();
-      },
-      complete: async (request) => {
-        completeCalls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        correlationId: "corr:rev01:match",
-        intentId: "intent:rev01:match",
-      },
-      context: fixture.context,
-      providerRequest: {
-        correlationId: "corr:rev01:match",
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "match" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    expect(result.ok).toBe(true);
-    expect(result.run?.state).toBe("succeeded");
-    expect(describeCalls).toBeGreaterThan(0);
-    expect(completeCalls).toBe(1);
-    expect(result.providerInvoked).toBe(true);
-  });
-
-  it.each([
-    {
-      name: "different",
-      requestCorrelationId: "corr:rev01:other",
-      buildRequest: (base: Record<string, unknown>) => ({
-        ...base,
-        correlationId: "corr:rev01:other",
-      }),
-    },
-    {
-      name: "empty",
-      requestCorrelationId: "",
-      buildRequest: (base: Record<string, unknown>) => ({
-        ...base,
-        correlationId: "",
-      }),
-    },
-    {
-      name: "absent",
-      requestCorrelationId: undefined,
-      buildRequest: (base: Record<string, unknown>) => {
-        const { correlationId: _omit, ...rest } = base as {
-          correlationId: string;
-        } & Record<string, unknown>;
-        void _omit;
-        return rest;
-      },
-    },
-    {
-      name: "hostile_getter",
-      requestCorrelationId: "corr:rev01:match",
-      buildRequest: (base: Record<string, unknown>) => {
-        const hostile = Object.create(null);
-        for (const [key, value] of Object.entries(base)) {
-          if (key === "correlationId") {
-            Object.defineProperty(hostile, key, {
-              enumerable: true,
-              get() {
-                return "corr:rev01:hostile";
-              },
-            });
-          } else {
-            Object.defineProperty(hostile, key, {
-              enumerable: true,
-              value,
-              writable: true,
-              configurable: true,
-            });
-          }
-        }
-        return hostile;
-      },
-    },
-    {
-      name: "odd_prototype",
-      requestCorrelationId: "corr:rev01:other",
-      buildRequest: (base: Record<string, unknown>) =>
-        Object.assign(Object.create({ polluted: true }), {
-          ...base,
-          correlationId: "corr:rev01:other",
-        }),
-    },
-  ])(
-    "F-QA-REV-D2D3-01 — correlationId $name rejects before provider engagement",
-    async ({ buildRequest }) => {
-      const base = composeExecutionRunProvidersFake();
-      let describeCalls = 0;
-      let completeCalls = 0;
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => {
-          describeCalls += 1;
-          return base.ai.describeCapability();
-        },
-        complete: async (request) => {
-          completeCalls += 1;
-          return base.ai.complete(request);
-        },
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const fixture = getFixture("nominal");
-      const requestBase = {
-        correlationId: "corr:rev01:match",
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "must not run" }],
-        timeoutMs: 50,
-      };
-      const result = await composition.coordinate({
-        intent: {
-          ...fixture.intent,
-          correlationId: "corr:rev01:match",
-          intentId: "intent:rev01:reject",
-        },
-        context: fixture.context,
-        providerRequest: buildRequest(requestBase) as never,
-        timeoutMs: 50,
-      });
-
-      expect(result.ok).toBe(false);
-      expect(result.run).toBeUndefined();
-      expect(result.stateTrace).toEqual([]);
-      expect(result.providerAttempted).toBe(false);
-      expect(result.providerInvoked).toBe(false);
-      expect(result.providerCompleted).toBe(false);
-      expect(describeCalls).toBe(0);
-      expect(completeCalls).toBe(0);
-      expect(result.lateEvidenceRecorded).toBe(false);
-      if (result.ok) throw new Error("expected failure");
-      expect(result.failure.family).toBe("validation");
-      expect(result.failure.code).toBe("VALIDATION_ERROR");
-    },
-  );
-
-  it.each([
-    "password=late-secret",
-    "token=abc",
-    "token : abc",
-    "apiKey=k",
-    "api_key = k",
-    "api-key: k",
-    "Authorization Bearer xyz",
-    "Authorization: Bearer xyz",
-    "bearer xyz",
-    "access_token=abc",
-    "refresh_token=abc",
-    "client_secret=abc",
-    "cookie=session-value",
-    '"apiKey":"value"',
-    "?token=value",
-    "&token=value",
-    "contains private key material",
-    "ghp_abcdefghij",
-    "github_pat_abcdefghij",
-    "sk-abcdefghij",
-    "xoxb-abcdefghij",
-    "ToKeN=AbC",
-    "line1\ntoken=abc\nline3",
-    `${"safe-".repeat(80)}token=abc`,
-    "token=abc\u0000tail",
-    { not: "a string" },
-    null,
-    ["array"],
-    42,
-    true,
-  ])(
-    "F-QA-D2D3-05 / F-QA-REV-D2D3-02 — late secret %j becomes late_result_redacted",
-    async (summary) => {
-      const base = composeExecutionRunProvidersFake();
-      const sensitiveMarkers = [
-        "late-secret",
-        "token=abc",
-        "token : abc",
-        "apiKey=k",
-        "api_key = k",
-        "api-key: k",
-        "Authorization Bearer xyz",
-        "Authorization: Bearer xyz",
-        "bearer xyz",
-        "access_token=abc",
-        "refresh_token=abc",
-        "client_secret=abc",
-        "cookie=session-value",
-        '"apiKey":"value"',
-        "?token=value",
-        "&token=value",
-        "private key",
-        "ghp_abcdefghij",
-        "github_pat_abcdefghij",
-        "sk-abcdefghij",
-        "xoxb-abcdefghij",
-        "ToKeN=AbC",
-        "token=abc",
-      ];
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async (request) => ({
-          kind: "cancelled",
-          failure: normalizedFailure({
-            family: "cancelled",
-            code: "CANCELLED",
-            userMessage: "cancelled",
-            retryable: false,
-            correlationId: request.correlationId,
-          }),
-        }),
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const fixture = getFixture("nominal");
-      const result = await composition.coordinate({
-        intent: {
-          ...fixture.intent,
-          correlationId: "corr:rev02",
-          intentId: "intent:rev02",
-        },
-        context: fixture.context,
-        providerRequest: {
-          correlationId: "corr:rev02",
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "late" }],
-          timeoutMs: 50,
-        },
-        timeoutMs: 50,
-        lateEvidenceSummary: summary as never,
-      });
-
-      expect(result.run?.state).toBe("cancelled");
-      expect(result.lateEvidenceRecorded).toBe(true);
-      const late = result.run?.evidence?.at(-1);
-      expect(late).toMatchObject({
-        late: true,
-        official: true,
-        source: "fixture",
-        summary: "late_result_redacted",
-      });
-      const runJson = JSON.stringify(result.run);
-      const projection = createExecutionProjection({
-        run: result.run!,
-        openReserves: [],
-      });
-      expect(projection.ok).toBe(true);
-      const projJson = JSON.stringify(projection);
-      for (const marker of sensitiveMarkers) {
-        if (typeof summary === "string" && summary.includes(marker)) {
-          expect(runJson).not.toContain(marker);
-          expect(projJson).not.toContain(marker);
-          expect(JSON.stringify(result)).not.toContain(marker);
-        }
-      }
-      if (typeof summary === "string" && summary.includes("session-value")) {
-        expect(runJson).not.toContain("session-value");
-      }
-      if (typeof summary === "string" && summary.includes("late-secret")) {
-        expect(runJson).not.toContain("late-secret");
-      }
-    },
-  );
-
-  it("F06 — invalid intent yields zero describeCapability and zero provider calls", async () => {
-    const base = composeExecutionRunProvidersFake();
-    let describeCalls = 0;
-    let completeCalls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => {
-        describeCalls += 1;
-        return base.ai.describeCapability();
-      },
-      complete: async (request) => {
-        completeCalls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const fixture = getFixture("validation_failure");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "must not run" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-
-    expect(result.ok).toBe(false);
-    expect(describeCalls).toBe(0);
-    expect(completeCalls).toBe(0);
-    expect(result.run).toBeUndefined();
-    expect(result.providerInvoked).toBe(false);
-  });
-
-  it("F07 — hostile request getter is rejected before run creation", async () => {
-    const core = composeExecutionRunMemory({
-      clockIso: "2026-08-04T10:00:00.000Z",
-    });
-    const providers = composeExecutionRunProvidersFake();
-    const fixture = getFixture("nominal");
-    const hostile = Object.create(null);
-    Object.defineProperty(hostile, "lane", {
-      enumerable: true,
-      get() {
-        throw new Error("hostile_request_getter");
-      },
-    });
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(
-        {
-          intent: {
-            ...fixture.intent,
-            correlationId: "corr:f07-req",
-            intentId: "intent:f07-req",
-          },
-          context: fixture.context,
-          providerRequest: hostile,
-          timeoutMs: 50,
-        },
-        {
-          execution: core,
-          providers,
-          events: providers.events,
-          clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
-        },
-      );
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId("corr:f07-req");
-    expect(rawError).toBe("");
-    expect(result?.ok).toBe(false);
-    expect(result?.providerInvoked).toBe(false);
-    expect(stored).toEqual([]);
-  });
-
-  it("F07 — hostile result getter yields failed terminal without orphan running", async () => {
-    const base = composeExecutionRunProvidersFake();
-    const hostileResult = Object.create(null);
-    Object.defineProperty(hostileResult, "kind", {
-      enumerable: true,
-      get() {
-        throw new Error("hostile_result_getter");
-      },
-    });
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () =>
-        hostileResult as unknown as ProviderInvocationResult,
-    };
-    const core = composeExecutionRunMemory({
-      clockIso: "2026-08-04T10:00:00.000Z",
-    });
-    const providers = composeExecutionRunProviders({ ...base, ai });
-    const fixture = getFixture("nominal");
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(
-        {
-          intent: {
-            ...fixture.intent,
-            correlationId: "corr:f07-res",
-            intentId: "intent:f07-res",
-          },
-          context: fixture.context,
-          providerRequest: {
-            correlationId: "corr:f07-res",
-            lane: "ai",
-            operation: "complete",
-            messages: [{ role: "user", content: "hostile" }],
-            timeoutMs: 50,
-          },
-          timeoutMs: 50,
-        },
-        {
-          execution: core,
-          providers,
-          events: providers.events,
-          clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
-        },
-      );
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId("corr:f07-res");
-    expect(rawError).toBe("");
-    expect(result?.run?.state).toBe("failed");
-    expect(stored.at(-1)?.state).toBe("failed");
-    expect(stored.at(-1)?.state).not.toBe("running");
-    expect(JSON.stringify(result)).not.toContain("hostile_result_getter");
-  });
-
-  it("F08 — pre-cancellation reports providerInvoked=false with zero calls", async () => {
-    const base = composeExecutionRunProvidersFake();
-    let calls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => {
-        calls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const fixture = getFixture("nominal");
-    const controller = new AbortController();
-    controller.abort();
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        correlationId: "corr:f08",
-        intentId: "intent:f08",
-      },
-      context: fixture.context,
-      providerRequest: {
-        correlationId: "corr:f08",
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "cancel" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-      signal: controller.signal,
-    });
-
-    expect(result.run?.state).toBe("cancelled");
-    expect(calls).toBe(0);
-    expect(result.providerAttempted).toBe(true);
-    expect(result.providerInvoked).toBe(false);
-    expect(result.providerCompleted).toBe(false);
-  });
-
-  it.each([0, -1, Number.NaN, Number.POSITIVE_INFINITY, 1.5, MAX_COORDINATOR_TIMEOUT_MS + 1])(
-    "F09 — invalid timeout %s creates no run and invokes nothing",
-    async (timeoutMs) => {
-      const base = composeExecutionRunProvidersFake();
-      let describeCalls = 0;
-      let completeCalls = 0;
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => {
-          describeCalls += 1;
-          return base.ai.describeCapability();
-        },
-        complete: async (request) => {
-          completeCalls += 1;
-          return base.ai.complete(request);
-        },
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const fixture = getFixture("nominal");
-      const result = await composition.coordinate({
-        intent: {
-          ...fixture.intent,
-          correlationId: `corr:f09:${String(timeoutMs)}`,
-          intentId: `intent:f09:${String(timeoutMs)}`,
-        },
-        context: fixture.context,
-        providerRequest: {
-          correlationId: `corr:f09:${String(timeoutMs)}`,
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "timeout" }],
-          timeoutMs: 50,
-        },
-        timeoutMs,
-      });
-      expect(result.ok).toBe(false);
-      expect(result.run).toBeUndefined();
-      expect(result.providerInvoked).toBe(false);
-      expect(describeCalls).toBe(0);
-      expect(completeCalls).toBe(0);
-      if (result.ok) throw new Error("expected failure");
-      expect(result.failure.code).toBe("VALIDATION_ERROR");
-    },
-  );
-
-  it("F09 — valid timeout still succeeds", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        correlationId: "corr:f09:ok",
-        intentId: "intent:f09:ok",
-      },
-      context: fixture.context,
-      providerRequest: {
-        correlationId: "corr:f09:ok",
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "ok" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    expect(result.ok).toBe(true);
-    expect(result.run?.state).toBe("succeeded");
-  });
-
-  it.each([
-    "projects/sfia-studio/%2e%2e/.env",
-    "%2e%2e/.env",
-    "%252e%252e/.env",
-    "projects\\sfia-studio\\%2e%2e\\.env",
-    "%2fetc%2fpasswd",
-    "projects/sfia-studio/%00.env",
-    "projects/sfia-studio/%zz",
-  ])("F10 — encoded hostile path %s is blocked before provider", async (path) => {
-    const base = composeExecutionRunProvidersFake();
-    let calls = 0;
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({
-        ...base,
-        git: {
-          ...base.git,
-          read: async (request) => {
-            calls += 1;
-            return base.git.read(request);
-          },
-        },
-      }),
-    });
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        intentId: `intent:f10:${path}`,
-        correlationId: `corr:f10:${path}`,
-        requestedLane: "git",
-      },
-      context: fixture.context,
-      providerRequest: {
-        correlationId: `corr:f10:${path}`,
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "path_meta",
-        path,
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    expect(result.ok).toBe(false);
-    expect(calls).toBe(0);
-    expect(result.providerInvoked).toBe(false);
-    expect(result.run?.evidence).toBeUndefined();
-    expect(result.run?.state === "succeeded").toBe(false);
-  });
-
-  it.each([
-    '{"token":"value"}',
-    '{"token":123}',
-    '{"token":true}',
-    '{"token":null}',
-    '{"token":[]}',
-    '{"token":{}}',
-    '{"access_token":"value"}',
-    '{"access-token":"value"}',
-    '{"refresh_token":"value"}',
-    '{"refresh-token":"value"}',
-    '{"client_secret":"value"}',
-    '{"client-secret":"value"}',
-    '{"apiKey":"value"}',
-    '{"api_key":"value"}',
-    '{"api-key":"value"}',
-    '{"authorization":"Bearer value"}',
-    '{"cookie":"value"}',
-    '{"session":"value"}',
-    "'token':'value'",
-    '{"ToKeN":"value"}',
-    '{"token" : "value"}',
-    '{"token"\t:\t"value"}',
-    '{\n"token": "value"\n}',
-    `${"a".repeat(250)}{"token":"secret-after-240"}`,
-  ])(
-    "F-QA-REV2-D2D3-01 — structured secret %j → late_result_redacted",
-    async (summary) => {
-      const base = composeExecutionRunProvidersFake();
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async (request) => ({
-          kind: "cancelled",
-          failure: normalizedFailure({
-            family: "cancelled",
-            code: "CANCELLED",
-            userMessage: "cancelled",
-            retryable: false,
-            correlationId: request.correlationId,
-          }),
-        }),
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const fixture = getFixture("nominal");
-      const result = await composition.coordinate({
-        intent: {
-          ...fixture.intent,
-          correlationId: "corr:rev2:01",
-          intentId: "intent:rev2:01",
-        },
-        context: fixture.context,
-        providerRequest: {
-          correlationId: "corr:rev2:01",
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "late" }],
-          timeoutMs: 50,
-        },
-        timeoutMs: 50,
-        lateEvidenceSummary: summary,
-      });
-      expect(result.run?.state).toBe("cancelled");
-      expect(result.lateEvidenceRecorded).toBe(true);
-      expect(result.run?.evidence?.at(-1)).toMatchObject({
-        late: true,
-        official: true,
-        source: "fixture",
-        summary: "late_result_redacted",
-      });
-      const blob = JSON.stringify(result);
-      expect(result.run?.evidence?.at(-1)?.summary).toBe("late_result_redacted");
-      if (summary.includes("secret-after-240")) {
-        expect(blob).not.toContain("secret-after-240");
-      }
-      if (summary.includes("Bearer value")) {
-        expect(blob).not.toContain("Bearer value");
-      }
-      expect(blob).not.toMatch(
-        /['"](?:password|secret|token|access[_-]token|refresh[_-]token|client[_-]secret|api[_-]?key|authorization|cookie|session)['"]\s*:\s*[^,\}\s]/i,
-      );
-      const projection = createExecutionProjection({
-        run: result.run!,
-        openReserves: [],
-      });
-      expect(projection.ok).toBe(true);
-      expect(JSON.stringify(projection)).not.toContain("secret-after-240");
-      expect(JSON.stringify(projection)).not.toContain("Bearer value");
-    },
-  );
-
-  it.each([
-    '{"status":"complete"}',
-    '{"tokenCount":12}',
-    '{"authorizationStatus":"missing"}',
-    '{"sessionCount":1}',
-    '{"cookiePolicy":"strict"}',
-    '{"apiVersion":"v1"}',
-  ])(
-    "F-QA-REV2-D2D3-01 — non-sensitive structured %j preserved (not over-redacted)",
-    async (summary) => {
-      const base = composeExecutionRunProvidersFake();
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async (request) => ({
-          kind: "cancelled",
-          failure: normalizedFailure({
-            family: "cancelled",
-            code: "CANCELLED",
-            userMessage: "cancelled",
-            retryable: false,
-            correlationId: request.correlationId,
-          }),
-        }),
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const fixture = getFixture("nominal");
-      const result = await composition.coordinate({
-        intent: {
-          ...fixture.intent,
-          correlationId: "corr:rev2:safe",
-          intentId: "intent:rev2:safe",
-        },
-        context: fixture.context,
-        providerRequest: {
-          correlationId: "corr:rev2:safe",
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "late" }],
-          timeoutMs: 50,
-        },
-        timeoutMs: 50,
-        lateEvidenceSummary: summary,
-      });
-      expect(result.run?.state).toBe("cancelled");
-      expect(result.lateEvidenceRecorded).toBe(true);
-      expect(result.run?.evidence?.at(-1)?.summary).toBe(summary);
-      expect(result.run?.evidence?.at(-1)?.summary).not.toBe(
-        "late_result_redacted",
-      );
-    },
-  );
-
-  it.each([
-    {
-      name: "function",
-      build: () => {
-        const input: Record<string, unknown> = {
-          intent: null,
-          context: null,
-          providerRequest: null,
-          timeoutMs: 50,
-        };
-        // placeholders replaced below
-        return { kind: "function" as const, late: (() => "fn") as unknown };
-      },
-    },
-    {
-      name: "symbol",
-      build: () => ({ kind: "symbol" as const, late: Symbol("x") as unknown }),
-    },
-    {
-      name: "getter",
-      build: () => ({ kind: "getter" as const }),
-    },
-    {
-      name: "odd_prototype",
-      build: () => ({ kind: "odd_prototype" as const }),
-    },
-  ])(
-    "F-QA-REV2-D2D3-02 — arbitrated fail-closed hostile envelope ($name)",
-    async ({ name, build }) => {
-      const base = composeExecutionRunProvidersFake();
-      let describeCalls = 0;
-      let completeCalls = 0;
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => {
-          describeCalls += 1;
-          return base.ai.describeCapability();
-        },
-        complete: async (request) => {
-          completeCalls += 1;
-          return base.ai.complete(request);
-        },
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const fixture = getFixture("nominal");
-      const built = build();
-      const coordInput: Record<string, unknown> = {
-        intent: {
-          ...fixture.intent,
-          correlationId: "corr:rev2:02",
-          intentId: "intent:rev2:02",
-        },
-        context: fixture.context,
-        providerRequest: {
-          correlationId: "corr:rev2:02",
-          lane: "ai",
-          operation: "complete",
-          messages: [{ role: "user", content: "must not run" }],
-          timeoutMs: 50,
-        },
-        timeoutMs: 50,
-      };
-      if (built.kind === "function" || built.kind === "symbol") {
-        coordInput.lateEvidenceSummary = built.late;
-      } else if (built.kind === "getter") {
-        Object.defineProperty(coordInput, "lateEvidenceSummary", {
-          enumerable: true,
-          configurable: true,
-          get() {
-            return "hostile-getter-value";
-          },
-        });
-      } else {
-        // Nested non-plain object forces envelope untrusted rejection.
-        coordInput.lateEvidenceSummary = Object.assign(
-          Object.create({ polluted: true }),
-          { nested: "hostile-proto-value" },
-        );
-      }
-      const result = await composition.coordinate(coordInput as never);
-      expect(result.ok).toBe(false);
-      expect(result.run).toBeUndefined();
-      expect(result.stateTrace).toEqual([]);
-      expect(result.providerAttempted).toBe(false);
-      expect(result.providerInvoked).toBe(false);
-      expect(result.providerCompleted).toBe(false);
-      expect(result.lateEvidenceRecorded).toBe(false);
-      expect(describeCalls).toBe(0);
-      expect(completeCalls).toBe(0);
-      if (result.ok) throw new Error("expected failure");
-      expect(result.failure.family).toBe("validation");
-      expect(JSON.stringify(result)).not.toContain("hostile-getter-value");
-      expect(JSON.stringify(result)).not.toContain("hostile-proto-value");
-    },
-  );
-});
+### governance tail
+```
+✔ adversarial: bad schemaVersion rejected (3.635542ms)
+✔ adversarial: additionalProperties rejected (3.653625ms)
+✔ adversarial: supersedes without xct: prefix rejected (3.736583ms)
+✔ catalog CancelExecution dual-context ownership is explicit (0.117375ms)
+ℹ tests 73
+ℹ suites 0
+ℹ pass 73
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 179.066
 ```
 
-### `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts`
-
-```typescript
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  assessExecutionReadiness,
-  D2D3_OPEN_RESERVES,
-  getFixture,
-} from "@/lib/oa/execution-run";
-import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
-
-describe("D2-D3 bounded readiness assessment", () => {
-  it("rejects boolean-only proofs as not demonstrated", () => {
-    const assessment = assessExecutionReadiness({
-      fixturePathDemonstrated: true,
-      projectionDemonstrated: true,
-      disclosuresDemonstrated: true,
-    });
-    expect(assessment.uxExploration.status).toBe("not_demonstrated");
-  });
-
-  it("demonstrates UX exploration only with linked run, projection, and evidence", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "readiness fixture" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-    expect(result.run?.state).toBe("succeeded");
-    const assessment = await composition.assessById(result.run!.runId);
-    expect(assessment.uxExploration.status).toBe("demonstrated");
-  });
-
-  it("keeps UI delivery not demonstrated and strong runtime blocked", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "bounded" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-    const assessment = await composition.assessById(result.run!.runId);
-
-    expect(assessment.uiDelivery.status).toBe("not_demonstrated");
-    expect(assessment.strongRuntimeVerdict.status).toBe("blocked");
-    expect(assessment.strongRuntimeVerdict.reasons).toEqual([
-      "G-D2D-CURSOR-01 not consumed",
-      "G-D2D-PERSIST-01 not consumed",
-      "Cursor unverified",
-      "memory is process-local",
-      "no live provider proof",
-    ]);
-  });
-
-  it("carries every inherited reserve without lifting it", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "reserves" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-    const assessment = await composition.assessById(result.run!.runId);
-
-    expect(assessment.openReserves).toEqual(D2D3_OPEN_RESERVES);
-    expect(assessment.openReserves).toHaveLength(6);
-  });
-
-  it("uses only the three bounded statuses and makes no excessive claim", async () => {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest: {
-        correlationId: fixture.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "status" }],
-        timeoutMs: 100,
-      },
-      timeoutMs: 100,
-    });
-    const assessment = await composition.assessById(result.run!.runId);
-    const statuses = [
-      assessment.uxExploration.status,
-      assessment.uiDelivery.status,
-      assessment.strongRuntimeVerdict.status,
-    ];
-    const serialized = JSON.stringify(assessment);
-
-    expect(statuses).toEqual([
-      "demonstrated",
-      "not_demonstrated",
-      "blocked",
-    ]);
-    expect(serialized).not.toMatch(
-      /production-ready|RUN READY|multi-instance ready|restart-safe|Cursor verified/i,
-    );
-  });
-});
-```
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts`
-
-```typescript
-/**
- * @vitest-environment node
- */
-import fs from "node:fs";
-import path from "node:path";
-import { describe, expect, it } from "vitest";
-
-const APP_ROOT = path.resolve(__dirname, "../../..");
-const MODULE_ROOT = path.join(APP_ROOT, "lib/oa/execution-run");
-
-function listTsFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  const out: string[] = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      if (entry.name === "node_modules") continue;
-      out.push(...listTsFiles(full));
-    } else if (/\.tsx?$/.test(entry.name)) {
-      out.push(full);
-    }
-  }
-  return out;
-}
-
-function importsOf(file: string): string[] {
-  return fs
-    .readFileSync(file, "utf8")
-    .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => l.startsWith("import ") || l.startsWith("export "));
-}
-
-describe("D2-D1 execution-run import boundaries", () => {
-  it("domain stays pure", () => {
-    const files = listTsFiles(path.join(MODULE_ROOT, "domain"));
-    expect(files.length).toBeGreaterThan(0);
-    const hits: string[] = [];
-    const forbidden =
-      /from\s+["'](?:node:|next|react|ajv|@\/lib\/(?:ops1|d1|platform|vertical-slice|harness)|fs|path|child_process)/;
-    for (const file of files) {
-      for (const line of importsOf(file)) {
-        if (forbidden.test(line)) hits.push(`${file}: ${line}`);
-      }
-    }
-    expect(hits).toEqual([]);
-  });
-
-  it("application does not import infrastructure, AJV, Node, Next, or providers", () => {
-    const files = listTsFiles(path.join(MODULE_ROOT, "application"));
-    const hits: string[] = [];
-    for (const file of files) {
-      for (const line of importsOf(file)) {
-        if (
-          /from\s+["'].*\/infrastructure\/|from\s+["']ajv|openai|@octokit|@cursor\/|node:|from\s+["']next|from\s+["']react/.test(
-            line,
-          )
-        ) {
-          hits.push(`${file}: ${line}`);
-        }
-      }
-    }
-    expect(hits).toEqual([]);
-  });
-
-  it("module does not import harness, vertical-slice-runtime, execution-attempt, or execution-contract internals", () => {
-    const files = listTsFiles(MODULE_ROOT);
-    const hits: string[] = [];
-    for (const file of files) {
-      for (const line of importsOf(file)) {
-        if (
-          /vertical-slice-runtime|execution-attempt|execution-contract|harness\//.test(
-            line,
-          )
-        ) {
-          hits.push(`${path.relative(APP_ROOT, file)}: ${line}`);
-        }
-      }
-    }
-    expect(hits).toEqual([]);
-  });
-
-  it("root barrel does not export concrete composition", () => {
-    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
-    expect(barrel).not.toMatch(/composeExecutionRunMemory/);
-    expect(barrel).not.toMatch(/MemoryExecutionRunStore/);
-    expect(barrel).not.toMatch(/AjvExecutionRunSchemaValidation/);
-  });
-
-  it("server composition lives under server/ with server-only guard", () => {
-    const serverDir = path.join(MODULE_ROOT, "server");
-    expect(fs.existsSync(serverDir)).toBe(true);
-    const compose = fs.readFileSync(
-      path.join(serverDir, "composeExecutionRunMemory.ts"),
-      "utf8",
-    );
-    expect(compose).toMatch(/assertServerOnly/);
-    expect(compose).toMatch(/infrastructure\//);
-    const guard = fs.readFileSync(path.join(serverDir, "serverOnly.ts"), "utf8");
-    expect(guard).toMatch(/typeof window/);
-  });
-
-  it("application folder no longer hosts concrete composition", () => {
-    expect(
-      fs.existsSync(path.join(MODULE_ROOT, "application/composeExecutionRun.ts")),
-    ).toBe(false);
-  });
-
-  it("public persistExecutionRun is removed; helper lives under application/internal", () => {
-    expect(
-      fs.existsSync(path.join(MODULE_ROOT, "application/persistExecutionRun.ts")),
-    ).toBe(false);
-    expect(
-      fs.existsSync(
-        path.join(
-          MODULE_ROOT,
-          "application/internal/persistExecutionRunInternal.ts",
-        ),
-      ),
-    ).toBe(true);
-    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
-    expect(barrel).not.toMatch(/persistExecutionRun/);
-  });
-});
-
-
-describe("D2-D2 execution-run provider boundary imports", () => {
-  it("domain still has no platform/SDK imports after D2-D2", () => {
-    const files = listTsFiles(path.join(MODULE_ROOT, "domain"));
-    const hits: string[] = [];
-    const forbidden =
-      /from\s+["'](?:node:|openai|@octokit|@\/lib\/(?:platform|harness)|fs|path|child_process)/;
-    for (const file of files) {
-      for (const line of importsOf(file)) {
-        if (forbidden.test(line)) hits.push(`${file}: ${line}`);
-      }
-    }
-    expect(hits).toEqual([]);
-  });
-
-  it("application providerInvocation does not import platform adapters", () => {
-    const file = path.join(MODULE_ROOT, "application/providerInvocation.ts");
-    const src = fs.readFileSync(file, "utf8");
-    expect(src).not.toMatch(/platform\//);
-    expect(src).not.toMatch(/openai|@octokit|harness\//);
-  });
-
-  it("root barrel does not export concrete provider adapters", () => {
-    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
-    expect(barrel).not.toMatch(/FakeAiExecutionAdapter/);
-    expect(barrel).not.toMatch(/PlatformAiExecutionAdapter/);
-    expect(barrel).not.toMatch(/FakeGitReadAdapter/);
-    expect(barrel).not.toMatch(/FixtureCursorExecutionAdapter/);
-    expect(barrel).not.toMatch(/composeExecutionRunProvidersFake/);
-  });
-
-  it("Git read port type file declares no mutation methods", () => {
-    const src = fs.readFileSync(path.join(MODULE_ROOT, "ports/gitReadPort.ts"), "utf8");
-    expect(src).not.toMatch(/\bpush\b/);
-    expect(src).not.toMatch(/\bcommit\(/);
-    expect(src).not.toMatch(/^\s*write\s*\(/m);
-    expect(src).toMatch(/read\(request/);
-  });
-
-  it("public SecretSourcePort has no materialize surface", () => {
-    const src = fs.readFileSync(path.join(MODULE_ROOT, "ports/secretSourcePort.ts"), "utf8");
-    expect(src).not.toMatch(/materialize/);
-    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
-    expect(barrel).not.toMatch(/serverOnlySecretMaterializer/);
-    expect(barrel).not.toMatch(/materializeForServerOnly/);
-  });
-});
-
-describe("D2-D3 coordination and projection boundaries", () => {
-  it("keeps application code free of Node, Next, SDK, process, and infrastructure imports", () => {
-    const files = [
-      "application/coordinateExecutionRun.ts",
-      "application/executionProjection.ts",
-      "application/executionReadiness.ts",
-      "application/untrustedExecutionData.ts",
-    ];
-    for (const relative of files) {
-      const src = fs.readFileSync(path.join(MODULE_ROOT, relative), "utf8");
-      expect(src).not.toMatch(
-        /from\s+["'](?:node:|next|openai|@octokit)|\bchild_process\b|\bprocess\.|\binfrastructure\//,
-      );
-    }
-  });
-
-  it("keeps the concrete D2-D3 composition out of the public barrel", () => {
-    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
-    expect(barrel).not.toMatch(/composeExecutionRunD2D3/);
-    expect(barrel).not.toMatch(/composeExecutionRunProviders/);
-    expect(barrel).not.toMatch(/MemoryExecutionRunRepository/);
-    // Coordinator function must not be re-exported; timeout bound may import the module path.
-    expect(barrel).not.toMatch(
-      /export\s*\{[^}]*\bcoordinateExecutionRun\b[^}]*\}\s*from/,
-    );
-    expect(barrel).not.toMatch(/availableSources/);
-  });
-
-  it("reuses the existing single memory authority without a new store or repository", () => {
-    const src = fs.readFileSync(
-      path.join(MODULE_ROOT, "server/composeExecutionRunD2D3.ts"),
-      "utf8",
-    );
-    expect(src).toMatch(/composeExecutionRunMemory/);
-    expect(src).not.toMatch(/new\s+MemoryExecutionRunStore/);
-    expect(src).not.toMatch(/new\s+MemoryExecutionRunRepository/);
-    expect(src).not.toMatch(/\.save\(/);
-    expect(src).not.toMatch(/availableSources/);
-  });
-
-  it("gives the coordinator only create and transition state authority", () => {
-    const src = fs.readFileSync(
-      path.join(MODULE_ROOT, "application/coordinateExecutionRun.ts"),
-      "utf8",
-    );
-    expect(src).toMatch(/createExecutionRun/);
-    expect(src).toMatch(/transitionExecutionRun/);
-    expect(src).not.toMatch(/\.save\(/);
-    expect(src).not.toMatch(/Object\.assign\([^)]*run/);
-    expect(src).not.toMatch(/\brun\.state\s*=/);
-    expect(src).not.toMatch(/availableSources:/);
-  });
-
-  it("keeps projection pure and free of secret materializers and transports", () => {
-    const src = fs.readFileSync(
-      path.join(MODULE_ROOT, "application/executionProjection.ts"),
-      "utf8",
-    );
-    expect(src).not.toMatch(
-      /materialize|NextResponse|fetch\(|from\s+["'](?:node:|next)/i,
-    );
-  });
-});
-```
-
-### `projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts`
-
-```typescript
-/**
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  evaluateSandboxMutationGuards,
-  evaluateSandboxPath,
-  pathMatchesAllowlistPrefix,
-} from "@/lib/oa/execution-run/domain/sandboxContract";
-import { FixtureCursorExecutionAdapter } from "@/lib/oa/execution-run/infrastructure/cursor/fixtureCursorExecutionAdapter";
-
-describe("D2D2-08 sandbox contract fixture", () => {
-  it("deny-by-default and protects sensitive paths", () => {
-    expect(
-      evaluateSandboxPath({
-        path: "secrets/x",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: ".git/config",
-        allowlistRepos: ["projects/sfia-studio/", ".git/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "projects/sfia-studio/app/lib/oa/execution-run/index.ts",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(true);
-  });
-
-  it("blocks sibling prefix bypass and traversal", () => {
-    expect(pathMatchesAllowlistPrefix("projects/sfia-studio-evil/secret.ts", "projects/sfia-studio")).toBe(
-      false,
-    );
-    expect(
-      evaluateSandboxPath({
-        path: "projects/sfia-studio-evil/secret.ts",
-        allowlistRepos: ["projects/sfia-studio"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "projects/sfia-studio/deep/child.ts",
-        allowlistRepos: ["projects/sfia-studio"],
-      }).allowed,
-    ).toBe(true);
-    expect(
-      evaluateSandboxPath({
-        path: "../x",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "/abs",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "projects//sfia-studio/x",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-  });
-
-  it("blocks percent-encoded traversal and protected paths", () => {
-    expect(
-      evaluateSandboxPath({
-        path: "projects/sfia-studio/%2e%2e/.env",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "%2e%2e/.env",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "%252e%252e/.env",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "projects\\sfia-studio\\%2e%2e\\.env",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "%2fetc%2fpasswd",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "projects/sfia-studio/%00.env",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "projects/sfia-studio/%zz",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(false);
-    expect(
-      evaluateSandboxPath({
-        path: "projects/sfia-studio/app/lib/oa/execution-run/index.ts",
-        allowlistRepos: ["projects/sfia-studio/"],
-      }).allowed,
-    ).toBe(true);
-  });
-
-  it("blocks git write and arbitrary commands", () => {
-    expect(
-      evaluateSandboxMutationGuards({
-        mutationRequested: true,
-        arbitraryCommandRequested: false,
-        gitWriteRequested: false,
-      }),
-    ).toMatchObject({ allowed: false, reason: "git_write" });
-    expect(
-      evaluateSandboxMutationGuards({
-        mutationRequested: false,
-        arbitraryCommandRequested: true,
-        gitWriteRequested: false,
-      }),
-    ).toMatchObject({ allowed: false, reason: "arbitrary_command" });
-  });
-
-  it("requires independent observed branch/HEAD anchors", () => {
-    expect(
-      evaluateSandboxMutationGuards({
-        mutationRequested: false,
-        arbitraryCommandRequested: false,
-        gitWriteRequested: false,
-        expectedBranch: "delivery/x",
-      }),
-    ).toMatchObject({ allowed: false, reason: "observed_missing" });
-    expect(
-      evaluateSandboxMutationGuards({
-        mutationRequested: false,
-        arbitraryCommandRequested: false,
-        gitWriteRequested: false,
-        expectedBranch: "delivery/x",
-        observedBranch: "other",
-      }),
-    ).toMatchObject({ allowed: false, reason: "branch_mismatch" });
-    expect(
-      evaluateSandboxMutationGuards({
-        mutationRequested: false,
-        arbitraryCommandRequested: false,
-        gitWriteRequested: false,
-        expectedBranch: "delivery/x",
-        observedBranch: "delivery/x",
-        expectedHead: "abc",
-        observedHead: "abc",
-      }),
-    ).toEqual({ allowed: true });
-  });
-
-  it("fixture cursor cannot claim live and stays unverified", async () => {
-    const cursor = new FixtureCursorExecutionAdapter();
-    expect(cursor.live).toBe(false);
-    expect(cursor.describeCapability().verified).toBe(false);
-    const denied = await cursor.executeFixture({
-      correlationId: "cu1",
-      lane: "cursor",
-      operation: "fixture",
-      instructionSummary: "path=.env",
-      allowlistRepos: ["projects/sfia-studio/"],
-      protectedPaths: [".env"],
-      timeoutMs: 100,
-    });
-    expect(denied.kind).toBe("failure");
-
-    const mismatch = await cursor.executeFixture({
-      correlationId: "cu2",
-      lane: "cursor",
-      operation: "fixture",
-      instructionSummary: "noop",
-      allowlistRepos: ["projects/sfia-studio/"],
-      protectedPaths: [],
-      expectedBranch: "expected-only",
-      observedBranch: "different",
-      timeoutMs: 100,
-    });
-    expect(mismatch.kind).toBe("failure");
-  });
-});
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts`
-
-```typescript
-import { normalizedFailure } from "../domain/errors";
-import {
-  validateUntrustedProviderRequest,
-  validateUntrustedProviderResult,
-} from "../domain/providerBoundary";
-import { evaluateSandboxPath } from "../domain/sandboxContract";
-import type {
-  ExecutionContext,
-  ExecutionIntent,
-  ExecutionRun,
-  ExecutionSource,
-  NormalizedFailure,
-  ProviderCapabilityDescriptor,
-  ProviderLane,
-  UsageSummary,
-} from "../domain/types";
-import type { ClockPort } from "../ports/clockPort";
-import type { CursorExecutionPort } from "../ports/cursorExecutionPort";
-import type {
-  ExecutionEvent,
-  ExecutionEventSinkPort,
-} from "../ports/executionEventSinkPort";
-import type { GitReadPort } from "../ports/gitReadPort";
-import type { AiExecutionPort } from "../ports/aiExecutionPort";
-import type {
-  AiCompletionRequest,
-  CursorFixtureRequest,
-  GitReadRequest,
-  ProviderInvocationResult,
-} from "../ports/providerResult";
-import {
-  invokeWithTimeoutAndCancellation,
-  type InvokeOutcome,
-} from "./providerInvocation";
-import type { CreateExecutionRunResult } from "./createExecutionRun";
-import type { TransitionExecutionRunResult } from "./transitionExecutionRun";
-import {
-  readUntrustedPlainData,
-  sanitizeLateEvidenceSummary,
-} from "./untrustedExecutionData";
-
-/**
- * Local D2-D3 implementation bound only.
- * Not a platform-wide timeout decision; future extension requires a dedicated cycle.
- */
-export const MAX_COORDINATOR_TIMEOUT_MS = 60_000;
-
-export type CoordinateProviderRequest =
-  | AiCompletionRequest
-  | GitReadRequest
-  | CursorFixtureRequest;
-
-export type ExecutionAuthority = {
-  readonly createExecutionRun: (
-    input: unknown,
-  ) => Promise<CreateExecutionRunResult>;
-  readonly transitionExecutionRun: (
-    input: unknown,
-  ) => Promise<TransitionExecutionRunResult>;
-};
-
-/**
- * Injection surface for the coordinator.
- * `availableSources` is intentionally absent — D2-D3 proves fixture only via
- * internal preflight, never via caller-supplied source authority.
- */
-export type CoordinateExecutionRunDependencies = {
-  readonly execution: ExecutionAuthority;
-  readonly providers: {
-    readonly ai: AiExecutionPort;
-    readonly git: GitReadPort;
-    readonly cursor: CursorExecutionPort;
-  };
-  readonly events: ExecutionEventSinkPort;
-  readonly clock: ClockPort;
-};
-
-export type CoordinateExecutionRunInput = {
-  readonly intent: ExecutionIntent;
-  readonly context: ExecutionContext;
-  readonly providerRequest?: CoordinateProviderRequest;
-  readonly timeoutMs: number;
-  readonly signal?: AbortSignal;
-  /** Deterministic evidence-only simulation after a failed/cancelled/timed-out terminal. */
-  readonly lateEvidenceSummary?: string;
-};
-
-export type EventDeliveryStatus = "complete" | "degraded";
-
-export type CoordinateExecutionRunResult =
-  | {
-      readonly ok: true;
-      readonly run: ExecutionRun;
-      readonly providerAttempted: boolean;
-      readonly providerInvoked: boolean;
-      readonly providerCompleted: boolean;
-      readonly stateTrace: readonly ExecutionRun["state"][];
-      readonly validatedUsage: UsageSummary;
-      readonly lateEvidenceRecorded: boolean;
-      readonly eventDelivery: {
-        readonly status: EventDeliveryStatus;
-        readonly failureCount: number;
-      };
-    }
-  | {
-      readonly ok: false;
-      readonly failure: NormalizedFailure;
-      readonly run?: ExecutionRun;
-      readonly providerAttempted: boolean;
-      readonly providerInvoked: boolean;
-      readonly providerCompleted: boolean;
-      readonly stateTrace: readonly ExecutionRun["state"][];
-      readonly validatedUsage: UsageSummary;
-      readonly lateEvidenceRecorded: boolean;
-      readonly eventDelivery: {
-        readonly status: EventDeliveryStatus;
-        readonly failureCount: number;
-      };
-    };
-
-type PreflightOk = {
-  readonly ok: true;
-  readonly intent: ExecutionIntent;
-  readonly context: ExecutionContext;
-  readonly providerRequest: CoordinateProviderRequest | undefined;
-  readonly timeoutMs: number;
-  readonly signal: AbortSignal | undefined;
-  readonly lateEvidenceSummary: unknown;
-  readonly correlationId: string;
-};
-
-type PreflightFail = {
-  readonly ok: false;
-  readonly failure: NormalizedFailure;
-};
-
-type EventTracker = {
-  failureCount: number;
-};
-
-const ALLOWED_LANES: readonly ProviderLane[] = ["ai", "git", "cursor", "none"];
-const ALLOWED_SOURCES: readonly ExecutionSource[] = [
-  "fixture",
-  "sandbox-real",
-  "real",
-];
-
-function unavailableUsage(reason: string): UsageSummary {
-  return { status: "unavailable", reason };
-}
-
-function validatedUsage(input: unknown): UsageSummary {
-  if (!input || typeof input !== "object") {
-    return unavailableUsage("provider_usage_unavailable");
-  }
-  const usage = input as Record<string, unknown>;
-  if (usage.status !== "validated") {
-    return unavailableUsage("provider_usage_unavailable");
-  }
-  for (const key of ["inputTokens", "outputTokens"] as const) {
-    const value = usage[key];
-    if (
-      value !== undefined &&
-      (typeof value !== "number" || !Number.isFinite(value) || value < 0)
-    ) {
-      return unavailableUsage("provider_usage_invalid");
-    }
-  }
-  if (usage.unit !== undefined && typeof usage.unit !== "string") {
-    return unavailableUsage("provider_usage_invalid");
-  }
-  return {
-    status: "validated",
-    inputTokens: usage.inputTokens as number | undefined,
-    outputTokens: usage.outputTokens as number | undefined,
-    unit: usage.unit as string | undefined,
-  };
-}
-
-function invalidProviderFailure(correlationId: string): NormalizedFailure {
-  return normalizedFailure({
-    family: "invalid_provider_result",
-    code: "INVALID_PROVIDER_RESULT",
-    userMessage: "Provider returned an invalid or incomplete result",
-    retryable: false,
-    correlationId,
-  });
-}
-
-function validationFailure(
-  correlationId: string,
-  userMessage: string,
-): NormalizedFailure {
-  return normalizedFailure({
-    family: "validation",
-    code: "VALIDATION_ERROR",
-    userMessage,
-    retryable: false,
-    correlationId,
-  });
-}
-
-function emptyDiagnostics(tracker: EventTracker) {
-  return {
-    providerAttempted: false,
-    providerInvoked: false,
-    providerCompleted: false,
-    stateTrace: [] as ExecutionRun["state"][],
-    validatedUsage: unavailableUsage("not_validated"),
-    lateEvidenceRecorded: false,
-    eventDelivery: {
-      status: (tracker.failureCount > 0
-        ? "degraded"
-        : "complete") as EventDeliveryStatus,
-      failureCount: tracker.failureCount,
-    },
-  };
-}
-
-function safeEmit(
-  deps: CoordinateExecutionRunDependencies,
-  tracker: EventTracker,
-  run: ExecutionRun,
-  event: Pick<ExecutionEvent, "type" | "detail">,
-): void {
-  try {
-    const result = deps.events.emit({
-      ...event,
-      correlationId: run.correlationId,
-      runId: run.runId,
-      providerLane: run.disclosure.providerLane,
-      occurredAt: deps.clock.nowIso(),
-    }) as unknown;
-    if (
-      result !== null &&
-      result !== undefined &&
-      typeof result === "object" &&
-      typeof (result as { then?: unknown }).then === "function"
-    ) {
-      void Promise.resolve(result).catch(() => {
-        tracker.failureCount += 1;
-      });
-    }
-  } catch {
-    tracker.failureCount += 1;
-  }
-}
-
-function describeCapabilitySafe(
-  lane: ProviderLane,
-  deps: CoordinateExecutionRunDependencies,
-  correlationId: string,
-):
-  | { ok: true; capability: ProviderCapabilityDescriptor }
-  | { ok: false; failure: NormalizedFailure } {
-  try {
-    const described =
-      lane === "ai"
-        ? deps.providers.ai.describeCapability()
-        : lane === "git"
-          ? deps.providers.git.describeCapability()
-          : deps.providers.cursor.describeCapability();
-    const copied = readUntrustedPlainData(described, { redact: false });
-    if (!copied.ok || !copied.value || typeof copied.value !== "object") {
-      return {
-        ok: false,
-        failure: validationFailure(
-          correlationId,
-          "Provider capability descriptor rejected",
-        ),
-      };
-    }
-    const desc = copied.value as Record<string, unknown>;
-    return {
-      ok: true,
-      capability: {
-        lane,
-        capabilityId:
-          typeof desc.capabilityId === "string"
-            ? desc.capabilityId
-            : "unknown",
-        available: desc.available === true,
-        verified: false,
-        readOnly: desc.readOnly === true,
-        supportsCancellation: desc.supportsCancellation === true,
-        supportsTimeout: desc.supportsTimeout === true,
-      },
-    };
-  } catch {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "provider_unavailable",
-        code: "PROVIDER_UNAVAILABLE",
-        userMessage: "Provider capability description failed",
-        retryable: true,
-        correlationId,
-      }),
-    };
-  }
-}
-
-function validateTimeout(
-  value: unknown,
-  correlationId: string,
-): { ok: true; timeoutMs: number } | { ok: false; failure: NormalizedFailure } {
-  if (
-    typeof value !== "number" ||
-    !Number.isFinite(value) ||
-    !Number.isInteger(value) ||
-    value <= 0 ||
-    value > MAX_COORDINATOR_TIMEOUT_MS
-  ) {
-    return {
-      ok: false,
-      failure: validationFailure(
-        correlationId,
-        "Coordinator timeoutMs must be a positive integer within the local D2-D3 bound",
-      ),
-    };
-  }
-  return { ok: true, timeoutMs: value };
-}
-
-function validatePathField(
-  path: unknown,
-  correlationId: string,
-  allowlistRepos: readonly string[] | undefined,
-  protectedPaths: readonly string[] | undefined,
-): NormalizedFailure | undefined {
-  if (path === undefined) return undefined;
-  const decision = evaluateSandboxPath({
-    path,
-    allowlistRepos: allowlistRepos ?? ["projects/sfia-studio/"],
-    protectedPaths: protectedPaths ?? [".env"],
-  });
-  if (!decision.allowed) {
-    return normalizedFailure({
-      family:
-        decision.reason === "protected" || decision.reason === "traversal"
-          ? "protected_path"
-          : "validation",
-      code:
-        decision.reason === "protected" || decision.reason === "traversal"
-          ? "PROTECTED_PATH"
-          : "VALIDATION_ERROR",
-      userMessage: "Path failed sandbox normalization or protection checks",
-      retryable: false,
-      correlationId,
-    });
-  }
-  return undefined;
-}
-
-/**
- * Preflight without provider ports: safe-read, timeout, intent/context/source,
- * lane, correlation, provider request shape, and path guards.
- */
-function preflightCoordinateInput(input: unknown): PreflightOk | PreflightFail {
-  const unknownCid = "unknown";
-  if (input === null || input === undefined || typeof input !== "object" || Array.isArray(input)) {
-    return {
-      ok: false,
-      failure: validationFailure(unknownCid, "Coordinator input rejected"),
-    };
-  }
-
-  // AbortSignal is a host object — extract by identity before plain-data copy.
-  const signalCandidate = (input as { signal?: unknown }).signal;
-  const signal =
-    signalCandidate instanceof AbortSignal ? signalCandidate : undefined;
-
-  const plainInput: Record<string, unknown> = {};
-  for (const key of Object.getOwnPropertyNames(input)) {
-    if (key === "signal") continue;
-    const desc = Object.getOwnPropertyDescriptor(input, key);
-    if (!desc || desc.get !== undefined || desc.set !== undefined) {
-      return {
-        ok: false,
-        failure: validationFailure(unknownCid, "Coordinator input rejected"),
-      };
-    }
-    plainInput[key] = desc.value;
-  }
-
-  const envelope = readUntrustedPlainData(plainInput, {
-    redact: false,
-    maxStringLength: 100_000,
-  });
-  if (!envelope.ok || !envelope.value || typeof envelope.value !== "object") {
-    return {
-      ok: false,
-      failure: validationFailure(unknownCid, "Coordinator input rejected"),
-    };
-  }
-  const raw = envelope.value as Record<string, unknown>;
-  // Ignore any injected availableSources property — never treat it as authority.
-  const intentRaw = raw.intent;
-  const contextRaw = raw.context;
-  if (!intentRaw || typeof intentRaw !== "object" || Array.isArray(intentRaw)) {
-    return {
-      ok: false,
-      failure: validationFailure(unknownCid, "intent required"),
-    };
-  }
-  if (
-    !contextRaw ||
-    typeof contextRaw !== "object" ||
-    Array.isArray(contextRaw)
-  ) {
-    return {
-      ok: false,
-      failure: validationFailure(unknownCid, "context required"),
-    };
-  }
-  const intentObj = intentRaw as Record<string, unknown>;
-  const contextObj = contextRaw as Record<string, unknown>;
-  const correlationId =
-    typeof intentObj.correlationId === "string" && intentObj.correlationId.trim()
-      ? intentObj.correlationId
-      : unknownCid;
-
-  if (
-    typeof intentObj.intentId !== "string" ||
-    !intentObj.intentId.trim() ||
-    typeof intentObj.operation !== "string" ||
-    !intentObj.operation.trim() ||
-    typeof intentObj.requestedLane !== "string" ||
-    !(ALLOWED_LANES as readonly string[]).includes(intentObj.requestedLane) ||
-    typeof intentObj.requestedSource !== "string" ||
-    !(ALLOWED_SOURCES as readonly string[]).includes(intentObj.requestedSource) ||
-    typeof intentObj.requiresHumanGate !== "boolean" ||
-    typeof intentObj.mutationRequested !== "boolean" ||
-    typeof intentObj.arbitraryCommandRequested !== "boolean"
-  ) {
-    return {
-      ok: false,
-      failure: validationFailure(correlationId, "intent shape invalid"),
-    };
-  }
-
-  if (
-    typeof contextObj.projectId !== "string" ||
-    typeof contextObj.actorId !== "string" ||
-    typeof contextObj.declaredSource !== "string" ||
-    !(ALLOWED_SOURCES as readonly string[]).includes(contextObj.declaredSource) ||
-    !contextObj.permissions ||
-    typeof contextObj.permissions !== "object"
-  ) {
-    return {
-      ok: false,
-      failure: validationFailure(correlationId, "context shape invalid"),
-    };
-  }
-
-  // D2-D3 internal proof is fixture only. Block real / sandbox-real before any port.
-  if (
-    intentObj.requestedSource !== "fixture" ||
-    contextObj.declaredSource !== "fixture"
-  ) {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "source_mismatch",
-        code: "SOURCE_MISMATCH",
-        userMessage:
-          "D2-D3 demonstrates fixture only; real and sandbox-real remain blocked",
-        retryable: false,
-        correlationId,
-      }),
-    };
-  }
-
-  const timeout = validateTimeout(raw.timeoutMs, correlationId);
-  if (!timeout.ok) return timeout;
-
-  const permissions = contextObj.permissions as Record<string, unknown>;
-  const context: ExecutionContext = {
-    projectId: contextObj.projectId,
-    actorId: contextObj.actorId,
-    declaredSource: "fixture",
-    permissions: {
-      gitRead: permissions.gitRead === true,
-      gitWrite: permissions.gitWrite === true,
-      providerInvoke: permissions.providerInvoke === true,
-    },
-  };
-  if (typeof contextObj.workspaceId === "string") {
-    (context as { workspaceId?: string }).workspaceId = contextObj.workspaceId;
-  }
-  if (Array.isArray(contextObj.allowlistRepos)) {
-    (context as { allowlistRepos?: string[] }).allowlistRepos =
-      contextObj.allowlistRepos.filter((p) => typeof p === "string") as string[];
-  }
-  if (Array.isArray(contextObj.protectedPaths)) {
-    (context as { protectedPaths?: string[] }).protectedPaths =
-      contextObj.protectedPaths.filter((p) => typeof p === "string") as string[];
-  }
-
-  const intent: ExecutionIntent = {
-    intentId: intentObj.intentId,
-    correlationId,
-    requestedLane: intentObj.requestedLane as ProviderLane,
-    operation: intentObj.operation,
-    requestedSource: "fixture",
-    requiresHumanGate: intentObj.requiresHumanGate,
-    mutationRequested: intentObj.mutationRequested,
-    arbitraryCommandRequested: intentObj.arbitraryCommandRequested,
-  };
-  if (typeof intentObj.targetPath === "string") {
-    (intent as { targetPath?: string }).targetPath = intentObj.targetPath;
-  }
-  if (
-    intentObj.metadata &&
-    typeof intentObj.metadata === "object" &&
-    !Array.isArray(intentObj.metadata)
-  ) {
-    (intent as { metadata?: Readonly<Record<string, unknown>> }).metadata =
-      intentObj.metadata as Readonly<Record<string, unknown>>;
-  }
-
-  if (intent.targetPath !== undefined) {
-    const pathFailure = validatePathField(
-      intent.targetPath,
-      correlationId,
-      context.allowlistRepos,
-      context.protectedPaths,
-    );
-    if (pathFailure) return { ok: false, failure: pathFailure };
-  }
-
-  let providerRequest: CoordinateProviderRequest | undefined;
-  if (raw.providerRequest !== undefined) {
-    const requestCopy = readUntrustedPlainData(raw.providerRequest, {
-      redact: false,
-      maxStringLength: 100_000,
-    });
-    if (!requestCopy.ok) {
-      return {
-        ok: false,
-        failure: validationFailure(
-          correlationId,
-          "Provider request rejected as untrusted data",
-        ),
-      };
-    }
-    const requestObj = requestCopy.value as Record<string, unknown>;
-    // Validate original identity fields BEFORE any canonical rebuild.
-    // Never rewrite a divergent correlationId to match the intent.
-    const requestCorrelationId = requestObj.correlationId;
-    if (
-      typeof requestCorrelationId !== "string" ||
-      !requestCorrelationId.trim()
-    ) {
-      return {
-        ok: false,
-        failure: validationFailure(
-          correlationId,
-          "Provider request correlationId required",
-        ),
-      };
-    }
-    if (requestCorrelationId !== correlationId) {
-      return {
-        ok: false,
-        failure: validationFailure(
-          correlationId,
-          "Provider request correlationId does not match intent",
-        ),
-      };
-    }
-    const requestLane = requestObj.lane;
-    if (
-      typeof requestLane !== "string" ||
-      requestLane !== intent.requestedLane
-    ) {
-      return {
-        ok: false,
-        failure: validationFailure(
-          correlationId,
-          "Provider request lane does not match intent",
-        ),
-      };
-    }
-    const boundary = validateUntrustedProviderRequest(
-      requestCopy.value,
-      correlationId,
-    );
-    if (!boundary.ok) {
-      return { ok: false, failure: boundary.failure };
-    }
-    if (typeof requestObj.path === "string") {
-      const pathFailure = validatePathField(
-        requestObj.path,
-        correlationId,
-        context.allowlistRepos,
-        context.protectedPaths,
-      );
-      if (pathFailure) return { ok: false, failure: pathFailure };
-    }
-    // Rebuild timeout from validated coordinator timeout only.
-    // Keep the already-validated original correlationId (no silent rewrite).
-    providerRequest = {
-      ...(requestCopy.value as CoordinateProviderRequest),
-      timeoutMs: timeout.timeoutMs,
-      correlationId: requestCorrelationId,
-    };
-  }
-
-  return {
-    ok: true,
-    intent,
-    context,
-    providerRequest,
-    timeoutMs: timeout.timeoutMs,
-    signal,
-    lateEvidenceSummary: raw.lateEvidenceSummary,
-    correlationId,
-  };
-}
-
-async function blockIdleRun(
-  run: ExecutionRun,
-  failure: NormalizedFailure,
-  deps: CoordinateExecutionRunDependencies,
-): Promise<TransitionExecutionRunResult> {
-  return deps.execution.transitionExecutionRun({
-    runId: run.runId,
-    reason: "pre_engagement_block",
-    failure,
-    blockingReason: failure.code,
-  });
-}
-
-function requestMatchesRun(
-  request: CoordinateProviderRequest | undefined,
-  run: ExecutionRun,
-): boolean {
-  return Boolean(
-    request &&
-      request.lane === run.intent.requestedLane &&
-      request.correlationId === run.correlationId,
-  );
-}
-
-function resultFailure(
-  result: ProviderInvocationResult,
-  correlationId: string,
-): NormalizedFailure {
-  const allowedPairs: Readonly<Record<string, string>> = {
-    VALIDATION_ERROR: "validation",
-    AUTHENTICATION_ERROR: "authentication",
-    AUTHORIZATION_ERROR: "authorization",
-    PROVIDER_UNAVAILABLE: "provider_unavailable",
-    RATE_LIMITED: "rate_limited",
-    TIMED_OUT: "timed_out",
-    CANCELLED: "cancelled",
-    SANDBOX_BLOCKED: "sandbox_blocked",
-    PROTECTED_PATH: "protected_path",
-    MUTATION_FORBIDDEN: "mutation_forbidden",
-    HUMAN_GATE_REQUIRED: "human_gate_required",
-    INVALID_PROVIDER_RESULT: "invalid_provider_result",
-    INTERNAL_NORMALIZED_FAILURE: "internal_normalized_failure",
-    SOURCE_MISMATCH: "source_mismatch",
-  };
-  if (
-    "failure" in result &&
-    result.failure &&
-    result.failure.correlationId === correlationId &&
-    result.failure.technicalDetailsRedacted === true &&
-    allowedPairs[result.failure.code] === result.failure.family
-  ) {
-    return normalizedFailure({
-      family: result.failure.family,
-      code: result.failure.code,
-      userMessage: "Provider operation failed",
-      retryable: result.failure.retryable,
-      correlationId,
-    });
-  }
-  return invalidProviderFailure(correlationId);
-}
-
-async function transitionFromInvocation(
-  run: ExecutionRun,
-  outcome: InvokeOutcome,
-  deps: CoordinateExecutionRunDependencies,
-): Promise<{ result: TransitionExecutionRunResult; usage: UsageSummary }> {
-  if (outcome.status === "timed_out") {
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "time_limit",
-        failure: outcome.failure,
-      }),
-      usage: unavailableUsage("provider_timed_out"),
-    };
-  }
-  if (outcome.status === "cancelled") {
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "cancel_accepted",
-        failure: outcome.failure,
-      }),
-      usage: unavailableUsage("provider_cancelled"),
-    };
-  }
-  if (outcome.status === "failed") {
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "engaged_operation_failed",
-        failure: outcome.failure,
-      }),
-      usage: unavailableUsage("provider_failed"),
-    };
-  }
-
-  const providerResultRaw = outcome.result;
-  const safeResult = readUntrustedPlainData(providerResultRaw, {
-    redact: true,
-    maxStringLength: 100_000,
-  });
-  if (!safeResult.ok) {
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "engaged_operation_failed",
-        failure: invalidProviderFailure(run.correlationId),
-      }),
-      usage: unavailableUsage("provider_result_hostile"),
-    };
-  }
-
-  const providerResult = safeResult.value as ProviderInvocationResult;
-  const boundary = validateUntrustedProviderResult(
-    providerResult,
-    run.correlationId,
-  );
-  if (!boundary.ok) {
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "engaged_operation_failed",
-        failure: boundary.failure,
-      }),
-      usage: unavailableUsage("provider_result_invalid"),
-    };
-  }
-
-  if (providerResult.kind === "success") {
-    const usage = validatedUsage(providerResult.usage);
-    const externalResult = {
-      kind: "success" as const,
-      completeness: providerResult.completeness,
-      redactedSummary: providerResult.redactedSummary,
-      rawPresent: false as const,
-    };
-    if (providerResult.completeness === "partial") {
-      const failure = invalidProviderFailure(run.correlationId);
-      return {
-        result: await deps.execution.transitionExecutionRun({
-          runId: run.runId,
-          reason: "engaged_operation_failed",
-          externalResult,
-          failure,
-        }),
-        usage,
-      };
-    }
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "outputs_validated",
-        completeness: "complete",
-        externalResult,
-      }),
-      usage,
-    };
-  }
-
-  const failure = resultFailure(providerResult, run.correlationId);
-  if (providerResult.kind === "timed_out") {
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "time_limit",
-        failure,
-      }),
-      usage: unavailableUsage("provider_timed_out"),
-    };
-  }
-  if (providerResult.kind === "cancelled") {
-    return {
-      result: await deps.execution.transitionExecutionRun({
-        runId: run.runId,
-        reason: "cancel_accepted",
-        failure,
-      }),
-      usage: unavailableUsage("provider_cancelled"),
-    };
-  }
-  return {
-    result: await deps.execution.transitionExecutionRun({
-      runId: run.runId,
-      reason: "engaged_operation_failed",
-      failure,
-    }),
-    usage: unavailableUsage("provider_failed"),
-  };
-}
-
-function deliveryOf(tracker: EventTracker) {
-  return {
-    status: (tracker.failureCount > 0
-      ? "degraded"
-      : "complete") as EventDeliveryStatus,
-    failureCount: tracker.failureCount,
-  };
-}
-
-export async function coordinateExecutionRun(
-  input: unknown,
-  deps: CoordinateExecutionRunDependencies,
-): Promise<CoordinateExecutionRunResult> {
-  const tracker: EventTracker = { failureCount: 0 };
-  const stateTrace: ExecutionRun["state"][] = [];
-  const noUsage = unavailableUsage("not_validated");
-
-  const preflight = preflightCoordinateInput(input);
-  if (!preflight.ok) {
-    return {
-      ok: false,
-      failure: preflight.failure,
-      ...emptyDiagnostics(tracker),
-    };
-  }
-
-  let capability: ProviderCapabilityDescriptor | undefined;
-  if (preflight.intent.requestedLane !== "none") {
-    const described = describeCapabilitySafe(
-      preflight.intent.requestedLane,
-      deps,
-      preflight.correlationId,
-    );
-    if (!described.ok) {
-      return {
-        ok: false,
-        failure: described.failure,
-        ...emptyDiagnostics(tracker),
-      };
-    }
-    capability = described.capability;
-  }
-
-  const created = await deps.execution.createExecutionRun({
-    intent: preflight.intent,
-    context: preflight.context,
-    capability,
-  });
-
-  if (created.run) stateTrace.push(created.run.state);
-  if (!created.ok) {
-    if (created.run) {
-      safeEmit(deps, tracker, created.run, {
-        type: "validation",
-        detail: {
-          accepted: false,
-          source: created.run.disclosure.source,
-          failureCode: created.failure.code,
-        },
-      });
-    }
-    return {
-      ok: false,
-      failure: created.failure,
-      run: created.run,
-      providerAttempted: false,
-      providerInvoked: false,
-      providerCompleted: false,
-      stateTrace,
-      validatedUsage: noUsage,
-      lateEvidenceRecorded: false,
-      eventDelivery: deliveryOf(tracker),
-    };
-  }
-
-  let current = created.run;
-  safeEmit(deps, tracker, current, {
-    type: "validation",
-    detail: { accepted: true, source: current.disclosure.source },
-  });
-
-  const preEngagementFailure =
-    preflight.intent.requestedLane === "none"
-      ? normalizedFailure({
-          family: "provider_unavailable",
-          code: "PROVIDER_UNAVAILABLE",
-          userMessage: "No provider lane selected",
-          retryable: true,
-          correlationId: current.correlationId,
-        })
-      : !requestMatchesRun(preflight.providerRequest, current)
-        ? validationFailure(
-            current.correlationId,
-            "Provider request does not match the validated run",
-          )
-        : undefined;
-
-  if (preEngagementFailure) {
-    const blocked = await blockIdleRun(current, preEngagementFailure, deps);
-    if (blocked.run) {
-      current = blocked.run;
-      stateTrace.push(blocked.run.state);
-    }
-    return {
-      ok: false,
-      failure: blocked.ok ? preEngagementFailure : blocked.failure,
-      run: blocked.run ?? current,
-      providerAttempted: false,
-      providerInvoked: false,
-      providerCompleted: false,
-      stateTrace,
-      validatedUsage: noUsage,
-      lateEvidenceRecorded: false,
-      eventDelivery: deliveryOf(tracker),
-    };
-  }
-
-  const started = await deps.execution.transitionExecutionRun({
-    runId: current.runId,
-    reason: "intent_valid",
-  });
-  if (!started.ok) {
-    return {
-      ok: false,
-      failure: started.failure,
-      run: started.run ?? current,
-      providerAttempted: false,
-      providerInvoked: false,
-      providerCompleted: false,
-      stateTrace,
-      validatedUsage: noUsage,
-      lateEvidenceRecorded: false,
-      eventDelivery: deliveryOf(tracker),
-    };
-  }
-  current = started.run;
-  stateTrace.push(current.state);
-  safeEmit(deps, tracker, current, {
-    type: "run_transition",
-    detail: { state: current.state, source: current.disclosure.source },
-  });
-
-  const providerAttempted = true;
-  let providerInvoked = false;
-  let providerCompleted = false;
-
-  const invocation = await invokeWithTimeoutAndCancellation(
-    (invokeSignal) => {
-      // True only immediately before the effective provider port call.
-      providerInvoked = true;
-      const common = {
-        ...preflight.providerRequest!,
-        runId: current.runId,
-        signal: invokeSignal,
-        timeoutMs: preflight.timeoutMs,
-      };
-      switch (current.intent.requestedLane) {
-        case "ai":
-          return deps.providers.ai.complete(common as AiCompletionRequest);
-        case "git":
-          return deps.providers.git.read(common as GitReadRequest);
-        case "cursor":
-          return deps.providers.cursor.executeFixture(
-            common as CursorFixtureRequest,
-          );
-        default:
-          throw new Error("provider lane none cannot be invoked");
-      }
-    },
-    {
-      timeoutMs: preflight.timeoutMs,
-      signal: preflight.signal,
-      correlationId: current.correlationId,
-      maxRetries: 0,
-    },
-  );
-  providerCompleted = invocation.status === "completed";
-
-  safeEmit(deps, tracker, current, {
-    type: "provider_invocation",
-    detail: {
-      outcome: invocation.status,
-      source: current.disclosure.source,
-      providerAttempted,
-      providerInvoked,
-      providerCompleted,
-    },
-  });
-
-  const terminal = await transitionFromInvocation(current, invocation, deps);
-  if (!terminal.result.ok) {
-    return {
-      ok: false,
-      failure: terminal.result.failure,
-      run: terminal.result.run ?? current,
-      providerAttempted,
-      providerInvoked,
-      providerCompleted,
-      stateTrace,
-      validatedUsage: terminal.usage,
-      lateEvidenceRecorded: false,
-      eventDelivery: deliveryOf(tracker),
-    };
-  }
-  current = terminal.result.run;
-  stateTrace.push(current.state);
-  safeEmit(deps, tracker, current, {
-    type: "run_transition",
-    detail: { state: current.state, source: current.disclosure.source },
-  });
-
-  let lateEvidenceRecorded = false;
-  if (preflight.lateEvidenceSummary !== undefined) {
-    const summary = sanitizeLateEvidenceSummary(preflight.lateEvidenceSummary);
-    const late = await deps.execution.transitionExecutionRun({
-      runId: current.runId,
-      reason: "late_result_evidence_only",
-      lateEvidenceSummary: summary,
-    });
-    if (late.ok) {
-      current = late.run;
-      lateEvidenceRecorded = true;
-      safeEmit(deps, tracker, current, {
-        type: "late_result",
-        detail: { late: true, stateUnchanged: true },
-      });
-    }
-  }
-
-  const successful = current.state === "succeeded";
-  return successful
-    ? {
-        ok: true,
-        run: current,
-        providerAttempted,
-        providerInvoked,
-        providerCompleted,
-        stateTrace,
-        validatedUsage: terminal.usage,
-        lateEvidenceRecorded,
-        eventDelivery: deliveryOf(tracker),
-      }
-    : {
-        ok: false,
-        failure:
-          current.failure ??
-          normalizedFailure({
-            family:
-              current.state === "timed_out"
-                ? "timed_out"
-                : current.state === "cancelled"
-                  ? "cancelled"
-                  : "internal_normalized_failure",
-            code:
-              current.state === "timed_out"
-                ? "TIMED_OUT"
-                : current.state === "cancelled"
-                  ? "CANCELLED"
-                  : "INTERNAL_NORMALIZED_FAILURE",
-            userMessage: "Execution did not succeed",
-            retryable: false,
-            correlationId: current.correlationId,
-          }),
-        run: current,
-        providerAttempted,
-        providerInvoked,
-        providerCompleted,
-        stateTrace,
-        validatedUsage: terminal.usage,
-        lateEvidenceRecorded,
-        eventDelivery: deliveryOf(tracker),
-      };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts`
-
-```typescript
-import type {
-  Completeness,
-  ExecutionRun,
-  ExecutionState,
-  UsageSummary,
-} from "../domain/types";
-import {
-  assessExecutionReadiness,
-  type ExecutionReadinessAssessment,
-} from "./executionReadiness";
-import {
-  readUntrustedPlainData,
-  redactBoundedText,
-} from "./untrustedExecutionData";
-
-const MAX_TEXT = 240;
-
-const ALLOWED_STATES = new Set<string>([
-  "idle",
-  "running",
-  "awaiting_human",
-  "succeeded",
-  "failed",
-  "cancelled",
-  "timed_out",
-  "blocked",
-]);
-
-const ALLOWED_SOURCES = new Set(["fixture", "sandbox-real", "real"]);
-const ALLOWED_LANES = new Set(["ai", "git", "cursor", "none"]);
-const ALLOWED_COMPLETENESS = new Set(["complete", "partial", "empty"]);
-
-export type ExecutionProjection = {
-  readonly runId: string;
-  readonly correlationId: string;
-  readonly state: ExecutionState;
-  readonly source: ExecutionRun["disclosure"]["source"];
-  readonly providerLane: ExecutionRun["disclosure"]["providerLane"];
-  readonly phase: string;
-  readonly completeness: Completeness | "unavailable";
-  readonly resultSummary: string | null;
-  readonly failure: {
-    readonly family: string;
-    readonly code: string;
-    readonly message: string;
-    readonly retryable: boolean;
-  } | null;
-  readonly blockedReason: string | null;
-  readonly humanGate: {
-    readonly gateId: string;
-    readonly question: string;
-    readonly required: boolean;
-    readonly decision: "approve" | "reject" | "cancel" | null;
-  } | null;
-  readonly evidenceSummary: readonly {
-    readonly evidenceId: string;
-    readonly source: ExecutionRun["disclosure"]["source"];
-    readonly completeness: Completeness;
-    readonly producedAt: string;
-    readonly late: boolean;
-    readonly official: true;
-  }[];
-  readonly usage: UsageSummary;
-  readonly openReserves: readonly string[];
-  readonly readinessAssessment: ExecutionReadinessAssessment;
-  readonly limits: readonly string[];
-  readonly persistence: {
-    readonly kind: "memory_process_local";
-    readonly durable: false;
-    readonly multiInstance: false;
-    readonly restartSafe: false;
-  };
-  readonly cursorUnverified: true;
-  readonly gitWrite: false;
-};
-
-export type CreateExecutionProjectionResult =
-  | { readonly ok: true; readonly projection: ExecutionProjection }
-  | {
-      readonly ok: false;
-      readonly failure: { readonly code: string; readonly message: string };
-    };
-
-function observablePhase(state: ExecutionState): string {
-  switch (state) {
-    case "idle":
-      return "validated";
-    case "running":
-      return "provider_operation";
-    case "awaiting_human":
-      return "human_decision";
-    default:
-      return "terminal";
-  }
-}
-
-function fail(
-  code: string,
-  message: string,
-): CreateExecutionProjectionResult {
-  return { ok: false, failure: { code, message } };
-}
-
-function asString(value: unknown): string | null {
-  return typeof value === "string" ? value : null;
-}
-
-function readPersistence(raw: unknown): CreateExecutionProjectionResult | {
-  ok: true;
-  persistence: ExecutionProjection["persistence"];
-} {
-  const copied = readUntrustedPlainData(raw);
-  if (!copied.ok || !copied.value || typeof copied.value !== "object") {
-    return fail("PERSISTENCE_INVALID", "persistence must be a plain object");
-  }
-  const p = copied.value as Record<string, unknown>;
-  if (p.kind !== "memory_process_local") {
-    return fail("PERSISTENCE_KIND", "persistence.kind must be memory_process_local");
-  }
-  if (p.durable !== false || p.multiInstance !== false || p.restartSafe !== false) {
-    return fail(
-      "PERSISTENCE_FLAGS",
-      "persistence durable/multiInstance/restartSafe must be false",
-    );
-  }
-  return {
-    ok: true,
-    persistence: {
-      kind: "memory_process_local",
-      durable: false,
-      multiInstance: false,
-      restartSafe: false,
-    },
-  };
-}
-
-function readEvidence(
-  raw: unknown,
-  runId: string,
-  correlationId: string,
-  source: ExecutionRun["disclosure"]["source"],
-): CreateExecutionProjectionResult | {
-  ok: true;
-  evidence: ExecutionProjection["evidenceSummary"];
-} {
-  if (raw === undefined) {
-    return { ok: true, evidence: [] };
-  }
-  const copied = readUntrustedPlainData(raw, { redact: true });
-  if (!copied.ok || !Array.isArray(copied.value)) {
-    return fail("EVIDENCE_INVALID", "evidence must be a plain array");
-  }
-  const out: ExecutionProjection["evidenceSummary"][number][] = [];
-  for (const item of copied.value) {
-    if (!item || typeof item !== "object") {
-      return fail("EVIDENCE_ENTRY", "evidence entry must be a plain object");
-    }
-    const e = item as Record<string, unknown>;
-    if (e.official !== true) {
-      return fail("EVIDENCE_OFFICIAL", "canonical evidence.official must be true");
-    }
-    if (e.runId !== runId || e.correlationId !== correlationId) {
-      return fail("EVIDENCE_IDENTITY", "evidence identity must match the run");
-    }
-    if (e.source !== source) {
-      return fail("EVIDENCE_SOURCE", "evidence source must match run disclosure source");
-    }
-    const evidenceId = asString(e.evidenceId);
-    const producedAt = asString(e.producedAt);
-    if (!evidenceId || !producedAt) {
-      return fail("EVIDENCE_FIELDS", "evidence fields missing");
-    }
-    if (
-      typeof e.completeness !== "string" ||
-      !ALLOWED_COMPLETENESS.has(e.completeness)
-    ) {
-      return fail("EVIDENCE_COMPLETENESS", "evidence completeness invalid");
-    }
-    if (typeof e.late !== "boolean") {
-      return fail("EVIDENCE_LATE", "evidence.late must be boolean");
-    }
-    if (
-      typeof e.source !== "string" ||
-      !ALLOWED_SOURCES.has(e.source)
-    ) {
-      return fail("EVIDENCE_SOURCE_VALUE", "evidence source invalid");
-    }
-    out.push({
-      evidenceId,
-      source: e.source as ExecutionRun["disclosure"]["source"],
-      completeness: e.completeness as Completeness,
-      producedAt,
-      late: e.late,
-      official: true,
-    });
-  }
-  return { ok: true, evidence: out };
-}
-
-function readUsage(raw: unknown): UsageSummary {
-  const copied = readUntrustedPlainData(raw, { redact: true });
-  if (!copied.ok || !copied.value || typeof copied.value !== "object") {
-    return { status: "unavailable", reason: "usage_unavailable" };
-  }
-  const usage = copied.value as Record<string, unknown>;
-  if (usage.status === "validated") {
-    return {
-      status: "validated",
-      inputTokens:
-        typeof usage.inputTokens === "number" ? usage.inputTokens : undefined,
-      outputTokens:
-        typeof usage.outputTokens === "number" ? usage.outputTokens : undefined,
-      unit: typeof usage.unit === "string" ? usage.unit : undefined,
-    };
-  }
-  return {
-    status: "unavailable",
-    reason:
-      typeof usage.reason === "string"
-        ? (redactBoundedText(usage.reason, MAX_TEXT) ?? "usage_unavailable")
-        : "usage_unavailable",
-  };
-}
-
-/**
- * Reconstruct a transport-neutral projection from unknown input.
- * TypeScript types are not trusted; values are allowlisted and redacted.
- */
-export function createExecutionProjection(
-  input: unknown,
-): CreateExecutionProjectionResult {
-  const envelope = readUntrustedPlainData(input, {
-    redact: true,
-    maxStringLength: 100_000,
-  });
-  if (!envelope.ok || !envelope.value || typeof envelope.value !== "object") {
-    return fail("INPUT_REJECTED", "projection input rejected");
-  }
-  const root = envelope.value as Record<string, unknown>;
-  const runRaw = root.run ?? root;
-  if (!runRaw || typeof runRaw !== "object" || Array.isArray(runRaw)) {
-    return fail("RUN_REQUIRED", "run object required");
-  }
-  const run = runRaw as Record<string, unknown>;
-
-  const runId = asString(run.runId);
-  const correlationId = asString(run.correlationId);
-  if (!runId || !correlationId) {
-    return fail("IDENTITY", "runId and correlationId required");
-  }
-  if (typeof run.state !== "string" || !ALLOWED_STATES.has(run.state)) {
-    return fail("STATE", "run.state invalid");
-  }
-  const state = run.state as ExecutionState;
-
-  const disclosureRaw = run.disclosure;
-  if (!disclosureRaw || typeof disclosureRaw !== "object") {
-    return fail("DISCLOSURE", "disclosure required");
-  }
-  const disclosure = disclosureRaw as Record<string, unknown>;
-  if (
-    typeof disclosure.source !== "string" ||
-    !ALLOWED_SOURCES.has(disclosure.source) ||
-    typeof disclosure.providerLane !== "string" ||
-    !ALLOWED_LANES.has(disclosure.providerLane)
-  ) {
-    return fail("DISCLOSURE_FIELDS", "disclosure source/lane invalid");
-  }
-  const source = disclosure.source as ExecutionRun["disclosure"]["source"];
-  const providerLane =
-    disclosure.providerLane as ExecutionRun["disclosure"]["providerLane"];
-
-  const limitsRaw = disclosure.limits;
-  const limitsCopied = readUntrustedPlainData(limitsRaw);
-  if (!limitsCopied.ok || !Array.isArray(limitsCopied.value)) {
-    return fail("LIMITS", "disclosure.limits must be a string array");
-  }
-  const limits: string[] = [];
-  for (const item of limitsCopied.value) {
-    if (typeof item !== "string") {
-      return fail("LIMITS_TYPE", "disclosure.limits entries must be strings");
-    }
-    limits.push(redactBoundedText(item, MAX_TEXT) ?? "");
-  }
-
-  const persistence = readPersistence(run.persistence);
-  if (!("persistence" in persistence)) return persistence;
-
-  const evidence = readEvidence(run.evidence, runId, correlationId, source);
-  if (!("evidence" in evidence)) return evidence;
-
-  let resultSummary: string | null = null;
-  let completeness: Completeness | "unavailable" = "unavailable";
-  if (run.externalResult && typeof run.externalResult === "object") {
-    const ext = run.externalResult as Record<string, unknown>;
-    if (ext.kind === "success") {
-      resultSummary = redactBoundedText(ext.redactedSummary, MAX_TEXT);
-      if (
-        typeof ext.completeness === "string" &&
-        ALLOWED_COMPLETENESS.has(ext.completeness)
-      ) {
-        completeness = ext.completeness as Completeness;
-      }
-    }
-  }
-  if (completeness === "unavailable" && evidence.evidence.length > 0) {
-    completeness = evidence.evidence[evidence.evidence.length - 1]!.completeness;
-  }
-
-  let failure: ExecutionProjection["failure"] = null;
-  if (run.failure && typeof run.failure === "object") {
-    const f = run.failure as Record<string, unknown>;
-    failure = {
-      family: asString(f.family) ?? "internal_normalized_failure",
-      code: asString(f.code) ?? "INTERNAL_NORMALIZED_FAILURE",
-      message:
-        redactBoundedText(f.userMessage, MAX_TEXT) ??
-        "Failure details unavailable",
-      retryable: f.retryable === true,
-    };
-  }
-
-  let humanGate: ExecutionProjection["humanGate"] = null;
-  if (run.gate && typeof run.gate === "object") {
-    const g = run.gate as Record<string, unknown>;
-    const gateId = asString(g.gateId);
-    if (gateId) {
-      humanGate = {
-        gateId,
-        question:
-          redactBoundedText(g.question, MAX_TEXT) ?? "Human decision required",
-        required: g.required === true,
-        decision:
-          g.decision === "approve" ||
-          g.decision === "reject" ||
-          g.decision === "cancel"
-            ? g.decision
-            : null,
-      };
-    }
-  }
-
-  const usage =
-    root.validatedUsage !== undefined
-      ? readUsage(root.validatedUsage)
-      : readUsage(run.usage);
-
-  const openReservesRaw = root.openReserves;
-  let openReserves: readonly string[] | undefined;
-  if (openReservesRaw !== undefined) {
-    const copied = readUntrustedPlainData(openReservesRaw, { redact: true });
-    if (!copied.ok || !Array.isArray(copied.value)) {
-      return fail("RESERVES", "openReserves must be a string array");
-    }
-    openReserves = copied.value.map((item) => {
-      if (typeof item !== "string") return "reserve_redacted";
-      return redactBoundedText(item, MAX_TEXT) ?? "reserve_redacted";
-    });
-  }
-
-  const readinessAssessment: ExecutionReadinessAssessment =
-    root.readinessAssessment && typeof root.readinessAssessment === "object"
-      ? (root.readinessAssessment as ExecutionReadinessAssessment)
-      : assessExecutionReadiness({
-          run: {
-            runId,
-            correlationId,
-            state,
-            disclosure: { source, providerLane, limits },
-            evidence: evidence.evidence.map((e) => ({
-              ...e,
-              runId,
-              correlationId,
-              official: true as const,
-              summary: "projection_internal",
-            })),
-            persistence: persistence.persistence,
-          },
-        });
-
-  // Re-assess when caller supplied a readiness object that is not artifact-linked.
-  const linkedReadiness = assessExecutionReadiness({
-    run: {
-      runId,
-      correlationId,
-      state,
-      disclosure: {
-        source,
-        providerLane,
-        limits,
-        processLocalMemory: true,
-        cursorUnverified: true,
-      },
-      evidence: evidence.evidence.map((e) => ({
-        evidenceId: e.evidenceId,
-        runId,
-        correlationId,
-        source: e.source,
-        completeness: e.completeness,
-        producedAt: e.producedAt,
-        late: e.late,
-        official: true as const,
-        summary: "projection_internal",
-      })),
-      persistence: persistence.persistence,
-    },
-    projection: {
-      runId,
-      correlationId,
-      source,
-      state,
-    },
-  });
-
-  const finalReadiness =
-    root.readinessAssessment && typeof root.readinessAssessment === "object"
-      ? linkedReadiness
-      : readinessAssessment;
-
-  return {
-    ok: true,
-    projection: {
-      runId,
-      correlationId,
-      state,
-      source,
-      providerLane,
-      phase: observablePhase(state),
-      completeness,
-      resultSummary,
-      failure,
-      blockedReason: redactBoundedText(run.blockedReason, MAX_TEXT),
-      humanGate,
-      evidenceSummary: evidence.evidence,
-      usage,
-      openReserves: openReserves ?? finalReadiness.openReserves,
-      readinessAssessment: finalReadiness,
-      limits,
-      persistence: persistence.persistence,
-      cursorUnverified: true,
-      gitWrite: false,
-    },
-  };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts`
-
-```typescript
-import { readUntrustedPlainData } from "./untrustedExecutionData";
-
-export type ReadinessStatus =
-  | "demonstrated"
-  | "not_demonstrated"
-  | "blocked";
-
-export type ReadinessLevel = {
-  readonly status: ReadinessStatus;
-  readonly reasons: readonly string[];
-};
-
-export type ExecutionReadinessAssessment = {
-  readonly uxExploration: ReadinessLevel;
-  readonly uiDelivery: ReadinessLevel;
-  readonly strongRuntimeVerdict: ReadinessLevel;
-  readonly openReserves: readonly string[];
-};
-
-export const D2D3_OPEN_RESERVES = [
-  "R-QA-REV-01 — OPEN NOT LIFTED",
-  "R-QA-REV-02 — OPEN NOT LIFTED",
-  "R-QA-D2C-01 — OPEN NOT LIFTED",
-  "Cursor product capabilities — UNVERIFIED",
-  "memory process-local only",
-  "R-PR-D2D2-01 — MINOR",
-] as const;
-
-const UI_DELIVERY: ReadinessLevel = {
-  status: "not_demonstrated",
-  reasons: [
-    "no UI or accessibility delivery",
-    "no Figma evidence",
-    "no D3 transport selected",
-  ],
-};
-
-const STRONG_RUNTIME: ReadinessLevel = {
-  status: "blocked",
-  reasons: [
-    "G-D2D-CURSOR-01 not consumed",
-    "G-D2D-PERSIST-01 not consumed",
-    "Cursor unverified",
-    "memory is process-local",
-    "no live provider proof",
-  ],
-};
-
-function notDemonstrated(reasons: readonly string[]): ExecutionReadinessAssessment {
-  return {
-    uxExploration: { status: "not_demonstrated", reasons },
-    uiDelivery: UI_DELIVERY,
-    strongRuntimeVerdict: STRONG_RUNTIME,
-    openReserves: D2D3_OPEN_RESERVES,
-  };
-}
-
-function isOfficialCompleteEvidence(
-  evidence: unknown,
-  runId: string,
-  correlationId: string,
-  source: string,
-): boolean {
-  if (!Array.isArray(evidence) || evidence.length === 0) return false;
-  return evidence.some((item) => {
-    if (!item || typeof item !== "object") return false;
-    const e = item as Record<string, unknown>;
-    return (
-      e.official === true &&
-      e.completeness === "complete" &&
-      e.late === false &&
-      e.runId === runId &&
-      e.correlationId === correlationId &&
-      e.source === source &&
-      source === "fixture"
-    );
-  });
-}
-
-/**
- * Readiness from linked, validated artifacts only.
- * Boolean-only caller proofs are rejected as not_demonstrated.
- */
-export function assessExecutionReadiness(
-  artifacts: unknown,
-): ExecutionReadinessAssessment {
-  const copied = readUntrustedPlainData(artifacts, { redact: true });
-  if (!copied.ok || !copied.value || typeof copied.value !== "object") {
-    return notDemonstrated([
-      "linked run, validated projection, and official evidence are required",
-    ]);
-  }
-  const root = copied.value as Record<string, unknown>;
-
-  // Explicitly reject the retired boolean-only proof API.
-  if (
-    "fixturePathDemonstrated" in root ||
-    "projectionDemonstrated" in root ||
-    "disclosuresDemonstrated" in root
-  ) {
-    return notDemonstrated([
-      "boolean readiness proofs are not accepted; linked artifacts are required",
-    ]);
-  }
-
-  const runRaw = root.run;
-  if (!runRaw || typeof runRaw !== "object" || Array.isArray(runRaw)) {
-    return notDemonstrated(["canonical ExecutionRun artifact is required"]);
-  }
-  const run = runRaw as Record<string, unknown>;
-  const runId = typeof run.runId === "string" ? run.runId : null;
-  const correlationId =
-    typeof run.correlationId === "string" ? run.correlationId : null;
-  const state = typeof run.state === "string" ? run.state : null;
-  const disclosure =
-    run.disclosure && typeof run.disclosure === "object"
-      ? (run.disclosure as Record<string, unknown>)
-      : null;
-  const source =
-    disclosure && typeof disclosure.source === "string"
-      ? disclosure.source
-      : null;
-
-  if (!runId || !correlationId || !state || !source) {
-    return notDemonstrated(["run identity, state, and source are required"]);
-  }
-
-  if (state !== "succeeded" || source !== "fixture") {
-    return notDemonstrated([
-      "UX exploration requires a succeeded fixture terminal",
-    ]);
-  }
-
-  if (
-    !isOfficialCompleteEvidence(run.evidence, runId, correlationId, source)
-  ) {
-    return notDemonstrated([
-      "official complete non-late fixture evidence linked to the run is required",
-    ]);
-  }
-
-  const persistence =
-    run.persistence && typeof run.persistence === "object"
-      ? (run.persistence as Record<string, unknown>)
-      : null;
-  if (
-    !persistence ||
-    persistence.kind !== "memory_process_local" ||
-    persistence.durable !== false ||
-    persistence.multiInstance !== false ||
-    persistence.restartSafe !== false
-  ) {
-    return notDemonstrated(["process-local persistence disclosure is required"]);
-  }
-
-  const projectionRaw = root.projection;
-  if (projectionRaw !== undefined) {
-    if (typeof projectionRaw !== "object" || projectionRaw === null) {
-      return notDemonstrated(["projection artifact must be a plain object"]);
-    }
-    const projection = projectionRaw as Record<string, unknown>;
-    if (
-      projection.runId !== runId ||
-      projection.correlationId !== correlationId ||
-      projection.source !== source
-    ) {
-      return notDemonstrated([
-        "projection must share runId, correlationId, and source with the run",
-      ]);
-    }
-  } else {
-    // Composition may assess from run alone before projection materialization;
-    // still require that a projection *could* be linked (same IDs present on run).
-    // UX demonstrated only when a projection artifact is also supplied.
-    return notDemonstrated([
-      "validated projection of the same run is required for UX demonstration",
-    ]);
-  }
-
-  const limits = disclosure?.limits;
-  if (!Array.isArray(limits) || limits.length === 0) {
-    return notDemonstrated(["source disclosure limits are required"]);
-  }
-
-  return {
-    uxExploration: {
-      status: "demonstrated",
-      reasons: [
-        "linked succeeded fixture run",
-        "validated projection of the same run",
-        "official complete evidence and disclosures demonstrated",
-      ],
-    },
-    uiDelivery: UI_DELIVERY,
-    strongRuntimeVerdict: STRONG_RUNTIME,
-    openReserves: D2D3_OPEN_RESERVES,
-  };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts`
-
-```typescript
-/**
- * Pure Validation & Read-only Policy foundation (FD-04 / CAD-04).
- * Operates on contracts only — no FS/Git/provider I/O.
- */
-import { normalizedFailure } from "./errors";
-import type {
-  ExecutionContext,
-  ExecutionIntent,
-  NormalizedFailure,
-  ProviderCapabilityDescriptor,
-} from "./types";
-import { normalizeCanonicalPath } from "./sandboxContract";
-
-export type PolicyInput = {
-  readonly intent: ExecutionIntent;
-  readonly context: ExecutionContext;
-  readonly capability?: ProviderCapabilityDescriptor;
-  readonly gateSatisfied?: boolean;
-};
-
-export type PolicyDecision =
-  | { readonly ok: true }
-  | { readonly ok: false; readonly failure: NormalizedFailure };
-
-export function evaluateReadOnlyPolicy(input: PolicyInput): PolicyDecision {
-  const { intent, context, capability } = input;
-  const cid = intent.correlationId;
-
-  if (intent.mutationRequested || context.permissions.gitWrite) {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "mutation_forbidden",
-        code: "MUTATION_FORBIDDEN",
-        userMessage: "Git write or mutation intent is forbidden in D2-D",
-        retryable: false,
-        correlationId: cid,
-      }),
-    };
-  }
-
-  if (intent.arbitraryCommandRequested) {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "validation",
-        code: "VALIDATION_ERROR",
-        userMessage: "Arbitrary commands are not permitted",
-        retryable: false,
-        correlationId: cid,
-      }),
-    };
-  }
-
-  if (intent.targetPath) {
-    const canonical = normalizeCanonicalPath(intent.targetPath);
-    if (!canonical.ok) {
-      return {
-        ok: false,
-        failure: normalizedFailure({
-          family: "protected_path",
-          code: "PROTECTED_PATH",
-          userMessage: "Target path is protected or invalid",
-          retryable: false,
-          correlationId: cid,
-        }),
-      };
-    }
-    if (context.protectedPaths?.length) {
-      const hit = context.protectedPaths.some((p) => {
-        const protectedCanonical = normalizeCanonicalPath(p);
-        const prefix = protectedCanonical.ok
-          ? protectedCanonical.normalized
-          : p.replace(/\\/g, "/").replace(/\/+$/, "");
-        return (
-          canonical.normalized === prefix ||
-          canonical.normalized.startsWith(`${prefix}/`)
-        );
-      });
-      if (hit) {
-        return {
-          ok: false,
-          failure: normalizedFailure({
-            family: "protected_path",
-            code: "PROTECTED_PATH",
-            userMessage: "Target path is protected",
-            retryable: false,
-            correlationId: cid,
-          }),
-        };
-      }
-    }
-  }
-
-  if (!context.permissions.gitRead && intent.requestedLane === "git") {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "authorization",
-        code: "AUTHORIZATION_ERROR",
-        userMessage: "Insufficient permission for Git read",
-        retryable: true,
-        correlationId: cid,
-      }),
-    };
-  }
-
-  if (intent.requestedLane !== "none") {
-    if (!capability) {
-      return {
-        ok: false,
-        failure: normalizedFailure({
-          family: "provider_unavailable",
-          code: "PROVIDER_UNAVAILABLE",
-          userMessage: "Provider capability descriptor is required",
-          retryable: true,
-          correlationId: cid,
-        }),
-      };
-    }
-    if (!capability.available) {
-      return {
-        ok: false,
-        failure: normalizedFailure({
-          family: "provider_unavailable",
-          code: "PROVIDER_UNAVAILABLE",
-          userMessage: "Requested provider is unavailable",
-          retryable: true,
-          correlationId: cid,
-        }),
-      };
-    }
-    if (!capability.readOnly) {
-      return {
-        ok: false,
-        failure: normalizedFailure({
-          family: "mutation_forbidden",
-          code: "MUTATION_FORBIDDEN",
-          userMessage: "Provider must be read-only for D2-D",
-          retryable: false,
-          correlationId: cid,
-        }),
-      };
-    }
-    // G-D2D-CURSOR-01 is not consumed: never treat capability.verified as authority.
-    if (intent.requestedLane === "cursor" || capability.lane === "cursor") {
-      return {
-        ok: false,
-        failure: normalizedFailure({
-          family: "sandbox_blocked",
-          code: "SANDBOX_BLOCKED",
-          userMessage: "Cursor product capabilities remain unverified",
-          retryable: false,
-          correlationId: cid,
-        }),
-      };
-    }
-  }
-
-  if (intent.requiresHumanGate && input.gateSatisfied === false) {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "human_gate_required",
-        code: "HUMAN_GATE_REQUIRED",
-        userMessage: "A structural human gate is required",
-        retryable: true,
-        correlationId: cid,
-      }),
-    };
-  }
-
-  if (intent.requestedSource !== context.declaredSource) {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "source_mismatch",
-        code: "SOURCE_MISMATCH",
-        userMessage: "Declared source does not match requested source",
-        retryable: false,
-        correlationId: cid,
-      }),
-    };
-  }
-
-  return { ok: true };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts`
-
-```typescript
-/**
- * D2D2-07 — adversarial validation of untrusted provider-ish payloads
- * BEFORE any metadata field is trusted.
- */
-import { normalizedFailure } from "./errors";
-import type { NormalizedFailure, ProviderLane } from "./types";
-import { isIsoTimestamp } from "./evidence";
-import { normalizeCanonicalPath } from "./sandboxContract";
-
-const ALLOWED_LANES: readonly ProviderLane[] = ["ai", "git", "cursor", "none"];
-
-const OPS_BY_LANE: Record<ProviderLane, readonly string[]> = {
-  ai: ["complete"],
-  git: ["read", "git_read"],
-  cursor: ["fixture", "cursor_fixture"],
-  none: ["event_emit"],
-};
-
-const COMMON_KEYS = new Set([
-  "correlationId",
-  "runId",
-  "lane",
-  "operation",
-  "signal",
-  "timeoutMs",
-]);
-
-const KEYS_BY_LANE: Record<ProviderLane, ReadonlySet<string>> = {
-  ai: new Set([...COMMON_KEYS, "messages", "modelHint"]),
-  git: new Set([...COMMON_KEYS, "owner", "repo", "ref", "path", "kind"]),
-  cursor: new Set([
-    ...COMMON_KEYS,
-    "instructionSummary",
-    "allowlistRepos",
-    "protectedPaths",
-    "expectedBranch",
-    "expectedHead",
-    "observedBranch",
-    "observedHead",
-  ]),
-  none: new Set([...COMMON_KEYS, "detail"]),
-};
-
-const GIT_KINDS = new Set(["repository", "branch", "commit", "path_meta"]);
-
-export type ProviderBoundaryOk = {
-  readonly ok: true;
-  readonly lane: ProviderLane;
-  readonly correlationId: string;
-  readonly operation: string;
-};
-
-export type ProviderBoundaryFail = {
-  readonly ok: false;
-  readonly failure: NormalizedFailure;
-};
-
-export function validateUntrustedProviderRequest(
-  input: unknown,
-  fallbackCorrelationId = "unknown",
-): ProviderBoundaryOk | ProviderBoundaryFail {
-  const fail = (userMessage: string): ProviderBoundaryFail => ({
-    ok: false,
-    failure: normalizedFailure({
-      family: "validation",
-      code: "VALIDATION_ERROR",
-      userMessage,
-      retryable: false,
-      correlationId:
-        typeof input === "object" &&
-        input !== null &&
-        typeof (input as { correlationId?: unknown }).correlationId === "string"
-          ? ((input as { correlationId: string }).correlationId || fallbackCorrelationId)
-          : fallbackCorrelationId,
-    }),
-  });
-
-  if (input === null || input === undefined) {
-    return fail("Provider request must be an object");
-  }
-  if (typeof input !== "object" || Array.isArray(input)) {
-    return fail("Provider request must be a non-array object");
-  }
-  const obj = input as Record<string, unknown>;
-  if (typeof obj.correlationId !== "string" || !obj.correlationId.trim()) {
-    return fail("correlationId required");
-  }
-  if (typeof obj.lane !== "string" || !(ALLOWED_LANES as readonly string[]).includes(obj.lane)) {
-    return fail("lane must be a valid ProviderLane");
-  }
-  const lane = obj.lane as ProviderLane;
-  if (typeof obj.operation !== "string" || !obj.operation.trim()) {
-    return fail("operation required");
-  }
-  if (!(OPS_BY_LANE[lane] as readonly string[]).includes(obj.operation)) {
-    return fail(`operation not allowed for lane ${lane}`);
-  }
-
-  const allowedKeys = KEYS_BY_LANE[lane];
-  for (const key of Object.keys(obj)) {
-    if (!allowedKeys.has(key)) {
-      return fail(`additional property forbidden: ${key}`);
-    }
-    if (/secret|password|token|api[_-]?key|authorization/i.test(key)) {
-      return fail("forbidden sensitive field in provider request");
-    }
-  }
-
-  if (obj.timeoutMs !== undefined) {
-    if (typeof obj.timeoutMs !== "number" || !Number.isFinite(obj.timeoutMs) || obj.timeoutMs < 0) {
-      return fail("timeoutMs must be a non-negative finite number");
-    }
-  }
-
-  if (lane === "ai") {
-    if (!Array.isArray(obj.messages)) return fail("messages required for ai complete");
-    for (const m of obj.messages) {
-      if (!m || typeof m !== "object" || Array.isArray(m)) return fail("invalid message entry");
-      const msg = m as Record<string, unknown>;
-      if (!["system", "user", "assistant"].includes(String(msg.role))) {
-        return fail("invalid message role");
-      }
-      if (typeof msg.content !== "string") return fail("message content must be string");
-      if (msg.content.length > 100_000) return fail("message content exceeds size limit");
-    }
-  }
-
-  if (lane === "git") {
-    if (typeof obj.owner !== "string" || !obj.owner.trim()) return fail("owner required");
-    if (typeof obj.repo !== "string" || !obj.repo.trim()) return fail("repo required");
-    if (typeof obj.kind !== "string" || !GIT_KINDS.has(obj.kind)) {
-      return fail("kind must be repository|branch|commit|path_meta");
-    }
-    if (obj.path !== undefined) {
-      if (typeof obj.path !== "string") return fail("path must be string");
-      const canonical = normalizeCanonicalPath(obj.path);
-      if (!canonical.ok) {
-        return fail("path traversal, encoding, or absolute path forbidden");
-      }
-    }
-  }
-
-  if (lane === "cursor") {
-    if (typeof obj.instructionSummary !== "string") return fail("instructionSummary required");
-    if (!Array.isArray(obj.allowlistRepos)) return fail("allowlistRepos required");
-    if (!Array.isArray(obj.protectedPaths)) return fail("protectedPaths required");
-  }
-
-  return {
-    ok: true,
-    lane,
-    correlationId: obj.correlationId,
-    operation: obj.operation,
-  };
-}
-
-export function validateUntrustedProviderResult(
-  input: unknown,
-  correlationId: string,
-): { ok: true } | { ok: false; failure: NormalizedFailure } {
-  const fail = (userMessage: string) => ({
-    ok: false as const,
-    failure: normalizedFailure({
-      family: "invalid_provider_result",
-      code: "INVALID_PROVIDER_RESULT",
-      userMessage,
-      retryable: false,
-      correlationId,
-    }),
-  });
-  if (input === null || input === undefined || typeof input !== "object" || Array.isArray(input)) {
-    return fail("provider result must be an object");
-  }
-  const obj = input as Record<string, unknown>;
-  if (!["success", "failure", "cancelled", "timed_out"].includes(String(obj.kind))) {
-    return fail("provider result kind invalid");
-  }
-  if (obj.kind === "success") {
-    if (typeof obj.redactedSummary !== "string") return fail("redactedSummary required");
-    if (/sk-|ghp_|@|password|BEGIN PRIVATE/i.test(obj.redactedSummary)) {
-      return fail("redactedSummary appears to contain sensitive or user content");
-    }
-    if (obj.rawPresent === true) return fail("raw provider payload forbidden");
-    if (obj.prompt !== undefined || obj.response !== undefined) {
-      return fail("raw prompt/response fields forbidden");
-    }
-  }
-  for (const key of Object.keys(obj)) {
-    if (/secret|password|token|api[_-]?key/i.test(key)) {
-      return fail("forbidden sensitive field in provider result");
-    }
-  }
-  return { ok: true };
-}
-
-export function assertIsoOrFail(
-  value: unknown,
-  correlationId: string,
-): { ok: true; iso: string } | { ok: false; failure: NormalizedFailure } {
-  if (typeof value !== "string" || !isIsoTimestamp(value)) {
-    return {
-      ok: false,
-      failure: normalizedFailure({
-        family: "validation",
-        code: "VALIDATION_ERROR",
-        userMessage: "timestamp must be valid ISO-8601",
-        retryable: false,
-        correlationId,
-      }),
-    };
-  }
-  return { ok: true, iso: value };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts`
-
-```typescript
-/**
- * D2D2-08 — sandbox / protected-path contract (pure, fixture-verifiable).
- * Deny-by-default. Does not claim the sandbox is secure.
- *
- * Path comparisons use a shared canonical normalization that percent-decodes
- * once in a bounded way and rejects traversal / double-encoding / controls.
- */
-
-export type SandboxPathDecision =
-  | { readonly allowed: true; readonly normalized: string }
-  | {
-      readonly allowed: false;
-      readonly reason:
-        | "empty"
-        | "absolute"
-        | "traversal"
-        | "protected"
-        | "not_allowlisted"
-        | "arbitrary_command"
-        | "git_write"
-        | "branch_mismatch"
-        | "head_mismatch"
-        | "observed_missing"
-        | "invalid_encoding"
-        | "control_or_null"
-        | "double_encoding";
-    };
-
-export type CanonicalPathResult =
-  | { readonly ok: true; readonly normalized: string }
-  | {
-      readonly ok: false;
-      readonly reason:
-        | "empty"
-        | "absolute"
-        | "traversal"
-        | "invalid_encoding"
-        | "control_or_null"
-        | "double_encoding";
-    };
-
-const DEFAULT_PROTECTED = [
-  ".git/",
-  ".env",
-  "method/",
-  "prompts/",
-  ".github/",
-  ".sfia/",
-  "node_modules/",
-] as const;
-
-const DANGEROUS_ENCODED = /%(?:00|2e|2f|5c)/i;
-
-function decodePercentOnce(raw: string): CanonicalPathResult {
-  let out = "";
-  for (let i = 0; i < raw.length; i += 1) {
-    const ch = raw[i];
-    if (ch !== "%") {
-      const code = ch.charCodeAt(0);
-      if (code === 0 || (code < 0x20 && code !== 0x09) || code === 0x7f) {
-        return { ok: false, reason: "control_or_null" };
-      }
-      out += ch;
-      continue;
-    }
-    if (i + 2 >= raw.length) {
-      return { ok: false, reason: "invalid_encoding" };
-    }
-    const hex = raw.slice(i + 1, i + 3);
-    if (!/^[0-9A-Fa-f]{2}$/.test(hex)) {
-      return { ok: false, reason: "invalid_encoding" };
-    }
-    const code = Number.parseInt(hex, 16);
-    if (code === 0 || (code < 0x20 && code !== 0x09) || code === 0x7f) {
-      return { ok: false, reason: "control_or_null" };
-    }
-    out += String.fromCharCode(code);
-    i += 2;
-  }
-  return { ok: true, normalized: out };
-}
-
-/**
- * Canonical path normalization shared by sandbox, provider boundary, and policy.
- * Never normalizes a traversal into an allowlisted path.
- */
-export function normalizeCanonicalPath(path: unknown): CanonicalPathResult {
-  if (typeof path !== "string" || !path.trim()) {
-    return { ok: false, reason: "empty" };
-  }
-  const replaced = path.trim().replace(/\\/g, "/");
-  const first = decodePercentOnce(replaced);
-  if (!first.ok) return first;
-
-  // Residual encoded path metacharacters imply double-encoding or incomplete decode.
-  if (DANGEROUS_ENCODED.test(first.normalized) || /%25(?:2e|2f|5c|00)/i.test(replaced)) {
-    return { ok: false, reason: "double_encoding" };
-  }
-  if (/%[0-9A-Fa-f]{2}/.test(first.normalized)) {
-    // Any remaining percent-encoding after one decode is rejected (fail closed).
-    return { ok: false, reason: "double_encoding" };
-  }
-
-  const raw = first.normalized;
-  if (raw.startsWith("/") || /^[A-Za-z]:\//.test(raw)) {
-    return { ok: false, reason: "absolute" };
-  }
-  const parts = raw.split("/");
-  if (parts.some((p) => p === ".." || p === "")) {
-    return { ok: false, reason: "traversal" };
-  }
-  const normalized = parts.filter((p) => p !== ".").join("/");
-  if (!normalized) {
-    return { ok: false, reason: "empty" };
-  }
-  return { ok: true, normalized };
-}
-
-/** Exact match or child under prefix with segment boundary (no sibling prefix bypass). */
-export function pathMatchesAllowlistPrefix(
-  normalized: string,
-  prefixRaw: string,
-): boolean {
-  const prefix = prefixRaw.replace(/\\/g, "/").replace(/\/+$/, "");
-  if (!prefix) return false;
-  if (normalized === prefix) return true;
-  return normalized.startsWith(prefix + "/");
-}
-
-export function evaluateSandboxPath(input: {
-  path: unknown;
-  allowlistRepos: readonly string[];
-  protectedPaths?: readonly string[];
-}): SandboxPathDecision {
-  const canonical = normalizeCanonicalPath(input.path);
-  if (!canonical.ok) {
-    return { allowed: false, reason: canonical.reason };
-  }
-  const normalized = canonical.normalized;
-  const protectedPaths = [
-    ...DEFAULT_PROTECTED,
-    ...(input.protectedPaths ?? []),
-  ];
-  for (const p of protectedPaths) {
-    if (pathMatchesAllowlistPrefix(normalized, p)) {
-      return { allowed: false, reason: "protected" };
-    }
-  }
-  const allowed = input.allowlistRepos.some((prefix) =>
-    pathMatchesAllowlistPrefix(normalized, prefix),
-  );
-  if (!allowed) return { allowed: false, reason: "not_allowlisted" };
-  return { allowed: true, normalized };
-}
-
-export function evaluateSandboxMutationGuards(input: {
-  mutationRequested: boolean;
-  arbitraryCommandRequested: boolean;
-  gitWriteRequested: boolean;
-  /** Observed values must be independent of expected — never copy expected into observed. */
-  observedBranch?: string;
-  expectedBranch?: string;
-  observedHead?: string;
-  expectedHead?: string;
-}): SandboxPathDecision | { allowed: true } {
-  if (input.arbitraryCommandRequested) {
-    return { allowed: false, reason: "arbitrary_command" };
-  }
-  if (input.mutationRequested || input.gitWriteRequested) {
-    return { allowed: false, reason: "git_write" };
-  }
-  if (input.expectedBranch !== undefined) {
-    if (input.observedBranch === undefined || input.observedBranch === "") {
-      return { allowed: false, reason: "observed_missing" };
-    }
-    if (input.observedBranch !== input.expectedBranch) {
-      return { allowed: false, reason: "branch_mismatch" };
-    }
-  }
-  if (input.expectedHead !== undefined) {
-    if (input.observedHead === undefined || input.observedHead === "") {
-      return { allowed: false, reason: "observed_missing" };
-    }
-    if (input.observedHead !== input.expectedHead) {
-      return { allowed: false, reason: "head_mismatch" };
-    }
-  }
-  return { allowed: true };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/index.ts`
-
-```typescript
-/**
- * D2-D1 OA execution-run public barrel.
- * Sole D2-D technical state authority — memory/fixture-first only.
- * Concrete server composition is NOT exported here — use ./server.
- */
-export { EXECUTION_RUN_SCHEMA_VERSION, EXECUTION_STATES, TERMINAL_STATES, isTerminalState } from "./domain/types";
-export type {
-  Completeness,
-  ExecutionContext,
-  ExecutionEvidence,
-  ExecutionIntent,
-  ExecutionRun,
-  ExecutionSource,
-  ExecutionState,
-  ExternalResult,
-  FailureCode,
-  FailureFamily,
-  HumanDecisionGate,
-  NormalizedFailure,
-  ProviderCapabilityDescriptor,
-  ProviderLane,
-  SourceDisclosure,
-  UsageSummary,
-  ValidationOutcome,
-} from "./domain/types";
-export { normalizedFailure } from "./domain/errors";
-export {
-  decideTransition,
-  isAllowedTransition,
-  listAllowedTransitions,
-} from "./domain/transitions";
-export type { TransitionDecision, TransitionReason, TransitionRequest } from "./domain/transitions";
-export { evaluateReadOnlyPolicy } from "./domain/policy";
-export type { PolicyDecision, PolicyInput } from "./domain/policy";
-export {
-  assertSourceHonest,
-  canSucceed,
-  createOfficialEvidence,
-  createSourceDisclosure,
-  isIsoTimestamp,
-  usageUnavailable,
-} from "./domain/evidence";
-export {
-  canAcceptLateResult,
-  checkExecutionRunInvariants,
-  isCursorAssociated,
-  LATE_RESULT_ELIGIBLE_STATES,
-} from "./domain/invariants";
-export { createExecutionRun } from "./application/createExecutionRun";
-export type { CreateExecutionRunInput, CreateExecutionRunResult } from "./application/createExecutionRun";
-export { transitionExecutionRun } from "./application/transitionExecutionRun";
-export type {
-  TransitionExecutionRunInput,
-  TransitionExecutionRunResult,
-} from "./application/transitionExecutionRun";
-export type { ExecutionRunRepositoryPort } from "./ports/executionRunRepository";
-export type {
-  ExecutionRunSchemaName,
-  ExecutionRunSchemaValidationPort,
-} from "./ports/executionRunSchemaValidation";
-export type { ClockPort } from "./ports/clockPort";
-export type { IdentityPort } from "./ports/identityPort";
-export { FIXTURE_CATALOGUE, getFixture } from "./fixtures/catalogue";
-export type { FixtureScenario, FixtureScenarioId } from "./fixtures/catalogue";
-
-// D2-D2 provider boundary port types (no concrete adapters on root barrel)
-export type {
-  AiCompletionRequest,
-  CursorFixtureRequest,
-  GitReadRequest,
-  LateProviderResultRecord,
-  ProviderInvocationResult,
-  ProviderOperationKind,
-  ProviderRequestBase,
-} from "./ports/providerResult";
-export type { AiExecutionPort } from "./ports/aiExecutionPort";
-export type { GitReadPort } from "./ports/gitReadPort";
-export type { CursorExecutionPort } from "./ports/cursorExecutionPort";
-export type {
-  SecretHandle,
-  SecretResolveResult,
-  SecretSourcePort,
-} from "./ports/secretSourcePort";
-export type {
-  ExecutionEvent,
-  ExecutionEventSinkPort,
-  ExecutionEventType,
-} from "./ports/executionEventSinkPort";
-export {
-  assertIsoOrFail,
-  validateUntrustedProviderRequest,
-  validateUntrustedProviderResult,
-} from "./domain/providerBoundary";
-export {
-  evaluateSandboxMutationGuards,
-  evaluateSandboxPath,
-  normalizeCanonicalPath,
-  pathMatchesAllowlistPrefix,
-} from "./domain/sandboxContract";
-export type {
-  CanonicalPathResult,
-  SandboxPathDecision,
-} from "./domain/sandboxContract";
-export {
-  invokeWithTimeoutAndCancellation,
-  recordLateProviderResult,
-} from "./application/providerInvocation";
-export type {
-  InvokeOptions,
-  InvokeOutcome,
-  RetryClass,
-} from "./application/providerInvocation";
-// Coordinator and injection deps are server-composition only (not client-safe).
-export {
-  createExecutionProjection,
-} from "./application/executionProjection";
-export type {
-  CreateExecutionProjectionResult,
-  ExecutionProjection,
-} from "./application/executionProjection";
-export {
-  assessExecutionReadiness,
-  D2D3_OPEN_RESERVES,
-} from "./application/executionReadiness";
-export type {
-  ExecutionReadinessAssessment,
-  ReadinessLevel,
-  ReadinessStatus,
-} from "./application/executionReadiness";
-export {
-  readUntrustedPlainData,
-  redactBoundedText,
-  sanitizeLateEvidenceSummary,
-} from "./application/untrustedExecutionData";
-export type {
-  UntrustedReadOptions,
-  UntrustedReadResult,
-} from "./application/untrustedExecutionData";
-export { MAX_COORDINATOR_TIMEOUT_MS } from "./application/coordinateExecutionRun";
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts`
-
-```typescript
-import {
-  coordinateExecutionRun,
-  type CoordinateExecutionRunResult,
-} from "../application/coordinateExecutionRun";
-import {
-  createExecutionProjection,
-  type CreateExecutionProjectionResult,
-} from "../application/executionProjection";
-import {
-  assessExecutionReadiness,
-  type ExecutionReadinessAssessment,
-} from "../application/executionReadiness";
-import type { ClockPort } from "../ports/clockPort";
-import type { ExecutionRun } from "../domain/types";
-import { composeExecutionRunMemory } from "./composeExecutionRunMemory";
-import {
-  composeExecutionRunProvidersFake,
-  type ExecutionRunProviderComposition,
-} from "./composeExecutionRunProviders";
-import { assertServerOnly } from "./serverOnly";
-
-export type ExecutionRunD2D3Composition = {
-  readonly coordinate: (
-    input: unknown,
-  ) => Promise<CoordinateExecutionRunResult>;
-  /** Project a stored run by canonical runId — never accept an arbitrary caller run object. */
-  readonly projectById: (
-    runId: string,
-  ) => Promise<CreateExecutionProjectionResult>;
-  /** Assess readiness from the stored run + a freshly validated projection. */
-  readonly assessById: (
-    runId: string,
-  ) => Promise<ExecutionReadinessAssessment>;
-  readonly getById: (runId: string) => Promise<ExecutionRun | null>;
-  readonly disclosure: {
-    readonly sources: readonly ["fixture"];
-    readonly cursorLive: false;
-    readonly cursorVerified: false;
-    readonly providersLive: false;
-    readonly gitWrite: false;
-    readonly persistence: "memory_process_local";
-    readonly durable: false;
-    readonly multiInstance: false;
-    readonly restartSafe: false;
-    readonly gD2dCursor01: "NOT_CONSUMED";
-    readonly gD2dPersist01: "NOT_CONSUMED";
-  };
-};
-
-/**
- * D2-D3 fixture-first composition. It assembles the existing single memory
- * authority and D2-D2 ports; it does not introduce another store or runtime.
- * Source authority is fixture-only and is not injectable.
- */
-export function composeExecutionRunD2D3(options?: {
-  readonly providers?: ExecutionRunProviderComposition;
-  readonly clock?: ClockPort;
-  readonly clockIso?: string;
-}): ExecutionRunD2D3Composition {
-  assertServerOnly();
-  const clockIso = options?.clockIso ?? "2026-08-04T09:15:00.000Z";
-  const execution = composeExecutionRunMemory({ clockIso });
-  const providers = options?.providers ?? composeExecutionRunProvidersFake();
-  const clock: ClockPort = options?.clock ?? { nowIso: () => clockIso };
-
-  const projectById = async (
-    runId: string,
-  ): Promise<CreateExecutionProjectionResult> => {
-    const run = await execution.getById(runId);
-    if (!run) {
-      return {
-        ok: false,
-        failure: { code: "RUN_NOT_FOUND", message: "Execution run not found" },
-      };
-    }
-    const provisional = createExecutionProjection({ run });
-    if (!provisional.ok) return provisional;
-    const readiness = assessExecutionReadiness({
-      run,
-      projection: provisional.projection,
-    });
-    return createExecutionProjection({
-      run,
-      readinessAssessment: readiness,
-      openReserves: readiness.openReserves,
-    });
-  };
-
-  return {
-    coordinate: (input) =>
-      coordinateExecutionRun(input, {
-        execution,
-        providers,
-        events: providers.events,
-        clock,
-      }),
-    projectById,
-    assessById: async (runId) => {
-      const projected = await projectById(runId);
-      if (!projected.ok) {
-        return assessExecutionReadiness({});
-      }
-      const run = await execution.getById(runId);
-      if (!run) return assessExecutionReadiness({});
-      return assessExecutionReadiness({
-        run,
-        projection: projected.projection,
-      });
-    },
-    getById: execution.getById,
-    disclosure: {
-      sources: ["fixture"],
-      cursorLive: false,
-      cursorVerified: false,
-      providersLive: false,
-      gitWrite: false,
-      persistence: "memory_process_local",
-      durable: false,
-      multiInstance: false,
-      restartSafe: false,
-      gD2dCursor01: "NOT_CONSUMED",
-      gD2dPersist01: "NOT_CONSUMED",
-    },
-  };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-run/server/index.ts`
-
-```typescript
-/**
- * Explicit server entrypoint for D2-D1 execution-run concrete composition.
- * Client surfaces must not import this module.
- */
-export {
-  composeExecutionRunMemory,
-  type ExecutionRunServerComposition,
-} from "./composeExecutionRunMemory";
-export { assertServerOnly } from "./serverOnly";
-export {
-  composeExecutionRunProviders,
-  composeExecutionRunProvidersFake,
-  type ExecutionRunProviderComposition,
-} from "./composeExecutionRunProviders";
-export {
-  composeExecutionRunD2D3,
-  type ExecutionRunD2D3Composition,
-} from "./composeExecutionRunD2D3";
-export {
-  coordinateExecutionRun,
-  MAX_COORDINATOR_TIMEOUT_MS,
-  type CoordinateExecutionRunDependencies,
-  type CoordinateExecutionRunInput,
-  type CoordinateExecutionRunResult,
-  type CoordinateProviderRequest,
-  type ExecutionAuthority,
-  type EventDeliveryStatus,
-} from "../application/coordinateExecutionRun";
-```
-
-## 19. Matrice des 14 findings
-
-| Finding | Statut proposé |
-|---|---|
-| F-QA-D2D3-01 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-02 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-03 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-04 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-05 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-06 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-07 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-08 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-09 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-D2D3-10 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-REV-D2D3-01 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-REV-D2D3-02 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-REV2-D2D3-01 | VERIFIED — CLOSURE RECOMMENDED |
-| F-QA-REV2-D2D3-02 | VERIFIED — ARBITRATED FAIL-CLOSED CONTRACT CONFIRMED — CLOSURE RECOMMENDED |
-
-## 20–24. Analyses
-
-Structured keys : exact quoted keys ; assignations/prefixes séparés ; détection avant troncature.
-Exact-key discrimination : P-REV3-05 PASS (tokenCount, authorizationStatus, passwordless, secretariat, tokenizer, …).
-Late evidence : P-REV3-LATE-MATRIX PASS (toutes familles).
-Fuite : P-REV3-06 PASS.
-Arbitrage hostile : P-REV3-07 / P-REV2-12 PASS (rejet préflight).
-
-## 25–26. P-REV2-09 / P-REV2-12
-
-| Probe | Verdict |
-|---|---|
-| P-REV2-D2D3-09 | **PASS** |
-| P-REV2-D2D3-12 | **PASS** (contrat arbitré) |
-
-## 27–31. Reproductions globales
-
-| Suite | Résultat |
-|---|---|
-| 29 initiaux | **29/29 PASS** |
-| 15 P-REV | **15/15 PASS** |
-| P-CORR2-01/02/NONREG | **PASS** (indépendant) |
-| P-REV2 repro suite | **17/17 PASS** |
-| CORR3 indépendant | **PASS** |
-| P-REV3 (01–08 + matrix) | **PASS** |
-
-## 32. Contenu complet nouveaux P-REV3
-
-```typescript
-/**
- * Independent QA Critical Revalidation 3 adversarial probes.
- * Temporary only — not part of delivery package.
- * Does NOT reuse Corrections 3 final-follow-up-probes.
- */
-import fs from "node:fs";
-import path from "node:path";
-import {
-  assessExecutionReadiness,
-  createExecutionProjection,
-  evaluateSandboxPath,
-  getFixture,
-  MAX_COORDINATOR_TIMEOUT_MS,
-  normalizeCanonicalPath,
-  normalizedFailure,
-  type AiExecutionPort,
-  type ExecutionEvent,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/index";
-import {
-  composeExecutionRunD2D3,
-  composeExecutionRunMemory,
-  composeExecutionRunProviders,
-  composeExecutionRunProvidersFake,
-  coordinateExecutionRun,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/server/index";
-
-type Verdict = "PASS" | "FAIL";
-type Probe = {
-  id: string;
-  family: string;
-  objective: string;
-  expected: string;
-  observed: unknown;
-  verdict: Verdict;
-  finding?: string;
-};
-
-const probes: Probe[] = [];
-const clock = { nowIso: () => "2026-08-04T12:40:00.000Z" };
-const OUT = path.resolve(
-  process.cwd(),
-  ".tmp-sfia-review/qa-revalidation-3-evidence/probe-results-rev3.json",
-);
-
-function record(
-  id: string,
-  family: string,
-  objective: string,
-  expected: string,
-  observed: unknown,
-  verdict: Verdict,
-  finding?: string,
-) {
-  probes.push({ id, family, objective, expected, observed, verdict, finding });
-}
-
-function fixtureInput(correlationId: string) {
-  const f = getFixture("nominal");
-  return {
-    intent: {
-      ...f.intent,
-      intentId: `intent:${correlationId}`,
-      correlationId,
-    },
-    context: f.context,
-    providerRequest: {
-      correlationId,
-      lane: "ai" as const,
-      operation: "complete" as const,
-      messages: [{ role: "user" as const, content: "rev3 probe" }],
-      timeoutMs: 50,
-    },
-    timeoutMs: 50,
-  };
-}
-
-async function cancelledComposition(events?: ExecutionEvent[]) {
-  const base = composeExecutionRunProvidersFake();
-  const ai: AiExecutionPort = {
-    lane: "ai",
-    describeCapability: () => base.ai.describeCapability(),
-    complete: async (request) => ({
-      kind: "cancelled",
-      failure: normalizedFailure({
-        family: "cancelled",
-        code: "CANCELLED",
-        userMessage: "cancelled",
-        retryable: false,
-        correlationId: request.correlationId,
-      }),
-    }),
-  };
-  return composeExecutionRunD2D3({
-    providers: composeExecutionRunProviders({
-      ...base,
-      ai,
-      events: { emit: (e) => events?.push(e) },
-    }),
-  });
-}
-
-async function lateCase(summary: unknown, marker?: string | null) {
-  const events: ExecutionEvent[] = [];
-  const composition = await cancelledComposition(events);
-  const result = await composition.coordinate({
-    ...fixtureInput(`rev3:${String(Math.random()).slice(2, 10)}`),
-    lateEvidenceSummary: summary as never,
-  });
-  const late = result.run?.evidence?.at(-1);
-  const projection = result.run
-    ? createExecutionProjection({ run: result.run, openReserves: [] })
-    : { ok: false as const };
-  const surfaces = {
-    result: JSON.stringify(result),
-    run: JSON.stringify(result.run ?? null),
-    evidence: JSON.stringify(late ?? null),
-    projection: JSON.stringify(projection),
-    events: JSON.stringify(events),
-    failure: JSON.stringify(result.ok ? null : result.failure),
-  };
-  const leaked =
-    marker != null && Object.values(surfaces).some((s) => s.includes(marker));
-  return {
-    state: result.run?.state,
-    lateRecorded: result.lateEvidenceRecorded,
-    summary: late?.summary,
-    late: late?.late,
-    official: late?.official,
-    source: late?.source,
-    leaked,
-    ok: result.ok,
-    runAbsent: result.run === undefined,
-    providerInvoked: result.providerInvoked,
-    providerAttempted: result.providerAttempted,
-    stateTrace: result.stateTrace,
-  };
-}
-
-function redactedOk(obs: Awaited<ReturnType<typeof lateCase>>, marker?: string | null) {
-  return (
-    obs.state === "cancelled" &&
-    obs.lateRecorded === true &&
-    obs.summary === "late_result_redacted" &&
-    obs.late === true &&
-    obs.official === true &&
-    obs.source === "fixture" &&
-    (marker == null || obs.leaked === false)
-  );
-}
-
-async function main() {
-  // ---- P-REV2-D2D3-09 ----
-  {
-    const obs = await lateCase('{"token":"value"}', "value");
-    // marker "value" too short — use unique
-    const obs2 = await lateCase('{"token":"rev3-p09-secret-z9"}', "rev3-p09-secret-z9");
-    record(
-      "P-REV2-D2D3-09",
-      "rev2",
-      "Structured token JSON late redaction",
-      "late_result_redacted; no leak; terminal cancelled",
-      { classic: obs.summary, unique: obs2 },
-      redactedOk(obs2, "rev3-p09-secret-z9") ? "PASS" : "FAIL",
-      "F-QA-REV2-D2D3-01",
-    );
-  }
-
-  // ---- P-REV3-D2D3-01 exact keys ----
-  {
-    const keys = [
-      "password",
-      "secret",
-      "token",
-      "access_token",
-      "access-token",
-      "refresh_token",
-      "refresh-token",
-      "client_secret",
-      "client-secret",
-      "apiKey",
-      "api_key",
-      "api-key",
-      "authorization",
-      "cookie",
-      "session",
-    ];
-    const rows = [];
-    for (const key of keys) {
-      for (const [label, summary, marker] of [
-        ["dq", `{"${key}":"rev3-k-${key}-z9"}`, `rev3-k-${key}-z9`],
-        ["sq", `{'${key}':'rev3-sq-${key}-z9'}`, `rev3-sq-${key}-z9`],
-        ["mixed", `{"${key[0].toUpperCase()}${key.slice(1)}":"rev3-m-${key}-z9"}`, `rev3-m-${key}-z9`],
-      ] as const) {
-        // mixed case only for simple keys without underscore for simplicity
-        if (label === "mixed" && (key.includes("_") || key.includes("-"))) continue;
-        const obs = await lateCase(summary, marker);
-        rows.push({
-          key,
-          label,
-          pass: redactedOk(obs, marker),
-          summaryOut: obs.summary,
-          leaked: obs.leaked,
-        });
-      }
-    }
-    record(
-      "P-REV3-D2D3-01",
-      "rev3",
-      "Sensitive exact keys (quotes/case)",
-      "all → late_result_redacted",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-      "F-QA-REV2-D2D3-01",
-    );
-  }
-
-  // ---- P-REV3-D2D3-02 value types ----
-  {
-    const cases = [
-      ['{"token":"rev3-str-z9"}', "rev3-str-z9"],
-      ['{"token":123}', null],
-      ['{"token":true}', null],
-      ['{"token":false}', null],
-      ['{"token":null}', null],
-      ['{"token":[]}', null],
-      ['{"token":{}}', null],
-      ['{"token":""}', null],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of cases) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        summary,
-        pass: redactedOk(obs, marker),
-        summaryOut: obs.summary,
-      });
-    }
-    record(
-      "P-REV3-D2D3-02",
-      "rev3",
-      "Structured value types",
-      "key alone → late_result_redacted",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  // ---- P-REV3-D2D3-03 whitespace / multiline / after 240 ----
-  {
-    const cases = [
-      ['{"token" : "rev3-sp-z9"}', "rev3-sp-z9"],
-      ['{"token"\t:\t"rev3-tab-z9"}', "rev3-tab-z9"],
-      ['{\r\n"token": "rev3-crlf-z9"\r\n}', "rev3-crlf-z9"],
-      ['{\n"a":1,\n"token": "rev3-ml-z9"\n}', "rev3-ml-z9"],
-      ['{"outer":{"token":"rev3-nest-z9"}}', "rev3-nest-z9"],
-      [`${"x".repeat(300)}{"token":"rev3-far-z9"}`, "rev3-far-z9"],
-      [`${"a".repeat(250)}{"token":"rev3-trunc-z9"}`, "rev3-trunc-z9"],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of cases) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        name: marker,
-        pass: redactedOk(obs, marker),
-        summaryOut: obs.summary,
-        leaked: obs.leaked,
-      });
-    }
-    record(
-      "P-REV3-D2D3-03",
-      "rev3",
-      "Whitespace multiline truncation position",
-      "detect before truncate",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  // ---- P-REV3-D2D3-04 fragments ----
-  {
-    const cases = [
-      ['"token":"rev3-frag-z9"', "rev3-frag-z9"],
-      ['{"a":1,"token":"rev3-multi-z9","b":2}', "rev3-multi-z9"],
-      ['prefix text {"token":"rev3-pfx-z9"} suffix', "rev3-pfx-z9"],
-      ['{"token": "rev3-inv-z9",', "rev3-inv-z9"],
-      ['not-json but "token":"rev3-nj-z9" here', "rev3-nj-z9"],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of cases) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        summary,
-        pass: redactedOk(obs, marker),
-        summaryOut: obs.summary,
-        leaked: obs.leaked,
-      });
-    }
-    record(
-      "P-REV3-D2D3-04",
-      "rev3",
-      "Fragments and JSON-like invalid",
-      "textual detection without JSON.parse-only",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  // ---- P-REV3-D2D3-05 exact-key discrimination ----
-  {
-    const safe = [
-      '{"tokenCount":12}',
-      '{"authorizationStatus":"missing"}',
-      '{"sessionCount":1}',
-      '{"cookiePolicy":"strict"}',
-      '{"apiVersion":"v1"}',
-      '{"passwordless":true}',
-      '{"secretariat":"office"}',
-      '{"tokenizer":"bpe"}',
-      '{"clientSecretStatus":"unset"}',
-      '{"accessTokenCount":3}',
-      '{"status":"complete"}',
-    ];
-    const rows = [];
-    for (const s of safe) {
-      const obs = await lateCase(s, null);
-      rows.push({
-        s,
-        pass:
-          obs.state === "cancelled" &&
-          obs.lateRecorded === true &&
-          obs.summary === s &&
-          obs.summary !== "late_result_redacted",
-        summaryOut: obs.summary,
-      });
-    }
-    record(
-      "P-REV3-D2D3-05",
-      "rev3",
-      "Exact-key discrimination (near-keys safe)",
-      "no false positive by substring",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  // ---- P-REV3-D2D3-06 leakage ----
-  {
-    const markers = [
-      "leak-rev3-token-z9",
-      "leak-rev3-apikey-z9",
-      "leak-rev3-bearer-z9",
-    ];
-    const rows = [];
-    for (const m of markers) {
-      const summaries = [
-        `{"token":"${m}"}`,
-        `apiKey=${m}`,
-        `Authorization: Bearer ${m}`,
-      ];
-      for (const s of summaries) {
-        const obs = await lateCase(s, m);
-        rows.push({
-          s,
-          pass: redactedOk(obs, m),
-          leaked: obs.leaked,
-        });
-      }
-    }
-    record(
-      "P-REV3-D2D3-06",
-      "rev3",
-      "Leakage surfaces",
-      "no unique marker survives",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  // ---- P-REV2-D2D3-12 + P-REV3-07 hostile arbitration ----
-  {
-    const cases: Array<{
-      name: string;
-      apply: (input: Record<string, unknown>) => void;
-    }> = [
-      {
-        name: "function",
-        apply: (i) => {
-          i.lateEvidenceSummary = () => "fn";
-        },
-      },
-      {
-        name: "symbol",
-        apply: (i) => {
-          i.lateEvidenceSummary = Symbol("x");
-        },
-      },
-      {
-        name: "getter",
-        apply: (i) => {
-          Object.defineProperty(i, "lateEvidenceSummary", {
-            enumerable: true,
-            get() {
-              return "hostile-rev3";
-            },
-          });
-        },
-      },
-      {
-        name: "odd_proto",
-        apply: (i) => {
-          i.lateEvidenceSummary = Object.assign(Object.create({ p: 1 }), {
-            nested: "hostile-rev3-proto",
-          });
-        },
-      },
-    ];
-    const rows = [];
-    for (const c of cases) {
-      const base = composeExecutionRunProvidersFake();
-      let describe = 0;
-      let complete = 0;
-      const events: ExecutionEvent[] = [];
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({
-          ...base,
-          ai: {
-            lane: "ai",
-            describeCapability: () => {
-              describe += 1;
-              return base.ai.describeCapability();
-            },
-            complete: async (r) => {
-              complete += 1;
-              return base.ai.complete(r);
-            },
-          },
-          events: { emit: (e) => events.push(e) },
-        }),
-      });
-      const input: Record<string, unknown> = {
-        ...fixtureInput(`rev3:h:${c.name}`),
-      };
-      c.apply(input);
-      const result = await composition.coordinate(input as never);
-      const pass =
-        result.ok === false &&
-        result.run === undefined &&
-        result.stateTrace.length === 0 &&
-        result.providerAttempted === false &&
-        result.providerInvoked === false &&
-        result.providerCompleted === false &&
-        result.lateEvidenceRecorded === false &&
-        describe === 0 &&
-        complete === 0 &&
-        events.length === 0 &&
-        !JSON.stringify(result).includes("hostile-rev3");
-      rows.push({
-        name: c.name,
-        pass,
-        failureFamily: result.ok ? null : result.failure.family,
-      });
-    }
-    const ok = rows.every((r) => r.pass);
-    record(
-      "P-REV2-D2D3-12",
-      "rev2",
-      "Requalified hostile envelope (Morris arbitration)",
-      "preflight reject; no run/evidence",
-      rows.filter((r) => r.name === "function" || r.name === "symbol"),
-      rows.filter((r) => r.name === "function" || r.name === "symbol").every((r) => r.pass)
-        ? "PASS"
-        : "FAIL",
-      "F-QA-REV2-D2D3-02",
-    );
-    record(
-      "P-REV3-D2D3-07",
-      "rev3",
-      "Hostile envelope arbitration full set",
-      "all categories reject pre-engagement",
-      rows,
-      ok ? "PASS" : "FAIL",
-      "F-QA-REV2-D2D3-02",
-    );
-  }
-
-  // ---- P-REV3-D2D3-08 plain non-string distinction ----
-  {
-    const cases: Array<{ name: string; value: unknown; expectRedacted: boolean }> = [
-      { name: "null", value: null, expectRedacted: true },
-      { name: "number", value: 42, expectRedacted: true },
-      { name: "boolean", value: true, expectRedacted: true },
-      { name: "object", value: { x: 1 }, expectRedacted: true },
-      { name: "array", value: ["x"], expectRedacted: true },
-    ];
-    const rows = [];
-    for (const c of cases) {
-      const obs = await lateCase(c.value, null);
-      const pass = c.expectRedacted
-        ? obs.state === "cancelled" &&
-          obs.lateRecorded === true &&
-          obs.summary === "late_result_redacted"
-        : obs.runAbsent === true;
-      rows.push({
-        name: c.name,
-        pass,
-        state: obs.state,
-        lateRecorded: obs.lateRecorded,
-        summary: obs.summary,
-        note: "plain non-string after valid envelope → late_result_redacted",
-      });
-    }
-    record(
-      "P-REV3-D2D3-08",
-      "rev3",
-      "Plain non-string distinction",
-      "valid envelope + plain non-string → late_result_redacted",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  // ---- Independent CORR2 / CORR3 sample ----
-  {
-    const { composition } = await (async () => {
-      const base = composeExecutionRunProvidersFake();
-      let describe = 0;
-      let complete = 0;
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({
-          ...base,
-          ai: {
-            lane: "ai",
-            describeCapability: () => {
-              describe += 1;
-              return base.ai.describeCapability();
-            },
-            complete: async (r) => {
-              complete += 1;
-              return base.ai.complete(r);
-            },
-          },
-        }),
-      });
-      return { composition, getDescribe: () => describe, getComplete: () => complete };
-    })();
-    const mismatch = await composition.coordinate({
-      ...fixtureInput("rev3:corr2:intent"),
-      providerRequest: {
-        ...fixtureInput("rev3:corr2:intent").providerRequest,
-        correlationId: "rev3:corr2:other",
-      },
-    });
-    record(
-      "P-CORR2-D2D3-01",
-      "corr2",
-      "Independent correlation mismatch",
-      "reject; no run",
-      {
-        ok: mismatch.ok,
-        run: mismatch.run,
-        providerInvoked: mismatch.providerInvoked,
-      },
-      !mismatch.ok && mismatch.run === undefined && !mismatch.providerInvoked
-        ? "PASS"
-        : "FAIL",
-    );
-
-    const late = await lateCase('{"token":"corr2ind-z9"}', "corr2ind-z9");
-    record(
-      "P-CORR2-D2D3-02",
-      "corr2",
-      "Independent late secret",
-      "redacted",
-      late,
-      redactedOk(late, "corr2ind-z9") ? "PASS" : "FAIL",
-    );
-
-    const c3 = await lateCase('{"token":"corr3ind-z9"}', "corr3ind-z9");
-    const safe = await lateCase('{"tokenCount":12}', null);
-    record(
-      "P-CORR3-INDEPENDENT",
-      "corr3",
-      "Independent CORR3 structured + discrimination sample",
-      "sensitive redacted; near-key safe",
-      {
-        sensitive: c3.summary,
-        safe: safe.summary,
-      },
-      redactedOk(c3, "corr3ind-z9") && safe.summary === '{"tokenCount":12}'
-        ? "PASS"
-        : "FAIL",
-    );
-  }
-
-  // ---- Non-regression cumulative sample ----
-  {
-    const results: Array<{ id: string; pass: boolean }> = [];
-    {
-      const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-      const providers = composeExecutionRunProvidersFake();
-      const result = await coordinateExecutionRun(
-        {
-          ...fixtureInput("rev3:nr:f01"),
-          intent: {
-            ...fixtureInput("rev3:nr:f01").intent,
-            requestedSource: "real",
-          },
-          context: {
-            ...fixtureInput("rev3:nr:f01").context,
-            declaredSource: "real",
-          },
-          availableSources: ["fixture", "real"],
-        } as never,
-        { execution: core, providers, events: providers.events, clock },
-      );
-      results.push({ id: "F01", pass: !result.ok && !result.providerInvoked });
-    }
-    {
-      const a = assessExecutionReadiness({
-        fixturePathDemonstrated: true,
-        projectionDemonstrated: true,
-        disclosuresDemonstrated: true,
-      });
-      results.push({
-        id: "F02",
-        pass:
-          a.uxExploration.status === "not_demonstrated" &&
-          a.strongRuntimeVerdict.status === "blocked",
-      });
-    }
-    {
-      const r = await composeExecutionRunD2D3().coordinate({
-        ...fixtureInput("rev3:nr:f09"),
-        timeoutMs: MAX_COORDINATOR_TIMEOUT_MS + 1,
-      });
-      results.push({ id: "F09", pass: !r.ok && r.run === undefined });
-    }
-    {
-      const pathCheck = normalizeCanonicalPath(
-        "projects/sfia-studio/%2e%2e/.env",
-      );
-      const sandbox = evaluateSandboxPath({
-        path: "projects/sfia-studio/%2e%2e/.env",
-        allowlistRoots: ["projects/sfia-studio"],
-        protectedPaths: [".env"],
-      });
-      results.push({
-        id: "F10",
-        pass: pathCheck.ok === false || sandbox.allowed === false,
-      });
-    }
-    {
-      const r = await composeExecutionRunD2D3().coordinate({
-        ...fixtureInput("rev3:nr:rev01"),
-        providerRequest: {
-          ...fixtureInput("rev3:nr:rev01").providerRequest,
-          correlationId: "rev3:nr:other",
-        },
-      });
-      results.push({
-        id: "REV01",
-        pass: !r.ok && r.run === undefined && !r.providerInvoked,
-      });
-    }
-    record(
-      "P-CORR2-NONREG",
-      "nonreg",
-      "Non-regression sample F01/F02/F09/F10/REV01",
-      "all pass",
-      results,
-      results.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  // Consolidated late coverage families (F05 / REV-D2D3-02 / REV2-01)
-  {
-    const families = [
-      ["password=rev3-fam-pw", "rev3-fam-pw"],
-      ["secret=rev3-fam-sec", "rev3-fam-sec"],
-      ["token=rev3-fam-tok", "rev3-fam-tok"],
-      ["access_token=rev3-fam-at", "rev3-fam-at"],
-      ["client_secret=rev3-fam-cs", "rev3-fam-cs"],
-      ["apiKey=rev3-fam-ak", "rev3-fam-ak"],
-      ["Authorization: Bearer rev3-fam-br", "rev3-fam-br"],
-      ["cookie=rev3-fam-ck", "rev3-fam-ck"],
-      ["ghp_rev3famghp0123456789", "ghp_rev3famghp"],
-      ["sk-rev3famsk0123456789", "sk-rev3famsk"],
-      ["xoxb-rev3famxox", "xoxb-rev3famxox"],
-      ["BEGIN RSA PRIVATE KEY", "PRIVATE KEY"],
-      ["?token=rev3-fam-qs", "rev3-fam-qs"],
-      ['{"token":"rev3-fam-json"}', "rev3-fam-json"],
-      [`${"a".repeat(250)}token=rev3-fam-trunc`, "rev3-fam-trunc"],
-    ] as const;
-    const rows = [];
-    for (const [s, m] of families) {
-      const obs = await lateCase(s, m);
-      rows.push({ s, pass: redactedOk(obs, m), summary: obs.summary });
-    }
-    record(
-      "P-REV3-LATE-MATRIX",
-      "rev3",
-      "Consolidated late evidence families F05/REV02/REV2-01",
-      "all families redacted",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  const summary = {
-    generatedAt: new Date().toISOString(),
-    pass: probes.filter((p) => p.verdict === "PASS").length,
-    fail: probes.filter((p) => p.verdict === "FAIL").length,
-    probes,
-  };
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, JSON.stringify(summary, null, 2));
-  console.log(
-    JSON.stringify(
-      {
-        pass: summary.pass,
-        fail: summary.fail,
-        probes: probes.map((p) => ({
-          id: p.id,
-          verdict: p.verdict,
-          finding: p.finding,
-        })),
-      },
-      null,
-      2,
-    ),
-  );
-  if (summary.fail > 0) process.exitCode = 1;
-}
-
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
-```
-
-## 33. Résultats P-REV3
-
-```json
-{
-  "generatedAt": "2026-08-04T12:28:53.446Z",
-  "pass": 15,
-  "fail": 0,
-  "probes": [
-    {
-      "id": "P-REV2-D2D3-09",
-      "family": "rev2",
-      "objective": "Structured token JSON late redaction",
-      "expected": "late_result_redacted; no leak; terminal cancelled",
-      "observed": {
-        "classic": "late_result_redacted",
-        "unique": {
-          "state": "cancelled",
-          "lateRecorded": true,
-          "summary": "late_result_redacted",
-          "late": true,
-          "official": true,
-          "source": "fixture",
-          "leaked": false,
-          "ok": false,
-          "runAbsent": false,
-          "providerInvoked": true,
-          "providerAttempted": true,
-          "stateTrace": [
-            "idle",
-            "running",
-            "cancelled"
-          ]
-        }
-      },
-      "verdict": "PASS",
-      "finding": "F-QA-REV2-D2D3-01"
-    },
-    {
-      "id": "P-REV3-D2D3-01",
-      "family": "rev3",
-      "objective": "Sensitive exact keys (quotes/case)",
-      "expected": "all \u2192 late_result_redacted",
-      "observed": [
-        {
-          "key": "password",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "password",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "password",
-          "label": "mixed",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "secret",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "secret",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "secret",
-          "label": "mixed",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "token",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "token",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "token",
-          "label": "mixed",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "access_token",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "access_token",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "access-token",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "access-token",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "refresh_token",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "refresh_token",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "refresh-token",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "refresh-token",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "client_secret",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "client_secret",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "client-secret",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "client-secret",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "apiKey",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "apiKey",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "apiKey",
-          "label": "mixed",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "api_key",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "api_key",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "api-key",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "api-key",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "authorization",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "authorization",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "authorization",
-          "label": "mixed",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "cookie",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "cookie",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "cookie",
-          "label": "mixed",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "session",
-          "label": "dq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "session",
-          "label": "sq",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "key": "session",
-          "label": "mixed",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        }
-      ],
-      "verdict": "PASS",
-      "finding": "F-QA-REV2-D2D3-01"
-    },
-    {
-      "id": "P-REV3-D2D3-02",
-      "family": "rev3",
-      "objective": "Structured value types",
-      "expected": "key alone \u2192 late_result_redacted",
-      "observed": [
-        {
-          "summary": "{\"token\":\"rev3-str-z9\"}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        },
-        {
-          "summary": "{\"token\":123}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        },
-        {
-          "summary": "{\"token\":true}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        },
-        {
-          "summary": "{\"token\":false}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        },
-        {
-          "summary": "{\"token\":null}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        },
-        {
-          "summary": "{\"token\":[]}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        },
-        {
-          "summary": "{\"token\":{}}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        },
-        {
-          "summary": "{\"token\":\"\"}",
-          "pass": true,
-          "summaryOut": "late_result_redacted"
-        }
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-REV3-D2D3-03",
-      "family": "rev3",
-      "objective": "Whitespace multiline truncation position",
-      "expected": "detect before truncate",
-      "observed": [
-        {
-          "name": "rev3-sp-z9",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "name": "rev3-tab-z9",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "name": "rev3-crlf-z9",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "name": "rev3-ml-z9",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "name": "rev3-nest-z9",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "name": "rev3-far-z9",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "name": "rev3-trunc-z9",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        }
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-REV3-D2D3-04",
-      "family": "rev3",
-      "objective": "Fragments and JSON-like invalid",
-      "expected": "textual detection without JSON.parse-only",
-      "observed": [
-        {
-          "summary": "\"token\":\"rev3-frag-z9\"",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "summary": "{\"a\":1,\"token\":\"rev3-multi-z9\",\"b\":2}",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "summary": "prefix text {\"token\":\"rev3-pfx-z9\"} suffix",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "summary": "{\"token\": \"rev3-inv-z9\",",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        },
-        {
-          "summary": "not-json but \"token\":\"rev3-nj-z9\" here",
-          "pass": true,
-          "summaryOut": "late_result_redacted",
-          "leaked": false
-        }
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-REV3-D2D3-05",
-      "family": "rev3",
-      "objective": "Exact-key discrimination (near-keys safe)",
-      "expected": "no false positive by substring",
-      "observed": [
-        {
-          "s": "{\"tokenCount\":12}",
-          "pass": true,
-          "summaryOut": "{\"tokenCount\":12}"
-        },
-        {
-          "s": "{\"authorizationStatus\":\"missing\"}",
-          "pass": true,
-          "summaryOut": "{\"authorizationStatus\":\"missing\"}"
-        },
-        {
-          "s": "{\"sessionCount\":1}",
-          "pass": true,
-          "summaryOut": "{\"sessionCount\":1}"
-        },
-        {
-          "s": "{\"cookiePolicy\":\"strict\"}",
-          "pass": true,
-          "summaryOut": "{\"cookiePolicy\":\"strict\"}"
-        },
-        {
-          "s": "{\"apiVersion\":\"v1\"}",
-          "pass": true,
-          "summaryOut": "{\"apiVersion\":\"v1\"}"
-        },
-        {
-          "s": "{\"passwordless\":true}",
-          "pass": true,
-          "summaryOut": "{\"passwordless\":true}"
-        },
-        {
-          "s": "{\"secretariat\":\"office\"}",
-          "pass": true,
-          "summaryOut": "{\"secretariat\":\"office\"}"
-        },
-        {
-          "s": "{\"tokenizer\":\"bpe\"}",
-          "pass": true,
-          "summaryOut": "{\"tokenizer\":\"bpe\"}"
-        },
-        {
-          "s": "{\"clientSecretStatus\":\"unset\"}",
-          "pass": true,
-          "summaryOut": "{\"clientSecretStatus\":\"unset\"}"
-        },
-        {
-          "s": "{\"accessTokenCount\":3}",
-          "pass": true,
-          "summaryOut": "{\"accessTokenCount\":3}"
-        },
-        {
-          "s": "{\"status\":\"complete\"}",
-          "pass": true,
-          "summaryOut": "{\"status\":\"complete\"}"
-        }
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-REV3-D2D3-06",
-      "family": "rev3",
-      "objective": "Leakage surfaces",
-      "expected": "no unique marker survives",
-      "observed": [
-        {
-          "s": "{\"token\":\"leak-rev3-token-z9\"}",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "apiKey=leak-rev3-token-z9",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "Authorization: Bearer leak-rev3-token-z9",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "{\"token\":\"leak-rev3-apikey-z9\"}",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "apiKey=leak-rev3-apikey-z9",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "Authorization: Bearer leak-rev3-apikey-z9",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "{\"token\":\"leak-rev3-bearer-z9\"}",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "apiKey=leak-rev3-bearer-z9",
-          "pass": true,
-          "leaked": false
-        },
-        {
-          "s": "Authorization: Bearer leak-rev3-bearer-z9",
-          "pass": true,
-          "leaked": false
-        }
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-REV2-D2D3-12",
-      "family": "rev2",
-      "objective": "Requalified hostile envelope (Morris arbitration)",
-      "expected": "preflight reject; no run/evidence",
-      "observed": [
-        {
-          "name": "function",
-          "pass": true,
-          "failureFamily": "validation"
-        },
-        {
-          "name": "symbol",
-          "pass": true,
-          "failureFamily": "validation"
-        }
-      ],
-      "verdict": "PASS",
-      "finding": "F-QA-REV2-D2D3-02"
-    },
-    {
-      "id": "P-REV3-D2D3-07",
-      "family": "rev3",
-      "objective": "Hostile envelope arbitration full set",
-      "expected": "all categories reject pre-engagement",
-      "observed": [
-        {
-          "name": "function",
-          "pass": true,
-          "failureFamily": "validation"
-        },
-        {
-          "name": "symbol",
-          "pass": true,
-          "failureFamily": "validation"
-        },
-        {
-          "name": "getter",
-          "pass": true,
-          "failureFamily": "validation"
-        },
-        {
-          "name": "odd_proto",
-          "pass": true,
-          "failureFamily": "validation"
-        }
-      ],
-      "verdict": "PASS",
-      "finding": "F-QA-REV2-D2D3-02"
-    },
-    {
-      "id": "P-REV3-D2D3-08",
-      "family": "rev3",
-      "objective": "Plain non-string distinction",
-      "expected": "valid envelope + plain non-string \u2192 late_result_redacted",
-      "observed": [
-        {
-          "name": "null",
-          "pass": true,
-          "state": "cancelled",
-          "lateRecorded": true,
-          "summary": "late_result_redacted",
-          "note": "plain non-string after valid envelope \u2192 late_result_redacted"
-        },
-        {
-          "name": "number",
-          "pass": true,
-          "state": "cancelled",
-          "lateRecorded": true,
-          "summary": "late_result_redacted",
-          "note": "plain non-string after valid envelope \u2192 late_result_redacted"
-        },
-        {
-          "name": "boolean",
-          "pass": true,
-          "state": "cancelled",
-          "lateRecorded": true,
-          "summary": "late_result_redacted",
-          "note": "plain non-string after valid envelope \u2192 late_result_redacted"
-        },
-        {
-          "name": "object",
-          "pass": true,
-          "state": "cancelled",
-          "lateRecorded": true,
-          "summary": "late_result_redacted",
-          "note": "plain non-string after valid envelope \u2192 late_result_redacted"
-        },
-        {
-          "name": "array",
-          "pass": true,
-          "state": "cancelled",
-          "lateRecorded": true,
-          "summary": "late_result_redacted",
-          "note": "plain non-string after valid envelope \u2192 late_result_redacted"
-        }
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-CORR2-D2D3-01",
-      "family": "corr2",
-      "objective": "Independent correlation mismatch",
-      "expected": "reject; no run",
-      "observed": {
-        "ok": false,
-        "providerInvoked": false
-      },
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-CORR2-D2D3-02",
-      "family": "corr2",
-      "objective": "Independent late secret",
-      "expected": "redacted",
-      "observed": {
-        "state": "cancelled",
-        "lateRecorded": true,
-        "summary": "late_result_redacted",
-        "late": true,
-        "official": true,
-        "source": "fixture",
-        "leaked": false,
-        "ok": false,
-        "runAbsent": false,
-        "providerInvoked": true,
-        "providerAttempted": true,
-        "stateTrace": [
-          "idle",
-          "running",
-          "cancelled"
-        ]
-      },
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-CORR3-INDEPENDENT",
-      "family": "corr3",
-      "objective": "Independent CORR3 structured + discrimination sample",
-      "expected": "sensitive redacted; near-key safe",
-      "observed": {
-        "sensitive": "late_result_redacted",
-        "safe": "{\"tokenCount\":12}"
-      },
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-CORR2-NONREG",
-      "family": "nonreg",
-      "objective": "Non-regression sample F01/F02/F09/F10/REV01",
-      "expected": "all pass",
-      "observed": [
-        {
-          "id": "F01",
-          "pass": true
-        },
-        {
-          "id": "F02",
-          "pass": true
-        },
-        {
-          "id": "F09",
-          "pass": true
-        },
-        {
-          "id": "F10",
-          "pass": true
-        },
-        {
-          "id": "REV01",
-          "pass": true
-        }
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "id": "P-REV3-LATE-MATRIX",
-      "family": "rev3",
-      "objective": "Consolidated late evidence families F05/REV02/REV2-01",
-      "expected": "all families redacted",
-      "observed": [
-        {
-          "s": "password=rev3-fam-pw",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "secret=rev3-fam-sec",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "token=rev3-fam-tok",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "access_token=rev3-fam-at",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "client_secret=rev3-fam-cs",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "apiKey=rev3-fam-ak",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "Authorization: Bearer rev3-fam-br",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "cookie=rev3-fam-ck",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "ghp_rev3famghp0123456789",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "sk-rev3famsk0123456789",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "xoxb-rev3famxox",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "BEGIN RSA PRIVATE KEY",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "?token=rev3-fam-qs",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "{\"token\":\"rev3-fam-json\"}",
-          "pass": true,
-          "summary": "late_result_redacted"
-        },
-        {
-          "s": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatoken=rev3-fam-trunc",
-          "pass": true,
-          "summary": "late_result_redacted"
-        }
-      ],
-      "verdict": "PASS"
-    }
-  ]
-}
-```
-
-## Probes REV2 reproduction (contenu)
-
-```typescript
-/**
- * Independent QA Rev3 reproduction of P-REV2+CORR2 probes (P-REV2 + CORR2 reproduction).
- * Temporary only — not part of delivery package.
- * Does not reuse Corrections 2 follow-up-probes.ts.
- */
-import fs from "node:fs";
-import path from "node:path";
-import {
-  assessExecutionReadiness,
-  createExecutionProjection,
-  evaluateSandboxPath,
-  getFixture,
-  MAX_COORDINATOR_TIMEOUT_MS,
-  normalizeCanonicalPath,
-  normalizedFailure,
-  type AiExecutionPort,
-  type ExecutionEvent,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/index";
-import {
-  composeExecutionRunD2D3,
-  composeExecutionRunMemory,
-  composeExecutionRunProviders,
-  composeExecutionRunProvidersFake,
-  coordinateExecutionRun,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/server/index";
-
-type Verdict = "PASS" | "FAIL" | "NOT_PROVEN";
-type Probe = {
-  id: string;
-  family: "rev2" | "corr2" | "nonreg";
-  objective: string;
-  expected: string;
-  observed: unknown;
-  verdict: Verdict;
-  finding?: string;
-};
-
-const probes: Probe[] = [];
-const clock = { nowIso: () => "2026-08-04T12:35:00.000Z" };
-const OUT = path.resolve(
-  process.cwd(),
-  ".tmp-sfia-review/qa-revalidation-3-evidence/probe-results-rev2-repro.json",
-);
-
-function record(
-  id: string,
-  family: Probe["family"],
-  objective: string,
-  expected: string,
-  observed: unknown,
-  verdict: Verdict,
-  finding?: string,
-) {
-  probes.push({ id, family, objective, expected, observed, verdict, finding });
-}
-
-function fixtureInput(correlationId: string, lane: "ai" | "git" = "ai") {
-  const f = getFixture("nominal");
-  return {
-    intent: {
-      ...f.intent,
-      intentId: `intent:${correlationId}`,
-      correlationId,
-      requestedLane: lane,
-    },
-    context: f.context,
-    providerRequest:
-      lane === "ai"
-        ? {
-            correlationId,
-            lane: "ai" as const,
-            operation: "complete" as const,
-            messages: [{ role: "user" as const, content: "rev2 probe" }],
-            timeoutMs: 50,
-          }
-        : {
-            correlationId,
-            lane: "git" as const,
-            operation: "read" as const,
-            owner: "o",
-            repo: "r",
-            kind: "path_meta" as const,
-            path: "projects/sfia-studio/README.md",
-            timeoutMs: 50,
-          },
-    timeoutMs: 50,
-  };
-}
-
-async function cancelledComposition(events?: ExecutionEvent[]) {
-  const base = composeExecutionRunProvidersFake();
-  const ai: AiExecutionPort = {
-    lane: "ai",
-    describeCapability: () => base.ai.describeCapability(),
-    complete: async (request) => ({
-      kind: "cancelled",
-      failure: normalizedFailure({
-        family: "cancelled",
-        code: "CANCELLED",
-        userMessage: "cancelled",
-        retryable: false,
-        correlationId: request.correlationId,
-      }),
-    }),
-  };
-  return composeExecutionRunD2D3({
-    providers: composeExecutionRunProviders({
-      ...base,
-      ai,
-      events: {
-        emit: (event) => {
-          events?.push(event);
-        },
-      },
-    }),
-  });
-}
-
-async function countedComposition() {
-  const base = composeExecutionRunProvidersFake();
-  let describe = 0;
-  let complete = 0;
-  const events: ExecutionEvent[] = [];
-  const ai: AiExecutionPort = {
-    lane: "ai",
-    describeCapability: () => {
-      describe += 1;
-      return base.ai.describeCapability();
-    },
-    complete: async (request) => {
-      complete += 1;
-      return base.ai.complete(request);
-    },
-  };
-  const composition = composeExecutionRunD2D3({
-    providers: composeExecutionRunProviders({
-      ...base,
-      ai,
-      events: { emit: (e) => events.push(e) },
-    }),
-  });
-  return { composition, getDescribe: () => describe, getComplete: () => complete, events };
-}
-
-function noDownstream(result: {
-  ok: boolean;
-  run?: unknown;
-  stateTrace: readonly string[];
-  providerAttempted: boolean;
-  providerInvoked: boolean;
-  providerCompleted: boolean;
-}, describe: number, complete: number, events: number) {
-  return (
-    result.ok === false &&
-    result.run === undefined &&
-    result.stateTrace.length === 0 &&
-    result.providerAttempted === false &&
-    result.providerInvoked === false &&
-    result.providerCompleted === false &&
-    describe === 0 &&
-    complete === 0 &&
-    events === 0
-  );
-}
-
-async function main() {
-  // ========== P-REV2-D2D3-01 simple mismatch ==========
-  {
-    const { composition, getDescribe, getComplete, events } = await countedComposition();
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:canonical"),
-      providerRequest: {
-        ...fixtureInput("corr:canonical").providerRequest,
-        correlationId: "corr:other",
-      },
-    });
-    const ok = noDownstream(result, getDescribe(), getComplete(), events.length);
-    record(
-      "P-REV2-D2D3-01",
-      "rev2",
-      "correlationId mismatch simple",
-      "reject pre-engagement; no run/provider/events",
-      {
-        ok: result.ok,
-        run: result.run,
-        describe: getDescribe(),
-        complete: getComplete(),
-        events: events.length,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-01",
-    );
-  }
-
-  // ========== P-REV2-D2D3-02 whitespace ==========
-  {
-    const variants = [
-      { name: "empty", correlationId: "" },
-      { name: "spaces", correlationId: "   " },
-      { name: "tab", correlationId: "\t" },
-      { name: "newline", correlationId: "\n" },
-      { name: "prefix_space", correlationId: " corr:canonical" },
-      { name: "suffix_space", correlationId: "corr:canonical " },
-    ];
-    const rows = [];
-    for (const v of variants) {
-      const { composition, getDescribe, getComplete, events } = await countedComposition();
-      const result = await composition.coordinate({
-        ...fixtureInput("corr:canonical"),
-        providerRequest: {
-          ...fixtureInput("corr:canonical").providerRequest,
-          correlationId: v.correlationId,
-        },
-      });
-      rows.push({
-        name: v.name,
-        ok: noDownstream(result, getDescribe(), getComplete(), events.length),
-        state: result.run?.state ?? null,
-        describe: getDescribe(),
-        complete: getComplete(),
-      });
-    }
-    const ok = rows.every((r) => r.ok);
-    record(
-      "P-REV2-D2D3-02",
-      "rev2",
-      "correlationId whitespace variants",
-      "all rejected without silent trim identity rewrite",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-01",
-    );
-  }
-
-  // ========== P-REV2-D2D3-03 type hostile ==========
-  {
-    const variants: Array<{ name: string; build: () => unknown }> = [
-      {
-        name: "absent",
-        build: () => {
-          const { correlationId: _, ...rest } = fixtureInput("corr:canonical").providerRequest!;
-          void _;
-          return rest;
-        },
-      },
-      {
-        name: "null",
-        build: () => ({
-          ...fixtureInput("corr:canonical").providerRequest,
-          correlationId: null,
-        }),
-      },
-      {
-        name: "number",
-        build: () => ({
-          ...fixtureInput("corr:canonical").providerRequest,
-          correlationId: 42,
-        }),
-      },
-      {
-        name: "boxed_string",
-        build: () => ({
-          ...fixtureInput("corr:canonical").providerRequest,
-          correlationId: Object("corr:canonical"),
-        }),
-      },
-      {
-        name: "array",
-        build: () => ({
-          ...fixtureInput("corr:canonical").providerRequest,
-          correlationId: ["corr:canonical"],
-        }),
-      },
-      {
-        name: "object",
-        build: () => ({
-          ...fixtureInput("corr:canonical").providerRequest,
-          correlationId: { id: "corr:canonical" },
-        }),
-      },
-      {
-        name: "getter",
-        build: () => {
-          const base = fixtureInput("corr:canonical").providerRequest!;
-          const hostile = Object.create(null);
-          for (const [k, v] of Object.entries(base)) {
-            if (k === "correlationId") {
-              Object.defineProperty(hostile, k, {
-                enumerable: true,
-                get() {
-                  return "corr:hostile";
-                },
-              });
-            } else {
-              Object.defineProperty(hostile, k, {
-                enumerable: true,
-                value: v,
-                writable: true,
-                configurable: true,
-              });
-            }
-          }
-          return hostile;
-        },
-      },
-      {
-        name: "odd_proto",
-        build: () =>
-          Object.assign(Object.create({ polluted: true }), {
-            ...fixtureInput("corr:canonical").providerRequest,
-            correlationId: "corr:other",
-          }),
-      },
-      {
-        name: "oversized",
-        build: () => ({
-          ...fixtureInput("corr:canonical").providerRequest,
-          correlationId: `corr:other:${"x".repeat(5000)}`,
-        }),
-      },
-    ];
-    const rows = [];
-    for (const v of variants) {
-      const { composition, getDescribe, getComplete, events } = await countedComposition();
-      const result = await composition.coordinate({
-        ...fixtureInput("corr:canonical"),
-        providerRequest: v.build() as never,
-      });
-      rows.push({
-        name: v.name,
-        ok: noDownstream(result, getDescribe(), getComplete(), events.length),
-        describe: getDescribe(),
-        complete: getComplete(),
-      });
-    }
-    const ok = rows.every((r) => r.ok);
-    record(
-      "P-REV2-D2D3-03",
-      "rev2",
-      "correlationId type hostile",
-      "all rejected pre-engagement",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-01",
-    );
-  }
-
-  // ========== P-REV2-D2D3-04 lane mismatch ==========
-  {
-    const variants: Array<{ name: string; build: () => Promise<{ result: Awaited<ReturnType<ReturnType<typeof composeExecutionRunD2D3>["coordinate"]>>; describe: number; complete: number; events: number }> }> = [
-      {
-        name: "ai_vs_git",
-        build: async () => {
-          const { composition, getDescribe, getComplete, events } = await countedComposition();
-          const input = fixtureInput("corr:lane:ai", "ai");
-          const result = await composition.coordinate({
-            ...input,
-            providerRequest: {
-              ...fixtureInput("corr:lane:ai", "git").providerRequest!,
-              correlationId: "corr:lane:ai",
-            },
-          });
-          return { result, describe: getDescribe(), complete: getComplete(), events: events.length };
-        },
-      },
-      {
-        name: "git_vs_ai",
-        build: async () => {
-          const base = composeExecutionRunProvidersFake();
-          let describe = 0;
-          let complete = 0;
-          let gitCalls = 0;
-          const events: ExecutionEvent[] = [];
-          const composition = composeExecutionRunD2D3({
-            providers: composeExecutionRunProviders({
-              ...base,
-              ai: {
-                lane: "ai",
-                describeCapability: () => {
-                  describe += 1;
-                  return base.ai.describeCapability();
-                },
-                complete: async (r) => {
-                  complete += 1;
-                  return base.ai.complete(r);
-                },
-              },
-              git: {
-                ...base.git,
-                describeCapability: () => {
-                  describe += 1;
-                  return base.git.describeCapability();
-                },
-                read: async (r) => {
-                  gitCalls += 1;
-                  return base.git.read(r);
-                },
-              },
-              events: { emit: (e) => events.push(e) },
-            }),
-          });
-          const input = fixtureInput("corr:lane:git", "git");
-          const result = await composition.coordinate({
-            ...input,
-            providerRequest: {
-              ...fixtureInput("corr:lane:git", "ai").providerRequest!,
-              correlationId: "corr:lane:git",
-            },
-          });
-          return {
-            result,
-            describe,
-            complete: complete + gitCalls,
-            events: events.length,
-          };
-        },
-      },
-      {
-        name: "lane_absent",
-        build: async () => {
-          const { composition, getDescribe, getComplete, events } = await countedComposition();
-          const baseReq = fixtureInput("corr:lane:abs").providerRequest!;
-          const { lane: _, ...rest } = baseReq as { lane: string } & Record<string, unknown>;
-          void _;
-          const result = await composition.coordinate({
-            ...fixtureInput("corr:lane:abs"),
-            providerRequest: rest as never,
-          });
-          return { result, describe: getDescribe(), complete: getComplete(), events: events.length };
-        },
-      },
-      {
-        name: "lane_invalid_type",
-        build: async () => {
-          const { composition, getDescribe, getComplete, events } = await countedComposition();
-          const result = await composition.coordinate({
-            ...fixtureInput("corr:lane:bad"),
-            providerRequest: {
-              ...fixtureInput("corr:lane:bad").providerRequest,
-              lane: 123,
-            } as never,
-          });
-          return { result, describe: getDescribe(), complete: getComplete(), events: events.length };
-        },
-      },
-      {
-        name: "lane_getter",
-        build: async () => {
-          const { composition, getDescribe, getComplete, events } = await countedComposition();
-          const base = fixtureInput("corr:lane:get").providerRequest!;
-          const hostile = Object.create(null);
-          for (const [k, v] of Object.entries(base)) {
-            if (k === "lane") {
-              Object.defineProperty(hostile, k, {
-                enumerable: true,
-                get() {
-                  return "git";
-                },
-              });
-            } else {
-              Object.defineProperty(hostile, k, {
-                enumerable: true,
-                value: v,
-                writable: true,
-                configurable: true,
-              });
-            }
-          }
-          const result = await composition.coordinate({
-            ...fixtureInput("corr:lane:get"),
-            providerRequest: hostile as never,
-          });
-          return { result, describe: getDescribe(), complete: getComplete(), events: events.length };
-        },
-      },
-    ];
-    const rows = [];
-    for (const v of variants) {
-      const { result, describe, complete, events } = await v.build();
-      rows.push({
-        name: v.name,
-        ok: noDownstream(result, describe, complete, events),
-        describe,
-        complete,
-        events,
-      });
-    }
-    const ok = rows.every((r) => r.ok);
-    record(
-      "P-REV2-D2D3-04",
-      "rev2",
-      "lane mismatch variants",
-      "all rejected pre-engagement",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-01",
-    );
-  }
-
-  // ========== P-REV2-D2D3-05 no downstream (aggregate check already in 01-04) ==========
-  {
-    const prior = probes.filter((p) =>
-      ["P-REV2-D2D3-01", "P-REV2-D2D3-02", "P-REV2-D2D3-03", "P-REV2-D2D3-04"].includes(p.id),
-    );
-    const ok = prior.every((p) => p.verdict === "PASS");
-    record(
-      "P-REV2-D2D3-05",
-      "rev2",
-      "no downstream effect on invalid identity",
-      "all prior mismatch probes PASS implies zero create/capability/provider/evidence",
-      { prior: prior.map((p) => ({ id: p.id, verdict: p.verdict })) },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // ========== P-REV2-D2D3-06 nominal ==========
-  {
-    const { composition, getDescribe, getComplete } = await countedComposition();
-    const result = await composition.coordinate(fixtureInput("corr:nominal:match"));
-    const evidence = result.run?.evidence?.[0];
-    const ok =
-      result.ok === true &&
-      result.run?.state === "succeeded" &&
-      result.run.disclosure.source === "fixture" &&
-      evidence?.official === true &&
-      evidence?.source === "fixture" &&
-      getDescribe() > 0 &&
-      getComplete() === 1 &&
-      result.providerInvoked === true;
-    record(
-      "P-REV2-D2D3-06",
-      "rev2",
-      "nominal matching correlationId/lane preserved",
-      "succeeded fixture path without silent rewrite dependency",
-      {
-        ok: result.ok,
-        state: result.run?.state,
-        source: result.run?.disclosure.source,
-        describe: getDescribe(),
-        complete: getComplete(),
-        evidence,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // Helper for late evidence cases
-  async function lateCase(summary: unknown, marker?: string | null) {
-    const events: ExecutionEvent[] = [];
-    const composition = await cancelledComposition(events);
-    const result = await composition.coordinate({
-      ...fixtureInput(`corr:late:${String(Math.random()).slice(2, 8)}`),
-      lateEvidenceSummary: summary as never,
-    });
-    const late = result.run?.evidence?.at(-1);
-    const projection = result.run
-      ? createExecutionProjection({ run: result.run, openReserves: [] })
-      : { ok: false as const };
-    const surfaces = {
-      result: JSON.stringify(result),
-      run: JSON.stringify(result.run ?? null),
-      evidence: JSON.stringify(late ?? null),
-      projection: JSON.stringify(projection),
-      events: JSON.stringify(events),
-      failure: JSON.stringify(result.ok ? null : result.failure),
-    };
-    const leaked =
-      marker != null &&
-      Object.values(surfaces).some((s) => s.includes(marker));
-    return {
-      state: result.run?.state,
-      lateRecorded: result.lateEvidenceRecorded,
-      summary: late?.summary,
-      late: late?.late,
-      official: late?.official,
-      source: late?.source,
-      leaked,
-      surfaces,
-    };
-  }
-
-  // ========== P-REV2-D2D3-07 assignments ==========
-  {
-    const cases = [
-      ["password=value", "value"],
-      ["password : value", "value"],
-      ["secret=value", "value"],
-      ["token=value", "value"],
-      ["token : value", "value"],
-      ["access_token=value", "value"],
-      ["refresh_token=value", "value"],
-      ["client_secret=value", "value"],
-      ["apiKey=value", "value"],
-      ["api_key=value", "value"],
-      ["api-key=value", "value"],
-      ["cookie=value", "value"],
-      ["session=value", "value"],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of cases) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        summary,
-        pass:
-          obs.state === "cancelled" &&
-          obs.summary === "late_result_redacted" &&
-          obs.late === true &&
-          obs.official === true &&
-          obs.source === "fixture" &&
-          obs.leaked === false,
-        ...obs,
-        surfaces: undefined,
-      });
-    }
-    const ok = rows.every((r) => r.pass);
-    record(
-      "P-REV2-D2D3-07",
-      "rev2",
-      "late evidence assignment forms",
-      "all → late_result_redacted; no leak",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-02",
-    );
-  }
-
-  // ========== P-REV2-D2D3-08 headers ==========
-  {
-    const cases = [
-      ["Authorization Bearer value", "value"],
-      ["Authorization: Bearer value", "value"],
-      ["authorization = Bearer value", "value"],
-      ["Bearer value", "value"],
-      ["Authorization\tBearer\tvalue", "value"],
-      ["aUtHoRiZaTiOn: bEaReR value", "value"],
-      ["line1\nAuthorization: Bearer value\nline3", "value"],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of cases) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        summary,
-        pass:
-          obs.state === "cancelled" &&
-          obs.summary === "late_result_redacted" &&
-          obs.leaked === false,
-        summaryOut: obs.summary,
-        leaked: obs.leaked,
-      });
-    }
-    const ok = rows.every((r) => r.pass);
-    record(
-      "P-REV2-D2D3-08",
-      "rev2",
-      "late evidence Authorization/Bearer headers",
-      "all redacted; no leak",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-02",
-    );
-  }
-
-  // ========== P-REV2-D2D3-09 structured text ==========
-  {
-    const cases = [
-      ['"apiKey":"value"', "value"],
-      ['{"token":"value"}', "value"],
-      ["?token=value", "value"],
-      ["&token=value", "value"],
-      ["access_token=value&x=1", "value"],
-      ["client-secret: value", "value"],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of cases) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        summary,
-        pass:
-          obs.state === "cancelled" &&
-          obs.summary === "late_result_redacted" &&
-          obs.leaked === false,
-        summaryOut: obs.summary,
-        leaked: obs.leaked,
-        late: obs.late,
-      });
-    }
-    const ok = rows.every((r) => r.pass);
-    record(
-      "P-REV2-D2D3-09",
-      "rev2",
-      "late evidence structured text forms",
-      "JSON/query/secret forms redacted",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV2-D2D3-01",
-    );
-  }
-
-  // ========== P-REV2-D2D3-10 prefixes ==========
-  {
-    const cases = [
-      ["sk-testvalue", "sk-testvalue"],
-      ["ghp_testvalue", "ghp_testvalue"],
-      ["github_pat_testvalue", "github_pat_testvalue"],
-      ["xoxb-testvalue", "xoxb-testvalue"],
-      ["xoxp-testvalue", "xoxp-testvalue"],
-      ["xoxa-testvalue", "xoxa-testvalue"],
-      ["xoxr-testvalue", "xoxr-testvalue"],
-      ["-----BEGIN PRIVATE KEY-----", "PRIVATE KEY"],
-      ["contains private key material", "private key"],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of cases) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        summary,
-        pass:
-          obs.summary === "late_result_redacted" &&
-          obs.leaked === false &&
-          obs.state === "cancelled",
-        summaryOut: obs.summary,
-        leaked: obs.leaked,
-      });
-    }
-    const ok = rows.every((r) => r.pass);
-    record(
-      "P-REV2-D2D3-10",
-      "rev2",
-      "late evidence known secret prefixes",
-      "all redacted",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-02",
-    );
-  }
-
-  // ========== P-REV2-D2D3-11 position/truncation ==========
-  {
-    const secret = "token=secret-after-truncation-boundary";
-    const cases = [
-      ["start", secret + " tail"],
-      ["mid", "prefix " + secret + " suffix"],
-      ["after240", "a".repeat(250) + secret],
-      ["long", "safe-".repeat(100) + secret],
-      ["multiline", "line1\n" + secret + "\nline3"],
-      ["control", secret + "\u0000tail"],
-    ] as const;
-    const rows = [];
-    for (const [name, summary] of cases) {
-      const obs = await lateCase(summary, "secret-after-truncation-boundary");
-      rows.push({
-        name,
-        pass:
-          obs.summary === "late_result_redacted" &&
-          obs.leaked === false &&
-          obs.state === "cancelled",
-        summaryOut: obs.summary,
-        leaked: obs.leaked,
-      });
-    }
-    const ok = rows.every((r) => r.pass);
-    record(
-      "P-REV2-D2D3-11",
-      "rev2",
-      "detection before truncation / position variants",
-      "secret after char 240 still redacted",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV-D2D3-02",
-    );
-  }
-
-  // ========== P-REV2-D2D3-12 — requalified per Morris arbitration ==========
-  {
-    // Historical expected (Rev2): late_result_redacted on cancelled terminal for function/symbol.
-    // Arbitrated contract: function/symbol are invalid envelopes → preflight reject, no run/evidence.
-    const plainCases: Array<{ name: string; value: unknown; expectRecorded: boolean }> = [
-      { name: "null", value: null, expectRecorded: true },
-      { name: "undefined", value: undefined, expectRecorded: false },
-      { name: "object", value: { x: 1 }, expectRecorded: true },
-      { name: "array", value: ["x"], expectRecorded: true },
-      { name: "number", value: 42, expectRecorded: true },
-      { name: "bool", value: true, expectRecorded: true },
-    ];
-    const rows: Array<Record<string, unknown>> = [];
-    for (const c of plainCases) {
-      const composition = await cancelledComposition();
-      const result = await composition.coordinate({
-        ...fixtureInput(`corr:ns:${c.name}`),
-        lateEvidenceSummary: c.value as never,
-      });
-      const late = result.run?.evidence?.at(-1);
-      const pass = c.expectRecorded
-        ? result.run?.state === "cancelled" &&
-          late?.summary === "late_result_redacted"
-        : result.run?.state === "cancelled" &&
-          result.lateEvidenceRecorded === false;
-      rows.push({
-        name: c.name,
-        category: "plain",
-        pass,
-        lateRecorded: result.lateEvidenceRecorded,
-        summary: late?.summary,
-      });
-    }
-    for (const name of ["function", "symbol"] as const) {
-      const base = composeExecutionRunProvidersFake();
-      let describe = 0;
-      let complete = 0;
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({
-          ...base,
-          ai: {
-            lane: "ai",
-            describeCapability: () => {
-              describe += 1;
-              return base.ai.describeCapability();
-            },
-            complete: async (r) => {
-              complete += 1;
-              return base.ai.complete(r);
-            },
-          },
-        }),
-      });
-      const result = await composition.coordinate({
-        ...fixtureInput(`corr:ns:${name}`),
-        lateEvidenceSummary:
-          name === "function" ? ((() => "x") as never) : (Symbol("x") as never),
-      });
-      const pass =
-        result.ok === false &&
-        result.run === undefined &&
-        result.stateTrace.length === 0 &&
-        result.providerAttempted === false &&
-        result.providerInvoked === false &&
-        result.lateEvidenceRecorded === false &&
-        describe === 0 &&
-        complete === 0;
-      rows.push({
-        name,
-        category: "hostile_envelope_arbitrated",
-        pass,
-        historicalExpected: "late_result_redacted on cancelled",
-        arbitratedExpected: "preflight validation reject; no run/evidence",
-        ok: result.ok,
-        run: result.run,
-      });
-    }
-    const ok = rows.every((r) => r.pass === true);
-    record(
-      "P-REV2-D2D3-12",
-      "rev2",
-      "non-string / hostile — arbitrated fail-closed contract",
-      "plain non-string → late_result_redacted; function/symbol → preflight reject",
-      rows,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-REV2-D2D3-02",
-    );
-  }
-
-  // ========== P-REV2-D2D3-13 no leakage surfaces ==========
-  {
-    const secrets = [
-      ["token=leak-surface-abc", "leak-surface-abc"],
-      ["apiKey=leak-surface-key", "leak-surface-key"],
-      ["Authorization: Bearer leak-surface-xyz", "leak-surface-xyz"],
-    ] as const;
-    const rows = [];
-    for (const [summary, marker] of secrets) {
-      const obs = await lateCase(summary, marker);
-      rows.push({
-        summary,
-        pass: obs.leaked === false && obs.summary === "late_result_redacted",
-        leaked: obs.leaked,
-        summaryOut: obs.summary,
-      });
-    }
-    const ok = rows.every((r) => r.pass);
-    record(
-      "P-REV2-D2D3-13",
-      "rev2",
-      "no leakage across run/projection/events/failure",
-      "sensitive markers absent from all surfaces",
-      rows,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // ========== P-REV2-D2D3-14 safe bounded ==========
-  {
-    const summary = "late bounded fixture result without secrets";
-    const obs = await lateCase(summary, "without secrets");
-    // marker "without secrets" is part of safe text and SHOULD appear; use a fake secret marker instead
-    const obs2 = await lateCase(summary, "token=should-not-exist");
-    const ok =
-      obs2.state === "cancelled" &&
-      obs2.late === true &&
-      obs2.official === true &&
-      obs2.source === "fixture" &&
-      obs2.summary === summary &&
-      obs2.summary !== "late_result_redacted";
-    record(
-      "P-REV2-D2D3-14",
-      "rev2",
-      "safe bounded late summary preserved",
-      "non-sensitive short summary accepted; not over-redacted",
-      { summaryOut: obs2.summary, state: obs2.state, late: obs2.late },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // ========== CORR2 reproductions (independent) ==========
-  {
-    const { composition, getDescribe, getComplete, events } = await countedComposition();
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:c2:intent"),
-      providerRequest: {
-        ...fixtureInput("corr:c2:intent").providerRequest!,
-        correlationId: "corr:c2:other",
-      },
-    });
-    record(
-      "P-CORR2-D2D3-01",
-      "corr2",
-      "CORR2 correlation mismatch reproduction",
-      "reject before provider",
-      {
-        ok: noDownstream(result, getDescribe(), getComplete(), events.length),
-        describe: getDescribe(),
-        complete: getComplete(),
-      },
-      noDownstream(result, getDescribe(), getComplete(), events.length) ? "PASS" : "FAIL",
-    );
-  }
-  {
-    const secrets = [
-      ["password=late-secret-unique-z9", "late-secret-unique-z9"],
-      ["token=abc-unique-z9", "abc-unique-z9"],
-      ["apiKey=key-unique-z9", "key-unique-z9"],
-      ["Authorization Bearer xyz-unique-z9", "xyz-unique-z9"],
-      ['"apiKey":"val-unique-z9"', "val-unique-z9"],
-      ["?token=tok-unique-z9", "tok-unique-z9"],
-    ] as const;
-    const rows = [];
-    for (const [s, marker] of secrets) {
-      const obs = await lateCase(s, marker);
-      rows.push({
-        s,
-        pass: obs.summary === "late_result_redacted" && !obs.leaked,
-        summary: obs.summary,
-        leaked: obs.leaked,
-      });
-    }
-    record(
-      "P-CORR2-D2D3-02",
-      "corr2",
-      "CORR2 late secret variants reproduction",
-      "all redacted",
-      rows,
-      rows.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-  {
-    // Nonreg sample of previously verified findings
-    const results: Array<{ id: string; pass: boolean }> = [];
-    {
-      const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-      const providers = composeExecutionRunProvidersFake();
-      const result = await coordinateExecutionRun(
-        {
-          ...fixtureInput("corr:nr:f01"),
-          intent: { ...fixtureInput("corr:nr:f01").intent, requestedSource: "real" },
-          context: { ...fixtureInput("corr:nr:f01").context, declaredSource: "real" },
-          availableSources: ["fixture", "real"],
-        } as never,
-        { execution: core, providers, events: providers.events, clock },
-      );
-      results.push({ id: "F01", pass: !result.ok && result.providerInvoked === false });
-    }
-    {
-      const a = assessExecutionReadiness({
-        fixturePathDemonstrated: true,
-        projectionDemonstrated: true,
-        disclosuresDemonstrated: true,
-      });
-      results.push({
-        id: "F02",
-        pass:
-          a.uxExploration.status === "not_demonstrated" &&
-          a.strongRuntimeVerdict.status === "blocked",
-      });
-    }
-    {
-      const composition = composeExecutionRunD2D3();
-      const r = await composition.coordinate({
-        ...fixtureInput("corr:nr:f09"),
-        timeoutMs: MAX_COORDINATOR_TIMEOUT_MS + 1,
-      });
-      results.push({ id: "F09", pass: !r.ok && r.run === undefined });
-    }
-    {
-      const pathCheck = normalizeCanonicalPath("projects/sfia-studio/%2e%2e/.env");
-      const sandbox = evaluateSandboxPath({
-        path: "projects/sfia-studio/%2e%2e/.env",
-        allowlistRoots: ["projects/sfia-studio"],
-        protectedPaths: [".env"],
-      });
-      results.push({
-        id: "F10",
-        pass: pathCheck.ok === false || sandbox.allowed === false,
-      });
-    }
-    record(
-      "P-CORR2-NONREG",
-      "corr2",
-      "CORR2 non-regression sample F01/F02/F09/F10",
-      "all pass",
-      results,
-      results.every((r) => r.pass) ? "PASS" : "FAIL",
-    );
-  }
-
-  const summary = {
-    generatedAt: new Date().toISOString(),
-    pass: probes.filter((p) => p.verdict === "PASS").length,
-    fail: probes.filter((p) => p.verdict === "FAIL").length,
-    probes,
-  };
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, JSON.stringify(summary, null, 2));
-  console.log(JSON.stringify({ pass: summary.pass, fail: summary.fail, probes: probes.map((p) => ({ id: p.id, verdict: p.verdict, finding: p.finding })) }, null, 2));
-  if (summary.fail > 0) process.exitCode = 1;
-}
-
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
-```
-
-## Probes core 29+15 (contenu)
-
-```typescript
-/**
- * Independent Critical QA Revalidation 3 core 29+15 probes for D2-D3 follow-up corrections.
- * Temporary only — not part of the delivery package.
- * Does not reuse Corrections 2 follow-up-probes.ts.
- * Extends independent QA revalidation lineage with P-REV2 + CORR2 reproductions.
- */
-import fs from "node:fs";
-import path from "node:path";
-import {
-  assessExecutionReadiness,
-  createExecutionProjection,
-  evaluateSandboxPath,
-  getFixture,
-  MAX_COORDINATOR_TIMEOUT_MS,
-  normalizeCanonicalPath,
-  normalizedFailure,
-  validateUntrustedProviderRequest,
-  type AiExecutionPort,
-  type ProviderInvocationResult,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/index";
-import {
-  composeExecutionRunD2D3,
-  composeExecutionRunMemory,
-  composeExecutionRunProviders,
-  composeExecutionRunProvidersFake,
-  coordinateExecutionRun,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/server/index";
-import { evaluateReadOnlyPolicy } from "../../projects/sfia-studio/app/lib/oa/execution-run/domain/policy";
-
-type Verdict = "PASS" | "FAIL" | "NOT_PROVEN";
-type Probe = {
-  id: string;
-  family: "initial" | "revalidation";
-  objective: string;
-  expected: string;
-  observed: unknown;
-  verdict: Verdict;
-  finding?: string;
-};
-
-const probes: Probe[] = [];
-const clock = { nowIso: () => "2026-08-04T12:40:00.000Z" };
-const OUT = path.resolve(process.cwd(), ".tmp-sfia-review/qa-revalidation-3-evidence/probe-results-core.json");
-
-function record(
-  id: string,
-  family: Probe["family"],
-  objective: string,
-  expected: string,
-  observed: unknown,
-  verdict: Verdict,
-  finding?: string,
-) {
-  probes.push({ id, family, objective, expected, observed, verdict, finding });
-}
-
-function fixtureInput(
-  correlationId: string,
-  source: "fixture" | "sandbox-real" | "real" = "fixture",
-) {
-  const f = getFixture("nominal");
-  return {
-    intent: {
-      ...f.intent,
-      intentId: `intent:${correlationId}`,
-      correlationId,
-      requestedSource: source,
-    },
-    context: { ...f.context, declaredSource: source },
-    providerRequest: {
-      correlationId,
-      lane: "ai" as const,
-      operation: "complete" as const,
-      messages: [{ role: "user" as const, content: "qa revalidation fixture" }],
-      timeoutMs: 50,
-    },
-    timeoutMs: 50,
-  };
-}
-
-async function main() {
-  // ========== INITIAL 29 PROBES (independent reproduction) ==========
-
-  // P01 — source spoof via injected availableSources (corrected: ignored + blocked)
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    const result = await coordinateExecutionRun(
-      {
-        ...fixtureInput("corr:rev:source-spoof", "real"),
-        availableSources: ["fixture", "real"],
-      },
-      { execution: core, providers, events: providers.events, clock },
-    );
-    const vulnerable =
-      result.ok === true &&
-      result.run?.state === "succeeded" &&
-      result.run.disclosure.source === "real";
-    record(
-      "P-QA-D2D3-01",
-      "initial",
-      "Refuse fake provider promoted to real by injected source list",
-      "blocked; provider not invoked; source real not evidenced",
-      {
-        ok: result.ok,
-        state: result.run?.state,
-        source: result.run?.disclosure.source,
-        providerInvoked: result.providerInvoked,
-        failure: result.ok ? null : result.failure,
-      },
-      vulnerable ? "FAIL" : "PASS",
-      vulnerable ? "F-QA-D2D3-01" : undefined,
-    );
-  }
-
-  // P02 — boolean-only readiness
-  {
-    const assessment = assessExecutionReadiness({
-      fixturePathDemonstrated: true,
-      projectionDemonstrated: true,
-      disclosuresDemonstrated: true,
-    });
-    const vulnerable = assessment.uxExploration.status === "demonstrated";
-    record(
-      "P-QA-D2D3-02",
-      "initial",
-      "Reject UX readiness without a linked run, projection, or evidence",
-      "not_demonstrated",
-      assessment.uxExploration,
-      vulnerable ? "FAIL" : "PASS",
-      vulnerable ? "F-QA-D2D3-02" : undefined,
-    );
-  }
-
-  // P03/P04/P05 — sink throws
-  for (const [id, throwAt] of [
-    ["P-QA-D2D3-03", 1],
-    ["P-QA-D2D3-04", 2],
-    ["P-QA-D2D3-05", 4],
-  ] as const) {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    let eventCount = 0;
-    const throwing = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: () => {
-          eventCount += 1;
-          if (eventCount === throwAt) throw new Error(`sink_raw_${throwAt}`);
-        },
-      },
-    });
-    const input = fixtureInput(`corr:rev:sink:${throwAt}`);
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(input, {
-        execution: core,
-        providers: throwing,
-        events: throwing.events,
-        clock,
-      });
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId(input.intent.correlationId);
-    const coherent =
-      rawError === "" &&
-      result !== undefined &&
-      stored.at(-1)?.state === result.run?.state &&
-      result.eventDelivery.status === "degraded";
-    record(
-      id,
-      "initial",
-      `Contain event sink throw at event ${throwAt}`,
-      "normalized coordinator result coherent with stored state",
-      {
-        rawError,
-        storedState: stored.at(-1)?.state,
-        returned: result?.run?.state,
-        eventDelivery: result?.eventDelivery,
-      },
-      coherent ? "PASS" : "FAIL",
-      coherent ? undefined : "F-QA-D2D3-03",
-    );
-  }
-
-  // P06 — malicious projection
-  {
-    const composition = composeExecutionRunD2D3();
-    const coordinated = await composition.coordinate(
-      fixtureInput("corr:rev:projection"),
-    );
-    const injectedFunction = () => "executable";
-    const malicious = {
-      run: {
-        ...coordinated.run!,
-        externalResult: {
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "password=projection-plain-secret",
-          rawPresent: false,
-        },
-        blockedReason: "apiKey=projection-key",
-        disclosure: {
-          ...coordinated.run!.disclosure,
-          limits: [injectedFunction],
-        },
-        persistence: {
-          kind: "memory_process_local",
-          durable: true,
-          multiInstance: true,
-          restartSafe: true,
-        },
-        evidence: [
-          {
-            ...coordinated.run!.evidence![0],
-            source: "real",
-            official: false,
-          },
-        ],
-      },
-      openReserves: ["password=reserve-plain-secret"],
-    };
-    const projection = createExecutionProjection(malicious);
-    const leaked =
-      projection.ok === true &&
-      (JSON.stringify(projection).includes("projection-plain-secret") ||
-        (projection.projection.persistence as { durable?: boolean }).durable ===
-          true ||
-        projection.projection.evidenceSummary[0]?.source === "real");
-    record(
-      "P-QA-D2D3-06",
-      "initial",
-      "Project malicious runtime data without leaks or claim promotion",
-      "secrets/functions/spoofed persistence/evidence rejected or sanitized",
-      projection,
-      leaked ? "FAIL" : "PASS",
-      leaked ? "F-QA-D2D3-04" : undefined,
-    );
-  }
-
-  // P07 — late secret
-  {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => ({
-        kind: "cancelled",
-        failure: normalizedFailure({
-          family: "cancelled",
-          code: "CANCELLED",
-          userMessage: "cancelled",
-          retryable: false,
-          correlationId: request.correlationId,
-        }),
-      }),
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:late-secret"),
-      lateEvidenceSummary: "password=late-plain-secret",
-    });
-    const summary = result.run?.evidence?.at(-1)?.summary ?? "";
-    const vulnerable =
-      summary.includes("late-plain-secret") ||
-      JSON.stringify(result).includes("late-plain-secret");
-    record(
-      "P-QA-D2D3-07",
-      "initial",
-      "Reject sensitive caller-supplied late evidence",
-      "late evidence absent or redacted",
-      { state: result.run?.state, summary, late: result.lateEvidenceRecorded },
-      vulnerable ? "FAIL" : "PASS",
-      vulnerable ? "F-QA-D2D3-05" : undefined,
-    );
-  }
-
-  // P08 — describe before validation
-  {
-    const base = composeExecutionRunProvidersFake();
-    let describeCalls = 0;
-    let completeCalls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => {
-        describeCalls += 1;
-        return base.ai.describeCapability();
-      },
-      complete: async (request) => {
-        completeCalls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const f = getFixture("validation_failure");
-    await composition.coordinate({
-      intent: f.intent,
-      context: f.context,
-      providerRequest: {
-        correlationId: f.intent.correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "must not run" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    const ok = describeCalls === 0 && completeCalls === 0;
-    record(
-      "P-QA-D2D3-08",
-      "initial",
-      "Perform input validation before any provider port call",
-      "describeCapability=0; complete=0",
-      { describeCalls, completeCalls },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-06",
-    );
-  }
-
-  // P09 — hostile request getter
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    const input = fixtureInput("corr:rev:hostile-request");
-    const hostile = Object.create(null);
-    Object.defineProperty(hostile, "lane", {
-      enumerable: true,
-      get() {
-        throw new Error("hostile_request_getter");
-      },
-    });
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(
-        { ...input, providerRequest: hostile },
-        { execution: core, providers, events: providers.events, clock },
-      );
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId(input.intent.correlationId);
-    const ok =
-      rawError === "" &&
-      result?.ok === false &&
-      stored.length === 0 &&
-      result.providerInvoked === false;
-    record(
-      "P-QA-D2D3-09",
-      "initial",
-      "Contain hostile provider request accessors",
-      "normalized blocked result; no raw throw; no idle orphan",
-      { rawError, storedCount: stored.length, failure: result?.ok ? null : result?.failure },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-07",
-    );
-  }
-
-  // P10 — hostile result getter
-  {
-    const base = composeExecutionRunProvidersFake();
-    const hostileResult = Object.create(null);
-    Object.defineProperty(hostileResult, "kind", {
-      enumerable: true,
-      get() {
-        throw new Error("hostile_result_getter");
-      },
-    });
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () =>
-        hostileResult as unknown as ProviderInvocationResult,
-    };
-    const providers = composeExecutionRunProviders({ ...base, ai });
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const input = fixtureInput("corr:rev:hostile-result");
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(input, {
-        execution: core,
-        providers,
-        events: providers.events,
-        clock,
-      });
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId(input.intent.correlationId);
-    const ok =
-      rawError === "" &&
-      stored.at(-1)?.state === "failed" &&
-      result?.run?.state === "failed" &&
-      !JSON.stringify(result).includes("hostile_result_getter");
-    record(
-      "P-QA-D2D3-10",
-      "initial",
-      "Contain hostile provider result accessors",
-      "normalized failed terminal; no raw throw; no running orphan",
-      { rawError, storedState: stored.at(-1)?.state, returned: result?.run?.state },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-07",
-    );
-  }
-
-  // P11 — provider mutation of request
-  {
-    const base = composeExecutionRunProvidersFake();
-    let receivedKeys: string[] = [];
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => {
-        receivedKeys = Object.keys(request);
-        (request as { runId?: string }).runId = "attacker";
-        return {
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "safe",
-          rawPresent: false,
-          usage: { status: "unavailable", reason: "qa" },
-          disclosureNotes: [],
-        };
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate(
-      fixtureInput("corr:rev:provider-mutation"),
-    );
-    const ok =
-      result.run?.state === "succeeded" &&
-      result.run.runId !== "attacker" &&
-      !receivedKeys.includes("repository") &&
-      !receivedKeys.includes("transitionExecutionRun");
-    record(
-      "P-QA-D2D3-11",
-      "initial",
-      "Prevent malicious provider argument mutation from changing stored run",
-      "stored canonical runId and succeeded state",
-      { state: result.run?.state, runId: result.run?.runId, receivedKeys },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P12 — partial
-  {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () => ({
-        kind: "success",
-        completeness: "partial",
-        redactedSummary: "partial",
-        rawPresent: false,
-        usage: { status: "unavailable", reason: "qa" },
-        disclosureNotes: [],
-      }),
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate(fixtureInput("corr:rev:partial"));
-    const ok =
-      !result.ok &&
-      result.run?.state === "failed" &&
-      result.failure.code === "INVALID_PROVIDER_RESULT";
-    record(
-      "P-QA-D2D3-12",
-      "initial",
-      "Prevent partial provider success",
-      "failed / INVALID_PROVIDER_RESULT",
-      { state: result.run?.state, failure: result.ok ? null : result.failure },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P13/P14 — null / reject
-  for (const [id, behavior] of [
-    ["P-QA-D2D3-13", "null"],
-    ["P-QA-D2D3-14", "reject"],
-  ] as const) {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () => {
-        if (behavior === "reject") throw new Error("raw_provider_secret");
-        return null as unknown as ProviderInvocationResult;
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate(
-      fixtureInput(`corr:rev:${behavior}`),
-    );
-    const ok =
-      !result.ok &&
-      result.run?.state === "failed" &&
-      !JSON.stringify(result).includes("raw_provider_secret");
-    record(
-      id,
-      "initial",
-      `Normalize provider ${behavior}`,
-      "failed terminal with normalized failure and no raw error",
-      { state: result.run?.state, failure: result.ok ? null : result.failure },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P15 — late timeout success ignored
-  {
-    const base = composeExecutionRunProvidersFake();
-    let resolved = false;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () => {
-        await new Promise((r) => setTimeout(r, 20));
-        resolved = true;
-        return {
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "late success",
-          rawPresent: false,
-          usage: { status: "unavailable", reason: "qa" },
-          disclosureNotes: [],
-        };
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:late-timeout"),
-      timeoutMs: 2,
-    });
-    await new Promise((r) => setTimeout(r, 30));
-    const stored = result.run
-      ? await composition.getById(result.run.runId)
-      : null;
-    const ok =
-      result.run?.state === "timed_out" &&
-      stored?.state === "timed_out" &&
-      resolved &&
-      !stored.evidence;
-    record(
-      "P-QA-D2D3-15",
-      "initial",
-      "Ignore provider success resolving after timeout",
-      "single timed_out terminal after late resolution",
-      {
-        returnedState: result.run?.state,
-        storedState: stored?.state,
-        resolved,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P16 — pre-cancel
-  {
-    const base = composeExecutionRunProvidersFake();
-    let calls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => {
-        calls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const controller = new AbortController();
-    controller.abort();
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:pre-cancel"),
-      signal: controller.signal,
-    });
-    const ok =
-      result.run?.state === "cancelled" &&
-      calls === 0 &&
-      result.providerInvoked === false;
-    record(
-      "P-QA-D2D3-16",
-      "initial",
-      "Cancel before provider operation",
-      "cancelled; operation count 0; providerInvoked=false",
-      {
-        state: result.run?.state,
-        calls,
-        providerInvoked: result.providerInvoked,
-        providerAttempted: result.providerAttempted,
-      },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-08",
-    );
-  }
-
-  // P17 — negative timeout
-  {
-    const composition = composeExecutionRunD2D3();
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:negative-timeout"),
-      timeoutMs: -1,
-    });
-    const ok =
-      !result.ok &&
-      result.run === undefined &&
-      result.providerInvoked === false &&
-      result.failure.code === "VALIDATION_ERROR";
-    record(
-      "P-QA-D2D3-17",
-      "initial",
-      "Reject negative coordinator timeout before engagement",
-      "validation failure; no run; provider not invoked",
-      {
-        state: result.run?.state,
-        providerInvoked: result.providerInvoked,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-09",
-    );
-  }
-
-  // P18 — concurrent isolation
-  {
-    const composition = composeExecutionRunD2D3();
-    const [a, b] = await Promise.all([
-      composition.coordinate(fixtureInput("corr:rev:concurrent:a")),
-      composition.coordinate(fixtureInput("corr:rev:concurrent:b")),
-    ]);
-    const ok =
-      a.run?.state === "succeeded" &&
-      b.run?.state === "succeeded" &&
-      a.run!.runId !== b.run!.runId &&
-      a.run!.evidence![0]!.evidenceId !== b.run!.evidence![0]!.evidenceId;
-    record(
-      "P-QA-D2D3-18",
-      "initial",
-      "Isolate concurrent process-local runs",
-      "unique run/evidence IDs",
-      { a: a.run?.runId, b: b.run?.runId },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P19 — correlation mismatch
-  {
-    const composition = composeExecutionRunD2D3();
-    const input = fixtureInput("corr:rev:corr-mismatch");
-    const result = await composition.coordinate({
-      ...input,
-      providerRequest: {
-        ...input.providerRequest,
-        correlationId: "corr:other",
-      },
-    });
-    const ok =
-      !result.ok &&
-      result.run === undefined &&
-      result.stateTrace.length === 0 &&
-      result.providerAttempted === false &&
-      result.providerInvoked === false &&
-      result.providerCompleted === false;
-    record(
-      "P-QA-D2D3-19",
-      "initial",
-      "Reject provider request correlation mismatch",
-      "blocked before provider",
-      { state: result.run?.state, providerInvoked: result.providerInvoked },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P20 — sink detail mutation
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    const mutating = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: (event) => {
-          (event as { detail?: unknown }).detail = {
-            hijack: true,
-            state: "failed",
-          };
-        },
-      },
-    });
-    const result = await coordinateExecutionRun(
-      fixtureInput("corr:rev:sink-mutate"),
-      {
-        execution: core,
-        providers: mutating,
-        events: mutating.events,
-        clock,
-      },
-    );
-    const stored = await core.listByCorrelationId("corr:rev:sink-mutate");
-    const ok =
-      result.run?.state === "succeeded" && stored.at(-1)?.state === "succeeded";
-    record(
-      "P-QA-D2D3-20",
-      "initial",
-      "Prevent event sink detail mutation from changing state",
-      "succeeded unchanged",
-      { returned: result.run?.state, stored: stored.at(-1)?.state },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P21 source matrix
-  for (const [suffix, requested, declared] of [
-    ["fixture-real", "fixture", "real"],
-    ["real-real", "real", "real"],
-    ["sandbox-sandbox", "sandbox-real", "sandbox-real"],
-  ] as const) {
-    const composition = composeExecutionRunD2D3();
-    const f = getFixture("nominal");
-    const result = await composition.coordinate({
-      intent: {
-        ...f.intent,
-        intentId: `intent:rev:src:${suffix}`,
-        correlationId: `corr:rev:src:${suffix}`,
-        requestedSource: requested,
-      },
-      context: { ...f.context, declaredSource: declared },
-      providerRequest: {
-        correlationId: `corr:rev:src:${suffix}`,
-        lane: "ai",
-        operation: "complete",
-        messages: [{ role: "user", content: "src" }],
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    const ok = !result.ok && result.providerInvoked === false;
-    record(
-      `P-QA-D2D3-21-${suffix}`,
-      "initial",
-      `Source matrix requested=${requested}, declared=${declared}`,
-      "blocked without provider",
-      {
-        ok: result.ok,
-        state: result.run?.state,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P22 pre-engagement fixtures
-  for (const scenario of [
-    "mutation_forbidden",
-    "protected_path",
-    "blocked_gate",
-  ] as const) {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture(scenario);
-    const result = await composition.coordinate({
-      intent: fixture.intent,
-      context: fixture.context,
-      providerRequest:
-        fixture.intent.requestedLane === "ai"
-          ? {
-              correlationId: fixture.intent.correlationId,
-              lane: "ai",
-              operation: "complete",
-              messages: [{ role: "user", content: "block" }],
-              timeoutMs: 50,
-            }
-          : undefined,
-      timeoutMs: 50,
-    });
-    const ok = !result.ok && result.providerInvoked === false;
-    record(
-      `P-QA-D2D3-22-${scenario}`,
-      "initial",
-      `Pre-engagement block for ${scenario}`,
-      "blocked before provider",
-      {
-        state: result.run?.state,
-        failure: result.ok ? null : result.failure,
-        providerInvoked: result.providerInvoked,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P23 encoded path
-  {
-    const composition = composeExecutionRunD2D3();
-    const fixture = getFixture("nominal");
-    const pathHostile = "projects/sfia-studio/%2e%2e/.env";
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        intentId: "intent:rev:encoded-path",
-        correlationId: "corr:rev:encoded-path",
-        requestedLane: "git",
-      },
-      context: fixture.context,
-      providerRequest: {
-        correlationId: "corr:rev:encoded-path",
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "path_meta",
-        path: pathHostile,
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    const ok = result.run?.state !== "succeeded" && result.providerInvoked === false;
-    record(
-      "P-QA-D2D3-23",
-      "initial",
-      "Reject encoded traversal/protected path",
-      "blocked before provider; no success",
-      {
-        path: pathHostile,
-        state: result.run?.state,
-        providerInvoked: result.providerInvoked,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-10",
-    );
-  }
-
-  // P24 caller runId
-  {
-    const composition = composeExecutionRunD2D3();
-    const input = fixtureInput("corr:rev:caller-run-id");
-    const result = await composition.coordinate({
-      ...input,
-      providerRequest: {
-        ...input.providerRequest,
-        runId: "executionrun:attacker",
-      },
-    });
-    const ok =
-      result.run?.state === "succeeded" &&
-      result.run.runId !== "executionrun:attacker";
-    record(
-      "P-QA-D2D3-24",
-      "initial",
-      "Prevent caller runId from selecting state authority target",
-      "canonical generated runId",
-      { state: result.run?.state, runId: result.run?.runId },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P25 extra readiness props
-  {
-    const assessment = assessExecutionReadiness({
-      fixturePathDemonstrated: true,
-      projectionDemonstrated: true,
-      disclosuresDemonstrated: true,
-      uiDeliveryDemonstrated: true,
-      strongRuntimeDemonstrated: true,
-    } as never);
-    const ok =
-      assessment.uiDelivery.status === "not_demonstrated" &&
-      assessment.strongRuntimeVerdict.status === "blocked" &&
-      assessment.uxExploration.status === "not_demonstrated";
-    record(
-      "P-QA-D2D3-25",
-      "initial",
-      "Prevent additional readiness properties promoting UI/runtime",
-      "UI not_demonstrated; strong blocked; UX not_demonstrated for bool-only",
-      assessment,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // ========== NEW P-REV PROBES ==========
-
-  // P-REV-01 source via descriptor
-  {
-    const base = composeExecutionRunProvidersFake();
-    let calls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => ({
-        ...base.ai.describeCapability(),
-        // @ts-expect-error adversarial extra
-        source: "real",
-        available: true,
-        verified: true,
-      }),
-      complete: async (request) => {
-        calls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const cases = [];
-    for (const source of ["real", "sandbox-real"] as const) {
-      const result = await composition.coordinate({
-        ...fixtureInput(`corr:prev01:${source}`, source),
-        availableSources: ["real", "sandbox-real", "fixture"],
-      });
-      cases.push({
-        source,
-        ok: result.ok,
-        state: result.run?.state,
-        calls,
-        providerInvoked: result.providerInvoked,
-      });
-    }
-    const ok = cases.every(
-      (c) =>
-        c.ok === false &&
-        c.state === undefined &&
-        c.providerInvoked === false &&
-        c.calls === 0,
-    );
-    record(
-      "P-REV-D2D3-01",
-      "revalidation",
-      "Source authority via descriptor / availableSources injection",
-      "zero invocation; no run; no real evidence",
-      cases,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-01",
-    );
-  }
-
-  // P-REV-02 composition options cannot become proof
-  {
-    const composition = composeExecutionRunD2D3({
-      // @ts-expect-error adversarial
-      availableSources: ["real"],
-      // @ts-expect-error adversarial
-      sources: ["real"],
-    });
-    const result = await composition.coordinate(
-      fixtureInput("corr:prev02", "real"),
-    );
-    const ok =
-      !result.ok &&
-      composition.disclosure.sources[0] === "fixture" &&
-      result.providerInvoked === false;
-    record(
-      "P-REV-D2D3-02",
-      "revalidation",
-      "Source authority via composition options",
-      "disclosure.sources remains fixture; real blocked",
-      {
-        disclosure: composition.disclosure.sources,
-        ok: result.ok,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-03 readiness artifact matrix
-  {
-    const composition = composeExecutionRunD2D3();
-    const succeeded = await composition.coordinate(
-      fixtureInput("corr:prev03:ok"),
-    );
-    const cases: { name: string; status: string }[] = [];
-    const boolOnly = assessExecutionReadiness({
-      fixturePathDemonstrated: true,
-      projectionDemonstrated: true,
-      disclosuresDemonstrated: true,
-    });
-    cases.push({ name: "bool-only", status: boolOnly.uxExploration.status });
-    cases.push({
-      name: "missing-run",
-      status: assessExecutionReadiness({}).uxExploration.status,
-    });
-    const idleLike = assessExecutionReadiness({
-      run: { ...succeeded.run!, state: "idle", evidence: undefined },
-      projection: { runId: succeeded.run!.runId, correlationId: succeeded.run!.correlationId, source: "fixture" },
-    });
-    cases.push({ name: "idle", status: idleLike.uxExploration.status });
-    const badEvidence = assessExecutionReadiness({
-      run: {
-        ...succeeded.run!,
-        evidence: [
-          {
-            ...succeeded.run!.evidence![0],
-            official: false,
-            completeness: "partial",
-            source: "real",
-            runId: "other",
-            correlationId: "other",
-          },
-        ],
-      },
-      projection: {
-        runId: succeeded.run!.runId,
-        correlationId: succeeded.run!.correlationId,
-        source: "fixture",
-      },
-    });
-    cases.push({
-      name: "bad-evidence",
-      status: badEvidence.uxExploration.status,
-    });
-    const good = await composition.assessById(succeeded.run!.runId);
-    cases.push({ name: "canonical", status: good.uxExploration.status });
-    const ok =
-      cases
-        .filter((c) => c.name !== "canonical")
-        .every((c) => c.status === "not_demonstrated") &&
-      good.uxExploration.status === "demonstrated" &&
-      good.uiDelivery.status === "not_demonstrated" &&
-      good.strongRuntimeVerdict.status === "blocked";
-    record(
-      "P-REV-D2D3-03",
-      "revalidation",
-      "Readiness linked to canonical artifacts",
-      "UX demonstrated only for linked succeeded+projection+official complete evidence",
-      { cases, ui: good.uiDelivery.status, strong: good.strongRuntimeVerdict.status },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-04 sink multi-throw
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    let eventCount = 0;
-    const throwing = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: () => {
-          eventCount += 1;
-          throw new Error(`multi_sink_${eventCount}`);
-        },
-      },
-    });
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(fixtureInput("corr:prev04"), {
-        execution: core,
-        providers: throwing,
-        events: throwing.events,
-        clock,
-      });
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId("corr:prev04");
-    const ok =
-      rawError === "" &&
-      result?.run?.state === "succeeded" &&
-      stored.at(-1)?.state === "succeeded" &&
-      result.eventDelivery.status === "degraded" &&
-      result.eventDelivery.failureCount >= 1 &&
-      !JSON.stringify(result).includes("multi_sink_");
-    record(
-      "P-REV-D2D3-04",
-      "revalidation",
-      "Event sink fail-safe with repeated synchronous throws",
-      "succeeded; degraded; no raw sink message",
-      {
-        rawError,
-        state: result?.run?.state,
-        eventDelivery: result?.eventDelivery,
-        eventCount,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-05 sink hostile detail
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    const hostile = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: (event) => {
-          Object.defineProperty(event, "detail", {
-            get() {
-              throw new Error("sink_detail_getter");
-            },
-          });
-        },
-      },
-    });
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(fixtureInput("corr:prev05"), {
-        execution: core,
-        providers: hostile,
-        events: hostile.events,
-        clock,
-      });
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId("corr:prev05");
-    const ok =
-      rawError === "" &&
-      result?.run?.state === stored.at(-1)?.state &&
-      result?.run?.state === "succeeded";
-    record(
-      "P-REV-D2D3-05",
-      "revalidation",
-      "Event sink hostile detail accessors",
-      "sink non-authoritative; run unchanged; no raw throw",
-      { rawError, state: result?.run?.state },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-06 deep hostile projection
-  {
-    const composition = composeExecutionRunD2D3();
-    const coordinated = await composition.coordinate(
-      fixtureInput("corr:prev06"),
-    );
-    const cycle: Record<string, unknown> = { a: 1 };
-    cycle.self = cycle;
-    const sym = Symbol("x");
-    const deep = {
-      run: {
-        ...coordinated.run!,
-        nested: { password: "deep-secret", token: "t" },
-        [sym]: "sym",
-        disclosure: {
-          ...coordinated.run!.disclosure,
-          limits: ["ok", () => 1],
-        },
-        persistence: {
-          kind: "memory_process_local",
-          durable: true,
-          multiInstance: true,
-          restartSafe: true,
-        },
-        evidence: [
-          {
-            ...coordinated.run!.evidence![0],
-            source: "real",
-            official: false,
-            correlationId: "wrong",
-          },
-        ],
-        cycle,
-      },
-    };
-    const projection = createExecutionProjection(deep);
-    const leaked =
-      projection.ok === true &&
-      JSON.stringify(projection).match(/deep-secret|durable.:true/);
-    record(
-      "P-REV-D2D3-06",
-      "revalidation",
-      "Projection hostile deep graph",
-      "explicit reject or safe allowlist; no secret/claim promotion",
-      projection,
-      leaked || projection.ok === true ? "FAIL" : "PASS",
-    );
-  }
-
-  // P-REV-07 projectById authority
-  {
-    const composition = composeExecutionRunD2D3();
-    const coordinated = await composition.coordinate(
-      fixtureInput("corr:prev07"),
-    );
-    const missing = await composition.projectById("executionrun:missing");
-    const first = await composition.projectById(coordinated.run!.runId);
-    const second = await composition.projectById(coordinated.run!.runId);
-    // composition has no project(run) accepting arbitrary object
-    const hasProjectFn = "project" in composition;
-    const ok =
-      missing.ok === false &&
-      first.ok === true &&
-      second.ok === true &&
-      first.ok &&
-      second.ok &&
-      first.projection.runId === second.projection.runId &&
-      first.projection.source === "fixture" &&
-      hasProjectFn === false;
-    record(
-      "P-REV-D2D3-07",
-      "revalidation",
-      "Projection from canonical runId authority",
-      "projectById only; deterministic; no arbitrary project(run)",
-      {
-        missing,
-        runId: first.ok ? first.projection.runId : null,
-        hasProjectFn,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-08 late evidence extended
-  {
-    const secrets = [
-      "password=x",
-      "token=abc",
-      "apiKey=k",
-      "Authorization Bearer xyz",
-      "BEGIN RSA PRIVATE KEY",
-      "ghp_abcdefghijklmnopqrstuvwxyz0123456789",
-      "sk-abcdefghijklmnopqrstuvwxyz",
-      "xoxb-1234567890-abcdefgh",
-      "a".repeat(5000),
-    ];
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => ({
-        kind: "cancelled",
-        failure: normalizedFailure({
-          family: "cancelled",
-          code: "CANCELLED",
-          userMessage: "cancelled",
-          retryable: false,
-          correlationId: request.correlationId,
-        }),
-      }),
-    };
-    const results = [];
-    for (const [i, summary] of secrets.entries()) {
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const result = await composition.coordinate({
-        ...fixtureInput(`corr:prev08:${i}`),
-        lateEvidenceSummary: summary,
-      });
-      const late = result.run?.evidence?.at(-1);
-      const blob = JSON.stringify(result);
-      results.push({
-        i,
-        state: result.run?.state,
-        summary: late?.summary,
-        leaked: /password=x|token=abc|apiKey=k|Bearer xyz|PRIVATE KEY|ghp_|sk-abcdefghijklmnopqrst|xoxb-/.test(
-          blob,
-        ),
-        late: late?.late,
-        source: late?.source,
-        official: late?.official,
-      });
-    }
-    const ok = results.every(
-      (r) =>
-        r.state === "cancelled" &&
-        r.leaked === false &&
-        r.late === true &&
-        r.source === "fixture" &&
-        r.official === true &&
-        (r.i === 8 || r.summary === "late_result_redacted"),
-    );
-    record(
-      "P-REV-D2D3-08",
-      "revalidation",
-      "Late evidence redaction extended",
-      "no sensitive residue; terminal unchanged; canonical identity/source",
-      results,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-09 preflight no provider effect
-  {
-    const base = composeExecutionRunProvidersFake();
-    let describe = 0;
-    let complete = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => {
-        describe += 1;
-        return base.ai.describeCapability();
-      },
-      complete: async (request) => {
-        complete += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const cases = [];
-    const invalids: unknown[] = [
-      null,
-      { intent: null, context: {}, timeoutMs: 50 },
-      {
-        ...fixtureInput("corr:prev09:getter"),
-        intent: Object.defineProperty({ ...getFixture("nominal").intent }, "operation", {
-          enumerable: true,
-          get() {
-            throw new Error("intent_getter");
-          },
-        }),
-      },
-      { ...fixtureInput("corr:prev09:to0"), timeoutMs: 0 },
-      {
-        ...fixtureInput("corr:prev09:path"),
-        intent: {
-          ...getFixture("nominal").intent,
-          correlationId: "corr:prev09:path",
-          intentId: "intent:prev09:path",
-          requestedLane: "git",
-          targetPath: "%2e%2e/.env",
-        },
-        providerRequest: {
-          correlationId: "corr:prev09:path",
-          lane: "git",
-          operation: "read",
-          owner: "o",
-          repo: "r",
-          kind: "path_meta",
-          path: "%2e%2e/.env",
-          timeoutMs: 50,
-        },
-      },
-    ];
-    let raw = 0;
-    for (const input of invalids) {
-      const beforeD = describe;
-      const beforeC = complete;
-      try {
-        const result = await composition.coordinate(input);
-        cases.push({
-          ok: result.ok,
-          dDelta: describe - beforeD,
-          cDelta: complete - beforeC,
-          run: result.run?.state,
-        });
-      } catch {
-        raw += 1;
-        cases.push({ threw: true, dDelta: describe - beforeD, cDelta: complete - beforeC });
-      }
-    }
-    const ok =
-      raw === 0 &&
-      cases.every((c) => (c as { dDelta: number }).dDelta === 0 && (c as { cDelta: number }).cDelta === 0);
-    record(
-      "P-REV-D2D3-09",
-      "revalidation",
-      "Preflight without provider effect",
-      "describe=0; complete=0; no raw throw",
-      { cases, describe, complete, raw },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-10 hostile provider results
-  {
-    const variants: Array<{
-      name: string;
-      make: () => ProviderInvocationResult | Promise<ProviderInvocationResult>;
-    }> = [
-      {
-        name: "getter",
-        make: () => {
-          const o = Object.create(null);
-          Object.defineProperty(o, "kind", {
-            enumerable: true,
-            get() {
-              throw new Error("kind_getter");
-            },
-          });
-          return o as ProviderInvocationResult;
-        },
-      },
-      {
-        name: "partial",
-        make: () => ({
-          kind: "success",
-          completeness: "partial",
-          redactedSummary: "p",
-          rawPresent: false,
-          usage: { status: "unavailable", reason: "p" },
-          disclosureNotes: [],
-        }),
-      },
-      {
-        name: "raw",
-        make: () =>
-          ({
-            kind: "success",
-            completeness: "complete",
-            redactedSummary: "password=raw-leak",
-            rawPresent: true,
-            usage: { status: "unavailable", reason: "x" },
-            disclosureNotes: [],
-          }) as ProviderInvocationResult,
-      },
-    ];
-    const outcomes = [];
-    for (const v of variants) {
-      const base = composeExecutionRunProvidersFake();
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async () => v.make(),
-      };
-      const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-      const providers = composeExecutionRunProviders({ ...base, ai });
-      let rawError = "";
-      let result;
-      try {
-        result = await coordinateExecutionRun(
-          fixtureInput(`corr:prev10:${v.name}`),
-          { execution: core, providers, events: providers.events, clock },
-        );
-      } catch (error) {
-        rawError = error instanceof Error ? error.message : String(error);
-      }
-      const stored = await core.listByCorrelationId(`corr:prev10:${v.name}`);
-      outcomes.push({
-        name: v.name,
-        rawError,
-        state: stored.at(-1)?.state,
-        returned: result?.run?.state,
-        leaked: JSON.stringify(result ?? {}).includes("raw-leak"),
-      });
-    }
-    const ok = outcomes.every(
-      (o) =>
-        o.rawError === "" &&
-        o.state === "failed" &&
-        o.returned === "failed" &&
-        o.leaked === false,
-    );
-    record(
-      "P-REV-D2D3-10",
-      "revalidation",
-      "Hostile / invalid provider results",
-      "failed terminal; no orphan running; no leak",
-      outcomes,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-11 diagnostics matrix
-  {
-    const matrix = [];
-    // preflight reject
-    {
-      const composition = composeExecutionRunD2D3();
-      const r = await composition.coordinate({
-        ...fixtureInput("corr:prev11:pre"),
-        timeoutMs: -1,
-      });
-      matrix.push({
-        name: "preflight",
-        attempted: r.providerAttempted,
-        invoked: r.providerInvoked,
-        completed: r.providerCompleted,
-      });
-    }
-    // pre-cancel
-    {
-      const base = composeExecutionRunProvidersFake();
-      let calls = 0;
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async (req) => {
-          calls += 1;
-          return base.ai.complete(req);
-        },
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const c = new AbortController();
-      c.abort();
-      const r = await composition.coordinate({
-        ...fixtureInput("corr:prev11:cancel"),
-        signal: c.signal,
-      });
-      matrix.push({
-        name: "pre-cancel",
-        attempted: r.providerAttempted,
-        invoked: r.providerInvoked,
-        completed: r.providerCompleted,
-        calls,
-      });
-    }
-    // success
-    {
-      const composition = composeExecutionRunD2D3();
-      const r = await composition.coordinate(fixtureInput("corr:prev11:ok"));
-      matrix.push({
-        name: "success",
-        attempted: r.providerAttempted,
-        invoked: r.providerInvoked,
-        completed: r.providerCompleted,
-      });
-    }
-    const ok =
-      matrix.find((m) => m.name === "preflight")!.invoked === false &&
-      matrix.find((m) => m.name === "preflight")!.attempted === false &&
-      matrix.find((m) => m.name === "pre-cancel")!.invoked === false &&
-      matrix.find((m) => m.name === "pre-cancel")!.attempted === true &&
-      matrix.find((m) => m.name === "pre-cancel")!.calls === 0 &&
-      matrix.find((m) => m.name === "success")!.invoked === true &&
-      matrix.find((m) => m.name === "success")!.completed === true;
-    record(
-      "P-REV-D2D3-11",
-      "revalidation",
-      "Provider diagnostics exactness",
-      "attempted/invoked/completed match real call counts",
-      matrix,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-12 timeout boundary
-  {
-    const composition = composeExecutionRunD2D3();
-    const samples: Array<{ label: string; value: unknown; expectOk: boolean }> =
-      [
-        { label: "undefined", value: undefined, expectOk: false },
-        { label: "null", value: null, expectOk: false },
-        { label: "string", value: "50", expectOk: false },
-        { label: "0", value: 0, expectOk: false },
-        { label: "neg", value: -1, expectOk: false },
-        { label: "nan", value: Number.NaN, expectOk: false },
-        { label: "inf", value: Number.POSITIVE_INFINITY, expectOk: false },
-        { label: "frac", value: 1.5, expectOk: false },
-        { label: "max", value: MAX_COORDINATOR_TIMEOUT_MS, expectOk: true },
-        {
-          label: "over",
-          value: MAX_COORDINATOR_TIMEOUT_MS + 1,
-          expectOk: false,
-        },
-        { label: "1", value: 1, expectOk: true },
-      ];
-    const rows = [];
-    for (const s of samples) {
-      const input = {
-        ...fixtureInput(`corr:prev12:${s.label}`),
-        timeoutMs: s.value as number,
-      };
-      const result = await composition.coordinate(input);
-      rows.push({
-        label: s.label,
-        ok: result.ok,
-        run: result.run?.state,
-        invoked: result.providerInvoked,
-        expectOk: s.expectOk,
-      });
-    }
-    const ok = rows.every((r) =>
-      r.expectOk
-        ? r.ok === true && r.run === "succeeded"
-        : r.ok === false && r.run === undefined && r.invoked === false,
-    );
-    record(
-      "P-REV-D2D3-12",
-      "revalidation",
-      "Timeout boundary local 1..60000",
-      "only positive integers <= MAX accepted; invalid before create/provider",
-      { MAX_COORDINATOR_TIMEOUT_MS, rows },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-13 path normalization consistency
-  {
-    const hostiles = [
-      "%2e%2e/.env",
-      "%252e%252e/.env",
-      "%2f.env",
-      "%252f.env",
-      "%5c..%5c.env",
-      "projects\\sfia-studio\\%2e%2e\\.env",
-      "%00",
-      "%2500",
-      "%zz",
-      "%2fetc%2fpasswd",
-      "C:%5cWindows%5c.env",
-    ];
-    const legit = "projects/sfia-studio/app/lib/oa/execution-run/index.ts";
-    const rows = [];
-    for (const p of hostiles) {
-      const sandbox = evaluateSandboxPath({
-        path: p,
-        allowlistRepos: ["projects/sfia-studio/"],
-      });
-      const canonical = normalizeCanonicalPath(p);
-      const boundary = validateUntrustedProviderRequest({
-        correlationId: "c",
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "path_meta",
-        path: p,
-        timeoutMs: 50,
-      });
-      const policy = evaluateReadOnlyPolicy({
-        intent: {
-          ...getFixture("nominal").intent,
-          requestedLane: "none",
-          targetPath: p,
-          correlationId: "c",
-        },
-        context: {
-          ...getFixture("nominal").context,
-          protectedPaths: [".env"],
-        },
-      });
-      rows.push({
-        p,
-        sandboxAllowed: sandbox.allowed,
-        canonicalOk: canonical.ok,
-        boundaryOk: boundary.ok,
-        policyOk: policy.ok,
-      });
-    }
-    const legitSandbox = evaluateSandboxPath({
-      path: legit,
-      allowlistRepos: ["projects/sfia-studio/"],
-    });
-    const ok =
-      rows.every(
-        (r) =>
-          r.sandboxAllowed === false &&
-          (r.canonicalOk === false || r.sandboxAllowed === false),
-      ) &&
-      rows.every((r) => r.boundaryOk === false || r.sandboxAllowed === false) &&
-      legitSandbox.allowed === true;
-    // also coordinator on intent+request path
-    const composition = composeExecutionRunD2D3();
-    const coord = await composition.coordinate({
-      intent: {
-        ...getFixture("nominal").intent,
-        intentId: "intent:prev13",
-        correlationId: "corr:prev13",
-        requestedLane: "git",
-        targetPath: "%2e%2e/.env",
-      },
-      context: getFixture("nominal").context,
-      providerRequest: {
-        correlationId: "corr:prev13",
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "path_meta",
-        path: "%2e%2e/.env",
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
-    });
-    const coordOk = !coord.ok && coord.providerInvoked === false;
-    record(
-      "P-REV-D2D3-13",
-      "revalidation",
-      "Path normalization shared across surfaces",
-      "hostile blocked consistently; legitimate allowlisted path kept",
-      { rows, legitAllowed: legitSandbox.allowed, coordOk },
-      ok && coordOk ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-14 import/public surface
-  {
-    const root = path.resolve(
-      path.dirname(new URL(import.meta.url).pathname),
-      "../../projects/sfia-studio/app/lib/oa/execution-run",
-    );
-    const barrel = fs.readFileSync(path.join(root, "index.ts"), "utf8");
-    const compose = fs.readFileSync(
-      path.join(root, "server/composeExecutionRunD2D3.ts"),
-      "utf8",
-    );
-    const untrusted = fs.readFileSync(
-      path.join(root, "application/untrustedExecutionData.ts"),
-      "utf8",
-    );
-    const ok =
-      !/export\s*\{[^}]*\bcoordinateExecutionRun\b[^}]*\}\s*from/.test(barrel) &&
-      !barrel.includes("availableSources") &&
-      !barrel.includes("composeExecutionRunD2D3") &&
-      compose.includes("assertServerOnly") &&
-      !compose.includes("availableSources") &&
-      !/from\s+["'](?:node:|next|openai)/.test(untrusted) &&
-      !compose.includes("D2D3-04") &&
-      !untrusted.includes("materialize");
-    record(
-      "P-REV-D2D3-14",
-      "revalidation",
-      "Import and public surface boundaries",
-      "coordinator not on public barrel; compose server-only; untrusted pure",
-      {
-        barrelHasCoordinateExport: /export\s*\{[^}]*\bcoordinateExecutionRun\b/.test(
-          barrel,
-        ),
-        composeServerOnly: compose.includes("assertServerOnly"),
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-15 isolation in-process (single composition / single memory authority)
-  {
-    const base = composeExecutionRunProvidersFake();
-    let calls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => {
-        calls += 1;
-        if (request.correlationId.includes("timeout")) {
-          await new Promise((r) => setTimeout(r, 25));
-        }
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const [okRun, timed, cancelled, blocked] = await Promise.all([
-      composition.coordinate(fixtureInput("corr:prev15:ok")),
-      composition.coordinate({
-        ...fixtureInput("corr:prev15:timeout"),
-        timeoutMs: 2,
-      }),
-      (async () => {
-        const c = new AbortController();
-        c.abort();
-        return composition.coordinate({
-          ...fixtureInput("corr:prev15:cancel"),
-          signal: c.signal,
-        });
-      })(),
-      composition.coordinate(fixtureInput("corr:prev15:real", "real")),
-    ]);
-    const ids = [okRun.run?.runId, timed.run?.runId, cancelled.run?.runId].filter(
-      Boolean,
-    ) as string[];
-    const evidences = [
-      okRun.run?.evidence?.[0]?.evidenceId,
-      timed.run?.evidence?.[0]?.evidenceId,
-      cancelled.run?.evidence?.at(-1)?.evidenceId,
-    ].filter(Boolean);
-    const ok =
-      okRun.run?.state === "succeeded" &&
-      timed.run?.state === "timed_out" &&
-      cancelled.run?.state === "cancelled" &&
-      blocked.ok === false &&
-      blocked.run === undefined &&
-      new Set(ids).size === ids.length &&
-      ids.length === 3;
-    record(
-      "P-REV-D2D3-15",
-      "revalidation",
-      "In-process isolation across success/timeout/cancel/blocked",
-      "no contamination; unique IDs; no multi-instance claim",
-      {
-        ok: okRun.run?.state,
-        timed: timed.run?.state,
-        cancelled: cancelled.run?.state,
-        blocked: blocked.ok,
-        ids,
-        evidences,
-        calls,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  const initial = probes.filter((p) => p.family === "initial");
-  const rev = probes.filter((p) => p.family === "revalidation");
-  const summary = {
-    initialTotal: initial.length,
-    initialPass: initial.filter((p) => p.verdict === "PASS").length,
-    initialFail: initial.filter((p) => p.verdict === "FAIL").length,
-    initialNotProven: initial.filter((p) => p.verdict === "NOT_PROVEN").length,
-    revTotal: rev.length,
-    revPass: rev.filter((p) => p.verdict === "PASS").length,
-    revFail: rev.filter((p) => p.verdict === "FAIL").length,
-    historicallyFailed: [
-      "P-QA-D2D3-01",
-      "P-QA-D2D3-02",
-      "P-QA-D2D3-03",
-      "P-QA-D2D3-04",
-      "P-QA-D2D3-05",
-      "P-QA-D2D3-06",
-      "P-QA-D2D3-07",
-      "P-QA-D2D3-08",
-      "P-QA-D2D3-09",
-      "P-QA-D2D3-10",
-      "P-QA-D2D3-16",
-      "P-QA-D2D3-17",
-      "P-QA-D2D3-23",
-    ].map((id) => {
-      const p = probes.find((x) => x.id === id);
-      return { id, verdict: p?.verdict ?? "MISSING" };
-    }),
-    probes,
-  };
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, JSON.stringify(summary, null, 2));
-  console.log(
-    JSON.stringify(
-      {
-        initial: {
-          total: summary.initialTotal,
-          pass: summary.initialPass,
-          fail: summary.initialFail,
-          notProven: summary.initialNotProven,
-        },
-        revalidation: {
-          total: summary.revTotal,
-          pass: summary.revPass,
-          fail: summary.revFail,
-        },
-        historicallyFailed: summary.historicallyFailed,
-        failedIds: probes.filter((p) => p.verdict !== "PASS").map((p) => p.id),
-      },
-      null,
-      2,
-    ),
-  );
-  if (probes.some((p) => p.verdict !== "PASS")) process.exitCode = 1;
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
-```
-
-## 34–46. Non-régression cumulative / domaines
-
-Couverture via 29+15 + REV2 + CORR2/3 + permanent tests — PASS. correlationId/lane stricts confirmés. D2D3-04/05 bloqués.
-
-## 47–54. Validations observées
-
-| Suite | Observé |
-|---|---|
-| regression | **95** PASS |
-| targeted | **105** PASS |
-| execution-run | 28 / **270** PASS |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| full Vitest | 130 / **1316** PASS |
-| governance | **73** PASS |
-
-## 55. Scans
+## 22. Scans
 
 ```
-## STRUCTURED_SENSITIVE_KEY (3)
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:30
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:36
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:83
+SCAN PACKAGE D2-D3 PUBLICATION
 
-## FORBIDDEN_ASSIGNMENT (3)
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:22
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:37
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:84
+## secret-like: 2
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:432:"xoxb-abcdefghij",
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:467:"xoxb-abcdefghij",
 
-## containsSensitiveLateContent (5)
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:17
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:34
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:113
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:222
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:230
+## verified_true: 4
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts:39:cursorUnverified: true,
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:73:readonly cursorUnverified: true;
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:392:cursorUnverified: true,
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:440:cursorUnverified: true,
 
-## durable:true (1)
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:181
+## durable_true: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:181:durable: true,
 
-## .only (0)
+## multiInstance_true: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:182:multiInstance: true,
 
-## .skip (0)
+## restartSafe_true: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:183:restartSafe: true,
 
-## fetch( (0)
+## sandbox-real: 6
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:49:it.each(["sandbox-real", "real"] as const)(
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:50:availableSources: ["fixture", "real", "sandbox-real"],
+  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:144:"sandbox-real",
+  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:456:// D2-D3 internal proof is fixture only. Block real / sandbox-real before any port.
+  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:467:"D2-D3 demonstrates fixture only; real and sandbox-real remain blocked",
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:29:const ALLOWED_SOURCES = new Set(["fixture", "sandbox-real", "real"]);
 
-## tokenCount (2)
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:938
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:28
+## source_real: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:188:source: "real",
+
+## fetch(: 0
+
+## http: 0
+
+## Server Action: 0
+
+## git write: 0
+
+## SDK: 0
+
+## .only: 0
+
+## .skip: 0
+
+## tmp-sfia: 0
+
+PASS if adversarial-only for secrets/http/verified in tests; no real secrets; no durable/multi/restart true; no .only/.skip; no tmp in package
+```
+
+Qualification : occurrences secret-like / durable / multiInstance / restartSafe / sandbox-real / source real = tests adversariaux ou garde-fous fail-closed ; `cursorUnverified: true` (pas un claim verified) ; aucun fetch/HTTP/Server Action/SDK/.only/.skip/.tmp dans le package.
+
+## 23. Staged manifest
 
 ```
-Occurrences adversariales uniquement hors detector. Pas de `.only`/`.skip`/fetch.
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/index.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+```
+Exactement 18 fichiers ; aucun `.tmp-sfia-review/**` staged.
 
-## 56. Nouveaux findings
+## 24. Staged stat
 
-Aucun BLOCKER/MAJOR nouveau.
-Réserve mineure TIME-01 uniquement.
+```
+.../d2d3.coordination.fixture.test.ts              |  145 +++
+ .../d2d3.evidence.truthfulness.test.ts             |  241 +++++
+ .../execution-run/d2d3.negative.resilience.test.ts |  295 ++++++
+ .../oa/execution-run/d2d3.projection.test.ts       |  102 ++
+ .../d2d3.qa-findings.regression.test.ts            | 1088 ++++++++++++++++++++
+ .../oa/execution-run/d2d3.readiness.test.ts        |  123 +++
+ .../oa/execution-run/importBoundaries.test.ts      |   66 +-
+ .../sandbox.protectedPath.fixture.test.ts          |   51 +
+ .../application/coordinateExecutionRun.ts          | 1086 +++++++++++++++++++
+ .../application/executionProjection.ts             |  444 ++++++++
+ .../application/executionReadiness.ts              |  198 ++++
+ .../application/untrustedExecutionData.ts          |  234 +++++
+ .../app/lib/oa/execution-run/domain/policy.ts      |   35 +-
+ .../oa/execution-run/domain/providerBoundary.ts    |    6 +-
+ .../lib/oa/execution-run/domain/sandboxContract.ts |  104 +-
+ .../sfia-studio/app/lib/oa/execution-run/index.ts  |   33 +-
+ .../server/composeExecutionRunD2D3.ts              |  125 +++
+ .../app/lib/oa/execution-run/server/index.ts       |   14 +
+ 18 files changed, 4368 insertions(+), 22 deletions(-)
+```
 
-## 57. Réserves
+## 25. Staged / commit diff complet (représentation exploitable)
 
-Héritées OPEN NOT LIFTED : R-QA-REV-01/02, R-QA-D2C-01, Cursor UNVERIFIED, memory process-local, R-PR-D2D2-01.
-R-CORR-D2D3-01 OPEN (borne timeout).
-R-CORR-D2D3-02 — **SATISFIED — CLOSURE RECOMMENDED** (findings QA adressés et revalidés).
-**R-QA-REV3-D2D3-TIME-01** — OPEN — incohérence horodatage handoff Corr3 vs commit metadata (MINOR traçabilité).
+Le diff staged a été committé sans modification. Patch complet du commit projet :
 
-## 58. Claims démontrés
+```patch
+From 9d1b3d2520f049dba0bf811380167003ca26ad82 Mon Sep 17 00:00:00 2001
+From: Morris Cleland <morris@macbook-air1.home>
+Date: Tue, 4 Aug 2026 14:52:13 +0200
+Subject: [PATCH] feat(sfia-studio): add V3.1-D2-D3 read-only coordination
 
-- 14 findings VERIFIED (dont arbitrage REV2-02)
-- structured JSON secrets redacted ; near-keys préservés
-- aucune fuite sur surfaces scannées
-- package hash stable ; D2D3-04/05 bloqués
-- suites tests/governance PASS
+Co-authored-by: Cursor <cursoragent@cursor.com>
+---
+ .../d2d3.coordination.fixture.test.ts         |  145 +++
+ .../d2d3.evidence.truthfulness.test.ts        |  241 ++++
+ .../d2d3.negative.resilience.test.ts          |  295 +++++
+ .../oa/execution-run/d2d3.projection.test.ts  |  102 ++
+ .../d2d3.qa-findings.regression.test.ts       | 1088 +++++++++++++++++
+ .../oa/execution-run/d2d3.readiness.test.ts   |  123 ++
+ .../oa/execution-run/importBoundaries.test.ts |   66 +-
+ .../sandbox.protectedPath.fixture.test.ts     |   51 +
+ .../application/coordinateExecutionRun.ts     | 1086 ++++++++++++++++
+ .../application/executionProjection.ts        |  444 +++++++
+ .../application/executionReadiness.ts         |  198 +++
+ .../application/untrustedExecutionData.ts     |  234 ++++
+ .../app/lib/oa/execution-run/domain/policy.ts |   35 +-
+ .../execution-run/domain/providerBoundary.ts  |    6 +-
+ .../execution-run/domain/sandboxContract.ts   |  104 +-
+ .../app/lib/oa/execution-run/index.ts         |   33 +-
+ .../server/composeExecutionRunD2D3.ts         |  125 ++
+ .../app/lib/oa/execution-run/server/index.ts  |   14 +
+ 18 files changed, 4368 insertions(+), 22 deletions(-)
+ create mode 100644 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
+ create mode 100644 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
+ create mode 100644 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
+ create mode 100644 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
+ create mode 100644 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+ create mode 100644 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
+ create mode 100644 projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+ create mode 100644 projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
+ create mode 100644 projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
+ create mode 100644 projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
+ create mode 100644 projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
 
-## 59. Claims non démontrés
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
+new file mode 100644
+index 0000000..6167958
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
+@@ -0,0 +1,145 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { getFixture } from "@/lib/oa/execution-run";
++import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
++
++describe("D2-D3 fixture coordination", () => {
++  it("coordinates AI through idle, running, succeeded and official evidence", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "bounded fixture summary" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++
++    expect(result.ok).toBe(true);
++    expect(result.providerInvoked).toBe(true);
++    expect(result.providerCompleted).toBe(true);
++    expect(result.stateTrace).toEqual(["idle", "running", "succeeded"]);
++    expect(result.run?.evidence).toHaveLength(1);
++    expect(result.run?.evidence?.[0]).toMatchObject({
++      official: true,
++      source: "fixture",
++      completeness: "complete",
++      late: false,
++    });
++
++    if (!result.run) return;
++    const projection = await composition.projectById(result.run.runId);
++    expect(projection.ok).toBe(true);
++    if (!projection.ok) return;
++    expect(projection.projection.state).toBe("succeeded");
++    expect(projection.projection.source).toBe("fixture");
++    expect(projection.projection.providerLane).toBe("ai");
++  });
++
++  it("coordinates a read-only Git fixture without a write surface", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const intent = {
++      ...fixture.intent,
++      intentId: "intent:d2d3:git",
++      correlationId: "corr:d2d3:git",
++      requestedLane: "git" as const,
++    };
++    const result = await composition.coordinate({
++      intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: intent.correlationId,
++        lane: "git",
++        operation: "read",
++        owner: "o",
++        repo: "r",
++        kind: "repository",
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++
++    expect(result.run?.state).toBe("succeeded");
++    expect(result.run?.disclosure.providerLane).toBe("git");
++    expect(composition.disclosure.gitWrite).toBe(false);
++  });
++
++  it("keeps Cursor fixture-only and blocked while Cursor is unverified", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const intent = {
++      ...fixture.intent,
++      intentId: "intent:d2d3:cursor",
++      correlationId: "corr:d2d3:cursor",
++      requestedLane: "cursor" as const,
++    };
++    const result = await composition.coordinate({
++      intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: intent.correlationId,
++        lane: "cursor",
++        operation: "fixture",
++        instructionSummary: "read-only fixture",
++        allowlistRepos: ["projects/sfia-studio/"],
++        protectedPaths: [".env"],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++
++    expect(result.ok).toBe(false);
++    expect(result.run?.state).toBe("blocked");
++    expect(result.providerInvoked).toBe(false);
++    expect(composition.disclosure.cursorVerified).toBe(false);
++  });
++
++  it("blocks lane none without invoking a provider", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: {
++        ...fixture.intent,
++        requestedLane: "none",
++        intentId: "intent:d2d3:none",
++        correlationId: "corr:d2d3:none",
++      },
++      context: fixture.context,
++      timeoutMs: 100,
++    });
++
++    expect(result.ok).toBe(false);
++    expect(result.run?.state).toBe("blocked");
++    expect(result.providerInvoked).toBe(false);
++    expect(result.stateTrace).toEqual(["idle", "blocked"]);
++  });
++
++  it("does not invoke providers before validation and policy acceptance", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("validation_failure");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "must not execute" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++
++    expect(result.ok).toBe(false);
++    expect(result.providerInvoked).toBe(false);
++    expect(result.stateTrace).toEqual([]);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
+new file mode 100644
+index 0000000..d4cca79
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
+@@ -0,0 +1,241 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  getFixture,
++  isIsoTimestamp,
++  normalizedFailure,
++  type AiExecutionPort,
++} from "@/lib/oa/execution-run";
++import {
++  composeExecutionRunD2D3,
++  composeExecutionRunProviders,
++  composeExecutionRunProvidersFake,
++} from "@/lib/oa/execution-run/server";
++
++describe("D2-D3 evidence truthfulness", () => {
++  it("keeps run, official evidence, and projection source on fixture", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "truthful fixture input" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++    if (!result.run) throw new Error("expected run");
++    const evidence = result.run.evidence?.[0];
++    const projection = await composition.projectById(result.run.runId);
++    expect(projection.ok).toBe(true);
++    if (!projection.ok) return;
++
++    expect(result.run.disclosure.source).toBe("fixture");
++    expect(evidence?.source).toBe("fixture");
++    expect(projection.projection.source).toBe("fixture");
++    expect(evidence?.official).toBe(true);
++    expect(evidence?.completeness).toBe("complete");
++    expect(isIsoTimestamp(evidence?.producedAt ?? "")).toBe(true);
++    expect(evidence?.evidenceId.length).toBeLessThan(128);
++    expect(evidence).not.toHaveProperty("rawResult");
++  });
++
++  it.each(["sandbox-real", "real"] as const)(
++    "blocks requested source %s without fallback or provider invocation",
++    async (source) => {
++      const composition = composeExecutionRunD2D3();
++      const fixture = getFixture("nominal");
++      const result = await composition.coordinate({
++        intent: {
++          ...fixture.intent,
++          intentId: `intent:d2d3:${source}`,
++          correlationId: `corr:d2d3:${source}`,
++          requestedSource: source,
++        },
++        context: { ...fixture.context, declaredSource: source },
++        providerRequest: {
++          correlationId: `corr:d2d3:${source}`,
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "must not run" }],
++          timeoutMs: 100,
++        },
++        timeoutMs: 100,
++      });
++
++      expect(result.ok).toBe(false);
++      expect(result.run).toBeUndefined();
++      expect(result.providerInvoked).toBe(false);
++      expect(result.stateTrace).toEqual([]);
++      if (result.ok) throw new Error("expected failure");
++      expect(result.failure.code).toBe("SOURCE_MISMATCH");
++    },
++  );
++
++  it("records late evidence without changing a cancelled terminal", async () => {
++    const base = composeExecutionRunProvidersFake();
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => base.ai.describeCapability(),
++      complete: async (request) => ({
++        kind: "cancelled",
++        failure: normalizedFailure({
++          family: "cancelled",
++          code: "CANCELLED",
++          userMessage: "Cancelled fixture operation",
++          retryable: false,
++          correlationId: request.correlationId,
++        }),
++      }),
++    };
++    const providers = composeExecutionRunProviders({ ...base, ai });
++    const composition = composeExecutionRunD2D3({ providers });
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "cancel fixture" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++      lateEvidenceSummary: "late bounded result",
++    });
++
++    expect(result.ok).toBe(false);
++    expect(result.run?.state).toBe("cancelled");
++    expect(result.lateEvidenceRecorded).toBe(true);
++    expect(result.run?.evidence?.at(-1)).toMatchObject({
++      source: "fixture",
++      late: true,
++      official: true,
++    });
++  });
++
++  it("marks usage unavailable unless provider usage validates", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "usage fixture" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++
++    expect(result.validatedUsage.status).toBe("validated");
++    expect(result.run?.usage.status).toBe("unavailable");
++  });
++
++  it.each([
++    "token=abc",
++    "apiKey=k",
++    "Authorization: Bearer xyz",
++    '{"token":"structured-secret-z9"}',
++  ])(
++    "official late evidence redacts secret-like summary %j to late_result_redacted",
++    async (summary) => {
++      const base = composeExecutionRunProvidersFake();
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => base.ai.describeCapability(),
++        complete: async (request) => ({
++          kind: "cancelled",
++          failure: normalizedFailure({
++            family: "cancelled",
++            code: "CANCELLED",
++            userMessage: "Cancelled fixture operation",
++            retryable: false,
++            correlationId: request.correlationId,
++          }),
++        }),
++      };
++      const providers = composeExecutionRunProviders({ ...base, ai });
++      const composition = composeExecutionRunD2D3({ providers });
++      const fixture = getFixture("nominal");
++      const result = await composition.coordinate({
++        intent: fixture.intent,
++        context: fixture.context,
++        providerRequest: {
++          correlationId: fixture.intent.correlationId,
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "cancel fixture" }],
++          timeoutMs: 100,
++        },
++        timeoutMs: 100,
++        lateEvidenceSummary: summary,
++      });
++
++      expect(result.run?.state).toBe("cancelled");
++      expect(result.lateEvidenceRecorded).toBe(true);
++      expect(result.run?.evidence?.at(-1)).toMatchObject({
++        source: "fixture",
++        late: true,
++        official: true,
++        summary: "late_result_redacted",
++      });
++      expect(JSON.stringify(result)).not.toContain("abc");
++      expect(JSON.stringify(result)).not.toContain("xyz");
++      expect(JSON.stringify(result)).not.toMatch(/apiKey=k/i);
++      expect(JSON.stringify(result)).not.toContain("structured-secret-z9");
++    },
++  );
++
++  it('preserves non-sensitive structured late summary {"status":"complete"}', async () => {
++    const base = composeExecutionRunProvidersFake();
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => base.ai.describeCapability(),
++      complete: async (request) => ({
++        kind: "cancelled",
++        failure: normalizedFailure({
++          family: "cancelled",
++          code: "CANCELLED",
++          userMessage: "Cancelled fixture operation",
++          retryable: false,
++          correlationId: request.correlationId,
++        }),
++      }),
++    };
++    const providers = composeExecutionRunProviders({ ...base, ai });
++    const composition = composeExecutionRunD2D3({ providers });
++    const fixture = getFixture("nominal");
++    const summary = '{"status":"complete"}';
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "cancel fixture" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++      lateEvidenceSummary: summary,
++    });
++    expect(result.run?.state).toBe("cancelled");
++    expect(result.lateEvidenceRecorded).toBe(true);
++    expect(result.run?.evidence?.at(-1)).toMatchObject({
++      source: "fixture",
++      late: true,
++      official: true,
++      summary,
++    });
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
+new file mode 100644
+index 0000000..97e4686
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
+@@ -0,0 +1,295 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  getFixture,
++  normalizedFailure,
++  type AiExecutionPort,
++  type FailureCode,
++  type FailureFamily,
++  type ProviderInvocationResult,
++} from "@/lib/oa/execution-run";
++import {
++  composeExecutionRunD2D3,
++  composeExecutionRunProviders,
++  composeExecutionRunProvidersFake,
++} from "@/lib/oa/execution-run/server";
++
++function failureResult(
++  family: FailureFamily,
++  code: FailureCode,
++  correlationId: string,
++): ProviderInvocationResult {
++  return {
++    kind: "failure",
++    failure: normalizedFailure({
++      family,
++      code,
++      userMessage: `Bounded ${family} fixture failure`,
++      retryable: false,
++      correlationId,
++    }),
++  };
++}
++
++async function runWithAiResult(
++  makeResult: (correlationId: string) => ProviderInvocationResult,
++  options?: { lateEvidenceSummary?: string },
++) {
++  const base = composeExecutionRunProvidersFake();
++  let calls = 0;
++  let receivedKeys: string[] = [];
++  const ai: AiExecutionPort = {
++    lane: "ai",
++    describeCapability: () => base.ai.describeCapability(),
++    complete: async (request) => {
++      calls += 1;
++      receivedKeys = Object.keys(request);
++      return makeResult(request.correlationId);
++    },
++  };
++  const providers = composeExecutionRunProviders({ ...base, ai });
++  const composition = composeExecutionRunD2D3({ providers });
++  const fixture = getFixture("nominal");
++  const result = await composition.coordinate({
++    intent: fixture.intent,
++    context: fixture.context,
++    providerRequest: {
++      correlationId: fixture.intent.correlationId,
++      lane: "ai",
++      operation: "complete",
++      messages: [{ role: "user", content: "deterministic fixture" }],
++      timeoutMs: 100,
++    },
++    timeoutMs: 100,
++    ...options,
++  });
++  return { result, calls, receivedKeys };
++}
++
++describe("D2-D3 deterministic negative and resilience scenarios", () => {
++  it.each([
++    ["authentication", "AUTHENTICATION_ERROR"],
++    ["authorization", "AUTHORIZATION_ERROR"],
++    ["provider_unavailable", "PROVIDER_UNAVAILABLE"],
++    ["rate_limited", "RATE_LIMITED"],
++  ] as const)(
++    "normalizes %s failure to the exact failed terminal",
++    async (family, code) => {
++      const { result, calls } = await runWithAiResult((correlationId) =>
++        failureResult(family, code, correlationId),
++      );
++      expect(calls).toBe(1);
++      expect(result.run?.state).toBe("failed");
++      if (result.ok) throw new Error("expected failed result");
++      expect(result.failure).toMatchObject({ family, code });
++      expect(result.run?.evidence).toBeUndefined();
++      expect(result.run?.disclosure.source).toBe("fixture");
++    },
++  );
++
++  it("maps provider timeout to timed_out", async () => {
++    const { result } = await runWithAiResult((correlationId) => ({
++      kind: "timed_out",
++      failure: normalizedFailure({
++        family: "timed_out",
++        code: "TIMED_OUT",
++        userMessage: "Bounded timeout",
++        retryable: true,
++        correlationId,
++      }),
++    }));
++    expect(result.run?.state).toBe("timed_out");
++    if (result.ok) throw new Error("expected timed-out result");
++    expect(result.failure.code).toBe("TIMED_OUT");
++  });
++
++  it("maps provider cancellation to cancelled and preserves it after late evidence", async () => {
++    const { result } = await runWithAiResult(
++      (correlationId) => ({
++        kind: "cancelled",
++        failure: normalizedFailure({
++          family: "cancelled",
++          code: "CANCELLED",
++          userMessage: "Bounded cancellation",
++          retryable: false,
++          correlationId,
++        }),
++      }),
++      { lateEvidenceSummary: "late redacted fixture result" },
++    );
++    expect(result.run?.state).toBe("cancelled");
++    if (result.ok) throw new Error("expected cancelled result");
++    expect(result.failure.code).toBe("CANCELLED");
++    expect(result.run?.evidence?.at(-1)?.late).toBe(true);
++  });
++
++  it("fails partial provider success and preserves explicit partiality", async () => {
++    const { result } = await runWithAiResult(() => ({
++      kind: "success",
++      completeness: "partial",
++      redactedSummary: "bounded partial result",
++      rawPresent: false,
++      usage: { status: "unavailable", reason: "partial" },
++      disclosureNotes: ["fixture"],
++    }));
++    expect(result.run?.state).toBe("failed");
++    if (result.ok) throw new Error("expected partial failure");
++    expect(result.failure.code).toBe("INVALID_PROVIDER_RESULT");
++    expect(result.run?.externalResult).toMatchObject({
++      kind: "success",
++      completeness: "partial",
++    });
++    expect(result.run?.state).not.toBe("succeeded");
++  });
++
++  it("rejects an invalid provider result without leaking raw content", async () => {
++    const { result } = await runWithAiResult(
++      () =>
++        ({
++          kind: "success",
++          completeness: "complete",
++          redactedSummary: "password=do-not-leak",
++          rawPresent: true,
++          usage: { status: "unavailable", reason: "invalid" },
++          disclosureNotes: [],
++        }) as ProviderInvocationResult,
++    );
++    expect(result.run?.state).toBe("failed");
++    if (result.ok) throw new Error("expected invalid provider failure");
++    expect(result.failure.code).toBe("INVALID_PROVIDER_RESULT");
++    expect(JSON.stringify(result.run)).not.toContain("do-not-leak");
++  });
++
++  it.each([
++    ["validation_failure", "VALIDATION_ERROR"],
++    ["blocked_gate", "HUMAN_GATE_REQUIRED"],
++    ["protected_path", "PROTECTED_PATH"],
++    ["mutation_forbidden", "MUTATION_FORBIDDEN"],
++    ["source_mismatch", "SOURCE_MISMATCH"],
++  ] as const)("blocks %s before provider invocation", async (scenario, code) => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture(scenario);
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest:
++        fixture.intent.requestedLane === "ai"
++          ? {
++              correlationId: fixture.intent.correlationId,
++              lane: "ai",
++              operation: "complete",
++              messages: [{ role: "user", content: "must not execute" }],
++              timeoutMs: 100,
++            }
++          : undefined,
++      timeoutMs: 100,
++    });
++    expect(result.ok).toBe(false);
++    expect(result.providerInvoked).toBe(false);
++    if (result.ok) throw new Error("expected pre-engagement block");
++    expect(result.failure.code).toBe(code);
++    if (result.run) {
++      expect(result.run.state).toBe("blocked");
++      expect(result.run.evidence).toBeUndefined();
++      expect(result.run.disclosure.source).toBe(
++        fixture.context.declaredSource,
++      );
++    }
++  });
++
++  it("blocks a sensitive provider request at the boundary and redacts output", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const sensitive = "fixture-sensitive-value";
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "safe" }],
++        timeoutMs: 100,
++        apiKey: sensitive,
++      } as never,
++      timeoutMs: 100,
++    });
++    expect(result.ok).toBe(false);
++    expect(result.run).toBeUndefined();
++    expect(result.providerInvoked).toBe(false);
++    expect(JSON.stringify(result)).not.toContain(sensitive);
++    if (result.ok) throw new Error("expected failure");
++    expect(result.failure.code).toBe("VALIDATION_ERROR");
++  });
++
++  it("blocks providerRequest correlationId mismatch before engagement", async () => {
++    const base = composeExecutionRunProvidersFake();
++    let describeCalls = 0;
++    let completeCalls = 0;
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => {
++        describeCalls += 1;
++        return base.ai.describeCapability();
++      },
++      complete: async (request) => {
++        completeCalls += 1;
++        return base.ai.complete(request);
++      },
++    };
++    const composition = composeExecutionRunD2D3({
++      providers: composeExecutionRunProviders({ ...base, ai }),
++    });
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: {
++        ...fixture.intent,
++        correlationId: "corr:neg:intent",
++        intentId: "intent:neg:corr",
++      },
++      context: fixture.context,
++      providerRequest: {
++        correlationId: "corr:neg:request",
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "must not execute" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++    expect(result.ok).toBe(false);
++    expect(result.run).toBeUndefined();
++    expect(result.stateTrace).toEqual([]);
++    expect(result.providerAttempted).toBe(false);
++    expect(result.providerInvoked).toBe(false);
++    expect(result.providerCompleted).toBe(false);
++    expect(describeCalls).toBe(0);
++    expect(completeCalls).toBe(0);
++    if (result.ok) throw new Error("expected correlation mismatch rejection");
++    expect(result.failure.code).toBe("VALIDATION_ERROR");
++    expect(result.failure.family).toBe("validation");
++  });
++
++  it("gives providers no run, repository, save, or transition authority", async () => {
++    const { result, receivedKeys } = await runWithAiResult(() => ({
++      kind: "success",
++      completeness: "complete",
++      redactedSummary: "bounded complete fixture",
++      rawPresent: false,
++      usage: { status: "validated", inputTokens: 1, outputTokens: 1 },
++      disclosureNotes: ["fixture"],
++    }));
++    expect(result.run?.state).toBe("succeeded");
++    expect(receivedKeys).not.toEqual(
++      expect.arrayContaining([
++        "executionRun",
++        "repository",
++        "save",
++        "transitionExecutionRun",
++      ]),
++    );
++    expect(result.stateTrace).toEqual(["idle", "running", "succeeded"]);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
+new file mode 100644
+index 0000000..035ea95
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
+@@ -0,0 +1,102 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { getFixture } from "@/lib/oa/execution-run";
++import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
++
++async function succeededProjection() {
++  const composition = composeExecutionRunD2D3();
++  const fixture = getFixture("nominal");
++  const coordinated = await composition.coordinate({
++    intent: fixture.intent,
++    context: fixture.context,
++    providerRequest: {
++      correlationId: fixture.intent.correlationId,
++      lane: "ai",
++      operation: "complete",
++      messages: [{ role: "user", content: "fixture-only input" }],
++      timeoutMs: 100,
++    },
++    timeoutMs: 100,
++  });
++  if (!coordinated.run) throw new Error("expected run");
++  const projection = await composition.projectById(coordinated.run.runId);
++  if (!projection.ok) throw new Error(projection.failure.message);
++  return projection.projection;
++}
++
++describe("D2-D3 provider-independent projection", () => {
++  it("projects the bounded transport-neutral shape and disclosures", async () => {
++    const projection = await succeededProjection();
++
++    expect(projection).toMatchObject({
++      state: "succeeded",
++      source: "fixture",
++      providerLane: "ai",
++      phase: "terminal",
++      completeness: "complete",
++      cursorUnverified: true,
++      gitWrite: false,
++      persistence: {
++        kind: "memory_process_local",
++        durable: false,
++        multiInstance: false,
++        restartSafe: false,
++      },
++    });
++    expect(projection.evidenceSummary[0]).toMatchObject({
++      official: true,
++      source: "fixture",
++      late: false,
++    });
++    expect(projection.readinessAssessment.uiDelivery.status).toBe(
++      "not_demonstrated",
++    );
++    expect(projection.readinessAssessment.strongRuntimeVerdict.status).toBe(
++      "blocked",
++    );
++  });
++
++  it("contains no executable, SDK, adapter, command, signal, or raw surface", async () => {
++    const projection = await succeededProjection();
++    const seenKeys: string[] = [];
++    const visit = (value: unknown): void => {
++      if (!value || typeof value !== "object") {
++        expect(typeof value).not.toBe("function");
++        return;
++      }
++      for (const [key, nested] of Object.entries(value)) {
++        seenKeys.push(key);
++        expect(typeof nested).not.toBe("function");
++        visit(nested);
++      }
++    };
++    visit(projection);
++
++    expect(seenKeys).not.toEqual(
++      expect.arrayContaining([
++        "sdk",
++        "adapter",
++        "command",
++        "signal",
++        "abortSignal",
++        "rawPrompt",
++        "rawResponse",
++        "rawError",
++        "secret",
++      ]),
++    );
++    expect(JSON.stringify(projection)).not.toMatch(
++      /fixture-only input|AbortSignal|executeFixture|complete\(/,
++    );
++  });
++
++  it("is JSON serializable and exposes no Git write capability", async () => {
++    const projection = await succeededProjection();
++    expect(() => JSON.stringify(projection)).not.toThrow();
++    expect(JSON.parse(JSON.stringify(projection))).toEqual(projection);
++    expect(Object.keys(projection)).not.toContain("gitWriteCommand");
++    expect(projection.gitWrite).toBe(false);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+new file mode 100644
+index 0000000..5ec34c4
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+@@ -0,0 +1,1088 @@
++/**
++ * @vitest-environment node
++ *
++ * Permanent regression matrix for F-QA-D2D3-01…10.
++ * Findings remain OPEN until Critical QA revalidation — these tests prove
++ * technical addressing only.
++ */
++import { describe, expect, it } from "vitest";
++import {
++  assessExecutionReadiness,
++  createExecutionProjection,
++  getFixture,
++  MAX_COORDINATOR_TIMEOUT_MS,
++  normalizedFailure,
++  type AiExecutionPort,
++  type ProviderInvocationResult,
++} from "@/lib/oa/execution-run";
++import {
++  composeExecutionRunD2D3,
++  composeExecutionRunMemory,
++  composeExecutionRunProviders,
++  composeExecutionRunProvidersFake,
++  coordinateExecutionRun,
++} from "@/lib/oa/execution-run/server";
++
++describe("F-QA-D2D3 permanent regression matrix", () => {
++  it("F01 — fake provider cannot be promoted to real via injected availableSources", async () => {
++    const core = composeExecutionRunMemory({
++      clockIso: "2026-08-04T10:00:00.000Z",
++    });
++    const providers = composeExecutionRunProvidersFake();
++    const fixture = getFixture("nominal");
++    const result = await coordinateExecutionRun(
++      {
++        intent: {
++          ...fixture.intent,
++          correlationId: "corr:f01",
++          intentId: "intent:f01",
++          requestedSource: "real",
++        },
++        context: { ...fixture.context, declaredSource: "real" },
++        providerRequest: {
++          correlationId: "corr:f01",
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "must not run" }],
++          timeoutMs: 50,
++        },
++        timeoutMs: 50,
++        availableSources: ["fixture", "real", "sandbox-real"],
++      },
++      {
++        execution: core,
++        providers,
++        events: providers.events,
++        clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
++      },
++    );
++
++    expect(result.ok).toBe(false);
++    expect(result.providerInvoked).toBe(false);
++    expect(result.run).toBeUndefined();
++    if (result.ok) throw new Error("expected failure");
++    expect(result.failure.code).toBe("SOURCE_MISMATCH");
++    expect(JSON.stringify(result)).not.toMatch(/"source":"real"/);
++  });
++
++  it("F02 — UX readiness cannot become demonstrated from boolean-only proofs", () => {
++    const assessment = assessExecutionReadiness({
++      fixturePathDemonstrated: true,
++      projectionDemonstrated: true,
++      disclosuresDemonstrated: true,
++    });
++    expect(assessment.uxExploration.status).toBe("not_demonstrated");
++    expect(assessment.uiDelivery.status).toBe("not_demonstrated");
++    expect(assessment.strongRuntimeVerdict.status).toBe("blocked");
++  });
++
++  it.each([1, 2, 4] as const)(
++    "F03 — sink throw at event %s continues workflow without raw error",
++    async (throwAt) => {
++      const core = composeExecutionRunMemory({
++        clockIso: "2026-08-04T10:00:00.000Z",
++      });
++      const providers = composeExecutionRunProvidersFake();
++      let eventCount = 0;
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => providers.ai.describeCapability(),
++        complete: async (request) => providers.ai.complete(request),
++      };
++      const throwing = composeExecutionRunProviders({
++        ...providers,
++        ai,
++        events: {
++          emit: () => {
++            eventCount += 1;
++            if (eventCount === throwAt) {
++              throw new Error(`sink_raw_${throwAt}`);
++            }
++          },
++        },
++      });
++      const fixture = getFixture("nominal");
++      let rawError = "";
++      let result;
++      try {
++        result = await coordinateExecutionRun(
++          {
++            intent: {
++              ...fixture.intent,
++              correlationId: `corr:f03:${throwAt}`,
++              intentId: `intent:f03:${throwAt}`,
++            },
++            context: fixture.context,
++            providerRequest: {
++              correlationId: `corr:f03:${throwAt}`,
++              lane: "ai",
++              operation: "complete",
++              messages: [{ role: "user", content: "sink" }],
++              timeoutMs: 50,
++            },
++            timeoutMs: 50,
++          },
++          {
++            execution: core,
++            providers: throwing,
++            events: throwing.events,
++            clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
++          },
++        );
++      } catch (error) {
++        rawError = error instanceof Error ? error.message : String(error);
++      }
++
++      expect(rawError).toBe("");
++      expect(result).toBeDefined();
++      const stored = await core.listByCorrelationId(`corr:f03:${throwAt}`);
++      expect(stored.at(-1)?.state).toBe(result!.run?.state);
++      expect(result!.run?.state).toBe("succeeded");
++      expect(result!.ok).toBe(true);
++      expect(result!.eventDelivery.status).toBe("degraded");
++      expect(result!.eventDelivery.failureCount).toBeGreaterThan(0);
++      expect(JSON.stringify(result)).not.toContain(`sink_raw_${throwAt}`);
++    },
++  );
++
++  it("F04 — malicious projection rejects secrets, functions, and claim promotion", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const coordinated = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "proj" }],
++        timeoutMs: 50,
++      },
++      timeoutMs: 50,
++    });
++    expect(coordinated.run?.state).toBe("succeeded");
++    const injectedFunction = () => "executable";
++    const malicious = {
++      run: {
++        ...coordinated.run,
++        externalResult: {
++          kind: "success",
++          completeness: "complete",
++          redactedSummary: "password=projection-plain-secret",
++          rawPresent: false,
++        },
++        blockedReason: "apiKey=projection-key",
++        disclosure: {
++          ...coordinated.run!.disclosure,
++          limits: [injectedFunction],
++        },
++        persistence: {
++          kind: "memory_process_local",
++          durable: true,
++          multiInstance: true,
++          restartSafe: true,
++        },
++        evidence: [
++          {
++            ...coordinated.run!.evidence![0],
++            source: "real",
++            official: false,
++          },
++        ],
++      },
++      openReserves: ["password=reserve-plain-secret"],
++    };
++    const projection = createExecutionProjection(malicious);
++    expect(projection.ok).toBe(false);
++    if (projection.ok) throw new Error("expected rejection");
++    expect(JSON.stringify(projection)).not.toContain("projection-plain-secret");
++    expect(JSON.stringify(projection)).not.toContain("reserve-plain-secret");
++  });
++
++  it("F05 — sensitive late evidence is redacted before persistence", async () => {
++    const base = composeExecutionRunProvidersFake();
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => base.ai.describeCapability(),
++      complete: async (request) => ({
++        kind: "cancelled",
++        failure: normalizedFailure({
++          family: "cancelled",
++          code: "CANCELLED",
++          userMessage: "cancelled",
++          retryable: false,
++          correlationId: request.correlationId,
++        }),
++      }),
++    };
++    const composition = composeExecutionRunD2D3({
++      providers: composeExecutionRunProviders({ ...base, ai }),
++    });
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: {
++        ...fixture.intent,
++        correlationId: "corr:f05",
++        intentId: "intent:f05",
++      },
++      context: fixture.context,
++      providerRequest: {
++        correlationId: "corr:f05",
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "late" }],
++        timeoutMs: 50,
++      },
++      timeoutMs: 50,
++      lateEvidenceSummary: "password=late-plain-secret",
++    });
++
++    expect(result.run?.state).toBe("cancelled");
++    expect(result.lateEvidenceRecorded).toBe(true);
++    const late = result.run?.evidence?.at(-1);
++    expect(late).toMatchObject({
++      late: true,
++      official: true,
++      source: "fixture",
++    });
++    expect(late?.summary).toBe("late_result_redacted");
++    expect(late?.summary).not.toContain("late-plain-secret");
++    expect(JSON.stringify(result)).not.toContain("late-plain-secret");
++  });
++
++  it("F-QA-REV-D2D3-01 — matching correlationId keeps nominal engagement", async () => {
++    const base = composeExecutionRunProvidersFake();
++    let describeCalls = 0;
++    let completeCalls = 0;
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => {
++        describeCalls += 1;
++        return base.ai.describeCapability();
++      },
++      complete: async (request) => {
++        completeCalls += 1;
++        return base.ai.complete(request);
++      },
++    };
++    const composition = composeExecutionRunD2D3({
++      providers: composeExecutionRunProviders({ ...base, ai }),
++    });
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: {
++        ...fixture.intent,
++        correlationId: "corr:rev01:match",
++        intentId: "intent:rev01:match",
++      },
++      context: fixture.context,
++      providerRequest: {
++        correlationId: "corr:rev01:match",
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "match" }],
++        timeoutMs: 50,
++      },
++      timeoutMs: 50,
++    });
++    expect(result.ok).toBe(true);
++    expect(result.run?.state).toBe("succeeded");
++    expect(describeCalls).toBeGreaterThan(0);
++    expect(completeCalls).toBe(1);
++    expect(result.providerInvoked).toBe(true);
++  });
++
++  it.each([
++    {
++      name: "different",
++      requestCorrelationId: "corr:rev01:other",
++      buildRequest: (base: Record<string, unknown>) => ({
++        ...base,
++        correlationId: "corr:rev01:other",
++      }),
++    },
++    {
++      name: "empty",
++      requestCorrelationId: "",
++      buildRequest: (base: Record<string, unknown>) => ({
++        ...base,
++        correlationId: "",
++      }),
++    },
++    {
++      name: "absent",
++      requestCorrelationId: undefined,
++      buildRequest: (base: Record<string, unknown>) => {
++        const { correlationId: _omit, ...rest } = base as {
++          correlationId: string;
++        } & Record<string, unknown>;
++        void _omit;
++        return rest;
++      },
++    },
++    {
++      name: "hostile_getter",
++      requestCorrelationId: "corr:rev01:match",
++      buildRequest: (base: Record<string, unknown>) => {
++        const hostile = Object.create(null);
++        for (const [key, value] of Object.entries(base)) {
++          if (key === "correlationId") {
++            Object.defineProperty(hostile, key, {
++              enumerable: true,
++              get() {
++                return "corr:rev01:hostile";
++              },
++            });
++          } else {
++            Object.defineProperty(hostile, key, {
++              enumerable: true,
++              value,
++              writable: true,
++              configurable: true,
++            });
++          }
++        }
++        return hostile;
++      },
++    },
++    {
++      name: "odd_prototype",
++      requestCorrelationId: "corr:rev01:other",
++      buildRequest: (base: Record<string, unknown>) =>
++        Object.assign(Object.create({ polluted: true }), {
++          ...base,
++          correlationId: "corr:rev01:other",
++        }),
++    },
++  ])(
++    "F-QA-REV-D2D3-01 — correlationId $name rejects before provider engagement",
++    async ({ buildRequest }) => {
++      const base = composeExecutionRunProvidersFake();
++      let describeCalls = 0;
++      let completeCalls = 0;
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => {
++          describeCalls += 1;
++          return base.ai.describeCapability();
++        },
++        complete: async (request) => {
++          completeCalls += 1;
++          return base.ai.complete(request);
++        },
++      };
++      const composition = composeExecutionRunD2D3({
++        providers: composeExecutionRunProviders({ ...base, ai }),
++      });
++      const fixture = getFixture("nominal");
++      const requestBase = {
++        correlationId: "corr:rev01:match",
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "must not run" }],
++        timeoutMs: 50,
++      };
++      const result = await composition.coordinate({
++        intent: {
++          ...fixture.intent,
++          correlationId: "corr:rev01:match",
++          intentId: "intent:rev01:reject",
++        },
++        context: fixture.context,
++        providerRequest: buildRequest(requestBase) as never,
++        timeoutMs: 50,
++      });
++
++      expect(result.ok).toBe(false);
++      expect(result.run).toBeUndefined();
++      expect(result.stateTrace).toEqual([]);
++      expect(result.providerAttempted).toBe(false);
++      expect(result.providerInvoked).toBe(false);
++      expect(result.providerCompleted).toBe(false);
++      expect(describeCalls).toBe(0);
++      expect(completeCalls).toBe(0);
++      expect(result.lateEvidenceRecorded).toBe(false);
++      if (result.ok) throw new Error("expected failure");
++      expect(result.failure.family).toBe("validation");
++      expect(result.failure.code).toBe("VALIDATION_ERROR");
++    },
++  );
++
++  it.each([
++    "password=late-secret",
++    "token=abc",
++    "token : abc",
++    "apiKey=k",
++    "api_key = k",
++    "api-key: k",
++    "Authorization Bearer xyz",
++    "Authorization: Bearer xyz",
++    "bearer xyz",
++    "access_token=abc",
++    "refresh_token=abc",
++    "client_secret=abc",
++    "cookie=session-value",
++    '"apiKey":"value"',
++    "?token=value",
++    "&token=value",
++    "contains private key material",
++    "ghp_abcdefghij",
++    "github_pat_abcdefghij",
++    "sk-abcdefghij",
++    "xoxb-abcdefghij",
++    "ToKeN=AbC",
++    "line1\ntoken=abc\nline3",
++    `${"safe-".repeat(80)}token=abc`,
++    "token=abc\u0000tail",
++    { not: "a string" },
++    null,
++    ["array"],
++    42,
++    true,
++  ])(
++    "F-QA-D2D3-05 / F-QA-REV-D2D3-02 — late secret %j becomes late_result_redacted",
++    async (summary) => {
++      const base = composeExecutionRunProvidersFake();
++      const sensitiveMarkers = [
++        "late-secret",
++        "token=abc",
++        "token : abc",
++        "apiKey=k",
++        "api_key = k",
++        "api-key: k",
++        "Authorization Bearer xyz",
++        "Authorization: Bearer xyz",
++        "bearer xyz",
++        "access_token=abc",
++        "refresh_token=abc",
++        "client_secret=abc",
++        "cookie=session-value",
++        '"apiKey":"value"',
++        "?token=value",
++        "&token=value",
++        "private key",
++        "ghp_abcdefghij",
++        "github_pat_abcdefghij",
++        "sk-abcdefghij",
++        "xoxb-abcdefghij",
++        "ToKeN=AbC",
++        "token=abc",
++      ];
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => base.ai.describeCapability(),
++        complete: async (request) => ({
++          kind: "cancelled",
++          failure: normalizedFailure({
++            family: "cancelled",
++            code: "CANCELLED",
++            userMessage: "cancelled",
++            retryable: false,
++            correlationId: request.correlationId,
++          }),
++        }),
++      };
++      const composition = composeExecutionRunD2D3({
++        providers: composeExecutionRunProviders({ ...base, ai }),
++      });
++      const fixture = getFixture("nominal");
++      const result = await composition.coordinate({
++        intent: {
++          ...fixture.intent,
++          correlationId: "corr:rev02",
++          intentId: "intent:rev02",
++        },
++        context: fixture.context,
++        providerRequest: {
++          correlationId: "corr:rev02",
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "late" }],
++          timeoutMs: 50,
++        },
++        timeoutMs: 50,
++        lateEvidenceSummary: summary as never,
++      });
++
++      expect(result.run?.state).toBe("cancelled");
++      expect(result.lateEvidenceRecorded).toBe(true);
++      const late = result.run?.evidence?.at(-1);
++      expect(late).toMatchObject({
++        late: true,
++        official: true,
++        source: "fixture",
++        summary: "late_result_redacted",
++      });
++      const runJson = JSON.stringify(result.run);
++      const projection = createExecutionProjection({
++        run: result.run!,
++        openReserves: [],
++      });
++      expect(projection.ok).toBe(true);
++      const projJson = JSON.stringify(projection);
++      for (const marker of sensitiveMarkers) {
++        if (typeof summary === "string" && summary.includes(marker)) {
++          expect(runJson).not.toContain(marker);
++          expect(projJson).not.toContain(marker);
++          expect(JSON.stringify(result)).not.toContain(marker);
++        }
++      }
++      if (typeof summary === "string" && summary.includes("session-value")) {
++        expect(runJson).not.toContain("session-value");
++      }
++      if (typeof summary === "string" && summary.includes("late-secret")) {
++        expect(runJson).not.toContain("late-secret");
++      }
++    },
++  );
++
++  it("F06 — invalid intent yields zero describeCapability and zero provider calls", async () => {
++    const base = composeExecutionRunProvidersFake();
++    let describeCalls = 0;
++    let completeCalls = 0;
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => {
++        describeCalls += 1;
++        return base.ai.describeCapability();
++      },
++      complete: async (request) => {
++        completeCalls += 1;
++        return base.ai.complete(request);
++      },
++    };
++    const composition = composeExecutionRunD2D3({
++      providers: composeExecutionRunProviders({ ...base, ai }),
++    });
++    const fixture = getFixture("validation_failure");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "must not run" }],
++        timeoutMs: 50,
++      },
++      timeoutMs: 50,
++    });
++
++    expect(result.ok).toBe(false);
++    expect(describeCalls).toBe(0);
++    expect(completeCalls).toBe(0);
++    expect(result.run).toBeUndefined();
++    expect(result.providerInvoked).toBe(false);
++  });
++
++  it("F07 — hostile request getter is rejected before run creation", async () => {
++    const core = composeExecutionRunMemory({
++      clockIso: "2026-08-04T10:00:00.000Z",
++    });
++    const providers = composeExecutionRunProvidersFake();
++    const fixture = getFixture("nominal");
++    const hostile = Object.create(null);
++    Object.defineProperty(hostile, "lane", {
++      enumerable: true,
++      get() {
++        throw new Error("hostile_request_getter");
++      },
++    });
++    let rawError = "";
++    let result;
++    try {
++      result = await coordinateExecutionRun(
++        {
++          intent: {
++            ...fixture.intent,
++            correlationId: "corr:f07-req",
++            intentId: "intent:f07-req",
++          },
++          context: fixture.context,
++          providerRequest: hostile,
++          timeoutMs: 50,
++        },
++        {
++          execution: core,
++          providers,
++          events: providers.events,
++          clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
++        },
++      );
++    } catch (error) {
++      rawError = error instanceof Error ? error.message : String(error);
++    }
++    const stored = await core.listByCorrelationId("corr:f07-req");
++    expect(rawError).toBe("");
++    expect(result?.ok).toBe(false);
++    expect(result?.providerInvoked).toBe(false);
++    expect(stored).toEqual([]);
++  });
++
++  it("F07 — hostile result getter yields failed terminal without orphan running", async () => {
++    const base = composeExecutionRunProvidersFake();
++    const hostileResult = Object.create(null);
++    Object.defineProperty(hostileResult, "kind", {
++      enumerable: true,
++      get() {
++        throw new Error("hostile_result_getter");
++      },
++    });
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => base.ai.describeCapability(),
++      complete: async () =>
++        hostileResult as unknown as ProviderInvocationResult,
++    };
++    const core = composeExecutionRunMemory({
++      clockIso: "2026-08-04T10:00:00.000Z",
++    });
++    const providers = composeExecutionRunProviders({ ...base, ai });
++    const fixture = getFixture("nominal");
++    let rawError = "";
++    let result;
++    try {
++      result = await coordinateExecutionRun(
++        {
++          intent: {
++            ...fixture.intent,
++            correlationId: "corr:f07-res",
++            intentId: "intent:f07-res",
++          },
++          context: fixture.context,
++          providerRequest: {
++            correlationId: "corr:f07-res",
++            lane: "ai",
++            operation: "complete",
++            messages: [{ role: "user", content: "hostile" }],
++            timeoutMs: 50,
++          },
++          timeoutMs: 50,
++        },
++        {
++          execution: core,
++          providers,
++          events: providers.events,
++          clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
++        },
++      );
++    } catch (error) {
++      rawError = error instanceof Error ? error.message : String(error);
++    }
++    const stored = await core.listByCorrelationId("corr:f07-res");
++    expect(rawError).toBe("");
++    expect(result?.run?.state).toBe("failed");
++    expect(stored.at(-1)?.state).toBe("failed");
++    expect(stored.at(-1)?.state).not.toBe("running");
++    expect(JSON.stringify(result)).not.toContain("hostile_result_getter");
++  });
++
++  it("F08 — pre-cancellation reports providerInvoked=false with zero calls", async () => {
++    const base = composeExecutionRunProvidersFake();
++    let calls = 0;
++    const ai: AiExecutionPort = {
++      lane: "ai",
++      describeCapability: () => base.ai.describeCapability(),
++      complete: async (request) => {
++        calls += 1;
++        return base.ai.complete(request);
++      },
++    };
++    const composition = composeExecutionRunD2D3({
++      providers: composeExecutionRunProviders({ ...base, ai }),
++    });
++    const fixture = getFixture("nominal");
++    const controller = new AbortController();
++    controller.abort();
++    const result = await composition.coordinate({
++      intent: {
++        ...fixture.intent,
++        correlationId: "corr:f08",
++        intentId: "intent:f08",
++      },
++      context: fixture.context,
++      providerRequest: {
++        correlationId: "corr:f08",
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "cancel" }],
++        timeoutMs: 50,
++      },
++      timeoutMs: 50,
++      signal: controller.signal,
++    });
++
++    expect(result.run?.state).toBe("cancelled");
++    expect(calls).toBe(0);
++    expect(result.providerAttempted).toBe(true);
++    expect(result.providerInvoked).toBe(false);
++    expect(result.providerCompleted).toBe(false);
++  });
++
++  it.each([0, -1, Number.NaN, Number.POSITIVE_INFINITY, 1.5, MAX_COORDINATOR_TIMEOUT_MS + 1])(
++    "F09 — invalid timeout %s creates no run and invokes nothing",
++    async (timeoutMs) => {
++      const base = composeExecutionRunProvidersFake();
++      let describeCalls = 0;
++      let completeCalls = 0;
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => {
++          describeCalls += 1;
++          return base.ai.describeCapability();
++        },
++        complete: async (request) => {
++          completeCalls += 1;
++          return base.ai.complete(request);
++        },
++      };
++      const composition = composeExecutionRunD2D3({
++        providers: composeExecutionRunProviders({ ...base, ai }),
++      });
++      const fixture = getFixture("nominal");
++      const result = await composition.coordinate({
++        intent: {
++          ...fixture.intent,
++          correlationId: `corr:f09:${String(timeoutMs)}`,
++          intentId: `intent:f09:${String(timeoutMs)}`,
++        },
++        context: fixture.context,
++        providerRequest: {
++          correlationId: `corr:f09:${String(timeoutMs)}`,
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "timeout" }],
++          timeoutMs: 50,
++        },
++        timeoutMs,
++      });
++      expect(result.ok).toBe(false);
++      expect(result.run).toBeUndefined();
++      expect(result.providerInvoked).toBe(false);
++      expect(describeCalls).toBe(0);
++      expect(completeCalls).toBe(0);
++      if (result.ok) throw new Error("expected failure");
++      expect(result.failure.code).toBe("VALIDATION_ERROR");
++    },
++  );
++
++  it("F09 — valid timeout still succeeds", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: {
++        ...fixture.intent,
++        correlationId: "corr:f09:ok",
++        intentId: "intent:f09:ok",
++      },
++      context: fixture.context,
++      providerRequest: {
++        correlationId: "corr:f09:ok",
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "ok" }],
++        timeoutMs: 50,
++      },
++      timeoutMs: 50,
++    });
++    expect(result.ok).toBe(true);
++    expect(result.run?.state).toBe("succeeded");
++  });
++
++  it.each([
++    "projects/sfia-studio/%2e%2e/.env",
++    "%2e%2e/.env",
++    "%252e%252e/.env",
++    "projects\\sfia-studio\\%2e%2e\\.env",
++    "%2fetc%2fpasswd",
++    "projects/sfia-studio/%00.env",
++    "projects/sfia-studio/%zz",
++  ])("F10 — encoded hostile path %s is blocked before provider", async (path) => {
++    const base = composeExecutionRunProvidersFake();
++    let calls = 0;
++    const composition = composeExecutionRunD2D3({
++      providers: composeExecutionRunProviders({
++        ...base,
++        git: {
++          ...base.git,
++          read: async (request) => {
++            calls += 1;
++            return base.git.read(request);
++          },
++        },
++      }),
++    });
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: {
++        ...fixture.intent,
++        intentId: `intent:f10:${path}`,
++        correlationId: `corr:f10:${path}`,
++        requestedLane: "git",
++      },
++      context: fixture.context,
++      providerRequest: {
++        correlationId: `corr:f10:${path}`,
++        lane: "git",
++        operation: "read",
++        owner: "o",
++        repo: "r",
++        kind: "path_meta",
++        path,
++        timeoutMs: 50,
++      },
++      timeoutMs: 50,
++    });
++    expect(result.ok).toBe(false);
++    expect(calls).toBe(0);
++    expect(result.providerInvoked).toBe(false);
++    expect(result.run?.evidence).toBeUndefined();
++    expect(result.run?.state === "succeeded").toBe(false);
++  });
++
++  it.each([
++    '{"token":"value"}',
++    '{"token":123}',
++    '{"token":true}',
++    '{"token":null}',
++    '{"token":[]}',
++    '{"token":{}}',
++    '{"access_token":"value"}',
++    '{"access-token":"value"}',
++    '{"refresh_token":"value"}',
++    '{"refresh-token":"value"}',
++    '{"client_secret":"value"}',
++    '{"client-secret":"value"}',
++    '{"apiKey":"value"}',
++    '{"api_key":"value"}',
++    '{"api-key":"value"}',
++    '{"authorization":"Bearer value"}',
++    '{"cookie":"value"}',
++    '{"session":"value"}',
++    "'token':'value'",
++    '{"ToKeN":"value"}',
++    '{"token" : "value"}',
++    '{"token"\t:\t"value"}',
++    '{\n"token": "value"\n}',
++    `${"a".repeat(250)}{"token":"secret-after-240"}`,
++  ])(
++    "F-QA-REV2-D2D3-01 — structured secret %j → late_result_redacted",
++    async (summary) => {
++      const base = composeExecutionRunProvidersFake();
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => base.ai.describeCapability(),
++        complete: async (request) => ({
++          kind: "cancelled",
++          failure: normalizedFailure({
++            family: "cancelled",
++            code: "CANCELLED",
++            userMessage: "cancelled",
++            retryable: false,
++            correlationId: request.correlationId,
++          }),
++        }),
++      };
++      const composition = composeExecutionRunD2D3({
++        providers: composeExecutionRunProviders({ ...base, ai }),
++      });
++      const fixture = getFixture("nominal");
++      const result = await composition.coordinate({
++        intent: {
++          ...fixture.intent,
++          correlationId: "corr:rev2:01",
++          intentId: "intent:rev2:01",
++        },
++        context: fixture.context,
++        providerRequest: {
++          correlationId: "corr:rev2:01",
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "late" }],
++          timeoutMs: 50,
++        },
++        timeoutMs: 50,
++        lateEvidenceSummary: summary,
++      });
++      expect(result.run?.state).toBe("cancelled");
++      expect(result.lateEvidenceRecorded).toBe(true);
++      expect(result.run?.evidence?.at(-1)).toMatchObject({
++        late: true,
++        official: true,
++        source: "fixture",
++        summary: "late_result_redacted",
++      });
++      const blob = JSON.stringify(result);
++      expect(result.run?.evidence?.at(-1)?.summary).toBe("late_result_redacted");
++      if (summary.includes("secret-after-240")) {
++        expect(blob).not.toContain("secret-after-240");
++      }
++      if (summary.includes("Bearer value")) {
++        expect(blob).not.toContain("Bearer value");
++      }
++      expect(blob).not.toMatch(
++        /['"](?:password|secret|token|access[_-]token|refresh[_-]token|client[_-]secret|api[_-]?key|authorization|cookie|session)['"]\s*:\s*[^,\}\s]/i,
++      );
++      const projection = createExecutionProjection({
++        run: result.run!,
++        openReserves: [],
++      });
++      expect(projection.ok).toBe(true);
++      expect(JSON.stringify(projection)).not.toContain("secret-after-240");
++      expect(JSON.stringify(projection)).not.toContain("Bearer value");
++    },
++  );
++
++  it.each([
++    '{"status":"complete"}',
++    '{"tokenCount":12}',
++    '{"authorizationStatus":"missing"}',
++    '{"sessionCount":1}',
++    '{"cookiePolicy":"strict"}',
++    '{"apiVersion":"v1"}',
++  ])(
++    "F-QA-REV2-D2D3-01 — non-sensitive structured %j preserved (not over-redacted)",
++    async (summary) => {
++      const base = composeExecutionRunProvidersFake();
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => base.ai.describeCapability(),
++        complete: async (request) => ({
++          kind: "cancelled",
++          failure: normalizedFailure({
++            family: "cancelled",
++            code: "CANCELLED",
++            userMessage: "cancelled",
++            retryable: false,
++            correlationId: request.correlationId,
++          }),
++        }),
++      };
++      const composition = composeExecutionRunD2D3({
++        providers: composeExecutionRunProviders({ ...base, ai }),
++      });
++      const fixture = getFixture("nominal");
++      const result = await composition.coordinate({
++        intent: {
++          ...fixture.intent,
++          correlationId: "corr:rev2:safe",
++          intentId: "intent:rev2:safe",
++        },
++        context: fixture.context,
++        providerRequest: {
++          correlationId: "corr:rev2:safe",
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "late" }],
++          timeoutMs: 50,
++        },
++        timeoutMs: 50,
++        lateEvidenceSummary: summary,
++      });
++      expect(result.run?.state).toBe("cancelled");
++      expect(result.lateEvidenceRecorded).toBe(true);
++      expect(result.run?.evidence?.at(-1)?.summary).toBe(summary);
++      expect(result.run?.evidence?.at(-1)?.summary).not.toBe(
++        "late_result_redacted",
++      );
++    },
++  );
++
++  it.each([
++    {
++      name: "function",
++      build: () => {
++        const input: Record<string, unknown> = {
++          intent: null,
++          context: null,
++          providerRequest: null,
++          timeoutMs: 50,
++        };
++        // placeholders replaced below
++        return { kind: "function" as const, late: (() => "fn") as unknown };
++      },
++    },
++    {
++      name: "symbol",
++      build: () => ({ kind: "symbol" as const, late: Symbol("x") as unknown }),
++    },
++    {
++      name: "getter",
++      build: () => ({ kind: "getter" as const }),
++    },
++    {
++      name: "odd_prototype",
++      build: () => ({ kind: "odd_prototype" as const }),
++    },
++  ])(
++    "F-QA-REV2-D2D3-02 — arbitrated fail-closed hostile envelope ($name)",
++    async ({ name, build }) => {
++      const base = composeExecutionRunProvidersFake();
++      let describeCalls = 0;
++      let completeCalls = 0;
++      const ai: AiExecutionPort = {
++        lane: "ai",
++        describeCapability: () => {
++          describeCalls += 1;
++          return base.ai.describeCapability();
++        },
++        complete: async (request) => {
++          completeCalls += 1;
++          return base.ai.complete(request);
++        },
++      };
++      const composition = composeExecutionRunD2D3({
++        providers: composeExecutionRunProviders({ ...base, ai }),
++      });
++      const fixture = getFixture("nominal");
++      const built = build();
++      const coordInput: Record<string, unknown> = {
++        intent: {
++          ...fixture.intent,
++          correlationId: "corr:rev2:02",
++          intentId: "intent:rev2:02",
++        },
++        context: fixture.context,
++        providerRequest: {
++          correlationId: "corr:rev2:02",
++          lane: "ai",
++          operation: "complete",
++          messages: [{ role: "user", content: "must not run" }],
++          timeoutMs: 50,
++        },
++        timeoutMs: 50,
++      };
++      if (built.kind === "function" || built.kind === "symbol") {
++        coordInput.lateEvidenceSummary = built.late;
++      } else if (built.kind === "getter") {
++        Object.defineProperty(coordInput, "lateEvidenceSummary", {
++          enumerable: true,
++          configurable: true,
++          get() {
++            return "hostile-getter-value";
++          },
++        });
++      } else {
++        // Nested non-plain object forces envelope untrusted rejection.
++        coordInput.lateEvidenceSummary = Object.assign(
++          Object.create({ polluted: true }),
++          { nested: "hostile-proto-value" },
++        );
++      }
++      const result = await composition.coordinate(coordInput as never);
++      expect(result.ok).toBe(false);
++      expect(result.run).toBeUndefined();
++      expect(result.stateTrace).toEqual([]);
++      expect(result.providerAttempted).toBe(false);
++      expect(result.providerInvoked).toBe(false);
++      expect(result.providerCompleted).toBe(false);
++      expect(result.lateEvidenceRecorded).toBe(false);
++      expect(describeCalls).toBe(0);
++      expect(completeCalls).toBe(0);
++      if (result.ok) throw new Error("expected failure");
++      expect(result.failure.family).toBe("validation");
++      expect(JSON.stringify(result)).not.toContain("hostile-getter-value");
++      expect(JSON.stringify(result)).not.toContain("hostile-proto-value");
++    },
++  );
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
+new file mode 100644
+index 0000000..181f927
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
+@@ -0,0 +1,123 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  assessExecutionReadiness,
++  D2D3_OPEN_RESERVES,
++  getFixture,
++} from "@/lib/oa/execution-run";
++import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
++
++describe("D2-D3 bounded readiness assessment", () => {
++  it("rejects boolean-only proofs as not demonstrated", () => {
++    const assessment = assessExecutionReadiness({
++      fixturePathDemonstrated: true,
++      projectionDemonstrated: true,
++      disclosuresDemonstrated: true,
++    });
++    expect(assessment.uxExploration.status).toBe("not_demonstrated");
++  });
++
++  it("demonstrates UX exploration only with linked run, projection, and evidence", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "readiness fixture" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++    expect(result.run?.state).toBe("succeeded");
++    const assessment = await composition.assessById(result.run!.runId);
++    expect(assessment.uxExploration.status).toBe("demonstrated");
++  });
++
++  it("keeps UI delivery not demonstrated and strong runtime blocked", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "bounded" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++    const assessment = await composition.assessById(result.run!.runId);
++
++    expect(assessment.uiDelivery.status).toBe("not_demonstrated");
++    expect(assessment.strongRuntimeVerdict.status).toBe("blocked");
++    expect(assessment.strongRuntimeVerdict.reasons).toEqual([
++      "G-D2D-CURSOR-01 not consumed",
++      "G-D2D-PERSIST-01 not consumed",
++      "Cursor unverified",
++      "memory is process-local",
++      "no live provider proof",
++    ]);
++  });
++
++  it("carries every inherited reserve without lifting it", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "reserves" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++    const assessment = await composition.assessById(result.run!.runId);
++
++    expect(assessment.openReserves).toEqual(D2D3_OPEN_RESERVES);
++    expect(assessment.openReserves).toHaveLength(6);
++  });
++
++  it("uses only the three bounded statuses and makes no excessive claim", async () => {
++    const composition = composeExecutionRunD2D3();
++    const fixture = getFixture("nominal");
++    const result = await composition.coordinate({
++      intent: fixture.intent,
++      context: fixture.context,
++      providerRequest: {
++        correlationId: fixture.intent.correlationId,
++        lane: "ai",
++        operation: "complete",
++        messages: [{ role: "user", content: "status" }],
++        timeoutMs: 100,
++      },
++      timeoutMs: 100,
++    });
++    const assessment = await composition.assessById(result.run!.runId);
++    const statuses = [
++      assessment.uxExploration.status,
++      assessment.uiDelivery.status,
++      assessment.strongRuntimeVerdict.status,
++    ];
++    const serialized = JSON.stringify(assessment);
++
++    expect(statuses).toEqual([
++      "demonstrated",
++      "not_demonstrated",
++      "blocked",
++    ]);
++    expect(serialized).not.toMatch(
++      /production-ready|RUN READY|multi-instance ready|restart-safe|Cursor verified/i,
++    );
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+index 046d5ce..576338c 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+@@ -52,7 +52,7 @@ describe("D2-D1 execution-run import boundaries", () => {
+     for (const file of files) {
+       for (const line of importsOf(file)) {
+         if (
+-          /from\s+["'].*\/infrastructure\/|from\s+["']ajv|openai|@octokit|cursor|node:|from\s+["']next|from\s+["']react/.test(
++          /from\s+["'].*\/infrastructure\/|from\s+["']ajv|openai|@octokit|@cursor\/|node:|from\s+["']next|from\s+["']react/.test(
+             line,
+           )
+         ) {
+@@ -170,3 +170,67 @@ describe("D2-D2 execution-run provider boundary imports", () => {
+     expect(barrel).not.toMatch(/materializeForServerOnly/);
+   });
+ });
++
++describe("D2-D3 coordination and projection boundaries", () => {
++  it("keeps application code free of Node, Next, SDK, process, and infrastructure imports", () => {
++    const files = [
++      "application/coordinateExecutionRun.ts",
++      "application/executionProjection.ts",
++      "application/executionReadiness.ts",
++      "application/untrustedExecutionData.ts",
++    ];
++    for (const relative of files) {
++      const src = fs.readFileSync(path.join(MODULE_ROOT, relative), "utf8");
++      expect(src).not.toMatch(
++        /from\s+["'](?:node:|next|openai|@octokit)|\bchild_process\b|\bprocess\.|\binfrastructure\//,
++      );
++    }
++  });
++
++  it("keeps the concrete D2-D3 composition out of the public barrel", () => {
++    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
++    expect(barrel).not.toMatch(/composeExecutionRunD2D3/);
++    expect(barrel).not.toMatch(/composeExecutionRunProviders/);
++    expect(barrel).not.toMatch(/MemoryExecutionRunRepository/);
++    // Coordinator function must not be re-exported; timeout bound may import the module path.
++    expect(barrel).not.toMatch(
++      /export\s*\{[^}]*\bcoordinateExecutionRun\b[^}]*\}\s*from/,
++    );
++    expect(barrel).not.toMatch(/availableSources/);
++  });
++
++  it("reuses the existing single memory authority without a new store or repository", () => {
++    const src = fs.readFileSync(
++      path.join(MODULE_ROOT, "server/composeExecutionRunD2D3.ts"),
++      "utf8",
++    );
++    expect(src).toMatch(/composeExecutionRunMemory/);
++    expect(src).not.toMatch(/new\s+MemoryExecutionRunStore/);
++    expect(src).not.toMatch(/new\s+MemoryExecutionRunRepository/);
++    expect(src).not.toMatch(/\.save\(/);
++    expect(src).not.toMatch(/availableSources/);
++  });
++
++  it("gives the coordinator only create and transition state authority", () => {
++    const src = fs.readFileSync(
++      path.join(MODULE_ROOT, "application/coordinateExecutionRun.ts"),
++      "utf8",
++    );
++    expect(src).toMatch(/createExecutionRun/);
++    expect(src).toMatch(/transitionExecutionRun/);
++    expect(src).not.toMatch(/\.save\(/);
++    expect(src).not.toMatch(/Object\.assign\([^)]*run/);
++    expect(src).not.toMatch(/\brun\.state\s*=/);
++    expect(src).not.toMatch(/availableSources:/);
++  });
++
++  it("keeps projection pure and free of secret materializers and transports", () => {
++    const src = fs.readFileSync(
++      path.join(MODULE_ROOT, "application/executionProjection.ts"),
++      "utf8",
++    );
++    expect(src).not.toMatch(
++      /materialize|NextResponse|fetch\(|from\s+["'](?:node:|next)/i,
++    );
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
+index 238a4d5..0bc230b 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
+@@ -67,6 +67,57 @@ describe("D2D2-08 sandbox contract fixture", () => {
+     ).toBe(false);
+   });
 
-- fermeture formelle Morris / LIFTED
-- Cursor verified / provider live / durable / RUN READY / production-ready
-- chronologie parfaite du handoff Corr3 (TIME-01)
++  it("blocks percent-encoded traversal and protected paths", () => {
++    expect(
++      evaluateSandboxPath({
++        path: "projects/sfia-studio/%2e%2e/.env",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(false);
++    expect(
++      evaluateSandboxPath({
++        path: "%2e%2e/.env",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(false);
++    expect(
++      evaluateSandboxPath({
++        path: "%252e%252e/.env",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(false);
++    expect(
++      evaluateSandboxPath({
++        path: "projects\\sfia-studio\\%2e%2e\\.env",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(false);
++    expect(
++      evaluateSandboxPath({
++        path: "%2fetc%2fpasswd",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(false);
++    expect(
++      evaluateSandboxPath({
++        path: "projects/sfia-studio/%00.env",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(false);
++    expect(
++      evaluateSandboxPath({
++        path: "projects/sfia-studio/%zz",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(false);
++    expect(
++      evaluateSandboxPath({
++        path: "projects/sfia-studio/app/lib/oa/execution-run/index.ts",
++        allowlistRepos: ["projects/sfia-studio/"],
++      }).allowed,
++    ).toBe(true);
++  });
++
+   it("blocks git write and arbitrary commands", () => {
+     expect(
+       evaluateSandboxMutationGuards({
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+new file mode 100644
+index 0000000..047a184
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+@@ -0,0 +1,1086 @@
++import { normalizedFailure } from "../domain/errors";
++import {
++  validateUntrustedProviderRequest,
++  validateUntrustedProviderResult,
++} from "../domain/providerBoundary";
++import { evaluateSandboxPath } from "../domain/sandboxContract";
++import type {
++  ExecutionContext,
++  ExecutionIntent,
++  ExecutionRun,
++  ExecutionSource,
++  NormalizedFailure,
++  ProviderCapabilityDescriptor,
++  ProviderLane,
++  UsageSummary,
++} from "../domain/types";
++import type { ClockPort } from "../ports/clockPort";
++import type { CursorExecutionPort } from "../ports/cursorExecutionPort";
++import type {
++  ExecutionEvent,
++  ExecutionEventSinkPort,
++} from "../ports/executionEventSinkPort";
++import type { GitReadPort } from "../ports/gitReadPort";
++import type { AiExecutionPort } from "../ports/aiExecutionPort";
++import type {
++  AiCompletionRequest,
++  CursorFixtureRequest,
++  GitReadRequest,
++  ProviderInvocationResult,
++} from "../ports/providerResult";
++import {
++  invokeWithTimeoutAndCancellation,
++  type InvokeOutcome,
++} from "./providerInvocation";
++import type { CreateExecutionRunResult } from "./createExecutionRun";
++import type { TransitionExecutionRunResult } from "./transitionExecutionRun";
++import {
++  readUntrustedPlainData,
++  sanitizeLateEvidenceSummary,
++} from "./untrustedExecutionData";
++
++/**
++ * Local D2-D3 implementation bound only.
++ * Not a platform-wide timeout decision; future extension requires a dedicated cycle.
++ */
++export const MAX_COORDINATOR_TIMEOUT_MS = 60_000;
++
++export type CoordinateProviderRequest =
++  | AiCompletionRequest
++  | GitReadRequest
++  | CursorFixtureRequest;
++
++export type ExecutionAuthority = {
++  readonly createExecutionRun: (
++    input: unknown,
++  ) => Promise<CreateExecutionRunResult>;
++  readonly transitionExecutionRun: (
++    input: unknown,
++  ) => Promise<TransitionExecutionRunResult>;
++};
++
++/**
++ * Injection surface for the coordinator.
++ * `availableSources` is intentionally absent — D2-D3 proves fixture only via
++ * internal preflight, never via caller-supplied source authority.
++ */
++export type CoordinateExecutionRunDependencies = {
++  readonly execution: ExecutionAuthority;
++  readonly providers: {
++    readonly ai: AiExecutionPort;
++    readonly git: GitReadPort;
++    readonly cursor: CursorExecutionPort;
++  };
++  readonly events: ExecutionEventSinkPort;
++  readonly clock: ClockPort;
++};
++
++export type CoordinateExecutionRunInput = {
++  readonly intent: ExecutionIntent;
++  readonly context: ExecutionContext;
++  readonly providerRequest?: CoordinateProviderRequest;
++  readonly timeoutMs: number;
++  readonly signal?: AbortSignal;
++  /** Deterministic evidence-only simulation after a failed/cancelled/timed-out terminal. */
++  readonly lateEvidenceSummary?: string;
++};
++
++export type EventDeliveryStatus = "complete" | "degraded";
++
++export type CoordinateExecutionRunResult =
++  | {
++      readonly ok: true;
++      readonly run: ExecutionRun;
++      readonly providerAttempted: boolean;
++      readonly providerInvoked: boolean;
++      readonly providerCompleted: boolean;
++      readonly stateTrace: readonly ExecutionRun["state"][];
++      readonly validatedUsage: UsageSummary;
++      readonly lateEvidenceRecorded: boolean;
++      readonly eventDelivery: {
++        readonly status: EventDeliveryStatus;
++        readonly failureCount: number;
++      };
++    }
++  | {
++      readonly ok: false;
++      readonly failure: NormalizedFailure;
++      readonly run?: ExecutionRun;
++      readonly providerAttempted: boolean;
++      readonly providerInvoked: boolean;
++      readonly providerCompleted: boolean;
++      readonly stateTrace: readonly ExecutionRun["state"][];
++      readonly validatedUsage: UsageSummary;
++      readonly lateEvidenceRecorded: boolean;
++      readonly eventDelivery: {
++        readonly status: EventDeliveryStatus;
++        readonly failureCount: number;
++      };
++    };
++
++type PreflightOk = {
++  readonly ok: true;
++  readonly intent: ExecutionIntent;
++  readonly context: ExecutionContext;
++  readonly providerRequest: CoordinateProviderRequest | undefined;
++  readonly timeoutMs: number;
++  readonly signal: AbortSignal | undefined;
++  readonly lateEvidenceSummary: unknown;
++  readonly correlationId: string;
++};
++
++type PreflightFail = {
++  readonly ok: false;
++  readonly failure: NormalizedFailure;
++};
++
++type EventTracker = {
++  failureCount: number;
++};
++
++const ALLOWED_LANES: readonly ProviderLane[] = ["ai", "git", "cursor", "none"];
++const ALLOWED_SOURCES: readonly ExecutionSource[] = [
++  "fixture",
++  "sandbox-real",
++  "real",
++];
++
++function unavailableUsage(reason: string): UsageSummary {
++  return { status: "unavailable", reason };
++}
++
++function validatedUsage(input: unknown): UsageSummary {
++  if (!input || typeof input !== "object") {
++    return unavailableUsage("provider_usage_unavailable");
++  }
++  const usage = input as Record<string, unknown>;
++  if (usage.status !== "validated") {
++    return unavailableUsage("provider_usage_unavailable");
++  }
++  for (const key of ["inputTokens", "outputTokens"] as const) {
++    const value = usage[key];
++    if (
++      value !== undefined &&
++      (typeof value !== "number" || !Number.isFinite(value) || value < 0)
++    ) {
++      return unavailableUsage("provider_usage_invalid");
++    }
++  }
++  if (usage.unit !== undefined && typeof usage.unit !== "string") {
++    return unavailableUsage("provider_usage_invalid");
++  }
++  return {
++    status: "validated",
++    inputTokens: usage.inputTokens as number | undefined,
++    outputTokens: usage.outputTokens as number | undefined,
++    unit: usage.unit as string | undefined,
++  };
++}
++
++function invalidProviderFailure(correlationId: string): NormalizedFailure {
++  return normalizedFailure({
++    family: "invalid_provider_result",
++    code: "INVALID_PROVIDER_RESULT",
++    userMessage: "Provider returned an invalid or incomplete result",
++    retryable: false,
++    correlationId,
++  });
++}
++
++function validationFailure(
++  correlationId: string,
++  userMessage: string,
++): NormalizedFailure {
++  return normalizedFailure({
++    family: "validation",
++    code: "VALIDATION_ERROR",
++    userMessage,
++    retryable: false,
++    correlationId,
++  });
++}
++
++function emptyDiagnostics(tracker: EventTracker) {
++  return {
++    providerAttempted: false,
++    providerInvoked: false,
++    providerCompleted: false,
++    stateTrace: [] as ExecutionRun["state"][],
++    validatedUsage: unavailableUsage("not_validated"),
++    lateEvidenceRecorded: false,
++    eventDelivery: {
++      status: (tracker.failureCount > 0
++        ? "degraded"
++        : "complete") as EventDeliveryStatus,
++      failureCount: tracker.failureCount,
++    },
++  };
++}
++
++function safeEmit(
++  deps: CoordinateExecutionRunDependencies,
++  tracker: EventTracker,
++  run: ExecutionRun,
++  event: Pick<ExecutionEvent, "type" | "detail">,
++): void {
++  try {
++    const result = deps.events.emit({
++      ...event,
++      correlationId: run.correlationId,
++      runId: run.runId,
++      providerLane: run.disclosure.providerLane,
++      occurredAt: deps.clock.nowIso(),
++    }) as unknown;
++    if (
++      result !== null &&
++      result !== undefined &&
++      typeof result === "object" &&
++      typeof (result as { then?: unknown }).then === "function"
++    ) {
++      void Promise.resolve(result).catch(() => {
++        tracker.failureCount += 1;
++      });
++    }
++  } catch {
++    tracker.failureCount += 1;
++  }
++}
++
++function describeCapabilitySafe(
++  lane: ProviderLane,
++  deps: CoordinateExecutionRunDependencies,
++  correlationId: string,
++):
++  | { ok: true; capability: ProviderCapabilityDescriptor }
++  | { ok: false; failure: NormalizedFailure } {
++  try {
++    const described =
++      lane === "ai"
++        ? deps.providers.ai.describeCapability()
++        : lane === "git"
++          ? deps.providers.git.describeCapability()
++          : deps.providers.cursor.describeCapability();
++    const copied = readUntrustedPlainData(described, { redact: false });
++    if (!copied.ok || !copied.value || typeof copied.value !== "object") {
++      return {
++        ok: false,
++        failure: validationFailure(
++          correlationId,
++          "Provider capability descriptor rejected",
++        ),
++      };
++    }
++    const desc = copied.value as Record<string, unknown>;
++    return {
++      ok: true,
++      capability: {
++        lane,
++        capabilityId:
++          typeof desc.capabilityId === "string"
++            ? desc.capabilityId
++            : "unknown",
++        available: desc.available === true,
++        verified: false,
++        readOnly: desc.readOnly === true,
++        supportsCancellation: desc.supportsCancellation === true,
++        supportsTimeout: desc.supportsTimeout === true,
++      },
++    };
++  } catch {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "provider_unavailable",
++        code: "PROVIDER_UNAVAILABLE",
++        userMessage: "Provider capability description failed",
++        retryable: true,
++        correlationId,
++      }),
++    };
++  }
++}
++
++function validateTimeout(
++  value: unknown,
++  correlationId: string,
++): { ok: true; timeoutMs: number } | { ok: false; failure: NormalizedFailure } {
++  if (
++    typeof value !== "number" ||
++    !Number.isFinite(value) ||
++    !Number.isInteger(value) ||
++    value <= 0 ||
++    value > MAX_COORDINATOR_TIMEOUT_MS
++  ) {
++    return {
++      ok: false,
++      failure: validationFailure(
++        correlationId,
++        "Coordinator timeoutMs must be a positive integer within the local D2-D3 bound",
++      ),
++    };
++  }
++  return { ok: true, timeoutMs: value };
++}
++
++function validatePathField(
++  path: unknown,
++  correlationId: string,
++  allowlistRepos: readonly string[] | undefined,
++  protectedPaths: readonly string[] | undefined,
++): NormalizedFailure | undefined {
++  if (path === undefined) return undefined;
++  const decision = evaluateSandboxPath({
++    path,
++    allowlistRepos: allowlistRepos ?? ["projects/sfia-studio/"],
++    protectedPaths: protectedPaths ?? [".env"],
++  });
++  if (!decision.allowed) {
++    return normalizedFailure({
++      family:
++        decision.reason === "protected" || decision.reason === "traversal"
++          ? "protected_path"
++          : "validation",
++      code:
++        decision.reason === "protected" || decision.reason === "traversal"
++          ? "PROTECTED_PATH"
++          : "VALIDATION_ERROR",
++      userMessage: "Path failed sandbox normalization or protection checks",
++      retryable: false,
++      correlationId,
++    });
++  }
++  return undefined;
++}
++
++/**
++ * Preflight without provider ports: safe-read, timeout, intent/context/source,
++ * lane, correlation, provider request shape, and path guards.
++ */
++function preflightCoordinateInput(input: unknown): PreflightOk | PreflightFail {
++  const unknownCid = "unknown";
++  if (input === null || input === undefined || typeof input !== "object" || Array.isArray(input)) {
++    return {
++      ok: false,
++      failure: validationFailure(unknownCid, "Coordinator input rejected"),
++    };
++  }
++
++  // AbortSignal is a host object — extract by identity before plain-data copy.
++  const signalCandidate = (input as { signal?: unknown }).signal;
++  const signal =
++    signalCandidate instanceof AbortSignal ? signalCandidate : undefined;
++
++  const plainInput: Record<string, unknown> = {};
++  for (const key of Object.getOwnPropertyNames(input)) {
++    if (key === "signal") continue;
++    const desc = Object.getOwnPropertyDescriptor(input, key);
++    if (!desc || desc.get !== undefined || desc.set !== undefined) {
++      return {
++        ok: false,
++        failure: validationFailure(unknownCid, "Coordinator input rejected"),
++      };
++    }
++    plainInput[key] = desc.value;
++  }
++
++  const envelope = readUntrustedPlainData(plainInput, {
++    redact: false,
++    maxStringLength: 100_000,
++  });
++  if (!envelope.ok || !envelope.value || typeof envelope.value !== "object") {
++    return {
++      ok: false,
++      failure: validationFailure(unknownCid, "Coordinator input rejected"),
++    };
++  }
++  const raw = envelope.value as Record<string, unknown>;
++  // Ignore any injected availableSources property — never treat it as authority.
++  const intentRaw = raw.intent;
++  const contextRaw = raw.context;
++  if (!intentRaw || typeof intentRaw !== "object" || Array.isArray(intentRaw)) {
++    return {
++      ok: false,
++      failure: validationFailure(unknownCid, "intent required"),
++    };
++  }
++  if (
++    !contextRaw ||
++    typeof contextRaw !== "object" ||
++    Array.isArray(contextRaw)
++  ) {
++    return {
++      ok: false,
++      failure: validationFailure(unknownCid, "context required"),
++    };
++  }
++  const intentObj = intentRaw as Record<string, unknown>;
++  const contextObj = contextRaw as Record<string, unknown>;
++  const correlationId =
++    typeof intentObj.correlationId === "string" && intentObj.correlationId.trim()
++      ? intentObj.correlationId
++      : unknownCid;
++
++  if (
++    typeof intentObj.intentId !== "string" ||
++    !intentObj.intentId.trim() ||
++    typeof intentObj.operation !== "string" ||
++    !intentObj.operation.trim() ||
++    typeof intentObj.requestedLane !== "string" ||
++    !(ALLOWED_LANES as readonly string[]).includes(intentObj.requestedLane) ||
++    typeof intentObj.requestedSource !== "string" ||
++    !(ALLOWED_SOURCES as readonly string[]).includes(intentObj.requestedSource) ||
++    typeof intentObj.requiresHumanGate !== "boolean" ||
++    typeof intentObj.mutationRequested !== "boolean" ||
++    typeof intentObj.arbitraryCommandRequested !== "boolean"
++  ) {
++    return {
++      ok: false,
++      failure: validationFailure(correlationId, "intent shape invalid"),
++    };
++  }
++
++  if (
++    typeof contextObj.projectId !== "string" ||
++    typeof contextObj.actorId !== "string" ||
++    typeof contextObj.declaredSource !== "string" ||
++    !(ALLOWED_SOURCES as readonly string[]).includes(contextObj.declaredSource) ||
++    !contextObj.permissions ||
++    typeof contextObj.permissions !== "object"
++  ) {
++    return {
++      ok: false,
++      failure: validationFailure(correlationId, "context shape invalid"),
++    };
++  }
++
++  // D2-D3 internal proof is fixture only. Block real / sandbox-real before any port.
++  if (
++    intentObj.requestedSource !== "fixture" ||
++    contextObj.declaredSource !== "fixture"
++  ) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "source_mismatch",
++        code: "SOURCE_MISMATCH",
++        userMessage:
++          "D2-D3 demonstrates fixture only; real and sandbox-real remain blocked",
++        retryable: false,
++        correlationId,
++      }),
++    };
++  }
++
++  const timeout = validateTimeout(raw.timeoutMs, correlationId);
++  if (!timeout.ok) return timeout;
++
++  const permissions = contextObj.permissions as Record<string, unknown>;
++  const context: ExecutionContext = {
++    projectId: contextObj.projectId,
++    actorId: contextObj.actorId,
++    declaredSource: "fixture",
++    permissions: {
++      gitRead: permissions.gitRead === true,
++      gitWrite: permissions.gitWrite === true,
++      providerInvoke: permissions.providerInvoke === true,
++    },
++  };
++  if (typeof contextObj.workspaceId === "string") {
++    (context as { workspaceId?: string }).workspaceId = contextObj.workspaceId;
++  }
++  if (Array.isArray(contextObj.allowlistRepos)) {
++    (context as { allowlistRepos?: string[] }).allowlistRepos =
++      contextObj.allowlistRepos.filter((p) => typeof p === "string") as string[];
++  }
++  if (Array.isArray(contextObj.protectedPaths)) {
++    (context as { protectedPaths?: string[] }).protectedPaths =
++      contextObj.protectedPaths.filter((p) => typeof p === "string") as string[];
++  }
++
++  const intent: ExecutionIntent = {
++    intentId: intentObj.intentId,
++    correlationId,
++    requestedLane: intentObj.requestedLane as ProviderLane,
++    operation: intentObj.operation,
++    requestedSource: "fixture",
++    requiresHumanGate: intentObj.requiresHumanGate,
++    mutationRequested: intentObj.mutationRequested,
++    arbitraryCommandRequested: intentObj.arbitraryCommandRequested,
++  };
++  if (typeof intentObj.targetPath === "string") {
++    (intent as { targetPath?: string }).targetPath = intentObj.targetPath;
++  }
++  if (
++    intentObj.metadata &&
++    typeof intentObj.metadata === "object" &&
++    !Array.isArray(intentObj.metadata)
++  ) {
++    (intent as { metadata?: Readonly<Record<string, unknown>> }).metadata =
++      intentObj.metadata as Readonly<Record<string, unknown>>;
++  }
++
++  if (intent.targetPath !== undefined) {
++    const pathFailure = validatePathField(
++      intent.targetPath,
++      correlationId,
++      context.allowlistRepos,
++      context.protectedPaths,
++    );
++    if (pathFailure) return { ok: false, failure: pathFailure };
++  }
++
++  let providerRequest: CoordinateProviderRequest | undefined;
++  if (raw.providerRequest !== undefined) {
++    const requestCopy = readUntrustedPlainData(raw.providerRequest, {
++      redact: false,
++      maxStringLength: 100_000,
++    });
++    if (!requestCopy.ok) {
++      return {
++        ok: false,
++        failure: validationFailure(
++          correlationId,
++          "Provider request rejected as untrusted data",
++        ),
++      };
++    }
++    const requestObj = requestCopy.value as Record<string, unknown>;
++    // Validate original identity fields BEFORE any canonical rebuild.
++    // Never rewrite a divergent correlationId to match the intent.
++    const requestCorrelationId = requestObj.correlationId;
++    if (
++      typeof requestCorrelationId !== "string" ||
++      !requestCorrelationId.trim()
++    ) {
++      return {
++        ok: false,
++        failure: validationFailure(
++          correlationId,
++          "Provider request correlationId required",
++        ),
++      };
++    }
++    if (requestCorrelationId !== correlationId) {
++      return {
++        ok: false,
++        failure: validationFailure(
++          correlationId,
++          "Provider request correlationId does not match intent",
++        ),
++      };
++    }
++    const requestLane = requestObj.lane;
++    if (
++      typeof requestLane !== "string" ||
++      requestLane !== intent.requestedLane
++    ) {
++      return {
++        ok: false,
++        failure: validationFailure(
++          correlationId,
++          "Provider request lane does not match intent",
++        ),
++      };
++    }
++    const boundary = validateUntrustedProviderRequest(
++      requestCopy.value,
++      correlationId,
++    );
++    if (!boundary.ok) {
++      return { ok: false, failure: boundary.failure };
++    }
++    if (typeof requestObj.path === "string") {
++      const pathFailure = validatePathField(
++        requestObj.path,
++        correlationId,
++        context.allowlistRepos,
++        context.protectedPaths,
++      );
++      if (pathFailure) return { ok: false, failure: pathFailure };
++    }
++    // Rebuild timeout from validated coordinator timeout only.
++    // Keep the already-validated original correlationId (no silent rewrite).
++    providerRequest = {
++      ...(requestCopy.value as CoordinateProviderRequest),
++      timeoutMs: timeout.timeoutMs,
++      correlationId: requestCorrelationId,
++    };
++  }
++
++  return {
++    ok: true,
++    intent,
++    context,
++    providerRequest,
++    timeoutMs: timeout.timeoutMs,
++    signal,
++    lateEvidenceSummary: raw.lateEvidenceSummary,
++    correlationId,
++  };
++}
++
++async function blockIdleRun(
++  run: ExecutionRun,
++  failure: NormalizedFailure,
++  deps: CoordinateExecutionRunDependencies,
++): Promise<TransitionExecutionRunResult> {
++  return deps.execution.transitionExecutionRun({
++    runId: run.runId,
++    reason: "pre_engagement_block",
++    failure,
++    blockingReason: failure.code,
++  });
++}
++
++function requestMatchesRun(
++  request: CoordinateProviderRequest | undefined,
++  run: ExecutionRun,
++): boolean {
++  return Boolean(
++    request &&
++      request.lane === run.intent.requestedLane &&
++      request.correlationId === run.correlationId,
++  );
++}
++
++function resultFailure(
++  result: ProviderInvocationResult,
++  correlationId: string,
++): NormalizedFailure {
++  const allowedPairs: Readonly<Record<string, string>> = {
++    VALIDATION_ERROR: "validation",
++    AUTHENTICATION_ERROR: "authentication",
++    AUTHORIZATION_ERROR: "authorization",
++    PROVIDER_UNAVAILABLE: "provider_unavailable",
++    RATE_LIMITED: "rate_limited",
++    TIMED_OUT: "timed_out",
++    CANCELLED: "cancelled",
++    SANDBOX_BLOCKED: "sandbox_blocked",
++    PROTECTED_PATH: "protected_path",
++    MUTATION_FORBIDDEN: "mutation_forbidden",
++    HUMAN_GATE_REQUIRED: "human_gate_required",
++    INVALID_PROVIDER_RESULT: "invalid_provider_result",
++    INTERNAL_NORMALIZED_FAILURE: "internal_normalized_failure",
++    SOURCE_MISMATCH: "source_mismatch",
++  };
++  if (
++    "failure" in result &&
++    result.failure &&
++    result.failure.correlationId === correlationId &&
++    result.failure.technicalDetailsRedacted === true &&
++    allowedPairs[result.failure.code] === result.failure.family
++  ) {
++    return normalizedFailure({
++      family: result.failure.family,
++      code: result.failure.code,
++      userMessage: "Provider operation failed",
++      retryable: result.failure.retryable,
++      correlationId,
++    });
++  }
++  return invalidProviderFailure(correlationId);
++}
++
++async function transitionFromInvocation(
++  run: ExecutionRun,
++  outcome: InvokeOutcome,
++  deps: CoordinateExecutionRunDependencies,
++): Promise<{ result: TransitionExecutionRunResult; usage: UsageSummary }> {
++  if (outcome.status === "timed_out") {
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "time_limit",
++        failure: outcome.failure,
++      }),
++      usage: unavailableUsage("provider_timed_out"),
++    };
++  }
++  if (outcome.status === "cancelled") {
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "cancel_accepted",
++        failure: outcome.failure,
++      }),
++      usage: unavailableUsage("provider_cancelled"),
++    };
++  }
++  if (outcome.status === "failed") {
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "engaged_operation_failed",
++        failure: outcome.failure,
++      }),
++      usage: unavailableUsage("provider_failed"),
++    };
++  }
++
++  const providerResultRaw = outcome.result;
++  const safeResult = readUntrustedPlainData(providerResultRaw, {
++    redact: true,
++    maxStringLength: 100_000,
++  });
++  if (!safeResult.ok) {
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "engaged_operation_failed",
++        failure: invalidProviderFailure(run.correlationId),
++      }),
++      usage: unavailableUsage("provider_result_hostile"),
++    };
++  }
++
++  const providerResult = safeResult.value as ProviderInvocationResult;
++  const boundary = validateUntrustedProviderResult(
++    providerResult,
++    run.correlationId,
++  );
++  if (!boundary.ok) {
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "engaged_operation_failed",
++        failure: boundary.failure,
++      }),
++      usage: unavailableUsage("provider_result_invalid"),
++    };
++  }
++
++  if (providerResult.kind === "success") {
++    const usage = validatedUsage(providerResult.usage);
++    const externalResult = {
++      kind: "success" as const,
++      completeness: providerResult.completeness,
++      redactedSummary: providerResult.redactedSummary,
++      rawPresent: false as const,
++    };
++    if (providerResult.completeness === "partial") {
++      const failure = invalidProviderFailure(run.correlationId);
++      return {
++        result: await deps.execution.transitionExecutionRun({
++          runId: run.runId,
++          reason: "engaged_operation_failed",
++          externalResult,
++          failure,
++        }),
++        usage,
++      };
++    }
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "outputs_validated",
++        completeness: "complete",
++        externalResult,
++      }),
++      usage,
++    };
++  }
++
++  const failure = resultFailure(providerResult, run.correlationId);
++  if (providerResult.kind === "timed_out") {
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "time_limit",
++        failure,
++      }),
++      usage: unavailableUsage("provider_timed_out"),
++    };
++  }
++  if (providerResult.kind === "cancelled") {
++    return {
++      result: await deps.execution.transitionExecutionRun({
++        runId: run.runId,
++        reason: "cancel_accepted",
++        failure,
++      }),
++      usage: unavailableUsage("provider_cancelled"),
++    };
++  }
++  return {
++    result: await deps.execution.transitionExecutionRun({
++      runId: run.runId,
++      reason: "engaged_operation_failed",
++      failure,
++    }),
++    usage: unavailableUsage("provider_failed"),
++  };
++}
++
++function deliveryOf(tracker: EventTracker) {
++  return {
++    status: (tracker.failureCount > 0
++      ? "degraded"
++      : "complete") as EventDeliveryStatus,
++    failureCount: tracker.failureCount,
++  };
++}
++
++export async function coordinateExecutionRun(
++  input: unknown,
++  deps: CoordinateExecutionRunDependencies,
++): Promise<CoordinateExecutionRunResult> {
++  const tracker: EventTracker = { failureCount: 0 };
++  const stateTrace: ExecutionRun["state"][] = [];
++  const noUsage = unavailableUsage("not_validated");
++
++  const preflight = preflightCoordinateInput(input);
++  if (!preflight.ok) {
++    return {
++      ok: false,
++      failure: preflight.failure,
++      ...emptyDiagnostics(tracker),
++    };
++  }
++
++  let capability: ProviderCapabilityDescriptor | undefined;
++  if (preflight.intent.requestedLane !== "none") {
++    const described = describeCapabilitySafe(
++      preflight.intent.requestedLane,
++      deps,
++      preflight.correlationId,
++    );
++    if (!described.ok) {
++      return {
++        ok: false,
++        failure: described.failure,
++        ...emptyDiagnostics(tracker),
++      };
++    }
++    capability = described.capability;
++  }
++
++  const created = await deps.execution.createExecutionRun({
++    intent: preflight.intent,
++    context: preflight.context,
++    capability,
++  });
++
++  if (created.run) stateTrace.push(created.run.state);
++  if (!created.ok) {
++    if (created.run) {
++      safeEmit(deps, tracker, created.run, {
++        type: "validation",
++        detail: {
++          accepted: false,
++          source: created.run.disclosure.source,
++          failureCode: created.failure.code,
++        },
++      });
++    }
++    return {
++      ok: false,
++      failure: created.failure,
++      run: created.run,
++      providerAttempted: false,
++      providerInvoked: false,
++      providerCompleted: false,
++      stateTrace,
++      validatedUsage: noUsage,
++      lateEvidenceRecorded: false,
++      eventDelivery: deliveryOf(tracker),
++    };
++  }
++
++  let current = created.run;
++  safeEmit(deps, tracker, current, {
++    type: "validation",
++    detail: { accepted: true, source: current.disclosure.source },
++  });
++
++  const preEngagementFailure =
++    preflight.intent.requestedLane === "none"
++      ? normalizedFailure({
++          family: "provider_unavailable",
++          code: "PROVIDER_UNAVAILABLE",
++          userMessage: "No provider lane selected",
++          retryable: true,
++          correlationId: current.correlationId,
++        })
++      : !requestMatchesRun(preflight.providerRequest, current)
++        ? validationFailure(
++            current.correlationId,
++            "Provider request does not match the validated run",
++          )
++        : undefined;
++
++  if (preEngagementFailure) {
++    const blocked = await blockIdleRun(current, preEngagementFailure, deps);
++    if (blocked.run) {
++      current = blocked.run;
++      stateTrace.push(blocked.run.state);
++    }
++    return {
++      ok: false,
++      failure: blocked.ok ? preEngagementFailure : blocked.failure,
++      run: blocked.run ?? current,
++      providerAttempted: false,
++      providerInvoked: false,
++      providerCompleted: false,
++      stateTrace,
++      validatedUsage: noUsage,
++      lateEvidenceRecorded: false,
++      eventDelivery: deliveryOf(tracker),
++    };
++  }
++
++  const started = await deps.execution.transitionExecutionRun({
++    runId: current.runId,
++    reason: "intent_valid",
++  });
++  if (!started.ok) {
++    return {
++      ok: false,
++      failure: started.failure,
++      run: started.run ?? current,
++      providerAttempted: false,
++      providerInvoked: false,
++      providerCompleted: false,
++      stateTrace,
++      validatedUsage: noUsage,
++      lateEvidenceRecorded: false,
++      eventDelivery: deliveryOf(tracker),
++    };
++  }
++  current = started.run;
++  stateTrace.push(current.state);
++  safeEmit(deps, tracker, current, {
++    type: "run_transition",
++    detail: { state: current.state, source: current.disclosure.source },
++  });
++
++  const providerAttempted = true;
++  let providerInvoked = false;
++  let providerCompleted = false;
++
++  const invocation = await invokeWithTimeoutAndCancellation(
++    (invokeSignal) => {
++      // True only immediately before the effective provider port call.
++      providerInvoked = true;
++      const common = {
++        ...preflight.providerRequest!,
++        runId: current.runId,
++        signal: invokeSignal,
++        timeoutMs: preflight.timeoutMs,
++      };
++      switch (current.intent.requestedLane) {
++        case "ai":
++          return deps.providers.ai.complete(common as AiCompletionRequest);
++        case "git":
++          return deps.providers.git.read(common as GitReadRequest);
++        case "cursor":
++          return deps.providers.cursor.executeFixture(
++            common as CursorFixtureRequest,
++          );
++        default:
++          throw new Error("provider lane none cannot be invoked");
++      }
++    },
++    {
++      timeoutMs: preflight.timeoutMs,
++      signal: preflight.signal,
++      correlationId: current.correlationId,
++      maxRetries: 0,
++    },
++  );
++  providerCompleted = invocation.status === "completed";
++
++  safeEmit(deps, tracker, current, {
++    type: "provider_invocation",
++    detail: {
++      outcome: invocation.status,
++      source: current.disclosure.source,
++      providerAttempted,
++      providerInvoked,
++      providerCompleted,
++    },
++  });
++
++  const terminal = await transitionFromInvocation(current, invocation, deps);
++  if (!terminal.result.ok) {
++    return {
++      ok: false,
++      failure: terminal.result.failure,
++      run: terminal.result.run ?? current,
++      providerAttempted,
++      providerInvoked,
++      providerCompleted,
++      stateTrace,
++      validatedUsage: terminal.usage,
++      lateEvidenceRecorded: false,
++      eventDelivery: deliveryOf(tracker),
++    };
++  }
++  current = terminal.result.run;
++  stateTrace.push(current.state);
++  safeEmit(deps, tracker, current, {
++    type: "run_transition",
++    detail: { state: current.state, source: current.disclosure.source },
++  });
++
++  let lateEvidenceRecorded = false;
++  if (preflight.lateEvidenceSummary !== undefined) {
++    const summary = sanitizeLateEvidenceSummary(preflight.lateEvidenceSummary);
++    const late = await deps.execution.transitionExecutionRun({
++      runId: current.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: summary,
++    });
++    if (late.ok) {
++      current = late.run;
++      lateEvidenceRecorded = true;
++      safeEmit(deps, tracker, current, {
++        type: "late_result",
++        detail: { late: true, stateUnchanged: true },
++      });
++    }
++  }
++
++  const successful = current.state === "succeeded";
++  return successful
++    ? {
++        ok: true,
++        run: current,
++        providerAttempted,
++        providerInvoked,
++        providerCompleted,
++        stateTrace,
++        validatedUsage: terminal.usage,
++        lateEvidenceRecorded,
++        eventDelivery: deliveryOf(tracker),
++      }
++    : {
++        ok: false,
++        failure:
++          current.failure ??
++          normalizedFailure({
++            family:
++              current.state === "timed_out"
++                ? "timed_out"
++                : current.state === "cancelled"
++                  ? "cancelled"
++                  : "internal_normalized_failure",
++            code:
++              current.state === "timed_out"
++                ? "TIMED_OUT"
++                : current.state === "cancelled"
++                  ? "CANCELLED"
++                  : "INTERNAL_NORMALIZED_FAILURE",
++            userMessage: "Execution did not succeed",
++            retryable: false,
++            correlationId: current.correlationId,
++          }),
++        run: current,
++        providerAttempted,
++        providerInvoked,
++        providerCompleted,
++        stateTrace,
++        validatedUsage: terminal.usage,
++        lateEvidenceRecorded,
++        eventDelivery: deliveryOf(tracker),
++      };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
+new file mode 100644
+index 0000000..0901f1d
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
+@@ -0,0 +1,444 @@
++import type {
++  Completeness,
++  ExecutionRun,
++  ExecutionState,
++  UsageSummary,
++} from "../domain/types";
++import {
++  assessExecutionReadiness,
++  type ExecutionReadinessAssessment,
++} from "./executionReadiness";
++import {
++  readUntrustedPlainData,
++  redactBoundedText,
++} from "./untrustedExecutionData";
++
++const MAX_TEXT = 240;
++
++const ALLOWED_STATES = new Set<string>([
++  "idle",
++  "running",
++  "awaiting_human",
++  "succeeded",
++  "failed",
++  "cancelled",
++  "timed_out",
++  "blocked",
++]);
++
++const ALLOWED_SOURCES = new Set(["fixture", "sandbox-real", "real"]);
++const ALLOWED_LANES = new Set(["ai", "git", "cursor", "none"]);
++const ALLOWED_COMPLETENESS = new Set(["complete", "partial", "empty"]);
++
++export type ExecutionProjection = {
++  readonly runId: string;
++  readonly correlationId: string;
++  readonly state: ExecutionState;
++  readonly source: ExecutionRun["disclosure"]["source"];
++  readonly providerLane: ExecutionRun["disclosure"]["providerLane"];
++  readonly phase: string;
++  readonly completeness: Completeness | "unavailable";
++  readonly resultSummary: string | null;
++  readonly failure: {
++    readonly family: string;
++    readonly code: string;
++    readonly message: string;
++    readonly retryable: boolean;
++  } | null;
++  readonly blockedReason: string | null;
++  readonly humanGate: {
++    readonly gateId: string;
++    readonly question: string;
++    readonly required: boolean;
++    readonly decision: "approve" | "reject" | "cancel" | null;
++  } | null;
++  readonly evidenceSummary: readonly {
++    readonly evidenceId: string;
++    readonly source: ExecutionRun["disclosure"]["source"];
++    readonly completeness: Completeness;
++    readonly producedAt: string;
++    readonly late: boolean;
++    readonly official: true;
++  }[];
++  readonly usage: UsageSummary;
++  readonly openReserves: readonly string[];
++  readonly readinessAssessment: ExecutionReadinessAssessment;
++  readonly limits: readonly string[];
++  readonly persistence: {
++    readonly kind: "memory_process_local";
++    readonly durable: false;
++    readonly multiInstance: false;
++    readonly restartSafe: false;
++  };
++  readonly cursorUnverified: true;
++  readonly gitWrite: false;
++};
++
++export type CreateExecutionProjectionResult =
++  | { readonly ok: true; readonly projection: ExecutionProjection }
++  | {
++      readonly ok: false;
++      readonly failure: { readonly code: string; readonly message: string };
++    };
++
++function observablePhase(state: ExecutionState): string {
++  switch (state) {
++    case "idle":
++      return "validated";
++    case "running":
++      return "provider_operation";
++    case "awaiting_human":
++      return "human_decision";
++    default:
++      return "terminal";
++  }
++}
++
++function fail(
++  code: string,
++  message: string,
++): CreateExecutionProjectionResult {
++  return { ok: false, failure: { code, message } };
++}
++
++function asString(value: unknown): string | null {
++  return typeof value === "string" ? value : null;
++}
++
++function readPersistence(raw: unknown): CreateExecutionProjectionResult | {
++  ok: true;
++  persistence: ExecutionProjection["persistence"];
++} {
++  const copied = readUntrustedPlainData(raw);
++  if (!copied.ok || !copied.value || typeof copied.value !== "object") {
++    return fail("PERSISTENCE_INVALID", "persistence must be a plain object");
++  }
++  const p = copied.value as Record<string, unknown>;
++  if (p.kind !== "memory_process_local") {
++    return fail("PERSISTENCE_KIND", "persistence.kind must be memory_process_local");
++  }
++  if (p.durable !== false || p.multiInstance !== false || p.restartSafe !== false) {
++    return fail(
++      "PERSISTENCE_FLAGS",
++      "persistence durable/multiInstance/restartSafe must be false",
++    );
++  }
++  return {
++    ok: true,
++    persistence: {
++      kind: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++  };
++}
++
++function readEvidence(
++  raw: unknown,
++  runId: string,
++  correlationId: string,
++  source: ExecutionRun["disclosure"]["source"],
++): CreateExecutionProjectionResult | {
++  ok: true;
++  evidence: ExecutionProjection["evidenceSummary"];
++} {
++  if (raw === undefined) {
++    return { ok: true, evidence: [] };
++  }
++  const copied = readUntrustedPlainData(raw, { redact: true });
++  if (!copied.ok || !Array.isArray(copied.value)) {
++    return fail("EVIDENCE_INVALID", "evidence must be a plain array");
++  }
++  const out: ExecutionProjection["evidenceSummary"][number][] = [];
++  for (const item of copied.value) {
++    if (!item || typeof item !== "object") {
++      return fail("EVIDENCE_ENTRY", "evidence entry must be a plain object");
++    }
++    const e = item as Record<string, unknown>;
++    if (e.official !== true) {
++      return fail("EVIDENCE_OFFICIAL", "canonical evidence.official must be true");
++    }
++    if (e.runId !== runId || e.correlationId !== correlationId) {
++      return fail("EVIDENCE_IDENTITY", "evidence identity must match the run");
++    }
++    if (e.source !== source) {
++      return fail("EVIDENCE_SOURCE", "evidence source must match run disclosure source");
++    }
++    const evidenceId = asString(e.evidenceId);
++    const producedAt = asString(e.producedAt);
++    if (!evidenceId || !producedAt) {
++      return fail("EVIDENCE_FIELDS", "evidence fields missing");
++    }
++    if (
++      typeof e.completeness !== "string" ||
++      !ALLOWED_COMPLETENESS.has(e.completeness)
++    ) {
++      return fail("EVIDENCE_COMPLETENESS", "evidence completeness invalid");
++    }
++    if (typeof e.late !== "boolean") {
++      return fail("EVIDENCE_LATE", "evidence.late must be boolean");
++    }
++    if (
++      typeof e.source !== "string" ||
++      !ALLOWED_SOURCES.has(e.source)
++    ) {
++      return fail("EVIDENCE_SOURCE_VALUE", "evidence source invalid");
++    }
++    out.push({
++      evidenceId,
++      source: e.source as ExecutionRun["disclosure"]["source"],
++      completeness: e.completeness as Completeness,
++      producedAt,
++      late: e.late,
++      official: true,
++    });
++  }
++  return { ok: true, evidence: out };
++}
++
++function readUsage(raw: unknown): UsageSummary {
++  const copied = readUntrustedPlainData(raw, { redact: true });
++  if (!copied.ok || !copied.value || typeof copied.value !== "object") {
++    return { status: "unavailable", reason: "usage_unavailable" };
++  }
++  const usage = copied.value as Record<string, unknown>;
++  if (usage.status === "validated") {
++    return {
++      status: "validated",
++      inputTokens:
++        typeof usage.inputTokens === "number" ? usage.inputTokens : undefined,
++      outputTokens:
++        typeof usage.outputTokens === "number" ? usage.outputTokens : undefined,
++      unit: typeof usage.unit === "string" ? usage.unit : undefined,
++    };
++  }
++  return {
++    status: "unavailable",
++    reason:
++      typeof usage.reason === "string"
++        ? (redactBoundedText(usage.reason, MAX_TEXT) ?? "usage_unavailable")
++        : "usage_unavailable",
++  };
++}
++
++/**
++ * Reconstruct a transport-neutral projection from unknown input.
++ * TypeScript types are not trusted; values are allowlisted and redacted.
++ */
++export function createExecutionProjection(
++  input: unknown,
++): CreateExecutionProjectionResult {
++  const envelope = readUntrustedPlainData(input, {
++    redact: true,
++    maxStringLength: 100_000,
++  });
++  if (!envelope.ok || !envelope.value || typeof envelope.value !== "object") {
++    return fail("INPUT_REJECTED", "projection input rejected");
++  }
++  const root = envelope.value as Record<string, unknown>;
++  const runRaw = root.run ?? root;
++  if (!runRaw || typeof runRaw !== "object" || Array.isArray(runRaw)) {
++    return fail("RUN_REQUIRED", "run object required");
++  }
++  const run = runRaw as Record<string, unknown>;
++
++  const runId = asString(run.runId);
++  const correlationId = asString(run.correlationId);
++  if (!runId || !correlationId) {
++    return fail("IDENTITY", "runId and correlationId required");
++  }
++  if (typeof run.state !== "string" || !ALLOWED_STATES.has(run.state)) {
++    return fail("STATE", "run.state invalid");
++  }
++  const state = run.state as ExecutionState;
++
++  const disclosureRaw = run.disclosure;
++  if (!disclosureRaw || typeof disclosureRaw !== "object") {
++    return fail("DISCLOSURE", "disclosure required");
++  }
++  const disclosure = disclosureRaw as Record<string, unknown>;
++  if (
++    typeof disclosure.source !== "string" ||
++    !ALLOWED_SOURCES.has(disclosure.source) ||
++    typeof disclosure.providerLane !== "string" ||
++    !ALLOWED_LANES.has(disclosure.providerLane)
++  ) {
++    return fail("DISCLOSURE_FIELDS", "disclosure source/lane invalid");
++  }
++  const source = disclosure.source as ExecutionRun["disclosure"]["source"];
++  const providerLane =
++    disclosure.providerLane as ExecutionRun["disclosure"]["providerLane"];
++
++  const limitsRaw = disclosure.limits;
++  const limitsCopied = readUntrustedPlainData(limitsRaw);
++  if (!limitsCopied.ok || !Array.isArray(limitsCopied.value)) {
++    return fail("LIMITS", "disclosure.limits must be a string array");
++  }
++  const limits: string[] = [];
++  for (const item of limitsCopied.value) {
++    if (typeof item !== "string") {
++      return fail("LIMITS_TYPE", "disclosure.limits entries must be strings");
++    }
++    limits.push(redactBoundedText(item, MAX_TEXT) ?? "");
++  }
++
++  const persistence = readPersistence(run.persistence);
++  if (!("persistence" in persistence)) return persistence;
++
++  const evidence = readEvidence(run.evidence, runId, correlationId, source);
++  if (!("evidence" in evidence)) return evidence;
++
++  let resultSummary: string | null = null;
++  let completeness: Completeness | "unavailable" = "unavailable";
++  if (run.externalResult && typeof run.externalResult === "object") {
++    const ext = run.externalResult as Record<string, unknown>;
++    if (ext.kind === "success") {
++      resultSummary = redactBoundedText(ext.redactedSummary, MAX_TEXT);
++      if (
++        typeof ext.completeness === "string" &&
++        ALLOWED_COMPLETENESS.has(ext.completeness)
++      ) {
++        completeness = ext.completeness as Completeness;
++      }
++    }
++  }
++  if (completeness === "unavailable" && evidence.evidence.length > 0) {
++    completeness = evidence.evidence[evidence.evidence.length - 1]!.completeness;
++  }
++
++  let failure: ExecutionProjection["failure"] = null;
++  if (run.failure && typeof run.failure === "object") {
++    const f = run.failure as Record<string, unknown>;
++    failure = {
++      family: asString(f.family) ?? "internal_normalized_failure",
++      code: asString(f.code) ?? "INTERNAL_NORMALIZED_FAILURE",
++      message:
++        redactBoundedText(f.userMessage, MAX_TEXT) ??
++        "Failure details unavailable",
++      retryable: f.retryable === true,
++    };
++  }
++
++  let humanGate: ExecutionProjection["humanGate"] = null;
++  if (run.gate && typeof run.gate === "object") {
++    const g = run.gate as Record<string, unknown>;
++    const gateId = asString(g.gateId);
++    if (gateId) {
++      humanGate = {
++        gateId,
++        question:
++          redactBoundedText(g.question, MAX_TEXT) ?? "Human decision required",
++        required: g.required === true,
++        decision:
++          g.decision === "approve" ||
++          g.decision === "reject" ||
++          g.decision === "cancel"
++            ? g.decision
++            : null,
++      };
++    }
++  }
++
++  const usage =
++    root.validatedUsage !== undefined
++      ? readUsage(root.validatedUsage)
++      : readUsage(run.usage);
++
++  const openReservesRaw = root.openReserves;
++  let openReserves: readonly string[] | undefined;
++  if (openReservesRaw !== undefined) {
++    const copied = readUntrustedPlainData(openReservesRaw, { redact: true });
++    if (!copied.ok || !Array.isArray(copied.value)) {
++      return fail("RESERVES", "openReserves must be a string array");
++    }
++    openReserves = copied.value.map((item) => {
++      if (typeof item !== "string") return "reserve_redacted";
++      return redactBoundedText(item, MAX_TEXT) ?? "reserve_redacted";
++    });
++  }
++
++  const readinessAssessment: ExecutionReadinessAssessment =
++    root.readinessAssessment && typeof root.readinessAssessment === "object"
++      ? (root.readinessAssessment as ExecutionReadinessAssessment)
++      : assessExecutionReadiness({
++          run: {
++            runId,
++            correlationId,
++            state,
++            disclosure: { source, providerLane, limits },
++            evidence: evidence.evidence.map((e) => ({
++              ...e,
++              runId,
++              correlationId,
++              official: true as const,
++              summary: "projection_internal",
++            })),
++            persistence: persistence.persistence,
++          },
++        });
++
++  // Re-assess when caller supplied a readiness object that is not artifact-linked.
++  const linkedReadiness = assessExecutionReadiness({
++    run: {
++      runId,
++      correlationId,
++      state,
++      disclosure: {
++        source,
++        providerLane,
++        limits,
++        processLocalMemory: true,
++        cursorUnverified: true,
++      },
++      evidence: evidence.evidence.map((e) => ({
++        evidenceId: e.evidenceId,
++        runId,
++        correlationId,
++        source: e.source,
++        completeness: e.completeness,
++        producedAt: e.producedAt,
++        late: e.late,
++        official: true as const,
++        summary: "projection_internal",
++      })),
++      persistence: persistence.persistence,
++    },
++    projection: {
++      runId,
++      correlationId,
++      source,
++      state,
++    },
++  });
++
++  const finalReadiness =
++    root.readinessAssessment && typeof root.readinessAssessment === "object"
++      ? linkedReadiness
++      : readinessAssessment;
++
++  return {
++    ok: true,
++    projection: {
++      runId,
++      correlationId,
++      state,
++      source,
++      providerLane,
++      phase: observablePhase(state),
++      completeness,
++      resultSummary,
++      failure,
++      blockedReason: redactBoundedText(run.blockedReason, MAX_TEXT),
++      humanGate,
++      evidenceSummary: evidence.evidence,
++      usage,
++      openReserves: openReserves ?? finalReadiness.openReserves,
++      readinessAssessment: finalReadiness,
++      limits,
++      persistence: persistence.persistence,
++      cursorUnverified: true,
++      gitWrite: false,
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
+new file mode 100644
+index 0000000..b40691a
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
+@@ -0,0 +1,198 @@
++import { readUntrustedPlainData } from "./untrustedExecutionData";
++
++export type ReadinessStatus =
++  | "demonstrated"
++  | "not_demonstrated"
++  | "blocked";
++
++export type ReadinessLevel = {
++  readonly status: ReadinessStatus;
++  readonly reasons: readonly string[];
++};
++
++export type ExecutionReadinessAssessment = {
++  readonly uxExploration: ReadinessLevel;
++  readonly uiDelivery: ReadinessLevel;
++  readonly strongRuntimeVerdict: ReadinessLevel;
++  readonly openReserves: readonly string[];
++};
++
++export const D2D3_OPEN_RESERVES = [
++  "R-QA-REV-01 — OPEN NOT LIFTED",
++  "R-QA-REV-02 — OPEN NOT LIFTED",
++  "R-QA-D2C-01 — OPEN NOT LIFTED",
++  "Cursor product capabilities — UNVERIFIED",
++  "memory process-local only",
++  "R-PR-D2D2-01 — MINOR",
++] as const;
++
++const UI_DELIVERY: ReadinessLevel = {
++  status: "not_demonstrated",
++  reasons: [
++    "no UI or accessibility delivery",
++    "no Figma evidence",
++    "no D3 transport selected",
++  ],
++};
++
++const STRONG_RUNTIME: ReadinessLevel = {
++  status: "blocked",
++  reasons: [
++    "G-D2D-CURSOR-01 not consumed",
++    "G-D2D-PERSIST-01 not consumed",
++    "Cursor unverified",
++    "memory is process-local",
++    "no live provider proof",
++  ],
++};
++
++function notDemonstrated(reasons: readonly string[]): ExecutionReadinessAssessment {
++  return {
++    uxExploration: { status: "not_demonstrated", reasons },
++    uiDelivery: UI_DELIVERY,
++    strongRuntimeVerdict: STRONG_RUNTIME,
++    openReserves: D2D3_OPEN_RESERVES,
++  };
++}
++
++function isOfficialCompleteEvidence(
++  evidence: unknown,
++  runId: string,
++  correlationId: string,
++  source: string,
++): boolean {
++  if (!Array.isArray(evidence) || evidence.length === 0) return false;
++  return evidence.some((item) => {
++    if (!item || typeof item !== "object") return false;
++    const e = item as Record<string, unknown>;
++    return (
++      e.official === true &&
++      e.completeness === "complete" &&
++      e.late === false &&
++      e.runId === runId &&
++      e.correlationId === correlationId &&
++      e.source === source &&
++      source === "fixture"
++    );
++  });
++}
++
++/**
++ * Readiness from linked, validated artifacts only.
++ * Boolean-only caller proofs are rejected as not_demonstrated.
++ */
++export function assessExecutionReadiness(
++  artifacts: unknown,
++): ExecutionReadinessAssessment {
++  const copied = readUntrustedPlainData(artifacts, { redact: true });
++  if (!copied.ok || !copied.value || typeof copied.value !== "object") {
++    return notDemonstrated([
++      "linked run, validated projection, and official evidence are required",
++    ]);
++  }
++  const root = copied.value as Record<string, unknown>;
++
++  // Explicitly reject the retired boolean-only proof API.
++  if (
++    "fixturePathDemonstrated" in root ||
++    "projectionDemonstrated" in root ||
++    "disclosuresDemonstrated" in root
++  ) {
++    return notDemonstrated([
++      "boolean readiness proofs are not accepted; linked artifacts are required",
++    ]);
++  }
++
++  const runRaw = root.run;
++  if (!runRaw || typeof runRaw !== "object" || Array.isArray(runRaw)) {
++    return notDemonstrated(["canonical ExecutionRun artifact is required"]);
++  }
++  const run = runRaw as Record<string, unknown>;
++  const runId = typeof run.runId === "string" ? run.runId : null;
++  const correlationId =
++    typeof run.correlationId === "string" ? run.correlationId : null;
++  const state = typeof run.state === "string" ? run.state : null;
++  const disclosure =
++    run.disclosure && typeof run.disclosure === "object"
++      ? (run.disclosure as Record<string, unknown>)
++      : null;
++  const source =
++    disclosure && typeof disclosure.source === "string"
++      ? disclosure.source
++      : null;
++
++  if (!runId || !correlationId || !state || !source) {
++    return notDemonstrated(["run identity, state, and source are required"]);
++  }
++
++  if (state !== "succeeded" || source !== "fixture") {
++    return notDemonstrated([
++      "UX exploration requires a succeeded fixture terminal",
++    ]);
++  }
++
++  if (
++    !isOfficialCompleteEvidence(run.evidence, runId, correlationId, source)
++  ) {
++    return notDemonstrated([
++      "official complete non-late fixture evidence linked to the run is required",
++    ]);
++  }
++
++  const persistence =
++    run.persistence && typeof run.persistence === "object"
++      ? (run.persistence as Record<string, unknown>)
++      : null;
++  if (
++    !persistence ||
++    persistence.kind !== "memory_process_local" ||
++    persistence.durable !== false ||
++    persistence.multiInstance !== false ||
++    persistence.restartSafe !== false
++  ) {
++    return notDemonstrated(["process-local persistence disclosure is required"]);
++  }
++
++  const projectionRaw = root.projection;
++  if (projectionRaw !== undefined) {
++    if (typeof projectionRaw !== "object" || projectionRaw === null) {
++      return notDemonstrated(["projection artifact must be a plain object"]);
++    }
++    const projection = projectionRaw as Record<string, unknown>;
++    if (
++      projection.runId !== runId ||
++      projection.correlationId !== correlationId ||
++      projection.source !== source
++    ) {
++      return notDemonstrated([
++        "projection must share runId, correlationId, and source with the run",
++      ]);
++    }
++  } else {
++    // Composition may assess from run alone before projection materialization;
++    // still require that a projection *could* be linked (same IDs present on run).
++    // UX demonstrated only when a projection artifact is also supplied.
++    return notDemonstrated([
++      "validated projection of the same run is required for UX demonstration",
++    ]);
++  }
++
++  const limits = disclosure?.limits;
++  if (!Array.isArray(limits) || limits.length === 0) {
++    return notDemonstrated(["source disclosure limits are required"]);
++  }
++
++  return {
++    uxExploration: {
++      status: "demonstrated",
++      reasons: [
++        "linked succeeded fixture run",
++        "validated projection of the same run",
++        "official complete evidence and disclosures demonstrated",
++      ],
++    },
++    uiDelivery: UI_DELIVERY,
++    strongRuntimeVerdict: STRONG_RUNTIME,
++    openReserves: D2D3_OPEN_RESERVES,
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
+new file mode 100644
+index 0000000..c72b38a
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
+@@ -0,0 +1,234 @@
++/**
++ * Pure application helper for untrusted execution payloads.
++ * No Node, infrastructure, or provider imports.
++ * Rejects accessors, non-plain prototypes, functions, symbols, and cycles.
++ */
++
++const DEFAULT_MAX_DEPTH = 8;
++const DEFAULT_MAX_KEYS = 64;
++const DEFAULT_MAX_ARRAY = 64;
++const DEFAULT_MAX_STRING = 4096;
++
++const FORBIDDEN_KEY =
++  /^(.*[_-]?)?(secret|password|token|api[_-]?key|authorization|cookie|prompt|rawResponse|raw_prompt|raw_response)([_-].*)?$/i;
++
++/**
++ * Canonical D2-D3 late-evidence / display redaction detectors.
++ * Single aggregation point: containsSensitiveLateContent → sanitizeLateEvidenceSummary.
++ * Fail-closed: any hit means the whole late summary becomes late_result_redacted.
++ */
++
++/** Assignments, headers, query params, and known secret prefixes. */
++const FORBIDDEN_ASSIGNMENT_OR_PREFIX =
++  /sk-|ghp_|github_pat_|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY|private\s+key|xox[baprs]-|password\s*[:=]|secret\s*[:=]|(?:access_|refresh_|client_)?token\s*[:=]|api[_-]?key\s*[:=]|authorization\s*[:=]|authorization\s*:\s*bearer\b|\bbearer\s+[^\s]+|cookie\s*[:=]|session\s*[:=]|[?&](?:access_|refresh_|client_)?token=/i;
++
++/**
++ * JSON-like structured sensitive keys (exact key names inside quotes).
++ * Matches "token": / 'token': / with optional whitespace around ':'.
++ * Does NOT match longer keys such as tokenCount, authorizationStatus, apiVersion.
++ */
++const STRUCTURED_SENSITIVE_KEY =
++  /['"](?:password|secret|token|access[_-]token|refresh[_-]token|client[_-]secret|api[_-]?key|authorization|cookie|session)['"]\s*:/i;
++
++/** Local D2-D3 late-evidence sensitive content detector (canonical). */
++export function containsSensitiveLateContent(value: string): boolean {
++  if (typeof value !== "string" || value.length === 0) return false;
++  if (STRUCTURED_SENSITIVE_KEY.test(value)) return true;
++  if (FORBIDDEN_ASSIGNMENT_OR_PREFIX.test(value)) return true;
++  return false;
++}
++
++export type UntrustedReadOk = {
++  readonly ok: true;
++  readonly value: unknown;
++};
++
++export type UntrustedReadFail = {
++  readonly ok: false;
++  readonly reason: string;
++};
++
++export type UntrustedReadResult = UntrustedReadOk | UntrustedReadFail;
++
++export type UntrustedReadOptions = {
++  readonly maxDepth?: number;
++  readonly maxKeys?: number;
++  readonly maxArrayLength?: number;
++  readonly maxStringLength?: number;
++  readonly redact?: boolean;
++};
++
++function isPlainObject(value: object): boolean {
++  const proto = Object.getPrototypeOf(value);
++  return proto === Object.prototype || proto === null;
++}
++
++function ownDataKeys(obj: object): string[] | null {
++  const names = Object.getOwnPropertyNames(obj);
++  const symbols = Object.getOwnPropertySymbols(obj);
++  if (symbols.length > 0) return null;
++  for (const name of names) {
++    const desc = Object.getOwnPropertyDescriptor(obj, name);
++    if (!desc) return null;
++    if (desc.get !== undefined || desc.set !== undefined) return null;
++    if (typeof desc.value === "function" || typeof desc.value === "symbol") {
++      return null;
++    }
++  }
++  return names;
++}
++
++function redactString(value: string, maxLength: number): string {
++  const cleaned = value
++    .replace(STRUCTURED_SENSITIVE_KEY, '"[REDACTED_KEY]":')
++    .replace(FORBIDDEN_ASSIGNMENT_OR_PREFIX, "[REDACTED]");
++  return cleaned.slice(0, maxLength);
++}
++
++function readInner(
++  input: unknown,
++  depth: number,
++  ancestors: WeakSet<object>,
++  options: Required<UntrustedReadOptions>,
++): UntrustedReadResult {
++  if (depth > options.maxDepth) {
++    return { ok: false, reason: "depth_exceeded" };
++  }
++  if (input === null || typeof input === "boolean") {
++    return { ok: true, value: input };
++  }
++  if (input === undefined) {
++    return { ok: true, value: undefined };
++  }
++  if (typeof input === "number") {
++    if (!Number.isFinite(input)) {
++      return { ok: false, reason: "non_finite_number" };
++    }
++    return { ok: true, value: input };
++  }
++  if (typeof input === "string") {
++    if (input.length > options.maxStringLength) {
++      return { ok: false, reason: "string_too_long" };
++    }
++    if (options.redact && containsSensitiveLateContent(input)) {
++      return { ok: true, value: redactString(input, options.maxStringLength) };
++    }
++    if (options.redact) {
++      return { ok: true, value: input.slice(0, options.maxStringLength) };
++    }
++    return { ok: true, value: input };
++  }
++  if (typeof input === "function" || typeof input === "symbol") {
++    return { ok: false, reason: "forbidden_type" };
++  }
++  if (typeof input !== "object") {
++    return { ok: false, reason: "unsupported_type" };
++  }
++  if (ancestors.has(input)) {
++    return { ok: false, reason: "cycle" };
++  }
++  ancestors.add(input);
++
++  if (Array.isArray(input)) {
++    if (input.length > options.maxArrayLength) {
++      ancestors.delete(input);
++      return { ok: false, reason: "array_too_large" };
++    }
++    const out: unknown[] = [];
++    for (let i = 0; i < input.length; i += 1) {
++      const desc = Object.getOwnPropertyDescriptor(input, i);
++      if (!desc || desc.get !== undefined || desc.set !== undefined) {
++        ancestors.delete(input);
++        return { ok: false, reason: "array_accessor" };
++      }
++      const nested = readInner(desc.value, depth + 1, ancestors, options);
++      if (!nested.ok) {
++        ancestors.delete(input);
++        return nested;
++      }
++      out.push(nested.value);
++    }
++    ancestors.delete(input);
++    return { ok: true, value: out };
++  }
++
++  if (!isPlainObject(input)) {
++    ancestors.delete(input);
++    return { ok: false, reason: "non_plain_object" };
++  }
++  const keys = ownDataKeys(input);
++  if (keys === null) {
++    ancestors.delete(input);
++    return { ok: false, reason: "accessors_or_symbols" };
++  }
++  if (keys.length > options.maxKeys) {
++    ancestors.delete(input);
++    return { ok: false, reason: "too_many_keys" };
++  }
++  const out: Record<string, unknown> = {};
++  for (const key of keys) {
++    if (options.redact && FORBIDDEN_KEY.test(key)) {
++      ancestors.delete(input);
++      return { ok: false, reason: `forbidden_key:${key}` };
++    }
++    const desc = Object.getOwnPropertyDescriptor(input, key);
++    if (!desc || desc.get !== undefined || desc.set !== undefined) {
++      ancestors.delete(input);
++      return { ok: false, reason: "accessor" };
++    }
++    const nested = readInner(desc.value, depth + 1, ancestors, options);
++    if (!nested.ok) {
++      ancestors.delete(input);
++      return nested;
++    }
++    out[key] = nested.value;
++  }
++  ancestors.delete(input);
++  return { ok: true, value: out };
++}
++
++/**
++ * Inspect descriptors without invoking getters. Produce a detached plain copy
++ * or a structured rejection reason.
++ */
++export function readUntrustedPlainData(
++  input: unknown,
++  options?: UntrustedReadOptions,
++): UntrustedReadResult {
++  const resolved: Required<UntrustedReadOptions> = {
++    maxDepth: options?.maxDepth ?? DEFAULT_MAX_DEPTH,
++    maxKeys: options?.maxKeys ?? DEFAULT_MAX_KEYS,
++    maxArrayLength: options?.maxArrayLength ?? DEFAULT_MAX_ARRAY,
++    maxStringLength: options?.maxStringLength ?? DEFAULT_MAX_STRING,
++    redact: options?.redact ?? false,
++  };
++  return readInner(input, 0, new WeakSet<object>(), resolved);
++}
++
++export function redactBoundedText(
++  value: unknown,
++  maxLength = 240,
++): string | null {
++  if (typeof value !== "string") return null;
++  return redactString(value, maxLength);
++}
++
++export function sanitizeLateEvidenceSummary(input: unknown): string {
++  // Official late evidence: non-string / hostile shapes never become caller content.
++  if (typeof input !== "string") {
++    return "late_result_redacted";
++  }
++  // Detect on the original before any truncation.
++  if (containsSensitiveLateContent(input)) {
++    return "late_result_redacted";
++  }
++  const bounded = input.slice(0, 240).trim();
++  if (!bounded) {
++    return "late_result_redacted";
++  }
++  // Re-check after normalization/bounding (fail closed on ambiguity).
++  if (containsSensitiveLateContent(bounded)) {
++    return "late_result_redacted";
++  }
++  return bounded;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+index 83d3841..7655434 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+@@ -9,6 +9,7 @@ import type {
+   NormalizedFailure,
+   ProviderCapabilityDescriptor,
+ } from "./types";
++import { normalizeCanonicalPath } from "./sandboxContract";
 
-## 60. Hash final
+ export type PolicyInput = {
+   readonly intent: ExecutionIntent;
+@@ -51,22 +52,44 @@ export function evaluateReadOnlyPolicy(input: PolicyInput): PolicyDecision {
+     };
+   }
 
-count=18 hash=`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` identique initial OUI
+-  if (intent.targetPath && context.protectedPaths?.length) {
+-    const hit = context.protectedPaths.some(
+-      (p) => intent.targetPath === p || intent.targetPath!.startsWith(`${p}/`),
+-    );
+-    if (hit) {
++  if (intent.targetPath) {
++    const canonical = normalizeCanonicalPath(intent.targetPath);
++    if (!canonical.ok) {
+       return {
+         ok: false,
+         failure: normalizedFailure({
+           family: "protected_path",
+           code: "PROTECTED_PATH",
+-          userMessage: "Target path is protected",
++          userMessage: "Target path is protected or invalid",
+           retryable: false,
+           correlationId: cid,
+         }),
+       };
+     }
++    if (context.protectedPaths?.length) {
++      const hit = context.protectedPaths.some((p) => {
++        const protectedCanonical = normalizeCanonicalPath(p);
++        const prefix = protectedCanonical.ok
++          ? protectedCanonical.normalized
++          : p.replace(/\\/g, "/").replace(/\/+$/, "");
++        return (
++          canonical.normalized === prefix ||
++          canonical.normalized.startsWith(`${prefix}/`)
++        );
++      });
++      if (hit) {
++        return {
++          ok: false,
++          failure: normalizedFailure({
++            family: "protected_path",
++            code: "PROTECTED_PATH",
++            userMessage: "Target path is protected",
++            retryable: false,
++            correlationId: cid,
++          }),
++        };
++      }
++    }
+   }
 
-## 61–63. Git Truth final / absence mutation
+   if (!context.permissions.gitRead && intent.requestedLane === "git") {
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
+index 9b12ef9..b3ca7b7 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
+@@ -5,6 +5,7 @@
+ import { normalizedFailure } from "./errors";
+ import type { NormalizedFailure, ProviderLane } from "./types";
+ import { isIsoTimestamp } from "./evidence";
++import { normalizeCanonicalPath } from "./sandboxContract";
 
-Branche delivery ; staged vide ; remote projet absente ; aucun fichier projet modifié par QA ; aucun commit/push/PR.
+ const ALLOWED_LANES: readonly ProviderLane[] = ["ai", "git", "cursor", "none"];
 
-## 64. Review Handoff
+@@ -132,8 +133,9 @@ export function validateUntrustedProviderRequest(
+     }
+     if (obj.path !== undefined) {
+       if (typeof obj.path !== "string") return fail("path must be string");
+-      if (obj.path.includes("..") || obj.path.startsWith("/") || obj.path.includes("\\")) {
+-        return fail("path traversal or absolute path forbidden");
++      const canonical = normalizeCanonicalPath(obj.path);
++      if (!canonical.ok) {
++        return fail("path traversal, encoding, or absolute path forbidden");
+       }
+     }
+   }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
+index 4b351eb..49fc905 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
+@@ -1,7 +1,11 @@
+ /**
+  * D2D2-08 — sandbox / protected-path contract (pure, fixture-verifiable).
+  * Deny-by-default. Does not claim the sandbox is secure.
++ *
++ * Path comparisons use a shared canonical normalization that percent-decodes
++ * once in a bounded way and rejects traversal / double-encoding / controls.
+  */
++
+ export type SandboxPathDecision =
+   | { readonly allowed: true; readonly normalized: string }
+   | {
+@@ -16,7 +20,23 @@ export type SandboxPathDecision =
+         | "git_write"
+         | "branch_mismatch"
+         | "head_mismatch"
+-        | "observed_missing";
++        | "observed_missing"
++        | "invalid_encoding"
++        | "control_or_null"
++        | "double_encoding";
++    };
++
++export type CanonicalPathResult =
++  | { readonly ok: true; readonly normalized: string }
++  | {
++      readonly ok: false;
++      readonly reason:
++        | "empty"
++        | "absolute"
++        | "traversal"
++        | "invalid_encoding"
++        | "control_or_null"
++        | "double_encoding";
+     };
 
-parent attendu `cabb7deb…` ; message `docs(review-handoff): publish D2-D3 QA revalidation 3 status`
+ const DEFAULT_PROTECTED = [
+@@ -29,6 +49,73 @@ const DEFAULT_PROTECTED = [
+   "node_modules/",
+ ] as const;
 
-## 65. Verdict unique
++const DANGEROUS_ENCODED = /%(?:00|2e|2f|5c)/i;
++
++function decodePercentOnce(raw: string): CanonicalPathResult {
++  let out = "";
++  for (let i = 0; i < raw.length; i += 1) {
++    const ch = raw[i];
++    if (ch !== "%") {
++      const code = ch.charCodeAt(0);
++      if (code === 0 || (code < 0x20 && code !== 0x09) || code === 0x7f) {
++        return { ok: false, reason: "control_or_null" };
++      }
++      out += ch;
++      continue;
++    }
++    if (i + 2 >= raw.length) {
++      return { ok: false, reason: "invalid_encoding" };
++    }
++    const hex = raw.slice(i + 1, i + 3);
++    if (!/^[0-9A-Fa-f]{2}$/.test(hex)) {
++      return { ok: false, reason: "invalid_encoding" };
++    }
++    const code = Number.parseInt(hex, 16);
++    if (code === 0 || (code < 0x20 && code !== 0x09) || code === 0x7f) {
++      return { ok: false, reason: "control_or_null" };
++    }
++    out += String.fromCharCode(code);
++    i += 2;
++  }
++  return { ok: true, normalized: out };
++}
++
++/**
++ * Canonical path normalization shared by sandbox, provider boundary, and policy.
++ * Never normalizes a traversal into an allowlisted path.
++ */
++export function normalizeCanonicalPath(path: unknown): CanonicalPathResult {
++  if (typeof path !== "string" || !path.trim()) {
++    return { ok: false, reason: "empty" };
++  }
++  const replaced = path.trim().replace(/\\/g, "/");
++  const first = decodePercentOnce(replaced);
++  if (!first.ok) return first;
++
++  // Residual encoded path metacharacters imply double-encoding or incomplete decode.
++  if (DANGEROUS_ENCODED.test(first.normalized) || /%25(?:2e|2f|5c|00)/i.test(replaced)) {
++    return { ok: false, reason: "double_encoding" };
++  }
++  if (/%[0-9A-Fa-f]{2}/.test(first.normalized)) {
++    // Any remaining percent-encoding after one decode is rejected (fail closed).
++    return { ok: false, reason: "double_encoding" };
++  }
++
++  const raw = first.normalized;
++  if (raw.startsWith("/") || /^[A-Za-z]:\//.test(raw)) {
++    return { ok: false, reason: "absolute" };
++  }
++  const parts = raw.split("/");
++  if (parts.some((p) => p === ".." || p === "")) {
++    return { ok: false, reason: "traversal" };
++  }
++  const normalized = parts.filter((p) => p !== ".").join("/");
++  if (!normalized) {
++    return { ok: false, reason: "empty" };
++  }
++  return { ok: true, normalized };
++}
++
+ /** Exact match or child under prefix with segment boundary (no sibling prefix bypass). */
+ export function pathMatchesAllowlistPrefix(
+   normalized: string,
+@@ -45,18 +132,11 @@ export function evaluateSandboxPath(input: {
+   allowlistRepos: readonly string[];
+   protectedPaths?: readonly string[];
+ }): SandboxPathDecision {
+-  if (typeof input.path !== "string" || !input.path.trim()) {
+-    return { allowed: false, reason: "empty" };
+-  }
+-  const raw = input.path.trim().replace(/\\/g, "/");
+-  if (raw.startsWith("/") || /^[A-Za-z]:\//.test(raw)) {
+-    return { allowed: false, reason: "absolute" };
++  const canonical = normalizeCanonicalPath(input.path);
++  if (!canonical.ok) {
++    return { allowed: false, reason: canonical.reason };
+   }
+-  const parts = raw.split("/");
+-  if (parts.some((p) => p === ".." || p === "")) {
+-    return { allowed: false, reason: "traversal" };
+-  }
+-  const normalized = parts.filter((p) => p !== ".").join("/");
++  const normalized = canonical.normalized;
+   const protectedPaths = [
+     ...DEFAULT_PROTECTED,
+     ...(input.protectedPaths ?? []),
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/index.ts b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
+index a6fab28..f16739a 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
+@@ -94,9 +94,13 @@ export {
+ export {
+   evaluateSandboxMutationGuards,
+   evaluateSandboxPath,
++  normalizeCanonicalPath,
+   pathMatchesAllowlistPrefix,
+ } from "./domain/sandboxContract";
+-export type { SandboxPathDecision } from "./domain/sandboxContract";
++export type {
++  CanonicalPathResult,
++  SandboxPathDecision,
++} from "./domain/sandboxContract";
+ export {
+   invokeWithTimeoutAndCancellation,
+   recordLateProviderResult,
+@@ -106,3 +110,30 @@ export type {
+   InvokeOutcome,
+   RetryClass,
+ } from "./application/providerInvocation";
++// Coordinator and injection deps are server-composition only (not client-safe).
++export {
++  createExecutionProjection,
++} from "./application/executionProjection";
++export type {
++  CreateExecutionProjectionResult,
++  ExecutionProjection,
++} from "./application/executionProjection";
++export {
++  assessExecutionReadiness,
++  D2D3_OPEN_RESERVES,
++} from "./application/executionReadiness";
++export type {
++  ExecutionReadinessAssessment,
++  ReadinessLevel,
++  ReadinessStatus,
++} from "./application/executionReadiness";
++export {
++  readUntrustedPlainData,
++  redactBoundedText,
++  sanitizeLateEvidenceSummary,
++} from "./application/untrustedExecutionData";
++export type {
++  UntrustedReadOptions,
++  UntrustedReadResult,
++} from "./application/untrustedExecutionData";
++export { MAX_COORDINATOR_TIMEOUT_MS } from "./application/coordinateExecutionRun";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+new file mode 100644
+index 0000000..5c49470
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+@@ -0,0 +1,125 @@
++import {
++  coordinateExecutionRun,
++  type CoordinateExecutionRunResult,
++} from "../application/coordinateExecutionRun";
++import {
++  createExecutionProjection,
++  type CreateExecutionProjectionResult,
++} from "../application/executionProjection";
++import {
++  assessExecutionReadiness,
++  type ExecutionReadinessAssessment,
++} from "../application/executionReadiness";
++import type { ClockPort } from "../ports/clockPort";
++import type { ExecutionRun } from "../domain/types";
++import { composeExecutionRunMemory } from "./composeExecutionRunMemory";
++import {
++  composeExecutionRunProvidersFake,
++  type ExecutionRunProviderComposition,
++} from "./composeExecutionRunProviders";
++import { assertServerOnly } from "./serverOnly";
++
++export type ExecutionRunD2D3Composition = {
++  readonly coordinate: (
++    input: unknown,
++  ) => Promise<CoordinateExecutionRunResult>;
++  /** Project a stored run by canonical runId — never accept an arbitrary caller run object. */
++  readonly projectById: (
++    runId: string,
++  ) => Promise<CreateExecutionProjectionResult>;
++  /** Assess readiness from the stored run + a freshly validated projection. */
++  readonly assessById: (
++    runId: string,
++  ) => Promise<ExecutionReadinessAssessment>;
++  readonly getById: (runId: string) => Promise<ExecutionRun | null>;
++  readonly disclosure: {
++    readonly sources: readonly ["fixture"];
++    readonly cursorLive: false;
++    readonly cursorVerified: false;
++    readonly providersLive: false;
++    readonly gitWrite: false;
++    readonly persistence: "memory_process_local";
++    readonly durable: false;
++    readonly multiInstance: false;
++    readonly restartSafe: false;
++    readonly gD2dCursor01: "NOT_CONSUMED";
++    readonly gD2dPersist01: "NOT_CONSUMED";
++  };
++};
++
++/**
++ * D2-D3 fixture-first composition. It assembles the existing single memory
++ * authority and D2-D2 ports; it does not introduce another store or runtime.
++ * Source authority is fixture-only and is not injectable.
++ */
++export function composeExecutionRunD2D3(options?: {
++  readonly providers?: ExecutionRunProviderComposition;
++  readonly clock?: ClockPort;
++  readonly clockIso?: string;
++}): ExecutionRunD2D3Composition {
++  assertServerOnly();
++  const clockIso = options?.clockIso ?? "2026-08-04T09:15:00.000Z";
++  const execution = composeExecutionRunMemory({ clockIso });
++  const providers = options?.providers ?? composeExecutionRunProvidersFake();
++  const clock: ClockPort = options?.clock ?? { nowIso: () => clockIso };
++
++  const projectById = async (
++    runId: string,
++  ): Promise<CreateExecutionProjectionResult> => {
++    const run = await execution.getById(runId);
++    if (!run) {
++      return {
++        ok: false,
++        failure: { code: "RUN_NOT_FOUND", message: "Execution run not found" },
++      };
++    }
++    const provisional = createExecutionProjection({ run });
++    if (!provisional.ok) return provisional;
++    const readiness = assessExecutionReadiness({
++      run,
++      projection: provisional.projection,
++    });
++    return createExecutionProjection({
++      run,
++      readinessAssessment: readiness,
++      openReserves: readiness.openReserves,
++    });
++  };
++
++  return {
++    coordinate: (input) =>
++      coordinateExecutionRun(input, {
++        execution,
++        providers,
++        events: providers.events,
++        clock,
++      }),
++    projectById,
++    assessById: async (runId) => {
++      const projected = await projectById(runId);
++      if (!projected.ok) {
++        return assessExecutionReadiness({});
++      }
++      const run = await execution.getById(runId);
++      if (!run) return assessExecutionReadiness({});
++      return assessExecutionReadiness({
++        run,
++        projection: projected.projection,
++      });
++    },
++    getById: execution.getById,
++    disclosure: {
++      sources: ["fixture"],
++      cursorLive: false,
++      cursorVerified: false,
++      providersLive: false,
++      gitWrite: false,
++      persistence: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++      gD2dCursor01: "NOT_CONSUMED",
++      gD2dPersist01: "NOT_CONSUMED",
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+index 1d967e6..485f3a2 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+@@ -12,3 +12,17 @@ export {
+   composeExecutionRunProvidersFake,
+   type ExecutionRunProviderComposition,
+ } from "./composeExecutionRunProviders";
++export {
++  composeExecutionRunD2D3,
++  type ExecutionRunD2D3Composition,
++} from "./composeExecutionRunD2D3";
++export {
++  coordinateExecutionRun,
++  MAX_COORDINATOR_TIMEOUT_MS,
++  type CoordinateExecutionRunDependencies,
++  type CoordinateExecutionRunInput,
++  type CoordinateExecutionRunResult,
++  type CoordinateProviderRequest,
++  type ExecutionAuthority,
++  type EventDeliveryStatus,
++} from "../application/coordinateExecutionRun";
+--
+2.50.1 (Apple Git-155)
 
-D2-D3 CRITICAL QA REVALIDATION 3 PASS WITH RESERVES —
-ALL D2-D3 QA FINDINGS VERIFIED —
-D2D3-04/05 REMAIN BLOCKED —
-READY FOR MORRIS PUBLICATION DECISION
 
-## 66. Prochaine décision candidate
+```
 
-`GO PUBLICATION SFIA STUDIO V3.1-D2-D3`
+## 26. Commit projet
 
-candidate uniquement — non consommé
+SHA : `9d1b3d2520f049dba0bf811380167003ca26ad82`
+Branche : `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`
 
-ChatGPT doit consulter sfia/review-handoff → latest-chatgpt-review.md au commit/blob de cette QA Rev3 avant validation, fermeture ou recommandation de publication.
+```
+9d1b3d2 (HEAD -> delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination) feat(sfia-studio): add V3.1-D2-D3 read-only coordination
+ .../d2d3.coordination.fixture.test.ts              |  145 +++
+ .../d2d3.evidence.truthfulness.test.ts             |  241 +++++
+ .../execution-run/d2d3.negative.resilience.test.ts |  295 ++++++
+ .../oa/execution-run/d2d3.projection.test.ts       |  102 ++
+ .../d2d3.qa-findings.regression.test.ts            | 1088 ++++++++++++++++++++
+ .../oa/execution-run/d2d3.readiness.test.ts        |  123 +++
+ .../oa/execution-run/importBoundaries.test.ts      |   66 +-
+ .../sandbox.protectedPath.fixture.test.ts          |   51 +
+ .../application/coordinateExecutionRun.ts          | 1086 +++++++++++++++++++
+ .../application/executionProjection.ts             |  444 ++++++++
+ .../application/executionReadiness.ts              |  198 ++++
+ .../application/untrustedExecutionData.ts          |  234 +++++
+ .../app/lib/oa/execution-run/domain/policy.ts      |   35 +-
+ .../oa/execution-run/domain/providerBoundary.ts    |    6 +-
+ .../lib/oa/execution-run/domain/sandboxContract.ts |  104 +-
+ .../sfia-studio/app/lib/oa/execution-run/index.ts  |   33 +-
+ .../server/composeExecutionRunD2D3.ts              |  125 +++
+ .../app/lib/oa/execution-run/server/index.ts       |   14 +
+ 18 files changed, 4368 insertions(+), 22 deletions(-)
+```
+
+## 27. Parent
+
+`de2800aa836bb8221dc2912414126b7a3e6a1f58` — exact.
+
+## 28. Message
+
+`feat(sfia-studio): add V3.1-D2-D3 read-only coordination`
+
+## 29. Manifest commit
+
+```
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/index.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+M	projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+```
+
+## 30. Stat commit
+
+18 files changed, 4368 insertions(+), 22 deletions(-)
+
+## 31. Hash post-commit
+
+`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` — identique.
+
+## 32. Push
+
+`git push -u origin delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`
+Succès ; pas de force ; pas de push main.
+
+## 33. Remote branch
+
+`refs/heads/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` créée.
+
+## 34. Local / remote SHA
+
+Local HEAD = upstream = remote head = `9d1b3d2520f049dba0bf811380167003ca26ad82`
+
+## 35. PR number
+
+#310
+
+## 36. PR URL
+
+https://github.com/mcleland147/sfia-workspace/pull/310
+
+## 37. PR title
+
+feat(sfia-studio): add V3.1-D2-D3 read-only coordination
+
+## 38. Base / head
+
+baseRefName = `main` (OID `de2800aa836bb8221dc2912414126b7a3e6a1f58`)
+headRefName = `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` (OID `9d1b3d2520f049dba0bf811380167003ca26ad82`)
+
+## 39. État Draft
+
+state = OPEN ; isDraft = true
+
+## 40. Corps complet de PR
+
+```markdown
+## Summary
+
+- ajoute la coordination end-to-end read-only D2-D3 pour `execution-run` ;
+- source démontrée limitée à `fixture` ;
+- coordination provider-independent ;
+- projection sécurisée et allowlistée ;
+- readiness liée aux artefacts canoniques ;
+- evidence officielle et redaction fail-closed ;
+- event sink non autoritatif ;
+- timeout et cancellation bornés ;
+- aucune persistance durable, aucun provider live, aucun D3.
+
+## Morris decisions
+
+- GO Delivery D2-D3 consommé ;
+- QA Critical initiale bloquée ;
+- corrections F-QA-D2D3-01…10 ;
+- Revalidation 1 bloquée ;
+- corrections F-QA-D2D3-05 et F-QA-REV-D2D3-01/02 ;
+- Revalidation 2 bloquée ;
+- correction F-QA-REV2-D2D3-01 ;
+- arbitrage F-QA-REV2-D2D3-02 ;
+- Revalidation 3 PASS WITH RESERVES ;
+- GO PUBLICATION consommé le 2026-08-04 à 14:37 CEST ;
+- GO PR READINESS non consommé ;
+- GO MARK READY non consommé ;
+- GO MERGE non consommé ;
+- gates Cursor, Persist et D2C non consommés.
+
+## Scope
+
+- exactement 18 fichiers ;
+- uniquement sous :
+  `projects/sfia-studio/app/lib/oa/execution-run/**`
+  et
+  `projects/sfia-studio/app/__tests__/oa/execution-run/**` ;
+- package hash :
+  `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` ;
+- aucun document 20–24 modifié ;
+- aucune configuration, dépendance, lockfile, workflow, UI, route ou API.
+
+## D2-D3 contract
+
+- huit états canoniques :
+  idle, running, awaiting_human, succeeded, failed, cancelled, timed_out, blocked ;
+- partial jamais succeeded ;
+- cancellation terminale ;
+- late result evidence-only ;
+- source fixture-only ;
+- provider request correlationId et lane vérifiés avant engagement ;
+- readiness UX fondée sur run, projection et evidence liés ;
+- UI Delivery non démontrée ;
+- strong runtime bloqué ;
+- projection unknown validée, allowlistée et redigée ;
+- late evidence fail-closed ;
+- event sink fail-safe et non autoritatif ;
+- providerAttempted, providerInvoked et providerCompleted distingués ;
+- timeout maximal local D2-D3 de 60 000 ms ;
+- chemins encodés et traversées bloqués ;
+- mémoire process-local uniquement.
+
+## QA evidence
+
+- 14 findings vérifiés en QA ;
+- aucun nouveau BLOCKER ou MAJOR ;
+- 29/29 probes initiaux PASS ;
+- 15/15 P-REV PASS ;
+- 17/17 P-REV2 PASS ;
+- CORR2, CORR3, NONREG et P-REV3 PASS ;
+- regression : 95 PASS ;
+- targeted : 105 PASS ;
+- execution-run : 28 fichiers / 270 PASS ;
+- full Vitest : 130 fichiers / 1316 PASS ;
+- governance : 73 PASS ;
+- typecheck, lint, build : PASS.
+
+Findings status: **VERIFIED IN QA — CLOSURE RECOMMENDED** (not formally CLOSED).
+
+## Reserves
+
+- R-QA-REV-01 — OPEN NOT LIFTED ;
+- R-QA-REV-02 — OPEN NOT LIFTED ;
+- R-QA-D2C-01 — OPEN NOT LIFTED ;
+- Cursor product capabilities — UNVERIFIED ;
+- memory process-local only ;
+- R-PR-D2D2-01 — MINOR ;
+- R-CORR-D2D3-01 — timeout 60 000 ms local D2-D3 ;
+- R-QA-REV3-D2D3-TIME-01 — OPEN MINOR, traçabilité ;
+- R-CORR-D2D3-02 — SATISFIED — CLOSURE RECOMMENDED.
+
+No reserve is lifted by this publication.
+
+## Explicit exclusions
+
+- aucun provider live ;
+- aucune preuve Cursor live ou sandbox-real ;
+- aucune persistance durable ;
+- aucun multi-instance ;
+- aucun restart-safe ;
+- aucun D2-D4 write ;
+- aucune UI ;
+- aucun transport D3 ;
+- aucun claim production-ready ;
+- aucun claim RUN READY ;
+- aucun merge dans ce cycle.
+
+## Test plan
+
+Pre-publication validations observed on 2026-08-04 (local, no content changes):
+
+- [x] `npm test -- __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts` → 95 PASS
+- [x] `npm test --` regression + evidence → 105 PASS
+- [x] `npm test -- __tests__/oa/execution-run/` → 28 files / 270 PASS
+- [x] `npm run typecheck` → PASS
+- [x] `npm run lint` → PASS
+- [x] `npm run build` → PASS
+- [x] `npm test` → 130 files / 1316 PASS
+- [x] governance node tests → 73 PASS
+- [x] `git diff --check` → PASS
+
+## Review guidance
+
+Ordre recommandé :
+
+1. `coordinateExecutionRun.ts` ;
+2. `untrustedExecutionData.ts` ;
+3. `executionProjection.ts` ;
+4. `executionReadiness.ts` ;
+5. `composeExecutionRunD2D3.ts` ;
+6. `policy.ts`, `providerBoundary.ts`, `sandboxContract.ts` ;
+7. tests coordination / evidence / projection / readiness ;
+8. matrice permanente des findings ;
+9. import boundaries.
+
+## Publication status
+
+- PR Draft uniquement ;
+- mark-ready non autorisé ;
+- merge non autorisé ;
+- branche préservée ;
+- prochain gate candidat :
+  GO PR READINESS SFIA STUDIO V3.1-D2-D3.
+```
+
+## 41. Fichiers PR
+
+```
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
+projects/sfia-studio/app/lib/oa/execution-run/index.ts
+projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+```
+Exactement 18 ; aucun hors manifest ; aucun `.tmp-sfia-review/**`.
+
+## 42. Stats PR
+
+additions = 4368 ; deletions = 22
+
+## 43. Nombre de commits
+
+1 (un seul commit projet vs main)
+
+## 44. État CI initial
+
+Capture post-création :
+
+- Detect SFIA Studio changes: status=COMPLETED conclusion=SUCCESS
+- Build and validate SFIA Studio: status=IN_PROGRESS conclusion=
+
+mergeStateStatus observé : `BLOCKED`
+Aucune correction CI dans ce cycle. CI non en échec au moment de la capture (Detect SUCCESS ; Build IN_PROGRESS).
+
+## 45. Absence de mark-ready
+
+isDraft reste true ; aucun `gh pr ready`.
+
+## 46. Absence de merge
+
+PR non mergée ; main toujours `de2800aa836bb8221dc2912414126b7a3e6a1f58`.
+
+## 47. Hash post-push
+
+`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` — identique (également post-publication freeze).
+
+## 48. Git Truth Check final
+
+```
+=== timestamps final ===
+2026-08-04 14:53:03 CEST +0200
+2026-08-04 12:53:03 UTC
+branch=delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination
+HEAD=9d1b3d2520f049dba0bf811380167003ca26ad82
+PARENT=de2800aa836bb8221dc2912414126b7a3e6a1f58
+UPSTREAM=9d1b3d2520f049dba0bf811380167003ca26ad82
+main=de2800aa836bb8221dc2912414126b7a3e6a1f58
+remote=9d1b3d2520f049dba0bf811380167003ca26ad82	refs/heads/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination
+staged=0
+commits_vs_main=1
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/.tmp-sfia-review/
+```
+
+## 49. Aucune modification supplémentaire
+
+Aucun fichier projet modifié après le commit. Worktree : uniquement `.tmp-sfia-review/**` untracked (et éventuellement `projects/sfia-studio/app/.tmp-sfia-review/`). Staged vide.
+
+## 50. Review Handoff
+
+À publier via `scripts/sfia/publish-review-handoff.sh`
+Message : `docs(review-handoff): publish D2-D3 publication status`
+Parent distant attendu : `4052b19de7bd2ddfff94ae91a906ee8c02fc5160`
+Source : `.tmp-sfia-review/chatgpt-review.md`
+
+## 51. Verdict unique
+
+D2-D3 PUBLICATION COMPLETE —
+ATOMIC PROJECT COMMIT PUSHED —
+DRAFT PR OPEN —
+READY FOR MORRIS PR READINESS DECISION
+
+## 52. Décision suivante candidate
+
+GO PR READINESS SFIA STUDIO V3.1-D2-D3
+Statut : candidate uniquement — non consommé
+Ne pas mark-ready ; ne pas merge ; ne pas supprimer la branche.
+
+---
+
+Instruction finale pour ChatGPT : consulter la branche `sfia/review-handoff` et le fichier `sfia-review-handoff/latest-chatgpt-review.md` au commit et blob publiés par ce cycle avant toute validation de publication ou génération du prompt PR Readiness.
