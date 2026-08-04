@@ -1,68 +1,247 @@
-# ChatGPT Review Pack — SFIA Studio V3.1-D2-D2 Git Publication
+# ChatGPT Review Pack — SFIA Studio V3.1-D2-D2 Critical PR Readiness
 
 ## 1. Date / heure
-2026-08-04 09:55:29 CEST (+0200)
+2026-08-04 10:33:37 CEST (+0200)
 
-## 2. Objectif
-Publier dans GitHub le package local validé SFIA Studio V3.1-D2-D2 Read-only Adapters and Boundaries : un commit projet atomique (34 fichiers), push branche, Draft PR vers main, rapport Full, Review Handoff Git canonique. Aucune modification du package.
+## 2. Cycle
+PR readiness — validation repository avant décision d’intégration (Draft PR #309 existante).
 
-## 3. Cycle
-Cycle projet — exécution repository / publication Git du résultat Delivery (post Cycle 9 QA Critical REVALIDATION).
-
-## 4. Profil
+## 3. Profil
 Critical
 
-## 5. Typologie
+## 4. Typologie
 EVOL
 
-## 6. GO Publication consommé
-GO PUBLICATION SFIA STUDIO V3.1-D2-D2 — 2026-08-04 09:44 CEST (+0200)
+## 5. GO consommé
+GO PR READINESS SFIA STUDIO V3.1-D2-D2 — 2026-08-04 10:23 CEST (+0200)
 
-## 7. Gates non consommés
-- GO PR READINESS SFIA STUDIO V3.1-D2-D2
-- GO MARK READY / MERGE
+## 6. Gates non consommés
+- GO MARK READY / MERGE SFIA STUDIO V3.1-D2-D2
 - GO suppression de branche
+- GO post-merge
+- GO D2-D3
 - G-D2D-CURSOR-01
 - G-D2D-PERSIST-01
-- GO D2-D3
-- provider live / Cursor live / déploiement / RUN readiness
+- provider live / Cursor live / déploiement / RUN readiness / production readiness
 
-## 8. CKC
-- CKC recherché : oui
-- Contrat détaillé trouvé : non
-- Statut : absent
+## 7. CKC
+- recherché : oui (cycle PR readiness)
+- contrat détaillé trouvé : non
+- statut : absent
 
-## 9. Fallback déclaré
-routing guide ; template canonique v2.6 ; operating model ; rules and guardrails ; validation checklist ; précédent D2-D1 PR #308. Aucune autorité supplémentaire inventée.
+## 8. Fallback déclaré
+routing guide ; template cycle v2.6 ; template `2026-07-04-05-validate-pr-readiness.md` ; checklist §12 ; delivery pipeline ; decision engine ; operating model ; rules/guardrails ; handoffs QA+publication ; PR #309 + CI. Aucune autorité d’exécution supplémentaire inventée.
 
-## 10. Local Git Truth Check initial
+## 9. Local Git Truth Check initial
 | Contrôle | Attendu | Observé | Résultat |
 |----------|---------|---------|----------|
-| branche | delivery/sfia-studio-v3-1-d2-d2-read-only-adapters | delivery/sfia-studio-v3-1-d2-d2-read-only-adapters | PASS |
-| HEAD | c38b6ca97894ff55ad6a4e7d1195274260232f40 | c38b6ca97894ff55ad6a4e7d1195274260232f40 | PASS |
-| origin/main | c38b6ca97894ff55ad6a4e7d1195274260232f40 | c38b6ca97894ff55ad6a4e7d1195274260232f40 | PASS |
-| upstream | absent | absent | PASS |
-| branche distante | absente | absente | PASS |
-| staged | none | none | PASS |
-| package count | 34 | 34 | PASS |
-| package SHA-256 | `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` | `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` | PASS |
-| hors package | `.tmp-sfia-review/**` only | `.tmp-sfia-review/**` only | PASS |
+| toplevel | delivery-d2-d1 worktree | OK | PASS |
+| branche | delivery/sfia-studio-v3-1-d2-d2-read-only-adapters | exact | PASS |
+| HEAD | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | PASS |
+| origin/main | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | PASS |
+| upstream | origin/delivery/... @ `fcfad2e95319152e5d7cc7ec29d557c87af241af` | exact | PASS |
+| ahead/behind | 1 / 0 | 1 / 0 | PASS |
+| merge-base | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | PASS |
+| staged | vide | vide | PASS |
+| WT projet | propre hors `.tmp-sfia-review/**` | OK | PASS |
+| remote branch SHA | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | PASS |
 
-## 11–13. Handoff QA consulté
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- commit : `953b2975c1dff9a4a313a6a52d93eae3068267cc`
-- blob : `29b3179a439cf4cda30d0cb09261dfd6c2feefa0`
-- parent : `1ee8acc1fa5af6651e54941bb9c1d0e0310d2b38`
-- message : `docs(review-handoff): publish D2-D2 QA revalidation status`
-- verdict QA autoritatif : **D2-D2 QA PASS WITH RESERVES — READY FOR MORRIS PUBLICATION DECISION**
-- findings : F-QA-D2D2-01…11 — VERIFIED IN RE-QA
-- réserves maintenues : R-QA-REV-01/02, R-QA-D2C-01 OPEN NOT LIFTED ; Cursor UNVERIFIED ; memory process-local
+## 10–11. Handoffs consultés
+### QA
+- commit `953b2975c1dff9a4a313a6a52d93eae3068267cc` / blob `29b3179a439cf4cda30d0cb09261dfd6c2feefa0`
+- verdict : D2-D2 QA PASS WITH RESERVES — READY FOR MORRIS PUBLICATION DECISION
+- F-QA-D2D2-01…11 — VERIFIED IN RE-QA
 
-## 14–15. Package manifest initial (34) + hash
-Hash method (QA) : sorted relative paths ; for each file `path\0 + str(len(bytes))\0 + bytes`.
+### Publication
+- commit `013af4eef1ca5d76461008005d089ad23b690f16` / blob `a41d75de3c9524465bd3a7ec1a0fc3dedc895d2c` / parent `953b2975c1dff9a4a313a6a52d93eae3068267cc`
+- titre : `# ChatGPT Review Pack — SFIA Studio V3.1-D2-D2 Git Publication`
+- verdict : D2-D2 PUBLICATION COMPLETE — DRAFT PR OPEN — READY FOR CHATGPT PUBLICATION VALIDATION
+- patch complet présent (34 `diff --git`)
+- validation ChatGPT amont déclarée : D2-D2 PUBLICATION VALIDATED — DRAFT PR #309 OPEN — READY FOR MORRIS PR READINESS DECISION
 
-SHA-256 : `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d`
+## 12. PR metadata complète
+- number/url : 309 / https://github.com/mcleland147/sfia-workspace/pull/309
+- title : feat(sfia-studio): add V3.1-D2-D2 read-only adapters
+- state/isDraft : OPEN / True
+- base : main @ c38b6ca97894ff55ad6a4e7d1195274260232f40
+- head : delivery/sfia-studio-v3-1-d2-d2-read-only-adapters @ fcfad2e95319152e5d7cc7ec29d557c87af241af
+- commits : 1
+- files : 34
+- additions/deletions : 2899 / 0
+- mergeable / mergeStateStatus : MERGEABLE / CLEAN
+- reviewDecision : `(none)`
+- statusCheckRollup : Detect SUCCESS ; Build SUCCESS ; Required Gate SUCCESS
+
+## 13. Body PR complet
+```markdown
+## Summary
+
+- Ajout des wrappers et frontières provider-independent D2-D2 pour `execution-run`.
+- AI fake + platform wrappers bornés (pas de provider live).
+- Git read-only fake + platform (allowlist fail-closed, aucune mutation).
+- Cursor fixture uniquement (`verified=false`).
+- Secrets opaques côté port public ; matérialisation server-only privée.
+- Events structurés avec redaction récursive.
+- Timeout, cancellation et résultats tardifs (partial jamais succeeded).
+- Sandbox et chemins protégés.
+- Conformance harness + evidence pack D2-D2.
+
+## Morris decisions
+
+- GO Delivery D2-D2 — consommé (amont).
+- GO QA Critical initial — consommé (BLOCKED → findings).
+- GO Corrections — consommé (F-QA-D2D2-01…11 implémentés).
+- GO QA Critical REVALIDATION — consommé (PASS WITH RESERVES).
+- GO PUBLICATION SFIA STUDIO V3.1-D2-D2 — consommé (ce cycle, 2026-08-04 09:44 CEST).
+- G-D2D-CURSOR-01 — **non consommé**.
+- GO D2-D3 — **non consommé**.
+- GO PR READINESS / GO MARK READY / MERGE — **non consommés**.
+
+## Scope
+
+- Exactement **34 fichiers** sous :
+  - `projects/sfia-studio/app/lib/oa/execution-run/**`
+  - `projects/sfia-studio/app/__tests__/oa/execution-run/**`
+- Package SHA-256 (méthode QA length-prefixed) :
+  `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d`
+- Aucun document 20–24, config, dépendance, lockfile, workflow, UI, route, API, auth, D2-D3.
+
+## QA evidence
+
+- QA Critical initiale : **BLOCKED** (1 BLOCKER + 8 MAJOR + 2 MINOR).
+- Onze findings F-QA-D2D2-01…11.
+- Corrections implémentées (package 32→34 ; hash stabilisé).
+- Re-QA Critical indépendante : **D2-D2 QA PASS WITH RESERVES — READY FOR MORRIS PUBLICATION DECISION**.
+- F-QA-D2D2-01…11 — **VERIFIED IN RE-QA**.
+- Probes revalidation : 11/11 PASS.
+- Targeted execution-run : 22 fichiers / **130/130** PASS.
+- Full Vitest : 124 fichiers / **1176/1176** PASS.
+- typecheck / lint (sans fix) / build : PASS.
+- Governance : **73 / 0 fail**.
+- Package hash avant/après QA et publication : identique `bd92d3da…`.
+
+## Security and authority boundaries
+
+- Secret public : resolve-only (pas de matérialisation sur le port public).
+- Matérialisation : server-only privée (`serverOnlySecretMaterializer`).
+- Summaries metadata-only (pas de fuite de contenu secret).
+- Event redaction récursive.
+- Allowlist Git fail-closed ; aucune mutation Git produit.
+- Observed branch/HEAD indépendants (non tautologiques).
+- Cursor fixture uniquement ; `verified=false`.
+- Partial jamais `succeeded` ; cancellation/timeout terminaux.
+
+## Reserves
+
+- R-QA-REV-01 — OPEN NOT LIFTED
+- R-QA-REV-02 — OPEN NOT LIFTED
+- R-QA-D2C-01 — OPEN NOT LIFTED
+- Cursor product capabilities — UNVERIFIED
+- Mémoire process-local only
+
+## Explicit exclusions
+
+- Aucun provider live
+- Aucun Cursor live
+- Aucun Git write produit
+- Aucune persistance durable
+- Aucun multi-instance
+- Aucun D2-D3 / D2-D4
+- Aucune UI
+- Aucun claim production-ready ou RUN READY
+
+## Test plan
+
+Commandes réellement exécutées avant publication (depuis `projects/sfia-studio/app` sauf governance) :
+
+- [x] `npm test -- __tests__/oa/execution-run/` → 22 files / 130 tests PASS
+- [x] `npm run typecheck` → PASS
+- [x] `npm run lint` → PASS (no fix)
+- [x] `npm run build` → PASS
+- [x] `npm test` → 124 files / 1176 tests PASS
+- [x] governance (3 suites node --test) → 73 / 0 fail
+- [x] `git diff --check`
+- [x] scans bornés secrets / Git write / materialize export / `.only` / `.skip` / magic timeout
+
+## Review guidance
+
+Ordre de revue recommandé :
+
+1. ports
+2. provider boundary
+3. secret boundary
+4. adapters AI / Git
+5. sandbox
+6. events / redaction
+7. provider invocation
+8. server composition
+9. conformance et tests adversariaux
+
+## Publication status
+
+- PR **Draft** uniquement.
+- Mark-ready **non autorisé** dans ce cycle.
+- Merge **non autorisé**.
+- Branche préservée.
+- Prochain gate candidat (non consommé) :
+  **GO PR READINESS SFIA STUDIO V3.1-D2-D2**
+
+```
+
+## 14. Reviews, commentaires et threads
+- reviews API : 0
+- issue comments : 0
+- inline review comments : 0
+- Absence de commentaire ≠ approbation humaine.
+
+## 15. Branch protection / merge requirements
+- Classic branch protection API : HTTP 404 (Branch not protected)
+- Ruleset actif : `SFIA Studio Main Required Gate — M1` (id 19798462) enforcement=`active`
+- required_status_checks observés : `SFIA Studio Required Gate` (observé SUCCESS sur run 30889710678)
+- required_approving_review_count : 0
+- allowed_merge_methods : merge, squash, rebase
+- non_fast_forward + deletion rules présentes sur ruleset
+
+## 16. CI run, jobs et étapes
+- run ID : `30889710678`
+- workflow : `SFIA Studio CI`
+- event/status/conclusion : pull_request / completed / **success**
+- headSha : `fcfad2e95319152e5d7cc7ec29d557c87af241af` (exact commit projet)
+- checks CLI :
+```
+Build and validate SFIA Studio	pass	1m38s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91928741296
+Detect SFIA Studio changes	pass	8s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91928703817
+SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91929111924
+```
+### Job `Detect SFIA Studio changes` — success
+- [success] Set up job
+- [success] Checkout
+- [success] Detect Studio scope
+- [success] Post Checkout
+- [success] Complete job
+### Job `Build and validate SFIA Studio` — success
+- [success] Set up job
+- [success] Checkout
+- [success] Setup Node.js
+- [success] Install dependencies
+- [success] Typecheck
+- [success] Lint
+- [success] Build
+- [success] Unit tests (Vitest)
+- [success] Modeled governance tests
+- [success] Secret pattern scan (targeted)
+- [success] Trailing whitespace check
+- [success] Post Setup Node.js
+- [success] Post Checkout
+- [success] Complete job
+### Job `SFIA Studio Required Gate` — success
+- [success] Set up job
+- [success] Aggregate required gate
+- [success] Complete job
+
+## 17–18. Manifest (34) + package hash
+Méthode : chemins triés ; `path\0 + str(len(bytes))\0 + bytes` ; SHA-256.
+Hash : `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d`
 
 ```
 projects/sfia-studio/app/__tests__/oa/execution-run/adapter.ai.fake.test.ts
@@ -101,90 +280,7 @@ projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunProvider
 projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
 ```
 
-## 16. Validations pré-publication
-Depuis `projects/sfia-studio/app` (sans modifier les fichiers) :
-- `npm test -- __tests__/oa/execution-run/` → Test Files 22 passed ; Tests **130 passed**
-- `npm run typecheck` → PASS
-- `npm run lint` → PASS (No ESLint warnings or errors ; no fix)
-- `npm run build` → PASS
-- `npm test` → Test Files 124 passed ; Tests **1176 passed**
-
-Depuis `projects/sfia-studio` (governance QA exacte) :
-- 3 suites node --test → tests **73** / fail **0**
-
-- `git diff --check` → PASS
-
-## 17. Scans bornés
-Résultats : aucun hit bloquant (secrets réels, Git write sur ports, materialize public, `.only`/`.skip`, magic `?? 5_000`, `.env`/credentials hors tests synthétiques).
-
-## 18–19. Staged manifest exact + staged hash
-- Staging explicite des 34 chemins (jamais `git add .` / `-A`)
-- staged count = 34 ; liste = manifest exact
-- staged hash = `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d`
-- `git diff --cached --check` PASS
-- hors scope exclus : `.tmp-sfia-review/**`, docs 20–24, package.json, lockfiles, workflows, méthode, UI, D2-D3
-
-## 20. Commit projet
-```
-commit fcfad2e95319152e5d7cc7ec29d557c87af241af
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Tue Aug 4 09:54:01 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Tue Aug 4 09:54:01 2026 +0200
-
-    feat(sfia-studio): add V3.1-D2-D2 read-only adapters
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-```
-- SHA : `fcfad2e95319152e5d7cc7ec29d557c87af241af`
-- parent : `c38b6ca97894ff55ad6a4e7d1195274260232f40`
-- message : `feat(sfia-studio): add V3.1-D2-D2 read-only adapters`
-- ahead of origin/main : 1
-- Note : l’environnement a attaché `Co-authored-by: Cursor <cursoragent@cursor.com>` au commit ; aucun amend (interdit).
-
-## 21–22. Diff complet origin/main...HEAD (34 fichiers)
-### Diffstat
-```
- .../oa/execution-run/adapter.ai.fake.test.ts       |  59 +++++
- .../execution-run/adapter.events.redaction.test.ts |  82 +++++++
- .../oa/execution-run/adapter.git.readonly.test.ts  | 155 +++++++++++++
- .../execution-run/adapter.secrets.opaque.test.ts   |  68 ++++++
- .../adversarial.providerBoundary.test.ts           |  90 ++++++++
- .../async.cancel.lateResult.providers.test.ts      |  85 +++++++
- .../oa/execution-run/d2d2.evidence.pack.test.ts    |  30 +++
- .../oa/execution-run/importBoundaries.test.ts      |  48 ++++
- .../oa/execution-run/ports.conformance.test.ts     | 160 ++++++++++++++
- .../sandbox.protectedPath.fixture.test.ts          | 146 +++++++++++++
- .../application/providerInvocation.ts              | 199 +++++++++++++++++
- .../oa/execution-run/domain/providerBoundary.ts    | 211 ++++++++++++++++++
- .../lib/oa/execution-run/domain/sandboxContract.ts | 109 +++++++++
- .../sfia-studio/app/lib/oa/execution-run/index.ts  |  44 ++++
- .../infrastructure/ai/fakeAiExecutionAdapter.ts    |  71 ++++++
- .../ai/platformAiExecutionAdapter.ts               | 136 ++++++++++++
- .../cursor/fixtureCursorExecutionAdapter.ts        | 117 ++++++++++
- .../events/platformExecutionEventSinkAdapter.ts    |  83 +++++++
- .../events/recordingExecutionEventSink.ts          |  34 +++
- .../infrastructure/events/redactEventDetail.ts     |  85 +++++++
- .../infrastructure/git/fakeGitReadAdapter.ts       | 133 +++++++++++
- .../infrastructure/git/platformGitReadAdapter.ts   | 243 +++++++++++++++++++++
- .../infrastructure/providerConformance.ts          | 176 +++++++++++++++
- .../secrets/envSecretSourceAdapter.ts              |  28 +++
- .../secrets/fakeSecretSourceAdapter.ts             |  31 +++
- .../secrets/serverOnlySecretMaterializer.ts        |  26 +++
- .../lib/oa/execution-run/ports/aiExecutionPort.ts  |   9 +
- .../oa/execution-run/ports/cursorExecutionPort.ts  |  13 ++
- .../execution-run/ports/executionEventSinkPort.ts  |  27 +++
- .../app/lib/oa/execution-run/ports/gitReadPort.ts  |  10 +
- .../lib/oa/execution-run/ports/providerResult.ts   |  91 ++++++++
- .../lib/oa/execution-run/ports/secretSourcePort.ts |  23 ++
- .../server/composeExecutionRunProviders.ts         |  72 ++++++
- .../app/lib/oa/execution-run/server/index.ts       |   5 +
- 34 files changed, 2899 insertions(+)
-
-```
-
-### Patch complet exploitable
+## 19. Diff complet exploitable origin/main...HEAD
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/adapter.ai.fake.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/adapter.ai.fake.test.ts
 new file mode 100644
@@ -3298,196 +3394,135 @@ index 4435157..1d967e6 100644
 
 ```
 
-## 23. Push
-- commande : `git push -u origin delivery/sfia-studio-v3-1-d2-d2-read-only-adapters`
-- force : non
-- remote SHA : `fcfad2e95319152e5d7cc7ec29d557c87af241af`
-- upstream : `origin/delivery/sfia-studio-v3-1-d2-d2-read-only-adapters` @ `fcfad2e95319152e5d7cc7ec29d557c87af241af`
-- local HEAD = upstream = remote : CONCORDANT
+## 20. Commit metadata complète (trailer inclus)
+```
+commit fcfad2e95319152e5d7cc7ec29d557c87af241af
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Tue Aug 4 09:54:01 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Tue Aug 4 09:54:01 2026 +0200
 
-## 24. Draft PR
-- number : **309**
-- url : https://github.com/mcleland147/sfia-workspace/pull/309
-- state : OPEN
-- isDraft : True
-- base : main
-- head : delivery/sfia-studio-v3-1-d2-d2-read-only-adapters
-- head SHA : fcfad2e95319152e5d7cc7ec29d557c87af241af
-- commits : 1
-- files : 34
-- stats : +2899 / -0
-- fichiers hors manifest : aucun
+    feat(sfia-studio): add V3.1-D2-D2 read-only adapters
 
-## 25. Body PR complet
-```markdown
-## Summary
-
-- Ajout des wrappers et frontières provider-independent D2-D2 pour `execution-run`.
-- AI fake + platform wrappers bornés (pas de provider live).
-- Git read-only fake + platform (allowlist fail-closed, aucune mutation).
-- Cursor fixture uniquement (`verified=false`).
-- Secrets opaques côté port public ; matérialisation server-only privée.
-- Events structurés avec redaction récursive.
-- Timeout, cancellation et résultats tardifs (partial jamais succeeded).
-- Sandbox et chemins protégés.
-- Conformance harness + evidence pack D2-D2.
-
-## Morris decisions
-
-- GO Delivery D2-D2 — consommé (amont).
-- GO QA Critical initial — consommé (BLOCKED → findings).
-- GO Corrections — consommé (F-QA-D2D2-01…11 implémentés).
-- GO QA Critical REVALIDATION — consommé (PASS WITH RESERVES).
-- GO PUBLICATION SFIA STUDIO V3.1-D2-D2 — consommé (ce cycle, 2026-08-04 09:44 CEST).
-- G-D2D-CURSOR-01 — **non consommé**.
-- GO D2-D3 — **non consommé**.
-- GO PR READINESS / GO MARK READY / MERGE — **non consommés**.
-
-## Scope
-
-- Exactement **34 fichiers** sous :
-  - `projects/sfia-studio/app/lib/oa/execution-run/**`
-  - `projects/sfia-studio/app/__tests__/oa/execution-run/**`
-- Package SHA-256 (méthode QA length-prefixed) :
-  `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d`
-- Aucun document 20–24, config, dépendance, lockfile, workflow, UI, route, API, auth, D2-D3.
-
-## QA evidence
-
-- QA Critical initiale : **BLOCKED** (1 BLOCKER + 8 MAJOR + 2 MINOR).
-- Onze findings F-QA-D2D2-01…11.
-- Corrections implémentées (package 32→34 ; hash stabilisé).
-- Re-QA Critical indépendante : **D2-D2 QA PASS WITH RESERVES — READY FOR MORRIS PUBLICATION DECISION**.
-- F-QA-D2D2-01…11 — **VERIFIED IN RE-QA**.
-- Probes revalidation : 11/11 PASS.
-- Targeted execution-run : 22 fichiers / **130/130** PASS.
-- Full Vitest : 124 fichiers / **1176/1176** PASS.
-- typecheck / lint (sans fix) / build : PASS.
-- Governance : **73 / 0 fail**.
-- Package hash avant/après QA et publication : identique `bd92d3da…`.
-
-## Security and authority boundaries
-
-- Secret public : resolve-only (pas de matérialisation sur le port public).
-- Matérialisation : server-only privée (`serverOnlySecretMaterializer`).
-- Summaries metadata-only (pas de fuite de contenu secret).
-- Event redaction récursive.
-- Allowlist Git fail-closed ; aucune mutation Git produit.
-- Observed branch/HEAD indépendants (non tautologiques).
-- Cursor fixture uniquement ; `verified=false`.
-- Partial jamais `succeeded` ; cancellation/timeout terminaux.
-
-## Reserves
-
-- R-QA-REV-01 — OPEN NOT LIFTED
-- R-QA-REV-02 — OPEN NOT LIFTED
-- R-QA-D2C-01 — OPEN NOT LIFTED
-- Cursor product capabilities — UNVERIFIED
-- Mémoire process-local only
-
-## Explicit exclusions
-
-- Aucun provider live
-- Aucun Cursor live
-- Aucun Git write produit
-- Aucune persistance durable
-- Aucun multi-instance
-- Aucun D2-D3 / D2-D4
-- Aucune UI
-- Aucun claim production-ready ou RUN READY
-
-## Test plan
-
-Commandes réellement exécutées avant publication (depuis `projects/sfia-studio/app` sauf governance) :
-
-- [x] `npm test -- __tests__/oa/execution-run/` → 22 files / 130 tests PASS
-- [x] `npm run typecheck` → PASS
-- [x] `npm run lint` → PASS (no fix)
-- [x] `npm run build` → PASS
-- [x] `npm test` → 124 files / 1176 tests PASS
-- [x] governance (3 suites node --test) → 73 / 0 fail
-- [x] `git diff --check`
-- [x] scans bornés secrets / Git write / materialize export / `.only` / `.skip` / magic timeout
-
-## Review guidance
-
-Ordre de revue recommandé :
-
-1. ports
-2. provider boundary
-3. secret boundary
-4. adapters AI / Git
-5. sandbox
-6. events / redaction
-7. provider invocation
-8. server composition
-9. conformance et tests adversariaux
-
-## Publication status
-
-- PR **Draft** uniquement.
-- Mark-ready **non autorisé** dans ce cycle.
-- Merge **non autorisé**.
-- Branche préservée.
-- Prochain gate candidat (non consommé) :
-  **GO PR READINESS SFIA STUDIO V3.1-D2-D2**
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
 ```
+Message brut observé :
+```
+feat(sfia-studio): add V3.1-D2-D2 read-only adapters
 
-## 26. CI observée
-- run ID : `30889710678`
-- workflow : `SFIA Studio CI`
-- headSha : `fcfad2e95319152e5d7cc7ec29d557c87af241af`
-- run status (snapshot) : `in_progress` conclusion=`(pending)`
-- url : https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678
-Jobs observés au moment du pack :
-- `Detect SFIA Studio changes`: status=completed conclusion=success
-- `Build and validate SFIA Studio`: status=in_progress conclusion=(none yet)
-- Aucun claim de réussite globale non observée ; Build and validate était **in_progress** au snapshot.
-- Aucune correction CI dans ce cycle.
+Co-authored-by: Cursor <cursoragent@cursor.com>
+```
 
-## 27–29. Package freeze final
-- count = 34
-- hash final = `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d`
-- commit count origin/main..HEAD = 1
-- local HEAD = remote branch = PR head = `fcfad2e95319152e5d7cc7ec29d557c87af241af`
-- aucun changement de contenu depuis la QA
+## 21. Analyse du trailer Co-authored-by
+1. **Autorisé ?** Aucune règle repository/méthode/workflow/script trouvée interdisant `Co-authored-by`. Précédents nombreux sur main (ex. D2-C `f4ee487` et docs D2-D). D2-D1 `0f77e4c` n’en avait pas — variation historique, pas d’interdiction.
+2. **Cohérent avec exécution Cursor ?** Oui — cycle exécuté via agent Cursor ; trailer reflète la co-exécution.
+3. **Contredit message exact ?** Le **sujet** est exact. Le body contient un trailer supplémentaire ajouté par l’environnement de commit (non inventé manuellement). La consigne publication interdisait un co-author *inventé* et l’amend ; le sujet requis est respecté.
+4. **Règle CI/repo l’interdit-elle ?** Non observée (Required Gate vert ; aucun check message trailer).
+5. **Impact traçabilité/sécurité/reviewabilité ?** Traçabilité améliorée ; pas d’impact sécurité package ; reviewabilité inchangée.
+6. **Amend nécessaire ?** Non dans ce cycle (interdit). Pas requis pour readiness.
+**Classification :** R-PR-D2D2-01 — MINOR / informationnelle — non bloquante.
 
-## 30. Réserves ouvertes
-- R-QA-REV-01 — OPEN NOT LIFTED
-- R-QA-REV-02 — OPEN NOT LIFTED
-- R-QA-D2C-01 — OPEN NOT LIFTED
-- CURSOR PRODUCT CAPABILITIES — UNVERIFIED
+## 22. Validations locales
+| Commande | Exit | Résultat |
+|----------|------|----------|
+| `npm test -- __tests__/oa/execution-run/` | 0 | 22 files / 130 tests PASS |
+| `npm run typecheck` | 0 | PASS |
+| `npm run lint` | 0 | PASS (no fix) |
+| `npm run build` | 0 | PASS |
+| `npm test` | 0 | 124 files / 1176 tests PASS |
+| governance 3 suites | 0 | 73 pass / 0 fail |
+| `git diff --check origin/main...HEAD` | 0 | PASS |
+
+## 23. Scans
+SCANS_CLEAN — 0 findings :
+secrets réels / `.env` ; Git write produit ; materialize public / barrel ; SDK/Node dans domain/application ; `.only`/`.skip` ; claims verified=true sur fixtures ; RUN READY / PRODUCTION READY dans code.
+
+## 24. Matrice critères PR readiness
+| Critère | Attendu | Observé | Résultat |
+|---------|---------|---------|----------|
+| branche | delivery/...-d2-d2-read-only-adapters | exact | PASS |
+| HEAD | fcfad2e… | fcfad2e… | PASS |
+| upstream | origin/delivery/... | exact @ fcfad2e… | PASS |
+| origin/main | c38b6ca… | c38b6ca… | PASS |
+| merge-base | c38b6ca… | c38b6ca… | PASS |
+| ahead/behind | 1 / 0 | 1 / 0 | PASS |
+| staged / WT projet | vide / propre hors tmp | OK | PASS |
+| package count/hash | 34 / bd92d3da… | 34 / bd92d3da… | PASS |
+| PR #309 | OPEN Draft base main | OK | PASS |
+| commits/files/stats | 1 / 34 / +2899−0 | OK | PASS |
+| fichiers hors manifest | 0 | 0 | PASS |
+| CI run 30889710678 | completed success @ fcfad2e… | OK | PASS |
+| jobs Detect/Build/Gate | success | success | PASS |
+| reviews/comments bloquants | aucun | 0/0/0 | PASS (≠ approbation) |
+| targeted tests | 130/130 | 130/130 exit 0 | PASS |
+| full Vitest | 1176/1176 | 1176/1176 exit 0 | PASS |
+| typecheck/lint/build | PASS | exit 0 | PASS |
+| governance | 73/0 | 73/0 | PASS |
+| diff --check | PASS | PASS | PASS |
+| scans | clean | SCANS_CLEAN | PASS |
+| findings QA | VERIFIED IN RE-QA | maintenus | PASS |
+| réserves héritées | transportées OPEN | transportées | PASS |
+| trailer Co-authored-by | non interdit / qualifié | MINOR R-PR-D2D2-01 | PASS WITH RESERVE |
+| aucun mark-ready/merge | respecté | respecté | PASS |
+
+## 25. Findings QA — statut maintenu
+F-QA-D2D2-01…11 — VERIFIED IN RE-QA (non rouverts). Aucune correction dans ce cycle.
+
+## 26. Findings PR readiness nouveaux
+### R-PR-D2D2-01 — MINOR (non bloquant)
+- Observation : trailer `Co-authored-by: Cursor <cursoragent@cursor.com>` présent sur le commit projet.
+- Preuve : `git show -s --format=fuller HEAD` ; message body.
+- Impact : métadonnée Git ; sujet exact conservé.
+- Bloquant : non.
+- Action : aucune amend ; transporter pour conscience Morris.
+
+## 27. Réserves transportées (OPEN NOT LIFTED)
+- R-QA-REV-01
+- R-QA-REV-02
+- R-QA-D2C-01
+- Cursor product capabilities — UNVERIFIED
 - memory process-local only
+- R-PR-D2D2-01 (nouveau, MINOR)
 
-## 31. Claims démontrés
-- Package QA 34 fichiers publié en un commit atomique
-- Hash package inchangé vs QA
-- Branche poussée ; Draft PR #309 OPEN isDraft=true base=main
-- Validations pré-publication vertes (130 / 1176 / typecheck / lint / build / governance 73)
-- Aucun mark-ready, merge, amend, rebase, force push
+Portée inchangée pour les réserves QA héritées ; aucune exposition externe nouvelle rendant ces réserves bloquantes pour D2-D2 (package toujours fake/fixture/read-only ; PR Draft).
 
-## 32. Claims non démontrés
-- CI globale success (pending au snapshot)
-- PR readiness / Ready for review
-- Merge / integrated on main
-- Provider live / Cursor live / Git write produit
-- D2-D3 open / RUN READY / PRODUCTION READY
+## 28. Claims démontrés
+- Intégrité package QA = publication = HEAD = remote = PR head
+- CI exacte completed success sur SHA projet
+- Validations locales Critical vertes
+- Scans bornés verts
+- PR Draft #309 conforme (1 commit / 34 fichiers / +2899)
+- Aucune action mark-ready / merge / push projet
+
+## 29. Claims non démontrés
+- Approbation humaine / review formelle
 - Levée des réserves R-QA-*
+- Cursor live / verified product capabilities
+- Persistance durable / multi-instance
+- D2-D3 / RUN READY / PRODUCTION READY
+- Mark-ready ou merge exécutés
 
-## 33. Hors scope confirmé
-Aucun fichier docs/méthode/scripts/workflows/UI/D2-D3/package.json/lockfile/.env dans le commit projet.
+## 30. Package freeze final
+- count 34 / hash `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` — STRICT MATCH avant/après contrôles
+- local = remote branch = PR head = `fcfad2e95319152e5d7cc7ec29d557c87af241af`
 
-## 34. Review handoff
-- décision : required
-- mode : publish-in-cycle
+## 31. Git Truth Check final
+- branche projet inchangée ; HEAD `fcfad2e95319152e5d7cc7ec29d557c87af241af` ; staged vide ; WT projet propre hors `.tmp-sfia-review/**`
+- PR #309 toujours OPEN isDraft=true non merged (vérifié en fin de cycle)
+
+## 32. Hors scope confirmé
+Aucun fichier docs/méthode/scripts/workflows/UI/D2-D3/package.json/lockfile/.env dans le diff projet. Aucune modification projet pendant la campagne.
+
+## 33. Review handoff
+- décision : required ; mode publish-in-cycle
 - publisher : `scripts/sfia/publish-review-handoff.sh`
-- parent distant attendu : `953b2975c1dff9a4a313a6a52d93eae3068267cc`
-- message : `docs(review-handoff): publish D2-D2 publication status`
-- (résultat renseigné après publication L3)
+- parent distant attendu : `013af4eef1ca5d76461008005d089ad23b690f16`
+- message : `docs(review-handoff): publish D2-D2 PR readiness status`
+- (IDs post-publish à vérifier sur remote)
 
-## 35. Verdict unique
-D2-D2 PUBLICATION COMPLETE — DRAFT PR OPEN — READY FOR CHATGPT PUBLICATION VALIDATION
+## 34. Verdict unique
+D2-D2 PR READINESS PASS WITH RESERVES — READY FOR MORRIS MARK-READY / MERGE DECISION
 
-## 36. Prochain gate candidat (non consommé)
-GO PR READINESS SFIA STUDIO V3.1-D2-D2
+## 35. Prochain gate candidat (non consommé)
+GO MARK READY / MERGE SFIA STUDIO V3.1-D2-D2
