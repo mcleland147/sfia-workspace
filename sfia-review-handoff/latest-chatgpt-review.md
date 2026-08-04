@@ -683,9 +683,20 @@ OPEN ; Draft=false ; head f4699924… ; +575/−0 ; MERGEABLE/CLEAN ; Required G
 
 ## 56. Review Handoff
 
-Mode publish-in-cycle ; parent attendu `c9c8e2246216c2ee4965fc9fbc76d38639bf9989` ;
-message : docs(review-handoff): publish D2-D3 capitalization mark-ready status ;
-(résultat distant après publication).
+Mode : publish-in-cycle
+Publisher : scripts/sfia/publish-review-handoff.sh
+Source : .tmp-sfia-review/chatgpt-review.md
+Branche : sfia/review-handoff
+Fichier : sfia-review-handoff/latest-chatgpt-review.md
+Parent PR Readiness : `c9c8e2246216c2ee4965fc9fbc76d38639bf9989`
+Commit publié : `19a5816d9ff17e55a896e16443c3b8b8de356de1`
+Blob publié : `810e8083eded3b4cc0e77fae7ea81d65bb0ef9ec`
+Message : docs(review-handoff): publish D2-D3 capitalization mark-ready status
+Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+Titre distant : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Mark Ready
+Verdict distant : D2-D3 CAPITALIZATION MARK READY COMPLETE WITH RESERVES — … — READY FOR MORRIS MERGE DECISION
+Mono-fichier tip : oui
+
 
 ## 57. Verdict unique
 
