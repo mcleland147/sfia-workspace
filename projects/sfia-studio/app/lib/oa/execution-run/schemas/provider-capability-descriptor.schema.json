@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lane",
+    "capabilityId",
+    "available",
+    "verified",
+    "readOnly",
+    "supportsCancellation",
+    "supportsTimeout"
+  ],
+  "properties": {
+    "lane": {
+      "type": "string",
+      "enum": ["ai", "git", "cursor", "none"]
+    },
+    "capabilityId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "available": { "type": "boolean" },
+    "verified": { "type": "boolean" },
+    "readOnly": { "type": "boolean" },
+    "supportsCancellation": { "type": "boolean" },
+    "supportsTimeout": { "type": "boolean" }
+  }
+}

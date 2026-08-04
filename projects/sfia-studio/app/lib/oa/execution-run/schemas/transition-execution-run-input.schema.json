@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "reason"],
+  "properties": {
+    "runId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "intent_valid",
+        "pre_engagement_block",
+        "human_gate_required",
+        "outputs_validated",
+        "engaged_operation_failed",
+        "time_limit",
+        "cancel_accepted",
+        "human_approve",
+        "human_cancel",
+        "human_reject_or_unsatisfied",
+        "human_gate_expired",
+        "late_result_evidence_only",
+        "forbidden"
+      ]
+    },
+    "completeness": {
+      "type": "string",
+      "enum": ["complete", "partial"]
+    },
+    "externalResult": {
+      "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
+    },
+    "failure": {
+      "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
+    },
+    "blockingReason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "lateEvidenceSummary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "reason": { "const": "outputs_validated" } },
+        "required": ["reason"]
+      },
+      "then": {
+        "required": ["completeness", "externalResult"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "reason": { "const": "engaged_operation_failed" } },
+        "required": ["reason"]
+      },
+      "then": {
+        "required": ["failure"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "reason": { "const": "late_result_evidence_only" } },
+        "required": ["reason"]
+      },
+      "then": {
+        "required": ["lateEvidenceSummary"]
+      }
+    }
+  ]
+}

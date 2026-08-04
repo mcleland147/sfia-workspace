@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "projectId",
+    "actorId",
+    "declaredSource",
+    "permissions"
+  ],
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "workspaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "actorId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "declaredSource": {
+      "type": "string",
+      "enum": ["fixture", "sandbox-real", "real"]
+    },
+    "allowlistRepos": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024
+      }
+    },
+    "protectedPaths": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gitRead", "gitWrite", "providerInvoke"],
+      "properties": {
+        "gitRead": { "type": "boolean" },
+        "gitWrite": { "type": "boolean" },
+        "providerInvoke": { "type": "boolean" }
+      }
+    }
+  }
+}

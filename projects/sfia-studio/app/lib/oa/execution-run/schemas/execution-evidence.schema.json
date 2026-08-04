@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidenceId",
+    "runId",
+    "correlationId",
+    "source",
+    "completeness",
+    "producedAt",
+    "summary",
+    "late",
+    "official"
+  ],
+  "properties": {
+    "evidenceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "source": {
+      "type": "string",
+      "enum": ["fixture", "sandbox-real", "real"]
+    },
+    "completeness": {
+      "type": "string",
+      "enum": ["complete", "partial"]
+    },
+    "producedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "digest": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "late": {
+      "type": "boolean"
+    },
+    "official": {
+      "type": "boolean",
+      "const": true
+    }
+  }
+}

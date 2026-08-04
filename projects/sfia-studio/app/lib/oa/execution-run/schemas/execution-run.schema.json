@@ -1,0 +1,178 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
+  "allOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "runId",
+        "correlationId",
+        "state",
+        "intent",
+        "context",
+        "disclosure",
+        "createdAt",
+        "updatedAt",
+        "version",
+        "usage",
+        "persistence"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "0.1.0-d2d1"
+        },
+        "runId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "idle",
+            "running",
+            "awaiting_human",
+            "succeeded",
+            "failed",
+            "cancelled",
+            "timed_out",
+            "blocked"
+          ]
+        },
+        "intent": {
+          "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
+        },
+        "context": {
+          "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
+        },
+        "disclosure": {
+          "$ref": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "validation": {
+          "$ref": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json"
+        },
+        "capability": {
+          "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
+        },
+        "gate": {
+          "$ref": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json"
+        },
+        "externalResult": {
+          "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
+          }
+        },
+        "usage": {
+          "$ref": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json"
+        },
+        "failure": {
+          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
+        },
+        "blockedReason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "persistence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "durable", "multiInstance", "restartSafe"],
+          "properties": {
+            "kind": { "const": "memory_process_local" },
+            "durable": { "const": false },
+            "multiInstance": { "const": false },
+            "restartSafe": { "const": false }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "succeeded" } },
+        "required": ["state"]
+      },
+      "then": {
+        "required": ["externalResult", "evidence"],
+        "properties": {
+          "externalResult": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
+            "properties": {
+              "kind": { "const": "success" },
+              "completeness": { "const": "complete" },
+              "redactedSummary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "rawPresent": { "const": false }
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 64,
+            "items": {
+              "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "failed" } },
+        "required": ["state"]
+      },
+      "then": {
+        "required": ["failure"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "blocked" } },
+        "required": ["state"]
+      },
+      "then": {
+        "anyOf": [
+          { "required": ["failure"] },
+          {
+            "required": ["blockedReason"],
+            "properties": {
+              "blockedReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

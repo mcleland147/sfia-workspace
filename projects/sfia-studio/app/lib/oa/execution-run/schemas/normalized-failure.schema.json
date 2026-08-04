@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family",
+    "code",
+    "userMessage",
+    "technicalDetailsRedacted",
+    "retryable",
+    "correlationId"
+  ],
+  "properties": {
+    "family": {
+      "type": "string",
+      "enum": [
+        "validation",
+        "authentication",
+        "authorization",
+        "provider_unavailable",
+        "rate_limited",
+        "timed_out",
+        "cancelled",
+        "sandbox_blocked",
+        "protected_path",
+        "mutation_forbidden",
+        "human_gate_required",
+        "invalid_provider_result",
+        "internal_normalized_failure",
+        "source_mismatch"
+      ]
+    },
+    "code": {
+      "type": "string",
+      "enum": [
+        "VALIDATION_ERROR",
+        "AUTHENTICATION_ERROR",
+        "AUTHORIZATION_ERROR",
+        "PROVIDER_UNAVAILABLE",
+        "RATE_LIMITED",
+        "TIMED_OUT",
+        "CANCELLED",
+        "SANDBOX_BLOCKED",
+        "PROTECTED_PATH",
+        "MUTATION_FORBIDDEN",
+        "HUMAN_GATE_REQUIRED",
+        "INVALID_PROVIDER_RESULT",
+        "INTERNAL_NORMALIZED_FAILURE",
+        "SOURCE_MISMATCH"
+      ]
+    },
+    "userMessage": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "technicalDetailsRedacted": {
+      "type": "boolean",
+      "const": true
+    },
+    "retryable": {
+      "type": "boolean"
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    }
+  }
+}
