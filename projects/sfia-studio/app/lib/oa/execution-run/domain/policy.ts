@@ -9,6 +9,7 @@ import type {
   NormalizedFailure,
   ProviderCapabilityDescriptor,
 } from "./types";
+import { normalizeCanonicalPath } from "./sandboxContract";
 
 export type PolicyInput = {
   readonly intent: ExecutionIntent;
@@ -51,21 +52,43 @@ export function evaluateReadOnlyPolicy(input: PolicyInput): PolicyDecision {
     };
   }
 
-  if (intent.targetPath && context.protectedPaths?.length) {
-    const hit = context.protectedPaths.some(
-      (p) => intent.targetPath === p || intent.targetPath!.startsWith(`${p}/`),
-    );
-    if (hit) {
+  if (intent.targetPath) {
+    const canonical = normalizeCanonicalPath(intent.targetPath);
+    if (!canonical.ok) {
       return {
         ok: false,
         failure: normalizedFailure({
           family: "protected_path",
           code: "PROTECTED_PATH",
-          userMessage: "Target path is protected",
+          userMessage: "Target path is protected or invalid",
           retryable: false,
           correlationId: cid,
         }),
       };
+    }
+    if (context.protectedPaths?.length) {
+      const hit = context.protectedPaths.some((p) => {
+        const protectedCanonical = normalizeCanonicalPath(p);
+        const prefix = protectedCanonical.ok
+          ? protectedCanonical.normalized
+          : p.replace(/\\/g, "/").replace(/\/+$/, "");
+        return (
+          canonical.normalized === prefix ||
+          canonical.normalized.startsWith(`${prefix}/`)
+        );
+      });
+      if (hit) {
+        return {
+          ok: false,
+          failure: normalizedFailure({
+            family: "protected_path",
+            code: "PROTECTED_PATH",
+            userMessage: "Target path is protected",
+            retryable: false,
+            correlationId: cid,
+          }),
+        };
+      }
     }
   }
 

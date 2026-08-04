@@ -5,6 +5,7 @@
 import { normalizedFailure } from "./errors";
 import type { NormalizedFailure, ProviderLane } from "./types";
 import { isIsoTimestamp } from "./evidence";
+import { normalizeCanonicalPath } from "./sandboxContract";
 
 const ALLOWED_LANES: readonly ProviderLane[] = ["ai", "git", "cursor", "none"];
 
@@ -132,8 +133,9 @@ export function validateUntrustedProviderRequest(
     }
     if (obj.path !== undefined) {
       if (typeof obj.path !== "string") return fail("path must be string");
-      if (obj.path.includes("..") || obj.path.startsWith("/") || obj.path.includes("\\")) {
-        return fail("path traversal or absolute path forbidden");
+      const canonical = normalizeCanonicalPath(obj.path);
+      if (!canonical.ok) {
+        return fail("path traversal, encoding, or absolute path forbidden");
       }
     }
   }

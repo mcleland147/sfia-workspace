@@ -94,9 +94,13 @@ export {
 export {
   evaluateSandboxMutationGuards,
   evaluateSandboxPath,
+  normalizeCanonicalPath,
   pathMatchesAllowlistPrefix,
 } from "./domain/sandboxContract";
-export type { SandboxPathDecision } from "./domain/sandboxContract";
+export type {
+  CanonicalPathResult,
+  SandboxPathDecision,
+} from "./domain/sandboxContract";
 export {
   invokeWithTimeoutAndCancellation,
   recordLateProviderResult,
@@ -106,3 +110,30 @@ export type {
   InvokeOutcome,
   RetryClass,
 } from "./application/providerInvocation";
+// Coordinator and injection deps are server-composition only (not client-safe).
+export {
+  createExecutionProjection,
+} from "./application/executionProjection";
+export type {
+  CreateExecutionProjectionResult,
+  ExecutionProjection,
+} from "./application/executionProjection";
+export {
+  assessExecutionReadiness,
+  D2D3_OPEN_RESERVES,
+} from "./application/executionReadiness";
+export type {
+  ExecutionReadinessAssessment,
+  ReadinessLevel,
+  ReadinessStatus,
+} from "./application/executionReadiness";
+export {
+  readUntrustedPlainData,
+  redactBoundedText,
+  sanitizeLateEvidenceSummary,
+} from "./application/untrustedExecutionData";
+export type {
+  UntrustedReadOptions,
+  UntrustedReadResult,
+} from "./application/untrustedExecutionData";
+export { MAX_COORDINATOR_TIMEOUT_MS } from "./application/coordinateExecutionRun";
