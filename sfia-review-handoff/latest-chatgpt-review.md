@@ -2,8 +2,8 @@
 
 ## 1. Date / heure / fuseau
 
-Local : 2026-08-04 22:25:31 CEST +0200
-UTC : 2026-08-04 20:25:31 UTC
+Local : 2026-08-04 22:27:51 CEST +0200
+UTC : 2026-08-04 20:27:51 UTC
 
 ## 2. Cycle / profil / typologie
 
@@ -18,12 +18,23 @@ UTC : 2026-08-04 20:25:31 UTC
 GO CADRAGE PROJET SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT
 Date/heure : 2026-08-04 21:53 CEST (+0200)
 
-Aucun nouveau GO n’est consommé pour la correction de prompt.
+Aucun nouveau GO n’est consommé pour la correction de prompt ni pour le correctif de placement 86→90.
 
 ## 4. Correction du prompt
 
 Ce pack / document remplacent intégralement le précédent prompt Cursor du même GO.
 Correction : frontière doctrinale v2.6 (conduite de cycle) vs Studio v3 (doctrine produit exclusive) ; interdiction doctrine parallèle OpenAI ; interdiction fallback doctrinal produit v2.6 ; rattachement V3-Fxx ou gap candidat Morris.
+
+## 4bis. Correctif de placement post-découverte
+
+Suite à la découverte documentaire approfondie :
+- `75`/`76` restent écartés (Live Validation / B′) ;
+- `87`–`89` existent sur `ux/sfia-studio-d1-conversational-convergence` (CANDIDATE — NOT BASELINE) ;
+- le document a été **renommé** de `86-…` vers `90-…` pour éviter les collisions de numérotation ;
+- aucun fichier doctrinal 30–37 modifié ;
+- aucun commit/push projet.
+
+Inventaire OA T-A0…T-A7 confirmé : libraries memory/fixture ; DoctrinePackage fail-closed + registry fixture ; aucune claim production-ready.
 
 ## 5. Frontière v2.6 / Studio v3
 
@@ -49,11 +60,9 @@ PR : non
 
 ## 8. Handoff entrant
 
-Commit : `8e23b4964278f8bac326f864fee962354fa73e3d`
-Blob : `067b5219876c42b9acc18959a43a2bc446d7eda4`
-Tip distant observé : `8e23b4964278f8bac326f864fee962354fa73e3d`
-Titre : Capitalization Closure With Reserves
-Verdict entrant : CLOSURE COMPLETE WITH RESERVES — NO NEXT CYCLE AUTHORIZED
+Commit Closure : `8e23b4964278f8bac326f864fee962354fa73e3d`
+Blob Closure : `067b5219876c42b9acc18959a43a2bc446d7eda4`
+Tip distant avant refresh placement : `ec71a6145fdd1b70a218ce1427187d187c9b4225`
 Lot D2-D3 : CLOSED WITH RESERVES — non rouvert
 
 ## 9. Template canonique
@@ -62,73 +71,48 @@ Lot D2-D3 : CLOSED WITH RESERVES — non rouvert
 
 ## 10. Documents 30 à 37
 
-Tous présents sur HEAD/main :
+Tous présents sur HEAD/main. **Aucune modification.** Métadonnées historiques « merge en attente » confrontées à Git : fichiers présents sur main @ `8dc54db0…`.
 
-- 30 knowledge-context-human-decision-doctrine (F01 F05)
-- 31 doctrine-package-and-source-resolution (F03 F07)
-- 32 living-project-state-and-dynamic-trajectory (F02 F06 F09)
-- 33 epistemology-provenance-and-contradiction-model (F04 F08)
-- 34 agent-capabilities-reversibility-and-execution-governance (F11 F12)
-- 35 artifact-evidence-debt-and-controlled-learning (F10 F13 F14 F15)
-- 36 sfia-v2.6-inheritance-and-adaptation-matrix
-- 37 studio-v3-foundations-and-consolidation-decision-pack
+## 11–14. D-V3 / F01–F15 / T-A0–T-A7 / maturité
 
-**Observation Git vs métadonnées historiques :** README/`37` mentionnent encore « merge en attente » ; les fichiers sont **présents sur main** @ `8dc54db0…`. Contenu doctrinal VALIDATED conservé ; métadonnées historiques non prises comme état courant. **Aucune modification** de 30–37.
-
-## 11. Décisions D-V3
-
-D-V3-01…05 conservées (F01–F15 VALIDATED ; exclusivité v3 ; pas coexistence ; réévaluation actifs ; PR historique). Non rouvertes.
-
-## 12. Fondations V3-F01 à F15
-
-Toutes VALIDATED doctrine Studio — détails et mapping Assistant dans le document §4 (reproduit ci-dessous).
-
-## 13. Actifs T-A0 à T-A7
-
-Voir document §34 : doctrine/project/cycle/decision/execution-contract/execution-attempt/evidence-review/execution-run sous `app/lib/oa/**` — libraries memory/fixture ; tests présents ; pas ADOPTED runtime global.
-
-## 14. Maturité des actifs
-
-DOCUMENTED (doctrine) + MODELED (schemas/docs) + IMPLEMENTED memory/fixture pour T-A0…T-A6 / execution-run ; T-A5 fake adapters only ; FIXTURE DoctrinePackage registry ; INTEGRATED_IN_PATH limité (`localProjectComposition`) ; ABSENT : chat Assistant v3 + OpenAI server product path.
+Conservés comme dans le cadrage. Inventaire OA : DOCUMENTED+MODELED+IMPLEMENTED memory/fixture ; intégration path limitée (Doctrine+Project local slice) ; T-A5 fake-only ; D2-D3 CLOSED WITH RESERVES ; **pas production-ready**.
 
 ## 15–22. DoctrinePackage / CKC / LPS / trajectoire / épistémologie / décisions / EC / preuves
 
-Traités exhaustivement dans le document de cadrage §§11–19 (contenu complet ci-dessous). Synthèse : fail-closed T-A0 ; CKC intra-v3 ; LPS non muté implicitement ; trajectoire recommandation ; N1–N3 ; EC préparation only ; ReviewBundle analyse sans remplacement.
+Voir document §§11–19 (contenu complet §28).
 
 ## 23. Branches candidates
 
-`framing/sfia-studio-next-product-increment` · `ux/sfia-studio-d1-conversational-convergence` · `delivery/sfia-studio-d1-shared-platform-integration` · `spike/sfia-studio-openai-gpt-adapter` · `method/sfia-cycle-knowledge-contracts` — toutes **CANDIDATE SOURCE — NOT BASELINE**.
+`framing/sfia-studio-next-product-increment` · `ux/sfia-studio-d1-conversational-convergence` (docs 87–89) · `delivery/sfia-studio-d1-shared-platform-integration` · `spike/sfia-studio-openai-gpt-adapter` · `method/sfia-cycle-knowledge-contracts` — **CANDIDATE SOURCE — NOT BASELINE**.
 
 ## 24. Matrice baseline / candidate
 
-Baseline : main @ `8dc54db0…` + doctrine 30–37 + OA memory libs + REX D2-D3.
-Candidates : branches ci-dessus + docs 75/76 (autre incrément historique).
+Baseline : main @ `8dc54db0…` + doctrine 30–37 + OA memory libs + REX D2-D3 + docs D2-D 20–24.
+Candidates : branches ci-dessus + docs 75/76 + 87–89 conversationnels.
 Historique : spikes OpenAI / Control Tower 66–74.
 
 ## 25. Découverte documentaire
 
-Ordre de préférence appliqué :
-
-1. Compléter cadrage next-increment existant → **écarté** (`75`/`76` objet différent)
-2. Document produit compatible → aucun contrat FPI Assistant v3 dédié
-3. **Créer nouveau cadrage** `86-…`
+1. Compléter `75`/`76` → écarté
+2. Étendre `87`–`89` → input seulement, pas home
+3. **Créer `90-…`**
 
 ## 26. Choix de placement
 
-`projects/sfia-studio/86-assistant-sfia-native-openai-first-product-increment-framing.md`
+`projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md`
 
 ## 27. Document créé / modifié
 
-**Créé** (untracked local) : chemin ci-dessus · 690 lignes · DRAFT FOR VALIDATION
+**Créé** (untracked local) puis **renommé** 86→90 : chemin ci-dessus · DRAFT FOR VALIDATION
 
 ## 28. Contenu complet
 
 ```markdown
-# 86 — Cadrage produit — Assistant SFIA natif OpenAI — First Product Increment
+# 90 — Cadrage produit — Assistant SFIA natif OpenAI — First Product Increment
 
 | Métadonnée | Valeur |
 |---|---|
-| **Document** | `projects/sfia-studio/86-assistant-sfia-native-openai-first-product-increment-framing.md` |
+| **Document** | `projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md` |
 | **Statut** | DRAFT FOR VALIDATION |
 | **Cycle** | Cadrage projet |
 | **Profil** | Standard |
@@ -767,14 +751,18 @@ Distinguer : application de doctrine ≠ architecture ≠ implémentation ≠ ad
 
 ## 33. Placement et alternatives
 
-**Choix :** créer `86-assistant-sfia-native-openai-first-product-increment-framing.md` à la racine documentaire `projects/sfia-studio/` (suite numérique après `85`).
+**Choix :** créer `90-assistant-sfia-native-openai-first-product-increment-framing.md` à la racine documentaire `projects/sfia-studio/`.
+
+**Numérotation :** `86` laissé libre (rapport LPV éventuel) ; `87`–`89` déjà revendiqués sur la branche candidate `ux/sfia-studio-d1-conversational-convergence` (CANDIDATE SOURCE — NOT BASELINE). `90` évite ces collisions.
 
 **Alternatives écartées :**
 
 - Compléter `75`/`76` — objet et baseline historiques différents ;
+- Utiliser `86` — collision potentielle avec LPV réservé / suite conversationnelle 87–89 ;
 - Modifier `30`–`37` — interdit ;
 - Créer sous `method/**` — interdit / confusion doctrine ;
-- Document à la racine repo — interdit.
+- Document à la racine repo — interdit ;
+- Étendre `87`–`89` conversationnels — thème partiel, hors baseline, pas le FPI Assistant.
 
 ---
 
@@ -820,17 +808,17 @@ Prochaine gate candidate (non consommée) :
 ## 29. Diff complet
 
 ```diff
-diff --git a/projects/sfia-studio/86-assistant-sfia-native-openai-first-product-increment-framing.md b/projects/sfia-studio/86-assistant-sfia-native-openai-first-product-increment-framing.md
+diff --git a/projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md b/projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
 new file mode 100644
-index 0000000..efbbea3
+index 0000000..425e718
 --- /dev/null
-+++ b/projects/sfia-studio/86-assistant-sfia-native-openai-first-product-increment-framing.md
-@@ -0,0 +1,690 @@
-+# 86 — Cadrage produit — Assistant SFIA natif OpenAI — First Product Increment
++++ b/projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
+@@ -0,0 +1,694 @@
++# 90 — Cadrage produit — Assistant SFIA natif OpenAI — First Product Increment
 +
 +| Métadonnée | Valeur |
 +|---|---|
-+| **Document** | `projects/sfia-studio/86-assistant-sfia-native-openai-first-product-increment-framing.md` |
++| **Document** | `projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md` |
 +| **Statut** | DRAFT FOR VALIDATION |
 +| **Cycle** | Cadrage projet |
 +| **Profil** | Standard |
@@ -1469,14 +1457,18 @@ index 0000000..efbbea3
 +
 +## 33. Placement et alternatives
 +
-+**Choix :** créer `86-assistant-sfia-native-openai-first-product-increment-framing.md` à la racine documentaire `projects/sfia-studio/` (suite numérique après `85`).
++**Choix :** créer `90-assistant-sfia-native-openai-first-product-increment-framing.md` à la racine documentaire `projects/sfia-studio/`.
++
++**Numérotation :** `86` laissé libre (rapport LPV éventuel) ; `87`–`89` déjà revendiqués sur la branche candidate `ux/sfia-studio-d1-conversational-convergence` (CANDIDATE SOURCE — NOT BASELINE). `90` évite ces collisions.
 +
 +**Alternatives écartées :**
 +
 +- Compléter `75`/`76` — objet et baseline historiques différents ;
++- Utiliser `86` — collision potentielle avec LPV réservé / suite conversationnelle 87–89 ;
 +- Modifier `30`–`37` — interdit ;
 +- Créer sous `method/**` — interdit / confusion doctrine ;
-+- Document à la racine repo — interdit.
++- Document à la racine repo — interdit ;
++- Étendre `87`–`89` conversationnels — thème partiel, hors baseline, pas le FPI Assistant.
 +
 +---
 +
@@ -1519,143 +1511,23 @@ index 0000000..efbbea3
 
 ```
 
-## 30. Matrice Doctrine v3 → Assistant
+## 30–50. Matrices, périmètre, modes, outils, scénarios, Decision Pack, gaps, trajectoire, risques
 
-Voir document §4 (inclus dans §28).
-
-## 31. Matrice réutilisation / adaptation / gap
-
-Voir document §5 (inclus dans §28).
-
-## 32. Périmètre
-
-Voir document §6.
-
-## 33. Hors périmètre
-
-Voir document §7.
-
-## 34. Modes
-
-Voir document §8.
-
-## 35. Intentions
-
-Voir document §10.
-
-## 36. Sources
-
-Hiérarchie §16 ; allowlist DoctrinePackage ; Git prime ; v2.6 hors consommation runtime produit.
-
-## 37. Outils
-
-Voir document §22 (16 outils read-only / préparation).
-
-## 38. Garde-fous
-
-Voir document §23 (14 garde-fous déterministes Studio).
-
-## 39. Mémoire
-
-Voir document §24.
-
-## 40. OpenAI
-
-Voir document §21 — **OPENAI CURRENT CAPABILITY NOT VERIFIED** (fetch docs timeout). Exigences fonctionnelles non gelées architecturalement.
-
-## 41–43. Sécurité / RGPD / FinOps / observabilité
-
-Voir document §25 — pas de tarif/seuil inventé.
-
-## 44. UX/UI
-
-Voir document §26 — CC-D* conservées ; pas de maquette.
-
-## 45. Scénarios
-
-S01–S20 document §27.
-
-## 46. Critères
-
-Document §28.
-
-## 47. Decision Pack
-
-D-ASST-FPI-01…16 — toutes NOT DECIDED — document §29.
-
-## 48. Gaps doctrinaux
-
-Document §30 — **aucun gap doctrinal bloquant** ; gaps candidats d’implémentation / arbitrages ouverts U2–U5 ; **aucune modification 30–37**.
-
-## 49. Trajectoire
-
-Document §31 — prochaine gate candidate Architecture fonctionnelle.
-
-## 50. Risques
-
-Document §32.
+Inclus dans le document §28 (sections 4–32 du cadrage). Decision Pack D-ASST-FPI-01…16 NOT DECIDED. Gaps : aucun gap doctrinal bloquant.
 
 ## 51. Validations
 
 ```
 === VALIDATIONS ===
-2026-08-04 22:24:46 CEST +0200
---- sections ---
-24:## 1. Statut
-76:## 2. Vision produit
-95:## 3. Objectif doctrinal du First Product Increment
-120:## 4. Matrice Doctrine v3 → Assistant SFIA
-142:## 5. Matrice réutilisation / adaptation / gap
-165:## 6. Périmètre du First Product Increment
-186:## 7. Hors périmètre
-197:## 8. Modes conversationnels
-222:## 9. Hors-sujet conversationnel
-238:## 10. Compréhension de l’intention
-248:## 11. DoctrinePackage
-263:## 12. CKC
-279:## 13. Living Project State
-295:## 14. ProjectTrajectory
-303:## 15. Épistémologie et contradictions
-314:## 16. Hiérarchie des sources du produit
-332:## 17. Chaîne décisionnelle
-342:## 18. ExecutionContract et Cursor
-350:## 19. Preuves et ReviewBundle
-358:## 20. Sortie visible et sortie structurée
-366:## 21. OpenAI réel
-385:## 22. Outils read-only du First Product Increment
-408:## 23. Garde-fous déterministes (Studio, pas seulement le modèle)
-427:## 24. Mémoire
-435:## 25. Sécurité, RGPD, FinOps, observabilité
-443:## 26. UX/UI amont
-453:## 27. Scénarios d’acceptation
-519:## 28. Critères de succès
-527:## 29. Decision Pack Morris
-581:## 30. Gaps doctrinaux
-609:## 31. Trajectoire candidate
-627:## 32. Risques
-642:## 33. Placement et alternatives
-655:## 34. Inventaire runtime T-A0…T-A7 (maturité)
-672:## 35. Branches candidates (non baseline)
-684:## 36. Verdict documentaire
---- forbidden markers ---
-NONE
---- secret patterns ---
-NONE
---- concurrent doctrine / v2.6 fallback product ---
-37:- aucune doctrine OpenAI / conversationnelle parallèle ;
-72:- Pas de nouvelle doctrine validée · Pas de doctrine OpenAI · Pas de SFIA v4 · Pas de coexistence opérationnelle v2.6/v3 · Pas de fallback doctrinal v2.6 produit · Pas d’adoption runtime globale · Pas d’architecture fonctionnelle/technique validée · Pas d’API OpenAI intégrée · Pas de chat fonctionnel · Pas de Cursor réel · Pas de Git write · Pas de persistance forte · Pas de D2-D4 · Pas de MVP livré · Pas production-ready · Pas RUN READY · Aucune Decision candidate marquée validée.
-157:| Doctrine OpenAI séparée | CONTRADICTION si tentée | Interdit |
-234:Classification : **PRÉCISION FONCTIONNELLE COMPATIBLE AVEC V3** (F02/F07) — comportement LPS/provenance, pas nouvelle doctrine.
-630:- Double doctrine / doctrine OpenAI
---- decisions marked validated wrongly ---
-18:| **Autorité** | Morris (L0) — aucune option n’est une décision validée |
-72:- Pas de nouvelle doctrine validée · Pas de doctrine OpenAI · Pas de SFIA v4 · Pas de coexistence opérationnelle v2.6/v3 · Pas de fallback doctrinal v2.6 produit · Pas d’adoption runtime globale · Pas d’architecture fonctionnelle/technique validée · Pas d’API OpenAI intégrée · Pas de chat fonctionnel · Pas de Cursor réel · Pas de Git write · Pas de persistance forte · Pas de D2-D4 · Pas de MVP livré · Pas production-ready · Pas RUN READY · Aucune Decision candidate marquée validée.
---- git diff ---
-?? projects/sfia-studio/86-assistant-sfia-native-openai-first-product-increment-framing.md
+2026-08-04 22:27:51 CEST +0200
+path=projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
+      36
+NONE_TODO
+NONE_SECRET
+OLD_86_ABSENT
+projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
 
 ```
-
-Contrôles : Markdown OK · sections 1–36 présentes · pas TODO/FIXME/TBD · pas secret · pas doctrine concurrente créée · pas fallback produit v2.6 · exigences rattachées V3-Fxx · décisions candidates non validées · doctrine 30–37 non modifiée · claims runtime prudents · scope OK · `git diff --check` N/A untracked (fichier texte propre, trailing WS stripped).
 
 ## 52. Absence modification doctrine
 
@@ -1673,7 +1545,7 @@ PASS — aucun appel API · aucune clé · aucune dépendance ajoutée.
 
 PASS — document local seulement ; branche non poussée ; pas de PR.
 
-## 56. État Git final (pré-handoff)
+## 56. État Git final (pré-handoff refresh)
 
 ```
 === TIMESTAMPS ===
@@ -1695,10 +1567,11 @@ handoff=8e23b4964278f8bac326f864fee962354fa73e3d
 
 ```
 
-Post-écriture (attendu) :
+Post-correctif placement (attendu) :
 
 - branche framing locale
-- fichier `86-…` untracked
+- fichier `90-…` untracked
+- ancien `86-…` absent
 - `.tmp-sfia-review/**` untracked
 - main distant inchangé
 - staged vide
@@ -1710,15 +1583,9 @@ Publisher : scripts/sfia/publish-review-handoff.sh
 Source : .tmp-sfia-review/chatgpt-review.md
 Branche : sfia/review-handoff
 Fichier : sfia-review-handoff/latest-chatgpt-review.md
-Parent Closure : 8e23b4964278f8bac326f864fee962354fa73e3d
-Commit publié : 268737edf034ecec2bb297bede28ba8ed09c34d0
-Blob publié : 975b7cff3ea4dd7c57d645e495e9928eb24e0015
+Parent attendu premier commit de ce refresh : ec71a6145fdd1b70a218ce1427187d187c9b4225
 Message : docs(review-handoff): publish Studio v3-native Assistant OpenAI framing status
-Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
-Titre distant : # ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI First Product Increment Framing — Studio v3 Doctrine Applied
-Verdict distant : ASSISTANT SFIA NATIVE OPENAI FIRST PRODUCT INCREMENT FRAMING COMPLETE WITH OPEN DECISIONS — … — READY FOR CHATGPT VALIDATION AND MORRIS FUNCTIONAL ARCHITECTURE DECISION
-Mono-fichier tip : oui
-
+Commit / blob : (à compléter après publication)
 
 ## 58. Verdict
 
@@ -1734,5 +1601,3 @@ READY FOR CHATGPT VALIDATION AND MORRIS FUNCTIONAL ARCHITECTURE DECISION
 GO ARCHITECTURE FONCTIONNELLE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT — APPLY EXISTING STUDIO V3 DOCTRINE
 
 Statut : candidate uniquement — non consommée
-
-N’autorise pas automatiquement : modification doctrinale · architecture technique · intégration OpenAI · développement · Cursor réel · Git write · D2-D4 · promotion méthode.
