@@ -929,9 +929,20 @@ Identique au freeze : HEAD/upstream=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f ; m
 
 ## 61. Review Handoff
 
-Mode publish-in-cycle ; parent attendu `4a2b6fa61f6c0668ec4a935d5ce3e34ba40cd6b3` ;
-message : docs(review-handoff): publish D2-D3 capitalization PR readiness status ;
-(résultat distant après publication).
+Mode : publish-in-cycle
+Publisher : scripts/sfia/publish-review-handoff.sh
+Source : .tmp-sfia-review/chatgpt-review.md
+Branche : sfia/review-handoff
+Fichier : sfia-review-handoff/latest-chatgpt-review.md
+Parent Publication : `4a2b6fa61f6c0668ec4a935d5ce3e34ba40cd6b3`
+Commit publié : `6a33f5545c8c3b3946a6b0c2b463eab293077baa`
+Blob publié : `a5eb8c1f9c20d5a3e7160c7395413f6fa3076781`
+Message : docs(review-handoff): publish D2-D3 capitalization PR readiness status
+Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+Titre distant : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization PR Readiness
+Verdict distant : D2-D3 CAPITALIZATION PR READINESS PASS WITH RESERVES — … — READY FOR MORRIS MARK-READY DECISION
+Mono-fichier tip : oui
+
 
 ## 62. Verdict unique
 
