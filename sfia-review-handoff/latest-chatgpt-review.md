@@ -1,16 +1,15 @@
-# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Publication
+# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization PR Readiness
 
 ## 1. Date / heure / fuseau
 
-Cycle start: 2026-08-04 18:37:00 CEST +0200 / 2026-08-04 16:37:00 UTC
-Commit: 2026-08-04 18:38:16 CEST (authoredDate UTC 16:38:16)
-CI completed: 2026-08-04 18:40:42 CEST approx
-Review Pack: 2026-08-04 18:41:26 CEST +0200 / 2026-08-04 16:41:26 UTC
+Cycle start: 2026-08-04 18:55:50 CEST +0200 / 2026-08-04 16:55:50 UTC
+Freeze final: 2026-08-04 18:56:48 CEST +0200
+Review Pack: 2026-08-04 18:57:43 CEST +0200 / 2026-08-04 16:57:43 UTC
 
 ## 2. Cycle
 
-7 — Intégration / DevOps
-Sous-cycle : Publication documentaire d’un actif de capitalisation projet
+12 — PR Readiness
+Sous-cycle : PR Readiness documentaire — Capitalization / REX D2-D3
 
 ## 3. Profil
 
@@ -20,116 +19,100 @@ Standard
 
 CAPA — documentation-only
 
-## 5. GO Publication Capitalization consommé
+## 5. GO PR Readiness consommé
 
-GO PUBLICATION SFIA STUDIO V3.1-D2-D3 CAPITALIZATION
-Date/heure Morris : 2026-08-04 18:28 CEST (+0200)
+GO PR READINESS SFIA STUDIO V3.1-D2-D3 CAPITALIZATION
+Date/heure Morris : 2026-08-04 18:48 CEST (+0200)
 
-## 6. Gates consommés antérieurs
+Autorise : Git/GitHub read-only ; revue commit/PR/REX/CI ; validations documentaires ; qualification réserves ; Review Pack Full ; handoff L3.
+N’autorise pas : modification REX/projet/PR ; commit/push ; mark-ready ; merge ; promotion méthode ; D-REX ; D2-D4 ; Notion/CMP.
+
+## 6. Gates consommés
 
 - GO CAPITALIZATION — 2026-08-04 17:56 CEST
 - GO PUBLICATION CAPITALIZATION — 2026-08-04 18:28 CEST
+- GO PR READINESS CAPITALIZATION — 2026-08-04 18:48 CEST
 
 ## 7. Gates non consommés
 
 - G-D2D-CURSOR-01 ; G-D2D-PERSIST-01 ; G-D2D-D2C-01
-- GO PR READINESS SFIA STUDIO V3.1-D2-D3 CAPITALIZATION
-- GO MARK READY / MERGE / BRANCH CLEANUP CAPITALIZATION
+- GO MARK READY / MERGE / POST-MERGE / BRANCH CLEANUP CAPITALIZATION
 - GO METHOD PROMOTION
+- aucune décision D-REX adoptée
 - aucun GO D2-D4 / cycle suivant / Notion-CMP
 
-## 8. CKC
+## 8. CKC recherché et absent
 
-Recherché oui ; détaillé absent ; fallback template/routing/OM/rules/checklist/handoff Capitalization/précédent D1.
+CKC recherché oui (PR Readiness) ; contrat détaillé absent ; statut absent.
 
-## 9. Handoff Capitalization entrant
+## 9. Fallback
 
-Commit `c2e323b73258800f1fabc41030c10fe5973f7db5`
-Blob `83c39125e0973dd0b220e265d805286cbb489c22`
-Verdict : D2-D3 CAPITALIZATION COMPLETE WITH RESERVES — … — READY FOR MORRIS PUBLICATION DECISION
+template v2.6 ; routing ; operating model ; rules ; checklist ; handoff Publication ; handoff Capitalization ; Closure ; précédent D1 PR #297 ; état Git/GitHub réel.
 
-## 10. Handoff Closure
+## 10. Sources consultées
 
-Commit `29a658fb740b1e8331511ea02e47f2a1199dec0d` — CLOSED WITH RESERVES
+Template/method/checklists ; handoffs 4a2b6fa6 / c2e323b7 / 29a658fb ; commit f46999246f04d6509f3cf06a7b76ce0ee0d13e8f ; PR #311 ; CI #97 ; ruleset 19798462 ; REX distant ; publisher.
 
-## 11. Local Git Truth Check initial
+## 11. Template canonique
+
+`prompts/templates/sfia-cycle-execution-template.md`
+
+## 12. Handoff Publication
+
+Titre : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Publication
+
+## 13. Commit / blob handoff final
+
+Commit : `4a2b6fa61f6c0668ec4a935d5ce3e34ba40cd6b3`
+Blob : `abf4ac5a0691694ce05a6021a18a6fa8dffaeb49`
+
+## 14. Chaîne handoff
+
+`c2e323b73258800f1fabc41030c10fe5973f7db5` (Capitalization)
+→ `0bc3795aedda39e1be09be42270bdfab5ae88d66` (Publication initiale)
+→ `4a2b6fa61f6c0668ec4a935d5ce3e34ba40cd6b3` (Publication tip / parent attendu PR Readiness)
+
+## 15. Verdict entrant
+
+D2-D3 CAPITALIZATION PUBLICATION COMPLETE —
+DRAFT PR #311 OPEN —
+SCOPE ONE FILE VERIFIED —
+CI #97 SUCCESS —
+REX CONTENT UNCHANGED —
+READY FOR MORRIS PR READINESS DECISION
+
+## 16. Local Git Truth Check initial
 
 ```
 branch=capitalization/sfia-studio-v3-1-d2-d3-rex
-HEAD=e36f12b68545a9ead0d8d0ccbfc55d43973b3521
+HEAD=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+parent=e36f12b68545a9ead0d8d0ccbfc55d43973b3521
 main=e36f12b68545a9ead0d8d0ccbfc55d43973b3521
+upstream=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
 merge_base=e36f12b68545a9ead0d8d0ccbfc55d43973b3521
-ahead=0 behind=0 upstream=none remote_capa=absent
-handoff=c2e323b73258800f1fabc41030c10fe5973f7db5
-REX untracked ; 575 lines
+ahead=1 behind=0
+handoff=4a2b6fa61f6c0668ec4a935d5ce3e34ba40cd6b3
+staged empty ; only .tmp-sfia-review/** untracked
 ```
 
-## 12. Vérification byte-identical
+## 17–21. Branche / HEAD / main / merge-base / ahead-behind
 
-Méthode : extraction §25 fence ````markdown … ```` + restauration du newline final consommé par le pattern de fermeture.
-Résultat :
-- byte_identical=True
-- SHA-256=`fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693`
-- local_bytes=29245 = handoff_bytes
-- wc -l = 575
-- cmp exit 0
+Tous exacts (voir §16). Freeze final identique.
 
-Le contenu REX **n’a pas été modifié** dans ce cycle.
+## 22–24. Commit projet / parent / message
 
-## 13. Commit documentaire atomique
-
-- SHA : `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
+- Commit : `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
 - Parent : `e36f12b68545a9ead0d8d0ccbfc55d43973b3521`
 - Message : `docs(sfia-studio): add V3.1-D2-D3 capitalization REX`
-- Fichiers : **1**
-- Stat : +575 / −0
-- Git blob : `78860d593c9b04a6bbb5c9e8f0f6aa400b256475`
-- Contenu commit SHA-256 : `fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693` (identique handoff/local)
 
-## 14. Push
+## 25–26. Scope / fichier exact
 
-Branche distante créée : `origin/capitalization/sfia-studio-v3-1-d2-d3-rex` @ `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
-Upstream configuré.
+- 1 commit ; 1 fichier ajouté ; +575 / −0
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md`
 
-## 15. Draft PR
+## 27. Contenu complet du REX
 
-- Number : **#311**
-- URL : https://github.com/mcleland147/sfia-workspace/pull/311
-- Title : docs(sfia-studio): add V3.1-D2-D3 capitalization REX
-- isDraft : **true** (préservé)
-- state : OPEN
-- base : main
-- head : capitalization/sfia-studio-v3-1-d2-d3-rex @ `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
-- changedFiles : 1
-- additions : 575
-- deletions : 0
-
-## 16. Scope PR vérifié
-
-Exactement :
-`projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md`
-
-Aucun autre fichier.
-
-## 17. CI distante
-
-- Workflow : SFIA Studio CI
-- Run number : **#97**
-- Run ID : `30930133145`
-- headSha : `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
-- event : pull_request
-- Detect : SUCCESS
-- Build and validate : SUCCESS
-- Required Gate : SUCCESS
-- conclusion : **success**
-- URL : https://github.com/mcleland147/sfia-workspace/actions/runs/30930133145
-
-CI PASS ≠ production-ready ; documentation-only.
-
-## 18. Contenu REX (gelé — référence)
-
-Le contenu n’a pas changé. Preuve d’identité : SHA-256 `fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693`.
-Contenu complet tel que publié dans le handoff Capitalization §25 et commité :
+Contenu gelé depuis le commit (identique handoff Capitalization §25) :
 
 ````markdown
 # SFIA Studio V3.1-D2-D3 — Capitalization / REX
@@ -709,93 +692,262 @@ Ce gate candidat n’autorise pas automatiquement : merge, promotion méthode, D
 *Fin du document — SFIA Studio V3.1-D2-D3 Capitalization / REX — 2026-08-04.*
 ````
 
-## 19. Validations documentaires / scans
+## 28–30. Hash / blob / identité
 
-- sections A–T présentes
-- D-REX-D2D3-01…06 présentes ; NOT DECIDED
-- D2D3-04/05 BLOCKED — NOT DELIVERED
-- pas de TODO/FIXME/TBD
-- REX non modifié vs handoff Capitalization
-- aucun fichier method/code/test touché
-- staged vide après commit
-- seuls `.tmp-sfia-review/**` restent non trackés locaux
+- SHA-256 : `fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693`
+- Git blob : `78860d593c9b04a6bbb5c9e8f0f6aa400b256475`
+- HEAD = upstream = commit = `fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693` — PASS
 
-## 20. Diff commit
+## 31. Structure A–T
 
+Sections A à T présentes (revue documentaire PASS).
+
+## 32. Décisions D-REX
+
+D-REX-D2D3-01…06 — toutes NOT DECIDED — MORRIS DECISION REQUIRED — PASS
+
+## 33. Findings
+
+14 findings CLOSED (F-QA-D2D3-01…10, F-QA-REV-D2D3-01/02, F-QA-REV2-D2D3-01, F-QA-REV2-D2D3-02 arbitrated) — PASS (hérités Closure)
+
+## 34. Réserves héritées
+
+OPEN NOT LIFTED : R-QA-REV-01/02 ; R-QA-D2C-01 ; Cursor UNVERIFIED ; process-local ; R-PR-D2D2-01 ; R-CORR-D2D3-01 ; R-QA-REV3-D2D3-TIME-01
+CLOSED : R-CORR-D2D3-02 ; R-PR-D2D3-01
+
+## 35. D2D3-04/05
+
+BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED — PASS
+
+## 36. Scans
+
+TODO/FIXME/TBD : none
+absolute paths : none
+secret patterns : none
+anti-claims : présents et négatifs (production-ready / RUN READY / durable=true uniquement niés ou contextualisés)
+D-REX ADOPTED : none
+
+## 37–41. PR #311
+
+- URL : https://github.com/mcleland147/sfia-workspace/pull/311
+- state=OPEN ; isDraft=true ; mergedAt=null ; autoMergeRequest=null
+- title exact : docs(sfia-studio): add V3.1-D2-D3 capitalization REX
+- base=main @ e36f12b68545a9ead0d8d0ccbfc55d43973b3521
+- head=capitalization/sfia-studio-v3-1-d2-d3-rex @ f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+- commits=1 ; files=1 ; +575/−0
+- mergeable=MERGEABLE ; mergeStateStatus=CLEAN
+
+### Body complet
+
+```markdown
+# docs(sfia-studio): add V3.1-D2-D3 capitalization REX
+
+## 1. Summary
+
+This PR adds a single documentation file: the V3.1-D2-D3 Capitalization / REX for the end-to-end read-only coordination lot.
+
+It captures lessons from framing through delivery, Critical QA / corrections / revalidations, publication, PR readiness, mark-ready, merge H1, post-merge QA-G4, closure with reserves, and local capitalization — without promoting method assets and without opening D2-D4.
+
+## 2. Context
+
+- Lot V3.1-D2-D3 already merged via PR #310 (`e36f12b68545a9ead0d8d0ccbfc55d43973b3521`).
+- Closure status: **CLOSED WITH RESERVES** (handoff `29a658fb…`).
+- Capitalization cycle 15 produced document 05 locally on branch `capitalization/sfia-studio-v3-1-d2-d3-rex` (handoff `c2e323b7…`).
+- This publication is documentation-only and remains subject to a distinct Morris PR readiness / mark-ready / merge GO chain.
+- REX content is **frozen** and proven byte-identical to Capitalization handoff §25 (SHA-256 `fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693`).
+
+## 3. Scope
+
+**In scope (exactly one file):**
+
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md`
+
+**Out of scope:**
+
+- documents D2-D 20–24 / framing README / index
+- code / tests / config / dependencies
+- method / templates / prompts / CKC
+- D2D3-04 / D2D3-05 (remain BLOCKED)
+- D2-D4 / Notion / CMP
+- method promotion / D-REX adoption
+
+## 4. Capitalization coverage
+
+Document sections A–T cover:
+
+- chronology (framing → closure → local capitalization)
+- Morris decisions consumed
+- delivered vs blocked scope (D2D3-01/02/03/06/07 vs 04/05)
+- factual observations and lessons
+- candidate reusable practices (not promoted)
+- candidate recommendations (not applied)
+- future decision pack D-REX-D2D3-01…06 (all NOT DECIDED)
+- 14 findings CLOSED; reserves register (8 open accepted / 2 closed)
+- anti-claims and next-gate candidate at capitalization time
+
+## 5. Morris decisions
+
+Referenced as already consumed (not reinvented):
+
+- GO Delivery / QA Critical / Corrections / Revalidations 1–3
+- GO Publication / PR Readiness / Mark Ready / Merge H1 / Post-Merge / Closure
+- GO Capitalization (local document only) — 2026-08-04 17:56 CEST
+- GO Publication Capitalization — 2026-08-04 18:28 CEST (this PR)
+
+No new product decision is created by this PR.
+D-REX-D2D3-01…06 remain **NOT DECIDED**.
+
+## 6. Evidence and metrics (inherited from closed lot)
+
+- Package Delivery D2-D3: 18 files ; +4368 / −22 ; hash `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f`
+- PR #310 merge: `e36f12b68545a9ead0d8d0ccbfc55d43973b3521`
+- CI post-merge #96 SUCCESS
+- REX: 575 lines ; sections A–T ; SHA-256 `fd98ede9…`
+
+## 7. Anti-claims
+
+This PR does **not** prove or authorize: Cursor live, sandbox-real, provider real, durable persistence, multi-instance, restart-safe, UI Delivery, strong runtime, RUN READY, production-ready, D2-D4, lifted open reserves, method promotion, or Notion/CMP.
+
+## 8. Publication status
+
+- Draft PR (this cycle)
+- GO PR READINESS Capitalization — **not consumed**
+- GO MARK READY / MERGE / BRANCH CLEANUP Capitalization — **not consumed**
+
+## 9. Next gate candidate
+
+`GO PR READINESS SFIA STUDIO V3.1-D2-D3 CAPITALIZATION` — candidate only — not consumed.
 ```
-commit f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
-Author:     Morris Cleland <morris@mac1.home>
-AuthorDate: Tue Aug 4 18:38:16 2026 +0200
-Commit:     Morris Cleland <morris@mac1.home>
-CommitDate: Tue Aug 4 18:38:16 2026 +0200
 
-    docs(sfia-studio): add V3.1-D2-D3 capitalization REX
+## 42–43. Commentaires / reviews
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+inline=0 ; issue=0 ; reviews=0 ; reviewDecision=empty ; aucune REQUEST_CHANGES — PASS
 
- .../05-capitalization-rex.md                       | 575 +++++++++++++++++++++
- 1 file changed, 575 insertions(+)
-```
+## 44. Rulesets
 
-## 21. Git Truth Check final
+- Branch protection classic main : HTTP 404 (non protégée via API classic)
+- Ruleset active `19798462` — SFIA Studio Main Required Gate — M1
+  - required approving review count : **0**
+  - require_code_owner_review : false
+  - required_review_thread_resolution : false
+  - required status check : **SFIA Studio Required Gate**
+  - allowed_merge_methods : merge, squash, rebase
+  - non_fast_forward + deletion rules present
+- Mark Ready (Draft→ready) reste une décision Morris distincte avant merge humain.
 
-```
-branch=capitalization/sfia-studio-v3-1-d2-d3-rex
-HEAD=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
-main=e36f12b68545a9ead0d8d0ccbfc55d43973b3521
-ahead=1
-behind=0
-upstream=origin/capitalization/sfia-studio-v3-1-d2-d3-rex
-status:
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/.tmp-sfia-review/
-```
+## 45–46. CI #97
 
-## 22. Absence de mark-ready / merge
+- Workflow : SFIA Studio CI
+- Run #97 / ID 30930133145
+- event=pull_request ; headSha=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+- status=completed ; conclusion=success
+- Jobs : Detect SUCCESS ; Build and validate SUCCESS ; Required Gate SUCCESS
+- URL : https://github.com/mcleland147/sfia-workspace/actions/runs/30930133145
 
-isDraft=true conservé ; aucun `gh pr ready` ; aucun `gh pr merge`.
+## 47. Matrice PR Readiness
 
-## 23. Absence de modification méthode / code
+| # | Critère | Statut |
+|---|---------|--------|
+| 1 | Repository / branche capitalization | PASS |
+| 2 | Base main / head capa exacts | PASS |
+| 3 | ahead/behind 1/0 | PASS |
+| 4 | commit count = 1 | PASS |
+| 5 | atomicité documentaire | PASS |
+| 6 | scope mono-fichier REX | PASS |
+| 7 | +575 / −0 | PASS |
+| 8 | hash REX fd98ede9… | PASS |
+| 9 | identité local/commit/remote | PASS |
+| 10 | structure A–T | PASS |
+| 11 | D-REX NOT DECIDED ×6 | PASS |
+| 12 | 14 findings CLOSED | PASS |
+| 13 | réserves héritées cohérentes | PASS |
+| 14 | D2D3-04/05 BLOCKED | PASS |
+| 15 | anti-claims | PASS |
+| 16 | absence méthode | PASS |
+| 17 | absence code/test/config | PASS |
+| 18 | PR OPEN | PASS |
+| 19 | Draft=true | PASS |
+| 20 | mergeable CLEAN | PASS |
+| 21 | commentaires | PASS (0) |
+| 22 | reviews | PASS (0) |
+| 23 | CI #97 | PASS |
+| 24 | Required Gate | PASS |
+| 25 | body PR structure | PASS WITH RESERVE |
+| 26 | R-PR-CAPA-D2D3-01 | PASS WITH RESERVE (OPEN) |
+| 27 | gates Morris (mark-ready non consommé) | PASS |
+| 28 | readiness Mark Ready | PASS WITH RESERVE |
 
-method/** prompts/** code tests configs : non modifiés.
+## 48. Nouvelle réserve R-PR-CAPA-D2D3-01
 
-## 24. Absence de D2-D4 / METHOD PROMOTION
+R-PR-CAPA-D2D3-01 —
+OPEN —
+MINOR PR METADATA RESERVE —
+PR BODY STILL RECORDS GO PR READINESS AS NOT CONSUMED AFTER THE CURRENT READINESS CYCLE —
+REFRESH RECOMMENDED ONLY UNDER A LATER MORRIS-AUTHORIZED MARK READY CYCLE
 
-Conservé ; D-REX NOT DECIDED ; anti-claims du REX inchangés.
+N’affecte pas commit / REX / CI.
+N’empêche pas PASS WITH RESERVES.
+Non CLOSED / non SATISFIED dans ce cycle.
 
-## 25. Review Handoff
+## 49. Recommandation refresh Mark Ready (non exécutée)
 
-Mode : publish-in-cycle
-Publisher : scripts/sfia/publish-review-handoff.sh
-Source : .tmp-sfia-review/chatgpt-review.md
-Branche : sfia/review-handoff
-Fichier : sfia-review-handoff/latest-chatgpt-review.md
-Parent Capitalization : `c2e323b73258800f1fabc41030c10fe5973f7db5`
-Commit publié : `0bc3795aedda39e1be09be42270bdfab5ae88d66`
-Blob publié : `1773c96516091ae174af540ed85df1ddd292ce4e`
-Message : docs(review-handoff): publish D2-D3 capitalization publication status
-Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
-Titre distant : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Publication
-Verdict distant : D2-D3 CAPITALIZATION PUBLICATION COMPLETE — DRAFT PR #311 OPEN — … — READY FOR MORRIS PR READINESS DECISION
-Mono-fichier tip : oui
+Sous futur GO MARK READY uniquement :
 
+- Publication status : GO PR READINESS Capitalization — consumed on 2026-08-04 at 18:48 CEST
+- conserver GO MARK READY / MERGE / BRANCH CLEANUP non consommés jusqu’à leurs GO
+- prochaine gate candidate → GO MARK READY SFIA STUDIO V3.1-D2-D3 CAPITALIZATION
 
-## 26. Verdict unique
+Non appliqué maintenant.
 
-D2-D3 CAPITALIZATION PUBLICATION COMPLETE —
-DRAFT PR #311 OPEN —
-SCOPE ONE FILE VERIFIED —
-CI #97 SUCCESS —
-REX CONTENT UNCHANGED —
-READY FOR MORRIS PR READINESS DECISION
+## 50. Stratégie de merge candidate
 
-## 27. Décision suivante candidate
+H1 — merge commit : **candidate** (autorisée par ruleset `allowed_merge_methods` incluant `merge`).
+Non consommée. Squash/rebase aussi autorisés techniquement ; H1 reste la recommandation candidate pour un incrément documentaire atomique, sans adoption.
 
-GO PR READINESS SFIA STUDIO V3.1-D2-D3 CAPITALIZATION
+## 51. Tests techniques non réexécutés
+
+Vitest / typecheck / lint / build / governance : non relancés localement.
+Preuves héritées : Closure/QA-G4 D2-D3 + CI #97 sur commit documentaire.
+
+## 52. Validations documentaires exécutées
+
+git diff --check ; SHA-256×3 ; blob ; structure A–T ; D-REX ; scans secrets/TODO/anti-claims ; scope ; PR/CI/ruleset ; freeze final.
+
+## 53. Git Truth Check final
+
+Identique au freeze : HEAD/upstream=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f ; main=e36f12b6… ; ahead=1 behind=0 ; Draft=true ; CI SUCCESS ; staged vide.
+
+## 54–60. Absences
+
+- aucune modification projet / REX
+- aucune modification PR
+- aucun mark-ready
+- aucun merge
+- aucune suppression branche
+- aucune promotion méthode
+- aucun D2-D4
+
+## 61. Review Handoff
+
+Mode publish-in-cycle ; parent attendu `4a2b6fa61f6c0668ec4a935d5ce3e34ba40cd6b3` ;
+message : docs(review-handoff): publish D2-D3 capitalization PR readiness status ;
+(résultat distant après publication).
+
+## 62. Verdict unique
+
+D2-D3 CAPITALIZATION PR READINESS PASS WITH RESERVES —
+PR #311 SCOPE, REX IDENTITY AND REQUIRED CI VERIFIED —
+DRAFT PRESERVED —
+READY FOR MORRIS MARK-READY DECISION
+
+## 63. Décision suivante candidate
+
+GO MARK READY SFIA STUDIO V3.1-D2-D3 CAPITALIZATION
 Statut : candidate uniquement — non consommé
 
-N’autorise pas automatiquement mark-ready, merge, promotion méthode, D2-D4, Notion/CMP.
+Pourrait autoriser dans un cycle séparé : Draft=false ; refresh borné body ; satisfaction recommandée de R-PR-CAPA-D2D3-01.
+N’autorise pas automatiquement merge, suppression branche, promotion méthode, adoption D-REX, D2-D4, Notion/CMP.
 
 ---
 
-Instruction finale : ChatGPT doit consulter la branche sfia/review-handoff et le fichier sfia-review-handoff/latest-chatgpt-review.md au commit et blob publiés par ce cycle avant toute validation PR readiness, mark-ready, merge capitalization, promotion méthode ou préparation d’un cycle suivant.
+Instruction finale : ChatGPT doit consulter la branche sfia/review-handoff et le fichier sfia-review-handoff/latest-chatgpt-review.md au commit et blob publiés par ce cycle avant toute validation PR Readiness, génération d’un prompt Mark Ready, merge Capitalization, promotion méthode ou préparation d’un cycle suivant.
