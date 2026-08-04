@@ -1437,14 +1437,18 @@ Publisher : scripts/sfia/publish-review-handoff.sh
 Source : .tmp-sfia-review/chatgpt-review.md
 Branche : sfia/review-handoff
 Fichier canonique : sfia-review-handoff/latest-chatgpt-review.md
-Parent distant : `29a658fb740b1e8331511ea02e47f2a1199dec0d`
-Commit publié : `96b30c29bb68e17c6ce7ec12f874d64e34ac352d`
-Blob publié : `c3eb3638ab5058e1e849d95de94088c298461544`
+Parent Closure attendu : `29a658fb740b1e8331511ea02e47f2a1199dec0d`
 Message : docs(review-handoff): publish D2-D3 capitalization status
-Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
-Titre distant relu : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization / REX
-Verdict distant relu : D2-D3 CAPITALIZATION COMPLETE WITH RESERVES — … — READY FOR MORRIS PUBLICATION DECISION
-Mono-fichier tip : oui (uniquement sfia-review-handoff/latest-chatgpt-review.md)
+
+Chaîne de publication Capitalization :
+1. `96b30c29bb68e17c6ce7ec12f874d64e34ac352d` / blob `c3eb3638ab5058e1e849d95de94088c298461544` — HANDOFF UPDATED — REMOTE VERIFIED (contenu Full initial)
+2. `3368014fc0951309faf8ed55fff9ef3b64ef575c` / blob `6d32ba1687ac64226db4cc031ec1fc07f0e62d7a` — HANDOFF UPDATED — REMOTE VERIFIED (refresh §50)
+
+Tip distant à relire après cette publication : `origin/sfia/review-handoff` (fast-forward depuis `3368014…`).
+Titre attendu : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization / REX
+Verdict attendu : D2-D3 CAPITALIZATION COMPLETE WITH RESERVES — … — READY FOR MORRIS PUBLICATION DECISION
+Mono-fichier : oui
+
 
 ## 51. Verdict unique
 
