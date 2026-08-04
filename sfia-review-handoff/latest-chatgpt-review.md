@@ -1717,17 +1717,21 @@ Publisher : scripts/sfia/publish-review-handoff.sh
 Source : .tmp-sfia-review/chatgpt-review.md
 Branche : sfia/review-handoff
 Fichier : sfia-review-handoff/latest-chatgpt-review.md
-Parent démarrage : 5cfe22e5cea9d9d92ee419bd9139130466470464
-Commit intermédiaire : b7adfe791f4dd5644b1739b05b6f4a913f89bb06
+Parent démarrage cycle : 5cfe22e5cea9d9d92ee419bd9139130466470464
+Commit intermédiaire (1er publish) : b7adfe791f4dd5644b1739b05b6f4a913f89bb06
 Blob intermédiaire : 4e1d29ef8a1ce76bdb840ddee786e536b82b3330
-Commit final autoritatif : ab59dd2ab64b18b2a1fe3bfade2015bd572bb0e9
-Blob final autoritatif : 1b3da12392068a57502f6483b870e5cb26ce6858
+Commit précédent (2e publish) : ab59dd2ab64b18b2a1fe3bfade2015bd572bb0e9
+Blob précédent : 1b3da12392068a57502f6483b870e5cb26ce6858
+Commit parent du présent refresh : 3811a48c33402e55b29bcfefe4a0c68a7730d66a
+Blob parent du présent refresh : 35143b1a05b44d8328453ea2de440310e30e2b4c
+Commit final autoritatif : (égal au tip distant après publication de ce refresh — à vérifier par `git rev-parse origin/sfia/review-handoff`)
+Blob final autoritatif : (égal au blob distant après publication)
 Message : docs(review-handoff): publish Assistant SFIA OpenAI functional architecture status
 Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
-Titre distant vérifié : # ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI First Product Increment Functional Architecture
-Verdict distant : ASSISTANT SFIA NATIVE OPENAI FIRST PRODUCT INCREMENT FUNCTIONAL ARCHITECTURE COMPLETE WITH OPEN DECISIONS — … — READY FOR CHATGPT VALIDATION AND MORRIS FUNCTIONAL ARCHITECTURE ARBITRATION
-Correction R-FRM-ASST-01 : Git Truth final capturé par commandes réelles (voir §62).
-Correction R-FRM-ASST-02 : tip/blob ci-dessus = tip distant après refresh ; intermédiaire ≠ tip final.
+Titre : # ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI First Product Increment Functional Architecture
+Verdict : ASSISTANT SFIA NATIVE OPENAI FIRST PRODUCT INCREMENT FUNCTIONAL ARCHITECTURE COMPLETE WITH OPEN DECISIONS — … — READY FOR CHATGPT VALIDATION AND MORRIS FUNCTIONAL ARCHITECTURE ARBITRATION
+R-FRM-ASST-01 : Git Truth final capturé par commandes réelles (§62).
+R-FRM-ASST-02 : tip/blob finaux = origin/sfia/review-handoff post-publish ; intermédiaire b7adfe7 et ab59dd2 ne sont pas le tip final si un refresh ultérieur existe.
 
 
 ## 64. Verdict
