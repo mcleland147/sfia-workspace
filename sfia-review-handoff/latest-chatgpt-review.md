@@ -1042,9 +1042,17 @@ Publisher : `scripts/sfia/publish-review-handoff.sh`
 Source : `.tmp-sfia-review/chatgpt-review.md`
 Branche : `sfia/review-handoff`
 Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-Parent attendu premier commit : `1644e71053922bce42e45e279c1905b1184f19eb`
+Parent Post-Merge : `1644e71053922bce42e45e279c1905b1184f19eb`
+Commit publié : `9cd8df3211830e75570c7c211992e28d19d46331`
+Blob publié : `63c90a31944b169e26cd2776520e7e933c5ab947`
 Message : docs(review-handoff): publish D2-D3 capitalization closure status
-Commit / blob / verdict publisher : *(à compléter après publication)*
+Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+Titre distant : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Closure With Reserves
+Verdict distant : D2-D3 CAPITALIZATION CLOSURE COMPLETE WITH RESERVES — … — NO NEXT CYCLE AUTHORIZED
+Mono-fichier tip : oui
+Chaîne :
+`ee946977…` → `a28bead7…` → `1644e710…` → `9cd8df32…`
+
 
 ## 68. Verdict unique
 
