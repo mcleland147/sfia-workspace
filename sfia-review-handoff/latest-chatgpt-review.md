@@ -1,485 +1,486 @@
-# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Critical QA Revalidation
+# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Critical Follow-up Corrections
 
-## 1. Qualification
+## 1. Date / heure / fuseau
 
-- Date/heure/fuseau : 2026-08-04 12:56:40 CEST (+0200).
-- Cycle : 9 — QA / validation.
-- Sous-cycle : QA Critical de revalidation après corrections.
-- Profil : Critical.
-- Typologie : EVOL.
-- GO consommé : `GO QA SFIA STUDIO V3.1-D2-D3 — PROFILE CRITICAL — REVALIDATION` (2026-08-04 12:45 CEST).
-- Gates non consommés : G-D2D-CURSOR-01, G-D2D-PERSIST-01, G-D2D-D2C-01, GO PUBLICATION, GO PR READINESS.
-- CKC recherché : oui — contrat détaillé absent.
-- Fallback : routing guide, validation checklist, Delivery QA/Test standard, template v2.6, docs D2-D 20–24, handoffs QA+Corrections, code local.
+2026-08-04 13:25:00 CEST (+0200)
 
-## 2. Sources consultées
+## 2. Cycle
 
-- Handoff QA initial : commit `2ea275d3e6266ba409e101ba4644102b5c25493c`, blob `a669da7fdc29acaf30446516229a1fcd9cbb9243`.
-- Handoff Corrections : commit `6b00c6785f3a2b317372c2f1d1450f5ce95fb26f`, blob `42f4b0b72e1ea9f21309a4aec71cf5701952598f`, parent `2ea275d3…`.
-- Verdict Corrections (non-preuve) : D2-D3 CORRECTIONS COMPLETE — F-QA-D2D3-01…10 ADDRESSED — READY FOR CRITICAL QA REVALIDATION.
-- Package corrigé 18 fichiers + dépendances D2-D1/D2-D2 appelées + tests execution-run + publisher.
+8 — Delivery corrective après QA — Corrections ciblées de deuxième passe
 
-## 3. Local Git Truth Check initial
+## 3. Profil
 
-- Branche : `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`.
-- HEAD / origin/main : `de2800aa836bb8221dc2912414126b7a3e6a1f58`.
-- Upstream : aucun.
-- Branche distante projet : absente.
-- Staged : vide.
-- Hors package : `.tmp-sfia-review/**` uniquement.
+Critical
 
-## 4. Freeze initial / final
+## 4. Typologie
 
-- Count : 18.
-- Hash length-prefixed : `10c4d0278e10192aea7cf88b086df2ccc74252bc01e0f76e9ec1bbdbf522decb`.
-- Manifest exact vs handoff Corrections : OK.
-- Freeze final identique après probes/validations.
+EVOL
 
-## 5. Manifest corrigé
+## 5. GO consommé
 
-1. projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
-2. projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
-3. projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
-4. projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
-5. projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
-6. projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
-7. projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
-8. projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
-9. projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
-10. projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
-11. projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
-12. projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
-13. projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
-14. projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
-15. projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
-16. projects/sfia-studio/app/lib/oa/execution-run/index.ts
-17. projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
-18. projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+`GO CORRECTIONS SFIA STUDIO V3.1-D2-D3 — APPLY F-QA-D2D3-05 + F-QA-REV-D2D3-01/02`
 
-## 6. Inspection des corrections (indépendante)
+Date/heure : 2026-08-04 13:03 CEST (+0200)
 
-| Finding | Cause initiale | Correction déclarée | Correction observée | Test permanent | Probe | Statut revalidation |
-|---|---|---|---|---|---|---|
-| F-01 | availableSources injectable | fixture-only preflight | `availableSources` absent des deps ; injection ignorée ; real/sandbox-real rejetés avant port | regression F01 | P01 + P-REV-01/02 | VERIFIED — CLOSURE RECOMMENDED |
-| F-02 | readiness booléenne | artefacts liés | bool-only → not_demonstrated ; assessById nécessite run+projection+evidence | readiness + F02 | P02 + P-REV-03 | VERIFIED — CLOSURE RECOMMENDED |
-| F-03 | sink throw brut | safeEmit + eventDelivery | throws capturés ; état cohérent ; degraded | F03 | P03–05 + P-REV-04/05 | VERIFIED — CLOSURE RECOMMENDED |
-| F-04 | projection pass-through | unknown + allowlist | refus explicite sur secrets/fonctions/claims | F04 | P06 + P-REV-06/07 | VERIFIED — CLOSURE RECOMMENDED |
-| F-05 | late summary brut | sanitizeLateEvidenceSummary | `password=` redacted ; **mais** `token=`, `apiKey=`, `Authorization Bearer` peuvent persister | F05 (password only) | P07 PASS ; **P-REV-08 FAIL** | PARTIALLY ADDRESSED |
-| F-06 | describe avant validation | preflight unknown | describe=0 sur intent invalide | F06 | P08 + P-REV-09 | VERIFIED — CLOSURE RECOMMENDED |
-| F-07 | getters hostiles | untrustedExecutionData | request rejetée sans run ; result → failed | F07 | P09–10 + P-REV-10 | VERIFIED — CLOSURE RECOMMENDED |
-| F-08 | providerInvoked faux | attempted/invoked/completed | pre-cancel invoked=false | F08 | P16 + P-REV-11 | VERIFIED — CLOSURE RECOMMENDED |
-| F-09 | timeout invalide | MAX 60000 local | -1 → no run | F09 | P17 + P-REV-12 | VERIFIED — CLOSURE RECOMMENDED |
-| F-10 | path %2e%2e | normalizeCanonicalPath | blocked shared surfaces | F10 | P23 + P-REV-13 | VERIFIED — CLOSURE RECOMMENDED |
+## 6. Gates non consommés
 
-## 7. Régression découverte hors findings initiaux
+- G-D2D-CURSOR-01 — Cursor UNVERIFIED ; D2D3-04 BLOCKED
+- G-D2D-PERSIST-01 — process-local only ; D2D3-05 BLOCKED
+- G-D2D-D2C-01 — R-QA-D2C-01 OPEN
+- GO PUBLICATION — non consommé
+- GO PR READINESS — non consommé
 
-### F-QA-REV-D2D3-01 — MAJOR — REGRESSION
+## 7. CKC recherché et absent
 
-- Problème : un `providerRequest.correlationId` divergent est **réécrit** avec le correlationId d’intent pendant le preflight (`coordinateExecutionRun.ts` ~565–568), puis l’engagement réussit.
-- Preuve : P-QA-D2D3-19 — historiquement PASS — désormais FAIL (`state=succeeded`, `providerInvoked=true`).
-- Impact : la validation de cohérence lane/correlation n’est plus une barrière d’engagement pour ce mismatch.
+CKC recherché : oui
+Contrat détaillé trouvé : non
+Statut : absent
 
-### F-QA-REV-D2D3-02 — BLOCKER — Late evidence redaction incomplete
+## 8. Fallback
 
-- Problème : `sanitizeLateEvidenceSummary` redige surtout des motifs forts (`password=`, `sk-`, `ghp_`, private key) mais laisse persister comme evidence officielle late :
-  - `token=abc`
-  - `apiKey=k`
-  - `Authorization Bearer xyz`
-- Preuve : P-REV-D2D3-08.
-- Impact : secret-like content in official late evidence (même famille que F-05).
+routing guide ; template canonique v2.6 ; operating model ; rules and guardrails ; validation checklist ; documents D2-D 20–24 ; handoffs QA / Corrections / revalidation ; package local réel.
 
-## 8. Résultats des 29 probes initiaux
+## 9. Sources consultées
 
-Total initial : 29 — PASS 28 — FAIL 1 — NOT PROVEN 0.
+1. prompts/templates/sfia-cycle-execution-template.md
+2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+3. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+4. method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+5. method/sfia-fast-track/checklists/sfia-validation-checklist.md
+6. method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md
+7. documents D2-D 20–24
+8. handoff QA initial `2ea275d3e6266ba409e101ba4644102b5c25493c`
+9. handoff Corrections `6b00c6785f3a2b317372c2f1d1450f5ce95fb26f`
+10. handoff QA revalidation `5dbcee99f727d34761a784b5388f21d29d9c440c` / blob `e4c6d6bad6797a70bc82affbf05d4c20e5a6f3dc`
+11. 18 fichiers package local
+12. dépendances D2-D1/D2-D2 appelées
+13. tests execution-run
+14. scripts/sfia/publish-review-handoff.sh
+15. scripts/sfia/README.md
 
-13 historiquement FAIL :
+## 10. Local Git Truth Check initial
 
-| P-QA-D2D3-01 | PASS |
-| P-QA-D2D3-02 | PASS |
-| P-QA-D2D3-03 | PASS |
-| P-QA-D2D3-04 | PASS |
-| P-QA-D2D3-05 | PASS |
-| P-QA-D2D3-06 | PASS |
-| P-QA-D2D3-07 | PASS |
-| P-QA-D2D3-08 | PASS |
-| P-QA-D2D3-09 | PASS |
-| P-QA-D2D3-10 | PASS |
-| P-QA-D2D3-16 | PASS |
-| P-QA-D2D3-17 | PASS |
-| P-QA-D2D3-23 | PASS |
+- toplevel : worktree delivery-d2-d1
+- branche : `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`
+- HEAD : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+- origin/main : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+- upstream : aucun
+- branche distante projet : absente
+- staged : vide
+- package hors `.tmp-sfia-review/**` uniquement
 
-Seul échec initial restant : **P-QA-D2D3-19** (régression, pas un des 13 historiques).
+## 11–12. Handoff QA de revalidation
 
-Table complète :
+- branche : `sfia/review-handoff`
+- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+- commit : `5dbcee99f727d34761a784b5388f21d29d9c440c`
+- blob : `e4c6d6bad6797a70bc82affbf05d4c20e5a6f3dc`
+- parent : `6b00c6785f3a2b317372c2f1d1450f5ce95fb26f`
+- titre : ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Critical QA Revalidation
+- verdict : D2-D3 CRITICAL QA REVALIDATION BLOCKED — NEW BLOCKING FINDINGS DETECTED — MORRIS CORRECTION DECISION REQUIRED
 
-| id | verdict | finding | objective |
-|---|---|---|---|
-| P-QA-D2D3-01 | PASS | — | Refuse fake provider promoted to real by injected source list |
-| P-QA-D2D3-02 | PASS | — | Reject UX readiness without a linked run, projection, or evidence |
-| P-QA-D2D3-03 | PASS | — | Contain event sink throw at event 1 |
-| P-QA-D2D3-04 | PASS | — | Contain event sink throw at event 2 |
-| P-QA-D2D3-05 | PASS | — | Contain event sink throw at event 4 |
-| P-QA-D2D3-06 | PASS | — | Project malicious runtime data without leaks or claim promotion |
-| P-QA-D2D3-07 | PASS | — | Reject sensitive caller-supplied late evidence |
-| P-QA-D2D3-08 | PASS | — | Perform input validation before any provider port call |
-| P-QA-D2D3-09 | PASS | — | Contain hostile provider request accessors |
-| P-QA-D2D3-10 | PASS | — | Contain hostile provider result accessors |
-| P-QA-D2D3-11 | PASS | — | Prevent malicious provider argument mutation from changing stored run |
-| P-QA-D2D3-12 | PASS | — | Prevent partial provider success |
-| P-QA-D2D3-13 | PASS | — | Normalize provider null |
-| P-QA-D2D3-14 | PASS | — | Normalize provider reject |
-| P-QA-D2D3-15 | PASS | — | Ignore provider success resolving after timeout |
-| P-QA-D2D3-16 | PASS | — | Cancel before provider operation |
-| P-QA-D2D3-17 | PASS | — | Reject negative coordinator timeout before engagement |
-| P-QA-D2D3-18 | PASS | — | Isolate concurrent process-local runs |
-| P-QA-D2D3-19 | FAIL | — | Reject provider request correlation mismatch |
-| P-QA-D2D3-20 | PASS | — | Prevent event sink detail mutation from changing state |
-| P-QA-D2D3-21-fixture-real | PASS | — | Source matrix requested=fixture, declared=real |
-| P-QA-D2D3-21-real-real | PASS | — | Source matrix requested=real, declared=real |
-| P-QA-D2D3-21-sandbox-sandbox | PASS | — | Source matrix requested=sandbox-real, declared=sandbox-real |
-| P-QA-D2D3-22-mutation_forbidden | PASS | — | Pre-engagement block for mutation_forbidden |
-| P-QA-D2D3-22-protected_path | PASS | — | Pre-engagement block for protected_path |
-| P-QA-D2D3-22-blocked_gate | PASS | — | Pre-engagement block for blocked_gate |
-| P-QA-D2D3-23 | PASS | — | Reject encoded traversal/protected path |
-| P-QA-D2D3-24 | PASS | — | Prevent caller runId from selecting state authority target |
-| P-QA-D2D3-25 | PASS | — | Prevent additional readiness properties promoting UI/runtime |
+## 13. Freeze initial
 
-## 9. Nouveaux probes P-REV
+- count : 18
+- SHA-256 length-prefixed : `10c4d0278e10192aea7cf88b086df2ccc74252bc01e0f76e9ec1bbdbf522decb`
+- base : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+- correspondance exacte avant modification : OUI
 
-Total : 15 — PASS 14 — FAIL 1 (P-REV-08).
+## 14. Findings ciblés
 
-| id | verdict | finding | objective |
-|---|---|---|---|
-| P-REV-D2D3-01 | PASS | — | Source authority via descriptor / availableSources injection |
-| P-REV-D2D3-02 | PASS | — | Source authority via composition options |
-| P-REV-D2D3-03 | PASS | — | Readiness linked to canonical artifacts |
-| P-REV-D2D3-04 | PASS | — | Event sink fail-safe with repeated synchronous throws |
-| P-REV-D2D3-05 | PASS | — | Event sink hostile detail accessors |
-| P-REV-D2D3-06 | PASS | — | Projection hostile deep graph |
-| P-REV-D2D3-07 | PASS | — | Projection from canonical runId authority |
-| P-REV-D2D3-08 | FAIL | — | Late evidence redaction extended |
-| P-REV-D2D3-09 | PASS | — | Preflight without provider effect |
-| P-REV-D2D3-10 | PASS | — | Hostile / invalid provider results |
-| P-REV-D2D3-11 | PASS | — | Provider diagnostics exactness |
-| P-REV-D2D3-12 | PASS | — | Timeout boundary local 1..60000 |
-| P-REV-D2D3-13 | PASS | — | Path normalization shared across surfaces |
-| P-REV-D2D3-14 | PASS | — | Import and public surface boundaries |
-| P-REV-D2D3-15 | PASS | — | In-process isolation across success/timeout/cancel/blocked |
+| Finding | Sévérité entrante | Statut entrant |
+|---|---|---|
+| F-QA-D2D3-05 | BLOCKER initial | PARTIALLY ADDRESSED |
+| F-QA-REV-D2D3-01 | MAJOR | ouvert (régression P-QA-D2D3-19) |
+| F-QA-REV-D2D3-02 | BLOCKER | ouvert (P-REV-D2D3-08) |
 
-## 10. Détails des échecs
+## 15. Findings précédemment revalidés (non fermés ici)
 
-### P-QA-D2D3-19
+F-QA-D2D3-01/02/03/04/06/07/08/09/10 — statut transporté : **VERIFIED — CLOSURE RECOMMENDED** (non fermés ; non modifiés ; non-régression PASS).
 
-```json
-{
-  "id": "P-QA-D2D3-19",
-  "family": "initial",
-  "objective": "Reject provider request correlation mismatch",
-  "expected": "blocked before provider",
-  "observed": {
-    "state": "succeeded",
-    "providerInvoked": true
-  },
-  "verdict": "FAIL"
-}
-```
-### P-REV-D2D3-08
+## 16. Analyse des causes racines (pré-implémentation)
 
-```json
-{
-  "id": "P-REV-D2D3-08",
-  "family": "revalidation",
-  "objective": "Late evidence redaction extended",
-  "expected": "no sensitive residue; terminal unchanged; canonical identity/source",
-  "observed": [
-    {
-      "i": 0,
-      "state": "cancelled",
-      "summary": "late_result_redacted",
-      "leaked": false,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 1,
-      "state": "cancelled",
-      "summary": "token=abc",
-      "leaked": true,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 2,
-      "state": "cancelled",
-      "summary": "apiKey=k",
-      "leaked": true,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 3,
-      "state": "cancelled",
-      "summary": "Authorization Bearer xyz",
-      "leaked": true,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 4,
-      "state": "cancelled",
-      "summary": "late_result_redacted",
-      "leaked": false,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 5,
-      "state": "cancelled",
-      "summary": "late_result_redacted",
-      "leaked": false,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 6,
-      "state": "cancelled",
-      "summary": "late_result_redacted",
-      "leaked": false,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 7,
-      "state": "cancelled",
-      "summary": "[REDACTED]1234567890-abcdefgh",
-      "leaked": false,
-      "late": true,
-      "source": "fixture",
-      "official": true
-    },
-    {
-      "i": 8,
-      "state": "cancelled",
-      "summary": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "leaked": false,
-      "late": true,
-      "source": "fixture",
-      "official": true
+### F-QA-REV-D2D3-01
+**Cause racine exacte :** dans `preflightCoordinateInput`, après `readUntrustedPlainData`, la reconstruction faisait `correlationId: intent.correlationId` (ou `correlationId` du intent) **avant** toute comparaison avec la valeur originale du `providerRequest`. Le mismatch était effacé ; `requestMatchesRun` voyait toujours une identité cohérente ; le provider était invoqué (`state=succeeded`, `providerInvoked=true` sur P-QA-D2D3-19).
+
+**Séquence actuelle (avant correction) :**
+1. lire enveloppe unknown
+2. lire providerRequest plain
+3. validateUntrustedProviderRequest
+4. **réécrire** `correlationId` = intent
+5. poursuivre capability / create / invoke
+6. requestMatchesRun toujours OK
+
+**Ordre cible corrigé :**
+1. lire enveloppe
+2. copie plain détachée
+3. lire correlationId original
+4. exiger string non vide
+5. comparer strictement à intent.correlationId
+6. comparer lane originale à intent.requestedLane
+7. rejeter toute divergence (pas de run, pas describe, pas provider)
+8. seulement ensuite rebuild canonique (timeoutMs) en **conservant** le correlationId validé
+9. validation provider existante
+10. capability / create / invoke
+
+### F-QA-D2D3-05 / F-QA-REV-D2D3-02
+**Cause racine :** `sanitizeLateEvidenceSummary` / `FORBIDDEN_VALUE` couvraient `password=`, `sk-`, `ghp_`, private key et quelques tokens forts, mais **pas** `token=`, `apiKey=`, `Authorization Bearer` et variantes (espaces, `:`, JSON-like, query string, casse).
+
+**Motifs déjà détectés (avant) :** password=, sk-, ghp_, BEGIN PRIVATE KEY, xox*, api_key partiel inconsistently.
+
+**Motifs manquants :** token=/:, apiKey=/:, api_key, api-key, authorization, Bearer, access_token, refresh_token, client_secret, cookie, session, github_pat_, query `?token=`/`&token=`, JSON `"apiKey":"…"`, private key phrase.
+
+**Stratégie fail-closed :** une seule source `containsSensitiveLateContent` / `FORBIDDEN_VALUE` dans `untrustedExecutionData.ts` ; détection sur chaîne originale avant troncature ; tout hit → exact `late_result_redacted` ; re-check après borne ; non-string → `late_result_redacted` ; jamais logger la brute.
+
+## 17. Plan correctif
+
+| Finding | Fichier | Test permanent |
+|---|---|---|
+| F-QA-REV-D2D3-01 | coordinateExecutionRun.ts | d2d3.qa-findings.regression + d2d3.negative.resilience |
+| F-QA-D2D3-05 / F-QA-REV-D2D3-02 | untrustedExecutionData.ts | d2d3.qa-findings.regression + d2d3.evidence.truthfulness |
+
+**Preuve neuf findings non touchés :** aucun changement dans policy/providerBoundary/sandbox/readiness/projection/compose ; tests F01–04/06–10 inchangés dans leur logique et PASS ; probe P-CORR2-NONREG PASS.
+
+**Périmètre final :** 5 fichiers max, mêmes 18 chemins package.
+
+**Anti-claims :** pas CLOSED/VERIFIED/LIFTED ; pas Cursor/provider live ; pas durable ; pas D2D3-04/05 ; pas commit/PR.
+
+## 18. Fichiers modifiés
+
+- `projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts`
+- `projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts`
+
+## 19. Sections modifiées complètes
+
+### coordinateExecutionRun.ts — preflight providerRequest
+
+```typescript
+  let providerRequest: CoordinateProviderRequest | undefined;
+  if (raw.providerRequest !== undefined) {
+    const requestCopy = readUntrustedPlainData(raw.providerRequest, {
+      redact: false,
+      maxStringLength: 100_000,
+    });
+    if (!requestCopy.ok) {
+      return {
+        ok: false,
+        failure: validationFailure(
+          correlationId,
+          "Provider request rejected as untrusted data",
+        ),
+      };
     }
-  ],
-  "verdict": "FAIL"
+    const requestObj = requestCopy.value as Record<string, unknown>;
+    // Validate original identity fields BEFORE any canonical rebuild.
+    // Never rewrite a divergent correlationId to match the intent.
+    const requestCorrelationId = requestObj.correlationId;
+    if (
+      typeof requestCorrelationId !== "string" ||
+      !requestCorrelationId.trim()
+    ) {
+      return {
+        ok: false,
+        failure: validationFailure(
+          correlationId,
+          "Provider request correlationId required",
+        ),
+      };
+    }
+    if (requestCorrelationId !== correlationId) {
+      return {
+        ok: false,
+        failure: validationFailure(
+          correlationId,
+          "Provider request correlationId does not match intent",
+        ),
+      };
+    }
+    const requestLane = requestObj.lane;
+    if (
+      typeof requestLane !== "string" ||
+      requestLane !== intent.requestedLane
+    ) {
+      return {
+        ok: false,
+        failure: validationFailure(
+          correlationId,
+          "Provider request lane does not match intent",
+        ),
+      };
+    }
+    const boundary = validateUntrustedProviderRequest(
+      requestCopy.value,
+      correlationId,
+    );
+    if (!boundary.ok) {
+      return { ok: false, failure: boundary.failure };
+    }
+    if (typeof requestObj.path === "string") {
+      const pathFailure = validatePathField(
+        requestObj.path,
+        correlationId,
+        context.allowlistRepos,
+        context.protectedPaths,
+      );
+      if (pathFailure) return { ok: false, failure: pathFailure };
+    }
+    // Rebuild timeout from validated coordinator timeout only.
+    // Keep the already-validated original correlationId (no silent rewrite).
+    providerRequest = {
+      ...(requestCopy.value as CoordinateProviderRequest),
+      timeoutMs: timeout.timeoutMs,
+      correlationId: requestCorrelationId,
+    };
+  }
+
+  return {
+    ok: true,
+    intent,
+    context,
+    providerRequest,
+    timeoutMs: timeout.timeoutMs,
+    signal,
+    lateEvidenceSummary: raw.lateEvidenceSummary,
+    correlationId,
+  };
 }
 ```
 
+### untrustedExecutionData.ts — detector
 
-## 11. Contenu complet des probes temporaires
+```typescript
+const FORBIDDEN_KEY =
+  /^(.*[_-]?)?(secret|password|token|api[_-]?key|authorization|cookie|prompt|rawResponse|raw_prompt|raw_response)([_-].*)?$/i;
 
-Fichier : `.tmp-sfia-review/qa-revalidation-probes/independent-revalidation-probes.ts`
+/**
+ * Canonical D2-D3 late-evidence / display redaction detector.
+ * Single source used by sanitizeLateEvidenceSummary and redactString.
+ * Fail-closed: any hit means the whole late summary becomes late_result_redacted.
+ */
+const FORBIDDEN_VALUE =
+  /sk-|ghp_|github_pat_|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY|private\s+key|xox[baprs]-|password\s*[:=]|secret\s*[:=]|(?:access_|refresh_|client_)?token\s*[:=]|api[_-]?key\s*[:=]|authorization\s*[:=]|authorization\s*:\s*bearer\b|\bbearer\s+[^\s]+|cookie\s*[:=]|session\s*[:=]|[?&](?:access_|refresh_|client_)?token=|"api[_-]?key"\s*:\s*"/i;
+
+/** Local D2-D3 late-evidence sensitive content detector (canonical). */
+export function containsSensitiveLateContent(value: string): boolean {
+  if (typeof value !== "string" || value.length === 0) return false;
+  return FORBIDDEN_VALUE.test(value);
+}
+
+```
+
+### untrustedExecutionData.ts — sanitizeLateEvidenceSummary
+
+```typescript
+export function sanitizeLateEvidenceSummary(input: unknown): string {
+  // Official late evidence: non-string / hostile shapes never become caller content.
+  if (typeof input !== "string") {
+    return "late_result_redacted";
+  }
+  // Detect on the original before any truncation.
+  if (containsSensitiveLateContent(input)) {
+    return "late_result_redacted";
+  }
+  const bounded = input.slice(0, 240).trim();
+  if (!bounded) {
+    return "late_result_redacted";
+  }
+  // Re-check after normalization/bounding (fail closed on ambiguity).
+  if (containsSensitiveLateContent(bounded)) {
+    return "late_result_redacted";
+  }
+  return bounded;
+}
+```
+
+## 20. Diff complet (fichiers modifiés cette passe)
+
+Les cinq fichiers listés §18 constituent le delta utile de cette passe par rapport au freeze `10c4d027…`. Les 13 autres chemins du manifest sont inchangés.
+
+Contenu intégral des cinq fichiers inclus §19 (sections prod) et §22 (tests).
+
+## 21. Tests permanents ajoutés ou renforcés
+
+- F-QA-REV-D2D3-01 : match nominal + 5 variantes rejet (different/empty/absent/hostile_getter/odd_prototype)
+- F-QA-D2D3-05 / F-QA-REV-D2D3-02 : matrice ≥25 motifs late secrets → `late_result_redacted`
+- F05 existant renforcé : `summary === late_result_redacted`
+- evidence.truthfulness : contrat redaction late officielle (token/apiKey/Bearer)
+- negative.resilience : non-régression correlation mismatch pré-engagement
+
+## 22. Contenu complet des tests modifiés
+
+### d2d3.qa-findings.regression.test.ts
 
 ```typescript
 /**
- * Independent Critical QA revalidation probes for D2-D3 corrected package.
- * Temporary only — not part of the delivery package.
- * Does not reuse Corrections' revalidate-failed-probes.ts.
+ * @vitest-environment node
+ *
+ * Permanent regression matrix for F-QA-D2D3-01…10.
+ * Findings remain OPEN until Critical QA revalidation — these tests prove
+ * technical addressing only.
  */
-import fs from "node:fs";
-import path from "node:path";
+import { describe, expect, it } from "vitest";
 import {
   assessExecutionReadiness,
   createExecutionProjection,
-  evaluateSandboxPath,
   getFixture,
   MAX_COORDINATOR_TIMEOUT_MS,
-  normalizeCanonicalPath,
   normalizedFailure,
-  validateUntrustedProviderRequest,
   type AiExecutionPort,
   type ProviderInvocationResult,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/index";
+} from "@/lib/oa/execution-run";
 import {
   composeExecutionRunD2D3,
   composeExecutionRunMemory,
   composeExecutionRunProviders,
   composeExecutionRunProvidersFake,
   coordinateExecutionRun,
-} from "../../projects/sfia-studio/app/lib/oa/execution-run/server/index";
-import { evaluateReadOnlyPolicy } from "../../projects/sfia-studio/app/lib/oa/execution-run/domain/policy";
+} from "@/lib/oa/execution-run/server";
 
-type Verdict = "PASS" | "FAIL" | "NOT_PROVEN";
-type Probe = {
-  id: string;
-  family: "initial" | "revalidation";
-  objective: string;
-  expected: string;
-  observed: unknown;
-  verdict: Verdict;
-  finding?: string;
-};
-
-const probes: Probe[] = [];
-const clock = { nowIso: () => "2026-08-04T11:00:00.000Z" };
-const OUT = path.resolve(process.cwd(), ".tmp-sfia-review/qa-revalidation-evidence/probe-results.json");
-
-function record(
-  id: string,
-  family: Probe["family"],
-  objective: string,
-  expected: string,
-  observed: unknown,
-  verdict: Verdict,
-  finding?: string,
-) {
-  probes.push({ id, family, objective, expected, observed, verdict, finding });
-}
-
-function fixtureInput(
-  correlationId: string,
-  source: "fixture" | "sandbox-real" | "real" = "fixture",
-) {
-  const f = getFixture("nominal");
-  return {
-    intent: {
-      ...f.intent,
-      intentId: `intent:${correlationId}`,
-      correlationId,
-      requestedSource: source,
-    },
-    context: { ...f.context, declaredSource: source },
-    providerRequest: {
-      correlationId,
-      lane: "ai" as const,
-      operation: "complete" as const,
-      messages: [{ role: "user" as const, content: "qa revalidation fixture" }],
-      timeoutMs: 50,
-    },
-    timeoutMs: 50,
-  };
-}
-
-async function main() {
-  // ========== INITIAL 29 PROBES (independent reproduction) ==========
-
-  // P01 — source spoof via injected availableSources (corrected: ignored + blocked)
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
+describe("F-QA-D2D3 permanent regression matrix", () => {
+  it("F01 — fake provider cannot be promoted to real via injected availableSources", async () => {
+    const core = composeExecutionRunMemory({
+      clockIso: "2026-08-04T10:00:00.000Z",
+    });
     const providers = composeExecutionRunProvidersFake();
+    const fixture = getFixture("nominal");
     const result = await coordinateExecutionRun(
       {
-        ...fixtureInput("corr:rev:source-spoof", "real"),
-        availableSources: ["fixture", "real"],
+        intent: {
+          ...fixture.intent,
+          correlationId: "corr:f01",
+          intentId: "intent:f01",
+          requestedSource: "real",
+        },
+        context: { ...fixture.context, declaredSource: "real" },
+        providerRequest: {
+          correlationId: "corr:f01",
+          lane: "ai",
+          operation: "complete",
+          messages: [{ role: "user", content: "must not run" }],
+          timeoutMs: 50,
+        },
+        timeoutMs: 50,
+        availableSources: ["fixture", "real", "sandbox-real"],
       },
-      { execution: core, providers, events: providers.events, clock },
-    );
-    const vulnerable =
-      result.ok === true &&
-      result.run?.state === "succeeded" &&
-      result.run.disclosure.source === "real";
-    record(
-      "P-QA-D2D3-01",
-      "initial",
-      "Refuse fake provider promoted to real by injected source list",
-      "blocked; provider not invoked; source real not evidenced",
       {
-        ok: result.ok,
-        state: result.run?.state,
-        source: result.run?.disclosure.source,
-        providerInvoked: result.providerInvoked,
-        failure: result.ok ? null : result.failure,
+        execution: core,
+        providers,
+        events: providers.events,
+        clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
       },
-      vulnerable ? "FAIL" : "PASS",
-      vulnerable ? "F-QA-D2D3-01" : undefined,
     );
-  }
 
-  // P02 — boolean-only readiness
-  {
+    expect(result.ok).toBe(false);
+    expect(result.providerInvoked).toBe(false);
+    expect(result.run).toBeUndefined();
+    if (result.ok) throw new Error("expected failure");
+    expect(result.failure.code).toBe("SOURCE_MISMATCH");
+    expect(JSON.stringify(result)).not.toMatch(/"source":"real"/);
+  });
+
+  it("F02 — UX readiness cannot become demonstrated from boolean-only proofs", () => {
     const assessment = assessExecutionReadiness({
       fixturePathDemonstrated: true,
       projectionDemonstrated: true,
       disclosuresDemonstrated: true,
     });
-    const vulnerable = assessment.uxExploration.status === "demonstrated";
-    record(
-      "P-QA-D2D3-02",
-      "initial",
-      "Reject UX readiness without a linked run, projection, or evidence",
-      "not_demonstrated",
-      assessment.uxExploration,
-      vulnerable ? "FAIL" : "PASS",
-      vulnerable ? "F-QA-D2D3-02" : undefined,
-    );
-  }
+    expect(assessment.uxExploration.status).toBe("not_demonstrated");
+    expect(assessment.uiDelivery.status).toBe("not_demonstrated");
+    expect(assessment.strongRuntimeVerdict.status).toBe("blocked");
+  });
 
-  // P03/P04/P05 — sink throws
-  for (const [id, throwAt] of [
-    ["P-QA-D2D3-03", 1],
-    ["P-QA-D2D3-04", 2],
-    ["P-QA-D2D3-05", 4],
-  ] as const) {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    let eventCount = 0;
-    const throwing = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: () => {
-          eventCount += 1;
-          if (eventCount === throwAt) throw new Error(`sink_raw_${throwAt}`);
-        },
-      },
-    });
-    const input = fixtureInput(`corr:rev:sink:${throwAt}`);
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(input, {
-        execution: core,
-        providers: throwing,
-        events: throwing.events,
-        clock,
+  it.each([1, 2, 4] as const)(
+    "F03 — sink throw at event %s continues workflow without raw error",
+    async (throwAt) => {
+      const core = composeExecutionRunMemory({
+        clockIso: "2026-08-04T10:00:00.000Z",
       });
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId(input.intent.correlationId);
-    const coherent =
-      rawError === "" &&
-      result !== undefined &&
-      stored.at(-1)?.state === result.run?.state &&
-      result.eventDelivery.status === "degraded";
-    record(
-      id,
-      "initial",
-      `Contain event sink throw at event ${throwAt}`,
-      "normalized coordinator result coherent with stored state",
-      {
-        rawError,
-        storedState: stored.at(-1)?.state,
-        returned: result?.run?.state,
-        eventDelivery: result?.eventDelivery,
-      },
-      coherent ? "PASS" : "FAIL",
-      coherent ? undefined : "F-QA-D2D3-03",
-    );
-  }
+      const providers = composeExecutionRunProvidersFake();
+      let eventCount = 0;
+      const ai: AiExecutionPort = {
+        lane: "ai",
+        describeCapability: () => providers.ai.describeCapability(),
+        complete: async (request) => providers.ai.complete(request),
+      };
+      const throwing = composeExecutionRunProviders({
+        ...providers,
+        ai,
+        events: {
+          emit: () => {
+            eventCount += 1;
+            if (eventCount === throwAt) {
+              throw new Error(`sink_raw_${throwAt}`);
+            }
+          },
+        },
+      });
+      const fixture = getFixture("nominal");
+      let rawError = "";
+      let result;
+      try {
+        result = await coordinateExecutionRun(
+          {
+            intent: {
+              ...fixture.intent,
+              correlationId: `corr:f03:${throwAt}`,
+              intentId: `intent:f03:${throwAt}`,
+            },
+            context: fixture.context,
+            providerRequest: {
+              correlationId: `corr:f03:${throwAt}`,
+              lane: "ai",
+              operation: "complete",
+              messages: [{ role: "user", content: "sink" }],
+              timeoutMs: 50,
+            },
+            timeoutMs: 50,
+          },
+          {
+            execution: core,
+            providers: throwing,
+            events: throwing.events,
+            clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
+          },
+        );
+      } catch (error) {
+        rawError = error instanceof Error ? error.message : String(error);
+      }
 
-  // P06 — malicious projection
-  {
+      expect(rawError).toBe("");
+      expect(result).toBeDefined();
+      const stored = await core.listByCorrelationId(`corr:f03:${throwAt}`);
+      expect(stored.at(-1)?.state).toBe(result!.run?.state);
+      expect(result!.run?.state).toBe("succeeded");
+      expect(result!.ok).toBe(true);
+      expect(result!.eventDelivery.status).toBe("degraded");
+      expect(result!.eventDelivery.failureCount).toBeGreaterThan(0);
+      expect(JSON.stringify(result)).not.toContain(`sink_raw_${throwAt}`);
+    },
+  );
+
+  it("F04 — malicious projection rejects secrets, functions, and claim promotion", async () => {
     const composition = composeExecutionRunD2D3();
-    const coordinated = await composition.coordinate(
-      fixtureInput("corr:rev:projection"),
-    );
+    const fixture = getFixture("nominal");
+    const coordinated = await composition.coordinate({
+      intent: fixture.intent,
+      context: fixture.context,
+      providerRequest: {
+        correlationId: fixture.intent.correlationId,
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "proj" }],
+        timeoutMs: 50,
+      },
+      timeoutMs: 50,
+    });
+    expect(coordinated.run?.state).toBe("succeeded");
     const injectedFunction = () => "executable";
     const malicious = {
       run: {
-        ...coordinated.run!,
+        ...coordinated.run,
         externalResult: {
           kind: "success",
           completeness: "complete",
@@ -508,25 +509,13 @@ async function main() {
       openReserves: ["password=reserve-plain-secret"],
     };
     const projection = createExecutionProjection(malicious);
-    const leaked =
-      projection.ok === true &&
-      (JSON.stringify(projection).includes("projection-plain-secret") ||
-        (projection.projection.persistence as { durable?: boolean }).durable ===
-          true ||
-        projection.projection.evidenceSummary[0]?.source === "real");
-    record(
-      "P-QA-D2D3-06",
-      "initial",
-      "Project malicious runtime data without leaks or claim promotion",
-      "secrets/functions/spoofed persistence/evidence rejected or sanitized",
-      projection,
-      leaked ? "FAIL" : "PASS",
-      leaked ? "F-QA-D2D3-04" : undefined,
-    );
-  }
+    expect(projection.ok).toBe(false);
+    if (projection.ok) throw new Error("expected rejection");
+    expect(JSON.stringify(projection)).not.toContain("projection-plain-secret");
+    expect(JSON.stringify(projection)).not.toContain("reserve-plain-secret");
+  });
 
-  // P07 — late secret
-  {
+  it("F05 — sensitive late evidence is redacted before persistence", async () => {
     const base = composeExecutionRunProvidersFake();
     const ai: AiExecutionPort = {
       lane: "ai",
@@ -545,27 +534,39 @@ async function main() {
     const composition = composeExecutionRunD2D3({
       providers: composeExecutionRunProviders({ ...base, ai }),
     });
+    const fixture = getFixture("nominal");
     const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:late-secret"),
+      intent: {
+        ...fixture.intent,
+        correlationId: "corr:f05",
+        intentId: "intent:f05",
+      },
+      context: fixture.context,
+      providerRequest: {
+        correlationId: "corr:f05",
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "late" }],
+        timeoutMs: 50,
+      },
+      timeoutMs: 50,
       lateEvidenceSummary: "password=late-plain-secret",
     });
-    const summary = result.run?.evidence?.at(-1)?.summary ?? "";
-    const vulnerable =
-      summary.includes("late-plain-secret") ||
-      JSON.stringify(result).includes("late-plain-secret");
-    record(
-      "P-QA-D2D3-07",
-      "initial",
-      "Reject sensitive caller-supplied late evidence",
-      "late evidence absent or redacted",
-      { state: result.run?.state, summary, late: result.lateEvidenceRecorded },
-      vulnerable ? "FAIL" : "PASS",
-      vulnerable ? "F-QA-D2D3-05" : undefined,
-    );
-  }
 
-  // P08 — describe before validation
-  {
+    expect(result.run?.state).toBe("cancelled");
+    expect(result.lateEvidenceRecorded).toBe(true);
+    const late = result.run?.evidence?.at(-1);
+    expect(late).toMatchObject({
+      late: true,
+      official: true,
+      source: "fixture",
+    });
+    expect(late?.summary).toBe("late_result_redacted");
+    expect(late?.summary).not.toContain("late-plain-secret");
+    expect(JSON.stringify(result)).not.toContain("late-plain-secret");
+  });
+
+  it("F-QA-REV-D2D3-01 — matching correlationId keeps nominal engagement", async () => {
     const base = composeExecutionRunProvidersFake();
     let describeCalls = 0;
     let completeCalls = 0;
@@ -583,12 +584,298 @@ async function main() {
     const composition = composeExecutionRunD2D3({
       providers: composeExecutionRunProviders({ ...base, ai }),
     });
-    const f = getFixture("validation_failure");
-    await composition.coordinate({
-      intent: f.intent,
-      context: f.context,
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
+      intent: {
+        ...fixture.intent,
+        correlationId: "corr:rev01:match",
+        intentId: "intent:rev01:match",
+      },
+      context: fixture.context,
       providerRequest: {
-        correlationId: f.intent.correlationId,
+        correlationId: "corr:rev01:match",
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "match" }],
+        timeoutMs: 50,
+      },
+      timeoutMs: 50,
+    });
+    expect(result.ok).toBe(true);
+    expect(result.run?.state).toBe("succeeded");
+    expect(describeCalls).toBeGreaterThan(0);
+    expect(completeCalls).toBe(1);
+    expect(result.providerInvoked).toBe(true);
+  });
+
+  it.each([
+    {
+      name: "different",
+      requestCorrelationId: "corr:rev01:other",
+      buildRequest: (base: Record<string, unknown>) => ({
+        ...base,
+        correlationId: "corr:rev01:other",
+      }),
+    },
+    {
+      name: "empty",
+      requestCorrelationId: "",
+      buildRequest: (base: Record<string, unknown>) => ({
+        ...base,
+        correlationId: "",
+      }),
+    },
+    {
+      name: "absent",
+      requestCorrelationId: undefined,
+      buildRequest: (base: Record<string, unknown>) => {
+        const { correlationId: _omit, ...rest } = base as {
+          correlationId: string;
+        } & Record<string, unknown>;
+        void _omit;
+        return rest;
+      },
+    },
+    {
+      name: "hostile_getter",
+      requestCorrelationId: "corr:rev01:match",
+      buildRequest: (base: Record<string, unknown>) => {
+        const hostile = Object.create(null);
+        for (const [key, value] of Object.entries(base)) {
+          if (key === "correlationId") {
+            Object.defineProperty(hostile, key, {
+              enumerable: true,
+              get() {
+                return "corr:rev01:hostile";
+              },
+            });
+          } else {
+            Object.defineProperty(hostile, key, {
+              enumerable: true,
+              value,
+              writable: true,
+              configurable: true,
+            });
+          }
+        }
+        return hostile;
+      },
+    },
+    {
+      name: "odd_prototype",
+      requestCorrelationId: "corr:rev01:other",
+      buildRequest: (base: Record<string, unknown>) =>
+        Object.assign(Object.create({ polluted: true }), {
+          ...base,
+          correlationId: "corr:rev01:other",
+        }),
+    },
+  ])(
+    "F-QA-REV-D2D3-01 — correlationId $name rejects before provider engagement",
+    async ({ buildRequest }) => {
+      const base = composeExecutionRunProvidersFake();
+      let describeCalls = 0;
+      let completeCalls = 0;
+      const ai: AiExecutionPort = {
+        lane: "ai",
+        describeCapability: () => {
+          describeCalls += 1;
+          return base.ai.describeCapability();
+        },
+        complete: async (request) => {
+          completeCalls += 1;
+          return base.ai.complete(request);
+        },
+      };
+      const composition = composeExecutionRunD2D3({
+        providers: composeExecutionRunProviders({ ...base, ai }),
+      });
+      const fixture = getFixture("nominal");
+      const requestBase = {
+        correlationId: "corr:rev01:match",
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "must not run" }],
+        timeoutMs: 50,
+      };
+      const result = await composition.coordinate({
+        intent: {
+          ...fixture.intent,
+          correlationId: "corr:rev01:match",
+          intentId: "intent:rev01:reject",
+        },
+        context: fixture.context,
+        providerRequest: buildRequest(requestBase) as never,
+        timeoutMs: 50,
+      });
+
+      expect(result.ok).toBe(false);
+      expect(result.run).toBeUndefined();
+      expect(result.stateTrace).toEqual([]);
+      expect(result.providerAttempted).toBe(false);
+      expect(result.providerInvoked).toBe(false);
+      expect(result.providerCompleted).toBe(false);
+      expect(describeCalls).toBe(0);
+      expect(completeCalls).toBe(0);
+      expect(result.lateEvidenceRecorded).toBe(false);
+      if (result.ok) throw new Error("expected failure");
+      expect(result.failure.family).toBe("validation");
+      expect(result.failure.code).toBe("VALIDATION_ERROR");
+    },
+  );
+
+  it.each([
+    "password=late-secret",
+    "token=abc",
+    "token : abc",
+    "apiKey=k",
+    "api_key = k",
+    "api-key: k",
+    "Authorization Bearer xyz",
+    "Authorization: Bearer xyz",
+    "bearer xyz",
+    "access_token=abc",
+    "refresh_token=abc",
+    "client_secret=abc",
+    "cookie=session-value",
+    '"apiKey":"value"',
+    "?token=value",
+    "&token=value",
+    "contains private key material",
+    "ghp_abcdefghij",
+    "github_pat_abcdefghij",
+    "sk-abcdefghij",
+    "xoxb-abcdefghij",
+    "ToKeN=AbC",
+    "line1\ntoken=abc\nline3",
+    `${"safe-".repeat(80)}token=abc`,
+    "token=abc\u0000tail",
+    { not: "a string" },
+    null,
+    ["array"],
+    42,
+    true,
+  ])(
+    "F-QA-D2D3-05 / F-QA-REV-D2D3-02 — late secret %j becomes late_result_redacted",
+    async (summary) => {
+      const base = composeExecutionRunProvidersFake();
+      const sensitiveMarkers = [
+        "late-secret",
+        "token=abc",
+        "token : abc",
+        "apiKey=k",
+        "api_key = k",
+        "api-key: k",
+        "Authorization Bearer xyz",
+        "Authorization: Bearer xyz",
+        "bearer xyz",
+        "access_token=abc",
+        "refresh_token=abc",
+        "client_secret=abc",
+        "cookie=session-value",
+        '"apiKey":"value"',
+        "?token=value",
+        "&token=value",
+        "private key",
+        "ghp_abcdefghij",
+        "github_pat_abcdefghij",
+        "sk-abcdefghij",
+        "xoxb-abcdefghij",
+        "ToKeN=AbC",
+        "token=abc",
+      ];
+      const ai: AiExecutionPort = {
+        lane: "ai",
+        describeCapability: () => base.ai.describeCapability(),
+        complete: async (request) => ({
+          kind: "cancelled",
+          failure: normalizedFailure({
+            family: "cancelled",
+            code: "CANCELLED",
+            userMessage: "cancelled",
+            retryable: false,
+            correlationId: request.correlationId,
+          }),
+        }),
+      };
+      const composition = composeExecutionRunD2D3({
+        providers: composeExecutionRunProviders({ ...base, ai }),
+      });
+      const fixture = getFixture("nominal");
+      const result = await composition.coordinate({
+        intent: {
+          ...fixture.intent,
+          correlationId: "corr:rev02",
+          intentId: "intent:rev02",
+        },
+        context: fixture.context,
+        providerRequest: {
+          correlationId: "corr:rev02",
+          lane: "ai",
+          operation: "complete",
+          messages: [{ role: "user", content: "late" }],
+          timeoutMs: 50,
+        },
+        timeoutMs: 50,
+        lateEvidenceSummary: summary as never,
+      });
+
+      expect(result.run?.state).toBe("cancelled");
+      expect(result.lateEvidenceRecorded).toBe(true);
+      const late = result.run?.evidence?.at(-1);
+      expect(late).toMatchObject({
+        late: true,
+        official: true,
+        source: "fixture",
+        summary: "late_result_redacted",
+      });
+      const runJson = JSON.stringify(result.run);
+      const projection = createExecutionProjection({
+        run: result.run!,
+        openReserves: [],
+      });
+      expect(projection.ok).toBe(true);
+      const projJson = JSON.stringify(projection);
+      for (const marker of sensitiveMarkers) {
+        if (typeof summary === "string" && summary.includes(marker)) {
+          expect(runJson).not.toContain(marker);
+          expect(projJson).not.toContain(marker);
+          expect(JSON.stringify(result)).not.toContain(marker);
+        }
+      }
+      if (typeof summary === "string" && summary.includes("session-value")) {
+        expect(runJson).not.toContain("session-value");
+      }
+      if (typeof summary === "string" && summary.includes("late-secret")) {
+        expect(runJson).not.toContain("late-secret");
+      }
+    },
+  );
+
+  it("F06 — invalid intent yields zero describeCapability and zero provider calls", async () => {
+    const base = composeExecutionRunProvidersFake();
+    let describeCalls = 0;
+    let completeCalls = 0;
+    const ai: AiExecutionPort = {
+      lane: "ai",
+      describeCapability: () => {
+        describeCalls += 1;
+        return base.ai.describeCapability();
+      },
+      complete: async (request) => {
+        completeCalls += 1;
+        return base.ai.complete(request);
+      },
+    };
+    const composition = composeExecutionRunD2D3({
+      providers: composeExecutionRunProviders({ ...base, ai }),
+    });
+    const fixture = getFixture("validation_failure");
+    const result = await composition.coordinate({
+      intent: fixture.intent,
+      context: fixture.context,
+      providerRequest: {
+        correlationId: fixture.intent.correlationId,
         lane: "ai",
         operation: "complete",
         messages: [{ role: "user", content: "must not run" }],
@@ -596,23 +883,20 @@ async function main() {
       },
       timeoutMs: 50,
     });
-    const ok = describeCalls === 0 && completeCalls === 0;
-    record(
-      "P-QA-D2D3-08",
-      "initial",
-      "Perform input validation before any provider port call",
-      "describeCapability=0; complete=0",
-      { describeCalls, completeCalls },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-06",
-    );
-  }
 
-  // P09 — hostile request getter
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
+    expect(result.ok).toBe(false);
+    expect(describeCalls).toBe(0);
+    expect(completeCalls).toBe(0);
+    expect(result.run).toBeUndefined();
+    expect(result.providerInvoked).toBe(false);
+  });
+
+  it("F07 — hostile request getter is rejected before run creation", async () => {
+    const core = composeExecutionRunMemory({
+      clockIso: "2026-08-04T10:00:00.000Z",
+    });
     const providers = composeExecutionRunProvidersFake();
-    const input = fixtureInput("corr:rev:hostile-request");
+    const fixture = getFixture("nominal");
     const hostile = Object.create(null);
     Object.defineProperty(hostile, "lane", {
       enumerable: true,
@@ -624,31 +908,34 @@ async function main() {
     let result;
     try {
       result = await coordinateExecutionRun(
-        { ...input, providerRequest: hostile },
-        { execution: core, providers, events: providers.events, clock },
+        {
+          intent: {
+            ...fixture.intent,
+            correlationId: "corr:f07-req",
+            intentId: "intent:f07-req",
+          },
+          context: fixture.context,
+          providerRequest: hostile,
+          timeoutMs: 50,
+        },
+        {
+          execution: core,
+          providers,
+          events: providers.events,
+          clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
+        },
       );
     } catch (error) {
       rawError = error instanceof Error ? error.message : String(error);
     }
-    const stored = await core.listByCorrelationId(input.intent.correlationId);
-    const ok =
-      rawError === "" &&
-      result?.ok === false &&
-      stored.length === 0 &&
-      result.providerInvoked === false;
-    record(
-      "P-QA-D2D3-09",
-      "initial",
-      "Contain hostile provider request accessors",
-      "normalized blocked result; no raw throw; no idle orphan",
-      { rawError, storedCount: stored.length, failure: result?.ok ? null : result?.failure },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-07",
-    );
-  }
+    const stored = await core.listByCorrelationId("corr:f07-req");
+    expect(rawError).toBe("");
+    expect(result?.ok).toBe(false);
+    expect(result?.providerInvoked).toBe(false);
+    expect(stored).toEqual([]);
+  });
 
-  // P10 — hostile result getter
-  {
+  it("F07 — hostile result getter yields failed terminal without orphan running", async () => {
     const base = composeExecutionRunProvidersFake();
     const hostileResult = Object.create(null);
     Object.defineProperty(hostileResult, "kind", {
@@ -663,198 +950,50 @@ async function main() {
       complete: async () =>
         hostileResult as unknown as ProviderInvocationResult,
     };
+    const core = composeExecutionRunMemory({
+      clockIso: "2026-08-04T10:00:00.000Z",
+    });
     const providers = composeExecutionRunProviders({ ...base, ai });
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const input = fixtureInput("corr:rev:hostile-result");
+    const fixture = getFixture("nominal");
     let rawError = "";
     let result;
     try {
-      result = await coordinateExecutionRun(input, {
-        execution: core,
-        providers,
-        events: providers.events,
-        clock,
-      });
+      result = await coordinateExecutionRun(
+        {
+          intent: {
+            ...fixture.intent,
+            correlationId: "corr:f07-res",
+            intentId: "intent:f07-res",
+          },
+          context: fixture.context,
+          providerRequest: {
+            correlationId: "corr:f07-res",
+            lane: "ai",
+            operation: "complete",
+            messages: [{ role: "user", content: "hostile" }],
+            timeoutMs: 50,
+          },
+          timeoutMs: 50,
+        },
+        {
+          execution: core,
+          providers,
+          events: providers.events,
+          clock: { nowIso: () => "2026-08-04T10:00:00.000Z" },
+        },
+      );
     } catch (error) {
       rawError = error instanceof Error ? error.message : String(error);
     }
-    const stored = await core.listByCorrelationId(input.intent.correlationId);
-    const ok =
-      rawError === "" &&
-      stored.at(-1)?.state === "failed" &&
-      result?.run?.state === "failed" &&
-      !JSON.stringify(result).includes("hostile_result_getter");
-    record(
-      "P-QA-D2D3-10",
-      "initial",
-      "Contain hostile provider result accessors",
-      "normalized failed terminal; no raw throw; no running orphan",
-      { rawError, storedState: stored.at(-1)?.state, returned: result?.run?.state },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-07",
-    );
-  }
+    const stored = await core.listByCorrelationId("corr:f07-res");
+    expect(rawError).toBe("");
+    expect(result?.run?.state).toBe("failed");
+    expect(stored.at(-1)?.state).toBe("failed");
+    expect(stored.at(-1)?.state).not.toBe("running");
+    expect(JSON.stringify(result)).not.toContain("hostile_result_getter");
+  });
 
-  // P11 — provider mutation of request
-  {
-    const base = composeExecutionRunProvidersFake();
-    let receivedKeys: string[] = [];
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => {
-        receivedKeys = Object.keys(request);
-        (request as { runId?: string }).runId = "attacker";
-        return {
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "safe",
-          rawPresent: false,
-          usage: { status: "unavailable", reason: "qa" },
-          disclosureNotes: [],
-        };
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate(
-      fixtureInput("corr:rev:provider-mutation"),
-    );
-    const ok =
-      result.run?.state === "succeeded" &&
-      result.run.runId !== "attacker" &&
-      !receivedKeys.includes("repository") &&
-      !receivedKeys.includes("transitionExecutionRun");
-    record(
-      "P-QA-D2D3-11",
-      "initial",
-      "Prevent malicious provider argument mutation from changing stored run",
-      "stored canonical runId and succeeded state",
-      { state: result.run?.state, runId: result.run?.runId, receivedKeys },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P12 — partial
-  {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () => ({
-        kind: "success",
-        completeness: "partial",
-        redactedSummary: "partial",
-        rawPresent: false,
-        usage: { status: "unavailable", reason: "qa" },
-        disclosureNotes: [],
-      }),
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate(fixtureInput("corr:rev:partial"));
-    const ok =
-      !result.ok &&
-      result.run?.state === "failed" &&
-      result.failure.code === "INVALID_PROVIDER_RESULT";
-    record(
-      "P-QA-D2D3-12",
-      "initial",
-      "Prevent partial provider success",
-      "failed / INVALID_PROVIDER_RESULT",
-      { state: result.run?.state, failure: result.ok ? null : result.failure },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P13/P14 — null / reject
-  for (const [id, behavior] of [
-    ["P-QA-D2D3-13", "null"],
-    ["P-QA-D2D3-14", "reject"],
-  ] as const) {
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () => {
-        if (behavior === "reject") throw new Error("raw_provider_secret");
-        return null as unknown as ProviderInvocationResult;
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate(
-      fixtureInput(`corr:rev:${behavior}`),
-    );
-    const ok =
-      !result.ok &&
-      result.run?.state === "failed" &&
-      !JSON.stringify(result).includes("raw_provider_secret");
-    record(
-      id,
-      "initial",
-      `Normalize provider ${behavior}`,
-      "failed terminal with normalized failure and no raw error",
-      { state: result.run?.state, failure: result.ok ? null : result.failure },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P15 — late timeout success ignored
-  {
-    const base = composeExecutionRunProvidersFake();
-    let resolved = false;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async () => {
-        await new Promise((r) => setTimeout(r, 20));
-        resolved = true;
-        return {
-          kind: "success",
-          completeness: "complete",
-          redactedSummary: "late success",
-          rawPresent: false,
-          usage: { status: "unavailable", reason: "qa" },
-          disclosureNotes: [],
-        };
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:late-timeout"),
-      timeoutMs: 2,
-    });
-    await new Promise((r) => setTimeout(r, 30));
-    const stored = result.run
-      ? await composition.getById(result.run.runId)
-      : null;
-    const ok =
-      result.run?.state === "timed_out" &&
-      stored?.state === "timed_out" &&
-      resolved &&
-      !stored.evidence;
-    record(
-      "P-QA-D2D3-15",
-      "initial",
-      "Ignore provider success resolving after timeout",
-      "single timed_out terminal after late resolution",
-      {
-        returnedState: result.run?.state,
-        storedState: stored?.state,
-        resolved,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P16 — pre-cancel
-  {
+  it("F08 — pre-cancellation reports providerInvoked=false with zero calls", async () => {
     const base = composeExecutionRunProvidersFake();
     let calls = 0;
     const ai: AiExecutionPort = {
@@ -868,189 +1007,532 @@ async function main() {
     const composition = composeExecutionRunD2D3({
       providers: composeExecutionRunProviders({ ...base, ai }),
     });
+    const fixture = getFixture("nominal");
     const controller = new AbortController();
     controller.abort();
     const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:pre-cancel"),
-      signal: controller.signal,
-    });
-    const ok =
-      result.run?.state === "cancelled" &&
-      calls === 0 &&
-      result.providerInvoked === false;
-    record(
-      "P-QA-D2D3-16",
-      "initial",
-      "Cancel before provider operation",
-      "cancelled; operation count 0; providerInvoked=false",
-      {
-        state: result.run?.state,
-        calls,
-        providerInvoked: result.providerInvoked,
-        providerAttempted: result.providerAttempted,
-      },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-08",
-    );
-  }
-
-  // P17 — negative timeout
-  {
-    const composition = composeExecutionRunD2D3();
-    const result = await composition.coordinate({
-      ...fixtureInput("corr:rev:negative-timeout"),
-      timeoutMs: -1,
-    });
-    const ok =
-      !result.ok &&
-      result.run === undefined &&
-      result.providerInvoked === false &&
-      result.failure.code === "VALIDATION_ERROR";
-    record(
-      "P-QA-D2D3-17",
-      "initial",
-      "Reject negative coordinator timeout before engagement",
-      "validation failure; no run; provider not invoked",
-      {
-        state: result.run?.state,
-        providerInvoked: result.providerInvoked,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-09",
-    );
-  }
-
-  // P18 — concurrent isolation
-  {
-    const composition = composeExecutionRunD2D3();
-    const [a, b] = await Promise.all([
-      composition.coordinate(fixtureInput("corr:rev:concurrent:a")),
-      composition.coordinate(fixtureInput("corr:rev:concurrent:b")),
-    ]);
-    const ok =
-      a.run?.state === "succeeded" &&
-      b.run?.state === "succeeded" &&
-      a.run!.runId !== b.run!.runId &&
-      a.run!.evidence![0]!.evidenceId !== b.run!.evidence![0]!.evidenceId;
-    record(
-      "P-QA-D2D3-18",
-      "initial",
-      "Isolate concurrent process-local runs",
-      "unique run/evidence IDs",
-      { a: a.run?.runId, b: b.run?.runId },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P19 — correlation mismatch
-  {
-    const composition = composeExecutionRunD2D3();
-    const input = fixtureInput("corr:rev:corr-mismatch");
-    const result = await composition.coordinate({
-      ...input,
-      providerRequest: {
-        ...input.providerRequest,
-        correlationId: "corr:other",
-      },
-    });
-    const ok =
-      !result.ok &&
-      result.providerInvoked === false &&
-      (result.run?.state === "blocked" || result.run === undefined);
-    record(
-      "P-QA-D2D3-19",
-      "initial",
-      "Reject provider request correlation mismatch",
-      "blocked before provider",
-      { state: result.run?.state, providerInvoked: result.providerInvoked },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P20 — sink detail mutation
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    const mutating = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: (event) => {
-          (event as { detail?: unknown }).detail = {
-            hijack: true,
-            state: "failed",
-          };
-        },
-      },
-    });
-    const result = await coordinateExecutionRun(
-      fixtureInput("corr:rev:sink-mutate"),
-      {
-        execution: core,
-        providers: mutating,
-        events: mutating.events,
-        clock,
-      },
-    );
-    const stored = await core.listByCorrelationId("corr:rev:sink-mutate");
-    const ok =
-      result.run?.state === "succeeded" && stored.at(-1)?.state === "succeeded";
-    record(
-      "P-QA-D2D3-20",
-      "initial",
-      "Prevent event sink detail mutation from changing state",
-      "succeeded unchanged",
-      { returned: result.run?.state, stored: stored.at(-1)?.state },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P21 source matrix
-  for (const [suffix, requested, declared] of [
-    ["fixture-real", "fixture", "real"],
-    ["real-real", "real", "real"],
-    ["sandbox-sandbox", "sandbox-real", "sandbox-real"],
-  ] as const) {
-    const composition = composeExecutionRunD2D3();
-    const f = getFixture("nominal");
-    const result = await composition.coordinate({
       intent: {
-        ...f.intent,
-        intentId: `intent:rev:src:${suffix}`,
-        correlationId: `corr:rev:src:${suffix}`,
-        requestedSource: requested,
+        ...fixture.intent,
+        correlationId: "corr:f08",
+        intentId: "intent:f08",
       },
-      context: { ...f.context, declaredSource: declared },
+      context: fixture.context,
       providerRequest: {
-        correlationId: `corr:rev:src:${suffix}`,
+        correlationId: "corr:f08",
         lane: "ai",
         operation: "complete",
-        messages: [{ role: "user", content: "src" }],
+        messages: [{ role: "user", content: "cancel" }],
+        timeoutMs: 50,
+      },
+      timeoutMs: 50,
+      signal: controller.signal,
+    });
+
+    expect(result.run?.state).toBe("cancelled");
+    expect(calls).toBe(0);
+    expect(result.providerAttempted).toBe(true);
+    expect(result.providerInvoked).toBe(false);
+    expect(result.providerCompleted).toBe(false);
+  });
+
+  it.each([0, -1, Number.NaN, Number.POSITIVE_INFINITY, 1.5, MAX_COORDINATOR_TIMEOUT_MS + 1])(
+    "F09 — invalid timeout %s creates no run and invokes nothing",
+    async (timeoutMs) => {
+      const base = composeExecutionRunProvidersFake();
+      let describeCalls = 0;
+      let completeCalls = 0;
+      const ai: AiExecutionPort = {
+        lane: "ai",
+        describeCapability: () => {
+          describeCalls += 1;
+          return base.ai.describeCapability();
+        },
+        complete: async (request) => {
+          completeCalls += 1;
+          return base.ai.complete(request);
+        },
+      };
+      const composition = composeExecutionRunD2D3({
+        providers: composeExecutionRunProviders({ ...base, ai }),
+      });
+      const fixture = getFixture("nominal");
+      const result = await composition.coordinate({
+        intent: {
+          ...fixture.intent,
+          correlationId: `corr:f09:${String(timeoutMs)}`,
+          intentId: `intent:f09:${String(timeoutMs)}`,
+        },
+        context: fixture.context,
+        providerRequest: {
+          correlationId: `corr:f09:${String(timeoutMs)}`,
+          lane: "ai",
+          operation: "complete",
+          messages: [{ role: "user", content: "timeout" }],
+          timeoutMs: 50,
+        },
+        timeoutMs,
+      });
+      expect(result.ok).toBe(false);
+      expect(result.run).toBeUndefined();
+      expect(result.providerInvoked).toBe(false);
+      expect(describeCalls).toBe(0);
+      expect(completeCalls).toBe(0);
+      if (result.ok) throw new Error("expected failure");
+      expect(result.failure.code).toBe("VALIDATION_ERROR");
+    },
+  );
+
+  it("F09 — valid timeout still succeeds", async () => {
+    const composition = composeExecutionRunD2D3();
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
+      intent: {
+        ...fixture.intent,
+        correlationId: "corr:f09:ok",
+        intentId: "intent:f09:ok",
+      },
+      context: fixture.context,
+      providerRequest: {
+        correlationId: "corr:f09:ok",
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "ok" }],
         timeoutMs: 50,
       },
       timeoutMs: 50,
     });
-    const ok = !result.ok && result.providerInvoked === false;
-    record(
-      `P-QA-D2D3-21-${suffix}`,
-      "initial",
-      `Source matrix requested=${requested}, declared=${declared}`,
-      "blocked without provider",
-      {
-        ok: result.ok,
-        state: result.run?.state,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
+    expect(result.ok).toBe(true);
+    expect(result.run?.state).toBe("succeeded");
+  });
 
-  // P22 pre-engagement fixtures
-  for (const scenario of [
-    "mutation_forbidden",
-    "protected_path",
-    "blocked_gate",
-  ] as const) {
+  it.each([
+    "projects/sfia-studio/%2e%2e/.env",
+    "%2e%2e/.env",
+    "%252e%252e/.env",
+    "projects\\sfia-studio\\%2e%2e\\.env",
+    "%2fetc%2fpasswd",
+    "projects/sfia-studio/%00.env",
+    "projects/sfia-studio/%zz",
+  ])("F10 — encoded hostile path %s is blocked before provider", async (path) => {
+    const base = composeExecutionRunProvidersFake();
+    let calls = 0;
+    const composition = composeExecutionRunD2D3({
+      providers: composeExecutionRunProviders({
+        ...base,
+        git: {
+          ...base.git,
+          read: async (request) => {
+            calls += 1;
+            return base.git.read(request);
+          },
+        },
+      }),
+    });
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
+      intent: {
+        ...fixture.intent,
+        intentId: `intent:f10:${path}`,
+        correlationId: `corr:f10:${path}`,
+        requestedLane: "git",
+      },
+      context: fixture.context,
+      providerRequest: {
+        correlationId: `corr:f10:${path}`,
+        lane: "git",
+        operation: "read",
+        owner: "o",
+        repo: "r",
+        kind: "path_meta",
+        path,
+        timeoutMs: 50,
+      },
+      timeoutMs: 50,
+    });
+    expect(result.ok).toBe(false);
+    expect(calls).toBe(0);
+    expect(result.providerInvoked).toBe(false);
+    expect(result.run?.evidence).toBeUndefined();
+    expect(result.run?.state === "succeeded").toBe(false);
+  });
+});
+```
+
+### d2d3.evidence.truthfulness.test.ts
+
+```typescript
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  getFixture,
+  isIsoTimestamp,
+  normalizedFailure,
+  type AiExecutionPort,
+} from "@/lib/oa/execution-run";
+import {
+  composeExecutionRunD2D3,
+  composeExecutionRunProviders,
+  composeExecutionRunProvidersFake,
+} from "@/lib/oa/execution-run/server";
+
+describe("D2-D3 evidence truthfulness", () => {
+  it("keeps run, official evidence, and projection source on fixture", async () => {
+    const composition = composeExecutionRunD2D3();
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
+      intent: fixture.intent,
+      context: fixture.context,
+      providerRequest: {
+        correlationId: fixture.intent.correlationId,
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "truthful fixture input" }],
+        timeoutMs: 100,
+      },
+      timeoutMs: 100,
+    });
+    if (!result.run) throw new Error("expected run");
+    const evidence = result.run.evidence?.[0];
+    const projection = await composition.projectById(result.run.runId);
+    expect(projection.ok).toBe(true);
+    if (!projection.ok) return;
+
+    expect(result.run.disclosure.source).toBe("fixture");
+    expect(evidence?.source).toBe("fixture");
+    expect(projection.projection.source).toBe("fixture");
+    expect(evidence?.official).toBe(true);
+    expect(evidence?.completeness).toBe("complete");
+    expect(isIsoTimestamp(evidence?.producedAt ?? "")).toBe(true);
+    expect(evidence?.evidenceId.length).toBeLessThan(128);
+    expect(evidence).not.toHaveProperty("rawResult");
+  });
+
+  it.each(["sandbox-real", "real"] as const)(
+    "blocks requested source %s without fallback or provider invocation",
+    async (source) => {
+      const composition = composeExecutionRunD2D3();
+      const fixture = getFixture("nominal");
+      const result = await composition.coordinate({
+        intent: {
+          ...fixture.intent,
+          intentId: `intent:d2d3:${source}`,
+          correlationId: `corr:d2d3:${source}`,
+          requestedSource: source,
+        },
+        context: { ...fixture.context, declaredSource: source },
+        providerRequest: {
+          correlationId: `corr:d2d3:${source}`,
+          lane: "ai",
+          operation: "complete",
+          messages: [{ role: "user", content: "must not run" }],
+          timeoutMs: 100,
+        },
+        timeoutMs: 100,
+      });
+
+      expect(result.ok).toBe(false);
+      expect(result.run).toBeUndefined();
+      expect(result.providerInvoked).toBe(false);
+      expect(result.stateTrace).toEqual([]);
+      if (result.ok) throw new Error("expected failure");
+      expect(result.failure.code).toBe("SOURCE_MISMATCH");
+    },
+  );
+
+  it("records late evidence without changing a cancelled terminal", async () => {
+    const base = composeExecutionRunProvidersFake();
+    const ai: AiExecutionPort = {
+      lane: "ai",
+      describeCapability: () => base.ai.describeCapability(),
+      complete: async (request) => ({
+        kind: "cancelled",
+        failure: normalizedFailure({
+          family: "cancelled",
+          code: "CANCELLED",
+          userMessage: "Cancelled fixture operation",
+          retryable: false,
+          correlationId: request.correlationId,
+        }),
+      }),
+    };
+    const providers = composeExecutionRunProviders({ ...base, ai });
+    const composition = composeExecutionRunD2D3({ providers });
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
+      intent: fixture.intent,
+      context: fixture.context,
+      providerRequest: {
+        correlationId: fixture.intent.correlationId,
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "cancel fixture" }],
+        timeoutMs: 100,
+      },
+      timeoutMs: 100,
+      lateEvidenceSummary: "late bounded result",
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.run?.state).toBe("cancelled");
+    expect(result.lateEvidenceRecorded).toBe(true);
+    expect(result.run?.evidence?.at(-1)).toMatchObject({
+      source: "fixture",
+      late: true,
+      official: true,
+    });
+  });
+
+  it("marks usage unavailable unless provider usage validates", async () => {
+    const composition = composeExecutionRunD2D3();
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
+      intent: fixture.intent,
+      context: fixture.context,
+      providerRequest: {
+        correlationId: fixture.intent.correlationId,
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "usage fixture" }],
+        timeoutMs: 100,
+      },
+      timeoutMs: 100,
+    });
+
+    expect(result.validatedUsage.status).toBe("validated");
+    expect(result.run?.usage.status).toBe("unavailable");
+  });
+
+  it.each([
+    "token=abc",
+    "apiKey=k",
+    "Authorization: Bearer xyz",
+  ])(
+    "official late evidence redacts secret-like summary %j to late_result_redacted",
+    async (summary) => {
+      const base = composeExecutionRunProvidersFake();
+      const ai: AiExecutionPort = {
+        lane: "ai",
+        describeCapability: () => base.ai.describeCapability(),
+        complete: async (request) => ({
+          kind: "cancelled",
+          failure: normalizedFailure({
+            family: "cancelled",
+            code: "CANCELLED",
+            userMessage: "Cancelled fixture operation",
+            retryable: false,
+            correlationId: request.correlationId,
+          }),
+        }),
+      };
+      const providers = composeExecutionRunProviders({ ...base, ai });
+      const composition = composeExecutionRunD2D3({ providers });
+      const fixture = getFixture("nominal");
+      const result = await composition.coordinate({
+        intent: fixture.intent,
+        context: fixture.context,
+        providerRequest: {
+          correlationId: fixture.intent.correlationId,
+          lane: "ai",
+          operation: "complete",
+          messages: [{ role: "user", content: "cancel fixture" }],
+          timeoutMs: 100,
+        },
+        timeoutMs: 100,
+        lateEvidenceSummary: summary,
+      });
+
+      expect(result.run?.state).toBe("cancelled");
+      expect(result.lateEvidenceRecorded).toBe(true);
+      expect(result.run?.evidence?.at(-1)).toMatchObject({
+        source: "fixture",
+        late: true,
+        official: true,
+        summary: "late_result_redacted",
+      });
+      expect(JSON.stringify(result)).not.toContain("abc");
+      expect(JSON.stringify(result)).not.toContain("xyz");
+      expect(JSON.stringify(result)).not.toMatch(/apiKey=k/i);
+    },
+  );
+});
+```
+
+### d2d3.negative.resilience.test.ts
+
+```typescript
+/**
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  getFixture,
+  normalizedFailure,
+  type AiExecutionPort,
+  type FailureCode,
+  type FailureFamily,
+  type ProviderInvocationResult,
+} from "@/lib/oa/execution-run";
+import {
+  composeExecutionRunD2D3,
+  composeExecutionRunProviders,
+  composeExecutionRunProvidersFake,
+} from "@/lib/oa/execution-run/server";
+
+function failureResult(
+  family: FailureFamily,
+  code: FailureCode,
+  correlationId: string,
+): ProviderInvocationResult {
+  return {
+    kind: "failure",
+    failure: normalizedFailure({
+      family,
+      code,
+      userMessage: `Bounded ${family} fixture failure`,
+      retryable: false,
+      correlationId,
+    }),
+  };
+}
+
+async function runWithAiResult(
+  makeResult: (correlationId: string) => ProviderInvocationResult,
+  options?: { lateEvidenceSummary?: string },
+) {
+  const base = composeExecutionRunProvidersFake();
+  let calls = 0;
+  let receivedKeys: string[] = [];
+  const ai: AiExecutionPort = {
+    lane: "ai",
+    describeCapability: () => base.ai.describeCapability(),
+    complete: async (request) => {
+      calls += 1;
+      receivedKeys = Object.keys(request);
+      return makeResult(request.correlationId);
+    },
+  };
+  const providers = composeExecutionRunProviders({ ...base, ai });
+  const composition = composeExecutionRunD2D3({ providers });
+  const fixture = getFixture("nominal");
+  const result = await composition.coordinate({
+    intent: fixture.intent,
+    context: fixture.context,
+    providerRequest: {
+      correlationId: fixture.intent.correlationId,
+      lane: "ai",
+      operation: "complete",
+      messages: [{ role: "user", content: "deterministic fixture" }],
+      timeoutMs: 100,
+    },
+    timeoutMs: 100,
+    ...options,
+  });
+  return { result, calls, receivedKeys };
+}
+
+describe("D2-D3 deterministic negative and resilience scenarios", () => {
+  it.each([
+    ["authentication", "AUTHENTICATION_ERROR"],
+    ["authorization", "AUTHORIZATION_ERROR"],
+    ["provider_unavailable", "PROVIDER_UNAVAILABLE"],
+    ["rate_limited", "RATE_LIMITED"],
+  ] as const)(
+    "normalizes %s failure to the exact failed terminal",
+    async (family, code) => {
+      const { result, calls } = await runWithAiResult((correlationId) =>
+        failureResult(family, code, correlationId),
+      );
+      expect(calls).toBe(1);
+      expect(result.run?.state).toBe("failed");
+      if (result.ok) throw new Error("expected failed result");
+      expect(result.failure).toMatchObject({ family, code });
+      expect(result.run?.evidence).toBeUndefined();
+      expect(result.run?.disclosure.source).toBe("fixture");
+    },
+  );
+
+  it("maps provider timeout to timed_out", async () => {
+    const { result } = await runWithAiResult((correlationId) => ({
+      kind: "timed_out",
+      failure: normalizedFailure({
+        family: "timed_out",
+        code: "TIMED_OUT",
+        userMessage: "Bounded timeout",
+        retryable: true,
+        correlationId,
+      }),
+    }));
+    expect(result.run?.state).toBe("timed_out");
+    if (result.ok) throw new Error("expected timed-out result");
+    expect(result.failure.code).toBe("TIMED_OUT");
+  });
+
+  it("maps provider cancellation to cancelled and preserves it after late evidence", async () => {
+    const { result } = await runWithAiResult(
+      (correlationId) => ({
+        kind: "cancelled",
+        failure: normalizedFailure({
+          family: "cancelled",
+          code: "CANCELLED",
+          userMessage: "Bounded cancellation",
+          retryable: false,
+          correlationId,
+        }),
+      }),
+      { lateEvidenceSummary: "late redacted fixture result" },
+    );
+    expect(result.run?.state).toBe("cancelled");
+    if (result.ok) throw new Error("expected cancelled result");
+    expect(result.failure.code).toBe("CANCELLED");
+    expect(result.run?.evidence?.at(-1)?.late).toBe(true);
+  });
+
+  it("fails partial provider success and preserves explicit partiality", async () => {
+    const { result } = await runWithAiResult(() => ({
+      kind: "success",
+      completeness: "partial",
+      redactedSummary: "bounded partial result",
+      rawPresent: false,
+      usage: { status: "unavailable", reason: "partial" },
+      disclosureNotes: ["fixture"],
+    }));
+    expect(result.run?.state).toBe("failed");
+    if (result.ok) throw new Error("expected partial failure");
+    expect(result.failure.code).toBe("INVALID_PROVIDER_RESULT");
+    expect(result.run?.externalResult).toMatchObject({
+      kind: "success",
+      completeness: "partial",
+    });
+    expect(result.run?.state).not.toBe("succeeded");
+  });
+
+  it("rejects an invalid provider result without leaking raw content", async () => {
+    const { result } = await runWithAiResult(
+      () =>
+        ({
+          kind: "success",
+          completeness: "complete",
+          redactedSummary: "password=do-not-leak",
+          rawPresent: true,
+          usage: { status: "unavailable", reason: "invalid" },
+          disclosureNotes: [],
+        }) as ProviderInvocationResult,
+    );
+    expect(result.run?.state).toBe("failed");
+    if (result.ok) throw new Error("expected invalid provider failure");
+    expect(result.failure.code).toBe("INVALID_PROVIDER_RESULT");
+    expect(JSON.stringify(result.run)).not.toContain("do-not-leak");
+  });
+
+  it.each([
+    ["validation_failure", "VALIDATION_ERROR"],
+    ["blocked_gate", "HUMAN_GATE_REQUIRED"],
+    ["protected_path", "PROTECTED_PATH"],
+    ["mutation_forbidden", "MUTATION_FORBIDDEN"],
+    ["source_mismatch", "SOURCE_MISMATCH"],
+  ] as const)("blocks %s before provider invocation", async (scenario, code) => {
     const composition = composeExecutionRunD2D3();
     const fixture = getFixture(scenario);
     const result = await composition.coordinate({
@@ -1062,1205 +1544,458 @@ async function main() {
               correlationId: fixture.intent.correlationId,
               lane: "ai",
               operation: "complete",
-              messages: [{ role: "user", content: "block" }],
-              timeoutMs: 50,
+              messages: [{ role: "user", content: "must not execute" }],
+              timeoutMs: 100,
             }
           : undefined,
-      timeoutMs: 50,
+      timeoutMs: 100,
     });
-    const ok = !result.ok && result.providerInvoked === false;
-    record(
-      `P-QA-D2D3-22-${scenario}`,
-      "initial",
-      `Pre-engagement block for ${scenario}`,
-      "blocked before provider",
-      {
-        state: result.run?.state,
-        failure: result.ok ? null : result.failure,
-        providerInvoked: result.providerInvoked,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
+    expect(result.ok).toBe(false);
+    expect(result.providerInvoked).toBe(false);
+    if (result.ok) throw new Error("expected pre-engagement block");
+    expect(result.failure.code).toBe(code);
+    if (result.run) {
+      expect(result.run.state).toBe("blocked");
+      expect(result.run.evidence).toBeUndefined();
+      expect(result.run.disclosure.source).toBe(
+        fixture.context.declaredSource,
+      );
+    }
+  });
 
-  // P23 encoded path
-  {
+  it("blocks a sensitive provider request at the boundary and redacts output", async () => {
     const composition = composeExecutionRunD2D3();
     const fixture = getFixture("nominal");
-    const pathHostile = "projects/sfia-studio/%2e%2e/.env";
+    const sensitive = "fixture-sensitive-value";
     const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        intentId: "intent:rev:encoded-path",
-        correlationId: "corr:rev:encoded-path",
-        requestedLane: "git",
-      },
+      intent: fixture.intent,
       context: fixture.context,
       providerRequest: {
-        correlationId: "corr:rev:encoded-path",
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "path_meta",
-        path: pathHostile,
-        timeoutMs: 50,
-      },
-      timeoutMs: 50,
+        correlationId: fixture.intent.correlationId,
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "safe" }],
+        timeoutMs: 100,
+        apiKey: sensitive,
+      } as never,
+      timeoutMs: 100,
     });
-    const ok = result.run?.state !== "succeeded" && result.providerInvoked === false;
-    record(
-      "P-QA-D2D3-23",
-      "initial",
-      "Reject encoded traversal/protected path",
-      "blocked before provider; no success",
-      {
-        path: pathHostile,
-        state: result.run?.state,
-        providerInvoked: result.providerInvoked,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-10",
-    );
-  }
+    expect(result.ok).toBe(false);
+    expect(result.run).toBeUndefined();
+    expect(result.providerInvoked).toBe(false);
+    expect(JSON.stringify(result)).not.toContain(sensitive);
+    if (result.ok) throw new Error("expected failure");
+    expect(result.failure.code).toBe("VALIDATION_ERROR");
+  });
 
-  // P24 caller runId
-  {
-    const composition = composeExecutionRunD2D3();
-    const input = fixtureInput("corr:rev:caller-run-id");
-    const result = await composition.coordinate({
-      ...input,
-      providerRequest: {
-        ...input.providerRequest,
-        runId: "executionrun:attacker",
-      },
-    });
-    const ok =
-      result.run?.state === "succeeded" &&
-      result.run.runId !== "executionrun:attacker";
-    record(
-      "P-QA-D2D3-24",
-      "initial",
-      "Prevent caller runId from selecting state authority target",
-      "canonical generated runId",
-      { state: result.run?.state, runId: result.run?.runId },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P25 extra readiness props
-  {
-    const assessment = assessExecutionReadiness({
-      fixturePathDemonstrated: true,
-      projectionDemonstrated: true,
-      disclosuresDemonstrated: true,
-      uiDeliveryDemonstrated: true,
-      strongRuntimeDemonstrated: true,
-    } as never);
-    const ok =
-      assessment.uiDelivery.status === "not_demonstrated" &&
-      assessment.strongRuntimeVerdict.status === "blocked" &&
-      assessment.uxExploration.status === "not_demonstrated";
-    record(
-      "P-QA-D2D3-25",
-      "initial",
-      "Prevent additional readiness properties promoting UI/runtime",
-      "UI not_demonstrated; strong blocked; UX not_demonstrated for bool-only",
-      assessment,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // ========== NEW P-REV PROBES ==========
-
-  // P-REV-01 source via descriptor
-  {
+  it("blocks providerRequest correlationId mismatch before engagement", async () => {
     const base = composeExecutionRunProvidersFake();
-    let calls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => ({
-        ...base.ai.describeCapability(),
-        // @ts-expect-error adversarial extra
-        source: "real",
-        available: true,
-        verified: true,
-      }),
-      complete: async (request) => {
-        calls += 1;
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const cases = [];
-    for (const source of ["real", "sandbox-real"] as const) {
-      const result = await composition.coordinate({
-        ...fixtureInput(`corr:prev01:${source}`, source),
-        availableSources: ["real", "sandbox-real", "fixture"],
-      });
-      cases.push({
-        source,
-        ok: result.ok,
-        state: result.run?.state,
-        calls,
-        providerInvoked: result.providerInvoked,
-      });
-    }
-    const ok = cases.every(
-      (c) =>
-        c.ok === false &&
-        c.state === undefined &&
-        c.providerInvoked === false &&
-        c.calls === 0,
-    );
-    record(
-      "P-REV-D2D3-01",
-      "revalidation",
-      "Source authority via descriptor / availableSources injection",
-      "zero invocation; no run; no real evidence",
-      cases,
-      ok ? "PASS" : "FAIL",
-      ok ? undefined : "F-QA-D2D3-01",
-    );
-  }
-
-  // P-REV-02 composition options cannot become proof
-  {
-    const composition = composeExecutionRunD2D3({
-      // @ts-expect-error adversarial
-      availableSources: ["real"],
-      // @ts-expect-error adversarial
-      sources: ["real"],
-    });
-    const result = await composition.coordinate(
-      fixtureInput("corr:prev02", "real"),
-    );
-    const ok =
-      !result.ok &&
-      composition.disclosure.sources[0] === "fixture" &&
-      result.providerInvoked === false;
-    record(
-      "P-REV-D2D3-02",
-      "revalidation",
-      "Source authority via composition options",
-      "disclosure.sources remains fixture; real blocked",
-      {
-        disclosure: composition.disclosure.sources,
-        ok: result.ok,
-        failure: result.ok ? null : result.failure,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-03 readiness artifact matrix
-  {
-    const composition = composeExecutionRunD2D3();
-    const succeeded = await composition.coordinate(
-      fixtureInput("corr:prev03:ok"),
-    );
-    const cases: { name: string; status: string }[] = [];
-    const boolOnly = assessExecutionReadiness({
-      fixturePathDemonstrated: true,
-      projectionDemonstrated: true,
-      disclosuresDemonstrated: true,
-    });
-    cases.push({ name: "bool-only", status: boolOnly.uxExploration.status });
-    cases.push({
-      name: "missing-run",
-      status: assessExecutionReadiness({}).uxExploration.status,
-    });
-    const idleLike = assessExecutionReadiness({
-      run: { ...succeeded.run!, state: "idle", evidence: undefined },
-      projection: { runId: succeeded.run!.runId, correlationId: succeeded.run!.correlationId, source: "fixture" },
-    });
-    cases.push({ name: "idle", status: idleLike.uxExploration.status });
-    const badEvidence = assessExecutionReadiness({
-      run: {
-        ...succeeded.run!,
-        evidence: [
-          {
-            ...succeeded.run!.evidence![0],
-            official: false,
-            completeness: "partial",
-            source: "real",
-            runId: "other",
-            correlationId: "other",
-          },
-        ],
-      },
-      projection: {
-        runId: succeeded.run!.runId,
-        correlationId: succeeded.run!.correlationId,
-        source: "fixture",
-      },
-    });
-    cases.push({
-      name: "bad-evidence",
-      status: badEvidence.uxExploration.status,
-    });
-    const good = await composition.assessById(succeeded.run!.runId);
-    cases.push({ name: "canonical", status: good.uxExploration.status });
-    const ok =
-      cases
-        .filter((c) => c.name !== "canonical")
-        .every((c) => c.status === "not_demonstrated") &&
-      good.uxExploration.status === "demonstrated" &&
-      good.uiDelivery.status === "not_demonstrated" &&
-      good.strongRuntimeVerdict.status === "blocked";
-    record(
-      "P-REV-D2D3-03",
-      "revalidation",
-      "Readiness linked to canonical artifacts",
-      "UX demonstrated only for linked succeeded+projection+official complete evidence",
-      { cases, ui: good.uiDelivery.status, strong: good.strongRuntimeVerdict.status },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-04 sink multi-throw
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    let eventCount = 0;
-    const throwing = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: () => {
-          eventCount += 1;
-          throw new Error(`multi_sink_${eventCount}`);
-        },
-      },
-    });
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(fixtureInput("corr:prev04"), {
-        execution: core,
-        providers: throwing,
-        events: throwing.events,
-        clock,
-      });
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId("corr:prev04");
-    const ok =
-      rawError === "" &&
-      result?.run?.state === "succeeded" &&
-      stored.at(-1)?.state === "succeeded" &&
-      result.eventDelivery.status === "degraded" &&
-      result.eventDelivery.failureCount >= 1 &&
-      !JSON.stringify(result).includes("multi_sink_");
-    record(
-      "P-REV-D2D3-04",
-      "revalidation",
-      "Event sink fail-safe with repeated synchronous throws",
-      "succeeded; degraded; no raw sink message",
-      {
-        rawError,
-        state: result?.run?.state,
-        eventDelivery: result?.eventDelivery,
-        eventCount,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-05 sink hostile detail
-  {
-    const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-    const providers = composeExecutionRunProvidersFake();
-    const hostile = composeExecutionRunProviders({
-      ...providers,
-      events: {
-        emit: (event) => {
-          Object.defineProperty(event, "detail", {
-            get() {
-              throw new Error("sink_detail_getter");
-            },
-          });
-        },
-      },
-    });
-    let rawError = "";
-    let result;
-    try {
-      result = await coordinateExecutionRun(fixtureInput("corr:prev05"), {
-        execution: core,
-        providers: hostile,
-        events: hostile.events,
-        clock,
-      });
-    } catch (error) {
-      rawError = error instanceof Error ? error.message : String(error);
-    }
-    const stored = await core.listByCorrelationId("corr:prev05");
-    const ok =
-      rawError === "" &&
-      result?.run?.state === stored.at(-1)?.state &&
-      result?.run?.state === "succeeded";
-    record(
-      "P-REV-D2D3-05",
-      "revalidation",
-      "Event sink hostile detail accessors",
-      "sink non-authoritative; run unchanged; no raw throw",
-      { rawError, state: result?.run?.state },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-06 deep hostile projection
-  {
-    const composition = composeExecutionRunD2D3();
-    const coordinated = await composition.coordinate(
-      fixtureInput("corr:prev06"),
-    );
-    const cycle: Record<string, unknown> = { a: 1 };
-    cycle.self = cycle;
-    const sym = Symbol("x");
-    const deep = {
-      run: {
-        ...coordinated.run!,
-        nested: { password: "deep-secret", token: "t" },
-        [sym]: "sym",
-        disclosure: {
-          ...coordinated.run!.disclosure,
-          limits: ["ok", () => 1],
-        },
-        persistence: {
-          kind: "memory_process_local",
-          durable: true,
-          multiInstance: true,
-          restartSafe: true,
-        },
-        evidence: [
-          {
-            ...coordinated.run!.evidence![0],
-            source: "real",
-            official: false,
-            correlationId: "wrong",
-          },
-        ],
-        cycle,
-      },
-    };
-    const projection = createExecutionProjection(deep);
-    const leaked =
-      projection.ok === true &&
-      JSON.stringify(projection).match(/deep-secret|durable.:true/);
-    record(
-      "P-REV-D2D3-06",
-      "revalidation",
-      "Projection hostile deep graph",
-      "explicit reject or safe allowlist; no secret/claim promotion",
-      projection,
-      leaked || projection.ok === true ? "FAIL" : "PASS",
-    );
-  }
-
-  // P-REV-07 projectById authority
-  {
-    const composition = composeExecutionRunD2D3();
-    const coordinated = await composition.coordinate(
-      fixtureInput("corr:prev07"),
-    );
-    const missing = await composition.projectById("executionrun:missing");
-    const first = await composition.projectById(coordinated.run!.runId);
-    const second = await composition.projectById(coordinated.run!.runId);
-    // composition has no project(run) accepting arbitrary object
-    const hasProjectFn = "project" in composition;
-    const ok =
-      missing.ok === false &&
-      first.ok === true &&
-      second.ok === true &&
-      first.ok &&
-      second.ok &&
-      first.projection.runId === second.projection.runId &&
-      first.projection.source === "fixture" &&
-      hasProjectFn === false;
-    record(
-      "P-REV-D2D3-07",
-      "revalidation",
-      "Projection from canonical runId authority",
-      "projectById only; deterministic; no arbitrary project(run)",
-      {
-        missing,
-        runId: first.ok ? first.projection.runId : null,
-        hasProjectFn,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-08 late evidence extended
-  {
-    const secrets = [
-      "password=x",
-      "token=abc",
-      "apiKey=k",
-      "Authorization Bearer xyz",
-      "BEGIN RSA PRIVATE KEY",
-      "ghp_abcdefghijklmnopqrstuvwxyz0123456789",
-      "sk-abcdefghijklmnopqrstuvwxyz",
-      "xoxb-1234567890-abcdefgh",
-      "a".repeat(5000),
-    ];
-    const base = composeExecutionRunProvidersFake();
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => ({
-        kind: "cancelled",
-        failure: normalizedFailure({
-          family: "cancelled",
-          code: "CANCELLED",
-          userMessage: "cancelled",
-          retryable: false,
-          correlationId: request.correlationId,
-        }),
-      }),
-    };
-    const results = [];
-    for (const [i, summary] of secrets.entries()) {
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const result = await composition.coordinate({
-        ...fixtureInput(`corr:prev08:${i}`),
-        lateEvidenceSummary: summary,
-      });
-      const late = result.run?.evidence?.at(-1);
-      const blob = JSON.stringify(result);
-      results.push({
-        i,
-        state: result.run?.state,
-        summary: late?.summary,
-        leaked: /password=x|token=abc|apiKey=k|Bearer xyz|PRIVATE KEY|ghp_|sk-abcdefghijklmnopqrst|xoxb-/.test(
-          blob,
-        ),
-        late: late?.late,
-        source: late?.source,
-        official: late?.official,
-      });
-    }
-    const ok = results.every(
-      (r) =>
-        r.state === "cancelled" &&
-        r.leaked === false &&
-        r.late === true &&
-        r.source === "fixture" &&
-        r.official === true,
-    );
-    record(
-      "P-REV-D2D3-08",
-      "revalidation",
-      "Late evidence redaction extended",
-      "no sensitive residue; terminal unchanged; canonical identity/source",
-      results,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-09 preflight no provider effect
-  {
-    const base = composeExecutionRunProvidersFake();
-    let describe = 0;
-    let complete = 0;
+    let describeCalls = 0;
+    let completeCalls = 0;
     const ai: AiExecutionPort = {
       lane: "ai",
       describeCapability: () => {
-        describe += 1;
+        describeCalls += 1;
         return base.ai.describeCapability();
       },
       complete: async (request) => {
-        complete += 1;
+        completeCalls += 1;
         return base.ai.complete(request);
       },
     };
     const composition = composeExecutionRunD2D3({
       providers: composeExecutionRunProviders({ ...base, ai }),
     });
-    const cases = [];
-    const invalids: unknown[] = [
-      null,
-      { intent: null, context: {}, timeoutMs: 50 },
-      {
-        ...fixtureInput("corr:prev09:getter"),
-        intent: Object.defineProperty({ ...getFixture("nominal").intent }, "operation", {
-          enumerable: true,
-          get() {
-            throw new Error("intent_getter");
-          },
-        }),
-      },
-      { ...fixtureInput("corr:prev09:to0"), timeoutMs: 0 },
-      {
-        ...fixtureInput("corr:prev09:path"),
-        intent: {
-          ...getFixture("nominal").intent,
-          correlationId: "corr:prev09:path",
-          intentId: "intent:prev09:path",
-          requestedLane: "git",
-          targetPath: "%2e%2e/.env",
-        },
-        providerRequest: {
-          correlationId: "corr:prev09:path",
-          lane: "git",
-          operation: "read",
-          owner: "o",
-          repo: "r",
-          kind: "path_meta",
-          path: "%2e%2e/.env",
-          timeoutMs: 50,
-        },
-      },
-    ];
-    let raw = 0;
-    for (const input of invalids) {
-      const beforeD = describe;
-      const beforeC = complete;
-      try {
-        const result = await composition.coordinate(input);
-        cases.push({
-          ok: result.ok,
-          dDelta: describe - beforeD,
-          cDelta: complete - beforeC,
-          run: result.run?.state,
-        });
-      } catch {
-        raw += 1;
-        cases.push({ threw: true, dDelta: describe - beforeD, cDelta: complete - beforeC });
-      }
-    }
-    const ok =
-      raw === 0 &&
-      cases.every((c) => (c as { dDelta: number }).dDelta === 0 && (c as { cDelta: number }).cDelta === 0);
-    record(
-      "P-REV-D2D3-09",
-      "revalidation",
-      "Preflight without provider effect",
-      "describe=0; complete=0; no raw throw",
-      { cases, describe, complete, raw },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-10 hostile provider results
-  {
-    const variants: Array<{
-      name: string;
-      make: () => ProviderInvocationResult | Promise<ProviderInvocationResult>;
-    }> = [
-      {
-        name: "getter",
-        make: () => {
-          const o = Object.create(null);
-          Object.defineProperty(o, "kind", {
-            enumerable: true,
-            get() {
-              throw new Error("kind_getter");
-            },
-          });
-          return o as ProviderInvocationResult;
-        },
-      },
-      {
-        name: "partial",
-        make: () => ({
-          kind: "success",
-          completeness: "partial",
-          redactedSummary: "p",
-          rawPresent: false,
-          usage: { status: "unavailable", reason: "p" },
-          disclosureNotes: [],
-        }),
-      },
-      {
-        name: "raw",
-        make: () =>
-          ({
-            kind: "success",
-            completeness: "complete",
-            redactedSummary: "password=raw-leak",
-            rawPresent: true,
-            usage: { status: "unavailable", reason: "x" },
-            disclosureNotes: [],
-          }) as ProviderInvocationResult,
-      },
-    ];
-    const outcomes = [];
-    for (const v of variants) {
-      const base = composeExecutionRunProvidersFake();
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async () => v.make(),
-      };
-      const core = composeExecutionRunMemory({ clockIso: clock.nowIso() });
-      const providers = composeExecutionRunProviders({ ...base, ai });
-      let rawError = "";
-      let result;
-      try {
-        result = await coordinateExecutionRun(
-          fixtureInput(`corr:prev10:${v.name}`),
-          { execution: core, providers, events: providers.events, clock },
-        );
-      } catch (error) {
-        rawError = error instanceof Error ? error.message : String(error);
-      }
-      const stored = await core.listByCorrelationId(`corr:prev10:${v.name}`);
-      outcomes.push({
-        name: v.name,
-        rawError,
-        state: stored.at(-1)?.state,
-        returned: result?.run?.state,
-        leaked: JSON.stringify(result ?? {}).includes("raw-leak"),
-      });
-    }
-    const ok = outcomes.every(
-      (o) =>
-        o.rawError === "" &&
-        o.state === "failed" &&
-        o.returned === "failed" &&
-        o.leaked === false,
-    );
-    record(
-      "P-REV-D2D3-10",
-      "revalidation",
-      "Hostile / invalid provider results",
-      "failed terminal; no orphan running; no leak",
-      outcomes,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-11 diagnostics matrix
-  {
-    const matrix = [];
-    // preflight reject
-    {
-      const composition = composeExecutionRunD2D3();
-      const r = await composition.coordinate({
-        ...fixtureInput("corr:prev11:pre"),
-        timeoutMs: -1,
-      });
-      matrix.push({
-        name: "preflight",
-        attempted: r.providerAttempted,
-        invoked: r.providerInvoked,
-        completed: r.providerCompleted,
-      });
-    }
-    // pre-cancel
-    {
-      const base = composeExecutionRunProvidersFake();
-      let calls = 0;
-      const ai: AiExecutionPort = {
-        lane: "ai",
-        describeCapability: () => base.ai.describeCapability(),
-        complete: async (req) => {
-          calls += 1;
-          return base.ai.complete(req);
-        },
-      };
-      const composition = composeExecutionRunD2D3({
-        providers: composeExecutionRunProviders({ ...base, ai }),
-      });
-      const c = new AbortController();
-      c.abort();
-      const r = await composition.coordinate({
-        ...fixtureInput("corr:prev11:cancel"),
-        signal: c.signal,
-      });
-      matrix.push({
-        name: "pre-cancel",
-        attempted: r.providerAttempted,
-        invoked: r.providerInvoked,
-        completed: r.providerCompleted,
-        calls,
-      });
-    }
-    // success
-    {
-      const composition = composeExecutionRunD2D3();
-      const r = await composition.coordinate(fixtureInput("corr:prev11:ok"));
-      matrix.push({
-        name: "success",
-        attempted: r.providerAttempted,
-        invoked: r.providerInvoked,
-        completed: r.providerCompleted,
-      });
-    }
-    const ok =
-      matrix.find((m) => m.name === "preflight")!.invoked === false &&
-      matrix.find((m) => m.name === "preflight")!.attempted === false &&
-      matrix.find((m) => m.name === "pre-cancel")!.invoked === false &&
-      matrix.find((m) => m.name === "pre-cancel")!.attempted === true &&
-      matrix.find((m) => m.name === "pre-cancel")!.calls === 0 &&
-      matrix.find((m) => m.name === "success")!.invoked === true &&
-      matrix.find((m) => m.name === "success")!.completed === true;
-    record(
-      "P-REV-D2D3-11",
-      "revalidation",
-      "Provider diagnostics exactness",
-      "attempted/invoked/completed match real call counts",
-      matrix,
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-12 timeout boundary
-  {
-    const composition = composeExecutionRunD2D3();
-    const samples: Array<{ label: string; value: unknown; expectOk: boolean }> =
-      [
-        { label: "undefined", value: undefined, expectOk: false },
-        { label: "null", value: null, expectOk: false },
-        { label: "string", value: "50", expectOk: false },
-        { label: "0", value: 0, expectOk: false },
-        { label: "neg", value: -1, expectOk: false },
-        { label: "nan", value: Number.NaN, expectOk: false },
-        { label: "inf", value: Number.POSITIVE_INFINITY, expectOk: false },
-        { label: "frac", value: 1.5, expectOk: false },
-        { label: "max", value: MAX_COORDINATOR_TIMEOUT_MS, expectOk: true },
-        {
-          label: "over",
-          value: MAX_COORDINATOR_TIMEOUT_MS + 1,
-          expectOk: false,
-        },
-        { label: "1", value: 1, expectOk: true },
-      ];
-    const rows = [];
-    for (const s of samples) {
-      const input = {
-        ...fixtureInput(`corr:prev12:${s.label}`),
-        timeoutMs: s.value as number,
-      };
-      const result = await composition.coordinate(input);
-      rows.push({
-        label: s.label,
-        ok: result.ok,
-        run: result.run?.state,
-        invoked: result.providerInvoked,
-        expectOk: s.expectOk,
-      });
-    }
-    const ok = rows.every((r) =>
-      r.expectOk
-        ? r.ok === true && r.run === "succeeded"
-        : r.ok === false && r.run === undefined && r.invoked === false,
-    );
-    record(
-      "P-REV-D2D3-12",
-      "revalidation",
-      "Timeout boundary local 1..60000",
-      "only positive integers <= MAX accepted; invalid before create/provider",
-      { MAX_COORDINATOR_TIMEOUT_MS, rows },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-13 path normalization consistency
-  {
-    const hostiles = [
-      "%2e%2e/.env",
-      "%252e%252e/.env",
-      "%2f.env",
-      "%252f.env",
-      "%5c..%5c.env",
-      "projects\\sfia-studio\\%2e%2e\\.env",
-      "%00",
-      "%2500",
-      "%zz",
-      "%2fetc%2fpasswd",
-      "C:%5cWindows%5c.env",
-    ];
-    const legit = "projects/sfia-studio/app/lib/oa/execution-run/index.ts";
-    const rows = [];
-    for (const p of hostiles) {
-      const sandbox = evaluateSandboxPath({
-        path: p,
-        allowlistRepos: ["projects/sfia-studio/"],
-      });
-      const canonical = normalizeCanonicalPath(p);
-      const boundary = validateUntrustedProviderRequest({
-        correlationId: "c",
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "path_meta",
-        path: p,
-        timeoutMs: 50,
-      });
-      const policy = evaluateReadOnlyPolicy({
-        intent: {
-          ...getFixture("nominal").intent,
-          requestedLane: "none",
-          targetPath: p,
-          correlationId: "c",
-        },
-        context: {
-          ...getFixture("nominal").context,
-          protectedPaths: [".env"],
-        },
-      });
-      rows.push({
-        p,
-        sandboxAllowed: sandbox.allowed,
-        canonicalOk: canonical.ok,
-        boundaryOk: boundary.ok,
-        policyOk: policy.ok,
-      });
-    }
-    const legitSandbox = evaluateSandboxPath({
-      path: legit,
-      allowlistRepos: ["projects/sfia-studio/"],
-    });
-    const ok =
-      rows.every(
-        (r) =>
-          r.sandboxAllowed === false &&
-          (r.canonicalOk === false || r.sandboxAllowed === false),
-      ) &&
-      rows.every((r) => r.boundaryOk === false || r.sandboxAllowed === false) &&
-      legitSandbox.allowed === true;
-    // also coordinator on intent+request path
-    const composition = composeExecutionRunD2D3();
-    const coord = await composition.coordinate({
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
       intent: {
-        ...getFixture("nominal").intent,
-        intentId: "intent:prev13",
-        correlationId: "corr:prev13",
-        requestedLane: "git",
-        targetPath: "%2e%2e/.env",
+        ...fixture.intent,
+        correlationId: "corr:neg:intent",
+        intentId: "intent:neg:corr",
       },
-      context: getFixture("nominal").context,
+      context: fixture.context,
       providerRequest: {
-        correlationId: "corr:prev13",
-        lane: "git",
-        operation: "read",
-        owner: "o",
-        repo: "r",
-        kind: "path_meta",
-        path: "%2e%2e/.env",
-        timeoutMs: 50,
+        correlationId: "corr:neg:request",
+        lane: "ai",
+        operation: "complete",
+        messages: [{ role: "user", content: "must not execute" }],
+        timeoutMs: 100,
       },
-      timeoutMs: 50,
+      timeoutMs: 100,
     });
-    const coordOk = !coord.ok && coord.providerInvoked === false;
-    record(
-      "P-REV-D2D3-13",
-      "revalidation",
-      "Path normalization shared across surfaces",
-      "hostile blocked consistently; legitimate allowlisted path kept",
-      { rows, legitAllowed: legitSandbox.allowed, coordOk },
-      ok && coordOk ? "PASS" : "FAIL",
-    );
-  }
+    expect(result.ok).toBe(false);
+    expect(result.run).toBeUndefined();
+    expect(result.stateTrace).toEqual([]);
+    expect(result.providerAttempted).toBe(false);
+    expect(result.providerInvoked).toBe(false);
+    expect(result.providerCompleted).toBe(false);
+    expect(describeCalls).toBe(0);
+    expect(completeCalls).toBe(0);
+    if (result.ok) throw new Error("expected correlation mismatch rejection");
+    expect(result.failure.code).toBe("VALIDATION_ERROR");
+    expect(result.failure.family).toBe("validation");
+  });
 
-  // P-REV-14 import/public surface
-  {
-    const root = path.resolve(
-      path.dirname(new URL(import.meta.url).pathname),
-      "../../projects/sfia-studio/app/lib/oa/execution-run",
+  it("gives providers no run, repository, save, or transition authority", async () => {
+    const { result, receivedKeys } = await runWithAiResult(() => ({
+      kind: "success",
+      completeness: "complete",
+      redactedSummary: "bounded complete fixture",
+      rawPresent: false,
+      usage: { status: "validated", inputTokens: 1, outputTokens: 1 },
+      disclosureNotes: ["fixture"],
+    }));
+    expect(result.run?.state).toBe("succeeded");
+    expect(receivedKeys).not.toEqual(
+      expect.arrayContaining([
+        "executionRun",
+        "repository",
+        "save",
+        "transitionExecutionRun",
+      ]),
     );
-    const barrel = fs.readFileSync(path.join(root, "index.ts"), "utf8");
-    const compose = fs.readFileSync(
-      path.join(root, "server/composeExecutionRunD2D3.ts"),
-      "utf8",
-    );
-    const untrusted = fs.readFileSync(
-      path.join(root, "application/untrustedExecutionData.ts"),
-      "utf8",
-    );
-    const ok =
-      !/export\s*\{[^}]*\bcoordinateExecutionRun\b[^}]*\}\s*from/.test(barrel) &&
-      !barrel.includes("availableSources") &&
-      !barrel.includes("composeExecutionRunD2D3") &&
-      compose.includes("assertServerOnly") &&
-      !compose.includes("availableSources") &&
-      !/from\s+["'](?:node:|next|openai)/.test(untrusted) &&
-      !compose.includes("D2D3-04") &&
-      !untrusted.includes("materialize");
-    record(
-      "P-REV-D2D3-14",
-      "revalidation",
-      "Import and public surface boundaries",
-      "coordinator not on public barrel; compose server-only; untrusted pure",
-      {
-        barrelHasCoordinateExport: /export\s*\{[^}]*\bcoordinateExecutionRun\b/.test(
-          barrel,
-        ),
-        composeServerOnly: compose.includes("assertServerOnly"),
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  // P-REV-15 isolation in-process (single composition / single memory authority)
-  {
-    const base = composeExecutionRunProvidersFake();
-    let calls = 0;
-    const ai: AiExecutionPort = {
-      lane: "ai",
-      describeCapability: () => base.ai.describeCapability(),
-      complete: async (request) => {
-        calls += 1;
-        if (request.correlationId.includes("timeout")) {
-          await new Promise((r) => setTimeout(r, 25));
-        }
-        return base.ai.complete(request);
-      },
-    };
-    const composition = composeExecutionRunD2D3({
-      providers: composeExecutionRunProviders({ ...base, ai }),
-    });
-    const [okRun, timed, cancelled, blocked] = await Promise.all([
-      composition.coordinate(fixtureInput("corr:prev15:ok")),
-      composition.coordinate({
-        ...fixtureInput("corr:prev15:timeout"),
-        timeoutMs: 2,
-      }),
-      (async () => {
-        const c = new AbortController();
-        c.abort();
-        return composition.coordinate({
-          ...fixtureInput("corr:prev15:cancel"),
-          signal: c.signal,
-        });
-      })(),
-      composition.coordinate(fixtureInput("corr:prev15:real", "real")),
-    ]);
-    const ids = [okRun.run?.runId, timed.run?.runId, cancelled.run?.runId].filter(
-      Boolean,
-    ) as string[];
-    const evidences = [
-      okRun.run?.evidence?.[0]?.evidenceId,
-      timed.run?.evidence?.[0]?.evidenceId,
-      cancelled.run?.evidence?.at(-1)?.evidenceId,
-    ].filter(Boolean);
-    const ok =
-      okRun.run?.state === "succeeded" &&
-      timed.run?.state === "timed_out" &&
-      cancelled.run?.state === "cancelled" &&
-      blocked.ok === false &&
-      blocked.run === undefined &&
-      new Set(ids).size === ids.length &&
-      ids.length === 3;
-    record(
-      "P-REV-D2D3-15",
-      "revalidation",
-      "In-process isolation across success/timeout/cancel/blocked",
-      "no contamination; unique IDs; no multi-instance claim",
-      {
-        ok: okRun.run?.state,
-        timed: timed.run?.state,
-        cancelled: cancelled.run?.state,
-        blocked: blocked.ok,
-        ids,
-        evidences,
-        calls,
-      },
-      ok ? "PASS" : "FAIL",
-    );
-  }
-
-  const initial = probes.filter((p) => p.family === "initial");
-  const rev = probes.filter((p) => p.family === "revalidation");
-  const summary = {
-    initialTotal: initial.length,
-    initialPass: initial.filter((p) => p.verdict === "PASS").length,
-    initialFail: initial.filter((p) => p.verdict === "FAIL").length,
-    initialNotProven: initial.filter((p) => p.verdict === "NOT_PROVEN").length,
-    revTotal: rev.length,
-    revPass: rev.filter((p) => p.verdict === "PASS").length,
-    revFail: rev.filter((p) => p.verdict === "FAIL").length,
-    historicallyFailed: [
-      "P-QA-D2D3-01",
-      "P-QA-D2D3-02",
-      "P-QA-D2D3-03",
-      "P-QA-D2D3-04",
-      "P-QA-D2D3-05",
-      "P-QA-D2D3-06",
-      "P-QA-D2D3-07",
-      "P-QA-D2D3-08",
-      "P-QA-D2D3-09",
-      "P-QA-D2D3-10",
-      "P-QA-D2D3-16",
-      "P-QA-D2D3-17",
-      "P-QA-D2D3-23",
-    ].map((id) => {
-      const p = probes.find((x) => x.id === id);
-      return { id, verdict: p?.verdict ?? "MISSING" };
-    }),
-    probes,
-  };
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, JSON.stringify(summary, null, 2));
-  console.log(
-    JSON.stringify(
-      {
-        initial: {
-          total: summary.initialTotal,
-          pass: summary.initialPass,
-          fail: summary.initialFail,
-          notProven: summary.initialNotProven,
-        },
-        revalidation: {
-          total: summary.revTotal,
-          pass: summary.revPass,
-          fail: summary.revFail,
-        },
-        historicallyFailed: summary.historicallyFailed,
-        failedIds: probes.filter((p) => p.verdict !== "PASS").map((p) => p.id),
-      },
-      null,
-      2,
-    ),
-  );
-  if (probes.some((p) => p.verdict !== "PASS")) process.exitCode = 1;
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+    expect(result.stateTrace).toEqual(["idle", "running", "succeeded"]);
+  });
 });
+```
+
+## 23–26. Probes
+
+Source temporaire : `.tmp-sfia-review/corrections-follow-up-probes/follow-up-probes.ts`
+
+| Probe | Verdict | Notes |
+|---|---|---|
+| P-QA-D2D3-19 | **PASS** | rejet avant provider ; run absent ; describe=0 ; complete=0 |
+| P-REV-D2D3-08 | **PASS** | motifs étendus sans fuite ; terminal cancelled ; source=fixture |
+| P-CORR2-D2D3-01 | **PASS** | 8 variantes correlation |
+| P-CORR2-D2D3-02 | **PASS** | variantes late secrets |
+| P-CORR2-NONREG | **PASS** | F01/02/03/04/06/07/08/09/10 |
+
+Synthèse probes : pass=5 fail=0
+
+## 27. Non-régression F-01/02/03/04/06/07/08/09/10
+
+Tous PASS via suite permanente (61 tests regression incluant F01–10) + P-CORR2-NONREG.
+Statut rapporté inchangé : VERIFIED — CLOSURE RECOMMENDED (non fermés).
+
+## 28–34. Validations observées
+
+| Suite | Résultat |
+|---|---|
+| regression permanente | 61 tests PASS (baseline 25 → étendu) |
+| targeted corrections (3 fichiers) | 85 tests PASS (baseline 64 → étendu) |
+| execution-run | 28 fichiers / **234** tests PASS (baseline 194) |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| full Vitest | 130 fichiers / **1280** tests PASS (baseline 1240) |
+| governance | **73** tests PASS |
+| git diff --check | clean |
+
+## 35. Scans
+
+```
+## correlationId: intent.correlationId (61)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:16:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:59:correlationId: intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:88:correlationId: intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:132:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:25:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:93:correlationId: request.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:104:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:131:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:162:correlationId: request.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:173:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:31:correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:59:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:100:correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:117:correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:180:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:210:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts:15:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:155:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:214:correlationId: request.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:481:correlationId: request.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:562:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts:29:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts:49:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts:77:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts:98:correlationId: fixture.intent.correlationId,
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:186:correlationId,
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:199:correlationId,
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:229:correlationId: run.correlationId,
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:268:correlationId,
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:297:correlationId,
+... +31 more
+
+## availableSources (7)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:27:it("F01 — fake provider cannot be promoted to real via injected availableSources", async () => {
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:50:availableSources: ["fixture", "real", "sandbox-real"],
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts:199:expect(barrel).not.toMatch(/availableSources/);
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts:211:expect(src).not.toMatch(/availableSources/);
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts:224:expect(src).not.toMatch(/availableSources:/);
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:64:* `availableSources` is intentionally absent — D2-D3 proves fixture only via
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:397:// Ignore any injected availableSources property — never treat it as authority.
+
+## verified:true (4)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts:39:cursorUnverified: true,
+projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:73:readonly cursorUnverified: true;
+projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:392:cursorUnverified: true,
+projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:440:cursorUnverified: true,
+
+## durable=true (1)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:181:durable: true,
+
+## multiInstance=true (1)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:182:multiInstance: true,
+
+## restartSafe=true (1)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:183:restartSafe: true,
+
+## production-ready (1)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts:120:/production-ready|RUN READY|multi-instance ready|restart-safe|Cursor verified/i,
+
+## RUN READY (1)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts:120:/production-ready|RUN READY|multi-instance ready|restart-safe|Cursor verified/i,
+
+## strong runtime demonstrated (0)
+
+## .only (0)
+
+## .skip (0)
+
+## fetch( (0)
+
+## http:// (0)
+
+## Server Action (0)
+
+## token= (18)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:145:"token=abc",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:413:"token=abc",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:421:"access_token=abc",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:422:"refresh_token=abc",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:426:"?token=value",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:427:"&token=value",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:433:"ToKeN=AbC",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:434:"line1\ntoken=abc\nline3",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:435:`${"safe-".repeat(80)}token=abc`,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:436:"token=abc\u0000tail",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:448:"token=abc",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:456:"access_token=abc",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:457:"refresh_token=abc",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:461:"?token=value",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:462:"&token=value",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:468:"ToKeN=AbC",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:469:"token=abc",
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:21:/sk-|ghp_|github_pat_|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY|private\s+key|xox[baprs]-|password\s*[:=]|secret\s*[:=]|(?:acc
+
+## apiKey (8)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:146:"apiKey=k",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:193:expect(JSON.stringify(result)).not.toMatch(/apiKey=k/i);
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:215:apiKey: sensitive,
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:174:blockedReason: "apiKey=projection-key",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:415:"apiKey=k",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:425:'"apiKey":"value"',
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:450:"apiKey=k",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:460:'"apiKey":"value"',
+
+## Authorization Bearer (5)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:147:"Authorization: Bearer xyz",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:418:"Authorization Bearer xyz",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:419:"Authorization: Bearer xyz",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:453:"Authorization Bearer xyz",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:454:"Authorization: Bearer xyz",
+
+## ghp_ (4)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:429:"ghp_abcdefghij",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:464:"ghp_abcdefghij",
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:21:/sk-|ghp_|github_pat_|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY|private\s+key|xox[baprs]-|password\s*[:=]|secret\s*[:=]|(?:acc
+projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts:180:if (/sk-|ghp_|@|password|BEGIN PRIVATE/i.test(obj.redactedSummary)) {
+
+## sk- (4)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:431:"sk-abcdefghij",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:466:"sk-abcdefghij",
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:21:/sk-|ghp_|github_pat_|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY|private\s+key|xox[baprs]-|password\s*[:=]|secret\s*[:=]|(?:acc
+projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts:180:if (/sk-|ghp_|@|password|BEGIN PRIVATE/i.test(obj.redactedSummary)) {
+
+## xox (2)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:432:"xoxb-abcdefghij",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:467:"xoxb-abcdefghij",
+
+## private key (3)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:428:"contains private key material",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:463:"private key",
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:21:/sk-|ghp_|github_pat_|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY|private\s+key|xox[baprs]-|password\s*[:=]|secret\s*[:=]|(?:acc
+
+## late_result_redacted (10)
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:149:"official late evidence redacts secret-like summary %j to late_result_redacted",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:189:summary: "late_result_redacted",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:248:expect(late?.summary).toBe("late_result_redacted");
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:443:"F-QA-D2D3-05 / F-QA-REV-D2D3-02 — late secret %j becomes late_result_redacted",
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:514:summary: "late_result_redacted",
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:18:* Fail-closed: any hit means the whole late summary becomes late_result_redacted.
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:205:return "late_result_redacted";
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:209:return "late_result_redacted";
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:213:return "late_result_redacted";
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:217:return "late_result_redacted";
+
+## containsSensitiveLateContent (3)
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:24:export function containsSensitiveLateContent(value: string): boolean {
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:208:if (containsSensitiveLateContent(input)) {
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts:216:if (containsSensitiveLateContent(bounded)) {
 
 ```
 
-## 12. Matrices thématiques
+Qualification scans :
+- Occurrences `token=` / `apiKey` / `Bearer` / `ghp_` / `sk-` / `xox` : **tests adversariaux uniquement** (sauf detector regex produit).
+- `availableSources` : ignore comment + tests F01 / importBoundaries.
+- `durable/multiInstance/restartSafe:true` : injection hostile F04 uniquement.
+- `.only` / `.skip` / `fetch` / Server Action : 0.
+- Pas de réécriture silencieuse `correlationId: intent.correlationId` dans le rebuild (strict match + `correlationId: requestCorrelationId`).
 
-### Source truthfulness
-- Fake + real/sandbox-real : bloqués, zéro invocation (P01, P-REV-01/02, P21).
-- Composition options ne promeuvent pas la source.
-- **OK** pour F-01.
+## 36. correlationId validation
 
-### Readiness
-- Booléens → not_demonstrated.
-- UX demonstrated seulement artefacts liés succeeded.
-- UI not_demonstrated ; strong blocked.
-- **OK** pour F-02.
+Ordre imposé respecté : lecture plain → validation original (présence/type/égalité/lane) → rebuild timeout only → boundary → engagement.
+Mismatch : ok=false, family=validation, code=VALIDATION_ERROR, run absent, stateTrace=[], providerAttempted/Invoked/Completed=false, describe=0, complete=0, aucune evidence.
 
-### Event sink
-- Throws sync répétés → succeeded + degraded, pas d’erreur brute.
-- Detail hostile non autoritatif.
-- **OK** pour F-03.
+## 37. Late evidence redaction
 
-### Projection
-- Malicious deep → reject ; projectById canonique ; pas de `project(run)` public sur compose.
-- **OK** pour F-04.
+Source unique : `containsSensitiveLateContent` / `FORBIDDEN_VALUE` dans `untrustedExecutionData.ts`.
+Toute détection → summary exact `late_result_redacted` ; late=true ; official=true ; source=fixture ; terminal inchangé ; aucune valeur sensible dans run/projection/events/diagnostics.
 
-### Late evidence
-- password= OK ; token=/apiKey=/Authorization **FAIL**.
-- **PARTIEL** pour F-05 + nouveau BLOCKER.
+## 38. Matrice des trois findings
 
-### Preflight / getters / diagnostics / timeout / paths / imports / isolation
-- PASS sur P-REV-09…15 (après correction du montage P-REV-15 single composition).
-- Exception : correlation mismatch (P19) contredit l’attente historique.
+### F-QA-D2D3-05
+- sévérité initiale : BLOCKER
+- statut entrant : PARTIALLY ADDRESSED
+- cause résiduelle : motifs token/apiKey/Bearer non couverts
+- correction : detector fail-closed étendu + sanitizeLateEvidenceSummary
+- tests : matrice permanente F05/REV-02
+- probes : P-REV-D2D3-08 PASS ; P-CORR2-D2D3-02 PASS
+- preuve : summary=`late_result_redacted` ; JSON sans résidu
+- **statut proposé : ADDRESSED — REVALIDATION REQUIRED**
 
-## 13. Validations obligatoires (observées)
+### F-QA-REV-D2D3-01
+- sévérité : MAJOR
+- cause racine : rewrite silencieux correlationId avant validation
+- correction : validate-before-rebuild dans preflight
+- tests : REV-01 match + reject variants ; negative resilience
+- probes : P-QA-D2D3-19 PASS ; P-CORR2-D2D3-01 PASS
+- preuve : no run / no provider on mismatch
+- **statut proposé : ADDRESSED — REVALIDATION REQUIRED**
 
-- Régression permanente : **25/25 PASS**.
-- Targeted : **64/64 PASS**.
-- execution-run : **28 fichiers / 194 tests PASS**.
-- typecheck : PASS.
-- lint : PASS.
-- build : PASS.
-- full Vitest : **130 fichiers / 1240 tests PASS**.
-- governance : **73/73 PASS**.
+### F-QA-REV-D2D3-02
+- sévérité : BLOCKER
+- cause racine : même gap redaction late
+- correction : même detector
+- tests/probes : comme F05
+- **statut proposé : ADDRESSED — REVALIDATION REQUIRED**
 
-Les suites projet restent vertes ; elles ne couvrent pas P19 ni la redaction late étendue.
+## 39. Réserves héritées
 
-## 14. Scans
+- R-QA-REV-01 — OPEN NOT LIFTED
+- R-QA-REV-02 — OPEN NOT LIFTED
+- R-QA-D2C-01 — OPEN NOT LIFTED
+- Cursor product capabilities — UNVERIFIED
+- memory process-local only
+- R-PR-D2D2-01 — MINOR
 
-Occurrences adversariales/tests uniquement pour durable:true, availableSources, materialize (négations), production-ready (anti-claim regex).
-`providerInvoked = true` uniquement dans le callback d’invocation effective.
-Aucun `.save`, fetch, `.only`/`.skip`.
-Scan JSON : `.tmp-sfia-review/qa-revalidation-evidence/scans.json`.
+## 40. Réserves Corrections
 
-## 15. Statut findings F-QA-D2D3-01…10
+- R-CORR-D2D3-01 — timeout max 60 000 ms, borne locale D2-D3 — OPEN
+- R-CORR-D2D3-02 — suivi findings jusqu’à QA — OPEN
+- F-QA-D2D3-05 et F-QA-REV-D2D3-01/02 ouverts jusqu’à revalidation
 
-| Finding | Sévérité initiale | Statut revalidation |
-|---|---|---|
-| F-01 | BLOCKER | VERIFIED — CLOSURE RECOMMENDED |
-| F-02 | MAJOR | VERIFIED — CLOSURE RECOMMENDED |
-| F-03 | MAJOR | VERIFIED — CLOSURE RECOMMENDED |
-| F-04 | BLOCKER | VERIFIED — CLOSURE RECOMMENDED |
-| F-05 | BLOCKER | **PARTIALLY ADDRESSED** |
-| F-06 | MAJOR | VERIFIED — CLOSURE RECOMMENDED |
-| F-07 | MAJOR | VERIFIED — CLOSURE RECOMMENDED |
-| F-08 | MINOR | VERIFIED — CLOSURE RECOMMENDED |
-| F-09 | MAJOR | VERIFIED — CLOSURE RECOMMENDED |
-| F-10 | MAJOR | VERIFIED — CLOSURE RECOMMENDED |
+## 41. Nouveaux findings éventuels
 
-## 16. Nouveaux findings
+Aucun nouveau finding produit par cette passe.
+Aucune nouvelle réserve R-CORR2 ouverte (corrections techniques complètes sous contrat autorisé).
 
-1. **F-QA-REV-D2D3-01 — MAJOR** — correlationId providerRequest mismatch silencieusement réécrit → engagement réussi (régression P19).
-2. **F-QA-REV-D2D3-02 — BLOCKER** — late evidence officielle peut conserver token=/apiKey=/Authorization Bearer.
+## 42. Claims démontrés
 
-## 17. Réserves
+- rejet strict correlationId mismatch avant describe/create/provider
+- late evidence officielle redigée fail-closed pour motifs étendus (token/apiKey/Bearer/…)
+- tests permanents non permissifs verts
+- reproduction P-QA-D2D3-19 et P-REV-D2D3-08 PASS
+- non-régression F01–04/06–10
+- D2D3-04/05 toujours bloquées (gates non consommés)
+- package 18 fichiers inchangé en chemins
+- aucun commit/push projet/PR
 
-Héritées OPEN NOT LIFTED :
-- R-QA-REV-01, R-QA-REV-02, R-QA-D2C-01, Cursor UNVERIFIED, memory process-local only, R-PR-D2D2-01.
+## 43. Claims non démontrés
 
-Corrections :
-- R-CORR-D2D3-01 — timeout max 60000 local — OPEN (toujours pertinent).
-- R-CORR-D2D3-02 — findings ouverts jusqu’à revalidation — **REMAINS OPEN** (non SATISFIED).
+- findings CLOSED / VERIFIED / LIFTED (interdit ce cycle)
+- Cursor sandbox-real / live
+- provider réel / réseau
+- persistance durable / multi-instance / restart-safe
+- transport D3 / UI Delivery / RUN READY / production-ready
+- QA Critical Revalidation 2 (candidate seulement)
 
-Nouvelles :
-- R-QA-REV-D2D3-01 — P19 regression / correlation rewrite.
-- R-QA-REV-D2D3-02 — late redaction incomplete beyond password=/sk-/ghp_.
+## 44. Freeze final
 
-## 18. Claims démontrés / non démontrés
+- base : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+- count : **18**
+- SHA-256 length-prefixed : `1643016668d777162dd0250ed9f61169c5c58cffaec97551571ade04af0b7917`
+- hash initial : `10c4d0278e10192aea7cf88b086df2ccc74252bc01e0f76e9ec1bbdbf522decb`
+- hash différent : OUI (attendu)
+- aucun nouveau chemin
 
-Démontrés : F01–F04, F06–F10 techniquement revalidés ; 13/13 historiques FAIL → PASS ; D2D3-04/05 absents ; package hash stable ; suites vertes.
+Manifest trié :
 
-Non démontrés : F05 clôture complète ; absence de régression P19 ; redaction late universelle ; findings CLOSED/LIFTED ; Cursor verified ; provider real ; persistence durable ; UI/strong/RUN/production-ready ; publication autorisée.
+```
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
+projects/sfia-studio/app/lib/oa/execution-run/index.ts
+projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+```
 
-## 19. D2D3-04 / D2D3-05
+## 45. Git Truth Check final
 
-Toujours BLOCKED — aucune surface live Cursor ni persistence durable observée.
+- branche delivery D2-D3
+- HEAD / origin/main : `de2800aa…`
+- staged vide
+- branche distante projet absente
+- modifications locales uniquement dans le manifest 18 fichiers
+- artefacts sous `.tmp-sfia-review/**` hors package
 
-## 20. Absence de mutation projet
+## 46. Absence de staged / commit / push / PR
 
-- Aucun fichier projet modifié par cette QA.
-- Aucun commit / push projet / PR.
-- Probes uniquement sous `.tmp-sfia-review/qa-revalidation-probes/**`.
+Confirmé : aucun `git add` / `git commit` / push projet / `gh pr create`.
+Seule écriture distante autorisée : handoff L3 borné (ci-dessous).
 
-## 21. Git Truth Check final
+## 47. Review Handoff
 
-- Branche/HEAD inchangés.
-- Staged vide.
-- Branche distante projet absente.
-- Package 18 / hash inchangé.
+- mode : publish-in-cycle
+- parent distant attendu : `5dbcee99f727d34761a784b5388f21d29d9c440c`
+- message : `docs(review-handoff): publish D2-D3 follow-up corrections status`
+- publisher : `scripts/sfia/publish-review-handoff.sh`
+- (détails commit/blob après publication)
 
-## 22. Review Handoff
+## 48. Verdict unique
 
-- Parent attendu : `6b00c6785f3a2b317372c2f1d1450f5ce95fb26f`.
-- Message : `docs(review-handoff): publish D2-D3 QA revalidation status`.
-- Publisher : `scripts/sfia/publish-review-handoff.sh`.
+D2-D3 FOLLOW-UP CORRECTIONS COMPLETE —
+F-QA-D2D3-05 AND F-QA-REV-D2D3-01/02 ADDRESSED —
+READY FOR CRITICAL QA REVALIDATION 2
 
-## 23. Verdict
+## 49. Décision suivante candidate
 
-D2-D3 CRITICAL QA REVALIDATION BLOCKED —
-NEW BLOCKING FINDINGS DETECTED —
-MORRIS CORRECTION DECISION REQUIRED
+`GO QA SFIA STUDIO V3.1-D2-D3 — PROFILE CRITICAL — REVALIDATION 2`
 
-Justification :
-- F-QA-D2D3-05 reste PARTIALLY ADDRESSED (BLOCKER initial) ;
-- F-QA-REV-D2D3-02 BLOCKER nouveau (late secrets) ;
-- F-QA-REV-D2D3-01 MAJOR (régression P19).
+Statut : **candidate uniquement — non consommé**
 
-## 24. Décision suivante candidate (non consommée)
-
-GO CORRECTIONS SFIA STUDIO V3.1-D2-D3 —
-APPLY FINDINGS REMAINING / NEW
-
-Ne pas publier. Ne pas commit. Ne pas push. Ne pas créer de PR.
-
-Instruction : ChatGPT doit consulter `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md` au commit et blob publiés par cette revalidation avant toute validation QA, fermeture des findings ou recommandation de publication à Morris.
+Instruction : ChatGPT doit consulter `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` au commit/blob publiés par cette passe avant toute QA Critical Revalidation 2.
