@@ -1583,9 +1583,16 @@ Publisher : scripts/sfia/publish-review-handoff.sh
 Source : .tmp-sfia-review/chatgpt-review.md
 Branche : sfia/review-handoff
 Fichier : sfia-review-handoff/latest-chatgpt-review.md
-Parent attendu premier commit de ce refresh : ec71a6145fdd1b70a218ce1427187d187c9b4225
+Parent précédent : ec71a6145fdd1b70a218ce1427187d187c9b4225
+Commit publié (placement 90) : c990cc79e175d558ea96678bdd1932fa8f5293cb
+Blob publié : 1db94331fb3ddb744548ac0aefc109f76b293367
 Message : docs(review-handoff): publish Studio v3-native Assistant OpenAI framing status
-Commit / blob : (à compléter après publication)
+Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+Titre distant : # ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI First Product Increment Framing — Studio v3 Doctrine Applied
+Verdict distant : ASSISTANT SFIA NATIVE OPENAI FIRST PRODUCT INCREMENT FRAMING COMPLETE WITH OPEN DECISIONS — … — READY FOR CHATGPT VALIDATION AND MORRIS FUNCTIONAL ARCHITECTURE DECISION
+Correctif : document local `90-…` ; ancien `86-…` retiré
+Mono-fichier tip : oui
+
 
 ## 58. Verdict
 
