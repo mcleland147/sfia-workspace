@@ -122,3 +122,51 @@ describe("D2-D1 execution-run import boundaries", () => {
     expect(barrel).not.toMatch(/persistExecutionRun/);
   });
 });
+
+
+describe("D2-D2 execution-run provider boundary imports", () => {
+  it("domain still has no platform/SDK imports after D2-D2", () => {
+    const files = listTsFiles(path.join(MODULE_ROOT, "domain"));
+    const hits: string[] = [];
+    const forbidden =
+      /from\s+["'](?:node:|openai|@octokit|@\/lib\/(?:platform|harness)|fs|path|child_process)/;
+    for (const file of files) {
+      for (const line of importsOf(file)) {
+        if (forbidden.test(line)) hits.push(`${file}: ${line}`);
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+
+  it("application providerInvocation does not import platform adapters", () => {
+    const file = path.join(MODULE_ROOT, "application/providerInvocation.ts");
+    const src = fs.readFileSync(file, "utf8");
+    expect(src).not.toMatch(/platform\//);
+    expect(src).not.toMatch(/openai|@octokit|harness\//);
+  });
+
+  it("root barrel does not export concrete provider adapters", () => {
+    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
+    expect(barrel).not.toMatch(/FakeAiExecutionAdapter/);
+    expect(barrel).not.toMatch(/PlatformAiExecutionAdapter/);
+    expect(barrel).not.toMatch(/FakeGitReadAdapter/);
+    expect(barrel).not.toMatch(/FixtureCursorExecutionAdapter/);
+    expect(barrel).not.toMatch(/composeExecutionRunProvidersFake/);
+  });
+
+  it("Git read port type file declares no mutation methods", () => {
+    const src = fs.readFileSync(path.join(MODULE_ROOT, "ports/gitReadPort.ts"), "utf8");
+    expect(src).not.toMatch(/\bpush\b/);
+    expect(src).not.toMatch(/\bcommit\(/);
+    expect(src).not.toMatch(/^\s*write\s*\(/m);
+    expect(src).toMatch(/read\(request/);
+  });
+
+  it("public SecretSourcePort has no materialize surface", () => {
+    const src = fs.readFileSync(path.join(MODULE_ROOT, "ports/secretSourcePort.ts"), "utf8");
+    expect(src).not.toMatch(/materialize/);
+    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
+    expect(barrel).not.toMatch(/serverOnlySecretMaterializer/);
+    expect(barrel).not.toMatch(/materializeForServerOnly/);
+  });
+});

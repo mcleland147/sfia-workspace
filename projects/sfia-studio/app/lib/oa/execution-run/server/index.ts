@@ -7,3 +7,8 @@ export {
   type ExecutionRunServerComposition,
 } from "./composeExecutionRunMemory";
 export { assertServerOnly } from "./serverOnly";
+export {
+  composeExecutionRunProviders,
+  composeExecutionRunProvidersFake,
+  type ExecutionRunProviderComposition,
+} from "./composeExecutionRunProviders";
