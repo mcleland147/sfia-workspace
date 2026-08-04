@@ -62,3 +62,47 @@ export type { ClockPort } from "./ports/clockPort";
 export type { IdentityPort } from "./ports/identityPort";
 export { FIXTURE_CATALOGUE, getFixture } from "./fixtures/catalogue";
 export type { FixtureScenario, FixtureScenarioId } from "./fixtures/catalogue";
+
+// D2-D2 provider boundary port types (no concrete adapters on root barrel)
+export type {
+  AiCompletionRequest,
+  CursorFixtureRequest,
+  GitReadRequest,
+  LateProviderResultRecord,
+  ProviderInvocationResult,
+  ProviderOperationKind,
+  ProviderRequestBase,
+} from "./ports/providerResult";
+export type { AiExecutionPort } from "./ports/aiExecutionPort";
+export type { GitReadPort } from "./ports/gitReadPort";
+export type { CursorExecutionPort } from "./ports/cursorExecutionPort";
+export type {
+  SecretHandle,
+  SecretResolveResult,
+  SecretSourcePort,
+} from "./ports/secretSourcePort";
+export type {
+  ExecutionEvent,
+  ExecutionEventSinkPort,
+  ExecutionEventType,
+} from "./ports/executionEventSinkPort";
+export {
+  assertIsoOrFail,
+  validateUntrustedProviderRequest,
+  validateUntrustedProviderResult,
+} from "./domain/providerBoundary";
+export {
+  evaluateSandboxMutationGuards,
+  evaluateSandboxPath,
+  pathMatchesAllowlistPrefix,
+} from "./domain/sandboxContract";
+export type { SandboxPathDecision } from "./domain/sandboxContract";
+export {
+  invokeWithTimeoutAndCancellation,
+  recordLateProviderResult,
+} from "./application/providerInvocation";
+export type {
+  InvokeOptions,
+  InvokeOutcome,
+  RetryClass,
+} from "./application/providerInvocation";
