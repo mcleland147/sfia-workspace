@@ -1,15 +1,13 @@
-# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Post-Merge QA-G4
+# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Closure With Reserves
 
 ## 1. Date / heure / fuseau
 
-Cycle start: 2026-08-04 20:00:43 CEST +0200 / 2026-08-04 18:00:43 UTC
-Freeze final: 2026-08-04 20:01:25 CEST +0200
-Review Pack: 2026-08-04 20:02:07 CEST +0200 / 2026-08-04 18:02:07 UTC
+Local : 2026-08-04 20:41:46 CEST +0200
+UTC : 2026-08-04 18:41:46 UTC
 
 ## 2. Cycle
 
-Post-merge
-Sous-cycle : QA-G4 documentaire — Capitalization / REX D2-D3
+Post-merge — sous-cycle : Clôture officielle Capitalization avec réserves et cleanup de branche
 
 ## 3. Profil
 
@@ -19,106 +17,510 @@ Standard
 
 CAPA — documentation-only
 
-## 5. GO Post-Merge consommé
+## 5. GO Closure consommé
 
-GO POST-MERGE SFIA STUDIO V3.1-D2-D3 CAPITALIZATION
-Date/heure Morris : 2026-08-04 19:52 CEST (+0200)
+GO CLOSURE SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — WITH RESERVES — INCLUDE CAPITALIZATION BRANCH CLEANUP
+Date/heure : 2026-08-04 20:30 CEST (+0200)
 
-## 6. Gates consommés
+## 6. Autorisation branch cleanup consommée
 
-- GO CAPITALIZATION — 17:56 CEST
-- GO PUBLICATION CAPITALIZATION — 18:28 CEST
-- GO PR READINESS CAPITALIZATION — 18:48 CEST
-- GO MARK READY CAPITALIZATION — 19:02 CEST
-- GO MERGE CAPITALIZATION H1 — 19:15 CEST
-- GO POST-MERGE CAPITALIZATION — 19:52 CEST
+Oui — inclus dans le même GO Closure (suppression non forcée locale `-d` + suppression distante normale `--delete` uniquement).
 
-## 7. Gates non consommés
+## 7. Gates consommés
 
-- G-D2D-CURSOR-01 ; G-D2D-PERSIST-01 ; G-D2D-D2C-01
-- GO CLOSURE / BRANCH CLEANUP CAPITALIZATION
+- GO CAPITALIZATION SFIA STUDIO V3.1-D2-D3 — 2026-08-04 17:56 CEST
+- GO PUBLICATION SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — 2026-08-04 18:28 CEST
+- GO PR READINESS SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — 2026-08-04 18:48 CEST
+- GO MARK READY SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — 2026-08-04 19:02 CEST
+- GO MERGE SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — STRATEGY H1 — 2026-08-04 19:15 CEST
+- GO POST-MERGE SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — 2026-08-04 19:52 CEST
+- GO CLOSURE SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — WITH RESERVES — INCLUDE CAPITALIZATION BRANCH CLEANUP — 2026-08-04 20:30 CEST
+
+## 8. Gates non consommés
+
+- G-D2D-CURSOR-01
+- G-D2D-PERSIST-01
+- G-D2D-D2C-01
 - GO METHOD PROMOTION
-- D-REX-D2D3-01…06 NOT DECIDED
-- aucun GO D2-D4 / cycle suivant / Notion-CMP
+- D-REX-D2D3-01…06 restent NOT DECIDED
+- aucun GO D2-D4
+- aucun GO de correction des réserves héritées
+- aucun GO de cycle produit suivant
+- aucun GO Notion / CMP
+- aucun GO tag ou release
 
-## 8. CKC recherché et absent
+La clôture ne transforme aucun de ces éléments en décision consommée.
 
-CKC recherché oui ; détaillé absent ; statut absent.
+## 9. CKC recherché et absent
 
-## 9. Fallback
+CKC recherché : oui
+Cycle qualifié : Post-merge / Closure
+Contrat détaillé trouvé : non
+Statut : absent
+Autorité supplémentaire : aucune
 
-template v2.6 ; routing ; OM ; rules ; checklist ; Incremental Delivery Closure Standard ; handoff Merge ; Mark Ready ; Git/GitHub réel.
+## 10. Fallback
 
-## 10. Sources consultées
+- template canonique SFIA v2.6
+- routing guide
+- operating model
+- rules and guardrails
+- validation checklist
+- Incremental Delivery Closure Standard
+- handoff Post-Merge Capitalization (`1644e710…`)
+- précédent Closure D2-D3 (`29a658fb…`)
+- publisher canonique
+- état Git et GitHub réel
 
-Template/method/checklists/closure standard ; handoffs ee946977 / dc8569eb ; merge 8dc54db0 ; commit f4699924 ; PR #311 ; CI #98 ; REX sur main ; publisher.
+## 11. Sources consultées
 
-## 11. Template canonique
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+5. `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+6. `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
+7. handoff Post-Merge Capitalization `1644e71053922bce42e45e279c1905b1184f19eb`
+8. handoff Merge Capitalization `ee946977948a4f5858a5bde78ca66672999bab50`
+9. précédent Closure D2-D3 `29a658fb740b1e8331511ea02e47f2a1199dec0d`
+10. merge H1 `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+11. commit Capitalization `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
+12. PR #311
+13. CI main #98 / ID 30935105476
+14. REX exact depuis main
+15. `scripts/sfia/publish-review-handoff.sh`
+16. `scripts/sfia/README.md`
 
-`prompts/templates/sfia-cycle-execution-template.md`
+## 12. Template canonique
 
-## 12. Handoff Merge
+`prompts/templates/sfia-cycle-execution-template.md` — consulté depuis Git (origin/main / HEAD).
 
-Titre : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Merge H1
+## 13. Standard de clôture
 
-## 13. Commit / blob handoff
+`method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
 
-Commit : `ee946977948a4f5858a5bde78ca66672999bab50`
-Blob : `545fd7306bc6267031e4f8d95c4ad69380f41d16`
+Invariant appliqué : `CLOSED WITH RESERVES` est un statut valide (≠ échec) pour une chaîne avec réserves mineures/environnementales acceptées et non levées.
 
-## 14. Chaîne handoff
+## 14. Précédent Closure D2-D3
 
-`dc8569eb…` → `06793976…` → `ee946977…`
+Commit handoff : `29a658fb740b1e8331511ea02e47f2a1199dec0d`
+Utilisé comme référence de forme / discipline (clôture avec réserves, cleanup non forcé, absence de promotion méthode).
 
-## 15. Verdict entrant
+## 15. Handoff Post-Merge
 
-D2-D3 CAPITALIZATION MERGE H1 COMPLETE WITH RESERVES —
-PR #311 MERGED —
-MAIN ADVANCED BY EXPLICIT MERGE COMMIT —
-REX CONTENT AND MAIN CI VERIFIED —
+Branche : `sfia/review-handoff`
+Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+Tip : `1644e71053922bce42e45e279c1905b1184f19eb`
+Blob : `0f3f435601807b06ddae07a7ed05c037525fa765`
+Message : docs(review-handoff): publish D2-D3 capitalization post-merge status
+Titre : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Post-Merge QA-G4
+
+## 16. Commit / blob handoff Post-Merge
+
+Commit : `1644e71053922bce42e45e279c1905b1184f19eb`
+Blob : `0f3f435601807b06ddae07a7ed05c037525fa765`
+
+## 17. Chaîne handoff
+
+`ee946977948a4f5858a5bde78ca66672999bab50`
+→ `a28bead7df17f42a0674b8b031e28e46bbf83b00`
+→ `1644e71053922bce42e45e279c1905b1184f19eb`
+→ *(tip Closure à publier dans ce cycle)*
+
+## 18. Verdict entrant
+
+D2-D3 CAPITALIZATION POST-MERGE QA-G4 PASS WITH RESERVES —
+MAIN ALIGNED ON MERGE COMMIT —
+PR #311, REX IDENTITY AND CI #98 VERIFIED —
 CAPITALIZATION BRANCH PRESERVED —
-READY FOR MORRIS POST-MERGE DECISION
+READY FOR MORRIS CLOSURE AND BRANCH-CLEANUP DECISION
 
-Note : handoff Merge mentionnait correctement GO Post-Merge non consommé à son timestamp ; le présent GO Post-Merge a été consommé ensuite à 19:52 CEST.
-
-## 16. Local Git Truth Check initial
+## 19. Local Git Truth Check initial
 
 ```
-=== timestamps ===
-2026-08-04 20:00:43 CEST +0200
-2026-08-04 18:00:43 UTC
+=== TIMESTAMPS ===
+2026-08-04 20:38:58 CEST +0200
+2026-08-04 18:38:58 UTC
+=== LOCAL GIT TRUTH ===
 toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
 branch=capitalization/sfia-studio-v3-1-d2-d3-rex
 HEAD=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
 upstream=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
-main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
+origin_main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
 merge_base=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
 ahead=0
 behind=1
-status:
+=== STATUS ===
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/app/.tmp-sfia-review/
-diff_name:
-staged:
-remote_capa=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f	refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
-handoff=ee946977948a4f5858a5bde78ca66672999bab50
-main_extra=0
+=== DIFF NAME-STATUS ===
+=== CACHED ===
+=== DIFF CHECK ===
+=== WORKTREE ===
+worktree /Users/morris/Projects/sfia-workspace
+HEAD e1befcb80ed5e3c789a7de9036a8207d6b3e6771
+branch refs/heads/delivery/eventops-poc-visible-slice-01
+
+worktree /Users/morris/Projects/sfia-codex-pilot
+HEAD ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+branch refs/heads/method/codex-operating-model-pilot
+
+worktree /Users/morris/Projects/sfia-task-tracker
+HEAD b763a318fb84e23e482ed23a0bd561c1d9e719e6
+branch refs/heads/cadrage/task-tracker-light
+
+worktree /Users/morris/Projects/sfia-workspace-a5-2-framing
+HEAD bd3608c6220e820cc3fa017422a7564a565a1296
+branch refs/heads/framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity
+
+worktree /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts
+HEAD cae841519ed1d2dd825e6ecb998337cd47b4a1e1
+branch refs/heads/method/sfia-cycle-knowledge-contracts
+
+worktree /Users/morris/Projects/sfia-workspace-d1-conversational-convergence
+HEAD 7dc6f9fc7e16f13de08a1003b492b0b6e243f05e
+branch refs/heads/ux/sfia-studio-d1-conversational-convergence
+
+worktree /Users/morris/Projects/sfia-workspace-d1-platform-integration
+HEAD c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9
+branch refs/heads/delivery/sfia-studio-d1-shared-platform-integration
+
+worktree /Users/morris/Projects/sfia-workspace-doc32-post-p3-m1
+HEAD dd2a68c6a1e45fee1e1f397cb644c2c082a3d877
+branch refs/heads/docs/sfia-studio-doc32-post-p3-m1-correction
+
+worktree /Users/morris/Projects/sfia-workspace-docs-recover
+HEAD 1a2fa31fab6343bdd0eab7211febb3bcc5326c33
+branch refs/heads/docs/sfia-studio-recover-unmerged-project-docs
+
+worktree /Users/morris/Projects/sfia-workspace-fa6-mitigated-clean
+HEAD 67f140a19cf4a992dbc0d7b053abfde579a9a68c
+branch refs/heads/docs/sfia-studio-fa6-mitigated-from-main
+
+worktree /Users/morris/Projects/sfia-workspace-framing-next-increment
+HEAD 88fa4658da07156614de270d8172f147535ddbf9
+branch refs/heads/framing/sfia-studio-next-product-increment
+
+worktree /Users/morris/Projects/sfia-workspace-m1-bypass-probe
+HEAD f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23
+branch refs/heads/qa/sfia-studio-m1-bypass-probe
+
+worktree /Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert
+HEAD b502c0069f836a729090bdc187dd98a0c26591ca
+branch refs/heads/qa/sfia-studio-m1-bypass-probe-revert
+
+worktree /Users/morris/Projects/sfia-workspace-m1-capitalization
+HEAD fa0eebe00ce3b765a8a486aa660dddfab40123a0
+branch refs/heads/docs/sfia-studio-m1-capitalization-rex
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-after-t-a6
+HEAD aef7fd6d5a678857cf36e490f1550866d47c8887
+branch refs/heads/framing/sfia-studio-v3-native-option-a-after-t-a6
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-ci-governance
+HEAD 2f9560534e285c5b8105f81dca39c5252667860c
+branch refs/heads/delivery/sfia-studio-v3-native-option-a-ci-merge-governance
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-ci-governance-docs
+HEAD a42a85c0c0b3e146e59f82ea753329ed9253f278
+branch refs/heads/docs/sfia-studio-option-a-ci-governance-post-merge
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-path-aware-required-check
+HEAD 9f03916243c470587f6958e058fd58909e5bd75a
+branch refs/heads/delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation
+
+worktree /Users/morris/Projects/sfia-workspace-review-handoff-publisher
+HEAD 14d58fe95a8f29c3dc1f72c794a64fedbc795bbe
+branch refs/heads/tooling/review-handoff-canonical-publisher
+
+worktree /Users/morris/Projects/sfia-workspace-shared-platform-delivery
+HEAD 08c282abafd97685bcc0b7e525ec96e6721ec589
+branch refs/heads/delivery/sfia-studio-shared-technical-platform
+
+worktree /Users/morris/Projects/sfia-workspace-t-a6-post-merge
+HEAD 1f2585712e460b4ba6267d9e520cd0fd3cea6d3e
+branch refs/heads/post-merge/sfia-studio-v3-native-option-a-t-a6
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-arbitration
+HEAD 6849b6f7530310ae669a5bd2e4f4a3f3323ccda6
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-readme-post-merge
+HEAD 960c90b32b2c1c5701a668b0ebc70fdd847c681b
+branch refs/heads/docs/sfia-studio-t-a7-f03-f11-f13-readme-post-merge-status
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-framing
+HEAD b7a5e827fddb7e80f03a71b3b64ca89271ede0a6
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
+HEAD 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+HEAD f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+branch refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge
+HEAD 52c1d753ee890daf04a80ba37b11c6bf077dc307
+branch refs/heads/backlog/sfia-studio-v3-1-d2-d-integration-foundation
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-next-decision
+HEAD 33ea3e87facc8c99c9c5619d6d2424030d3918a2
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-technical-readiness
+HEAD b6a19335f5116940175f5986492e3693722563bc
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-wave-1-decisions
+HEAD f89ba5fb6cfca4e3de97667d944569a20266a8aa
+branch refs/heads/record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope
+HEAD 4fad47f72a7d6cde655d98a64351bb4624ed9ad1
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope
+
+worktree /Users/morris/Projects/sfia-workspace-template-handoff-fix
+HEAD 134be301792efbf6f9739d13f0572062ef976da7
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-ux-reconciliation
+HEAD 7bdabdcc0ea5f760383da190a661250dcd5d2598
+branch refs/heads/project/sfia-studio-ux-ui-reconciliation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-doctrine-consolidation
+HEAD daf6f7d02bbac09024f6275a793769e66b2b3878
+branch refs/heads/method/sfia-studio-v3-doctrine-consolidation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-audit
+HEAD 56ddf32e811f0f5f8b82f31400da18ceecf3bc30
+branch refs/heads/audit/sfia-studio-v3-native-dependencies
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-arch
+HEAD 577ff0c22491288d2293fd9730ed26f0af4095b0
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional-architecture
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-design
+HEAD e22bc243c8854df4e9422fafe46e92135fe242e9
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-modeled
+HEAD 52891e5c5a9b1254143e422111ea4955ca3a0940
+branch refs/heads/modeled/sfia-studio-v3-native-option-a
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech
+HEAD 0b696ed970823aa75d013336e44e72de08f2ac57
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-ux
+HEAD 608d3d4cb3bee46ef2a533aa9cf94ee427c4cf71
+branch refs/heads/design/sfia-studio-v3-native-option-a-ux-ui
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+
+worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+HEAD 1644e71053922bce42e45e279c1905b1184f19eb
+branch refs/heads/sfia/review-handoff
+
+=== CAPA LOCAL ===
+f46999246f04d6509f3cf06a7b76ce0ee0d13e8f refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
+capa_local=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+=== CAPA REMOTE ===
+f46999246f04d6509f3cf06a7b76ce0ee0d13e8f	refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
+handoff=1644e71053922bce42e45e279c1905b1184f19eb
 ```
 
-## 17–20. Branche / HEAD / main / ahead-behind
+## 20. Branche locale initiale
 
-branch=capitalization/sfia-studio-v3-1-d2-d3-rex
-HEAD/upstream/remote=`f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
-main=`8dc54db0069eed78a8d8930cc2b035450ab56ad1`
-ahead=0 behind=1
+`capitalization/sfia-studio-v3-1-d2-d3-rex` @ `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f` — PRÉSENTE
 
-## 21–22. PR #311 / body
+## 21. Branche distante initiale
 
-state=MERGED ; Draft=false ; mergedAt=2026-08-04T17:41:52Z ; mergeCommit=8dc54db0… ; +575/−0 ; reviews=0 ; comments=0 ; autoMerge=null
+`origin/capitalization/sfia-studio-v3-1-d2-d3-rex` @ `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f` — PRÉSENTE
 
-Body historique (inchangé — statut courant porté par ce handoff Post-Merge) :
+## 22. HEAD / upstream
 
-````markdown
+HEAD = `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
+upstream = `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
+
+## 23. Main initial
+
+`origin/main` = `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+main_extra commits after merge = 0
+
+## 24. Ahead / behind initial
+
+ahead=0 ; behind=1
+
+## 25. PR #311
+
+- state = MERGED / CLOSED equivalent
+- isDraft = false
+- mergedAt = 2026-08-04T17:41:52Z
+- mergeCommit = `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+- baseRefOid = `e36f12b68545a9ead0d8d0ccbfc55d43973b3521`
+- headRefOid = `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
+- commits = 1
+- files = 1 (`05-capitalization-rex.md`)
+- additions = 575
+- deletions = 0
+- autoMergeRequest = null
+- body = inchangé dans ce cycle (historique Mark Ready / Merge ; non modifié)
+
+Body (référence historique, non modifié) :
+
+```
 # docs(sfia-studio): add V3.1-D2-D3 capitalization REX
 
 ## 1. Summary
@@ -238,1364 +640,459 @@ This PR does not prove or authorize:
 Candidate only — not consumed.
 
 This candidate does not authorize branch deletion, method promotion, D-REX adoption, D2-D4, Notion or CMP.
-````
 
-## 23–26. Merge SHA / mergedAt / parents / message
+```
 
-MERGE_SHA=`8dc54db0069eed78a8d8930cc2b035450ab56ad1`
-mergedAt=2026-08-04T17:41:52Z
-Parents :
+## 26. Merge SHA
+
+`8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+
+## 27. Parents
+
 1. `e36f12b68545a9ead0d8d0ccbfc55d43973b3521`
 2. `f46999246f04d6509f3cf06a7b76ce0ee0d13e8f`
 
-Message exact :
+## 28. Message merge
+
+```
 Merge pull request #311 from mcleland147/capitalization/sfia-studio-v3-1-d2-d3-rex
 
 docs(sfia-studio): add V3.1-D2-D3 capitalization REX
-
-## 27–29. Trees
-
-capa=merge=main=`50c52fb09bf8d20349483527c8d1c46e5783ec13`
-
-## 30–31. Diff / scope
-
-```
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md
 ```
 
-```
-main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
-parents=8dc54db0069eed78a8d8930cc2b035450ab56ad1 e36f12b68545a9ead0d8d0ccbfc55d43973b3521 f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
-message<<
-Merge pull request #311 from mcleland147/capitalization/sfia-studio-v3-1-d2-d3-rex
+## 29. Tree identity
 
-docs(sfia-studio): add V3.1-D2-D3 capitalization REX
->>
-A	projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md
- .../05-capitalization-rex.md                       | 575 +++++++++++++++++++++
- 1 file changed, 575 insertions(+)
-capa_tree=50c52fb09bf8d20349483527c8d1c46e5783ec13
-merge_tree=50c52fb09bf8d20349483527c8d1c46e5783ec13
-main_tree=50c52fb09bf8d20349483527c8d1c46e5783ec13
-hash_capa=fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693  -
-hash_merge=fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693  -
-hash_main=fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693  -
-blob_capa=78860d593c9b04a6bbb5c9e8f0f6aa400b256475
-blob_merge=78860d593c9b04a6bbb5c9e8f0f6aa400b256475
-blob_main=78860d593c9b04a6bbb5c9e8f0f6aa400b256475
-wc_l=575
-```
+Capitalization / merge / main = `50c52fb09bf8d20349483527c8d1c46e5783ec13` (×3)
 
-Diff fichier :
+## 30. REX SHA-256 / blob
 
-```diff
-diff --git a/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md
-new file mode 100644
-index 0000000..78860d5
---- /dev/null
-+++ b/projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md
-@@ -0,0 +1,575 @@
-+# SFIA Studio V3.1-D2-D3 — Capitalization / REX
-+
-+## A. Statut et périmètre du REX
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| **Lot** | SFIA Studio V3.1-D2-D3 — End-to-end read-only coordination |
-+| **Statut du lot** | **CLOSED WITH RESERVES** |
-+| **Date de capitalisation** | 2026-08-04 18:19:16 CEST (+0200) / 2026-08-04 16:19:16 UTC |
-+| **Branche locale** | `capitalization/sfia-studio-v3-1-d2-d3-rex` |
-+| **Base** | `main` @ `e36f12b68545a9ead0d8d0ccbfc55d43973b3521` |
-+| **Décision Morris consommée** | `GO CAPITALIZATION SFIA STUDIO V3.1-D2-D3` — 2026-08-04 17:56 CEST (+0200) |
-+| **Profil / profondeur / typologie** | Capitalization / Standard / CAPA |
-+| **Nature** | Documentation-only — un unique fichier projet local non publié |
-+| **Source de vérité finale du lot** | Handoff Closure `29a658fb740b1e8331511ea02e47f2a1199dec0d` / blob `fa45e5e2d0dbb60c856120e584574aecc3a8fd61` |
-+| **CKC détaillé** | Absente — fallback méthode + précédent D1 + handoffs (candidate, non autorité) |
-+
-+**Périmètre livré et clôturé :** D2D3-01, D2D3-02, D2D3-03, D2D3-06, D2D3-07.
-+
-+**Périmètre non livré (hors clôture) :**
-+
-+- D2D3-04 — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED
-+- D2D3-05 — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED
-+
-+**Anti-claims principaux de ce REX :** ce document ne prouve pas Cursor live, sandbox-real, provider real, Git write produit, persistance durable, multi-instance, restart-safe, UI Delivery, strong runtime, RUN READY, production-ready, autorisation D2-D4, levée des réserves ouvertes, promotion méthode, ni adoption d’une pratique candidate.
-+
-+**Décision Morris —** D2-D3 reste CLOSED WITH RESERVES ; la capitalisation ne rouvre pas le lot.
-+
-+---
-+
-+## B. Sources et hiérarchie de preuve
-+
-+### Hiérarchie
-+
-+1. **Git / GitHub autoritatifs** (commits, trees, CI, PR #310, branche handoff)
-+2. **Décisions Morris** explicitement consommées (timestamps des handoffs)
-+3. **Sources projet** (documents 20–24, précédent D1 REX)
-+4. **Mémoire conversationnelle** (navigation uniquement)
-+5. **Hypothèse** (interdite pour les faits critiques)
-+
-+### Preuve autoritative
-+
-+| Élément | Référence |
-+|---------|-----------|
-+| `origin/main` / merge | `e36f12b68545a9ead0d8d0ccbfc55d43973b3521` |
-+| Commit Delivery | `9d1b3d2520f049dba0bf811380167003ca26ad82` |
-+| Parents merge | `de2800aa836bb8221dc2912414126b7a3e6a1f58` + `9d1b3d2520f049dba0bf811380167003ca26ad82` |
-+| PR | #310 — MERGED 2026-08-04T15:16:53Z |
-+| Package | 18 fichiers ; +4368 / −22 ; hash SHA-256 length-prefixed `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` |
-+| Tree | `b9306fb561fc28104c3290f08989859b79dde6f8` |
-+| CI post-merge | SFIA Studio CI run #96 / ID `30923346607` — SUCCESS |
-+| Handoff Closure | `29a658fb…` / blob `fa45e5e2…` |
-+
-+### Preuve de contexte
-+
-+Handoffs Delivery → Closure : `156f68b`, `2ea275d`, `6b00c67`, `5dbcee9`, `9b2d199`, `4b031e2`, `cabb7de`, `4052b19`, `0bebf6c`, `6d3af65`, `44fba35`, `abfb0f4`, `2f53fd2`, `29a658f` (branche `sfia/review-handoff`).
-+
-+Documents D2-D 20–24 (cadrage / conception / architectures / backlog) — contexte de trajectoire, non modifiés.
-+
-+Précédent V3.1-D1 : `…/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md`.
-+
-+### Inférence / candidate
-+
-+Les enseignements, pratiques candidates, recommandations candidates et décisions D-REX sont **candidates** — non adoptées, non promues.
-+
-+---
-+
-+## C. Chronologie complète
-+
-+Timestamps supportés par handoffs / Git / GitHub. Aucun timestamp inventé.
-+
-+| # | Étape | Timestamp (CEST) | Preuve |
-+|---|-------|------------------|--------|
-+| 1 | Cadrage / conception / architectures / backlog D2-D (docs 20–24) | Antérieur au 2026-08-04 | Docs projet ; arbitrages CAD/TA adoptés |
-+| 2 | Delivery D2-D1 / D2-D2 (lots antérieurs) | Antérieur | Trajectoire D2-D ; hors REX détail |
-+| 3 | GO Delivery D2-D3 | 2026-08-04 11:15 | Handoff `156f68b` |
-+| 4 | Delivery Critical locale | ~11:41 | Handoff Delivery |
-+| 5 | GO QA Critical | 11:49 | Handoff `2ea275d` — **BLOCKED** (F-QA-D2D3-01…10) |
-+| 6 | GO Corrections (F-01…10) | 12:13 | Handoff `6b00c67` |
-+| 7 | GO Revalidation 1 | 12:45 | Handoff `5dbcee9` — **BLOCKED** (nouveaux findings REV) |
-+| 8 | GO Follow-up Corrections (F-05 + REV-01/02) | 13:03 | Handoff `9b2d199` |
-+| 9 | GO Revalidation 2 | 13:32 | Handoff `4b031e2` — **BLOCKED** (REV2) ; 29/29 + 15/15 PASS |
-+| 10 | GO Corr3 + arbitrage REV2-02 | 13:50 | Handoff `cabb7de` — hash gelé `cb937ada…` |
-+| 11 | GO Revalidation 3 | 14:19 | Handoff `4052b19` — **PASS WITH RESERVES** ; 17/17 P-REV2 |
-+| 12 | GO Publication | 14:37 | Handoff `0bebf6c` — commit `9d1b3d25…` ; draft PR #310 |
-+| 13 | GO PR Readiness | 15:08 | Handoff `6d3af65` — PASS WITH RESERVES ; R-PR-D2D3-01 |
-+| 14 | GO Mark Ready | 15:27 | Handoff `44fba35` — body refresh ; R-PR-D2D3-01 SATISFIED |
-+| 15 | Merge H1 PR #310 | 17:02 GO / merge 17:16:52 | Handoff `abfb0f4` ; merge `e36f12b6…` ; CI #96 |
-+| 16 | GO Post-Merge QA-G4 | 17:25 | Handoff `2f53fd2` — PASS WITH RESERVES |
-+| 17 | GO Closure + cleanup | 17:40 | Handoff `29a658f` — CLOSED WITH RESERVES ; branche Delivery absente |
-+| 18 | GO Capitalization | 17:56 | Ce cycle — document local uniquement |
-+
-+---
-+
-+## D. Décisions Morris consommées
-+
-+Liste exhaustive des GO réellement consommés pour D2-D3 (aucune nouvelle décision créée ici) :
-+
-+| Décision | Timestamp | Effet |
-+|----------|-----------|-------|
-+| GO DELIVERY SFIA STUDIO V3.1-D2-D3 | 2026-08-04 11:15 CEST | Autorise Delivery read-only coordination |
-+| GO QA … PROFILE CRITICAL | 11:49 | QA indépendante initiale |
-+| GO CORRECTIONS … F-QA-D2D3-01…10 | 12:13 | Première vague corrective |
-+| GO QA … REVALIDATION | 12:45 | Revalidation 1 |
-+| GO CORRECTIONS … F-05 + REV-01/02 | 13:03 | Deuxième vague |
-+| GO QA … REVALIDATION 2 | 13:32 | Revalidation 2 |
-+| GO CORRECTIONS … REV2-01 — ARBITRATE REV2-02 | 13:50 | Troisième vague + arbitrage fail-closed |
-+| GO QA … REVALIDATION 3 | 14:19 | PASS WITH RESERVES |
-+| GO PUBLICATION | 14:37 | Commit Delivery + draft PR #310 |
-+| GO PR READINESS | 15:08 | Matrice readiness |
-+| GO MARK READY | 15:27 | `gh pr ready` + body refresh |
-+| GO MERGE … STRATEGY H1 | 17:02 | Merge commit sur main |
-+| GO POST-MERGE | 17:25 | QA-G4 |
-+| GO CLOSURE … WITH RESERVES — INCLUDE DELIVERY BRANCH CLEANUP | 17:40 | Clôture + suppression branche Delivery |
-+| GO CAPITALIZATION | 17:56 | Ce REX local |
-+
-+**Décision Morris —** aucun GO D2-D4, Notion/CMP, METHOD PROMOTION, PUBLICATION CAPITALIZATION, PR READINESS CAPITALIZATION ou MERGE CAPITALIZATION n’a été consommé.
-+
-+---
-+
-+## E. Périmètre livré et frontières
-+
-+### Livré et clôturé
-+
-+- **D2D3-01** — coordination end-to-end read-only (fixture)
-+- **D2D3-02** — projection d’exécution
-+- **D2D3-03** — evidence / truthfulness
-+- **D2D3-06** — négatif / résilience
-+- **D2D3-07** — readiness UX liée aux artefacts
-+
-+### Non livré
-+
-+- **D2D3-04** — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED (G-D2D-CURSOR-01 — Cursor product capabilities UNVERIFIED)
-+- **D2D3-05** — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED (G-D2D-PERSIST-01 — mémoire process-local ; durable=false ; multiInstance=false ; restartSafe=false)
-+
-+**Observation —** la clôture CLOSED WITH RESERVES porte sur le périmètre livré ; elle ne livre pas, n’abandonne pas et ne reporte pas automatiquement D2D3-04/05 en D2-D4.
-+
-+---
-+
-+## F. Résultat technique
-+
-+Description factuelle héritée des handoffs QA / Closure (aucune réexécution technique dans ce cycle) :
-+
-+- Coordination end-to-end **read-only**, source **fixture-only**.
-+- Huit états canoniques ; `partial` n’est jamais `succeeded`.
-+- Cancellation et timeout sont terminaux.
-+- Late result : evidence-only ; redaction fail-closed (`late_result_redacted` après Corr3).
-+- Projection reconstruite depuis `unknown` + allowlist ; pas de pass-through hostile.
-+- Evidence officielle et redaction fail-closed sur clés/motifs sensibles structurés.
-+- `correlationId` / lane validés **avant** engagement provider.
-+- Event sink non autoritatif ; throws contenus.
-+- Diagnostics provider exacts ; normalisation de chemins partagée.
-+- Mémoire **process-local** uniquement (`composeExecutionRunD2D3` réutilise memory ; durable=false).
-+- Readiness UX liée aux artefacts (run + projection + evidence).
-+- **Absence** de runtime fort démontré ; pas de Cursor sandbox-real/live ; pas de provider real.
-+
-+**Observation —** le package gelé sur main (18 fichiers, hash `cb937ada…`) est la frontière technique autoritative du livré.
-+
-+---
-+
-+## G. Parcours QA et corrections
-+
-+### Observation —
-+
-+- QA Critical initiale a **bloqué** sur 10 findings (F-QA-D2D3-01…10) : authority de source, readiness non liée, sink throws, projection leaks, late evidence, validation avant port, accessors hostiles, cancel diagnostics, timeout invalide, paths encodés.
-+- Trois vagues correction / revalidation indépendantes :
-+  1. Corr1 → Rev1 : 14/15 P-REV PASS ; **P-REV-08 FAIL** (redaction late incomplete).
-+  2. Corr2 → Rev2 : 29/29 + 15/15 PASS ; **nouveaux** F-QA-REV2-D2D3-01/02 (correlationId/lane ; enveloppes hostiles).
-+  3. Corr3 + arbitrage Morris fail-closed sur REV2-02 → Rev3 : **PASS WITH RESERVES** ; 17/17 P-REV2 ; P-REV3 PASS.
-+- Post-merge QA-G4 a re-vérifié les 14 findings sur main (trees byte-identical).
-+- À la Closure : **14 findings formellement CLOSED**.
-+
-+### Enseignement —
-+
-+- La revalidation indépendante a une valeur supérieure à la non-régression locale seule : elle a révélé des findings absents de la vague précédente.
-+- L’arbitrage fail-closed (REV2-02) a évité une correction opportuniste trop large tout en fermant le finding sous contrat explicite Morris.
-+- Les tests adversariaux ajoutés après chaque correction ont rendu les régressions détectables.
-+
-+---
-+
-+## H. Chaîne Git, PR et CI
-+
-+| Élément | Valeur |
-+|---------|--------|
-+| Base pré-Delivery | `de2800aa836bb8221dc2912414126b7a3e6a1f58` |
-+| Commit Delivery | `9d1b3d2520f049dba0bf811380167003ca26ad82` |
-+| PR | #310 — `feat(sfia-studio): add V3.1-D2-D3 read-only coordination` |
-+| Merge H1 | `e36f12b68545a9ead0d8d0ccbfc55d43973b3521` |
-+| Parents | `de2800aa…` + `9d1b3d25…` |
-+| Package | 18 fichiers ; +4368 / −22 |
-+| Hash gelé | `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` |
-+| CI PR (#95) | SUCCESS (héritée publication / readiness) |
-+| CI post-merge (#96) | run ID `30923346607` — Detect / Build and validate / Required Gate SUCCESS |
-+| Cleanup | branche `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` absente local + remote |
-+
-+**Observation —** le flux Review Handoff (`sfia/review-handoff`, mono-fichier `latest-chatgpt-review.md`) est **séparé** du flux projet (main / PR #310). Les handoffs ne constituent pas des commits du package Delivery.
-+
-+---
-+
-+## I. Métriques et preuves quantitatives
-+
-+| Métrique | Valeur | Source |
-+|----------|--------|--------|
-+| Fichiers package | 18 | PR #310 / merge stat |
-+| Diff package | +4368 / −22 | `git show --stat` merge/Delivery |
-+| Hash SHA-256 length-prefixed | `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` | Closure / Corr3 / Rev3 / Publication |
-+| Tree SHA | `b9306fb561fc28104c3290f08989859b79dde6f8` | Post-merge / Closure |
-+| Probes initiaux | 29/29 PASS | Rev2 / Rev3 handoffs |
-+| P-REV | 15/15 PASS | Rev2 / Rev3 |
-+| P-REV2 suite | 17/17 PASS | Rev3 |
-+| Regression | 95 PASS | Post-merge / Corr3 |
-+| Targeted | 105 PASS | Post-merge / Corr3 |
-+| execution-run | 28 fichiers / 270 tests | Post-merge |
-+| Vitest full | 130 fichiers / 1316 tests | Post-merge |
-+| Governance | 73 | Post-merge / Closure |
-+| typecheck / lint / build | PASS | Post-merge / Closure |
-+| Findings fermés | 14 | Closure |
-+| Réserves satisfaites fermées | 2 (R-CORR-D2D3-02, R-PR-D2D3-01) | Closure |
-+| Réserves / limites ouvertes acceptées | 8 (voir §L) | Closure |
-+
-+**Observation —** ces métriques sont **héritées** ; ce cycle Capitalization n’a pas réexécuté Vitest / typecheck / lint / build / governance.
-+
-+---
-+
-+## J. État final de clôture
-+
-+Verdict exact du handoff Closure :
-+
-+```
-+D2-D3 CLOSURE COMPLETE WITH RESERVES —
-+STATUS CLOSED WITH RESERVES —
-+14 QA FINDINGS FORMALLY CLOSED —
-+DELIVERY BRANCH CLEANUP COMPLETE —
-+MAIN AND CI PRESERVED —
-+NO NEXT CYCLE AUTHORIZED
-+```
-+
-+**Enseignement —** CLOSED WITH RESERVES n’est pas un échec : le périmètre autorisé est livré, mergé, vérifié et clôturé. Les réserves documentent des limites acceptées, non des defects non traités du livré.
-+
-+**Décision Morris —** la clôture n’autorise aucun cycle suivant (pas de D2-D4, pas de correction opportuniste des réserves, pas de Notion/CMP).
-+
-+---
-+
-+## K. Findings fermés
-+
-+Statuts finaux (handoff Closure) — non rouverts, non renommés :
-+
-+1. F-QA-D2D3-01 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+2. F-QA-D2D3-02 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+3. F-QA-D2D3-03 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+4. F-QA-D2D3-04 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+5. F-QA-D2D3-05 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+6. F-QA-D2D3-06 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+7. F-QA-D2D3-07 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+8. F-QA-D2D3-08 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+9. F-QA-D2D3-09 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+10. F-QA-D2D3-10 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+11. F-QA-REV-D2D3-01 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+12. F-QA-REV-D2D3-02 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+13. F-QA-REV2-D2D3-01 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-+14. F-QA-REV2-D2D3-02 — CLOSED — **ARBITRATED FAIL-CLOSED CONTRACT ACCEPTED BY MORRIS** — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4
-+
-+---
-+
-+## L. Réserves et limites
-+
-+### Réserves acceptées — OPEN NOT LIFTED
-+
-+- R-QA-REV-01 — ACCEPTED FOR CLOSURE — OPEN NOT LIFTED
-+- R-QA-REV-02 — ACCEPTED FOR CLOSURE — OPEN NOT LIFTED
-+- R-QA-D2C-01 — ACCEPTED FOR CLOSURE — OPEN NOT LIFTED — G-D2D-D2C-01 REQUIRED FOR FUTURE SCOPE
-+- Cursor product capabilities — UNVERIFIED (G-D2D-CURSOR-01)
-+- memory process-local only (G-D2D-PERSIST-01)
-+- R-PR-D2D2-01 — ACCEPTED INHERITED MINOR RESERVE — OPEN NOT LIFTED
-+- R-CORR-D2D3-01 — ACCEPTED LOCAL D2-D3 BOUND — TIMEOUT 60 000 MS — OPEN NOT LIFTED
-+- R-QA-REV3-D2D3-TIME-01 — ACCEPTED MINOR TRACEABILITY RESERVE — OPEN NOT LIFTED
-+
-+### Réserves fermées
-+
-+- R-CORR-D2D3-02 — CLOSED — SATISFIED AND VERIFIED
-+- R-PR-D2D3-01 — CLOSED — SATISFIED AND VERIFIED
-+
-+**Observation —** les réserves ouvertes ne sont ni corrigées ni levées par ce REX.
-+
-+---
-+
-+## M. Observations
-+
-+Observation — Le hash package `cb937ada…` a été gelé dès Corr3 et conservé inchangé jusqu’à Closure / main.
-+
-+Observation — Les probes adversariaux (P-QA, P-REV, P-REV2, P-REV3) ont détecté des defects que les suites nominales seules n’avaient pas exposés.
-+
-+Observation — Chaque vague de correction a généré de **nouveaux** findings en revalidation indépendante (REV puis REV2), jusqu’à Rev3 PASS WITH RESERVES.
-+
-+Observation — La séparation fixture / sandbox-real / real a été maintenue : seule la source fixture est engagée ; Cursor et provider real restent hors preuve.
-+
-+Observation — Le mark-ready avec rafraîchissement borné du body PR a permis de clôturer R-PR-D2D3-01 (métadonnées stale) sans toucher au package.
-+
-+Observation — Le Review Handoff mono-fichier sur branche séparée a fourni une chaîne de preuves chronologique vérifiable à distance, distincte de main.
-+
-+Observation — Le cleanup Delivery (local `-d` + remote `--delete` + prune) a laissé main et CI intacts et la branche Delivery absente.
-+
-+Observation — Le nombre de gates et revalidations (3 corrections + 3 revalidations + publication → closure) a un coût élevé en temps calendaire (≈ 11:15 → 17:40 CEST le même jour) pour un package de 18 fichiers.
-+
-+Observation — Le cycle de clôture (post-merge, closure, capitalization) n’a introduit **aucune dette code** : aucun fichier applicatif modifié après le freeze `cb937ada…`.
-+
-+Observation — CI PASS (#95/#96) prouve la gate Required du workflow Studio, pas une readiness production ou RUN.
-+
-+---
-+
-+## N. Enseignements
-+
-+Enseignement — Fail-closed sur données non fiables (enveloppes hostiles, late evidence) réduit le risque de claims faux mieux qu’une tentative de « réparation » partielle.
-+
-+Enseignement — Valider `correlationId` / lane **avant** toute reconstruction ou engagement évite des états partiels incohérents.
-+
-+Enseignement — Une autorité d’état unique (coordinator + artefacts canoniques) est préférable à des booléens UX découplés.
-+
-+Enseignement — Des preuves reproductibles (hash package, matrices de probes, handoffs distants) valent mieux que des narratives de session.
-+
-+Enseignement — Des tests passants ne remplacent pas une décision Morris (publication, merge, clôture, capitalisation restent des gates distincts).
-+
-+Enseignement — Clôturer un lot n’ouvre pas le lot suivant ; confondre les deux crée de la dette de trajectoire.
-+
-+Enseignement — La granularité des gates doit rester proportionnée : utile pour Critical, coûteuse si généralisée sans besoin.
-+
-+Enseignement — Documenter une réserve acceptée est préférable à une correction opportuniste hors GO lorsque le périmètre livré est déjà sûr.
-+
-+---
-+
-+## O. Pratiques candidates réutilisables
-+
-+Aucune pratique ci-dessous n’est promue dans `method/**`. Gate de promotion : **GO METHOD PROMOTION** (non consommé).
-+
-+### Pratique candidate réutilisable — Package hash freeze (SHA-256 length-prefixed)
-+
-+- **Bénéfice :** identité byte-stable entre QA, publication, PR, post-merge.
-+- **Coût :** discipline de staging ; recalcul à chaque correction.
-+- **Conditions :** package fini borné ; manifeste explicite.
-+- **Risque de dette :** faux sentiment de « production-ready ».
-+- **Automatisation candidate :** script de freeze + vérification CI.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Matrice permanente de regression findings
-+
-+- **Bénéfice :** non-régression durable des findings fermés.
-+- **Coût :** maintenance des probes ; taille de suite.
-+- **Conditions :** findings stables et nommés.
-+- **Risque de dette :** matrice qui dérive du comportement réel.
-+- **Automatisation candidate :** scaffold de matrice par finding.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Probes adversariaux après chaque correction
-+
-+- **Bénéfice :** découverte de findings de second ordre.
-+- **Coût :** cycles QA supplémentaires.
-+- **Conditions :** profil Critical ; budget temps.
-+- **Risque de dette :** sur-QA sur lots mineurs.
-+- **Automatisation candidate :** checklist de nouveaux probes post-fix.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Séparation fixture / sandbox-real / real
-+
-+- **Bénéfice :** anti-claims clairs ; frontières de preuve.
-+- **Coût :** discipline éditoriale et de code.
-+- **Conditions :** ports provider explicites.
-+- **Risque de dette :** confusion si labels absents.
-+- **Automatisation candidate :** lint / tests d’authority de source.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Vérification correlationId/lane avant engagement
-+
-+- **Bénéfice :** intégrité de corrélation ; fail-closed précoce.
-+- **Coût :** règles de validation supplémentaires.
-+- **Conditions :** contrats provider avec corrélation.
-+- **Risque de dette :** rejets trop stricts si arbitrage absent.
-+- **Automatisation candidate :** invariants unitaires.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Evidence tardive fail-closed
-+
-+- **Bénéfice :** pas de fuite de secrets dans summaries.
-+- **Coût :** redaction conservative ; faux positifs potentiels (mitigés par exact-key discrimination).
-+- **Conditions :** surfaces d’evidence exposées.
-+- **Risque de dette :** redaction trop large → perte d’observabilité.
-+- **Automatisation candidate :** matrices de leakage.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Review Handoff mono-fichier vérifié à distance
-+
-+- **Bénéfice :** preuve chronologique hors main ; relecture ChatGPT.
-+- **Coût :** publisher + discipline FF.
-+- **Conditions :** branche `sfia/review-handoff` ; script canonique.
-+- **Risque de dette :** confusion handoff ≠ publication projet.
-+- **Automatisation candidate :** `publish-review-handoff.sh` (déjà présent).
-+- **Gate promotion :** GO METHOD PROMOTION (si généralisé hors Studio).
-+
-+### Pratique candidate réutilisable — Rafraîchissement borné des métadonnées PR
-+
-+- **Bénéfice :** alignement GO / body sans toucher au code.
-+- **Coût :** revue attentive du diff body.
-+- **Conditions :** GO mark-ready / merge autorisant body-only.
-+- **Risque de dette :** drift si body devient source de vérité produit.
-+- **Automatisation candidate :** checklist de champs GO.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Merge commit H1 pour incrément atomique
-+
-+- **Bénéfice :** parents explicites ; histoire lisible.
-+- **Coût :** un merge commit supplémentaire.
-+- **Conditions :** PR mono-commit Delivery préférable.
-+- **Risque de dette :** historique plus bruyant si multiplié.
-+- **Automatisation candidate :** stratégie documentée dans readiness.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+### Pratique candidate réutilisable — Closure + cleanup sous GO explicite
-+
-+- **Bénéfice :** main propre ; pas de branche Delivery orpheline.
-+- **Coût :** gate supplémentaire.
-+- **Conditions :** post-merge PASS ; ancestor vérifié.
-+- **Risque de dette :** cleanup trop tôt avant QA-G4.
-+- **Automatisation candidate :** checklist pre-delete.
-+- **Gate promotion :** GO METHOD PROMOTION.
-+
-+---
-+
-+## P. Recommandations candidates
-+
-+Aucune recommandation n’est appliquée dans ce cycle.
-+
-+Recommandation candidate — Conserver le contrat read-only tant que Cursor (D2D3-04) et persistance (D2D3-05) ne sont pas démontrés sous GO dédiés.
-+
-+Recommandation candidate — Ne pas ouvrir D2D3-04 et D2D3-05 dans un même cycle ; gates G-D2D-CURSOR-01 et G-D2D-PERSIST-01 restent distincts.
-+
-+Recommandation candidate — Traiter R-QA-D2C-01 / frontières D2-C hors du périmètre D2-D3 déjà clôturé.
-+
-+Recommandation candidate — Maintenir le package freeze pour les campagnes Critical futures de taille comparable.
-+
-+Recommandation candidate — Éviter de multiplier les documents vivants (20–24, README, index) sans besoin prouvé ; ce REX crée un dossier de lot dédié sans toucher au framing.
-+
-+Recommandation candidate — Toute promotion méthode des pratiques §O exige un **GO METHOD PROMOTION** distinct — non consommé.
-+
-+Recommandation candidate — Ne pas interpréter CLOSED WITH RESERVES comme GO D2-D4.
-+
-+---
-+
-+## Q. Garde-fous pour réutilisation
-+
-+- **Réutiliser** les pratiques candidates seulement si le lot a un package borné, des findings nommés, et un budget Critical justifié.
-+- **Ne pas appliquer** la chaîne complète (3× revalidation) à un correctif mineur Standard sans GO Critical.
-+- **Risque de sur-process :** gates empilés sans proportion → latence sans gain de sûreté.
-+- **Contrôle répétable** (hash, probes, CI) ≠ **arbitrage humain** (REV2-02, clôture avec réserves).
-+- **Interdiction L5 globale :** ne pas promouvoir localement une pratique comme doctrine SFIA.
-+- **Proportionner** QA et gates à la criticité et à la surface d’attaque.
-+- **Anti-claims :** ne jamais présenter fixture comme sandbox-real/real ; CI PASS ≠ production-ready ; clôture ≠ ouverture du lot suivant.
-+
-+---
-+
-+## R. Decision pack futur
-+
-+Toutes les décisions suivantes sont **NOT DECIDED — MORRIS DECISION REQUIRED**. Aucune option n’est adoptée.
-+
-+### D-REX-D2D3-01 — Généralisation du package hash freeze
-+
-+- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-+- **Contexte :** freeze `cb937ada…` efficace de Corr3 à Closure.
-+- **Options :** (A) rester ad hoc Delivery ; (B) standardiser dans checklists ; (C) automatiser en CI.
-+- **Impacts :** traçabilité ↑ ; coût process ↑.
-+- **Dette potentielle :** ritualisation sans besoin.
-+- **Reco candidate ChatGPT/Cursor :** (B) puis (C) si répétition ≥ 3 lots — non adoptée.
-+- **Décision Morris requise :** oui.
-+
-+### D-REX-D2D3-02 — Matrice permanente findings + probes adversariaux
-+
-+- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-+- **Contexte :** matrice F-QA-D2D3 + P-REV* ont sécurisé la clôture.
-+- **Options :** (A) conserver local Studio ; (B) template méthode ; (C) ne pas généraliser.
-+- **Impacts :** qualité Critical ↑ ; maintenance tests ↑.
-+- **Dette potentielle :** suites adversariales devenues bruit.
-+- **Reco candidate :** (A) jusqu’à GO METHOD PROMOTION — non adoptée.
-+- **Décision Morris requise :** oui.
-+
-+### D-REX-D2D3-03 — Mise à jour documents vivants 20–24 ou index trajectoire
-+
-+- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-+- **Contexte :** 20–24 non modifiés ; REX dans dossier de lot dédié.
-+- **Options :** (A) laisser tel quel ; (B) note de trajectoire minimale ; (C) révision large 20–24.
-+- **Impacts :** cohérence narrative vs drift documentaire.
-+- **Dette potentielle :** docs vivants périmés vs churn.
-+- **Reco candidate :** (A) ou (B) léger sous GO dédié — non adoptée.
-+- **Décision Morris requise :** oui.
-+
-+### D-REX-D2D3-04 — Ouverture G-D2D-CURSOR-01 / D2D3-04
-+
-+- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-+- **Contexte :** Cursor UNVERIFIED ; D2D3-04 BLOCKED.
-+- **Options :** (A) rester BLOCKED ; (B) spike sandbox-real sous GO ; (C) abandonner la story.
-+- **Impacts :** preuve produit Cursor vs coût flakiness.
-+- **Dette potentielle :** claims sandbox-real non démontrés.
-+- **Reco candidate :** (A) jusqu’à GO dédié — non adoptée.
-+- **Décision Morris requise :** oui.
-+
-+### D-REX-D2D3-05 — Ouverture G-D2D-PERSIST-01 / D2D3-05
-+
-+- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-+- **Contexte :** process-local only ; durable/multiInstance/restartSafe = false.
-+- **Options :** (A) rester process-local ; (B) persistance bornée sous GO ; (C) différer hors D2-D.
-+- **Impacts :** runtime fort vs complexité store.
-+- **Dette potentielle :** fausse durabilité.
-+- **Reco candidate :** (A)/(C) — non adoptée.
-+- **Décision Morris requise :** oui.
-+
-+### D-REX-D2D3-06 — Autorisation éventuelle D2-D4 ou cycle produit suivant
-+
-+- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-+- **Contexte :** Closure a déclaré NO NEXT CYCLE AUTHORIZED ; D2-D4 hors trajectoire CAD-11.
-+- **Options :** (A) aucun cycle suivant ; (B) D2-D4 writes sous GO distinct ; (C) autre cycle produit non-D2-D4.
-+- **Impacts :** trajectoire produit ; risque writes prématurés.
-+- **Dette potentielle :** ouverture implicite depuis capitalisation.
-+- **Reco candidate :** (A) jusqu’à GO explicite — non adoptée.
-+- **Décision Morris requise :** oui.
-+
-+---
-+
-+## S. Anti-claims
-+
-+Ce document **ne prouve pas** et **n’autorise pas** :
-+
-+- Cursor live
-+- sandbox-real
-+- provider real
-+- Git write produit (capacité applicative)
-+- persistance durable (`durable=true`)
-+- multi-instance
-+- restart-safe
-+- UI Delivery
-+- strong runtime
-+- RUN READY
-+- production-ready
-+- D2-D4 autorisé
-+- réserves ouvertes levées
-+- méthode modifiée / pratique candidate adoptée
-+- Notion / CMP autorisé
-+- publication Git du présent REX
-+- commit / push / PR / merge du document de capitalisation
-+
-+---
-+
-+## T. Verdict et prochaine décision
-+
-+```
-+D2-D3 CAPITALIZATION COMPLETE WITH RESERVES —
-+PROJECT REX DOCUMENT CREATED —
-+OBSERVATIONS AND CANDIDATES SEPARATED —
-+NO METHOD PROMOTION —
-+READY FOR MORRIS PUBLICATION DECISION
-+```
-+
-+**Prochaine gate candidate :** `GO PUBLICATION SFIA STUDIO V3.1-D2-D3 CAPITALIZATION` — **candidate uniquement — non consommé**.
-+
-+Ce gate candidat n’autorise pas automatiquement : merge, promotion méthode, D2-D4, correction de réserves, Notion/CMP.
-+
-+**État Git de ce cycle :**
-+
-+- aucun commit projet ;
-+- aucun push projet ;
-+- aucune PR ;
-+- aucune promotion méthode ;
-+- aucun D2-D4 ;
-+- aucun cycle suivant autorisé ;
-+- document local non tracké jusqu’à décision Morris de publication.
-+
-+---
-+
-+*Fin du document — SFIA Studio V3.1-D2-D3 Capitalization / REX — 2026-08-04.*
-```
+Path : `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md`
 
-## 32. Contenu complet du REX depuis main
+SHA-256 (commit / merge / main) :
+`fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693`
 
-````markdown
-# SFIA Studio V3.1-D2-D3 — Capitalization / REX
+Blob (commit / merge / main) :
+`78860d593c9b04a6bbb5c9e8f0f6aa400b256475`
 
-## A. Statut et périmètre du REX
+## 31. CI #98
 
-| Champ | Valeur |
-|-------|--------|
-| **Lot** | SFIA Studio V3.1-D2-D3 — End-to-end read-only coordination |
-| **Statut du lot** | **CLOSED WITH RESERVES** |
-| **Date de capitalisation** | 2026-08-04 18:19:16 CEST (+0200) / 2026-08-04 16:19:16 UTC |
-| **Branche locale** | `capitalization/sfia-studio-v3-1-d2-d3-rex` |
-| **Base** | `main` @ `e36f12b68545a9ead0d8d0ccbfc55d43973b3521` |
-| **Décision Morris consommée** | `GO CAPITALIZATION SFIA STUDIO V3.1-D2-D3` — 2026-08-04 17:56 CEST (+0200) |
-| **Profil / profondeur / typologie** | Capitalization / Standard / CAPA |
-| **Nature** | Documentation-only — un unique fichier projet local non publié |
-| **Source de vérité finale du lot** | Handoff Closure `29a658fb740b1e8331511ea02e47f2a1199dec0d` / blob `fa45e5e2d0dbb60c856120e584574aecc3a8fd61` |
-| **CKC détaillé** | Absente — fallback méthode + précédent D1 + handoffs (candidate, non autorité) |
+- name = SFIA Studio CI
+- number = 98
+- databaseId = 30935105476
+- event = push
+- headBranch = main
+- headSha = `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+- status = completed
+- conclusion = success
+- url = https://github.com/mcleland147/sfia-workspace/actions/runs/30935105476
 
-**Périmètre livré et clôturé :** D2D3-01, D2D3-02, D2D3-03, D2D3-06, D2D3-07.
+Jobs :
+- Detect SFIA Studio changes — SUCCESS
+- Build and validate SFIA Studio — SUCCESS
+- SFIA Studio Required Gate — SUCCESS
 
-**Périmètre non livré (hors clôture) :**
+CI non relancée. Tests applicatifs locaux non réexécutés.
 
-- D2D3-04 — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED
-- D2D3-05 — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED
+## 32. Statut findings
 
-**Anti-claims principaux de ce REX :** ce document ne prouve pas Cursor live, sandbox-real, provider real, Git write produit, persistance durable, multi-instance, restart-safe, UI Delivery, strong runtime, RUN READY, production-ready, autorisation D2-D4, levée des réserves ouvertes, promotion méthode, ni adoption d’une pratique candidate.
+14 findings QA D2-D3 : CLOSED selon le GO Closure D2-D3 produit antérieur (inchangé par la clôture Capitalization).
 
-**Décision Morris —** D2-D3 reste CLOSED WITH RESERVES ; la capitalisation ne rouvre pas le lot.
-
----
-
-## B. Sources et hiérarchie de preuve
-
-### Hiérarchie
-
-1. **Git / GitHub autoritatifs** (commits, trees, CI, PR #310, branche handoff)
-2. **Décisions Morris** explicitement consommées (timestamps des handoffs)
-3. **Sources projet** (documents 20–24, précédent D1 REX)
-4. **Mémoire conversationnelle** (navigation uniquement)
-5. **Hypothèse** (interdite pour les faits critiques)
-
-### Preuve autoritative
-
-| Élément | Référence |
-|---------|-----------|
-| `origin/main` / merge | `e36f12b68545a9ead0d8d0ccbfc55d43973b3521` |
-| Commit Delivery | `9d1b3d2520f049dba0bf811380167003ca26ad82` |
-| Parents merge | `de2800aa836bb8221dc2912414126b7a3e6a1f58` + `9d1b3d2520f049dba0bf811380167003ca26ad82` |
-| PR | #310 — MERGED 2026-08-04T15:16:53Z |
-| Package | 18 fichiers ; +4368 / −22 ; hash SHA-256 length-prefixed `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` |
-| Tree | `b9306fb561fc28104c3290f08989859b79dde6f8` |
-| CI post-merge | SFIA Studio CI run #96 / ID `30923346607` — SUCCESS |
-| Handoff Closure | `29a658fb…` / blob `fa45e5e2…` |
-
-### Preuve de contexte
-
-Handoffs Delivery → Closure : `156f68b`, `2ea275d`, `6b00c67`, `5dbcee9`, `9b2d199`, `4b031e2`, `cabb7de`, `4052b19`, `0bebf6c`, `6d3af65`, `44fba35`, `abfb0f4`, `2f53fd2`, `29a658f` (branche `sfia/review-handoff`).
-
-Documents D2-D 20–24 (cadrage / conception / architectures / backlog) — contexte de trajectoire, non modifiés.
-
-Précédent V3.1-D1 : `…/first-user-visible-vertical-slice-v3-1-d1-cycle-type-catalog-runtime/05-capitalization-rex.md`.
-
-### Inférence / candidate
-
-Les enseignements, pratiques candidates, recommandations candidates et décisions D-REX sont **candidates** — non adoptées, non promues.
-
----
-
-## C. Chronologie complète
-
-Timestamps supportés par handoffs / Git / GitHub. Aucun timestamp inventé.
-
-| # | Étape | Timestamp (CEST) | Preuve |
-|---|-------|------------------|--------|
-| 1 | Cadrage / conception / architectures / backlog D2-D (docs 20–24) | Antérieur au 2026-08-04 | Docs projet ; arbitrages CAD/TA adoptés |
-| 2 | Delivery D2-D1 / D2-D2 (lots antérieurs) | Antérieur | Trajectoire D2-D ; hors REX détail |
-| 3 | GO Delivery D2-D3 | 2026-08-04 11:15 | Handoff `156f68b` |
-| 4 | Delivery Critical locale | ~11:41 | Handoff Delivery |
-| 5 | GO QA Critical | 11:49 | Handoff `2ea275d` — **BLOCKED** (F-QA-D2D3-01…10) |
-| 6 | GO Corrections (F-01…10) | 12:13 | Handoff `6b00c67` |
-| 7 | GO Revalidation 1 | 12:45 | Handoff `5dbcee9` — **BLOCKED** (nouveaux findings REV) |
-| 8 | GO Follow-up Corrections (F-05 + REV-01/02) | 13:03 | Handoff `9b2d199` |
-| 9 | GO Revalidation 2 | 13:32 | Handoff `4b031e2` — **BLOCKED** (REV2) ; 29/29 + 15/15 PASS |
-| 10 | GO Corr3 + arbitrage REV2-02 | 13:50 | Handoff `cabb7de` — hash gelé `cb937ada…` |
-| 11 | GO Revalidation 3 | 14:19 | Handoff `4052b19` — **PASS WITH RESERVES** ; 17/17 P-REV2 |
-| 12 | GO Publication | 14:37 | Handoff `0bebf6c` — commit `9d1b3d25…` ; draft PR #310 |
-| 13 | GO PR Readiness | 15:08 | Handoff `6d3af65` — PASS WITH RESERVES ; R-PR-D2D3-01 |
-| 14 | GO Mark Ready | 15:27 | Handoff `44fba35` — body refresh ; R-PR-D2D3-01 SATISFIED |
-| 15 | Merge H1 PR #310 | 17:02 GO / merge 17:16:52 | Handoff `abfb0f4` ; merge `e36f12b6…` ; CI #96 |
-| 16 | GO Post-Merge QA-G4 | 17:25 | Handoff `2f53fd2` — PASS WITH RESERVES |
-| 17 | GO Closure + cleanup | 17:40 | Handoff `29a658f` — CLOSED WITH RESERVES ; branche Delivery absente |
-| 18 | GO Capitalization | 17:56 | Ce cycle — document local uniquement |
-
----
-
-## D. Décisions Morris consommées
-
-Liste exhaustive des GO réellement consommés pour D2-D3 (aucune nouvelle décision créée ici) :
-
-| Décision | Timestamp | Effet |
-|----------|-----------|-------|
-| GO DELIVERY SFIA STUDIO V3.1-D2-D3 | 2026-08-04 11:15 CEST | Autorise Delivery read-only coordination |
-| GO QA … PROFILE CRITICAL | 11:49 | QA indépendante initiale |
-| GO CORRECTIONS … F-QA-D2D3-01…10 | 12:13 | Première vague corrective |
-| GO QA … REVALIDATION | 12:45 | Revalidation 1 |
-| GO CORRECTIONS … F-05 + REV-01/02 | 13:03 | Deuxième vague |
-| GO QA … REVALIDATION 2 | 13:32 | Revalidation 2 |
-| GO CORRECTIONS … REV2-01 — ARBITRATE REV2-02 | 13:50 | Troisième vague + arbitrage fail-closed |
-| GO QA … REVALIDATION 3 | 14:19 | PASS WITH RESERVES |
-| GO PUBLICATION | 14:37 | Commit Delivery + draft PR #310 |
-| GO PR READINESS | 15:08 | Matrice readiness |
-| GO MARK READY | 15:27 | `gh pr ready` + body refresh |
-| GO MERGE … STRATEGY H1 | 17:02 | Merge commit sur main |
-| GO POST-MERGE | 17:25 | QA-G4 |
-| GO CLOSURE … WITH RESERVES — INCLUDE DELIVERY BRANCH CLEANUP | 17:40 | Clôture + suppression branche Delivery |
-| GO CAPITALIZATION | 17:56 | Ce REX local |
-
-**Décision Morris —** aucun GO D2-D4, Notion/CMP, METHOD PROMOTION, PUBLICATION CAPITALIZATION, PR READINESS CAPITALIZATION ou MERGE CAPITALIZATION n’a été consommé.
-
----
-
-## E. Périmètre livré et frontières
-
-### Livré et clôturé
-
-- **D2D3-01** — coordination end-to-end read-only (fixture)
-- **D2D3-02** — projection d’exécution
-- **D2D3-03** — evidence / truthfulness
-- **D2D3-06** — négatif / résilience
-- **D2D3-07** — readiness UX liée aux artefacts
-
-### Non livré
-
-- **D2D3-04** — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED (G-D2D-CURSOR-01 — Cursor product capabilities UNVERIFIED)
-- **D2D3-05** — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED (G-D2D-PERSIST-01 — mémoire process-local ; durable=false ; multiInstance=false ; restartSafe=false)
-
-**Observation —** la clôture CLOSED WITH RESERVES porte sur le périmètre livré ; elle ne livre pas, n’abandonne pas et ne reporte pas automatiquement D2D3-04/05 en D2-D4.
-
----
-
-## F. Résultat technique
-
-Description factuelle héritée des handoffs QA / Closure (aucune réexécution technique dans ce cycle) :
-
-- Coordination end-to-end **read-only**, source **fixture-only**.
-- Huit états canoniques ; `partial` n’est jamais `succeeded`.
-- Cancellation et timeout sont terminaux.
-- Late result : evidence-only ; redaction fail-closed (`late_result_redacted` après Corr3).
-- Projection reconstruite depuis `unknown` + allowlist ; pas de pass-through hostile.
-- Evidence officielle et redaction fail-closed sur clés/motifs sensibles structurés.
-- `correlationId` / lane validés **avant** engagement provider.
-- Event sink non autoritatif ; throws contenus.
-- Diagnostics provider exacts ; normalisation de chemins partagée.
-- Mémoire **process-local** uniquement (`composeExecutionRunD2D3` réutilise memory ; durable=false).
-- Readiness UX liée aux artefacts (run + projection + evidence).
-- **Absence** de runtime fort démontré ; pas de Cursor sandbox-real/live ; pas de provider real.
-
-**Observation —** le package gelé sur main (18 fichiers, hash `cb937ada…`) est la frontière technique autoritative du livré.
-
----
-
-## G. Parcours QA et corrections
-
-### Observation —
-
-- QA Critical initiale a **bloqué** sur 10 findings (F-QA-D2D3-01…10) : authority de source, readiness non liée, sink throws, projection leaks, late evidence, validation avant port, accessors hostiles, cancel diagnostics, timeout invalide, paths encodés.
-- Trois vagues correction / revalidation indépendantes :
-  1. Corr1 → Rev1 : 14/15 P-REV PASS ; **P-REV-08 FAIL** (redaction late incomplete).
-  2. Corr2 → Rev2 : 29/29 + 15/15 PASS ; **nouveaux** F-QA-REV2-D2D3-01/02 (correlationId/lane ; enveloppes hostiles).
-  3. Corr3 + arbitrage Morris fail-closed sur REV2-02 → Rev3 : **PASS WITH RESERVES** ; 17/17 P-REV2 ; P-REV3 PASS.
-- Post-merge QA-G4 a re-vérifié les 14 findings sur main (trees byte-identical).
-- À la Closure : **14 findings formellement CLOSED**.
-
-### Enseignement —
-
-- La revalidation indépendante a une valeur supérieure à la non-régression locale seule : elle a révélé des findings absents de la vague précédente.
-- L’arbitrage fail-closed (REV2-02) a évité une correction opportuniste trop large tout en fermant le finding sous contrat explicite Morris.
-- Les tests adversariaux ajoutés après chaque correction ont rendu les régressions détectables.
-
----
-
-## H. Chaîne Git, PR et CI
-
-| Élément | Valeur |
-|---------|--------|
-| Base pré-Delivery | `de2800aa836bb8221dc2912414126b7a3e6a1f58` |
-| Commit Delivery | `9d1b3d2520f049dba0bf811380167003ca26ad82` |
-| PR | #310 — `feat(sfia-studio): add V3.1-D2-D3 read-only coordination` |
-| Merge H1 | `e36f12b68545a9ead0d8d0ccbfc55d43973b3521` |
-| Parents | `de2800aa…` + `9d1b3d25…` |
-| Package | 18 fichiers ; +4368 / −22 |
-| Hash gelé | `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` |
-| CI PR (#95) | SUCCESS (héritée publication / readiness) |
-| CI post-merge (#96) | run ID `30923346607` — Detect / Build and validate / Required Gate SUCCESS |
-| Cleanup | branche `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` absente local + remote |
-
-**Observation —** le flux Review Handoff (`sfia/review-handoff`, mono-fichier `latest-chatgpt-review.md`) est **séparé** du flux projet (main / PR #310). Les handoffs ne constituent pas des commits du package Delivery.
-
----
-
-## I. Métriques et preuves quantitatives
-
-| Métrique | Valeur | Source |
-|----------|--------|--------|
-| Fichiers package | 18 | PR #310 / merge stat |
-| Diff package | +4368 / −22 | `git show --stat` merge/Delivery |
-| Hash SHA-256 length-prefixed | `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` | Closure / Corr3 / Rev3 / Publication |
-| Tree SHA | `b9306fb561fc28104c3290f08989859b79dde6f8` | Post-merge / Closure |
-| Probes initiaux | 29/29 PASS | Rev2 / Rev3 handoffs |
-| P-REV | 15/15 PASS | Rev2 / Rev3 |
-| P-REV2 suite | 17/17 PASS | Rev3 |
-| Regression | 95 PASS | Post-merge / Corr3 |
-| Targeted | 105 PASS | Post-merge / Corr3 |
-| execution-run | 28 fichiers / 270 tests | Post-merge |
-| Vitest full | 130 fichiers / 1316 tests | Post-merge |
-| Governance | 73 | Post-merge / Closure |
-| typecheck / lint / build | PASS | Post-merge / Closure |
-| Findings fermés | 14 | Closure |
-| Réserves satisfaites fermées | 2 (R-CORR-D2D3-02, R-PR-D2D3-01) | Closure |
-| Réserves / limites ouvertes acceptées | 8 (voir §L) | Closure |
-
-**Observation —** ces métriques sont **héritées** ; ce cycle Capitalization n’a pas réexécuté Vitest / typecheck / lint / build / governance.
-
----
-
-## J. État final de clôture
-
-Verdict exact du handoff Closure :
-
-```
-D2-D3 CLOSURE COMPLETE WITH RESERVES —
-STATUS CLOSED WITH RESERVES —
-14 QA FINDINGS FORMALLY CLOSED —
-DELIVERY BRANCH CLEANUP COMPLETE —
-MAIN AND CI PRESERVED —
-NO NEXT CYCLE AUTHORIZED
-```
-
-**Enseignement —** CLOSED WITH RESERVES n’est pas un échec : le périmètre autorisé est livré, mergé, vérifié et clôturé. Les réserves documentent des limites acceptées, non des defects non traités du livré.
-
-**Décision Morris —** la clôture n’autorise aucun cycle suivant (pas de D2-D4, pas de correction opportuniste des réserves, pas de Notion/CMP).
-
----
-
-## K. Findings fermés
-
-Statuts finaux (handoff Closure) — non rouverts, non renommés :
-
-1. F-QA-D2D3-01 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-2. F-QA-D2D3-02 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-3. F-QA-D2D3-03 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-4. F-QA-D2D3-04 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-5. F-QA-D2D3-05 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-6. F-QA-D2D3-06 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-7. F-QA-D2D3-07 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-8. F-QA-D2D3-08 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-9. F-QA-D2D3-09 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-10. F-QA-D2D3-10 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-11. F-QA-REV-D2D3-01 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-12. F-QA-REV-D2D3-02 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-13. F-QA-REV2-D2D3-01 — CLOSED — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4 — MORRIS CLOSURE GO CONSUMED
-14. F-QA-REV2-D2D3-02 — CLOSED — **ARBITRATED FAIL-CLOSED CONTRACT ACCEPTED BY MORRIS** — VERIFIED IN CRITICAL QA AND POST-MERGE QA-G4
-
----
-
-## L. Réserves et limites
-
-### Réserves acceptées — OPEN NOT LIFTED
+## 33. Réserves héritées ouvertes
 
 - R-QA-REV-01 — ACCEPTED FOR CLOSURE — OPEN NOT LIFTED
 - R-QA-REV-02 — ACCEPTED FOR CLOSURE — OPEN NOT LIFTED
-- R-QA-D2C-01 — ACCEPTED FOR CLOSURE — OPEN NOT LIFTED — G-D2D-D2C-01 REQUIRED FOR FUTURE SCOPE
-- Cursor product capabilities — UNVERIFIED (G-D2D-CURSOR-01)
-- memory process-local only (G-D2D-PERSIST-01)
+- R-QA-D2C-01 — ACCEPTED FOR CLOSURE — OPEN NOT LIFTED
+- Cursor product capabilities — UNVERIFIED
+- memory process-local only — NOT DURABLE
 - R-PR-D2D2-01 — ACCEPTED INHERITED MINOR RESERVE — OPEN NOT LIFTED
-- R-CORR-D2D3-01 — ACCEPTED LOCAL D2-D3 BOUND — TIMEOUT 60 000 MS — OPEN NOT LIFTED
+- R-CORR-D2D3-01 — ACCEPTED LOCAL D2-D3 BOUND — OPEN NOT LIFTED
 - R-QA-REV3-D2D3-TIME-01 — ACCEPTED MINOR TRACEABILITY RESERVE — OPEN NOT LIFTED
 
-### Réserves fermées
+## 34. Réserves historiques fermées
 
 - R-CORR-D2D3-02 — CLOSED — SATISFIED AND VERIFIED
 - R-PR-D2D3-01 — CLOSED — SATISFIED AND VERIFIED
 
-**Observation —** les réserves ouvertes ne sont ni corrigées ni levées par ce REX.
+## 35. R-PR-CAPA-D2D3-01 avant clôture
 
----
+SATISFIED — CLOSURE RECOMMENDED —
+PR BODY UPDATED UNDER MORRIS-AUTHORIZED MARK READY CYCLE
 
-## M. Observations
+(non CLOSED / non LIFTED avant le présent GO)
 
-Observation — Le hash package `cb937ada…` a été gelé dès Corr3 et conservé inchangé jusqu’à Closure / main.
+## 36. D-REX
 
-Observation — Les probes adversariaux (P-QA, P-REV, P-REV2, P-REV3) ont détecté des defects que les suites nominales seules n’avaient pas exposés.
+D-REX-D2D3-01…06 :
+NOT DECIDED — MORRIS DECISION REQUIRED
 
-Observation — Chaque vague de correction a généré de **nouveaux** findings en revalidation indépendante (REV puis REV2), jusqu’à Rev3 PASS WITH RESERVES.
+Aucune adoption dans ce cycle.
 
-Observation — La séparation fixture / sandbox-real / real a été maintenue : seule la source fixture est engagée ; Cursor et provider real restent hors preuve.
+## 37. D2D3-04 / 05
 
-Observation — Le mark-ready avec rafraîchissement borné du body PR a permis de clôturer R-PR-D2D3-01 (métadonnées stale) sans toucher au package.
+- D2D3-04 — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED
+- D2D3-05 — BLOCKED — NOT DELIVERED — FUTURE DEDICATED GO REQUIRED
 
-Observation — Le Review Handoff mono-fichier sur branche séparée a fourni une chaîne de preuves chronologique vérifiable à distance, distincte de main.
+## 38. Anti-claims
 
-Observation — Le cleanup Delivery (local `-d` + remote `--delete` + prune) a laissé main et CI intacts et la branche Delivery absente.
+Conservés / affirmés pour ce cycle :
 
-Observation — Le nombre de gates et revalidations (3 corrections + 3 revalidations + publication → closure) a un coût élevé en temps calendaire (≈ 11:15 → 17:40 CEST le même jour) pour un package de 18 fichiers.
+- pas de promotion méthode
+- pas d’adoption de pratique candidate
+- pas d’adoption D-REX
+- pas de D2-D4
+- pas de Cursor verified / sandbox-real / provider real
+- pas de persistance durable / strong runtime / RUN READY / production-ready
+- pas de cycle suivant autorisé
+- pas de levée de réserves héritées ouvertes
+- REX non modifié
+- aucun fichier projet créé/modifié/supprimé
+- aucun closure report projet supplémentaire
 
-Observation — Le cycle de clôture (post-merge, closure, capitalization) n’a introduit **aucune dette code** : aucun fichier applicatif modifié après le freeze `cb937ada…`.
-
-Observation — CI PASS (#95/#96) prouve la gate Required du workflow Studio, pas une readiness production ou RUN.
-
----
-
-## N. Enseignements
-
-Enseignement — Fail-closed sur données non fiables (enveloppes hostiles, late evidence) réduit le risque de claims faux mieux qu’une tentative de « réparation » partielle.
-
-Enseignement — Valider `correlationId` / lane **avant** toute reconstruction ou engagement évite des états partiels incohérents.
-
-Enseignement — Une autorité d’état unique (coordinator + artefacts canoniques) est préférable à des booléens UX découplés.
-
-Enseignement — Des preuves reproductibles (hash package, matrices de probes, handoffs distants) valent mieux que des narratives de session.
-
-Enseignement — Des tests passants ne remplacent pas une décision Morris (publication, merge, clôture, capitalisation restent des gates distincts).
-
-Enseignement — Clôturer un lot n’ouvre pas le lot suivant ; confondre les deux crée de la dette de trajectoire.
-
-Enseignement — La granularité des gates doit rester proportionnée : utile pour Critical, coûteuse si généralisée sans besoin.
-
-Enseignement — Documenter une réserve acceptée est préférable à une correction opportuniste hors GO lorsque le périmètre livré est déjà sûr.
-
----
-
-## O. Pratiques candidates réutilisables
-
-Aucune pratique ci-dessous n’est promue dans `method/**`. Gate de promotion : **GO METHOD PROMOTION** (non consommé).
-
-### Pratique candidate réutilisable — Package hash freeze (SHA-256 length-prefixed)
-
-- **Bénéfice :** identité byte-stable entre QA, publication, PR, post-merge.
-- **Coût :** discipline de staging ; recalcul à chaque correction.
-- **Conditions :** package fini borné ; manifeste explicite.
-- **Risque de dette :** faux sentiment de « production-ready ».
-- **Automatisation candidate :** script de freeze + vérification CI.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Matrice permanente de regression findings
-
-- **Bénéfice :** non-régression durable des findings fermés.
-- **Coût :** maintenance des probes ; taille de suite.
-- **Conditions :** findings stables et nommés.
-- **Risque de dette :** matrice qui dérive du comportement réel.
-- **Automatisation candidate :** scaffold de matrice par finding.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Probes adversariaux après chaque correction
-
-- **Bénéfice :** découverte de findings de second ordre.
-- **Coût :** cycles QA supplémentaires.
-- **Conditions :** profil Critical ; budget temps.
-- **Risque de dette :** sur-QA sur lots mineurs.
-- **Automatisation candidate :** checklist de nouveaux probes post-fix.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Séparation fixture / sandbox-real / real
-
-- **Bénéfice :** anti-claims clairs ; frontières de preuve.
-- **Coût :** discipline éditoriale et de code.
-- **Conditions :** ports provider explicites.
-- **Risque de dette :** confusion si labels absents.
-- **Automatisation candidate :** lint / tests d’authority de source.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Vérification correlationId/lane avant engagement
-
-- **Bénéfice :** intégrité de corrélation ; fail-closed précoce.
-- **Coût :** règles de validation supplémentaires.
-- **Conditions :** contrats provider avec corrélation.
-- **Risque de dette :** rejets trop stricts si arbitrage absent.
-- **Automatisation candidate :** invariants unitaires.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Evidence tardive fail-closed
-
-- **Bénéfice :** pas de fuite de secrets dans summaries.
-- **Coût :** redaction conservative ; faux positifs potentiels (mitigés par exact-key discrimination).
-- **Conditions :** surfaces d’evidence exposées.
-- **Risque de dette :** redaction trop large → perte d’observabilité.
-- **Automatisation candidate :** matrices de leakage.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Review Handoff mono-fichier vérifié à distance
-
-- **Bénéfice :** preuve chronologique hors main ; relecture ChatGPT.
-- **Coût :** publisher + discipline FF.
-- **Conditions :** branche `sfia/review-handoff` ; script canonique.
-- **Risque de dette :** confusion handoff ≠ publication projet.
-- **Automatisation candidate :** `publish-review-handoff.sh` (déjà présent).
-- **Gate promotion :** GO METHOD PROMOTION (si généralisé hors Studio).
-
-### Pratique candidate réutilisable — Rafraîchissement borné des métadonnées PR
-
-- **Bénéfice :** alignement GO / body sans toucher au code.
-- **Coût :** revue attentive du diff body.
-- **Conditions :** GO mark-ready / merge autorisant body-only.
-- **Risque de dette :** drift si body devient source de vérité produit.
-- **Automatisation candidate :** checklist de champs GO.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Merge commit H1 pour incrément atomique
-
-- **Bénéfice :** parents explicites ; histoire lisible.
-- **Coût :** un merge commit supplémentaire.
-- **Conditions :** PR mono-commit Delivery préférable.
-- **Risque de dette :** historique plus bruyant si multiplié.
-- **Automatisation candidate :** stratégie documentée dans readiness.
-- **Gate promotion :** GO METHOD PROMOTION.
-
-### Pratique candidate réutilisable — Closure + cleanup sous GO explicite
-
-- **Bénéfice :** main propre ; pas de branche Delivery orpheline.
-- **Coût :** gate supplémentaire.
-- **Conditions :** post-merge PASS ; ancestor vérifié.
-- **Risque de dette :** cleanup trop tôt avant QA-G4.
-- **Automatisation candidate :** checklist pre-delete.
-- **Gate promotion :** GO METHOD PROMOTION.
-
----
-
-## P. Recommandations candidates
-
-Aucune recommandation n’est appliquée dans ce cycle.
-
-Recommandation candidate — Conserver le contrat read-only tant que Cursor (D2D3-04) et persistance (D2D3-05) ne sont pas démontrés sous GO dédiés.
-
-Recommandation candidate — Ne pas ouvrir D2D3-04 et D2D3-05 dans un même cycle ; gates G-D2D-CURSOR-01 et G-D2D-PERSIST-01 restent distincts.
-
-Recommandation candidate — Traiter R-QA-D2C-01 / frontières D2-C hors du périmètre D2-D3 déjà clôturé.
-
-Recommandation candidate — Maintenir le package freeze pour les campagnes Critical futures de taille comparable.
-
-Recommandation candidate — Éviter de multiplier les documents vivants (20–24, README, index) sans besoin prouvé ; ce REX crée un dossier de lot dédié sans toucher au framing.
-
-Recommandation candidate — Toute promotion méthode des pratiques §O exige un **GO METHOD PROMOTION** distinct — non consommé.
-
-Recommandation candidate — Ne pas interpréter CLOSED WITH RESERVES comme GO D2-D4.
-
----
-
-## Q. Garde-fous pour réutilisation
-
-- **Réutiliser** les pratiques candidates seulement si le lot a un package borné, des findings nommés, et un budget Critical justifié.
-- **Ne pas appliquer** la chaîne complète (3× revalidation) à un correctif mineur Standard sans GO Critical.
-- **Risque de sur-process :** gates empilés sans proportion → latence sans gain de sûreté.
-- **Contrôle répétable** (hash, probes, CI) ≠ **arbitrage humain** (REV2-02, clôture avec réserves).
-- **Interdiction L5 globale :** ne pas promouvoir localement une pratique comme doctrine SFIA.
-- **Proportionner** QA et gates à la criticité et à la surface d’attaque.
-- **Anti-claims :** ne jamais présenter fixture comme sandbox-real/real ; CI PASS ≠ production-ready ; clôture ≠ ouverture du lot suivant.
-
----
-
-## R. Decision pack futur
-
-Toutes les décisions suivantes sont **NOT DECIDED — MORRIS DECISION REQUIRED**. Aucune option n’est adoptée.
-
-### D-REX-D2D3-01 — Généralisation du package hash freeze
-
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-- **Contexte :** freeze `cb937ada…` efficace de Corr3 à Closure.
-- **Options :** (A) rester ad hoc Delivery ; (B) standardiser dans checklists ; (C) automatiser en CI.
-- **Impacts :** traçabilité ↑ ; coût process ↑.
-- **Dette potentielle :** ritualisation sans besoin.
-- **Reco candidate ChatGPT/Cursor :** (B) puis (C) si répétition ≥ 3 lots — non adoptée.
-- **Décision Morris requise :** oui.
-
-### D-REX-D2D3-02 — Matrice permanente findings + probes adversariaux
-
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-- **Contexte :** matrice F-QA-D2D3 + P-REV* ont sécurisé la clôture.
-- **Options :** (A) conserver local Studio ; (B) template méthode ; (C) ne pas généraliser.
-- **Impacts :** qualité Critical ↑ ; maintenance tests ↑.
-- **Dette potentielle :** suites adversariales devenues bruit.
-- **Reco candidate :** (A) jusqu’à GO METHOD PROMOTION — non adoptée.
-- **Décision Morris requise :** oui.
-
-### D-REX-D2D3-03 — Mise à jour documents vivants 20–24 ou index trajectoire
-
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-- **Contexte :** 20–24 non modifiés ; REX dans dossier de lot dédié.
-- **Options :** (A) laisser tel quel ; (B) note de trajectoire minimale ; (C) révision large 20–24.
-- **Impacts :** cohérence narrative vs drift documentaire.
-- **Dette potentielle :** docs vivants périmés vs churn.
-- **Reco candidate :** (A) ou (B) léger sous GO dédié — non adoptée.
-- **Décision Morris requise :** oui.
-
-### D-REX-D2D3-04 — Ouverture G-D2D-CURSOR-01 / D2D3-04
-
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-- **Contexte :** Cursor UNVERIFIED ; D2D3-04 BLOCKED.
-- **Options :** (A) rester BLOCKED ; (B) spike sandbox-real sous GO ; (C) abandonner la story.
-- **Impacts :** preuve produit Cursor vs coût flakiness.
-- **Dette potentielle :** claims sandbox-real non démontrés.
-- **Reco candidate :** (A) jusqu’à GO dédié — non adoptée.
-- **Décision Morris requise :** oui.
-
-### D-REX-D2D3-05 — Ouverture G-D2D-PERSIST-01 / D2D3-05
-
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-- **Contexte :** process-local only ; durable/multiInstance/restartSafe = false.
-- **Options :** (A) rester process-local ; (B) persistance bornée sous GO ; (C) différer hors D2-D.
-- **Impacts :** runtime fort vs complexité store.
-- **Dette potentielle :** fausse durabilité.
-- **Reco candidate :** (A)/(C) — non adoptée.
-- **Décision Morris requise :** oui.
-
-### D-REX-D2D3-06 — Autorisation éventuelle D2-D4 ou cycle produit suivant
-
-- **Statut :** NOT DECIDED — MORRIS DECISION REQUIRED
-- **Contexte :** Closure a déclaré NO NEXT CYCLE AUTHORIZED ; D2-D4 hors trajectoire CAD-11.
-- **Options :** (A) aucun cycle suivant ; (B) D2-D4 writes sous GO distinct ; (C) autre cycle produit non-D2-D4.
-- **Impacts :** trajectoire produit ; risque writes prématurés.
-- **Dette potentielle :** ouverture implicite depuis capitalisation.
-- **Reco candidate :** (A) jusqu’à GO explicite — non adoptée.
-- **Décision Morris requise :** oui.
-
----
-
-## S. Anti-claims
-
-Ce document **ne prouve pas** et **n’autorise pas** :
-
-- Cursor live
-- sandbox-real
-- provider real
-- Git write produit (capacité applicative)
-- persistance durable (`durable=true`)
-- multi-instance
-- restart-safe
-- UI Delivery
-- strong runtime
-- RUN READY
-- production-ready
-- D2-D4 autorisé
-- réserves ouvertes levées
-- méthode modifiée / pratique candidate adoptée
-- Notion / CMP autorisé
-- publication Git du présent REX
-- commit / push / PR / merge du document de capitalisation
-
----
-
-## T. Verdict et prochaine décision
+## 39. Preuve ancestor
 
 ```
-D2-D3 CAPITALIZATION COMPLETE WITH RESERVES —
-PROJECT REX DOCUMENT CREATED —
-OBSERVATIONS AND CANDIDATES SEPARATED —
-NO METHOD PROMOTION —
-READY FOR MORRIS PUBLICATION DECISION
-```
-
-**Prochaine gate candidate :** `GO PUBLICATION SFIA STUDIO V3.1-D2-D3 CAPITALIZATION` — **candidate uniquement — non consommé**.
-
-Ce gate candidat n’autorise pas automatiquement : merge, promotion méthode, D2-D4, correction de réserves, Notion/CMP.
-
-**État Git de ce cycle :**
-
-- aucun commit projet ;
-- aucun push projet ;
-- aucune PR ;
-- aucune promotion méthode ;
-- aucun D2-D4 ;
-- aucun cycle suivant autorisé ;
-- document local non tracké jusqu’à décision Morris de publication.
-
----
-
-*Fin du document — SFIA Studio V3.1-D2-D3 Capitalization / REX — 2026-08-04.*
-````
-
-## 33–35. Hash / blob / line count
-
-SHA-256 commit/merge/main : `fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693`
-Blob commit/merge/main : `78860d593c9b04a6bbb5c9e8f0f6aa400b256475`
-wc -l = 575
-
-## 36. Structure A–T
-
-PASS — sections A à T présentes et ordonnées.
-
-## 37–42. Findings / réserves / D-REX / D2D3-04/05 / anti-claims
-
-- 14 findings CLOSED (hérités Closure D2-D3)
-- OPEN NOT LIFTED : R-QA-REV-01/02 ; R-QA-D2C-01 ; Cursor UNVERIFIED ; process-local ; R-PR-D2D2-01 ; R-CORR-D2D3-01 ; R-QA-REV3-D2D3-TIME-01
-- CLOSED historiques : R-CORR-D2D3-02 ; R-PR-D2D3-01
-- R-PR-CAPA-D2D3-01 : SATISFIED — CLOSURE RECOMMENDED (non CLOSED / non LIFTED)
-- D-REX-D2D3-01…06 : NOT DECIDED
-- D2D3-04/05 : BLOCKED — NOT DELIVERED
-- anti-claims préservés ; aucun TODO/secret ; aucun D-REX ADOPTED
-
-## 43–44. CI #98
-
-- Workflow : SFIA Studio CI
-- Run #98 / ID `30935105476`
-- event=push ; headBranch=main ; headSha=`8dc54db0069eed78a8d8930cc2b035450ab56ad1`
-- status=completed ; conclusion=success
-- Detect SFIA Studio changes: success
-- Build and validate SFIA Studio: success
-- SFIA Studio Required Gate: success
-Build steps :
-  - Checkout: success
-  - Setup Node.js: success
-  - Install dependencies: success
-  - Typecheck: success
-  - Lint: success
-  - Build: success
-  - Unit tests (Vitest): success
-  - Modeled governance tests: success
-  - Secret pattern scan (targeted): success
-  - Trailing whitespace check: success
-- URL : https://github.com/mcleland147/sfia-workspace/actions/runs/30935105476
-
-## 45–47. Branche préservée / ancestor
-
-```
-f46999246f04d6509f3cf06a7b76ce0ee0d13e8f refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
-local=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
-remote=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f	refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
-ancestor_ok
+=== ANCESTOR / UNIQUE ===
+ancestor_merge=PASS
+ancestor_main=PASS
+unique_commits:
 ahead=0
 behind=1
 ```
 
-## 48. Matrice QA-G4
-
-| # | Critère | Statut |
-|---|---------|--------|
-| 1 | handoff Merge exact | PASS |
-| 2 | main = 8dc54db0… | PASS |
-| 3 | PR #311 MERGED | PASS |
-| 4 | merge SHA exact | PASS |
-| 5 | parents H1 exacts | PASS |
-| 6 | message merge exact | PASS |
-| 7–9 | trees capa/merge/main identical | PASS |
-| 10–12 | scope 1 fichier +575/−0 | PASS |
-| 13–15 | REX hash/blob identity | PASS |
-| 16 | structure A–T | PASS |
-| 17 | findings CLOSED ×14 | PASS |
-| 18–19 | réserves héritées cohérentes | PASS |
-| 20 | R-PR-CAPA SATISFIED — CLOSURE RECOMMENDED | PASS WITH RESERVE |
-| 21 | D-REX NOT DECIDED | PASS |
-| 22 | D2D3-04/05 BLOCKED | PASS |
-| 23 | anti-claims | PASS |
-| 24–25 | CI #98 / Required Gate | PASS |
-| 26–27 | branche locale/distante préservée | PASS |
-| 28 | ahead=0 behind=1 | PASS |
-| 29 | absence modification projet | PASS |
-| 30 | absence closure/cleanup | PASS |
-| 31 | readiness décision clôture | PASS WITH RESERVE |
-
-## 49. Tests techniques non réexécutés
-
-Vitest / typecheck / lint / build / governance : non relancés localement.
-Preuves : CI PR #97 + merge H1 + CI main #98.
-
-## 50. Validations exécutées
-
-Git truth ; PR ; parents/message ; diff/scope ; trees ; hash/blob ; structure ; findings/réserves/D-REX ; anti-claims ; branche ; CI #98 ; freeze final.
-
-## 51. Git Truth Check final
+Preuves complètes pré-clôture :
 
 ```
-=== freeze final ===
-2026-08-04 20:01:25 CEST +0200
-branch=capitalization/sfia-studio-v3-1-d2-d3-rex
-HEAD=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
-upstream=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
-main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
-merge_base=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+=== POST-MERGE PRECHECKS ===
+origin_main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
+main_extra=0
+parents=8dc54db0069eed78a8d8930cc2b035450ab56ad1 e36f12b68545a9ead0d8d0ccbfc55d43973b3521 f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+=== MERGE MESSAGE ===
+Merge pull request #311 from mcleland147/capitalization/sfia-studio-v3-1-d2-d3-rex
+
+docs(sfia-studio): add V3.1-D2-D3 capitalization REX
+=== TREES ===
+cap_tree=50c52fb09bf8d20349483527c8d1c46e5783ec13
+merge_tree=50c52fb09bf8d20349483527c8d1c46e5783ec13
+main_tree=50c52fb09bf8d20349483527c8d1c46e5783ec13
+=== REX HASHES ===
+cap_hash=fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693  -
+merge_hash=fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693  -
+main_hash=fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693  -
+=== REX BLOBS ===
+cap_blob=78860d593c9b04a6bbb5c9e8f0f6aa400b256475
+merge_blob=78860d593c9b04a6bbb5c9e8f0f6aa400b256475
+main_blob=78860d593c9b04a6bbb5c9e8f0f6aa400b256475
+=== ANCESTOR / UNIQUE ===
+ancestor_merge=PASS
+ancestor_main=PASS
+unique_commits:
 ahead=0
 behind=1
+=== MAIN WORKTREE CHECK ===
+103:branch refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
+315:branch refs/heads/sfia/review-handoff
+```
+
+## 40. Preuve aucun commit unique
+
+`git log --oneline origin/main..refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex` → vide
+ahead=0 ; behind=1
+
+## 41. Worktree inventory
+
+Branche Capitalization active uniquement dans le worktree courant `delivery-d2-d1` avant cleanup.
+Worktree handoff séparé : `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` @ `sfia/review-handoff`.
+`refs/heads/main` non verrouillé ailleurs → stratégie de sortie `git switch main` + `git merge --ff-only origin/main`.
+Aucun worktree suppression effectuée.
+
+Blocs pertinents (inventaire initial filtré) :
+
+```
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+HEAD f46999246f04d6509f3cf06a7b76ce0ee0d13e8f
+branch refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
+
+worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+HEAD 1644e71053922bce42e45e279c1905b1184f19eb
+branch refs/heads/sfia/review-handoff
+
+```
+
+Inventaire final compact (extrait pertinent) :
+
+```
+worktree /Users/morris/Projects/sfia-workspace-m1-capitalization
+HEAD fa0eebe00ce3b765a8a486aa660dddfab40123a0
+branch refs/heads/docs/sfia-studio-m1-capitalization-rex
+worktree /Users/morris/Projects/sfia-workspace-review-handoff-publisher
+HEAD 14d58fe95a8f29c3dc1f72c794a64fedbc795bbe
+branch refs/heads/tooling/review-handoff-canonical-publisher
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+HEAD 8dc54db0069eed78a8d8930cc2b035450ab56ad1
+branch refs/heads/main
+worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+HEAD 1644e71053922bce42e45e279c1905b1184f19eb
+branch refs/heads/sfia/review-handoff
+```
+
+## 42. Stratégie de sortie de branche
+
+Option préférée exécutée :
+
+```
+=== EXIT BRANCH STRATEGY ===
+main_locked_elsewhere=NO — switching to main
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+Updating e36f12b..8dc54db
+Fast-forward
+ .../05-capitalization-rex.md                       | 575 +++++++++++++++++++++
+ 1 file changed, 575 insertions(+)
+ create mode 100644 projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/first-user-visible-vertical-slice-v3-1-d2-d3-read-only-coordination/05-capitalization-rex.md
+strategy=main
+current=main
+HEAD=8dc54db0069eed78a8d8930cc2b035450ab56ad1
+=== STATUS AFTER SWITCH ===
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/app/.tmp-sfia-review/
-remote_capa=f46999246f04d6509f3cf06a7b76ce0ee0d13e8f	refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
-handoff=ee946977948a4f5858a5bde78ca66672999bab50
 ```
 
-## 52–58. Absences
+## 43. Commande de suppression locale exacte
 
-aucune modification projet/PR ; aucun commit/push projet ; aucune suppression branche ; aucune closure ; aucune promotion méthode ; aucun D2-D4
+`git branch -d capitalization/sfia-studio-v3-1-d2-d3-rex`
 
-## 59. Review Handoff
+## 44. Sortie de suppression locale
+
+```
+=== LOCAL DELETE COMMAND ===
+git branch -d capitalization/sfia-studio-v3-1-d2-d3-rex
+=== LOCAL DELETE OUTPUT ===
+Deleted branch capitalization/sfia-studio-v3-1-d2-d3-rex (was f469992).
+exit=0
+=== VERIFY LOCAL ABSENT ===
+LOCAL_ABSENT
+fatal: 'refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex' - not a valid ref
+branch_list=
+main_still=8dc54db0069eed78a8d8930cc2b035450ab56ad1
+HEAD_still=8dc54db0069eed78a8d8930cc2b035450ab56ad1
+```
+
+## 45. Preuve branche locale absente
+
+`git show-ref --verify refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex` → fatal: not a valid ref
+`git branch --list capitalization/sfia-studio-v3-1-d2-d3-rex` → vide
+
+## 46. Commande de suppression distante exacte
+
+`git push origin --delete capitalization/sfia-studio-v3-1-d2-d3-rex`
+
+## 47. Sortie de suppression distante
+
+```
+=== REMOTE DELETE COMMAND ===
+git push origin --delete capitalization/sfia-studio-v3-1-d2-d3-rex
+=== REMOTE DELETE OUTPUT ===
+exit=0
+=== FETCH PRUNE ===
+=== VERIFY REMOTE ABSENT ===
+ls-remote=[]
+REMOTE_ABSENT
+REMOTE_TRACKING_ABSENT
+fatal: 'refs/remotes/origin/capitalization/sfia-studio-v3-1-d2-d3-rex' - not a valid ref
+local_list=
+remote_list=
+=== WORKTREE FINAL SNIP ===
+101:worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+315:branch refs/heads/sfia/review-handoff
+=== REMOTE DELETE STDOUT/STDERR (observed live) ===
+To https://github.com/mcleland147/sfia-workspace.git
+ - [deleted]         capitalization/sfia-studio-v3-1-d2-d3-rex
+```
+
+## 48. Fetch / prune
+
+`git fetch origin --prune` exécuté après suppression distante et dans le freeze.
+
+## 49. Preuve branche distante absente
+
+`git ls-remote --heads origin refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex` → vide
+REMOTE_ABSENT
+
+## 50. Preuve remote-tracking ref absente
+
+`git show-ref --verify refs/remotes/origin/capitalization/sfia-studio-v3-1-d2-d3-rex` → fatal: not a valid ref
+`git branch -r --list origin/capitalization/sfia-studio-v3-1-d2-d3-rex` → vide
+
+## 51. Worktree inventory final
+
+Aucun worktree attaché à `capitalization/sfia-studio-v3-1-d2-d3-rex`.
+Worktree courant : `delivery-d2-d1` sur `main` @ `8dc54db0…`.
+Worktree handoff préservé.
+
+## 52. R-PR-CAPA-D2D3-01 statut final complet
+
+CLOSED —
+SATISFIED AND VERIFIED —
+PR BODY UPDATED UNDER MORRIS-AUTHORIZED MARK READY CYCLE —
+POST-MERGE QA-G4 VERIFIED —
+MORRIS CAPITALIZATION CLOSURE GO CONSUMED
+
+## 53. Matrice de clôture
+
+| # | Contrôle | Statut |
+|---|---|---|
+| 1 | handoff Post-Merge exact `1644e710…` / blob `0f3f4356…` | PASS |
+| 2 | GO Closure consommé 20:30 CEST | PASS |
+| 3 | main = `8dc54db0…` | PASS |
+| 4 | PR #311 mergée | PASS |
+| 5 | merge H1 exact | PASS |
+| 6 | parents exacts ordonnés | PASS |
+| 7 | tree identity ×3 | PASS |
+| 8 | REX SHA-256 | PASS |
+| 9 | REX blob | PASS |
+| 10 | CI #98 success | PASS |
+| 11 | Required Gate SUCCESS | PASS |
+| 12 | branche locale initialement présente | PASS |
+| 13 | branche distante initialement présente | PASS |
+| 14 | commit branche = `f4699924…` | PASS |
+| 15 | ancestor check | PASS |
+| 16 | commits uniques branche = 0 | PASS |
+| 17 | ahead/behind initial = 0/1 | PASS |
+| 18 | worktree safety | PASS |
+| 19 | suppression locale par `-d` | PASS |
+| 20 | absence branche locale finale | PASS |
+| 21 | suppression distante normale | PASS |
+| 22 | absence branche distante finale | PASS |
+| 23 | prune | PASS |
+| 24 | absence remote-tracking ref | PASS |
+| 25 | main final préservé | PASS |
+| 26 | REX final préservé | PASS |
+| 27 | PR finale inchangée | PASS |
+| 28 | R-PR-CAPA-D2D3-01 formellement CLOSED | PASS |
+| 29 | réserves héritées ouvertes préservées | PASS WITH RESERVE |
+| 30 | réserves historiques fermées préservées | PASS |
+| 31 | D-REX NOT DECIDED | PASS |
+| 32 | D2D3-04/05 BLOCKED | PASS |
+| 33 | absence promotion méthode | PASS |
+| 34 | absence D2-D4 | PASS |
+| 35 | absence cycle suivant | PASS |
+| 36 | readiness de clôture finale | PASS WITH RESERVE |
+
+## 54. Main final
+
+`origin/main` = `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+HEAD local = `8dc54db0069eed78a8d8930cc2b035450ab56ad1` (branche `main`, ff-only)
+main_extra = 0
+
+## 55. REX final
+
+SHA-256 = `fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693`
+Blob = `78860d593c9b04a6bbb5c9e8f0f6aa400b256475`
+PUBLISHED ON MAIN — IDENTITY PRESERVED
+
+## 56. CI finale
+
+CI #98 / ID 30935105476 — SUCCESS (non relancée ; re-vérifiée)
+
+## 57. PR finale
+
+state=MERGED ; mergeCommit=`8dc54db0…` ; body inchangé ; autoMerge=null
+
+## 58. Absence de modification projet
+
+Aucun fichier projet créé, modifié ou supprimé. Artefacts limités à `.tmp-sfia-review/**` (non trackés).
+
+## 59. Absence de modification PR
+
+PR #311 body / metadata non modifiés dans ce cycle.
+
+## 60. Absence commit / push projet
+
+Aucun commit projet. Aucun push projet (hors suppression de branche Capitalization et push handoff L3 borné).
+
+## 61. Absence force delete
+
+`git branch -D` non utilisé. Force push non utilisé.
+
+## 62. Absence worktree deletion
+
+Aucun worktree supprimé.
+
+## 63. Absence promotion méthode
+
+Méthode UNCHANGED. Aucune pratique candidate adoptée.
+
+## 64. Absence adoption D-REX
+
+D-REX-D2D3-01…06 restent NOT DECIDED — MORRIS DECISION REQUIRED.
+
+## 65. Absence D2-D4
+
+D2-D4 NOT AUTHORIZED.
+
+## 66. Absence cycle suivant
+
+NO NEXT CYCLE AUTHORIZED.
+Décision suivante candidate : aucune.
+
+## 67. Review Handoff
 
 Mode : publish-in-cycle
-Publisher : scripts/sfia/publish-review-handoff.sh
-Source : .tmp-sfia-review/chatgpt-review.md
-Branche : sfia/review-handoff
-Fichier : sfia-review-handoff/latest-chatgpt-review.md
-Parent Merge : `ee946977948a4f5858a5bde78ca66672999bab50`
-Commit publié : `a28bead7df17f42a0674b8b031e28e46bbf83b00`
-Blob publié : `e63fedfc9944ab056389444164f0f2c846419464`
-Message : docs(review-handoff): publish D2-D3 capitalization post-merge status
-Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
-Titre distant : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Post-Merge QA-G4
-Verdict distant : D2-D3 CAPITALIZATION POST-MERGE QA-G4 PASS WITH RESERVES — … — READY FOR MORRIS CLOSURE AND BRANCH-CLEANUP DECISION
-Mono-fichier tip : oui
+Publisher : `scripts/sfia/publish-review-handoff.sh`
+Source : `.tmp-sfia-review/chatgpt-review.md`
+Branche : `sfia/review-handoff`
+Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+Parent attendu premier commit : `1644e71053922bce42e45e279c1905b1184f19eb`
+Message : docs(review-handoff): publish D2-D3 capitalization closure status
+Commit / blob / verdict publisher : *(à compléter après publication)*
 
+## 68. Verdict unique
 
-## 60. Verdict unique
+D2-D3 CAPITALIZATION CLOSURE COMPLETE WITH RESERVES —
+STATUS CLOSED WITH RESERVES —
+R-PR-CAPA-D2D3-01 FORMALLY CLOSED —
+CAPITALIZATION BRANCH CLEANUP COMPLETE —
+MAIN, REX AND CI #98 PRESERVED —
+NO NEXT CYCLE AUTHORIZED
 
-D2-D3 CAPITALIZATION POST-MERGE QA-G4 PASS WITH RESERVES —
-MAIN ALIGNED ON MERGE COMMIT —
-PR #311, REX IDENTITY AND CI #98 VERIFIED —
-CAPITALIZATION BRANCH PRESERVED —
-READY FOR MORRIS CLOSURE AND BRANCH-CLEANUP DECISION
+## 69. État final de trajectoire
 
-## 61. Décision suivante candidate
+- Cycle Capitalization : CLOSED WITH RESERVES
+- Branche Capitalization : ABSENT LOCAL AND REMOTE
+- Main : `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+- REX : PUBLISHED ON MAIN — IDENTITY PRESERVED
+- R-PR-CAPA-D2D3-01 : CLOSED — SATISFIED AND VERIFIED
+- Réserves héritées : OPEN NOT LIFTED ou statut historique inchangé
+- D-REX-D2D3-01…06 : NOT DECIDED — MORRIS DECISION REQUIRED
+- D2D3-04/05 : BLOCKED — NOT DELIVERED
+- Méthode : UNCHANGED
+- D2-D4 : NOT AUTHORIZED
+- Cycle suivant : NO NEXT CYCLE AUTHORIZED
+- Décision suivante candidate : aucune
 
-GO CLOSURE SFIA STUDIO V3.1-D2-D3 CAPITALIZATION — WITH RESERVES — INCLUDE CAPITALIZATION BRANCH CLEANUP
-Statut : candidate uniquement — non consommé
+Toute réouverture future exige un nouveau GO Morris explicite et un nouveau cycle qualifié.
 
-Pourrait autoriser dans un cycle séparé : clôture formelle chaîne Capitalization ; fermeture formelle R-PR-CAPA-D2D3-01 si toujours satisfaite ; suppression non forcée branche Capitalization locale/distante.
-N’autorise pas automatiquement : promotion méthode, adoption D-REX, D2-D4, correction réserves héritées, Notion/CMP, cycle produit suivant.
+## Annexe A — Freeze après cleanup (sortie complète)
 
----
-
-Instruction finale : ChatGPT doit consulter la branche sfia/review-handoff et le fichier sfia-review-handoff/latest-chatgpt-review.md au commit et blob publiés par ce cycle avant toute validation Post-Merge, génération d’un prompt Closure Capitalization, suppression de branche, promotion méthode ou préparation d’un cycle suivant.
+```
+=== FREEZE AFTER CLEANUP ===
+2026-08-04 20:40:06 CEST +0200
+origin_main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
+main_extra=0
+branch=main
+HEAD=8dc54db0069eed78a8d8930cc2b035450ab56ad1
+CMD: git show-ref --verify refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
+rc=128
+CMD: git ls-remote --heads origin refs/heads/capitalization/sfia-studio-v3-1-d2-d3-rex
+rc=0
+CMD: git branch --list capitalization/sfia-studio-v3-1-d2-d3-rex
+rc=0
+CMD: git branch -r --list origin/capitalization/sfia-studio-v3-1-d2-d3-rex
+rc=0
+=== STATUS ===
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/.tmp-sfia-review/
+rex_hash=fd98ede9db0e09e552825332b0455c88dd7debd3739ed11cc29f6dd728381693  -
+rex_blob=78860d593c9b04a6bbb5c9e8f0f6aa400b256475
+handoff=1644e71053922bce42e45e279c1905b1184f19eb
+```
