@@ -765,9 +765,20 @@ Conservé ; D-REX NOT DECIDED ; anti-claims du REX inchangés.
 
 ## 25. Review Handoff
 
-Mode publish-in-cycle ; parent attendu `c2e323b73258800f1fabc41030c10fe5973f7db5` ;
-message : docs(review-handoff): publish D2-D3 capitalization publication status ;
-(résultat distant après publication).
+Mode : publish-in-cycle
+Publisher : scripts/sfia/publish-review-handoff.sh
+Source : .tmp-sfia-review/chatgpt-review.md
+Branche : sfia/review-handoff
+Fichier : sfia-review-handoff/latest-chatgpt-review.md
+Parent Capitalization : `c2e323b73258800f1fabc41030c10fe5973f7db5`
+Commit publié : `0bc3795aedda39e1be09be42270bdfab5ae88d66`
+Blob publié : `1773c96516091ae174af540ed85df1ddd292ce4e`
+Message : docs(review-handoff): publish D2-D3 capitalization publication status
+Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+Titre distant : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Publication
+Verdict distant : D2-D3 CAPITALIZATION PUBLICATION COMPLETE — DRAFT PR #311 OPEN — … — READY FOR MORRIS PR READINESS DECISION
+Mono-fichier tip : oui
+
 
 ## 26. Verdict unique
 
