@@ -1,3 +1,5964 @@
+# SFIA Studio V3.1-D2-D1 — PR Readiness Full Review Pack
+
+## Meta
+- Cycle start (GO): 2026-08-04 05:19:00 CEST (+0200)
+- Cycle end: 2026-08-04 05:34:08 CEST (+0200)
+- Role: Cursor PR readiness (read-only projet + métadonnées PR)
+- Cycle: Cycle 13 — PR readiness
+- Profile: Standard
+- Justification: read-only evaluation; package already Critical-QA + revalidation; commit and remote CI exist; no architecture decision or mutation authorized; package criticality handled by reinforced evidence depth without promoting this cycle to Critical by comfort
+- Typologie: INC
+- Review Pack: Full
+- Review Handoff: required (publish-in-cycle, L3)
+- Mode: publish-in-cycle
+- Push handoff: yes — L3 borné
+
+## GO Morris (complete)
+GO PR READINESS SFIA STUDIO V3.1-D2-D1
+Date/heure du GO: 2026-08-04 05:19 CEST (+0200)
+
+Authorized: Git local/remote read; project commit read; full diff and 49 files; PR #308 and body; comments/reviews/threads; CI and accessible protection rules; read-only controls; temporary evidence under `.tmp-sfia-review/**`; Full Review Pack; L3 Review Handoff.
+
+Forbidden: package/test mutation; staging; project commit/amend/push/force-push/rebase; PR title/body update; reviewer/label; reply/resolve threads; mark ready; auto-merge; merge; close PR; delete branch; D2-D2/D2-D3/D2-D4 write; G-D2D-CURSOR-01; provider; durable persistence; D2-C correction; method promotion.
+
+## CKC fallback
+- detailed PR readiness contract: absent
+- fallback: 02-fifteen-cycles-synthetic-map.md + sfia-v2.5-project-cycles-method-candidate.md §4.13
+- complementary template: prompts/templates/2026-07-04-05-validate-pr-readiness.md (candidate)
+- structural authoritative template: prompts/templates/sfia-cycle-execution-template.md
+- usage: experimental cognitive guidance only
+- authority: none
+- central proof: base/head identity, diff, package, body, CI, reviews, reserves, mergeability
+- limit: READY does not imply PR action or merge
+
+## Predecessor Review Handoff (publication)
+- tip before this cycle: f331b24b2aab15d206411355ff58f6faa8ac851d
+- blob before this cycle: 1f2641e6a42522345cf450158386bbd6f31b8cc1
+- Note: tip/blob of THIS report are calculated AFTER publication. They are reported in the Cursor terminal response and verified independently by ChatGPT to avoid an autoreferential loop.
+
+## Sources consulted
+1. prompts/templates/sfia-cycle-execution-template.md
+2. prompts/templates/2026-07-04-05-validate-pr-readiness.md (candidate)
+3–6. method core routing / operating model / guardrails / validation checklist (§9/10/12)
+7–8. CKC synthetic map + §4.13
+9. docs/architecture/sfia-delivery-pipeline.md
+10. .github/workflows/sfia-studio-ci.yml
+11–12. scripts/sfia/README.md + publish-review-handoff.sh
+13–15. commit 0f77e4cae5df5c3c6d70728b1e54f53de94e8d81, full diff parent→head, 49 files
+16–24. PR #308 metadata/body/files/comments/inline/reviews/requests/checks/CI/protection|rulesets
+25. publication Review Handoff complete
+
+## Git Truth initiale
+```
+branch=delivery/sfia-studio-v3-1-d2-d1
+HEAD=0f77e4cae5df5c3c6d70728b1e54f53de94e8d81
+PARENT=df4377249660aab79d764915ad3166608a8a9a7d
+origin/main=df4377249660aab79d764915ad3166608a8a9a7d
+origin/delivery=0f77e4cae5df5c3c6d70728b1e54f53de94e8d81
+status:
+?? .tmp-sfia-review/
+cached:
+unstaged:
+log:
+0f77e4c (HEAD -> delivery/sfia-studio-v3-1-d2-d1, origin/delivery/sfia-studio-v3-1-d2-d1) feat(sfia-studio): add V3.1-D2-D1 execution-run foundation
+left-right:
+0	1
+handoff_tip=f331b24b2aab15d206411355ff58f6faa8ac851d
+handoff_blob=1f2641e6a42522345cf450158386bbd6f31b8cc1
+```
+
+## PR-01 Base / head / history
+```
+merge-base=df4377249660aab79d764915ad3166608a8a9a7d
+ahead=1
+behind=0
+commit-count=1
+0f77e4cae5df5c3c6d70728b1e54f53de94e8d81 df4377249660aab79d764915ad3166608a8a9a7d
+```
+
+### commit metadata
+```
+commit 0f77e4cae5df5c3c6d70728b1e54f53de94e8d81
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Tue Aug 4 05:10:43 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Tue Aug 4 05:10:43 2026 +0200
+
+    feat(sfia-studio): add V3.1-D2-D1 execution-run foundation
+```
+
+Verified: main=df4377249660aab79d764915ad3166608a8a9a7d; merge-base=main; ahead=1; behind=0; single non-merge commit; parent exact; local=remote=PR head=0f77e4cae5df5c3c6d70728b1e54f53de94e8d81.
+
+## Package / diff (PR-02)
+- count: 49
+- sha256: `ec33a1ca0ab38f861cd0bd580e1e5d33672df65ce75c3669fe41806c9178e35c`
+- all Added; 0 deletions of pre-existing tracked files
+- roots only; no `.tmp-sfia-review`; no package.json/lock/workflow/docs/method/secrets
+
+### package-files.txt
+```
+projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/qaFindings.closure.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/internal/persistExecutionRunInternal.ts
+projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts
+projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts
+projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts
+projects/sfia-studio/app/lib/oa/execution-run/index.ts
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts
+projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
+projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts
+projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+```
+
+### package-sizes.txt
+```
+projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts	3845
+projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts	3440
+projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts	6301
+projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts	1520
+projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts	4165
+projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts	5570
+projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts	3890
+projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts	5851
+projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts	3143
+projects/sfia-studio/app/__tests__/oa/execution-run/qaFindings.closure.test.ts	11725
+projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts	2316
+projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts	5884
+projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts	2430
+projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts	4151
+projects/sfia-studio/app/lib/oa/execution-run/application/internal/persistExecutionRunInternal.ts	1827
+projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts	10613
+projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts	472
+projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts	1790
+projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts	3852
+projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts	4484
+projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts	3280
+projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts	6347
+projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts	7072
+projects/sfia-studio/app/lib/oa/execution-run/index.ts	2213
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts	4899
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts	196
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts	1023
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts	146
+projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts	550
+projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts	51
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts	271
+projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts	960
+projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts	111
+projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json	578
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json	1359
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json	1231
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json	1230
+projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json	4839
+projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json	1107
+projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json	738
+projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json	1606
+projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json	778
+projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json	828
+projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json	1950
+projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json	911
+projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json	878
+projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts	2511
+projects/sfia-studio/app/lib/oa/execution-run/server/index.ts	295
+projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts	452
+```
+
+### package.sha256
+```
+ec33a1ca0ab38f861cd0bd580e1e5d33672df65ce75c3669fe41806c9178e35c
+```
+
+### commit name-status
+```
+A	projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/qaFindings.closure.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/internal/persistExecutionRunInternal.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/index.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+A	projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+A	projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+```
+
+### diff stat
+```
+ .../oa/execution-run/boundaries.create.test.ts     | 127 +++++++
+ .../oa/execution-run/boundaries.transition.test.ts | 111 +++++++
+ .../oa/execution-run/contract.equivalence.test.ts  | 221 +++++++++++++
+ .../__tests__/oa/execution-run/evidence.test.ts    |  52 +++
+ .../oa/execution-run/importBoundaries.test.ts      | 124 +++++++
+ .../__tests__/oa/execution-run/lateResult.test.ts  | 177 ++++++++++
+ .../oa/execution-run/lifecycle.fixture.test.ts     | 130 ++++++++
+ .../oa/execution-run/persist.guards.test.ts        | 185 +++++++++++
+ .../app/__tests__/oa/execution-run/policy.test.ts  |  90 +++++
+ .../oa/execution-run/qaFindings.closure.test.ts    | 357 ++++++++++++++++++++
+ .../oa/execution-run/repository.memory.test.ts     |  73 ++++
+ .../oa/execution-run/schemas.adversarial.test.ts   | 180 ++++++++++
+ .../__tests__/oa/execution-run/transitions.test.ts |  86 +++++
+ .../application/createExecutionRun.ts              | 127 +++++++
+ .../internal/persistExecutionRunInternal.ts        |  54 +++
+ .../application/transitionExecutionRun.ts          | 367 +++++++++++++++++++++
+ .../app/lib/oa/execution-run/domain/errors.ts      |  18 +
+ .../app/lib/oa/execution-run/domain/evidence.ts    |  74 +++++
+ .../app/lib/oa/execution-run/domain/invariants.ts  | 112 +++++++
+ .../app/lib/oa/execution-run/domain/policy.ts      | 164 +++++++++
+ .../app/lib/oa/execution-run/domain/transitions.ts | 109 ++++++
+ .../app/lib/oa/execution-run/domain/types.ts       | 241 ++++++++++++++
+ .../app/lib/oa/execution-run/fixtures/catalogue.ts | 238 +++++++++++++
+ .../sfia-studio/app/lib/oa/execution-run/index.ts  |  64 ++++
+ .../ajvExecutionRunSchemaValidation.ts             | 135 ++++++++
+ .../oa/execution-run/infrastructure/fixedClock.ts  |   8 +
+ .../infrastructure/memoryExecutionRunRepository.ts |  27 ++
+ .../infrastructure/memoryExecutionRunStore.ts      |   5 +
+ .../infrastructure/sequentialIdentity.ts           |  22 ++
+ .../app/lib/oa/execution-run/ports/clockPort.ts    |   3 +
+ .../execution-run/ports/executionRunRepository.ts  |   7 +
+ .../ports/executionRunSchemaValidation.ts          |  34 ++
+ .../app/lib/oa/execution-run/ports/identityPort.ts |   5 +
+ .../schemas/create-execution-run-input.schema.json |  18 +
+ .../schemas/execution-context.schema.json          |  61 ++++
+ .../schemas/execution-evidence.schema.json         |  63 ++++
+ .../schemas/execution-intent.schema.json           |  58 ++++
+ .../schemas/execution-run.schema.json              | 178 ++++++++++
+ .../schemas/external-result.schema.json            |  43 +++
+ .../schemas/human-decision-gate.schema.json        |  32 ++
+ .../schemas/normalized-failure.schema.json         |  71 ++++
+ .../provider-capability-descriptor.schema.json     |  31 ++
+ .../schemas/source-disclosure.schema.json          |  39 +++
+ .../transition-execution-run-input.schema.json     |  81 +++++
+ .../schemas/usage-summary.schema.json              |  40 +++
+ .../schemas/validation-outcome.schema.json         |  35 ++
+ .../server/composeExecutionRunMemory.ts            |  64 ++++
+ .../app/lib/oa/execution-run/server/index.ts       |   9 +
+ .../app/lib/oa/execution-run/server/serverOnly.ts  |  12 +
+ 49 files changed, 4562 insertions(+)
+```
+
+### Four-way inventory
+| Source | count | match |
+|---|---|---|
+| package-files (commit archive) | 49 | YES |
+| commit-files | 49 | YES |
+| pr-files | 49 | YES |
+| hash | ec33a1ca0ab38f861cd0bd580e1e5d33672df65ce75c3669fe41806c9178e35c | YES vs QA |
+
+## Granularity (PR-03)
+Verdict: **commit atomique cohérent**.
+One useful outcome; core+schemas+fixtures+tests inseparable; message matches diff; layered review order present in body; no mandatory split.
+
+## Title / body (PR-04)
+Title exact: `feat(sfia-studio): add V3.1-D2-D1 execution-run foundation`
+
+### PR body (complete)
+```markdown
+## Summary
+
+- Adds the SFIA Studio OA `execution-run` core: sole D2-D technical state authority (memory / fixture-first).
+- Delivers TypeScript contracts, thirteen JSON Schema / AJV Draft-07 schemas, eight-state transitions, read-only policy, evidence rules, memory repository, fifteen fixtures, and server-only composition.
+- Closes QA findings F-QA-D2D1-01 (Cursor unverified) and F-QA-D2D1-02 (public persist surface) before publication.
+
+## Morris decisions
+
+- GO Delivery D2-D1 (local package)
+- GO correction(s) and GO second correction (Cursor + persist surface)
+- GO QA Critical (blocked) then GO QA revalidation (PASS WITH RESERVES)
+- GO Publication (this cycle)
+- G-D2D-CURSOR-01 not consumed
+- No GO D2-D2 / D2-D3 / merge
+
+## Scope
+
+- Exactly **49** files under:
+  - `projects/sfia-studio/app/lib/oa/execution-run/**`
+  - `projects/sfia-studio/app/__tests__/oa/execution-run/**`
+- Package SHA-256: `ec33a1ca0ab38f861cd0bd580e1e5d33672df65ce75c3669fe41806c9178e35c`
+- No document / package.json / lockfile / workflow / dependency changes
+
+## Contract
+
+- Twelve canonical objects; eight states; thirteen schemas
+- Sole state authority; create → idle|blocked; transition is the only public mutation path
+- Validate untrusted create/transition input before metadata use
+- Persistence path: invariants → ExecutionRun schema → repository.save (internal helper only)
+- Succeeded requires complete ExternalResult + official non-late evidence
+- Cursor-associated runs: `cursorUnverified=true`; `capability.verified` must not be true
+- Memory process-local only (`durable` / `multiInstance` / `restartSafe` = false)
+
+## QA evidence
+
+- First QA: BLOCKED on F-QA-D2D1-01 / F-QA-D2D1-02
+- Second correction closed both findings
+- QA revalidation: PASS WITH RESERVES
+- Targeted: 13 files / 81 tests
+- Full Vitest: 115 files / 1127 tests
+- Modeled governance: 73 tests
+- typecheck / lint / build / secret scan / diff-check green on the published package
+
+## Reserves
+
+- R-QA-REV-01 OPEN NOT LIFTED
+- R-QA-REV-02 OPEN NOT LIFTED
+- R-QA-D2C-01 OPEN NOT LIFTED
+- CURSOR PRODUCT CAPABILITIES — UNVERIFIED
+- Memory process-local only
+
+## Explicit boundaries
+
+- No provider integration
+- No Cursor capability verification / no G-D2D-CURSOR-01 consumption
+- No durable / restart-safe / multi-instance persistence
+- No D2-D2 / D2-D3 / D2-D4 write
+- No UI / HTTP / Server Action / D3 transport
+- No production-ready or RUN-ready claim
+- No merge authorization in this cycle
+
+## Test plan
+
+```bash
+cd projects/sfia-studio/app
+npm test -- __tests__/oa/execution-run/
+npm run typecheck
+npm run lint
+npm run build
+npm test
+
+cd ../
+node --test \
+  sfia-v3-modeled/v3-native-option-a/tests/evidence-review-maturity-governance.test.mjs \
+  sfia-v3-modeled/v3-native-option-a/tests/execution-contract-governance.test.mjs \
+  sfia-v3-modeled/v3-native-option-a/tests/execution-attempt-governance.test.mjs
+```
+
+## Review guidance
+
+1. `domain/types.ts` then schemas
+2. `domain/invariants.ts` / `domain/transitions.ts` / `domain/policy.ts`
+3. `application/createExecutionRun.ts` / `transitionExecutionRun.ts`
+4. `application/internal/persistExecutionRunInternal.ts` (not public)
+5. `server/` composition + root barrel boundaries
+6. Adversarial / QA closure tests under `__tests__/oa/execution-run/`
+
+## Publication status
+
+- PR is **Draft**
+- Merge is **not** authorized
+- Candidate next gate after ChatGPT publication validation: `GO PR READINESS SFIA STUDIO V3.1-D2-D1`
+```
+
+Body contains required sections and facts (49, hash, twelve/eight/thirteen, process-local, Cursor UNVERIFIED, F-01/F-02 closure, PASS WITH RESERVES, 81/1127/73, reserves, boundaries). Phrases `production-ready` / `RUN-ready` appear only as **negated** anti-claims. No metadata mutation performed.
+
+## CI (PR-05)
+```json
+{
+  "databaseId": 30874027404,
+  "name": "SFIA Studio CI",
+  "event": "pull_request",
+  "status": "completed",
+  "conclusion": "success",
+  "headSha": "0f77e4cae5df5c3c6d70728b1e54f53de94e8d81",
+  "headBranch": "delivery/sfia-studio-v3-1-d2-d1",
+  "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404"
+}
+```
+
+### Jobs / steps
+
+- Detect SFIA Studio changes: success (https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881694710)
+  - Set up job → success
+  - Checkout → success
+  - Detect Studio scope → success
+  - Post Checkout → success
+  - Complete job → success
+- Build and validate SFIA Studio: success (https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881720803)
+  - Set up job → success
+  - Checkout → success
+  - Setup Node.js → success
+  - Install dependencies → success
+  - Typecheck → success
+  - Lint → success
+  - Build → success
+  - Unit tests (Vitest) → success
+  - Modeled governance tests → success
+  - Secret pattern scan (targeted) → success
+  - Trailing whitespace check → success
+  - Post Setup Node.js → success
+  - Post Checkout → success
+  - Complete job → success
+- SFIA Studio Required Gate: success (https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881982576)
+  - Set up job → success
+  - Aggregate required gate → success
+  - Complete job → success
+
+### pr-checks
+```
+Build and validate SFIA Studio	pass	1m38s	https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881720803
+Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881694710
+SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881982576
+```
+
+CI valid for current head: YES. No newer failed/pending check on same head observed.
+
+## Reviews / comments (PR-06)
+- issue comments: []
+- inline comments: []
+- reviews: []
+- reviewRequests: {
+  "reviewRequests": [],
+  "reviewDecision": ""
+}
+No actionable review feedback. No replies/resolutions performed.
+
+## Conflicts / protection (PR-07)
+- mergeable: MERGEABLE
+- mergeStateStatus: CLEAN
+- classic branch protection API: 404 Branch not protected (ENVIRONMENTAL F-PRR-02)
+- ruleset active: `SFIA Studio Main Required Gate — M1`
+- required_approving_review_count: 0
+- required_status_checks: SFIA Studio Required Gate
+- allowed_merge_methods: merge, squash, rebase
+- Morris remains applicable human authority; no outstanding mandatory external approval
+
+### ruleset JSON (complete)
+```json
+{
+  "id": 19798462,
+  "name": "SFIA Studio Main Required Gate \u2014 M1",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "mcleland147/sfia-workspace",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "SFIA Studio Required Gate",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "node_id": "RRS_lACqUmVwb3NpdG9yec5MdiYIzgEuGb4",
+  "created_at": "2026-07-27T09:31:28.759+02:00",
+  "updated_at": "2026-07-27T19:27:23.150+02:00",
+  "bypass_actors": [
+    {
+      "actor_id": 295557155,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ],
+  "current_user_can_bypass": "pull_requests_only",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/mcleland147/sfia-workspace/rulesets/19798462"
+    },
+    "html": {
+      "href": "https://github.com/mcleland147/sfia-workspace/rules/19798462"
+    }
+  }
+}
+```
+
+### branch-protection-unavailable
+```
+branch protection unavailable rc=1
+gh: Branch not protected (HTTP 404)
+```
+
+## Contract / boundaries (PR-08) — spot checks on HEAD
+- 13 schemas present
+- ExecutionState includes eight states (idle…timed_out)
+- root barrel exports create+transition; does NOT export persist or compose
+- invariants include Cursor verified fail-closed
+- create validates and rejects Cursor verified claims
+- persistExecutionRunInternal: invariants then schema then save
+- server-only guard present
+- persistence flags durable/multiInstance/restartSafe const false (types/schema/create/compose)
+- CI + QA revalidation handoff corroborate
+
+No new BLOCKING contract bypass demonstrated.
+
+## Reserves / anti-claims (PR-09)
+OPEN NOT LIFTED:
+- R-QA-REV-01
+- R-QA-REV-02
+- R-QA-D2C-01
+- CURSOR PRODUCT CAPABILITIES — UNVERIFIED
+- G-D2D-CURSOR-01 NOT CONSUMED
+- G-D2D-D2C-01 NOT CONSUMED
+- G-D2D-PERSIST-01 NOT CONSUMED
+- G-D2D-DELIVERY-02 NOT CONSUMED
+- G-D2D-DELIVERY-03 NOT CONSUMED
+
+Forbidden claims absent as positive claims.
+
+## Local controls (PR-10)
+- remote CI primary proof (head match)
+- diff --check clean
+- secret scan empty
+- package hash recomputed from HEAD = QA hash
+- optional local targeted tests (node_modules present): 13 files / 81 tests PASS
+
+```
+
+> sfia-studio@0.1.0 test
+> vitest run __tests__/oa/execution-run/
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1/projects/sfia-studio/app
+
+ ✓ __tests__/oa/execution-run/contract.equivalence.test.ts (5 tests) 41ms
+ ✓ __tests__/oa/execution-run/boundaries.create.test.ts (4 tests) 60ms
+ ✓ __tests__/oa/execution-run/boundaries.transition.test.ts (3 tests) 61ms
+ ✓ __tests__/oa/execution-run/persist.guards.test.ts (6 tests) 64ms
+ ✓ __tests__/oa/execution-run/repository.memory.test.ts (6 tests) 71ms
+ ✓ __tests__/oa/execution-run/lifecycle.fixture.test.ts (5 tests) 74ms
+ ✓ __tests__/oa/execution-run/schemas.adversarial.test.ts (9 tests) 55ms
+ ✓ __tests__/oa/execution-run/lateResult.test.ts (3 tests) 99ms
+ ✓ __tests__/oa/execution-run/qaFindings.closure.test.ts (10 tests) 149ms
+ ✓ __tests__/oa/execution-run/policy.test.ts (9 tests) 1ms
+ ✓ __tests__/oa/execution-run/transitions.test.ts (8 tests) 2ms
+ ✓ __tests__/oa/execution-run/importBoundaries.test.ts (7 tests) 3ms
+ ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 1ms
+
+ Test Files  13 passed (13)
+      Tests  81 passed (81)
+   Start at  05:32:37
+   Duration  610ms (transform 256ms, setup 781ms, collect 821ms, tests 682ms, environment 1ms, prepare 587ms)
+```
+
+## Readiness matrix
+# PR Readiness Matrix — SFIA Studio V3.1-D2-D1 / PR #308
+
+| Dimension | Attendu | Observé | Preuve | Finding | Verdict |
+|---|---|---|---|---|---|
+| base main | df437724… | df437724… | main-head.txt / pr baseRefOid | none | PASS |
+| head branche | 0f77e4ca… | 0f77e4ca… | branch-head.txt / PR headRefOid | none | PASS |
+| merge-base | = main | df437724… | pr01-base-head.txt | none | PASS |
+| ahead / behind | 1 / 0 | 1 / 0 | pr01-base-head.txt | none | PASS |
+| commit count | 1 | 1 | pr-metadata commits | none | PASS |
+| commit message | feat(sfia-studio): add V3.1-D2-D1… | exact | commit-metadata.txt | none | PASS |
+| package count | 49 | 49 | package-files.txt | none | PASS |
+| package hash | ec33a1ca… | ec33a1ca… | package.sha256 | none | PASS |
+| file scope | 2 roots only | 49 A under roots | commit-files.txt | none | PASS |
+| protected paths | none touched | none | commit-files.txt | none | PASS |
+| temporary files | none in PR | none | pr-files.txt | none | PASS |
+| diff-check | clean | empty | diff-check.txt | none | PASS |
+| secret scan | empty | empty | secret-scan.txt | none | PASS |
+| title | exact feat… | exact | pr-metadata.json | none | PASS |
+| body | 10 sections + facts | present; anti-claims negate prod/RUN | pr-body.md | F-PRR-01 INFORMATIONAL (next-gate wording is publication-time) | PASS |
+| reserves | OPEN NOT LIFTED | transported in body | pr-body.md | none | PASS |
+| anti-claims | no excess claims | no positive forbidden claims | pr-body.md | none | PASS |
+| comments | none or non-blocking | 0 | pr-comments.json | none | PASS |
+| inline comments | none or non-blocking | 0 | pr-inline-comments.json | none | PASS |
+| reviews | none or non-blocking | 0 | pr-reviews.json | none | PASS |
+| required approvals | per ruleset | required_approving_review_count=0 | ruleset-19798462.json | none | PASS |
+| mergeability | MERGEABLE | MERGEABLE | pr-metadata.json | none | PASS |
+| conflicts | none | CLEAN | mergeStateStatus | none | PASS |
+| CI head | 0f77e4ca… | 0f77e4ca… | ci-run.json | none | PASS |
+| CI jobs | 3 success | Detect/Build/Gate success | ci-run.json | none | PASS |
+| Required Gate | success | success | ci-run.json / ruleset | none | PASS |
+| reviewability | atomic coherent | one useful commit; layers reviewable | PR-03 | none | PASS |
+| transition authority | create+transition only | persist not public | spot-index.ts | none | PASS |
+| Cursor boundary | UNVERIFIED fail-closed | invariants+create | spot-invariants/create | none | PASS |
+| persistence boundary | internal only | persistExecutionRunInternal | spot-persist-internal | none | PASS |
+| server-only | composition gated | serverOnly.ts | spot-server-only.ts | none | PASS |
+| memory-only | durable/multi/restart false | create + schema + compose | compose/create/schema | none | PASS |
+| no D2-D2 | absent | absent from scope | commit-files | none | PASS |
+| classic branch protection API | optional | 404 Branch not protected | branch-protection-unavailable.txt | F-PRR-02 ENVIRONMENTAL | PASS (compensated by rulesets) |
+
+## Findings
+### F-PRR-01 — INFORMATIONAL
+Body Publication status still cites candidate `GO PR READINESS` (correct at publication). This cycle consumes that gate. Not misleading for mergeability; no metadata mutation authorized.
+
+### F-PRR-02 — ENVIRONMENTAL
+Classic `branches/main/protection` API returns 404. Compensated by accessible repository ruleset `SFIA Studio Main Required Gate — M1` requiring status check `SFIA Studio Required Gate` with `required_approving_review_count: 0`.
+
+## Granularity (PR-03)
+Recommendation: **commit atomique cohérent** — core+schemas+fixtures+tests form one contract; split would create incoherent intermediate states. Not too-large-for-review given layered structure and review guidance in body.
+
+## Overall matrix verdict
+NO BLOCKING / NO MAJOR → technical PR readiness PASS WITH RESERVES.
+
+## Findings summary
+- F-PRR-01 INFORMATIONAL — publication-status next-gate wording
+- F-PRR-02 ENVIRONMENTAL — classic protection API 404; ruleset compensates
+- BLOCKING: none
+- MAJOR: none
+
+## PR metadata (complete JSON)
+```json
+{
+  "additions": 4562,
+  "baseRefName": "main",
+  "baseRefOid": "df4377249660aab79d764915ad3166608a8a9a7d",
+  "body": "## Summary\n\n- Adds the SFIA Studio OA `execution-run` core: sole D2-D technical state authority (memory / fixture-first).\n- Delivers TypeScript contracts, thirteen JSON Schema / AJV Draft-07 schemas, eight-state transitions, read-only policy, evidence rules, memory repository, fifteen fixtures, and server-only composition.\n- Closes QA findings F-QA-D2D1-01 (Cursor unverified) and F-QA-D2D1-02 (public persist surface) before publication.\n\n## Morris decisions\n\n- GO Delivery D2-D1 (local package)\n- GO correction(s) and GO second correction (Cursor + persist surface)\n- GO QA Critical (blocked) then GO QA revalidation (PASS WITH RESERVES)\n- GO Publication (this cycle)\n- G-D2D-CURSOR-01 not consumed\n- No GO D2-D2 / D2-D3 / merge\n\n## Scope\n\n- Exactly **49** files under:\n  - `projects/sfia-studio/app/lib/oa/execution-run/**`\n  - `projects/sfia-studio/app/__tests__/oa/execution-run/**`\n- Package SHA-256: `ec33a1ca0ab38f861cd0bd580e1e5d33672df65ce75c3669fe41806c9178e35c`\n- No document / package.json / lockfile / workflow / dependency changes\n\n## Contract\n\n- Twelve canonical objects; eight states; thirteen schemas\n- Sole state authority; create \u2192 idle|blocked; transition is the only public mutation path\n- Validate untrusted create/transition input before metadata use\n- Persistence path: invariants \u2192 ExecutionRun schema \u2192 repository.save (internal helper only)\n- Succeeded requires complete ExternalResult + official non-late evidence\n- Cursor-associated runs: `cursorUnverified=true`; `capability.verified` must not be true\n- Memory process-local only (`durable` / `multiInstance` / `restartSafe` = false)\n\n## QA evidence\n\n- First QA: BLOCKED on F-QA-D2D1-01 / F-QA-D2D1-02\n- Second correction closed both findings\n- QA revalidation: PASS WITH RESERVES\n- Targeted: 13 files / 81 tests\n- Full Vitest: 115 files / 1127 tests\n- Modeled governance: 73 tests\n- typecheck / lint / build / secret scan / diff-check green on the published package\n\n## Reserves\n\n- R-QA-REV-01 OPEN NOT LIFTED\n- R-QA-REV-02 OPEN NOT LIFTED\n- R-QA-D2C-01 OPEN NOT LIFTED\n- CURSOR PRODUCT CAPABILITIES \u2014 UNVERIFIED\n- Memory process-local only\n\n## Explicit boundaries\n\n- No provider integration\n- No Cursor capability verification / no G-D2D-CURSOR-01 consumption\n- No durable / restart-safe / multi-instance persistence\n- No D2-D2 / D2-D3 / D2-D4 write\n- No UI / HTTP / Server Action / D3 transport\n- No production-ready or RUN-ready claim\n- No merge authorization in this cycle\n\n## Test plan\n\n```bash\ncd projects/sfia-studio/app\nnpm test -- __tests__/oa/execution-run/\nnpm run typecheck\nnpm run lint\nnpm run build\nnpm test\n\ncd ../\nnode --test \\\n  sfia-v3-modeled/v3-native-option-a/tests/evidence-review-maturity-governance.test.mjs \\\n  sfia-v3-modeled/v3-native-option-a/tests/execution-contract-governance.test.mjs \\\n  sfia-v3-modeled/v3-native-option-a/tests/execution-attempt-governance.test.mjs\n```\n\n## Review guidance\n\n1. `domain/types.ts` then schemas\n2. `domain/invariants.ts` / `domain/transitions.ts` / `domain/policy.ts`\n3. `application/createExecutionRun.ts` / `transitionExecutionRun.ts`\n4. `application/internal/persistExecutionRunInternal.ts` (not public)\n5. `server/` composition + root barrel boundaries\n6. Adversarial / QA closure tests under `__tests__/oa/execution-run/`\n\n## Publication status\n\n- PR is **Draft**\n- Merge is **not** authorized\n- Candidate next gate after ChatGPT publication validation: `GO PR READINESS SFIA STUDIO V3.1-D2-D1`\n",
+  "changedFiles": 49,
+  "comments": [],
+  "commits": [
+    {
+      "authoredDate": "2026-08-04T03:10:43Z",
+      "authors": [
+        {
+          "email": "morris@macbook-air1.home",
+          "id": "",
+          "login": "",
+          "name": "Morris Cleland"
+        }
+      ],
+      "committedDate": "2026-08-04T03:10:43Z",
+      "messageBody": "",
+      "messageHeadline": "feat(sfia-studio): add V3.1-D2-D1 execution-run foundation",
+      "oid": "0f77e4cae5df5c3c6d70728b1e54f53de94e8d81"
+    }
+  ],
+  "deletions": 0,
+  "headRefName": "delivery/sfia-studio-v3-1-d2-d1",
+  "headRefOid": "0f77e4cae5df5c3c6d70728b1e54f53de94e8d81",
+  "isDraft": true,
+  "mergeStateStatus": "CLEAN",
+  "mergeable": "MERGEABLE",
+  "mergedAt": null,
+  "number": 308,
+  "reviewDecision": "",
+  "reviewRequests": [],
+  "reviews": [],
+  "state": "OPEN",
+  "title": "feat(sfia-studio): add V3.1-D2-D1 execution-run foundation",
+  "url": "https://github.com/mcleland147/sfia-workspace/pull/308"
+}
+```
+
+## CI run (complete JSON)
+```json
+{
+  "conclusion": "success",
+  "databaseId": 30874027404,
+  "event": "pull_request",
+  "headBranch": "delivery/sfia-studio-v3-1-d2-d1",
+  "headSha": "0f77e4cae5df5c3c6d70728b1e54f53de94e8d81",
+  "jobs": [
+    {
+      "completedAt": "2026-08-04T03:11:31Z",
+      "conclusion": "success",
+      "databaseId": 91881694710,
+      "name": "Detect SFIA Studio changes",
+      "startedAt": "2026-08-04T03:11:24Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-08-04T03:11:26Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-08-04T03:11:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:11:28Z",
+          "conclusion": "success",
+          "name": "Checkout",
+          "number": 2,
+          "startedAt": "2026-08-04T03:11:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:11:28Z",
+          "conclusion": "success",
+          "name": "Detect Studio scope",
+          "number": 3,
+          "startedAt": "2026-08-04T03:11:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:11:28Z",
+          "conclusion": "success",
+          "name": "Post Checkout",
+          "number": 6,
+          "startedAt": "2026-08-04T03:11:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:11:28Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 7,
+          "startedAt": "2026-08-04T03:11:28Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881694710"
+    },
+    {
+      "completedAt": "2026-08-04T03:13:18Z",
+      "conclusion": "success",
+      "databaseId": 91881720803,
+      "name": "Build and validate SFIA Studio",
+      "startedAt": "2026-08-04T03:11:40Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-08-04T03:11:42Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-08-04T03:11:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:11:44Z",
+          "conclusion": "success",
+          "name": "Checkout",
+          "number": 2,
+          "startedAt": "2026-08-04T03:11:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:11:48Z",
+          "conclusion": "success",
+          "name": "Setup Node.js",
+          "number": 3,
+          "startedAt": "2026-08-04T03:11:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:12:00Z",
+          "conclusion": "success",
+          "name": "Install dependencies",
+          "number": 4,
+          "startedAt": "2026-08-04T03:11:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:12:08Z",
+          "conclusion": "success",
+          "name": "Typecheck",
+          "number": 5,
+          "startedAt": "2026-08-04T03:12:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:12:14Z",
+          "conclusion": "success",
+          "name": "Lint",
+          "number": 6,
+          "startedAt": "2026-08-04T03:12:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:12:43Z",
+          "conclusion": "success",
+          "name": "Build",
+          "number": 7,
+          "startedAt": "2026-08-04T03:12:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:14Z",
+          "conclusion": "success",
+          "name": "Unit tests (Vitest)",
+          "number": 8,
+          "startedAt": "2026-08-04T03:12:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:14Z",
+          "conclusion": "success",
+          "name": "Modeled governance tests",
+          "number": 9,
+          "startedAt": "2026-08-04T03:13:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:14Z",
+          "conclusion": "success",
+          "name": "Secret pattern scan (targeted)",
+          "number": 10,
+          "startedAt": "2026-08-04T03:13:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:14Z",
+          "conclusion": "success",
+          "name": "Trailing whitespace check",
+          "number": 11,
+          "startedAt": "2026-08-04T03:13:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:15Z",
+          "conclusion": "success",
+          "name": "Post Setup Node.js",
+          "number": 21,
+          "startedAt": "2026-08-04T03:13:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:15Z",
+          "conclusion": "success",
+          "name": "Post Checkout",
+          "number": 22,
+          "startedAt": "2026-08-04T03:13:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:15Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 23,
+          "startedAt": "2026-08-04T03:13:15Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881720803"
+    },
+    {
+      "completedAt": "2026-08-04T03:13:26Z",
+      "conclusion": "success",
+      "databaseId": 91881982576,
+      "name": "SFIA Studio Required Gate",
+      "startedAt": "2026-08-04T03:13:22Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-08-04T03:13:23Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-08-04T03:13:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:23Z",
+          "conclusion": "success",
+          "name": "Aggregate required gate",
+          "number": 2,
+          "startedAt": "2026-08-04T03:13:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-08-04T03:13:23Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 3,
+          "startedAt": "2026-08-04T03:13:23Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881982576"
+    }
+  ],
+  "name": "SFIA Studio CI",
+  "status": "completed",
+  "url": "https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404"
+}
+```
+
+## Git Truth finale
+```
+branch=delivery/sfia-studio-v3-1-d2-d1
+HEAD=0f77e4cae5df5c3c6d70728b1e54f53de94e8d81
+PARENT=df4377249660aab79d764915ad3166608a8a9a7d
+origin/main=df4377249660aab79d764915ad3166608a8a9a7d
+origin/delivery=0f77e4cae5df5c3c6d70728b1e54f53de94e8d81
+status:
+?? .tmp-sfia-review/
+cached:
+unstaged:
+```
+
+### final PR view
+```json
+{
+  "baseRefName": "main",
+  "baseRefOid": "df4377249660aab79d764915ad3166608a8a9a7d",
+  "changedFiles": 49,
+  "commits": [
+    {
+      "authoredDate": "2026-08-04T03:10:43Z",
+      "authors": [
+        {
+          "email": "morris@macbook-air1.home",
+          "id": "",
+          "login": "",
+          "name": "Morris Cleland"
+        }
+      ],
+      "committedDate": "2026-08-04T03:10:43Z",
+      "messageBody": "",
+      "messageHeadline": "feat(sfia-studio): add V3.1-D2-D1 execution-run foundation",
+      "oid": "0f77e4cae5df5c3c6d70728b1e54f53de94e8d81"
+    }
+  ],
+  "headRefName": "delivery/sfia-studio-v3-1-d2-d1",
+  "headRefOid": "0f77e4cae5df5c3c6d70728b1e54f53de94e8d81",
+  "isDraft": true,
+  "mergeStateStatus": "CLEAN",
+  "mergeable": "MERGEABLE",
+  "mergedAt": null,
+  "number": 308,
+  "reviewDecision": "",
+  "state": "OPEN"
+}
+```
+
+### final checks
+```
+Build and validate SFIA Studio	pass	1m38s	https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881720803
+Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881694710
+SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/30874027404/job/91881982576
+```
+
+Proofs: no project mutation; no PR mutation; still OPEN+Draft; not merged; head exact; CI green; staged empty; tracked diff empty; only `.tmp-sfia-review/**` untracked.
+
+## Handoff before/after
+- before tip: f331b24b2aab15d206411355ff58f6faa8ac851d
+- before blob: 1f2641e6a42522345cf450158386bbd6f31b8cc1
+- after tip/blob: calculated AFTER publication (Cursor terminal; not self-inscribed)
+
+## Verdict
+V3.1-D2-D1 PR READINESS
+READY WITH RESERVES —
+
+MAIN BASE VERIFIED —
+BRANCH HEAD VERIFIED —
+ONE ATOMIC COMMIT VERIFIED —
+AHEAD 1 / BEHIND 0 —
+NO CONFLICT —
+
+49-FILE PACKAGE VERIFIED —
+PACKAGE HASH VERIFIED —
+DIFF SCOPE VERIFIED —
+NO PROTECTED OR TEMPORARY FILE DRIFT —
+
+PR #308 OPEN AND DRAFT —
+PR TITLE AND BODY VERIFIED —
+PR COMMENTS AND REVIEWS CHECKED —
+NO ACTIONABLE REVIEW FINDING —
+
+REMOTE CI VALID FOR CURRENT HEAD —
+DETECT SUCCESSFUL —
+BUILD AND VALIDATE SUCCESSFUL —
+REQUIRED GATE SUCCESSFUL —
+
+QA REVALIDATION EVIDENCE VERIFIED —
+CURSOR BOUNDARY VERIFIED —
+TRANSITION AUTHORITY VERIFIED —
+PERSISTENCE BOUNDARY VERIFIED —
+SERVER-ONLY BOUNDARY VERIFIED —
+
+R-QA-REV-01 OPEN NOT LIFTED —
+R-QA-REV-02 OPEN NOT LIFTED —
+R-QA-D2C-01 OPEN NOT LIFTED —
+CURSOR PRODUCT CAPABILITIES UNVERIFIED —
+G-D2D-CURSOR-01 NOT CONSUMED —
+
+NO PROJECT MUTATION —
+NO PR MUTATION —
+NO MARK READY —
+NO MERGE —
+NO D2-D2 —
+
+REVIEW HANDOFF UPDATED AND REMOTE VERIFIED —
+
+READY FOR CHATGPT PR READINESS VALIDATION —
+
+CANDIDATE:
+READY FOR MORRIS MERGE DECISION WITH RESERVES
+
+## Next gate candidate
+GO MERGE SFIA STUDIO V3.1-D2-D1
+
+Future merge GO must specify: PR #308; head SHA exact; base SHA; Draft handling; merge strategy; no new commit; CI still green; branch-deletion behavior; D2-D2 forbidden; post-merge cycle required.
+
+No automatic transition to D2-D2.
+No mark ready / merge in this cycle.
+
+---
+
+# APPENDIX A — Complete unified diff (origin/main...HEAD)
+
+```diff
+
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+new file mode 100644
+index 0000000..2ab0aa7
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.create.test.ts
+@@ -0,0 +1,127 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
++import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
++import { createExecutionRun } from "@/lib/oa/execution-run";
++import { getFixture } from "@/lib/oa/execution-run";
++import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++function deps(repo: ExecutionRunRepositoryPort) {
++  return {
++    clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++    identity: new SequentialIdentity(),
++    repository: repo,
++    schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++  };
++}
++
++describe("D2-D1 create boundary validation before metadata", () => {
++  it("rejects null/undefined/primitive/array without save or identity", async () => {
++    const save = vi.fn();
++    const getById = vi.fn();
++    const listByCorrelationId = vi.fn();
++    const identity = new SequentialIdentity();
++    const nextRunId = vi.spyOn(identity, "nextRunId");
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById,
++      listByCorrelationId,
++    };
++    const base = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity,
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    for (const bad of [null, undefined, 42, "x", [], true]) {
++      const r = await createExecutionRun(bad, base);
++      expect(r.ok).toBe(false);
++    }
++    expect(save).not.toHaveBeenCalled();
++    expect(nextRunId).not.toHaveBeenCalled();
++  });
++
++  it("rejects incomplete object and additional properties", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const d = deps(repository);
++    expect((await createExecutionRun({ intent: getFixture("nominal").intent }, d)).ok).toBe(
++      false,
++    );
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: getFixture("nominal").intent,
++            context: getFixture("nominal").context,
++            extra: true,
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("rejects invalid nested context permissions and capability", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const d = deps(repository);
++    const f = getFixture("nominal");
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: f.intent,
++            context: {
++              ...f.context,
++              permissions: { gitRead: true, gitWrite: false } as never,
++            },
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await createExecutionRun(
++          {
++            intent: f.intent,
++            context: f.context,
++            capability: { ...f.capability!, lane: "openai" as never },
++          },
++          d,
++        )
++      ).ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("does not throw on adversarial payloads", async () => {
++    const repository: ExecutionRunRepositoryPort = {
++      save: async () => undefined,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    await expect(
++      createExecutionRun({ circular: null }, deps(repository)),
++    ).resolves.toMatchObject({ ok: false });
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+new file mode 100644
+index 0000000..4d339f8
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/boundaries.transition.test.ts
+@@ -0,0 +1,111 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
++import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
++import { transitionExecutionRun, normalizedFailure } from "@/lib/oa/execution-run";
++import type { ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++describe("D2-D1 transition boundary validation before metadata", () => {
++  it("rejects invalid input before repository lookup", async () => {
++    const getById = vi.fn();
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById,
++      listByCorrelationId: async () => [],
++    };
++    const deps = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity: new SequentialIdentity(),
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    for (const bad of [
++      null,
++      undefined,
++      1,
++      [],
++      {},
++      { runId: "r1" },
++      { runId: "r1", reason: "not_a_reason" },
++      { runId: "r1", reason: "outputs_validated", completeness: "complete" },
++      {
++        runId: "r1",
++        reason: "engaged_operation_failed",
++      },
++      {
++        runId: "r1",
++        reason: "intent_valid",
++        extra: true,
++      },
++    ]) {
++      const r = await transitionExecutionRun(bad, deps);
++      expect(r.ok).toBe(false);
++    }
++    expect(getById).not.toHaveBeenCalled();
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("rejects invalid externalResult / failure payloads before save", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const deps = {
++      clock: new FixedClock("2026-08-03T20:00:00.000Z"),
++      identity: new SequentialIdentity(),
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    };
++    const badExternal = await transitionExecutionRun(
++      {
++        runId: "r1",
++        reason: "outputs_validated",
++        completeness: "complete",
++        externalResult: { kind: "success", completeness: "complete" },
++      },
++      deps,
++    );
++    expect(badExternal.ok).toBe(false);
++    const badFailure = await transitionExecutionRun(
++      {
++        runId: "r1",
++        reason: "engaged_operation_failed",
++        failure: {
++          family: "validation",
++          code: "NOT_A_CODE",
++          userMessage: "x",
++          technicalDetailsRedacted: true,
++          retryable: false,
++          correlationId: "c",
++        },
++      },
++      deps,
++    );
++    expect(badFailure.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("accepts schema-valid failure enum", async () => {
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const failure = normalizedFailure({
++      family: "provider_unavailable",
++      code: "PROVIDER_UNAVAILABLE",
++      userMessage: "unavailable",
++      retryable: true,
++      correlationId: "c1",
++    });
++    expect((await schemas.validate("normalized-failure", failure)).ok).toBe(true);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+new file mode 100644
+index 0000000..c623830
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/contract.equivalence.test.ts
+@@ -0,0 +1,221 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import {
++  createOfficialEvidence,
++  createSourceDisclosure,
++  getFixture,
++  normalizedFailure,
++  usageUnavailable,
++  EXECUTION_RUN_SCHEMA_VERSION,
++} from "@/lib/oa/execution-run";
++import type { ExecutionRunSchemaName } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++const ALL: ExecutionRunSchemaName[] = [
++  "execution-intent",
++  "execution-context",
++  "provider-capability-descriptor",
++  "validation-outcome",
++  "execution-run",
++  "external-result",
++  "execution-evidence",
++  "source-disclosure",
++  "human-decision-gate",
++  "usage-summary",
++  "normalized-failure",
++  "create-execution-run-input",
++  "transition-execution-run-input",
++];
++
++describe("D2-D1 contract-equivalent schemas", () => {
++  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
++
++  it("loads and resolves all schemas", () => {
++    const ids = validator.listLoadedSchemaIds();
++    expect(ids).toHaveLength(ALL.length);
++  });
++
++  it("accepts valid fixtures for each core object", async () => {
++    const f = getFixture("nominal");
++    expect((await validator.validate("execution-intent", f.intent)).ok).toBe(true);
++    expect((await validator.validate("execution-context", f.context)).ok).toBe(true);
++    expect(
++      (await validator.validate("provider-capability-descriptor", f.capability)).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("normalized-failure", normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "bad",
++          retryable: true,
++          correlationId: "c",
++        }))
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate(
++          "source-disclosure",
++          createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
++        )
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate(
++          "execution-evidence",
++          createOfficialEvidence({
++            evidenceId: "e1",
++            runId: "r1",
++            correlationId: "c1",
++            source: "fixture",
++            completeness: "complete",
++            producedAt: "2026-08-03T20:00:00.000Z",
++            summary: "ok",
++          }),
++        )
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("external-result", {
++          kind: "success",
++          completeness: "complete",
++          redactedSummary: "ok",
++          rawPresent: false,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (await validator.validate("usage-summary", usageUnavailable("x"))).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("human-decision-gate", {
++          gateId: "g1",
++          question: "proceed?",
++          required: true,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("validation-outcome", {
++          ok: true,
++          validatedAt: "2026-08-03T20:00:00.000Z",
++        })
++      ).ok,
++    ).toBe(true);
++  });
++
++  it("rejects missing required, wrong type, additional props, bad enums", async () => {
++    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
++    expect((await validator.validate("execution-intent", 1)).ok).toBe(false);
++    expect(
++      (
++        await validator.validate("execution-intent", {
++          ...getFixture("nominal").intent,
++          extra: true,
++        })
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await validator.validate("execution-intent", {
++          ...getFixture("nominal").intent,
++          requestedLane: "openai",
++        })
++      ).ok,
++    ).toBe(false);
++    expect(
++      (
++        await validator.validate("normalized-failure", {
++          family: "nope",
++          code: "VALIDATION_ERROR",
++          userMessage: "x",
++          technicalDetailsRedacted: true,
++          retryable: false,
++          correlationId: "c",
++        })
++      ).ok,
++    ).toBe(false);
++  });
++
++  it("validates create and transition boundary schemas", async () => {
++    const f = getFixture("nominal");
++    expect(
++      (
++        await validator.validate("create-execution-run-input", {
++          intent: f.intent,
++          context: f.context,
++          capability: f.capability,
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("transition-execution-run-input", {
++          runId: "run:1",
++          reason: "intent_valid",
++        })
++      ).ok,
++    ).toBe(true);
++    expect(
++      (
++        await validator.validate("transition-execution-run-input", {
++          runId: "run:1",
++          reason: "outputs_validated",
++          completeness: "complete",
++          externalResult: {
++            kind: "success",
++            completeness: "complete",
++            redactedSummary: "ok",
++            rawPresent: false,
++          },
++        })
++      ).ok,
++    ).toBe(true);
++  });
++
++  it("execution-run $refs enforce nested contracts and state conditionals", async () => {
++    const f = getFixture("nominal");
++    const idle: Record<string, unknown> = {
++      schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++      runId: "run:1",
++      correlationId: f.intent.correlationId,
++      state: "idle",
++      intent: f.intent,
++      context: f.context,
++      disclosure: createSourceDisclosure({ source: "fixture", providerLane: "ai" }),
++      createdAt: "2026-08-03T20:00:00.000Z",
++      updatedAt: "2026-08-03T20:00:00.000Z",
++      version: 1,
++      usage: usageUnavailable("x"),
++      persistence: {
++        kind: "memory_process_local",
++        durable: false,
++        multiInstance: false,
++        restartSafe: false,
++      },
++    };
++    expect((await validator.validate("execution-run", idle)).ok).toBe(true);
++
++    const nestedBad = {
++      ...idle,
++      context: { ...f.context, permissions: { gitRead: true } },
++    };
++    expect((await validator.validate("execution-run", nestedBad)).ok).toBe(false);
++
++    const succeededBare = { ...idle, state: "succeeded" };
++    expect((await validator.validate("execution-run", succeededBare)).ok).toBe(false);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts
+new file mode 100644
+index 0000000..ee833c9
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/evidence.test.ts
+@@ -0,0 +1,52 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  assertSourceHonest,
++  canSucceed,
++  createOfficialEvidence,
++  createSourceDisclosure,
++  isIsoTimestamp,
++  usageUnavailable,
++} from "@/lib/oa/execution-run";
++
++describe("D2-D1 evidence and disclosure", () => {
++  it("distinguishes sources honestly", () => {
++    expect(assertSourceHonest("fixture", "fixture")).toBe(true);
++    expect(assertSourceHonest("fixture", "real")).toBe(false);
++  });
++
++  it("partial cannot succeed", () => {
++    expect(canSucceed("partial")).toBe(false);
++    expect(canSucceed("complete")).toBe(true);
++  });
++
++  it("creates official evidence without secrets", () => {
++    const e = createOfficialEvidence({
++      evidenceId: "evidence:1",
++      runId: "run:1",
++      correlationId: "corr:1",
++      source: "fixture",
++      completeness: "complete",
++      producedAt: "2026-08-03T20:00:00.000Z",
++      summary: "ok",
++    });
++    expect(e.official).toBe(true);
++    expect(JSON.stringify(e)).not.toMatch(/sk-|password/i);
++  });
++
++  it("marks process-local disclosure", () => {
++    const d = createSourceDisclosure({ source: "fixture", providerLane: "ai" });
++    expect(d.processLocalMemory).toBe(true);
++  });
++
++  it("usage unavailable when not validated", () => {
++    expect(usageUnavailable("missing").status).toBe("unavailable");
++  });
++
++  it("validates ISO timestamps", () => {
++    expect(isIsoTimestamp("2026-08-03T20:00:00.000Z")).toBe(true);
++    expect(isIsoTimestamp("not-a-date")).toBe(false);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+new file mode 100644
+index 0000000..108de12
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
+@@ -0,0 +1,124 @@
++/**
++ * @vitest-environment node
++ */
++import fs from "node:fs";
++import path from "node:path";
++import { describe, expect, it } from "vitest";
++
++const APP_ROOT = path.resolve(__dirname, "../../..");
++const MODULE_ROOT = path.join(APP_ROOT, "lib/oa/execution-run");
++
++function listTsFiles(dir: string): string[] {
++  if (!fs.existsSync(dir)) return [];
++  const out: string[] = [];
++  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
++    const full = path.join(dir, entry.name);
++    if (entry.isDirectory()) {
++      if (entry.name === "node_modules") continue;
++      out.push(...listTsFiles(full));
++    } else if (/\.tsx?$/.test(entry.name)) {
++      out.push(full);
++    }
++  }
++  return out;
++}
++
++function importsOf(file: string): string[] {
++  return fs
++    .readFileSync(file, "utf8")
++    .split("\n")
++    .map((l) => l.trim())
++    .filter((l) => l.startsWith("import ") || l.startsWith("export "));
++}
++
++describe("D2-D1 execution-run import boundaries", () => {
++  it("domain stays pure", () => {
++    const files = listTsFiles(path.join(MODULE_ROOT, "domain"));
++    expect(files.length).toBeGreaterThan(0);
++    const hits: string[] = [];
++    const forbidden =
++      /from\s+["'](?:node:|next|react|ajv|@\/lib\/(?:ops1|d1|platform|vertical-slice|harness)|fs|path|child_process)/;
++    for (const file of files) {
++      for (const line of importsOf(file)) {
++        if (forbidden.test(line)) hits.push(`${file}: ${line}`);
++      }
++    }
++    expect(hits).toEqual([]);
++  });
++
++  it("application does not import infrastructure, AJV, Node, Next, or providers", () => {
++    const files = listTsFiles(path.join(MODULE_ROOT, "application"));
++    const hits: string[] = [];
++    for (const file of files) {
++      for (const line of importsOf(file)) {
++        if (
++          /from\s+["'].*\/infrastructure\/|from\s+["']ajv|openai|@octokit|cursor|node:|from\s+["']next|from\s+["']react/.test(
++            line,
++          )
++        ) {
++          hits.push(`${file}: ${line}`);
++        }
++      }
++    }
++    expect(hits).toEqual([]);
++  });
++
++  it("module does not import harness, vertical-slice-runtime, execution-attempt, or execution-contract internals", () => {
++    const files = listTsFiles(MODULE_ROOT);
++    const hits: string[] = [];
++    for (const file of files) {
++      for (const line of importsOf(file)) {
++        if (
++          /vertical-slice-runtime|execution-attempt|execution-contract|harness\//.test(
++            line,
++          )
++        ) {
++          hits.push(`${path.relative(APP_ROOT, file)}: ${line}`);
++        }
++      }
++    }
++    expect(hits).toEqual([]);
++  });
++
++  it("root barrel does not export concrete composition", () => {
++    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
++    expect(barrel).not.toMatch(/composeExecutionRunMemory/);
++    expect(barrel).not.toMatch(/MemoryExecutionRunStore/);
++    expect(barrel).not.toMatch(/AjvExecutionRunSchemaValidation/);
++  });
++
++  it("server composition lives under server/ with server-only guard", () => {
++    const serverDir = path.join(MODULE_ROOT, "server");
++    expect(fs.existsSync(serverDir)).toBe(true);
++    const compose = fs.readFileSync(
++      path.join(serverDir, "composeExecutionRunMemory.ts"),
++      "utf8",
++    );
++    expect(compose).toMatch(/assertServerOnly/);
++    expect(compose).toMatch(/infrastructure\//);
++    const guard = fs.readFileSync(path.join(serverDir, "serverOnly.ts"), "utf8");
++    expect(guard).toMatch(/typeof window/);
++  });
++
++  it("application folder no longer hosts concrete composition", () => {
++    expect(
++      fs.existsSync(path.join(MODULE_ROOT, "application/composeExecutionRun.ts")),
++    ).toBe(false);
++  });
++
++  it("public persistExecutionRun is removed; helper lives under application/internal", () => {
++    expect(
++      fs.existsSync(path.join(MODULE_ROOT, "application/persistExecutionRun.ts")),
++    ).toBe(false);
++    expect(
++      fs.existsSync(
++        path.join(
++          MODULE_ROOT,
++          "application/internal/persistExecutionRunInternal.ts",
++        ),
++      ),
++    ).toBe(true);
++    const barrel = fs.readFileSync(path.join(MODULE_ROOT, "index.ts"), "utf8");
++    expect(barrel).not.toMatch(/persistExecutionRun/);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+new file mode 100644
+index 0000000..23a1102
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lateResult.test.ts
+@@ -0,0 +1,177 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import {
++  canAcceptLateResult,
++  EXECUTION_STATES,
++  getFixture,
++  LATE_RESULT_ELIGIBLE_STATES,
++  normalizedFailure,
++} from "@/lib/oa/execution-run";
++
++async function runningRun() {
++  const c = composeExecutionRunMemory();
++  const f = getFixture("nominal");
++  const created = await c.createExecutionRun({
++    intent: f.intent,
++    context: f.context,
++    capability: f.capability,
++  });
++  if (!created.ok) throw new Error("create failed");
++  const started = await c.transitionExecutionRun({
++    runId: created.run.runId,
++    reason: "intent_valid",
++  });
++  if (!started.ok) throw new Error("start failed");
++  return { c, run: started.run };
++}
++
++describe("D2-D1 late result eligibility", () => {
++  it("documents eligible terminals", () => {
++    expect([...LATE_RESULT_ELIGIBLE_STATES].sort()).toEqual(
++      ["cancelled", "failed", "timed_out"].sort(),
++    );
++    for (const s of EXECUTION_STATES) {
++      expect(canAcceptLateResult(s)).toBe(
++        (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(s),
++      );
++    }
++  });
++
++  it("refuses idle, running, awaiting_human, succeeded, blocked", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++
++    const idle = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(idle.ok).toBe(false);
++
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const running = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(running.ok).toBe(false);
++
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_gate_required",
++    });
++    const awaiting = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(awaiting.ok).toBe(false);
++
++    // fresh run → succeeded
++    const { c: c2, run } = await runningRun();
++    const succeeded = await c2.transitionExecutionRun({
++      runId: run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "ok",
++        rawPresent: false,
++      },
++    });
++    expect(succeeded.ok).toBe(true);
++    if (!succeeded.ok) return;
++    const lateOnSuccess = await c2.transitionExecutionRun({
++      runId: run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(lateOnSuccess.ok).toBe(false);
++
++    // blocked at create
++    const c3 = composeExecutionRunMemory();
++    const blocked = await c3.createExecutionRun({
++      intent: getFixture("mutation_forbidden").intent,
++      context: getFixture("mutation_forbidden").context,
++      capability: getFixture("mutation_forbidden").capability,
++    });
++    expect(blocked.run?.state).toBe("blocked");
++    if (!blocked.run) return;
++    const lateOnBlocked = await c3.transitionExecutionRun({
++      runId: blocked.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late",
++    });
++    expect(lateOnBlocked.ok).toBe(false);
++  });
++
++  it("accepts cancelled, timed_out, failed with evidence-only mutation", async () => {
++    // cancelled
++    const { c, run } = await runningRun();
++    await c.transitionExecutionRun({
++      runId: run.runId,
++      reason: "cancel_accepted",
++    });
++    const lateCancel = await c.transitionExecutionRun({
++      runId: run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_cancel",
++    });
++    expect(lateCancel.ok).toBe(true);
++    if (lateCancel.ok) {
++      expect(lateCancel.run.state).toBe("cancelled");
++      expect(lateCancel.run.evidence?.at(-1)?.late).toBe(true);
++      expect(lateCancel.run.evidence?.at(-1)?.official).toBe(true);
++      expect(lateCancel.run.evidence?.at(-1)?.completeness).toBe("partial");
++    }
++
++    // timed_out
++    const r2 = await runningRun();
++    await r2.c.transitionExecutionRun({
++      runId: r2.run.runId,
++      reason: "time_limit",
++    });
++    const lateTimeout = await r2.c.transitionExecutionRun({
++      runId: r2.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_timeout",
++    });
++    expect(lateTimeout.ok).toBe(true);
++    if (lateTimeout.ok) expect(lateTimeout.run.state).toBe("timed_out");
++
++    // failed
++    const r3 = await runningRun();
++    const failed = await r3.c.transitionExecutionRun({
++      runId: r3.run.runId,
++      reason: "engaged_operation_failed",
++      failure: normalizedFailure({
++        family: "provider_unavailable",
++        code: "PROVIDER_UNAVAILABLE",
++        userMessage: "down",
++        retryable: true,
++        correlationId: r3.run.correlationId,
++      }),
++    });
++    expect(failed.ok).toBe(true);
++    const lateFailed = await r3.c.transitionExecutionRun({
++      runId: r3.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_failed",
++    });
++    expect(lateFailed.ok).toBe(true);
++    if (lateFailed.ok) expect(lateFailed.run.state).toBe("failed");
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
+new file mode 100644
+index 0000000..32e6762
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/lifecycle.fixture.test.ts
+@@ -0,0 +1,130 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { getFixture } from "@/lib/oa/execution-run";
++
++describe("D2-D1 fixture lifecycle", () => {
++  it("covers required catalogue scenarios", () => {
++    const ids = [
++      "nominal",
++      "validation_failure",
++      "auth_failure",
++      "provider_unavailable",
++      "rate_limit",
++      "timeout",
++      "cancellation",
++      "blocked_gate",
++      "protected_path",
++      "mutation_forbidden",
++      "partial_result",
++      "invalid_provider_result",
++      "late_result",
++      "secret_redaction",
++      "source_mismatch",
++    ] as const;
++    for (const id of ids) {
++      expect(getFixture(id).source).toBe("fixture");
++    }
++  });
++
++  it("runs nominal to succeeded with official evidence", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) return;
++    const started = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    expect(started.ok && started.run.state).toBe("running");
++    if (!started.ok) return;
++    const done = await c.transitionExecutionRun({
++      runId: started.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "ok",
++        rawPresent: false,
++      },
++    });
++    expect(done.ok && done.run.state).toBe("succeeded");
++    if (!done.ok) return;
++    expect(done.run.evidence?.some((e) => e.official && !e.late)).toBe(true);
++  });
++
++  it("never succeeds on partial", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("partial_result");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "partial",
++      externalResult: {
++        kind: "success",
++        completeness: "partial",
++        redactedSummary: "partial",
++        rawPresent: false,
++      },
++    });
++    expect(done.ok).toBe(false);
++  });
++
++  it("records late evidence without state change on cancelled", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("late_result");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "cancel_accepted",
++    });
++    const late = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "late_result_evidence_only",
++      lateEvidenceSummary: "late_redacted",
++    });
++    expect(late.ok).toBe(true);
++    if (!late.ok) return;
++    expect(late.run.state).toBe("cancelled");
++    expect(late.run.evidence?.some((e) => e.late)).toBe(true);
++  });
++
++  it("blocks mutation intent at create", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("mutation_forbidden");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    expect(created.ok).toBe(false);
++    if (created.run) expect(created.run.state).toBe("blocked");
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+new file mode 100644
+index 0000000..c8dc8b4
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/persist.guards.test.ts
+@@ -0,0 +1,185 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import {
++  checkExecutionRunInvariants,
++  createSourceDisclosure,
++  usageUnavailable,
++  EXECUTION_RUN_SCHEMA_VERSION,
++  getFixture,
++} from "@/lib/oa/execution-run";
++import type { ExecutionRun, ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++import { persistExecutionRunInternal } from "@/lib/oa/execution-run/application/internal/persistExecutionRunInternal";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++function baseRun(over: Partial<ExecutionRun> = {}): ExecutionRun {
++  const f = getFixture("nominal");
++  return {
++    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++    runId: "run:persist:1",
++    correlationId: f.intent.correlationId,
++    state: "idle",
++    intent: f.intent,
++    context: f.context,
++    disclosure: createSourceDisclosure({
++      source: "fixture",
++      providerLane: "ai",
++      limits: ["test"],
++    }),
++    createdAt: "2026-08-03T20:00:00.000Z",
++    updatedAt: "2026-08-03T20:00:00.000Z",
++    version: 1,
++    capability: f.capability,
++    usage: usageUnavailable("not_provided"),
++    persistence: {
++      kind: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++    ...over,
++  };
++}
++
++describe("D2-D1 persistExecutionRunInternal guards", () => {
++  it("saves valid idle run", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRunInternal(baseRun(), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(true);
++    expect(save).toHaveBeenCalledOnce();
++  });
++
++  it("refuses ninth state before save", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRunInternal(baseRun({ state: "STATE-B" as never }), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses succeeded without external result / evidence", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const noResult = await persistExecutionRunInternal(baseRun({ state: "succeeded" }), {
++      repository,
++      schemas,
++    });
++    expect(noResult.ok).toBe(false);
++    expect(checkExecutionRunInvariants(baseRun({ state: "succeeded" })).length).toBeGreaterThan(
++      0,
++    );
++
++    const partial = await persistExecutionRunInternal(
++      baseRun({
++        state: "succeeded",
++        externalResult: {
++          kind: "success",
++          completeness: "partial",
++          redactedSummary: "p",
++          rawPresent: false,
++        },
++        evidence: [
++          {
++            evidenceId: "e1",
++            runId: "run:persist:1",
++            correlationId: "c",
++            source: "fixture",
++            completeness: "complete",
++            producedAt: "2026-08-03T20:00:00.000Z",
++            summary: "x",
++            late: false,
++            official: true,
++          },
++        ],
++      }),
++      { repository, schemas },
++    );
++    expect(partial.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses failed without failure and blocked without reason", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    expect(
++      (await persistExecutionRunInternal(baseRun({ state: "failed" }), { repository, schemas }))
++        .ok,
++    ).toBe(false);
++    expect(
++      (await persistExecutionRunInternal(baseRun({ state: "blocked" }), { repository, schemas }))
++        .ok,
++    ).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses disclosure source mismatch and durable claim", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const schemas = new AjvExecutionRunSchemaValidation(schemasDir);
++    const mismatch = baseRun({
++      disclosure: createSourceDisclosure({ source: "real", providerLane: "ai" }),
++    });
++    expect((await persistExecutionRunInternal(mismatch, { repository, schemas })).ok).toBe(false);
++    const durable = baseRun({
++      persistence: {
++        kind: "memory_process_local",
++        durable: true as never,
++        multiInstance: false,
++        restartSafe: false,
++      },
++    });
++    expect((await persistExecutionRunInternal(durable, { repository, schemas })).ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("refuses invalid timestamp format when schema requires date-time", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const r = await persistExecutionRunInternal(baseRun({ createdAt: "yesterday" }), {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts
+new file mode 100644
+index 0000000..5a34196
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/policy.test.ts
+@@ -0,0 +1,90 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { evaluateReadOnlyPolicy, getFixture } from "@/lib/oa/execution-run";
++
++describe("D2-D1 read-only policy", () => {
++  it("denies mutation", () => {
++    const f = getFixture("mutation_forbidden");
++    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
++    expect(d.ok).toBe(false);
++    if (!d.ok) expect(d.failure.code).toBe("MUTATION_FORBIDDEN");
++  });
++
++  it("denies protected path", () => {
++    const f = getFixture("protected_path");
++    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
++    expect(d.ok).toBe(false);
++    if (!d.ok) expect(d.failure.code).toBe("PROTECTED_PATH");
++  });
++
++  it("denies auth failure", () => {
++    const f = getFixture("auth_failure");
++    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
++    expect(d.ok).toBe(false);
++    if (!d.ok) expect(d.failure.code).toBe("AUTHORIZATION_ERROR");
++  });
++
++  it("denies provider unavailable", () => {
++    const f = getFixture("provider_unavailable");
++    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
++    expect(d.ok).toBe(false);
++    if (!d.ok) expect(d.failure.code).toBe("PROVIDER_UNAVAILABLE");
++  });
++
++  it("denies source mismatch", () => {
++    const f = getFixture("source_mismatch");
++    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
++    expect(d.ok).toBe(false);
++    if (!d.ok) expect(d.failure.code).toBe("SOURCE_MISMATCH");
++  });
++
++  it("denies unsatisfied human gate", () => {
++    const f = getFixture("blocked_gate");
++    const d = evaluateReadOnlyPolicy({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++      gateSatisfied: false,
++    });
++    expect(d.ok).toBe(false);
++    if (!d.ok) expect(d.failure.code).toBe("HUMAN_GATE_REQUIRED");
++  });
++
++  it("accepts nominal", () => {
++    const f = getFixture("nominal");
++    const d = evaluateReadOnlyPolicy({ intent: f.intent, context: f.context, capability: f.capability });
++    expect(d.ok).toBe(true);
++  });
++
++  it("never exposes secrets in failures", () => {
++    const f = getFixture("secret_redaction");
++    expect(JSON.stringify(f.expectedFailure)).not.toMatch(/sk-|BEGIN PRIVATE|password/i);
++    expect(f.expectedFailure?.technicalDetailsRedacted).toBe(true);
++  });
++
++  it("denies Cursor regardless of capability.verified", () => {
++    const f = getFixture("nominal");
++    const d = evaluateReadOnlyPolicy({
++      intent: {
++        ...f.intent,
++        requestedLane: "cursor",
++        intentId: "intent:cursor",
++        correlationId: "corr:cursor",
++      },
++      context: f.context,
++      capability: {
++        lane: "cursor",
++        capabilityId: "cursor:fake",
++        available: true,
++        verified: true,
++        readOnly: true,
++        supportsCancellation: true,
++        supportsTimeout: true,
++      },
++    });
++    expect(d.ok).toBe(false);
++    if (!d.ok) expect(d.failure.code).toBe("SANDBOX_BLOCKED");
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/qaFindings.closure.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/qaFindings.closure.test.ts
+new file mode 100644
+index 0000000..8d46e64
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/qaFindings.closure.test.ts
+@@ -0,0 +1,357 @@
++/**
++ * @vitest-environment node
++ * Adversarial closure of F-QA-D2D1-01 and F-QA-D2D1-02.
++ */
++import fs from "node:fs";
++import path from "node:path";
++import { describe, expect, it, vi } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "@/lib/oa/execution-run/infrastructure/fixedClock";
++import { SequentialIdentity } from "@/lib/oa/execution-run/infrastructure/sequentialIdentity";
++import { persistExecutionRunInternal } from "@/lib/oa/execution-run/application/internal/persistExecutionRunInternal";
++import {
++  checkExecutionRunInvariants,
++  createExecutionRun,
++  createOfficialEvidence,
++  createSourceDisclosure,
++  EXECUTION_RUN_SCHEMA_VERSION,
++  getFixture,
++  usageUnavailable,
++} from "@/lib/oa/execution-run";
++import * as rootBarrel from "@/lib/oa/execution-run";
++import * as serverBarrel from "@/lib/oa/execution-run/server";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import type { ExecutionRun, ExecutionRunRepositoryPort } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++const MODULE_ROOT = path.resolve(__dirname, "../../../lib/oa/execution-run");
++
++const cursorIntent = {
++  intentId: "intent:cursor",
++  correlationId: "corr:cursor",
++  requestedLane: "cursor" as const,
++  operation: "sandbox_read",
++  requestedSource: "fixture" as const,
++  requiresHumanGate: false,
++  mutationRequested: false,
++  arbitraryCommandRequested: false,
++};
++const cursorContext = {
++  projectId: "p1",
++  actorId: "a1",
++  declaredSource: "fixture" as const,
++  permissions: { gitRead: true, gitWrite: false, providerInvoke: true },
++};
++
++function cursorRun(over: Partial<ExecutionRun> = {}): ExecutionRun {
++  return {
++    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++    runId: "run:cursor",
++    correlationId: "corr:cursor",
++    state: "idle",
++    intent: cursorIntent,
++    context: cursorContext,
++    disclosure: {
++      source: "fixture",
++      providerLane: "cursor",
++      limits: ["test"],
++      processLocalMemory: true,
++      cursorUnverified: true,
++    },
++    createdAt: "2026-08-03T20:00:00.000Z",
++    updatedAt: "2026-08-03T20:00:00.000Z",
++    version: 1,
++    capability: {
++      lane: "cursor",
++      capabilityId: "cursor:fake",
++      available: true,
++      verified: false,
++      readOnly: true,
++      supportsCancellation: true,
++      supportsTimeout: true,
++    },
++    usage: usageUnavailable("x"),
++    persistence: {
++      kind: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++    ...over,
++  };
++}
++
++describe("F-QA-D2D1-01 Cursor unverified closure", () => {
++  it("A refuses persist with verified true and cursorUnverified false", async () => {
++    const save = vi.fn();
++    const repository: ExecutionRunRepositoryPort = {
++      save,
++      getById: async () => null,
++      listByCorrelationId: async () => [],
++    };
++    const run = cursorRun({
++      disclosure: {
++        source: "fixture",
++        providerLane: "cursor",
++        limits: ["test"],
++        processLocalMemory: true,
++        cursorUnverified: false,
++      },
++      capability: {
++        lane: "cursor",
++        capabilityId: "cursor:fake",
++        available: true,
++        verified: true,
++        readOnly: true,
++        supportsCancellation: true,
++        supportsTimeout: true,
++      },
++    });
++    const codes = checkExecutionRunInvariants(run).map((i) => i.code);
++    expect(codes).toEqual(
++      expect.arrayContaining([
++        "CURSOR_UNVERIFIED_DISCLOSURE_REQUIRED",
++        "CURSOR_VERIFIED_CLAIM_FORBIDDEN",
++      ]),
++    );
++    const r = await persistExecutionRunInternal(run, {
++      repository,
++      schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++    });
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("B refuses disclosure.cursorUnverified false with verified false", async () => {
++    const save = vi.fn();
++    const r = await persistExecutionRunInternal(
++      cursorRun({
++        disclosure: {
++          source: "fixture",
++          providerLane: "cursor",
++          limits: ["test"],
++          processLocalMemory: true,
++          cursorUnverified: false,
++        },
++      }),
++      {
++        repository: {
++          save,
++          getById: async () => null,
++          listByCorrelationId: async () => [],
++        },
++        schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++      },
++    );
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("C refuses capability.verified true with cursorUnverified true", async () => {
++    const save = vi.fn();
++    const r = await persistExecutionRunInternal(
++      cursorRun({
++        capability: {
++          lane: "cursor",
++          capabilityId: "cursor:fake",
++          available: true,
++          verified: true,
++          readOnly: true,
++          supportsCancellation: true,
++          supportsTimeout: true,
++        },
++      }),
++      {
++        repository: {
++          save,
++          getById: async () => null,
++          listByCorrelationId: async () => [],
++        },
++        schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++      },
++    );
++    expect(r.ok).toBe(false);
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("D create Cursor verified rejects before clock/identity/save", async () => {
++    const save = vi.fn();
++    const clock = new FixedClock("2026-08-03T20:00:00.000Z");
++    const identity = new SequentialIdentity();
++    const nowSpy = vi.spyOn(clock, "nowIso");
++    const idSpy = vi.spyOn(identity, "nextRunId");
++    const r = await createExecutionRun(
++      {
++        intent: cursorIntent,
++        context: cursorContext,
++        capability: {
++          lane: "cursor",
++          capabilityId: "cursor:fake",
++          available: true,
++          verified: true,
++          readOnly: true,
++          supportsCancellation: true,
++          supportsTimeout: true,
++        },
++      },
++      {
++        clock,
++        identity,
++        repository: {
++          save,
++          getById: async () => null,
++          listByCorrelationId: async () => [],
++        },
++        schemas: new AjvExecutionRunSchemaValidation(schemasDir),
++      },
++    );
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.failure.code).toBe("SANDBOX_BLOCKED");
++    expect(nowSpy).not.toHaveBeenCalled();
++    expect(idSpy).not.toHaveBeenCalled();
++    expect(save).not.toHaveBeenCalled();
++  });
++
++  it("E create Cursor verified false blocks with unverified disclosure", async () => {
++    const c = composeExecutionRunMemory();
++    const r = await c.createExecutionRun({
++      intent: cursorIntent,
++      context: cursorContext,
++      capability: {
++        lane: "cursor",
++        capabilityId: "cursor:fake",
++        available: true,
++        verified: false,
++        readOnly: true,
++        supportsCancellation: true,
++        supportsTimeout: true,
++      },
++    });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.failure.code).toBe("SANDBOX_BLOCKED");
++    expect(r.run?.state).toBe("blocked");
++    expect(r.run?.disclosure.cursorUnverified).toBe(true);
++    expect(r.run?.capability?.verified).not.toBe(true);
++  });
++
++  it("F non-Cursor AI capability may remain verified true", async () => {
++    const f = getFixture("nominal");
++    expect(f.capability?.verified).toBe(true);
++    const c = composeExecutionRunMemory();
++    const r = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    expect(r.ok).toBe(true);
++    if (r.ok) expect(r.run.capability?.verified).toBe(true);
++  });
++});
++
++describe("F-QA-D2D1-02 public persistence surface closure", () => {
++  it("G root barrel has no persist exports", () => {
++    expect("persistExecutionRun" in rootBarrel).toBe(false);
++    expect("persistExecutionRunInternal" in rootBarrel).toBe(false);
++    expect("createExecutionRun" in rootBarrel).toBe(true);
++    expect("transitionExecutionRun" in rootBarrel).toBe(true);
++  });
++
++  it("H server barrel and composition expose no persist/save/repository", () => {
++    expect("persistExecutionRun" in serverBarrel).toBe(false);
++    expect("persistExecutionRunInternal" in serverBarrel).toBe(false);
++    const c = composeExecutionRunMemory() as Record<string, unknown>;
++    expect(c.persistExecutionRun).toBeUndefined();
++    expect(c.persistExecutionRunInternal).toBeUndefined();
++    expect(c.save).toBeUndefined();
++    expect(c.repository).toBeUndefined();
++    expect(typeof c.createExecutionRun).toBe("function");
++    expect(typeof c.transitionExecutionRun).toBe("function");
++    expect(typeof c.getById).toBe("function");
++    expect(typeof c.listByCorrelationId).toBe("function");
++  });
++
++  it("I succeeded only via create → running → outputs_validated", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) return;
++    const started = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    expect(started.ok).toBe(true);
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "ok",
++        rawPresent: false,
++      },
++    });
++    expect(done.ok).toBe(true);
++    if (done.ok) {
++      expect(done.run.state).toBe("succeeded");
++      expect(done.run.evidence?.some((e) => e.official && !e.late)).toBe(true);
++    }
++  });
++
++  it("internal helper import allowlist is closed", () => {
++    const allowed = new Set([
++      path.join(MODULE_ROOT, "application/createExecutionRun.ts"),
++      path.join(MODULE_ROOT, "application/transitionExecutionRun.ts"),
++      // tests may import for guard verification
++    ]);
++    const hits: string[] = [];
++    function walk(dir: string) {
++      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
++        const full = path.join(dir, entry.name);
++        if (entry.isDirectory()) {
++          if (entry.name === "node_modules") continue;
++          walk(full);
++          continue;
++        }
++        if (!/\.tsx?$/.test(entry.name)) continue;
++        if (full.endsWith("persistExecutionRunInternal.ts")) continue;
++        const text = fs.readFileSync(full, "utf8");
++        if (!/persistExecutionRunInternal/.test(text)) continue;
++        if (allowed.has(full)) continue;
++        if (full.includes(`${path.sep}__tests__${path.sep}`)) continue;
++        hits.push(path.relative(MODULE_ROOT, full));
++      }
++    }
++    walk(MODULE_ROOT);
++    // also scan app outside module for accidental imports
++    const appLib = path.resolve(MODULE_ROOT, "../../..");
++    function walkApp(dir: string) {
++      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
++        const full = path.join(dir, entry.name);
++        if (entry.isDirectory()) {
++          if (["node_modules", ".next", "execution-run"].includes(entry.name)) continue;
++          walkApp(full);
++          continue;
++        }
++        if (!/\.tsx?$/.test(entry.name)) continue;
++        const text = fs.readFileSync(full, "utf8");
++        if (/persistExecutionRunInternal|application\/persistExecutionRun/.test(text)) {
++          hits.push(path.relative(appLib, full));
++        }
++      }
++    }
++    walkApp(path.join(appLib, "lib"));
++    expect(hits).toEqual([]);
++    expect(fs.existsSync(path.join(MODULE_ROOT, "application/persistExecutionRun.ts"))).toBe(
++      false,
++    );
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
+new file mode 100644
+index 0000000..7669535
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/repository.memory.test.ts
+@@ -0,0 +1,73 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { getFixture } from "@/lib/oa/execution-run";
++
++describe("D2-D1 memory repository via server composition", () => {
++  it("saves and loads with defensive copies", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) return;
++    const loaded = await c.getById(created.run.runId);
++    expect(loaded?.runId).toBe(created.run.runId);
++    expect(loaded).not.toBe(created.run);
++  });
++
++  it("lists by correlation deterministically", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    const list = await c.listByCorrelationId(f.intent.correlationId);
++    expect(list.length).toBe(1);
++  });
++
++  it("returns null for missing", async () => {
++    const c = composeExecutionRunMemory();
++    expect(await c.getById("missing")).toBeNull();
++  });
++
++  it("issues new identity after terminal via new create", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const a = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    const b = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    expect(a.ok && b.ok).toBe(true);
++    if (a.ok && b.ok) expect(a.run.runId).not.toBe(b.run.runId);
++  });
++
++  it("discloses process-local memory only", () => {
++    const c = composeExecutionRunMemory();
++    expect(c.disclosure).toEqual({
++      persistence: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    });
++  });
++
++  it("does not expose raw repository save on composition", () => {
++    const c = composeExecutionRunMemory() as Record<string, unknown>;
++    expect(c.repository).toBeUndefined();
++    expect(c.store).toBeUndefined();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
+new file mode 100644
+index 0000000..3ead9e5
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/schemas.adversarial.test.ts
+@@ -0,0 +1,180 @@
++/**
++ * @vitest-environment node
++ */
++import path from "node:path";
++import { describe, expect, it } from "vitest";
++import { AjvExecutionRunSchemaValidation } from "@/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation";
++import { getFixture } from "@/lib/oa/execution-run";
++import { composeExecutionRunMemory } from "@/lib/oa/execution-run/server";
++import { normalizedFailure } from "@/lib/oa/execution-run";
++
++const schemasDir = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-run/schemas",
++);
++
++describe("D2-D1 AJV adversarial validation", () => {
++  const validator = new AjvExecutionRunSchemaValidation(schemasDir);
++
++  it("rejects null and undefined before metadata use", async () => {
++    expect((await validator.validate("execution-intent", null)).ok).toBe(false);
++    expect((await validator.validate("execution-intent", undefined)).ok).toBe(false);
++  });
++
++  it("rejects wrong types and missing fields", async () => {
++    expect((await validator.validate("execution-intent", 42)).ok).toBe(false);
++    expect((await validator.validate("execution-intent", {})).ok).toBe(false);
++    expect(
++      (
++        await validator.validate("execution-intent", {
++          ...getFixture("nominal").intent,
++          requestedLane: "openai",
++        })
++      ).ok,
++    ).toBe(false);
++  });
++
++  it("rejects empty operation", async () => {
++    const f = getFixture("validation_failure");
++    const r = await validator.validate("execution-intent", f.intent);
++    expect(r.ok).toBe(false);
++  });
++
++  it("accepts nominal intent", async () => {
++    const f = getFixture("nominal");
++    const r = await validator.validate("execution-intent", f.intent);
++    expect(r.ok).toBe(true);
++  });
++
++  it("does not throw raw AJV exceptions", async () => {
++    await expect(validator.validate("execution-run", { circular: null })).resolves.toMatchObject({
++      ok: false,
++    });
++  });
++});
++
++describe("D2-D1 succeeded / failed / blocked application invariants", () => {
++  it("creates official evidence on succeeded", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++      externalResult: {
++        kind: "success",
++        completeness: "complete",
++        redactedSummary: "redacted-ok",
++        rawPresent: false,
++      },
++    });
++    expect(done.ok).toBe(true);
++    if (!done.ok) return;
++    expect(done.run.evidence?.[0]?.summary).toBe("redacted-ok");
++    expect(done.run.evidence?.[0]?.official).toBe(true);
++    expect(done.run.evidence?.[0]?.late).toBe(false);
++  });
++
++  it("refuses succeeded without external result", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const done = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "outputs_validated",
++      completeness: "complete",
++    });
++    expect(done.ok).toBe(false);
++  });
++
++  it("requires normalized failure for failed", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: f.intent,
++      context: f.context,
++      capability: f.capability,
++    });
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    const missing = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "engaged_operation_failed",
++    });
++    expect(missing.ok).toBe(false);
++    const ok = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "engaged_operation_failed",
++      failure: normalizedFailure({
++        family: "rate_limited",
++        code: "RATE_LIMITED",
++        userMessage: "slow down",
++        retryable: true,
++        correlationId: created.run.correlationId,
++      }),
++    });
++    expect(ok.ok).toBe(true);
++    if (ok.ok) expect(ok.run.failure?.code).toBe("RATE_LIMITED");
++  });
++
++  it("requires failure or blockingReason for blocked transition", async () => {
++    const c = composeExecutionRunMemory();
++    const f = getFixture("nominal");
++    const created = await c.createExecutionRun({
++      intent: {
++        ...f.intent,
++        requiresHumanGate: true,
++        intentId: "intent:gate",
++        correlationId: "corr:gate",
++      },
++      context: f.context,
++      capability: f.capability,
++    });
++    // may be blocked at create due to unsatisfied gate — use idle path with gate false via capability
++    if (!created.ok && created.run?.state === "blocked") {
++      expect(created.run.failure || created.run.blockedReason).toBeTruthy();
++      return;
++    }
++    if (!created.ok) return;
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "intent_valid",
++    });
++    await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_gate_required",
++    });
++    const blocked = await c.transitionExecutionRun({
++      runId: created.run.runId,
++      reason: "human_reject_or_unsatisfied",
++      blockingReason: "HUMAN_REJECTED",
++    });
++    expect(blocked.ok).toBe(true);
++    if (blocked.ok) {
++      expect(blocked.run.state).toBe("blocked");
++      expect(blocked.run.blockedReason).toBe("HUMAN_REJECTED");
++    }
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
+new file mode 100644
+index 0000000..eb70230
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-run/transitions.test.ts
+@@ -0,0 +1,86 @@
++/**
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  decideTransition,
++  listAllowedTransitions,
++  EXECUTION_STATES,
++  isTerminalState,
++} from "@/lib/oa/execution-run";
++
++describe("D2-D1 transition authority", () => {
++  it("exposes exactly eight states", () => {
++    expect(EXECUTION_STATES).toHaveLength(8);
++  });
++
++  it("allows documented transitions", () => {
++    for (const edge of listAllowedTransitions()) {
++      expect(
++        decideTransition({
++          from: edge.from,
++          to: edge.to,
++          reason: edge.reason,
++          completeness: edge.to === "succeeded" ? "complete" : undefined,
++        }).allowed,
++      ).toBe(true);
++    }
++  });
++
++  it("refuses terminal without new run", () => {
++    for (const state of ["succeeded", "failed", "cancelled", "timed_out", "blocked"] as const) {
++      expect(isTerminalState(state)).toBe(true);
++      const d = decideTransition({ from: state, to: "running", reason: "intent_valid" });
++      expect(d.allowed).toBe(false);
++    }
++  });
++
++  it("refuses partial succeeded", () => {
++    const d = decideTransition({
++      from: "running",
++      to: "succeeded",
++      reason: "outputs_validated",
++      completeness: "partial",
++    });
++    expect(d.allowed).toBe(false);
++  });
++
++  it("refuses late result state mutation", () => {
++    const d = decideTransition({
++      from: "cancelled",
++      to: "succeeded",
++      reason: "late_result_evidence_only",
++    });
++    expect(d.allowed).toBe(false);
++  });
++
++  it("refuses idle→succeeded", () => {
++    const d = decideTransition({
++      from: "idle",
++      to: "succeeded",
++      reason: "outputs_validated",
++      completeness: "complete",
++    });
++    expect(d.allowed).toBe(false);
++  });
++
++  it("samples refused transitions per non-terminal state", () => {
++    const samples = [
++      { from: "idle" as const, to: "failed" as const, reason: "engaged_operation_failed" as const },
++      { from: "running" as const, to: "idle" as const, reason: "intent_valid" as const },
++      {
++        from: "awaiting_human" as const,
++        to: "succeeded" as const,
++        reason: "outputs_validated" as const,
++        completeness: "complete" as const,
++      },
++    ];
++    for (const s of samples) {
++      expect(decideTransition(s).allowed).toBe(false);
++    }
++  });
++
++  it("preserves exactly the adopted allowed edge count", () => {
++    expect(listAllowedTransitions()).toHaveLength(11);
++  });
++});
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
+new file mode 100644
+index 0000000..32e6dd4
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/createExecutionRun.ts
+@@ -0,0 +1,127 @@
++import { createSourceDisclosure, usageUnavailable } from "../domain/evidence";
++import { evaluateReadOnlyPolicy } from "../domain/policy";
++import { normalizedFailure } from "../domain/errors";
++import type {
++  ExecutionContext,
++  ExecutionIntent,
++  ExecutionRun,
++  NormalizedFailure,
++  ProviderCapabilityDescriptor,
++} from "../domain/types";
++import { EXECUTION_RUN_SCHEMA_VERSION } from "../domain/types";
++import type { ClockPort } from "../ports/clockPort";
++import type { IdentityPort } from "../ports/identityPort";
++import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
++import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++import { persistExecutionRunInternal } from "./internal/persistExecutionRunInternal";
++
++export type CreateExecutionRunInput = {
++  intent: ExecutionIntent;
++  context: ExecutionContext;
++  capability?: ProviderCapabilityDescriptor;
++};
++
++export type CreateExecutionRunResult =
++  | { ok: true; run: ExecutionRun }
++  | { ok: false; failure: NormalizedFailure; run?: ExecutionRun };
++
++/**
++ * Untrusted boundary: validates CreateExecutionRunInput before any metadata access,
++ * identity allocation, or persistence.
++ */
++export async function createExecutionRun(
++  input: unknown,
++  deps: {
++    clock: ClockPort;
++    identity: IdentityPort;
++    repository: ExecutionRunRepositoryPort;
++    schemas: ExecutionRunSchemaValidationPort;
++  },
++): Promise<CreateExecutionRunResult> {
++  const boundary = await deps.schemas.validate("create-execution-run-input", input);
++  if (!boundary.ok) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Create execution run input failed schema validation",
++        retryable: true,
++        correlationId: "unknown",
++      }),
++    };
++  }
++
++  const validated = input as CreateExecutionRunInput;
++
++  // Fail-closed Cursor verified claim before clock, identity, run construction, or save.
++  if (
++    validated.intent.requestedLane === "cursor" &&
++    validated.capability?.verified === true
++  ) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "sandbox_blocked",
++        code: "SANDBOX_BLOCKED",
++        userMessage: "Cursor product capabilities remain unverified",
++        retryable: false,
++        correlationId:
++          typeof validated.intent.correlationId === "string"
++            ? validated.intent.correlationId
++            : "unknown",
++      }),
++    };
++  }
++
++  const now = deps.clock.nowIso();
++  const policy = evaluateReadOnlyPolicy({
++    intent: validated.intent,
++    context: validated.context,
++    capability: validated.capability,
++    gateSatisfied: validated.intent.requiresHumanGate ? false : undefined,
++  });
++
++  const disclosure = createSourceDisclosure({
++    source: validated.context.declaredSource,
++    providerLane: validated.intent.requestedLane,
++    limits: ["d2-d1-fixture-first", "memory-process-local"],
++    cursorUnverified: validated.intent.requestedLane === "cursor",
++  });
++
++  const runId = deps.identity.nextRunId();
++  const base: ExecutionRun = {
++    schemaVersion: EXECUTION_RUN_SCHEMA_VERSION,
++    runId,
++    correlationId: validated.intent.correlationId,
++    state: policy.ok ? "idle" : "blocked",
++    intent: validated.intent,
++    context: validated.context,
++    disclosure,
++    createdAt: now,
++    updatedAt: now,
++    version: 1,
++    capability: validated.capability,
++    usage: usageUnavailable("not_provided"),
++    persistence: {
++      kind: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++    validation: policy.ok
++      ? { ok: true, validatedAt: now }
++      : { ok: false, validatedAt: now, failure: policy.failure },
++    failure: policy.ok ? undefined : policy.failure,
++    blockedReason: policy.ok ? undefined : policy.failure.code,
++  };
++
++  const persisted = await persistExecutionRunInternal(base, deps);
++  if (!persisted.ok) {
++    return { ok: false, failure: persisted.failure };
++  }
++  if (!policy.ok) {
++    return { ok: false, failure: policy.failure, run: base };
++  }
++  return { ok: true, run: base };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/internal/persistExecutionRunInternal.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/internal/persistExecutionRunInternal.ts
+new file mode 100644
+index 0000000..71991a6
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/internal/persistExecutionRunInternal.ts
+@@ -0,0 +1,54 @@
++/**
++ * Internal-only persistence path for D2-D1 ExecutionRun.
++ * Not part of the public barrel or server composition surface.
++ * Invariants then schema validation before repository save.
++ * Does not decide transitions — create/transition remain state authority.
++ */
++import { checkExecutionRunInvariants } from "../../domain/invariants";
++import { normalizedFailure } from "../../domain/errors";
++import type { ExecutionRun, NormalizedFailure } from "../../domain/types";
++import type { ExecutionRunRepositoryPort } from "../../ports/executionRunRepository";
++import type { ExecutionRunSchemaValidationPort } from "../../ports/executionRunSchemaValidation";
++
++export type PersistExecutionRunInternalResult =
++  | { ok: true }
++  | { ok: false; failure: NormalizedFailure };
++
++export async function persistExecutionRunInternal(
++  run: ExecutionRun,
++  deps: {
++    repository: ExecutionRunRepositoryPort;
++    schemas: ExecutionRunSchemaValidationPort;
++  },
++): Promise<PersistExecutionRunInternalResult> {
++  const issues = checkExecutionRunInvariants(run);
++  if (issues.length > 0) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: `Run invariants failed: ${issues.map((i) => i.code).join(",")}`,
++        retryable: false,
++        correlationId: run.correlationId,
++      }),
++    };
++  }
++
++  const schema = await deps.schemas.validate("execution-run", run);
++  if (!schema.ok) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Execution run failed schema validation before persistence",
++        retryable: false,
++        correlationId: run.correlationId,
++      }),
++    };
++  }
++
++  await deps.repository.save(run);
++  return { ok: true };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
+new file mode 100644
+index 0000000..f42e313
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/transitionExecutionRun.ts
+@@ -0,0 +1,367 @@
++import { createOfficialEvidence, canSucceed } from "../domain/evidence";
++import { decideTransition, type TransitionReason } from "../domain/transitions";
++import { canAcceptLateResult } from "../domain/invariants";
++import { normalizedFailure } from "../domain/errors";
++import type {
++  Completeness,
++  ExecutionRun,
++  ExternalResult,
++  NormalizedFailure,
++} from "../domain/types";
++import type { ClockPort } from "../ports/clockPort";
++import type { IdentityPort } from "../ports/identityPort";
++import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
++import type { ExecutionRunSchemaValidationPort } from "../ports/executionRunSchemaValidation";
++import { persistExecutionRunInternal } from "./internal/persistExecutionRunInternal";
++
++export type TransitionExecutionRunInput = {
++  runId: string;
++  reason: TransitionReason;
++  completeness?: Completeness;
++  externalResult?: ExternalResult;
++  failure?: NormalizedFailure;
++  blockingReason?: string;
++  lateEvidenceSummary?: string;
++};
++
++export type TransitionExecutionRunResult =
++  | { ok: true; run: ExecutionRun }
++  | { ok: false; failure: NormalizedFailure; run?: ExecutionRun };
++
++function targetForReason(
++  reason: TransitionReason,
++): ExecutionRun["state"] | null {
++  switch (reason) {
++    case "intent_valid":
++      return "running";
++    case "pre_engagement_block":
++      return "blocked";
++    case "human_gate_required":
++      return "awaiting_human";
++    case "outputs_validated":
++      return "succeeded";
++    case "engaged_operation_failed":
++      return "failed";
++    case "time_limit":
++    case "human_gate_expired":
++      return "timed_out";
++    case "cancel_accepted":
++    case "human_cancel":
++      return "cancelled";
++    case "human_approve":
++      return "running";
++    case "human_reject_or_unsatisfied":
++      return "blocked";
++    default:
++      return null;
++  }
++}
++
++/**
++ * Untrusted boundary: validates TransitionExecutionRunInput before metadata access
++ * or repository lookup.
++ */
++export async function transitionExecutionRun(
++  input: unknown,
++  deps: {
++    clock: ClockPort;
++    identity: IdentityPort;
++    repository: ExecutionRunRepositoryPort;
++    schemas: ExecutionRunSchemaValidationPort;
++  },
++): Promise<TransitionExecutionRunResult> {
++  const boundary = await deps.schemas.validate(
++    "transition-execution-run-input",
++    input,
++  );
++  if (!boundary.ok) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Transition execution run input failed schema validation",
++        retryable: true,
++        correlationId: "unknown",
++      }),
++    };
++  }
++
++  const validated = input as TransitionExecutionRunInput;
++
++  const existing = await deps.repository.getById(validated.runId);
++  if (!existing) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Execution run not found",
++        retryable: false,
++        correlationId: "unknown",
++      }),
++    };
++  }
++
++  if (validated.reason === "late_result_evidence_only") {
++    if (!canAcceptLateResult(existing.state)) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage:
++            "Late result evidence accepted only for cancelled, timed_out, or failed runs",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const summary = validated.lateEvidenceSummary ?? "late_result_redacted";
++    const evidence = createOfficialEvidence({
++      evidenceId: deps.identity.nextEvidenceId(),
++      runId: existing.runId,
++      correlationId: existing.correlationId,
++      source: existing.disclosure.source,
++      completeness: "partial",
++      producedAt: deps.clock.nowIso(),
++      summary,
++      late: true,
++    });
++
++    const evidenceSchema = await deps.schemas.validate(
++      "execution-evidence",
++      evidence,
++    );
++    if (!evidenceSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "Late evidence failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const updated: ExecutionRun = {
++      ...existing,
++      updatedAt: deps.clock.nowIso(),
++      version: existing.version + 1,
++      evidence: [...(existing.evidence ?? []), evidence],
++    };
++    const persisted = await persistExecutionRunInternal(updated, deps);
++    if (!persisted.ok) {
++      return { ok: false, failure: persisted.failure, run: existing };
++    }
++    return { ok: true, run: updated };
++  }
++
++  const to = targetForReason(validated.reason);
++  if (!to) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Unknown transition reason",
++        retryable: false,
++        correlationId: existing.correlationId,
++      }),
++      run: existing,
++    };
++  }
++
++  const decision = decideTransition({
++    from: existing.state,
++    to,
++    reason: validated.reason,
++    completeness: validated.completeness,
++  });
++  if (!decision.allowed) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: decision.message,
++        retryable: false,
++        correlationId: existing.correlationId,
++      }),
++      run: existing,
++    };
++  }
++
++  const now = deps.clock.nowIso();
++
++  if (to === "succeeded") {
++    const external = validated.externalResult;
++    const externalSchema = await deps.schemas.validate(
++      "external-result",
++      external,
++    );
++    if (!externalSchema.ok || !external) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "invalid_provider_result",
++          code: "INVALID_PROVIDER_RESULT",
++          userMessage: "succeeded requires a valid ExternalResult",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    if (external.kind !== "success" || !canSucceed(external.completeness)) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "invalid_provider_result",
++          code: "INVALID_PROVIDER_RESULT",
++          userMessage: "Cannot succeed without complete success ExternalResult",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    if (validated.completeness !== "complete") {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "invalid_provider_result",
++          code: "INVALID_PROVIDER_RESULT",
++          userMessage: "Cannot succeed with partial or missing completeness",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const evidence = createOfficialEvidence({
++      evidenceId: deps.identity.nextEvidenceId(),
++      runId: existing.runId,
++      correlationId: existing.correlationId,
++      source: existing.disclosure.source,
++      completeness: "complete",
++      producedAt: now,
++      summary: external.redactedSummary,
++      late: false,
++    });
++    const evidenceSchema = await deps.schemas.validate(
++      "execution-evidence",
++      evidence,
++    );
++    if (!evidenceSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "Official evidence failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++
++    const updated: ExecutionRun = {
++      ...existing,
++      state: "succeeded",
++      updatedAt: now,
++      version: existing.version + 1,
++      externalResult: external,
++      evidence: [...(existing.evidence ?? []), evidence],
++    };
++    const persisted = await persistExecutionRunInternal(updated, deps);
++    if (!persisted.ok) {
++      return { ok: false, failure: persisted.failure, run: existing };
++    }
++    return { ok: true, run: updated };
++  }
++
++  if (to === "failed") {
++    if (!validated.failure) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "failed requires NormalizedFailure",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++    const failureSchema = await deps.schemas.validate(
++      "normalized-failure",
++      validated.failure,
++    );
++    if (!failureSchema.ok) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "NormalizedFailure failed schema validation",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++  }
++
++  if (to === "blocked") {
++    const hasFailure = Boolean(validated.failure);
++    const hasReason =
++      typeof validated.blockingReason === "string" &&
++      validated.blockingReason.trim().length > 0;
++    if (!hasFailure && !hasReason && !existing.failure && !existing.blockedReason) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "validation",
++          code: "VALIDATION_ERROR",
++          userMessage: "blocked requires NormalizedFailure or blockingReason",
++          retryable: false,
++          correlationId: existing.correlationId,
++        }),
++        run: existing,
++      };
++    }
++  }
++
++  const updated: ExecutionRun = {
++    ...existing,
++    state: to,
++    updatedAt: now,
++    version: existing.version + 1,
++    externalResult: validated.externalResult ?? existing.externalResult,
++    failure:
++      validated.failure ??
++      (to === "failed" || to === "blocked" ? existing.failure : existing.failure),
++    blockedReason:
++      to === "blocked"
++        ? validated.blockingReason ??
++          validated.failure?.code ??
++          existing.blockedReason ??
++          "blocked"
++        : existing.blockedReason,
++  };
++
++  const persisted = await persistExecutionRunInternal(updated, deps);
++  if (!persisted.ok) {
++    return { ok: false, failure: persisted.failure, run: existing };
++  }
++  return { ok: true, run: updated };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts
+new file mode 100644
+index 0000000..d779c85
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/errors.ts
+@@ -0,0 +1,18 @@
++import type { FailureCode, FailureFamily, NormalizedFailure } from "./types";
++
++export function normalizedFailure(input: {
++  family: FailureFamily;
++  code: FailureCode;
++  userMessage: string;
++  retryable: boolean;
++  correlationId: string;
++}): NormalizedFailure {
++  return {
++    family: input.family,
++    code: input.code,
++    userMessage: input.userMessage,
++    technicalDetailsRedacted: true,
++    retryable: input.retryable,
++    correlationId: input.correlationId,
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts
+new file mode 100644
+index 0000000..b8f373d
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/evidence.ts
+@@ -0,0 +1,74 @@
++/**
++ * Evidence, completeness, source disclosure rules (FD-05/08).
++ */
++import type {
++  Completeness,
++  ExecutionEvidence,
++  ExecutionSource,
++  ProviderLane,
++  SourceDisclosure,
++  UsageSummary,
++} from "./types";
++
++export function assertSourceHonest(
++  declared: ExecutionSource,
++  claimed: ExecutionSource,
++): boolean {
++  return declared === claimed;
++}
++
++export function canSucceed(completeness: Completeness): boolean {
++  return completeness === "complete";
++}
++
++export function createOfficialEvidence(input: {
++  evidenceId: string;
++  runId: string;
++  correlationId: string;
++  source: ExecutionSource;
++  completeness: Completeness;
++  producedAt: string;
++  summary: string;
++  late?: boolean;
++  digest?: string;
++}): ExecutionEvidence {
++  return {
++    evidenceId: input.evidenceId,
++    runId: input.runId,
++    correlationId: input.correlationId,
++    source: input.source,
++    completeness: input.completeness,
++    producedAt: input.producedAt,
++    digest: input.digest,
++    summary: input.summary,
++    late: input.late ?? false,
++    official: true,
++  };
++}
++
++export function createSourceDisclosure(input: {
++  source: ExecutionSource;
++  providerLane: ProviderLane;
++  limits?: readonly string[];
++  cursorUnverified?: boolean;
++}): SourceDisclosure {
++  return {
++    source: input.source,
++    providerLane: input.providerLane,
++    limits: input.limits ?? [],
++    processLocalMemory: true,
++    cursorUnverified: input.cursorUnverified ?? input.providerLane === "cursor",
++  };
++}
++
++export function usageUnavailable(reason: string): UsageSummary {
++  return { status: "unavailable", reason };
++}
++
++export function isIsoTimestamp(value: string): boolean {
++  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value)) {
++    return false;
++  }
++  const t = Date.parse(value);
++  return Number.isFinite(t);
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
+new file mode 100644
+index 0000000..64cde18
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/invariants.ts
+@@ -0,0 +1,112 @@
++/**
++ * Domain late-result eligibility and strengthened persistence invariants.
++ */
++import type { ExecutionEvidence, ExecutionRun, ExecutionState } from "./types";
++import { canSucceed } from "./evidence";
++
++export type InvariantIssue = { readonly code: string; readonly message: string };
++
++/** Terminal states where an external op may have been engaged (FD-05 late evidence). */
++export const LATE_RESULT_ELIGIBLE_STATES = [
++  "cancelled",
++  "timed_out",
++  "failed",
++] as const satisfies readonly ExecutionState[];
++
++export type LateResultEligibleState = (typeof LATE_RESULT_ELIGIBLE_STATES)[number];
++
++export function canAcceptLateResult(state: ExecutionState): state is LateResultEligibleState {
++  return (LATE_RESULT_ELIGIBLE_STATES as readonly string[]).includes(state);
++}
++
++function hasOfficialSuccessEvidence(
++  evidence: readonly ExecutionEvidence[] | undefined,
++  disclosureSource: ExecutionRun["disclosure"]["source"],
++): boolean {
++  if (!evidence || evidence.length === 0) return false;
++  return evidence.some(
++    (e) =>
++      e.official === true &&
++      e.late === false &&
++      e.completeness === "complete" &&
++      e.source === disclosureSource,
++  );
++}
++
++/** Cursor association until G-D2D-CURSOR-01 is consumed (never by this package). */
++export function isCursorAssociated(run: ExecutionRun): boolean {
++  return (
++    run.intent.requestedLane === "cursor" ||
++    run.disclosure.providerLane === "cursor" ||
++    run.capability?.lane === "cursor"
++  );
++}
++
++export function checkExecutionRunInvariants(run: ExecutionRun): InvariantIssue[] {
++  const issues: InvariantIssue[] = [];
++  if (run.persistence.kind !== "memory_process_local") {
++    issues.push({ code: "PERSISTENCE", message: "Only memory_process_local allowed in D2-D1" });
++  }
++  if (run.persistence.durable || run.persistence.multiInstance || run.persistence.restartSafe) {
++    issues.push({ code: "CLAIM", message: "Durable/multi-instance/restart-safe claims forbidden" });
++  }
++  if (run.disclosure.source !== run.context.declaredSource) {
++    issues.push({ code: "SOURCE", message: "disclosure source mismatch vs declared context source" });
++  }
++
++  if (isCursorAssociated(run)) {
++    if (run.disclosure.cursorUnverified !== true) {
++      issues.push({
++        code: "CURSOR_UNVERIFIED_DISCLOSURE_REQUIRED",
++        message: "Cursor-associated runs require disclosure.cursorUnverified === true",
++      });
++    }
++    if (run.capability?.verified === true) {
++      issues.push({
++        code: "CURSOR_VERIFIED_CLAIM_FORBIDDEN",
++        message: "Cursor capability.verified=true is forbidden until G-D2D-CURSOR-01 is consumed",
++      });
++    }
++  }
++
++  if (run.state === "succeeded") {
++    const external = run.externalResult;
++    if (!external || external.kind !== "success") {
++      issues.push({
++        code: "SUCCEEDED_EXTERNAL_RESULT",
++        message: "succeeded requires ExternalResult kind success",
++      });
++    } else if (!canSucceed(external.completeness)) {
++      issues.push({
++        code: "PARTIAL_SUCCESS",
++        message: "succeeded requires complete external result",
++      });
++    }
++    if (!hasOfficialSuccessEvidence(run.evidence, run.disclosure.source)) {
++      issues.push({
++        code: "SUCCEEDED_EVIDENCE",
++        message: "succeeded requires official complete non-late evidence",
++      });
++    }
++  }
++
++  if (run.state === "failed") {
++    if (!run.failure) {
++      issues.push({ code: "FAILED_FAILURE", message: "failed requires NormalizedFailure" });
++    }
++  }
++
++  if (run.state === "blocked") {
++    const hasFailure = Boolean(run.failure);
++    const hasReason =
++      typeof run.blockedReason === "string" && run.blockedReason.trim().length > 0;
++    if (!hasFailure && !hasReason) {
++      issues.push({
++        code: "BLOCKED_REASON",
++        message: "blocked requires NormalizedFailure or non-empty blockedReason",
++      });
++    }
++  }
++
++  return issues;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+new file mode 100644
+index 0000000..83d3841
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
+@@ -0,0 +1,164 @@
++/**
++ * Pure Validation & Read-only Policy foundation (FD-04 / CAD-04).
++ * Operates on contracts only — no FS/Git/provider I/O.
++ */
++import { normalizedFailure } from "./errors";
++import type {
++  ExecutionContext,
++  ExecutionIntent,
++  NormalizedFailure,
++  ProviderCapabilityDescriptor,
++} from "./types";
++
++export type PolicyInput = {
++  readonly intent: ExecutionIntent;
++  readonly context: ExecutionContext;
++  readonly capability?: ProviderCapabilityDescriptor;
++  readonly gateSatisfied?: boolean;
++};
++
++export type PolicyDecision =
++  | { readonly ok: true }
++  | { readonly ok: false; readonly failure: NormalizedFailure };
++
++export function evaluateReadOnlyPolicy(input: PolicyInput): PolicyDecision {
++  const { intent, context, capability } = input;
++  const cid = intent.correlationId;
++
++  if (intent.mutationRequested || context.permissions.gitWrite) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "mutation_forbidden",
++        code: "MUTATION_FORBIDDEN",
++        userMessage: "Git write or mutation intent is forbidden in D2-D",
++        retryable: false,
++        correlationId: cid,
++      }),
++    };
++  }
++
++  if (intent.arbitraryCommandRequested) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "validation",
++        code: "VALIDATION_ERROR",
++        userMessage: "Arbitrary commands are not permitted",
++        retryable: false,
++        correlationId: cid,
++      }),
++    };
++  }
++
++  if (intent.targetPath && context.protectedPaths?.length) {
++    const hit = context.protectedPaths.some(
++      (p) => intent.targetPath === p || intent.targetPath!.startsWith(`${p}/`),
++    );
++    if (hit) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "protected_path",
++          code: "PROTECTED_PATH",
++          userMessage: "Target path is protected",
++          retryable: false,
++          correlationId: cid,
++        }),
++      };
++    }
++  }
++
++  if (!context.permissions.gitRead && intent.requestedLane === "git") {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "authorization",
++        code: "AUTHORIZATION_ERROR",
++        userMessage: "Insufficient permission for Git read",
++        retryable: true,
++        correlationId: cid,
++      }),
++    };
++  }
++
++  if (intent.requestedLane !== "none") {
++    if (!capability) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "provider_unavailable",
++          code: "PROVIDER_UNAVAILABLE",
++          userMessage: "Provider capability descriptor is required",
++          retryable: true,
++          correlationId: cid,
++        }),
++      };
++    }
++    if (!capability.available) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "provider_unavailable",
++          code: "PROVIDER_UNAVAILABLE",
++          userMessage: "Requested provider is unavailable",
++          retryable: true,
++          correlationId: cid,
++        }),
++      };
++    }
++    if (!capability.readOnly) {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "mutation_forbidden",
++          code: "MUTATION_FORBIDDEN",
++          userMessage: "Provider must be read-only for D2-D",
++          retryable: false,
++          correlationId: cid,
++        }),
++      };
++    }
++    // G-D2D-CURSOR-01 is not consumed: never treat capability.verified as authority.
++    if (intent.requestedLane === "cursor" || capability.lane === "cursor") {
++      return {
++        ok: false,
++        failure: normalizedFailure({
++          family: "sandbox_blocked",
++          code: "SANDBOX_BLOCKED",
++          userMessage: "Cursor product capabilities remain unverified",
++          retryable: false,
++          correlationId: cid,
++        }),
++      };
++    }
++  }
++
++  if (intent.requiresHumanGate && input.gateSatisfied === false) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "human_gate_required",
++        code: "HUMAN_GATE_REQUIRED",
++        userMessage: "A structural human gate is required",
++        retryable: true,
++        correlationId: cid,
++      }),
++    };
++  }
++
++  if (intent.requestedSource !== context.declaredSource) {
++    return {
++      ok: false,
++      failure: normalizedFailure({
++        family: "source_mismatch",
++        code: "SOURCE_MISMATCH",
++        userMessage: "Declared source does not match requested source",
++        retryable: false,
++        correlationId: cid,
++      }),
++    };
++  }
++
++  return { ok: true };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts
+new file mode 100644
+index 0000000..8c6865c
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/transitions.ts
+@@ -0,0 +1,109 @@
++/**
++ * Pure eight-state transition authority (FD-02/03/04/06).
++ * Sole decision of whether a transition is valid for D2-D.
++ */
++import type { Completeness, ExecutionState } from "./types";
++import { isTerminalState } from "./types";
++
++export type TransitionReason =
++  | "intent_valid"
++  | "pre_engagement_block"
++  | "human_gate_required"
++  | "outputs_validated"
++  | "engaged_operation_failed"
++  | "time_limit"
++  | "cancel_accepted"
++  | "human_approve"
++  | "human_cancel"
++  | "human_reject_or_unsatisfied"
++  | "human_gate_expired"
++  | "late_result_evidence_only"
++  | "forbidden";
++
++export type TransitionRequest = {
++  readonly from: ExecutionState;
++  readonly to: ExecutionState;
++  readonly reason: TransitionReason;
++  /** Required when to === succeeded */
++  readonly completeness?: Completeness;
++};
++
++export type TransitionDecision =
++  | { readonly allowed: true }
++  | { readonly allowed: false; readonly code: string; readonly message: string };
++
++/** Allowed edges from documents 21 §J + FD-06 (awaiting_human → timed_out). */
++const ALLOWED: ReadonlyArray<readonly [ExecutionState, ExecutionState, TransitionReason]> = [
++  ["idle", "running", "intent_valid"],
++  ["idle", "blocked", "pre_engagement_block"],
++  ["running", "awaiting_human", "human_gate_required"],
++  ["running", "succeeded", "outputs_validated"],
++  ["running", "failed", "engaged_operation_failed"],
++  ["running", "timed_out", "time_limit"],
++  ["running", "cancelled", "cancel_accepted"],
++  ["awaiting_human", "running", "human_approve"],
++  ["awaiting_human", "cancelled", "human_cancel"],
++  ["awaiting_human", "blocked", "human_reject_or_unsatisfied"],
++  ["awaiting_human", "timed_out", "human_gate_expired"],
++];
++
++export function isAllowedTransition(
++  from: ExecutionState,
++  to: ExecutionState,
++  reason: TransitionReason,
++): boolean {
++  return ALLOWED.some(([f, t, r]) => f === from && t === to && r === reason);
++}
++
++export function decideTransition(req: TransitionRequest): TransitionDecision {
++  if (req.reason === "late_result_evidence_only") {
++    return {
++      allowed: false,
++      code: "LATE_RESULT_NO_STATE_MUTATION",
++      message: "Late result is evidence-only and must not mutate state",
++    };
++  }
++
++  if (isTerminalState(req.from)) {
++    return {
++      allowed: false,
++      code: "TERMINAL_REQUIRES_NEW_RUN",
++      message: "Terminal state requires a new run identity",
++    };
++  }
++
++  if (req.to === "succeeded") {
++    if (req.completeness === "partial") {
++      return {
++        allowed: false,
++        code: "PARTIAL_NEVER_SUCCEEDED",
++        message: "Partial completeness cannot transition to succeeded",
++      };
++    }
++    if (req.completeness !== "complete") {
++      return {
++        allowed: false,
++        code: "SUCCEEDED_REQUIRES_COMPLETE",
++        message: "succeeded requires completeness complete",
++      };
++    }
++  }
++
++  if (!isAllowedTransition(req.from, req.to, req.reason)) {
++    return {
++      allowed: false,
++      code: "TRANSITION_FORBIDDEN",
++      message: `Transition ${req.from}→${req.to} (${req.reason}) is not allowed`,
++    };
++  }
++
++  return { allowed: true };
++}
++
++export function listAllowedTransitions(): ReadonlyArray<{
++  from: ExecutionState;
++  to: ExecutionState;
++  reason: TransitionReason;
++}> {
++  return ALLOWED.map(([from, to, reason]) => ({ from, to, reason }));
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts
+new file mode 100644
+index 0000000..e7a3902
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/domain/types.ts
+@@ -0,0 +1,241 @@
++/**
++ * D2-D1 Execution Run — canonical domain vocabulary (twelve functional objects).
++ * Pure domain: no Next/Node/fs/process/network/SDK/AJV.
++ * Authority: sole D2-D technical state authority (TECH-RUN-B).
++ */
++
++export const EXECUTION_RUN_SCHEMA_VERSION = "0.1.0-d2d1" as const;
++
++/** Eight persistent states exactly (FD-02). No STATE-B. */
++export type ExecutionState =
++  | "idle"
++  | "running"
++  | "awaiting_human"
++  | "succeeded"
++  | "failed"
++  | "cancelled"
++  | "timed_out"
++  | "blocked";
++
++export const EXECUTION_STATES: readonly ExecutionState[] = [
++  "idle",
++  "running",
++  "awaiting_human",
++  "succeeded",
++  "failed",
++  "cancelled",
++  "timed_out",
++  "blocked",
++] as const;
++
++export type TerminalExecutionState =
++  | "succeeded"
++  | "failed"
++  | "cancelled"
++  | "timed_out"
++  | "blocked";
++
++export const TERMINAL_STATES: readonly TerminalExecutionState[] = [
++  "succeeded",
++  "failed",
++  "cancelled",
++  "timed_out",
++  "blocked",
++] as const;
++
++export type ExecutionSource = "fixture" | "sandbox-real" | "real";
++
++export type Completeness = "complete" | "partial";
++
++export type ProviderLane = "ai" | "git" | "cursor" | "none";
++
++export type FailureFamily =
++  | "validation"
++  | "authentication"
++  | "authorization"
++  | "provider_unavailable"
++  | "rate_limited"
++  | "timed_out"
++  | "cancelled"
++  | "sandbox_blocked"
++  | "protected_path"
++  | "mutation_forbidden"
++  | "human_gate_required"
++  | "invalid_provider_result"
++  | "internal_normalized_failure"
++  | "source_mismatch";
++
++export type FailureCode =
++  | "VALIDATION_ERROR"
++  | "AUTHENTICATION_ERROR"
++  | "AUTHORIZATION_ERROR"
++  | "PROVIDER_UNAVAILABLE"
++  | "RATE_LIMITED"
++  | "TIMED_OUT"
++  | "CANCELLED"
++  | "SANDBOX_BLOCKED"
++  | "PROTECTED_PATH"
++  | "MUTATION_FORBIDDEN"
++  | "HUMAN_GATE_REQUIRED"
++  | "INVALID_PROVIDER_RESULT"
++  | "INTERNAL_NORMALIZED_FAILURE"
++  | "SOURCE_MISMATCH";
++
++/** 1. ExecutionIntent */
++export type ExecutionIntent = {
++  readonly intentId: string;
++  readonly correlationId: string;
++  readonly requestedLane: ProviderLane;
++  readonly operation: string;
++  readonly requestedSource: ExecutionSource;
++  readonly requiresHumanGate: boolean;
++  readonly mutationRequested: boolean;
++  readonly arbitraryCommandRequested: boolean;
++  readonly targetPath?: string;
++  readonly metadata?: Readonly<Record<string, unknown>>;
++};
++
++/** 2. ExecutionContext */
++export type ExecutionContext = {
++  readonly projectId: string;
++  readonly workspaceId?: string;
++  readonly actorId: string;
++  readonly declaredSource: ExecutionSource;
++  readonly allowlistRepos?: readonly string[];
++  readonly protectedPaths?: readonly string[];
++  readonly permissions: {
++    readonly gitRead: boolean;
++    readonly gitWrite: boolean;
++    readonly providerInvoke: boolean;
++  };
++};
++
++/** 3. ProviderCapabilityDescriptor — provider-independent */
++export type ProviderCapabilityDescriptor = {
++  readonly lane: ProviderLane;
++  readonly capabilityId: string;
++  readonly available: boolean;
++  readonly verified: boolean;
++  readonly readOnly: boolean;
++  readonly supportsCancellation: boolean;
++  readonly supportsTimeout: boolean;
++};
++
++/** 4. ValidationOutcome */
++export type ValidationOutcome =
++  | {
++      readonly ok: true;
++      readonly validatedAt: string;
++    }
++  | {
++      readonly ok: false;
++      readonly validatedAt: string;
++      readonly failure: NormalizedFailure;
++    };
++
++/** 6. ExecutionState — see union above */
++
++/** 7. ExternalResult */
++export type ExternalResult =
++  | {
++      readonly kind: "success";
++      readonly completeness: Completeness;
++      readonly redactedSummary: string;
++      readonly rawPresent: false;
++    }
++  | {
++      readonly kind: "failure";
++      readonly failure: NormalizedFailure;
++    }
++  | {
++      readonly kind: "empty";
++    };
++
++/** 8. ExecutionEvidence */
++export type ExecutionEvidence = {
++  readonly evidenceId: string;
++  readonly runId: string;
++  readonly correlationId: string;
++  readonly source: ExecutionSource;
++  readonly completeness: Completeness;
++  readonly producedAt: string;
++  readonly digest?: string;
++  readonly summary: string;
++  readonly late: boolean;
++  readonly official: true;
++};
++
++/** 9. SourceDisclosure */
++export type SourceDisclosure = {
++  readonly source: ExecutionSource;
++  readonly providerLane: ProviderLane;
++  readonly limits: readonly string[];
++  readonly processLocalMemory: boolean;
++  readonly cursorUnverified: boolean;
++};
++
++/** 10. HumanDecisionGate */
++export type HumanDecisionGate = {
++  readonly gateId: string;
++  readonly question: string;
++  readonly required: boolean;
++  readonly decision?: "approve" | "reject" | "cancel";
++  readonly decidedAt?: string;
++  readonly expiresAt?: string;
++};
++
++/** 11. UsageSummary */
++export type UsageSummary =
++  | {
++      readonly status: "validated";
++      readonly inputTokens?: number;
++      readonly outputTokens?: number;
++      readonly unit?: string;
++    }
++  | {
++      readonly status: "unavailable";
++      readonly reason: string;
++    };
++
++/** 12. NormalizedFailure */
++export type NormalizedFailure = {
++  readonly family: FailureFamily;
++  readonly code: FailureCode;
++  readonly userMessage: string;
++  readonly technicalDetailsRedacted: true;
++  readonly retryable: boolean;
++  readonly correlationId: string;
++};
++
++/** 5. ExecutionRun — aggregate holding state authority fields */
++export type ExecutionRun = {
++  readonly schemaVersion: typeof EXECUTION_RUN_SCHEMA_VERSION;
++  readonly runId: string;
++  readonly correlationId: string;
++  readonly state: ExecutionState;
++  readonly intent: ExecutionIntent;
++  readonly context: ExecutionContext;
++  readonly disclosure: SourceDisclosure;
++  readonly createdAt: string;
++  readonly updatedAt: string;
++  readonly version: number;
++  readonly validation?: ValidationOutcome;
++  readonly capability?: ProviderCapabilityDescriptor;
++  readonly gate?: HumanDecisionGate;
++  readonly externalResult?: ExternalResult;
++  readonly evidence?: readonly ExecutionEvidence[];
++  readonly usage: UsageSummary;
++  readonly failure?: NormalizedFailure;
++  readonly blockedReason?: string;
++  /** Process-local memory disclosure (STORE-B stage 1). */
++  readonly persistence: {
++    readonly kind: "memory_process_local";
++    readonly durable: false;
++    readonly multiInstance: false;
++    readonly restartSafe: false;
++  };
++};
++
++export function isTerminalState(state: ExecutionState): state is TerminalExecutionState {
++  return (TERMINAL_STATES as readonly string[]).includes(state);
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts b/projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts
+new file mode 100644
+index 0000000..236df2a
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts
+@@ -0,0 +1,238 @@
++/**
++ * Deterministic D2-D1 fixture catalogue — source always fixture.
++ */
++import type {
++  ExecutionContext,
++  ExecutionIntent,
++  NormalizedFailure,
++  ProviderCapabilityDescriptor,
++} from "../domain/types";
++import { normalizedFailure } from "../domain/errors";
++
++export type FixtureScenarioId =
++  | "nominal"
++  | "validation_failure"
++  | "auth_failure"
++  | "provider_unavailable"
++  | "rate_limit"
++  | "timeout"
++  | "cancellation"
++  | "blocked_gate"
++  | "protected_path"
++  | "mutation_forbidden"
++  | "partial_result"
++  | "invalid_provider_result"
++  | "late_result"
++  | "secret_redaction"
++  | "source_mismatch";
++
++export type FixtureScenario = {
++  readonly id: FixtureScenarioId;
++  readonly source: "fixture";
++  readonly intent: ExecutionIntent;
++  readonly context: ExecutionContext;
++  readonly capability?: ProviderCapabilityDescriptor;
++  readonly expectedFailure?: NormalizedFailure;
++  readonly notes: string;
++};
++
++const baseContext = (over: Partial<ExecutionContext> = {}): ExecutionContext => ({
++  projectId: "project:d2d1-fixture",
++  actorId: "actor:fixture",
++  declaredSource: "fixture",
++  protectedPaths: [".env", "secrets"],
++  permissions: { gitRead: true, gitWrite: false, providerInvoke: true },
++  ...over,
++});
++
++const baseIntent = (over: Partial<ExecutionIntent> = {}): ExecutionIntent => ({
++  intentId: "intent:fixture:base",
++  correlationId: "corr:fixture:base",
++  requestedLane: "ai",
++  operation: "summarize_read_only",
++  requestedSource: "fixture",
++  requiresHumanGate: false,
++  mutationRequested: false,
++  arbitraryCommandRequested: false,
++  ...over,
++});
++
++const aiCapability: ProviderCapabilityDescriptor = {
++  lane: "ai",
++  capabilityId: "ai:fixture",
++  available: true,
++  verified: true,
++  readOnly: true,
++  supportsCancellation: true,
++  supportsTimeout: true,
++};
++
++export const FIXTURE_CATALOGUE: readonly FixtureScenario[] = [
++  {
++    id: "nominal",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:nominal", correlationId: "corr:fixture:nominal" }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Happy path idle→running→succeeded",
++  },
++  {
++    id: "validation_failure",
++    source: "fixture",
++    intent: baseIntent({
++      intentId: "intent:fixture:validation",
++      correlationId: "corr:fixture:validation",
++      operation: "",
++    }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Invalid operation empty — schema deny",
++  },
++  {
++    id: "auth_failure",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:auth", correlationId: "corr:fixture:auth", requestedLane: "git" }),
++    context: baseContext({ permissions: { gitRead: false, gitWrite: false, providerInvoke: false } }),
++    capability: { ...aiCapability, lane: "git", capabilityId: "git:fixture" },
++    expectedFailure: normalizedFailure({
++      family: "authorization",
++      code: "AUTHORIZATION_ERROR",
++      userMessage: "Insufficient permission for Git read",
++      retryable: true,
++      correlationId: "corr:fixture:auth",
++    }),
++    notes: "Authorization deny",
++  },
++  {
++    id: "provider_unavailable",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:unavail", correlationId: "corr:fixture:unavail" }),
++    context: baseContext(),
++    capability: { ...aiCapability, available: false },
++    notes: "Provider unavailable",
++  },
++  {
++    id: "rate_limit",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:rate", correlationId: "corr:fixture:rate" }),
++    context: baseContext(),
++    capability: aiCapability,
++    expectedFailure: normalizedFailure({
++      family: "rate_limited",
++      code: "RATE_LIMITED",
++      userMessage: "Provider rate limited",
++      retryable: true,
++      correlationId: "corr:fixture:rate",
++    }),
++    notes: "Represents rate limit failure object",
++  },
++  {
++    id: "timeout",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:timeout", correlationId: "corr:fixture:timeout" }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "running→timed_out",
++  },
++  {
++    id: "cancellation",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:cancel", correlationId: "corr:fixture:cancel" }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "running→cancelled",
++  },
++  {
++    id: "blocked_gate",
++    source: "fixture",
++    intent: baseIntent({
++      intentId: "intent:fixture:gate",
++      correlationId: "corr:fixture:gate",
++      requiresHumanGate: true,
++    }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Human gate required blocks engagement when unsatisfied",
++  },
++  {
++    id: "protected_path",
++    source: "fixture",
++    intent: baseIntent({
++      intentId: "intent:fixture:path",
++      correlationId: "corr:fixture:path",
++      targetPath: ".env/token",
++    }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Protected path deny",
++  },
++  {
++    id: "mutation_forbidden",
++    source: "fixture",
++    intent: baseIntent({
++      intentId: "intent:fixture:mutate",
++      correlationId: "corr:fixture:mutate",
++      mutationRequested: true,
++    }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Mutation forbidden",
++  },
++  {
++    id: "partial_result",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:partial", correlationId: "corr:fixture:partial" }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Partial never succeeded",
++  },
++  {
++    id: "invalid_provider_result",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:invalid", correlationId: "corr:fixture:invalid" }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Invalid provider result → failed",
++  },
++  {
++    id: "late_result",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:late", correlationId: "corr:fixture:late" }),
++    context: baseContext(),
++    capability: aiCapability,
++    notes: "Late result evidence-only",
++  },
++  {
++    id: "secret_redaction",
++    source: "fixture",
++    intent: baseIntent({ intentId: "intent:fixture:secret", correlationId: "corr:fixture:secret" }),
++    context: baseContext(),
++    capability: aiCapability,
++    expectedFailure: normalizedFailure({
++      family: "authentication",
++      code: "AUTHENTICATION_ERROR",
++      userMessage: "Credentials unavailable",
++      retryable: true,
++      correlationId: "corr:fixture:secret",
++    }),
++    notes: "Failure object never carries secrets",
++  },
++  {
++    id: "source_mismatch",
++    source: "fixture",
++    intent: baseIntent({
++      intentId: "intent:fixture:mismatch",
++      correlationId: "corr:fixture:mismatch",
++      requestedSource: "real",
++    }),
++    context: baseContext({ declaredSource: "fixture" }),
++    capability: aiCapability,
++    notes: "Source mismatch deny",
++  },
++] as const;
++
++export function getFixture(id: FixtureScenarioId): FixtureScenario {
++  const found = FIXTURE_CATALOGUE.find((f) => f.id === id);
++  if (!found) throw new Error(`missing_fixture:${id}`);
++  return found;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/index.ts b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
+new file mode 100644
+index 0000000..a9fec12
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/index.ts
+@@ -0,0 +1,64 @@
++/**
++ * D2-D1 OA execution-run public barrel.
++ * Sole D2-D technical state authority — memory/fixture-first only.
++ * Concrete server composition is NOT exported here — use ./server.
++ */
++export { EXECUTION_RUN_SCHEMA_VERSION, EXECUTION_STATES, TERMINAL_STATES, isTerminalState } from "./domain/types";
++export type {
++  Completeness,
++  ExecutionContext,
++  ExecutionEvidence,
++  ExecutionIntent,
++  ExecutionRun,
++  ExecutionSource,
++  ExecutionState,
++  ExternalResult,
++  FailureCode,
++  FailureFamily,
++  HumanDecisionGate,
++  NormalizedFailure,
++  ProviderCapabilityDescriptor,
++  ProviderLane,
++  SourceDisclosure,
++  UsageSummary,
++  ValidationOutcome,
++} from "./domain/types";
++export { normalizedFailure } from "./domain/errors";
++export {
++  decideTransition,
++  isAllowedTransition,
++  listAllowedTransitions,
++} from "./domain/transitions";
++export type { TransitionDecision, TransitionReason, TransitionRequest } from "./domain/transitions";
++export { evaluateReadOnlyPolicy } from "./domain/policy";
++export type { PolicyDecision, PolicyInput } from "./domain/policy";
++export {
++  assertSourceHonest,
++  canSucceed,
++  createOfficialEvidence,
++  createSourceDisclosure,
++  isIsoTimestamp,
++  usageUnavailable,
++} from "./domain/evidence";
++export {
++  canAcceptLateResult,
++  checkExecutionRunInvariants,
++  isCursorAssociated,
++  LATE_RESULT_ELIGIBLE_STATES,
++} from "./domain/invariants";
++export { createExecutionRun } from "./application/createExecutionRun";
++export type { CreateExecutionRunInput, CreateExecutionRunResult } from "./application/createExecutionRun";
++export { transitionExecutionRun } from "./application/transitionExecutionRun";
++export type {
++  TransitionExecutionRunInput,
++  TransitionExecutionRunResult,
++} from "./application/transitionExecutionRun";
++export type { ExecutionRunRepositoryPort } from "./ports/executionRunRepository";
++export type {
++  ExecutionRunSchemaName,
++  ExecutionRunSchemaValidationPort,
++} from "./ports/executionRunSchemaValidation";
++export type { ClockPort } from "./ports/clockPort";
++export type { IdentityPort } from "./ports/identityPort";
++export { FIXTURE_CATALOGUE, getFixture } from "./fixtures/catalogue";
++export type { FixtureScenario, FixtureScenarioId } from "./fixtures/catalogue";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
+new file mode 100644
+index 0000000..147209f
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts
+@@ -0,0 +1,135 @@
++/**
++ * AJV Draft-07 boundary validation for D2-D1 — infrastructure only.
++ * Domain/application must not import this module.
++ */
++import fs from "node:fs";
++import path from "node:path";
++import Ajv from "ajv";
++import type {
++  ExecutionRunSchemaName,
++  ExecutionRunSchemaValidationPort,
++  ExecutionRunSchemaValidationResult,
++} from "../ports/executionRunSchemaValidation";
++
++const MAX_ERRORS = 20;
++
++const SCHEMA_FILES: Record<ExecutionRunSchemaName, string> = {
++  "execution-intent": "execution-intent.schema.json",
++  "execution-context": "execution-context.schema.json",
++  "provider-capability-descriptor": "provider-capability-descriptor.schema.json",
++  "validation-outcome": "validation-outcome.schema.json",
++  "execution-run": "execution-run.schema.json",
++  "external-result": "external-result.schema.json",
++  "execution-evidence": "execution-evidence.schema.json",
++  "source-disclosure": "source-disclosure.schema.json",
++  "human-decision-gate": "human-decision-gate.schema.json",
++  "usage-summary": "usage-summary.schema.json",
++  "normalized-failure": "normalized-failure.schema.json",
++  "create-execution-run-input": "create-execution-run-input.schema.json",
++  "transition-execution-run-input": "transition-execution-run-input.schema.json",
++};
++
++const SCHEMA_IDS: Record<ExecutionRunSchemaName, string> = {
++  "execution-intent":
++    "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
++  "execution-context":
++    "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
++  "provider-capability-descriptor":
++    "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
++  "validation-outcome":
++    "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
++  "execution-run": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
++  "external-result":
++    "https://sfia.local/schemas/d2-d1/external-result.schema.json",
++  "execution-evidence":
++    "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
++  "source-disclosure":
++    "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
++  "human-decision-gate":
++    "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
++  "usage-summary": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
++  "normalized-failure":
++    "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
++  "create-execution-run-input":
++    "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
++  "transition-execution-run-input":
++    "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
++};
++
++/** Deterministic load order: leaves before composites that $ref them. */
++const LOAD_ORDER: readonly ExecutionRunSchemaName[] = [
++  "normalized-failure",
++  "execution-intent",
++  "execution-context",
++  "provider-capability-descriptor",
++  "validation-outcome",
++  "external-result",
++  "execution-evidence",
++  "source-disclosure",
++  "human-decision-gate",
++  "usage-summary",
++  "execution-run",
++  "create-execution-run-input",
++  "transition-execution-run-input",
++];
++
++export class AjvExecutionRunSchemaValidation
++  implements ExecutionRunSchemaValidationPort
++{
++  private readonly ajv: Ajv.Ajv;
++  private ready = false;
++  private readonly schemasDir: string;
++
++  constructor(schemasDir?: string) {
++    this.schemasDir = schemasDir ?? path.join(__dirname, "../schemas");
++    this.ajv = new Ajv({
++      allErrors: true,
++      schemaId: "auto",
++      meta: true,
++      validateSchema: true,
++      format: "full",
++      unknownFormats: "ignore",
++    });
++  }
++
++  private ensureLoaded(): void {
++    if (this.ready) return;
++    for (const name of LOAD_ORDER) {
++      const file = SCHEMA_FILES[name];
++      const full = path.join(this.schemasDir, file);
++      const raw = JSON.parse(fs.readFileSync(full, "utf8")) as object;
++      this.ajv.addSchema(raw);
++    }
++    this.ready = true;
++  }
++
++  /** Test helper: confirms every named schema compiled and resolves. */
++  listLoadedSchemaIds(): string[] {
++    this.ensureLoaded();
++    return LOAD_ORDER.map((name) => SCHEMA_IDS[name]);
++  }
++
++  async validate(
++    schema: ExecutionRunSchemaName,
++    value: unknown,
++  ): Promise<ExecutionRunSchemaValidationResult> {
++    try {
++      if (value === null || value === undefined) {
++        return { ok: false, errors: ["value_null_or_undefined"] };
++      }
++      this.ensureLoaded();
++      const validate = this.ajv.getSchema(SCHEMA_IDS[schema]);
++      if (!validate) {
++        return { ok: false, errors: ["schema_not_loaded"] };
++      }
++      const ok = validate(value) as boolean;
++      if (ok) return { ok: true };
++      const errors = (validate.errors ?? [])
++        .slice(0, MAX_ERRORS)
++        .map((e) => `${e.dataPath || "/"} ${e.message ?? "invalid"}`.trim());
++      return { ok: false, errors: errors.length ? errors : ["schema_invalid"] };
++    } catch {
++      return { ok: false, errors: ["schema_validation_internal_failure"] };
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts
+new file mode 100644
+index 0000000..8fdde42
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/fixedClock.ts
+@@ -0,0 +1,8 @@
++import type { ClockPort } from "../ports/clockPort";
++
++export class FixedClock implements ClockPort {
++  constructor(private readonly iso: string) {}
++  nowIso(): string {
++    return this.iso;
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts
+new file mode 100644
+index 0000000..27ec4ab
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunRepository.ts
+@@ -0,0 +1,27 @@
++import type { ExecutionRun } from "../domain/types";
++import type { ExecutionRunRepositoryPort } from "../ports/executionRunRepository";
++import type { MemoryExecutionRunStore } from "./memoryExecutionRunStore";
++
++export class MemoryExecutionRunRepository implements ExecutionRunRepositoryPort {
++  constructor(private readonly store: MemoryExecutionRunStore) {}
++
++  async save(run: ExecutionRun): Promise<void> {
++    this.store.runs.set(run.runId, structuredClone(run));
++  }
++
++  async getById(runId: string): Promise<ExecutionRun | null> {
++    const found = this.store.runs.get(runId);
++    return found ? structuredClone(found) : null;
++  }
++
++  async listByCorrelationId(correlationId: string): Promise<ExecutionRun[]> {
++    const out: ExecutionRun[] = [];
++    for (const run of this.store.runs.values()) {
++      if (run.correlationId === correlationId) {
++        out.push(structuredClone(run));
++      }
++    }
++    out.sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.runId.localeCompare(b.runId));
++    return out;
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts
+new file mode 100644
+index 0000000..9c1d435
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts
+@@ -0,0 +1,5 @@
++import type { ExecutionRun } from "../domain/types";
++
++export class MemoryExecutionRunStore {
++  readonly runs = new Map<string, ExecutionRun>();
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts
+new file mode 100644
+index 0000000..18249bf
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/infrastructure/sequentialIdentity.ts
+@@ -0,0 +1,22 @@
++import type { IdentityPort } from "../ports/identityPort";
++
++export class SequentialIdentity implements IdentityPort {
++  private run = 0;
++  private evidence = 0;
++  private intent = 0;
++
++  nextRunId(): string {
++    this.run += 1;
++    return `executionrun:d2d1:${String(this.run).padStart(4, "0")}`;
++  }
++
++  nextEvidenceId(): string {
++    this.evidence += 1;
++    return `evidence:d2d1:${String(this.evidence).padStart(4, "0")}`;
++  }
++
++  nextIntentId(): string {
++    this.intent += 1;
++    return `intent:d2d1:${String(this.intent).padStart(4, "0")}`;
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts b/projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts
+new file mode 100644
+index 0000000..a973b93
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/ports/clockPort.ts
+@@ -0,0 +1,3 @@
++export interface ClockPort {
++  nowIso(): string;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts
+new file mode 100644
+index 0000000..5177862
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunRepository.ts
+@@ -0,0 +1,7 @@
++import type { ExecutionRun } from "../domain/types";
++
++export interface ExecutionRunRepositoryPort {
++  save(run: ExecutionRun): Promise<void>;
++  getById(runId: string): Promise<ExecutionRun | null>;
++  listByCorrelationId(correlationId: string): Promise<ExecutionRun[]>;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
+new file mode 100644
+index 0000000..6666a18
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/ports/executionRunSchemaValidation.ts
+@@ -0,0 +1,34 @@
++export type ExecutionRunSchemaValidationSuccess = { ok: true };
++export type ExecutionRunSchemaValidationFailure = {
++  ok: false;
++  errors: string[];
++};
++export type ExecutionRunSchemaValidationResult =
++  | ExecutionRunSchemaValidationSuccess
++  | ExecutionRunSchemaValidationFailure;
++
++export type ExecutionRunSchemaName =
++  | "execution-intent"
++  | "execution-context"
++  | "provider-capability-descriptor"
++  | "validation-outcome"
++  | "execution-run"
++  | "external-result"
++  | "execution-evidence"
++  | "source-disclosure"
++  | "human-decision-gate"
++  | "usage-summary"
++  | "normalized-failure"
++  | "create-execution-run-input"
++  | "transition-execution-run-input";
++
++export interface ExecutionRunSchemaValidationPort {
++  /**
++   * Fail-closed validation before any metadata exploitation.
++   * Must not throw raw AJV exceptions to callers.
++   */
++  validate(
++    schema: ExecutionRunSchemaName,
++    value: unknown,
++  ): Promise<ExecutionRunSchemaValidationResult>;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts b/projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts
+new file mode 100644
+index 0000000..2b7fdea
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/ports/identityPort.ts
+@@ -0,0 +1,5 @@
++export interface IdentityPort {
++  nextRunId(): string;
++  nextEvidenceId(): string;
++  nextIntentId(): string;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+new file mode 100644
+index 0000000..ff878d0
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/create-execution-run-input.schema.json
+@@ -0,0 +1,18 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/create-execution-run-input.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["intent", "context"],
++  "properties": {
++    "intent": {
++      "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
++    },
++    "context": {
++      "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
++    },
++    "capability": {
++      "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+new file mode 100644
+index 0000000..3d2d7e3
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-context.schema.json
+@@ -0,0 +1,61 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/execution-context.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "projectId",
++    "actorId",
++    "declaredSource",
++    "permissions"
++  ],
++  "properties": {
++    "projectId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "workspaceId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "actorId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "declaredSource": {
++      "type": "string",
++      "enum": ["fixture", "sandbox-real", "real"]
++    },
++    "allowlistRepos": {
++      "type": "array",
++      "maxItems": 64,
++      "items": {
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 1024
++      }
++    },
++    "protectedPaths": {
++      "type": "array",
++      "maxItems": 64,
++      "items": {
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 1024
++      }
++    },
++    "permissions": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["gitRead", "gitWrite", "providerInvoke"],
++      "properties": {
++        "gitRead": { "type": "boolean" },
++        "gitWrite": { "type": "boolean" },
++        "providerInvoke": { "type": "boolean" }
++      }
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
+new file mode 100644
+index 0000000..52a5c5c
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-evidence.schema.json
+@@ -0,0 +1,63 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "evidenceId",
++    "runId",
++    "correlationId",
++    "source",
++    "completeness",
++    "producedAt",
++    "summary",
++    "late",
++    "official"
++  ],
++  "properties": {
++    "evidenceId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "runId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "correlationId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "source": {
++      "type": "string",
++      "enum": ["fixture", "sandbox-real", "real"]
++    },
++    "completeness": {
++      "type": "string",
++      "enum": ["complete", "partial"]
++    },
++    "producedAt": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "digest": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "summary": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    },
++    "late": {
++      "type": "boolean"
++    },
++    "official": {
++      "type": "boolean",
++      "const": true
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
+new file mode 100644
+index 0000000..46b3cc8
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-intent.schema.json
+@@ -0,0 +1,58 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "intentId",
++    "correlationId",
++    "requestedLane",
++    "operation",
++    "requestedSource",
++    "requiresHumanGate",
++    "mutationRequested",
++    "arbitraryCommandRequested"
++  ],
++  "properties": {
++    "intentId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "correlationId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "requestedLane": {
++      "type": "string",
++      "enum": ["ai", "git", "cursor", "none"]
++    },
++    "operation": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "requestedSource": {
++      "type": "string",
++      "enum": ["fixture", "sandbox-real", "real"]
++    },
++    "requiresHumanGate": {
++      "type": "boolean"
++    },
++    "mutationRequested": {
++      "type": "boolean"
++    },
++    "arbitraryCommandRequested": {
++      "type": "boolean"
++    },
++    "targetPath": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 1024
++    },
++    "metadata": {
++      "type": "object"
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
+new file mode 100644
+index 0000000..a304667
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/execution-run.schema.json
+@@ -0,0 +1,178 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/execution-run.schema.json",
++  "allOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "schemaVersion",
++        "runId",
++        "correlationId",
++        "state",
++        "intent",
++        "context",
++        "disclosure",
++        "createdAt",
++        "updatedAt",
++        "version",
++        "usage",
++        "persistence"
++      ],
++      "properties": {
++        "schemaVersion": {
++          "type": "string",
++          "const": "0.1.0-d2d1"
++        },
++        "runId": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 256
++        },
++        "correlationId": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 256
++        },
++        "state": {
++          "type": "string",
++          "enum": [
++            "idle",
++            "running",
++            "awaiting_human",
++            "succeeded",
++            "failed",
++            "cancelled",
++            "timed_out",
++            "blocked"
++          ]
++        },
++        "intent": {
++          "$ref": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json"
++        },
++        "context": {
++          "$ref": "https://sfia.local/schemas/d2-d1/execution-context.schema.json"
++        },
++        "disclosure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json"
++        },
++        "createdAt": {
++          "type": "string",
++          "format": "date-time"
++        },
++        "updatedAt": {
++          "type": "string",
++          "format": "date-time"
++        },
++        "version": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "validation": {
++          "$ref": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json"
++        },
++        "capability": {
++          "$ref": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json"
++        },
++        "gate": {
++          "$ref": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json"
++        },
++        "externalResult": {
++          "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
++        },
++        "evidence": {
++          "type": "array",
++          "maxItems": 64,
++          "items": {
++            "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
++          }
++        },
++        "usage": {
++          "$ref": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json"
++        },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        },
++        "blockedReason": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 512
++        },
++        "persistence": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": ["kind", "durable", "multiInstance", "restartSafe"],
++          "properties": {
++            "kind": { "const": "memory_process_local" },
++            "durable": { "const": false },
++            "multiInstance": { "const": false },
++            "restartSafe": { "const": false }
++          }
++        }
++      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "succeeded" } },
++        "required": ["state"]
++      },
++      "then": {
++        "required": ["externalResult", "evidence"],
++        "properties": {
++          "externalResult": {
++            "type": "object",
++            "additionalProperties": false,
++            "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
++            "properties": {
++              "kind": { "const": "success" },
++              "completeness": { "const": "complete" },
++              "redactedSummary": {
++                "type": "string",
++                "minLength": 1,
++                "maxLength": 2048
++              },
++              "rawPresent": { "const": false }
++            }
++          },
++          "evidence": {
++            "type": "array",
++            "minItems": 1,
++            "maxItems": 64,
++            "items": {
++              "$ref": "https://sfia.local/schemas/d2-d1/execution-evidence.schema.json"
++            }
++          }
++        }
++      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "failed" } },
++        "required": ["state"]
++      },
++      "then": {
++        "required": ["failure"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "state": { "const": "blocked" } },
++        "required": ["state"]
++      },
++      "then": {
++        "anyOf": [
++          { "required": ["failure"] },
++          {
++            "required": ["blockedReason"],
++            "properties": {
++              "blockedReason": {
++                "type": "string",
++                "minLength": 1
++              }
++            }
++          }
++        ]
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+new file mode 100644
+index 0000000..3b7a665
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/external-result.schema.json
+@@ -0,0 +1,43 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/external-result.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
++      "properties": {
++        "kind": { "const": "success" },
++        "completeness": {
++          "type": "string",
++          "enum": ["complete", "partial"]
++        },
++        "redactedSummary": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 2048
++        },
++        "rawPresent": { "const": false }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind", "failure"],
++      "properties": {
++        "kind": { "const": "failure" },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["kind"],
++      "properties": {
++        "kind": { "const": "empty" }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+new file mode 100644
+index 0000000..46bc0ea
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/human-decision-gate.schema.json
+@@ -0,0 +1,32 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["gateId", "question", "required"],
++  "properties": {
++    "gateId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "question": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    },
++    "required": { "type": "boolean" },
++    "decision": {
++      "type": "string",
++      "enum": ["approve", "reject", "cancel"]
++    },
++    "decidedAt": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "expiresAt": {
++      "type": "string",
++      "format": "date-time"
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
+new file mode 100644
+index 0000000..cab335f
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/normalized-failure.schema.json
+@@ -0,0 +1,71 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "family",
++    "code",
++    "userMessage",
++    "technicalDetailsRedacted",
++    "retryable",
++    "correlationId"
++  ],
++  "properties": {
++    "family": {
++      "type": "string",
++      "enum": [
++        "validation",
++        "authentication",
++        "authorization",
++        "provider_unavailable",
++        "rate_limited",
++        "timed_out",
++        "cancelled",
++        "sandbox_blocked",
++        "protected_path",
++        "mutation_forbidden",
++        "human_gate_required",
++        "invalid_provider_result",
++        "internal_normalized_failure",
++        "source_mismatch"
++      ]
++    },
++    "code": {
++      "type": "string",
++      "enum": [
++        "VALIDATION_ERROR",
++        "AUTHENTICATION_ERROR",
++        "AUTHORIZATION_ERROR",
++        "PROVIDER_UNAVAILABLE",
++        "RATE_LIMITED",
++        "TIMED_OUT",
++        "CANCELLED",
++        "SANDBOX_BLOCKED",
++        "PROTECTED_PATH",
++        "MUTATION_FORBIDDEN",
++        "HUMAN_GATE_REQUIRED",
++        "INVALID_PROVIDER_RESULT",
++        "INTERNAL_NORMALIZED_FAILURE",
++        "SOURCE_MISMATCH"
++      ]
++    },
++    "userMessage": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    },
++    "technicalDetailsRedacted": {
++      "type": "boolean",
++      "const": true
++    },
++    "retryable": {
++      "type": "boolean"
++    },
++    "correlationId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+new file mode 100644
+index 0000000..0503e80
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/provider-capability-descriptor.schema.json
+@@ -0,0 +1,31 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/provider-capability-descriptor.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "lane",
++    "capabilityId",
++    "available",
++    "verified",
++    "readOnly",
++    "supportsCancellation",
++    "supportsTimeout"
++  ],
++  "properties": {
++    "lane": {
++      "type": "string",
++      "enum": ["ai", "git", "cursor", "none"]
++    },
++    "capabilityId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "available": { "type": "boolean" },
++    "verified": { "type": "boolean" },
++    "readOnly": { "type": "boolean" },
++    "supportsCancellation": { "type": "boolean" },
++    "supportsTimeout": { "type": "boolean" }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
+new file mode 100644
+index 0000000..c73a7ae
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/source-disclosure.schema.json
+@@ -0,0 +1,39 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/source-disclosure.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "source",
++    "providerLane",
++    "limits",
++    "processLocalMemory",
++    "cursorUnverified"
++  ],
++  "properties": {
++    "source": {
++      "type": "string",
++      "enum": ["fixture", "sandbox-real", "real"]
++    },
++    "providerLane": {
++      "type": "string",
++      "enum": ["ai", "git", "cursor", "none"]
++    },
++    "limits": {
++      "type": "array",
++      "maxItems": 64,
++      "items": {
++        "type": "string",
++        "minLength": 1,
++        "maxLength": 256
++      }
++    },
++    "processLocalMemory": {
++      "type": "boolean",
++      "const": true
++    },
++    "cursorUnverified": {
++      "type": "boolean"
++    }
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+new file mode 100644
+index 0000000..ed0d9af
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/transition-execution-run-input.schema.json
+@@ -0,0 +1,81 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/transition-execution-run-input.schema.json",
++  "type": "object",
++  "additionalProperties": false,
++  "required": ["runId", "reason"],
++  "properties": {
++    "runId": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 256
++    },
++    "reason": {
++      "type": "string",
++      "enum": [
++        "intent_valid",
++        "pre_engagement_block",
++        "human_gate_required",
++        "outputs_validated",
++        "engaged_operation_failed",
++        "time_limit",
++        "cancel_accepted",
++        "human_approve",
++        "human_cancel",
++        "human_reject_or_unsatisfied",
++        "human_gate_expired",
++        "late_result_evidence_only",
++        "forbidden"
++      ]
++    },
++    "completeness": {
++      "type": "string",
++      "enum": ["complete", "partial"]
++    },
++    "externalResult": {
++      "$ref": "https://sfia.local/schemas/d2-d1/external-result.schema.json"
++    },
++    "failure": {
++      "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++    },
++    "blockingReason": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 512
++    },
++    "lateEvidenceSummary": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 2048
++    }
++  },
++  "allOf": [
++    {
++      "if": {
++        "properties": { "reason": { "const": "outputs_validated" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["completeness", "externalResult"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "reason": { "const": "engaged_operation_failed" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["failure"]
++      }
++    },
++    {
++      "if": {
++        "properties": { "reason": { "const": "late_result_evidence_only" } },
++        "required": ["reason"]
++      },
++      "then": {
++        "required": ["lateEvidenceSummary"]
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+new file mode 100644
+index 0000000..c0a03b3
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/usage-summary.schema.json
+@@ -0,0 +1,40 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/usage-summary.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["status"],
++      "properties": {
++        "status": { "const": "validated" },
++        "inputTokens": {
++          "type": "integer",
++          "minimum": 0
++        },
++        "outputTokens": {
++          "type": "integer",
++          "minimum": 0
++        },
++        "unit": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 64
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["status", "reason"],
++      "properties": {
++        "status": { "const": "unavailable" },
++        "reason": {
++          "type": "string",
++          "minLength": 1,
++          "maxLength": 512
++        }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json b/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+new file mode 100644
+index 0000000..e76ff39
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/schemas/validation-outcome.schema.json
+@@ -0,0 +1,35 @@
++{
++  "$schema": "http://json-schema.org/draft-07/schema#",
++  "$id": "https://sfia.local/schemas/d2-d1/validation-outcome.schema.json",
++  "oneOf": [
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["ok", "validatedAt"],
++      "properties": {
++        "ok": { "const": true },
++        "validatedAt": {
++          "type": "string",
++          "format": "date-time",
++          "minLength": 1
++        }
++      }
++    },
++    {
++      "type": "object",
++      "additionalProperties": false,
++      "required": ["ok", "validatedAt", "failure"],
++      "properties": {
++        "ok": { "const": false },
++        "validatedAt": {
++          "type": "string",
++          "format": "date-time",
++          "minLength": 1
++        },
++        "failure": {
++          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
++        }
++      }
++    }
++  ]
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+new file mode 100644
+index 0000000..4597d56
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunMemory.ts
+@@ -0,0 +1,64 @@
++/**
++ * Server-only concrete composition for D2-D1 execution-run.
++ * Assembles memory store + AJV + clock + identity. Not exported from root barrel.
++ */
++import { assertServerOnly } from "./serverOnly";
++import { AjvExecutionRunSchemaValidation } from "../infrastructure/ajvExecutionRunSchemaValidation";
++import { FixedClock } from "../infrastructure/fixedClock";
++import { MemoryExecutionRunRepository } from "../infrastructure/memoryExecutionRunRepository";
++import { MemoryExecutionRunStore } from "../infrastructure/memoryExecutionRunStore";
++import { SequentialIdentity } from "../infrastructure/sequentialIdentity";
++import {
++  createExecutionRun,
++  type CreateExecutionRunResult,
++} from "../application/createExecutionRun";
++import {
++  transitionExecutionRun,
++  type TransitionExecutionRunResult,
++} from "../application/transitionExecutionRun";
++import type { ExecutionRun } from "../domain/types";
++
++assertServerOnly("oa/execution-run/server");
++
++export type ExecutionRunServerComposition = {
++  createExecutionRun: (input: unknown) => Promise<CreateExecutionRunResult>;
++  transitionExecutionRun: (
++    input: unknown,
++  ) => Promise<TransitionExecutionRunResult>;
++  getById: (runId: string) => Promise<ExecutionRun | null>;
++  listByCorrelationId: (correlationId: string) => Promise<ExecutionRun[]>;
++  disclosure: {
++    persistence: "memory_process_local";
++    durable: false;
++    multiInstance: false;
++    restartSafe: false;
++  };
++};
++
++/**
++ * Concrete memory process-local composition. Read helpers only; writes go through
++ * create/transition which enforce invariant + schema guards before save.
++ */
++export function composeExecutionRunMemory(options?: {
++  clockIso?: string;
++}): ExecutionRunServerComposition {
++  const store = new MemoryExecutionRunStore();
++  const clock = new FixedClock(options?.clockIso ?? "2026-08-03T20:00:00.000Z");
++  const identity = new SequentialIdentity();
++  const repository = new MemoryExecutionRunRepository(store);
++  const schemas = new AjvExecutionRunSchemaValidation();
++  const deps = { clock, identity, repository, schemas };
++  return {
++    createExecutionRun: (input) => createExecutionRun(input, deps),
++    transitionExecutionRun: (input) => transitionExecutionRun(input, deps),
++    getById: (runId) => repository.getById(runId),
++    listByCorrelationId: (correlationId) =>
++      repository.listByCorrelationId(correlationId),
++    disclosure: {
++      persistence: "memory_process_local",
++      durable: false,
++      multiInstance: false,
++      restartSafe: false,
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+new file mode 100644
+index 0000000..4435157
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+@@ -0,0 +1,9 @@
++/**
++ * Explicit server entrypoint for D2-D1 execution-run concrete composition.
++ * Client surfaces must not import this module.
++ */
++export {
++  composeExecutionRunMemory,
++  type ExecutionRunServerComposition,
++} from "./composeExecutionRunMemory";
++export { assertServerOnly } from "./serverOnly";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+new file mode 100644
+index 0000000..f293c0b
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/serverOnly.ts
+@@ -0,0 +1,12 @@
++/**
++ * Lightweight server-only guard without adding a package.json dependency.
++ * Mirrors the repository convention used by vertical-slice-runtime without
++ * importing that module (D2-D1 facade integration deferred).
++ */
++export function assertServerOnly(moduleName = "oa/execution-run/server"): void {
++  if (typeof window !== "undefined") {
++    throw new Error(
++      `${moduleName} is server-only and must not run in a browser context.`,
++    );
++  }
++}
+
+```
+
+
+---
+
+# APPENDIX B — Publication handoff predecessor (complete)
+
+
 # SFIA Studio V3.1-D2-D1 — Publication Full Review Pack
 
 ## Meta
