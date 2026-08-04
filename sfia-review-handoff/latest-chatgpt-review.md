@@ -1,64 +1,108 @@
-# ChatGPT Review Pack — SFIA Studio V3.1-D2-D2 Mark Ready / Merge
+# ChatGPT Review Pack — SFIA Studio V3.1-D2-D2 Post-Merge
 
 ## 1. Date / heure
-2026-08-04 10:57:14 CEST (+0200)
+2026-08-04 11:11:40 CEST (+0200)
 
 ## 2. Cycle
-Exécution repository — mark-ready / merge GitHub contrôlé (PR #309). Non post-merge.
+14 — post-merge (vérification d’intégration, clôture, cleanup de branche)
 
 ## 3. Profil
-Critical
+Standard
 
 ## 4. Typologie
 EVOL
 
-## 5. GO consommé
-GO MARK READY / MERGE SFIA STUDIO V3.1-D2-D2 — 2026-08-04 10:47 CEST (+0200)
+## 5. GO post-merge consommé
+GO POST-MERGE SFIA STUDIO V3.1-D2-D2 — 2026-08-04 11:01 CEST (+0200)
 
 ## 6. Gates non consommés
-- GO POST-MERGE SFIA STUDIO V3.1-D2-D2
-- GO suppression de branche hors cadre post-merge
-- GO D2-D3
-- G-D2D-CURSOR-01 / G-D2D-PERSIST-01
-- provider live / Cursor live / déploiement / RUN readiness / production readiness
+- GO DELIVERY SFIA STUDIO V3.1-D2-D3
+- G-D2D-CURSOR-01 / G-D2D-PERSIST-01 / G-D2D-D2C-01 (si applicable)
+- provider live / Cursor live / Git write produit / déploiement / RUN readiness / production readiness
 
 ## 7. CKC
-- recherché : oui
+- recherché : oui (post-merge)
 - contrat détaillé trouvé : non
 - statut : absent
 
-## 8. Fallback
-template canonique v2.6 ; routing guide ; operating model ; rules/guardrails ; checklist ; Delivery Pipeline ; Decision Engine ; handoff PR readiness ; précédent D2-D1 PR #308. Aucune autorité d’exécution supplémentaire.
+## 8. Fallback déclaré
+routing guide ; template v2.6 ; operating model ; rules/guardrails ; checklist ; Delivery Pipeline ; Decision Engine ; docs D2-D 20–24 ; handoff merge. Aucune autorité d’exécution supplémentaire.
 
-## 9. Git Truth Check initial
-| Contrôle | Attendu | Observé | Résultat |
-|----------|---------|---------|----------|
-| branche | delivery/...-d2-d2-read-only-adapters | exact | PASS |
-| HEAD | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | PASS |
-| upstream | origin/delivery/... @ `fcfad2e95319152e5d7cc7ec29d557c87af241af` | exact | PASS |
-| origin/main (avant) | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | PASS |
-| ahead/behind | 1 / 0 | 1 / 0 | PASS |
-| merge-base | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | `c38b6ca97894ff55ad6a4e7d1195274260232f40` | PASS |
-| staged / WT | vide / propre hors tmp | OK | PASS |
-| remote head | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | `fcfad2e95319152e5d7cc7ec29d557c87af241af` | PASS |
-| files/hash | 34 / `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` | 34 / `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` | PASS |
+## 9. Sources consultées
+Template cycle ; routing/operating/rules/checklist ; pipeline/decision engine ; docs 20–24 (cadrage) ; handoff merge `4f471b687c97bf38b6c7e0f42d07958c4fd07bd8` ; PR #309 ; merge `de2800aa836bb8221dc2912414126b7a3e6a1f58` ; projet `fcfad2e95319152e5d7cc7ec29d557c87af241af` ; CI run 30889710678 (réutilisée) ; publisher handoff.
 
-## 10–12. Handoff PR readiness consulté
-- commit `b8801d3b90a224cb138c53b856a9025a0e4fcaf4` / blob `8c99d04f35e7ef6e39368fba5d2f13b7bd34fea1` / parent `013af4eef1ca5d76461008005d089ad23b690f16`
-- titre : `# ChatGPT Review Pack — SFIA Studio V3.1-D2-D2 Critical PR Readiness`
-- verdict : **D2-D2 PR READINESS PASS WITH RESERVES — READY FOR MORRIS MARK-READY / MERGE DECISION**
-- contenu Full référencé (diff package déjà dans handoff readiness) — ce cycle ne modifie aucun contenu projet
+## 10. Local Git Truth Check initial
+Cas A observé : branche delivery D2-D2 @ `fcfad2e95319152e5d7cc7ec29d557c87af241af` ; staged vide ; WT hors tmp propre.
+```
+TOPLEVEL=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+BRANCH=delivery/sfia-studio-v3-1-d2-d2-read-only-adapters
+HEAD=fcfad2e95319152e5d7cc7ec29d557c87af241af
+STATUS:
+?? .tmp-sfia-review/
+DIFF:
+CACHED:
+=== WORKTREES ===
+detached
+detached
+=== FETCH ===
+ORIGIN_MAIN=de2800aa836bb8221dc2912414126b7a3e6a1f58
+REMOTE_D2D2:
+fcfad2e95319152e5d7cc7ec29d557c87af241af	refs/heads/delivery/sfia-studio-v3-1-d2-d2-read-only-adapters
+LOCAL_REF:
+fcfad2e95319152e5d7cc7ec29d557c87af241af refs/heads/delivery/sfia-studio-v3-1-d2-d2-read-only-adapters
+LOCAL_SHA=fcfad2e95319152e5d7cc7ec29d557c87af241af
+REMOTE_TRACKING=fcfad2e95319152e5d7cc7ec29d557c87af241af
+(worktree count listed: 79; no worktree held refs/heads/main; delivery D2-D2 worktree was this checkout then switched to main)
+```
 
-## 13. Réserves transportées (OPEN NOT LIFTED)
-- R-QA-REV-01
-- R-QA-REV-02
-- R-QA-D2C-01
-- Cursor product capabilities — UNVERIFIED
-- memory process-local only
-- R-PR-D2D2-01 — MINOR — Co-authored-by trailer
+## 11. Layout worktrees
+- Aucun worktree sur `refs/heads/main` au moment du switch (NO_WORKTREE_ON_MAIN).
+- Worktree courant = delivery-d2-d1 (puis basculé sur main).
+- Handoff worktree séparée : `sfia/review-handoff` @ `4f471b687c97bf38b6c7e0f42d07958c4fd07bd8` (avant publication).
+- Aucune suppression de worktree.
 
-## 14. Package manifest et hash
-Count 34 ; SHA-256 `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` (méthode length-prefixed autoritative).
+## 12–13. Handoff merge consulté
+- commit `4f471b687c97bf38b6c7e0f42d07958c4fd07bd8` / blob `e883ff684d4cf508a634c6bf74df8a56f64bd794` / parent `b8801d3b90a224cb138c53b856a9025a0e4fcaf4`
+- titre Mark Ready / Merge
+- verdict : D2-D2 MARK READY / MERGE COMPLETE — PR #309 MERGED — READY FOR CHATGPT MERGE VALIDATION
+- validation ChatGPT amont déclarée : D2-D2 MARK READY / MERGE VALIDATED — PR #309 INTEGRATED ON MAIN — READY FOR MORRIS POST-MERGE DECISION
+
+## 14. PR #309 metadata
+- state : MERGED (MERGED ; mergedAt=2026-08-04T08:56:23Z)
+- isDraft : False
+- mergeCommit : de2800aa836bb8221dc2912414126b7a3e6a1f58
+- head : fcfad2e95319152e5d7cc7ec29d557c87af241af ; base : main
+- commits/files/stats : 1 / 34 / +2899/−0
+
+## 15. Merge commit et parents
+```
+de2800aa836bb8221dc2912414126b7a3e6a1f58
+c38b6ca97894ff55ad6a4e7d1195274260232f40 fcfad2e95319152e5d7cc7ec29d557c87af241af
+Merge pull request #309 from mcleland147/delivery/sfia-studio-v3-1-d2-d2-read-only-adapters
+```
+Parents exacts : `c38b6ca97894ff55ad6a4e7d1195274260232f40` puis `fcfad2e95319152e5d7cc7ec29d557c87af241af`.
+
+## 16–17. origin/main
+- initial après fetch : `de2800aa836bb8221dc2912414126b7a3e6a1f58` (exact, non avancé)
+- avance D2-D2 package : vide
+- final : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+
+## 18. Alignement main local
+Commandes : `git switch main` ; `git pull --ff-only origin main`
+Résultat :
+```
+BRANCH=main
+HEAD=de2800aa836bb8221dc2912414126b7a3e6a1f58
+ORIGIN_MAIN=de2800aa836bb8221dc2912414126b7a3e6a1f58
+STATUS:
+?? .tmp-sfia-review/
+MERGE_ANCESTOR=yes
+PROJECT_ANCESTOR=yes
+```
+main local = origin/main = `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+
+## 19–20. Manifest (34) + hash intégré
+SHA-256 `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` STRICT MATCH (QA/publication/readiness/merge/main).
 
 ```
 projects/sfia-studio/app/__tests__/oa/execution-run/adapter.ai.fake.test.ts
@@ -97,132 +141,121 @@ projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunProvider
 projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
 ```
 
-Identité prouvée : QA = Publication = PR readiness = HEAD pré-merge = contenu intégré sur origin/main post-merge.
+## 21–22. Contrôles post-merge proportionnés
+Justification non-répétition full/lint/build : HEAD package inchangé ; CI projet 30889710678 déjà success (130/1176/typecheck/lint/build/gov/Required Gate) ; aucun drift post-merge.
 
-## 15. PR metadata avant action
-- #309 https://github.com/mcleland147/sfia-workspace/pull/309
-- state/isDraft/mergedAt : OPEN / True / None
-- mergeable/mergeStateStatus : MERGEABLE / CLEAN
-- base/head : main@c38b6ca97894ff55ad6a4e7d1195274260232f40 / delivery/sfia-studio-v3-1-d2-d2-read-only-adapters@fcfad2e95319152e5d7cc7ec29d557c87af241af
-- commits/files/stats : 1 / 34 / +2899/−0
+Exécuté sur main :
+- `npm test -- __tests__/oa/execution-run/` → 22 files / **130 PASS** (exit 0)
+- `npm run typecheck` → PASS (exit 0)
+- governance 3 suites → **73/0** (exit 0)
+- `git diff --check` → PASS
+- status : uniquement `?? .tmp-sfia-review/`
 
-## 16. Reviews / commentaires / threads avant
-- reviews 0 ; issue comments 0 ; inline 0 ; reviewDecision vide
-- Absence ≠ approbation humaine (GO Morris consommé pour mark-ready/merge)
-
-## 17. CI et Required Gate
-- run `30889710678` — completed **success** — headSha `fcfad2e95319152e5d7cc7ec29d557c87af241af`
-- Detect / Build and validate / Required Gate : **success**
+## 23–26. Conditions cleanup / protection / divergence / état avant
 ```
-Build and validate SFIA Studio	pass	1m38s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91928741296
-Detect SFIA Studio changes	pass	8s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91928703817
-SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91929111924
+=== PROTECTED ===
+false
+=== ANCESTOR ===
+yes
+=== UNMERGED COMMITS ON REMOTE BRANCH ===
+=== LOCAL SHA ===
+fcfad2e95319152e5d7cc7ec29d557c87af241af
+=== REMOTE TRACKING SHA ===
+fcfad2e95319152e5d7cc7ec29d557c87af241af
+=== CURRENT ===
+main
 ```
+- protected = false
+- ancestor project ⊆ main = yes
+- `origin/main..origin/delivery/...` vide
+- local + remote tracking = `fcfad2e95319152e5d7cc7ec29d557c87af241af`
+- current branch = main avant delete
 
-## 18. delete_branch_on_merge
-Observé avant et après mark-ready : **false** (pas de stop AUTOMATIC BRANCH DELETION).
-
-## 19. Résultat mark-ready
-Commande : `gh pr ready 309`
-Sortie : Pull request ...#309 is marked as "ready for review"
-Verdict intermédiaire : **D2-D2 MARK READY COMPLETE**
-
-## 20. PR metadata après mark-ready
-- state/isDraft/mergedAt : OPEN / False / None
-- base/head inchangés : c38b6ca97894ff55ad6a4e7d1195274260232f40 / fcfad2e95319152e5d7cc7ec29d557c87af241af
-- commits/files : 1 / 34
-- mergeable/mergeStateStatus : MERGEABLE / CLEAN
-
-## 21. Seconde vérification CI / head / base
-- origin/main encore `c38b6ca97894ff55ad6a4e7d1195274260232f40` avant merge
-- behind 0
-- checks après ready :
+## 27. Commandes cleanup réellement exécutées
 ```
-Build and validate SFIA Studio	pass	1m38s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91928741296
-Detect SFIA Studio changes	pass	8s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91928703817
-SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/30889710678/job/91929111924
+=== LOCAL DELETE ===
+Deleted branch delivery/sfia-studio-v3-1-d2-d2-read-only-adapters (was fcfad2e).
+=== REMOTE DELETE ===
+To https://github.com/mcleland147/sfia-workspace.git
+ - [deleted]         delivery/sfia-studio-v3-1-d2-d2-read-only-adapters
+=== PRUNE ===
 ```
-- Required Gate SUCCESS ; aucun pending/fail
-- delete_branch_on_merge reste false
-- reviews/comments toujours 0
+Cas 1 : locale + distante présentes → `git branch -d` puis `git push origin --delete` puis `git fetch --prune`.
+Aucun `-D` / force push / suppression autre branche.
 
-## 22. Commande de merge réellement utilisée
+## 28–30. État après cleanup / main final / WT final
 ```
-gh pr merge 309 --merge --match-head-commit fcfad2e95319152e5d7cc7ec29d557c87af241af
+BRANCH=main
+HEAD=de2800aa836bb8221dc2912414126b7a3e6a1f58
+ORIGIN_MAIN=de2800aa836bb8221dc2912414126b7a3e6a1f58
+LOCAL_D2D2:
+fatal: 'refs/heads/delivery/sfia-studio-v3-1-d2-d2-read-only-adapters' - not a valid ref
+ABSENT_OK
+REMOTE_D2D2:
+STATUS:
+?? .tmp-sfia-review/
+WORKTREES_D2D2:
+NONE
+MERGE_STILL_ANCESTOR=yes
 ```
-Méthode : **merge commit** uniquement.
-Absents : --delete-branch, --admin, --auto, --squash, --rebase.
+- branche courante main @ `de2800aa836bb8221dc2912414126b7a3e6a1f58` = origin/main
+- branche locale D2-D2 ABSENTE
+- branche distante D2-D2 ABSENTE
+- aucun worktree lié à la branche
+- WT : `?? .tmp-sfia-review/` uniquement
 
-## 23–26. Résultat merge / merge commit / parents / auteurs
-PR après merge :
-- state : MERGED (MERGED)
-- mergedAt : 2026-08-04T08:56:23Z
-- mergedBy : mcleland147
-- mergeCommit : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
-- headRefOid : fcfad2e95319152e5d7cc7ec29d557c87af241af
-- isDraft : False
+## 31. Réserves ouvertes (OPEN NOT LIFTED)
+| Réserve | Portée post-intégration | Impact D2-D2 | Impact potentiel D2-D3 | Traitement |
+|---------|-------------------------|--------------|------------------------|------------|
+| R-QA-REV-01 | revue humaine / méthode | non bloquant clôture | peut conditionner revue D2-D3 | cycle dédié |
+| R-QA-REV-02 | idem | non bloquant | idem | cycle dédié |
+| R-QA-D2C-01 | frontière D2-C | non bloquant D2-D2 | gate G-D2D-D2C-01 si surface externe | gate dédié |
+| Cursor UNVERIFIED | fixture only | non vérifie produit | G-D2D-CURSOR-01 requis | gate dédié |
+| process-local memory | pas de persistance | borné D2-D2 | G-D2D-PERSIST-01 | gate dédié |
+| R-PR-D2D2-01 MINOR | trailer Co-authored-by | métadonnée | traçabilité | aucune action amend |
 
-Métadonnées merge commit :
-```
-de2800aa836bb8221dc2912414126b7a3e6a1f58
-c38b6ca97894ff55ad6a4e7d1195274260232f40 fcfad2e95319152e5d7cc7ec29d557c87af241af
-Merge pull request #309 from mcleland147/delivery/sfia-studio-v3-1-d2-d2-read-only-adapters
-```
-Parents attendus et observés :
-- `c38b6ca97894ff55ad6a4e7d1195274260232f40`
-- `fcfad2e95319152e5d7cc7ec29d557c87af241af`
+Le merge/post-merge ne transforme pas Cursor/provider/persist/Git-write/RUN/prod en capacités démontrées.
 
-## 27. origin/main après fetch
-`de2800aa836bb8221dc2912414126b7a3e6a1f58` (= merge commit)
+## 32. Observations
+- D2-D2 intégré sur main via merge commit `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+- package immuable 34/`bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d`
+- branche delivery nettoyée local+remote
+- réserves toujours ouvertes
+- D2-D3 reste fermé
 
-## 28. Preuve d’intégration du commit projet
-- `git merge-base --is-ancestor fcfad2e95319152e5d7cc7ec29d557c87af241af origin/main` → yes
-- `git merge-base --is-ancestor de2800aa836bb8221dc2912414126b7a3e6a1f58 origin/main` → yes
-- 34/34 fichiers présents sur origin/main
-- hash intégré recalculé : `bd92d3da575fce4a3697ee81c3efb0db43c7eb54d62e1861989cf445286c086d` STRICT MATCH
+## 33. Recommandations
+- conserver frontières read-only / provider-independent
+- traiter D2-D3 en cycle dédié avec qualification stories + gates applicables
+- ne pas fusionner correction D2-C, preuve Cursor et persistance
+- maintenir fixture / sandbox-real / real
 
-## 29. Branche projet toujours présente
-- locale : `delivery/sfia-studio-v3-1-d2-d2-read-only-adapters` (checkout courant, HEAD `fcfad2e95319152e5d7cc7ec29d557c87af241af`)
-- distante : `origin/delivery/...` @ `fcfad2e95319152e5d7cc7ec29d557c87af241af` (ls-remote non vide)
-
-## 30–33. Absences confirmées
-- aucun cleanup / suppression de branche
-- aucune modification package / commit projet / push projet
-- aucun checkout/pull main local
-- aucun admin / auto-merge / squash / rebase
-
-## 34. Git Truth Check final
-- branche projet inchangée ; HEAD `fcfad2e95319152e5d7cc7ec29d557c87af241af`
-- origin/main `de2800aa836bb8221dc2912414126b7a3e6a1f58`
-- WT : uniquement `?? .tmp-sfia-review/`
-- PR #309 MERGED ; branche distante préservée
+## 34. Décisions Morris consommées (historique D2-D2)
+Delivery ; QA Critical ; Corrections ; REVALIDATION ; Publication ; PR readiness ; Mark-ready/Merge ; **Post-merge (ce cycle)**. Aucune nouvelle décision produit/méthode.
 
 ## 35. Claims démontrés
-- Mark-ready exécuté
-- Merge commit intégré sur main avec parents exacts
-- Package 34/`bd92d3da…` identique post-intégration
-- Branche projet non supprimée
+- Intégration main + package hash stable
+- Alignement FF main local
+- Validations post-merge proportionnées vertes
+- Cleanup local+remote complet
 - Handoff publication (ce cycle)
 
 ## 36. Claims non démontrés
-- Post-merge / cleanup terminés
 - Réserves levées
-- Cursor vérifié / provider live / persistance / multi-instance
-- Git write produit / RUN READY / production-ready
-- D2-D3 ouvert
+- D2-D3 ouvert/autorisé
+- Cursor vérifié / provider live / persistance / multi-instance / Git write
+- RUN READY / production-ready
 
-## 37. Réserves ouvertes
-Toutes les réserves §13 restent OPEN NOT LIFTED.
+## 37. Hors scope confirmé
+Aucun fichier projet créé/modifié ; aucun commit/push main ; aucun reset/rebase/force ; aucune suppression worktree ; aucune modification méthode ; aucun D2-D3.
 
-## 38. Review handoff
-- mode publish-in-cycle
-- publisher `scripts/sfia/publish-review-handoff.sh`
-- parent distant attendu `b8801d3b90a224cb138c53b856a9025a0e4fcaf4`
-- message : `docs(review-handoff): publish D2-D2 merge status`
-- (IDs post-publish sur remote)
+## 38. Review Handoff
+- publish-in-cycle ; publisher canonique
+- parent attendu `4f471b687c97bf38b6c7e0f42d07958c4fd07bd8`
+- message : `docs(review-handoff): publish D2-D2 post-merge status`
 
 ## 39. Verdict unique
-D2-D2 MARK READY / MERGE COMPLETE — PR #309 MERGED — READY FOR CHATGPT MERGE VALIDATION
+D2-D2 POST-MERGE COMPLETE — MAIN ALIGNED — BRANCH CLEANUP COMPLETE — READY FOR CHATGPT CLOSURE VALIDATION
 
 ## 40. Prochain gate candidat (non consommé)
-GO POST-MERGE SFIA STUDIO V3.1-D2-D2
+GO DELIVERY SFIA STUDIO V3.1-D2-D3
+(qualification périmètre/stories/gates requise avant consommation)
