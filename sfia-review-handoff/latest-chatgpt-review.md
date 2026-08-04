@@ -1204,9 +1204,20 @@ aucune modification projet ; aucun push projet ; aucune suppression branche ; au
 
 ## 72. Review Handoff
 
-Mode publish-in-cycle ; parent attendu `dc8569eb66e35367f5e72d9391b1e21c82d6d295` ;
-message : docs(review-handoff): publish D2-D3 capitalization merge status ;
-(résultat distant après publication).
+Mode : publish-in-cycle
+Publisher : scripts/sfia/publish-review-handoff.sh
+Source : .tmp-sfia-review/chatgpt-review.md
+Branche : sfia/review-handoff
+Fichier : sfia-review-handoff/latest-chatgpt-review.md
+Parent Mark Ready : `dc8569eb66e35367f5e72d9391b1e21c82d6d295`
+Commit publié : `0679397630632aeea3bd5ed9cb5998116816a8c2`
+Blob publié : `ee9ddc2b1f0bdd74a8f2a1a57ea8ae662bebcb50`
+Message : docs(review-handoff): publish D2-D3 capitalization merge status
+Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+Titre distant : # ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Capitalization Merge H1
+Verdict distant : D2-D3 CAPITALIZATION MERGE H1 COMPLETE WITH RESERVES — … — READY FOR MORRIS POST-MERGE DECISION
+Mono-fichier tip : oui
+
 
 ## 73. Verdict unique
 
