@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/execution-intent.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intentId",
+    "correlationId",
+    "requestedLane",
+    "operation",
+    "requestedSource",
+    "requiresHumanGate",
+    "mutationRequested",
+    "arbitraryCommandRequested"
+  ],
+  "properties": {
+    "intentId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "requestedLane": {
+      "type": "string",
+      "enum": ["ai", "git", "cursor", "none"]
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "requestedSource": {
+      "type": "string",
+      "enum": ["fixture", "sandbox-real", "real"]
+    },
+    "requiresHumanGate": {
+      "type": "boolean"
+    },
+    "mutationRequested": {
+      "type": "boolean"
+    },
+    "arbitraryCommandRequested": {
+      "type": "boolean"
+    },
+    "targetPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "metadata": {
+      "type": "object"
+    }
+  }
+}

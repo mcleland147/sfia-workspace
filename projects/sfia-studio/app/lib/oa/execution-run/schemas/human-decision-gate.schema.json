@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/human-decision-gate.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["gateId", "question", "required"],
+  "properties": {
+    "gateId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "required": { "type": "boolean" },
+    "decision": {
+      "type": "string",
+      "enum": ["approve", "reject", "cancel"]
+    },
+    "decidedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

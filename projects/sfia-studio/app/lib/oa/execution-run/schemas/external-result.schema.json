@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/d2-d1/external-result.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "completeness", "redactedSummary", "rawPresent"],
+      "properties": {
+        "kind": { "const": "success" },
+        "completeness": {
+          "type": "string",
+          "enum": ["complete", "partial"]
+        },
+        "redactedSummary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "rawPresent": { "const": false }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "failure"],
+      "properties": {
+        "kind": { "const": "failure" },
+        "failure": {
+          "$ref": "https://sfia.local/schemas/d2-d1/normalized-failure.schema.json"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "const": "empty" }
+      }
+    }
+  ]
+}
