@@ -12,3 +12,17 @@ export {
   composeExecutionRunProvidersFake,
   type ExecutionRunProviderComposition,
 } from "./composeExecutionRunProviders";
+export {
+  composeExecutionRunD2D3,
+  type ExecutionRunD2D3Composition,
+} from "./composeExecutionRunD2D3";
+export {
+  coordinateExecutionRun,
+  MAX_COORDINATOR_TIMEOUT_MS,
+  type CoordinateExecutionRunDependencies,
+  type CoordinateExecutionRunInput,
+  type CoordinateExecutionRunResult,
+  type CoordinateProviderRequest,
+  type ExecutionAuthority,
+  type EventDeliveryStatus,
+} from "../application/coordinateExecutionRun";
