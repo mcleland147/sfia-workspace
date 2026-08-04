@@ -1,16 +1,14 @@
-# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Publication
+# ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 PR Readiness
 
 ## 1. Date / heure / fuseau
 
-Cycle start capture: 2026-08-04 14:51:08 CEST +0200 / 2026-08-04 12:51:08 UTC
-Post-publication capture: 2026-08-04 14:53:03 CEST +0200 / 2026-08-04 12:53:03 UTC
-
-R-QA-REV3-D2D3-TIME-01 — OPEN — MINOR TRACEABILITY RESERVE — transported; no claim of perfect historical chronology.
+Cycle start: 2026-08-04 15:15:56 CEST +0200 / 2026-08-04 13:15:56 UTC
+Freeze final capture: 2026-08-04 15:17:29 CEST +0200
+R-QA-REV3-D2D3-TIME-01 — OPEN — MINOR TRACEABILITY RESERVE — transported.
 
 ## 2. Cycle
 
-7 — Intégration / DevOps
-Sous-cycle : Publication Git atomique et création de PR Draft
+12 — PR readiness
 
 ## 3. Profil
 
@@ -22,122 +20,129 @@ EVOL
 
 ## 5. GO consommé
 
-GO PUBLICATION SFIA STUDIO V3.1-D2-D3
-Date/heure décision Morris : 2026-08-04 14:37 CEST (+0200)
-Autorise uniquement : staging exact 18 fichiers, commit projet atomique, push initial Delivery, PR GitHub Draft, Review Handoff L3 borné.
+GO PR READINESS SFIA STUDIO V3.1-D2-D3
+Date/heure décision Morris : 2026-08-04 15:08 CEST (+0200)
+Autorise inspection Git/PR/CI/validations locales + Review Pack Full + handoff L3.
+N’autorise pas modification projet/PR, mark-ready, merge, commit/push projet.
 
 ## 6. Gates non consommés
 
 - G-D2D-CURSOR-01 — UNVERIFIED — D2D3-04 BLOCKED
 - G-D2D-PERSIST-01 — process-local only — D2D3-05 BLOCKED
 - G-D2D-D2C-01 — R-QA-D2C-01 OPEN
-- GO PR READINESS — non consommé
 - GO MARK READY — non consommé
 - GO MERGE — non consommé
 - GO BRANCH DELETION — non consommé
+- GO POST-MERGE — non consommé
 
 ## 7. CKC recherché et absent
 
-CKC recherché : oui
-Cycle qualifié : Intégration / DevOps
-Contrat détaillé trouvé : non
-Statut : absent
-Autorité d'exécution supplémentaire : aucune
+CKC recherché : oui ; cycle PR readiness ; contrat détaillé : non ; statut : absent ; aucune autorité d’exécution supplémentaire.
 
 ## 8. Fallback
 
-- routing guide
-- template canonique v2.6
-- operating model
-- rules and guardrails
-- validation checklist
-- QA Revalidation 3
-- précédent publication D2-D2 (PR #309)
-- package local réel
+- routing guide ; template canonique v2.6 ; operating model ; rules and guardrails ; validation checklist ; Delivery QA/Test standard ; handoff QA ; handoff Publication ; PR #310 ; précédent PR #309 ; package et CI réels.
 
 ## 9. Sources consultées
 
-1. prompts/templates/sfia-cycle-execution-template.md
-2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-3. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-4. method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-5. method/sfia-fast-track/checklists/sfia-validation-checklist.md
-6. method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md
-7. document 24 (framing backlog D2-D)
-8. handoff QA Revalidation 3 @ 4052b19de7bd2ddfff94ae91a906ee8c02fc5160
-9. 18 fichiers du package
-10. précédent PR #309 (opérationnel commit/push/Draft)
+1–7 method/template/checklist/document 24 ; 8 handoff QA ; 9 handoff Publication ; 10 commit projet ; 11 PR #310 ; 12 package 18 fichiers ; 13 deps D2-D1/D2-D2 (ports/memory/providers existants) ; 14 PR #309 opérationnel ; 15 publish-review-handoff.sh ; 16 scripts/sfia/README.md si présent.
 
-## 10. Précédent D2-D2 consulté
+## 10. Template canonique
 
-PR #309 — utilisé uniquement comme précédent opérationnel de commit atomique + push + PR Draft. Aucune reprise de contenu fonctionnel.
+`prompts/templates/sfia-cycle-execution-template.md` utilisé.
+`prompts/templates/05-validate-pr-readiness.md` ABSENT — non inventé ; fallback template v2.6.
 
 ## 11. Local Git Truth Check initial
 
 ```
 === timestamps ===
-2026-08-04 14:51:08 CEST +0200
-2026-08-04 12:51:08 UTC
+2026-08-04 15:15:56 CEST +0200
+2026-08-04 13:15:56 UTC
 === git truth ===
 toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
 branch=delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination
-HEAD=de2800aa836bb8221dc2912414126b7a3e6a1f58
+HEAD=9d1b3d2520f049dba0bf811380167003ca26ad82
+PARENT=de2800aa836bb8221dc2912414126b7a3e6a1f58
 main=de2800aa836bb8221dc2912414126b7a3e6a1f58
-upstream=fatal: no upstream configured for branch 'delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination'
+upstream=9d1b3d2520f049dba0bf811380167003ca26ad82
+* delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination                        9d1b3d2 [origin/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination] feat(sfia-studio): add V3.1-D2-D3 read-only coordination
+status:
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/.tmp-sfia-review/
+diff_name=       0
 staged=0
-remote_delivery=
+remote_head=9d1b3d2520f049dba0bf811380167003ca26ad82	refs/heads/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination
+ahead=1
+behind=0
+merge_base=de2800aa836bb8221dc2912414126b7a3e6a1f58
+worktree /Users/morris/Projects/sfia-workspace
+HEAD e1befcb80ed5e3c789a7de9036a8207d6b3e6771
+branch refs/heads/delivery/eventops-poc-visible-slice-01
+
+worktree /Users/morris/Projects/sfia-codex-pilot
+HEAD ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+branch refs/heads/method/codex-operating-model-pilot
+
+worktree /Users/morris/Projects/sfia-task-tracker
+HEAD b763a318fb84e23e482ed23a0bd561c1d9e719e6
+branch refs/heads/cadrage/task-tracker-light
+
+worktree /Users/morris/Projects/sfia-workspace-a5-2-framing
+HEAD bd3608c6220e820cc3fa017422a7564a565a1296
+branch refs/heads/framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity
+
+worktree /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts
+HEAD cae841519ed1d2dd825e6ecb998337cd47b4a1e1
+branch refs/heads/method/sfia-cycle-knowledge-contracts
 ```
 
-## 12. Contrôle origin/main
+## 12. Branche, HEAD, parent, upstream
 
-origin/main = `de2800aa836bb8221dc2912414126b7a3e6a1f58` — inchangé avant staging, commit, push et post-publication.
-Pas de divergence → pas de rebase.
+Branche : `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`
+HEAD : `9d1b3d2520f049dba0bf811380167003ca26ad82`
+Parent : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+Upstream : `origin/delivery/...` @ `9d1b3d2520f049dba0bf811380167003ca26ad82`
 
-## 13. Absence initiale de branche distante
+## 13. origin/main
 
-`git ls-remote --heads origin refs/heads/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` → vide avant push.
+`de2800aa836bb8221dc2912414126b7a3e6a1f58` — exact.
 
-## 14. Absence initiale de PR
+## 14. Ahead / behind
 
-`gh pr list --state all --head delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` → `[]`
+ahead=1 ; behind=0
 
-## 15. Handoff QA consulté
+## 15. Merge-base
 
-Branche `sfia/review-handoff`
-Fichier `sfia-review-handoff/latest-chatgpt-review.md`
-Commit `4052b19de7bd2ddfff94ae91a906ee8c02fc5160`
-Blob `d8e35e908eb350d4dd5d87fe09f7a70d84a15de8`
-Parent `cabb7deb6b02f259cf274140581c6456bbfbca52`
-Message : `docs(review-handoff): publish D2-D3 QA revalidation 3 status`
+`de2800aa836bb8221dc2912414126b7a3e6a1f58` = origin/main
 
-## 16. Commit / blob QA
+## 16. Handoff Publication
 
-Commit : `4052b19de7bd2ddfff94ae91a906ee8c02fc5160`
-Blob : `d8e35e908eb350d4dd5d87fe09f7a70d84a15de8`
+Commit `0bebf6cf47a90d49c4ffa109bf4dead8cec3863b` / blob `a2593341d416848958c4fb2689fcd79d6ddd5a3f` / parent `4052b19de7bd2ddfff94ae91a906ee8c02fc5160`
+Titre : ChatGPT Review Pack — SFIA Studio V3.1-D2-D3 Publication
+Verdict : D2-D3 PUBLICATION COMPLETE — ATOMIC PROJECT COMMIT PUSHED — DRAFT PR OPEN — READY FOR MORRIS PR READINESS DECISION
+Confirmé : commit, parent, manifest, hash, validations, push, PR, CI initiale, réserves, absence mark-ready/merge.
 
-## 17. Verdict QA
+## 17. Handoff QA
 
-D2-D3 CRITICAL QA REVALIDATION 3 PASS WITH RESERVES —
-ALL D2-D3 QA FINDINGS VERIFIED —
-D2D3-04/05 REMAIN BLOCKED —
-READY FOR MORRIS PUBLICATION DECISION
+Commit `4052b19de7bd2ddfff94ae91a906ee8c02fc5160` / blob `d8e35e908eb350d4dd5d87fe09f7a70d84a15de8`
+Verdict : D2-D3 CRITICAL QA REVALIDATION 3 PASS WITH RESERVES — ALL D2-D3 QA FINDINGS VERIFIED — D2D3-04/05 REMAIN BLOCKED — READY FOR MORRIS PUBLICATION DECISION
 
-## 18. Réserves
+## 18. Commit / blob des handoffs
 
-- R-QA-REV-01 — OPEN NOT LIFTED
-- R-QA-REV-02 — OPEN NOT LIFTED
-- R-QA-D2C-01 — OPEN NOT LIFTED
-- Cursor product capabilities — UNVERIFIED
-- memory process-local only
-- R-PR-D2D2-01 — MINOR
-- R-CORR-D2D3-01 — timeout 60 000 ms local D2-D3
-- R-QA-REV3-D2D3-TIME-01 — OPEN MINOR, traçabilité
-- R-CORR-D2D3-02 — SATISFIED — CLOSURE RECOMMENDED
+Publication : `0bebf6cf47a90d49c4ffa109bf4dead8cec3863b` / `a2593341d416848958c4fb2689fcd79d6ddd5a3f`
+QA Rev3 : `4052b19de7bd2ddfff94ae91a906ee8c02fc5160` / `d8e35e908eb350d4dd5d87fe09f7a70d84a15de8`
 
-Findings : VERIFIED IN QA — CLOSURE RECOMMENDED (not formally CLOSED).
-D2D3-04 / D2D3-05 remain BLOCKED.
+## 19. Package count / hash initial
 
-## 19. Manifest initial
+```
+count 18
+hash_local cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f match True
+hash_commit cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f match True
+local_eq_commit True
+```
+count=18 ; hash=`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` ; local == commit blobs.
+
+## 20. Manifest complet
 
 ```
 projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
@@ -159,214 +164,29 @@ projects/sfia-studio/app/lib/oa/execution-run/index.ts
 projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
 projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
 ```
-Count = 18
 
-## 20. Hash initial
+## 21. Commit projet
 
-SHA-256 length-prefixed = `cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f`
-Vérifié avant staging.
+`9d1b3d2520f049dba0bf811380167003ca26ad82`
 
-## 21. Validations pré-publication
+## 22. Message et parent
 
-Aucune modification de contenu. Résultats observés :
-
-- regression : **95 PASS**
-- targeted (regression+evidence) : **105 PASS**
-- execution-run : **28 fichiers / 270 PASS**
-- typecheck : **PASS**
-- lint : **PASS**
-- build : **PASS**
-- full Vitest : **130 fichiers / 1316 PASS**
-- governance : **73 PASS**
-- `git diff --check` : **PASS**
-
-### regression tail
+Message : `feat(sfia-studio): add V3.1-D2-D3 read-only coordination`
+Parent : `de2800aa836bb8221dc2912414126b7a3e6a1f58`
+Métadonnée Co-authored-by Cursor présente — non preuve Cursor live/sandbox-real/verified.
 ```
-> vitest run __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
+commit 9d1b3d2520f049dba0bf811380167003ca26ad82
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Tue Aug 4 14:52:13 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Tue Aug 4 14:52:13 2026 +0200
 
+    feat(sfia-studio): add V3.1-D2-D3 read-only coordination
 
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1/projects/sfia-studio/app
-
- ✓ __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts (95 tests) 220ms
-
- Test Files  1 passed (1)
-      Tests  95 passed (95)
-   Start at  14:51:19
-   Duration  579ms (transform 91ms, setup 46ms, collect 120ms, tests 220ms, environment 0ms, prepare 34ms)
-
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 ```
 
-### targeted tail
-```
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1/projects/sfia-studio/app
-
- ✓ __tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts (10 tests) 68ms
- ✓ __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts (95 tests) 221ms
-
- Test Files  2 passed (2)
-      Tests  105 passed (105)
-   Start at  14:51:20
-   Duration  488ms (transform 88ms, setup 39ms, collect 209ms, tests 290ms, environment 0ms, prepare 50ms)
-
-```
-
-### execution-run tail
-```
- ✓ __tests__/oa/execution-run/adapter.secrets.opaque.test.ts (2 tests) 6ms
- ✓ __tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts (6 tests) 32ms
- ✓ __tests__/oa/execution-run/adapter.ai.fake.test.ts (2 tests) 3ms
- ✓ __tests__/oa/execution-run/policy.test.ts (9 tests) 3ms
- ✓ __tests__/oa/execution-run/transitions.test.ts (8 tests) 2ms
- ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 2ms
-
- Test Files  28 passed (28)
-      Tests  270 passed (270)
-   Start at  14:51:21
-   Duration  1.24s (transform 417ms, setup 1.25s, collect 1.79s, tests 1.96s, environment 2ms, prepare 1.16s)
-
-```
-
-### vitest full tail
-```
- ✓ __tests__/oa/evidence-review/maturityAssessmentDomain.test.ts (4 tests) 2ms
- ✓ __tests__/oa/execution-run/policy.test.ts (9 tests) 12ms
- ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 3ms
- ✓ __tests__/platform/platform-ai.test.ts (5 tests) 3ms
- ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 3ms
- ✓ __tests__/oa/execution-run/transitions.test.ts (8 tests) 3ms
-
- Test Files  130 passed (130)
-      Tests  1316 passed (1316)
-   Start at  14:51:33
-   Duration  8.36s (transform 3.91s, setup 5.27s, collect 15.09s, tests 25.78s, environment 6.94s, prepare 5.44s)
-
-```
-
-### governance tail
-```
-✔ adversarial: bad schemaVersion rejected (3.635542ms)
-✔ adversarial: additionalProperties rejected (3.653625ms)
-✔ adversarial: supersedes without xct: prefix rejected (3.736583ms)
-✔ catalog CancelExecution dual-context ownership is explicit (0.117375ms)
-ℹ tests 73
-ℹ suites 0
-ℹ pass 73
-ℹ fail 0
-ℹ cancelled 0
-ℹ skipped 0
-ℹ todo 0
-ℹ duration_ms 179.066
-```
-
-## 22. Scans
-
-```
-SCAN PACKAGE D2-D3 PUBLICATION
-
-## secret-like: 2
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:432:"xoxb-abcdefghij",
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:467:"xoxb-abcdefghij",
-
-## verified_true: 4
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts:39:cursorUnverified: true,
-  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:73:readonly cursorUnverified: true;
-  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:392:cursorUnverified: true,
-  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:440:cursorUnverified: true,
-
-## durable_true: 1
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:181:durable: true,
-
-## multiInstance_true: 1
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:182:multiInstance: true,
-
-## restartSafe_true: 1
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:183:restartSafe: true,
-
-## sandbox-real: 6
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:49:it.each(["sandbox-real", "real"] as const)(
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:50:availableSources: ["fixture", "real", "sandbox-real"],
-  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:144:"sandbox-real",
-  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:456:// D2-D3 internal proof is fixture only. Block real / sandbox-real before any port.
-  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:467:"D2-D3 demonstrates fixture only; real and sandbox-real remain blocked",
-  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:29:const ALLOWED_SOURCES = new Set(["fixture", "sandbox-real", "real"]);
-
-## source_real: 1
-  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:188:source: "real",
-
-## fetch(: 0
-
-## http: 0
-
-## Server Action: 0
-
-## git write: 0
-
-## SDK: 0
-
-## .only: 0
-
-## .skip: 0
-
-## tmp-sfia: 0
-
-PASS if adversarial-only for secrets/http/verified in tests; no real secrets; no durable/multi/restart true; no .only/.skip; no tmp in package
-```
-
-Qualification : occurrences secret-like / durable / multiInstance / restartSafe / sandbox-real / source real = tests adversariaux ou garde-fous fail-closed ; `cursorUnverified: true` (pas un claim verified) ; aucun fetch/HTTP/Server Action/SDK/.only/.skip/.tmp dans le package.
-
-## 23. Staged manifest
-
-```
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
-M	projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
-M	projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/index.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
-```
-Exactement 18 fichiers ; aucun `.tmp-sfia-review/**` staged.
-
-## 24. Staged stat
-
-```
-.../d2d3.coordination.fixture.test.ts              |  145 +++
- .../d2d3.evidence.truthfulness.test.ts             |  241 +++++
- .../execution-run/d2d3.negative.resilience.test.ts |  295 ++++++
- .../oa/execution-run/d2d3.projection.test.ts       |  102 ++
- .../d2d3.qa-findings.regression.test.ts            | 1088 ++++++++++++++++++++
- .../oa/execution-run/d2d3.readiness.test.ts        |  123 +++
- .../oa/execution-run/importBoundaries.test.ts      |   66 +-
- .../sandbox.protectedPath.fixture.test.ts          |   51 +
- .../application/coordinateExecutionRun.ts          | 1086 +++++++++++++++++++
- .../application/executionProjection.ts             |  444 ++++++++
- .../application/executionReadiness.ts              |  198 ++++
- .../application/untrustedExecutionData.ts          |  234 +++++
- .../app/lib/oa/execution-run/domain/policy.ts      |   35 +-
- .../oa/execution-run/domain/providerBoundary.ts    |    6 +-
- .../lib/oa/execution-run/domain/sandboxContract.ts |  104 +-
- .../sfia-studio/app/lib/oa/execution-run/index.ts  |   33 +-
- .../server/composeExecutionRunD2D3.ts              |  125 +++
- .../app/lib/oa/execution-run/server/index.ts       |   14 +
- 18 files changed, 4368 insertions(+), 22 deletions(-)
-```
-
-## 25. Staged / commit diff complet (représentation exploitable)
-
-Le diff staged a été committé sans modification. Patch complet du commit projet :
+## 23. Diff complet (représentation exploitable)
 
 ```patch
 From 9d1b3d2520f049dba0bf811380167003ca26ad82 Mon Sep 17 00:00:00 2001
@@ -5000,13 +4820,21 @@ index 1d967e6..485f3a2 100644
 
 ```
 
-## 26. Commit projet
+## 24. Stats
 
-SHA : `9d1b3d2520f049dba0bf811380167003ca26ad82`
-Branche : `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`
+18 files changed, 4368 insertions(+), 22 deletions(-)
 
 ```
-9d1b3d2 (HEAD -> delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination) feat(sfia-studio): add V3.1-D2-D3 read-only coordination
+commit 9d1b3d2520f049dba0bf811380167003ca26ad82
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Tue Aug 4 14:52:13 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Tue Aug 4 14:52:13 2026 +0200
+
+    feat(sfia-studio): add V3.1-D2-D3 read-only coordination
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
  .../d2d3.coordination.fixture.test.ts              |  145 +++
  .../d2d3.evidence.truthfulness.test.ts             |  241 +++++
  .../execution-run/d2d3.negative.resilience.test.ts |  295 ++++++
@@ -5028,80 +4856,85 @@ Branche : `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`
  18 files changed, 4368 insertions(+), 22 deletions(-)
 ```
 
-## 27. Parent
+## 25. Inspection complète des 18 fichiers
 
-`de2800aa836bb8221dc2912414126b7a3e6a1f58` — exact.
+Ordre relú : coordinateExecutionRun → untrustedExecutionData → executionProjection → executionReadiness → composeExecutionRunD2D3 → policy/providerBoundary/sandboxContract → barrels → tests coordination/evidence/projection/readiness/négatifs → matrice findings → importBoundaries.
+Confirmations : E2E read-only ; fixture-only ; real/sandbox-real bloqués ; 8 états ; partial≠succeeded ; cancel/timeout terminaux ; late result evidence-only ; correlationId/lane avant engagement ; event sink non autoritatif ; projection unknown allowlistée ; late evidence fail-closed + STRUCTURED_SENSITIVE_KEY ; near-keys préservées ; timeout max 60000 ; chemins normalisés ; assertServerOnly ; composeExecutionRunMemory réutilisé (pas de nouveau store) ; readiness liée artefacts ; UI non démontrée ; strong runtime bloqué ; coordinator hors barrel public.
 
-## 28. Message
+## 26. Matrice des 14 findings
 
-`feat(sfia-studio): add V3.1-D2-D3 read-only coordination`
+Statut transporté : **VERIFIED IN QA — CLOSURE RECOMMENDED** (non formellement CLOSED).
+- F-QA-D2D3-01 source fake non promouvable
+- F-QA-D2D3-03 event sink non autoritatif
+- F-QA-D2D3-04 projection sûre
+- F-QA-D2D3-05 late evidence redigée
+- F-QA-D2D3-06 capability après preflight
+- F-QA-D2D3-07 données hostiles confinées
+- F-QA-D2D3-08 diagnostics provider
+- F-QA-D2D3-09 timeout
+- F-QA-D2D3-10 chemins encodés
+- F-QA-REV-D2D3-01 correlationId/lane
+- F-QA-REV-D2D3-02 motifs secrets
+- F-QA-REV2-D2D3-01 clés structurées
+- F-QA-REV2-D2D3-02 contrat fail-closed arbitré
+(+ findings initiaux 02/couverture via matrice permanente 01…10)
+Package publié = package revalidé (hash identique) → héritage QA valide.
 
-## 29. Manifest commit
+## 27. Architecture et frontières
 
-```
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
-A	projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
-M	projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
-M	projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/index.ts
-A	projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
-```
+Composition D2-D3 server-only via `assertServerOnly` ; ports D2-D1/D2-D2 (memory, fake providers, clock, git-read, event sink) ; pas d’exposition client du coordinator ; pas de second runtime/store.
 
-## 30. Stat commit
+## 28. Sécurité et secrets
 
-18 files changed, 4368 insertions(+), 22 deletions(-)
+Aucun secret réel ; xoxb factice adversarial ; pas de clé privée/credentials/PII ; `.env` seulement comme chemins protégés adversariaux.
 
-## 31. Hash post-commit
+## 29. Source truthfulness
 
-`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` — identique.
+Source démontrée fixture ; real et sandbox-real bloqués avant ports ; projection ALLOWED_SOURCES inclut les labels pour validation unknown mais engagement D2-D3 refuse non-fixture.
 
-## 32. Push
+## 30. Readiness
 
-`git push -u origin delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination`
-Succès ; pas de force ; pas de push main.
+assessExecutionReadiness lie run/projection/evidence ; exige memory_process_local + durable/multi/restart false ; UI Delivery non démontrée ; claims production-ready rejetés en test.
 
-## 33. Remote branch
+## 31. Evidence
 
-`refs/heads/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` créée.
+Evidence officielle + late fail-closed (`late_result_redacted`) ; structured + assignment/prefix detectors.
 
-## 34. Local / remote SHA
+## 32. Event sink
 
-Local HEAD = upstream = remote head = `9d1b3d2520f049dba0bf811380167003ca26ad82`
+Non autoritatif ; fail-safe ; n’altère pas le terminal state.
 
-## 35. PR number
+## 33. correlationId / lane
 
-#310
+Validation avant engagement provider ; mismatch → rejet sans invocation.
 
-## 36. PR URL
+## 34. Timeout / cancellation
 
-https://github.com/mcleland147/sfia-workspace/pull/310
+MAX_COORDINATOR_TIMEOUT_MS=60000 ; cancel/timeout terminaux ; late result evidence-only.
 
-## 37. PR title
+## 35. Path normalization
 
-feat(sfia-studio): add V3.1-D2-D3 read-only coordination
+sandboxContract + tests encoded traversal / null-byte ; shared normalization.
 
-## 38. Base / head
+## 36. Import boundaries
 
-baseRefName = `main` (OID `de2800aa836bb8221dc2912414126b7a3e6a1f58`)
-headRefName = `delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination` (OID `9d1b3d2520f049dba0bf811380167003ca26ad82`)
+Tests : pas de composeExecutionRunD2D3 dans barrel public ; pas de nouveau Memory store ; coordinator non réexporté.
 
-## 39. État Draft
+## 37. Mémoire process-local
 
-state = OPEN ; isDraft = true
+persistence kind memory_process_local ; durable=false ; multiInstance=false ; restartSafe=false ; D2D3-05 BLOCKED.
 
-## 40. Corps complet de PR
+## 38. PR metadata
+
+#310 https://github.com/mcleland147/sfia-workspace/pull/310
+state=OPEN isDraft=True mergeable=MERGEABLE mergeStateStatus=CLEAN
+base=main@de2800aa836bb8221dc2912414126b7a3e6a1f58
+head=delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination@9d1b3d2520f049dba0bf811380167003ca26ad82
+commits=1 files=18 +4368/-22
+reviewDecision=''
+final snap: {"baseRefOid": "de2800aa836bb8221dc2912414126b7a3e6a1f58", "headRefOid": "9d1b3d2520f049dba0bf811380167003ca26ad82", "isDraft": true, "mergeStateStatus": "CLEAN", "mergeable": "MERGEABLE", "mergedAt": null, "state": "OPEN"}
+
+## 39. Corps complet de PR
 
 ```markdown
 ## Summary
@@ -5248,102 +5081,385 @@ Ordre recommandé :
   GO PR READINESS SFIA STUDIO V3.1-D2-D3.
 ```
 
-## 41. Fichiers PR
+## 40. Analyse du body
+
+Cohérent avec commit/scope/hash/validations/gates non-Cursor/persist/D2C/exclusions.
+Phrase historique « GO PR READINESS non consommé » exacte à la publication ; désormais stale après consommation du GO présent.
+Aucune autre erreur matérielle scope/sécurité/CI/exclusions/autorité.
+
+## 41. Réserve R-PR-D2D3-01
+
+R-PR-D2D3-01 — PR BODY PUBLICATION-TIME GATE STATUS NOW STALE — NON-BLOCKING MINOR — REFRESH RECOMMENDED UNDER A LATER MORRIS-AUTHORIZED PR METADATA OR MARK-READY CYCLE.
+
+## 42. Commentaires
+
+Inline PR comments: 0 ; issue comments: 0 ; comments field: 0.
+
+## 43. Reviews
+
+Reviews: 0 ; aucune REQUEST_CHANGES.
+
+## 44. Review decision
+
+reviewDecision vide / non bloquant.
+
+## 45. Règles GitHub / main
+
+Ruleset actif `19798462` — SFIA Studio Main Required Gate — M1 (branch main).
+Classic branch protection: absent (404).
+pull_request: required_approving_review_count=0 ; code owners non requis ; merge methods: merge, squash, rebase.
+required_status_checks: context `SFIA Studio Required Gate` ; strict_required_status_checks_policy=false.
+non_fast_forward + deletion rules présents.
+Aucune règle modifiée ; aucun reviewer demandé.
+Absence de review humaine NON bloquante (count=0).
+
+## 46. Required checks
+
+Required : `SFIA Studio Required Gate` — SUCCESS sur head exact.
+
+## 47. CI run
+
+Workflow SFIA Studio CI ; run number 95 ; run ID 30911104369 ; status completed ; conclusion success ; headSha exact `9d1b3d2…`.
+URL: https://github.com/mcleland147/sfia-workspace/actions/runs/30911104369
+
+## 48. CI jobs et étapes
 
 ```
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.negative.resilience.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/importBoundaries.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts
-projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
-projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts
-projects/sfia-studio/app/lib/oa/execution-run/application/executionReadiness.ts
-projects/sfia-studio/app/lib/oa/execution-run/application/untrustedExecutionData.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/policy.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/providerBoundary.ts
-projects/sfia-studio/app/lib/oa/execution-run/domain/sandboxContract.ts
-projects/sfia-studio/app/lib/oa/execution-run/index.ts
-projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
-projects/sfia-studio/app/lib/oa/execution-run/server/index.ts
+workflow=SFIA Studio CI number=95 id=30911104369
+status=completed conclusion=success headSha=9d1b3d2520f049dba0bf811380167003ca26ad82
+url=https://github.com/mcleland147/sfia-workspace/actions/runs/30911104369
+
+JOB Detect SFIA Studio changes status=completed conclusion=success
+  - Set up job: success
+  - Checkout: success
+  - Detect Studio scope: success
+  - Post Checkout: success
+  - Complete job: success
+
+JOB Build and validate SFIA Studio status=completed conclusion=success
+  - Set up job: success
+  - Checkout: success
+  - Setup Node.js: success
+  - Install dependencies: success
+  - Typecheck: success
+  - Lint: success
+  - Build: success
+  - Unit tests (Vitest): success
+  - Modeled governance tests: success
+  - Secret pattern scan (targeted): success
+  - Trailing whitespace check: success
+  - Post Setup Node.js: success
+  - Post Checkout: success
+  - Complete job: success
+
+JOB SFIA Studio Required Gate status=completed conclusion=success
+  - Set up job: success
+  - Aggregate required gate: success
+  - Complete job: success
 ```
-Exactement 18 ; aucun hors manifest ; aucun `.tmp-sfia-review/**`.
 
-## 42. Stats PR
+## 49. Local validations
 
-additions = 4368 ; deletions = 22
+Aucune modification. Baselines observées :
+- regression 95 PASS
+- targeted 105 PASS
+- execution-run 28/270 PASS
+- typecheck PASS ; lint PASS ; build PASS
+- full Vitest 130/1316 PASS
+- governance 73 PASS
+- git diff --check PASS ; staged vide ; seuls untracked `.tmp-sfia-review/**`
 
-## 43. Nombre de commits
-
-1 (un seul commit projet vs main)
-
-## 44. État CI initial
-
-Capture post-création :
-
-- Detect SFIA Studio changes: status=COMPLETED conclusion=SUCCESS
-- Build and validate SFIA Studio: status=IN_PROGRESS conclusion=
-
-mergeStateStatus observé : `BLOCKED`
-Aucune correction CI dans ce cycle. CI non en échec au moment de la capture (Detect SUCCESS ; Build IN_PROGRESS).
-
-## 45. Absence de mark-ready
-
-isDraft reste true ; aucun `gh pr ready`.
-
-## 46. Absence de merge
-
-PR non mergée ; main toujours `de2800aa836bb8221dc2912414126b7a3e6a1f58`.
-
-## 47. Hash post-push
-
-`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` — identique (également post-publication freeze).
-
-## 48. Git Truth Check final
+## 50. Targeted
 
 ```
-=== timestamps final ===
-2026-08-04 14:53:03 CEST +0200
-2026-08-04 12:53:03 UTC
-branch=delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1/projects/sfia-studio/app
+
+ ✓ __tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts (10 tests) 68ms
+ ✓ __tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts (95 tests) 217ms
+
+ Test Files  2 passed (2)
+      Tests  105 passed (105)
+   Start at  15:16:21
+   Duration  495ms (transform 91ms, setup 50ms, collect 224ms, tests 284ms, environment 0ms, prepare 58ms)
+
+```
+
+## 51. Execution-run
+
+```
+ ✓ __tests__/oa/execution-run/adapter.secrets.opaque.test.ts (2 tests) 4ms
+ ✓ __tests__/oa/execution-run/ports.conformance.test.ts (5 tests) 7ms
+ ✓ __tests__/oa/execution-run/adversarial.providerBoundary.test.ts (17 tests) 3ms
+ ✓ __tests__/oa/execution-run/transitions.test.ts (8 tests) 3ms
+ ✓ __tests__/oa/execution-run/adapter.ai.fake.test.ts (2 tests) 2ms
+ ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 1ms
+
+ Test Files  28 passed (28)
+      Tests  270 passed (270)
+   Start at  15:16:22
+   Duration  1.18s (transform 496ms, setup 1.05s, collect 1.95s, tests 2.03s, environment 3ms, prepare 1.08s)
+
+```
+
+## 52. Typecheck
+
+```
+
+> sfia-studio@0.1.0 typecheck
+> tsc --noEmit
+
+```
+
+## 53. Lint
+
+```
+
+> sfia-studio@0.1.0 lint
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+✔ No ESLint warnings or errors
+```
+
+## 54. Build
+
+```
+├ ○ /studio/projects/new                 4.07 kB         114 kB
+├ ○ /synthese                            4.84 kB         120 kB
+└ ƒ /workspace                             571 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-3981a3d1f3561bd8.js       46.2 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.96 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+```
+
+## 55. Full Vitest
+
+```
+ ✓ __tests__/platform/platform-ai.test.ts (5 tests) 6ms
+ ✓ __tests__/oa/execution-run/adapter.ai.fake.test.ts (2 tests) 5ms
+ ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 2ms
+ ✓ __tests__/platform/t-a7-local-volume.probe.test.ts (1 test) 1ms
+ ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 2ms
+ ✓ __tests__/oa/evidence-review/maturityAssessmentDomain.test.ts (4 tests) 3ms
+
+ Test Files  130 passed (130)
+      Tests  1316 passed (1316)
+   Start at  15:16:34
+   Duration  8.30s (transform 3.67s, setup 5.18s, collect 14.92s, tests 25.17s, environment 6.91s, prepare 5.32s)
+
+```
+
+## 56. Governance
+
+```
+✔ adversarial: bad schemaVersion rejected (4.66225ms)
+✔ adversarial: additionalProperties rejected (3.983792ms)
+✔ adversarial: supersedes without xct: prefix rejected (3.855791ms)
+✔ catalog CancelExecution dual-context ownership is explicit (0.130708ms)
+ℹ tests 73
+ℹ suites 0
+ℹ pass 73
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 181.495125
+```
+
+## 57. Scans
+
+```
+SCAN PR READINESS D2-D3
+
+## secret-like: 2
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:432:"xoxb-abcdefghij",
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:467:"xoxb-abcdefghij",
+
+## verified_true_claim: 0
+
+## cursorUnverified: 4
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.projection.test.ts:39:cursorUnverified: true,
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:73:readonly cursorUnverified: true;
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:392:cursorUnverified: true,
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:440:cursorUnverified: true,
+
+## durable_true: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:181:durable: true,
+
+## multiInstance_true: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:182:multiInstance: true,
+
+## restartSafe_true: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:183:restartSafe: true,
+
+## sandbox-real: 6
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:49:it.each(["sandbox-real", "real"] as const)(
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:50:availableSources: ["fixture", "real", "sandbox-real"],
+  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:144:"sandbox-real",
+  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:456:// D2-D3 internal proof is fixture only. Block real / sandbox-real before any port.
+  projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts:467:"D2-D3 demonstrates fixture only; real and sandbox-real remain blocked",
+  projects/sfia-studio/app/lib/oa/execution-run/application/executionProjection.ts:29:const ALLOWED_SOURCES = new Set(["fixture", "sandbox-real", "real"]);
+
+## source_real: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:188:source: "real",
+
+## fetch(: 0
+
+## http_url: 0
+
+## use server: 0
+
+## git write: 0
+
+## SDK: 0
+
+## .only: 0
+
+## .skip: 0
+
+## tmp-sfia: 0
+
+## production-ready: 1
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.readiness.test.ts:120:/production-ready|RUN READY|multi-instance ready|restart-safe|Cursor verified/i,
+
+## env_file: 15
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:93:protectedPaths: [".env"],
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:793:"projects/sfia-studio/%2e%2e/.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:794:"%2e%2e/.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:795:"%252e%252e/.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:796:"projects\\sfia-studio\\%2e%2e\\.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:798:"projects/sfia-studio/%00.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts:73:path: "projects/sfia-studio/%2e%2e/.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts:79:path: "%2e%2e/.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts:85:path: "%252e%252e/.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts:91:path: "projects\\sfia-studio\\%2e%2e\\.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts:103:path: "projects/sfia-studio/%00.env",
+  projects/sfia-studio/app/__tests__/oa/execution-run/sandbox.protectedPath.fixture.test.ts:177:instructionSummary: "path=.env",
+  ... +3
+
+## contract_spotchecks
+  eight_states_mention: 21 matches across package
+  late_result_redacted: 14 matches across package
+  STRUCTURED_SENSITIVE_KEY: 3 matches across package
+  timeout_cap: 1 matches across package
+  server-only: 1 matches across package
+  fixture_block_real: 2 matches across package
+  providerAttempted: 15 matches across package
+  providerInvoked: 30 matches across package
+  providerCompleted: 17 matches across package
+```
+
+## 58. Risques
+
+- D2D3-04 Cursor UNVERIFIED / BLOCKED
+- D2D3-05 persist process-local / BLOCKED
+- R-QA-D2C-01 ouverte
+- body gate status stale (R-PR-D2D3-01 MINOR)
+- timeout local 60s (R-CORR-D2D3-01)
+Aucun risque bloquant de sécurité/secret/scope pour mark-ready decision.
+
+## 59. Réserves
+
+- R-QA-REV-01 — OPEN NOT LIFTED
+- R-QA-REV-02 — OPEN NOT LIFTED
+- R-QA-D2C-01 — OPEN NOT LIFTED
+- Cursor product capabilities — UNVERIFIED
+- memory process-local only
+- R-PR-D2D2-01 — MINOR
+- R-CORR-D2D3-01 — timeout 60 000 ms local D2-D3
+- R-QA-REV3-D2D3-TIME-01 — OPEN MINOR
+- R-CORR-D2D3-02 — SATISFIED — CLOSURE RECOMMENDED
+- R-PR-D2D3-01 — NON-BLOCKING MINOR (body GO PR READINESS stale)
+Aucune réserve levée. D2D3-04/05 BLOCKED.
+
+## 60. Stratégie de merge candidate
+
+**Recommandation candidate : H1 — merge commit** (non exécutée, non décidée).
+Justification : un seul commit atomique ; parentage clair D2-D2→D2-D3 ; cohérence PR #309 ; conservation SHA projet `9d1b3d2…` comme parent du merge ; rollback identifiable.
+Alternative H2 squash : perd SHA projet distinct ; H3 rebase merge : moins aligné avec précédent D2-D2.
+Règles GitHub autorisent merge/squash/rebase.
+Décision Morris requise via GO MERGE distinct — STRATEGY H1 candidate.
+
+## 61. Critères readiness
+
+Tous critères READY techniques satisfaits ; écarts restants = réserves héritées + R-PR-D2D3-01 + traçabilité time → PASS WITH RESERVES.
+Draft préservé ; CI SUCCESS ; Required Gate SUCCESS ; pas de conflit ; pas de review bloquante ; hash exact ; 18 fichiers ; behind=0.
+
+## 62. Hash final
+
+`cb937ada88a8040a9a278a067b780b247418c3dc490c50b3d59ee9fe6290419f` — identique (local, commit, post-validations).
+
+## 63. Git Truth Check final
+
+```
+=== final timestamps ===
+2026-08-04 15:17:29 CEST +0200
 HEAD=9d1b3d2520f049dba0bf811380167003ca26ad82
-PARENT=de2800aa836bb8221dc2912414126b7a3e6a1f58
-UPSTREAM=9d1b3d2520f049dba0bf811380167003ca26ad82
+upstream=9d1b3d2520f049dba0bf811380167003ca26ad82
 main=de2800aa836bb8221dc2912414126b7a3e6a1f58
 remote=9d1b3d2520f049dba0bf811380167003ca26ad82	refs/heads/delivery/sfia-studio-v3-1-d2-d3-e2e-read-only-coordination
 staged=0
-commits_vs_main=1
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/app/.tmp-sfia-review/
 ```
 
-## 49. Aucune modification supplémentaire
+## 64. PR toujours Draft
 
-Aucun fichier projet modifié après le commit. Worktree : uniquement `.tmp-sfia-review/**` untracked (et éventuellement `projects/sfia-studio/app/.tmp-sfia-review/`). Staged vide.
+isDraft=true ; state=OPEN ; mergedAt=null.
 
-## 50. Review Handoff
+## 65. Absence de modification projet
 
-À publier via `scripts/sfia/publish-review-handoff.sh`
-Message : `docs(review-handoff): publish D2-D3 publication status`
-Parent distant attendu : `4052b19de7bd2ddfff94ae91a906ee8c02fc5160`
+Aucun fichier projet modifié pendant ce cycle.
+
+## 66. Absence de modification PR
+
+Titre/body/commentaires inchangés ; aucun reviewer ajouté.
+
+## 67. Absence de commit / push
+
+Aucun commit projet ; aucun push projet.
+
+## 68. Absence de mark-ready
+
+Draft conservé ; GO MARK READY non consommé.
+
+## 69. Absence de merge
+
+PR non mergée ; main inchangé.
+
+## 70. Review Handoff
+
+Publisher `scripts/sfia/publish-review-handoff.sh`
+Message : `docs(review-handoff): publish D2-D3 PR readiness status`
+Parent distant attendu : `0bebf6cf47a90d49c4ffa109bf4dead8cec3863b`
 Source : `.tmp-sfia-review/chatgpt-review.md`
 
-## 51. Verdict unique
+## 71. Verdict unique
 
-D2-D3 PUBLICATION COMPLETE —
-ATOMIC PROJECT COMMIT PUSHED —
-DRAFT PR OPEN —
-READY FOR MORRIS PR READINESS DECISION
+D2-D3 PR READINESS PASS WITH RESERVES —
+PR #310 SCOPE AND PACKAGE VERIFIED —
+REMOTE CI SUCCESS —
+DRAFT PRESERVED —
+READY FOR MORRIS MARK-READY DECISION
 
-## 52. Décision suivante candidate
+## 72. Prochaine décision candidate
 
-GO PR READINESS SFIA STUDIO V3.1-D2-D3
-Statut : candidate uniquement — non consommé
-Ne pas mark-ready ; ne pas merge ; ne pas supprimer la branche.
+GO MARK READY SFIA STUDIO V3.1-D2-D3 — candidate uniquement — non consommé
+Trajectoire merge candidate : GO MERGE SFIA STUDIO V3.1-D2-D3 — STRATEGY H1 — non consommé
+Ne pas mark-ready ; ne pas merge ; ne pas modifier la PR ; ne pas supprimer la branche.
 
 ---
 
-Instruction finale pour ChatGPT : consulter la branche `sfia/review-handoff` et le fichier `sfia-review-handoff/latest-chatgpt-review.md` au commit et blob publiés par ce cycle avant toute validation de publication ou génération du prompt PR Readiness.
+Instruction finale : ChatGPT doit consulter `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` au commit/blob publiés par ce cycle avant validation PR Readiness ou prompt mark-ready/merge.
