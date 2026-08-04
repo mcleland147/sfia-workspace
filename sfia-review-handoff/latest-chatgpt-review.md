@@ -1688,52 +1688,46 @@ Temporaires : `.tmp-sfia-review/**`
 
 ## 62. Local Git Truth final réel
 
-*(remplacé après publication handoff par capture réelle des commandes)*
-
-=== FINAL GIT TRUTH (captured commands) ===
-2026-08-04 22:48:55 CEST +0200
-2026-08-04 20:48:55 UTC
-toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+```
+=== FINAL GIT TRUTH AFTER HANDOFF PUBLISH (captured) ===
+2026-08-04 22:49:26 CEST +0200
+2026-08-04 20:49:26 UTC
 branch=architecture/sfia-studio-assistant-sfia-native-openai-fpi-functional
 HEAD=8dc54db0069eed78a8d8930cc2b035450ab56ad1
-upstream=8dc54db0069eed78a8d8930cc2b035450ab56ad1
 origin_main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
-merge_base=8dc54db0069eed78a8d8930cc2b035450ab56ad1
-ahead=0
-behind=0
-handoff_tip_before_refresh=b7adfe791f4dd5644b1739b05b6f4a913f89bb06
-handoff_blob_before_refresh=4e1d29ef8a1ce76bdb840ddee786e536b82b3330
-=== STATUS ===
+ahead=0 behind=0
+handoff_final_tip=ab59dd2ab64b18b2a1fe3bfade2015bd572bb0e9
+handoff_final_blob=1b3da12392068a57502f6483b870e5cb26ce6858
+handoff_intermediate=b7adfe791f4dd5644b1739b05b6f4a913f89bb06
+handoff_parent_of_final=b7adfe791f4dd5644b1739b05b6f4a913f89bb06
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
 ?? projects/sfia-studio/91-assistant-sfia-native-openai-first-product-increment-functional-architecture.md
 ?? projects/sfia-studio/app/.tmp-sfia-review/
-=== DIFF NAME-STATUS ===
-=== CACHED ===
-=== DOC90 ===
 doc90_sha=2d5a03f366e5291e54b6617ada972158763199bf918bea01f031d4212b1a78b2  projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
-DOC86_ABSENT
-=== DOC91 ===
 doc91_sha=0517aa6c3091f63f0b5c69d40d123fa715dbfb4429d02681ea0398a9588e83e1  projects/sfia-studio/91-assistant-sfia-native-openai-first-product-increment-functional-architecture.md
+DOC86_ABSENT
+```
+
 
 ## 63. Review Handoff
 
 Mode : publish-in-cycle
 Publisher : scripts/sfia/publish-review-handoff.sh
-Parent distant démarrage : `5cfe22e5cea9d9d92ee419bd9139130466470464`
-Message : docs(review-handoff): publish Assistant SFIA OpenAI functional architecture status
-*(tip/blob finaux autoritatifs complétés après publication + refresh)*
-
+Source : .tmp-sfia-review/chatgpt-review.md
+Branche : sfia/review-handoff
+Fichier : sfia-review-handoff/latest-chatgpt-review.md
 Parent démarrage : 5cfe22e5cea9d9d92ee419bd9139130466470464
-Commit intermédiaire (1er publish) : b7adfe791f4dd5644b1739b05b6f4a913f89bb06
+Commit intermédiaire : b7adfe791f4dd5644b1739b05b6f4a913f89bb06
 Blob intermédiaire : 4e1d29ef8a1ce76bdb840ddee786e536b82b3330
-Commit final autoritatif : (sera le tip après ce refresh)
-Blob final autoritatif : (sera le tip après ce refresh)
+Commit final autoritatif : ab59dd2ab64b18b2a1fe3bfade2015bd572bb0e9
+Blob final autoritatif : 1b3da12392068a57502f6483b870e5cb26ce6858
 Message : docs(review-handoff): publish Assistant SFIA OpenAI functional architecture status
-Verdict publisher attendu : HANDOFF UPDATED — REMOTE VERIFIED
-Titre distant : # ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI First Product Increment Functional Architecture
+Verdict publisher : HANDOFF UPDATED — REMOTE VERIFIED
+Titre distant vérifié : # ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI First Product Increment Functional Architecture
 Verdict distant : ASSISTANT SFIA NATIVE OPENAI FIRST PRODUCT INCREMENT FUNCTIONAL ARCHITECTURE COMPLETE WITH OPEN DECISIONS — … — READY FOR CHATGPT VALIDATION AND MORRIS FUNCTIONAL ARCHITECTURE ARBITRATION
-Note R-FRM-ASST-02 : le tip final après refresh remplace l’intermédiaire ; ne pas traiter l’intermédiaire comme tip final.
+Correction R-FRM-ASST-01 : Git Truth final capturé par commandes réelles (voir §62).
+Correction R-FRM-ASST-02 : tip/blob ci-dessus = tip distant après refresh ; intermédiaire ≠ tip final.
 
 
 ## 64. Verdict
