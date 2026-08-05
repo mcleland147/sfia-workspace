@@ -1,48 +1,39 @@
-# ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI Figma Candidate Completion
+# ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI Figma Validation Gap Corrections
 
 ## 1. Date / heure / fuseau
 
-Local : 2026-08-05 06:04:57 CEST +0200
-UTC : 2026-08-05 04:04:57 UTC
+Local : 2026-08-05 06:31:59 CEST +0200
+UTC : 2026-08-05 04:31:59 UTC
 
 ## 2. GO consommé
 
 ```text
-GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — COMPLETE FIGMA CANDIDATE PAGE AND FRAMES
+GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — CORRECT FIGMA VALIDATION GAPS
 ```
-Consommation : 2026-08-05 05:21 CEST (+0200) · Autorité : Morris
+2026-08-05 06:22 CEST (+0200) · Morris
 
 ## 3. Cycle / profil / typologie
 
-UX/UI · Standard · EVOL / UX / DOC · Documentation + Figma · Doctrine conduite SFIA v2.6 · Doctrine produit SFIA Studio v3 exclusive
+UX/UI · Standard · EVOL / UX / DOC · Doctrine conduite SFIA v2.6 · Doctrine produit SFIA Studio v3 exclusive
 
 ## 4. Main
 
-`origin/main` = `8dc54db0069eed78a8d8930cc2b035450ab56ad1` — PASS
+`8dc54db0069eed78a8d8930cc2b035450ab56ad1` — PASS
 
 ## 5. Branche / worktree
 
-Branche : `ux-ui/sfia-studio-assistant-sfia-native-openai-fpi`
-HEAD : `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
-Worktree : `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1`
-Non poussée · pas de PR
+`ux-ui/sfia-studio-assistant-sfia-native-openai-fpi` · HEAD `8dc54db0069eed78a8d8930cc2b035450ab56ad1` · non poussée · pas de PR
 
 ## 6. Handoff entrant
 
-Commit : `5da017f8c30da4a433ae0e62086705e519a8efc9`
-Blob : `1574dd51c44522efec64e5fc3fa93a0f41faa912`
-Message : docs(review-handoff): publish Assistant SFIA OpenAI UX UI candidate
-Tip pré-publication : `5da017f8c30da4a433ae0e62086705e519a8efc9` — PASS
+`d91d66f97e1ecfc8d9b27438e559d70bb33d5906` / blob `65c80337e4ddaf47a4e5718d07bec80156503028`
+Tip pré : `d91d66f97e1ecfc8d9b27438e559d70bb33d5906` — PASS
 
-## 7. Template canonique
+## 7–8. Template / CKC
 
-`prompts/templates/sfia-cycle-execution-template.md` + règles UX + baseline 14–16 + 90–96
+Template canonique + UX method + 14–16 + 90–96 + handoff. CKC UX détaillé baseline absent — fallback synthétique. CANDIDATE SOURCE — NO EXECUTION AUTHORITY.
 
-## 8. CKC
-
-Pilote UX détaillé baseline : absent. Fallback synthétique. Branche method CKC = CANDIDATE SOURCE — NOT BASELINE.
-
-## 9–11. Sources 14–16 / 90–96 / hashes entrants
+## 9–10. Sources / hashes entrants
 
 90–93 inchangés :
 ```
@@ -51,131 +42,137 @@ Pilote UX détaillé baseline : absent. Fallback synthétique. Branche method CK
 0af5a9063705859abddceea0f1f5184b55c35a04e94b71648b139bb592c841d4  projects/sfia-studio/92-assistant-sfia-native-openai-functional-architecture-decision-pack.md
 6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428  projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md
 ```
-94 entrant `535d2831…` · 95 `d2d9b63f…` · 96 `9e4fbd2f…` — vérifiés avant mutation ; mis à jour après Figma.
+94 entrant `7f507482…` (293) · 95 `ddf6a078…` (205) · 96 `88b77117…` (172) — vérifiés avant mutation.
 
-## 12–14. Pre-check MCP Figma / outils / permissions
+## 11. Pré-check MCP Figma
 
-Serveur : `plugin-figma-figma` — **ready**
-Outils : `whoami` · `get_metadata` · `get_design_context` · `use_figma` · `get_screenshot` · `get_variable_defs`
-Auth : handle `Momo Clecle` · seat **Full** · plan Pro
-Permissions écriture : confirmées (page + frames créées)
-Pas de substitut navigateur / Penpot.
+`plugin-figma-figma` ready · whoami / get_metadata / get_design_context / use_figma / get_screenshot · seat Full · PASS
 
-## 15–17. Baseline live / design context / styles
+## 12–15. Avant correction
 
-Page UX-B — P0 `0:1` · frames `19:2` `22:2` `22:133` `22:270` · toutes 1440×1024 · noms conformes
-Design context P0-00C : Utility rail · workspace shell · topbar · pills · brand accent · copilot panel (réutilisé comme Context)
-Couleurs Product premium : bg `#f6f9fe` · text `#131729` · blue `#2e6bf2` · purple `#8c47f2` · green `#14b87a`
-Baseline **UNCHANGED** après écriture (4 children only).
+Baseline `0:1` · 4 frames · 1440×1024
+Page candidate `117:5` · intro `117:6` · frames `117:13` `118:2` `118:138` `118:274` `118:410` `118:546` `118:682`
+Captures avant :
+- `FPI-00-conversation-n1.png`
+- `FPI-01-lps.png`
+- `FPI-02-expert-routing.png`
+- `FPI-03-confirmation-n2.png`
+- `FPI-04-decision-n3.png`
+- `FPI-05-off-topic.png`
+- `FPI-06-provider-fail-closed.png`
+- `UX-FPI-overview.png`
 
-## 18–20. Page candidate / page ID / intro
+## 16–18. R-VIS-01
 
-Page : `UX-FPI — Assistant SFIA natif OpenAI`
-Page ID : `117:5`
-Intro : `117:6` — CANDIDATE — NOT BASELINE · GO · sources · anti-claims · date
+Observation : bouton « OK » ambigu sur FPI-03.
+Correction : « Confirmer l’application » + « Annuler » · Surface active — N2 · N2 — pas un GO · Primary CTA héritée masquée.
+Preuve : live texts `118:408` / `118:406` / `118:380` · capture `FPI-03-confirmation-n2.png`
 
-## 21. Manifest complet
+## 19–21. R-VIS-02
+
+Observation : GO N3 par clic ambigu.
+Correction : bloc `121:2` · formulation attendue GO DECISIONS UX/UI… · champ « Saisir le GO exactement » · « Aucune décision consommée » · « Consommer le GO explicite » désactivé (gris) · Surface active — N3.
+Preuve : `FPI-04-decision-n3.png` · nodes `121:2`…`121:7` · `118:544`
+
+## 22–24. R-VIS-03
+
+Observation : « Lancer la qualification » sur 7 frames.
+Mapping final :
+- FPI-00 Envoyer
+- FPI-01 Retour à la conversation
+- FPI-02 Fermer le panneau Expert
+- FPI-03/04 Primary CTA masquée (texte « — »)
+- FPI-05 Rester dans le Project
+- FPI-06 Réessayer
+Preuve : audit live primaryCtas · aucune occurrence visible de « Lancer la qualification »
+
+## 25–27. R-VIS-04
+
+Observation : « Niveau N1 » ambigu sur N2/N3.
+Correction : « Conversation sous-jacente — N1 » · « Surface active — N2/N3 » · phrases de contexte.
+Preuve : `118:342` `118:380` `118:478` `118:516`
+
+## 28–31. R-VIS-05
+
+Audit truncations (Icon/Avatar/Pill overflows) · glyphs restaurés · pills élargies · wrap · truncRemaining=[] après correction.
+Preuve : audit use_figma · captures finales.
+
+## 32–37. Manifest / IDs / dimensions / captures
 
 ```markdown
-# Figma Manifest — UX-FPI Assistant SFIA natif OpenAI
+# Figma Manifest — UX-FPI gap corrections R-VIS-01…05
 
 | Métadonnée | Valeur |
 |---|---|
+| **Timestamp** | 2026-08-05 CEST |
+| **GO** | CORRECT FIGMA VALIDATION GAPS — 2026-08-05 06:22 CEST |
 | **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
-| **URL** | https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO |
-| **GO** | COMPLETE FIGMA CANDIDATE PAGE AND FRAMES — 2026-08-05 05:21 CEST |
 | **Page candidate** | UX-FPI — Assistant SFIA natif OpenAI |
-| **Page ID** | `117:5` |
-| **Statut page** | CANDIDATE — NOT BASELINE |
-| **Intro** | `117:6` — INTRO — CANDIDATE — NOT BASELINE |
-| **Baseline page** | UX-B — P0 (`0:1`) — **UNCHANGED** |
-| **Baseline frames** | `19:2` `22:2` `22:133` `22:270` — **UNCHANGED** 1440×1024 |
+| **Page ID** | `117:5` (inchangé) |
+| **Intro** | `117:6` (inchangé) |
+| **Baseline UX-B — P0** | `0:1` — **UNCHANGED** avant/après · frames `19:2` `22:2` `22:133` `22:270` |
+| **R-DEC-AF-01** | OPEN — CORRECTED DOCUMENTARY AND FIGMA EVIDENCE — CLOSURE RECOMMENDATION PENDING CHATGPT REVALIDATION |
+| **D-ASST-UX-01…10** | NOT DECIDED |
 
-## Frames candidates
+## Frames (node IDs préservés)
 
-| Frame | node ID | W×H | Screenshot | Décisions | Réserve | Chevauchement | Observations | Limites |
-|---|---|---|---|---|---|---|---|---|
-| FPI-00 — Conversation Project / N1 | `117:13` | 1440×1024 | `FPI-00-conversation-n1.png` | FPI-04/05/11 | R-DEC-AF-01 | PASS (x=0) | Conversation dominante · N1 · LPS résumé · Doctrine/Provider | CTA héritée baseline « qualification » cosmétique |
-| FPI-01 — Living Project State / Progressive disclosure | `118:2` | 1440×1024 | `FPI-01-lps.png` | FPI-05=C | R-DEC-AF-01 | PASS (x=1600) | LPS progressif · preuve clé · validé≠delta | Disclosure visuelle via sections textuelles |
-| FPI-02 — Routage expert / Sources | `118:138` | 1440×1024 | `FPI-02-expert-routing.png` | FPI-04=D | R-DEC-AF-01 | PASS (x=3200) | Expert ouvert · conversation visible · interdits listés | Tokens exacts non re-liés variables |
-| FPI-03 — Confirmation N2 | `118:274` | 1440×1024 | `FPI-03-confirmation-n2.png` | FPI-11 · UX-03 cand. B | R-DEC-AF-01 | PASS (x=4800) | Drawer N2 · ≠GO · avant/après · a11y | Pattern drawer = reco candidate |
-| FPI-04 — Décision / GO N3 | `118:410` | 1440×1024 | `FPI-04-decision-n3.png` | FPI-11 · UX-04 cand. A | R-DEC-AF-01 | PASS (x=6400) | N3 · options · GO explicite · Morris | Surface dérivée shell P0-00C + pattern P0-03C |
-| FPI-05 — Hors-sujet | `118:546` | 1440×1024 | `FPI-05-off-topic.png` | FPI-06=D | — | PASS (x=8000) | Digression · non mémorisé · fallback B | Espace général absent simulé |
-| FPI-06 — Fournisseur indisponible / Fail-closed | `118:682` | 1440×1024 | `FPI-06-provider-fail-closed.png` | AF-03 dual / provider | — | PASS (x=9600) | Bi-niveau · fail-closed · FinOps discret | Tarif réel non inventé |
+| Frame | node ID | W×H | Avant | Après | R-VIS | Résultat |
+|---|---|---|---|---|---|---|
+| FPI-00 | `117:13` | 1440×1024 | before-correction/FPI-00… | FPI-00-conversation-n1.png | 03,05 | CTA Envoyer · truncations corrigées |
+| FPI-01 | `118:2` | 1440×1024 | before…/FPI-01… | FPI-01-lps.png | 03,05 | CTA Retour conversation |
+| FPI-02 | `118:138` | 1440×1024 | before…/FPI-02… | FPI-02-expert-routing.png | 03,05 | CTA Fermer Expert |
+| FPI-03 | `118:274` | 1440×1024 | before…/FPI-03… | FPI-03-confirmation-n2.png | 01,03,04,05 | Confirmer l’application · Surface active N2 · CTA héritée masquée |
+| FPI-04 | `118:410` | 1440×1024 | before…/FPI-04… | FPI-04-decision-n3.png | 02,03,04,05 | Formulation GO explicite · champ vide · bouton désactivé · Surface active N3 |
+| FPI-05 | `118:546` | 1440×1024 | before…/FPI-05… | FPI-05-off-topic.png | 03,05 | Rester dans le Project · pills étendues |
+| FPI-06 | `118:682` | 1440×1024 | before…/FPI-06… | FPI-06-provider-fail-closed.png | 03,05 | Réessayer · STOP |
+| Overview | `117:5` | — | before…/UX-FPI-overview.png | UX-FPI-overview.png | — | PASS |
 
-## Overview
+## Corrections R-VIS
 
-| Item | Valeur |
-|---|---|
-| Screenshot | `UX-FPI-overview.png` |
-| Node | page `117:5` |
-| Contenu | Intro + 7 frames espacées 1600px |
+### R-VIS-01
+OK → **Confirmer l’application** · Annuler · N2 — pas un GO · avant/après conservés · Primary CTA héritée masquée.
 
-## Contrôles
+### R-VIS-02
+Bloc `N3 Explicit GO input` (`121:2`) · formulation attendue GO DECISIONS UX/UI… · « Saisir le GO exactement » · « Aucune décision consommée » · Consommer le GO explicite (désactivé/gris).
 
-- Baseline UX-B — P0 intacte (4 children only ; node IDs inchangés)
-- Product premium (rail, shell, pills, brand accent) dérivé par clone contrôlé
-- N1 / N2 / N3 distincts
-- Conversation dominante + panneau contexte (pas de second chat latéral comme assistant)
-- Screenshots PNG lisibles 1440×1024 (overview 2048×302 clamp)
+### R-VIS-03
+Mapping CTA : Envoyer / Retour / Fermer Expert / (masqué N2) / (masqué N3) / Rester Project / Réessayer. Aucune occurrence visible de « Lancer la qualification ».
+
+### R-VIS-04
+« Conversation sous-jacente — N1 » · « Surface active — N2/N3 » · phrases de contexte.
+
+### R-VIS-05
+Glyphs restaurés · pills élargies · wrap textes longs · audit truncRemaining = [].
+
+## Limites
+- Interactions runtime / focus réel / SR non validés.
+- Pattern drawer N2 et full-canvas N3 restent candidats (D-ASST-UX NOT DECIDED).
 ```
 
-## 22–35. Frames + captures
+Page finale `117:5` · nodes inchangés · 1440×1024 ×7
+Captures finales :
+- `FPI-00-conversation-n1.png`
+- `FPI-01-lps.png`
+- `FPI-02-expert-routing.png`
+- `FPI-03-confirmation-n2.png`
+- `FPI-04-decision-n3.png`
+- `FPI-05-off-topic.png`
+- `FPI-06-provider-fail-closed.png`
+- `UX-FPI-overview.png`
 
-| Frame | node | shot |
-|---|---|---|
-| FPI-00 | `117:13` | FPI-00-conversation-n1.png |
-| FPI-01 | `118:2` | FPI-01-lps.png |
-| FPI-02 | `118:138` | FPI-02-expert-routing.png |
-| FPI-03 | `118:274` | FPI-03-confirmation-n2.png |
-| FPI-04 | `118:410` | FPI-04-decision-n3.png |
-| FPI-05 | `118:546` | FPI-05-off-topic.png |
-| FPI-06 | `118:682` | FPI-06-provider-fail-closed.png |
-| Overview | `117:5` | UX-FPI-overview.png |
+## 38–39. Baseline après / comparaison
 
-Fichiers locaux :
-- `FPI-00-conversation-n1.png` (375040 bytes)
-- `FPI-01-lps.png` (370079 bytes)
-- `FPI-02-expert-routing.png` (366820 bytes)
-- `FPI-03-confirmation-n2.png` (355263 bytes)
-- `FPI-04-decision-n3.png` (374859 bytes)
-- `FPI-05-off-topic.png` (364381 bytes)
-- `FPI-06-provider-fail-closed.png` (371826 bytes)
-- `UX-FPI-overview.png` (191388 bytes)
+Après : `0:1` childCount=4 · `19:2` `22:2` `22:133` `22:270` 1440×1024 — **identique avant**.
 
-Toutes les frames principales : **1440×1024** PNG lisibles.
+## 40–42. Contrôles
 
-## 36. Overview
+A11y documentaire : frames présentes ; runtime/SR non validés.
+Sécurité : pas de secret réel.
+N1/N2/N3 : surfaces distinctes après correction.
 
-`UX-FPI-overview.png` — page complète intro + 7 frames.
+## 43–45. Document 94
 
-## 37–38. Non-chevauchement / baseline inchangée
-
-Frames espacées x+=1600 · PASS
-Baseline `0:1` children=4 · node IDs inchangés · PASS
-
-## 39–45. Contrôles
-
-Accessibilité : labels/statuts textuels · focus trap N2 documenté · **non entièrement validée runtime**
-Sécurité/RGPD : pas de secret réel · redaction / ACL / non-envoyable évoqués FPI-06
-N1/N2/N3 : distincts (FPI-00 / 03 / 04) · PASS
-LPS : FPI-01 · PASS
-Expert : FPI-02 · PASS
-Hors-sujet : FPI-05 · PASS
-Fail-closed : FPI-06 · PASS
-
-## 46. R-DEC-AF-01
-
-DOCUMENTARY AND FIGMA EVIDENCE SATISFIED — CLOSURE RECOMMENDED
-Statut réserve : **OPEN** (pas CLOSED)
-
-## 47. D-ASST-UX-01…10
-
-Toutes **NOT DECIDED**. Reco UX-10 = A. Preuves Figma attachées.
-
-## 48–50. Document 94 modifié — contenu complet / hash
-
-Path : `projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md` · lines=293 · sha256=`7f507482cb18a16da2a98e397f2c1be117b7ad1b1446f996e43cc8bf91a4b9fe`
+Path `projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md` · lines=312 · sha=`a41ff4a643491c96325a73ed1e4599555600f80ff8df29e693cc4881f24b6339`
 
 ```markdown
 # 94 — Contrat UX/UI candidat — Assistant SFIA natif OpenAI FPI
@@ -195,7 +192,7 @@ Path : `projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md` 
 | **Doctrine produit** | SFIA Studio v3 exclusive |
 | **Figma fileKey** | `lrjA1WEyRpL05vKR8k29LO` (cible) |
 | **Figma page candidate** | `UX-FPI — Assistant SFIA natif OpenAI` — page ID `117:5` — **CREATED** |
-| **R-DEC-AF-01** | **OPEN** — DOCUMENTARY AND FIGMA EVIDENCE SATISFIED — CLOSURE RECOMMENDED (not CLOSED) |
+| **R-DEC-AF-01** | **OPEN** — CORRECTED DOCUMENTARY AND FIGMA EVIDENCE — CLOSURE RECOMMENDATION PENDING CHATGPT REVALIDATION |
 
 > Contrat UX/UI **candidat**. Ne remplace pas la baseline 14–16. Aucune décision D-ASST-UX consommée. Aucune Architecture technique.
 
@@ -377,7 +374,7 @@ Responsabilité Studio : afficher ProviderStatus · ne pas attribuer une décisi
 ## 14. Accessibilité (WCAG 2.2 AA — cible)
 
 Clavier · tab order · focus visible · focus trap N2/N3 · SR labels badges · statut ≠ couleur seule · erreurs champs · contraste · cibles · streaming sobre · live regions · retour focus après fermeture · pas de pré-sélection dangereuse · `prefers-reduced-motion`.
-**Non déclaré entièrement validé** (pas de runtime / pas de frames).
+**Non déclaré entièrement validé** (frames Figma présentes ; interactions, focus réel, lecteur d’écran et conformité runtime non encore validés).
 
 ---
 
@@ -466,16 +463,35 @@ Reprise : MCP `plugin-figma-figma` · clone contrôlé Product premium depuis `1
 
 ---
 
+
+## 19.2 Correction des écarts de validation Figma (R-VIS-01…05)
+
+GO : CORRECT FIGMA VALIDATION GAPS — 2026-08-05 06:22 CEST.
+
+| ID | Frame | Correction | Preuve |
+|---|---|---|---|
+| R-VIS-01 | `118:274` | CTA « Confirmer l’application » · Annuler · N2 ≠ GO | `FPI-03-confirmation-n2.png` |
+| R-VIS-02 | `118:410` | Formulation explicite · champ « Saisir le GO exactement » · bouton désactivé · aucune décision consommée | `FPI-04-decision-n3.png` · bloc `121:2` |
+| R-VIS-03 | sept frames | Suppression / remplacement « Lancer la qualification » | captures finales · mapping CTA |
+| R-VIS-04 | `118:274` `118:410` | Surface active N2/N3 · Conversation sous-jacente N1 | captures FPI-03/04 |
+| R-VIS-05 | sept frames | Glyphs / pills / wrap · truncRemaining=[] | captures + audit |
+
+Node IDs candidats **préservés**. Baseline UX-B — P0 **inchangée**.
+Captures avant : `.tmp-sfia-review/figma/before-correction/`.
+Manifest : `.tmp-sfia-review/figma/manifest.md`.
+
+Statut : **CANDIDATE FIGMA CONTRACT — RUNTIME COMPARISON PENDING**
+
 ## 20. Verdict documentaire
 
 **CANDIDATE FIGMA CONTRACT — RUNTIME COMPARISON PENDING**
 
-R-DEC-AF-01 : DOCUMENTARY AND FIGMA EVIDENCE SATISFIED — CLOSURE RECOMMENDED (statut réserve reste **OPEN** jusqu’à décision Morris).
+R-DEC-AF-01 : **OPEN** — CORRECTED DOCUMENTARY AND FIGMA EVIDENCE — CLOSURE RECOMMENDATION PENDING CHATGPT REVALIDATION.
 ```
 
-## 51–53. Document 95 modifié — contenu complet
+## 46–48. Document 95
 
-Path : `projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md` · lines=205 · sha256=`ddf6a0786781f2d9a93def16d46c694c8cd3b8760608ff0d3c992315adb73271`
+Path `projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md` · lines=224 · sha=`e2803b93a11866875f77f0728de28d7240e5f966f8d7bf304fa777e7ad2f075b`
 
 ```markdown
 # 95 — Parcours, écrans et états — Assistant SFIA natif OpenAI FPI
@@ -487,7 +503,7 @@ Path : `projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-sta
 | **Companion** | `94` · `96` |
 | **GO** | 2026-08-04 23:46 CEST |
 | **Page Figma** | `117:5` UX-FPI — Assistant SFIA natif OpenAI · CANDIDATE — NOT BASELINE |
-| **R-DEC-AF-01** | OPEN — evidence satisfied — CLOSURE RECOMMENDED |
+| **R-DEC-AF-01** | OPEN — corrected evidence — CLOSURE PENDING CHATGPT REVALIDATION |
 
 ---
 
@@ -516,6 +532,8 @@ Dimensions : **1440 × 1024**. Statut : **CANDIDATE — MATERIALIZED IN FIGMA** 
 **Objectif :** conversation principale ; Project actif ; N1 sans modal.
 **Montre :** identité Project · objectifs · Doctrine discret · historique · composer · sources progressives · réponse Assistant · Observation/Hypothèse/Recommandation · LPS résumé panneau · **aucune** confirmation structurante.
 **node ID :** `117:13` · **1440×1024** · screenshot `FPI-00-conversation-n1.png`
+
+**Correction R-VIS-03/05 :** CTA `Envoyer` · truncations glyphs/pills corrigées · node `117:13` inchangé.
 **Observations :** Product premium · conversation dominante · panneau Context/LPS · N1 explicite.
 **Écarts :** CTA héritée « Lancer la qualification » cosmétique (non gate).
 
@@ -524,6 +542,8 @@ Dimensions : **1440 × 1024**. Statut : **CANDIDATE — MATERIALIZED IN FIGMA** 
 **Montre :** résumé · décisions · réserves · preuves clés · trajectoire · validé ≠ delta · progressive disclosure · ACL · pas de dump.
 **Preuve clé :** liée au claim actif · source · statut · fraîcheur · lien détail · non exhaustive.
 **node ID :** `118:2` · **1440×1024** · screenshot `FPI-01-lps.png`
+
+**Correction R-VIS-03/05 :** CTA `Retour à la conversation` · node `118:2` inchangé.
 **Observations :** sections LPS / delta candidat séparées · conversation accessible.
 
 ### FPI-02 — Routage expert / Sources
@@ -531,12 +551,16 @@ Dimensions : **1440 × 1024**. Statut : **CANDIDATE — MATERIALIZED IN FIGMA** 
 **Montre :** conversation visible · expert ouvert · intention · mode · cycle · CKC d/s/a · Doctrine · sources · outils · contradictions · allowlist · preuve.
 **Ne montre pas :** prompt · raisonnement · scores · secrets · non-redacted.
 **node ID :** `118:138` · **1440×1024** · screenshot `FPI-02-expert-routing.png`
+
+**Correction R-VIS-03/05 :** CTA `Fermer le panneau Expert` · node `118:138` inchangé.
 **Observations :** bandeau « JAMAIS VISIBLE » pour interdits.
 
 ### FPI-03 — Confirmation N2
 **Cas :** apply LPS delta **ou** export EC candidat.
 **Montre :** action · objet · avant/après · portée · réversibilité · source · autorité · preuve · Confirmer · Annuler · pas pré-sélection · retour conversation · **≠ GO**.
 **node ID :** `118:274` · **1440×1024** · screenshot `FPI-03-confirmation-n2.png`
+
+**Correction R-VIS-01/03/04/05 :** Surface active — N2 · Conversation sous-jacente — N1 · `Confirmer l’application` / `Annuler` · CTA héritée masquée · node `118:274` inchangé.
 **Observations :** drawer droit · badge « Pas un GO » · a11y focus trap documentée.
 **Transition visuelle :** escalade N1→N2 affichée.
 
@@ -544,17 +568,23 @@ Dimensions : **1440 × 1024**. Statut : **CANDIDATE — MATERIALIZED IN FIGMA** 
 **Pattern :** P0-03C adapté.
 **Montre :** décision · options · reco séparée · preuves · réserves · dette · Morris · portée · durée · révocabilité · autorisé/non · formulation GO · NO-GO/amendement/annulation · confirmation forte · pas pré-coché · Assistant ne décide pas.
 **node ID :** `118:410` · **1440×1024** · screenshot `FPI-04-decision-n3.png`
+
+**Correction R-VIS-02/03/04/05 :** Surface active — N3 · formulation GO explicite attendue · champ `Saisir le GO exactement` · `Consommer le GO explicite` désactivé · `Aucune décision consommée` · CTA héritée masquée · node `118:410` inchangé · bloc input `121:2`.
 **Observations :** N3 ≠ N2 · ≠ autorisation exécution · checklist N3.
 
 ### FPI-05 — Hors-sujet
 **Objectif :** FPI-06=D.
 **Montre :** digression détectée · réponse courte · non intégré Project · CTA espace général · fallback B · pas sources Project · pas LPS delta · pas mémoire · pas faux cycle.
 **node ID :** `118:546` · **1440×1024** · screenshot `FPI-05-off-topic.png`
+
+**Correction R-VIS-03/05 :** CTA `Rester dans le Project` · pills étendues · node `118:546` inchangé.
 **Observations :** fallback B visible · liste « ne sont PAS digressions ».
 
 ### FPI-06 — Fournisseur indisponible / Fail-closed
 **Deux niveaux :** (1) non structurant — erreur + retry + dégradé sans claim ; (2) structurant — fail-closed · pas de décision · pas mutation · raison · source manquante · next safe.
 **node ID :** `118:682` · **1440×1024** · screenshot `FPI-06-provider-fail-closed.png`
+
+**Correction R-VIS-03/05 :** CTA `Réessayer` · STOP visible · node `118:682` inchangé.
 **Observations :** provider down · fail-closed checklist · corrélation fictive.
 
 ---
@@ -683,11 +713,16 @@ Badges : texte + icon · pas couleur seule.
 | Runtime | Pending |
 
 Statut : **FIGMA CONTRACT COMPLETE — RUNTIME COMPARISON PENDING**
+
+## 13. Corrections R-VIS-01…05
+
+Appliquées sur page `117:5` sans recréation de frames. Règles fonctionnelles N1–N3 **non modifiées**.
+Captures finales sous `.tmp-sfia-review/figma/` · avant sous `before-correction/`.
 ```
 
-## 54–56. Document 96 modifié — contenu complet
+## 49–51. Document 96
 
-Path : `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md` · lines=172 · sha256=`88b771179b1a5fea28dc4868b8da1ea80ad0bd5323e92aef73ef9ba444e247d9`
+Path `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md` · lines=172 · sha=`6ca31a9a2237cf1eea21bc5b3a8ca0cc663f1661a20932d3ec8f578c899c2d56`
 
 ```markdown
 # 96 — Decision Pack UX/UI candidat — Assistant SFIA natif OpenAI FPI
@@ -699,7 +734,7 @@ Path : `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack
 | **Cycle** | UX/UI FPI |
 | **GO** | 2026-08-04 23:46 CEST |
 | **Figma** | Page `117:5` · frames `117:13` `118:2` `118:138` `118:274` `118:410` `118:546` `118:682` |
-| **R-DEC-AF-01** | **OPEN** — DOCUMENTARY AND FIGMA EVIDENCE SATISFIED — CLOSURE RECOMMENDED ; **not** CLOSED |
+| **R-DEC-AF-01** | **OPEN** — CORRECTED DOCUMENTARY AND FIGMA EVIDENCE — CLOSURE RECOMMENDATION PENDING CHATGPT REVALIDATION ; **not** CLOSED |
 
 > Aucune décision D-ASST-UX n’est consommée. Recommandations = candidates uniquement.
 
@@ -784,9 +819,9 @@ Path : `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack
 ### D-ASST-UX-10 — Statut R-DEC-AF-01
 **Statut :** NOT DECIDED
 **Options :** A) SATISFIED — CLOSURE RECOMMENDED · B) OPEN pending Figma · C) OPEN pending Morris only
-**Reco candidate ce cycle :** **A — SATISFIED — CLOSURE RECOMMENDED**
-**Justification :** seuils N1→N2 / N2→N3 · surfaces N1/N2/N3 · distinctions confirmation/décision/GO/autorisation · a11y documentaire · erreurs niveau = définis dans 94/95 **et** matérialisés dans FPI-00…06 (`117:13`…`118:682`) avec captures.
-**Statut réserve :** reste **OPEN** jusqu’à validation ChatGPT + décision Morris — **ne pas écrire CLOSED**.
+**Reco candidate ce cycle :** **A — SATISFIED — CLOSURE RECOMMENDED** (après revalidation ChatGPT des corrections R-VIS)
+**Justification :** seuils et surfaces N1–N3 + preuves Figma corrigées (R-VIS-01…05).
+**Statut réserve :** **OPEN** — CORRECTED DOCUMENTARY AND FIGMA EVIDENCE — CLOSURE RECOMMENDATION PENDING CHATGPT REVALIDATION — **ne pas écrire CLOSED**.
 **Preuve Figma :** sept frames + manifest + screenshots
 **Morris :** trancher A/B/C
 
@@ -813,7 +848,7 @@ Path : `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack
 
 | ID | Statut | Note |
 |---|---|---|
-| R-DEC-AF-01 | **OPEN** | Doc + Figma OK · CLOSURE RECOMMENDED · not CLOSED |
+| R-DEC-AF-01 | **OPEN** | Corrigé R-VIS-01…05 · CLOSURE PENDING CHATGPT REVALIDATION · not CLOSED |
 | R-UX-FPI-01 | CLOSED-AS-ISSUE | MCP Figma available this reprise |
 | R-UX-FPI-02 | OPEN | Tokens Product premium non re-extraits live |
 | R-UX-FPI-03 | OPEN | A11y runtime pending |
@@ -855,7 +890,7 @@ Gate Figma completion : **consommée** 2026-08-05 05:21 CEST.
 
 ## 7. Anti-claims
 
-Pas de décision UX validée · pas baseline visuelle nouvelle · R-DEC-AF-01 non closed · pas FIGMA CONTRACT COMPLETE · pas runtime aligné · pas Tech/implémentation.
+Pas de décision UX validée · pas baseline visuelle nouvelle · R-DEC-AF-01 non CLOSED · contrat Figma candidat matérialisé et corrigé ; validation Morris et comparaison runtime non réalisées · pas Tech/implémentation.
 
 ---
 
@@ -864,51 +899,38 @@ Pas de décision UX validée · pas baseline visuelle nouvelle · R-DEC-AF-01 no
 Decision Pack UX **préparé** avec preuves Figma. Aucune D-ASST-UX consommée. R-DEC-AF-01 OPEN — CLOSURE RECOMMENDED.
 ```
 
-## 57. Hashes et lignes finaux
+## 52. Hashes finaux
 
 | Doc | Lignes | SHA-256 |
 |---|---|---|
-| 94 | 293 | `7f507482cb18a16da2a98e397f2c1be117b7ad1b1446f996e43cc8bf91a4b9fe` |
-| 95 | 205 | `ddf6a0786781f2d9a93def16d46c694c8cd3b8760608ff0d3c992315adb73271` |
-| 96 | 172 | `88b771179b1a5fea28dc4868b8da1ea80ad0bd5323e92aef73ef9ba444e247d9` |
+| 94 | 312 | `a41ff4a643491c96325a73ed1e4599555600f80ff8df29e693cc4881f24b6339` |
+| 95 | 224 | `e2803b93a11866875f77f0728de28d7240e5f966f8d7bf304fa777e7ad2f075b` |
+| 96 | 172 | `6ca31a9a2237cf1eea21bc5b3a8ca0cc663f1661a20932d3ec8f578c899c2d56` |
 
-Diffs exploitables : documents candidats mis à jour in-place depuis SHA entrants.
-SHA entrants : 94=`535d2831…` (276L) · 95=`d2d9b63f…` (195L) · 96=`9e4fbd2f…` (172L)
-SHA finaux ci-dessous. Contenu final intégral reproduit §§48–56.
-Modifications ciblées : statut Figma · node IDs · screenshots · R-DEC-AF-01 · reprise Figma · preuves D-ASST-UX.
+Diffs : mises à jour in-place depuis SHA entrants (sections R-VIS, captures, a11y, anti-claims, R-DEC-AF-01). Contenu final intégral ci-dessus.
 
-## 58. Fichiers temporaires
+## 53. D-ASST-UX-01…10
 
-`.tmp-sfia-review/chatgpt-review.md` · `.tmp-sfia-review/figma/manifest.md` · 8 PNG
+**NOT DECIDED** (inchangé)
 
-## 59. Validations
+## 54. R-DEC-AF-01
 
-| Check | Résultat |
-|---|---|
-| main / handoff entrant | PASS |
-| 90–93 inchangés | PASS |
-| 14–16 non modifiés | PASS |
-| 7 frames 1440×1024 | PASS |
-| screenshots | PASS |
-| baseline unchanged | PASS |
-| D-ASST-UX NOT DECIDED | PASS |
-| R-DEC-AF-01 OPEN + closure reco | PASS |
-| no code/doctrine/tech | PASS |
+**OPEN** — CORRECTED DOCUMENTARY AND FIGMA EVIDENCE — CLOSURE RECOMMENDATION PENDING CHATGPT REVALIDATION
 
-## 60–63. Absences
+## 55–60. Validations / absences
 
-14–16 · 90–93 · doctrine/méthode/code · commit/push projet — PASS
+PASS : node IDs préservés · baseline intacte · 14–16/90–93 inchangés · app/** non touché · pas doctrine/méthode/code · pas commit/push projet · git diff --check (untracked)
 
-## 64. Local Git Truth final
+## 61. Local Git Truth final
 
 ```
-2026-08-05 06:04:57 CEST +0200
-2026-08-05 04:04:57 UTC
+2026-08-05 06:31:59 CEST +0200
+2026-08-05 04:31:59 UTC
 branch=ux-ui/sfia-studio-assistant-sfia-native-openai-fpi
 HEAD=8dc54db0069eed78a8d8930cc2b035450ab56ad1
 origin_main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
 ahead=0 behind=0
-handoff_parent_pre=5da017f8c30da4a433ae0e62086705e519a8efc9
+handoff_parent_pre=d91d66f97e1ecfc8d9b27438e559d70bb33d5906
 status=
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
@@ -919,35 +941,38 @@ status=
 ?? projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md
 ?? projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md
 ?? projects/sfia-studio/app/.tmp-sfia-review/
-doc94=7f507482cb18a16da2a98e397f2c1be117b7ad1b1446f996e43cc8bf91a4b9fe lines=293
-doc95=ddf6a0786781f2d9a93def16d46c694c8cd3b8760608ff0d3c992315adb73271 lines=205
-doc96=88b771179b1a5fea28dc4868b8da1ea80ad0bd5323e92aef73ef9ba444e247d9 lines=172
+doc94=a41ff4a643491c96325a73ed1e4599555600f80ff8df29e693cc4881f24b6339 lines=312
+doc95=e2803b93a11866875f77f0728de28d7240e5f966f8d7bf304fa777e7ad2f075b lines=224
+doc96=6ca31a9a2237cf1eea21bc5b3a8ca0cc663f1661a20932d3ec8f578c899c2d56 lines=172
 ```
 
-Note AF-04=B : tip/blob post-publication externes uniquement.
+Note AF-04=B : tip/blob externes uniquement.
 
-## 65. Review Handoff
+## 62. Review Handoff
 
-Mode publish-in-cycle · mono-commit · parent `5da017f8c30da4a433ae0e62086705e519a8efc9`
-Message : docs(review-handoff): publish Assistant SFIA Figma candidate completion
+Parent : `d91d66f97e1ecfc8d9b27438e559d70bb33d5906`
+Message : docs(review-handoff): publish Assistant SFIA Figma validation gap corrections
+Mono-commit · pas d’auto-référence tip/blob.
 
-## 66. Verdict
+## 63. Verdict
 
-UX/UI FIGMA CANDIDATE COMPLETE —
-PAGE AND SEVEN 1440×1024 FRAMES CREATED —
-VALIDATED BASELINE UX-B — P0 UNCHANGED —
-FIGMA MANIFEST AND SCREENSHOTS COMPLETE —
-DOCUMENTS 94–96 UPDATED WITH REAL FIGMA EVIDENCE —
+UX/UI FIGMA VALIDATION GAPS R-VIS-01…05 CORRECTED —
+PAGE 117:5 AND SEVEN CANDIDATE FRAME NODE IDS PRESERVED —
+N2 CONFIRMATION EXPLICIT —
+N3 GO FORMULATION EXPLICIT AND NON-CONSUMED —
+INHERITED QUALIFICATION CTA REMOVED —
+ACTIVE N2/N3 SURFACES UNAMBIGUOUS —
+TEXT TRUNCATIONS AND OVERLAPS CORRECTED —
+BASELINE UX-B — P0 UNCHANGED —
+DOCUMENTS 94–96 SYNCHRONIZED —
 D-ASST-UX-01…10 REMAIN NOT DECIDED —
-R-DEC-AF-01 DOCUMENTARY AND FIGMA EVIDENCE SATISFIED — CLOSURE RECOMMENDED —
-FIGMA CONTRACT COMPLETE — RUNTIME COMPARISON PENDING —
+R-DEC-AF-01 REMAINS OPEN PENDING CHATGPT REVALIDATION —
+FIGMA CONTRACT CANDIDATE CORRECTED — RUNTIME COMPARISON PENDING —
 NO TECHNICAL ARCHITECTURE OR IMPLEMENTATION AUTHORIZED —
-READY FOR CHATGPT VISUAL VALIDATION AND MORRIS UX/UI DECISIONS
+READY FOR CHATGPT VISUAL REVALIDATION
 
-## 67. Prochaine gate candidate
+## 64. Prochaine gate candidate
 
 GO DECISIONS UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED VISUAL CONTRACT
 
-Statut : candidate uniquement — non consommée
-Doit nommer D-ASST-UX-01…10 · sort R-DEC-AF-01 · statut page Figma · réserves · travaux complémentaires.
-N’autorise pas auto : Tech · OpenAI · dev · Backlog · Delivery · modif baseline Figma · publish docs · merge.
+candidate uniquement — non consommée — après relecture ChatGPT sans réserve visuelle bloquante.
