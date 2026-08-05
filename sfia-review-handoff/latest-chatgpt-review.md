@@ -1,1177 +1,24 @@
-# ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI Technical Prerequisites Decision Pack
+# ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI Technical Prerequisites Decisions Applied
 
 ## 1. Timestamp local et UTC
 
-Local : 2026-08-05 11:14:05 CEST +0200
-UTC : 2026-08-05 09:14:05 UTC
-
-## 2. GO d’arbitrage
-
-```text
-GO ARBITRAGE PRÉREQUIS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — DECISION PACK
-```
-2026-08-05 11:01 CEST (+0200) · Morris · préparation Decision Pack uniquement — aucune option décidée.
-
-## 3. Cycle / profil / typologie
-
-Architecture technique — arbitrage des prérequis · Standard · EVOL / DOC · Documentation-only
-
-## 4. Main
-
-`8dc54db0069eed78a8d8930cc2b035450ab56ad1` — PASS
-
-## 5. Branche / worktree
-
-Branche : `arbitration/sfia-studio-assistant-sfia-native-openai-technical-prerequisites`
-Worktree : `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1`
-HEAD : `8dc54db0069eed78a8d8930cc2b035450ab56ad1` · locale · non poussée
-
-## 6. Handoff entrant
-
-Tip : `c992b452dc1ee80224034fabd09f0ec0b5dffdc3`
-Blob : `1b8d7804fe39daa9e043e6e0d3491826d7a27945`
-Message : `docs(review-handoff): publish Assistant SFIA UX UI decisions applied`
-Document 97 intégral : vérifié présent
-
-## 7. Template canonique
-
-`prompts/templates/sfia-cycle-execution-template.md` — présent
-
-## 8. CKC
-
-`method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` — status candidate v0.1.0
-**CANDIDATE SOURCE — EXPERIMENTAL COGNITIVE GUIDANCE — NO EXECUTION AUTHORITY**
-
-## 9. Sources consultées
-
-routing/operating model/guardrails/checklist · engineering principles · architect-method · docs 90–97 · handoff c992b452 · CKC pilot Architecture technique
-
-## 10. Hashes 90–97
-
-PASS tous (voir doc 98 §7) · inchangés
-
-## 11. Local Git Truth initial
-
-HEAD=origin/main=`8dc54db…` · handoff=`c992b452…` · staged vide · 90–97 untracked · app/.tmp protégé · branche arbitration créée depuis origin/main
-
-## 12. Vérification document 98 libre
-
-Absent avant création — PASS · créé ce cycle
-
-## 13. Décisions UX/AF déjà validées
-
-AF : FPI-04/05/06/11 · AF-03=C · AF-04=B (doc 93)
-UX : D-ASST-UX-01…10 · R-DEC-AF-01 CLOSED BY MORRIS (doc 97)
-Non rouvertes
-
-## 14. Prérequis ouverts
-
-AF-01 · AF-02 · FPI-02 · FPI-03 · FPI-07 · FPI-08 · FPI-09 · FPI-10 · FPI-14 (soft/hard) · FPI-15
-
-## 15–16. Options sources / normalisations
-
-Voir doc 98 §§12–21
-Normalisations : FPI-10 set A/B/C (CANDIDATE OPTION NORMALIZATION)
-AF-02 hybride (CANDIDATE REFINEMENT DERIVED FROM DOCUMENT 92)
-
-## 17–18. Matrices gates / dépendances
-
-Voir doc 98 §§10–11
-
-## 19–28. Décisions complètes AF-01…FPI-15
-
-Voir contenu intégral document 98 §§12–21
-
-## 29–30. Recommandations / groupements
-
-Reco : AF-01=C · AF-02=A(+boundary) · FPI-02=B · FPI-03=B · FPI-07=B · FPI-08=B · FPI-09=B · FPI-10=B(norm) · FPI-14=B soft · FPI-15=B
-Groupes 1–4 documentés · IDs non fusionnés
-
-## 31–36. Sécurité / RGPD / FinOps / Perf / Résilience / Obs
-
-Voir doc 98 §§25–30 — analyses documentaires, non validées
-
-## 37–38. Dette / réserves candidates
-
-R-TECH-TTL-01 · R-TECH-FINOPS-HARD-01 · R-TECH-AF02-BOUNDARY-01 — CANDIDATE NOT OPENED
-
-## 39–40. Blocs Morris
-
-Vide + prérempli **CANDIDATE ONLY — NOT EXECUTED** — voir doc 98 §37
-
-## 41. Document 98 créé
-
-`projects/sfia-studio/98-assistant-sfia-native-openai-technical-prerequisites-decision-pack.md`
-
-## 42. Contenu intégral du document 98
-
-```markdown
-# SFIA Studio — Assistant SFIA natif OpenAI — Technical Prerequisites Decision Pack
-
-## 1. Statut
-
-**TECHNICAL PREREQUISITES DECISION PACK — DRAFT FOR MORRIS ARBITRATION — NO TECHNICAL DECISION CONSUMED**
-
-| Champ | Valeur |
-|---|---|
-| **Document** | `projects/sfia-studio/98-assistant-sfia-native-openai-technical-prerequisites-decision-pack.md` |
-| **Nature** | Support d’arbitrage documentaire uniquement |
-| **Décisions consommées** | **Aucune** |
-| **Architecture technique** | **Non ouverte** |
-| **Code / OpenAI / Backlog / Delivery** | **Non autorisés** |
-
----
-
-## 2. GO d’arbitrage
-
-```text
-GO ARBITRAGE PRÉREQUIS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — DECISION PACK
-```
-
-Interprétation source : « go arbitrage » · suite validation document 97.
-**Autorité :** Morris
-**Ce GO autorise uniquement la préparation du Decision Pack.** Aucune option technique n’est décidée.
-
----
-
-## 3. Timestamp
-
 | Horodatage | Valeur |
 |---|---|
-| **GO Morris** | 2026-08-05 11:01 CEST (+0200) |
-| **GO UTC** | 2026-08-05 09:01:00 UTC |
-| **Enregistrement Cursor local** | 2026-08-05 11:09:40 CEST +0200 |
-| **Enregistrement Cursor UTC** | 2026-08-05 09:09:40 UTC |
+| **Consommation Morris (local)** | 2026-08-05 11:20 CEST (+0200) |
+| **Consommation Morris (UTC)** | 2026-08-05 09:20 UTC |
+| **Pack Cursor (local)** | 2026-08-05 11:30:09 CEST +0200 |
+| **Pack Cursor (UTC)** | 2026-08-05 09:30:09 UTC |
 
 ---
 
-## 4. Cycle / profil
-
-| Champ | Valeur |
-|---|---|
-| **Cycle** | Architecture technique — arbitrage des prérequis |
-| **Profil** | Standard |
-| **Typologie** | EVOL / DOC |
-| **Nature** | Documentation-only |
-| **Doctrine conduite** | SFIA v2.6 |
-| **Doctrine produit** | SFIA Studio v3 (périmètre documentaire existant) |
-
----
-
-## 5. Sources et hiérarchie
-
-1. Git `main` (`8dc54db0069eed78a8d8930cc2b035450ab56ad1`)
-2. Décisions Morris enregistrées dans `93` et `97`
-3. Documents fonctionnels et UX `90`–`96`
-4. Recommandations candidates du document `92` (Lane C)
-5. Hypothèses du présent cycle (explicites, non décisionnelles)
-
-**CKC :** `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` — status `candidate` v0.1.0.
-**CANDIDATE SOURCE — EXPERIMENTAL COGNITIVE GUIDANCE — NO EXECUTION AUTHORITY**
-
-Autres lectures : template canonique · routing/operating model/guardrails/checklist · `docs/foundation/sfia-engineering-principles.md` · `docs/practices/roles/architect-method.md` · checklists architecture fonctionnelle (pas d’implémentation).
-
----
-
-## 6. Main / handoff
-
-| Item | Valeur |
-|---|---|
-| **origin/main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
-| **Branche locale** | `arbitration/sfia-studio-assistant-sfia-native-openai-technical-prerequisites` (non poussée) |
-| **Handoff tip** | `c992b452dc1ee80224034fabd09f0ec0b5dffdc3` |
-| **Handoff blob** | `1b8d7804fe39daa9e043e6e0d3491826d7a27945` |
-| **Message** | `docs(review-handoff): publish Assistant SFIA UX UI decisions applied` |
-| **Document 97 dans handoff** | Présent intégralement (vérifié) |
-
----
-
-## 7. Documents 90–97 et hashes
-
-| Doc | SHA-256 | Lignes |
-|---|---|---|
-| 90 | `2d5a03f366e5291e54b6617ada972158763199bf918bea01f031d4212b1a78b2` | 694 |
-| 91 | `0517aa6c3091f63f0b5c69d40d123fa715dbfb4429d02681ea0398a9588e83e1` | 730 |
-| 92 | `0af5a9063705859abddceea0f1f5184b55c35a04e94b71648b139bb592c841d4` | 473 |
-| 93 | `6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428` | 309 |
-| 94 | `14572223a00beb038014379a75a3fd2cdb1bb016ef7de436894c0886ac1887be` | 338 |
-| 95 | `35e829ccc75c31b3a190f6e3015e01f610350c2109f40d32988e6d11d0b2be0d` | 236 |
-| 96 | `24da72cfabc77c43fd6db7fdc470935a4f24898653d398c6328f81a5c920d46d` | 172 |
-| 97 | `c18a902159a41cf568e7cabdad0420b51da56a34db445fcb8e07e986df49e47f` | 518 |
-
-Vérifiés PASS avant rédaction. **Non modifiés** par ce cycle.
-
----
-
-## 8. Décisions déjà validées à ne pas rouvrir
-
-### Architecture fonctionnelle (doc 93) — DECIDED BY MORRIS
-- D-ASST-FPI-04=D · D-ASST-FPI-05=C · D-ASST-FPI-06=D · D-ASST-FPI-11=ACCEPT_CANDIDATE_MATRIX
-- D-ASST-AF-03=C (dual-track borné) · D-ASST-AF-04=B (preuve tip/blob externe)
-
-### UX/UI (doc 97) — DECIDED BY MORRIS — 2026-08-05 07:22 CEST
-- D-ASST-UX-01=B · 02=A · 03=B · 04=A · 05=A · 06=A · 07=A · 08=A · 09=A · 10=A
-- **R-DEC-AF-01 — SATISFIED — CLOSED BY MORRIS**
-- Contrats : conversation dominante · LPS progressif · Expert optionnel · drawer N2 · surface N3 · GO explicite · preuve liée au claim · hors-sujet non mémorisé · fail-closed structurant · Figma page `117:5` **CANDIDATE — NOT BASELINE**
-
-**Anti-reouverture :** toute option technique qui contredirait ces contrats doit être documentée comme contradiction ; le contrat UX n’est **pas** modifié ici.
-
----
-
-## 9. Objet de l’arbitrage
-
-Préparer les arbitrages **MUST BEFORE TECH** (et soft FinOps) listés dans docs 92/93/97 afin que Morris puisse consommer un GO de décisions ultérieur — **sans** ouvrir l’Architecture technique, le Backlog, le Delivery, le code ou OpenAI réel.
-
----
-
-## 10. Matrice décisions → gates
-
-| ID | Gate exacte (doc 93) | Urgence | Statut |
-|---|---|---|---|
-| D-ASST-AF-01 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-AF-02 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-FPI-02 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-FPI-03 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-FPI-07 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-FPI-08 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-FPI-09 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-FPI-10 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-| D-ASST-FPI-14 | Tech (soft) / Pilote (hard) | Soft MUST BEFORE TECH · Hard MUST BEFORE PILOT | NOT DECIDED |
-| D-ASST-FPI-15 | Architecture technique | MUST BEFORE TECH | NOT DECIDED |
-
-**Hors périmètre immédiat de ce pack (ouverts mais non Tech immédiat) :** D-ASST-FPI-01 (Backlog) · FPI-12 (Delivery) · FPI-13 (Pilote).
-
----
-
-## 11. Matrice de dépendances
-
-| Lien | Nature | Maître éventuel | Ordre recommandé | Risque contradiction | Stop |
-|---|---|---|---|---|---|
-| AF-01 ↔ AF-02 | Pipeline vs validation des sorties | AF-01 structure · AF-02 politique | AF-01 puis AF-02, ou groupe 1 | Validator inapplicable si monolithe opaque | STOP si fail-closed UX-N3 sans validator |
-| FPI-02 ↔ FPI-03 | Socle vs stockage | FPI-02 boundaries | FPI-02 puis FPI-03 | Persistence hors composition | STOP si rewrite déguisée |
-| FPI-03 ↔ FPI-08 | Persist ↔ rétention | Couplés | Groupe 2 | TTL sans store / store sans purge | STOP si indéfini + PII |
-| FPI-07 ↔ FPI-10 | Données → provider | FPI-10 boundary | FPI-10 puis FPI-07 | Allowlist sans port clair | STOP si fichiers complets + multi-provider |
-| FPI-09 ↔ FPI-10 | Modèle ↔ provider | FPI-10 | FPI-10 puis FPI-09 | User-select + lock-in | — |
-| FPI-09 ↔ FPI-14 | Modèle ↔ coût | Soft FPI-14 | Parallèle groupe 4 | Coût non observable | STOP si hard cap sans obs |
-| FPI-10 ↔ FPI-15 | Provider ↔ fallback | FPI-10 | Groupe 3 | Fallback multi-provider non défini | STOP si fail-closed UX-08 contredit |
-| FPI-14 ↔ N2/N3 | Soft/hard ↔ confirmations | UX-03/04 déjà DECIDED | Respecter UX | Override silencieux | STOP si bypass N2/N3 |
-| FPI-15 ↔ UX-08 | Fallback ↔ contrat UX | UX-08=A DECIDED | Aligner Tech sur UX-08 | Dégrader structurant | STOP si contradiction UX |
-| Tous ↔ 94–97 | Contrats UX-Tech | Décisions UX DECIDED | Ne pas rouvrir UX | Contredit drawer/N3/GO | STOP si structurant |
-
-
-## 12. D-ASST-AF-01 — Orchestration conversationnelle
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-AF-01` |
-| **Intitulé** | Orchestration conversationnelle |
-| **Question** | Quelle structure fonctionnelle doit organiser la chaîne conversationnelle ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Docs 91 §10/§39 et 92 Lane C : besoin de nommer la responsabilité d’orchestration (V3-F05) avant Tech. Chaîne nominale documentée : intention → qualification → CKC → sources → maturité → décisions → gate → préparation contrat.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | monolithe fonctionnel |
-| **B** | bus d’événements |
-| **C** | pipeline d’étapes |
-
-**Origine options :** document 91 §39 · document 92 Lane C (lettres A/B/C).
-
-### Avantages / limites / risques (par option)
-
-**A monolithe** — Avantages : simplicité initiale, un seul lieu de vérité. Limites : testabilité faible, couplage fort. Risques : complexité centrale (risque `91` §40).
-**B bus** — Avantages : découplage, évolutivité asynchrone. Limites : coût opérationnel, complexité observabilité. Risques : surarchitecture FPI ; ordre des étapes moins lisible pour UX N1–N3.
-**C pipeline** — Avantages : séquencement explicite, testabilité par étape, erreurs localisées, alignement UX. Limites : rigidité si besoins asynchrones futurs. Risques : pipeline trop long ; mitigation = étapes bornées FPI.
-
-### Sécurité
-Pipeline facilite points de contrôle (allowlist, redaction, validator) avant provider. Bus : surfaces d’attaque plus larges si événements mal isolés.
-
-### RGPD
-Étapes explicites aident à tracer traitement PII avant envoi provider (lié FPI-07/08).
-
-### FinOps
-Pipeline permet compteurs par étape (lié FPI-14). Bus : coût infra potentiellement plus élevé.
-
-### Performance
-Pipeline synchrone prévisible pour streaming N1. Bus : latence et backpressure à concevoir plus tard.
-
-### Observabilité
-Étapes = spans naturels. Monolithe : traces opaques. Bus : corrélation event-id obligatoire.
-
-### Impacts UX
-Compatible conversation dominante + drawer N2 + N3 (ordre d’escalade déterministe). Bus ne doit pas casser le séquencement visible.
-
-### Impacts Architecture technique
-Détermine découpage ports/adapters futurs sans les implémenter ici.
-
-### Impacts Backlog
-C réduit stories “god service” ; B augmente stories infra messaging.
-
-### Dette
-A crée dette de découpage ; B crée dette plateforme ; C crée dette d’évolution async (acceptable si documentée).
-
-### Réversibilité
-A→C réversible avec effort moyen ; B→C coûteux si messaging déjà déployé. C→B différable post-FPI.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**C — pipeline d’étapes**, aligné avec la chaîne nominale du document 91 §10.
-
-### Preuve source
-`91` §10 · §39 · `92` Lane C AF-01 · risques `91` §40
-
-### Formulation Morris
-
-`D-ASST-AF-01=<OPTION>`
-
-
-## 13. D-ASST-AF-02 — Validation des sorties structurées
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-AF-02` |
-| **Intitulé** | Validation des sorties structurées |
-| **Question** | Quelle politique de validation doit s’appliquer aux sorties de l’Assistant ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Nécessaire pour fail-closed (V3-F04/F14). Source `92` : options A strict · B progressive. Reco source : A pour actions structurantes ; B pour free talk.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | champs obligatoires stricts (toutes sorties concernées) |
-| **B** | validation progressive (assouplissement selon contexte) |
-
-**Origine options A/B :** `91` §39 · `92` Lane C AF-02. Hybride = raffinement candidat, pas décision.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : fail-closed fort, preuves, retries clairs. Limites : friction free-talk. Risques : faux négatifs UX.
-**B** — Avantages : fluidité N1. Limites : sorties partielles dangereuses si mal bornées. Risques : mutation via sortie “progressive” non bloquée.
-**Hybride candidat** — Avantages : aligne UX N1 vs N2/N3. Limites : frontière à définir. Risques : classification ambiguë → doute doit escalader (déjà règle UX).
-
-### Sécurité
-Strict sur sorties structurantes empêche consommation de faux GO / apply silencieux.
-
-### RGPD
-Champs obligatoires aident à éviter fuites non classifiées dans artefacts persistés.
-
-### FinOps
-Retries sur validation échouée = coût ; bornés via FPI-14/15.
-
-### Performance
-Validation locale vs round-trip ; schéma minimal FPI seulement.
-
-### Observabilité
-Codes d’erreur validation, taux reject, corrélation message.
-
-### Impacts UX
-Erreurs utilisateur claires · CTA retry/elevate/STOP · compatible drawer N2 et GO N3.
-
-### Impacts Architecture technique
-Exige Validator domain (non conçu ici).
-
-### Impacts Backlog
-Stories validator + mappings N1/N2/N3.
-
-### Dette
-Hybride crée dette de classification structurant/non-structurant (liée FPI-15/UX-08).
-
-### Réversibilité
-A→hybride réversible ; B global→A coûteux si déjà en prod.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-La reco source n’introduit **pas** silencieusement une 3ᵉ lettre dans le set A/B historique.
-
-**CANDIDATE REFINEMENT DERIVED FROM DOCUMENT 92 — NOT AN EXISTING DECISION**
-
-Formulation candidate pour Morris (sans consommer) :
-- choisir **A** comme politique par défaut des sorties **structurantes** (N2/N3, mutations, GO, export) ;
-- autoriser **B** uniquement pour conversation libre N1 non structurante ;
-- documenter explicitement la frontière structurant / non-structurant (alignée UX-08 / FPI-15).
-
-Si Morris exige une lettre unique : **A** avec carve-out N1 documenté, ou ouvrir une option hybride **C** lors du GO APPLY (nouvelle lettre à créer explicitement alors — absente du set source actuel).
-
-### Preuve source
-`91` §39 AF-02 · `92` AF-02 · matrice confirmations `93`/`94`
-
-### Formulation Morris
-
-`D-ASST-AF-02=<OPTION>`
-
-
-## 14. D-ASST-FPI-02 — Connexion T-A0…T-A7
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-02` |
-| **Intitulé** | Connexion T-A0…T-A7 |
-| **Question** | Comment connecter l’Assistant au socle existant ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Socle Studio v3 déjà livré (T-A0…T-A7). WA-02 `91` : composition verticale partielle. Anti-rewrite déguisée.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | façade read-only autour de la mémoire existante |
-| **B** | composition verticale partielle |
-| **C** | réécriture |
-
-**Origine :** `92` FPI-02 (libellés façade / composition / rewrite) · `91` WA-02.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : faible risque, rapide. Limites : capacités chat limitées, bridging fragile. Risques : façade qui cache dette.
-**B** — Avantages : réutilise OA existant borné ; T-A5 (exec) hors FPI. Limites : bridging chat. Risques : dépendances version.
-**C** — Avantages : clean slate. Limites : coût, délai, régression. Risques : gaspillage (`91` §40).
-
-### Sécurité
-Réutiliser boundaries authZ/ACL existants ; interdire élargissement silencieux.
-
-### RGPD
-Réutilisation stores existants : hériter politiques Project isolation.
-
-### FinOps
-C coûte plus ; B amortit assets.
-
-### Performance
-Bridging chat peut ajouter latence ; mesurer sans inventer budgets.
-
-### Observabilité
-Tracer appels socle vs assistant.
-
-### Impacts UX
-Ne change pas le shell conversation dominante ; Expert lit le routing discret.
-
-### Impacts Architecture technique
-Ports d’adaptation chat↔OA ; pas de redesign T-A5.
-
-### Impacts Backlog
-Sizing composition ; stories anti-rewrite.
-
-### Dette
-Bridging chat explicite ; compatibilité versions OA.
-
-### Réversibilité
-A→B naturelle ; C→B très coûteux. Stop condition : toute “composition” qui réécrit T-A0–T-A4 sans GO = STOP.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**B — composition partielle T-A0…T-A4 + T-A6 ; T-A5 hors FPI** (`91` §34 / `92`).
-
-### Preuve source
-`91` §34 · WA-02 · `92` FPI-02 · risques réuse memory `91` §40
-
-### Formulation Morris
-
-`D-ASST-FPI-02=<OPTION>`
-
-
-## 15. D-ASST-FPI-03 — Persistance minimale
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-03` |
-| **Intitulé** | Persistance minimale |
-| **Question** | Quelle persistance minimale pour le FPI Assistant ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Objets : LPS, décisions, réserves, conversations, audit. Lié FPI-08. Reco cadrage D-ASST-03 / `92`.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | mémoire en session uniquement |
-| **B** | persistance minimale bornée au Project |
-| **C** | persistance multi-instance |
-
-**Origine :** `92` FPI-03.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : surface PII minimale. Limites : pas de reprise LPS/décisions. Risques : perte de confiance.
-**B** — Avantages : LPS/décisions durables Project. Limites : mono-instance typique FPI. Risques : schéma trop large.
-**C** — Avantages : HA. Limites : complexité sync. Risques : surarchitecture FPI.
-
-### Sécurité
-Isolation Project ; pas d’inter-Project ; redaction at rest selon policies.
-
-### RGPD
-Minimisation ; pas de dump transcript non borné ; purge via FPI-08.
-
-### FinOps
-Stockage borné ; éviter artefacts provider bruts.
-
-### Performance
-Lectures LPS locales vs session.
-
-### Observabilité
-Audit writes LPS/décisions.
-
-### Impacts UX
-LPS progressif (UX-06) exige SoT durable pour validé ≠ delta.
-
-### Impacts Architecture technique
-Choix techno stockage **non** décidé ici (ouvert dans Tech ultérieure).
-
-### Impacts Backlog
-Stories persistence Project-local.
-
-### Dette
-Si B sans FPI-08 clair → dette rétention.
-
-### Réversibilité
-A→B facile ; C→B difficile. Données non persistées candidats : prompts système, scores, secrets, dumps Git non allowlistés.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**B — Project-local minimale** (`90` D-ASST-03 · `92`).
-
-### Preuve source
-`90` D-ASST-03 · `91` persistence · `92` FPI-03
-
-### Formulation Morris
-
-`D-ASST-FPI-03=<OPTION>`
-
-
-## 16. D-ASST-FPI-07 — Données Git envoyables à OpenAI
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-07` |
-| **Intitulé** | Données Git envoyables à OpenAI |
-| **Question** | Quelles données Git peuvent être envoyées au provider ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Sécurité/RGPD critiques. WA-07 snippets allowlist redacted.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | métadonnées uniquement |
-| **B** | métadonnées + extraits allowlist et redacted |
-| **C** | fichiers complets |
-
-**Origine :** `92` FPI-07.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : surface minimale. Limites : qualité réponse faible. Risques : sur-consultation metadata inutile.
-**B** — Avantages : utile + contrôlé. Limites : allowlist à maintenir. Risques : classification inconnue.
-**C** — Avantages : contexte riche. Limites : secrets/PII/binaires. Risques : **élevés** — non recommandé FPI.
-
-### Sécurité
-Allowlist chemins ; redaction secrets ; refuse binaires ; fail-closed si classification inconnue ; audit de chaque envoi ; taille max à définir en Tech sans inventer ici de bytes.
-
-### RGPD
-Pas de PII non nécessaires ; base légitime Project ; preuves de filtrage.
-
-### FinOps
-Snippets bornés réduisent tokens (lié FPI-14).
-
-### Performance
-Limiter taille/nombre d’extraits.
-
-### Observabilité
-Compteurs rejects allowlist/redaction.
-
-### Impacts UX
-Sources progressives ; pas de dump ; Expert montre allowlist status (FPI-04=D).
-
-### Impacts Architecture technique
-Source Router + redaction pipeline (conception ultérieure).
-
-### Impacts Backlog
-Stories allowlist/redaction/tests négatifs.
-
-### Dette
-Maintenance allowlist.
-
-### Réversibilité
-B→A facile ; C→B urgent si jamais choisi. Stop : C + multi-provider = STOP sécurité.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**B — métadonnées + snippets allowlist redacted** (WA-07 · `92`).
-
-### Preuve source
-`91` WA-07 · `92` FPI-07 · risques fuite `91` §40
-
-### Formulation Morris
-
-`D-ASST-FPI-07=<OPTION>`
-
-
-## 17. D-ASST-FPI-08 — Conservation des conversations
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-08` |
-| **Intitulé** | Conservation des conversations |
-| **Question** | Quelle politique de conservation des conversations ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) — **durée TTL exacte non fixée dans les sources** |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Options `92` : session-only · Project TTL · indéfini. Reco : Project-bounded TTL (**durée ouverte**).
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | session-only |
-| **B** | TTL borné au Project |
-| **C** | conservation indéfinie |
-
-**Origine :** `92` FPI-08. Durée = ouverte explicitement.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : minimisation. Limites : pas d’historique Project. Risques : UX conversation dominante dégradée.
-**B** — Avantages : borné Project + purge. Limites : durée à configurer. Risques : TTL trop long.
-**C** — Avantages : audit long. Limites : PII. Risques : non-conformité — **déconseillé**.
-
-### Sécurité
-Droits suppression user/admin ; pas d’export non autorisé.
-
-### RGPD
-Information utilisateur ; droit effacement ; pas de conservation indéfinie sans base ; sauvegardes alignées purge.
-
-### FinOps
-Stockage conversations.
-
-### Performance
-Volume historique panneau.
-
-### Observabilité
-Audit retention/purge/delete.
-
-### Impacts UX
-Historique N1 ; hors-sujet non mémorisé (UX-07) reste vrai même si TTL Project.
-
-### Impacts Architecture technique
-Job purge ; config TTL sans hardcode inventé.
-
-### Impacts Backlog
-Stories retention UI + admin.
-
-### Dette
-Configurable sans durée = réserve durée.
-
-### Réversibilité
-B→A possible avec purge ; C→B urgente.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**B — Project-bounded TTL** (`92`).
-
-**Durée exacte :** absente des sources → **ne pas inventer**.
-Arbitrage pack :
-- la **politique B** est MUST BEFORE TECH ;
-- la **durée numérique** peut rester **configurable admin** sans valeur inventée, **ou** être différée avant pilote avec réserve candidate `R-TECH-TTL-01` ;
-- interaction avec **R-UX-FPI-03** (a11y runtime) : indépendante ; ne ferme pas R-UX-FPI-03.
-
-### Preuve source
-`92` FPI-08 · RGPD notes · `97` R-UX-FPI-03 OPEN (non lié TTL)
-
-### Formulation Morris
-
-`D-ASST-FPI-08=<OPTION>`
-
-
-## 18. D-ASST-FPI-09 — Modèle fixe ou configurable
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-09` |
-| **Intitulé** | Modèle fixe ou configurable |
-| **Question** | Le modèle provider est-il fixe, admin-configurable ou user-selectable ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Aucun **nom de modèle réel** ne doit être sélectionné dans ce pack.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | modèle fixe |
-| **B** | modèle configurable par administrateur |
-| **C** | modèle sélectionnable par l’utilisateur |
-
-**Origine :** `92` FPI-09.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : simplicité, coût prévisible. Limites : rigidité upgrade.
-**B** — Avantages : gouvernance, audit, FinOps. Limites : process admin. Risques : changement mid-Project.
-**C** — Avantages : flexibilité. Limites : qualité/coût variables. Risques : choix dangereux, contournement validation.
-
-### Sécurité
-Rôle admin seul ; audit changements ; pas de user override silencieux.
-
-### RGPD
-N/A direct hors logs admin.
-
-### FinOps
-B aligne coûts (FPI-14) ; C risque explosion.
-
-### Performance
-Variabilité latence selon modèle (non chiffrée ici).
-
-### Observabilité
-Enregistrer model_id abstrait + version pin.
-
-### Impacts UX
-Affichage discret possible ; pas de sélecteur user si B.
-
-### Impacts Architecture technique
-Registry config admin ; fallback model pin.
-
-### Impacts Backlog
-Stories admin config.
-
-### Dette
-A crée dette upgrade ; C crée dette gouvernance.
-
-### Réversibilité
-B→A facile ; C→B moyen.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**B — configurable admin** (`92`). Valeur par défaut, versioning et audit à définir en Tech sans nommer de modèle.
-
-### Preuve source
-`92` FPI-09 · FinOps liens FPI-14
-
-### Formulation Morris
-
-`D-ASST-FPI-09=<OPTION>`
-
-
-## 19. D-ASST-FPI-10 — OpenAI seul ou port fournisseur
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-10` |
-| **Intitulé** | OpenAI seul ou port fournisseur |
-| **Question** | Quelle frontière provider pour le FPI ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-
-### Contexte
-Source `92` : options initiales **A** OpenAI-only FPI · **B** port multi-provider dès FPI. Reco WA-08 : OpenAI-only **avec port interne minimal**.
-
-### Options sources (historique)
-| Opt | Description |
-|---|---|
-| **A (source)** | OpenAI-only pour le FPI |
-| **B (source)** | port multi-provider dès le FPI |
-
-### Normalisation candidate des options
-
-**CANDIDATE OPTION NORMALIZATION — NO DECISION CONSUMED**
-
-Pour rendre la reco source actionnable sans ambiguïté, le pack propose le set normalisé suivant pour le futur GO APPLY :
-
-| Opt | Description |
-|---|---|
-| **A** | couplage OpenAI direct (sans port interne explicite) |
-| **B** | OpenAI-only avec **port interne minimal** (recommandation source WA-08) |
-| **C** | abstraction multi-provider complète dès le FPI |
-
-Morris pourra :
-- consommer **B** du set normalisé (= reco) ; ou
-- consommer **A/B** du set source historique en précisant “+ port minimal” en réserve.
-
-### Avantages / limites / risques
-**A direct** — simple ; dette de couplage élevée ; remplacement provider coûteux.
-**B port minimal** — testabilité + frontière ; coût d’abstraction faible ; anti-surarchitecture.
-**C multi-provider** — flexibilité ; surarchitecture FPI ; Backlog gonflé.
-
-### Sécurité / RGPD / FinOps / Perf / Obs
-Port minimal centralise redaction/allowlist (FPI-07) et fallback (FPI-15). Multi-provider multiplie surfaces.
-
-### Impacts UX
-Aucun changement des surfaces N1–N3 ; provider pill déjà dans shell candidat.
-
-### Impacts Tech / Backlog / Dette / Réversibilité
-B = frontière responsabilité claire Studio vs provider. C→B difficile. A→B effort moyen.
-
-### Recommandation candidate
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-**B (normalisé)** — OpenAI-only avec port interne minimal (WA-08 · `92`).
-
-### Preuve source
-`91` WA-08 · `92` FPI-10
-
-### Formulation Morris
-`D-ASST-FPI-10=<A|B|C>` en précisant si set **source** ou **normalisé**.
-
-
-## 20. D-ASST-FPI-14 — FinOps
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-14` |
-| **Intitulé** | FinOps |
-| **Question** | Quelle politique FinOps pour le FPI (soft maintenant / hard avant pilote) ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Tech (soft) / Pilote (hard) — doc 93 |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Split obligatoire : soft avant Architecture technique ; hard avant pilote. **Aucun seuil monétaire/volumétrique inventé**.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | observabilité uniquement |
-| **B** | observabilité + plafond souple |
-| **C** | plafond dur |
-
-**Origine :** `92` FPI-14 · `93` gate soft/hard · `91` FinOps notes.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : simple. Limites : pas de frein coût. Risques : dérive.
-**B** — Avantages : frein souple + UX warning. Limites : seuils à configurer. Risques : soft ignoré.
-**C** — Avantages : stop net. Limites : friction. Risques : hard trop tôt sans obs — d’où différé pilote.
-
-### Sécurité
-Audit overrides.
-
-### RGPD
-Usage records minimisés.
-
-### FinOps
-Cœur de la décision ; pas de tarifs inventés.
-
-### Performance
-Mesure tokens/latence.
-
-### Observabilité
-Compteurs usage, soft warnings, hard stops futurs.
-
-### Impacts UX
-Messages budget soft → confirmation N2 ; hard → N3/STOP.
-
-### Impacts Architecture technique
-Hooks metering sur port provider.
-
-### Impacts Backlog
-Stories observabilité + soft cap ; hard cap backlog pilote.
-
-### Dette
-Soft sans hard = réserve pilote.
-
-### Réversibilité
-B→C additif ; C→B politique.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**Maintenant (soft BEFORE TECH) :** **B — observabilité + soft cap** (`92`).
-**Hard cap (C ou activation hard) :** **DIFFÉRABLE BEFORE PILOT** — réserve candidate `R-TECH-FINOPS-HARD-01`.
-Seuils : configurables sans valeurs inventées ; si estimation indisponible → comportement fail-safe documenté (warning / block structurant) sans inventer de tarif.
-Override soft : aligné N2 ; hard override : N3/Morris — respect UX-03/04 déjà DECIDED.
-
-### Preuve source
-`92` FPI-14 · `93` §8 FPI-14 · UX N2/N3 `97`
-
-### Formulation Morris
-
-`D-ASST-FPI-14=<OPTION>`
-
-
-## 21. D-ASST-FPI-15 — Fallback OpenAI
-
-| Champ | Contenu |
-|---|---|
-| **ID** | `D-ASST-FPI-15` |
-| **Intitulé** | Fallback OpenAI |
-| **Question** | Quel comportement si le provider est indisponible ? |
-| **Statut** | **NOT DECIDED — MORRIS DECISION REQUIRED** |
-| **Gate** | Architecture technique (MUST BEFORE TECH) |
-| **Timestamp pack** | 2026-08-05 11:01 CEST (+0200) |
-
-### Contexte
-Doit respecter **UX-08=A** (bi-niveau non-struct/struct fail-closed) déjà DECIDED. Contradiction = STOP.
-
-### Options
-
-| Opt | Description |
-|---|---|
-| **A** | fail-closed total |
-| **B** | mode dégradé non structurant + fail-closed structurant |
-| **C** | mise en file et retry |
-
-**Origine :** `92` FPI-15 · `97` UX-08=A.
-
-### Avantages / limites / risques (par option)
-
-**A** — Avantages : simple. Limites : bloque free-talk. Risques : surblocage.
-**B** — Avantages : aligne UX-08. Limites : classification structurant. Risques : mauvaise classe → escalade (doute→N2/N3).
-**C** — Avantages : reprise auto. Limites : files = état. Risques : décision silencieuse différée — interdit si structurant.
-
-### Sécurité
-Pas d’apply en file sans N2/N3.
-
-### RGPD
-Pas de rejeu non consenti de prompts sensibles.
-
-### FinOps
-Retries bornés (lié FPI-14).
-
-### Performance
-Timeouts/circuit breaker (seuils non inventés — configurables Tech).
-
-### Observabilité
-Provider up/degraded/down · corrélation · idempotence keys.
-
-### Impacts UX
-Messages FPI-06 ; Réessayer/STOP ; aucune décision consommée.
-
-### Impacts Architecture technique
-Policy layer sur port provider.
-
-### Impacts Backlog
-Stories états provider + UX copy.
-
-### Dette
-Classification structurant partagée avec AF-02.
-
-### Réversibilité
-B↔A politique ; C ajoute dette queue.
-
-### Recommandation candidate
-
-**RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
-**B** — dégradé non structurant + fail-closed structurant (WA-11 · `92` · aligné UX-08=A).
-
-### Preuve source
-`91` WA-11 · `92` FPI-15 · `94` §13 · `97` UX-08
-
-### Formulation Morris
-
-`D-ASST-FPI-15=<OPTION>`
-
-
-## 22. Recommandations candidates
-
-| ID | Reco candidate | Note |
-|---|---|---|
-| AF-01 | **C** pipeline | MUST BEFORE TECH |
-| AF-02 | **A** structurant + **B** free-talk (raffinement) | MUST BEFORE TECH |
-| FPI-02 | **B** composition partielle T-A0…T-A4+T-A6 ; T-A5 hors | MUST BEFORE TECH |
-| FPI-03 | **B** Project-local minimale | MUST BEFORE TECH |
-| FPI-07 | **B** metadata + snippets allowlist redacted | MUST BEFORE TECH |
-| FPI-08 | **B** Project-bounded TTL (durée ouverte) | MUST BEFORE TECH |
-| FPI-09 | **B** admin-configurable | MUST BEFORE TECH |
-| FPI-10 | **B** normalisé OpenAI-only + port minimal | MUST BEFORE TECH |
-| FPI-14 | **B** soft now ; hard **différé** pilote | Soft TECH / Hard PILOT |
-| FPI-15 | **B** dégradé non-struct + fail-closed struct | MUST BEFORE TECH — aligné UX-08 |
-
-Toutes : **RECOMMENDATION CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
----
-
-## 23. Décisions pouvant être groupées
-
-| Groupe | IDs | Motif | Avantage | Risque |
-|---|---|---|---|---|
-| 1 | AF-01 + AF-02 | Contrat d’orchestration | Cohérence pipeline/validator | Décision trop large |
-| 2 | FPI-03 + FPI-08 | Persist/rétention | Évite store sans purge | TTL durée encore ouverte |
-| 3 | FPI-07 + FPI-10 + FPI-15 | Frontière provider | Sécurité cohérente | Trois axes en un GO |
-| 4 | FPI-09 + FPI-14 | Modèle/coût | FinOps aligné | Seuils absents |
-
-**Les IDs ne sont pas fusionnés.** Morris peut décider groupe par groupe ou ID par ID.
-
----
-
-## 24. Décisions à maintenir séparées
-
-- **D-ASST-FPI-02** — intégration socle (risque rewrite) : séparer pour clarté anti-rewrite.
-- **Hard cap FPI-14** — séparer du soft (gate pilote).
-- **Durée TTL FPI-08** — peut être réserve séparée.
-
----
-
-## 25. Sécurité
-
-Thèmes transverses : allowlist/redaction (FPI-07) · isolation Project (FPI-03/08) · pas de secrets/prompt/scores (UX-05) · fail-closed structurant (FPI-15/UX-08) · audit admin modèle (FPI-09) · pas de multi-provider complet sans nécessité (FPI-10).
-**Sécurité non validée** — analyse documentaire seulement.
-
----
-
-## 26. RGPD
-
-Minimisation · TTL/purge · droits suppression · pas de conservation indéfinie · pas d’envoi PII non nécessaires · bases Project-bounded.
-**RGPD non validé** — pas d’avis juridique.
-
----
-
-## 27. FinOps
-
-Soft cap + observabilité recommandés avant Tech ; hard cap différé pilote ; **aucun tarif/seuil inventé** ; estimation indisponible → politique fail-safe à trancher sans chiffres inventés.
-
----
-
-## 28. Performance
-
-Pipeline séquencé · snippets bornés · streaming N1 · timeouts/circuit breaker configurables (non chiffrés ici).
-
----
-
-## 29. Résilience
-
-Fallback bi-niveau · retries bornés · idempotence · pas de file structurant silencieuse · provider status dans shell.
-
----
-
-## 30. Observabilité
-
-Spans pipeline · validation rejects · usage tokens · provider health · audit décisions/GO · admin model changes · allowlist rejects.
-
----
-
-## 31. Dette
-
-| Dette | Origine | Mitigation |
-|---|---|---|
-| Bridging chat | FPI-02=B | Stories explicites anti-rewrite |
-| Classification structurant | AF-02 hybride / FPI-15 | Matrice partagée UX |
-| TTL durée ouverte | FPI-08 | Réserve ou config admin |
-| Soft sans hard | FPI-14 | Réserve pilote |
-| Port minimal | FPI-10=B | Bornage API interne |
-
----
-
-## 32. Réserves candidates
-
-| ID candidat | Statut proposé | Nature |
-|---|---|---|
-| R-TECH-TTL-01 | CANDIDATE — NOT OPENED | Durée TTL conversations non fixée |
-| R-TECH-FINOPS-HARD-01 | CANDIDATE — NOT OPENED | Hard cap différé avant pilote |
-| R-TECH-AF02-BOUNDARY-01 | CANDIDATE — NOT OPENED | Frontière structurant/non-structurant si hybride AF-02 |
-
-Réserves UX existantes **maintenues** (non rouvertes) : R-UX-FPI-02/03/04 · R-UX-04 — OPEN (doc 97).
-
----
-
-## 33. Impacts Backlog
-
-Sizing composition FPI-02 · persistence/rétention · allowlist/redaction · validator · provider port · metering soft · états fallback.
-**Backlog non autorisé** tant que FPI-01 et décisions Tech non consommées (doc 93).
-
----
-
-## 34. Impacts pilote
-
-Hard FinOps · pilote réel FPI-13 · éventuellement TTL durée · multi-instance FPI-03=C hors FPI recommandé.
-
----
-
-## 35. Actions autorisées après décision (futures)
-
-Après un futur GO APPLY validé + ChatGPT : ouvrir un **GO Architecture technique distinct** · préparer ports/adapters conceptuels · **pas** encore code/OpenAI réel sauf GO ultérieur.
-
----
-
-## 36. Actions restant interdites (ce cycle et tant que non GO)
-
-Architecture technique détaillée · code · OpenAI réel · sélection modèle nommé · RAG/stockage réel · Backlog · Delivery · Figma write · doctrine/méthode · PR/merge · consommation des IDs de ce pack.
-
----
-
-## 37. Bloc de GO Morris prêt à copier
-
-### 37.1 Bloc vide (prêt à remplir)
-
-```text
-GO DECISIONS PRÉREQUIS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED OPTIONS
-
-APPLY
-D-ASST-AF-01=<OPTION>
-D-ASST-AF-02=<OPTION>
-D-ASST-FPI-02=<OPTION>
-D-ASST-FPI-03=<OPTION>
-D-ASST-FPI-07=<OPTION>
-D-ASST-FPI-08=<OPTION>
-D-ASST-FPI-09=<OPTION>
-D-ASST-FPI-10=<OPTION>
-D-ASST-FPI-14=<OPTION>
-D-ASST-FPI-15=<OPTION>
-
-RESERVES
-R-TECH-TTL-01=<OPEN|CLOSE|N/A>
-R-TECH-FINOPS-HARD-01=<OPEN|CLOSE|N/A>
-R-TECH-AF02-BOUNDARY-01=<OPEN|CLOSE|N/A>
-
-DEFERRED
-FPI-14-HARD-CAP=<DEFER-BEFORE-PILOT|DECIDE-NOW>
-FPI-08-TTL-DURATION=<CONFIG-ADMIN-NO-VALUE|DEFER-BEFORE-PILOT|SET-VALUE>
-
-NOTES
-FPI-10-OPTION-SET=<SOURCE-A-B|NORMALIZED-A-B-C>
-AF-02-HYBRID=<YES-WITH-BOUNDARY|NO-SINGLE-LETTER>
-```
-
-### 37.2 Variante préremplie candidate
-
-**CANDIDATE ONLY — NOT EXECUTED**
+## 2. GO Morris exact
 
 ```text
 GO DECISIONS PRÉREQUIS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED OPTIONS
 
 APPLY
 D-ASST-AF-01=C
-D-ASST-AF-02=A
+D-ASST-AF-02=C
 D-ASST-FPI-02=B
 D-ASST-FPI-03=B
 D-ASST-FPI-07=B
@@ -1191,109 +38,1365 @@ FPI-14-HARD-CAP=DEFER-BEFORE-PILOT
 FPI-08-TTL-DURATION=CONFIG-ADMIN-NO-VALUE
 
 NOTES
+AF-02-OPTION-SET=NORMALIZED-A-B-C
+AF-02-C=STRICT_STRUCTURED_N2_N3__PROGRESSIVE_FREE_TALK_N1
 FPI-10-OPTION-SET=NORMALIZED-A-B-C
-AF-02-HYBRID=YES-WITH-BOUNDARY
-# AF-02=A signifie strict sur sorties structurantes ; free-talk N1 progressive documentée en réserve BOUNDARY
-# FPI-10=B signifie OpenAI-only + port interne minimal (set normalisé)
+FPI-10-B=OPENAI_ONLY_WITH_MINIMAL_INTERNAL_PORT
+```
+
+**Autorité :** Morris
+
+---
+
+## 3. Cycle / profil / typologie
+
+| Champ | Valeur |
+|---|---|
+| **Cycle** | Architecture technique — application documentaire des décisions prérequises |
+| **Profil** | Standard |
+| **Typologie** | EVOL / DOC |
+| **Nature** | Documentation-only |
+| **Doctrine** | SFIA v2.6 · SFIA Studio v3 (documentaire) |
+
+---
+
+## 4. Main
+
+| Item | Valeur |
+|---|---|
+| **origin/main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
+| **HEAD** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
+| **Alignement** | HEAD = origin/main |
+
+---
+
+## 5. Branche / worktree
+
+| Item | Valeur |
+|---|---|
+| **Branche décisionnelle** | `decision/sfia-studio-assistant-sfia-native-openai-technical-prerequisites` |
+| **Push projet** | Non — branche locale uniquement |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1` |
+| **Arbitration source** | `arbitration/sfia-studio-assistant-sfia-native-openai-technical-prerequisites` (préservée) |
+
+---
+
+## 6. Handoff entrant
+
+| Item | Valeur |
+|---|---|
+| **Tip** | `15d3a8e9c6a36b0fb0507a67e312c29d68b303df` |
+| **Blob** | `bffb425205e534da6c7d7a8f0fdd49880dd3ee33` |
+| **Message** | `docs(review-handoff): publish Assistant SFIA technical prerequisites decision pack` |
+| **Parent** | `c992b452dc1ee80224034fabd09f0ec0b5dffdc3` |
+| **Document 98** | Reproduit intégralement dans le handoff (vérifié) |
+
+---
+
+## 7. Template canonique
+
+Lu depuis Git : `prompts/templates/sfia-cycle-execution-template.md` (+ routing, operating model, rules, validation checklist, engineering principles, architect-method).
+
+---
+
+## 8. CKC
+
+| Champ | Valeur |
+|---|---|
+| **Chemin** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
+| **Statut** | candidate v0.1.0 |
+| **Usage** | experimental cognitive guidance |
+| **Autorité** | aucune |
+| **Limites respectées** | pas d’Architecture technique · pas de stack · pas d’implémentation · pas d’élargissement de scope |
+
+---
+
+## 9. Sources consultées
+
+**Git :** template, routing guide, operating model, rules, validation checklist, engineering principles, architect-method, CKC pilot Architecture technique.
+
+**Local :** documents 90–98 (hashes vérifiés) · handoff tip `15d3a8e9…` · GO Morris courant.
+
+**Hiérarchie :** GO Morris > 93/97 > 98 (définitions) > 90–96 > Git main > CKC.
+
+---
+
+## 10. Hashes 90–98
+
+| Doc | SHA-256 | Lignes | Vérif |
+|---|---|---|---|
+| 90 | `2d5a03f366e5291e54b6617ada972158763199bf918bea01f031d4212b1a78b2` | 694 | PASS |
+| 91 | `0517aa6c3091f63f0b5c69d40d123fa715dbfb4429d02681ea0398a9588e83e1` | 730 | PASS |
+| 92 | `0af5a9063705859abddceea0f1f5184b55c35a04e94b71648b139bb592c841d4` | 473 | PASS |
+| 93 | `6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428` | 309 | PASS |
+| 94 | `14572223a00beb038014379a75a3fd2cdb1bb016ef7de436894c0886ac1887be` | 338 | PASS |
+| 95 | `35e829ccc75c31b3a190f6e3015e01f610350c2109f40d32988e6d11d0b2be0d` | 236 | PASS |
+| 96 | `24da72cfabc77c43fd6db7fdc470935a4f24898653d398c6328f81a5c920d46d` | 172 | PASS |
+| 97 | `c18a902159a41cf568e7cabdad0420b51da56a34db445fcb8e07e986df49e47f` | 518 | PASS |
+| 98 | `5794689f826a3abf24b9949e637c3d56fbe64189b23ab294aa682649225558c6` | 1136 | PASS |
+
+---
+
+## 11. Local Git Truth initial complet
+
+```text
+=== LOCAL GIT TRUTH INITIAL (captured for pack) ===
+2026-08-05 11:30:23 CEST +0200
+2026-08-05 09:30:23 UTC
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+decision/sfia-studio-assistant-sfia-native-openai-technical-prerequisites
+8dc54db0069eed78a8d8930cc2b035450ab56ad1
+8dc54db0069eed78a8d8930cc2b035450ab56ad1
+8dc54db0069eed78a8d8930cc2b035450ab56ad1
+8dc54db0069eed78a8d8930cc2b035450ab56ad1
+0
+0
+?? .tmp-sfia-review/
+?? projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
+?? projects/sfia-studio/91-assistant-sfia-native-openai-first-product-increment-functional-architecture.md
+?? projects/sfia-studio/92-assistant-sfia-native-openai-functional-architecture-decision-pack.md
+?? projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md
+?? projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md
+?? projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md
+?? projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md
+?? projects/sfia-studio/97-assistant-sfia-native-openai-ux-ui-decisions-applied.md
+?? projects/sfia-studio/98-assistant-sfia-native-openai-technical-prerequisites-decision-pack.md
+?? projects/sfia-studio/99-assistant-sfia-native-openai-technical-prerequisites-decisions-applied.md
+?? projects/sfia-studio/app/.tmp-sfia-review/
+DIFF_CHECK_EXIT:0
+worktree /Users/morris/Projects/sfia-workspace
+HEAD e1befcb80ed5e3c789a7de9036a8207d6b3e6771
+branch refs/heads/delivery/eventops-poc-visible-slice-01
+
+worktree /Users/morris/Projects/sfia-codex-pilot
+HEAD ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+branch refs/heads/method/codex-operating-model-pilot
+
+worktree /Users/morris/Projects/sfia-task-tracker
+HEAD b763a318fb84e23e482ed23a0bd561c1d9e719e6
+branch refs/heads/cadrage/task-tracker-light
+
+worktree /Users/morris/Projects/sfia-workspace-a5-2-framing
+HEAD bd3608c6220e820cc3fa017422a7564a565a1296
+branch refs/heads/framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity
+
+worktree /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts
+HEAD cae841519ed1d2dd825e6ecb998337cd47b4a1e1
+branch refs/heads/method/sfia-cycle-knowledge-contracts
+
+worktree /Users/morris/Projects/sfia-workspace-d1-conversational-convergence
+HEAD 7dc6f9fc7e16f13de08a1003b492b0b6e243f05e
+branch refs/heads/ux/sfia-studio-d1-conversational-convergence
+
+worktree /Users/morris/Projects/sfia-workspace-d1-platform-integration
+HEAD c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9
+branch refs/heads/delivery/sfia-studio-d1-shared-platform-integration
+
+worktree /Users/morris/Projects/sfia-workspace-doc32-post-p3-m1
+HEAD dd2a68c6a1e45fee1e1f397cb644c2c082a3d877
+branch refs/heads/docs/sfia-studio-doc32-post-p3-m1-correction
+
+worktree /Users/morris/Projects/sfia-workspace-docs-recover
+HEAD 1a2fa31fab6343bdd0eab7211febb3bcc5326c33
+branch refs/heads/docs/sfia-studio-recover-unmerged-project-docs
+
+worktree /Users/morris/Projects/sfia-workspace-fa6-mitigated-clean
+HEAD 67f140a19cf4a992dbc0d7b053abfde579a9a68c
+branch refs/heads/docs/sfia-studio-fa6-mitigated-from-main
+
+worktree /Users/morris/Projects/sfia-workspace-framing-next-increment
+HEAD 88fa4658da07156614de270d8172f147535ddbf9
+branch refs/heads/framing/sfia-studio-next-product-increment
+
+worktree /Users/morris/Projects/sfia-workspace-m1-bypass-probe
+HEAD f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23
+branch refs/heads/qa/sfia-studio-m1-bypass-probe
+
+worktree /Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert
+HEAD b502c0069f836a729090bdc187dd98a0c26591ca
+branch refs/heads/qa/sfia-studio-m1-bypass-probe-revert
+
+worktree /Users/morris/Projects/sfia-workspace-m1-capitalization
+HEAD fa0eebe00ce3b765a8a486aa660dddfab40123a0
+branch refs/heads/docs/sfia-studio-m1-capitalization-rex
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-after-t-a6
+HEAD aef7fd6d5a678857cf36e490f1550866d47c8887
+branch refs/heads/framing/sfia-studio-v3-native-option-a-after-t-a6
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-ci-governance
+HEAD 2f9560534e285c5b8105f81dca39c5252667860c
+branch refs/heads/delivery/sfia-studio-v3-native-option-a-ci-merge-governance
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-ci-governance-docs
+HEAD a42a85c0c0b3e146e59f82ea753329ed9253f278
+branch refs/heads/docs/sfia-studio-option-a-ci-governance-post-merge
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-path-aware-required-check
+HEAD 9f03916243c470587f6958e058fd58909e5bd75a
+branch refs/heads/delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation
+
+worktree /Users/morris/Projects/sfia-workspace-review-handoff-publisher
+HEAD 14d58fe95a8f29c3dc1f72c794a64fedbc795bbe
+branch refs/heads/tooling/review-handoff-canonical-publisher
+
+worktree /Users/morris/Projects/sfia-workspace-shared-platform-delivery
+HEAD 08c282abafd97685bcc0b7e525ec96e6721ec589
+branch refs/heads/delivery/sfia-studio-shared-technical-platform
+
+worktree /Users/morris/Projects/sfia-workspace-t-a6-post-merge
+HEAD 1f2585712e460b4ba6267d9e520cd0fd3cea6d3e
+branch refs/heads/post-merge/sfia-studio-v3-native-option-a-t-a6
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-arbitration
+HEAD 6849b6f7530310ae669a5bd2e4f4a3f3323ccda6
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-readme-post-merge
+HEAD 960c90b32b2c1c5701a668b0ebc70fdd847c681b
+branch refs/heads/docs/sfia-studio-t-a7-f03-f11-f13-readme-post-merge-status
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-framing
+HEAD b7a5e827fddb7e80f03a71b3b64ca89271ede0a6
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
+HEAD 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+HEAD 8dc54db0069eed78a8d8930cc2b035450ab56ad1
+branch refs/heads/decision/sfia-studio-assistant-sfia-native-openai-technical-prerequisites
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge
+HEAD 52c1d753ee890daf04a80ba37b11c6bf077dc307
+branch refs/heads/backlog/sfia-studio-v3-1-d2-d-integration-foundation
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-next-decision
+HEAD 33ea3e87facc8c99c9c5619d6d2424030d3918a2
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-technical-readiness
+HEAD b6a19335f5116940175f5986492e3693722563bc
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-wave-1-decisions
+HEAD f89ba5fb6cfca4e3de97667d944569a20266a8aa
+branch refs/heads/record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope
+HEAD 4fad47f72a7d6cde655d98a64351bb4624ed9ad1
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope
+
+worktree /Users/morris/Projects/sfia-workspace-template-handoff-fix
+HEAD 134be301792efbf6f9739d13f0572062ef976da7
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-ux-reconciliation
+HEAD 7bdabdcc0ea5f760383da190a661250dcd5d2598
+branch refs/heads/project/sfia-studio-ux-ui-reconciliation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-doctrine-consolidation
+HEAD daf6f7d02bbac09024f6275a793769e66b2b3878
+branch refs/heads/method/sfia-studio-v3-doctrine-consolidation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-audit
+HEAD 56ddf32e811f0f5f8b82f31400da18ceecf3bc30
+branch refs/heads/audit/sfia-studio-v3-native-dependencies
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-arch
+HEAD 577ff0c22491288d2293fd9730ed26f0af4095b0
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional-architecture
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-design
+HEAD e22bc243c8854df4e9422fafe46e92135fe242e9
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-modeled
+HEAD 52891e5c5a9b1254143e422111ea4955ca3a0940
+branch refs/heads/modeled/sfia-studio-v3-native-option-a
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech
+HEAD 0b696ed970823aa75d013336e44e72de08f2ac57
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-ux
+HEAD 608d3d4cb3bee46ef2a533aa9cf94ee427c4cf71
+branch refs/heads/design/sfia-studio-v3-native-option-a-ux-ui
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+
+worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+HEAD 15d3a8e9c6a36b0fb0507a67e312c29d68b303df
+branch refs/heads/sfia/review-handoff
+
+15d3a8e9c6a36b0fb0507a67e312c29d68b303df
 ```
 
 ---
 
-## 38. Anti-claims
+## 12. Vérification document 99 libre
 
-- Aucune décision technique consommée.
-- Architecture technique **non** ouverte / **non** produite.
-- Aucun modèle OpenAI nommé sélectionné.
-- Aucun TTL numérique / seuil FinOps inventé.
-- Sécurité / RGPD / FinOps **non** “validés”.
-- Backlog / Delivery / code / PR / merge **non** autorisés.
-- UX décisions `97` **non** rouvertes.
-- Recommandations ≠ décisions.
-- Normalisations FPI-10 / raffinement AF-02 = candidates only.
+Avant création : fichier `projects/sfia-studio/99-assistant-sfia-native-openai-technical-prerequisites-decisions-applied.md` **absent**.
+Après création : fichier créé sur branche décisionnelle locale — **pas de collision**.
 
 ---
 
-## 39. Verdict
+## 13. Décisions antérieures maintenues
 
-**TECHNICAL PREREQUISITES DECISION PACK COMPLETE —**
-**D-ASST-AF-01, D-ASST-AF-02, D-ASST-FPI-02, D-ASST-FPI-03, D-ASST-FPI-07, D-ASST-FPI-08, D-ASST-FPI-09, D-ASST-FPI-10 AND D-ASST-FPI-15 FULLY PREPARED —**
-**D-ASST-FPI-14 SOFT-BEFORE-TECH AND HARD-BEFORE-PILOT SPLIT PREPARED —**
-**DEPENDENCIES, SECURITY, RGPD, FINOPS, RESILIENCE AND DEBT ANALYZED —**
-**EMPTY AND CANDIDATE-PREFILLED MORRIS DECISION BLOCKS PRODUCED —**
-**NO DECISION CONSUMED —**
-**ARCHITECTURE TECHNIQUE NOT OPENED —**
-**DOCUMENT 98 CREATED WITH COMPLETE CONTENT —**
-**DOCUMENTS 14–16 AND 90–97 UNCHANGED —**
-**NO CODE, PROVIDER INTEGRATION, BACKLOG OR DELIVERY AUTHORIZED —**
-**READY FOR CHATGPT VALIDATION AND MORRIS TECHNICAL PREREQUISITE DECISIONS**
+- Doc 93 : FPI-04=D · FPI-05=C · FPI-06=D · FPI-11=ACCEPT · AF-03=C · AF-04=B
+- Doc 97 : UX-01…10 DECIDED · R-DEC-AF-01 CLOSED BY MORRIS · R-UX-FPI-02/03/04 OPEN · R-UX-04 OPEN
+- **Aucune rouverture.**
 
 ---
 
-## 40. Prochaine gate candidate
+## 14. Matrice des décisions Morris
+
+| ID | Option | Statut |
+|---|---|---|
+| D-ASST-AF-01 | C | DECIDED BY MORRIS |
+| D-ASST-AF-02 | C (normalisé) | DECIDED BY MORRIS — NORMALIZED OPTION SET |
+| D-ASST-FPI-02 | B | DECIDED BY MORRIS |
+| D-ASST-FPI-03 | B | DECIDED BY MORRIS |
+| D-ASST-FPI-07 | B | DECIDED BY MORRIS |
+| D-ASST-FPI-08 | B | DECIDED BY MORRIS WITH OPEN RESERVE |
+| D-ASST-FPI-09 | B | DECIDED BY MORRIS |
+| D-ASST-FPI-10 | B (normalisé) | DECIDED BY MORRIS — NORMALIZED OPTION SET |
+| D-ASST-FPI-14 | B | SOFT DECIDED — HARD DEFERRED BEFORE PILOT |
+| D-ASST-FPI-15 | B | DECIDED BY MORRIS |
+
+---
+
+## 15. Définition du jeu AF-02 normalisé
+
+`AF-02-OPTION-SET=NORMALIZED-A-B-C`
+
+- A — validation stricte toutes sorties
+- B — validation progressive toutes sorties
+- C — stricte N2/N3 structurantes + progressive free-talk N1
+
+**AF-02-C=`STRICT_STRUCTURED_N2_N3__PROGRESSIVE_FREE_TALK_N1`**
+
+---
+
+## 16. Définition du jeu FPI-10 normalisé
+
+`FPI-10-OPTION-SET=NORMALIZED-A-B-C`
+
+- A — couplage OpenAI direct
+- B — OpenAI-only avec port interne minimal
+- C — abstraction multi-provider complète dès le FPI
+
+**FPI-10-B=`OPENAI_ONLY_WITH_MINIMAL_INTERNAL_PORT`**
+
+≠ ancien B historique multi-provider du doc 92.
+
+---
+
+## 17. AF-01 complet
+
+**C — pipeline d’étapes** · DECIDED BY MORRIS · séquencement / contrôles / testabilité / erreurs localisées / bus futur non imposé · pas de conception pipeline détaillée.
+
+---
+
+## 18. AF-02 complet
+
+**C normalisé** · N2/N3+mutations/GO/exports = strict fail-closed · N1 free-talk = progressive · doute = escalade/blocage/strict · pas de consommation partielle · R-TECH-AF02-BOUNDARY-01 OPEN.
+
+---
+
+## 19. FPI-02 complet
+
+**B — composition verticale partielle** · T-A0…T-A4 + T-A6 · T-A5 hors FPI · anti-rewrite · dette bridging chat.
+
+---
+
+## 20. FPI-03 complet
+
+**B — persist minimale Project** · LPS/décisions/réserves/audit · historique sous FPI-08 · isolation Projects · pas secrets/scores/prompt/dumps · pas multi-instance.
+
+---
+
+## 21. FPI-07 complet
+
+**B — metadata + extraits allowlist/redacted** · refuse binaires · unknown fail-closed · pas fichier complet par défaut · audit · bornes taille → Tech (sans valeur ici).
+
+---
+
+## 22. FPI-08 complet
+
+**B — TTL Project** · `FPI-08-TTL-DURATION=CONFIG-ADMIN-NO-VALUE` · purge/suppression · hors-sujet non mémorisé · R-TECH-TTL-01 OPEN.
+
+---
+
+## 23. FPI-09 complet
+
+**B — modèle admin-configurable** · pas choix user libre · audit · identifiant abstrait · **aucun modèle réel nommé**.
+
+---
+
+## 24. FPI-10 complet
+
+**B normalisé** · OpenAI-only + port interne minimal · testabilité/redaction/obs/fallback · pas multi-provider · pas couplage direct non borné · pas SDK/modèle réel.
+
+---
+
+## 25. FPI-14 complet
+
+**B — obs + soft cap** · seuils configurables sans valeur · override soft N2 · estimation indisponible explicite · `FPI-14-HARD-CAP=DEFER-BEFORE-PILOT` · R-TECH-FINOPS-HARD-01 OPEN.
+
+---
+
+## 26. FPI-15 complet
+
+**B — dégradé non structurant + fail-closed structurant** · aligne UX-08 · retries bornés futurs · pas rejeu silencieux · provider visible · action sûre suivante.
+
+---
+
+## 27. R-TECH-TTL-01
+
+**OPEN BY MORRIS** — durée numérique TTL non fixée · TTL Project + admin-configurable décidés · gate future avant pilote / RGPD finale.
+
+---
+
+## 28. R-TECH-FINOPS-HARD-01
+
+**OPEN BY MORRIS** — hard cap différé · soft décidé · **MUST BEFORE PILOT**.
+
+---
+
+## 29. R-TECH-AF02-BOUNDARY-01
+
+**OPEN BY MORRIS** — formaliser frontière N1 free-talk vs N2/N3 structurant · ne remet pas en cause AF-02=C.
+
+---
+
+## 30. Éléments différés
+
+| ID | Valeur |
+|---|---|
+| FPI-14-HARD-CAP | `DEFER-BEFORE-PILOT` |
+| FPI-08-TTL-DURATION | `CONFIG-ADMIN-NO-VALUE` |
+
+---
+
+## 31. Statut des prérequis avant Tech
+
+AF-01/02, FPI-02/03/07/08/09/10/15 **DECIDED** · FPI-14 soft **DECIDED** · FPI-14 hard **DEFERRED** · TTL durée **ouverte**.
+
+**TECHNICAL PREREQUISITES DECIDED — DISTINCT ARCHITECTURE TECHNICAL GO MAY BE PREPARED AFTER CHATGPT VALIDATION**
+
+**ARCHITECTURE TECHNIQUE NON OUVERTE.**
+
+---
+
+## 32. Document 99 créé
+
+`projects/sfia-studio/99-assistant-sfia-native-openai-technical-prerequisites-decisions-applied.md`
+
+Statut : **TECHNICAL PREREQUISITES SELECTED OPTIONS APPLIED**
+
+---
+
+## 33. Contenu intégral du document 99
+
+````markdown
+# SFIA Studio — Assistant SFIA natif OpenAI — Technical Prerequisites Decisions Applied
+
+## 1. Statut
+
+**TECHNICAL PREREQUISITES SELECTED OPTIONS APPLIED**
+
+| Champ | Valeur |
+|---|---|
+| **Document** | `projects/sfia-studio/99-assistant-sfia-native-openai-technical-prerequisites-decisions-applied.md` |
+| **Rôle** | Record d’application des décisions prérequis Tech sélectionnées par Morris |
+| **D-ASST-AF-01…02** | **DECIDED BY MORRIS** |
+| **D-ASST-FPI-02/03/07/08/09/10/14/15** | **DECIDED BY MORRIS** |
+| **AF-02 jeu** | **NORMALIZED-A-B-C** · valeur **C** = `STRICT_STRUCTURED_N2_N3__PROGRESSIVE_FREE_TALK_N1` |
+| **FPI-10 jeu** | **NORMALIZED-A-B-C** · valeur **B** = `OPENAI_ONLY_WITH_MINIMAL_INTERNAL_PORT` |
+| **R-TECH-TTL-01** | **OPEN BY MORRIS** |
+| **R-TECH-FINOPS-HARD-01** | **OPEN BY MORRIS** |
+| **R-TECH-AF02-BOUNDARY-01** | **OPEN BY MORRIS** |
+| **FPI-14 hard** | **DEFER-BEFORE-PILOT** |
+| **FPI-08 TTL durée** | **CONFIG-ADMIN-NO-VALUE** |
+| **Architecture technique** | **Non ouverte** · non produite |
+| **Modèle OpenAI nommé** | Aucun |
+| **Code / provider / Backlog / Delivery** | Non autorisés |
+
+Le document **98** reste l’historique d’arbitrage candidat ; ses statuts internes ne sont pas réécrits.
+
+---
+
+## 2. GO Morris exact
 
 ```text
 GO DECISIONS PRÉREQUIS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED OPTIONS
+
+APPLY
+D-ASST-AF-01=C
+D-ASST-AF-02=C
+D-ASST-FPI-02=B
+D-ASST-FPI-03=B
+D-ASST-FPI-07=B
+D-ASST-FPI-08=B
+D-ASST-FPI-09=B
+D-ASST-FPI-10=B
+D-ASST-FPI-14=B
+D-ASST-FPI-15=B
+
+RESERVES
+R-TECH-TTL-01=OPEN
+R-TECH-FINOPS-HARD-01=OPEN
+R-TECH-AF02-BOUNDARY-01=OPEN
+
+DEFERRED
+FPI-14-HARD-CAP=DEFER-BEFORE-PILOT
+FPI-08-TTL-DURATION=CONFIG-ADMIN-NO-VALUE
+
+NOTES
+AF-02-OPTION-SET=NORMALIZED-A-B-C
+AF-02-C=STRICT_STRUCTURED_N2_N3__PROGRESSIVE_FREE_TALK_N1
+FPI-10-OPTION-SET=NORMALIZED-A-B-C
+FPI-10-B=OPENAI_ONLY_WITH_MINIMAL_INTERNAL_PORT
+```
+
+**Autorité :** Morris
+
+---
+
+## 3. Timestamp local et UTC
+
+| Horodatage | Valeur |
+|---|---|
+| **Consommation Morris (local)** | 2026-08-05 11:20 CEST (+0200) |
+| **Consommation Morris (UTC)** | 2026-08-05 09:20 UTC |
+| **Enregistrement documentaire Cursor (local)** | 2026-08-05 11:28:02 CEST +0200 |
+| **Enregistrement documentaire Cursor (UTC)** | 2026-08-05 09:28:02 UTC |
+
+---
+
+## 4. Cycle / profil / typologie
+
+| Champ | Valeur |
+|---|---|
+| **Cycle** | Architecture technique — application documentaire des décisions prérequises |
+| **Profil** | Standard |
+| **Typologie** | EVOL / DOC |
+| **Nature** | Documentation-only |
+| **Doctrine conduite** | SFIA v2.6 |
+| **Doctrine produit** | SFIA Studio v3 (périmètre documentaire existant) |
+
+---
+
+## 5. Hiérarchie des sources
+
+1. **GO Morris courant** — options sélectionnées, réserves, différés, notes de normalisation.
+2. **Décisions Morris déjà enregistrées** — documents `93` et `97`.
+3. **Document 98** — définition des options et impacts (prime pour le sens).
+4. **Documents 90–96** — cadrage / AF / UX candidats.
+5. **Git main**.
+6. **CKC** candidate Architecture technique — guidance cognitive sans autorité.
+
+---
+
+## 6. Références Git et handoff
+
+| Item | Valeur |
+|---|---|
+| **Repository** | `mcleland147/sfia-workspace` |
+| **origin/main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
+| **Branche décisionnelle locale** | `decision/sfia-studio-assistant-sfia-native-openai-technical-prerequisites` (non poussée) |
+| **Handoff tip entrant** | `15d3a8e9c6a36b0fb0507a67e312c29d68b303df` |
+| **Handoff blob entrant** | `bffb425205e534da6c7d7a8f0fdd49880dd3ee33` |
+| **Message** | `docs(review-handoff): publish Assistant SFIA technical prerequisites decision pack` |
+| **Document 98 dans handoff** | Présent intégralement (vérifié) |
+| **AF-04** | B (déjà DECIDED in doc 93) |
+
+---
+
+## 7. Documents 90–98 et hashes
+
+| Doc | SHA-256 | Lignes | Mutation |
+|---|---|---|---|
+| 90 | `2d5a03f366e5291e54b6617ada972158763199bf918bea01f031d4212b1a78b2` | 694 | Aucune |
+| 91 | `0517aa6c3091f63f0b5c69d40d123fa715dbfb4429d02681ea0398a9588e83e1` | 730 | Aucune |
+| 92 | `0af5a9063705859abddceea0f1f5184b55c35a04e94b71648b139bb592c841d4` | 473 | Aucune |
+| 93 | `6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428` | 309 | Aucune |
+| 94 | `14572223a00beb038014379a75a3fd2cdb1bb016ef7de436894c0886ac1887be` | 338 | Aucune |
+| 95 | `35e829ccc75c31b3a190f6e3015e01f610350c2109f40d32988e6d11d0b2be0d` | 236 | Aucune |
+| 96 | `24da72cfabc77c43fd6db7fdc470935a4f24898653d398c6328f81a5c920d46d` | 172 | Aucune |
+| 97 | `c18a902159a41cf568e7cabdad0420b51da56a34db445fcb8e07e986df49e47f` | 518 | Aucune |
+| 98 | `5794689f826a3abf24b9949e637c3d56fbe64189b23ab294aa682649225558c6` | 1136 | Aucune (historique) |
+| **99** | voir § fin / rapport Cursor | — | **Créé** |
+
+---
+
+## 8. Décisions antérieures maintenues
+
+### Architecture fonctionnelle (doc 93) — inchangées
+- D-ASST-FPI-04=D · D-ASST-FPI-05=C · D-ASST-FPI-06=D · D-ASST-FPI-11=ACCEPT_CANDIDATE_MATRIX
+- D-ASST-AF-03=C · D-ASST-AF-04=B
+
+### UX/UI (doc 97) — inchangées
+- D-ASST-UX-01…10 DECIDED BY MORRIS
+- R-DEC-AF-01 — SATISFIED — CLOSED BY MORRIS
+- R-UX-FPI-02 OPEN · R-UX-FPI-03 OPEN · R-UX-FPI-04 OPEN · R-UX-04 OPEN
+
+**Aucune de ces décisions/réserves n’est rouverte.**
+
+---
+
+## 9. Portée du cycle
+
+Ce GO **applique** uniquement :
+- l’enregistrement des dix options sélectionnées ;
+- les deux jeux normalisés AF-02 et FPI-10 ;
+- l’ouverture des trois réserves nommées ;
+- le traçage des deux éléments différés ;
+- la création du record documentaire 99.
+
+Ce GO **n’autorise pas** :
+- conception d’Architecture technique / ADR / stack ;
+- sélection d’un modèle OpenAI nommé ;
+- code, stockage réel, infrastructure ;
+- Backlog / Delivery / Figma / doctrine / méthode ;
+- commit / push projet / PR / merge ;
+- invention de durée TTL ou seuil FinOps.
+
+---
+
+## 10. Matrice des décisions appliquées
+
+| ID | Option | Statut | Timestamp Morris |
+|---|---|---|---|
+| D-ASST-AF-01 | **C** | DECIDED BY MORRIS | 2026-08-05 11:20 CEST |
+| D-ASST-AF-02 | **C** (jeu normalisé) | DECIDED BY MORRIS — NORMALIZED OPTION SET | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-02 | **B** | DECIDED BY MORRIS | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-03 | **B** | DECIDED BY MORRIS | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-07 | **B** | DECIDED BY MORRIS | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-08 | **B** | DECIDED BY MORRIS WITH OPEN RESERVE | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-09 | **B** | DECIDED BY MORRIS | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-10 | **B** (jeu normalisé) | DECIDED BY MORRIS — NORMALIZED OPTION SET | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-14 | **B** | SOFT POLICY DECIDED BY MORRIS — HARD CAP DEFERRED BEFORE PILOT | 2026-08-05 11:20 CEST |
+| D-ASST-FPI-15 | **B** | DECIDED BY MORRIS | 2026-08-05 11:20 CEST |
+
+Aucun autre ID n’est décidé par ce GO.
+
+---
+
+## 11. Définition des jeux normalisés
+
+### AF-02-OPTION-SET=NORMALIZED-A-B-C
+
+| Opt | Définition |
+|---|---|
+| **A** | validation stricte pour toutes les sorties |
+| **B** | validation progressive pour toutes les sorties |
+| **C** | validation stricte pour les sorties structurantes N2/N3 et progressive pour le free-talk N1 |
+
+**Valeur Morris C :** `STRICT_STRUCTURED_N2_N3__PROGRESSIVE_FREE_TALK_N1`
+
+Ne pas réencoder comme « A avec exception implicite ».
+
+### FPI-10-OPTION-SET=NORMALIZED-A-B-C
+
+| Opt | Définition |
+|---|---|
+| **A** | couplage OpenAI direct |
+| **B** | OpenAI-only avec port interne minimal |
+| **C** | abstraction multi-provider complète dès le FPI |
+
+**Valeur Morris B :** `OPENAI_ONLY_WITH_MINIMAL_INTERNAL_PORT`
+
+Ne pas confondre avec l’ancien B historique « port multi-provider dès le FPI » du document 92.
+
+---
+
+## 12. D-ASST-AF-01 = C
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Orchestration conversationnelle |
+| **Option** | **C** — pipeline d’étapes |
+| **Statut** | **DECIDED BY MORRIS** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+| **Source définition** | Document 98 §12 · GO Morris |
+
+**Enregistré :**
+- séquencement explicite de la chaîne conversationnelle ;
+- contrôles par étape ;
+- testabilité et observabilité par étape ;
+- traitement localisé des erreurs ;
+- possibilité future de bus d’événements **sans** l’imposer au FPI ;
+- **aucune** conception technique détaillée du pipeline dans ce cycle.
+
+**Limites :** conception Architecture technique distincte requise ultérieurement.
+
+---
+
+## 13. D-ASST-AF-02 = C
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Validation des sorties structurées |
+| **Option set** | `AF-02-OPTION-SET=NORMALIZED-A-B-C` |
+| **Option** | **C** |
+| **Valeur exacte** | `STRICT_STRUCTURED_N2_N3__PROGRESSIVE_FREE_TALK_N1` |
+| **Statut** | **DECIDED BY MORRIS — NORMALIZED OPTION SET** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+**Enregistré :**
+- N2/N3, mutations, décisions, GO, exports et artefacts persistants : validation **stricte** et fail-closed ;
+- free-talk N1 non structurant : validation **progressive** ;
+- doute sur la classification → escalade, blocage de mutation ou traitement strict ;
+- aucune décision/mutation consommée depuis une sortie partielle ;
+- frontière détaillée suivie par **R-TECH-AF02-BOUNDARY-01** (OPEN).
+
+---
+
+## 14. D-ASST-FPI-02 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Connexion au socle T-A0…T-A7 |
+| **Option** | **B** — composition verticale partielle |
+| **Statut** | **DECIDED BY MORRIS** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+**Périmètre décidé :**
+- réutiliser T-A0 à T-A4 ;
+- réutiliser T-A6 ;
+- maintenir T-A5 **hors FPI** ;
+- éviter toute réécriture du socle ;
+- documenter la dette de bridging chat ;
+- **interdire** une réécriture déguisée sous le terme « composition ».
+
+---
+
+## 15. D-ASST-FPI-03 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Persistance minimale |
+| **Option** | **B** — persistance minimale bornée au Project |
+| **Statut** | **DECIDED BY MORRIS** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+**Enregistré :**
+- LPS validé · décisions · réserves · audit nécessaire ;
+- historique conversationnel soumis à FPI-08 ;
+- isolation stricte entre Projects ;
+- aucune persistance de secrets, scores internes, prompt système ou dumps Git non autorisés ;
+- pas de multi-instance décidé dans ce cycle.
+
+---
+
+## 16. D-ASST-FPI-07 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Données Git envoyables au provider |
+| **Option** | **B** — métadonnées + extraits allowlist et redacted |
+| **Statut** | **DECIDED BY MORRIS** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+**Enregistré :**
+- allowlist de chemins ;
+- redaction secrets / données sensibles ;
+- refus des binaires ;
+- classification inconnue = fail-closed ;
+- aucun fichier complet par défaut ;
+- audit des envois ;
+- bornes de taille à définir en Architecture technique **sans inventer de valeur ici**.
+
+---
+
+## 17. D-ASST-FPI-08 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Conservation des conversations |
+| **Option** | **B** — TTL borné au Project |
+| **Complément** | `FPI-08-TTL-DURATION=CONFIG-ADMIN-NO-VALUE` |
+| **Statut** | **DECIDED BY MORRIS WITH OPEN RESERVE** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+| **Réserve** | R-TECH-TTL-01=OPEN |
+
+**Enregistré :**
+- politique TTL Project **décidée** ;
+- durée numérique **non** décidée ;
+- durée administrable/configurable ;
+- **aucune** valeur par défaut inventée ;
+- droit de suppression et purge requis ;
+- hors-sujet non mémorisé dans le Project (UX-07 maintenu) ;
+- sauvegardes/copies futures devront respecter la purge.
+
+---
+
+## 18. D-ASST-FPI-09 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Modèle fixe ou configurable |
+| **Option** | **B** — modèle configurable par administrateur |
+| **Statut** | **DECIDED BY MORRIS** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+**Enregistré :**
+- pas de choix utilisateur libre ;
+- configuration auditée ;
+- version ou identifiant abstrait traçable ;
+- **aucun modèle réel nommé** dans ce cycle ;
+- changements admin soumis aux futurs contrôles gouvernance/FinOps.
+
+---
+
+## 19. D-ASST-FPI-10 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | OpenAI seul ou port fournisseur |
+| **Option set** | `FPI-10-OPTION-SET=NORMALIZED-A-B-C` |
+| **Option** | **B** |
+| **Valeur exacte** | `OPENAI_ONLY_WITH_MINIMAL_INTERNAL_PORT` |
+| **Statut** | **DECIDED BY MORRIS — NORMALIZED OPTION SET** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+**Enregistré :**
+- OpenAI est le provider du FPI ;
+- un port interne minimal sépare SFIA Studio du fournisseur ;
+- le port facilite testabilité, redaction, observabilité et fallback ;
+- aucune abstraction multi-provider complète ;
+- aucun couplage direct non borné ;
+- aucun SDK ou modèle réel sélectionné dans ce cycle.
+
+---
+
+## 20. D-ASST-FPI-14 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | FinOps |
+| **Option actuelle** | **B** — observabilité + plafond souple |
+| **Différé** | `FPI-14-HARD-CAP=DEFER-BEFORE-PILOT` |
+| **Réserve** | R-TECH-FINOPS-HARD-01=OPEN |
+| **Statut** | **SOFT POLICY DECIDED BY MORRIS — HARD CAP DEFERRED BEFORE PILOT** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+**Enregistré :**
+- suivi des usages ;
+- avertissement soft ;
+- seuils configurables **sans valeur inventée** ;
+- override soft aligné N2 ;
+- estimation indisponible → signal explicite, aucune fausse estimation ;
+- **aucune** décision de hard cap dans ce cycle.
+
+---
+
+## 21. D-ASST-FPI-15 = B
+
+| Champ | Contenu |
+|---|---|
+| **Intitulé** | Fallback OpenAI |
+| **Option** | **B** — mode dégradé non structurant + fail-closed structurant |
+| **Statut** | **DECIDED BY MORRIS** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+| **Alignement UX** | UX-08=A (doc 97) — maintenu |
+
+**Enregistré :**
+- free-talk non structurant : retry ou mode dégradé borné ;
+- action structurante : aucun apply, aucune décision, aucune mutation ;
+- conservation du GO explicite et de la matrice N1/N2/N3 ;
+- retries futurs bornés ;
+- aucun rejeu silencieux d’une demande structurante ;
+- provider indisponible visible ;
+- action sûre suivante proposée.
+
+---
+
+## 22. R-TECH-TTL-01
+
+| Champ | Valeur |
+|---|---|
+| **Statut** | **OPEN BY MORRIS** |
+| **Objet** | durée numérique du TTL conversationnel non fixée |
+| **Décidé** | TTL Project · valeur configurable admin · aucune valeur numérique imposée |
+| **Gate future** | avant pilote ou avant validation RGPD finale selon cycle futur |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+---
+
+## 23. R-TECH-FINOPS-HARD-01
+
+| Champ | Valeur |
+|---|---|
+| **Statut** | **OPEN BY MORRIS** |
+| **Objet** | hard cap FinOps différé |
+| **Décidé** | observabilité · soft cap · hard cap non activé |
+| **Gate future** | **MUST BEFORE PILOT** |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+---
+
+## 24. R-TECH-AF02-BOUNDARY-01
+
+| Champ | Valeur |
+|---|---|
+| **Statut** | **OPEN BY MORRIS** |
+| **Objet** | formaliser précisément free-talk N1 non structurant vs sorties structurantes N2/N3 |
+| **Déjà décidé** | N1 free-talk = progressive · N2/N3 structurant = strict fail-closed · ambiguïté = escalade ou strict |
+| **Note** | Ne remet **pas** en cause AF-02=C ; suit la formalisation détaillée pendant Architecture technique |
+| **Timestamp** | 2026-08-05 11:20 CEST (+0200) |
+
+---
+
+## 25. Éléments différés
+
+| ID | Valeur | Statut |
+|---|---|---|
+| FPI-14-HARD-CAP | `DEFER-BEFORE-PILOT` | Différé explicitement |
+| FPI-08-TTL-DURATION | `CONFIG-ADMIN-NO-VALUE` | Configurable sans valeur inventée |
+
+---
+
+## 26. Dépendances
+
+| Lien | Statut post-décision |
+|---|---|
+| AF-01=C ↔ AF-02=C | Pipeline + validation hybride — cohérents |
+| FPI-02=B ↔ FPI-03=B | Composition partielle + persist Project-local |
+| FPI-03=B ↔ FPI-08=B | Persist + TTL Project (durée ouverte) |
+| FPI-07=B ↔ FPI-10=B | Allowlist/redaction via port minimal |
+| FPI-09=B ↔ FPI-14=B | Admin model + soft FinOps |
+| FPI-10=B ↔ FPI-15=B | Port minimal + fallback bi-niveau |
+| FPI-14 soft ↔ N2 | Override soft aligné UX-03 |
+| FPI-15=B ↔ UX-08=A | Alignés — pas de contradiction |
+
+---
+
+## 27. Sécurité
+
+Allowlist/redaction (FPI-07=B) · isolation Project (FPI-03/08) · port minimal (FPI-10=B) · fail-closed structurant (FPI-15=B / AF-02=C) · pas de secrets/prompt/scores persistés.
+**Sécurité non validée** — décisions tracées seulement.
+
+---
+
+## 28. RGPD
+
+TTL Project (durée ouverte) · purge/suppression · minimisation · hors-sujet non mémorisé · pas d’envoi fichiers complets.
+**RGPD non validé** — R-TECH-TTL-01 reste OPEN.
+
+---
+
+## 29. FinOps
+
+Soft policy décidée (FPI-14=B) · hard cap différé avant pilote · aucun seuil/tarif inventé · R-TECH-FINOPS-HARD-01 OPEN.
+
+---
+
+## 30. Résilience
+
+Fallback bi-niveau (FPI-15=B) · retries bornés futurs · pas de rejeu silencieux structurant · provider status visible.
+
+---
+
+## 31. Observabilité
+
+Spans pipeline (AF-01=C) · validation rejects (AF-02=C) · usage/soft warnings (FPI-14=B) · allowlist rejects (FPI-07) · admin model audit (FPI-09) · provider health (FPI-15).
+
+---
+
+## 32. Dette acceptée
+
+| Dette | Origine | Suivi |
+|---|---|---|
+| Bridging chat | FPI-02=B | Anti-rewrite explicite |
+| Frontière structurant/N1 | AF-02=C | R-TECH-AF02-BOUNDARY-01 |
+| TTL durée ouverte | FPI-08=B | R-TECH-TTL-01 |
+| Soft sans hard | FPI-14=B | R-TECH-FINOPS-HARD-01 |
+| Port minimal | FPI-10=B | Architecture technique ultérieure |
+
+---
+
+## 33. Statut des prérequis avant Tech
+
+| Prérequis | Statut |
+|---|---|
+| AF-01 | **DECIDED** |
+| AF-02 | **DECIDED** (normalisé C) |
+| FPI-02 | **DECIDED** |
+| FPI-03 | **DECIDED** |
+| FPI-07 | **DECIDED** |
+| FPI-08 | **DECIDED** (+ TTL durée ouverte) |
+| FPI-09 | **DECIDED** |
+| FPI-10 | **DECIDED** (normalisé B) |
+| FPI-15 | **DECIDED** |
+| FPI-14 soft | **DECIDED** |
+| FPI-14 hard | **DEFERRED BEFORE PILOT** |
+
+**Verdict autorisé :** TECHNICAL PREREQUISITES DECIDED — DISTINCT ARCHITECTURE TECHNICAL GO MAY BE PREPARED AFTER CHATGPT VALIDATION
+
+**Verdict interdit :** ARCHITECTURE TECHNIQUE OPENED
+
+---
+
+## 34. Actions désormais préparables
+
+Après validation ChatGPT du présent document 99 :
+- préparer un **GO Architecture technique distinct** (candidate) ;
+- y référencer les décisions 99 + réserves ouvertes + différés ;
+- **sans** démarrer conception/code/provider dans ce cycle.
+
+---
+
+## 35. Actions restant interdites
+
+Architecture technique détaillée · ADR stack · modèle nommé · intégration provider · code · stockage réel · migrations · CI/CD · Backlog · Delivery · Figma write · doctrine/méthode · PR/merge · invention TTL/seuils · fermeture des réserves R-TECH-* hors GO Morris.
+
+---
+
+## 36. Statut de la page Figma
+
+Page `117:5` — **CANDIDATE — NOT BASELINE** (doc 97) — **inchangé** · non touché ce cycle.
+
+---
+
+## 37. Anti-claims
+
+- Architecture technique **non** ouverte / **non** validée / **non** produite.
+- Aucun modèle OpenAI nommé · aucun provider intégré.
+- Aucun TTL numérique · aucun hard cap · aucun tarif inventé.
+- Sécurité / RGPD / FinOps **non** « validés ».
+- AF-02=C ≠ A avec exception implicite.
+- FPI-10=B normalisé ≠ multi-provider historique.
+- Backlog / Delivery / code / MVP / PR / merge **non** autorisés.
+- Document 98 reste historique d’arbitrage — non consommé comme décision.
+
+---
+
+## 38. Verdict
+
+**TECHNICAL PREREQUISITES SELECTED OPTIONS APPLIED —**
+**D-ASST-AF-01=C AND D-ASST-AF-02=C DECIDED BY MORRIS —**
+**D-ASST-FPI-02=B, FPI-03=B, FPI-07=B, FPI-08=B, FPI-09=B, FPI-10=B, FPI-14=B AND FPI-15=B DECIDED BY MORRIS —**
+**AF-02 NORMALIZED HYBRID STRICT N2/N3 AND PROGRESSIVE N1 RECORDED —**
+**FPI-10 NORMALIZED OPENAI-ONLY WITH MINIMAL INTERNAL PORT RECORDED —**
+**R-TECH-TTL-01, R-TECH-FINOPS-HARD-01 AND R-TECH-AF02-BOUNDARY-01 OPENED BY MORRIS —**
+**FPI-14 HARD CAP DEFERRED BEFORE PILOT —**
+**FPI-08 TTL VALUE ADMIN-CONFIGURABLE WITHOUT INVENTED DEFAULT —**
+**DOCUMENT 99 CREATED WITH COMPLETE DECISION RECORD —**
+**DOCUMENTS 14–16 AND 90–98 UNCHANGED —**
+**NO TECHNICAL ARCHITECTURE, CODE, PROVIDER INTEGRATION, BACKLOG OR DELIVERY AUTHORIZED —**
+**READY FOR CHATGPT VALIDATION —**
+**DISTINCT ARCHITECTURE TECHNICAL GO STILL REQUIRED**
+
+---
+
+## 39. Prochaine gate candidate
+
+```text
+GO ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — DESIGN TECHNICAL ARCHITECTURE FROM VALIDATED PREREQUISITES
 ```
 
 Statut : **candidate uniquement — non consommée**.
 
-Doit nommer : option de chaque décision · options normalisées · réserves · différés · statut FPI-14 hard cap.
-**Ne doit pas** ouvrir automatiquement l’Architecture technique.
-Après APPLY + validation : un **GO Architecture technique distinct** reste nécessaire.
+Proposabilité conditionnée à :
+- publication conforme du handoff ;
+- validation ChatGPT du document 99 ;
+- confirmation des dix décisions enregistrées ;
+- confirmation des trois réserves OPEN ;
+- confirmation qu’aucune décision différée n’a été inventée ou consommée.
 
-**Statut attendu :** TECHNICAL PREREQUISITES DECISION PACK READY — NO TECHNICAL DECISION CONSUMED — NO DOWNSTREAM GATE CONSUMED
+**Statut final attendu :** TECHNICAL PREREQUISITES DECISIONS APPLIED — ARCHITECTURE TECHNICAL GATE CANDIDATE — NO DOWNSTREAM GATE CONSUMED
+````
+
+---
+
+## 34. Diff complet
+
+Fichier **nouveau** (untracked) uniquement côté projet autorisé :
+
+```text
+?? projects/sfia-studio/99-assistant-sfia-native-openai-technical-prerequisites-decisions-applied.md
 ```
 
-## 43. Diff complet
+Aucun diff tracké sur 14–16 / 90–98 / app/** / method/** / prompts/** / doctrine.
 
-Document nouveau untracked — contenu intégral ci-dessus = delta total.
+---
 
-## 44. Hash et lignes
+## 35. Hash et lignes
 
-SHA-256 : `5794689f826a3abf24b9949e637c3d56fbe64189b23ab294aa682649225558c6`
-Lignes : 1136
+| Item | Valeur |
+|---|---|
+| **SHA-256** | `d2a72120b80768cb354a2fedb9b2fc5ec36033ad52e8e97bd449c2b6ce4ef23e` |
+| **Lignes** | 608 |
 
-## 45–48. Absences
+---
 
-14–16 / 90–97 inchangés · app/** inchangé · doctrine/méthode/code inchangés
+## 36. Absence modification 14–16
 
-## 49. Absence décision consommée
+Documents 14–16 présents, **non modifiés** ce cycle (pas de mutation trackée ni réécriture).
 
-Confirmée — toutes NOT DECIDED · reco candidates only
+Hashes figés observés :
 
-## 50. Absence commit/push projet
+| Doc | SHA-256 | Lignes |
+|---|---|---|
+| 14 | `c2554ed6e664156add468a3f8de298023b3a1d5b948d465d9df0ceda441326e6` | 211 |
+| 15 | `cb223cf5a2fd78833ec86175237637516f1251a420cc2b8daf1000a302b65f92` | 145 |
+| 16 | `9bb957391c4edd66a10e02d600386feb8662ff5f9a37adae2e29bc29659a4cbf` | 113 |
 
-Confirmée
+---
 
-## 51. git diff --check
+## 37. Absence modification 90–98
 
-PASS attendu (trailing whitespace strip)
+Tous PASS hash attendu — inchangés. Document 98 conservé comme historique d’arbitrage.
 
-## 52. Local Git Truth final
+---
 
-Post-handoff — branche arbitration · HEAD=main · 98 untracked
+## 38. Absence modification app/**
 
-## 53. Review Handoff
+Aucun fichier sous `projects/sfia-studio/app/**` modifié. Chemin protégé `projects/sfia-studio/app/.tmp-sfia-review/**` non touché.
 
-Parent : `c992b452…`
-Message : `docs(review-handoff): publish Assistant SFIA technical prerequisites decision pack`
-AF-04=B mono-commit mono-fichier fast-forward
+---
 
-## 54. Verdict
+## 39. Absence doctrine/méthode/code
 
-TECHNICAL PREREQUISITES DECISION PACK COMPLETE —
-D-ASST-AF-01, D-ASST-AF-02, D-ASST-FPI-02, D-ASST-FPI-03, D-ASST-FPI-07, D-ASST-FPI-08, D-ASST-FPI-09, D-ASST-FPI-10 AND D-ASST-FPI-15 FULLY PREPARED —
-D-ASST-FPI-14 SOFT-BEFORE-TECH AND HARD-BEFORE-PILOT SPLIT PREPARED —
-DEPENDENCIES, SECURITY, RGPD, FINOPS, RESILIENCE AND DEBT ANALYZED —
-EMPTY AND CANDIDATE-PREFILLED MORRIS DECISION BLOCKS PRODUCED —
-NO DECISION CONSUMED —
-ARCHITECTURE TECHNIQUE NOT OPENED —
-DOCUMENT 98 CREATED WITH COMPLETE CONTENT —
-DOCUMENTS 14–16 AND 90–97 UNCHANGED —
-NO CODE, PROVIDER INTEGRATION, BACKLOG OR DELIVERY AUTHORIZED —
-READY FOR CHATGPT VALIDATION AND MORRIS TECHNICAL PREREQUISITE DECISIONS
+Aucun fichier `method/**`, `prompts/**`, doctrine 30–37, code, tests, schémas, package/lockfiles, workflows modifié.
 
-## 55. Prochaine gate candidate
+---
 
-`GO DECISIONS PRÉREQUIS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED OPTIONS`
-candidate — non consommée — n’ouvre pas auto Architecture technique
+## 40. Absence Architecture technique
+
+Aucune conception Architecture technique · aucun ADR · aucune stack · aucun modèle nommé · aucune intégration provider.
+
+---
+
+## 41. Absence commit/push projet
+
+Branche décisionnelle locale uniquement · aucun commit projet · aucun push projet · aucune PR · aucun merge.
+
+---
+
+## 42. git diff --check exécuté et sortie réelle
+
+```text
+(exit 0 — aucune sortie ; PASS)
+DIFF_CHECK_EXIT:0
+```
+
+Commande réellement exécutée : `git diff --check`.
+
+---
+
+## 43. Local Git Truth final complet post-handoff
+
+Pré-publish (branche décisionnelle) :
+- HEAD = origin/main = `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
+- Branche : `decision/sfia-studio-assistant-sfia-native-openai-technical-prerequisites`
+- Document 99 untracked local
+- origin/sfia/review-handoff tip parent attendu : `15d3a8e9c6a36b0fb0507a67e312c29d68b303df`
+
+Post-handoff tip/blob/message : reportés **extérieurement** dans le rapport Cursor (AF-04=B — pas d’auto-référence / second commit refresh).
+
+---
+
+## 44. Review Handoff
+
+| Champ | Valeur |
+|---|---|
+| **Décision** | required · publish-in-cycle |
+| **Branche** | `sfia/review-handoff` |
+| **Fichier** | `sfia-review-handoff/latest-chatgpt-review.md` |
+| **Source** | `.tmp-sfia-review/chatgpt-review.md` |
+| **Publisher** | `scripts/sfia/publish-review-handoff.sh` |
+| **Parent attendu** | `15d3a8e9c6a36b0fb0507a67e312c29d68b303df` |
+| **Message** | `docs(review-handoff): publish Assistant SFIA technical prerequisites decisions applied` |
+| **Push** | L3 borné autorisé |
+| **AF-04=B** | mono-commit · mono-fichier · fast-forward · tip/blob externes |
+
+---
+
+## 45. Verdict
+
+**TECHNICAL PREREQUISITES SELECTED OPTIONS APPLIED —**
+**D-ASST-AF-01=C AND D-ASST-AF-02=C DECIDED BY MORRIS —**
+**D-ASST-FPI-02=B, FPI-03=B, FPI-07=B, FPI-08=B, FPI-09=B, FPI-10=B, FPI-14=B AND FPI-15=B DECIDED BY MORRIS —**
+**AF-02 NORMALIZED HYBRID STRICT N2/N3 AND PROGRESSIVE N1 RECORDED —**
+**FPI-10 NORMALIZED OPENAI-ONLY WITH MINIMAL INTERNAL PORT RECORDED —**
+**R-TECH-TTL-01, R-TECH-FINOPS-HARD-01 AND R-TECH-AF02-BOUNDARY-01 OPENED BY MORRIS —**
+**FPI-14 HARD CAP DEFERRED BEFORE PILOT —**
+**FPI-08 TTL VALUE ADMIN-CONFIGURABLE WITHOUT INVENTED DEFAULT —**
+**DOCUMENT 99 CREATED WITH COMPLETE DECISION RECORD —**
+**DOCUMENTS 14–16 AND 90–98 UNCHANGED —**
+**NO TECHNICAL ARCHITECTURE, CODE, PROVIDER INTEGRATION, BACKLOG OR DELIVERY AUTHORIZED —**
+**READY FOR CHATGPT VALIDATION —**
+**DISTINCT ARCHITECTURE TECHNICAL GO STILL REQUIRED**
+
+---
+
+## 46. Prochaine gate candidate
+
+```text
+GO ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — DESIGN TECHNICAL ARCHITECTURE FROM VALIDATED PREREQUISITES
+```
+
+Statut : **candidate uniquement — non consommée**.
+
+**TECHNICAL PREREQUISITES DECISIONS APPLIED — ARCHITECTURE TECHNICAL GATE CANDIDATE — NO DOWNSTREAM GATE CONSUMED**
+
+---
+
+## Instruction ChatGPT
+
+ChatGPT doit consulter la branche `sfia/review-handoff` et le fichier `sfia-review-handoff/latest-chatgpt-review.md` au commit et blob finaux indiqués **extérieurement** dans le rapport Cursor, puis vérifier le contenu intégral du document 99 avant toute ouverture d’Architecture technique, Backlog, Delivery, sélection de modèle provider ou implémentation.
