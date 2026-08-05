@@ -1,47 +1,21 @@
-# ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI Functional Architecture Decisions Applied
+# ChatGPT Review Pack — SFIA Studio Native Assistant OpenAI First Product Increment UX/UI
 
 ## 1. Date / heure / fuseau
 
-Local : 2026-08-04 23:39:30 CEST +0200
-UTC : 2026-08-04 21:39:30 UTC
+Local : 2026-08-05 05:13:45 CEST +0200
+UTC : 2026-08-05 03:13:45 UTC
 
 ## 2. GO consommé
 
 ```text
-GO DECISIONS ARCHITECTURE FONCTIONNELLE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI —
-APPLY
-D-ASST-FPI-04=D
-D-ASST-FPI-05=C
-D-ASST-FPI-06=D
-D-ASST-FPI-11=ACCEPT_CANDIDATE_MATRIX
-D-ASST-AF-03=C
-D-ASST-AF-04=B
-
-RESERVES
-R-DEC-AF-01 — UX/UI MUST DEFINE DETERMINISTIC N1/N2/N3 ESCALATION AND CONFIRMATION SURFACES
-
-DEFERRED — NOT DECIDED
-D-ASST-AF-01
-D-ASST-AF-02
-D-ASST-FPI-01
-D-ASST-FPI-02
-D-ASST-FPI-03
-D-ASST-FPI-07
-D-ASST-FPI-08
-D-ASST-FPI-09
-D-ASST-FPI-10
-D-ASST-FPI-12
-D-ASST-FPI-13
-D-ASST-FPI-14
-D-ASST-FPI-15
-D-ASST-FPI-16
+GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT — APPLY VALIDATED FUNCTIONAL DECISIONS
 ```
 
-Consommation : 2026-08-04 23:33 CEST (+0200) · Autorité : Morris · Contexte : « ok go » sur le bloc d’arbitrage.
+Consommation : 2026-08-04 23:46 CEST (+0200) · Autorité : Morris
 
 ## 3. Cycle / profil / typologie
 
-Architecture fonctionnelle — application des décisions · Standard · EVOL/DOC · Documentation-only · Doctrine conduite SFIA v2.6 · Doctrine produit SFIA Studio v3 exclusive
+UX/UI · Standard · EVOL / UX / DOC · Documentation + Figma (Figma **non exécutable** ce cycle) · Doctrine conduite SFIA v2.6 · Doctrine produit SFIA Studio v3 exclusive
 
 ## 4. Main
 
@@ -49,850 +23,1612 @@ Architecture fonctionnelle — application des décisions · Standard · EVOL/DO
 
 ## 5. Branche / worktree
 
-Branche : `decision/sfia-studio-assistant-sfia-native-openai-functional-architecture`
+Branche : `ux-ui/sfia-studio-assistant-sfia-native-openai-fpi`
 HEAD : `8dc54db0069eed78a8d8930cc2b035450ab56ad1`
 Worktree : `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1`
-Non poussée · pas de PR
-Documents 90/91/92 untracked préservés lors du switch depuis `arbitration/…`.
+Non poussée · pas de PR · docs 90–96 untracked locaux
 
 ## 6. Handoff entrant
 
-Branche : `sfia/review-handoff`
-Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-Commit : `5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb`
-Blob : `a22720ba727ae6c1d961f9b803858b110a872f82`
-Parent : `559cfa51d402a440f437a55f0672e51da47fd774`
-Message : docs(review-handoff): publish Assistant SFIA functional architecture decision pack
-Tip observé pré-publication : `5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb` — PASS
+Commit : `dbc41bfb8cdf66724a38e1bcbf1c101e0b063edc`
+Blob : `ea6c2633750e4ef3556889717f2f074ee6ffc8ab`
+Parent : `5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb`
+Message : docs(review-handoff): publish Assistant SFIA functional decisions applied
+Tip observé pré-publication : `dbc41bfb8cdf66724a38e1bcbf1c101e0b063edc` — PASS
 
 ## 7. Template canonique
 
-`prompts/templates/sfia-cycle-execution-template.md` + méthode AF `docs/practices/architecture/functional-architecture-method.md` + operating model / rules / validation checklist (gouvernance v2.6).
+`prompts/templates/sfia-cycle-execution-template.md` + routing / operating model / rules / validation checklist + méthode UX (`docs/practices/ux-ui/*`, `docs/practices/roles/ux-ui-designer-method.md`)
 
 ## 8. CKC
 
-Pilote AF détaillé baseline : **absent**.
-Fallback synthétique : template canonique + méthode Architecture fonctionnelle + doctrine Studio v3 + documents 90–92.
-Branche `method/sfia-cycle-knowledge-contracts` : CANDIDATE — NOT BASELINE — aucune autorité d’exécution.
+Pilote UX/UI détaillé baseline : **absent**.
+Carte synthétique CKC capitalisation présente sous `method/.../cycle-knowledge-contracts/` — **CANDIDATE SOURCE — NOT BASELINE** pour exécution.
+Fallback : template + routing + docs 14–16 + 90–93 + doctrine v3 + décisions Morris.
 
-## 9–10. Documents 90, 91 et 92
+## 9. Sources 14–16
 
-| Doc | SHA-256 | Lignes | Statut cycle |
-|---|---|---|---|
-| 90 | `2d5a03f366e5291e54b6617ada972158763199bf918bea01f031d4212b1a78b2` | — | présent · **inchangé** |
-| 91 | `0517aa6c3091f63f0b5c69d40d123fa715dbfb4429d02681ea0398a9588e83e1` | — | présent · **inchangé** |
-| 92 | `0af5a9063705859abddceea0f1f5184b55c35a04e94b71648b139bb592c841d4` | 473 | présent · **inchangé** |
+| Doc | SHA-256 (contenu origin/main) | Statut |
+|---|---|---|
+| 14 | `c2554ed6e664156add468a3f8de298023b3a1d5b948d465d9df0ceda441326e6` | inchangé (non modifié ce cycle) |
+| 15 | `cb223cf5a2fd78833ec86175237637516f1251a420cc2b8daf1000a302b65f92` | inchangé |
+| 16 | `9bb957391c4edd66a10e02d600386feb8662ff5f9a37adae2e29bc29659a4cbf` | inchangé |
 
-Vérifiés :
+## 10–11. Sources 90–93 / hashes
 
 ```
 2d5a03f366e5291e54b6617ada972158763199bf918bea01f031d4212b1a78b2  projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
 0517aa6c3091f63f0b5c69d40d123fa715dbfb4429d02681ea0398a9588e83e1  projects/sfia-studio/91-assistant-sfia-native-openai-first-product-increment-functional-architecture.md
 0af5a9063705859abddceea0f1f5184b55c35a04e94b71648b139bb592c841d4  projects/sfia-studio/92-assistant-sfia-native-openai-functional-architecture-decision-pack.md
+6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428  projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md
 ```
 
-## 11. Sources consultées
+Lignes 92=473 · 93=309 — PASS · **inchangés**
 
-Handoff Decision Pack · docs 90/91/92 · GO Morris APPLY · gouvernance v2.6 (template, routing, operating model, rules, validation checklist) · méthode AF · doctrine Studio v3 (réf. sans modification).
+## 12. Décisions Morris applicables
 
-## 12–13. Découverte documentaire / choix du chemin
+FPI-04=D · FPI-05=C · FPI-06=D · FPI-11=ACCEPT_CANDIDATE_MATRIX · AF-03=C · AF-04=B — appliquées documentairement dans 94–96. Aucune D-ASST-UX consommée.
 
-Inventaire : 90 cadrage · 91 AF candidate · 92 Decision Pack · pas de registre de décisions projet canonique pour ces IDs sur main.
-Numéro `93` libre sur main et candidates.
-Chemin retenu : `projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md`
-Aucun écrasement · 90/91/92 non modifiés.
+## 13. R-DEC-AF-01
 
-## 14. Document créé
+Statut cycle : **OPEN**
+Définitions documentaires N1→N2 / N2→N3 / surfaces / distinctions / a11y / erreurs : **produites** (94/95).
+Preuves Figma : **ABSENTES** → fermeture **non recommandée** ce cycle.
+Reco D-ASST-UX-10 candidate : **B — OPEN pending Figma**.
 
-`projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md`
-Lignes : 309 · SHA-256 : `6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428`
+## 14. Découverte documentaire
 
-## 15. Contenu complet
+Numéros 94–96 libres sur main. Créés :
+- `94-assistant-sfia-native-openai-ux-ui-contract.md`
+- `95-assistant-sfia-native-openai-ux-ui-flows-and-states.md`
+- `96-assistant-sfia-native-openai-ux-ui-decision-pack.md`
+Aucun écrasement · 14–16 et 90–93 non modifiés.
+
+## 15–20. Découverte Figma / fileKey / baseline / candidate / manifest / screenshots
 
 ```markdown
-# 93 — Décisions Architecture fonctionnelle appliquées — Assistant SFIA natif OpenAI
+# Figma discovery — 2026-08-05
+
+## Attempted access
+- Target fileKey: `lrjA1WEyRpL05vKR8k29LO`
+- URL: https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO
+- MCP servers available in this workspace: `cursor-app-control`, `cursor-ide-browser`, `user-penpot` (error)
+- `plugin-figma-figma`: **NOT FOUND** in this workspace MCP catalog
+- `FIGMA_ACCESS_TOKEN`: **absent**
+- Live `get_metadata` / `get_design_context` / `use_figma` / `get_screenshot`: **not executable**
+
+## Baseline from Git (docs 14–16) — not live-reconfirmed
+| Item | Value | Source |
+|---|---|---|
+| Page | UX-B — P0 (`0:1`) | 14-ux-ui-contract.md |
+| P0-00C | `19:2` 1440×1024 | 14 |
+| P0-01C | `22:2` 1440×1024 | 14 |
+| P0-02C | `22:133` 1440×1024 | 14 |
+| P0-03C | `22:270` 1440×1024 | 14 |
+
+## Candidate page / frames this cycle
+- Page `UX-FPI — Assistant SFIA natif OpenAI`: **NOT CREATED**
+- Frames FPI-00…FPI-06: **NOT CREATED**
+- Screenshots: **ABSENT**
+- Manifest live node IDs: **ABSENT**
+
+## Consequence
+Stop condition 5 (Figma inaccessible) + 15 (screenshots cannot be produced) → partial cycle verdict.
+Baseline Figma not modified (no write path).
+```
+
+| Item | Résultat |
+|---|---|
+| fileKey cible | `lrjA1WEyRpL05vKR8k29LO` |
+| MCP Figma | **UNAVAILABLE** |
+| Page baseline UX-B — P0 | Non reconfirmée live ; non modifiée |
+| Frames baseline | Réf. docs 14 — non modifiées |
+| Page candidate | **NOT CREATED** |
+| Frames FPI-00…06 | **NOT CREATED** — specs dans 95 |
+| Screenshots | **ABSENT** |
+| Non-chevauchement live | N/A |
+
+## 21–22. Contrat UX/UI — contenu complet document 94
+
+Path : `projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md` · lines=276 · sha256=`535d283198da3ccde55ebd31bcc7dadd38fd3905022045a9eeaa60dd0b8a37a8`
+
+```markdown
+# 94 — Contrat UX/UI candidat — Assistant SFIA natif OpenAI FPI
 
 | Métadonnée | Valeur |
 |---|---|
-| **Document** | `projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md` |
-| **Statut** | DECISIONS APPLIED — TRACE ONLY |
-| **Cycle** | Architecture fonctionnelle — application des décisions |
+| **Document** | `projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md` |
+| **Statut** | CANDIDATE DOCUMENTARY CONTRACT — FIGMA EVIDENCE MISSING |
+| **Cycle** | UX/UI — Assistant SFIA natif OpenAI FPI |
 | **Profil** | Standard |
-| **Typologie** | EVOL / DOC |
-| **GO** | GO DECISIONS ARCHITECTURE FONCTIONNELLE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY … — 2026-08-04 23:33 CEST (+0200) |
+| **Typologie** | EVOL / UX / DOC |
+| **GO** | GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT — APPLY VALIDATED FUNCTIONAL DECISIONS — 2026-08-04 23:46 CEST (+0200) |
 | **Autorité** | Morris |
 | **Baseline main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
-| **Handoff Decision Pack entrant** | `5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb` / blob `a22720ba727ae6c1d961f9b803858b110a872f82` |
+| **Handoff entrant** | `dbc41bfb8cdf66724a38e1bcbf1c101e0b063edc` / blob `ea6c2633750e4ef3556889717f2f074ee6ffc8ab` |
 | **Doctrine conduite** | SFIA v2.6 |
 | **Doctrine produit** | SFIA Studio v3 exclusive |
-| **Sources inchangées** | `90` SHA `2d5a03f3…1a78b2` · `91` SHA `0517aa6c…8e83e1` · `92` SHA `0af5a906…c841d4` (473 lignes) |
+| **Figma fileKey** | `lrjA1WEyRpL05vKR8k29LO` (cible) |
+| **Figma page candidate** | `UX-FPI — Assistant SFIA natif OpenAI` — **NOT CREATED THIS CYCLE** |
+| **R-DEC-AF-01** | **OPEN** — définitions documentaires produites ; preuves Figma absentes |
 
-> Ce document **trace** les décisions consommées. Il ne réécrit pas rétroactivement 90/91/92.
-
----
-
-## 1. Statut
-
-Six décisions Lane A / B / E **DECIDED** par Morris le 2026-08-04 23:33 CEST.
-
-Statut Architecture fonctionnelle :
-
-**ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS**
-
-Anti-claims : pas toutes les D-ASST validées · pas Tech autorisée · pas Backlog/Delivery · pas OpenAI intégré · pas UX exécuté · pas Figma · pas publication main · pas doctrine/méthode modifiées · pas MVP.
+> Contrat UX/UI **candidat**. Ne remplace pas la baseline 14–16. Aucune décision D-ASST-UX consommée. Aucune Architecture technique.
 
 ---
 
-## 2. Décision Morris source
+## 1. Statut et anti-claims
+
+**Produit :** contrat documentaire complet + définitions N1–N3 / LPS / expert / hors-sujet / provider.
+
+**Non produit :** page Figma candidate · frames FPI-00…06 · screenshots · node IDs live · comparaison runtime.
+
+**Anti-claims :** UX non validée Morris · pas nouvelle baseline visuelle · R-DEC-AF-01 non closed · runtime non aligné · a11y non entièrement validée · responsive non validé · Tech/OpenAI/code/Backlog/Delivery non autorisés · MVP non livré.
+
+---
+
+## 2. Sources
+
+| Source | Rôle |
+|---|---|
+| Docs `14`–`16` (main) | Baseline UX Product premium — **inchangée** |
+| Docs `90`–`93` | Cadrage / AF / Decision Pack / décisions appliquées — **inchangés** |
+| Décisions Morris | FPI-04=D · FPI-05=C · FPI-06=D · FPI-11=ACCEPT · AF-03=C · AF-04=B |
+| CKC UX détaillé baseline | **Absent** — fallback template + méthode UX + 14–16 + 90–93 + v3 |
+| MCP Figma | **Indisponible** dans ce workspace (`plugin-figma-figma` absent) |
+
+---
+
+## 3. Relation avec baseline 14–16
+
+| Élément baseline | Réutilisation FPI |
+|---|---|
+| Utility rail · top bar · Product premium · typo · densité · cards · pills · brand accent | **Réutiliser** (tokens exacts = réserve jusqu’à extraction Figma live) |
+| Panneau copilote latéral comme chat secondaire | **Adapter** — conversation devient surface principale ; panneau = contexte Project / LPS / expert |
+| P0-00C…P0-03C / page UX-B — P0 | **Intactes** — ne pas modifier |
+| Gate P0-03C | **Pattern source** pour FPI-04 (N3) — adaptation documentaire |
+
+La baseline historique reste la référence d’implémentation initiale Studio hors Assistant FPI. Ce contrat est un **incrément candidat** conversation-dominant.
+
+---
+
+## 4. Décisions fonctionnelles appliquées (UX)
+
+| ID | Option | Effet UX |
+|---|---|---|
+| D-ASST-FPI-04 | D | Routage discret ; expert optionnel ; jamais prompt/scores/secrets |
+| D-ASST-FPI-05 | C | LPS = résumé + décisions + réserves + preuves clés ; progressive disclosure |
+| D-ASST-FPI-06 | D | Digression mineure + orientation espace général ; fallback B |
+| D-ASST-FPI-11 | ACCEPT_CANDIDATE_MATRIX | Matrice N1–N3 inchangée ; surfaces définies ici |
+| D-ASST-AF-03 | C | Contrats UX-Tech produits ; Tech non lancée |
+| D-ASST-AF-04 | B | Handoff mono-commit ; tip/blob externes |
+
+---
+
+## 5. Principes visuels
+
+1. Conversation dominante (≥ ~55 % largeur utile canvas).
+2. Un seul assistant conversationnel — pas de second chat latéral.
+3. Panneau droit = contexte Project / LPS / décisions / réserves / preuves / expert.
+4. Routage invisible par défaut ; badges discrets seulement si utiles.
+5. Validé ≠ candidat (badges et zones séparées).
+6. Confirmation ≠ décision ≠ GO ≠ autorisation d’exécution.
+7. SFIA Studio porte la responsabilité produit face à OpenAI (statut fournisseur, fail-closed).
+8. Product premium préservé ; tokens inventés interdits sans extraction Figma.
+9. Non-chevauchement des gates / statuts / CTA critiques.
+10. Aucune pré-sélection dangereuse.
+
+---
+
+## 6. Architecture d’information
 
 ```text
-GO DECISIONS ARCHITECTURE FONCTIONNELLE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI —
-APPLY
-D-ASST-FPI-04=D
-D-ASST-FPI-05=C
-D-ASST-FPI-06=D
-D-ASST-FPI-11=ACCEPT_CANDIDATE_MATRIX
-D-ASST-AF-03=C
-D-ASST-AF-04=B
-
-RESERVES
-R-DEC-AF-01 — UX/UI MUST DEFINE DETERMINISTIC N1/N2/N3 ESCALATION AND CONFIRMATION SURFACES
-
-DEFERRED — NOT DECIDED
-D-ASST-AF-01
-D-ASST-AF-02
-D-ASST-FPI-01
-D-ASST-FPI-02
-D-ASST-FPI-03
-D-ASST-FPI-07
-D-ASST-FPI-08
-D-ASST-FPI-09
-D-ASST-FPI-10
-D-ASST-FPI-12
-D-ASST-FPI-13
-D-ASST-FPI-14
-D-ASST-FPI-15
-D-ASST-FPI-16
+[ Utility rail 64px ]
+[ Top bar : Project · DoctrineStatus · Usage discret · Provider ]
+[ Main: Conversation (dominante) ] [ Context panel: LPS / Expert tabs ]
+[ Composer + N1 inline affordances ]
+[ Overlay/drawer N2 | Decision surface N3 ]
 ```
 
-Contexte : message Morris « ok go » sur le bloc d’arbitrage du document 92 / handoff Decision Pack.
+**Modes panneau :** `Context` (défaut) · `LPS` · `Expert` (optionnel) · `Evidence`.
 
 ---
 
-## 3. Décisions appliquées
+## 7. Shell
 
-### 3.1 D-ASST-FPI-04 = D — DECIDED
-
-| Champ | Valeur |
-|---|---|
-| **Option** | Routage discret par défaut + panneau expert optionnel |
-| **Date** | 2026-08-04 23:33 CEST |
-| **Autorité** | Morris |
-| **Preuve** | GO DECISIONS … APPLY ; pack `92` §2 |
-
-**Effets :** conversation non surchargée · mode/cycle discret si utile · sources progressives · statut doctrine si erreur/besoin · panneau expert (intention, CKC, outils, allowlist, contradictions) · pas de CKC brut / scores / prompt système · pas de secrets/chemins sensibles en vue experte.
-
-**Limites :** aucun layout validé. **Dette :** seuils « utile ». **Cycles :** UX/UI. **Réserves :** aucune propre.
-
-### 3.2 D-ASST-FPI-05 = C — DECIDED
-
-| Champ | Valeur |
-|---|---|
-| **Option** | LPS visible = résumé + décisions + réserves + preuves clés ; progressive disclosure = mécanisme UX |
-| **Date** | 2026-08-04 23:33 CEST |
-| **Autorité** | Morris |
-| **Preuve** | GO ; pack `92` §3 |
-
-**Effets :** immédiat = identité Project, DoctrinePackage status, cycle courant éventuel, résumé objectifs · progressif = décisions, réserves, preuves clés, trajectoire · validé ≠ delta candidat · LPS ≠ transcript ≠ trajectoire · pas dump CKC / raisonnement / secrets · ACL par rôle.
-
-**Limites :** définition « preuve clé » = UX/UI. **Cycles :** UX/UI.
-
-### 3.3 D-ASST-FPI-06 = D — DECIDED
-
-| Champ | Valeur |
-|---|---|
-| **Option** | Digression mineure + orientation espace général ; fallback B si espace général absent |
-| **Date** | 2026-08-04 23:33 CEST |
-| **Autorité** | Morris |
-| **Preuve** | GO ; pack `92` §4 |
-
-**Effets / fallback B :** digression sobre · rappel Project · pas sources Project · pas mutation LPS/trajectoire · pas mémoire Project.
-
-**Non digression :** action structurante · autre Project · secret · contournement doctrine.
-
-**Limites :** seuil détaillé = scénarios UX/policies. **Cycles :** UX/UI.
-
-### 3.4 D-ASST-FPI-11 = ACCEPT_CANDIDATE_MATRIX — DECIDED
-
-| Champ | Valeur |
-|---|---|
-| **Option** | Matrice N1–N3 du document 92 = contrat fonctionnel d’entrée UX/UI |
-| **Date** | 2026-08-04 23:33 CEST |
-| **Autorité** | Morris |
-| **Preuve** | GO ; pack `92` §5 |
-| **Réserve** | **R-DEC-AF-01 OPEN** |
-
-**Règles validées :**
-- **N1** : lecture seule · réversible · pas mutation · réponse/recherche/proposition sans application
-- **N2** : validation explicite · mutation Project bornée · apply delta · export · conservation/suppression conversation · soft budget override
-- **N3** : décision structurante · DoctrinePackage · exécution externe · Git/merge futurs · hard budget · risque élevé / faible réversibilité
-
-Matrice complète : §5. Mapping non modifié ici.
-
-### 3.5 D-ASST-AF-03 = C — DECIDED
-
-| Champ | Valeur |
-|---|---|
-| **Option** | Dual-track borné UX/UI ∥ Architecture technique |
-| **Date** | 2026-08-04 23:33 CEST |
-| **Autorité** | Morris |
-| **Preuve** | GO ; pack `92` §6 |
-
-**Contraintes :** Lane A décidée avant UX substantiel · contrats d’interface · cycles/gates/validations **séparés** · aucun cycle ne valide l’autre · pas d’implémentation pendant UX/Tech · sync décisions communes · stop si tech impose design silencieusement ou inversement.
-
-**N’autorise pas** le cycle Architecture technique (GO séparé requis).
-
-**D-ASST-FPI-16 :** CONSOLIDATED UNDER D-ASST-AF-03 — IDENTIFIER RETAINED FOR TRACEABILITY — NO SEPARATE DECISION REQUIRED UNLESS REOPENED BY MORRIS.
-
-### 3.6 D-ASST-AF-04 = B — DECIDED (projet SFIA Studio)
-
-| Champ | Valeur |
-|---|---|
-| **Option** | Handoff = parent + contenu + verdict + message ; tip/blob externes (rapport Cursor + ChatGPT) |
-| **Date** | 2026-08-04 23:33 CEST |
-| **Autorité** | Morris |
-| **Preuve** | GO ; pack `92` §7 |
-
-**Contraintes :** pas d’auto-référence SHA · pas de refresh pour recopier tip/blob · mono-commit si pas de correction réelle · identité finale externe obligatoire · vérification ChatGPT · portée **projet** · pas de modification auto template/méthode · promotion méthode = GO dédié · manifeste immuable = option future distincte.
+Réutilise rail + top bar baseline. Top bar FPI expose : Project identity · DoctrinePackage status (discret / erreur) · cycle courant éventuel · provider pill · usage résumé. CTA globaux non destructifs sans N2/N3.
 
 ---
 
-## 4. Contrat UX/UI d’entrée
+## 8. Conversation (FPI-00)
 
-### Toujours visible
-Project actif · identité Project · résumé objectifs · statut DoctrinePackage (au moins en erreur) · conversation dominante.
-
-### Progressivement visible
-Décisions · réserves · preuves clés · trajectoire · sources consultées · mode/cycle lorsqu’utile.
-
-### Mode expert (optionnel)
-Intention taxonomique · CKC detailed/synthetic/absent · outils · allowlist hits · contradictions.
-
-### Jamais visible
-Dimensions CKC brutes · scores internes · prompt système · secrets · chemins sensibles non filtrés · dumps LPS intégraux non ACL · raisonnement modèle brut.
-
-### Hors-sujet (FPI-06=D)
-Digression mineure OK + orientation espace général ; sinon fallback B ; jamais sources Project / mutation / mémoire Project pour hors-sujet.
-
-### Confirmations
-- **N1** : pas de modal structurant ; audit suffisant
-- **N2** : confirmation UI explicite avant mutation/export/TTL
-- **N3** : formulation forte / décision explicite ; hors FPI pour Cursor/Git/merge
-
-### Erreurs
-Doctrine stale · source refusée · niveau insuffisant · faux GO · OpenAI down (fail-closed structurant — détail Tech différé)
-
-### Accessibilité / sécurité
-Statut non couleur-seul · confirmations clavier/lecteur d’écran · ACL · redaction
+- Historique messages ; streaming ; composer.
+- Labels épistémiques : Observation · Hypothèse · Recommandation · Proposition (sans apply).
+- Sources : chip « Sources » → disclosure progressive.
+- N1 : inline ; pas de modal ; pas de langage GO.
+- Empty conversation : invite Project-aware.
+- Interdit : mutation silencieuse ; auto-GO ; dump LPS.
 
 ---
 
-## 5. Matrice N1–N3 validée
+## 9. Living Project State (FPI-01) — FPI-05=C
 
-Source : document `92` §5 — **non altérée** (colonne Statut ajoutée uniquement pour traçabilité).
+### Toujours visible (résumé)
+Identité Project · objectifs résumé · DoctrinePackage status · cycle courant éventuel.
 
-| Action | Niveau candidat | Justification | Confirm visible | Autorité | Effet possible | Preuve | Erreur si insuffisant | Statut |
-|---|---|---|---|---|---|---|---|---|
-| Réponse explicative | N1 / none | réversible, pas mutation | non | — | réponse | audit msg | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Lecture Git RO | N1 | read-only | non | read | contenu filtré | ToolInvocation | access denied | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Consultation source allowlist | N1 | read-only | non | read | hits | ToolInvocation | source refused | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Qualification cycle (proposition) | N1–N2 | proposition vs engagement | discret si N2 | qualify | CycleCandidate | CycleQualification | block formalization | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Proposition LPS delta | N1 | propose only | non | propose | LpsDeltaCandidate | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| **Application** LPS delta | **N2** | mutation Project | oui | HumanDecision | LPS apply | Decision+audit | block mutation | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Proposition trajectoire | N1 | reco | non | propose | TrajectoryDeltaCandidate | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| **Validation** trajectoire | **N2/N3** | selon criticité | oui | HumanDecision | trajectory validated | Decision | block | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Recommandation | N1 | épistémique | non | — | Recommendation | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Création HumanDecision candidate | N1–N2 | préparation | selon UI | prepare | Decision candidate | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| **Consommation** décision / GO | **N2/N3** | structurant | oui explicite | Decision Authority | consume | Decision record | faux GO non consommé | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Préparation ExecutionContract | N2 | contrat engagé conceptuellement | oui | prepare | EC candidate | EC audit | block build | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Export Markdown Cursor | N2 | artefact exportable | oui | export | CursorExport | audit | block export | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Lancement Cursor **futur** | **N3** | exécution externe | oui fort | exec authority | hors FPI | — | interdit FPI | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Git write **futur** | **N3** | irréversible repo | oui fort | write | hors FPI | — | interdit FPI | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Merge **futur** | **N3** | structurant repo | oui fort | merge | hors FPI | — | interdit FPI | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Changement DoctrinePackage | **N3** | doctrinal | oui fort | Morris | pin change | DoctrineResolution | fail-closed | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Dépassement budget | N2 soft / N3 hard override | FinOps | oui si override | admin/Morris | continue/stop | UsageRecord | stop soft/hard | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-| Conservation/suppression conversation | N2 | données personnelles | oui | user/admin | TTL/delete | audit | block delete | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
+### Progressive disclosure
+Décisions · réserves · preuves clés · trajectoire résumé · deltas candidats (zone séparée).
 
-**Règle synthétique validée (inchangée) :** N1 read-only réversible sans mutation · N2 validation/mutation bornée/export · N3 structurant / package / externe / Git futur.
+### Preuve clé — définition FPI
+Une **preuve clé** est une preuve **directement liée** au claim ou à la décision active, avec : source identifiée · statut lisible · fraîcheur · lien détail · **jamais** liste exhaustive par défaut.
+
+### Séparations
+LPS validé ≠ LpsDeltaCandidate · LPS ≠ transcript · LPS ≠ trajectoire · ACL par rôle · aucun dump brut.
 
 ---
 
-## 6. Dual-track validé (AF-03=C)
+## 10. Routage expert (FPI-02) — FPI-04=D
 
-| Voie | Contenu | Gate |
+Panneau Expert optionnel ; conversation reste visible.
+
+**Visible expert :** intention · mode · cycle candidat · CKC detailed/synthetic/absent · DoctrinePackage · sources requises/consultées · outils · contradictions · allowlist · statut preuve.
+
+**Jamais :** prompt système · raisonnement · scores · CKC brut · secrets · chemins non filtrés.
+
+---
+
+## 11. Confirmations N1 / N2 / N3
+
+### N1
+Critères : RO · réversible · pas mutation · pas exec externe · proposition sans apply.
+Surface : inline · pas modal · pas langage GO · sources ouvertes · audit discret.
+
+### Escalade N1 → N2 (déterministe)
+Escalader si ≥1 : mutation Project bornée · apply delta · export · conservation/suppression conversation · confirmation à effet persistant · soft budget · ambiguïté d’effet persistant.
+**Doute → N2.**
+
+### N2 (FPI-03)
+Surface : carte/drawer · action · objet · avant/après · portée · réversibilité · source · autorité · preuve · Confirmer / Annuler · **pas de pré-sélection** · **pas de GO** · focus trap · retour conversation.
+Cas référence : apply LPS delta **ou** export ExecutionContract candidat.
+
+### Escalade N2 → N3 (déterministe)
+Escalader si ≥1 : décision structurante · DoctrinePackage · exec externe · Git/merge futurs · hard budget · risque élevé · faible réversibilité · inter-Project · autorité Morris · contradiction structurante · doute autorité.
+**Doute → N3.**
+
+### N3 (FPI-04)
+Surface dédiée (pattern P0-03C adapté) : décision · options · reco **séparée** · preuves · réserves · dette · autorité Morris · portée · durée · révocabilité · autorisé/non autorisé · formulation GO explicite · NO-GO / amendement / annulation · confirmation forte · **aucune décision produite par l’Assistant**.
+
+### Distinction
+| Concept | Signification UX |
+|---|---|
+| Confirmation | Accord UI sur effet borné (N2) |
+| Décision | Choix d’option structurante (N3) |
+| GO | Formulation explicite consommée sous autorité |
+| Autorisation d’exécution | Hors FPI pour Cursor/Git/merge — N3 futur |
+
+### Erreur niveau insuffisant
+Message clair · action bloquée · niveau requis · CTA « Élever la confirmation » ou STOP · audit · **pas** de contournement.
+
+---
+
+## 12. Hors-sujet (FPI-05) — FPI-06=D
+
+Digression mineure : réponse courte éventuelle · « non intégré au Project » · CTA espace général · sinon fallback B (sobre · rappel Project · pas sources Project · pas LPS/trajectoire/mémoire).
+Non digression : structurant · autre Project · secret · contournement · mutation hors gate → N2/N3 ou refus.
+
+---
+
+## 13. Erreurs et provider (FPI-06)
+
+**Non structurant :** erreur claire · retry · mode dégradé sans claim.
+**Structurant :** fail-closed · aucune décision consommée · aucune mutation · raison · source manquante · prochaine action sûre.
+Doctrine stale · source refusée · output invalide · timeout : messages + actions/interdits documentés dans `95`.
+
+Responsabilité Studio : afficher ProviderStatus · ne pas attribuer une décision OpenAI comme décision Morris.
+
+---
+
+## 14. Accessibilité (WCAG 2.2 AA — cible)
+
+Clavier · tab order · focus visible · focus trap N2/N3 · SR labels badges · statut ≠ couleur seule · erreurs champs · contraste · cibles · streaming sobre · live regions · retour focus après fermeture · pas de pré-sélection dangereuse · `prefers-reduced-motion`.
+**Non déclaré entièrement validé** (pas de runtime / pas de frames).
+
+---
+
+## 15. Sécurité / RGPD UX
+
+Redaction · secret détecté · source refusée · ACL · non-envoyable OpenAI · suppression/conservation conversation (N2) · export (N2) · indication partage fournisseur · confidentialité source.
+Jamais : secret · token · prompt · raisonnement · fichier confidentiel complet par défaut · chemin non filtré.
+
+---
+
+## 16. FinOps / observabilité UX
+
+Discret en top bar ; détail Expert ; N2/N3 si override budget.
+Champs : provider · usage résumé · coût estimé (si fourni) · soft/hard · durée · outils/sources · corrélation.
+**Pas de tarif inventé.**
+
+---
+
+## 17. Responsive
+
+| Viewport | Statut |
+|---|---|
+| 1440 × 1024 | Contrat principal FPI (frames prévues) |
+| 1280 × 832 | Candidat stress — **NOT VALIDATED** ; max 1 frame si Figma dispo |
+| Mobile / tablette | Hors FPI |
+
+Stratégie 1280 candidate : compresser panneau (tabs) ; conserver conversation dominante ; N2/N3 full-height drawer.
+
+---
+
+## 18. Contrat UX-Tech (informations UI — non schéma exécutable)
+
+| Information | Surface | Min | Interdit | Loading | Empty | Error | Notes tech ouvertes |
+|---|---|---|---|---|---|---|---|
+| ProjectSummary | shell / LPS | id, name, goals | secrets | skeleton | invite | error banner | storage |
+| DoctrineStatus | shell / expert | pin, status | package dump | pulse | n/a | stale banner | resolution |
+| ConversationMessage | main | role, text, epistemic | chain-of-thought | stream | empty state | retry | provider |
+| StreamingState | main | phase | tokens bruts | indicator | — | timeout | SDK |
+| IntentResolutionSummary | expert | intent label | scores | — | absent | contradiction | taxonomy |
+| CycleCandidateSummary | expert / shell | id, status | auto-start | — | none | block | qualification |
+| CkcResolutionSummary | expert | detailed/synthetic/absent | CKC brut | — | absent | — | CKC store |
+| SourceCitation | disclosure | title, status, freshness | full confidential | fetching | none | refused | allowlist |
+| ToolInvocationSummary | expert | tool, outcome | secrets/paths | running | none | denied | tools |
+| LpsSummary | panel | résumé sections | dump | skeleton | empty LPS | error | LPS model |
+| DecisionSummary | LPS | id, status, scope | false validated | — | none | — | decisions |
+| ReserveSummary | LPS | id, status | — | — | none | — | reserves |
+| KeyEvidenceSummary | LPS | claim-link, source, freshness | exhaustive list | — | none | missing | evidence |
+| LpsDeltaCandidateSummary | LPS candidate zone | before/after | auto-apply | — | none | invalid | apply N2 |
+| TrajectorySummary | LPS progressive | summary | full dump | — | none | — | traj |
+| ConfirmationRequest | N2/N3 | level, action, scope | preselect | — | — | insufficient level | policy |
+| ConfirmationLevel | all | N1/N2/N3 | — | — | — | — | matrix |
+| ProviderStatus | shell / FPI-06 | up/degraded/down | keys | checking | — | fail-closed | OpenAI |
+| UsageSummary | shell / expert | tokens/cost est. | invent tariffs | — | — | soft/hard | FinOps |
+| FunctionalError | banners | code, message, next | stack | — | — | — | mapping |
+| AccessPolicySummary | LPS / ACL | role, visibility | escalate silent | — | denied | — | authZ |
+
+Fraîcheur / niveau de preuve / a11y : obligatoires sur chaque surface exposant un claim.
+
+---
+
+## 19. Figma manifest (état cycle)
+
+| Item | Valeur |
+|---|---|
+| fileKey cible | `lrjA1WEyRpL05vKR8k29LO` |
+| Page baseline | UX-B — P0 (`0:1`) — **non modifiée** (non reconfirmée live) |
+| Frames baseline | `19:2` `22:2` `22:133` `22:270` — **intactes** (réf. docs 14) |
+| Page candidate | **NOT CREATED** |
+| Frames FPI-00…06 | **NOT CREATED** |
+| Screenshots | **ABSENT** → `UX/UI REVIEW INCONCLUSIVE — FIGMA SCREENSHOTS REQUIRED` |
+| Cause | MCP Figma absent du workspace ; pas de token API |
+
+---
+
+## 20. Verdict documentaire
+
+Contrat UX/UI documentaire **complet**. Preuve Figma **manquante**. R-DEC-AF-01 **OPEN**.
+Maximum autorisé : `FIGMA CONTRACT COMPLETE — RUNTIME COMPARISON PENDING` **non atteint**.
+```
+
+## 23–24. Parcours et états — contenu complet document 95
+
+Path : `projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md` · lines=195 · sha256=`d2d9b63f6bb845993fc4e2fedd62af073b0f4cc196d2e1b1d97a403e85ee60ae`
+
+```markdown
+# 95 — Parcours, écrans et états — Assistant SFIA natif OpenAI FPI
+
+| Métadonnée | Valeur |
+|---|---|
+| **Document** | `projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md` |
+| **Statut** | CANDIDATE FLOWS — FIGMA FRAMES NOT MATERIALIZED |
+| **Companion** | `94` · `96` |
+| **GO** | 2026-08-04 23:46 CEST |
+| **Baseline frames Figma** | Non créées ce cycle — mapping fonctionnel ci-dessous |
+| **R-DEC-AF-01** | OPEN (preuves Figma absentes) |
+
+---
+
+## 1. Navigation FPI
+
+```text
+FPI-00 Conversation N1
+  ├─► FPI-01 LPS disclosure
+  ├─► FPI-02 Expert routing
+  ├─► FPI-03 Confirmation N2
+  ├─► FPI-04 Décision / GO N3
+  ├─► FPI-05 Hors-sujet
+  └─► FPI-06 Provider / fail-closed
+```
+
+Shell commun : rail + top bar + conversation dominante + panneau contexte.
+Retour conversation après fermeture N2/N3 (focus restore).
+
+---
+
+## 2. Sept frames candidates (spécification)
+
+Dimensions cibles : **1440 × 1024**. Statut : **CANDIDATE — NOT CREATED IN FIGMA**.
+
+### FPI-00 — Conversation Project / N1
+**Objectif :** conversation principale ; Project actif ; N1 sans modal.
+**Montre :** identité Project · objectifs · Doctrine discret · historique · composer · sources progressives · réponse Assistant · Observation/Hypothèse/Recommandation · LPS résumé panneau · **aucune** confirmation structurante.
+**node ID :** TBD — Figma missing.
+
+### FPI-01 — Living Project State / Progressive disclosure
+**Objectif :** FPI-05=C.
+**Montre :** résumé · décisions · réserves · preuves clés · trajectoire · validé ≠ delta · progressive disclosure · ACL · pas de dump.
+**Preuve clé :** liée au claim actif · source · statut · fraîcheur · lien détail · non exhaustive.
+**node ID :** TBD.
+
+### FPI-02 — Routage expert / Sources
+**Objectif :** FPI-04=D.
+**Montre :** conversation visible · expert ouvert · intention · mode · cycle · CKC d/s/a · Doctrine · sources · outils · contradictions · allowlist · preuve.
+**Ne montre pas :** prompt · raisonnement · scores · secrets · non-redacted.
+**node ID :** TBD.
+
+### FPI-03 — Confirmation N2
+**Cas :** apply LPS delta **ou** export EC candidat.
+**Montre :** action · objet · avant/après · portée · réversibilité · source · autorité · preuve · Confirmer · Annuler · pas pré-sélection · retour conversation · **≠ GO**.
+**node ID :** TBD.
+
+### FPI-04 — Décision / GO N3
+**Pattern :** P0-03C adapté.
+**Montre :** décision · options · reco séparée · preuves · réserves · dette · Morris · portée · durée · révocabilité · autorisé/non · formulation GO · NO-GO/amendement/annulation · confirmation forte · pas pré-coché · Assistant ne décide pas.
+**node ID :** TBD.
+
+### FPI-05 — Hors-sujet
+**Objectif :** FPI-06=D.
+**Montre :** digression détectée · réponse courte · non intégré Project · CTA espace général · fallback B · pas sources Project · pas LPS delta · pas mémoire · pas faux cycle.
+**node ID :** TBD.
+
+### FPI-06 — Fournisseur indisponible / Fail-closed
+**Deux niveaux :** (1) non structurant — erreur + retry + dégradé sans claim ; (2) structurant — fail-closed · pas de décision · pas mutation · raison · source manquante · next safe.
+**node ID :** TBD.
+
+---
+
+## 3. Parcours normaux
+
+| ID | Parcours | Frames |
 |---|---|---|
-| UX/UI | contrat visuel, parcours, surfaces, N1–N3 UI, R-DEC-AF-01 | GO UX/UI dédié |
-| Architecture technique | OpenAI/knowledge routing ports | GO Tech dédié — **non autorisé encore** |
-
-Contrats d’interface communs · synchronisations explicites · validations séparées · stop conditions (§3.5).
-
----
-
-## 7. Gouvernance handoff validée (AF-04=B)
-
-Contenu interne : parent · contenu · verdict · message · contexte pré-commit.
-Preuve externe : tip/blob dans rapport Cursor + vérification ChatGPT.
-Mono-commit · pas d’auto-référence · portée projet · méthode inchangée.
+| P-N1 | Question Project → réponse N1 → sources | FPI-00 |
+| P-LPS | Ouvrir LPS → disclosure décisions/preuves | FPI-00 → FPI-01 |
+| P-EXP | Ouvrir Expert → inspecter routing | FPI-00 → FPI-02 |
+| P-N2 | Proposition delta → Confirmer apply | FPI-00 → FPI-03 → FPI-00 |
+| P-N3 | Gate structurante → GO/NO-GO | FPI-00 → FPI-04 → FPI-00 |
+| P-OFF | Digression → orientation / fallback B | FPI-00 → FPI-05 |
+| P-DOWN | Provider down sur action structurante | FPI-00 → FPI-06 |
 
 ---
 
-## 8. Décisions différées
+## 4. Parcours adversariaux
 
-**NOT DECIDED — MORRIS DECISION REQUIRED :**
+| ID | Scénario | Comportement |
+|---|---|---|
+| A-1 | Demande secret / contournement | Refus · pas digression · audit · éventuel N3/STOP |
+| A-2 | Mutation déguisée en chat | Escalade N2 · pas apply silencieux |
+| A-3 | Faux GO dans composer | Non consommé · message niveau insuffisant |
+| A-4 | Override hard budget | N3 requis · sinon stop |
+| A-5 | Source hors allowlist | Source refusée · pas de claim |
+| A-6 | Doctrine stale + décision | Fail-closed structurant |
+| A-7 | Autre Project demandé | Pas digression · clarification / refus |
 
-| ID | Avant |
+---
+
+## 5. Escalade N1→N2→N3 (déterministe)
+
+Reprend §11 de `94`. Mapping actions = matrice document `92`/`93` **non modifiée**.
+
+| Transition | Règle |
 |---|---|
-| D-ASST-AF-01 | Architecture technique |
-| D-ASST-AF-02 | Architecture technique |
-| D-ASST-FPI-01 | Backlog |
-| D-ASST-FPI-02 | Architecture technique |
-| D-ASST-FPI-03 | Architecture technique |
-| D-ASST-FPI-07 | Architecture technique |
-| D-ASST-FPI-08 | Architecture technique |
-| D-ASST-FPI-09 | Architecture technique |
-| D-ASST-FPI-10 | Architecture technique |
-| D-ASST-FPI-12 | Delivery |
-| D-ASST-FPI-13 | Pilote |
-| D-ASST-FPI-14 | Tech (soft) / Pilote (hard) |
-| D-ASST-FPI-15 | Architecture technique |
-
-**D-ASST-FPI-16 :** CONSOLIDATED UNDER D-ASST-AF-03 — IDENTIFIER RETAINED — NOT INDEPENDENTLY DECIDED.
+| N1→N2 | Toute condition §11 `94` ; doute → N2 |
+| N2→N3 | Toute condition §11 `94` ; doute → N3 |
+| Insuffisant | Bloquer · expliquer · proposer élévation ou STOP |
 
 ---
 
-## 9. Réserve R-DEC-AF-01
+## 6. États complémentaires
 
-| Champ | Valeur |
+| État | Message | Action OK | Interdit | N | Impact Project | Audit | A11y |
+|---|---|---|---|---|---|---|---|
+| initial | « Project prêt » | composer | mutation | N1 | none | session | focus composer |
+| loading | « Chargement… » | wait/cancel | claims | N1 | none | yes | polite live |
+| streaming | « Réponse en cours » | stop | apply | N1 | none | yes | throttled live |
+| source en cours | « Source… » | wait | claim final | N1 | none | tool | status text |
+| source refusée | « Source refusée » | autres sources | force | N1 | none | deny | alert |
+| doctrine stale | « Doctrine périmée » | refresh/STOP | GO | N3 si struct. | block struct | yes | alert |
+| CKC synthetic | « CKC synthétique » | continue discret | cacher | N1 | none | yes | text+icon |
+| contradiction | « Contradiction » | expert / N2-N3 | ignore | N2/N3 | possible | yes | alert |
+| output invalide | « Sortie invalide » | retry | apply | N1 | none | yes | alert |
+| annulation | « Annulé » | resume | force | N1 | none | yes | status |
+| timeout | « Délai dépassé » | retry | silent success | N1 | none | yes | alert |
+| budget soft | « Plafond souple » | N2 override / stop | ignore | N2 | usage | yes | dialog |
+| niveau insuffisant | « Confirmation insuffisante » | elevate / cancel | bypass | — | block | yes | alert |
+| absence preuve | « Preuve manquante » | collect / STOP | GO | N3 si struct. | block | yes | alert |
+| empty conversation | invite Project | start | dump | N1 | none | — | heading |
+| empty LPS | « LPS vide » | bootstrap N2? | fake data | N1 | none | — | status |
+| absence espace général | fallback B copy | stay Project | load Project sources | N1 | none | yes | status |
+
+---
+
+## 7. Transitions
+
+Composer → stream → message final (N1).
+Proposition persistante → ConfirmationRequest N2 → apply/cancel.
+Gate structurante → FPI-04 → consume/NO-GO.
+Provider down structurant → FPI-06 fail-closed.
+Fermeture overlay → focus restore conversation.
+
+---
+
+## 8. Source de vérité
+
+| Donnée | Source de vérité |
 |---|---|
-| **ID** | R-DEC-AF-01 |
-| **Libellé** | UX/UI MUST DEFINE DETERMINISTIC N1/N2/N3 ESCALATION AND CONFIRMATION SURFACES |
-| **Statut** | **OPEN** |
-| **Propriétaire candidat** | cycle UX/UI |
-| **Gate** | GO UX/UI … APPLY VALIDATED FUNCTIONAL DECISIONS |
-| **Critères de fermeture** | critères N1→N2 et N2→N3 · représentation visuelle 3 niveaux · distinction confirmation/décision/GO/autorisation · actions formulation explicite vs UI · accessibilité · erreurs niveau insuffisant |
-| **Preuve attendue** | contrat visuel / scénarios UX couvrant la matrice §5 |
+| LPS validé | Project store (conceptuel) |
+| Delta candidat | UI candidate jusqu’à N2 |
+| Doctrine | DoctrinePackage pin |
+| Conversation | transcript ACL |
+| Décision | HumanDecision record |
+| Git distant | hors FPI UI claim |
 
 ---
 
-## 10. Statut de l’Architecture fonctionnelle
+## 9. Gates
 
-**ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS**
-
-**Autorise :** entrée cycle UX/UI après validation du présent cycle · utilisation de `91` + décisions Lane A comme contrat · dual-track comme trajectoire · AF-04=B pour handoffs projet.
-
-**N’autorise pas :** baseline publiée sur main · Architecture technique · Backlog · Delivery · OpenAI réel · implémentation · modification doctrine/méthode · fermeture R-DEC-AF-01 hors UX.
+N2 = confirmation UI bornée.
+N3 = gate décision Morris / autorité.
+Exécution Cursor/Git/merge = hors FPI (N3 futur, non autorisé ici).
 
 ---
 
-## 11. Trajectoire mise à jour
+## 10. Copy fonctionnelle (extraits)
 
-1. UX/UI — ouvrable après validation ChatGPT du présent cycle (gate candidate).
-2. Architecture technique — parallèle **uniquement** avec GO propre (pas encore).
-3. Backlog — bloqué (FPI-01 et décisions Tech ouvertes).
-4. Delivery — non autorisé.
-5. OpenAI réel — non intégré.
-
----
-
-## 12. Prochaine gate candidate
-
-`GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT — APPLY VALIDATED FUNCTIONAL DECISIONS`
-
-Statut : **candidate uniquement — non consommée**.
-
-Autoriserait : UX/UI · contrat visuel · parcours · surfaces · états · confirmations N1–N3 · R-DEC-AF-01 · Figma si inclus dans le prompt.
-
-N’autoriserait pas : Tech · OpenAI · développement · Cursor réel · Git write · Backlog · Delivery.
+- N1 reco : « Recommandation — non appliquée. »
+- N2 : « Confirmer l’application de ce delta au Project ? »
+- N3 : « Formuler le GO explicitement pour consommer cette décision. »
+- Hors-sujet : « Hors périmètre Project — non mémorisé. »
+- Fail-closed : « Fournisseur indisponible — aucune décision consommée. »
+- Niveau insuffisant : « Niveau N2 requis — action bloquée. »
 
 ---
 
-## 13. Verdict documentaire
+## 11. Accessibilité parcours
 
-**FUNCTIONAL ARCHITECTURE SELECTED DECISIONS APPLIED — D-ASST-FPI-04, D-ASST-FPI-05, D-ASST-FPI-06, D-ASST-FPI-11, D-ASST-AF-03 AND D-ASST-AF-04 DECIDED BY MORRIS — ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS — R-DEC-AF-01 OPEN FOR UX/UI — NO TECHNICAL ARCHITECTURE OR IMPLEMENTATION AUTHORIZED — READY FOR CHATGPT VALIDATION AND UX/UI GATE**
+Tab order : rail → top → conversation → panel → composer → overlays.
+N2/N3 : focus trap · Escape = annuler · retour focus déclencheur.
+Badges : texte + icon · pas couleur seule.
+
+---
+
+## 12. Preuves
+
+| Preuve | Statut |
+|---|---|
+| Documents 94–96 | Produits |
+| Frames Figma + screenshots | **ABSENTS** |
+| Runtime | Pending |
+
+Maximum : `FIGMA CONTRACT COMPLETE — RUNTIME COMPARISON PENDING` **non atteint**.
 ```
 
-## 16. Diff complet
+## 25–26. Decision Pack — contenu complet document 96
+
+Path : `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md` · lines=172 · sha256=`9e4fbd2fa8cbf613ee0d3931c3f7ff46a07fc79650f55c1fa3907d76d63930db`
+
+```markdown
+# 96 — Decision Pack UX/UI candidat — Assistant SFIA natif OpenAI FPI
+
+| Métadonnée | Valeur |
+|---|---|
+| **Document** | `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md` |
+| **Statut** | DRAFT FOR MORRIS ARBITRATION — NO UX DECISION CONSUMED |
+| **Cycle** | UX/UI FPI |
+| **GO** | 2026-08-04 23:46 CEST |
+| **Figma** | Evidence **MISSING** this cycle |
+| **R-DEC-AF-01** | **OPEN** — documentary definitions present ; Figma proof absent ; **not** CLOSED |
+
+> Aucune décision D-ASST-UX n’est consommée. Recommandations = candidates uniquement.
+
+---
+
+## 1. Décisions candidates
+
+### D-ASST-UX-01 — Architecture d’information
+**Statut :** NOT DECIDED
+**Contexte :** Adapter baseline copilote latéral → conversation dominante + panneau contexte.
+**Options :** A) conserver chat latéral + canvas non-chat · B) conversation centrale + panneau contexte/LPS/expert · C) dual chat
+**Reco candidate :** **B**
+**Impacts :** doctrine v3 conversation-first · FPI-04/05
+**Dette :** tokens Figma live
+**A11y / Sécu :** focus conversation ; ACL panel
+**Réversibilité :** haute (doc+Figma candidate)
+**Preuve Figma :** **MISSING**
+**Morris :** choisir A/B/C
+
+### D-ASST-UX-02 — Périmètre sept frames
+**Statut :** NOT DECIDED
+**Options :** A) 7 frames FPI-00…06 · B) réduire · C) étendre
+**Reco :** **A** (spécifiées dans `95`)
+**Preuve Figma :** MISSING — frames non créées
+**Morris :** valider périmètre après Figma
+
+### D-ASST-UX-03 — Pattern N2
+**Statut :** NOT DECIDED
+**Options :** A) modal centré · B) drawer droit · C) inline expand
+**Reco :** **B** drawer (garde conversation visible)
+**Impacts :** FPI-11 · R-DEC-AF-01
+**A11y :** focus trap · SR summary
+**Preuve Figma :** MISSING
+**Morris :** A/B/C
+
+### D-ASST-UX-04 — Pattern N3
+**Statut :** NOT DECIDED
+**Options :** A) adapter P0-03C full canvas · B) overlay fort · C) page dédiée hors shell
+**Reco :** **A** (continuité baseline)
+**Impacts :** distinction GO
+**Preuve Figma :** MISSING
+**Morris :** A/B/C
+
+### D-ASST-UX-05 — Panneau expert
+**Statut :** NOT DECIDED
+**Options :** A) onglet Expert dans panneau · B) drawer temporaire · C) mode plein écran
+**Reco :** **A** (FPI-04=D)
+**Interdits :** prompt/scores/secrets
+**Preuve Figma :** MISSING
+**Morris :** A/B/C
+
+### D-ASST-UX-06 — Preuves clés
+**Statut :** NOT DECIDED
+**Options :** A) définition `94` §9 · B) preuves = toutes citations · C) preuves = artefacts Git seulement
+**Reco :** **A**
+**Impacts :** FPI-05=C
+**Preuve Figma :** MISSING
+**Morris :** A/B/C
+
+### D-ASST-UX-07 — Hors-sujet
+**Statut :** NOT DECIDED
+**Options :** A) FPI-06=D + fallback B tel `94` · B) refus total digressions · C) workspace général obligatoire avant FPI
+**Reco :** **A**
+**Preuve Figma :** MISSING
+**Morris :** A/B/C
+
+### D-ASST-UX-08 — Provider unavailable
+**Statut :** NOT DECIDED
+**Options :** A) bi-niveau non-struct/struct fail-closed · B) toujours bloquer · C) toujours dégrader
+**Reco :** **A**
+**Preuve Figma :** MISSING
+**Morris :** A/B/C
+
+### D-ASST-UX-09 — Responsive 1280
+**Statut :** NOT DECIDED
+**Options :** A) contrat candidat only · B) 1 stress frame · C) 7 duplicatas 1280
+**Reco :** **A** (ou B si Figma dispo et scope maîtrisé)
+**Statut 1280 :** CANDIDATE — NOT VALIDATED
+**Preuve Figma :** MISSING
+**Morris :** A/B/C
+
+### D-ASST-UX-10 — Statut R-DEC-AF-01
+**Statut :** NOT DECIDED
+**Options :** A) SATISFIED — CLOSURE RECOMMENDED · B) OPEN pending Figma · C) OPEN pending Morris only
+**Reco candidate ce cycle :** **B — OPEN pending Figma evidence**
+**Justification :** seuils N1→N2 / N2→N3 · surfaces · distinctions confirmation/décision/GO · a11y documentaire · erreurs niveau = **définis dans 94/95** ; **preuves Figma absentes** (critère de fermeture non rempli).
+**Ne pas déclarer CLOSED** sans validation ChatGPT + décision Morris.
+**Morris :** trancher A/B/C après Figma + review
+
+---
+
+## 2. Synthèse recommandations candidates
+
+| ID | Reco |
+|---|---|
+| UX-01 | B conversation dominante |
+| UX-02 | A sept frames |
+| UX-03 | B drawer N2 |
+| UX-04 | A P0-03C adapté |
+| UX-05 | A onglet Expert |
+| UX-06 | A preuve clé liée au claim |
+| UX-07 | A digression + fallback B |
+| UX-08 | A bi-niveau fail-closed |
+| UX-09 | A contrat 1280 only |
+| UX-10 | B R-DEC-AF-01 OPEN pending Figma |
+
+---
+
+## 3. Réserves
+
+| ID | Statut | Note |
+|---|---|---|
+| R-DEC-AF-01 | **OPEN** | Doc OK · Figma missing |
+| R-UX-FPI-01 | OPEN | MCP Figma unavailable |
+| R-UX-FPI-02 | OPEN | Tokens Product premium non re-extraits live |
+| R-UX-FPI-03 | OPEN | A11y runtime pending |
+| R-UX-FPI-04 | OPEN | 1280 not validated |
+| R-UX-04 (hist.) | OPEN | Tokens delivery — héritée baseline |
+
+---
+
+## 4. Dette
+
+- Créer page Figma candidate + 7 frames + screenshots
+- Reconfirmer baseline node IDs live
+- Extraire variables/styles
+- Stress 1280 optionnel
+- Audit a11y runtime ultérieur
+
+---
+
+## 5. Décisions Morris requises
+
+Consommer D-ASST-UX-01…10 via gate dédiée **après** preuves Figma + validation ChatGPT.
+Trancher R-DEC-AF-01 (fermeture ou maintien).
+Statut page Figma candidate.
+Travaux UX complémentaires éventuels.
+
+---
+
+## 6. Prochaine gate candidate
+
+`GO DECISIONS UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED VISUAL CONTRACT`
+
+Statut : **candidate — non consommée** (et **prématurée** tant que Figma evidence manquante pour un READY complet).
+
+N’autorise pas auto : Tech · OpenAI · dev · Backlog · Delivery · modif baseline Figma · publish docs · merge.
+
+Gate intermédiaire recommandée (candidate) :
+`GO UX/UI … COMPLETE FIGMA CANDIDATE PAGE AND FRAMES` — non consommée.
+
+---
+
+## 7. Anti-claims
+
+Pas de décision UX validée · pas baseline visuelle nouvelle · R-DEC-AF-01 non closed · pas FIGMA CONTRACT COMPLETE · pas runtime aligné · pas Tech/implémentation.
+
+---
+
+## 8. Verdict pack
+
+Decision Pack UX **préparé**. Aucune décision consommée. Figma evidence missing. R-DEC-AF-01 OPEN.
+```
+
+## 27. Diffs complets
+
+### Diff 94
 
 ```diff
-diff --git a/projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md b/projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md
+diff --git a/projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md b/projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md
 new file mode 100644
 --- /dev/null
-+++ b/projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md
-+# 93 — Décisions Architecture fonctionnelle appliquées — Assistant SFIA natif OpenAI
++++ b/projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md
++# 94 — Contrat UX/UI candidat — Assistant SFIA natif OpenAI FPI
 +
 +| Métadonnée | Valeur |
 +|---|---|
-+| **Document** | `projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md` |
-+| **Statut** | DECISIONS APPLIED — TRACE ONLY |
-+| **Cycle** | Architecture fonctionnelle — application des décisions |
++| **Document** | `projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md` |
++| **Statut** | CANDIDATE DOCUMENTARY CONTRACT — FIGMA EVIDENCE MISSING |
++| **Cycle** | UX/UI — Assistant SFIA natif OpenAI FPI |
 +| **Profil** | Standard |
-+| **Typologie** | EVOL / DOC |
-+| **GO** | GO DECISIONS ARCHITECTURE FONCTIONNELLE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY … — 2026-08-04 23:33 CEST (+0200) |
++| **Typologie** | EVOL / UX / DOC |
++| **GO** | GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT — APPLY VALIDATED FUNCTIONAL DECISIONS — 2026-08-04 23:46 CEST (+0200) |
 +| **Autorité** | Morris |
 +| **Baseline main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
-+| **Handoff Decision Pack entrant** | `5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb` / blob `a22720ba727ae6c1d961f9b803858b110a872f82` |
++| **Handoff entrant** | `dbc41bfb8cdf66724a38e1bcbf1c101e0b063edc` / blob `ea6c2633750e4ef3556889717f2f074ee6ffc8ab` |
 +| **Doctrine conduite** | SFIA v2.6 |
 +| **Doctrine produit** | SFIA Studio v3 exclusive |
-+| **Sources inchangées** | `90` SHA `2d5a03f3…1a78b2` · `91` SHA `0517aa6c…8e83e1` · `92` SHA `0af5a906…c841d4` (473 lignes) |
++| **Figma fileKey** | `lrjA1WEyRpL05vKR8k29LO` (cible) |
++| **Figma page candidate** | `UX-FPI — Assistant SFIA natif OpenAI` — **NOT CREATED THIS CYCLE** |
++| **R-DEC-AF-01** | **OPEN** — définitions documentaires produites ; preuves Figma absentes |
 +
-+> Ce document **trace** les décisions consommées. Il ne réécrit pas rétroactivement 90/91/92.
-+
-+---
-+
-+## 1. Statut
-+
-+Six décisions Lane A / B / E **DECIDED** par Morris le 2026-08-04 23:33 CEST.
-+
-+Statut Architecture fonctionnelle :
-+
-+**ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS**
-+
-+Anti-claims : pas toutes les D-ASST validées · pas Tech autorisée · pas Backlog/Delivery · pas OpenAI intégré · pas UX exécuté · pas Figma · pas publication main · pas doctrine/méthode modifiées · pas MVP.
++> Contrat UX/UI **candidat**. Ne remplace pas la baseline 14–16. Aucune décision D-ASST-UX consommée. Aucune Architecture technique.
 +
 +---
 +
-+## 2. Décision Morris source
++## 1. Statut et anti-claims
++
++**Produit :** contrat documentaire complet + définitions N1–N3 / LPS / expert / hors-sujet / provider.
++
++**Non produit :** page Figma candidate · frames FPI-00…06 · screenshots · node IDs live · comparaison runtime.
++
++**Anti-claims :** UX non validée Morris · pas nouvelle baseline visuelle · R-DEC-AF-01 non closed · runtime non aligné · a11y non entièrement validée · responsive non validé · Tech/OpenAI/code/Backlog/Delivery non autorisés · MVP non livré.
++
++---
++
++## 2. Sources
++
++| Source | Rôle |
++|---|---|
++| Docs `14`–`16` (main) | Baseline UX Product premium — **inchangée** |
++| Docs `90`–`93` | Cadrage / AF / Decision Pack / décisions appliquées — **inchangés** |
++| Décisions Morris | FPI-04=D · FPI-05=C · FPI-06=D · FPI-11=ACCEPT · AF-03=C · AF-04=B |
++| CKC UX détaillé baseline | **Absent** — fallback template + méthode UX + 14–16 + 90–93 + v3 |
++| MCP Figma | **Indisponible** dans ce workspace (`plugin-figma-figma` absent) |
++
++---
++
++## 3. Relation avec baseline 14–16
++
++| Élément baseline | Réutilisation FPI |
++|---|---|
++| Utility rail · top bar · Product premium · typo · densité · cards · pills · brand accent | **Réutiliser** (tokens exacts = réserve jusqu’à extraction Figma live) |
++| Panneau copilote latéral comme chat secondaire | **Adapter** — conversation devient surface principale ; panneau = contexte Project / LPS / expert |
++| P0-00C…P0-03C / page UX-B — P0 | **Intactes** — ne pas modifier |
++| Gate P0-03C | **Pattern source** pour FPI-04 (N3) — adaptation documentaire |
++
++La baseline historique reste la référence d’implémentation initiale Studio hors Assistant FPI. Ce contrat est un **incrément candidat** conversation-dominant.
++
++---
++
++## 4. Décisions fonctionnelles appliquées (UX)
++
++| ID | Option | Effet UX |
++|---|---|---|
++| D-ASST-FPI-04 | D | Routage discret ; expert optionnel ; jamais prompt/scores/secrets |
++| D-ASST-FPI-05 | C | LPS = résumé + décisions + réserves + preuves clés ; progressive disclosure |
++| D-ASST-FPI-06 | D | Digression mineure + orientation espace général ; fallback B |
++| D-ASST-FPI-11 | ACCEPT_CANDIDATE_MATRIX | Matrice N1–N3 inchangée ; surfaces définies ici |
++| D-ASST-AF-03 | C | Contrats UX-Tech produits ; Tech non lancée |
++| D-ASST-AF-04 | B | Handoff mono-commit ; tip/blob externes |
++
++---
++
++## 5. Principes visuels
++
++1. Conversation dominante (≥ ~55 % largeur utile canvas).
++2. Un seul assistant conversationnel — pas de second chat latéral.
++3. Panneau droit = contexte Project / LPS / décisions / réserves / preuves / expert.
++4. Routage invisible par défaut ; badges discrets seulement si utiles.
++5. Validé ≠ candidat (badges et zones séparées).
++6. Confirmation ≠ décision ≠ GO ≠ autorisation d’exécution.
++7. SFIA Studio porte la responsabilité produit face à OpenAI (statut fournisseur, fail-closed).
++8. Product premium préservé ; tokens inventés interdits sans extraction Figma.
++9. Non-chevauchement des gates / statuts / CTA critiques.
++10. Aucune pré-sélection dangereuse.
++
++---
++
++## 6. Architecture d’information
 +
 +```text
-+GO DECISIONS ARCHITECTURE FONCTIONNELLE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI —
-+APPLY
-+D-ASST-FPI-04=D
-+D-ASST-FPI-05=C
-+D-ASST-FPI-06=D
-+D-ASST-FPI-11=ACCEPT_CANDIDATE_MATRIX
-+D-ASST-AF-03=C
-+D-ASST-AF-04=B
-+
-+RESERVES
-+R-DEC-AF-01 — UX/UI MUST DEFINE DETERMINISTIC N1/N2/N3 ESCALATION AND CONFIRMATION SURFACES
-+
-+DEFERRED — NOT DECIDED
-+D-ASST-AF-01
-+D-ASST-AF-02
-+D-ASST-FPI-01
-+D-ASST-FPI-02
-+D-ASST-FPI-03
-+D-ASST-FPI-07
-+D-ASST-FPI-08
-+D-ASST-FPI-09
-+D-ASST-FPI-10
-+D-ASST-FPI-12
-+D-ASST-FPI-13
-+D-ASST-FPI-14
-+D-ASST-FPI-15
-+D-ASST-FPI-16
++[ Utility rail 64px ]
++[ Top bar : Project · DoctrineStatus · Usage discret · Provider ]
++[ Main: Conversation (dominante) ] [ Context panel: LPS / Expert tabs ]
++[ Composer + N1 inline affordances ]
++[ Overlay/drawer N2 | Decision surface N3 ]
 +```
 +
-+Contexte : message Morris « ok go » sur le bloc d’arbitrage du document 92 / handoff Decision Pack.
++**Modes panneau :** `Context` (défaut) · `LPS` · `Expert` (optionnel) · `Evidence`.
 +
 +---
 +
-+## 3. Décisions appliquées
++## 7. Shell
 +
-+### 3.1 D-ASST-FPI-04 = D — DECIDED
++Réutilise rail + top bar baseline. Top bar FPI expose : Project identity · DoctrinePackage status (discret / erreur) · cycle courant éventuel · provider pill · usage résumé. CTA globaux non destructifs sans N2/N3.
 +
-+| Champ | Valeur |
++---
++
++## 8. Conversation (FPI-00)
++
++- Historique messages ; streaming ; composer.
++- Labels épistémiques : Observation · Hypothèse · Recommandation · Proposition (sans apply).
++- Sources : chip « Sources » → disclosure progressive.
++- N1 : inline ; pas de modal ; pas de langage GO.
++- Empty conversation : invite Project-aware.
++- Interdit : mutation silencieuse ; auto-GO ; dump LPS.
++
++---
++
++## 9. Living Project State (FPI-01) — FPI-05=C
++
++### Toujours visible (résumé)
++Identité Project · objectifs résumé · DoctrinePackage status · cycle courant éventuel.
++
++### Progressive disclosure
++Décisions · réserves · preuves clés · trajectoire résumé · deltas candidats (zone séparée).
++
++### Preuve clé — définition FPI
++Une **preuve clé** est une preuve **directement liée** au claim ou à la décision active, avec : source identifiée · statut lisible · fraîcheur · lien détail · **jamais** liste exhaustive par défaut.
++
++### Séparations
++LPS validé ≠ LpsDeltaCandidate · LPS ≠ transcript · LPS ≠ trajectoire · ACL par rôle · aucun dump brut.
++
++---
++
++## 10. Routage expert (FPI-02) — FPI-04=D
++
++Panneau Expert optionnel ; conversation reste visible.
++
++**Visible expert :** intention · mode · cycle candidat · CKC detailed/synthetic/absent · DoctrinePackage · sources requises/consultées · outils · contradictions · allowlist · statut preuve.
++
++**Jamais :** prompt système · raisonnement · scores · CKC brut · secrets · chemins non filtrés.
++
++---
++
++## 11. Confirmations N1 / N2 / N3
++
++### N1
++Critères : RO · réversible · pas mutation · pas exec externe · proposition sans apply.
++Surface : inline · pas modal · pas langage GO · sources ouvertes · audit discret.
++
++### Escalade N1 → N2 (déterministe)
++Escalader si ≥1 : mutation Project bornée · apply delta · export · conservation/suppression conversation · confirmation à effet persistant · soft budget · ambiguïté d’effet persistant.
++**Doute → N2.**
++
++### N2 (FPI-03)
++Surface : carte/drawer · action · objet · avant/après · portée · réversibilité · source · autorité · preuve · Confirmer / Annuler · **pas de pré-sélection** · **pas de GO** · focus trap · retour conversation.
++Cas référence : apply LPS delta **ou** export ExecutionContract candidat.
++
++### Escalade N2 → N3 (déterministe)
++Escalader si ≥1 : décision structurante · DoctrinePackage · exec externe · Git/merge futurs · hard budget · risque élevé · faible réversibilité · inter-Project · autorité Morris · contradiction structurante · doute autorité.
++**Doute → N3.**
++
++### N3 (FPI-04)
++Surface dédiée (pattern P0-03C adapté) : décision · options · reco **séparée** · preuves · réserves · dette · autorité Morris · portée · durée · révocabilité · autorisé/non autorisé · formulation GO explicite · NO-GO / amendement / annulation · confirmation forte · **aucune décision produite par l’Assistant**.
++
++### Distinction
++| Concept | Signification UX |
 +|---|---|
-+| **Option** | Routage discret par défaut + panneau expert optionnel |
-+| **Date** | 2026-08-04 23:33 CEST |
-+| **Autorité** | Morris |
-+| **Preuve** | GO DECISIONS … APPLY ; pack `92` §2 |
++| Confirmation | Accord UI sur effet borné (N2) |
++| Décision | Choix d’option structurante (N3) |
++| GO | Formulation explicite consommée sous autorité |
++| Autorisation d’exécution | Hors FPI pour Cursor/Git/merge — N3 futur |
 +
-+**Effets :** conversation non surchargée · mode/cycle discret si utile · sources progressives · statut doctrine si erreur/besoin · panneau expert (intention, CKC, outils, allowlist, contradictions) · pas de CKC brut / scores / prompt système · pas de secrets/chemins sensibles en vue experte.
++### Erreur niveau insuffisant
++Message clair · action bloquée · niveau requis · CTA « Élever la confirmation » ou STOP · audit · **pas** de contournement.
 +
-+**Limites :** aucun layout validé. **Dette :** seuils « utile ». **Cycles :** UX/UI. **Réserves :** aucune propre.
++---
 +
-+### 3.2 D-ASST-FPI-05 = C — DECIDED
++## 12. Hors-sujet (FPI-05) — FPI-06=D
 +
-+| Champ | Valeur |
++Digression mineure : réponse courte éventuelle · « non intégré au Project » · CTA espace général · sinon fallback B (sobre · rappel Project · pas sources Project · pas LPS/trajectoire/mémoire).
++Non digression : structurant · autre Project · secret · contournement · mutation hors gate → N2/N3 ou refus.
++
++---
++
++## 13. Erreurs et provider (FPI-06)
++
++**Non structurant :** erreur claire · retry · mode dégradé sans claim.
++**Structurant :** fail-closed · aucune décision consommée · aucune mutation · raison · source manquante · prochaine action sûre.
++Doctrine stale · source refusée · output invalide · timeout : messages + actions/interdits documentés dans `95`.
++
++Responsabilité Studio : afficher ProviderStatus · ne pas attribuer une décision OpenAI comme décision Morris.
++
++---
++
++## 14. Accessibilité (WCAG 2.2 AA — cible)
++
++Clavier · tab order · focus visible · focus trap N2/N3 · SR labels badges · statut ≠ couleur seule · erreurs champs · contraste · cibles · streaming sobre · live regions · retour focus après fermeture · pas de pré-sélection dangereuse · `prefers-reduced-motion`.
++**Non déclaré entièrement validé** (pas de runtime / pas de frames).
++
++---
++
++## 15. Sécurité / RGPD UX
++
++Redaction · secret détecté · source refusée · ACL · non-envoyable OpenAI · suppression/conservation conversation (N2) · export (N2) · indication partage fournisseur · confidentialité source.
++Jamais : secret · token · prompt · raisonnement · fichier confidentiel complet par défaut · chemin non filtré.
++
++---
++
++## 16. FinOps / observabilité UX
++
++Discret en top bar ; détail Expert ; N2/N3 si override budget.
++Champs : provider · usage résumé · coût estimé (si fourni) · soft/hard · durée · outils/sources · corrélation.
++**Pas de tarif inventé.**
++
++---
++
++## 17. Responsive
++
++| Viewport | Statut |
 +|---|---|
-+| **Option** | LPS visible = résumé + décisions + réserves + preuves clés ; progressive disclosure = mécanisme UX |
-+| **Date** | 2026-08-04 23:33 CEST |
-+| **Autorité** | Morris |
-+| **Preuve** | GO ; pack `92` §3 |
++| 1440 × 1024 | Contrat principal FPI (frames prévues) |
++| 1280 × 832 | Candidat stress — **NOT VALIDATED** ; max 1 frame si Figma dispo |
++| Mobile / tablette | Hors FPI |
 +
-+**Effets :** immédiat = identité Project, DoctrinePackage status, cycle courant éventuel, résumé objectifs · progressif = décisions, réserves, preuves clés, trajectoire · validé ≠ delta candidat · LPS ≠ transcript ≠ trajectoire · pas dump CKC / raisonnement / secrets · ACL par rôle.
++Stratégie 1280 candidate : compresser panneau (tabs) ; conserver conversation dominante ; N2/N3 full-height drawer.
 +
-+**Limites :** définition « preuve clé » = UX/UI. **Cycles :** UX/UI.
++---
 +
-+### 3.3 D-ASST-FPI-06 = D — DECIDED
++## 18. Contrat UX-Tech (informations UI — non schéma exécutable)
 +
-+| Champ | Valeur |
++| Information | Surface | Min | Interdit | Loading | Empty | Error | Notes tech ouvertes |
++|---|---|---|---|---|---|---|---|
++| ProjectSummary | shell / LPS | id, name, goals | secrets | skeleton | invite | error banner | storage |
++| DoctrineStatus | shell / expert | pin, status | package dump | pulse | n/a | stale banner | resolution |
++| ConversationMessage | main | role, text, epistemic | chain-of-thought | stream | empty state | retry | provider |
++| StreamingState | main | phase | tokens bruts | indicator | — | timeout | SDK |
++| IntentResolutionSummary | expert | intent label | scores | — | absent | contradiction | taxonomy |
++| CycleCandidateSummary | expert / shell | id, status | auto-start | — | none | block | qualification |
++| CkcResolutionSummary | expert | detailed/synthetic/absent | CKC brut | — | absent | — | CKC store |
++| SourceCitation | disclosure | title, status, freshness | full confidential | fetching | none | refused | allowlist |
++| ToolInvocationSummary | expert | tool, outcome | secrets/paths | running | none | denied | tools |
++| LpsSummary | panel | résumé sections | dump | skeleton | empty LPS | error | LPS model |
++| DecisionSummary | LPS | id, status, scope | false validated | — | none | — | decisions |
++| ReserveSummary | LPS | id, status | — | — | none | — | reserves |
++| KeyEvidenceSummary | LPS | claim-link, source, freshness | exhaustive list | — | none | missing | evidence |
++| LpsDeltaCandidateSummary | LPS candidate zone | before/after | auto-apply | — | none | invalid | apply N2 |
++| TrajectorySummary | LPS progressive | summary | full dump | — | none | — | traj |
++| ConfirmationRequest | N2/N3 | level, action, scope | preselect | — | — | insufficient level | policy |
++| ConfirmationLevel | all | N1/N2/N3 | — | — | — | — | matrix |
++| ProviderStatus | shell / FPI-06 | up/degraded/down | keys | checking | — | fail-closed | OpenAI |
++| UsageSummary | shell / expert | tokens/cost est. | invent tariffs | — | — | soft/hard | FinOps |
++| FunctionalError | banners | code, message, next | stack | — | — | — | mapping |
++| AccessPolicySummary | LPS / ACL | role, visibility | escalate silent | — | denied | — | authZ |
++
++Fraîcheur / niveau de preuve / a11y : obligatoires sur chaque surface exposant un claim.
++
++---
++
++## 19. Figma manifest (état cycle)
++
++| Item | Valeur |
 +|---|---|
-+| **Option** | Digression mineure + orientation espace général ; fallback B si espace général absent |
-+| **Date** | 2026-08-04 23:33 CEST |
-+| **Autorité** | Morris |
-+| **Preuve** | GO ; pack `92` §4 |
-+
-+**Effets / fallback B :** digression sobre · rappel Project · pas sources Project · pas mutation LPS/trajectoire · pas mémoire Project.
-+
-+**Non digression :** action structurante · autre Project · secret · contournement doctrine.
-+
-+**Limites :** seuil détaillé = scénarios UX/policies. **Cycles :** UX/UI.
-+
-+### 3.4 D-ASST-FPI-11 = ACCEPT_CANDIDATE_MATRIX — DECIDED
-+
-+| Champ | Valeur |
-+|---|---|
-+| **Option** | Matrice N1–N3 du document 92 = contrat fonctionnel d’entrée UX/UI |
-+| **Date** | 2026-08-04 23:33 CEST |
-+| **Autorité** | Morris |
-+| **Preuve** | GO ; pack `92` §5 |
-+| **Réserve** | **R-DEC-AF-01 OPEN** |
-+
-+**Règles validées :**
-+- **N1** : lecture seule · réversible · pas mutation · réponse/recherche/proposition sans application
-+- **N2** : validation explicite · mutation Project bornée · apply delta · export · conservation/suppression conversation · soft budget override
-+- **N3** : décision structurante · DoctrinePackage · exécution externe · Git/merge futurs · hard budget · risque élevé / faible réversibilité
-+
-+Matrice complète : §5. Mapping non modifié ici.
-+
-+### 3.5 D-ASST-AF-03 = C — DECIDED
-+
-+| Champ | Valeur |
-+|---|---|
-+| **Option** | Dual-track borné UX/UI ∥ Architecture technique |
-+| **Date** | 2026-08-04 23:33 CEST |
-+| **Autorité** | Morris |
-+| **Preuve** | GO ; pack `92` §6 |
-+
-+**Contraintes :** Lane A décidée avant UX substantiel · contrats d’interface · cycles/gates/validations **séparés** · aucun cycle ne valide l’autre · pas d’implémentation pendant UX/Tech · sync décisions communes · stop si tech impose design silencieusement ou inversement.
-+
-+**N’autorise pas** le cycle Architecture technique (GO séparé requis).
-+
-+**D-ASST-FPI-16 :** CONSOLIDATED UNDER D-ASST-AF-03 — IDENTIFIER RETAINED FOR TRACEABILITY — NO SEPARATE DECISION REQUIRED UNLESS REOPENED BY MORRIS.
-+
-+### 3.6 D-ASST-AF-04 = B — DECIDED (projet SFIA Studio)
-+
-+| Champ | Valeur |
-+|---|---|
-+| **Option** | Handoff = parent + contenu + verdict + message ; tip/blob externes (rapport Cursor + ChatGPT) |
-+| **Date** | 2026-08-04 23:33 CEST |
-+| **Autorité** | Morris |
-+| **Preuve** | GO ; pack `92` §7 |
-+
-+**Contraintes :** pas d’auto-référence SHA · pas de refresh pour recopier tip/blob · mono-commit si pas de correction réelle · identité finale externe obligatoire · vérification ChatGPT · portée **projet** · pas de modification auto template/méthode · promotion méthode = GO dédié · manifeste immuable = option future distincte.
++| fileKey cible | `lrjA1WEyRpL05vKR8k29LO` |
++| Page baseline | UX-B — P0 (`0:1`) — **non modifiée** (non reconfirmée live) |
++| Frames baseline | `19:2` `22:2` `22:133` `22:270` — **intactes** (réf. docs 14) |
++| Page candidate | **NOT CREATED** |
++| Frames FPI-00…06 | **NOT CREATED** |
++| Screenshots | **ABSENT** → `UX/UI REVIEW INCONCLUSIVE — FIGMA SCREENSHOTS REQUIRED` |
++| Cause | MCP Figma absent du workspace ; pas de token API |
 +
 +---
 +
-+## 4. Contrat UX/UI d’entrée
++## 20. Verdict documentaire
 +
-+### Toujours visible
-+Project actif · identité Project · résumé objectifs · statut DoctrinePackage (au moins en erreur) · conversation dominante.
-+
-+### Progressivement visible
-+Décisions · réserves · preuves clés · trajectoire · sources consultées · mode/cycle lorsqu’utile.
-+
-+### Mode expert (optionnel)
-+Intention taxonomique · CKC detailed/synthetic/absent · outils · allowlist hits · contradictions.
-+
-+### Jamais visible
-+Dimensions CKC brutes · scores internes · prompt système · secrets · chemins sensibles non filtrés · dumps LPS intégraux non ACL · raisonnement modèle brut.
-+
-+### Hors-sujet (FPI-06=D)
-+Digression mineure OK + orientation espace général ; sinon fallback B ; jamais sources Project / mutation / mémoire Project pour hors-sujet.
-+
-+### Confirmations
-+- **N1** : pas de modal structurant ; audit suffisant
-+- **N2** : confirmation UI explicite avant mutation/export/TTL
-+- **N3** : formulation forte / décision explicite ; hors FPI pour Cursor/Git/merge
-+
-+### Erreurs
-+Doctrine stale · source refusée · niveau insuffisant · faux GO · OpenAI down (fail-closed structurant — détail Tech différé)
-+
-+### Accessibilité / sécurité
-+Statut non couleur-seul · confirmations clavier/lecteur d’écran · ACL · redaction
-+
-+---
-+
-+## 5. Matrice N1–N3 validée
-+
-+Source : document `92` §5 — **non altérée** (colonne Statut ajoutée uniquement pour traçabilité).
-+
-+| Action | Niveau candidat | Justification | Confirm visible | Autorité | Effet possible | Preuve | Erreur si insuffisant | Statut |
-+|---|---|---|---|---|---|---|---|---|
-+| Réponse explicative | N1 / none | réversible, pas mutation | non | — | réponse | audit msg | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Lecture Git RO | N1 | read-only | non | read | contenu filtré | ToolInvocation | access denied | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Consultation source allowlist | N1 | read-only | non | read | hits | ToolInvocation | source refused | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Qualification cycle (proposition) | N1–N2 | proposition vs engagement | discret si N2 | qualify | CycleCandidate | CycleQualification | block formalization | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Proposition LPS delta | N1 | propose only | non | propose | LpsDeltaCandidate | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| **Application** LPS delta | **N2** | mutation Project | oui | HumanDecision | LPS apply | Decision+audit | block mutation | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Proposition trajectoire | N1 | reco | non | propose | TrajectoryDeltaCandidate | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| **Validation** trajectoire | **N2/N3** | selon criticité | oui | HumanDecision | trajectory validated | Decision | block | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Recommandation | N1 | épistémique | non | — | Recommendation | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Création HumanDecision candidate | N1–N2 | préparation | selon UI | prepare | Decision candidate | audit | — | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| **Consommation** décision / GO | **N2/N3** | structurant | oui explicite | Decision Authority | consume | Decision record | faux GO non consommé | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Préparation ExecutionContract | N2 | contrat engagé conceptuellement | oui | prepare | EC candidate | EC audit | block build | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Export Markdown Cursor | N2 | artefact exportable | oui | export | CursorExport | audit | block export | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Lancement Cursor **futur** | **N3** | exécution externe | oui fort | exec authority | hors FPI | — | interdit FPI | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Git write **futur** | **N3** | irréversible repo | oui fort | write | hors FPI | — | interdit FPI | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Merge **futur** | **N3** | structurant repo | oui fort | merge | hors FPI | — | interdit FPI | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Changement DoctrinePackage | **N3** | doctrinal | oui fort | Morris | pin change | DoctrineResolution | fail-closed | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Dépassement budget | N2 soft / N3 hard override | FinOps | oui si override | admin/Morris | continue/stop | UsageRecord | stop soft/hard | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+| Conservation/suppression conversation | N2 | données personnelles | oui | user/admin | TTL/delete | audit | block delete | DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01 |
-+
-+**Règle synthétique validée (inchangée) :** N1 read-only réversible sans mutation · N2 validation/mutation bornée/export · N3 structurant / package / externe / Git futur.
-+
-+---
-+
-+## 6. Dual-track validé (AF-03=C)
-+
-+| Voie | Contenu | Gate |
-+|---|---|---|
-+| UX/UI | contrat visuel, parcours, surfaces, N1–N3 UI, R-DEC-AF-01 | GO UX/UI dédié |
-+| Architecture technique | OpenAI/knowledge routing ports | GO Tech dédié — **non autorisé encore** |
-+
-+Contrats d’interface communs · synchronisations explicites · validations séparées · stop conditions (§3.5).
-+
-+---
-+
-+## 7. Gouvernance handoff validée (AF-04=B)
-+
-+Contenu interne : parent · contenu · verdict · message · contexte pré-commit.
-+Preuve externe : tip/blob dans rapport Cursor + vérification ChatGPT.
-+Mono-commit · pas d’auto-référence · portée projet · méthode inchangée.
-+
-+---
-+
-+## 8. Décisions différées
-+
-+**NOT DECIDED — MORRIS DECISION REQUIRED :**
-+
-+| ID | Avant |
-+|---|---|
-+| D-ASST-AF-01 | Architecture technique |
-+| D-ASST-AF-02 | Architecture technique |
-+| D-ASST-FPI-01 | Backlog |
-+| D-ASST-FPI-02 | Architecture technique |
-+| D-ASST-FPI-03 | Architecture technique |
-+| D-ASST-FPI-07 | Architecture technique |
-+| D-ASST-FPI-08 | Architecture technique |
-+| D-ASST-FPI-09 | Architecture technique |
-+| D-ASST-FPI-10 | Architecture technique |
-+| D-ASST-FPI-12 | Delivery |
-+| D-ASST-FPI-13 | Pilote |
-+| D-ASST-FPI-14 | Tech (soft) / Pilote (hard) |
-+| D-ASST-FPI-15 | Architecture technique |
-+
-+**D-ASST-FPI-16 :** CONSOLIDATED UNDER D-ASST-AF-03 — IDENTIFIER RETAINED — NOT INDEPENDENTLY DECIDED.
-+
-+---
-+
-+## 9. Réserve R-DEC-AF-01
-+
-+| Champ | Valeur |
-+|---|---|
-+| **ID** | R-DEC-AF-01 |
-+| **Libellé** | UX/UI MUST DEFINE DETERMINISTIC N1/N2/N3 ESCALATION AND CONFIRMATION SURFACES |
-+| **Statut** | **OPEN** |
-+| **Propriétaire candidat** | cycle UX/UI |
-+| **Gate** | GO UX/UI … APPLY VALIDATED FUNCTIONAL DECISIONS |
-+| **Critères de fermeture** | critères N1→N2 et N2→N3 · représentation visuelle 3 niveaux · distinction confirmation/décision/GO/autorisation · actions formulation explicite vs UI · accessibilité · erreurs niveau insuffisant |
-+| **Preuve attendue** | contrat visuel / scénarios UX couvrant la matrice §5 |
-+
-+---
-+
-+## 10. Statut de l’Architecture fonctionnelle
-+
-+**ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS**
-+
-+**Autorise :** entrée cycle UX/UI après validation du présent cycle · utilisation de `91` + décisions Lane A comme contrat · dual-track comme trajectoire · AF-04=B pour handoffs projet.
-+
-+**N’autorise pas :** baseline publiée sur main · Architecture technique · Backlog · Delivery · OpenAI réel · implémentation · modification doctrine/méthode · fermeture R-DEC-AF-01 hors UX.
-+
-+---
-+
-+## 11. Trajectoire mise à jour
-+
-+1. UX/UI — ouvrable après validation ChatGPT du présent cycle (gate candidate).
-+2. Architecture technique — parallèle **uniquement** avec GO propre (pas encore).
-+3. Backlog — bloqué (FPI-01 et décisions Tech ouvertes).
-+4. Delivery — non autorisé.
-+5. OpenAI réel — non intégré.
-+
-+---
-+
-+## 12. Prochaine gate candidate
-+
-+`GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT — APPLY VALIDATED FUNCTIONAL DECISIONS`
-+
-+Statut : **candidate uniquement — non consommée**.
-+
-+Autoriserait : UX/UI · contrat visuel · parcours · surfaces · états · confirmations N1–N3 · R-DEC-AF-01 · Figma si inclus dans le prompt.
-+
-+N’autoriserait pas : Tech · OpenAI · développement · Cursor réel · Git write · Backlog · Delivery.
-+
-+---
-+
-+## 13. Verdict documentaire
-+
-+**FUNCTIONAL ARCHITECTURE SELECTED DECISIONS APPLIED — D-ASST-FPI-04, D-ASST-FPI-05, D-ASST-FPI-06, D-ASST-FPI-11, D-ASST-AF-03 AND D-ASST-AF-04 DECIDED BY MORRIS — ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS — R-DEC-AF-01 OPEN FOR UX/UI — NO TECHNICAL ARCHITECTURE OR IMPLEMENTATION AUTHORIZED — READY FOR CHATGPT VALIDATION AND UX/UI GATE**
++Contrat UX/UI documentaire **complet**. Preuve Figma **manquante**. R-DEC-AF-01 **OPEN**.
++Maximum autorisé : `FIGMA CONTRACT COMPLETE — RUNTIME COMPARISON PENDING` **non atteint**.
 ```
 
-## 17. Hash et lignes
+### Diff 95
 
-SHA-256 : `6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428`
-Lignes : 309
+```diff
+diff --git a/projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md b/projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md
++# 95 — Parcours, écrans et états — Assistant SFIA natif OpenAI FPI
++
++| Métadonnée | Valeur |
++|---|---|
++| **Document** | `projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md` |
++| **Statut** | CANDIDATE FLOWS — FIGMA FRAMES NOT MATERIALIZED |
++| **Companion** | `94` · `96` |
++| **GO** | 2026-08-04 23:46 CEST |
++| **Baseline frames Figma** | Non créées ce cycle — mapping fonctionnel ci-dessous |
++| **R-DEC-AF-01** | OPEN (preuves Figma absentes) |
++
++---
++
++## 1. Navigation FPI
++
++```text
++FPI-00 Conversation N1
++  ├─► FPI-01 LPS disclosure
++  ├─► FPI-02 Expert routing
++  ├─► FPI-03 Confirmation N2
++  ├─► FPI-04 Décision / GO N3
++  ├─► FPI-05 Hors-sujet
++  └─► FPI-06 Provider / fail-closed
++```
++
++Shell commun : rail + top bar + conversation dominante + panneau contexte.
++Retour conversation après fermeture N2/N3 (focus restore).
++
++---
++
++## 2. Sept frames candidates (spécification)
++
++Dimensions cibles : **1440 × 1024**. Statut : **CANDIDATE — NOT CREATED IN FIGMA**.
++
++### FPI-00 — Conversation Project / N1
++**Objectif :** conversation principale ; Project actif ; N1 sans modal.
++**Montre :** identité Project · objectifs · Doctrine discret · historique · composer · sources progressives · réponse Assistant · Observation/Hypothèse/Recommandation · LPS résumé panneau · **aucune** confirmation structurante.
++**node ID :** TBD — Figma missing.
++
++### FPI-01 — Living Project State / Progressive disclosure
++**Objectif :** FPI-05=C.
++**Montre :** résumé · décisions · réserves · preuves clés · trajectoire · validé ≠ delta · progressive disclosure · ACL · pas de dump.
++**Preuve clé :** liée au claim actif · source · statut · fraîcheur · lien détail · non exhaustive.
++**node ID :** TBD.
++
++### FPI-02 — Routage expert / Sources
++**Objectif :** FPI-04=D.
++**Montre :** conversation visible · expert ouvert · intention · mode · cycle · CKC d/s/a · Doctrine · sources · outils · contradictions · allowlist · preuve.
++**Ne montre pas :** prompt · raisonnement · scores · secrets · non-redacted.
++**node ID :** TBD.
++
++### FPI-03 — Confirmation N2
++**Cas :** apply LPS delta **ou** export EC candidat.
++**Montre :** action · objet · avant/après · portée · réversibilité · source · autorité · preuve · Confirmer · Annuler · pas pré-sélection · retour conversation · **≠ GO**.
++**node ID :** TBD.
++
++### FPI-04 — Décision / GO N3
++**Pattern :** P0-03C adapté.
++**Montre :** décision · options · reco séparée · preuves · réserves · dette · Morris · portée · durée · révocabilité · autorisé/non · formulation GO · NO-GO/amendement/annulation · confirmation forte · pas pré-coché · Assistant ne décide pas.
++**node ID :** TBD.
++
++### FPI-05 — Hors-sujet
++**Objectif :** FPI-06=D.
++**Montre :** digression détectée · réponse courte · non intégré Project · CTA espace général · fallback B · pas sources Project · pas LPS delta · pas mémoire · pas faux cycle.
++**node ID :** TBD.
++
++### FPI-06 — Fournisseur indisponible / Fail-closed
++**Deux niveaux :** (1) non structurant — erreur + retry + dégradé sans claim ; (2) structurant — fail-closed · pas de décision · pas mutation · raison · source manquante · next safe.
++**node ID :** TBD.
++
++---
++
++## 3. Parcours normaux
++
++| ID | Parcours | Frames |
++|---|---|---|
++| P-N1 | Question Project → réponse N1 → sources | FPI-00 |
++| P-LPS | Ouvrir LPS → disclosure décisions/preuves | FPI-00 → FPI-01 |
++| P-EXP | Ouvrir Expert → inspecter routing | FPI-00 → FPI-02 |
++| P-N2 | Proposition delta → Confirmer apply | FPI-00 → FPI-03 → FPI-00 |
++| P-N3 | Gate structurante → GO/NO-GO | FPI-00 → FPI-04 → FPI-00 |
++| P-OFF | Digression → orientation / fallback B | FPI-00 → FPI-05 |
++| P-DOWN | Provider down sur action structurante | FPI-00 → FPI-06 |
++
++---
++
++## 4. Parcours adversariaux
++
++| ID | Scénario | Comportement |
++|---|---|---|
++| A-1 | Demande secret / contournement | Refus · pas digression · audit · éventuel N3/STOP |
++| A-2 | Mutation déguisée en chat | Escalade N2 · pas apply silencieux |
++| A-3 | Faux GO dans composer | Non consommé · message niveau insuffisant |
++| A-4 | Override hard budget | N3 requis · sinon stop |
++| A-5 | Source hors allowlist | Source refusée · pas de claim |
++| A-6 | Doctrine stale + décision | Fail-closed structurant |
++| A-7 | Autre Project demandé | Pas digression · clarification / refus |
++
++---
++
++## 5. Escalade N1→N2→N3 (déterministe)
++
++Reprend §11 de `94`. Mapping actions = matrice document `92`/`93` **non modifiée**.
++
++| Transition | Règle |
++|---|---|
++| N1→N2 | Toute condition §11 `94` ; doute → N2 |
++| N2→N3 | Toute condition §11 `94` ; doute → N3 |
++| Insuffisant | Bloquer · expliquer · proposer élévation ou STOP |
++
++---
++
++## 6. États complémentaires
++
++| État | Message | Action OK | Interdit | N | Impact Project | Audit | A11y |
++|---|---|---|---|---|---|---|---|
++| initial | « Project prêt » | composer | mutation | N1 | none | session | focus composer |
++| loading | « Chargement… » | wait/cancel | claims | N1 | none | yes | polite live |
++| streaming | « Réponse en cours » | stop | apply | N1 | none | yes | throttled live |
++| source en cours | « Source… » | wait | claim final | N1 | none | tool | status text |
++| source refusée | « Source refusée » | autres sources | force | N1 | none | deny | alert |
++| doctrine stale | « Doctrine périmée » | refresh/STOP | GO | N3 si struct. | block struct | yes | alert |
++| CKC synthetic | « CKC synthétique » | continue discret | cacher | N1 | none | yes | text+icon |
++| contradiction | « Contradiction » | expert / N2-N3 | ignore | N2/N3 | possible | yes | alert |
++| output invalide | « Sortie invalide » | retry | apply | N1 | none | yes | alert |
++| annulation | « Annulé » | resume | force | N1 | none | yes | status |
++| timeout | « Délai dépassé » | retry | silent success | N1 | none | yes | alert |
++| budget soft | « Plafond souple » | N2 override / stop | ignore | N2 | usage | yes | dialog |
++| niveau insuffisant | « Confirmation insuffisante » | elevate / cancel | bypass | — | block | yes | alert |
++| absence preuve | « Preuve manquante » | collect / STOP | GO | N3 si struct. | block | yes | alert |
++| empty conversation | invite Project | start | dump | N1 | none | — | heading |
++| empty LPS | « LPS vide » | bootstrap N2? | fake data | N1 | none | — | status |
++| absence espace général | fallback B copy | stay Project | load Project sources | N1 | none | yes | status |
++
++---
++
++## 7. Transitions
++
++Composer → stream → message final (N1).
++Proposition persistante → ConfirmationRequest N2 → apply/cancel.
++Gate structurante → FPI-04 → consume/NO-GO.
++Provider down structurant → FPI-06 fail-closed.
++Fermeture overlay → focus restore conversation.
++
++---
++
++## 8. Source de vérité
++
++| Donnée | Source de vérité |
++|---|---|
++| LPS validé | Project store (conceptuel) |
++| Delta candidat | UI candidate jusqu’à N2 |
++| Doctrine | DoctrinePackage pin |
++| Conversation | transcript ACL |
++| Décision | HumanDecision record |
++| Git distant | hors FPI UI claim |
++
++---
++
++## 9. Gates
++
++N2 = confirmation UI bornée.
++N3 = gate décision Morris / autorité.
++Exécution Cursor/Git/merge = hors FPI (N3 futur, non autorisé ici).
++
++---
++
++## 10. Copy fonctionnelle (extraits)
++
++- N1 reco : « Recommandation — non appliquée. »
++- N2 : « Confirmer l’application de ce delta au Project ? »
++- N3 : « Formuler le GO explicitement pour consommer cette décision. »
++- Hors-sujet : « Hors périmètre Project — non mémorisé. »
++- Fail-closed : « Fournisseur indisponible — aucune décision consommée. »
++- Niveau insuffisant : « Niveau N2 requis — action bloquée. »
++
++---
++
++## 11. Accessibilité parcours
++
++Tab order : rail → top → conversation → panel → composer → overlays.
++N2/N3 : focus trap · Escape = annuler · retour focus déclencheur.
++Badges : texte + icon · pas couleur seule.
++
++---
++
++## 12. Preuves
++
++| Preuve | Statut |
++|---|---|
++| Documents 94–96 | Produits |
++| Frames Figma + screenshots | **ABSENTS** |
++| Runtime | Pending |
++
++Maximum : `FIGMA CONTRACT COMPLETE — RUNTIME COMPARISON PENDING` **non atteint**.
+```
 
-## 18. D-ASST-FPI-04 = D — DECIDED
+### Diff 96
 
-Routage discret + panneau expert optionnel. Aucun layout validé. Effets : conversation non surchargée · mode/cycle discret · sources progressives · doctrine en erreur · expert sans CKC brut/secrets.
+```diff
+diff --git a/projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md b/projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md
++# 96 — Decision Pack UX/UI candidat — Assistant SFIA natif OpenAI FPI
++
++| Métadonnée | Valeur |
++|---|---|
++| **Document** | `projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md` |
++| **Statut** | DRAFT FOR MORRIS ARBITRATION — NO UX DECISION CONSUMED |
++| **Cycle** | UX/UI FPI |
++| **GO** | 2026-08-04 23:46 CEST |
++| **Figma** | Evidence **MISSING** this cycle |
++| **R-DEC-AF-01** | **OPEN** — documentary definitions present ; Figma proof absent ; **not** CLOSED |
++
++> Aucune décision D-ASST-UX n’est consommée. Recommandations = candidates uniquement.
++
++---
++
++## 1. Décisions candidates
++
++### D-ASST-UX-01 — Architecture d’information
++**Statut :** NOT DECIDED
++**Contexte :** Adapter baseline copilote latéral → conversation dominante + panneau contexte.
++**Options :** A) conserver chat latéral + canvas non-chat · B) conversation centrale + panneau contexte/LPS/expert · C) dual chat
++**Reco candidate :** **B**
++**Impacts :** doctrine v3 conversation-first · FPI-04/05
++**Dette :** tokens Figma live
++**A11y / Sécu :** focus conversation ; ACL panel
++**Réversibilité :** haute (doc+Figma candidate)
++**Preuve Figma :** **MISSING**
++**Morris :** choisir A/B/C
++
++### D-ASST-UX-02 — Périmètre sept frames
++**Statut :** NOT DECIDED
++**Options :** A) 7 frames FPI-00…06 · B) réduire · C) étendre
++**Reco :** **A** (spécifiées dans `95`)
++**Preuve Figma :** MISSING — frames non créées
++**Morris :** valider périmètre après Figma
++
++### D-ASST-UX-03 — Pattern N2
++**Statut :** NOT DECIDED
++**Options :** A) modal centré · B) drawer droit · C) inline expand
++**Reco :** **B** drawer (garde conversation visible)
++**Impacts :** FPI-11 · R-DEC-AF-01
++**A11y :** focus trap · SR summary
++**Preuve Figma :** MISSING
++**Morris :** A/B/C
++
++### D-ASST-UX-04 — Pattern N3
++**Statut :** NOT DECIDED
++**Options :** A) adapter P0-03C full canvas · B) overlay fort · C) page dédiée hors shell
++**Reco :** **A** (continuité baseline)
++**Impacts :** distinction GO
++**Preuve Figma :** MISSING
++**Morris :** A/B/C
++
++### D-ASST-UX-05 — Panneau expert
++**Statut :** NOT DECIDED
++**Options :** A) onglet Expert dans panneau · B) drawer temporaire · C) mode plein écran
++**Reco :** **A** (FPI-04=D)
++**Interdits :** prompt/scores/secrets
++**Preuve Figma :** MISSING
++**Morris :** A/B/C
++
++### D-ASST-UX-06 — Preuves clés
++**Statut :** NOT DECIDED
++**Options :** A) définition `94` §9 · B) preuves = toutes citations · C) preuves = artefacts Git seulement
++**Reco :** **A**
++**Impacts :** FPI-05=C
++**Preuve Figma :** MISSING
++**Morris :** A/B/C
++
++### D-ASST-UX-07 — Hors-sujet
++**Statut :** NOT DECIDED
++**Options :** A) FPI-06=D + fallback B tel `94` · B) refus total digressions · C) workspace général obligatoire avant FPI
++**Reco :** **A**
++**Preuve Figma :** MISSING
++**Morris :** A/B/C
++
++### D-ASST-UX-08 — Provider unavailable
++**Statut :** NOT DECIDED
++**Options :** A) bi-niveau non-struct/struct fail-closed · B) toujours bloquer · C) toujours dégrader
++**Reco :** **A**
++**Preuve Figma :** MISSING
++**Morris :** A/B/C
++
++### D-ASST-UX-09 — Responsive 1280
++**Statut :** NOT DECIDED
++**Options :** A) contrat candidat only · B) 1 stress frame · C) 7 duplicatas 1280
++**Reco :** **A** (ou B si Figma dispo et scope maîtrisé)
++**Statut 1280 :** CANDIDATE — NOT VALIDATED
++**Preuve Figma :** MISSING
++**Morris :** A/B/C
++
++### D-ASST-UX-10 — Statut R-DEC-AF-01
++**Statut :** NOT DECIDED
++**Options :** A) SATISFIED — CLOSURE RECOMMENDED · B) OPEN pending Figma · C) OPEN pending Morris only
++**Reco candidate ce cycle :** **B — OPEN pending Figma evidence**
++**Justification :** seuils N1→N2 / N2→N3 · surfaces · distinctions confirmation/décision/GO · a11y documentaire · erreurs niveau = **définis dans 94/95** ; **preuves Figma absentes** (critère de fermeture non rempli).
++**Ne pas déclarer CLOSED** sans validation ChatGPT + décision Morris.
++**Morris :** trancher A/B/C après Figma + review
++
++---
++
++## 2. Synthèse recommandations candidates
++
++| ID | Reco |
++|---|---|
++| UX-01 | B conversation dominante |
++| UX-02 | A sept frames |
++| UX-03 | B drawer N2 |
++| UX-04 | A P0-03C adapté |
++| UX-05 | A onglet Expert |
++| UX-06 | A preuve clé liée au claim |
++| UX-07 | A digression + fallback B |
++| UX-08 | A bi-niveau fail-closed |
++| UX-09 | A contrat 1280 only |
++| UX-10 | B R-DEC-AF-01 OPEN pending Figma |
++
++---
++
++## 3. Réserves
++
++| ID | Statut | Note |
++|---|---|---|
++| R-DEC-AF-01 | **OPEN** | Doc OK · Figma missing |
++| R-UX-FPI-01 | OPEN | MCP Figma unavailable |
++| R-UX-FPI-02 | OPEN | Tokens Product premium non re-extraits live |
++| R-UX-FPI-03 | OPEN | A11y runtime pending |
++| R-UX-FPI-04 | OPEN | 1280 not validated |
++| R-UX-04 (hist.) | OPEN | Tokens delivery — héritée baseline |
++
++---
++
++## 4. Dette
++
++- Créer page Figma candidate + 7 frames + screenshots
++- Reconfirmer baseline node IDs live
++- Extraire variables/styles
++- Stress 1280 optionnel
++- Audit a11y runtime ultérieur
++
++---
++
++## 5. Décisions Morris requises
++
++Consommer D-ASST-UX-01…10 via gate dédiée **après** preuves Figma + validation ChatGPT.
++Trancher R-DEC-AF-01 (fermeture ou maintien).
++Statut page Figma candidate.
++Travaux UX complémentaires éventuels.
++
++---
++
++## 6. Prochaine gate candidate
++
++`GO DECISIONS UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED VISUAL CONTRACT`
++
++Statut : **candidate — non consommée** (et **prématurée** tant que Figma evidence manquante pour un READY complet).
++
++N’autorise pas auto : Tech · OpenAI · dev · Backlog · Delivery · modif baseline Figma · publish docs · merge.
++
++Gate intermédiaire recommandée (candidate) :
++`GO UX/UI … COMPLETE FIGMA CANDIDATE PAGE AND FRAMES` — non consommée.
++
++---
++
++## 7. Anti-claims
++
++Pas de décision UX validée · pas baseline visuelle nouvelle · R-DEC-AF-01 non closed · pas FIGMA CONTRACT COMPLETE · pas runtime aligné · pas Tech/implémentation.
++
++---
++
++## 8. Verdict pack
++
++Decision Pack UX **préparé**. Aucune décision consommée. Figma evidence missing. R-DEC-AF-01 OPEN.
+```
 
-## 19. D-ASST-FPI-05 = C — DECIDED
+## 28. Hashes et lignes
 
-LPS visible = résumé + décisions + réserves + preuves clés ; progressive disclosure. LPS ≠ transcript ≠ trajectoire. « Preuve clé » = UX/UI.
+| Doc | Lignes | SHA-256 |
+|---|---|---|
+| 94 | 276 | `535d283198da3ccde55ebd31bcc7dadd38fd3905022045a9eeaa60dd0b8a37a8` |
+| 95 | 195 | `d2d9b63f6bb845993fc4e2fedd62af073b0f4cc196d2e1b1d97a403e85ee60ae` |
+| 96 | 172 | `9e4fbd2fa8cbf613ee0d3931c3f7ff46a07fc79650f55c1fa3907d76d63930db` |
 
-## 20. D-ASST-FPI-06 = D — DECIDED
+## 29. Architecture d’information
 
-Digression mineure + orientation espace général ; fallback B si espace absent. Non digression : structurant / autre Project / secret / contournement.
+Conversation dominante + panneau contexte/LPS/expert (onglets) ; pas de second chat latéral ; rail + top bar Product premium réutilisés. Détail : 94 §5–7.
 
-## 21. D-ASST-FPI-11 = ACCEPT_CANDIDATE_MATRIX — DECIDED
+## 30. Conversation
 
-Matrice N1–N3 du doc 92 adoptée comme contrat fonctionnel d’entrée UX/UI. Mapping non modifié. R-DEC-AF-01 OPEN.
+FPI-00 N1 : historique · composer · labels épistémiques · sources progressives · pas de modal GO.
 
-## 22. D-ASST-AF-03 = C — DECIDED
+## 31. LPS
 
-Dual-track borné UX/UI ∥ Architecture technique. Gates/validations séparées. **N’autorise pas** le cycle Tech. FPI-16 consolidée sous AF-03.
+FPI-01 / FPI-05=C : résumé immédiat · décisions/réserves/preuves clés/trajectoire progressifs · preuve clé définie · validé ≠ delta.
 
-## 23. D-ASST-AF-04 = B — DECIDED (projet)
+## 32. Panneau expert
 
-Handoff = parent + contenu + verdict + message ; tip/blob externes (Cursor + ChatGPT). Pas d’auto-référence. Portée projet — méthode non modifiée.
+FPI-02 / FPI-04=D : intention/mode/cycle/CKC/outils/sources/allowlist/contradictions ; jamais prompt/scores/secrets.
 
-## 24. Matrice N1–N3
+## 33–35. N1 / N2 / N3
 
-Reproduite intégralement dans le document 93 §5 depuis le document 92 §5, chaque ligne marquée :
-`DECIDED AS FUNCTIONAL INPUT — UX DETAILS PENDING UNDER R-DEC-AF-01`
-Aucune altération du mapping.
+N1 inline · N2 drawer confirmation (≠ GO) · N3 décision/GO pattern P0-03C adapté · Assistant ne décide pas.
 
-## 25. R-DEC-AF-01
+## 36. Escalade déterministe
 
-Statut **OPEN** · propriétaire candidat : UX/UI · gate : GO UX/UI … APPLY VALIDATED FUNCTIONAL DECISIONS · critères : N1→N2 / N2→N3 · surfaces · distinction confirmation/décision/GO/autorisation · accessibilité · erreurs niveau insuffisant.
+N1→N2 et N2→N3 : critères §11 doc 94 ; doute → niveau supérieur ; erreur niveau insuffisant définie.
 
-## 26. Décisions différées
+## 37. Hors-sujet
 
-NOT DECIDED — MORRIS DECISION REQUIRED :
-D-ASST-AF-01, D-ASST-AF-02, D-ASST-FPI-01, D-ASST-FPI-02, D-ASST-FPI-03, D-ASST-FPI-07, D-ASST-FPI-08, D-ASST-FPI-09, D-ASST-FPI-10, D-ASST-FPI-12, D-ASST-FPI-13, D-ASST-FPI-14, D-ASST-FPI-15.
+FPI-05 / FPI-06=D + fallback B.
 
-## 27. D-ASST-FPI-16 consolidée
+## 38. Fournisseur indisponible
 
-CONSOLIDATED UNDER D-ASST-AF-03 — IDENTIFIER RETAINED FOR TRACEABILITY — NO SEPARATE DECISION REQUIRED UNLESS REOPENED BY MORRIS.
+FPI-06 bi-niveau : dégradé non-structurant · fail-closed structurant.
 
-## 28. Statut Architecture fonctionnelle
+## 39. Accessibilité
 
-**ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS**
+WCAG 2.2 AA cible documentée · **non entièrement validée** (pas runtime / pas frames).
 
-Autorise entrée UX/UI après validation ChatGPT. N’autorise pas Tech / Backlog / Delivery / OpenAI / implémentation / publication main.
+## 40. Sécurité / RGPD
 
-## 29. Contrat UX/UI
+Redaction · ACL · N2 retention/export · jamais secrets/prompt/CoT.
 
-Toujours / progressif / expert / jamais visible · hors-sujet FPI-06=D · confirmations N1/N2/N3 · erreurs · accessibilité/sécurité — détail document 93 §4.
+## 41. FinOps / observabilité
 
-## 30. Trajectoire dual-track
+Résumé discret · détail expert · N2/N3 override · pas de tarif inventé.
 
-UX/UI et Tech séparés ; Tech **non autorisée** sans GO propre ; sync contrats d’interface ; stop si l’une impose silencieusement l’autre.
+## 42. Responsive
 
-## 31. Gouvernance handoff
+1440 principal · 1280 CANDIDATE — NOT VALIDATED · mobile hors FPI.
 
-AF-04=B appliquée à ce cycle : mono-commit · parent + contenu + verdict + message · tip/blob **externes** uniquement.
+## 43. Contrat UX-Tech
 
-## 32. Validations
+Table informations UI dans 94 §18 — aucun schéma exécutable · décisions tech ouvertes.
+
+## 44. Décisions candidates
+
+D-ASST-UX-01…10 toutes **NOT DECIDED** — recos dans 96.
+
+## 45. Réserves
+
+R-DEC-AF-01 OPEN · R-UX-FPI-01…04 OPEN · R-UX-04 historique OPEN.
+
+## 46. Dette
+
+Page Figma + 7 frames + screenshots + reconfirm baseline live + tokens + a11y runtime.
+
+## 47. Validations Git
 
 | Check | Résultat |
 |---|---|
-| Six décisions exactement appliquées | PASS |
-| Aucune autre décision consommée | PASS |
-| R-DEC-AF-01 OPEN | PASS |
-| Matrice N1–N3 sans altération | PASS |
-| FPI-16 consolidée sous AF-03 | PASS |
-| Différées complètes | PASS |
-| Statut AF exact | PASS |
-| UX/UI candidate non consommée | PASS |
-| Tech non autorisée | PASS |
-| 90/91/92 inchangés | PASS |
-| Doctrine / méthode / code absents du diff | PASS |
-| git diff --check | PASS (fichier nouveau untracked) |
-| Build/lint/typecheck/tests/OpenAI/Figma | NON EXÉCUTÉS (hors scope) |
+| main conforme | PASS |
+| handoff entrant | PASS |
+| 90–93 hashes | PASS |
+| 14–16 non modifiés | PASS |
+| 3 docs nouveaux only (projet) | PASS |
+| docs complets dans pack | PASS |
+| aucune UX marquée validée | PASS |
+| aucun choix tech décidé | PASS |
+| pas code/doctrine/méthode | PASS |
+| git diff --check | PASS (untracked) |
 
-## 33. Fichiers créés
+## 48. Validations Figma
 
-- `projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md`
-- `.tmp-sfia-review/chatgpt-review.md` (ce pack)
+| Check | Résultat |
+|---|---|
+| MCP / write / screenshots | **FAIL — UNAVAILABLE** |
+| baseline intacte (write) | PASS (aucune écriture) |
+| 7 frames / 1440 / node IDs / captures | **FAIL — NOT CREATED** |
 
-## 34. Absence modification 90/91/92
+## 49. Statut R-DEC-AF-01
 
-Hashes inchangés vs attendus — PASS.
+**OPEN** — documentary definitions present ; Figma proof missing ; **not** SATISFIED — CLOSURE RECOMMENDED this cycle.
 
-## 35. Absence doctrine / méthode / code
+## 50. Fichiers créés
 
-Aucun fichier `docs/doctrine/**`, `method/**`, `prompts/**`, `projects/sfia-studio/app/**`, tests, schemas, package, workflows, scripts (hors publisher handoff) modifié — PASS.
+- `projects/sfia-studio/94-…ux-ui-contract.md`
+- `projects/sfia-studio/95-…flows-and-states.md`
+- `projects/sfia-studio/96-…decision-pack.md`
+- `.tmp-sfia-review/chatgpt-review.md`
+- `.tmp-sfia-review/figma/discovery.md`
 
-## 36. Absence implémentation
+## 51–55. Absences
 
-Pas d’OpenAI · pas Cursor réel · pas Git write produit · pas Backlog · pas Delivery — PASS.
+14–16 non modifiés · 90–93 non modifiés · doctrine/méthode/code absents · pas d’implémentation OpenAI · pas commit/push projet / PR.
 
-## 37. Absence commit / push projet
-
-Branche décision locale non poussée · pas de PR · docs 90–93 restent untracked locaux — PASS.
-
-## 38. Local Git Truth final réel
+## 56. Local Git Truth final réel
 
 ```
-2026-08-04 23:39:30 CEST +0200
-2026-08-04 21:39:30 UTC
-branch=decision/sfia-studio-assistant-sfia-native-openai-functional-architecture
+2026-08-05 05:13:45 CEST +0200
+2026-08-05 03:13:45 UTC
+branch=ux-ui/sfia-studio-assistant-sfia-native-openai-fpi
 HEAD=8dc54db0069eed78a8d8930cc2b035450ab56ad1
 origin_main=8dc54db0069eed78a8d8930cc2b035450ab56ad1
 ahead=0 behind=0
-handoff_parent_pre=5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb
+handoff_parent_pre=dbc41bfb8cdf66724a38e1bcbf1c101e0b063edc
 status=
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
 ?? projects/sfia-studio/91-assistant-sfia-native-openai-first-product-increment-functional-architecture.md
 ?? projects/sfia-studio/92-assistant-sfia-native-openai-functional-architecture-decision-pack.md
 ?? projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md
+?? projects/sfia-studio/94-assistant-sfia-native-openai-ux-ui-contract.md
+?? projects/sfia-studio/95-assistant-sfia-native-openai-ux-ui-flows-and-states.md
+?? projects/sfia-studio/96-assistant-sfia-native-openai-ux-ui-decision-pack.md
 ?? projects/sfia-studio/app/.tmp-sfia-review/
 doc90=2d5a03f366e5291e54b6617ada972158763199bf918bea01f031d4212b1a78b2  projects/sfia-studio/90-assistant-sfia-native-openai-first-product-increment-framing.md
 doc91=0517aa6c3091f63f0b5c69d40d123fa715dbfb4429d02681ea0398a9588e83e1  projects/sfia-studio/91-assistant-sfia-native-openai-first-product-increment-functional-architecture.md
 doc92=0af5a9063705859abddceea0f1f5184b55c35a04e94b71648b139bb592c841d4  projects/sfia-studio/92-assistant-sfia-native-openai-functional-architecture-decision-pack.md
-doc93=6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428  projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md lines=309
+doc93=6466f1620d1db65f065fcaf5de25d36cc6af5180f7be786649fbc57521bf4428  projects/sfia-studio/93-assistant-sfia-native-openai-functional-architecture-decisions-applied.md
+doc94=535d283198da3ccde55ebd31bcc7dadd38fd3905022045a9eeaa60dd0b8a37a8 lines=276
+doc95=d2d9b63f6bb845993fc4e2fedd62af073b0f4cc196d2e1b1d97a403e85ee60ae lines=195
+doc96=9e4fbd2fa8cbf613ee0d3931c3f7ff46a07fc79650f55c1fa3907d76d63930db lines=172
 ```
 
-Note : tip/blob handoff post-publication vérifiés **extérieurement** dans le rapport Cursor (D-ASST-AF-04=B — pas d’auto-référence dans ce fichier).
+Note AF-04=B : tip/blob post-publication **externes** (rapport Cursor) — pas d’auto-référence dans ce fichier.
 
-## 39. Review Handoff
+## 57. Review Handoff
 
-Mode : publish-in-cycle · **exactement un commit** · pas de refresh auto-référentiel (D-ASST-AF-04=B).
-Parent avant publication : `5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb`
-Message : docs(review-handoff): publish Assistant SFIA functional decisions applied
-Le handoff **ne contient pas** son tip/blob finaux ; identité Git post-publication reportée **extérieurement** dans le rapport Cursor.
+Mode : publish-in-cycle · mono-commit · D-ASST-AF-04=B
+Parent avant publication : `dbc41bfb8cdf66724a38e1bcbf1c101e0b063edc`
+Message : docs(review-handoff): publish Assistant SFIA OpenAI UX UI candidate
+Contient : parent · contenu · verdict · message · manifest Figma (état missing)
+Tip/blob finaux : externes uniquement.
 
-Parent attendu : 5f1a9f02ca5ebc512f7f7dfe2fa0376511e99feb
-Tip/blob finaux : reportés après publication externe (pas dans ce fichier).
+## 58. Verdict
 
-## 40. Verdict
+UX/UI PARTIALLY COMPLETE —
+DOCUMENTARY CONTRACT PRODUCED —
+FIGMA EVIDENCE MISSING —
+R-DEC-AF-01 REMAINS OPEN —
+NO READY VERDICT
 
-FUNCTIONAL ARCHITECTURE SELECTED DECISIONS APPLIED —
-D-ASST-FPI-04, D-ASST-FPI-05, D-ASST-FPI-06, D-ASST-FPI-11, D-ASST-AF-03 AND D-ASST-AF-04 DECIDED BY MORRIS —
-ARCHITECTURE FONCTIONNELLE VALIDATED FOR UX/UI INPUT WITH OPEN TECHNICAL AND DELIVERY DECISIONS —
-R-DEC-AF-01 OPEN FOR UX/UI —
-NO TECHNICAL ARCHITECTURE OR IMPLEMENTATION AUTHORIZED —
-READY FOR CHATGPT VALIDATION AND UX/UI GATE
+## 59. Prochaine gate candidate
 
-## 41. Prochaine gate candidate
+`GO DECISIONS UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — APPLY SELECTED VISUAL CONTRACT`
 
-GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — FIRST PRODUCT INCREMENT — APPLY VALIDATED FUNCTIONAL DECISIONS
+Statut : candidate uniquement — non consommée (prématurée pour READY complet sans Figma).
 
-Statut : **candidate uniquement — non consommée**.
+Gate intermédiaire candidate recommandée (non consommée) :
+`GO UX/UI SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — COMPLETE FIGMA CANDIDATE PAGE AND FRAMES`
 
-Autoriserait : UX/UI · contrat visuel · parcours · surfaces · états · confirmations N1–N3 · R-DEC-AF-01 · Figma si inclus dans le prompt.
-N’autoriserait pas : Tech · OpenAI · développement · Cursor réel · Git write · Backlog · Delivery.
+N’autorise pas auto : Tech · OpenAI · développement · Backlog · Delivery · modification baseline Figma · publication docs projet · merge.
