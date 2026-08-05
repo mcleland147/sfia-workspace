@@ -13,7 +13,7 @@
 | **Profil** | **Critical** |
 | **Typologie** | EVOL / DOC |
 | **CKC** | recherché · contrat détaillé spécifique absent · fallback méthode SFIA v2.6 |
-| **Review pack content coverage** | created files full content : yes · modified sections complete : yes · useful diff included : yes · synthesis only : no · review pack verdict : complete |
+| **Review pack content coverage** | document 105 complet : yes · document 106 complet : yes · modifications 103 couvertes : yes · diff utile 103 présent : yes · Local Git Truth initiale : yes · Local Git Truth finale LOT-IP-0A : yes · correction F-IP0A-REV-01 : yes · synthesis only : no · placeholder actif : no · review pack verdict : complete |
 
 ---
 
@@ -1634,13 +1634,80 @@ Non consommée.
 
 ---
 
-## Local Git Truth — final (à compléter après handoff)
+## Local Git Truth — final du cycle LOT-IP-0A
 
-Placeholder remplacé après publication.
+**Note de qualification —** Cette vérité Git est capturée pendant le cycle correctif, après la publication du handoff LOT-IP-0A `bd47643d865ae7506649815013bce740d0e3b6a4`. Elle constitue la preuve post-publication manquante du cycle LOT-IP-0A. Elle n’est pas antidatée.
+
+| Champ | Valeur |
+|---|---|
+| **Date locale** | 2026-08-05 15:43:36 CEST (+0200) |
+| **Date UTC** | 2026-08-05 13:43:36 UTC |
+| **Branche active** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-lot-ip-0a` |
+| **HEAD** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
+| **origin/main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
+| **Merge-base** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
+| **Ahead / behind** | 0 / 0 |
+| **Upstream** | aucun |
+| **Tracked diff** | none |
+| **Staged** | none |
+| **Untracked** | `.tmp-sfia-review/` · documents projet locaux `90`–`106` · `projects/sfia-studio/app/.tmp-sfia-review/` |
+| **Document 103** | SHA-256 `9bf223dbcb81e6f9ceec4ad1ab298470e8c14d350127a0030a0fe6af3a4783cb` · 1492 lignes |
+| **Document 104** | SHA-256 `48859ae1f54d4f5d64a39099e00fe9af3e89b6f1cf38a24bc12c58b5dbf11802` · 484 lignes |
+| **Document 105** | SHA-256 `bfdb737713b9d93204aa870c2842ae8246eec6d2f70535b7efae136ecf0694a9` · 565 lignes |
+| **Document 106** | SHA-256 `7f009bfef42dd020fe22bdd7ba718ab647f54695adf2eeea9bcdd22cbf1ceb17` · 286 lignes |
+| **Document 107** | absent |
+| **Commit projet LOT-IP-0A** | aucun |
+| **Push projet LOT-IP-0A** | aucun |
+| **Delivery** | NOT-CONSUMED |
+
+### Contenu avant correction (historique — finding)
+
+> Section publiée au tip `bd47643d…` / blob `f676193e…` (contenu **avant** correction) :
+>
+> `## Local Git Truth — final (à compléter après handoff)`
+>
+> `Placeholder remplacé après publication.`
+>
+> Ce bloc est cité uniquement comme preuve du défaut F-IP0A-REV-01 ; il n’est **plus** la section finale active.
+
+---
+
+## Correction F-IP0A-REV-01
+
+| Champ | Valeur |
+|---|---|
+| **Finding** | F-IP0A-REV-01 — MAJOR |
+| **Source** | validation ChatGPT post-handoff |
+| **Défaut** | Local Git Truth finale restée en placeholder |
+| **Correction** | preuve finale factuelle ajoutée |
+| **Documents 103/105/106** | byte-identical |
+| **Analyse LOT-IP-0A** | non rouverte |
+| **Décisions D-ASST-IP0A-*** | toujours NOT DECIDED |
+| **Statut finding** | **FIXED — VERIFIED IN CORRECTION CYCLE — CLOSURE RECOMMENDED** |
+| **Effet** | aucune décision technique · aucun code · aucune Delivery |
+
+### GO correctif
+
+```text
+GO CORRECTION REVIEW HANDOFF SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — LOT-IP-0A — COMPLETE FINAL GIT TRUTH AND REPUBLISH HANDOFF — NO DOCUMENT CONTENT CHANGE
+```
+
+| Champ | Valeur |
+|---|---|
+| **Consommation** | 2026-08-05 15:37 CEST (+0200) / 13:37 UTC |
+| **Cycle** | 9 — QA / validation |
+| **Profil** | Standard |
+| **Typologie** | DOC / QA |
+| **Périmètre** | Review Pack / Review Handoff uniquement · aucun document projet |
+
+**Avant correction :** `REVIEW PACK INCOMPLETE — FINAL GIT TRUTH MISSING`
+
+**Après correction :** `REVIEW PACK COMPLETE — FINAL GIT TRUTH ADDED`
 
 ---
 
 ## Verdict Review Pack
+
 
 **LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
 **TB-00-01 AUTH INVENTORY COMPLETE —**
@@ -1650,6 +1717,8 @@ Placeholder remplacé après publication.
 **DOCUMENT 103 UPDATED — DOCUMENT 105 CREATED — DOCUMENT 106 DECISION PACK CREATED —**
 **ALL D-ASST-IP0A DECISIONS NOT DECIDED —**
 **NO TECHNOLOGY SELECTED — DELIVERY NOT-CONSUMED —**
-**READY FOR HANDOFF PUBLICATION AND CHATGPT VALIDATION**
+**REVIEW PACK COMPLETE — FINAL GIT TRUTH ADDED —**
+**F-IP0A-REV-01 FIXED — CLOSURE RECOMMENDED —**
+**READY FOR CHATGPT REVALIDATION AND MORRIS LOT-IP-0A DECISION PACK ARBITRATION**
 
 Review pack verdict : **complete**
