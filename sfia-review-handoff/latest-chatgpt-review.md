@@ -1,31 +1,32 @@
-# Review Pack Full — Assistant SFIA natif OpenAI — Backlog Priority & Lot Decisions
+# Review Pack Full — Assistant SFIA natif OpenAI — LOT-IP-0A Implementation Preparation
 
 ## Meta
 
 | Champ | Valeur |
 |---|---|
-| **Date locale** | 2026-08-05 14:58:24 CEST +0200 |
-| **Date UTC** | 2026-08-05 12:58:24 UTC |
+| **Date locale** | 2026-08-05 15:33:35 CEST +0200 |
+| **Date UTC** | 2026-08-05 13:33:35 UTC |
 | **Niveau** | Full |
-| **GO Morris** | `GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TECHNICAL BACKLOG PRIORITIES AND SELECT FIRST IMPLEMENTATION-PREPARATION LOT` |
-| **Consommation GO** | 2026-08-05 14:46 CEST (+0200) / 12:46 UTC |
-| **Cycle** | 5 — Backlog / user stories — Application de décisions Backlog |
+| **GO Morris** | `GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)` |
+| **Consommation GO** | 2026-08-05 15:17 CEST (+0200) / 13:17 UTC |
+| **Cycle** | 6 — Architecture technique — Implementation Preparation LOT-IP-0A |
 | **Profil** | **Critical** |
 | **Typologie** | EVOL / DOC |
+| **CKC** | recherché · contrat détaillé spécifique absent · fallback méthode SFIA v2.6 |
 | **Review pack content coverage** | created files full content : yes · modified sections complete : yes · useful diff included : yes · synthesis only : no · review pack verdict : complete |
 
 ---
 
 ## Instruction ChatGPT obligatoire
 
-Avant de répondre à Morris, consulter depuis Git :
+Avant de répondre à Morris, consulter :
 
 - branche : `sfia/review-handoff`
 - fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 
-Vérifier : GO · cycle/profil · branche projet · HEAD/origin/main · document 103 modifié · **document 104 complet** · décisions D-ASST-BLG-* · P0/P1/P2/P3 · total 33 · split LOT-IP-0A/0B/0C · LOT-IP-0A SELECTED · 0B/0C DEFERRED · LOT-D* NOT AUTHORIZED · graphe 33/56 · A2/ADR · 21 impacts · réserves · non-sélections · Delivery NOT-CONSUMED · diff · hashes · Git truth · handoff tip/blob.
+Vérifier : GO · cycle/profil · branche initiale + branche IP · HEAD/origin/main · hashes 100–104 entrants · **105 complet** · **106 complet** · 103 modifié · TB-00-01/02/03/06 · preuves · options candidates · D-ASST-IP0A-* toutes NOT DECIDED · pas de techno · pas de 107 · graphe 33/56 · A2/ADR · 21 impacts · réserves · non-sélections · LOT-IP-0B/0C DEFERRED · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · handoff tip/blob.
 
-Si 104 complet ou mods 103 absents : `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
+Si 105/106 ou mods 103 absents : `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
 
 ---
 
@@ -33,615 +34,980 @@ Si 104 complet ou mods 103 absents : `REVIEW HANDOFF INCOMPLETE — MODIFIED CON
 
 | Champ | Valeur |
 |---|---|
-| **TOPLEVEL** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1` |
-| **BRANCH** | `backlog/sfia-studio-assistant-sfia-native-openai-technical-implementation-backlog` |
+| **Branche initiale** | `backlog/sfia-studio-assistant-sfia-native-openai-technical-implementation-backlog` |
+| **Branche IP créée** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-lot-ip-0a` |
 | **HEAD** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
 | **origin/main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
 | **merge-base** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
 | **ahead/behind** | 0 / 0 |
-| **upstream** | none |
-| **tracked diff** | none |
-| **staged** | none |
-| **handoff tip entrant** | `5f4de60d9cf9940dae1e3d6a7f340c05a45e5bc6` |
-| **handoff blob entrant** | `976e2ab6a287e352bbbe9b073b5059346b97c7b1` |
-| **104 avant cycle** | absent |
+| **handoff tip entrant** | `adc95219050844620d15a0eef1dd43d29241ef5b` |
+| **handoff blob entrant** | `945a60fae70d4026ee0a18065768a8dda54290d1` |
+| **105/106/107 avant** | absents |
 
 ---
 
 ## Sources consultées
 
-- `prompts/templates/sfia-cycle-execution-template.md` (main)
-- routing Backlog / méthode cycles / operating model / Review Pack & Handoff / publisher
-- handoff entrant tip `5f4de60…`
-- docs 100–103 locaux ; patterns 93/97/99/102
-- main PR #308–#311 (contexte base)
-
-Sources non modifiées.
+Méthode (main) · handoff entrant · docs 90–104 · code `app/package.json` · `app/lib/oa/execution-run/**` · `app/lib/oa/decision/**` · `app/lib/d1/authz.ts` · `app/lib/ops1/**` · secrets adapters · tests anti-fuite · PR #308–#311.
 
 ---
 
-## SHA / lignes documents 100–104
+## Index des preuves Git
+
+```markdown
+# Git Evidence Index — LOT-IP-0A
+
+| ID | Preuve | Chemin |
+|---|---|---|
+| E-AUTH-01 | package.json deps sans auth | projects/sfia-studio/app/package.json |
+| E-AUTH-02 | absence middleware | (aucun middleware.ts) |
+| E-AUTH-03 | HumanDecisionGate type | app/lib/oa/execution-run/domain/types.ts |
+| E-AUTH-04 | AuthorityResolver anti-spoof | app/lib/oa/decision/ports/authorityResolver.ts |
+| E-AUTH-05 | MemoryAuthorityResolver | app/lib/oa/decision/infrastructure/memoryAuthorityResolver.ts |
+| E-AUTH-06 | D1 mono-operator stub | app/lib/d1/authz.ts |
+| E-AUTH-07 | OPS1 decided_by Morris hardcodé | app/lib/ops1/db.ts / executionContractService.ts |
+| E-AJV-01 | ajv ^6.15.0 | app/package.json |
+| E-AJV-02 | AjvExecutionRunSchemaValidation | app/lib/oa/execution-run/infrastructure/ajvExecutionRunSchemaValidation.ts |
+| E-AJV-03 | 13 schémas ExecutionRun | app/lib/oa/execution-run/schemas/*.json |
+| E-AJV-04 | create fail-closed order | app/lib/oa/execution-run/application/createExecutionRun.ts |
+| E-AJV-05 | doctrine 2e adapter AJV | app/lib/oa/doctrine/infrastructure/ajvSchemaValidationAdapter.ts |
+| E-STORE-01 | ExecutionRunRepositoryPort | app/lib/oa/execution-run/ports/executionRunRepository.ts |
+| E-STORE-02 | Memory Map store | app/lib/oa/execution-run/infrastructure/memoryExecutionRunStore.ts |
+| E-STORE-03 | durable:false disclosure | app/lib/oa/execution-run/server/composeExecutionRunMemory.ts |
+| E-SEC-01 | SecretSourcePort opaque | app/lib/oa/execution-run/ports/secretSourcePort.ts |
+| E-SEC-02 | EnvSecretSourceAdapter | app/lib/oa/execution-run/infrastructure/secrets/envSecretSourceAdapter.ts |
+| E-SEC-03 | serverOnly materializer | app/lib/oa/execution-run/infrastructure/secrets/serverOnlySecretMaterializer.ts |
+| E-SEC-04 | anti-leak tests | app/__tests__/oa/execution-run/adapter.secrets.opaque.test.ts |
+```
+
+---
+
+## Synthèses d’analyse (détail complet dans 105)
+
+### TB-00-01 Auth
+Auth end-user ABSENTE · OA AuthorityResolver REUSE/EXTEND · HumanDecisionGate ≠ IAM · AuthorityGate/Admin ABSENTS code · reco candidate AUTH option A.
+
+### TB-00-02 AJV
+Verdict technique **FIT WITH EXTENSIONS** · ajv 6.15 Draft-07 · 13 schémas ≠ N2/N3 · reco candidate AJV option A.
+
+### TB-00-03 Store A2
+Memory non durable · classes A/B/D · C éliminé · reco candidate classe SQL managé (non vendor).
+
+### TB-00-06 Secrets
+SecretSourcePort opaque REUSE · catalogue Admin NEW · reco candidate SECRETS option A · aucun secret exposé.
+
+### REUSE / EXTEND / NEW
+Voir document 105 §15.
+
+---
+
+## SHA / lignes 100–106
 
 | Doc | SHA-256 | Lignes |
 |---|---|---|
 | 100 | `9244ec46bc7b0ea212c03f1e59f05f80521e87c6a8e27c07de801e10b8e2cc20` | 1432 |
 | 101 | `698d1e0388cbf2f93b7ae0c983ee66d84a50e4143fd79b4ec92f23ea9918d114` | 1164 |
 | 102 | `b5e06cd6cb0f74c3278afc041f22a27bd39f5bcbac54fa851a952b4c810577b1` | 774 |
-| 103 avant | `903547e7170b71312ac1e9c96d6e81d619366cdd515e36ae1c2384585f15f109` | 1390 |
-| 103 après | `7a0ab8c76bd58239d3407568621c0e6b546eddcae11b0c1a0d3caa36ab98c407` | 1457 |
-| 104 créé | `48859ae1f54d4f5d64a39099e00fe9af3e89b6f1cf38a24bc12c58b5dbf11802` | 484 |
+| 103 avant | `7a0ab8c76bd58239d3407568621c0e6b546eddcae11b0c1a0d3caa36ab98c407` | 1457 |
+| 103 après | `9bf223dbcb81e6f9ceec4ad1ab298470e8c14d350127a0030a0fe6af3a4783cb` | 1492 |
+| 104 | `48859ae1f54d4f5d64a39099e00fe9af3e89b6f1cf38a24bc12c58b5dbf11802` | 484 |
+| 105 créé | `bfdb737713b9d93204aa870c2842ae8246eec6d2f70535b7efae136ecf0694a9` | 565 |
+| 106 créé | `7f009bfef42dd020fe22bdd7ba718ab647f54695adf2eeea9bcdd22cbf1ceb17` | 286 |
 
-Documents 90–102 : byte-identical (vérifié). Document 105 : absent.
-
----
-
-## Matrice priorités avant / après
-
-| Niveau | Avant (candidate) | Après (validée) | IDs |
-|---|---|---|---|
-| P0 | 6 | 6 VALIDATED | TB-00-01…06 |
-| P1 | 13 | 13 VALIDATED | TB-01-01…05, TB-02-01…04, TB-03-01/02/04/05 |
-| P2 | 13 | 13 VALIDATED | TB-01-06, TB-02-05, TB-03-03, TB-04-01…04, TB-05-01/02, TB-06-01…04 |
-| P3 | 1 | 1 VALIDATED | TB-05-03 |
-| Total | 33 | 33 | PASS — aucun changement d’affectation |
+90–102 et 104 byte-identical. Document 107 absent.
 
 ---
 
-## Matrice lots avant / après
+## Validation graphe / backlog
 
-| Avant | Après |
+| Contrôle | Résultat |
 |---|---|
-| LOT-IP-0 candidat (TB-00-01…06 + TB-04-04) | SUPERSEDED → split dependency-safe |
-| — | **LOT-IP-0A** SELECTED : TB-00-01/02/03/06 — EXECUTION NOT AUTHORIZED |
-| — | **LOT-IP-0B** DEFERRED : TB-00-04/05 (dep TB-00-03) |
-| — | **LOT-IP-0C** DEFERRED : TB-04-04 (dep TB-02-05) |
-| LOT-D1…D5 NOT AUTHORIZED | inchangé NOT AUTHORIZED |
-
-### Justification du split LOT-IP-0
-
-TB-00-04 et TB-00-05 dépendent de TB-00-03 ; TB-04-04 dépend de TB-02-05. Le lot historique n’était pas dependency-safe pour un premier lot d’Implementation Preparation (D-ASST-BLG-LOT-STRUCTURE-01).
-
----
-
-## Décisions D-ASST-BLG-* appliquées
-
-| ID | Statut |
-|---|---|
-| D-ASST-BLG-PRIORITY-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-PRIORITY-02 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-LOT-STRUCTURE-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-FIRST-LOT-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-DELIVERY-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-NONSELECTIONS-01 | DECIDED — PRESERVE OPEN |
-
-Détail complet : document 104 ci-dessous.
+| Nœuds / arêtes | 33 / 56 |
+| Acyclique / topo | oui / 33/33 |
+| Priorités | P0=6 P1=13 P2=13 P3=1 inchangées |
+| Items DONE | 0 |
+| LOT-IP-0B/0C | DEFERRED |
+| LOT-D1…D5 | NOT AUTHORIZED |
+| Delivery | NOT-CONSUMED |
+| A2 + 10 ADR | préservés |
+| 21 impacts | COVERED |
+| Réserves | KEEP-OPEN |
+| Secret scan 105/106 | 0 hits |
 
 ---
 
-## Validation graphe
+## Décisions candidates
 
-| Métrique | Résultat |
-|---|---|
-| Nœuds | 33 |
-| Arêtes | 56 |
-| Acyclique | oui |
-| Topo | 33/33 |
-| Changement d’arêtes | aucun |
-| LOT-IP-0A deps entrantes | aucune (PASS) |
+| ID | Statut | Reco candidate |
+|---|---|---|
+| D-ASST-IP0A-AUTH-01 | NOT DECIDED | A |
+| D-ASST-IP0A-AJV-01 | NOT DECIDED | A |
+| D-ASST-IP0A-STORE-01 | NOT DECIDED | A (classe SQL managé) |
+| D-ASST-IP0A-SECRETS-01 | NOT DECIDED | A |
 
 ---
 
-## Validation 33 items / A2 / ADR / impacts / réserves
-
-- 33 items · 7 épics · aucun DONE
-- A2 + dix ADR préservés (docs 100–102 inchangés)
-- 21 impacts COVERED
-- réserves KEEP-OPEN
-- non-sélections préservées
-- Delivery NOT-CONSUMED
-
----
-
-## Git Review Index
-
-| Élément | État |
-|---|---|
-| Modifié | `projects/sfia-studio/103-…-technical-implementation-backlog.md` (untracked) |
-| Créé | `projects/sfia-studio/104-…-technical-implementation-backlog-decisions-applied.md` (untracked) |
-| Interdits touchés | aucun |
-| Staged | aucun |
-| Commit projet | aucun |
-| Push projet | aucun |
-
----
-
-## Document 104 — contenu complet
+## Document 105 — contenu complet
 
 ```markdown
-# SFIA Studio — Assistant SFIA natif OpenAI — Technical Implementation Backlog Decisions Applied
+# SFIA Studio — Assistant SFIA natif OpenAI — Implementation Preparation LOT-IP-0A
 
-## 1. Statut
+## 1. Statut et anti-claims
 
-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
-**P0=6 / P1=13 / P2=13 / P3=1 —**
-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
-**LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**
-**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
-**DOCUMENTARY DECISION RECORD —**
-**LOT-IP-0A EXECUTION NOT AUTHORIZED —**
+**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
+**TB-00-01 AUTH INVENTORY COMPLETE —**
+**TB-00-02 AJV N2/N3 FIT ASSESSED —**
+**TB-00-03 A2 DURABLE STORE DECISION PACK PREPARED —**
+**TB-00-06 SERVER-ONLY SECRETS AND ADMIN CONFIG PREPARATION COMPLETE —**
+**DECISION PACK READY — NOT DECIDED —**
 **NO TECHNOLOGY SELECTED —**
-**NO ITEM DONE —**
+**NO SECRET CREATED OR EXPOSED —**
+**NO CODE OR PACKAGE CHANGE —**
 **DELIVERY NOT-CONSUMED**
+
+### Anti-claims
+
+| Anti-claim | Statut |
+|---|---|
+| LOT-IP-0A exécuté ≠ décisions du Decision Pack adoptées | vrai |
+| Aucune authentification IAM sélectionnée | vrai |
+| Aucun store / fournisseur / ORM sélectionné | vrai |
+| Aucun secret manager sélectionné | vrai |
+| Aucun modèle / endpoint OpenAI sélectionné | vrai |
+| Memory adapter ≠ persistance durable A2 | vrai |
+| HumanDecisionGate ≠ authentification | vrai |
+| Les 13 schémas ExecutionRun ≠ contrats Assistant N2/N3 | vrai |
+| Sécurité / RGPD / FinOps non validés opérationnellement | vrai |
+| Aucun item backlog DONE | vrai |
+| LOT-IP-0B / 0C / LOT-D* non consommés | vrai |
 
 | Champ | Valeur |
 |---|---|
-| **Document** | `projects/sfia-studio/104-assistant-sfia-native-openai-technical-implementation-backlog-decisions-applied.md` |
-| **Rôle** | Record documentaire d’application des décisions Backlog (priorités + lots IP) |
-| **Document 103** | Mis à jour dans le même cycle |
-| **Documents 90–102** | Inchangés · byte-identical |
-| **Exécution LOT-IP-0A** | **NON** — sélection ≠ exécution |
-| **Delivery** | `NOT-CONSUMED` |
+| **Document** | `projects/sfia-studio/105-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a.md` |
+| **Rôle** | Analyse, inventaire, preuves et préparation des décisions LOT-IP-0A |
+| **Decision Pack** | `projects/sfia-studio/106-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a-decision-pack.md` |
+| **Recommandations** | **candidates uniquement** — jamais des décisions |
 
 ---
 
 ## 2. GO Morris exact et horodatage
 
 ```text
-GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TECHNICAL BACKLOG PRIORITIES AND SELECT FIRST IMPLEMENTATION-PREPARATION LOT
+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
 ```
 
 | Champ | Valeur |
 |---|---|
 | **Autorité** | Morris |
-| **Consommation (local)** | 2026-08-05 14:46 CEST (+0200) |
-| **Consommation (UTC)** | 2026-08-05 12:46 UTC |
-| **Application Cursor (local)** | 2026-08-05 14:54 CEST (+0200) |
-| **Application Cursor (UTC)** | 2026-08-05 12:54 UTC |
+| **Consommation (local)** | 2026-08-05 15:17 CEST (+0200) |
+| **Consommation (UTC)** | 2026-08-05 13:17 UTC |
+| **Application Cursor (local)** | 2026-08-05 15:25 CEST (+0200) |
+| **Application Cursor (UTC)** | 2026-08-05 13:25 UTC |
 
-### Effet exact autorisé
+### Effet autorisé
 
-- validation taxonomie P0–P3 ;
-- validation affectations des 33 items ;
-- restructuration dependency-safe LOT-IP-0 → LOT-IP-0A / 0B / 0C ;
-- sélection de LOT-IP-0A comme premier lot d’Implementation Preparation ;
-- mise à jour documentaire 103 + création 104 ;
-- Review Pack + Review Handoff.
+Exécution **documentaire** du LOT-IP-0A : inventaires, gaps, options, recommandations candidates, Decision Pack, mise à jour 103, Review Handoff.
 
-### Non-effet explicite
+### Non-effet
 
-- pas d’exécution de LOT-IP-0A ;
-- pas de Decision Pack technique produit ;
-- pas de sélection store / ORM / migration / cloud / IAM / modèle OpenAI / observabilité ;
-- pas de code ;
-- pas de Delivery ;
-- pas de commit / push projet ;
-- pas de PR / merge / suppression de branche.
+Pas de décision finale auth/AJV/store/secrets · pas de code · pas de Delivery · pas de LOT-IP-0B/0C · pas de LOT-D* · pas de commit/push projet.
 
 ---
 
-## 3. Autorité Morris
-
-Morris est l’unique autorité de décision. Les six décisions `D-ASST-BLG-*` listées dans le GO sont les seules décisions appliquées. Aucune priorité, lot ou technologie n’est inventée hors GO.
-
----
-
-## 4. Cycle / profil / typologie
+## 3. Cycle, profil, typologie et blocs
 
 | Champ | Valeur |
 |---|---|
-| **Type de cycle** | 5 — Backlog / user stories |
-| **Mode** | Application de décisions Backlog |
+| **Type** | 6 — Architecture technique |
+| **Mode** | Implementation Preparation / Decision Preparation — LOT-IP-0A |
 | **Profil SFIA** | **Critical** |
-| **Justification profil** | Décisions structurantes sur priorités (33 items), ordre, découpage des lots, premier lot, gates avant Implementation Preparation et Delivery |
 | **Typologie** | EVOL / DOC |
-| **Blocs activés** | FinOps · Sécurité/RSSI · RGPD · Architecture technique · Backlog/dépendances |
-| **Blocs désactivés** | UX/UI+Figma · Delivery · DevOps · déploiement · RUN · PR readiness · post-merge · capitalisation |
+| **CKC** | recherché · contrat détaillé spécifique **absent** · fallback carte synthétique + méthode SFIA v2.6 · aucune autorité d’exécution additionnelle |
+| **Blocs activés** | Sécurité/RSSI · FinOps · RGPD · performance · architecture · garde-fous décision · observabilité (critère d’évaluation uniquement) |
+| **Blocs désactivés** | UX/UI · accessibilité · Delivery · DevOps · déploiement · RUN · PR readiness · post-merge · capitalisation |
+
+---
+
+## 4. Autorité Morris
+
+Morris décide. Cursor analyse et prépare. Toute option « recommandée » reste **candidate**. Le GO exécute le lot documentaire ; il **n’adopte pas** les décisions du document 106.
 
 ---
 
 ## 5. Sources et hiérarchie de preuve
 
-1. Git — `origin/main` = `8dc54db0069eed78a8d8930cc2b035450ab56ad1` ;
-2. GO Morris courant — décisions consommées ;
-3. Review Handoff entrant tip `5f4de60d9cf9940dae1e3d6a7f340c05a45e5bc6` / blob `976e2ab6a287e352bbbe9b073b5059346b97c7b1` ;
-4. document 103 corrigé (F-BLG-103-01…04) avant décision — SHA-256 `903547e7170b71312ac1e9c96d6e81d619366cdd515e36ae1c2384585f15f109` ;
-5. documents 100 / 101 / 102 (A2 + dix ADR + 21 impacts) ;
-6. patterns decisions-applied 93 / 97 / 99 / 102 ;
-7. méthode : template cycle, routing Backlog, Review Pack / Handoff, publisher canonique.
+1. Git `origin/main` = `8dc54db0069eed78a8d8930cc2b035450ab56ad1` — code réel ;
+2. GO Morris courant ;
+3. Review Handoff entrant tip `adc95219050844620d15a0eef1dd43d29241ef5b` / blob `945a60fae70d4026ee0a18065768a8dda54290d1` ;
+4. documents 100–104 (hashes entrants vérifiés) ;
+5. documents 90–99 (contexte FPI / AF / UX / prérequis) ;
+6. PR #308–#310 (fondations ExecutionRun) ; PR #311 (base main) ;
+7. méthode SFIA v2.6 / template cycle / Review Pack & Handoff.
 
-**Observation —** les sources méthode et documents 90–102 n’ont pas été modifiées.
+**Règle —** une capacité absente du code est **GAP**, pas une hypothèse positive. Toute donnée externe non prouvée localement : `EXTERNAL VALIDATION REQUIRED — NOT PROVEN IN REPO`.
 
 ---
 
-## 6. Git / branche / HEAD / handoff entrant
+## 6. Git Truth initial
 
 | Champ | Valeur |
 |---|---|
-| **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1` |
-| **Branche projet** | `backlog/sfia-studio-assistant-sfia-native-openai-technical-implementation-backlog` |
+| **Branche initiale** | `backlog/sfia-studio-assistant-sfia-native-openai-technical-implementation-backlog` |
+| **Branche IP** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-lot-ip-0a` |
 | **HEAD** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
 | **origin/main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
 | **Merge-base** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
-| **Upstream projet** | aucun |
 | **Ahead / behind** | 0 / 0 |
-| **Handoff tip entrant** | `5f4de60d9cf9940dae1e3d6a7f340c05a45e5bc6` |
-| **Handoff blob entrant** | `976e2ab6a287e352bbbe9b073b5059346b97c7b1` |
-| **Commit projet** | aucun dans ce cycle |
-| **Push projet** | aucun |
+| **Upstream** | aucun |
+| **105/106/107 avant** | absents |
+
+Hashes entrants 100–104 : **PASS** (identiques aux valeurs obligatoires du GO).
 
 ---
 
-## 7. Document 103 source avant décision
+## 7. Périmètre LOT-IP-0A
 
-| Champ | Valeur |
+| Item | Objectif borné |
 |---|---|
-| **SHA-256 avant** | `903547e7170b71312ac1e9c96d6e81d619366cdd515e36ae1c2384585f15f109` |
-| **Lignes avant** | 1390 |
-| **Items** | 33 |
-| **Épics** | 7 (EPIC-TB-00…06) |
-| **Graphe** | 33 nœuds · 56 arêtes · acyclique · topo 33/33 |
-| **Priorités** | déjà alignées P0=6 / P1=13 / P2=13 / P3=1 (libellé encore « candidate ») |
-| **Lot historique** | LOT-IP-0 candidat regroupant TB-00-01…06 + TB-04-04 |
+| TB-00-01 | Inventaire auth/authz réel et réutilisabilité Admin/Morris / AuthorityGate |
+| TB-00-02 | Adéquation pile AJV Draft-07 aux futurs contrats N2/N3 |
+| TB-00-03 | Instruction Decision Pack store externe durable A2 |
+| TB-00-06 | Frontière secrets server-only + catalogue logique config Admin |
 
-**Observation —** le contrôle D-ASST-BLG-PRIORITY-02 a trouvé une correspondance exacte des affectations ; aucun STOP PRIORITY DECISION INPUT MISMATCH.
+Hors périmètre : LOT-IP-0B (TB-00-04/05) · LOT-IP-0C (TB-04-04) · LOT-D1…D5 · code · migrations · sélection techno.
 
 ---
 
-## 8. Problème de lot identifié
+## 8. Matrice des quatre items
 
-### LOT-IP-0 historique
+| ID | Objectif | Sources | Capacité existante | Gap | Preuve | Résultat cycle | Décision encore requise | Conséquence lots aval |
+|---|---|---|---|---|---|---|---|---|
+| TB-00-01 | Inventaire auth | package.json · lib/oa/decision · lib/d1 · lib/ops1 · docs 102 | OA AuthorityResolver + anti-spoof ; HumanDecisionGate workflow ; stubs D1/OPS1 | Pas d’auth end-user ; pas middleware ; Admin absent ; AuthorityGate absent code ; Server Actions non gardés | E-AUTH-01…07 | Inventaire + options | D-ASST-IP0A-AUTH-01 | Bloque TB-03-01/02 ; ADR ADMIN-AUTHZ=B à réconcilier |
+| TB-00-02 | Fit AJV N2/N3 | ajv 6.15 · AjvExecutionRun* · 13 schemas · tests · docs 100/102 | Fail-closed Draft-07 prouvé sur ExecutionRun | Pas de schémas Assistant N2/N3 ; AF-02 OPEN ; 2e pipeline doctrine | E-AJV-01…05 | Verdict **FIT WITH EXTENSIONS** | D-ASST-IP0A-AJV-01 | Bloque TB-02-03 |
+| TB-00-03 | Store A2 | RepositoryPort · Memory · disclosure · docs 102 A2 | Port repository générique ; memory non durable | Pas d’adapter durable ; pas migrations ; pas unicité/CAS sur port | E-STORE-01…03 | Classes d’options + reco candidate | D-ASST-IP0A-STORE-01 | Bloque LOT-IP-0B · LOT-D1 · TB-01-* |
+| TB-00-06 | Secrets/config | SecretSourcePort · Env/Fake · materializer · tests | Opaque resolve + server-only materialize + redaction | Catalogue Admin NEW ; Env non wiré compose ; OPENAI_* hors port | E-SEC-01…04 | Catalogue logique + reco | D-ASST-IP0A-SECRETS-01 | Impact TB-02-01 · config TTL |
 
-Le lot candidat initial regroupait :
+---
 
-- TB-00-01, TB-00-02, TB-00-03, TB-00-04, TB-00-05, TB-00-06, TB-04-04.
+## 9. Analyse TB-00-01 — Authentification et autorisation
 
-### Dépendances non satisfaites dans ce regroupement
+### 9.1 Observations (preuves)
 
-| Item | Dépendance | Conséquence |
+| Observation | Preuve |
+|---|---|
+| Aucune dépendance auth dans `package.json` (pas next-auth, clerk, lucia, jose, iron-session) | E-AUTH-01 |
+| Aucun `middleware.ts` | E-AUTH-02 |
+| Aucun Route Handler `route.ts` sous app | inventaire glob |
+| Aucune session cookie / JWT Next.js | grep `next/headers` cookies |
+| `HumanDecisionGate` = gate workflow ExecutionRun (`gateId`, `question`, `decision`) | E-AUTH-03 |
+| `AuthorityGate` : **0** occurrence sous `app/**` (docs seulement) | grep |
+| `Admin` : **0** occurrence sous `app/**` | grep |
+| `AuthorityResolverPort` ignore authorityLevel/displayName client ; Morris = N3 ∧ `canActAsMorris` | E-AUTH-04 |
+| `MemoryAuthorityResolver` in-memory, utilisé surtout tests | E-AUTH-05 |
+| D1 `requireMonoOperator` fixe `actor-mono-i1` | E-AUTH-06 |
+| OPS1 persiste `decided_by = 'Morris'` sans vérifier l’appelant | E-AUTH-07 |
+| Server Actions présents sans garde d’identité à la frontière | `lib/*/actions.ts` |
+
+### 9.2 Diagramme textuel du flux d’identité actuel
+
+```text
+[Browser]
+   |  (pas de login / cookie / JWT)
+   v
+[App Router pages]
+   |
+   | Server Actions (non authentifiés)
+   +-- D1 --> requireMonoOperator(actor-mono-i1)   [stub I1]
+   +-- OPS1 --> sessionId format + decided_by='Morris' [label]
+   +-- OA libs (AuthorityResolver / RecordHumanDecision)
+        [disponibles en bibliothèque, non branchés sur Actions]
+   |
+   v
+[SQLite OPS1/D1 locaux | Memory OA]  ≠ A2 durable Project store
+```
+
+### 9.3 Frontières de confiance (Sécurité / RSSI)
+
+| Frontière | État |
+|---|---|
+| Identité end-user | **ABSENTE** |
+| Autorisation domaine OA (N1/N2/N3/Morris) | **PRÉSENTE en lib** · **NON ENFORCÉE** à la frontière HTTP/Actions |
+| Autorité Morris | Label / flag `canActAsMorris` · **pas** principal authentifié |
+| Spoofing | Protégé **dans** OA resolver · **non** à la frontière Server Actions |
+| Provider | Anti-provider-authority préservé conceptuellement (docs) · non retesté ici comme IAM |
+
+**Conclusion RSSI candidate —** ne pas conclure « sécurité validée ». Cartographie de confiance : **trust-by-local-UI** aujourd’hui.
+
+### 9.4 Capacités réutilisables (REUSE / EXTEND)
+
+| Élément | Classe |
+|---|---|
+| AuthorityResolverPort + anti-spoof | REUSE / EXTEND |
+| RecordHumanDecision / VerifyAuthority | EXTEND (brancher derrière auth) |
+| HumanDecisionGate + transitions | EXTEND (consommation AuthorityGate future) |
+| ActorReference roles | EXTEND (pas de rôle `admin`) |
+| Audit decision ports | REUSE |
+
+### 9.5 Gaps
+
+1. Mécanisme d’authentification end-user **ABSENT** alors que ADR-ASST-ADMIN-AUTHZ-01=B suppose une auth existante à étendre.
+2. Middleware / session / mapping user→actorId **ABSENT**.
+3. Rôle Admin **ABSENT**.
+4. AuthorityGate nommé **ABSENT** du code.
+5. Garde Server Actions **ABSENTE**.
+6. Evidence d’autorité durable (non-memory) **ABSENTE**.
+
+### 9.6 Options candidates (non décidées)
+
+| Option | Contenu | Commentaire |
 |---|---|---|
-| TB-00-04 | TB-00-03 | ne peut pas être préparé dans le même lot « premier » sans décision store |
-| TB-00-05 | TB-00-03 | idem |
-| TB-04-04 | TB-02-05 | nécessite preuve metering / soft cap ; reste pré-pilote |
+| **A** | Établir une fondation d’authentification minimale, puis appliquer ADMIN-AUTHZ=B (rôles Admin/Morris) | Réconcilie l’écart ADR vs réalité |
+| **B** | Ré-arbitrer ADMIN-AUTHZ (nouveau jeu d’options) car « existing auth » est factuellement absent | Si Morris refuse d’introduire une auth dans le FPI |
+| **C** | Frontière trust locale explicite (mono-opérateur) **bornée hors pilote** | Dette de sécurité assumée · non production-ready |
 
-**Justification du split —** D-ASST-BLG-LOT-STRUCTURE-01 remplace LOT-IP-0 par trois sous-lots dependency-safe sans modifier le graphe des items.
+### 9.7 Recommandation candidate
 
----
+**Option A** — sans sélection de produit IAM : inventorier puis décider le mécanisme dans un cycle ultérieur borné ; réutiliser OA AuthorityResolver pour l’autorisation domaine.
 
-## 9. Registre complet des décisions
+### 9.8 Décision Morris requise
 
-### D-ASST-BLG-PRIORITY-01
-
-| Dimension | Contenu |
-|---|---|
-| **Statut** | DECIDED — ADOPTED BY MORRIS |
-| **Décision validée** | Taxonomie P0 / P1 / P2 / P3 validée (préparation structurante · FPI · pré-pilote · post-FPI) |
-| **Observation** | La priorité n’est jamais GO Delivery / implémentation / techno / fermeture de réserve |
-| **Conséquence** | Document 103 : « Priorité candidate » → « Priorité validée » |
-
-### D-ASST-BLG-PRIORITY-02
-
-| Dimension | Contenu |
-|---|---|
-| **Statut** | DECIDED — ADOPTED BY MORRIS |
-| **Décision validée** | Affectations exactes ci-dessous (section 10) sans changement silencieux |
-| **Contrôles** | total 33 · aucun doublon · aucun absent · hors P0–P3 interdit |
-| **Conséquence** | Aucune réaffectation ; VALIDATED BY MORRIS sur chaque item |
-
-### D-ASST-BLG-LOT-STRUCTURE-01
-
-| Dimension | Contenu |
-|---|---|
-| **Statut** | DECIDED — ADOPTED BY MORRIS |
-| **Décision validée** | LOT-IP-0 → LOT-IP-0A / 0B / 0C |
-| **Élément différé** | LOT-IP-0B et LOT-IP-0C |
-| **Conséquence** | Traçabilité historique SUPERSEDED conservée |
-
-### D-ASST-BLG-FIRST-LOT-01
-
-| Dimension | Contenu |
-|---|---|
-| **Statut** | DECIDED — ADOPTED BY MORRIS |
-| **Décision validée** | Premier lot = LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06) |
-| **Conséquence** | SELECTED BY MORRIS — EXECUTION NOT AUTHORIZED |
-| **Gate future** | GO EXECUTE LOT-IP-0A |
-
-### D-ASST-BLG-DELIVERY-01
-
-| Dimension | Contenu |
-|---|---|
-| **Statut** | DECIDED — ADOPTED BY MORRIS |
-| **Décision validée** | `DELIVERY-GATE=NOT-CONSUMED` |
-| **Conséquence** | Aucun GO code / migration / provider live / store / auth / model / cloud / pilote |
-
-### D-ASST-BLG-NONSELECTIONS-01
-
-| Dimension | Contenu |
-|---|---|
-| **Statut** | DECIDED — PRESERVE OPEN |
-| **Décision validée** | Toutes non-sélections listées section 20 restent NOT SELECTED |
-| **Conséquence** | Aucune techno choisie dans ce cycle |
+`D-ASST-IP0A-AUTH-01` — stratégie d’authentification / autorisation (document 106).
 
 ---
 
-## 10. Matrice des priorités validées
+## 10. Analyse TB-00-02 — Adéquation AJV N2/N3
 
-| Niveau | Nombre | IDs |
+### 10.1 Observations
+
+| Observation | Preuve |
+|---|---|
+| `ajv@^6.15.0` locké 6.15.0 | E-AJV-01 |
+| Draft-07 · `allErrors: true` · `format: "full"` · `unknownFormats: "ignore"` · max 20 erreurs | E-AJV-02 |
+| Port `ExecutionRunSchemaValidation` + adapter AJV | E-AJV-02 |
+| 13 schémas ExecutionRun Draft-07 | E-AJV-03 |
+| Ordre create : validate input → metadata/id → validate run → save | E-AJV-04 |
+| Deuxième adapter AJV doctrine déjà présent | E-AJV-05 |
+| Aucun schéma Assistant N2/N3 sous `app/**` | inventaire |
+| `R-TECH-AF02-BOUNDARY-01` KEEP-OPEN | doc 102/103 |
+
+### 10.2 Matrice besoins N1 / N2 / N3 vs capacité AJV
+
+| Besoin | Capacité AJV 6.15 | État |
 |---|---|---|
-| **P0** | 6 | TB-00-01 · TB-00-02 · TB-00-03 · TB-00-04 · TB-00-05 · TB-00-06 |
-| **P1** | 13 | TB-01-01 · TB-01-02 · TB-01-03 · TB-01-04 · TB-01-05 · TB-02-01 · TB-02-02 · TB-02-03 · TB-02-04 · TB-03-01 · TB-03-02 · TB-03-04 · TB-03-05 |
-| **P2** | 13 | TB-01-06 · TB-02-05 · TB-03-03 · TB-04-01 · TB-04-02 · TB-04-03 · TB-04-04 · TB-05-01 · TB-05-02 · TB-06-01 · TB-06-02 · TB-06-03 · TB-06-04 |
-| **P3** | 1 | TB-05-03 |
-| **Total** | **33** | 33 IDs uniques |
+| N1 progressif (texte) | Hors chemin AJV strict | Boundary AF-02 OPEN |
+| N2 delta structuré complet fail-closed | Draft-07 object/enum/additionalProperties/oneOf **prouvé** | Capable · schéma NEW manquant |
+| N3 DecisionCandidate fail-closed | Même capacité | Capable · schéma NEW manquant |
+| Pas d’appliquer partiel | Completeness + fail-closed ExecutionRun | Pattern réutilisable |
 
-**Contrôle —** somme 6+13+13+1 = 33 · PASS.
+### 10.3 Matrice fail-closed
 
----
+| Contrainte | Prouvé ExecutionRun | Requis Assistant |
+|---|---|---|
+| Validate `unknown` avant metadata/persist | oui | oui |
+| Reject → pas de save | oui | oui |
+| Nested validate | oui | oui |
+| Erreurs normalisées (pas throw AJV brut) | oui | oui |
 
-## 11. Matrice des lots
+### 10.4 Verdict technique
 
-| Lot | Items | Dépendances bloquantes | Statut | Autorisation | Prochaine gate |
-|---|---|---|---|---|---|
-| LOT-IP-0 (historique) | TB-00-01…06 + TB-04-04 | (unsafe) | SUPERSEDED | N/A | — |
-| **LOT-IP-0A** | TB-00-01 · 02 · 03 · 06 | aucune | **SELECTED BY MORRIS** | EXECUTION NOT AUTHORIZED | GO EXECUTE LOT-IP-0A |
-| **LOT-IP-0B** | TB-00-04 · TB-00-05 | TB-00-03 | DEFERRED — NOT SELECTED | aucune | Future Morris gate après store |
-| **LOT-IP-0C** | TB-04-04 | TB-02-05 | DEFERRED — NOT SELECTED | aucune | Future Morris gate après metering |
-| LOT-D1…D5 | (inchangés) | — | NOT AUTHORIZED | aucune | Future Delivery GOs |
+**FIT WITH EXTENSIONS**
 
-**Chevauchement IP-0A/0B/0C —** aucun.
+Preuve : la bibliothèque et le pattern fail-closed portent des contrats structurés Draft-07 de forme N2/N3. Extensions requises : schémas Assistant NEW · port généralisé ou twin · tests de conformance · clôture/arbitrage AF-02. Ce verdict **n’est pas** une décision Morris d’implémentation.
 
----
+### 10.5 Risque double pipeline
 
-## 12. Record LOT-IP-0A sélectionné
+Deux `new Ajv(` existent déjà (ExecutionRun + Doctrine). TB-02-03 interdit une **troisième** pipeline silencieuse pour Assistant. Stratégie candidate : étendre le **pattern** ExecutionRun (un surface de composition) sans nouvelle bibliothèque.
 
-| Champ | Valeur |
+### 10.6 Options candidates
+
+| Option | Contenu |
 |---|---|
-| **Nom** | LOT-IP-0A — Foundational Decision Preparation |
-| **Items** | TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06 |
-| **Nature** | inventaire auth · fit AJV · Decision Pack store A2 · secrets server-only / Admin config prep |
-| **Dépendances backlog entrantes** | aucune |
-| **Statut** | SELECTED BY MORRIS — EXECUTION NOT AUTHORIZED |
-| **Exécuté dans ce cycle** | **NON** |
-| **Decision Packs produits** | **aucun** |
-| **Technologies choisies** | **aucune** |
-| **Code** | **interdit** |
+| **A** | EXTEND pattern ExecutionRun : nouveaux schémas N2/N3 + port/wiring dédié Assistant · même AJV6 |
+| **B** | Factory AJV partagée (ExecutionRun + Doctrine + Assistant) pour hygiène |
+| **C** | Ré-arbitrer VALIDATE-LIB si Draft-07 insuffisant (chemin NOT FIT) — seulement si preuve contraire |
+
+### 10.7 Recommandation candidate
+
+**Option A** (+ hygiène B optionnelle). Ne pas sélectionner une autre bibliothèque.
+
+### 10.8 Décision Morris requise
+
+`D-ASST-IP0A-AJV-01`.
 
 ---
 
-## 13. Record LOT-IP-0B différé
+## 11. Analyse TB-00-03 — Store externe durable A2
 
-| Champ | Valeur |
+### 11.1 Observations
+
+| Observation | Preuve |
 |---|---|
-| **Nom** | LOT-IP-0B — Store-Dependent Decision Preparation |
-| **Items** | TB-00-04 · TB-00-05 |
-| **Blocage** | dépend de TB-00-03 |
-| **Statut** | DEFERRED — NOT SELECTED — FUTURE MORRIS GATE REQUIRED |
-| **Note** | Exécutable seulement après décision Morris store ou clarification explicite d’options sans choix |
+| `ExecutionRunRepositoryPort` : save / getById / listByCorrelationId | E-STORE-01 |
+| Adapter unique : Memory `Map` + structuredClone | E-STORE-02 |
+| Disclosure `durable: false` · `multiInstance: false` · `restartSafe: false` | E-STORE-03 |
+| Pas d’adapter sqlite/postgres/file pour ExecutionRun | inventaire |
+| Pas d’outil de migration dans package.json / app | inventaire |
+| Port sans transaction / CAS / unicité / idempotence key | E-STORE-01 |
+| A2 : `external-durable-store;explicit-concurrency;no-embedded` | doc 102 |
+| PERSIST=B déjà DECIDED | doc 102 |
 
----
+**Anti-claim —** memory/fixture ≠ store A2.
 
-## 14. Record LOT-IP-0C différé
+### 11.2 Critères éliminatoires A2
 
-| Champ | Valeur |
+1. Store **externe** (pas embedded ops).
+2. **Durable** et **restart-safe**.
+3. Compatible **multi-instance** / serverless.
+4. Concurrence / unicité / idempotence **explicables**.
+5. Migrations / backup-restore **envisageables**.
+6. Séparation lane audit (AUDIT-STORE=B) possible.
+7. Réversibilité / pas de lock-in inutile.
+
+### 11.3 Classes d’options (pas de vendors)
+
+| Classe | Description | Fit A2 | Statut |
+|---|---|---|---|
+| **A** | SQL relationnel managé avec transactions | Fort | EXTERNAL VALIDATION REQUIRED pour produit |
+| **B** | Document/KV managé — cohérence forte à prouver | Possible avec caveats | EXTERNAL VALIDATION REQUIRED |
+| **C** | Embedded / local-only (SQLite fichier, FS) | **Éliminé** pour store ops A2 (`no-embedded`) | Éliminé |
+| **D** | Journal append-only + store requête | Complément audit ; rarement seul | EXTERNAL VALIDATION REQUIRED si primaire |
+
+### 11.4 Matrice comparative (critères)
+
+| Critère | A | B | C | D |
+|---|---|---|---|---|
+| Externe | oui* | oui* | non ops | dépend |
+| Durable / restart | oui* | oui* | non multi-instance | dépend |
+| Multi-instance | oui* | caveat | non | caveat |
+| Transactions | fort | variable* | local | faible |
+| Unicité / idempotence | fort | app-owned* | local | app-owned |
+| Migrations | mature* | variable* | local | custom |
+| Backup/restore | mature* | variable* | local | custom |
+| FinOps facteurs | storage · query · egress · backup · ops | idem | faible local / interdit A2 | storage+ops |
+| Testabilité locale | via conteneur/dev* | via émulateur* | facile mais interdit ops | custom |
+
+\* = `EXTERNAL VALIDATION REQUIRED — NOT PROVEN IN REPO` pour offre concrète, SLA, prix.
+
+### 11.5 FinOps (facteurs, pas de tarifs)
+
+| Facteur | Nature |
 |---|---|
-| **Nom** | LOT-IP-0C — Pre-Pilot FinOps Decision Preparation |
-| **Items** | TB-04-04 |
-| **Blocage** | dépend de TB-02-05 |
-| **Statut** | DEFERRED — NOT SELECTED — FUTURE MORRIS GATE REQUIRED |
-| **Note** | Requis avant pilote · ne bloque pas l’exécution future de TB-02-05 · aucune valeur hard cap / tarif / SLO |
+| Stockage durable Project + audit | fixe / volume |
+| Requêtes / compute | variable |
+| Egress instance↔store | variable (serverless) |
+| Backup / restore | fixe + ops |
+| Exploitation multi-instance | ops |
 
----
+Aucun tarif inventé. `R-TECH-FINOPS-HARD-01` KEEP-OPEN. TB-04-04 hors lot.
 
-## 15. LOT-D1 à LOT-D5 inchangés
+### 11.6 RGPD (technique, pas juridique)
 
-| Lot | Statut |
+Catégories potentielles : métadonnées projet · contenus conversationnels · audit provider · preuves d’exécution. Impacts : stockage · audit lane · purge/TTL · backup. **Pas** de durée · **pas** de base légale · `R-TECH-TTL-01` KEEP-OPEN.
+
+### 11.7 Performance
+
+Volumes cibles : `UNKNOWN — MORRIS OR PRODUCT INPUT REQUIRED`. Critères éliminatoires : transactions + concurrence explicite. Pas de SLO.
+
+### 11.8 Impacts aval
+
+| Aval | Effet |
 |---|---|
-| LOT-D1 | NOT AUTHORIZED |
-| LOT-D2 | NOT AUTHORIZED |
-| LOT-D3 | NOT AUTHORIZED |
-| LOT-D4 | NOT AUTHORIZED |
-| LOT-D5 | NOT AUTHORIZED |
+| TB-00-04 / TB-00-05 / LOT-IP-0B | bloqués jusqu’à décision store |
+| LOT-D1 | NOT AUTHORIZED jusqu’à décision |
+| TB-01-* | ports durables ≠ memory |
 
-Aucun lot Delivery sélectionné.
+### 11.9 Recommandation candidate
+
+**Classe A** (SQL relationnel managé avec transactions) comme option de tête A2-compatible. **Classe C éliminée** pour ops. **Aucune technologie nommée comme choisie.**
+
+### 11.10 Décision Morris requise
+
+`D-ASST-IP0A-STORE-01`.
 
 ---
 
-## 16. Graphe après décision
+## 12. Analyse TB-00-06 — Secrets server-only et configuration Admin
 
-| Métrique | Valeur |
+### 12.1 Observations
+
+| Observation | Preuve |
 |---|---|
-| **Nœuds** | 33 |
-| **Arêtes** | 56 |
-| **Acyclique** | oui |
-| **Topological sort** | 33/33 |
-| **Self-loops** | 0 |
-| **Références inconnues** | 0 |
-| **Changement d’arêtes dans ce cycle** | **aucun** |
+| `SecretSourcePort.resolve` opaque (`id`, `present`) — pas de string secret | E-SEC-01 |
+| `EnvSecretSourceAdapter` + `FakeSecretSourceAdapter` | E-SEC-02 |
+| `ServerOnlySecretMaterializer` hors barrel public | E-SEC-03 |
+| Tests anti-fuite opaque / redaction events | E-SEC-04 |
+| Compose providers wire **Fake** par défaut ; Env non branché | composeExecutionRunProviders |
+| `OPENAI_API_KEY` lu côté platform AI, hors SecretSourcePort aujourd’hui | platform/ai/config.ts |
+| ADR SECRETS=A (env server-only) DECIDED | doc 102 |
 
-**Observation —** la restructuration des lots ne modifie pas le graphe des items.
+### 12.2 Catalogue logique (aucune valeur)
 
----
+| Identifiant logique | Nature | Consommateur | Propriétaire décision | Emplacement logique | Matérialisation | Exposition interdite | Validation | Statut | Réserve |
+|---|---|---|---|---|---|---|---|---|---|
+| `openai.api_key` | secret | adapter AI | Morris (existence) / Ops deploy | env server-only / futur manager | server-only materialize | browser · logs · events · evidence · ports publics | fail-closed présence | NOT SELECTED valeur | — |
+| `openai.model` | non-secret | AI config / Admin | Admin | config | lecture config | credential-like leak N/A | format/enum futur | NOT SELECTED | — |
+| `git.read_token` | secret | git read adapter | Ops | env | server-only | idem secrets | présence | existant platform | — |
+| `test.secret` | secret fixture | tests | Engineering | Fake | opaque fake | idem | conformance | fixture | — |
+| `admin.ttl` | non-secret | purge | Admin | config durable après store | config | — | bornes futures | NOT SELECTED · R-TECH-TTL-01 | KEEP-OPEN |
+| `admin.soft_cap` | non-secret | metering | Admin | config | config | — | bornes | NOT SELECTED | — |
+| `admin.hard_cap` | non-secret policy | FinOps | Morris | Decision Pack futur | — | — | — | DEFER · R-TECH-FINOPS-HARD-01 | KEEP-OPEN |
+| `secret_manager.*` | secret futur | replace env | Morris gate | futur adapter même port | futur | idem | — | NOT SELECTED | — |
 
-## 17. A2 et dix ADR préservés
+### 12.3 Gaps
 
-| Élément | Statut |
+1. Catalogue Admin (TTL, modèle, soft cap) **NEW** — non implémenté.
+2. Alignement platform `OPENAI_*` vers SecretSourcePort **GAP**.
+3. Secret manager **NOT SELECTED** (trajectoire future ADR).
+4. Aucun `.env` à créer dans ce cycle.
+
+### 12.4 Options candidates
+
+| Option | Contenu |
 |---|---|
-| Bundle **A2** | préservé |
-| ADR-ASST-TOPO-01=A | préservé |
-| ADR-ASST-PERSIST-01=B | préservé |
-| ADR-ASST-SERVER-01=C | préservé |
-| ADR-ASST-PURGE-01=C | préservé |
-| ADR-ASST-AUDIT-STORE-01=B | préservé |
-| ADR-ASST-STREAM-01=A | préservé |
-| ADR-ASST-VALIDATE-LIB-01=A | préservé |
-| ADR-ASST-SECRETS-01=A | préservé |
-| ADR-ASST-ADMIN-AUTHZ-01=B | préservé |
-| ADR-ASST-HEALTH-01=C | préservé |
-| Documents 100 / 101 / 102 | non modifiés |
+| **A** | REUSE SecretSourcePort + materializer server-only · EXTEND catalogue Admin non-secret séparé · wire Env en Delivery future |
+| **B** | Introduire secret manager dès maintenant | Premature · EXTERNAL VALIDATION |
+| **C** | Laisser `OPENAI_*` hors port indéfiniment | Dette de frontière |
+
+### 12.5 Recommandation candidate
+
+**Option A**.
+
+### 12.6 Décision Morris requise
+
+`D-ASST-IP0A-SECRETS-01`.
 
 ---
 
-## 18. Couverture des 21 impacts préservée
+## 13. Matrice consolidée des dépendances
 
-Les 21 impacts techniques du document 102 restent **COVERED** par les 33 items / 7 épics du document 103. Aucun impact retiré, aucun item ajouté ou supprimé.
+| Décision / item | Dépend de | Débloque |
+|---|---|---|
+| AUTH-01 | inventaire (fait) | TB-03-01 · TB-03-02 |
+| AJV-01 | inventaire (fait) · VALIDATE-LIB=A | TB-02-03 |
+| STORE-01 | A2 + PERSIST=B | TB-00-04/05 · LOT-IP-0B · LOT-D1 · TB-01-* |
+| SECRETS-01 | SECRETS=A | TB-02-01 config · Admin catalog |
+| STORE-01 avant data-access/platform | obligatoire | LOT-IP-0B |
+
+Ordre d’arbitrage recommandé : **STORE-01 → AUTH-01 → SECRETS-01 → AJV-01** (store conditionne le plus d’aval ; AJV peut être parallèle après STORE si Morris le souhaite).
 
 ---
 
-## 19. Réserves KEEP-OPEN
+## 14. Matrice des risques et dettes évitées
 
-| Réserve | Statut |
+| Risque évité par ce cycle | Comment |
 |---|---|
-| R-TECH-TTL-01 | KEEP-OPEN |
-| R-TECH-FINOPS-HARD-01 | KEEP-OPEN |
-| R-TECH-AF02-BOUNDARY-01 | KEEP-OPEN |
-| R-UX-FPI-02 | KEEP-OPEN |
-| R-UX-FPI-03 | KEEP-OPEN |
-| R-UX-FPI-04 | KEEP-OPEN |
-| R-UX-04 | KEEP-OPEN |
-
-Aucune réserve fermée. TB-04-03 reste BLOCKED-BY-DECISION (P2 validé).
+| Seconde pile auth inventée sans inventaire | inventaire factuel |
+| Seconde pipeline AJV silencieuse | verdict FIT WITH EXTENSIONS + options |
+| Memory présenté comme durable | anti-claim + disclosure |
+| Sélection store implicite | classes only · Decision Pack |
+| Fuite secrets dans docs | catalogue logique sans valeurs |
+| Consommation LOT-IP-0B/D1 | explicite NOT AUTHORIZED |
 
 ---
 
-## 20. Non-sélections préservées
+## 15. Matrice REUSE / EXTEND / NEW DOMAIN-SPECIFIC / N/A
 
-Restent **NOT SELECTED** :
-
-- store et fournisseur ;
-- ORM ;
-- outil de migration ;
-- cloud ;
-- hébergeur ;
-- région ;
-- nombre d’instances ;
-- IAM ;
-- observabilité ;
-- secret manager ;
-- modèle OpenAI ;
-- endpoint OpenAI ;
-- TTL ;
-- hard cap FinOps ;
-- tarifs ;
-- SLO ;
-- schéma physique ;
-- IaC.
+| Capacité | Classe | Notes |
+|---|---|---|
+| AuthorityResolver / anti-spoof | REUSE/EXTEND | brancher après auth |
+| HumanDecisionGate | EXTEND | ≠ IAM |
+| Server Actions guards | NEW | après AUTH-01 |
+| Middleware / session | NEW | si option A auth |
+| Admin role | NEW | absent code |
+| AuthorityGate nommé | NEW | docs only |
+| AJV 6.15 + pattern fail-closed | REUSE/EXTEND | schémas Assistant NEW |
+| 13 schémas ExecutionRun | N/A pour N2/N3 | preuve de stack seulement |
+| ExecutionRunRepositoryPort | EXTEND | adapter durable NEW après STORE |
+| Memory repository | N/A durable | fixture only |
+| SecretSourcePort / materializer | REUSE/EXTEND | |
+| Catalogue Admin non-secret | NEW | |
+| ORM / migration tool | N/A | NOT SELECTED · LOT-IP-0B |
 
 ---
 
-## 21. Delivery NOT-CONSUMED
+## 16. Impacts sur A2 et les dix ADR
 
-`DELIVERY-GATE=NOT-CONSUMED` (D-ASST-BLG-DELIVERY-01).
-
-Le présent record **n’autorise pas** :
-
-- GO Implementation Preparation execution ;
-- GO Delivery ;
-- GO code ;
-- GO migration ;
-- GO provider live ;
-- GO store ;
-- GO auth ;
-- GO OpenAI model ;
-- GO cloud ;
-- GO pilote.
+| Élément | Impact LOT-IP-0A |
+|---|---|
+| A2 constraints | Confirmés ; memory incompatible ; store Decision Pack préparé |
+| TOPO=A | préservé |
+| PERSIST=B | Decision Pack store instruit · non sélectionné |
+| SERVER=C | préservé · dépendra plateforme après store |
+| PURGE=C | préservé · TTL KEEP-OPEN |
+| AUDIT-STORE=B | lane logique à respecter dans store |
+| STREAM=A | hors lot |
+| VALIDATE-LIB=A | fit WITH EXTENSIONS · pas de lib alternative |
+| SECRETS=A | REUSE confirmé · catalogue Admin NEW |
+| ADMIN-AUTHZ=B | **tension** : auth existante absente → AUTH-01 |
+| HEALTH=C | hors lot |
 
 ---
 
-## 22. Actions autorisées et interdites
+## 17. Impacts sur les 21 impacts techniques
+
+Les 21 impacts du document 102 restent **COVERED** par le backlog 103. LOT-IP-0A prépare les décisions pour les impacts auth, validation, store, secrets **sans** les implémenter.
+
+---
+
+## 18. Réserves et non-sélections
+
+### Réserves KEEP-OPEN
+
+| Réserve | Lien |
+|---|---|
+| R-TECH-TTL-01 | TB-00-06 · Admin TTL |
+| R-TECH-FINOPS-HARD-01 | hors lot · TB-04-04 / LOT-IP-0C |
+| R-TECH-AF02-BOUNDARY-01 | TB-00-02 |
+| R-UX-FPI-02/03/04 · R-UX-04 | préservées |
+
+### Non-sélections préservées
+
+store · fournisseur · ORM · migration tool · cloud · région · instances · IAM · observabilité vendor · secret manager · modèle OpenAI · endpoint · TTL valeur · hard cap · tarifs · SLO · schéma physique · IaC.
+
+---
+
+## 19. Conditions de passage après arbitrage Morris
+
+Avant LOT-IP-0B / LOT-D1 / code :
+
+1. ChatGPT valide 105/106 ;
+2. Morris arbitre document 106 (`ARBITRATE LOT-IP-0A DECISION PACK`) ;
+3. STORE-01 décidé si LOT-IP-0B/D1 visés ;
+4. AUTH-01 décidé avant AuthorityGate Delivery ;
+5. AJV-01 décidé avant TB-02-03 ;
+6. SECRETS-01 décidé avant wiring secrets live ;
+7. Delivery reste NOT-CONSUMED jusqu’à GO Delivery distinct.
+
+---
+
+## 20. Actions autorisées et interdites
 
 ### Autorisées (ce cycle)
 
-- mettre à jour 103 ;
-- créer 104 ;
-- produire Review Pack Full ;
-- publier Review Handoff L3 sur `sfia/review-handoff`.
+Créer 105/106 · mettre à jour 103 · Review Pack · handoff L3.
 
 ### Interdites
 
-- exécuter LOT-IP-0A ;
-- produire Decision Packs dans ce cycle ;
-- code / app/** / packages / migrations / routes / API / UI ;
-- sélection technologique ;
-- fermer une réserve ;
-- marquer un item DONE ou READY FOR DELIVERY ;
-- consommer Delivery ;
-- modifier 90–102 ;
-- créer 105 ;
-- commit / push branche projet ;
-- PR / merge / mark-ready / suppression de branche.
+Décider les options 106 · code · packages · .env · secrets · migrations · SQL · sélection techno · fermer réserve · LOT-IP-0B/0C · LOT-D* · Delivery · commit/push projet · PR/merge · créer 107.
 
 ---
 
-## 23. Anti-claims
+## 21. Verdict
 
-- LOT-IP-0A sélectionné **≠** exécuté ;
-- aucune Decision Pack produit ;
-- aucune technologie choisie ;
-- aucun item DONE ;
-- LOT-D1…D5 NOT AUTHORIZED ;
-- Delivery NOT-CONSUMED ;
-- sécurité / RGPD / FinOps **non** validés opérationnellement ;
-- memory/fixture ≠ A2 durable ;
-- pas OpenAI live ;
-- pas production-ready ;
-- pas PR / merge projet.
-
----
-
-## 24. Verdict
-
-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
-**P0=6 / P1=13 / P2=13 / P3=1 —**
-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
-**LOT-IP-0B DEFERRED —**
-**LOT-IP-0C DEFERRED —**
-**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
-**DOCUMENT 103 UPDATED —**
-**DOCUMENT 104 CREATED —**
-**A2 AND TEN ADR PRESERVED —**
-**21 IMPACTS COVERED —**
-**RESERVES KEEP-OPEN —**
-**NON-SELECTIONS PRESERVED —**
-**NO ITEM DONE —**
+**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
+**TB-00-01 AUTH INVENTORY COMPLETE —**
+**TB-00-02 AJV N2/N3 FIT ASSESSED (FIT WITH EXTENSIONS) —**
+**TB-00-03 A2 DURABLE STORE DECISION PACK PREPARED —**
+**TB-00-06 SERVER-ONLY SECRETS AND ADMIN CONFIG PREPARATION COMPLETE —**
+**DOCUMENT 105 CREATED — DOCUMENT 106 DECISION PACK READY —**
+**ALL D-ASST-IP0A DECISIONS NOT DECIDED —**
+**RECOMMENDATIONS REMAIN CANDIDATE —**
 **NO TECHNOLOGY SELECTED —**
-**NO CODE OR PACKAGE CHANGE —**
-**NO PROJECT COMMIT OR PUSH —**
 **DELIVERY NOT-CONSUMED —**
-**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A EXECUTION DECISION**
+**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A DECISION PACK ARBITRATION**
 
 ---
 
-## 25. Prochaine gate candidate
+## 22. Prochaine gate candidate
+
+```text
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0A DECISION PACK
+```
+
+**Non consommée.** N’autorise ni code, ni Delivery, ni LOT-IP-0B, ni LOT-D1 sans décisions Morris explicites.
+```
+
+---
+
+## Document 106 — contenu complet
+
+```markdown
+# SFIA Studio — Assistant SFIA natif OpenAI — LOT-IP-0A Decision Pack
+
+## 1. Statut
+
+**DECISION PACK READY — NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+
+| Champ | Valeur |
+|---|---|
+| **Document** | `projects/sfia-studio/106-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a-decision-pack.md` |
+| **Analyse source** | `projects/sfia-studio/105-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a.md` |
+| **GO d’exécution** | `EXECUTE LOT-IP-0A` — consommé · n’adopte **aucune** option ci-dessous |
+| **Document decisions-applied** | **non créé** (interdit dans ce cycle) |
+
+Toute option « recommandée » est **candidate**. Aucune case n’est précochée comme adoptée.
+
+---
+
+## 2. GO et autorité
 
 ```text
 GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
 ```
 
-**Statut —** candidate uniquement — **non consommée** par le cycle courant.
+Consommé : 2026-08-05 15:17 CEST / 13:17 UTC.
 
-Cette gate n’autorise pas Delivery ni sélection technologique au-delà des Decision Packs et analyses explicitement bornés.
+Gate suivante candidate :
+
+```text
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0A DECISION PACK
+```
 
 ---
 
-## Annexe A — Document 103 après décision
+## 3. Ordre d’arbitrage recommandé
 
-| Champ | Valeur |
+1. **D-ASST-IP0A-STORE-01** — conditionne LOT-IP-0B, LOT-D1, TB-01-*
+2. **D-ASST-IP0A-AUTH-01** — conditionne TB-03-01/02 ; tension ADMIN-AUTHZ=B
+3. **D-ASST-IP0A-SECRETS-01** — frontière secrets/config avant provider live
+4. **D-ASST-IP0A-AJV-01** — peut être arbitrée en parallèle de AUTH/SECRETS après STORE
+
+Dépendances : STORE avant data-access/platform ; AUTH avant AuthorityGate Delivery ; AJV avant TB-02-03 ; SECRETS avant wiring live.
+
+---
+
+## 4. Matrice décisions → items
+
+| Décision | Item(s) LOT-IP-0A | Statut |
+|---|---|---|
+| D-ASST-IP0A-AUTH-01 | TB-00-01 | NOT DECIDED |
+| D-ASST-IP0A-AJV-01 | TB-00-02 | NOT DECIDED |
+| D-ASST-IP0A-STORE-01 | TB-00-03 | NOT DECIDED |
+| D-ASST-IP0A-SECRETS-01 | TB-00-06 | NOT DECIDED |
+
+---
+
+## 5. Matrice décisions → lots
+
+| Décision | LOT-IP-0B | LOT-IP-0C | LOT-D1…D5 | Autres |
+|---|---|---|---|---|
+| STORE-01 | **débloque** (après décision) | — | **prérequis** LOT-D1 | TB-01-* |
+| AUTH-01 | — | — | prérequis gates N3 | TB-03-* |
+| AJV-01 | — | — | — | TB-02-03 |
+| SECRETS-01 | — | — | — | TB-02-01 |
+
+LOT-IP-0B / 0C restent **DEFERRED**. LOT-D* restent **NOT AUTHORIZED** jusqu’à GOs distincts.
+
+---
+
+## 6. Décision D-ASST-IP0A-AUTH-01
+
+| Champ | Contenu |
 |---|---|
-| **SHA-256 après** | `7a0ab8c76bd58239d3407568621c0e6b546eddcae11b0c1a0d3caa36ab98c407` |
-| **Lignes après** | 1457 |
+| **Statut** | **NOT DECIDED** |
+| **Question exacte** | Quelle stratégie d’authentification / autorisation adopter pour Admin/Morris et AuthorityGate, sachant qu’aucune auth end-user n’existe dans le code alors que ADR-ASST-ADMIN-AUTHZ-01=B suppose une auth existante à étendre ? |
+| **Contexte** | Inventaire 105 §9 : pas de deps auth, pas de middleware, pas de session ; OA AuthorityResolver présent ; HumanDecisionGate ≠ IAM ; Admin absent ; AuthorityGate absent du code ; Server Actions non gardés. |
+| **Preuves** | E-AUTH-01…07 · doc 102 ADMIN-AUTHZ=B |
+| **Contraintes** | Anti-spoof OA à préserver · anti-provider-authority · pas de seconde pile auth parallèle aux primitives OA · pas de comptes créés dans ce pack · RSSI : ne pas conclure sécurité validée |
 
-## Annexe B — Garde-fous blocs
+### Options
 
-| Bloc | Contrôle |
+| Option | Description |
 |---|---|
-| FinOps | TB-02-05 et TB-04-04 restent P2 · R-TECH-FINOPS-HARD-01 KEEP-OPEN · TB-04-04 dans LOT-IP-0C différé · aucune valeur hard cap |
-| Sécurité / RSSI | TB-00-01 et TB-00-06 dans LOT-IP-0A · aucun IAM / secret créé · AuthorityGate inchangé |
-| RGPD | aucune rétention / base légale · TB-04-03 P2 BLOCKED-BY-DECISION · LOT-IP-0A sans décision RGPD opérationnelle |
-| Architecture | A2 + dix ADR préservés · graphe inchangé |
-| Backlog | 33 items · 7 épics · lots dependency-safe |
+| **A** | Établir une fondation d’authentification minimale (mécanisme à choisir dans un cycle ultérieur borné), puis appliquer ADMIN-AUTHZ=B (rôles Admin/Morris) en réutilisant AuthorityResolver |
+| **B** | Ré-arbitrer ADMIN-AUTHZ (nouveau Decision Pack) car la prémisse « existing auth » est factuellement fausse |
+| **C** | Maintenir une frontière trust locale / mono-opérateur **explicitement hors pilote**, sans IdP, avec dette de sécurité documentée |
+
+| Champ | Contenu |
+|---|---|
+| **Option recommandée candidate** | **A** |
+| **Justification** | Réconcilie ADR=B avec la réalité Git sans abandonner le modèle d’autorité OA déjà codé |
+| **Avantages A** | Alignement ADMIN-AUTHZ=B · réutilise anti-spoof · chemin vers AuthorityGate |
+| **Inconvénients A** | Introduit un mécanisme auth (coût) · EXTERNAL VALIDATION sur produit IAM |
+| **Risques** | Spoofing tant que Actions non gardés · confusion HumanDecisionGate/IAM |
+| **Dette** | Si C : dette sécurité bloquante pilote |
+| **Impacts A2** | Auth orthogone au store · evidence durable pourra dépendre du store |
+| **Impacts ADR** | ADMIN-AUTHZ=B préservé sous A · reouvert sous B |
+| **Impacts backlog** | Débloque TB-03-01/02 après décision |
+| **Impacts lots** | Pas LOT-IP-0B · prérequis LOT-D* governance |
+| **Réserves** | Aucune fermeture |
+| **Validations externes** | Produit IAM / IdP : EXTERNAL VALIDATION REQUIRED |
+| **Conséquence de non-décision** | TB-03-* restent bloqués · ADR tension non résolue |
+| **Gate Morris** | ARBITRATE LOT-IP-0A DECISION PACK |
+| **Réponse attendue** | AUTH-01 = A \| B \| C (+ contraintes éventuelles) |
+
+---
+
+## 7. Décision D-ASST-IP0A-AJV-01
+
+| Champ | Contenu |
+|---|---|
+| **Statut** | **NOT DECIDED** |
+| **Question exacte** | Quelle stratégie de validation structurée N2/N3 retenir, étant donné le verdict technique FIT WITH EXTENSIONS sur AJV 6.15 Draft-07 et l’absence de schémas Assistant en code ? |
+| **Contexte** | 105 §10 · VALIDATE-LIB=A · 13 schémas ExecutionRun prouvent la stack, **pas** les contrats Assistant · doctrine a déjà un 2e adapter AJV · AF-02 OPEN |
+| **Preuves** | E-AJV-01…05 · tests fail-closed ExecutionRun |
+| **Contraintes** | Pas de bibliothèque alternative silencieuse · pas de 3e pipeline ad hoc · Draft 2020-12 non supporté sans nouvelle dep |
+
+### Options
+
+| Option | Description |
+|---|---|
+| **A** | EXTEND le pattern ExecutionRun : schémas N2/N3 NEW + port/wiring Assistant · même AJV6 |
+| **B** | Factory AJV partagée (ExecutionRun + Doctrine + Assistant) en plus de A |
+| **C** | Ré-arbitrer VALIDATE-LIB (chemin NOT FIT) si Morris exige des features hors Draft-07 |
+
+| Champ | Contenu |
+|---|---|
+| **Option recommandée candidate** | **A** (B optionnel hygiène) |
+| **Justification** | Preuve fail-closed existante · conforme VALIDATE-LIB=A · minimise dette double pipeline |
+| **Avantages** | Réutilisation prouvée · tests clonables |
+| **Inconvénients** | Schémas/tests NEW à écrire plus tard · AF-02 encore OPEN |
+| **Risques** | Double/triple pipeline si orchestrateur crée son propre `new Ajv` |
+| **Dette** | C : coût re-sélection lib |
+| **Impacts A2** | Aucun direct |
+| **Impacts ADR** | VALIDATE-LIB=A préservé sous A/B |
+| **Impacts backlog** | Débloque TB-02-03 après décision |
+| **Impacts lots** | — |
+| **Réserves** | R-TECH-AF02-BOUNDARY-01 KEEP-OPEN |
+| **Validations externes** | N/A repo · schémas N2/N3 à formaliser depuis docs 100 |
+| **Conséquence de non-décision** | TB-02-03 bloqué |
+| **Gate Morris** | ARBITRATE LOT-IP-0A DECISION PACK |
+| **Réponse attendue** | AJV-01 = A \| B \| C |
+
+---
+
+## 8. Décision D-ASST-IP0A-STORE-01
+
+| Champ | Contenu |
+|---|---|
+| **Statut** | **NOT DECIDED** |
+| **Question exacte** | Quelle **classe** de store externe durable adopter pour satisfaire A2 (`external-durable-store;explicit-concurrency;no-embedded`) et PERSIST=B, sans sélectionner encore un fournisseur/ORM/outil de migration ? |
+| **Contexte** | 105 §11 · seul adapter ExecutionRun = memory Map · disclosure non durable · migrations ABSENT · LOT-IP-0B attend cette décision |
+| **Preuves** | E-STORE-01…03 · doc 102 A2/PERSIST=B |
+| **Contraintes** | Embedded ops interdit · pas de prix inventés · AUDIT-STORE=B lane logique · backup/restore avant pilote · RGPD technique sans durée légale |
+
+### Options
+
+| Option | Description |
+|---|---|
+| **A** | Classe SQL relationnel managé avec transactions |
+| **B** | Classe document/KV managé (cohérence/transactions à prouver) |
+| **C** | Classe embedded/local-only | **Non viable A2 ops** — option éliminatoire documentée |
+| **D** | Classe journal append-only + store requête (si primaire) |
+
+| Champ | Contenu |
+|---|---|
+| **Option recommandée candidate** | **A** |
+| **Justification** | Meilleur alignement transactions / unicité / concurrence / migrations / backup sous A2 |
+| **Avantages A** | ACID · outils migration matures* · testabilité via environnements* |
+| **Inconvénients A** | Coût ops/egress* · schéma à concevoir plus tard |
+| **Risques** | Sélection vendor prématurée · memory confondu avec durable |
+| **Dette** | B si cohérence insuffisante · C si choisi malgré A2 |
+| **Impacts A2** | Direct — réalise PERSIST=B |
+| **Impacts ADR** | PERSIST=B · AUDIT-STORE=B · SERVER=C couplage futur |
+| **Impacts backlog** | Débloque TB-00-04/05 · TB-01-* |
+| **Impacts lots** | Débloque **préparation** LOT-IP-0B · pas exécution auto · LOT-D1 toujours NOT AUTHORIZED sans GO Delivery |
+| **Réserves** | R-TECH-TTL-01 · R-TECH-FINOPS-HARD-01 KEEP-OPEN |
+| **Validations externes** | Produit, région, SLA, prix : EXTERNAL VALIDATION REQUIRED |
+| **Conséquence de non-décision** | LOT-IP-0B et LOT-D1 restent bloqués |
+| **Gate Morris** | ARBITRATE LOT-IP-0A DECISION PACK |
+| **Réponse attendue** | STORE-01 = A \| B \| D (C non recommandé) + contraintes |
+
+\* EXTERNAL VALIDATION REQUIRED — NOT PROVEN IN REPO
+
+**Anti-claim —** choisir la classe A **n’est pas** choisir PostgreSQL, Neon, Supabase, SQLite, etc.
+
+---
+
+## 9. Décision D-ASST-IP0A-SECRETS-01
+
+| Champ | Contenu |
+|---|---|
+| **Statut** | **NOT DECIDED** |
+| **Question exacte** | Quelle stratégie secrets server-only et configuration Admin retenir pour FPI, en réutilisant SecretSourcePort sans créer de secret ni sélectionner de secret manager ? |
+| **Contexte** | 105 §12 · SECRETS=A DECIDED · port opaque + materializer server-only · Fake wiré · Env présent non wiré · catalogue Admin NEW · OPENAI_* hors port |
+| **Preuves** | E-SEC-01…04 · ADR SECRETS=A |
+| **Contraintes** | Aucune valeur secret · fail-closed présence · redaction · pas de 2e stack · TTL/hard cap non valorisés |
+
+### Options
+
+| Option | Description |
+|---|---|
+| **A** | REUSE SecretSourcePort + materializer · EXTEND catalogue Admin non-secret · wire Env en Delivery future · secret manager différé |
+| **B** | Introduire un secret manager dès maintenant (vendor EXTERNAL VALIDATION) |
+| **C** | Laisser durablement les secrets platform (`OPENAI_*`) hors SecretSourcePort | Dette de frontière |
+
+| Champ | Contenu |
+|---|---|
+| **Option recommandée candidate** | **A** |
+| **Justification** | Conforme SECRETS=A · anti-fuite déjà testée · sépare secret vs config Admin |
+| **Avantages** | Moindre surface · trajectoire manager réversible (ADR) |
+| **Inconvénients** | Alignement platform OPENAI_* à planifier · catalogue Admin à bâtir |
+| **Risques** | Fuite si materialize exporté · confusion secret/config |
+| **Dette** | C : deux régimes secrets |
+| **Impacts A2** | Config Admin pourra être durable après STORE |
+| **Impacts ADR** | SECRETS=A préservé |
+| **Impacts backlog** | TB-02-01 · TB-00-06 closure après décision |
+| **Impacts lots** | — |
+| **Réserves** | R-TECH-TTL-01 · R-TECH-FINOPS-HARD-01 KEEP-OPEN |
+| **Validations externes** | Secret manager (si B) : EXTERNAL VALIDATION REQUIRED |
+| **Conséquence de non-décision** | Catalogue Admin et wiring live restent indéfinis |
+| **Gate Morris** | ARBITRATE LOT-IP-0A DECISION PACK |
+| **Réponse attendue** | SECRETS-01 = A \| B \| C |
+
+---
+
+## 10. Matrice des réserves
+
+| Réserve | Effet sur pack | Statut |
+|---|---|---|
+| R-TECH-TTL-01 | TTL non valorisé · SECRETS/Admin | KEEP-OPEN |
+| R-TECH-FINOPS-HARD-01 | hors LOT-IP-0A · LOT-IP-0C | KEEP-OPEN |
+| R-TECH-AF02-BOUNDARY-01 | AJV/N1 boundary | KEEP-OPEN |
+| R-UX-FPI-02/03/04 · R-UX-04 | hors lot | KEEP-OPEN |
+
+Aucune réserve fermée par ce pack.
+
+---
+
+## 11. Matrice des non-sélections
+
+| Élément | Statut |
+|---|---|
+| Store fournisseur / produit nommé | NOT SELECTED |
+| ORM | NOT SELECTED |
+| Outil de migration | NOT SELECTED |
+| Cloud / région / instances | NOT SELECTED |
+| IAM / IdP produit | NOT SELECTED |
+| Secret manager | NOT SELECTED |
+| Observabilité vendor | NOT SELECTED |
+| Modèle / endpoint OpenAI | NOT SELECTED |
+| TTL / hard cap / tarifs / SLO | NOT SELECTED |
+| Schéma physique / SQL / IaC | NOT SELECTED |
+
+---
+
+## 12. Conséquences Delivery
+
+`DELIVERY-GATE=NOT-CONSUMED`.
+
+Même après arbitrage de ce pack :
+
+- aucun GO code automatique ;
+- LOT-IP-0B nécessite un GO d’exécution distinct ;
+- LOT-D1…D5 restent NOT AUTHORIZED jusqu’à GO Delivery ;
+- aucune migration / secret / config runtime n’est créée par l’arbitrage seul.
+
+---
+
+## 13. Verdict
+
+**DECISION PACK READY — NOT DECIDED — MORRIS ARBITRATION REQUIRED —**
+**FOUR DECISIONS D-ASST-IP0A-* PRESENT —**
+**RECOMMENDATIONS CANDIDATE ONLY —**
+**NO TECHNOLOGY SELECTED —**
+**NO DOCUMENT 107 —**
+**DELIVERY NOT-CONSUMED**
+
+---
+
+## 14. Prochaine gate
+
+```text
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0A DECISION PACK
+```
+
+Candidate · non consommée · n’autorise ni code, ni Delivery, ni LOT-IP-0B, ni LOT-D1 sans décisions Morris explicites.
 ```
 
 ---
@@ -651,15 +1017,14 @@ Cette gate n’autorise pas Delivery ni sélection technologique au-delà des De
 ```markdown
 ## 1. Statut
 
-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
+**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
+**DECISION PACK READY — MORRIS ARBITRATION REQUIRED —**
+**TECHNICAL BACKLOG PRIORITIES REMAIN VALIDATED —**
 **P0=6 / P1=13 / P2=13 / P3=1 —**
-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
 **LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**
 **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
 **DELIVERY NOT-CONSUMED —**
-**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO IMPLEMENTATION AUTHORIZED**
+**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO CODE AUTHORIZED**
 
 | Champ | Valeur |
 |---|---|
@@ -671,66 +1036,30 @@ Cette gate n’autorise pas Delivery ni sélection technologique au-delà des De
 ```
 
 ```markdown
-## 1bis. GO Morris — validation priorités et premier lot
+## 1ter. GO Morris — exécution LOT-IP-0A
 
 ```text
-GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TECHNICAL BACKLOG PRIORITIES AND SELECT FIRST IMPLEMENTATION-PREPARATION LOT
+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
 ```
 
 | Champ | Valeur |
 |---|---|
 | **Autorité** | Morris |
-| **Consommation** | 2026-08-05 14:46 CEST (+0200) / 12:46 UTC |
+| **Consommation** | 2026-08-05 15:17 CEST (+0200) / 13:17 UTC |
 | **Profil** | **Critical** |
-| **Effet** | Priorités P0–P3 **validées** · LOT-IP-0A **SELECTED** · LOT-IP-0B/0C **DEFERRED** · Delivery **NOT-CONSUMED** |
-| **Non-effet** | Pas d’exécution LOT-IP-0A · pas de Decision Pack produit · pas de sélection techno · pas de code |
+| **Effet** | Exécution **documentaire** LOT-IP-0A · analyses 105 · Decision Pack 106 · Delivery **NOT-CONSUMED** |
+| **Non-effet** | Pas d’adoption des options 106 · pas de techno · pas de code · pas de LOT-IP-0B/0C · pas de LOT-D* |
 
-### Historique des décisions Backlog
+### Historique d’exécution LOT-IP-0A
 
-| ID | Statut |
+| Étape | Résultat |
 |---|---|
-| D-ASST-BLG-PRIORITY-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-PRIORITY-02 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-LOT-STRUCTURE-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-FIRST-LOT-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-DELIVERY-01 | DECIDED — ADOPTED BY MORRIS |
-| D-ASST-BLG-NONSELECTIONS-01 | DECIDED — PRESERVE OPEN |
-
-Record formel : `projects/sfia-studio/104-assistant-sfia-native-openai-technical-implementation-backlog-decisions-applied.md`.
-
----
-```
-
-```markdown
-## 12. Règles de priorité — **VALIDATED BY MORRIS** (D-ASST-BLG-PRIORITY-01)
-
-| Niveau | Signification validée |
-|---|---|
-| **P0** | préparation et décisions structurantes nécessaires avant tout lot technique |
-| **P1** | fondations et capacités indispensables au First Product Increment |
-| **P2** | durcissement, exploitation et readiness pré-pilote |
-| **P3** | capacité post-FPI ou non bloquante pour le premier incrément |
-
-La priorité **ne constitue jamais** un GO Delivery, une autorisation d’implémentation, une sélection technologique ou une fermeture de réserve.
-
-Affectations : **D-ASST-BLG-PRIORITY-02** — P0=6 · P1=13 · P2=13 · P3=1 · total 33.
-
----
-```
-
-```markdown
-## 21. Ordre de réalisation (priorités validées · lots IP restructurés)
-
-1. **LOT-IP-0A** (SELECTED) — TB-00-01/02/03/06
-2. Décisions Morris issues de LOT-IP-0A (futur cycle)
-3. **LOT-IP-0B** (DEFERRED) — TB-00-04/05 après store
-4. Phase Persistence A2 (P1) dont TB-01-05 avant AuthorityGate
-5. Phase Assistant (P1) · metering/soft cap TB-02-05 (P2)
-6. Phase Governance (P1)
-7. **LOT-IP-0C** (DEFERRED) — TB-04-04 après preuve TB-02-05
-8. Lifecycle / Health / QA pilote (P2) · observabilité TB-05-03 (P3)
-
-**Priorités : VALIDATED BY MORRIS · Exécution lots techniques : NOT AUTHORIZED · Delivery : NOT-CONSUMED**
+| TB-00-01 | Inventaire auth complet — auth end-user ABSENTE · OA AuthorityResolver REUSE/EXTEND |
+| TB-00-02 | Verdict technique **FIT WITH EXTENSIONS** — schémas Assistant NEW requis |
+| TB-00-03 | Classes store A2 préparées — reco candidate classe SQL managé (non sélectionnée) |
+| TB-00-06 | Catalogue logique secrets/config — REUSE SecretSourcePort |
+| Documents | `105-…-lot-ip-0a.md` · `106-…-lot-ip-0a-decision-pack.md` |
+| Décisions D-ASST-IP0A-* | **toutes NOT DECIDED** |
 
 ---
 ```
@@ -751,9 +1080,14 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
 | **Items** | TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06 |
 | **Dépendances backlog entrantes** | aucune |
 | **Nature** | documentation / inventaire / analyse / Decision Pack uniquement |
-| **Statut** | **SELECTED BY MORRIS — EXECUTION NOT AUTHORIZED** |
-| **Décision** | D-ASST-BLG-FIRST-LOT-01 |
-| **Code / techno / Delivery** | interdits |
+| **Statut** | **IMPLEMENTATION PREPARATION EXECUTED — DECISION PACK READY — MORRIS ARBITRATION REQUIRED** |
+| **Décision de sélection** | D-ASST-BLG-FIRST-LOT-01 (antérieure) |
+| **GO d’exécution** | consommé 2026-08-05 15:17 CEST |
+| **Analyses** | `projects/sfia-studio/105-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a.md` |
+| **Decision Pack** | `projects/sfia-studio/106-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a-decision-pack.md` |
+| **Décisions D-ASST-IP0A-*** | **NOT DECIDED** |
+| **Items DONE** | **aucun** |
+| **Code / techno / Delivery** | toujours interdits |
 
 ### LOT-IP-0B — Store-Dependent Decision Preparation
 
@@ -776,16 +1110,8 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
 
 **NOT AUTHORIZED** — inchangés (persist foundation · Assistant N1 · N2/N3 Authority · lifecycle · pilot hardening).
 
-Aucun lot Delivery sélectionné. LOT-IP-0A n’est **pas** exécuté dans ce cycle.
+Aucun lot Delivery sélectionné. LOT-IP-0A préparation **documentaire** exécutée · options Decision Pack **non** adoptées.
 
-
----
-```
-
-```markdown
-## 23. Chemin critique
-
-**LOT-IP-0A** (TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06) → décisions Morris store/auth/AJV/secrets → **LOT-IP-0B** (TB-00-04/05) → Persistence (TB-01-*) dont TB-01-05 → Provider (TB-02-*) → AuthorityGate (TB-03-02) → TB-02-05 metering → **LOT-IP-0C** (TB-04-04) → Purge/Health/QA pilote (TB-06-04).
 
 ---
 ```
@@ -793,22 +1119,27 @@ Aucun lot Delivery sélectionné. LOT-IP-0A n’est **pas** exécuté dans ce cy
 ```markdown
 ## 26. Critères de passage
 
-### Vers exécution LOT-IP-0A (future)
+### Vers arbitrage LOT-IP-0A (prochaine)
 
-- validation ChatGPT du record 104 ;
-- GO `EXECUTE LOT-IP-0A` Morris explicite ;
-- périmètre borné DOC/DECISION-PREP ;
-- aucune sélection techno dans le GO d’exécution.
+- validation ChatGPT des documents 105/106 ;
+- GO `ARBITRATE LOT-IP-0A DECISION PACK` Morris ;
+- décisions D-ASST-IP0A-* encore **NOT DECIDED** jusqu’à ce GO.
+
+### Vers LOT-IP-0B / LOT-D1 (futur)
+
+- STORE-01 décidé ;
+- GO d’exécution LOT-IP-0B ou Delivery distinct ;
+- LOT-IP-0B reste **DEFERRED** · LOT-D* **NOT AUTHORIZED**.
 
 ### Vers Delivery (futur, non consommé)
 
 - priorités validées (**fait**) ;
-- LOT-IP-0A exécuté et Decision Packs produits ;
-- store / migration / auth / AJV fit décidés si requis ;
+- LOT-IP-0A préparation exécutée (**fait**) · options 106 **arbitrées** ;
+- store / migration / auth / AJV stratégie décidés si requis ;
 - lot Delivery sélectionné Morris ;
 - fichiers Delivery bornés ;
 - réserves bloquantes identifiées ;
-- cohérence 93/97/99/102.
+- cohérence 93/97/99/102/105/106.
 
 **DELIVERY-GATE=NOT-CONSUMED** (D-ASST-BLG-DELIVERY-01).
 
@@ -818,7 +1149,7 @@ Aucun lot Delivery sélectionné. LOT-IP-0A n’est **pas** exécuté dans ce cy
 ```markdown
 ## 29. Actions autorisées
 
-Enregistrer décisions dans 103/104 · publier handoff · (futur) proposer GO exécution LOT-IP-0A.
+Tracer LOT-IP-0A dans 103 · maintenir 105/106 · publier handoff · (futur) arbitrer Decision Pack via GO Morris.
 
 ---
 ```
@@ -826,7 +1157,7 @@ Enregistrer décisions dans 103/104 · publier handoff · (futur) proposer GO ex
 ```markdown
 ## 30. Actions interdites
 
-Exécuter LOT-IP-0A · produire Decision Packs dans ce cycle · code · app/** · packages · sélection techno · Delivery · fermer réserve · marquer item DONE · modifier 90–102 · créer 105 · commit/push projet · PR/merge.
+Adopter les options 106 sans GO · créer 107 · code · app/** · packages · .env · secrets · sélection techno · fermer réserve · marquer item DONE · exécuter LOT-IP-0B/0C · LOT-D* · Delivery · modifier 90–102/104 · commit/push projet · PR/merge.
 
 ---
 ```
@@ -834,7 +1165,7 @@ Exécuter LOT-IP-0A · produire Decision Packs dans ce cycle · code · app/** �
 ```markdown
 ## 31. Anti-claims
 
-LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas de techno choisie · pas d’item DONE · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · memory/fixture ≠ A2 durable · pas OpenAI live · réserves ouvertes · pas PR/merge projet.
+LOT-IP-0A préparation exécutée **≠** options 106 adoptées · pas de techno choisie · pas d’item DONE · HumanDecisionGate ≠ auth · 13 schémas ExecutionRun ≠ contrats N2/N3 · memory ≠ A2 durable · LOT-IP-0B/0C DEFERRED · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · réserves ouvertes · pas PR/merge projet.
 
 ---
 ```
@@ -842,20 +1173,19 @@ LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas
 ```markdown
 ## 32. Verdict
 
-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
-**P0=6 / P1=13 / P2=13 / P3=1 —**
-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
-**LOT-IP-0B DEFERRED —**
-**LOT-IP-0C DEFERRED —**
+**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
+**TB-00-01 AUTH INVENTORY COMPLETE —**
+**TB-00-02 AJV N2/N3 FIT ASSESSED —**
+**TB-00-03 A2 DURABLE STORE DECISION PACK PREPARED —**
+**TB-00-06 SERVER-ONLY SECRETS AND ADMIN CONFIG PREPARATION COMPLETE —**
+**DOCUMENT 103 UPDATED — DOCUMENT 105 CREATED — DOCUMENT 106 DECISION PACK CREATED —**
+**ALL D-ASST-IP0A DECISIONS NOT DECIDED —**
+**RECOMMENDATIONS REMAIN CANDIDATE —**
+**NO TECHNOLOGY SELECTED — NO ITEM DONE —**
+**LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**
 **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
-**DOCUMENT 103 UPDATED — DOCUMENT 104 CREATED —**
-**A2 AND TEN ADR PRESERVED — 21 IMPACTS COVERED —**
-**RESERVES KEEP-OPEN — NON-SELECTIONS PRESERVED —**
-**NO ITEM DONE — NO TECHNOLOGY SELECTED —**
-**NO CODE OR PACKAGE CHANGE — DELIVERY NOT-CONSUMED —**
-**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A EXECUTION DECISION**
+**DELIVERY NOT-CONSUMED —**
+**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A DECISION PACK ARBITRATION**
 
 
 ---
@@ -865,1269 +1195,461 @@ LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas
 ## 33. Prochaine gate candidate
 
 ```text
-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0A DECISION PACK
 ```
 
 Statut : **candidate uniquement — non consommée**.
 
-N’autorise pas Delivery ni sélection technologique au-delà des Decision Packs/analyses explicitement bornés.
+N’autorise ni code, ni Delivery, ni LOT-IP-0B, ni LOT-D1 sans décisions Morris explicites.
 
-**TECHNICAL BACKLOG PRIORITIES AND FIRST LOT RECORDED — MORRIS LOT-IP-0A EXECUTION DECISION REQUIRED — DELIVERY NOT CONSUMED**
+**LOT-IP-0A PREPARATION RECORDED — MORRIS DECISION PACK ARBITRATION REQUIRED — DELIVERY NOT CONSUMED**
 ```
 
 
 ---
 
-## Document 103 — useful diff (JSONL, whitespace-safe)
-
-Format : une ligne JSON par ligne du diff RAW (`n`, `line`). Équivalent exploitable du patch ; évite l’échec `git diff --check` sur espaces de fin dans le patch embarqué.
+## Document 103 — useful diff (JSONL)
 
 ```jsonl
-{"n": 1, "line": "diff --git a/.tmp-sfia-review/backlog-priority-decisions/103-before.md b/projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md"}
-{"n": 2, "line": "index 5edd013..abc4641 100644"}
-{"n": 3, "line": "--- a/.tmp-sfia-review/backlog-priority-decisions/103-before.md"}
+{"n": 1, "line": "diff --git a/.tmp-sfia-review/lot-ip-0a/103-before.md b/projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md"}
+{"n": 2, "line": "index abc4641..2931db5 100644"}
+{"n": 3, "line": "--- a/.tmp-sfia-review/lot-ip-0a/103-before.md"}
 {"n": 4, "line": "+++ b/projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md"}
-{"n": 5, "line": "@@ -2,16 +2,15 @@"}
+{"n": 5, "line": "@@ -2,15 +2,14 @@"}
 {"n": 6, "line": " "}
 {"n": 7, "line": " ## 1. Statut"}
 {"n": 8, "line": " "}
-{"n": 9, "line": "-**TECHNICAL IMPLEMENTATION BACKLOG CORRECTED —**"}
-{"n": 10, "line": "-**DEPENDENCY GRAPH ACYCLIC —**"}
-{"n": 11, "line": "-**F-BLG-103-01…04 FIXED —**"}
-{"n": 12, "line": "-**EXISTING MAIN FOUNDATIONS FROM PR #308 TO #310 RECONCILED —**"}
-{"n": 13, "line": "-**BACKLOG GATE CONSUMED BY MORRIS —**"}
-{"n": 14, "line": "-**PRIORITIES AND LOTS ARE CANDIDATE UNTIL MORRIS VALIDATION —**"}
-{"n": 15, "line": "-**TECHNOLOGY SELECTIONS REMAIN OPEN —**"}
-{"n": 16, "line": "-**ALL RESERVES REMAIN OPEN —**"}
-{"n": 17, "line": "-**DELIVERY GATE NOT CONSUMED —**"}
-{"n": 18, "line": "-**NO IMPLEMENTATION AUTHORIZED**"}
-{"n": 19, "line": "+**TECHNICAL BACKLOG PRIORITIES VALIDATED —**"}
-{"n": 20, "line": "+**33 ITEM PRIORITIES ADOPTED BY MORRIS —**"}
-{"n": 21, "line": "+**P0=6 / P1=13 / P2=13 / P3=1 —**"}
-{"n": 22, "line": "+**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**"}
-{"n": 23, "line": "+**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**"}
-{"n": 24, "line": "+**LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**"}
-{"n": 25, "line": "+**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**"}
-{"n": 26, "line": "+**DELIVERY NOT-CONSUMED —**"}
-{"n": 27, "line": "+**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO IMPLEMENTATION AUTHORIZED**"}
+{"n": 9, "line": "-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**"}
+{"n": 10, "line": "-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**"}
+{"n": 11, "line": "+**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**"}
+{"n": 12, "line": "+**DECISION PACK READY — MORRIS ARBITRATION REQUIRED —**"}
+{"n": 13, "line": "+**TECHNICAL BACKLOG PRIORITIES REMAIN VALIDATED —**"}
+{"n": 14, "line": " **P0=6 / P1=13 / P2=13 / P3=1 —**"}
+{"n": 15, "line": "-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**"}
+{"n": 16, "line": "-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**"}
+{"n": 17, "line": " **LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**"}
+{"n": 18, "line": " **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**"}
+{"n": 19, "line": " **DELIVERY NOT-CONSUMED —**"}
+{"n": 20, "line": "-**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO IMPLEMENTATION AUTHORIZED**"}
+{"n": 21, "line": "+**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO CODE AUTHORIZED**"}
+{"n": 22, "line": " "}
+{"n": 23, "line": " | Champ | Valeur |"}
+{"n": 24, "line": " |---|---|"}
+{"n": 25, "line": "@@ -48,8 +47,35 @@ GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TE"}
+{"n": 26, "line": " "}
+{"n": 27, "line": " Record formel : `projects/sfia-studio/104-assistant-sfia-native-openai-technical-implementation-backlog-decisions-applied.md`."}
 {"n": 28, "line": " "}
-{"n": 29, "line": " | Champ | Valeur |"}
-{"n": 30, "line": " |---|---|"}
-{"n": 31, "line": "@@ -21,6 +20,34 @@"}
-{"n": 32, "line": " | **Documents 90–102** | Inchangés |"}
-{"n": 33, "line": " | **Delivery** | NOT-CONSUMED |"}
-{"n": 34, "line": " "}
+{"n": 29, "line": "+"}
+{"n": 30, "line": "+## 1ter. GO Morris — exécution LOT-IP-0A"}
+{"n": 31, "line": "+"}
+{"n": 32, "line": "+```text"}
+{"n": 33, "line": "+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)"}
+{"n": 34, "line": "+```"}
 {"n": 35, "line": "+"}
-{"n": 36, "line": "+## 1bis. GO Morris — validation priorités et premier lot"}
-{"n": 37, "line": "+"}
-{"n": 38, "line": "+```text"}
-{"n": 39, "line": "+GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TECHNICAL BACKLOG PRIORITIES AND SELECT FIRST IMPLEMENTATION-PREPARATION LOT"}
-{"n": 40, "line": "+```"}
-{"n": 41, "line": "+"}
-{"n": 42, "line": "+| Champ | Valeur |"}
-{"n": 43, "line": "+|---|---|"}
-{"n": 44, "line": "+| **Autorité** | Morris |"}
-{"n": 45, "line": "+| **Consommation** | 2026-08-05 14:46 CEST (+0200) / 12:46 UTC |"}
-{"n": 46, "line": "+| **Profil** | **Critical** |"}
-{"n": 47, "line": "+| **Effet** | Priorités P0–P3 **validées** · LOT-IP-0A **SELECTED** · LOT-IP-0B/0C **DEFERRED** · Delivery **NOT-CONSUMED** |"}
-{"n": 48, "line": "+| **Non-effet** | Pas d’exécution LOT-IP-0A · pas de Decision Pack produit · pas de sélection techno · pas de code |"}
-{"n": 49, "line": "+"}
-{"n": 50, "line": "+### Historique des décisions Backlog"}
-{"n": 51, "line": "+"}
-{"n": 52, "line": "+| ID | Statut |"}
-{"n": 53, "line": "+|---|---|"}
-{"n": 54, "line": "+| D-ASST-BLG-PRIORITY-01 | DECIDED — ADOPTED BY MORRIS |"}
-{"n": 55, "line": "+| D-ASST-BLG-PRIORITY-02 | DECIDED — ADOPTED BY MORRIS |"}
-{"n": 56, "line": "+| D-ASST-BLG-LOT-STRUCTURE-01 | DECIDED — ADOPTED BY MORRIS |"}
-{"n": 57, "line": "+| D-ASST-BLG-FIRST-LOT-01 | DECIDED — ADOPTED BY MORRIS |"}
-{"n": 58, "line": "+| D-ASST-BLG-DELIVERY-01 | DECIDED — ADOPTED BY MORRIS |"}
-{"n": 59, "line": "+| D-ASST-BLG-NONSELECTIONS-01 | DECIDED — PRESERVE OPEN |"}
-{"n": 60, "line": "+"}
-{"n": 61, "line": "+Record formel : `projects/sfia-studio/104-assistant-sfia-native-openai-technical-implementation-backlog-decisions-applied.md`."}
-{"n": 62, "line": "+"}
-{"n": 63, "line": " ---"}
-{"n": 64, "line": " "}
-{"n": 65, "line": " ## 2. GO Morris"}
-{"n": 66, "line": "@@ -109,15 +136,24 @@ DECISION-PREP · ENABLER · FEATURE-TECH · NFR · QA · OPS · DOC — définis"}
-{"n": 67, "line": " "}
-{"n": 68, "line": " ---"}
-{"n": 69, "line": " "}
-{"n": 70, "line": "-## 12. Règles de priorité candidate"}
-{"n": 71, "line": "+## 12. Règles de priorité — **VALIDATED BY MORRIS** (D-ASST-BLG-PRIORITY-01)"}
-{"n": 72, "line": " "}
-{"n": 73, "line": "-P0 fondations/décisions · P1 capacité FPI · P2 durcissement pré-pilote · P3 post-FPI/non bloquant · toutes **CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED**."}
-{"n": 74, "line": "+| Niveau | Signification validée |"}
-{"n": 75, "line": "+|---|---|"}
-{"n": 76, "line": "+| **P0** | préparation et décisions structurantes nécessaires avant tout lot technique |"}
-{"n": 77, "line": "+| **P1** | fondations et capacités indispensables au First Product Increment |"}
-{"n": 78, "line": "+| **P2** | durcissement, exploitation et readiness pré-pilote |"}
-{"n": 79, "line": "+| **P3** | capacité post-FPI ou non bloquante pour le premier incrément |"}
-{"n": 80, "line": "+"}
-{"n": 81, "line": "+La priorité **ne constitue jamais** un GO Delivery, une autorisation d’implémentation, une sélection technologique ou une fermeture de réserve."}
-{"n": 82, "line": "+"}
-{"n": 83, "line": "+Affectations : **D-ASST-BLG-PRIORITY-02** — P0=6 · P1=13 · P2=13 · P3=1 · total 33."}
-{"n": 84, "line": " "}
-{"n": 85, "line": " ---"}
+{"n": 36, "line": "+| Champ | Valeur |"}
+{"n": 37, "line": "+|---|---|"}
+{"n": 38, "line": "+| **Autorité** | Morris |"}
+{"n": 39, "line": "+| **Consommation** | 2026-08-05 15:17 CEST (+0200) / 13:17 UTC |"}
+{"n": 40, "line": "+| **Profil** | **Critical** |"}
+{"n": 41, "line": "+| **Effet** | Exécution **documentaire** LOT-IP-0A · analyses 105 · Decision Pack 106 · Delivery **NOT-CONSUMED** |"}
+{"n": 42, "line": "+| **Non-effet** | Pas d’adoption des options 106 · pas de techno · pas de code · pas de LOT-IP-0B/0C · pas de LOT-D* |"}
+{"n": 43, "line": "+"}
+{"n": 44, "line": "+### Historique d’exécution LOT-IP-0A"}
+{"n": 45, "line": "+"}
+{"n": 46, "line": "+| Étape | Résultat |"}
+{"n": 47, "line": "+|---|---|"}
+{"n": 48, "line": "+| TB-00-01 | Inventaire auth complet — auth end-user ABSENTE · OA AuthorityResolver REUSE/EXTEND |"}
+{"n": 49, "line": "+| TB-00-02 | Verdict technique **FIT WITH EXTENSIONS** — schémas Assistant NEW requis |"}
+{"n": 50, "line": "+| TB-00-03 | Classes store A2 préparées — reco candidate classe SQL managé (non sélectionnée) |"}
+{"n": 51, "line": "+| TB-00-06 | Catalogue logique secrets/config — REUSE SecretSourcePort |"}
+{"n": 52, "line": "+| Documents | `105-…-lot-ip-0a.md` · `106-…-lot-ip-0a-decision-pack.md` |"}
+{"n": 53, "line": "+| Décisions D-ASST-IP0A-* | **toutes NOT DECIDED** |"}
+{"n": 54, "line": "+"}
+{"n": 55, "line": " ---"}
+{"n": 56, "line": " "}
+{"n": 57, "line": "+"}
+{"n": 58, "line": " ## 2. GO Morris"}
+{"n": 59, "line": " "}
+{"n": 60, "line": " ```text"}
+{"n": 61, "line": "@@ -1312,9 +1338,14 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04"}
+{"n": 62, "line": " | **Items** | TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06 |"}
+{"n": 63, "line": " | **Dépendances backlog entrantes** | aucune |"}
+{"n": 64, "line": " | **Nature** | documentation / inventaire / analyse / Decision Pack uniquement |"}
+{"n": 65, "line": "-| **Statut** | **SELECTED BY MORRIS — EXECUTION NOT AUTHORIZED** |"}
+{"n": 66, "line": "-| **Décision** | D-ASST-BLG-FIRST-LOT-01 |"}
+{"n": 67, "line": "-| **Code / techno / Delivery** | interdits |"}
+{"n": 68, "line": "+| **Statut** | **IMPLEMENTATION PREPARATION EXECUTED — DECISION PACK READY — MORRIS ARBITRATION REQUIRED** |"}
+{"n": 69, "line": "+| **Décision de sélection** | D-ASST-BLG-FIRST-LOT-01 (antérieure) |"}
+{"n": 70, "line": "+| **GO d’exécution** | consommé 2026-08-05 15:17 CEST |"}
+{"n": 71, "line": "+| **Analyses** | `projects/sfia-studio/105-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a.md` |"}
+{"n": 72, "line": "+| **Decision Pack** | `projects/sfia-studio/106-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a-decision-pack.md` |"}
+{"n": 73, "line": "+| **Décisions D-ASST-IP0A-*** | **NOT DECIDED** |"}
+{"n": 74, "line": "+| **Items DONE** | **aucun** |"}
+{"n": 75, "line": "+| **Code / techno / Delivery** | toujours interdits |"}
+{"n": 76, "line": " "}
+{"n": 77, "line": " ### LOT-IP-0B — Store-Dependent Decision Preparation"}
+{"n": 78, "line": " "}
+{"n": 79, "line": "@@ -1337,7 +1368,7 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04"}
+{"n": 80, "line": " "}
+{"n": 81, "line": " **NOT AUTHORIZED** — inchangés (persist foundation · Assistant N1 · N2/N3 Authority · lifecycle · pilot hardening)."}
+{"n": 82, "line": " "}
+{"n": 83, "line": "-Aucun lot Delivery sélectionné. LOT-IP-0A n’est **pas** exécuté dans ce cycle."}
+{"n": 84, "line": "+Aucun lot Delivery sélectionné. LOT-IP-0A préparation **documentaire** exécutée · options Decision Pack **non** adoptées."}
+{"n": 85, "line": " "}
 {"n": 86, "line": " "}
-{"n": 87, "line": " ## 13. Definition of Ready candidate"}
-{"n": 88, "line": " "}
-{"n": 89, "line": "-Résultat vérifiable · source · périmètre · dépendances · techno sélectionnée ou non nécessaire · réserves · AC · preuves · fichiers candidats · gate humaine. **Pas** Ready for Delivery si décision structurante ouverte."}
-{"n": 90, "line": "+Résultat vérifiable · source · périmètre · dépendances · techno sélectionnée ou non nécessaire · réserves · AC · preuves · fichiers candidats · gate humaine. Priorités **validées** ≠ Ready for Delivery. **Pas** Ready for Delivery si décision structurante ouverte. LOT-IP-0A sélectionné ≠ Ready for execution sans GO dédié."}
+{"n": 87, "line": " ---"}
+{"n": 88, "line": "@@ -1373,22 +1404,27 @@ TB-00-* (décisions) · TB-01-06 backup/restore · TB-04-02/04 · TB-05-02 · TB"}
+{"n": 89, "line": " "}
+{"n": 90, "line": " ## 26. Critères de passage"}
 {"n": 91, "line": " "}
-{"n": 92, "line": " ---"}
-{"n": 93, "line": " "}
-{"n": 94, "line": "@@ -179,7 +215,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 95, "line": " | **ID** | `TB-00-01` |"}
-{"n": 96, "line": " | **Type** | DECISION-PREP |"}
-{"n": 97, "line": " | **Epic** | EPIC-TB-00 |"}
-{"n": 98, "line": "-| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 99, "line": "+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |"}
-{"n": 100, "line": " | **Statut** | READY-FOR-DECISION |"}
-{"n": 101, "line": " | **Dépendances** | aucune |"}
-{"n": 102, "line": " | **Gate Morris** | décision nécessaire si aucun mécanisme exploitable |"}
-{"n": 103, "line": "@@ -209,7 +245,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 104, "line": " | **ID** | `TB-00-02` |"}
-{"n": 105, "line": " | **Type** | DECISION-PREP |"}
-{"n": 106, "line": " | **Epic** | EPIC-TB-00 |"}
-{"n": 107, "line": "-| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 108, "line": "+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |"}
-{"n": 109, "line": " | **Statut** | READY-FOR-DECISION |"}
-{"n": 110, "line": " | **Dépendances** | aucune |"}
-{"n": 111, "line": " | **Gate Morris** | arbitrage Morris si incompatible |"}
-{"n": 112, "line": "@@ -240,7 +276,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 113, "line": " | **ID** | `TB-00-03` |"}
-{"n": 114, "line": " | **Type** | DECISION-PREP |"}
-{"n": 115, "line": " | **Epic** | EPIC-TB-00 |"}
-{"n": 116, "line": "-| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 117, "line": "+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |"}
-{"n": 118, "line": " | **Statut** | READY-FOR-DECISION |"}
-{"n": 119, "line": " | **Dépendances** | aucune |"}
-{"n": 120, "line": " | **Gate Morris** | décision Morris store requise avant LOT-D1 |"}
-{"n": 121, "line": "@@ -270,7 +306,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 122, "line": " | **ID** | `TB-00-04` |"}
-{"n": 123, "line": " | **Type** | DECISION-PREP |"}
-{"n": 124, "line": " | **Epic** | EPIC-TB-00 |"}
-{"n": 125, "line": "-| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 126, "line": "+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |"}
-{"n": 127, "line": " | **Statut** | READY-FOR-DECISION |"}
-{"n": 128, "line": " | **Dépendances** | TB-00-03 |"}
-{"n": 129, "line": " | **Gate Morris** | décision Morris data-access/migration |"}
-{"n": 130, "line": "@@ -299,7 +335,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 131, "line": " | **ID** | `TB-00-05` |"}
-{"n": 132, "line": " | **Type** | DECISION-PREP |"}
-{"n": 133, "line": " | **Epic** | EPIC-TB-00 |"}
-{"n": 134, "line": "-| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 135, "line": "+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |"}
-{"n": 136, "line": " | **Statut** | READY-FOR-DECISION |"}
-{"n": 137, "line": " | **Dépendances** | TB-00-03 |"}
-{"n": 138, "line": " | **Gate Morris** | décision Morris plateforme si lot Delivery la requiert |"}
-{"n": 139, "line": "@@ -328,7 +364,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 140, "line": " | **ID** | `TB-00-06` |"}
-{"n": 141, "line": " | **Type** | DECISION-PREP |"}
-{"n": 142, "line": " | **Epic** | EPIC-TB-00 |"}
-{"n": 143, "line": "-| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 144, "line": "+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |"}
-{"n": 145, "line": " | **Statut** | READY-FOR-DECISION |"}
-{"n": 146, "line": " | **Dépendances** | aucune |"}
-{"n": 147, "line": " | **Gate Morris** | aucune sélection ; fermeture réserves hors scope |"}
-{"n": 148, "line": "@@ -358,7 +394,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 149, "line": " | **ID** | `TB-01-01` |"}
-{"n": 150, "line": " | **Type** | ENABLER |"}
-{"n": 151, "line": " | **Epic** | EPIC-TB-01 |"}
-{"n": 152, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 153, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 154, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 155, "line": " | **Dépendances** | TB-00-03, TB-00-04 |"}
-{"n": 156, "line": " | **Gate Morris** | décision store + data-access |"}
-{"n": 157, "line": "@@ -389,7 +425,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 158, "line": " | **ID** | `TB-01-02` |"}
-{"n": 159, "line": " | **Type** | ENABLER |"}
-{"n": 160, "line": " | **Epic** | EPIC-TB-01 |"}
-{"n": 161, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 162, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 163, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 164, "line": " | **Dépendances** | TB-01-01 |"}
-{"n": 165, "line": " | **Gate Morris** | décision store pour mapping physique |"}
-{"n": 166, "line": "@@ -418,7 +454,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 167, "line": " | **ID** | `TB-01-03` |"}
-{"n": 168, "line": " | **Type** | ENABLER |"}
-{"n": 169, "line": " | **Epic** | EPIC-TB-01 |"}
-{"n": 170, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 171, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 172, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 173, "line": " | **Dépendances** | TB-01-01, TB-01-02 |"}
-{"n": 174, "line": " | **Gate Morris** | décision store |"}
-{"n": 175, "line": "@@ -447,7 +483,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 176, "line": " | **ID** | `TB-01-04` |"}
-{"n": 177, "line": " | **Type** | ENABLER |"}
-{"n": 178, "line": " | **Epic** | EPIC-TB-01 |"}
-{"n": 179, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 180, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 181, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 182, "line": " | **Dépendances** | TB-01-01, TB-01-03 |"}
-{"n": 183, "line": " | **Gate Morris** | décision store |"}
-{"n": 184, "line": "@@ -477,7 +513,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 185, "line": " | **ID** | `TB-01-05` |"}
-{"n": 186, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 187, "line": " | **Epic** | EPIC-TB-01 |"}
-{"n": 188, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 189, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 190, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 191, "line": " | **Dépendances** | TB-01-04 |"}
-{"n": 192, "line": " | **Gate Morris** | décision store |"}
-{"n": 193, "line": "@@ -507,7 +543,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 194, "line": " | **ID** | `TB-01-06` |"}
-{"n": 195, "line": " | **Type** | OPS |"}
-{"n": 196, "line": " | **Epic** | EPIC-TB-01 |"}
-{"n": 197, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 198, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 199, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 200, "line": " | **Dépendances** | TB-00-04, TB-01-02 |"}
-{"n": 201, "line": " | **Gate Morris** | décision migration tool + store |"}
-{"n": 202, "line": "@@ -536,7 +572,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 203, "line": " | **ID** | `TB-02-01` |"}
-{"n": 204, "line": " | **Type** | ENABLER |"}
-{"n": 205, "line": " | **Epic** | EPIC-TB-02 |"}
-{"n": 206, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 207, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 208, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 209, "line": " | **Dépendances** | TB-00-06 |"}
-{"n": 210, "line": " | **Gate Morris** | décision modèle OpenAI hors backlog courant |"}
-{"n": 211, "line": "@@ -566,7 +602,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 212, "line": " | **ID** | `TB-02-02` |"}
-{"n": 213, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 214, "line": " | **Epic** | EPIC-TB-02 |"}
-{"n": 215, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 216, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 217, "line": " | **Statut** | BLOCKED-BY-RESERVE |"}
-{"n": 218, "line": " | **Dépendances** | TB-02-01 |"}
-{"n": 219, "line": " | **Gate Morris** | fermeture/clarification réserves UX si surfaces UI touchées |"}
-{"n": 220, "line": "@@ -596,7 +632,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 221, "line": " | **ID** | `TB-02-03` |"}
-{"n": 222, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 223, "line": " | **Epic** | EPIC-TB-02 |"}
-{"n": 224, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 225, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 226, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 227, "line": " | **Dépendances** | TB-00-02, TB-02-01 |"}
-{"n": 228, "line": " | **Gate Morris** | AJV fit confirmé |"}
-{"n": 229, "line": "@@ -626,7 +662,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 230, "line": " | **ID** | `TB-02-04` |"}
-{"n": 231, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 232, "line": " | **Epic** | EPIC-TB-02 |"}
-{"n": 233, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 234, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 235, "line": " | **Statut** | CANDIDATE |"}
-{"n": 236, "line": " | **Dépendances** | TB-02-01, TB-03-04 |"}
-{"n": 237, "line": " | **Gate Morris** | aucune |"}
-{"n": 238, "line": "@@ -656,7 +692,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 239, "line": " | **ID** | `TB-02-05` |"}
-{"n": 240, "line": " | **Type** | NFR |"}
-{"n": 241, "line": " | **Epic** | EPIC-TB-02 |"}
-{"n": 242, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 243, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 244, "line": " | **Statut** | CANDIDATE |"}
-{"n": 245, "line": " | **Dépendances** | TB-02-01, TB-03-04 |"}
-{"n": 246, "line": " | **Gate Morris** | aucune pour metering/soft cap · hard cap reste DEFER-BEFORE-PILOT (TB-04-04) — non bloquant pour cet item |"}
-{"n": 247, "line": "@@ -686,7 +722,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 248, "line": " | **ID** | `TB-03-01` |"}
-{"n": 249, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 250, "line": " | **Epic** | EPIC-TB-03 |"}
-{"n": 251, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 252, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 253, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 254, "line": " | **Dépendances** | TB-00-01 |"}
-{"n": 255, "line": " | **Gate Morris** | auth existante confirmée ou arbitrage dédié |"}
-{"n": 256, "line": "@@ -715,7 +751,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 257, "line": " | **ID** | `TB-03-02` |"}
-{"n": 258, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 259, "line": " | **Epic** | EPIC-TB-03 |"}
-{"n": 260, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 261, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 262, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 263, "line": " | **Dépendances** | TB-03-01, TB-01-05 |"}
-{"n": 264, "line": " | **Gate Morris** | auth confirmée |"}
-{"n": 265, "line": "@@ -745,7 +781,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 266, "line": " | **ID** | `TB-03-03` |"}
-{"n": 267, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 268, "line": " | **Epic** | EPIC-TB-03 |"}
-{"n": 269, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 270, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 271, "line": " | **Statut** | BLOCKED-BY-RESERVE |"}
-{"n": 272, "line": " | **Dépendances** | TB-03-01, TB-00-06 |"}
-{"n": 273, "line": " | **Gate Morris** | fermeture/policy TTL ; modèle nommé hors item |"}
-{"n": 274, "line": "@@ -774,7 +810,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 275, "line": " | **ID** | `TB-03-04` |"}
-{"n": 276, "line": " | **Type** | ENABLER |"}
-{"n": 277, "line": " | **Epic** | EPIC-TB-03 |"}
-{"n": 278, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 279, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 280, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 281, "line": " | **Dépendances** | TB-01-01 |"}
-{"n": 282, "line": " | **Gate Morris** | décision store (même tech physique possible) |"}
-{"n": 283, "line": "@@ -804,7 +840,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 284, "line": " | **ID** | `TB-03-05` |"}
-{"n": 285, "line": " | **Type** | ENABLER |"}
-{"n": 286, "line": " | **Epic** | EPIC-TB-03 |"}
-{"n": 287, "line": "-| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 288, "line": "+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |"}
-{"n": 289, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 290, "line": " | **Dépendances** | TB-03-04 |"}
-{"n": 291, "line": " | **Gate Morris** | décision store |"}
-{"n": 292, "line": "@@ -834,7 +870,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 293, "line": " | **ID** | `TB-04-01` |"}
-{"n": 294, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 295, "line": " | **Epic** | EPIC-TB-04 |"}
-{"n": 296, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 297, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 298, "line": " | **Statut** | BLOCKED-BY-RESERVE |"}
-{"n": 299, "line": " | **Dépendances** | TB-03-03 |"}
-{"n": 300, "line": " | **Gate Morris** | fermeture R-TECH-TTL-01 / policy TTL |"}
-{"n": 301, "line": "@@ -863,7 +899,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 302, "line": " | **ID** | `TB-04-02` |"}
-{"n": 303, "line": " | **Type** | FEATURE-TECH |"}
-{"n": 304, "line": " | **Epic** | EPIC-TB-04 |"}
-{"n": 305, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 306, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 307, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 308, "line": " | **Dépendances** | TB-01-01, TB-04-01 |"}
-{"n": 309, "line": " | **Gate Morris** | décision store + policy TTL |"}
-{"n": 310, "line": "@@ -892,7 +928,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 311, "line": " | **ID** | `TB-04-03` |"}
-{"n": 312, "line": " | **Type** | NFR |"}
-{"n": 313, "line": " | **Epic** | EPIC-TB-04 |"}
-{"n": 314, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 315, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 316, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 317, "line": " | **Dépendances** | TB-03-05, TB-01-06, TB-04-02 |"}
-{"n": 318, "line": " | **Gate Morris** | décisions futures rétention/redaction · aucune réserve formelle liée |"}
-{"n": 319, "line": "@@ -922,7 +958,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 320, "line": " | **ID** | `TB-04-04` |"}
-{"n": 321, "line": " | **Type** | DECISION-PREP |"}
-{"n": 322, "line": " | **Epic** | EPIC-TB-04 |"}
-{"n": 323, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 324, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 325, "line": " | **Statut** | READY-FOR-DECISION |"}
-{"n": 326, "line": " | **Dépendances** | TB-02-05 |"}
-{"n": 327, "line": " | **Gate Morris** | décision Morris hard cap avant pilote |"}
-{"n": 328, "line": "@@ -951,7 +987,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 329, "line": " | **ID** | `TB-05-01` |"}
-{"n": 330, "line": " | **Type** | OPS |"}
-{"n": 331, "line": " | **Epic** | EPIC-TB-05 |"}
-{"n": 332, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 333, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 334, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 335, "line": " | **Dépendances** | TB-01-01 |"}
-{"n": 336, "line": " | **Gate Morris** | décision store ; format endpoint non sélectionné |"}
-{"n": 337, "line": "@@ -980,7 +1016,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 338, "line": " | **ID** | `TB-05-02` |"}
-{"n": 339, "line": " | **Type** | NFR |"}
-{"n": 340, "line": " | **Epic** | EPIC-TB-05 |"}
-{"n": 341, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 342, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 343, "line": " | **Statut** | CANDIDATE |"}
-{"n": 344, "line": " | **Dépendances** | TB-05-01, TB-02-01 |"}
-{"n": 345, "line": " | **Gate Morris** | aucune |"}
-{"n": 346, "line": "@@ -1009,7 +1045,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 347, "line": " | **ID** | `TB-05-03` |"}
-{"n": 348, "line": " | **Type** | OPS |"}
-{"n": 349, "line": " | **Epic** | EPIC-TB-05 |"}
-{"n": 350, "line": "-| **Priorité candidate** | **P3** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 351, "line": "+| **Priorité validée** | **P3** — VALIDATED BY MORRIS |"}
-{"n": 352, "line": " | **Statut** | CANDIDATE |"}
-{"n": 353, "line": " | **Dépendances** | TB-03-04, TB-05-01 |"}
-{"n": 354, "line": " | **Gate Morris** | vendor observability NOT SELECTED |"}
-{"n": 355, "line": "@@ -1039,7 +1075,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 356, "line": " | **ID** | `TB-06-01` |"}
-{"n": 357, "line": " | **Type** | QA |"}
-{"n": 358, "line": " | **Epic** | EPIC-TB-06 |"}
-{"n": 359, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 360, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 361, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 362, "line": " | **Dépendances** | TB-01-04, TB-01-05, TB-01-06 |"}
-{"n": 363, "line": " | **Gate Morris** | store/plateforme pour exécution réelle |"}
-{"n": 364, "line": "@@ -1068,7 +1104,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 365, "line": " | **ID** | `TB-06-02` |"}
-{"n": 366, "line": " | **Type** | QA |"}
-{"n": 367, "line": " | **Epic** | EPIC-TB-06 |"}
-{"n": 368, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 369, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 370, "line": " | **Statut** | BLOCKED-BY-DECISION |"}
-{"n": 371, "line": " | **Dépendances** | TB-04-02, TB-01-06, TB-04-03 |"}
-{"n": 372, "line": " | **Gate Morris** | policy TTL + store |"}
-{"n": 373, "line": "@@ -1096,7 +1132,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 374, "line": " | **ID** | `TB-06-03` |"}
-{"n": 375, "line": " | **Type** | QA |"}
-{"n": 376, "line": " | **Epic** | EPIC-TB-06 |"}
-{"n": 377, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 378, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 379, "line": " | **Statut** | CANDIDATE |"}
-{"n": 380, "line": " | **Dépendances** | TB-02-03, TB-02-04, TB-03-02, TB-03-04, TB-03-05, TB-05-02 |"}
-{"n": 381, "line": " | **Gate Morris** | aucune |"}
-{"n": 382, "line": "@@ -1125,7 +1161,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions)."}
-{"n": 383, "line": " | **ID** | `TB-06-04` |"}
-{"n": 384, "line": " | **Type** | QA |"}
-{"n": 385, "line": " | **Epic** | EPIC-TB-06 |"}
-{"n": 386, "line": "-| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |"}
-{"n": 387, "line": "+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |"}
-{"n": 388, "line": " | **Statut** | BLOCKED-BY-RESERVE |"}
-{"n": 389, "line": " | **Dépendances** | TB-04-04, TB-06-01, TB-06-02, TB-06-03, TB-05-03 |"}
-{"n": 390, "line": " | **Gate Morris** | hard cap + TTL policy + décisions store/plateforme |"}
-{"n": 391, "line": "@@ -1246,43 +1282,69 @@ Points durs : TB-00-03/04 bloquent TB-01-* · TB-00-01 bloque TB-03-01 · TB-00-"}
-{"n": 392, "line": " "}
-{"n": 393, "line": " ---"}
-{"n": 394, "line": " "}
-{"n": 395, "line": "-## 21. Ordre de réalisation candidat"}
-{"n": 396, "line": "-"}
-{"n": 397, "line": "-Phase 0 Decisions (TB-00-*) · Phase 1 Persistence A2 dont **TB-01-05 idempotence générique** · Phase 2 Assistant (TB-02-* dont metering/soft cap TB-02-05) · Phase 3 Governance (**TB-03-02 AuthorityGate après TB-01-05**) · Phase 4 Lifecycle (TB-04-* dont Decision Pack hard cap TB-04-04 après metering) + Health · Phase 5 Pilot QA (TB-06-*)."}
-{"n": 398, "line": "+## 21. Ordre de réalisation (priorités validées · lots IP restructurés)"}
-{"n": 399, "line": " "}
-{"n": 400, "line": "-Ajustement justifié : dépendance prouvée AuthorityGate → idempotence (F-BLG-103-01) et dissociation soft/hard FinOps (F-BLG-103-03)."}
-{"n": 401, "line": "+1. **LOT-IP-0A** (SELECTED) — TB-00-01/02/03/06"}
-{"n": 402, "line": "+2. Décisions Morris issues de LOT-IP-0A (futur cycle)"}
-{"n": 403, "line": "+3. **LOT-IP-0B** (DEFERRED) — TB-00-04/05 après store"}
-{"n": 404, "line": "+4. Phase Persistence A2 (P1) dont TB-01-05 avant AuthorityGate"}
-{"n": 405, "line": "+5. Phase Assistant (P1) · metering/soft cap TB-02-05 (P2)"}
-{"n": 406, "line": "+6. Phase Governance (P1)"}
-{"n": 407, "line": "+7. **LOT-IP-0C** (DEFERRED) — TB-04-04 après preuve TB-02-05"}
-{"n": 408, "line": "+8. Lifecycle / Health / QA pilote (P2) · observabilité TB-05-03 (P3)"}
-{"n": 409, "line": " "}
-{"n": 410, "line": "-**CANDIDATE — MORRIS VALIDATION REQUIRED**"}
-{"n": 411, "line": "+**Priorités : VALIDATED BY MORRIS · Exécution lots techniques : NOT AUTHORIZED · Delivery : NOT-CONSUMED**"}
-{"n": 412, "line": " "}
-{"n": 413, "line": " ---"}
-{"n": 414, "line": " "}
-{"n": 415, "line": "-## 22. Lots candidats"}
-{"n": 416, "line": "+## 22. Lots"}
-{"n": 417, "line": " "}
-{"n": 418, "line": "-### LOT-IP-0 — Implementation Preparation"}
-{"n": 419, "line": "-Items : TB-00-01 … TB-00-06 · TB-04-04 · Nature DOC/DECISION-PREP · **aucun code** · Objectif : borner décisions bloquantes."}
-{"n": 420, "line": "+### LOT-IP-0 (historique)"}
-{"n": 421, "line": " "}
-{"n": 422, "line": "-### LOT-D1 — A2 Persistence Foundation"}
-{"n": 423, "line": "-Items TB-01-* · **NOT AUTHORIZED** · requiert décisions store/data-access."}
-{"n": 424, "line": "+**SUPERSEDED BY DEPENDENCY-SAFE SPLIT LOT-IP-0A / LOT-IP-0B / LOT-IP-0C**"}
-{"n": 425, "line": " "}
-{"n": 426, "line": "-### LOT-D2 — Assistant Core N1"}
-{"n": 427, "line": "-Items TB-02-01/02/04 · **NOT AUTHORIZED**."}
-{"n": 428, "line": "+Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04/05 dépendent de TB-00-03 et TB-04-04 dépend de TB-02-05 (D-ASST-BLG-LOT-STRUCTURE-01)."}
-{"n": 429, "line": " "}
-{"n": 430, "line": "-### LOT-D3 — Structured N2/N3 and Authority"}
-{"n": 431, "line": "-Items TB-02-03 · TB-03-* · **NOT AUTHORIZED**."}
-{"n": 432, "line": "+### LOT-IP-0A — Foundational Decision Preparation"}
-{"n": 433, "line": " "}
-{"n": 434, "line": "-### LOT-D4 — Lifecycle, Audit and Operations"}
-{"n": 435, "line": "-Items TB-04-01/02/03 · TB-05-* · compléments audit · **NOT AUTHORIZED**."}
-{"n": 436, "line": "+| Champ | Valeur |"}
-{"n": 437, "line": "+|---|---|"}
-{"n": 438, "line": "+| **Items** | TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06 |"}
-{"n": 439, "line": "+| **Dépendances backlog entrantes** | aucune |"}
-{"n": 440, "line": "+| **Nature** | documentation / inventaire / analyse / Decision Pack uniquement |"}
-{"n": 441, "line": "+| **Statut** | **SELECTED BY MORRIS — EXECUTION NOT AUTHORIZED** |"}
-{"n": 442, "line": "+| **Décision** | D-ASST-BLG-FIRST-LOT-01 |"}
-{"n": 443, "line": "+| **Code / techno / Delivery** | interdits |"}
-{"n": 444, "line": "+"}
-{"n": 445, "line": "+### LOT-IP-0B — Store-Dependent Decision Preparation"}
-{"n": 446, "line": "+"}
-{"n": 447, "line": "+| Champ | Valeur |"}
-{"n": 448, "line": "+|---|---|"}
-{"n": 449, "line": "+| **Items** | TB-00-04 · TB-00-05 |"}
-{"n": 450, "line": "+| **Dépendance** | TB-00-03 |"}
-{"n": 451, "line": "+| **Statut** | **DEFERRED — NOT SELECTED — FUTURE MORRIS GATE REQUIRED** |"}
-{"n": 452, "line": "+"}
-{"n": 453, "line": "+### LOT-IP-0C — Pre-Pilot FinOps Decision Preparation"}
-{"n": 454, "line": "+"}
-{"n": 455, "line": "+| Champ | Valeur |"}
-{"n": 456, "line": "+|---|---|"}
-{"n": 457, "line": "+| **Items** | TB-04-04 |"}
-{"n": 458, "line": "+| **Dépendance** | TB-02-05 |"}
-{"n": 459, "line": "+| **Statut** | **DEFERRED — NOT SELECTED — FUTURE MORRIS GATE REQUIRED** |"}
-{"n": 460, "line": "+| **Note** | Requis avant pilote · ne bloque pas l’exécution future de TB-02-05 |"}
-{"n": 461, "line": "+"}
-{"n": 462, "line": "+### LOT-D1 à LOT-D5"}
-{"n": 463, "line": "+"}
-{"n": 464, "line": "+**NOT AUTHORIZED** — inchangés (persist foundation · Assistant N1 · N2/N3 Authority · lifecycle · pilot hardening)."}
-{"n": 465, "line": " "}
-{"n": 466, "line": "-### LOT-D5 — Pilot Hardening"}
-{"n": 467, "line": "-Items TB-06-* (+ TB-04-04 Decision Pack hard cap en amont) · TB-02-05 metering/soft cap peut précéder en Phase 2/4 · **NOT AUTHORIZED**."}
-{"n": 468, "line": "+Aucun lot Delivery sélectionné. LOT-IP-0A n’est **pas** exécuté dans ce cycle."}
-{"n": 469, "line": " "}
-{"n": 470, "line": "-Aucun lot sélectionné par Morris dans ce cycle."}
-{"n": 471, "line": " "}
-{"n": 472, "line": " ---"}
-{"n": 473, "line": " "}
-{"n": 474, "line": " ## 23. Chemin critique"}
-{"n": 475, "line": " "}
-{"n": 476, "line": "-Auth inventaire (TB-00-01) + Store decision (TB-00-03) + AJV fit (TB-00-02) → Persistence port (TB-01-01) → **Idempotence générique (TB-01-05)** → Provider (TB-02-01) → **AuthorityGate (TB-03-02)** → Metering/soft cap (TB-02-05) → Decision Pack hard cap (TB-04-04) → Purge/Health → QA pilote (TB-06-04) bloquée par hard cap/TTL decisions."}
-{"n": 477, "line": "+**LOT-IP-0A** (TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06) → décisions Morris store/auth/AJV/secrets → **LOT-IP-0B** (TB-00-04/05) → Persistence (TB-01-*) dont TB-01-05 → Provider (TB-02-*) → AuthorityGate (TB-03-02) → TB-02-05 metering → **LOT-IP-0C** (TB-04-04) → Purge/Health/QA pilote (TB-06-04)."}
-{"n": 478, "line": " "}
-{"n": 479, "line": " ---"}
-{"n": 480, "line": " "}
-{"n": 481, "line": "@@ -1309,23 +1371,26 @@ TB-00-* (décisions) · TB-01-06 backup/restore · TB-04-02/04 · TB-05-02 · TB"}
-{"n": 482, "line": " "}
-{"n": 483, "line": " ---"}
-{"n": 484, "line": " "}
-{"n": 485, "line": "-## 26. Critères de passage vers Delivery"}
-{"n": 486, "line": "+## 26. Critères de passage"}
-{"n": 487, "line": "+"}
-{"n": 488, "line": "+### Vers exécution LOT-IP-0A (future)"}
-{"n": 489, "line": "+"}
-{"n": 490, "line": "+- validation ChatGPT du record 104 ;"}
-{"n": 491, "line": "+- GO `EXECUTE LOT-IP-0A` Morris explicite ;"}
-{"n": 492, "line": "+- périmètre borné DOC/DECISION-PREP ;"}
-{"n": 493, "line": "+- aucune sélection techno dans le GO d’exécution."}
-{"n": 494, "line": " "}
-{"n": 495, "line": "-Avant tout GO Delivery du premier lot technique :"}
-{"n": 496, "line": "+### Vers Delivery (futur, non consommé)"}
-{"n": 497, "line": " "}
-{"n": 498, "line": "-- backlog validé ChatGPT ;"}
-{"n": 499, "line": "-- priorités validées Morris ;"}
-{"n": 500, "line": "-- lot sélectionné Morris ;"}
-{"n": 501, "line": "-- store sélectionné si requis ;"}
-{"n": 502, "line": "-- migration strategy sélectionnée ;"}
-{"n": 503, "line": "-- auth existante confirmée ou arbitrage ;"}
-{"n": 504, "line": "-- AJV fit confirmé ;"}
-{"n": 505, "line": "+- priorités validées (**fait**) ;"}
-{"n": 506, "line": "+- LOT-IP-0A exécuté et Decision Packs produits ;"}
-{"n": 507, "line": "+- store / migration / auth / AJV fit décidés si requis ;"}
-{"n": 508, "line": "+- lot Delivery sélectionné Morris ;"}
-{"n": 509, "line": " - fichiers Delivery bornés ;"}
-{"n": 510, "line": "-- tests attendus définis ;"}
-{"n": 511, "line": " - réserves bloquantes identifiées ;"}
-{"n": 512, "line": " - cohérence 93/97/99/102."}
-{"n": 513, "line": " "}
-{"n": 514, "line": "-Ces critères **ne consomment pas** Delivery."}
-{"n": 515, "line": "+**DELIVERY-GATE=NOT-CONSUMED** (D-ASST-BLG-DELIVERY-01)."}
-{"n": 516, "line": " "}
-{"n": 517, "line": " ---"}
-{"n": 518, "line": " "}
-{"n": 519, "line": "@@ -1343,48 +1408,50 @@ Store tech/fournisseur · cloud · hébergeur · région · instances · ORM ·"}
-{"n": 520, "line": " "}
-{"n": 521, "line": " ## 29. Actions autorisées"}
-{"n": 522, "line": " "}
-{"n": 523, "line": "-Corriger 103 · republier handoff · (hors cycle) valider priorités via GO distinct."}
-{"n": 524, "line": "+Enregistrer décisions dans 103/104 · publier handoff · (futur) proposer GO exécution LOT-IP-0A."}
-{"n": 525, "line": " "}
-{"n": 526, "line": " ---"}
-{"n": 527, "line": " "}
-{"n": 528, "line": " ## 30. Actions interdites"}
-{"n": 529, "line": " "}
-{"n": 530, "line": "-Modifier 90–102 · créer 104 · code · app/** · packages · migration · endpoint · .env · sélection techno · Delivery · fermer réserve · valider priorités · sélectionner lot · commit/push projet · PR/merge."}
-{"n": 531, "line": "+Exécuter LOT-IP-0A · produire Decision Packs dans ce cycle · code · app/** · packages · sélection techno · Delivery · fermer réserve · marquer item DONE · modifier 90–102 · créer 105 · commit/push projet · PR/merge."}
-{"n": 532, "line": " "}
-{"n": 533, "line": " ---"}
-{"n": 534, "line": " "}
-{"n": 535, "line": " ## 31. Anti-claims"}
-{"n": 536, "line": " "}
-{"n": 537, "line": "-Pas Delivery Ready · pas de lot sélectionné · pas de techno choisie · pas d’item DONE sur PR #308–#310 · memory/fixture ≠ A2 durable · pas OpenAI live · pas multi-instance prouvé · pas production-ready · sécurité/RGPD/FinOps non validés · réserves ouvertes · pas PR/merge projet."}
-{"n": 538, "line": "+LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas de techno choisie · pas d’item DONE · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · memory/fixture ≠ A2 durable · pas OpenAI live · réserves ouvertes · pas PR/merge projet."}
-{"n": 539, "line": " "}
-{"n": 540, "line": " ---"}
-{"n": 541, "line": " "}
-{"n": 542, "line": " ## 32. Verdict"}
-{"n": 543, "line": " "}
-{"n": 544, "line": "-**TECHNICAL BACKLOG CORRECTED —**"}
-{"n": 545, "line": "-**DEPENDENCY GRAPH ACYCLIC —**"}
-{"n": 546, "line": "-**F-BLG-103-01…04 FIXED —**"}
-{"n": 547, "line": "-**EXISTING MAIN FOUNDATIONS FROM PR #308 TO #310 RECONCILED —**"}
-{"n": 548, "line": "-**33 ITEMS / 7 EPICS PRESERVED —**"}
-{"n": 549, "line": "-**A2 AND TEN ADR PRESERVED —**"}
-{"n": 550, "line": "-**21 IMPACTS COVERED —**"}
-{"n": 551, "line": "-**RESERVES KEEP-OPEN —**"}
-{"n": 552, "line": "-**NON-SELECTIONS PRESERVED —**"}
-{"n": 553, "line": "-**PRIORITIES AND LOTS REMAIN CANDIDATE —**"}
-{"n": 554, "line": "-**NO LOT SELECTED —**"}
-{"n": 555, "line": "-**DOCUMENT 103 CORRECTED — DOCUMENTS 90–102 UNCHANGED —**"}
-{"n": 556, "line": "-**NO DOCUMENT 104 — NO CODE OR PACKAGE CHANGE —**"}
-{"n": 557, "line": "-**DELIVERY NOT-CONSUMED —**"}
-{"n": 558, "line": "-**READY FOR CHATGPT REVALIDATION AND MORRIS BACKLOG PRIORITIZATION DECISION**"}
-{"n": 559, "line": "+**TECHNICAL BACKLOG PRIORITIES VALIDATED —**"}
-{"n": 560, "line": "+**33 ITEM PRIORITIES ADOPTED BY MORRIS —**"}
-{"n": 561, "line": "+**P0=6 / P1=13 / P2=13 / P3=1 —**"}
-{"n": 562, "line": "+**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**"}
-{"n": 563, "line": "+**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**"}
-{"n": 564, "line": "+**LOT-IP-0B DEFERRED —**"}
-{"n": 565, "line": "+**LOT-IP-0C DEFERRED —**"}
-{"n": 566, "line": "+**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**"}
-{"n": 567, "line": "+**DOCUMENT 103 UPDATED — DOCUMENT 104 CREATED —**"}
-{"n": 568, "line": "+**A2 AND TEN ADR PRESERVED — 21 IMPACTS COVERED —**"}
-{"n": 569, "line": "+**RESERVES KEEP-OPEN — NON-SELECTIONS PRESERVED —**"}
-{"n": 570, "line": "+**NO ITEM DONE — NO TECHNOLOGY SELECTED —**"}
-{"n": 571, "line": "+**NO CODE OR PACKAGE CHANGE — DELIVERY NOT-CONSUMED —**"}
-{"n": 572, "line": "+**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A EXECUTION DECISION**"}
-{"n": 573, "line": "+"}
-{"n": 574, "line": " "}
-{"n": 575, "line": " ---"}
-{"n": 576, "line": " "}
-{"n": 577, "line": " ## 33. Prochaine gate candidate"}
-{"n": 578, "line": " "}
-{"n": 579, "line": " ```text"}
-{"n": 580, "line": "-GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TECHNICAL BACKLOG PRIORITIES AND SELECT FIRST IMPLEMENTATION-PREPARATION LOT"}
-{"n": 581, "line": "+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)"}
-{"n": 582, "line": " ```"}
-{"n": 583, "line": " "}
-{"n": 584, "line": " Statut : **candidate uniquement — non consommée**."}
-{"n": 585, "line": " "}
-{"n": 586, "line": "-**TECHNICAL BACKLOG DOCUMENTED — MORRIS PRIORITIZATION AND FIRST LOT DECISION REQUIRED — DELIVERY NOT CONSUMED**"}
-{"n": 587, "line": "+N’autorise pas Delivery ni sélection technologique au-delà des Decision Packs/analyses explicitement bornés."}
-{"n": 588, "line": "+"}
-{"n": 589, "line": "+**TECHNICAL BACKLOG PRIORITIES AND FIRST LOT RECORDED — MORRIS LOT-IP-0A EXECUTION DECISION REQUIRED — DELIVERY NOT CONSUMED**"}
+{"n": 92, "line": "-### Vers exécution LOT-IP-0A (future)"}
+{"n": 93, "line": "+### Vers arbitrage LOT-IP-0A (prochaine)"}
+{"n": 94, "line": "+"}
+{"n": 95, "line": "+- validation ChatGPT des documents 105/106 ;"}
+{"n": 96, "line": "+- GO `ARBITRATE LOT-IP-0A DECISION PACK` Morris ;"}
+{"n": 97, "line": "+- décisions D-ASST-IP0A-* encore **NOT DECIDED** jusqu’à ce GO."}
+{"n": 98, "line": " "}
+{"n": 99, "line": "-- validation ChatGPT du record 104 ;"}
+{"n": 100, "line": "-- GO `EXECUTE LOT-IP-0A` Morris explicite ;"}
+{"n": 101, "line": "-- périmètre borné DOC/DECISION-PREP ;"}
+{"n": 102, "line": "-- aucune sélection techno dans le GO d’exécution."}
+{"n": 103, "line": "+### Vers LOT-IP-0B / LOT-D1 (futur)"}
+{"n": 104, "line": "+"}
+{"n": 105, "line": "+- STORE-01 décidé ;"}
+{"n": 106, "line": "+- GO d’exécution LOT-IP-0B ou Delivery distinct ;"}
+{"n": 107, "line": "+- LOT-IP-0B reste **DEFERRED** · LOT-D* **NOT AUTHORIZED**."}
+{"n": 108, "line": " "}
+{"n": 109, "line": " ### Vers Delivery (futur, non consommé)"}
+{"n": 110, "line": " "}
+{"n": 111, "line": " - priorités validées (**fait**) ;"}
+{"n": 112, "line": "-- LOT-IP-0A exécuté et Decision Packs produits ;"}
+{"n": 113, "line": "-- store / migration / auth / AJV fit décidés si requis ;"}
+{"n": 114, "line": "+- LOT-IP-0A préparation exécutée (**fait**) · options 106 **arbitrées** ;"}
+{"n": 115, "line": "+- store / migration / auth / AJV stratégie décidés si requis ;"}
+{"n": 116, "line": " - lot Delivery sélectionné Morris ;"}
+{"n": 117, "line": " - fichiers Delivery bornés ;"}
+{"n": 118, "line": " - réserves bloquantes identifiées ;"}
+{"n": 119, "line": "-- cohérence 93/97/99/102."}
+{"n": 120, "line": "+- cohérence 93/97/99/102/105/106."}
+{"n": 121, "line": " "}
+{"n": 122, "line": " **DELIVERY-GATE=NOT-CONSUMED** (D-ASST-BLG-DELIVERY-01)."}
+{"n": 123, "line": " "}
+{"n": 124, "line": "@@ -1408,38 +1444,37 @@ Store tech/fournisseur · cloud · hébergeur · région · instances · ORM ·"}
+{"n": 125, "line": " "}
+{"n": 126, "line": " ## 29. Actions autorisées"}
+{"n": 127, "line": " "}
+{"n": 128, "line": "-Enregistrer décisions dans 103/104 · publier handoff · (futur) proposer GO exécution LOT-IP-0A."}
+{"n": 129, "line": "+Tracer LOT-IP-0A dans 103 · maintenir 105/106 · publier handoff · (futur) arbitrer Decision Pack via GO Morris."}
+{"n": 130, "line": " "}
+{"n": 131, "line": " ---"}
+{"n": 132, "line": " "}
+{"n": 133, "line": " ## 30. Actions interdites"}
+{"n": 134, "line": " "}
+{"n": 135, "line": "-Exécuter LOT-IP-0A · produire Decision Packs dans ce cycle · code · app/** · packages · sélection techno · Delivery · fermer réserve · marquer item DONE · modifier 90–102 · créer 105 · commit/push projet · PR/merge."}
+{"n": 136, "line": "+Adopter les options 106 sans GO · créer 107 · code · app/** · packages · .env · secrets · sélection techno · fermer réserve · marquer item DONE · exécuter LOT-IP-0B/0C · LOT-D* · Delivery · modifier 90–102/104 · commit/push projet · PR/merge."}
+{"n": 137, "line": " "}
+{"n": 138, "line": " ---"}
+{"n": 139, "line": " "}
+{"n": 140, "line": " ## 31. Anti-claims"}
+{"n": 141, "line": " "}
+{"n": 142, "line": "-LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas de techno choisie · pas d’item DONE · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · memory/fixture ≠ A2 durable · pas OpenAI live · réserves ouvertes · pas PR/merge projet."}
+{"n": 143, "line": "+LOT-IP-0A préparation exécutée **≠** options 106 adoptées · pas de techno choisie · pas d’item DONE · HumanDecisionGate ≠ auth · 13 schémas ExecutionRun ≠ contrats N2/N3 · memory ≠ A2 durable · LOT-IP-0B/0C DEFERRED · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · réserves ouvertes · pas PR/merge projet."}
+{"n": 144, "line": " "}
+{"n": 145, "line": " ---"}
+{"n": 146, "line": " "}
+{"n": 147, "line": " ## 32. Verdict"}
+{"n": 148, "line": " "}
+{"n": 149, "line": "-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**"}
+{"n": 150, "line": "-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**"}
+{"n": 151, "line": "-**P0=6 / P1=13 / P2=13 / P3=1 —**"}
+{"n": 152, "line": "-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**"}
+{"n": 153, "line": "-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**"}
+{"n": 154, "line": "-**LOT-IP-0B DEFERRED —**"}
+{"n": 155, "line": "-**LOT-IP-0C DEFERRED —**"}
+{"n": 156, "line": "+**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**"}
+{"n": 157, "line": "+**TB-00-01 AUTH INVENTORY COMPLETE —**"}
+{"n": 158, "line": "+**TB-00-02 AJV N2/N3 FIT ASSESSED —**"}
+{"n": 159, "line": "+**TB-00-03 A2 DURABLE STORE DECISION PACK PREPARED —**"}
+{"n": 160, "line": "+**TB-00-06 SERVER-ONLY SECRETS AND ADMIN CONFIG PREPARATION COMPLETE —**"}
+{"n": 161, "line": "+**DOCUMENT 103 UPDATED — DOCUMENT 105 CREATED — DOCUMENT 106 DECISION PACK CREATED —**"}
+{"n": 162, "line": "+**ALL D-ASST-IP0A DECISIONS NOT DECIDED —**"}
+{"n": 163, "line": "+**RECOMMENDATIONS REMAIN CANDIDATE —**"}
+{"n": 164, "line": "+**NO TECHNOLOGY SELECTED — NO ITEM DONE —**"}
+{"n": 165, "line": "+**LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**"}
+{"n": 166, "line": " **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**"}
+{"n": 167, "line": "-**DOCUMENT 103 UPDATED — DOCUMENT 104 CREATED —**"}
+{"n": 168, "line": "-**A2 AND TEN ADR PRESERVED — 21 IMPACTS COVERED —**"}
+{"n": 169, "line": "-**RESERVES KEEP-OPEN — NON-SELECTIONS PRESERVED —**"}
+{"n": 170, "line": "-**NO ITEM DONE — NO TECHNOLOGY SELECTED —**"}
+{"n": 171, "line": "-**NO CODE OR PACKAGE CHANGE — DELIVERY NOT-CONSUMED —**"}
+{"n": 172, "line": "-**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A EXECUTION DECISION**"}
+{"n": 173, "line": "+**DELIVERY NOT-CONSUMED —**"}
+{"n": 174, "line": "+**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A DECISION PACK ARBITRATION**"}
+{"n": 175, "line": " "}
+{"n": 176, "line": " "}
+{"n": 177, "line": " ---"}
+{"n": 178, "line": "@@ -1447,11 +1482,11 @@ LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas"}
+{"n": 179, "line": " ## 33. Prochaine gate candidate"}
+{"n": 180, "line": " "}
+{"n": 181, "line": " ```text"}
+{"n": 182, "line": "-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)"}
+{"n": 183, "line": "+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0A DECISION PACK"}
+{"n": 184, "line": " ```"}
+{"n": 185, "line": " "}
+{"n": 186, "line": " Statut : **candidate uniquement — non consommée**."}
+{"n": 187, "line": " "}
+{"n": 188, "line": "-N’autorise pas Delivery ni sélection technologique au-delà des Decision Packs/analyses explicitement bornés."}
+{"n": 189, "line": "+N’autorise ni code, ni Delivery, ni LOT-IP-0B, ni LOT-D1 sans décisions Morris explicites."}
+{"n": 190, "line": " "}
+{"n": 191, "line": "-**TECHNICAL BACKLOG PRIORITIES AND FIRST LOT RECORDED — MORRIS LOT-IP-0A EXECUTION DECISION REQUIRED — DELIVERY NOT CONSUMED**"}
+{"n": 192, "line": "+**LOT-IP-0A PREPARATION RECORDED — MORRIS DECISION PACK ARBITRATION REQUIRED — DELIVERY NOT CONSUMED**"}
 ```
 
 ---
 
-## Document 103 — useful diff RAW (référence ; lignes rstrip)
+## Document 103 — useful diff RAW (rstrip)
 
 ```text
-diff --git a/.tmp-sfia-review/backlog-priority-decisions/103-before.md b/projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md
-index 5edd013..abc4641 100644
---- a/.tmp-sfia-review/backlog-priority-decisions/103-before.md
+diff --git a/.tmp-sfia-review/lot-ip-0a/103-before.md b/projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md
+index abc4641..2931db5 100644
+--- a/.tmp-sfia-review/lot-ip-0a/103-before.md
 +++ b/projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md
-@@ -2,16 +2,15 @@
+@@ -2,15 +2,14 @@
 
  ## 1. Statut
 
--**TECHNICAL IMPLEMENTATION BACKLOG CORRECTED —**
--**DEPENDENCY GRAPH ACYCLIC —**
--**F-BLG-103-01…04 FIXED —**
--**EXISTING MAIN FOUNDATIONS FROM PR #308 TO #310 RECONCILED —**
--**BACKLOG GATE CONSUMED BY MORRIS —**
--**PRIORITIES AND LOTS ARE CANDIDATE UNTIL MORRIS VALIDATION —**
--**TECHNOLOGY SELECTIONS REMAIN OPEN —**
--**ALL RESERVES REMAIN OPEN —**
--**DELIVERY GATE NOT CONSUMED —**
--**NO IMPLEMENTATION AUTHORIZED**
-+**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
-+**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
-+**P0=6 / P1=13 / P2=13 / P3=1 —**
-+**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
-+**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
-+**LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**
-+**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
-+**DELIVERY NOT-CONSUMED —**
-+**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO IMPLEMENTATION AUTHORIZED**
+-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
+-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
++**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
++**DECISION PACK READY — MORRIS ARBITRATION REQUIRED —**
++**TECHNICAL BACKLOG PRIORITIES REMAIN VALIDATED —**
+ **P0=6 / P1=13 / P2=13 / P3=1 —**
+-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
+-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
+ **LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**
+ **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
+ **DELIVERY NOT-CONSUMED —**
+-**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO IMPLEMENTATION AUTHORIZED**
++**NO ITEM DONE — NO TECHNOLOGY SELECTED — NO CODE AUTHORIZED**
 
  | Champ | Valeur |
  |---|---|
-@@ -21,6 +20,34 @@
- | **Documents 90–102** | Inchangés |
- | **Delivery** | NOT-CONSUMED |
+@@ -48,8 +47,35 @@ GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TE
+
+ Record formel : `projects/sfia-studio/104-assistant-sfia-native-openai-technical-implementation-backlog-decisions-applied.md`.
 
 +
-+## 1bis. GO Morris — validation priorités et premier lot
++## 1ter. GO Morris — exécution LOT-IP-0A
 +
 +```text
-+GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TECHNICAL BACKLOG PRIORITIES AND SELECT FIRST IMPLEMENTATION-PREPARATION LOT
++GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
 +```
 +
 +| Champ | Valeur |
 +|---|---|
 +| **Autorité** | Morris |
-+| **Consommation** | 2026-08-05 14:46 CEST (+0200) / 12:46 UTC |
++| **Consommation** | 2026-08-05 15:17 CEST (+0200) / 13:17 UTC |
 +| **Profil** | **Critical** |
-+| **Effet** | Priorités P0–P3 **validées** · LOT-IP-0A **SELECTED** · LOT-IP-0B/0C **DEFERRED** · Delivery **NOT-CONSUMED** |
-+| **Non-effet** | Pas d’exécution LOT-IP-0A · pas de Decision Pack produit · pas de sélection techno · pas de code |
++| **Effet** | Exécution **documentaire** LOT-IP-0A · analyses 105 · Decision Pack 106 · Delivery **NOT-CONSUMED** |
++| **Non-effet** | Pas d’adoption des options 106 · pas de techno · pas de code · pas de LOT-IP-0B/0C · pas de LOT-D* |
 +
-+### Historique des décisions Backlog
++### Historique d’exécution LOT-IP-0A
 +
-+| ID | Statut |
++| Étape | Résultat |
 +|---|---|
-+| D-ASST-BLG-PRIORITY-01 | DECIDED — ADOPTED BY MORRIS |
-+| D-ASST-BLG-PRIORITY-02 | DECIDED — ADOPTED BY MORRIS |
-+| D-ASST-BLG-LOT-STRUCTURE-01 | DECIDED — ADOPTED BY MORRIS |
-+| D-ASST-BLG-FIRST-LOT-01 | DECIDED — ADOPTED BY MORRIS |
-+| D-ASST-BLG-DELIVERY-01 | DECIDED — ADOPTED BY MORRIS |
-+| D-ASST-BLG-NONSELECTIONS-01 | DECIDED — PRESERVE OPEN |
-+
-+Record formel : `projects/sfia-studio/104-assistant-sfia-native-openai-technical-implementation-backlog-decisions-applied.md`.
++| TB-00-01 | Inventaire auth complet — auth end-user ABSENTE · OA AuthorityResolver REUSE/EXTEND |
++| TB-00-02 | Verdict technique **FIT WITH EXTENSIONS** — schémas Assistant NEW requis |
++| TB-00-03 | Classes store A2 préparées — reco candidate classe SQL managé (non sélectionnée) |
++| TB-00-06 | Catalogue logique secrets/config — REUSE SecretSourcePort |
++| Documents | `105-…-lot-ip-0a.md` · `106-…-lot-ip-0a-decision-pack.md` |
++| Décisions D-ASST-IP0A-* | **toutes NOT DECIDED** |
 +
  ---
 
++
  ## 2. GO Morris
-@@ -109,15 +136,24 @@ DECISION-PREP · ENABLER · FEATURE-TECH · NFR · QA · OPS · DOC — définis
+
+ ```text
+@@ -1312,9 +1338,14 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
+ | **Items** | TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06 |
+ | **Dépendances backlog entrantes** | aucune |
+ | **Nature** | documentation / inventaire / analyse / Decision Pack uniquement |
+-| **Statut** | **SELECTED BY MORRIS — EXECUTION NOT AUTHORIZED** |
+-| **Décision** | D-ASST-BLG-FIRST-LOT-01 |
+-| **Code / techno / Delivery** | interdits |
++| **Statut** | **IMPLEMENTATION PREPARATION EXECUTED — DECISION PACK READY — MORRIS ARBITRATION REQUIRED** |
++| **Décision de sélection** | D-ASST-BLG-FIRST-LOT-01 (antérieure) |
++| **GO d’exécution** | consommé 2026-08-05 15:17 CEST |
++| **Analyses** | `projects/sfia-studio/105-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a.md` |
++| **Decision Pack** | `projects/sfia-studio/106-assistant-sfia-native-openai-implementation-preparation-lot-ip-0a-decision-pack.md` |
++| **Décisions D-ASST-IP0A-*** | **NOT DECIDED** |
++| **Items DONE** | **aucun** |
++| **Code / techno / Delivery** | toujours interdits |
+
+ ### LOT-IP-0B — Store-Dependent Decision Preparation
+
+@@ -1337,7 +1368,7 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
+
+ **NOT AUTHORIZED** — inchangés (persist foundation · Assistant N1 · N2/N3 Authority · lifecycle · pilot hardening).
+
+-Aucun lot Delivery sélectionné. LOT-IP-0A n’est **pas** exécuté dans ce cycle.
++Aucun lot Delivery sélectionné. LOT-IP-0A préparation **documentaire** exécutée · options Decision Pack **non** adoptées.
+
 
  ---
+@@ -1373,22 +1404,27 @@ TB-00-* (décisions) · TB-01-06 backup/restore · TB-04-02/04 · TB-05-02 · TB
 
--## 12. Règles de priorité candidate
-+## 12. Règles de priorité — **VALIDATED BY MORRIS** (D-ASST-BLG-PRIORITY-01)
+ ## 26. Critères de passage
 
--P0 fondations/décisions · P1 capacité FPI · P2 durcissement pré-pilote · P3 post-FPI/non bloquant · toutes **CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED**.
-+| Niveau | Signification validée |
-+|---|---|
-+| **P0** | préparation et décisions structurantes nécessaires avant tout lot technique |
-+| **P1** | fondations et capacités indispensables au First Product Increment |
-+| **P2** | durcissement, exploitation et readiness pré-pilote |
-+| **P3** | capacité post-FPI ou non bloquante pour le premier incrément |
+-### Vers exécution LOT-IP-0A (future)
++### Vers arbitrage LOT-IP-0A (prochaine)
 +
-+La priorité **ne constitue jamais** un GO Delivery, une autorisation d’implémentation, une sélection technologique ou une fermeture de réserve.
++- validation ChatGPT des documents 105/106 ;
++- GO `ARBITRATE LOT-IP-0A DECISION PACK` Morris ;
++- décisions D-ASST-IP0A-* encore **NOT DECIDED** jusqu’à ce GO.
+
+-- validation ChatGPT du record 104 ;
+-- GO `EXECUTE LOT-IP-0A` Morris explicite ;
+-- périmètre borné DOC/DECISION-PREP ;
+-- aucune sélection techno dans le GO d’exécution.
++### Vers LOT-IP-0B / LOT-D1 (futur)
 +
-+Affectations : **D-ASST-BLG-PRIORITY-02** — P0=6 · P1=13 · P2=13 · P3=1 · total 33.
++- STORE-01 décidé ;
++- GO d’exécution LOT-IP-0B ou Delivery distinct ;
++- LOT-IP-0B reste **DEFERRED** · LOT-D* **NOT AUTHORIZED**.
 
- ---
+ ### Vers Delivery (futur, non consommé)
 
- ## 13. Definition of Ready candidate
-
--Résultat vérifiable · source · périmètre · dépendances · techno sélectionnée ou non nécessaire · réserves · AC · preuves · fichiers candidats · gate humaine. **Pas** Ready for Delivery si décision structurante ouverte.
-+Résultat vérifiable · source · périmètre · dépendances · techno sélectionnée ou non nécessaire · réserves · AC · preuves · fichiers candidats · gate humaine. Priorités **validées** ≠ Ready for Delivery. **Pas** Ready for Delivery si décision structurante ouverte. LOT-IP-0A sélectionné ≠ Ready for execution sans GO dédié.
-
- ---
-
-@@ -179,7 +215,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-00-01` |
- | **Type** | DECISION-PREP |
- | **Epic** | EPIC-TB-00 |
--| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |
- | **Statut** | READY-FOR-DECISION |
- | **Dépendances** | aucune |
- | **Gate Morris** | décision nécessaire si aucun mécanisme exploitable |
-@@ -209,7 +245,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-00-02` |
- | **Type** | DECISION-PREP |
- | **Epic** | EPIC-TB-00 |
--| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |
- | **Statut** | READY-FOR-DECISION |
- | **Dépendances** | aucune |
- | **Gate Morris** | arbitrage Morris si incompatible |
-@@ -240,7 +276,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-00-03` |
- | **Type** | DECISION-PREP |
- | **Epic** | EPIC-TB-00 |
--| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |
- | **Statut** | READY-FOR-DECISION |
- | **Dépendances** | aucune |
- | **Gate Morris** | décision Morris store requise avant LOT-D1 |
-@@ -270,7 +306,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-00-04` |
- | **Type** | DECISION-PREP |
- | **Epic** | EPIC-TB-00 |
--| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |
- | **Statut** | READY-FOR-DECISION |
- | **Dépendances** | TB-00-03 |
- | **Gate Morris** | décision Morris data-access/migration |
-@@ -299,7 +335,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-00-05` |
- | **Type** | DECISION-PREP |
- | **Epic** | EPIC-TB-00 |
--| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |
- | **Statut** | READY-FOR-DECISION |
- | **Dépendances** | TB-00-03 |
- | **Gate Morris** | décision Morris plateforme si lot Delivery la requiert |
-@@ -328,7 +364,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-00-06` |
- | **Type** | DECISION-PREP |
- | **Epic** | EPIC-TB-00 |
--| **Priorité candidate** | **P0** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P0** — VALIDATED BY MORRIS |
- | **Statut** | READY-FOR-DECISION |
- | **Dépendances** | aucune |
- | **Gate Morris** | aucune sélection ; fermeture réserves hors scope |
-@@ -358,7 +394,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-01-01` |
- | **Type** | ENABLER |
- | **Epic** | EPIC-TB-01 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-00-03, TB-00-04 |
- | **Gate Morris** | décision store + data-access |
-@@ -389,7 +425,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-01-02` |
- | **Type** | ENABLER |
- | **Epic** | EPIC-TB-01 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-01 |
- | **Gate Morris** | décision store pour mapping physique |
-@@ -418,7 +454,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-01-03` |
- | **Type** | ENABLER |
- | **Epic** | EPIC-TB-01 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-01, TB-01-02 |
- | **Gate Morris** | décision store |
-@@ -447,7 +483,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-01-04` |
- | **Type** | ENABLER |
- | **Epic** | EPIC-TB-01 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-01, TB-01-03 |
- | **Gate Morris** | décision store |
-@@ -477,7 +513,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-01-05` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-01 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-04 |
- | **Gate Morris** | décision store |
-@@ -507,7 +543,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-01-06` |
- | **Type** | OPS |
- | **Epic** | EPIC-TB-01 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-00-04, TB-01-02 |
- | **Gate Morris** | décision migration tool + store |
-@@ -536,7 +572,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-02-01` |
- | **Type** | ENABLER |
- | **Epic** | EPIC-TB-02 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-00-06 |
- | **Gate Morris** | décision modèle OpenAI hors backlog courant |
-@@ -566,7 +602,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-02-02` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-02 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-RESERVE |
- | **Dépendances** | TB-02-01 |
- | **Gate Morris** | fermeture/clarification réserves UX si surfaces UI touchées |
-@@ -596,7 +632,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-02-03` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-02 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-00-02, TB-02-01 |
- | **Gate Morris** | AJV fit confirmé |
-@@ -626,7 +662,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-02-04` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-02 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | CANDIDATE |
- | **Dépendances** | TB-02-01, TB-03-04 |
- | **Gate Morris** | aucune |
-@@ -656,7 +692,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-02-05` |
- | **Type** | NFR |
- | **Epic** | EPIC-TB-02 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | CANDIDATE |
- | **Dépendances** | TB-02-01, TB-03-04 |
- | **Gate Morris** | aucune pour metering/soft cap · hard cap reste DEFER-BEFORE-PILOT (TB-04-04) — non bloquant pour cet item |
-@@ -686,7 +722,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-03-01` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-03 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-00-01 |
- | **Gate Morris** | auth existante confirmée ou arbitrage dédié |
-@@ -715,7 +751,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-03-02` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-03 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-03-01, TB-01-05 |
- | **Gate Morris** | auth confirmée |
-@@ -745,7 +781,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-03-03` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-03 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-RESERVE |
- | **Dépendances** | TB-03-01, TB-00-06 |
- | **Gate Morris** | fermeture/policy TTL ; modèle nommé hors item |
-@@ -774,7 +810,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-03-04` |
- | **Type** | ENABLER |
- | **Epic** | EPIC-TB-03 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-01 |
- | **Gate Morris** | décision store (même tech physique possible) |
-@@ -804,7 +840,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-03-05` |
- | **Type** | ENABLER |
- | **Epic** | EPIC-TB-03 |
--| **Priorité candidate** | **P1** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P1** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-03-04 |
- | **Gate Morris** | décision store |
-@@ -834,7 +870,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-04-01` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-04 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-RESERVE |
- | **Dépendances** | TB-03-03 |
- | **Gate Morris** | fermeture R-TECH-TTL-01 / policy TTL |
-@@ -863,7 +899,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-04-02` |
- | **Type** | FEATURE-TECH |
- | **Epic** | EPIC-TB-04 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-01, TB-04-01 |
- | **Gate Morris** | décision store + policy TTL |
-@@ -892,7 +928,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-04-03` |
- | **Type** | NFR |
- | **Epic** | EPIC-TB-04 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-03-05, TB-01-06, TB-04-02 |
- | **Gate Morris** | décisions futures rétention/redaction · aucune réserve formelle liée |
-@@ -922,7 +958,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-04-04` |
- | **Type** | DECISION-PREP |
- | **Epic** | EPIC-TB-04 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | READY-FOR-DECISION |
- | **Dépendances** | TB-02-05 |
- | **Gate Morris** | décision Morris hard cap avant pilote |
-@@ -951,7 +987,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-05-01` |
- | **Type** | OPS |
- | **Epic** | EPIC-TB-05 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-01 |
- | **Gate Morris** | décision store ; format endpoint non sélectionné |
-@@ -980,7 +1016,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-05-02` |
- | **Type** | NFR |
- | **Epic** | EPIC-TB-05 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | CANDIDATE |
- | **Dépendances** | TB-05-01, TB-02-01 |
- | **Gate Morris** | aucune |
-@@ -1009,7 +1045,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-05-03` |
- | **Type** | OPS |
- | **Epic** | EPIC-TB-05 |
--| **Priorité candidate** | **P3** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P3** — VALIDATED BY MORRIS |
- | **Statut** | CANDIDATE |
- | **Dépendances** | TB-03-04, TB-05-01 |
- | **Gate Morris** | vendor observability NOT SELECTED |
-@@ -1039,7 +1075,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-06-01` |
- | **Type** | QA |
- | **Epic** | EPIC-TB-06 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-01-04, TB-01-05, TB-01-06 |
- | **Gate Morris** | store/plateforme pour exécution réelle |
-@@ -1068,7 +1104,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-06-02` |
- | **Type** | QA |
- | **Epic** | EPIC-TB-06 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-DECISION |
- | **Dépendances** | TB-04-02, TB-01-06, TB-04-03 |
- | **Gate Morris** | policy TTL + store |
-@@ -1096,7 +1132,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-06-03` |
- | **Type** | QA |
- | **Epic** | EPIC-TB-06 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | CANDIDATE |
- | **Dépendances** | TB-02-03, TB-02-04, TB-03-02, TB-03-04, TB-03-05, TB-05-02 |
- | **Gate Morris** | aucune |
-@@ -1125,7 +1161,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
- | **ID** | `TB-06-04` |
- | **Type** | QA |
- | **Epic** | EPIC-TB-06 |
--| **Priorité candidate** | **P2** — CANDIDATE PRIORITY — MORRIS VALIDATION REQUIRED |
-+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
- | **Statut** | BLOCKED-BY-RESERVE |
- | **Dépendances** | TB-04-04, TB-06-01, TB-06-02, TB-06-03, TB-05-03 |
- | **Gate Morris** | hard cap + TTL policy + décisions store/plateforme |
-@@ -1246,43 +1282,69 @@ Points durs : TB-00-03/04 bloquent TB-01-* · TB-00-01 bloque TB-03-01 · TB-00-
-
- ---
-
--## 21. Ordre de réalisation candidat
--
--Phase 0 Decisions (TB-00-*) · Phase 1 Persistence A2 dont **TB-01-05 idempotence générique** · Phase 2 Assistant (TB-02-* dont metering/soft cap TB-02-05) · Phase 3 Governance (**TB-03-02 AuthorityGate après TB-01-05**) · Phase 4 Lifecycle (TB-04-* dont Decision Pack hard cap TB-04-04 après metering) + Health · Phase 5 Pilot QA (TB-06-*).
-+## 21. Ordre de réalisation (priorités validées · lots IP restructurés)
-
--Ajustement justifié : dépendance prouvée AuthorityGate → idempotence (F-BLG-103-01) et dissociation soft/hard FinOps (F-BLG-103-03).
-+1. **LOT-IP-0A** (SELECTED) — TB-00-01/02/03/06
-+2. Décisions Morris issues de LOT-IP-0A (futur cycle)
-+3. **LOT-IP-0B** (DEFERRED) — TB-00-04/05 après store
-+4. Phase Persistence A2 (P1) dont TB-01-05 avant AuthorityGate
-+5. Phase Assistant (P1) · metering/soft cap TB-02-05 (P2)
-+6. Phase Governance (P1)
-+7. **LOT-IP-0C** (DEFERRED) — TB-04-04 après preuve TB-02-05
-+8. Lifecycle / Health / QA pilote (P2) · observabilité TB-05-03 (P3)
-
--**CANDIDATE — MORRIS VALIDATION REQUIRED**
-+**Priorités : VALIDATED BY MORRIS · Exécution lots techniques : NOT AUTHORIZED · Delivery : NOT-CONSUMED**
-
- ---
-
--## 22. Lots candidats
-+## 22. Lots
-
--### LOT-IP-0 — Implementation Preparation
--Items : TB-00-01 … TB-00-06 · TB-04-04 · Nature DOC/DECISION-PREP · **aucun code** · Objectif : borner décisions bloquantes.
-+### LOT-IP-0 (historique)
-
--### LOT-D1 — A2 Persistence Foundation
--Items TB-01-* · **NOT AUTHORIZED** · requiert décisions store/data-access.
-+**SUPERSEDED BY DEPENDENCY-SAFE SPLIT LOT-IP-0A / LOT-IP-0B / LOT-IP-0C**
-
--### LOT-D2 — Assistant Core N1
--Items TB-02-01/02/04 · **NOT AUTHORIZED**.
-+Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04/05 dépendent de TB-00-03 et TB-04-04 dépend de TB-02-05 (D-ASST-BLG-LOT-STRUCTURE-01).
-
--### LOT-D3 — Structured N2/N3 and Authority
--Items TB-02-03 · TB-03-* · **NOT AUTHORIZED**.
-+### LOT-IP-0A — Foundational Decision Preparation
-
--### LOT-D4 — Lifecycle, Audit and Operations
--Items TB-04-01/02/03 · TB-05-* · compléments audit · **NOT AUTHORIZED**.
-+| Champ | Valeur |
-+|---|---|
-+| **Items** | TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06 |
-+| **Dépendances backlog entrantes** | aucune |
-+| **Nature** | documentation / inventaire / analyse / Decision Pack uniquement |
-+| **Statut** | **SELECTED BY MORRIS — EXECUTION NOT AUTHORIZED** |
-+| **Décision** | D-ASST-BLG-FIRST-LOT-01 |
-+| **Code / techno / Delivery** | interdits |
-+
-+### LOT-IP-0B — Store-Dependent Decision Preparation
-+
-+| Champ | Valeur |
-+|---|---|
-+| **Items** | TB-00-04 · TB-00-05 |
-+| **Dépendance** | TB-00-03 |
-+| **Statut** | **DEFERRED — NOT SELECTED — FUTURE MORRIS GATE REQUIRED** |
-+
-+### LOT-IP-0C — Pre-Pilot FinOps Decision Preparation
-+
-+| Champ | Valeur |
-+|---|---|
-+| **Items** | TB-04-04 |
-+| **Dépendance** | TB-02-05 |
-+| **Statut** | **DEFERRED — NOT SELECTED — FUTURE MORRIS GATE REQUIRED** |
-+| **Note** | Requis avant pilote · ne bloque pas l’exécution future de TB-02-05 |
-+
-+### LOT-D1 à LOT-D5
-+
-+**NOT AUTHORIZED** — inchangés (persist foundation · Assistant N1 · N2/N3 Authority · lifecycle · pilot hardening).
-
--### LOT-D5 — Pilot Hardening
--Items TB-06-* (+ TB-04-04 Decision Pack hard cap en amont) · TB-02-05 metering/soft cap peut précéder en Phase 2/4 · **NOT AUTHORIZED**.
-+Aucun lot Delivery sélectionné. LOT-IP-0A n’est **pas** exécuté dans ce cycle.
-
--Aucun lot sélectionné par Morris dans ce cycle.
-
- ---
-
- ## 23. Chemin critique
-
--Auth inventaire (TB-00-01) + Store decision (TB-00-03) + AJV fit (TB-00-02) → Persistence port (TB-01-01) → **Idempotence générique (TB-01-05)** → Provider (TB-02-01) → **AuthorityGate (TB-03-02)** → Metering/soft cap (TB-02-05) → Decision Pack hard cap (TB-04-04) → Purge/Health → QA pilote (TB-06-04) bloquée par hard cap/TTL decisions.
-+**LOT-IP-0A** (TB-00-01 · TB-00-02 · TB-00-03 · TB-00-06) → décisions Morris store/auth/AJV/secrets → **LOT-IP-0B** (TB-00-04/05) → Persistence (TB-01-*) dont TB-01-05 → Provider (TB-02-*) → AuthorityGate (TB-03-02) → TB-02-05 metering → **LOT-IP-0C** (TB-04-04) → Purge/Health/QA pilote (TB-06-04).
-
- ---
-
-@@ -1309,23 +1371,26 @@ TB-00-* (décisions) · TB-01-06 backup/restore · TB-04-02/04 · TB-05-02 · TB
-
- ---
-
--## 26. Critères de passage vers Delivery
-+## 26. Critères de passage
-+
-+### Vers exécution LOT-IP-0A (future)
-+
-+- validation ChatGPT du record 104 ;
-+- GO `EXECUTE LOT-IP-0A` Morris explicite ;
-+- périmètre borné DOC/DECISION-PREP ;
-+- aucune sélection techno dans le GO d’exécution.
-
--Avant tout GO Delivery du premier lot technique :
-+### Vers Delivery (futur, non consommé)
-
--- backlog validé ChatGPT ;
--- priorités validées Morris ;
--- lot sélectionné Morris ;
--- store sélectionné si requis ;
--- migration strategy sélectionnée ;
--- auth existante confirmée ou arbitrage ;
--- AJV fit confirmé ;
-+- priorités validées (**fait**) ;
-+- LOT-IP-0A exécuté et Decision Packs produits ;
-+- store / migration / auth / AJV fit décidés si requis ;
-+- lot Delivery sélectionné Morris ;
+ - priorités validées (**fait**) ;
+-- LOT-IP-0A exécuté et Decision Packs produits ;
+-- store / migration / auth / AJV fit décidés si requis ;
++- LOT-IP-0A préparation exécutée (**fait**) · options 106 **arbitrées** ;
++- store / migration / auth / AJV stratégie décidés si requis ;
+ - lot Delivery sélectionné Morris ;
  - fichiers Delivery bornés ;
--- tests attendus définis ;
  - réserves bloquantes identifiées ;
- - cohérence 93/97/99/102.
+-- cohérence 93/97/99/102.
++- cohérence 93/97/99/102/105/106.
 
--Ces critères **ne consomment pas** Delivery.
-+**DELIVERY-GATE=NOT-CONSUMED** (D-ASST-BLG-DELIVERY-01).
+ **DELIVERY-GATE=NOT-CONSUMED** (D-ASST-BLG-DELIVERY-01).
 
- ---
-
-@@ -1343,48 +1408,50 @@ Store tech/fournisseur · cloud · hébergeur · région · instances · ORM ·
+@@ -1408,38 +1444,37 @@ Store tech/fournisseur · cloud · hébergeur · région · instances · ORM ·
 
  ## 29. Actions autorisées
 
--Corriger 103 · republier handoff · (hors cycle) valider priorités via GO distinct.
-+Enregistrer décisions dans 103/104 · publier handoff · (futur) proposer GO exécution LOT-IP-0A.
+-Enregistrer décisions dans 103/104 · publier handoff · (futur) proposer GO exécution LOT-IP-0A.
++Tracer LOT-IP-0A dans 103 · maintenir 105/106 · publier handoff · (futur) arbitrer Decision Pack via GO Morris.
 
  ---
 
  ## 30. Actions interdites
 
--Modifier 90–102 · créer 104 · code · app/** · packages · migration · endpoint · .env · sélection techno · Delivery · fermer réserve · valider priorités · sélectionner lot · commit/push projet · PR/merge.
-+Exécuter LOT-IP-0A · produire Decision Packs dans ce cycle · code · app/** · packages · sélection techno · Delivery · fermer réserve · marquer item DONE · modifier 90–102 · créer 105 · commit/push projet · PR/merge.
+-Exécuter LOT-IP-0A · produire Decision Packs dans ce cycle · code · app/** · packages · sélection techno · Delivery · fermer réserve · marquer item DONE · modifier 90–102 · créer 105 · commit/push projet · PR/merge.
++Adopter les options 106 sans GO · créer 107 · code · app/** · packages · .env · secrets · sélection techno · fermer réserve · marquer item DONE · exécuter LOT-IP-0B/0C · LOT-D* · Delivery · modifier 90–102/104 · commit/push projet · PR/merge.
 
  ---
 
  ## 31. Anti-claims
 
--Pas Delivery Ready · pas de lot sélectionné · pas de techno choisie · pas d’item DONE sur PR #308–#310 · memory/fixture ≠ A2 durable · pas OpenAI live · pas multi-instance prouvé · pas production-ready · sécurité/RGPD/FinOps non validés · réserves ouvertes · pas PR/merge projet.
-+LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas de techno choisie · pas d’item DONE · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · memory/fixture ≠ A2 durable · pas OpenAI live · réserves ouvertes · pas PR/merge projet.
+-LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas de techno choisie · pas d’item DONE · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · memory/fixture ≠ A2 durable · pas OpenAI live · réserves ouvertes · pas PR/merge projet.
++LOT-IP-0A préparation exécutée **≠** options 106 adoptées · pas de techno choisie · pas d’item DONE · HumanDecisionGate ≠ auth · 13 schémas ExecutionRun ≠ contrats N2/N3 · memory ≠ A2 durable · LOT-IP-0B/0C DEFERRED · LOT-D* NOT AUTHORIZED · Delivery NOT-CONSUMED · réserves ouvertes · pas PR/merge projet.
 
  ---
 
  ## 32. Verdict
 
--**TECHNICAL BACKLOG CORRECTED —**
--**DEPENDENCY GRAPH ACYCLIC —**
--**F-BLG-103-01…04 FIXED —**
--**EXISTING MAIN FOUNDATIONS FROM PR #308 TO #310 RECONCILED —**
--**33 ITEMS / 7 EPICS PRESERVED —**
--**A2 AND TEN ADR PRESERVED —**
--**21 IMPACTS COVERED —**
--**RESERVES KEEP-OPEN —**
--**NON-SELECTIONS PRESERVED —**
--**PRIORITIES AND LOTS REMAIN CANDIDATE —**
--**NO LOT SELECTED —**
--**DOCUMENT 103 CORRECTED — DOCUMENTS 90–102 UNCHANGED —**
--**NO DOCUMENT 104 — NO CODE OR PACKAGE CHANGE —**
--**DELIVERY NOT-CONSUMED —**
--**READY FOR CHATGPT REVALIDATION AND MORRIS BACKLOG PRIORITIZATION DECISION**
-+**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
-+**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
-+**P0=6 / P1=13 / P2=13 / P3=1 —**
-+**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
-+**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
-+**LOT-IP-0B DEFERRED —**
-+**LOT-IP-0C DEFERRED —**
-+**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
-+**DOCUMENT 103 UPDATED — DOCUMENT 104 CREATED —**
-+**A2 AND TEN ADR PRESERVED — 21 IMPACTS COVERED —**
-+**RESERVES KEEP-OPEN — NON-SELECTIONS PRESERVED —**
-+**NO ITEM DONE — NO TECHNOLOGY SELECTED —**
-+**NO CODE OR PACKAGE CHANGE — DELIVERY NOT-CONSUMED —**
-+**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A EXECUTION DECISION**
-+
+-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
+-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
+-**P0=6 / P1=13 / P2=13 / P3=1 —**
+-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
+-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
+-**LOT-IP-0B DEFERRED —**
+-**LOT-IP-0C DEFERRED —**
++**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
++**TB-00-01 AUTH INVENTORY COMPLETE —**
++**TB-00-02 AJV N2/N3 FIT ASSESSED —**
++**TB-00-03 A2 DURABLE STORE DECISION PACK PREPARED —**
++**TB-00-06 SERVER-ONLY SECRETS AND ADMIN CONFIG PREPARATION COMPLETE —**
++**DOCUMENT 103 UPDATED — DOCUMENT 105 CREATED — DOCUMENT 106 DECISION PACK CREATED —**
++**ALL D-ASST-IP0A DECISIONS NOT DECIDED —**
++**RECOMMENDATIONS REMAIN CANDIDATE —**
++**NO TECHNOLOGY SELECTED — NO ITEM DONE —**
++**LOT-IP-0B DEFERRED — LOT-IP-0C DEFERRED —**
+ **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
+-**DOCUMENT 103 UPDATED — DOCUMENT 104 CREATED —**
+-**A2 AND TEN ADR PRESERVED — 21 IMPACTS COVERED —**
+-**RESERVES KEEP-OPEN — NON-SELECTIONS PRESERVED —**
+-**NO ITEM DONE — NO TECHNOLOGY SELECTED —**
+-**NO CODE OR PACKAGE CHANGE — DELIVERY NOT-CONSUMED —**
+-**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A EXECUTION DECISION**
++**DELIVERY NOT-CONSUMED —**
++**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0A DECISION PACK ARBITRATION**
+
 
  ---
-
+@@ -1447,11 +1482,11 @@ LOT-IP-0A **sélectionné ≠ exécuté** · pas de Decision Pack produit · pas
  ## 33. Prochaine gate candidate
 
  ```text
--GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TECHNICAL BACKLOG PRIORITIES AND SELECT FIRST IMPLEMENTATION-PREPARATION LOT
-+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
+-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
++GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0A DECISION PACK
  ```
 
  Statut : **candidate uniquement — non consommée**.
 
--**TECHNICAL BACKLOG DOCUMENTED — MORRIS PRIORITIZATION AND FIRST LOT DECISION REQUIRED — DELIVERY NOT CONSUMED**
-+N’autorise pas Delivery ni sélection technologique au-delà des Decision Packs/analyses explicitement bornés.
-+
-+**TECHNICAL BACKLOG PRIORITIES AND FIRST LOT RECORDED — MORRIS LOT-IP-0A EXECUTION DECISION REQUIRED — DELIVERY NOT CONSUMED**
+-N’autorise pas Delivery ni sélection technologique au-delà des Decision Packs/analyses explicitement bornés.
++N’autorise ni code, ni Delivery, ni LOT-IP-0B, ni LOT-D1 sans décisions Morris explicites.
+
+-**TECHNICAL BACKLOG PRIORITIES AND FIRST LOT RECORDED — MORRIS LOT-IP-0A EXECUTION DECISION REQUIRED — DELIVERY NOT CONSUMED**
++**LOT-IP-0A PREPARATION RECORDED — MORRIS DECISION PACK ARBITRATION REQUIRED — DELIVERY NOT CONSUMED**
 ```
 
 ---
 
-## Validations
+## Git Review Index
 
-| Contrôle | Résultat |
+| Élément | État |
 |---|---|
-| Priorités P0=6 P1=13 P2=13 P3=1 | PASS |
-| Total 33 / no dup / no missing | PASS |
-| LOT-IP-0A = 01/02/03/06 | PASS |
-| LOT-IP-0B = 04/05 DEFERRED | PASS |
-| LOT-IP-0C = 04-04 DEFERRED | PASS |
-| TB-00-04/05/04-04 absents du premier lot | PASS |
-| Graphe 33/56 acyclique | PASS |
-| Docs 90–102 byte-identical | PASS |
-| Doc 105 absent | PASS |
-| No code/packages | PASS |
-| Delivery NOT-CONSUMED | PASS |
-| LOT-IP-0A non exécuté | PASS |
+| Modifié | 103 (untracked) |
+| Créés | 105 · 106 (untracked) |
+| Inchangés | 90–102 · 104 |
+| Interdits | aucun app/** · packages · 107 |
+| Staged / commit / push projet | aucun |
 
 ---
 
 ## Garde-fous
 
-FinOps / Sécurité / RGPD / Architecture / Backlog : respectés (voir doc 104 annexe B).
+Sécurité/RSSI · FinOps · RGPD · performance · architecture · décision : respectés. Aucune techno sélectionnée. Aucun secret créé/exposé.
 
 ---
 
-## Décisions Morris futures (candidate)
+## Décision Morris future (candidate)
 
 ```text
-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0A (TB-00-01, TB-00-02, TB-00-03, TB-00-06)
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0A DECISION PACK
 ```
 
 Non consommée.
 
 ---
 
+## Local Git Truth — final (à compléter après handoff)
+
+Placeholder remplacé après publication.
+
+---
+
 ## Verdict Review Pack
 
-**TECHNICAL BACKLOG PRIORITIES VALIDATED —**
-**33 ITEM PRIORITIES ADOPTED BY MORRIS —**
-**P0=6 / P1=13 / P2=13 / P3=1 —**
-**LOT-IP-0 RESTRUCTURED INTO DEPENDENCY-SAFE SUBLOTS —**
-**LOT-IP-0A SELECTED AS FIRST IMPLEMENTATION-PREPARATION LOT —**
-**LOT-IP-0B DEFERRED —**
-**LOT-IP-0C DEFERRED —**
-**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
-**DOCUMENT 103 UPDATED —**
-**DOCUMENT 104 CREATED —**
-**A2 AND TEN ADR PRESERVED —**
-**21 IMPACTS COVERED —**
-**RESERVES KEEP-OPEN —**
-**NON-SELECTIONS PRESERVED —**
-**NO ITEM DONE —**
-**NO TECHNOLOGY SELECTED —**
-**NO CODE OR PACKAGE CHANGE —**
-**NO PROJECT COMMIT OR PUSH —**
-**DELIVERY NOT-CONSUMED —**
+**LOT-IP-0A IMPLEMENTATION PREPARATION EXECUTED —**
+**TB-00-01 AUTH INVENTORY COMPLETE —**
+**TB-00-02 AJV N2/N3 FIT ASSESSED —**
+**TB-00-03 A2 DURABLE STORE DECISION PACK PREPARED —**
+**TB-00-06 SERVER-ONLY SECRETS AND ADMIN CONFIG PREPARATION COMPLETE —**
+**DOCUMENT 103 UPDATED — DOCUMENT 105 CREATED — DOCUMENT 106 DECISION PACK CREATED —**
+**ALL D-ASST-IP0A DECISIONS NOT DECIDED —**
+**NO TECHNOLOGY SELECTED — DELIVERY NOT-CONSUMED —**
 **READY FOR HANDOFF PUBLICATION AND CHATGPT VALIDATION**
 
 Review pack verdict : **complete**
