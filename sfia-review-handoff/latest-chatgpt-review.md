@@ -6,8 +6,7 @@
 |---|---|
 | **GO Corrections (local)** | 2026-08-05 12:03 CEST (+0200) |
 | **GO Corrections (UTC)** | 2026-08-05 10:03 UTC |
-| **Pack Cursor (local)** | 2026-08-05 12:10:11 CEST +0200 (truth) / suite rédaction |
-| **Pack Cursor (UTC)** | 2026-08-05 10:10:11 UTC |
+| **Truth initial Cursor** | 2026-08-05 12:10:11 CEST +0200 / 10:10:11 UTC |
 
 ---
 
@@ -17,7 +16,7 @@
 GO CORRECTIONS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ALIGN N3 AUTHORITY FLOW, PROVIDER METERING/AUDIT AND TOPOLOGY-PERSISTENCE CONSTRAINTS
 ```
 
-**Autorité :** Morris · **Ne valide pas** l’Architecture · **ne sélectionne aucune ADR**.
+**Autorité :** Morris · ne valide pas l’Architecture · ne sélectionne aucune ADR.
 
 ---
 
@@ -35,36 +34,31 @@ Architecture technique — correction de candidate · Standard · EVOL/DOC · Do
 
 ## 5. Branche / worktree
 
-`architecture/sfia-studio-assistant-sfia-native-openai` · locale non poussée · worktree delivery-d2-d1
+`architecture/sfia-studio-assistant-sfia-native-openai` · locale non poussée
 
 ---
 
 ## 6. Handoff entrant
 
-| Item | Valeur |
-|---|---|
-| Tip | `ce8b725ee78df0c37ca00e9d7f54ee487a7ce558` |
-| Blob | `f58265c08b56e6b64d31feb3c3d74e48694928e9` |
-| Message | `docs(review-handoff): publish Assistant SFIA technical architecture candidate` |
-| Parent | `80a08585ccb751d48c3ddbc99ecbb11084487909` |
+Tip `ce8b725ee78df0c37ca00e9d7f54ee487a7ce558` · blob `f58265c08b56e6b64d31feb3c3d74e48694928e9`
 
 ---
 
 ## 7. Template canonique
 
-Lu (cycle) : template + routing + operating model + rules + checklist + engineering principles + architect-method.
+Lu.
 
 ---
 
 ## 8. CKC
 
-`pilots/03-architecture-technique.md` candidate v0.1.0 — guidance only.
+candidate v0.1.0 — guidance only.
 
 ---
 
 ## 9. Sources consultées
 
-Handoff · docs 93, 97, 99, 100 · GO corrections · CKC · Git truth.
+Handoff · 93 · 97 · 99 · 100 · GO corrections.
 
 ---
 
@@ -103,45 +97,39 @@ ce8b725ee78df0c37ca00e9d7f54ee487a7ce558
 
 ## 11. Hash et lignes entrants du document 100
 
-| Item | Valeur |
-|---|---|
-| SHA-256 | `a6f98ffe79365ef3ee52986120cc5fc5ab7ee1a22ed76456c70050c2d2d45aca` |
-| Lignes | 1184 |
-| Match attendu | PASS |
+`a6f98ffe79365ef3ee52986120cc5fc5ab7ee1a22ed76456c70050c2d2d45aca` · 1184 lignes · PASS
 
 ---
 
 ## 12. Preuve EMBED_MATCH
 
-EMBED_MATCH entre document 100 local et handoff tip `ce8b725e…` : **PASS** (avant modification).
+PASS avant modification.
 
 ---
 
 ## 13. Chemin et hash de la copie avant correction
 
-| Item | Valeur |
-|---|---|
-| Chemin | `.tmp-sfia-review/architecture/100-before-corrections.md` |
-| SHA-256 | `a6f98ffe79365ef3ee52986120cc5fc5ab7ee1a22ed76456c70050c2d2d45aca` |
-| Immuable | Oui (non modifié après copie) |
+`.tmp-sfia-review/architecture/100-before-corrections.md` · `a6f98ffe79365ef3ee52986120cc5fc5ab7ee1a22ed76456c70050c2d2d45aca`
+
+Note §31 : lignes vides unified-diff omises pour `git diff --check` publisher ; raw complet dans `.tmp-sfia-review/architecture/100-corrections.raw.diff`.
 
 ---
 
 ## 14. Synthèse F-ARCH-01
 
-Flux N3 réaligné : DecisionCandidate strict → surface N3 → MorrisDecisionInput+GO → AuthorityGate serveur → consommation atomique → autorisation bornée. Provider sans autorité.
+DecisionCandidate → surface N3 → Morris GO → AuthorityGate → consommation atomique → autorisation bornée ; provider sans autorité.
 
 ---
 
 ## 15. Sections modifiées pour F-ARCH-01
 
-§1, §20, §23–25, §27–28, §31, §39, §43 (spoof GO), §56–57, §63, §66–68 (+ domaines AuthorityGate).
+§1, §20, §23–25, §27–28, §31, §39, §43, §56–57, §63, §66–68.
 
 ---
 
 ## 16. Contenu complet des sections corrigées F-ARCH-01
 
-````markdown
+`````markdown
 ## 20. Vue d’ensemble cible
 
 ```text
@@ -380,25 +368,25 @@ sequenceDiagram
 ```
 
 ---
-````
+`````
 
 ---
 
 ## 17. Synthèse F-ARCH-02
 
-Soft pre-check + ProviderAttemptStarted avant appel ; Outcome+Usage/unavailable immédiatement après toute tentative ; indépendant validation/persist/N2 cancel/N3 reject ; lanes audit séparées.
+Soft pre-check + attempt ; outcome+usage/unavailable immédiat ; indépendant métier ; lanes séparées.
 
 ---
 
 ## 18. Sections modifiées pour F-ARCH-02
 
-§16 NFR, §23–24, §26, §29–30, §32, §39, §45, §47–49, §54, §56, §57.
+§16, §23–24, §26, §29–30, §32, §39, §45, §47–49, §54, §56–57.
 
 ---
 
 ## 19. Contenu complet des sections corrigées F-ARCH-02
 
-````markdown
+`````markdown
 ## 26. Pipeline conversationnel
 
 ```mermaid
@@ -615,13 +603,13 @@ AuditEvent immutable Project-scoped, **typé par lane** :
 **F-ARCH-02 :** lane provider ≠ lane métier. Une annulation N2 ou un rejet N3 **ne purge pas** la lane provider.
 
 ---
-````
+`````
 
 ---
 
 ## 20. Synthèse F-ARCH-03
 
-Matrice topologie/déploiement/persist ; embedded seulement A1 durable mono-instance single-writer ; A2/B1 externes ; dépendances ADR TOPO↔PERSIST↔SERVER↔PURGE↔AUDIT↔HEALTH ; bundles A1/A2/B1 ; interdiction combo ambiguë.
+Matrice déploiement/persist ; A1 embedded seulement ; A2/B1 externe ; ADR couplées.
 
 ---
 
@@ -633,7 +621,7 @@ Matrice topologie/déploiement/persist ; embedded seulement A1 durable mono-inst
 
 ## 22. Contenu complet des sections corrigées F-ARCH-03
 
-````markdown
+`````markdown
 ## 18. Alternatives de topologie
 
 ### Option A — Modular monolith (Next.js existant)
@@ -830,57 +818,55 @@ TOPO-01 et PERSIST-01 **ne sont plus** présentées comme entièrement indépend
 Aucune ADR acceptée/rejetée ; IDs inchangés ; pas d’ADR supplémentaire créée.
 
 ---
-````
+`````
 
 ---
 
 ## 23. Diagrammes Mermaid corrigés
 
-Mis à jour : composants · pipeline · N1 · N2 · N3 · provider down · ER data · lifecycle · déploiement · dépendances ADR · containers/context labels. Revue syntaxique manuelle PASS · **14** blocs.
+14 blocs · PASS.
 
 ---
 
 ## 24. Matrice topologie/persistance
 
-Voir document §18 (table complète) et §52.
+Voir §18 et §52.
 
 ---
 
 ## 25. Matrice de dépendances ADR
 
-Voir document §58 (flowchart + table ordre/compatible/interdit).
+Voir §58.
 
 ---
 
 ## 26. ADR candidates mises à jour
 
-Toutes **ADR CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**. IDs inchangés. TOPO/PERSIST/SERVER/PURGE/AUDIT/HEALTH enrichies. Aucune acceptée.
+Toutes NOT DECIDED · IDs inchangés.
 
 ---
 
 ## 27. Réserves inchangées
 
-R-TECH-TTL-01 · R-TECH-FINOPS-HARD-01 · R-TECH-AF02-BOUNDARY-01 · R-UX-FPI-02/03/04 · R-UX-04 — **OPEN**, non converties depuis F-ARCH-*.
+OPEN inchangées.
 
 ---
 
 ## 28. Décisions Morris inchangées
 
-AF/UX/prérequis 93/97/99 préservées ; aucune rouverture.
+93/97/99 préservées.
 
 ---
 
 ## 29. Document 100 corrigé
 
-`projects/sfia-studio/100-assistant-sfia-native-openai-technical-architecture.md`
-
-Statut : **CANDIDATE TECHNICAL ARCHITECTURE — CORRECTIONS F-ARCH-01, F-ARCH-02 AND F-ARCH-03 APPLIED — MORRIS VALIDATION REQUIRED — NO IMPLEMENTATION AUTHORIZED**
+CORRECTIONS F-ARCH-01/02/03 APPLIED · candidat.
 
 ---
 
 ## 30. Contenu intégral du document 100 corrigé
 
-````markdown
+`````markdown
 # SFIA Studio — Assistant SFIA natif OpenAI — Technical Architecture
 
 ## 1. Statut
@@ -2313,24 +2299,21 @@ Devra nommer explicitement : topologie · **profil de déploiement** · persista
 N’ouvre pas automatiquement Backlog ou Delivery.
 
 **TECHNICAL ARCHITECTURE CORRECTED CANDIDATE READY — MORRIS ARCHITECTURE DECISION REQUIRED — NO DOWNSTREAM GATE CONSUMED**
-````
+`````
 
 ---
 
 ## 31. Diff complet avant/après
 
-````diff
+`````diff
 diff --git a/.tmp-sfia-review/architecture/100-before-corrections.md b/projects/sfia-studio/100-assistant-sfia-native-openai-technical-architecture.md
 index eeed877..8e0130f 100644
 --- a/.tmp-sfia-review/architecture/100-before-corrections.md
 +++ b/projects/sfia-studio/100-assistant-sfia-native-openai-technical-architecture.md
 @@ -2,18 +2,22 @@
-
  ## 1. Statut
-
 -**CANDIDATE TECHNICAL ARCHITECTURE — MORRIS VALIDATION REQUIRED — NO IMPLEMENTATION AUTHORIZED**
 +**CANDIDATE TECHNICAL ARCHITECTURE — CORRECTIONS F-ARCH-01, F-ARCH-02 AND F-ARCH-03 APPLIED — MORRIS VALIDATION REQUIRED — NO IMPLEMENTATION AUTHORIZED**
-
  | Champ | Valeur |
  |---|---|
  | **Document** | `projects/sfia-studio/100-assistant-sfia-native-openai-technical-architecture.md` |
@@ -2341,33 +2324,22 @@ index eeed877..8e0130f 100644
  | **Code / app / package / Figma** | Non modifiés |
  | **Modèle OpenAI nommé** | Aucun |
  | **Backlog / Delivery** | Non ouverts |
-
 -Légende épistémique utilisée partout : **Observation repo** · **Décision Morris** · **Contrainte** · **Hypothèse** · **Option** · **Recommandation candidate** · **ADR candidate** · **Réserve** · **Différé**.
 +Légende épistémique utilisée partout : **Observation repo** · **Décision Morris** · **Contrainte** · **Hypothèse** · **Option** · **Recommandation candidate** · **ADR candidate** · **Réserve** · **Différé** · **Correction F-ARCH-***.
-+
 +GO de correction consommé : `GO CORRECTIONS ARCHITECTURE TECHNIQUE … ALIGN N3 AUTHORITY FLOW, PROVIDER METERING/AUDIT AND TOPOLOGY-PERSISTENCE CONSTRAINTS` — 2026-08-05 12:03 CEST / 10:03 UTC — **n’accepte aucune ADR**.
-
  ---
-
 @@ -23,7 +27,15 @@ Légende épistémique utilisée partout : **Observation repo** · **Décision M
  GO ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — DESIGN TECHNICAL ARCHITECTURE FROM VALIDATED PREREQUISITES
  ```
-
 -**Autorité :** Morris · **Consommation :** 2026-08-05 11:39 CEST (+0200) / 2026-08-05 09:39 UTC
 +**Autorité :** Morris · **Consommation initiale :** 2026-08-05 11:39 CEST (+0200) / 2026-08-05 09:39 UTC
-+
 +**GO correction (ne valide pas l’Architecture et ne sélectionne aucune ADR) :**
-+
 +```text
 +GO CORRECTIONS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ALIGN N3 AUTHORITY FLOW, PROVIDER METERING/AUDIT AND TOPOLOGY-PERSISTENCE CONSTRAINTS
 +```
-+
 +**Consommation correction :** 2026-08-05 12:03 CEST (+0200) / 2026-08-05 10:03 UTC
-
  ---
-
 @@ -31,10 +43,12 @@ GO ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — DESIGN
-
  | Horodatage | Valeur |
  |---|---|
 -| **Consommation Morris (local)** | 2026-08-05 11:39 CEST (+0200) |
@@ -2380,9 +2352,7 @@ index eeed877..8e0130f 100644
 +| **Consommation GO Corrections (UTC)** | 2026-08-05 10:03 UTC |
 +| **Correction documentaire Cursor (local)** | 2026-08-05 12:10:11 CEST +0200 |
 +| **Correction documentaire Cursor (UTC)** | 2026-08-05 10:10:11 UTC |
-
  ---
-
 @@ -235,10 +249,13 @@ Voir aussi artifact `.tmp-sfia-review/architecture/existing-target-matrix.md`.
  | Résilience | Dégradé N1 · fail-closed structurant | FPI-15 | Scénarios §56 |
  | Observabilité | Spans pipeline · usage · audit | AF-01 · FPI-14 | Taxonomie §48 |
@@ -2397,16 +2367,13 @@ index eeed877..8e0130f 100644
 -| Simplicité | Moindre complexité opérationnelle FPI | CKC / Engineering Principles | Topologie A |
 +| Testabilité | Ports simulables · audits provider même sur reject/cancel | AF-01 · FPI-10 · F-ARCH-02 | §54 |
 +| Simplicité | Moindre complexité opérationnelle FPI sous contraintes déploiement explicites | CKC / Engineering Principles | Bundles A1/A2/B1 |
-
  ---
-
 @@ -272,7 +289,7 @@ UI + Server Actions / route handlers serveur dans le même déployable ; domaine
  | Dette | Bridging chat / persist |
  | Réversibilité | Haute vers B |
  | Impact Delivery | Incrémental |
 -| Limites | Multi-instance non validé ; couplage déploiement |
 +| Limites | **Profil de déploiement obligatoire** (F-ARCH-03) ; multi-instance non validé avec embedded |
-
  ### Option B — Frontend Next + service backend séparé
  Meilleure isolation déploiement ; API autonome ; ops plus lourde ; double pipeline CI ; latence réseau interne.
 @@ -284,7 +301,7 @@ Meilleure isolation déploiement ; API autonome ; ops plus lourde ; double pipel
@@ -2415,7 +2382,6 @@ index eeed877..8e0130f 100644
  | Réversibilité | Coûteuse si trop tôt |
 -| Limites | Architecture astronaut pour FPI |
 +| Limites | Architecture astronaut pour FPI ; store durable côté service requis |
-
  ### Option C — Distribué / event-driven
  Bus/services ; scalabilité potentielle **sans preuve FPI** ; forte complexité ; contredit AF-01 « pas de bus imposé ».
 @@ -293,17 +310,42 @@ Bus/services ; scalabilité potentielle **sans preuve FPI** ; forte complexité
@@ -2424,9 +2390,7 @@ index eeed877..8e0130f 100644
  | Complexité/dette | Très élevées |
 -| Limites | Astronaut · non justifié |
 +| Limites | Astronaut · embedded local non approprié par défaut |
-+
 +### Matrice topologie / déploiement / persistance (**F-ARCH-03**)
-+
 +| Topologie / déploiement candidat | Persistance embarquée | Condition |
 +|---|---|---|
 +| Next.js durable mono-instance | Compatible **candidate** | volume durable + single-writer + verrouillage/sérialisation |
@@ -2434,37 +2398,25 @@ index eeed877..8e0130f 100644
 +| Next.js multi-instance | **Non validé** avec embedded | coordination forte ou base externe **requise** |
 +| Frontend Next.js + service séparé | Dépend du service et du store | persistance durable et concurrence explicites |
 +| Architecture distribuée | Embedded local **non approprié** par défaut | store coordonné externe **requis** |
-+
 +**Règle :** `TOPO=A` + `PERSIST=EMBEDDED` n’est acceptable **candidate** que si **toutes** les contraintes suivantes sont acceptées explicitement :
 +déploiement durable · mono-instance · single-writer · filesystem/volume non éphémère · verrouillage/sérialisation · sauvegarde/restauration · purge TTL compatible sauvegardes · absence de concurrence multi-instance non maîtrisée · stratégie de migration vers store externe.
-+
 +Si une contrainte n’est **pas** garantie → embedded **ne peut pas** être retenu → store externe durable **requis** → décision Morris.
-
  ---
-
  ## 19. Recommandation candidate
-
 -**Recommandation candidate (NON DÉCIDÉE PAR MORRIS) : Option A — modular monolith** autour du socle Next.js, composant les libs `lib/oa/*` + `lib/platform/*`, avec pipeline serveur, Provider Port minimal, persist Project-local.
 +**Recommandation candidate (NON DÉCIDÉE PAR MORRIS) :** modular monolith Next.js (Option A) **sous profil de déploiement explicite**, avec Provider Port minimal et composition `lib/oa/*` + `lib/platform/*`.
-+
 +**Bundles candidats (CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED) :**
-
 -Justification inventaire : stack déjà Next 15 ; ports AI/Git/security existants ; P0 UI fixtures à composer sans rewrite ; Option B/C sans besoin démontré FPI ; AF-01 refuse bus imposé.
 +| Bundle | Contenu | Statut |
 +|---|---|---|
 +| **A1** | Modular monolith · déploiement **durable mono-instance** · embedded Project-local · single-writer · contraintes F-ARCH-03 acceptées | Candidate |
 +| **A2** | Modular monolith · déploiement **éphémère / serverless / multi-instance** · **store externe durable** | Candidate |
 +| **B1** | Frontend Next + service séparé · store externe durable (ou store géré par le service) | Candidate |
-+
 +Justification inventaire : stack Next 15 ; ports existants ; P0 fixtures ; B/C sans besoin FPI démontré ; AF-01 refuse bus imposé.
-
 -Statut : **RECOMMANDATION CANDIDATE — ADR-ASST-TOPO-01 REQUIRED**.
 +**Interdit dans une future gate :** sélection ambiguë `TOPO=A` + `PERSIST=EMBEDDED` **sans** déclaration du profil de déploiement et des contraintes acceptées.
-+
 +Statut : **RECOMMANDATION CANDIDATE — ADR-ASST-TOPO-01 + ADR-ASST-PERSIST-01 COUPLES — NOT DECIDED**.
-
  ---
-
 @@ -323,9 +365,13 @@ Statut : **RECOMMANDATION CANDIDATE — ADR-ASST-TOPO-01 REQUIRED**.
                OA domains         Git Gateway        Provider Port
             (T-A0..T-A4,T-A6)   Allowlist/Redact    OpenAI Adapter
@@ -2474,11 +2426,8 @@ index eeed877..8e0130f 100644
 +                    |           (provider lane ≠ métier)
 +         Authority Gate N3 (serveur) — provider SANS autorité
  ```
-
 +Distinctions d’autorité (**F-ARCH-01**) : `DecisionCandidate` → surface N3 → `MorrisDecisionInput` + GO explicite → `AuthorityValidation` serveur → `GOConsumption` atomique → `ExecutionAuthorization` bornée → exécution réelle **hors cycle**.
-+
  Éléments : **Existant (libs)** · **Candidat (composition)** · **Externe (OpenAI)**. Rien n’est « livré » comme produit Assistant.
-
  ---
 @@ -342,7 +388,7 @@ flowchart LR
    OpenAI[[OpenAI Provider<br/>EXTERNE]]
@@ -2490,7 +2439,6 @@ index eeed877..8e0130f 100644
    Studio -->|via Provider Port serveur| OpenAI
  ```
 @@ -353,7 +399,7 @@ flowchart LR
-
  ```mermaid
  flowchart TB
 -  subgraph Deploy["Déployable candidat Option A — Next.js"]
@@ -2532,13 +2480,9 @@ index eeed877..8e0130f 100644
    AD --> RP
    AD --> UF
  ```
-
 +*F-ARCH-01 :* `AuthorityGate_N3` est serveur-side ; OpenAI Adapter **n’a aucun** rôle de décision/GO.
 +*F-ARCH-02 :* `UsageFinOps` / audit tentative provider sont branchés **autour** de `ProviderPort`, pas seulement après persist métier.
-+
-+
  ---
-
  ## 24. Domaines et responsabilités
 @@ -434,16 +486,17 @@ flowchart TB
  | 8 | RedactionAllowlist | Allowlist + redact | Content | Safe content | security | Bypass | RedactionRecord | — | Unknown fail-closed | yes | `platform/security` | Existant |
@@ -2564,10 +2508,8 @@ index eeed877..8e0130f 100644
 +| 19 | Observability | Logs/metrics/traces + ProviderAttemptStarted/Completed | Spans | Telemetry | Sink | PII/secrets | pipelineStage · providerCallId | — | — | limited | platform/observability | Adaptation |
 +| 20 | ProviderResilience | Timeout/retry/fallback ; émet outcomes pour toute tentative | Port errors | Degraded/fail-closed + ProviderAttemptOutcome | Port · UF · AU | Silent replay struct | Status · Outcome | N1 deg / N2–N3 FC | Visible | yes | nouveau wrapping port | Candidat |
  | 21 | AdminConfiguration | Model/TTL/softcap | Admin | Config audited | Audit | User free model | ModelConfiguration | — | Deny unauthorized | yes | nouveau | Candidat |
-
  *Aucun dossier créé ce cycle.*
 @@ -467,12 +520,14 @@ flowchart LR
-
  **Interdit :**
  - UI → OpenAI SDK / secrets ;
 -- Adapter OpenAI → Git / Persist / Decision métier ;
@@ -2581,9 +2523,7 @@ index eeed877..8e0130f 100644
 -- T-A5 real execution dans FPI.
 +- T-A5 real execution dans FPI ;
 +- Conditionner l’audit/metering provider à une mutation métier réussie (**F-ARCH-02**).
-
  ---
-
 @@ -489,19 +544,21 @@ flowchart TD
    S7 --> S8[8 Git fetch]
    S8 --> S9[9 Allowlist redaction]
@@ -2613,7 +2553,6 @@ index eeed877..8e0130f 100644
 +  S20 --> S21[21 Audit métier final distinct]
 +  S21 --> S23[23 UI restitution]
  ```
-
  | # | Étape | Composant | Entrée | Sortie | Validation | Erreur | Persist? | Métriques | Structurant? |
 @@ -513,24 +570,30 @@ flowchart TD
  | 5 | Classif N1/N2/N3 | CL | Text+ctx | Level | Ambigu→escalade | Strict/escalade | audit | | gate |
@@ -2646,23 +2585,17 @@ index eeed877..8e0130f 100644
 +| 20 | Persist métier si autorisé | PS | Approved | Stored | Isol | Rollback | oui | | |
 +| 21 | Audit métier final | AU | Mutation/decision | AuditEvent métier | Distinct provider lane | — | oui | | |
  | 23 | Restitution | UI | VM | Render | — | Error UX | — | | |
-
 -**Étapes sans dépendance directe provider :** 1–10, 13–23 (sauf metering issu de la réponse). Classification et validation ne doivent pas être court-circuitées par l’adapter.
 +**F-ARCH-02 :** metering/audit provider (10b–12b) **avant** et **indépendants** de validation/persistance métier. Annulation N2 / rejet N3 / échec persist **ne suppriment pas** la trace de tentative.
-+
 +**F-ARCH-01 :** pour N3, l’étape 14 valide le **DecisionCandidate** ; le GO Morris n’existe qu’**après** surface N3 ; AuthorityGate consomme ensuite.
-+
 +**Étapes sans dépendance directe provider :** 1–10, 13–21, 23. Classification, validation dossier et AuthorityGate ne sont **pas** déléguées à l’adapter.
-
  ---
-
 @@ -541,7 +604,19 @@ flowchart TD
  | N1 free-talk Project | Question LPS, explication | Progressive | Aucune | Chat |
  | N1 hors-sujet | Off-topic | Progressive | Non mémorisé Project | Message |
  | N2 | Delta LPS, export structurant | Stricte | Après confirm drawer | Drawer |
 -| N3 | Décision Morris, GO | Stricte | Après surface forte + GO explicite | Surface N3 |
 +| N3 | Décision Morris + GO explicite | Stricte sur **DecisionCandidate** puis **AuthorityGate** sur input Morris | Après consommation GO atomique | Surface N3 (aucune option pré-cochée) |
-+
 +**Flux N3 d’autorité (F-ARCH-01) — ordre obligatoire :**
 +1. Classifier → N3 ;
 +2. Préparer `DecisionCandidate` (question, options, reco candidate séparée, preuves, réserves, portée, autorité attendue, formulation **attendue** du GO) ;
@@ -2674,24 +2607,17 @@ index eeed877..8e0130f 100644
 +8. Échec AG → aucune décision consommée, aucune autorisation, aucune mutation, raisons + audit rejet ;
 +9. Succès AG → `DecisionRecord` + `GOConsumptionRecord` atomiques ; échec persist → **aucune** autorisation ;
 +10. `ExecutionAuthorization` bornée éventuelle **après** consommation persistée ; exécution réelle **distincte** et hors présent cycle.
-
  **Ambiguïté (R-TECH-AF02-BOUNDARY-01 OPEN) :** escalade ou traitement strict ; jamais apply depuis partiel.
-
 @@ -557,9 +632,14 @@ Formalisation candidate (réserve reste OPEN) :
  ### N1 non structurant
  Tolérance texte partiel · aucune mutation/décision · progressive · fallback borné FPI-15.
-
 -### N2/N3 structurant — schéma obligatoire (conceptuel)
 +### N2 structurant — schéma obligatoire (conceptuel)
  Champs candidats : `actionType`, `target`, `scope`, `before`, `after`, `evidenceRefs`, `reversibility`, `authority`, `classification`, `result`.
-
 +### N3 — validation du DecisionCandidate (pas du GO Morris)
 +Champs candidats du dossier : `question`, `options[]`, `recommendationCandidate` (séparée), `evidenceRefs`, `reserves`, `scope`, `expectedAuthority`, `expectedGOFormulation`, `dossierVersion`.
-+
 +Le GO Morris réel n’est validé que par **AuthorityGate** après saisie humaine.
-+
  Rejet **fail-closed** si invalide. Aucune consommation partielle.
-
  **AJV :** présent (`oa/*/ajv*`) — **recommandation d’étude candidate**, pas choix validé.
 @@ -574,17 +654,24 @@ sequenceDiagram
    participant UI as ConversationUI
@@ -2719,7 +2645,6 @@ index eeed877..8e0130f 100644
 +  OR-->>UI: Reply (no decision)
    UI-->>U: Affiche
  ```
-
 @@ -596,21 +683,34 @@ sequenceDiagram
  sequenceDiagram
    participant U as User
@@ -2810,7 +2735,6 @@ index eeed877..8e0130f 100644
 +    end
    end
  ```
-
 @@ -645,12 +772,18 @@ sequenceDiagram
  ```mermaid
  sequenceDiagram
@@ -2858,7 +2782,6 @@ index eeed877..8e0130f 100644
 -  ProviderRequest ||--o{ RedactionRecord : redacts
 +  GOConsumptionRecord ||--o| ExecutionAuthorization : may_emit
  ```
-
  | Objet | ID | Scope | Champs conceptuels | Sensible? | Conservation | Mutabilité | Owner | Audit | Suppression | Exclusions |
 @@ -767,19 +904,26 @@ erDiagram
  | ProjectContext | projectId | Project | doctrinePin, meta | — | durable | controlled | Product | yes | with project | — |
@@ -2888,11 +2811,8 @@ index eeed877..8e0130f 100644
  | ModelConfiguration | configId | Project/Global | abstract modelRef | — | durable | admin audited | Admin | yes | — | user free choice |
 -| RedactionRecord | redactionId | Request | rules hit | meta | audit | immutable | Sec | yes | — | original secret |
 +| RedactionRecord | redactionId | Attempt | rules hit | meta | audit | immutable | Sec | yes | — | original secret |
-+
 +**F-ARCH-02 :** `ProviderAttempt` existe même sans réponse réussie (timeout, cancel, unavailable, invalid output).
-
  ---
-
 @@ -788,17 +932,20 @@ erDiagram
  ### Options
  | Option | Pros | Cons | Fit FPI |
@@ -2902,24 +2822,18 @@ index eeed877..8e0130f 100644
 +| Store local embarqué (fichier/SQLite-like) | Simple, Project-local, purge | **Seulement** sous profil durable mono-instance single-writer | Candidate **A1** seulement |
 +| Base relationnelle externe / store durable externe | Mature, concurrence | Ops | **Requis** pour A2 / B1 / serverless / multi-instance |
  | Fichiers structurés / append-only | Audit-friendly | Concurrence, query | Audit lane candidate |
-
 -**Recommandation candidate (NON DÉCIDÉE) :** store local embarqué Project-scoped pour opérationnel + lane audit append-only logique ; Git reste documentaire hors runtime chat.
 +### Compatibilité (rappel F-ARCH-03)
 +Voir matrice §18. Embedded **interdit** sur serverless/éphémère ; **non validé** multi-instance.
-
 -**ADR-ASST-PERSIST-01** requis.
 +**Recommandations candidates (NON DÉCIDÉES) :**
 +- Bundle **A1** : embedded Project-local + lane audit append-only logique **si** contraintes §18 acceptées.
 +- Bundle **A2/B1** : store externe durable.
-
 -Séparation : opérationnel · audit · preuves · config · métriques · docs Git.
 +**ADR-ASST-PERSIST-01** couplé à **ADR-ASST-TOPO-01** / **SERVER-01** / **PURGE-01** / **AUDIT-STORE-01** / **HEALTH-01**.
-
 ----
 +Séparation : opérationnel · audit provider · audit métier · preuves · config · métriques · docs Git.
-
  ### Cycle de vie des données conversationnelles
-
 @@ -806,21 +953,26 @@ Séparation : opérationnel · audit · preuves · config · métriques · docs
  stateDiagram-v2
    [*] --> Received: user message
@@ -2946,11 +2860,8 @@ index eeed877..8e0130f 100644
 +  AttemptRecorded --> AttemptRetained: independent of Discarded
    Purged --> [*]
  ```
-
 +---
-+
  ## 41. TTL et purge
-
  - Politique TTL **Project** décidée (FPI-08=B).
 @@ -850,7 +1002,7 @@ Principes : deny-by-default paths · redact · server-only secrets · fail-close
  | Binaire | Disponibilité | Git | Binary upload | Token waste | Refuse binary | — | Deny | Audit | Faible | — |
@@ -2971,9 +2882,7 @@ index eeed877..8e0130f 100644
  | Provider down | Dispo | Provider | Outage | Blocage | Degraded N1 | Status | FC struct | — | Moyen | — |
  | Preuve falsifiée | Confiance | Attacker | Fake evidence | Fausse maturité | Digests T-A6 | Verify | Block | Evidence | Moyen | — |
 @@ -880,11 +1032,19 @@ R-TECH-TTL-01 reste OPEN.
-
  ## 45. FinOps
-
 -Metering par requête (usage provider nullable) · estimation candidate seulement si fiable sinon signal « estimation indisponible » · soft cap configurable **sans valeur** · alerte · override soft aligné N2 · admin · audit · corrélation Project · interaction changement modèle audité.
 +**Cycle de vie metering (F-ARCH-02) :**
 +1. Soft pre-check **avant** appel provider ;
@@ -2984,32 +2893,20 @@ index eeed877..8e0130f 100644
 +6. **Interdit** de conditionner l’enregistrement à validation/persistance métier, annulation N2 ou rejet N3 ;
 +7. Soft cap configurable **sans valeur inventée** · alerte · override soft aligné N2 · admin · corrélation Project ;
 +8. Échec d’écriture durable audit/metering : **fail-closed** pour N2/N3 selon niveau de preuve exigé ; pour N1 comportement candidat documenté **sans** le déclarer décidé ; **aucune** fausse réussite FinOps affichée.
-
  Hard cap : **DEFER-BEFORE-PILOT** · R-TECH-FINOPS-HARD-01 OPEN.
-
 -Aucun tarif/quota/tokens/seuil/devise inventés.
 +Aucun tarif/quota/tokens/seuil/devise inventés. Pas de plateforme obs/stockage audit choisie.
-
  ---
-
 @@ -900,7 +1060,9 @@ Distinctions : latence perçue / provider / locale · taille contexte · coût v
-
  ## 47. Résilience
-
 -Erreurs normalisées · timeout configurable (`TO_BE_DECIDED`) · retry borné (**nombre non inventé**) · circuit breaker **candidat** · cancellation · idempotence N2/N3 · déduplication · corrélation · reprise · provider status visible · dégradé N1 · fail-closed structurant · **pas de rejeu silencieux**.
 +Erreurs normalisées · timeout configurable (`TO_BE_DECIDED`) · retry borné (**nombre non inventé**) · circuit breaker **candidat** · cancellation · idempotence N2/N3 + **GOConsumption** · déduplication · corrélation · reprise · provider status visible · dégradé N1 · fail-closed structurant · **pas de rejeu silencieux**.
-+
 +Toute tentative provider produit un outcome audit/metering (**F-ARCH-02**), y compris timeout/cancel/unavailable.
-
  Pas de file/bus décidé (AF-01).
-
 @@ -908,9 +1070,16 @@ Pas de file/bus décidé (AF-01).
-
  ## 48. Observabilité
-
 -Taxonomie candidate : correlationId · projectId · conversationId · requestId · decisionId · confirmationId · providerCallId · evidenceId · pipelineStage · classification · validationResult · providerStatus · usage · latency · retry · errorCode · redactionResult · allowlistResult · softCapResult.
 +Taxonomie candidate : correlationId · projectId · conversationId · requestId · decisionId · confirmationId · providerCallId · evidenceId · pipelineStage · classification · validationResult · providerStatus · ProviderAttemptStarted/Completed/Failed/Cancelled/TimedOut · usage · usageStatus · latency · retry · errorCode · redactionResult · allowlistResult · softCapResult · authorityValidationResult · goConsumptionId.
-
 -Séparer : logs tech · métriques · traces · audit métier · preuves · UX Expert.
 +Séparer :
 +1. telemetry / audit de **tentative provider** ;
@@ -3019,13 +2916,9 @@ index eeed877..8e0130f 100644
 +5. audit de **mutation métier** ;
 +6. UsageRecord / FinOps ;
 +7. EvidenceReference / preuves UX.
-
  **Jamais logger :** prompt système · secrets · clé · scores internes · raisonnement interne · Git non autorisé · PII inutile.
-
 @@ -920,7 +1089,17 @@ Pas de plateforme obs choisie.
-
  ## 49. Audit
-
 -AuditEvent immutable Project-scoped pour : classif · allows/denies Git · provider meta · validation reject · confirm/cancel · decision/GO · purge · admin config · soft cap override.
 +AuditEvent immutable Project-scoped, **typé par lane** :
 +- provider attempt start/outcome ;
@@ -3036,27 +2929,17 @@ index eeed877..8e0130f 100644
 +- N3 surface shown · AG reject · GOConsumption · persist-fail ;
 +- mutation métier ;
 +- purge · admin config.
-+
 +**F-ARCH-02 :** lane provider ≠ lane métier. Une annulation N2 ou un rejet N3 **ne purge pas** la lane provider.
-
  ---
-
 @@ -934,29 +1113,43 @@ Tous changements audités (FPI-09).
-
  ## 51. Exploitabilité
-
 -Env candidats (non créés) : secret provider serveur · modelRef · TTL · softcap · feature flags.
 +Env candidats (non créés) : secret provider serveur · modelRef · TTL · softcap · feature flags · profil déploiement (durable|ephemeral|multi).
-+
 +Health/readiness candidats · purge jobs · backup/restore respectant purge · rollback · **aucun .env créé** · **aucune CI créée**.
-
 -Health/readiness candidats · purge jobs · backup/restore respectant purge · rollback déploiement monolith · **aucun .env créé** · **aucune CI créée**.
 +Si profil ≠ durable mono-instance → **ne pas** déployer embedded (**F-ARCH-03**).
-
  ---
-
  ## 52. Déploiement candidat
-
  ```mermaid
 -flowchart LR
 -  Edge[HTTPS] --> Next[Next.js deployable Option A]
@@ -3070,7 +2953,6 @@ index eeed877..8e0130f 100644
    Next --> GitRO[Git read-only]
    Next --> OpenAI[[OpenAI]]
  ```
-
 -Single deployable. Multi-instance : **non validé**.
 +| Profil | Store | Statut |
 +|---|---|---|
@@ -3078,20 +2960,13 @@ index eeed877..8e0130f 100644
 +| Éphémère / serverless | Embedded **incompatible** | A2 externe |
 +| Multi-instance | Embedded **non validé** | Externe ou nouvelle décision Morris |
 +| Service séparé | Store service/externe | B1 |
-+
 +Aucune plateforme de déploiement réelle sélectionnée.
-
  ---
-
  ## 53. DevOps fit
-
 -Fit avec scripts existants `lint/typecheck/test/e2e/build`. Extension future tests Assistant. Pas de workflow GitHub modifié ce cycle.
 +Fit avec scripts existants `lint/typecheck/test/e2e/build`. Extension future tests Assistant (y compris assert attempt audit sur reject/cancel).
-+
 +Le profil de déploiement doit être déclaré avant choix persist (**dépendance ADR TOPO↔PERSIST**). Pas de workflow GitHub modifié ce cycle.
-
  ---
-
 @@ -973,11 +1166,13 @@ Fit avec scripts existants `lint/typecheck/test/e2e/build`. Extension future tes
  | Allowlist/redaction | FPI-07 | RA | fixtures | deny/redact | leak |
  | Project isolation | FPI-03 | PC/PS | two projects | deny cross | leak |
@@ -3109,7 +2984,6 @@ index eeed877..8e0130f 100644
 +| Audit lanes | Events | AU | — | provider≠métier | missing trail |
  | Adversarial | Injection/secret | GG/RA/SV | hostile fixtures | deny | injection |
  | Integration | Composition OA | Domains | memory | bridge | rewrite creep |
-
 @@ -1010,12 +1205,12 @@ Fit avec scripts existants `lint/typecheck/test/e2e/build`. Extension future tes
  | 2 | N1 hors sujet | User | — | Classify off | — | Non mémorisé Project | classif | Notice | — | — |
  | 3 | N1 Git allowlist | User | Paths OK | GG+RA+PP | Deny path | Snippets | send | Reply+sources | — | — |
@@ -3139,10 +3013,8 @@ index eeed877..8e0130f 100644
 +| F-ARCH-02 | UsageFinOps · ProviderAttempt · Audit lanes |
 +| F-ARCH-03 | TOPO↔PERSIST↔SERVER↔PURGE↔AUDIT↔HEALTH |
  | AF-04=B | Review Handoff process (hors runtime app) |
-
  ---
 @@ -1052,18 +1250,46 @@ Statut commun : **ADR CANDIDATE — NOT DECIDED — MORRIS DECISION REQUIRED**
-
  | ID | Question | Options | Reco candidate | Gate |
  |---|---|---|---|---|
 -| ADR-ASST-TOPO-01 | Topologie déploiement ? | A monolith · B split · C distributed | **A** | Décisions Archi |
@@ -3162,10 +3034,8 @@ index eeed877..8e0130f 100644
 -| ADR-ASST-HEALTH-01 | Health/readiness ? | Minimal /live · deep deps | Minimal + provider optional probe | Impl |
 +| ADR-ASST-ADMIN-AUTHZ-01 | Authz admin + AuthorityGate acteurs ? | Existing auth · new role | Role admin + Morris authz N3 | Avant admin/N3 UI |
 +| ADR-ASST-HEALTH-01 | Health/readiness ? | Minimal /live · deep deps | Minimal + provider optional probe ; profil-aware | Impl |
-
 -Pas d’ADR artificielle hors besoin.
 +### Matrice de dépendances ADR (**F-ARCH-03**)
-+
 +```mermaid
 +flowchart LR
 +  TOPO[ADR-ASST-TOPO-01] --> PERSIST[ADR-ASST-PERSIST-01]
@@ -3176,7 +3046,6 @@ index eeed877..8e0130f 100644
 +  SERVER --> HEALTH
 +  PERSIST --> HEALTH
 +```
-+
 +| Lien | Nature |
 +|---|---|
 +| Décision maîtresse | **TOPO-01** (incl. profil déploiement) avant ou **jointement** avec **PERSIST-01** |
@@ -3189,13 +3058,9 @@ index eeed877..8e0130f 100644
 +| Dette | Migration embedded→externe si A1 puis scale |
 +| Réversibilité | Ports persist ; coût migration données |
 +| Impact Backlog | Bundles A1/A2/B1 déterminent lots infra/persist |
-+
 +TOPO-01 et PERSIST-01 **ne sont plus** présentées comme entièrement indépendantes.
-+
 +Aucune ADR acceptée/rejetée ; IDs inchangés ; pas d’ADR supplémentaire créée.
-
  ---
-
 @@ -1076,7 +1302,9 @@ Pas d’ADR artificielle hors besoin.
  | openai/ajv pris pour décision | Lock-in silencieux | ADR + anti-claims |
  | TTL/hard cap oubliés avant pilote | RGPD/FinOps | Réserves OPEN gates |
@@ -3204,18 +3069,14 @@ index eeed877..8e0130f 100644
 +| Multi-instance / serverless + embedded | Corruption / perte données | Matrice F-ARCH-03 ; interdire combo ambiguë |
 +| GO validé avant surface / par provider | Usurpation autorité | F-ARCH-01 AuthorityGate |
 +| Metering perdu sur reject/cancel | Trou FinOps | F-ARCH-02 attempt lane |
-
  ---
-
 @@ -1091,6 +1319,8 @@ Pas d’ADR artificielle hors besoin.
  | TTL sans durée | FPI-08 | R-TECH-TTL-01 |
  | Frontière AF-02 | AF-02=C | R-TECH-AF02-BOUNDARY-01 |
  | Ops1 patterns parallèles | Inventaire | Ne pas merger silencieux |
 +| TOPO/PERSIST couplés | F-ARCH-03 | Gate Morris jointive |
 +| Audit provider vs métier | F-ARCH-02 | Lanes séparées |
-
  ---
-
 @@ -1099,7 +1329,8 @@ Pas d’ADR artificielle hors besoin.
  | Choix candidat | Réversible ? | Coût d’inversion |
  |---|---|---|
@@ -3228,7 +3089,6 @@ index eeed877..8e0130f 100644
  | Streaming N1 | Oui | UI + port flags |
 @@ -1115,13 +1346,16 @@ Maintenues OPEN (voir §10). Aucune nouvelle réserve **ouverte**. Aucune candid
  ## 63. Conditions d’acceptation (architecture candidate)
-
  - Inventaire repo reflété.
 -- Topologies A/B/C comparées + reco candidate.
 -- Pipeline et N1/N2/N3 complets.
@@ -3245,18 +3105,15 @@ index eeed877..8e0130f 100644
  - Réserves inchangées.
 +- Corrections F-ARCH-01/02/03 appliquées.
  - Aucune implémentation.
-
  ---
 @@ -1129,7 +1363,8 @@ Maintenues OPEN (voir §10). Aucune nouvelle réserve **ouverte**. Aucune candid
  ## 64. Actions futures préparables
-
  Après validation ChatGPT + GO décisions Architecture :
 -- sélection topologie/persist/ADR ;
 +- sélection **conjointes** topologie + profil déploiement + persist (interdire combo ambiguë) ;
 +- ADR SERVER/AUDIT/PURGE/HEALTH/etc. ;
  - puis **cycle Backlog distinct** (GO Morris distinct) ;
  - **pas** Delivery automatique.
-
 @@ -1146,27 +1381,36 @@ Code · packages · app/** · modèle nommé · appel OpenAI · Figma · Backlog
  - Architecture **non** validée / **non** baseline / **non** production-ready.
  - Backend Assistant **non** livré (P0 fixtures ; libs ≠ produit).
@@ -3270,11 +3127,8 @@ index eeed877..8e0130f 100644
 +- Backlog / Delivery / code / tests runtime / MVP / PR / merge **non** autorisés.
  - openai/ajv **≠** décisions.
 +- F-ARCH-01/02/03 **≠** nouvelles réserves ni ADR acceptées.
-
  ---
-
  ## 67. Verdict
-
 -**TECHNICAL ARCHITECTURE CANDIDATE COMPLETE —**
 -**REPOSITORY REALITY AND VALIDATED PREREQUISITES MAPPED —**
 -**CURRENT NEXT.JS FIXTURE-ONLY BASELINE PRESERVED —**
@@ -3303,28 +3157,21 @@ index eeed877..8e0130f 100644
  **NO CODE, OPENAI CALL, MODEL SELECTION, BACKLOG OR DELIVERY AUTHORIZED —**
 -**NO ARCHITECTURE DECISION CONSUMED —**
  **READY FOR CHATGPT VALIDATION AND MORRIS TECHNICAL ARCHITECTURE DECISIONS**
-
  ---
 @@ -1174,11 +1418,15 @@ Code · packages · app/** · modèle nommé · appel OpenAI · Figma · Backlog
  ## 68. Prochaine gate candidate
-
  ```text
 -GO DECISIONS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE CANDIDATE ARCHITECTURE AND SELECT ADR OPTIONS
 +GO DECISIONS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE CORRECTED CANDIDATE ARCHITECTURE AND SELECT ADR OPTIONS
  ```
-
  Statut : **candidate uniquement — non consommée**.
-
 -Devra nommer : topologie · persistance · ADR retenues · réserves · différés · conséquences Backlog — **sans** ouvrir Delivery automatiquement.
 +Devra nommer explicitement : topologie · **profil de déploiement** · persistance · **contraintes acceptées** · frontière serveur · audit store · streaming · validation library · secrets · admin authz · health/readiness · purge · réserves · différés · conséquences Backlog.
-+
 +**Interdit :** combinaison topologie/persistance ambiguë (`TOPO=A` + `PERSIST=EMBEDDED` sans profil).
-+
 +N’ouvre pas automatiquement Backlog ou Delivery.
-
 -**TECHNICAL ARCHITECTURE CANDIDATE READY — MORRIS ARCHITECTURE DECISION REQUIRED — NO DOWNSTREAM GATE CONSUMED**
 +**TECHNICAL ARCHITECTURE CORRECTED CANDIDATE READY — MORRIS ARCHITECTURE DECISION REQUIRED — NO DOWNSTREAM GATE CONSUMED**
-````
+`````
 
 ---
 
@@ -3340,125 +3187,47 @@ index eeed877..8e0130f 100644
 
 ## 33. Contrôle Mermaid
 
-14 blocs · fences fermées · identifiants cohérents AuthorityGate / ProviderAttempt / bundles · pas de secret · PASS manuel.
+PASS.
 
 ---
 
 ## 34. Contrôle whitespace no-index
 
-Commande : `git diff --no-index --check before after`
-
 | Item | Valeur |
 |---|---|
-| Exit code | 1 |
-| Interprétation | Attendue pour fichiers différents sous `--no-index` |
-| Sortie whitespace | ```(vide — aucune erreur whitespace signalée)``` |
-| Erreurs whitespace réelles | **Aucune** |
-| Différences de contenu | Attendues (corrections F-ARCH-*) |
+| Exit code | 1 attendu (--no-index) |
+| Erreurs whitespace réelles | Aucune après omission lignes vides marker |
+| Raw diff | `.tmp-sfia-review/architecture/100-corrections.raw.diff` |
 
 ---
 
 ## 35. git diff --check tracké
 
-```text
-(exit 0 — PASS)
-TRACKED_DIFF_CHECK:0
-```
+PASS exit 0
 
 ---
 
-## 36. Absence modification 14–16
+## 36–44. Absences
 
-Oui.
-
----
-
-## 37. Absence modification 90–99
-
-Hashes inchangés (99 vérifié PASS).
-
----
-
-## 38. Absence création document 101
-
-Aucun `101-*`.
-
----
-
-## 39. Absence modification app/**
-
-`app/.tmp-sfia-review/**` listé non touché.
-
----
-
-## 40. Absence package/lockfile
-
-Oui.
-
----
-
-## 41. Absence code/migration/test
-
-Oui.
-
----
-
-## 42. Absence ADR consommée
-
-Toutes NOT DECIDED.
-
----
-
-## 43. Absence réserve modifiée
-
-Oui.
-
----
-
-## 44. Absence commit/push projet
-
-Oui.
+14–16 / 90–99 inchangés · pas de 101 · app/** inchangé · packages inchangés · pas de code · ADR non consommées · réserves inchangées · pas de commit/push projet.
 
 ---
 
 ## 45. Local Git Truth final complet post-handoff
 
-*(rempli après publish — truth final réel aussi dans rapport Cursor)*
-
-Pré-publish : HEAD=main=`8dc54db…` · branche architecture · parent handoff `ce8b725e…`.
+Voir rapport Cursor.
 
 ---
 
 ## 46. Review Handoff
 
-| Champ | Valeur |
-|---|---|
-| Parent attendu | `ce8b725ee78df0c37ca00e9d7f54ee487a7ce558` |
-| Message | `docs(review-handoff): publish Assistant SFIA technical architecture corrections` |
-| AF-04=B | mono-commit · mono-fichier · FF · tip/blob externes |
+Message `docs(review-handoff): publish Assistant SFIA technical architecture corrections` · tip/blob externes.
 
 ---
 
 ## 47. Verdict
 
-**TECHNICAL ARCHITECTURE CORRECTIONS COMPLETE —**
-**F-ARCH-01 N3 AUTHORITY FLOW ALIGNED WITH MORRIS DECISION AND EXPLICIT GO —**
-**PROVIDER HAS NO DECISION OR AUTHORITY ROLE —**
-**DECISION AND GO CONSUMPTION ARE SERVER-SIDE, IDEMPOTENT AND ATOMIC BEFORE BOUNDED AUTHORIZATION —**
-**F-ARCH-02 PROVIDER ATTEMPT AUDIT AND FINOPS METERING ARE TRANSVERSE AND INDEPENDENT FROM BUSINESS VALIDATION OR PERSISTENCE —**
-**SUCCESS, ERROR, TIMEOUT, CANCELLATION, INVALID OUTPUT AND UNAVAILABLE USAGE STATES ARE RECORDED WITHOUT INVENTED VALUES —**
-**F-ARCH-03 TOPOLOGY, DEPLOYMENT PROFILE AND PERSISTENCE COMPATIBILITY ARE EXPLICIT —**
-**EMBEDDED PERSISTENCE IS CANDIDATE ONLY FOR DURABLE MONO-INSTANCE SINGLE-WRITER DEPLOYMENT —**
-**EPHEMERAL, SERVERLESS OR MULTI-INSTANCE DEPLOYMENT REQUIRES AN EXTERNAL DURABLE STORE OR A NEW MORRIS DECISION —**
-**ADR-ASST-TOPO-01, PERSIST-01, SERVER-01, PURGE-01, AUDIT-STORE-01 AND HEALTH-01 DEPENDENCIES DOCUMENTED —**
-**DOCUMENT 100 UPDATED WITH COMPLETE CORRECTED ARCHITECTURE —**
-**DOCUMENTS 14–16 AND 90–99 UNCHANGED —**
-**NO DOCUMENT 101 CREATED —**
-**APPLICATION, PACKAGES AND FIGMA UNCHANGED —**
-**ALL ADR REMAIN CANDIDATE AND NOT DECIDED —**
-**ALL EXISTING RESERVES REMAIN OPEN AND UNCHANGED —**
-**NO CODE, OPENAI CALL, MODEL SELECTION, BACKLOG OR DELIVERY AUTHORIZED —**
-**READY FOR CHATGPT VALIDATION AND MORRIS TECHNICAL ARCHITECTURE DECISIONS**
+**TECHNICAL ARCHITECTURE CORRECTIONS COMPLETE — F-ARCH-01/02/03 APPLIED — DOCUMENT 100 UPDATED — ADR NOT DECIDED — RESERVES UNCHANGED — READY FOR CHATGPT VALIDATION AND MORRIS TECHNICAL ARCHITECTURE DECISIONS**
 
 ---
 
@@ -3474,4 +3243,4 @@ GO DECISIONS ARCHITECTURE TECHNIQUE SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI 
 
 ## Instruction ChatGPT
 
-ChatGPT doit consulter `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` au tip/blob **externes** du rapport Cursor, puis vérifier : document 100 corrigé intégral · diff avant/après · flux N3 · metering/audit provider · matrice topologie/persist · ADR · réserves — avant validation Architecture, consommation ADR, Backlog, Delivery, modèle OpenAI ou implémentation.
+Consulter tip/blob externes ; vérifier document 100 intégral, diff, flux N3, metering/audit, matrice topologie/persist, ADR, réserves.
