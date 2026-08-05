@@ -1,75 +1,46 @@
-# Review Pack Full — LOT-IP-0C Selection Decisions Applied
+# Review Pack Full — LOT-IP-0C Pre-Pilot FinOps Execution
 
 ## Métadonnées
 
 | Champ | Valeur |
 |---|---|
-| **Date locale** | 2026-08-05 21:56:04 CEST (+0200) |
-| **Date UTC** | 2026-08-05 19:56:04 UTC |
-| **Gate** | `GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C SELECTION` |
-| **Consommation gate** | 2026-08-05 20:38 CEST (+0200) / 18:38 UTC |
-| **Phrase acceptation** | `ok pour ces recommandations qui me semble plus cohérente, a réevaluer lorsque l'on sera dans des cas concrets ou l'on pourra determiner un usage réel` |
-| **Phrase application** | `ok go` |
-| **Précision temporelle** | acceptation + application 2026-08-05 21:45 CEST / 19:45 UTC · secondes non inventées |
-| **Interprétation** | Option A · LOT-IP-0C SELECTED NOT EXECUTED · baseline 1–2 users · calibration 15/20/25/30 USD provisoire · RECALIBRATION REQUIRED · aucune config fournisseur |
-| **Cycle** | Architecture technique — Implementation Preparation — LOT-IP-0C Selection Decisions Applied |
-| **Profil** | Critical |
-| **Typologie** | EVOL / DOC |
-| **CKC** | recherché · aucune autorité d’exécution |
-| **Branche** | `decisions/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-selection` |
+| **Date locale** | 2026-08-05 22:16:47 CEST (+0200) |
+| **Date UTC** | 2026-08-05 20:16:47 UTC |
+| **GO** | `GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C` |
+| **Consommation** | 2026-08-05 22:05 CEST (+0200) / 20:05 UTC |
+| **Interprétation** | Exécution IP documentaire · contrats FinOps · sémantique 15/20/25/30 · options E0–E4 · pas d’implémentation technique · pas de config fournisseur |
+| **Cycle / profil / typologie** | Architecture technique · IP FinOps · Critical · EVOL/DOC |
+| **CKC** | recherché · aucune autorité d’exécution technique |
+| **Branche** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-execution` |
 | **HEAD** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
-| **origin/main** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
-| **merge-base** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
 | **ahead/behind** | `0 / 0` |
 
 ## Local Git Truth initiale
 
-PASS · branche initiale `implementation-preparation/…-lot-ip-0c-selection-decision-pack` · HEAD/main/mb `8dc54db…` · 0/0 · handoff tip `f3fc50fc…` · blob `f30312b2…` · hashes 103–120 OK · 121/122 absents.
+PASS · `decisions/…-lot-ip-0c-selection` · `8dc54db…` · 0/0 · tip `fac139e1…` · blob `e1ccbc48…` · 103–121 OK · 122/123 absents.
 
-## Handoff entrant
+## Handoff entrant / hashes entrants
 
-Tip `f3fc50fc7da0b1e70fded3abd4df45ed8759bfa2` · blob `f30312b2c50136e6ef602dabb527082386e9cd79`.
+Tip `fac139e15719827088f2584d41f65b8689d420f7` · blob `e1ccbc48c361256f0dc415f64b6aa4c6e5cbf1b4` · 103 avant `81d80182…`/2010 · 104–121 byte-identical après.
 
-## Hashes entrants 103–120
+## Sources / précédent 108
 
-103 avant `17e7e07f…` / 1937 · 104–120 conformes (byte-identical après cycle pour 104–120).
+Précédents exécution IP : **105** / **109**. Divergence : **108** = `lot-ip-0b-selection-decisions-applied.md` (pas exécution 0A).
 
-## Sources Git
+## État avant / après
 
-Template cycle · Architecture technique · précédents 107/108/111 · Decision Pack 120 · préparation 119 · backlog 103.
-
-## Décisions avant / après
-
-| | Avant | Après |
-|---|---|---|
-| ID | D-ASST-IP0C-LOT-SELECTION-01 NOT DECIDED | **OPTION A — SELECTED** |
-| LOT-IP-0C | DEFERRED NOT SELECTED | **SELECTED NOT EXECUTED** |
-| Calibration | NOT SELECTED | **PROVISIONAL 15/20/25/30 USD SELECTED** |
-| Enforcement | NOT SELECTED | **NOT SELECTED / NOT CONFIGURED** |
-
-## Identifiant exact / Option A / état
-
-`D-ASST-IP0C-LOT-SELECTION-01 = OPTION A — SELECT LOT-IP-0C` · LOT-IP-0C **SELECTED — NOT EXECUTED**.
-
-## Baseline / calibration
-
-1 primary user · 2 short-term upper bound · 25 USD target · 15 alert · 20 critical · 30 safety · **PROVISIONAL** · **RECALIBRATION REQUIRED**.
-
-## Non-configurations / réserves
-
-Provider budgets/alerts/caps **NOT CONFIGURED** · hard stop / enforcement / degradation / override **NOT SELECTED** · R-TECH-FINOPS-HARD-01 · R-TECH-TTL-01 **KEEP-OPEN**.
-
-## Impacts backlog / lots / graphe
-
-TB-04-04 not DONE · TB-02-05 préservé · LOT-D1 NOT AUTHORIZED · graphe 33/56 · P0=6 P1=13 P2=13 P3=1 · aucun DONE.
+SELECTED NOT EXECUTED → **EXECUTED (IP)** · enforcement reste NOT SELECTED · TB-04-04 READY-FOR-MORRIS-ARBITRATION · NOT DONE · calibration préservée.
 
 ## Coverage
 
 | Item | Valeur |
 |---|---|
-| document 121 complet | yes |
+| document 122 complet | yes |
 | sections 103 modifiées complètes | yes |
 | diff utile 103 | yes |
+| contrat de mesure complet | yes |
+| options E0–E4 complètes | yes |
+| plan de tests futur | yes |
 | Local Git Truth initiale | yes |
 | Local Git Truth finale | yes |
 | synthesis only | no |
@@ -80,52 +51,53 @@ TB-04-04 not DONE · TB-02-05 préservé · LOT-D1 NOT AUTHORIZED · graphe 33/5
 
 | Doc | SHA-256 | Lignes |
 |---|---|---|
-| 103 | `81d801824c69f5ed4a84e3ef6cbf393d3bd5ae3395a11276636459bd6e773cad` | 2010 |
-| 121 | `928e6a591feae23155f0d74b41f6f43c35cc8a79939122b555683506ad1e4f87` | 515 |
+| 103 | `03ab514b1be14937945a0f66a6426471b723f595fe3bcd8e829bde14ee86432c` | 2071 |
+| 122 | `6606e527c3ba25580cb5cad7eb5f7db581e7f4ff86e302e49b8e47b8ace02212` | 739 |
 
 ## Contrôles
 
-104–120 byte-identical PASS · 122 ABSENT · anti-stub PASS · cinq A2 préservés · LOT-IP-0C SELECTED NOT EXECUTED · LOT-D1 NOT AUTHORIZED · Delivery NOT-CONSUMED.
+104–121 byte-identical · 123 absent · E0–E4 NOT SELECTED · E1 candidate · graphe 33/56 · aucun DONE · LOT-D1 NOT AUTHORIZED · Delivery NOT-CONSUMED.
 
 ## Local Git Truth finale
 
-Branche `decisions/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-selection` · HEAD `8dc54db0069eed78a8d8930cc2b035450ab56ad1` · 0/0 · aucun tracked modifié · aucun upstream · aucun commit/push projet.
+Branche `implementation-preparation/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-execution` · HEAD `8dc54db0069eed78a8d8930cc2b035450ab56ad1` · 0/0 · aucun tracked modifié · aucun commit/push projet.
 
 ## Prochaine gate candidate
 
 ```text
-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C FINOPS ENFORCEMENT
 ```
-
-Candidate only — non consommée.
 
 ## Verdict
 
-**LOT-IP-0C SELECTION DECISION APPLIED — OPTION A SELECTED — LOT-IP-0C SELECTED — LOT-IP-0C NOT EXECUTED — PROVISIONAL USAGE BASELINE SELECTED — ONE PRIMARY USER — TWO USERS SHORT-TERM UPPER BOUND — PROVISIONAL FINOPS CALIBRATION SELECTED — USD 25 MONTHLY TARGET — USD 15 ALERT THRESHOLD — USD 20 CRITICAL REVIEW THRESHOLD — USD 30 SAFETY CAP — RECALIBRATION REQUIRED WHEN REAL USAGE DATA IS AVAILABLE AND BEFORE REAL PILOT — NO PROVIDER BUDGET, ALERT, CAP OR HARD STOP CONFIGURED — NO ENFORCEMENT OR AUTOMATIC DEGRADATION MODE SELECTED — DOCUMENT 103 UPDATED — DOCUMENT 121 LOT-IP-0C DECISIONS APPLIED CREATED — DOCUMENTS 104 TO 120 BYTE-IDENTICAL — DOCUMENT 122 ABSENT — FIVE PERSISTENCE A2 TECHNOLOGY DECISIONS PRESERVED — A2, DA-A, MIG-C AND P1 PRESERVED — P2 CO-COMPATIBLE BUT NOT SELECTED — TEN ADR PRESERVED — 21 IMPACTS COVERED — GRAPH 33/56 PRESERVED — PRIORITIES PRESERVED — NO ITEM DONE — TB-04-04 NOT DONE — LOT-D1 TO LOT-D5 NOT AUTHORIZED — RESERVES KEEP-OPEN — NO CODE, PACKAGE, DOCKER, SQL OR CONFIGURATION CHANGE — NO ACCOUNT, SUBSCRIPTION OR PAYMENT CREATED — NO PROJECT COMMIT OR PUSH — DELIVERY NOT-CONSUMED — HANDOFF UPDATED AND REMOTE VERIFIED — READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0C EXECUTION DECISION**
+**LOT-IP-0C EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS CONTROL CONTRACT PRODUCED — MEASUREMENT CONTRACT PRODUCED — COST AGGREGATION CONTRACT PRODUCED — ESTIMATED, OBSERVED AND BILLED COSTS DISTINGUISHED — USD 15 ALERT SEMANTICS BOUNDED — USD 20 CRITICAL REVIEW SEMANTICS BOUNDED — USD 25 MONTHLY TARGET SEMANTICS BOUNDED — USD 30 SAFETY CAP SEMANTICS BOUNDED — ENFORCEMENT OPTIONS E0 TO E4 PREPARED — SOFT CONTROL WITH HUMAN GATE RECOMMENDATION REMAINS CANDIDATE — DEGRADATION OPTIONS PREPARED — OVERRIDE OPTIONS PREPARED — TTL OPTIONS PREPARED — ENFORCEMENT DECISION PACK READY — NO ENFORCEMENT OPTION SELECTED — PROVISIONAL USAGE BASELINE PRESERVED — PROVISIONAL FINOPS CALIBRATION PRESERVED — RECALIBRATION REQUIRED — NO PROVIDER BUDGET, ALERT, CAP OR HARD STOP CONFIGURED — NO TECHNICAL ENFORCEMENT IMPLEMENTED — DOCUMENT 103 UPDATED — DOCUMENT 122 LOT-IP-0C EXECUTION CREATED — DOCUMENTS 104 TO 121 BYTE-IDENTICAL — DOCUMENT 123 ABSENT — FIVE PERSISTENCE A2 TECHNOLOGY DECISIONS PRESERVED — A2, DA-A, MIG-C AND P1 PRESERVED — P2 CO-COMPATIBLE BUT NOT SELECTED — TEN ADR PRESERVED — 21 IMPACTS COVERED — GRAPH 33/56 PRESERVED — PRIORITIES PRESERVED — NO ITEM DONE — TB-04-04 READY FOR MORRIS ARBITRATION — TB-04-04 NOT DONE — TB-02-05 PRESERVED — LOT-D1 TO LOT-D5 NOT AUTHORIZED — RESERVES KEEP-OPEN — NO CODE, PACKAGE, DOCKER, SQL OR CONFIGURATION CHANGE — NO ACCOUNT, SUBSCRIPTION OR PAYMENT CREATED — NO PROJECT COMMIT OR PUSH — DELIVERY NOT-CONSUMED — HANDOFF UPDATED AND REMOTE VERIFIED — READY FOR CHATGPT VALIDATION AND MORRIS FINOPS ENFORCEMENT ARBITRATION**
 
 ---
 
-# Document 121 complet
+# Document 122 complet
 
-# SFIA Studio — Assistant SFIA natif OpenAI — Implementation Preparation LOT-IP-0C — Selection Decisions Applied
+# SFIA Studio — Assistant SFIA natif OpenAI — Implementation Preparation LOT-IP-0C — Pre-Pilot FinOps Execution
 
 ## 1. Statut et anti-claims
 
-**LOT-IP-0C SELECTION DECISION APPLIED —**
-**OPTION A SELECTED —**
-**LOT-IP-0C SELECTED —**
-**LOT-IP-0C NOT EXECUTED —**
-**PROVISIONAL USAGE BASELINE SELECTED —**
-**PROVISIONAL FINOPS CALIBRATION SELECTED —**
-**ONE PRIMARY USER —**
-**TWO USERS SHORT-TERM UPPER BOUND —**
-**USD 25 MONTHLY TARGET —**
-**USD 15 ALERT THRESHOLD —**
-**USD 20 CRITICAL REVIEW THRESHOLD —**
-**USD 30 SAFETY CAP —**
-**RECALIBRATION REQUIRED BEFORE REAL PILOT —**
-**NO PROVIDER BUDGET, ALERT OR CAP CONFIGURED —**
-**NO HARD STOP OR ENFORCEMENT MODE SELECTED —**
+**LOT-IP-0C EXECUTED —**
+**IMPLEMENTATION PREPARATION COMPLETE —**
+**FINOPS CONTROL CONTRACT PRODUCED —**
+**MEASUREMENT CONTRACT PRODUCED —**
+**COST AGGREGATION CONTRACT PRODUCED —**
+**THRESHOLD SEMANTICS BOUNDED —**
+**ENFORCEMENT OPTIONS PREPARED —**
+**DEGRADATION OPTIONS PREPARED —**
+**OVERRIDE OPTIONS PREPARED —**
+**TTL OPTIONS PREPARED —**
+**ENFORCEMENT DECISION PACK READY —**
+**PROVISIONAL CALIBRATION PRESERVED —**
+**RECALIBRATION REQUIRED —**
+**NO ENFORCEMENT OPTION SELECTED —**
+**NO PROVIDER CONFIGURATION PERFORMED —**
+**NO TECHNICAL HARD STOP IMPLEMENTED —**
+**TB-04-04 READY FOR MORRIS ARBITRATION —**
+**TB-04-04 NOT DONE —**
 **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
 **NO ITEM DONE —**
 **DELIVERY NOT-CONSUMED**
@@ -134,142 +106,111 @@ Candidate only — non consommée.
 
 | Anti-claim | Statut |
 |---|---|
-| Sélection documentaire ≠ exécution LOT-IP-0C | vrai |
-| Calibration provisoire ≠ budget fournisseur configuré | vrai |
-| Plafond de sécurité de cadrage ≠ hard stop technique | vrai |
-| Valeur acceptée provisoirement ≠ valeur définitive | vrai |
-| LOT-IP-0C SELECTED ≠ TB-04-04 DONE | vrai |
-| 25 USD ≠ coût garanti · ≠ engagement contractuel | vrai |
-| 30 USD ≠ hard stop configuré · ≠ limite de paiement | vrai |
-| Aucun compte / abonnement / paiement créé | vrai |
-| LOT-D1…D5 ≠ autorisés | vrai |
-| Delivery NOT-CONSUMED | vrai |
+| LOT-IP-0C EXECUTED ≠ HARD STOP IMPLEMENTED | vrai |
+| LOT-IP-0C EXECUTED ≠ PROVIDER CONFIGURED | vrai |
+| LOT-IP-0C EXECUTED ≠ TB-04-04 DONE | vrai |
+| CONTRAT FINOPS PRÉPARÉ ≠ ENFORCEMENT SELECTED | vrai |
+| DECISION PACK READY ≠ DECISION CONSUMED | vrai |
+| USD 30 SAFETY CAP ≠ TECHNICAL HARD CAP | vrai |
+| E1 recommandation candidate ≠ décision | vrai |
+| Aucun code / compte / alerte réelle / budget fournisseur | vrai |
 
 | Champ | Valeur |
 |---|---|
-| **Document** | `projects/sfia-studio/121-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-decisions-applied.md` |
-| **Rôle** | Record documentaire d’application de la sélection LOT-IP-0C et de la calibration FinOps provisoire |
-| **Document 119** | préparation historique — byte-identical |
-| **Document 120** | Decision Pack pré-arbitrage — byte-identical |
-| **Document 103** | backlog opérationnel mis à jour dans le même cycle |
-| **Exécution LOT-IP-0C** | **NON AUTORISÉE** |
+| **Document** | `projects/sfia-studio/122-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-execution.md` |
+| **Rôle** | Exécution documentaire LOT-IP-0C · contrat FinOps opérationnel · options d’enforcement |
+| **119 / 120 / 121** | historiques · byte-identical |
+| **103** | backlog opérationnel mis à jour dans ce cycle |
+| **Implémentation technique** | **aucune** |
 | **Delivery** | `NOT-CONSUMED` |
 
 ---
 
-## 2. Autorité Morris
-
-Morris est l’unique autorité. Cursor applique documentairement uniquement ce qui a été accepté. Aucune configuration fournisseur. Aucune exécution du lot.
-
----
-
-## 3. Gate d’arbitrage exacte
+## 2. GO Morris exact
 
 ```text
-GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C SELECTION
+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
 ```
-
-Consommation de la gate : **2026-08-05 20:38 CEST (+0200) / 18:38 UTC**.
 
 ---
 
-## 4. Phrase Morris d’acceptation exacte
-
-```text
-ok pour ces recommandations qui me semble plus cohérente, a réevaluer lorsque l'on sera dans des cas concrets ou l'on pourra determiner un usage réel
-```
-
-Interprétation validée :
-- Option A sélectionnée ;
-- LOT-IP-0C sélectionné mais non exécuté ;
-- un utilisateur principal ;
-- borne haute court terme : deux utilisateurs ;
-- calibration 15 / 20 / 25 / 30 USD acceptée comme **provisoire** ;
-- recalibrage obligatoire lorsque l’usage réel sera observable.
-
----
-
-## 5. Phrase Morris d’application exacte
-
-```text
-ok go
-```
-
-Ce GO autorise uniquement l’application documentaire (103 · 121 · Review Pack · handoff). Il n’autorise pas l’exécution de LOT-IP-0C, ni TB-04-04 DONE, ni configuration fournisseur, ni LOT-D1, ni Delivery.
-
----
-
-## 6. Horodatages CEST et UTC
+## 3. Horodatage CEST et UTC
 
 | Champ | Valeur |
 |---|---|
-| **Gate d’arbitrage** | 2026-08-05 20:38 CEST (+0200) / 18:38 UTC |
-| **Acceptation Morris** | 2026-08-05 21:45 CEST (+0200) / 19:45 UTC |
-| **Application documentaire** | 2026-08-05 21:45 CEST (+0200) / 19:45 UTC |
-| **Rédaction Cursor** | 2026-08-05 21:53 CEST (+0200) / 19:53 UTC |
+| **Consommation GO** | 2026-08-05 22:05 CEST (+0200) / 20:05 UTC |
+| **Rédaction Cursor** | 2026-08-05 22:12 CEST (+0200) / 20:12 UTC |
+| **Précision** | secondes exactes non disponibles · **non inventées** |
 
 ---
 
-## 7. Limite de précision temporelle
-
-L’acceptation et l’autorisation d’application ont été données dans la même séquence conversationnelle. Les secondes exactes ne sont pas disponibles et **ne sont pas inventées**. Les horodatages ci-dessus sont à la minute près telle que fournie par le GO.
-
----
-
-## 8. Cycle / profil / typologie / blocs
+## 4. Cycle / profil / typologie / blocs
 
 | Champ | Valeur |
 |---|---|
 | **Type** | 6 — Architecture technique |
-| **Mode** | Implementation Preparation — LOT-IP-0C Selection Decisions Applied |
+| **Mode** | Implementation Preparation — LOT-IP-0C Pre-Pilot FinOps Execution |
 | **Profil** | **Critical** |
 | **Typologie** | EVOL / DOC |
-| **CKC** | recherché · experimental cognitive guidance · aucune autorité d’exécution |
-| **Blocs activés** | FinOps · GreenOps · architecture · OpenAI/Neon cost governance · volumétrie · RUN · RSSI · RGPD · dégradation (cadrage) · gouvernance humaine · traçabilité · réversibilité · garde-fous |
-| **Blocs désactivés** | code · packages · SQL · Docker · CI · alertes réelles · budgets fournisseurs · hard stops · configuration · comptes · LOT-IP-0C execution · LOT-D* · Delivery |
+| **CKC** | recherché · experimental cognitive guidance · aucune autorité d’exécution technique |
+| **Blocs activés** | FinOps · GreenOps · architecture · volumétrie · OpenAI/Neon cost governance · RUN · résilience · RSSI · RGPD · gouvernance · traçabilité · quotas · dégradation · erreurs · garde-fous |
+| **Blocs désactivés** | code · tests produit · packages · SQL · Docker · CI · config runtime · comptes · alertes réelles · budgets réels · hard stops actifs · LOT-D* · Delivery |
 
 ---
 
-## 9. Sources et hiérarchie
+## 5. Autorité Morris
+
+Morris seul arbitre enforcement, hard stop, dégradation, override et TTL. Cursor produit le contrat et les options. Aucune option E0–E4 n’est SELECTED dans ce cycle.
+
+---
+
+## 6. Sources et hiérarchie
 
 1. Git `origin/main` = `8dc54db0069eed78a8d8930cc2b035450ab56ad1` ;
-2. Gate d’arbitrage 20:38 CEST · phrases Morris 21:45 CEST ;
-3. Handoff entrant tip `f3fc50fc…` / blob `f30312b2…` ;
-4. document **120** (identifiants et options) ;
-5. document **119** (preuves FinOps historiques) ;
-6. document **103** (TB-04-04 / TB-02-05 / LOT-IP-0C) ;
-7. précédents Decisions Applied **107** / **108** / **111** ;
-8. documents **112–118** (architecture A2 préservée).
+2. GO EXECUTE LOT-IP-0C @ 22:05 CEST ;
+3. Handoff entrant tip `fac139e1…` / blob `e1ccbc48…` ;
+4. documents **119–121** (préparation · pack · décisions appliquées) ;
+5. backlog **103** TB-04-04 / TB-02-05 ;
+6. précédents d’exécution IP : **105** (LOT-IP-0A) et **109** (LOT-IP-0B) ;
+7. documents **112–118** (architecture A2 préservée).
 
-Aucune nouvelle recherche tarifaire. Les prix du document 119 restent des preuves horodatées historiques.
+### Divergence document 108
+
+Le prompt citait un éventuel `108-…-lot-ip-0a-execution.md`. Le fichier réel est :
+
+`108-assistant-sfia-native-openai-lot-ip-0b-selection-decisions-applied.md`
+
+Il s’agit d’un record de **sélection** LOT-IP-0B, **pas** d’une exécution LOT-IP-0A. Structure d’exécution IP reprise de **105** / **109** (`IMPLEMENTATION PREPARATION EXECUTED`). **Aucun STOP** : précédent exploitable déterminé.
+
+Aucune nouvelle recherche tarifaire. Prix de **119** = preuves historiques.
 
 ---
 
-## 10. Local Git Truth initiale
+## 7. Local Git Truth initiale
 
 | Champ | Valeur |
 |---|---|
-| **Date** | 2026-08-05 21:52:44 CEST / 19:52:44 UTC |
-| **Branche initiale** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-selection-decision-pack` |
-| **Branche decisions** | `decisions/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-selection` |
+| **Date** | 2026-08-05 22:11:34 CEST / 20:11:34 UTC |
+| **Branche initiale** | `decisions/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-selection` |
+| **Branche exécution** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-lot-ip-0c-execution` |
 | **HEAD / origin/main / merge-base** | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
 | **Ahead / behind** | 0 / 0 |
 | **Upstream** | aucun |
-| **121 / 122 avant** | absents |
+| **122 / 123 avant** | absents |
 
 ---
 
-## 11. Handoff entrant
+## 8. Handoff entrant
 
-Tip `f3fc50fc7da0b1e70fded3abd4df45ed8759bfa2` · blob `f30312b2c50136e6ef602dabb527082386e9cd79` · message `docs(review-handoff): publish Assistant SFIA LOT-IP-0C selection decision pack`.
+Tip `fac139e15719827088f2584d41f65b8689d420f7` · blob `e1ccbc48c361256f0dc415f64b6aa4c6e5cbf1b4` · message selection decisions applied.
 
 ---
 
-## 12. Hashes entrants 103 à 120
+## 9. Hashes entrants 103 à 121
 
 | Doc | SHA-256 | Lignes |
 |---|---|---|
-| 103 | `17e7e07f3bf0e5349bb54087ad5fb6caeb1a82e3a2614efc86a82c8f8c8df3b7` | 1937 |
+| 103 | `81d801824c69f5ed4a84e3ef6cbf393d3bd5ae3395a11276636459bd6e773cad` | 2010 |
 | 104 | `48859ae1f54d4f5d64a39099e00fe9af3e89b6f1cf38a24bc12c58b5dbf11802` | 484 |
 | 105 | `bfdb737713b9d93204aa870c2842ae8246eec6d2f70535b7efae136ecf0694a9` | 565 |
 | 106 | `7f009bfef42dd020fe22bdd7ba718ab647f54695adf2eeea9bcdd22cbf1ceb17` | 286 |
@@ -287,347 +228,600 @@ Tip `f3fc50fc7da0b1e70fded3abd4df45ed8759bfa2` · blob `f30312b2c50136e6ef602dab
 | 118 | `0ab4b68ccf2ca5b81e943df4b8a160ca1c008facedfc0e06c92d58a5ff506966` | 422 |
 | 119 | `91737dc4c47f69068fc899d4f430088284a5a7b26413da3c9772952809bb26be` | 549 |
 | 120 | `8171bdf13349ead303a67f57ed07761f572eb9dbfdf369139a26d5544920ab9c` | 284 |
+| 121 | `928e6a591feae23155f0d74b41f6f43c35cc8a79939122b555683506ad1e4f87` | 515 |
 
 ---
 
-## 13. Historique documentaire 119 à 121
+## 10. Historique documentaire 119 à 122
 
-| Document | Rôle | État |
+| Doc | Rôle | État |
 |---|---|---|
-| **119** | préparation FinOps LOT-IP-0C | historique · byte-identical |
-| **120** | Decision Pack sélection pré-arbitrage | historique · byte-identical · **NOT DECIDED** historique |
-| **121** | Decisions Applied (ce document) | **créé** — état opérationnel courant |
+| **119** | préparation FinOps | historique |
+| **120** | Decision Pack sélection pré-arbitrage | historique |
+| **121** | sélection + calibration appliquées | historique · byte-identical |
+| **122** | exécution LOT-IP-0C · contrat FinOps | **créé** |
 
 ---
 
-## 14. Décision avant / après
+## 11. Définition de LOT-IP-0C
 
-| Champ | Avant (120 / 103) | Après (121 / 103) |
-|---|---|---|
-| Sélection LOT-IP-0C | NOT DECIDED / DEFERRED NOT SELECTED | **SELECTED** |
-| Exécution | NOT EXECUTED | **NOT EXECUTED** |
-| Option A | candidate | **SELECTED** |
-| Calibration monétaire | NOT SELECTED | **PROVISIONAL — SELECTED** |
-| Enforcement / hard stop | NOT SELECTED | **NOT SELECTED** |
-| TB-04-04 | READY-FOR-DECISION · pas DONE | preparation+selection applied · **pas DONE** |
+Pre-Pilot FinOps Decision Preparation · item **TB-04-04** · dépendance **TB-02-05** · lot d’Implementation Preparation (pas Delivery).
 
 ---
 
-## 15. Identifiant de sélection exact
+## 12. Signification de l’exécution
 
-Identifiant canonique du Decision Pack **120** (réutilisé sans concurrent) :
+État entrant : **SELECTED — NOT EXECUTED**.
 
-| Champ | Contenu |
-|---|---|
-| **ID** | **`D-ASST-IP0C-LOT-SELECTION-01`** |
-| **Note** | Forme courte éventuelle « D-ASST-IP0C-SELECTION-01 » dans le narratif GO = **alias informel** · l’identifiant opérationnel reste celui de **120** |
+État sortant (ce cycle) :
 
----
+**EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS CONTROL CONTRACT PRODUCED — ENFORCEMENT DECISION PACK READY — TECHNICAL ENFORCEMENT NOT IMPLEMENTED — PROVIDER CONFIGURATION NOT PERFORMED**
 
-## 16. Option A sélectionnée
-
-```text
-D-ASST-IP0C-LOT-SELECTION-01 = OPTION A — SELECT LOT-IP-0C
-```
-
-| Champ | Contenu |
-|---|---|
-| **Statut** | **DECIDED — SELECTED** |
-| **Option** | **A — SELECT LOT-IP-0C** |
-| **Portée** | Sélectionne le lot pour une **exécution future bornée** distincte · n’exécute pas · ne configure pas de budget fournisseur |
-| **Option B (DEFER)** | **NOT SELECTED** |
+Exécution = contrats documentaires + options + critères de preuves. **≠** code, config fournisseur, alertes actives, hard stop actif.
 
 ---
 
-## 17. État LOT-IP-0C
+## 13. Hors périmètre
 
-**SELECTED — NOT EXECUTED — FUTURE EXECUTION GATE REQUIRED**
-
-LOT-IP-0C demeure un lot d’Implementation Preparation FinOps pré-pilote (item TB-04-04). La sélection n’implique aucune implémentation technique.
+Code · tests produit · packages · SQL · Docker · CI · budgets/alertes/caps fournisseurs · hard/soft caps actifs · comptes · modèle OpenAI · plan/région Neon · TB-04-04 DONE · LOT-D1 · Delivery · sélection E0–E4.
 
 ---
 
-## 18. Baseline d’usage provisoire
+## 14. Décisions préservées
+
+`D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · baseline 1–2 users · calibration 15/20/25/30 USD provisoire · RECALIBRATION REQUIRED · PostgreSQL/Neon/pg/node-pg-migrate/LD-A · STORE-01=A · DA-A · MIG-C · P1 · P2 NOT SELECTED · enforcement/hard stop/dégradation/override/TTL **NOT SELECTED** · config **NOT CONFIGURED**.
+
+---
+
+## 15. Baseline 1–2 utilisateurs
 
 | Paramètre | Valeur | Statut |
 |---|---|---|
-| Utilisateur principal | **1** | PROVISIONAL PLANNING BASELINE — **SELECTED** |
-| Borne haute court terme | **2 utilisateurs** | PROVISIONAL PLANNING BASELINE — **SELECTED** |
-
-Cette baseline oriente le cadrage actuel de SFIA Studio. Elle n’est pas une prévision contractuelle ni un engagement de charge.
+| Utilisateur principal | 1 | PROVISIONAL PLANNING BASELINE — SELECTED |
+| Borne haute court terme | 2 | PROVISIONAL PLANNING BASELINE — SELECTED |
 
 ---
 
-## 19. Calibration financière provisoire
+## 16. Calibration 15 / 20 / 25 / 30 USD
 
 | Paramètre | Valeur | Devise | Statut |
 |---|---|---|---|
-| Enveloppe mensuelle cible | **25** | **USD** | PROVISIONAL FINOPS CALIBRATION — **SELECTED** |
-| Seuil d’alerte | **15** | **USD** | PROVISIONAL FINOPS CALIBRATION — **SELECTED** |
-| Seuil critique de revue | **20** | **USD** | PROVISIONAL FINOPS CALIBRATION — **SELECTED** |
-| Plafond de sécurité | **30** | **USD** | PROVISIONAL FINOPS CALIBRATION — **SELECTED** |
+| Alerte | 15 | USD | PROVISIONAL FINOPS CALIBRATION — SELECTED |
+| Critique | 20 | USD | PROVISIONAL FINOPS CALIBRATION — SELECTED |
+| Cible mensuelle | 25 | USD | PROVISIONAL FINOPS CALIBRATION — SELECTED |
+| Plafond de sécurité | 30 | USD | PROVISIONAL FINOPS CALIBRATION — SELECTED |
 
-**Configuration réelle :** **NOT CONFIGURED**
-
----
-
-## 20. Signification de la cible mensuelle (25 USD)
-
-Cible de pilotage provisoire pour la phase actuelle (1–2 utilisateurs). Sert de référence de revue humaine. **N’est pas** un budget fournisseur configuré, un engagement financier définitif, une prévision contractuelle ni un coût garanti.
+Configuration réelle : **NOT CONFIGURED**.
 
 ---
 
-## 21. Signification du seuil d’alerte (15 USD)
+## 17. Clause de recalibrage
 
-Seuil de cadrage pour déclencher une **attention** / revue anticipée lorsque la dépense estimée approche ce niveau. **N’est pas** une alerte réelle OpenAI/Neon configurée.
-
----
-
-## 22. Signification du seuil critique (20 USD)
-
-Seuil de cadrage pour une **revue critique** humaine (Morris / owner ops). **N’est pas** un hard stop technique ni une suspension automatique.
+**RECALIBRATION REQUIRED** lorsque usage réel représentatif disponible · changement users/modèle/plan Neon/P1/obs/volumes · avant pilote réel · avant budget définitif.
 
 ---
 
-## 23. Signification du plafond de sécurité (30 USD)
+## 18. Inventaire des inducteurs de coût
 
-Plafond de **cadrage** de sécurité provisoire au-delà duquel une décision humaine est attendue avant poursuite. **N’est pas** un hard stop implémenté, une limite de paiement, ni un cap OpenAI/Neon configuré.
-
----
-
-## 24. Enforcement non sélectionné
-
-**Enforcement mode = NOT SELECTED**
-
-Aucun mécanisme technique d’application automatique des seuils n’est choisi ni configuré.
-
----
-
-## 25. Hard stop non sélectionné
-
-**Hard stop behavior = NOT SELECTED**
-
-**Automatic degradation behavior = NOT SELECTED**
-
-**Override procedure = NOT SELECTED**
-
-Ces éléments restent à préparer/arbitrer lors d’une exécution future bornée de LOT-IP-0C / TB-04-04.
+| Inducteur | Preuve | Statut |
+|---|---|---|
+| OpenAI Responses API | adapter `responses.create` · usage tokens | IDENTIFIED |
+| Modèle | `OPENAI_MODEL` env | DRIVER · MODEL NOT SELECTED |
+| Tool rounds / retries | provider round | IDENTIFIED |
+| Neon | SELECTED documentaire · non provisionné | IDENTIFIED · NOT PROVISIONED |
+| Compute P1 | profil P1 | PROVIDER NOT SELECTED · COST UNKNOWN |
+| Observabilité | vendor NOT SELECTED | UNKNOWN |
 
 ---
 
-## 26. Clause de réévaluation
+## 19. Contrat de mesure
 
-**RECALIBRATION REQUIRED**
+Contrat **provider-independent** documentaire. Unité de mesure primaire candidate : **événement d’usage** (usage event) rattaché à un `runId`.
 
-La calibration 15 / 20 / 25 / 30 USD et la baseline 1–2 utilisateurs **doivent** être réévaluées lorsque des données d’usage réel représentatives seront disponibles, et **avant un pilote réel**.
+Objectif : rendre mesurable, agrégable et auditable la consommation avant toute implémentation technique.
 
----
-
-## 27. Déclencheurs de réévaluation
-
-- disponibilité de données d’usage réel représentatives ;
-- changement du nombre d’utilisateurs ;
-- changement du modèle OpenAI ;
-- changement du plan Neon ;
-- sélection du compute P1 ;
-- sélection de l’observabilité ;
-- modification notable des volumes de tokens, tools ou retries ;
-- avant un pilote réel ;
-- avant transformation de la calibration en budget définitif.
+Pas de schéma exécutable · pas de code.
 
 ---
 
-## 28. Coûts encore inconnus
+## 20. Dictionnaire des champs
 
-Compute P1 (provider NOT SELECTED) · observabilité (vendor NOT SELECTED) · egress réel · taxes · conversion FX · plan/région Neon futurs · extras OpenAI (tools/search) hors modèle paramétrique historique 119.
+| Champ | Type logique | Obligatoire | Notes |
+|---|---|---|---|
+| eventId | UUID/string | oui | identifiant unique événement |
+| occurredAt | timestamp UTC | oui | ISO-8601 |
+| provider | enum string | oui | ex. `openai` · `neon` · `compute` · `obs` |
+| service | string | oui | ex. `responses` · `compute-hours` |
+| environment | string | oui | ex. `dev` · `pilot` · **NOT SELECTED** valeurs |
+| projectId | string | oui | identifiant projet technique |
+| userId | string | oui | **pseudonymisé** · pas d’email/PII brut |
+| runId | string | oui si run | lien run Assistant |
+| conversationId | string | si applicable | |
+| modelReference | string | si OA | référence modèle · peut être `unknown` |
+| inputTokens | integer ≥0 | si OA | |
+| cachedInputTokens | integer ≥0 | si OA | |
+| outputTokens | integer ≥0 | si OA | |
+| reasoningTokens | integer ≥0 | si dispo | |
+| toolCalls | integer ≥0 | si applicable | |
+| retries | integer ≥0 | si applicable | |
+| status | enum | oui | `ok` · `error` · `partial` · `unknown` |
+| sourceOfTruth | enum | oui | voir §21 |
+| estimatedCostUsd | decimal | si estimable | devise **USD** |
+| providerReportedCostUsd | decimal | si dispo | |
+| estimationVersion | string | si estimé | version formule/tarifs |
+| calibrationVersion | string | oui | ex. `IP0C-CAL-2026-08-05-provisional` |
+| deduplicationKey | string | oui | clé stable (§23) |
+| evidenceReference | string | recommandé | pointeur preuve (export, log id) |
+
+Interdits dans les métriques FinOps : contenu utilisateur · prompts · secrets · tokens bruts d’auth.
 
 ---
 
-## 29. Paramètres fournisseurs non configurés
+## 21. Hiérarchie des sources de vérité
 
-| Paramètre | Statut |
+Ordre de confiance **candidate** (non encore SELECTED comme politique unique) :
+
+1. coût facturé / export fournisseur officiel ;
+2. usage fournisseur officiel associé au run ;
+3. usage retourné par l’API (ex. `usage.input_tokens`) ;
+4. comptage local applicatif ;
+5. estimation paramétrique (formules 119) ;
+6. valeur `unknown`.
+
+Règle candidate : un champ `sourceOfTruth` doit toujours indiquer le niveau utilisé. Ne pas présenter un niveau 5 comme facture.
+
+---
+
+## 22. Contrat d’idempotence
+
+- Un même événement métier ne doit pas augmenter deux fois l’agrégat mensuel.
+- `eventId` unique ; réécriture avec même `eventId` = replace/no-op.
+- Écritures concurrentes : last-write-wins documenté **ou** rejet ; **NOT PROVEN** multi-instance aujourd’hui.
+
+---
+
+## 23. Contrat de déduplication
+
+`deduplicationKey` candidate :
+
+`provider|service|runId|modelReference|occurredAtBucket|hash(tokenFields)`
+
+- collisions → conserver l’événement de `sourceOfTruth` le plus élevé ;
+- corrections tardives → nouvel événement `status=correction` lié à `eventId` parent (§27).
+
+---
+
+## 24. Contrat d’agrégation
+
+| Dimension | Unité | Fenêtre candidate | Devise |
+|---|---|---|---|
+| Coût projet | USD | mois calendaire UTC **ou** fenêtre glissante 30j — **à arbitrer** | USD |
+| Coût utilisateur | USD | même fenêtre | USD |
+| Coût / run | USD | run | USD |
+| Tokens | count | run / jour / mois | — |
+| Neon CU-h | CU-hour | mois | USD via tarif |
+
+Fréquence d’agrégation candidate : near-real-time à chaque run + rollup quotidien. **NOT SELECTED**.
+
+Précision : centimes USD (2 décimales) pour affichage · calcul interne ≥ 6 décimales avant arrondi **half-up** candidate.
+
+Fuseau d’agrégation mensuelle candidate : **UTC** (évite ambiguïté CEST). Affichage local CEST autorisé.
+
+---
+
+## 25. Contrat d’estimation
+
+`estimatedCostUsd` = f(tokens, modelReference, estimationVersion) + f(Neon usage) + UNKNOWN pour P1/obs.
+
+- Si modèle/tarif inconnu → `estimatedCostUsd = null` · `status=partial` · ne pas inventer.
+- Estimation ≠ facture.
+- `estimationVersion` doit tracer la table tarifaire historique (119) ou une table ultérieure horodatée.
+
+---
+
+## 26. Estimé / observé / facturé
+
+| Concept | Définition |
 |---|---|
-| Budget OpenAI | **NOT CONFIGURED** |
-| Budget Neon | **NOT CONFIGURED** |
-| Alertes fournisseur | **NOT CONFIGURED** |
-| Caps / hard spend limits | **NOT CONFIGURED** |
-| Plan Neon | **NOT SELECTED** |
-| Région Neon | **NOT SELECTED** |
-| Modèle OpenAI | **NOT SELECTED** |
-| Compute P1 | **NOT SELECTED** |
-| Observabilité | **NOT SELECTED** |
-| TTL / retention values | **NOT SELECTED** |
+| **Estimé** | calcul local / paramétrique |
+| **Observé** | usage API ou dashboard fournisseur non encore facturé |
+| **Facturé** | montant invoice / export billing |
+
+Les trois coexistent. Les seuils 15/20/25/30 s’appliquent par défaut au **coût estimé agrégé projet** jusqu’à arbitrage contraire · avec mention explicite si la source est estimative.
 
 ---
 
-## 30. Réserves KEEP-OPEN
+## 27. Gestion des corrections tardives
+
+- Correction = événement dérivé (`correctionOf=eventId`).
+- L’agrégat recalcule avec la meilleure source (§21).
+- Si correction franchit un seuil déjà notifié → **revue** sans spam automatique (politique anti-réémission §28).
+- Jamais d’effacement silencieux des preuves.
+
+---
+
+## 28. Sémantique du seuil 15 USD — ALERT THRESHOLD
+
+Valeur provisoire SELECTED comme **cadrage** · alerte réelle **NOT CONFIGURED**.
+
+Options à arbitrer (aucune SELECTED) :
+
+| Option | Description |
+|---|---|
+| A15-CAL | mois calendaire UTC projet |
+| A15-ROLL | fenêtre glissante 30 jours |
+| A15-USER | seuil par utilisateur |
+| A15-PROJ | seuil projet (défaut candidat) |
+| A15-ONCE | une notification par croisement / période |
+| A15-RATE | rate-limit notifications (ex. 1/jour) |
+
+Comportement candidat si mesure estimative : marquer « estimated » · ne pas prétendre facture. Destinataire / ack : **NOT SELECTED**.
+
+---
+
+## 29. Sémantique du seuil 20 USD — CRITICAL REVIEW THRESHOLD
+
+Options (NOT SELECTED) :
+
+| Option | Effet |
+|---|---|
+| C20-WARN | poursuite + avertissement |
+| C20-HUMAN | validation humaine avant nouveaux runs |
+| C20-DEGRADE | blocage fonctions non essentielles |
+| C20-BLOCK-NEW | blocage nouveaux runs seulement |
+| C20-ACTIVE | traitement runs déjà démarrés (finir : finish / cancel) |
+
+Autorité de reprise : Morris (défaut candidat) · délégation **NOT SELECTED**.
+
+---
+
+## 30. Sémantique de la cible 25 USD — MONTHLY TARGET
+
+- cible de cadrage ;
+- **non garantie** · **non contractuelle** · **non configurée** ;
+- réévaluable ;
+- métrique de comparaison observations vs cible ;
+- **pas** un hard stop · **pas** un budget fournisseur.
+
+---
+
+## 31. Sémantique du plafond 30 USD — SAFETY CAP
+
+Options (NOT SELECTED) :
+
+| Option | Description |
+|---|---|
+| S30-INFO | cap informatif seulement |
+| S30-SOFT | soft cap applicatif |
+| S30-HARD-APP | hard stop applicatif fail-closed nouveaux runs |
+| S30-HARD-PROV | hard spend limit fournisseur |
+| S30-DUAL | applicatif + fournisseur |
+
+Tolérance dépassement (usages différés / corrections) : **à arbitrer**. **30 USD ≠ technical hard cap déjà sélectionné**.
+
+---
+
+## 32. Options E0 à E4
+
+Identifiant décision future : **`D-ASST-IP0C-ENFORCEMENT-01`** (pas de collision avec `D-ASST-IP0C-LOT-SELECTION-01`).
+
+| Option | Résumé | Avantages | Risques | Dette | Réversibilité |
+|---|---|---|---|---|---|
+| **E0 MONITOR ONLY** | mesure + alertes · pas de restriction auto | simple | dépassement si inaction | faible | haute |
+| **E1 SOFT CONTROL + HUMAN GATE** | warn 15 · revue 20 · suspend nouveaux runs à 30 jusqu’à décision humaine | adapté 1–2 users · humain Morris | faux positif · dépendance humaine | moyenne | haute |
+| **E2 APPLICATION HARD STOP** | fail-closed nouveaux runs au cap | borne forte | faux positif · UX bloquée | haute | moyenne |
+| **E3 PROVIDER HARD LIMIT** | limite fournisseur | défense fournisseur | granularité/org partagée · config réelle | haute | dépend vendor |
+| **E4 DUAL LAYER** | E2/E1 + E3 | défense en profondeur | sync/divergence | très haute | complexe |
+
+**Aucune option SELECTED.** Runs actifs à 30 USD : règle à arbitrer (finish vs cancel).
+
+---
+
+## 33. Comparaison des options
+
+| Critère | E0 | E1 | E2 | E3 | E4 |
+|---|---|---|---|---|---|
+| Borne risque facture | faible | moyenne | forte | forte* | très forte |
+| Risque blocage abusif | nul | faible | élevé | moyen | élevé |
+| Besoin config fournisseur | non | non | non | **oui** | **oui** |
+| Fit calibration provisoire | oui | **meilleur** | prématuré | prématuré | prématuré |
+| Fit 1 user principal | oui | **oui** | excessif | excessif | excessif |
+
+\*si limite bien scoped.
+
+---
+
+## 34. Recommandation candidate E1
+
+**E1 — SOFT CONTROL WITH HUMAN GATE** — **candidate only — NOT SELECTED / NOT DECIDED**.
+
+Justification candidate : 1 user principal · calibration provisoire · P1/obs unknown · usage réel absent · réversibilité · autorité Morris conservée · pas de config fournisseur requise.
+
+---
+
+## 35. Options de dégradation
+
+Identifiant futur candidat : `D-ASST-IP0C-DEGRADATION-01` — **NOT SELECTED**.
+
+| Option | Déclencheur candidat | Effet user | Effet $ | Réversibilité | Autorité | Journal |
+|---|---|---|---|---|---|---|
+| DG-CTX | ≥20 ou politique | contexte ↓ | ↓ tokens | haute | Morris/ops | oui |
+| DG-TOOLS | ≥20 | outils limités | ↓ tools | haute | Morris/ops | oui |
+| DG-RETRY | ≥15/20 | retries ↓ | ↓ retries | haute | système/ops | oui |
+| DG-SEC | ≥20 | fonctions sec. off | ↓ | haute | ops | oui |
+| DG-DEFER | ≥20 | non urgent en attente | ↓ différé | haute | ops | oui |
+| DG-NEW | ≥30 / E1 | nouveaux runs suspendus | borne | haute | Morris | oui |
+| DG-RO | arbitrage | read-only | fort ↓ | moyenne | Morris | oui |
+| DG-PROJ / DG-USER | arbitrage | blocage scope | fort ↓ | moyenne | Morris | oui |
+
+**Aucune bascule automatique de modèle** sans décision Morris.
+
+---
+
+## 36. Options d’override
+
+Identifiant futur : `D-ASST-IP0C-OVERRIDE-01` — **NOT SELECTED**. Aucun override réel créé.
+
+Champs candidats : autorité (Morris only vs délégation) · durée bornée · montant additionnel borné · justification · horodatage · auteur · périmètre · expiration auto · révocation · audit · comportement post-expiration (reprise enforcement).
+
+---
+
+## 37. Options TTL / rétention
+
+Identifiant futur : `D-ASST-IP0C-TTL-01` — **durées NOT SELECTED**. **R-TECH-TTL-01 KEEP-OPEN**.
+
+Catégories : événements usage · estimations · corrections · factures/exports · alertes · overrides · traces · logs · conversations · fichiers · artefacts.
+
+Distinguer : données FinOps minimales · fonctionnelles · diagnostic · preuves d’audit.
+
+---
+
+## 38. RGPD et minimisation
+
+- Pas de contenu conversationnel dans métriques FinOps.
+- `userId` pseudonymisé.
+- Minimisation des champs.
+- TTL soumis à validation dédiée · **NOT SELECTED**.
+- Base légale / DPA fournisseurs : **EXTERNAL** · réserves DPA ouvertes.
+
+---
+
+## 39. Sécurité et secrets
+
+- Redaction secrets dans logs/evidence.
+- Pas de `.env` créé.
+- Pas d’exposition de clés OpenAI/Neon dans événements FinOps.
+- Accès métriques : need-to-know · **mécanisme IAM NOT SELECTED**.
+
+---
+
+## 40. RUN readiness
+
+Prérequis futurs avant activation technique : mesure durable · agrégation fiable · canaux d’alerte · owner ops · procédure override · runbook reprise · preuve restart-safe **non démontrée** aujourd’hui.
+
+---
+
+## 41. Observabilité
+
+Vendor **NOT SELECTED**. Métriques FinOps distinctes des logs applicatifs riches. Cardinalité : éviter labels haute cardinalité (contenu user).
+
+---
+
+## 42. Résilience
+
+Comportements candidats fail-open (E0/E1 partiel) vs fail-closed (E2) : **NOT SELECTED**. Dépendance mesure : si store indisponible, politique à arbitrer (bloquer vs estimer localement avec flag `degraded`).
+
+---
+
+## 43. Gestion des données manquantes
+
+| Cas | Comportement candidat |
+|---|---|
+| tokens absents | `partial` · pas d’estimation inventée |
+| modèle inconnu | `modelReference=unknown` · estimation bloquée ou borne haute **à arbitrer** |
+| tarif obsolète | figer `estimationVersion` · flag stale · recalibrage |
+| horodatage incohérent | rejeter ou corriger avec audit |
+| alerte échoue | retry borné + file d’attente + alerte ops secondaire |
+
+---
+
+## 44. Gestion des divergences fournisseur
+
+Si `|estimé − facturé| > tolérance` (tolérance **NOT SELECTED**) → événement divergence · revue humaine · ne pas auto-ajuster les seuils. Devise différente → conversion **uniquement** avec source FX officielle horodatée · sinon conserver devise fournisseur.
+
+---
+
+## 45. Gestion restart / multi-instance
+
+**NOT PROVEN IN REPO** : persistence durable FinOps, leader election, exactly-once.
+
+Exigences futures : stockage durable des agrégats et événements · dedup keys · pas de double comptage après restart · coordination multi-instance P1.
+
+Ne pas prétendre restart-safe aujourd’hui.
+
+---
+
+## 46. Plan de tests futur
+
+| ID | Scénario | Type | Preuve attendue |
+|---|---|---|---|
+| T-FIN-01 | event create + dedup | unitaire/contrat | agrégat +1 une fois |
+| T-FIN-02 | correction tardive | intégration | agrégat corrigé + audit |
+| T-FIN-03 | croisement 15/20/30 | simu | notifications/état selon option arbitrée |
+| T-FIN-04 | tokens manquants | unitaire | `partial` · pas de faux coût |
+| T-FIN-05 | divergence facture | simu | flag divergence |
+| T-FIN-06 | restart mid-month | chaos/intégration | pas de double comptage **quand durable dispo** |
+| T-FIN-07 | multi-instance write | concurrence | invariant dedup |
+| T-FIN-08 | override expire | fonctionnel | reprise enforcement |
+| T-FIN-09 | no PII in metrics | sécurité | scan redaction |
+| T-FIN-10 | E1 suspend at 30 | acceptance | nouveaux runs bloqués · actifs selon règle |
+
+Aucun test exécuté dans ce cycle.
+
+---
+
+## 47. Critères d’acceptation
+
+Pour déclarer une **future** implémentation technique acceptable (hors ce cycle) :
+
+1. contrat de mesure respecté (champs + dedup + sources) ;
+2. estimé/observé/facturé distingués ;
+3. seuils 15/20/25/30 appliqués selon options **arbitrées** ;
+4. aucune PII/secret dans métriques ;
+5. audit trail overrides ;
+6. preuves T-FIN-* pertinentes vertes ;
+7. calibrationVersion tracée ;
+8. RECALIBRATION path documenté ;
+9. aucun budget fournisseur silencieux ;
+10. TB-04-04 ne passe DONE qu’après arbitrage+implémentation explicites.
+
+Ce cycle satisfait les critères d’**exécution IP documentaire**, pas l’implémentation technique.
+
+---
+
+## 48. Matrice décision → options
+
+| Décision future | Options | Statut |
+|---|---|---|
+| D-ASST-IP0C-ENFORCEMENT-01 | E0…E4 | **NOT DECIDED** |
+| D-ASST-IP0C-DEGRADATION-01 | DG-* | **NOT DECIDED** |
+| D-ASST-IP0C-OVERRIDE-01 | override policy | **NOT DECIDED** |
+| D-ASST-IP0C-TTL-01 | TTL categories | **NOT DECIDED** |
+| Fenêtre 15/20/30 | A15-* / C20-* / S30-* | **NOT DECIDED** |
+
+---
+
+## 49. Matrice décision → items
+
+| Décision / livrable | Item | DONE |
+|---|---|---|
+| Exécution IP LOT-IP-0C (122) | TB-04-04 préparation | **non** |
+| Arbitrage enforcement futur | TB-04-04 | **non** |
+| Metering/soft cap | TB-02-05 | **non** (distinct) |
+
+---
+
+## 50. Matrice décision → lots
+
+| Élément | LOT-IP-0C | LOT-D1…D5 |
+|---|---|---|
+| Ce cycle | **EXECUTED** (IP) | **NOT AUTHORIZED** |
+| Arbitrage enforcement | futur | — |
+| Implémentation technique | Delivery future distincte | — |
+
+---
+
+## 51. Impacts TB-04-04
+
+| Champ | Valeur |
+|---|---|
+| decision preparation | **completed** |
+| lot selection | **applied** |
+| lot execution | **completed** (IP documentaire) |
+| enforcement decision pack | **ready** |
+| enforcement arbitration | **pending** |
+| implementation | **not started** |
+| technical execution | **not started** |
+| DONE | **no** |
+| Statut | **READY-FOR-MORRIS-ARBITRATION** |
+
+---
+
+## 52. Impacts TB-02-05
+
+Préservé CANDIDATE. Distinct. LOT-IP-0C **ne bloque pas** TB-02-05. Contrats 122 peuvent l’informer. **Aucune** implémentation metering ici.
+
+---
+
+## 53. Coûts et paramètres inconnus
+
+Compute P1 · obs · egress réel · taxes · FX · plan/région Neon · modèle OpenAI · extras tools/search · multi-instance FinOps.
+
+---
+
+## 54. Réserves KEEP-OPEN
 
 | Réserve | Statut |
 |---|---|
 | R-TECH-FINOPS-HARD-01 | **KEEP-OPEN** |
 | R-TECH-TTL-01 | **KEEP-OPEN** |
 
-La sélection du lot et la calibration provisoire **ne ferment pas** ces réserves.
+---
+
+## 55. Non-sélections
+
+E0–E4 · dégradation · override · TTL · fenêtre calendaire/glissante · fail-open/closed · plan/région Neon · modèle · P1 · obs · budgets/alertes/caps fournisseurs · LOT-D1.
 
 ---
 
-## 31. Impacts sur TB-04-04
+## 56. Préservations
 
-| Champ | Valeur |
-|---|---|
-| decision preparation | **produced** (119/120) |
-| selection decision | **applied** (121) |
-| implementation | **not started** |
-| execution | **not started** |
-| DONE | **no** |
-
-TB-04-04 reste READY-FOR-DECISION / préparation décisionnelle ; le hard cap technique n’est ni fixé ni implémenté.
+104–121 byte-identical · 123 absent · cinq A2 · A2/DA-A/MIG-C/P1 · P2 NOT SELECTED · 10 ADR · 21 impacts · graphe 33/56 · priorités · aucun DONE · calibration provisoire · RECALIBRATION REQUIRED · Delivery NOT-CONSUMED.
 
 ---
 
-## 32. Impacts sur TB-02-05
+## 57. Actions futures autorisées
 
-Statut **préservé** (CANDIDATE · metering/soft cap). LOT-IP-0C SELECTED **≠** TB-02-05 réalisé. LOT-IP-0C ne bloque pas TB-02-05.
-
----
-
-## 33. Matrice décision → items
-
-| Décision | Item(s) | DONE |
-|---|---|---|
-| D-ASST-IP0C-LOT-SELECTION-01 = Option A | TB-04-04 (portée future) | **non** |
-| Baseline usage provisoire | cadrage TB-04-04 / pilote | **non** |
-| Calibration FinOps provisoire | cadrage TB-04-04 / FinOps | **non** |
+Arbitrer enforcement · appliquer décisions documentaires · implémenter borné après GO Delivery · mesurer usage · recalibrer · avancer TB-02-05 · publier handoffs.
 
 ---
 
-## 34. Matrice décision → lots
+## 58. Actions interdites
 
-| Décision | LOT-IP-0C | LOT-D1…D5 |
-|---|---|---|
-| Option A | **SELECTED** · **NOT EXECUTED** | **NOT AUTHORIZED** |
-| Calibration provisoire | oriente exécution future | n’autorise pas Delivery |
+Sélectionner E0–E4 sans gate · configurer fournisseurs · activer alertes/hard stops · marquer TB-04-04 DONE · autoriser LOT-D1 · code hors scope · réécrire 119–121 · fermer réserves · commit/push projet.
 
 ---
 
-## 35. Architecture préservée
+## 59. Conditions avant arbitrage
 
-STORE-01=A · A2 · DA-A · MIG-C · P1 · PostgreSQL · Neon · pg · node-pg-migrate · LD-A · P2 CO-COMPATIBLE **NOT SELECTED** · dix ADR · 21 impacts COVERED · graphe 33/56 · priorités P0=6 / P1=13 / P2=13 / P3=1.
-
----
-
-## 36. FinOps
-
-Calibration provisoire SELECTED · enforcement/hard stop NOT SELECTED · provider budgets NOT CONFIGURED · recalibrage obligatoire · risque facture non bornée reste ouvert sans contrôles techniques futurs.
+Validation ChatGPT du 122 · Decision Pack enforcement prêt (ce document) · calibration comprise comme provisoire.
 
 ---
 
-## 37. GreenOps
+## 60. Conditions avant implémentation
 
-Scale-to-zero Neon et idle compute restent des leviers futurs. Always-on non décidé. Aucune mesure GreenOps technique créée.
-
----
-
-## 38. RGPD / RSSI
-
-TTL/rétention **NOT SELECTED**. Secrets non créés. Aucune politique RGPD fermée. R-TECH-TTL-01 OPEN.
+Décisions enforcement/TTL/override appliquées · store durable FinOps disponible ou scoped · preuves tests · pas de config fournisseur sans GO dédié.
 
 ---
 
-## 39. RUN readiness
+## 61. Conditions avant pilote réel
 
-Owners / alertes réelles / override **NOT SELECTED**. Metering TB-02-05 futur. Calibration sert de cadrage de revue humaine uniquement.
-
----
-
-## 40. Risques et dette
-
-| Risque | Mitigation documentaire |
-|---|---|
-| Transformer 25/30 USD en budget réel | anti-claims · NOT CONFIGURED |
-| Confondre SELECTED et EXECUTED | état explicite NOT EXECUTED |
-| Autoriser LOT-D1 implicitement | LOT-D* NOT AUTHORIZED |
-| Oublier recalibrage | clause RECALIBRATION REQUIRED |
-| Fermer réserves FinOps/TTL | KEEP-OPEN |
+RECALIBRATION si données · metering prouvable · enforcement arbitrée · restore · réserves critiques traitées/acceptées · owner ops.
 
 ---
 
-## 41. Non-sélections
+## 62. Conditions avant LOT-D1
 
-Enforcement · hard stop · dégradation auto · override · TTL · plan/région Neon · modèle OpenAI · compute P1 · observabilité · budgets fournisseurs · soft caps numériques techniques · LOT-D1 · exécution LOT-IP-0C.
+LOT-IP-0C traité · paramètres A2 · Docker/CI/schéma · sélection explicite LOT-D1 · GO Delivery.
 
----
-
-## 42. Préservations
-
-Documents 104–120 byte-identical · 122 absent · cinq technos A2 · A2/DA-A/MIG-C/P1 · P2 NOT SELECTED · 10 ADR · 21 impacts · graphe 33/56 · priorités · aucun DONE · réserves OPEN · Delivery NOT-CONSUMED · aucun code/package/SQL/Docker/compte.
+LOT-D1 = **NOT AUTHORIZED — NOT SELECTED — NOT EXECUTED**.
 
 ---
 
-## 43. Conditions avant exécution LOT-IP-0C
-
-- GO d’exécution distinct consommé ;
-- périmètre documentaire ou technique borné ;
-- réexamen des paramètres avant toute configuration réelle ;
-- pas d’autorisation auto LOT-D1 ;
-- Delivery non consommée sans GO Delivery.
-
----
-
-## 44. Conditions avant pilote
-
-Usage réel mesurable ou acceptation explicite du provisoire · hard cap/TTL arbitrables · metering/soft cap · enveloppe candidate revue · restore · réserves critiques traitées ou acceptées · **recalibration** si données disponibles.
-
----
-
-## 45. Conditions avant LOT-D1
-
-LOT-IP-0C traité (exécution/cadrage FinOps selon gates) · paramètres A2 (versions/région/plan/Docker/CI/schéma) · sélection explicite LOT-D1 · GO Delivery distinct.
-
-LOT-D1 reste **NOT AUTHORIZED — NOT SELECTED — NOT EXECUTED**.
-
----
-
-## 46. Actions futures autorisées
-
-Tracer l’état dans 103/121 · préparer GO `EXECUTE LOT-IP-0C` · mesurer usage réel · recalibrer · publier handoffs · avancer TB-02-05 sans bloquer.
-
----
-
-## 47. Actions interdites
-
-Exécuter LOT-IP-0C sans gate · marquer TB-04-04 DONE · configurer budgets/alertes/caps fournisseurs · créer comptes/abonnements/paiements · sélectionner plan/région/modèle · implémenter hard stop/soft cap techniques sans arbitrage · autoriser LOT-D1 · Delivery · commit/push projet · fermer réserves · réécrire 119/120.
-
----
-
-## 48. Prochaine gate candidate
-
-Convention alignée sur le précédent LOT-IP-0B (document 108) :
+## 63. Prochaine gate candidate
 
 ```text
-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C FINOPS ENFORCEMENT
 ```
 
-Statut : **candidate uniquement — non consommée**.
+Candidate only — non consommée.
 
-Cette gate future :
-- autoriserait une exécution bornée distincte ;
-- devra préciser le périmètre documentaire ou technique ;
-- devra réexaminer les paramètres avant toute configuration réelle ;
-- n’autorise pas automatiquement LOT-D1 ;
-- ne consomme pas Delivery sans GO distinct.
+Arbitre : enforcement · comportements 15/20/30 · hard stop · dégradation · override · TTL · données incomplètes · source de vérité.
+
+N’implémente pas · ne configure pas fournisseurs · n’autorise pas LOT-D1 · ne consomme pas Delivery.
 
 ---
 
-## 49. Verdict
+## 64. Verdict
 
-**LOT-IP-0C SELECTION DECISION APPLIED — OPTION A SELECTED — LOT-IP-0C SELECTED — LOT-IP-0C NOT EXECUTED — PROVISIONAL USAGE BASELINE SELECTED — ONE PRIMARY USER — TWO USERS SHORT-TERM UPPER BOUND — PROVISIONAL FINOPS CALIBRATION SELECTED — USD 25 MONTHLY TARGET — USD 15 ALERT THRESHOLD — USD 20 CRITICAL REVIEW THRESHOLD — USD 30 SAFETY CAP — RECALIBRATION REQUIRED WHEN REAL USAGE DATA IS AVAILABLE AND BEFORE REAL PILOT — NO PROVIDER BUDGET, ALERT, CAP OR HARD STOP CONFIGURED — NO ENFORCEMENT OR AUTOMATIC DEGRADATION MODE SELECTED — DOCUMENT 121 CREATED — LOT-D1 TO LOT-D5 NOT AUTHORIZED — NO ITEM DONE — DELIVERY NOT-CONSUMED**
+**LOT-IP-0C EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS CONTROL CONTRACT PRODUCED — MEASUREMENT CONTRACT PRODUCED — COST AGGREGATION CONTRACT PRODUCED — THRESHOLD SEMANTICS BOUNDED — ENFORCEMENT OPTIONS E0 TO E4 PREPARED — E1 RECOMMENDATION REMAINS CANDIDATE — NO ENFORCEMENT OPTION SELECTED — PROVISIONAL CALIBRATION PRESERVED — RECALIBRATION REQUIRED — NO PROVIDER CONFIGURATION — NO TECHNICAL HARD STOP IMPLEMENTED — TB-04-04 READY FOR MORRIS ARBITRATION — TB-04-04 NOT DONE — LOT-D1 TO LOT-D5 NOT AUTHORIZED — NO ITEM DONE — DELIVERY NOT-CONSUMED**
+
 
 ---
 
 # Sections 103 modifiées complètes
 
-## ## 1. Statut (modifié)
+## ## 1. Statut
 
 # SFIA Studio — Assistant SFIA natif OpenAI — Technical Implementation Backlog
 
@@ -644,10 +838,14 @@ Cette gate future :
 **LOCAL DEV TEST LD-A SELECTED —**
 **LOT-IP-0C SELECTION PREPARATION EXECUTED —**
 **LOT-IP-0C SELECTION DECISION APPLIED —**
-**LOT-IP-0C SELECTED —**
-**LOT-IP-0C NOT EXECUTED —**
-**PROVISIONAL FINOPS CALIBRATION SELECTED —**
+**LOT-IP-0C EXECUTED —**
+**IMPLEMENTATION PREPARATION COMPLETE —**
+**FINOPS CONTROL CONTRACT PRODUCED —**
+**ENFORCEMENT DECISION PACK READY —**
+**PROVISIONAL FINOPS CALIBRATION PRESERVED —**
 **RECALIBRATION REQUIRED —**
+**ENFORCEMENT NOT SELECTED —**
+**TECHNICAL HARD STOP NOT IMPLEMENTED —**
 **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
 **NO ITEM DONE —**
 **DELIVERY NOT-CONSUMED**
@@ -684,69 +882,47 @@ GO DECISIONS BACKLOG SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — VALIDATE TE
 | D-ASST-BLG-LOT-STRUCTURE-01 | DECIDED — ADOPTED BY MORRIS |
 | D-ASST-BLG-FIRST-LOT-01 | DECIDED — ADOPTED BY MORRIS |
 | D-ASST-BLG-DELIVERY-01 | DECIDED — ADOPTED BY MORRIS |
+| D-ASST-BLG-NONSELECTIONS-01 | DECIDED — PRESERVE OPEN |
 
 ---
 
-## ## 1terdecies (ajouté)
+## ## 1quaterdecies
 
-## 1terdecies. GO Morris — Apply LOT-IP-0C Selection Decision
-
-### Gate d’arbitrage consommée
+## 1quaterdecies. GO Morris — Execute LOT-IP-0C
 
 ```text
-GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C SELECTION
-```
-
-| Champ | Valeur |
-|---|---|
-| **Consommation gate** | 2026-08-05 20:38 CEST (+0200) / 18:38 UTC |
-
-Phrase Morris d’acceptation exacte :
-
-```text
-ok pour ces recommandations qui me semble plus cohérente, a réevaluer lorsque l'on sera dans des cas concrets ou l'on pourra determiner un usage réel
-```
-
-Phrase Morris d’application documentaire exacte :
-
-```text
-ok go
+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
 ```
 
 | Champ | Valeur |
 |---|---|
 | **Autorité** | Morris |
-| **Acceptation / application** | 2026-08-05 21:45 CEST (+0200) / 19:45 UTC (même séquence · secondes non inventées) |
-| **Cycle** | Implementation Preparation — LOT-IP-0C Selection Decisions Applied |
+| **Consommation** | 2026-08-05 22:05 CEST (+0200) / 20:05 UTC |
+| **Précision** | secondes non inventées |
+| **Cycle** | Implementation Preparation — LOT-IP-0C Pre-Pilot FinOps Execution |
 | **Profil** | **Critical** |
-| **Décision** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A — SELECT LOT-IP-0C` |
-| **État lot** | **SELECTED — NOT EXECUTED — FUTURE EXECUTION GATE REQUIRED** |
-| **Baseline usage** | 1 utilisateur principal · 2 utilisateurs max court terme — **PROVISIONAL PLANNING BASELINE — SELECTED** |
-| **Calibration FinOps** | cible **25 USD**/mois · alerte **15 USD** · critique **20 USD** · plafond sécurité **30 USD** — **PROVISIONAL FINOPS CALIBRATION — SELECTED** |
-| **Clause** | **RECALIBRATION REQUIRED** (usage réel · avant pilote réel) |
-| **Configuration réelle** | **NOT CONFIGURED** · enforcement / hard stop / dégradation / override **NOT SELECTED** |
-| **Non-effet** | Aucune exécution LOT-IP-0C · TB-04-04 **pas DONE** · aucun budget/alerte/cap fournisseur · aucun plan/région Neon · aucun modèle OpenAI · aucun compte/paiement · aucun code · LOT-D1 **NOT AUTHORIZED** · Delivery **NOT-CONSUMED** |
-| **Record** | `projects/sfia-studio/121-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-decisions-applied.md` |
+| **Interprétation** | Exécution **documentaire** du lot : contrat de mesure/agrégation/estimation · sémantique 15/20/25/30 · options E0–E4 · dégradation/override/TTL · critères de preuves · **sans** implémentation technique ni config fournisseur |
+| **État final lot** | **EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS CONTROL CONTRACT PRODUCED — ENFORCEMENT DECISION PACK READY — TECHNICAL ENFORCEMENT NOT IMPLEMENTED — PROVIDER CONFIGURATION NOT PERFORMED** |
+| **Non-effet** | Aucun code · aucune alerte/budget/cap fournisseur · aucun hard/soft cap actif · E0–E4 **NOT SELECTED** · TB-04-04 **pas DONE** · LOT-D1 **NOT AUTHORIZED** · Delivery **NOT-CONSUMED** |
+| **Record** | `projects/sfia-studio/122-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-execution.md` |
 
-### Chaîne documentaire LOT-IP-0C (post-application)
+### Chaîne documentaire LOT-IP-0C (post-exécution)
 
 | Document | Rôle |
 |---|---|
 | **119** | préparation |
-| **120** | Decision Pack pré-arbitrage (historique) |
-| **121** | décision de sélection appliquée |
+| **120** | Decision Pack sélection (pré-arbitrage) |
+| **121** | sélection + calibration appliquées |
+| **122** | exécution LOT-IP-0C · contrat FinOps · options enforcement |
 
-### Calibration provisoire (état opérationnel)
+### Enforcement (état opérationnel)
 
-| Paramètre | Valeur | Statut |
-|---|---|---|
-| Utilisateur principal | 1 | PROVISIONAL — SELECTED |
-| Borne haute court terme | 2 | PROVISIONAL — SELECTED |
-| Enveloppe mensuelle cible | 25 USD | PROVISIONAL — SELECTED |
-| Seuil d’alerte | 15 USD | PROVISIONAL — SELECTED |
-| Seuil critique de revue | 20 USD | PROVISIONAL — SELECTED |
-| Plafond de sécurité | 30 USD | PROVISIONAL — SELECTED |
-| Enforcement / hard stop | — | **NOT SELECTED / NOT CONFIGURED** |
+| Paramètre | Statut |
+|---|---|
+| D-ASST-IP0C-ENFORCEMENT-01 (E0–E4) | **NOT SELECTED / NOT DECIDED** |
+| Hard stop / dégradation / override / TTL | **NOT SELECTED** |
+| Configuration fournisseur | **NOT CONFIGURED** |
+| Recommandation candidate | **E1** — candidate only |
 
 Items DONE : **aucun**.
 
@@ -754,7 +930,7 @@ Items DONE : **aucun**.
 
 ---
 
-## #### TB-04-04 (modifié)
+## #### TB-04-04
 
 #### TB-04-04 — Decision Pack hard cap FinOps avant pilote
 
@@ -764,7 +940,7 @@ Items DONE : **aucun**.
 | **Type** | DECISION-PREP |
 | **Epic** | EPIC-TB-04 |
 | **Priorité validée** | **P2** — VALIDATED BY MORRIS |
-| **Statut** | READY-FOR-DECISION |
+| **Statut** | READY-FOR-MORRIS-ARBITRATION |
 | **Dépendances** | TB-02-05 |
 | **Gate Morris** | décision Morris hard cap avant pilote · sélection LOT-IP-0C en amont (120) |
 | **Source** | doc 102 FPI-14-HARD-CAP=DEFER-BEFORE-PILOT · R-TECH-FINOPS-HARD-01 |
@@ -772,10 +948,12 @@ Items DONE : **aucun**.
 | **Non-sélections liées** | hard cap FinOps, tarif |
 | **Delivery** | NOT AUTHORIZED |
 | **Relation main** | N/A code — Decision Pack documentaire · dépend de la preuve metering/soft cap (TB-02-05) sans bloquer TB-02-05 |
-| **Préparation LOT-IP-0C** | evidence **produced** (119/120) · sélection **applied** (121) · **pas DONE** |
+| **Préparation LOT-IP-0C** | evidence **completed** (119/120) · sélection **applied** (121) · exécution IP **completed** (122) · **pas DONE** |
 | **Calibration provisoire** | 15 / 20 / 25 / 30 USD · baseline 1–2 users · **NOT CONFIGURED** · hard stop **NOT SELECTED** |
+| **Enforcement** | Decision Pack ready (122) · arbitration **pending** · E0–E4 **NOT SELECTED** |
+| **Statut item** | **READY-FOR-MORRIS-ARBITRATION** · implementation **not started** · DONE = **no** |
 
-**Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil définitif ni configurer de limite fournisseur.
+**Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil définitif ni configurer de limite fournisseur. Contrats de mesure/enforcement produits en 122 ; arbitrage enforcement futur distinct.
 
 **Critères d’acceptation :**
   - Options de politique hard cap sont comparées sans valeur numérique inventée.
@@ -789,7 +967,43 @@ Items DONE : **aucun**.
 
 ---
 
-## ### LOT-IP-0C (modifié)
+## #### TB-02-05
+
+#### TB-02-05 — Metering provider et soft cap (sans hard cap)
+
+| Champ | Valeur |
+|---|---|
+| **ID** | `TB-02-05` |
+| **Type** | NFR |
+| **Epic** | EPIC-TB-02 |
+| **Priorité validée** | **P2** — VALIDATED BY MORRIS |
+| **Statut** | CANDIDATE |
+| **Dépendances** | TB-02-01, TB-03-04 |
+| **Gate Morris** | aucune pour metering/soft cap · hard cap reste DEFER-BEFORE-PILOT (TB-04-04) — non bloquant pour cet item |
+| **Source** | doc 102 FPI-14 soft · R-TECH-FINOPS-HARD-01 · impact metering |
+| **Réserves liées** | R-TECH-FINOPS-HARD-01 (contexte KEEP-OPEN — **non bloquante** pour soft cap/metering) |
+| **Non-sélections liées** | hard cap FinOps, tarif, SLO |
+| **Delivery** | NOT AUTHORIZED |
+| **Relation main** | EXTEND — `usage-summary` schéma + events usage_validated (PR #308/#309) comme base metering · soft cap Assistant NEW · hard cap non implémenté |
+
+**Objectif :** Mesurer l’usage provider et appliquer soft cap indépendamment de la décision hard cap ; hard cap reste différé avant pilote (TB-04-04).
+
+**Note LOT-IP-0C (122) :** TB-02-05 reste **distinct** et **non réalisé** ici · LOT-IP-0C **ne bloque pas** son exécution future · les contrats de mesure 122 peuvent l’informer · **aucune** implémentation de metering dans le cycle d’exécution IP-0C.
+
+**Critères d’acceptation :**
+  - Le metering enregistre les tentatives provider indépendamment du succès métier.
+  - Le soft cap est configurable Admin sans valeur inventée ici.
+  - Le hard cap n’est pas implémenté tant que DEFER-BEFORE-PILOT.
+
+**Preuves attendues :**
+  - tests soft cap
+  - preuve absence hard cap implicite
+
+**Hors périmètre :** tarifs, SLO, hard cap numérique
+
+---
+
+## ### LOT-IP-0C
 
 ### LOT-IP-0C — Pre-Pilot FinOps Decision Preparation
 
@@ -797,20 +1011,21 @@ Items DONE : **aucun**.
 |---|---|
 | **Items** | TB-04-04 |
 | **Dépendance** | TB-02-05 |
-| **Statut** | **SELECTION DECISION APPLIED — SELECTED — NOT EXECUTED — FUTURE EXECUTION GATE REQUIRED** |
-| **Décision** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · record **121** |
-| **Préparation** | documents **119** / **120** (historiques) |
-| **TB-04-04** | decision preparation = **produced** · selection decision = **applied** · implementation = **not started** · execution = **not started** · DONE = **no** |
-| **Calibration** | 1–2 utilisateurs · 15 / 20 / 25 / 30 USD provisoire · **RECALIBRATION REQUIRED** · **NOT CONFIGURED** |
-| **Note** | Requis avant pilote · ne bloque pas TB-02-05 · SELECTED ≠ EXECUTED ≠ TB-04-04 DONE |
+| **Statut** | **EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS CONTROL CONTRACT PRODUCED — ENFORCEMENT DECISION PACK READY — TECHNICAL ENFORCEMENT NOT IMPLEMENTED — FUTURE MORRIS ARBITRATION REQUIRED** |
+| **Décision sélection** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · record **121** |
+| **Exécution** | record **122** · GO 22:05 CEST |
+| **TB-04-04** | decision preparation = **completed** · lot selection = **applied** · lot execution = **completed** · enforcement decision pack = **ready** · enforcement arbitration = **pending** · implementation = **not started** · technical execution = **not started** · DONE = **no** · **READY-FOR-MORRIS-ARBITRATION** |
+| **Calibration** | 1–2 utilisateurs · 15 / 20 / 25 / 30 USD provisoire **préservée** · **RECALIBRATION REQUIRED** · **NOT CONFIGURED** |
+| **Enforcement** | E0–E4 **NOT SELECTED** · E1 candidate only · hard stop **NOT IMPLEMENTED** |
+| **Note** | Requis avant pilote · ne bloque pas TB-02-05 · EXECUTED (IP) ≠ hard stop · ≠ TB-04-04 DONE · ≠ Delivery |
 
 ---
 
-## ## 23 (modifié)
+## ## 23
 
 ## 23. Chemin critique
 
-**LOT-IP-0A** / **LOT-IP-0B** décisions appliquées → **cinq décisions technologiques Persistence A2 sélectionnées** → **application documentaire 118** → **LOT-IP-0C préparé (119/120)** → **LOT-IP-0C sélectionné** → **décision appliquée dans 121** → future préparation ou exécution bornée LOT-IP-0C → mesure de l’usage réel → **recalibration FinOps** → pilote réel → **éventuelle sélection** LOT-D1 → GO Delivery distinct.
+**LOT-IP-0A** / **LOT-IP-0B** décisions appliquées → **cinq décisions technologiques Persistence A2 sélectionnées** → **application documentaire 118** → **LOT-IP-0C préparé** → **LOT-IP-0C sélectionné** → **LOT-IP-0C exécuté documentairement (122)** → contrat FinOps et options d’enforcement produits → **arbitrage Morris enforcement** → application documentaire des décisions → Delivery technique distincte → collecte d’usage réel → **recalibration** → pilote réel → **éventuelle sélection** LOT-D1.
 
 LOT-D1 **n’est pas** éligible, sélectionné ni autorisé sans décision Morris distincte.
 
@@ -818,46 +1033,47 @@ LOT-D1 **n’est pas** éligible, sélectionné ni autorisé sans décision Morr
 
 ---
 
-## ### Vers arbitrage / exécution LOT-IP-0C
+## ### Vers exécution / arbitrage enforcement
 
-### Vers arbitrage sélection LOT-IP-0C
+### Vers exécution LOT-IP-0C
 
-- **fait** (gate 20:38 CEST · acceptation/application 21:45 CEST) · Option A · document **121** · LOT-IP-0C **SELECTED** · **NOT EXECUTED** · calibration provisoire SELECTED · **RECALIBRATION REQUIRED**.
+- **fait** (GO consommé 2026-08-05 22:05 CEST) · document **122** · LOT-IP-0C **EXECUTED** (IP) · enforcement **NOT SELECTED** · TB-04-04 **READY-FOR-MORRIS-ARBITRATION** · **pas DONE**.
 
-### Vers exécution LOT-IP-0C (prochaine)
+### Vers arbitrage FinOps enforcement (prochaine)
 
-- GO candidate `EXECUTE LOT-IP-0C` ;
+- GO candidate `ARBITRATE LOT-IP-0C FINOPS ENFORCEMENT` ;
 - candidate uniquement — non consommée ;
-- devra préciser le périmètre documentaire ou technique ;
-- devra réexaminer les paramètres avant toute configuration réelle ;
-- n’autorise pas automatiquement LOT-D1 ;
-- ne consomme pas Delivery sans GO distinct.
+- arbitre E0–E4 · comportements 15/20/30 · hard stop · dégradation · override · TTL · source de vérité ;
+- n’implémente pas automatiquement ;
+- ne configure pas les fournisseurs ;
+- n’autorise pas LOT-D1 ;
+- ne consomme pas Delivery.
 
 ---
 
-## ## 28–33 (modifiés)
+## ## 28–33
 
 ## 28. Non-sélections
 
-**Classe SQL relationnelle managée = DECIDED** (STORE-01=A). **Patterns** DA-A / MIG-C / P1 = **DECIDED**. P2 = **CO-COMPATIBLE — NOT SELECTED**. **Cinq décisions Persistence A2 = SELECTED** : PostgreSQL · **Neon** · pg · **node-pg-migrate** · LD-A. **LOT-IP-0C = SELECTED — NOT EXECUTED.** Calibration provisoire 15/20/25/30 USD et baseline 1–2 utilisateurs = **SELECTED** (cadrage) · configuration fournisseur = **NOT CONFIGURED**. Restent **NOT SELECTED** : budget fournisseur OpenAI/Neon configuré · région Neon · plan Neon · soft caps techniques · hard stops · enforcement · TTL · politiques de rétention · fréquence de revue opérationnelle · propriétaire opérationnel · modèles OpenAI futurs · SLA · compte · projet · base · politique backup/restore/PITR · version PostgreSQL · version pg · version node-pg-migrate · image Docker · configuration Docker · configuration CI · schéma physique · SQL · DDL · migrations · rôle migrator · secret manager · observability vendor · compute P1 concret · Supabase · RDS · Aurora · dbmate · LOT-D1 — **FUTURE DEDICATED DECISION OR EXECUTION GATE REQUIRED**.
+**Classe SQL relationnelle managée = DECIDED** (STORE-01=A). **Patterns** DA-A / MIG-C / P1 = **DECIDED**. P2 = **CO-COMPATIBLE — NOT SELECTED**. **Cinq décisions Persistence A2 = SELECTED** : PostgreSQL · **Neon** · pg · **node-pg-migrate** · LD-A. **LOT-IP-0C = EXECUTED (Implementation Preparation).** Calibration provisoire 15/20/25/30 USD et baseline 1–2 utilisateurs = **PRESERVED / SELECTED** (cadrage) · configuration fournisseur = **NOT CONFIGURED**. Restent **NOT SELECTED** : E0–E4 · budget fournisseur OpenAI/Neon configuré · région Neon · plan Neon · soft caps techniques actifs · hard stops · enforcement mode · dégradation · override · TTL · politiques de rétention · fréquence de revue opérationnelle · propriétaire opérationnel · modèles OpenAI futurs · SLA · compte · projet · base · politique backup/restore/PITR · version PostgreSQL · version pg · version node-pg-migrate · image Docker · configuration Docker · configuration CI · schéma physique · SQL · DDL · migrations · rôle migrator · secret manager · observability vendor · compute P1 concret · Supabase · RDS · Aurora · dbmate · LOT-D1 — **FUTURE DEDICATED DECISION OR DELIVERY GATE REQUIRED**.
 
 ---
 
 ## 29. Actions autorisées
 
-Maintenir 112–120 historiques · maintenir 121 comme record de sélection · tracer l’état dans 103 · préparer GO EXECUTE LOT-IP-0C · mesurer usage · recalibrer · publier le handoff.
+Maintenir 112–121 historiques · maintenir 122 comme exécution/contrat FinOps · tracer l’état dans 103 · arbitrer enforcement · mesurer usage · recalibrer · publier le handoff.
 
 ---
 
 ## 30. Actions interdites
 
-Réécrire 117–120 · provisionner Neon · choisir région/plan · installer pg ou node-pg-migrate · sélectionner une version npm · sélectionner P2 · configurer Docker/Compose · créer code, SQL, DDL, migration, package ou IaC · créer un compte/service · configurer budget/alerte/cap fournisseur · présenter la calibration provisoire comme budget définitif · exécuter LOT-IP-0C sans gate · sélectionner ou exécuter LOT-D1 à LOT-D5 · fermer une réserve · marquer un item DONE · Delivery · commit/push projet · PR/merge.
+Réécrire 117–121 · provisionner Neon · choisir région/plan · installer pg ou node-pg-migrate · sélectionner une version npm · sélectionner P2 · configurer Docker/Compose · créer code, SQL, DDL, migration, package ou IaC · créer un compte/service · configurer budget/alerte/cap fournisseur · sélectionner E0–E4 sans gate · présenter la calibration provisoire comme budget définitif · marquer TB-04-04 DONE · sélectionner ou exécuter LOT-D1 à LOT-D5 · fermer une réserve · Delivery · commit/push projet · PR/merge.
 
 ---
 
 ## 31. Anti-claims
 
-Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · PostgreSQL ≠ base créée · pg ≠ package installé · Neon SELECTED ≠ compte/base · node-pg-migrate SELECTED ≠ package · région/plan/version ≠ SELECTED · P2 ≠ sélectionné · TB-00-04/05/TB-01-* ≠ DONE · TB-04-04 ≠ DONE · LOT-IP-0C SELECTED ≠ EXECUTED · calibration provisoire ≠ budget fournisseur · 30 USD ≠ hard stop configuré · 25 USD ≠ coût garanti · enforcement NOT SELECTED · LOT-D* NOT AUTHORIZED · memory ≠ A2 durable · aucun item DONE · Delivery NOT-CONSUMED · réserves ouvertes.
+Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · PostgreSQL ≠ base créée · pg ≠ package installé · Neon SELECTED ≠ compte/base · node-pg-migrate SELECTED ≠ package · région/plan/version ≠ SELECTED · P2 ≠ sélectionné · TB-00-04/05/TB-01-* ≠ DONE · TB-04-04 ≠ DONE · LOT-IP-0C EXECUTED (IP) ≠ hard stop implémenté · ≠ provider configured · calibration provisoire ≠ budget fournisseur · 30 USD ≠ technical hard cap · 25 USD ≠ coût garanti · E0–E4 NOT SELECTED · E1 candidate ≠ décision · LOT-D* NOT AUTHORIZED · memory ≠ A2 durable · aucun item DONE · Delivery NOT-CONSUMED · réserves ouvertes.
 
 ---
 
@@ -868,18 +1084,19 @@ Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · Postgr
 **FIVE TECHNOLOGY DECISIONS SELECTED —**
 **POSTGRESQL SELECTED — NEON SELECTED — PG NODE-POSTGRES SELECTED —**
 **NODE-PG-MIGRATE SELECTED — LD-A SELECTED —**
-**LOT-IP-0C SELECTION PREPARATION EXECUTED —**
 **LOT-IP-0C SELECTION DECISION APPLIED —**
-**LOT-IP-0C SELECTED — LOT-IP-0C NOT EXECUTED —**
-**PROVISIONAL FINOPS CALIBRATION SELECTED — RECALIBRATION REQUIRED —**
-**DOCUMENT 103 UPDATED — DOCUMENT 121 CREATED —**
-**DOCUMENTS 104 TO 120 BYTE-IDENTICAL — DOCUMENT 122 ABSENT —**
+**LOT-IP-0C EXECUTED — IMPLEMENTATION PREPARATION COMPLETE —**
+**FINOPS CONTROL CONTRACT PRODUCED — ENFORCEMENT DECISION PACK READY —**
+**PROVISIONAL FINOPS CALIBRATION PRESERVED — RECALIBRATION REQUIRED —**
+**ENFORCEMENT NOT SELECTED — TECHNICAL HARD STOP NOT IMPLEMENTED —**
+**DOCUMENT 103 UPDATED — DOCUMENT 122 CREATED —**
+**DOCUMENTS 104 TO 121 BYTE-IDENTICAL — DOCUMENT 123 ABSENT —**
 **GRAPH 33/56 PRESERVED — PRIORITIES PRESERVED — NO ITEM DONE —**
-**TB-04-04 NOT DONE —**
+**TB-04-04 READY FOR MORRIS ARBITRATION — TB-04-04 NOT DONE —**
 **NO PROVIDER BUDGET, ALERT, CAP OR HARD STOP CONFIGURED —**
 **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
 **DELIVERY NOT-CONSUMED —**
-**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0C EXECUTION DECISION**
+**READY FOR CHATGPT VALIDATION AND MORRIS FINOPS ENFORCEMENT ARBITRATION**
 
 
 ---
@@ -887,273 +1104,296 @@ Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · Postgr
 ## 33. Prochaine gate candidate
 
 ```text
-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C FINOPS ENFORCEMENT
 ```
 
 Statut : **candidate uniquement — non consommée**.
 
-Cette gate future :
-- autoriserait une exécution bornée distincte ;
-- devra préciser le périmètre documentaire ou technique ;
-- devra réexaminer les paramètres avant toute configuration réelle ;
-- n’autorise pas automatiquement LOT-D1 ;
-- ne consomme pas Delivery sans GO distinct.
+Cette gate future doit arbitrer :
+- enforcement mode (E0–E4) ;
+- comportement à 15 / 20 / 30 USD ;
+- hard stop · dégradation · override · TTL ;
+- traitement des données incomplètes · source de vérité.
 
-**LOT-IP-0C SELECTED — NOT EXECUTED — EXECUTE GATE CANDIDATE — DELIVERY NOT CONSUMED**
+Elle ne doit pas :
+- implémenter automatiquement les décisions ;
+- configurer les fournisseurs ;
+- autoriser LOT-D1 ;
+- consommer Delivery.
+
+**LOT-IP-0C EXECUTED — ENFORCEMENT ARBITRATION CANDIDATE — DELIVERY NOT CONSUMED**
 
 ---
 
 # Diff RAW utile 103
 
 ```diff
---- .tmp-sfia-review/lot-ip-0c-applied/103-before.md	2026-08-05 21:52:56
-+++ projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md	2026-08-05 21:55:16
-@@ -12,10 +12,11 @@
- **NODE-PG-MIGRATE SELECTED —**
+--- .tmp-sfia-review/lot-ip-0c-exec/103-before.md	2026-08-05 22:12:02
++++ projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md	2026-08-05 22:15:18
+@@ -13,10 +13,14 @@
  **LOCAL DEV TEST LD-A SELECTED —**
  **LOT-IP-0C SELECTION PREPARATION EXECUTED —**
--**LOT-IP-0C SELECTION DECISION PACK READY —**
--**LOT-IP-0C DEFERRED —**
--**LOT-IP-0C NOT SELECTED —**
-+**LOT-IP-0C SELECTION DECISION APPLIED —**
-+**LOT-IP-0C SELECTED —**
- **LOT-IP-0C NOT EXECUTED —**
-+**PROVISIONAL FINOPS CALIBRATION SELECTED —**
-+**RECALIBRATION REQUIRED —**
+ **LOT-IP-0C SELECTION DECISION APPLIED —**
+-**LOT-IP-0C SELECTED —**
+-**LOT-IP-0C NOT EXECUTED —**
+-**PROVISIONAL FINOPS CALIBRATION SELECTED —**
++**LOT-IP-0C EXECUTED —**
++**IMPLEMENTATION PREPARATION COMPLETE —**
++**FINOPS CONTROL CONTRACT PRODUCED —**
++**ENFORCEMENT DECISION PACK READY —**
++**PROVISIONAL FINOPS CALIBRATION PRESERVED —**
+ **RECALIBRATION REQUIRED —**
++**ENFORCEMENT NOT SELECTED —**
++**TECHNICAL HARD STOP NOT IMPLEMENTED —**
  **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
  **NO ITEM DONE —**
  **DELIVERY NOT-CONSUMED**
-@@ -441,12 +442,75 @@
- |---|---|
- | **112–118** | Persistence A2 (historique / record 118) — **byte-identical** |
- | **119** | préparation LOT-IP-0C FinOps |
--| **120** | Decision Pack de sélection LOT-IP-0C |
-+| **120** | Decision Pack de sélection LOT-IP-0C (pré-arbitrage · byte-identical) |
+@@ -494,6 +498,7 @@
+ | **119** | préparation |
+ | **120** | Decision Pack pré-arbitrage (historique) |
+ | **121** | décision de sélection appliquée |
++| **122** | voir §1quaterdecies — exécution |
 
--LOT-IP-0C reste **DEFERRED — NOT SELECTED — NOT EXECUTED — MORRIS ARBITRATION REQUIRED**.
-+### Suite — application décision (voir §1terdecies)
+ ### Calibration provisoire (état opérationnel)
 
- ---
-+
-+## 1terdecies. GO Morris — Apply LOT-IP-0C Selection Decision
-+
-+### Gate d’arbitrage consommée
-+
-+```text
-+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C SELECTION
-+```
-+
-+| Champ | Valeur |
-+|---|---|
-+| **Consommation gate** | 2026-08-05 20:38 CEST (+0200) / 18:38 UTC |
-
-+Phrase Morris d’acceptation exacte :
-+
-+```text
-+ok pour ces recommandations qui me semble plus cohérente, a réevaluer lorsque l'on sera dans des cas concrets ou l'on pourra determiner un usage réel
-+```
-+
-+Phrase Morris d’application documentaire exacte :
-+
-+```text
-+ok go
-+```
-+
-+| Champ | Valeur |
-+|---|---|
-+| **Autorité** | Morris |
-+| **Acceptation / application** | 2026-08-05 21:45 CEST (+0200) / 19:45 UTC (même séquence · secondes non inventées) |
-+| **Cycle** | Implementation Preparation — LOT-IP-0C Selection Decisions Applied |
-+| **Profil** | **Critical** |
-+| **Décision** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A — SELECT LOT-IP-0C` |
-+| **État lot** | **SELECTED — NOT EXECUTED — FUTURE EXECUTION GATE REQUIRED** |
-+| **Baseline usage** | 1 utilisateur principal · 2 utilisateurs max court terme — **PROVISIONAL PLANNING BASELINE — SELECTED** |
-+| **Calibration FinOps** | cible **25 USD**/mois · alerte **15 USD** · critique **20 USD** · plafond sécurité **30 USD** — **PROVISIONAL FINOPS CALIBRATION — SELECTED** |
-+| **Clause** | **RECALIBRATION REQUIRED** (usage réel · avant pilote réel) |
-+| **Configuration réelle** | **NOT CONFIGURED** · enforcement / hard stop / dégradation / override **NOT SELECTED** |
-+| **Non-effet** | Aucune exécution LOT-IP-0C · TB-04-04 **pas DONE** · aucun budget/alerte/cap fournisseur · aucun plan/région Neon · aucun modèle OpenAI · aucun compte/paiement · aucun code · LOT-D1 **NOT AUTHORIZED** · Delivery **NOT-CONSUMED** |
-+| **Record** | `projects/sfia-studio/121-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-decisions-applied.md` |
-+
-+### Chaîne documentaire LOT-IP-0C (post-application)
-+
-+| Document | Rôle |
-+|---|---|
-+| **119** | préparation |
-+| **120** | Decision Pack pré-arbitrage (historique) |
-+| **121** | décision de sélection appliquée |
-+
-+### Calibration provisoire (état opérationnel)
-+
-+| Paramètre | Valeur | Statut |
-+|---|---|---|
-+| Utilisateur principal | 1 | PROVISIONAL — SELECTED |
-+| Borne haute court terme | 2 | PROVISIONAL — SELECTED |
-+| Enveloppe mensuelle cible | 25 USD | PROVISIONAL — SELECTED |
-+| Seuil d’alerte | 15 USD | PROVISIONAL — SELECTED |
-+| Seuil critique de revue | 20 USD | PROVISIONAL — SELECTED |
-+| Plafond de sécurité | 30 USD | PROVISIONAL — SELECTED |
-+| Enforcement / hard stop | — | **NOT SELECTED / NOT CONFIGURED** |
+@@ -506,6 +511,46 @@
+ | Seuil critique de revue | 20 USD | PROVISIONAL — SELECTED |
+ | Plafond de sécurité | 30 USD | PROVISIONAL — SELECTED |
+ | Enforcement / hard stop | — | **NOT SELECTED / NOT CONFIGURED** |
 +
 +Items DONE : **aucun**.
 +
 +---
 +
- ## 2. GO Morris
++## 1quaterdecies. GO Morris — Execute LOT-IP-0C
++
++```text
++GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
++```
++
++| Champ | Valeur |
++|---|---|
++| **Autorité** | Morris |
++| **Consommation** | 2026-08-05 22:05 CEST (+0200) / 20:05 UTC |
++| **Précision** | secondes non inventées |
++| **Cycle** | Implementation Preparation — LOT-IP-0C Pre-Pilot FinOps Execution |
++| **Profil** | **Critical** |
++| **Interprétation** | Exécution **documentaire** du lot : contrat de mesure/agrégation/estimation · sémantique 15/20/25/30 · options E0–E4 · dégradation/override/TTL · critères de preuves · **sans** implémentation technique ni config fournisseur |
++| **État final lot** | **EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS CONTROL CONTRACT PRODUCED — ENFORCEMENT DECISION PACK READY — TECHNICAL ENFORCEMENT NOT IMPLEMENTED — PROVIDER CONFIGURATION NOT PERFORMED** |
++| **Non-effet** | Aucun code · aucune alerte/budget/cap fournisseur · aucun hard/soft cap actif · E0–E4 **NOT SELECTED** · TB-04-04 **pas DONE** · LOT-D1 **NOT AUTHORIZED** · Delivery **NOT-CONSUMED** |
++| **Record** | `projects/sfia-studio/122-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-execution.md` |
++
++### Chaîne documentaire LOT-IP-0C (post-exécution)
++
++| Document | Rôle |
++|---|---|
++| **119** | préparation |
++| **120** | Decision Pack sélection (pré-arbitrage) |
++| **121** | sélection + calibration appliquées |
++| **122** | exécution LOT-IP-0C · contrat FinOps · options enforcement |
++
++### Enforcement (état opérationnel)
++
++| Paramètre | Statut |
++|---|---|
++| D-ASST-IP0C-ENFORCEMENT-01 (E0–E4) | **NOT SELECTED / NOT DECIDED** |
++| Hard stop / dégradation / override / TTL | **NOT SELECTED** |
++| Configuration fournisseur | **NOT CONFIGURED** |
++| Recommandation candidate | **E1** — candidate only |
 
- ```text
-@@ -1364,9 +1428,10 @@
+ Items DONE : **aucun**.
+
+@@ -1164,6 +1209,8 @@
+ | **Relation main** | EXTEND — `usage-summary` schéma + events usage_validated (PR #308/#309) comme base metering · soft cap Assistant NEW · hard cap non implémenté |
+
+ **Objectif :** Mesurer l’usage provider et appliquer soft cap indépendamment de la décision hard cap ; hard cap reste différé avant pilote (TB-04-04).
++
++**Note LOT-IP-0C (122) :** TB-02-05 reste **distinct** et **non réalisé** ici · LOT-IP-0C **ne bloque pas** son exécution future · les contrats de mesure 122 peuvent l’informer · **aucune** implémentation de metering dans le cycle d’exécution IP-0C.
+
+ **Critères d’acceptation :**
+   - Le metering enregistre les tentatives provider indépendamment du succès métier.
+@@ -1420,7 +1467,7 @@
+ | **Type** | DECISION-PREP |
+ | **Epic** | EPIC-TB-04 |
+ | **Priorité validée** | **P2** — VALIDATED BY MORRIS |
+-| **Statut** | READY-FOR-DECISION |
++| **Statut** | READY-FOR-MORRIS-ARBITRATION |
+ | **Dépendances** | TB-02-05 |
+ | **Gate Morris** | décision Morris hard cap avant pilote · sélection LOT-IP-0C en amont (120) |
+ | **Source** | doc 102 FPI-14-HARD-CAP=DEFER-BEFORE-PILOT · R-TECH-FINOPS-HARD-01 |
+@@ -1428,10 +1475,12 @@
  | **Non-sélections liées** | hard cap FinOps, tarif |
  | **Delivery** | NOT AUTHORIZED |
  | **Relation main** | N/A code — Decision Pack documentaire · dépend de la preuve metering/soft cap (TB-02-05) sans bloquer TB-02-05 |
--| **Préparation LOT-IP-0C** | evidence documentaire **produced** (119/120) · **pas DONE** · aucun seuil SELECTED |
-+| **Préparation LOT-IP-0C** | evidence **produced** (119/120) · sélection **applied** (121) · **pas DONE** |
-+| **Calibration provisoire** | 15 / 20 / 25 / 30 USD · baseline 1–2 users · **NOT CONFIGURED** · hard stop **NOT SELECTED** |
+-| **Préparation LOT-IP-0C** | evidence **produced** (119/120) · sélection **applied** (121) · **pas DONE** |
++| **Préparation LOT-IP-0C** | evidence **completed** (119/120) · sélection **applied** (121) · exécution IP **completed** (122) · **pas DONE** |
+ | **Calibration provisoire** | 15 / 20 / 25 / 30 USD · baseline 1–2 users · **NOT CONFIGURED** · hard stop **NOT SELECTED** |
++| **Enforcement** | Decision Pack ready (122) · arbitration **pending** · E0–E4 **NOT SELECTED** |
++| **Statut item** | **READY-FOR-MORRIS-ARBITRATION** · implementation **not started** · DONE = **no** |
 
--**Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil.
-+**Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil définitif ni configurer de limite fournisseur.
+-**Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil définitif ni configurer de limite fournisseur.
++**Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil définitif ni configurer de limite fournisseur. Contrats de mesure/enforcement produits en 122 ; arbitrage enforcement futur distinct.
 
  **Critères d’acceptation :**
    - Options de politique hard cap sont comparées sans valeur numérique inventée.
-@@ -1748,17 +1813,19 @@
+@@ -1813,19 +1862,20 @@
  |---|---|
  | **Items** | TB-04-04 |
  | **Dépendance** | TB-02-05 |
--| **Statut** | **PREPARATION EXECUTED — SELECTION DECISION PACK READY — DEFERRED — NOT SELECTED — NOT EXECUTED — MORRIS ARBITRATION REQUIRED** |
--| **Préparation** | documents **119** / **120** produits · GO 19:52 CEST consommé |
--| **TB-04-04** | preparation evidence = **produced** · implementation = **not started** · DONE = **no** |
--| **Note** | Requis avant pilote · ne bloque pas l’exécution future de TB-02-05 · préparation ≠ sélection ≠ exécution |
-+| **Statut** | **SELECTION DECISION APPLIED — SELECTED — NOT EXECUTED — FUTURE EXECUTION GATE REQUIRED** |
-+| **Décision** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · record **121** |
-+| **Préparation** | documents **119** / **120** (historiques) |
-+| **TB-04-04** | decision preparation = **produced** · selection decision = **applied** · implementation = **not started** · execution = **not started** · DONE = **no** |
-+| **Calibration** | 1–2 utilisateurs · 15 / 20 / 25 / 30 USD provisoire · **RECALIBRATION REQUIRED** · **NOT CONFIGURED** |
-+| **Note** | Requis avant pilote · ne bloque pas TB-02-05 · SELECTED ≠ EXECUTED ≠ TB-04-04 DONE |
+-| **Statut** | **SELECTION DECISION APPLIED — SELECTED — NOT EXECUTED — FUTURE EXECUTION GATE REQUIRED** |
+-| **Décision** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · record **121** |
+-| **Préparation** | documents **119** / **120** (historiques) |
+-| **TB-04-04** | decision preparation = **produced** · selection decision = **applied** · implementation = **not started** · execution = **not started** · DONE = **no** |
+-| **Calibration** | 1–2 utilisateurs · 15 / 20 / 25 / 30 USD provisoire · **RECALIBRATION REQUIRED** · **NOT CONFIGURED** |
+-| **Note** | Requis avant pilote · ne bloque pas TB-02-05 · SELECTED ≠ EXECUTED ≠ TB-04-04 DONE |
++| **Statut** | **EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS CONTROL CONTRACT PRODUCED — ENFORCEMENT DECISION PACK READY — TECHNICAL ENFORCEMENT NOT IMPLEMENTED — FUTURE MORRIS ARBITRATION REQUIRED** |
++| **Décision sélection** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · record **121** |
++| **Exécution** | record **122** · GO 22:05 CEST |
++| **TB-04-04** | decision preparation = **completed** · lot selection = **applied** · lot execution = **completed** · enforcement decision pack = **ready** · enforcement arbitration = **pending** · implementation = **not started** · technical execution = **not started** · DONE = **no** · **READY-FOR-MORRIS-ARBITRATION** |
++| **Calibration** | 1–2 utilisateurs · 15 / 20 / 25 / 30 USD provisoire **préservée** · **RECALIBRATION REQUIRED** · **NOT CONFIGURED** |
++| **Enforcement** | E0–E4 **NOT SELECTED** · E1 candidate only · hard stop **NOT IMPLEMENTED** |
++| **Note** | Requis avant pilote · ne bloque pas TB-02-05 · EXECUTED (IP) ≠ hard stop · ≠ TB-04-04 DONE · ≠ Delivery |
 
  ### LOT-D1 à LOT-D5
 
  **NOT AUTHORIZED — NOT SELECTED — FUTURE MORRIS DECISION REQUIRED**
 
  LOT-D1 (persist foundation) reste **NOT AUTHORIZED — NOT SELECTED — NOT EXECUTED — FUTURE MORRIS DECISION REQUIRED**. Blocages minimaux :
--- LOT-IP-0C **non sélectionné** ;
-+- LOT-IP-0C **sélectionné mais non exécuté** ;
+-- LOT-IP-0C **sélectionné mais non exécuté** ;
++- LOT-IP-0C **exécuté (IP)** mais enforcement **non arbitrée** / non implémentée ;
  - versions PostgreSQL, pg et node-pg-migrate **non sélectionnées** ;
  - région et plan Neon **non sélectionnés** ;
  - Docker/CI **non configurés** ;
-@@ -1776,7 +1843,7 @@
+@@ -1836,14 +1886,14 @@
+
+ LOT-D2 à LOT-D5 restent **NOT AUTHORIZED**.
+
+-Aucun lot Delivery sélectionné. Cinq décisions Persistence A2 **SELECTED** (documentaire) · LOT-IP-0C **DEFERRED** · LOT-D1 **NOT AUTHORIZED** · aucun compte/package.
++Aucun lot Delivery sélectionné. Cinq décisions Persistence A2 **SELECTED** (documentaire) · LOT-IP-0C **EXECUTED (IP)** · enforcement **NOT SELECTED** · LOT-D1 **NOT AUTHORIZED** · aucun compte/package.
+
+
+ ---
 
  ## 23. Chemin critique
 
--**LOT-IP-0A** / **LOT-IP-0B** décisions appliquées → **cinq décisions technologiques Persistence A2 sélectionnées** → **application documentaire 118** → **LOT-IP-0C Decision Pack préparé (119/120)** → **arbitrage Morris sur sélection LOT-IP-0C** → éventuelle application de la décision → éventuelle exécution future LOT-IP-0C → paramètres FinOps pilotés → **éventuelle sélection** LOT-D1 → GO Delivery distinct.
-+**LOT-IP-0A** / **LOT-IP-0B** décisions appliquées → **cinq décisions technologiques Persistence A2 sélectionnées** → **application documentaire 118** → **LOT-IP-0C préparé (119/120)** → **LOT-IP-0C sélectionné** → **décision appliquée dans 121** → future préparation ou exécution bornée LOT-IP-0C → mesure de l’usage réel → **recalibration FinOps** → pilote réel → **éventuelle sélection** LOT-D1 → GO Delivery distinct.
+-**LOT-IP-0A** / **LOT-IP-0B** décisions appliquées → **cinq décisions technologiques Persistence A2 sélectionnées** → **application documentaire 118** → **LOT-IP-0C préparé (119/120)** → **LOT-IP-0C sélectionné** → **décision appliquée dans 121** → future préparation ou exécution bornée LOT-IP-0C → mesure de l’usage réel → **recalibration FinOps** → pilote réel → **éventuelle sélection** LOT-D1 → GO Delivery distinct.
++**LOT-IP-0A** / **LOT-IP-0B** décisions appliquées → **cinq décisions technologiques Persistence A2 sélectionnées** → **application documentaire 118** → **LOT-IP-0C préparé** → **LOT-IP-0C sélectionné** → **LOT-IP-0C exécuté documentairement (122)** → contrat FinOps et options d’enforcement produits → **arbitrage Morris enforcement** → application documentaire des décisions → Delivery technique distincte → collecte d’usage réel → **recalibration** → pilote réel → **éventuelle sélection** LOT-D1.
 
  LOT-D1 **n’est pas** éligible, sélectionné ni autorisé sans décision Morris distincte.
 
-@@ -1842,15 +1909,19 @@
+@@ -1913,14 +1963,19 @@
 
- - **fait** (GO consommé 2026-08-05 19:52 CEST) · documents **119** / **120** créés · LOT-IP-0C reste **NOT SELECTED** / **NOT EXECUTED**.
+ - **fait** (gate 20:38 CEST · acceptation/application 21:45 CEST) · Option A · document **121** · LOT-IP-0C **SELECTED** · **NOT EXECUTED** · calibration provisoire SELECTED · **RECALIBRATION REQUIRED**.
 
--### Vers arbitrage sélection LOT-IP-0C (prochaine)
-+### Vers arbitrage sélection LOT-IP-0C
+-### Vers exécution LOT-IP-0C (prochaine)
++### Vers exécution LOT-IP-0C
 
--- GO candidate `ARBITRATE LOT-IP-0C SELECTION` ;
--- arbitre uniquement la sélection du lot ;
--- n’exécute pas automatiquement LOT-IP-0C ;
--- ne sélectionne pas automatiquement budgets ou seuils ;
--- n’autorise pas LOT-D1 ;
--- ne consomme pas Delivery.
-+- **fait** (gate 20:38 CEST · acceptation/application 21:45 CEST) · Option A · document **121** · LOT-IP-0C **SELECTED** · **NOT EXECUTED** · calibration provisoire SELECTED · **RECALIBRATION REQUIRED**.
-
-+### Vers exécution LOT-IP-0C (prochaine)
+-- GO candidate `EXECUTE LOT-IP-0C` ;
++- **fait** (GO consommé 2026-08-05 22:05 CEST) · document **122** · LOT-IP-0C **EXECUTED** (IP) · enforcement **NOT SELECTED** · TB-04-04 **READY-FOR-MORRIS-ARBITRATION** · **pas DONE**.
 +
-+- GO candidate `EXECUTE LOT-IP-0C` ;
-+- candidate uniquement — non consommée ;
-+- devra préciser le périmètre documentaire ou technique ;
-+- devra réexaminer les paramètres avant toute configuration réelle ;
-+- n’autorise pas automatiquement LOT-D1 ;
-+- ne consomme pas Delivery sans GO distinct.
++### Vers arbitrage FinOps enforcement (prochaine)
 +
++- GO candidate `ARBITRATE LOT-IP-0C FINOPS ENFORCEMENT` ;
+ - candidate uniquement — non consommée ;
+-- devra préciser le périmètre documentaire ou technique ;
+-- devra réexaminer les paramètres avant toute configuration réelle ;
+-- n’autorise pas automatiquement LOT-D1 ;
+-- ne consomme pas Delivery sans GO distinct.
++- arbitre E0–E4 · comportements 15/20/30 · hard stop · dégradation · override · TTL · source de vérité ;
++- n’implémente pas automatiquement ;
++- ne configure pas les fournisseurs ;
++- n’autorise pas LOT-D1 ;
++- ne consomme pas Delivery.
+
  ### Vers LOT-D1 (futur, non autorisé, non éligible auto)
 
- - décisions LOT-IP-0B appliquées (**fait**) ;
-@@ -1876,25 +1947,25 @@
+@@ -1947,25 +2002,25 @@
 
  ## 28. Non-sélections
 
--**Classe SQL relationnelle managée = DECIDED** (STORE-01=A). **Patterns** DA-A / MIG-C / P1 = **DECIDED**. P2 = **CO-COMPATIBLE — NOT SELECTED**. **Cinq décisions Persistence A2 = SELECTED** : PostgreSQL · **Neon** · pg · **node-pg-migrate** · LD-A. Restent **NOT SELECTED** : budget pilote · enveloppe mensuelle · budget OpenAI · budget Neon · région Neon · plan Neon · soft caps · hard stops · seuils · TTL · politiques de rétention · fréquence de revue · propriétaire opérationnel · modèles OpenAI futurs · SLA · compte · projet · base · politique backup/restore/PITR · version PostgreSQL · version pg · version node-pg-migrate · image Docker · configuration Docker · configuration CI · schéma physique · SQL · DDL · migrations · rôle migrator · secret manager · observability vendor · compute P1 concret · Supabase · RDS · Aurora · dbmate · LOT-IP-0C · LOT-D1 — **FUTURE DEDICATED DECISION OR PREPARATION GATE REQUIRED**.
-+**Classe SQL relationnelle managée = DECIDED** (STORE-01=A). **Patterns** DA-A / MIG-C / P1 = **DECIDED**. P2 = **CO-COMPATIBLE — NOT SELECTED**. **Cinq décisions Persistence A2 = SELECTED** : PostgreSQL · **Neon** · pg · **node-pg-migrate** · LD-A. **LOT-IP-0C = SELECTED — NOT EXECUTED.** Calibration provisoire 15/20/25/30 USD et baseline 1–2 utilisateurs = **SELECTED** (cadrage) · configuration fournisseur = **NOT CONFIGURED**. Restent **NOT SELECTED** : budget fournisseur OpenAI/Neon configuré · région Neon · plan Neon · soft caps techniques · hard stops · enforcement · TTL · politiques de rétention · fréquence de revue opérationnelle · propriétaire opérationnel · modèles OpenAI futurs · SLA · compte · projet · base · politique backup/restore/PITR · version PostgreSQL · version pg · version node-pg-migrate · image Docker · configuration Docker · configuration CI · schéma physique · SQL · DDL · migrations · rôle migrator · secret manager · observability vendor · compute P1 concret · Supabase · RDS · Aurora · dbmate · LOT-D1 — **FUTURE DEDICATED DECISION OR EXECUTION GATE REQUIRED**.
+-**Classe SQL relationnelle managée = DECIDED** (STORE-01=A). **Patterns** DA-A / MIG-C / P1 = **DECIDED**. P2 = **CO-COMPATIBLE — NOT SELECTED**. **Cinq décisions Persistence A2 = SELECTED** : PostgreSQL · **Neon** · pg · **node-pg-migrate** · LD-A. **LOT-IP-0C = SELECTED — NOT EXECUTED.** Calibration provisoire 15/20/25/30 USD et baseline 1–2 utilisateurs = **SELECTED** (cadrage) · configuration fournisseur = **NOT CONFIGURED**. Restent **NOT SELECTED** : budget fournisseur OpenAI/Neon configuré · région Neon · plan Neon · soft caps techniques · hard stops · enforcement · TTL · politiques de rétention · fréquence de revue opérationnelle · propriétaire opérationnel · modèles OpenAI futurs · SLA · compte · projet · base · politique backup/restore/PITR · version PostgreSQL · version pg · version node-pg-migrate · image Docker · configuration Docker · configuration CI · schéma physique · SQL · DDL · migrations · rôle migrator · secret manager · observability vendor · compute P1 concret · Supabase · RDS · Aurora · dbmate · LOT-D1 — **FUTURE DEDICATED DECISION OR EXECUTION GATE REQUIRED**.
++**Classe SQL relationnelle managée = DECIDED** (STORE-01=A). **Patterns** DA-A / MIG-C / P1 = **DECIDED**. P2 = **CO-COMPATIBLE — NOT SELECTED**. **Cinq décisions Persistence A2 = SELECTED** : PostgreSQL · **Neon** · pg · **node-pg-migrate** · LD-A. **LOT-IP-0C = EXECUTED (Implementation Preparation).** Calibration provisoire 15/20/25/30 USD et baseline 1–2 utilisateurs = **PRESERVED / SELECTED** (cadrage) · configuration fournisseur = **NOT CONFIGURED**. Restent **NOT SELECTED** : E0–E4 · budget fournisseur OpenAI/Neon configuré · région Neon · plan Neon · soft caps techniques actifs · hard stops · enforcement mode · dégradation · override · TTL · politiques de rétention · fréquence de revue opérationnelle · propriétaire opérationnel · modèles OpenAI futurs · SLA · compte · projet · base · politique backup/restore/PITR · version PostgreSQL · version pg · version node-pg-migrate · image Docker · configuration Docker · configuration CI · schéma physique · SQL · DDL · migrations · rôle migrator · secret manager · observability vendor · compute P1 concret · Supabase · RDS · Aurora · dbmate · LOT-D1 — **FUTURE DEDICATED DECISION OR DELIVERY GATE REQUIRED**.
 
  ---
 
  ## 29. Actions autorisées
 
--Maintenir 112–118 historiques · maintenir 119/120 comme préparation/Decision Pack · tracer l’état dans 103 · arbitrer sélection LOT-IP-0C · publier le handoff.
-+Maintenir 112–120 historiques · maintenir 121 comme record de sélection · tracer l’état dans 103 · préparer GO EXECUTE LOT-IP-0C · mesurer usage · recalibrer · publier le handoff.
+-Maintenir 112–120 historiques · maintenir 121 comme record de sélection · tracer l’état dans 103 · préparer GO EXECUTE LOT-IP-0C · mesurer usage · recalibrer · publier le handoff.
++Maintenir 112–121 historiques · maintenir 122 comme exécution/contrat FinOps · tracer l’état dans 103 · arbitrer enforcement · mesurer usage · recalibrer · publier le handoff.
 
  ---
 
  ## 30. Actions interdites
 
--Réécrire 117/118 · provisionner Neon · choisir région/plan · installer pg ou node-pg-migrate · sélectionner une version npm · sélectionner P2 · configurer Docker/Compose · créer code, SQL, DDL, migration, package ou IaC · créer un compte/service · sélectionner un budget/seuil sans arbitrage · sélectionner ou exécuter LOT-IP-0C sans gate · sélectionner ou exécuter LOT-D1 à LOT-D5 · fermer une réserve · marquer un item DONE · Delivery · commit/push projet · PR/merge.
-+Réécrire 117–120 · provisionner Neon · choisir région/plan · installer pg ou node-pg-migrate · sélectionner une version npm · sélectionner P2 · configurer Docker/Compose · créer code, SQL, DDL, migration, package ou IaC · créer un compte/service · configurer budget/alerte/cap fournisseur · présenter la calibration provisoire comme budget définitif · exécuter LOT-IP-0C sans gate · sélectionner ou exécuter LOT-D1 à LOT-D5 · fermer une réserve · marquer un item DONE · Delivery · commit/push projet · PR/merge.
+-Réécrire 117–120 · provisionner Neon · choisir région/plan · installer pg ou node-pg-migrate · sélectionner une version npm · sélectionner P2 · configurer Docker/Compose · créer code, SQL, DDL, migration, package ou IaC · créer un compte/service · configurer budget/alerte/cap fournisseur · présenter la calibration provisoire comme budget définitif · exécuter LOT-IP-0C sans gate · sélectionner ou exécuter LOT-D1 à LOT-D5 · fermer une réserve · marquer un item DONE · Delivery · commit/push projet · PR/merge.
++Réécrire 117–121 · provisionner Neon · choisir région/plan · installer pg ou node-pg-migrate · sélectionner une version npm · sélectionner P2 · configurer Docker/Compose · créer code, SQL, DDL, migration, package ou IaC · créer un compte/service · configurer budget/alerte/cap fournisseur · sélectionner E0–E4 sans gate · présenter la calibration provisoire comme budget définitif · marquer TB-04-04 DONE · sélectionner ou exécuter LOT-D1 à LOT-D5 · fermer une réserve · Delivery · commit/push projet · PR/merge.
 
  ---
 
  ## 31. Anti-claims
 
--Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · PostgreSQL ≠ base créée · pg ≠ package installé · Neon SELECTED ≠ compte/base · node-pg-migrate SELECTED ≠ package · région/plan/version ≠ SELECTED · P2 ≠ sélectionné · TB-00-04/05/TB-01-* ≠ DONE · TB-04-04 ≠ DONE · préparation LOT-IP-0C ≠ sélection ≠ exécution · estimation conversationnelle Neon ≠ plafond · aucun budget/seuil SELECTED · LOT-IP-0C DEFERRED NOT SELECTED NOT EXECUTED · LOT-D* NOT AUTHORIZED · memory ≠ A2 durable · aucun item DONE · Delivery NOT-CONSUMED · réserves ouvertes.
-+Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · PostgreSQL ≠ base créée · pg ≠ package installé · Neon SELECTED ≠ compte/base · node-pg-migrate SELECTED ≠ package · région/plan/version ≠ SELECTED · P2 ≠ sélectionné · TB-00-04/05/TB-01-* ≠ DONE · TB-04-04 ≠ DONE · LOT-IP-0C SELECTED ≠ EXECUTED · calibration provisoire ≠ budget fournisseur · 30 USD ≠ hard stop configuré · 25 USD ≠ coût garanti · enforcement NOT SELECTED · LOT-D* NOT AUTHORIZED · memory ≠ A2 durable · aucun item DONE · Delivery NOT-CONSUMED · réserves ouvertes.
+-Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · PostgreSQL ≠ base créée · pg ≠ package installé · Neon SELECTED ≠ compte/base · node-pg-migrate SELECTED ≠ package · région/plan/version ≠ SELECTED · P2 ≠ sélectionné · TB-00-04/05/TB-01-* ≠ DONE · TB-04-04 ≠ DONE · LOT-IP-0C SELECTED ≠ EXECUTED · calibration provisoire ≠ budget fournisseur · 30 USD ≠ hard stop configuré · 25 USD ≠ coût garanti · enforcement NOT SELECTED · LOT-D* NOT AUTHORIZED · memory ≠ A2 durable · aucun item DONE · Delivery NOT-CONSUMED · réserves ouvertes.
++Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · PostgreSQL ≠ base créée · pg ≠ package installé · Neon SELECTED ≠ compte/base · node-pg-migrate SELECTED ≠ package · région/plan/version ≠ SELECTED · P2 ≠ sélectionné · TB-00-04/05/TB-01-* ≠ DONE · TB-04-04 ≠ DONE · LOT-IP-0C EXECUTED (IP) ≠ hard stop implémenté · ≠ provider configured · calibration provisoire ≠ budget fournisseur · 30 USD ≠ technical hard cap · 25 USD ≠ coût garanti · E0–E4 NOT SELECTED · E1 candidate ≠ décision · LOT-D* NOT AUTHORIZED · memory ≠ A2 durable · aucun item DONE · Delivery NOT-CONSUMED · réserves ouvertes.
 
  ---
 
-@@ -1906,15 +1977,17 @@
+@@ -1976,18 +2031,19 @@
+ **FIVE TECHNOLOGY DECISIONS SELECTED —**
  **POSTGRESQL SELECTED — NEON SELECTED — PG NODE-POSTGRES SELECTED —**
  **NODE-PG-MIGRATE SELECTED — LD-A SELECTED —**
- **LOT-IP-0C SELECTION PREPARATION EXECUTED —**
--**LOT-IP-0C SELECTION DECISION PACK READY —**
--**DOCUMENT 103 UPDATED — DOCUMENTS 119 AND 120 CREATED —**
--**DOCUMENTS 104 TO 118 BYTE-IDENTICAL — DOCUMENT 121 ABSENT —**
-+**LOT-IP-0C SELECTION DECISION APPLIED —**
-+**LOT-IP-0C SELECTED — LOT-IP-0C NOT EXECUTED —**
-+**PROVISIONAL FINOPS CALIBRATION SELECTED — RECALIBRATION REQUIRED —**
-+**DOCUMENT 103 UPDATED — DOCUMENT 121 CREATED —**
-+**DOCUMENTS 104 TO 120 BYTE-IDENTICAL — DOCUMENT 122 ABSENT —**
+-**LOT-IP-0C SELECTION PREPARATION EXECUTED —**
+ **LOT-IP-0C SELECTION DECISION APPLIED —**
+-**LOT-IP-0C SELECTED — LOT-IP-0C NOT EXECUTED —**
+-**PROVISIONAL FINOPS CALIBRATION SELECTED — RECALIBRATION REQUIRED —**
+-**DOCUMENT 103 UPDATED — DOCUMENT 121 CREATED —**
+-**DOCUMENTS 104 TO 120 BYTE-IDENTICAL — DOCUMENT 122 ABSENT —**
++**LOT-IP-0C EXECUTED — IMPLEMENTATION PREPARATION COMPLETE —**
++**FINOPS CONTROL CONTRACT PRODUCED — ENFORCEMENT DECISION PACK READY —**
++**PROVISIONAL FINOPS CALIBRATION PRESERVED — RECALIBRATION REQUIRED —**
++**ENFORCEMENT NOT SELECTED — TECHNICAL HARD STOP NOT IMPLEMENTED —**
++**DOCUMENT 103 UPDATED — DOCUMENT 122 CREATED —**
++**DOCUMENTS 104 TO 121 BYTE-IDENTICAL — DOCUMENT 123 ABSENT —**
  **GRAPH 33/56 PRESERVED — PRIORITIES PRESERVED — NO ITEM DONE —**
--**LOT-IP-0C DEFERRED — LOT-IP-0C NOT SELECTED — LOT-IP-0C NOT EXECUTED —**
--**NO BUDGET, PLAN, REGION, CAP OR THRESHOLD SELECTED —**
-+**TB-04-04 NOT DONE —**
-+**NO PROVIDER BUDGET, ALERT, CAP OR HARD STOP CONFIGURED —**
+-**TB-04-04 NOT DONE —**
++**TB-04-04 READY FOR MORRIS ARBITRATION — TB-04-04 NOT DONE —**
+ **NO PROVIDER BUDGET, ALERT, CAP OR HARD STOP CONFIGURED —**
  **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
  **DELIVERY NOT-CONSUMED —**
--**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0C SELECTION ARBITRATION**
-+**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0C EXECUTION DECISION**
+-**READY FOR CHATGPT VALIDATION AND MORRIS LOT-IP-0C EXECUTION DECISION**
++**READY FOR CHATGPT VALIDATION AND MORRIS FINOPS ENFORCEMENT ARBITRATION**
 
 
  ---
-@@ -1922,16 +1995,16 @@
+@@ -1995,16 +2051,21 @@
  ## 33. Prochaine gate candidate
 
  ```text
--GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C SELECTION
-+GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
+-GO IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — EXECUTE LOT-IP-0C
++GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE LOT-IP-0C FINOPS ENFORCEMENT
  ```
 
  Statut : **candidate uniquement — non consommée**.
 
--Cette gate :
--- arbitre la sélection du lot ;
--- n’exécute pas automatiquement LOT-IP-0C ;
--- ne sélectionne pas automatiquement les budgets ou seuils ;
--- n’autorise pas LOT-D1 ;
--- ne consomme pas Delivery.
-+Cette gate future :
-+- autoriserait une exécution bornée distincte ;
-+- devra préciser le périmètre documentaire ou technique ;
-+- devra réexaminer les paramètres avant toute configuration réelle ;
-+- n’autorise pas automatiquement LOT-D1 ;
-+- ne consomme pas Delivery sans GO distinct.
+-Cette gate future :
+-- autoriserait une exécution bornée distincte ;
+-- devra préciser le périmètre documentaire ou technique ;
+-- devra réexaminer les paramètres avant toute configuration réelle ;
+-- n’autorise pas automatiquement LOT-D1 ;
+-- ne consomme pas Delivery sans GO distinct.
++Cette gate future doit arbitrer :
++- enforcement mode (E0–E4) ;
++- comportement à 15 / 20 / 30 USD ;
++- hard stop · dégradation · override · TTL ;
++- traitement des données incomplètes · source de vérité.
 
--**LOT-IP-0C SELECTION DECISION PACK READY — LOT-IP-0C NOT SELECTED — DELIVERY NOT CONSUMED**
-+**LOT-IP-0C SELECTED — NOT EXECUTED — EXECUTE GATE CANDIDATE — DELIVERY NOT CONSUMED**
+-**LOT-IP-0C SELECTED — NOT EXECUTED — EXECUTE GATE CANDIDATE — DELIVERY NOT CONSUMED**
++Elle ne doit pas :
++- implémenter automatiquement les décisions ;
++- configurer les fournisseurs ;
++- autoriser LOT-D1 ;
++- consommer Delivery.
++
++**LOT-IP-0C EXECUTED — ENFORCEMENT ARBITRATION CANDIDATE — DELIVERY NOT CONSUMED**
 
 ```
 
