@@ -123,17 +123,17 @@ errors.ts · period.ts · sourceOfTruth.ts · costEvidence.ts · blockingEligibi
 
 ## 15. FIND-01 avant/après
 
-Avant : `Date.parse` unique preuve après regex ISO → overflow silencieux (2023-02-29 accepté).  
+Avant : `Date.parse` unique preuve après regex ISO → overflow silencieux (2023-02-29 accepté).
 Après : capture composants + bornes + round-trip `setUTCFullYear` + `Date.parse` fini. detailCode `FINOPS_INVALID_TIMESTAMP` · reason `timestamp_invalid_calendar_components`.
 
 ## 16. Algorithme round-trip
 
-1. Format ISO avec capture année/mois/jour/heure/minute/seconde/fraction/zone.  
-2. Conversion numérique.  
-3. Bornes mois 1–12 · heure 0–23 · min/sec 0–59 · offset h 0–14 · si h=14 alors min=0.  
-4. Construction contrôle UTC sans appliquer l’offset (`setUTCFullYear`).  
-5. Comparaison round-trip des composants + millisecondes fraction.  
-6. Rejet si débordement.  
+1. Format ISO avec capture année/mois/jour/heure/minute/seconde/fraction/zone.
+2. Conversion numérique.
+3. Bornes mois 1–12 · heure 0–23 · min/sec 0–59 · offset h 0–14 · si h=14 alors min=0.
+4. Construction contrôle UTC sans appliquer l’offset (`setUTCFullYear`).
+5. Comparaison round-trip des composants + millisecondes fraction.
+6. Rejet si débordement.
 7. `Date.parse` doit être fini.
 
 ## 17. Cas calendaires invalides
@@ -150,7 +150,7 @@ Offsets numériques Z ou ±HH:MM · +14:00 accepté · +14:01 et +15:00 rejetés
 
 ## 20. FIND-02 avant/après
 
-Avant : `requireValidFinOpsPeriod` = shape seule (UTC + timestamps + start < end).  
+Avant : `requireValidFinOpsPeriod` = shape seule (UTC + timestamps + start < end).
 Après : shape générique préservée + `validateCanonicalUtcMonthPeriod` interne + require enchaîne les deux.
 
 ## 21. Shape générique
@@ -171,7 +171,7 @@ Start = premier instant UTC du mois (`…-01T00:00:00.000Z`) · End = premier in
 
 ## 25. FIND-04 avant/après barrel
 
-Avant : barrel exportait `requireValidIsoTimestamp` et `requireValidFinOpsPeriod`.  
+Avant : barrel exportait `requireValidIsoTimestamp` et `requireValidFinOpsPeriod`.
 Après : retirés du barrel · restent exportés depuis `domain/invariants.ts`.
 
 ## 26. API conservée
@@ -184,7 +184,7 @@ Après : retirés du barrel · restent exportés depuis `domain/invariants.ts`.
 
 ## 28. FIND-05 avant/après
 
-Avant : regex ligne `from` + `process.env` partiels · faux négatifs dynamiques/require/side-effect.  
+Avant : regex ligne `from` + `process.env` partiels · faux négatifs dynamiques/require/side-effect.
 Après : strip commentaires · extracteur multi-formes · liste fermée interdits · fixtures adversariales · scan produit T0 réel.
 
 ## 29. Formes d’import détectées

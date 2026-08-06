@@ -1812,7 +1812,7 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
 
 **Objectif :** Mesurer l’usage provider et appliquer soft cap indépendamment de la décision hard cap ; hard cap reste différé avant pilote (TB-04-04).
 
-**Note LOT-IP-0C / T0 (122/124/125/126/127) :** TB-02-05 reste **distinct** et **non réalisé** · statut **préservé** · contrats T0 **implémentés** · **aucun** metering runtime · **aucune** capture provider · **aucun** soft cap actif · **aucun** ledger · **aucun** item DONE · gate distincte requise.
+**Note LOT-IP-0C / T0 (122/124/125/126/127/132) :** TB-02-05 reste **distinct** et **non réalisé** · statut **préservé** · contrats T0 **implémentés et publiés sur Draft PR #312** · **aucun** metering runtime · **aucune** capture provider · **aucun** soft cap actif · **aucun** ledger · **aucun** item DONE · gate distincte requise · PR #312 **NOT READY** (CI trailing whitespace).
 
 **Critères d’acceptation :**
   - Le metering enregistre les tentatives provider indépendamment du succès métier.
@@ -2069,19 +2069,19 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
 | **Type** | DECISION-PREP |
 | **Epic** | EPIC-TB-04 |
 | **Priorité validée** | **P2** — VALIDATED BY MORRIS |
-| **Statut** | T0 EXECUTED LOCALLY — PR READINESS AFTER FIXES REVIEWED — VERDICT READY — PUBLICATION NOT EXECUTED — NOT DONE |
+| **Statut** | T0 DEPENDENCY-CLOSED PACKAGE PUBLISHED — DRAFT PR #312 OPEN — LOCAL FIX IMPLEMENTED — REMOTE PUBLICATION AND CI REVALIDATION PENDING — PR312-FIND-01 LOCALLY REMEDIATED — REMAINS OPEN REMOTELY — PR NOT READY — NOT DONE |
 | **Dépendances** | TB-02-05 |
-| **Gate Morris** | after-fixes PR readiness reviewed (131) · Git publication pending · publication not executed |
-| **Source** | doc 102 FPI-14-HARD-CAP=DEFER-BEFORE-PILOT · R-TECH-FINOPS-HARD-01 · 122/123/124/125/126/127/128/129/130/131 |
-| **Réserves liées** | R-TECH-FINOPS-HARD-01 · R-TECH-TTL-01 |
+| **Gate Morris** | bounded CI trailing-whitespace local fix executed (133) · Git publication candidate · ready-for-review **not** authorized · merge **not** authorized |
+| **Source** | doc 102 FPI-14-HARD-CAP=DEFER-BEFORE-PILOT · R-TECH-FINOPS-HARD-01 · 122/123/124/125/126/127/128/129/130/131/132/133 · PR #312 |
+| **Réserves liées** | R-TECH-FINOPS-HARD-01 · R-TECH-TTL-01 · FIND-03 Money deferred · PR312-FIND-01 CI trailing whitespace (local remédiation) |
 | **Non-sélections liées** | hard stop fournisseur · TTL numériques · config provider · exécution T1–T7 · Money deferred |
-| **Delivery** | NOT AUTHORIZED (LOT-D1) · bounded Delivery T0 **consumed** · bounded corrective Delivery T0 **consumed** ≠ LOT-D1 · publication **NOT AUTHORIZED** |
-| **Relation main** | T0 code local untracked · dépend de la preuve metering/soft cap (TB-02-05) sans bloquer TB-02-05 |
-| **Préparation LOT-IP-0C** | decision preparation = **completed** · technical decisions = **applied** · T0 execution pack = **prepared** · T0 execution authorization = **consumed** · T0 implementation = **completed locally** · T0 PR readiness = **reviewed** · reserve arbitration = **completed** · reserve decisions = **applied** · T0 fix execution = **completed locally** · T0 fix evidence = **produced** · PR readiness after fixes = **reviewed READY** · publication = **not executed** · T1 to T7 = **not authorized** · complete FinOps implementation = **not completed** · DONE = **no** |
+| **Delivery** | NOT AUTHORIZED (LOT-D1) · bounded Delivery T0 **consumed** · bounded corrective Delivery T0 **consumed** ≠ LOT-D1 · Git publication **consumed** · Draft PR creation **consumed** · Draft PR review **consumed** · bounded CI whitespace fix Delivery **consumed locally** · CI fix Git publication **NOT AUTHORIZED** |
+| **Relation main** | head distant `845f427…` inchangé · PR #312 Draft vs main `8dc54db…` · correctif local non publié · dépend de TB-02-05 sans le bloquer |
+| **Préparation LOT-IP-0C** | decision preparation = **completed** · technical decisions = **applied** · T0 implementation = **completed** · dependency-closed publication = **executed** · Draft PR #312 = **created** · Draft PR critical review = **completed NOT READY** · PR312-FIND-01 = **OPEN remotely** · local trailing-whitespace remediation = **implemented** · publication of fix = **not executed** · ready-for-review = **not authorized** · T1 to T7 = **not authorized** · complete FinOps implementation = **not completed** · DONE = **no** |
 | **Calibration provisoire** | 15 / 20 / 25 / 30 USD · baseline 1–2 users · **NOT CONFIGURED** |
 | **Enforcement** | E1 · A15-CAL/PROJ/ONCE · C20-WARN · S30-SOFT · DG-NEW **SELECTED** · **NOT IMPLEMENTED** |
 | **Technique** | CAP-C · BND-A · ENF-B · PG ledger/aggregates · etc. **SELECTED** (125) · T0 domain contracts **IMPLEMENTED** · T1–T7 **NOT IMPLEMENTED** |
-| **Statut item** | T0 **completed locally** · bounded fix **completed locally** · PR readiness re-run **pending** · full FinOps **not completed** · DONE = **no** |
+| **Statut item** | T0 **on Draft PR #312** · local CI whitespace fix **implemented** · remote CI **still failed pending publication** · DONE = **no** |
 
 **Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil définitif ni configurer de limite fournisseur. Contrats de mesure/enforcement produits en 122 ; arbitrage enforcement futur distinct.
 
@@ -2465,7 +2465,7 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
 |---|---|
 | **Items** | TB-04-04 |
 | **Dépendance** | TB-02-05 |
-| **Statut** | **EXECUTED — IMPLEMENTATION PREPARATION COMPLETE — FINOPS ENFORCEMENT DECISIONS APPLIED — FINOPS TECHNICAL IMPLEMENTATION DECISIONS APPLIED — T0 EXECUTION PACK PREPARED — T0 EXECUTED LOCALLY — T0 PR READINESS REVIEWED — READY WITH RESERVES — RESERVES ARBITRATED — FIX REQUIRED BEFORE PUBLICATION — PUBLICATION NOT AUTHORIZED — AWAITING BOUNDED FIX CYCLE — T1 TO T7 NOT AUTHORIZED — TB-04-04 NOT DONE** |
+| **Statut** | **EXECUTED — DRAFT PR #312 OPEN — LOCAL CI TRAILING-WHITESPACE FIX IMPLEMENTED — REMOTE PUBLICATION AND CI REVALIDATION PENDING — PR312-FIND-01 OPEN REMOTELY — PR NOT READY — T1 TO T7 NOT AUTHORIZED — TB-04-04 NOT DONE** |
 | **Décision sélection** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · record **121** |
 | **Exécution** | record **122** · GO 22:05 CEST |
 | **Enforcement applied** | record **123** · `D-ASST-IP0C-ENFORCEMENT-01=E1` · A15-CAL/PROJ/ONCE · C20-WARN · S30-SOFT · DG-NEW |
@@ -2474,10 +2474,10 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
 | **T0 Execution Pack** | record **126** · GO 23:49 CEST · scope/files/symbols/tests **bounded** · **byte-identical** |
 | **T0 Execution** | record **127** · GO 2026-08-06 00:04 CEST · 14 fichiers CREATE · tests/typecheck/lint/full suite **PASSED** |
 | **Lots techniques** | T0 **EXECUTED LOCALLY** · T1–T7 **NOT AUTHORIZED** · **NOT STARTED** · graphe 33/56 **inchangé** |
-| **TB-04-04** | decision preparation = **completed** · technical decisions = **applied** · T0 execution pack = **prepared** · T0 execution authorization = **consumed** · T0 implementation = **completed locally** · T0 PR readiness = **reviewed** · reserve arbitration = **completed** · reserve decisions = **applied** · T0 fix execution = **completed locally** · T0 fix evidence = **produced** · PR readiness after fixes = **reviewed READY** · publication = **not executed** · T1 to T7 = **not authorized** · complete FinOps implementation = **not completed** · DONE = **no** |
+| **TB-04-04** | decision preparation = **completed** · technical decisions = **applied** · T0 implementation = **completed** · dependency-closed publication = **executed** · Draft PR #312 = **created** · Draft PR review = **completed NOT READY** · PR312-FIND-01 = **OPEN remotely** · local trailing-whitespace remediation on document 130 = **implemented** (10 lines · hash `e8fbf30d…` → `4202ac7e…`) · `git diff --ignore-space-at-eol` = exit 0 · local `git diff --check` = exit 0 · remote head/CI unchanged · publication of fix = **not executed** · ready-for-review = **not authorized** · T1 to T7 = **not authorized** · DONE = **no** |
 | **Calibration** | 1–2 utilisateurs · 15 / 20 / 25 / 30 USD provisoire **préservée** · **RECALIBRATION REQUIRED** · **NOT CONFIGURED** |
 | **Enforcement** | E1 **SELECTED** · NOT IMPLEMENTED · provider config **NOT PERFORMED** |
-| **Note** | Requis avant pilote · ne bloque pas TB-02-05 · T0 local ≠ contrôle FinOps actif · TB-04-04 reste **NOT DONE** · Delivery T0 ≠ Delivery LOT-D1 |
+| **Note** | Requis avant pilote · ne bloque pas TB-02-05 · T0 publié ≠ contrôle FinOps actif · Draft PR ≠ ready-for-review · correction locale ≠ correction publiée · CI distant reste rouge · TB-04-04 reste **NOT DONE** · LOT-D1 NOT-CONSUMED |
 
 ### LOT-D1 à LOT-D5
 
@@ -2596,20 +2596,40 @@ TB-00-* (décisions) · TB-01-06 backup/restore · TB-04-02/04 · TB-05-02 · TB
 
 - **fait** (GO consommé 2026-08-06 00:04 CEST) · document **127** · 14 fichiers CREATE · tests/typecheck/lint/full suite **PASSED** · T0 **READY FOR CHATGPT VALIDATION** · TB-04-04 **pas DONE** · LOT-D1 Delivery **NOT-CONSUMED**.
 
-### Vers PR readiness T0 (prochaine)
+### Vers PR readiness T0 / Draft PR review
+
+- **fait** (publication dependency-closed) · branche `delivery/…-t0-dependency-closed-package` · 2 commits · 23 fichiers · tip `845f427…` ;
+- **fait** (Draft PR #312 créée) · base `main` @ `8dc54db…` · isDraft=true · body hash `3799eab5…` ;
+- **fait** (GO Draft PR Critical Review 2026-08-06) · document **132** · verdict **NOT READY** · finding **PR312-FIND-01** OPEN ;
+- cause primaire : trailing whitespace sur **10 lignes** du document **130** · `git diff --check` exit 2 · required gate failed (run `31083202545`) ;
+- contenu technique T0 **conforme** · FIND-01…08 inchangés · FIND-03 réserve Money ouverte · correction **non appliquée**.
+
+### Vers correction CI bornée
+
+- **fait** (GO consommé 2026-08-06 10:35 CEST / 08:35 UTC) · branche locale `delivery/…-draft-pr-ci-trailing-whitespace-fix` ;
+- document **130** : retrait exclusif de **deux espaces ASCII** finaux sur lignes 126, 131–136, 153, 174, 187 ;
+- contenu textuel préservé · 363 lignes préservées · hash `e8fbf30d…` → `4202ac7e…` ;
+- `git diff --ignore-space-at-eol` exit 0 · `git diff --check` local exit 0 ;
+- `git diff --check origin/main...HEAD` exit 2 (head distant inchangé) ;
+- document **132** byte-identical · document **133** créé · document **134** absent ;
+- PR #312 toujours Draft · head `845f427…` · CI run `31083202545` toujours failure ;
+- PR312-FIND-01 **remédié localement** · **toujours OPEN à distance** · PR **NOT READY** ;
+- aucun git add/commit/push projet · aucune mutation PR.
+
+### Vers publication Git du correctif (prochaine candidate)
 
 ```text
-GO PR READINESS SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — REVIEW FINOPS TECHNICAL LOT T0
+GO GIT PUBLICATION SFIA STUDIO —
+ASSISTANT SFIA NATIF OPENAI —
+COMMIT AND PUSH FINOPS TECHNICAL LOT T0 DRAFT PR CI TRAILING WHITESPACE FIX
 ```
 
 - candidate uniquement — non consommée ;
-- vérifiera le diff T0 ;
-- vérifiera les preuves Critical ;
-- vérifiera l’absence de scope creep ;
-- préparera éventuellement commit/push/PR sous gates distinctes ;
-- n’autorisera pas T1 à T7 ;
-- n’autorisera pas LOT-D1 ;
-- ne marquera pas TB-04-04 DONE.
+- pourrait autoriser staging explicite des quatre fichiers candidats (103, 130, 132, 133) ;
+- un commit documentaire borné et push FF vers le head de la PR #312 ;
+- n’autoriserait pas ready-for-review · merge · T1–T7 · LOT-D1 ;
+- ne marquera pas TB-04-04 DONE ;
+- ne fermerait pas PR312-FIND-01 sans CI vert ultérieur.
 
 ### Vers LOT-D1 (futur, non autorisé, non éligible auto)
 
@@ -2662,30 +2682,24 @@ Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · Postgr
 
 **LOT-IP-0A DECISIONS APPLIED — LOT-IP-0B DECISIONS APPLIED —**
 **PERSISTENCE A2 TECHNOLOGY SELECTION FULLY ARBITRATED —**
-**FIVE TECHNOLOGY DECISIONS SELECTED —**
-**POSTGRESQL SELECTED — NEON SELECTED — PG NODE-POSTGRES SELECTED —**
-**NODE-PG-MIGRATE SELECTED — LD-A SELECTED —**
 **LOT-IP-0C EXECUTED — FINOPS ENFORCEMENT DECISIONS APPLIED —**
-**FINOPS TECHNICAL IMPLEMENTATION DECISIONS APPLIED —**
-**FINOPS TECHNICAL LOT T0 EXECUTED —**
-**FINOPS TECHNICAL LOT T0 PR READINESS AFTER FIXES REVIEWED —**
-**VERDICT READY —**
-**FIND-01 CLOSED — FIND-02 CLOSED — FIND-03 ACCEPTED OPEN RESERVE —**
-**FIND-04 CLOSED — FIND-05 CLOSED — FIND-06 MANIFEST VALIDATED —**
-**FIND-07 ACCEPTED NOTE — FIND-08 CLOSED —**
-**PUBLICATION NOT EXECUTED —**
-**NO GIT ADD, COMMIT, PUSH OR PR —**
-**T1 TO T7 NOT AUTHORIZED —**
-**DOCUMENT 103 UPDATED — DOCUMENT 131 CREATED —**
-**DOCUMENTS 104 TO 130 BYTE-IDENTICAL — DOCUMENT 132 ABSENT —**
-**GRAPH 33/56 PRESERVED — PRIORITIES PRESERVED — NO ITEM DONE —**
+**FINOPS TECHNICAL LOT T0 DEPENDENCY-CLOSED PACKAGE PUBLISHED —**
+**DRAFT PR #312 OPEN AND DRAFT —**
+**BOUNDED CI TRAILING WHITESPACE FIX EXECUTED LOCALLY —**
+**PR312-FIND-01 LOCAL REMEDIATION IMPLEMENTED —**
+**PR312-FIND-01 REMAINS OPEN REMOTELY —**
+**REMOTE HEAD UNCHANGED — REMOTE CI REMAINS FAILED PENDING PUBLICATION —**
+**PR REMAINS NOT READY —**
+**DOCUMENT 130 TEXTUAL CONTENT PRESERVED — LINE COUNT 363 PRESERVED —**
+**DOCUMENT 103 UPDATED — DOCUMENT 133 CREATED — DOCUMENT 132 BYTE-IDENTICAL —**
+**DOCUMENT 134 ABSENT —**
+**NO CODE OR TEST MODIFIED — NO GIT ADD, PROJECT COMMIT OR PUSH —**
+**NO PR MUTATION — NO READY-FOR-REVIEW — NO MERGE —**
+**GRAPH 33/56 PRESERVED — NO ITEM DONE —**
 **TB-04-04 NOT DONE — TB-02-05 PRESERVED —**
-**LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
-**BOUNDED DELIVERY T0 CONSUMED — BOUNDED CORRECTIVE DELIVERY T0 CONSUMED —**
-**PR READINESS AFTER FIXES CONSUMED —**
+**T1 TO T7 NOT AUTHORIZED — LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
 **LOT-D1 DELIVERY NOT-CONSUMED —**
-**NO PROJECT COMMIT OR PUSH —**
-**READY FOR CHATGPT VALIDATION AND MORRIS DEPENDENCY-CLOSED GIT PUBLICATION DECISION**
+**READY FOR CHATGPT VALIDATION AND MORRIS BOUNDED GIT PUBLICATION DECISION**
 
 
 ---
@@ -2695,19 +2709,22 @@ Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · Postgr
 ```text
 GO GIT PUBLICATION SFIA STUDIO —
 ASSISTANT SFIA NATIF OPENAI —
-COMMIT AND PUSH FINOPS TECHNICAL LOT T0 DEPENDENCY-CLOSED PACKAGE
+COMMIT AND PUSH FINOPS TECHNICAL LOT T0 DRAFT PR CI TRAILING WHITESPACE FIX
 ```
 
 Statut : **candidate uniquement — non consommée**.
 
-Cette gate future :
-- autoriserait uniquement le staging exact du manifest validé ;
-- autoriserait les deux commits validés ;
-- autoriserait le push de la branche validée ;
-- n’autoriserait pas automatiquement la création de PR ;
-- n’autoriserait pas le merge ;
-- n’autoriserait pas T1 à T7 ;
-- n’autoriserait pas LOT-D1 ;
-- ne marquera pas TB-04-04 DONE.
+Cette gate future pourrait autoriser :
+- staging explicite des quatre fichiers candidats (103, 130, 132, 133) ;
+- un commit documentaire borné ;
+- un push fast-forward explicite vers le head existant de la PR #312 ;
+- déclenchement automatique du CI par le push.
 
-**FINOPS TECHNICAL LOT T0 PR READINESS AFTER FIXES READY — GIT PUBLICATION CANDIDATE — PUBLICATION NOT EXECUTED — LOT-D1 DELIVERY NOT CONSUMED**
+Elle n’autoriserait pas automatiquement :
+- modification du body ou du titre ;
+- commentaire · reviewer · ready-for-review · merge ;
+- relance manuelle du CI ;
+- T1 à T7 · LOT-D1 ;
+- marquer TB-04-04 DONE.
+
+**FINOPS TECHNICAL LOT T0 DRAFT PR CI FIX LOCAL — PUBLICATION CANDIDATE — PR NOT READY — LOT-D1 DELIVERY NOT CONSUMED**
