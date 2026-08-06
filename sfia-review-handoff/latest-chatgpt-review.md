@@ -1,67 +1,142 @@
-# Review Pack Full — FinOps Technical Lot T1 Execution Pack Preparation
+# Review Pack Full — FinOps Technical Lot T1 Consolidated Decisions Applied
 
 ## Meta
 
-- Locale : 2026-08-06 23:51:21 CEST (+0200)
-- UTC : 2026-08-06 21:51:21 UTC
-- GO / décision Morris : `ok go T1`
-- Horodatage décision : 2026-08-06 23:29 CEST (+0200) / 21:29 UTC (secondes exactes non inventées)
-- Cycle : Architecture technique — Implementation Preparation
-- Mode : FinOps Technical Lot T1 Capture and Persistence Execution Pack
+- Locale / UTC travail Cursor : 2026-08-07 00:00:07 CEST (+0200) / 2026-08-06 22:00:07 UTC
+- Décision Morris : 2026-08-06 23:55 CEST (+0200) / 21:55 UTC (secondes exactes non inventées)
+- GO complet : `GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO — ASSISTANT SFIA NATIF OPENAI — ARBITRATE CONSOLIDATED FINOPS TECHNICAL LOT T1 EXECUTION PACK` + amendements D-T1-*
+- Phrase Morris complémentaire : `ok pour les décisions`
+- Cycle : Architecture technique — Consolidated Decisions Applied
+- Mode : FinOps Technical Lot T1 Execution Pack Decisions Applied
 - Profil : Critical
 - Typologie : EVOL / DOC / ARCHITECTURE / FINOPS / PERSISTENCE / DEVOPS / SECURITY
+- Review Pack : Full
+- Review Handoff : required / publish-in-cycle
+
+## Blocs
+
+Activés : architecture technique ; FinOps ; persistence ; migrations ; CI/DevOps ; sécurité/RSSI ; RGPD/minimisation ; résilience ; multi-instance ; restart-safe ; GreenOps ; RUN readiness ; traçabilité ; gouvernance ; Review Pack ; Review Handoff ; garde-fous.
+
+Désactivés : code ; tests ; packages ; SQL ; migrations exécutables ; accès DB ; accès Neon ; accès OpenAI ; credentials ; modification workflow ; commit projet ; push projet ; PR ; merge ; T2 à T7 ; LOT-D1 à LOT-D5.
 
 ## Coverage
 
-- document 135 complet : yes
+- document 136 complet inclus : yes
+- document 135 byte-identical proof : yes (SHA-256 `fcdea54f024fff51a299292061e96b97541a6b6125adfec7b7c3bf410cccdcbe` · 548 lignes · 23328 octets)
 - Local Git Truth initiale : yes
 - Local Git Truth finale : yes
-- matrice décisions : yes
+- matrice 13 décisions : yes
 - synthesis only : no
 - placeholder actif : no
-- verdict : complete
+- secrets : none
+- verdict coverage : complete
 
-## Local Git Truth initiale / finale (worktree propre)
+## Local Git Truth initiale
 
 ```text
+date_cest=2026-08-06 23:59:20 CEST (+0200)
+date_utc=2026-08-06 21:59:20 UTC
+pwd=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack
+toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack
+=== remotes ===
+origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
+origin	https://github.com/mcleland147/sfia-workspace.git (push)
+branch=implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack
+HEAD=0cdf57a12843891da8b8db2d550cb38c7ba9f60a
+upstream=fatal: no upstream configured for branch 'implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack'
+NONE
+=== status short ===
+?? .tmp-sfia-review/
+?? projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md
+=== diff ===
+=== cached ===
+=== others ===
+.tmp-sfia-review/chatgpt-review.md
+.tmp-sfia-review/t1-execution-pack/work-date-cest.txt
+.tmp-sfia-review/t1-execution-pack/work-date-utc.txt
+projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md
+=== ls-remote ===
+0cdf57a12843891da8b8db2d550cb38c7ba9f60a	refs/heads/main
+02d5a2e0d79d897be5d0bc37f985f3a4c2ecfbad	refs/heads/sfia/review-handoff
+```
+
+## Local Git Truth finale
+
+```text
+date_cest=2026-08-07 00:00:59 CEST (+0200)
+date_utc=2026-08-06 22:00:59 UTC
+pwd=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack
 toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack
 branch=implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack
 HEAD=0cdf57a12843891da8b8db2d550cb38c7ba9f60a
-origin_main=0cdf57a12843891da8b8db2d550cb38c7ba9f60a
 upstream=NONE
-tracked_diff=(empty)
-untracked_project=projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md
-document_103_unchanged=yes
-handoff_tip_observed=29152c5d20d50db5064083eb98329ac8d9dfcdfc	refs/heads/sfia/review-handoff
-t0_historical_handoff_commit=2cf71c8eb1e23a68937828f764fd8c996dbd7f97
-t0_historical_handoff_blob=48c72c051f194975b1bb1958578410d056e0cb5c
+=== status short ===
+?? .tmp-sfia-review/
+?? projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md
+?? projects/sfia-studio/136-assistant-sfia-native-openai-finops-technical-lot-t1-decisions-applied.md
+=== diff ===
+=== cached ===
+=== others ===
+.tmp-sfia-review/chatgpt-review.md
+.tmp-sfia-review/t1-decisions-applied/git-truth-final.txt
+.tmp-sfia-review/t1-decisions-applied/git-truth-initial.txt
+.tmp-sfia-review/t1-decisions-applied/hash135-before.txt
+.tmp-sfia-review/t1-decisions-applied/work-cest.txt
+.tmp-sfia-review/t1-decisions-applied/work-utc.txt
+.tmp-sfia-review/t1-execution-pack/work-date-cest.txt
+.tmp-sfia-review/t1-execution-pack/work-date-utc.txt
+projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md
+projects/sfia-studio/136-assistant-sfia-native-openai-finops-technical-lot-t1-decisions-applied.md
+=== remotes ===
+0cdf57a12843891da8b8db2d550cb38c7ba9f60a	refs/heads/main
+02d5a2e0d79d897be5d0bc37f985f3a4c2ecfbad	refs/heads/sfia/review-handoff
 ```
 
-## Fichier créé
+## Preuve 135 byte-identical
 
-`projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md`
+| Check | Résultat |
+|---|---|
+| Path | `projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md` |
+| SHA-256 before/after | `fcdea54f024fff51a299292061e96b97541a6b6125adfec7b7c3bf410cccdcbe` |
+| Lignes / octets | 548 / 23328 |
+| UTF-8 / LF / final newline | OK |
+| Modifié ce cycle | **NON** |
 
-- lines : 548
-- bytes : 23328
-- UTF-8 / LF / final newline
-- aucun secret
+## Handoff entrant
 
-## Contenu complet du document 135
+| Champ | Valeur |
+|---|---|
+| Tip | `02d5a2e0d79d897be5d0bc37f985f3a4c2ecfbad` |
+| Blob | `e1211fb514e35f14570fa742496e6efcb0913603` |
+| Message | `docs(review-handoff): publish Assistant SFIA FinOps T1 execution-pack preparation` |
 
-```markdown
-# 135 — FinOps Technical Lot T1 — Capture and Persistence Execution Pack
+## Document 136 — contenu complet
+
+Path : `projects/sfia-studio/136-assistant-sfia-native-openai-finops-technical-lot-t1-decisions-applied.md`
+
+Stats : 473 lignes · 16953 octets
+
+---BEGIN DOCUMENT 136---
+
+# 136 — FinOps Technical Lot T1 — Consolidated Decisions Applied
 
 ## 1. Statut et anti-claims
 
-**T0 MERGED AND POST-MERGE CI PASSED**
+**FINOPS TECHNICAL LOT T1 CONSOLIDATED DECISIONS APPLIED**
 
-**T1 EXECUTION PACK PREPARED**
-
-**T1 NOT IMPLEMENTED**
+**T1 EXECUTION PACK 135 PRESERVED BYTE-IDENTICAL**
 
 **T1 DELIVERY NOT AUTHORIZED**
 
-**NO DATABASE PROVISIONED OR ACCESSED**
+**NO CODE IMPLEMENTED**
+
+**NO PACKAGE INSTALLED**
+
+**NO SQL OR MIGRATION CREATED**
+
+**NO DATABASE ACCESSED**
+
+**NO NEON CONFIGURED**
 
 **NO OPENAI REAL CALL**
 
@@ -71,604 +146,552 @@ t0_historical_handoff_blob=48c72c051f194975b1bb1958578410d056e0cb5c
 
 **LOT-D1 TO LOT-D5 NOT AUTHORIZED**
 
-Ce document est un pack d’exécution documentaire. Il ne constitue pas une autorisation d’installation de packages, de provisionnement Neon, d’appel OpenAI réel, de création SQL/migration, de modification CI, de commit/push projet, ni de PR.
+Le document 135 reste le Decision Pack pré-arbitrage historique. Ce document 136 est le record d’application documentaire des arbitrages consolidés. Il ne lance pas la Delivery T1.
 
-## 2. Autorité Morris et GO consommé
+## 2. Autorité Morris
 
-Décision Morris exacte :
+Gate consommée :
 
 ```text
-ok go T1
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO —
+ASSISTANT SFIA NATIF OPENAI —
+ARBITRATE CONSOLIDATED FINOPS TECHNICAL LOT T1 EXECUTION PACK —
+
+ACCEPT RECOMMENDATIONS WITH THESE AMENDMENTS:
+
+D-T1-MONEY-01 = DEFER TO T2 —
+FIND-03 REMAINS OPEN —
+
+D-T1-LEDGER-SCHEMA-01 =
+ACCEPT T1 USAGE LEDGER WITHOUT COST OR CURRENCY COLUMNS —
+
+D-T1-NEON-REGION-01 = DEFER UNTIL NEON INTEGRATION —
+D-T1-NEON-PLAN-01 = DEFER UNTIL NEON INTEGRATION —
+
+D-T1-PG-VERSION-01 = ALIGN WITH SELECTED NEON ENVIRONMENT —
+D-T1-PG-PACKAGE-01 = ACCEPT PG 8.22 LINE —
+D-T1-MIGRATION-VERSION-01 = ACCEPT NODE-PG-MIGRATE 8 LINE —
+D-T1-MIGRATION-PATH-01 = ACCEPT APP/DB/MIGRATIONS —
+
+D-T1-DB-CONNECTION-01 =
+ACCEPT DIRECT MIGRATION CONNECTION AND POOLED RUNTIME CONNECTION —
+
+D-T1-CI-DATABASE-01 = ACCEPT CI-A POSTGRES SERVICE CONTAINER —
+D-T1-PROVIDER-REAL-01 = DEFER TO DISTINCT VALIDATION —
+D-T1-FAILURE-SEMANTICS-01 =
+ACCEPT FAIL-OPEN USER RUN WITH SEPARATE AUDITABLE FINOPS ERROR —
+
+D-T1-PROTECTED-WORKFLOW-01 =
+AUTHORIZE BOUNDED SFIA STUDIO CI MODIFICATION IN FUTURE T1 DELIVERY —
+
+T1 DELIVERY REMAINS NOT AUTHORIZED
 ```
 
-Qualification : cette phrase autorise **exclusivement** la préparation complète du FinOps Technical Lot T1 (document 135 + Review Pack + Review Handoff). Elle n’autorise pas l’implémentation T1, ni l’accès DB/provider, ni la Delivery.
+Phrase Morris complémentaire :
+
+```text
+ok pour les décisions
+```
+
+Morris accepte les recommandations du document 135 avec les amendements explicitement fournis ci-dessus.
 
 ## 3. Horodatage
 
 | Événement | Horodatage |
 |---|---|
-| Décision Morris | 2026-08-06 23:29 CEST (+0200) / 21:29 UTC (secondes exactes non inventées) |
-| Travail Cursor (création document) | 2026-08-06 23:50:02 CEST (+0200) / 2026-08-06 21:50:02 UTC |
+| Décision Morris | 2026-08-06 23:55 CEST (+0200) / 21:55 UTC (secondes exactes non inventées) |
+| Travail Cursor | 2026-08-07 00:00:07 CEST (+0200) / 2026-08-06 22:00:07 UTC |
 
-## 4. Git Truth et preuve T0
+## 4. Git Truth
 
 | Élément | Valeur |
 |---|---|
 | `origin/main` | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
-| Merge T0 (H1 PR #312) | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
-| Head T0 consommé | `489605cb2f2bd7c5db7174af2bc94715f1d3a8e1` |
-| Parent 1 merge | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
-| Parent 2 merge | `489605cb2f2bd7c5db7174af2bc94715f1d3a8e1` |
-| PR | #312 MERGED |
-| CI post-merge | SFIA Studio CI **#104** / run `31111626695` / success / event `push` |
-| Handoff historique T0 (immuable) | commit `2cf71c8eb1e23a68937828f764fd8c996dbd7f97` · blob `48c72c051f194975b1bb1958578410d056e0cb5c` |
-| Tip `sfia/review-handoff` observé en début de cycle | `29152c5d20d50db5064083eb98329ac8d9dfcdfc` (latest rotatif — **ne pas** confondre avec le handoff T0 historique) |
-| Document 135 avant cycle | **ABSENT** |
-| Branche de préparation | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack` |
+| Branche | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack` |
+| HEAD | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
 | Upstream | aucun |
-| Index / tracked mods (worktree propre) | vides au démarrage |
+| Worktree | `…/worktrees/finops-t1-pack` |
+| Document 135 | untracked local · SHA-256 `fcdea54f024fff51a299292061e96b97541a6b6125adfec7b7c3bf410cccdcbe` · 548 lignes · 23328 octets · **byte-identical** préservé |
+| Document 136 avant cycle | **ABSENT** |
+| Document 136 après cycle | créé localement (untracked) |
+| Tracked modifications | aucune |
+| Staged | vide |
+| Handoff entrant | tip `02d5a2e0d79d897be5d0bc37f985f3a4c2ecfbad` · blob `e1211fb514e35f14570fa742496e6efcb0913603` |
+| Commit / push projet | **aucun** |
+
+## 5. Sources
+
+- `prompts/templates/sfia-cycle-execution-template.md` (blob `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`)
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- documents 103, 123, 125, 126–134 (read-only)
+- document 135 complet (pré-arbitrage)
+- Review Handoff entrant `02d5a2e…` / blob `e1211fb…`
+- `projects/sfia-studio/app/package.json` (read-only)
+- `.github/workflows/sfia-studio-ci.yml` (read-only)
+- chemins runtime découverts dans 135 (`coordinateExecutionRun`, adapter, `openaiProvider`, types usage)
+
+## 6. Matrice avant / après
+
+| ID | Avant | Valeur décidée | Portée | Différé | Conséquences Delivery | Anti-claim |
+|---|---|---|---|---|---|---|
+| D-T1-MONEY-01 | REQUIRED | DEFER TO T2 | schéma / domaine monétaire | valeur Money exacte | pas de colonnes coût/devise T1 | DEFER ≠ M1 SELECTED |
+| D-T1-LEDGER-SCHEMA-01 | REQUIRED | USAGE LEDGER WITHOUT COST/CURRENCY | schéma T1 | — | migration ledger usage-only | cost/currency exclus |
+| D-T1-DB-CONNECTION-01 | REQUIRED | DIRECT migrate + POOLED runtime | connexions | secrets réels | dual-URL future | pas de credential maintenant |
+| D-T1-NEON-REGION-01 | REQUIRED | DEFER UNTIL NEON INTEGRATION | Neon | région exacte | Delivery initiale sans Neon | defer ≠ sélection |
+| D-T1-NEON-PLAN-01 | REQUIRED | DEFER UNTIL NEON INTEGRATION | Neon | plan exact | idem | defer ≠ sélection |
+| D-T1-PG-VERSION-01 | REQUIRED | ALIGN WITH SELECTED NEON ENV | politique PG | version exacte | CI locale compatible | pas de version inventée |
+| D-T1-PG-PACKAGE-01 | REQUIRED | PG 8.22 LINE | package | patch exact lock | install en Delivery | pas d’install maintenant |
+| D-T1-MIGRATION-VERSION-01 | REQUIRED | NODE-PG-MIGRATE 8 LINE | package | patch exact lock | install en Delivery | pas d’install maintenant |
+| D-T1-MIGRATION-PATH-01 | REQUIRED | `app/db/migrations/` | chemin | — | migrations additives futures | aucun SQL maintenant |
+| D-T1-CI-DATABASE-01 | REQUIRED | CI-A Postgres service | CI | — | service éphémère | pas de secret Neon PR |
+| D-T1-PROVIDER-REAL-01 | REQUIRED | DEFER TO DISTINCT VALIDATION | OpenAI réel | GO distinct | mocks/CI sans clé | pas de provider-real T1 |
+| D-T1-FAILURE-SEMANTICS-01 | REQUIRED | FAIL-OPEN + erreur FinOps | résilience | retry durable T2/T6 | run user non fail-closed | pas de perte silencieuse |
+| D-T1-PROTECTED-WORKFLOW-01 | REQUIRED | BOUNDED CI MOD IN FUTURE DELIVERY | workflow protégé | — | modif CI-A bornée | pas de modif ce cycle |
 
-Note méthodologique : des worktrees antérieurs de tentative T1 ont été contaminés par un changement de root agent ; ils n’ont pas été utilisés pour l’édition. Le worktree ci-dessus a été vérifié à `0cdf57a…` avant écriture.
+## 7. D-T1-MONEY-01
 
-## 5. Sources consultées
+**Valeur décidée :** `DEFER TO T2`
 
-| Source | Rôle |
-|---|---|
-| `prompts/templates/sfia-cycle-execution-template.md` | Template cycle SFIA v2.6 |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Routage cycles |
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Operating model |
-| `projects/sfia-studio/103-…-technical-implementation-backlog.md` | Backlog opérationnel · A2 Neon/pg/node-pg-migrate · FIND-03 Money · anti-gates §33 |
-| `projects/sfia-studio/123-…-finops-enforcement-decisions-applied.md` | Décisions enforcement (hors T1 actif) |
-| `projects/sfia-studio/125-…-finops-technical-implementation-decisions-applied.md` | CAP-C · BND-A · TECH-STORE/IDEM/MIG · périmètre T1 |
-| `projects/sfia-studio/126`–`134` | Execution pack / records / readiness / findings T0 |
-| `projects/sfia-studio/app/package.json` + `package-lock.json` | Dépendances actuelles (`openai` présent · `pg`/`node-pg-migrate` absents) |
-| `.github/workflows/sfia-studio-ci.yml` | CI Studio · Node 24 · pas de service Postgres |
-| `app/lib/oa/finops/**` + `__tests__/oa/finops/**` | Domaine T0 pur |
-| `app/lib/oa/execution-run/application/coordinateExecutionRun.ts` | Capture usage post-provider |
-| `app/lib/oa/execution-run/infrastructure/ai/platformAiExecutionAdapter.ts` | Mapping `ProviderUsage` → `UsageSummary` |
-| `app/lib/platform/ai/openaiProvider.ts` | Provider OpenAI Responses API |
-| `app/lib/platform/ai/types.ts` | `ProviderUsage` |
-| `app/lib/oa/execution-run/domain/types.ts` | `UsageSummary` |
-| `app/lib/platform/ai/config.ts` | `OPENAI_API_KEY` / `OPENAI_MODEL` |
-| `.gitignore` | Ignore `.env` / `.env.*` |
-| `scripts/sfia/publish-review-handoff.sh` | Publisher handoff L3 |
-| Métadonnées npm read-only (`pg`, `node-pg-migrate`, `@types/pg`) | Versions candidates |
+**Statut :** DECISION TO DEFER APPLIED — VALUE NOT SELECTED
 
-## 6. État existant du runtime
+Conséquences :
 
-### 6.1 Flux `coordinateExecutionRun`
+- aucune représentation monétaire implémentée en T1 ;
+- aucune colonne `cost` / `currency` ;
+- aucun calcul tarifaire / arrondi monétaire ;
+- **FIND-03 reste OPEN** ;
+- Money arbitré et implémenté dans un cycle T2 distinct.
 
-Chemin réel :
-
-`projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts`
-
-Flux observé (succès provider) :
-
-1. préflight / create / engage ;
-2. invocation `AiExecutionPort.complete` (adapter plateforme) ;
-3. si `providerResult.kind === "success"` → `validatedUsage(providerResult.usage)` ;
-4. transitions d’état execution-run ;
-5. retour `CoordinateExecutionRunResult` avec `validatedUsage`.
-
-`validatedUsage` devient disponible **uniquement** sur le chemin succès provider (ou normalisé depuis usage provider). Sur échec/timeout/cancel/hostile/invalid : `status: "unavailable"` avec reason.
-
-**Aucune écriture FinOps ledger / PostgreSQL** n’existe aujourd’hui dans ce flux.
-
-### 6.2 Adapter et provider
-
-| Composant | Chemin |
-|---|---|
-| Adapter | `…/execution-run/infrastructure/ai/platformAiExecutionAdapter.ts` |
-| Provider canonique | `…/platform/ai/openaiProvider.ts` |
-| Re-export ops1 | `…/ops1/conversation/openaiProvider.ts` → même classe |
-
-Mapping adapter : si `inputTokens` ou `outputTokens` non null → `UsageSummary.status = "validated"` ; sinon `unavailable` (`provider usage missing`).
-
-Provider lit Responses API `usage.input_tokens` / `output_tokens` / `total_tokens` → `ProviderUsage`.
-
-### 6.3 Types
-
-- `ProviderUsage` : `app/lib/platform/ai/types.ts` — `inputTokens`, `outputTokens`, `totalTokens`, `model`, `providerResponseId` (nullable).
-- `UsageSummary` : `app/lib/oa/execution-run/domain/types.ts` — `validated` | `unavailable`.
-
-### 6.4 Stockage actuel
-
-- Execution-run : `persistence.kind: "memory_process_local"` · repository mémoire process-local.
-- FinOps T0 : contrats purs uniquement · **aucune** persistence.
-- Aucun dossier `migrations/` sous `projects/sfia-studio`.
-- Aucune `DATABASE_URL` Studio.
+**Anti-claim :** `DEFER TO T2 ≠ M1 SELECTED`.
 
-### 6.5 Dépendances
+## 8. D-T1-LEDGER-SCHEMA-01
 
-- `openai`: `^6.48.0` (présent).
-- `pg` : **absent**.
-- `node-pg-migrate` : **absent**.
-- Scripts migrate : **absents**.
-- CI Node : **24**.
+**Valeur décidée :** `T1 USAGE LEDGER WITHOUT COST OR CURRENCY COLUMNS`
 
-### 6.6 Environnement
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
 
-- Variables référencées : `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPS1_CONVERSATION_PROVIDER`.
-- Pas de `.env.example` sous `projects/sfia-studio`.
-- `.gitignore` ignore `.env` / `.env.*` (exception `!.env.example`).
+Schéma logique accepté pour la future Delivery :
 
-## 7. Frontière exacte T1
+- `event_id`
+- `dedup_key`
+- `project_id`
+- `execution_run_id`
+- `correlation_id` (nullable)
+- `provider`
+- `model` (nullable)
+- `occurred_at`
+- `period_start`
+- `source_of_truth`
+- `evidence_class`
+- `input_tokens` (nullable)
+- `output_tokens` (nullable)
+- `total_tokens` (nullable)
+- `provider_request_id` (nullable)
+- `correction_ref` (nullable)
+- `usage_status`
+- `created_at`
 
-### 7.1 Flux cible (sans code)
+Colonnes **explicitement exclues** de T1 :
 
-```text
-provider invocation
-→ provider result validation
-→ post-provider FinOps capture boundary (CAP-C)
-→ canonical event construction
-→ deterministic identity (eventId + dedup key)
-→ transaction DB
-→ immutable ledger insert OR duplicate recognition
-→ structured result to caller
-```
+- `cost_minor`
+- `cost_numeric`
+- `currency_code`
+- toute autre représentation monétaire
 
-Writer autoritatif unique : service FinOps serveur (BND-A). UI et domaine T0 purs **n’écrivent pas** PostgreSQL.
+Préservé :
 
-### 7.2 Sémantiques opérationnelles (candidats — arbitrage Morris si non déjà SELECTED)
+- append-only ;
+- PK `event_id` ;
+- UNIQUE `dedup_key` ;
+- tokens non négatifs quand non null ;
+- pas de payload OpenAI brut ;
+- pas d’agrégat T2.
 
-| Situation | Comportement candidat | Statut |
-|---|---|---|
-| Écriture réussie | résultat `created` · run caller inchangé côté métier | aligné CAP-C |
-| Événement déjà présent | résultat `duplicate` · succès idempotent · pas de double comptage | aligné TECH-IDEM-01 |
-| DB indisponible | erreur structurée retryable · **ne pas** transformer silencieusement un succès provider en échec métier sans décision | **D-T1-FAILURE-SEMANTICS-01** |
-| Usage fournisseur absent | événement `usage_unavailable` ou skip capture selon option | **D-T1-FAILURE-SEMANTICS-01** |
-| Usage invalide | rejeter capture · erreur non retryable auditable | candidat |
-| Timeout / cancellation provider | pas de capture validated · éventuel marker unavailable | aligné runtime actuel |
-| Panne FinOps après succès provider | recommandation candidate : **ne pas** fail-closed le run utilisateur ; surface erreur FinOps séparée | **MORRIS DECISION REQUIRED** |
+## 9. D-T1-DB-CONNECTION-01
 
-## 8. Modèle physique candidat — ledger T1
+**Valeur décidée :** `DIRECT MIGRATION CONNECTION AND POOLED RUNTIME CONNECTION`
 
-### 8.1 Table candidate `finops_usage_event` (ledger immuable)
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
 
-**Rôle :** append-only ledger d’événements d’usage post-provider.
+Conséquences futures :
 
-| Colonne | Type candidat | Null | Notes |
-|---|---|---|---|
-| `event_id` | `uuid` (ou `text` canonique) | NOT NULL | PK · déterministe |
-| `dedup_key` | `text` | NOT NULL | UNIQUE |
-| `project_id` | `text` | NOT NULL | |
-| `execution_run_id` | `text` | NOT NULL | |
-| `correlation_id` | `text` | NULL | |
-| `provider` | `text` | NOT NULL | ex. `openai` |
-| `model` | `text` | NULL | |
-| `occurred_at` | `timestamptz` | NOT NULL | |
-| `period_start` | `date` | NOT NULL | UTC calendar month start |
-| `source_of_truth` | `text` | NOT NULL | enum SoT T0 |
-| `evidence_class` | `text` | NOT NULL | |
-| `input_tokens` | `bigint` | NULL | |
-| `output_tokens` | `bigint` | NULL | |
-| `total_tokens` | `bigint` | NULL | |
-| `cost_minor` / `cost_numeric` | selon Money | NULL | **FIND-03 / D-T1-MONEY-01** |
-| `currency_code` | `char(3)` | NULL | ISO 4217 si coût présent |
-| `provider_request_id` | `text` | NULL | |
-| `correction_ref` | `text` | NULL | réservé corrections futures |
-| `usage_status` | `text` | NOT NULL | `validated` / `unavailable` / `invalid` |
-| `created_at` | `timestamptz` | NOT NULL | default `now()` |
+- migrations via URL directe ;
+- runtime via URL poolée ;
+- séparation des responsabilités ;
+- secrets distincts possibles ;
+- SSL obligatoire ;
+- aucun nom ou credential réel créé maintenant.
 
-**Contraintes :**
-
-- PK(`event_id`) ;
-- UNIQUE(`dedup_key`) ;
-- CHECK tokens ≥ 0 quand non null ;
-- **pas** de UPDATE métier ; corrections via nouvel événement + `correction_ref` (évolution future).
-
-**Index candidats :**
-
-- UNIQUE dedup ;
-- `(project_id, period_start)` ;
-- `(execution_run_id)` ;
-- `(occurred_at)`.
-
-**Données interdites :**
-
-- payload OpenAI brut ;
-- `OPENAI_API_KEY` / secrets ;
-- PII non minimisée (prompts, contenus conversation) ;
-- agrégats T2.
+Noms candidats (jamais de valeurs) :
 
-**Pas de table d’agrégats T2** dans T1 (TECH-STORE autorise events+aggregates conceptuellement, mais agrégation = T2). T1 se limite au ledger d’événements.
+- `DATABASE_URL`
+- `DATABASE_URL_DIRECT`
 
-## 9. Représentation Money — FIND-03
+## 10. D-T1-NEON-REGION-01
 
-FIND-03 reste **OPEN / ACCEPTED RESERVE** jusqu’à décision Morris.
+**Valeur décidée :** `DEFER UNTIL NEON INTEGRATION`
 
-### Option M1 — entier unité mineure + currency
+**Statut :** DECISION TO DEFER APPLIED — VALUE NOT SELECTED
 
-- précision : déterministe ;
-- PG : `bigint` + `char(3)` ;
-- TS : `number`/`bigint` ;
-- risques arrondi : à la frontière d’entrée uniquement ;
-- **recommandation candidate : OUI** pour coûts FinOps.
+## 11. D-T1-NEON-PLAN-01
 
-### Option M2 — `numeric` scale explicite + currency
+**Valeur décidée :** `DEFER UNTIL NEON INTEGRATION`
 
-- précision forte ;
-- risques de mapping TS/ORM ;
-- acceptable si scale figée (ex. 6).
+**Statut :** DECISION TO DEFER APPLIED — VALUE NOT SELECTED
 
-### Option M3 — chaîne décimale domaine + conversion DB
+Anti-claims :
 
-- déterminisme domaine élevé ;
-- friction frontière ;
-- utile si multi-scale.
+- compte Neon existant ≠ environnement configuré ;
+- defer ≠ choix implicite ;
+- aucune région / plan sélectionnés ;
+- aucun projet ou branche DB créé ;
+- aucun credential nécessaire pour Delivery locale/CI initiale.
 
-**Recommandation candidate :** **M1** (entier unité mineure + ISO 4217).
+## 12. D-T1-PG-VERSION-01
 
-**Statut :** `D-T1-MONEY-01` — **MORRIS DECISION REQUIRED** — FIND-03 non fermé.
+**Valeur décidée :** `ALIGN WITH SELECTED NEON ENVIRONMENT`
 
-## 10. Stratégie Neon candidate
+**Statut :** DECISION TO DEFER APPLIED — VALUE NOT SELECTED (politique décidée ; version exacte différée)
 
-Compte Neon existe (prérequis opérationnel Morris) · **aucune configuration dans ce cycle**.
+Qualification :
 
-| Sujet | Options / notes | Statut |
-|---|---|---|
-| Projet / env | isolé Studio FinOps | candidat |
-| Région | non sélectionnée dans repo | **D-T1-NEON-REGION-01** |
-| Plan | non sélectionné | **D-T1-NEON-PLAN-01** |
-| Branche DB | possible pour CI/dev | candidat |
-| Connexion directe | migrations (`node-pg-migrate`) | **D-T1-DB-CONNECTION-01** |
-| Connexion poolée | runtime app | **D-T1-DB-CONNECTION-01** |
-| SSL | requis | candidat |
-| Variables | `DATABASE_URL` (runtime pool) · `DATABASE_URL_DIRECT` ou `DIRECT_URL` (migrations) — noms candidats | |
-| Local / CI / partagé | séparation stricte | |
-| Rotation | manuelle Morris | |
+- politique de compatibilité décidée ;
+- version PostgreSQL exacte non sélectionnée tant que l’environnement Neon ne l’est pas ;
+- future Delivery locale/CI : version compatible avec la cible probable sans figer Neon.
 
-Aucun credential demandé ou affiché.
+## 13. D-T1-PG-PACKAGE-01
 
-## 11. Stratégie OpenAI candidate
+**Valeur décidée :** `PG 8.22 LINE ACCEPTED`
 
-| Sujet | Observation / candidat |
-|---|---|
-| Moment de lecture usage | post-`complete` provider · avant/après transitions · **après** validation `UsageSummary` |
-| Champs disponibles | `inputTokens`, `outputTokens`, `totalTokens`, `model`, `providerResponseId` |
-| Mapping FinOps | SoT initial typiquement `API_USAGE` / evidence estimée selon 125 — **ne bloque jamais** |
-| Usage absent | `usage_status=unavailable` · tokens null |
-| Modèle inconnu | stocker `model` null/unknown text · pas d’invention |
-| provider request ID absent | null autorisé |
-| Mocks | `OPS1_CONVERSATION_PROVIDER=fake` / fixtures — **sans** clé |
-| Provider-real | étape Delivery optionnelle · **D-T1-PROVIDER-REAL-01** |
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
 
-## 12. Packages et versions
+- famille 8.22 acceptée ;
+- version exacte à figer dans `package-lock` pendant Delivery ;
+- aucune installation maintenant ;
+- `@types/pg` compatible à sélectionner techniquement en Delivery.
 
-| Package | État actuel | Version candidate (npm read-only) | Rôle | Runtime/dev | Recommandation candidate |
-|---|---|---|---|---|---|
-| `openai` | `^6.48.0` présent | conserver | provider | runtime | KEEP |
-| `pg` | absent | `8.22.0` (engines ≥16) | client PG | runtime | **D-T1-PG-PACKAGE-01** |
-| `@types/pg` | absent | `8.20.4` | types | dev | avec `pg` |
-| `node-pg-migrate` | absent | `8.0.x` ou `9.0.0` (peer `pg` `<9`) | migrations | dev/runtime migrate | **D-T1-MIGRATION-VERSION-01** — privilégier ligne compatible peer `pg@8` |
+## 14. D-T1-MIGRATION-VERSION-01
 
-Node CI = 24 · compatible.
+**Valeur décidée :** `NODE-PG-MIGRATE 8 LINE ACCEPTED`
 
-**Interdit dans ce cycle :** `npm install` / modification lockfile.
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
 
-## 13. Stratégie migrations
+- ligne 8 acceptée ;
+- version exacte à figer pendant Delivery ;
+- compatibilité avec `pg` 8 requise ;
+- aucune installation maintenant.
 
-| Élément | Candidat |
-|---|---|
-| Chemin | `projects/sfia-studio/app/db/migrations/` (**candidat**) |
-| Outil | `node-pg-migrate` (TECH-MIG-01 SELECTED) |
-| Nommage | timestamp + slug additif |
-| Up/down | obligatoires · down non destructif (drop objects créés uniquement si vides / safe) |
-| Règles | additives only · **pas** de backfill historique T1 |
-| Connexion | **directe** (pas pool transaction mode) |
-| Scripts futurs | `migrate:up` / `migrate:down` (non créés ici) |
-| CI | selon **D-T1-CI-DATABASE-01** |
-| Rollback | flag-off + data preserved (125) |
+## 15. D-T1-MIGRATION-PATH-01
 
-## 14. Stratégie CI et tests DB
+**Valeur décidée :** `projects/sfia-studio/app/db/migrations/`
 
-### Option CI-A — service container Postgres GitHub Actions (recommandation candidate)
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
 
-- reproductible · pas de secret Neon en PR ;
-- `services: postgres` + migrate + tests intégration ;
-- modification future de `.github/workflows/sfia-studio-ci.yml` → **D-T1-PROTECTED-WORKFLOW-01**.
+- migrations additives ;
+- conventions up/down ;
+- aucun backfill historique T1 ;
+- aucune migration destructive ;
+- **aucune migration créée dans ce cycle**.
 
-### Option CI-B — Neon branch CI
+## 16. D-T1-CI-DATABASE-01
 
-- secrets GitHub · isolation/nettoyage requis · plus de surface credential.
+**Valeur décidée :** `CI-A — POSTGRES SERVICE CONTAINER`
 
-### Option CI-C — DB tests locaux seulement
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
 
-- CI sans DB · risque de régression non détectée.
+Conséquences futures :
 
-**Recommandation candidate :** **CI-A**.
+- PostgreSQL éphémère GitHub Actions ;
+- pas de secret Neon dans les PR ;
+- migrations avant tests DB ;
+- isolation par run ;
+- reproductibilité ;
+- aucune dépendance réseau Neon pour la CI standard.
 
-## 15. Plan de credentials
+## 17. D-T1-PROVIDER-REAL-01
+
+**Valeur décidée :** `DEFER TO DISTINCT VALIDATION`
+
+**Statut :** DECISION TO DEFER APPLIED — VALUE NOT SELECTED
+
+- Delivery T1 initiale avec mocks et mapping unitaire ;
+- aucune clé OpenAI requise pour implémentation locale ou CI ;
+- validation OpenAI réelle soumise à un GO Morris distinct ;
+- aucune claim provider-real dans T1 Delivery.
+
+## 18. D-T1-FAILURE-SEMANTICS-01
+
+**Valeur décidée :** `FAIL-OPEN USER RUN WITH SEPARATE AUDITABLE FINOPS ERROR`
+
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
+
+Définition :
+
+- succès fournisseur conservé comme succès métier ;
+- panne de capture FinOps **ne** transforme **pas** le run en échec ;
+- erreur FinOps séparée, structurée, sanitized et auditable ;
+- erreur transitoire marquée retryable lorsqu’approprié ;
+- aucun retry incontrôlé dans T1 ;
+- aucune perte silencieuse ;
+- aucune exposition de détail DB à l’utilisateur.
+
+La stratégie de retry durable / reconciliation appartient aux lots ultérieurs (T2/T6 selon responsabilité).
+
+## 19. D-T1-PROTECTED-WORKFLOW-01
+
+**Valeur décidée :** `BOUNDED SFIA STUDIO CI MODIFICATION AUTHORIZED IN FUTURE T1 DELIVERY`
+
+**Statut :** DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED
+
+Portée future strictement autorisée :
+
+`.github/workflows/sfia-studio-ci.yml`
+
+Modification future uniquement pour :
+
+- ajouter un service PostgreSQL éphémère ;
+- variables non secrètes de connexion au service local CI ;
+- exécuter migrations ;
+- exécuter tests d’intégration DB ;
+- conserver les gates existantes.
+
+Interdit même pendant la future Delivery sans nouveau GO :
+
+- secret Neon ;
+- appel OpenAI réel ;
+- suppression de contrôles existants ;
+- affaiblissement du Required Gate ;
+- changement d’autres workflows ;
+- déploiement / production.
+
+**Aucune modification de workflow dans ce cycle.**
+
+## 20. Synthèse des 13 décisions
+
+| ID | Valeur décidée | Statut | Exactitude différée | Lot | Credential | Future action |
+|---|---|---|---|---|---|---|
+| D-T1-MONEY-01 | DEFER TO T2 | DECISION TO DEFER APPLIED — VALUE NOT SELECTED | représentation Money | T2 | non T1 | arbitrage T2 |
+| D-T1-LEDGER-SCHEMA-01 | usage ledger sans cost/currency | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | — | T1 | non | migration + adapter |
+| D-T1-DB-CONNECTION-01 | direct + pooled | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | secrets réels | T1 | local/CI non-secret ; Neon plus tard | dual-URL |
+| D-T1-NEON-REGION-01 | DEFER UNTIL NEON INTEGRATION | DECISION TO DEFER APPLIED — VALUE NOT SELECTED | région | Neon future | Neon futur | gate Neon |
+| D-T1-NEON-PLAN-01 | DEFER UNTIL NEON INTEGRATION | DECISION TO DEFER APPLIED — VALUE NOT SELECTED | plan | Neon future | Neon futur | gate Neon |
+| D-T1-PG-VERSION-01 | ALIGN WITH SELECTED NEON ENV | DECISION TO DEFER APPLIED — VALUE NOT SELECTED | version exacte | T1/Neon | non | aligner CI/local |
+| D-T1-PG-PACKAGE-01 | PG 8.22 LINE | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | patch lock | T1 | non | npm install Delivery |
+| D-T1-MIGRATION-VERSION-01 | NODE-PG-MIGRATE 8 LINE | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | patch lock | T1 | non | npm install Delivery |
+| D-T1-MIGRATION-PATH-01 | `app/db/migrations/` | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | — | T1 | non | créer migrations Delivery |
+| D-T1-CI-DATABASE-01 | CI-A | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | — | T1 | non | modif workflow bornée |
+| D-T1-PROVIDER-REAL-01 | DEFER TO DISTINCT VALIDATION | DECISION TO DEFER APPLIED — VALUE NOT SELECTED | GO distinct | validation future | OpenAI futur | gate distincte |
+| D-T1-FAILURE-SEMANTICS-01 | FAIL-OPEN + erreur FinOps | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | retry durable | T1 (+T2/T6) | non | implémenter sémantique |
+| D-T1-PROTECTED-WORKFLOW-01 | BOUNDED CI MOD FUTURE DELIVERY | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED | — | T1 | non | CI-A dans Delivery |
+
+## 21. Manifest de la future Delivery T1
+
+### Créations candidates
+
+- service/application de capture FinOps ;
+- types d’événement T1 (sans Money) ;
+- port repository ledger ;
+- adapter PostgreSQL ;
+- mapper `ProviderUsage` → événement FinOps ;
+- migration initiale sous `projects/sfia-studio/app/db/migrations/` ;
+- tests unitaires et d’intégration ;
+- `.env.example` sans secret si nécessaire.
+
+### Modifications candidates
+
+- composition root / `coordinateExecutionRun` (point exact à figer) ;
+- `package.json` / `package-lock.json` ;
+- `.github/workflows/sfia-studio-ci.yml` (borné CI-A) ;
+- exports FinOps nécessaires.
+
+### Exclusions fermes
+
+- coût et devise ;
+- T2 aggregation ;
+- alertes / enforcement / override / rollout / UI ;
+- Neon réel ;
+- OpenAI réel ;
+- autres workflows.
+
+## 22. Credentials
 
 | Phase | Credentials |
 |---|---|
-| PREPARATION T1 (ce cycle) | **aucun** |
-| DELIVERY T1 — mock / local Postgres | aucun OpenAI · Postgres local/CI |
-| DELIVERY T1 — Neon | Neon URL(s) · saisie manuelle locale Morris · jamais chat/prompt/Git/pack/logs |
-| VALIDATION PROVIDER-REAL | `OPENAI_API_KEY` (+ model) uniquement si GO explicite · masqué |
+| DELIVERY T1 LOCALE / CI-A | aucun Neon · aucune clé OpenAI · Postgres local/service container uniquement |
+| NEON INTEGRATION FUTURE | credentials Neon après gate distincte · saisie manuelle Morris · jamais chat/prompt/Git/handoff/logs |
+| OPENAI PROVIDER-REAL FUTUR | `OPENAI_API_KEY` après gate distincte · saisie locale · jamais affichée |
 
-Noms candidats uniquement : `DATABASE_URL`, `DATABASE_URL_DIRECT`, `OPENAI_API_KEY`, `OPENAI_MODEL`.
+## 23. Réserves
 
-## 16. Manifest futur T1 (borné)
-
-### À créer (candidats)
-
-- `app/lib/oa/finops/application/captureFinOpsUsage.ts` (ou équivalent conventions repo)
-- `app/lib/oa/finops/application/types.ts` (event / results)
-- `app/lib/oa/finops/ports/finOpsLedgerRepository.ts`
-- `app/lib/oa/finops/infrastructure/postgres/pgFinOpsLedgerRepository.ts`
-- `app/lib/oa/finops/infrastructure/openai/mapProviderUsageToFinOpsEvent.ts`
-- `app/db/migrations/<timestamp>_create-finops-usage-event.js` (ou `.ts` selon outil)
-- tests unitaires + intégration sous `app/__tests__/oa/finops/`
-- `.env.example` Studio **sans secrets** (si absent)
-
-### À modifier (candidats)
-
-- `coordinateExecutionRun.ts` **ou** composition root serveur — appel capture post-success (**point exact à figer en Delivery**)
-- `package.json` / `package-lock.json` — ajout `pg` / `node-pg-migrate` après GO
-- `.github/workflows/sfia-studio-ci.yml` — **protégé** · GO borné requis
-
-### Préservés / interdits
-
-- domaine T0 pur `app/lib/oa/finops/domain/**` : préservé (extensions non cassantes seulement)
-- documents 103–134 : **non modifiés** dans Delivery T1 sauf GO distinct
-- pas d’agrégation T2 · pas d’enforcement · pas d’UI
-
-## 17. Symboles futurs (candidats)
-
-- `FinOpsUsageEvent`
-- `FinOpsEventId`
-- `FinOpsDedupKey`
-- `FinOpsLedgerRepository`
-- `CaptureFinOpsUsage` / `captureFinOpsUsage`
-- `mapProviderUsageToFinOpsEvent`
-- `PgFinOpsLedgerRepository`
-- `FinOpsInsertResult` = `created` | `duplicate`
-- `FinOpsPersistenceError` (sanitized)
-
-Noms finaux à aligner sur conventions camelCase/ports du repo lors de Delivery.
-
-## 18. Idempotence et concurrence
-
-Aligné TECH-IDEM-01 (SELECTED — NOT IMPLEMENTED) :
-
-| Élément | Candidat |
-|---|---|
-| Matériau `eventId` | hash canonique stable de champs normalisés (provider, runId, attempt/correlation, period, usage fingerprint) |
-| Matériau `dedup_key` | `provider + execution_run_id + attempt` (125) · normalisation trim/lower où applicable |
-| Retry | même clé → `duplicate` |
-| Concurrence | UNIQUE + transaction · pas de lock mémoire autoritatif |
-| Multi-instance / restart-safe | oui via contrainte DB |
-
-Détail exact du hash algorithmique : **à figer en Delivery** sans changer la sémantique.
-
-## 19. Erreurs et résilience
-
-| Cas | Classe candidate | Retryable | User-visible |
-|---|---|---|---|
-| provider success / DB success | OK | — | non |
-| provider success / DB failure | FinOps persistence error | oui (transient) | message générique / flag interne |
-| provider failure | pas de capture validated | — | existant |
-| usage unavailable | event marker ou skip | non | non |
-| usage invalid | reject | non | non |
-| duplicate | success idempotent | — | non |
-| migration failure | stop Delivery | non | ops |
-| connection timeout | transient | oui | non |
-| conflict transaction | transient | oui | non |
-| malformed env | config error | non | ops |
-| credential absent/invalid | config/auth error | non | ops |
-
-## 20. Sécurité et RGPD
-
-- secrets server-side only ;
-- jamais dans bundle client / logs / handoff ;
-- SQL paramétré ;
-- least privilege DB (runtime vs migrate) ;
-- pas de payload brut ;
-- actorId pseudonymisé si nécessaire ;
-- **R-TECH-TTL-01 KEEP-OPEN** ;
-- **R-TECH-FINOPS-HARD-01 KEEP-OPEN**.
-
-## 21. Performance et GreenOps
-
-- insert unitaire post-run · batch non requis T1 ;
-- index minimaux (§8) ;
-- pas d’agrégation always-on ;
-- pool sizing futur borné ;
-- unknown ≠ zero conservé ;
-- estimation never blocks.
-
-## 22. Plan de tests futurs
-
-| Test | Type | Credential | CI |
-|---|---|---|---|
-| invariants T0 inchangés | unitaire | non | oui |
-| mapper OpenAI → event | unitaire | non | oui |
-| idempotence duplicate | intégration PG | non (local/CI PG) | oui (CI-A) |
-| DB unavailable | intégration | non | oui |
-| usage invalid / unavailable | unitaire | non | oui |
-| unknown ≠ zero / estimation never blocks | unitaire | non | oui |
-| import boundaries | unitaire | non | oui |
-| migrations up/down | intégration | non | oui |
-| secret leakage scan | CI existant + asserts | non | oui |
-| Neon validation | manuel borné | Neon | non PR |
-| OpenAI provider-real | manuel borné | OpenAI | non PR |
-
-## 23. Commandes futures candidates (ne pas exécuter ici)
-
-```bash
-# unitaires FinOps
-npm test -- __tests__/oa/finops
-
-# typecheck / lint / build (app)
-npm run typecheck && npm run lint && npm run build
-
-# migrations (après installation autorisée)
-npm run migrate:up
-npm run migrate:down
-
-# CI
-# déclenchée sur PR/push — service Postgres si CI-A accepté
-```
-
-## 24. Stop conditions — future Delivery T1
-
-- main divergent du SHA arbitrage ;
-- décisions Morris manquantes (matrice §26) ;
-- Money non arbitré si colonne coût persistée ;
-- versions packages non validées ;
-- région/plan Neon requis non sélectionnés ;
-- credential demandé trop tôt / secret visible ;
-- migration destructive / raw payload / T2 aggregation / enforcement ;
-- modification hors manifest ;
-- workflow protégé sans GO ;
-- lockfile hors installation attendue ;
-- double comptage possible ;
-- absence rollback / redaction.
-
-## 25. Critères d’acceptation T1 futurs (non réalisés)
-
-1. Ledger append-only déployable via migration additive.
-2. Capture post-provider unique writer.
-3. Idempotence prouvée (duplicate sous retry/concurrence).
-4. Aucun secret en repo/logs.
-5. Tests unitaires + intégration PG verts en CI (si CI-A).
-6. Domaine T0 non régressé.
-7. Aucun enforcement/alerte/UI/T2+.
-
-## 26. Matrice consolidée de décisions Morris
-
-| ID | Options | Recommandation candidate | Statut |
-|---|---|---|---|
-| D-T1-MONEY-01 | M1 / M2 / M3 | **M1** unité mineure | MORRIS DECISION REQUIRED |
-| D-T1-LEDGER-SCHEMA-01 | schéma §8 | accepter / amender | MORRIS DECISION REQUIRED |
-| D-T1-DB-CONNECTION-01 | direct migrate + pooled runtime | **séparation dual-URL** | MORRIS DECISION REQUIRED |
-| D-T1-NEON-REGION-01 | régions Neon | **sélection Morris** | MORRIS DECISION REQUIRED |
-| D-T1-NEON-PLAN-01 | plans Neon | **sélection Morris** | MORRIS DECISION REQUIRED |
-| D-T1-PG-VERSION-01 | version serveur PG Neon | aligner offre Neon | MORRIS DECISION REQUIRED |
-| D-T1-PG-PACKAGE-01 | `pg@8.22.x` | **8.22.x** | MORRIS DECISION REQUIRED |
-| D-T1-MIGRATION-VERSION-01 | node-pg-migrate 8.x / 9.x | **8.x** (peer pg<9) ou 9.x si peer OK | MORRIS DECISION REQUIRED |
-| D-T1-MIGRATION-PATH-01 | `app/db/migrations/` | ce chemin | MORRIS DECISION REQUIRED |
-| D-T1-CI-DATABASE-01 | CI-A / CI-B / CI-C | **CI-A** | MORRIS DECISION REQUIRED |
-| D-T1-PROVIDER-REAL-01 | inclure / différer validation réelle | **différer** hors mock | MORRIS DECISION REQUIRED |
-| D-T1-FAILURE-SEMANTICS-01 | fail-open run vs fail-closed | **fail-open run + erreur FinOps** | MORRIS DECISION REQUIRED |
-| D-T1-PROTECTED-WORKFLOW-01 | autoriser modif CI | requis si CI-A | MORRIS DECISION REQUIRED |
-
-Nombre de décisions consolidées : **13**.
-
-## 27. Réserves
-
-- FIND-03 Money — **OPEN** jusqu’à D-T1-MONEY-01 ;
-- FIND-07 — NOTE préservée ;
+- FIND-03 Money — **OPEN** et reportée à T2 ;
+- FIND-07 — NOTE ;
 - R-TECH-TTL-01 — KEEP-OPEN ;
 - R-TECH-FINOPS-HARD-01 — KEEP-OPEN ;
-- recalibration 15/20/25/30 USD required (hors T1) ;
-- aucun contrôle FinOps actif ;
+- recalibration 15/20/25/30 USD required ;
 - TB-04-04 NOT DONE ;
 - TB-02-05 PRESERVED ;
-- LOT-D1 NOT-CONSUMED.
+- LOT-D1 NOT-CONSUMED ;
+- aucun contrôle FinOps actif.
 
-## 28. Prochaine gate candidate unique
+## 24. Critères de passage vers Delivery T1
 
-```text
-GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO —
-ASSISTANT SFIA NATIF OPENAI —
-ARBITRATE CONSOLIDATED FINOPS TECHNICAL LOT T1 EXECUTION PACK
-```
+La future Delivery T1 devient éligible à une décision Morris distincte si :
 
-**Candidate uniquement — non consommée.**
+- document 136 complet ;
+- 135 byte-identical ;
+- matrice 13 décisions sans ambiguïté ;
+- manifest borné ;
+- workflow protégé borné ;
+- aucun credential requis pour la phase initiale ;
+- aucune décision Money implicite ;
+- tests CI-A définis ;
+- rollback et erreurs définis ;
+- Review Handoff distant conforme.
 
-Cette gate permettra à Morris d’accepter toutes les recommandations ou de modifier uniquement les décisions désignées, sans micro-cycle par décision. Elle n’autorise pas automatiquement la Delivery T1.
-
-## 29. Gate Delivery future (non active)
-
-Documentée pour clarté — **pas** la prochaine gate active :
+## 25. Prochaine gate candidate unique
 
 ```text
 GO DELIVERY SFIA STUDIO —
 ASSISTANT SFIA NATIF OPENAI —
 IMPLEMENT FINOPS TECHNICAL LOT T1 CAPTURE AND PERSISTENCE —
-USING MORRIS-ARBITRATED EXECUTION PACK
+USING MORRIS-ARBITRATED EXECUTION PACK —
+LOCAL POSTGRES AND CI-A ONLY —
+NO NEON INTEGRATION —
+NO OPENAI PROVIDER-REAL VALIDATION
 ```
 
-Utilisable uniquement après arbitrage consolidé §28.
+**Candidate uniquement — non consommée.**
+
+Cette future gate autorisera dans un même cycle borné :
+
+- installation `pg` 8.22 line ;
+- installation `node-pg-migrate` 8 line ;
+- création de la migration T1 ;
+- ledger usage sans Money ;
+- service de capture ;
+- adapter PostgreSQL ;
+- idempotence ;
+- intégration locale PostgreSQL ;
+- modification bornée du workflow CI ;
+- tests ;
+- documentation d’exécution.
+
+Elle n’autorisera pas :
+
+- Neon réel ;
+- OpenAI réel ;
+- Money ;
+- T2 à T7 ;
+- LOT-D1 à LOT-D5 ;
+- push ;
+- PR ;
+- merge sans gates distinctes.
 
 ---
 
-**FINOPS TECHNICAL LOT T1 — EXECUTION PACK PREPARED — NOT IMPLEMENTED — DELIVERY NOT AUTHORIZED — MONEY FIND-03 OPEN — SINGLE ARBITRATION GATE CANDIDATE**
-```
+**FINOPS TECHNICAL LOT T1 — CONSOLIDATED DECISIONS APPLIED DOCUMENTARILY — DELIVERY NOT AUTHORIZED — MONEY DEFERRED TO T2 — FIND-03 OPEN**
 
-## Décisions validées antérieures (entrées)
+---END DOCUMENT 136---
 
-- T0 merged H1 `0cdf57a…` · CI #104 success
-- A2 : PostgreSQL · Neon · pg · node-pg-migrate · LD-A (documentaire)
-- CAP-C · BND-A · TECH-STORE/IDEM/MIG SELECTED — NOT IMPLEMENTED
-- FIND-03 Money OPEN reserve
-- document 103 §33 : aucune prochaine gate active dans 103
+## Table des 13 décisions (synthèse pack)
 
-## Décisions candidates / matrice
+| ID | Valeur | Statut |
+|---|---|---|
+| D-T1-MONEY-01 | DEFER TO T2 · FIND-03 OPEN | DECISION TO DEFER APPLIED — VALUE NOT SELECTED |
+| D-T1-LEDGER-SCHEMA-01 | usage ledger sans cost/currency | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
+| D-T1-DB-CONNECTION-01 | direct migrate + pooled runtime | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
+| D-T1-NEON-REGION-01 | DEFER UNTIL NEON INTEGRATION | DECISION TO DEFER APPLIED — VALUE NOT SELECTED |
+| D-T1-NEON-PLAN-01 | DEFER UNTIL NEON INTEGRATION | DECISION TO DEFER APPLIED — VALUE NOT SELECTED |
+| D-T1-PG-VERSION-01 | ALIGN WITH SELECTED NEON ENV | DECISION TO DEFER APPLIED — VALUE NOT SELECTED |
+| D-T1-PG-PACKAGE-01 | PG 8.22 LINE | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
+| D-T1-MIGRATION-VERSION-01 | NODE-PG-MIGRATE 8 LINE | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
+| D-T1-MIGRATION-PATH-01 | `app/db/migrations/` | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
+| D-T1-CI-DATABASE-01 | CI-A Postgres service container | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
+| D-T1-PROVIDER-REAL-01 | DEFER TO DISTINCT VALIDATION | DECISION TO DEFER APPLIED — VALUE NOT SELECTED |
+| D-T1-FAILURE-SEMANTICS-01 | FAIL-OPEN + erreur FinOps auditable | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
+| D-T1-PROTECTED-WORKFLOW-01 | bounded CI mod future Delivery | DECIDED — APPLIED DOCUMENTARILY — NOT IMPLEMENTED |
 
-13 décisions consolidées D-T1-* (voir §26 du document 135).
+## Décisions différées
 
-Recommandations clés :
+- Money → T2 (FIND-03 OPEN) ; DEFER ≠ M1 SELECTED
+- Neon région / plan → jusqu’à intégration Neon
+- Version PostgreSQL exacte → alignée sur futur environnement Neon
+- OpenAI provider-real → validation distincte
+- Secrets / credentials réels → jamais dans ce cycle
 
-- Money : **M1** (unité mineure)
-- CI DB : **CI-A** (Postgres service container)
-- Credentials Neon : phase Delivery Neon uniquement
-- OpenAI key : validation provider-real optionnelle uniquement
+## Manifest futur Delivery T1
 
-## Garde-fous
+Créations : capture FinOps · types T1 · port ledger · adapter PG · mapper usage · migration `app/db/migrations/` · tests · env example sans secret.
 
-- aucun code modifié hors 135
-- aucun package installé
-- aucun SQL/migration créé
-- aucun DB/OpenAI access
-- aucun workflow modifié
-- aucun commit/push projet
-- document 103 inchangé
-- TB-04-04 NOT DONE · TB-02-05 PRESERVED
-- T2–T7 / LOT-D1–D5 NOT AUTHORIZED
+Modifications : composition/`coordinateExecutionRun` · package.json/lock · `sfia-studio-ci.yml` borné · exports FinOps.
 
-## Prochaine gate candidate
+Exclusions : cost/currency · T2+ · Neon réel · OpenAI réel · autres workflows · UI/alertes/enforcement.
+
+## Périmètre workflow protégé
+
+Fichier : `.github/workflows/sfia-studio-ci.yml` uniquement — autorisé **en future Delivery** pour CI-A (service Postgres, vars non secrètes, migrations, tests DB). **Aucune modification dans ce cycle.**
+
+## Plan credentials
+
+- Delivery T1 locale/CI-A : aucun Neon, aucune clé OpenAI
+- Neon futur : après gate distincte, saisie manuelle Morris
+- OpenAI réel futur : après gate distincte, jamais affiché
+
+## Réserves
+
+FIND-03 OPEN · FIND-07 NOTE · R-TECH-TTL-01 KEEP-OPEN · R-TECH-FINOPS-HARD-01 KEEP-OPEN · recalibration 15/20/25/30 USD required · TB-04-04 NOT DONE · TB-02-05 PRESERVED · LOT-D1 NOT-CONSUMED · aucun contrôle FinOps actif
+
+## Prochaine gate candidate (non consommée)
 
 ```text
-GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO —
+GO DELIVERY SFIA STUDIO —
 ASSISTANT SFIA NATIF OPENAI —
-ARBITRATE CONSOLIDATED FINOPS TECHNICAL LOT T1 EXECUTION PACK
+IMPLEMENT FINOPS TECHNICAL LOT T1 CAPTURE AND PERSISTENCE —
+USING MORRIS-ARBITRATED EXECUTION PACK —
+LOCAL POSTGRES AND CI-A ONLY —
+NO NEON INTEGRATION —
+NO OPENAI PROVIDER-REAL VALIDATION
 ```
+
+## Anti-claims cycle
+
+- NO CODE / PACKAGE / SQL / MIGRATION / DB / NEON / OPENAI REAL / CREDENTIAL
+- NO WORKFLOW MODIFIED IN THIS CYCLE
+- NO PROJECT COMMIT OR PUSH
+- DOCUMENT 103 UNCHANGED · DOCUMENT 135 BYTE-IDENTICAL
+- T2–T7 NOT AUTHORIZED · LOT-D1–D5 NOT AUTHORIZED · T1 DELIVERY NOT AUTHORIZED
 
 ## Verdict
 
-FINOPS TECHNICAL LOT T1 EXECUTION PACK PREPARED —
-T0 MERGE AND POST-MERGE CI USED AS AUTHORITATIVE INPUT —
-T1 SCOPE CAPTURE / BOUNDARY / STORE / IDEM / MIG BOUNDED —
-CURRENT EXECUTION AND PROVIDER PATHS DISCOVERED —
-LEDGER PHYSICAL MODEL CANDIDATE PREPARED —
-MONEY OPTIONS AND RECOMMENDATION PREPARED —
-NEON CONFIGURATION OPTIONS PREPARED —
-POSTGRESQL / PG / NODE-PG-MIGRATE VERSION OPTIONS PREPARED —
-DIRECT AND POOLED CONNECTION ROLES PREPARED —
-MIGRATION STRATEGY PREPARED —
-CI DATABASE OPTIONS PREPARED —
-OPENAI USAGE CAPTURE MAPPING PREPARED —
-IDEMPOTENCE AND CONCURRENCY CONTRACT PREPARED —
-FAILURE SEMANTICS PREPARED —
-SECURITY / RGPD / GREENOPS / RUN GUARDRAILS PREPARED —
-FUTURE FILE MANIFEST BOUNDED —
-FUTURE TEST PLAN BOUNDED —
-CREDENTIAL INPUT PHASES DOCUMENTED —
-NO CREDENTIAL REQUESTED OR DISPLAYED —
+FINOPS TECHNICAL LOT T1 CONSOLIDATED DECISIONS APPLIED —
+DOCUMENT 135 PRESERVED BYTE-IDENTICAL —
+DOCUMENT 136 CREATED WITH COMPLETE CONTENT —
+THIRTEEN D-T1 DECISIONS APPLIED DOCUMENTARILY —
+MONEY DEFERRED TO T2 —
+FIND-03 REMAINS OPEN —
+T1 USAGE LEDGER WITHOUT COST OR CURRENCY ACCEPTED —
+DIRECT MIGRATION AND POOLED RUNTIME CONNECTIONS ACCEPTED —
+NEON REGION DEFERRED —
+NEON PLAN DEFERRED —
+POSTGRESQL VERSION ALIGNED WITH FUTURE NEON ENVIRONMENT —
+PG 8.22 LINE ACCEPTED —
+NODE-PG-MIGRATE 8 LINE ACCEPTED —
+APP/DB/MIGRATIONS PATH ACCEPTED —
+CI-A POSTGRES SERVICE CONTAINER ACCEPTED —
+OPENAI PROVIDER-REAL VALIDATION DEFERRED —
+FAIL-OPEN USER RUN WITH SEPARATE AUDITABLE FINOPS ERROR ACCEPTED —
+BOUNDED SFIA STUDIO CI MODIFICATION AUTHORIZED FOR FUTURE T1 DELIVERY —
 NO CODE MODIFIED —
 NO PACKAGE INSTALLED —
 NO SQL OR MIGRATION CREATED —
-NO DATABASE PROVISIONED OR ACCESSED —
+NO DATABASE ACCESSED —
+NO NEON CONFIGURED —
 NO OPENAI REAL CALL —
-NO WORKFLOW MODIFIED —
+NO CREDENTIAL RECEIVED OR DISPLAYED —
+NO WORKFLOW MODIFIED IN THIS CYCLE —
 NO PROJECT COMMIT OR PUSH —
 DOCUMENT 103 UNCHANGED —
-DOCUMENT 135 CREATED LOCALLY WITH COMPLETE CONTENT —
-FIND-03 MONEY REMAINS OPEN PENDING MORRIS DECISION —
 FIND-07 NOTE PRESERVED —
 R-TECH-TTL-01 KEEP-OPEN —
 R-TECH-FINOPS-HARD-01 KEEP-OPEN —
@@ -677,8 +700,7 @@ TB-02-05 PRESERVED —
 T2 TO T7 NOT AUTHORIZED —
 LOT-D1 TO LOT-D5 NOT AUTHORIZED —
 LOT-D1 DELIVERY NOT-CONSUMED —
-CONSOLIDATED MORRIS DECISION MATRIX PRODUCED —
-SINGLE ARBITRATION GATE CANDIDATE PRODUCED —
+SINGLE T1 DELIVERY GATE CANDIDATE PRODUCED —
 REVIEW HANDOFF UPDATED AND REMOTE VERIFIED —
-READY FOR MORRIS CONSOLIDATED T1 ARBITRATION —
+READY FOR MORRIS T1 DELIVERY DECISION —
 T1 DELIVERY NOT YET AUTHORIZED
