@@ -63,16 +63,24 @@
 **FIND-06 OPTION C DEPENDENCY-CLOSED MANIFEST VALIDATED —**
 **FIND-07 NOTE ACCEPTED —**
 **FIND-08 CLOSED —**
-**PR READINESS VERDICT READY —**
-**PUBLICATION NOT EXECUTED —**
-**NO GIT ADD, COMMIT, PUSH OR PR —**
-**NO COMMIT OR PUSH —**
-**NO PR CREATED —**
+**T0 DEPENDENCY-CLOSED PACKAGE PUBLISHED —**
+**DRAFT PR #312 OPEN —**
+**TECHNICAL CONTENT, CI AND PR BODY REVIEWED —**
+**PR312-FIND-01 CLOSED —**
+**PR312-FIND-02 CLOSED —**
+**PR312-FIND-03 CLOSED —**
+**PR312-FIND-04 REMEDIATION IMPLEMENTED IN DOCUMENT 103 —**
+**SELF-INVALIDATING PUBLICATION-STATE CLAIMS REMOVED —**
+**PUBLICATION STATE NOT DUPLICATED IN THIS DOCUMENT —**
+**LIVE GIT AND PR STATE AUTHORITATIVE IN PR #312, CURRENT CHECKS AND REVIEW HANDOFF —**
+**PR312-FIND-04 FINAL CLOSURE RESERVED TO BODY REALIGNMENT AND FINAL READ-ONLY PR READINESS —**
+**READY-FOR-REVIEW REQUIRES A DISTINCT MORRIS GATE —**
+**MERGE REQUIRES A DISTINCT MORRIS GATE —**
+**PR NOT READY —**
 **T1 TO T7 NOT AUTHORIZED —**
 **TB-04-04 NOT DONE —**
 **LOT-D1 TO LOT-D5 NOT AUTHORIZED —**
 **NO BACKLOG ITEM DONE —**
-**NO PROJECT COMMIT OR PUSH —**
 **LOT-D1 DELIVERY NOT-CONSUMED —**
 **E1 SOFT CONTROL WITH HUMAN GATE SELECTED —**
 **USD 15 INFORMATIONAL ALERT SELECTED —**
@@ -96,10 +104,11 @@
 | **Documents 90–102** | Inchangés |
 | **Bounded Delivery T0** | CONSUMED |
 | **Bounded corrective Delivery T0** | CONSUMED (findings fix) |
-| **PR readiness T0** | REVIEWED — READY WITH RESERVES — RESERVES ARBITRATED — FIX EXECUTED — RE-RUN REQUIRED |
-| **Packaging** | OPTION C SELECTED — DEPENDENCY-CLOSED MANIFEST VALIDATED — STAGING COMMAND CANDIDATE PREPARED — NO GIT ADD EXECUTED |
+| **PR readiness T0** | TECHNICAL CONTENT, CI AND PR BODY REVIEWED — PR312-FIND-01/02/03 CLOSED — PR312-FIND-04 REMEDIATION IMPLEMENTED IN DOCUMENT 103 — FINAL CLOSURE RESERVED TO BODY REALIGNMENT AND FINAL READ-ONLY PR READINESS — PR NOT READY |
+| **Packaging** | OPTION C SELECTED — DEPENDENCY-CLOSED MANIFEST PUBLISHED ON DRAFT PR #312 — LIVE MANIFEST IN PR #312 |
 | **LOT-D1 Delivery** | NOT AUTHORIZED — NOT-CONSUMED |
-| **Project publication / PR** | not started — publication NOT AUTHORIZED — PR readiness re-run pending |
+| **Project publication / PR** | Draft PR #312 OPEN — package T0 published — live state in PR #312 + current checks + Review Handoff — ready-for-review and merge require distinct Morris gates |
+| **Live-state doctrine** | LIVE GIT AND PR STATE AUTHORITATIVE IN PR #312, CURRENT CHECKS AND REVIEW HANDOFF — publication state not duplicated in this document — operational backlog does not duplicate head SHA, commit/file counts, fingerprints, CI run IDs or body hash |
 
 
 ## 1bis. GO Morris — validation priorités et premier lot
@@ -2069,19 +2078,19 @@ Nombre d’items : **33** (cible 24–36 · couverture 21 impacts + décisions).
 | **Type** | DECISION-PREP |
 | **Epic** | EPIC-TB-04 |
 | **Priorité validée** | **P2** — VALIDATED BY MORRIS |
-| **Statut** | T0 DEPENDENCY-CLOSED PACKAGE PUBLISHED — DRAFT PR #312 OPEN — CI FIX PUBLISHED — CI #100 SUCCESS — PR312-FIND-01 CLOSED — PR312-FIND-02 OPEN (body stale) — PR312-FIND-03 LOCAL REMEDIATION PREPARED / REMOTE PUBLICATION PENDING — PR NOT READY — NOT DONE |
+| **Statut** | T0 PACKAGE PUBLISHED — DRAFT PR #312 OPEN — TECHNICAL CONTENT, CI AND PR BODY REVIEWED — PR312-FIND-01/02/03 CLOSED — PR312-FIND-04 REMEDIATION IMPLEMENTED IN DOCUMENT 103 — FINAL CLOSURE RESERVED TO BODY REALIGNMENT AND FINAL READ-ONLY PR READINESS — READY-FOR-REVIEW REQUIRES A DISTINCT MORRIS GATE — NOT DONE |
 | **Dépendances** | TB-02-05 |
-| **Gate Morris** | post-CI-fix PR readiness reviewed (134) · documentary publication candidate (103+134) · body update gate future · ready-for-review **not** authorized · merge **not** authorized |
-| **Source** | doc 102 FPI-14-HARD-CAP=DEFER-BEFORE-PILOT · R-TECH-FINOPS-HARD-01 · 122–134 · PR #312 |
-| **Réserves liées** | R-TECH-FINOPS-HARD-01 · R-TECH-TTL-01 · FIND-03 Money deferred · PR312-FIND-02 body stale · PR312-FIND-03 backlog publication pending |
+| **Gate Morris** | T0 package published on Draft PR #312 · PR metadata update consumed · FIND-04 remediation implemented in document 103 · final closure reserved to body realignment and final read-only PR readiness · ready-for-review **requires distinct Morris gate** · merge **requires distinct Morris gate** |
+| **Source** | doc 102 FPI-14-HARD-CAP=DEFER-BEFORE-PILOT · R-TECH-FINOPS-HARD-01 · 122–134 · PR #312 · current checks · current Review Handoff |
+| **Réserves liées** | R-TECH-FINOPS-HARD-01 · R-TECH-TTL-01 · FIND-03 Money deferred · PR312-FIND-04 remediation implemented in document 103 · final closure reserved |
 | **Non-sélections liées** | hard stop fournisseur · TTL numériques · config provider · exécution T1–T7 · Money deferred |
-| **Delivery** | NOT AUTHORIZED (LOT-D1) · bounded Delivery T0 **consumed** · CI fix Git publication **consumed** · post-CI-fix PR readiness **consumed** · documentary publication of 103+134 **NOT AUTHORIZED** · body update **NOT AUTHORIZED** |
-| **Relation main** | head distant `f5d718b…` · PR #312 Draft vs main `8dc54db…` · 3 commits · 25 fichiers · fingerprint `c79bc226…` · CI #100 vert · body stale |
-| **Préparation LOT-IP-0C** | T0 dependency-closed publication = **executed** · Draft PR #312 = **created** · CI fix publication = **executed** · CI #100 = **success** · PR312-FIND-01 = **CLOSED** · PR312-FIND-02 = **OPEN** · PR312-FIND-03 = **LOCAL REMEDIATION PREPARED / REMOTE PUBLICATION PENDING** · ready-for-review = **not authorized** · T1 to T7 = **not authorized** · DONE = **no** |
+| **Delivery** | NOT AUTHORIZED (LOT-D1) · bounded Delivery T0 **consumed** · CI fix Git publication **consumed** · post-CI-fix documentary package **consumed** · body update **consumed** · publication state **not duplicated** in this document |
+| **Relation main** | Live GitHub state is not duplicated here. Consult PR #312, current checks and current Review Handoff. |
+| **Préparation LOT-IP-0C** | T0 dependency-closed publication = **executed** · Draft PR #312 = **created** · CI remediation and required gate = **verified** · PR review contract = **verified** · PR312-FIND-01/02/03 = **CLOSED** · PR312-FIND-04 = **REMEDIATION IMPLEMENTED IN DOCUMENT 103** · final closure reserved to body realignment and final read-only PR readiness · ready-for-review = **requires distinct Morris gate** · T1 to T7 = **not authorized** · DONE = **no** |
 | **Calibration provisoire** | 15 / 20 / 25 / 30 USD · baseline 1–2 users · **NOT CONFIGURED** |
 | **Enforcement** | E1 · A15-CAL/PROJ/ONCE · C20-WARN · S30-SOFT · DG-NEW **SELECTED** · **NOT IMPLEMENTED** |
 | **Technique** | CAP-C · BND-A · ENF-B · PG ledger/aggregates · etc. **SELECTED** (125) · T0 domain contracts **IMPLEMENTED** · T1–T7 **NOT IMPLEMENTED** |
-| **Statut item** | T0 **on Draft PR #312** · CI remédié · contrat de revue body **stale** · DONE = **no** |
+| **Statut item** | T0 **on Draft PR #312** · technical content / CI / body reviewed · operational backlog 103 normalization applied · publication state not duplicated · DONE = **no** |
 
 **Objectif :** Préparer le Decision Pack hard cap FinOps (FPI-14) sans fixer de seuil définitif ni configurer de limite fournisseur. Contrats de mesure/enforcement produits en 122 ; arbitrage enforcement futur distinct.
 
@@ -2465,7 +2474,7 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
 |---|---|
 | **Items** | TB-04-04 |
 | **Dépendance** | TB-02-05 |
-| **Statut** | **EXECUTED — DRAFT PR #312 OPEN — CI FIX PUBLISHED — CI #100 SUCCESS — PR312-FIND-01 CLOSED — PR312-FIND-02 OPEN — PR312-FIND-03 LOCAL REMEDIATION PREPARED / REMOTE PUBLICATION PENDING — PR NOT READY — T1 TO T7 NOT AUTHORIZED — TB-04-04 NOT DONE** |
+| **Statut** | **EXECUTED — DRAFT PR #312 OPEN — TECHNICAL CONTENT, CI AND PR BODY REVIEWED — PR312-FIND-01/02/03 CLOSED — PR312-FIND-04 REMEDIATION IMPLEMENTED IN DOCUMENT 103 — FINAL CLOSURE RESERVED TO BODY REALIGNMENT AND FINAL READ-ONLY PR READINESS — PR NOT READY — T1 TO T7 NOT AUTHORIZED — TB-04-04 NOT DONE** |
 | **Décision sélection** | `D-ASST-IP0C-LOT-SELECTION-01 = OPTION A` · record **121** |
 | **Exécution** | record **122** · GO 22:05 CEST |
 | **Enforcement applied** | record **123** · `D-ASST-IP0C-ENFORCEMENT-01=E1` · A15-CAL/PROJ/ONCE · C20-WARN · S30-SOFT · DG-NEW |
@@ -2474,7 +2483,7 @@ Motif : le lot historique regroupait TB-00-01…06 + TB-04-04 alors que TB-00-04
 | **T0 Execution Pack** | record **126** · GO 23:49 CEST · scope/files/symbols/tests **bounded** · **byte-identical** |
 | **T0 Execution** | record **127** · GO 2026-08-06 00:04 CEST · 14 fichiers CREATE · tests/typecheck/lint/full suite **PASSED** |
 | **Lots techniques** | T0 **EXECUTED LOCALLY** · T1–T7 **NOT AUTHORIZED** · **NOT STARTED** · graphe 33/56 **inchangé** |
-| **TB-04-04** | dependency-closed publication = **executed** · Draft PR #312 = **created** · CI fix publication = **executed** (commit `f5d718b…`) · CI run `31088207365` / #100 = **success** · PR312-FIND-01 = **CLOSED** · PR312-FIND-02 = **OPEN** (body stale: still claims 2 commits / 23 files / head `845f427…`) · PR312-FIND-03 = **LOCAL REMEDIATION PREPARED / REMOTE PUBLICATION PENDING** · document 134 = **created locally** · ready-for-review = **not authorized** · T1 to T7 = **not authorized** · DONE = **no** |
+| **TB-04-04** | dependency-closed publication = **executed** · Draft PR #312 = **created** · CI remediation and required gate = **verified** · PR review contract = **verified** · documents 103/134 = **published** · PR312-FIND-01/02/03 = **CLOSED** · PR312-FIND-04 = **REMEDIATION IMPLEMENTED IN DOCUMENT 103** · final closure reserved to body realignment and final read-only PR readiness · live state = PR #312 + current checks + Review Handoff · ready-for-review = **requires distinct Morris gate** · T1 to T7 = **not authorized** · DONE = **no** |
 | **Calibration** | 1–2 utilisateurs · 15 / 20 / 25 / 30 USD provisoire **préservée** · **RECALIBRATION REQUIRED** · **NOT CONFIGURED** |
 | **Enforcement** | E1 **SELECTED** · NOT IMPLEMENTED · provider config **NOT PERFORMED** |
 | **Note** | Requis avant pilote · ne bloque pas TB-02-05 · T0 publié ≠ contrôle FinOps actif · CI vert ≠ body conforme · CI vert ≠ ready-for-review · TB-04-04 reste **NOT DONE** · LOT-D1 NOT-CONSUMED |
@@ -2598,6 +2607,8 @@ TB-00-* (décisions) · TB-01-06 backup/restore · TB-04-02/04 · TB-05-02 · TB
 
 ### Vers PR readiness T0 / Draft PR review
 
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
 - **fait** (publication dependency-closed) · branche `delivery/…-t0-dependency-closed-package` · 2 commits · 23 fichiers · tip `845f427…` ;
 - **fait** (Draft PR #312 créée) · base `main` @ `8dc54db…` · isDraft=true · body hash `3799eab5…` ;
 - **fait** (GO Draft PR Critical Review 2026-08-06) · document **132** · verdict **NOT READY** · finding **PR312-FIND-01** OPEN ;
@@ -2606,43 +2617,110 @@ TB-00-* (décisions) · TB-01-06 backup/restore · TB-04-02/04 · TB-05-02 · TB
 
 ### Vers correction CI bornée
 
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
 - **fait** (GO consommé 2026-08-06 10:35 CEST / 08:35 UTC) · branche locale `delivery/…-draft-pr-ci-trailing-whitespace-fix` ;
 - document **130** : retrait exclusif de **deux espaces ASCII** finaux sur lignes 126, 131–136, 153, 174, 187 ;
 - contenu textuel préservé · 363 lignes préservées · hash `e8fbf30d…` → `4202ac7e…` ;
 - `git diff --ignore-space-at-eol` exit 0 · `git diff --check` local exit 0 ;
-- `git diff --check origin/main...HEAD` exit 2 (head distant inchangé) ;
-- document **132** byte-identical · document **133** créé · document **134** absent ;
-- PR #312 toujours Draft · head `845f427…` · CI run `31083202545` toujours failure ;
-- PR312-FIND-01 **remédié localement** · **toujours OPEN à distance** · PR **NOT READY** ;
-- aucun git add/commit/push projet · aucune mutation PR.
+- `git diff --check origin/main...HEAD` exit 2 (head distant inchangé à cet instant) ;
+- document **132** byte-identical · document **133** créé · document **134** absent à cet instant ;
+- PR #312 Draft · head `845f427…` · CI run `31083202545` failure (état observé alors) ;
+- PR312-FIND-01 **remédié localement** · encore OPEN à distance à cet instant · PR **NOT READY** ;
+- aucun git add/commit/push projet · aucune mutation PR dans ce cycle historique.
 
 ### Vers publication Git du correctif
 
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
 - **fait** (GO consommé 2026-08-06 11:07 CEST) · commit `f5d718b3782c34828b20d127a3ab215e5b63aa43` · push FF vers head PR ;
-- 3 commits · 25 fichiers · fingerprint `c79bc226…` ;
+- 3 commits · 25 fichiers · fingerprint `c79bc226…` (état observé alors) ;
 - CI run `31088207365` / #100 **success** · trailing-whitespace ✓ · required gate ✓ ;
 - PR312-FIND-01 **CLOSED** (LOCAL AND REMOTE CI REMEDIATION VERIFIED).
 
-### Vers PR readiness post-CI-fix (ce cycle)
+### Vers PR readiness post-CI-fix
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
 
 - **fait** (GO 2026-08-06 11:23 CEST / 09:23 UTC) · branche `pr-readiness/…-draft-pr-after-ci-fix-publication` ;
 - verdict **NOT READY** · document **134** créé ;
-- PR312-FIND-02 **OPEN** — body stale (2 commits / 23 fichiers / head `845f427…` vs réel 3/25/`f5d718b…`) ;
-- PR312-FIND-03 **LOCAL REMEDIATION PREPARED / REMOTE PUBLICATION PENDING** — backlog 103 aligné localement ;
-- body PR **non modifié** · aucun ready/merge · TB-04-04 **NOT DONE**.
+- PR312-FIND-02 **OPEN** alors — body stale (2 commits / 23 fichiers / head `845f427…` vs réel 3/25/`f5d718b…`) ;
+- PR312-FIND-03 **LOCAL REMEDIATION PREPARED / REMOTE PUBLICATION PENDING** alors — backlog 103 aligné localement ;
+- body PR **non modifié** dans ce cycle · aucun ready/merge · TB-04-04 **NOT DONE**.
 
-### Vers publication documentaire 103+134 (prochaine candidate)
+### Vers publication documentaire 103+134
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
+- **fait** (GO Git Publication post-CI-fix PR readiness record) · commit `ea439dc9a249fd176725c2219b783f62a0b1e1fa` · M 103 · A 134 ;
+- 4 commits · 26 fichiers · fingerprint `094a49bf…` (état observé alors) ;
+- CI run `31090703915` / #101 **success** · required gate ✓ ;
+- PR312-FIND-03 **REMOTE DOCUMENTARY PUBLICATION VERIFIED**.
+
+### Vers mise à jour du body de la Draft PR
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
+- **fait** (GO PR Metadata Update 2026-08-06 12:06 CEST) · mutation body-only ;
+- body hash `8cfd8854…` · titre/base/head inchangés · Draft préservé ;
+- PR312-FIND-02 **REMOTE BODY REMEDIATION VERIFIED** (fermeture définitive lors de la PR readiness suivante).
+
+### Vers PR readiness finale après body update
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
+- **fait** (GO 2026-08-06 12:20 CEST) · revue Critical read-only ;
+- PR312-FIND-01/02/03 **CLOSED** · PR312-FIND-04 **OPEN** (backlog 103 stale) ;
+- verdict **NOT READY** · aucune mutation projet ou PR.
+
+### Vers normalisation opérationnelle du backlog 103
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
 
 ```text
-GO GIT PUBLICATION SFIA STUDIO —
+GO DELIVERY SFIA STUDIO —
 ASSISTANT SFIA NATIF OPENAI —
-COMMIT AND PUSH FINOPS TECHNICAL LOT T0 POST-CI-FIX PR READINESS RECORD
+NORMALIZE FINOPS TECHNICAL LOT T0 OPERATIONAL BACKLOG 103 AFTER PR BODY UPDATE
 ```
 
-- candidate uniquement — non consommée ;
-- pourrait publier 103 mis à jour + 134 → 26 fichiers · 4e commit ;
-- n’autoriserait pas modification du body · ready-for-review · merge · T1–T7 · LOT-D1 ;
-- une gate GitHub distincte resterait nécessaire pour mettre à jour le body.
+- LOCAL NORMALIZATION ONLY — NO PROJECT PUBLICATION ;
+- PR312-FIND-04 LOCAL REMEDIATION PREPARED — REMOTE PUBLICATION PENDING ;
+- live state routed to PR #312 + current checks + Review Handoff ;
+- volatile PR metadata removed from current operational state.
+
+### Vers publication Git de la normalisation 103 — cycle bloqué
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
+- GO Git Publication de la normalisation 103 **présenté** puis **BLOQUÉ** ;
+- motif : §33 déclarait encore cette gate consommée comme « prochaine gate candidate / non consommée » ;
+- aucun git add / commit / push projet · aucune mutation PR · aucune modification 103 dans le cycle bloqué ;
+- preuve : `.tmp-sfia-review/t0-operational-backlog-103-normalization-publication/`.
+
+### Vers régularisation de routage §33
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
+- correction locale de §33 et du routage associé ;
+- prochaine gate durable inscrite dans 103 = **body realignment**, conditionnée à publication réussie + CI vert ;
+- nouvelle gate de republication de 103 **portée exclusivement par le Review Handoff** — **non réinscrite** comme prochaine route dans 103 ;
+- aucun git add / commit / push projet dans ce cycle de régularisation.
+
+### Vers retrait des affirmations auto-invalidantes avant publication (ce cycle)
+
+HISTORICAL EVENT — STATE OBSERVED AT THAT TIME.
+
+```text
+GO DELIVERY SFIA STUDIO —
+ASSISTANT SFIA NATIF OPENAI —
+REMOVE SELF-INVALIDATING PUBLICATION-STATE CLAIMS FROM FINOPS TECHNICAL LOT T0 OPERATIONAL BACKLOG 103 BEFORE GIT PUBLICATION
+```
+
+- GO consommé 2026-08-06 13:13 CEST (+0200) / 11:13 UTC ;
+- correction locale des affirmations CURRENT-OPERATIONAL auto-invalidantes (§1 · tableaux TB/LOT · §32) ;
+- §33 gate body realignment **préservée** (fonctionnellement inchangée) ;
+- aucun staging · commit · push projet dans ce cycle ;
+- future publication soumise à un GO Git Publication distinct porté par le Review Handoff.
 
 ### Vers LOT-D1 (futur, non autorisé, non éligible auto)
 
@@ -2693,23 +2771,22 @@ Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · Postgr
 
 ## 32. Verdict
 
-**LOT-IP-0C EXECUTED — FINOPS T0 DEPENDENCY-CLOSED PACKAGE PUBLISHED —**
-**DRAFT PR #312 OPEN AND DRAFT —**
-**CI FIX PUBLISHED — CI RUN 31088207365 / #100 SUCCESS —**
-**TRAILING WHITESPACE CHECK PASSED — REQUIRED GATE PASSED —**
+**FINOPS TECHNICAL LOT T0 PACKAGE PUBLISHED —**
+**TECHNICAL CONTENT, CI AND PR BODY REVIEWED —**
 **PR312-FIND-01 CLOSED —**
-**PR312-FIND-02 OPEN — PR BODY CONTRACT STALE —**
-**PR312-FIND-03 LOCAL REMEDIATION PREPARED — REMOTE PUBLICATION PENDING —**
-**TECHNICAL CONTENT AND CI REVIEWED —**
-**PR CONTRACT AND OPERATIONAL DOCUMENTATION NOT YET ALIGNED —**
-**NOT READY —**
-**DOCUMENT 103 UPDATED — DOCUMENT 134 CREATED —**
-**DOCUMENTS 123 TO 133 BYTE-IDENTICAL — DOCUMENT 135 ABSENT —**
-**NO GIT ADD, PROJECT COMMIT OR PUSH — NO PR MUTATION —**
-**NO READY-FOR-REVIEW — NO MERGE —**
-**TB-04-04 NOT DONE — TB-02-05 PRESERVED —**
-**T1 TO T7 NOT AUTHORIZED — LOT-D1 NOT-CONSUMED —**
-**READY FOR CHATGPT VALIDATION AND MORRIS DOCUMENTARY PUBLICATION DECISION**
+**PR312-FIND-02 CLOSED —**
+**PR312-FIND-03 CLOSED —**
+**PR312-FIND-04 REMEDIATION IMPLEMENTED IN DOCUMENT 103 —**
+**SELF-INVALIDATING PUBLICATION-STATE CLAIMS REMOVED —**
+**PUBLICATION STATE NOT DUPLICATED IN THIS DOCUMENT —**
+**LIVE GIT AND PR STATE AUTHORITATIVE IN PR #312, CURRENT CHECKS AND REVIEW HANDOFF —**
+**PR312-FIND-04 FINAL CLOSURE RESERVED TO BODY REALIGNMENT AND FINAL READ-ONLY PR READINESS —**
+**READY-FOR-REVIEW REQUIRES A DISTINCT MORRIS GATE —**
+**MERGE REQUIRES A DISTINCT MORRIS GATE —**
+**TB-04-04 NOT DONE —**
+**TB-02-05 PRESERVED —**
+**T1 TO T7 NOT AUTHORIZED —**
+**LOT-D1 NOT AUTHORIZED AND NOT-CONSUMED —**
 
 
 ---
@@ -2717,27 +2794,30 @@ Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · Postgr
 ## 33. Prochaine gate candidate
 
 ```text
-GO GIT PUBLICATION SFIA STUDIO —
+GO PR METADATA UPDATE SFIA STUDIO —
 ASSISTANT SFIA NATIF OPENAI —
-COMMIT AND PUSH FINOPS TECHNICAL LOT T0 POST-CI-FIX PR READINESS RECORD
+REALIGN FINOPS TECHNICAL LOT T0 DRAFT PR BODY AFTER OPERATIONAL BACKLOG 103 NORMALIZATION PUBLICATION
 ```
 
-Statut : **candidate uniquement — non consommée**.
+Statut : **candidate uniquement — conditionnée — non autorisée — non consommée**.
+
+Conditions préalables obligatoires (aucune n’est satisfaite tant que la republication n’est pas exécutée et vérifiée) :
+- publication Git réussie de la normalisation opérationnelle du backlog 103 ;
+- CI vert sur le nouveau head de la PR #312.
 
 Cette gate future pourrait autoriser uniquement :
-- staging explicite des documents 103 et 134 ;
-- un commit documentaire ;
-- un push fast-forward vers le head de la PR #312 ;
-- déclenchement automatique du CI ;
-- vérification du manifest candidat de 26 fichiers.
+- réalignement body-only de la Draft PR #312 avec le head publié ;
+- préservation Draft · titre · base · head branch inchangés hors body ;
+- vérification que la mise à jour du body ne rend plus le document 103 obsolète (état live non dupliqué dans 103).
 
 Elle n’autoriserait pas :
-- modification du body ;
+- commit / push projet ;
+- création du document 135 ;
 - passage ready-for-review ;
 - merge ;
 - T1 à T7 ;
 - LOT-D1.
 
-Après cette publication, une gate GitHub distincte serait nécessaire pour mettre à jour le body avec le head, les quatre commits et les 26 fichiers définitifs.
+La gate distincte de republication Git de la normalisation 103 **n’est pas** la prochaine route de ce document : elle reste **portée exclusivement par le Review Handoff** et exige un GO Git Publication distinct.
 
-**FINOPS TECHNICAL LOT T0 DRAFT PR AFTER CI FIX — NOT READY — DOCUMENTARY PUBLICATION CANDIDATE — LOT-D1 DELIVERY NOT CONSUMED**
+**FINOPS TECHNICAL LOT T0 — OPERATIONAL BACKLOG 103 NORMALIZATION APPLIED — PUBLICATION STATE NOT DUPLICATED — PR NOT READY — LOT-D1 DELIVERY NOT CONSUMED**
