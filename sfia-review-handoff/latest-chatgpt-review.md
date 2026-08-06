@@ -1,2073 +1,684 @@
-# Review pack Light — Flex Office Demo Option A
+# Review Pack Full — FinOps Technical Lot T1 Execution Pack Preparation
 
-**Date/heure (Europe/Paris) :** 2026-08-06 22:01:10 CEST
-**Cycle :** 8 — Delivery / implémentation
-**Profil SFIA :** Standard
-**Typologie :** EVOL
-**Branche projet :** `delivery/flex-office-demo-option-a`
-**Commits projet créés :** aucun
-**Review pack niveau :** Light
-**Handoff :** required — publish-in-cycle
+## Meta
 
----
+- Locale : 2026-08-06 23:51:21 CEST (+0200)
+- UTC : 2026-08-06 21:51:21 UTC
+- GO / décision Morris : `ok go T1`
+- Horodatage décision : 2026-08-06 23:29 CEST (+0200) / 21:29 UTC (secondes exactes non inventées)
+- Cycle : Architecture technique — Implementation Preparation
+- Mode : FinOps Technical Lot T1 Capture and Persistence Execution Pack
+- Profil : Critical
+- Typologie : EVOL / DOC / ARCHITECTURE / FINOPS / PERSISTENCE / DEVOPS / SECURITY
 
-## Objectif
+## Coverage
 
-Créer une application web locale de démonstration permettant de réserver une place de flex office pour une journée, dans une fenêtre glissante maximale de cinq semaines (Option A : mock + localStorage, sans backend).
+- document 135 complet : yes
+- Local Git Truth initiale : yes
+- Local Git Truth finale : yes
+- matrice décisions : yes
+- synthesis only : no
+- placeholder actif : no
+- verdict : complete
 
----
+## Local Git Truth initiale / finale (worktree propre)
 
-## Cycle et profil
+```text
+toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack
+branch=implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack
+HEAD=0cdf57a12843891da8b8db2d550cb38c7ba9f60a
+origin_main=0cdf57a12843891da8b8db2d550cb38c7ba9f60a
+upstream=NONE
+tracked_diff=(empty)
+untracked_project=projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md
+document_103_unchanged=yes
+handoff_tip_observed=29152c5d20d50db5064083eb98329ac8d9dfcdfc	refs/heads/sfia/review-handoff
+t0_historical_handoff_commit=2cf71c8eb1e23a68937828f764fd8c996dbd7f97
+t0_historical_handoff_blob=48c72c051f194975b1bb1958578410d056e0cb5c
+```
 
-- Cycle : Delivery / implémentation
-- Profil : Standard
-- Justification : plusieurs composants UI, règles métier, persistance locale, tests, plusieurs fichiers applicatifs
-- CKC : recherché oui ; détaillé non ; statut absent ; fallback template SFIA v2.6
+## Fichier créé
 
----
+`projects/sfia-studio/135-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack.md`
 
-## Local Git Truth Check
+- lines : 548
+- bytes : 23328
+- UTF-8 / LF / final newline
+- aucun secret
+
+## Contenu complet du document 135
+
+```markdown
+# 135 — FinOps Technical Lot T1 — Capture and Persistence Execution Pack
+
+## 1. Statut et anti-claims
+
+**T0 MERGED AND POST-MERGE CI PASSED**
+
+**T1 EXECUTION PACK PREPARED**
+
+**T1 NOT IMPLEMENTED**
+
+**T1 DELIVERY NOT AUTHORIZED**
+
+**NO DATABASE PROVISIONED OR ACCESSED**
+
+**NO OPENAI REAL CALL**
+
+**NO CREDENTIAL RECEIVED OR DISPLAYED**
+
+**T2 TO T7 NOT AUTHORIZED**
+
+**LOT-D1 TO LOT-D5 NOT AUTHORIZED**
+
+Ce document est un pack d’exécution documentaire. Il ne constitue pas une autorisation d’installation de packages, de provisionnement Neon, d’appel OpenAI réel, de création SQL/migration, de modification CI, de commit/push projet, ni de PR.
+
+## 2. Autorité Morris et GO consommé
+
+Décision Morris exacte :
+
+```text
+ok go T1
+```
+
+Qualification : cette phrase autorise **exclusivement** la préparation complète du FinOps Technical Lot T1 (document 135 + Review Pack + Review Handoff). Elle n’autorise pas l’implémentation T1, ni l’accès DB/provider, ni la Delivery.
+
+## 3. Horodatage
+
+| Événement | Horodatage |
+|---|---|
+| Décision Morris | 2026-08-06 23:29 CEST (+0200) / 21:29 UTC (secondes exactes non inventées) |
+| Travail Cursor (création document) | 2026-08-06 23:50:02 CEST (+0200) / 2026-08-06 21:50:02 UTC |
+
+## 4. Git Truth et preuve T0
 
 | Élément | Valeur |
-|---------|--------|
-| pwd | `/Users/morris/Projects/sfia-workspace` |
-| toplevel | `/Users/morris/Projects/sfia-workspace` |
-| remote | `mcleland147/sfia-workspace` |
-| branche au démarrage observée | `delivery/eventops-poc-visible-slice-01` (écart vs main attendu) |
-| HEAD au démarrage | `e1befcb80ed5e3c789a7de9036a8207d6b3e6771` |
-| origin/main (prompt ChatGPT) | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
-| origin/main observé | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` (identique) |
-| staged | aucun |
-| tracked modifiés | aucun |
-| untracked hors cycle | `.tmp-sfia-review/` (préexistant), `projects/eventops-poc/` (préexistant, non touché) |
-| action | création branche `delivery/flex-office-demo-option-a` depuis `origin/main` |
-| HEAD branche projet | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
-| commits projet | aucun |
+|---|---|
+| `origin/main` | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
+| Merge T0 (H1 PR #312) | `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` |
+| Head T0 consommé | `489605cb2f2bd7c5db7174af2bc94715f1d3a8e1` |
+| Parent 1 merge | `8dc54db0069eed78a8d8930cc2b035450ab56ad1` |
+| Parent 2 merge | `489605cb2f2bd7c5db7174af2bc94715f1d3a8e1` |
+| PR | #312 MERGED |
+| CI post-merge | SFIA Studio CI **#104** / run `31111626695` / success / event `push` |
+| Handoff historique T0 (immuable) | commit `2cf71c8eb1e23a68937828f764fd8c996dbd7f97` · blob `48c72c051f194975b1bb1958578410d056e0cb5c` |
+| Tip `sfia/review-handoff` observé en début de cycle | `29152c5d20d50db5064083eb98329ac8d9dfcdfc` (latest rotatif — **ne pas** confondre avec le handoff T0 historique) |
+| Document 135 avant cycle | **ABSENT** |
+| Branche de préparation | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t1-execution-pack` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack` |
+| Upstream | aucun |
+| Index / tracked mods (worktree propre) | vides au démarrage |
 
-Note : le working tree initial n’avait pas de fichiers tracked/staged inattendus. Les untracked préexistants (eventops-poc, tmp review) n’ont pas été modifiés dans ce cycle. Alignement fast-forward non requis : la branche cible a été créée directement depuis `origin/main`.
+Note méthodologique : des worktrees antérieurs de tentative T1 ont été contaminés par un changement de root agent ; ils n’ont pas été utilisés pour l’édition. Le worktree ci-dessus a été vérifié à `0cdf57a…` avant écriture.
 
----
-
-## Git Review Index
-
-- base branch : `origin/main` @ `0cdf57a12843891da8b8db2d550cb38c7ba9f60a`
-- HEAD avant (branche cible créée) : `0cdf57a12843891da8b8db2d550cb38c7ba9f60a`
-- HEAD après : `0cdf57a12843891da8b8db2d550cb38c7ba9f60a` (inchangé — aucun commit projet)
-- fichiers modifiés : aucun (créations uniquement, non commités)
-- fichiers créés : voir liste ci-dessous sous `projects/flex-office-demo/**`
-- commits projet créés : aucun
-- tests et validations : npm install OK ; 12 tests OK ; lint OK ; build OK ; runtime OK
-- diff stat (tracked) : vide (fichiers encore untracked)
-- diff name-status (tracked) : vide
-- décisions Morris requises : aucune bloquante ; revue démo Morris attendue
-- niveau review pack : light
-- réserves : polices web non hébergées (fallback système) ; message flash peut rester visible après changement d’utilisateur ; viewport browser automation parfois étroit malgré override CDP
-
----
-
-## Sources consultées et rôle
+## 5. Sources consultées
 
 | Source | Rôle |
-|--------|------|
-| `prompts/templates/sfia-cycle-execution-template.md` | Template d’exécution SFIA v2.6 — review pack / handoff |
-| `README.md` (workspace) | Structure workspace, projets sous `projects/` |
-| `projects/README.md` | Conventions projets |
-| `projects/eventops-poc/app/lib/storage.ts` | Inspiration locale localStorage (lecture seule, non modifié) |
+|---|---|
+| `prompts/templates/sfia-cycle-execution-template.md` | Template cycle SFIA v2.6 |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Routage cycles |
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Operating model |
+| `projects/sfia-studio/103-…-technical-implementation-backlog.md` | Backlog opérationnel · A2 Neon/pg/node-pg-migrate · FIND-03 Money · anti-gates §33 |
+| `projects/sfia-studio/123-…-finops-enforcement-decisions-applied.md` | Décisions enforcement (hors T1 actif) |
+| `projects/sfia-studio/125-…-finops-technical-implementation-decisions-applied.md` | CAP-C · BND-A · TECH-STORE/IDEM/MIG · périmètre T1 |
+| `projects/sfia-studio/126`–`134` | Execution pack / records / readiness / findings T0 |
+| `projects/sfia-studio/app/package.json` + `package-lock.json` | Dépendances actuelles (`openai` présent · `pg`/`node-pg-migrate` absents) |
+| `.github/workflows/sfia-studio-ci.yml` | CI Studio · Node 24 · pas de service Postgres |
+| `app/lib/oa/finops/**` + `__tests__/oa/finops/**` | Domaine T0 pur |
+| `app/lib/oa/execution-run/application/coordinateExecutionRun.ts` | Capture usage post-provider |
+| `app/lib/oa/execution-run/infrastructure/ai/platformAiExecutionAdapter.ts` | Mapping `ProviderUsage` → `UsageSummary` |
+| `app/lib/platform/ai/openaiProvider.ts` | Provider OpenAI Responses API |
+| `app/lib/platform/ai/types.ts` | `ProviderUsage` |
+| `app/lib/oa/execution-run/domain/types.ts` | `UsageSummary` |
+| `app/lib/platform/ai/config.ts` | `OPENAI_API_KEY` / `OPENAI_MODEL` |
+| `.gitignore` | Ignore `.env` / `.env.*` |
 | `scripts/sfia/publish-review-handoff.sh` | Publisher handoff L3 |
-| Absence de `projects/flex-office-demo/` | Scaffold Vite React TS créé from scratch |
+| Métadonnées npm read-only (`pg`, `node-pg-migrate`, `@types/pg`) | Versions candidates |
 
----
+## 6. État existant du runtime
 
-## Contrat visuel local (hypothèse d’implémentation — non baseline Morris)
+### 6.1 Flux `coordinateExecutionRun`
 
-- Viewport desktop cible : ~1280×900
-- Viewport mobile cible : ~375×812
-- Structure générale : header contexte → contrôles utilisateur/date → compteurs → légende + grille 20 places (2 zones) → panneau détail/actions → footer limites Option A
-- États visuels : Disponible (vert + texte), Réservé par moi (bleu + bordure pointillée + texte), Indisponible (terracotta + texte)
-- Hiérarchie des actions : primaire Réserver ; secondaire Annuler ; tertiaire Réinitialiser
-- Règles de lisibilité : labels natifs, focus visible, pas d’état uniquement couleur, messages en français clair
-- **Ce contrat n’est pas une décision design Morris validée.**
+Chemin réel :
 
----
+`projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts`
 
-## Fichiers créés et modifiés
+Flux observé (succès provider) :
 
-### Créés (périmètre `projects/flex-office-demo/**`)
+1. préflight / create / engage ;
+2. invocation `AiExecutionPort.complete` (adapter plateforme) ;
+3. si `providerResult.kind === "success"` → `validatedUsage(providerResult.usage)` ;
+4. transitions d’état execution-run ;
+5. retour `CoordinateExecutionRunResult` avec `validatedUsage`.
 
-- `projects/flex-office-demo/.gitignore`
-- `projects/flex-office-demo/README.md`
-- `projects/flex-office-demo/eslint.config.js`
-- `projects/flex-office-demo/index.html`
-- `projects/flex-office-demo/package.json`
-- `projects/flex-office-demo/vite.config.ts`
-- `projects/flex-office-demo/tsconfig.json`
-- `projects/flex-office-demo/tsconfig.app.json`
-- `projects/flex-office-demo/tsconfig.node.json`
-- `projects/flex-office-demo/src/main.tsx`
-- `projects/flex-office-demo/src/App.tsx`
-- `projects/flex-office-demo/src/styles.css`
-- `projects/flex-office-demo/src/types.ts`
-- `projects/flex-office-demo/src/vite-env.d.ts`
-- `projects/flex-office-demo/src/data/mockData.ts`
-- `projects/flex-office-demo/src/domain/dates.ts`
-- `projects/flex-office-demo/src/domain/bookingRules.ts`
-- `projects/flex-office-demo/src/domain/bookingRules.test.ts`
-- `projects/flex-office-demo/src/storage/bookingStorage.ts`
-- `projects/flex-office-demo/package-lock.json` (seuil — contenu intégral omis, hash ci-dessous)
+`validatedUsage` devient disponible **uniquement** sur le chemin succès provider (ou normalisé depuis usage provider). Sur échec/timeout/cancel/hostile/invalid : `status: "unavailable"` avec reason.
 
-### Modifiés hors périmètre
+**Aucune écriture FinOps ledger / PostgreSQL** n’existe aujourd’hui dans ce flux.
 
-- aucun
+### 6.2 Adapter et provider
 
----
+| Composant | Chemin |
+|---|---|
+| Adapter | `…/execution-run/infrastructure/ai/platformAiExecutionAdapter.ts` |
+| Provider canonique | `…/platform/ai/openaiProvider.ts` |
+| Re-export ops1 | `…/ops1/conversation/openaiProvider.ts` → même classe |
 
-## Contenu complet des fichiers créés
+Mapping adapter : si `inputTokens` ou `outputTokens` non null → `UsageSummary.status = "validated"` ; sinon `unavailable` (`provider usage missing`).
 
-**Seuil documenté :** `package-lock.json` (146 172 octets) omis en contenu intégral ; SHA-256 `40a1416a0551b181509f1f7925ad35eb95c4fd6366c26ed027d81638183bb013` ; généré par `npm install` depuis `package.json`.
+Provider lit Responses API `usage.input_tokens` / `output_tokens` / `total_tokens` → `ProviderUsage`.
 
-### `projects/flex-office-demo/.gitignore`
+### 6.3 Types
 
-```gitignore
-node_modules
-dist
-dist-ssr
-*.local
-.DS_Store
-coverage
+- `ProviderUsage` : `app/lib/platform/ai/types.ts` — `inputTokens`, `outputTokens`, `totalTokens`, `model`, `providerResponseId` (nullable).
+- `UsageSummary` : `app/lib/oa/execution-run/domain/types.ts` — `validated` | `unavailable`.
 
+### 6.4 Stockage actuel
+
+- Execution-run : `persistence.kind: "memory_process_local"` · repository mémoire process-local.
+- FinOps T0 : contrats purs uniquement · **aucune** persistence.
+- Aucun dossier `migrations/` sous `projects/sfia-studio`.
+- Aucune `DATABASE_URL` Studio.
+
+### 6.5 Dépendances
+
+- `openai`: `^6.48.0` (présent).
+- `pg` : **absent**.
+- `node-pg-migrate` : **absent**.
+- Scripts migrate : **absents**.
+- CI Node : **24**.
+
+### 6.6 Environnement
+
+- Variables référencées : `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPS1_CONVERSATION_PROVIDER`.
+- Pas de `.env.example` sous `projects/sfia-studio`.
+- `.gitignore` ignore `.env` / `.env.*` (exception `!.env.example`).
+
+## 7. Frontière exacte T1
+
+### 7.1 Flux cible (sans code)
+
+```text
+provider invocation
+→ provider result validation
+→ post-provider FinOps capture boundary (CAP-C)
+→ canonical event construction
+→ deterministic identity (eventId + dedup key)
+→ transaction DB
+→ immutable ledger insert OR duplicate recognition
+→ structured result to caller
 ```
 
-### `projects/flex-office-demo/README.md`
+Writer autoritatif unique : service FinOps serveur (BND-A). UI et domaine T0 purs **n’écrivent pas** PostgreSQL.
 
-```md
-# Flex Office Demo — Option A
+### 7.2 Sémantiques opérationnelles (candidats — arbitrage Morris si non déjà SELECTED)
 
-Démonstration locale de réservation d’une place de flex office pour une journée, dans une fenêtre glissante maximale de **cinq semaines** (aujourd’hui → J+35, fuseau `Europe/Paris`).
+| Situation | Comportement candidat | Statut |
+|---|---|---|
+| Écriture réussie | résultat `created` · run caller inchangé côté métier | aligné CAP-C |
+| Événement déjà présent | résultat `duplicate` · succès idempotent · pas de double comptage | aligné TECH-IDEM-01 |
+| DB indisponible | erreur structurée retryable · **ne pas** transformer silencieusement un succès provider en échec métier sans décision | **D-T1-FAILURE-SEMANTICS-01** |
+| Usage fournisseur absent | événement `usage_unavailable` ou skip capture selon option | **D-T1-FAILURE-SEMANTICS-01** |
+| Usage invalide | rejeter capture · erreur non retryable auditable | candidat |
+| Timeout / cancellation provider | pas de capture validated · éventuel marker unavailable | aligné runtime actuel |
+| Panne FinOps après succès provider | recommandation candidate : **ne pas** fail-closed le run utilisateur ; surface erreur FinOps séparée | **MORRIS DECISION REQUIRED** |
 
-## Décision Morris
+## 8. Modèle physique candidat — ledger T1
 
-**Option A** validée :
+### 8.1 Table candidate `finops_usage_event` (ledger immuable)
 
-- données mockées ;
-- persistance locale navigateur (`localStorage`) ;
-- **aucun backend** ;
-- **aucune synchronisation** entre appareils ;
-- **aucune ambition de mise en production**.
+**Rôle :** append-only ledger d’événements d’usage post-provider.
 
-## Démarrage local
+| Colonne | Type candidat | Null | Notes |
+|---|---|---|---|
+| `event_id` | `uuid` (ou `text` canonique) | NOT NULL | PK · déterministe |
+| `dedup_key` | `text` | NOT NULL | UNIQUE |
+| `project_id` | `text` | NOT NULL | |
+| `execution_run_id` | `text` | NOT NULL | |
+| `correlation_id` | `text` | NULL | |
+| `provider` | `text` | NOT NULL | ex. `openai` |
+| `model` | `text` | NULL | |
+| `occurred_at` | `timestamptz` | NOT NULL | |
+| `period_start` | `date` | NOT NULL | UTC calendar month start |
+| `source_of_truth` | `text` | NOT NULL | enum SoT T0 |
+| `evidence_class` | `text` | NOT NULL | |
+| `input_tokens` | `bigint` | NULL | |
+| `output_tokens` | `bigint` | NULL | |
+| `total_tokens` | `bigint` | NULL | |
+| `cost_minor` / `cost_numeric` | selon Money | NULL | **FIND-03 / D-T1-MONEY-01** |
+| `currency_code` | `char(3)` | NULL | ISO 4217 si coût présent |
+| `provider_request_id` | `text` | NULL | |
+| `correction_ref` | `text` | NULL | réservé corrections futures |
+| `usage_status` | `text` | NOT NULL | `validated` / `unavailable` / `invalid` |
+| `created_at` | `timestamptz` | NOT NULL | default `now()` |
+
+**Contraintes :**
+
+- PK(`event_id`) ;
+- UNIQUE(`dedup_key`) ;
+- CHECK tokens ≥ 0 quand non null ;
+- **pas** de UPDATE métier ; corrections via nouvel événement + `correction_ref` (évolution future).
+
+**Index candidats :**
+
+- UNIQUE dedup ;
+- `(project_id, period_start)` ;
+- `(execution_run_id)` ;
+- `(occurred_at)`.
+
+**Données interdites :**
+
+- payload OpenAI brut ;
+- `OPENAI_API_KEY` / secrets ;
+- PII non minimisée (prompts, contenus conversation) ;
+- agrégats T2.
+
+**Pas de table d’agrégats T2** dans T1 (TECH-STORE autorise events+aggregates conceptuellement, mais agrégation = T2). T1 se limite au ledger d’événements.
+
+## 9. Représentation Money — FIND-03
+
+FIND-03 reste **OPEN / ACCEPTED RESERVE** jusqu’à décision Morris.
+
+### Option M1 — entier unité mineure + currency
+
+- précision : déterministe ;
+- PG : `bigint` + `char(3)` ;
+- TS : `number`/`bigint` ;
+- risques arrondi : à la frontière d’entrée uniquement ;
+- **recommandation candidate : OUI** pour coûts FinOps.
+
+### Option M2 — `numeric` scale explicite + currency
+
+- précision forte ;
+- risques de mapping TS/ORM ;
+- acceptable si scale figée (ex. 6).
+
+### Option M3 — chaîne décimale domaine + conversion DB
+
+- déterminisme domaine élevé ;
+- friction frontière ;
+- utile si multi-scale.
+
+**Recommandation candidate :** **M1** (entier unité mineure + ISO 4217).
+
+**Statut :** `D-T1-MONEY-01` — **MORRIS DECISION REQUIRED** — FIND-03 non fermé.
+
+## 10. Stratégie Neon candidate
+
+Compte Neon existe (prérequis opérationnel Morris) · **aucune configuration dans ce cycle**.
+
+| Sujet | Options / notes | Statut |
+|---|---|---|
+| Projet / env | isolé Studio FinOps | candidat |
+| Région | non sélectionnée dans repo | **D-T1-NEON-REGION-01** |
+| Plan | non sélectionné | **D-T1-NEON-PLAN-01** |
+| Branche DB | possible pour CI/dev | candidat |
+| Connexion directe | migrations (`node-pg-migrate`) | **D-T1-DB-CONNECTION-01** |
+| Connexion poolée | runtime app | **D-T1-DB-CONNECTION-01** |
+| SSL | requis | candidat |
+| Variables | `DATABASE_URL` (runtime pool) · `DATABASE_URL_DIRECT` ou `DIRECT_URL` (migrations) — noms candidats | |
+| Local / CI / partagé | séparation stricte | |
+| Rotation | manuelle Morris | |
+
+Aucun credential demandé ou affiché.
+
+## 11. Stratégie OpenAI candidate
+
+| Sujet | Observation / candidat |
+|---|---|
+| Moment de lecture usage | post-`complete` provider · avant/après transitions · **après** validation `UsageSummary` |
+| Champs disponibles | `inputTokens`, `outputTokens`, `totalTokens`, `model`, `providerResponseId` |
+| Mapping FinOps | SoT initial typiquement `API_USAGE` / evidence estimée selon 125 — **ne bloque jamais** |
+| Usage absent | `usage_status=unavailable` · tokens null |
+| Modèle inconnu | stocker `model` null/unknown text · pas d’invention |
+| provider request ID absent | null autorisé |
+| Mocks | `OPS1_CONVERSATION_PROVIDER=fake` / fixtures — **sans** clé |
+| Provider-real | étape Delivery optionnelle · **D-T1-PROVIDER-REAL-01** |
+
+## 12. Packages et versions
+
+| Package | État actuel | Version candidate (npm read-only) | Rôle | Runtime/dev | Recommandation candidate |
+|---|---|---|---|---|---|
+| `openai` | `^6.48.0` présent | conserver | provider | runtime | KEEP |
+| `pg` | absent | `8.22.0` (engines ≥16) | client PG | runtime | **D-T1-PG-PACKAGE-01** |
+| `@types/pg` | absent | `8.20.4` | types | dev | avec `pg` |
+| `node-pg-migrate` | absent | `8.0.x` ou `9.0.0` (peer `pg` `<9`) | migrations | dev/runtime migrate | **D-T1-MIGRATION-VERSION-01** — privilégier ligne compatible peer `pg@8` |
+
+Node CI = 24 · compatible.
+
+**Interdit dans ce cycle :** `npm install` / modification lockfile.
+
+## 13. Stratégie migrations
+
+| Élément | Candidat |
+|---|---|
+| Chemin | `projects/sfia-studio/app/db/migrations/` (**candidat**) |
+| Outil | `node-pg-migrate` (TECH-MIG-01 SELECTED) |
+| Nommage | timestamp + slug additif |
+| Up/down | obligatoires · down non destructif (drop objects créés uniquement si vides / safe) |
+| Règles | additives only · **pas** de backfill historique T1 |
+| Connexion | **directe** (pas pool transaction mode) |
+| Scripts futurs | `migrate:up` / `migrate:down` (non créés ici) |
+| CI | selon **D-T1-CI-DATABASE-01** |
+| Rollback | flag-off + data preserved (125) |
+
+## 14. Stratégie CI et tests DB
+
+### Option CI-A — service container Postgres GitHub Actions (recommandation candidate)
+
+- reproductible · pas de secret Neon en PR ;
+- `services: postgres` + migrate + tests intégration ;
+- modification future de `.github/workflows/sfia-studio-ci.yml` → **D-T1-PROTECTED-WORKFLOW-01**.
+
+### Option CI-B — Neon branch CI
+
+- secrets GitHub · isolation/nettoyage requis · plus de surface credential.
+
+### Option CI-C — DB tests locaux seulement
+
+- CI sans DB · risque de régression non détectée.
+
+**Recommandation candidate :** **CI-A**.
+
+## 15. Plan de credentials
+
+| Phase | Credentials |
+|---|---|
+| PREPARATION T1 (ce cycle) | **aucun** |
+| DELIVERY T1 — mock / local Postgres | aucun OpenAI · Postgres local/CI |
+| DELIVERY T1 — Neon | Neon URL(s) · saisie manuelle locale Morris · jamais chat/prompt/Git/pack/logs |
+| VALIDATION PROVIDER-REAL | `OPENAI_API_KEY` (+ model) uniquement si GO explicite · masqué |
+
+Noms candidats uniquement : `DATABASE_URL`, `DATABASE_URL_DIRECT`, `OPENAI_API_KEY`, `OPENAI_MODEL`.
+
+## 16. Manifest futur T1 (borné)
+
+### À créer (candidats)
+
+- `app/lib/oa/finops/application/captureFinOpsUsage.ts` (ou équivalent conventions repo)
+- `app/lib/oa/finops/application/types.ts` (event / results)
+- `app/lib/oa/finops/ports/finOpsLedgerRepository.ts`
+- `app/lib/oa/finops/infrastructure/postgres/pgFinOpsLedgerRepository.ts`
+- `app/lib/oa/finops/infrastructure/openai/mapProviderUsageToFinOpsEvent.ts`
+- `app/db/migrations/<timestamp>_create-finops-usage-event.js` (ou `.ts` selon outil)
+- tests unitaires + intégration sous `app/__tests__/oa/finops/`
+- `.env.example` Studio **sans secrets** (si absent)
+
+### À modifier (candidats)
+
+- `coordinateExecutionRun.ts` **ou** composition root serveur — appel capture post-success (**point exact à figer en Delivery**)
+- `package.json` / `package-lock.json` — ajout `pg` / `node-pg-migrate` après GO
+- `.github/workflows/sfia-studio-ci.yml` — **protégé** · GO borné requis
+
+### Préservés / interdits
+
+- domaine T0 pur `app/lib/oa/finops/domain/**` : préservé (extensions non cassantes seulement)
+- documents 103–134 : **non modifiés** dans Delivery T1 sauf GO distinct
+- pas d’agrégation T2 · pas d’enforcement · pas d’UI
+
+## 17. Symboles futurs (candidats)
+
+- `FinOpsUsageEvent`
+- `FinOpsEventId`
+- `FinOpsDedupKey`
+- `FinOpsLedgerRepository`
+- `CaptureFinOpsUsage` / `captureFinOpsUsage`
+- `mapProviderUsageToFinOpsEvent`
+- `PgFinOpsLedgerRepository`
+- `FinOpsInsertResult` = `created` | `duplicate`
+- `FinOpsPersistenceError` (sanitized)
+
+Noms finaux à aligner sur conventions camelCase/ports du repo lors de Delivery.
+
+## 18. Idempotence et concurrence
+
+Aligné TECH-IDEM-01 (SELECTED — NOT IMPLEMENTED) :
+
+| Élément | Candidat |
+|---|---|
+| Matériau `eventId` | hash canonique stable de champs normalisés (provider, runId, attempt/correlation, period, usage fingerprint) |
+| Matériau `dedup_key` | `provider + execution_run_id + attempt` (125) · normalisation trim/lower où applicable |
+| Retry | même clé → `duplicate` |
+| Concurrence | UNIQUE + transaction · pas de lock mémoire autoritatif |
+| Multi-instance / restart-safe | oui via contrainte DB |
+
+Détail exact du hash algorithmique : **à figer en Delivery** sans changer la sémantique.
+
+## 19. Erreurs et résilience
+
+| Cas | Classe candidate | Retryable | User-visible |
+|---|---|---|---|
+| provider success / DB success | OK | — | non |
+| provider success / DB failure | FinOps persistence error | oui (transient) | message générique / flag interne |
+| provider failure | pas de capture validated | — | existant |
+| usage unavailable | event marker ou skip | non | non |
+| usage invalid | reject | non | non |
+| duplicate | success idempotent | — | non |
+| migration failure | stop Delivery | non | ops |
+| connection timeout | transient | oui | non |
+| conflict transaction | transient | oui | non |
+| malformed env | config error | non | ops |
+| credential absent/invalid | config/auth error | non | ops |
+
+## 20. Sécurité et RGPD
+
+- secrets server-side only ;
+- jamais dans bundle client / logs / handoff ;
+- SQL paramétré ;
+- least privilege DB (runtime vs migrate) ;
+- pas de payload brut ;
+- actorId pseudonymisé si nécessaire ;
+- **R-TECH-TTL-01 KEEP-OPEN** ;
+- **R-TECH-FINOPS-HARD-01 KEEP-OPEN**.
+
+## 21. Performance et GreenOps
+
+- insert unitaire post-run · batch non requis T1 ;
+- index minimaux (§8) ;
+- pas d’agrégation always-on ;
+- pool sizing futur borné ;
+- unknown ≠ zero conservé ;
+- estimation never blocks.
+
+## 22. Plan de tests futurs
+
+| Test | Type | Credential | CI |
+|---|---|---|---|
+| invariants T0 inchangés | unitaire | non | oui |
+| mapper OpenAI → event | unitaire | non | oui |
+| idempotence duplicate | intégration PG | non (local/CI PG) | oui (CI-A) |
+| DB unavailable | intégration | non | oui |
+| usage invalid / unavailable | unitaire | non | oui |
+| unknown ≠ zero / estimation never blocks | unitaire | non | oui |
+| import boundaries | unitaire | non | oui |
+| migrations up/down | intégration | non | oui |
+| secret leakage scan | CI existant + asserts | non | oui |
+| Neon validation | manuel borné | Neon | non PR |
+| OpenAI provider-real | manuel borné | OpenAI | non PR |
+
+## 23. Commandes futures candidates (ne pas exécuter ici)
 
 ```bash
-cd projects/flex-office-demo
-npm install
-npm run dev
+# unitaires FinOps
+npm test -- __tests__/oa/finops
+
+# typecheck / lint / build (app)
+npm run typecheck && npm run lint && npm run build
+
+# migrations (après installation autorisée)
+npm run migrate:up
+npm run migrate:down
+
+# CI
+# déclenchée sur PR/push — service Postgres si CI-A accepté
 ```
 
-Ouvrir l’URL affichée (par défaut `http://localhost:5173`).
+## 24. Stop conditions — future Delivery T1
 
-Autres commandes :
+- main divergent du SHA arbitrage ;
+- décisions Morris manquantes (matrice §26) ;
+- Money non arbitré si colonne coût persistée ;
+- versions packages non validées ;
+- région/plan Neon requis non sélectionnés ;
+- credential demandé trop tôt / secret visible ;
+- migration destructive / raw payload / T2 aggregation / enforcement ;
+- modification hors manifest ;
+- workflow protégé sans GO ;
+- lockfile hors installation attendue ;
+- double comptage possible ;
+- absence rollback / redaction.
 
-```bash
-npm run test
-npm run lint
-npm run build
+## 25. Critères d’acceptation T1 futurs (non réalisés)
+
+1. Ledger append-only déployable via migration additive.
+2. Capture post-provider unique writer.
+3. Idempotence prouvée (duplicate sous retry/concurrence).
+4. Aucun secret en repo/logs.
+5. Tests unitaires + intégration PG verts en CI (si CI-A).
+6. Domaine T0 non régressé.
+7. Aucun enforcement/alerte/UI/T2+.
+
+## 26. Matrice consolidée de décisions Morris
+
+| ID | Options | Recommandation candidate | Statut |
+|---|---|---|---|
+| D-T1-MONEY-01 | M1 / M2 / M3 | **M1** unité mineure | MORRIS DECISION REQUIRED |
+| D-T1-LEDGER-SCHEMA-01 | schéma §8 | accepter / amender | MORRIS DECISION REQUIRED |
+| D-T1-DB-CONNECTION-01 | direct migrate + pooled runtime | **séparation dual-URL** | MORRIS DECISION REQUIRED |
+| D-T1-NEON-REGION-01 | régions Neon | **sélection Morris** | MORRIS DECISION REQUIRED |
+| D-T1-NEON-PLAN-01 | plans Neon | **sélection Morris** | MORRIS DECISION REQUIRED |
+| D-T1-PG-VERSION-01 | version serveur PG Neon | aligner offre Neon | MORRIS DECISION REQUIRED |
+| D-T1-PG-PACKAGE-01 | `pg@8.22.x` | **8.22.x** | MORRIS DECISION REQUIRED |
+| D-T1-MIGRATION-VERSION-01 | node-pg-migrate 8.x / 9.x | **8.x** (peer pg<9) ou 9.x si peer OK | MORRIS DECISION REQUIRED |
+| D-T1-MIGRATION-PATH-01 | `app/db/migrations/` | ce chemin | MORRIS DECISION REQUIRED |
+| D-T1-CI-DATABASE-01 | CI-A / CI-B / CI-C | **CI-A** | MORRIS DECISION REQUIRED |
+| D-T1-PROVIDER-REAL-01 | inclure / différer validation réelle | **différer** hors mock | MORRIS DECISION REQUIRED |
+| D-T1-FAILURE-SEMANTICS-01 | fail-open run vs fail-closed | **fail-open run + erreur FinOps** | MORRIS DECISION REQUIRED |
+| D-T1-PROTECTED-WORKFLOW-01 | autoriser modif CI | requis si CI-A | MORRIS DECISION REQUIRED |
+
+Nombre de décisions consolidées : **13**.
+
+## 27. Réserves
+
+- FIND-03 Money — **OPEN** jusqu’à D-T1-MONEY-01 ;
+- FIND-07 — NOTE préservée ;
+- R-TECH-TTL-01 — KEEP-OPEN ;
+- R-TECH-FINOPS-HARD-01 — KEEP-OPEN ;
+- recalibration 15/20/25/30 USD required (hors T1) ;
+- aucun contrôle FinOps actif ;
+- TB-04-04 NOT DONE ;
+- TB-02-05 PRESERVED ;
+- LOT-D1 NOT-CONSUMED.
+
+## 28. Prochaine gate candidate unique
+
+```text
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO —
+ASSISTANT SFIA NATIF OPENAI —
+ARBITRATE CONSOLIDATED FINOPS TECHNICAL LOT T1 EXECUTION PACK
 ```
 
-## Fonctionnalités
+**Candidate uniquement — non consommée.**
 
-- 3 utilisateurs fictifs (sélecteur visible) ;
-- 20 places (`A01`–`A10`, `B01`–`B10`) en zone calme / collaborative ;
-- réservation / annulation selon les règles métier ;
-- compteurs libres / réservées ;
-- réinitialisation de la démo (confirmation) ;
-- restauration propre si `localStorage` invalide.
+Cette gate permettra à Morris d’accepter toutes les recommandations ou de modifier uniquement les décisions désignées, sans micro-cycle par décision. Elle n’autorise pas automatiquement la Delivery T1.
 
-## Persistance
+## 29. Gate Delivery future (non active)
 
-Clé versionnée : `sfia-flex-office-demo:v1`
+Documentée pour clarté — **pas** la prochaine gate active :
 
-- utilisée **uniquement** pour la démonstration locale ;
-- ne contient que des identifiants et libellés fictifs ;
-- **ne convient pas** à un usage multi-utilisateur réel ni à la production ;
-- cette démo **n’est pas** présentée comme conforme à une politique RGPD de production.
-
-## Hors périmètre (volontaire)
-
-Backend, API, authentification réelle, SSO, sync multi-utilisateur, emails/Teams, récurrence, liste d’attente, quotas, multi-sites, admin avancée, CI/CD, déploiement.
-
-## Accessibilité (proportionnée)
-
-Navigation clavier, boutons natifs, labels, focus visible, contrastes lisibles, états aussi indiqués par du texte (pas seulement la couleur). Pas de revendication de conformité réglementaire complète.
-
+```text
+GO DELIVERY SFIA STUDIO —
+ASSISTANT SFIA NATIF OPENAI —
+IMPLEMENT FINOPS TECHNICAL LOT T1 CAPTURE AND PERSISTENCE —
+USING MORRIS-ARBITRATED EXECUTION PACK
 ```
 
-### `projects/flex-office-demo/eslint.config.js`
-
-```js
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
-
-export default tseslint.config(
-  { ignores: ["dist"] },
-  {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2022,
-      globals: globals.browser,
-    },
-    plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
-    },
-  },
-);
-
-```
-
-### `projects/flex-office-demo/index.html`
-
-```html
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flex Office Demo — Option A</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
-
-```
-
-### `projects/flex-office-demo/package.json`
-
-```json
-{
-  "name": "flex-office-demo",
-  "private": true,
-  "version": "0.1.0",
-  "type": "module",
-  "description": "Démo locale Option A — réservation de places flex office (localStorage, sans backend)",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "lint": "eslint .",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  },
-  "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.27.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1",
-    "eslint": "^9.27.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.1.0",
-    "jsdom": "^26.1.0",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1",
-    "vite": "^6.3.5",
-    "vitest": "^3.1.2"
-  }
-}
-
-```
-
-### `projects/flex-office-demo/vite.config.ts`
-
-```ts
-/// <reference types="vitest/config" />
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 5173,
-    strictPort: true,
-  },
-  test: {
-    environment: "node",
-    include: ["src/**/*.test.ts"],
-  },
-});
-
-```
-
-### `projects/flex-office-demo/tsconfig.json`
-
-```json
-{
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
-}
-
-```
-
-### `projects/flex-office-demo/tsconfig.app.json`
-
-```json
-{
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2022",
-    "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["src"]
-}
-
-```
-
-### `projects/flex-office-demo/tsconfig.node.json`
-
-```json
-{
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ES2023",
-    "lib": ["ES2023"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["vite.config.ts"]
-}
-
-```
-
-### `projects/flex-office-demo/src/main.tsx`
-
-```tsx
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import "./styles.css";
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
-
-```
-
-### `projects/flex-office-demo/src/App.tsx`
-
-```tsx
-import { useEffect, useMemo, useState } from "react";
-import {
-  AMENITY_LABELS,
-  DEMO_SEATS,
-  DEMO_USERS,
-  findUser,
-  ZONE_LABELS,
-} from "./data/mockData";
-import {
-  bookSeat,
-  bookingForUserOnDate,
-  cancelBooking,
-  countSeatsForDate,
-  getSeatStatus,
-} from "./domain/bookingRules";
-import {
-  formatDateFr,
-  maxBookableDate,
-  todayParis,
-} from "./domain/dates";
-import {
-  loadDemoState,
-  resetDemoState,
-  saveDemoState,
-} from "./storage/bookingStorage";
-import type { Booking, Seat, UserId } from "./types";
-
-type MessageTone = "info" | "success" | "error";
-
-interface FlashMessage {
-  tone: MessageTone;
-  text: string;
-}
-
-export default function App() {
-  const today = useMemo(() => todayParis(), []);
-  const maxDate = useMemo(() => maxBookableDate(today), [today]);
-
-  const [ready, setReady] = useState(false);
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [currentUserId, setCurrentUserId] = useState<UserId>("u-alex");
-  const [selectedDate, setSelectedDate] = useState(today);
-  const [selectedSeatId, setSelectedSeatId] = useState<string | null>(null);
-  const [message, setMessage] = useState<FlashMessage | null>(null);
-
-  useEffect(() => {
-    const loaded = loadDemoState();
-    setBookings(loaded.state.bookings);
-    if (loaded.restored) {
-      const reason =
-        loaded.reason === "invalid"
-          ? "Les données locales étaient invalides. La démonstration a été réinitialisée proprement."
-          : "Première ouverture : données de démonstration initialisées.";
-      setMessage({ tone: "info", text: reason });
-    }
-    setReady(true);
-  }, []);
-
-  const persist = (next: Booking[]) => {
-    setBookings(next);
-    saveDemoState({ version: 1, bookings: next });
-  };
-
-  const counts = countSeatsForDate(bookings, selectedDate);
-  const myBooking = bookingForUserOnDate(bookings, currentUserId, selectedDate);
-  const selectedSeat = DEMO_SEATS.find((s) => s.id === selectedSeatId) ?? null;
-  const selectedStatus = selectedSeat
-    ? getSeatStatus(bookings, selectedSeat.id, currentUserId, selectedDate, today)
-    : null;
-  const currentUser = findUser(currentUserId);
-
-  const onBook = () => {
-    if (!selectedSeat) {
-      setMessage({
-        tone: "error",
-        text: "Sélectionnez d’abord une place disponible.",
-      });
-      return;
-    }
-    const result = bookSeat({
-      bookings,
-      seatId: selectedSeat.id,
-      userId: currentUserId,
-      date: selectedDate,
-      today,
-    });
-    if (result.ok) {
-      persist(result.bookings);
-      setMessage({ tone: "success", text: result.message });
-    } else {
-      setMessage({ tone: "error", text: result.message });
-    }
-  };
-
-  const onCancelMine = () => {
-    if (!myBooking) {
-      setMessage({
-        tone: "error",
-        text: "Vous n’avez pas de réservation à annuler pour cette date.",
-      });
-      return;
-    }
-    const result = cancelBooking({
-      bookings,
-      bookingId: myBooking.id,
-      userId: currentUserId,
-    });
-    if (result.ok) {
-      persist(result.bookings);
-      setMessage({ tone: "success", text: result.message });
-    } else {
-      setMessage({ tone: "error", text: result.message });
-    }
-  };
-
-  const onReset = () => {
-    const confirmed = window.confirm(
-      "Réinitialiser la démo ? Les réservations locales de cette démonstration seront restaurées à l’état initial. Aucune autre donnée du navigateur ne sera touchée.",
-    );
-    if (!confirmed) return;
-    const state = resetDemoState(localStorage, today);
-    setBookings(state.bookings);
-    setSelectedSeatId(null);
-    setSelectedDate(today);
-    setMessage({
-      tone: "info",
-      text: "Démonstration réinitialisée avec les données initiales.",
-    });
-  };
-
-  if (!ready) {
-    return (
-      <div className="app-shell">
-        <p className="loading" role="status">
-          Chargement local de la démonstration…
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="app-shell">
-      <header className="hero">
-        <p className="eyebrow">SFIA · Option A · Démo locale</p>
-        <h1>Flex Office — réservation d’une place pour la journée</h1>
-        <p className="lede">
-          Démonstration sans backend ni authentification réelle. Données fictives
-          persistées uniquement dans ce navigateur (<code>localStorage</code>).
-          Fenêtre : aujourd’hui → J+35 (Europe/Paris).
-        </p>
-      </header>
-
-      <section className="controls" aria-label="Paramètres de démonstration">
-        <div className="field">
-          <label htmlFor="user-select">Utilisateur courant (fictif)</label>
-          <select
-            id="user-select"
-            value={currentUserId}
-            onChange={(e) => setCurrentUserId(e.target.value as UserId)}
-          >
-            {DEMO_USERS.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.displayName} — {user.roleLabel}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="field">
-          <label htmlFor="date-select">Date de réservation</label>
-          <input
-            id="date-select"
-            type="date"
-            value={selectedDate}
-            min={today}
-            max={maxDate}
-            onChange={(e) => {
-              setSelectedDate(e.target.value);
-              setSelectedSeatId(null);
-            }}
-          />
-          <p className="hint">
-            Limite des cinq semaines : du {formatDateFr(today)} au{" "}
-            {formatDateFr(maxDate)} inclus.
-          </p>
-        </div>
-      </section>
-
-      <section className="stats" aria-live="polite">
-        <p>
-          <strong>{counts.free}</strong> places libres ·{" "}
-          <strong>{counts.reserved}</strong> réservées / {counts.total} —{" "}
-          {formatDateFr(selectedDate)}
-        </p>
-        <p className="mine-line">
-          {myBooking
-            ? `Votre réservation ce jour : place ${myBooking.seatId}.`
-            : "Aucune réservation pour vous à cette date."}
-        </p>
-        {currentUser ? (
-          <p className="user-line">Connecté en tant que {currentUser.displayName}</p>
-        ) : null}
-      </section>
-
-      {message ? (
-        <div
-          className={`banner banner-${message.tone}`}
-          role={message.tone === "error" ? "alert" : "status"}
-        >
-          {message.text}
-        </div>
-      ) : null}
-
-      <section className="workspace" aria-label="Places">
-        <div className="legend" aria-label="Légende des états">
-          <span className="pill available">Disponible</span>
-          <span className="pill mine">Réservé par moi</span>
-          <span className="pill unavailable">Indisponible</span>
-        </div>
-
-        <div className="zones">
-          {(["quiet", "collaborative"] as const).map((zoneId) => (
-            <div key={zoneId} className="zone">
-              <h2>{ZONE_LABELS[zoneId]}</h2>
-              <ul className="seat-grid">
-                {DEMO_SEATS.filter((seat) => seat.zoneId === zoneId).map((seat) => {
-                  const status = getSeatStatus(
-                    bookings,
-                    seat.id,
-                    currentUserId,
-                    selectedDate,
-                    today,
-                  );
-                  const selected = selectedSeatId === seat.id;
-                  return (
-                    <li key={seat.id}>
-                      <button
-                        type="button"
-                        className={`seat-card status-${status}${selected ? " is-selected" : ""}`}
-                        aria-pressed={selected}
-                        aria-label={`Place ${seat.label}, ${statusLabel(status)}`}
-                        onClick={() => setSelectedSeatId(seat.id)}
-                      >
-                        <span className="seat-id">{seat.label}</span>
-                        <span className="seat-status">{statusLabel(status)}</span>
-                        <span className="seat-amenities">
-                          {seat.amenities.map((a) => AMENITY_LABELS[a]).join(" · ")}
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <aside className="detail" aria-label="Détail de la place">
-          <h2>Détail</h2>
-          {!selectedSeat ? (
-            <p>Aucun poste sélectionné. Cliquez sur une place pour la réserver ou l’inspecter.</p>
-          ) : (
-            <SeatDetail
-              seat={selectedSeat}
-              status={selectedStatus}
-              myBooking={myBooking}
-            />
-          )}
-
-          <div className="actions">
-            <button
-              type="button"
-              className="btn primary"
-              onClick={onBook}
-              disabled={!selectedSeat || selectedStatus !== "available"}
-            >
-              Réserver cette place
-            </button>
-            <button
-              type="button"
-              className="btn secondary"
-              onClick={onCancelMine}
-              disabled={!myBooking}
-            >
-              Annuler ma réservation
-            </button>
-            <button type="button" className="btn ghost" onClick={onReset}>
-              Réinitialiser la démo
-            </button>
-          </div>
-        </aside>
-      </section>
-
-      <footer className="footer">
-        <p>
-          Option A validée par Morris : mock + localStorage, pas de sync multi-appareil,
-          pas de production. Aucune donnée personnelle réelle n’est collectée.
-        </p>
-      </footer>
-    </div>
-  );
-}
-
-function statusLabel(
-  status: ReturnType<typeof getSeatStatus> | null,
-): string {
-  switch (status) {
-    case "available":
-      return "Disponible";
-    case "mine":
-      return "Réservé par moi";
-    case "unavailable":
-      return "Indisponible";
-    case "out_of_window":
-      return "Hors fenêtre";
-    default:
-      return "Inconnu";
-  }
-}
-
-function SeatDetail({
-  seat,
-  status,
-  myBooking,
-}: {
-  seat: Seat;
-  status: ReturnType<typeof getSeatStatus> | null;
-  myBooking: Booking | undefined;
-}) {
-  return (
-    <div className="seat-detail">
-      <p>
-        <strong>Place {seat.label}</strong> — {ZONE_LABELS[seat.zoneId]}
-      </p>
-      <p>
-        Équipements :{" "}
-        {seat.amenities.map((a) => AMENITY_LABELS[a]).join(", ") || "aucun"}
-      </p>
-      <p>État : {statusLabel(status)}</p>
-      {status === "mine" && myBooking ? (
-        <p>C’est votre réservation (réf. {myBooking.id}).</p>
-      ) : null}
-      {status === "unavailable" ? (
-        <p>Réservée par un autre collaborateur fictif.</p>
-      ) : null}
-    </div>
-  );
-}
-
-```
-
-### `projects/flex-office-demo/src/styles.css`
-
-```css
-:root {
-  --bg: #f3f0ea;
-  --bg-accent: #e7efe8;
-  --ink: #1c2420;
-  --muted: #4d5a53;
-  --line: #c9d2cb;
-  --surface: #fffdf8;
-  --available: #1f6b4a;
-  --available-bg: #e4f3eb;
-  --mine: #1d4f8c;
-  --mine-bg: #e7f0fa;
-  --unavailable: #6b3a2f;
-  --unavailable-bg: #f6e8e4;
-  --error: #8a2b2b;
-  --error-bg: #f8e6e6;
-  --success: #1f6b4a;
-  --success-bg: #e4f3eb;
-  --info: #1d4f8c;
-  --info-bg: #e7f0fa;
-  --focus: #0b6e4f;
-  --radius: 10px;
-  --shadow: 0 10px 30px rgba(28, 36, 32, 0.08);
-  font-family: "Source Sans 3", "Segoe UI", "Helvetica Neue", sans-serif;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at top left, #dfece3 0%, transparent 45%),
-    linear-gradient(160deg, var(--bg) 0%, var(--bg-accent) 100%);
-  line-height: 1.45;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-}
-
-code {
-  font-family: "IBM Plex Mono", "SF Mono", Menlo, monospace;
-  font-size: 0.92em;
-}
-
-.app-shell {
-  width: min(1120px, calc(100% - 2rem));
-  margin: 0 auto;
-  padding: 1.5rem 0 3rem;
-}
-
-.hero {
-  padding: 1.25rem 0 0.5rem;
-}
-
-.eyebrow {
-  margin: 0 0 0.4rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.78rem;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-h1 {
-  margin: 0 0 0.6rem;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  line-height: 1.15;
-  font-family: "Fraunces", "Palatino Linotype", Georgia, serif;
-}
-
-.lede {
-  margin: 0;
-  max-width: 52rem;
-  color: var(--muted);
-}
-
-.controls {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0 1rem;
-  padding: 1rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-label {
-  font-weight: 700;
-  font-size: 0.92rem;
-}
-
-select,
-input[type="date"] {
-  font: inherit;
-  padding: 0.55rem 0.7rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  color: var(--ink);
-}
-
-select:focus-visible,
-input:focus-visible,
-button:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--focus) 55%, white);
-  outline-offset: 2px;
-}
-
-.hint {
-  margin: 0;
-  font-size: 0.88rem;
-  color: var(--muted);
-}
-
-.stats {
-  margin: 0 0 1rem;
-  padding: 0.85rem 1rem;
-  background: color-mix(in srgb, var(--surface) 85%, #d9ebe0);
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-}
-
-.stats p {
-  margin: 0.15rem 0;
-}
-
-.mine-line,
-.user-line {
-  color: var(--muted);
-}
-
-.banner {
-  margin: 0 0 1rem;
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius);
-  border: 1px solid transparent;
-  font-weight: 600;
-}
-
-.banner-info {
-  background: var(--info-bg);
-  border-color: color-mix(in srgb, var(--info) 35%, white);
-  color: var(--info);
-}
-
-.banner-success {
-  background: var(--success-bg);
-  border-color: color-mix(in srgb, var(--success) 35%, white);
-  color: var(--success);
-}
-
-.banner-error {
-  background: var(--error-bg);
-  border-color: color-mix(in srgb, var(--error) 35%, white);
-  color: var(--error);
-}
-
-.workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(240px, 0.8fr);
-  gap: 1rem;
-  align-items: start;
-}
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  border: 1px solid transparent;
-}
-
-.pill::before {
-  content: "";
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 2px;
-  background: currentColor;
-}
-
-.pill.available {
-  color: var(--available);
-  background: var(--available-bg);
-  border-color: color-mix(in srgb, var(--available) 30%, white);
-}
-
-.pill.mine {
-  color: var(--mine);
-  background: var(--mine-bg);
-  border-color: color-mix(in srgb, var(--mine) 30%, white);
-}
-
-.pill.unavailable {
-  color: var(--unavailable);
-  background: var(--unavailable-bg);
-  border-color: color-mix(in srgb, var(--unavailable) 30%, white);
-}
-
-.zone {
-  margin-bottom: 1.25rem;
-}
-
-.zone h2,
-.detail h2 {
-  margin: 0 0 0.6rem;
-  font-size: 1.05rem;
-}
-
-.seat-grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.6rem;
-}
-
-.seat-card {
-  width: 100%;
-  min-height: 96px;
-  text-align: left;
-  border-radius: 8px;
-  border: 2px solid var(--line);
-  background: var(--surface);
-  padding: 0.65rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  color: inherit;
-}
-
-.seat-card .seat-id {
-  font-weight: 800;
-  font-size: 1.05rem;
-}
-
-.seat-card .seat-status {
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.seat-card .seat-amenities {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.seat-card.status-available {
-  border-color: color-mix(in srgb, var(--available) 55%, var(--line));
-  background: var(--available-bg);
-}
-
-.seat-card.status-mine {
-  border-color: color-mix(in srgb, var(--mine) 55%, var(--line));
-  background: var(--mine-bg);
-  border-style: dashed;
-}
-
-.seat-card.status-unavailable {
-  border-color: color-mix(in srgb, var(--unavailable) 45%, var(--line));
-  background: var(--unavailable-bg);
-  opacity: 0.92;
-}
-
-.seat-card.status-out_of_window {
-  opacity: 0.55;
-}
-
-.seat-card.is-selected {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 35%, white);
-}
-
-.detail {
-  position: sticky;
-  top: 1rem;
-  padding: 1rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  margin-top: 1rem;
-}
-
-.btn {
-  font: inherit;
-  font-weight: 700;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.65rem 0.85rem;
-  cursor: pointer;
-}
-
-.btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.btn.primary {
-  background: var(--available);
-  color: #fff;
-}
-
-.btn.secondary {
-  background: #fff;
-  border-color: var(--mine);
-  color: var(--mine);
-}
-
-.btn.ghost {
-  background: transparent;
-  border-color: var(--line);
-  color: var(--muted);
-}
-
-.footer {
-  margin-top: 2rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.loading {
-  padding: 2rem 0;
-}
-
-@media (max-width: 800px) {
-  .controls,
-  .workspace {
-    grid-template-columns: 1fr;
-  }
-
-  .detail {
-    position: static;
-  }
-}
-
-```
-
-### `projects/flex-office-demo/src/types.ts`
-
-```ts
-export type UserId = "u-alex" | "u-sam" | "u-jordan";
-
-export type ZoneId = "quiet" | "collaborative";
-
-export type SeatAmenity = "screen" | "dock" | "window";
-
-export type IsoDate = string; // YYYY-MM-DD in Europe/Paris calendar sense
-
-export interface DemoUser {
-  id: UserId;
-  displayName: string;
-  roleLabel: string;
-}
-
-export interface Seat {
-  id: string;
-  label: string;
-  zoneId: ZoneId;
-  amenities: SeatAmenity[];
-}
-
-export interface Booking {
-  id: string;
-  seatId: string;
-  userId: UserId;
-  date: IsoDate;
-  createdAt: string;
-}
-
-export interface DemoState {
-  version: 1;
-  bookings: Booking[];
-}
-
-export type SeatStatus =
-  | "available"
-  | "mine"
-  | "unavailable"
-  | "out_of_window";
-
-export type ActionResult =
-  | { ok: true; bookings: Booking[]; message: string }
-  | { ok: false; bookings: Booking[]; message: string };
-
-export type LoadResult =
-  | { ok: true; state: DemoState; restored: false }
-  | { ok: true; state: DemoState; restored: true; reason: "missing" | "invalid" };
-
-```
-
-### `projects/flex-office-demo/src/vite-env.d.ts`
-
-```ts
-/// <reference types="vite/client" />
-
-```
-
-### `projects/flex-office-demo/src/data/mockData.ts`
-
-```ts
-import type { Booking, DemoUser, IsoDate, Seat, ZoneId } from "../types";
-import { addCalendarDays, todayParis } from "../domain/dates";
-
-export const ZONE_LABELS: Record<ZoneId, string> = {
-  quiet: "Zone calme",
-  collaborative: "Zone collaborative",
-};
-
-export const AMENITY_LABELS = {
-  screen: "Écran",
-  dock: "Station d'accueil",
-  window: "Proximité fenêtre",
-} as const;
-
-export const DEMO_USERS: DemoUser[] = [
-  {
-    id: "u-alex",
-    displayName: "Alex Martin",
-    roleLabel: "Product designer (fictif)",
-  },
-  {
-    id: "u-sam",
-    displayName: "Sam Bernard",
-    roleLabel: "Développeur (fictif)",
-  },
-  {
-    id: "u-jordan",
-    displayName: "Jordan Leroy",
-    roleLabel: "Chef de projet (fictif)",
-  },
-];
-
-function buildRow(
-  prefix: "A" | "B",
-  zoneId: ZoneId,
-  amenityPattern: Array<Seat["amenities"]>,
-): Seat[] {
-  return Array.from({ length: 10 }, (_, index) => {
-    const n = String(index + 1).padStart(2, "0");
-    return {
-      id: `${prefix}${n}`,
-      label: `${prefix}${n}`,
-      zoneId,
-      amenities: amenityPattern[index % amenityPattern.length],
-    };
-  });
-}
-
-export const DEMO_SEATS: Seat[] = [
-  ...buildRow("A", "quiet", [
-    ["screen", "window"],
-    ["screen"],
-    ["dock"],
-    ["screen", "dock"],
-    ["window"],
-    ["screen", "window"],
-    ["dock", "window"],
-    ["screen"],
-    ["screen", "dock", "window"],
-    ["dock"],
-  ]),
-  ...buildRow("B", "collaborative", [
-    ["screen", "dock"],
-    ["screen"],
-    ["dock", "window"],
-    ["screen", "dock", "window"],
-    ["screen"],
-    ["dock"],
-    ["window"],
-    ["screen", "dock"],
-    ["screen", "window"],
-    ["dock"],
-  ]),
-];
-
-/** Seed bookings relative to "today" so the demo screen is meaningful. */
-export function createSeedBookings(today: IsoDate = todayParis()): Booking[] {
-  const d0 = today;
-  const d1 = addCalendarDays(today, 1);
-  const d2 = addCalendarDays(today, 2);
-
-  return [
-    {
-      id: "seed-1",
-      seatId: "A03",
-      userId: "u-sam",
-      date: d0,
-      createdAt: `${d0}T08:00:00+02:00`,
-    },
-    {
-      id: "seed-2",
-      seatId: "B05",
-      userId: "u-jordan",
-      date: d0,
-      createdAt: `${d0}T08:15:00+02:00`,
-    },
-    {
-      id: "seed-3",
-      seatId: "A01",
-      userId: "u-alex",
-      date: d1,
-      createdAt: `${d0}T09:00:00+02:00`,
-    },
-    {
-      id: "seed-4",
-      seatId: "B02",
-      userId: "u-sam",
-      date: d2,
-      createdAt: `${d0}T09:30:00+02:00`,
-    },
-  ];
-}
-
-export function findUser(userId: string): DemoUser | undefined {
-  return DEMO_USERS.find((user) => user.id === userId);
-}
-
-export function findSeat(seatId: string): Seat | undefined {
-  return DEMO_SEATS.find((seat) => seat.id === seatId);
-}
-
-```
-
-### `projects/flex-office-demo/src/domain/dates.ts`
-
-```ts
-import type { IsoDate } from "../types";
-
-const PARIS_TZ = "Europe/Paris";
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-
-/** Calendar date YYYY-MM-DD for Europe/Paris (no UTC day shift). */
-export function todayParis(now: Date = new Date()): IsoDate {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: PARIS_TZ,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(now);
-}
-
-export function isIsoDate(value: unknown): value is IsoDate {
-  if (typeof value !== "string" || !DATE_RE.test(value)) {
-    return false;
-  }
-  const [y, m, d] = value.split("-").map(Number);
-  const probe = new Date(Date.UTC(y, m - 1, d));
-  return (
-    probe.getUTCFullYear() === y &&
-    probe.getUTCMonth() === m - 1 &&
-    probe.getUTCDate() === d
-  );
-}
-
-/** Pure calendar arithmetic on YYYY-MM-DD (UTC noon anchor avoids DST quirks). */
-export function addCalendarDays(date: IsoDate, days: number): IsoDate {
-  if (!isIsoDate(date)) {
-    throw new Error(`Invalid ISO date: ${date}`);
-  }
-  const [y, m, d] = date.split("-").map(Number);
-  const utc = new Date(Date.UTC(y, m - 1, d));
-  utc.setUTCDate(utc.getUTCDate() + days);
-  const yy = utc.getUTCFullYear();
-  const mm = String(utc.getUTCMonth() + 1).padStart(2, "0");
-  const dd = String(utc.getUTCDate()).padStart(2, "0");
-  return `${yy}-${mm}-${dd}`;
-}
-
-export function compareIsoDates(a: IsoDate, b: IsoDate): number {
-  if (a === b) return 0;
-  return a < b ? -1 : 1;
-}
-
-export const BOOKING_WINDOW_DAYS = 35;
-
-export function maxBookableDate(today: IsoDate = todayParis()): IsoDate {
-  return addCalendarDays(today, BOOKING_WINDOW_DAYS);
-}
-
-export function isDateInBookingWindow(
-  date: IsoDate,
-  today: IsoDate = todayParis(),
-): boolean {
-  if (!isIsoDate(date)) return false;
-  const max = maxBookableDate(today);
-  return compareIsoDates(date, today) >= 0 && compareIsoDates(date, max) <= 0;
-}
-
-export function formatDateFr(date: IsoDate): string {
-  if (!isIsoDate(date)) return date;
-  const [y, m, d] = date.split("-").map(Number);
-  const utc = new Date(Date.UTC(y, m - 1, d, 12));
-  return new Intl.DateTimeFormat("fr-FR", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(utc);
-}
-
-```
-
-### `projects/flex-office-demo/src/domain/bookingRules.ts`
-
-```ts
-import type { ActionResult, Booking, IsoDate, SeatStatus, UserId } from "../types";
-import { DEMO_SEATS } from "../data/mockData";
-import {
-  isDateInBookingWindow,
-  isIsoDate,
-  todayParis,
-} from "./dates";
-
-function cloneBookings(bookings: Booking[]): Booking[] {
-  return bookings.map((b) => ({ ...b }));
-}
-
-export function bookingForSeatOnDate(
-  bookings: Booking[],
-  seatId: string,
-  date: IsoDate,
-): Booking | undefined {
-  return bookings.find((b) => b.seatId === seatId && b.date === date);
-}
-
-export function bookingForUserOnDate(
-  bookings: Booking[],
-  userId: UserId,
-  date: IsoDate,
-): Booking | undefined {
-  return bookings.find((b) => b.userId === userId && b.date === date);
-}
-
-export function getSeatStatus(
-  bookings: Booking[],
-  seatId: string,
-  userId: UserId,
-  date: IsoDate,
-  today: IsoDate = todayParis(),
-): SeatStatus {
-  if (!isDateInBookingWindow(date, today)) {
-    return "out_of_window";
-  }
-  const existing = bookingForSeatOnDate(bookings, seatId, date);
-  if (!existing) return "available";
-  if (existing.userId === userId) return "mine";
-  return "unavailable";
-}
-
-export function countSeatsForDate(
-  bookings: Booking[],
-  date: IsoDate,
-): { free: number; reserved: number; total: number } {
-  const reserved = DEMO_SEATS.filter((seat) =>
-    Boolean(bookingForSeatOnDate(bookings, seat.id, date)),
-  ).length;
-  const total = DEMO_SEATS.length;
-  return { free: total - reserved, reserved, total };
-}
-
-export function bookSeat(params: {
-  bookings: Booking[];
-  seatId: string;
-  userId: UserId;
-  date: IsoDate;
-  now?: Date;
-  today?: IsoDate;
-  bookingId?: string;
-}): ActionResult {
-  const {
-    bookings,
-    seatId,
-    userId,
-    date,
-    now = new Date(),
-    today = todayParis(now),
-    bookingId,
-  } = params;
-
-  const current = cloneBookings(bookings);
-
-  if (!isIsoDate(date)) {
-    return {
-      ok: false,
-      bookings: current,
-      message: "La date sélectionnée est invalide.",
-    };
-  }
-
-  if (!isDateInBookingWindow(date, today)) {
-    if (date < today) {
-      return {
-        ok: false,
-        bookings: current,
-        message:
-          "Impossible de réserver une date passée. Choisissez aujourd’hui ou une date future dans la fenêtre autorisée.",
-      };
-    }
-    return {
-      ok: false,
-      bookings: current,
-      message:
-        "Cette date dépasse la fenêtre de réservation (aujourd’hui → J+35). Choisissez une date dans les cinq prochaines semaines.",
-    };
-  }
-
-  if (!DEMO_SEATS.some((seat) => seat.id === seatId)) {
-    return {
-      ok: false,
-      bookings: current,
-      message: "Cette place n’existe pas dans la démonstration.",
-    };
-  }
-
-  const seatTaken = bookingForSeatOnDate(current, seatId, date);
-  if (seatTaken) {
-    if (seatTaken.userId === userId) {
-      return {
-        ok: false,
-        bookings: current,
-        message: "Vous avez déjà réservé cette place pour cette date.",
-      };
-    }
-    return {
-      ok: false,
-      bookings: current,
-      message:
-        "Cette place est déjà réservée pour cette date. Choisissez une autre place disponible.",
-    };
-  }
-
-  const userBooking = bookingForUserOnDate(current, userId, date);
-  if (userBooking) {
-    return {
-      ok: false,
-      bookings: current,
-      message: `Vous avez déjà réservé la place ${userBooking.seatId} pour cette date. Annulez-la d’abord pour en choisir une autre.`,
-    };
-  }
-
-  const created: Booking = {
-    id: bookingId ?? `bk-${now.getTime()}-${seatId}`,
-    seatId,
-    userId,
-    date,
-    createdAt: now.toISOString(),
-  };
-
-  return {
-    ok: true,
-    bookings: [...current, created],
-    message: `Réservation confirmée : place ${seatId} le ${date}.`,
-  };
-}
-
-export function cancelBooking(params: {
-  bookings: Booking[];
-  bookingId: string;
-  userId: UserId;
-}): ActionResult {
-  const { bookings, bookingId, userId } = params;
-  const current = cloneBookings(bookings);
-  const target = current.find((b) => b.id === bookingId);
-
-  if (!target) {
-    return {
-      ok: false,
-      bookings: current,
-      message: "Cette réservation n’existe plus ou a déjà été annulée.",
-    };
-  }
-
-  if (target.userId !== userId) {
-    return {
-      ok: false,
-      bookings: current,
-      message:
-        "Vous ne pouvez annuler que votre propre réservation. Changez d’utilisateur pour simuler le propriétaire.",
-    };
-  }
-
-  return {
-    ok: true,
-    bookings: current.filter((b) => b.id !== bookingId),
-    message: `Réservation annulée : place ${target.seatId} le ${target.date} est à nouveau disponible.`,
-  };
-}
-
-```
-
-### `projects/flex-office-demo/src/domain/bookingRules.test.ts`
-
-```ts
-import { describe, expect, it } from "vitest";
-import {
-  bookSeat,
-  cancelBooking,
-  getSeatStatus,
-} from "./bookingRules";
-import {
-  addCalendarDays,
-  isDateInBookingWindow,
-  todayParis,
-} from "./dates";
-import {
-  createInitialState,
-  parseStoredState,
-  resetDemoState,
-  saveDemoState,
-  STORAGE_KEY,
-} from "../storage/bookingStorage";
-import type { Booking } from "../types";
-
-const TODAY = "2026-08-06";
-const EMPTY: Booking[] = [];
-
-describe("booking window", () => {
-  it("allows booking on today", () => {
-    const result = bookSeat({
-      bookings: EMPTY,
-      seatId: "A01",
-      userId: "u-alex",
-      date: TODAY,
-      today: TODAY,
-      now: new Date("2026-08-06T10:00:00+02:00"),
-      bookingId: "t1",
-    });
-    expect(result.ok).toBe(true);
-    expect(result.bookings).toHaveLength(1);
-  });
-
-  it("allows booking on J+35 inclusive", () => {
-    const date = addCalendarDays(TODAY, 35);
-    expect(isDateInBookingWindow(date, TODAY)).toBe(true);
-    const result = bookSeat({
-      bookings: EMPTY,
-      seatId: "A01",
-      userId: "u-alex",
-      date,
-      today: TODAY,
-      bookingId: "t2",
-    });
-    expect(result.ok).toBe(true);
-  });
-
-  it("rejects booking after J+35", () => {
-    const date = addCalendarDays(TODAY, 36);
-    const result = bookSeat({
-      bookings: EMPTY,
-      seatId: "A01",
-      userId: "u-alex",
-      date,
-      today: TODAY,
-      bookingId: "t3",
-    });
-    expect(result.ok).toBe(false);
-    expect(result.bookings).toEqual(EMPTY);
-    expect(result.message).toMatch(/fenêtre/i);
-  });
-
-  it("rejects past dates", () => {
-    const date = addCalendarDays(TODAY, -1);
-    const result = bookSeat({
-      bookings: EMPTY,
-      seatId: "A01",
-      userId: "u-alex",
-      date,
-      today: TODAY,
-      bookingId: "t4",
-    });
-    expect(result.ok).toBe(false);
-    expect(result.bookings).toEqual(EMPTY);
-    expect(result.message).toMatch(/passée/i);
-  });
-});
-
-describe("booking conflicts", () => {
-  it("rejects double booking of the same seat", () => {
-    const first = bookSeat({
-      bookings: EMPTY,
-      seatId: "B01",
-      userId: "u-alex",
-      date: TODAY,
-      today: TODAY,
-      bookingId: "c1",
-    });
-    expect(first.ok).toBe(true);
-    const second = bookSeat({
-      bookings: first.bookings,
-      seatId: "B01",
-      userId: "u-sam",
-      date: TODAY,
-      today: TODAY,
-      bookingId: "c2",
-    });
-    expect(second.ok).toBe(false);
-    expect(second.bookings).toEqual(first.bookings);
-    expect(second.message).toMatch(/déjà réservée/i);
-  });
-
-  it("rejects a second seat for the same user on the same day", () => {
-    const first = bookSeat({
-      bookings: EMPTY,
-      seatId: "A01",
-      userId: "u-alex",
-      date: TODAY,
-      today: TODAY,
-      bookingId: "c3",
-    });
-    const second = bookSeat({
-      bookings: first.bookings,
-      seatId: "A02",
-      userId: "u-alex",
-      date: TODAY,
-      today: TODAY,
-      bookingId: "c4",
-    });
-    expect(second.ok).toBe(false);
-    expect(second.bookings).toEqual(first.bookings);
-    expect(second.message).toMatch(/déjà réservé/i);
-  });
-
-  it("allows the same user to book different seats on different dates", () => {
-    const d1 = TODAY;
-    const d2 = addCalendarDays(TODAY, 1);
-    const first = bookSeat({
-      bookings: EMPTY,
-      seatId: "A01",
-      userId: "u-alex",
-      date: d1,
-      today: TODAY,
-      bookingId: "c5",
-    });
-    const second = bookSeat({
-      bookings: first.bookings,
-      seatId: "B10",
-      userId: "u-alex",
-      date: d2,
-      today: TODAY,
-      bookingId: "c6",
-    });
-    expect(second.ok).toBe(true);
-    expect(second.bookings).toHaveLength(2);
-  });
-});
-
-describe("cancellation", () => {
-  it("allows the owner to cancel", () => {
-    const booked = bookSeat({
-      bookings: EMPTY,
-      seatId: "A05",
-      userId: "u-sam",
-      date: TODAY,
-      today: TODAY,
-      bookingId: "x1",
-    });
-    const cancelled = cancelBooking({
-      bookings: booked.bookings,
-      bookingId: "x1",
-      userId: "u-sam",
-    });
-    expect(cancelled.ok).toBe(true);
-    expect(cancelled.bookings).toHaveLength(0);
-    expect(getSeatStatus(cancelled.bookings, "A05", "u-sam", TODAY, TODAY)).toBe(
-      "available",
-    );
-  });
-
-  it("rejects cancellation by another user without mutating state", () => {
-    const booked = bookSeat({
-      bookings: EMPTY,
-      seatId: "A05",
-      userId: "u-sam",
-      date: TODAY,
-      today: TODAY,
-      bookingId: "x2",
-    });
-    const cancelled = cancelBooking({
-      bookings: booked.bookings,
-      bookingId: "x2",
-      userId: "u-alex",
-    });
-    expect(cancelled.ok).toBe(false);
-    expect(cancelled.bookings).toEqual(booked.bookings);
-    expect(cancelled.message).toMatch(/propre réservation/i);
-  });
-});
-
-describe("localStorage persistence helpers", () => {
-  it("restores seeded state from storage round-trip", () => {
-    const memory = new Map<string, string>();
-    const storage = {
-      getItem: (key: string) => memory.get(key) ?? null,
-      setItem: (key: string, value: string) => {
-        memory.set(key, value);
-      },
-    };
-    const initial = createInitialState(TODAY);
-    saveDemoState(initial, storage);
-    expect(memory.get(STORAGE_KEY)).toBeTruthy();
-    const parsed = parseStoredState(memory.get(STORAGE_KEY) ?? null);
-    expect(parsed.restored).toBe(false);
-    expect(parsed.state.bookings).toEqual(initial.bookings);
-  });
-
-  it("cleanly restores initial data after invalid local payload", () => {
-    const parsed = parseStoredState("{not-json");
-    expect(parsed.restored).toBe(true);
-    if (parsed.restored) {
-      expect(parsed.reason).toBe("invalid");
-    }
-    expect(parsed.state.version).toBe(1);
-    expect(parsed.state.bookings.length).toBeGreaterThan(0);
-
-    const memory = new Map<string, string>();
-    const storage = {
-      getItem: (key: string) => memory.get(key) ?? null,
-      setItem: (key: string, value: string) => {
-        memory.set(key, value);
-      },
-    };
-    memory.set(STORAGE_KEY, '{"version":99,"bookings":"nope"}');
-    const reset = resetDemoState(storage, TODAY);
-    expect(reset.bookings.length).toBeGreaterThan(0);
-    const again = parseStoredState(memory.get(STORAGE_KEY) ?? null);
-    expect(again.restored).toBe(false);
-    expect(again.state.bookings).toEqual(reset.bookings);
-  });
-});
-
-describe("todayParis smoke", () => {
-  it("returns YYYY-MM-DD", () => {
-    expect(todayParis(new Date("2026-08-06T23:30:00+02:00"))).toMatch(
-      /^\d{4}-\d{2}-\d{2}$/,
-    );
-  });
-});
-
-```
-
-### `projects/flex-office-demo/src/storage/bookingStorage.ts`
-
-```ts
-import type { Booking, DemoState, LoadResult, UserId } from "../types";
-import { createSeedBookings, DEMO_USERS, findSeat } from "../data/mockData";
-import { isIsoDate } from "../domain/dates";
-
-export const STORAGE_KEY = "sfia-flex-office-demo:v1";
-
-const USER_IDS = new Set(DEMO_USERS.map((u) => u.id));
-
-export function createInitialState(today?: string): DemoState {
-  return {
-    version: 1,
-    bookings: createSeedBookings(today),
-  };
-}
-
-function isUserId(value: unknown): value is UserId {
-  return typeof value === "string" && USER_IDS.has(value as UserId);
-}
-
-function isBooking(value: unknown): value is Booking {
-  if (!value || typeof value !== "object") return false;
-  const b = value as Record<string, unknown>;
-  return (
-    typeof b.id === "string" &&
-    typeof b.seatId === "string" &&
-    Boolean(findSeat(b.seatId)) &&
-    isUserId(b.userId) &&
-    isIsoDate(b.date) &&
-    typeof b.createdAt === "string"
-  );
-}
-
-export function parseStoredState(raw: string | null): LoadResult {
-  if (raw === null) {
-    return { ok: true, state: createInitialState(), restored: true, reason: "missing" };
-  }
-
-  try {
-    const parsed = JSON.parse(raw) as unknown;
-    if (!parsed || typeof parsed !== "object") {
-      return {
-        ok: true,
-        state: createInitialState(),
-        restored: true,
-        reason: "invalid",
-      };
-    }
-    const obj = parsed as Record<string, unknown>;
-    if (obj.version !== 1 || !Array.isArray(obj.bookings)) {
-      return {
-        ok: true,
-        state: createInitialState(),
-        restored: true,
-        reason: "invalid",
-      };
-    }
-    if (!obj.bookings.every(isBooking)) {
-      return {
-        ok: true,
-        state: createInitialState(),
-        restored: true,
-        reason: "invalid",
-      };
-    }
-    return {
-      ok: true,
-      state: { version: 1, bookings: obj.bookings },
-      restored: false,
-    };
-  } catch {
-    return {
-      ok: true,
-      state: createInitialState(),
-      restored: true,
-      reason: "invalid",
-    };
-  }
-}
-
-export function loadDemoState(
-  storage: Pick<Storage, "getItem" | "setItem"> = localStorage,
-): LoadResult {
-  const result = parseStoredState(storage.getItem(STORAGE_KEY));
-  if (result.restored) {
-    storage.setItem(STORAGE_KEY, JSON.stringify(result.state));
-  }
-  return result;
-}
-
-export function saveDemoState(
-  state: DemoState,
-  storage: Pick<Storage, "setItem"> = localStorage,
-): void {
-  storage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-export function resetDemoState(
-  storage: Pick<Storage, "setItem"> = localStorage,
-  today?: string,
-): DemoState {
-  const state = createInitialState(today);
-  storage.setItem(STORAGE_KEY, JSON.stringify(state));
-  return state;
-}
-
-```
-
-## Règles métier implémentées
-
-1. Fenêtre Europe/Paris : aujourd’hui → J+35 inclus (`dates.ts` + contrôles UI min/max).
-2. Une place = une réservation max par date.
-3. Un utilisateur = une place max par date.
-4. Dates différentes : places différentes autorisées pour le même utilisateur.
-5. Annulation uniquement par le propriétaire.
-6. Annulation → place immédiatement disponible.
-7. Conflits → messages compréhensibles ; `localStorage` non modifié si action invalide.
-8. Clé `sfia-flex-office-demo:v1` ; seed initial ; reset confirmé ; restauration si payload invalide.
+Utilisable uniquement après arbitrage consolidé §28.
 
 ---
 
-## Validations et résultats
+**FINOPS TECHNICAL LOT T1 — EXECUTION PACK PREPARED — NOT IMPLEMENTED — DELIVERY NOT AUTHORIZED — MONEY FIND-03 OPEN — SINGLE ARBITRATION GATE CANDIDATE**
+```
 
-### Techniques
-- `npm install` : OK (243 packages, 0 vulnerabilities)
-- `npm run test` : OK — 12/12
-- `npm run lint` : OK
-- `npm run build` : OK (`tsc -b && vite build`)
+## Décisions validées antérieures (entrées)
 
-### Tests métier couverts
-- réservation dans fenêtre ; J+35 OK ; J+36 refusée ; date passée refusée
-- double place refusée ; 2e place même jour refusée ; autre date OK
-- annulation propriétaire OK ; autre utilisateur refusée
-- round-trip storage ; restauration après payload invalide
+- T0 merged H1 `0cdf57a…` · CI #104 success
+- A2 : PostgreSQL · Neon · pg · node-pg-migrate · LD-A (documentaire)
+- CAP-C · BND-A · TECH-STORE/IDEM/MIG SELECTED — NOT IMPLEMENTED
+- FIND-03 Money OPEN reserve
+- document 103 §33 : aucune prochaine gate active dans 103
 
-### Runtime manuel (browser Cursor)
-- App : `http://localhost:5173/`
-- Changement utilisateur : OK (Alex → Sam)
-- Réservation A01 (Alex) : OK — compteurs 17/3 ; état « Réservé par moi »
-- Place A01 vue Sam : Indisponible
-- Annulation A03 (Sam seed) : OK — 18 libres / 2 réservées
-- localStorage peuplé (clé versionnée, longueur observée ~584+)
-- Pas d’overlay erreur Vite ; 20 places rendues
-- Captures : `.tmp-sfia-review/runtime-screenshots/flex-office-desktop.png`, `flex-office-desktop-1280.png`, `flex-office-mobile-375.png`
+## Décisions candidates / matrice
 
-### Diff Git (branche projet)
-- `git diff --stat` : vide (untracked only)
-- `git diff --name-status` : vide
-- `git diff --check` : OK
-- `git diff --cached --name-status` : vide
-- `.tmp-sfia-review/**` : non staged
-- Aucun fichier hors `projects/flex-office-demo/**` modifié par ce cycle
+13 décisions consolidées D-T1-* (voir §26 du document 135).
 
----
+Recommandations clés :
 
-## Capture runtime
-
-Captures produites et jointes hors commit dans `.tmp-sfia-review/runtime-screenshots/`.
-
-Défauts visuels visibles (non bloquants) :
-- polices `Source Sans 3` / `Fraunces` non chargées via CDN → fallback système (Georgia / Segoe UI) ;
-- message de confirmation peut rester affiché après changement d’utilisateur ;
-- en viewport très étroit, le panneau détail passe sous la grille (comportement responsive attendu).
-
----
+- Money : **M1** (unité mineure)
+- CI DB : **CI-A** (Postgres service container)
+- Credentials Neon : phase Delivery Neon uniquement
+- OpenAI key : validation provider-real optionnelle uniquement
 
 ## Garde-fous
 
-- Aucun backend / API / auth réelle / SSO
-- Aucune donnée réelle
-- Aucun secret
-- Aucun commit projet / push projet / PR / merge
-- Méthode SFIA et chemins protégés non modifiés
-- Option B non engagée
+- aucun code modifié hors 135
+- aucun package installé
+- aucun SQL/migration créé
+- aucun DB/OpenAI access
+- aucun workflow modifié
+- aucun commit/push projet
+- document 103 inchangé
+- TB-04-04 NOT DONE · TB-02-05 PRESERVED
+- T2–T7 / LOT-D1–D5 NOT AUTHORIZED
 
----
+## Prochaine gate candidate
 
-## Limites explicites de l’Option A
-
-- Pas de sync multi-utilisateur / multi-appareil
-- Pas adaptée à la production ni à une politique RGPD de production
-- Persistance navigateur uniquement
-- Données fictives uniquement
-
----
-
-## Réserves
-
-1. Untracked préexistant `projects/eventops-poc/` laissé intact (hors périmètre).
-2. Polices web non embarquées.
-3. Pas de tests UI E2E automatisés (contrôle browser manuel + tests unitaires métier).
-4. Branche de départ du workspace n’était pas `main` ; branche cible créée proprement depuis `origin/main`.
-
----
-
-## Décisions Morris déjà validées
-
-- Option A (mock + localStorage, pas de backend, pas de prod)
-- Cycle Delivery Standard pour cette démo
-
-## Décisions Morris éventuellement requises
-
-- Aucune décision structurante bloquante
-- Attendu : revue démo Morris (GO éventuel commit/push projet hors de ce cycle)
-
----
-
-## Review pack content coverage
-
-- created files full content : **yes** (sauf `package-lock.json` — seuil documenté + SHA-256)
-- modified sections complete : **not applicable** (aucune modification de fichiers existants)
-- useful diff included : **not applicable** (untracked only ; diff tracked vide)
-- synthesis only : **no**
-- review pack verdict : **complete**
-
----
-
-
-
----
-
-## Review Handoff Git
-
-- décision : required
-- justification : rapport Cursor produit, consultable par ChatGPT depuis Git
-- mode handoff : publish-in-cycle
-- motif local-only : N/A
-- branche : `sfia/review-handoff`
-- fichier canonique : `sfia-review-handoff/latest-chatgpt-review.md`
-- source : `.tmp-sfia-review/chatgpt-review.md`
-- push handoff : oui — L3 borné via `scripts/sfia/publish-review-handoff.sh`
-- handoff remote commit before : `2cf71c8eb1e23a68937828f764fd8c996dbd7f97`
-- handoff local/remote commit after : `88e676338e1abe45bb29dafedc4c0fa689651d94`
-- blob source/remote : `777c367db5613312abafbac343dcd6c9e481997d` (identiques après publication)
-- remote verification : OK — `git fetch` + relecture du fichier canonique distant
-- remote file re-read : OK (objectif, branche, verdict DEMO READY, section handoff)
-- retour branche initiale : OK — `delivery/flex-office-demo-option-a` @ `0cdf57a12843891da8b8db2d550cb38c7ba9f60a`
-- cohérence cycle / branche / HEAD : OK
-- contenu créé couvert : yes (sauf package-lock seuil)
-- contenu modifié couvert : N/A
-- commit message : `docs(review-handoff): publish flex office option A delivery review`
-- verdict handoff : **HANDOFF UPDATED — REMOTE VERIFIED**
-
+```text
+GO DECISIONS IMPLEMENTATION PREPARATION SFIA STUDIO —
+ASSISTANT SFIA NATIF OPENAI —
+ARBITRATE CONSOLIDATED FINOPS TECHNICAL LOT T1 EXECUTION PACK
+```
 
 ## Verdict
 
-**DEMO READY — NOT PRODUCTION READY**
-
-**READY FOR MORRIS DEMO REVIEW**
+FINOPS TECHNICAL LOT T1 EXECUTION PACK PREPARED —
+T0 MERGE AND POST-MERGE CI USED AS AUTHORITATIVE INPUT —
+T1 SCOPE CAPTURE / BOUNDARY / STORE / IDEM / MIG BOUNDED —
+CURRENT EXECUTION AND PROVIDER PATHS DISCOVERED —
+LEDGER PHYSICAL MODEL CANDIDATE PREPARED —
+MONEY OPTIONS AND RECOMMENDATION PREPARED —
+NEON CONFIGURATION OPTIONS PREPARED —
+POSTGRESQL / PG / NODE-PG-MIGRATE VERSION OPTIONS PREPARED —
+DIRECT AND POOLED CONNECTION ROLES PREPARED —
+MIGRATION STRATEGY PREPARED —
+CI DATABASE OPTIONS PREPARED —
+OPENAI USAGE CAPTURE MAPPING PREPARED —
+IDEMPOTENCE AND CONCURRENCY CONTRACT PREPARED —
+FAILURE SEMANTICS PREPARED —
+SECURITY / RGPD / GREENOPS / RUN GUARDRAILS PREPARED —
+FUTURE FILE MANIFEST BOUNDED —
+FUTURE TEST PLAN BOUNDED —
+CREDENTIAL INPUT PHASES DOCUMENTED —
+NO CREDENTIAL REQUESTED OR DISPLAYED —
+NO CODE MODIFIED —
+NO PACKAGE INSTALLED —
+NO SQL OR MIGRATION CREATED —
+NO DATABASE PROVISIONED OR ACCESSED —
+NO OPENAI REAL CALL —
+NO WORKFLOW MODIFIED —
+NO PROJECT COMMIT OR PUSH —
+DOCUMENT 103 UNCHANGED —
+DOCUMENT 135 CREATED LOCALLY WITH COMPLETE CONTENT —
+FIND-03 MONEY REMAINS OPEN PENDING MORRIS DECISION —
+FIND-07 NOTE PRESERVED —
+R-TECH-TTL-01 KEEP-OPEN —
+R-TECH-FINOPS-HARD-01 KEEP-OPEN —
+TB-04-04 NOT DONE —
+TB-02-05 PRESERVED —
+T2 TO T7 NOT AUTHORIZED —
+LOT-D1 TO LOT-D5 NOT AUTHORIZED —
+LOT-D1 DELIVERY NOT-CONSUMED —
+CONSOLIDATED MORRIS DECISION MATRIX PRODUCED —
+SINGLE ARBITRATION GATE CANDIDATE PRODUCED —
+REVIEW HANDOFF UPDATED AND REMOTE VERIFIED —
+READY FOR MORRIS CONSOLIDATED T1 ARBITRATION —
+T1 DELIVERY NOT YET AUTHORIZED
