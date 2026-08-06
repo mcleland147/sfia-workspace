@@ -2054,8 +2054,8 @@ Défauts visuels visibles (non bloquants) :
 - source : `.tmp-sfia-review/chatgpt-review.md`
 - push handoff : oui — L3 borné via `scripts/sfia/publish-review-handoff.sh`
 - handoff remote commit before : `2cf71c8eb1e23a68937828f764fd8c996dbd7f97`
-- handoff local/remote commit after : `FINAL_PLACEHOLDER`
-- blob source/remote : `BLOB_PLACEHOLDER` (identiques après publication)
+- handoff local/remote commit after : `88e676338e1abe45bb29dafedc4c0fa689651d94`
+- blob source/remote : `777c367db5613312abafbac343dcd6c9e481997d` (identiques après publication)
 - remote verification : OK — `git fetch` + relecture du fichier canonique distant
 - remote file re-read : OK (objectif, branche, verdict DEMO READY, section handoff)
 - retour branche initiale : OK — `delivery/flex-office-demo-option-a` @ `0cdf57a12843891da8b8db2d550cb38c7ba9f60a`
