@@ -2791,7 +2791,13 @@ Sélection documentaire ≠ installation · LD-A ≠ Docker configuré · Postgr
 
 ---
 
-## 33. Prochaine gate candidate
+## 33. Routage de gouvernance après consommation du body realignment
+
+### 33.1 Record historique
+
+**HISTORICAL EVENT — STATE OBSERVED AT THAT TIME**
+
+Gate consommée :
 
 ```text
 GO PR METADATA UPDATE SFIA STUDIO —
@@ -2799,25 +2805,52 @@ ASSISTANT SFIA NATIF OPENAI —
 REALIGN FINOPS TECHNICAL LOT T0 DRAFT PR BODY AFTER OPERATIONAL BACKLOG 103 NORMALIZATION PUBLICATION
 ```
 
-Statut : **candidate uniquement — conditionnée — non autorisée — non consommée**.
+Statut historique :
 
-Conditions préalables obligatoires (aucune n’est satisfaite tant que la republication n’est pas exécutée et vérifiée) :
-- publication Git réussie de la normalisation opérationnelle du backlog 103 ;
-- CI vert sur le nouveau head de la PR #312.
+**CONSUMED — BODY REALIGNED — REMOTE VERIFIED**
 
-Cette gate future pourrait autoriser uniquement :
-- réalignement body-only de la Draft PR #312 avec le head publié ;
-- préservation Draft · titre · base · head branch inchangés hors body ;
-- vérification que la mise à jour du body ne rend plus le document 103 obsolète (état live non dupliqué dans 103).
+Preuves observées lors de la consommation :
 
-Elle n’autoriserait pas :
-- commit / push projet ;
-- création du document 135 ;
-- passage ready-for-review ;
-- merge ;
-- T1 à T7 ;
-- LOT-D1.
+- body de la Draft PR #312 vérifié byte-identical avec le contrat cible ;
+- publication de la normalisation 103 vérifiée ;
+- CI du head concerné vérifié en succès ;
+- aucune transition ready-for-review ;
+- aucun merge.
 
-La gate distincte de republication Git de la normalisation 103 **n’est pas** la prochaine route de ce document : elle reste **portée exclusivement par le Review Handoff** et exige un GO Git Publication distinct.
+Ces éléments constituent un record historique. Ils ne définissent pas l’état live courant de GitHub.
 
-**FINOPS TECHNICAL LOT T0 — OPERATIONAL BACKLOG 103 NORMALIZATION APPLIED — PUBLICATION STATE NOT DUPLICATED — PR NOT READY — LOT-D1 DELIVERY NOT CONSUMED**
+### 33.2 Règle durable de routage
+
+Le document 103 ne porte aucune prochaine gate active.
+
+La prochaine route opérationnelle, le dernier verdict de PR readiness et les gates candidates sont autoritatifs exclusivement dans :
+
+- la PR GitHub concernée ;
+- les checks associés au head courant ;
+- le Review Handoff courant.
+
+Toute publication d’une correction du document 103 exige un GO Git Publication Morris distinct.
+
+Toute transition ready-for-review exige cumulativement :
+
+- une PR readiness read-only courante concluant READY ;
+- un GO Morris distinct autorisant explicitement la transition.
+
+Tout merge exige un GO Morris distinct.
+
+T1 à T7 restent soumis à des gates distinctes.
+
+LOT-D1 à LOT-D5 restent soumis à des gates distinctes.
+
+### 33.3 Anti-claims
+
+- gate consommée ≠ candidate future ;
+- correction locale ≠ publication distante ;
+- publication documentaire ≠ body automatiquement aligné ;
+- verdict READY ≠ transition ready-for-review ;
+- transition ready-for-review ≠ merge ;
+- Review Handoff ≠ autorisation projet implicite ;
+- T0 publié ≠ contrôle FinOps actif ;
+- LOT-D1 non consommé ≠ LOT-D1 autorisé.
+
+**FINOPS TECHNICAL LOT T0 — BODY REALIGNMENT RECORDED AS CONSUMED — ACTIVE NEXT GATE NOT DUPLICATED IN DOCUMENT 103 — READY-FOR-REVIEW AND MERGE REQUIRE DISTINCT MORRIS GATES — LOT-D1 DELIVERY NOT CONSUMED**
