@@ -1,6 +1,7 @@
 /**
  * FinOps T1 — single authoritative capture writer (application boundary).
  * Audit failures never requalify ledger outcomes.
+ * T6-foundation may attach a durable emitter behind FinOpsAuditEmitter.
  */
 
 import type {
@@ -9,17 +10,23 @@ import type {
 } from "../ports/finopsCapturePort";
 import type { FinOpsUsageLedgerPort } from "../ports/finopsUsageLedgerPort";
 import { buildUsageEvent } from "./buildUsageEvent";
+import type { FinOpsAuditEmitter } from "./finopsAuditTypes";
 import type { FinOpsCaptureDiagnostic } from "./types";
 
-export type FinOpsAuditEmitter = {
-  readonly emit: (event: {
-    readonly type:
-      | "finops_capture_created"
-      | "finops_capture_duplicate"
-      | "finops_capture_failed";
-    readonly detail: Readonly<Record<string, unknown>>;
-  }) => void;
-};
+export type { FinOpsAuditEmitter } from "./finopsAuditTypes";
+
+function correlationDetail(
+  request: FinOpsCaptureRequest,
+  extra: Readonly<Record<string, unknown>>,
+): Readonly<Record<string, unknown>> {
+  return {
+    projectId: request.projectId,
+    executionRunId: request.executionRunId,
+    correlationId: request.correlationId,
+    provider: request.provider,
+    ...extra,
+  };
+}
 
 function safeEmit(
   audit: FinOpsAuditEmitter | undefined,
@@ -35,8 +42,7 @@ function safeEmit(
   try {
     audit.emit(event);
   } catch {
-    // Audit is best-effort T1; durable observability is T6.
-    // Never mutate ledger outcomes, never retry, never expose details.
+    // Audit is best-effort; durable T6 failures must not mutate ledger outcomes.
   }
 }
 
@@ -60,7 +66,10 @@ export function createFinOpsCaptureService(deps: {
         };
         safeEmit(deps.audit, {
           type: "finops_capture_failed",
-          detail: { code: error.code, retryable: error.retryable },
+          detail: correlationDetail(request, {
+            code: error.code,
+            retryable: error.retryable,
+          }),
         });
         return { status: "failed", error };
       }
@@ -68,10 +77,10 @@ export function createFinOpsCaptureService(deps: {
       if (!built.ok) {
         safeEmit(deps.audit, {
           type: "finops_capture_failed",
-          detail: {
+          detail: correlationDetail(request, {
             code: built.error.code,
             retryable: built.error.retryable,
-          },
+          }),
         });
         return { status: "failed", error: built.error };
       }
@@ -89,7 +98,10 @@ export function createFinOpsCaptureService(deps: {
           };
           safeEmit(deps.audit, {
             type: "finops_capture_created",
-            detail: { eventId: result.eventId },
+            detail: correlationDetail(request, {
+              eventId: result.eventId,
+              dedupKey: built.event.dedupKey,
+            }),
           });
           return diagnostic;
         }
@@ -101,7 +113,10 @@ export function createFinOpsCaptureService(deps: {
           };
           safeEmit(deps.audit, {
             type: "finops_capture_duplicate",
-            detail: { eventId: result.eventId },
+            detail: correlationDetail(request, {
+              eventId: result.eventId,
+              dedupKey: built.event.dedupKey,
+            }),
           });
           return diagnostic;
         }
@@ -111,10 +126,10 @@ export function createFinOpsCaptureService(deps: {
         };
         safeEmit(deps.audit, {
           type: "finops_capture_failed",
-          detail: {
+          detail: correlationDetail(request, {
             code: result.error.code,
             retryable: result.error.retryable,
-          },
+          }),
         });
         return diagnostic;
       } catch {
@@ -126,7 +141,10 @@ export function createFinOpsCaptureService(deps: {
         };
         safeEmit(deps.audit, {
           type: "finops_capture_failed",
-          detail: { code: error.code, retryable: error.retryable },
+          detail: correlationDetail(request, {
+            code: error.code,
+            retryable: error.retryable,
+          }),
         });
         return { status: "failed", error };
       }
