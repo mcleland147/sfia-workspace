@@ -227,7 +227,7 @@ Directory: `.tmp-sfia-review/t3-post-merge/` (untracked) — git-truth, PR view,
 
 | Field | Value |
 | --- | --- |
-| tip | b6a9cd7cb239d70b9172d884bb435a4f8ce7dc73 |
-| blob | 7929d568b774e27000463f0a4b42e7259d8be8cb |
+| tip | d4f3da47d7559acafee1f2c331c06c2af30a9600 |
+| blob | 8947bbb039d7f3d27555da863973e80b45668468 |
 | commit message | `docs(review-handoff): publish T3 post-merge` |
 | publisher verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
