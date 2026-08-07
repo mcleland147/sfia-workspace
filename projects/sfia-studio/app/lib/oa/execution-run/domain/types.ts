@@ -184,17 +184,28 @@ export type HumanDecisionGate = {
   readonly expiresAt?: string;
 };
 
-/** 11. UsageSummary */
+/** 11. UsageSummary — T1 optional transport fields are additive (no Money). */
 export type UsageSummary =
   | {
       readonly status: "validated";
       readonly inputTokens?: number;
       readonly outputTokens?: number;
+      readonly totalTokens?: number;
       readonly unit?: string;
+      readonly model?: string;
+      readonly providerResponseId?: string;
     }
   | {
       readonly status: "unavailable";
       readonly reason: string;
+      readonly model?: string;
+      readonly providerResponseId?: string;
+    }
+  | {
+      readonly status: "invalid";
+      readonly reason: string;
+      readonly model?: string;
+      readonly providerResponseId?: string;
     };
 
 /** 12. NormalizedFailure */

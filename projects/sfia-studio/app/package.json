@@ -11,12 +11,16 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:db": "vitest run __tests__/oa/finops/postgres",
+    "migrate:up": "node-pg-migrate up --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT",
+    "migrate:down": "node-pg-migrate down --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT"
   },
   "dependencies": {
     "ajv": "^6.15.0",
     "next": "^15.3.3",
     "openai": "^6.48.0",
+    "pg": "~8.22.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -26,12 +30,14 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.15.21",
+    "@types/pg": "^8.20.4",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "axe-core": "^4.10.3",
     "eslint": "^9.27.0",
     "eslint-config-next": "^15.3.3",
     "jsdom": "^26.1.0",
+    "node-pg-migrate": "^8.0.4",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"
   }

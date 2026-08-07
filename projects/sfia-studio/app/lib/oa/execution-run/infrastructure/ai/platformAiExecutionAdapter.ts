@@ -92,9 +92,17 @@ export class PlatformAiExecutionAdapter implements AiExecutionPort {
                   status: "validated" as const,
                   inputTokens: raw.usage.inputTokens ?? undefined,
                   outputTokens: raw.usage.outputTokens ?? undefined,
+                  totalTokens: raw.usage.totalTokens ?? undefined,
                   unit: "tokens",
+                  model: raw.usage.model ?? undefined,
+                  providerResponseId: raw.usage.providerResponseId ?? undefined,
                 }
-              : { status: "unavailable" as const, reason: "provider usage missing" };
+              : {
+                  status: "unavailable" as const,
+                  reason: "provider usage missing",
+                  model: raw.usage.model ?? undefined,
+                  providerResponseId: raw.usage.providerResponseId ?? undefined,
+                };
           return {
             kind: "success" as const,
             completeness: "complete" as const,

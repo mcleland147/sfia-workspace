@@ -56,6 +56,7 @@ export function composeExecutionRunD2D3(options?: {
   readonly providers?: ExecutionRunProviderComposition;
   readonly clock?: ClockPort;
   readonly clockIso?: string;
+  readonly finops?: import("../../finops/ports/finopsCapturePort").FinOpsCapturePort;
 }): ExecutionRunD2D3Composition {
   assertServerOnly();
   const clockIso = options?.clockIso ?? "2026-08-04T09:15:00.000Z";
@@ -93,6 +94,7 @@ export function composeExecutionRunD2D3(options?: {
         providers,
         events: providers.events,
         clock,
+        ...(options?.finops ? { finops: options.finops } : {}),
       }),
     projectById,
     assessById: async (runId) => {
