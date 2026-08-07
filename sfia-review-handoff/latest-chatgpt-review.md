@@ -11,8 +11,13 @@
 - GO autorise: nouvelle branche+WT Delivery depuis origin/main · rematerialize exact 9 paths · tests/migrations locaux · preuves `.tmp-sfia-review/**` · FULL review pack · handoff L3 publish
 - GO N'autorise PAS: project git add/staging/commit/push/PR/merge/force/rebase · modif historical T6 WT/probe · T6-ext-*/global composition · R-PR-T2-API-01 harden · T3–T5/T7 · Neon · provider-real · package/CI · adaptations opportunistes
 - Repo: `mcleland147/sfia-workspace`
-- Cycle Knowledge Contract: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate / experimental / no execution authority)
+- Cycle Knowledge Contract: Cycle 8 Delivery — detailed pilot absent — fallback `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` — status method-candidate — usage experimental cognitive guidance — execution authority none
 - project staging/commit/push/PR: **NO / NO / NO / NO**
+- handoff_correction_date_cest: 2026-08-07 16:55:46 CEST (+0200)
+- handoff_correction_date_utc: 2026-08-07 14:55:46 UTC
+- handoff_correction_go: `ok go correction`
+- handoff_correction_scope: `CKC routing metadata only`
+- handoff_correction_reason: `Cycle 8 Delivery has no detailed CKC pilot; fallback synthetic map required.`
 
 ## Verdict (pack)
 
@@ -42,7 +47,7 @@ READY FOR CHATGPT VALIDATION
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
 - `scripts/sfia/publish-review-handoff.sh`
 
 ## 2. Sources projet (main)
