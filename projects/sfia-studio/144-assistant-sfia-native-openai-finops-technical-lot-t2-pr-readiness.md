@@ -1,11 +1,11 @@
 # 144 — FinOps Technical Lot T2 — PR Readiness
 
-**Project:** SFIA Studio — Assistant SFIA natif OpenAI  
-**Document:** `projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md`  
-**Cycle:** 13 — PR readiness  
-**Profil:** Critical  
-**Typologie:** EVOL / INC / DOC  
-**Statut:** READY FOR PR WITH RESERVES  
+**Project:** SFIA Studio — Assistant SFIA natif OpenAI
+**Document:** `projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md`
+**Cycle:** 13 — PR readiness
+**Profil:** Critical
+**Typologie:** EVOL / INC / DOC
+**Statut:** READY FOR PR WITH RESERVES
 
 > Anti-claims: **no** project commit, **no** project push, **no** PR created, **no** merge.
 
@@ -184,7 +184,7 @@ No production consumer bypasses the lock. Production rebuild path is exclusive-o
 
 ### Verdict on reserve
 
-**Design/hardening reserve — not a PR blocker.**  
+**Design/hardening reserve — not a PR blocker.**
 Recommended: future optional micro-cycle to remove/narrow public raw replace **after** Morris GO for API hardening (not this cycle).
 
 ---
@@ -278,7 +278,7 @@ One commit covering implementation + tests + migration + docs 138–142/144.
 
 ### Option G2 — two commits
 
-1. implementation/tests/migration  
+1. implementation/tests/migration
 2. documentation 138–142/144
 
 ### Recommendation: **G1**

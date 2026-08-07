@@ -1,14 +1,14 @@
 # 142 — FinOps Technical Lot T2 — Execution Record (Aggregation + Reconciliation)
 
-**Project:** SFIA Studio — Assistant SFIA natif OpenAI  
-**Document:** `projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md`  
-**Cycle:** 8 — Delivery / implémentation  
-**Profil:** Critical  
-**Typologie:** EVOL / DOC / ARCH / DELIVERY  
-**Statut:** T2 DELIVERY VALIDATED WITH RESERVES — PR READINESS INPUT  
-**Handoff:** PUBLISHED / REMOTE VERIFIED  
-**ChatGPT validation:** VALIDATED WITH RESERVES  
-**A1 blockers (multi-currency / multi-instance):** CLOSED  
+**Project:** SFIA Studio — Assistant SFIA natif OpenAI
+**Document:** `projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md`
+**Cycle:** 8 — Delivery / implémentation
+**Profil:** Critical
+**Typologie:** EVOL / DOC / ARCH / DELIVERY
+**Statut:** T2 DELIVERY VALIDATED WITH RESERVES — PR READINESS INPUT
+**Handoff:** PUBLISHED / REMOTE VERIFIED
+**ChatGPT validation:** VALIDATED WITH RESERVES
+**A1 blockers (multi-currency / multi-instance):** CLOSED
 
 > PR readiness is handled separately in document **144**. This document remains the Delivery execution record (history preserved below). No project commit / push / PR / merge is claimed here.
 
