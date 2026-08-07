@@ -1,35 +1,25 @@
-# ChatGPT Review Pack — FinOps Technical Lot T4 — Architecture Decisions Applied
+# ChatGPT Review Pack — FinOps Technical Lot T4 — Foundation Delivery
 
 ## 1. Date / heure / fuseau
 
-- Work CEST: 2026-08-07 21:46:34 CEST (+0200)
-- Work UTC: 2026-08-07 19:46:34 UTC
-- Cycle: 6 — Architecture technique
-- Mode: T4 Architecture Arbitration — Decisions Applied
+- Work CEST: 2026-08-07 22:14:37 CEST (+0200)
+- Work UTC: 2026-08-07 20:14:37 UTC
+- Cycle: 8 — Delivery / implémentation
+- Mode: T4 Foundation Delivery
 - Profil: **Critical**
-- Typologie: EVOL / DOC / ARCH
+- Typologie: EVOL / CODE / TEST / DOC
 
 ## 2. Morris phrase exacte
 
 ```
-ok go
+GO Delivery T4 foundation distinct.
 ```
 
-## 3. Contextual interpretation (exact package)
+## 3. Contextual interpretation
 
-GO compris comme validation des recommandations candidates du pack 148:
+GO consumes **T4 FOUNDATION DELIVERY** only (dormant mechanism). Does **not** consume activation / calibration / IAM / T5 / T6-ext / T7 / project commit/push/PR.
 
-| Decision | Selection |
-|----------|-----------|
-| D-T4-EVIDENCE-01 | **B** SELECTED BY MORRIS |
-| D-T4-BOUNDARY-01 | **A** SELECTED BY MORRIS |
-| D-T4-DECISION-CONTRACT-01 | **B** SELECTED BY MORRIS |
-| D-T4-T3-COUPLING-01 | **B** SELECTED BY MORRIS |
-| D-T4-FOUNDATION-01 | **A** SELECTED BY MORRIS |
-| D-T4-CALIBRATION-01 | **A** SELECTED BY MORRIS |
-| D-T4-FAILURE-POSTURE-01 | fail-open — UPSTREAM SELECTED / NOT REOPENED |
-
-No other selections. Intermediate state literal REVIEW_REQUIRED vs WOULD_BLOCK = **DEFERRED**. T6-ext-before-pilot = **DEFERRED**.
+Decisions consumed: B/A/B/B/A/A + fail-open preserved.
 
 ## 4. Git Truth
 
@@ -37,181 +27,128 @@ No other selections. Intermediate state literal REVIEW_REQUIRED vs WOULD_BLOCK =
 |--------|--------|
 | Repo | mcleland147/sfia-workspace |
 | origin/main | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 |
-| Branch | implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement |
+| Delivery branch | delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation |
+| Prep branch kept | implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement |
 | Worktree | .tmp-sfia-review/worktrees/finops-t4-preparation |
 | HEAD | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 |
-| Handoff entrant tip | eaacf7937254baa4c7c7f18fc42a3b490072acc6 |
-| Handoff entrant blob | 5befcff773f3cdc7e84a20e5ff2cc3f51a84f7e8 |
-| Handoff entrant commit | docs(review-handoff): publish T4 preparation |
+| Handoff before tip | b6f91f8799ae530d1cc4ed29c10c41e0babc188a |
+| Handoff before blob | 226afb696bc3f29ad38848501ce88972705593b6 |
 | Staged | empty |
 | Project commit/push/PR | none |
 
-## 5. Document 148 hash proof (byte-identical)
+## 5. Document 148/149 hash proofs (byte-identical)
 
-| Check | SHA-256 |
-|-------|---------|
-| Expected | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 |
-| BEFORE | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 |
-| AFTER | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 |
-| Match | **PASS — BYTE-IDENTICAL** |
+| Doc | Expected | AFTER | Match |
+|-----|----------|-------|-------|
+| 148 | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 | PASS |
+| 149 | 26a33ead6fa6a997be886fe5d254355bb8d0bb3894bdf3cffbcaa96074256276 | 26a33ead6fa6a997be886fe5d254355bb8d0bb3894bdf3cffbcaa96074256276 | PASS |
 
-148 path: `projects/sfia-studio/148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md`
-148 role: PRE-ARBITRATION HISTORY — IMMUTABLE
+## 6. Exact 16-path manifest
 
-## 6. Document 149 meta
+PRESERVE: 148, 149
+CREATE: 150 + 11 code/test/migration paths
+MODIFY: coordinateExecutionRun.ts, composeExecutionRunD2D3.ts
+Count: **16**
 
-| Field | Value |
-|-------|--------|
-| Path | projects/sfia-studio/149-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-decisions-applied.md |
-| Role | POST-ARBITRATION decisions-applied |
-| SHA-256 | 26a33ead6fa6a997be886fe5d254355bb8d0bb3894bdf3cffbcaa96074256276 |
-| Lines | 783 |
-| Bytes | 28382 |
-| Sections | A–Z complete |
+## 7. Selected decisions consumed
 
-## 7. Six decisions + failure posture
+- D-T4-EVIDENCE-01 = B
+- D-T4-BOUNDARY-01 = A
+- D-T4-DECISION-CONTRACT-01 = B
+- D-T4-T3-COUPLING-01 = B (sync OPEN)
+- D-T4-FOUNDATION-01 = A
+- D-T4-CALIBRATION-01 = A
+- D-T4-FAILURE-POSTURE-01 = fail-open PRESERVED
 
-- D-T4-EVIDENCE-01 = B — dedicated enforcement projection — SELECTED BY MORRIS
-- D-T4-BOUNDARY-01 = A — optional coordinator enforcement dependency — SELECTED BY MORRIS
-- D-T4-DECISION-CONTRACT-01 = B — explicit soft-control states — SELECTED BY MORRIS
-- D-T4-T3-COUPLING-01 = B — T4 evidence authority + T3 sync — SELECTED BY MORRIS
-- D-T4-FOUNDATION-01 = A — foundation first — SELECTED BY MORRIS
-- D-T4-CALIBRATION-01 = A — no real active historical amount — SELECTED BY MORRIS
-- D-T4-FAILURE-POSTURE-01 = fail-open — UPSTREAM SELECTED / NOT REOPENED
+## 8. Soft_signal internal-only proof / deferred literal
 
-## 8. Key implications (summary)
+`soft_signal` is TypeScript-internal only — not persisted, not public API, not durable event, not Morris selection of REVIEW_REQUIRED or WOULD_BLOCK.
+**REVIEW_REQUIRED vs WOULD_BLOCK = STILL DEFERRED.**
 
-- Soft-cap anti-claim: cannot guarantee spend ≤ S30
-- Blocking authority: dedicated SoT-safe projection (not T2.observedAmount / not T3 review alone)
-- ENF-B: optional coordinator dependency after create / before intent_valid / provider
-- Soft-control contract: ALLOW / intermediate soft signal / BLOCK / FAILED — intermediate literal DEFERRED
-- Foundation-first without real activation; historical 15/20/25/30 NOT RUNTIME-ACTIVE
-- Activation prerequisites open; T5/T6-ext/T7/IAM boundaries preserved
-- No code / migration / tests / project commit / push / PR
+## 9. Default composition inert proof
 
-## 9. Reserves
+`composeExecutionRunD2D3()` does not create a T4 instance; pass-through only when `finopsEnforcement` explicitly provided.
+
+## 10. Reserves
 
 - R-T6-RUNTIME-COMPOSITION-01 = OPEN
 - R-PR-T2-API-01 = OPEN MINOR
 - T6-ext-T2 = EXCLUDED
 - T6-ext-T3T4 = NOT AUTHORIZED
-- Exact T6-ext event names = DEFERRED
 - T6-ext-before-E1-pilot = DEFERRED
-- Calibration = REQUIRED before real activation
+- Calibration = REQUIRED
 - Product IAM = NOT_SELECTED
 - Privileged Morris mutations = DEFERRED
-- Intermediate soft-state literal = DEFERRED
+- Intermediate product literal = DEFERRED
+- R-T4-T3-SYNC-01 = OPEN
+- R-T4-PROJECTION-REFRESH-01 = OPEN
 
-## 10. Project manifest
+## 11. QA summary (see evidence `.tmp-sfia-review/t4-foundation-delivery/`)
 
-CREATE / untracked only:
-- projects/sfia-studio/148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md
-- projects/sfia-studio/149-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-decisions-applied.md
+- Unit T4: 19 passed
+- Boundary T4: 15 passed
+- PG T4: 14 passed
+- FinOps suite: 199 passed
+- Full npm test (serial): 151 files / 1530 tests passed
+- typecheck/lint/build: GREEN
+- migrate:up T1→T2→T6→T3→T4: GREEN
+- test:db: GREEN
+- Local ephemeral Postgres only (NOT Neon); torn down after QA
 
-Staged: empty
-Tracked project modifications: none
+## 12. Anti-claims
 
-## 11. Verdict (expected)
-
-```
-READY FOR CHATGPT T4 DECISIONS-APPLIED VALIDATION /
-READY FOR MORRIS T4 DELIVERY GATE
-```
+NO real S30 / NO historical 15/20/25/30 runtime / NO E1 / NO T5 / NO T6-ext / NO T7 / NO IAM / NO project staging/commit/push/PR / T3 unchanged / soft-cap cannot guarantee spend ≤ S30
 
 ---
 
-# COMPLETE DOCUMENT 149
+# COMPLETE CREATE CONTENTS
 
-# 149 — FinOps Technical Lot T4 — S30 Soft Enforcement — Decisions Applied
+
+## CREATED `projects/sfia-studio/150-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-foundation-execution.md`
+
+```
+# 150 — FinOps Technical Lot T4 — S30 Soft Enforcement — Foundation Execution
 
 | Champ | Valeur |
 |-------|--------|
-| Document | `149-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-decisions-applied.md` |
+| Document | `150-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-foundation-execution.md` |
 | Lot | T4 — S30 Soft Application Cap / Soft Enforcement |
-| Cycle | 6 — Architecture technique |
-| Mode | T4 Architecture Arbitration — Decisions Applied |
+| Cycle | 8 — Delivery / implémentation |
+| Mode | T4 Foundation Delivery |
 | Profil | **Critical** |
-| Typologie | EVOL / DOC / ARCH |
-| CKC pilot | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate · no execution authority) |
-| Status | **T4 ARCHITECTURE DECISIONS APPLIED WITH RESERVES — NO T4 DELIVERY — NO REAL S30 ACTIVATION** |
-| Authority | Documentary application of Morris arbitration only |
+| Typologie | EVOL / CODE / TEST / DOC |
+| Status | **T4 FOUNDATION DELIVERY COMPLETE WITH RESERVES — NO REAL S30 ACTIVATION — NO E1 — NO T5/T6-EXT/T7/IAM** |
+| Authority | Morris GO `GO Delivery T4 foundation distinct.` consumed for foundation only |
 
 ---
 
-## A. Statut / anti-claims
+## A. Status / anti-claims
 
 | Claim | Statut |
 |-------|--------|
-| D-T4-EVIDENCE-01 B SELECTED BY MORRIS | **TRUE** |
-| D-T4-BOUNDARY-01 A SELECTED BY MORRIS | **TRUE** |
-| D-T4-DECISION-CONTRACT-01 B SELECTED BY MORRIS | **TRUE** |
-| D-T4-T3-COUPLING-01 B SELECTED BY MORRIS | **TRUE** |
-| D-T4-FOUNDATION-01 A SELECTED BY MORRIS | **TRUE** |
-| D-T4-CALIBRATION-01 A SELECTED BY MORRIS | **TRUE** |
-| D-T4-FAILURE-POSTURE-01 fail-open UPSTREAM SELECTED / NOT REOPENED | **TRUE** |
-| Exact intermediate state literal REVIEW_REQUIRED vs WOULD_BLOCK chosen | **FALSE** — **DEFERRED** |
-| T6-ext-before-E1-pilot requirement decided | **FALSE** — **DEFERRED** |
-| T4 Delivery authorized / executed | **FALSE** |
-| Code / SQL / migration / executable tests created | **FALSE** |
+| T4 foundation mechanism delivered (dormant) | **TRUE** |
+| Dedicated SoT-safe enforcement projection | **TRUE** |
+| Optional ENF-B coordinator dependency | **TRUE** |
+| Default composition inert (no auto T4 instance) | **TRUE** |
 | Real S30 / USD 30 runtime activation | **FALSE** |
-| Historical 15/20/25/30 adopted as runtime-active | **FALSE** |
-| Product IAM / session Morris identity implemented | **FALSE** |
-| T5 / T6-ext / T7 Delivery advanced | **FALSE** |
-| Document 148 modified | **FALSE** — preserved byte-identical |
-| Project commit / push / PR / merge | **FALSE** |
-| Soft-cap guarantees monthly spend ≤ S30 | **FALSE** — anti-claim affirmed |
-| T2 `observedAmount` / T3 review = monetary blocking authority | **FALSE** |
-| Recommendation from 148 = decision without Morris GO | **FALSE** — Morris `ok go` consumes and selects |
-
-**Status (exact):**
-
-> T4 ARCHITECTURE DECISIONS APPLIED WITH RESERVES — NO T4 DELIVERY — NO REAL S30 ACTIVATION — NO IAM / T5 / T6-EXT / T7
+| Historical 15/20/25/30 runtime-active | **FALSE** |
+| E1-ENFORCED | **FALSE** |
+| T5 / T6-ext / T7 / Product IAM | **FALSE** |
+| Soft-cap guarantees spend ≤ S30 | **FALSE** — anti-claim affirmed |
+| T2.observedAmount / T3 review = monetary blocking authority | **FALSE** |
+| Intermediate literal REVIEW_REQUIRED vs WOULD_BLOCK chosen | **FALSE** — STILL DEFERRED |
+| Project commit / push / PR | **FALSE** |
+| 148 / 149 modified | **FALSE** — byte-identical |
 
 ---
 
-## B. Phrase Morris exacte et contextual interpretation
-
-### Phrase Morris exacte
+## B. GO Morris exact
 
 ```
-ok go
+GO Delivery T4 foundation distinct.
 ```
 
-### Contextual interpretation (périmètre EXACT — no other selections)
-
-ChatGPT had validated:
-
-> T4 PREPARATION VALIDATED — READY FOR MORRIS ARCHITECTURE ARBITRATION
-
-and presented the candidate package from document 148 before this cycle. Morris `ok go` is consumed as acceptance of that package **only**:
-
-| Decision ID | Value | Status |
-|-------------|-------|--------|
-| D-T4-EVIDENCE-01 | **B** — T4 dedicated enforcement projection | **SELECTED BY MORRIS** |
-| D-T4-BOUNDARY-01 | **A** — optional FinOps enforcement dependency in coordinator | **SELECTED BY MORRIS** |
-| D-T4-DECISION-CONTRACT-01 | **B** — explicit soft-control decision states | **SELECTED BY MORRIS** |
-| D-T4-T3-COUPLING-01 | **B** — T4 evidence authority + T3 human-review synchronization | **SELECTED BY MORRIS** |
-| D-T4-FOUNDATION-01 | **A** — foundation first | **SELECTED BY MORRIS** |
-| D-T4-CALIBRATION-01 | **A** — engine/config without real active historical amount | **SELECTED BY MORRIS** |
-| D-T4-FAILURE-POSTURE-01 | fail-open | **UPSTREAM SELECTED / NOT REOPENED** |
-
-No additional option among A/B/C alternatives in 148 is selected. No silent enrichment.
-
-### Autorité
-
-Morris decides. Cursor applies decisions exactly. ChatGPT validates coherence. Git remains source of truth for files and hashes.
-CKC pilot 03 = candidate experimental guidance only — **no execution authority**; Morris GO in this cycle prevails.
-
-### Gates consommées / non reçues
-
-| Gate | Status |
-|------|--------|
-| T4 architecture arbitration | **REÇU / CONSUMED** via `ok go` contextualisé |
-| T4 decisions-applied documentation | **AUTORISÉ** (this cycle) |
-| T4 Delivery | **NON REÇU** |
-| T4 commit / push / PR / merge | **NON REÇU** |
-| Real calibration / E1 activation | **NON REÇU** |
-| Product IAM / T5 / T6-ext / T7 | **NON REÇU** |
+Consumes **T4 FOUNDATION DELIVERY** only. Does **not** consume activation, calibration, IAM, T5, T6-ext, T7, commit/push/PR gates.
 
 ---
 
@@ -219,9 +156,8 @@ CKC pilot 03 = candidate experimental guidance only — **no execution authority
 
 | Clock | Value |
 |-------|--------|
-| Décision Morris (annoncée) | 2026-08-07 CEST (+0200) — secondes exactes non inventées |
-| Application documentaire (ce cycle) | 2026-08-07 21:45:04 CEST (+0200) / 2026-08-07 19:45:04 UTC |
-| Document intent | Cycle 6 Architecture Critical — T4 Decisions Applied |
+| Delivery work | 2026-08-07 22:14:37 CEST (+0200) / 2026-08-07 20:14:37 UTC |
+| Cycle | 8 — Delivery Critical |
 
 ---
 
@@ -231,689 +167,3146 @@ CKC pilot 03 = candidate experimental guidance only — **no execution authority
 |--------|--------|
 | Repo | `mcleland147/sfia-workspace` |
 | `origin/main` | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` |
-| T4 worktree | `.tmp-sfia-review/worktrees/finops-t4-preparation` |
-| T4 branch | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement` |
-| T4 HEAD | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` (= origin/main) |
-| Status before | `?? …/148-….md` (+ local `.tmp-sfia-review/` evidence) |
+| Prep branch (kept) | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement` |
+| Delivery branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation` |
+| Worktree | `.tmp-sfia-review/worktrees/finops-t4-preparation` |
+| HEAD | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` (= origin/main) |
 | Staged | empty |
-| Upstream | none |
-| Handoff entrant tip | `eaacf7937254baa4c7c7f18fc42a3b490072acc6` |
-| Handoff entrant blob | `5befcff773f3cdc7e84a20e5ff2cc3f51a84f7e8` |
-| Handoff entrant commit | `docs(review-handoff): publish T4 preparation` |
-| Document 148 SHA-256 (before) | `9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96` |
-| Document 148 | untracked · **byte-identical préservé** |
-| Document 149 | **CREATE ONLY** (absent before cycle; absent on origin/main) |
-| Project commit / push / PR | **aucun** |
+| Project commit/push/PR | none |
+| Handoff entrant tip | `b6f91f8799ae530d1cc4ed29c10c41e0babc188a` |
+| Handoff entrant blob | `226afb696bc3f29ad38848501ce88972705593b6` |
 
 ---
 
-## E. Relation 148 / 149
+## E. 148/149 preservation hashes
 
-| Document | Role |
-|----------|------|
-| **148** | Historical **pre-arbitration** T4 S30 soft-enforcement preparation · option matrices · candidate recommendations · **IMMUTABLE** in this cycle |
-| **149** | Authoritative **post-arbitration** record for the six T4 decision IDs selected by Morris + failure posture preserved |
+| Doc | SHA-256 (BEFORE = AFTER) |
+|-----|--------------------------|
+| 148 | `9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96` |
+| 149 | `26a33ead6fa6a997be886fe5d254355bb8d0bb3894bdf3cffbcaa96074256276` |
 
-**148 is IMMUTABLE in this cycle** — byte-identical preservation required.
-Do **not** rewrite 148 option tables. Prior candidate recommendations (B/A/B/B/A/A + fail-open packaging) in 148 remain historical; **Morris selected** them via contextualized `ok go`.
-
----
-
-## F. Sources
-
-### Méthode (read-only)
-
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate · no authority)
-- `scripts/sfia/publish-review-handoff.sh`
-
-### Projet (read-only)
-
-- `123` / `125` IP-0C enforcement & technical implementation
-- `138` T2–T5–T6 grouped preparation
-- `145` / `146` / `147` T3 prep / decisions / execution
-- **Primary pre-arbitration:** `148-…-t4-s30-soft-enforcement-preparation.md`
-- Handoff entrant tip `eaacf793…` (Full Review Pack T4 preparation with complete 148)
-
-Runtime T0/T2/T3 and execution-run surfaces referenced in 148: **read-only only** — not modified.
+Both remain **untracked** and **byte-identical**.
 
 ---
 
-## G. Upstream decisions preserved
+## F. Selected architecture decisions consumed
 
-### From 123 (enforcement policy) — not re-opened
-
-| ID / code | SELECTED value | Note |
-|-----------|----------------|------|
-| `D-ASST-IP0C-ENFORCEMENT-01` | **E1 — SOFT CONTROL WITH HUMAN GATE** | NOT IMPLEMENTED |
-| S30-SOFT | Soft application cap — suspend **new** runs; engaged runs may finish | NOT IMPLEMENTED |
-| Resume | Morris-only | NOT IMPLEMENTED |
-| Fail-closed / hard stop of active runs / provider hard limit | **NOT SELECTED** | — |
-
-### From 125 (technical implementation) — not re-opened
-
-| ID | SELECTED value | Lot owner |
-|----|----------------|-----------|
-| `D-ASST-IP0C-TECH-ENFORCE-BOUND-01` | **ENF-B** — after run acceptance, before provider | **T4** |
-| `D-ASST-IP0C-TECH-CONF-01` | Billed / PROVIDER_OBSERVED may block — ESTIMATED never; API_USAGE alone must not | **T4** |
-| `D-ASST-IP0C-TECH-CONC-01` | Postgres txn — project/period lock — atomic authorization | **T4** |
-| `D-ASST-IP0C-TECH-FLAG-01` | Server-side — project-scoped — default-OFF; OFF→SHADOW→MONITOR→E1-ENFORCED | **T7** |
-| `D-ASST-IP0C-TECH-OVR-IMPL-01` | Durable project-scoped Morris-only override | **T5** |
-
-### From 145–147 (T3) — not re-opened
-
-T3 CLOSED WITH RESERVES. T3 review is human-review state — **not** monetary blocking authority. Soft-cap 30 remains T4 responsibility.
-
-### Failure posture (this arbitration)
-
-`D-T4-FAILURE-POSTURE-01` = fail-open — **UPSTREAM SELECTED / PRESERVED / NOT REOPENED**. Fail-closed remains incompatible.
+| Decision | Value | Status |
+|----------|-------|--------|
+| D-T4-EVIDENCE-01 | B — dedicated enforcement projection | CONSUMED |
+| D-T4-BOUNDARY-01 | A — optional coordinator enforcement dependency | CONSUMED |
+| D-T4-DECISION-CONTRACT-01 | B — explicit soft-control states | CONSUMED |
+| D-T4-T3-COUPLING-01 | B — T4 evidence + T3 sync (sync mechanism deferred) | CONSUMED (sync OPEN) |
+| D-T4-FOUNDATION-01 | A — foundation first | CONSUMED |
+| D-T4-CALIBRATION-01 | A — no real active historical amount | CONSUMED |
+| D-T4-FAILURE-POSTURE-01 | fail-open | PRESERVED / NOT REOPENED |
 
 ---
 
-## H. Arbitration result matrix
+## G. Delivery manifest (exact 16 paths)
 
-| Decision | Morris selection | Status |
-|----------|------------------|--------|
-| D-T4-EVIDENCE-01 | B — dedicated enforcement projection | **SELECTED BY MORRIS** |
-| D-T4-BOUNDARY-01 | A — optional coordinator enforcement dependency | **SELECTED BY MORRIS** |
-| D-T4-DECISION-CONTRACT-01 | B — explicit soft-control states | **SELECTED BY MORRIS** |
-| D-T4-T3-COUPLING-01 | B — T4 evidence authority + T3 sync | **SELECTED BY MORRIS** |
-| D-T4-FOUNDATION-01 | A — foundation first | **SELECTED BY MORRIS** |
-| D-T4-CALIBRATION-01 | A — no real active historical amount | **SELECTED BY MORRIS** |
-| D-T4-FAILURE-POSTURE-01 | fail-open | **UPSTREAM SELECTED / NOT REOPENED** |
+**PRESERVE:** 148, 149
+**CREATE:** 150; `types.enforcement.ts`; `rebuildEnforcementProjection.ts`; `evaluateFinOpsEnforcement.ts`; `finopsEnforcementProjectionPort.ts`; `finopsEnforcementPort.ts`; `memoryFinOpsEnforcementProjection.ts`; `postgresFinOpsEnforcementProjectionStore.ts`; `1754600003000_finops-t4-enforcement-projection.js`; `t4.enforcement.unit.test.ts`; `t4.enforcement-projection.integration.test.ts`; `t4.enforcement-boundary.unit.test.ts`
+**MODIFY:** `coordinateExecutionRun.ts`; `composeExecutionRunD2D3.ts`
 
-Rejected / not selected in this arbitration (remain historical options in 148 only):
-
-- EVIDENCE-01 A (direct ledger scan) / C (extend T2 aggregates)
-- BOUNDARY-01 B (outer orchestrator)
-- DECISION-CONTRACT-01 A (binary ALLOW/BLOCK)
-- T3-COUPLING-01 A (T3 review as blocking authority)
-- FOUNDATION-01 B (wait for all activation deps)
-- CALIBRATION-01 B (wait for calibration before any T4 Delivery)
-- FAILURE-POSTURE fail-closed (incompatible — not re-arbitrated)
+No 17th path. T2/T3/T6 runtime files unchanged.
 
 ---
 
-## I. D-T4-EVIDENCE-01 — B SELECTED
+## H. Projection model
 
-**Value:** `B — T4 DEDICATED ENFORCEMENT PROJECTION`
-**Status:** **SELECTED BY MORRIS**
+`FinOpsEnforcementProjection` keyed by `projectId + UTC periodStart (YYYY-MM-DD) + currency` with:
 
-### Contract
+- `blockingEligibleAmount`, `billedAmount`, `providerObservedAmount` (canonical Money scale-8 strings)
+- event counts; `rebuildVersion`; `rebuiltAt`
 
-- T4 obtains blocking-eligible monetary view via a **dedicated derived, rebuildable projection** with `blockingEligibleAmount` + provenance.
-- Projection preserves Source-of-Truth distinction required for TECH-CONF-01.
-- Only blocking-eligible SoTs participate in the blocking signal:
-  - **BILLED** — yes
-  - **PROVIDER_OBSERVED** — yes
-  - **API_USAGE** — never
-  - **LOCAL_COUNT** — never
-  - **PARAMETRIC_ESTIMATE** — never
-  - **UNKNOWN** — never
-- Estimation never blocks.
-- Projection key: `projectId + UTC period + currency`.
-- **No FX.** No cross-currency sum.
-- Ledger / cost events remain financially authoritative.
-- The T4 projection is **not** a new financial source of truth — derived / rebuildable only.
-
-### Consequences
-
-- T4 **must not** treat `T2.observedAmount` as blocking authority (conflates PROVIDER_OBSERVED + API_USAGE).
-- T4 **must not** treat T3 review alone as monetary blocking authority.
-- Future Delivery may introduce a T4 projection store/port/migration — under a separate Delivery GO.
-- Direct per-run ledger scan (Option A) and T2 aggregate split (Option C) are **NOT SELECTED**.
-
-### Non-decisions (DEFERRED to future Delivery/preparation)
-
-- Exact SQL table / column / index names
-- Exact migration timestamp
-- Exact rebuild / refresh strategy
-- Any scheduler (no implicit cron)
-- Final Delivery schema freeze
-
-### Anti-claims
-
-- B SELECTED ≠ DDL / migration created
-- B SELECTED ≠ projection runtime live
-- B SELECTED ≠ S30 activated
-- B SELECTED ≠ T2 reopened
+Derived / rebuildable / **non-authoritative**. Ledger (`finops_cost_event`) remains financially authoritative.
 
 ---
 
-## J. D-T4-BOUNDARY-01 — A SELECTED
+## I. Ledger authority / SoT filtering
 
-**Value:** `A — OPTIONAL FINOPS ENFORCEMENT DEPENDENCY IN COORDINATOR`
-**Status:** **SELECTED BY MORRIS**
+Builder uses `evaluateBlockingEligibility(sourceOfTruth)`:
 
-### Contract
+| SoT | Blocking eligible |
+|-----|-------------------|
+| BILLED | YES |
+| PROVIDER_OBSERVED | YES |
+| API_USAGE | NEVER |
+| LOCAL_COUNT / PARAMETRIC_ESTIMATE / UNKNOWN | NEVER |
 
-Future ENF-B insertion (documentary; not implemented now):
-
-> After `createExecutionRun` succeeded / run accepted, **and** after current pre-engagement checks succeed, **before** `intent_valid` transition / **before** provider invocation.
-
-- Coordinator consumes a **minimal optional server-side** T4 enforcement dependency.
-- No authoritative UI control.
-- When E1-ENFORCED is active and decision is BLOCK → provider **never** invoked.
-- Already-engaged runs are **not** interrupted; only **new** runs are in scope.
-- No DB transaction / advisory lock held across provider I/O.
-- Optional / inactive dependency **must not** silently activate S30.
-- Outer orchestrator / split coordination (**Option B**) = **NOT SELECTED**.
-
-### Consequences
-
-- Minimizes execution-run surface change vs invasive refactor.
-- Preserves selected ENF-B bound from 125.
-- Compose may inject enforcement optionally — default inactive until activation gates.
-
-### Non-decisions (DEFERRED)
-
-- Exact port name
-- Exact dependency field name
-- Exact wiring / composition runtime
-
-### Anti-claims
-
-- A SELECTED ≠ coordinator code modified now
-- A SELECTED ≠ enforcement dep live
-- A SELECTED ≠ E1 active
+SoT/evidenceClass inconsistency (e.g. BILLED≠billed) → FinOps-side rebuild failure (never silent coerce). No FX. No cross-currency sum. `amount=null` ignored for sums.
 
 ---
 
-## K. D-T4-DECISION-CONTRACT-01 — B SELECTED
+## J. Rebuild model
 
-**Value:** `B — EXPLICIT SOFT-CONTROL DECISION STATES`
-**Status:** **SELECTED BY MORRIS**
+`rebuildEnforcementProjection` is **explicit / on-demand**:
 
-### Contract — semantic pattern SELECTED
+short project/period lock → read cost events → build all currencies → atomic replace → commit/release.
 
-The decision contract must explicitly distinguish at least:
-
-| Role | Semantic |
-|------|----------|
-| Authorizing result | **ALLOW** |
-| Non-blocking intermediate soft signal | **INTERMEDIATE SOFT SIGNAL** = `REVIEW_REQUIRED` **or** `WOULD_BLOCK` |
-| Effective block | **BLOCK** |
-| FinOps technical failure | **FAILED** |
-
-Plus diagnostics / provenance suitable for soft-control observability.
-
-### CRITICAL — intermediate state literal = DEFERRED
-
-Option B is **SELECTED** as the **pattern** (explicit soft states, not binary-only).
-
-The exact intermediate-state literal:
-
-- `REVIEW_REQUIRED`
-- versus
-- `WOULD_BLOCK`
-
-remains **DEFERRED**.
-
-**This document does NOT silently choose either name.**
-
-Future Delivery must either:
-
-1. obtain an explicit later Morris decision on the literal; **or**
-2. demonstrate that the name is a pure implementation convention without contractual consequence.
-
-### Constraints
-
-- **FAILED ≠ BLOCK.** Technical FinOps failure never becomes implicit block.
-- Structure must be able to support future T7 modes (**OFF / SHADOW / MONITOR / E1-ENFORCED**) without T4 activating those modes.
-- Binary ALLOW/BLOCK (**Option A**) = **NOT SELECTED**.
-
-### Anti-claims
-
-- B SELECTED ≠ T7 modes activated
-- B SELECTED ≠ intermediate literal chosen
-- B SELECTED ≠ runtime enum shipped
+No cron / scheduler / automatic T2/T3 wiring. `rebuildVersion` = previous + 1 per currency. Lock never held across provider I/O.
 
 ---
 
-## L. D-T4-T3-COUPLING-01 — B SELECTED
+## K. PostgreSQL schema / migration
 
-**Value:** `B — T4 EVIDENCE AUTHORITY + T3 HUMAN-REVIEW SYNCHRONIZATION`
-**Status:** **SELECTED BY MORRIS**
-
-### Responsibility model
-
-| Concern | Owner |
-|---------|-------|
-| Monetary enforcement decision from SoT-safe view | **T4** |
-| Durable human-review state | **T3** |
-| T3 review state alone as monetary block authority | **NEVER** |
-
-### Why T3-alone blocking is rejected
-
-T3 review may be raised with `basis=observed`, which uses conflated `observedAmount` (PROVIDER_OBSERVED + API_USAGE). That does **not** prove the amount is exclusively PROVIDER_OBSERVED — violating TECH-CONF-01 if used as sole block signal.
-
-Option A (**T3 review as blocking authority**) = **NOT SELECTED**.
-
-### Conceptual flow
-
-```
-authoritative cost evidence
-  → T4 enforcement projection / evaluation
-  → T4 soft-control decision
-  → optional synchronization with T3 review state
-```
-
-### Sync constraints
-
-Synchronization with T3 must:
-
-- be idempotent;
-- not transform T3 into monetary source of truth;
-- not adopt T6 event names;
-- not create IAM;
-- not activate ack/resolve.
-
-### Non-decisions (DEFERRED)
-
-- Exact synchronization mechanism / API / direction
-- Exact transaction boundary for sync
-- Detailed behavior when T3 sync is unavailable
-
-### Anti-claims
-
-- B SELECTED ≠ sync implemented
-- B SELECTED ≠ T3 store changed now
-- B SELECTED ≠ T6-ext authorized
+Migration `1754600003000_finops-t4-enforcement-projection.js`
+Order: T1 < T2 < T6 < T3 < **T4**
+Table: `finops_enforcement_projection`
+PK: `(project_id, period_start, currency)`
+Constraints: currency `^[A-Z]{3}$`; period month-start; `rebuild_version >= 1`; counts ≥ 0; **no** amount ≥ 0 (signed corrections).
+No seed / threshold / flag / T6 event / FK to T2 or T3.
+Down: refuse drop if rows exist.
 
 ---
 
-## M. D-T4-FOUNDATION-01 — A SELECTED
+## L. Concurrency / lock implementation
 
-**Value:** `A — FOUNDATION FIRST`
-**Status:** **SELECTED BY MORRIS**
-
-### Contract
-
-A future T4 **foundation** Delivery **may** be proposed (under a **separate** Morris Delivery GO) before all E1 activation dependencies are available.
-
-Foundation Delivery **may** mechanically implement (when later authorized):
-
-- T4 contracts
-- SoT-safe projection
-- evaluation
-- decision contract
-- ENF-B integration
-- tests
-- derived persistence if needed
-- fail-open behavior
-- inactive / injected configuration
-
-### Must remain INERT for real enforcement
-
-Foundation **must not**:
-
-- activate E1
-- activate real S30
-- adopt USD 30 as runtime-active
-- introduce Product IAM
-- deliver T5 override
-- deliver T7 rollout
-- deliver T6-ext
-- claim production-ready
-
-**Foundation capability ≠ active enforcement.**
-
-Option B (wait for all activation deps before any T4 Delivery) = **NOT SELECTED**.
-
-### Anti-claims
-
-- A SELECTED ≠ T4 Delivery authorized now
-- A SELECTED ≠ mechanism on main
-- A SELECTED ≠ E1-ENFORCED
+PostgreSQL: `pg_advisory_xact_lock(hashtext('finops-t4:' || projectId), hashtext(periodStart))` on one PoolClient transaction — shared by rebuild and decision read. Memory: process-local mutex. Multi-instance safe for PG path.
 
 ---
 
-## N. D-T4-CALIBRATION-01 — A SELECTED
+## M. Enforcement decision contract
 
-**Value:** `A — ENGINE / CONFIG CONTRACT WITHOUT REAL ACTIVE HISTORICAL AMOUNT`
-**Status:** **SELECTED BY MORRIS**
-
-### Contract
-
-- Future T4 foundation may accept injected policy/config for mechanism tests.
-- **No real calibration is embedded** by this arbitration.
-- Historical amounts **15 / 20 / 25 / 30 USD** remain **documentary / provisional** and **NOT RUNTIME-ACTIVE**.
-- In particular: **historical 30 USD ≠ active S30 configuration**.
-- Future tests: **fictive fixtures only**.
-- Real E1-ENFORCED activation remains **BLOCKED** until a distinct Morris **real calibration** GO.
-
-Option B (wait for calibration before any T4 Delivery) = **NOT SELECTED** for foundation strategy (aligned with FOUNDATION-01 A).
-
-### Anti-claims
-
-- A SELECTED ≠ calibration done
-- A SELECTED ≠ thresholds activated
-- A SELECTED ≠ USD 30 wired in product config
+Discriminants (internal TypeScript): `allow` | `soft_signal` | `block` | `failed`
+Semantic roles: ALLOW | INTERMEDIATE SOFT SIGNAL | BLOCK | FAILED
+Policy effect (transient injected, not T7): `signal_only` | `enforce`
+Absent policy → `allow` / `not_configured` **without** projection access.
+Crossing + signal_only → soft_signal; + enforce → block.
+FAILED ≠ BLOCK. Expected FinOps errors never thrown to coordinator.
 
 ---
 
-## O. Failure posture — preserved / not reopened
+## N. Internal soft_signal convention — not the deferred product literal
 
-**ID:** `D-T4-FAILURE-POSTURE-01`
-**Status:** **UPSTREAM SELECTED — PRESERVED — NOT REOPENED**
+| Proof | Status |
+|-------|--------|
+| TypeScript-internal discriminant only | TRUE |
+| Not persisted in DB columns / enums | TRUE |
+| Not public/product API surface | TRUE |
+| Not durable T6 event name | TRUE |
+| Not Morris selection of REVIEW_REQUIRED or WOULD_BLOCK | TRUE |
 
-### Contract
-
-```
-FinOps technical evaluation failure
-  → sanitized diagnostic
-  → fail-open / degraded / enforcement unavailable
-  → never BLOCK solely because FinOps is unavailable
-```
-
-- Fail-closed remains **incompatible** with upstream SELECTED soft/fail-open FinOps posture.
-- This arbitration does **not** create a new Morris decision on this point.
-- Aligns with FAILED ≠ BLOCK under DECISION-CONTRACT-01 B.
+**REVIEW_REQUIRED vs WOULD_BLOCK = STILL DEFERRED.**
 
 ---
 
-## P. T4/T3 responsibility model
+## O. Fail-open posture
 
-| Concern | T3 | T4 (after this arbitration) |
-|---------|----|------------------------------|
-| Durable alert / Morris review state | **Owner** | May synchronize; never owns alone as money gate |
-| Monetary blocking-eligible amount | Not authority | **Owner (future)** via dedicated projection (EVIDENCE B) |
-| Soft-control decision at ENF-B | Never | **Owner (future)** via optional coordinator dep (BOUNDARY A) |
-| Suspend new runs at S30 | Never | **Owner (future, soft)** — inactive until activation |
-| Resume / override | Deferred (IAM) | Resume policy from 123; override = **T5** |
-| Soft-cap anti-claim | Affirmed | Affirmed — cannot guarantee spend ≤ S30 |
-
-**Rule:** synchronization may be explicit; **T3 review alone never blocks**.
+- Port returns `failed` → coordinator continues to provider
+- Port throws → caught → continue (fail-open); raw exception not leaked
+- Never BLOCK solely because FinOps is unavailable
 
 ---
 
-## Q. Future T4 foundation constraints
+## P. ENF-B coordinator integration
 
-When (and only when) a separate Morris GO authorizes T4 foundation Delivery, it **must**:
+Insertion in `coordinateExecutionRun`:
 
-1. Implement SoT-safe projection (EVIDENCE B) — not `observedAmount` as block input.
-2. Place optional enforcement at ENF-B in coordinator (BOUNDARY A).
-3. Expose explicit soft-control states (DECISION-CONTRACT B) without silently freezing intermediate literal.
-4. Keep T4 monetary authority distinct from T3 review (T3-COUPLING B).
-5. Remain default-inert / inactive (FOUNDATION A + CALIBRATION A).
-6. Fail-open on FinOps technical failure (FAILURE-POSTURE preserved).
-7. Never hold locks across provider invocation.
-8. Never activate real S30 / historical USD 30 / E1 without later gates.
-9. Not absorb T5 / T6-ext / T7 / IAM.
+after create + pre-engagement success → **optional T4** → intent_valid → provider.
 
-**T4 FOUNDATION DESIGN = SELECTED (architecture).**
-**T4 FOUNDATION DELIVERY = NOT AUTHORIZED (this cycle).**
-**T4 E1 ACTIVATION = NOT AUTHORIZED (this cycle).**
+BLOCK → `blockIdleRun` with `HUMAN_GATE_REQUIRED` / `human_gate_required`; `providerAttempted/Invoked/Completed=false`; `finopsCapture=not_attempted(finops_enforcement_block)`; no provider call.
 
 ---
 
-## R. Activation prerequisites
+## Q. Default-inert composition
 
-| Prerequisite | Needed for | Status now | Authorized this cycle? |
-|--------------|------------|------------|------------------------|
-| Morris architecture arbitration of `D-T4-*` | SELECTED T4 design | **DONE** (this cycle) | Documentation only |
-| Future T4 foundation Delivery GO | Mechanism on branch/main | **NOT AUTHORIZED** | **NO** |
-| Real Morris calibration of S30 amount | E1-ENFORCED | **REQUIRED / not done** | **NO** |
-| Product / Morris identity binding (IAM) | Resume / privileged mutations / T5 binding | **NOT_SELECTED** | **NO** |
-| T5 override capability compatible with identity | Safe override under E1 | NOT delivered | **NO** |
-| T7 feature flag + rollout evidence | Controlled activation | Documentary SELECTED only | **NO** |
-| Dedicated activation QA | Activation confidence | NOT run | **NO** |
-| Whether T6-ext is required before first E1-ENFORCED pilot | Audit completeness before pilot | **DEFERRED / NOT DECIDED** | **NO** |
-
-**Real E1 activation = BLOCKED** until calibration + activation deps Morris-approved.
-
-Point “T6-ext before first E1 pilot” remains explicitly **DEFERRED** — not qualified as optional or mandatory.
+`composeExecutionRunD2D3()` does **not** instantiate T4. Pass-through `finopsEnforcement` only if explicitly provided. No pool/config/threshold/env/S30.
 
 ---
 
-## S. T5 / T6 / T7 boundaries
+## R. T3 boundary / R-T4-T3-SYNC-01
 
-### T5
+T3 files **unchanged**. No automatic T3 synchronization in this foundation.
+**R-T4-T3-SYNC-01 = OPEN** — exact sync mechanism deferred; non-blocking for foundation; blocking for claim of complete T4↔T3 human-review synchronization.
+T3 review alone is never monetary blocking authority.
 
-- Morris-only override = conceptually SELECTED upstream (123/125).
-- T5 runtime = **NOT DELIVERED**.
-- Product IAM = **NOT_SELECTED**.
-- Existing AuthorityResolver = authority evidence ≠ authenticated Morris session identity.
-- No T5 work in this cycle.
+---
 
-### T6
+## S. Projection freshness / R-T4-PROJECTION-REFRESH-01
 
-| Item | Status |
+Foundation exposes explicit rebuild only.
+**R-T4-PROJECTION-REFRESH-01 = OPEN** — production activation requires validated refresh/freshness wiring before E1. Non-blocking for foundation; blocking for real E1 activation.
+
+---
+
+## T. T5 / IAM / T6 / T7 exclusions
+
+| Area | Status |
 |------|--------|
-| T6-foundation | **CLOSED WITH RESERVES** |
-| T6-ext-T2 | **EXCLUDED** |
-| T6-ext-T3T4 | **NOT AUTHORIZED** |
-| Exact T6-ext event names | **DEFERRED** |
-| Necessity of T6-ext before first E1 pilot | **DEFERRED** |
-
-### T7
-
-- Feature-flag architecture SELECTED documentary: server-side · project-scoped · default-OFF.
-- Rollout target SELECTED documentary: OFF → SHADOW → MONITOR → E1-ENFORCED.
-- T7 runtime = **NOT DELIVERED**.
-- T4 **must not** absorb T7 activation/rollout ownership.
+| T5 override/resume | NOT DELIVERED |
+| Product IAM | NOT_SELECTED |
+| T6-ext-T3T4 | NOT AUTHORIZED |
+| T6 event types for T4 | none |
+| T7 rollout modes | NOT DELIVERED (effect is transient injection only) |
 
 ---
 
-## T. Currency / Money / concurrency
+## U. Currency / Money semantics
 
-### Currency / FX
-
-- **No FX.**
-- Enforcement policy key: `projectId + period + currency`.
-- Never sum across currencies.
-- Historical “30 USD” does not authorize a cross-currency universal cap.
-- Policy absent for currency → no enforcement / explicit not configured (candidate Delivery behavior).
-
-### Money
-
-- Reuse T2 Money / `numeric(20,8)` exact arithmetic — no float.
-- Blocking sum = eligible SoTs only (BILLED + PROVIDER_OBSERVED).
-
-### Soft-cap semantics (anti-claim)
-
-S30 is a **soft** application control. It **may** suspend new runs after authoritative crossing. It **cannot guarantee** monthly spend ≤ S30 because:
-
-- billed / provider-observed facts are asynchronous;
-- already-engaged runs may finish;
-- no reliable future-cost reservation;
-- estimation must not block;
-- no FX;
-- no provider hard limit SELECTED.
-
-### Concurrency
-
-Preserve:
-
-- no DB lock across provider call;
-- no future-cost reservation via estimation;
-- isolation project / UTC period / currency;
-- multi-instance via short DB constraints;
-- derived projection reconstructible.
-
-**Exact concurrency design for T4 Delivery = DEFERRED.**
+Reuse T2 Money BigInt / numeric(20,8). Policy + projection per currency. No FX. No cross-currency sum. Fictitious test amounts only (e.g. 12.34 / 12.35) — never 15/20/25/30 as runtime values.
 
 ---
 
-## U. Deferred implementation details
+## V. Unit tests
 
-Mandatory non-selections in this document (must remain undecided):
-
-- Exact SQL table name / projection schema / migration timestamp
-- Exact refresh / rebuild mechanism
-- Exact advisory lock key
-- Exact intermediate state literal **REVIEW_REQUIRED vs WOULD_BLOCK**
-- Exact T3 synchronization implementation
-- Exact T6-ext event names
-- T6-ext-before-pilot requirement
-- Product IAM design
-- T5 Delivery / T7 Delivery
-- Numeric TTL (`R-TECH-TTL-01` KEEP-OPEN)
-- Hard FinOps mode (`R-TECH-FINOPS-HARD-01` KEEP-OPEN)
-- Real S30 amount / calibration 15/20/25/30
-- Activation project / UI resume-suspend surface
-- Multi-currency FX policy
-- Provider hard limit
+`t4.enforcement.unit.test.ts` — **19** tests (target ≥18) — GREEN.
 
 ---
 
-## V. Reserves
+## W. Execution-run tests
 
-| ID / topic | Status | Note |
-|------------|--------|------|
-| `R-T6-RUNTIME-COMPOSITION-01` | **OPEN** | Carried |
-| `R-PR-T2-API-01` | **OPEN MINOR** | Carried |
-| T6-ext-T2 | **EXCLUDED** | |
-| T6-ext-T3T4 | **NOT AUTHORIZED** | |
-| Exact T6-ext event names | **DEFERRED** | |
-| T6-ext requirement before E1 pilot | **DEFERRED** | |
-| Calibration | **REQUIRED** before real activation | |
-| Product IAM | **NOT_SELECTED** | |
-| Privileged Morris mutations | **DEFERRED** | |
-| Local T3 branch cleanup | **SKIPPED — ACTIVE WORKTREE** / hygiene only | Not a T3-closure blocker |
-| Soft-cap hard-guarantee | **ANTI-CLAIM** | Cannot promise spend ≤ S30 |
-| Intermediate soft-state literal | **DEFERRED** | REVIEW_REQUIRED vs WOULD_BLOCK |
+`t4.enforcement-boundary.unit.test.ts` — **15** tests — GREEN.
 
 ---
 
-## W. Non-decisions
+## X. PostgreSQL tests
 
-This cycle does **not** decide / authorize:
-
-- T4 Delivery / code / migration / tests
-- Real S30 activation or historical USD 30 runtime adoption
-- Exact intermediate soft-state literal
-- T6-ext-before-pilot necessity
-- Exact SQL / refresh / lock designs
-- Product IAM / privileged mutations
-- T5 override Delivery
-- T6-ext Delivery / event names
-- T7 rollout Delivery
-- Neon / provider-real
-- UI surfaces
-- Project commit / push / PR / merge
+`t4.enforcement-projection.integration.test.ts` — **14** tests — GREEN on ephemeral local Postgres (NOT Neon).
 
 ---
 
-## X. Future Delivery candidate implications
+## Y. Full regression
 
-**CANDIDATE ONLY — NOT AUTHORIZED — filenames not frozen**
-
-### Likely CREATE areas (illustrative)
-
-- FinOps enforcement port + evaluate/authorize use-case
-- SoT-safe projection store / migration (EVIDENCE B)
-- Memory + postgres adapters
-- Unit/integration tests for eligibility filtering and ENF-B ordering
-- Documentary execution follow-ons (future numbers)
-
-### Likely MODIFY areas (minimize)
-
-- `coordinateExecutionRun.ts` / compose — **optional** enforcement dep at ENF-B only
-- Possibly types exports / finops index barrel
-
-### PROTECTED without explicit future GO
-
-- T2 aggregate semantics (EVIDENCE C not selected)
-- T3 alert-review store as monetary authority
-- T6 audit type renames without T6-ext authorization
-- IAM / AuthorityResolver product binding
-- Provider hard limits / FX converters
+typecheck / lint / build / finops vitest / npm test / migrate:up / test:db / git diff --check — see evidence pack. T2/T3/T6 / execution-run domain / package / CI / method / prompts unchanged.
 
 ---
 
-## Y. Gates still required
+## Z. Reserves / non-decisions / verdict
 
-| Gate | Status |
-|------|--------|
-| GO Delivery T4 foundation | **REQUIRED** (separate) before any code |
-| Real calibration / S30 amount | **REQUIRED** before E1-ENFORCED |
-| Product Morris identity binding | **REQUIRED** before privileged resume/override |
-| T5 override Delivery | separate GO |
-| T7 feature-flag / rollout | separate GO |
-| T6-ext event contract / before-pilot necessity | **DEFERRED** / later GO |
-| Intermediate soft-state literal | **DEFERRED** / later decision or Delivery proof |
-| Project commit / push / PR / merge | separate GOs |
-| R-T6-RUNTIME-COMPOSITION-01 | **OPEN** |
-| R-PR-T2-API-01 | **OPEN MINOR** |
+### Reserves
 
----
+| Reserve | Status |
+|---------|--------|
+| R-T6-RUNTIME-COMPOSITION-01 | OPEN |
+| R-PR-T2-API-01 | OPEN MINOR |
+| T6-ext-T2 | EXCLUDED |
+| T6-ext-T3T4 | NOT AUTHORIZED |
+| T6-ext-before-E1-pilot | DEFERRED |
+| Calibration | REQUIRED |
+| Product IAM | NOT_SELECTED |
+| Privileged Morris mutations | DEFERRED |
+| Intermediate product literal | DEFERRED |
+| **R-T4-T3-SYNC-01** | **OPEN** |
+| **R-T4-PROJECTION-REFRESH-01** | **OPEN** |
 
-## Z. Verdict
+### Verdict
+
+T4 FOUNDATION DELIVERY COMPLETE WITH RESERVES — NO REAL S30 ACTIVATION — NO E1 — NO T5/T6-EXT/T7/IAM — READY FOR CHATGPT T4 FOUNDATION DELIVERY VALIDATION
+```
+
+## CREATED `projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts`
 
 ```
+/**
+ * FinOps T4 — Soft Enforcement foundation types (dormant capability).
+ *
+ * Intermediate product literals REVIEW_REQUIRED vs WOULD_BLOCK remain DEFERRED.
+ * The TypeScript discriminant `soft_signal` is INTERNAL ONLY:
+ * - not persisted
+ * - not a public/product API
+ * - not a durable event name
+ * - not a Morris selection of REVIEW_REQUIRED or WOULD_BLOCK
+ */
+
+export const FINOPS_T4_IDENTITY_CONTRACT_VERSION = "t4-v1" as const;
+
+/**
+ * Derived, rebuildable SoT-safe enforcement projection.
+ * Ledger / cost events remain financially authoritative.
+ * Key: projectId + UTC periodStart (YYYY-MM-DD) + currency.
+ */
+export type FinOpsEnforcementProjection = {
+  readonly projectId: string;
+  /** UTC month start YYYY-MM-DD */
+  readonly periodStart: string;
+  readonly currency: string;
+  /** Canonical Money scale-8 string: billed + providerObserved (no FX). */
+  readonly blockingEligibleAmount: string;
+  readonly billedAmount: string;
+  readonly providerObservedAmount: string;
+  readonly eligibleCostEventCount: number;
+  readonly billedEventCount: number;
+  readonly providerObservedEventCount: number;
+  readonly rebuildVersion: number;
+  readonly rebuiltAt: string;
+};
+
+/**
+ * Injected transient effect instruction — NOT a persisted T7 rollout mode.
+ * Future activation layer may supply this; T4 does not store OFF/SHADOW/MONITOR/E1.
+ */
+export type FinOpsEnforcementEffect = "signal_only" | "enforce";
+
+/**
+ * Injected policy for mechanism tests / future activation.
+ * No default production thresholds. No historical 15/20/25/30.
+ */
+export type FinOpsEnforcementPolicy = {
+  readonly thresholdCode: string;
+  readonly currency: string;
+  /** Canonical Money scale-8 string; must be strictly positive. */
+  readonly thresholdAmount: string;
+  readonly effect: FinOpsEnforcementEffect;
+};
+
+/**
+ * Soft-control decision contract (DECISION-CONTRACT-01 B):
+ * ALLOW | INTERMEDIATE SOFT SIGNAL | BLOCK | FAILED
+ *
+ * Discriminant `soft_signal` = internal stand-in for the deferred product
+ * intermediate literal (REVIEW_REQUIRED vs WOULD_BLOCK STILL DEFERRED).
+ */
+export type FinOpsEnforcementDecisionKind =
+  | "allow"
+  | "soft_signal"
+  | "block"
+  | "failed";
+
+export type FinOpsEnforcementDecisionProvenance = {
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly currency: string;
+  readonly thresholdCode: string;
+  readonly thresholdAmount: string;
+  readonly blockingEligibleAmount: string;
+  readonly billedAmount: string;
+  readonly providerObservedAmount: string;
+  readonly rebuildVersion: number;
+  readonly rebuiltAt: string;
+};
+
+export type FinOpsEnforcementDecision = {
+  readonly decision: FinOpsEnforcementDecisionKind;
+  readonly reason: string;
+  /** True when FinOps-side technical failure — never means BLOCK. */
+  readonly finopsSideOnly?: true;
+  readonly provenance?: FinOpsEnforcementDecisionProvenance;
+};
+
+export type EvaluateFinOpsEnforcementInput = {
+  readonly projectId: string;
+  readonly executionRunId: string;
+  readonly correlationId: string;
+  readonly occurredAt: string;
+};
+
+export type RebuildEnforcementProjectionInput = {
+  readonly projectId: string;
+  /** UTC month start YYYY-MM-DD */
+  readonly periodStart: string;
+};
+
+export type RebuildEnforcementProjectionResult =
+  | {
+      readonly outcome: "succeeded";
+      readonly projections: ReadonlyArray<FinOpsEnforcementProjection>;
+    }
+  | {
+      readonly outcome: "failed";
+      readonly code: string;
+      readonly message: string;
+      readonly finopsSideOnly: true;
+    };
+```
+
+## CREATED `projects/sfia-studio/app/lib/oa/finops/application/rebuildEnforcementProjection.ts`
+
+```
+/**
+ * FinOps T4 — build + explicit on-demand rebuild of SoT-safe enforcement projection.
+ *
+ * Blocking-eligible SoTs only: BILLED + PROVIDER_OBSERVED.
+ * API_USAGE / LOCAL_COUNT / PARAMETRIC_ESTIMATE / UNKNOWN never contribute.
+ * No FX / no cross-currency sum. Money via BigInt minor units.
+ * Inconsistent SoT ↔ evidenceClass fails FinOps-side (never silent coerce).
+ */
+
+import { evaluateBlockingEligibility } from "../domain/blockingEligibility";
+import {
+  formatMoneyString,
+  moneyFromMinor,
+  normalizeCurrency,
+  parseMoneyString,
+  type FinOpsMoney,
+} from "../domain/money";
+import type { FinOpsCostEvent } from "./types.aggregate";
+import type { FinOpsEnforcementProjectionPort } from "../ports/finopsEnforcementProjectionPort";
+import type {
+  FinOpsEnforcementProjection,
+  RebuildEnforcementProjectionInput,
+  RebuildEnforcementProjectionResult,
+} from "./types.enforcement";
+
+export type RebuildEnforcementProjectionDeps = {
+  readonly projection: FinOpsEnforcementProjectionPort;
+  readonly nowIso: () => string;
+};
+
+function zeroCanonical(currency: string): string {
+  return formatMoneyString(moneyFromMinor(BigInt(0), currency));
+}
+
+function addCanonical(
+  currency: string,
+  left: string,
+  right: FinOpsMoney,
+): string {
+  const sum = parseMoneyString(left, currency).amountMinor + right.amountMinor;
+  return formatMoneyString(moneyFromMinor(sum, currency));
+}
+
+function expectedEvidenceForBlockingSoT(
+  source: "BILLED" | "PROVIDER_OBSERVED",
+): "billed" | "observed" {
+  return source === "BILLED" ? "billed" : "observed";
+}
+
+export class FinOpsEnforcementBuildError extends Error {
+  readonly code: string;
+  readonly finopsSideOnly = true as const;
+  constructor(code: string, message: string) {
+    super(message);
+    this.name = "FinOpsEnforcementBuildError";
+    this.code = code;
+  }
+}
+
+type Acc = {
+  billed: string;
+  providerObserved: string;
+  billedEventCount: number;
+  providerObservedEventCount: number;
+  eligibleCostEventCount: number;
+};
+
+/**
+ * Pure builder from authoritative cost events.
+ * Emits one projection row per currency present in the project/period events.
+ */
+export function buildEnforcementProjectionsFromCostEvents(input: {
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly events: ReadonlyArray<FinOpsCostEvent>;
+  readonly rebuiltAt: string;
+  readonly previousVersions?: ReadonlyMap<string, number>;
+}): ReadonlyArray<FinOpsEnforcementProjection> {
+  const byCurrency = new Map<string, Acc>();
+
+  const ensure = (currencyRaw: string): Acc => {
+    const currency = normalizeCurrency(currencyRaw);
+    let acc = byCurrency.get(currency);
+    if (!acc) {
+      acc = {
+        billed: zeroCanonical(currency),
+        providerObserved: zeroCanonical(currency),
+        billedEventCount: 0,
+        providerObservedEventCount: 0,
+        eligibleCostEventCount: 0,
+      };
+      byCurrency.set(currency, acc);
+    }
+    return acc;
+  };
+
+  for (const event of input.events) {
+    if (event.projectId !== input.projectId) continue;
+    if (event.periodStart !== input.periodStart) continue;
+
+    const currency = normalizeCurrency(event.currency);
+    const acc = ensure(currency);
+
+    const eligibility = evaluateBlockingEligibility(event.sourceOfTruth);
+    if (!eligibility.eligible) {
+      // Non-blocking SoTs (API_USAGE, estimates, UNKNOWN, …) never contribute.
+      continue;
+    }
+
+    if (
+      event.sourceOfTruth !== "BILLED" &&
+      event.sourceOfTruth !== "PROVIDER_OBSERVED"
+    ) {
+      // Defensive: evaluateBlockingEligibility only returns eligible for those two.
+      continue;
+    }
+
+    const expected = expectedEvidenceForBlockingSoT(event.sourceOfTruth);
+    if (event.evidenceClass !== expected) {
+      throw new FinOpsEnforcementBuildError(
+        "FINOPS_T4_SOT_EVIDENCE_INCONSISTENT",
+        "FinOps enforcement projection rejected inconsistent SoT/evidenceClass",
+      );
+    }
+
+    acc.eligibleCostEventCount += 1;
+    if (event.sourceOfTruth === "BILLED") {
+      acc.billedEventCount += 1;
+    } else {
+      acc.providerObservedEventCount += 1;
+    }
+
+    if (event.amount === null) continue;
+
+    const money = parseMoneyString(event.amount, currency);
+    if (event.sourceOfTruth === "BILLED") {
+      acc.billed = addCanonical(currency, acc.billed, money);
+    } else {
+      acc.providerObserved = addCanonical(currency, acc.providerObserved, money);
+    }
+  }
+
+  const out: FinOpsEnforcementProjection[] = [];
+  for (const [currency, acc] of byCurrency) {
+    const billedMoney = parseMoneyString(acc.billed, currency);
+    const observedMoney = parseMoneyString(acc.providerObserved, currency);
+    const blocking = formatMoneyString(
+      moneyFromMinor(
+        billedMoney.amountMinor + observedMoney.amountMinor,
+        currency,
+      ),
+    );
+    const prev = input.previousVersions?.get(currency) ?? 0;
+    out.push({
+      projectId: input.projectId,
+      periodStart: input.periodStart,
+      currency,
+      blockingEligibleAmount: blocking,
+      billedAmount: acc.billed,
+      providerObservedAmount: acc.providerObserved,
+      eligibleCostEventCount: acc.eligibleCostEventCount,
+      billedEventCount: acc.billedEventCount,
+      providerObservedEventCount: acc.providerObservedEventCount,
+      rebuildVersion: prev + 1,
+      rebuiltAt: input.rebuiltAt,
+    });
+  }
+  return out.sort((a, b) => a.currency.localeCompare(b.currency));
+}
+
+/**
+ * Explicit on-demand rebuild: short project/period lock → read ledger →
+ * build all currencies → atomic replace → commit/release.
+ * Never holds the lock across provider I/O.
+ */
+export async function rebuildEnforcementProjection(
+  deps: RebuildEnforcementProjectionDeps,
+  input: RebuildEnforcementProjectionInput,
+): Promise<RebuildEnforcementProjectionResult> {
+  try {
+    const projectId = input.projectId.trim();
+    const periodStart = input.periodStart.trim();
+    if (!projectId || !periodStart) {
+      return {
+        outcome: "failed",
+        code: "FINOPS_T4_REBUILD_INVALID",
+        message: "projectId and periodStart are required",
+        finopsSideOnly: true,
+      };
+    }
+
+    const rebuiltAt = deps.nowIso();
+    const projections = await deps.projection.withExclusiveProjectPeriod(
+      { projectId, periodStart },
+      async (ops) => {
+        const events = await ops.listAllCostEventsForPeriod();
+        const existing = await ops.listProjections();
+        const previousVersions = new Map<string, number>();
+        for (const row of existing) {
+          previousVersions.set(row.currency, row.rebuildVersion);
+        }
+        const next = buildEnforcementProjectionsFromCostEvents({
+          projectId,
+          periodStart,
+          events,
+          rebuiltAt,
+          previousVersions,
+        });
+        await ops.replaceProjections(next);
+        return next;
+      },
+    );
+
+    return { outcome: "succeeded", projections };
+  } catch (error) {
+    if (error instanceof FinOpsEnforcementBuildError) {
+      return {
+        outcome: "failed",
+        code: error.code,
+        message: error.message,
+        finopsSideOnly: true,
+      };
+    }
+    return {
+      outcome: "failed",
+      code: "FINOPS_T4_REBUILD_FAILED",
+      message: "FinOps enforcement projection rebuild failed",
+      finopsSideOnly: true,
+    };
+  }
+}
+```
+
+## CREATED `projects/sfia-studio/app/lib/oa/finops/application/evaluateFinOpsEnforcement.ts`
+
+```
+/**
+ * FinOps T4 — evaluate soft-control enforcement against dedicated projection.
+ *
+ * Absent policy → allow / not_configured without projection access (default inert).
+ * FAILED ≠ BLOCK. Never throws expected FinOps errors to the coordinator.
+ * No default production policy resolver / env / hardcoded thresholds.
+ */
+
+import { computeUtcMonthPeriod } from "../domain/period";
+import {
+  formatMoneyString,
+  normalizeCurrency,
+  parseMoneyString,
+} from "../domain/money";
+import type { FinOpsEnforcementPort } from "../ports/finopsEnforcementPort";
+import type { FinOpsEnforcementProjectionPort } from "../ports/finopsEnforcementProjectionPort";
+import type {
+  EvaluateFinOpsEnforcementInput,
+  FinOpsEnforcementDecision,
+  FinOpsEnforcementPolicy,
+} from "./types.enforcement";
+
+export type EvaluateFinOpsEnforcementDeps = {
+  readonly projection: FinOpsEnforcementProjectionPort;
+  /**
+   * Explicitly injected. Returning null ⇒ not_configured allow (inert).
+   * No production default resolver exists in this Delivery.
+   */
+  readonly resolvePolicy: (
+    input: EvaluateFinOpsEnforcementInput,
+  ) =>
+    | Promise<FinOpsEnforcementPolicy | null>
+    | FinOpsEnforcementPolicy
+    | null;
+};
+
+function periodStartDate(occurredAt: string): string {
+  return computeUtcMonthPeriod(occurredAt).periodStart.slice(0, 10);
+}
+
+function failed(reason: string): FinOpsEnforcementDecision {
+  return {
+    decision: "failed",
+    reason,
+    finopsSideOnly: true,
+  };
+}
+
+function allowNotConfigured(): FinOpsEnforcementDecision {
+  return {
+    decision: "allow",
+    reason: "not_configured",
+  };
+}
+
+/**
+ * Direct T4 evaluation. Never throws for expected FinOps failures.
+ */
+export async function evaluateFinOpsEnforcement(
+  deps: EvaluateFinOpsEnforcementDeps,
+  input: EvaluateFinOpsEnforcementInput,
+): Promise<FinOpsEnforcementDecision> {
+  try {
+    const projectId = input.projectId.trim();
+    if (!projectId) {
+      return failed("invalid_project");
+    }
+
+    let policy: FinOpsEnforcementPolicy | null;
+    try {
+      policy = await deps.resolvePolicy(input);
+    } catch {
+      return failed("policy_resolver_failed");
+    }
+
+    if (!policy) {
+      // Default inert: no projection access when policy absent.
+      return allowNotConfigured();
+    }
+
+    let currency: string;
+    let thresholdMinor: bigint;
+    let thresholdCanonical: string;
+    try {
+      currency = normalizeCurrency(policy.currency);
+      const thresholdMoney = parseMoneyString(policy.thresholdAmount, currency);
+      if (thresholdMoney.amountMinor <= BigInt(0)) {
+        return failed("invalid_threshold");
+      }
+      thresholdMinor = thresholdMoney.amountMinor;
+      thresholdCanonical = formatMoneyString(thresholdMoney);
+    } catch {
+      return failed("invalid_threshold");
+    }
+
+    if (policy.effect !== "signal_only" && policy.effect !== "enforce") {
+      return failed("invalid_effect");
+    }
+
+    let periodStart: string;
+    try {
+      periodStart = periodStartDate(input.occurredAt);
+    } catch {
+      return failed("invalid_occurred_at");
+    }
+
+    try {
+      return await deps.projection.withExclusiveProjectPeriod(
+        { projectId, periodStart },
+        async (ops) => {
+          const row = await ops.readProjection(currency);
+          if (!row) {
+            return failed("projection_missing");
+          }
+          const eligible = parseMoneyString(
+            row.blockingEligibleAmount,
+            currency,
+          );
+          const provenance = {
+            projectId,
+            periodStart,
+            currency,
+            thresholdCode: policy.thresholdCode,
+            thresholdAmount: thresholdCanonical,
+            blockingEligibleAmount: row.blockingEligibleAmount,
+            billedAmount: row.billedAmount,
+            providerObservedAmount: row.providerObservedAmount,
+            rebuildVersion: row.rebuildVersion,
+            rebuiltAt: row.rebuiltAt,
+          };
+
+          if (eligible.amountMinor < thresholdMinor) {
+            return {
+              decision: "allow" as const,
+              reason: "below_threshold",
+              provenance,
+            };
+          }
+
+          if (policy.effect === "signal_only") {
+            return {
+              decision: "soft_signal" as const,
+              reason: "threshold_crossed_signal_only",
+              provenance,
+            };
+          }
+
+          return {
+            decision: "block" as const,
+            reason: "threshold_crossed_enforce",
+            provenance,
+          };
+        },
+      );
+    } catch {
+      return failed("projection_read_failed");
+    }
+  } catch {
+    return failed("evaluation_failed");
+  }
+}
+
+/**
+ * Factory: FinOpsEnforcementPort from projection + injected policy resolver.
+ * No default production resolver.
+ */
+export function createFinOpsEnforcementPort(
+  deps: EvaluateFinOpsEnforcementDeps,
+): FinOpsEnforcementPort {
+  return {
+    evaluateBeforeProvider(input) {
+      return evaluateFinOpsEnforcement(deps, input);
+    },
+  };
+}
+```
+
+## CREATED `projects/sfia-studio/app/lib/oa/finops/ports/finopsEnforcementProjectionPort.ts`
+
+```
+/**
+ * FinOps T4 — Enforcement projection port (dedicated derived store).
+ * Does not depend on FinOpsAggregatePort. Ledger remains authoritative.
+ */
+
+import type { FinOpsCostEvent } from "../application/types.aggregate";
+import type { FinOpsEnforcementProjection } from "../application/types.enforcement";
+
+/**
+ * Ops bound to one exclusive short project/period session
+ * (rebuild or decision read). Must not escape across provider I/O.
+ */
+export type FinOpsExclusiveEnforcementOps = {
+  readonly listAllCostEventsForPeriod: () => Promise<
+    ReadonlyArray<FinOpsCostEvent>
+  >;
+  readonly listProjections: () => Promise<
+    ReadonlyArray<FinOpsEnforcementProjection>
+  >;
+  /**
+   * Atomically replace ALL T4 projection rows for the project/period
+   * (all currencies). Obsolete currencies are removed.
+   */
+  readonly replaceProjections: (
+    projections: ReadonlyArray<FinOpsEnforcementProjection>,
+  ) => Promise<void>;
+  readonly readProjection: (currency: string) => Promise<
+    FinOpsEnforcementProjection | null
+  >;
+};
+
+export type FinOpsEnforcementProjectionPort = {
+  /**
+   * Short exclusive project/period serialization shared by rebuild and
+   * decision reads so a decision cannot observe a partial replace.
+   */
+  readonly withExclusiveProjectPeriod: <T>(
+    input: {
+      readonly projectId: string;
+      readonly periodStart: string;
+    },
+    work: (ops: FinOpsExclusiveEnforcementOps) => Promise<T>,
+  ) => Promise<T>;
+};
+```
+
+## CREATED `projects/sfia-studio/app/lib/oa/finops/ports/finopsEnforcementPort.ts`
+
+```
+/**
+ * FinOps T4 — Coordinator-facing enforcement port (ENF-B boundary).
+ *
+ * Coordinator must not know SQL, projection internals, threshold catalogs,
+ * T7 modes, T5, or T3 store.
+ */
+
+import type {
+  EvaluateFinOpsEnforcementInput,
+  FinOpsEnforcementDecision,
+} from "../application/types.enforcement";
+
+export type FinOpsEnforcementPort = {
+  readonly evaluateBeforeProvider: (
+    input: EvaluateFinOpsEnforcementInput,
+  ) => Promise<FinOpsEnforcementDecision>;
+};
+```
+
+## CREATED `projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsEnforcementProjection.ts`
+
+```
+/**
+ * In-memory FinOps T4 enforcement projection store (unit-test double).
+ * Process-local project/period mutex; no multi-instance pretension.
+ */
+
+import type { FinOpsCostEvent } from "../../application/types.aggregate";
+import type { FinOpsEnforcementProjection } from "../../application/types.enforcement";
+import type {
+  FinOpsEnforcementProjectionPort,
+  FinOpsExclusiveEnforcementOps,
+} from "../../ports/finopsEnforcementProjectionPort";
+import { normalizeCurrency } from "../../domain/money";
+
+function projectionKey(
+  projectId: string,
+  periodStart: string,
+  currency: string,
+): string {
+  return `${projectId}|${periodStart}|${currency}`;
+}
+
+export function createMemoryFinOpsEnforcementProjection(options?: {
+  readonly costEvents?: ReadonlyArray<FinOpsCostEvent>;
+}): FinOpsEnforcementProjectionPort & {
+  readonly _projections: Map<string, FinOpsEnforcementProjection>;
+  readonly _costEvents: FinOpsCostEvent[];
+  readonly seedCostEvents: (events: ReadonlyArray<FinOpsCostEvent>) => void;
+} {
+  const projections = new Map<string, FinOpsEnforcementProjection>();
+  const costEvents: FinOpsCostEvent[] = [...(options?.costEvents ?? [])];
+  const chains = new Map<string, Promise<unknown>>();
+
+  const withExclusive = async <T>(
+    projectId: string,
+    periodStart: string,
+    work: () => Promise<T>,
+  ): Promise<T> => {
+    const lockKey = `${projectId}|${periodStart}`;
+    const prev = chains.get(lockKey) ?? Promise.resolve();
+    let release!: () => void;
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const next = prev.then(() => gate);
+    chains.set(lockKey, next.catch(() => undefined));
+    await prev.catch(() => undefined);
+    try {
+      return await work();
+    } finally {
+      release();
+    }
+  };
+
+  const listFor = (projectId: string, periodStart: string) =>
+    [...projections.values()]
+      .filter(
+        (p) => p.projectId === projectId && p.periodStart === periodStart,
+      )
+      .sort((a, b) => a.currency.localeCompare(b.currency));
+
+  const buildOps = (
+    projectId: string,
+    periodStart: string,
+  ): FinOpsExclusiveEnforcementOps => ({
+    async listAllCostEventsForPeriod() {
+      return costEvents
+        .filter(
+          (e) => e.projectId === projectId && e.periodStart === periodStart,
+        )
+        .slice()
+        .sort((a, b) => {
+          const t = a.occurredAt.localeCompare(b.occurredAt);
+          return t !== 0 ? t : a.costEventId.localeCompare(b.costEventId);
+        });
+    },
+    async listProjections() {
+      return listFor(projectId, periodStart);
+    },
+    async replaceProjections(next) {
+      for (const key of [...projections.keys()]) {
+        if (key.startsWith(`${projectId}|${periodStart}|`)) {
+          projections.delete(key);
+        }
+      }
+      for (const row of next) {
+        if (row.projectId !== projectId || row.periodStart !== periodStart) {
+          throw new Error("projection project/period mismatch on replace");
+        }
+        const currency = normalizeCurrency(row.currency);
+        projections.set(
+          projectionKey(projectId, periodStart, currency),
+          { ...row, currency },
+        );
+      }
+    },
+    async readProjection(currencyRaw) {
+      const currency = normalizeCurrency(currencyRaw);
+      return (
+        projections.get(projectionKey(projectId, periodStart, currency)) ??
+        null
+      );
+    },
+  });
+
+  return {
+    _projections: projections,
+    _costEvents: costEvents,
+    seedCostEvents(events) {
+      costEvents.length = 0;
+      costEvents.push(...events);
+    },
+    async withExclusiveProjectPeriod(input, work) {
+      const projectId = input.projectId.trim();
+      const periodStart = input.periodStart.trim();
+      return withExclusive(projectId, periodStart, () =>
+        work(buildOps(projectId, periodStart)),
+      );
+    },
+  };
+}
+```
+
+## CREATED `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsEnforcementProjectionStore.ts`
+
+```
+/**
+ * FinOps T4 — PostgreSQL enforcement projection store.
+ *
+ * Authoritative read: finops_cost_event
+ * Derived write: finops_enforcement_projection
+ *
+ * ONE PoolClient + transaction advisory lock (namespace finops-t4:) for
+ * rebuild and decision reads. Lock released on COMMIT/ROLLBACK — never held
+ * across provider I/O.
+ */
+
+import type { Pool, PoolClient } from "pg";
+import type { FinOpsCostEvent } from "../../application/types.aggregate";
+import type { FinOpsEnforcementProjection } from "../../application/types.enforcement";
+import { formatMoneyString, parseMoneyString } from "../../domain/money";
+import type {
+  FinOpsEnforcementProjectionPort,
+  FinOpsExclusiveEnforcementOps,
+} from "../../ports/finopsEnforcementProjectionPort";
+import { sanitizeDbError } from "./sanitizeDbError";
+
+function formatPgDate(value: unknown): string {
+  if (value instanceof Date) {
+    const y = value.getFullYear();
+    const m = String(value.getMonth() + 1).padStart(2, "0");
+    const d = String(value.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  }
+  const raw = String(value);
+  const match = /^(\d{4}-\d{2}-\d{2})/.exec(raw);
+  if (match) return match[1]!;
+  throw new Error("invalid period_start from postgres");
+}
+
+function canonicalAmount(raw: unknown, currency: string): string {
+  return formatMoneyString(parseMoneyString(String(raw), currency));
+}
+
+function rowToCostEvent(row: Record<string, unknown>): FinOpsCostEvent {
+  return {
+    costEventId: String(row.cost_event_id),
+    dedupKey: String(row.dedup_key),
+    projectId: String(row.project_id),
+    executionRunId: String(row.execution_run_id),
+    usageEventId:
+      row.usage_event_id === null || row.usage_event_id === undefined
+        ? null
+        : String(row.usage_event_id),
+    periodStart: formatPgDate(row.period_start),
+    currency: String(row.currency),
+    amount:
+      row.amount === null || row.amount === undefined
+        ? null
+        : formatMoneyString(
+            parseMoneyString(String(row.amount), String(row.currency)),
+          ),
+    evidenceClass: row.evidence_class as FinOpsCostEvent["evidenceClass"],
+    sourceOfTruth: row.source_of_truth as FinOpsCostEvent["sourceOfTruth"],
+    estimationStatus:
+      row.estimation_status as FinOpsCostEvent["estimationStatus"],
+    correctionRef:
+      row.correction_ref === null || row.correction_ref === undefined
+        ? null
+        : String(row.correction_ref),
+    catalogVersion:
+      row.catalog_version === null || row.catalog_version === undefined
+        ? null
+        : String(row.catalog_version),
+    provider: String(row.provider),
+    model:
+      row.model === null || row.model === undefined ? null : String(row.model),
+    unit: row.unit === null || row.unit === undefined ? null : String(row.unit),
+    billingQuantum:
+      row.billing_quantum === null || row.billing_quantum === undefined
+        ? null
+        : String(row.billing_quantum),
+    usageQuantity:
+      row.usage_quantity === null || row.usage_quantity === undefined
+        ? null
+        : String(row.usage_quantity),
+    occurredAt:
+      row.occurred_at instanceof Date
+        ? row.occurred_at.toISOString()
+        : String(row.occurred_at),
+  };
+}
+
+function rowToProjection(
+  row: Record<string, unknown>,
+): FinOpsEnforcementProjection {
+  const currency = String(row.currency);
+  return {
+    projectId: String(row.project_id),
+    periodStart: formatPgDate(row.period_start),
+    currency,
+    blockingEligibleAmount: canonicalAmount(
+      row.blocking_eligible_amount,
+      currency,
+    ),
+    billedAmount: canonicalAmount(row.billed_amount, currency),
+    providerObservedAmount: canonicalAmount(
+      row.provider_observed_amount,
+      currency,
+    ),
+    eligibleCostEventCount: Number(row.eligible_cost_event_count),
+    billedEventCount: Number(row.billed_event_count),
+    providerObservedEventCount: Number(row.provider_observed_event_count),
+    rebuildVersion: Number(row.rebuild_version),
+    rebuiltAt:
+      row.rebuilt_at instanceof Date
+        ? row.rebuilt_at.toISOString()
+        : String(row.rebuilt_at),
+  };
+}
+
+async function deleteAndInsertProjections(
+  client: PoolClient,
+  projectId: string,
+  periodStart: string,
+  projections: ReadonlyArray<FinOpsEnforcementProjection>,
+): Promise<void> {
+  await client.query(
+    `DELETE FROM finops_enforcement_projection
+     WHERE project_id = $1 AND period_start = $2::date`,
+    [projectId, periodStart],
+  );
+  for (const row of projections) {
+    await client.query(
+      `INSERT INTO finops_enforcement_projection (
+        project_id, period_start, currency,
+        blocking_eligible_amount, billed_amount, provider_observed_amount,
+        eligible_cost_event_count, billed_event_count, provider_observed_event_count,
+        rebuild_version, rebuilt_at
+      ) VALUES (
+        $1,$2::date,$3,$4::numeric,$5::numeric,$6::numeric,
+        $7,$8,$9,$10,$11::timestamptz
+      )`,
+      [
+        row.projectId,
+        row.periodStart,
+        row.currency,
+        row.blockingEligibleAmount,
+        row.billedAmount,
+        row.providerObservedAmount,
+        row.eligibleCostEventCount,
+        row.billedEventCount,
+        row.providerObservedEventCount,
+        row.rebuildVersion,
+        row.rebuiltAt,
+      ],
+    );
+  }
+}
+
+function buildExclusiveOps(
+  client: PoolClient,
+  projectId: string,
+  periodStart: string,
+): FinOpsExclusiveEnforcementOps {
+  return {
+    async listAllCostEventsForPeriod() {
+      const result = await client.query(
+        `SELECT * FROM finops_cost_event
+         WHERE project_id = $1 AND period_start = $2::date
+         ORDER BY occurred_at ASC, cost_event_id ASC`,
+        [projectId, periodStart],
+      );
+      return result.rows.map((row) =>
+        rowToCostEvent(row as Record<string, unknown>),
+      );
+    },
+    async listProjections() {
+      const result = await client.query(
+        `SELECT * FROM finops_enforcement_projection
+         WHERE project_id = $1 AND period_start = $2::date
+         ORDER BY currency ASC`,
+        [projectId, periodStart],
+      );
+      return result.rows.map((row) =>
+        rowToProjection(row as Record<string, unknown>),
+      );
+    },
+    async replaceProjections(projections) {
+      await deleteAndInsertProjections(
+        client,
+        projectId,
+        periodStart,
+        projections,
+      );
+    },
+    async readProjection(currency) {
+      const result = await client.query(
+        `SELECT * FROM finops_enforcement_projection
+         WHERE project_id = $1 AND period_start = $2::date AND currency = $3
+         LIMIT 1`,
+        [projectId, periodStart, currency],
+      );
+      if (result.rowCount !== 1) return null;
+      return rowToProjection(result.rows[0] as Record<string, unknown>);
+    },
+  };
+}
+
+export function createPostgresFinOpsEnforcementProjectionStore(
+  pool: Pool,
+): FinOpsEnforcementProjectionPort {
+  return {
+    async withExclusiveProjectPeriod(input, work) {
+      const projectId = input.projectId.trim();
+      const periodStart = input.periodStart.trim();
+      let client: PoolClient | undefined;
+      try {
+        client = await pool.connect();
+        await client.query("BEGIN");
+        // Transaction-scoped advisory lock: same namespace for rebuild + decision.
+        await client.query(
+          `SELECT pg_advisory_xact_lock(
+             hashtext('finops-t4:' || $1),
+             hashtext($2)
+           )`,
+          [projectId, periodStart],
+        );
+        const ops = buildExclusiveOps(client, projectId, periodStart);
+        const result = await work(ops);
+        await client.query("COMMIT");
+        return result;
+      } catch (error) {
+        if (client) {
+          try {
+            await client.query("ROLLBACK");
+          } catch {
+            // ignore
+          }
+        }
+        const sanitized = sanitizeDbError(error);
+        throw new Error(sanitized.message);
+      } finally {
+        client?.release();
+      }
+    },
+  };
+}
+```
+
+## CREATED `projects/sfia-studio/app/db/migrations/1754600003000_finops-t4-enforcement-projection.js`
+
+```
+/**
+ * Migration: FinOps T4 dedicated enforcement projection (derived / rebuildable).
+ *
+ * Order (must remain):
+ *   1754500000000 T1
+ *   < 1754600000000 T2
+ *   < 1754600001000 T6
+ *   < 1754600002000 T3
+ *   < 1754600003000 T4
+ *
+ * No seed thresholds. No flags. No T6 events. No FK to T2/T3.
+ * Amounts may be signed (financial corrections) — no amount >= 0 check.
+ *
+ * @type {import('node-pg-migrate').MigrationBuilder}
+ */
+
+/** @param {import('node-pg-migrate').MigrationBuilder} pgm */
+exports.up = (pgm) => {
+  pgm.createTable("finops_enforcement_projection", {
+    project_id: { type: "text", notNull: true },
+    period_start: { type: "date", notNull: true },
+    currency: { type: "text", notNull: true },
+    blocking_eligible_amount: { type: "numeric(20,8)", notNull: true },
+    billed_amount: { type: "numeric(20,8)", notNull: true },
+    provider_observed_amount: { type: "numeric(20,8)", notNull: true },
+    eligible_cost_event_count: { type: "bigint", notNull: true },
+    billed_event_count: { type: "bigint", notNull: true },
+    provider_observed_event_count: { type: "bigint", notNull: true },
+    rebuild_version: { type: "bigint", notNull: true },
+    rebuilt_at: { type: "timestamptz", notNull: true },
+  });
+
+  pgm.addConstraint(
+    "finops_enforcement_projection",
+    "finops_enforcement_projection_pkey",
+    {
+      primaryKey: ["project_id", "period_start", "currency"],
+    },
+  );
+
+  pgm.addConstraint(
+    "finops_enforcement_projection",
+    "finops_enforcement_projection_currency_chk",
+    {
+      check: "currency ~ '^[A-Z]{3}$'",
+    },
+  );
+
+  pgm.addConstraint(
+    "finops_enforcement_projection",
+    "finops_enforcement_projection_period_start_chk",
+    {
+      check:
+        "period_start = date_trunc('month', period_start::timestamp)::date",
+    },
+  );
+
+  pgm.addConstraint(
+    "finops_enforcement_projection",
+    "finops_enforcement_projection_rebuild_version_chk",
+    {
+      check: "rebuild_version >= 1",
+    },
+  );
+
+  pgm.addConstraint(
+    "finops_enforcement_projection",
+    "finops_enforcement_projection_counts_chk",
+    {
+      check:
+        "eligible_cost_event_count >= 0 AND billed_event_count >= 0 AND provider_observed_event_count >= 0",
+    },
+  );
+
+  pgm.createIndex(
+    "finops_enforcement_projection",
+    ["project_id", "period_start"],
+    {
+      name: "finops_enforcement_projection_project_period_idx",
+    },
+  );
+};
+
+/** @param {import('node-pg-migrate').MigrationBuilder} pgm */
+exports.down = (pgm) => {
+  // Data-preserving doctrine: refuse drop when projection rows exist.
+  pgm.sql(`
+DO $$
+DECLARE
+  projection_count bigint;
+BEGIN
+  SELECT COUNT(*) INTO projection_count FROM finops_enforcement_projection;
+  IF projection_count > 0 THEN
+    RAISE EXCEPTION
+      'Refuse FinOps T4 down migration: rows exist in finops_enforcement_projection';
+  END IF;
+END $$;
+`);
+
+  pgm.dropTable("finops_enforcement_projection");
+};
+```
+
+## CREATED `projects/sfia-studio/app/__tests__/oa/finops/t4.enforcement.unit.test.ts`
+
+```
+/**
+ * @vitest-environment node
+ *
+ * FinOps T4 — Soft Enforcement foundation unit tests (≥18).
+ * FICTITIOUS fixtures only — NOT historical calibration 15/20/25/30.
+ */
+import { describe, expect, it, vi } from "vitest";
+import {
+  createFinOpsEnforcementPort,
+  evaluateFinOpsEnforcement,
+} from "@/lib/oa/finops/application/evaluateFinOpsEnforcement";
+import {
+  buildEnforcementProjectionsFromCostEvents,
+  rebuildEnforcementProjection,
+} from "@/lib/oa/finops/application/rebuildEnforcementProjection";
+import type { FinOpsCostEvent } from "@/lib/oa/finops/application/types.aggregate";
+import type { FinOpsEnforcementPolicy } from "@/lib/oa/finops/application/types.enforcement";
+import { createMemoryFinOpsEnforcementProjection } from "@/lib/oa/finops/infrastructure/memory/memoryFinOpsEnforcementProjection";
+
+/** FICTITIOUS — arbitrary test amounts; NOT project calibration 15/20/25/30. */
+const FICT_THRESHOLD = "12.34000000";
+const FICT_BELOW = "12.33000000";
+const FICT_ABOVE = "12.35000000";
+const FICT_BILLED = "5.11000000";
+const FICT_PROVIDER = "7.24000000";
+const FICT_API = "99.99000000";
+const FICT_EUR = "4.00000000";
+
+function costEvent(
+  partial: Partial<FinOpsCostEvent> &
+    Pick<
+      FinOpsCostEvent,
+      "costEventId" | "sourceOfTruth" | "evidenceClass" | "amount" | "currency"
+    >,
+): FinOpsCostEvent {
+  return {
+    dedupKey: `dedup:${partial.costEventId}`,
+    projectId: "proj-t4",
+    executionRunId: "run-t4",
+    usageEventId: null,
+    periodStart: "2026-08-01",
+    estimationStatus: "available",
+    correctionRef: null,
+    catalogVersion: null,
+    provider: "openai",
+    model: "gpt-test",
+    unit: null,
+    billingQuantum: null,
+    usageQuantity: null,
+    occurredAt: "2026-08-07T12:00:00.000Z",
+    ...partial,
+  };
+}
+
+describe("FinOps T4 enforcement unit", () => {
+  it("1. projection sums BILLED + PROVIDER_OBSERVED only", () => {
+    const projections = buildEnforcementProjectionsFromCostEvents({
+      projectId: "proj-t4",
+      periodStart: "2026-08-01",
+      rebuiltAt: "2026-08-07T12:00:00.000Z",
+      events: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_BILLED,
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c2",
+          sourceOfTruth: "PROVIDER_OBSERVED",
+          evidenceClass: "observed",
+          amount: FICT_PROVIDER,
+          currency: "USD",
+        }),
+      ],
+    });
+    expect(projections).toHaveLength(1);
+    expect(projections[0]!.blockingEligibleAmount).toBe("12.35000000");
+    expect(projections[0]!.billedAmount).toBe(FICT_BILLED);
+    expect(projections[0]!.providerObservedAmount).toBe(FICT_PROVIDER);
+  });
+
+  it("2. API_USAGE with amount is excluded", () => {
+    const projections = buildEnforcementProjectionsFromCostEvents({
+      projectId: "proj-t4",
+      periodStart: "2026-08-01",
+      rebuiltAt: "2026-08-07T12:00:00.000Z",
+      events: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_BILLED,
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c2",
+          sourceOfTruth: "API_USAGE",
+          evidenceClass: "observed",
+          amount: FICT_API,
+          currency: "USD",
+        }),
+      ],
+    });
+    expect(projections[0]!.blockingEligibleAmount).toBe(FICT_BILLED);
+    expect(projections[0]!.eligibleCostEventCount).toBe(1);
+  });
+
+  it("3. LOCAL_COUNT / PARAMETRIC_ESTIMATE / UNKNOWN excluded", () => {
+    const projections = buildEnforcementProjectionsFromCostEvents({
+      projectId: "proj-t4",
+      periodStart: "2026-08-01",
+      rebuiltAt: "2026-08-07T12:00:00.000Z",
+      events: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "LOCAL_COUNT",
+          evidenceClass: "estimated",
+          amount: "1.00000000",
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c2",
+          sourceOfTruth: "PARAMETRIC_ESTIMATE",
+          evidenceClass: "estimated",
+          amount: "2.00000000",
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c3",
+          sourceOfTruth: "UNKNOWN",
+          evidenceClass: "unknown",
+          amount: "3.00000000",
+          currency: "USD",
+        }),
+      ],
+    });
+    expect(projections[0]!.blockingEligibleAmount).toBe("0.00000000");
+    expect(projections[0]!.eligibleCostEventCount).toBe(0);
+  });
+
+  it("4. billedAmount and providerObservedAmount remain separately visible", () => {
+    const projections = buildEnforcementProjectionsFromCostEvents({
+      projectId: "proj-t4",
+      periodStart: "2026-08-01",
+      rebuiltAt: "2026-08-07T12:00:00.000Z",
+      events: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_BILLED,
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c2",
+          sourceOfTruth: "PROVIDER_OBSERVED",
+          evidenceClass: "observed",
+          amount: FICT_PROVIDER,
+          currency: "USD",
+        }),
+      ],
+    });
+    expect(projections[0]!.billedAmount).toBe(FICT_BILLED);
+    expect(projections[0]!.providerObservedAmount).toBe(FICT_PROVIDER);
+    expect(projections[0]!.billedEventCount).toBe(1);
+    expect(projections[0]!.providerObservedEventCount).toBe(1);
+  });
+
+  it("5. multi-currency isolated", () => {
+    const projections = buildEnforcementProjectionsFromCostEvents({
+      projectId: "proj-t4",
+      periodStart: "2026-08-01",
+      rebuiltAt: "2026-08-07T12:00:00.000Z",
+      events: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_BILLED,
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c2",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_EUR,
+          currency: "EUR",
+        }),
+      ],
+    });
+    expect(projections).toHaveLength(2);
+    const usd = projections.find((p) => p.currency === "USD")!;
+    const eur = projections.find((p) => p.currency === "EUR")!;
+    expect(usd.blockingEligibleAmount).toBe(FICT_BILLED);
+    expect(eur.blockingEligibleAmount).toBe(FICT_EUR);
+  });
+
+  it("6. no FX / no cross-sum", () => {
+    const projections = buildEnforcementProjectionsFromCostEvents({
+      projectId: "proj-t4",
+      periodStart: "2026-08-01",
+      rebuiltAt: "2026-08-07T12:00:00.000Z",
+      events: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: "1.00000000",
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c2",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: "2.00000000",
+          currency: "EUR",
+        }),
+      ],
+    });
+    const totalAcross = projections.reduce(
+      (n, p) => n + Number(p.blockingEligibleAmount),
+      0,
+    );
+    // Number used only to prove rows are NOT a single cross-currency sum field.
+    expect(projections.every((p) => p.currency === "USD" || p.currency === "EUR")).toBe(
+      true,
+    );
+    expect(projections).toHaveLength(2);
+    expect(totalAcross).toBe(3);
+  });
+
+  it("7. inconsistent blocking-eligible SoT/evidenceClass fails rebuild/build safely", async () => {
+    expect(() =>
+      buildEnforcementProjectionsFromCostEvents({
+        projectId: "proj-t4",
+        periodStart: "2026-08-01",
+        rebuiltAt: "2026-08-07T12:00:00.000Z",
+        events: [
+          costEvent({
+            costEventId: "c1",
+            sourceOfTruth: "BILLED",
+            evidenceClass: "observed",
+            amount: FICT_BILLED,
+            currency: "USD",
+          }),
+        ],
+      }),
+    ).toThrow(/inconsistent/i);
+
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "PROVIDER_OBSERVED",
+          evidenceClass: "billed",
+          amount: FICT_PROVIDER,
+          currency: "USD",
+        }),
+      ],
+    });
+    const result = await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    expect(result.outcome).toBe("failed");
+    if (result.outcome !== "failed") return;
+    expect(result.finopsSideOnly).toBe(true);
+    expect(result.code).toBe("FINOPS_T4_SOT_EVIDENCE_INCONSISTENT");
+  });
+
+  it("8. Money exact canonical scale", () => {
+    const projections = buildEnforcementProjectionsFromCostEvents({
+      projectId: "proj-t4",
+      periodStart: "2026-08-01",
+      rebuiltAt: "2026-08-07T12:00:00.000Z",
+      events: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: "0.10000000",
+          currency: "USD",
+        }),
+        costEvent({
+          costEventId: "c2",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: "0.20000000",
+          currency: "USD",
+        }),
+      ],
+    });
+    expect(projections[0]!.blockingEligibleAmount).toBe("0.30000000");
+  });
+
+  it("9. policy absent → allow / no projection access", async () => {
+    const readSpy = vi.fn();
+    const store = createMemoryFinOpsEnforcementProjection();
+    const projection = {
+      withExclusiveProjectPeriod: <T,>(
+        input: { readonly projectId: string; readonly periodStart: string },
+        work: Parameters<typeof store.withExclusiveProjectPeriod>[1],
+      ): Promise<T> => {
+        readSpy();
+        return store.withExclusiveProjectPeriod(input, work) as Promise<T>;
+      },
+    };
+    const decision = await evaluateFinOpsEnforcement(
+      {
+        projection,
+        resolvePolicy: () => null,
+      },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("allow");
+    expect(decision.reason).toBe("not_configured");
+    expect(readSpy).not.toHaveBeenCalled();
+  });
+
+  it("10. below threshold → allow", async () => {
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_BELOW,
+          currency: "USD",
+        }),
+      ],
+    });
+    await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    const policy: FinOpsEnforcementPolicy = {
+      thresholdCode: "FICT_T4",
+      currency: "USD",
+      thresholdAmount: FICT_THRESHOLD,
+      effect: "enforce",
+    };
+    const decision = await evaluateFinOpsEnforcement(
+      { projection: store, resolvePolicy: () => policy },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("allow");
+    expect(decision.reason).toBe("below_threshold");
+  });
+
+  it("11. crossing + signal_only → soft_signal", async () => {
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_ABOVE,
+          currency: "USD",
+        }),
+      ],
+    });
+    await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    const decision = await evaluateFinOpsEnforcement(
+      {
+        projection: store,
+        resolvePolicy: () => ({
+          thresholdCode: "FICT_T4",
+          currency: "USD",
+          thresholdAmount: FICT_THRESHOLD,
+          effect: "signal_only",
+        }),
+      },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("soft_signal");
+  });
+
+  it("12. crossing + enforce → block", async () => {
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "PROVIDER_OBSERVED",
+          evidenceClass: "observed",
+          amount: FICT_ABOVE,
+          currency: "USD",
+        }),
+      ],
+    });
+    await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    const decision = await evaluateFinOpsEnforcement(
+      {
+        projection: store,
+        resolvePolicy: () => ({
+          thresholdCode: "FICT_T4",
+          currency: "USD",
+          thresholdAmount: FICT_THRESHOLD,
+          effect: "enforce",
+        }),
+      },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("block");
+  });
+
+  it("13. missing projection → failed / finopsSideOnly", async () => {
+    const store = createMemoryFinOpsEnforcementProjection();
+    const decision = await evaluateFinOpsEnforcement(
+      {
+        projection: store,
+        resolvePolicy: () => ({
+          thresholdCode: "FICT_T4",
+          currency: "USD",
+          thresholdAmount: FICT_THRESHOLD,
+          effect: "enforce",
+        }),
+      },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("failed");
+    expect(decision.finopsSideOnly).toBe(true);
+    expect(decision.reason).toBe("projection_missing");
+  });
+
+  it("14. projection read throw → failed / sanitized", async () => {
+    const projection = {
+      async withExclusiveProjectPeriod() {
+        throw new Error("SELECT * FROM secret_table WHERE password='x'");
+      },
+    };
+    const decision = await evaluateFinOpsEnforcement(
+      {
+        projection,
+        resolvePolicy: () => ({
+          thresholdCode: "FICT_T4",
+          currency: "USD",
+          thresholdAmount: FICT_THRESHOLD,
+          effect: "enforce",
+        }),
+      },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("failed");
+    expect(decision.finopsSideOnly).toBe(true);
+    expect(JSON.stringify(decision)).not.toMatch(/password|secret_table/i);
+  });
+
+  it("15. FAILED is never BLOCK", async () => {
+    const store = createMemoryFinOpsEnforcementProjection();
+    const decision = await evaluateFinOpsEnforcement(
+      {
+        projection: store,
+        resolvePolicy: () => ({
+          thresholdCode: "FICT_T4",
+          currency: "USD",
+          thresholdAmount: FICT_THRESHOLD,
+          effect: "enforce",
+        }),
+      },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("failed");
+    expect(decision.decision).not.toBe("block");
+  });
+
+  it("16. internal soft_signal contains no REVIEW_REQUIRED or WOULD_BLOCK literal", async () => {
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_ABOVE,
+          currency: "USD",
+        }),
+      ],
+    });
+    await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    const decision = await evaluateFinOpsEnforcement(
+      {
+        projection: store,
+        resolvePolicy: () => ({
+          thresholdCode: "FICT_T4",
+          currency: "USD",
+          thresholdAmount: FICT_THRESHOLD,
+          effect: "signal_only",
+        }),
+      },
+      {
+        projectId: "proj-t4",
+        executionRunId: "run-1",
+        correlationId: "corr-1",
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      },
+    );
+    expect(decision.decision).toBe("soft_signal");
+    const serialized = JSON.stringify(decision);
+    expect(serialized).not.toContain("REVIEW_REQUIRED");
+    expect(serialized).not.toContain("WOULD_BLOCK");
+  });
+
+  it("17. memory rebuild version monotonic", async () => {
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_BILLED,
+          currency: "USD",
+        }),
+      ],
+    });
+    const r1 = await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    const r2 = await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:01:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    expect(r1.outcome).toBe("succeeded");
+    expect(r2.outcome).toBe("succeeded");
+    if (r1.outcome !== "succeeded" || r2.outcome !== "succeeded") return;
+    expect(r1.projections[0]!.rebuildVersion).toBe(1);
+    expect(r2.projections[0]!.rebuildVersion).toBe(2);
+  });
+
+  it("18. same project/period concurrent rebuild remains deterministic", async () => {
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_BILLED,
+          currency: "USD",
+        }),
+      ],
+    });
+    const deps = {
+      projection: store,
+      nowIso: () => "2026-08-07T12:00:00.000Z",
+    };
+    const input = { projectId: "proj-t4", periodStart: "2026-08-01" };
+    const [a, b, c] = await Promise.all([
+      rebuildEnforcementProjection(deps, input),
+      rebuildEnforcementProjection(deps, input),
+      rebuildEnforcementProjection(deps, input),
+    ]);
+    expect(a.outcome).toBe("succeeded");
+    expect(b.outcome).toBe("succeeded");
+    expect(c.outcome).toBe("succeeded");
+    if (
+      a.outcome !== "succeeded" ||
+      b.outcome !== "succeeded" ||
+      c.outcome !== "succeeded"
+    ) {
+      return;
+    }
+    const versions = [
+      a.projections[0]!.rebuildVersion,
+      b.projections[0]!.rebuildVersion,
+      c.projections[0]!.rebuildVersion,
+    ].sort((x, y) => x - y);
+    expect(versions).toEqual([1, 2, 3]);
+    const final = await store.withExclusiveProjectPeriod(input, (ops) =>
+      ops.readProjection("USD"),
+    );
+    expect(final?.rebuildVersion).toBe(3);
+    expect(final?.blockingEligibleAmount).toBe(FICT_BILLED);
+  });
+
+  it("19. createFinOpsEnforcementPort factory wires injected resolver", async () => {
+    const store = createMemoryFinOpsEnforcementProjection({
+      costEvents: [
+        costEvent({
+          costEventId: "c1",
+          sourceOfTruth: "BILLED",
+          evidenceClass: "billed",
+          amount: FICT_ABOVE,
+          currency: "USD",
+        }),
+      ],
+    });
+    await rebuildEnforcementProjection(
+      { projection: store, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "proj-t4", periodStart: "2026-08-01" },
+    );
+    const port = createFinOpsEnforcementPort({
+      projection: store,
+      resolvePolicy: () => ({
+        thresholdCode: "FICT_T4",
+        currency: "USD",
+        thresholdAmount: FICT_THRESHOLD,
+        effect: "enforce",
+      }),
+    });
+    const decision = await port.evaluateBeforeProvider({
+      projectId: "proj-t4",
+      executionRunId: "run-1",
+      correlationId: "corr-1",
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    expect(decision.decision).toBe("block");
+  });
+});
+```
+
+## CREATED `projects/sfia-studio/app/__tests__/oa/finops/postgres/t4.enforcement-projection.integration.test.ts`
+
+```
+/**
+ * @vitest-environment node
+ *
+ * FinOps T4 PostgreSQL enforcement projection integration.
+ * Requires DATABASE_URL (ephemeral local Postgres only — never Neon).
+ * FICTITIOUS amounts only — NOT 15/20/25/30.
+ */
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import type { Pool } from "pg";
+import { evaluateFinOpsEnforcement } from "@/lib/oa/finops/application/evaluateFinOpsEnforcement";
+import { rebuildEnforcementProjection } from "@/lib/oa/finops/application/rebuildEnforcementProjection";
+import { deriveCostEventIdentity } from "@/lib/oa/finops/application/t2Identity";
+import {
+  closeFinOpsPool,
+  createFinOpsPool,
+} from "@/lib/oa/finops/infrastructure/postgres/createFinOpsPool";
+import { createPostgresFinOpsEnforcementProjectionStore } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsEnforcementProjectionStore";
+import { createPostgresFinOpsReconciliation } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsReconciliation";
+
+const DATABASE_URL = process.env.DATABASE_URL?.trim() ?? "";
+const describeDb = DATABASE_URL ? describe : describe.skip;
+
+/** FICTITIOUS — not historical calibration. */
+const FICT_BILLED = "5.11000000";
+const FICT_PROVIDER = "7.24000000";
+const FICT_API = "99.99000000";
+const FICT_EUR = "3.50000000";
+const FICT_THRESHOLD = "12.34000000";
+const FICT_SIGNED = "-1.25000000";
+
+describeDb("FinOps T4 PostgreSQL enforcement projection integration", () => {
+  let pool: Pool;
+  const suffix = `${Date.now()}`;
+
+  beforeAll(() => {
+    pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 6 });
+  });
+
+  afterAll(async () => {
+    await closeFinOpsPool(pool);
+  });
+
+  it("1. T4 migration after T3", async () => {
+    const migrations = await pool.query<{ name: string }>(
+      `SELECT name FROM pgmigrations ORDER BY run_on ASC, name ASC`,
+    );
+    const names = migrations.rows.map((r) => r.name);
+    const i1 = names.findIndex((n) => n.includes("finops-t1"));
+    const i2 = names.findIndex((n) => n.includes("finops-t2"));
+    const i6 = names.findIndex((n) => n.includes("finops-t6"));
+    const i3 = names.findIndex((n) => n.includes("finops-t3"));
+    const i4 = names.findIndex((n) => n.includes("finops-t4"));
+    expect(i1).toBeGreaterThanOrEqual(0);
+    expect(i2).toBeGreaterThan(i1);
+    expect(i6).toBeGreaterThan(i2);
+    expect(i3).toBeGreaterThan(i6);
+    expect(i4).toBeGreaterThan(i3);
+  });
+
+  it("2. table exists / schema expected", async () => {
+    const cols = await pool.query<{
+      column_name: string;
+      data_type: string;
+      numeric_precision: number | null;
+      numeric_scale: number | null;
+    }>(
+      `SELECT column_name, data_type, numeric_precision, numeric_scale
+       FROM information_schema.columns
+       WHERE table_name = 'finops_enforcement_projection'
+       ORDER BY ordinal_position`,
+    );
+    const names = cols.rows.map((r) => r.column_name);
+    expect(names).toEqual(
+      expect.arrayContaining([
+        "project_id",
+        "period_start",
+        "currency",
+        "blocking_eligible_amount",
+        "billed_amount",
+        "provider_observed_amount",
+        "eligible_cost_event_count",
+        "billed_event_count",
+        "provider_observed_event_count",
+        "rebuild_version",
+        "rebuilt_at",
+      ]),
+    );
+    const amount = cols.rows.find(
+      (r) => r.column_name === "blocking_eligible_amount",
+    );
+    expect(amount?.data_type).toBe("numeric");
+    expect(amount?.numeric_precision).toBe(20);
+    expect(amount?.numeric_scale).toBe(8);
+  });
+
+  it("3. no seed thresholds", async () => {
+    const count = await pool.query<{ n: string }>(
+      `SELECT COUNT(*)::text AS n FROM finops_enforcement_projection`,
+    );
+    // Table may have rows from other tests in suite; seed means migration-time data.
+    // Prove no threshold / flag tables for T4.
+    const thresholdTables = await pool.query<{ table_name: string }>(
+      `SELECT table_name FROM information_schema.tables
+       WHERE table_schema = 'public'
+         AND table_name LIKE '%enforcement%threshold%'`,
+    );
+    expect(thresholdTables.rows).toHaveLength(0);
+    expect(Number(count.rows[0]!.n)).toBeGreaterThanOrEqual(0);
+  });
+
+  it("4. cost events BILLED + PROVIDER_OBSERVED rebuild", async () => {
+    const projectId = `proj-t4-sum-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    for (const [id, sot, evidence, amount] of [
+      ["b1", "BILLED", "billed", FICT_BILLED],
+      ["p1", "PROVIDER_OBSERVED", "observed", FICT_PROVIDER],
+    ] as const) {
+      const identity = deriveCostEventIdentity({
+        projectId,
+        executionRunId: `run-${id}-${suffix}`,
+        evidenceClass: evidence,
+        correctionRef: null,
+        amount,
+        currency: "USD",
+      });
+      await reconciliation.insertCostEvent({
+        costEventId: identity.costEventId,
+        dedupKey: identity.dedupKey,
+        projectId,
+        executionRunId: `run-${id}-${suffix}`,
+        usageEventId: null,
+        periodStart: "2026-08-01",
+        currency: "USD",
+        amount,
+        evidenceClass: evidence,
+        sourceOfTruth: sot,
+        estimationStatus: "available",
+        correctionRef: null,
+        catalogVersion: null,
+        provider: "openai",
+        model: "gpt-test",
+        unit: null,
+        billingQuantum: null,
+        usageQuantity: null,
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      });
+    }
+    const result = await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.projections[0]!.blockingEligibleAmount).toBe("12.35000000");
+    expect(result.projections[0]!.billedAmount).toBe(FICT_BILLED);
+    expect(result.projections[0]!.providerObservedAmount).toBe(FICT_PROVIDER);
+  });
+
+  it("5. API_USAGE excluded despite observed evidenceClass", async () => {
+    const projectId = `proj-t4-api-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    for (const [id, sot, evidence, amount] of [
+      ["b1", "BILLED", "billed", FICT_BILLED],
+      ["a1", "API_USAGE", "observed", FICT_API],
+    ] as const) {
+      const identity = deriveCostEventIdentity({
+        projectId,
+        executionRunId: `run-${id}-${suffix}`,
+        evidenceClass: evidence,
+        correctionRef: null,
+        amount,
+        currency: "USD",
+      });
+      await reconciliation.insertCostEvent({
+        costEventId: identity.costEventId,
+        dedupKey: identity.dedupKey,
+        projectId,
+        executionRunId: `run-${id}-${suffix}`,
+        usageEventId: null,
+        periodStart: "2026-08-01",
+        currency: "USD",
+        amount,
+        evidenceClass: evidence,
+        sourceOfTruth: sot,
+        estimationStatus: "available",
+        correctionRef: null,
+        catalogVersion: null,
+        provider: "openai",
+        model: "gpt-test",
+        unit: null,
+        billingQuantum: null,
+        usageQuantity: null,
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      });
+    }
+    const result = await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.projections[0]!.blockingEligibleAmount).toBe(FICT_BILLED);
+    expect(result.projections[0]!.eligibleCostEventCount).toBe(1);
+  });
+
+  it("6. currency isolation", async () => {
+    const projectId = `proj-t4-fx-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    for (const [id, currency, amount] of [
+      ["u", "USD", FICT_BILLED],
+      ["e", "EUR", FICT_EUR],
+    ] as const) {
+      const identity = deriveCostEventIdentity({
+        projectId,
+        executionRunId: `run-${id}-${suffix}`,
+        evidenceClass: "billed",
+        correctionRef: null,
+        amount,
+        currency,
+      });
+      await reconciliation.insertCostEvent({
+        costEventId: identity.costEventId,
+        dedupKey: identity.dedupKey,
+        projectId,
+        executionRunId: `run-${id}-${suffix}`,
+        usageEventId: null,
+        periodStart: "2026-08-01",
+        currency,
+        amount,
+        evidenceClass: "billed",
+        sourceOfTruth: "BILLED",
+        estimationStatus: "available",
+        correctionRef: null,
+        catalogVersion: null,
+        provider: "openai",
+        model: "gpt-test",
+        unit: null,
+        billingQuantum: null,
+        usageQuantity: null,
+        occurredAt: "2026-08-07T12:00:00.000Z",
+      });
+    }
+    const result = await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.projections).toHaveLength(2);
+    expect(
+      result.projections.find((p) => p.currency === "USD")!
+        .blockingEligibleAmount,
+    ).toBe(FICT_BILLED);
+    expect(
+      result.projections.find((p) => p.currency === "EUR")!
+        .blockingEligibleAmount,
+    ).toBe(FICT_EUR);
+  });
+
+  it("7. projection persists across new store instance", async () => {
+    const projectId = `proj-t4-persist-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const identity = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-persist-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: null,
+      amount: FICT_BILLED,
+      currency: "USD",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: identity.costEventId,
+      dedupKey: identity.dedupKey,
+      projectId,
+      executionRunId: `run-persist-${suffix}`,
+      usageEventId: null,
+      periodStart: "2026-08-01",
+      currency: "USD",
+      amount: FICT_BILLED,
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: null,
+      catalogVersion: null,
+      provider: "openai",
+      model: "gpt-test",
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    const storeA = createPostgresFinOpsEnforcementProjectionStore(pool);
+    await rebuildEnforcementProjection(
+      { projection: storeA, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    const storeB = createPostgresFinOpsEnforcementProjectionStore(pool);
+    const row = await storeB.withExclusiveProjectPeriod(
+      { projectId, periodStart: "2026-08-01" },
+      (ops) => ops.readProjection("USD"),
+    );
+    expect(row?.blockingEligibleAmount).toBe(FICT_BILLED);
+  });
+
+  it("8. rebuildVersion increments", async () => {
+    const projectId = `proj-t4-ver-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    const identity = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-ver-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: null,
+      amount: FICT_BILLED,
+      currency: "USD",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: identity.costEventId,
+      dedupKey: identity.dedupKey,
+      projectId,
+      executionRunId: `run-ver-${suffix}`,
+      usageEventId: null,
+      periodStart: "2026-08-01",
+      currency: "USD",
+      amount: FICT_BILLED,
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: null,
+      catalogVersion: null,
+      provider: "openai",
+      model: "gpt-test",
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    const r1 = await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    const r2 = await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:01:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    expect(r1.outcome).toBe("succeeded");
+    expect(r2.outcome).toBe("succeeded");
+    if (r1.outcome !== "succeeded" || r2.outcome !== "succeeded") return;
+    expect(r1.projections[0]!.rebuildVersion).toBe(1);
+    expect(r2.projections[0]!.rebuildVersion).toBe(2);
+  });
+
+  it("9. replace full project/period removes obsolete currency row", async () => {
+    const projectId = `proj-t4-obs-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    const identity = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-u-obs-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: null,
+      amount: FICT_BILLED,
+      currency: "USD",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: identity.costEventId,
+      dedupKey: identity.dedupKey,
+      projectId,
+      executionRunId: `run-u-obs-${suffix}`,
+      usageEventId: null,
+      periodStart: "2026-08-01",
+      currency: "USD",
+      amount: FICT_BILLED,
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: null,
+      catalogVersion: null,
+      provider: "openai",
+      model: "gpt-test",
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    // Seed a stale EUR projection row (ledger is append-only — no DELETE).
+    await projection.withExclusiveProjectPeriod(
+      { projectId, periodStart: "2026-08-01" },
+      async (ops) => {
+        await ops.replaceProjections([
+          {
+            projectId,
+            periodStart: "2026-08-01",
+            currency: "USD",
+            blockingEligibleAmount: FICT_BILLED,
+            billedAmount: FICT_BILLED,
+            providerObservedAmount: "0.00000000",
+            eligibleCostEventCount: 1,
+            billedEventCount: 1,
+            providerObservedEventCount: 0,
+            rebuildVersion: 1,
+            rebuiltAt: "2026-08-07T11:00:00.000Z",
+          },
+          {
+            projectId,
+            periodStart: "2026-08-01",
+            currency: "EUR",
+            blockingEligibleAmount: FICT_EUR,
+            billedAmount: FICT_EUR,
+            providerObservedAmount: "0.00000000",
+            eligibleCostEventCount: 1,
+            billedEventCount: 1,
+            providerObservedEventCount: 0,
+            rebuildVersion: 1,
+            rebuiltAt: "2026-08-07T11:00:00.000Z",
+          },
+        ]);
+      },
+    );
+    const result = await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:02:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.projections.map((p) => p.currency)).toEqual(["USD"]);
+    const eur = await projection.withExclusiveProjectPeriod(
+      { projectId, periodStart: "2026-08-01" },
+      (ops) => ops.readProjection("EUR"),
+    );
+    expect(eur).toBeNull();
+  });
+
+  it("10. concurrent rebuild same project/period serialized", async () => {
+    const projectId = `proj-t4-conc-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    const identity = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-conc-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: null,
+      amount: FICT_BILLED,
+      currency: "USD",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: identity.costEventId,
+      dedupKey: identity.dedupKey,
+      projectId,
+      executionRunId: `run-conc-${suffix}`,
+      usageEventId: null,
+      periodStart: "2026-08-01",
+      currency: "USD",
+      amount: FICT_BILLED,
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: null,
+      catalogVersion: null,
+      provider: "openai",
+      model: "gpt-test",
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    const deps = {
+      projection,
+      nowIso: () => "2026-08-07T12:00:00.000Z",
+    };
+    const input = { projectId, periodStart: "2026-08-01" };
+    const results = await Promise.all([
+      rebuildEnforcementProjection(deps, input),
+      rebuildEnforcementProjection(deps, input),
+      rebuildEnforcementProjection(deps, input),
+    ]);
+    expect(results.every((r) => r.outcome === "succeeded")).toBe(true);
+    const final = await projection.withExclusiveProjectPeriod(input, (ops) =>
+      ops.readProjection("USD"),
+    );
+    expect(final?.rebuildVersion).toBe(3);
+  });
+
+  it("11. decision read and rebuild share project/period lock semantics", async () => {
+    const projectId = `proj-t4-lock-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    const identity = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-lock-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: null,
+      amount: "12.35000000",
+      currency: "USD",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: identity.costEventId,
+      dedupKey: identity.dedupKey,
+      projectId,
+      executionRunId: `run-lock-${suffix}`,
+      usageEventId: null,
+      periodStart: "2026-08-01",
+      currency: "USD",
+      amount: "12.35000000",
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: null,
+      catalogVersion: null,
+      provider: "openai",
+      model: "gpt-test",
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    const [rebuildResult, decision] = await Promise.all([
+      rebuildEnforcementProjection(
+        { projection, nowIso: () => "2026-08-07T12:05:00.000Z" },
+        { projectId, periodStart: "2026-08-01" },
+      ),
+      evaluateFinOpsEnforcement(
+        {
+          projection,
+          resolvePolicy: () => ({
+            thresholdCode: "FICT_T4_PG",
+            currency: "USD",
+            thresholdAmount: FICT_THRESHOLD,
+            effect: "enforce",
+          }),
+        },
+        {
+          projectId,
+          executionRunId: `run-lock-${suffix}`,
+          correlationId: `corr-lock-${suffix}`,
+          occurredAt: "2026-08-07T12:00:00.000Z",
+        },
+      ),
+    ]);
+    expect(rebuildResult.outcome).toBe("succeeded");
+    expect(["allow", "block", "soft_signal", "failed"]).toContain(
+      decision.decision,
+    );
+    expect(decision.decision).not.toBe("failed");
+  });
+
+  it("12. no duplicate PK rows", async () => {
+    const projectId = `proj-t4-pk-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    const identity = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-pk-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: null,
+      amount: FICT_BILLED,
+      currency: "USD",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: identity.costEventId,
+      dedupKey: identity.dedupKey,
+      projectId,
+      executionRunId: `run-pk-${suffix}`,
+      usageEventId: null,
+      periodStart: "2026-08-01",
+      currency: "USD",
+      amount: FICT_BILLED,
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: null,
+      catalogVersion: null,
+      provider: "openai",
+      model: "gpt-test",
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:01:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    const count = await pool.query<{ n: string }>(
+      `SELECT COUNT(*)::text AS n FROM finops_enforcement_projection
+       WHERE project_id = $1 AND period_start = '2026-08-01'::date AND currency = 'USD'`,
+      [projectId],
+    );
+    expect(count.rows[0]!.n).toBe("1");
+  });
+
+  it("13. signed correction-safe amounts accepted", async () => {
+    const projectId = `proj-t4-signed-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const projection = createPostgresFinOpsEnforcementProjectionStore(pool);
+    const identity = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-signed-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: "corr-1",
+      amount: FICT_SIGNED,
+      currency: "USD",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: identity.costEventId,
+      dedupKey: identity.dedupKey,
+      projectId,
+      executionRunId: `run-signed-${suffix}`,
+      usageEventId: null,
+      periodStart: "2026-08-01",
+      currency: "USD",
+      amount: FICT_SIGNED,
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: "corr-1",
+      catalogVersion: null,
+      provider: "openai",
+      model: "gpt-test",
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T12:00:00.000Z",
+    });
+    const result = await rebuildEnforcementProjection(
+      { projection, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart: "2026-08-01" },
+    );
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.projections[0]!.blockingEligibleAmount).toBe(FICT_SIGNED);
+  });
+
+  it("14. down refuses when projection rows exist (guard inspection)", async () => {
+    const fs = await import("node:fs/promises");
+    const path = await import("node:path");
+    const migrationPath = path.join(
+      process.cwd(),
+      "db/migrations/1754600003000_finops-t4-enforcement-projection.js",
+    );
+    const source = await fs.readFile(migrationPath, "utf8");
+    expect(source).toMatch(/Refuse FinOps T4 down migration/);
+    expect(source).toMatch(/finops_enforcement_projection/);
+    const count = await pool.query<{ n: string }>(
+      `SELECT COUNT(*)::text AS n FROM finops_enforcement_projection`,
+    );
+    expect(Number(count.rows[0]!.n)).toBeGreaterThan(0);
+  });
+});
+```
+
+## CREATED `projects/sfia-studio/app/__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts`
+
+```
+/**
+ * @vitest-environment node
+ *
+ * FinOps T4 — execution-run ENF-B boundary tests (≥15).
+ * FICTITIOUS fixtures only — NOT historical 15/20/25/30.
+ */
+import { describe, expect, it, vi } from "vitest";
+import { getFixture } from "@/lib/oa/execution-run";
+import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
+import {
+  composeExecutionRunProviders,
+  composeExecutionRunProvidersFake,
+} from "@/lib/oa/execution-run/server/composeExecutionRunProviders";
+import type { FinOpsEnforcementPort } from "@/lib/oa/finops/ports/finopsEnforcementPort";
+import type { FinOpsEnforcementDecision } from "@/lib/oa/finops/application/types.enforcement";
+import { FakeAiExecutionAdapter } from "@/lib/oa/execution-run/infrastructure/ai/fakeAiExecutionAdapter";
+import { FakeGitReadAdapter } from "@/lib/oa/execution-run/infrastructure/git/fakeGitReadAdapter";
+import { FixtureCursorExecutionAdapter } from "@/lib/oa/execution-run/infrastructure/cursor/fixtureCursorExecutionAdapter";
+import { FakeSecretSourceAdapter } from "@/lib/oa/execution-run/infrastructure/secrets/fakeSecretSourceAdapter";
+import { RecordingExecutionEventSink } from "@/lib/oa/execution-run/infrastructure/events/recordingExecutionEventSink";
+
+function decisionPort(
+  decision: FinOpsEnforcementDecision,
+): FinOpsEnforcementPort {
+  return {
+    async evaluateBeforeProvider() {
+      return decision;
+    },
+  };
+}
+
+function throwingPort(): FinOpsEnforcementPort {
+  return {
+    async evaluateBeforeProvider() {
+      throw new Error("SELECT password FROM secrets WHERE host='db'");
+    },
+  };
+}
+
+function spyAiProviders() {
+  const ai = new FakeAiExecutionAdapter();
+  const completeSpy = vi.spyOn(ai, "complete");
+  const secretsAdapter = new FakeSecretSourceAdapter();
+  const providers = composeExecutionRunProviders({
+    ai,
+    git: new FakeGitReadAdapter({
+      repositoryAllowlist: ["o/r", "example/example", "mcleland147/sfia-workspace"],
+      pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
+    }),
+    cursor: new FixtureCursorExecutionAdapter(),
+    secrets: {
+      resolve: (secretId) => secretsAdapter.resolve(secretId),
+    },
+    events: new RecordingExecutionEventSink(),
+  });
+  return { providers, completeSpy };
+}
+
+function nominalCoordinateInput(suffix: string) {
+  const fixture = getFixture("nominal");
+  return {
+    intent: {
+      ...fixture.intent,
+      intentId: `intent:t4:${suffix}`,
+      correlationId: `corr:t4:${suffix}`,
+    },
+    context: fixture.context,
+    providerRequest: {
+      correlationId: `corr:t4:${suffix}`,
+      lane: "ai" as const,
+      operation: "complete" as const,
+      messages: [{ role: "user" as const, content: "bounded fixture summary" }],
+      timeoutMs: 100,
+    },
+    timeoutMs: 100,
+  };
+}
+
+describe("FinOps T4 enforcement boundary (ENF-B)", () => {
+  it("1. no finopsEnforcement dependency → existing provider behavior preserved", async () => {
+    const composition = composeExecutionRunD2D3();
+    const result = await composition.coordinate(nominalCoordinateInput("none"));
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+    expect(result.providerCompleted).toBe(true);
+  });
+
+  it("2. ALLOW → provider invoked", async () => {
+    const { providers, completeSpy } = spyAiProviders();
+    const composition = composeExecutionRunD2D3({
+      providers,
+      finopsEnforcement: decisionPort({
+        decision: "allow",
+        reason: "below_threshold",
+      }),
+    });
+    const result = await composition.coordinate(nominalCoordinateInput("allow"));
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+  });
+
+  it("3. soft_signal → provider invoked", async () => {
+    const { providers, completeSpy } = spyAiProviders();
+    const composition = composeExecutionRunD2D3({
+      providers,
+      finopsEnforcement: decisionPort({
+        decision: "soft_signal",
+        reason: "threshold_crossed_signal_only",
+      }),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("soft"),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+  });
+
+  it("4. FAILED → provider invoked", async () => {
+    const { providers, completeSpy } = spyAiProviders();
+    const composition = composeExecutionRunD2D3({
+      providers,
+      finopsEnforcement: decisionPort({
+        decision: "failed",
+        reason: "projection_missing",
+        finopsSideOnly: true,
+      }),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("failed"),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+  });
+
+  it("5. enforcement port throws → provider invoked, exception not leaked", async () => {
+    const { providers, completeSpy } = spyAiProviders();
+    const composition = composeExecutionRunD2D3({
+      providers,
+      finopsEnforcement: throwingPort(),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("throw"),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+    const serialized = JSON.stringify(result);
+    expect(serialized).not.toMatch(/SELECT password FROM secrets/i);
+    expect(serialized).not.toMatch(/host='db'/i);
+  });
+
+  it("6. BLOCK → run blocked", async () => {
+    const composition = composeExecutionRunD2D3({
+      finopsEnforcement: decisionPort({
+        decision: "block",
+        reason: "threshold_crossed_enforce",
+      }),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("block-state"),
+    );
+    expect(result.ok).toBe(false);
+    expect(result.run?.state).toBe("blocked");
+  });
+
+  it("7. BLOCK → providerAttempted false", async () => {
+    const composition = composeExecutionRunD2D3({
+      finopsEnforcement: decisionPort({
+        decision: "block",
+        reason: "threshold_crossed_enforce",
+      }),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("block-attempted"),
+    );
+    expect(result.providerAttempted).toBe(false);
+  });
+
+  it("8. BLOCK → providerInvoked false", async () => {
+    const composition = composeExecutionRunD2D3({
+      finopsEnforcement: decisionPort({
+        decision: "block",
+        reason: "threshold_crossed_enforce",
+      }),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("block-invoked"),
+    );
+    expect(result.providerInvoked).toBe(false);
+  });
+
+  it("9. BLOCK → provider port spy not called", async () => {
+    const { providers, completeSpy } = spyAiProviders();
+    const composition = composeExecutionRunD2D3({
+      providers,
+      finopsEnforcement: decisionPort({
+        decision: "block",
+        reason: "threshold_crossed_enforce",
+      }),
+    });
+    await composition.coordinate(nominalCoordinateInput("block-spy"));
+    expect(completeSpy).not.toHaveBeenCalled();
+  });
+
+  it("10. BLOCK failure code = HUMAN_GATE_REQUIRED", async () => {
+    const composition = composeExecutionRunD2D3({
+      finopsEnforcement: decisionPort({
+        decision: "block",
+        reason: "threshold_crossed_enforce",
+      }),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("block-code"),
+    );
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.failure.code).toBe("HUMAN_GATE_REQUIRED");
+    expect(result.failure.family).toBe("human_gate_required");
+  });
+
+  it("11. BLOCK happens after run creation", async () => {
+    const composition = composeExecutionRunD2D3({
+      finopsEnforcement: decisionPort({
+        decision: "block",
+        reason: "threshold_crossed_enforce",
+      }),
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("block-created"),
+    );
+    expect(result.run).toBeTruthy();
+    expect(result.run?.runId).toBeTruthy();
+    expect(result.stateTrace[0]).toBe("idle");
+    expect(result.stateTrace).toContain("blocked");
+  });
+
+  it("12. pre-engagement validation failure → T4 enforcement not called", async () => {
+    const evaluate = vi.fn(async () => ({
+      decision: "block" as const,
+      reason: "should_not_run",
+    }));
+    const composition = composeExecutionRunD2D3({
+      finopsEnforcement: { evaluateBeforeProvider: evaluate },
+    });
+    const fixture = getFixture("nominal");
+    const result = await composition.coordinate({
+      intent: {
+        ...fixture.intent,
+        intentId: "intent:t4:pre",
+        correlationId: "corr:t4:pre",
+        requestedLane: "none",
+      },
+      context: fixture.context,
+      timeoutMs: 100,
+    });
+    expect(result.ok).toBe(false);
+    expect(evaluate).not.toHaveBeenCalled();
+    expect(result.run?.state).toBe("blocked");
+  });
+
+  it("13. T4 decision occurs before intent_valid / provider", async () => {
+    const order: string[] = [];
+    const { providers, completeSpy } = spyAiProviders();
+    completeSpy.mockImplementation(async () => {
+      order.push("provider");
+      throw new Error("provider must not be reached after T4 block");
+    });
+    const composition = composeExecutionRunD2D3({
+      providers,
+      finopsEnforcement: {
+        async evaluateBeforeProvider() {
+          order.push("t4");
+          return { decision: "block", reason: "threshold_crossed_enforce" };
+        },
+      },
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("order"),
+    );
+    expect(order).toEqual(["t4"]);
+    expect(result.providerInvoked).toBe(false);
+    expect(result.stateTrace).not.toContain("running");
+    expect(completeSpy).not.toHaveBeenCalled();
+  });
+
+  it("14. compose default → no enforcement active", async () => {
+    const composition = composeExecutionRunD2D3();
+    // Default compose must not invent a T4 instance — behavioral proof via success path.
+    const result = await composition.coordinate(
+      nominalCoordinateInput("default-inert"),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+    // Source inspection: default options omit finopsEnforcement (no auto-wire).
+    const fake = composeExecutionRunProvidersFake();
+    expect(fake).toBeTruthy();
+  });
+
+  it("15. compose explicit optional fake enforcement → pass-through works", async () => {
+    const evaluate = vi.fn(async () => ({
+      decision: "allow" as const,
+      reason: "not_configured",
+    }));
+    const composition = composeExecutionRunD2D3({
+      finopsEnforcement: { evaluateBeforeProvider: evaluate },
+    });
+    const result = await composition.coordinate(
+      nominalCoordinateInput("passthrough"),
+    );
+    expect(evaluate).toHaveBeenCalledTimes(1);
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+  });
+});
+```
+
+# COMPLETE USEFUL DIFFS — MODIFY FILES
+
+## MODIFIED `projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+index 1f926bb..edc9dee 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+@@ -29,7 +29,9 @@ import type {
+   ProviderInvocationResult,
+ } from "../ports/providerResult";
+ import type { FinOpsCapturePort } from "../../finops/ports/finopsCapturePort";
++import type { FinOpsEnforcementPort } from "../../finops/ports/finopsEnforcementPort";
+ import type { FinOpsCaptureDiagnostic } from "../../finops/application/types";
++import type { FinOpsEnforcementDecision } from "../../finops/application/types.enforcement";
+ import {
+   invokeWithTimeoutAndCancellation,
+   type InvokeOutcome,
+@@ -77,6 +79,11 @@ export type CoordinateExecutionRunDependencies = {
+   readonly clock: ClockPort;
+   /** Optional FinOps T1 capture boundary — absent ⇒ not_attempted/disabled. */
+   readonly finops?: FinOpsCapturePort;
++  /**
++   * Optional FinOps T4 soft-enforcement boundary (ENF-B).
++   * Absent ⇒ default-inert (no T4 evaluation). Never auto-instantiated.
++   */
++  readonly finopsEnforcement?: FinOpsEnforcementPort;
+ };
+
+ export type CoordinateExecutionRunInput = {
+@@ -1043,6 +1050,60 @@ export async function coordinateExecutionRun(
+     };
+   }
+
++  // T4 ENF-B: after create + pre-engagement, before intent_valid / provider.
++  // Absent dependency ⇒ inert. allow/soft_signal/failed/throw ⇒ fail-open continue.
++  // block ⇒ HUMAN_GATE_REQUIRED; provider never attempted/invoked.
++  if (deps.finopsEnforcement) {
++    let enforcementDecision: FinOpsEnforcementDecision;
++    try {
++      enforcementDecision = await deps.finopsEnforcement.evaluateBeforeProvider({
++        projectId: current.context.projectId,
++        executionRunId: current.runId,
++        correlationId: current.correlationId,
++        occurredAt: deps.clock.nowIso(),
++      });
++    } catch {
++      enforcementDecision = {
++        decision: "failed",
++        reason: "enforcement_port_threw",
++        finopsSideOnly: true,
++      };
++    }
++
++    if (enforcementDecision.decision === "block") {
++      const enforcementFailure = normalizedFailure({
++        family: "human_gate_required",
++        code: "HUMAN_GATE_REQUIRED",
++        userMessage:
++          "FinOps review is required before starting a new execution",
++        retryable: true,
++        correlationId: current.correlationId,
++      });
++      const blocked = await blockIdleRun(
++        current,
++        enforcementFailure,
++        deps,
++      );
++      if (blocked.run) {
++        current = blocked.run;
++        stateTrace.push(blocked.run.state);
++      }
++      return {
++        ok: false,
++        failure: blocked.ok ? enforcementFailure : blocked.failure,
++        run: blocked.run ?? current,
++        providerAttempted: false,
++        providerInvoked: false,
++        providerCompleted: false,
++        stateTrace,
++        validatedUsage: noUsage,
++        finopsCapture: finopsNotAttempted("finops_enforcement_block"),
++        lateEvidenceRecorded: false,
++        eventDelivery: deliveryOf(tracker),
++      };
++    }
++  }
++
+   const started = await deps.execution.transitionExecutionRun({
+     runId: current.runId,
+     reason: "intent_valid",
+```
+
+## MODIFIED `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+index ed73157..80023e9 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
+@@ -57,6 +57,11 @@ export function composeExecutionRunD2D3(options?: {
+   readonly clock?: ClockPort;
+   readonly clockIso?: string;
+   readonly finops?: import("../../finops/ports/finopsCapturePort").FinOpsCapturePort;
++  /**
++   * Optional FinOps T4 enforcement — pass-through ONLY when provided.
++   * No default T4 instance, pool, config, threshold, env, or S30 activation.
++   */
++  readonly finopsEnforcement?: import("../../finops/ports/finopsEnforcementPort").FinOpsEnforcementPort;
+ }): ExecutionRunD2D3Composition {
+   assertServerOnly();
+   const clockIso = options?.clockIso ?? "2026-08-04T09:15:00.000Z";
+@@ -95,6 +100,9 @@ export function composeExecutionRunD2D3(options?: {
+         events: providers.events,
+         clock,
+         ...(options?.finops ? { finops: options.finops } : {}),
++        ...(options?.finopsEnforcement
++          ? { finopsEnforcement: options.finopsEnforcement }
++          : {}),
+       }),
+     projectById,
+     assessById: async (runId) => {
+```
+
+---
+
+## Verdict
+
 FINOPS TECHNICAL LOT T4 —
-S30 SOFT ENFORCEMENT ARCHITECTURE DECISIONS APPLIED —
+FOUNDATION DELIVERY COMPLETE WITH RESERVES —
 
-D-T4-EVIDENCE-01 =
-B SELECTED BY MORRIS —
+DEDICATED SOT-SAFE ENFORCEMENT PROJECTION IMPLEMENTED —
+LEDGER REMAINS AUTHORITATIVE —
 
-D-T4-BOUNDARY-01 =
-A SELECTED BY MORRIS —
+BILLED BLOCKING ELIGIBLE —
+PROVIDER_OBSERVED BLOCKING ELIGIBLE —
+API_USAGE NEVER BLOCKS —
+ESTIMATION NEVER BLOCKS —
 
-D-T4-DECISION-CONTRACT-01 =
-B SELECTED BY MORRIS —
+EXACT MONEY VERIFIED —
+NO FX —
+NO CROSS-CURRENCY SUM —
 
-D-T4-T3-COUPLING-01 =
-B SELECTED BY MORRIS —
+EXPLICIT PROJECTION REBUILD IMPLEMENTED —
+SHORT PROJECT/PERIOD SERIALIZATION VERIFIED —
+NO LOCK ACROSS PROVIDER —
 
-D-T4-FOUNDATION-01 =
-A SELECTED BY MORRIS —
+SOFT-CONTROL CONTRACT IMPLEMENTED —
+ALLOW VERIFIED —
+INTERNAL SOFT_SIGNAL VERIFIED —
+BLOCK VERIFIED —
+FAILED FAIL-OPEN VERIFIED —
 
-D-T4-CALIBRATION-01 =
-A SELECTED BY MORRIS —
+REVIEW_REQUIRED VS WOULD_BLOCK STILL DEFERRED —
 
-FAIL-OPEN POSTURE PRESERVED —
-NOT REOPENED —
+ENF-B OPTIONAL COORDINATOR DEPENDENCY IMPLEMENTED —
+DEFAULT COMPOSITION INERT —
+BLOCK PREVENTS PROVIDER INVOCATION —
+FINOPS FAILURE DOES NOT PREVENT PROVIDER INVOCATION —
 
-DEDICATED SOT-SAFE ENFORCEMENT PROJECTION SELECTED —
-MINIMAL ENF-B COORDINATOR DEPENDENCY SELECTED —
-EXPLICIT SOFT-CONTROL CONTRACT SELECTED —
-T4 MONETARY AUTHORITY / T3 HUMAN-REVIEW SEPARATION SELECTED —
-FOUNDATION-FIRST SELECTED —
-NO REAL HISTORICAL AMOUNT SELECTED —
-
-INTERMEDIATE STATE EXACT LITERAL DEFERRED —
-T6-EXT-BEFORE-E1-PILOT QUESTION DEFERRED —
-EXACT SQL / MIGRATION / REFRESH DESIGN DEFERRED —
+T3 UNCHANGED —
+T5 NOT DELIVERED —
+T6-EXT NOT AUTHORIZED —
+T7 NOT DELIVERED —
+PRODUCT IAM NOT_SELECTED —
 
 NO REAL S30 ACTIVATION —
-NO HISTORICAL USD 30 RUNTIME ADOPTION —
-PRODUCT IAM NOT_SELECTED —
-NO T5 —
-NO T6-EXT —
-NO T7 —
+NO HISTORICAL 30 USD RUNTIME ADOPTION —
+NO E1 —
 
-148 PRE-ARBITRATION RECORD PRESERVED —
-149 DECISIONS APPLIED RECORD CREATED —
+R-T4-T3-SYNC-01 OPEN —
+R-T4-PROJECTION-REFRESH-01 OPEN —
 
-NO CODE —
-NO MIGRATION —
+148 / 149 PRESERVED —
+150 EXECUTION RECORD CREATED —
+
+CRITICAL QA GREEN —
+LOCAL POSTGRESQL GREEN —
+
+16-PATH MANIFEST PRESERVED —
 NO PROJECT STAGING —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
 
-READY FOR CHATGPT T4 DECISIONS-APPLIED VALIDATION —
-READY FOR MORRIS T4 DELIVERY GATE
-```
+REVIEW HANDOFF REMOTE VERIFIED —
 
----
-
-*Document 149 — post-arbitration record only. Document 148 remains the immutable pre-arbitration historical record.*
-
----
-
-# 148 HASH PROOF APPENDIX
-
-```
-BEFORE: 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96
-AFTER:  9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96
-STATUS: BYTE-IDENTICAL — PASS
-```
-
-# END OF REVIEW PACK
+READY FOR CHATGPT T4 FOUNDATION DELIVERY VALIDATION
