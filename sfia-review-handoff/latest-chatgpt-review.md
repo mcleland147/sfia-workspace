@@ -1,243 +1,217 @@
-# FULL REVIEW PACK — FinOps Cycle 6 Architecture Critical — T3 Closure + T4 S30 Soft Enforcement Preparation
+# ChatGPT Review Pack — FinOps Technical Lot T4 — Architecture Decisions Applied
 
-| Champ | Valeur |
-|-------|--------|
-| Pack type | **FULL** (RESET overwrite) |
-| Date/heure CEST | 2026-08-07 21:31:27 CEST (+0200) |
-| Date/heure UTC | 2026-08-07 19:31:27 UTC |
-| Cycle | **6 — Architecture technique** |
-| Profil | **Critical** |
-| Mono-cycle | T3 formal closure + T4 architecture preparation **only** |
-| GO Morris exact | `GO clôture T3 — CLOSED WITH RESERVES, puis préparation T4 S30 soft enforcement.` |
+## 1. Date / heure / fuseau
+
+- Work CEST: 2026-08-07 21:46:34 CEST (+0200)
+- Work UTC: 2026-08-07 19:46:34 UTC
+- Cycle: 6 — Architecture technique
+- Mode: T4 Architecture Arbitration — Decisions Applied
+- Profil: **Critical**
+- Typologie: EVOL / DOC / ARCH
+
+## 2. Morris phrase exacte
+
+```
+ok go
+```
+
+## 3. Contextual interpretation (exact package)
+
+GO compris comme validation des recommandations candidates du pack 148:
+
+| Decision | Selection |
+|----------|-----------|
+| D-T4-EVIDENCE-01 | **B** SELECTED BY MORRIS |
+| D-T4-BOUNDARY-01 | **A** SELECTED BY MORRIS |
+| D-T4-DECISION-CONTRACT-01 | **B** SELECTED BY MORRIS |
+| D-T4-T3-COUPLING-01 | **B** SELECTED BY MORRIS |
+| D-T4-FOUNDATION-01 | **A** SELECTED BY MORRIS |
+| D-T4-CALIBRATION-01 | **A** SELECTED BY MORRIS |
+| D-T4-FAILURE-POSTURE-01 | fail-open — UPSTREAM SELECTED / NOT REOPENED |
+
+No other selections. Intermediate state literal REVIEW_REQUIRED vs WOULD_BLOCK = **DEFERRED**. T6-ext-before-pilot = **DEFERRED**.
+
+## 4. Git Truth
+
+| Anchor | Value |
+|--------|--------|
 | Repo | mcleland147/sfia-workspace |
-| origin/main | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` |
-| T4 branch | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement` |
-| T4 worktree | `.tmp-sfia-review/worktrees/finops-t4-preparation` |
-| HEAD | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` |
-| Handoff tip before | `616424dcde4bff8ae46261989d0b47fe4f392711` |
-| Handoff blob before | `6219ae0bc01c23976f29b90a69cbc97c798f3b86` |
-| Evidence dir | `.tmp-sfia-review/t4-preparation/` |
-| Document 148 | `projects/sfia-studio/148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md` |
-| Document SHA-256 | `9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96` |
-| Document bytes | 33187 |
-| CKC | pilots/03-architecture-technique.md (candidate) |
+| origin/main | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 |
+| Branch | implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement |
+| Worktree | .tmp-sfia-review/worktrees/finops-t4-preparation |
+| HEAD | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 |
+| Handoff entrant tip | eaacf7937254baa4c7c7f18fc42a3b490072acc6 |
+| Handoff entrant blob | 5befcff773f3cdc7e84a20e5ff2cc3f51a84f7e8 |
+| Handoff entrant commit | docs(review-handoff): publish T4 preparation |
+| Staged | empty |
+| Project commit/push/PR | none |
 
----
+## 5. Document 148 hash proof (byte-identical)
 
-## 1. Executive verdict (preview)
+| Check | SHA-256 |
+|-------|---------|
+| Expected | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 |
+| BEFORE | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 |
+| AFTER | 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96 |
+| Match | **PASS — BYTE-IDENTICAL** |
 
-T3 **CLOSED WITH RESERVES BY MORRIS**. T4 S30 soft-enforcement **architecture/implementation preparation COMPLETE WITH RESERVES**. Blocking-authority gap qualified; ENF-B insertion point qualified; all D-T4-* recommendations **CANDIDATE / NOT SELECTED**. No code/migration/tests/project commit/push/PR. Soft-cap anti-claim affirmed.
+148 path: `projects/sfia-studio/148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md`
+148 role: PRE-ARBITRATION HISTORY — IMMUTABLE
 
-**READY FOR CHATGPT T4 PREPARATION VALIDATION / READY FOR MORRIS T4 ARCHITECTURE ARBITRATION**
-
----
-
-## 2. Git Truth
-
-- MAIN WT discovered: `.tmp-sfia-review/worktrees/finops-t2-main` @ ff3d0c0 (clean) — not modified
-- T3 WT `.tmp-sfia-review/worktrees/finops-t3-preparation` — NOT reused/deleted/detached
-- T4 branch did not exist before create; created from origin/main exact
-- After 148: project change = CREATE 148 only; staged empty
-- `git diff --check` PASS (no trailing whitespace)
-
----
-
-## 3. Handoff entrant (pre-publish)
+## 6. Document 149 meta
 
 | Field | Value |
 |-------|--------|
-| tip | `616424dcde4bff8ae46261989d0b47fe4f392711` |
-| blob | `6219ae0bc01c23976f29b90a69cbc97c798f3b86` |
-| Match expected tip 616424dc… | YES |
-| Match expected blob 6219ae0b… | YES |
+| Path | projects/sfia-studio/149-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-decisions-applied.md |
+| Role | POST-ARBITRATION decisions-applied |
+| SHA-256 | 26a33ead6fa6a997be886fe5d254355bb8d0bb3894bdf3cffbcaa96074256276 |
+| Lines | 783 |
+| Bytes | 28382 |
+| Sections | A–Z complete |
+
+## 7. Six decisions + failure posture
+
+- D-T4-EVIDENCE-01 = B — dedicated enforcement projection — SELECTED BY MORRIS
+- D-T4-BOUNDARY-01 = A — optional coordinator enforcement dependency — SELECTED BY MORRIS
+- D-T4-DECISION-CONTRACT-01 = B — explicit soft-control states — SELECTED BY MORRIS
+- D-T4-T3-COUPLING-01 = B — T4 evidence authority + T3 sync — SELECTED BY MORRIS
+- D-T4-FOUNDATION-01 = A — foundation first — SELECTED BY MORRIS
+- D-T4-CALIBRATION-01 = A — no real active historical amount — SELECTED BY MORRIS
+- D-T4-FAILURE-POSTURE-01 = fail-open — UPSTREAM SELECTED / NOT REOPENED
+
+## 8. Key implications (summary)
+
+- Soft-cap anti-claim: cannot guarantee spend ≤ S30
+- Blocking authority: dedicated SoT-safe projection (not T2.observedAmount / not T3 review alone)
+- ENF-B: optional coordinator dependency after create / before intent_valid / provider
+- Soft-control contract: ALLOW / intermediate soft signal / BLOCK / FAILED — intermediate literal DEFERRED
+- Foundation-first without real activation; historical 15/20/25/30 NOT RUNTIME-ACTIVE
+- Activation prerequisites open; T5/T6-ext/T7/IAM boundaries preserved
+- No code / migration / tests / project commit / push / PR
+
+## 9. Reserves
+
+- R-T6-RUNTIME-COMPOSITION-01 = OPEN
+- R-PR-T2-API-01 = OPEN MINOR
+- T6-ext-T2 = EXCLUDED
+- T6-ext-T3T4 = NOT AUTHORIZED
+- Exact T6-ext event names = DEFERRED
+- T6-ext-before-E1-pilot = DEFERRED
+- Calibration = REQUIRED before real activation
+- Product IAM = NOT_SELECTED
+- Privileged Morris mutations = DEFERRED
+- Intermediate soft-state literal = DEFERRED
+
+## 10. Project manifest
+
+CREATE / untracked only:
+- projects/sfia-studio/148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md
+- projects/sfia-studio/149-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-decisions-applied.md
+
+Staged: empty
+Tracked project modifications: none
+
+## 11. Verdict (expected)
+
+```
+READY FOR CHATGPT T4 DECISIONS-APPLIED VALIDATION /
+READY FOR MORRIS T4 DELIVERY GATE
+```
 
 ---
 
-## 4. Sources
+# COMPLETE DOCUMENT 149
 
-### Méthode
-- cycle execution template; routing guide; chatgpt-cursor operating model; rules/guardrails; validation checklist
-- CKC pilot 03-architecture-technique.md
-- publish-review-handoff.sh
-
-### Projet
-- 103 backlog; **123** enforcement decisions applied (discovered); 125 tech decisions; 138 grouped prep; 145/146/147 T3; t3-post-merge evidence
-
-### Runtime read
-- coordinateExecutionRun + composeExecutionRunD2D3
-- blockingEligibility, costEvidence, recomputeAggregates, evaluateProjectPeriodThresholds, buildUsageEvent
-- AuthorityResolver port (≠ session Morris)
-- T0–T3/T6 finops surfaces
-
----
-
-## 5. T3 Formal Closure — Morris Decision
-
-**GO:** `GO clôture T3 — CLOSED WITH RESERVES, puis préparation T4 S30 soft enforcement.`
-
-**Decision:** T3 CLOSED WITH RESERVES
-
-**Proofs:**
-- PR #316 MERGED
-- merge `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515`
-- head `2641263b9e9ef7336a4a2ac7824c13bb928f5199` integrated
-- exact 13 paths
-- pre-merge CI 31205544659 green
-- post-merge CI **31206479016** green
-- QA-G4 PASS WITH RESERVES
-- remote cleanup DONE
-- local cleanup SKIPPED active WT = hygiene, **not blocker**
-
-**Reserves OPEN:** R-T6-RUNTIME-COMPOSITION-01; R-PR-T2-API-01 OPEN MINOR; T6-ext-T2 EXCLUDED; T6-ext-T3T4 NOT AUTHORIZED; Calibration REQUIRED; Product IAM NOT_SELECTED; Privileged Morris mutations DEFERRED
-
----
-
-## 6. Upstream SELECTED (preserved)
-
-- E1 soft control; S30-SOFT; DG-NEW; Morris-only resume/override
-- ENF-B; TECH-CONF-01 (billed/PROVIDER_OBSERVED may block; estimate never; API_USAGE never)
-- TECH-CONC-01 txn lock; TECH-FLAG-01 default-OFF + OFF→SHADOW→MONITOR→E1-ENFORCED (T7)
-- T3 A1/B3/C1/D2/E1/F3 delivered on main
-- Fail-closed hard stop NOT SELECTED
-
----
-
-## 7. Runtime inventory T0/T2/T3/T6 + execution-run
-
-| Lot | State |
-|-----|-------|
-| T0 | SoT + blockingEligibility EXISTS |
-| T1 | Capture EXISTS; live SoT API_USAGE |
-| T2 | Aggregates/reconcile/money EXISTS; observedAmount conflates |
-| T3 | Alert/review EXISTS (inactive thresholds) |
-| T6-foundation | Audit EXISTS; T4 events ABSENT |
-| T4/T5/T7 runtime | ABSENT |
-
-ENF-B insert: after createExecutionRun success + pre-engagement checks (~after L1044), before intent_valid (~before L1046).
-
----
-
-## 8. Blocking-authority gap (proof)
-
-- costEvidence: PROVIDER_OBSERVED and API_USAGE → evidenceClass "observed"
-- recomputeAggregates: sums by evidenceClass → single observedAmount
-- T3 basis=observed reads observedAmount only
-- blockingEligibility distinguishes SoTs at event level
-- **Gap:** T2 observed / T3 review must NOT be sole S30 monetary authority
-
----
-
-## 9. T4 decision matrix (candidates)
-
-| ID | Candidate rec | Status |
-|----|---------------|--------|
-| D-T4-EVIDENCE-01 | B dedicated projection | NOT DECIDED — MORRIS ARBITRATION REQUIRED |
-| D-T4-BOUNDARY-01 | A optional enforcement dep | NOT DECIDED — MORRIS ARBITRATION REQUIRED |
-| D-T4-DECISION-CONTRACT-01 | B explicit soft states | NOT DECIDED — MORRIS ARBITRATION REQUIRED |
-| D-T4-T3-COUPLING-01 | B T4 evidence + T3 sync | NOT DECIDED — MORRIS ARBITRATION REQUIRED |
-| D-T4-FOUNDATION-01 | A foundation first | NOT DECIDED — MORRIS ARBITRATION REQUIRED |
-| D-T4-CALIBRATION-01 | A no active historical amount | NOT DECIDED — MORRIS ARBITRATION REQUIRED |
-| D-T4-FAILURE-POSTURE-01 | A fail-open (upstream-compatible; B incompatible) | NOT REOPENED |
-
-Failure posture: fail-open if already SELECTED. Concurrency: no lock across provider. Currency: no FX.
-
----
-
-## 10. Activation prerequisites / future Delivery
-
-See document 148 §§R–S. All activation deps NON REÇU this cycle. Future Delivery candidate only — not authorized.
-
----
-
-## 11. Soft-cap anti-claim
-
-T4 cannot guarantee monthly spend never exceeds S30.
-
----
-
-## 12. Files created/modified
-
-| Path | Action |
-|------|--------|
-| projects/sfia-studio/148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md | **CREATE** |
-| .tmp-sfia-review/chatgpt-review.md | RESET FULL pack |
-| .tmp-sfia-review/t4-preparation/* | evidence OK |
-
-Staged: **empty**
-Project commit: **NO**
-Project push: **NO**
-PR: **NO**
-
----
-
-## 13. COMPLETE content of document 148
-
-# 148 — FinOps Technical Lot T4 — S30 Soft Enforcement — Architecture / Implementation Preparation
+# 149 — FinOps Technical Lot T4 — S30 Soft Enforcement — Decisions Applied
 
 | Champ | Valeur |
 |-------|--------|
-| Document | `148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md` |
+| Document | `149-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-decisions-applied.md` |
 | Lot | T4 — S30 Soft Application Cap / Soft Enforcement |
 | Cycle | 6 — Architecture technique |
+| Mode | T4 Architecture Arbitration — Decisions Applied |
 | Profil | **Critical** |
-| CKC pilot | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate guidance only) |
-| Status | **T3 CLOSED WITH RESERVES — T4 PREPARATION COMPLETE WITH RESERVES — NO T4 DELIVERY — NO T4 OPTION ADOPTED** |
-| Authority | Documentary preparation only — **MORRIS ARBITRATION REQUIRED** for all new T4 options |
+| Typologie | EVOL / DOC / ARCH |
+| CKC pilot | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate · no execution authority) |
+| Status | **T4 ARCHITECTURE DECISIONS APPLIED WITH RESERVES — NO T4 DELIVERY — NO REAL S30 ACTIVATION** |
+| Authority | Documentary application of Morris arbitration only |
 
 ---
 
 ## A. Statut / anti-claims
 
+| Claim | Statut |
+|-------|--------|
+| D-T4-EVIDENCE-01 B SELECTED BY MORRIS | **TRUE** |
+| D-T4-BOUNDARY-01 A SELECTED BY MORRIS | **TRUE** |
+| D-T4-DECISION-CONTRACT-01 B SELECTED BY MORRIS | **TRUE** |
+| D-T4-T3-COUPLING-01 B SELECTED BY MORRIS | **TRUE** |
+| D-T4-FOUNDATION-01 A SELECTED BY MORRIS | **TRUE** |
+| D-T4-CALIBRATION-01 A SELECTED BY MORRIS | **TRUE** |
+| D-T4-FAILURE-POSTURE-01 fail-open UPSTREAM SELECTED / NOT REOPENED | **TRUE** |
+| Exact intermediate state literal REVIEW_REQUIRED vs WOULD_BLOCK chosen | **FALSE** — **DEFERRED** |
+| T6-ext-before-E1-pilot requirement decided | **FALSE** — **DEFERRED** |
+| T4 Delivery authorized / executed | **FALSE** |
+| Code / SQL / migration / executable tests created | **FALSE** |
+| Real S30 / USD 30 runtime activation | **FALSE** |
+| Historical 15/20/25/30 adopted as runtime-active | **FALSE** |
+| Product IAM / session Morris identity implemented | **FALSE** |
+| T5 / T6-ext / T7 Delivery advanced | **FALSE** |
+| Document 148 modified | **FALSE** — preserved byte-identical |
+| Project commit / push / PR / merge | **FALSE** |
+| Soft-cap guarantees monthly spend ≤ S30 | **FALSE** — anti-claim affirmed |
+| T2 `observedAmount` / T3 review = monetary blocking authority | **FALSE** |
+| Recommendation from 148 = decision without Morris GO | **FALSE** — Morris `ok go` consumes and selects |
+
 **Status (exact):**
 
-> T3 CLOSED WITH RESERVES — T4 ARCHITECTURE / IMPLEMENTATION PREPARATION COMPLETE WITH RESERVES — NO T4 DELIVERY — NO T4 OPTION ADOPTED
-
-**This document IS:**
-
-- Formal record of Morris GO for T3 closure WITH RESERVES.
-- Architecture / implementation preparation for future T4 S30 soft enforcement.
-- Option matrices (≥2 options) with candidate recommendations only.
-- Runtime inventory and gap qualification (blocking-authority, ENF-B insert point).
-
-**This document is NOT:**
-
-- T4 Delivery authorization.
-- Selection of any new T4 option (`D-T4-*`).
-- Real S30 / E1-ENFORCED activation.
-- Historical USD 30 runtime adoption or calibration.
-- IAM / privileged Morris mutation implementation.
-- T5 override Delivery, T6-ext, or T7 feature-flag Delivery.
-- Code, migration, executable tests, project commit/push/PR.
-
-**Anti-claims (mandatory):**
-
-1. Soft-cap S30 **cannot guarantee** that monthly spend never exceeds S30.
-2. T3 review state alone is **not** monetary blocking authority.
-3. Aggregate `observedAmount` / T3 `basis=observed` do **not** preserve `PROVIDER_OBSERVED` vs `API_USAGE`.
-4. No T4 option in this document is SELECTED — only upstream SELECTED decisions are preserved.
-5. CKC pilot 03 is candidate experimental guidance — Morris GO prevails.
-6. Local T3 delivery branch cleanup SKIPPED (active worktree) is hygiene, **not** a T3-closure blocker.
+> T4 ARCHITECTURE DECISIONS APPLIED WITH RESERVES — NO T4 DELIVERY — NO REAL S30 ACTIVATION — NO IAM / T5 / T6-EXT / T7
 
 ---
 
-## B. GO Morris exact
+## B. Phrase Morris exacte et contextual interpretation
+
+### Phrase Morris exacte
 
 ```
-GO clôture T3 — CLOSED WITH RESERVES, puis préparation T4 S30 soft enforcement.
+ok go
 ```
 
-**Gates consumed by this cycle:**
+### Contextual interpretation (périmètre EXACT — no other selections)
+
+ChatGPT had validated:
+
+> T4 PREPARATION VALIDATED — READY FOR MORRIS ARCHITECTURE ARBITRATION
+
+and presented the candidate package from document 148 before this cycle. Morris `ok go` is consumed as acceptance of that package **only**:
+
+| Decision ID | Value | Status |
+|-------------|-------|--------|
+| D-T4-EVIDENCE-01 | **B** — T4 dedicated enforcement projection | **SELECTED BY MORRIS** |
+| D-T4-BOUNDARY-01 | **A** — optional FinOps enforcement dependency in coordinator | **SELECTED BY MORRIS** |
+| D-T4-DECISION-CONTRACT-01 | **B** — explicit soft-control decision states | **SELECTED BY MORRIS** |
+| D-T4-T3-COUPLING-01 | **B** — T4 evidence authority + T3 human-review synchronization | **SELECTED BY MORRIS** |
+| D-T4-FOUNDATION-01 | **A** — foundation first | **SELECTED BY MORRIS** |
+| D-T4-CALIBRATION-01 | **A** — engine/config without real active historical amount | **SELECTED BY MORRIS** |
+| D-T4-FAILURE-POSTURE-01 | fail-open | **UPSTREAM SELECTED / NOT REOPENED** |
+
+No additional option among A/B/C alternatives in 148 is selected. No silent enrichment.
+
+### Autorité
+
+Morris decides. Cursor applies decisions exactly. ChatGPT validates coherence. Git remains source of truth for files and hashes.
+CKC pilot 03 = candidate experimental guidance only — **no execution authority**; Morris GO in this cycle prevails.
+
+### Gates consommées / non reçues
 
 | Gate | Status |
 |------|--------|
-| T3 formal closure | **REÇU / CONSUMED** |
-| T4 architecture preparation | **REÇU / CONSUMED** |
-| T4 architecture arbitration | NON REÇU |
-| T4 decisions applied | NON REÇU |
-| T4 Delivery | NON REÇU |
-| T5 / T6-ext / T7 | NON REÇU |
-| Calibration réelle / S30 real activation / Product IAM | NON REÇU |
-| Project commit / push / PR / merge | NON REÇU |
+| T4 architecture arbitration | **REÇU / CONSUMED** via `ok go` contextualisé |
+| T4 decisions-applied documentation | **AUTORISÉ** (this cycle) |
+| T4 Delivery | **NON REÇU** |
+| T4 commit / push / PR / merge | **NON REÇU** |
+| Real calibration / E1 activation | **NON REÇU** |
+| Product IAM / T5 / T6-ext / T7 | **NON REÇU** |
 
 ---
 
@@ -245,9 +219,9 @@ GO clôture T3 — CLOSED WITH RESERVES, puis préparation T4 S30 soft enforceme
 
 | Clock | Value |
 |-------|--------|
-| Work CEST | 2026-08-07 21:28:47 CEST (+0200) |
-| Work UTC | 2026-08-07 19:28:47 UTC |
-| Document intent | Cycle 6 Architecture Critical — T3 closure + T4 prep (mono-cycle) |
+| Décision Morris (annoncée) | 2026-08-07 CEST (+0200) — secondes exactes non inventées |
+| Application documentaire (ce cycle) | 2026-08-07 21:45:04 CEST (+0200) / 2026-08-07 19:45:04 UTC |
+| Document intent | Cycle 6 Architecture Critical — T4 Decisions Applied |
 
 ---
 
@@ -260,542 +234,591 @@ GO clôture T3 — CLOSED WITH RESERVES, puis préparation T4 S30 soft enforceme
 | T4 worktree | `.tmp-sfia-review/worktrees/finops-t4-preparation` |
 | T4 branch | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement` |
 | T4 HEAD | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` (= origin/main) |
-| Tracked | clean at branch create; after doc = **only 148 untracked** |
+| Status before | `?? …/148-….md` (+ local `.tmp-sfia-review/` evidence) |
 | Staged | empty |
-| MAIN WT (discovered) | `.tmp-sfia-review/worktrees/finops-t2-main` @ ff3d0c0 on `main` — used as clean base discovery; **not modified** |
-| T3 WT | `.tmp-sfia-review/worktrees/finops-t3-preparation` — **NOT reused / NOT deleted / NOT detached** |
-| Handoff tip (pre-publish expected) | `616424dcde4bff8ae46261989d0b47fe4f392711` |
-| Handoff blob (pre-publish expected) | `6219ae0bc01c23976f29b90a69cbc97c798f3b86` |
-| Document 148 prior existence | **ABSENT** on origin/main and at WT create — CREATE only |
+| Upstream | none |
+| Handoff entrant tip | `eaacf7937254baa4c7c7f18fc42a3b490072acc6` |
+| Handoff entrant blob | `5befcff773f3cdc7e84a20e5ff2cc3f51a84f7e8` |
+| Handoff entrant commit | `docs(review-handoff): publish T4 preparation` |
+| Document 148 SHA-256 (before) | `9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96` |
+| Document 148 | untracked · **byte-identical préservé** |
+| Document 149 | **CREATE ONLY** (absent before cycle; absent on origin/main) |
+| Project commit / push / PR | **aucun** |
 
 ---
 
-## E. Sources consultées
+## E. Relation 148 / 149
 
-### Méthode
+| Document | Role |
+|----------|------|
+| **148** | Historical **pre-arbitration** T4 S30 soft-enforcement preparation · option matrices · candidate recommendations · **IMMUTABLE** in this cycle |
+| **149** | Authoritative **post-arbitration** record for the six T4 decision IDs selected by Morris + failure posture preserved |
+
+**148 is IMMUTABLE in this cycle** — byte-identical preservation required.
+Do **not** rewrite 148 option tables. Prior candidate recommendations (B/A/B/B/A/A + fail-open packaging) in 148 remain historical; **Morris selected** them via contextualized `ok go`.
+
+---
+
+## F. Sources
+
+### Méthode (read-only)
 
 - `prompts/templates/sfia-cycle-execution-template.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate · no authority)
 - `scripts/sfia/publish-review-handoff.sh`
 
-### Projet / trajectoire (discovered)
+### Projet (read-only)
 
-- `projects/sfia-studio/103-assistant-sfia-native-openai-technical-implementation-backlog.md`
-- `projects/sfia-studio/123-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-finops-enforcement-decisions-applied.md` (**discovered exact filename**)
-- `projects/sfia-studio/125-assistant-sfia-native-openai-implementation-preparation-lot-ip-0c-finops-technical-implementation-decisions-applied.md`
-- `projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md`
-- `projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md`
-- `projects/sfia-studio/146-assistant-sfia-native-openai-finops-technical-lot-t3-decisions-applied.md`
-- `projects/sfia-studio/147-assistant-sfia-native-openai-finops-technical-lot-t3-execution.md`
-- T3 merge evidence under `.tmp-sfia-review/t3-post-merge/` (PR #316, CI, cleanup matrix)
+- `123` / `125` IP-0C enforcement & technical implementation
+- `138` T2–T5–T6 grouped preparation
+- `145` / `146` / `147` T3 prep / decisions / execution
+- **Primary pre-arbitration:** `148-…-t4-s30-soft-enforcement-preparation.md`
+- Handoff entrant tip `eaacf793…` (Full Review Pack T4 preparation with complete 148)
 
-### Runtime (read-only)
-
-- `app/lib/oa/execution-run/application/coordinateExecutionRun.ts`
-- `app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts`
-- `app/lib/oa/finops/domain/blockingEligibility.ts`
-- `app/lib/oa/finops/domain/costEvidence.ts`
-- `app/lib/oa/finops/application/recomputeAggregates.ts`
-- `app/lib/oa/finops/application/evaluateProjectPeriodThresholds.ts`
-- `app/lib/oa/finops/application/buildUsageEvent.ts`
-- T0–T3 / T6 ports, stores, migrations (inventory §H)
-- `app/lib/oa/decision/ports/authorityResolver.ts` (existence ≠ product Morris session)
+Runtime T0/T2/T3 and execution-run surfaces referenced in 148: **read-only only** — not modified.
 
 ---
 
-## F. T3 Formal Closure — Morris Decision
+## G. Upstream decisions preserved
 
-### GO exact
+### From 123 (enforcement policy) — not re-opened
 
-```
-GO clôture T3 — CLOSED WITH RESERVES, puis préparation T4 S30 soft enforcement.
-```
-
-### Décision
-
-**T3 CLOSED WITH RESERVES**
-
-### Preuves
-
-| Proof | Value |
-|-------|--------|
-| PR | **#316** MERGED — `feat(sfia-studio): implement FinOps T3 alert and review state` |
-| mergeCommit | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` |
-| T3 head integrated | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
-| merge parents | `b8259859983577c31965aa877c956e7a25dd1c4d` + `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
-| Manifest | **exact 13 paths** (145, 146, 147, migration, evaluate*, t3Identity, types.alertReview, alertReview port/memory/postgres, 2 tests) |
-| Pre-merge CI | run `31205544659` success on head `2641263b…` |
-| Post-merge CI | run **`31206479016`** completed/success on `ff3d0c0…` (Detect / Build / Required Gate success) |
-| QA-G4 | **PASS WITH RESERVES** |
-| Remote branch cleanup | **DONE** (`git push origin --delete` delivery branch; fetch --prune; remote gone) |
-| Local branch cleanup | **SKIPPED — ACTIVE WORKTREE** (`…/finops-t3-preparation`) |
-
-**Clarification:** local cleanup skipped because the delivery worktree remains active = **technical local hygiene**, **not a blocker** to T3 formal closure.
-
-### Réserves OPEN (carried into T4 prep; not cleared)
-
-| Reserve | Status |
-|---------|--------|
-| `R-T6-RUNTIME-COMPOSITION-01` | **OPEN** |
-| `R-PR-T2-API-01` | **OPEN MINOR** |
-| T6-ext-T2 | **EXCLUDED** |
-| T6-ext-T3T4 | **NOT AUTHORIZED** |
-| Calibration | **REQUIRED** |
-| Product IAM | **NOT_SELECTED** |
-| Privileged Morris mutations | **DEFERRED** |
-
-### What T3 closure does **not** authorize
-
-- T4 Delivery / option selection
-- Real thresholds 15/20/25/30 activation
-- S30 soft enforcement runtime
-- IAM / resume APIs / T5 / T6-ext / T7
-
----
-
-## G. Upstream validated decisions (SELECTED — preserved; NOT re-opened)
-
-### From document 123 (enforcement policy)
-
-| ID / code | SELECTED value | Implementation |
-|-----------|----------------|----------------|
+| ID / code | SELECTED value | Note |
+|-----------|----------------|------|
 | `D-ASST-IP0C-ENFORCEMENT-01` | **E1 — SOFT CONTROL WITH HUMAN GATE** | NOT IMPLEMENTED |
-| A15-CAL | Calendar month **UTC** | Documentary |
-| A15-PROJ | **Project-level** scope | Documentary |
-| A15-ONCE | One notification per threshold crossing and period | Documentary |
-| USD 15 | Informational alert — no restriction | NOT ACTIVATED |
-| USD 20 / C20-WARN | Critical Morris review — no automatic block | NOT ACTIVATED |
-| USD 25 | Monthly planning target — provisional — non-contractual | NOT CONFIGURED |
-| **S30-SOFT** | Soft application cap — suspend **new** runs; engaged runs may finish | **NOT IMPLEMENTED** |
-| Resume | **Morris-only** resume | NOT IMPLEMENTED |
-| `D-ASST-IP0C-DEGRADATION-01` / DG-NEW | Suspend new runs only at USD 30 | NOT IMPLEMENTED |
-| `D-ASST-IP0C-OVERRIDE-01` | Morris only — case-by-case — time-bounded — audited | NOT IMPLEMENTED (T5) |
+| S30-SOFT | Soft application cap — suspend **new** runs; engaged runs may finish | NOT IMPLEMENTED |
+| Resume | Morris-only | NOT IMPLEMENTED |
 | Fail-closed / hard stop of active runs / provider hard limit | **NOT SELECTED** | — |
 
-### From document 125 (technical implementation)
+### From 125 (technical implementation) — not re-opened
 
 | ID | SELECTED value | Lot owner |
 |----|----------------|-----------|
-| `D-ASST-IP0C-TECH-ENFORCE-BOUND-01` | **ENF-B** — server-side check after run request acceptance — **before provider invocation** | **T4** |
-| `D-ASST-IP0C-TECH-CONF-01` | **Billed or official PROVIDER_OBSERVED may block — ESTIMATED never blocks**; API_USAGE alone must not block | **T4** |
-| `D-ASST-IP0C-TECH-CONC-01` | Postgres transaction — project/period row lock — atomic run authorization | **T4** |
-| `D-ASST-IP0C-TECH-FLAG-01` | Server-side — project-scoped — **default-OFF**; rollout OFF→SHADOW→MONITOR→E1-ENFORCED | **T7** |
+| `D-ASST-IP0C-TECH-ENFORCE-BOUND-01` | **ENF-B** — after run acceptance, before provider | **T4** |
+| `D-ASST-IP0C-TECH-CONF-01` | Billed / PROVIDER_OBSERVED may block — ESTIMATED never; API_USAGE alone must not | **T4** |
+| `D-ASST-IP0C-TECH-CONC-01` | Postgres txn — project/period lock — atomic authorization | **T4** |
+| `D-ASST-IP0C-TECH-FLAG-01` | Server-side — project-scoped — default-OFF; OFF→SHADOW→MONITOR→E1-ENFORCED | **T7** |
 | `D-ASST-IP0C-TECH-OVR-IMPL-01` | Durable project-scoped Morris-only override | **T5** |
-| `D-ASST-IP0C-TECH-ALERT-01` | Durable in-app + structured audit | **T3** (delivered foundation) |
 
-**Blocking eligibility table (125 — preserved):**
+### From 145–147 (T3) — not re-opened
 
-| Source of Truth | May suspend new runs (S30) |
-|-----------------|----------------------------|
-| 1 Billed / official export | **yes** |
-| 2 Official provider-observed | **yes** |
-| 3 API usage + local tariff alone | **no** |
-| 4 Local count | **no** |
-| 5 Parametric estimate | **no** |
-| 6 Unknown | **no** (≠ silent zero) |
+T3 CLOSED WITH RESERVES. T3 review is human-review state — **not** monetary blocking authority. Soft-cap 30 remains T4 responsibility.
 
-### From documents 145–147 (T3)
+### Failure posture (this arbitration)
 
-| ID | SELECTED | Note for T4 |
-|----|----------|-------------|
-| `D-T3-STATE-01` A1 | Materialized durable state + separate audit | Human-review store |
-| `D-T3-TRIGGER-01` B3 | Hybrid post-rebuild + explicit evaluate | Not monetary gate |
-| `D-T3-DEDUPE-01` C1 | Core once-key without basis/SoT in identity | Review ≠ SoT authority |
-| `D-T3-LIFECYCLE-01` D2 | Split informational alert vs Morris review | USD 20 path |
-| `D-T3-AUTHORITY-01` E1 | System creation now / privileged mutations deferred | IAM NOT_SELECTED |
-| `D-T3-CALIBRATION-01` F3 | Engine/config without real active amounts | USD 30 = **T4** soft cap, not T3 |
+`D-T4-FAILURE-POSTURE-01` = fail-open — **UPSTREAM SELECTED / PRESERVED / NOT REOPENED**. Fail-closed remains incompatible.
 
 ---
 
-## H. Current runtime inventory
+## H. Arbitration result matrix
 
-| Surface | Lot | On HEAD `ff3d0c0…` | T4 note |
-|---------|-----|--------------------|---------|
-| Domain SoT + `blockingEligibility` + `ESTIMATION_NEVER_BLOCKS` | T0 | **EXISTS** | Policy primitives ready |
-| Usage ledger / `captureFinOpsUsage` / `buildUsageEvent` | T1 | **EXISTS**; live capture SoT = **`API_USAGE`** | Never blocks per CONF-01 |
-| Aggregates `observedAmount` / `estimatedAmount` / `billedAmount` | T2 | **EXISTS** | `observed` bucket conflates SoTs (§J) |
-| Reconciliation (`PROVIDER_OBSERVED` \| `BILLED` facts) | T2 | **EXISTS** | Eligible sources exist at fact layer |
-| Money `numeric(20,8)`, currency string, **no FX** | T2 | **EXISTS** | Preserve currency isolation |
-| Alert/review evaluate + durable store | T3 | **EXISTS** (F3: no live 15/20/30) | Human review only |
-| Audit journal T6-foundation | T6 | **EXISTS**; T3/T4 event types **ABSENT** | T6-ext NOT AUTHORIZED |
-| ENF-B / S30 suspend / resume / override / TECH-FLAG | T4/T5/T7 | **ABSENT** | This prep only |
+| Decision | Morris selection | Status |
+|----------|------------------|--------|
+| D-T4-EVIDENCE-01 | B — dedicated enforcement projection | **SELECTED BY MORRIS** |
+| D-T4-BOUNDARY-01 | A — optional coordinator enforcement dependency | **SELECTED BY MORRIS** |
+| D-T4-DECISION-CONTRACT-01 | B — explicit soft-control states | **SELECTED BY MORRIS** |
+| D-T4-T3-COUPLING-01 | B — T4 evidence authority + T3 sync | **SELECTED BY MORRIS** |
+| D-T4-FOUNDATION-01 | A — foundation first | **SELECTED BY MORRIS** |
+| D-T4-CALIBRATION-01 | A — no real active historical amount | **SELECTED BY MORRIS** |
+| D-T4-FAILURE-POSTURE-01 | fail-open | **UPSTREAM SELECTED / NOT REOPENED** |
 
-**Execution-run FinOps today:** optional `deps.finops` capture port only (fail-open post-provider). **No enforcement port.**
+Rejected / not selected in this arbitration (remain historical options in 148 only):
 
----
-
-## I. T4 objective and boundaries
-
-### Objective (architecture prep)
-
-Prepare a coherent soft-enforcement design for **S30-SOFT / E1 / ENF-B / TECH-CONF-01** such that a future Delivery can suspend **new** runs after authoritative crossing — without claiming a hard budget ceiling.
-
-### T4 MUST (candidate future Delivery scope — NOT authorized now)
-
-- Obtain a **blocking-eligible** monetary view preserving SoT distinction.
-- Evaluate S30 soft decision at **ENF-B** (after create success, before provider).
-- Fail-open on FinOps technical failure (do not invent fail-closed).
-- Keep estimate / API_USAGE non-blocking.
-- Remain inactive without calibration + T7 activation.
-
-### T4 MUST NOT (this cycle and as doctrine for prep)
-
-- Deliver code/migrations/tests now.
-- Activate real USD 30.
-- Absorb T5 override, T6-ext audit naming, or T7 rollout.
-- Hold DB locks across provider invocation.
-- Use T3 review alone as monetary block authority.
-- Guarantee spend ≤ S30.
+- EVIDENCE-01 A (direct ledger scan) / C (extend T2 aggregates)
+- BOUNDARY-01 B (outer orchestrator)
+- DECISION-CONTRACT-01 A (binary ALLOW/BLOCK)
+- T3-COUPLING-01 A (T3 review as blocking authority)
+- FOUNDATION-01 B (wait for all activation deps)
+- CALIBRATION-01 B (wait for calibration before any T4 Delivery)
+- FAILURE-POSTURE fail-closed (incompatible — not re-arbitrated)
 
 ---
 
-## J. Blocking-authority gap
+## I. D-T4-EVIDENCE-01 — B SELECTED
 
-### Proof — evidenceClass conflation
+**Value:** `B — T4 DEDICATED ENFORCEMENT PROJECTION`
+**Status:** **SELECTED BY MORRIS**
 
-`costEvidence.ts` maps both `PROVIDER_OBSERVED` and `API_USAGE` → evidenceClass `"observed"`.
+### Contract
 
-`recomputeAggregates.ts` sums by **evidenceClass**, producing a single `observedAmount`.
+- T4 obtains blocking-eligible monetary view via a **dedicated derived, rebuildable projection** with `blockingEligibleAmount` + provenance.
+- Projection preserves Source-of-Truth distinction required for TECH-CONF-01.
+- Only blocking-eligible SoTs participate in the blocking signal:
+  - **BILLED** — yes
+  - **PROVIDER_OBSERVED** — yes
+  - **API_USAGE** — never
+  - **LOCAL_COUNT** — never
+  - **PARAMETRIC_ESTIMATE** — never
+  - **UNKNOWN** — never
+- Estimation never blocks.
+- Projection key: `projectId + UTC period + currency`.
+- **No FX.** No cross-currency sum.
+- Ledger / cost events remain financially authoritative.
+- The T4 projection is **not** a new financial source of truth — derived / rebuildable only.
 
-T3 `evaluateProjectPeriodThresholds.ts` with `basis: "observed"` reads **`agg.observedAmount` only**.
+### Consequences
 
-### Proof — eligibility exists but is not what T3/T2 expose for thresholds
+- T4 **must not** treat `T2.observedAmount` as blocking authority (conflates PROVIDER_OBSERVED + API_USAGE).
+- T4 **must not** treat T3 review alone as monetary blocking authority.
+- Future Delivery may introduce a T4 projection store/port/migration — under a separate Delivery GO.
+- Direct per-run ledger scan (Option A) and T2 aggregate split (Option C) are **NOT SELECTED**.
 
-`blockingEligibility.ts`:
+### Non-decisions (DEFERRED to future Delivery/preparation)
 
-- `PROVIDER_OBSERVED` → eligible
-- `API_USAGE` → `eligible: false` / `API_USAGE_NEVER_BLOCKS`
-- `ESTIMATION_NEVER_BLOCKS = true`
+- Exact SQL table / column / index names
+- Exact migration timestamp
+- Exact rebuild / refresh strategy
+- Any scheduler (no implicit cron)
+- Final Delivery schema freeze
 
-T1 live capture writes **`API_USAGE`** (`buildUsageEvent.ts`).
+### Anti-claims
 
-### Gap statement (qualified)
-
-| Layer | PROVIDER_OBSERVED vs API_USAGE preserved? |
-|-------|---------------------------------------------|
-| Event `sourceOfTruth` column / domain enum | **YES** |
-| `evaluateBlockingEligibility` | **YES** |
-| ReconcileFact typing | **YES** (PROVIDER_OBSERVED \| BILLED) |
-| Aggregate `observedAmount` | **NO** |
-| T3 `basis=observed` review trigger | **NO** (uses conflated amount) |
-
-**Therefore:** T2 `observedAmount` and T3 review-on-observed **must not** be treated as S30 monetary blocking authority. T4 needs an explicit SoT-safe view (see `D-T4-EVIDENCE-01`).
-
----
-
-## K. ENF-B execution-run insertion point
-
-**SELECTED upstream:** `D-ASST-IP0C-TECH-ENFORCE-BOUND-01` = ENF-B.
-
-**Observed flow in `coordinateExecutionRun.ts`:**
-
-1. Preflight / capability
-2. `createExecutionRun` success (~L970–1001)
-3. Validation emit
-4. Pre-engagement checks (~L1009–1044)
-5. `transitionExecutionRun({ reason: "intent_valid" })` (~L1046–1064)
-6. Provider invocation (~L1072+)
-7. Fail-open capture after AI success (~L1129+)
-
-**Qualified insertion point (documentary):**
-
-> After `createExecutionRun` success and after current pre-engagement checks succeed (**after ~L1044**), **before** `intent_valid` transition (**before ~L1046**) / before provider invocation.
-
-Compose today (`composeExecutionRunD2D3.ts`) injects optional **capture** only — no enforcement dependency.
-
-**Constraint:** any future lock for TECH-CONC-01 must be **short, transaction-scoped, released before provider** — never held across provider I/O.
+- B SELECTED ≠ DDL / migration created
+- B SELECTED ≠ projection runtime live
+- B SELECTED ≠ S30 activated
+- B SELECTED ≠ T2 reopened
 
 ---
 
-## L. T3/T4 responsibility boundary
+## J. D-T4-BOUNDARY-01 — A SELECTED
 
-| Concern | T3 | T4 |
-|---------|----|----|
-| Durable alert / Morris review state | **Owner** | May synchronize; must not own alone |
-| Monetary blocking-eligible amount | Not authority | **Owner (future)** |
-| Suspend new runs at S30 | Never | **Owner (future, soft)** |
+**Value:** `A — OPTIONAL FINOPS ENFORCEMENT DEPENDENCY IN COORDINATOR`
+**Status:** **SELECTED BY MORRIS**
+
+### Contract
+
+Future ENF-B insertion (documentary; not implemented now):
+
+> After `createExecutionRun` succeeded / run accepted, **and** after current pre-engagement checks succeed, **before** `intent_valid` transition / **before** provider invocation.
+
+- Coordinator consumes a **minimal optional server-side** T4 enforcement dependency.
+- No authoritative UI control.
+- When E1-ENFORCED is active and decision is BLOCK → provider **never** invoked.
+- Already-engaged runs are **not** interrupted; only **new** runs are in scope.
+- No DB transaction / advisory lock held across provider I/O.
+- Optional / inactive dependency **must not** silently activate S30.
+- Outer orchestrator / split coordination (**Option B**) = **NOT SELECTED**.
+
+### Consequences
+
+- Minimizes execution-run surface change vs invasive refactor.
+- Preserves selected ENF-B bound from 125.
+- Compose may inject enforcement optionally — default inactive until activation gates.
+
+### Non-decisions (DEFERRED)
+
+- Exact port name
+- Exact dependency field name
+- Exact wiring / composition runtime
+
+### Anti-claims
+
+- A SELECTED ≠ coordinator code modified now
+- A SELECTED ≠ enforcement dep live
+- A SELECTED ≠ E1 active
+
+---
+
+## K. D-T4-DECISION-CONTRACT-01 — B SELECTED
+
+**Value:** `B — EXPLICIT SOFT-CONTROL DECISION STATES`
+**Status:** **SELECTED BY MORRIS**
+
+### Contract — semantic pattern SELECTED
+
+The decision contract must explicitly distinguish at least:
+
+| Role | Semantic |
+|------|----------|
+| Authorizing result | **ALLOW** |
+| Non-blocking intermediate soft signal | **INTERMEDIATE SOFT SIGNAL** = `REVIEW_REQUIRED` **or** `WOULD_BLOCK` |
+| Effective block | **BLOCK** |
+| FinOps technical failure | **FAILED** |
+
+Plus diagnostics / provenance suitable for soft-control observability.
+
+### CRITICAL — intermediate state literal = DEFERRED
+
+Option B is **SELECTED** as the **pattern** (explicit soft states, not binary-only).
+
+The exact intermediate-state literal:
+
+- `REVIEW_REQUIRED`
+- versus
+- `WOULD_BLOCK`
+
+remains **DEFERRED**.
+
+**This document does NOT silently choose either name.**
+
+Future Delivery must either:
+
+1. obtain an explicit later Morris decision on the literal; **or**
+2. demonstrate that the name is a pure implementation convention without contractual consequence.
+
+### Constraints
+
+- **FAILED ≠ BLOCK.** Technical FinOps failure never becomes implicit block.
+- Structure must be able to support future T7 modes (**OFF / SHADOW / MONITOR / E1-ENFORCED**) without T4 activating those modes.
+- Binary ALLOW/BLOCK (**Option A**) = **NOT SELECTED**.
+
+### Anti-claims
+
+- B SELECTED ≠ T7 modes activated
+- B SELECTED ≠ intermediate literal chosen
+- B SELECTED ≠ runtime enum shipped
+
+---
+
+## L. D-T4-T3-COUPLING-01 — B SELECTED
+
+**Value:** `B — T4 EVIDENCE AUTHORITY + T3 HUMAN-REVIEW SYNCHRONIZATION`
+**Status:** **SELECTED BY MORRIS**
+
+### Responsibility model
+
+| Concern | Owner |
+|---------|-------|
+| Monetary enforcement decision from SoT-safe view | **T4** |
+| Durable human-review state | **T3** |
+| T3 review state alone as monetary block authority | **NEVER** |
+
+### Why T3-alone blocking is rejected
+
+T3 review may be raised with `basis=observed`, which uses conflated `observedAmount` (PROVIDER_OBSERVED + API_USAGE). That does **not** prove the amount is exclusively PROVIDER_OBSERVED — violating TECH-CONF-01 if used as sole block signal.
+
+Option A (**T3 review as blocking authority**) = **NOT SELECTED**.
+
+### Conceptual flow
+
+```
+authoritative cost evidence
+  → T4 enforcement projection / evaluation
+  → T4 soft-control decision
+  → optional synchronization with T3 review state
+```
+
+### Sync constraints
+
+Synchronization with T3 must:
+
+- be idempotent;
+- not transform T3 into monetary source of truth;
+- not adopt T6 event names;
+- not create IAM;
+- not activate ack/resolve.
+
+### Non-decisions (DEFERRED)
+
+- Exact synchronization mechanism / API / direction
+- Exact transaction boundary for sync
+- Detailed behavior when T3 sync is unavailable
+
+### Anti-claims
+
+- B SELECTED ≠ sync implemented
+- B SELECTED ≠ T3 store changed now
+- B SELECTED ≠ T6-ext authorized
+
+---
+
+## M. D-T4-FOUNDATION-01 — A SELECTED
+
+**Value:** `A — FOUNDATION FIRST`
+**Status:** **SELECTED BY MORRIS**
+
+### Contract
+
+A future T4 **foundation** Delivery **may** be proposed (under a **separate** Morris Delivery GO) before all E1 activation dependencies are available.
+
+Foundation Delivery **may** mechanically implement (when later authorized):
+
+- T4 contracts
+- SoT-safe projection
+- evaluation
+- decision contract
+- ENF-B integration
+- tests
+- derived persistence if needed
+- fail-open behavior
+- inactive / injected configuration
+
+### Must remain INERT for real enforcement
+
+Foundation **must not**:
+
+- activate E1
+- activate real S30
+- adopt USD 30 as runtime-active
+- introduce Product IAM
+- deliver T5 override
+- deliver T7 rollout
+- deliver T6-ext
+- claim production-ready
+
+**Foundation capability ≠ active enforcement.**
+
+Option B (wait for all activation deps before any T4 Delivery) = **NOT SELECTED**.
+
+### Anti-claims
+
+- A SELECTED ≠ T4 Delivery authorized now
+- A SELECTED ≠ mechanism on main
+- A SELECTED ≠ E1-ENFORCED
+
+---
+
+## N. D-T4-CALIBRATION-01 — A SELECTED
+
+**Value:** `A — ENGINE / CONFIG CONTRACT WITHOUT REAL ACTIVE HISTORICAL AMOUNT`
+**Status:** **SELECTED BY MORRIS**
+
+### Contract
+
+- Future T4 foundation may accept injected policy/config for mechanism tests.
+- **No real calibration is embedded** by this arbitration.
+- Historical amounts **15 / 20 / 25 / 30 USD** remain **documentary / provisional** and **NOT RUNTIME-ACTIVE**.
+- In particular: **historical 30 USD ≠ active S30 configuration**.
+- Future tests: **fictive fixtures only**.
+- Real E1-ENFORCED activation remains **BLOCKED** until a distinct Morris **real calibration** GO.
+
+Option B (wait for calibration before any T4 Delivery) = **NOT SELECTED** for foundation strategy (aligned with FOUNDATION-01 A).
+
+### Anti-claims
+
+- A SELECTED ≠ calibration done
+- A SELECTED ≠ thresholds activated
+- A SELECTED ≠ USD 30 wired in product config
+
+---
+
+## O. Failure posture — preserved / not reopened
+
+**ID:** `D-T4-FAILURE-POSTURE-01`
+**Status:** **UPSTREAM SELECTED — PRESERVED — NOT REOPENED**
+
+### Contract
+
+```
+FinOps technical evaluation failure
+  → sanitized diagnostic
+  → fail-open / degraded / enforcement unavailable
+  → never BLOCK solely because FinOps is unavailable
+```
+
+- Fail-closed remains **incompatible** with upstream SELECTED soft/fail-open FinOps posture.
+- This arbitration does **not** create a new Morris decision on this point.
+- Aligns with FAILED ≠ BLOCK under DECISION-CONTRACT-01 B.
+
+---
+
+## P. T4/T3 responsibility model
+
+| Concern | T3 | T4 (after this arbitration) |
+|---------|----|------------------------------|
+| Durable alert / Morris review state | **Owner** | May synchronize; never owns alone as money gate |
+| Monetary blocking-eligible amount | Not authority | **Owner (future)** via dedicated projection (EVIDENCE B) |
+| Soft-control decision at ENF-B | Never | **Owner (future)** via optional coordinator dep (BOUNDARY A) |
+| Suspend new runs at S30 | Never | **Owner (future, soft)** — inactive until activation |
 | Resume / override | Deferred (IAM) | Resume policy from 123; override = **T5** |
-| Threshold informational 15 / review 20 | Prepare/evaluate (inactive) | Does not replace |
-| Soft-cap 30 | Explicitly out of T3 | **Owner** |
+| Soft-cap anti-claim | Affirmed | Affirmed — cannot guarantee spend ≤ S30 |
 
 **Rule:** synchronization may be explicit; **T3 review alone never blocks**.
 
 ---
 
-## M. T5 / T6 / T7 dependencies
+## Q. Future T4 foundation constraints
 
-| Lot | Current state | Relation to T4 |
-|-----|---------------|----------------|
-| **T5** | Override SELECTED in 123/125; **Product IAM NOT_SELECTED**; AuthorityResolver ≠ session Morris | Required for audited override before safe E1-ENFORCED ops; **not** in T4 foundation scope |
-| **T6-foundation** | CLOSED WITH RESERVES | Capture/audit fail-open exists |
-| **T6-ext-T3T4** | **NOT AUTHORIZED**; exact event names DEFERRED | Prep may list conceptual audit needs only — no names adopted |
-| **T7** | TECH-FLAG-01 + rollout SELECTED documentary | **Activation/rollout owner**; T4 = mechanism only |
+When (and only when) a separate Morris GO authorizes T4 foundation Delivery, it **must**:
 
-**Boundary:** T4 = decision capability / mechanism. T7 = activation / pilot evidence. T5 = override. T6-ext = separate gate.
+1. Implement SoT-safe projection (EVIDENCE B) — not `observedAmount` as block input.
+2. Place optional enforcement at ENF-B in coordinator (BOUNDARY A).
+3. Expose explicit soft-control states (DECISION-CONTRACT B) without silently freezing intermediate literal.
+4. Keep T4 monetary authority distinct from T3 review (T3-COUPLING B).
+5. Remain default-inert / inactive (FOUNDATION A + CALIBRATION A).
+6. Fail-open on FinOps technical failure (FAILURE-POSTURE preserved).
+7. Never hold locks across provider invocation.
+8. Never activate real S30 / historical USD 30 / E1 without later gates.
+9. Not absorb T5 / T6-ext / T7 / IAM.
+
+**T4 FOUNDATION DESIGN = SELECTED (architecture).**
+**T4 FOUNDATION DELIVERY = NOT AUTHORIZED (this cycle).**
+**T4 E1 ACTIVATION = NOT AUTHORIZED (this cycle).**
 
 ---
 
-## N. Currency / Money / concurrency / performance
+## R. Activation prerequisites
+
+| Prerequisite | Needed for | Status now | Authorized this cycle? |
+|--------------|------------|------------|------------------------|
+| Morris architecture arbitration of `D-T4-*` | SELECTED T4 design | **DONE** (this cycle) | Documentation only |
+| Future T4 foundation Delivery GO | Mechanism on branch/main | **NOT AUTHORIZED** | **NO** |
+| Real Morris calibration of S30 amount | E1-ENFORCED | **REQUIRED / not done** | **NO** |
+| Product / Morris identity binding (IAM) | Resume / privileged mutations / T5 binding | **NOT_SELECTED** | **NO** |
+| T5 override capability compatible with identity | Safe override under E1 | NOT delivered | **NO** |
+| T7 feature flag + rollout evidence | Controlled activation | Documentary SELECTED only | **NO** |
+| Dedicated activation QA | Activation confidence | NOT run | **NO** |
+| Whether T6-ext is required before first E1-ENFORCED pilot | Audit completeness before pilot | **DEFERRED / NOT DECIDED** | **NO** |
+
+**Real E1 activation = BLOCKED** until calibration + activation deps Morris-approved.
+
+Point “T6-ext before first E1 pilot” remains explicitly **DEFERRED** — not qualified as optional or mandatory.
+
+---
+
+## S. T5 / T6 / T7 boundaries
+
+### T5
+
+- Morris-only override = conceptually SELECTED upstream (123/125).
+- T5 runtime = **NOT DELIVERED**.
+- Product IAM = **NOT_SELECTED**.
+- Existing AuthorityResolver = authority evidence ≠ authenticated Morris session identity.
+- No T5 work in this cycle.
+
+### T6
+
+| Item | Status |
+|------|--------|
+| T6-foundation | **CLOSED WITH RESERVES** |
+| T6-ext-T2 | **EXCLUDED** |
+| T6-ext-T3T4 | **NOT AUTHORIZED** |
+| Exact T6-ext event names | **DEFERRED** |
+| Necessity of T6-ext before first E1 pilot | **DEFERRED** |
+
+### T7
+
+- Feature-flag architecture SELECTED documentary: server-side · project-scoped · default-OFF.
+- Rollout target SELECTED documentary: OFF → SHADOW → MONITOR → E1-ENFORCED.
+- T7 runtime = **NOT DELIVERED**.
+- T4 **must not** absorb T7 activation/rollout ownership.
+
+---
+
+## T. Currency / Money / concurrency
 
 ### Currency / FX
 
 - **No FX.**
 - Enforcement policy key: `projectId + period + currency`.
 - Never sum across currencies.
-- Historical “30 USD” does **not** authorize cross-currency universal cap.
-- Policy absent for currency → **no enforcement / explicit not configured** (candidate behavior).
+- Historical “30 USD” does not authorize a cross-currency universal cap.
+- Policy absent for currency → no enforcement / explicit not configured (candidate Delivery behavior).
 
 ### Money
 
 - Reuse T2 Money / `numeric(20,8)` exact arithmetic — no float.
 - Blocking sum = eligible SoTs only (BILLED + PROVIDER_OBSERVED).
 
-### Concurrency / performance
-
-- Concurrent new-run requests + async reconciliation/rebuild must be considered.
-- TECH-CONC-01 SELECTED: project/period transactional authorization.
-- **Never** hold PostgreSQL lock across provider invocation.
-- If lock recommended: short; decision/persist only; release before provider.
-- Do **not** invent hard cost reservation based on estimates.
-
 ### Soft-cap semantics (anti-claim)
 
-S30 is **not** a hard budget ceiling because:
+S30 is a **soft** application control. It **may** suspend new runs after authoritative crossing. It **cannot guarantee** monthly spend ≤ S30 because:
 
-- billed/provider-observed measurement is asynchronous;
-- new facts may arrive after an invocation;
+- billed / provider-observed facts are asynchronous;
 - already-engaged runs may finish;
 - no reliable future-cost reservation;
 - estimation must not block;
-- no FX; no provider hard limit SELECTED.
+- no FX;
+- no provider hard limit SELECTED.
 
-T4 **may** suspend new runs after authoritative crossing. T4 **cannot guarantee** “monthly spend can never exceed S30”.
+### Concurrency
 
-### Failure posture (already constrained)
+Preserve:
 
-Upstream SELECTED: no hard-stop fail-closed for FinOps technical failure.
+- no DB lock across provider call;
+- no future-cost reservation via estimation;
+- isolation project / UTC period / currency;
+- multi-instance via short DB constraints;
+- derived projection reconstructible.
 
-Expected contract (candidate packaging, aligned with SELECTED):
-
-`T4 technical evaluation failure → sanitized diagnostic → allow / degraded / enforcement unavailable` — **never block solely because FinOps is unavailable**.
-
-`D-T4-FAILURE-POSTURE-01`: Option A FAIL-OPEN+DIAGNOSTIC is the only posture compatible with upstream SELECTED; Option B FAIL-CLOSED is **incompatible** (not an open choice to re-select).
-
----
-
-## O. Candidate decision matrix
-
-All rows below: **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
-
-(Do not treat recommendations as SELECTED.)
-
-### O.1 `D-T4-EVIDENCE-01` — Blocking-authoritative monetary view
-
-| Field | Content |
-|-------|---------|
-| Question | How does T4 obtain an amount that preserves SoT distinction required for blocking? |
-| Option A | **DIRECT AUTHORITATIVE COST-EVENT READ** — at gate, sum only BILLED+PROVIDER_OBSERVED from ledger events for project/period/currency |
-| Option B | **T4 DEDICATED ENFORCEMENT PROJECTION** — derived rebuildable projection with `blockingEligibleAmount` + provenance |
-| Option C | **EXTEND T2 AGGREGATE CONTRACT** — split `providerObservedAmount` / `apiUsageAmount` (reopens T2) |
-| Upstream compatibility | All can honor TECH-CONF-01 if implemented correctly; C pressures CLOSED-WITH-RESERVES T2 |
-| Impacts | A: latency/coupling; B: new table/port; C: T2 migration/regression |
-| Debt | A perf; B derived duplication; C inter-lot coupling |
-| Réversibilité | A high; B good if non-authoritative rebuildable; C medium |
-| Sécurité | Avoid using conflated observed; redact diagnostics |
-| Performance | A scan per run; B O(1) read; C O(1) but T2 cost |
-| Observabilité | Need provenance of blocking amount |
-| Candidate recommendation | **Option B** |
-| Status | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
-
-### O.2 `D-T4-BOUNDARY-01` — Integration in execution-run
-
-| Field | Content |
-|-------|---------|
-| Question | Technical shape of SELECTED ENF-B inside coordinator? |
-| Option A | **OPTIONAL FINOPS ENFORCEMENT DEPENDENCY IN COORDINATOR** after create success / before `intent_valid` |
-| Option B | **NEW OUTER ORCHESTRATOR / SPLIT COORDINATION** |
-| Upstream compatibility | Both can place ENF-B; A minimizes surface |
-| Impacts | A small ray; B invasive refactor of execution-run semantics |
-| Debt | A bounded transverse responsibility; B high regression surface |
-| Réversibilité | A higher |
-| Sécurité | Server-side only; never trust client |
-| Performance | Gate before provider avoids wasted spend |
-| Observabilité | Decision diagnostic on run path |
-| Candidate recommendation | **Option A** (minimal port) |
-| Status | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
-
-### O.3 `D-T4-DECISION-CONTRACT-01` — Enforcement decision contract
-
-| Field | Content |
-|-------|---------|
-| Question | What decision states does soft control need? |
-| Option A | Binary **ALLOW / BLOCK** |
-| Option B | Explicit soft states **ALLOW / REVIEW_REQUIRED\|WOULD_BLOCK / BLOCK / FAILED** + diagnostics/provenance |
-| Upstream compatibility | B maps better to SHADOW/MONITOR/E1-ENFORCED (T7) without silent activation |
-| Impacts | A simpler tests; B richer observability / rollout |
-| Debt | B more states to maintain |
-| Réversibilité | Both high if documentary defaults remain OFF |
-| Sécurité | FAILED must not become silent BLOCK |
-| Performance | Negligible |
-| Observabilité | B superior for pilot evidence |
-| Candidate recommendation | **Option B** |
-| Status | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
-
-### O.4 `D-T4-T3-COUPLING-01` — T4 ↔ T3 Morris review
-
-| Field | Content |
-|-------|---------|
-| Question | How do T4 monetary gate and T3 human review relate? |
-| Option A | **T3 REVIEW AS BLOCKING AUTHORITY** — block solely on pending T3 review |
-| Option B | **T4 EVIDENCE AUTHORITY + T3 HUMAN-REVIEW SYNCHRONIZATION** |
-| Upstream compatibility | A **conflicts** with TECH-CONF-01 when review is based on conflated `observed`; B preserves SoT |
-| Impacts | A dangerous false blocks / false allows; B needs sync use-case |
-| Debt | A conceptual debt high; B sync debt manageable |
-| Réversibilité | B better |
-| Sécurité | A invalid if review from non-qualified basis |
-| Performance | B depends on evidence view |
-| Observabilité | Keep review and monetary decision distinct in audit (future T6-ext) |
-| Candidate recommendation | **Option B** |
-| Status | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
-
-**Why A is dangerous:** T3 review may be raised from `basis=observed` which includes API_USAGE-derived amounts. Using that review as the sole block signal would either over-block (non-eligible money) or under-specify provenance — violating TECH-CONF-01.
-
-### O.5 `D-T4-FOUNDATION-01` — Delivery mécanique vs activation
-
-| Field | Content |
-|-------|---------|
-| Question | May a future mechanical T4 Delivery land before all activation deps? |
-| Option A | **FOUNDATION FIRST** — contracts/eval/view/boundary/tests; no real calibration; no E1; no T5/IAM/T6-ext/T7 active |
-| Option B | **WAIT FOR ALL ACTIVATION DEPENDENCIES** |
-| Upstream compatibility | A aligns with critical path T0→…→T4→T7 if guarded default-OFF |
-| Impacts | A dormant capability; B stalls mechanism learning |
-| Debt | A needs strict activation guards; B schedule debt |
-| Réversibilité | A high if default inert |
-| Sécurité | Must not silently enforce |
-| Performance | N/A at prep |
-| Observabilité | Shadow-ready contract helps T7 later |
-| Candidate recommendation | **Option A** under strict guards |
-| Status | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
-
-### O.6 `D-T4-CALIBRATION-01` — Real amount activation
-
-| Field | Content |
-|-------|---------|
-| Question | How does T4 treat the historical USD 30 figure? |
-| Option A | Engine/config contract **without** real active amount; fixtures only |
-| Option B | Wait for calibration before any T4 Delivery |
-| Upstream compatibility | Matches T3 F3 posture; 123 marks 30 provisional |
-| Impacts | A enables foundation tests; B blocks foundation |
-| Debt | A must prevent silent adoption of 30 |
-| Réversibilité | High |
-| Sécurité | Real E1 activation **BLOCKED** until Morris calibration |
-| Performance | N/A |
-| Observabilité | Config provenance required |
-| Candidate recommendation | **Option A for foundation**; real E1 blocked until calibration |
-| Status | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
-
-### O.7 `D-T4-FAILURE-POSTURE-01` — (qualification; not re-opened)
-
-| Field | Content |
-|-------|---------|
-| Option A | **FAIL OPEN + DIAGNOSTIC** |
-| Option B | **FAIL CLOSED** |
-| Qualification | B is **incompatible** with upstream SELECTED soft/fail-open FinOps posture |
-| Candidate packaging | Treat A as the only compatible posture |
-| Status | **NOT REOPENED — UPSTREAM SELECTED CONSTRAINT** (do not re-arbitrate as if open) |
+**Exact concurrency design for T4 Delivery = DEFERRED.**
 
 ---
 
-## P. Detailed option analysis
+## U. Deferred implementation details
 
-### P.1 Evidence view trade-off (EVIDENCE-01)
+Mandatory non-selections in this document (must remain undecided):
 
-- **A** preserves SoT without new storage but taxes every new-run path with ledger scan — poor fit for repeated pre-provider gate.
-- **B** isolates enforcement from T2’s product aggregate semantics; rebuildable derived data; accepts a T4 migration in a future Delivery.
-- **C** “fixes” the conflation at T2 but reopens a lot already CLOSED WITH RESERVES and mixes enforcement needs into a general aggregate — avoid unless B proven incoherent.
-
-### P.2 Boundary trade-off (BOUNDARY-01)
-
-ENF-B is already SELECTED; the open question is **shape**. Optional enforcement port at the qualified insert point reuses `create`→`intent_valid` semantics and keeps provider never invoked on BLOCK. Outer orchestrator only if coupling evidence forces it (not observed as necessary today).
-
-### P.3 Decision contract (DECISION-CONTRACT-01)
-
-Binary ALLOW/BLOCK collapses SHADOW/MONITOR into silent no-ops or false blocks. Explicit soft states let T7 flip interpretation without changing calculation.
-
-### P.4 Coupling (T3-COUPLING-01)
-
-T3 store identity (C1) intentionally omits basis/SoT. Therefore it cannot be the sole monetary authority. Bridge/sync must be one-way or explicit dual-write with T4 evidence remaining authoritative for BLOCK.
-
-### P.5 Foundation vs wait (FOUNDATION-01)
-
-Critical path needs a testable mechanism before IAM/calibration/T7. Dormant foundation is acceptable if default-OFF and no historical amount wired.
-
-### P.6 Calibration (CALIBRATION-01)
-
-Documentary 30 USD remains provisional. Foundation may accept injected policy in tests; production E1-ENFORCED requires separate Morris calibration GO.
+- Exact SQL table name / projection schema / migration timestamp
+- Exact refresh / rebuild mechanism
+- Exact advisory lock key
+- Exact intermediate state literal **REVIEW_REQUIRED vs WOULD_BLOCK**
+- Exact T3 synchronization implementation
+- Exact T6-ext event names
+- T6-ext-before-pilot requirement
+- Product IAM design
+- T5 Delivery / T7 Delivery
+- Numeric TTL (`R-TECH-TTL-01` KEEP-OPEN)
+- Hard FinOps mode (`R-TECH-FINOPS-HARD-01` KEEP-OPEN)
+- Real S30 amount / calibration 15/20/25/30
+- Activation project / UI resume-suspend surface
+- Multi-currency FX policy
+- Provider hard limit
 
 ---
 
-## Q. Recommended candidate package — NOT SELECTED
+## V. Reserves
 
-**CANDIDATE / NOT SELECTED — MORRIS ARBITRATION REQUIRED**
-
-| Theme | Candidate package element |
-|-------|---------------------------|
-| Blocking-authoritative view | T4 dedicated derived projection preserving eligible SoT (**EVIDENCE-01 B**) |
-| Boundary | Minimal optional enforcement port in `coordinateExecutionRun` at ENF-B (**BOUNDARY-01 A**) |
-| T3 coupling | T4 = monetary enforcement authority; T3 = durable human-review; sync explicit; T3 alone never blocks (**T3-COUPLING-01 B**) |
-| Contract | Explicit soft decision state, not binary-only (**DECISION-CONTRACT-01 B**) |
-| Failure | Fail-open FinOps technical failure (**FAILURE-POSTURE A** — upstream-compatible) |
-| Calibration | Injected config / no active historical amount (**CALIBRATION-01 A** for foundation) |
-| Delivery strategy | T4 foundation before activation prerequisites (**FOUNDATION-01 A**) |
-| Rollout | Remains **T7** |
-| Override | Remains **T5** |
-| Audit extension | Separate **T6-ext** gate (NOT AUTHORIZED now) |
-
----
-
-## R. Activation prerequisite matrix
-
-| Prerequisite | Needed for | Status now | Authorized this cycle? |
-|--------------|------------|------------|------------------------|
-| Morris architecture arbitration of `D-T4-*` | Any SELECTED T4 design | **PENDING** | Prep only |
-| Future T4 foundation Delivery (if FOUNDATION-01 A) | Mechanism on branch/main | NOT AUTHORIZED | **NO** |
-| Real calibration of S30 amount | E1-ENFORCED | **REQUIRED / not done** | **NO** |
-| Product / Morris identity binding (IAM) | Resume / privileged mutations / T5 binding | **NOT_SELECTED** | **NO** |
-| T5 override capability compatible with identity | Safe override under E1 | NOT delivered | **NO** |
-| T7 feature flag + rollout evidence | Controlled activation | Documentary SELECTED only | **NO** |
-| T6-ext if required by trajectory before rollout | Audit completeness | **NOT AUTHORIZED** | **NO** |
-| Dedicated QA for enforcement | Activation confidence | NOT run | **NO** |
-
-**Real E1 activation = BLOCKED** until calibration + arbitration + activation deps Morris-approved.
+| ID / topic | Status | Note |
+|------------|--------|------|
+| `R-T6-RUNTIME-COMPOSITION-01` | **OPEN** | Carried |
+| `R-PR-T2-API-01` | **OPEN MINOR** | Carried |
+| T6-ext-T2 | **EXCLUDED** | |
+| T6-ext-T3T4 | **NOT AUTHORIZED** | |
+| Exact T6-ext event names | **DEFERRED** | |
+| T6-ext requirement before E1 pilot | **DEFERRED** | |
+| Calibration | **REQUIRED** before real activation | |
+| Product IAM | **NOT_SELECTED** | |
+| Privileged Morris mutations | **DEFERRED** | |
+| Local T3 branch cleanup | **SKIPPED — ACTIVE WORKTREE** / hygiene only | Not a T3-closure blocker |
+| Soft-cap hard-guarantee | **ANTI-CLAIM** | Cannot promise spend ≤ S30 |
+| Intermediate soft-state literal | **DEFERRED** | REVIEW_REQUIRED vs WOULD_BLOCK |
 
 ---
 
-## S. Future Delivery candidate manifest / impacted areas
+## W. Non-decisions
+
+This cycle does **not** decide / authorize:
+
+- T4 Delivery / code / migration / tests
+- Real S30 activation or historical USD 30 runtime adoption
+- Exact intermediate soft-state literal
+- T6-ext-before-pilot necessity
+- Exact SQL / refresh / lock designs
+- Product IAM / privileged mutations
+- T5 override Delivery
+- T6-ext Delivery / event names
+- T7 rollout Delivery
+- Neon / provider-real
+- UI surfaces
+- Project commit / push / PR / merge
+
+---
+
+## X. Future Delivery candidate implications
 
 **CANDIDATE ONLY — NOT AUTHORIZED — filenames not frozen**
 
 ### Likely CREATE areas (illustrative)
 
-- FinOps enforcement port + application evaluate/authorize use-case
-- Optional SoT-safe projection store/migration (if EVIDENCE-01 B)
+- FinOps enforcement port + evaluate/authorize use-case
+- SoT-safe projection store / migration (EVIDENCE B)
 - Memory + postgres adapters
-- Unit/integration tests for eligibility filtering and gate placement
-- Documentary execution/decisions-applied follow-ons (future numbers)
+- Unit/integration tests for eligibility filtering and ENF-B ordering
+- Documentary execution follow-ons (future numbers)
 
 ### Likely MODIFY areas (minimize)
 
-- `coordinateExecutionRun.ts` / compose injection — **optional** enforcement dep at ENF-B only
+- `coordinateExecutionRun.ts` / compose — **optional** enforcement dep at ENF-B only
 - Possibly types exports / finops index barrel
 
-### PROTECTED / DO NOT TOUCH (without explicit future GO)
+### PROTECTED without explicit future GO
 
-- T2 aggregate semantics (unless EVIDENCE-01 C explicitly selected later)
+- T2 aggregate semantics (EVIDENCE C not selected)
 - T3 alert-review store as monetary authority
 - T6 audit type renames without T6-ext authorization
 - IAM / AuthorityResolver product binding
@@ -803,155 +826,94 @@ Documentary 30 USD remains provisional. Foundation may accept injected policy in
 
 ---
 
-## T. Test strategy candidate
+## Y. Gates still required
 
-**NOT IMPLEMENTED in this cycle.**
-
-| Layer | Candidate focus |
-|-------|-----------------|
-| Unit | Eligibility filter excludes API_USAGE/ESTIMATED; Money exact; decision contract states; fail-open on store error |
-| Integration (Postgres) | Project/period txn; short lock released before simulated provider; rebuild projection idempotence |
-| Coordinator | ENF-B ordering: create ok → gate BLOCK → no provider call; ALLOW → intent_valid proceeds |
-| Negative | Conflated `observedAmount` must not be sole block input; missing currency policy → not configured |
-| Regression | T1 capture fail-open unchanged; T2/T3 behavior unchanged when enforcement dep absent |
-| Rollout (T7 later) | SHADOW emits WOULD_BLOCK without BLOCK; MONITOR metrics; E1-ENFORCED applies BLOCK |
-
----
-
-## U. Reserves
-
-| ID / topic | Status | Note |
-|------------|--------|------|
-| `R-T6-RUNTIME-COMPOSITION-01` | **OPEN** | Carried from T3 |
-| `R-PR-T2-API-01` | **OPEN MINOR** | Carried from T3 |
-| T6-ext-T3T4 | **NOT AUTHORIZED** | |
-| Calibration | **REQUIRED** | Blocks real E1 |
-| Product IAM | **NOT_SELECTED** | Blocks privileged resume/override binding |
-| Privileged Morris mutations | **DEFERRED** | |
-| `D-T4-*` options | **NOT DECIDED** | Arbitration required |
-| Soft-cap hard-guarantee | **ANTI-CLAIM** | Cannot promise spend ≤ S30 |
+| Gate | Status |
+|------|--------|
+| GO Delivery T4 foundation | **REQUIRED** (separate) before any code |
+| Real calibration / S30 amount | **REQUIRED** before E1-ENFORCED |
+| Product Morris identity binding | **REQUIRED** before privileged resume/override |
+| T5 override Delivery | separate GO |
+| T7 feature-flag / rollout | separate GO |
+| T6-ext event contract / before-pilot necessity | **DEFERRED** / later GO |
+| Intermediate soft-state literal | **DEFERRED** / later decision or Delivery proof |
+| Project commit / push / PR / merge | separate GOs |
+| R-T6-RUNTIME-COMPOSITION-01 | **OPEN** |
+| R-PR-T2-API-01 | **OPEN MINOR** |
 
 ---
 
-## V. Non-decisions / deferred items
-
-- Exact T6-ext event names
-- Product IAM design
-- Numeric TTL (`R-TECH-TTL-01` KEEP-OPEN)
-- Hard FinOps modes (`R-TECH-FINOPS-HARD-01` KEEP-OPEN)
-- Whether T6-ext is mandatory before first E1-ENFORCED pilot
-- Concrete SQL for projection (if B selected later)
-- UI surfaces for suspension/resume
-- Multi-currency policy beyond “no FX / no cross-sum”
-- Any SELECTED choice among `D-T4-EVIDENCE-01` … `D-T4-CALIBRATION-01`
-
----
-
-## W. Morris arbitration required
-
-Morris must arbitrate at least:
-
-1. `D-T4-EVIDENCE-01` (A/B/C)
-2. `D-T4-BOUNDARY-01` (A/B)
-3. `D-T4-DECISION-CONTRACT-01` (A/B)
-4. `D-T4-T3-COUPLING-01` (A/B)
-5. `D-T4-FOUNDATION-01` (A/B)
-6. `D-T4-CALIBRATION-01` (A/B)
-7. Acceptance of candidate package vs alternatives
-8. Whether to open a later T4 Delivery GO (foundation) separate from activation GO
-
-Until then: **NO T4 OPTION SELECTED — NO T4 DELIVERY**.
-
----
-
-## X. Verdict
+## Z. Verdict
 
 ```
-FINOPS TECHNICAL LOT T3 —
-CLOSED WITH RESERVES BY MORRIS —
-
 FINOPS TECHNICAL LOT T4 —
-S30 SOFT ENFORCEMENT ARCHITECTURE / IMPLEMENTATION PREPARATION COMPLETE WITH RESERVES —
+S30 SOFT ENFORCEMENT ARCHITECTURE DECISIONS APPLIED —
 
-BLOCKING-AUTHORITY GAP QUALIFIED —
-ENF-B RUNTIME INSERTION POINT QUALIFIED —
-T2 / T3 / T4 RESPONSIBILITIES QUALIFIED —
-T5 / T6 / T7 ACTIVATION DEPENDENCIES QUALIFIED —
+D-T4-EVIDENCE-01 =
+B SELECTED BY MORRIS —
 
-T4 STRUCTURING OPTIONS PREPARED —
-CANDIDATE RECOMMENDATIONS PREPARED —
-NO T4 OPTION SELECTED —
-MORRIS ARBITRATION REQUIRED —
+D-T4-BOUNDARY-01 =
+A SELECTED BY MORRIS —
+
+D-T4-DECISION-CONTRACT-01 =
+B SELECTED BY MORRIS —
+
+D-T4-T3-COUPLING-01 =
+B SELECTED BY MORRIS —
+
+D-T4-FOUNDATION-01 =
+A SELECTED BY MORRIS —
+
+D-T4-CALIBRATION-01 =
+A SELECTED BY MORRIS —
+
+FAIL-OPEN POSTURE PRESERVED —
+NOT REOPENED —
+
+DEDICATED SOT-SAFE ENFORCEMENT PROJECTION SELECTED —
+MINIMAL ENF-B COORDINATOR DEPENDENCY SELECTED —
+EXPLICIT SOFT-CONTROL CONTRACT SELECTED —
+T4 MONETARY AUTHORITY / T3 HUMAN-REVIEW SEPARATION SELECTED —
+FOUNDATION-FIRST SELECTED —
+NO REAL HISTORICAL AMOUNT SELECTED —
+
+INTERMEDIATE STATE EXACT LITERAL DEFERRED —
+T6-EXT-BEFORE-E1-PILOT QUESTION DEFERRED —
+EXACT SQL / MIGRATION / REFRESH DESIGN DEFERRED —
 
 NO REAL S30 ACTIVATION —
-NO HISTORICAL 30 USD RUNTIME ADOPTION —
-NO IAM —
-NO T5 / T6-EXT / T7 DELIVERY —
-NO CODE / MIGRATION / TESTS —
-NO PROJECT COMMIT / PUSH / PR —
+NO HISTORICAL USD 30 RUNTIME ADOPTION —
+PRODUCT IAM NOT_SELECTED —
+NO T5 —
+NO T6-EXT —
+NO T7 —
 
-SOFT-CAP ANTI-CLAIM AFFIRMED —
-T3 REVIEW IS NOT MONETARY BLOCKING AUTHORITY —
+148 PRE-ARBITRATION RECORD PRESERVED —
+149 DECISIONS APPLIED RECORD CREATED —
 
-READY FOR CHATGPT T4 PREPARATION VALIDATION /
-READY FOR MORRIS T4 ARCHITECTURE ARBITRATION
+NO CODE —
+NO MIGRATION —
+NO PROJECT STAGING —
+NO PROJECT COMMIT —
+NO PROJECT PUSH —
+NO PR —
+
+READY FOR CHATGPT T4 DECISIONS-APPLIED VALIDATION —
+READY FOR MORRIS T4 DELIVERY GATE
 ```
-
 
 ---
 
-## 14. Pack completeness checklist
-
-- [x] date/heure timezone
-- [x] cycle 6 / Critical
-- [x] GO Morris exact
-- [x] Git Truth
-- [x] handoff entrant
-- [x] sources
-- [x] T3 closure decision + reserves
-- [x] runtime inventory T4
-- [x] blocking-authority gap proof
-- [x] ENF-B proof
-- [x] decision matrix + all options
-- [x] candidate recommendations NOT SELECTED
-- [x] activation prerequisites
-- [x] future Delivery candidate scope
-- [x] non-decisions
-- [x] COMPLETE document 148
-- [x] files/staged/commit/push/PR
-- [x] verdict
+*Document 149 — post-arbitration record only. Document 148 remains the immutable pre-arbitration historical record.*
 
 ---
 
-## 15. Final verdict string
+# 148 HASH PROOF APPENDIX
 
 ```
-FINOPS TECHNICAL LOT T3 —
-CLOSED WITH RESERVES BY MORRIS —
-
-FINOPS TECHNICAL LOT T4 —
-S30 SOFT ENFORCEMENT ARCHITECTURE / IMPLEMENTATION PREPARATION COMPLETE WITH RESERVES —
-
-BLOCKING-AUTHORITY GAP QUALIFIED —
-ENF-B RUNTIME INSERTION POINT QUALIFIED —
-T2 / T3 / T4 RESPONSIBILITIES QUALIFIED —
-T5 / T6 / T7 ACTIVATION DEPENDENCIES QUALIFIED —
-
-T4 STRUCTURING OPTIONS PREPARED —
-CANDIDATE RECOMMENDATIONS PREPARED —
-NO T4 OPTION SELECTED —
-MORRIS ARBITRATION REQUIRED —
-
-NO REAL S30 ACTIVATION —
-NO HISTORICAL 30 USD RUNTIME ADOPTION —
-NO IAM —
-NO T5 / T6-EXT / T7 DELIVERY —
-NO CODE / MIGRATION / TESTS —
-NO PROJECT COMMIT / PUSH / PR —
-
-SOFT-CAP ANTI-CLAIM AFFIRMED —
-T3 REVIEW IS NOT MONETARY BLOCKING AUTHORITY —
-
-READY FOR CHATGPT T4 PREPARATION VALIDATION /
-READY FOR MORRIS T4 ARCHITECTURE ARBITRATION
+BEFORE: 9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96
+AFTER:  9ff9d1ba1cedeb8b795a7ac59f0f8e4f37ef4ef773e5cb21dbaff7a647d17f96
+STATUS: BYTE-IDENTICAL — PASS
 ```
+
+# END OF REVIEW PACK
