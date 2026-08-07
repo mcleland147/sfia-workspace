@@ -29,7 +29,9 @@ import type {
   ProviderInvocationResult,
 } from "../ports/providerResult";
 import type { FinOpsCapturePort } from "../../finops/ports/finopsCapturePort";
+import type { FinOpsEnforcementPort } from "../../finops/ports/finopsEnforcementPort";
 import type { FinOpsCaptureDiagnostic } from "../../finops/application/types";
+import type { FinOpsEnforcementDecision } from "../../finops/application/types.enforcement";
 import {
   invokeWithTimeoutAndCancellation,
   type InvokeOutcome,
@@ -77,6 +79,11 @@ export type CoordinateExecutionRunDependencies = {
   readonly clock: ClockPort;
   /** Optional FinOps T1 capture boundary — absent ⇒ not_attempted/disabled. */
   readonly finops?: FinOpsCapturePort;
+  /**
+   * Optional FinOps T4 soft-enforcement boundary (ENF-B).
+   * Absent ⇒ default-inert (no T4 evaluation). Never auto-instantiated.
+   */
+  readonly finopsEnforcement?: FinOpsEnforcementPort;
 };
 
 export type CoordinateExecutionRunInput = {
@@ -1041,6 +1048,60 @@ export async function coordinateExecutionRun(
       lateEvidenceRecorded: false,
       eventDelivery: deliveryOf(tracker),
     };
+  }
+
+  // T4 ENF-B: after create + pre-engagement, before intent_valid / provider.
+  // Absent dependency ⇒ inert. allow/soft_signal/failed/throw ⇒ fail-open continue.
+  // block ⇒ HUMAN_GATE_REQUIRED; provider never attempted/invoked.
+  if (deps.finopsEnforcement) {
+    let enforcementDecision: FinOpsEnforcementDecision;
+    try {
+      enforcementDecision = await deps.finopsEnforcement.evaluateBeforeProvider({
+        projectId: current.context.projectId,
+        executionRunId: current.runId,
+        correlationId: current.correlationId,
+        occurredAt: deps.clock.nowIso(),
+      });
+    } catch {
+      enforcementDecision = {
+        decision: "failed",
+        reason: "enforcement_port_threw",
+        finopsSideOnly: true,
+      };
+    }
+
+    if (enforcementDecision.decision === "block") {
+      const enforcementFailure = normalizedFailure({
+        family: "human_gate_required",
+        code: "HUMAN_GATE_REQUIRED",
+        userMessage:
+          "FinOps review is required before starting a new execution",
+        retryable: true,
+        correlationId: current.correlationId,
+      });
+      const blocked = await blockIdleRun(
+        current,
+        enforcementFailure,
+        deps,
+      );
+      if (blocked.run) {
+        current = blocked.run;
+        stateTrace.push(blocked.run.state);
+      }
+      return {
+        ok: false,
+        failure: blocked.ok ? enforcementFailure : blocked.failure,
+        run: blocked.run ?? current,
+        providerAttempted: false,
+        providerInvoked: false,
+        providerCompleted: false,
+        stateTrace,
+        validatedUsage: noUsage,
+        finopsCapture: finopsNotAttempted("finops_enforcement_block"),
+        lateEvidenceRecorded: false,
+        eventDelivery: deliveryOf(tracker),
+      };
+    }
   }
 
   const started = await deps.execution.transitionExecutionRun({
