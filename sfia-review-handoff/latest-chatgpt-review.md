@@ -206,21 +206,23 @@ Uniquement Draft → Ready for review sur PR #313 (réussie).
 | source | `.tmp-sfia-review/chatgpt-review.md` |
 | branche | `sfia/review-handoff` |
 | fichier canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
-| commit attendu | `docs(review-handoff): publish PR 313 ready-for-review transition` |
-| remote before tip | `e948d254ed43c4a3bbbb7362941d0bb515a56bb2` |
-| remote before blob | `b376f295ddd20cdac40e1a71aa9c89831eea3b5c` |
 | publisher | `scripts/sfia/publish-review-handoff.sh` |
+| commit message | `docs(review-handoff): publish PR 313 ready-for-review transition` |
+| remote before tip (cycle entry) | `e948d254ed43c4a3bbbb7362941d0bb515a56bb2` |
+| remote before blob (cycle entry) | `b376f295ddd20cdac40e1a71aa9c89831eea3b5c` |
+| first publish this cycle | tip `c64f1862e1662c65ca6bc1283f4e8fa01a6c1fbe` · blob `7f8836ace1ffc4eedf72fe32290fa90143e894cc` · verdict `HANDOFF UPDATED — REMOTE VERIFIED` |
+| this revision | complete handoff metadata + final verdict block (trailing-ws clean) |
+| paths expected | `sfia-review-handoff/latest-chatgpt-review.md` only |
+| push | FF only to `origin/sfia/review-handoff` — no force |
+| retour branche initiale | obligatoire — Delivery HEAD `23feee90…` |
 
-Statut handoff : à compléter après publication (dry-run puis publish).
+**Statut handoff (attendu après publisher) :** `HANDOFF UPDATED — REMOTE VERIFIED`
+
+Tip / blob finaux = sortie publisher + `git rev-parse origin/sfia/review-handoff` (relecture distante obligatoire).
 
 ---
 
-## Verdict (métier GitHub — avant clôture handoff)
-
-Transition Ready-for-review **réussie**.
-PR #313 OPEN · Draft false · HEAD/base vérifiés · CI SUCCESS · no auto-merge · **NO MERGE**.
-
-Verdict cycle complet attendu après handoff remote verified :
+## Verdict
 
 ```
 FINOPS TECHNICAL LOT T1 PR READY-FOR-REVIEW TRANSITION COMPLETE —
