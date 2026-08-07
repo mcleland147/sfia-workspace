@@ -1,39 +1,38 @@
-# ChatGPT Review Pack — FinOps T6-foundation post-T2 Integration Preparation
+# ChatGPT Review Pack — FinOps T6-foundation post-T2 Integration Delivery (Option A)
 
 ## Meta
 
-- date_cest: 2026-08-07 15:52:52 CEST (+0200)
-- date_utc: 2026-08-07 13:52:52 UTC
-- cycle: 6 — Architecture technique
-- profil: Critical
-- typologie: EVOL / RUN / ARCH
-- mode: T6-foundation post-T2 integration preparation
-- GO Morris exact: `GO préparation intégration T6-foundation sur main post-T2.`
-- GO autorise: découverte T6 historique · comparaison main · preuves `.tmp-sfia-review/**` · probe temporaire · Full pack · publish Review Handoff
-- GO N'autorise PAS: modif vraie branche/WT T6 · rebase/merge main→T6 · nouvelle Delivery · main · git add/commit/push/PR/merge projet · T6-ext-T2 · T3–T5/T7 · Neon · provider-real · global runtime composition · R-PR-T2-API-01 hardening
+- date_cest: 2026-08-07 16:10:43 CEST (+0200)
+- date_utc: 2026-08-07 14:10:43 UTC
+- cycle: 8 — Delivery / implémentation (Critical)
+- typologie: INC / EVOL / ARCH
+- mode: T6-foundation post-T2 Integration Delivery — Option A (mechanical rematerialization)
+- GO Morris exact: `GO Delivery intégration T6-foundation sur main post-T2 — Option A.`
+- GO autorise: nouvelle branche+WT Delivery depuis origin/main · rematerialize exact 9 paths · tests/migrations locaux · preuves `.tmp-sfia-review/**` · FULL review pack · handoff L3 publish
+- GO N'autorise PAS: project git add/staging/commit/push/PR/merge/force/rebase · modif historical T6 WT/probe · T6-ext-*/global composition · R-PR-T2-API-01 harden · T3–T5/T7 · Neon · provider-real · package/CI · adaptations opportunistes
 - Repo: `mcleland147/sfia-workspace`
 - Cycle Knowledge Contract: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate / experimental / no execution authority)
+- project staging/commit/push/PR: **NO / NO / NO / NO**
 
 ## Verdict (pack)
 
-```
-T6 FOUNDATION POST-T2 INTEGRATION PREPARATION COMPLETE —
-HISTORICAL T6 SOURCE VERIFIED —
-CURRENT MAIN VERIFIED —
-T2/T6 FOUNDATION MANIFESTS COMPATIBLE —
-MIGRATION ORDER VERIFIED —
-SCRATCH INTEGRATION PROBE GREEN —
-T2 REGRESSION GREEN —
-T6 FOUNDATION REGRESSION GREEN —
+```text
+FINOPS TECHNICAL LOT T6-FOUNDATION POST-T2 INTEGRATION DELIVERY COMPLETE WITH RESERVES —
+OPTION A REMATERIALIZATION ON FRESH MAIN —
+9/9 HASH MATCH —
+HEAD e1e00df UNCHANGED —
+STAGED EMPTY —
+T1→T2→T6 MIGRATE LOCAL PASS —
+test:db 24 PASS (T1:10 T2:10 T6:4) —
+APPEND-ONLY / REDACTION / FAIL-OPEN VERIFIED —
+R-T6-RUNTIME-COMPOSITION-01 OPEN —
+R-PR-T2-API-01 OPEN MINOR UNTOUCHED —
 T6-EXT-T2 EXCLUDED —
-GLOBAL RUNTIME COMPOSITION RESERVE PRESERVED —
-R-PR-T2-API-01 UNTOUCHED —
-OPTION A REMATERIALIZE ON FRESH MAIN RECOMMENDED —
-NO PROJECT CHANGE —
+NO PROJECT STAGING —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
-READY FOR MORRIS T6 FOUNDATION INTEGRATION DELIVERY GATE
+READY FOR CHATGPT VALIDATION
 ```
 
 ## 1. Sources méthode
@@ -48,154 +47,87 @@ READY FOR MORRIS T6 FOUNDATION INTEGRATION DELIVERY GATE
 
 ## 2. Sources projet (main)
 
-Docs 103, 125, 135–142, 144 ; runtime `projects/sfia-studio/app/lib/oa/finops/**`, migrations, `__tests__/oa/finops/**`, `package.json`, `.github/workflows/sfia-studio-ci.yml`.
+Docs 103, 125, 135–144 ; runtime `projects/sfia-studio/app/lib/oa/finops/**`, migrations, `__tests__/oa/finops/**`. Historical T6 READ-ONLY source WT + preparation evidence `.tmp-sfia-review/t6-post-t2-preparation/**` (incl. `t6-capture.patch`).
 
-## 3. Git Truth main
+## 3. Git Truth
 
 | Field | Value |
 | --- | --- |
 | orchestration WT | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack` |
-| HEAD | `e1e00df244aa78a063bf2abf21f69325e1036f3a` (detached at origin/main) |
+| Delivery WT | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation-post-t2-delivery` |
+| Delivery branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-foundation-post-t2-integration` |
+| Delivery HEAD | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
 | origin/main | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
-| expected main | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
 | MAIN DRIFT | **NO** |
-| tracked porcelain (non-`.tmp`) | empty / tracked-clean |
-| MAIN WT also present | `…/worktrees/finops-t2-main` @ `e1e00df…` on `main` |
+| handoff tip before | `c714169e551ae220ffeca208ee63d9deec98ea4b` |
+| handoff blob before | `29f3c47e3f500e96867f7fe60e64343e9657940a` |
+| historical handoff | `3f40c7b4cc2a748fbc114068575f3d2a62ad7521` |
+| historical T6 WT | `…/finops-t6-foundation` @ `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` READ-ONLY |
+| collision (branch/WT/remote) | **NONE** at create |
+| staged | **empty** |
+| project commit/push/PR | **NO** |
 
-## 4. Current handoff (incoming)
-
-| Field | Value |
-| --- | --- |
-| branch | `sfia/review-handoff` |
-| tip | `6aad1053729794882b180f9a47b34bf4628e66b0` |
-| blob | `81a5e5aed595e263d2c5c478efd4ad36645b3dd0` (`sfia-review-handoff/latest-chatgpt-review.md`) |
-| commit | `docs(review-handoff): publish T2 post-merge` |
-| match expected | **YES** |
-
-## 5. Historical T6 handoff
-
-| Field | Value |
-| --- | --- |
-| commit | `3f40c7b4cc2a748fbc114068575f3d2a62ad7521` |
-| file | `sfia-review-handoff/latest-chatgpt-review.md` |
-| title | ChatGPT Review Pack — FinOps T6-foundation Delivery |
-| historical verdict | FINOPS TECHNICAL LOT T6-FOUNDATION — VALIDATED WITH RESERVES |
-| evidence copy | `.tmp-sfia-review/t6-post-t2-preparation/historical-t6-handoff.md` (1502 lines) |
-
-## 6. Historical T6 base / branch / worktree
-
-| Field | Value |
-| --- | --- |
-| worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation` |
-| branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-audit` |
-| HEAD | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
-| expected HEAD | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
-| project commit/push/PR | NO / NO / NO |
-| remote T6 delivery branch | **absent** (local-only historical Delivery) |
-
-## 7. Local worktree map (relevant)
-
-- `finops-t1-pack` — orchestration @ origin/main `e1e00df…`
-- `finops-t2-main` — main WT @ `e1e00df…`
-- `finops-t6-foundation` — historical T6 source @ `093fd91…` (**NOT modified this cycle**)
-- `finops-t6-post-t2-probe` — disposable detached probe @ `e1e00df…` + T6 overlay (kept for evidence)
-
-## 8. Local T6 source discovery
-
-- Historical WT **FOUND** and unique.
-- No divergent second T6 snapshot requiring STOP.
-- Contamination check: project mods = exactly T6 manifest 9 paths (+ ignored `.tmp-sfia-review/` / historical `node_modules` if any). **NOT CONTAMINATED.**
-
-## 9. Exact source manifest (9)
-
-| Op | Path | Local state |
-| --- | --- | --- |
-| MODIFY | `projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts` | ` M` |
-| CREATE | `…/finopsAuditTypes.ts` | `??` |
-| CREATE | `…/ports/finopsAuditJournalPort.ts` | `??` |
-| CREATE | `…/postgres/postgresFinOpsAuditJournal.ts` | `??` |
-| CREATE | `…/postgres/redactFinOpsAuditPayload.ts` | `??` |
-| CREATE | `…/db/migrations/1754600001000_finops-t6-audit-journal.js` | `??` |
-| CREATE | `…/__tests__/oa/finops/t6.audit.unit.test.ts` | `??` |
-| CREATE | `…/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts` | `??` |
-| CREATE | `projects/sfia-studio/143-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-execution.md` | `??` |
-
-## 10. Historical-vs-local hash matrix
-
-| Path | Historical sha256 | Local sha256 | Class |
-| --- | --- | --- | --- |
-| finopsAuditTypes.ts | `856e3a9d0e2a11e1c71a83eadedcb49644b6c41ada9b52721531f49c99e429c9` | same | **MATCH** |
-| finopsAuditJournalPort.ts | `8cfa7c2dd7e0a6dcc41170a33b38e2b2539afeb27aa27881b6d3cca87321d539` | same | **MATCH** |
-| redactFinOpsAuditPayload.ts | `ad496294926bb811d1670475cfae160de6b76e2a88106816118cfe4293eb4bff` | same | **MATCH** |
-| postgresFinOpsAuditJournal.ts | `ffee02911dae0ccec0fa63e7a598b92d6516c2173f01f3b47ce35cd28bf45a49` | same | **MATCH** |
-| 1754600001000_finops-t6-audit-journal.js | `e4fb4ad2ca65465b4628cca09213f23755fd2da0c337ec7968d6a64a07ecda00` | same | **MATCH** |
-| t6.audit.unit.test.ts | `840779e31a9e6fe0859769a6ff16dbb53840efb421ab9496e6f28f57f67c45de` | same | **MATCH** |
-| t6.audit-journal.integration.test.ts | `6f08b0895d93e1ee180af9f7187ee4c7fc6f114bde0391a0204ae328af15588d` | same | **MATCH** |
-| doc 143 | `c5323d0daf5bcb71c2f38fe65820f5b2822e3da99f54d72c9211e38ae08dc869` | same | **MATCH** |
-| captureFinOpsUsage.ts | hist index `d8f20ef..86ccb98` | local blob `86ccb983532db52f5ecbb5a9a26a33ba949971fd` / sha256 `606a03a459ac5e40171568a57f18b2f0a8abb7cd64938a1bc37798e8bc19ef27` | **MATCH** |
-
-## 11. Missing / drift / unexpected
-
-- MISSING: none
-- DRIFT: none
-- UNEXPECTED: none
-
-## 12. Old base → current main analysis
-
-`093fd916…` → `e1e00df…` adds **25 T2 files** (+6412 lines): Money M2, aggregates, reconciliation, price catalog, migration `1754600000000`, docs 138–142/144, T2 unit+PG tests.
-
-**No overlap with T6 CREATE paths.** `captureFinOpsUsage.ts` **not** in the old→main diff.
-
-## 13. Overlap matrix T2 / T6
-
-| T6 path | Changed old→main? | Conflict | Handling |
-| --- | --- | --- | --- |
-| captureFinOpsUsage.ts | NO (blob stable) | NONE | clean replay |
-| 8 CREATE paths | NO (absent) | NONE | copy CREATE |
-| migration slot | T2 added `…000000` only | MIGRATION ORDER (informational) | `T1 < T2 < T6` OK |
-| T2 money/agg/recon | T2-only | SCOPE | foundation must not absorb → T6-ext-T2 later |
-
-## 14. captureFinOpsUsage blob comparison
-
-| Ref | Blob |
-| --- | --- |
-| `093fd916…:captureFinOpsUsage.ts` | `d8f20ef656a380a860fa6cb991cdc3d1ac3d6062` |
-| `origin/main:captureFinOpsUsage.ts` | `d8f20ef656a380a860fa6cb991cdc3d1ac3d6062` |
-| T6 local / probe after patch | `86ccb983532db52f5ecbb5a9a26a33ba949971fd` |
-
-**Collision classification:** NONE / **clean replay candidate**.
-
-## 15. CREATE-path collision checks (main)
-
-All 8 CREATE paths: **ABSENT** on `origin/main`. No CREATE PATH COLLISION.
-
-## 16. Migration order
-
-On main before probe: `1754500000000` (T1), `1754600000000` (T2).
-
-T6 historical: `1754600001000`.
-
-Order: **1754500000000 < 1754600000000 < 1754600001000**. Slot free. Migration has **no T2 table refs / no FK** to T2. Append-only triggers present. Additive only.
-
-After probe migrate: pgmigrations rows T1 + T2 + T6.
-
-## 17. Probe creation
+### Delivery status (exactly 9)
 
 ```text
-git worktree add --detach .tmp-sfia-review/worktrees/finops-t6-post-t2-probe origin/main
+ M projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
+?? projects/sfia-studio/143-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-execution.md
+?? projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts
+?? projects/sfia-studio/app/__tests__/oa/finops/t6.audit.unit.test.ts
+?? projects/sfia-studio/app/db/migrations/1754600001000_finops-t6-audit-journal.js
+?? projects/sfia-studio/app/lib/oa/finops/application/finopsAuditTypes.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/redactFinOpsAuditPayload.ts
+?? projects/sfia-studio/app/lib/oa/finops/ports/finopsAuditJournalPort.ts
 ```
 
-- probe HEAD = `e1e00df244aa78a063bf2abf21f69325e1036f3a`
-- patch: `.tmp-sfia-review/t6-post-t2-preparation/t6-capture.patch`
-- `git apply --check` **PASS** then `git apply` **PASS**
-- CREATE files copied byte-identical from historical source
-- node_modules symlink used only for npm runs then **removed**
+## 4. Rematerialization method
 
-## 18. Probe exact manifest
+1. `git worktree add -b <delivery-branch> <new-WT> origin/main` → HEAD `e1e00df…`
+2. `git apply --check` + `git apply` of `.tmp-sfia-review/t6-post-t2-preparation/t6-capture.patch` (absolute path) on capture only — no manual conflict resolve
+3. Exact byte `cp` of 8 CREATE files from historical WT `finops-t6-foundation`
+4. Hash verification 9/9 MATCH; T2 tracked paths remain byte-identical to `origin/main` except the intended capture MODIFY
 
-Exactly **9** T6 paths. `git diff --check` **PASS**. No package/CI/T2 file mods. No T6-ext-T2.
+## 5. Hash matrix (9/9 MATCH)
 
-## 19. Complete useful probe capture diff
+```text
+=== DELIVERY HASH VERIFY ===
+finopsAuditTypes.ts|856e3a9d0e2a11e1c71a83eadedcb49644b6c41ada9b52721531f49c99e429c9|MATCH
+finopsAuditJournalPort.ts|8cfa7c2dd7e0a6dcc41170a33b38e2b2539afeb27aa27881b6d3cca87321d539|MATCH
+redactFinOpsAuditPayload.ts|ad496294926bb811d1670475cfae160de6b76e2a88106816118cfe4293eb4bff|MATCH
+postgresFinOpsAuditJournal.ts|ffee02911dae0ccec0fa63e7a598b92d6516c2173f01f3b47ce35cd28bf45a49|MATCH
+mig|e4fb4ad2ca65465b4628cca09213f23755fd2da0c337ec7968d6a64a07ecda00|MATCH
+unit|840779e31a9e6fe0859769a6ff16dbb53840efb421ab9496e6f28f57f67c45de|MATCH
+integ|6f08b0895d93e1ee180af9f7187ee4c7fc6f114bde0391a0204ae328af15588d|MATCH
+doc143|c5323d0daf5bcb71c2f38fe65820f5b2822e3da99f54d72c9211e38ae08dc869|MATCH
+capture_sha256=606a03a459ac5e40171568a57f18b2f0a8abb7cd64938a1bc37798e8bc19ef27
+capture_ho=86ccb983532db52f5ecbb5a9a26a33ba949971fd
+CAP_SHA_MATCH
+CAP_HO_MATCH
+=== STATUS ===
+ M projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
+?? projects/sfia-studio/143-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-execution.md
+?? projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts
+?? projects/sfia-studio/app/__tests__/oa/finops/t6.audit.unit.test.ts
+?? projects/sfia-studio/app/db/migrations/1754600001000_finops-t6-audit-journal.js
+?? projects/sfia-studio/app/lib/oa/finops/application/finopsAuditTypes.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/redactFinOpsAuditPayload.ts
+?? projects/sfia-studio/app/lib/oa/finops/ports/finopsAuditJournalPort.ts
+=== STAGED ===
+=== HEAD ===
+e1e00df244aa78a063bf2abf21f69325e1036f3a
+=== T2 identity vs origin/main ===
+T2_IDENTICAL projects/sfia-studio/app/db/migrations/1754600000000_finops-t2-aggregation-reconciliation.js
+T2_PATH_OPTIONAL_ABSENT projects/sfia-studio/app/lib/oa/finops/application/aggregateFinOpsUsage.ts
+T2_PATH_OPTIONAL_ABSENT projects/sfia-studio/app/lib/oa/finops/application/reconcileFinOpsUsage.ts
+T2_IDENTICAL projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
+projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
+```
+
+Expected CREATE sha256s and capture after (`606a03a4…` / hash-object `86ccb983…`) / main capture before (`d8f20ef6…`) all **MATCH**.
+
+## 6. MODIFIED — captureFinOpsUsage.ts (complete useful diff)
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts b/projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
@@ -327,14 +259,20 @@ index d8f20ef..86ccb98 100644
          });
          return { status: "failed", error };
        }
-
 ```
 
-## 20. Probe CREATE / MODIFY file contents (judgable)
+- after sha256: `606a03a459ac5e40171568a57f18b2f0a8abb7cd64938a1bc37798e8bc19ef27`
+- after git hash-object: `86ccb983532db52f5ecbb5a9a26a33ba949971fd`
+- main blob before: `d8f20ef656a380a860fa6cb991cdc3d1ac3d6062`
 
-### finopsAuditTypes.ts (sha256 MATCH)
+## 7. CREATED — full content (8 files)
 
-```typescript
+### CREATED `projects/sfia-studio/app/lib/oa/finops/application/finopsAuditTypes.ts`
+
+- bytes: 1290
+- sha256: `856e3a9d0e2a11e1c71a83eadedcb49644b6c41ada9b52721531f49c99e429c9`
+
+```ts
 /**
  * FinOps T6-foundation — structured audit event types (T1 capture outcomes only).
  * T2/T3/T4/T5 event types are out of scope for this Delivery.
@@ -376,12 +314,13 @@ export type FinOpsAuditEmitter = {
     readonly detail: Readonly<Record<string, unknown>>;
   }) => void;
 };
-
 ```
+### CREATED `projects/sfia-studio/app/lib/oa/finops/ports/finopsAuditJournalPort.ts`
 
-### finopsAuditJournalPort.ts
+- bytes: 341
+- sha256: `8cfa7c2dd7e0a6dcc41170a33b38e2b2539afeb27aa27881b6d3cca87321d539`
 
-```typescript
+```ts
 /**
  * FinOps T6-foundation — durable append-only audit journal port.
  * Does not expose pg. Failures are handled by callers (best-effort / fail-open).
@@ -392,12 +331,13 @@ import type { FinOpsAuditRecord } from "../application/finopsAuditTypes";
 export type FinOpsAuditJournalPort = {
   readonly append: (record: FinOpsAuditRecord) => Promise<void>;
 };
-
 ```
+### CREATED `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/redactFinOpsAuditPayload.ts`
 
-### redactFinOpsAuditPayload.ts
+- bytes: 2562
+- sha256: `ad496294926bb811d1670475cfae160de6b76e2a88106816118cfe4293eb4bff`
 
-```typescript
+```ts
 /**
  * FinOps T6-foundation — deterministic payload redaction / whitelist.
  * Prefer allow-list over deep copy of arbitrary objects.
@@ -490,12 +430,13 @@ export function assertRedactedPayloadHasNoSecrets(
     }
   }
 }
-
 ```
+### CREATED `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts`
 
-### postgresFinOpsAuditJournal.ts
+- bytes: 4189
+- sha256: `ffee02911dae0ccec0fa63e7a598b92d6516c2173f01f3b47ce35cd28bf45a49`
 
-```typescript
+```ts
 /**
  * FinOps T6-foundation — PostgreSQL append-only audit journal (O1-backed).
  * Reuses the existing FinOps pg.Pool factory; does not log connection strings.
@@ -626,12 +567,13 @@ export function createDurableFinOpsAuditEmitter(
     },
   };
 }
-
 ```
+### CREATED `projects/sfia-studio/app/db/migrations/1754600001000_finops-t6-audit-journal.js`
 
-### 1754600001000_finops-t6-audit-journal.js
+- bytes: 2485
+- sha256: `e4fb4ad2ca65465b4628cca09213f23755fd2da0c337ec7968d6a64a07ecda00`
 
-```javascript
+```js
 /**
  * Migration: FinOps T6-foundation append-only audit journal (O1-backed).
  * T1 capture outcomes only — no Money columns, no external telemetry.
@@ -719,12 +661,13 @@ END $$;
   pgm.sql(`DROP FUNCTION IF EXISTS finops_audit_event_append_only();`);
   pgm.dropTable("finops_audit_event");
 };
-
 ```
+### CREATED `projects/sfia-studio/app/__tests__/oa/finops/t6.audit.unit.test.ts`
 
-### t6.audit.unit.test.ts (sha256 `840779e3…`, 7155 bytes)
+- bytes: 7155
+- sha256: `840779e31a9e6fe0859769a6ff16dbb53840efb421ab9496e6f28f57f67c45de`
 
-```typescript
+```ts
 /**
  * FinOps T6-foundation — unit tests for redaction + durable emitter fail-open.
  * @vitest-environment node
@@ -936,12 +879,13 @@ describe("FinOps T6 durable emitter + capture fail-open", () => {
     expect(audit.emit).toHaveBeenCalled();
   });
 });
-
 ```
+### CREATED `projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts`
 
-### t6.audit-journal.integration.test.ts (sha256 `6f08b089…`, 5512 bytes)
+- bytes: 5512
+- sha256: `6f08b0895d93e1ee180af9f7187ee4c7fc6f114bde0391a0204ae328af15588d`
 
-```typescript
+```ts
 /**
  * @vitest-environment node
  *
@@ -1095,12 +1039,13 @@ describeDb("FinOps T6 PostgreSQL audit journal integration", () => {
     await emitter.flush();
   });
 });
-
 ```
+### CREATED `projects/sfia-studio/143-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-execution.md`
 
-### doc 143 (sha256 `c5323d0d…`, 10984 bytes) — full text in evidence `probe-file-contents/`; header excerpt:
+- bytes: 10984
+- sha256: `c5323d0daf5bcb71c2f38fe65820f5b2822e3da99f54d72c9211e38ae08dc869`
 
-```markdown
+```md
 # 143 — FinOps Technical Lot T6-foundation — Execution Record
 
 **Project:** SFIA Studio — Assistant SFIA natif OpenAI
@@ -1167,165 +1112,702 @@ GO Delivery T2 + GO Delivery T6-foundation en parallèle
 ### Handoff décisionnel avant publication
 
 ```text
+c35d11e8428ebf2f7491a3eac80fc804707ac338	refs/heads/sfia/review-handoff
 ```
 
-Full doc 143 also embedded in historical handoff evidence copy.
+Attendu tip `c35d11e8428ebf2f7491a3eac80fc804707ac338` / blob `4652f68f884a2fc7f570eec88ec7b04e704d5959`.
 
-## 21. typecheck / lint / build (probe `projects/sfia-studio/app`)
+### Status (projet, hors artefacts review locaux)
 
-| Gate | Result |
-| --- | --- |
-| `npm run typecheck` | **PASS** (exit 0) |
-| `npm run lint` | **PASS** — No ESLint warnings or errors |
-| `npm run build` | **PASS** (exit 0) |
-
-## 22. Unit / full tests
-
-| Suite | Result |
-| --- | --- |
-| T6 unit `t6.audit.unit.test.ts` | **6 passed** |
-| T1 unit (`__tests__/oa/finops/t1.*`) | **28 passed** (2 files) |
-| FinOps folder unit+skip PG | **109 passed / 24 skipped** |
-| `npm test` (no DATABASE_URL) | first run: 2 failed in `createProjectUi.test.tsx` (known flake) + **1423 passed / 24 skipped**; **rerun of that file alone: 12/12 PASS** |
-| Baseline note | Historical T6 delivery (pre-T2): 1404 passed / 14 skipped; post-T2 main adds T2 tests — count increase expected |
-
-**Interpretation:** FinOps / T6 / T1 green. UI flake unrelated to T6 overlay; confirmed green on isolated rerun. No T6/T1/T2 regression attributed to probe.
-
-## 23. migrations / test:db (local CI-A Postgres only — docker `sfia-finops-t2-pg`, not Neon)
-
-Env: `postgres://sfia_ci:sfia_ci_local_only@localhost:5432/sfia_studio_finops_t1`
-
-| Step | Result |
-| --- | --- |
-| `npm run migrate:up` | applied `1754600001000_finops-t6-audit-journal` |
-| `npm run test:db` | **4 files / 24 tests PASS** |
-
-Breakdown: T1 ledger **10** + T2 aggregate **7** + T2 reconciliation **3** + T6 audit **4**.
-
-Historical T6-only test:db was 14 (T1+T6). Post-T2 baseline adds T2 PG tests; T6 adds 4 — **no T1/T2/T6 regressions**.
-
-## 24. T1 / T2 / T6 regressions
-
-- T1: unit + PG green
-- T2: all listed T2 paths **byte-identical** to `origin/main` blobs; T2 PG green
-- T6: unit 6 + PG 4 green
-
-## 25. Security / redaction
-
-Event types constrained to `finops_capture_created|duplicate|failed`. Redaction allow-list + secret-like key drop + nested drop + string bounds (unit coverage). No raw credentials / prompts / provider payloads persisted by design.
-
-## 26. Fail-open
-
-Capture boundary: audit emitter failures must not requalify ledger outcomes (comment + unit tests). Probe preserves this.
-
-## 27. Global runtime composition reserve
-
-**PRESERVED / DEFERRED.** Probe does not wire global injection. Durable journal remains opt-in via emitter dependency.
-
-## 28. R-PR-T2-API-01
-
-**OPEN MINOR unchanged.** Aggregate/recompute ports identical to main. No hardening.
-
-## 29. T6-ext-T2 exclusion
-
-**EXPLICIT.** No estimation/reconciliation/aggregate/Money audit events added. Foundation scope only.
-
-## 30. Integration options A / B / C
-
-### OPTION A — REMATERIALIZE ON FRESH MAIN (candidate)
-
-Create future Delivery branch from `e1e00df…`; reapply exact 9-path T6-foundation manifest from verified local snapshot (+ handoff hash control).
-
-Pros: clean base; no dirty-WT rebase; T2 native; clear future history.
-Cons: re-copy 9 paths; full retest.
-
-### OPTION B — REBASE / REALIGN OLD T6 BRANCH
-
-Rebase historical branch from `093fd…`. **Not executed.** Cons: no project commits; dirty WT; stash/replay risk; weaker traceability.
-
-### OPTION C — RECONSTRUCT FROM HISTORICAL HANDOFF
-
-Only if local snapshot missing. Handoff contains full CREATE contents + capture diff — viable but higher risk than intact local MATCH snapshot.
-
-## 31. Challenge to Option A preference
-
-Cursor challenge: Option A still requires careful mechanical replay (patch apply + CREATE copy) and full CI-A revalidation on the real Delivery branch — probe green reduces but does not eliminate Delivery risk. Option B is worse here because the historical Delivery has **zero project commits** (working tree only). Option C unnecessary while local MATCH exists. **No evidence favors combining foundation + T6-ext-T2** (scope creep / larger review surface / mixes deferred composition concerns).
-
-## 32. Candidate recommendation (NOT Morris decision)
-
-**OPTION A — rematerialize on fresh main** from `e1e00df…` with exact historical 9-path foundation manifest. Keep T6-ext-T2 as a **separate later lot**. Preserve global composition DEFERRED. Leave R-PR-T2-API-01 open.
-
-## 33. Future Delivery scope recommendation (candidate)
-
-- Exactly the 9 foundation paths validated here
-- No package/CI unless a future GO proves necessity
-- No T2 file edits
-- No T6-ext-T2 events
-- No global runtime composition activation
-- Re-run typecheck/lint/build/`npm test`/migrate/test:db on Delivery WT
-
-## 34. Gates Morris
-
-| Gate | Status |
-| --- | --- |
-| GO préparation intégration T6-foundation | **REÇU / consommé** |
-| GO adaptation/Delivery T6 sur main | **NON REÇU** |
-| GO création nouvelle branche Delivery | **NON REÇU** |
-| GO git add/commit/push projet | **NON REÇU** |
-| GO PR/merge | **NON REÇU** |
-| GO T6-ext-T2 | **NON REÇU** |
-| GO runtime global composition | **NON REÇU** |
-| GO R-PR-T2-API-01 hardening | **NON REÇU** |
-
-## 35. Stop conditions evaluated
-
-MAIN DRIFT / HANDOFF CHANGED / MULTIPLE SNAPSHOTS / CONTAMINATED / SOURCE DRIFT / CREATE COLLISION / MIGRATION SLOT / PROBE SCOPE / T2 REGRESSION / T6 REGRESSION / FAIL-OPEN / REDACTION / EXT SCOPE CREEP / GLOBAL COMPOSITION — **none triggered** (UI flake isolated, FinOps green).
-
-## 36. No project change / commit / push / PR
-
-- Real T6 WT/branch: **untouched** (still HEAD `093fd91…`, same dirty manifest)
-- main: **untouched**
-- No project git add/commit/push/PR/merge
-- Writes only under `.tmp-sfia-review/**` + Review Handoff publisher
-
-## 37. Evidence tree
-
-`.tmp-sfia-review/t6-post-t2-preparation/` — git-truth, historical handoff, hash matrices, diffs, patch, probe logs (typecheck/lint/build/tests/migrate/test:db), invariants, conflict/overlap matrices, probe-file-contents.
-
-Probe WT retained: `.tmp-sfia-review/worktrees/finops-t6-post-t2-probe` (detached, disposable).
-
-## 38. Debt qualification
-
-- Reusing old dirty T6 WT for Delivery would add debt → prefer rematerialize (A).
-- Rematerialize from main is simpler given MATCH + clean replay.
-- Probe revealed **no real post-T2 adaptation** requirement.
-- Combining foundation + ext-T2 now would create scope creep → **do not combine**.
-
-## 39. Review Handoff
-
-Publisher: `scripts/sfia/publish-review-handoff.sh`
-Message: `docs(review-handoff): publish T6 post-T2 integration preparation`
-Before tip/blob: `6aad105…` / `81a5e5a…`
-(After values filled post-publish.)
-
-## 40. Final Case A verdict string
-
+```text
+M projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts
+?? projects/sfia-studio/app/__tests__/oa/finops/t6.audit.unit.test.ts
+?? projects/sfia-studio/app/db/migrations/1754600001000_finops-t6-audit-journal.js
+?? projects/sfia-studio/app/lib/oa/finops/application/finopsAuditTypes.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/redactFinOpsAuditPayload.ts
+?? projects/sfia-studio/app/lib/oa/finops/ports/finopsAuditJournalPort.ts
 ```
-T6 FOUNDATION POST-T2 INTEGRATION PREPARATION COMPLETE —
-HISTORICAL T6 SOURCE VERIFIED —
-CURRENT MAIN VERIFIED —
-T2/T6 FOUNDATION MANIFESTS COMPATIBLE —
-MIGRATION ORDER VERIFIED —
-SCRATCH INTEGRATION PROBE GREEN —
-T2 REGRESSION GREEN —
-T6 FOUNDATION REGRESSION GREEN —
-T6-EXT-T2 EXCLUDED —
-GLOBAL RUNTIME COMPOSITION RESERVE PRESERVED —
-R-PR-T2-API-01 UNTOUCHED —
-OPTION A REMATERIALIZE ON FRESH MAIN RECOMMENDED —
-NO PROJECT CHANGE —
+
+### Diff name-status / stat (app)
+
+```text
+M	projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
+
+.../oa/finops/application/captureFinOpsUsage.ts    | 56 ++++++++++++++--------
+ 1 file changed, 37 insertions(+), 19 deletions(-)
+```
+
+---
+
+## 4. Sources
+
+Méthode (main) : templates cycle, routing, operating model, guardrails, validation checklist, CKC synthetic map, publisher.
+Architecture : 103 · 123 · 125 · 135 · 136 · 137.
+Préparation T6 : document 138 (handoff historique `79663b03…`).
+Contrat d'absence de conflit T2 : handoff tip `c35d11e8…` (141).
+Runtime T1 : `captureFinOpsUsage.ts`, `createFinOpsPool.ts`, `sanitizeDbError.ts`, ledger PG.
+
+---
+
+## 5. Relation à T1 / 138
+
+- T1 fournit `FinOpsAuditEmitter` best-effort + outcomes capture + pool PG + fail-open.
+- 138 prépare T6-foundation = table PG audit + durable emitter + wire T1 + tests ; PARALLEL-SAFE avec T2.
+- Cette Delivery réalise ce manifeste foundation **sans** T6-ext.
+- Qualification store : **O1-backed T6-foundation implementation authorized by Morris Delivery GO** (pas une nouvelle doctrine transverse).
+
+---
+
+## 6. Manifest réel
+
+### CREATE
+
+- CREATED `projects/sfia-studio/app/lib/oa/finops/application/finopsAuditTypes.ts` (1290 bytes, sha256=856e3a9d0e2a11e1c71a83eadedcb49644b6c41ada9b52721531f49c99e429c9)
+- CREATED `projects/sfia-studio/app/lib/oa/finops/ports/finopsAuditJournalPort.ts` (341 bytes, sha256=8cfa7c2dd7e0a6dcc41170a33b38e2b2539afeb27aa27881b6d3cca87321d539)
+- CREATED `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/redactFinOpsAuditPayload.ts` (2562 bytes, sha256=ad496294926bb811d1670475cfae160de6b76e2a88106816118cfe4293eb4bff)
+- CREATED `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts` (4189 bytes, sha256=ffee02911dae0ccec0fa63e7a598b92d6516c2173f01f3b47ce35cd28bf45a49)
+- CREATED `projects/sfia-studio/app/db/migrations/1754600001000_finops-t6-audit-journal.js` (2485 bytes, sha256=e4fb4ad2ca65465b4628cca09213f23755fd2da0c337ec7968d6a64a07ecda00)
+- CREATED `projects/sfia-studio/app/__tests__/oa/finops/t6.audit.unit.test.ts` (7155 bytes, sha256=840779e31a9e6fe0859769a6ff16dbb53840efb421ab9496e6f28f57f67c45de)
+- CREATED `projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts` (5512 bytes, sha256=6f08b0895d93e1ee180af9f7187ee4c7fc6f114bde0391a0204ae328af15588d)
+
+### MODIFY
+
+- MODIFIED `projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts` (+37 / −19)
+  - re-export `FinOpsAuditEmitter` depuis `finopsAuditTypes.ts`
+  - enrichit les détails audit avec `projectId` / `executionRunId` / `correlationId` / `provider`
+  - conserve `safeEmit` fail-open
+
+### Document
+
+- CREATED `projects/sfia-studio/143-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-execution.md` (ce fichier)
+
+### Non touché (contrat parallèle)
+
+- aucun fichier Money / aggregate / reconciliation / price catalog T2
+- `createFinOpsPool.ts` **REUSE AS-IS**
+- `package.json` / `package-lock.json` / `.github/workflows/**` **inchangés**
+- `finops/index.ts` **inchangé**
+
+---
+
+## 7. Migration réelle
+
+| Champ | Valeur |
+|-------|--------|
+| Fichier | `1754600001000_finops-t6-audit-journal.js` |
+| Table | `finops_audit_event` |
+| Colonnes | `audit_event_id`, `event_type`, `project_id`, `execution_run_id`, `correlation_id`, `occurred_at`, `payload_json`, `created_at` |
+| CHECK event_type | `finops_capture_created` \| `finops_capture_duplicate` \| `finops_capture_failed` |
+| Append-only | triggers UPDATE/DELETE → `finops_audit_event is append-only` |
+| down() | refuse drop si rows > 0 |
+| Money columns | **aucune** |
+
+Migration locale validée sur Postgres Docker jetable `postgres:16-alpine` port `55432`, DB `sfia_studio_finops_t6` (non Neon) : **Migrations complete!** (T1 ledger + T6 audit).
+
+---
+
+## 8. Modèle audit
+
+Types foundation uniquement dans `finopsAuditTypes.ts`.
+Port `FinOpsAuditJournalPort.append`.
+Adapter `createPostgresFinOpsAuditJournal` + `createDurableFinOpsAuditEmitter` (async append, `flush()` tests).
+
+---
+
+## 9. Redaction
+
+`redactFinOpsAuditPayload` : allow-list (`eventId`, `dedupKey`, `code`, `retryable`, `projectId`, `executionRunId`, `correlationId`, `provider`, `status`) ; drop secret-like keys ; truncate 256 ; max 24 keys ; nested dropped.
+`assertRedactedPayloadHasNoSecrets` avant INSERT.
+
+---
+
+## 10. Append-only
+
+Même pattern que T1 ledger : function + BEFORE UPDATE/DELETE triggers.
+Preuve : test PG `enforces append-only on finops_audit_event`.
+
+---
+
+## 11. Wiring T1
+
+`createFinOpsCaptureService` accepte toujours `audit?: FinOpsAuditEmitter`.
+`createDurableFinOpsAuditEmitter(journal)` implémente la frontière.
+Détails enrichis via `correlationDetail(...)`.
+Aucun second système d'identité.
+
+---
+
+## 12. Fail-open
+
+1. `safeEmit` catch synchrone dans capture.
+2. Durable emitter : `journal.append(...).catch(() => {})` — jamais rejeté vers capture.
+Preuves unitaires + intégration PG « keeps capture success when journal insert fails ».
+
+---
+
+## 13. Tests
+
+| Suite | Résultat |
+|-------|----------|
+| `t6.audit.unit.test.ts` | **6 passed** |
+| `npm test` (sans DATABASE_URL) | **139 passed / 2 skipped** · **1404 passed / 14 skipped** |
+| `migrate:up` (locale 55432) | **PASS** |
+| `npm run test:db` | **2 files / 14 tests passed** (T1 ledger 10 + T6 audit 4) |
+| Couverture exigée | created · duplicate · failed redacted · secrets absent · append-only · correlation · journal fail ≠ capture fail · duplicate T1 · no external provider dep |
+
+---
+
+## 14. Résultats validations
+
+| Commande | Exit |
+|----------|------|
+| `npm run typecheck` | 0 |
+| `npm run lint` | 0 |
+| `npm run build` | 0 |
+| `npm test` | 0 |
+| `npm run migrate:up` | 0 |
+| `npm run test:db` | 0 |
+| `git diff --check` | 0 |
+
+---
+
+## 15. Réserves
+
+1. **NOT COMMITTED / NOT PUSHED** — Delivery locale seule ; commit/PR projet nécessite nouveau GO.
+2. **CI workflow non modifié** — job CI-A existant migre déjà le dossier migrations ; la nouvelle migration sera prise au prochain push/PR autorisé, mais n'est pas validée ici contre Actions remote.
+3. **T6-ext** (T2/T3/T4/T5 events) hors scope — nécessite GO séparé.
+4. **Wiring production** — le journal durable est fourni ; l'injection runtime globale hors tests reste à composer lors d'un cycle d'intégration ultérieur si non déjà câblé au call site.
+5. **Docker local jetable** utilisé pour migrate/test:db — jamais Neon.
+
+---
+
+## 16. Non-scope explicite
+
+- estimation / correction / aggregate / reconciliation / threshold / override events
+- T5 durable override
+- T3/T4/T7
+- Decimal / Money DDL
+- external APM / OTel / Datadog / Sentry
+- Neon · provider-real · package deps · new CI job
+
+---
+
+## 17. Git final (pré-handoff)
+
+HEAD inchangé `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` · branche Delivery · aucun staged projet · aucun commit projet.
+
+---
+
+## 18. Verdict
+
+```text
+FINOPS TECHNICAL LOT T6-FOUNDATION LOCAL DELIVERY COMPLETE —
+STRUCTURED T1 FINOPS AUDIT EVENTS IMPLEMENTED —
+DURABLE POSTGRESQL APPEND-ONLY AUDIT JOURNAL IMPLEMENTED —
+SECRET REDACTION VERIFIED —
+T1 FAIL-OPEN PRESERVED —
+NO EXTERNAL OBSERVABILITY PROVIDER —
+NO T6-EXT-T2/T3/T4/T5 —
+T2 PARALLEL CONTRACT PRESERVED —
+TESTS PASSED —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
-READY FOR MORRIS T6 FOUNDATION INTEGRATION DELIVERY GATE
+READY FOR CHATGPT VALIDATION
 ```
+
+*(Handoff remote verification complétée dans le même cycle après publication — voir Review Pack / rapport final.)*
+```
+
+
+## 8. Validations (Delivery WT)
+
+| Commande | Résultat |
+| --- | --- |
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS |
+| `npm run build` | PASS |
+| T6 unit (`t6.audit.unit.test.ts`) | **6 passed** |
+| T1 capture unit | **23 passed** |
+| FinOps suite (`__tests__/oa/finops`) | **109 passed / 24 skipped** (PG without DATABASE_URL) |
+| `npm test` | **1425 passed / 24 skipped** — **no createProjectUi flake** |
+| Local Postgres | ephemeral Docker `postgres:16-alpine` `sfia-finops-t6-post-t2-pg` **127.0.0.1:55432** (NOT Neon) |
+| `migrate:up` T1→T2→T6 | PASS (3 migrations) |
+| `npm run test:db` | **24 passed** (T1:10 T2:10 T6:4) |
+| Secret scan 9 paths | PASS (0 hits) |
+| `git diff --cached` | empty |
+
+### typecheck
+
+```text
+
+> sfia-studio@0.1.0 typecheck
+> tsc --noEmit
+```
+
+### lint
+
+```text
+
+> sfia-studio@0.1.0 lint
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+✔ No ESLint warnings or errors
+```
+
+### build (tail)
+
+```text
+
+> sfia-studio@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.20
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 3.1s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10)
+   Generating static pages (4/10)
+   Generating static pages (7/10)
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      127 B         102 kB
+├ ○ /_not-found                            127 B         102 kB
+├ ○ /cycle-actif                         3.82 kB         118 kB
+├ ○ /decision                            5.56 kB         120 kB
+├ ƒ /nouvelle-demande                    10.1 kB         116 kB
+├ ○ /ops1/nouvelle-demande               18.5 kB         133 kB
+├ ƒ /projects/[id]                       2.65 kB         108 kB
+├ ○ /projects/new                        2.63 kB         108 kB
+├ ƒ /studio/projects/[id]                2.14 kB         112 kB
+├ ○ /studio/projects/new                 4.07 kB         114 kB
+├ ○ /synthese                            4.83 kB         119 kB
+└ ƒ /workspace                             571 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/416-1da97639b4c4d99e.js       45.9 kB
+  ├ chunks/90df6f45-0ab72ae70a8b1b78.js  54.2 kB
+  └ other shared chunks (total)          1.96 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+```
+
+### t6 unit
+
+```text
+
+> sfia-studio@0.1.0 test
+> vitest run __tests__/oa/finops/t6.audit.unit.test.ts
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation-post-t2-delivery/projects/sfia-studio/app
+
+ ✓ __tests__/oa/finops/t6.audit.unit.test.ts (6 tests) 4ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  16:08:05
+   Duration  247ms (transform 41ms, setup 40ms, collect 36ms, tests 4ms, environment 0ms, prepare 36ms)
+```
+
+### finops suite (tail)
+
+```text
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation-post-t2-delivery/projects/sfia-studio/app
+
+ ✓ __tests__/oa/finops/t2.money.unit.test.ts (12 tests) 2ms
+ ✓ __tests__/oa/finops/period.test.ts (14 tests) 5ms
+ ✓ __tests__/oa/finops/domainInvariants.test.ts (14 tests) 5ms
+ ↓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests | 3 skipped)
+ ↓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests | 4 skipped)
+ ↓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests | 10 skipped)
+ ✓ __tests__/oa/finops/t1.capture.unit.test.ts (23 tests) 4ms
+ ↓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests | 7 skipped)
+ ✓ __tests__/oa/finops/importBoundaries.test.ts (7 tests) 6ms
+ ✓ __tests__/oa/finops/blockingEligibility.test.ts (9 tests) 2ms
+ ✓ __tests__/oa/finops/costEvidence.test.ts (5 tests) 3ms
+ ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 4ms
+ ✓ __tests__/oa/finops/t2.reconciliation.unit.test.ts (4 tests) 3ms
+ ✓ __tests__/oa/finops/sourceOfTruth.test.ts (5 tests) 2ms
+ ✓ __tests__/oa/finops/t6.audit.unit.test.ts (6 tests) 4ms
+ ✓ __tests__/oa/finops/t1.coordinator.failopen.test.ts (5 tests) 78ms
+
+ Test Files  12 passed | 4 skipped (16)
+      Tests  109 passed | 24 skipped (133)
+   Start at  16:08:10
+   Duration  647ms (transform 484ms, setup 627ms, collect 1.03s, tests 118ms, environment 2ms, prepare 708ms)
+```
+
+### npm test (tail)
+
+```text
+ ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 6ms
+ ✓ __tests__/oa/execution-run/policy.test.ts (9 tests) 7ms
+ ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 4ms
+ ✓ __tests__/oa/finops/costEvidence.test.ts (5 tests) 3ms
+ ✓ __tests__/platform/t-a7-local-volume.probe.test.ts (1 test) 2ms
+ ✓ __tests__/oa/finops/t2.money.unit.test.ts (12 tests) 3ms
+ ✓ __tests__/oa/finops/sourceOfTruth.test.ts (5 tests) 2ms
+ ✓ __tests__/oa/finops/blockingEligibility.test.ts (9 tests) 2ms
+ ✓ __tests__/ops1/conversation-domain.test.ts (7 tests) 3ms
+ ✓ __tests__/oa/execution-run/adapter.git.readonly.test.ts (4 tests) 6ms
+ ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 4ms
+ ↓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests | 10 skipped)
+ ↓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests | 7 skipped)
+ ↓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests | 3 skipped)
+ ↓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests | 4 skipped)
+
+ Test Files  142 passed | 4 skipped (146)
+      Tests  1425 passed | 24 skipped (1449)
+   Start at  16:08:11
+   Duration  8.57s (transform 4.06s, setup 5.42s, collect 15.47s, tests 23.21s, environment 6.96s, prepare 6.07s)
+```
+
+### migrate:up
+
+```text
+
+> sfia-studio@0.1.0 migrate:up
+> node-pg-migrate up --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT
+
+> Migrating files:
+> - 1754500000000_finops-t1-usage-ledger
+> - 1754600000000_finops-t2-aggregation-reconciliation
+> - 1754600001000_finops-t6-audit-journal
+### MIGRATION 1754500000000_finops-t1-usage-ledger (UP) ###
+CREATE TABLE "finops_usage_event" (
+  "event_id" text PRIMARY KEY NOT NULL,
+  "dedup_key" text NOT NULL,
+  "project_id" text NOT NULL,
+  "execution_run_id" text NOT NULL,
+  "correlation_id" text,
+  "provider" text NOT NULL,
+  "model" text,
+  "occurred_at" timestamptz NOT NULL,
+  "period_start" date NOT NULL,
+  "source_of_truth" text NOT NULL,
+  "evidence_class" text NOT NULL,
+  "input_tokens" bigint,
+  "output_tokens" bigint,
+  "total_tokens" bigint,
+  "provider_request_id" text,
+  "correction_ref" text,
+  "usage_status" text NOT NULL,
+  "created_at" timestamptz DEFAULT NOW() NOT NULL
+);
+ALTER TABLE "finops_usage_event"
+  ADD CONSTRAINT "finops_usage_event_dedup_key_key" UNIQUE ("dedup_key");
+ALTER TABLE "finops_usage_event"
+  ADD CONSTRAINT "finops_usage_event_tokens_nonneg" CHECK ((input_tokens IS NULL OR input_tokens >= 0) AND (output_tokens IS NULL OR output_tokens >= 0) AND (total_tokens IS NULL OR total_tokens >= 0));
+ALTER TABLE "finops_usage_event"
+  ADD CONSTRAINT "finops_usage_event_tokens_safe_int" CHECK ((input_tokens IS NULL OR input_tokens <= 9007199254740991) AND (output_tokens IS NULL OR output_tokens <= 9007199254740991) AND (total_tokens IS NULL OR total_tokens <= 9007199254740991));
+ALTER TABLE "finops_usage_event"
+  ADD CONSTRAINT "finops_usage_event_usage_status_chk" CHECK (usage_status IN ('validated', 'unavailable', 'invalid'));
+ALTER TABLE "finops_usage_event"
+  ADD CONSTRAINT "finops_usage_event_source_of_truth_chk" CHECK (source_of_truth IN ('BILLED', 'PROVIDER_OBSERVED', 'API_USAGE', 'LOCAL_COUNT', 'PARAMETRIC_ESTIMATE', 'UNKNOWN'));
+ALTER TABLE "finops_usage_event"
+  ADD CONSTRAINT "finops_usage_event_evidence_class_chk" CHECK (evidence_class IN ('estimated', 'observed', 'billed', 'unknown'));
+ALTER TABLE "finops_usage_event"
+  ADD CONSTRAINT "finops_usage_event_period_start_chk" CHECK (period_start = date_trunc('month', period_start::timestamp)::date);
+
+CREATE OR REPLACE FUNCTION finops_usage_event_append_only()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RAISE EXCEPTION 'finops_usage_event is append-only';
+END;
+$$;
+;
+
+CREATE TRIGGER trg_finops_usage_event_no_update
+BEFORE UPDATE ON finops_usage_event
+FOR EACH ROW
+EXECUTE FUNCTION finops_usage_event_append_only();
+;
+
+CREATE TRIGGER trg_finops_usage_event_no_delete
+BEFORE DELETE ON finops_usage_event
+FOR EACH ROW
+EXECUTE FUNCTION finops_usage_event_append_only();
+;
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1754500000000_finops-t1-usage-ledger', NOW());
+
+
+### MIGRATION 1754600000000_finops-t2-aggregation-reconciliation (UP) ###
+CREATE TABLE "finops_cost_event" (
+  "cost_event_id" text PRIMARY KEY NOT NULL,
+  "dedup_key" text NOT NULL,
+  "project_id" text NOT NULL,
+  "execution_run_id" text NOT NULL,
+  "usage_event_id" text,
+  "period_start" date NOT NULL,
+  "currency" text NOT NULL,
+  "amount" numeric(20,8),
+  "evidence_class" text NOT NULL,
+  "source_of_truth" text NOT NULL,
+  "estimation_status" text NOT NULL,
+  "correction_ref" text,
+  "catalog_version" text,
+  "provider" text NOT NULL,
+  "model" text,
+  "unit" text,
+  "billing_quantum" numeric(20,0),
+  "usage_quantity" numeric(20,0),
+  "occurred_at" timestamptz NOT NULL,
+  "created_at" timestamptz DEFAULT NOW() NOT NULL
+);
+ALTER TABLE "finops_cost_event"
+  ADD CONSTRAINT "finops_cost_event_dedup_key_key" UNIQUE ("dedup_key");
+ALTER TABLE "finops_cost_event"
+  ADD CONSTRAINT "finops_cost_event_evidence_class_chk" CHECK (evidence_class IN ('estimated', 'observed', 'billed', 'unknown'));
+ALTER TABLE "finops_cost_event"
+  ADD CONSTRAINT "finops_cost_event_source_of_truth_chk" CHECK (source_of_truth IN ('BILLED', 'PROVIDER_OBSERVED', 'API_USAGE', 'LOCAL_COUNT', 'PARAMETRIC_ESTIMATE', 'UNKNOWN'));
+ALTER TABLE "finops_cost_event"
+  ADD CONSTRAINT "finops_cost_event_estimation_status_chk" CHECK (estimation_status IN ('available', 'unavailable', 'unknown'));
+ALTER TABLE "finops_cost_event"
+  ADD CONSTRAINT "finops_cost_event_currency_chk" CHECK (currency ~ '^[A-Z]{3}$');
+ALTER TABLE "finops_cost_event"
+  ADD CONSTRAINT "finops_cost_event_period_start_chk" CHECK (period_start = date_trunc('month', period_start::timestamp)::date);
+CREATE INDEX "finops_cost_event_project_period_currency_idx" ON "finops_cost_event" ("project_id", "period_start", "currency");
+
+CREATE OR REPLACE FUNCTION finops_cost_event_append_only()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RAISE EXCEPTION 'finops_cost_event is append-only';
+END;
+$$;
+;
+
+CREATE TRIGGER trg_finops_cost_event_no_update
+BEFORE UPDATE ON finops_cost_event
+FOR EACH ROW
+EXECUTE FUNCTION finops_cost_event_append_only();
+;
+
+CREATE TRIGGER trg_finops_cost_event_no_delete
+BEFORE DELETE ON finops_cost_event
+FOR EACH ROW
+EXECUTE FUNCTION finops_cost_event_append_only();
+;
+CREATE TABLE "finops_usage_aggregate" (
+  "project_id" text NOT NULL,
+  "period_start" date NOT NULL,
+  "currency" text NOT NULL,
+  "estimated_amount" numeric(20,8) DEFAULT $pga$0$pga$ NOT NULL,
+  "observed_amount" numeric(20,8) DEFAULT $pga$0$pga$ NOT NULL,
+  "billed_amount" numeric(20,8) DEFAULT $pga$0$pga$ NOT NULL,
+  "unknown_amount" numeric(20,8) DEFAULT $pga$0$pga$ NOT NULL,
+  "input_tokens_sum" bigint,
+  "output_tokens_sum" bigint,
+  "total_tokens_sum" bigint,
+  "cost_event_count" bigint DEFAULT 0 NOT NULL,
+  "unavailable_estimation_count" bigint DEFAULT 0 NOT NULL,
+  "rebuild_version" bigint DEFAULT 1 NOT NULL,
+  "rebuilt_at" timestamptz NOT NULL
+);
+ALTER TABLE "finops_usage_aggregate"
+  ADD CONSTRAINT "finops_usage_aggregate_pkey" PRIMARY KEY ("project_id", "period_start", "currency");
+ALTER TABLE "finops_usage_aggregate"
+  ADD CONSTRAINT "finops_usage_aggregate_currency_chk" CHECK (currency ~ '^[A-Z]{3}$');
+ALTER TABLE "finops_usage_aggregate"
+  ADD CONSTRAINT "finops_usage_aggregate_period_start_chk" CHECK (period_start = date_trunc('month', period_start::timestamp)::date);
+CREATE TABLE "finops_price_catalog_entry" (
+  "catalog_entry_id" text PRIMARY KEY NOT NULL,
+  "catalog_version" text NOT NULL,
+  "provider" text NOT NULL,
+  "model" text NOT NULL,
+  "unit" text NOT NULL,
+  "billing_quantum" numeric(20,0) NOT NULL,
+  "currency" text NOT NULL,
+  "amount_per_quantum" numeric(20,8) NOT NULL,
+  "valid_from" timestamptz NOT NULL,
+  "valid_to" timestamptz,
+  "created_at" timestamptz DEFAULT NOW() NOT NULL
+);
+ALTER TABLE "finops_price_catalog_entry"
+  ADD CONSTRAINT "finops_price_catalog_entry_currency_chk" CHECK (currency ~ '^[A-Z]{3}$');
+ALTER TABLE "finops_price_catalog_entry"
+  ADD CONSTRAINT "finops_price_catalog_entry_quantum_chk" CHECK (billing_quantum > 0);
+ALTER TABLE "finops_price_catalog_entry"
+  ADD CONSTRAINT "finops_price_catalog_entry_uniq" UNIQUE ("catalog_version", "provider", "model", "unit", "currency", "valid_from");
+CREATE TABLE "finops_reconciliation_record" (
+  "reconciliation_id" text PRIMARY KEY NOT NULL,
+  "dedup_key" text NOT NULL,
+  "project_id" text NOT NULL,
+  "period_start" date NOT NULL,
+  "source_batch_id" text NOT NULL,
+  "status" text NOT NULL,
+  "processed_count" bigint DEFAULT 0 NOT NULL,
+  "error_code" text,
+  "error_message" text,
+  "created_at" timestamptz DEFAULT NOW() NOT NULL,
+  "completed_at" timestamptz
+);
+ALTER TABLE "finops_reconciliation_record"
+  ADD CONSTRAINT "finops_reconciliation_record_dedup_key_key" UNIQUE ("dedup_key");
+ALTER TABLE "finops_reconciliation_record"
+  ADD CONSTRAINT "finops_reconciliation_record_status_chk" CHECK (status IN ('succeeded', 'failed'));
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1754600000000_finops-t2-aggregation-reconciliation', NOW());
+
+
+### MIGRATION 1754600001000_finops-t6-audit-journal (UP) ###
+CREATE TABLE "finops_audit_event" (
+  "audit_event_id" text PRIMARY KEY NOT NULL,
+  "event_type" text NOT NULL,
+  "project_id" text,
+  "execution_run_id" text,
+  "correlation_id" text,
+  "occurred_at" timestamptz NOT NULL,
+  "payload_json" jsonb NOT NULL,
+  "created_at" timestamptz DEFAULT NOW() NOT NULL
+);
+ALTER TABLE "finops_audit_event"
+  ADD CONSTRAINT "finops_audit_event_type_chk" CHECK (event_type IN ('finops_capture_created', 'finops_capture_duplicate', 'finops_capture_failed'));
+CREATE INDEX "finops_audit_event_project_occurred_idx" ON "finops_audit_event" ("project_id", "occurred_at");
+CREATE INDEX "finops_audit_event_execution_run_idx" ON "finops_audit_event" ("execution_run_id");
+
+CREATE OR REPLACE FUNCTION finops_audit_event_append_only()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RAISE EXCEPTION 'finops_audit_event is append-only';
+END;
+$$;
+;
+
+CREATE TRIGGER trg_finops_audit_event_no_update
+BEFORE UPDATE ON finops_audit_event
+FOR EACH ROW
+EXECUTE FUNCTION finops_audit_event_append_only();
+;
+
+CREATE TRIGGER trg_finops_audit_event_no_delete
+BEFORE DELETE ON finops_audit_event
+FOR EACH ROW
+EXECUTE FUNCTION finops_audit_event_append_only();
+;
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1754600001000_finops-t6-audit-journal', NOW());
+
+
+Migrations complete!
+```
+
+### test:db
+
+```text
+
+> sfia-studio@0.1.0 test:db
+> vitest run __tests__/oa/finops/postgres
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation-post-t2-delivery/projects/sfia-studio/app
+
+ ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 83ms
+ ✓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests) 88ms
+ ✓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests) 89ms
+ ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 100ms
+
+ Test Files  4 passed (4)
+      Tests  24 passed (24)
+   Start at  16:09:08
+   Duration  421ms (transform 169ms, setup 204ms, collect 294ms, tests 359ms, environment 0ms, prepare 186ms)
+```
+
+## 9. Invariants verified
+
+- **Append-only**: PG test `enforces append-only on finops_audit_event` PASS
+- **Redaction**: unit + `assertRedactedPayloadHasNoSecrets` path covered; secret scan CLEAN
+- **Fail-open**: PG test `keeps capture success when journal insert fails` PASS; unit durable emitter fail-open
+- **T2 identity**: T2 migration + doc 142 byte-identical to origin/main; only capture + T6 CREATE differ
+- **Migration slot**: `1754600001000` free on main before apply; after local migrate ordered T1→T2→T6
+
+## 10. Reserves / exclusions
+
+| Reserve / exclusion | Status |
+| --- | --- |
+| R-T6-RUNTIME-COMPOSITION-01 | **OPEN** (global runtime composition deferred) |
+| R-PR-T2-API-01 | **OPEN MINOR** — **untouched** |
+| T6-ext-T2 / T3–T5 / T7 | **excluded** |
+| Neon / provider-real / package / CI | **not touched** |
+| Project staging/commit/push/PR | **NO** |
+
+## 11. Secret scan evidence
+
+```text
+=== SECRET SCAN 9 PATHS ===
+CLEAN projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
+CLEAN projects/sfia-studio/app/lib/oa/finops/application/finopsAuditTypes.ts
+CLEAN projects/sfia-studio/app/lib/oa/finops/ports/finopsAuditJournalPort.ts
+CLEAN projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/redactFinOpsAuditPayload.ts
+CLEAN projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts
+CLEAN projects/sfia-studio/app/db/migrations/1754600001000_finops-t6-audit-journal.js
+CLEAN projects/sfia-studio/app/__tests__/oa/finops/t6.audit.unit.test.ts
+CLEAN projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts
+CLEAN projects/sfia-studio/143-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-execution.md
+hits=0
+SECRET_SCAN_PASS
+=== STATUS ===
+ M projects/sfia-studio/app/lib/oa/finops/application/captureFinOpsUsage.ts
+?? projects/sfia-studio/143-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-execution.md
+?? projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts
+?? projects/sfia-studio/app/__tests__/oa/finops/t6.audit.unit.test.ts
+?? projects/sfia-studio/app/db/migrations/1754600001000_finops-t6-audit-journal.js
+?? projects/sfia-studio/app/lib/oa/finops/application/finopsAuditTypes.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts
+?? projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/redactFinOpsAuditPayload.ts
+?? projects/sfia-studio/app/lib/oa/finops/ports/finopsAuditJournalPort.ts
+?? projects/sfia-studio/app/node_modules
+path_count=10
+staged=0
+HEAD=e1e00df244aa78a063bf2abf21f69325e1036f3a
+=== T6 integ test titles (append-only/redaction/fail-open) ===
+  it("has finops_audit_event table without money columns", async () => {
+  it("persists created then duplicate audits with correlation fields", async () => {
+  it("enforces append-only on finops_audit_event", async () => {
+  it("keeps capture success when journal insert fails", async () => {
+=== RESERVES ===
+R-T6-RUNTIME-COMPOSITION-01=OPEN
+R-PR-T2-API-01=OPEN MINOR (untouched)
+T6-ext-T2=excluded
+```
+
+## 12. Evidence directory
+
+`.tmp-sfia-review/t6-post-t2-delivery/` — git-truth, hashes, patch apply, typecheck/lint/build, unit/finops/npm-test, migrate/test-db, capture-useful.diff, created-files/*, secret-scan, status-final-9, handoff artifacts.
+
+## 13. Handoff publication (this cycle)
+
+- publisher: `scripts/sfia/publish-review-handoff.sh` L3
+- message: `docs(review-handoff): publish T6 post-T2 integration delivery`
+- expected before tip/blob: `c714169e…` / `29f3c47e…`
+- after: filled post-publish
+
+## 14. Non-claims
+
+- NOT merged to main
+- NOT pushed Delivery branch
+- NOT a PR
+- NOT T6-ext
+- NOT global runtime composition closed
+- Historical T6 WT untouched
