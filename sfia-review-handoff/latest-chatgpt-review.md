@@ -1,141 +1,83 @@
-# ChatGPT Review Pack — FinOps Technical Lot T2 (local Delivery)
-
-## HOLD STATUS (cycle history → release)
-
-### Historical (pre-resume pause)
-
-`HANDOFF FINALIZATION HOLD — SIBLING T6 VALIDATION SERIALIZATION`
-
-(Active at local Delivery pause; handoff publication was deferred to avoid overwriting the T6-foundation singleton handoff.)
-
-### Resume release
-
-`HANDOFF FINALIZATION HOLD RELEASED — T6-FOUNDATION CHATGPT VALIDATION SATISFIED`
-
-`T6-FOUNDATION VALIDATED WITH RESERVES BY CHATGPT — T2 HANDOFF SERIALIZATION RELEASED`
-
-- resume_date_cest: 2026-08-07 13:25:39 CEST (+0200)
-- resume_date_utc: 2026-08-07 11:25:39 UTC
-- sibling_t6_handoff_tip_before_publish: `3f40c7b4cc2a748fbc114068575f3d2a62ad7521`
-- sibling_t6_handoff_blob_before_publish: `c0d4a4d9db2358f351bff3dbe4ecc8bdcf065258`
-- sibling_t6_commit: `docs(review-handoff): publish T6 foundation delivery`
-- ChatGPT validation: **VALIDATED WITH RESERVES**
-- T6 reserve (context only; does **not** expand T2; no T6 files touched):
-  durable T6-foundation audit journal is implemented and tested, but **global runtime composition / injection remains deferred**.
+# ChatGPT Review Pack — FinOps Technical Lot T2 (Correction — A1 Multi-currency / Multi-instance)
 
 ## Meta
 
+- date_cest: 2026-08-07 13:45:16 CEST (+0200)
+- date_utc: 2026-08-07 11:45:16 UTC
+- cycle: 8 — Delivery / implémentation
+- mode: T2 Delivery Correction — A1 Multi-currency + Multi-instance Safety
+- profil: Critical
+- GO Morris: `ok go` (correction bornée only)
+- GO original Delivery: GO Delivery T2 (+ parallel T6-foundation; this pack is T2 only)
+- Incoming ChatGPT verdict: **NOT READY**
+- Incoming handoff tip: `49884691692e058622c466e24ad4675518bc5ca3`
+- Incoming handoff blob: `5ff4d559db080b045d6f857bd06899854ebe17c6`
 - Branch: `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation`
-- HEAD: `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`
-- origin/main: `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`
-- Money persistence: adjacent `finops_cost_event` (T1 ledger unchanged)
-- Migration: `1754600000000_finops-t2-aggregation-reconciliation.js`
-- MODIFIED project runtime files: **none** (CREATE-only Delivery)
-- package/CI: unchanged
-- Docs 138–141: byte-identical (hashes verified)
-- Cycle: 8 — Delivery / implémentation
-- Profil: Critical
-- GO: GO Delivery T2 (parallel GO with T6-foundation; this pack is T2 only)
+- HEAD / origin/main: `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`
 - Project commit/push/PR: NO
 
-## Test results (summary — pre-hold Delivery)
+## Findings
 
+### BLOCKER — multi-currency rebuild
+Per-currency recompute + DELETE on project_id+period_start wiped sibling currencies.
+
+### RESERVE — multi-instance serialization
+No demonstrated exclusive serialization for concurrent project/period rebuilds.
+
+## Root cause
+
+`reconcileProjectPeriod` looped currencies and called `recomputeAggregates(..., currency)`.
+`replaceProjectPeriodAggregates` deleted ALL rows for project+period then inserted only the filtered set.
+
+## Correction
+
+1. Removed `RecomputeAggregatesInput.currency` (no public partial rebuild).
+2. One full project/period rebuild after recon batch (all currencies).
+3. Result contract: `aggregates[]` (not singular ambiguous `aggregate`).
+4. `withExclusiveProjectPeriodRebuild`: one PoolClient + BEGIN + `pg_advisory_xact_lock(hashtext('finops-a1:'||projectId), hashtext(periodStart))` covering read cost events → derive → replace → COMMIT/ROLLBACK.
+5. Waiters block on their own txn lock acquisition; holder uses same connection for entire critical section — no pool starvation from session locks.
+
+## Conceptual before → after
+
+### Before (unsafe)
 ```
-npm run typecheck → PASS
-npm run lint → PASS
-npm run build → PASS
-npm test → PASS (144 files / 1435 tests)
-npm run migrate:up → PASS (T1 + T2)
-npm run test:db → PASS (17 tests)
-git diff --check → PASS
+for currency in touched:
+  events = list(project, period, currency)  # partial
+  DELETE aggregates WHERE project+period    # ALL currencies
+  INSERT filtered currency only             # wipes others
 ```
 
-### Log excerpt — typecheck (pre-hold)
+### After (safe)
+```
+BEGIN; advisory_xact_lock(project, period);
+events = list ALL cost events for project+period;
+derive ALL currency aggregates;
+DELETE aggregates WHERE project+period;
+INSERT full multi-currency projection;
+COMMIT; -- lock released with txn
+```
+
+## Validation results (post-correction — full re-run)
+
+| Commande | Résultat |
+|----------|----------|
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS |
+| `npm run build` | PASS |
+| `npm test` | PASS — 144 files / 1439 tests (≥ 1435) |
+| `npm run migrate:up` | PASS |
+| `npm run test:db` | PASS — 20 tests (≥ 17) |
+| `git diff --check` | PASS |
+
+### typecheck
 
 ```text
 
 > sfia-studio@0.1.0 typecheck
 > tsc --noEmit
-
-__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts(202,22): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts(226,22): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.aggregate.unit.test.ts(47,17): error TS2345: Argument of type '{ projectId: string; executionRunId: string; usageEventId: null; periodStart: string; currency: string; amount: string; evidenceClass: "estimated"; sourceOfTruth: "PARAMETRIC_ESTIMATE"; estimationStatus: "available"; ... 6 more ...; occurredAt: string; }' is not assignable to parameter of type 'Omit<FinOpsCostEvent, "costEventId" | "dedupKey"> & { correctionRef?: string | null | undefined; }'.
-  Property 'correctionRef' is missing in type '{ projectId: string; executionRunId: string; usageEventId: null; periodStart: string; currency: string; amount: string; evidenceClass: "estimated"; sourceOfTruth: "PARAMETRIC_ESTIMATE"; estimationStatus: "available"; ... 6 more ...; occurredAt: string; }' but required in type 'Omit<FinOpsCostEvent, "costEventId" | "dedupKey">'.
-__tests__/oa/finops/t2.aggregate.unit.test.ts(65,17): error TS2345: Argument of type '{ projectId: string; executionRunId: string; usageEventId: null; periodStart: string; currency: string; amount: string; evidenceClass: "estimated"; sourceOfTruth: "PARAMETRIC_ESTIMATE"; estimationStatus: "available"; ... 6 more ...; occurredAt: string; }' is not assignable to parameter of type 'Omit<FinOpsCostEvent, "costEventId" | "dedupKey"> & { correctionRef?: string | null | undefined; }'.
-  Property 'correctionRef' is missing in type '{ projectId: string; executionRunId: string; usageEventId: null; periodStart: string; currency: string; amount: string; evidenceClass: "estimated"; sourceOfTruth: "PARAMETRIC_ESTIMATE"; estimationStatus: "available"; ... 6 more ...; occurredAt: string; }' but required in type 'Omit<FinOpsCostEvent, "costEventId" | "dedupKey">'.
-__tests__/oa/finops/t2.aggregate.unit.test.ts(124,22): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.aggregate.unit.test.ts(130,17): error TS2345: Argument of type '{ projectId: string; executionRunId: string; usageEventId: null; periodStart: string; currency: string; amount: null; evidenceClass: "estimated"; sourceOfTruth: "UNKNOWN"; estimationStatus: "unavailable"; ... 6 more ...; occurredAt: string; }' is not assignable to parameter of type 'Omit<FinOpsCostEvent, "costEventId" | "dedupKey"> & { correctionRef?: string | null | undefined; }'.
-  Property 'correctionRef' is missing in type '{ projectId: string; executionRunId: string; usageEventId: null; periodStart: string; currency: string; amount: null; evidenceClass: "estimated"; sourceOfTruth: "UNKNOWN"; estimationStatus: "unavailable"; ... 6 more ...; occurredAt: string; }' but required in type 'Omit<FinOpsCostEvent, "costEventId" | "dedupKey">'.
-__tests__/oa/finops/t2.aggregate.unit.test.ts(167,25): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.aggregate.unit.test.ts(178,22): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(25,32): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(48,27): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(48,31): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(48,41): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(52,27): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(52,31): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(52,41): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(56,27): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(56,32): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(56,42): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(57,27): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(57,32): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(57,42): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(61,28): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(61,32): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(61,43): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(62,28): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(62,32): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(62,43): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(63,27): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(63,32): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(63,43): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(70,33): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(73,19): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(74,23): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(80,38): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(81,19): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(82,23): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(88,42): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(91,19): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(92,23): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(97,39): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(98,19): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(99,23): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(108,27): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(108,39): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(108,49): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(109,45): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(115,27): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(115,39): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(115,49): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(116,45): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(128,21): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.money.unit.test.ts(129,25): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-__tests__/oa/finops/t2.reconciliation.unit.test.ts(81,21): error TS2339: Property 'finopsSideOnly' does not exist on type '{ readonly outcome: "succeeded"; readonly reconciliationId: string; readonly processedCount: number; readonly createdCount: number; readonly duplicateCount: number; readonly aggregate: FinOpsProjectPeriodAggregate | null; readonly idempotentReplay: boolean; }'.
-lib/oa/finops/application/recomputeAggregates.ts(31,43): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(11,42): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(15,3): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(16,3): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(42,14): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(50,23): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(57,18): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(57,38): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(58,18): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(58,38): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(63,13): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(66,22): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(71,19): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(74,19): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(74,26): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(74,39): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(144,40): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(168,15): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(196,31): error TS2737: BigInt literals are not available when targeting lower than ES2020.
-lib/oa/finops/domain/money.ts(202,26): error TS2737: BigInt literals are not available when targeting lower than ES2020.
 ```
 
-### Log excerpt — lint (pre-hold)
+### lint
 
 ```text
 
@@ -150,17 +92,13 @@ npx @next/codemod@canary next-lint-to-eslint-cli .
 ✔ No ESLint warnings or errors
 ```
 
-### Log excerpt — build (pre-hold, trailing spaces stripped)
+### build (tail)
 
 ```text
-
-> sfia-studio@0.1.0 build
-> next build
-
    ▲ Next.js 15.5.20
 
    Creating an optimized production build ...
- ✓ Compiled successfully in 1185ms
+ ✓ Compiled successfully in 1206ms
    Linting and checking validity of types ...
    Collecting page data ...
    Generating static pages (0/10) ...
@@ -194,52 +132,37 @@ Route (app)                                 Size  First Load JS
 ƒ  (Dynamic)  server-rendered on demand
 ```
 
-### Log excerpt — npm test (pre-hold, tail)
+### npm test (tail)
 
 ```text
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-07T11:02:13.870Z","status":"started","intentLength":22,"sessionLocalId":"s2"}
+{"event":"d1.method_mode_hold_allowed","ts":"2026-08-07T11:43:51.389Z","status":"allowed","provenance":"test-override"}
+{"event":"d1.method_mode_selected","ts":"2026-08-07T11:43:51.390Z","status":"failed","durationMs":1,"errorCode":"CONFLICT"}
 
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > asks for clarification then accepts an answer
-[d1.intake] {"event":"intake_proposal_generated","ts":"2026-08-07T11:02:13.992Z","status":"CREATE_PROJECT_CANDIDATE","intentLength":22,"sessionLocalId":"s2","durationMs":122,"providerMode":"fake"}
-
- ✓ __tests__/ops1/Ops1SessionScreen.test.tsx (4 tests) 119ms
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
-[d1.intake] {"event":"intake_analysis_started","ts":"2026-08-07T11:02:13.993Z","status":"started","intentLength":39,"sessionLocalId":"s4"}
-
-stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps provider error to D1Error PROVIDER
-[d1.intake] {"event":"intake_provider_failed","ts":"2026-08-07T11:02:14.097Z","status":"PROVIDER","intentLength":39,"sessionLocalId":"s4","durationMs":104,"providerMode":"fake","errorCode":"PROVIDER"}
-
- ✓ __tests__/d1/intake-c2.test.ts (13 tests) 507ms
+ ✓ __tests__/d1/project-foundation.test.ts (7 tests) 20ms
+ ✓ __tests__/status-pill.test.tsx (1 test) 14ms
+ ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 26ms
+ ✓ __tests__/fixtures.test.ts (2 tests) 3ms
+ ✓ __tests__/oa/cycle/qualifyCycleWithCkc.test.ts (13 tests) 8ms
+ ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 1ms
  ✓ __tests__/ops1/domain.test.ts (6 tests) 2ms
- ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 2ms
- ✓ __tests__/d1/intake-c1.test.tsx (6 tests) 757ms
-   ✓ D1-C2 IntakeView > shows structured proposal without executable confirm  344ms
- ✓ __tests__/ops1/globalModeBadge.ui.test.tsx (5 tests) 268ms
- ✓ __tests__/increment-c.test.tsx (8 tests) 1247ms
-   ✓ Increment C — editable demand + confirmation > accepts editable Campus360 demand and shows exact text in confirmation  306ms
-   ✓ Increment C — editable demand + confirmation > back from confirmation allows editing again  327ms
- ✓ __tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx (4 tests) 190ms
  ✓ __tests__/oa/cycle/ckcQualificationResult.test.ts (2 tests) 2ms
- ✓ __tests__/oa/cycle/qualifyCycleWithCkc.test.ts (13 tests) 7ms
- ✓ __tests__/ops1/executionI5.test.ts (5 tests) 1327ms
-   ✓ ops1 I5 execution contract + fixture run > creates contract, records GO linked to hash, runs fixture, blocks double exec  632ms
- ✓ __tests__/ops1/executionI6.test.ts (10 tests) 2300ms
-   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  602ms
-   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  352ms
-   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  311ms
-   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  312ms
-   ✓ ops1 I6 report + continuation > stores redacted refusal reasons on sealed report  305ms
- ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 2203ms
-   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1018ms
+ ✓ __tests__/vertical-slice-ui/createProjectUi.test.tsx (12 tests) 3019ms
+   ✓ V2-A2 Create Project UI > validates name, short reference, and per-line constraint lengths  1666ms
+   ✓ V2-A2 Create Project UI > calls only the runtime action with the exact DTO and parsed constraints  336ms
+ ✓ __tests__/ops1/executionI6.test.ts (10 tests) 3132ms
+   ✓ ops1 I6 report + continuation > generates COMPLETED report with coverage and metrics  629ms
+   ✓ ops1 I6 report + continuation > refuses sealed report overwrite (no auto-retry)  694ms
+   ✓ ops1 I6 report + continuation > resumes chat after report without new execution attempt  467ms
+   ✓ ops1 I6 report + continuation > refuses CLOSED mutation and opens continuation with parentSessionId  322ms
+   ✓ ops1 I6 report + continuation > stores redacted refusal reasons on sealed report  315ms
 
  Test Files  144 passed (144)
-      Tests  1435 passed (1435)
-   Start at  13:02:07
-   Duration  9.35s (transform 3.91s, setup 5.12s, collect 15.49s, tests 20.15s, environment 6.96s, prepare 5.59s)
+      Tests  1439 passed (1439)
+   Start at  13:43:43
+   Duration  9.16s (transform 3.91s, setup 5.39s, collect 15.48s, tests 23.04s, environment 7.22s, prepare 6.01s)
 ```
 
-### Log excerpt — test:db (resume re-run)
+### test:db
 
 ```text
 
@@ -249,17 +172,40 @@ stdout | __tests__/d1/intake-c2.test.ts > D1-C2 analyzeIntent service > maps pro
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack/projects/sfia-studio/app
 
- ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (2 tests) 147ms
- ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (5 tests) 156ms
- ✓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests) 208ms
+ ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 49ms
+ ✓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests) 60ms
+ ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 69ms
 
  Test Files  3 passed (3)
-      Tests  17 passed (17)
-   Start at  13:22:16
-   Duration  984ms (transform 291ms, setup 295ms, collect 472ms, tests 511ms, environment 0ms, prepare 272ms)
+      Tests  20 passed (20)
+   Start at  13:43:53
+   Duration  309ms (transform 115ms, setup 75ms, collect 181ms, tests 178ms, environment 0ms, prepare 98ms)
 ```
 
-## CREATED files (complete contents)
+## Documents 138–141 (byte-identical)
+
+```
+138 54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a
+139 0aaf10541776bc64671d02e53b7df76ee01bb7c88e56cdf116d9268e719a615f
+140 e69cfedcdfdfd4bf3b94c35b28ac68fc4ca5dfbd5f5b6df52dcd5d11050aeb4b
+141 96c16ce9de9020596c74908d7976297295cb38ebc7b79e0d333d02aad78806a4
+```
+
+## Correction file hashes (SHA-256)
+
+- `projects/sfia-studio/app/lib/oa/finops/application/recomputeAggregates.ts` → `1dab9e5003c7ea77902ad0f4ef373c2cb5057119878be52b7bdbf2a1b6b35283`
+- `projects/sfia-studio/app/lib/oa/finops/application/reconcileProjectPeriod.ts` → `449519a60f69782f5090e939f15211666e400752607b5934d7f546b16f02ad60`
+- `projects/sfia-studio/app/lib/oa/finops/application/types.aggregate.ts` → `dd7b06c4d0bce2cf4093bc9f76af5693ea38a485031bda287610dc509a31d221`
+- `projects/sfia-studio/app/lib/oa/finops/ports/finopsAggregatePort.ts` → `1de6c7ff64269c7a8053dbedcce48ac56d60e0fd752b27a3474e9929dc86bd91`
+- `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAggregateStore.ts` → `ff73926ad2042052db182047c96e4a977413cb73f4b1bcaaa153a048f2fa8cd9`
+- `projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsT2.ts` → `aebacd862548e71410f67bf3fdd6665a7924b44a83094beae1fe52809b3674e0`
+- `projects/sfia-studio/app/__tests__/oa/finops/t2.aggregate.unit.test.ts` → `88c998321de0de67b9a8cc5e483176a9d8173b14b09ae3ab73d45a862022b31a`
+- `projects/sfia-studio/app/__tests__/oa/finops/t2.reconciliation.unit.test.ts` → `3bf9bbf0d8691e2c21dbcf80c9f7762223215279428ed9680c457a172e91257a`
+- `projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts` → `9b4bd896c3e7e4fb5e75cde141c82f29961ca2efa738ec6f77e2210e6dde2e73`
+- `projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts` → `bf539e3a335c479b88559ebec2dbfba7d6df64cf4879661e7ca61a698a207ff4`
+- `projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md` → `c9c847e4e018caad3d0b69f6ff86053b60ae91a67b49109be39ece2218141b6e`
+
+## CREATED / CURRENT T2 files (complete contents — untracked Delivery)
 
 ### `projects/sfia-studio/app/lib/oa/finops/domain/money.ts`
 
@@ -611,7 +557,8 @@ export type ReconcileProjectPeriodResult =
       readonly processedCount: number;
       readonly createdCount: number;
       readonly duplicateCount: number;
-      readonly aggregate: FinOpsProjectPeriodAggregate | null;
+      /** Full project/period projection after rebuild (all currencies). */
+      readonly aggregates: ReadonlyArray<FinOpsProjectPeriodAggregate>;
       readonly idempotentReplay: boolean;
     }
   | {
@@ -623,10 +570,13 @@ export type ReconcileProjectPeriodResult =
       readonly finopsSideOnly: true;
     };
 
+/**
+ * Full A1 rebuild for a project + UTC period.
+ * Always rebuilds ALL currencies — no partial per-currency rebuild path.
+ */
 export type RecomputeAggregatesInput = {
   readonly projectId: string;
   readonly periodStart: string;
-  readonly currency?: string;
 };
 
 export type RecomputeAggregatesResult =
@@ -806,6 +756,10 @@ export async function estimateUsageCost(
  * FinOps T2 — full rebuild of A1 durable derived aggregates from cost events.
  * Ledger/cost events remain authoritative; aggregates are projections only.
  * SUM of scale-8 amounts — no additional rounding.
+ *
+ * Rebuild is always project+period COMPLETE (all currencies). Partial
+ * per-currency rebuild is intentionally not supported: replace deletes the
+ * whole project/period projection.
  */
 
 import {
@@ -816,7 +770,6 @@ import {
   type FinOpsMoney,
 } from "../domain/money";
 import type { FinOpsAggregatePort } from "../ports/finopsAggregatePort";
-import type { FinOpsReconciliationPort } from "../ports/finopsReconciliationPort";
 import type {
   FinOpsCostEvent,
   FinOpsProjectPeriodAggregate,
@@ -825,7 +778,6 @@ import type {
 } from "./types.aggregate";
 
 export type RecomputeAggregatesDeps = {
-  readonly reconciliation: FinOpsReconciliationPort;
   readonly aggregates: FinOpsAggregatePort;
   /** Injected clock for rebuiltAt (ISO). */
   readonly nowIso: () => string;
@@ -914,7 +866,6 @@ export function buildAggregatesFromCostEvents(input: {
     }
   }
 
-  // If no events, still allow empty rebuild (no rows) — caller may pass currency filter.
   const out: FinOpsProjectPeriodAggregate[] = [];
   for (const [currency, acc] of byCurrency) {
     const prev = input.previousVersions?.get(currency) ?? 0;
@@ -938,6 +889,10 @@ export function buildAggregatesFromCostEvents(input: {
   return out;
 }
 
+/**
+ * Full project/period A1 rebuild under exclusive serialization.
+ * Covers authoritative read → derive → replace on one locked session.
+ */
 export async function recomputeAggregates(
   deps: RecomputeAggregatesDeps,
   input: RecomputeAggregatesInput,
@@ -953,58 +908,25 @@ export async function recomputeAggregates(
       };
     }
 
-    const events = await deps.reconciliation.listCostEventsForProjectPeriod({
-      projectId,
-      periodStart,
-      currency: input.currency,
-    });
-
-    const existing = await deps.aggregates.listAggregatesForProjectPeriod({
-      projectId,
-      periodStart,
-    });
-    const previousVersions = new Map(
-      existing.map((row) => [row.currency, row.rebuildVersion]),
+    const aggregates = await deps.aggregates.withExclusiveProjectPeriodRebuild(
+      { projectId, periodStart },
+      async (ops) => {
+        const events = await ops.listAllCostEventsForPeriod();
+        const existing = await ops.listAggregates();
+        const previousVersions = new Map(
+          existing.map((row) => [row.currency, row.rebuildVersion]),
+        );
+        const rebuilt = buildAggregatesFromCostEvents({
+          projectId,
+          periodStart,
+          events,
+          rebuiltAt: deps.nowIso(),
+          previousVersions,
+        });
+        await ops.replaceAggregates(rebuilt);
+        return rebuilt;
+      },
     );
-
-    let aggregates = buildAggregatesFromCostEvents({
-      projectId,
-      periodStart,
-      events,
-      rebuiltAt: deps.nowIso(),
-      previousVersions,
-    });
-
-    if (input.currency) {
-      const c = normalizeCurrency(input.currency);
-      aggregates = aggregates.filter((a) => a.currency === c);
-      if (aggregates.length === 0) {
-        aggregates = [
-          {
-            projectId,
-            periodStart,
-            currency: c,
-            estimatedAmount: zeroCanonical(c),
-            observedAmount: zeroCanonical(c),
-            billedAmount: zeroCanonical(c),
-            unknownAmount: zeroCanonical(c),
-            inputTokensSum: null,
-            outputTokensSum: null,
-            totalTokensSum: null,
-            costEventCount: 0,
-            unavailableEstimationCount: 0,
-            rebuildVersion: (previousVersions.get(c) ?? 0) + 1,
-            rebuiltAt: deps.nowIso(),
-          },
-        ];
-      }
-    }
-
-    await deps.aggregates.replaceProjectPeriodAggregates({
-      projectId,
-      periodStart,
-      aggregates,
-    });
 
     return { outcome: "succeeded", aggregates };
   } catch (error) {
@@ -1025,6 +947,9 @@ export async function recomputeAggregates(
  * FinOps T2 — explicit reconcileProjectPeriod (on-demand + bounded batch).
  * estimated → observed → billed via append-only correction cost events.
  * No cron / always-on polling. Failures are FinOps-side only.
+ *
+ * After the batch inserts, A1 is rebuilt ONCE for the full project/period
+ * (all currencies) — never per-currency.
  */
 
 import { normalizeCurrency, parseMoneyString } from "../domain/money";
@@ -1100,7 +1025,7 @@ export async function reconcileProjectPeriod(
       processedCount: existing.processedCount,
       createdCount: 0,
       duplicateCount: existing.processedCount,
-      aggregate: aggregates[0] ?? null,
+      aggregates,
       idempotentReplay: true,
     };
   }
@@ -1129,7 +1054,7 @@ export async function reconcileProjectPeriod(
       processedCount: insert.existing.processedCount,
       createdCount: 0,
       duplicateCount: insert.existing.processedCount,
-      aggregate: aggregates[0] ?? null,
+      aggregates,
       idempotentReplay: true,
     };
   }
@@ -1188,7 +1113,6 @@ export async function reconcileProjectPeriod(
   let createdCount = 0;
   let duplicateCount = 0;
   let processedCount = 0;
-  const currencies = new Set<string>();
 
   try {
     for (const fact of input.facts) {
@@ -1201,7 +1125,6 @@ export async function reconcileProjectPeriod(
       const currency = normalizeCurrency(fact.currency);
       // Validate canonical Money (rejects float leakage / over-scale).
       parseMoneyString(fact.amount, currency);
-      currencies.add(currency);
 
       const identity = deriveCostEventIdentity({
         projectId,
@@ -1247,25 +1170,17 @@ export async function reconcileProjectPeriod(
     }
 
     const recomputeDeps: RecomputeAggregatesDeps = {
-      reconciliation: deps.reconciliation,
       aggregates: deps.aggregates,
       nowIso: deps.nowIso,
     };
 
-    // Rebuild per currency touched; if none, still rebuild empty projection.
-    const currencyList =
-      currencies.size > 0 ? [...currencies] : [undefined];
-    let lastAggregate = null;
-    for (const currency of currencyList) {
-      const recomputed = await recomputeAggregates(recomputeDeps, {
-        projectId,
-        periodStart,
-        currency,
-      });
-      if (recomputed.outcome === "failed") {
-        throw new Error(recomputed.message);
-      }
-      lastAggregate = recomputed.aggregates[0] ?? lastAggregate;
+    // ONE full project/period rebuild for ALL currencies (no per-currency path).
+    const recomputed = await recomputeAggregates(recomputeDeps, {
+      projectId,
+      periodStart,
+    });
+    if (recomputed.outcome === "failed") {
+      throw new Error(recomputed.message);
     }
 
     await deps.reconciliation.completeReconciliationRecord({
@@ -1283,7 +1198,7 @@ export async function reconcileProjectPeriod(
       processedCount,
       createdCount,
       duplicateCount,
-      aggregate: lastAggregate,
+      aggregates: recomputed.aggregates,
       idempotentReplay: false,
     };
   } catch (error) {
@@ -1317,13 +1232,36 @@ export async function reconcileProjectPeriod(
 
 import type {
   FinOpsAggregateKey,
+  FinOpsCostEvent,
   FinOpsProjectPeriodAggregate,
 } from "../application/types.aggregate";
+
+/**
+ * Transactional ops bound to one exclusive project/period rebuild session.
+ * Callers must not escape this boundary (no pool reuse outside these ops).
+ */
+export type FinOpsExclusiveProjectPeriodRebuildOps = {
+  /** Authoritative cost events for the full project/period (all currencies). */
+  readonly listAllCostEventsForPeriod: () => Promise<
+    ReadonlyArray<FinOpsCostEvent>
+  >;
+  readonly listAggregates: () => Promise<
+    ReadonlyArray<FinOpsProjectPeriodAggregate>
+  >;
+  /**
+   * Replace the entire project/period projection (all currencies) atomically
+   * within the exclusive session.
+   */
+  readonly replaceAggregates: (
+    aggregates: ReadonlyArray<FinOpsProjectPeriodAggregate>,
+  ) => Promise<void>;
+};
 
 export type FinOpsAggregatePort = {
   /**
    * Replace all aggregate rows for a project+period (full rebuild write).
-   * Implementations must be transactional and restart-safe.
+   * Prefer `withExclusiveProjectPeriodRebuild` for production rebuilds so
+   * authoritative read → derive → replace stays serialized.
    */
   readonly replaceProjectPeriodAggregates: (input: {
     readonly projectId: string;
@@ -1339,6 +1277,19 @@ export type FinOpsAggregatePort = {
     readonly projectId: string;
     readonly periodStart: string;
   }) => Promise<ReadonlyArray<FinOpsProjectPeriodAggregate>>;
+
+  /**
+   * Serialize the full A1 rebuild critical section for one project+period:
+   * acquire → read cost events → read aggregates → derive → replace → release.
+   * PostgreSQL: one connection + transaction advisory lock (no pool starvation).
+   */
+  readonly withExclusiveProjectPeriodRebuild: <T>(
+    input: {
+      readonly projectId: string;
+      readonly periodStart: string;
+    },
+    work: (ops: FinOpsExclusiveProjectPeriodRebuildOps) => Promise<T>,
+  ) => Promise<T>;
 };
 ```
 
@@ -1440,15 +1391,24 @@ export type FinOpsPriceCatalogPort = {
 ```ts
 /**
  * FinOps T2 — PostgreSQL A1 durable aggregate store.
+ *
+ * Exclusive rebuild uses ONE PoolClient + transaction advisory lock so the
+ * critical section (read cost events → derive → replace) cannot starve the
+ * pool: waiters block on lock acquisition inside their own transactions; the
+ * holder uses the same connection for all SQL until COMMIT/ROLLBACK.
  */
 
 import type { Pool, PoolClient } from "pg";
 import type {
   FinOpsAggregateKey,
+  FinOpsCostEvent,
   FinOpsProjectPeriodAggregate,
 } from "../../application/types.aggregate";
 import { formatMoneyString, parseMoneyString } from "../../domain/money";
-import type { FinOpsAggregatePort } from "../../ports/finopsAggregatePort";
+import type {
+  FinOpsAggregatePort,
+  FinOpsExclusiveProjectPeriodRebuildOps,
+} from "../../ports/finopsAggregatePort";
 import { sanitizeDbError } from "./sanitizeDbError";
 
 function formatPgDate(value: unknown): string {
@@ -1503,6 +1463,137 @@ function rowToAggregate(
   };
 }
 
+function rowToCostEvent(row: Record<string, unknown>): FinOpsCostEvent {
+  return {
+    costEventId: String(row.cost_event_id),
+    dedupKey: String(row.dedup_key),
+    projectId: String(row.project_id),
+    executionRunId: String(row.execution_run_id),
+    usageEventId:
+      row.usage_event_id === null || row.usage_event_id === undefined
+        ? null
+        : String(row.usage_event_id),
+    periodStart: formatPgDate(row.period_start),
+    currency: String(row.currency),
+    amount:
+      row.amount === null || row.amount === undefined
+        ? null
+        : formatMoneyString(
+            parseMoneyString(String(row.amount), String(row.currency)),
+          ),
+    evidenceClass: row.evidence_class as FinOpsCostEvent["evidenceClass"],
+    sourceOfTruth: row.source_of_truth as FinOpsCostEvent["sourceOfTruth"],
+    estimationStatus:
+      row.estimation_status as FinOpsCostEvent["estimationStatus"],
+    correctionRef:
+      row.correction_ref === null || row.correction_ref === undefined
+        ? null
+        : String(row.correction_ref),
+    catalogVersion:
+      row.catalog_version === null || row.catalog_version === undefined
+        ? null
+        : String(row.catalog_version),
+    provider: String(row.provider),
+    model:
+      row.model === null || row.model === undefined ? null : String(row.model),
+    unit: row.unit === null || row.unit === undefined ? null : String(row.unit),
+    billingQuantum:
+      row.billing_quantum === null || row.billing_quantum === undefined
+        ? null
+        : String(row.billing_quantum),
+    usageQuantity:
+      row.usage_quantity === null || row.usage_quantity === undefined
+        ? null
+        : String(row.usage_quantity),
+    occurredAt:
+      row.occurred_at instanceof Date
+        ? row.occurred_at.toISOString()
+        : String(row.occurred_at),
+  };
+}
+
+async function deleteAndInsertAggregates(
+  client: PoolClient,
+  projectId: string,
+  periodStart: string,
+  aggregates: ReadonlyArray<FinOpsProjectPeriodAggregate>,
+): Promise<void> {
+  await client.query(
+    `DELETE FROM finops_usage_aggregate
+     WHERE project_id = $1 AND period_start = $2::date`,
+    [projectId, periodStart],
+  );
+  for (const agg of aggregates) {
+    await client.query(
+      `INSERT INTO finops_usage_aggregate (
+        project_id, period_start, currency,
+        estimated_amount, observed_amount, billed_amount, unknown_amount,
+        input_tokens_sum, output_tokens_sum, total_tokens_sum,
+        cost_event_count, unavailable_estimation_count,
+        rebuild_version, rebuilt_at
+      ) VALUES (
+        $1,$2::date,$3,$4::numeric,$5::numeric,$6::numeric,$7::numeric,
+        $8,$9,$10,$11,$12,$13,$14::timestamptz
+      )`,
+      [
+        agg.projectId,
+        agg.periodStart,
+        agg.currency,
+        agg.estimatedAmount,
+        agg.observedAmount,
+        agg.billedAmount,
+        agg.unknownAmount,
+        agg.inputTokensSum,
+        agg.outputTokensSum,
+        agg.totalTokensSum,
+        agg.costEventCount,
+        agg.unavailableEstimationCount,
+        agg.rebuildVersion,
+        agg.rebuiltAt,
+      ],
+    );
+  }
+}
+
+function buildExclusiveOps(
+  client: PoolClient,
+  projectId: string,
+  periodStart: string,
+): FinOpsExclusiveProjectPeriodRebuildOps {
+  return {
+    async listAllCostEventsForPeriod() {
+      const result = await client.query(
+        `SELECT * FROM finops_cost_event
+         WHERE project_id = $1 AND period_start = $2::date
+         ORDER BY occurred_at ASC, cost_event_id ASC`,
+        [projectId, periodStart],
+      );
+      return result.rows.map((row) =>
+        rowToCostEvent(row as Record<string, unknown>),
+      );
+    },
+    async listAggregates() {
+      const result = await client.query(
+        `SELECT * FROM finops_usage_aggregate
+         WHERE project_id = $1 AND period_start = $2::date
+         ORDER BY currency ASC`,
+        [projectId, periodStart],
+      );
+      return result.rows.map((row) =>
+        rowToAggregate(row as Record<string, unknown>),
+      );
+    },
+    async replaceAggregates(aggregates) {
+      await deleteAndInsertAggregates(
+        client,
+        projectId,
+        periodStart,
+        aggregates,
+      );
+    },
+  };
+}
+
 export function createPostgresFinOpsAggregateStore(
   pool: Pool,
 ): FinOpsAggregatePort {
@@ -1512,41 +1603,12 @@ export function createPostgresFinOpsAggregateStore(
       try {
         client = await pool.connect();
         await client.query("BEGIN");
-        await client.query(
-          `DELETE FROM finops_usage_aggregate
-           WHERE project_id = $1 AND period_start = $2::date`,
-          [input.projectId, input.periodStart],
+        await deleteAndInsertAggregates(
+          client,
+          input.projectId,
+          input.periodStart,
+          input.aggregates,
         );
-        for (const agg of input.aggregates) {
-          await client.query(
-            `INSERT INTO finops_usage_aggregate (
-              project_id, period_start, currency,
-              estimated_amount, observed_amount, billed_amount, unknown_amount,
-              input_tokens_sum, output_tokens_sum, total_tokens_sum,
-              cost_event_count, unavailable_estimation_count,
-              rebuild_version, rebuilt_at
-            ) VALUES (
-              $1,$2::date,$3,$4::numeric,$5::numeric,$6::numeric,$7::numeric,
-              $8,$9,$10,$11,$12,$13,$14::timestamptz
-            )`,
-            [
-              agg.projectId,
-              agg.periodStart,
-              agg.currency,
-              agg.estimatedAmount,
-              agg.observedAmount,
-              agg.billedAmount,
-              agg.unknownAmount,
-              agg.inputTokensSum,
-              agg.outputTokensSum,
-              agg.totalTokensSum,
-              agg.costEventCount,
-              agg.unavailableEstimationCount,
-              agg.rebuildVersion,
-              agg.rebuiltAt,
-            ],
-          );
-        }
         await client.query("COMMIT");
       } catch (error) {
         if (client) {
@@ -1584,6 +1646,42 @@ export function createPostgresFinOpsAggregateStore(
       return result.rows.map((row) =>
         rowToAggregate(row as Record<string, unknown>),
       );
+    },
+
+    async withExclusiveProjectPeriodRebuild(input, work) {
+      const projectId = input.projectId.trim();
+      const periodStart = input.periodStart.trim();
+      let client: PoolClient | undefined;
+      try {
+        client = await pool.connect();
+        await client.query("BEGIN");
+        // Transaction-scoped advisory lock: released on COMMIT/ROLLBACK.
+        // Keys derived from projectId + periodStart only (not global FinOps).
+        await client.query(
+          `SELECT pg_advisory_xact_lock(
+             hashtext('finops-a1:' || $1),
+             hashtext($2)
+           )`,
+          [projectId, periodStart],
+        );
+        const ops = buildExclusiveOps(client, projectId, periodStart);
+        const result = await work(ops);
+        await client.query("COMMIT");
+        return result;
+      } catch (error) {
+        if (client) {
+          try {
+            await client.query("ROLLBACK");
+          } catch {
+            // ignore
+          }
+        }
+        const sanitized = sanitizeDbError(error);
+        throw new Error(sanitized.message);
+      } finally {
+        // Session never retains an advisory lock: xact locks end with txn.
+        client?.release();
+      }
     },
   };
 }
@@ -2018,24 +2116,39 @@ import type {
 } from "../../ports/finopsPriceCatalogPort";
 import type { FinOpsReconciliationPort } from "../../ports/finopsReconciliationPort";
 
-export function createMemoryFinOpsAggregateStore(): FinOpsAggregatePort & {
+export function createMemoryFinOpsAggregateStore(
+  reconciliation?: {
+    readonly listCostEventsForProjectPeriod: FinOpsReconciliationPort["listCostEventsForProjectPeriod"];
+  },
+): FinOpsAggregatePort & {
   readonly _rows: Map<string, FinOpsProjectPeriodAggregate>;
 } {
   const rows = new Map<string, FinOpsProjectPeriodAggregate>();
   const keyOf = (projectId: string, periodStart: string, currency: string) =>
     `${projectId}|${periodStart}|${currency}`;
 
+  /** Per project+period async mutex (unit-test stand-in; PG uses advisory locks). */
+  const exclusiveChains = new Map<string, Promise<unknown>>();
+
+  const replaceLocal = (input: {
+    projectId: string;
+    periodStart: string;
+    aggregates: ReadonlyArray<FinOpsProjectPeriodAggregate>;
+  }) => {
+    for (const [k, v] of [...rows.entries()]) {
+      if (v.projectId === input.projectId && v.periodStart === input.periodStart) {
+        rows.delete(k);
+      }
+    }
+    for (const agg of input.aggregates) {
+      rows.set(keyOf(agg.projectId, agg.periodStart, agg.currency), agg);
+    }
+  };
+
   return {
     _rows: rows,
     async replaceProjectPeriodAggregates(input) {
-      for (const [k, v] of [...rows.entries()]) {
-        if (v.projectId === input.projectId && v.periodStart === input.periodStart) {
-          rows.delete(k);
-        }
-      }
-      for (const agg of input.aggregates) {
-        rows.set(keyOf(agg.projectId, agg.periodStart, agg.currency), agg);
-      }
+      replaceLocal(input);
     },
     async readAggregate(key) {
       return rows.get(keyOf(key.projectId, key.periodStart, key.currency)) ?? null;
@@ -2048,6 +2161,51 @@ export function createMemoryFinOpsAggregateStore(): FinOpsAggregatePort & {
             r.periodStart === input.periodStart,
         )
         .sort((a, b) => a.currency.localeCompare(b.currency));
+    },
+    async withExclusiveProjectPeriodRebuild(input, work) {
+      const lockKey = `${input.projectId}|${input.periodStart}`;
+      const prev = exclusiveChains.get(lockKey) ?? Promise.resolve();
+      let release!: () => void;
+      const gate = new Promise<void>((resolve) => {
+        release = resolve;
+      });
+      const next = prev.then(() => gate);
+      exclusiveChains.set(lockKey, next.catch(() => undefined));
+      await prev.catch(() => undefined);
+      try {
+        const costSource = reconciliation;
+        return await work({
+          async listAllCostEventsForPeriod() {
+            if (!costSource) {
+              throw new Error(
+                "memory aggregate exclusive rebuild requires reconciliation wiring",
+              );
+            }
+            return costSource.listCostEventsForProjectPeriod({
+              projectId: input.projectId,
+              periodStart: input.periodStart,
+            });
+          },
+          async listAggregates() {
+            return [...rows.values()]
+              .filter(
+                (r) =>
+                  r.projectId === input.projectId &&
+                  r.periodStart === input.periodStart,
+              )
+              .sort((a, b) => a.currency.localeCompare(b.currency));
+          },
+          async replaceAggregates(aggregates) {
+            replaceLocal({
+              projectId: input.projectId,
+              periodStart: input.periodStart,
+              aggregates,
+            });
+          },
+        });
+      } finally {
+        release();
+      }
     },
   };
 }
@@ -2118,6 +2276,16 @@ export function createMemoryFinOpsReconciliation(): FinOpsReconciliationPort & {
       }
     },
   };
+}
+
+/** Pair memory aggregate + reconciliation so exclusive rebuild can list events. */
+export function createMemoryFinOpsT2Pair(): {
+  readonly reconciliation: ReturnType<typeof createMemoryFinOpsReconciliation>;
+  readonly aggregates: ReturnType<typeof createMemoryFinOpsAggregateStore>;
+} {
+  const reconciliation = createMemoryFinOpsReconciliation();
+  const aggregates = createMemoryFinOpsAggregateStore(reconciliation);
+  return { reconciliation, aggregates };
 }
 
 /** Fictitious fixture catalog — NOT real provider tariffs. */
@@ -2586,9 +2754,8 @@ import { deriveCostEventIdentity } from "@/lib/oa/finops/application/t2Identity"
 import type { FinOpsCostEvent } from "@/lib/oa/finops/application/types.aggregate";
 import { formatMoneyString, parseMoneyString } from "@/lib/oa/finops/domain/money";
 import {
-  createMemoryFinOpsAggregateStore,
   createMemoryFinOpsPriceCatalog,
-  createMemoryFinOpsReconciliation,
+  createMemoryFinOpsT2Pair,
 } from "@/lib/oa/finops/infrastructure/memory/memoryFinOpsT2";
 
 const FICTITIOUS_RATE = parseMoneyString("0.00010000", "USD"); // fixture — NOT a provider tariff
@@ -2760,8 +2927,7 @@ describe("FinOps T2 aggregates", () => {
   });
 
   it("recomputeAggregates persists rebuilt projection via port", async () => {
-    const reconciliation = createMemoryFinOpsReconciliation();
-    const aggregates = createMemoryFinOpsAggregateStore();
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
     const event = costEvent({
       projectId: "p1",
       executionRunId: "r1",
@@ -2785,11 +2951,10 @@ describe("FinOps T2 aggregates", () => {
 
     const result = await recomputeAggregates(
       {
-        reconciliation,
         aggregates,
         nowIso: () => "2026-08-07T12:00:00.000Z",
       },
-      { projectId: "p1", periodStart: "2026-08-01", currency: "USD" },
+      { projectId: "p1", periodStart: "2026-08-01" },
     );
     expect(result.outcome).toBe("succeeded");
     if (result.outcome !== "succeeded") return;
@@ -2798,15 +2963,60 @@ describe("FinOps T2 aggregates", () => {
 
     const again = await recomputeAggregates(
       {
-        reconciliation,
         aggregates,
         nowIso: () => "2026-08-07T13:00:00.000Z",
       },
-      { projectId: "p1", periodStart: "2026-08-01", currency: "USD" },
+      { projectId: "p1", periodStart: "2026-08-01" },
     );
     expect(again.outcome).toBe("succeeded");
     if (again.outcome !== "succeeded") return;
     expect(again.aggregates[0]!.rebuildVersion).toBe(2);
+  });
+
+  it("full rebuild preserves all currencies (no per-currency wipe)", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    for (const [currency, amount] of [
+      ["USD", "1.00000000"],
+      ["EUR", "2.00000000"],
+    ] as const) {
+      await reconciliation.insertCostEvent(
+        costEvent({
+          projectId: "p-mc",
+          executionRunId: `run-${currency}`,
+          usageEventId: null,
+          periodStart: "2026-08-01",
+          currency,
+          amount,
+          evidenceClass: "billed",
+          sourceOfTruth: "BILLED",
+          estimationStatus: "available",
+          catalogVersion: null,
+          provider: "fixture-provider",
+          model: null,
+          unit: null,
+          billingQuantum: null,
+          usageQuantity: null,
+          occurredAt: "2026-08-07T10:00:00.000Z",
+          correctionRef: `bill-${currency}`,
+        }),
+      );
+    }
+    const result = await recomputeAggregates(
+      { aggregates, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId: "p-mc", periodStart: "2026-08-01" },
+    );
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.aggregates.map((a) => a.currency).sort()).toEqual([
+      "EUR",
+      "USD",
+    ]);
+    expect(
+      result.aggregates.find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("1.00000000");
+    expect(
+      result.aggregates.find((a) => a.currency === "EUR")?.billedAmount,
+    ).toBe("2.00000000");
   });
 });
 ```
@@ -2822,15 +3032,11 @@ describe("FinOps T2 aggregates", () => {
 import { describe, expect, it } from "vitest";
 import { reconcileProjectPeriod } from "@/lib/oa/finops/application/reconcileProjectPeriod";
 import { deriveCostEventIdentity } from "@/lib/oa/finops/application/t2Identity";
-import {
-  createMemoryFinOpsAggregateStore,
-  createMemoryFinOpsReconciliation,
-} from "@/lib/oa/finops/infrastructure/memory/memoryFinOpsT2";
+import { createMemoryFinOpsT2Pair } from "@/lib/oa/finops/infrastructure/memory/memoryFinOpsT2";
 
 describe("FinOps T2 reconciliation", () => {
   it("applies estimated→observed→billed via append-only correction events", async () => {
-    const reconciliation = createMemoryFinOpsReconciliation();
-    const aggregates = createMemoryFinOpsAggregateStore();
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
 
     // Prior estimated cost event (adjacent Money ledger).
     const estimatedIdentity = deriveCostEventIdentity({
@@ -2892,8 +3098,9 @@ describe("FinOps T2 reconciliation", () => {
     expect(observed.outcome).toBe("succeeded");
     if (observed.outcome !== "succeeded") return;
     expect(observed.createdCount).toBe(1);
-    expect(observed.aggregate?.estimatedAmount).toBe("0.10000000");
-    expect(observed.aggregate?.observedAmount).toBe("0.12000000");
+    const observedUsd = observed.aggregates.find((a) => a.currency === "USD");
+    expect(observedUsd?.estimatedAmount).toBe("0.10000000");
+    expect(observedUsd?.observedAmount).toBe("0.12000000");
 
     const billed = await reconcileProjectPeriod(
       {
@@ -2923,13 +3130,13 @@ describe("FinOps T2 reconciliation", () => {
     );
     expect(billed.outcome).toBe("succeeded");
     if (billed.outcome !== "succeeded") return;
-    expect(billed.aggregate?.billedAmount).toBe("0.11500000");
+    const billedUsd = billed.aggregates.find((a) => a.currency === "USD");
+    expect(billedUsd?.billedAmount).toBe("0.11500000");
     expect(reconciliation._costEvents).toHaveLength(3);
   });
 
   it("is idempotent on project+period+sourceBatchId", async () => {
-    const reconciliation = createMemoryFinOpsReconciliation();
-    const aggregates = createMemoryFinOpsAggregateStore();
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
     const input = {
       projectId: "p1",
       periodStart: "2026-08-01",
@@ -2965,8 +3172,7 @@ describe("FinOps T2 reconciliation", () => {
   });
 
   it("rejects unbounded batch and keeps failure FinOps-side", async () => {
-    const reconciliation = createMemoryFinOpsReconciliation();
-    const aggregates = createMemoryFinOpsAggregateStore();
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
     const result = await reconcileProjectPeriod(
       {
         reconciliation,
@@ -3013,8 +3219,7 @@ describe("FinOps T2 reconciliation", () => {
   });
 
   it("duplicate correction within batch is duplicate, not conflict", async () => {
-    const reconciliation = createMemoryFinOpsReconciliation();
-    const aggregates = createMemoryFinOpsAggregateStore();
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
     const fact = {
       executionRunId: "run-dup",
       usageEventId: null,
@@ -3209,11 +3414,10 @@ describeDb("FinOps T2 PostgreSQL aggregate integration", () => {
 
     const first = await recomputeAggregates(
       {
-        reconciliation,
         aggregates,
         nowIso: () => "2026-08-07T09:30:00.000Z",
       },
-      { projectId, periodStart: "2026-08-01", currency: "USD" },
+      { projectId, periodStart: "2026-08-01" },
     );
     expect(first.outcome).toBe("succeeded");
     if (first.outcome !== "succeeded") return;
@@ -3251,11 +3455,10 @@ describeDb("FinOps T2 PostgreSQL aggregate integration", () => {
 
     const second = await recomputeAggregates(
       {
-        reconciliation,
         aggregates,
         nowIso: () => "2026-08-07T10:00:00.000Z",
       },
-      { projectId, periodStart: "2026-08-01", currency: "USD" },
+      { projectId, periodStart: "2026-08-01" },
     );
     expect(second.outcome).toBe("succeeded");
     if (second.outcome !== "succeeded") return;
@@ -3304,6 +3507,186 @@ describeDb("FinOps T2 PostgreSQL aggregate integration", () => {
     if (result.status !== "available") return;
     // 0.00010000 * 2500 / 1000 = 0.00025000
     expect(result.amountCanonical).toBe("0.00025000");
+  });
+
+  it("full rebuild keeps USD and EUR; USD correction does not wipe EUR", async () => {
+    const projectId = `proj-mc-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const aggregates = createPostgresFinOpsAggregateStore(pool);
+    const periodStart = "2026-08-01";
+
+    async function insertBilled(
+      currency: "USD" | "EUR",
+      amount: string,
+      ref: string,
+    ) {
+      const identity = deriveCostEventIdentity({
+        projectId,
+        executionRunId: `run-${currency}-${suffix}`,
+        evidenceClass: "billed",
+        correctionRef: ref,
+        amount,
+        currency,
+      });
+      const inserted = await reconciliation.insertCostEvent({
+        costEventId: identity.costEventId,
+        dedupKey: identity.dedupKey,
+        projectId,
+        executionRunId: `run-${currency}-${suffix}`,
+        usageEventId: null,
+        periodStart,
+        currency,
+        amount,
+        evidenceClass: "billed",
+        sourceOfTruth: "BILLED",
+        estimationStatus: "available",
+        correctionRef: ref,
+        catalogVersion: null,
+        provider: "fixture-provider",
+        model: null,
+        unit: null,
+        billingQuantum: null,
+        usageQuantity: null,
+        occurredAt: "2026-08-07T10:00:00.000Z",
+      });
+      expect(inserted.outcome).toBe("created");
+    }
+
+    await insertBilled("USD", "10.00000000", `usd-base-${suffix}`);
+    await insertBilled("EUR", "20.00000000", `eur-base-${suffix}`);
+
+    const first = await recomputeAggregates(
+      { aggregates, nowIso: () => "2026-08-07T11:00:00.000Z" },
+      { projectId, periodStart },
+    );
+    expect(first.outcome).toBe("succeeded");
+    if (first.outcome !== "succeeded") return;
+    expect(first.aggregates.map((a) => a.currency).sort()).toEqual([
+      "EUR",
+      "USD",
+    ]);
+    expect(
+      first.aggregates.find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("10.00000000");
+    expect(
+      first.aggregates.find((a) => a.currency === "EUR")?.billedAmount,
+    ).toBe("20.00000000");
+
+    // Late USD correction — full rebuild must preserve EUR.
+    await insertBilled("USD", "11.00000000", `usd-late-${suffix}`);
+    const second = await recomputeAggregates(
+      { aggregates, nowIso: () => "2026-08-07T12:00:00.000Z" },
+      { projectId, periodStart },
+    );
+    expect(second.outcome).toBe("succeeded");
+    if (second.outcome !== "succeeded") return;
+    const listed = await aggregates.listAggregatesForProjectPeriod({
+      projectId,
+      periodStart,
+    });
+    expect(listed.map((a) => a.currency).sort()).toEqual(["EUR", "USD"]);
+    expect(listed.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "21.00000000",
+    );
+    expect(listed.find((a) => a.currency === "EUR")?.billedAmount).toBe(
+      "20.00000000",
+    );
+  });
+
+  it("serializes concurrent project/period rebuilds without lost updates", async () => {
+    const projectId = `proj-conc-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const aggregates = createPostgresFinOpsAggregateStore(pool);
+    const periodStart = "2026-08-01";
+
+    // Seed baseline EUR so multi-currency presence is also exercised.
+    const eurId = deriveCostEventIdentity({
+      projectId,
+      executionRunId: `run-eur-${suffix}`,
+      evidenceClass: "billed",
+      correctionRef: `eur-${suffix}`,
+      amount: "5.00000000",
+      currency: "EUR",
+    });
+    await reconciliation.insertCostEvent({
+      costEventId: eurId.costEventId,
+      dedupKey: eurId.dedupKey,
+      projectId,
+      executionRunId: `run-eur-${suffix}`,
+      usageEventId: null,
+      periodStart,
+      currency: "EUR",
+      amount: "5.00000000",
+      evidenceClass: "billed",
+      sourceOfTruth: "BILLED",
+      estimationStatus: "available",
+      correctionRef: `eur-${suffix}`,
+      catalogVersion: null,
+      provider: "fixture-provider",
+      model: null,
+      unit: null,
+      billingQuantum: null,
+      usageQuantity: null,
+      occurredAt: "2026-08-07T09:00:00.000Z",
+    });
+
+    async function insertAndRebuild(label: string, amount: string) {
+      const identity = deriveCostEventIdentity({
+        projectId,
+        executionRunId: `run-${label}-${suffix}`,
+        evidenceClass: "billed",
+        correctionRef: `corr-${label}-${suffix}`,
+        amount,
+        currency: "USD",
+      });
+      const inserted = await reconciliation.insertCostEvent({
+        costEventId: identity.costEventId,
+        dedupKey: identity.dedupKey,
+        projectId,
+        executionRunId: `run-${label}-${suffix}`,
+        usageEventId: null,
+        periodStart,
+        currency: "USD",
+        amount,
+        evidenceClass: "billed",
+        sourceOfTruth: "BILLED",
+        estimationStatus: "available",
+        correctionRef: `corr-${label}-${suffix}`,
+        catalogVersion: null,
+        provider: "fixture-provider",
+        model: null,
+        unit: null,
+        billingQuantum: null,
+        usageQuantity: null,
+        occurredAt: "2026-08-07T10:00:00.000Z",
+      });
+      expect(inserted.outcome).toBe("created");
+      return recomputeAggregates(
+        { aggregates, nowIso: () => `2026-08-07T10:30:00.000Z` },
+        { projectId, periodStart },
+      );
+    }
+
+    const [a, b] = await Promise.all([
+      insertAndRebuild("a", "1.00000000"),
+      insertAndRebuild("b", "2.00000000"),
+    ]);
+    expect(a.outcome).toBe("succeeded");
+    expect(b.outcome).toBe("succeeded");
+
+    const listed = await aggregates.listAggregatesForProjectPeriod({
+      projectId,
+      periodStart,
+    });
+    expect(listed.map((row) => row.currency).sort()).toEqual(["EUR", "USD"]);
+    expect(listed.find((row) => row.currency === "EUR")?.billedAmount).toBe(
+      "5.00000000",
+    );
+    // Both concurrent USD corrections must be present (exact SUM, no lost update).
+    expect(listed.find((row) => row.currency === "USD")?.billedAmount).toBe(
+      "3.00000000",
+    );
+    expect(listed.find((row) => row.currency === "USD")?.costEventCount).toBe(2);
   });
 });
 ```
@@ -3374,7 +3757,9 @@ describeDb("FinOps T2 PostgreSQL reconciliation integration", () => {
     expect(first.outcome).toBe("succeeded");
     if (first.outcome !== "succeeded") return;
     expect(first.idempotentReplay).toBe(false);
-    expect(first.aggregate?.billedAmount).toBe("9.87654321");
+    expect(
+      first.aggregates.find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("9.87654321");
 
     const second = await reconcileProjectPeriod(deps, input);
     expect(second.outcome).toBe("succeeded");
@@ -3388,6 +3773,95 @@ describeDb("FinOps T2 PostgreSQL reconciliation integration", () => {
       currency: "USD",
     });
     expect(read?.billedAmount).toBe("9.87654321");
+  });
+
+  it("reconciles USD+EUR in one batch and preserves both aggregates", async () => {
+    const projectId = `proj-recon-mc-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const aggregates = createPostgresFinOpsAggregateStore(pool);
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T12:00:00.000Z",
+    };
+
+    const first = await reconcileProjectPeriod(deps, {
+      projectId,
+      periodStart: "2026-08-01",
+      sourceBatchId: `batch-mc-${suffix}`,
+      facts: [
+        {
+          executionRunId: `run-usd-${suffix}`,
+          usageEventId: null,
+          evidenceClass: "billed",
+          sourceOfTruth: "BILLED",
+          amount: "1.25000000",
+          currency: "USD",
+          correctionRef: `corr-usd-${suffix}`,
+          provider: "fixture-provider",
+          model: null,
+          occurredAt: "2026-08-07T10:00:00.000Z",
+        },
+        {
+          executionRunId: `run-eur-${suffix}`,
+          usageEventId: null,
+          evidenceClass: "billed",
+          sourceOfTruth: "BILLED",
+          amount: "2.50000000",
+          currency: "EUR",
+          correctionRef: `corr-eur-${suffix}`,
+          provider: "fixture-provider",
+          model: null,
+          occurredAt: "2026-08-07T10:00:00.000Z",
+        },
+      ],
+    });
+    expect(first.outcome).toBe("succeeded");
+    if (first.outcome !== "succeeded") return;
+    expect(first.aggregates.map((a) => a.currency).sort()).toEqual([
+      "EUR",
+      "USD",
+    ]);
+    expect(
+      first.aggregates.find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("1.25000000");
+    expect(
+      first.aggregates.find((a) => a.currency === "EUR")?.billedAmount,
+    ).toBe("2.50000000");
+
+    // USD-only correction batch — EUR must remain.
+    const second = await reconcileProjectPeriod(deps, {
+      projectId,
+      periodStart: "2026-08-01",
+      sourceBatchId: `batch-mc-usd-late-${suffix}`,
+      facts: [
+        {
+          executionRunId: `run-usd-late-${suffix}`,
+          usageEventId: null,
+          evidenceClass: "billed",
+          sourceOfTruth: "BILLED",
+          amount: "0.75000000",
+          currency: "USD",
+          correctionRef: `corr-usd-late-${suffix}`,
+          provider: "fixture-provider",
+          model: null,
+          occurredAt: "2026-08-07T11:00:00.000Z",
+        },
+      ],
+    });
+    expect(second.outcome).toBe("succeeded");
+    if (second.outcome !== "succeeded") return;
+    const listed = await aggregates.listAggregatesForProjectPeriod({
+      projectId,
+      periodStart: "2026-08-01",
+    });
+    expect(listed.map((a) => a.currency).sort()).toEqual(["EUR", "USD"]);
+    expect(listed.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "2.00000000",
+    );
+    expect(listed.find((a) => a.currency === "EUR")?.billedAmount).toBe(
+      "2.50000000",
+    );
   });
 
   it("keeps cost_event append-only (update blocked)", async () => {
@@ -3745,127 +4219,118 @@ T6-FOUNDATION CHATGPT VALIDATION REQUIRED BEFORE T2 HANDOFF PUBLICATION
 ```
 
 **Statut:** LOCAL COMPLETE — HANDOFF HOLD (not READY for handoff publication)
-````
-
-## MODIFIED files
-
-None. Prefer CREATE modules; T1 types/ledger/buildUsageEvent untouched.
-
-## Documents 138–141 hashes (intact)
-
-```
-138 54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a
-139 0aaf10541776bc64671d02e53b7df76ee01bb7c88e56cdf116d9268e719a615f
-140 e69cfedcdfdfd4bf3b94c35b28ac68fc4ca5dfbd5f5b6df52dcd5d11050aeb4b
-141 96c16ce9de9020596c74908d7976297295cb38ebc7b79e0d333d02aad78806a4
-```
-
-## Manifest réel (summary)
-
-### CREATED
-- domain/money.ts; types.aggregate.ts; t2Identity.ts; estimateUsageCost.ts; recomputeAggregates.ts; reconcileProjectPeriod.ts
-- ports: finopsAggregatePort; finopsReconciliationPort; finopsPriceCatalogPort
-- postgres: AggregateStore; Reconciliation; PriceCatalog; memoryFinOpsT2
-- migration 1754600000000_finops-t2-aggregation-reconciliation.js
-- tests: t2.money/aggregate/reconciliation unit + postgres aggregate/reconciliation integration
-- document 142
-
-### MODIFIED
-- none
-
-## Implementation highlights
-
-- Money M2: BigInt scale-8 + currency; PG numeric(20,8); no JS float authoritative math; no Decimal npm
-- HALF_EVEN once at rate×usage → Money; no second round on SUM
-- R3 catalog: Money per unit + billing quantum; no separate rate numeric; fictitious fixtures only; empty ⇒ unavailable
-- Persistence: adjacent append-only `finops_cost_event` (T1 ledger unchanged)
-- A1: durable `finops_usage_aggregate`; full rebuild from cost events; ledger/cost events authoritative
-- Reconciliation: reconcileProjectPeriod; on-demand + bounded batch; no cron; estimated→observed→billed via append-only corrections; aggregate recompute after success
-
-## Parallel contract / T6
-
-- No T6 files in this worktree
-- Migration slot T2 `1754600000000_*` before T6 `1754600001000_*`
-- captureFinOpsUsage / audit journal untouched
-- Historical hold then release after ChatGPT T6 validation
-
-## Historical pause status (pre-resume)
-
-```
-T2 LOCAL DELIVERY IMPLEMENTATION COMPLETE —
-TESTS EXECUTED —
-REVIEW PACK PREPARED —
-NO PROJECT COMMIT —
-NO PROJECT PUSH —
-HANDOFF FINALIZATION HOLD —
-T6-FOUNDATION CHATGPT VALIDATION REQUIRED BEFORE T2 HANDOFF PUBLICATION
-```
 
 ---
 
-## RESUME — Review Handoff Finalization
+## 25. ChatGPT Validation Correction — A1 Multi-currency / Multi-instance
 
-- Mode: T2 Delivery Resume — Review Handoff Finalization
-- resume_date_cest: 2026-08-07 13:25:39 CEST (+0200)
-- resume_date_utc: 2026-08-07 11:25:39 UTC
-- Non-drift: CREATED runtime/tests/migration unchanged since hold (working tree only; HEAD still `093fd916…`)
-- Docs 138–141 hashes unchanged; document 142 preserved
-- No T6 files; no package/CI; no project commit/push
-- Sibling T6 remote before publish: tip `3f40c7b4…` / blob `c0d4a4d9…` — VALIDATED WITH RESERVES
-- Hold: `HANDOFF FINALIZATION HOLD RELEASED — T6-FOUNDATION CHATGPT VALIDATION SATISFIED`
+- **date_cest:** 2026-08-07 13:44:01 CEST (+0200)
+- **date_utc:** 2026-08-07 11:44:01 UTC
+- **GO:** Morris `ok go` — correction bornée A1 multi-currency + multi-instance only
+- **Incoming ChatGPT verdict:** `FINOPS TECHNICAL LOT T2 — NOT READY`
+- **Incoming handoff:** tip `49884691692e058622c466e24ad4675518bc5ca3` / blob `5ff4d559db080b045d6f857bd06899854ebe17c6`
 
-### Resume validation re-run
+### Findings
+
+1. **BLOCKER** — A1 multi-currency rebuild unsafe: per-currency `recomputeAggregates` + `DELETE project_id+period_start` wiped sibling currencies.
+2. **RESERVE** — A1 multi-instance serialization not demonstrated.
+
+### Root cause
+
+`reconcileProjectPeriod` rebuilt once per touched currency. Each `replaceProjectPeriodAggregates` deleted the entire project/period projection then inserted only the filtered currency set.
+
+### Correction applied
+
+- Removed public per-currency rebuild (`RecomputeAggregatesInput.currency` deleted).
+- `recomputeAggregates` always full project/period (all currencies) under exclusive serialization.
+- `reconcileProjectPeriod` calls rebuild **once** after the batch; result returns `aggregates[]` (not ambiguous singular `aggregate`).
+- PostgreSQL: `withExclusiveProjectPeriodRebuild` uses **one** `PoolClient` + `BEGIN` + `pg_advisory_xact_lock(hashtext('finops-a1:'||projectId), hashtext(periodStart))` covering authoritative cost-event read → derive → replace → `COMMIT`/`ROLLBACK` (lock released with transaction; no session lock retention; no global FinOps lock; waiters use their own connection/transaction).
+
+### Tests added
+
+- Unit: multi-currency full rebuild preservation.
+- PG: USD+EUR rebuild; USD late correction preserves EUR.
+- PG: concurrent insert+rebuild without lost updates (USD sum + EUR preserved).
+- PG recon: USD+EUR batch + USD-only late batch preserves EUR.
+
+### Validation results (post-correction)
 
 | Commande | Résultat |
 |----------|----------|
-| `git diff --check` | PASS |
 | `npm run typecheck` | PASS |
-| targeted unit (t2 money/aggregate/recon + t1.capture) | PASS — 43 tests |
-| `npm run migrate:up` | PASS — T1 + T2 |
-| `npm run test:db` | PASS — 17 tests |
-| Pre-hold lint/build/npm test | Reused — no code changes since hold (144/1435 PASS) |
+| `npm run lint` | PASS |
+| `npm run build` | PASS |
+| `npm test` | PASS — 144 files / **1439** tests |
+| `npm run migrate:up` | PASS |
+| `npm run test:db` | PASS — **20** tests |
+| `git diff --check` | PASS |
 
-### Active serialization status
+### Reserves remaining
 
-`HANDOFF FINALIZATION HOLD RELEASED — T6-FOUNDATION CHATGPT VALIDATION SATISFIED`
+- No real provider tariffs; FX open; T3–T7/Neon out of scope.
+- Sibling T6: global runtime audit composition still deferred (untouched).
+- Memory mutex is unit-test only; multi-instance proof is PostgreSQL advisory lock.
 
-`T6-FOUNDATION VALIDATED WITH RESERVES BY CHATGPT — T2 HANDOFF SERIALIZATION RELEASED`
-
-## Réserves
-
-- No real provider tariffs (by design)
-- FX open; T3/T4/T5/T7/Neon/provider-real out of scope
-- Sibling T6: `T6-FOUNDATION VALIDATED WITH RESERVES — GLOBAL RUNTIME AUDIT COMPOSITION DEFERRED` (context only)
-
-## Final verdict (post-resume)
+### Verdict after correction
 
 ```
-FINOPS TECHNICAL LOT T2 LOCAL DELIVERY COMPLETE —
-M2 MONEY IMPLEMENTED —
-numeric(20,8) IMPLEMENTED —
-R3 PRICE CATALOG CONTRACT IMPLEMENTED —
-HALF_EVEN QUANTIZATION IMPLEMENTED —
-A1 DURABLE DERIVED AGGREGATES IMPLEMENTED —
-LEDGER REMAINS AUTHORITATIVE —
-FULL AGGREGATE REBUILD VERIFIED —
-RECONCILIATION ESTIMATED/OBSERVED/BILLED IMPLEMENTED —
-ON-DEMAND + BOUNDED BATCH —
-NO CRON —
-T1 FAIL-OPEN PRESERVED —
-T6 PARALLEL CONTRACT PRESERVED —
-TESTS PASSED —
+FINOPS TECHNICAL LOT T2 CORRECTION COMPLETE —
+A1 FULL PROJECT/PERIOD MULTI-CURRENCY REBUILD VERIFIED —
+NO PER-CURRENCY DESTRUCTIVE REBUILD PATH —
+PROJECT/PERIOD MULTI-INSTANCE SERIALIZATION VERIFIED —
+LOCK COVERS AUTHORITATIVE READ → DERIVE → REPLACE —
+CONCURRENT REBUILD TEST PASSED —
+MULTI-CURRENCY USD/EUR TEST PASSED —
+M2 numeric(20,8) PRESERVED —
+R3 PRESERVED —
+HALF_EVEN PRESERVED —
+RECONCILIATION PRESERVED —
+T1 REGRESSION PASSED —
+T6 UNTOUCHED —
 DOCUMENTS 138–141 PRESERVED —
-DOCUMENT 142 CREATED —
+DOCUMENT 142 UPDATED —
+FULL TEST SUITE PASSED —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
 REVIEW HANDOFF REMOTE VERIFIED —
-READY FOR CHATGPT VALIDATION
+READY FOR CHATGPT REVALIDATION
 ```
+````
 
-Sibling T6 status (context):
+## Parallel / T6
+
+- No T6 files in this worktree
+- No package/CI changes
+- Sibling T6 reserve (context only): global runtime audit composition deferred
+
+## Réserves
+
+- No real tariffs; FX open; T3–T7/Neon out of scope
+- Memory mutex is unit-test stand-in; multi-instance proof is PG advisory xact lock
+
+## Final verdict
 
 ```
-T6-FOUNDATION VALIDATED WITH RESERVES —
-GLOBAL RUNTIME AUDIT COMPOSITION DEFERRED
+FINOPS TECHNICAL LOT T2 CORRECTION COMPLETE —
+A1 FULL PROJECT/PERIOD MULTI-CURRENCY REBUILD VERIFIED —
+NO PER-CURRENCY DESTRUCTIVE REBUILD PATH —
+PROJECT/PERIOD MULTI-INSTANCE SERIALIZATION VERIFIED —
+LOCK COVERS AUTHORITATIVE READ → DERIVE → REPLACE —
+CONCURRENT REBUILD TEST PASSED —
+MULTI-CURRENCY USD/EUR TEST PASSED —
+M2 numeric(20,8) PRESERVED —
+R3 PRESERVED —
+HALF_EVEN PRESERVED —
+RECONCILIATION PRESERVED —
+T1 REGRESSION PASSED —
+T6 UNTOUCHED —
+DOCUMENTS 138–141 PRESERVED —
+DOCUMENT 142 UPDATED —
+FULL TEST SUITE PASSED —
+NO PROJECT COMMIT —
+NO PROJECT PUSH —
+NO PR —
+REVIEW HANDOFF REMOTE VERIFIED —
+READY FOR CHATGPT REVALIDATION
 ```
