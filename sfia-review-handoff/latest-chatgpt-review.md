@@ -1,81 +1,120 @@
-# ChatGPT Review Pack — FinOps Technical Lot T4 — Merge (Light)
+# ChatGPT Review Pack — FinOps Technical Lot T4 — Cycle 14 Post-merge (Light)
 
-## 1. Date / heure / fuseau
+## Meta
 
-- Work CEST: 2026-08-07 22:54:02 CEST (+0200)
-- Work UTC: 2026-08-07 20:54:02 UTC
-- Cycle: **14 — Merge T4 into main**
-- Mode: T4 Foundation Merge
-- Profil: **Critical**
-- Typologie: DEVOPS / QA / REVIEW (no code change in this cycle)
-- Pack: **Light**
+- date_cest: 2026-08-07 23:11:30 CEST (+0200)
+- date_utc: 2026-08-07 21:11:30 UTC
+- cycle: 14 — Post-merge T4 Foundation
+- profil: Light (GO Profile Standard; pack Light mono-cycle)
+- typologie: RUN / GOV
+- niveau: Light
+- GO Morris exact: `GO cycle 14 — post-merge T4`
+- GO autorise: post-merge validation · §6.12.1 cleanup of EXACT PR #317 Delivery branch (remote delete if all 9 PASS; local `git branch -d` only if not attached to worktree) · fetch/prune · Light handoff L3
+- GO N'autorise PAS: formal T4 closure · S30/E1/calibration/T5/T6-ext/T7/IAM · project file changes · project commit · new PR · next lot · force · branch -D · worktree remove · cleanup of any other branch (esp. preparation branch, main, handoff, T3)
+- Gates: cycle 14 post-merge T4 REÇU · GO formal T4 closure NON REÇU · GO next lot NON REÇU · GO activation NON REÇU
+- Incoming handoff tip: `2d0428ea2f974efbf13b7dc4f6a949a840c6370a`
+- Incoming handoff blob: `22ef1a466814aca7a5e7649da864c9c4ba3e9461`
+- Incoming handoff commit: `docs(review-handoff): publish T4 merge`
+- Repo: `mcleland147/sfia-workspace`
+- PR: **#317** — https://github.com/mcleland147/sfia-workspace/pull/317
+- Merge commit: `137d3846e4b00ffe686db7ab473f0fdcd58df82e`
+- Delivery branch (exact): `delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation`
+- Prep branch (untouched): `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement`
+- MAIN WT: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main`
+- Delivery WT: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-preparation`
 
-## 2. Morris phrase exacte
+## Verdict (pack)
 
 ```
-GO merge T4.
+T4 POST-MERGE INTEGRATION VALIDATED WITH RESERVES —
+READY FOR CHATGPT T4 POST-MERGE VALIDATION —
+READY FOR MORRIS T4 CLOSURE DECISION
+
+PR #317 MERGED VERIFIED —
+MAIN ALIGNED —
+T4 HEAD IN MAIN VERIFIED —
+16-PATH MANIFEST VERIFIED —
+POST-MERGE CI GREEN —
+REQUIRED GATE GREEN —
+QA-G1 PASS —
+QA-G2 PASS —
+QA-G3 PASS WITH RESERVES —
+QA-G4 PASS WITH RESERVES —
+
+R-T4-T3-SYNC-01 OPEN —
+R-T4-PROJECTION-REFRESH-01 OPEN —
+R-T6-RUNTIME-COMPOSITION-01 OPEN —
+R-PR-T2-API-01 OPEN MINOR —
+T6-ext-T3T4 NOT AUTHORIZED —
+Calibration REQUIRED —
+Product IAM NOT_SELECTED —
+Intermediate product literal DEFERRED —
+T6-ext-T2 EXCLUDED —
+T6-ext-before-E1-pilot DEFERRED —
+Privileged Morris mutations DEFERRED —
+REVIEW_REQUIRED vs WOULD_BLOCK STILL DEFERRED —
+
+REMOTE DELIVERY BRANCH CLEANED —
+LOCAL BRANCH CLEANUP SKIPPED — ACTIVE WORKTREE —
+NO FORCE / NO WORKTREE REMOVAL —
+
+NO PROJECT CHANGE —
+NO PROJECT COMMIT —
+NO NEW PR —
+NO NEXT LOT AUTHORIZED —
+NO FORMAL T4 CLOSED BY MORRIS —
+NO ACTIVATION —
+
+REVIEW HANDOFF REMOTE VERIFIED —
 ```
 
-## 3. Contextual interpretation
+## 1. GO
 
-GO consumes **T4 merge** only:
+Authorized: Cycle 14 post-merge T4 Foundation — verify integration, post-merge CI, QA-G1..G4, §6.12.1 cleanup of exact PR #317 Delivery branch if all nine conditions PASS, Light pack, handoff publish L3. Not authorized: project content changes, formal T4 closure, activation, next lot, S30/E1/calibration/T5/T6-ext/T7/IAM, close reserves, `git branch -D`, worktree detach/remove, cleanup of preparation/main/handoff/T3.
 
-- preconditions on handoff tip / main / PR #317
-- `gh pr merge 317 --merge` (merge commit; **not** squash/rebase; **no** `--delete-branch`)
-- observe post-merge CI on main to terminal
-- publish Light review handoff
-- preserve Delivery branch (local + remote)
+## 2. Worktree map
 
-Does **NOT** consume: code/doc/amend/force, branch cleanup, activation, next lot, calibration, IAM, T5/T6-ext/T7.
+| Role | Path | Branch | HEAD | Tracked |
+| --- | --- | --- | --- | --- |
+| MAIN WT | `…/finops-t2-main` | `main` | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` | clean |
+| Delivery WT | `…/finops-t4-preparation` | exact T4 Delivery | `fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6` | clean tracked (only `?? .tmp-sfia-review/`) |
+| Handoff WT | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` | `sfia/review-handoff` | tip before publish `2d0428ea…` | clean |
 
-## 4. Preconditions (all PASS before merge)
+## 3. Handoff BEFORE
 
-| Check | Expected | Observed | Result |
-|-------|----------|----------|--------|
-| Incoming handoff tip | e239382861979daa3cd9438db45f5cfd87b7a9b7 | e239382861979daa3cd9438db45f5cfd87b7a9b7 | PASS |
-| Incoming handoff blob | bb26fac6f7ecdd7f94396038118de3ad709f48e7 | bb26fac6f7ecdd7f94396038118de3ad709f48e7 (`sfia-review-handoff/latest-chatgpt-review.md`) | PASS |
-| Handoff msg | publish T4 PR publication | docs(review-handoff): publish T4 PR publication | PASS |
-| origin/main before | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 | PASS |
-| PR #317 state | OPEN, non-draft | OPEN, isDraft=false | PASS |
-| mergeable / mergeStateStatus | MERGEABLE / CLEAN | MERGEABLE / CLEAN | PASS |
-| head SHA | fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6 | fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6 | PASS |
-| base | main @ ff3d0c… | main @ ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 | PASS |
-| commits | 1 | 1 | PASS |
-| files | 16 exact T4 manifest | 16 | PASS |
-| PR CI Detect / Build / Required Gate | SUCCESS | SUCCESS (run 31216805136) | PASS |
-| Branch | delivery/…t4-s30-soft-enforcement-foundation | confirmed (local + remote @ fdc60f4…) | PASS |
+| Field | Expected | Observed |
+| --- | --- | --- |
+| tip | `2d0428ea2f974efbf13b7dc4f6a949a840c6370a` | MATCH |
+| blob | `22ef1a466814aca7a5e7649da864c9c4ba3e9461` | MATCH |
 
-## 5. Git Truth
-
-| Anchor | Value |
-|--------|--------|
-| Repo | mcleland147/sfia-workspace |
-| Worktree | .tmp-sfia-review/worktrees/finops-t4-preparation |
-| Delivery branch | delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation |
-| origin/main before | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 |
-| origin/main after | 137d3846e4b00ffe686db7ab473f0fdcd58df82e |
-| T4 head / Delivery SHA | fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6 |
-| Incoming handoff tip (pre-publish) | e239382861979daa3cd9438db45f5cfd87b7a9b7 |
-| Incoming handoff blob | bb26fac6f7ecdd7f94396038118de3ad709f48e7 |
-
-## 6. Merge execution
+## 4. PR #317 truth
 
 | Field | Value |
-|-------|--------|
-| Command | `gh pr merge 317 --repo mcleland147/sfia-workspace --merge` |
-| --delete-branch | **NOT passed** |
-| Method | merge commit (not squash / not rebase) |
-| PR_NUMBER | 317 |
-| PR_URL | https://github.com/mcleland147/sfia-workspace/pull/317 |
-| PR state after | **MERGED** |
-| mergedAt | 2026-08-07T20:49:38Z |
-| MERGE_COMMIT_SHA | **137d3846e4b00ffe686db7ab473f0fdcd58df82e** |
-| parents | ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 + fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6 |
-| Delivery remote after | **PRESERVED** at fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6 |
+| --- | --- |
+| state | **MERGED** |
+| mergedAt | `2026-08-07T20:49:38Z` |
+| mergeCommit | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
+| headOid | `fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6` |
+| headRefName | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation` |
+| title | `feat(sfia-studio): implement FinOps T4 enforcement foundation` |
 
-## 7. Exact 16-path manifest (preserved; not recopied)
+## 5. Main sync
 
-Count: **16** (exact). File contents / diffs not recopied in this Light pack. Validated Delivery contents source = incoming handoff tip `e239382861979daa3cd9438db45f5cfd87b7a9b7` / blob `bb26fac6f7ecdd7f94396038118de3ad709f48e7` (`docs(review-handoff): publish T4 PR publication`). This merge cycle made **no project code changes**.
+In MAIN WT only: `git pull --ff-only origin main` → HEAD = origin/main = `137d3846e4b00ffe686db7ab473f0fdcd58df82e`. Tracked clean. No reset/rebase/force.
+
+## 6. Merge SHA / parents / ancestry
+
+| Field | Value |
+| --- | --- |
+| merge | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
+| parents | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` + `fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6` |
+| Delivery on main | YES (`merge-base --is-ancestor`) |
+| Delivery on origin/main | YES |
+| Merge on main / origin/main | YES |
+
+## 7. Exact 16-path manifest
+
+`git diff --name-only ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515..137d3846e4b00ffe686db7ab473f0fdcd58df82e` → **16 paths MATCH** (sorted equality vs expected list).
 
 1. projects/sfia-studio/148-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-preparation.md
 2. projects/sfia-studio/149-assistant-sfia-native-openai-finops-technical-lot-t4-s30-soft-enforcement-decisions-applied.md
@@ -94,22 +133,30 @@ Count: **16** (exact). File contents / diffs not recopied in this Light pack. Va
 15. projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
 16. projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts
 
-## 8. Post-merge CI (terminal on main)
+## 8. Post-merge CI
 
 | Field | Value |
-|-------|--------|
+| --- | --- |
+| Pre-merge CI recall | `31216805136` |
 | CI_RUN_ID | **31217520396** |
 | URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31217520396 |
-| Workflow | SFIA Studio CI |
 | Event | push (main) |
-| headSha | 137d3846e4b00ffe686db7ab473f0fdcd58df82e |
-| status | completed |
-| conclusion | **success** |
+| headSha | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
+| status / conclusion | completed / **success** |
 | Detect SFIA Studio changes | **success** |
-| Build and validate SFIA Studio | **success** (~1m48s) |
+| Build and validate SFIA Studio | **success** |
 | SFIA Studio Required Gate | **success** |
 
-## 9. Reserves (must stay OPEN — not closed this cycle)
+## 9. QA gates
+
+| Gate | Result |
+| --- | --- |
+| QA-G1 | **PASS** |
+| QA-G2 | **PASS** |
+| QA-G3 | **PASS WITH RESERVES** |
+| QA-G4 | **PASS WITH RESERVES** |
+
+## 10. Reserves (must stay OPEN — not closed this cycle)
 
 - R-T4-T3-SYNC-01 = OPEN
 - R-T4-PROJECTION-REFRESH-01 = OPEN
@@ -124,32 +171,41 @@ Count: **16** (exact). File contents / diffs not recopied in this Light pack. Va
 - Privileged Morris mutations = DEFERRED
 - REVIEW_REQUIRED vs WOULD_BLOCK = STILL DEFERRED
 
-## 10. Anti-claims
+## 11. Anti-claims
 
-NO real S30 / NO historical USD 30 runtime / NO E1 / NO T5 / NO T6-ext / NO T7 / NO IAM / NO provider-real / NO Neon claim / default enforcement remains inert / soft-cap cannot guarantee spend ≤ S30 / NO branch cleanup / NO activation / NO next lot / NO project code change this cycle / NO amend / NO force.
+NO real S30 / NO historical USD 30 runtime / NO E1 / NO T5 / NO T6-ext / NO T7 / NO IAM / NO provider-real / NO Neon claim / default enforcement remains inert / soft-cap cannot guarantee spend ≤ S30 / NO formal T4 closure / NO activation / NO next lot / NO project code change this cycle / NO amend / NO force / NO `git branch -D` / NO worktree remove / NO prep/main/handoff/T3 cleanup.
 
-## 11. Branch / activation / next lot
+## 12. §6.12.1 cleanup
 
-- branch cleanup = **NO** (Delivery local + remote **preserved** @ fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6)
+| # | Condition | Result |
+| --- | --- | --- |
+| 1 | PR merged | PASS |
+| 2 | main = origin/main | PASS |
+| 3 | merge on main | PASS |
+| 4 | Delivery commit on main | PASS |
+| 5 | post-merge WT tracked clean | PASS |
+| 6 | target = exact PR head branch | PASS |
+| 7 | branch not protected (gh API 404) | PASS |
+| 8 | `git log main..<delivery>` empty (+ vs origin/main) | PASS |
+| 9 | not main/handoff/special | PASS |
+| | **ALL_9** | **PASS** |
+
+- Local: **LOCAL CLEANUP SKIPPED — ACTIVE WORKTREE** (Delivery attached to `finops-t4-preparation`; no detach/switch/remove/`-D`)
+- Remote: re-fetch confirmed remote Delivery `@ fdc60f4…`, origin/main `@ 137d3846…`, ancestry YES → `git push origin --delete delivery/…t4-s30-soft-enforcement-foundation` → fetch --prune → `git ls-remote` empty → **REMOTE CLEANUP DONE**
+- Prep branch local still present `@ ff3d0c0…` (untouched); not cleaned
+
+## 13. Branch / activation / next lot
+
+- formal T4 closure = **NO**
 - activation = **NO**
 - next lot = **NO**
-- Worktree remains on Delivery after handoff return (preferred)
+- local cleanup = **SKIPPED — ACTIVE WORKTREE**
+- remote cleanup = **DONE**
 
-## 12. Evidence
+## 14. Evidence
 
-`.tmp-sfia-review/t4-merge/` (fetch, pr-view-before, merge-out, pr-after, merge-parents, delivery-remote-before/after, postmerge-ci*)
+`.tmp-sfia-review/t4-post-merge/` (git-truth-*, pull-ff, pr-view, merge-parents, merged-paths*, postmerge-ci*, cleanup-matrix, branch-d-local, branch-delete-remote, fetch-prune, handoff-*)
 
-## 13. Verdict
+## 15. Publisher note
 
-FINOPS TECHNICAL LOT T4 — MERGED WITH RESERVES — READY FOR CHATGPT T4 MERGE VALIDATION
-
-Supporting:
-
-- MERGE COMMIT **137d3846e4b00ffe686db7ab473f0fdcd58df82e**
-- PR https://github.com/mcleland147/sfia-workspace/pull/317 **MERGED**
-- parents ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515 + fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6
-- 16-path manifest preserved
-- post-merge CI run 31217520396 SUCCESS (Detect + Build + Required Gate)
-- Delivery remote preserved
-- reserves still OPEN
-- cleanup=NO / activation=NO / next lot=NO
+Publish via `scripts/sfia/publish-review-handoff.sh` msg `docs(review-handoff): publish T4 post-merge`. Source: `.tmp-sfia-review/chatgpt-review.md`.
