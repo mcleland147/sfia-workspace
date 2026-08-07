@@ -1,137 +1,106 @@
 # ChatGPT Review Pack — FULL
-## FinOps Technical Lot T2 Decisions Applied
+## FinOps T2 Numeric Precision / Scale Decision Pack
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure CEST** | 2026-08-07 12:08:42 CEST (+0200) |
-| **Date/heure UTC** | 2026-08-07 10:08:42 UTC |
+| **Date/heure CEST** | 2026-08-07 12:20:42 CEST (+0200) |
+| **Date/heure UTC** | 2026-08-07 10:20:42 UTC |
 | **Niveau** | Full |
-| **Cycle** | 6 — Architecture technique · Decisions Applied — FinOps Technical Lot T2 |
+| **Cycle** | 6 — Architecture technique · Decision Pack Preparation — T2 Money numeric(p,s) |
 | **Profil** | Critical |
-| **GO Morris** | `GO DECISIONS FINOPS TECHNICAL LOT T2 —` (D-T2-MONEY-01=M2 · PRICE-SRC · AGG-FORM=A1 · RECON-TRIGGER · FIND-03 CLOSE · T2/T6 Delivery NOT YET AUTHORIZED) |
-| **Décision Morris horodatée** | 2026-08-07 12:01 CEST (+0200) — secondes non inventées |
+| **GO consommé** | Préparer l'arbitrage precision/scale uniquement — **ne pas sélectionner p/s** |
+| **M2** | INTANGIBLE — remains SELECTED |
 | **Workspace** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack` |
 | **Branche** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t2-t5-t6-grouped-preparation` |
 | **HEAD / origin/main** | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` / `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
-| **Handoff entrant** | tip `79663b03c8d7eff1f4a4e2e79930bbaa0a934f4b` · blob `a012637c64439d3355514bc18bc0c3f9cf0a2ea5` |
-| **CKC** | pilots/03-architecture-technique.md — candidate — no authority |
+| **Handoff entrant** | tip `e82a32a6505184aed707876ebf59c9452b328300` · blob `2bb0a4955029a9b5bbb3130737216b85c0bc1e5a` |
 
 ## Garde-fous
 
-- 138 IMMUTABLE byte-identical
-- 139 only new project file
-- NO Delivery T2 / T6-foundation / T5 / T3+
-- NO code / SQL / migration / package / CI
-- NO project commit / push / PR / merge
-- NO invented numeric(p,s) · NO Decimal library · NO provider prices
-- T5/T6 prep decisions in 138 preserved as-is
+- M1/M2/M3 NOT reopened
+- Candidate recommendation ≠ Morris decision
+- NO invented provider tariffs / Decimal library / Delivery
+- 138/139 IMMUTABLE
+- NO code/SQL/migration/package/CI
+- NO project commit/push/PR/merge
 
-## Local Git Truth
+## Git Truth / integrity
 
-Status:
 ```
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md
 ?? projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md
+?? projects/sfia-studio/140-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decision-pack.md
 ```
 
-Staged: empty · upstream: none
+| Doc | SHA-256 | Lines |
+|-----|---------|-------|
+| 138 | `54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a` | 745 preserved |
+| 139 | `0aaf10541776bc64671d02e53b7df76ee01bb7c88e56cdf116d9268e719a615f` | 413 preserved |
+| 140 | `e69cfedcdfdfd4bf3b94c35b28ac68fc4ca5dfbd5f5b6df52dcd5d11050aeb4b` | 443 created |
 
-## Document 138 integrity
+## Options analysées (résumé)
 
-| | Value |
-|--|-------|
-| Path | `projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md` |
-| SHA-256 before | `54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a` |
-| SHA-256 after | `54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a` |
-| Lines | 745 |
-| Preserved | **YES byte-identical** |
+- P1 numeric(18,6) · P2 numeric(20,8) · P3 numeric(24,12) · P4 (16,4) rejetée
+- R1 same PS · R2 finer rate · **R3 catalog Money per billing quantum (candidate)**
+- Discriminant = scale (plage entière 12 digits non discriminante vs seuils 30 USD)
 
-## Document 139
+## Recommandation candidate — NOT SELECTED
 
-| | Value |
-|--|-------|
-| Path | `projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md` |
-| SHA-256 | `0aaf10541776bc64671d02e53b7df76ee01bb7c88e56cdf116d9268e719a615f` |
-| Lines | 413 |
+- `D-T2-NUMERIC-PS-01 = numeric(20,8)`
+- Rate representation R3 (same Money PS per explicit quantum)
+- `D-T2-PRICE-RATE-PS-01` only if R2 demanded → candidate fallback numeric(24,12)
+- Optional future `D-T2-ROUNDING-01`
 
-## Matrice avant / après
+## Gate Morris proposé
 
-| ID | Avant | Après |
-|----|-------|-------|
-| D-T2-MONEY-01 | NOT DECIDED | **M2 SELECTED** |
-| D-T2-PRICE-SRC-01 | NOT DECIDED | **VERSIONED SERVER-SIDE PRICE CATALOG FOR ESTIMATION SELECTED** |
-| D-T2-AGG-FORM-01 | NOT DECIDED | **A1 SELECTED** |
-| D-T2-RECON-TRIGGER-01 | NOT DECIDED | **EXPLICIT RECONCILE + ON-DEMAND/BOUNDED BATCH SELECTED** |
-| FIND-03 | OPEN | **CLOSED BY MORRIS MONEY DECISION** · impl NOT PERFORMED |
+`GO DECISIONS FINOPS TECHNICAL LOT T2 — NUMERIC PRECISION/SCALE —` (texte complet dans 140 §21) — **non consommé**
 
-## Réserve numeric(p,s)
+## Non-décisions / réserves
 
-EXACT POSTGRESQL NUMERIC PRECISION/SCALE NOT YET FIXED — MUST BE BOUNDED BEFORE T2 DDL IMPLEMENTATION.
-Does not reopen M1/M2/M3.
-
-## Non-decisions / gates restantes
-
-T2 Delivery · T6-foundation · p/s · Decimal lib · FX · tariffs · billed adapter · cron · Neon · provider-real · T5 auth · T6 store · T3/T4/T7 · LOT-D*
-Gates: bound p/s · GO Delivery T2 · GO T6-foundation · T5 auth · GO T5 · T3/T4/T7 · Neon · provider-real · USD calibration · LOT-D*
-
-## Fichiers créés / modifiés
-
-| Action | Path |
-|--------|------|
-| CREATED | 139 (untracked) |
-| UNCHANGED | 138 (hash identical) |
-| NONE | code/SQL/migration/package/CI/103 |
+p/s not SELECTED · rounding open · R3 not SELECTED · no Delivery · FIND-03 remains closed decisionally · impl Money NOT PERFORMED
 
 ## Review Handoff
 
 | Field | Value |
 |-------|--------|
 | mode | publish-in-cycle |
-| commit message | `docs(review-handoff): publish T2 decisions applied` |
-| remote before | tip `79663b03…` · blob `a012637c…` |
+| commit message | `docs(review-handoff): publish T2 numeric precision scale decision pack` |
+| remote before | tip `e82a32a6…` · blob `2bb0a495…` |
 | statut attendu | HANDOFF UPDATED — REMOTE VERIFIED |
 
 ## Verdict
 
 ```
-FINOPS TECHNICAL LOT T2 DECISIONS APPLIED WITH RESERVES —
-D-T2-MONEY-01 M2 SELECTED BY MORRIS —
-FIND-03 CLOSED BY MONEY REPRESENTATION DECISION —
-MONEY IMPLEMENTATION NOT PERFORMED —
-EXACT POSTGRESQL NUMERIC PRECISION/SCALE STILL TO BE BOUNDED —
-D-T2-PRICE-SRC-01 SELECTED —
-VERSIONED SERVER-SIDE ESTIMATION CATALOG SELECTED —
-NO PROVIDER PRICE VALUES INVENTED —
-D-T2-AGG-FORM-01 A1 SELECTED —
-LEDGER REMAINS AUTHORITATIVE —
-DERIVED AGGREGATES MUST BE REBUILDABLE —
-D-T2-RECON-TRIGGER-01 SELECTED —
-ON-DEMAND + BOUNDED BATCH —
-NO CRON / ALWAYS-ON POLLING —
-DOCUMENT 138 PRESERVED BYTE-IDENTICAL —
-DOCUMENT 139 CREATED —
+FINOPS T2 NUMERIC PRECISION/SCALE DECISION PACK COMPLETE —
+M2 REMAINS SELECTED —
+NUMERIC OPTIONS QUANTIFIED —
+MONEY AMOUNT / PRICE RATE PRECISION REQUIREMENTS QUALIFIED —
+CANDIDATE RECOMMENDATION PRODUCED —
+NO PRECISION/SCALE DECISION CONSUMED —
 NO T2 DELIVERY —
 NO T6-FOUNDATION DELIVERY —
+DOCUMENTS 138/139 PRESERVED —
+DOCUMENT 140 CREATED —
 NO CODE / SQL / MIGRATION / PACKAGE / CI MODIFICATION —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 REVIEW HANDOFF REMOTE VERIFIED —
-DISTINCT DELIVERY GATES STILL REQUIRED
+MORRIS NUMERIC PRECISION/SCALE DECISION REQUIRED
 ```
 
 ---
 
-# CONTENU COMPLET DU DOCUMENT 139
+# CONTENU COMPLET DU DOCUMENT 140
 
-# 139 — FinOps Technical Lot T2 Decisions Applied
+# 140 — FinOps Technical Lot T2 — Money PostgreSQL Numeric Precision / Scale Decision Pack
 
 **Project:** SFIA Studio — Assistant SFIA natif OpenAI
-**Document:** `projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md`
-**Cycle:** 6 — Architecture technique · Decisions Applied — FinOps Technical Lot T2
+**Document:** `projects/sfia-studio/140-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decision-pack.md`
+**Cycle:** 6 — Architecture technique · Decision Pack Preparation — T2 Money numeric(p,s)
 **Profil:** Critical
 **Typologie:** EVOL / DOC / ARCH
-**Statut:** DECISIONS APPLIED WITH RESERVES — NO DELIVERY
+**Statut:** DECISION PACK COMPLETE — NO PRECISION/SCALE SELECTED — NO DELIVERY
 
 ---
 
@@ -139,64 +108,47 @@ DISTINCT DELIVERY GATES STILL REQUIRED
 
 | Claim | Statut |
 |-------|--------|
-| D-T2-MONEY-01 M2 SELECTED BY MORRIS | **TRUE** |
-| FIND-03 closed at decision level | **TRUE** |
-| Money / numeric DDL / Decimal library implemented | **FALSE** |
-| Exact PostgreSQL numeric(p,s) fixed | **FALSE** — residual bound required before T2 DDL |
-| Provider prices invented or hardcoded | **FALSE** |
-| T2 Delivery authorized / executed | **FALSE** |
-| T6-foundation Delivery authorized / executed | **FALSE** |
-| T5 / T3 / T4 / T7 / LOT-D* advanced | **FALSE** |
-| Document 138 modified | **FALSE** — preserved byte-identical |
+| D-T2-MONEY-01 M2 remains SELECTED | **TRUE** |
+| M1/M2/M3 reopened | **FALSE** |
+| Exact numeric(p,s) SELECTED BY MORRIS in this cycle | **FALSE** |
+| Candidate recommendation produced | **TRUE** — NOT SELECTED |
+| Provider tariffs invented | **FALSE** |
+| Decimal library selected / installed | **FALSE** |
+| T2 / T6-foundation Delivery | **FALSE** |
+| Documents 138 / 139 modified | **FALSE** |
 | Code / SQL / migration / package / CI modified | **FALSE** |
 | Project commit / push / PR / merge | **FALSE** |
-| Cron / always-on polling selected for T2 | **FALSE** |
-| Recommendation from 138 = decision | **FALSE** — Morris GO overrides prior candidate reco (incl. prior M1 candidate) |
+| FX policy decided | **FALSE** |
 
 ---
 
-## 2. Autorité Morris
+## 2. Objet du Decision Pack
 
-Morris decides. Cursor applies decisions exactly without silent enrichment.
-ChatGPT validates coherence. Git remains source of truth for files and hashes.
-CKC `pilots/03-architecture-technique.md` = candidate experimental guidance only — **no execution authority**; Morris GO in this cycle prevails.
+Fournir à Morris un arbitrage **final et borné** du couple PostgreSQL `numeric(p,s)` requis par **D-T2-MONEY-01 (M2)** avant toute création de DDL T2.
+
+Ce pack :
+- compare des options quantifiées ;
+- distingue Money amount vs price/rate ;
+- produit une **recommandation candidate** ;
+- propose le **texte de GO** attendu ;
+
+Ce pack **ne consomme pas** la décision p/s.
 
 ---
 
-## 3. GO Morris exact (consommé)
+## 3. Autorité Morris / état des décisions existantes
 
-```
-GO DECISIONS FINOPS TECHNICAL LOT T2 —
+| ID | État |
+|----|------|
+| D-T2-MONEY-01 | **M2 SELECTED** — exact decimal · PG numeric + currency · no authoritative JS float |
+| FIND-03 | CLOSED at decision level · implementation NOT PERFORMED |
+| D-T2-PRICE-SRC-01 | Versioned server-side estimation catalog SELECTED |
+| D-T2-AGG-FORM-01 | A1 durable derived aggregates SELECTED · ledger authoritative · rebuildable |
+| D-T2-RECON-TRIGGER-01 | Explicit reconcile project/period · on-demand + bounded batch · no cron |
+| Exact p/s | **NOT FIXED** (139 residual) |
 
-D-T2-MONEY-01 =
-M2 — DECIMAL / POSTGRESQL NUMERIC WITH EXPLICIT SCALE + CURRENCY —
-NO AUTHORITATIVE JAVASCRIPT FLOAT CALCULATION —
-
-D-T2-PRICE-SRC-01 =
-VERSIONED SERVER-SIDE PRICE CATALOG FOR ESTIMATION —
-ESTIMATED COST NEVER BLOCKS —
-OFFICIAL OBSERVED / BILLED IMPORT DEFERRED TO A DISTINCT SOURCE ADAPTER —
-NO INVENTED OR HARDCODED PROVIDER PRICES —
-
-D-T2-AGG-FORM-01 =
-A1 — DURABLE POSTGRESQL DERIVED AGGREGATES —
-LEDGER REMAINS AUTHORITATIVE —
-AGGREGATES MUST BE FULLY REBUILDABLE FROM LEDGER —
-
-D-T2-RECON-TRIGGER-01 =
-EXPLICIT RECONCILE PROJECT/PERIOD SERVICE —
-ON-DEMAND + BOUNDED BATCH —
-NO CRON / ALWAYS-ON POLLING IN T2 —
-
-FIND-03 =
-CLOSE BY T2 MONEY DECISION —
-
-T2 DELIVERY =
-NOT YET AUTHORIZED —
-
-T6-FOUNDATION DELIVERY =
-NOT YET AUTHORIZED
-```
+GO courant : autorise **uniquement** la préparation de cet arbitrage.
+CKC architecture pilot = candidate guidance — **no execution authority**.
 
 ---
 
@@ -204,336 +156,383 @@ NOT YET AUTHORIZED
 
 | Fuseau | Valeur |
 |--------|--------|
-| Décision Morris (annoncée) | 2026-08-07 12:01 CEST (+0200) — secondes exactes non inventées |
-| Application documentaire (ce cycle) | 2026-08-07 12:07:12 CEST (+0200) / 10:07:12 UTC |
+| CEST | 2026-08-07 12:18:31 CEST (+0200) |
+| UTC | 2026-08-07 10:18:31 UTC |
 
 ---
 
-## 5. Local Git Truth
+## 5. Git Truth
 
 | Check | Value |
 |-------|--------|
 | Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack` |
 | Branche | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t2-t5-t6-grouped-preparation` |
-| HEAD | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
-| origin/main | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
-| Status avant | `?? .tmp-sfia-review/` · `?? …/138-….md` |
-| Staged | vide |
-| Upstream | aucun |
-| Handoff entrant | tip `79663b03c8d7eff1f4a4e2e79930bbaa0a934f4b` · blob `a012637c64439d3355514bc18bc0c3f9cf0a2ea5` |
+| HEAD / origin/main | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
+| Status | `?? .tmp-sfia-review/` · `?? 138` · `?? 139` (avant création 140) |
+| Staged / upstream | vide / aucun |
+| 138 SHA-256 | `54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a` (745 lines) |
+| 139 SHA-256 | `0aaf10541776bc64671d02e53b7df76ee01bb7c88e56cdf116d9268e719a615f` (413 lines) |
+| Handoff entrant | tip `e82a32a6505184aed707876ebf59c9452b328300` · blob `2bb0a4955029a9b5bbb3130737216b85c0bc1e5a` · T2 Decisions Applied |
 
 ---
 
 ## 6. Sources
 
-### Méthode (read-only)
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate · no authority)
-- `scripts/sfia/publish-review-handoff.sh`
-
-### Projet (read-only)
-- `103` backlog · `123` / `125` IP-0C · `135` / `136` / `137` T1
-- **Primary pre-arbitration:** `138-…-t2-t5-t6-grouped-preparation.md`
-- Handoff entrant grouped preparation tip `79663b03…`
-
-Runtime: not written; T1 Money absence already established on main — no contradiction with applying M2 as future representation.
+Méthode : cycle template, routing, OM, guardrails, checklist, CKC pilot 03 (candidate), publisher.
+Projet : 103, 123, 125, 135–139.
+Runtime RO : `oa/finops/**`, migration T1 usage-only (no money columns), `package.json` (`pg ~8.22`, `node-pg-migrate`).
+Aucun tarif OpenAI ponctuel utilisé comme hypothèse.
 
 ---
 
-## 7. Relation 138 → 139
+## 7. Contraintes déjà SELECTED (intangibles)
 
-| Document | Role |
-|----------|------|
-| **138** | Historical **pre-arbitration** grouped preparation T2+T5+T6 · options · candidate recommendations · conflict matrices |
-| **139** | Authoritative **post-arbitration** record for the **four T2 decisions** in the GO |
-
-**138 is IMMUTABLE in this cycle** — byte-identical preservation required.
-Do **not** rewrite 138 option tables. Prior candidate recommendation (M1) in 138 remains historical; **Morris selected M2**.
-
-T5 / T6 preparation content in 138 is **unchanged and not re-arbitrated** here.
+1. **M2** — PostgreSQL `numeric` + currency ; no authoritative JS float.
+2. Ledger T1 remains authoritative ; aggregates A1 rebuildable.
+3. Estimation from versioned server-side catalog ; estimated never blocks.
+4. Reconciliation explicit project/period ; on-demand + bounded batch.
+5. No cron / always-on polling in T2.
+6. No Delivery authorized by this pack.
 
 ---
 
-## 8. Matrice avant / après
+## 8. Définitions precision / scale
 
-| ID / Item | Avant (138 / état préparatoire) | Après (ce GO / 139) |
-|-----------|----------------------------------|---------------------|
-| **D-T2-MONEY-01** | NOT DECIDED · FIND-03 OPEN · D-T1-MONEY-01 = DEFER TO T2 · M1/M2/M3 open · candidate reco M1 ≠ SELECTED | **M2 SELECTED BY MORRIS** |
-| **D-T2-PRICE-SRC-01** | NOT DECIDED | **VERSIONED SERVER-SIDE PRICE CATALOG FOR ESTIMATION SELECTED** |
-| **D-T2-AGG-FORM-01** | NOT DECIDED (A1/A2 open · candidate A1) | **A1 DURABLE POSTGRESQL DERIVED AGGREGATES SELECTED** |
-| **D-T2-RECON-TRIGGER-01** | NOT DECIDED (on-demand/batch/cron open) | **EXPLICIT RECONCILE PROJECT/PERIOD SERVICE + ON-DEMAND/BOUNDED BATCH SELECTED** |
-| **FIND-03** | OPEN / DEFERRED TO MONEY | **CLOSED BY MORRIS MONEY REPRESENTATION DECISION** · Implementation **NOT PERFORMED** |
-| T2 Delivery | NOT AUTHORIZED | **NOT YET AUTHORIZED** (unchanged) |
-| T6-foundation Delivery | NOT AUTHORIZED | **NOT YET AUTHORIZED** (unchanged) |
+| Terme | Définition PostgreSQL |
+|-------|------------------------|
+| **precision `p`** | Nombre total de chiffres significatifs |
+| **scale `s`** | Nombre de chiffres après le séparateur décimal |
+| **Chiffres entiers** | `p − s` |
+| **Résolution minimale non nulle** | `10^(−s)` (dans l'unité monétaire de la currency) |
+| **Valeur max (approx.)** | `(10^(p−s) − 10^(−s))` pour valeurs non négatives bornées par le type |
 
----
-
-## 9. D-T2-MONEY-01
-
-**Value:** `M2 — DECIMAL / POSTGRESQL NUMERIC WITH EXPLICIT SCALE + CURRENCY`
-**Status:** **SELECTED BY MORRIS**
-
-### Principles decided
-- Authoritative amount represented as **exact decimal** (not IEEE float as source of truth)
-- Future persistence: PostgreSQL **`numeric(p,s)`** with **scale explicitly frozen before DDL creation**
-- **Currency** stored explicitly with amounts
-- **No authoritative JavaScript `Number`/float calculation**
-- Conversion / validation at boundaries
-- Exact aggregation compatible with decimal semantics
-
-### Explicitly NOT selected by this decision
-- Exact precision `p`
-- Exact scale `s`
-- Any concrete example such as `numeric(20,6)`, `numeric(18,6)`, `numeric(24,8)`
-- Any TypeScript Decimal library choice
-- FX policy
-- Mandatory single-currency product rule (currency field required; FX still open)
-
-### Anti-claims
-- M2 SELECTED ≠ Money implemented
-- M2 SELECTED ≠ `numeric(p,s)` fixed
-- M2 SELECTED ≠ Decimal npm package selected
-- Prior 138 candidate M1 ≠ decision
-
-### Continuity
-- `D-T1-MONEY-01 = DEFER TO T2` is satisfied by this T2 arbitration
-- M1/M2/M3 options are **not reopened** — M2 is decided
+Exemple : `numeric(20,8)` → 12 chiffres entiers · résolution `10^-8`.
 
 ---
 
-## 10. FIND-03 closure
+## 9. Exigences de résolution
 
-**Before:** OPEN / ACCEPTED RESERVE · deferred to Money / T2
-**After:**
+### 9.1 Money amount (coût par run, correction, agrégat)
+
+Objectif : préserver les micro-coûts et corrections sans float.
+
+| Résolution candidate | Signification (1 currency unit) | Adéquation montant |
+|----------------------|----------------------------------|--------------------|
+| `10^-6` | micro-unité | Souvent suffisante pour montants agrégés USD/EUR |
+| `10^-8` | 100× plus fine | Marge pour corrections / multiplications tarif×usage |
+| `10^-12` | extrême | Rarement utile pour **montant** final ; plutôt taux bruts |
+
+**Baseline qualitative (sans inventer de tarif) :**
+Les coûts LLM unitaires sont souvent **très petits** avant agrégation ; les montants finaux restent dans une plage monétaire classique. Donc :
+- sous-précision (`s < 6`) risque de perdre des micro-coûts / corrections ;
+- sur-précision montant (`s ≥ 12`) ajoute dette sans besoin métier démontré pour le **montant**.
+
+### 9.2 Price / rate (catalogue)
+
+Les **taux** (prix par unité de facturation) peuvent nécessiter une finesse **supérieure** au montant final, **sauf** si le catalogue normalise le taux dans un quantum de facturation explicite (voir §11 R3).
+
+---
+
+## 10. Exigences de plage
+
+Seuils provisoires documentés 15 / 20 / 25 / 30 USD = **baseline actuelle**, pas plafond système.
+
+Dimensionnement raisonnable **sans charge fictive** :
+- supporter confortablement des agrégats mensuels projet **plusieurs ordres au-dessus** des seuils (ex. marge jusqu'à ~`10^9`–`10^12` unités monétaires en partie entière) ;
+- ne pas dimensionner pour une échelle planétaire fictive.
+
+| Chiffres entiers (`p−s`) | Ordre de grandeur max ≈ | Lecture |
+|--------------------------|-------------------------|---------|
+| 10 | ~10^10 | Large vs seuils 30 USD ; peut être juste pour multi-projet/devise future |
+| 12 | ~10^12 | Marge confortable sans over-engineering |
+| 14+ | ~10^14+ | Rarement nécessaire maintenant |
+
+---
+
+## 11. Money amount vs price rate
+
+| Option | Description | Simplicité | Exactitude | Dette |
+|--------|-------------|------------|------------|-------|
+| **R1** Same `numeric(p,s)` everywhere | Amounts + rates share one type | Haute | OK si rates normalisés | Faible |
+| **R2** Amount one `p/s` ; rate finer scale | e.g. amount (20,8) · rate (24,12) | Moyenne | Haute pour raw rates | Deux conventions |
+| **R3** Rate = Money per **explicit billing quantum** | Catalog stores unit + quantum + Money amount (same p/s) | Haute | Haute sans scale extrême | Faible si quantum obligatoire |
+
+**Challenge :** éviter plusieurs types si un seul suffit.
+
+**Analyse :**
+R3 aligne le catalogue SELECTED avec M2 sans inventer d'unité provider : le catalogue **doit** porter l'unité/quantum explicitement (déjà compatible avec “versioned catalog”). Les raw per-token ultra-fins deviennent un choix de **modélisation catalogue**, pas une obligation de `s=12` sur les montants.
+
+**Candidate stance (NOT SELECTED) :** préférer **R3 + single Money p/s** ; n'introduire un `D-T2-PRICE-RATE-PS-01` distinct que si Morris exige des rates bruts non normalisés.
+
+---
+
+## 12. Options p/s (Money amount / aggregates)
+
+Working options (not imposed by history) :
+
+### P1 — `numeric(18,6)`
+
+| Attribut | Valeur |
+|----------|--------|
+| precision / scale | 18 / 6 |
+| integer digits | 12 |
+| max ≈ | 10^12 − 10^-6 |
+| min non-zero | 10^-6 |
+| run costs | Bon si montants ≥ micro-unité |
+| monthly aggregates | Large marge vs seuils 30 USD |
+| corrections | OK si deltas ≥ 10^-6 |
+| price catalog (raw) | Peut être juste pour taux très fins |
+| price catalog (R3) | OK |
+| round risk | Plus élevé si multiplication tarif×tokens produit < 10^-6 |
+| storage/perf | Léger |
+| réversibilité | Monter s plus tard = migration non triviale |
+| tests | Bornes min/max · scale contract |
+
+### P2 — `numeric(20,8)`
+
+| Attribut | Valeur |
+|----------|--------|
+| precision / scale | 20 / 8 |
+| integer digits | 12 |
+| max ≈ | 10^12 − 10^-8 |
+| min non-zero | 10^-8 |
+| run costs | Meilleure marge micro-coûts |
+| aggregates | Même plage entière que P1 |
+| corrections | Meilleure tête pour petits deltas |
+| price catalog (R3) | OK |
+| price catalog (raw) | Meilleur que P1, parfois encore juste |
+| round risk | Plus bas que P1 pour multiplications |
+| storage | Légèrement plus large ; négligeable vs exactitude |
+| réversibilité | Toujours migration si change ; meilleur point de départ |
+| tests | Idem + property tests multiplication→amount |
+
+### P3 — `numeric(24,12)`
+
+| Attribut | Valeur |
+|----------|--------|
+| precision / scale | 24 / 12 |
+| integer digits | 12 |
+| max ≈ | 10^12 − 10^-12 |
+| min non-zero | 10^-12 |
+| run / aggregates | Surdimensionné pour **montant** |
+| price raw rates | Utile surtout si rates non normalisés |
+| round risk | Très bas |
+| dette | Convention lourde ; confusion amount vs rate |
+| over-engineering | Élevé pour montant unique partagé |
+
+### P4 (rejetée comme option Money principale) — `numeric(16,4)`
+
+4 décimales = centi-/10^-4 : **sous-précision** probable pour micro-coûts LLM. Conservée uniquement comme contre-exemple (non recommandée).
+
+---
+
+## 13. Comparatif quantitatif
+
+| Critère | P1 (18,6) | P2 (20,8) | P3 (24,12) |
+|---------|-----------|-----------|------------|
+| Exactitude déterministe | Bonne | Meilleure marge | Excessive pour amount |
+| Simplicité | Haute | Haute | Basse |
+| Float leakage defense | OK si string boundary | OK | OK |
+| Rebuild A1 exact | Oui si même type | Oui | Oui |
+| Recon estimated→observed→billed | OK | Meilleure pour petits deltas | OK |
+| Plage (12 int digits) | Identique | Identique | Identique |
+| Réversibilité / migration future | Medium | Medium | Plus de surface |
+| Over-engineering | Bas | Bas–moyen | Haut |
+| Sous-précision risk | Moyen | Bas | Très bas |
+| Surdimensionnement | Bas | Bas | Haut pour amount |
+
+**Calculs simples (sans tarif inventé) :**
+- Seuils 30 USD ≪ 10^12 → **plage entière non discriminante** entre P1/P2/P3.
+- Discriminant = **scale** (résolution + multiplication tarif×usage + corrections).
+- Différence P1→P2 : +2 décimales, même plage entière → coût faible, marge micro significative.
+- Différence P2→P3 : +4 décimales → bénéfice surtout pour **rates bruts**, pas pour montants agrégés.
+
+---
+
+## 14. Politique d'arrondi à borner
+
+| Zone | Stance préparatoire |
+|------|---------------------|
+| Stockage Money / aggregate `numeric` | Valeurs déjà quantisées à scale `s` |
+| Multiplication rate × usage → amount | **Point d'arrondi candidat** — mode exact à fixer |
+| SUM d'aggregats déjà quantisés | Pas d'arrondi supplémentaire si même scale |
+| JS `Number` | **Interdit** comme source autoritative (M2) |
+| Affichage UI | Hors T2 ; peut arrondir pour display seulement |
+
+**Gate distinct possible (seulement si Morris veut le figer maintenant) :**
+`D-T2-ROUNDING-01` — e.g. half-even / floor / ceil at money boundary after rate×usage.
+**Ce Decision Pack ne sélectionne pas le mode.**
+Si non décidé avant Delivery : Delivery T2 doit soit recevoir un GO rounding, soit documenter un défaut **explicitement approuvé**.
+
+---
+
+## 15. PostgreSQL / node-postgres implications
+
+| Sujet | Observation repo / PG |
+|-------|------------------------|
+| Type | `numeric(p,s)` exact ; pas float4/8 |
+| SUM / agrégation | Préserve numeric ; idéal pour A1 rebuild |
+| Index | Possible sur colonnes numeric ; pas d'obligation ici |
+| `pg` ~8.22 | Par défaut, **numeric souvent renvoyé comme string** — favorable M2 |
+| Parsing JS | Doit rester string / decimal boundary — **pas** `parseFloat` autoritatif |
+| Decimal library | **Non sélectionnée** ; devient gate seulement si string branded insuffisant pour ops complexes |
+
+Aucune modification package dans ce cycle.
+
+---
+
+## 16. Agrégats A1
+
+- Colonnes montant agrégat : **même** `numeric(p,s)` que Money amount.
+- Rebuild from ledger : recalcul déterministe à la même scale.
+- Interdiction : agrégat plus “riche” en précision que les événements source sans règle explicite.
+- Corrections / late events : recompute ou apply delta dans la même scale.
+
+---
+
+## 17. Reconciliation
+
+- estimated / observed / billed amounts : même type Money.
+- Deltas de correction : doivent tenir dans scale choisie (argument pour P2 vs P1).
+- Idempotence : comparer numeric exact / string canonique — pas float.
+- Échec recon ≠ invalidation run utilisateur (déjà SELECTED).
+
+---
+
+## 18. Tests candidats (future Delivery)
+
+- Reject authoritative float path
+- Boundary: min non-zero, max near overflow
+- Property: sum of parts == aggregate after rebuild
+- Multiplication rate×usage respects chosen rounding gate
+- Catalog quantum (R3): amount = f(rate_money, usage, quantum) exact
+- node-pg round-trip string numeric unchanged
+
+---
+
+## 19. Risques / dette / réversibilité
+
+| Risk | P1 | P2 | P3 | Mitigation |
+|------|----|----|----|------------|
+| Sous-précision micro-coûts | Med | Low | Low | Prefer ≥8 for amount if rates not normalized |
+| Surdimensionnement | Low | Low | High | Avoid P3 for shared amount type |
+| Deux scales amount/rate non documentées | — | — | — | Prefer R3 |
+| Migration scale↑ later | Painful | Painful | Painful | Choose adequate now |
+| Float leakage via JS | All | All | All | String boundary + lint/tests |
+
+**Réversibilité :** changer `s` après données réelles = rewrite / rescaled migration — **coûteux**. D'où arbitrage Morris **avant DDL**.
+
+---
+
+## 20. Recommandation candidate
 
 ```
-FIND-03 = CLOSED BY MORRIS MONEY REPRESENTATION DECISION —
-IMPLEMENTATION NOT YET PERFORMED.
+RECOMMENDED CANDIDATE — NOT SELECTED:
+
+D-T2-NUMERIC-PS-01 = numeric(20,8)
+  — Money amounts (per-run / correction / aggregate A1)
+  — currency column explicit (already M2)
+
+D-T2-PRICE-RATE-REPRESENTATION-01 = R3
+  — versioned catalog stores Money amount using D-T2-NUMERIC-PS-01
+    per explicitly declared billing quantum + unit
+  — NO separate finer numeric required by default
+
+D-T2-PRICE-RATE-PS-01 = NOT REQUIRED under R3
+  — only open if Morris rejects R3 and demands raw ultra-fine rates
+  — then candidate fallback: numeric(24,12) for rate columns only
 ```
 
-**Decision-level closure only.**
-No columns, types, migrations, libraries, or runtime Money paths are created in this cycle.
+**Justification :**
+1. Exactitude : scale 8 réduit le risque P1 sur multiplications/corrections.
+2. Simplicité : un seul Money p/s + R3 évite twin-types.
+3. Plage : 12 integer digits ≫ seuils provisoires.
+4. A1/recon : same type → rebuild/compare exact.
+5. Anti-over-engineering : P3 rejeté comme type montant unique.
+6. M2 intact : no JS float ; pg string boundary.
 
 ---
 
-## 11. Réserve — exact PostgreSQL numeric precision/scale
+## 21. Gate Morris proposé
 
 ```
-EXACT POSTGRESQL NUMERIC PRECISION/SCALE NOT YET FIXED —
-MUST BE BOUNDED BEFORE T2 DDL IMPLEMENTATION.
+GO DECISIONS FINOPS TECHNICAL LOT T2 — NUMERIC PRECISION/SCALE —
+
+D-T2-NUMERIC-PS-01 =
+numeric(20,8)
+— OR ALTERNATIVE VALUE EXPLICITLY CHOSEN BY MORRIS —
+
+D-T2-PRICE-RATE-REPRESENTATION-01 =
+R3 — CATALOG MONEY AMOUNT PER EXPLICIT BILLING QUANTUM
+— OR R1 SAME PS EVERYWHERE WITHOUT QUANTUM CONTRACT
+— OR R2 SEPARATE FINER RATE PS —
+
+IF R2 SELECTED:
+D-T2-PRICE-RATE-PS-01 = numeric(24,12)
+— OR OTHER EXPLICIT VALUE —
+
+OPTIONAL IF NEEDED NOW:
+D-T2-ROUNDING-01 = <half-even|floor|ceil|other> AT RATE×USAGE MONEY BOUNDARY
+
+T2 DELIVERY =
+NOT AUTHORIZED BY THIS GO UNLESS EXPLICITLY ADDED
 ```
 
-| Nature | Classification |
-|--------|----------------|
-| Does it reopen M1/M2/M3? | **NO** — M2 remains SELECTED |
-| Does it block documentary application of D-T2-MONEY-01? | **NO** |
-| Does it block T2 Delivery DDL without a further bound? | **YES** — require bound (or explicit Morris confirmation of p/s) before creating Money DDL |
-| Gate residual | Listed in §18 item 1 |
-
-No `p`/`s` value is invented in this document.
+**Ne pas consommer ce gate dans le présent cycle.**
 
 ---
 
-## 12. D-T2-PRICE-SRC-01
+## 22. Non-décisions
 
-**Value:** Versioned server-side price catalog for estimation
-**Status:** **SELECTED BY MORRIS**
-
-### Principles decided
-- Server-side catalog
-- Versioned
-- Future access behind an appropriate port/boundary
-- Local estimation authorized from catalog
-- **Estimated cost never blocks**
-- No invented price data
-- No provider prices hardcoded in domain
-- Official observed / billed import **deferred** to a **distinct source adapter**
-- Billed / official observed remain separate from estimation
-
-### Explicitly NOT selected
-- External pricing API
-- Concrete provider format / endpoint / refresh frequency
-- OpenAI tariff values
-- Download mechanism
-- Concrete billed adapter implementation
-
-### Anti-claim
-`price catalog selected as architecture ≠ provider prices configured`
+- Effective SELECTED p/s
+- Decimal npm library
+- FX
+- Provider tariff values / endpoints
+- Rounding mode (unless Morris adds it)
+- T2 / T6-foundation Delivery
+- Neon / provider-real
+- T5 / T3 / T4 / T7 / LOT-D*
 
 ---
 
-## 13. D-T2-AGG-FORM-01
+## 23. Impact sur T2 Delivery
 
-**Value:** A1 — Durable PostgreSQL derived aggregates
-**Status:** **SELECTED BY MORRIS**
-
-### Principles decided
-- T1 ledger remains **authoritative**
-- Aggregates = derived projection
-- Durable PostgreSQL storage
-- Aggregates **fully rebuildable** from ledger
-- No business-authoritative data that exists only in aggregates
-- Full rebuild = expected recovery mechanism
-- Late events / corrections must be able to drive recalculation
-- Future T3/T4 reads may use aggregates without degrading ledger truth
-
-### Explicitly NOT done now
-- No DDL
-- No aggregate table creation
-- No indexes invented beyond the decision to use durable derived tables
+Après GO p/s (et éventuellement rounding / rate representation) :
+- DDL Money/aggregate/catalog peut figer `numeric(p,s)` ;
+- tests de bornes et rebuild A1 ;
+- boundary TypeScript string/decimal sans float autoritatif ;
+- toujours GO Delivery T2 distinct requis.
 
 ---
 
-## 14. D-T2-RECON-TRIGGER-01
+## 24. Réserves
 
-**Value:** Explicit reconcile project/period service · on-demand + bounded batch
-**Status:** **SELECTED BY MORRIS**
-
-### Principles decided
-- Explicit application service scoped to project/period
-- On-demand trigger
-- Bounded batch allowed
-- **No cron in T2**
-- **No always-on polling**
-- Retry / idempotence to be bounded in future Delivery (not invented here)
-- Reconciliation remains FinOps-side
-- Reconciliation failure does **not** retroactively turn a successful user run into failure
-
-### Explicitly NOT selected
-- Queue / worker / external scheduler
-- Cron
-- Permanent polling
-- Provider orchestration platform
-
----
-
-## 15. Impacts sur futur T2 Delivery
-
-When a distinct **GO Delivery T2** is granted, Delivery must:
-
-1. Bound `numeric(p,s)` (or obtain Morris confirmation) **before** Money DDL
-2. Implement M2 without authoritative JS float math
-3. Introduce versioned server-side estimation catalog behind a port — **no hardcoded provider tariffs**
-4. Create durable aggregate tables (A1) rebuildable from `finops_usage_event`
-5. Implement explicit `reconcileProjectPeriod` (name illustrative) with on-demand + bounded batch — no cron
-6. Preserve estimated → observed → billed history via events
-7. Preserve T1 fail-open for user runs
-8. Not implement T3 alerts / T4 enforcement / T5 override / Neon / provider-real unless separately authorized
-
-This document does **not** authorize that Delivery.
-
----
-
-## 16. Impacts sur futur T6-foundation
-
-T6-foundation remains **NOT YET AUTHORIZED**.
-T2 decisions imply future audit events (e.g. aggregate recalculated, reconciliation failed, unknown cost) but do **not**:
-
-- select T6 audit store option
-- authorize T6 Delivery
-- require T6 to start before T2
-
-Scenario B from 138 (T2 ∥ T6-foundation) remains a **recommendation**, not a GO.
-
----
-
-## 17. Décisions non prises (explicit)
-
-- T2 Delivery
-- T6-foundation Delivery
-- Exact `numeric(p,s)`
-- Decimal library
-- FX policy
-- Provider price values
-- Billed import format / adapter concrete shape
-- Reconciliation queue/cron/scheduler
-- Neon
-- provider-real
-- T5 authority (`D-T5-AUTH-01` etc.)
-- T6 audit store (`D-T6-AUDIT-STORE-01`)
-- T3 / T4 / T7
-- LOT-D*
-- Any change to T5/T6 SELECTED IP-0C decisions beyond leaving them as prepared in 138
-
----
-
-## 18. Gates Morris restantes
-
-1. Bound exact PostgreSQL `numeric(p,s)` before T2 DDL
-2. Distinct **GO Delivery T2**
-3. Distinct **GO Delivery T6-foundation**
-4. T5 authority decisions (`D-T5-AUTH-01` / foundation allow)
-5. Distinct **GO Delivery T5**
-6. Distinct T3 / T4 / T7 gates
-7. Distinct Neon integration
-8. Distinct provider-real validation
-9. Calibration 15/20/25/30 USD before real threshold usage when required
-10. Distinct LOT-D*
-
-**This GO does not consume any of the above.**
-
----
-
-## 19. Réserves
-
-| Item | Status after this cycle |
-|------|-------------------------|
-| FIND-03 | **CLOSED** at decision level · implementation NOT PERFORMED |
-| Exact numeric(p,s) | **OPEN residual** — must bound before DDL |
-| FIND-07 | NOTE (unchanged) |
-| R-TECH-TTL-01 | KEEP-OPEN |
-| R-TECH-FINOPS-HARD-01 | KEEP-OPEN |
-| Calibration 15/20/25/30 USD | provisional / recalibration required |
-| TB-04-04 / TB-02-05 | NOT DONE / PRESERVED |
+| Item | Status |
+|------|--------|
+| Exact p/s | **OPEN — awaiting Morris GO** |
+| Rounding mode | OPEN unless gated |
+| Rate representation R1/R2/R3 | Candidate R3 — not SELECTED |
+| FIND-03 | CLOSED decisionally · impl NOT PERFORMED |
+| R-TECH-TTL / HARD / calibration USD | unchanged |
 | Neon / provider-real | NOT DONE |
-| T5 full authority | still blocked / foundation pending separate gates |
-| Document 124 absent | NOTE (unchanged) |
 
 ---
 
-## 20. Anti-claims (final)
-
-- Decisions applied ≠ Delivery authorized
-- FIND-03 closed ≠ Money shipped
-- M2 ≠ p/s chosen
-- Catalog architecture ≠ tariffs loaded
-- A1 selected ≠ tables created
-- On-demand/batch selected ≠ scheduler deployed
-- 138 unchanged · 139 is the T2 decisions record
-- No code · no SQL · no migration · no package · no CI
-- No project commit · no project push · no PR · no merge
-
----
-
-## 21. Verdict
+## 25. Verdict
 
 ```
-FINOPS TECHNICAL LOT T2 DECISIONS APPLIED WITH RESERVES —
-D-T2-MONEY-01 M2 SELECTED BY MORRIS —
-FIND-03 CLOSED BY MONEY REPRESENTATION DECISION —
-MONEY IMPLEMENTATION NOT PERFORMED —
-EXACT POSTGRESQL NUMERIC PRECISION/SCALE STILL TO BE BOUNDED —
-D-T2-PRICE-SRC-01 SELECTED —
-VERSIONED SERVER-SIDE ESTIMATION CATALOG SELECTED —
-NO PROVIDER PRICE VALUES INVENTED —
-D-T2-AGG-FORM-01 A1 SELECTED —
-LEDGER REMAINS AUTHORITATIVE —
-DERIVED AGGREGATES MUST BE REBUILDABLE —
-D-T2-RECON-TRIGGER-01 SELECTED —
-ON-DEMAND + BOUNDED BATCH —
-NO CRON / ALWAYS-ON POLLING —
-DOCUMENT 138 PRESERVED BYTE-IDENTICAL —
-DOCUMENT 139 CREATED —
+FINOPS T2 NUMERIC PRECISION/SCALE DECISION PACK COMPLETE —
+M2 REMAINS SELECTED —
+NUMERIC OPTIONS QUANTIFIED —
+MONEY AMOUNT / PRICE RATE PRECISION REQUIREMENTS QUALIFIED —
+CANDIDATE RECOMMENDATION PRODUCED —
+NO PRECISION/SCALE DECISION CONSUMED —
 NO T2 DELIVERY —
 NO T6-FOUNDATION DELIVERY —
+DOCUMENTS 138/139 PRESERVED —
+DOCUMENT 140 CREATED —
 NO CODE / SQL / MIGRATION / PACKAGE / CI MODIFICATION —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
-DISTINCT DELIVERY GATES STILL REQUIRED
+MORRIS NUMERIC PRECISION/SCALE DECISION REQUIRED
 ```
-
-**Statut:** READY WITH RESERVES
