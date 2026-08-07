@@ -220,7 +220,7 @@ Directory: `.tmp-sfia-review/t6-post-merge/` (untracked) — git-truth, PR view,
 
 | Field | Value |
 | --- | --- |
-| tip |  |
-| blob |  |
-| commit message |  |
+| tip | `ae8a61c7e7af97161679f9ed47a90f1bf5db8029` |
+| blob | `6e05d4fb3fc1a06dc62415c087bb9ef939832fa0` |
+| commit message | `docs(review-handoff): publish T6 post-merge` |
 | publisher verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
