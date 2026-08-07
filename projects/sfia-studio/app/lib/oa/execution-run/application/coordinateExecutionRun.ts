@@ -28,6 +28,8 @@ import type {
   GitReadRequest,
   ProviderInvocationResult,
 } from "../ports/providerResult";
+import type { FinOpsCapturePort } from "../../finops/ports/finopsCapturePort";
+import type { FinOpsCaptureDiagnostic } from "../../finops/application/types";
 import {
   invokeWithTimeoutAndCancellation,
   type InvokeOutcome,
@@ -73,6 +75,8 @@ export type CoordinateExecutionRunDependencies = {
   };
   readonly events: ExecutionEventSinkPort;
   readonly clock: ClockPort;
+  /** Optional FinOps T1 capture boundary — absent ⇒ not_attempted/disabled. */
+  readonly finops?: FinOpsCapturePort;
 };
 
 export type CoordinateExecutionRunInput = {
@@ -96,6 +100,7 @@ export type CoordinateExecutionRunResult =
       readonly providerCompleted: boolean;
       readonly stateTrace: readonly ExecutionRun["state"][];
       readonly validatedUsage: UsageSummary;
+      readonly finopsCapture: FinOpsCaptureDiagnostic;
       readonly lateEvidenceRecorded: boolean;
       readonly eventDelivery: {
         readonly status: EventDeliveryStatus;
@@ -111,6 +116,7 @@ export type CoordinateExecutionRunResult =
       readonly providerCompleted: boolean;
       readonly stateTrace: readonly ExecutionRun["state"][];
       readonly validatedUsage: UsageSummary;
+      readonly finopsCapture: FinOpsCaptureDiagnostic;
       readonly lateEvidenceRecorded: boolean;
       readonly eventDelivery: {
         readonly status: EventDeliveryStatus;
@@ -154,27 +160,133 @@ function validatedUsage(input: unknown): UsageSummary {
     return unavailableUsage("provider_usage_unavailable");
   }
   const usage = input as Record<string, unknown>;
+  if (usage.status === "invalid") {
+    return {
+      status: "invalid",
+      reason:
+        typeof usage.reason === "string"
+          ? usage.reason
+          : "provider_usage_invalid",
+      model: typeof usage.model === "string" ? usage.model : undefined,
+      providerResponseId:
+        typeof usage.providerResponseId === "string"
+          ? usage.providerResponseId
+          : undefined,
+    };
+  }
+  if (usage.status === "unavailable") {
+    return {
+      status: "unavailable",
+      reason:
+        typeof usage.reason === "string"
+          ? usage.reason
+          : "provider_usage_unavailable",
+      model: typeof usage.model === "string" ? usage.model : undefined,
+      providerResponseId:
+        typeof usage.providerResponseId === "string"
+          ? usage.providerResponseId
+          : undefined,
+    };
+  }
   if (usage.status !== "validated") {
     return unavailableUsage("provider_usage_unavailable");
   }
-  for (const key of ["inputTokens", "outputTokens"] as const) {
+  for (const key of ["inputTokens", "outputTokens", "totalTokens"] as const) {
     const value = usage[key];
     if (
       value !== undefined &&
       (typeof value !== "number" || !Number.isFinite(value) || value < 0)
     ) {
-      return unavailableUsage("provider_usage_invalid");
+      return {
+        status: "invalid",
+        reason: "provider_usage_invalid",
+        model: typeof usage.model === "string" ? usage.model : undefined,
+        providerResponseId:
+          typeof usage.providerResponseId === "string"
+            ? usage.providerResponseId
+            : undefined,
+      };
     }
   }
   if (usage.unit !== undefined && typeof usage.unit !== "string") {
-    return unavailableUsage("provider_usage_invalid");
+    return {
+      status: "invalid",
+      reason: "provider_usage_invalid",
+    };
   }
   return {
     status: "validated",
     inputTokens: usage.inputTokens as number | undefined,
     outputTokens: usage.outputTokens as number | undefined,
+    totalTokens: usage.totalTokens as number | undefined,
     unit: usage.unit as string | undefined,
+    model: typeof usage.model === "string" ? usage.model : undefined,
+    providerResponseId:
+      typeof usage.providerResponseId === "string"
+        ? usage.providerResponseId
+        : undefined,
   };
+}
+
+function finopsNotAttempted(reason: string): FinOpsCaptureDiagnostic {
+  return { status: "not_attempted", reason };
+}
+
+function finopsDisabled(): FinOpsCaptureDiagnostic {
+  return { status: "disabled", reason: "finops_dependency_not_injected" };
+}
+
+async function captureFinOpsAfterAiSuccess(args: {
+  readonly deps: CoordinateExecutionRunDependencies;
+  readonly run: ExecutionRun;
+  readonly usage: UsageSummary;
+  readonly providerSucceeded: boolean;
+}): Promise<FinOpsCaptureDiagnostic> {
+  if (args.run.intent.requestedLane !== "ai") {
+    return finopsNotAttempted("non_ai_lane");
+  }
+  if (!args.providerSucceeded) {
+    return finopsNotAttempted("provider_not_successful");
+  }
+  if (!args.deps.finops) {
+    return finopsDisabled();
+  }
+  try {
+    return await args.deps.finops.captureUsage({
+      projectId: args.run.context.projectId,
+      executionRunId: args.run.runId,
+      correlationId: args.run.correlationId,
+      provider: "openai",
+      usage: {
+        status: args.usage.status,
+        ...(args.usage.status === "validated"
+          ? {
+              inputTokens: args.usage.inputTokens,
+              outputTokens: args.usage.outputTokens,
+              totalTokens: args.usage.totalTokens,
+              unit: args.usage.unit,
+              model: args.usage.model,
+              providerResponseId: args.usage.providerResponseId,
+            }
+          : {
+              reason: args.usage.reason,
+              model: args.usage.model,
+              providerResponseId: args.usage.providerResponseId,
+            }),
+      },
+      occurredAt: args.deps.clock.nowIso(),
+    });
+  } catch {
+    return {
+      status: "failed",
+      error: {
+        code: "FINOPS_CAPTURE_FAILED",
+        message: "FinOps capture failed",
+        retryable: true,
+        technicalDetailsRedacted: true,
+      },
+    };
+  }
 }
 
 function invalidProviderFailure(correlationId: string): NormalizedFailure {
@@ -207,6 +319,7 @@ function emptyDiagnostics(tracker: EventTracker) {
     providerCompleted: false,
     stateTrace: [] as ExecutionRun["state"][],
     validatedUsage: unavailableUsage("not_validated"),
+    finopsCapture: finopsNotAttempted("preflight_or_early_exit"),
     lateEvidenceRecorded: false,
     eventDelivery: {
       status: (tracker.failureCount > 0
@@ -881,6 +994,7 @@ export async function coordinateExecutionRun(
       providerCompleted: false,
       stateTrace,
       validatedUsage: noUsage,
+      finopsCapture: finopsNotAttempted("create_failed"),
       lateEvidenceRecorded: false,
       eventDelivery: deliveryOf(tracker),
     };
@@ -923,6 +1037,7 @@ export async function coordinateExecutionRun(
       providerCompleted: false,
       stateTrace,
       validatedUsage: noUsage,
+      finopsCapture: finopsNotAttempted("pre_engagement_block"),
       lateEvidenceRecorded: false,
       eventDelivery: deliveryOf(tracker),
     };
@@ -942,6 +1057,7 @@ export async function coordinateExecutionRun(
       providerCompleted: false,
       stateTrace,
       validatedUsage: noUsage,
+      finopsCapture: finopsNotAttempted("start_failed"),
       lateEvidenceRecorded: false,
       eventDelivery: deliveryOf(tracker),
     };
@@ -1001,6 +1117,24 @@ export async function coordinateExecutionRun(
   });
 
   const terminal = await transitionFromInvocation(current, invocation, deps);
+  let providerSucceeded = false;
+  if (invocation.status === "completed") {
+    try {
+      providerSucceeded = invocation.result.kind === "success";
+    } catch {
+      providerSucceeded = false;
+    }
+  }
+
+  // Fail-open FinOps capture: never convert provider success into user failure.
+  const runForCapture = terminal.result.run ?? current;
+  const finopsCapture = await captureFinOpsAfterAiSuccess({
+    deps,
+    run: runForCapture,
+    usage: terminal.usage,
+    providerSucceeded,
+  });
+
   if (!terminal.result.ok) {
     return {
       ok: false,
@@ -1011,6 +1145,7 @@ export async function coordinateExecutionRun(
       providerCompleted,
       stateTrace,
       validatedUsage: terminal.usage,
+      finopsCapture,
       lateEvidenceRecorded: false,
       eventDelivery: deliveryOf(tracker),
     };
@@ -1050,6 +1185,7 @@ export async function coordinateExecutionRun(
         providerCompleted,
         stateTrace,
         validatedUsage: terminal.usage,
+        finopsCapture,
         lateEvidenceRecorded,
         eventDelivery: deliveryOf(tracker),
       }
@@ -1080,6 +1216,7 @@ export async function coordinateExecutionRun(
         providerCompleted,
         stateTrace,
         validatedUsage: terminal.usage,
+        finopsCapture,
         lateEvidenceRecorded,
         eventDelivery: deliveryOf(tracker),
       };

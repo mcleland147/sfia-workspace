@@ -122,6 +122,20 @@ jobs:
       run:
         shell: bash
         working-directory: projects/sfia-studio/app
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: sfia_ci
+          POSTGRES_PASSWORD: sfia_ci_local_only
+          POSTGRES_DB: sfia_studio_finops_t1
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U sfia_ci -d sfia_studio_finops_t1"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -148,7 +162,22 @@ jobs:
         run: npm run build
 
       - name: Unit tests (Vitest)
+        # DB connection env intentionally absent at this step:
+        # PostgreSQL integration tests must stay skipped until after migrate.
         run: npm test
+
+      - name: FinOps T1 migrate up (CI-A)
+        env:
+          # Local CI-A ephemeral Postgres only — not Neon; not a real secret.
+          DATABASE_URL_DIRECT: postgres://sfia_ci:sfia_ci_local_only@localhost:5432/sfia_studio_finops_t1
+        run: npm run migrate:up
+
+      - name: FinOps T1 PostgreSQL integration tests (CI-A)
+        env:
+          # Local CI-A ephemeral Postgres only — not Neon; not a real secret.
+          DATABASE_URL: postgres://sfia_ci:sfia_ci_local_only@localhost:5432/sfia_studio_finops_t1
+          DATABASE_URL_DIRECT: postgres://sfia_ci:sfia_ci_local_only@localhost:5432/sfia_studio_finops_t1
+        run: npm run test:db
 
       - name: Modeled governance tests
         working-directory: projects/sfia-studio
