@@ -1,168 +1,206 @@
-# ChatGPT Review Pack — FinOps Technical Lot T2 — PR #314 Merged (Light)
+# ChatGPT Review Pack — FinOps Technical Lot T2 — Cycle 14 Post-merge (Light)
 
 ## Meta
 
-- date_cest: 2026-08-07 14:55:15 CEST (+0200)
-- date_utc: 2026-08-07 12:55:15 UTC
-- cycle: 14 — PR merge
+- date_cest: 2026-08-07 15:18:10 CEST (+0200)
+- date_utc: 2026-08-07 13:18:10 UTC
+- cycle: 14 — Post-merge
 - profil: Light
 - typologie: RUN / GOV
 - niveau: Light
-- GO Morris exact: `GO merge PR #314`
-- GO autorise: merge open PR #314 into main via `gh pr merge` · fetch/sync local main for verification · write review pack · publish review handoff
-- GO N'autorise PAS: force push · amend/rebase/squash after the fact · branch delete · auto-merge without completing merge · R-PR-T2-API-01 hardening · functional/doc edits beyond review pack + handoff
-- Gates: GO merge REÇU · GO branch delete NON REÇU · GO R-PR-T2-API-01 hardening NON REÇU
-- Incoming handoff tip: `e7b4b3827a18a76ef4b36e930cd2dc894db056d7`
-- Incoming handoff blob: `fb0a4d75739244ec64b2d73887fecbeb4ad77bbb`
-- Incoming handoff commit: `docs(review-handoff): publish T2 CI correction complete`
+- intention Morris exact: `cycle 14 — post-merge T2`
+- GO autorise: verify merge/integration · identify post-merge CI on main · §6.12.1 cleanup of exact T2 delivery branch if all 9 conditions PASS · write Light review pack · publish review handoff
+- GO N'autorise PAS: force push · `git branch -D` · project/doc edits · R-PR-T2-API-01 hardening · new PR/merge/product commit · T3–T7 · Neon · provider-real · launching next lot · deleting any other branch
+- Gates: cycle 14 post-merge REÇU · GO next lot NON REÇU · GO API harden NON REÇU
+- Incoming handoff tip: `b5c1d19558ca8f66912d9aae463f205ce90c8598`
+- Incoming handoff blob: `cd2edbd61cf40cc4f3da2362f2cd2a0af4599265`
+- Incoming handoff commit: `docs(review-handoff): publish T2 PR merged`
 - Repo: `mcleland147/sfia-workspace`
-- Worktree: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack`
-- Branch (pre/post local): `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation`
-- Base / origin/main BEFORE: `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`
-- G1 commit: `9a7be9220f64f73ab150119f7ec5ff39ad8442c9`
-- CORRECTION_SHA / headRefOid: `268f54ca269993e767011844b48967a51ae0d514`
 - PR: **#314** — https://github.com/mcleland147/sfia-workspace/pull/314
-- Merge: **YES** — method `--merge` (merge commit), matching FinOps T1 PR #313
+- Merge commit: `e1e00df244aa78a063bf2abf21f69325e1036f3a`
+- Delivery branch (exact): `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation`
 
 ## Verdict (pack)
 
 ```
-FINOPS TECHNICAL LOT T2 — PR #314 MERGED —
-G1 + CI WHITESPACE CORRECTION VERIFIED —
-25-PATH MANIFEST MERGED —
-CI GREEN AT MERGE —
+FINOPS TECHNICAL LOT T2 — POST-MERGE COMPLETE WITH RESERVES —
+PR #314 MERGE VERIFIED —
+MAIN ALIGNED AT e1e00df244aa78a063bf2abf21f69325e1036f3a —
+25-PATH INTEGRATION VERIFIED —
+POST-MERGE CI GREEN —
+QA-G4 OK WITH RESERVES —
 R-PR-T2-API-01 OPEN MINOR —
-NO BRANCH DELETE —
+DELIVERY BRANCH CLEANUP DONE —
+NO NEXT LOT AUTHORIZED —
 REVIEW HANDOFF REMOTE VERIFIED —
-MERGE COMPLETE
+T2 CLOSED WITH RESERVES
 ```
 
-## 1. GO
+## 1. Sources consulted (read-only)
 
-Authorized merge of PR #314 only. Prefer repo default / prior FinOps T1 merge-commit method (`gh pr merge --merge`). Do not `--admin`, do not `--delete-branch`, do not enable auto-merge as substitute, no code changes.
+- `prompts/templates/sfia-cycle-execution-template.md` §6.12.1 (nine cleanup conditions)
+- `.github/workflows/sfia-studio-ci.yml` (push/pull_request → main)
+- `scripts/sfia/publish-review-handoff.sh`
+- Docs 138–142 / 144 as needed (context only; no edits)
+- Port/application: `finopsAggregatePort.ts`, `recomputeAggregates.ts` (R-PR-T2-API-01)
 
-## 2. Git Truth BEFORE
-
-| Field | Value |
-| --- | --- |
-| pwd | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack` |
-| toplevel | same |
-| branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation` |
-| HEAD | `268f54ca269993e767011844b48967a51ae0d514` |
-| origin/main | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
-| origin/T2 | `268f54ca269993e767011844b48967a51ae0d514` |
-| status | clean tracked; only untracked `.tmp-sfia-review/` |
-| fetch | `git fetch origin --prune` OK |
-
-Evidence: `.tmp-sfia-review/t2-pr-merge/git-truth-initial.txt`
-
-## 3. PR BEFORE
+## 2. Git Truth initial
 
 | Field | Value |
 | --- | --- |
-| state | OPEN |
-| draft | false |
-| base | main |
-| headRefOid | `268f54ca269993e767011844b48967a51ae0d514` |
-| commits | 2 (G1 `9a7be922…` + whitespace fix `268f54ca…`) |
-| changed files | **25** |
-| title | `feat(sfia-studio): implement FinOps T2 aggregation and reconciliation` |
-| mergeable | MERGEABLE |
-| mergeStateStatus | CLEAN |
+| date | Fri Aug 7 15:15:50 CEST 2026 |
+| pwd / toplevel | `…/worktrees/finops-t1-pack` |
+| origin/main | `e1e00df244aa78a063bf2abf21f69325e1036f3a` MATCH |
+| remote delivery | `268f54ca269993e767011844b48967a51ae0d514` present |
+| status | clean tracked; only `?? .tmp-sfia-review/` |
+| staged | empty |
+| fetch --prune | OK |
 
-Evidence: `.tmp-sfia-review/t2-pr-merge/pr-before.json`
+Evidence: `.tmp-sfia-review/t2-post-merge/git-truth-initial.txt`
 
-## 4. CI at merge head
+## 3. Worktree map
 
-All SUCCESS on head `268f54ca…` (run `31178397523`):
+| Role | Path | Branch / HEAD |
+| --- | --- | --- |
+| DELIVERY_WORKTREE (start) | `…/worktrees/finops-t1-pack` | delivery T2 @ `268f54ca…` |
+| MAIN_WORKTREE (start) | **NONE** holding `refs/heads/main` | local `main` ref already `e1e00df…` |
+| MAIN_WORKTREE (created for align) | `…/worktrees/finops-t2-main` | `main` @ `e1e00df…` after `git worktree add` + `pull --ff-only` (Already up to date) |
+| Handoff WT | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` | `sfia/review-handoff` @ `b5c1d195…` |
 
-| Check | Result |
-| --- | --- |
-| Detect SFIA Studio changes | pass |
-| Build and validate SFIA Studio | pass |
-| SFIA Studio Required Gate | pass |
+Never used `checkout -f`. Delivery detached only for cleanup.
 
-Evidence: `.tmp-sfia-review/t2-pr-merge/pr-checks-before.txt`
-
-## 5. Handoff BEFORE
+## 4. Handoff BEFORE
 
 | Field | Expected | Observed |
 | --- | --- | --- |
-| tip | `e7b4b3827a18a76ef4b36e930cd2dc894db056d7` | MATCH |
-| blob (`sfia-review-handoff/latest-chatgpt-review.md`) | `fb0a4d75739244ec64b2d73887fecbeb4ad77bbb` | MATCH |
+| tip | `b5c1d19558ca8f66912d9aae463f205ce90c8598` | MATCH |
+| blob (`sfia-review-handoff/latest-chatgpt-review.md`) | `cd2edbd61cf40cc4f3da2362f2cd2a0af4599265` | MATCH |
+| subject | `docs(review-handoff): publish T2 PR merged` | MATCH |
 
-Evidence: `.tmp-sfia-review/t2-pr-merge/handoff-before.txt`
-
-## 6. Merge method
-
-- Repo allows merge commits (`allow_merge_commit: true`); squash/rebase also allowed; `delete_branch_on_merge: false`.
-- Prior T1 PR #313 used merge commit `093fd916…`.
-- Executed: `gh pr merge 314 --repo mcleland147/sfia-workspace --merge`
-- No `--admin`, no `--delete-branch`, no auto-merge.
-
-Evidence: `.tmp-sfia-review/t2-pr-merge/merge-out.txt`, `.tmp-sfia-review/t2-pr-merge/repo-merge-settings.json` (if present), prior T1 parents recorded.
-
-## 7. PR AFTER / merge SHA
+## 5. PR #314 after merge
 
 | Field | Value |
 | --- | --- |
 | state | **MERGED** |
 | mergedAt | `2026-08-07T12:54:53Z` |
 | mergeCommit | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
-| parents | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` + `268f54ca269993e767011844b48967a51ae0d514` |
-| subject | `Merge pull request #314 from mcleland147/delivery/...-t2-aggregation-reconciliation` |
+| headRefOid | `268f54ca269993e767011844b48967a51ae0d514` |
+| commits | **2** (G1 `9a7be922…` + whitespace `268f54ca…`) |
+| files | **25** |
+| headRefName | exact T2 delivery branch |
 
-Evidence: `.tmp-sfia-review/t2-pr-merge/pr-after.json`, `merge-commit-meta.txt`
+## 6–7. Merge SHA / parents / ancestors
 
-## 8. origin/main AFTER
+| Check | Result |
+| --- | --- |
+| merge SHA | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
+| parent1 | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` (prior main / T1 merge) |
+| parent2 | `268f54ca269993e767011844b48967a51ae0d514` (PR head) |
+| `merge-base --is-ancestor` head → origin/main | OK |
+| `merge-base --is-ancestor` G1 `9a7be922…` → origin/main | OK |
+
+## 8. Main alignment
+
+- MAIN_WORKTREE `finops-t2-main`: `git pull --ff-only` → Already up to date
+- HEAD = origin/main = `e1e00df244aa78a063bf2abf21f69325e1036f3a`
+- Tracked clean
+
+## 9. Manifest merged (25)
+
+`git diff --name-only e1e00df…^1 e1e00df…` → **exactly 25** paths (6 docs 138–142/144 + migration + T2 app/tests/ports).
+
+T6 note: **no T6 lot implementation / foundation-audit product paths**. Filename `138-…-t2-t5-t6-grouped-preparation.md` is intentional T2 grouped-prep doc included in the 25 — not a T6 delivery.
+
+## 10. R-PR-T2-API-01 (read-only)
+
+| Observation | Status |
+| --- | --- |
+| `replaceProjectPeriodAggregates` still on port | YES |
+| Production rebuild via `withExclusiveProjectPeriodRebuild` in `recomputeAggregates.ts` | YES |
+| Hardening this cycle | **NOT done** (forbidden) |
+| Classification | **OPEN MINOR** |
+
+## 11–15. Post-merge CI (distinct from PR run)
 
 | Field | Value |
 | --- | --- |
-| origin/main | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
-| advanced from | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
-| local main FF | yes → same SHA |
-| working branch | still delivery T2 at `268f54ca…` |
+| PR-head CI (not used as post-merge) | `31178397523` |
+| Post-merge search | `gh run list --workflow "SFIA Studio CI" --branch main --event push` + `--commit e1e00df…` |
+| Selected run | **`31180244030`** |
+| headSha | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
+| event | push |
+| conclusion | **success** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31180244030 |
 
-Evidence: `.tmp-sfia-review/t2-pr-merge/git-truth-final.txt`
+Jobs (all SUCCESS):
 
-## 9. 25-path manifest merged
+| Job | Result |
+| --- | --- |
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | success (incl. Trailing whitespace check **success**) |
+| SFIA Studio Required Gate | success |
 
-`git diff --name-only origin/main^1...origin/main` → **25** paths (docs 138–142, 144; migration; money/aggregate/reconcile ports+infra+app; unit+PG tests). Full list: `.tmp-sfia-review/t2-pr-merge/merged-paths.txt`
+**QA-G4: OK WITH RESERVES** (green post-merge CI; open minor API reserve retained).
 
-## 10. No branch delete
+Workflow triggers: `pull_request` + `push` on `main` (`.github/workflows/sfia-studio-ci.yml`).
 
-- Merge command did not pass `--delete-branch`.
-- Remote delivery ref still present at `268f54ca…`.
-- `delete_branch_on_merge` = false.
+## 16–22. §6.12.1 cleanup
 
-Evidence: `.tmp-sfia-review/t2-pr-merge/delivery-branch-remote.txt`
-
-## 11. R-PR-T2-API-01
-
-**OPEN MINOR** — not closed by merge. `replaceProjectPeriodAggregates` remains on the port with no production callers; rebuild uses exclusive lock. Follow-up reserve / optional future hardening micro-cycle only (requires separate Morris GO). Not in this merge scope.
-
-## 12. Handoff publish (this cycle)
-
-- Script: `scripts/sfia/publish-review-handoff.sh`
-- Message: `docs(review-handoff): publish T2 PR merged`
-- Source: `.tmp-sfia-review/chatgpt-review.md`
-- Handoff WT: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
-- Before tip/blob matched expected (section 5).
-- After: recorded in evidence under `.tmp-sfia-review/t2-pr-merge/handoff-*.txt`
-
-## 13. Evidence directory
-
-All merge-cycle artifacts under `.tmp-sfia-review/t2-pr-merge/` (untracked OK).
-
-## 14. Final verdict
+### Nine-condition matrix
 
 ```
-FINOPS TECHNICAL LOT T2 — PR #314 MERGED —
-G1 + CI WHITESPACE CORRECTION VERIFIED —
-25-PATH MANIFEST MERGED —
-CI GREEN AT MERGE —
-R-PR-T2-API-01 OPEN MINOR —
-NO BRANCH DELETE —
-REVIEW HANDOFF REMOTE VERIFIED —
-MERGE COMPLETE
+PASS | 1. PR #314 MERGED | state=MERGED mergeCommit=e1e00df…
+PASS | 2. main local == origin/main after FF | HEAD=origin/main=e1e00df…
+PASS | 3. merge commit on main | ancestor e1e00df… of HEAD
+PASS | 4. PR head 268f54ca… on main | ancestor of HEAD
+PASS | 5. working tree tracked clean | only ?? .tmp-sfia-review/
+PASS | 6. branch == exact PR #314 source | delivery/…-t2-aggregation-reconciliation
+PASS | 7. branch not protected | protected=false (API 404 / meta.protected=false)
+PASS | 8. no unmerged divergence | left-right origin/main...delivery = 1 0 (1=merge commit on main only; 0 delivery-only); delivery tip ancestor of main
+PASS | 9. not main / not sfia/review-handoff / not special | delivery branch only
+ALL_NINE=PASS
 ```
+
+### Cleanup actions
+
+| Step | Result |
+| --- | --- |
+| Detach DELIVERY_WORKTREE → `origin/main` | DONE — HEAD `e1e00df…`, detached; `.tmp-sfia-review/` kept |
+| Local `git branch -d` (not `-D`) | **DONE** — deleted (was `268f54c`) |
+| Remote `git push origin --delete <exact>` | **DONE** |
+| `git fetch --prune` | DONE |
+| Local ref | **GONE** |
+| Remote ls-remote | **0** |
+
+Cleanup status: **local DONE · remote DONE · blocked N/A · force NOT used**.
+
+## 23. Main after cleanup
+
+| Field | Value |
+| --- | --- |
+| MAIN_WORKTREE HEAD | `e1e00df244aa78a063bf2abf21f69325e1036f3a` |
+| origin/main | same |
+| status | clean tracked |
+| DELIVERY_WORKTREE | detached @ `e1e00df…`; only `?? .tmp-sfia-review/` |
+
+## 24. Reserves
+
+- **R-PR-T2-API-01** — OPEN MINOR (raw replace remains on port; rebuild uses exclusive helper; no harden this cycle)
+- **T6 sibling** — deferred context only (grouped prep doc 138); **T6 lot not started**
+
+## 25. Anti-claim — no next lot
+
+T3 / T4 / T5 / T6 / T7 / Neon / provider-real / next-lot GO: **NOT AUTHORIZED · NOT STARTED**.
+
+## 26. Evidence
+
+Directory: `.tmp-sfia-review/t2-post-merge/` (untracked) — git-truth, PR view, merge parents, merged-paths, postmerge-ci, cleanup-matrix, branch delete, after-cleanup, handoff before/after, api-reserve-readonly, etc.
+
+## Handoff AFTER (filled at publish)
+
+| Field | Value |
+| --- | --- |
+| tip | _(publish)_ |
+| blob | _(publish)_ |
+| commit message | `docs(review-handoff): publish T2 post-merge` |
+| publisher verdict | _(publish)_ |
