@@ -1,155 +1,221 @@
-# ChatGPT Review Pack — FinOps T3 Cycle 13 PR Publication (Light)
+# ChatGPT Review Pack — FinOps Technical Lot T3 — PR #316 Merged (Light)
 
-**Profil:** Critical
-**Typologie:** EVOL / CODE / DOC / TEST — PR publication (no content modification)
-**GO:** `GO commit → push → PR T3.` (Morris: `ok go pour la suite` after READY FOR MORRIS COMMIT/PUSH/PR GATE)
+## Meta
 
-## Horodatage
+- date_cest: 2026-08-07 20:21:14 CEST (+0200)
+- date_utc: 2026-08-07 18:21:14 UTC
+- cycle: 13 — PR merge (Critical)
+- profil: Light
+- typologie: RUN / GOV
+- niveau: Light / Critical merge execution
+- GO Morris exact: `go merge` (after READY FOR MORRIS MERGE GATE WITH RESERVES for PR #316)
+- GO autorise: merge open PR #316 into main via `gh pr merge … --merge` ONLY · fetch/verify merge commit · write Light review pack · publish review handoff
+- GO N'autorise PAS: --squash/--rebase/--delete-branch/--admin/--auto · force/amend · project changes · CI fix · `git branch -d/-D` · `git push --delete` · cycle 14 / cleanup / QA-G4 · wait for post-merge CI conclusion · close T3 · start next lot · T6-ext · runtime composition · R-PR-T2-API-01 harden · calibration · IAM · privileged mutations
+- Gates: GO merge REÇU · GO branch cleanup NON REÇU · GO post-merge validation NON REÇU · GO next lot NON REÇU
+- Incoming handoff tip: `64afed32b6d114c17ea8f86847d9f34f0dea73ae`
+- Incoming handoff blob: `7ac3a7023c3e45bc21d7d9ecddb4a3265c5be1d9`
+- Incoming handoff commit: `docs(review-handoff): publish T3 PR created`
+- Repo: `mcleland147/sfia-workspace`
+- Worktree: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation`
+- Branch (pre/post local): `delivery/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state`
+- Base / origin/main BEFORE: `b8259859983577c31965aa877c956e7a25dd1c4d`
+- HeadOid / T3 commit: `2641263b9e9ef7336a4a2ac7824c13bb928f5199`
+- PR: **#316** — https://github.com/mcleland147/sfia-workspace/pull/316
+- Merge: **YES** — method `--merge` (merge commit only)
 
-| Fuseau | Valeur |
-|--------|--------|
-| CEST | 2026-08-07 20:10:51 CEST (+0200) |
-| UTC | 2026-08-07 18:10:51 UTC |
+## Verdict (pack)
 
-## Cycle
+```
+FINOPS TECHNICAL LOT T3 —
+PR #316 MERGED WITH RESERVES —
+MERGE COMMIT ONLY —
+13-PATH MANIFEST MERGED —
+PRE-MERGE CI GREEN —
+RESERVES OPEN —
+NO BRANCH CLEANUP —
+NO POST-MERGE VALIDATION —
+NO NEXT LOT —
+REVIEW HANDOFF REMOTE VERIFIED —
+READY FOR CHATGPT MERGE VALIDATION —
+NEXT POTENTIAL CYCLE: 14 POST-MERGE T3
+```
 
-- **Cycle:** 13 — PR readiness / PR publication
-- **Profil:** Critical
-- **Mode pack:** Light (project content unchanged beyond committing the already-validated Delivery; full file dump omitted)
-- **Content proof:** prior handoff tip `f828fc070a90a128eda1340037f71fa90ab017d2` / blob `0cd02a5c3e960d838023dffa9775742a6fcb57b4` — `docs(review-handoff): publish T3 delivery correction`
+## 1. GO
 
-## Git Truth
+Authorized merge of PR #316 only via `gh pr merge 316 --repo mcleland147/sfia-workspace --merge`. No `--admin`, no `--delete-branch`, no `--squash`, no `--rebase`, no `--auto`. No cycle 14 / cleanup / QA-G4 / wait post-merge CI / close T3 / next lot.
+
+## 2. Git Truth BEFORE
 
 | Field | Value |
-|-------|-------|
-| Branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state` |
-| Base / origin/main | `b8259859983577c31965aa877c956e7a25dd1c4d` |
-| Initial HEAD | `b8259859983577c31965aa877c956e7a25dd1c4d` |
-| T3_COMMIT_SHA | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
-| Parent | `b8259859983577c31965aa877c956e7a25dd1c4d` |
-| Commit message | `feat(sfia-studio): implement FinOps T3 alert and review state` |
-| Commit count base→HEAD | 1 |
-| Remote branch before push | absent |
-| Remote branch SHA after | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
+| --- | --- |
+| pwd / toplevel | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation` |
+| branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state` |
+| HEAD | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
+| origin/main | `b8259859983577c31965aa877c956e7a25dd1c4d` |
+| origin/Delivery | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
+| staged | **empty** |
+| status | clean tracked; only untracked `.tmp-sfia-review/` |
+| MAIN DRIFT | **NO** |
+| fetch | `git fetch origin` OK |
 
-## Hashes (immutable docs)
+Evidence: `.tmp-sfia-review/t3-pr-merge/git-truth-initial.txt`
 
-| Doc | SHA-256 |
-|-----|---------|
-| 145 | `809bc5bd20fc23c0c7d3368728e81193e1fe459f26c314d1ba1d4526b61540ba` |
-| 146 | `a5eda99a97ab5887407db8b6290e6cae0405ed2b59a22a60b9ed7f4662150da1` |
+## 3. PR BEFORE
 
-## Exact 13-path manifest
+| Field | Value |
+| --- | --- |
+| state | OPEN |
+| draft | false |
+| mergeable | MERGEABLE |
+| title | `feat(sfia-studio): implement FinOps T3 alert and review state` |
+| base | main / baseOid `b8259859983577c31965aa877c956e7a25dd1c4d` |
+| head | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state` |
+| headOid | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
+| commits | **1** |
+| changed files | **13** (exact list below) |
+
+Evidence: `.tmp-sfia-review/t3-pr-merge/pr-view-pre.json`, `pr-diff-names.txt`
+
+## 4. Manifest (exact 13)
 
 1. `projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md`
 2. `projects/sfia-studio/146-assistant-sfia-native-openai-finops-technical-lot-t3-decisions-applied.md`
 3. `projects/sfia-studio/147-assistant-sfia-native-openai-finops-technical-lot-t3-execution.md`
-4. `projects/sfia-studio/app/lib/oa/finops/application/types.alertReview.ts`
-5. `projects/sfia-studio/app/lib/oa/finops/application/t3Identity.ts`
-6. `projects/sfia-studio/app/lib/oa/finops/application/evaluateProjectPeriodThresholds.ts`
+4. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t3.alert-review.integration.test.ts`
+5. `projects/sfia-studio/app/__tests__/oa/finops/t3.alert-review.unit.test.ts`
+6. `projects/sfia-studio/app/db/migrations/1754600002000_finops-t3-alert-review-state.js`
 7. `projects/sfia-studio/app/lib/oa/finops/application/evaluateAfterT2.ts`
-8. `projects/sfia-studio/app/lib/oa/finops/ports/finopsAlertReviewPort.ts`
-9. `projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsAlertReview.ts`
-10. `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAlertReviewStore.ts`
-11. `projects/sfia-studio/app/db/migrations/1754600002000_finops-t3-alert-review-state.js`
-12. `projects/sfia-studio/app/__tests__/oa/finops/t3.alert-review.unit.test.ts`
-13. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t3.alert-review.integration.test.ts`
+8. `projects/sfia-studio/app/lib/oa/finops/application/evaluateProjectPeriodThresholds.ts`
+9. `projects/sfia-studio/app/lib/oa/finops/application/t3Identity.ts`
+10. `projects/sfia-studio/app/lib/oa/finops/application/types.alertReview.ts`
+11. `projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsAlertReview.ts`
+12. `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAlertReviewStore.ts`
+13. `projects/sfia-studio/app/lib/oa/finops/ports/finopsAlertReviewPort.ts`
 
-Staging: explicit `git add --` only; staged=13; `git diff --cached --check` PASS. No `git add .` / `-A`.
-
-## QA validated on entry (Delivery correction)
-
-Referenced from correction handoff (not re-run in this cycle): unit 26/26; FinOps 135 PASS / 31 SKIP; npm 148/1482; PG integration 31/31; typecheck/lint/build PASS; ephemeral PG16 only; F3 true no-op + B3 failure isolation secured.
-
-## Pull Request
+## 5. Pre-merge CI
 
 | Field | Value |
-|-------|-------|
-| PR number | **316** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/316 |
-| State | OPEN |
-| Draft | false |
-| Base | main @ `b8259859983577c31965aa877c956e7a25dd1c4d` |
-| Head | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
-| Commits | 1 |
-| Changed files | 13 (name-only match) |
-| Mergeable | MERGEABLE |
-| mergeStateStatus | CLEAN |
-
-## CI
-
-| Field | Value |
-|-------|-------|
-| Workflow | SFIA Studio CI |
-| Run ID | **31205544659** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/31205544659 |
+| --- | --- |
+| run | `31205544659` |
 | headSha | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
 | status | completed |
 | conclusion | **success** |
-| Detect SFIA Studio changes | pass |
-| Build and validate SFIA Studio | pass |
-| SFIA Studio Required Gate | **pass** |
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | success |
+| SFIA Studio Required Gate | **success** |
 
-## Reserves (OPEN as listed)
+Evidence: `.tmp-sfia-review/t3-pr-merge/ci-run.json`, `pr-checks.txt`
 
-- R-T6-RUNTIME-COMPOSITION-01 = OPEN
-- R-PR-T2-API-01 = OPEN MINOR
-- T6-ext-T2 = EXCLUDED
-- T6-ext-T3T4 = NOT AUTHORIZED / exact names DEFERRED
-- Calibration réelle = REQUIRED before activation
-- Product IAM = NOT_SELECTED
-- Privileged Morris mutations = DEFERRED
+## 6. Handoff BEFORE
 
-## Anti-claims
+| Field | Expected | Observed |
+| --- | --- | --- |
+| tip | `64afed32b6d114c17ea8f86847d9f34f0dea73ae` | MATCH |
+| blob | `7ac3a7023c3e45bc21d7d9ecddb4a3265c5be1d9` | MATCH |
 
-Does **not** claim: T3 production-active; 15/20/25/30 activated; Morris ack/resolve available; Product IAM selected; T4/T5/T6-ext implemented; global durable audit complete; Neon validated.
+Evidence: `.tmp-sfia-review/t3-pr-merge/handoff-tip-pre.txt`
 
-## Gates / bans this cycle
+## 7. Merge method
 
-- Merge performed = **NO**
-- Branch deletion = **NO**
-- Next lot = **NO**
-- No amend / rebase / force / squash / fix commit
-- No content modification of T3 Delivery
+- Executed: `gh pr merge 316 --repo mcleland147/sfia-workspace --merge`
+- No `--admin`, no `--delete-branch`, no `--squash`, no `--rebase`, no `--auto`.
+- MERGE_EXIT=0
 
-## Evidence
+Evidence: `.tmp-sfia-review/t3-pr-merge/merge-out.txt`
 
-`.tmp-sfia-review/t3-pr-publication/`
+## 8. PR AFTER / MERGE_COMMIT_SHA
 
-## Verdict
+| Field | Value |
+| --- | --- |
+| state | **MERGED** |
+| mergedAt | `2026-08-07T18:20:14Z` |
+| MERGE_COMMIT_SHA | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` |
+| parent1 | `b8259859983577c31965aa877c956e7a25dd1c4d` |
+| parent2 | `2641263b9e9ef7336a4a2ac7824c13bb928f5199` |
+| subject | `Merge pull request #316 from mcleland147/delivery/...-t3-alert-morris-review-state` |
+
+Evidence: `.tmp-sfia-review/t3-pr-merge/pr-after.json`, `merge-parents.txt`
+
+## 9. origin/main AFTER
+
+| Field | Value |
+| --- | --- |
+| origin/main | `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` (= MERGE_COMMIT_SHA) |
+| advanced from | `b8259859983577c31965aa877c956e7a25dd1c4d` |
+| head is ancestor of main | **YES** |
+| local Delivery HEAD | still `2641263b…` (unchanged; no cleanup) |
+
+Evidence: `.tmp-sfia-review/t3-pr-merge/git-truth-final.txt`
+
+## 10. 13-path manifest on main
+
+`git diff --name-only ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515^1 ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515` → **exact 13** (MATCH section 4).
+
+Evidence: `.tmp-sfia-review/t3-pr-merge/diff-name-only-post.txt`
+
+## 11. No branch cleanup
+
+- Merge command did **not** pass `--delete-branch`.
+- Remote Delivery ref **still present** at `2641263b…`.
+- No `git branch -d/-D`, no `git push --delete`.
+- **NO BRANCH CLEANUP** (anti-claim).
+
+Evidence: `.tmp-sfia-review/t3-pr-merge/delivery-branch-remote.txt`
+
+## 12. Post-merge CI (observe only)
+
+- Run `31206479016` (push / headSha `ff3d0c097b02cc7819cbc282fc0eb1a36ed1b515`) — **in_progress** at observation time.
+- Status: **POST-MERGE CI OBSERVED — NOT VALIDATED**
+- Did **not** wait/watch for green. **NO POST-MERGE VALIDATION** (anti-claim).
+
+Evidence: `.tmp-sfia-review/t3-pr-merge/postmerge-ci.json`, `postmerge-ci-status.txt`
+
+## 13. Reserves preserved OPEN
+
+| Reserve | Status |
+| --- | --- |
+| R-T6-RUNTIME-COMPOSITION-01 | **OPEN** |
+| R-PR-T2-API-01 | **OPEN MINOR** (untouched) |
+| T6-ext | **EXCLUDED** |
+| calibration | **REQUIRED** (untouched this cycle) |
+| IAM | **NOT_SELECTED** |
+| privileged mutations | **DEFERRED** |
+
+## 14. Anti-claims (mandatory)
+
+- **NO BRANCH CLEANUP**
+- **NO POST-MERGE VALIDATION**
+- **NO NEXT LOT**
+- No T6-ext / runtime composition / R-PR-T2-API-01 harden / calibration / IAM / privileged mutations
+- No force / amend / project code changes / CI fix this cycle
+
+## 15. Handoff publish (this cycle)
+
+- Script: `scripts/sfia/publish-review-handoff.sh`
+- Message: `docs(review-handoff): publish T3 PR merged`
+- Source: `.tmp-sfia-review/chatgpt-review.md`
+- Handoff WT: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
+- Before tip/blob matched expected (section 6).
+- After tip/blob: filled after publish below / evidence `handoff-*.txt`
+- Expectation: **HANDOFF UPDATED — REMOTE VERIFIED**
+
+## 16. Evidence directory
+
+All merge-cycle artifacts under `.tmp-sfia-review/t3-pr-merge/` (untracked OK).
+
+## 17. Final verdict
 
 ```
 FINOPS TECHNICAL LOT T3 —
-PR CREATED WITH RESERVES —
-
-DELIVERY COMMIT VERIFIED —
-ONE COMMIT —
-13-PATH MANIFEST VERIFIED —
-REMOTE DELIVERY BRANCH VERIFIED —
-
-PR #316 OPEN —
-NON-DRAFT —
-BASE MAIN VERIFIED —
-HEAD VERIFIED —
-
+PR #316 MERGED WITH RESERVES —
+MERGE COMMIT ONLY —
+13-PATH MANIFEST MERGED —
 PRE-MERGE CI GREEN —
-REQUIRED GATE GREEN —
-PR MERGEABLE —
-
-R-T6-RUNTIME-COMPOSITION-01 OPEN —
-R-PR-T2-API-01 OPEN MINOR —
-T6-EXT-T2 EXCLUDED —
-T6-EXT-T3T4 NOT AUTHORIZED —
-CALIBRATION REQUIRED —
-PRODUCT IAM NOT_SELECTED —
-PRIVILEGED MORRIS MUTATIONS DEFERRED —
-
-NO MERGE —
-NO BRANCH DELETE —
+RESERVES OPEN —
+NO BRANCH CLEANUP —
+NO POST-MERGE VALIDATION —
 NO NEXT LOT —
-
 REVIEW HANDOFF REMOTE VERIFIED —
-
-READY FOR CHATGPT PR VALIDATION —
-READY FOR MORRIS MERGE GATE WITH RESERVES
+READY FOR CHATGPT MERGE VALIDATION —
+NEXT POTENTIAL CYCLE: 14 POST-MERGE T3
 ```
