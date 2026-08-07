@@ -57,6 +57,11 @@ export function composeExecutionRunD2D3(options?: {
   readonly clock?: ClockPort;
   readonly clockIso?: string;
   readonly finops?: import("../../finops/ports/finopsCapturePort").FinOpsCapturePort;
+  /**
+   * Optional FinOps T4 enforcement — pass-through ONLY when provided.
+   * No default T4 instance, pool, config, threshold, env, or S30 activation.
+   */
+  readonly finopsEnforcement?: import("../../finops/ports/finopsEnforcementPort").FinOpsEnforcementPort;
 }): ExecutionRunD2D3Composition {
   assertServerOnly();
   const clockIso = options?.clockIso ?? "2026-08-04T09:15:00.000Z";
@@ -95,6 +100,9 @@ export function composeExecutionRunD2D3(options?: {
         events: providers.events,
         clock,
         ...(options?.finops ? { finops: options.finops } : {}),
+        ...(options?.finopsEnforcement
+          ? { finopsEnforcement: options.finopsEnforcement }
+          : {}),
       }),
     projectById,
     assessById: async (runId) => {
