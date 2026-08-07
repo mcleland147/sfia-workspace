@@ -1,240 +1,104 @@
-# ChatGPT Review Pack — FinOps Technical Lot T2 — PR Created (Full)
+# ChatGPT Review Pack — FinOps Technical Lot T2 — PR #314 CI Correction (Light)
 
 ## Meta
 
-- date_cest: 2026-08-07 14:20:10 CEST (+0200)
-- date_utc: 2026-08-07 12:20:10 UTC
-- cycle: 13 — Critical — GO Morris commit→push→PR T2
-- profil: Critical
-- typologie: EVOL / INC / DOC / DELIVERY / PR
-- niveau: Full
-- GO Morris exact: `GO Morris commit → push → PR T2.`
-- GO autorise: git add 25 chemins T2 · commit G1 · push branche T2 · création PR T2
-- GO N'autorise PAS: merge · auto-merge · squash · rebase · force push · branch delete · code change · R-PR-T2-API-01 hardening · T3–T7 · Neon · provider-real
-- Gates: GO commit REÇU · GO push REÇU · GO PR create REÇU · GO merge NON REÇU · GO branch delete NON REÇU · GO R-PR-T2-API-01 hardening NON REÇU
-- Incoming PR readiness: READY FOR PR WITH RESERVES (handoff tip `9ed8145bf90dd36f7f1696e916fa7685fb5ed845`)
-- Incoming handoff tip: `9ed8145bf90dd36f7f1696e916fa7685fb5ed845`
-- Incoming handoff blob: `dbbb1797ec17a3549478030b0e93f3b03dbfc347`
-- Incoming handoff commit: `docs(review-handoff): publish T2 PR readiness`
+- date_cest: 2026-08-07 14:35:04 UTC+02:00 (+0200)
+- date_utc: 2026-08-07 12:35:04 UTC
+- cycle: 13 — PR readiness / CI correction micro-cycle
+- profil: Light
+- typologie: RUN / DOC
+- niveau: Light
+- GO Morris exact: `GO correction CI PR #314 — trailing whitespace docs 142/144 uniquement`
+- GO autorise: modify docs 142+144 only · stage · distinct corrective commit · normal push · observe CI · publish handoff
+- GO N'autorise PAS: amend G1 · rebase · squash · force push · merge · auto-merge · branch delete · code/runtime/other docs · R-PR-T2-API-01 hardening · PR title/body changes
+- Gates: GO CI correction REÇU · GO merge NON REÇU · GO branch delete NON REÇU · GO R-PR-T2-API-01 hardening NON REÇU
+- Incoming handoff tip: `251dd6324c256e4a8b5dbfa7a91348066cd3463b`
+- Incoming handoff blob: `1a502f047cf2c9ca4da68a4c4fae78598ad8a25c`
+- Incoming handoff commit: `docs(review-handoff): publish T2 PR created`
 - Repo: `mcleland147/sfia-workspace`
 - Worktree: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack`
 - Branch: `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation`
 - Base / origin/main: `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`
 - G1 commit: `9a7be9220f64f73ab150119f7ec5ff39ad8442c9`
+- CORRECTION_SHA: `268f54ca269993e767011844b48967a51ae0d514`
 - PR: **#314** — https://github.com/mcleland147/sfia-workspace/pull/314
 - Merge: **NO** (not performed; not authorized)
 
 ## Verdict (pack)
 
 ```
-FINOPS TECHNICAL LOT T2 — PR CREATED —
-G1 SINGLE COMMIT VERIFIED —
-25-PATH MANIFEST VERIFIED —
+FINOPS TECHNICAL LOT T2 — PR #314 CI CORRECTION COMPLETE —
+TRAILING WHITESPACE REMOVED FROM DOCS 142/144 ONLY —
+SEMANTIC CONTENT UNCHANGED —
+CORRECTION COMMIT VERIFIED —
 BRANCH PUSH REMOTE VERIFIED —
-PR BASE/HEAD VERIFIED —
-PR BODY VERIFIED —
-T6 EXCLUDED —
+PR REMAINS 25 PATHS —
+PR TITLE/BODY UNCHANGED —
+FUNCTIONAL CI GREEN —
+TRAILING WHITESPACE CHECK GREEN —
+REQUIRED GATE GREEN —
 R-PR-T2-API-01 OPEN MINOR —
-CI NOT GREEN —
 NO MERGE —
 REVIEW HANDOFF REMOTE VERIFIED —
-NOT READY FOR MERGE
+READY FOR CHATGPT MERGE READINESS VALIDATION —
+MORRIS MERGE GATE REQUIRED
 ```
 
-Internal cycle status line: `PR CREATED — CI NOT GREEN — MERGE NOT READY`
+Internal cycle status line: `CI CORRECTION COMPLETE — CI GREEN — MERGE NOT PERFORMED — MORRIS MERGE GATE REQUIRED`
 
 ## Sources
 
-- Document 144 PR readiness (candidate title/body §22–§23)
-- Handoff entrant tip `9ed8145…` / blob `dbbb1797…` (T2 PR readiness Full pack)
-- CKC fallback: synthetic map + méthode v2.6 (candidate / no execution authority)
-- Evidence dir: `.tmp-sfia-review/t2-pr-pub/`
+- Docs 142 / 144 (whitespace-only correction targets)
+- Handoff entrant tip `251dd632…` / blob `1a502f04…` (T2 PR created Full pack)
+- CI run before: `31177401338` (failure on trailing whitespace)
+- CI run after: `31178397523` (success)
+- Evidence dir: `.tmp-sfia-review/t2-ci-ws-fix/` (local only; not staged)
 
-## Git Truth before (pre-staging / pre-G1)
+## 1. Git Truth before (pre-edit)
 
-- branch: `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation`
-- HEAD == origin/main: `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`
-- staged: **empty**
-- upstream: none (before push)
-- T2 candidate files: untracked (expected)
-- T6 runtime/migration files in worktree: **none**
-- main drift: **none** (base held)
+| Champ | Valeur |
+|-------|--------|
+| date | 2026-08-07 14:28:06 CEST |
+| pwd / toplevel | finops-t1-pack worktree |
+| branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation` |
+| HEAD | `9a7be9220f64f73ab150119f7ec5ff39ad8442c9` (G1) |
+| origin/main | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
+| origin/T2 | `9a7be9220f64f73ab150119f7ec5ff39ad8442c9` |
+| staged | **empty** |
+| project mods | **none** (only untracked `.tmp-sfia-review/`) |
+| PR | OPEN, not draft, not merged, 1 commit, 25 files, headRefOid=G1 |
+| match expected | **PASS** |
 
-## Handoff entrant (verified before publish)
+## 2. Handoff before (verified)
 
 | Champ | Valeur |
 |-------|--------|
 | branch | `sfia/review-handoff` |
-| tip | `9ed8145bf90dd36f7f1696e916fa7685fb5ed845` |
-| blob | `dbbb1797ec17a3549478030b0e93f3b03dbfc347` |
+| tip | `251dd6324c256e4a8b5dbfa7a91348066cd3463b` |
+| blob | `1a502f047cf2c9ca4da68a4c4fae78598ad8a25c` |
+| commit msg | `docs(review-handoff): publish T2 PR created` |
 | file | `sfia-review-handoff/latest-chatgpt-review.md` |
-| match | **PASS** (STOP condition not triggered) |
+| match | **PASS** |
 
-## Exact 25-path manifest
+## 3. CI failure entrant (before)
 
-```
-projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md
-projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md
-projects/sfia-studio/140-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decision-pack.md
-projects/sfia-studio/141-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decisions-applied.md
-projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
-projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
-projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.aggregate.unit.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.money.unit.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.reconciliation.unit.test.ts
-projects/sfia-studio/app/db/migrations/1754600000000_finops-t2-aggregation-reconciliation.js
-projects/sfia-studio/app/lib/oa/finops/application/estimateUsageCost.ts
-projects/sfia-studio/app/lib/oa/finops/application/recomputeAggregates.ts
-projects/sfia-studio/app/lib/oa/finops/application/reconcileProjectPeriod.ts
-projects/sfia-studio/app/lib/oa/finops/application/t2Identity.ts
-projects/sfia-studio/app/lib/oa/finops/application/types.aggregate.ts
-projects/sfia-studio/app/lib/oa/finops/domain/money.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsT2.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAggregateStore.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsPriceCatalog.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsReconciliation.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsAggregatePort.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsPriceCatalogPort.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsReconciliationPort.ts
-```
-
-PATH_COUNT=25 (exact)
-
-## Pre-commit hashes (sha256) — docs 138–144 + runtime (readiness-validated)
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338
+headSha: `9a7be9220f64f73ab150119f7ec5ff39ad8442c9` · conclusion: **failure**
 
 ```
-54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a  projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md
-0aaf10541776bc64671d02e53b7df76ee01bb7c88e56cdf116d9268e719a615f  projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md
-e69cfedcdfdfd4bf3b94c35b28ac68fc4ca5dfbd5f5b6df52dcd5d11050aeb4b  projects/sfia-studio/140-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decision-pack.md
-96c16ce9de9020596c74908d7976297295cb38ebc7b79e0d333d02aad78806a4  projects/sfia-studio/141-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decisions-applied.md
-8dbf53867006c3cbb043a731c42ee1481553b17c81c6ddcc0f4e9f4dcb8cf664  projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
-fc6c614e94b3c02202daf4ccd54f6814a51fb35484d3411b684558a78b008721  projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
-9b4bd896c3e7e4fb5e75cde141c82f29961ca2efa738ec6f77e2210e6dde2e73  projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts
-bf539e3a335c479b88559ebec2dbfba7d6df64cf4879661e7ca61a698a207ff4  projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts
-88c998321de0de67b9a8cc5e483176a9d8173b14b09ae3ab73d45a862022b31a  projects/sfia-studio/app/__tests__/oa/finops/t2.aggregate.unit.test.ts
-017298fcfacc3f0537b55e98f99b6d56ed62fd1e85dd5ed4c7b62fd5a6100810  projects/sfia-studio/app/__tests__/oa/finops/t2.money.unit.test.ts
-3bf9bbf0d8691e2c21dbcf80c9f7762223215279428ed9680c457a172e91257a  projects/sfia-studio/app/__tests__/oa/finops/t2.reconciliation.unit.test.ts
-1a6c6a93968eb7a2dff32a2b9f5474a09d29f5f9d91ed6ce09e0b49abb7fe81d  projects/sfia-studio/app/db/migrations/1754600000000_finops-t2-aggregation-reconciliation.js
-2c05dc1a33b14e30e4ef76b5448c4b57fbbc57c8e46124ab88ed56ad44b2c7a1  projects/sfia-studio/app/lib/oa/finops/application/estimateUsageCost.ts
-1dab9e5003c7ea77902ad0f4ef373c2cb5057119878be52b7bdbf2a1b6b35283  projects/sfia-studio/app/lib/oa/finops/application/recomputeAggregates.ts
-449519a60f69782f5090e939f15211666e400752607b5934d7f546b16f02ad60  projects/sfia-studio/app/lib/oa/finops/application/reconcileProjectPeriod.ts
-84bb0bfe508840caa4cad851406a294fe7036c62cd8c1ebec16a0f9c36c1ca35  projects/sfia-studio/app/lib/oa/finops/application/t2Identity.ts
-dd7b06c4d0bce2cf4093bc9f76af5693ea38a485031bda287610dc509a31d221  projects/sfia-studio/app/lib/oa/finops/application/types.aggregate.ts
-fe548b2cd707ea4e92ab61deedffbc71e74e157e7c47855adb1be40c1c4499fc  projects/sfia-studio/app/lib/oa/finops/domain/money.ts
-aebacd862548e71410f67bf3fdd6665a7924b44a83094beae1fe52809b3674e0  projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsT2.ts
-ff73926ad2042052db182047c96e4a977413cb73f4b1bcaaa153a048f2fa8cd9  projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAggregateStore.ts
-8ea01b7b202a6c382864d2a210c1792edf4f1db62080087bd61434b76c3b0c19  projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsPriceCatalog.ts
-30ab2216a137f48b3eb4a4093ec10c051bd8a83c9a42ce076bcef6a103f972a6  projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsReconciliation.ts
-1de6c7ff64269c7a8053dbedcce48ac56d60e0fd752b27a3474e9929dc86bd91  projects/sfia-studio/app/lib/oa/finops/ports/finopsAggregatePort.ts
-cdf44e520a78f5f96901f5ebcf56746d7c0833d5796cae838e0ab2356ff72345  projects/sfia-studio/app/lib/oa/finops/ports/finopsPriceCatalogPort.ts
-3351d6270e481c98a9bf6e0af47c789e588f85516e14a9b8efc883126248b13e  projects/sfia-studio/app/lib/oa/finops/ports/finopsReconciliationPort.ts
+Build and validate SFIA Studio	fail	2m4s	https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338/job/92862386916
+SFIA Studio Required Gate	fail	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338/job/92862848921
+Detect SFIA Studio changes	pass	6s	https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338/job/92862356179
 ```
 
-Docs integrity (must match readiness):
+Root cause: Trailing whitespace check FAIL on docs 142/144; Required Gate failed as consequence. Typecheck/Lint/Build/Unit/migrate/PG/gov/secret had passed on G1 functional path.
 
-| Doc | sha256 |
-|-----|--------|
-| 138 | `54964202c785df64011c351001b8db60b4d651b5dc9c075fbcedefbae1f7c87a` |
-| 139 | `0aaf10541776bc64671d02e53b7df76ee01bb7c88e56cdf116d9268e719a615f` |
-| 140 | `e69cfedcdfdfd4bf3b94c35b28ac68fc4ca5dfbd5f5b6df52dcd5d11050aeb4b` |
-| 141 | `96c16ce9de9020596c74908d7976297295cb38ebc7b79e0d333d02aad78806a4` |
-| 142 | `8dbf53867006c3cbb043a731c42ee1481553b17c81c6ddcc0f4e9f4dcb8cf664` |
-| 144 | `fc6c614e94b3c02202daf4ccd54f6814a51fb35484d3411b684558a78b008721` |
+## 4. Lines / files concerned
 
-Key runtime (Delivery correction / readiness):
+- `142-…-t2-execution.md`: 9 trailing-whitespace lines (L3–L11 metadata hard-break spaces)
+- `144-…-t2-pr-readiness.md`: 8 trailing-whitespace lines (L3–L8 metadata; L187 reserve verdict; L281 option G2 list item)
 
-| Path | sha256 prefix |
-|------|----------------|
-| `recomputeAggregates.ts` | `1dab9e5003c7ea77902ad0f4ef373c2cb5057119878be52b7bdbf2a1b6b35283` |
-| `postgresFinOpsAggregateStore.ts` | `ff73926ad2042052db182047c96e4a977413cb73f4b1bcaaa153a048f2fa8cd9` |
-| `money.ts` | `fe548b2cd707ea4e92ab61deedffbc71e74e157e7c47855adb1be40c1c4499fc` |
-| migration `1754600000000_…` | `1a6c6a93968eb7a2dff32a2b9f5474a09d29f5f9d91ed6ce09e0b49abb7fe81d` |
-
-Git blob hashes at G1 (hash-object):
-
-```
-=== Pre-commit / commit path SHAs (git hash-object) ===
-f97d30a2f863f1e8f3bc052daf7257441587a56f  projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md
-93fe5e1b245025b60c9eba8159bf784bb5669a36  projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md
-b067d575805a358d1d527038c4eb59dd80fbbb5d  projects/sfia-studio/140-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decision-pack.md
-42ce29135d4c8580ada34559afac77116aaf439d  projects/sfia-studio/141-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decisions-applied.md
-f988d85e045e696285209a846337d99010a08e71  projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
-0a846227acabbf79b8ab88a0d01d726f4b05c46a  projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
-c4906bd0587bfec08947cc4382d882d22d71ab2b  projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts
-501177f7e3f5cfc3037af5405d53e10d2ebfc233  projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts
-c6f6edae55fba5679034adb1527e6c59681e7892  projects/sfia-studio/app/__tests__/oa/finops/t2.aggregate.unit.test.ts
-14c083b692e896d81a18a91172756e6f2c59c868  projects/sfia-studio/app/__tests__/oa/finops/t2.money.unit.test.ts
-e2ead355f083da683ebd0de0e3c3e356d30d2bb0  projects/sfia-studio/app/__tests__/oa/finops/t2.reconciliation.unit.test.ts
-f95868b6278df12745dee517c2a48bd74c2359d4  projects/sfia-studio/app/db/migrations/1754600000000_finops-t2-aggregation-reconciliation.js
-e4b060e14d45a156ee6b7d0cd36dbd9f9d624f3a  projects/sfia-studio/app/lib/oa/finops/application/estimateUsageCost.ts
-e26bdb3643703e62fe5fbc436a200c4a5efff617  projects/sfia-studio/app/lib/oa/finops/application/recomputeAggregates.ts
-57e6c096f2d96ed59fb55ace06dd4ac57cae9246  projects/sfia-studio/app/lib/oa/finops/application/reconcileProjectPeriod.ts
-b95ddfecdc866dfd5d9396cd6a75b58ed2d176b2  projects/sfia-studio/app/lib/oa/finops/application/t2Identity.ts
-5c7769aa531d2116e7aabe5be195ace791eff71a  projects/sfia-studio/app/lib/oa/finops/application/types.aggregate.ts
-94881513faa3509d643c7639f0314266be74e82c  projects/sfia-studio/app/lib/oa/finops/domain/money.ts
-1c425da2812d49fb1ab0a6d8f93741bdc0c4755a  projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsT2.ts
-b99bce1c63a6d57e01b524c91619fb8c7112f3b4  projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAggregateStore.ts
-f0eb8b8db9683c64fae1e0f6f000cf90efd290b9  projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsPriceCatalog.ts
-f824f81b00dcefdc3f5c4a08df0302e4a8d38210  projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsReconciliation.ts
-55db9a2eb8694e15a1a654d2d1fb9ad040b862f1  projects/sfia-studio/app/lib/oa/finops/ports/finopsAggregatePort.ts
-b7f6423287d412da910f96dfbfe7b04db7ac169e  projects/sfia-studio/app/lib/oa/finops/ports/finopsPriceCatalogPort.ts
-5381527bebe66de10f1549cb6bf5797952c88b01  projects/sfia-studio/app/lib/oa/finops/ports/finopsReconciliationPort.ts
-```
-
-## Staged manifest + diffstat (G1)
-
-- staged count: **25** (exact candidate set; no extras)
-- diffstat: **25 files changed, 6412 insertions(+)**
-
-```
-...-technical-lots-t2-t5-t6-grouped-preparation.md | 745 +++++++++++++++++++++
- ...ai-finops-technical-lot-t2-decisions-applied.md | 413 ++++++++++++
- ...lot-t2-numeric-precision-scale-decision-pack.md | 443 ++++++++++++
- ...t2-numeric-precision-scale-decisions-applied.md | 404 +++++++++++
- ...ive-openai-finops-technical-lot-t2-execution.md | 386 +++++++++++
- ...-openai-finops-technical-lot-t2-pr-readiness.md | 409 +++++++++++
- .../postgres/t2.aggregate.integration.test.ts      | 414 ++++++++++++
- .../postgres/t2.reconciliation.integration.test.ts | 218 ++++++
- .../__tests__/oa/finops/t2.aggregate.unit.test.ts  | 280 ++++++++
- .../app/__tests__/oa/finops/t2.money.unit.test.ts  | 139 ++++
- .../oa/finops/t2.reconciliation.unit.test.ts       | 246 +++++++
- ...0000000_finops-t2-aggregation-reconciliation.js | 268 ++++++++
- .../lib/oa/finops/application/estimateUsageCost.ts |  87 +++
- .../oa/finops/application/recomputeAggregates.ts   | 186 +++++
- .../finops/application/reconcileProjectPeriod.ts   | 278 ++++++++
- .../app/lib/oa/finops/application/t2Identity.ts    |  61 ++
- .../lib/oa/finops/application/types.aggregate.ts   | 154 +++++
- .../sfia-studio/app/lib/oa/finops/domain/money.ts  | 220 ++++++
- .../finops/infrastructure/memory/memoryFinOpsT2.ts | 218 ++++++
- .../postgres/postgresFinOpsAggregateStore.ts       | 296 ++++++++
- .../postgres/postgresFinOpsPriceCatalog.ts         |  80 +++
- .../postgres/postgresFinOpsReconciliation.ts       | 319 +++++++++
- .../app/lib/oa/finops/ports/finopsAggregatePort.ts |  65 ++
- .../lib/oa/finops/ports/finopsPriceCatalogPort.ts  |  40 ++
- .../oa/finops/ports/finopsReconciliationPort.ts    |  43 ++
- 25 files changed, 6412 insertions(+)
-```
-
-## Secret check
-
-**PASS — no secret found** (readiness §19; no `.env` / credentials staged; fictitious price fixtures only)
-
-## Validations (from PR readiness cycle — referenced, not re-run in publication)
-
-| Check | Result |
-|-------|--------|
-| `npm run typecheck` | PASS |
-| Targeted T2 + T1 unit | PASS — 44 tests |
-| `migrate:up` + `npm run test:db` | PASS — 20 PG tests (USD/EUR + concurrent rebuild) |
-| `npm run lint` | PASS (referenced from readiness) |
-| `npm run build` | PASS (referenced from readiness) |
-| `npm test` | PASS — 144 files / 1439 tests (referenced from readiness) |
-
-### `git diff --check` note (explicit)
-
-Cached readiness reported `git diff --check` PASS, but the committed markdown headers on **142** and **144** retain trailing spaces (two-space hard breaks). Those files were **left unchanged** to preserve validated sha256 hashes. Local observation on G1 vs base:
+`git diff --check origin/main...HEAD` before:
 
 ```
 projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md:3: trailing whitespace.
@@ -273,233 +137,207 @@ projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr
 +1. implementation/tests/migration
 ```
 
-CI Trailing whitespace check failed on the same lines (see CI section). **No product/doc fix in this cycle** (absolute ban).
-
-## Commit G1
-
-- message: `feat(sfia-studio): implement FinOps T2 aggregation and reconciliation`
-- SHA: `9a7be9220f64f73ab150119f7ec5ff39ad8442c9`
-- parent: `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` (origin/main)
-- single commit on branch vs main: **yes** (ahead 1)
-- commit paths: **25 exact** (match manifest)
+## 5. Hashes 142/144 before
 
 ```
-projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md
-projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md
-projects/sfia-studio/140-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decision-pack.md
-projects/sfia-studio/141-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decisions-applied.md
+8dbf53867006c3cbb043a731c42ee1481553b17c81c6ddcc0f4e9f4dcb8cf664  projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
+fc6c614e94b3c02202daf4ccd54f6814a51fb35484d3411b684558a78b008721  projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
+```
+
+## 6. Correction applied
+
+Bounded Python strip of trailing spaces/tabs at EOL only on the two authorized paths. No prettier/global formatter. No other project files touched.
+
+## 7. Full useful whitespace diff (142/144)
+
+Note: trailing spaces/tabs in the embedded diff are visualized as `␠` / `␉` so this handoff pack itself has zero EOL whitespace (publisher `--check`). Raw byte-identical diff is in evidence `.tmp-sfia-review/t2-ci-ws-fix/whitespace-diff.txt` (local only).
+
+```diff
+diff --git a/projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md b/projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
+index f988d85..1c9094c 100644
+--- a/projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
++++ b/projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
+@@ -1,14 +1,14 @@
+ # 142 — FinOps Technical Lot T2 — Execution Record (Aggregation + Reconciliation)
+␠
+-**Project:** SFIA Studio — Assistant SFIA natif OpenAI␠␠
+-**Document:** `projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md`␠␠
+-**Cycle:** 8 — Delivery / implémentation␠␠
+-**Profil:** Critical␠␠
+-**Typologie:** EVOL / DOC / ARCH / DELIVERY␠␠
+-**Statut:** T2 DELIVERY VALIDATED WITH RESERVES — PR READINESS INPUT␠␠
+-**Handoff:** PUBLISHED / REMOTE VERIFIED␠␠
+-**ChatGPT validation:** VALIDATED WITH RESERVES␠␠
+-**A1 blockers (multi-currency / multi-instance):** CLOSED␠␠
++**Project:** SFIA Studio — Assistant SFIA natif OpenAI
++**Document:** `projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md`
++**Cycle:** 8 — Delivery / implémentation
++**Profil:** Critical
++**Typologie:** EVOL / DOC / ARCH / DELIVERY
++**Statut:** T2 DELIVERY VALIDATED WITH RESERVES — PR READINESS INPUT
++**Handoff:** PUBLISHED / REMOTE VERIFIED
++**ChatGPT validation:** VALIDATED WITH RESERVES
++**A1 blockers (multi-currency / multi-instance):** CLOSED
+␠
+ > PR readiness is handled separately in document **144**. This document remains the Delivery execution record (history preserved below). No project commit / push / PR / merge is claimed here.
+␠
+diff --git a/projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md b/projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
+index 0a84622..ee0bae3 100644
+--- a/projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
++++ b/projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
+@@ -1,11 +1,11 @@
+ # 144 — FinOps Technical Lot T2 — PR Readiness
+␠
+-**Project:** SFIA Studio — Assistant SFIA natif OpenAI␠␠
+-**Document:** `projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md`␠␠
+-**Cycle:** 13 — PR readiness␠␠
+-**Profil:** Critical␠␠
+-**Typologie:** EVOL / INC / DOC␠␠
+-**Statut:** READY FOR PR WITH RESERVES␠␠
++**Project:** SFIA Studio — Assistant SFIA natif OpenAI
++**Document:** `projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md`
++**Cycle:** 13 — PR readiness
++**Profil:** Critical
++**Typologie:** EVOL / INC / DOC
++**Statut:** READY FOR PR WITH RESERVES
+␠
+ > Anti-claims: **no** project commit, **no** project push, **no** PR created, **no** merge.
+␠
+@@ -184,7 +184,7 @@ No production consumer bypasses the lock. Production rebuild path is exclusive-o
+␠
+ ### Verdict on reserve
+␠
+-**Design/hardening reserve — not a PR blocker.**␠␠
++**Design/hardening reserve — not a PR blocker.**
+ Recommended: future optional micro-cycle to remove/narrow public raw replace **after** Morris GO for API hardening (not this cycle).
+␠
+ ---
+@@ -278,7 +278,7 @@ One commit covering implementation + tests + migration + docs 138–142/144.
+␠
+ ### Option G2 — two commits
+␠
+-1. implementation/tests/migration␠␠
++1. implementation/tests/migration
+ 2. documentation 138–142/144
+␠
+ ### Recommendation: **G1**
+```
+
+## 8. Preuve whitespace-only (ignore-space-at-eol)
+
+Commands (all exit 0):
+
+1. Working tree: `git diff --ignore-space-at-eol --exit-code --` docs 142+144 → **0**
+2. Cached: `git diff --cached --ignore-space-at-eol --exit-code --` docs 142+144 → **0**
+3. Commit: `git diff --ignore-space-at-eol --exit-code HEAD^ HEAD --` docs 142+144 → **0**
+4. Range: `git diff --check origin/main...HEAD` → **PASS (empty)**
+
+Verdict: **SEMANTIC CONTENT UNCHANGED** (whitespace-at-EOL only).
+
+## 9. Hashes 142/144 after
+
+```
+8cb5bd33799de9b53e451c0d219381a42c91ac30631c749b79d3feb49f199d28  projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
+a1f5770704f46cd73097e4063d3981244aadbff0badd187f01536586ce86b454  projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
+```
+
+| Doc | before | after |
+|-----|--------|-------|
+| 142 | `8dbf53867006c3cbb043a731c42ee1481553b17c81c6ddcc0f4e9f4dcb8cf664` | `8cb5bd33799de9b53e451c0d219381a42c91ac30631c749b79d3feb49f199d28` |
+| 144 | `fc6c614e94b3c02202daf4ccd54f6814a51fb35484d3411b684558a78b008721` | `a1f5770704f46cd73097e4063d3981244aadbff0badd187f01536586ce86b454` |
+
+## 10. Staged scope
+
+Explicit: `git add --` only 142 + 144.
+Staged count = **2**. Cached `--check` PASS. No third file.
+
+## 11. Commit message / CORRECTION_SHA / commit scope
+
+- Message: `fix(sfia-studio): remove T2 documentation trailing whitespace`
+- Distinct commit (NOT amend of G1)
+- CORRECTION_SHA: `268f54ca269993e767011844b48967a51ae0d514`
+- Commit files exactly:
+
+```
 projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
 projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
-projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.aggregate.unit.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.money.unit.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.reconciliation.unit.test.ts
-projects/sfia-studio/app/db/migrations/1754600000000_finops-t2-aggregation-reconciliation.js
-projects/sfia-studio/app/lib/oa/finops/application/estimateUsageCost.ts
-projects/sfia-studio/app/lib/oa/finops/application/recomputeAggregates.ts
-projects/sfia-studio/app/lib/oa/finops/application/reconcileProjectPeriod.ts
-projects/sfia-studio/app/lib/oa/finops/application/t2Identity.ts
-projects/sfia-studio/app/lib/oa/finops/application/types.aggregate.ts
-projects/sfia-studio/app/lib/oa/finops/domain/money.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsT2.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAggregateStore.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsPriceCatalog.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsReconciliation.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsAggregatePort.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsPriceCatalogPort.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsReconciliationPort.ts
 ```
 
-## Push / remote
+## 12. Push remote verification
 
-- remote SHA: `9a7be9220f64f73ab150119f7ec5ff39ad8442c9`
-- ref: `refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation`
-- upstream: `origin/delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation`
-- force push: **NO**
-- local HEAD == remote == G1: **YES**
+Pre-push: origin/main=`093fd916…` held; origin/T2 still G1 `9a7be922…`.
+Normal `git push origin` T2 branch (NO force): `9a7be92..268f54c`.
+Post-push: HEAD = upstream = origin/T2 = `268f54ca269993e767011844b48967a51ae0d514` — **PASS**.
 
-## Pull Request #314
+## 13. PR #314 after
 
 | Champ | Valeur |
 |-------|--------|
-| number | **314** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/314 |
 | state | OPEN |
 | isDraft | false |
-| title | `feat(sfia-studio): implement FinOps T2 aggregation and reconciliation` |
-| base | `main` (`093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`) |
-| head | `delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation` |
-| headOid | `9a7be9220f64f73ab150119f7ec5ff39ad8442c9` |
-| changed files | **25 exact** |
-| mergeable | MERGEABLE (GitHub metadata; merge **not** authorized) |
-| auto-merge | **not enabled** |
-| merge performed | **NO** |
+| mergedAt | null |
+| baseRefName | main |
+| baseRefOid | `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c` |
+| headRefName | T2 delivery branch |
+| headRefOid | `268f54ca269993e767011844b48967a51ae0d514` |
+| commits | **2** (G1 + correction) |
+| changedFiles | **25** (same T2 paths) |
+| title | unchanged: `feat(sfia-studio): implement FinOps T2 aggregation and reconciliation` |
+| body | unchanged (reserves + R-PR-T2-API-01 retained) |
 
-### PR body (complete)
+## 14. CI after (CORRECTION_SHA)
 
-```md
-## Summary
-
-- Implement FinOps Technical Lot **T2**: exact **Money (M2)** with PostgreSQL `numeric(20,8)` + currency; **HALF_EVEN** once at rate×usage.
-- Add versioned server-side **R3** price catalog (Money per unit + billing quantum; fictitious fixtures only; empty ⇒ unavailable).
-- Persist Money in adjacent append-only **`finops_cost_event`** (T1 usage ledger unchanged / authoritative for usage).
-- Add durable **A1** aggregates with **full project/period multi-currency rebuild** and PostgreSQL **project/period advisory serialization**.
-- Add explicit **reconcileProjectPeriod** (on-demand + bounded batch; estimated→observed→billed via correction events; no cron).
-
-## Decisions
-
-- `numeric(20,8)` · currency explicit · no JS float Money
-- R3 catalog · HALF_EVEN quantization boundary
-- A1 durable derived aggregates · ledger/cost events authoritative
-- Explicit reconciliation · on-demand + bounded batch
-
-## Implementation
-
-- Migration `1754600000000_finops-t2-aggregation-reconciliation.js` (before T6 `1754600001000_*`)
-- `withExclusiveProjectPeriodRebuild`: one connection + `pg_advisory_xact_lock` covering read→derive→replace
-- Docs 138–141 (decisions) + 142 (execution) + 144 (PR readiness)
-
-## Tests
-
-- `npm run typecheck` / `lint` / `build` / `npm test` (144 files / 1439 tests)
-- `migrate:up` + `test:db` (20 PG tests including USD/EUR + concurrent rebuild)
-- T1 ledger regression included
-
-## Non-scope
-
-- T3 alerts · T4 enforcement · T5 override · T6 audit · T7 rollout
-- Neon · provider-real · real provider tariffs · FX · UI
-
-## Reserves
-
-- **R-PR-T2-API-01:** `replaceProjectPeriodAggregates` remains on the port but has **no production callers**; rebuild path uses exclusive lock. Optional future hardening micro-cycle (not blocking).
-- Sibling T6: global runtime audit composition deferred (T6 not in this PR).
-
-## Governance
-
-- No commit/push/PR performed in readiness cycle.
-- Requires explicit Morris GO for commit → push → PR create.
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/31178397523
+headSha: `268f54ca269993e767011844b48967a51ae0d514` · conclusion: **success**
 
 ```
-
-### PR changed files (exact 25)
-
-```
-projects/sfia-studio/138-assistant-sfia-native-openai-finops-technical-lots-t2-t5-t6-grouped-preparation.md
-projects/sfia-studio/139-assistant-sfia-native-openai-finops-technical-lot-t2-decisions-applied.md
-projects/sfia-studio/140-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decision-pack.md
-projects/sfia-studio/141-assistant-sfia-native-openai-finops-technical-lot-t2-numeric-precision-scale-decisions-applied.md
-projects/sfia-studio/142-assistant-sfia-native-openai-finops-technical-lot-t2-execution.md
-projects/sfia-studio/144-assistant-sfia-native-openai-finops-technical-lot-t2-pr-readiness.md
-projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.aggregate.integration.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.aggregate.unit.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.money.unit.test.ts
-projects/sfia-studio/app/__tests__/oa/finops/t2.reconciliation.unit.test.ts
-projects/sfia-studio/app/db/migrations/1754600000000_finops-t2-aggregation-reconciliation.js
-projects/sfia-studio/app/lib/oa/finops/application/estimateUsageCost.ts
-projects/sfia-studio/app/lib/oa/finops/application/recomputeAggregates.ts
-projects/sfia-studio/app/lib/oa/finops/application/reconcileProjectPeriod.ts
-projects/sfia-studio/app/lib/oa/finops/application/t2Identity.ts
-projects/sfia-studio/app/lib/oa/finops/application/types.aggregate.ts
-projects/sfia-studio/app/lib/oa/finops/domain/money.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/memory/memoryFinOpsT2.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAggregateStore.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsPriceCatalog.ts
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsReconciliation.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsAggregatePort.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsPriceCatalogPort.ts
-projects/sfia-studio/app/lib/oa/finops/ports/finopsReconciliationPort.ts
+Build and validate SFIA Studio	pass	1m45s	https://github.com/mcleland147/sfia-workspace/actions/runs/31178397523/job/92865610074
+Detect SFIA Studio changes	pass	8s	https://github.com/mcleland147/sfia-workspace/actions/runs/31178397523/job/92865572211
+SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/31178397523/job/92866041104
 ```
 
-## CI / checks (terminal — observed, not re-run / not fixed)
+| Job | Result |
+|-----|--------|
+| Detect SFIA Studio changes | **pass** (8s) |
+| Build and validate SFIA Studio | **pass** (1m45s) |
+| SFIA Studio Required Gate | **pass** (4s) |
 
-Run: https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338
+### Trailing whitespace check (internal)
 
-```
-Build and validate SFIA Studio	fail	2m4s	https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338/job/92862386916
-SFIA Studio Required Gate	fail	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338/job/92862848921
-Detect SFIA Studio changes	pass	6s	https://github.com/mcleland147/sfia-workspace/actions/runs/31177401338/job/92862356179
-```
+Step **Trailing whitespace check** conclusion: **success**.
+Executed: `git diff --check` BASE=`093fd916…`…HEAD — empty / PASS.
+Required gate log: `Required gate PASS: Studio validation succeeded.`
 
-Root cause (observe-only): **Trailing whitespace check** failed on markdown docs 142 (lines 3–11) and 144 (lines 3–8, 187, 281). Required Gate failed because validate_result=failure. Detect job: pass.
+Functional steps also green: Typecheck, Lint, Build, Unit tests, FinOps migrate, PG integration, modeled governance, secret scan.
 
-CI status: **NOT GREEN**
+## 15. R-PR-T2-API-01
 
-## Reserve R-PR-T2-API-01
+**OPEN MINOR** — unchanged; not hardened in this cycle; not a PR blocker; retained in PR body reserves.
 
-**OPEN — MINOR** (do **not** close)
+## 16. Aucun merge
 
-`replaceProjectPeriodAggregates` remains on the port but has **no production callers**; rebuild path uses `withExclusiveProjectPeriodRebuild` + advisory lock. Optional future hardening micro-cycle — **not blocking this PR publication**; **not hardened in this cycle**.
+Merge **not** performed. Auto-merge **not** enabled. Branch **not** deleted. No further CI fixes after green.
 
-## T6 exclusion
+## 17. Git final (project branch)
 
-**CONFIRMED**
+- branch: T2 delivery
+- HEAD = CORRECTION_SHA `268f54ca269993e767011844b48967a51ae0d514`
+- staged: empty
+- only untracked: `.tmp-sfia-review/`
+- origin/main still `093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c`
 
-- No T6 migration `1754600001000_*` in G1 / PR
-- No T6 runtime/audit composition files in the 25-path set
-- Doc 138 is grouped **preparation** naming only (T2/T5/T6 prep doc) — T6 delivery not in this PR
-- T3–T7 / Neon / provider-real: **out of scope**
+## 18. Review pack + handoff
 
-## NO MERGE
+- Local pack: `.tmp-sfia-review/chatgpt-review.md` (this file; Light)
+- Publish message: `docs(review-handoff): publish T2 PR CI correction`
+- Publisher: `scripts/sfia/publish-review-handoff.sh` (L3)
+- Handoff before tip/blob re-checked immediately pre-publish: `251dd632…` / `1a502f04…` (must still match)
+- After publish: tip/blob recorded in evidence + remote reread; return to T2 branch at CORRECTION_SHA
 
-- Merge not performed
-- Auto-merge not enabled
-- Squash/rebase/force-push/branch-delete: **not performed**
-- Morris merge gate: **still required** (and CI NOT GREEN ⇒ NOT READY FOR MERGE)
+## Synthèse
 
-## Git final (publication worktree)
+CI blocker on PR #314 was exclusively trailing whitespace in docs 142/144. Distinct corrective commit `268f54ca…` removed EOL whitespace only (semantic proof exit 0). Push updated PR to 2 commits / 25 paths; CI run `31178397523` is fully green including trailing whitespace + Required Gate. R-PR-T2-API-01 remains OPEN MINOR. No merge.
 
-```
-branch=delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation
-HEAD=9a7be9220f64f73ab150119f7ec5ff39ad8442c9
-upstream=origin/delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t2-aggregation-reconciliation
-origin/main=093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c
-ahead_of_main=1
-staged=empty
-working_tree_25_paths=clean
-.tmp-sfia-review=untracked (evidence only; not staged)
-T6_files=none
-```
+## ChatGPT instruction (next)
 
-## Review Handoff (this cycle)
-
-| Champ | Valeur |
-|-------|--------|
-| mode | publish-in-cycle |
-| source | `.tmp-sfia-review/chatgpt-review.md` |
-| branch | `sfia/review-handoff` |
-| target | `sfia-review-handoff/latest-chatgpt-review.md` |
-| commit message | `docs(review-handoff): publish T2 PR created` |
-| tip before | `9ed8145bf90dd36f7f1696e916fa7685fb5ed845` |
-| blob before | `dbbb1797ec17a3549478030b0e93f3b03dbfc347` |
-| tip/blob after | *(filled after publish)* |
-| push | L3 borné |
-
-## Instruction ChatGPT
-
-Relire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`, puis vérifier PR #314:
-
-- state OPEN; headOid `9a7be9220f64f73ab150119f7ec5ff39ad8442c9`; base main
-- exactly 25 paths; title/body match
-- checks: Detect pass; Build/validate fail (trailing whitespace 142/144); Required Gate fail → **CI NOT GREEN**
-- no merge; R-PR-T2-API-01 remains OPEN MINOR; T6 absent; single G1 commit
-- next: documentary trailing-space fix on 142/144 (hash-changing) requires new GO — **not** done here
-
-## Final verdict string
-
-```
-FINOPS TECHNICAL LOT T2 — PR CREATED —
-G1 SINGLE COMMIT VERIFIED —
-25-PATH MANIFEST VERIFIED —
-BRANCH PUSH REMOTE VERIFIED —
-PR BASE/HEAD VERIFIED —
-PR BODY VERIFIED —
-T6 EXCLUDED —
-R-PR-T2-API-01 OPEN MINOR —
-CI NOT GREEN —
-NO MERGE —
-REVIEW HANDOFF REMOTE VERIFIED —
-NOT READY FOR MERGE
-```
+Relire obligatoirement depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`, puis vérifier PR #314 (OPEN, 2 commits, 25 paths, whitespace-only second commit, CI green). Si conforme: merge readiness validation ChatGPT; **Morris merge gate required** — no agent merge.
