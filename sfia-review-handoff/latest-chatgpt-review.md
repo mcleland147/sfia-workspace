@@ -1,193 +1,136 @@
-# ChatGPT Review Pack — FinOps Technical Lot T3 — Alert & Morris Review State — Cycle 6 Architecture technique (Critical)
+# Full Review Pack — FinOps Technical Lot T3 — Decisions Applied
 
 ## Meta
 
-- date_cest: 2026-08-07 18:26:10 CEST +0200
-- date_utc: 2026-08-07 16:26:10 UTC
-- cycle: 6 — Architecture technique
-- profil: Critical
-- typologie: EVOL / DOC / ARCH
-- GO Morris exact: `ok go cloture puis lancer la préparation de T3`
-- GO meaning:
-  1. T6-foundation CLOSED WITH RESERVES
-  2. T3 architecture prep AUTHORIZED
-  3. NO T3 Delivery
-  4. NO option auto-adopted
-- Repo: `mcleland147/sfia-workspace`
-- Branch: `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state`
-- Worktree: `.tmp-sfia-review/worktrees/finops-t3-preparation`
-- Base / HEAD: `b8259859983577c31965aa877c956e7a25dd1c4d`
-- Handoff BEFORE tip: `55e692a48768645514b634a88a1d0e53cffcd8f0`
-- Handoff BEFORE blob: `1a861212289538cbb465acdefdca81414ac99a99`
-- Handoff BEFORE commit: `docs(review-handoff): publish T6 post-merge`
-- CKC: `pilots/03-architecture-technique.md` candidate v0.1.0 — experimental — no execution authority
-- Review pack: Full (mono-cycle RESET)
-- Project commit/push/PR: NONE
-- Code/migration/tests: NONE
+| Field | Value |
+|-------|-------|
+| Date/heure CEST | 2026-08-07 18:50:16 CEST (+0200) |
+| Date/heure UTC | 2026-08-07 16:50:16 UTC |
+| Cycle | 6 — Architecture technique |
+| Mode | Decisions Applied — FinOps Technical Lot T3 |
+| Profil SFIA | Critical |
+| Typologie | EVOL / DOC / ARCH |
+| Worktree | `.tmp-sfia-review/worktrees/finops-t3-preparation` |
+| Branche | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state` |
+| HEAD | `b8259859983577c31965aa877c956e7a25dd1c4d` |
+| origin/main | `b8259859983577c31965aa877c956e7a25dd1c4d` |
 
-## Verdict (pack)
+## GO Morris exact
 
 ```
-FINOPS TECHNICAL LOT T3 —
-ARCHITECTURE / IMPLEMENTATION PREPARATION COMPLETE WITH RESERVES —
-
-T6-FOUNDATION CLOSED WITH RESERVES TRACED —
-T2 RUNTIME CONTRACT VERIFIED —
-T6 FOUNDATION CONTRACT VERIFIED —
-MORRIS AUTHORITY MODEL QUALIFIED —
-T3 / T4 / T6 RESPONSIBILITIES SEPARATED —
-THRESHOLD CALIBRATION STATUS EXPLICIT —
-STATE / TRIGGER / DEDUPE / LIFECYCLE OPTIONS PREPARED —
-MORRIS DECISION MATRIX PREPARED —
-DELIVERY MANIFEST CANDIDATE PREPARED —
-TEST PLAN CANDIDATE PREPARED —
-
-NO T3 DECISION SILENTLY ADOPTED —
-NO T3 DELIVERY —
-NO CODE —
-NO MIGRATION —
-NO PROJECT COMMIT —
-NO PROJECT PUSH —
-NO PR —
-
-R-T6-RUNTIME-COMPOSITION-01 OPEN —
-R-PR-T2-API-01 OPEN MINOR —
-T6-EXT-T2 EXCLUDED —
-
-REVIEW HANDOFF REMOTE VERIFIED —
-READY FOR CHATGPT T3 ARCHITECTURE REVIEW / MORRIS ARBITRATION
+GO arbitrage T3 — A1 / B3 / C1 / D2 / E1 / F3 — exact T6-ext event names deferred.
 ```
 
-## 1. GO and T6 closure
+Contexte Morris : `ok pour les recommandations que tu viens de faire`
 
-Morris GO `ok go cloture puis lancer la préparation de T3` (2026-08-07) formally closes **T6-foundation WITH RESERVES** and authorizes **T3 architecture preparation only**.
+### Interprétation du GO
 
-Preserved OPEN:
-- `R-T6-RUNTIME-COMPOSITION-01` OPEN
-- `R-PR-T2-API-01` OPEN MINOR
-- T6-ext-T2 EXCLUDED
-- T6-ext-T3T4 NOT AUTHORIZED
+| Decision ID | Mapping |
+|-------------|---------|
+| D-T3-STATE-01 | A1 SELECTED BY MORRIS |
+| D-T3-TRIGGER-01 | B3 SELECTED BY MORRIS |
+| D-T3-DEDUPE-01 | C1 SELECTED BY MORRIS |
+| D-T3-LIFECYCLE-01 | D2 SELECTED BY MORRIS |
+| D-T3-AUTHORITY-01 | E1 SELECTED BY MORRIS |
+| D-T3-CALIBRATION-01 | F3 SELECTED BY MORRIS |
+| D-T3-T6EXT-CONTRACT-01 | EXACT EVENT NAMES DEFERRED BY MORRIS |
 
-Closure does **not** imply global T6 completeness or audit composition.
+## Handoff before
 
-## 2. Sources consulted (roles)
+| Field | Value |
+|-------|-------|
+| tip | `6aa59378d51126bc398354dabffd51b7ae9e25c1` |
+| blob | `813d2decf53a067a6aeff63fcb9388701ffde518` |
+| commit | `docs(review-handoff): publish T3 preparation` |
 
-Method: cycle template, routing guide, operating model, rules/guardrails, validation checklist, CKC architecture pilot, handoff publisher.
+## Sources
 
-Project: 103, 123, 125, 138, 139, 141, 142, 143, 144.
+Méthode : cycle template · routing guide · operating model · guardrails · validation checklist · CKC architecture pilot (candidate) · publish-review-handoff.sh
 
-Runtime T2: aggregate types, recompute, reconcile, estimate, money, aggregate/reconciliation/price ports, postgres stores, migration `1754600000000_finops-t2-aggregation-reconciliation.js`.
+Projet : 103 · 123 · 125 · 138 · 139 · 141 · 142 · 143 · 144 · **145 (pre-arbitration primary)** · handoff tip 6aa59378
 
-Runtime T6: audit types, journal port, postgres journal+redaction, migration `1754600001000_finops-t6-audit-journal.js`, T1 `safeEmit` fail-open.
+## Document 145 preservation proof
 
-Authority: `app/lib/oa/decision/**` (AuthorityResolverPort, VerifyAuthority, MemoryAuthorityResolver, canActAsMorris, requireMorrisGate); product `iam: NOT_SELECTED`.
+| Check | Value |
+|-------|-------|
+| Path | `projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md` |
+| Lines / bytes | 681 / 32735 |
+| SHA-256 BEFORE | `809bc5bd20fc23c0c7d3368728e81193e1fe459f26c314d1ba1d4526b61540ba` |
+| SHA-256 AFTER | `809bc5bd20fc23c0c7d3368728e81193e1fe459f26c314d1ba1d4526b61540ba` |
+| Match | **YES — byte-identical** |
+| Git | untracked · not modified by this cycle |
 
-Incoming handoff: T6 post-merge pack at tip/blob above.
+145 remains historical pre-arbitration (CANDIDATE options). Not rewritten to SELECTED.
 
-## 3. Git Truth
+## Relation 145 → 146
 
-### Initial
-```
-=== date ===
-2026-08-07 18:22:53 CEST +0200
-2026-08-07 16:22:53 UTC
-=== pwd/toplevel ===
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation
-=== origin/main / HEAD / branch ===
-b8259859983577c31965aa877c956e7a25dd1c4d
-b8259859983577c31965aa877c956e7a25dd1c4d
-implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state
-=== status ===
-?? .tmp-sfia-review/
-=== staged ===
-=== handoff ===
-From https://github.com/mcleland147/sfia-workspace
- * branch            sfia/review-handoff -> FETCH_HEAD
-tip=55e692a48768645514b634a88a1d0e53cffcd8f0
-blob=1a861212289538cbb465acdefdca81414ac99a99
-=== D-T3 search count ===
-0 matches D-T3-
-```
+- **145** = pré-arbitrage / options / recommandations candidates / historique immutable
+- **146** = post-arbitrage / decisions applied (CREATE ONLY)
 
-### Pre-pack final
-```
-branch=implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state
-HEAD=b8259859983577c31965aa877c956e7a25dd1c4d
-origin_main=b8259859983577c31965aa877c956e7a25dd1c4d
-status:
-?? .tmp-sfia-review/
-?? projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md
-diff_name:
-untracked_project:
-projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md
-diff_check:
-diff_check_exit=0
-```
+## Décisions avant / après
 
-## 4. T2 / T6 / Authority summary
+| ID | Avant | Après |
+|----|-------|-------|
+| D-T3-STATE-01 | CANDIDATE — NOT DECIDED | A1 SELECTED BY MORRIS |
+| D-T3-TRIGGER-01 | CANDIDATE — NOT DECIDED | B3 SELECTED BY MORRIS |
+| D-T3-DEDUPE-01 | CANDIDATE — NOT DECIDED | C1 SELECTED BY MORRIS |
+| D-T3-LIFECYCLE-01 | CANDIDATE — NOT DECIDED | D2 SELECTED BY MORRIS |
+| D-T3-AUTHORITY-01 | CANDIDATE — NOT DECIDED | E1 SELECTED BY MORRIS |
+| D-T3-CALIBRATION-01 | CANDIDATE — NOT DECIDED | F3 SELECTED BY MORRIS |
+| D-T3-T6EXT-CONTRACT-01 | CANDIDATE — NOT DECIDED | EXACT EVENT NAMES DEFERRED BY MORRIS |
 
-See document 145 sections H–J for full inventories.
+## Décisions appliquées (résumé)
 
-Highlights:
-- T2 aggregates EXISTS with estimated/observed/billed/unknown Money strings; exclusive rebuild; T3 must read-only.
-- T6 foundation events = capture created/duplicate/failed only; append-only; fail-open emit.
-- Authority proves registered evidence + Morris gate flag; does **not** prove session IAM.
-- A–E answers documented in 145 §J.
+- **A1** Materialized durable state + separate audit
+- **B3** Hybrid post-rebuild + explicit evaluate (no cron/poller; after T2 success; outside T2 lock)
+- **C1** Core ONCE key = projectId + periodStart + thresholdCode + currency
+- **D2** Split informational Alert vs Morris Review
+- **E1** System creation now / privileged Morris mutations deferred; IAM NOT_SELECTED
+- **F3** Engine/config without real active amounts; 15/20/25/30 NOT runtime-active
+- **T6-ext** Exact event names deferred; draft names not SELECTED; T6-ext-T3T4 NOT AUTHORIZED
 
-## 5. Threshold truth
+## Contrat intégré
 
-USD 15 informational · USD 20 Morris review · USD 25 planning target · USD 30 soft cap (T4).
-All provisional SELECTED documentary; **RECALIBRATION REQUIRED**; **not activated**; **not adopted** in this cycle.
+A1 + B3 + C1 + D2 + E1 + F3 ; T6-ext names deferred.
+Interactions : A1↔D2 durable split ; B3↔C1 idempotent re-eval ; C1↔evidence evolution same identity ; E1↔D2 system create / Morris mutate deferred ; F3↔B3 engine without real amounts.
 
-## 6. Options (ALL NOT DECIDED)
+## Décisions non prises
 
-| Decision | Options | Candidate lean (NOT DECIDED) |
-|----------|---------|------------------------------|
-| D-T3-STATE-01 | A1 materialized / A2 event+snapshot / A3 audit-only REJECTED | A1 |
-| D-T3-TRIGGER-01 | B1 post-rebuild / B2 explicit / B3 hybrid | B3 |
-| D-T3-DEDUPE-01 | C1 core / C2 +basis / C3 +rebuildVersion | C1 |
-| D-T3-LIFECYCLE-01 | D1 four-state / D2 split alert vs review | D2 |
-| D-T3-AUTHORITY-01 | E1 defer privileged / E2 reuse resolver now | E1 (+prepare E2) |
-| D-T3-CALIBRATION-01 | F1 default-off values / F2 block encode / F3 engine w/o amounts | F3 |
-| D-T3-T6EXT-CONTRACT-01 | event name draft | defer implement |
+real threshold activation · exact SQL schema · migration timestamp · privileged IAM binding · real ack/resolve product · T6-ext exact names · T4 · T5 · Neon · provider-real · external notification · UI
 
-No option marked SELECTED/DECIDED/ADOPTED.
+## Gates restantes
 
-## 7. Contracts / manifest / tests / reserves
+GO Delivery T3 REQUIRED · threshold calibration/activation REQUIRED before activation · product Morris identity REQUIRED before privileged mutations · T6-ext event contract later · T4/T5/Neon/provider-real separate · R-T6-RUNTIME-COMPOSITION-01 OPEN · R-PR-T2-API-01 OPEN MINOR
 
-Documented in 145 §§O–X: T3↔T2/T4/T6 contracts; concurrency; security/data min; FinOps/GreenOps; candidate Delivery manifest CREATE/MODIFY/PROTECTED; candidate test plan; reserves OPEN.
+## Réserves
 
-## 8. Project file changes
+R-T6-RUNTIME-COMPOSITION-01 OPEN · R-PR-T2-API-01 OPEN MINOR · T6-ext-T2 EXCLUDED · T6-ext-T3T4 NOT AUTHORIZED / exact names DEFERRED · Calibration REQUIRED before activation · Product IAM NOT_SELECTED
 
-| Path | Action |
-|------|--------|
-| `projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md` | **CREATE** (untracked, uncommitted) |
+## Fichiers
 
-No other project files modified. Evidence under `.tmp-sfia-review/t3-preparation/` OK.
+| Action | Path |
+|--------|------|
+| CREATE ONLY | `projects/sfia-studio/146-assistant-sfia-native-openai-finops-technical-lot-t3-decisions-applied.md` |
+| PRESERVED byte-identical | `projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md` |
+| Modified project | **none** |
+| Code / SQL / migration / app/** | **none** |
+| Staged | **empty** |
+| Project commit / push / PR | **none** |
+| Executable QA | DOCUMENTATION-ONLY — typecheck/lint/build/tests **NOT RUN** |
+| git diff --check | **PASS** |
 
-## 9. Validations
+Document 146 meta: SHA-256 `a5eda99a97ab5887407db8b6290e6cae0405ed2b59a22a60b9ed7f4662150da1` · 519 lines · 19722 bytes · untracked
 
-- origin/main exact MATCH
-- handoff before tip/blob MATCH
-- branch/worktree fresh MATCH
-- `git diff --check` PASS
-- document 145 sole project change
-- EXECUTABLE QA NOT REQUIRED — DOCUMENTARY ARCHITECTURE PREPARATION ONLY
-- NO typecheck/lint/build/tests
-- NO project git add/commit/push/PR
+## Contenu COMPLET du document 146
 
-## 10. COMPLETE content of document 145 (mandatory)
-
-```markdown
-# 145 — FinOps Technical Lot T3 — Alert & Morris Review State — Architecture / Implementation Preparation
+# 146 — FinOps Technical Lot T3 — Alert & Morris Review State — Decisions Applied
 
 **Project:** SFIA Studio — Assistant SFIA natif OpenAI
-**Document:** `projects/sfia-studio/145-assistant-sfia-native-openai-finops-technical-lot-t3-alert-morris-review-preparation.md`
-**Cycle:** 6 — Architecture technique
+**Document:** `projects/sfia-studio/146-assistant-sfia-native-openai-finops-technical-lot-t3-decisions-applied.md`
+**Cycle:** 6 — Architecture technique · Decisions Applied — FinOps Technical Lot T3
 **Profil:** Critical
 **Typologie:** EVOL / DOC / ARCH
-**Statut:** ARCHITECTURE / IMPLEMENTATION PREPARATION COMPLETE WITH RESERVES — NO T3 DELIVERY — NO OPTION ADOPTED
+**Statut:** T3 ARCHITECTURE DECISIONS APPLIED WITH RESERVES — NO DELIVERY
 
 ---
 
@@ -195,658 +138,535 @@ No other project files modified. Evidence under `.tmp-sfia-review/t3-preparation
 
 | Claim | Statut |
 |-------|--------|
-| T3 Delivery executed | **FALSE** |
-| T3 code / migration / tests implemented | **FALSE** |
-| T3 option SELECTED / DECIDED / ADOPTED in this cycle | **FALSE** — all options **CANDIDATE / NOT DECIDED** |
-| Thresholds 15/20/25/30 USD activated in runtime | **FALSE** |
-| Recalibration completed | **FALSE** — still **REQUIRED** before real threshold usage |
-| S30 soft enforcement owned by T3 | **FALSE** — T4 owns future S30 |
-| T6 globally complete / durable audit globally composed | **FALSE** |
-| T6-ext-T2 / T6-ext-T3T4 authorized | **FALSE** — EXCLUDED / NOT AUTHORIZED |
-| Cron / poller / external notification | **FALSE** — out of scope |
-| New Morris IAM / product session identity invented | **FALSE** |
-| Neon / provider-real / package / CI modified | **FALSE** |
+| D-T3-STATE-01 A1 SELECTED BY MORRIS | **TRUE** |
+| D-T3-TRIGGER-01 B3 SELECTED BY MORRIS | **TRUE** |
+| D-T3-DEDUPE-01 C1 SELECTED BY MORRIS | **TRUE** |
+| D-T3-LIFECYCLE-01 D2 SELECTED BY MORRIS | **TRUE** |
+| D-T3-AUTHORITY-01 E1 SELECTED BY MORRIS | **TRUE** |
+| D-T3-CALIBRATION-01 F3 SELECTED BY MORRIS | **TRUE** |
+| D-T3-T6EXT-CONTRACT-01 exact T6-ext event names DEFERRED BY MORRIS | **TRUE** |
+| T3 Delivery authorized / executed | **FALSE** |
+| Code / SQL / migration / executable tests created | **FALSE** |
+| Threshold / amount runtime activation (15/20/25/30) | **FALSE** |
+| Product IAM / session Morris identity implemented | **FALSE** |
+| T6-ext enum / migration / event names adopted as SELECTED | **FALSE** |
+| Document 145 modified | **FALSE** — preserved byte-identical |
 | Project commit / push / PR / merge | **FALSE** |
-| Scalable / secure / production-ready without proof | **NOT CLAIMED** |
-| `canActAsMorris` = real end-user session identity | **FALSE** — recorded authority evidence ≠ login/session IAM |
-
-This document is the **sole project deliverable** of this cycle. It prepares Morris arbitration. It does **not** authorize Delivery T3.
+| T4 / T5 / T6-ext Delivery advanced | **FALSE** |
+| Recommendation from 145 = decision without Morris GO | **FALSE** — Morris GO consumes and selects |
 
 ---
 
-## B. GO Morris exact
+## B. Autorité Morris
+
+Morris decides. Cursor applies decisions exactly without silent enrichment.
+ChatGPT validates coherence. Git remains source of truth for files and hashes.
+CKC `pilots/03-architecture-technique.md` = candidate experimental guidance only — **no execution authority**; Morris GO in this cycle prevails.
+
+### GO Morris exact (consommé)
 
 ```
-ok go cloture puis lancer la préparation de T3
+GO arbitrage T3 — A1 / B3 / C1 / D2 / E1 / F3 — exact T6-ext event names deferred.
 ```
 
-**Consumed interpretation (this cycle):**
+### Contexte Morris immédiatement associé
 
-1. **T6-foundation** is formally **CLOSED WITH RESERVES** (Morris decision dated **2026-08-07**).
-2. **T3 Architecture technique preparation** is **AUTHORIZED**.
-3. **T3 Delivery** is **NOT AUTHORIZED**.
-4. **No candidate option** produced here is automatically adopted.
+```
+ok pour les recommandations que tu viens de faire
+```
 
-**Authorized:** read repository · create document 145 only · Full Review Pack · L3 handoff publish.
-**Not authorized:** T3 Delivery · code/migration/tests · project commit/push/PR/merge · T4/T5/T6-ext · global T6 composition · recalibration adoption · Neon · provider-real · package/CI/IAM invention · cron/external notification.
+Morris accepted the candidate recommendations from document 145. Mapping authorized by this GO:
 
----
+| Decision ID | Value | Status |
+|-------------|-------|--------|
+| D-T3-STATE-01 | A1 | SELECTED BY MORRIS |
+| D-T3-TRIGGER-01 | B3 | SELECTED BY MORRIS |
+| D-T3-DEDUPE-01 | C1 | SELECTED BY MORRIS |
+| D-T3-LIFECYCLE-01 | D2 | SELECTED BY MORRIS |
+| D-T3-AUTHORITY-01 | E1 | SELECTED BY MORRIS |
+| D-T3-CALIBRATION-01 | F3 | SELECTED BY MORRIS |
+| D-T3-T6EXT-CONTRACT-01 | exact event names | DEFERRED BY MORRIS |
 
-## C. Horodatages
+### Horodatage
 
 | Fuseau | Valeur |
 |--------|--------|
-| CEST (Git Truth start) | 2026-08-07 18:22:53 CEST (+0200) |
-| UTC (Git Truth start) | 2026-08-07 16:22:53 UTC |
-| Morris T6 closure + T3 prep GO | 2026-08-07 (terminal GO; exact clock not separately instrumented beyond cycle timestamps) |
+| Décision Morris (annoncée) | 2026-08-07 CEST (+0200) — secondes exactes non inventées |
+| Application documentaire (ce cycle) | 2026-08-07 18:47:35 CEST (+0200) / 16:47:35 UTC |
+
+Ce GO autorise uniquement l'application documentaire, la création de 146, le Full Review Pack et le Review Handoff L3 borné.
+Ce GO **n'autorise pas** Delivery T3, code, SQL, migration, tests exécutables, activation de seuil, IAM, T4/T5/T6-ext, commit/push/PR projet, ni modification de 103/145.
 
 ---
 
-## D. Git Truth
+## C. Git Truth
 
-| Champ | Valeur |
+| Check | Value |
 |-------|--------|
 | Repo | `mcleland147/sfia-workspace` |
-| Orchestration start WT | `.tmp-sfia-review/worktrees/finops-t2-main` (tracked-clean `main`) |
-| T3 branch | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state` |
-| T3 worktree | `.tmp-sfia-review/worktrees/finops-t3-preparation` |
-| `origin/main` | `b8259859983577c31965aa877c956e7a25dd1c4d` |
+| Workspace | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation` |
+| Branche | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state` |
 | HEAD | `b8259859983577c31965aa877c956e7a25dd1c4d` |
-| Staged | empty |
-| Project change | document 145 only (untracked / unstaged) — **no commit** |
-| Handoff before tip | `55e692a48768645514b634a88a1d0e53cffcd8f0` |
-| Handoff before blob | `1a861212289538cbb465acdefdca81414ac99a99` |
-| Handoff before commit | `docs(review-handoff): publish T6 post-merge` |
-
-Evidence: `.tmp-sfia-review/t3-preparation/git-truth-initial.txt`
+| origin/main | `b8259859983577c31965aa877c956e7a25dd1c4d` |
+| Status avant | `?? .tmp-sfia-review/` · `?? …/145-….md` |
+| Staged | vide |
+| Upstream | aucun |
+| Handoff entrant | tip `6aa59378d51126bc398354dabffd51b7ae9e25c1` · blob `813d2decf53a067a6aeff63fcb9388701ffde518` · `docs(review-handoff): publish T3 preparation` |
+| Document 145 SHA-256 (before) | `809bc5bd20fc23c0c7d3368728e81193e1fe459f26c314d1ba1d4526b61540ba` |
+| Document 145 | 681 lines · 32735 bytes · untracked · **byte-identical préservé** |
+| Document 146 | **CREATE ONLY** (absent before cycle; absent on origin/main) |
+| Project commit / push / PR | **aucun** |
 
 ---
 
-## E. Cycle Knowledge Contract
+## D. Sources
 
-| Champ | Valeur |
+### Méthode (read-only)
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate · no authority)
+- `scripts/sfia/publish-review-handoff.sh`
+
+### Projet (read-only)
+- `103` backlog · `123` / `125` IP-0C · `138` / `139` / `141` T2 · `142` T2 execution · `143` T6 foundation · `144` T2 PR readiness
+- **Primary pre-arbitration:** `145-…-t3-alert-morris-review-preparation.md`
+- Handoff entrant tip `6aa59378…` (Full Review Pack T3 preparation with complete 145)
+
+Runtime: not written; T3 decisions applied here do not contradict the T2/T6/authority analysis already recorded in 145.
+
+---
+
+## E. Relation 145 → 146
+
+| Document | Role |
+|----------|------|
+| **145** | Historical **pre-arbitration** T3 Alert & Morris Review preparation · options · candidate recommendations · conflict matrices · **IMMUTABLE** in this cycle |
+| **146** | Authoritative **post-arbitration** record for the seven T3 decision IDs in the GO |
+
+**145 is IMMUTABLE in this cycle** — byte-identical preservation required.
+Do **not** rewrite 145 option tables. Prior candidate recommendations (A1/B3/C1/D2/E1/F3 + defer T6-ext names) in 145 remain historical; **Morris selected / deferred** them via the GO.
+
+---
+
+## F. Matrice avant / après
+
+| ID | Avant (145) | Après (ce GO / 146) |
+|----|-------------|---------------------|
+| **D-T3-STATE-01** | CANDIDATE — NOT DECIDED (lean A1) | **A1 SELECTED BY MORRIS** |
+| **D-T3-TRIGGER-01** | CANDIDATE — NOT DECIDED (lean B3) | **B3 SELECTED BY MORRIS** |
+| **D-T3-DEDUPE-01** | CANDIDATE — NOT DECIDED (lean C1) | **C1 SELECTED BY MORRIS** |
+| **D-T3-LIFECYCLE-01** | CANDIDATE — NOT DECIDED (lean D2) | **D2 SELECTED BY MORRIS** |
+| **D-T3-AUTHORITY-01** | CANDIDATE — NOT DECIDED (lean E1) | **E1 SELECTED BY MORRIS** |
+| **D-T3-CALIBRATION-01** | CANDIDATE — NOT DECIDED (lean F3) | **F3 SELECTED BY MORRIS** |
+| **D-T3-T6EXT-CONTRACT-01** | CANDIDATE — NOT DECIDED (draft names) | **EXACT EVENT NAMES DEFERRED BY MORRIS** |
+| T3 Delivery | NOT AUTHORIZED | **NOT AUTHORIZED** (unchanged) |
+| Threshold activation | NOT ACTIVE | **NOT ACTIVE** (unchanged) |
+| Product IAM | NOT_SELECTED | **NOT_SELECTED** (unchanged) |
+
+---
+
+## G. Décisions appliquées (une section par ID)
+
+### G.1 D-T3-STATE-01
+
+**Value:** `A1 — MATERIALIZED DURABLE STATE + SEPARATE AUDIT`
+**Status:** **SELECTED BY MORRIS**
+
+#### Règles incluses
+- T3 possède un état durable matérialisé pour alert/review ;
+- l'état métier mutable et l'audit append-only restent séparés ;
+- T6 / T6-ext ne devient **pas** le store métier mutable ;
+- persistence PostgreSQL candidate pour le futur Delivery, **sans DDL dans ce cycle** ;
+- A2 reste option historique non retenue ;
+- A3 audit-only reste **REJECTED**.
+
+#### Exclusions
+- Schéma SQL final / noms de tables / enums colonnes ;
+- Migration timestamp ;
+- Implémentation runtime de l'état.
+
+#### Impacts futur Delivery
+- Créer tables/state matérialisé séparés de l'audit ;
+- Ne pas utiliser T6 comme store mutable T3.
+
+#### Anti-claims
+- A1 SELECTED ≠ DDL créé
+- A1 SELECTED ≠ T6-ext implémenté
+- A1 SELECTED ≠ Delivery autorisé
+
+---
+
+### G.2 D-T3-TRIGGER-01
+
+**Value:** `B3 — HYBRID POST-REBUILD + EXPLICIT EVALUATE`
+**Status:** **SELECTED BY MORRIS**
+
+#### Règles incluses
+- Évaluation automatique après succès d'un changement T2 pertinent / rebuild / reconciliation ;
+- Commande explicite d'évaluation disponible pour repair/replay ;
+- Aucun cron permanent ;
+- Aucun poller permanent ;
+- Le déclenchement automatique doit se produire **APRÈS** réussite/commit logique du rebuild T2 ;
+- Il ne doit pas prolonger la transaction exclusive T2 ni son advisory lock ;
+- Le futur Delivery devra minimiser le couplage avec T2.
+
+#### Exclusions
+- Hook T2 implémenté maintenant ;
+- Modification de T2 dans ce cycle ;
+- Cron / always-on polling.
+
+#### Impacts futur Delivery
+- Proposer hook post-succès hors transaction T2 ;
+- Fournir explicit evaluate repair/replay ;
+- Feature-default-off jusqu'à GO Delivery / activation.
+
+#### Anti-claims
+- B3 SELECTED ≠ hook T2 implémenté
+- B3 SELECTED ≠ T2 modifié
+- B3 SELECTED ≠ cron sélectionné
+
+---
+
+### G.3 D-T3-DEDUPE-01
+
+**Value:** `C1 — CORE ONCE KEY`
+**Status:** **SELECTED BY MORRIS**
+
+#### Clé logique
+`projectId + periodStart + thresholdCode + currency`
+
+#### Règles incluses
+- ONCE par projet/période/seuil/devise ;
+- `rebuildVersion` ne fait **PAS** partie de l'identité ;
+- basis estimated/observed/billed ne fait **PAS** partie de l'identité ;
+- L'évolution de preuve estimated → observed → billed met à jour le même état / sa preuve, sans créer une nouvelle review simplement parce que la source évolue ;
+- Correction descendante peut conduire à `superseded` / `cleared` selon le type d'entité ;
+- Aucune suppression d'historique ;
+- Nouvelle période = nouvelle identité ;
+- Nouvelle devise = identité distincte.
+
+#### Exclusions
+- C2 (core + basis) / C3 (core + rebuildVersion) — non retenues ;
+- Noms SQL exacts de contrainte d'unicité.
+
+#### Impacts futur Delivery
+- Contrainte d'unicité/idempotence sur la clé C1 ;
+- Transitions concurrent-safe sur invalidation.
+
+#### Anti-claims
+- C1 SELECTED ≠ contrainte SQL créée
+- C1 SELECTED ≠ historique effacé
+- Evidence evolution ≠ nouvelle identité
+
+---
+
+### G.4 D-T3-LIFECYCLE-01
+
+**Value:** `D2 — SPLIT INFORMATIONAL ALERT VS MORRIS REVIEW`
+**Status:** **SELECTED BY MORRIS**
+
+#### Règles incluses
+- Alert informationnelle et Morris Review sont des entités/logiques distinctes ;
+- Elles partagent la famille de déduplication T3 ;
+- Le niveau informationnel ne doit pas être confondu avec un review humain ;
+- Lifecycle Review conceptuel minimum : `pending` · `acknowledged` · `resolved` · `superseded` ;
+- Lifecycle Alert conceptuel plus léger : `open` · `cleared` ;
+- Noms exacts de colonnes / enums SQL = choix Delivery, pas de ce cycle ;
+- Correction descendante doit pouvoir invalider/supersede un état ouvert sans effacer l'historique.
+
+#### Exclusions
+- UI séparée implémentée ;
+- Notifications externes ;
+- Enums SQL figés ici.
+
+#### Impacts futur Delivery
+- Séparer modèles Alert / Review ;
+- Partager famille dédup C1 ;
+- Préserver historique sur supersede/clear.
+
+#### Anti-claims
+- D2 SELECTED ≠ UI implémentée
+- D2 SELECTED ≠ notifications externes
+- D2 SELECTED ≠ noms SQL figés
+
+---
+
+### G.5 D-T3-AUTHORITY-01
+
+**Value:** `E1 — SYSTEM CREATION NOW / PRIVILEGED MORRIS MUTATIONS DEFERRED`
+**Status:** **SELECTED BY MORRIS**
+
+#### Règles incluses
+- Le système peut créer durablement un `review required` depuis l'évaluation T3 sans identité Morris ;
+- Création système d'une review ≠ action Morris ;
+- Acknowledge / resolve / disposition privilégiée Morris ne doivent **PAS** être activés comme vraies opérations produit tant qu'une preuve d'identité Morris fiable n'est pas disponible ;
+- Product IAM reste **NOT_SELECTED** ;
+- AuthorityResolver / canActAsMorris existants ne sont **pas** une preuve d'identité de session ;
+- Le futur design peut préparer une frontière/port permettant de brancher les contrôles d'autorité ultérieurement ;
+- E2 peut être **PREPARED AS BOUNDARY COMPATIBILITY**, mais n'est **PAS** sélectionné comme mécanisme productif d'identité ;
+- Aucun nouvel IAM n'est inventé ;
+- Aucune élévation client-side.
+
+#### Clarification
+Le choix E1 autorise la persistence automatique de review state.
+Il ne bloque donc pas le futur Delivery foundation T3.
+Il bloque l'activation réelle des mutations privilégiées Morris tant que l'identité produit n'est pas traitée.
+
+#### Exclusions
+- IAM produit inventé ;
+- Ack/resolve productifs activés ;
+- AuthorityResolver présenté comme preuve de session Morris.
+
+#### Impacts futur Delivery
+- Persister review_required système autorisé sous E1 ;
+- Bloquer mutations privilégiées jusqu'à identity binding ;
+- Préparer port E2 sans l'activer.
+
+#### Anti-claims
+- E1 SELECTED ≠ IAM implémenté
+- E1 SELECTED ≠ ack/resolve productifs
+- E1 SELECTED ≠ AuthorityResolver = session Morris
+
+---
+
+### G.6 D-T3-CALIBRATION-01
+
+**Value:** `F3 — ENGINE / CONFIG CONTRACT WITHOUT REAL ACTIVE AMOUNTS`
+**Status:** **SELECTED BY MORRIS**
+
+#### Règles incluses
+- Construire ultérieurement le mécanisme T3 indépendamment de valeurs business actives ;
+- Ne pas embarquer 15/20/25/30 comme configuration runtime active dans le Delivery foundation ;
+- Le mécanisme peut supporter des threshold codes / configuration ;
+- Les tests futurs peuvent utiliser des fixtures fictives clairement identifiées ;
+- Calibration réelle requise avant activation ;
+- 15/20/25/30 restent des valeurs historiques/documentaires provisoires ;
+- 25 reste planning target, pas T3 event imposé ;
+- 30 reste responsabilité T4 ;
+- Aucun seuil réel n'est activé par ce GO.
+
+#### État des seuils après arbitrage
+
+| Seuil | Statut |
 |-------|--------|
-| Recherché | oui |
-| Cycle qualifié | 6 — Architecture technique |
-| Path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
-| Statut | **candidate** · version **0.1.0** |
-| Usage | experimental cognitive guidance |
-| Autorité d’exécution | **aucune** |
-| Fallback | N/A — pilote détaillé trouvé |
+| USD 15 | historical informational policy value · provisional calibration · **NOT runtime-active** |
+| USD 20 | historical Morris Review policy value · provisional calibration · **NOT runtime-active** |
+| USD 25 | planning target · **NOT T3 runtime event requirement** |
+| USD 30 | T4 soft application cap · **NOT T3 enforcement** |
+| Recalibration | **REQUIRED BEFORE REAL ACTIVATION** |
 
-**Limits applied:** no implementation; no silent structural adoption; ≥2 options on structuring decisions; reverse/debt/risk distinguished; no scalable/secure/prod claims without proof.
+F3 signifie que cette recalibration ne bloque pas nécessairement le Delivery mécanique T3, mais bloque l'activation de vraies valeurs.
 
----
+#### Exclusions
+- F1/F2 non retenues ;
+- Activation runtime des montants ;
+- Encodage 15/20/25/30 dans du runtime productif.
 
-## F. Sources consultées
+#### Impacts futur Delivery
+- Moteur/config sans montants réels actifs ;
+- Gate calibration distincte avant activation.
 
-### Méthode
-
-| Source | Rôle |
-|--------|------|
-| `prompts/templates/sfia-cycle-execution-template.md` | cycle execution template |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | routing |
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | operating model |
-| `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | guardrails |
-| `method/sfia-fast-track/checklists/sfia-validation-checklist.md` | validation checklist |
-| CKC pilot `03-architecture-technique.md` | candidate architecture guidance |
-| `scripts/sfia/publish-review-handoff.sh` | L3 handoff publisher |
-
-### Projet / trajectoire
-
-| Source | Rôle |
-|--------|------|
-| `103-…-backlog.md` | operational backlog · threshold policy table · critical path |
-| `123-…-enforcement-decisions-applied.md` | A15/C20/S30 policy selections · recalibration |
-| `125-…-technical-implementation-decisions-applied.md` | `D-ASST-IP0C-TECH-ALERT-01` durable in-app · conf · period · concurrency |
-| `138-…-t2-t5-t6-grouped-preparation.md` | T2/T3/T4/T6 separation · critical path |
-| `139` / `141` / `142` / `144` | T2 decisions / numeric / execution / PR readiness · R-PR-T2-API-01 |
-| `143-…-t6-foundation-execution.md` | T6 foundation scope · fail-open · event enum |
-
-### Runtime T2 (read)
-
-- `app/lib/oa/finops/application/types.aggregate.ts`
-- `recomputeAggregates.ts` · `reconcileProjectPeriod.ts` · `estimateUsageCost.ts`
-- `domain/money.ts`
-- `ports/finopsAggregatePort.ts` · `finopsReconciliationPort.ts` · `finopsPriceCatalogPort.ts`
-- `infrastructure/postgres/postgresFinOpsAggregateStore.ts` · `postgresFinOpsReconciliation.ts`
-- `app/db/migrations/1754600000000_finops-t2-aggregation-reconciliation.js`
-
-### Runtime T6 (read)
-
-- `finopsAuditTypes.ts` · `ports/finopsAuditJournalPort.ts`
-- `postgresFinOpsAuditJournal.ts` (+ redaction helpers)
-- `app/db/migrations/1754600001000_finops-t6-audit-journal.js`
-- T1 capture `safeEmit` fail-open path (`captureFinOpsUsage.ts`)
-
-### Authority / identity (read)
-
-- `app/lib/oa/decision/**` — `AuthorityResolverPort`, `VerifyAuthority`, `MemoryAuthorityResolver`, `canActAsMorris`, `requireMorrisGate`
-- Product disclosures: `iam: "NOT_SELECTED"` across vertical-slice / T-A7 surfaces
-- No production NextAuth/session IAM binding FinOps T3 found
-
-### Incoming handoff
-
-- `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (T6 post-merge pack)
+#### Anti-claims
+- F3 SELECTED ≠ calibration réelle faite
+- F3 SELECTED ≠ seuils activés
+- F3 SELECTED ≠ 30 porté par T3
 
 ---
 
-## G. Upstream validated state
-
-| Lot | Status |
-|-----|--------|
-| T0 | **integrated** on `origin/main` |
-| T1 | **integrated** on `origin/main` |
-| T2 | **integrated** on `origin/main` |
-| T6-foundation | **CLOSED WITH RESERVES** — Morris decision **2026-08-07** (this GO) |
-| T3 preparation | **AUTHORIZED** |
-| T3 Delivery | **NOT AUTHORIZED** |
-| T4 / T5 / T7 | **NOT AUTHORIZED** in this cycle |
-| T6-ext-T2 | **EXCLUDED** |
-| T6-ext-T3T4 | **FUTURE / NOT AUTHORIZED** |
-
-### T6 closure semantics (traced)
-
-**CLOSED WITH RESERVES does NOT mean:**
-
-- T6 globally complete;
-- durable audit globally composed across all FinOps domains;
-- all FinOps events audited;
-- T6-ext authorized.
-
-**Reserves preserved OPEN:**
-
-| Reserve | Status |
-|---------|--------|
-| `R-T6-RUNTIME-COMPOSITION-01` | **OPEN** |
-| `R-PR-T2-API-01` | **OPEN MINOR** |
-
-Critical path (preserved): `T0 → T1 → T2 → T3 → T4 → T7` · T5 off immediate critical path.
-
----
-
-## H. T2 runtime inventory (usable by T3)
-
-Classification legend: **EXISTS** (code on main) · **DECIDED** (Morris/docs) · **ABSENT** · **CANDIDATE** (this prep only).
-
-| Élément | Class | Truth |
-|---------|-------|-------|
-| `FinOpsProjectPeriodAggregate` | **EXISTS** | `projectId`, `periodStart` (UTC month `YYYY-MM-DD`), `currency`, `estimatedAmount` / `observedAmount` / `billedAmount` / `unknownAmount` as canonical decimal strings, token sums, `costEventCount`, `unavailableEstimationCount`, `rebuildVersion`, `rebuiltAt` |
-| `FinOpsAggregateKey` | **EXISTS** | `{ projectId, periodStart, currency }` |
-| Money | **EXISTS** + **DECIDED** | `numeric(20,8)` · BigInt minor · HALF_EVEN at rate×usage only · SUM of scale-8 without re-round (`money.ts`) |
-| Cost-event ledger | **EXISTS** | append-only `finops_cost_event` · unique `dedup_key` · evidenceClass `estimated\|observed\|billed\|unknown` · SoT enum |
-| Aggregate port read | **EXISTS** | `readAggregate` · `listAggregatesForProjectPeriod` |
-| Exclusive rebuild | **EXISTS** | `withExclusiveProjectPeriodRebuild` — advisory lock, full project+period all currencies |
-| `recomputeAggregates` | **EXISTS** | full rebuild from cost events; derived projection only |
-| `reconcileProjectPeriod` | **EXISTS** | on-demand bounded batch · idempotent replay · finops-side-only failures |
-| Price catalog port | **EXISTS** | versioned entries; **no seed real tariffs** |
-| Threshold / alert tables | **ABSENT** | no T3 schema on main |
-| Threshold evaluation service | **ABSENT** | |
-| S30 / suspension | **ABSENT** in T2 (by design) | T2 must not alert/enforce |
-| FX / multi-currency conversion | **ABSENT** | currency stored explicitly; FX future |
-| `replaceProjectPeriodAggregates` public raw | **EXISTS** + reserve | no production callers; rebuild uses exclusive path — `R-PR-T2-API-01` OPEN MINOR |
-
-### T2 frontiers T3 must not modify
-
-- Append-only cost-event ledger truth;
-- Aggregate rebuild semantics (full project+period);
-- Money precision/scale/rounding;
-- Estimation never becomes a hard blocker (policy already SELECTED in 125 TECH-CONF-01 for future enforcement — T3 must not contradict);
-- T2 ports/migrations as delivery surface for “T3 convenience.”
-
-### T2 amounts relevant to future threshold evaluation (**CANDIDATE** policy binding)
-
-T2 exposes **separate** estimated / observed / billed / unknown buckets. Upstream policy (125 TECH-CONF-01): **estimated never blocks**; **billed / official provider-observed may block** (future T4). T3 informational/review triggers may use a **configured evaluation basis** (CANDIDATE — NOT DECIDED) but must preserve: estimated must not become S30 enforcement; T3 itself implements **no** run rejection.
-
----
-
-## I. T6-foundation runtime inventory
-
-| Élément | Class | Truth |
-|---------|-------|-------|
-| Event enum | **EXISTS** | `finops_capture_created` · `finops_capture_duplicate` · `finops_capture_failed` **only** |
-| Table `finops_audit_event` | **EXISTS** | append-only triggers; payload jsonb |
-| Journal port | **EXISTS** | `FinOpsAuditJournalPort.append` |
-| Redaction | **EXISTS** | allow-list + secret-key drop + truncation |
-| T1 emit path | **EXISTS** | `safeEmit` **fail-open / best-effort** — audit failure must not mutate ledger/user-run outcome |
-| T3/T4/T5 event types | **ABSENT** | CHECK constraint rejects non-foundation types |
-| Global FinOps audit composition for all modules | **ABSENT** | `R-T6-RUNTIME-COMPOSITION-01` OPEN |
-| Using audit journal as mutable review-state store | **ABSENT** / **REJECTED as sole store** | durable review state ≠ append-only audit (125 TECH-ALERT-01) |
-
-T3 must **not** modify T6 foundation enum/migration in this prep. Future T3 events remain **contract candidates** for **T6-ext-T3T4** only.
-
----
-
-## J. Authority / identity inventory
-
-### What exists
-
-| Mechanism | Location | Nature |
-|-----------|----------|--------|
-| `AuthorityResolverPort` | `decision/ports/authorityResolver.ts` | sole verifier for N1/N2/N3 + Morris gate |
-| `AuthorityEvidence` | domain types | `actorId`, `level`, `scope`, `canActAsMorris?`, expiry, immutable register |
-| `VerifyAuthority` | application use-case | audited check; ignores client `authorityLevel` / `displayName` |
-| `MemoryAuthorityResolver` | infrastructure | in-memory evidence registry (tests / non-product IAM) |
-| Execution-contract helpers | `execution-contract/application/authorityHelper.ts` | MORRIS = N3 ∧ `canActAsMorris=true` |
-| Product IAM | disclosures | **`iam: "NOT_SELECTED"`** |
-
-### Explicit answers
-
-**A. What does the mechanism prove today?**
-It proves that **registered authority evidence** for an `actorId`+`scope` satisfies a required level and, if requested, the **Morris gate flag** `canActAsMorris === true`. Client-supplied names/levels are ignored. Evidence is immutable after register; expired evidence is ignored.
-
-**B. What does it not prove?**
-It does **not** prove a real interactive human login, browser/session authenticity, IdP binding, MFA, or that the HTTP caller is Morris. There is **no** selected product IAM. `MemoryAuthorityResolver` is not a durable enterprise identity system.
-
-**C. Can T3 durably create `review_required` without Morris identity?**
-**Yes, as a candidate design:** system/non-structuring creation of durable review/alert state from T2 threshold evaluation can proceed **without** Morris identity. That creation is **not** a privileged Morris acknowledgment.
-
-**D. Which commands would need real Morris proof?**
-**Candidate:** `acknowledge` · `resolve` · any privileged mutation of review disposition · any future override linkage (T5) · any future S30 resume (T4). These should require `requireMorrisGate` (or equivalent) **once** a durable identity binding exists — binding itself is **NOT SELECTED**.
-
-**E. Can “system creates review” vs “Morris acknowledge/resolve” be separated?**
-**Yes — recommended separation (CANDIDATE).** Aligns with fail-open user-run path vs fail-closed privileged commands (candidate for privileged path only; T1 capture remains fail-open).
-
-**STOP check:** Authority model is **qualified and distinguishable** (recorded evidence ≠ session identity). No ambiguity requiring STOP — claims stay bounded.
-
----
-
-## K. T3 responsibility boundary
-
-### T3 MUST cover (candidate scope)
-
-- Detect threshold-relevant state from **T2 aggregates** (read-only consumption);
-- Persist **durable alert state** (in-app);
-- Persist **durable Morris Review state**;
-- **Deduplication** (A15-ONCE family semantics);
-- **Lifecycle** transitions;
-- **Read model** for in-app surfaces (future UI — not built here);
-- Controlled transitions with concurrency/idempotence constraints;
-- **Candidate audit event contract** for future T6-ext-T3T4 (define only).
-
-### T3 MUST NOT cover
-
-- Reject / suspend runs;
-- **S30 soft enforcement** (T4);
-- Override issuance (T5);
-- Feature-flag activation / T7 rollout;
-- Global T6 composition;
-- Cron/poller/external notification providers;
-- Neon/provider-real/tariff loading;
-- Recalibration adoption without Morris;
-- Mutation of T1 ledger / T2 cost events / T6 foundation enum.
-
-### Responsibility matrix
-
-| Concern | Owner |
-|---------|-------|
-| Usage capture | T1 |
-| Money + aggregates + reconciliation | T2 |
-| Alert + Morris review durable state | **T3** |
-| Soft cap / new-run suspension | **T4** |
-| Override | T5 |
-| Capture audit foundation | T6-foundation |
-| Threshold/review audit events | T6-ext-T3T4 (**future**) |
-| Flag / rollout | T7 |
-
----
-
-## L. Threshold policy truth (15 / 20 / 25 / 30) — no adoption
-
-### Authoritative documentary sources
-
-| Value | Role (SELECTED policy docs) | Authority docs | Runtime |
-|-------|-----------------------------|----------------|---------|
-| **USD 15** | Informational alert | 103 · 123 · A15 family · `D-ASST-IP0C-TECH-ALERT-01` | **NOT IMPLEMENTED** |
-| **USD 20** | Critical Morris review (C20-WARN) | 103 · 123 · 125 | **NOT IMPLEMENTED** |
-| **USD 25** | Monthly **planning target** preserved | 103 · 123 | **NOT an enforcement/event owner for T3 by default** — planning signal |
-| **USD 30** | Soft application cap (S30-SOFT) | 103 · 123 · ENF-B/T4 path | **T4 responsibility** — **NOT T3 enforcement** |
-
-### Calibration status
-
-| Statement | Status |
-|-----------|--------|
-| 15/20/25/30 chosen as provisional pilot calibration | **SELECTED (documentary)** |
-| **RECALIBRATION REQUIRED before real threshold usage** | **TRUE** (123/125/103) |
-| Values encoded & activated in runtime | **FALSE** |
-| Silent adoption of calibration in this prep | **FORBIDDEN** |
-
-### What T3 may prepare without activating T4
-
-- Mechanism + durable state for **informational (15)** and **review (20)** classes;
-- Configuration surface that can hold threshold codes/amounts **default-off**;
-- Explicit non-ownership of **30** enforcement;
-- Treat **25** as planning metadata unless Morris later assigns an informational T3 event (CANDIDATE — currently **not** required).
-
-### Delivery vs recalibration (options deferred to §P.F / matrix)
-
-T3 Delivery **may** be architected with default-off config **or** blocked pending recalibration — **NOT DECIDED** here. Mechanism ≠ business values.
-
----
-
-## M. Prior decision IDs search
-
-Repository search for `D-T3-*` / dedicated T3 decision IDs: **0 matches**.
-
-**Reusable upstream IDs (already SELECTED documentary — NOT re-opened as “new T3 invention”, but NOT implemented):**
-
-| ID | Decision | Status |
-|----|----------|--------|
-| `D-ASST-IP0C-TECH-ALERT-01` | DURABLE IN-APP STATE · structured audit journal · no external notification | SELECTED — NOT IMPLEMENTED |
-| A15-CAL / A15-PROJ / A15-ONCE | calendar UTC · project scope · once dedupe | SELECTED — NOT IMPLEMENTED |
-| C20-WARN | USD 20 Morris review | SELECTED — NOT IMPLEMENTED |
-| S30-SOFT | USD 30 soft cap | SELECTED — NOT IMPLEMENTED — **T4** |
-| `D-ASST-IP0C-TECH-CONF-01` | estimated never blocks | SELECTED — NOT IMPLEMENTED |
-| `D-ASST-IP0C-TECH-PERIOD-01` | calendar month UTC | SELECTED — NOT IMPLEMENTED |
-| `D-ASST-IP0C-TECH-CONC-01` | Postgres txn · project/period lock | SELECTED — NOT IMPLEMENTED |
-
-### Candidate T3 decision IDs (NEW — CANDIDATE / NOT DECIDED)
-
-| Candidate ID | Theme |
-|--------------|-------|
-| `D-T3-STATE-01` | Persistence form under durable in-app constraint |
-| `D-T3-TRIGGER-01` | Evaluation trigger model |
-| `D-T3-DEDUPE-01` | Dedup identity / ONCE semantics |
-| `D-T3-LIFECYCLE-01` | Review/alert lifecycle |
-| `D-T3-AUTHORITY-01` | System create vs Morris privileged mutations |
-| `D-T3-CALIBRATION-01` | Calibration / activation trajectory |
-| `D-T3-T6EXT-CONTRACT-01` | Candidate audit event names for future ext |
-
----
-
-## N. Structuring options (≥2 each) — ALL NOT DECIDED
-
-### A. State persistence / model (`D-T3-STATE-01`)
-
-Constraint respected: **DURABLE IN-APP STATE** already SELECTED (`TECH-ALERT-01`). Options are **forms** compatible with that decision — not “ephemeral only.”
-
-| Option | Description | Pros | Cons / debt |
-|--------|-------------|------|-------------|
-| **A1 — Materialized durable rows + separate audit** | Table(s) for alert/review current state; T6-ext append-only events later | Clear read model; matches TECH-ALERT; audit ≠ state | Needs migration; lifecycle updates |
-| **A2 — Event-sourced projection with durable snapshot** | Append domain events in T3 store + rebuildable snapshot | Strong history | Heavier; risk of confusing with T6 journal |
-| **A3 — Audit journal as sole mutable store** | Use `finops_audit_event` as review state | Appears DRY | **Violates** append-only + mutable lifecycle; **STOP-class collision** — retained only as **REJECTED reference**, not viable |
-
-**Challenge:** A1 useful now, reversible via unused tables, repo-first after T2/T6 migrations, multi-instance OK with row locks. A3 forbidden as sole store.
-
-### B. Trigger model (`D-T3-TRIGGER-01`)
-
-| Option | Description |
-|--------|-------------|
-| **B1 — Post T2 recompute/reconcile hook** | After successful aggregate rebuild / reconcile, evaluate project+period |
-| **B2 — Explicit evaluate command** | `evaluateProjectPeriodThresholds(projectId, periodStart)` invoked by application/ops |
-| **B3 — Hybrid** | B1 automatic + B2 for repair/replay |
-
-**Banned default:** permanent cron/poller.
-**Candidate lean:** **B3** (CANDIDATE ONLY).
-
-### C. Dedupe semantics (`D-T3-DEDUPE-01`)
-
-Logical key family under A15-ONCE:
-
-| Option | Identity |
-|--------|----------|
-| **C1 — Core key** | `projectId + periodStart + thresholdCode + currency` |
-| **C2 — Core + evaluation basis** | C1 + `basis` (`estimated`/`observed`/`billed` composite policy id) |
-| **C3 — Core + rebuildVersion** | C1 + `rebuildVersion` (new alert each rebuild — noisy) |
-
-**Candidate lean:** **C1** for ONCE-per-period alert/review; use lifecycle `superseded` when aggregate correction invalidates prior open review rather than minting duplicates (CANDIDATE). C3 generally **too noisy**.
-
-### D. Review lifecycle (`D-T3-LIFECYCLE-01`)
-
-Candidate states (challengeable): `pending` · `acknowledged` · `resolved` · `superseded` (+ alert informational `open`/`cleared` if split).
-
-Must cover: threshold crossed · dedupe · downward correction/reconciliation · new period · acknowledge · resolve · evidence class evolution estimated→observed→billed.
-
-| Option | Notes |
-|--------|-------|
-| **D1 — Four-state review** | pending→acknowledged→resolved; superseded on invalidation |
-| **D2 — Split alert vs review entities** | Informational alert stream separate from Morris review entity sharing dedupe family |
-
-**Candidate lean:** **D2** clarifies 15 vs 20 without conflating UX (CANDIDATE).
-
-### E. Morris authority (`D-T3-AUTHORITY-01`)
-
-| Option | Description |
-|--------|-------------|
-| **E1 — Foundation now, privileged deferred** | Persist review_required without Morris; block acknowledge/resolve until real identity binding exists |
-| **E2 — Reuse AuthorityResolver semantics now** | Privileged commands call `VerifyAuthority` + `requireMorrisGate` against registered evidence (still ≠ product IAM) |
-| **E3 — Invent product IAM in T3** | **OUT OF SCOPE / REJECTED for this lot** |
-
-**Candidate lean:** **E1** for Delivery safety under `iam: NOT_SELECTED`, with **E2** wiring prepared behind ports (CANDIDATE). Do not invent IAM.
-
-### F. Threshold calibration (`D-T3-CALIBRATION-01`)
-
-| Option | Description |
-|--------|-------------|
-| **F1 — Keep 15/20/25/30 as provisional config, default-off** | Encode as config constants/files but inactive until Morris activation |
-| **F2 — Recalibrate before any Delivery that encodes values** | Block T3 Delivery encoding amounts until recalibration GO |
-| **F3 — Engine/config without real amounts; calibrate before activation** | Implement mechanism + placeholders; amounts filled at activation gate |
-
-Distinguish **architecture of mechanism** vs **business values**.
-**Candidate lean:** **F3** (or F1 with explicit default-off) — **NOT DECIDED**.
-
----
-
-## O. Contracts
-
-### O.1 T3 ↔ T2
-
-| Topic | Contract (candidate) |
-|-------|----------------------|
-| API consumed | `readAggregate` / `listAggregatesForProjectPeriod`; optionally observe rebuild/reconcile success signals |
-| Authoritative cost truth | **cost events** remain ledger; aggregates are **derived** |
-| Currency | ISO 4217 3-letter; no FX in T3 |
-| Period | UTC calendar month `periodStart` |
-| Corrections | T2 reconcile/rebuild updates aggregates; T3 re-evaluates → may supersede open alerts/reviews |
-| Multi-instance | rely on T2 exclusive rebuild; T3 own row locks for state transitions |
-| Transaction boundary | T3 must not write inside T2 rebuild transaction unless explicitly designed later; prefer **after** successful rebuild |
-| T3 may read | aggregates (+ metadata rebuildVersion/rebuiltAt) |
-| T3 must never modify | `finops_cost_event`, aggregate replace APIs for business writes, price catalog, T1 usage ledger |
-
-### O.2 T3 ↔ T4
-
-| T3 produces (candidate) | T4 future consumes |
-|-------------------------|--------------------|
-| Durable alert/review state for project/period/currency | Financial posture + whether review/override gates allow new runs |
-| Review open/resolved flags | Soft enforcement decisioning (S30) |
-| **No** run rejection | T4 owns suspension |
-
-T3 **never** suspends runs. Estimated-only crossings must not be treated as S30 blockers.
-
-### O.3 T3 ↔ T6
-
-| Today | Future |
-|-------|--------|
-| T6-foundation capture events only | T6-ext-T3T4 candidate events |
-
-**Candidate event names** (NOT ADOPTED; confirm vs any future canon):
-
+### G.7 D-T3-T6EXT-CONTRACT-01
+
+**Value:** `EXACT T6-EXT EVENT NAMES DEFERRED`
+**Status:** **DEFERRED BY MORRIS**
+
+#### Règles incluses
+- Aucun nom exact d'événement T3/T4 n'est adopté dans ce cycle ;
+- Les noms proposés dans 145 restent drafts historiques ;
+- Aucun enum T6 modifié ;
+- Aucune migration T6 modifiée ;
+- T6-ext-T3T4 reste **NOT AUTHORIZED** ;
+- Un gate Morris distinct sera requis lorsque l'extension T6 sera réellement préparée/exécutée.
+
+#### Drafts historiques 145 — NON SELECTED / NON CANONIQUES
+Les chaînes suivantes restent exemples/drafts pré-arbitrage uniquement et **ne sont pas** SELECTED :
 - `finops_threshold_crossed`
-- `finops_notification_emitted` (in-app only; no external provider)
+- `finops_notification_emitted`
 - `finops_review_required`
 - `finops_review_acknowledged`
 - `finops_review_resolved`
 
-`D-T3-T6EXT-CONTRACT-01` = CANDIDATE. Enum/migration changes = **NOT AUTHORIZED** now.
+#### Exclusions
+- Adoption silencieuse de noms d'événements ;
+- Modification enum/migration T6 ;
+- Autorisation T6-ext.
+
+#### Impacts futur Delivery
+- Ne pas modifier T6 event enum dans T3 Delivery foundation ;
+- Gate distinct pour contrat d'événements.
+
+#### Anti-claims
+- DEFERRED ≠ T6-ext autorisé
+- Draft names ≠ SELECTED
+- DEFERRED ≠ permission d'inventer des noms SELECTED
 
 ---
 
-## P. Concurrency / idempotence (candidates)
+## H. Contrat intégré T3 après arbitrage
 
-| Scenario | Candidate constraint |
-|----------|----------------------|
-| Multiple workers detect same threshold | Upsert / unique key on dedupe identity; single open row |
-| Concurrent T2 reconciliation | Evaluate after exclusive rebuild completes; read rebuildVersion |
-| Late correction downward | Transition open review → `superseded` or `cleared`; do not delete history |
-| Period rollover | New `periodStart` ⇒ new dedupe space; prior period rows remain |
-| Multi-currency | Key includes currency; no cross-currency sum |
-| Repeated evaluation | Idempotent no-op if open alert/review exists for key |
-| Ack/resolve retry | Idempotent if already in target state; optimistic version/lock |
-| Replay | Explicit evaluate command safe to re-run |
+Combinaison retenue : **A1 + B3 + C1 + D2 + E1 + F3** (+ T6-ext event names **DEFERRED**)
 
-No SQL authored in this cycle.
+| Interaction | Effet |
+|-------------|-------|
+| **A1 ↔ D2** | État durable séparé Alert / Review (matérialisé, pas audit-only). |
+| **B3 ↔ C1** | Réévaluation automatique ou explicite reste idempotente (même clé ONCE). |
+| **C1 ↔ evolution evidence** | estimated→observed→billed conserve la même identité logique ; met à jour preuve/état. |
+| **E1 ↔ D2** | Création système de review autorisée ; mutations Morris (ack/resolve) différées. |
+| **F3 ↔ B3** | Moteur d'évaluation peut exister sans valeurs réelles activées. |
+| **T6-ext** | Contrat d'événements différé — A1 garde audit séparé sans forcer les noms. |
 
----
-
-## Q. Security / data minimization
-
-**Minimal durable fields (candidate):** `projectId`, `periodStart`, `currency`, `thresholdCode`, `state`, `amountsSnapshot` (canonical strings only), `rebuildVersion`, timestamps, optional bounded `reason`/`actorId` on privileged transitions, correlation ids.
-
-**Must not store:** prompts, provider raw payloads, secrets, API keys, full catalog dumps, PII beyond actor id required for audit.
-
-**Fail posture:**
-
-- T1 user-run / capture path: **fail-open** (preserved);
-- Privileged Morris review commands: **fail-closed** candidate (`D-T3-AUTHORITY-01`);
-- Future T3→T6-ext emit: prefer **best-effort** for non-blocking paths unless Morris decides otherwise (CANDIDATE).
+### Décisions amont préservées (non ré-arbitrées)
+- `D-ASST-IP0C-TECH-ALERT-01` = DURABLE IN-APP STATE + STRUCTURED AUDIT + NO EXTERNAL NOTIFICATION PROVIDER
+- A15 family = calendar UTC + project scope + once semantics
+- C20-WARN = Morris Review policy
+- S30-SOFT = T4 responsibility (T3 ne porte pas S30)
+- `D-ASST-IP0C-TECH-CONF-01` = estimated never blocks
+- `D-ASST-IP0C-TECH-PERIOD-01` = calendar month UTC
+- `D-ASST-IP0C-TECH-CONC-01` = Postgres transaction / project-period concurrency doctrine
 
 ---
 
-## R. FinOps / GreenOps implications
+## I. Impacts Delivery T3 (contraintes — Delivery NON autorisé)
 
-- Prefer **event/command-driven** evaluation after T2 changes — **no permanent polling**.
-- Bound reads to project/period.
-- Avoid full ledger scans for threshold checks — use aggregates.
-- Indexation analyzed only; **no DDL in this cycle**.
-- External notification providers excluded → lower ops cost and data sprawl.
+Préparer les contraintes, mais **NE PAS** autoriser le Delivery.
 
----
+Le futur Delivery devra notamment :
+- créer des modules T3 dédiés ;
+- matérialiser état durable PostgreSQL (A1) ;
+- séparer Alert / Review (D2) ;
+- implémenter C1 avec contrainte d'unicité/idempotence ;
+- assurer transitions concurrent-safe ;
+- proposer B3 hors transaction T2 ;
+- fournir explicit evaluate repair/replay ;
+- ne pas activer de vrais montants sous F3 ;
+- ne pas activer acknowledge/resolve productifs sans identity binding (E1) ;
+- ne pas modifier T6 event enum ;
+- préserver T1/T2/T6.
 
-## S. Morris decision matrix
+### Non figé ici
+- noms SQL exacts ;
+- timestamp migration ;
+- noms finaux de modules ;
+- API HTTP ;
+- UI ;
+- event names T6-ext.
 
-| ID | Question | Options | Status | Gate |
-|----|----------|---------|--------|------|
-| `D-T3-STATE-01` | Persistence form | A1 / A2 (A3 rejected) | **CANDIDATE — NOT DECIDED** | Morris after ChatGPT |
-| `D-T3-TRIGGER-01` | Trigger model | B1 / B2 / B3 | **CANDIDATE — NOT DECIDED** | Morris |
-| `D-T3-DEDUPE-01` | Dedup identity | C1 / C2 / C3 | **CANDIDATE — NOT DECIDED** | Morris |
-| `D-T3-LIFECYCLE-01` | Lifecycle | D1 / D2 | **CANDIDATE — NOT DECIDED** | Morris |
-| `D-T3-AUTHORITY-01` | Authority split | E1 / E2 | **CANDIDATE — NOT DECIDED** | Morris |
-| `D-T3-CALIBRATION-01` | Calibration trajectory | F1 / F2 / F3 | **CANDIDATE — NOT DECIDED** | Morris |
-| `D-T3-T6EXT-CONTRACT-01` | Future audit event contract | adopt/rename/defer names | **CANDIDATE — NOT DECIDED** | Morris |
-
-Upstream already SELECTED (do not re-litigate as if open): durable in-app + no external notifier (`TECH-ALERT-01`); A15-ONCE family; C20-WARN policy; S30 belongs to T4; estimated never blocks.
-
----
-
-## T. Explicit recommendations (ChatGPT-reviewable) — CANDIDATE ONLY
-
-| Topic | Candidate recommendation | Status |
-|-------|--------------------------|--------|
-| State | **A1** materialized durable state + separate future audit | **CANDIDATE / NOT DECIDED** |
-| Trigger | **B3** hybrid post-rebuild + explicit evaluate | **CANDIDATE / NOT DECIDED** |
-| Dedupe | **C1** core key; supersede on invalidation | **CANDIDATE / NOT DECIDED** |
-| Lifecycle | **D2** split alert vs review | **CANDIDATE / NOT DECIDED** |
-| Authority | **E1** (+ prepare E2 port wiring) | **CANDIDATE / NOT DECIDED** |
-| Calibration | **F3** mechanism without activating real amounts | **CANDIDATE / NOT DECIDED** |
-| T6-ext events | Keep names as contract draft; do not implement | **CANDIDATE / NOT DECIDED** |
-
-These are **not** Morris decisions.
+**T3 DELIVERY = NOT AUTHORIZED.**
 
 ---
 
-## U. Candidate Delivery manifest (FUTURE ONLY)
+## J. Gates restantes
 
-### CREATE candidates
-
-- `app/lib/oa/finops/application/` T3 types + evaluate/acknowledge/resolve use-cases
-- `app/lib/oa/finops/ports/finopsAlertReviewPort.ts` (name CANDIDATE)
-- `app/lib/oa/finops/infrastructure/postgres/postgresFinOpsAlertReviewStore.ts`
-- `app/db/migrations/<timestamp>_finops-t3-alert-review-state.js` (**placeholder timestamp** — do not reserve a concrete epoch in this prep)
-- Unit + PG integration tests under `app/__tests__/oa/finops/…`
-
-### MODIFY candidates (minimize)
-
-- Optional thin hook after T2 recompute/reconcile **success** to call evaluate (feature-default-off) — only if Morris accepts B1/B3
-- **Prefer new modules** over editing T1 capture / T2 money / T6 enum
-
-### PROTECTED / DO NOT TOUCH
-
-- T1 ledger + fail-open capture semantics
-- T2 money / cost-event append-only / exclusive rebuild core
-- T6 foundation event CHECK enum / append-only triggers
-- `package.json` / CI / Neon / provider config
-- Docs 103/125/138/139/141/142/143/144 (unless a future dedicated docs cycle)
+| Gate | Statut |
+|------|--------|
+| GO Delivery T3 | **REQUIRED** |
+| Threshold real calibration / activation | **REQUIRED** before real activation |
+| Product Morris identity binding | **REQUIRED** before privileged mutations activation |
+| T6-ext event contract | **REQUIRED** later |
+| T4 | separate GO |
+| T5 | separate GO |
+| Neon / provider-real | separate GO |
+| R-T6-RUNTIME-COMPOSITION-01 | **OPEN** |
+| R-PR-T2-API-01 | **OPEN MINOR** |
 
 ---
 
-## V. Candidate test plan (NOT IMPLEMENTED)
+## K. Décisions non prises
 
-### Unit
-
-- threshold crossing · no duplicate alert · period rollover · currency isolation · lifecycle transitions · correction/reconciliation supersede · estimated/observed/billed semantics · authority denied · idempotent acknowledge
-
-### PostgreSQL integration
-
-- durable state · unique/dedupe · concurrent evaluation · restart-safe persistence · lifecycle update locking · future-safe append-only audit integration (ext)
-
-### Negative
-
-- client cannot self-assert Morris · estimated never becomes S30 blocker · no cross-project leakage · no cross-currency contamination · no duplicate Morris Review
-
-### Regression
-
-- T1 capture unchanged · T2 aggregates/reconciliation unchanged · T6 foundation unchanged
-
-**EXECUTABLE QA NOT REQUIRED — DOCUMENTARY ARCHITECTURE PREPARATION ONLY**
+- real threshold amounts activation ;
+- exact SQL schema ;
+- migration timestamp ;
+- privileged IAM binding ;
+- real ack/resolve product activation ;
+- T6-ext exact event names ;
+- T4 enforcement implementation ;
+- T5 override ;
+- Neon ;
+- provider-real ;
+- external notification provider ;
+- UI.
 
 ---
 
-## W. Risks / debt / reversibility
+## L. Réserves
 
-| Item | Risk | Debt | Reversible? |
-|------|------|------|-------------|
-| Encoding 15/20/25/30 before recalibration | Wrong ops signals | Config churn | Yes if default-off |
-| Conflating alert audit with review state | Lost acks / illegal updates | Hard migration | Prefer A1 early |
-| Privileged commands without identity | False Morris actions | Security debt | Keep E1 until IAM |
-| Hooking evaluate inside T2 transactions | Coupling / lock time | Cross-lot debt | Prefer after-commit B3 |
-| Letting T3 own S30 | Enforcement leak | Architectural debt | Hard stop — T4 only |
-| Open `R-T6-RUNTIME-COMPOSITION-01` | Incomplete audit story | Ext backlog | Separate GO |
-| Open `R-PR-T2-API-01` | Raw replace misuse | Minor API harden | Separate micro-cycle |
-
----
-
-## X. Reserves
-
-| ID | Status | Notes |
-|----|--------|-------|
-| `R-T6-RUNTIME-COMPOSITION-01` | **OPEN** | Global durable audit composition not done |
-| `R-PR-T2-API-01` | **OPEN MINOR** | Public raw aggregate replace unused in prod |
-| T6-ext-T2 | **EXCLUDED** | |
-| T6-ext-T3T4 | **NOT AUTHORIZED** | Contract draft only |
-| Recalibration 15/20/25/30 | **REQUIRED** before real usage | |
-| Product IAM | **NOT_SELECTED** | |
+| Reserve | Statut |
+|---------|--------|
+| R-T6-RUNTIME-COMPOSITION-01 | **OPEN** |
+| R-PR-T2-API-01 | **OPEN MINOR** |
+| T6-ext-T2 | **EXCLUDED** |
+| T6-ext-T3T4 | **NOT AUTHORIZED** / exact names **DEFERRED** |
+| Calibration 15/20/25/30 | **REQUIRED** before activation |
+| Product IAM | **NOT_SELECTED** |
 
 ---
 
-## Y. Executable QA statement
-
-**EXECUTABLE QA NOT REQUIRED — DOCUMENTARY ARCHITECTURE PREPARATION ONLY**
-
-No typecheck / lint / build / npm test executed (no code changed).
-
----
-
-## Z. Verdict (document)
+## M. Verdict
 
 ```
 FINOPS TECHNICAL LOT T3 —
-ARCHITECTURE / IMPLEMENTATION PREPARATION COMPLETE WITH RESERVES —
+ARCHITECTURE DECISIONS APPLIED WITH RESERVES —
 
-T6-FOUNDATION CLOSED WITH RESERVES TRACED —
-T2 RUNTIME CONTRACT VERIFIED —
-T6 FOUNDATION CONTRACT VERIFIED —
-MORRIS AUTHORITY MODEL QUALIFIED —
-T3 / T4 / T6 RESPONSIBILITIES SEPARATED —
-THRESHOLD CALIBRATION STATUS EXPLICIT —
-STATE / TRIGGER / DEDUPE / LIFECYCLE OPTIONS PREPARED —
-MORRIS DECISION MATRIX PREPARED —
-DELIVERY MANIFEST CANDIDATE PREPARED —
-TEST PLAN CANDIDATE PREPARED —
+D-T3-STATE-01 A1 SELECTED BY MORRIS —
+D-T3-TRIGGER-01 B3 SELECTED BY MORRIS —
+D-T3-DEDUPE-01 C1 SELECTED BY MORRIS —
+D-T3-LIFECYCLE-01 D2 SELECTED BY MORRIS —
+D-T3-AUTHORITY-01 E1 SELECTED BY MORRIS —
+D-T3-CALIBRATION-01 F3 SELECTED BY MORRIS —
+D-T3-T6EXT-CONTRACT-01 EXACT EVENT NAMES DEFERRED BY MORRIS —
 
-NO T3 DECISION SILENTLY ADOPTED —
+T3 DELIVERY NOT AUTHORIZED —
+NO CODE —
+NO MIGRATION —
+NO THRESHOLD ACTIVATION —
+NO IAM IMPLEMENTATION —
+NO T6-EXT IMPLEMENTATION —
+NO PROJECT COMMIT —
+NO PROJECT PUSH —
+NO PR —
+
+READY FOR CHATGPT DECISIONS-APPLIED VALIDATION
+```
+
+---
+
+*Document 146 — post-arbitration record only. Document 145 remains the immutable pre-arbitration historical record.*
+
+
+## Verdict
+
+```
+FINOPS TECHNICAL LOT T3 —
+ARCHITECTURE DECISIONS APPLIED WITH RESERVES —
+
+D-T3-STATE-01 A1 SELECTED BY MORRIS —
+D-T3-TRIGGER-01 B3 SELECTED BY MORRIS —
+D-T3-DEDUPE-01 C1 SELECTED BY MORRIS —
+D-T3-LIFECYCLE-01 D2 SELECTED BY MORRIS —
+D-T3-AUTHORITY-01 E1 SELECTED BY MORRIS —
+D-T3-CALIBRATION-01 F3 SELECTED BY MORRIS —
+D-T3-T6EXT-CONTRACT-01 EXACT EVENT NAMES DEFERRED BY MORRIS —
+
+145 PRE-ARBITRATION RECORD PRESERVED —
+146 POST-ARBITRATION RECORD CREATED —
+
 NO T3 DELIVERY —
 NO CODE —
 NO MIGRATION —
+NO THRESHOLD ACTIVATION —
+NO IAM IMPLEMENTATION —
+NO T6-EXT IMPLEMENTATION —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
@@ -854,26 +674,7 @@ NO PR —
 R-T6-RUNTIME-COMPOSITION-01 OPEN —
 R-PR-T2-API-01 OPEN MINOR —
 T6-EXT-T2 EXCLUDED —
+T6-EXT-T3T4 NOT AUTHORIZED —
 
-READY FOR CHATGPT T3 ARCHITECTURE REVIEW / MORRIS ARBITRATION
+READY FOR CHATGPT T3 DECISIONS-APPLIED VALIDATION
 ```
-
----
-
-*End of document 145.*
-```
-
-## 11. ChatGPT instructions
-
-Read remote handoff after publish. Distinguish OBSERVATIONS / OPTIONS / RECOMMENDATIONS / DÉCISIONS MORRIS REQUISES. Conclude only:
-
-`T3 PREPARATION VALIDATED — READY FOR MORRIS ARBITRATION`
-
-or
-
-`T3 PREPARATION NOT READY`
-
-No implicit T3 Delivery.
-
----
-*End of Full Review Pack — T3 Architecture Preparation.*
