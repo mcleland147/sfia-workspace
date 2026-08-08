@@ -1,98 +1,89 @@
-# Cycle 14 — Post-merge T7 Foundation Default-OFF — Cleanup Completion — Review Pack (light)
+# Cycle 14 — Post-merge T7 Foundation Default-OFF — Final Cleanup — Review Pack (light)
 
-Date/heure : 2026-08-08 17:02:53 CEST / 2026-08-08 15:02:53 UTC
+Date/heure : 2026-08-08 17:12:47 CEST / 2026-08-08 15:12:47 UTC
 
 ## Objectif
 
-Reprendre le cleanup local restant du Cycle 14 (worktree T7 + branche Delivery locale), uniquement si NOTHING TO PRESERVE — WORKTREE CLEAN. Aucune activation produit.
+Finaliser le Cycle 14 Post-merge T7 : purge ciblée de `$WT/.tmp-sfia-review/`, retrait standard du worktree Delivery T7, `git branch -d` de la branche locale, contrôles main/CI/réserves, publication handoff — sans Activation QA / SHADOW.
 
 ## Cycle / profil / GO
 
-- Cycle : **14 — Post-merge** (sous-objet : Cleanup completion)
+- Cycle : **14 — Post-merge** (sous-objet : Final cleanup — targeted temporary evidence purge)
 - Profil SFIA : **Standard**
 - GO Cycle 14 initial : `Cycle 14 — Post-merge T7, profil Standard`
-- GO reprise cleanup : **`ok go`** (inspecter worktree → retirer proprement si safe → `git branch -d` → vérifier main → republier handoff)
-- Hors GO : `--force` · `-D` · reset/clean · modification projet · activation QA · SHADOW · MONITOR · E1
+- GO inspection cleanup : `ok go` (précédent — STOP worktree content)
+- GO purge ciblée courant : **`ok go`** — purger uniquement `.tmp-sfia-review/` du worktree T7 · pas d’archivage · ne pas exposer `pg-url.txt` · worktree remove sans force · `git branch -d` · republier handoff · ne pas lancer Activation QA
 
 ## Handoff précédent consulté
 
-- Tip : `2cdb6b9b16dce0c1540a48c8c75c47c5cefe5253`
-- Blob : `35c8a9262c7b7515bc3a729af38d25a9bc88d41a`
-- Titre : Cycle 14 — Post-merge T7 Foundation Default-OFF
-- État documenté : **POST-MERGE INCOMPLETE — CLEANUP BLOCKED**
-- Motif : remote Delivery deleted ; local Delivery remains — **worktree hold**
-- Foundation CLOSED ON MAIN · CI GREEN · activation QA NOT EXECUTED · SHADOW NOT ACTIVATED
+- Tip BEFORE ce publish : `0cfe9baa7032bf4ccb3cd803661645747e5b5195`
+- Blob BEFORE : `2fcd93bb10d6b97ddec6d1e673ad96c5541297b7`
+- Contenu confirmé : Cycle 14 Cleanup Completion · STOP WORKTREE CONTENT · 123 untracked · 3 `pg-url.txt` CONN_STRING_LIKE · NO DELETION · remote ABSENT · local PRESENT · Activation QA NOT EXECUTED · SHADOW NOT ACTIVATED · main `503369b…`
 
-## Local Git Truth
+## Local Git Truth (avant mutation)
 
 - Repo : `mcleland147/sfia-workspace`
-- Worktree Post-merge : `…/worktrees/finops-t2-main` · branche `main`
+- Worktree Post-merge : `…/worktrees/finops-t2-main` · `main`
 - `main` = `origin/main` = `503369b10506515e173b5b58986c731ba1b313b8`
 - Delivery `75d9402…` ancêtre de main : **YES**
-- Remote Delivery branch : **ABSENT**
-- Aucun fichier projet modifié · aucun commit projet
+- Remote Delivery : **ABSENT**
 
-## Worktree identifié
+## Worktree avant purge
 
 - Path : `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-foundation-default-off`
 - Branch : `delivery/sfia-studio-assistant-sfia-native-openai-finops-t7-foundation-default-off`
 - HEAD : `75d9402c85af36532226b9bc3232a801c89da53d`
-- Identité path/branche/HEAD : **MATCH** attendu
+- Tracked modified : **NONE**
+- Staged : **NONE**
+- Untracked ciblés : **123** — tous strictement sous `.tmp-sfia-review/`
+- Sous-dossiers : `t7-atomic-revision-correction` · `t7-foundation-delivery` · `t7-merge` · `t7-pr-readiness` (+ `chatgpt-review.md` à la racine du tmp)
+- Paths sensibles (sans contenu) :
+  - `.tmp-sfia-review/t7-atomic-revision-correction/pg-url.txt` (61 bytes, CONN_STRING_LIKE)
+  - `.tmp-sfia-review/t7-foundation-delivery/pg-url.txt` (61 bytes, CONN_STRING_LIKE)
+  - `.tmp-sfia-review/t7-pr-readiness/pg-url.txt` (61 bytes, CONN_STRING_LIKE)
+- Untracked hors scope : **NONE**
+- Destruction explicitement autorisée par GO Morris : **YES** (pas d’archivage, pas de copie)
 
-## Inspection pre-delete
+## Purge ciblée
 
-| Contrôle | Résultat |
-|----------|----------|
-| Branche | Delivery T7 exacte |
-| HEAD | `75d9402…` |
-| Tracked modified | **none** |
-| Staged | **none** |
-| Untracked | **YES** — `?? .tmp-sfia-review/` (123 fichiers) |
-| Real `.env` (non-example) | **none** |
-| Sensitive-looking untracked (path only) | `…/t7-atomic-revision-correction/pg-url.txt` · `…/t7-foundation-delivery/pg-url.txt` · `…/t7-pr-readiness/pg-url.txt` |
-| Classification `pg-url.txt` (sans dump) | **CONN_STRING_LIKE** (bytes=61 each) |
-| Tracked `.env.example` etc. | présents dans le tree Git (exemples versionnés) — non bloquants seuls |
+- Cible : `$WT/.tmp-sfia-review` (suffixe `/finops-t7-foundation-default-off/.tmp-sfia-review` validé)
+- Commande : `rm -rf -- "$WT/.tmp-sfia-review"`
+- Interdits non utilisés : `git clean` · wildcards larges · suppression hors scope
+- Résultat : **DONE** — path absent après purge
+- Status post-purge : vide (tracked/staged/untracked)
 
-Sous-dossiers untracked (preuves locales de cycles T7) :
-- `.tmp-sfia-review/chatgpt-review.md`
-- `.tmp-sfia-review/t7-atomic-revision-correction/`
-- `.tmp-sfia-review/t7-foundation-delivery/`
-- `.tmp-sfia-review/t7-merge/`
-- `.tmp-sfia-review/t7-pr-readiness/`
+## Worktree remove
 
-## Pre-delete safety verdict
+- `git worktree remove "$WT"` (sans `--force`)
+- Résultat : **DONE**
+- `git worktree list` : worktree T7 **ABSENT**
 
-**STOP — WORKTREE CONTENT REQUIRES MORRIS DECISION**
+## Local branch -d
 
-Raison :
-1. Untracked présent (condition stop #10).
-2. Fichiers locaux potentiellement importants / non trivialement « nothing to preserve » : packs d’évidence sous `.tmp-sfia-review/`.
-3. Présence de `pg-url.txt` classés CONN_STRING_LIKE (doute secret/config locale — condition #11/#12) — contenu **non exposé**.
+- Ancestry confirmée avant delete : **YES**
+- `git branch -d delivery/sfia-studio-assistant-sfia-native-openai-finops-t7-foundation-default-off`
+- Résultat : **DONE** (was `75d9402`)
+- Ref locale : **ABSENT**
 
-**NOTHING TO PRESERVE — WORKTREE CLEAN** : **NOT affirmed**.
+## Remote branch
 
-## Résultat git worktree remove
+- **ABSENT** (inchangé)
 
-**NOT ATTEMPTED** — blocked by pre-delete safety.
+## Main final
 
-## Résultat git branch -d
+- HEAD / origin/main : `503369b10506515e173b5b58986c731ba1b313b8` **inchangé**
+- Branche active worktree Post-merge : `main`
+- Status : `?? .tmp-sfia-review/` uniquement (worktree main)
+- Staged : aucun
+- Fichiers projet modifiés : **aucun**
+- Commits projet : **aucun**
 
-**NOT ATTEMPTED** — worktree still holding branch.
-
-## After state
-
-| Élément | État |
-|---------|------|
-| Worktree T7 | **PRESENT** (inchangé) |
-| Local Delivery branch | **PRESENT** |
-| Remote Delivery branch | **ABSENT** |
-| main / origin/main | `503369b…` **inchangé** |
-
-## CI Cycle 14 (recheck read-only)
+## CI recheck (read-only)
 
 - Run : **31262204448**
 - URL : https://github.com/mcleland147/sfia-workspace/actions/runs/31262204448
-- event : push · headSha : `503369b…` · status : completed · conclusion : **success**
+- event : push · headSha : `503369b…` · completed · **success**
+- Jobs : Detect · Build and validate · Required Gate — tous **success**
 - Aucun workflow déclenché
 
 ## Réserves (inchangées)
@@ -106,58 +97,49 @@ Raison :
 ## Activation / anti-claims
 
 - DEFAULT-OFF : **PRESERVED**
+- Atomic revision correction : **PRESERVED** (inchangée sur main)
 - Activation QA : **NOT EXECUTED**
 - SHADOW : **NOT ACTIVATED**
 - MONITOR : **NOT ACTIVATED**
 - E1 : **NOT AUTHORIZED**
 - Foundation Ready ≠ SHADOW activated
 
-## Fichiers projet créés/modifiés
-
-- Projet : **aucun**
-- Commits projet : **aucun**
-- Temporaire (main WT) : `.tmp-sfia-review/chatgpt-review.md` (ce pack)
-
 ## Garde-fous
 
-- Aucun `git worktree remove` / `--force`
-- Aucun `git branch -d` / `-D`
-- Aucun reset/clean / suppression de fichiers untracked
-- Aucune activation
-- Contenu `pg-url.txt` non recopié dans ce pack
+- Purge limitée à `$WT/.tmp-sfia-review/` uniquement
+- Contenu `pg-url.txt` non exposé / non recopié
+- Pas de `--force` / `-D` / `git clean` / reset
+- Pas d’activation produit
+- Une seule publication handoff de contenu (pas de boucle auto-référentielle tip/blob)
 
 ## Review pack content coverage
 
 - project created : **N/A**
 - project modified : **N/A**
-- synthesis only : **no** (preuves inspection référencées)
-- review pack verdict : **complete** (light — STOP documenté)
+- synthesis only : **no**
+- review pack verdict : **complete**
 
-## Décisions Morris requises
+## Décisions Morris restantes
 
-Le worktree T7 contient des untracked `.tmp-sfia-review/` (dont `pg-url.txt` CONN_STRING_LIKE).
-
-Options pour Morris (non exécutées ici) :
-1. Autoriser destruction explicite des untracked + retrait worktree (nouveau GO, éventuellement avec procédure de purge locale définie).
-2. Demander archivage/copie hors worktree avant cleanup.
-3. Laisser le worktree en place (cleanup reste BLOCKED).
+- Cycle 14 : **aucune** après succès
+- Prochaine étape candidate uniquement (GO séparé) : Dedicated Activation QA T7 — **NOT EXECUTED** ici
 
 ## Prochaine étape
 
-Attendre décision Morris sur le contenu untracked du worktree T7.
-Dedicated Activation QA : **NOT EXECUTED** — non autorisée par ce GO.
+Dedicated Activation QA T7 — nécessite un nouveau GO Morris. Ne pas lancer.
 
 ## Verdict unique
 
 ```
-T7 POST-MERGE INCOMPLETE —
-WORKTREE CONTENT REQUIRES MORRIS DECISION —
-NO DELETION PERFORMED —
+T7 POST-MERGE COMPLETE WITH RESERVES —
 FOUNDATION CLOSED ON MAIN —
 CI GREEN —
+ATOMIC REVISION CORRECTION PRESERVED —
+DEFAULT-OFF PRESERVED —
+TEMPORARY T7 REVIEW ARTIFACTS PURGED —
+DELIVERY WORKTREE REMOVED —
+LOCAL DELIVERY BRANCH DELETED —
 REMOTE DELIVERY BRANCH ABSENT —
-LOCAL DELIVERY BRANCH PRESENT —
-DELIVERY WORKTREE PRESENT —
 R-T4-PROJECTION-REFRESH-01 CLOSED — WIRING ONLY —
 R-T6-RUNTIME-COMPOSITION-01 CLOSED ON MAIN —
 R-T4-T3-SYNC-01 OPEN — BEFORE MONITOR —
@@ -169,17 +151,13 @@ E1 NOT AUTHORIZED —
 HANDOFF REMOTE VERIFIED
 ```
 
-## Review Handoff Git
+## Review Handoff Git (contenu destiné à publication)
 
 - Mode : **publish-in-cycle**
-- Source : `.tmp-sfia-review/chatgpt-review.md`
+- Source : `.tmp-sfia-review/chatgpt-review.md` (worktree main)
 - Branche : `sfia/review-handoff`
-- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- Commit message : `docs(review-handoff): close T7 post-merge cleanup`
-- Remote before : tip `2cdb6b9b16dce0c1540a48c8c75c47c5cefe5253` / blob `35c8a9262c7b7515bc3a729af38d25a9bc88d41a`
-- Local/remote after publish : tip `8e1e68c2348b50b4d88460dfd0830d7906a03762` / blob `fdcde5b3340bcbd00855c006e327e886864baa09`
-- Push : yes (L3)
-- Remote verification : tip + blob + relecture — Cycle 14 Cleanup Completion · STOP worktree content · NO DELETION · main `503369b…` · CI `31262204448` · activation QA NOT EXECUTED · SHADOW NOT ACTIVATED
-- Retour : `main` @ `503369b…`
-- Verdict handoff : **HANDOFF UPDATED — REMOTE VERIFIED**
-- Note : libellé commit demandé conservé ; contenu = STOP cleanup (pas de close technique réussi)
+- Fichier canonique : `sfia-review-handoff/latest-chatgpt-review.md`
+- Commit message prévu : `docs(review-handoff): complete T7 post-merge cleanup`
+- Publisher : `scripts/sfia/publish-review-handoff.sh`
+- Remote handoff BEFORE publication : tip `0cfe9baa7032bf4ccb3cd803661645747e5b5195` / blob `2fcd93bb10d6b97ddec6d1e673ad96c5541297b7`
+- Final remote tip/blob verified externally after publication; see Cursor final report and Git remote verification.
