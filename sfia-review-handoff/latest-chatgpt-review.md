@@ -1,343 +1,52 @@
-# Review Pack — FinOps T6 Runtime Durable Audit Composition Delivery
+# Review Pack — FinOps T6 Runtime Composition — Cycle 13 PR readiness
 
-**Mono-cycle:** T6 Runtime Durable Audit Composition Delivery only
-**Profil:** Critical · Cycle 8 Delivery
+**Mono-cycle:** T6 Runtime Composition PR readiness only
+**Profil:** Standard · Cycle 13 PR readiness
 **Template SHA:** `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`
 
 ## 0. Horodatage
 
-- CEST: 2026-08-08 06:12:25 CEST (+0200)
-- UTC: 2026-08-08 04:12:25 UTC
+- CEST: 2026-08-08 06:53:06 CEST (+0200)
+- UTC: 2026-08-08 04:53:06 UTC
 
 ## 1. GO
 
 - User utterance: `ok go`
-- Contextual resolution: `GO Delivery T6 runtime composition — close R-T6-RUNTIME-COMPOSITION-01 before SHADOW.`
+- Contextual resolution: `GO commit + push + PR T6 runtime composition.`
+- AUTHORIZED: exact staging, one project commit, push Delivery branch, non-draft PR to main, PR readiness checks, Full pack, handoff L3
+- NOT AUTHORIZED: merge, post-merge, branch delete, T4 refresh, T7 Delivery, SHADOW/MONITOR/E1, T3 sync, T6-ext, T5, IAM, calibration, amend after push, force push, rebase after push, extra code changes
 
-## 2. Git Truth
+## 2. Git Truth (initial)
 
 | Field | Value |
 |-------|-------|
 | Branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-runtime-composition` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-runtime-composition` |
-| HEAD | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
+| HEAD initial | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
 | origin/main | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
-| Handoff tip (before) | `e6e026c9629535e5a9d8852f4613acf473b417e0` |
-| Handoff blob (before) | `79e29f7df68d4c522610c5b63377b3bf37b4e3f0` |
-| Handoff commit (before) | `docs(review-handoff): publish T7 decisions applied` |
-| Project staged | empty |
-| Project commit/push/PR | none |
+| Handoff tip (before) | `dbd47f4d752fb53fc4ff26408adb94a39484b1d6` |
+| Handoff blob (before) | `947311d45829c7ba073264b6a1faac02e22c0231` |
+| Handoff commit (before) | `docs(review-handoff): publish T6 runtime composition` |
+| Remote Delivery before push | ABSENT |
+| Existing PR before cycle | NONE |
 
-Handoff pre-check confirmed:
+Initial status: `?? .tmp-sfia-review/` + three untracked project paths (exact manifest).
 
-```text
-R-T6-RUNTIME-COMPOSITION-01 = OPEN — SELECTED CLOSURE GATE BEFORE SHADOW
-SHADOW = NOT ACTIVATED
-T6-ext-T3T4 = NOT AUTHORIZED
-```
+## 3. Contract re-read (summary)
 
-## 3. Runtime call-site discovery
+- Caller-owned Pool; composition does not read `DATABASE_URL`, does not call `createFinOpsPool`, does not `pool.end`
+- Reuses ledger / journal / durable emitter / capture; exposes `capture` + `flushAudit`
+- No T4/T3/T5/T7/T6-ext/thresholds in composition
+- Tests RC-01..RC-04
+- Doc 154 Case A / anti-claims preserved
 
-Qualified before CREATE. No existing real product FinOps composition root wiring Pool→ledger→journal→emitter→capture.
-
-```text
-=== createFinOpsCaptureService ===
-__tests__/oa/finops/t6.audit.unit.test.ts:6:import { createFinOpsCaptureService } from "@/lib/oa/finops/application/captureFinOpsUsage";
-__tests__/oa/finops/t6.audit.unit.test.ts:74:    const capture = createFinOpsCaptureService({ ledger, audit: emitter });
-__tests__/oa/finops/t6.audit.unit.test.ts:114:    const capture = createFinOpsCaptureService({ ledger, audit: emitter });
-__tests__/oa/finops/t6.audit.unit.test.ts:156:    const capture = createFinOpsCaptureService({ ledger, audit: emitter });
-__tests__/oa/finops/t6.audit.unit.test.ts:193:    const capture = createFinOpsCaptureService({ ledger, audit });
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:5:import { createFinOpsCaptureService } from "@/lib/oa/finops/application/captureFinOpsUsage";
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:55:    const finops = createFinOpsCaptureService({ ledger, audit });
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:112:      finops: createFinOpsCaptureService({ ledger }),
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:128:      finops: createFinOpsCaptureService({ ledger }),
-__tests__/oa/finops/t1.capture.unit.test.ts:6:import { createFinOpsCaptureService } from "@/lib/oa/finops/application/captureFinOpsUsage";
-__tests__/oa/finops/t1.capture.unit.test.ts:248:    const finops = createFinOpsCaptureService({ ledger, audit });
-__tests__/oa/finops/t1.capture.unit.test.ts:267:    const finops = createFinOpsCaptureService({
-__tests__/oa/finops/t1.capture.unit.test.ts:298:    const finops = createFinOpsCaptureService({
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:16:import { createFinOpsCaptureService } from "@/lib/oa/finops/application/captureFinOpsUsage";
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:53:    const capture = createFinOpsCaptureService({ ledger, audit: emitter });
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:135:    const capture = createFinOpsCaptureService({ ledger, audit: emitter });
-lib/oa/finops/application/captureFinOpsUsage.ts:49:export function createFinOpsCaptureService(deps: {
-=== createPostgresFinOpsUsageLedger ===
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:9:import { createPostgresFinOpsUsageLedger } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsUsageLedger";
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:44:    const ledger = createPostgresFinOpsUsageLedger(pool);
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:69:    const ledger = createPostgresFinOpsUsageLedger(pool);
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:98:    const ledger = createPostgresFinOpsUsageLedger(pool);
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:172:    const ledger = createPostgresFinOpsUsageLedger(pool);
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:224:      const ledgerA = createPostgresFinOpsUsageLedger(pool);
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:225:      const ledgerB = createPostgresFinOpsUsageLedger(poolB);
-__tests__/oa/finops/postgres/t1.ledger.integration.test.ts:259:      const ledger = createPostgresFinOpsUsageLedger(badPool);
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:17:import { createPostgresFinOpsUsageLedger } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsUsageLedger";
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:52:    const ledger = createPostgresFinOpsUsageLedger(pool);
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:134:    const ledger = createPostgresFinOpsUsageLedger(pool);
-lib/oa/finops/infrastructure/postgres/postgresFinOpsUsageLedger.ts:122:export function createPostgresFinOpsUsageLedger(
-=== createPostgresFinOpsAuditJournal ===
-lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts:20:export function createPostgresFinOpsAuditJournal(
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:14:  createPostgresFinOpsAuditJournal,
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:48:    const journal = createPostgresFinOpsAuditJournal(pool);
-=== createDurableFinOpsAuditEmitter ===
-lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts:93:export function createDurableFinOpsAuditEmitter(
-__tests__/oa/finops/t6.audit.unit.test.ts:11:import { createDurableFinOpsAuditEmitter } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal";
-__tests__/oa/finops/t6.audit.unit.test.ts:66:    const emitter = createDurableFinOpsAuditEmitter(journal, {
-__tests__/oa/finops/t6.audit.unit.test.ts:108:    const emitter = createDurableFinOpsAuditEmitter(journal);
-__tests__/oa/finops/t6.audit.unit.test.ts:140:    const emitter = createDurableFinOpsAuditEmitter(journal, {
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:13:  createDurableFinOpsAuditEmitter,
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:49:    const emitter = createDurableFinOpsAuditEmitter(journal, {
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:133:    const emitter = createDurableFinOpsAuditEmitter(failingJournal);
-=== FinOpsAuditEmitter ===
-lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts:13:import type { FinOpsAuditEmitter } from "../../application/finopsAuditTypes";
-lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts:85: * Best-effort durable emitter implementing the T1 FinOpsAuditEmitter boundary.
-lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts:88:export type DurableFinOpsAuditEmitter = FinOpsAuditEmitter & {
-lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts:93:export function createDurableFinOpsAuditEmitter(
-lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal.ts:98:): DurableFinOpsAuditEmitter {
-lib/oa/finops/application/captureFinOpsUsage.ts:4: * T6-foundation may attach a durable emitter behind FinOpsAuditEmitter.
-lib/oa/finops/application/captureFinOpsUsage.ts:13:import type { FinOpsAuditEmitter } from "./finopsAuditTypes";
-lib/oa/finops/application/captureFinOpsUsage.ts:16:export type { FinOpsAuditEmitter } from "./finopsAuditTypes";
-lib/oa/finops/application/captureFinOpsUsage.ts:32:  audit: FinOpsAuditEmitter | undefined,
-lib/oa/finops/application/captureFinOpsUsage.ts:51:  readonly audit?: FinOpsAuditEmitter;
-lib/oa/finops/application/finopsAuditTypes.ts:36:export type FinOpsAuditEmitter = {
-__tests__/oa/finops/t6.audit.unit.test.ts:11:import { createDurableFinOpsAuditEmitter } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsAuditJournal";
-__tests__/oa/finops/t6.audit.unit.test.ts:66:    const emitter = createDurableFinOpsAuditEmitter(journal, {
-__tests__/oa/finops/t6.audit.unit.test.ts:108:    const emitter = createDurableFinOpsAuditEmitter(journal);
-__tests__/oa/finops/t6.audit.unit.test.ts:140:    const emitter = createDurableFinOpsAuditEmitter(journal, {
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:13:  createDurableFinOpsAuditEmitter,
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:49:    const emitter = createDurableFinOpsAuditEmitter(journal, {
-__tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts:133:    const emitter = createDurableFinOpsAuditEmitter(failingJournal);
-=== finops: ===
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:76:      finops: { captureUsage },
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:112:      finops: createFinOpsCaptureService({ ledger }),
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:128:      finops: createFinOpsCaptureService({ ledger }),
-lib/oa/execution-run/server/composeExecutionRunD2D3.ts:102:        ...(options?.finops ? { finops: options.finops } : {}),
-lib/harness/sfiaCanonicalLabels.ts:26:  finops: "FinOps",
-=== composeExecutionRunD2D3 ===
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:8:import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server/composeExecutionRunD2D3";
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:34:    const composition = composeExecutionRunD2D3({
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:56:    const composition = composeExecutionRunD2D3({
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:74:    const composition = composeExecutionRunD2D3({
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:110:    const composition = composeExecutionRunD2D3({
-__tests__/oa/finops/t1.coordinator.failopen.test.ts:126:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/importBoundaries.test.ts:192:    expect(barrel).not.toMatch(/composeExecutionRunD2D3/);
-__tests__/oa/execution-run/importBoundaries.test.ts:204:      path.join(MODULE_ROOT, "server/composeExecutionRunD2D3.ts"),
-__tests__/oa/execution-run/d2d3.readiness.test.ts:10:import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
-__tests__/oa/execution-run/d2d3.readiness.test.ts:23:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.readiness.test.ts:43:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.readiness.test.ts:71:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.readiness.test.ts:92:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:9:import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:81:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:90:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:105:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:122:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:140:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:156:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:170:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:183:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:197:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:209:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:225:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:245:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:271:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:290:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/t4.enforcement-boundary.unit.test.ts:307:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.projection.test.ts:6:import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
-__tests__/oa/execution-run/d2d3.projection.test.ts:9:  const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:14:  composeExecutionRunD2D3,
-__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:53:  const composition = composeExecutionRunD2D3({ providers });
-__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:172:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:203:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.negative.resilience.test.ts:242:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:6:import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server";
-__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:10:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:47:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:76:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:106:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.coordination.fixture.test.ts:126:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:19:  composeExecutionRunD2D3,
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:149:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:218:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:268:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:374:      const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:485:      const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:554:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:691:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:739:      const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:770:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:803:    const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:886:      const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:961:      const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.qa-findings.regression.test.ts:1034:      const composition = composeExecutionRunD2D3({
-__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:12:  composeExecutionRunD2D3,
-__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:19:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:52:      const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:98:    const composition = composeExecutionRunD2D3({ providers });
-__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:125:    const composition = composeExecutionRunD2D3();
-__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:168:      const composition = composeExecutionRunD2D3({ providers });
-__tests__/oa/execution-run/d2d3.evidence.truthfulness.test.ts:216:    const composition = composeExecutionRunD2D3({ providers });
-lib/oa/execution-run/server/index.ts:16:  composeExecutionRunD2D3,
-lib/oa/execution-run/server/index.ts:18:} from "./composeExecutionRunD2D3";
-lib/oa/execution-run/server/composeExecutionRunD2D3.ts:55:export function composeExecutionRunD2D3(options?: {
-=== compose.*FinOps ===
-=== FinOpsCapturePort ===
-lib/oa/finops/ports/finopsCapturePort.ts:32:export type FinOpsCapturePort = {
-lib/oa/finops/application/captureFinOpsUsage.ts:8:  FinOpsCapturePort,
-lib/oa/finops/application/captureFinOpsUsage.ts:52:}): FinOpsCapturePort {
-lib/oa/execution-run/server/composeExecutionRunD2D3.ts:59:  readonly finops?: import("../../finops/ports/finopsCapturePort").FinOpsCapturePort;
-lib/oa/execution-run/application/coordinateExecutionRun.ts:31:import type { FinOpsCapturePort } from "../../finops/ports/finopsCapturePort";
-lib/oa/execution-run/application/coordinateExecutionRun.ts:81:  readonly finops?: FinOpsCapturePort;
-=== composeFinOpsRuntime ===
-```
-
-**Qualification:**
-
-- `createFinOpsCaptureService` / ledger / journal / durable emitter: application/infrastructure factories + unit/integration/fixture tests — not a product entrypoint.
-- `composeExecutionRunD2D3`: fixture-first execution-run composition; optional `finops` inject only; **not modified**.
-- `composeFinOpsRuntime`: **absent** before this Delivery → CREATE.
-- Presence under `server/` alone ≠ production.
-
-STOP `EXISTING FINOPS RUNTIME COMPOSITION REQUIRES RE-SCOPING`: not triggered.
-
-## 4. Reserve semantic determination (Case A)
-
-Sources (PR #315, doc 143 §15.4, T7 handoff D-T7-T6-COMPOSITION-GATE-01, this Delivery GO) define closure as **canonical durable FinOps server composition boundary** availability/correctness — not live product consumer activation.
-
-```text
-R-T6-RUNTIME-COMPOSITION-01 =
-CLOSED —
-CANONICAL DURABLE FINOPS SERVER COMPOSITION DELIVERED AND TESTED —
-NO PRODUCT RUNTIME ACTIVATION CLAIM.
-```
-
-Anti-claim:
-
-```text
-T6 DURABLE AUDIT COMPOSITION AVAILABLE —
-NO PRODUCT RUNTIME ACTIVATION CLAIM.
-```
-
-## 5. PR #315 baseline
-
-Merged T6-foundation: durable PG audit journal, redaction, fail-open, three event types. Explicit non-scope: global runtime durable audit composition/injection. Reserve `R-T6-RUNTIME-COMPOSITION-01` OPEN carried forward until this Delivery.
-
-## 6. Exact project manifest (3 CREATE / 0 MODIFY)
+## 4. Exact 3-path manifest
 
 1. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsRuntime.ts`
 2. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts`
 3. `projects/sfia-studio/154-assistant-sfia-native-openai-finops-technical-lot-t6-runtime-composition-execution.md`
 
-No barrel. No fourth path.
-
-## 7. Composition contract
-
-`composeFinOpsRuntime({ pool }) → { capture, flushAudit }`
-
-- injected caller-owned Pool
-- no env connection-string read
-- no second pool
-- reuses `createPostgresFinOpsUsageLedger` / `createPostgresFinOpsAuditJournal` / `createDurableFinOpsAuditEmitter` / `createFinOpsCaptureService`
-- never closes pool
-
-## 8. Tests / QA
-
-| Check | Result |
-|-------|--------|
-| RC-01..04 | PASS (4/4) |
-| t6.audit.unit | 6 passed |
-| FinOps suite | 21 files / 203 passed |
-| test:db | 7 files / 49 passed |
-| typecheck/lint/build | PASS |
-| migrate:up (local :55432) | PASS |
-| git diff --check | PASS |
-| negative rg CREATE files | 0 hits |
-| First parallel npm test | 3 unrelated timeouts (ops1 I5 + createProjectUi) |
-| Flake reruns | PASS |
-| Serial full `vitest run --maxWorkers=1` | **152 files / 1534 passed** |
-
-Local Postgres: Docker `postgres:16-alpine` `sfia-finops-t6-runtime-composition-pg` `127.0.0.1:55432` — NOT Neon.
-
-## 9. Fail-open / redaction / pool ownership
-
-- Fail-open: reused foundation emitter/capture; foundation unit+PG evidence re-run.
-- Redaction: RC-03 fictitious markers absent from durable payload.
-- Pool ownership: RC-04 spy + executable-source scan; caller `closeFinOpsPool` in afterAll.
-
-## 10. Carried reserves (unchanged)
-
-- R-T4-T3-SYNC-01 OPEN — SELECTED GATE BEFORE MONITOR
-- R-T4-PROJECTION-REFRESH-01 OPEN — SELECTED GATE BEFORE SHADOW
-- R-PR-T2-API-01 OPEN MINOR
-- T6-ext-T2 EXCLUDED
-- T6-ext-T3T4 NOT AUTHORIZED — REQUIRED BEFORE E1
-- Calibration REQUIRED — BEFORE MONITOR USING REAL AMOUNTS
-- Product IAM NOT_SELECTED — REQUIRED CAPABILITY BEFORE E1
-- Privileged Morris mutations / Intermediate product literal / REVIEW_REQUIRED vs WOULD_BLOCK — DEFERRED
-
-## 11. Negative rg
-
-```text
-TOTAL_HITS 0
-```
-
-## 12. Final project status (expected)
-
-```text
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsRuntime.ts
-?? projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts
-?? projects/sfia-studio/154-assistant-sfia-native-openai-finops-technical-lot-t6-runtime-composition-execution.md
-staged: empty · commit/push/PR: none · HEAD still 137d3846…
-```
-
-## 13. Verdict (Case A)
-
-```text
-FINOPS TECHNICAL LOT T6 —
-RUNTIME DURABLE AUDIT COMPOSITION DELIVERY COMPLETE —
-
-CANONICAL FINOPS SERVER COMPOSITION CREATED —
-T1 POSTGRES LEDGER REUSED —
-T6 POSTGRES AUDIT JOURNAL REUSED —
-T6 DURABLE EMITTER REUSED —
-T1 CAPTURE SERVICE REUSED —
-SINGLE CALLER-OWNED POOL —
-NO ENV READ —
-NO SECOND POOL —
-
-LEDGER + DURABLE AUDIT INTEGRATION PROVEN —
-DUPLICATE AUDIT PROVEN —
-REDACTION PRESERVED —
-FAIL-OPEN PRESERVED —
-
-R-T6-RUNTIME-COMPOSITION-01 CLOSED —
-CANONICAL DURABLE FINOPS SERVER COMPOSITION DELIVERED AND TESTED —
-NO PRODUCT RUNTIME ACTIVATION CLAIM —
-
-NO T6-EXT —
-NO T4 REFRESH —
-NO T3 SYNC —
-NO T7 RUNTIME —
-NO SHADOW —
-NO MONITOR —
-NO E1 —
-NO T5 —
-NO IAM —
-NO CALIBRATION —
-
-NO PROJECT STAGING —
-NO PROJECT COMMIT —
-NO PROJECT PUSH —
-NO PR —
-
-REVIEW HANDOFF REMOTE VERIFIED —
-
-READY FOR CHATGPT T6 RUNTIME COMPOSITION VALIDATION
-```
-
----
-
-# COMPLETE CREATE 1 — composeFinOpsRuntime.ts
-
-Path: `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsRuntime.ts`
+## 5. COMPLETE CREATE — composeFinOpsRuntime.ts
 
 ```typescript
 /**
@@ -403,11 +112,7 @@ export function composeFinOpsRuntime(
 }
 ```
 
----
-
-# COMPLETE CREATE 2 — t6.runtime-composition.integration.test.ts
-
-Path: `projects/sfia-studio/app/__tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts`
+## 6. COMPLETE CREATE — t6.runtime-composition.integration.test.ts
 
 ```typescript
 /**
@@ -644,11 +349,7 @@ describeDb("FinOps T6 runtime composition integration", () => {
 });
 ```
 
----
-
-# COMPLETE CREATE 3 — document 154
-
-Path: `projects/sfia-studio/154-assistant-sfia-native-openai-finops-technical-lot-t6-runtime-composition-execution.md`
+## 7. COMPLETE CREATE — 154 execution record
 
 ```markdown
 # 154 — FinOps Technical Lot T6 — Runtime Durable Audit Composition — Execution Record
@@ -1054,3 +755,169 @@ NO PR —
 READY FOR CHATGPT T6 RUNTIME COMPOSITION VALIDATION
 ```
 ```
+
+## 8. Pre-commit / PR-cycle validation (this cycle)
+
+| Check | Result |
+|-------|--------|
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| `npx vitest run __tests__/oa/finops` | **203 passed** |
+| `migrate:up` local PG `:55432` | PASS (No migrations to run) |
+| `npm run test:db` | **49 passed** |
+| `git diff --check` | PASS |
+
+### Delivery historical evidence (distinct — not re-claimed as serial full-suite re-run in this cycle)
+
+- Delivery evidence cited: 203 FinOps tests, 49 PG tests, serial full suite 1534 passed
+
+## 9. Staging / commit / push
+
+- Staged name-status: exact 3× `A`
+- Commit message: `feat(sfia-studio): compose durable FinOps audit runtime`
+- DELIVERY_COMMIT_SHA: `40cbff6aba59cbc224de1b845e61c7d12a3625df`
+- Commit file count: 3
+- Commit paths: exact manifest
+- ahead/behind vs origin/main: ahead 1 / behind 0
+- Push: `git push -u origin delivery/...` (no force) — OK
+- Remote branch SHA: `40cbff6aba59cbc224de1b845e61c7d12a3625df` == local
+
+## 10. Pull Request
+
+| Field | Value |
+|-------|-------|
+| PR_NUMBER | 318 |
+| PR_URL | https://github.com/mcleland147/sfia-workspace/pull/318 |
+| state | OPEN |
+| draft | false |
+| base | main |
+| head | delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-runtime-composition |
+| head SHA | `40cbff6aba59cbc224de1b845e61c7d12a3625df` |
+| changed files count | 3 |
+| changed paths | exact manifest |
+
+### PR body (complete)
+
+# Summary
+
+- Adds the canonical server-side FinOps runtime composition boundary.
+- Reuses the existing PostgreSQL usage ledger, durable T6 audit journal, durable emitter and capture service.
+- Uses one caller-owned injected Pool and exposes bounded audit flushing.
+- Resolves the technical T6 runtime-composition capability without activating FinOps in a product runtime.
+
+# Scope
+
+- `composeFinOpsRuntime({ pool }) → { capture, flushAudit }`
+- integration coverage RC-01..RC-04
+- T6 runtime composition execution record
+
+# Validation
+
+### This PR readiness cycle (re-executed)
+
+- typecheck: PASS
+- lint: PASS
+- build: PASS
+- `npx vitest run __tests__/oa/finops`: **203 passed**
+- `migrate:up` (local disposable Postgres `:55432`): PASS (no pending migrations)
+- `npm run test:db`: **49 passed**
+- `git diff --check`: PASS
+
+### Delivery-cycle historical evidence (not re-presented as this-cycle re-runs of the serial full suite)
+
+- Delivery evidence: 203 FinOps tests, 49 PG tests, serial full suite 1534 passed
+
+# Reserve
+
+`R-T6-RUNTIME-COMPOSITION-01`:
+
+RESOLVED ON DELIVERY BRANCH —
+CANONICAL DURABLE FINOPS SERVER COMPOSITION DELIVERED AND TESTED —
+BASELINE CLOSURE PENDING MERGE —
+NO PRODUCT RUNTIME ACTIVATION CLAIM.
+
+# Non-scope
+
+- no product runtime activation
+- no T6-ext
+- no T4 projection refresh
+- no T3 sync
+- no T7 runtime
+- no SHADOW
+- no MONITOR
+- no E1
+- no T5
+- no Product IAM
+- no calibration
+- no Neon
+- no provider-real
+
+# Governance
+
+- merge requires a distinct Morris GO
+- post-merge validation required
+- remote delivery branch must not be deleted before merge/post-merge rules permit it
+
+
+## 11. CI (honest qualification)
+
+```text
+Detect SFIA Studio changes: pass (7s)
+Build and validate SFIA Studio: pending
+run: https://github.com/mcleland147/sfia-workspace/actions/runs/31240424699
+```
+
+**CI current state: CI PENDING** (Detect SFIA Studio changes = pass; Build and validate SFIA Studio = pending)
+
+## 12. Reserves
+
+| Reserve / topic | Status |
+|-----------------|--------|
+| `R-T6-RUNTIME-COMPOSITION-01` | RESOLVED ON DELIVERY BRANCH — BASELINE CLOSURE PENDING MERGE — NO PRODUCT RUNTIME ACTIVATION CLAIM |
+| `R-T4-T3-SYNC-01` | OPEN — SELECTED GATE BEFORE MONITOR |
+| `R-T4-PROJECTION-REFRESH-01` | OPEN — SELECTED GATE BEFORE SHADOW |
+| `R-PR-T2-API-01` | OPEN MINOR |
+| T6-ext-T3T4 | NOT AUTHORIZED |
+| SHADOW | NOT ACTIVATED |
+| MONITOR | NOT ACTIVATED |
+| E1 | NOT AUTHORIZED |
+
+## 13. Anti-claims
+
+- No product runtime activation
+- No merge
+- No T6-ext / T4 refresh / T3 sync / T7 runtime / T5 / IAM / calibration / Neon / provider-real
+
+## 14. Final git status (pre-handoff expected)
+
+- Branch: Delivery
+- HEAD: `40cbff6aba59cbc224de1b845e61c7d12a3625df`
+- upstream set
+- status: `?? .tmp-sfia-review/` only (project clean)
+- PR OPEN non-draft NOT MERGED
+- merge = NO
+
+## 15. Verdict (CI pending variant)
+
+```
+T6 RUNTIME COMPOSITION —
+PR CREATED —
+
+DELIVERY COMMIT CREATED —
+DELIVERY BRANCH PUSHED —
+EXACT 3-FILE SCOPE VERIFIED —
+
+CI PENDING —
+
+R-T6-RUNTIME-COMPOSITION-01 RESOLVED ON DELIVERY BRANCH —
+BASELINE CLOSURE PENDING MERGE —
+
+MERGE NOT AUTHORIZED —
+
+REVIEW HANDOFF REMOTE VERIFIED —
+
+READY FOR CHATGPT PR / CI VALIDATION
+```
+
+(Handoff remote verification fields completed after publish step.)
