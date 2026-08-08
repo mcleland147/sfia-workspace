@@ -1,269 +1,339 @@
-# Cycle 8 Standard — T7 SHADOW 157.md Whitespace Remediation — Review Pack (light)
+# Cycle 13 — T7 SHADOW Whitespace Corrective PR Publication — Review Pack (light)
 
 ## 1. Date / heure
 
-- **CEST:** 2026-08-08 20:46:09 UTC+02:00
-- **UTC:** 2026-08-08 18:46:09 UTC
+- **CEST:** 2026-08-08 21:00:40 UTC+02:00
+- **UTC:** 2026-08-08 19:00:40 UTC
 
 ## 2. Décision Morris exacte
 
-GO whitespace remediation 157.md uniquement, conserver tout le code inchangé, créer un commit correctif local sans modifier la CI.
+GO PUSH WHITESPACE REMEDIATION TO PR #321 + UPDATE PR BODY
 
-Autorisé: 157.md trailing spaces only · stage 157 only · local commit · Git/hash controls · LIGHT pack · L3 handoff.
+Autorisé: FF push de `3873b05` · update body PR #321 · vérifications GitHub · observation CI bornée · LIGHT pack · L3 handoff.
 
-Non autorisé: code/tests/CI/lint · amend bab14ca · rebase/reset/force-push · project push · PR #321 update · CI rerun · merge · SHADOW activation · policy/threshold/MONITOR/E1/T3/T5/T6-ext/Product IAM.
+Non autorisé: modifier 157/code/tests/CI · nouveau commit projet · amend/reset/rebase/force-push · nouvelle PR · merge · suppression branche · activation SHADOW · policy/threshold/MONITOR/E1/T3/T5/T6-ext/Product IAM.
 
-## 3. Cycle / profil / typologie
+## 3. Cycle / profil
 
-- **Cycle:** 8 — Delivery / implémentation corrective
+- **Cycle:** 13 — PR readiness (continuation / corrective publication gate)
 - **Profil:** Standard
-- **Typologie:** RUN / DOC
-- **CKC:** aucun pilote Delivery détaillé — fallback `02-fifteen-cycles-synthetic-map.md` (method-candidate, experimental)
-- **Blocs activés:** DevOps/CI validation (contrôles Git) · FinOps contexte · documentation
-- **Blocs désactivés:** architecture · sécu approfondie · QA fonctionnelle complète · déploiement · observabilité · UX/UI
+- **Typologie:** RUN / DOC / PR readiness
+- **CKC:** aucun pilote Cycle 13 détaillé — fallback `02-fifteen-cycles-synthetic-map.md` (method-candidate)
+- **Blocs:** DevOps/CI · FinOps contexte · documentation · PR readiness
 
 ## 4. Git Truth initial
 
-| Ref | SHA |
-|-----|-----|
+| Ref | SHA / valeur |
+|-----|--------------|
 | branch | `delivery/sfia-studio-finops-t7-shadow-option-a` |
-| HEAD | `bab14ca480b60744f6a428d93070c876de171ee1` |
+| HEAD | `3873b0527a0615c0500c190dca80e136452f6351` |
+| HEAD^ | `bab14ca480b60744f6a428d93070c876de171ee1` |
 | origin/main | `503369b10506515e173b5b58986c731ba1b313b8` |
-| origin/delivery | `bab14ca480b60744f6a428d93070c876de171ee1` |
-| local vs remote delivery | `0 0` |
-| staged | none |
-| tracked mods | none |
+| origin/delivery (before push) | `bab14ca480b60744f6a428d93070c876de171ee1` |
+| local vs remote delivery | `0 1` (ahead by 1) |
+| origin/main..HEAD | 3 commits |
+| staged / tracked | none |
 | untracked | `.tmp-sfia-review/**` only |
 
-## 5. PR #321 / CI initiale
+## 5. Handoff entrant
 
-- **PR:** https://github.com/mcleland147/sfia-workspace/pull/321
-- **State:** OPEN · not draft · not merged
-- **base:** main · **head:** `delivery/sfia-studio-finops-t7-shadow-option-a`
-- **head SHA:** `bab14ca480b60744f6a428d93070c876de171ee1`
-- **CI run:** `31271964253` · headSha=`bab14ca480b60744f6a428d93070c876de171ee1` · conclusion=`FAILURE`
-- **Cause:** Trailing whitespace check on 157.md only
+- tip: `be1ac546de709f6cd93b35c1fe3415c37951650c`
+- blob: `c5a3c9138ec8340fc7742b29be3902977fc5c915`
+- Cycle 8 Standard — T7 SHADOW 157.md Whitespace Remediation
+- subject local: `3873b05`
 
-## 6. Handoff entrant
+## 6. Subject
 
-- **Branch:** `sfia/review-handoff`
-- **Canonical:** `sfia-review-handoff/latest-chatgpt-review.md`
-- **Tip:** `33b75f9a4632b247c0327c93ff7890b39e0ee14b`
-- **Blob:** `e96419322e022c3e598520081ad04dfe00482fc4`
-- **Cycle entrant:** Cycle 13 — T7 SHADOW Corrective PR Publication Gate
-- **État:** PR #321 @ bab14ca · CI FAILURE · merge not performed · SHADOW not activated
+`3873b0527a0615c0500c190dca80e136452f6351` — `docs(sfia-studio): remove T7 shadow trailing whitespace`
 
-## 7. Sources consultées
+## 7. Parent
 
-Depuis Git main / repo:
+`bab14ca480b60744f6a428d93070c876de171ee1`
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
-- `scripts/sfia/publish-review-handoff.sh`
-- `scripts/sfia/README.md`
+`git show --name-status` subject = exactly:
+`M projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
 
-Depuis Delivery:
+## 8. Hash gate
 
-- `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
+| Path | SHA-256 | Result |
+|------|---------|--------|
+| composer | `3a6646af7ea1981160beac64894dd6ac58d70ce461f6973501f47dda4f5d8057` | OK |
+| adapter | `e90b5da0c23023b3e0839cc729516fea7c127099a8e8e3099941f8365a4d3b6a` | OK |
+| unit | `cb1cd4e40dadb057d9ebea964cff84ce6e76cfba3bccf740e948784d9ab3dd65` | OK |
+| integration | `d57f4f1b98a6900bac92f90ba78bb1c5eb553441a062ea0c5ee6e80db2261dc0` | OK |
+| 157.md | `dd3b773a741a661e48f8eb6aaa64c641973459441d0be6b91d44f14166eb7e2b` | OK |
 
-Handoff canonique entrant (tip/blob ci-dessus).
+**HASH_GATE = PASS**
 
-## 8. Hashes initiaux (code/tests + 157)
+## 9. ignore-space proof
 
-| Path | SHA-256 |
-|------|---------|
-| `composeExecutionRunD2D3T7ShadowPilot.ts` | `3a6646af7ea1981160beac64894dd6ac58d70ce461f6973501f47dda4f5d8057` |
-| `composeFinOpsT7ShadowExecutionDeps.ts` | `e90b5da0c23023b3e0839cc729516fea7c127099a8e8e3099941f8365a4d3b6a` |
-| `t7.shadow-option-a.unit.test.ts` | `cb1cd4e40dadb057d9ebea964cff84ce6e76cfba3bccf740e948784d9ab3dd65` |
-| `t7.shadow-option-a.wiring.integration.test.ts` | `d57f4f1b98a6900bac92f90ba78bb1c5eb553441a062ea0c5ee6e80db2261dc0` |
-| `157-…wiring-execution.md` (before) | `1c87d4601e0d59cd88cb3348626124adc2eac0c9ef9e5c24141a10f3c5b9870a` |
+`git diff --ignore-space-at-eol bab14ca..3873b05 -- 157.md` → **EMPTY**
 
-**HASH_GATE_BEFORE = PASS**
+## 10. Local diff-check proof
 
-## 9. Reproduction trailing whitespace
+`git diff --check origin/main...HEAD` → **PASS EC=0**
 
-`git diff --check origin/main...HEAD` avant correction:
+## 11. PR pre-state
 
-- **EC=2**
-- **Fichier unique:** `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
-- **Autres fichiers:** aucun
-- **REPRO = PASS**
+- #321 OPEN · not draft · not merged
+- title: `feat(sfia-studio): wire FinOps T7 shadow pilot`
+- base=main · head=`delivery/sfia-studio-finops-t7-shadow-option-a`
+- headOid=`bab14ca480b60744f6a428d93070c876de171ee1`
+- prior CI fail run `31271964253` @ bab14ca (trailing whitespace)
 
-## 10. Lignes concernées
+## 12. Fast-forward proof
 
-`3, 4, 5, 6, 41, 44, 76, 77, 95, 96` — **10 occurrences** (match exact CI).
+`git merge-base --is-ancestor bab14ca 3873b05` → EC=0
+Remote delivery before push still `bab14ca…`
+Push command without `--force` / `--force-with-lease`
 
-## 11. Contenu modifié
-
-**Uniquement:** `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
-
-Action: suppression des espaces/tabs en fin de ligne uniquement. Aucune reformulation, réordonnancement, statut, anti-claims, Next gates, décisions Morris, note, ponctuation, casse, reformat global, line endings.
-
-157 après: SHA-256 `dd3b773a741a661e48f8eb6aaa64c641973459441d0be6b91d44f14166eb7e2b`
-
-## 12. DIFF COMPLET bab14ca → nouveau commit
-
-NOTE: In this pack, literal trailing spaces are rendered as «SP×N» and blank unified-diff context lines as · so the handoff file itself passes git diff --check. The authoritative git object diff is in commit 3873b0527a0615c0500c190dca80e136452f6351 and evidence .tmp-sfia-review/t7-shadow-whitespace-remediation/bab14ca-to-head-full.diff (local worktree). Content change remains EOL-whitespace only; git diff --ignore-space-at-eol bab14ca..3873b05 -- 157.md = EMPTY.
-
-```diff
-diff --git a/projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md b/projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md
-index 6c6dd08..158663f 100644
---- a/projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md
-+++ b/projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md
-@@ -1,9 +1,9 @@
- # 157 — FinOps T7 SHADOW Option A + Thin Adapter — Wiring Execution Record
-·
--**Project:** SFIA Studio — Assistant SFIA natif OpenAI«SP×2»
--**Document:** `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`«SP×2»
--**Cycle:** 8 — Delivery / implémentation«SP×2»
--**Profil:** Critical«SP×2»
-+**Project:** SFIA Studio — Assistant SFIA natif OpenAI
-+**Document:** `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
-+**Cycle:** 8 — Delivery / implémentation
-+**Profil:** Critical
- **Typologie:** EVOL / CODE / TEST / DOC
-·
- ---
-@@ -38,10 +38,10 @@ SHADOW NOT ACTIVATED
-·
- ## B. GO Morris
-·
--**Utterance / decision:**«SP×2»
-+**Utterance / decision:**
- `GO Option A + thin adapter, Delivery Cycle 8 profil Critical, with sfia-studio-ops1 as projectId pilote canonique SHADOW.`
-·
--**Consumed:** local CREATE wiring + tests + execution record.«SP×2»
-+**Consumed:** local CREATE wiring + tests + execution record.
- **Not consumed:** real SHADOW activation · MONITOR · E1 · T3 · thresholds · Neon · commit/push/PR.
-·
- ---
-@@ -73,8 +73,8 @@ composeExecutionRunD2D3T7ShadowPilot
-·
- ## E. Rollback
-·
--1. Config: no product SHADOW row written by this Delivery.«SP×2»
--2. Code: remove pilot composer injection / feature gate.«SP×2»
-+1. Config: no product SHADOW row written by this Delivery.
-+2. Code: remove pilot composer injection / feature gate.
- 3. No migration.
-·
- ---
-@@ -92,6 +92,6 @@ Morris-selected pilot value `sfia-studio-ops1` as an OA-local constant
-·
- ## G. Next
-·
--Cycle 9 — Dedicated Corrective QA (distinct GO) after this corrective commit.«SP×2»
--Then distinct GO for push of the corrective commit onto PR #321.«SP×2»
-+Cycle 9 — Dedicated Corrective QA (distinct GO) after this corrective commit.
-+Then distinct GO for push of the corrective commit onto PR #321.
- Activation SHADOW remains a separate Morris decision.
-```
-
-## 13. Preuve ignore-space-at-eol = EMPTY
+## 13. Push result
 
 ```
-git diff --ignore-space-at-eol bab14ca480b60744f6a428d93070c876de171ee1..HEAD -- projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md
-→ EMPTY
-POST_COMMIT_IGNORE_SPACE=EMPTY
+bab14ca..3873b05  3873b0527a0615c0500c190dca80e136452f6351 -> delivery/sfia-studio-finops-t7-shadow-option-a
 ```
 
-## 14. Line count avant / après
+## 14. Remote branch post-state
 
-- **Avant:** 97 lines · trailing_lines=[3,4,5,6,41,44,76,77,95,96]
-- **Après:** 97 lines · trailing_lines=[]
-- **Line count inchangé:** YES
+`origin/delivery/sfia-studio-finops-t7-shadow-option-a` = `3873b0527a0615c0500c190dca80e136452f6351`
+`origin/main...origin/delivery` = `0 3`
+local vs remote delivery = `0 0`
 
-## 15. git diff --check avant / après
-
-| Phase | Résultat |
-|-------|----------|
-| `origin/main...HEAD` avant (bab14ca) | FAIL EC=2 · 157 only |
-| working tree après edit | PASS EC=0 |
-| staged `--check` | PASS EC=0 |
-| `origin/main...HEAD` après commit `3873b05` | PASS EC=0 |
-
-## 16. Hashes finaux code/tests
-
-Identiques aux hashes initiaux (voir §8). Recalculés après edit:
-
-- composer `3a6646af…` OK
-- adapter `e90b5da0…` OK
-- unit `cb1cd4e4…` OK
-- integration `d57f4f1b…` OK
-
-**CODE_TEST_UNCHANGED = PASS**
-
-## 17. Preuve code/tests byte-identical
-
-SHA-256 des quatre fichiers code/tests inchangés avant et après remediation documentaire. Aucune QA fonctionnelle relancée (justifié par identité des bytes QA-validés).
-
-## 18. Staging exact
-
-```
-M	projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md
-```
-
-`.tmp-sfia-review/**` **jamais** staged.
-
-## 19. Commit local
-
-- **SHA:** `3873b0527a0615c0500c190dca80e136452f6351`
-- **Message:** `docs(sfia-studio): remove T7 shadow trailing whitespace`
-- **Parent:** `bab14ca480b60744f6a428d93070c876de171ee1` (NO amend)
-- **Files:** 1 MODIFY — 157.md only (`10 insertions(+), 10 deletions(-)` whitespace EOL)
-
-## 20. `git diff origin/main...HEAD --check`
-
-**PASS EC=0** sur HEAD local `3873b0527a0615c0500c190dca80e136452f6351`.
-
-Preuve locale que le Required Gate trailing whitespace devrait être satisfait **sur ce nouveau SHA** une fois poussé. **Ne conclut pas CI GREEN.**
-
-## 21. Git final
-
-| Ref | Valeur |
-|-----|--------|
-| local HEAD | `3873b0527a0615c0500c190dca80e136452f6351` |
-| origin/main | `503369b10506515e173b5b58986c731ba1b313b8` |
-| origin/delivery | `bab14ca480b60744f6a428d93070c876de171ee1` |
-| local vs remote delivery | `0 1` (ahead by exactly 1) |
-| local vs main | `0 3` (ahead by exactly 3) |
-| staged | none |
-| tracked mods | none |
-| untracked | `.tmp-sfia-review/**` only |
-
-## 22. Remote project branch unchanged
-
-`origin/delivery/sfia-studio-finops-t7-shadow-option-a` = `bab14ca480b60744f6a428d93070c876de171ee1` — **unchanged**.
-
-## 23. PR #321 unchanged
+## 15. PR post-state
 
 - OPEN · not draft · not merged
-- headOid still `bab14ca480b60744f6a428d93070c876de171ee1`
-- Body not updated (hard-break exception still documented remotely — coherent with remote head)
+- headOid=`3873b0527a0615c0500c190dca80e136452f6351`
+- url: https://github.com/mcleland147/sfia-workspace/pull/321
 
-## 24. CI not rerun
+## 16. Final 5-file scope
 
-Run `31271964253` still FAILURE @ bab14ca. No workflow dispatch / rerun.
+Exactly 5 CREATE vs main (0 MODIFY / 0 DELETE):
 
-## 25. Project push
+1. `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
+2. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
+3. `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts`
+4. `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts`
+5. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts`
 
-**NO**
+Branch history:
+1. `d99bbbdea2446af8b79488b7459924e6cf5a3e16` feat wiring
+2. `bab14ca480b60744f6a428d93070c876de171ee1` OA isolation fix
+3. `3873b0527a0615c0500c190dca80e136452f6351` whitespace docs
 
-## 26. Merge
+## 17. Body stale findings (pre-update)
 
-**NO**
+Obsolete on remote head `3873b05`:
+- Branch history missing `3873b05`
+- Active reserve claiming Markdown hard-break exception
+- Section `## Known PR-readiness exception` accepting trailing whitespace
+- Next gate CI targeting `bab14ca`
 
-## 27. SHADOW
+Still correct: OA-local pilot · corrective QA · policy reserve · temporal drift · SHADOW not activated
 
-**NOT ACTIVATED**
+## 18. BODY COMPLET final appliqué
 
-## 28. Réserves
+```markdown
+## Summary
 
-- SHADOW PILOT POLICY SOURCE = NOT SELECTED
-- TEMPORAL MODE DRIFT OFF→SHADOW = OPEN
+- add T7 SHADOW execution-run thin adapter
+- reuse existing T7/T4/T6 composition
+- bind Morris-selected pilot identity to `sfia-studio-ops1`
+- preserve OA / OPS1 import isolation with an OA-local pilot constant
+- force `signal_only` and defense-in-depth never-block
+- keep MONITOR/E1 inert
+- no SHADOW activation in this PR
+
+## Scope
+
+Final PR diff against `main`: 5 CREATE files.
+
+1. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts`
+2. `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts`
+3. `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts`
+4. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
+5. `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
+
+Branch history:
+- `d99bbbdea2446af8b79488b7459924e6cf5a3e16` — initial wiring
+- `bab14ca480b60744f6a428d93070c876de171ee1` — corrective OA / OPS1 isolation
+- `3873b0527a0615c0500c190dca80e136452f6351` — documentation-only trailing whitespace remediation
+
+## Architecture
+
+Option A (pre-provider execution-run) + thin adapter — Morris-selected.
+
+- existing `composeExecutionRunD2D3` injection surface reused
+- core coordinator unchanged
+- caller-owned FinOps pool
+- pilot = `sfia-studio-ops1`
+- pilot constant declared locally in OA to preserve OA / OPS1 isolation
+- pilot constant is scoped to the T7 SHADOW pilot and is not a global project identity authority
+- no shared identity abstraction introduced
+
+## Validation
+
+### Initial delivery / QA
+
+- Cycle 8 Delivery Critical
+- Cycle 9 Dedicated SHADOW Wiring QA Critical
+
+Initial evidence included:
+- 18/18 new delivery tests
+- 57/57 regression
+- 7/7 adversarial probes
+- 0 required skipped
+- typecheck 0
+- targeted eslint 0
+
+### Corrective delivery / QA
+
+PR #321 initial CI exposed an architectural boundary violation:
+`lib/oa` imported `@/lib/ops1`.
+
+Corrective commit:
+`bab14ca480b60744f6a428d93070c876de171ee1`
+
+The corrective implementation:
+- removes the OA → OPS1 static import
+- preserves pilot value `sfia-studio-ops1`
+- creates no shared identity abstraction
+- leaves OPS1 unchanged
+
+Dedicated Corrective QA Cycle 9 Critical:
+- OA / OPS1 boundary tests: 8/8 PASS
+- T7 unit: 4/4 PASS
+- T7 PostgreSQL integration: 14/14 PASS
+- adversarial probes A–G: 7/7 PASS
+- hostile `effect=enforce` neutralized to `signal_only`
+- SHADOW never-block proven end-to-end
+- fail-open / provider continuity proven
+- non-pilot isolation proven
+- MONITOR / E1 remain inert
+- temporal mode semantics revalidated
+- typecheck: PASS
+- lint: PASS
+- build: PASS
+- local reproduction of the prior CI boundary failures: PASS
+
+Full regression note:
+- initial parallel full-suite run observed 2 timeouts in unrelated `createProjectUi` UI tests
+- dedicated rerun: 12/12 PASS
+- no regression attributed to corrective commit `bab14ca`
+
+Do NOT claim the previous byte-identical QA evidence applies unchanged to the corrected files.
+The corrective bytes were independently revalidated by the Dedicated Corrective QA.
+
+### Documentation-only whitespace remediation
+
+Commit:
+`3873b0527a0615c0500c190dca80e136452f6351`
+
+- `157.md` only
+- 10 trailing whitespace occurrences removed
+- line count unchanged: 97 → 97
+- `git diff --ignore-space-at-eol bab14ca..3873b05 -- 157.md` = empty
+- four code/test files remain byte-identical to the Corrective QA subject
+- local `git diff --check origin/main...3873b05` = PASS
+- no functional QA rerun required because no code/test bytes changed
+- GitHub CI on `3873b05` remains the required remote validation
+
+## Safety
+
+- SHADOW never BLOCK
+- `signal_only` forced
+- hostile enforce input neutralized
+- fail-open
+- provider continuity preserved
+- non-pilot inert
+- MONITOR/E1 inert
+- no production threshold
+- no real SHADOW row
+- no Neon
+- no real provider activation
+- OA / OPS1 static isolation restored
+
+## Reserves
+
+- **SHADOW PILOT POLICY SOURCE NOT SELECTED** — required before meaningful pilot activation
+- **TEMPORAL MODE DRIFT OFF→SHADOW** — OPEN descriptive reserve; observation integrity only, not BLOCK/enforce
+- **R-T4-T3-SYNC-01** — OPEN — before MONITOR
+- **R-PR-T2-API-01** — OPEN MINOR
+- calibration réelle — required before MONITOR
+- T6-ext — NOT AUTHORIZED
+- Product IAM — NOT_SELECTED
+- T5 — OUT OF SCOPE SHADOW
+- **157.md trailing whitespace** — remediated by `3873b05`; pending GitHub CI confirmation until the new workflow completes
+- corrective full-suite UI timeout observation classified as unrelated flake after dedicated 12/12 rerun
+
+OA → OPS1 boundary:
+- CLOSED BY corrective commit + QA
+- NOT CLOSED ON MAIN until merge
+
+## Anti-claims
+
+- SHADOW NOT ACTIVATED
+- NOT READY FOR SHADOW ACTIVATION
+- NO POLICY SELECTED
+- NO THRESHOLD ADOPTED
+- MONITOR NOT ACTIVATED
+- E1 NOT AUTHORIZED
+- CORRECTIVE QA PASS ≠ GitHub CI PASS
+- LOCAL DIFF-CHECK PASS ≠ GITHUB CI PASS
+- PR OPEN ≠ MERGE AUTHORIZATION
+
+## Next gates
+
+1. GitHub CI for head `3873b0527a0615c0500c190dca80e136452f6351`
+2. ChatGPT PR validation against the new remote CI
+3. distinct Morris GO MERGE if CI and PR review are conformant
+4. policy-source decision before meaningful SHADOW activation
+5. temporal semantics decision before activation
+6. future SHADOW activation cycle — distinct Morris GO
+```
+
+## 19. Body reread validation
+
+After `gh pr edit 321 --body-file …`:
+- headOid still `3873b05`
+- body contains remediation `3873b05` / documentation-only trailing whitespace remediation
+- `Known PR-readiness exception` absent
+- hard-break accepted-exception language absent
+- Next gates target CI for `3873b05`
+- state OPEN · mergedAt null
+- Note: body reserve line still says “pending GitHub CI confirmation” (written before CI completed); pack classifies whitespace reserve from remote CI SUCCESS as CLOSED ON PR HEAD — NOT CLOSED ON MAIN
+
+## 20. New CI run ID
+
+`31273140031`
+
+## 21. CI head SHA
+
+`3873b0527a0615c0500c190dca80e136452f6351`
+
+(Not reusing fail run `31271964253` @ bab14ca)
+
+## 22. CI status
+
+**CI SUCCESS** — workflow `SFIA Studio CI` completed success
+URL: https://github.com/mcleland147/sfia-workspace/actions/runs/31273140031
+
+## 23. Relevant jobs / checks
+
+| Job / check | Result |
+|-------------|--------|
+| Detect SFIA Studio changes | pass |
+| Build and validate SFIA Studio | pass (~1m54s) |
+| SFIA Studio Required Gate | pass |
+| Trailing whitespace check (step) | **success** |
+
+## 24. Trailing whitespace check result
+
+**success** (completed)
+
+## 25. Reserves
+
+- SHADOW PILOT POLICY SOURCE = NOT SELECTED — REQUIRED BEFORE MEANINGFUL PILOT ACTIVATION
+- TEMPORAL MODE DRIFT OFF→SHADOW = OPEN descriptive reserve
 - R-T4-T3-SYNC-01 = OPEN — BEFORE MONITOR
 - R-PR-T2-API-01 = OPEN MINOR
 - Calibration réelle = REQUIRED BEFORE MONITOR
@@ -271,22 +341,57 @@ Run `31271964253` still FAILURE @ bab14ca. No workflow dispatch / rerun.
 - Product IAM = NOT_SELECTED
 - T5 = OUT OF SCOPE SHADOW
 - OA→OPS1 boundary = CLOSED BY corrective commit + QA · NOT CLOSED ON MAIN
-- Markdown hard-break exception = **SUPERSEDED LOCALLY BY WHITESPACE REMEDIATION** · NOT YET REMOTE · NOT YET CI-VALIDATED
+- **Whitespace** = CLOSED ON PR HEAD — NOT CLOSED ON MAIN (CI SUCCESS on `3873b05`)
 
-## 29. Anti-claims
+## 26. Anti-claims
 
-Ne pas conclure: CI GREEN · GITHUB CI PASS · PR #321 UPDATED · PR MERGE READY · MERGE AUTHORIZED · WHITESPACE FIX ON REMOTE · WHITESPACE BLOCKER CLOSED ON PR · SHADOW ACTIVATED · LIVE SHADOW · PRODUCTION READY · POLICY SELECTED · THRESHOLD ADOPTED · MONITOR READY · E1 READY.
+- SHADOW NOT ACTIVATED
+- NOT READY FOR SHADOW ACTIVATION
+- NO POLICY SELECTED
+- NO THRESHOLD ADOPTED
+- MONITOR NOT ACTIVATED
+- E1 NOT AUTHORIZED
+- PR OPEN ≠ MERGE AUTHORIZATION
+- LOCAL DIFF-CHECK PASS ≠ GITHUB CI PASS (now superseded by remote CI SUCCESS for this head, but merge still not authorized)
+- CI SUCCESS ≠ MERGE AUTHORIZATION
+- CI SUCCESS ≠ SHADOW ACTIVATION
 
-Conclusion = **nouveau commit LOCAL uniquement**.
+## 27. Git final
 
-## 30. Prochaine décision Morris
+| Ref | Valeur |
+|-----|--------|
+| local HEAD | `3873b0527a0615c0500c190dca80e136452f6351` |
+| origin/main | `503369b10506515e173b5b58986c731ba1b313b8` |
+| remote delivery | `3873b0527a0615c0500c190dca80e136452f6351` |
+| local vs remote delivery | `0 0` |
+| remote delivery vs main | `0 3` |
+| tracked/staged | clean |
+| untracked | `.tmp-sfia-review/**` |
 
-**GO PUSH WHITESPACE REMEDIATION TO PR #321 + UPDATE PR BODY**
+## 28. Project modification
 
-Futur gate (distinct): fast-forward push · verify PR head · update body (retirer exception hard-break) · attendre nouvelle CI GitHub · **pas** de merge automatique.
+**NO** (no working-tree project edits in this gate)
 
-GO MERGE reste distinct après CI verte + validation ChatGPT.
+## 29. New project commit
 
-## 31. Verdict
+**NO** (reused existing `3873b05` only)
 
-**T7 SHADOW 157 WHITESPACE REMEDIATION COMPLETE WITH RESERVES — CYCLE 8 STANDARD — RUN / DOC — 157.MD ONLY MODIFIED — 10 TRAILING WHITESPACE OCCURRENCES REMEDIATED — CONTENT DIFF IS EOL-WHITESPACE ONLY — CODE/TEST BYTES UNCHANGED — CORRECTIVE QA-VALIDATED CODE PRESERVED — LOCAL PR-RANGE DIFF CHECK PASS — NEW LOCAL DOCUMENTATION COMMIT CREATED — PROJECT BRANCH REMOTE STILL bab14ca480b60744f6a428d93070c876de171ee1 — PR #321 NOT UPDATED — GITHUB CI NOT RERUN — MERGE NOT PERFORMED — SHADOW NOT ACTIVATED — READY FOR DISTINCT MORRIS GO PUSH WHITESPACE REMEDIATION / UPDATE PR BODY — HANDOFF REMOTE VERIFIED** (tip/blob filled after publish)
+## 30. Merge
+
+**NO**
+
+## 31. SHADOW activation
+
+**NO — NOT ACTIVATED**
+
+## 32. Next Morris gate
+
+After ChatGPT independent validation of handoff + PR #321 + CI:
+
+possible distinct human decision: **GO MERGE PR #321**
+
+Policy source and temporal mode semantics remain separate before any SHADOW activation.
+
+## 33. Verdict
+
+**T7 SHADOW WHITESPACE REMEDIATION PUBLISHED WITH RESERVES — CYCLE 13 STANDARD — COMMIT 3873b0527a0615c0500c190dca80e136452f6351 PUSHED FAST-FORWARD — PR #321 HEAD / BODY / SCOPE VERIFIED — TRAILING WHITESPACE CHECK PASS — REMOTE CI SUCCESS ON 3873b05 — OA → OPS1 CORRECTION RETAINS QA EVIDENCE — SHADOW PILOT POLICY SOURCE NOT SELECTED — TEMPORAL MODE DRIFT OPEN — WHITESPACE BLOCKER CLOSED ON PR HEAD — NOT CLOSED ON MAIN UNTIL MERGE — SHADOW NOT ACTIVATED — MERGE NOT PERFORMED — READY FOR CHATGPT PR VALIDATION — MORRIS GO MERGE STILL REQUIRED — HANDOFF REMOTE VERIFIED**
