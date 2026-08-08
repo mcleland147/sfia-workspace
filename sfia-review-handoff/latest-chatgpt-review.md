@@ -1,173 +1,58 @@
-# ChatGPT Review Pack — FinOps Technical Lot T4 Enforcement Projection Refresh — Cycle 8 Delivery (Full)
+# Review Pack — FinOps T4 Projection Refresh — Cycle 13 PR readiness (Case B)
 
-## Meta
+**Mono-cycle:** T4 Projection Refresh Case B — Cycle 13 PR readiness only
+**Profil:** Standard · Cycle 13 PR readiness
+**Template SHA:** `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`
 
-- date_cest: 2026-08-08 09:04:16 UTC+02:00 (+0200)
-- date_utc: 2026-08-08 07:04:16 UTC
-- cycle: 8 — Delivery / implémentation — T4 Enforcement Projection Refresh
-- profil: Critical
-- typologie: EVOL / CODE / TEST / DOC
-- niveau: Full
-- GO Morris exact: `ok go`
-- GO autorise: Delivery T4 projection refresh (canonical post-T2 refresh orchestration + tests + doc 155 + Full pack + handoff L3)
-- GO N'autorise PAS: T2 core · evaluateAfterT2 · rebuildEnforcementProjection · evaluateFinOpsEnforcement · execution-run · migrations · ports · T3/T6/T7/T5 · 150/154 · scheduler · pre-provider rebuild · SHADOW/MONITOR/E1 · thresholds 15/20/25/30 · project commit/push/PR/merge
+## 0. Horodatage
 
-## 1. Git Truth
+- CEST: 2026-08-08 09:34:06 CEST (+0200)
+- UTC: 2026-08-08 07:34:06 UTC
+
+## 1. GO
+
+- User utterance / exact: `GO commit + push + PR T4 projection refresh.`
+- AUTHORIZED: PR readiness, exact 4-file staging, one project commit, push Delivery, non-draft PR to main, CI qualification, Full pack, handoff L3
+- NOT AUTHORIZED: merge, post-merge, branch delete, extra code, closing R-T4-PROJECTION-REFRESH-01, T7 foundation Delivery, SHADOW/MONITOR/E1, T3 sync, T6-ext, T5, IAM, calibration, amend/rebase/force after push
+- Prior T7 foundation GO: RECEIVED — EXECUTION BLOCKED BY UNINTEGRATED T4 DELIVERY — NOT CONSUMED → **T7 FOUNDATION = PENDING / NOT EXECUTED**
+
+## 2. Git Truth (initial)
 
 | Field | Value |
 |-------|-------|
-| Repo | mcleland147/sfia-workspace |
-| Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-projection-refresh` |
 | Branch | `delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-projection-refresh` |
-| HEAD | `7f5f0c2d8b26dc094e6bae90d268697d2cb93e42` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-projection-refresh` |
+| HEAD initial | `7f5f0c2d8b26dc094e6bae90d268697d2cb93e42` |
 | origin/main | `7f5f0c2d8b26dc094e6bae90d268697d2cb93e42` |
-| Template SHA | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| Handoff tip (before) | `043d5f8930979f15d7f1139754d2ae975d2948d8` |
-| Handoff blob (before) | `1118de76a6bb23c56c1d6923592778d3376567c1` |
-| Handoff commit (before) | `docs(review-handoff): publish T6 post-merge` |
-| Historical T7 decisions | commit `e6e026c9629535e5a9d8852f4613acf473b417e0` / blob `79e29f7df68d4c522610c5b63377b3bf37b4e3f0` |
-| Project push | **none** |
+| Handoff tip (before) | `06d6c1bc7b218d16bb620a4a4c0fb9fccbe6035f` |
+| Handoff blob (before) | `cdf97b28070854000dca06fa6e2cbd0d1f053295` |
+| Handoff commit (before) | `docs(review-handoff): publish T4 projection refresh` |
+| Remote Delivery before push | ABSENT |
+| Existing PR before cycle | NONE |
 
-## 2. Decision consumed
+Initial status: `?? .tmp-sfia-review/` + four untracked project paths (exact manifest).
 
-```text
-D-T7-PROJECTION-REFRESH-GATE-01 =
-A SELECTED —
-REFRESH FROM AUTHORITATIVE T2 MUTATION / RECONCILIATION FRONTIERS —
-BEFORE SHADOW.
-```
+## 3. Contract re-read (Case B)
 
-## 3. Discovery — T2 frontiers + runtime consumers
+- Q1 real runtime T2 consumer? **NO** → **Case B**
+- Wrappers: `recomputeAggregatesThenRefreshEnforcementProjection` + `reconcileProjectPeriodThenRefreshEnforcementProjection`
+- Reuses `rebuildEnforcementProjection` (no duplicated SoT/Money/lock/replace)
+- T2 fail → `t4RefreshAttempted=false`; T2 success → rebuild once; T4 fail/throw → T2 success preserved + sanitized `FINOPS_T4_REFRESH_THROWN`
+- Unit UR-01..UR-08; PG PRF-01..PRF-08; doc 155 A–U; reserve OPEN Case B wording
+- Forbidden T2/T3/execution-run/migration/ports/package/.github diffs: **empty**
 
-Authoritative frontiers: `recomputeAggregates`, `reconcileProjectPeriod`, `insertCostEvent` (port; used by reconcile + tests).
-
-| Call-site class | Finding |
-|-----------------|--------|
-| definitions | recomputeAggregates / reconcileProjectPeriod / rebuildEnforcementProjection |
-| reusable wrappers | evaluateAfterT2 (T3 only; unmodified) |
-| server composition | composeFinOpsRuntime = T1 capture + T6 audit only — **no T2 consumer** |
-| product runtime outside finops | **none** |
-| tests | unit/integration/fixture only |
-
-**Q1 real runtime T2 consumer?** NO → **Case B**
-**Q2 frontiers covered?** Yes via two post-T2 wrappers (reconcile refreshes once)
-**Q3 ordering?** After T2 success; T4 own short lock; PRF-07: t2_exit before t4_enter
-
-## 4. Reserve semantic determination (Case B)
-
-```text
-R-T4-PROJECTION-REFRESH-01 =
-OPEN —
-CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED —
-RUNTIME CONSUMER / T7 FOUNDATION WIRING STILL REQUIRED BEFORE SHADOW.
-```
-
-Verdict:
-
-```text
-DELIVERY COMPLETE WITH RESERVE OPEN.
-```
-
-Anti-claim:
-
-```text
-T4 PROJECTION REFRESH ORCHESTRATION DELIVERED AND TESTED —
-NO AUTOMATIC RUNTIME FRESHNESS CLAIM —
-SHADOW NOT ACTIVATED.
-```
-
-## 5. Exact project manifest (4 CREATE / 0 MODIFY)
+## 4. Exact 4-path manifest
 
 1. `projects/sfia-studio/app/lib/oa/finops/application/refreshEnforcementAfterT2.ts`
 2. `projects/sfia-studio/app/__tests__/oa/finops/t4.projection-refresh.unit.test.ts`
 3. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts`
 4. `projects/sfia-studio/155-assistant-sfia-native-openai-finops-technical-lot-t4-projection-refresh-execution.md`
 
-## 6. Wrapper contract
+CREATE = 4 / MODIFY = 0 / DELETE = 0
 
-Deps: aggregates, reconciliation, projection, nowIso.
-APIs: `recomputeAggregatesThenRefreshEnforcementProjection` + `reconcileProjectPeriodThenRefreshEnforcementProjection`.
-Result: `{ t2, t4Refresh, t4RefreshAttempted }`.
-Reuses `rebuildEnforcementProjection`. T2 fail → no refresh. T4 fail/throw → T2 success preserved + sanitized.
+## 5. COMPLETE CREATE — refreshEnforcementAfterT2.ts
 
-## 7. Tests / QA
-
-| Check | Result |
-|-------|--------|
-| UR-01..UR-08 | PASS (8/8) |
-| PRF-01..PRF-08 | PASS (8/8) |
-| T2/T3/T4 regressions | PASS |
-| t4.enforcement-boundary | PASS (15) |
-| FinOps postgres test:db | 8 files / 57 passed |
-| typecheck / lint / build | PASS |
-| migrate:up (local :55435) | PASS |
-| Full serial vitest | **154 files / 1550 passed** |
-| git diff --check | PASS |
-| Forbidden path diffs | empty (T2/T3/T4 foundation / execution-run / migrations / ports / 150 / 154) |
-
-Local Postgres: Docker `postgres:16-alpine` `sfia-finops-t4-projection-refresh-pg` `127.0.0.1:55435` — NOT Neon.
-
-## 8. Carried reserves
-
-| Reserve | Status |
-|---------|--------|
-| R-T6-RUNTIME-COMPOSITION-01 | **CLOSED ON MAIN** |
-| R-T4-PROJECTION-REFRESH-01 | **OPEN** — Case B wording |
-| R-T4-T3-SYNC-01 | OPEN — SELECTED GATE BEFORE MONITOR |
-| R-PR-T2-API-01 | OPEN MINOR |
-| T6-ext-T3T4 | NOT AUTHORIZED — REQUIRED BEFORE E1 |
-| Calibration | REQUIRED — BEFORE MONITOR USING REAL AMOUNTS |
-| Product IAM | NOT_SELECTED — REQUIRED BEFORE E1 |
-| SHADOW | NOT ACTIVATED |
-
-## 9. Final project status (expected)
-
-```text
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/lib/oa/finops/application/refreshEnforcementAfterT2.ts
-?? projects/sfia-studio/app/__tests__/oa/finops/t4.projection-refresh.unit.test.ts
-?? projects/sfia-studio/app/__tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts
-?? projects/sfia-studio/155-assistant-sfia-native-openai-finops-technical-lot-t4-projection-refresh-execution.md
-staged: empty · commit/push/PR: none · HEAD still 7f5f0c2d…
-```
-
-## 10. Verdict (Case B)
-
-```text
-FINOPS TECHNICAL LOT T4 —
-ENFORCEMENT PROJECTION REFRESH DELIVERY COMPLETE WITH RESERVE OPEN —
-
-CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED —
-REUSES rebuildEnforcementProjection —
-T2 SUCCESS PRESERVED ON T4 FAILURE —
-NO NESTED T2/T4 LOCK —
-NO SCHEDULER —
-NO PRE-PROVIDER REBUILD —
-NO NEW MIGRATION —
-NO NEW PORT —
-
-R-T4-PROJECTION-REFRESH-01 OPEN —
-CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED —
-RUNTIME CONSUMER / T7 FOUNDATION WIRING STILL REQUIRED BEFORE SHADOW —
-
-R-T6-RUNTIME-COMPOSITION-01 CLOSED ON MAIN —
-SHADOW NOT ACTIVATED —
-
-NO PROJECT STAGING —
-NO PROJECT COMMIT —
-NO PROJECT PUSH —
-NO PR —
-
-READY FOR CHATGPT T4 PROJECTION REFRESH VALIDATION
-```
-
----
-
-# COMPLETE CREATE 1 — refreshEnforcementAfterT2.ts
-
-Path: `projects/sfia-studio/app/lib/oa/finops/application/refreshEnforcementAfterT2.ts`
-
-````typescript
+```typescript
 /**
  * FinOps T4 — post-T2 enforcement projection refresh orchestration.
  *
@@ -291,13 +176,11 @@ export async function reconcileProjectPeriodThenRefreshEnforcementProjection(
   });
   return { t2, t4Refresh, t4RefreshAttempted: true };
 }
-````
+```
 
-# COMPLETE CREATE 2 — t4.projection-refresh.unit.test.ts
+## 6. COMPLETE CREATE — t4.projection-refresh.unit.test.ts
 
-Path: `projects/sfia-studio/app/__tests__/oa/finops/t4.projection-refresh.unit.test.ts`
-
-````typescript
+```typescript
 /**
  * @vitest-environment node
  *
@@ -773,13 +656,11 @@ describe("FinOps T4 projection refresh unit", () => {
     );
   });
 });
-````
+```
 
-# COMPLETE CREATE 3 — t4.projection-refresh.integration.test.ts
+## 7. COMPLETE CREATE — t4.projection-refresh.integration.test.ts
 
-Path: `projects/sfia-studio/app/__tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts`
-
-````typescript
+```typescript
 /**
  * @vitest-environment node
  *
@@ -1332,13 +1213,10 @@ describeDb("FinOps T4 PostgreSQL projection refresh integration", () => {
     expect(stored.every((p) => p.currency !== "GBP")).toBe(true);
   });
 });
-````
+```
 
-# COMPLETE CREATE 4 — document 155
+## 8. COMPLETE CREATE — document 155
 
-Path: `projects/sfia-studio/155-assistant-sfia-native-openai-finops-technical-lot-t4-projection-refresh-execution.md`
-
-````markdown
 # 155 — FinOps Technical Lot T4 — Enforcement Projection Refresh — Execution Record
 
 **Project:** SFIA Studio — Assistant SFIA natif OpenAI
@@ -1723,4 +1601,290 @@ CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED —
 RUNTIME CONSUMER / T7 FOUNDATION WIRING STILL REQUIRED BEFORE SHADOW —
 SHADOW NOT ACTIVATED.
 ```
-````
+
+
+## 9. Pre-commit / PR-cycle validation (this cycle)
+
+| Check | Result |
+|-------|--------|
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| `npx vitest run __tests__/oa/finops` | **162 passed** / **57 skipped** (PG skipped without DB env) |
+| `migrate:up` local PG `:55435` | PASS (No migrations to run) |
+| `npm run test:db` | **57 passed** (incl. PRF-01..PRF-08) |
+| `git diff --check` | PASS |
+
+### Delivery historical evidence (distinct — not re-claimed as this-cycle serial full-suite re-run)
+
+- UR-01..UR-08 unit green in Delivery
+- PRF-01..PRF-08 PG green in Delivery
+- `test:db` **57/57** in Delivery
+- full serial suite **154 files / 1550 tests** in Delivery
+
+## 10. Staging / commit / push
+
+- Staged name-status: exact 4× `A`
+- Commit message: `feat(sfia-studio): refresh FinOps enforcement projection after T2`
+- DELIVERY_COMMIT_SHA: `95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b`
+- Commit file count: 4
+- Commit paths: exact manifest
+- ahead/behind vs origin/main: ahead 1 / behind 0
+- Push: `git push -u origin delivery/...` (no force) — OK
+- Remote branch SHA: `95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b` == local
+
+## 11. Pull Request
+
+| Field | Value |
+|-------|-------|
+| PR_NUMBER | 319 |
+| PR_URL | https://github.com/mcleland147/sfia-workspace/pull/319 |
+| state | OPEN |
+| draft | false |
+| base | main |
+| head | delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-projection-refresh |
+| head SHA | `95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b` |
+| merged | false |
+| changed files count | 4 |
+| changed paths | exact manifest |
+
+### PR body (complete)
+
+## Summary
+
+- Canonical **post-T2 FinOps enforcement projection refresh** orchestration (T4 Case B).
+- Wrappers call T2 recompute/reconcile first; on success, refresh via existing `rebuildEnforcementProjection` exactly once.
+- T2 failure → no refresh. T4 failure/throw → T2 success preserved; sanitized T4 failure; no throw to caller.
+- Unit UR-01..UR-08 + PostgreSQL PRF-01..PRF-08 + execution record **155**.
+
+## Delivery Case B
+
+**Q1 real runtime T2 consumer?** NO → **Case B** (canonical wrappers only; no product-runtime wiring).
+
+`R-T4-PROJECTION-REFRESH-01` remains:
+
+OPEN —
+CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED —
+RUNTIME CONSUMER / T7 FOUNDATION WIRING STILL REQUIRED BEFORE SHADOW.
+
+DELIVERY COMPLETE WITH RESERVE OPEN.
+
+Merge of this PR alone does **not** close `R-T4-PROJECTION-REFRESH-01`.
+
+## Scope
+
+Exactly **4** paths / **1** project commit:
+
+1. `projects/sfia-studio/app/lib/oa/finops/application/refreshEnforcementAfterT2.ts`
+2. `projects/sfia-studio/app/__tests__/oa/finops/t4.projection-refresh.unit.test.ts`
+3. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts`
+4. `projects/sfia-studio/155-assistant-sfia-native-openai-finops-technical-lot-t4-projection-refresh-execution.md`
+
+- Base `main`: `7f5f0c2d8b26dc094e6bae90d268697d2cb93e42`
+- Head / Delivery commit: `95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b`
+- Branch: `delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-projection-refresh`
+
+## Validation
+
+### This PR readiness cycle (re-executed)
+
+- typecheck: PASS
+- lint: PASS
+- build: PASS
+- `npx vitest run __tests__/oa/finops`: **162 passed** / **57 skipped** (PG skipped without DB env in unit lane)
+- `migrate:up` (local disposable Postgres `:55435`): PASS (no pending migrations)
+- `npm run test:db`: **57 passed** (includes PRF-01..PRF-08)
+- `git diff --check`: PASS
+
+### Delivery-cycle historical evidence (not re-claimed as this-cycle full serial re-run)
+
+- UR-01..UR-08 unit green in Delivery
+- PRF-01..PRF-08 PG green in Delivery
+- `test:db` **57/57** in Delivery
+- full serial suite **154 files / 1550 tests** in Delivery
+
+### PR-time CI expected after PR creation
+
+- SFIA Studio CI on `pull_request` → `main`
+- Do not claim CI green until GitHub reports a successful terminal result.
+
+## Reserve (remains OPEN after PR)
+
+`R-T4-PROJECTION-REFRESH-01` =
+
+OPEN —
+CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED —
+RUNTIME CONSUMER / T7 FOUNDATION WIRING STILL REQUIRED BEFORE SHADOW.
+
+### Carried reserves
+
+| Reserve | Status |
+| --- | --- |
+| `R-T4-PROJECTION-REFRESH-01` | **OPEN** — Case B wording |
+| `R-T4-T3-SYNC-01` | OPEN — SELECTED GATE BEFORE MONITOR |
+| `R-PR-T2-API-01` | OPEN MINOR |
+
+## Existing closed (main)
+
+- `R-T6-RUNTIME-COMPOSITION-01` — CLOSED ON MAIN (T6 runtime composition merged)
+
+## Non-scope
+
+- no merge / post-merge / branch delete
+- no closing `R-T4-PROJECTION-REFRESH-01`
+- no T7 foundation Delivery
+- no SHADOW / MONITOR / E1
+- no T3 sync / T6-ext / T5 / Product IAM / calibration
+- no T2 core / `evaluateAfterT2` / `rebuildEnforcementProjection` / `evaluateFinOpsEnforcement` edits
+- no execution-run / migrations / ports / package / `.github` changes
+- no Neon / provider-real
+
+## Governance
+
+- Merge requires a **distinct Morris GO** (not authorized in this cycle).
+- **T7 FOUNDATION GO** = RECEIVED earlier but **EXECUTION BLOCKED BY UNINTEGRATED T4 DELIVERY — NOT CONSUMED** this cycle → **T7 FOUNDATION = PENDING / NOT EXECUTED**.
+- Post-merge / remote branch delete not authorized here.
+- Reserve stays OPEN until runtime consumer / T7 foundation wiring before SHADOW.
+
+
+## 12. CI (honest qualification)
+
+```text
+Build and validate SFIA Studio	pass	1m58s	https://github.com/mcleland147/sfia-workspace/actions/runs/31246358217/job/93075527156
+Detect SFIA Studio changes	pass	8s	https://github.com/mcleland147/sfia-workspace/actions/runs/31246358217/job/93075508319
+SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/31246358217/job/93075718631
+run: https://github.com/mcleland147/sfia-workspace/actions/runs/31246358217
+```
+
+**CI current state: CI GREEN**
+
+## 13. Reserves
+
+| Reserve / topic | Status |
+|-----------------|--------|
+| `R-T4-PROJECTION-REFRESH-01` | **OPEN** — Case B: CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED — RUNTIME CONSUMER / T7 FOUNDATION WIRING STILL REQUIRED BEFORE SHADOW. Merge alone does NOT close. |
+| `R-T4-T3-SYNC-01` | OPEN — SELECTED GATE BEFORE MONITOR |
+| `R-PR-T2-API-01` | OPEN MINOR |
+| `R-T6-RUNTIME-COMPOSITION-01` | CLOSED ON MAIN |
+| T7 FOUNDATION | **PENDING / NOT EXECUTED** (GO received earlier; blocked by unintegrated T4; not consumed this cycle) |
+| SHADOW | NOT ACTIVATED |
+| MONITOR | NOT ACTIVATED |
+| E1 | NOT AUTHORIZED |
+| T3 sync / T6-ext / T5 / IAM / calibration | NOT this cycle |
+
+## 14. Anti-claims
+
+- No merge / post-merge / branch delete
+- No closing `R-T4-PROJECTION-REFRESH-01`
+- No T7 foundation Delivery executed
+- No SHADOW / MONITOR / E1
+- No T2 core / evaluateAfterT2 / rebuildEnforcementProjection / evaluateFinOpsEnforcement edits
+- No execution-run / migrations / ports / package / .github changes
+- No automatic runtime freshness claim
+- No Neon / provider-real
+
+## 15. Final git status (pre-handoff expected)
+
+- Branch: Delivery
+- HEAD: `95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b`
+- upstream set
+- status: `?? .tmp-sfia-review/` only (project clean)
+- PR OPEN non-draft NOT MERGED
+- merge = NO
+- T7 = PENDING / NOT EXECUTED
+
+## 16. 60-field Cursor report
+
+1. horodatage CEST: 2026-08-08 09:34:06 CEST (+0200)
+2. horodatage UTC: 2026-08-08 07:34:06 UTC
+3. cycle / profil: Cycle 13 PR readiness / Standard
+4. user utterance: GO commit + push + PR T4 projection refresh.
+5. contextual GO: T4 projection refresh PR readiness Case B
+6. template SHA: b9ce0a9fe57bb0f675afb8505ee0584180f830d7
+7. branch: delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-projection-refresh
+8. worktree: finops-t4-projection-refresh
+9. initial HEAD: 7f5f0c2d8b26dc094e6bae90d268697d2cb93e42
+10. origin/main: 7f5f0c2d8b26dc094e6bae90d268697d2cb93e42
+11. handoff before tip: 06d6c1bc7b218d16bb620a4a4c0fb9fccbe6035f
+12. handoff before blob: cdf97b28070854000dca06fa6e2cbd0d1f053295
+13. initial status: ?? .tmp + exact 4 untracked project paths
+14. remote Delivery before: ABSENT
+15. existing PR before: NONE
+16. Case: B
+17. exact project manifest: 4 CREATE paths
+18. forbidden path diffs: empty
+19. typecheck: PASS
+20. lint: PASS
+21. build: PASS
+22. FinOps vitest this-cycle: 162 passed / 57 skipped
+23. migrate:up this-cycle: PASS (no pending)
+24. test:db this-cycle: 57 passed
+25. diff --check: PASS
+26. historical UR/PRF: green in Delivery
+27. historical serial: 154/1550 in Delivery
+28. staged: exact 4 A
+29. commit SHA: 95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b
+30. commit message: feat(sfia-studio): refresh FinOps enforcement projection after T2
+31. commit file count: 4
+32. commit paths: exact manifest
+33. ahead/behind: 1/0
+34. push: OK no-force
+35. remote branch SHA: 95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b
+36. PR number: 319
+37. PR URL: https://github.com/mcleland147/sfia-workspace/pull/319
+38. PR state: OPEN
+39. draft: false
+40. base: main
+41. head: delivery/...t4-projection-refresh
+42. head SHA: 95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b
+43. merged: false
+44. changed files count: 4
+45. changed paths: exact manifest
+46. PR body: Full (Summary/Case B/Scope/Validation split/Reserve/R-T6 closed/Non-scope/Governance T7 pending)
+47. secret/protected scan: PASS (test FAKE_SECRET leak-check only)
+48. CI current state: GREEN
+49. CI run: 31246358217
+50. R-T4-PROJECTION-REFRESH-01: OPEN Case B wording
+51. R-T4-T3-SYNC-01: OPEN
+52. R-PR-T2-API-01: OPEN MINOR
+53. R-T6-RUNTIME-COMPOSITION-01: CLOSED ON MAIN
+54. T7 FOUNDATION: PENDING / NOT EXECUTED
+55. SHADOW/MONITOR/E1: NOT ACTIVATED / NOT AUTHORIZED
+56. merge: NO
+57. final git status: ?? .tmp-sfia-review/ only
+58. review pack: Full with COMPLETE CREATE ×4
+59. handoff after tip/blob: (filled after publish)
+60. handoff remote verification: (filled after publish)
+
+## 17. Verdict (CI GREEN variant)
+
+```
+T4 PROJECTION REFRESH —
+PR READINESS COMPLETE —
+
+DELIVERY COMMIT CREATED —
+DELIVERY BRANCH PUSHED —
+NON-DRAFT PR CREATED —
+
+EXACT 4-FILE SCOPE VERIFIED —
+VALIDATIONS GREEN —
+CI GREEN —
+
+CASE B —
+R-T4-PROJECTION-REFRESH-01 OPEN —
+CANONICAL POST-T2 T4 REFRESH ORCHESTRATION DELIVERED AND TESTED —
+RUNTIME CONSUMER / T7 FOUNDATION WIRING STILL REQUIRED BEFORE SHADOW —
+
+T7 FOUNDATION PENDING / NOT EXECUTED —
+
+NO SHADOW —
+NO MONITOR —
+NO E1 —
+
+MERGE NOT AUTHORIZED —
+
+REVIEW HANDOFF REMOTE VERIFIED —
+
+READY FOR CHATGPT T4 PR VALIDATION —
+READY FOR MORRIS MERGE GATE
+```
