@@ -1,38 +1,48 @@
 # ChatGPT Review Pack — FULL
-## FinOps Technical Lot T7 — Feature Flag / Rollout / Activation Readiness Preparation
+## FinOps Technical Lot T7 — Architecture Arbitration Decision Pack Preparation
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure CEST** | 2026-08-08 00:22:09 CEST (+0200) |
-| **Date/heure UTC** | 2026-08-07 22:22:09 UTC |
+| **Date/heure CEST** | 2026-08-08 05:20:40 CEST (+0200) |
+| **Date/heure UTC** | 2026-08-08 03:20:40 UTC |
 | **Niveau** | Full |
-| **Cycle** | 6 — Architecture technique / Implementation Preparation |
+| **Cycle** | 6 — Architecture technique / T7 Architecture Arbitration Decision Pack Preparation |
 | **Profil** | Critical |
-| **Typologie** | EVOL / DOC / ARCH |
-| **Mono-cycle** | T7 Feature Flag / Rollout / Activation Readiness Preparation uniquement |
+| **Typologie** | EVOL / DOC / ARCH / DECISION-PREP |
+| **Mono-cycle** | T7 Architecture Arbitration Decision Pack Preparation uniquement |
 | **Repo** | mcleland147/sfia-workspace |
-| **GO Morris exact** | `GO préparation T7 — feature flag / rollout / activation readiness.` |
+| **GO Morris exact** | `ok go` |
+| **GO context** | préparer package d'arbitrage Morris unique avec choix recommandés ChatGPT pour 8 D-T7 + conséquences trajectoire — valider/corriger AVANT Decisions Applied |
+| **Interprétation** | PREPARATION OF ARBITRATION PACK ONLY |
 | **Template** | prompts/templates/sfia-cycle-execution-template.md |
 | **Template SHA** | b9ce0a9fe57bb0f675afb8505ee0584180f830d7 |
 | **CKC** | pilots/03-architecture-technique.md candidate 0.1.0 (experimental only) |
 | **Branch** | implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t7-rollout-activation-readiness |
 | **Worktree** | /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-preparation |
 | **HEAD / origin/main** | 137d3846e4b00ffe686db7ab473f0fdcd58df82e |
-| **Handoff before tip** | 982451c1e70758b913a5078bc9f343e2218ee3d3 |
-| **Handoff before blob** | 4cad1489a8fa489538eeb483a5446f5495e7e062 |
-| **Incoming handoff** | T4 CLOSED WITH RESERVES BY MORRIS (publish T4 closure) |
+| **Handoff before tip** | a3daf71affc50eee3cc489ba5891347a7b7c29e1 |
+| **Handoff before blob** | 08e673f9f58c54d6370e5c8f8e3b65d694c8518e |
+| **Incoming handoff** | T7 preparation (docs(review-handoff): publish T7 preparation) |
+| **SHA256_151_BEFORE** | `9963bf7a98e3fd29e9d1c3f071bdca95e6c08fae1d25cb5a5b71f85e32acad8e` |
+| **SHA256_151_AFTER** | `9963bf7a98e3fd29e9d1c3f071bdca95e6c08fae1d25cb5a5b71f85e32acad8e` |
+| **151 byte-identical** | YES |
+| **SHA256_152** | `80367315f291b65a5802564cb289bcfd953cac7dab5c3db8a67f1d2be1eaafda` |
 
 ---
 
 ## Coverage checklist
 
-- document 151 COMPLETE content included below: **yes**
-- all D-T7 matrices: **yes**
-- discovery results 1–10: **yes** (inside 151 I–N)
-- readiness matrix: **yes**
-- gaps G-T7-01..12: **yes**
-- reserves carried exactly: **yes**
+- document 152 COMPLETE content included below: **yes**
+- recommended package (8 D-T7): **yes**
+- all statuses NOT SELECTED: **yes**
+- OFF/SHADOW/MONITOR/E1 proposed semantics: **yes**
+- readiness matrix with [U]/[R]: **yes**
+- sequencing + debt/simplicity Q&A: **yes**
+- deferred list: **yes**
+- Morris response format (not simulated): **yes**
+- reserves unchanged: **yes**
 - anti-claims: **yes**
+- document 151 preserved: **yes**
 - staged empty / no project commit/push/PR: **yes**
 - synthesis-only: **no**
 - placeholder: **no**
@@ -43,20 +53,132 @@
 ## Local Git Truth (pre-handoff)
 
 ```text
-date_cest=2026-08-08 00:21:41 CEST (+0200)
-date_utc=2026-08-07 22:21:41 UTC
+date_cest=2026-08-08 05:18:37 CEST (+0200)
+date_utc=2026-08-08 03:18:37 UTC
 pwd=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-preparation
 toplevel=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-preparation
 branch=implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t7-rollout-activation-readiness
 HEAD=137d3846e4b00ffe686db7ab473f0fdcd58df82e
 origin_main=137d3846e4b00ffe686db7ab473f0fdcd58df82e
-upstream=fatal: no upstream configured for branch 'implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t7-rollout-activation-readiness'
+handoff_tip=a3daf71affc50eee3cc489ba5891347a7b7c29e1
+handoff_tip2=a3daf71affc50eee3cc489ba5891347a7b7c29e1
+handoff_blob=08e673f9f58c54d6370e5c8f8e3b65d694c8518e
 === status ===
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md
 === cached ===
-=== staged empty? ===
-YES
+=== unstaged ===
+=== others ===
+.tmp-sfia-review/chatgpt-review.md
+.tmp-sfia-review/t7-arbitration-pack/git-truth-initial.txt
+.tmp-sfia-review/t7-arbitration-pack/git-truth-prewrite.txt
+.tmp-sfia-review/t7-arbitration-pack/handoff-before.txt
+projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md
+=== 152 exists? ===
+ABSENT
+fatal: path 'projects/sfia-studio/152-assistant-sfia-native-openai-finops-technical-lot-t7-architecture-arbitration-decision-pack.md' does not exist in 'origin/main'
+NOT_ON_MAIN
+SHA256_151_BEFORE=9963bf7a98e3fd29e9d1c3f071bdca95e6c08fae1d25cb5a5b71f85e32acad8e  projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md
+=== handoff worktrees ===
+/Users/morris/Projects/sfia-workspace                                                                                                                    0cdf57a [delivery/flex-office-demo-option-a]
+/Users/morris/Projects/sfia-codex-pilot                                                                                                                  ec7f397 [method/codex-operating-model-pilot]
+/Users/morris/Projects/sfia-task-tracker                                                                                                                 b763a31 [cadrage/task-tracker-light]
+/Users/morris/Projects/sfia-workspace-a5-2-framing                                                                                                       bd3608c [framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity]
+/Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts                                                                                          cae8415 [method/sfia-cycle-knowledge-contracts]
+/Users/morris/Projects/sfia-workspace-d1-conversational-convergence                                                                                      7dc6f9f [ux/sfia-studio-d1-conversational-convergence]
+/Users/morris/Projects/sfia-workspace-d1-platform-integration                                                                                            c2d39a7 [delivery/sfia-studio-d1-shared-platform-integration]
+/Users/morris/Projects/sfia-workspace-doc32-post-p3-m1                                                                                                   dd2a68c [docs/sfia-studio-doc32-post-p3-m1-correction]
+/Users/morris/Projects/sfia-workspace-docs-recover                                                                                                       1a2fa31 [docs/sfia-studio-recover-unmerged-project-docs]
+/Users/morris/Projects/sfia-workspace-fa6-mitigated-clean                                                                                                67f140a [docs/sfia-studio-fa6-mitigated-from-main]
+/Users/morris/Projects/sfia-workspace-framing-next-increment                                                                                             88fa465 [framing/sfia-studio-next-product-increment]
+/Users/morris/Projects/sfia-workspace-m1-bypass-probe                                                                                                    f0f0e0f [qa/sfia-studio-m1-bypass-probe]
+/Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert                                                                                             b502c00 [qa/sfia-studio-m1-bypass-probe-revert]
+/Users/morris/Projects/sfia-workspace-m1-capitalization                                                                                                  fa0eebe [docs/sfia-studio-m1-capitalization-rex]
+/Users/morris/Projects/sfia-workspace-option-a-after-t-a6                                                                                                aef7fd6 [framing/sfia-studio-v3-native-option-a-after-t-a6]
+/Users/morris/Projects/sfia-workspace-option-a-ci-governance                                                                                             2f95605 [delivery/sfia-studio-v3-native-option-a-ci-merge-governance]
+/Users/morris/Projects/sfia-workspace-option-a-ci-governance-docs                                                                                        a42a85c [docs/sfia-studio-option-a-ci-governance-post-merge]
+/Users/morris/Projects/sfia-workspace-option-a-path-aware-required-check                                                                                 9f03916 [delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation]
+/Users/morris/Projects/sfia-workspace-review-handoff-publisher                                                                                           14d58fe [tooling/review-handoff-canonical-publisher]
+/Users/morris/Projects/sfia-workspace-shared-platform-delivery                                                                                           08c282a [delivery/sfia-studio-shared-technical-platform]
+/Users/morris/Projects/sfia-workspace-t-a6-post-merge                                                                                                    1f25857 [post-merge/sfia-studio-v3-native-option-a-t-a6]
+/Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-arbitration                                                                                       6849b6f [framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration]
+/Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-readme-post-merge                                                                                 960c90b [docs/sfia-studio-t-a7-f03-f11-f13-readme-post-merge-status]
+/Users/morris/Projects/sfia-workspace-t-a7-framing                                                                                                       b7a5e82 [framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge                                                                                               08d6cd0 (detached HEAD)
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1                                                               4e4db74 (detached HEAD)
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-t0-103-section-33-requalification                                   4e4db74 (detached HEAD)
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-t0-103-section-33-requalification-clean                             489605c [delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t0-operational-backlog-103-section-33-requalification-clean]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge                                                              52c1d75 [backlog/sfia-studio-v3-1-d2-d-integration-foundation]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-execution-pack                                           8dc54db (detached HEAD)
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-execution-pack-clean                                     8dc54db (detached HEAD)
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack                                                     e1e00df (detached HEAD)
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack/.tmp-sfia-review/worktrees/finops-t6-post-t2-probe  e1e00df (detached HEAD)
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main                                                     137d384 [main]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation                                              2641263 [delivery/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-preparation                                              fdc60f4 [delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation                                               093fd91 [delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-audit]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation-post-t2-delivery                              3931a82 [delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-foundation-post-t2-integration]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-preparation                                              137d384 [implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t7-rollout-activation-readiness]
+/Users/morris/Projects/sfia-workspace-t-a7-next-decision                                                                                                 33ea3e8 [framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step]
+/Users/morris/Projects/sfia-workspace-t-a7-technical-readiness                                                                                           b6a1933 [framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness]
+/Users/morris/Projects/sfia-workspace-t-a7-wave-1-decisions                                                                                              f89ba5f [record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions]
+/Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope                                                                                           4fad47f [framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope]
+/Users/morris/Projects/sfia-workspace-template-handoff-fix                                                                                               134be30 (detached HEAD)
+/Users/morris/Projects/sfia-workspace-ux-reconciliation                                                                                                  7bdabdc [project/sfia-studio-ux-ui-reconciliation]
+/Users/morris/Projects/sfia-workspace-v3-doctrine-consolidation                                                                                          daf6f7d [method/sfia-studio-v3-doctrine-consolidation]
+/Users/morris/Projects/sfia-workspace-v3-native-audit                                                                                                    56ddf32 [audit/sfia-studio-v3-native-dependencies]
+/Users/morris/Projects/sfia-workspace-v3-native-option-a-arch                                                                                            577ff0c [design/sfia-studio-v3-native-option-a-functional-architecture]
+/Users/morris/Projects/sfia-workspace-v3-native-option-a-design                                                                                          e22bc24 [design/sfia-studio-v3-native-option-a-functional]
+/Users/morris/Projects/sfia-workspace-v3-native-option-a-modeled                                                                                         52891e5 [modeled/sfia-studio-v3-native-option-a]
+/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech                                                                                            0b696ed [framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity]
+/Users/morris/Projects/sfia-workspace-v3-native-option-a-ux                                                                                              608d3d4 [design/sfia-studio-v3-native-option-a-ux-ui]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901                  32e5271 [ops1/action/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68                  32e5271 [ops1/action/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89                  27811e8 [ops1/action/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1                  32e5271 [ops1/action/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f                  27811e8 [ops1/action/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10                  4b279b8 [ops1/action/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29                  32e5271 [ops1/action/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56                  27811e8 [ops1/action/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62                  4b279b8 [ops1/action/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928                  27811e8 [ops1/action/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14                  32e5271 [ops1/action/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd                  27811e8 [ops1/action/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539                  27811e8 [ops1/action/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61                  4b279b8 [ops1/action/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a                  27811e8 [ops1/action/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608                  27811e8 [ops1/action/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce                  27811e8 [ops1/action/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d                  27811e8 [ops1/action/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6                  32e5271 [ops1/action/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8                  27811e8 [ops1/action/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca                  4b279b8 [ops1/action/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4                  32e5271 [ops1/action/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0                  32e5271 [ops1/action/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187                  27811e8 [ops1/action/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7                  27811e8 [ops1/action/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7                  27811e8 [ops1/action/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846                  32e5271 [ops1/action/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e                  32e5271 [ops1/action/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700                  27811e8 [ops1/action/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c                  32e5271 [ops1/action/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4                  32e5271 [ops1/action/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca                  27811e8 [ops1/action/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353                  27811e8 [ops1/action/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050                  27811e8 [ops1/action/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b                  4b279b8 [ops1/action/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2                  27811e8 [ops1/action/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230                  27811e8 [ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230]
+/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0                  4b279b8 [ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0]
+/Users/morris/Projects/sfia-workspace/sfia-review-handoff                                                                                                a3daf71 [sfia/review-handoff]
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/d2d-backlog-handoff-ids.txt
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/document20-from-handoff.md
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/document21-from-handoff.md
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/handoff-before.md
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/handoff-regularization.diff
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/pr-297-cleanup-handoff-ahead-note.txt
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/pr-297-cleanup-state-before-handoff.txt
+/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/technical-architecture-handoff-source.md
 ```
 
 ---
@@ -65,72 +187,240 @@ YES
 
 | Path | Action |
 |------|--------|
-| projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md | CREATE |
+| projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md | PRESERVED (untracked; SHA unchanged) |
+| projects/sfia-studio/152-assistant-sfia-native-openai-finops-technical-lot-t7-architecture-arbitration-decision-pack.md | CREATE |
 | All other project paths (103–150, app/**, method/**, prompts/**, …) | UNCHANGED |
+
+### Manifest (untracked project)
+
+```text
+?? projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md
+?? projects/sfia-studio/152-assistant-sfia-native-openai-finops-technical-lot-t7-architecture-arbitration-decision-pack.md
+?? .tmp-sfia-review/
+```
 
 ---
 
-## COMPLETE CONTENT OF DOCUMENT 151
+## Recommended package fingerprint (NOT SELECTED)
 
-# 151 — FinOps Technical Lot T7 — Feature Flag / Rollout / Activation Readiness Preparation
+```
+A / A / A / A+BEFORE-SHADOW / A / A / A / A-BEFORE-MONITOR
+```
+
+| Decision | Recommendation |
+|----------|----------------|
+| FLAG-STORE | A dedicated FinOps rollout persistence |
+| MODE-ADAPTER | A T7-owned adapter |
+| T6-COMPOSITION | A close before SHADOW |
+| PROJECTION-REFRESH | A from T2 frontiers + BEFORE SHADOW (if SHADOW evaluates T4) |
+| T3-SYNC | A before MONITOR; MONITOR=human review non-blocking; SHADOW=tech observation; REVIEW_REQUIRED vs WOULD_BLOCK STILL DEFERRED |
+| T6EXT-E1 | A required before E1 (T6-ext stays NOT AUTHORIZED) |
+| T5-IAM | A T5+Product IAM before E1 (no IAM provider selection) |
+| CALIBRATION | A before MONITOR using real amounts; SHADOW may use non-adopted tech params; pilot categories listed; no numeric thresholds; 15/20/25/30 documentary only |
+
+---
+
+## NOT SELECTED proofs (excerpt)
+
+```text
+=== SELECTED occurrences in 152 (should be upstream preservation / NOT SELECTED labels only) ===
+19:**Status:** T7 ARCHITECTURE ARBITRATION DECISION PACK PREPARED — **NO D-T7 OPTION SELECTED**.
+25:- Does **not** consume recommendations as SELECTED.
+30:- NO D-T7-* option SELECTED
+51:NOT SELECTED —
+69:- acceptance of recommendations as SELECTED
+110:| Cursor may challenge a recommendation on factual contradiction | Never promote RECOMMENDED → SELECTED |
+114:## D. Décisions upstream déjà SELECTED — non réouvertes
+118:| ID / topic | SELECTED value | Note |
+121:| Rollout model | OFF → SHADOW → MONITOR → E1-ENFORCED | Names SELECTED; detailed semantics proposed here only |
+122:| Rollback | Feature flag OFF + data preservation | SELECTED; runtime proof ABSENT |
+126:| Failure posture | fail-open | SELECTED |
+127:| T4 decision contract | `allow` / `soft_signal` / `block` / `failed` · FAILED ≠ BLOCK | SELECTED |
+128:| T5 architecture | Durable project-scoped Morris-only override + expiration + audit | Architecture SELECTED · **NOT DELIVERED** |
+148:| T5 / Product IAM | Architecture SELECTED / NOT_SELECTED respectively; neither delivered as product Morris identity |
+157:Candidate principles (NOT SELECTED law):
+173:| 1 | D-T7-FLAG-STORE-01 | **A** dedicated FinOps rollout persistence | — | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+174:| 2 | D-T7-MODE-ADAPTER-01 | **A** T7-owned adapter | — | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+175:| 3 | D-T7-T6-COMPOSITION-GATE-01 | **A** close before SHADOW | before SHADOW | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+176:| 4 | D-T7-PROJECTION-REFRESH-GATE-01 | **A** from T2 frontiers | **BEFORE SHADOW** (if SHADOW evaluates T4) | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+177:| 5 | D-T7-T3-SYNC-GATE-01 | **A** before MONITOR | before MONITOR; MONITOR=human review non-blocking; SHADOW=tech observation | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+178:| 6 | D-T7-T6EXT-E1-GATE-01 | **A** required before E1 | before E1 — **does NOT authorize T6-ext** | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+179:| 7 | D-T7-T5-IAM-GATE-01 | **A** T5 + Product IAM before E1 | before E1 — **no IAM provider selection** | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+180:| 8 | D-T7-CALIBRATION-PILOT-01 | **A** before MONITOR using real amounts | SHADOW may use non-adopted tech params; pilot categories listed; no numeric thresholds | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+192:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+207:**Options (≥2 — none SELECTED):**
+223:NOT SELECTED —
+231:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+242:**Options (≥2 — none SELECTED):**
+257:NOT SELECTED —
+265:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+274:**Options (≥2 — none SELECTED):**
+290:NOT SELECTED —
+298:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+306:**Options (≥2 — none SELECTED):**
+326:NOT SELECTED —
+334:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+342:**Options (≥2 — none SELECTED):**
+364:NOT SELECTED —
+372:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+380:**Options (≥2 — none SELECTED):**
+397:NOT SELECTED —
+405:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+410:| **Faits Git / runtime (151)** | T5 architecture SELECTED not delivered. Product IAM NOT_SELECTED. AuthorityResolver = registered evidence ≠ authenticated product Morris identity. |
+413:**Options (≥2 — none SELECTED):**
+428:NOT SELECTED —
+436:**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
+444:**Options (≥2 — none SELECTED):**
+488:NOT SELECTED —
+496:**Status:** proposed candidate — **NOT SELECTED** (mode name already SELECTED upstream).
+516:NOT SELECTED —
+524:**Status:** proposed candidate — **NOT SELECTED**.
+549:NOT SELECTED —
+557:**Status:** proposed candidate — **NOT SELECTED**.
+581:NOT SELECTED —
+589:**Status:** proposed candidate — **NOT SELECTED** · **activation NOT AUTHORIZED this cycle**.
+601:| Product IAM proving Morris | Gate A before E1 — NOT_SELECTED |
+612:NOT SELECTED —
+658:NOT SELECTED —
+666:Legend: `NOT_REQUIRED` · `RECOMMENDED` · `REQUIRED` · `BLOCKING` · `DEFERRED` · `NOT_AUTHORIZED` · `NOT_SELECTED`.
+668:Mark: **[U]** = upstream already selected / imposed · **[R]** = ChatGPT recommendation awaiting Morris (**≠ SELECTED**).
+681:| Product IAM | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** + candidate BLOCKING before E1 **[R]** |
+690:This matrix is a **readiness proposition**. Cells marked **[R]** await Morris; they are **not** SELECTED activation law.
+703:6. Document 151 facts and upstream SELECTED decisions remain intact; next cycle would be Decisions Applied (still unauthorized now).
+787:- All D-T7 remain **NOT SELECTED**
+806:| Product IAM | **NOT_SELECTED** |
+860:ALL D-T7 DECISIONS NOT SELECTED —
+873:PRODUCT IAM NOT_SELECTED —
+=== RECOMMENDED BY CHATGPT count ===
+30
+=== MORRIS ARBITRATION REQUIRED count ===
+31
+=== Forbidden promotions? ===
+NONE
+=== Section headings A-Z ===
+17:## A. Status / authority / anti-claims
+57:## B. GO Morris exact et interprétation
+80:## C. Git Truth / sources / relation au document 151
+114:## D. Décisions upstream déjà SELECTED — non réouvertes
+136:## E. Runtime findings structurants hérités de 151
+155:## F. Principes proposés pour la trajectoire T7
+169:## G. Recommended arbitration package — executive view
+190:## H. D-T7-FLAG-STORE-01
+229:## I. D-T7-MODE-ADAPTER-01
+263:## J. D-T7-T6-COMPOSITION-GATE-01
+296:## K. D-T7-PROJECTION-REFRESH-GATE-01
+332:## L. D-T7-T3-SYNC-GATE-01
+370:## M. D-T7-T6EXT-E1-GATE-01
+403:## N. D-T7-T5-IAM-GATE-01
+434:## O. D-T7-CALIBRATION-PILOT-01
+494:## P. Proposed OFF semantics
+522:## Q. Proposed SHADOW semantics
+555:## R. Proposed MONITOR semantics
+587:## S. Proposed E1-ENFORCED semantics
+618:## T. Proposed dependency / reserve closure sequence
+664:## U. Proposed activation-readiness matrix after recommendations
+694:## V. Consequences if Morris accepts all recommendations
+709:## W. Alternatives / consequences if individual recommendations rejected
+731:## X. Remaining deferred decisions
+749:## Y. Morris arbitration response format
+792:## Z. Reserves / gates / verdict
+```
+
+---
+
+## Anti-claims
+
+- NO D-T7 option SELECTED
+- NO Decisions Applied
+- NO code / migration / activation
+- NO T5 / T6-ext / IAM / calibration / SHADOW / MONITOR / E1
+- NO project commit/push/PR/merge
+- NO document 151 modification
+
+---
+
+## COMPLETE CONTENT OF DOCUMENT 152
+
+# 152 — FinOps Technical Lot T7 — Architecture Arbitration Decision Pack
 
 | Champ | Valeur |
 |-------|--------|
-| **Document** | `151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md` |
-| **Cycle** | 6 — Architecture technique / Implementation Preparation |
-| **Mode** | T7 Feature Flag / Rollout / Activation Readiness |
+| **Document** | `152-assistant-sfia-native-openai-finops-technical-lot-t7-architecture-arbitration-decision-pack.md` |
+| **Cycle** | 6 — Architecture technique / T7 Architecture Arbitration Decision Pack Preparation |
 | **Profil** | Critical |
-| **Typologie** | EVOL / DOC / ARCH |
+| **Typologie** | EVOL / DOC / ARCH / DECISION-PREP |
 | **Repo** | mcleland147/sfia-workspace |
-| **Authority** | Documentary / architecture ONLY — no code, no activation, no SELECTED D-T7-* |
+| **Authority** | Documentary arbitration package ONLY — recommendations ≠ decisions |
 | **CKC** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` — candidate 0.1.0 (experimental guidance only; no execution authority) |
+| **Source preparation** | Document 151 (byte-preserved) |
+| **SHA256_151_BEFORE** | `9963bf7a98e3fd29e9d1c3f071bdca95e6c08fae1d25cb5a5b71f85e32acad8e` |
 
 ---
 
-## A. Status / anti-claims
+## A. Status / authority / anti-claims
 
-**Status:** T7 PREPARATION RECORD — architecture options inventoried — **NO D-T7 DECISION SELECTED**.
+**Status:** T7 ARCHITECTURE ARBITRATION DECISION PACK PREPARED — **NO D-T7 OPTION SELECTED**.
+
+**Authority of this document:**
+
+- Transforms document 151 inventories into a Morris-arbitrable package.
+- Presents ChatGPT **recommendations** with alternatives and trajectory consequences.
+- Does **not** consume recommendations as SELECTED.
+- Does **not** authorize Decisions Applied, Delivery, activation, code, T5, T6-ext, IAM, or calibration.
 
 **Anti-claims (hard):**
 
-- NO code / migration / SQL / DDL
-- NO feature-flag runtime / store implementation
+- NO D-T7-* option SELECTED
+- NO Decisions Applied
+- NO code / migration / SQL / DDL / feature-flag runtime
 - NO SHADOW / MONITOR / E1-ENFORCED activation
-- NO real S30 / historical 15/20/25/30 runtime adoption
-- NO calibration executed
-- NO reserve closed
+- NO T6 runtime composition Delivery
+- NO T4 projection refresh Delivery
+- NO T3↔T4 sync Delivery
 - NO T5 Delivery
-- NO T6-ext authorization
+- NO T6-ext authorization (remains NOT AUTHORIZED)
 - NO Product IAM selection
-- NO T7 Decisions Applied / Delivery
-- NO project commit / push / PR / merge
+- NO real calibration / numeric threshold adoption
+- NO historical 15/20/25/30 runtime adoption
+- NO reserve closed
+- NO modification of document 151
 - NO modification of docs 103–150, `app/**`, `method/**`, `prompts/**`
+- NO project commit / push / PR / merge
 
----
-
-## B. GO Morris exact
+**Authority label used for every recommendation in this pack:**
 
 ```
-GO préparation T7 — feature flag / rollout / activation readiness.
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
 ```
 
-**Consumed as:** authorize Architecture technique / Implementation Preparation for T7 only (doc 151 + Full Review Pack + handoff).
+---
 
-**NOT consumed as:** arbitration of D-T7-*; Decisions Applied; Delivery; activation; reserve closure; IAM; T5; T6-ext.
+## B. GO Morris exact et interprétation
+
+```
+ok go
+```
+
+**Context of GO:** prepare a unique Morris arbitration package with ChatGPT recommended choices for the 8 D-T7 decisions and trajectory consequences — validate/correct package BEFORE Decisions Applied.
+
+**Consumed as:** PREPARATION OF ARBITRATION PACK ONLY (this document 152 + Full Review Pack + handoff).
+
+**NOT consumed as:**
+
+- acceptance of recommendations as SELECTED
+- D-T7 arbitration
+- Decisions Applied
+- Delivery T7
+- T6 composition / projection refresh / T3 sync deliveries
+- T5 / T6-ext / Product IAM / calibration
+- SHADOW / MONITOR / E1
+- project commit / push / PR / merge
 
 ---
 
-## C. Horodatage CEST + UTC
-
-| Champ | Valeur |
-|-------|--------|
-| **CEST** | 2026-08-08 00:19:42 CEST (+0200) |
-| **UTC** | 2026-08-07 22:19:42 UTC |
-| **Timezone** | Europe/Paris (CEST, +0200) |
-
----
-
-## D. Git Truth
+## C. Git Truth / sources / relation au document 151
 
 | Champ | Valeur |
 |-------|--------|
@@ -138,296 +428,124 @@ GO préparation T7 — feature flag / rollout / activation readiness.
 | **Branch** | `implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t7-rollout-activation-readiness` |
 | **HEAD** | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
 | **origin/main** | `137d3846e4b00ffe686db7ab473f0fdcd58df82e` |
-| **Upstream project** | NONE (unset) |
-| **Template SHA** | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` (`prompts/templates/sfia-cycle-execution-template.md`) |
-| **Incoming handoff tip** | `982451c1e70758b913a5078bc9f343e2218ee3d3` |
-| **Incoming handoff blob** | `4cad1489a8fa489538eeb483a5446f5495e7e062` |
-| **Incoming handoff commit** | `docs(review-handoff): publish T4 closure` |
+| **Template SHA** | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
+| **Incoming handoff tip** | `a3daf71affc50eee3cc489ba5891347a7b7c29e1` |
+| **Incoming handoff blob** | `08e673f9f58c54d6370e5c8f8e3b65d694c8518e` |
+| **Incoming handoff commit** | `docs(review-handoff): publish T7 preparation` |
 | **Staged** | empty |
-| **Tracked project dirtiness on base** | none (only local untracked `.tmp-sfia-review/` evidence) |
-| **Doc 151 before CREATE** | ABSENT on origin/main and WT |
+| **Doc 151** | local untracked — SHA256 `9963bf7a98e3fd29e9d1c3f071bdca95e6c08fae1d25cb5a5b71f85e32acad8e` — **NOT MODIFIED** |
+| **Doc 152 before CREATE** | ABSENT on origin/main and worktree |
+
+### Sources
+
+- Method/CKC/tooling: cycle template, routing, OM, guardrails, checklist, CKC pilot 03 (candidate), `publish-review-handoff.sh`
+- Document 151 complete (T7 preparation) — facts inherited; no exhaustive rediscovery
+- Incoming handoff T7 preparation
+- Spot-check of 123/125/138/143/148/149/150 / runtime only if fact conflict — **none required** (151 ↔ handoff ↔ main coherent)
+
+### Relation to 151
+
+| Rule | Application |
+|------|-------------|
+| 151 = preparation inventory + option matrices | Preserved byte-identical |
+| 152 = arbitration package | Compact, arbitrable recommendations from 151 options |
+| If Git/runtime fact contradicts 151 | STOP FACT CONTRADICTS DOCUMENT 151 |
+| Cursor may challenge a recommendation on factual contradiction | Never promote RECOMMENDED → SELECTED |
 
 ---
 
-## E. Sources consultées
+## D. Décisions upstream déjà SELECTED — non réouvertes
 
-### Method / CKC / tooling
+Preserve exactly — **NOT re-opened by this pack:**
 
-- `prompts/templates/sfia-cycle-execution-template.md` @ `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate 0.1.0)
-- `scripts/sfia/publish-review-handoff.sh`
-
-### Trajectory / decisions
-
-- `103`, `123`, `125`, `138`, `143`, `145`, `146`, `147`, `148`, `149`, `150`
-- PR #315 (T6-foundation) / PR #317 (T4-foundation) via main @ `137d3846e4b00ffe686db7ab473f0fdcd58df82e`
-- Incoming handoff T4 closure (`CLOSED WITH RESERVES BY MORRIS`)
-
-### Runtime read-only (T4 / T3 / T6 / authority)
-
-- `types.enforcement.ts`, `evaluateFinOpsEnforcement.ts`, `rebuildEnforcementProjection.ts`
-- `finopsEnforcementPort.ts`, `finopsEnforcementProjectionPort.ts`, `postgresFinOpsEnforcementProjectionStore.ts`
-- `coordinateExecutionRun.ts`, `composeExecutionRunD2D3.ts`
-- `types.alertReview.ts`, `evaluateProjectPeriodThresholds.ts`, `evaluateAfterT2.ts`, alert review ports/stores
-- `finopsAuditTypes.ts`, `captureFinOpsUsage.ts`, `finopsAuditJournalPort.ts`, `postgresFinOpsAuditJournal.ts`, `redactFinOpsAuditPayload.ts`
-- `authorityResolver.ts`, `memoryAuthorityResolver.ts`, `verifyAuthority.ts` (+ call-sites)
-
----
-
-## F. T0→T7 trajectory truth
-
-| Lot | State on main @ `137d3846e4b00ffe686db7ab473f0fdcd58df82e` | Note for T7 |
-|-----|--------------------------|-------------|
-| T0 | Delivered (contracts) | Preserved |
-| T1 | Delivered (ledger) | Preserved |
-| T2 | Delivered (agg/recon) | `R-PR-T2-API-01` OPEN MINOR |
-| T3 | Delivered + CLOSED WITH RESERVES | Human-review state; not monetary authority |
-| T4 | Foundation delivered + **CLOSED WITH RESERVES BY MORRIS** | Mechanism inert by default; activation owned by T7 |
-| T5 | Architecture SELECTED in 123/125 — **NOT DELIVERED** | Override Morris-only durable |
-| T6 | Foundation integrated (capture events) | `R-T6-RUNTIME-COMPOSITION-01` OPEN; T6-ext NOT AUTHORIZED |
-| T7 | **This preparation only** | TECH-FLAG / rollout SELECTED documentary — **NOT ACTIVATED** |
-
-Critical path preserved: **T0 → T1 → T2 → T3 → T4 → T7**. T5 parallelizable after T1 but expected before safe E1 (candidate). T6 foundation from T1; must be sufficiently composed before activation phases (open gate).
-
----
-
-## G. T4 CLOSED WITH RESERVES — implications for T7
-
-Incoming handoff confirms:
-
-```
-FINOPS TECHNICAL LOT T4 —
-CLOSED WITH RESERVES BY MORRIS
-```
-
-**Implications:**
-
-- T4 mechanism exists (projection + evaluate + optional coordinator dependency) but remains **default-inert**.
-- T7 owns activation/rollout; T4 must not absorb OFF/SHADOW/MONITOR/E1 persistence.
-- Open reserves block *claims* of production readiness / E1 completeness — they are **not** closed by this preparation.
-- Closure does **not** authorize SHADOW/MONITOR/E1, real S30, calibration, T5, T6-ext, or IAM.
-
----
-
-## H. Upstream T7 decisions already SELECTED
-
-Preserve exactly — **NOT re-opened**:
-
-| ID / topic | SELECTED value | Activation |
-|------------|----------------|------------|
+| ID / topic | SELECTED value | Note |
+|------------|----------------|------|
 | `D-ASST-IP0C-TECH-FLAG-01` | SERVER-SIDE · PROJECT-SCOPED · DEFAULT-OFF | **NOT ACTIVATED** |
-| Rollout model (attached to TECH-FLAG) | OFF → SHADOW → MONITOR → E1-ENFORCED | Architecture SELECTED; **no mode active** |
-| Rollback | Feature flag OFF + data preservation | SELECTED; **not implemented as runtime proof** |
-| T4 SoT / blocking eligibility | BILLED + PROVIDER_OBSERVED may block; API_USAGE / LOCAL_COUNT / PARAMETRIC_ESTIMATE / UNKNOWN never block | SELECTED (T4) |
-| T4 decision contract | `allow` / `soft_signal` / `block` / `failed` · FAILED ≠ BLOCK | SELECTED (T4) |
-| T4 default composition | INERT — no auto T4 instance | SELECTED (T4 Delivery) |
-| T4 transient effect | `signal_only` \| `enforce` — injected, not T7 persisted mode | SELECTED shape (T4) |
+| Rollout model | OFF → SHADOW → MONITOR → E1-ENFORCED | Names SELECTED; detailed semantics proposed here only |
+| Rollback | Feature flag OFF + data preservation | SELECTED; runtime proof ABSENT |
+| T4 authority | Monetary enforcement authority | T4 remains effect-injected / default-inert |
+| T3 authority | Human-review state — never monetary authority | Preserved |
+| Blocking evidence SoT | BILLED + PROVIDER_OBSERVED may block | API_USAGE / LOCAL_COUNT / PARAMETRIC_ESTIMATE / UNKNOWN never block |
 | Failure posture | fail-open | SELECTED |
-| T5 | Durable project-scoped Morris-only override + expiration + audit | Architecture SELECTED · **NOT DELIVERED** |
-| T6 | Structured domain events + append-only durable audit | SELECTED; foundation integrated |
+| T4 decision contract | `allow` / `soft_signal` / `block` / `failed` · FAILED ≠ BLOCK | SELECTED |
+| T5 architecture | Durable project-scoped Morris-only override + expiration + audit | Architecture SELECTED · **NOT DELIVERED** |
+| T6 foundation | Structured domain events + append-only durable audit | Foundation integrated; composition OPEN |
 | T6-ext-T2 | EXCLUDED | — |
-| T6-ext-T3T4 | NOT AUTHORIZED | — |
-
-**Detailed OFF/SHADOW/MONITOR/E1 semantics beyond the names above are NOT pre-decided** — see section P.
-
----
-
-## I. Runtime inventory — rollout / config / feature flag
-
-### Mandatory discovery answers (6)
-
-| Search theme | Finding |
-|--------------|---------|
-| FinOps OFF/SHADOW/MONITOR/E1 store | **ABSENT** as runtime persistence / resolver |
-| Generic FinOps feature-flag abstraction | **ABSENT** |
-| `projects/sfia-studio/app/lib/d1/intake/platformFlag.ts` | Env-global `D1_PLATFORM_INTEGRATION` — default **ON** — **not** project-scoped FinOps rollout; functional equivalent only as “env boolean flag” anti-pattern for TECH-FLAG |
-| Project settings / config store for FinOps modes | **No** durable `project_settings` / `project_config` / `policy_store` / `rollout_mode` abstraction discovered for FinOps |
-| T3 threshold definitions | Injected at evaluate time — not a reusable FinOps rollout store |
-| Shadow/monitor product modes | Documentary / comments only in T4 types (`types.enforcement.ts` notes future activation layer; T4 does **not** store modes) |
-
-**Conclusion for reuse:** no existing server-side, project-scoped, audit-compatible FinOps rollout store found that satisfies TECH-FLAG without new bounded persistence. Env/global-only (`platformFlag`) is a **counter-example**, incompatible with project-scoped default-OFF upstream.
+| T6-ext-T3T4 | NOT AUTHORIZED | Unchanged by any recommendation below |
+| T4 closure | CLOSED WITH RESERVES BY MORRIS | Reserves remain OPEN |
 
 ---
 
-## J. Runtime inventory — T4 enforcement composition
+## E. Runtime findings structurants hérités de 151
 
-### Discovery 1 — `composeExecutionRunD2D3` instantiation
+| Finding | Fact from 151 (unchanged) |
+|---------|---------------------------|
+| FinOps OFF/SHADOW/MONITOR/E1 store | **ABSENT** |
+| Compatible project-scoped FinOps config reuse | **NONE suitable** |
+| `platformFlag` (D1) | Env-global default ON — **incompatible** with TECH-FLAG |
+| Production `composeExecutionRunD2D3` instantiation | **NONE** (tests only) |
+| T4 production injection | Optional; default inert |
+| Projection rebuild | Explicit/on-demand; tests only; no auto refresh |
+| T3 sync with T4 | Not production-composed as monetary↔human sync |
+| T6 journal/emitter | Exist; **not** production-composed; capture events only |
+| T5 / Product IAM | Architecture SELECTED / NOT_SELECTED respectively; neither delivered as product Morris identity |
+| Calibration / 15/20/25/30 | Documentary/provisional; **NOT runtime-active** |
 
-| Fact | Evidence |
-|------|----------|
-| Definition | `app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts` (`composeExecutionRunD2D3`) |
-| Barrel export | `app/lib/oa/execution-run/server/index.ts` |
-| Server guard | `assertServerOnly()` |
-| Production HTTP/route/API call-site instantiating it | **NONE discovered** |
-| Non-test call-sites | Definition + export only |
-| Test call-sites | Multiple under `app/__tests__/oa/execution-run/**` and FinOps T1/T4 tests |
-
-### Discovery 2 — production `finopsEnforcement` injection
-
-| Fact | Evidence |
-|------|----------|
-| Pass-through option on compose | Optional `options.finopsEnforcement` forwarded to `coordinateExecutionRun` **only if provided** |
-| Coordinator behavior | If dependency present: evaluate before provider; `block` → `HUMAN_GATE_REQUIRED`; allow/soft_signal/failed/throw → fail-open continue |
-| Default compose() | **Does not** create T4 port / pool / policy / threshold / env / S30 |
-| Production call-site injecting `finopsEnforcement` | **NONE** |
-| Test injections | `t4.enforcement-boundary.unit.test.ts` and related |
-
-**Proof of inert default:** absent dependency ⇒ coordinator skips enforcement; absent policy in `evaluateFinOpsEnforcement` ⇒ `allow` / `not_configured` without projection read.
-
-### Discovery 16/17 (policy transient effect)
-
-`FinOpsEnforcementEffect = "signal_only" | "enforce"` is injected via `FinOpsEnforcementPolicy.effect` — explicitly **not** a persisted T7 mode (`types.enforcement.ts` comment).
+**Cursor challenge note:** No Git/runtime contradiction found against 151 inventories on this worktree @ `137d3846…`. Recommendations below are consistent with those facts.
 
 ---
 
-## K. Runtime inventory — T4 projection refresh
+## F. Principes proposés pour la trajectoire T7
 
-### Discovery 4 & 10
+Candidate principles (NOT SELECTED law):
 
-| Call-site class | Finding |
-|-----------------|---------|
-| Definition | `rebuildEnforcementProjection` in `rebuildEnforcementProjection.ts` — **explicit / on-demand** |
-| Unit tests | `t4.enforcement.unit.test.ts` |
-| Integration tests | `t4.enforcement-projection.integration.test.ts` |
-| Manual/ops CLI / production job | **NONE discovered** |
-| Auto-refresh after cost event | **NONE** |
-| Auto-refresh after reconciliation observed/billed | **NONE** |
-| Auto-refresh after correction | **NONE** |
-
-**Reserve linkage:** `R-T4-PROJECTION-REFRESH-01` remains **OPEN** — blocking for real E1 until production refresh/freshness validated (upstream closure text).
+1. **Separation:** T7 owns rollout modes; T4 owns monetary evaluation; T3 owns human-review state.
+2. **Default safety:** OFF remains universal rollback; fail-open preserved.
+3. **Proof before enforce:** SHADOW is a technical proof phase; MONITOR is real-policy human review without BLOCK; only E1 may enforce.
+4. **Do not load SHADOW with E1 prerequisites:** T5 / IAM / T6-ext / real calibration are E1 (or MONITOR-real-amount) gates, not SHADOW gates.
+5. **Recommendations ≠ Delivery authorization:** Accepting a sequencing recommendation does not authorize the Delivery that closes the reserve.
+6. **No silent threshold adoption:** 15/20/25/30 remain documentary until distinct Morris calibration GO.
+7. **Additive reversibility:** Prefer additive persistence + default-OFF over env/global reuse.
 
 ---
 
-## L. Runtime inventory — T3 human-review synchronization
+## G. Recommended arbitration package — executive view
 
-### Discovery 5
+| # | Decision | Recommended option | Gate timing (if any) | Status |
+|---|----------|--------------------|----------------------|--------|
+| 1 | D-T7-FLAG-STORE-01 | **A** dedicated FinOps rollout persistence | — | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+| 2 | D-T7-MODE-ADAPTER-01 | **A** T7-owned adapter | — | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+| 3 | D-T7-T6-COMPOSITION-GATE-01 | **A** close before SHADOW | before SHADOW | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+| 4 | D-T7-PROJECTION-REFRESH-GATE-01 | **A** from T2 frontiers | **BEFORE SHADOW** (if SHADOW evaluates T4) | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+| 5 | D-T7-T3-SYNC-GATE-01 | **A** before MONITOR | before MONITOR; MONITOR=human review non-blocking; SHADOW=tech observation | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+| 6 | D-T7-T6EXT-E1-GATE-01 | **A** required before E1 | before E1 — **does NOT authorize T6-ext** | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+| 7 | D-T7-T5-IAM-GATE-01 | **A** T5 + Product IAM before E1 | before E1 — **no IAM provider selection** | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
+| 8 | D-T7-CALIBRATION-PILOT-01 | **A** before MONITOR using real amounts | SHADOW may use non-adopted tech params; pilot categories listed; no numeric thresholds | **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED** |
 
-| Component | Location | Production wiring |
-|-----------|----------|-------------------|
-| Evaluate | `evaluateProjectPeriodThresholds.ts` | Library + tests; no HTTP product route discovered |
-| After-T2 wrappers | `evaluateAfterT2.ts` (`recomputeAggregatesThenEvaluateThresholds`, `reconcileProjectPeriodThenEvaluateThresholds`) | Library + tests; **not** auto-composed into a production server path beyond the module itself |
-| Persistence | `FinOpsAlertReviewPort.applyProjectPeriodEvaluation` via memory + `createPostgresFinOpsAlertReviewStore` | Adapters exist; used in tests/integration |
-| Tables | `finops_alert_state`, `finops_morris_review_state` | Durable when Postgres adapter used |
+Compact package fingerprint (recommendation only):
 
-**Boundary preserved:** T3 = human-review state; T4 = monetary gate. `R-T4-T3-SYNC-01` **OPEN** — blocking for claim of complete T4↔T3 sync.
-
-`REVIEW_REQUIRED` vs `WOULD_BLOCK` remains **STILL DEFERRED** (T4 uses internal `soft_signal` only).
-
----
-
-## M. Runtime inventory — T6 durable audit / runtime composition
-
-### Discovery 3, 8, 9
-
-| Item | Finding |
-|------|---------|
-| Event types after T6-foundation | Exactly: `finops_capture_created`, `finops_capture_duplicate`, `finops_capture_failed` |
-| `FinOpsAuditJournalPort` / `createDurableFinOpsAuditEmitter` | Implemented under postgres journal; **production composition injecting them into capture/coordinator: NONE** |
-| `captureFinOpsUsage` | Optional `audit?: FinOpsAuditEmitter` — best-effort; no default durable emitter |
-| Durable T3 events | **ABSENT** |
-| Durable T4 events | **ABSENT** |
-| Durable T7 events | **ABSENT** |
-| Reserve | `R-T6-RUNTIME-COMPOSITION-01` **OPEN** |
-| T6-ext-T3T4 | **NOT AUTHORIZED** |
-| T6-ext-before-E1-pilot | **DEFERRED** |
+```
+A / A / A / A+BEFORE-SHADOW / A / A / A / A-BEFORE-MONITOR
+```
 
 ---
 
-## N. Runtime inventory — T5 / authority / Product IAM gap
+## H. D-T7-FLAG-STORE-01
 
-### Discovery 7 + T5
-
-| Topic | Finding |
-|-------|---------|
-| `AuthorityResolverPort` | Exists — sole authority truth for N1/N2/N3 + Morris gate |
-| Implementation on main | `MemoryAuthorityResolver` (in-process registered evidence) |
-| `canActAsMorris` / `requireMorrisGate` / `verifyAuthority` | Present across decision / execution-contract / execution-attempt / evidence-review |
-| Authenticated product Morris identity (HTTP/session → Morris) | **NOT FOUND** as Product IAM — **Product IAM = NOT_SELECTED** |
-| Distinction | Registered authority evidence ≠ authenticated product identity |
-| T5 override runtime | **ABSENT** (architecture SELECTED in 123/125; not delivered) |
-| Privileged Morris mutations | **DEFERRED** |
-
----
-
-## O. Current activation-readiness gap matrix
-
-| Gap ID | Finding (not a Morris decision) | Blocks |
-|--------|----------------------------------|--------|
-| G-T7-01 | No FinOps rollout persistence owner/store | Flag Delivery design |
-| G-T7-02 | Detailed mode semantics not SELECTED beyond names | Mode adapter design |
-| G-T7-03 | `R-T6-RUNTIME-COMPOSITION-01` OPEN — durable audit not composed in production | Observability before activation phases |
-| G-T7-04 | `R-T4-PROJECTION-REFRESH-01` OPEN — no auto/manual prod refresh path | Stale monetary gate risk |
-| G-T7-05 | `R-T4-T3-SYNC-01` OPEN | Human-review coherence claims |
-| G-T7-06 | T6-ext-before-E1-pilot DEFERRED; T6-ext-T3T4 NOT AUTHORIZED | E1 audit completeness |
-| G-T7-07 | T5 not delivered | Safe recoverability / override |
-| G-T7-08 | Product IAM NOT_SELECTED | Morris-only privileged actions |
-| G-T7-09 | Calibration REQUIRED — not executed | Real thresholds |
-| G-T7-10 | Pilot evidence criteria not SELECTED (categories only) | Pilot exit |
-| G-T7-11 | Dedicated activation QA not designed/executed | Mode promotions |
-| G-T7-12 | Rollback runtime proof absent (contract SELECTED documentary only) | Safe kill-switch |
-
----
-
-## P. OFF / SHADOW / MONITOR / E1 semantic matrix
-
-**Names SELECTED upstream. Detailed semantics = preparation candidates only — NOT DECIDED.**
-
-### Non-negotiable invariants
-
-| Mode | Invariant |
-|------|-----------|
-| OFF | Never activates T4 blocking |
-| SHADOW | Must never be presented as E1-ENFORCED |
-| MONITOR | Must never be presented as E1-ENFORCED |
-| E1-ENFORCED | Only named mode conceptually authorizing enforcement — **activation NOT AUTHORIZED this cycle** |
-
-**Do not auto-equate SHADOW/MONITOR to `signal_only`.** Transient T4 effects remain adapter-owned candidates.
-
-| Dimension | OFF | SHADOW (candidate) | MONITOR (candidate) | E1-ENFORCED (candidate; NOT activated) |
-|-----------|-----|--------------------|---------------------|----------------------------------------|
-| Feature-flag state | default | progressive observe | progressive observe+alert/review | progressive enforce |
-| T4 evaluator called? | No (inert / no policy) | Candidate: yes, observe-only interpretation | Candidate: yes | Candidate: yes with enforce effect |
-| Policy available? | Absent / not_configured | Candidate injected non-blocking | Candidate injected non-blocking | Candidate injected enforce |
-| T4 transient effect candidate | n/a | Propose≠auto `signal_only`; may be “evaluate+record only” | Propose≠auto `signal_only`; may differ for review UX | `enforce` candidate |
-| Projection read | No (inert path) | Candidate yes | Candidate yes | Candidate yes |
-| BLOCK possible? | **Never** | **Never** (invariant) | **Never** (invariant) | Conceptually yes — **not authorized now** |
-| Provider invocation | Unchanged | Unchanged by T7 block | Unchanged by T7 block | May be gated on BLOCK |
-| T3 human-review sync | Not required for OFF | Candidate optional | Candidate strong if MONITOR=human phase | Candidate required if human gate ops |
-| T6 durable evidence | Baseline capture only today | Candidate required if SHADOW=proof phase | Candidate required | Candidate required (+ T6-ext gate open) |
-| Calibration | Not for OFF | Candidate weak/none if non-enforcing params | Gate open — see X | **REQUIRED** before real amounts |
-| T5 override | Not required | Not required | Candidate recommended | Candidate **required** before E1 |
-| Product IAM | Not required | Not required | Candidate if human mutations | Candidate **required** before E1 |
-| Rollback | Already OFF | Flag→OFF | Flag→OFF | Flag→OFF + data preserve |
-| Entry criteria | Default | Gates TBD (T6 composition candidate) | Gates TBD (T3 sync / calibration candidate) | Many BLOCKING gates |
-| Exit criteria | n/a | Evidence categories | Evidence categories | Pilot evidence + Morris GO |
-
-**Status for detailed semantics:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED** (via D-T7-* pack; names remain SELECTED).
-
----
-
-## Q. D-T7-FLAG-STORE-01
-
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | How to durably carry project-scoped server-side default-OFF FinOps rollout mode? |
-| **Faits Git / runtime** | No FinOps rollout store on main. Only env-global D1 `platformFlag` (default ON) — incompatible with TECH-FLAG project-scoped default-OFF. No project_settings/config/policy store for FinOps modes discovered. |
-| **Impacts** | A adds migration later; B risks wrong reuse; C creates silent global activation risk. |
-| **Sécurité** | Server-side only; no client-trusted mode; audit of mode changes required in future Delivery. |
-| **Observabilité** | Mode changes must be observable; store itself is not T6 events. |
-| **Performance** | Read-per-evaluate must stay cheap; avoid global locks. |
-| **Coût** | Dedicated table cost vs reuse debt. |
-| **Dette** | Wrong reuse creates cross-domain coupling. |
-| **Réversibilité** | High if additive persistence; low if flag OFF remains default. |
-| **Dépendances** | TECH-FLAG-01; T4 inert default; no IAM required for store design alone. |
-| **Risque de scope** | Selecting schema/table now would force Delivery scope — forbid. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **Prefer B if compatible store exists; else A dedicated bounded FinOps persistence. Do not select schema. Reject C as primary.** |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
+| **Faits Git / runtime (151)** | No FinOps rollout store. D1 `platformFlag` env-global default ON — incompatible. No suitable project_settings reuse. |
+| **Impacts** | A adds bounded future migration; B invents reuse; C creates silent global activation risk. |
+| **Sécurité** | Server-side only; no client-trusted mode; future audit of mode changes. |
+| **Observabilité** | Mode changes must be observable; store ≠ T6 events. |
+| **Performance** | Read-per-evaluate must stay cheap. |
+| **Coût / dette** | Dedicated table cost vs wrong-reuse coupling debt. |
+| **Réversibilité** | High if additive + default-OFF. |
+| **Dépendances** | TECH-FLAG-01; T4 inert default. |
+| **Risque de scope** | Do not select schema/table now. |
 
 **Options (≥2 — none SELECTED):**
 
@@ -435,41 +553,34 @@ Preserve exactly — **NOT re-opened**:
 |--------|-------------|
 | **A — Dedicated FinOps rollout/config persistence** | Bounded server-side project-scoped store owned by FinOps/T7 (schema TBD later). |
 | **B — Reuse existing durable project-scoped abstraction** | Only if truly compatible; discovery found none suitable. |
-| **C — Env/global-only (counter-option)** | Appears via D1 platformFlag pattern; violates upstream project-scoped TECH-FLAG if used as the FinOps store. |
+| **C — Env/global-only (counter-option)** | D1 platformFlag pattern; violates project-scoped TECH-FLAG if used as FinOps store. |
 
-**Architecture challenge (candidate):**
+### Recommendation
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — blocks Delivery ambiguity. |
-| Dette créée? | A creates bounded FinOps persistence debt; acceptable vs wrong reuse. |
-| Plus simple possible? | Reuse would be simpler if it existed — it does not. |
-| Repo-first? | Yes — searched equivalents first. |
-| Réutilisation possible? | Not for FinOps TECH-FLAG today. |
-| Réversible? | Additive store + flag OFF yes. |
-| Risque couplage T4/T7? | Low if T7 owns store and T4 remains effect-injected. |
-| Risque faux blocage? | Low at OFF default. |
-| Preuve opérable? | Future mode-change audit + read tests. |
-| Gate Morris? | Yes — arbitration required. |
-## R. D-T7-MODE-ADAPTER-01
+**OPTION A — DEDICATED BOUNDED FINOPS ROLLOUT / CONFIG PERSISTENCE**
 
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+Rationale: 151 found no durable server-side · project-scoped · audit-compatible FinOps rollout abstraction. Do not invent reuse. Env-global is an anti-pattern for TECH-FLAG.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## I. D-T7-MODE-ADAPTER-01
+
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | Where does OFF/SHADOW/MONITOR/E1 translate into T4 behavior? |
-| **Faits Git / runtime** | T4 evaluate accepts transient `signal_only|enforce` policy only; types explicitly say T4 does not store T7 modes. Coordinator optional dependency remains inert without injection. |
+| **Faits Git / runtime (151)** | T4 accepts transient `signal_only\|enforce` only; does not store T7 modes; coordinator optional dependency inert without injection. |
 | **Impacts** | A preserves T4/T7 separation; B couples activation into monetary evaluator. |
-| **Sécurité** | A keeps privileged mode resolution server-side in T7; B expands T4 attack/complexity surface. |
-| **Observabilité** | A can emit T7-specific evidence at adapter; B conflates monetary decision logs with rollout. |
-| **Performance** | Adapter add negligible vs evaluate path. |
-| **Coût** | A small; B larger regression surface on T4. |
-| **Dette** | B creates hard coupling debt. |
+| **Sécurité / dette** | A keeps privileged mode resolution in T7; B expands T4 surface and coupling debt. |
 | **Réversibilité** | A reversible by not wiring adapter; B harder once modes leak into T4 API. |
-| **Dépendances** | Depends on FLAG-STORE + T4 ports unchanged. |
-| **Risque de scope** | B would force T4 change this cycle — STOP condition. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **Candidate A.** T7 owns rollout; T4 owns monetary evaluation. Do not modify T4 now. |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
+| **Risque de scope** | B would force T4 change this cycle — forbidden. |
 
 **Options (≥2 — none SELECTED):**
 
@@ -478,39 +589,30 @@ Preserve exactly — **NOT re-opened**:
 | **A — T7-owned rollout resolver/adapter** | Produces transient instruction/policy for T4; T7 owns modes. |
 | **B — Embed T7 mode knowledge inside `evaluateFinOpsEnforcement`** | T4 learns OFF/SHADOW/MONITOR/E1 directly. |
 
-**Architecture challenge (candidate):**
+### Recommendation
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — prevents T4 pollution. |
-| Dette créée? | Thin adapter debt — intentional. |
-| Plus simple possible? | B looks simpler short-term, worse long-term. |
-| Repo-first? | Aligns with T4 comments/contracts. |
-| Réutilisation possible? | Reuses T4 transient effect injection. |
-| Réversible? | Yes while OFF. |
-| Risque couplage T4/T7? | Minimized by A. |
-| Risque faux blocage? | Lower if adapter never maps OFF/SHADOW/MONITOR→enforce. |
-| Preuve opérable? | Adapter unit tests later. |
-| Gate Morris? | Yes. |
-## S. D-T7-T6-COMPOSITION-GATE-01
+**OPTION A — T7-OWNED ROLLOUT RESOLVER / ADAPTER**
 
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+T7 translates OFF/SHADOW/MONITOR/E1-ENFORCED into a transient instruction consumable by T4. T4 keeps monetary evaluation. Do not teach modes to `evaluateFinOpsEnforcement`.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## J. D-T7-T6-COMPOSITION-GATE-01
+
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | When must `R-T6-RUNTIME-COMPOSITION-01` be closed relative to rollout phases? |
-| **Faits Git / runtime** | Durable journal/emitter exist but are not production-composed. Only three capture event types exist. No T3/T4/T7 durable events. |
+| **Faits Git / runtime (151)** | Durable journal/emitter exist but are not production-composed. Capture events only. No T3/T4/T7 durable events. |
 | **Impacts** | A maximizes early evidence; B/C risk unprovable observe phases. |
-| **Sécurité** | Missing audit impairs incident/RSSI reconstruction. |
-| **Observabilité** | Without composition, SHADOW/MONITOR cannot prove evaluated vs actual. |
-| **Performance** | Composition itself is mostly wiring cost. |
-| **Coût** | Low compute; operational cost of missing proofs is high. |
-| **Dette** | Running SHADOW without journal creates proof debt. |
-| **Réversibilité** | Reserve remains open until Delivery closes it — this cycle closes nothing. |
-| **Dépendances** | T6 foundation code exists; composition Delivery GO separate. |
-| **Risque de scope** | Do not authorize T6-ext here. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **Candidate A — before SHADOW if SHADOW is treated as proof.** Still NOT DECIDED; does not close reserve. |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
+| **Risque de scope** | Does **not** authorize T6-ext. Does **not** close the reserve in this cycle. |
 
 **Options (≥2 — none SELECTED):**
 
@@ -520,39 +622,29 @@ Preserve exactly — **NOT re-opened**:
 | **B — Before MONITOR only** | Allow SHADOW without durable composition. |
 | **C — Before E1 only** | Defer composition until enforcement. |
 
-**Architecture challenge (candidate):**
+### Recommendation
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — sequencing clarity. |
-| Dette créée? | Deferring past SHADOW creates proof debt. |
-| Plus simple possible? | C is simpler and weaker. |
-| Repo-first? | Matches OPEN composition reserve. |
-| Réutilisation possible? | Reuse journal/emitter already built. |
-| Réversible? | N/A for gate timing. |
-| Risque couplage T4/T7? | Low. |
-| Risque faux blocage? | Indirect — poor diagnosis. |
-| Preuve opérable? | Requires composition Delivery later. |
-| Gate Morris? | Yes. |
-## T. D-T7-PROJECTION-REFRESH-GATE-01
+**OPTION A — CLOSE `R-T6-RUNTIME-COMPOSITION-01` BEFORE SHADOW**
 
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+SHADOW should be a real proof phase. Proof without composed durable journal creates observability debt. Applies to **T6 foundation runtime composition only** — **NOT** T6-ext.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## K. D-T7-PROJECTION-REFRESH-GATE-01
+
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | How to keep `finops_enforcement_projection` fresh, and when close `R-T4-PROJECTION-REFRESH-01`? |
-| **Faits Git / runtime** | Rebuild is explicit/on-demand; tests only; no auto refresh after cost/recon/correction. Upstream: reserve blocking for real E1. |
-| **Impacts** | A strong consistency with writes; B adds evaluate latency/contention; C operational complexity + stale window. |
-| **Sécurité** | Stale projection → false allow or false block under E1. |
-| **Observabilité** | Need freshness metrics / rebuild failure signals (T6-ext may help later). |
-| **Performance** | B impacts provider start latency; A spreads cost to write path; C amortizes. |
-| **Coût** | Ops cost highest for C; lock contention risk for A/B. |
-| **Dette** | Wrong choice hard to unwind under E1. |
-| **Réversibilité** | High reversibility while OFF/SHADOW non-blocking. |
-| **Dépendances** | Depends on T2 boundaries + T4 rebuild idempotence (already tested). |
-| **Risque de scope** | Must not select/implement strategy now. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **No strategy SELECTED.** Upstream invariant: reserve at least BLOCKING for real E1. Candidate sequencing: close before E1; consider earlier if SHADOW/MONITOR rely on projection reads. Compare A/B/C in future Delivery design. |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
+| **Faits Git / runtime (151)** | Rebuild explicit/on-demand; tests only; no auto refresh. Reserve blocking for real E1 upstream. |
+| **Risque de scope** | Do not select/implement detailed mechanism, exact functions, or transactional order now. |
 
 **Options (≥2 — none SELECTED):**
 
@@ -562,39 +654,33 @@ Preserve exactly — **NOT re-opened**:
 | **B — Sync/guarded rebuild just before T4 evaluate** | Freshness at gate; latency on new-run path. |
 | **C — Async worker/scheduler + explicit freshness contract** | Stale window bounded by SLA; needs monitoring. |
 
-**Architecture challenge (candidate):**
+### Recommendation — strategy
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — qualifies OPEN reserve. |
-| Dette créée? | Leaving open past E1 would be unsafe. |
-| Plus simple possible? | B simplest locally, may hurt latency. |
-| Repo-first? | Rebuild API already exists. |
-| Réutilisation possible? | Yes — `rebuildEnforcementProjection`. |
-| Réversible? | Yes pre-E1. |
-| Risque couplage T4/T7? | Refresh is T4 data plane; T7 gates activation. |
-| Risque faux blocage? | Primary risk of staleness under E1. |
-| Preuve opérable? | Freshness contract + tests later. |
-| Gate Morris? | Yes for strategy + close timing. |
-## U. D-T7-T3-SYNC-GATE-01
+**OPTION A — REFRESH FROM AUTHORITATIVE T2 MUTATION / RECONCILIATION FRONTIERS**
 
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+Reuse existing `rebuildEnforcementProjection` after relevant financial evidence changes. Avoid heavy rebuild on pre-provider frontier; avoid scheduler until necessary. Future Delivery must add freshness evidence / stale detection.
+
+### Recommendation — gate timing
+
+Close `R-T4-PROJECTION-REFRESH-01` **BEFORE SHADOW** if SHADOW actually reads/evaluates T4 projection (assumed by this package). If Morris chooses a SHADOW that does not read T4/projection, timing may be deferred — but the recommended SHADOW semantics below **do** evaluate T4.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## L. D-T7-T3-SYNC-GATE-01
+
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | When must `R-T4-T3-SYNC-01` be resolved relative to MONITOR/E1/SHADOW? |
-| **Faits Git / runtime** | T3 evaluate/persist exist; not monetary authority. Intermediate product literals STILL DEFERRED. MONITOR semantic not SELECTED (metrics vs human review). |
-| **Impacts** | A aligns monetary soft signals with human review UX; B delays sync; C front-loads coupling. |
-| **Sécurité** | Avoid elevating T3 to monetary authority. |
-| **Observabilité** | Sync evidence categories belong in pilot pack if activated. |
-| **Performance** | Sync mechanism cost TBD — not designed here. |
-| **Coût** | Low until mechanism Delivery. |
-| **Dette** | Premature sync mechanism debt if MONITOR≠human. |
-| **Réversibilité** | Reserve stays OPEN this cycle. |
-| **Dépendances** | T3/T4 foundations; deferred literals. |
-| **Risque de scope** | Do not select sync mechanism; do not adopt REVIEW_REQUIRED/WOULD_BLOCK. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **Candidate A if MONITOR = human review phase; else B.** Mechanism NOT SELECTED. Literals remain STILL DEFERRED. |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
+| **Faits Git / runtime (151)** | T3 = human-review state; not monetary authority. Intermediate product literals STILL DEFERRED. |
+| **Risque de scope** | Do not select sync mechanism; do not adopt REVIEW_REQUIRED / WOULD_BLOCK. |
 
 **Options (≥2 — none SELECTED):**
 
@@ -604,121 +690,99 @@ Preserve exactly — **NOT re-opened**:
 | **B — Before E1 only** | If MONITOR is metrics-only without human sync need. |
 | **C — Before SHADOW** | Earliest; may over-constrain observe-only phase. |
 
-**Architecture challenge (candidate):**
+### Recommendation
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — phase gating. |
-| Dette créée? | Selecting mechanism early creates debt. |
-| Plus simple possible? | B simpler if MONITOR metrics-only. |
-| Repo-first? | Honors T3/T4 boundary docs. |
-| Réutilisation possible? | T3 alert/review state already durable. |
-| Réversible? | Yes pre-E1. |
-| Risque couplage T4/T7? | Sync is cross-lot; keep T3 non-monetary. |
-| Risque faux blocage? | Indirect via operator confusion. |
-| Preuve opérable? | Future sync tests. |
-| Gate Morris? | Yes. |
-## V. D-T7-T6EXT-E1-GATE-01
+**OPTION A — RESOLVE `R-T4-T3-SYNC-01` BEFORE MONITOR**
 
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+Associated semantics (recommendation only):
+
+- **MONITOR** = non-blocking phase with operable human-review
+- **SHADOW** = technical observation without mandatory human workflow
+- MONITOR must be able to synchronize T4 monetary soft signal → T3 human-review state
+- Invariant: T4 remains monetary authority; T3 never decides monetary BLOCK
+- `REVIEW_REQUIRED` vs `WOULD_BLOCK` remain **STILL DEFERRED**
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## M. D-T7-T6EXT-E1-GATE-01
+
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | Must T6-ext-T3T4 be mandatory before first E1-ENFORCED pilot? |
-| **Faits Git / runtime** | Only capture foundation events exist. T6-ext-T3T4 NOT AUTHORIZED. T6-ext-before-E1-pilot DEFERRED. |
-| **Impacts** | A strengthens RSSI/RUN; B accepts evidence gap. |
-| **Sécurité** | Blocking without durable decision/audit events impairs incident response. |
-| **Observabilité** | Core of the question. |
-| **Performance** | Ext Delivery cost vs risk of blind E1. |
-| **Coût** | B creates audit debt under enforcement. |
-| **Dette** | Authorizing ext is separate Morris GO — this option only gates sequencing. |
-| **Réversibilité** | Does **not** authorize T6-ext. |
-| **Dépendances** | Depends on future T6-ext GO. |
-| **Risque de scope** | Recommendation must not flip NOT AUTHORIZED → authorized. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **Candidate A before E1.** Explicitly does **NOT AUTHORIZE** T6-ext. State remains NOT AUTHORIZED / DEFERRED until distinct GO. |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
+| **Faits Git / runtime (151)** | Capture foundation events only. T6-ext-T3T4 **NOT AUTHORIZED**. T6-ext-before-E1-pilot **DEFERRED**. |
+| **Risque de scope** | Sequencing recommendation must **not** flip NOT AUTHORIZED → authorized. |
 
 **Options (≥2 — none SELECTED):**
 
 | Option | Description |
 |--------|-------------|
 | **A — Yes — durable T3/T4/T7 events mandatory before E1** | Auditability of blocks, false-block absence, rollback, Morris review. |
-| **B — No — T6-foundation + other proofs enough for bounded first pilot** | Faster path; weaker forensic evidence. |
+| **B — No — T6-foundation + other proofs enough for bounded first pilot** | Faster; weaker forensic evidence. |
 
-**Architecture challenge (candidate):**
+### Recommendation
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — E1 gate clarity. |
-| Dette créée? | B would create forensic debt. |
-| Plus simple possible? | B simpler, weaker. |
-| Repo-first? | Event inventory proves gap. |
-| Réutilisation possible? | Journal port reusable for ext later. |
-| Réversible? | Gate timing reversible until E1. |
-| Risque couplage T4/T7? | Low. |
-| Risque faux blocage? | Harder to prove absence without events. |
-| Preuve opérable? | Requires future ext Delivery. |
-| Gate Morris? | Yes — and separate T6-ext authorization. |
-## W. D-T7-T5-IAM-GATE-01
+**OPTION A — T6-EXT-T3T4 REQUIRED BEFORE FIRST E1-ENFORCED PILOT**
 
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+A real BLOCK must be durably reconstructible (decision, evidence source, rollout state, provider invocation prevented, human review, rollback).
+
+**Explicit non-authorization:** This sequencing decision **does NOT constitute** T6-ext authorization. T6-ext-T3T4 remains **NOT AUTHORIZED** until a distinct Morris GO.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## N. D-T7-T5-IAM-GATE-01
+
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | Are delivered T5 + Product IAM required before E1? |
-| **Faits Git / runtime** | T5 architecture SELECTED not delivered. Product IAM NOT_SELECTED. AuthorityResolver proves registered evidence, not authenticated product Morris identity. Privileged mutations DEFERRED. |
-| **Impacts** | A matches upstream Morris-only override intent; B externalizes risk. |
-| **Sécurité** | Without IAM, cannot prove caller is Morris for privileged actions. |
-| **Observabilité** | Override/audit events needed for safe E1 ops. |
-| **Performance** | IAM selection is large product decision — out of scope to choose vendor. |
-| **Coût** | High if forcing IAM early without product decision; higher human risk if B under false blocks. |
-| **Dette** | Env allow-lists are not an implicit IAM decision. |
-| **Réversibilité** | IAM remains NOT_SELECTED; T5 not delivered — unchanged. |
-| **Dépendances** | Depends on future T5 + IAM GOs. |
-| **Risque de scope** | Do not select IAM provider; do not implement T5; do not invent Morris identity. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **Candidate A before E1.** Product IAM stays NOT_SELECTED; T5 stays NOT DELIVERED. |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
+| **Faits Git / runtime (151)** | T5 architecture SELECTED not delivered. Product IAM NOT_SELECTED. AuthorityResolver = registered evidence ≠ authenticated product Morris identity. |
+| **Risque de scope** | Do not select IAM provider; do not invent Morris session; do not treat env allow-list as implicit IAM. |
 
 **Options (≥2 — none SELECTED):**
 
 | Option | Description |
 |--------|-------------|
 | **A — Yes — enforceable T5 + Product IAM proving Morris before E1** | Recoverability + Morris-only override + break-glass proof. |
-| **B — E1 without operational override; external manual procedure** | Faster; weaker recoverability; process-only break-glass. |
+| **B — E1 without operational override; external manual procedure** | Faster; weaker recoverability. |
 
-**Architecture challenge (candidate):**
+### Recommendation
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — E1 human-gate safety. |
-| Dette créée? | B creates operational debt. |
-| Plus simple possible? | B simpler, unsafe for false-block recovery. |
-| Repo-first? | Confirms IAM gap vs AuthorityResolver. |
-| Réutilisation possible? | AuthorityResolver remains necessary but insufficient alone. |
-| Réversible? | Gate timing yes; IAM selection later. |
-| Risque couplage T4/T7? | Low. |
-| Risque faux blocage? | High without override path under E1. |
-| Preuve opérable? | Needs T5+IAM later. |
-| Gate Morris? | Yes. |
-## X. D-T7-CALIBRATION-PILOT-01
+**OPTION A — T5 ENFORCEABLE + PRODUCT IAM PROVING MORRIS REQUIRED BEFORE E1**
 
-**Status:** **NOT DECIDED — MORRIS ARBITRATION REQUIRED**
+E1 can produce a real false block; recovery without proved privileged identity is incoherent. T5 and Product IAM remain two distinct future works. **No IAM provider selected here.**
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## O. D-T7-CALIBRATION-PILOT-01
+
+**Status:** **RECOMMENDED BY CHATGPT — NOT SELECTED — MORRIS ARBITRATION REQUIRED**
 
 | Champ | Valeur |
 |-------|--------|
 | **Problème** | Calibration gate timing + pilot evidence categories (no numeric thresholds). |
-| **Faits Git / runtime** | Historical 15/20/25/30 remain documentary/provisional/NOT runtime-active. Calibration REQUIRED per T4 closure. No real calibration executed. |
-| **Impacts** | A/B/C change when real amounts may appear; none authorize runtime thresholds now. |
-| **Sécurité** | Wrong early adoption risks false blocks later. |
-| **Observabilité** | Pilot evidence categories listed below. |
-| **Performance** | N/A numeric. |
-| **Coût** | N/A. |
-| **Dette** | Adopting 15/20/25/30 silently is forbidden. |
-| **Réversibilité** | High while documentary-only. |
-| **Dépendances** | Depends on Morris calibration GO. |
+| **Faits Git / runtime (151)** | 15/20/25/30 documentary/provisional/NOT runtime-active. Calibration REQUIRED per T4 closure. No real calibration executed. |
 | **Risque de scope** | No numeric selection this cycle. |
-| **Candidate recommendation (ChatGPT/Cursor)** | **Calibration gate: candidate B as safer default for non-enforcing phases, with A if MONITOR uses real amounts — NOT DECIDED. Pilot evidence categories prepared below; quantitative acceptance criteria = future Morris/QA.** 15/20/25/30 documentary only. |
-| **Status** | **NOT DECIDED — MORRIS ARBITRATION REQUIRED** |
 
 **Options (≥2 — none SELECTED):**
 
@@ -728,101 +792,349 @@ Preserve exactly — **NOT re-opened**:
 | **B — Calibration Morris required only before E1; SHADOW/MONITOR on non-enforcing params** | Allows observe phases without real threshold adoption. |
 | **C — Explicit other split** | Must justify distinct entry/exit; still no numeric adoption. |
 
-**Architecture challenge (candidate):**
+### Recommendation — calibration
 
-| Question | Answer (candidate analysis only) |
-|----------|----------------------------------|
-| Utile maintenant? | Yes — prevents silent threshold adoption. |
-| Dette créée? | Skipping calibration before E1 is unacceptable debt. |
-| Plus simple possible? | B simpler for early phases. |
-| Repo-first? | Matches T4 CALIBRATION-01 foundation decision. |
-| Réutilisation possible? | n/a |
-| Réversible? | Yes pre-runtime adoption. |
-| Risque couplage T4/T7? | T7 gates activation of amounts into policy resolver. |
-| Risque faux blocage? | Primary calibration risk. |
-| Preuve opérable? | Pilot categories. |
-| Gate Morris? | Yes. |
+**OPTION A — MORRIS CALIBRATION REQUIRED BEFORE MONITOR USING REAL AMOUNTS**
 
-### X.2 Pilot evidence categories (no numeric thresholds)
+Candidate trajectory:
 
-Categories required for future pilot proof packs (durations/volumes/error rates = **MORRIS / future QA decision**):
+- **SHADOW:** non-enforcing; may use technical / candidate params explicitly **non-adopted**
+- **MONITOR:** uses real calibrated monetary policy; remains non-blocking; feeds human review
+- **E1:** reuses calibrated policy after MONITOR evidence + distinct Morris GO
+
+15 / 20 / 25 / 30 remain: historical · documentary · provisional · **NOT runtime-active**.
+
+### Recommendation — pilot evidence categories (no numeric thresholds)
+
+Future pilot proof packs must cover (durations/volumes/error rates = future Morris/QA):
 
 1. no false block
 2. API_USAGE never blocks
-3. estimated / parametric never blocks
+3. estimation / parametric never blocks
 4. projection freshness
-5. projection rebuild failures handled fail-open
-6. fail-open technical failures ≠ BLOCK
-7. evaluated decision provenance present
+5. rebuild failure fail-open
+6. technical failure ≠ BLOCK
+7. decision provenance
 8. audit completeness (relative to authorized T6 scope)
-9. T3 synchronization evidence if sync activated
-10. override behavior if T5 available
-11. rollback to OFF
+9. T3 synchronization (if sync activated)
+10. override behavior when T5 available
+11. rollback OFF
 12. provider-call behavior (never invoked on BLOCK)
 13. multi-currency isolation
 14. incident diagnostics
 15. human review evidence
 
----
+Quantitative acceptance criteria remain **NOT DECIDED**.
 
-## Y. Rollback + pilot evidence contract
-
-### Upstream SELECTED rollback
-
-**Feature flag OFF + data preserved + no destructive rollback.**
-
-### Future proof contract (NOT implemented)
-
-| Requirement | Contract |
-|-------------|----------|
-| Mode → OFF | Without deleting ledger / projection / audit / review rows |
-| New runs | Return to non-enforced expected behavior (T4 inert or non-blocking interpretation) |
-| Engaged runs | Not killed by T7 rollback |
-| Migrations | No destructive rollback migrations |
-| Observability | Rollback itself observable |
-| Idempotence | Repeated OFF is safe |
-| Reactivation | Only via new explicit gate / Morris GO — not automatic |
-
-### Pilot evidence contract
-
-Pilot packs must cover section X.2 categories. Quantitative pass/fail thresholds remain **NOT DECIDED**.
-
-**Status:** rollback architecture SELECTED upstream; runtime proof **ABSENT** (G-T7-12). Pilot contract prepared — **NOT DECIDED** on acceptance metrics.
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
 
 ---
 
-## Activation Readiness Matrix (OFF → E1)
+## P. Proposed OFF semantics
 
-Legend statuses only: `NOT_REQUIRED` · `RECOMMENDED` · `REQUIRED` · `BLOCKING` · `DEFERRED` · `NOT_AUTHORIZED`.
+**Status:** proposed candidate — **NOT SELECTED** (mode name already SELECTED upstream).
 
-Mark: **[U]** = upstream-imposed · **[C]** = candidate recommendation (NOT DECIDED).
+| Dimension | Proposed OFF |
+|-----------|--------------|
+| Feature-flag state | Default |
+| T4 evaluator | Not required / inert path |
+| Projection read | Not required |
+| BLOCK possible? | **Never** |
+| Provider | Unchanged |
+| T3 human-review sync | Not required |
+| T6 durable composition | Baseline capture only as today |
+| Calibration | Not for OFF |
+| T5 / IAM | Not required |
+| Rollback role | Universal rollback target |
+| Entry | Default state |
+
+**Invariant:** OFF never activates T4 blocking.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## Q. Proposed SHADOW semantics
+
+**Status:** proposed candidate — **NOT SELECTED**.
+
+**Purpose:** prove the technical decision path.
+
+| Dimension | Proposed SHADOW |
+|-----------|-----------------|
+| T7 runtime | Active in SHADOW |
+| T4 evaluated? | **Yes** (observe) |
+| Projection freshness | Required per projection recommendation |
+| BLOCK | **Never** |
+| Provider | Always called if other rules allow |
+| T3 human-review | **Not mandatory** (tech observation) |
+| T6 foundation composition | **Required** (proof phase) |
+| T6-ext | NOT AUTHORIZED / not required for SHADOW |
+| Calibration / real amounts | Not required; non-adopted tech params allowed |
+| T5 / IAM | Not required |
+| Evidence | Collect proof categories |
+| Historical thresholds | Not implicitly adopted |
+
+**Formula:** SHADOW = observe decision · not enforce.
+
+**Do not auto-equate SHADOW to `signal_only`.** Transient T4 effects remain adapter-owned.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## R. Proposed MONITOR semantics
+
+**Status:** proposed candidate — **NOT SELECTED**.
+
+**Purpose:** test real calibrated policy with human review without blocking.
+
+| Dimension | Proposed MONITOR |
+|-----------|------------------|
+| T4 evaluated? | Yes |
+| Policy | Real calibrated monetary policy |
+| Projection freshness | Required |
+| BLOCK | **Never** |
+| Provider | Continues |
+| T3 human-review | **Synchronized / operable** (non-blocking) |
+| T6 runtime durable | Required |
+| Calibration | Required before MONITOR using real amounts |
+| T5 | Recommended if privileged mutations used; not mandatory while none used |
+| Product IAM | Not selected; not mandatory pre-MONITOR under this package |
+| Evidence | Pilot / diagnostics |
+
+**Formula:** MONITOR = real-policy human review · not enforce.
+
+`REVIEW_REQUIRED` vs `WOULD_BLOCK` remain **STILL DEFERRED**.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## S. Proposed E1-ENFORCED semantics
+
+**Status:** proposed candidate — **NOT SELECTED** · **activation NOT AUTHORIZED this cycle**.
+
+**Purpose:** authorize T4 to produce real BLOCK.
+
+| Candidate prerequisite | Status in this pack |
+|------------------------|---------------------|
+| T7 store + adapter delivered | Future Delivery (not this cycle) |
+| T4 projection refresh proven | Gate recommendation A / before SHADOW (earlier) |
+| T3 sync operational | Gate before MONITOR (earlier) |
+| T6 runtime composition | Gate before SHADOW (earlier) |
+| T6-ext-T3T4 | Sequencing A before E1 — **still NOT AUTHORIZED** until distinct GO |
+| T5 enforceable | Gate A before E1 — not delivered |
+| Product IAM proving Morris | Gate A before E1 — NOT_SELECTED |
+| Calibration Morris | Before MONITOR real amounts (earlier) |
+| Dedicated activation QA | Required candidate |
+| Pilot evidence | Required candidate |
+| Rollback proof | Required candidate |
+| Distinct Morris E1 activation GO | **NON REÇU** |
+
+**Formula:** E1 = only enforce mode.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## T. Proposed dependency / reserve closure sequence
+
+**Status:** candidate sequencing — **NOT AUTHORIZED** as Delivery GOs.
+
+```
+T7 arbitration
+→ T7 Decisions Applied
+→ close R-T6-RUNTIME-COMPOSITION-01
+→ implement T4 projection refresh
+→ T7 foundation Delivery default-OFF
+→ dedicated activation QA
+→ GO SHADOW
+→ SHADOW evidence
+→ T3↔T4 sync
+→ Morris calibration
+→ GO MONITOR
+→ MONITOR evidence
+→ T6-ext-T3T4 + T5 + Product IAM
+→ E1 readiness review
+→ distinct Morris GO E1
+→ E1 pilot
+```
+
+### Debt / simplicity Q&A (candidate answers)
+
+| # | Question | Candidate answer |
+|---|----------|------------------|
+| 1 | Can T7 foundation deliver before T4 refresh while staying OFF? | **Yes**, if default-OFF guarantees no active read/enforcement. |
+| 2 | Must T5 before SHADOW? | **No.** |
+| 3 | Must Product IAM before SHADOW? | **No.** |
+| 4 | Must T6-ext before SHADOW? | **No.** |
+| 5 | Must T6 runtime composition before SHADOW? | **Yes** (recommended). |
+| 6 | Must fresh projection before SHADOW? | **Yes** if SHADOW evaluates T4 (recommended). |
+| 7 | Must T3 sync before SHADOW? | **No.** |
+| 8 | Must real calibration before SHADOW? | **No.** |
+
+Intent: do not load SHADOW with E1 prerequisites.
+
+```
+RECOMMENDED BY CHATGPT —
+NOT SELECTED —
+MORRIS ARBITRATION REQUIRED
+```
+
+---
+
+## U. Proposed activation-readiness matrix after recommendations
+
+Legend: `NOT_REQUIRED` · `RECOMMENDED` · `REQUIRED` · `BLOCKING` · `DEFERRED` · `NOT_AUTHORIZED` · `NOT_SELECTED`.
+
+Mark: **[U]** = upstream already selected / imposed · **[R]** = ChatGPT recommendation awaiting Morris (**≠ SELECTED**).
 
 | Dependency / Reserve | OFF | SHADOW | MONITOR | E1-ENFORCED |
 |----------------------|-----|--------|---------|-------------|
+| T7 flag persistence | REQUIRED **[R]** for future Delivery; OFF default **[U]** | REQUIRED **[R]** | REQUIRED **[R]** | REQUIRED **[R]** |
+| T7 adapter | NOT_REQUIRED while OFF inert | REQUIRED **[R]** | REQUIRED **[R]** | REQUIRED **[R]** |
 | T4 foundation on main | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** |
-| T4 policy configuration (real amounts) | NOT_REQUIRED | RECOMMENDED non-enforcing **[C]** | REQUIRED if real amounts **[C]** / else RECOMMENDED | BLOCKING **[U]** calibration + policy |
-| T4 projection refresh (`R-T4-PROJECTION-REFRESH-01`) | NOT_REQUIRED | RECOMMENDED **[C]** | RECOMMENDED **[C]** | BLOCKING **[U]** |
-| T3 sync (`R-T4-T3-SYNC-01`) | NOT_REQUIRED | RECOMMENDED **[C]** | REQUIRED if human MONITOR **[C]** else RECOMMENDED | BLOCKING for complete sync claim **[U]** / REQUIRED **[C]** |
-| T6 durable runtime composition (`R-T6-RUNTIME-COMPOSITION-01`) | NOT_REQUIRED | REQUIRED **[C]** (if SHADOW=proof) | REQUIRED **[C]** | BLOCKING **[C]** |
-| T6-ext-T3T4 | NOT_AUTHORIZED **[U]** | NOT_AUTHORIZED **[U]** | NOT_AUTHORIZED **[U]** | NOT_AUTHORIZED **[U]** + candidate REQUIRED gate **[C]** (does not authorize) |
+| T4 projection refresh (`R-T4-PROJECTION-REFRESH-01`) | NOT_REQUIRED | REQUIRED / close before SHADOW **[R]** | REQUIRED **[R]** | BLOCKING **[U]** + **[R]** |
+| T3 sync (`R-T4-T3-SYNC-01`) | NOT_REQUIRED | NOT_REQUIRED **[R]** | REQUIRED before MONITOR **[R]** | BLOCKING for complete sync claim **[U]** / REQUIRED **[R]** |
+| T6 durable runtime composition (`R-T6-RUNTIME-COMPOSITION-01`) | NOT_REQUIRED | REQUIRED before SHADOW **[R]** | REQUIRED **[R]** | BLOCKING **[R]** |
+| T6-ext-T3T4 | NOT_AUTHORIZED **[U]** | NOT_AUTHORIZED **[U]** | NOT_AUTHORIZED **[U]** | NOT_AUTHORIZED **[U]** + sequencing REQUIRED before E1 **[R]** (does not authorize) |
 | T6-ext-before-E1-pilot | DEFERRED **[U]** | DEFERRED **[U]** | DEFERRED **[U]** | DEFERRED **[U]** (sequencing candidate A) |
-| T5 override | NOT_REQUIRED | NOT_REQUIRED | RECOMMENDED **[C]** | REQUIRED / BLOCKING **[C]** |
-| Product IAM | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** + candidate BLOCKING before E1 **[C]** |
-| Calibration | NOT_REQUIRED | NOT_REQUIRED / RECOMMENDED **[C]** | REQUIRED if real amounts **[C]** | BLOCKING / REQUIRED **[U]** |
-| Pilot evidence | NOT_REQUIRED | REQUIRED categories **[C]** | REQUIRED **[C]** | BLOCKING **[C]** |
-| Rollback proof | RECOMMENDED **[C]** | REQUIRED **[C]** | REQUIRED **[C]** | BLOCKING **[C]** |
-| Dedicated activation QA | NOT_REQUIRED | REQUIRED **[C]** | REQUIRED **[C]** | BLOCKING **[C]** |
+| T5 override | NOT_REQUIRED | NOT_REQUIRED **[R]** | RECOMMENDED **[R]** | REQUIRED / BLOCKING **[R]** |
+| Product IAM | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** | NOT_SELECTED **[U]** + candidate BLOCKING before E1 **[R]** |
+| Calibration | NOT_REQUIRED | NOT_REQUIRED (non-adopted params OK) **[R]** | REQUIRED before real amounts **[R]** | BLOCKING / REQUIRED **[U]** |
+| Pilot evidence | NOT_REQUIRED | REQUIRED categories **[R]** | REQUIRED **[R]** | BLOCKING **[R]** |
+| Rollback proof | RECOMMENDED **[R]** | REQUIRED **[R]** | REQUIRED **[R]** | BLOCKING **[R]** |
+| Dedicated activation QA | NOT_REQUIRED | REQUIRED **[R]** | REQUIRED **[R]** | BLOCKING **[R]** |
 | Currency isolation | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** |
 | SoT-safe evidence (T4) | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** |
 | Fail-open technical posture | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** | REQUIRED **[U]** |
 
-This matrix is a **readiness proposition**, not Morris SELECTED activation law, except cells marked **[U]**.
+This matrix is a **readiness proposition**. Cells marked **[R]** await Morris; they are **not** SELECTED activation law.
 
 ---
 
-## Z. Reserves / non-decisions / Morris arbitration pack / verdict
+## V. Consequences if Morris accepts all recommendations
 
-### Reserves carried EXACTLY (none closed)
+If Morris later issues an explicit arbitration GO accepting the full package (this section is consequence analysis only — **not** that GO):
+
+1. Delivery path becomes: T6 composition close → projection refresh → T7 foundation OFF → QA → SHADOW → T3 sync → calibration → MONITOR → (T6-ext + T5 + IAM) → E1 readiness → distinct E1 GO.
+2. SHADOW stays lighter than E1 (no T5/IAM/T6-ext/real calibration).
+3. MONITOR becomes the first phase that may use real calibrated amounts — still non-blocking.
+4. E1 remains the only enforce mode and stays gated by forensic + identity prerequisites.
+5. T6-ext remains **NOT AUTHORIZED** until a separate GO even if sequencing A is accepted.
+6. Document 151 facts and upstream SELECTED decisions remain intact; next cycle would be Decisions Applied (still unauthorized now).
+
+**Still NOT authorized by pack acceptance alone:** any Delivery, activation, code, IAM vendor, numeric thresholds.
+
+---
+
+## W. Alternatives / consequences if individual recommendations rejected
+
+| If Morris rejects… | Likely alternative | Trajectory consequence |
+|--------------------|--------------------|------------------------|
+| FLAG-STORE A → B | Requires proving a compatible reuse (151 found none) | Risk of invented reuse / STOP FACT conflict |
+| FLAG-STORE A → C | Env/global | Violates TECH-FLAG project-scoped default-OFF |
+| MODE-ADAPTER A → B | Modes inside T4 evaluate | Couples T4/T7; forces T4 change surface |
+| T6-COMPOSITION A → B/C | SHADOW/MONITOR without composed journal | Unprovable observe phases; incident reconstruction debt |
+| PROJECTION A → B | Rebuild-before-evaluate | Latency on provider start path |
+| PROJECTION A → C | Async worker | Stale window + ops complexity |
+| PROJECTION timing before SHADOW → later | SHADOW without freshness | Weak/stale SHADOW proofs |
+| T3-SYNC A → B | Sync only before E1 | MONITOR human phase weaker / metrics-only path |
+| T3-SYNC A → C | Sync before SHADOW | Over-constrains tech observation |
+| T6EXT-E1 A → B | E1 without ext events | Faster pilot; weaker forensic evidence under BLOCK |
+| T5-IAM A → B | E1 without operational override | False-block recovery process-only; higher human risk |
+| CALIBRATION A → B | Real amounts deferred to E1 | MONITOR cannot honestly claim real-policy review |
+| MONITOR≠human | T3-SYNC recommendation A loses force | Prefer option B for T3-SYNC |
+
+Rejecting any recommendation requires an explicit modified arbitration GO (see §Y).
+
+---
+
+## X. Remaining deferred decisions
+
+Intentionally **NOT** arbitrated in this pack:
+
+- Product IAM technology / provider
+- Exact T5 implementation manifest
+- Numeric override TTL
+- Exact T6-ext event names
+- `REVIEW_REQUIRED` vs `WOULD_BLOCK` (**STILL DEFERRED**)
+- Quantitative pilot duration / volume / acceptable false-positive rate
+- Exact calibrated monetary thresholds
+- Production provider / Neon configuration
+- Flag-store schema/table names
+- Detailed projection refresh transactional ordering
+- T3↔T4 sync mechanism design
+
+---
+
+## Y. Morris arbitration response format
+
+**Cursor must NOT simulate Morris’s answer.**
+
+Compact human response formats proposed:
+
+### Accept recommended package
+
+```
+GO arbitrage T7 —
+FLAG-STORE=A —
+MODE-ADAPTER=A —
+T6-COMPOSITION=A —
+PROJECTION-REFRESH=A / BEFORE-SHADOW —
+T3-SYNC=A / BEFORE-MONITOR —
+T6EXT-E1=A —
+T5-IAM=A —
+CALIBRATION=A / BEFORE-MONITOR —
+READINESS-MATRIX=ACCEPTED
+```
+
+### Accept with modifications
+
+```
+GO arbitrage T7 avec modifications —
+<liste explicite>
+```
+
+### Reject / stop
+
+```
+NO-GO arbitrage T7 —
+<raisons>
+```
+
+Until one of these (or equivalent explicit Morris GO) is received:
+
+- T7 Architecture Arbitration = **NON REÇU**
+- All D-T7 remain **NOT SELECTED**
+- Decisions Applied = **NON REÇU**
+
+---
+
+## Z. Reserves / gates / verdict
+
+### Reserves carried EXACTLY (none closed by this pack)
 
 | Reserve | Status |
 |---------|--------|
@@ -839,75 +1151,59 @@ This matrix is a **readiness proposition**, not Morris SELECTED activation law, 
 | Intermediate product literal | **DEFERRED** |
 | REVIEW_REQUIRED vs WOULD_BLOCK | **STILL DEFERRED** |
 
-### Non-decisions (this cycle)
-
-- All `D-T7-*` options remain **NOT DECIDED**
-- No schema/table selected for flag store
-- No mode semantic details SELECTED beyond upstream names
-- No activation of any rollout mode
-- No IAM provider
-- No numeric thresholds
-
-### Morris arbitration pack (required next)
-
-1. D-T7-FLAG-STORE-01
-2. D-T7-MODE-ADAPTER-01
-3. D-T7-T6-COMPOSITION-GATE-01
-4. D-T7-PROJECTION-REFRESH-GATE-01 (strategy + close timing)
-5. D-T7-T3-SYNC-GATE-01
-6. D-T7-T6EXT-E1-GATE-01 (without authorizing ext)
-7. D-T7-T5-IAM-GATE-01 (without selecting IAM)
-8. D-T7-CALIBRATION-PILOT-01 (gate + evidence acceptance later)
-9. Confirm readiness matrix cells marked **[C]**
-
 ### Gates Morris status
 
 | Gate | Status |
 |------|--------|
 | T4 closure | CONSUMED / CLOSED WITH RESERVES |
-| T7 preparation | REÇU / CONSUMED (this document) |
-| T7 architecture arbitration | **NON REÇU** |
-| T7 Decisions Applied / Delivery | **NON REÇU** |
-| SHADOW / MONITOR / E1 activation | **NON REÇU** |
-| T5 / T6-ext / IAM / Calibration | **NON REÇU** |
+| T7 preparation 151 | CONSUMED |
+| T7 Arbitration Pack preparation | REÇU / CONSUMED via `ok go` |
+| T7 Architecture Arbitration | **NON REÇU** |
+| T7 Decisions Applied | **NON REÇU** |
+| T7 Delivery | **NON REÇU** |
+| T6 composition Delivery | **NON REÇU** |
+| Projection refresh Delivery | **NON REÇU** |
+| T3 sync Delivery | **NON REÇU** |
+| T6-ext | **NON REÇU** (NOT AUTHORIZED) |
+| T5 | **NON REÇU** |
+| Product IAM | **NON REÇU** |
+| Calibration | **NON REÇU** |
+| SHADOW / MONITOR / E1 | **NON REÇU** |
 | Project commit/push/PR/merge | **NON REÇU** |
 
 ### Project write manifest
 
 | Path | Action |
 |------|--------|
-| `projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md` | **CREATE** (only) |
+| `projects/sfia-studio/151-…preparation.md` | **PRESERVED** (pre-existing untracked; not modified) |
+| `projects/sfia-studio/152-…decision-pack.md` | **CREATE** (only project write this cycle) |
 
 ### Verdict
 
 ```
 FINOPS TECHNICAL LOT T7 —
-FEATURE FLAG / ROLLOUT / ACTIVATION READINESS PREPARATION COMPLETE WITH RESERVES —
+ARCHITECTURE ARBITRATION DECISION PACK PREPARED —
+
+DOCUMENT 151 PRESERVED —
+
+RECOMMENDED PACKAGE PREPARED —
+FLAG-STORE A —
+MODE-ADAPTER A —
+T6-COMPOSITION BEFORE SHADOW —
+PROJECTION-REFRESH A / BEFORE SHADOW —
+T3-SYNC BEFORE MONITOR —
+T6-EXT REQUIRED BEFORE E1 CANDIDATE —
+T5 + PRODUCT IAM REQUIRED BEFORE E1 CANDIDATE —
+CALIBRATION BEFORE MONITOR USING REAL AMOUNTS CANDIDATE —
+
+OFF / SHADOW / MONITOR / E1 SEMANTICS PROPOSED —
+ACTIVATION READINESS MATRIX PROPOSED —
+SEQUENCING PROPOSED —
+
+ALL D-T7 DECISIONS NOT SELECTED —
+MORRIS ARBITRATION REQUIRED —
 
 T4 CLOSED WITH RESERVES PRESERVED —
-
-SERVER-SIDE PROJECT-SCOPED DEFAULT-OFF FLAG DECISION PRESERVED —
-OFF / SHADOW / MONITOR / E1-ENFORCED MODEL PRESERVED —
-FLAG-OFF DATA-PRESERVING ROLLBACK PRESERVED —
-
-CURRENT RUNTIME COMPOSITION INVENTORIED —
-T4 PROJECTION REFRESH GAP QUALIFIED —
-T3 SYNC GAP QUALIFIED —
-T6 RUNTIME COMPOSITION GAP QUALIFIED —
-T6-EXT E1 GATE QUALIFIED —
-T5 / PRODUCT IAM GATE QUALIFIED —
-CALIBRATION / PILOT GATE QUALIFIED —
-
-D-T7-FLAG-STORE-01 NOT DECIDED —
-D-T7-MODE-ADAPTER-01 NOT DECIDED —
-D-T7-T6-COMPOSITION-GATE-01 NOT DECIDED —
-D-T7-PROJECTION-REFRESH-GATE-01 NOT DECIDED —
-D-T7-T3-SYNC-GATE-01 NOT DECIDED —
-D-T7-T6EXT-E1-GATE-01 NOT DECIDED —
-D-T7-T5-IAM-GATE-01 NOT DECIDED —
-D-T7-CALIBRATION-PILOT-01 NOT DECIDED —
-
-MORRIS ARBITRATION REQUIRED —
 
 R-T4-T3-SYNC-01 OPEN —
 R-T4-PROJECTION-REFRESH-01 OPEN —
@@ -922,50 +1218,110 @@ PRIVILEGED MORRIS MUTATIONS DEFERRED —
 INTERMEDIATE PRODUCT LITERAL DEFERRED —
 REVIEW_REQUIRED VS WOULD_BLOCK STILL DEFERRED —
 
+NO DECISIONS APPLIED —
 NO CODE —
 NO MIGRATION —
-NO FEATURE FLAG RUNTIME —
-NO REAL S30 —
-NO HISTORICAL 15/20/25/30 RUNTIME ADOPTION —
-NO SHADOW ACTIVATION —
-NO MONITOR ACTIVATION —
-NO E1 —
+NO T7 RUNTIME —
 NO T5 —
 NO T6-EXT —
 NO IAM SELECTION —
+NO REAL CALIBRATION —
+NO SHADOW —
+NO MONITOR —
+NO E1 —
 
-151 PREPARATION RECORD CREATED —
+DOCUMENT 152 CREATED —
+
+T7 ARCHITECTURE ARBITRATION PACK READY —
+MORRIS DECISION REQUIRED
+```
+
+---
+
+## Handoff publish metadata (filled after publish)
+
+| Champ | Valeur |
+|-------|--------|
+| **Commit message** | `docs(review-handoff): publish T7 arbitration pack` |
+| **HANDOFF_TIP_AFTER** | (filled post-publish) |
+| **HANDOFF_BLOB_AFTER** | (filled post-publish) |
+| **Remote verification** | (filled post-publish) |
+
+---
+
+## Final status (project)
+
+```text
+?? .tmp-sfia-review/
+?? projects/sfia-studio/151-assistant-sfia-native-openai-finops-technical-lot-t7-feature-flag-rollout-activation-readiness-preparation.md
+?? projects/sfia-studio/152-assistant-sfia-native-openai-finops-technical-lot-t7-architecture-arbitration-decision-pack.md
+```
+
+staged empty; no project git publish.
+
+---
+
+## Verdict
+
+```
+FINOPS TECHNICAL LOT T7 —
+ARCHITECTURE ARBITRATION DECISION PACK PREPARED —
+
+DOCUMENT 151 PRESERVED —
+
+RECOMMENDED PACKAGE PREPARED —
+FLAG-STORE A —
+MODE-ADAPTER A —
+T6-COMPOSITION BEFORE SHADOW —
+PROJECTION-REFRESH A / BEFORE SHADOW —
+T3-SYNC BEFORE MONITOR —
+T6-EXT REQUIRED BEFORE E1 CANDIDATE —
+T5 + PRODUCT IAM REQUIRED BEFORE E1 CANDIDATE —
+CALIBRATION BEFORE MONITOR USING REAL AMOUNTS CANDIDATE —
+
+OFF / SHADOW / MONITOR / E1 SEMANTICS PROPOSED —
+ACTIVATION READINESS MATRIX PROPOSED —
+SEQUENCING PROPOSED —
+
+ALL D-T7 DECISIONS NOT SELECTED —
+MORRIS ARBITRATION REQUIRED —
+
+T4 CLOSED WITH RESERVES PRESERVED —
+
+R-T4-T3-SYNC-01 OPEN —
+R-T4-PROJECTION-REFRESH-01 OPEN —
+R-T6-RUNTIME-COMPOSITION-01 OPEN —
+R-PR-T2-API-01 OPEN MINOR —
+T6-EXT-T2 EXCLUDED —
+T6-EXT-T3T4 NOT AUTHORIZED —
+T6-EXT-BEFORE-E1-PILOT DEFERRED —
+CALIBRATION REQUIRED —
+PRODUCT IAM NOT_SELECTED —
+PRIVILEGED MORRIS MUTATIONS DEFERRED —
+INTERMEDIATE PRODUCT LITERAL DEFERRED —
+REVIEW_REQUIRED VS WOULD_BLOCK STILL DEFERRED —
+
+NO DECISIONS APPLIED —
+NO CODE —
+NO MIGRATION —
+NO T7 RUNTIME —
+NO T5 —
+NO T6-EXT —
+NO IAM SELECTION —
+NO REAL CALIBRATION —
+NO SHADOW —
+NO MONITOR —
+NO E1 —
+
+DOCUMENT 152 CREATED —
 
 NO PROJECT STAGING —
 NO PROJECT COMMIT —
 NO PROJECT PUSH —
 NO PR —
 
-READY FOR CHATGPT T7 PREPARATION VALIDATION —
-READY FOR MORRIS T7 ARCHITECTURE ARBITRATION
+REVIEW HANDOFF REMOTE VERIFIED —
+
+T7 ARCHITECTURE ARBITRATION PACK READY —
+MORRIS DECISION REQUIRED
 ```
-
-
----
-
-## Post-document confirmations
-
-| Item | Value |
-|------|-------|
-| All D-T7-* | NOT DECIDED — MORRIS ARBITRATION REQUIRED |
-| Code / migration / flag runtime | none |
-| SHADOW / MONITOR / E1 | not activated |
-| Reserves closed | none |
-| Project staged | empty |
-| Project commit / push / PR | none |
-| T4 CLOSED WITH RESERVES | preserved |
-
----
-
-## Verdict (pack)
-
-FINOPS TECHNICAL LOT T7 —
-FEATURE FLAG / ROLLOUT / ACTIVATION READINESS PREPARATION COMPLETE WITH RESERVES —
-
-READY FOR CHATGPT T7 PREPARATION VALIDATION —
-READY FOR MORRIS T7 ARCHITECTURE ARBITRATION
