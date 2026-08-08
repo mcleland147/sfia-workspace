@@ -1,286 +1,416 @@
-# Cycle 14 Standard — T7 SHADOW PR #321 Post-Merge — Review Pack (full)
+# Cycle 6 Standard — T7 SHADOW Temporal Mode Semantics Architecture — Review Pack (full)
 
 ## 1. Date / heure
 
-- **CEST:** 2026-08-08 21:35:28 UTC+02:00
-- **UTC:** 2026-08-08 19:35:28 UTC
+- **CEST:** 2026-08-08 21:47:09 UTC+02:00
+- **UTC:** 2026-08-08 19:47:09 UTC
 
-## 2. Décision Morris exacte
+## 2. GO Morris résolu
 
-GO Cycle 14 Post-merge.
+Utterance: `ok go`
 
-Autorisé: sync/vérification main · PR/merge verify · QA-G4 proportionnée · cleanup branche PR si §6.12.1 · `git branch -d` · remote delete si sûr · fetch --prune · worktree Delivery remove normal · purge `.tmp-sfia-review/**` Delivery après handoffs distants · FULL pack · L3 handoff.
+Resolved: **GO Cycle 6 — Architecture technique — TEMPORAL MODE SEMANTICS analysis.**
 
-Non autorisé: mutation projet · nouveau commit projet · nouvelle PR · amend/rebase/reset/force-push · `git branch -D` · delete main/handoff · SHADOW activation · policy/temporal/threshold/MONITOR/E1/T3/T5/T6-ext/Product IAM · capitalisation méthode.
+Authorized: repo read · architecture analysis · useful Git history · tests analysis · options matrix · recommendation · FULL pack · L3 handoff.
+
+Not authorized: auto-select option · code/tests/157 mutate · ADR versioned · project commit · Delivery branch · project push · PR · merge · SHADOW row · policy source · threshold · SHADOW activation · MONITOR · E1 · T3 · T5 · T6-ext · Product IAM.
 
 ## 3. Cycle / profil
 
-- **Cycle:** 14 — Post-merge
+- **Cycle:** 6 — Architecture technique
 - **Profil:** Standard
-- **Typologie:** RUN / QA / DOC
-- **CKC:** aucun pilote Cycle 14 — fallback `02-fifteen-cycles-synthetic-map.md` (candidate, experimental)
-- **Blocs activés:** QA/validation · DevOps/CI · FinOps contexte · post-merge/cleanup
-- **Blocs désactivés:** Delivery · architecture · activation · déploiement · Product IAM · capitalisation
+- **Nature:** analyse / décision d'architecture · **READ-ONLY PROJECT CONTENT**
+- **CKC:** `pilots/03-architecture-technique.md` candidate v0.1.0 — experimental cognitive guidance
+- **Blocs:** FinOps · architecture technique · résilience · observabilité · DevOps/testabilité
+- Ne PAS promouvoir ce cycle en Critical.
 
-## 4. Git Truth initial
-
-Avant pull (main WT):
-- branch=`main`
-- HEAD=`503369b10506515e173b5b58986c731ba1b313b8` (behind)
-- origin/main=`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-- tracked clean; untracked `.tmp-sfia-review/**`
-
-Après `git pull --ff-only`:
-- HEAD=`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-- origin/main=`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-- aligned YES
-- MAIN_EQUALS_MERGE_COMMIT
-
-## 5. Worktree topology
-
-| Role | Path | Branch / HEAD |
-|------|------|---------------|
-| A. main | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main` | `main` @ `fd06f4aa…` |
-| B. Delivery (pre-cleanup) | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-shadow-option-a` | `delivery/sfia-studio-finops-t7-shadow-option-a` @ `3873b05…` |
-| C. handoff | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` | `sfia/review-handoff` |
-
-Cycle exécuté depuis worktree main (A). Handoff (C) jamais ciblé par cleanup.
-
-## 6. Handoff entrant
-
-- tip: `8d31b89c878536cde294a1bbc090b81b7f30547d`
-- blob: `4c820b3d9398f804eb58a1c7037209bc819ddeed`
-- Cycle 13 Final Merge Gate — PR merged · cleanup not yet executed · SHADOW NOT ACTIVATED
-
-## 7. Sources consultées
-
-Depuis main:
-- `prompts/templates/sfia-cycle-execution-template.md` (§6.12 / §6.12.1 confirmés)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
-- `scripts/sfia/publish-review-handoff.sh`
-- `scripts/sfia/README.md`
-- handoff entrant canonique
-- 5 fichiers T7 SHADOW sur main
-
-## 8. PR merged truth
-
-- #321 state=MERGED · draft=false
-- title=`feat(sfia-studio): wire FinOps T7 shadow pilot`
-- base=main · headRefName historique=`delivery/sfia-studio-finops-t7-shadow-option-a`
-- url: https://github.com/mcleland147/sfia-workspace/pull/321
-- **PR_TRUTH = PASS**
-
-## 9. mergedAt
-
-`2026-08-08T19:14:49Z`
-
-## 10. Merge commit SHA
-
-`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-
-## 11. Merge parents
-
-| Parent | SHA |
-|--------|-----|
-| ^1 | `503369b10506515e173b5b58986c731ba1b313b8` |
-| ^2 | `3873b0527a0615c0500c190dca80e136452f6351` |
-
-Message: `Merge pull request #321 from mcleland147/delivery/sfia-studio-finops-t7-shadow-option-a`
-
-## 12. Current main
-
-`fd06f4aa1a19e629e0330473e43b1cf3b935014f` (= merge commit)
-
-## 13. Ancestor proofs
-
-| Commit | Ancestor of origin/main |
-|--------|-------------------------|
-| `3873b0527a0615c0500c190dca80e136452f6351` | EC=0 |
-| `d99bbbdea2446af8b79488b7459924e6cf5a3e16` | EC=0 |
-| `bab14ca480b60744f6a428d93070c876de171ee1` | EC=0 |
-| merge `fd06f4aa…` | EC=0 (is HEAD) |
-
-## 14. 5-file presence
-
-All 5 paths exist on main (CREATE from ff-only pull evidenced).
-
-## 15. Hashes 5/5
-
-| File | SHA-256 | Result |
-|------|---------|--------|
-| composer | `3a6646af7ea1981160beac64894dd6ac58d70ce461f6973501f47dda4f5d8057` | OK |
-| adapter | `e90b5da0c23023b3e0839cc729516fea7c127099a8e8e3099941f8365a4d3b6a` | OK |
-| unit | `cb1cd4e40dadb057d9ebea964cff84ce6e76cfba3bccf740e948784d9ab3dd65` | OK |
-| integration | `d57f4f1b98a6900bac92f90ba78bb1c5eb553441a062ea0c5ee6e80db2261dc0` | OK |
-| 157.md | `dd3b773a741a661e48f8eb6aaa64c641973459441d0be6b91d44f14166eb7e2b` | OK |
-
-**HASH_GATE = PASS** — corrective QA bytes preserved.
-
-## 16. OA/OPS1 static boundary
-
-- `projects/sfia-studio/app/lib/oa` scan for `@/lib/ops1`: **0 hits**
-- **BOUNDARY = PASS**
-
-## 17. Pilot identity
-
-`T7_SHADOW_PILOT_PROJECT_ID = "sfia-studio-ops1"` in OA-local composer.
-
-## 18. Post-merge CI run / head / event
-
-- run: `31273951351`
-- workflow: `SFIA Studio CI`
-- event: `push`
-- head: `fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-- status: completed · conclusion: **success**
-- title: Merge pull request #321 …
-- url: https://github.com/mcleland147/sfia-workspace/actions/runs/31273951351
-
-## 19. CI jobs
-
-| Job / step | Result |
-|------------|--------|
-| Detect SFIA Studio changes | success |
-| Build and validate SFIA Studio | success |
-| Typecheck | success |
-| Lint | success |
-| Build | success |
-| Unit tests (Vitest) | success |
-| FinOps T1 migrate up (CI-A) | success |
-| FinOps T1 PostgreSQL integration tests (CI-A) | success |
-| Modeled governance tests | success |
-| Secret pattern scan (targeted) | success |
-| Trailing whitespace check | success |
-
-## 20. Required Gate
-
-`SFIA Studio Required Gate` = **success**
-
-## 21. QA-G4 verdict
-
-**PASS WITH RESERVES**
-
-Primary proof = remote CI on merge commit (same validated bytes as Corrective QA Critical + PR CI SUCCESS). No local PostgreSQL/full suite/adversarial rerun required (no subject divergence).
-
-## 22. Reserves closed on main
-
-- OA → OPS1 boundary = **CLOSED ON MAIN**
-- 157.md trailing whitespace = **CLOSED ON MAIN**
-- T7 SHADOW wiring integration = **INTEGRATED ON MAIN**
-- PR #321 = **MERGED AND POST-MERGE VERIFIED**
-
-## 23. Reserves remaining
-
-- SHADOW PILOT POLICY SOURCE = NOT SELECTED — REQUIRED BEFORE MEANINGFUL PILOT ACTIVATION
-- TEMPORAL MODE DRIFT OFF→SHADOW = OPEN — observation-integrity reserve
-- R-T4-T3-SYNC-01 = OPEN — BEFORE MONITOR
-- R-PR-T2-API-01 = OPEN MINOR
-- Calibration réelle = REQUIRED BEFORE MONITOR
-- T6-ext = NOT AUTHORIZED
-- Product IAM = NOT_SELECTED
-- T5 = OUT OF SCOPE SHADOW
-- MONITOR = NOT ACTIVATED
-- E1 = NOT AUTHORIZED
-- SHADOW = NOT ACTIVATED
-
-## 24. Cleanup eligibility conditions 1–9
-
-| # | Condition | Result |
-|---|-----------|--------|
-| 1 | PR #321 merged | OK |
-| 2 | local main = origin/main aligned | OK |
-| 3 | merge commit on main | OK |
-| 4 | PR head on main | OK |
-| 5 | tracked clean | OK |
-| 6 | target = exact merged PR branch | OK |
-| 7 | not protected (HTTP 404) | OK |
-| 8 | no unmerged divergence | OK |
-| 9 | != main / != handoff | OK |
-
-**CLEANUP_ELIGIBILITY = PASS**
-
-## 25. Unmerged divergence proof
-
-`git merge-base --is-ancestor origin/delivery/… origin/main` → EC=0
-`git rev-list origin/main..origin/delivery/…` → **EMPTY**
-remote SHA before delete = `3873b0527a0615c0500c190dca80e136452f6351`
-
-## 26. Delivery worktree status
-
-Pre-cleanup: tracked/staged clean; only untracked `.tmp-sfia-review/`
-Handoffs prior cycles already remote-verified (tip `8d31b89…` / blob `4c820b3d…`)
-
-## 27. Temporary .tmp cleanup
-
-Deleted Delivery WT `.tmp-sfia-review/**` only.
-Post-delete `git status --short` = clean.
-
-## 28. Worktree removal result
-
-`git worktree remove <DELIVERY_WT>` (no `--force`) → success
-Path removed; porcelain confirms Delivery WT absent.
-
-## 29. Local branch deletion result
-
-`git branch -d delivery/sfia-studio-finops-t7-shadow-option-a` → Deleted (was 3873b05)
-LOCAL_ABSENT=YES
-
-## 30. Remote branch deletion result
-
-`git push origin --delete delivery/sfia-studio-finops-t7-shadow-option-a` → deleted
-`git ls-remote --heads origin …` → EMPTY · REMOTE_ABSENT=YES
-No other branch deleted. `sfia/review-handoff` preserved.
-
-## 31. Fetch / prune proof
-
-`git fetch origin --prune` after remote delete executed.
-
-## 32. Git final
+## 4. Git Truth
 
 | Ref | Valeur |
 |-----|--------|
+| worktree | `finops-t2-main` |
 | branch | `main` |
 | HEAD | `fd06f4aa1a19e629e0330473e43b1cf3b935014f` |
 | origin/main | `fd06f4aa1a19e629e0330473e43b1cf3b935014f` |
 | tracked/staged | clean |
-| untracked (main WT) | `.tmp-sfia-review/**` (Cycle 14 evidence + pack) |
-| Delivery worktree | absent |
-| Delivery local branch | absent |
-| Delivery remote branch | absent |
+| untracked | `.tmp-sfia-review/**` only |
+| Delivery remote | **ABSENT** (post Cycle 14 cleanup) |
+| PR #321 | MERGED |
+| SHADOW | NOT ACTIVATED |
+| Policy source | NOT SELECTED |
+| Temporal drift | OPEN |
 
-## 33. Project mutation
+## 5. Handoff entrant
 
-**NO** — no project commit, no project file change, no new PR.
+- tip: `39a4e4331df76418f94b5ba8c08a89cb4ccb9c9e`
+- blob: `69c45084e6fdbf15f14e8ae0fd0fb8378522ee5e`
+- Cycle 14 Standard — T7 SHADOW PR #321 Post-Merge
+- Confirmed: main=fd06f4aa · QA-G4 PASS WITH RESERVES · OA→OPS1 CLOSED · whitespace CLOSED · Delivery cleaned · policy NOT SELECTED · TEMPORAL MODE DRIFT OPEN · SHADOW NOT ACTIVATED
 
-## 34. SHADOW activation
+## 6. Sources consultées
 
-**NO — NOT ACTIVATED**
-REAL SHADOW ROW WRITTEN=false · POLICY SOURCE SELECTED=false · REAL THRESHOLD=false · MONITOR=false · E1=false
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`
+- `composeFinOpsT7ShadowExecutionDeps.ts`
+- `composeExecutionRunD2D3T7ShadowPilot.ts`
+- `composeExecutionRunD2D3.ts`
+- `coordinateExecutionRun.ts`
+- `composeFinOpsT7Runtime.ts`
+- `resolveFinOpsRollout.ts`
+- `types.rollout.ts`
+- `finopsCapturePort.ts`
+- `finopsEnforcementPort.ts`
+- tests: `t7.shadow-option-a.unit.test.ts`, `t7.shadow-option-a.wiring.integration.test.ts`
+- handoff Cycle 14 canonique
 
-## 35. Policy source
+## 7. Current runtime sequence (proven)
+
+```
+coordinateExecutionRun
+  → (create run / pre-engagement)
+  → finopsEnforcement.evaluateBeforeProvider({projectId, executionRunId, ...})
+       → composeFinOpsT7ShadowExecutionDeps.evaluateBeforeProvider
+       → t7.resolveProjectRollout(projectId)   # READ #1 — PRE
+  → provider invocation (if not blocked; SHADOW never blocks)
+  → on provider success (AI lane):
+       captureFinOpsAfterAiSuccess
+       → deps.finops.captureUsage({projectId, executionRunId, ...})
+            → composeFinOpsT7ShadowExecutionDeps.captureUsage
+            → t7.resolveProjectRollout(projectId)   # READ #2 — POST
+```
+
+Wiring proof (`composeExecutionRunD2D3T7ShadowPilot.ts`):
+- `finops: shadowDeps.capture`
+- `finopsEnforcement: shadowDeps.finopsEnforcement`
+- coordinator injection surface unchanged (`composeExecutionRunD2D3`).
+
+## 8. Double-read proof
+
+In `composeFinOpsT7ShadowExecutionDeps.ts`:
+
+1. PRE path L167: `instruction = await t7.resolveProjectRollout(projectId)` inside `evaluateBeforeProvider`
+2. POST path L257: `instruction = await t7.resolveProjectRollout(projectId)` inside `captureUsage`
+
+Confirmed:
+- same `projectId` and `executionRunId` flow from coordinator into both ports
+- **two distinct rollout reads**
+- **no per-run snapshot**
+- **no rollout context propagated PRE→POST**
+- **no SHADOW mutation** in composer (read-only resolve)
+- no Map/WeakMap/process cache/snapshot fields in adapter or pilot composer
+
+## 9. Temporal matrix (current = live re-read)
+
+| PRE mode | POST mode | PRE behavior | Provider | Capture | Observation consistency |
+|----------|-----------|--------------|----------|---------|-------------------------|
+| OFF | OFF | inert allow (`rollout_not_shadow_inert`) | continues | disabled (`shadow_capture_inactive`) | coherent inert |
+| SHADOW | SHADOW | SHADOW eval, effect forced `signal_only`, never block | continues | may capture via T7 capture | coherent SHADOW |
+| **OFF** | **SHADOW** | inert PRE | continues | **may capture as SHADOW** | **DRIFT — named reserve** |
+| **SHADOW** | **OFF** | SHADOW eval PRE | continues | **disabled** | **rollback observation cuts capture** |
+| missing/non-SHADOW | SHADOW | inert PRE | continues | may capture | drift-like |
+| SHADOW | missing/OFF | SHADOW PRE | continues | disabled | rollback-like |
+| PRE rollout read fail | * | `failed` finops-side (`rollout_resolve_failed`) — provider continues (fail-open) | continues | independent POST read | PRE diagnostic unresolved |
+| * | POST rollout read fail | * | * | disabled (`shadow_capture_rollout_failed_inert`) | capture omitted |
+
+**Historical reserve OFF→SHADOW:** a run can be captured as SHADOW without having been evaluated SHADOW at PRE.
+
+**SHADOW→OFF:** rollback OFF takes effect before capture under current semantics.
+
+## 10. Invariants (non-negotiable for any option)
+
+I1 SHADOW never BLOCK · I2 effect forced signal_only · I3 OFF/missing inert · I4 non-pilot inert · I5 MONITOR/E1 inert in this composer · I6 fail-open provider continuity · I7 no implicit production threshold · I8 temporal arch must not select policy source · I9 no OA→OPS1 · I10 no global identity authority · I11 rollback explicit/understandable · I12 no cross-run contamination · I13 no unbounded process memory · I14 deterministic testability.
+
+## 11. Central architecture question
+
+Distinguish:
+
+- **A. CURRENT mode** — project configuration at the moment a boundary executes
+- **B. FOR-RUN mode** — mode to which an `executionRun` is bound once started
+
+Current code implements **A** at every boundary.
+
+Decision Morris must make: is FinOps SHADOW observation integrity defined per **step-time** or per **run start**?
+
+## 12. Option A — LIVE RE-READ (current)
+
+**Principle:** each boundary re-reads current rollout.
+
+### Advantages
+- Already implemented; zero new state
+- No propagation / lifecycle
+- SHADOW→OFF rollback cuts capture immediately
+- Config flips visible at next boundary without stale latch
+
+### Disadvantages
+- OFF→SHADOW drift (named reserve)
+- PRE diagnostic and POST capture can narrate different regimes
+- Audit ambiguity for mid-run activation
+
+### Debt
+- Current: observational inconsistency debt (OPEN reserve), not safety debt (I1–I7 hold)
+- Keeping A means **accepting** step-current semantics as product design
+
+### Activation impact
+- Before SHADOW activation, A is low operational risk (no live SHADOW)
+- After activation, FinOps observations may include mid-run activations without PRE soft_signal history
+
+### Can A be kept intentionally?
+YES — by documenting that mode is CURRENT-at-boundary, not FOR-RUN. That closes the reserve as **ACCEPTED DESIGN**, not as a bug.
+
+## 13. Option B — PER-RUN SNAPSHOT
+
+**Principle:** resolve mode once for the run; reuse for PRE + POST.
+
+### Latch moment candidates
+1. run create — earliest, may precede FinOps injection relevance
+2. **just before evaluateBeforeProvider** — preferred: first FinOps boundary
+3. other — not justified
+
+### Flip behaviors
+- Snapshot SHADOW then OFF during provider → capture would continue under SHADOW (rollback delayed for in-flight)
+- Snapshot OFF then SHADOW during provider → capture stays inactive (no retroactive)
+
+### Implementation sketches (NOT executed)
+
+**B1. Explicit coordinator/run context propagation**
+- MODIFY: `coordinateExecutionRun.ts`, possibly domain run types, ports
+- Impact: core execution-run contract
+- Debt: higher blast radius
+
+**B2. Run-scoped token / context object**
+- Similar to B1; needs transport through capture call chain
+- Core or port signature change likely
+
+**B3. Adapter Map keyed by executionRunId**
+- CREATE/MODIFY mostly adapter
+- RISK: process-local unbounded Map without cleanup = **REJECT pattern** unless hard lifecycle (delete on capture + fail paths + TTL/cap + multi-instance caveat)
+- Multi-instance: Map is not shared across processes — inconsistent unless mode is also durable (undesired)
+
+### Assessment
+- Better intra-run audit coherence than A
+- **Worse** observational rollback immediacy than A/C for SHADOW→OFF in-flight
+- Heavier than needed for a never-block pilot
+
+## 14. Option C — HYBRID / DUAL-GATE (PRE eligibility latch)
+
+**Principle:** capture SHADOW only if:
+
+`PRE_WAS_SHADOW AND POST_IS_SHADOW`
+
+| Flip | Capture |
+|------|---------|
+| OFF→OFF | no |
+| SHADOW→SHADOW | yes (if other capture gates pass) |
+| OFF→SHADOW | **no** (blocks retroactive) |
+| SHADOW→OFF | **no** (keeps immediate observational rollback) |
+
+### Minimal state
+Transport only a boolean/token: `preWasShadow` / eligibility for this `executionRunId`.
+Not a full policy/threshold snapshot.
+
+### Implementation credibility
+- **Adapter-primary possible:** PRE path records eligibility; POST path checks eligibility ∧ current SHADOW
+- Requires lifecycle: clear token after captureUsage (all outcomes); clear/TTL if POST never reached (provider fail / non-AI / early return)
+- Prefer adapter-local bounded store **only with** demonstrated cleanup; else propagate eligibility via a thin coordinator field (more explicit, less leaky)
+
+### Why credible now
+- Directly targets named OFF→SHADOW integrity gap
+- Preserves SHADOW→OFF immediate cut of capture
+- Smaller than full FOR-RUN mode snapshot
+- Does not select policy/threshold
+- Compatible with I1–I10
+
+### Costs
+- New mechanism (latch) before SHADOW activation
+- Must design concurrency + failure cleanup carefully
+- Slightly more tests than documenting A
+
+## 15. Comparison matrix
+
+| Criterion | A live re-read | B per-run snapshot | C hybrid dual-gate |
+|-----------|----------------|--------------------|--------------------|
+| Intra-run coherence | LOW on flips | HIGH | HIGH for eligibility |
+| Rollback OFF immediate (capture cut) | YES | NO (in-flight may still capture) | YES |
+| Activation SHADOW mid-run | Capture possible | No capture | No capture |
+| Capture OFF→SHADOW | YES (drift) | NO | NO |
+| Capture SHADOW→OFF | NO | YES possible | NO |
+| Auditability | Ambiguous on flips | Strong regime story | Strong eligibility story |
+| Observability needs | preMode/postMode useful | effectiveModeForRun | preWasShadow + postMode |
+| Fail-open | YES | YES if designed | YES if designed |
+| Concurrency isolation | Natural (stateless) | Needs run key | Needs run key |
+| State management | None | Snapshot state | Minimal latch |
+| Memory lifecycle | N/A | Required | Required |
+| Core coordinator impact | None | Likely (B1/B2) or risky Map (B3) | Prefer thin; possible adapter-only with lifecycle |
+| Adapter-only possible? | Already is | Hard for clean B | Possible with care |
+| DB migration | NO | NO (unless durable chosen) | NO |
+| New durable state | NO | Prefer NO | Prefer NO |
+| Test complexity | Baseline | Higher | Moderate |
+| Reversibility | High (status quo) | Medium | Medium-high |
+| Debt created | Observational ambiguity | Snapshot + delayed rollback | Latch lifecycle |
+| Blast radius | None now | Highest | Moderate |
+| Prep for SHADOW activation | Weak integrity | Strong but rollback softer | Strong + rollback sharp |
+| Cost of later change | Document now / code later | Large if wrong | Moderate |
+
+## 16. Rollback semantics
+
+Meaning of project SHADOW→OFF:
+
+- **A:** next POST capture becomes inactive immediately for runs already past PRE
+- **B:** in-flight runs with SHADOW snapshot may still capture after OFF
+- **C:** OFF at POST prevents capture even if PRE was SHADOW
+
+Safety note: none of these block the provider (I1/I6). Difference is **observation stop timing**, not enforcement.
+
+## 17. Concurrency
+
+Scenario: Run A starts, Run B starts, mode flips, A/B finish in different order.
+
+- **A:** each boundary independent; no cross-run state; flips affect whichever boundary executes after flip
+- **B/C:** must key by `executionRunId`; contamination if shared mutable mode without keying
+- Process-local Map: not multi-instance coherent; if used, document single-process assumption + cleanup, or prefer explicit per-call propagation
+
+## 18. Failure semantics
+
+| Failure | A | B | C |
+|---------|---|---|---|
+| PRE rollout fail | failed finops-side; provider continues | snapshot unresolved/inert; provider continues | no eligibility; later capture blocked for SHADOW path |
+| Policy resolver fail | handled in PRE SHADOW path; never block | depends on snapshot timing | same as A at PRE |
+| Provider fail / no capture | no POST | must cleanup unused snapshot | must cleanup unused latch |
+| POST rollout fail | capture disabled inert | if using snapshot may still capture | POST not SHADOW ⇒ no capture |
+| Capture fail | failed capture diagnostic; provider success preserved | same | same |
+
+**Invariant:** FinOps failure must not become provider block (already true).
+
+## 19. Persistence / migration
+
+- **DB migration required?** **NO** for A/B/C if latch/snapshot is request/run-scoped ephemeral
+- **Durable snapshot needed?** **NO** for pilot SHADOW observation integrity; crash mid-run already loses in-memory process state broadly
+- Do not add durable state by reflex
+
+## 20. Observability
+
+Current `onShadowDecision` is minimal, non-durable, PRE-oriented.
+
+Ideal diagnostic fields (not T6-ext):
+- executionRunId, projectId, preMode, postMode (if re-read), effectiveEligibility, captureEligibility, reason
+
+Classification: **B — useful but non-blocking before activation**. Do **not** require T6-ext. Keep sink optional/fail-open.
+
+## 21. File impact map (no edits performed)
+
+### Option A (document only)
+- UNCHANGED: all runtime files
+- possible future DOC-only note in 157 (out of this cycle)
+
+### Option B
+- MODIFY likely: `composeFinOpsT7ShadowExecutionDeps.ts`
+- MODIFY possible: `coordinateExecutionRun.ts`, ports, domain (B1/B2)
+- CREATE possible: run context helper
+- UNCHANGED preferred: T4/T6 cores, OPS1
+- REJECT: unbounded process Map without lifecycle
+
+### Option C (recommended direction)
+- MODIFY: `composeFinOpsT7ShadowExecutionDeps.ts` (primary)
+- MODIFY possible (if propagation preferred over Map): `coordinateExecutionRun.ts` / capture args — only if adapter latch lifecycle judged unsafe
+- MODIFY: T7 SHADOW tests
+- UNCHANGED: `composeFinOpsT7Runtime.ts`, T4/T6, OPS1, migrations
+- CREATE: none durable; maybe small helper type in adapter module
+
+## 22. Test impact map (future Delivery — not this cycle)
+
+Reuse: never-block, signal_only force, non-pilot, MONITOR/E1 inert, OFF inert, hostile enforce.
+
+Modify/create for recommended option:
+- T1 OFF→OFF
+- T2 SHADOW→SHADOW
+- **T3 OFF→SHADOW** (must not capture under C)
+- **T4 SHADOW→OFF** (must not capture under C)
+- T5 concurrent runs around mode flip
+- T6 PRE rollout failure
+- T7 POST rollout failure
+- T8 provider failure / no capture (+ latch cleanup)
+- T9 hostile enforce → signal_only
+- T10 never-block
+- T11 non-pilot
+- T12 MONITOR/E1 inert
+
+## 23. Debt / simplicity challenge
+
+- A removes no debt; documents acceptance of drift
+- B adds snapshot debt + softer rollback
+- C adds latch debt but removes observation integrity debt for the named reserve
+- **Least mechanism that fixes OFF→SHADOW without delaying SHADOW→OFF rollback = C**, not full B
+- Avoid over-architecture before activation: C is intentionally minimal (boolean eligibility), not a full FOR-RUN policy engine
+
+## 24. Recommendation
+
+### RECOMMENDATION ONLY — MORRIS DECISION REQUIRED
+
+**Recommend: Option C — Hybrid dual-gate (PRE eligibility latch).**
+
+1. **Option:** C
+2. **Why:** closes OFF→SHADOW retroactive capture (named reserve) while preserving immediate observational rollback on SHADOW→OFF; smaller than full per-run snapshot; preserves I1–I10; adapter-primary feasible
+3. **Sacrifices:** introduces minimal run-scoped eligibility state + lifecycle/tests; not zero-change
+4. **Future Delivery perimeter:** primarily `composeFinOpsT7ShadowExecutionDeps.ts` + T7 SHADOW tests; touch coordinator only if latch lifecycle cannot be proven safe in-adapter
+5. **Future Delivery profile recommendation:** **Critical** — changes pre-provider/capture coupling semantics for FinOps observation integrity (even if mostly adapter); Morris final call
+6. **Tests required:** T1–T12 matrix above, especially T3/T4/T5/T8
+7. **Reserve after decision:** TEMPORAL MODE DRIFT becomes **DECIDED → C** pending Delivery/QA; remains OPEN until implemented
+8. **Why not A now:** leaves named integrity gap into activation; documenting A is acceptable only if Morris explicitly accepts step-current semantics
+9. **Why not B now:** overshoots; delays observational rollback for in-flight SHADOW→OFF; higher core risk
+
+**Explicit alternative for Morris:** choose **Option A (document as CURRENT-at-boundary design)** if priority is zero runtime change until policy source / activation planning.
+
+## 25. Future Delivery profile recommendation
+
+If Option C (or B) selected: recommend **Cycle 8 Delivery — Critical** with dedicated QA for temporal flips.
+
+If Option A documented only: no Delivery; reserve reclassified ACCEPTED DESIGN by Morris utterance.
+
+## 26. Reserves
+
+- TEMPORAL MODE DRIFT OFF→SHADOW = **OPEN** (analysis complete; decision pending)
+- SHADOW PILOT POLICY SOURCE = NOT SELECTED (separate)
+- R-T4-T3-SYNC-01 = OPEN — BEFORE MONITOR
+- R-PR-T2-API-01 = OPEN MINOR
+- Calibration = REQUIRED BEFORE MONITOR
+- T6-ext / T5 / Product IAM / MONITOR / E1 = unchanged
+- OA→OPS1 / whitespace = CLOSED ON MAIN (unchanged by this cycle)
+
+## 27. Explicit non-decisions
+
+- No option selected
+- No ADR written to repo
+- No Delivery started
+- No policy source selected
+- No threshold adopted
+- No SHADOW activation readiness claim
+- No T6-ext program
+
+## 28. Project mutation
+
+**NO**
+
+## 29. SHADOW activation
+
+**NOT ACTIVATED**
+
+## 30. Policy source
 
 **NOT SELECTED**
 
-## 36. Temporal drift
+## 31. Morris decision required
 
-**OPEN**
+`GO TEMPORAL SEMANTICS — <OPTION A | OPTION B | OPTION C>`
 
-## 37. Next human decisions
+Only then: qualify Delivery · new prompt · implement · QA · PR/merge gates.
 
-Distinct (do not auto-start):
-1. SHADOW PILOT POLICY SOURCE
-2. TEMPORAL MODE SEMANTICS (live re-read vs per-run snapshot)
-3. future meaningful SHADOW activation — distinct Morris GO
+Policy source remains a **separate** later decision.
 
-## 38. Handoff correction note
+## 32. Verdict
 
-First publish attempt after cleanup accidentally republished a stale local Cycle 6 pack because the Cycle 14 pack write failed a trailing-whitespace self-check. This file supersedes that erroneous handoff tip; ChatGPT must use this tip/blob only.
-
-## 39. Verdict
-
-**T7 SHADOW PR #321 POST-MERGE COMPLETE WITH RESERVES — CYCLE 14 STANDARD — PR #321 MERGED VERIFIED — MERGE COMMIT fd06f4aa1a19e629e0330473e43b1cf3b935014f VERIFIED — MAIN ALIGNED — PR HEAD 3873b0527a0615c0500c190dca80e136452f6351 PRESENT ON MAIN — 5 T7 SHADOW FILES VERIFIED ON MAIN — CORRECTIVE QA BYTES PRESERVED — OA → OPS1 BOUNDARY CLOSED ON MAIN — WHITESPACE BLOCKER CLOSED ON MAIN — POST-MERGE CI 31273951351 SUCCESS — SFIA STUDIO REQUIRED GATE PASS — QA-G4 SATISFIED — DELIVERY WORKTREE CLEANED — LOCAL DELIVERY BRANCH CLEANED — REMOTE DELIVERY BRANCH CLEANED — SHADOW PILOT POLICY SOURCE NOT SELECTED — TEMPORAL MODE DRIFT OPEN — R-T4-T3-SYNC-01 OPEN BEFORE MONITOR — SHADOW NOT ACTIVATED — MONITOR NOT ACTIVATED — E1 NOT AUTHORIZED — PROJECT CONTENT UNCHANGED BY POST-MERGE — POST-MERGE COMPLETE WITH RESERVES — HANDOFF REMOTE VERIFIED**
+**T7 SHADOW TEMPORAL MODE SEMANTICS ARCHITECTURE COMPLETE — CYCLE 6 STANDARD — CURRENT DOUBLE-READ SEMANTICS PROVEN — TEMPORAL DRIFT CHARACTERIZED — LIVE RE-READ ANALYZED — PER-RUN SNAPSHOT ANALYZED — HYBRID OPTION ANALYZED IF CREDIBLE — ROLLBACK TRADE-OFFS EXPLICIT — CONCURRENCY / FAILURE / OBSERVABILITY IMPACTS EXPLICIT — NO PROJECT MUTATION — SHADOW NOT ACTIVATED — POLICY SOURCE NOT SELECTED — RECOMMENDATION PRODUCED — MORRIS TEMPORAL SEMANTICS DECISION REQUIRED — HANDOFF REMOTE VERIFIED**
