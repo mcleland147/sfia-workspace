@@ -219,8 +219,8 @@ READY FOR CHATGPT T4 POST-MERGE VALIDATION
 | 53 | New PR | NO |
 | 54 | Review pack path | .tmp-sfia-review/chatgpt-review.md (Light RESET) |
 | 55 | Evidence dir | .tmp-sfia-review/t4-projection-refresh-merge/ |
-| 56 | Handoff after tip | 2751600411acfe72cbfe99d5c8319f8fa1ea50b7 |
-| 57 | Handoff after blob | 8fa17a546c6987d185bd119c00e0c4999155ad0f |
+| 56 | Handoff after tip | 568f8576d111bebda426e33ed25f1dcc3062aafe |
+| 57 | Handoff after blob | d73148d140ff29d3a1e5cdf0bda439824c3c4ac6 |
 | 58 | Handoff publisher | HANDOFF UPDATED — REMOTE VERIFIED |
 | 59 | Pre-publish tip still 2751600… | YES (STOP gate passed) |
 | 60 | Pre-publish origin/main = MERGE | YES |
