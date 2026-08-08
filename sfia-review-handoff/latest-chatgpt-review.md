@@ -1,422 +1,347 @@
-# Cycle 13 — T7 SHADOW PR #321 Final Merge Gate — Review Pack (full)
+# Cycle 6 — Architecture technique — T7 SHADOW Activation Wiring & Pilot Identity — Review Pack (light)
 
-## 1. Date / heure
+Date/heure : 2026-08-08 17:48:26 CEST / 2026-08-08 15:48:26 UTC
 
-- **CEST:** 2026-08-08 21:15:28 UTC+02:00
-- **UTC:** 2026-08-08 19:15:28 UTC
+## Objectif
 
-## 2. Décision Morris exacte
+Déterminer, sur preuves repo, la frontière runtime, l’identité projet et les options d’architecture pour une future activation SHADOW — **sans implémenter, sans muter, sans activer**.
 
-GO MERGE PR #321, avec mise à jour préalable du body pour remplacer le statut CI pending par CI SUCCESS, puis merge uniquement si head=3873b05 et Required Gate toujours vert.
+## Cycle / profil / GO
 
-Autorisé: update body · merge commit · vérifications GitHub · fetch · FULL pack · L3 handoff.
+- Cycle : **6 — Architecture technique**
+- Profil : **Standard**
+- CKC : `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (candidate 0.1.0 — guidance only)
+- GO Morris exact : `ok go shadow alors`
+- Résolution : **GO SHADOW TRAJECTORY** (ouvre analyse + préparation Delivery ; **ne sélectionne pas** d’option, projectId, MONITOR, E1, T3, T5, T6-ext, calibration, mutation DB)
 
-Non autorisé: fichiers projet · nouveau commit projet · amend/rebase/reset/force-push · squash/rebase merge · CI/tests edits · delete branch · SHADOW activation · policy/threshold/MONITOR/E1/T3/T5/T6-ext/Product IAM · post-merge cleanup · capitalisation.
+## Local Git Truth
 
-## 3. Cycle / profil
+- Repo : `mcleland147/sfia-workspace`
+- Worktree : `…/worktrees/finops-t2-main`
+- branch : `main`
+- HEAD = origin/main = `503369b10506515e173b5b58986c731ba1b313b8`
+- Tracked/staged : clean
+- Untracked : `.tmp-sfia-review/` only
 
-- **Cycle:** 13 — PR readiness / final merge gate
-- **Profil:** Standard
-- **CKC:** aucun pilote Cycle 13 détaillé — fallback `02-fifteen-cycles-synthetic-map.md` (method-candidate)
-- **Risque principal:** merge prématuré ou head différent — mitigé par `--match-head-commit` + double Required Gate check
+## Handoff entrant
 
-## 4. Stratégie merge
+- Tip : `5f34b64ba612dcd8e66a305378c92198f2a0edb1`
+- Blob : `34cc0f4910f16ecd6f36becd301fc7123e774f25`
+- Cycle 9 Dedicated Activation QA **PASS WITH RESERVES**
+- SHADOW ENTRY QA SATISFIED · SHADOW NOT ACTIVATED · READY FOR DISTINCT MORRIS SHADOW DECISION
+- GO SHADOW : **REÇU maintenant**
 
-**MERGE COMMIT** (`gh pr merge 321 --merge --match-head-commit 3873b05`)
+## Sources consultées
 
-Cohérent avec PR #320. Pas de squash. Pas de rebase. Pas de `--admin`. Pas de `--delete-branch`.
+Template cycle · routing · operating model · rules · checklist · sfia-v2.5 cycles · CKC architecture · publisher · handoff Cycle 9 · doc 156 · T7 types/resolve/port/store/compose · T4 enforcement / T6 composition · execution-run `composeExecutionRunD2D3` / `coordinateExecutionRun` · D1/OPS1 identity · frontier proofs (rg)
 
-## 5. Git Truth initial
+## État T7 réel (constats A–D)
 
-| Ref | Valeur |
-|-----|--------|
-| worktree branch | `delivery/sfia-studio-finops-t7-shadow-option-a` |
-| HEAD | `3873b0527a0615c0500c190dca80e136452f6351` |
-| origin/main (pre-merge) | `503369b10506515e173b5b58986c731ba1b313b8` |
-| origin/delivery | `3873b0527a0615c0500c190dca80e136452f6351` |
-| staged / tracked | none |
-| untracked | `.tmp-sfia-review/**` only |
+| Constat | Preuve | Verdict |
+|---------|--------|---------|
+| A. Modes OFF/SHADOW/MONITOR/E1_ENFORCED | `types.rollout.ts` | **CONFIRMED** |
+| B. SHADOW → evaluateT4=true, signal_only, blockingAllowed=false, requiresT3Sync=false, configured_not_activated | `resolveFinOpsRollout.ts` | **CONFIRMED** |
+| C. composeFinOpsT7Runtime expose resolve ; n’expose pas upsert ; pas evaluateBeforeProvider ; pas EnforcementPort ; pas provider ; pas execution-run | `composeFinOpsT7Runtime.ts` | **CONFIRMED** |
+| D. Row SHADOW seul ≠ activation | doc 156 + anti-claims + aucun consommateur produit | **CONFIRMED** |
 
-## 6. Template / sources
+**STOP assumptions : non déclenché.**
 
-Consultés depuis `origin/main`:
+## Pourquoi row SHADOW ≠ activation
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
-- `scripts/sfia/publish-review-handoff.sh`
-- `scripts/sfia/README.md`
+1. Instruction T7 = représentation architecturale uniquement.
+2. Aucun consommateur produit de `resolveProjectRollout`.
+3. Aucun `createFinOpsPool` produit ; compositions T6/T7 caller-owned pool only.
+4. `composeExecutionRunD2D3` accepte `finops` / `finopsEnforcement` optionnels mais **aucun call site produit** hors tests/docs.
+5. Absent deps ⇒ FinOps `disabled` / enforcement inert dans `coordinateExecutionRun`.
 
-## 7. Handoff entrant
+## Carte runtime réelle
 
-- tip: `9cd283248d3c7d84434c730de6f8a49c17141f66`
-- blob: `27d45962a822e48a09ebb2fcc76ecf4d63cb3829`
-- Cycle 13 — T7 SHADOW Whitespace Corrective PR Publication
-- État: PR @ 3873b05 · CI SUCCESS · merge NO · SHADOW NOT ACTIVATED
+```text
+[Product Studio surfaces: OPS1 / D1 / AI providers]
+        │
+        │  (today: NO FinOps injection)
+        ▼
+composeExecutionRunD2D3? ── ABSENT product callers
+        │
+        ▼
+coordinateExecutionRun
+  · optional finopsEnforcement.evaluateBeforeProvider  (block only if decision=block;
+    soft_signal/allow/failed/throw → continue fail-open)
+  · optional finops.capture after success
+        │
+        ▼
+[T7 library — NOT product-wired]
+composeFinOpsT7Runtime(pool, nowIso)
+  · capture / flushAudit (T6 reuse)
+  · resolveProjectRollout → resolveFinOpsRollout
+  · recompute/reconcile + T4 refresh wrappers
+```
 
-## 8. PR pre-state
+Points clés :
 
-- #321 OPEN · not draft · mergedAt=null
-- mergeable=MERGEABLE · mergeStateStatus=CLEAN
-- title=`feat(sfia-studio): wire FinOps T7 shadow pilot`
-- url: https://github.com/mcleland147/sfia-workspace/pull/321
+1. Entrée serveur FinOps produit : **ABSENT** (frontier library-only).
+2. Source projectId FinOps : ce que le futur caller passera (execution context / autre) — **non unifié**.
+3. Pool lifecycle produit : **ABSENT**.
+4. Composition FinOps réelle aujourd’hui : tests only.
+5. Point d’appel possible de resolve : avant evaluateBeforeProvider / avant capture.
+6. Point T4 sans effet : `createFinOpsEnforcementPort` + policy `signal_only` → `soft_signal` (INTERNAL ONLY, non durable).
+7. Audit : T6 append-only capture events ; **pas** de read/observer bus SHADOW.
+8. Erreur : fail-open déjà dans resolver + coordinator enforcement catch.
+9. Rollback : upsert mode OFF ou delete row → default_off (prouvé QA Cycle 9).
 
-## 9. Head / base exacts
+## Carte project identity
 
-- base=`main` @ `503369b10506515e173b5b58986c731ba1b313b8`
-- head=`delivery/sfia-studio-finops-t7-shadow-option-a` @ `3873b0527a0615c0500c190dca80e136452f6351`
+| Modèle | Identifiant | Persist | Lien FinOps |
+|--------|-------------|---------|-------------|
+| OA Project | `prj:${uuid}` | memory repo | free-text `project_id` possible si passé |
+| D1 | `proj-${uuid}` ; workspace `ws-studio-default` | SQLite d1_projects | **non câblé FinOps** |
+| OPS1 | `sfia-studio-ops1` (project key) | sessions | **non câblé FinOps** |
+| ExecutionContext | caller `projectId` | memory runs | hooks prêts si composed |
+| FinOps tables | text `project_id` | Postgres | aucune FK vers OA/D1 |
 
-## 10. Final scope 5 files
+**Canonical FinOps projectId pour « SFIA Studio » : ABSENT.**
 
-Exactement 5 CREATE:
+## Cibles pilotes
 
-1. `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
-2. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
-3. `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts`
-4. `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts`
-5. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts`
+Aucun projectId ne peut être proposé comme cible SHADOW sans invention.
 
-## 11. CI pre-merge run
+Candidats **observés** (clés existantes, **non validées** FinOps) :
 
-- workflow: `SFIA Studio CI`
-- run: `31273140031`
-- head: `3873b0527a0615c0500c190dca80e136452f6351`
-- status: completed · conclusion: **success**
-- url: https://github.com/mcleland147/sfia-workspace/actions/runs/31273140031
+| Candidat | Nature | FinOps events? | Verdict |
+|----------|--------|----------------|---------|
+| `sfia-studio-ops1` | OPS1 project key | non prouvés | **not selectable without Morris + wiring identity** |
+| `ws-studio-default` | D1 workspace id | workspace ≠ project FinOps | **ineligible as FinOps projectId** |
+| `prj:campus360-oa` | fixture/docs | test/demo | **not a live pilot proof** |
+| random `prj:…` / `proj-…` | runtime-created | depends on future capture | **requires Morris target decision** |
 
-## 12. Jobs / checks
+```text
+SHADOW PILOT TARGET NOT IDENTIFIED —
+MORRIS TARGET DECISION REQUIRED
+```
 
-| Job / step | Result |
-|------------|--------|
-| Detect SFIA Studio changes | success |
-| Build and validate SFIA Studio | success |
-| Typecheck | success |
-| Lint | success |
-| Build | success |
-| Unit tests (Vitest) | success |
-| FinOps T1 migrate up (CI-A) | success |
-| FinOps T1 PostgreSQL integration tests (CI-A) | success |
-| Modeled governance tests | success |
-| Secret pattern scan (targeted) | success |
-| Trailing whitespace check | **success** |
-| SFIA Studio Required Gate | **success** |
+## Question centrale — où consommer resolveProjectRollout ?
 
-## 13. Required Gate pre-body
+Pour que SHADOW soit **utile** tout en restant signal-only / non-bloquant / fail-open / project-scoped / réversible :
 
-`SFIA Studio Required Gate` = success on run `31273140031` / head `3873b05`
+la consommation doit vivre sur le **chemin d’exécution produit qui appellera** `coordinateExecutionRun` (ou un composeur équivalent), **après** composition T7 et **avant** provider si évaluation T4 est requise (`evaluateT4=true`).
 
-## 14. Body stale finding
+Sans ce consommateur, un row SHADOW reste inert configuration.
 
-Formulations obsolètes présentes avant update:
+## OPTIONS
 
-- `pending GitHub CI confirmation until the new workflow completes`
-- `GitHub CI on 3873b05 remains the required remote validation`
-- Next gates still framing CI as pending / GO MERGE not received
+### OPTION A — Inline wiring sur frontière execution-run (recommandée)
 
-## 15. BODY COMPLET final avant merge
+**Idée :** Réutiliser les hooks déjà présents :
 
-```markdown
-## Summary
+- `composeExecutionRunD2D3({ finops, finopsEnforcement })`
+- `coordinateExecutionRun` : `soft_signal` / allow / failed → continue ; **seul** `block` interrompt
 
-- add T7 SHADOW execution-run thin adapter
-- reuse existing T7/T4/T6 composition
-- bind Morris-selected pilot identity to `sfia-studio-ops1`
-- preserve OA / OPS1 import isolation with an OA-local pilot constant
-- force `signal_only` and defense-in-depth never-block
-- keep MONITOR/E1 inert
-- no SHADOW activation in this PR
+**Wiring futur :**
 
-## Scope
+1. Composer produit (nouveau ou existant à découvrir/créer au Delivery) appelle `composeFinOpsT7Runtime`.
+2. Pour chaque run : `instruction = await resolveProjectRollout(projectId)`.
+3. Si OFF / fail_open_off : ne pas injecter enforcement (inert) ; capture optionnelle selon décision Delivery (OFF = comportement inchangé préféré = pas de capture forcée).
+4. Si SHADOW : construire `FinOpsEnforcementPort` **uniquement** avec effect `signal_only` (jamais `enforce`) ; injecter ; `blockingAllowed` respecté → pas de `block`.
+5. Capture T6 via `finops` injecté après succès AI.
+6. Fail-open : exception resolve/evaluate → continuer exécution.
+7. Signal : s’appuyer sur `soft_signal` interne + éventuellement audit/log dédié SHADOW (à cadrer Delivery ; soft_signal non durable aujourd’hui).
 
-Final PR diff against `main`: 5 CREATE files.
+| Aspect | Contenu |
+|--------|---------|
+| Composant modifié futur | Product composer execution-run + éventuel thin adapter T7→EnforcementPort |
+| Point de wiring | `composeExecutionRunD2D3` options + `coordinateExecutionRun` pre-provider |
+| Source projectId | `ExecutionContext.projectId` (doit = rollout row) |
+| OFF | no enforcement inject / no block |
+| SHADOW | signal_only evaluateBeforeProvider ; never block |
+| T4 | projection existante via evaluateFinOpsEnforcement |
+| Audit | T6 capture events ; soft_signal non durable (limite) |
+| Erreur | fail-open continue |
+| Rollback | DB row → OFF / delete ; redeploy OFF composer flags |
+| Observabilité | partielle (soft_signal internal) — besoin sink explicite |
+| Coût / dette | moyen ; touche frontière structurante |
+| Sécurité | pas de block ; pas upsert API ; project-scoped |
+| Blast radius | **élevé** (execution-run / provider gate) |
+| Testabilité | bonne (hooks déjà testés) |
+| Réversibilité | haute si feature gated + OFF default |
+| Fichiers potentiels | `composeExecutionRunD2D3.ts`, `coordinateExecutionRun.ts` (minimal), **nouveau** adapter product compose, tests execution-run+finops |
 
-1. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts`
-2. `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts`
-3. `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts`
-4. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
-5. `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
+**Profil Delivery recommandé : Critical** (frontière runtime structurante + provider boundary).
 
-Branch history:
-- `d99bbbdea2446af8b79488b7459924e6cf5a3e16` — initial wiring
-- `bab14ca480b60744f6a428d93070c876de171ee1` — corrective OA / OPS1 isolation
-- `3873b0527a0615c0500c190dca80e136452f6351` — documentation-only trailing whitespace remediation
+### OPTION B — Observation post-capture / post-refresh seulement (sans pre-provider)
 
-## Architecture
+**Idée :** Ne pas brancher `finopsEnforcement` pre-provider. Après capture réussie (+ optionnel `recomputeAggregatesAndRefresh`), résoudre rollout ; si SHADOW, évaluer T4 en lecture seule et écrire un signal/audit dédié ; **jamais** influencer le résultat provider (déjà terminé).
 
-Option A (pre-provider execution-run) + thin adapter — Morris-selected.
+| Aspect | Contenu |
+|--------|---------|
+| Composant | post-success hook près de capture / refresh wrappers |
+| Point | après AI success ; hors evaluateBeforeProvider |
+| OFF | no-op |
+| SHADOW | observe-after-fact |
+| T4 | evaluate lecture seule |
+| Audit | nécessite sink durable (aujourd’hui partiel) |
+| Blast radius | **plus bas** (pas de gate provider) |
+| Limite | ne couvre pas « signal avant provider » ; SHADOW plus faible vs contrat evaluateT4 intent |
+| Profil Delivery | Standard→Critical léger selon surface d’accroche |
 
-- existing `composeExecutionRunD2D3` injection surface reused
-- core coordinator unchanged
-- caller-owned FinOps pool
-- pilot = `sfia-studio-ops1`
-- pilot constant declared locally in OA to preserve OA / OPS1 isolation
-- pilot constant is scoped to the T7 SHADOW pilot and is not a global project identity authority
-- no shared identity abstraction introduced
+**Utile comme mitigation de risque**, mais **moins fidèle** à une observation de gate.
 
-## Validation
+### OPTION C — Async / scheduler / worker
 
-### Initial delivery / QA
+**REJETÉE** pour SHADOW v1 : aucune infra cron/worker FinOps ; T2 explicitement on-demand ; pas d’API lecture audit. Créer un scheduler serait invention hors repo.
 
-- Cycle 8 Delivery Critical
-- Cycle 9 Dedicated SHADOW Wiring QA Critical
+### OPTION D (structurelle, complementary) — Thin adapter factory
 
-Initial evidence included:
-- 18/18 new delivery tests
-- 57/57 regression
-- 7/7 adversarial probes
-- 0 required skipped
-- typecheck 0
-- targeted eslint 0
+Nouveau module (Delivery) : `buildShadowAwareFinopsDeps(t7, projectId)` → `{ finops?, finopsEnforcement? }` strictement :
 
-### Corrective delivery / QA
+- SHADOW ⇒ signal_only port only
+- OFF ⇒ undefined enforcement
+- never MONITOR/E1 paths in this Delivery
 
-PR #321 initial CI exposed an architectural boundary violation:
-`lib/oa` imported `@/lib/ops1`.
+Réduit la dette dans `coordinateExecutionRun` (REUSE > rewrite). Peut accompagner A ou B.
 
-Corrective commit:
-`bab14ca480b60744f6a428d93070c876de171ee1`
+## Comparatif
 
-The corrective implementation:
-- removes the OA → OPS1 static import
-- preserves pilot value `sfia-studio-ops1`
-- creates no shared identity abstraction
-- leaves OPS1 unchanged
+| Critère | A pre-provider | B post-capture | C scheduler |
+|---------|----------------|----------------|-------------|
+| Fidélité SHADOW (evaluateT4) | Haute | Moyenne | N/A |
+| Non-blocage | Oui (signal_only) | Oui | — |
+| Blast radius | Élevé | Moyen | — |
+| Infra existante | Hooks execution-run | Capture hooks | Absente |
+| Recommandation | **Oui (primaire)** | Alternative conservative | Rejetée |
 
-Dedicated Corrective QA Cycle 9 Critical:
-- OA / OPS1 boundary tests: 8/8 PASS
-- T7 unit: 4/4 PASS
-- T7 PostgreSQL integration: 14/14 PASS
-- adversarial probes A–G: 7/7 PASS
-- hostile `effect=enforce` neutralized to `signal_only`
-- SHADOW never-block proven end-to-end
-- fail-open / provider continuity proven
-- non-pilot isolation proven
-- MONITOR / E1 remain inert
-- temporal mode semantics revalidated
-- typecheck: PASS
-- lint: PASS
-- build: PASS
-- local reproduction of the prior CI boundary failures: PASS
+## Recommandation (PROPOSÉE — NON VALIDÉE)
 
-Full regression note:
-- initial parallel full-suite run observed 2 timeouts in unrelated `createProjectUi` UI tests
-- dedicated rerun: 12/12 PASS
-- no regression attributed to corrective commit `bab14ca`
+```text
+RECOMMEND OPTION A (execution-run pre-provider signal_only gated by T7)
++ thin adapter factory (Option D structural)
+OPTION B retained as conservative fallback if Morris rejects Critical execution-run touch
+OPTION C rejected
+PILOT TARGET: MORRIS DECISION REQUIRED (do not invent projectId)
+```
 
-Do NOT claim the previous byte-identical QA evidence applies unchanged to the corrected files.
-The corrective bytes were independently revalidated by the Dedicated Corrective QA.
+Aucune option n’est validée sans décision Morris.
 
-### Documentation-only whitespace remediation
+## Impacts fichiers futurs (si Option A sélectionnée)
 
-Commit:
-`3873b0527a0615c0500c190dca80e136452f6351`
+**Modifier (probables) :**
 
-- `157.md` only
-- 10 trailing whitespace occurrences removed
-- line count unchanged: 97 → 97
-- `git diff --ignore-space-at-eol bab14ca..3873b05 -- 157.md` = empty
-- four code/test files remain byte-identical to the Corrective QA subject
-- local `git diff --check origin/main...3873b05` = PASS
-- no functional QA rerun required because no code/test bytes changed
-- GitHub CI run `31273140031` on `3873b0527a0615c0500c190dca80e136452f6351`: **SUCCESS**
-- trailing whitespace check: **PASS**
-- SFIA Studio Required Gate: **PASS**
+- `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3.ts` (ou composeur produit appelant)
+- éventuellement `coordinateExecutionRun.ts` seulement si besoin d’observer soft_signal (préférer zéro changement si soft_signal déjà fail-open)
 
-## Safety
+**Créer :**
 
-- SHADOW never BLOCK
-- `signal_only` forced
-- hostile enforce input neutralized
-- fail-open
-- provider continuity preserved
-- non-pilot inert
-- MONITOR/E1 inert
-- no production threshold
-- no real SHADOW row
-- no Neon
-- no real provider activation
-- OA / OPS1 static isolation restored
+- thin product composer / adapter T7→deps FinOps
+- tests : SHADOW never block · OFF inert · fail-open · project isolation · no MONITOR/E1 path
 
-## Reserves
+**Migrations :** NON (table rollout existe)
 
-- **SHADOW PILOT POLICY SOURCE NOT SELECTED** — required before meaningful pilot activation
-- **TEMPORAL MODE DRIFT OFF→SHADOW** — OPEN descriptive reserve; observation integrity only, not BLOCK/enforce
-- **R-T4-T3-SYNC-01** — OPEN — before MONITOR
-- **R-PR-T2-API-01** — OPEN MINOR
-- calibration réelle — required before MONITOR
-- T6-ext — NOT AUTHORIZED
-- Product IAM — NOT_SELECTED
-- T5 — OUT OF SCOPE SHADOW
-- **157.md trailing whitespace** — **CLOSED ON PR HEAD** by `3873b0527a0615c0500c190dca80e136452f6351` + remote CI SUCCESS; **NOT CLOSED ON MAIN UNTIL MERGE**
-- corrective full-suite UI timeout observation classified as unrelated flake after dedicated 12/12 rerun
+**Config prod :** NON (pas de flag global)
 
-OA → OPS1 boundary:
-- CLOSED BY corrective commit + QA
-- NOT CLOSED ON MAIN until merge
+**Dépendances :** NON attendues
+
+## Profil Delivery futur
+
+- Cycle : **8 — Delivery / implémentation**
+- Profil recommandé si Option A : **Critical**
+- Justification : modification frontière execution-run / provider gate
+- Profil non validé automatiquement par Morris
+
+## QA nécessaire après Delivery
+
+- Dedicated wiring QA : SHADOW never BLOCK · OFF unchanged · fail-open · no provider refuse · rollback OFF
+- Pas de GO MONITOR/E1
+- Activation pilote (Cycle 11) **après** QA PASS + cible projectId Morris
+
+## Trajectoire après décision Morris
+
+```text
+A. Architecture (ce cycle)
+→ B. Delivery wiring (Cycle 8, après sélection option + target)
+→ C. QA wiring
+→ D. Activation pilote SHADOW (Cycle 11 release) — distinct GO
+→ E. Observation (Cycle 12)
+```
+
+Ne pas fusionner B+C+D+E.
+
+## Rollback architecture
+
+1. Config : upsert OFF ou delete row → default_off (prouvé QA).
+2. Code : retirer injection finopsEnforcement / feature gate OFF.
+3. Pas de migration down requise pour rollback mode.
+
+## Sécurité / observabilité / dette
+
+- Sécurité : pas d’API upsert produit ; pas d’enforce ; project-scoped ; secrets hors scope.
+- Observabilité : gap — `soft_signal` INTERNAL ONLY non durable ; Delivery doit définir sink minimal (audit/log) sans T6-ext.
+- Dette : adapter thin + composition product ; éviter double composition FinOps (réutiliser `composeFinOpsT7Runtime`).
+
+## Réserves (inchangées)
+
+- R-T4-PROJECTION-REFRESH-01 : CLOSED — wiring only
+- R-T6-RUNTIME-COMPOSITION-01 : CLOSED ON MAIN
+- R-T4-T3-SYNC-01 : OPEN — BEFORE MONITOR
+- R-PR-T2-API-01 : OPEN MINOR
+- Calibration réelle : REQUIRED BEFORE MONITOR — NOT EXECUTED
+- T6-ext : NOT AUTHORIZED
+- Product IAM : NOT_SELECTED
+- T5 : hors scope SHADOW
 
 ## Anti-claims
 
-- SHADOW NOT ACTIVATED
-- NOT READY FOR SHADOW ACTIVATION
-- NO POLICY SELECTED
-- NO THRESHOLD ADOPTED
-- MONITOR NOT ACTIVATED
-- E1 NOT AUTHORIZED
-- CORRECTIVE QA PASS ≠ GitHub CI PASS
-- LOCAL DIFF-CHECK PASS ≠ GITHUB CI PASS
-- PR OPEN ≠ MERGE AUTHORIZATION
-- CI SUCCESS ≠ SHADOW ACTIVATION
+- SHADOW NOT YET ACTIVATED
+- FOUNDATION ALONE CANNOT ACTIVATE SHADOW
+- NO MONITOR / E1
+- NO implementation this cycle
+- Recommendation ≠ Morris validation
 
-## Next gates
+## Décisions Morris restantes
 
-1. Remote CI for head `3873b0527a0615c0500c190dca80e136452f6351` — **SUCCESS** (`31273140031`)
-2. Morris GO MERGE PR #321 — **RECEIVED**
-3. Merge PR #321 only while head remains `3873b0527a0615c0500c190dca80e136452f6351` and Required Gate remains green
-4. Cycle 14 — post-merge validation
-5. policy-source decision before meaningful SHADOW activation
-6. temporal semantics decision before activation
-7. future SHADOW activation cycle — distinct Morris GO
-```
+1. Sélectionner OPTION A / B (fallback) / autre.
+2. Sélectionner **pilot projectId** (ou déclarer création contrôlée) — **requis**.
+3. Autoriser profil Critical Delivery si Option A.
+4. Après Delivery+QA : GO Activation pilote distinct.
 
-## 16. Body reread
+## Review pack content coverage
 
-After `gh pr edit 321 --body-file …`:
+- project created/modified : N/A
+- synthesis only : **no** (frontier proofs + source paths)
+- verdict pack : **complete**
 
-- head still `3873b05`
-- state OPEN · mergedAt null
-- contains CI SUCCESS / run 31273140031 / CLOSED ON PR HEAD / GO MERGE RECEIVED
-- absent: pending CI confirmation · remains the required remote validation
-- **BODY_REREAD = PASS**
-
-## 17. Second Git Truth check
-
-Immediate pre-merge after body update:
-
-- origin/main = `503369b10506515e173b5b58986c731ba1b313b8`
-- origin/delivery = `3873b0527a0615c0500c190dca80e136452f6351`
-- **SECOND_GIT_TRUTH = PASS**
-
-## 18. Second PR head check
-
-- OPEN · not draft · not merged
-- mergeable=MERGEABLE · CLEAN
-- headOid=`3873b0527a0615c0500c190dca80e136452f6351`
-- **SECOND_PR_CHECK = PASS**
-
-## 19. Second Required Gate check
-
-`gh pr checks 321 --required`:
-
-`SFIA Studio Required Gate` = **pass** (run `31273140031`)
-
-Reconfirmed run conclusion success · whitespace success · head `3873b05`
-
-**SECOND_REQUIRED_GATE = PASS**
-
-## 20. Merge command
+## Verdict unique
 
 ```
-gh pr merge 321 \
-  --merge \
-  --match-head-commit 3873b0527a0615c0500c190dca80e136452f6351
+T7 SHADOW ACTIVATION ARCHITECTURE READY WITH TARGET RESERVE —
+GO SHADOW TRAJECTORY RECEIVED —
+SHADOW NOT YET ACTIVATED —
+CURRENT FOUNDATION ALONE CANNOT ACTIVATE SHADOW —
+AUTHORITATIVE RUNTIME FRONTIER IDENTIFIED —
+(execution-run optional hooks; product consumer ABSENT) —
+PROJECT IDENTITY SOURCE IDENTIFIED —
+(multi-model; FinOps canonical ABSENT) —
+PILOT TARGET NOT IDENTIFIED —
+MORRIS TARGET DECISION REQUIRED —
+OPTIONS COMPARED —
+RECOMMEND OPTION A (+ thin adapter) — NOT VALIDATED —
+OPTION B CONSERVATIVE FALLBACK —
+OPTION C SCHEDULER REJECTED —
+ROLLBACK OFF PATH DEFINED —
+R-T4-PROJECTION-REFRESH-01 CLOSED — WIRING ONLY —
+R-T6-RUNTIME-COMPOSITION-01 CLOSED ON MAIN —
+R-T4-T3-SYNC-01 OPEN — BEFORE MONITOR —
+MONITOR NOT AUTHORIZED —
+E1 NOT AUTHORIZED —
+READY FOR MORRIS ARCHITECTURE SELECTION —
+HANDOFF REMOTE VERIFIED
 ```
 
-No `--admin`. No `--delete-branch`. No squash/rebase.
+## Review Handoff Git (contenu destiné à publication)
 
-## 21. Merge result
-
-**SUCCESS** — PR #321 merged
-
-## 22. mergedAt
-
-`2026-08-08T19:14:49Z`
-
-## 23. Merge commit SHA
-
-`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-
-## 24. Merge commit parents
-
-| Parent | SHA | Role |
-|--------|-----|------|
-| ^1 | `503369b10506515e173b5b58986c731ba1b313b8` | pre-merge main |
-| ^2 | `3873b0527a0615c0500c190dca80e136452f6351` | PR head |
-
-Message: `Merge pull request #321 from mcleland147/delivery/sfia-studio-finops-t7-shadow-option-a`
-
-## 25. NEW_MAIN_SHA
-
-`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-
-(`503369b..fd06f4a` on origin/main)
-
-## 26. Proof 3873b05 ancestor of main
-
-`git merge-base --is-ancestor 3873b0527a0615c0500c190dca80e136452f6351 origin/main` → **EC=0**
-
-## 27. Project branch preserved
-
-`origin/delivery/sfia-studio-finops-t7-shadow-option-a` still exists @ `3873b0527a0615c0500c190dca80e136452f6351`
-
-**Cleanup branch = NO**
-
-## 28. Post-merge CI observation minimale
-
-- Run observed: `31273951351`
-- head: `fd06f4aa1a19e629e0330473e43b1cf3b935014f`
-- status at observation: **queued** / STARTED_OR_PENDING
-- url: https://github.com/mcleland147/sfia-workspace/actions/runs/31273951351
-
-**POST-MERGE CI STARTED / PENDING** — not used to claim Cycle 14 validated.
-
-## 29. Reserves closed on main
-
-- OA→OPS1 boundary = **CLOSED ON MAIN**
-- Whitespace blocker = **CLOSED ON MAIN**
-
-## 30. Reserves remaining
-
-- SHADOW PILOT POLICY SOURCE = NOT SELECTED — REQUIRED BEFORE MEANINGFUL PILOT ACTIVATION
-- TEMPORAL MODE DRIFT OFF→SHADOW = OPEN descriptive reserve
-- R-T4-T3-SYNC-01 = OPEN — BEFORE MONITOR
-- R-PR-T2-API-01 = OPEN MINOR
-- Calibration réelle = REQUIRED BEFORE MONITOR
-- T6-ext = NOT AUTHORIZED
-- Product IAM = NOT_SELECTED
-- T5 = OUT OF SCOPE SHADOW
-- SHADOW = NOT ACTIVATED
-- MONITOR = NOT ACTIVATED
-- E1 = NOT AUTHORIZED
-
-## 31. Merge
-
-**YES**
-
-## 32. SHADOW activation
-
-**NO — NOT ACTIVATED**
-
-## 33. Cleanup branch
-
-**NO**
-
-## 34. Worktree cleanup
-
-**NO**
-
-## 35. Next cycle
-
-**Cycle 14 — Post-merge** (Standard recommended)
-
-Shall verify: PR merged · merge commit · origin/main · 5 files on main · post-merge CI · proportional QA-G4 · reserves · branch/worktree cleanup · integration closure.
-
-Then distinct decisions: policy source · temporal semantics · future SHADOW activation GO.
-
-## 36. Verdict
-
-**T7 SHADOW PR #321 MERGED WITH RESERVES — MORRIS GO MERGE CONSUMED — FINAL PR HEAD 3873b0527a0615c0500c190dca80e136452f6351 VERIFIED — FINAL 5-FILE SCOPE VERIFIED — PR BODY UPDATED TO CI SUCCESS — REMOTE CI RUN 31273140031 SUCCESS — TRAILING WHITESPACE CHECK PASS — SFIA STUDIO REQUIRED GATE PASS AT MERGE TIME — MERGE COMMIT STRATEGY USED — PR #321 MERGED — MERGE COMMIT fd06f4aa1a19e629e0330473e43b1cf3b935014f — MAIN ADVANCED TO fd06f4aa1a19e629e0330473e43b1cf3b935014f — PR HEAD PROVEN ANCESTOR OF MAIN — OA → OPS1 BOUNDARY CLOSED ON MAIN — WHITESPACE BLOCKER CLOSED ON MAIN — SHADOW PILOT POLICY SOURCE NOT SELECTED — TEMPORAL MODE DRIFT OPEN — SHADOW NOT ACTIVATED — MONITOR NOT ACTIVATED — E1 NOT AUTHORIZED — PROJECT BRANCH PRESERVED — POST-MERGE VALIDATION NOT YET PERFORMED — READY FOR CYCLE 14 POST-MERGE — HANDOFF REMOTE VERIFIED**
+- Mode : publish-in-cycle
+- Source : `.tmp-sfia-review/chatgpt-review.md`
+- Branche : `sfia/review-handoff`
+- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+- Commit message prévu : `docs(review-handoff): publish T7 shadow activation architecture`
+- Publisher : `scripts/sfia/publish-review-handoff.sh`
+- Remote BEFORE : tip `5f34b64ba612dcd8e66a305378c92198f2a0edb1` / blob `34cc0f4910f16ecd6f36becd301fc7123e774f25`
+- Final remote tip/blob verified externally after publication; see Cursor final report and Git remote verification.
