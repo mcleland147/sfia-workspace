@@ -282,9 +282,9 @@ HANDOFF REMOTE VERIFIED
 - Publisher : `scripts/sfia/publish-review-handoff.sh`
 - Worktree handoff : `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
 - Remote before : tip `1c45efc344b5ba5db1cf0d4194fde2cc6e25c20e` / blob `edb781fe3b6cfc67a63b3416f715a35bf5f49f26` (Cycle 13)
-- Local commit handoff : `e9de5318b1ff69f9aa0e52d02f5edd9b7ea97f15`
+- First content publish : tip `e9de5318b1ff69f9aa0e52d02f5edd9b7ea97f15` / blob `6828ef147c4fabca16b23671de0ea37f55cd20e1`
+- Verification republish : tip `ab1e3c2115ea3baa4abb5af787fbca68db2d40e1` / blob `0d70f5991305cfa0833d5345075ab335bc87285f`
 - Push : performed (L3 borné)
-- Remote after : tip `e9de5318b1ff69f9aa0e52d02f5edd9b7ea97f15` / blob `6828ef147c4fabca16b23671de0ea37f55cd20e1`
 - Remote verification : tip + blob + relecture `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md`
 - Relecture confirme : Cycle 14 · merge `503369b…` · CI `31262204448` · cleanup BLOCKED · activation QA NOT EXECUTED · SHADOW NOT ACTIVATED · SHA256 10/10
 - Retour branche initiale : **main** @ `503369b…` (worktree `finops-t2-main`)
