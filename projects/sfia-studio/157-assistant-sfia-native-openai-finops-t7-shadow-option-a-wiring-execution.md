@@ -1,9 +1,9 @@
 # 157 — FinOps T7 SHADOW Option A + Thin Adapter — Wiring Execution Record
 
-**Project:** SFIA Studio — Assistant SFIA natif OpenAI  
-**Document:** `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`  
-**Cycle:** 8 — Delivery / implémentation  
-**Profil:** Critical  
+**Project:** SFIA Studio — Assistant SFIA natif OpenAI
+**Document:** `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
+**Cycle:** 8 — Delivery / implémentation
+**Profil:** Critical
 **Typologie:** EVOL / CODE / TEST / DOC
 
 ---
@@ -38,10 +38,10 @@ SHADOW NOT ACTIVATED
 
 ## B. GO Morris
 
-**Utterance / decision:**  
+**Utterance / decision:**
 `GO Option A + thin adapter, Delivery Cycle 8 profil Critical, with sfia-studio-ops1 as projectId pilote canonique SHADOW.`
 
-**Consumed:** local CREATE wiring + tests + execution record.  
+**Consumed:** local CREATE wiring + tests + execution record.
 **Not consumed:** real SHADOW activation · MONITOR · E1 · T3 · thresholds · Neon · commit/push/PR.
 
 ---
@@ -73,8 +73,8 @@ composeExecutionRunD2D3T7ShadowPilot
 
 ## E. Rollback
 
-1. Config: no product SHADOW row written by this Delivery.  
-2. Code: remove pilot composer injection / feature gate.  
+1. Config: no product SHADOW row written by this Delivery.
+2. Code: remove pilot composer injection / feature gate.
 3. No migration.
 
 ---
@@ -92,6 +92,6 @@ Morris-selected pilot value `sfia-studio-ops1` as an OA-local constant
 
 ## G. Next
 
-Cycle 9 — Dedicated Corrective QA (distinct GO) after this corrective commit.  
-Then distinct GO for push of the corrective commit onto PR #321.  
+Cycle 9 — Dedicated Corrective QA (distinct GO) after this corrective commit.
+Then distinct GO for push of the corrective commit onto PR #321.
 Activation SHADOW remains a separate Morris decision.
