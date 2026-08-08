@@ -1,113 +1,79 @@
-# Cycle 13 — T7 SHADOW Whitespace Corrective PR Publication — Review Pack (light)
+# Cycle 13 — T7 SHADOW PR #321 Final Merge Gate — Review Pack (full)
 
 ## 1. Date / heure
 
-- **CEST:** 2026-08-08 21:00:40 UTC+02:00
-- **UTC:** 2026-08-08 19:00:40 UTC
+- **CEST:** 2026-08-08 21:15:28 UTC+02:00
+- **UTC:** 2026-08-08 19:15:28 UTC
 
 ## 2. Décision Morris exacte
 
-GO PUSH WHITESPACE REMEDIATION TO PR #321 + UPDATE PR BODY
+GO MERGE PR #321, avec mise à jour préalable du body pour remplacer le statut CI pending par CI SUCCESS, puis merge uniquement si head=3873b05 et Required Gate toujours vert.
 
-Autorisé: FF push de `3873b05` · update body PR #321 · vérifications GitHub · observation CI bornée · LIGHT pack · L3 handoff.
+Autorisé: update body · merge commit · vérifications GitHub · fetch · FULL pack · L3 handoff.
 
-Non autorisé: modifier 157/code/tests/CI · nouveau commit projet · amend/reset/rebase/force-push · nouvelle PR · merge · suppression branche · activation SHADOW · policy/threshold/MONITOR/E1/T3/T5/T6-ext/Product IAM.
+Non autorisé: fichiers projet · nouveau commit projet · amend/rebase/reset/force-push · squash/rebase merge · CI/tests edits · delete branch · SHADOW activation · policy/threshold/MONITOR/E1/T3/T5/T6-ext/Product IAM · post-merge cleanup · capitalisation.
 
 ## 3. Cycle / profil
 
-- **Cycle:** 13 — PR readiness (continuation / corrective publication gate)
+- **Cycle:** 13 — PR readiness / final merge gate
 - **Profil:** Standard
-- **Typologie:** RUN / DOC / PR readiness
 - **CKC:** aucun pilote Cycle 13 détaillé — fallback `02-fifteen-cycles-synthetic-map.md` (method-candidate)
-- **Blocs:** DevOps/CI · FinOps contexte · documentation · PR readiness
+- **Risque principal:** merge prématuré ou head différent — mitigé par `--match-head-commit` + double Required Gate check
 
-## 4. Git Truth initial
+## 4. Stratégie merge
 
-| Ref | SHA / valeur |
-|-----|--------------|
-| branch | `delivery/sfia-studio-finops-t7-shadow-option-a` |
+**MERGE COMMIT** (`gh pr merge 321 --merge --match-head-commit 3873b05`)
+
+Cohérent avec PR #320. Pas de squash. Pas de rebase. Pas de `--admin`. Pas de `--delete-branch`.
+
+## 5. Git Truth initial
+
+| Ref | Valeur |
+|-----|--------|
+| worktree branch | `delivery/sfia-studio-finops-t7-shadow-option-a` |
 | HEAD | `3873b0527a0615c0500c190dca80e136452f6351` |
-| HEAD^ | `bab14ca480b60744f6a428d93070c876de171ee1` |
-| origin/main | `503369b10506515e173b5b58986c731ba1b313b8` |
-| origin/delivery (before push) | `bab14ca480b60744f6a428d93070c876de171ee1` |
-| local vs remote delivery | `0 1` (ahead by 1) |
-| origin/main..HEAD | 3 commits |
+| origin/main (pre-merge) | `503369b10506515e173b5b58986c731ba1b313b8` |
+| origin/delivery | `3873b0527a0615c0500c190dca80e136452f6351` |
 | staged / tracked | none |
 | untracked | `.tmp-sfia-review/**` only |
 
-## 5. Handoff entrant
+## 6. Template / sources
 
-- tip: `be1ac546de709f6cd93b35c1fe3415c37951650c`
-- blob: `c5a3c9138ec8340fc7742b29be3902977fc5c915`
-- Cycle 8 Standard — T7 SHADOW 157.md Whitespace Remediation
-- subject local: `3873b05`
+Consultés depuis `origin/main`:
 
-## 6. Subject
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
+- `scripts/sfia/publish-review-handoff.sh`
+- `scripts/sfia/README.md`
 
-`3873b0527a0615c0500c190dca80e136452f6351` — `docs(sfia-studio): remove T7 shadow trailing whitespace`
+## 7. Handoff entrant
 
-## 7. Parent
+- tip: `9cd283248d3c7d84434c730de6f8a49c17141f66`
+- blob: `27d45962a822e48a09ebb2fcc76ecf4d63cb3829`
+- Cycle 13 — T7 SHADOW Whitespace Corrective PR Publication
+- État: PR @ 3873b05 · CI SUCCESS · merge NO · SHADOW NOT ACTIVATED
 
-`bab14ca480b60744f6a428d93070c876de171ee1`
+## 8. PR pre-state
 
-`git show --name-status` subject = exactly:
-`M projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
-
-## 8. Hash gate
-
-| Path | SHA-256 | Result |
-|------|---------|--------|
-| composer | `3a6646af7ea1981160beac64894dd6ac58d70ce461f6973501f47dda4f5d8057` | OK |
-| adapter | `e90b5da0c23023b3e0839cc729516fea7c127099a8e8e3099941f8365a4d3b6a` | OK |
-| unit | `cb1cd4e40dadb057d9ebea964cff84ce6e76cfba3bccf740e948784d9ab3dd65` | OK |
-| integration | `d57f4f1b98a6900bac92f90ba78bb1c5eb553441a062ea0c5ee6e80db2261dc0` | OK |
-| 157.md | `dd3b773a741a661e48f8eb6aaa64c641973459441d0be6b91d44f14166eb7e2b` | OK |
-
-**HASH_GATE = PASS**
-
-## 9. ignore-space proof
-
-`git diff --ignore-space-at-eol bab14ca..3873b05 -- 157.md` → **EMPTY**
-
-## 10. Local diff-check proof
-
-`git diff --check origin/main...HEAD` → **PASS EC=0**
-
-## 11. PR pre-state
-
-- #321 OPEN · not draft · not merged
-- title: `feat(sfia-studio): wire FinOps T7 shadow pilot`
-- base=main · head=`delivery/sfia-studio-finops-t7-shadow-option-a`
-- headOid=`bab14ca480b60744f6a428d93070c876de171ee1`
-- prior CI fail run `31271964253` @ bab14ca (trailing whitespace)
-
-## 12. Fast-forward proof
-
-`git merge-base --is-ancestor bab14ca 3873b05` → EC=0
-Remote delivery before push still `bab14ca…`
-Push command without `--force` / `--force-with-lease`
-
-## 13. Push result
-
-```
-bab14ca..3873b05  3873b0527a0615c0500c190dca80e136452f6351 -> delivery/sfia-studio-finops-t7-shadow-option-a
-```
-
-## 14. Remote branch post-state
-
-`origin/delivery/sfia-studio-finops-t7-shadow-option-a` = `3873b0527a0615c0500c190dca80e136452f6351`
-`origin/main...origin/delivery` = `0 3`
-local vs remote delivery = `0 0`
-
-## 15. PR post-state
-
-- OPEN · not draft · not merged
-- headOid=`3873b0527a0615c0500c190dca80e136452f6351`
+- #321 OPEN · not draft · mergedAt=null
+- mergeable=MERGEABLE · mergeStateStatus=CLEAN
+- title=`feat(sfia-studio): wire FinOps T7 shadow pilot`
 - url: https://github.com/mcleland147/sfia-workspace/pull/321
 
-## 16. Final 5-file scope
+## 9. Head / base exacts
 
-Exactly 5 CREATE vs main (0 MODIFY / 0 DELETE):
+- base=`main` @ `503369b10506515e173b5b58986c731ba1b313b8`
+- head=`delivery/sfia-studio-finops-t7-shadow-option-a` @ `3873b0527a0615c0500c190dca80e136452f6351`
+
+## 10. Final scope 5 files
+
+Exactement 5 CREATE:
 
 1. `projects/sfia-studio/157-assistant-sfia-native-openai-finops-t7-shadow-option-a-wiring-execution.md`
 2. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
@@ -115,22 +81,44 @@ Exactly 5 CREATE vs main (0 MODIFY / 0 DELETE):
 4. `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts`
 5. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts`
 
-Branch history:
-1. `d99bbbdea2446af8b79488b7459924e6cf5a3e16` feat wiring
-2. `bab14ca480b60744f6a428d93070c876de171ee1` OA isolation fix
-3. `3873b0527a0615c0500c190dca80e136452f6351` whitespace docs
+## 11. CI pre-merge run
 
-## 17. Body stale findings (pre-update)
+- workflow: `SFIA Studio CI`
+- run: `31273140031`
+- head: `3873b0527a0615c0500c190dca80e136452f6351`
+- status: completed · conclusion: **success**
+- url: https://github.com/mcleland147/sfia-workspace/actions/runs/31273140031
 
-Obsolete on remote head `3873b05`:
-- Branch history missing `3873b05`
-- Active reserve claiming Markdown hard-break exception
-- Section `## Known PR-readiness exception` accepting trailing whitespace
-- Next gate CI targeting `bab14ca`
+## 12. Jobs / checks
 
-Still correct: OA-local pilot · corrective QA · policy reserve · temporal drift · SHADOW not activated
+| Job / step | Result |
+|------------|--------|
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | success |
+| Typecheck | success |
+| Lint | success |
+| Build | success |
+| Unit tests (Vitest) | success |
+| FinOps T1 migrate up (CI-A) | success |
+| FinOps T1 PostgreSQL integration tests (CI-A) | success |
+| Modeled governance tests | success |
+| Secret pattern scan (targeted) | success |
+| Trailing whitespace check | **success** |
+| SFIA Studio Required Gate | **success** |
 
-## 18. BODY COMPLET final appliqué
+## 13. Required Gate pre-body
+
+`SFIA Studio Required Gate` = success on run `31273140031` / head `3873b05`
+
+## 14. Body stale finding
+
+Formulations obsolètes présentes avant update:
+
+- `pending GitHub CI confirmation until the new workflow completes`
+- `GitHub CI on 3873b05 remains the required remote validation`
+- Next gates still framing CI as pending / GO MERGE not received
+
+## 15. BODY COMPLET final avant merge
 
 ```markdown
 ## Summary
@@ -235,7 +223,9 @@ Commit:
 - four code/test files remain byte-identical to the Corrective QA subject
 - local `git diff --check origin/main...3873b05` = PASS
 - no functional QA rerun required because no code/test bytes changed
-- GitHub CI on `3873b05` remains the required remote validation
+- GitHub CI run `31273140031` on `3873b0527a0615c0500c190dca80e136452f6351`: **SUCCESS**
+- trailing whitespace check: **PASS**
+- SFIA Studio Required Gate: **PASS**
 
 ## Safety
 
@@ -262,7 +252,7 @@ Commit:
 - T6-ext — NOT AUTHORIZED
 - Product IAM — NOT_SELECTED
 - T5 — OUT OF SCOPE SHADOW
-- **157.md trailing whitespace** — remediated by `3873b05`; pending GitHub CI confirmation until the new workflow completes
+- **157.md trailing whitespace** — **CLOSED ON PR HEAD** by `3873b0527a0615c0500c190dca80e136452f6351` + remote CI SUCCESS; **NOT CLOSED ON MAIN UNTIL MERGE**
 - corrective full-suite UI timeout observation classified as unrelated flake after dedicated 12/12 rerun
 
 OA → OPS1 boundary:
@@ -280,57 +270,116 @@ OA → OPS1 boundary:
 - CORRECTIVE QA PASS ≠ GitHub CI PASS
 - LOCAL DIFF-CHECK PASS ≠ GITHUB CI PASS
 - PR OPEN ≠ MERGE AUTHORIZATION
+- CI SUCCESS ≠ SHADOW ACTIVATION
 
 ## Next gates
 
-1. GitHub CI for head `3873b0527a0615c0500c190dca80e136452f6351`
-2. ChatGPT PR validation against the new remote CI
-3. distinct Morris GO MERGE if CI and PR review are conformant
-4. policy-source decision before meaningful SHADOW activation
-5. temporal semantics decision before activation
-6. future SHADOW activation cycle — distinct Morris GO
+1. Remote CI for head `3873b0527a0615c0500c190dca80e136452f6351` — **SUCCESS** (`31273140031`)
+2. Morris GO MERGE PR #321 — **RECEIVED**
+3. Merge PR #321 only while head remains `3873b0527a0615c0500c190dca80e136452f6351` and Required Gate remains green
+4. Cycle 14 — post-merge validation
+5. policy-source decision before meaningful SHADOW activation
+6. temporal semantics decision before activation
+7. future SHADOW activation cycle — distinct Morris GO
 ```
 
-## 19. Body reread validation
+## 16. Body reread
 
 After `gh pr edit 321 --body-file …`:
-- headOid still `3873b05`
-- body contains remediation `3873b05` / documentation-only trailing whitespace remediation
-- `Known PR-readiness exception` absent
-- hard-break accepted-exception language absent
-- Next gates target CI for `3873b05`
+
+- head still `3873b05`
 - state OPEN · mergedAt null
-- Note: body reserve line still says “pending GitHub CI confirmation” (written before CI completed); pack classifies whitespace reserve from remote CI SUCCESS as CLOSED ON PR HEAD — NOT CLOSED ON MAIN
+- contains CI SUCCESS / run 31273140031 / CLOSED ON PR HEAD / GO MERGE RECEIVED
+- absent: pending CI confirmation · remains the required remote validation
+- **BODY_REREAD = PASS**
 
-## 20. New CI run ID
+## 17. Second Git Truth check
 
-`31273140031`
+Immediate pre-merge after body update:
 
-## 21. CI head SHA
+- origin/main = `503369b10506515e173b5b58986c731ba1b313b8`
+- origin/delivery = `3873b0527a0615c0500c190dca80e136452f6351`
+- **SECOND_GIT_TRUTH = PASS**
 
-`3873b0527a0615c0500c190dca80e136452f6351`
+## 18. Second PR head check
 
-(Not reusing fail run `31271964253` @ bab14ca)
+- OPEN · not draft · not merged
+- mergeable=MERGEABLE · CLEAN
+- headOid=`3873b0527a0615c0500c190dca80e136452f6351`
+- **SECOND_PR_CHECK = PASS**
 
-## 22. CI status
+## 19. Second Required Gate check
 
-**CI SUCCESS** — workflow `SFIA Studio CI` completed success
-URL: https://github.com/mcleland147/sfia-workspace/actions/runs/31273140031
+`gh pr checks 321 --required`:
 
-## 23. Relevant jobs / checks
+`SFIA Studio Required Gate` = **pass** (run `31273140031`)
 
-| Job / check | Result |
-|-------------|--------|
-| Detect SFIA Studio changes | pass |
-| Build and validate SFIA Studio | pass (~1m54s) |
-| SFIA Studio Required Gate | pass |
-| Trailing whitespace check (step) | **success** |
+Reconfirmed run conclusion success · whitespace success · head `3873b05`
 
-## 24. Trailing whitespace check result
+**SECOND_REQUIRED_GATE = PASS**
 
-**success** (completed)
+## 20. Merge command
 
-## 25. Reserves
+```
+gh pr merge 321 \
+  --merge \
+  --match-head-commit 3873b0527a0615c0500c190dca80e136452f6351
+```
+
+No `--admin`. No `--delete-branch`. No squash/rebase.
+
+## 21. Merge result
+
+**SUCCESS** — PR #321 merged
+
+## 22. mergedAt
+
+`2026-08-08T19:14:49Z`
+
+## 23. Merge commit SHA
+
+`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
+
+## 24. Merge commit parents
+
+| Parent | SHA | Role |
+|--------|-----|------|
+| ^1 | `503369b10506515e173b5b58986c731ba1b313b8` | pre-merge main |
+| ^2 | `3873b0527a0615c0500c190dca80e136452f6351` | PR head |
+
+Message: `Merge pull request #321 from mcleland147/delivery/sfia-studio-finops-t7-shadow-option-a`
+
+## 25. NEW_MAIN_SHA
+
+`fd06f4aa1a19e629e0330473e43b1cf3b935014f`
+
+(`503369b..fd06f4a` on origin/main)
+
+## 26. Proof 3873b05 ancestor of main
+
+`git merge-base --is-ancestor 3873b0527a0615c0500c190dca80e136452f6351 origin/main` → **EC=0**
+
+## 27. Project branch preserved
+
+`origin/delivery/sfia-studio-finops-t7-shadow-option-a` still exists @ `3873b0527a0615c0500c190dca80e136452f6351`
+
+**Cleanup branch = NO**
+
+## 28. Post-merge CI observation minimale
+
+- Run observed: `31273951351`
+- head: `fd06f4aa1a19e629e0330473e43b1cf3b935014f`
+- status at observation: **queued** / STARTED_OR_PENDING
+- url: https://github.com/mcleland147/sfia-workspace/actions/runs/31273951351
+
+**POST-MERGE CI STARTED / PENDING** — not used to claim Cycle 14 validated.
+
+## 29. Reserves closed on main
+
+- OA→OPS1 boundary = **CLOSED ON MAIN**
+- Whitespace blocker = **CLOSED ON MAIN**
+
+## 30. Reserves remaining
 
 - SHADOW PILOT POLICY SOURCE = NOT SELECTED — REQUIRED BEFORE MEANINGFUL PILOT ACTIVATION
 - TEMPORAL MODE DRIFT OFF→SHADOW = OPEN descriptive reserve
@@ -340,58 +389,34 @@ URL: https://github.com/mcleland147/sfia-workspace/actions/runs/31273140031
 - T6-ext = NOT AUTHORIZED
 - Product IAM = NOT_SELECTED
 - T5 = OUT OF SCOPE SHADOW
-- OA→OPS1 boundary = CLOSED BY corrective commit + QA · NOT CLOSED ON MAIN
-- **Whitespace** = CLOSED ON PR HEAD — NOT CLOSED ON MAIN (CI SUCCESS on `3873b05`)
+- SHADOW = NOT ACTIVATED
+- MONITOR = NOT ACTIVATED
+- E1 = NOT AUTHORIZED
 
-## 26. Anti-claims
+## 31. Merge
 
-- SHADOW NOT ACTIVATED
-- NOT READY FOR SHADOW ACTIVATION
-- NO POLICY SELECTED
-- NO THRESHOLD ADOPTED
-- MONITOR NOT ACTIVATED
-- E1 NOT AUTHORIZED
-- PR OPEN ≠ MERGE AUTHORIZATION
-- LOCAL DIFF-CHECK PASS ≠ GITHUB CI PASS (now superseded by remote CI SUCCESS for this head, but merge still not authorized)
-- CI SUCCESS ≠ MERGE AUTHORIZATION
-- CI SUCCESS ≠ SHADOW ACTIVATION
+**YES**
 
-## 27. Git final
-
-| Ref | Valeur |
-|-----|--------|
-| local HEAD | `3873b0527a0615c0500c190dca80e136452f6351` |
-| origin/main | `503369b10506515e173b5b58986c731ba1b313b8` |
-| remote delivery | `3873b0527a0615c0500c190dca80e136452f6351` |
-| local vs remote delivery | `0 0` |
-| remote delivery vs main | `0 3` |
-| tracked/staged | clean |
-| untracked | `.tmp-sfia-review/**` |
-
-## 28. Project modification
-
-**NO** (no working-tree project edits in this gate)
-
-## 29. New project commit
-
-**NO** (reused existing `3873b05` only)
-
-## 30. Merge
-
-**NO**
-
-## 31. SHADOW activation
+## 32. SHADOW activation
 
 **NO — NOT ACTIVATED**
 
-## 32. Next Morris gate
+## 33. Cleanup branch
 
-After ChatGPT independent validation of handoff + PR #321 + CI:
+**NO**
 
-possible distinct human decision: **GO MERGE PR #321**
+## 34. Worktree cleanup
 
-Policy source and temporal mode semantics remain separate before any SHADOW activation.
+**NO**
 
-## 33. Verdict
+## 35. Next cycle
 
-**T7 SHADOW WHITESPACE REMEDIATION PUBLISHED WITH RESERVES — CYCLE 13 STANDARD — COMMIT 3873b0527a0615c0500c190dca80e136452f6351 PUSHED FAST-FORWARD — PR #321 HEAD / BODY / SCOPE VERIFIED — TRAILING WHITESPACE CHECK PASS — REMOTE CI SUCCESS ON 3873b05 — OA → OPS1 CORRECTION RETAINS QA EVIDENCE — SHADOW PILOT POLICY SOURCE NOT SELECTED — TEMPORAL MODE DRIFT OPEN — WHITESPACE BLOCKER CLOSED ON PR HEAD — NOT CLOSED ON MAIN UNTIL MERGE — SHADOW NOT ACTIVATED — MERGE NOT PERFORMED — READY FOR CHATGPT PR VALIDATION — MORRIS GO MERGE STILL REQUIRED — HANDOFF REMOTE VERIFIED**
+**Cycle 14 — Post-merge** (Standard recommended)
+
+Shall verify: PR merged · merge commit · origin/main · 5 files on main · post-merge CI · proportional QA-G4 · reserves · branch/worktree cleanup · integration closure.
+
+Then distinct decisions: policy source · temporal semantics · future SHADOW activation GO.
+
+## 36. Verdict
+
+**T7 SHADOW PR #321 MERGED WITH RESERVES — MORRIS GO MERGE CONSUMED — FINAL PR HEAD 3873b0527a0615c0500c190dca80e136452f6351 VERIFIED — FINAL 5-FILE SCOPE VERIFIED — PR BODY UPDATED TO CI SUCCESS — REMOTE CI RUN 31273140031 SUCCESS — TRAILING WHITESPACE CHECK PASS — SFIA STUDIO REQUIRED GATE PASS AT MERGE TIME — MERGE COMMIT STRATEGY USED — PR #321 MERGED — MERGE COMMIT fd06f4aa1a19e629e0330473e43b1cf3b935014f — MAIN ADVANCED TO fd06f4aa1a19e629e0330473e43b1cf3b935014f — PR HEAD PROVEN ANCESTOR OF MAIN — OA → OPS1 BOUNDARY CLOSED ON MAIN — WHITESPACE BLOCKER CLOSED ON MAIN — SHADOW PILOT POLICY SOURCE NOT SELECTED — TEMPORAL MODE DRIFT OPEN — SHADOW NOT ACTIVATED — MONITOR NOT ACTIVATED — E1 NOT AUTHORIZED — PROJECT BRANCH PRESERVED — POST-MERGE VALIDATION NOT YET PERFORMED — READY FOR CYCLE 14 POST-MERGE — HANDOFF REMOTE VERIFIED**
