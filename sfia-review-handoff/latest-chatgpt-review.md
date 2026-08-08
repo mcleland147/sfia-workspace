@@ -1,53 +1,45 @@
-# Cycle 6 Standard — T7 SHADOW Temporal Mode Semantics Architecture — Review Pack (full)
+# Cycle 8 Critical — T7 SHADOW Temporal Dual-Gate Delivery — Review Pack (full)
 
 ## 1. Date / heure
 
-- **CEST:** 2026-08-08 21:47:09 UTC+02:00
-- **UTC:** 2026-08-08 19:47:09 UTC
+- **CEST:** 2026-08-08 22:07:11 CEST
+- **UTC:** 2026-08-08 20:07:11 UTC
 
-## 2. GO Morris résolu
+## 2. Décision Morris (exacte)
 
-Utterance: `ok go`
+> GO TEMPORAL SEMANTICS — OPTION C, puis Delivery Cycle 8 Critical, avec dual-gate PRE_WAS_SHADOW ∧ POST_IS_SHADOW et interdiction de cache process-local non borné.
 
-Resolved: **GO Cycle 6 — Architecture technique — TEMPORAL MODE SEMANTICS analysis.**
+## 3. Cycle / profil / justification Critical
 
-Authorized: repo read · architecture analysis · useful Git history · tests analysis · options matrix · recommendation · FULL pack · L3 handoff.
+- **Cycle:** 8 — Delivery / implémentation
+- **Profil:** Critical
+- **Typologie:** EVOL / CODE / TEST / DOC
+- **Justification Critical:** touche FinOps pre-provider enforcement boundary, transient execution coordinator behavior, capture eligibility PRE↔POST, concurrent execution runs, fail-open semantics. SHADOW reste signal_only / never-block, mais une erreur pourrait fausser observations FinOps, introduire state leak cross-run, casser capture existante, ou créer dépendance lifecycle fragile. Critical n’autorise aucun élargissement de scope.
 
-Not authorized: auto-select option · code/tests/157 mutate · ADR versioned · project commit · Delivery branch · project push · PR · merge · SHADOW row · policy source · threshold · SHADOW activation · MONITOR · E1 · T3 · T5 · T6-ext · Product IAM.
+## 4. Git Truth initial
 
-## 3. Cycle / profil
+- **Repository:** mcleland147/sfia-workspace
+- **origin/main attendu / observé:** `fd06f4aa1a19e629e0330473e43b1cf3b935014f`
+- **PR #321:** MERGED (préalable post-merge Cycle 14)
+- **Ancienne Delivery branch** `delivery/sfia-studio-finops-t7-shadow-option-a`: absente (post Cycle 14)
+- **Worktree Delivery HEAD:** `fd06f4aa1a19e629e0330473e43b1cf3b935014f` (identique à origin/main au checkout)
 
-- **Cycle:** 6 — Architecture technique
-- **Profil:** Standard
-- **Nature:** analyse / décision d'architecture · **READ-ONLY PROJECT CONTENT**
-- **CKC:** `pilots/03-architecture-technique.md` candidate v0.1.0 — experimental cognitive guidance
-- **Blocs:** FinOps · architecture technique · résilience · observabilité · DevOps/testabilité
-- Ne PAS promouvoir ce cycle en Critical.
+## 5. Branch / worktree
 
-## 4. Git Truth
+- **Branch:** `delivery/sfia-studio-finops-t7-shadow-temporal-dual-gate`
+- **Worktree:** `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-shadow-temporal-dual-gate`
+- **Push project branch:** NO
+- **Commit project:** NO
 
-| Ref | Valeur |
-|-----|--------|
-| worktree | `finops-t2-main` |
-| branch | `main` |
-| HEAD | `fd06f4aa1a19e629e0330473e43b1cf3b935014f` |
-| origin/main | `fd06f4aa1a19e629e0330473e43b1cf3b935014f` |
-| tracked/staged | clean |
-| untracked | `.tmp-sfia-review/**` only |
-| Delivery remote | **ABSENT** (post Cycle 14 cleanup) |
-| PR #321 | MERGED |
-| SHADOW | NOT ACTIVATED |
-| Policy source | NOT SELECTED |
-| Temporal drift | OPEN |
+## 6. Handoff entrant
 
-## 5. Handoff entrant
+- **Branch:** `sfia/review-handoff`
+- **Path:** `sfia-review-handoff/latest-chatgpt-review.md`
+- **Tip attendu:** `b6f2a73bd48c1ceee3e2e4baffe2ed2fba0ba281`
+- **Blob attendu:** `077cc71188cc148dd99adbfbe5455ce4b0dc06ca`
+- **Cycle entrant:** Cycle 6 Standard — T7 SHADOW Temporal Mode Semantics Architecture
 
-- tip: `39a4e4331df76418f94b5ba8c08a89cb4ccb9c9e`
-- blob: `69c45084e6fdbf15f14e8ae0fd0fb8378522ee5e`
-- Cycle 14 Standard — T7 SHADOW PR #321 Post-Merge
-- Confirmed: main=fd06f4aa · QA-G4 PASS WITH RESERVES · OA→OPS1 CLOSED · whitespace CLOSED · Delivery cleaned · policy NOT SELECTED · TEMPORAL MODE DRIFT OPEN · SHADOW NOT ACTIVATED
-
-## 6. Sources consultées
+## 7. Sources consultées
 
 - `prompts/templates/sfia-cycle-execution-template.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
@@ -55,362 +47,1132 @@ Not authorized: auto-select option · code/tests/157 mutate · ADR versioned · 
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`
-- `composeFinOpsT7ShadowExecutionDeps.ts`
-- `composeExecutionRunD2D3T7ShadowPilot.ts`
-- `composeExecutionRunD2D3.ts`
-- `coordinateExecutionRun.ts`
-- `composeFinOpsT7Runtime.ts`
-- `resolveFinOpsRollout.ts`
-- `types.rollout.ts`
-- `finopsCapturePort.ts`
-- `finopsEnforcementPort.ts`
-- tests: `t7.shadow-option-a.unit.test.ts`, `t7.shadow-option-a.wiring.integration.test.ts`
-- handoff Cycle 14 canonique
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
+- Handoff Cycle 6 (ci-dessus)
+- Runtime / ports / composers / tests listés dans le GO Delivery
 
-## 7. Current runtime sequence (proven)
+## 8. Current baseline semantics (pre-Delivery)
 
-```
-coordinateExecutionRun
-  → (create run / pre-engagement)
-  → finopsEnforcement.evaluateBeforeProvider({projectId, executionRunId, ...})
-       → composeFinOpsT7ShadowExecutionDeps.evaluateBeforeProvider
-       → t7.resolveProjectRollout(projectId)   # READ #1 — PRE
-  → provider invocation (if not blocked; SHADOW never blocks)
-  → on provider success (AI lane):
-       captureFinOpsAfterAiSuccess
-       → deps.finops.captureUsage({projectId, executionRunId, ...})
-            → composeFinOpsT7ShadowExecutionDeps.captureUsage
-            → t7.resolveProjectRollout(projectId)   # READ #2 — POST
+- T7 SHADOW Option A thin adapter on main via PR #321
+- PRE et POST appelaient chacun `resolveProjectRollout` indépendamment
+- Drift historique OFF→SHADOW pendant provider pouvait autoriser capture rétroactive
+- SHADOW never-block / signal_only / pilot-gated déjà en place
+- Policy source NOT SELECTED ; SHADOW NOT ACTIVATED
+
+## 9. Implementation design
+
+Option C hybrid dual-gate **sans cache**:
+
+```text
+PRE rollout resolution
+→ transient captureEligibility on FinOpsEnforcementDecision
+→ coordinator-local variable in coordinateExecutionRun
+→ captureFinOpsAfterAiSuccess PRE gate
+→ existing POST rollout re-read in captureUsage
 ```
 
-Wiring proof (`composeExecutionRunD2D3T7ShadowPilot.ts`):
-- `finops: shadowDeps.capture`
-- `finopsEnforcement: shadowDeps.finopsEnforcement`
-- coordinator injection surface unchanged (`composeExecutionRunD2D3`).
-
-## 8. Double-read proof
-
-In `composeFinOpsT7ShadowExecutionDeps.ts`:
-
-1. PRE path L167: `instruction = await t7.resolveProjectRollout(projectId)` inside `evaluateBeforeProvider`
-2. POST path L257: `instruction = await t7.resolveProjectRollout(projectId)` inside `captureUsage`
-
-Confirmed:
-- same `projectId` and `executionRunId` flow from coordinator into both ports
-- **two distinct rollout reads**
-- **no per-run snapshot**
-- **no rollout context propagated PRE→POST**
-- **no SHADOW mutation** in composer (read-only resolve)
-- no Map/WeakMap/process cache/snapshot fields in adapter or pilot composer
-
-## 9. Temporal matrix (current = live re-read)
-
-| PRE mode | POST mode | PRE behavior | Provider | Capture | Observation consistency |
-|----------|-----------|--------------|----------|---------|-------------------------|
-| OFF | OFF | inert allow (`rollout_not_shadow_inert`) | continues | disabled (`shadow_capture_inactive`) | coherent inert |
-| SHADOW | SHADOW | SHADOW eval, effect forced `signal_only`, never block | continues | may capture via T7 capture | coherent SHADOW |
-| **OFF** | **SHADOW** | inert PRE | continues | **may capture as SHADOW** | **DRIFT — named reserve** |
-| **SHADOW** | **OFF** | SHADOW eval PRE | continues | **disabled** | **rollback observation cuts capture** |
-| missing/non-SHADOW | SHADOW | inert PRE | continues | may capture | drift-like |
-| SHADOW | missing/OFF | SHADOW PRE | continues | disabled | rollback-like |
-| PRE rollout read fail | * | `failed` finops-side (`rollout_resolve_failed`) — provider continues (fail-open) | continues | independent POST read | PRE diagnostic unresolved |
-| * | POST rollout read fail | * | * | disabled (`shadow_capture_rollout_failed_inert`) | capture omitted |
-
-**Historical reserve OFF→SHADOW:** a run can be captured as SHADOW without having been evaluated SHADOW at PRE.
-
-**SHADOW→OFF:** rollback OFF takes effect before capture under current semantics.
-
-## 10. Invariants (non-negotiable for any option)
-
-I1 SHADOW never BLOCK · I2 effect forced signal_only · I3 OFF/missing inert · I4 non-pilot inert · I5 MONITOR/E1 inert in this composer · I6 fail-open provider continuity · I7 no implicit production threshold · I8 temporal arch must not select policy source · I9 no OA→OPS1 · I10 no global identity authority · I11 rollback explicit/understandable · I12 no cross-run contamination · I13 no unbounded process memory · I14 deterministic testability.
-
-## 11. Central architecture question
-
-Distinguish:
-
-- **A. CURRENT mode** — project configuration at the moment a boundary executes
-- **B. FOR-RUN mode** — mode to which an `executionRun` is bound once started
-
-Current code implements **A** at every boundary.
-
-Decision Morris must make: is FinOps SHADOW observation integrity defined per **step-time** or per **run start**?
-
-## 12. Option A — LIVE RE-READ (current)
-
-**Principle:** each boundary re-reads current rollout.
-
-### Advantages
-- Already implemented; zero new state
-- No propagation / lifecycle
-- SHADOW→OFF rollback cuts capture immediately
-- Config flips visible at next boundary without stale latch
-
-### Disadvantages
-- OFF→SHADOW drift (named reserve)
-- PRE diagnostic and POST capture can narrate different regimes
-- Audit ambiguity for mid-run activation
-
-### Debt
-- Current: observational inconsistency debt (OPEN reserve), not safety debt (I1–I7 hold)
-- Keeping A means **accepting** step-current semantics as product design
-
-### Activation impact
-- Before SHADOW activation, A is low operational risk (no live SHADOW)
-- After activation, FinOps observations may include mid-run activations without PRE soft_signal history
-
-### Can A be kept intentionally?
-YES — by documenting that mode is CURRENT-at-boundary, not FOR-RUN. That closes the reserve as **ACCEPTED DESIGN**, not as a bug.
-
-## 13. Option B — PER-RUN SNAPSHOT
-
-**Principle:** resolve mode once for the run; reuse for PRE + POST.
-
-### Latch moment candidates
-1. run create — earliest, may precede FinOps injection relevance
-2. **just before evaluateBeforeProvider** — preferred: first FinOps boundary
-3. other — not justified
-
-### Flip behaviors
-- Snapshot SHADOW then OFF during provider → capture would continue under SHADOW (rollback delayed for in-flight)
-- Snapshot OFF then SHADOW during provider → capture stays inactive (no retroactive)
-
-### Implementation sketches (NOT executed)
-
-**B1. Explicit coordinator/run context propagation**
-- MODIFY: `coordinateExecutionRun.ts`, possibly domain run types, ports
-- Impact: core execution-run contract
-- Debt: higher blast radius
-
-**B2. Run-scoped token / context object**
-- Similar to B1; needs transport through capture call chain
-- Core or port signature change likely
-
-**B3. Adapter Map keyed by executionRunId**
-- CREATE/MODIFY mostly adapter
-- RISK: process-local unbounded Map without cleanup = **REJECT pattern** unless hard lifecycle (delete on capture + fail paths + TTL/cap + multi-instance caveat)
-- Multi-instance: Map is not shared across processes — inconsistent unless mode is also durable (undesired)
-
-### Assessment
-- Better intra-run audit coherence than A
-- **Worse** observational rollback immediacy than A/C for SHADOW→OFF in-flight
-- Heavier than needed for a never-block pilot
-
-## 14. Option C — HYBRID / DUAL-GATE (PRE eligibility latch)
-
-**Principle:** capture SHADOW only if:
-
-`PRE_WAS_SHADOW AND POST_IS_SHADOW`
-
-| Flip | Capture |
-|------|---------|
-| OFF→OFF | no |
-| SHADOW→SHADOW | yes (if other capture gates pass) |
-| OFF→SHADOW | **no** (blocks retroactive) |
-| SHADOW→OFF | **no** (keeps immediate observational rollback) |
-
-### Minimal state
-Transport only a boolean/token: `preWasShadow` / eligibility for this `executionRunId`.
-Not a full policy/threshold snapshot.
-
-### Implementation credibility
-- **Adapter-primary possible:** PRE path records eligibility; POST path checks eligibility ∧ current SHADOW
-- Requires lifecycle: clear token after captureUsage (all outcomes); clear/TTL if POST never reached (provider fail / non-AI / early return)
-- Prefer adapter-local bounded store **only with** demonstrated cleanup; else propagate eligibility via a thin coordinator field (more explicit, less leaky)
-
-### Why credible now
-- Directly targets named OFF→SHADOW integrity gap
-- Preserves SHADOW→OFF immediate cut of capture
-- Smaller than full FOR-RUN mode snapshot
-- Does not select policy/threshold
-- Compatible with I1–I10
-
-### Costs
-- New mechanism (latch) before SHADOW activation
-- Must design concurrency + failure cleanup carefully
-- Slightly more tests than documenting A
-
-## 15. Comparison matrix
-
-| Criterion | A live re-read | B per-run snapshot | C hybrid dual-gate |
-|-----------|----------------|--------------------|--------------------|
-| Intra-run coherence | LOW on flips | HIGH | HIGH for eligibility |
-| Rollback OFF immediate (capture cut) | YES | NO (in-flight may still capture) | YES |
-| Activation SHADOW mid-run | Capture possible | No capture | No capture |
-| Capture OFF→SHADOW | YES (drift) | NO | NO |
-| Capture SHADOW→OFF | NO | YES possible | NO |
-| Auditability | Ambiguous on flips | Strong regime story | Strong eligibility story |
-| Observability needs | preMode/postMode useful | effectiveModeForRun | preWasShadow + postMode |
-| Fail-open | YES | YES if designed | YES if designed |
-| Concurrency isolation | Natural (stateless) | Needs run key | Needs run key |
-| State management | None | Snapshot state | Minimal latch |
-| Memory lifecycle | N/A | Required | Required |
-| Core coordinator impact | None | Likely (B1/B2) or risky Map (B3) | Prefer thin; possible adapter-only with lifecycle |
-| Adapter-only possible? | Already is | Hard for clean B | Possible with care |
-| DB migration | NO | NO (unless durable chosen) | NO |
-| New durable state | NO | Prefer NO | Prefer NO |
-| Test complexity | Baseline | Higher | Moderate |
-| Reversibility | High (status quo) | Medium | Medium-high |
-| Debt created | Observational ambiguity | Snapshot + delayed rollback | Latch lifecycle |
-| Blast radius | None now | Highest | Moderate |
-| Prep for SHADOW activation | Weak integrity | Strong but rollback softer | Strong + rollback sharp |
-| Cost of later change | Document now / code later | Large if wrong | Moderate |
-
-## 16. Rollback semantics
-
-Meaning of project SHADOW→OFF:
-
-- **A:** next POST capture becomes inactive immediately for runs already past PRE
-- **B:** in-flight runs with SHADOW snapshot may still capture after OFF
-- **C:** OFF at POST prevents capture even if PRE was SHADOW
-
-Safety note: none of these block the provider (I1/I6). Difference is **observation stop timing**, not enforcement.
-
-## 17. Concurrency
-
-Scenario: Run A starts, Run B starts, mode flips, A/B finish in different order.
-
-- **A:** each boundary independent; no cross-run state; flips affect whichever boundary executes after flip
-- **B/C:** must key by `executionRunId`; contamination if shared mutable mode without keying
-- Process-local Map: not multi-instance coherent; if used, document single-process assumption + cleanup, or prefer explicit per-call propagation
-
-## 18. Failure semantics
-
-| Failure | A | B | C |
-|---------|---|---|---|
-| PRE rollout fail | failed finops-side; provider continues | snapshot unresolved/inert; provider continues | no eligibility; later capture blocked for SHADOW path |
-| Policy resolver fail | handled in PRE SHADOW path; never block | depends on snapshot timing | same as A at PRE |
-| Provider fail / no capture | no POST | must cleanup unused snapshot | must cleanup unused latch |
-| POST rollout fail | capture disabled inert | if using snapshot may still capture | POST not SHADOW ⇒ no capture |
-| Capture fail | failed capture diagnostic; provider success preserved | same | same |
-
-**Invariant:** FinOps failure must not become provider block (already true).
-
-## 19. Persistence / migration
-
-- **DB migration required?** **NO** for A/B/C if latch/snapshot is request/run-scoped ephemeral
-- **Durable snapshot needed?** **NO** for pilot SHADOW observation integrity; crash mid-run already loses in-memory process state broadly
-- Do not add durable state by reflex
-
-## 20. Observability
-
-Current `onShadowDecision` is minimal, non-durable, PRE-oriented.
-
-Ideal diagnostic fields (not T6-ext):
-- executionRunId, projectId, preMode, postMode (if re-read), effectiveEligibility, captureEligibility, reason
-
-Classification: **B — useful but non-blocking before activation**. Do **not** require T6-ext. Keep sink optional/fail-open.
-
-## 21. File impact map (no edits performed)
-
-### Option A (document only)
-- UNCHANGED: all runtime files
-- possible future DOC-only note in 157 (out of this cycle)
-
-### Option B
-- MODIFY likely: `composeFinOpsT7ShadowExecutionDeps.ts`
-- MODIFY possible: `coordinateExecutionRun.ts`, ports, domain (B1/B2)
-- CREATE possible: run context helper
-- UNCHANGED preferred: T4/T6 cores, OPS1
-- REJECT: unbounded process Map without lifecycle
-
-### Option C (recommended direction)
-- MODIFY: `composeFinOpsT7ShadowExecutionDeps.ts` (primary)
-- MODIFY possible (if propagation preferred over Map): `coordinateExecutionRun.ts` / capture args — only if adapter latch lifecycle judged unsafe
-- MODIFY: T7 SHADOW tests
-- UNCHANGED: `composeFinOpsT7Runtime.ts`, T4/T6, OPS1, migrations
-- CREATE: none durable; maybe small helper type in adapter module
-
-## 22. Test impact map (future Delivery — not this cycle)
-
-Reuse: never-block, signal_only force, non-pilot, MONITOR/E1 inert, OFF inert, hostile enforce.
-
-Modify/create for recommended option:
-- T1 OFF→OFF
-- T2 SHADOW→SHADOW
-- **T3 OFF→SHADOW** (must not capture under C)
-- **T4 SHADOW→OFF** (must not capture under C)
-- T5 concurrent runs around mode flip
-- T6 PRE rollout failure
-- T7 POST rollout failure
-- T8 provider failure / no capture (+ latch cleanup)
-- T9 hostile enforce → signal_only
-- T10 never-block
-- T11 non-pilot
-- T12 MONITOR/E1 inert
-
-## 23. Debt / simplicity challenge
-
-- A removes no debt; documents acceptance of drift
-- B adds snapshot debt + softer rollback
-- C adds latch debt but removes observation integrity debt for the named reserve
-- **Least mechanism that fixes OFF→SHADOW without delaying SHADOW→OFF rollback = C**, not full B
-- Avoid over-architecture before activation: C is intentionally minimal (boolean eligibility), not a full FOR-RUN policy engine
-
-## 24. Recommendation
-
-### RECOMMENDATION ONLY — MORRIS DECISION REQUIRED
-
-**Recommend: Option C — Hybrid dual-gate (PRE eligibility latch).**
-
-1. **Option:** C
-2. **Why:** closes OFF→SHADOW retroactive capture (named reserve) while preserving immediate observational rollback on SHADOW→OFF; smaller than full per-run snapshot; preserves I1–I10; adapter-primary feasible
-3. **Sacrifices:** introduces minimal run-scoped eligibility state + lifecycle/tests; not zero-change
-4. **Future Delivery perimeter:** primarily `composeFinOpsT7ShadowExecutionDeps.ts` + T7 SHADOW tests; touch coordinator only if latch lifecycle cannot be proven safe in-adapter
-5. **Future Delivery profile recommendation:** **Critical** — changes pre-provider/capture coupling semantics for FinOps observation integrity (even if mostly adapter); Morris final call
-6. **Tests required:** T1–T12 matrix above, especially T3/T4/T5/T8
-7. **Reserve after decision:** TEMPORAL MODE DRIFT becomes **DECIDED → C** pending Delivery/QA; remains OPEN until implemented
-8. **Why not A now:** leaves named integrity gap into activation; documenting A is acceptable only if Morris explicitly accepts step-current semantics
-9. **Why not B now:** overshoots; delays observational rollback for in-flight SHADOW→OFF; higher core risk
-
-**Explicit alternative for Morris:** choose **Option A (document as CURRENT-at-boundary design)** if priority is zero runtime change until policy source / activation planning.
-
-## 25. Future Delivery profile recommendation
-
-If Option C (or B) selected: recommend **Cycle 8 Delivery — Critical** with dedicated QA for temporal flips.
-
-If Option A documented only: no Delivery; reserve reclassified ACCEPTED DESIGN by Morris utterance.
-
-## 26. Reserves
-
-- TEMPORAL MODE DRIFT OFF→SHADOW = **OPEN** (analysis complete; decision pending)
-- SHADOW PILOT POLICY SOURCE = NOT SELECTED (separate)
-- R-T4-T3-SYNC-01 = OPEN — BEFORE MONITOR
-- R-PR-T2-API-01 = OPEN MINOR
-- Calibration = REQUIRED BEFORE MONITOR
-- T6-ext / T5 / Product IAM / MONITOR / E1 = unchanged
-- OA→OPS1 / whitespace = CLOSED ON MAIN (unchanged by this cycle)
-
-## 27. Explicit non-decisions
-
-- No option selected
-- No ADR written to repo
-- No Delivery started
-- No policy source selected
-- No threshold adopted
-- No SHADOW activation readiness claim
-- No T6-ext program
-
-## 28. Project mutation
+Réalise: `PRE_WAS_SHADOW ∧ POST_IS_SHADOW`.
+
+## 10. captureEligibility contract
+
+- Type: `"eligible" | "ineligible"` (alias `FinOpsCaptureEligibility`)
+- Optional on `FinOpsEnforcementDecision`
+- Internal / transient / non persisted / non public product API / non durable event
+- Absent = legacy capture behavior (NOT treated as ineligible at generic coordinator level)
+
+## 11. PRE eligibility semantics
+
+`eligible` IFF `projectId === pilotProjectId` AND PRE rollout resolved mode === `SHADOW`.
+
+Independente du succès policy:
+
+- SHADOW + policy null → eligible
+- SHADOW + policy throw → eligible (decision may be failed)
+- SHADOW + hostile block neutralized → eligible + failed/shadow_block_forbidden
+- non-pilot / OFF / MONITOR / E1 / unresolved rollout → ineligible
+
+## 12. Coordinator propagation
+
+- `let captureEligibility` local à `coordinateExecutionRun`
+- Assigné depuis PRE decision
+- Passé à `captureFinOpsAfterAiSuccess`
+- Si `"ineligible"` → `{ status: "disabled", reason: "finops_pre_provider_capture_ineligible" }` sans appeler le capture port
+- Si `"eligible"` ou `undefined` → appelle le capture port
+
+## 13. POST gate
+
+Inchangé dans `composeFinOpsT7ShadowExecutionDeps.captureUsage`:
+
+- `resolveProjectRollout(projectId)`
+- capture autorisée seulement si `instruction.mode === "SHADOW"`
+
+## 14. Legacy compatibility
+
+- Pas de `finopsEnforcement` + capture présente → comportement historique (prouvé T7-C07)
+- Port générique `{ decision: "allow", reason }` sans `captureEligibility` → capture historique (prouvé T7-C06)
+- `undefined` ≠ `ineligible` au niveau générique
+
+## 15. Cache / state proof
+
+Sur les 3 runtime files modifiés — absence de `new Map` / `new Set` / `WeakMap` / `WeakSet` / `AsyncLocalStorage` / `setInterval` (voir §15 evidence ci-dessous).
+NO CACHE AT ALL (pas de substitut TTL/LRU).
+
+### Evidence static-state-check
+
+=== static no-cache on 3 runtime files ===
+-- projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts
+(no matches)
+-- projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+(no matches)
+-- projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts
+(no matches)
+
+## 16. Files modified / created
+
+| Status | Path |
+|--------|------|
+| M | `projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts` |
+| M | `projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts` |
+| M | `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts` |
+| M | `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts` |
+| M | `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts` |
+| A | `projects/sfia-studio/158-assistant-sfia-native-openai-finops-t7-shadow-temporal-dual-gate-execution.md` |
+
+Maximum 6 project paths — **conforme**.
+
+## 17. DIFF COMPLET de tous fichiers modifiés
+
+### 17.1 types.enforcement.ts
+
+diff --git a/projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts b/projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts
+index 88f8c34..937c4da 100644
+--- a/projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts
++++ b/projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts
+@@ -76,12 +76,29 @@ export type FinOpsEnforcementDecisionProvenance = {
+   readonly rebuiltAt: string;
+ };
+
++/**
++ * Transient T7 SHADOW Option C dual-gate hint (PRE_WAS_SHADOW).
++ *
++ * Anti-claims:
++ * - optional — absent means legacy capture behavior (no temporal gate)
++ * - internal only — not a public/product API
++ * - transient — lives only within one coordinateExecutionRun call stack
++ * - not persisted — not a durable event / DB column / audit SoT
++ * - does not enforce provider path — capture gate ≠ provider gate
++ */
++export type FinOpsCaptureEligibility = "eligible" | "ineligible";
++
+ export type FinOpsEnforcementDecision = {
+   readonly decision: FinOpsEnforcementDecisionKind;
+   readonly reason: string;
+   /** True when FinOps-side technical failure — never means BLOCK. */
+   readonly finopsSideOnly?: true;
+   readonly provenance?: FinOpsEnforcementDecisionProvenance;
++  /**
++   * Optional transient capture eligibility from PRE FinOps evaluation.
++   * Absent ⇒ preserve historical capture behavior for non-T7 / legacy ports.
++   */
++  readonly captureEligibility?: FinOpsCaptureEligibility;
+ };
+
+ export type EvaluateFinOpsEnforcementInput = {
+
+### 17.2 coordinateExecutionRun.ts
+
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts b/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+index edc9dee..1fddb6c 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+@@ -248,6 +248,13 @@ async function captureFinOpsAfterAiSuccess(args: {
+   readonly run: ExecutionRun;
+   readonly usage: UsageSummary;
+   readonly providerSucceeded: boolean;
++  /**
++   * Transient Option C PRE hint from evaluateBeforeProvider.
++   * - "ineligible" ⇒ short-circuit capture (no port call)
++   * - "eligible" | undefined ⇒ call capture port (POST gate / legacy)
++   * Local to this coordinateExecutionRun call only — no registry/cache.
++   */
++  readonly captureEligibility?: "eligible" | "ineligible";
+ }): Promise<FinOpsCaptureDiagnostic> {
+   if (args.run.intent.requestedLane !== "ai") {
+     return finopsNotAttempted("non_ai_lane");
+@@ -258,6 +265,14 @@ async function captureFinOpsAfterAiSuccess(args: {
+   if (!args.deps.finops) {
+     return finopsDisabled();
+   }
++  // Option C PRE gate: captureEligibility === "ineligible" prevents capture port call.
++  // undefined preserves legacy FinOps compositions without temporal gate.
++  if (args.captureEligibility === "ineligible") {
++    return {
++      status: "disabled",
++      reason: "finops_pre_provider_capture_ineligible",
++    };
++  }
+   try {
+     return await args.deps.finops.captureUsage({
+       projectId: args.run.context.projectId,
+@@ -1053,6 +1068,9 @@ export async function coordinateExecutionRun(
+   // T4 ENF-B: after create + pre-engagement, before intent_valid / provider.
+   // Absent dependency ⇒ inert. allow/soft_signal/failed/throw ⇒ fail-open continue.
+   // block ⇒ HUMAN_GATE_REQUIRED; provider never attempted/invoked.
++  // Option C: optional captureEligibility is kept in this call-local variable only
++  // (no Map/registry/cache). Undefined ⇒ legacy capture behavior.
++  let captureEligibility: FinOpsEnforcementDecision["captureEligibility"];
+   if (deps.finopsEnforcement) {
+     let enforcementDecision: FinOpsEnforcementDecision;
+     try {
+@@ -1070,6 +1088,8 @@ export async function coordinateExecutionRun(
+       };
+     }
+
++    captureEligibility = enforcementDecision.captureEligibility;
++
+     if (enforcementDecision.decision === "block") {
+       const enforcementFailure = normalizedFailure({
+         family: "human_gate_required",
+@@ -1188,12 +1208,14 @@ export async function coordinateExecutionRun(
+   }
+
+   // Fail-open FinOps capture: never convert provider success into user failure.
++  // Option C: pass call-local PRE captureEligibility (undefined = legacy).
+   const runForCapture = terminal.result.run ?? current;
+   const finopsCapture = await captureFinOpsAfterAiSuccess({
+     deps,
+     run: runForCapture,
+     usage: terminal.usage,
+     providerSucceeded,
++    captureEligibility,
+   });
+
+   if (!terminal.result.ok) {
+
+### 17.3 composeFinOpsT7ShadowExecutionDeps.ts
+
+diff --git a/projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts b/projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts
+index 28df1e4..a4f3bb9 100644
+--- a/projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts
++++ b/projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts
+@@ -90,23 +90,39 @@ function assertServerOnly(): void {
+   }
+ }
+
+-function allow(reason: string): FinOpsEnforcementDecision {
+-  return { decision: "allow", reason };
++function allow(
++  reason: string,
++  captureEligibility: FinOpsEnforcementDecision["captureEligibility"],
++): FinOpsEnforcementDecision {
++  return {
++    decision: "allow",
++    reason,
++    ...(captureEligibility ? { captureEligibility } : {}),
++  };
+ }
+
+-function failed(reason: string): FinOpsEnforcementDecision {
+-  return { decision: "failed", reason, finopsSideOnly: true };
++function failed(
++  reason: string,
++  captureEligibility: FinOpsEnforcementDecision["captureEligibility"],
++): FinOpsEnforcementDecision {
++  return {
++    decision: "failed",
++    reason,
++    finopsSideOnly: true,
++    ...(captureEligibility ? { captureEligibility } : {}),
++  };
+ }
+
+ /**
+  * Defense-in-depth: SHADOW path must never surface `block` to the coordinator.
+  * Exported for focused unit proof (T7-SW06).
++ * Preserves optional transient captureEligibility (Option C PRE latch).
+  */
+ export function ensureShadowNeverBlocks(
+   decision: FinOpsEnforcementDecision,
+ ): FinOpsEnforcementDecision {
+   if (decision.decision === "block") {
+-    return failed("shadow_block_forbidden");
++    return failed("shadow_block_forbidden", decision.captureEligibility);
+   }
+   return decision;
+ }
+@@ -145,13 +161,17 @@ export function composeFinOpsT7ShadowExecutionDeps(
+   const finopsEnforcement: FinOpsEnforcementPort = {
+     async evaluateBeforeProvider(evalInput) {
+       let mode: FinOpsT7ShadowDecisionDiagnostic["mode"] = "unresolved";
++      // Option C: PRE_WAS_SHADOW only after pilot + resolved SHADOW mode.
++      // Policy success/failure does not affect temporal eligibility.
++      let captureEligibility: FinOpsEnforcementDecision["captureEligibility"] =
++        "ineligible";
+       try {
+         const projectId =
+           typeof evalInput.projectId === "string"
+             ? evalInput.projectId.trim()
+             : "";
+         if (!projectId || projectId !== pilotProjectId) {
+-          const decision = allow("non_pilot_inert");
++          const decision = allow("non_pilot_inert", "ineligible");
+           await emitShadowDecision(input.onShadowDecision, {
+             projectId: projectId || "",
+             mode: "OFF",
+@@ -166,7 +186,7 @@ export function composeFinOpsT7ShadowExecutionDeps(
+         try {
+           instruction = await t7.resolveProjectRollout(projectId);
+         } catch {
+-          const decision = failed("rollout_resolve_failed");
++          const decision = failed("rollout_resolve_failed", "ineligible");
+           await emitShadowDecision(input.onShadowDecision, {
+             projectId,
+             mode: "unresolved",
+@@ -181,7 +201,7 @@ export function composeFinOpsT7ShadowExecutionDeps(
+
+         if (instruction.mode !== "SHADOW") {
+           // OFF / MONITOR / E1_ENFORCED / inert — this adapter does not activate them.
+-          const decision = allow("rollout_not_shadow_inert");
++          const decision = allow("rollout_not_shadow_inert", "ineligible");
+           await emitShadowDecision(input.onShadowDecision, {
+             projectId,
+             mode,
+@@ -192,6 +212,9 @@ export function composeFinOpsT7ShadowExecutionDeps(
+           return decision;
+         }
+
++        // PRE_WAS_SHADOW proven — eligibility is mode-based, not policy-based.
++        captureEligibility = "eligible";
++
+         const port = createFinOpsEnforcementPort({
+           projection,
+           resolvePolicy: async (policyInput) => {
+@@ -211,9 +234,11 @@ export function composeFinOpsT7ShadowExecutionDeps(
+           },
+         });
+
+-        const decision = ensureShadowNeverBlocks(
+-          await port.evaluateBeforeProvider(evalInput),
+-        );
++        const evaluated = await port.evaluateBeforeProvider(evalInput);
++        const decision = ensureShadowNeverBlocks({
++          ...evaluated,
++          captureEligibility,
++        });
+
+         await emitShadowDecision(input.onShadowDecision, {
+           projectId,
+@@ -224,7 +249,8 @@ export function composeFinOpsT7ShadowExecutionDeps(
+         });
+         return decision;
+       } catch {
+-        const decision = failed("shadow_adapter_failed");
++        // If PRE SHADOW was already proven, keep eligibility across adapter failure.
++        const decision = failed("shadow_adapter_failed", captureEligibility);
+         await emitShadowDecision(input.onShadowDecision, {
+           projectId:
+             typeof evalInput.projectId === "string"
+
+### 17.4 t7.shadow-option-a.unit.test.ts
+
+diff --git a/projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts b/projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts
+index 009d464..25523e9 100644
+--- a/projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts
+@@ -42,6 +42,17 @@ describe("T7 SHADOW Option A — unit", () => {
+     ).toBe("failed");
+   });
+
++  it("T7-C-U01 ensureShadowNeverBlocks preserves captureEligibility eligible", () => {
++    const out = ensureShadowNeverBlocks({
++      decision: "block",
++      reason: "threshold_crossed_enforce",
++      captureEligibility: "eligible",
++    });
++    expect(out.decision).toBe("failed");
++    expect(out.reason).toBe("shadow_block_forbidden");
++    expect(out.captureEligibility).toBe("eligible");
++  });
++
+   it("T7-SW15 pilot constant equals OPS1_PROJECT_KEY sfia-studio-ops1", () => {
+     expect(T7_SHADOW_PILOT_PROJECT_ID).toBe("sfia-studio-ops1");
+     expect(T7_SHADOW_PILOT_PROJECT_ID).toBe(OPS1_PROJECT_KEY);
+@@ -65,8 +76,29 @@ describe("T7 SHADOW Option A — unit", () => {
+     expect(adapter).toMatch(/effect:\s*"signal_only"/);
+     expect(adapter).toMatch(/shadow_block_forbidden/);
+     expect(adapter).toMatch(/rollout_not_shadow_inert/);
++    expect(adapter).toMatch(/captureEligibility/);
++    expect(adapter).not.toMatch(/new Map\s*\(/);
++    expect(adapter).not.toMatch(/new Set\s*\(/);
++    expect(adapter).not.toMatch(/WeakMap/);
++    expect(adapter).not.toMatch(/AsyncLocalStorage/);
+     expect(pilot).not.toMatch(/E1_ENFORCED/);
+     expect(pilot).not.toMatch(/effect:\s*"enforce"/);
+     expect(adapter).not.toMatch(/upsertProjectRollout/);
+   });
++
++  it("T7-C-U02 static: no process-local eligibility registry in runtime trio", () => {
++    const roots = [
++      "lib/oa/finops/application/types.enforcement.ts",
++      "lib/oa/execution-run/application/coordinateExecutionRun.ts",
++      "lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts",
++    ];
++    for (const rel of roots) {
++      const src = readFileSync(path.join(process.cwd(), rel), "utf8");
++      expect(src).not.toMatch(/new Map\s*\(/);
++      expect(src).not.toMatch(/new Set\s*\(/);
++      expect(src).not.toMatch(/WeakMap/);
++      expect(src).not.toMatch(/WeakSet/);
++      expect(src).not.toMatch(/AsyncLocalStorage/);
++    }
++  });
+ });
+
+### 17.5 t7.shadow-option-a.wiring.integration.test.ts
+
+diff --git a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
+index 41fc4c4..f430c23 100644
+--- a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
+@@ -21,12 +21,15 @@ import { FixtureCursorExecutionAdapter } from "@/lib/oa/execution-run/infrastruc
+ import { FakeSecretSourceAdapter } from "@/lib/oa/execution-run/infrastructure/secrets/fakeSecretSourceAdapter";
+ import { RecordingExecutionEventSink } from "@/lib/oa/execution-run/infrastructure/events/recordingExecutionEventSink";
+ import { composeFinOpsT7ShadowExecutionDeps } from "@/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps";
++import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server/composeExecutionRunD2D3";
+ import { createPostgresFinOpsRolloutStore } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore";
+ import {
+   closeFinOpsPool,
+   createFinOpsPool,
+ } from "@/lib/oa/finops/infrastructure/postgres/createFinOpsPool";
+ import type { FinOpsRolloutMode } from "@/lib/oa/finops/application/types.rollout";
++import type { FinOpsCapturePort } from "@/lib/oa/finops/ports/finopsCapturePort";
++import type { FinOpsEnforcementPort } from "@/lib/oa/finops/ports/finopsEnforcementPort";
+
+ const DATABASE_URL = process.env.DATABASE_URL?.trim() ?? "";
+ const describeDb = DATABASE_URL ? describe : describe.skip;
+@@ -160,7 +163,12 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
+     expect(result.providerInvoked).toBe(true);
+     expect(completeSpy).toHaveBeenCalled();
+     expect(policy).not.toHaveBeenCalled();
+-    expect(result.finopsCapture?.status).toBe("disabled");
++    expect(result.finopsCapture).toEqual(
++      expect.objectContaining({
++        status: "disabled",
++        reason: "finops_pre_provider_capture_ineligible",
++      }),
++    );
+   });
+
+   it("T7-SW02 pilot + missing row → default OFF inert", async () => {
+@@ -480,4 +488,380 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
+     expect(seen).toEqual(["sfia-studio-ops1"]);
+     expect(deps.pilotProjectId).toBe("sfia-studio-ops1");
+   });
++
++  it("T7-C01 OFF → OFF · PRE ineligible · capture disabled · no usage event", async () => {
++    await upsertMode(pool, PILOT, "OFF");
++    const { providers, completeSpy } = spyProviders();
++    const composition = composeExecutionRunD2D3T7ShadowPilot({
++      pool,
++      clockIso,
++      providers,
++      resolveShadowPolicy: async () => null,
++    });
++    const result = await composition.coordinate(
++      coordinateInput(PILOT, "c01"),
++    );
++    expect(result.ok).toBe(true);
++    expect(completeSpy).toHaveBeenCalled();
++    expect(result.finopsCapture).toEqual(
++      expect.objectContaining({
++        status: "disabled",
++        reason: "finops_pre_provider_capture_ineligible",
++      }),
++    );
++  });
++
++  it("T7-C02 SHADOW → SHADOW · PRE eligible · capture created/duplicate", async () => {
++    await upsertMode(pool, PILOT, "SHADOW");
++    await seedProjection(pool, PILOT, "0.10000000");
++    const deps = composeFinOpsT7ShadowExecutionDeps({
++      pool,
++      nowIso: () => clockIso,
++      pilotProjectId: PILOT,
++      resolveShadowPolicy: async () => null,
++    });
++    const decision = await deps.finopsEnforcement.evaluateBeforeProvider({
++      projectId: PILOT,
++      executionRunId: "run:c02",
++      correlationId: "corr:c02",
++      occurredAt: clockIso,
++    });
++    expect(decision.captureEligibility).toBe("eligible");
++    const { providers } = spyProviders();
++    const composition = composeExecutionRunD2D3T7ShadowPilot({
++      pool,
++      clockIso,
++      providers,
++      resolveShadowPolicy: async () => null,
++    });
++    const result = await composition.coordinate(
++      coordinateInput(PILOT, "c02"),
++    );
++    expect(result.ok).toBe(true);
++    expect(["created", "duplicate", "failed"]).toContain(
++      result.finopsCapture!.status,
++    );
++  });
++
++  it("T7-C03 OFF → SHADOW mid-provider · PRE ineligible · capture short-circuited", async () => {
++    await upsertMode(pool, PILOT, "OFF");
++    const ai = new FakeAiExecutionAdapter();
++    const completeSpy = vi.spyOn(ai, "complete").mockImplementation(async () => {
++      await upsertMode(pool, PILOT, "SHADOW");
++      return {
++        kind: "success" as const,
++        completeness: "complete" as const,
++        redactedSummary: "TEST_ONLY flip OFF→SHADOW",
++        disclosureNotes: ["source=fake", "live=false"],
++        usage: {
++          status: "validated" as const,
++          inputTokens: 1,
++          outputTokens: 1,
++          unit: "tokens" as const,
++        },
++      };
++    });
++    const secretsAdapter = new FakeSecretSourceAdapter();
++    const providers = composeExecutionRunProviders({
++      ai,
++      git: new FakeGitReadAdapter({
++        repositoryAllowlist: [
++          "o/r",
++          "example/example",
++          "mcleland147/sfia-workspace",
++        ],
++        pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
++      }),
++      cursor: new FixtureCursorExecutionAdapter(),
++      secrets: {
++        resolve: (secretId) => secretsAdapter.resolve(secretId),
++      },
++      events: new RecordingExecutionEventSink(),
++    });
++    const composition = composeExecutionRunD2D3T7ShadowPilot({
++      pool,
++      clockIso,
++      providers,
++      resolveShadowPolicy: async () => null,
++    });
++    const result = await composition.coordinate(
++      coordinateInput(PILOT, "c03"),
++    );
++    expect(result.ok).toBe(true);
++    expect(completeSpy).toHaveBeenCalled();
++    expect(result.finopsCapture).toEqual(
++      expect.objectContaining({
++        status: "disabled",
++        reason: "finops_pre_provider_capture_ineligible",
++      }),
++    );
++    // POST would be SHADOW, but PRE gate must win (no retroactive capture).
++    const postMode = await createPostgresFinOpsRolloutStore(pool).readProjectRollout(
++      PILOT,
++    );
++    expect(postMode?.mode ?? "OFF").toBe("SHADOW");
++  });
++
++  it("T7-C04 SHADOW → OFF mid-provider · PRE eligible · POST disables capture", async () => {
++    await upsertMode(pool, PILOT, "SHADOW");
++    await seedProjection(pool, PILOT, "0.10000000");
++    const ai = new FakeAiExecutionAdapter();
++    const completeSpy = vi.spyOn(ai, "complete").mockImplementation(async () => {
++      await upsertMode(pool, PILOT, "OFF");
++      return {
++        kind: "success" as const,
++        completeness: "complete" as const,
++        redactedSummary: "TEST_ONLY flip SHADOW→OFF",
++        disclosureNotes: ["source=fake", "live=false"],
++        usage: {
++          status: "validated" as const,
++          inputTokens: 1,
++          outputTokens: 1,
++          unit: "tokens" as const,
++        },
++      };
++    });
++    const secretsAdapter = new FakeSecretSourceAdapter();
++    const providers = composeExecutionRunProviders({
++      ai,
++      git: new FakeGitReadAdapter({
++        repositoryAllowlist: [
++          "o/r",
++          "example/example",
++          "mcleland147/sfia-workspace",
++        ],
++        pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
++      }),
++      cursor: new FixtureCursorExecutionAdapter(),
++      secrets: {
++        resolve: (secretId) => secretsAdapter.resolve(secretId),
++      },
++      events: new RecordingExecutionEventSink(),
++    });
++    const composition = composeExecutionRunD2D3T7ShadowPilot({
++      pool,
++      clockIso,
++      providers,
++      resolveShadowPolicy: async () => null,
++    });
++    const result = await composition.coordinate(
++      coordinateInput(PILOT, "c04"),
++    );
++    expect(result.ok).toBe(true);
++    expect(completeSpy).toHaveBeenCalled();
++    expect(result.finopsCapture).toEqual(
++      expect.objectContaining({
++        status: "disabled",
++        reason: "shadow_capture_inactive",
++      }),
++    );
++  });
++
++  it("T7-C05 PRE eligibility matrix · non-pilot/OFF/MONITOR/E1 ineligible · SHADOW eligible", async () => {
++    await upsertMode(pool, PILOT, "SHADOW");
++    await upsertMode(pool, OTHER, "SHADOW");
++    const deps = composeFinOpsT7ShadowExecutionDeps({
++      pool,
++      nowIso: () => clockIso,
++      pilotProjectId: PILOT,
++      resolveShadowPolicy: async () => null,
++    });
++    const nonPilot = await deps.finopsEnforcement.evaluateBeforeProvider({
++      projectId: OTHER,
++      executionRunId: "run:c05a",
++      correlationId: "corr:c05a",
++      occurredAt: clockIso,
++    });
++    expect(nonPilot.captureEligibility).toBe("ineligible");
++
++    await upsertMode(pool, PILOT, "OFF");
++    const off = await deps.finopsEnforcement.evaluateBeforeProvider({
++      projectId: PILOT,
++      executionRunId: "run:c05b",
++      correlationId: "corr:c05b",
++      occurredAt: clockIso,
++    });
++    expect(off.captureEligibility).toBe("ineligible");
++
++    await upsertMode(pool, PILOT, "MONITOR");
++    const monitor = await deps.finopsEnforcement.evaluateBeforeProvider({
++      projectId: PILOT,
++      executionRunId: "run:c05c",
++      correlationId: "corr:c05c",
++      occurredAt: clockIso,
++    });
++    expect(monitor.captureEligibility).toBe("ineligible");
++
++    await upsertMode(pool, PILOT, "E1_ENFORCED");
++    const e1 = await deps.finopsEnforcement.evaluateBeforeProvider({
++      projectId: PILOT,
++      executionRunId: "run:c05d",
++      correlationId: "corr:c05d",
++      occurredAt: clockIso,
++    });
++    expect(e1.captureEligibility).toBe("ineligible");
++
++    await upsertMode(pool, PILOT, "SHADOW");
++    await seedProjection(pool, PILOT, TEST_ONLY_ELIGIBLE);
++    const shadowNull = await deps.finopsEnforcement.evaluateBeforeProvider({
++      projectId: PILOT,
++      executionRunId: "run:c05e",
++      correlationId: "corr:c05e",
++      occurredAt: clockIso,
++    });
++    expect(shadowNull.captureEligibility).toBe("eligible");
++
++    const depsThrow = composeFinOpsT7ShadowExecutionDeps({
++      pool,
++      nowIso: () => clockIso,
++      pilotProjectId: PILOT,
++      resolveShadowPolicy: async () => {
++        throw new Error("TEST_ONLY policy boom");
++      },
++    });
++    const shadowThrow = await depsThrow.finopsEnforcement.evaluateBeforeProvider({
++      projectId: PILOT,
++      executionRunId: "run:c05f",
++      correlationId: "corr:c05f",
++      occurredAt: clockIso,
++    });
++    expect(shadowThrow.decision).toBe("failed");
++    expect(shadowThrow.captureEligibility).toBe("eligible");
++  });
++
++  it("T7-C06 legacy: no captureEligibility on generic enforcement → capture preserved", async () => {
++    let captureCalled = 0;
++    const capture: FinOpsCapturePort = {
++      async captureUsage() {
++        captureCalled += 1;
++        return {
++          status: "created",
++          eventId: "evt:legacy-c06",
++          dedupKey: "dedup:legacy-c06",
++        };
++      },
++    };
++    const enforcement: FinOpsEnforcementPort = {
++      async evaluateBeforeProvider() {
++        return { decision: "allow", reason: "generic_allow_no_eligibility" };
++      },
++    };
++    const { providers, completeSpy } = spyProviders();
++    const composition = composeExecutionRunD2D3({
++      providers,
++      clockIso,
++      finops: capture,
++      finopsEnforcement: enforcement,
++    });
++    const result = await composition.coordinate(
++      coordinateInput(PILOT, "c06"),
++    );
++    expect(result.ok).toBe(true);
++    expect(completeSpy).toHaveBeenCalled();
++    expect(captureCalled).toBe(1);
++    expect(result.finopsCapture?.status).toBe("created");
++  });
++
++  it("T7-C07 legacy: no finopsEnforcement · capture path preserved", async () => {
++    let captureCalled = 0;
++    const capture: FinOpsCapturePort = {
++      async captureUsage() {
++        captureCalled += 1;
++        return {
++          status: "created",
++          eventId: "evt:legacy-c07",
++          dedupKey: "dedup:legacy-c07",
++        };
++      },
++    };
++    const { providers, completeSpy } = spyProviders();
++    const composition = composeExecutionRunD2D3({
++      providers,
++      clockIso,
++      finops: capture,
++    });
++    const result = await composition.coordinate(
++      coordinateInput(PILOT, "c07"),
++    );
++    expect(result.ok).toBe(true);
++    expect(completeSpy).toHaveBeenCalled();
++    expect(captureCalled).toBe(1);
++    expect(result.finopsCapture?.status).toBe("created");
++  });
++
++  it("T7-C08 concurrency: A SHADOW-eligible and B OFF-ineligible do not contaminate", async () => {
++    await upsertMode(pool, PILOT, "SHADOW");
++    await seedProjection(pool, PILOT, "0.10000000");
++    await upsertMode(pool, OTHER, "OFF");
++
++    // B uses OTHER as non-pilot under PILOT SHADOW adapter → always ineligible.
++    // A uses PILOT under SHADOW → eligible; flip OFF during A's provider to prove POST gate.
++    const aiA = new FakeAiExecutionAdapter();
++    vi.spyOn(aiA, "complete").mockImplementation(async () => {
++      await upsertMode(pool, PILOT, "OFF");
++      return {
++        kind: "success" as const,
++        completeness: "complete" as const,
++        redactedSummary: "TEST_ONLY concurrent A",
++        disclosureNotes: ["source=fake", "live=false"],
++        usage: {
++          status: "validated" as const,
++          inputTokens: 1,
++          outputTokens: 1,
++          unit: "tokens" as const,
++        },
++      };
++    });
++    const secretsA = new FakeSecretSourceAdapter();
++    const compositionA = composeExecutionRunD2D3T7ShadowPilot({
++      pool,
++      clockIso,
++      providers: composeExecutionRunProviders({
++        ai: aiA,
++        git: new FakeGitReadAdapter({
++          repositoryAllowlist: [
++            "o/r",
++            "example/example",
++            "mcleland147/sfia-workspace",
++          ],
++          pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
++        }),
++        cursor: new FixtureCursorExecutionAdapter(),
++        secrets: { resolve: (id) => secretsA.resolve(id) },
++        events: new RecordingExecutionEventSink(),
++      }),
++      resolveShadowPolicy: async () => null,
++    });
++
++    await upsertMode(pool, PILOT, "SHADOW");
++    const { providers: providersB } = spyProviders();
++    const compositionB = composeExecutionRunD2D3T7ShadowPilot({
++      pool,
++      clockIso,
++      providers: providersB,
++      resolveShadowPolicy: async () => null,
++    });
++
++    const [resultA, resultB] = await Promise.all([
++      compositionA.coordinate(coordinateInput(PILOT, "c08a")),
++      compositionB.coordinate(coordinateInput(OTHER, "c08b")),
++    ]);
++
++    expect(resultA.ok).toBe(true);
++    expect(resultB.ok).toBe(true);
++    // A: PRE eligible then POST OFF → shadow_capture_inactive
++    expect(resultA.finopsCapture).toEqual(
++      expect.objectContaining({
++        status: "disabled",
++        reason: "shadow_capture_inactive",
++      }),
++    );
++    // B: non-pilot PRE ineligible → coordinator short-circuit
++    expect(resultB.finopsCapture).toEqual(
++      expect.objectContaining({
++        status: "disabled",
++        reason: "finops_pre_provider_capture_ineligible",
++      }),
++    );
++  });
+ });
+
+## 18. CONTENU COMPLET du fichier 158 créé
+
+# 158 — FinOps T7 SHADOW Temporal Semantics Option C — Hybrid Dual-Gate Execution Record
+
+**Project:** SFIA Studio — Assistant SFIA natif OpenAI
+**Document:** `projects/sfia-studio/158-assistant-sfia-native-openai-finops-t7-shadow-temporal-dual-gate-execution.md`
+**Cycle:** 8 — Delivery / implémentation
+**Profil:** Critical
+**Typologie:** EVOL / CODE / TEST / DOC
+**Baseline:** SFIA v2.6
+**Date (CEST):** 2026-08-08 22:07 CEST
+**Date (UTC):** 2026-08-08 20:07 UTC
+
+---
+
+## A. Status / anti-claims
+
+| Claim | Status |
+|-------|--------|
+| Option C selected by Morris | **TRUE** |
+| Dual-gate = `PRE_WAS_SHADOW ∧ POST_IS_SHADOW` | **TRUE** |
+| Runtime implementation local | **TRUE** |
+| Temporal drift OFF→SHADOW addressed locally | **TRUE** |
+| Closed on main | **FALSE** |
+| SHADOW activated | **FALSE** |
+| Policy source selected | **FALSE** |
+| MONITOR activated | **FALSE** |
+| E1 authorized | **FALSE** |
+| Process-local cache / Map / Set / registry | **FALSE** |
+| Migration / durable eligibility state | **FALSE** |
+| Project commit / push / PR | **FALSE** |
+
+```text
+OPTION C DUAL-GATE DELIVERED LOCALLY —
+TEMPORAL MODE DRIFT ADDRESSED LOCALLY —
+PENDING DEDICATED QA —
+NOT CLOSED ON MAIN —
+SHADOW NOT ACTIVATED —
+POLICY SOURCE NOT SELECTED
+```
+
+---
+
+## B. Morris decision
+
+**Exact decision consumed:**
+
+> GO TEMPORAL SEMANTICS — OPTION C, puis Delivery Cycle 8 Critical, avec dual-gate PRE_WAS_SHADOW ∧ POST_IS_SHADOW et interdiction de cache process-local non borné.
+
+**Consumed by this Delivery:** transient `captureEligibility` + coordinator-local PRE gate + existing POST rollout re-read.
+**Not consumed:** SHADOW activation · policy source · MONITOR · E1 · thresholds · T6-ext · Product IAM · commit/push/PR.
+
+---
+
+## C. Architecture implemented
+
+```text
+PRE resolveProjectRollout
+  → captureEligibility ("eligible" iff pilot + PRE mode SHADOW)
+  → FinOpsEnforcementDecision (optional field)
+  → coordinateExecutionRun call-local variable
+  → captureFinOpsAfterAiSuccess PRE gate
+       "ineligible" → disabled / finops_pre_provider_capture_ineligible (no port call)
+       "eligible" | undefined → call capture port
+  → composeFinOpsT7ShadowExecutionDeps.captureUsage
+       POST resolveProjectRollout
+       mode === "SHADOW" required for capture
+```
+
+Transport: **coordinator-local only** for the duration of one `coordinateExecutionRun(...)`.
+No snapshot of full rollout mode. No durable state. No shared registry.
+
+---
+
+## D. Temporal matrix
+
+| Transition | PRE eligibility | POST mode | Capture |
+|------------|-----------------|-----------|---------|
+| OFF → OFF | ineligible | OFF | NO |
+| OFF → SHADOW (during provider) | ineligible | SHADOW | NO (PRE short-circuit) |
+| SHADOW → OFF (during provider) | eligible | OFF | NO (POST gate) |
+| SHADOW → SHADOW | eligible | SHADOW | YES (if other capture conditions hold) |
+
+---
+
+## E. State model
+
+- **NO CACHE**
+- **NO MAP / SET / WeakMap / WeakSet**
+- **NO AsyncLocalStorage eligibility registry**
+- **NO module-level mutable eligibility**
+- **NO DURABLE STATE / NO MIGRATION**
+- Eligibility lives only as a call-local `let` inside `coordinateExecutionRun`
+
+---
+
+## F. Files
+
+**MODIFY**
+
+1. `projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts`
+2. `projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts`
+3. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts`
+4. `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts`
+5. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
+
+**CREATE**
+
+6. This execution record (`158-…`)
+
+**Unchanged (required):** `finopsCapturePort.ts`, `finopsEnforcementPort.ts`, `composeFinOpsT7Runtime.ts`, `resolveFinOpsRollout.ts`, `types.rollout.ts`, `composeExecutionRunD2D3.ts`, `composeExecutionRunD2D3T7ShadowPilot.ts`, OPS1, migrations.
+
+---
+
+## G. Tests (real results)
+
+| Suite | Result |
+|-------|--------|
+| `t7.shadow-option-a.unit.test.ts` | **PASS** — 6/6 |
+| `t7.shadow-option-a.wiring.integration.test.ts` | **PASS** — 22/22 |
+| OA/OPS1 isolation probe + antiLegacy (doctrine + execution-contract) | **PASS** — 12/12 |
+| `npm run typecheck` | **PASS** |
+| `npm run lint` | **PASS** |
+| `npm run build` | **PASS** |
+| Full `npm test` | **PASS** — 159 files / 1616 tests |
+| `git diff --check` | **PASS** |
+
+Covered proofs include T-C01…C04 temporal matrix, PRE eligibility matrix, legacy D2D3 / generic enforcement without `captureEligibility`, concurrency A/B no cross-run contamination, never-block / signal_only, static absence of Map/Set/AsyncLocalStorage in the three runtime files.
+
+---
+
+## H. Reserves
+
+| Reserve | Status |
+|---------|--------|
+| TEMPORAL MODE DRIFT OFF→SHADOW | **ADDRESSED LOCALLY BY OPTION C — PENDING DEDICATED QA — NOT CLOSED ON MAIN** |
+| SHADOW PILOT POLICY SOURCE | **NOT SELECTED** |
+| R-T4-T3-SYNC-01 | **OPEN BEFORE MONITOR** |
+| R-PR-T2-API-01 | **OPEN MINOR** |
+| Calibration réelle | **REQUIRED BEFORE MONITOR** |
+| T6-ext | **NOT AUTHORIZED** |
+| Product IAM | **NOT_SELECTED** |
+| T5 | **OUT OF SCOPE** |
+| SHADOW | **NOT ACTIVATED** |
+| MONITOR | **NOT ACTIVATED** |
+| E1 | **NOT AUTHORIZED** |
+
+---
+
+## I. Next
+
+**Cycle 9 — Dedicated T7 SHADOW Temporal Dual-Gate QA** (Critical, distinct validation).
+
+Do **not** commit / push project / open PR from this Delivery.
+PR readiness only after QA + distinct Morris GO.
+Policy source and SHADOW activation remain separate decisions.
+
+## 19. Temporal matrix tests
+
+| ID | Scenario | Result |
+|----|----------|--------|
+| T7-C01 / T-C01 | OFF→OFF · PRE ineligible · capture disabled · no usage | PASS |
+| T7-C02 / T-C02 | SHADOW→SHADOW · PRE eligible · capture created/duplicate | PASS |
+| T7-C03 / T-C03 | OFF→SHADOW during provider · PRE ineligible · short-circuit · no usage | PASS |
+| T7-C04 / T-C04 | SHADOW→OFF during provider · PRE eligible · POST OFF · no usage | PASS |
+
+Wiring integration file: **22/22 PASS**.
+
+## 20. Concurrency proof
+
+T7-C08: Run A (pilot, PRE SHADOW→eligible, flip OFF during provider) + Run B (non-pilot, ineligible) interleaved via `Promise.all`.
+Attendus: A → `shadow_capture_inactive`; B → `finops_pre_provider_capture_ineligible`.
+**NO CROSS-RUN CONTAMINATION — PASS.**
+
+## 21. Failure semantics tests
+
+- PRE unresolved / non-SHADOW → ineligible / inert; provider continues (SW01/SW02 + C01)
+- SHADOW + policy null / failure paths covered in unit + C05 matrix
+- never-block hostile preserve eligibility (unit + ensureShadowNeverBlocks)
+- POST inactive → disabled inert without converting provider success
+- Provider non-success → not_attempted (existing coordinator semantics preserved)
+
+## 22. Never-block / signal_only proofs
+
+Preserved in adapter: `ensureShadowNeverBlocks`, `effect: "signal_only"`.
+Unit + integration static/source assertions continue to reject BLOCK / upsert / threshold activation.
+
+## 23. OA / OPS1 proof
+
+- `__tests__/platform/t-a7-ops1-oa-isolation.probe.test.ts` — PASS (5)
+- `__tests__/oa/doctrine/antiLegacy.test.ts` — PASS (3)
+- `__tests__/oa/execution-contract/antiLegacy.test.ts` — PASS (4)
+
+## 24. Ephemeral PG setup / cleanup
+
+ENV_TYPE=docker_ephemeral_postgres
+HOST_CLASS=loopback:127.0.0.1
+PORT=55439
+DB_NAME=sfia_studio_finops_t1
+USER=sfia_ci
+NEON=no
+SHARED_REMOTE=no
+IMAGE=postgres:16-alpine
+CONTAINER=finops-t7-temporal-dual-gate-pg
+LIFECYCLE=docker_run_dedicated_named_container
+PROVENANCE=SAFE_EPHEMERAL
+PASSWORD_OR_URL_IN_THIS_FILE=no
+
+Cleanup:
+cleanup=0
+
+Migrations: `npm run migrate:up` on ephemeral DB only (T1…T7 rollout).
+Container stopped and removed after tests. `cleanup=0` ⇒ container absent.
+
+## 25. Targeted tests
+
+| Suite | Result |
+|-------|--------|
+| T7 unit | PASS 6/6 |
+| T7 wiring integration | PASS 22/22 |
+| OA/OPS1 + antiLegacy probes | PASS 12/12 |
+
+## 26. Typecheck
+
+**PASS** (`tsc --noEmit`) after narrowing fix on diagnostic assertions.
+
+## 27. Lint
+
+**PASS** (`next lint` — no warnings or errors).
+
+## 28. Build
+
+**PASS** (`next build` — compiled successfully).
+
+## 29. Full regression
+
+**PASS** — `npm test`: **159** test files, **1616** tests, 0 failures.
+`DATABASE_URL` pointed at ephemeral local Postgres for DB suites.
+
+## 30. Diff-check
+
+**PASS** — `git diff --check` exit 0 (no whitespace errors).
+
+## 31. Final Git status
+
+ M projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
+ M projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-option-a.unit.test.ts
+ M projects/sfia-studio/app/lib/oa/execution-run/application/coordinateExecutionRun.ts
+ M projects/sfia-studio/app/lib/oa/finops/application/types.enforcement.ts
+ M projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts
+?? projects/sfia-studio/158-assistant-sfia-native-openai-finops-t7-shadow-temporal-dual-gate-execution.md
+
+fd06f4aa1a19e629e0330473e43b1cf3b935014f
+fd06f4aa1a19e629e0330473e43b1cf3b935014f
+delivery/sfia-studio-finops-t7-shadow-temporal-dual-gate
+
+Staged: **none**.
+Untracked allowed: `.tmp-sfia-review/**` + new `158-…` (listed above).
+
+## 32. Project commit
 
 **NO**
 
-## 29. SHADOW activation
+## 33. Project push
 
-**NOT ACTIVATED**
+**NO**
 
-## 30. Policy source
+## 34. PR
+
+**NO**
+
+## 35. SHADOW activation
+
+**NO / NOT ACTIVATED**
+
+## 36. Policy source
 
 **NOT SELECTED**
 
-## 31. Morris decision required
+## 37. Temporal reserve status
 
-`GO TEMPORAL SEMANTICS — <OPTION A | OPTION B | OPTION C>`
+**TEMPORAL MODE DRIFT OFF→SHADOW = ADDRESSED LOCALLY BY OPTION C — PENDING DEDICATED QA — NOT CLOSED ON MAIN**
 
-Only then: qualify Delivery · new prompt · implement · QA · PR/merge gates.
+## 38. Remaining reserves
 
-Policy source remains a **separate** later decision.
+- SHADOW PILOT POLICY SOURCE = NOT SELECTED
+- R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
+- R-PR-T2-API-01 = OPEN MINOR
+- Calibration réelle = REQUIRED BEFORE MONITOR
+- T6-ext = NOT AUTHORIZED
+- Product IAM = NOT_SELECTED
+- T5 = OUT OF SCOPE
+- SHADOW = NOT ACTIVATED
+- MONITOR = NOT ACTIVATED
+- E1 = NOT AUTHORIZED
 
-## 32. Verdict
+## 39. Next QA gate
 
-**T7 SHADOW TEMPORAL MODE SEMANTICS ARCHITECTURE COMPLETE — CYCLE 6 STANDARD — CURRENT DOUBLE-READ SEMANTICS PROVEN — TEMPORAL DRIFT CHARACTERIZED — LIVE RE-READ ANALYZED — PER-RUN SNAPSHOT ANALYZED — HYBRID OPTION ANALYZED IF CREDIBLE — ROLLBACK TRADE-OFFS EXPLICIT — CONCURRENCY / FAILURE / OBSERVABILITY IMPACTS EXPLICIT — NO PROJECT MUTATION — SHADOW NOT ACTIVATED — POLICY SOURCE NOT SELECTED — RECOMMENDATION PRODUCED — MORRIS TEMPORAL SEMANTICS DECISION REQUIRED — HANDOFF REMOTE VERIFIED**
+**Cycle 9 — Dedicated T7 SHADOW Temporal Dual-Gate QA (Critical)**
+Independent validation of exact diff/bytes, temporal matrix, concurrency, failure paths, legacy compatibility, no cache, never-block, signal_only, OA/OPS1, full regression.
+Puis seulement: PR readiness / publication selon GO Morris distinct.
+
+## 40. Verdict
+
+```text
+T7 SHADOW TEMPORAL DUAL-GATE DELIVERY COMPLETE WITH RESERVES —
+CYCLE 8 CRITICAL —
+MORRIS OPTION C DECISION CONSUMED —
+PRE_WAS_SHADOW ∧ POST_IS_SHADOW IMPLEMENTED LOCALLY —
+OFF→SHADOW RETROACTIVE CAPTURE PREVENTED —
+SHADOW→OFF IMMEDIATE CAPTURE ROLLBACK PRESERVED —
+TRANSIENT COORDINATOR-LOCAL ELIGIBILITY PROPAGATION —
+NO PROCESS-LOCAL CACHE —
+NO MAP / SET / REGISTRY —
+LEGACY FINOPS CAPTURE COMPATIBILITY PRESERVED —
+SHADOW NEVER BLOCK PRESERVED —
+SIGNAL_ONLY PRESERVED —
+OA → OPS1 ISOLATION PRESERVED —
+NO MIGRATION —
+NO DURABLE STATE —
+PROJECT COMMIT NOT CREATED —
+PROJECT PUSH NOT PERFORMED —
+PR NOT CREATED —
+SHADOW PILOT POLICY SOURCE NOT SELECTED —
+SHADOW NOT ACTIVATED —
+TEMPORAL MODE DRIFT ADDRESSED LOCALLY —
+NOT CLOSED ON MAIN —
+READY FOR DEDICATED TEMPORAL DUAL-GATE QA —
+HANDOFF REMOTE VERIFIED (pending publish step)
+```
