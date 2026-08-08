@@ -1,254 +1,181 @@
-# ChatGPT Review Pack — FinOps Technical Lot T7 — Foundation Default-OFF Delivery
+# ChatGPT Review Pack — FinOps Technical Lot T7 — Atomic Rollout Revision Correction
 
 ## Meta
-- Horodatage CEST: 2026-08-08 10:55:55 UTC+02:00 (+0200)
-- Horodatage UTC: 2026-08-08 08:55:55 UTC
-- User utterance: `ok go`
-- Contextual GO: **GO T7 foundation Delivery default-OFF** (previously RECEIVED / NOT CONSUMED; now executable after T4 post-merge)
-- Cycle: **8 — Delivery / implémentation**
-- Profil: **Critical**
-- Typologie: EVOL / CODE / DATA / TEST / DOC
+- Horodatage CEST: 2026-08-08 15:08:38 UTC+02:00 (+0200)
+- Horodatage UTC: 2026-08-08 13:08:38 UTC
+- GO Morris exact: `GO correction T7 foundation — atomic rollout revision under concurrent writes.`
+- Cycle: **8 — Delivery / correction** · Profil: **Critical**
 - Template SHA: `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`
-- Repo: `mcleland147/sfia-workspace`
 - Branch: `delivery/sfia-studio-assistant-sfia-native-openai-finops-t7-foundation-default-off`
 - Worktree: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-foundation-default-off`
-- HEAD: `511a18d409e25d0a3fdbd3425ade65512a5f4e2b`
-- origin/main: `511a18d409e25d0a3fdbd3425ade65512a5f4e2b`
-- Handoff before tip: `b403f5e4b85b9f0141d50d9d5cadf9cd91a460ee`
-- Handoff before blob: `ac75f3833e17223ceeeaad7cf02d28d84ede1b2f`
-- Historical Decision Applied tip: `e6e026c9629535e5a9d8852f4613acf473b417e0`
-- Historical Decision Applied blob: `79e29f7df68d4c522610c5b63377b3bf37b4e3f0`
-- Mono-cycle: T7 Foundation Delivery default-OFF ONLY
+- HEAD / origin/main: `511a18d409e25d0a3fdbd3425ade65512a5f4e2b`
+- Handoff before tip: `b2696bd368ec128d8c833fb04e13b7913545d469`
+- Handoff before blob: `c85287031a40239c3bb83eb3f2af7198b7880a27`
+- Mono-cycle: Atomic Rollout Revision Correction ONLY (final T7 lot content included for revalidation)
 - Project commit / push / PR: **NONE**
 
-## Anti-claims (mandatory)
+## Local correction vs Git-vs-main
+- LOCAL CORRECTION MANIFEST: **3 changed** (store · PG rollout tests · doc 156) / **7 byte-preserved**
+- GIT-vs-main MANIFEST: still **10 CREATE / 0 MODIFY / 0 DELETE**
+
+## SHA256 BEFORE → AFTER
 ```
-FOUNDATION READY ≠ SHADOW ACTIVATED
-DEFAULT-OFF PROVEN — NO SEED — NO PRODUCT ACTIVATION
-NO EXECUTION-RUN MODIFICATION — NO PROVIDER — NO THRESHOLD 15/20/25/30
-R-T4-PROJECTION-REFRESH-01 CLOSED (runtime freshness wiring only; NO product activation claim)
-SHADOW / MONITOR / E1 NOT ACTIVATED
+path	SHA256_BEFORE	SHA256_AFTER	classification
+projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts	b83fdca4df8fa22ea463ad197db86256bd068625875341c74a4e395717b3c161	b83fdca4df8fa22ea463ad197db86256bd068625875341c74a4e395717b3c161	EXPECTED_IDENTICAL
+projects/sfia-studio/app/lib/oa/finops/ports/finopsRolloutPort.ts	09178e4b1f6302d9fff86e35032b618bf7a64480b9ab7d892782b57fa2bb392e	09178e4b1f6302d9fff86e35032b618bf7a64480b9ab7d892782b57fa2bb392e	EXPECTED_IDENTICAL
+projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts	79390c14e1541f45c2516d96ecc2a7853203c5888d759aba58205850b4dd821d	79390c14e1541f45c2516d96ecc2a7853203c5888d759aba58205850b4dd821d	EXPECTED_IDENTICAL
+projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore.ts	0017e225f2e8811adb6345ddd0ae571f5bc6b35b2bd3419ffa2a163c9ea00897	0c689ca859b9fadb65af7a7f027a60197e2cba76e4f187abe3340f64c8a609d3	EXPECTED_CHANGED
+projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7Runtime.ts	921b183042e0e03a9f907c8e991e63e56464ab9c374c9b03b98a9588944e6905	921b183042e0e03a9f907c8e991e63e56464ab9c374c9b03b98a9588944e6905	EXPECTED_IDENTICAL
+projects/sfia-studio/app/db/migrations/1754600004000_finops-t7-rollout-config.js	20b85c4080bd2feca6dd345b48be9ece1c8881aa8fbef5f2ec35b1af5f4f42a9	20b85c4080bd2feca6dd345b48be9ece1c8881aa8fbef5f2ec35b1af5f4f42a9	EXPECTED_IDENTICAL
+projects/sfia-studio/app/__tests__/oa/finops/t7.rollout.unit.test.ts	56b7853abe9ecef7f50e47b402ca57427e88e6d0358b5badc3da881c554bb06c	56b7853abe9ecef7f50e47b402ca57427e88e6d0358b5badc3da881c554bb06c	EXPECTED_IDENTICAL
+projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.rollout.integration.test.ts	daa8ecef5063bc0a4be0ed22c065e570ecd6b1b987371a8f4be24a4b17dc5b9e	cfd8359e106595a0f2be50763057b3c5aaf6e7fd6dc3086e50c902940676d504	EXPECTED_CHANGED
+projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts	98a6580e9a3706ba68e7e2c6a7377dbe190a2f3a2127a0b841544e70b0e6b9d2	98a6580e9a3706ba68e7e2c6a7377dbe190a2f3a2127a0b841544e70b0e6b9d2	EXPECTED_IDENTICAL
+projects/sfia-studio/156-assistant-sfia-native-openai-finops-technical-lot-t7-foundation-default-off-execution.md	755bc55d45164bf068c68a0e8b38e208776432e6f1bcd938cf1c34ccd7817a2e	a9c19d71cf9bcba2a3e4b56f06a492dd6af80eadeb413380f88acd1d212d7a85	EXPECTED_CHANGED
+
 ```
 
-## Historical T7 decisions (SELECTED BY MORRIS)
-| Decision | Status |
-|---|---|
-| D-T7-FLAG-STORE-01 | A SELECTED BY MORRIS |
-| D-T7-MODE-ADAPTER-01 | A SELECTED BY MORRIS |
-| D-T7-T6-COMPOSITION-GATE-01 | A BEFORE SHADOW |
-| D-T7-PROJECTION-REFRESH-GATE-01 | A T2 FRONTIERS / BEFORE SHADOW |
-| D-T7-T3-SYNC-GATE-01 | A BEFORE MONITOR |
-| D-T7-T6EXT-E1-GATE-01 | A REQUIRED BEFORE E1 — NOT AUTHORIZED |
-| D-T7-T5-IAM-GATE-01 | A REQUIRED BEFORE E1 — IAM NOT_SELECTED |
-| D-T7-CALIBRATION-PILOT-01 | A BEFORE MONITOR USING REAL AMOUNTS |
-| READINESS-MATRIX | ACCEPTED |
+## Bug / root cause
+Vulnerable upsert:
+`BEGIN` → `SELECT revision … FOR UPDATE` → TS `nextRevision` → `ON CONFLICT revision = EXCLUDED.revision` → `COMMIT`.
 
-Docs 151–153 are **NOT on main**; authority via historical handoff blob above.
+Concurrent first writes both observe no row → both compute revision=1 → conflict path keeps EXCLUDED.revision=1 → lost mutations.
 
-## Local discovery
-- Existing T7/rollout runtime implementation: **NONE** (greenfield)
-- Global/env FinOps authority: **NONE** (D1 `platformFlag` unrelated)
-- Product/runtime T2 consumer bypassing T4 wrappers: **NONE**
-- Migration collision `1754600004000` / `finops_rollout_config`: **NONE**
-- Branch collision: **NONE**
+## RED evidence (pre-fix)
+```
+   × FinOps T7 PostgreSQL rollout integration > T7-PG11 concurrent first writes on absent project preserve one revision per accepted mutation 688ms
+     → expected [ 1, 1, 1, 1, 1, 1, 1, 2 ] to deeply equal [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+   ↓ FinOps T7 PostgreSQL rollout integration > T7-PG12 concurrent updates on existing project increment every accepted mutation
 
-## Exact project manifest (10 CREATE / 0 MODIFY / 0 DELETE)
-1. `projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts`2. `projects/sfia-studio/app/lib/oa/finops/ports/finopsRolloutPort.ts`3. `projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts`4. `projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore.ts`5. `projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7Runtime.ts`6. `projects/sfia-studio/app/db/migrations/1754600004000_finops-t7-rollout-config.js`7. `projects/sfia-studio/app/__tests__/oa/finops/t7.rollout.unit.test.ts`8. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.rollout.integration.test.ts`9. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts`10. `projects/sfia-studio/156-assistant-sfia-native-openai-finops-technical-lot-t7-foundation-default-off-execution.md`
-## Schema — `finops_rollout_config`
-- `project_id text PRIMARY KEY`
-- `mode text NOT NULL` CHECK IN ('OFF','SHADOW','MONITOR','E1_ENFORCED')
-- `revision bigint NOT NULL` CHECK >= 1
-- `updated_at timestamptz NOT NULL`
-- No seed / no FK / no monetary / no IAM columns
-- Missing row ⇒ resolver DEFAULT-OFF (`resolution=default_off`)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
 
-## Mode adapter semantics
-| Mode | evaluateT4 | policyEffect | blockingAllowed | requiresT3Sync | activationState |
-|---|---|---|---|---|---|
-| OFF | false | null | false | false | inert |
-| SHADOW | true | signal_only | false | false | configured_not_activated |
-| MONITOR | true | signal_only | false | true | configured_not_activated |
-| E1_ENFORCED | true | enforce | true | true | configured_not_activated |
+ FAIL  __tests__/oa/finops/postgres/t7.rollout.integration.test.ts > FinOps T7 PostgreSQL rollout integration > T7-PG11 concurrent first writes on absent project preserve one revision per accepted mutation
+AssertionError: expected [ 1, 1, 1, 1, 1, 1, 1, 2 ] to deeply equal [ 1, 2, 3, 4, 5, 6, 7, 8 ]
 
-`blockingAllowed=true` is architectural only — composition exposes **no** enforcement consumer.
+- Expected
++ Received
 
-## T7 server composition
-`composeFinOpsT7Runtime({ pool, nowIso })` returns:
-- `capture` / `flushAudit` via **reused** `composeFinOpsRuntime` (T6 unmodified)
-- `resolveProjectRollout`
-- `recomputeAggregatesAndRefresh` → `recomputeAggregatesThenRefreshEnforcementProjection`
-- `reconcileProjectPeriodAndRefresh` → `reconcileProjectPeriodThenRefreshEnforcementProjection`
-- Does **NOT** expose `upsertProjectRollout` / raw T2 / enforcement port / execution-run
+  [
+    1,
++   1,
++   1,
++   1,
++   1,
++   1,
++   1,
+    2,
+-   3,
+-   4,
+-   5,
+-   6,
+-   7,
+-   8,
+  ]
 
-## CLOSE-1..8 matrix → R-T4-PROJECTION-REFRESH-01
-| Gate | Result |
-|---|---|
-| CLOSE-1 no product T2 consumer outside composition | PASS |
-| CLOSE-2 T7 composition is canonical server runtime boundary | PASS |
-| CLOSE-3 exposed T2 mutation/recon use post-T2 refresh wrappers | PASS |
-| CLOSE-4 no raw T2 mutation exposed | PASS |
-| CLOSE-5 PG proves refresh on exposed ops | PASS (T7-R03/R04) |
-| CLOSE-6 T4 refresh failure fail-open vs T2 success | PASS (T7-R05) |
-| CLOSE-7 no product activation claim required | PASS |
-| CLOSE-8 SHADOW not activated | PASS |
+ ❯ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts:280:27
+    278|         expect(results).toHaveLength(N);
+    279|         const revisions = results.map((r) => r.revision).sort((a, b) =…
+    280|         expect(revisions).toEqual(Array.from({ length: N }, (_, i) => …
+       |                           ^
+    281|         expect(new Set(revisions).size).toBe(N);
+    282|         expect(results.every((r) => r.projectId === projectId)).toBe(t…
 
-**R-T4-PROJECTION-REFRESH-01 = CLOSED —**
-T7 CANONICAL SERVER RUNTIME T2 MUTATION / RECONCILIATION BOUNDARY ROUTES THROUGH POST-T2 T4 REFRESH —
-FRESHNESS WIRING DELIVERED AND TESTED —
-NO PRODUCT ACTIVATION CLAIM —
-SHADOW NOT ACTIVATED.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
 
-## Carried reserves
-| Reserve | Status |
-|---|---|
-| R-T4-PROJECTION-REFRESH-01 | **CLOSED** (foundation freshness wiring; no product activation) |
-| R-T6-RUNTIME-COMPOSITION-01 | CLOSED ON MAIN |
-| R-T4-T3-SYNC-01 | OPEN — SELECTED GATE BEFORE MONITOR |
-| R-PR-T2-API-01 | OPEN MINOR |
-| T6-ext-T3T4 | NOT AUTHORIZED — REQUIRED BEFORE E1 |
-| Product IAM | NOT_SELECTED — REQUIRED BEFORE E1 |
-| Calibration | REQUIRED BEFORE MONITOR USING REAL AMOUNTS |
-| SHADOW / MONITOR / E1 | NOT ACTIVATED / NOT ACTIVATED / NOT AUTHORIZED |
 
-## Test evidence summaries
-### Unit T7-U01..10
+ Test Files  1 failed (1)
+      Tests  1 failed | 11 skipped (12)
+   Start at  15:01:17
+   Duration  1.82s (transform 147ms, setup 220ms, collect 168ms, tests 848ms, environment 0ms, prepare 350ms)
+
+```
+
+## SQL correction (single atomic statement)
+```sql
+INSERT INTO finops_rollout_config (project_id, mode, revision, updated_at)
+VALUES ($1, $2, 1, $3::timestamptz)
+ON CONFLICT (project_id) DO UPDATE SET
+  mode = EXCLUDED.mode,
+  revision = finops_rollout_config.revision + 1,
+  updated_at = EXCLUDED.updated_at
+RETURNING project_id, mode, revision, updated_at
+```
+No SELECT-before-write · no nextRevision · no advisory/process/global lock · no schema/migration change.
+
+## GREEN evidence
 ```
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-foundation-default-off/projects/sfia-studio/app
 
- ✓ __tests__/oa/finops/t7.rollout.unit.test.ts (10 tests) 7ms
+ ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests | 10 skipped) 140ms
 
  Test Files  1 passed (1)
-      Tests  10 passed (10)
-   Start at  10:45:11
-   Duration  2.23s (transform 142ms, setup 206ms, collect 119ms, tests 7ms, environment 0ms, prepare 215ms)
+      Tests  2 passed | 10 skipped (12)
+   Start at  15:01:32
+   Duration  867ms (transform 104ms, setup 109ms, collect 111ms, tests 140ms, environment 0ms, prepare 110ms)
 
 ```
-### PostgreSQL T7-PG + T7-R
 ```
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-foundation-default-off/projects/sfia-studio/app
 
- ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 1517ms
-   ✓ FinOps T7 foundation runtime composition integration > T7-R04 reconcileProjectPeriodAndRefresh → T2 success → T4 refreshed exactly once  336ms
- ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (10 tests) 810ms
-   ✓ FinOps T7 PostgreSQL rollout integration > T7-PG09 after clearing rows, down/up round trip succeeds  306ms
+ ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests) 127ms
 
- Test Files  2 passed (2)
-      Tests  26 passed (26)
-   Start at  10:46:03
-   Duration  4.17s (transform 483ms, setup 242ms, collect 706ms, tests 2.33s, environment 1ms, prepare 352ms)
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  15:01:33
+   Duration  630ms (transform 64ms, setup 58ms, collect 68ms, tests 127ms, environment 0ms, prepare 78ms)
 
 ```
-### Full FinOps (serial)
+
+## Targeted / Full FinOps / quality
 ```
 
- ✓ __tests__/oa/finops/postgres/t3.alert-review.integration.test.ts (7 tests) 1569ms
-   ✓ FinOps T3 PostgreSQL alert/review integration > 5–7. C1 unique Alert/Review + concurrent evaluations one row  301ms
-   ✓ FinOps T3 PostgreSQL alert/review integration > 13–16. project/period/currency isolation + restart durability  375ms
- ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 1781ms
-   ✓ FinOps T7 foundation runtime composition integration > T7-R03 recomputeAggregatesAndRefresh → T2 success → T4 projection refreshed  353ms
-   ✓ FinOps T7 foundation runtime composition integration > T7-R11 no T3 side effect  367ms
- ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (10 tests) 1041ms
- ✓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests) 733ms
- ✓ __tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts (8 tests) 2182ms
-   ✓ FinOps T4 PostgreSQL projection refresh integration > PRF-01 reconciliation mutation refresh — BILLED reflected  384ms
-   ✓ FinOps T4 PostgreSQL projection refresh integration > PRF-04 multi-currency isolation — USD/EUR separate, no FX  393ms
-   ✓ FinOps T4 PostgreSQL projection refresh integration > PRF-08 projection replacement removes obsolete currency rows  333ms
- ✓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests) 512ms
- ✓ __tests__/oa/finops/postgres/t4.enforcement-projection.integration.test.ts (14 tests) 1897ms
- ✓ __tests__/oa/finops/t1.coordinator.failopen.test.ts (5 tests) 366ms
- ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 840ms
- ✓ __tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts (4 tests) 188ms
- ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 351ms
- ✓ __tests__/oa/finops/blockingEligibility.test.ts (9 tests) 7ms
- ✓ __tests__/oa/finops/sourceOfTruth.test.ts (5 tests) 8ms
- ✓ __tests__/oa/finops/t4.enforcement.unit.test.ts (19 tests) 98ms
- ✓ __tests__/oa/finops/importBoundaries.test.ts (7 tests) 48ms
- ✓ __tests__/oa/finops/t3.alert-review.unit.test.ts (26 tests) 88ms
- ✓ __tests__/oa/finops/t1.capture.unit.test.ts (23 tests) 30ms
- ✓ __tests__/oa/finops/t4.projection-refresh.unit.test.ts (8 tests) 98ms
- ✓ __tests__/oa/finops/t6.audit.unit.test.ts (6 tests) 40ms
- ✓ __tests__/oa/finops/domainInvariants.test.ts (14 tests) 25ms
- ✓ __tests__/oa/finops/t2.reconciliation.unit.test.ts (4 tests) 20ms
- ✓ __tests__/oa/finops/period.test.ts (14 tests) 24ms
- ✓ __tests__/oa/finops/t2.money.unit.test.ts (12 tests) 10ms
- ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 24ms
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-foundation-default-off/projects/sfia-studio/app
+
+ ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 245ms
+ ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests) 164ms
+ ✓ __tests__/oa/finops/t7.rollout.unit.test.ts (10 tests) 5ms
+
+ Test Files  3 passed (3)
+      Tests  38 passed (38)
+   Start at  15:01:44
+   Duration  1.31s (transform 187ms, setup 129ms, collect 295ms, tests 414ms, environment 0ms, prepare 127ms)
+
+```
+```
+ ✓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests) 189ms
+ ✓ __tests__/oa/finops/t1.coordinator.failopen.test.ts (5 tests) 158ms
+ ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 259ms
+ ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests) 214ms
+ ✓ __tests__/oa/finops/t3.alert-review.unit.test.ts (26 tests) 29ms
+ ✓ __tests__/oa/finops/t4.enforcement.unit.test.ts (19 tests) 24ms
+ ✓ __tests__/oa/finops/t1.capture.unit.test.ts (23 tests) 14ms
+ ✓ __tests__/oa/finops/t4.projection-refresh.unit.test.ts (8 tests) 25ms
+ ✓ __tests__/oa/finops/importBoundaries.test.ts (7 tests) 17ms
+ ✓ __tests__/oa/finops/t6.audit.unit.test.ts (6 tests) 16ms
+ ✓ __tests__/oa/finops/t2.reconciliation.unit.test.ts (4 tests) 9ms
+ ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 8ms
+ ✓ __tests__/oa/finops/domainInvariants.test.ts (14 tests) 11ms
+ ✓ __tests__/oa/finops/period.test.ts (14 tests) 14ms
+ ✓ __tests__/oa/finops/t2.money.unit.test.ts (12 tests) 8ms
+ ✓ __tests__/oa/finops/costEvidence.test.ts (5 tests) 5ms
+ ✓ __tests__/oa/finops/blockingEligibility.test.ts (9 tests) 4ms
+ ✓ __tests__/oa/finops/sourceOfTruth.test.ts (5 tests) 5ms
  ✓ __tests__/oa/finops/t7.rollout.unit.test.ts (10 tests) 9ms
- ✓ __tests__/oa/finops/costEvidence.test.ts (5 tests) 10ms
 
  Test Files  26 passed (26)
-      Tests  255 passed (255)
-   Start at  10:50:34
-   Duration  36.84s (transform 2.73s, setup 3.76s, collect 5.11s, tests 12.00s, environment 12ms, prepare 4.20s)
+      Tests  257 passed (257)
+   Start at  15:01:46
+   Duration  14.30s (transform 1.10s, setup 1.72s, collect 2.18s, tests 3.10s, environment 5ms, prepare 1.88s)
 
 ```
-### Regressions T2/T4/T6
-```
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-foundation-default-off/projects/sfia-studio/app
-
- ✓ __tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts (8 tests) 3750ms
-   ✓ FinOps T4 PostgreSQL projection refresh integration > PRF-01 reconciliation mutation refresh — BILLED reflected  875ms
-   ✓ FinOps T4 PostgreSQL projection refresh integration > PRF-03 non-blocking evidence excluded from blockingEligibleAmount  461ms
-   ✓ FinOps T4 PostgreSQL projection refresh integration > PRF-04 multi-currency isolation — USD/EUR separate, no FX  761ms
-   ✓ FinOps T4 PostgreSQL projection refresh integration > PRF-08 projection replacement removes obsolete currency rows  635ms
- ✓ __tests__/oa/finops/postgres/t4.enforcement-projection.integration.test.ts (14 tests) 2543ms
-   ✓ FinOps T4 PostgreSQL enforcement projection integration > 10. concurrent rebuild same project/period serialized  410ms
-   ✓ FinOps T4 PostgreSQL enforcement projection integration > 13. signed correction-safe amounts accepted  339ms
- ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 587ms
- ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 484ms
- ✓ __tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts (4 tests) 519ms
- ✓ __tests__/oa/finops/t4.enforcement.unit.test.ts (19 tests) 94ms
- ✓ __tests__/oa/finops/t4.projection-refresh.unit.test.ts (8 tests) 35ms
- ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 17ms
- ✓ __tests__/oa/finops/t2.reconciliation.unit.test.ts (4 tests) 20ms
-
- Test Files  9 passed (9)
-      Tests  72 passed (72)
-   Start at  10:46:42
-   Duration  17.64s (transform 1.06s, setup 1.49s, collect 1.94s, tests 8.05s, environment 4ms, prepare 1.86s)
-
-```
-### migrate:up
-```
-);
-ALTER TABLE "finops_enforcement_projection"
-  ADD CONSTRAINT "finops_enforcement_projection_pkey" PRIMARY KEY ("project_id", "period_start", "currency");
-ALTER TABLE "finops_enforcement_projection"
-  ADD CONSTRAINT "finops_enforcement_projection_currency_chk" CHECK (currency ~ '^[A-Z]{3}$');
-ALTER TABLE "finops_enforcement_projection"
-  ADD CONSTRAINT "finops_enforcement_projection_period_start_chk" CHECK (period_start = date_trunc('month', period_start::timestamp)::date);
-ALTER TABLE "finops_enforcement_projection"
-  ADD CONSTRAINT "finops_enforcement_projection_rebuild_version_chk" CHECK (rebuild_version >= 1);
-ALTER TABLE "finops_enforcement_projection"
-  ADD CONSTRAINT "finops_enforcement_projection_counts_chk" CHECK (eligible_cost_event_count >= 0 AND billed_event_count >= 0 AND provider_observed_event_count >= 0);
-CREATE INDEX "finops_enforcement_projection_project_period_idx" ON "finops_enforcement_projection" ("project_id", "period_start");
-INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1754600003000_finops-t4-enforcement-projection', NOW());
-
-
-### MIGRATION 1754600004000_finops-t7-rollout-config (UP) ###
-CREATE TABLE "finops_rollout_config" (
-  "project_id" text PRIMARY KEY NOT NULL,
-  "mode" text NOT NULL,
-  "revision" bigint NOT NULL,
-  "updated_at" timestamptz NOT NULL
-);
-ALTER TABLE "finops_rollout_config"
-  ADD CONSTRAINT "finops_rollout_config_mode_chk" CHECK (mode IN ('OFF', 'SHADOW', 'MONITOR', 'E1_ENFORCED'));
-ALTER TABLE "finops_rollout_config"
-  ADD CONSTRAINT "finops_rollout_config_revision_chk" CHECK (revision >= 1);
-INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1754600004000_finops-t7-rollout-config', NOW());
-
-
-Migrations complete!
-```
-### typecheck / lint / build / full suite
 ```
 
 > sfia-studio@0.1.0 typecheck
 > tsc --noEmit
 
+```
+```
 
 > sfia-studio@0.1.0 lint
 > next lint
@@ -259,11 +186,8 @@ For existing projects, migrate to the ESLint CLI:
 npx @next/codemod@canary next-lint-to-eslint-cli .
 
 ✔ No ESLint warnings or errors
-   Finalizing page optimization ...
-   Collecting build traces ...
-
-Route (app)                                 Size  First Load JS
-┌ ○ /                                      127 B         103 kB
+```
+```
 ├ ○ /_not-found                            127 B         103 kB
 ├ ○ /cycle-actif                         3.82 kB         119 kB
 ├ ○ /decision                            5.53 kB         120 kB
@@ -284,65 +208,244 @@ Route (app)                                 Size  First Load JS
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 
-stdout | __tests__/d1/project-foundation.test.ts > d1 repository commands > selects method mode with optimistic locking
-{"event":"d1.project_create","ts":"2026-08-08T08:55:05.274Z","status":"ok","projectId":"proj-9cd3ce0f-1598-4a1d-9bdb-7c1fbc34f05f","durationMs":1}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-08-08T08:55:05.276Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-08-08T08:55:05.278Z","status":"ok","projectId":"proj-9cd3ce0f-1598-4a1d-9bdb-7c1fbc34f05f","durationMs":3}
-{"event":"d1.method_mode_hold_allowed","ts":"2026-08-08T08:55:05.279Z","status":"allowed","provenance":"test-override"}
-{"event":"d1.method_mode_selected","ts":"2026-08-08T08:55:05.279Z","status":"failed","durationMs":0,"errorCode":"CONFLICT"}
+```
+```
+   ✓ FinOps T3 PostgreSQL alert/review integration > 8–11. open→cleared, pending→superseded, recross, evidence basis  340ms
+   ✓ FinOps T3 PostgreSQL alert/review integration > 13–16. project/period/currency isolation + restart durability  413ms
+ ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 1381ms
+   ✓ FinOps T7 foundation runtime composition integration > T7-R11 no T3 side effect  336ms
+ ✓ __tests__/oa/finops/postgres/t4.enforcement-projection.integration.test.ts (14 tests) 1324ms
+ ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests) 1021ms
+   ✓ FinOps T7 PostgreSQL rollout integration > T7-PG11 concurrent first writes on absent project preserve one revision per accepted mutation  364ms
+ ✓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests) 463ms
+ ✓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests) 647ms
+ ✓ __tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts (4 tests) 1967ms
+   ✓ FinOps T6 runtime composition integration > RC-01 composed capture persists ledger + audit finops_capture_created  1424ms
+   ✓ FinOps T6 runtime composition integration > RC-02 duplicate remains captured + audited; ledger idempotent  496ms
+ ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 1791ms
+   ✓ FinOps T2 PostgreSQL aggregate integration > has T2 tables with numeric(20,8) Money columns and no T1 ledger Money columns  444ms
+   ✓ FinOps T2 PostgreSQL aggregate integration > round-trips numeric(20,8) Money strings without float drift  417ms
+   ✓ FinOps T2 PostgreSQL aggregate integration > serializes concurrent project/period rebuilds without lost updates  379ms
+ ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 977ms
+   ✓ FinOps T2 PostgreSQL reconciliation integration > reconciles on-demand, recomputes aggregates, and replays idempotently  533ms
+   ✓ FinOps T2 PostgreSQL reconciliation integration > reconciles USD+EUR in one batch and preserves both aggregates  380ms
 
- ✓ __tests__/d1/project-foundation.test.ts (7 tests) 78ms
- ✓ __tests__/oa/cycle/ckcQualificationResult.test.ts (2 tests) 12ms
- ✓ __tests__/increment-e.test.tsx (4 tests) 296ms
- ✓ __tests__/increment-d.test.tsx (5 tests) 221ms
- ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 11ms
- ✓ __tests__/ops1/domain.test.ts (6 tests) 6ms
- ✓ __tests__/fixtures.test.ts (2 tests) 7ms
- ✓ __tests__/navigation.test.tsx (2 tests) 178ms
- ✓ __tests__/shell.test.tsx (1 test) 183ms
- ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 41ms
- ✓ __tests__/gates.test.tsx (1 test) 157ms
- ✓ __tests__/status-pill.test.tsx (1 test) 58ms
+ Test Files  10 passed (10)
+      Tests  85 passed (85)
+   Start at  15:03:08
+   Duration  23.29s (transform 887ms, setup 1.25s, collect 1.97s, tests 15.44s, environment 3ms, prepare 1.37s)
+
+```
+```
+ ✓ __tests__/oa/execution-run/adapter.ai.fake.test.ts (2 tests) 9ms
+ ✓ __tests__/oa/finops/t7.rollout.unit.test.ts (10 tests) 12ms
+ ✓ __tests__/oa/finops/t2.money.unit.test.ts (12 tests) 10ms
+ ✓ __tests__/oa/evidence-review/domainInvariants.test.ts (13 tests) 12ms
+ ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 16ms
+ ✓ __tests__/platform/t-a7-f11-f13-absence.probe.test.ts (3 tests) 10ms
+ ✓ __tests__/platform/platform-ai.test.ts (5 tests) 20ms
+ ✓ __tests__/oa/execution-run/evidence.test.ts (6 tests) 7ms
+ ✓ __tests__/oa/execution-run/transitions.test.ts (8 tests) 6ms
+ ✓ __tests__/oa/execution-run/adversarial.providerBoundary.test.ts (17 tests) 10ms
+ ✓ __tests__/oa/finops/sourceOfTruth.test.ts (5 tests) 6ms
+ ✓ __tests__/oa/finops/costEvidence.test.ts (5 tests) 8ms
+ ✓ __tests__/oa/finops/blockingEligibility.test.ts (9 tests) 10ms
+ ✓ __tests__/platform/t-a7-local-volume.probe.test.ts (1 test) 7ms
 
  Test Files  157 passed (157)
-      Tests  1586 passed (1586)
-   Start at  10:51:33
-   Duration  229.80s (transform 12.13s, setup 17.95s, collect 36.06s, tests 77.04s, environment 21.80s, prepare 20.59s)
+      Tests  1588 passed (1588)
+   Start at  15:03:44
+   Duration  213.49s (transform 12.14s, setup 17.63s, collect 34.49s, tests 71.55s, environment 17.49s, prepare 19.53s)
 
 ```
-### Anti-activation scan (architecture contract hits only)
-```
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:5: * T4 owns monetary enforcement evaluation.
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:10: * - No monetary threshold / currency / IAM / actor fields.
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:11: * - Foundation Ready ≠ SHADOW / MONITOR / E1 activated.
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:16:  | "SHADOW"
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:17:  | "MONITOR"
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:18:  | "E1_ENFORCED";
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:27:export type FinOpsRolloutPolicyEffect = "signal_only" | "enforce" | null;
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:40: * blockingAllowed=true for E1 does NOT activate enforcement consumers.
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:56:  "SHADOW",
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:57:  "MONITOR",
-projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts:58:  "E1_ENFORCED",
-projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore.ts:67:    async upsertProjectRollout(
-projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7Runtime.ts:9: * - Foundation Ready ≠ SHADOW / MONITOR / E1 activated.
-projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7Runtime.ts:10: * - Does not expose upsertProjectRollout as a product API.
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:10: * Never evaluates T4, never reads enforcement projection, never calls provider,
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:11: * never supplies monetary thresholds.
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:42:    case "SHADOW":
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:44:        mode: "SHADOW",
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:53:    case "MONITOR":
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:55:        mode: "MONITOR",
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:64:    case "E1_ENFORCED":
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:66:        mode: "E1_ENFORCED",
-projects/sfia-studio/app/lib/oa/finops/application/resolveFinOpsRollout.ts:68:        policyEffect: "enforce",
+
+## CLOSE-1..8 reassessment
+ALL **STILL PASS**. `R-T4-PROJECTION-REFRESH-01` = **CLOSED — UNCHANGED** (wiring-only).
+
+## Carried reserves
+| Reserve | Status |
+|---|---|
+| R-T4-PROJECTION-REFRESH-01 | CLOSED — UNCHANGED |
+| R-T6-RUNTIME-COMPOSITION-01 | CLOSED ON MAIN |
+| R-T4-T3-SYNC-01 | OPEN — SELECTED GATE BEFORE MONITOR |
+| R-PR-T2-API-01 | OPEN MINOR |
+| SHADOW/MONITOR/E1 | NOT ACTIVATED / NOT ACTIVATED / NOT AUTHORIZED |
+
+## Anti-activation
+DEFAULT-OFF TRUE · no seed · no provider · no threshold · no execution-run · SHADOW/MONITOR/E1 not activated.
+
+## Useful BEFORE→AFTER diffs (corrected files)
+### Diff store
+```diff
+--- a/projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore.ts
++++ b/projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore.ts
+@@ -4,6 +4,10 @@
+  * Table: finops_rollout_config
+  * Absence of row ≠ OFF row. Resolver applies DEFAULT-OFF.
+  * Never seeds. Never closes the injected pool.
++ *
++ * Upsert uses a single atomic PostgreSQL statement so concurrent first
++ * writes on an absent projectId still assign exactly one revision per
++ * accepted mutation (INSERT revision=1; ON CONFLICT revision = current + 1).
+  */
+
+ import type { Pool } from "pg";
+@@ -83,29 +87,19 @@
+         });
+       }
+
+-      const client = await pool.connect();
+       try {
+-        await client.query("BEGIN");
+-        const existing = await client.query<{ revision: string }>(
+-          `SELECT revision FROM finops_rollout_config WHERE project_id = $1 FOR UPDATE`,
+-          [projectId],
+-        );
+-        const nextRevision =
+-          existing.rows[0] === undefined
+-            ? 1
+-            : Number(existing.rows[0].revision) + 1;
+-
+-        const result = await client.query<Record<string, unknown>>(
++        // Single-statement atomic upsert: never precompute revision in application.
++        // INSERT path → revision 1; conflict path → durable current revision + 1.
++        const result = await pool.query<Record<string, unknown>>(
+           `INSERT INTO finops_rollout_config (project_id, mode, revision, updated_at)
+-           VALUES ($1, $2, $3, $4::timestamptz)
++           VALUES ($1, $2, 1, $3::timestamptz)
+            ON CONFLICT (project_id) DO UPDATE SET
+              mode = EXCLUDED.mode,
+-             revision = EXCLUDED.revision,
++             revision = finops_rollout_config.revision + 1,
+              updated_at = EXCLUDED.updated_at
+            RETURNING project_id, mode, revision, updated_at`,
+-          [projectId, mode, nextRevision, updatedAt],
++          [projectId, mode, updatedAt],
+         );
+-        await client.query("COMMIT");
+         const row = result.rows[0];
+         if (!row) {
+           throw Object.assign(new Error("FinOps rollout upsert returned no row"), {
+@@ -115,11 +109,6 @@
+         }
+         return rowToConfig(row);
+       } catch (error) {
+-        try {
+-          await client.query("ROLLBACK");
+-        } catch {
+-          // ignore rollback failure
+-        }
+         if (
+           error &&
+           typeof error === "object" &&
+@@ -132,8 +121,6 @@
+           new Error(sanitized.message),
+           { code: sanitized.code, technicalDetailsRedacted: true },
+         );
+-      } finally {
+-        client.release();
+       }
+     },
+   };
 
 ```
-### Forbidden path diff (must be empty)
-```
-(empty)
-```
+### Diff PG rollout tests
+```diff
+--- a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.rollout.integration.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.rollout.integration.test.ts
+@@ -51,7 +51,8 @@
+   const prefix = `proj-t7-pg-${suffix}`;
 
-## COMPLETE content of every CREATE file
+   beforeAll(async () => {
+-    pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 4 });
++    // max >= concurrent upsert workers (T7-PG11/PG12 use N=8) + lock client.
++    pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 16 });
+     // Session-scoped lock on a held client — serialize DROP/CREATE vs other T7 suites.
+     lockClient = await pool.connect();
+     await lockClient.query(
+@@ -252,4 +253,75 @@
+     const read = await store.readProjectRollout(projectId);
+     expect(read?.updatedAt).toBe(iso);
+   });
++
++  it(
++    "T7-PG11 concurrent first writes on absent project preserve one revision per accepted mutation",
++    async () => {
++      const store = createPostgresFinOpsRolloutStore(pool);
++      const N = 8;
++      // Multiple fresh project rounds harden contention without production hooks.
++      for (let round = 0; round < 3; round += 1) {
++        const projectId = `${prefix}-11-r${round}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
++        const existing = await store.readProjectRollout(projectId);
++        expect(existing).toBeNull();
++
++        const results = await Promise.all(
++          Array.from({ length: N }, (_, i) =>
++            store.upsertProjectRollout({
++              projectId,
++              mode: i % 2 === 0 ? "OFF" : "SHADOW",
++              updatedAt: `2026-08-08T08:30:${String(i).padStart(2, "0")}.000Z`,
++            }),
++          ),
++        );
++
++        expect(results).toHaveLength(N);
++        const revisions = results.map((r) => r.revision).sort((a, b) => a - b);
++        expect(revisions).toEqual(Array.from({ length: N }, (_, i) => i + 1));
++        expect(new Set(revisions).size).toBe(N);
++        expect(results.every((r) => r.projectId === projectId)).toBe(true);
++
++        const final = await store.readProjectRollout(projectId);
++        expect(final?.revision).toBe(N);
++        expect(final?.projectId).toBe(projectId);
++      }
++    },
++    30_000,
++  );
++
++  it(
++    "T7-PG12 concurrent updates on existing project increment every accepted mutation",
++    async () => {
++      const store = createPostgresFinOpsRolloutStore(pool);
++      const N = 8;
++      const projectId = `${prefix}-12-${Date.now()}`;
++      const initial = await store.upsertProjectRollout({
++        projectId,
++        mode: "OFF",
++        updatedAt: "2026-08-08T08:31:00.000Z",
++      });
++      expect(initial.revision).toBe(1);
++
++      const results = await Promise.all(
++        Array.from({ length: N }, (_, i) =>
++          store.upsertProjectRollout({
++            projectId,
++            mode: i % 2 === 0 ? "MONITOR" : "OFF",
++            updatedAt: `2026-08-08T08:31:${String(i + 1).padStart(2, "0")}.000Z`,
++          }),
++        ),
++      );
++
++      expect(results).toHaveLength(N);
++      const revisions = results.map((r) => r.revision).sort((a, b) => a - b);
++      expect(revisions).toEqual(
++        Array.from({ length: N }, (_, i) => i + 2),
++      );
++      expect(new Set(revisions).size).toBe(N);
++
++      const final = await store.readProjectRollout(projectId);
++      expect(final?.revision).toBe(1 + N);
++    },
++    30_000,
++  );
+ });
+
+```
+### Diff doc 156
+Doc 156 updated in place with Critical correction subsection + PG11/PG12 + revised verdict.
+Full final content included below (BEFORE SHA `755bc55d…` → AFTER `a9c19d71…`).
+
+## COMPLETE FINAL content of all 10 T7 files
 
 ### FILE: `projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts`
 
@@ -581,6 +684,10 @@ export async function resolveFinOpsRollout(
  * Table: finops_rollout_config
  * Absence of row ≠ OFF row. Resolver applies DEFAULT-OFF.
  * Never seeds. Never closes the injected pool.
+ *
+ * Upsert uses a single atomic PostgreSQL statement so concurrent first
+ * writes on an absent projectId still assign exactly one revision per
+ * accepted mutation (INSERT revision=1; ON CONFLICT revision = current + 1).
  */
 
 import type { Pool } from "pg";
@@ -660,29 +767,19 @@ export function createPostgresFinOpsRolloutStore(pool: Pool): FinOpsRolloutPort 
         });
       }
 
-      const client = await pool.connect();
       try {
-        await client.query("BEGIN");
-        const existing = await client.query<{ revision: string }>(
-          `SELECT revision FROM finops_rollout_config WHERE project_id = $1 FOR UPDATE`,
-          [projectId],
-        );
-        const nextRevision =
-          existing.rows[0] === undefined
-            ? 1
-            : Number(existing.rows[0].revision) + 1;
-
-        const result = await client.query<Record<string, unknown>>(
+        // Single-statement atomic upsert: never precompute revision in application.
+        // INSERT path → revision 1; conflict path → durable current revision + 1.
+        const result = await pool.query<Record<string, unknown>>(
           `INSERT INTO finops_rollout_config (project_id, mode, revision, updated_at)
-           VALUES ($1, $2, $3, $4::timestamptz)
+           VALUES ($1, $2, 1, $3::timestamptz)
            ON CONFLICT (project_id) DO UPDATE SET
              mode = EXCLUDED.mode,
-             revision = EXCLUDED.revision,
+             revision = finops_rollout_config.revision + 1,
              updated_at = EXCLUDED.updated_at
            RETURNING project_id, mode, revision, updated_at`,
-          [projectId, mode, nextRevision, updatedAt],
+          [projectId, mode, updatedAt],
         );
-        await client.query("COMMIT");
         const row = result.rows[0];
         if (!row) {
           throw Object.assign(new Error("FinOps rollout upsert returned no row"), {
@@ -692,11 +789,6 @@ export function createPostgresFinOpsRolloutStore(pool: Pool): FinOpsRolloutPort 
         }
         return rowToConfig(row);
       } catch (error) {
-        try {
-          await client.query("ROLLBACK");
-        } catch {
-          // ignore rollback failure
-        }
         if (
           error &&
           typeof error === "object" &&
@@ -709,8 +801,6 @@ export function createPostgresFinOpsRolloutStore(pool: Pool): FinOpsRolloutPort 
           new Error(sanitized.message),
           { code: sanitized.code, technicalDetailsRedacted: true },
         );
-      } finally {
-        client.release();
       }
     },
   };
@@ -1118,7 +1208,8 @@ describeDb("FinOps T7 PostgreSQL rollout integration", () => {
   const prefix = `proj-t7-pg-${suffix}`;
 
   beforeAll(async () => {
-    pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 4 });
+    // max >= concurrent upsert workers (T7-PG11/PG12 use N=8) + lock client.
+    pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 16 });
     // Session-scoped lock on a held client — serialize DROP/CREATE vs other T7 suites.
     lockClient = await pool.connect();
     await lockClient.query(
@@ -1319,6 +1410,77 @@ describeDb("FinOps T7 PostgreSQL rollout integration", () => {
     const read = await store.readProjectRollout(projectId);
     expect(read?.updatedAt).toBe(iso);
   });
+
+  it(
+    "T7-PG11 concurrent first writes on absent project preserve one revision per accepted mutation",
+    async () => {
+      const store = createPostgresFinOpsRolloutStore(pool);
+      const N = 8;
+      // Multiple fresh project rounds harden contention without production hooks.
+      for (let round = 0; round < 3; round += 1) {
+        const projectId = `${prefix}-11-r${round}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+        const existing = await store.readProjectRollout(projectId);
+        expect(existing).toBeNull();
+
+        const results = await Promise.all(
+          Array.from({ length: N }, (_, i) =>
+            store.upsertProjectRollout({
+              projectId,
+              mode: i % 2 === 0 ? "OFF" : "SHADOW",
+              updatedAt: `2026-08-08T08:30:${String(i).padStart(2, "0")}.000Z`,
+            }),
+          ),
+        );
+
+        expect(results).toHaveLength(N);
+        const revisions = results.map((r) => r.revision).sort((a, b) => a - b);
+        expect(revisions).toEqual(Array.from({ length: N }, (_, i) => i + 1));
+        expect(new Set(revisions).size).toBe(N);
+        expect(results.every((r) => r.projectId === projectId)).toBe(true);
+
+        const final = await store.readProjectRollout(projectId);
+        expect(final?.revision).toBe(N);
+        expect(final?.projectId).toBe(projectId);
+      }
+    },
+    30_000,
+  );
+
+  it(
+    "T7-PG12 concurrent updates on existing project increment every accepted mutation",
+    async () => {
+      const store = createPostgresFinOpsRolloutStore(pool);
+      const N = 8;
+      const projectId = `${prefix}-12-${Date.now()}`;
+      const initial = await store.upsertProjectRollout({
+        projectId,
+        mode: "OFF",
+        updatedAt: "2026-08-08T08:31:00.000Z",
+      });
+      expect(initial.revision).toBe(1);
+
+      const results = await Promise.all(
+        Array.from({ length: N }, (_, i) =>
+          store.upsertProjectRollout({
+            projectId,
+            mode: i % 2 === 0 ? "MONITOR" : "OFF",
+            updatedAt: `2026-08-08T08:31:${String(i + 1).padStart(2, "0")}.000Z`,
+          }),
+        ),
+      );
+
+      expect(results).toHaveLength(N);
+      const revisions = results.map((r) => r.revision).sort((a, b) => a - b);
+      expect(revisions).toEqual(
+        Array.from({ length: N }, (_, i) => i + 2),
+      );
+      expect(new Set(revisions).size).toBe(N);
+
+      const final = await store.readProjectRollout(projectId);
+      expect(final?.revision).toBe(1 + N);
+    },
+    30_000,
+  );
 });
 
 ```
@@ -1744,9 +1906,9 @@ describeDb("FinOps T7 foundation runtime composition integration", () => {
 
 **Project:** SFIA Studio — Assistant SFIA natif OpenAI
 **Document:** `projects/sfia-studio/156-assistant-sfia-native-openai-finops-technical-lot-t7-foundation-default-off-execution.md`
-**Cycle:** 8 — Delivery / implémentation — FinOps Technical Lot T7 Foundation Default-OFF
+**Cycle:** 8 — Delivery / implémentation + Critical correction — FinOps Technical Lot T7 Foundation Default-OFF
 **Profil:** Critical
-**Typologie:** EVOL / CODE / DATA / TEST / DOC
+**Typologie:** EVOL / CODE / DATA / TEST / DOC (+ RUN / CODE correction)
 
 ---
 
@@ -1761,8 +1923,10 @@ describeDb("FinOps T7 foundation runtime composition integration", () => {
 | Canonical T7 server composition created (`composeFinOpsT7Runtime`) | **TRUE** |
 | T6 `composeFinOpsRuntime` reused (not modified) | **TRUE** |
 | T2 mutation/reconciliation exposed only via post-T2 T4 refresh wrappers | **TRUE** |
-| Unit T7-U01..10 / PG T7-PG01..10 / runtime T7-R01..16 delivered | **TRUE** |
+| Unit T7-U01..10 / PG T7-PG01..12 / runtime T7-R01..16 delivered | **TRUE** |
 | `R-T4-PROJECTION-REFRESH-01` CLOSED (CLOSE-1..8 PASS) | **TRUE** |
+| Atomic rollout revision under concurrent writes (single-statement UPSERT) | **TRUE** |
+| Concurrent first-write revision loss defect | **CORRECTED** (RED→GREEN via T7-PG11) |
 | SHADOW activated | **FALSE** |
 | MONITOR activated | **FALSE** |
 | E1 activated / authorized | **FALSE** |
@@ -1952,7 +2116,14 @@ Executed under `projects/sfia-studio/app` before CREATE.
 
 ## H. Exact Delivery manifest
 
-**CREATE (10) / MODIFY (0) / DELETE (0):**
+**Git-vs-main:** CREATE (10) / MODIFY (0) / DELETE (0) — unchanged after correction (files still uncommitted).
+
+**Local correction manifest (uncommitted T7 Delivery):** MODIFY 3 / PRESERVE 7:
+
+| Classification | Paths |
+|----------------|-------|
+| LOCAL MODIFY | `postgresFinOpsRolloutStore.ts` · `t7.rollout.integration.test.ts` · `156-…-execution.md` |
+| BYTE-PRESERVED | `types.rollout.ts` · `finopsRolloutPort.ts` · `resolveFinOpsRollout.ts` · `composeFinOpsT7Runtime.ts` · migration `1754600004000` · `t7.rollout.unit.test.ts` · `t7.foundation-runtime.integration.test.ts` |
 
 1. `projects/sfia-studio/app/lib/oa/finops/application/types.rollout.ts`
 2. `projects/sfia-studio/app/lib/oa/finops/ports/finopsRolloutPort.ts`
@@ -2022,6 +2193,49 @@ Instruction fields:
 Migration: `1754600004000_finops-t7-rollout-config.js`.
 
 Port upsert exists for tests / future distinct activation cycles only — **not** a product activation API.
+
+### Atomic mutation semantics (Critical correction)
+
+`upsertProjectRollout` uses a **single** PostgreSQL statement:
+
+```sql
+INSERT INTO finops_rollout_config (project_id, mode, revision, updated_at)
+VALUES ($1, $2, 1, $3::timestamptz)
+ON CONFLICT (project_id) DO UPDATE SET
+  mode = EXCLUDED.mode,
+  revision = finops_rollout_config.revision + 1,
+  updated_at = EXCLUDED.updated_at
+RETURNING project_id, mode, revision, updated_at
+```
+
+| Path | Revision rule |
+|------|----------------|
+| First INSERT (absent row) | `revision = 1` |
+| ON CONFLICT (existing row) | `revision = durable current + 1` (never app-precomputed) |
+| Same-mode rewrite | still `+ 1` |
+| Concurrent first writes | each accepted mutation gets a unique monotonic revision |
+
+No `SELECT … FOR UPDATE` read-before-write · no TypeScript `nextRevision` · no advisory/process/global lock · no schema/migration change.
+
+---
+
+## Critical validation correction — Atomic rollout revision concurrency
+
+| Field | Value |
+|-------|--------|
+| Observation ChatGPT | Concurrent first writes on absent `projectId` could both observe no row → `nextRevision=1` → ON CONFLICT kept `EXCLUDED.revision=1` → lost mutations |
+| GO Morris exact | `GO correction T7 foundation — atomic rollout revision under concurrent writes.` |
+| Old algorithm | `BEGIN` → `SELECT revision … FOR UPDATE` → TS `nextRevision` → `INSERT … ON CONFLICT revision = EXCLUDED.revision` → `COMMIT` |
+| RED evidence | T7-PG11 pre-fix: revisions `[1,1,1,1,1,1,1,2]` ≠ `[1..8]` (`.tmp-sfia-review/t7-atomic-revision-correction/red-pg11.txt`) |
+| Correction | Single-statement atomic UPSERT (`revision = finops_rollout_config.revision + 1` on conflict) |
+| T7-PG11 | **GREEN** — N=8 concurrent first writes × 3 rounds → revisions `1..N`, final=`N` |
+| T7-PG12 | **GREEN** — seed rev 1 + N=8 concurrent updates → returned `2..N+1`, final=`1+N` |
+| Migration / schema | **UNCHANGED** (`1754600004000` BYTE-IDENTICAL) |
+| Local correction manifest | **3 MODIFY** (store · PG rollout tests · doc 156) |
+| Preserved T7 files | **7 BYTE-IDENTICAL** |
+| Git-vs-main | still **10 CREATE / 0 MODIFY / 0 DELETE** |
+| CLOSE-1..8 | **STILL PASS** |
+| R-T4-PROJECTION-REFRESH-01 | **CLOSED — UNCHANGED** |
 
 ---
 
@@ -2134,7 +2348,9 @@ Entry status: **OPEN — Case B** (canonical wrapper delivered; no product consu
 | CLOSE-5 | PG proves each exposed mutation/reconcile refreshes T4 (T7-R03/R04) | **PASS** |
 | CLOSE-6 | T4 refresh failure fail-open vs T2 success (T7-R05) | **PASS** |
 | CLOSE-7 | No product activation claim required for closure | **PASS** |
-| CLOSE-8 | SHADOW remains not activated | **PASS** |
+| CLOSE-8 | SHADOW remains not activated | **PASS** (STILL) |
+
+**After atomic revision correction:** CLOSE-1..8 reassessed — **STILL PASS**. `R-T4-PROJECTION-REFRESH-01` remains **CLOSED — UNCHANGED**.
 
 **Final wording:**
 
@@ -2174,7 +2390,7 @@ Evidence: `.tmp-sfia-review/t7-foundation-delivery/unit-t7.txt` — **10 passed*
 
 ## S. PostgreSQL tests
 
-File: `postgres/t7.rollout.integration.test.ts` — **T7-PG01..T7-PG10** on ephemeral local Postgres (never Neon).
+File: `postgres/t7.rollout.integration.test.ts` — **T7-PG01..T7-PG12** on ephemeral local Postgres (never Neon).
 
 | ID | Assertion |
 |----|-----------|
@@ -2188,8 +2404,10 @@ File: `postgres/t7.rollout.integration.test.ts` — **T7-PG01..T7-PG10** on ephe
 | T7-PG08 | Down migration refuses while rows exist |
 | T7-PG09 | After clearing rows, down/up round trip succeeds |
 | T7-PG10 | `updated_at` timestamptz / canonical ISO on read |
+| T7-PG11 | Concurrent first writes on absent project → revisions `1..N` (N≥8), final=`N` |
+| T7-PG12 | Concurrent updates on existing row → revisions `2..N+1`, final=`1+N` |
 
-Evidence: `.tmp-sfia-review/t7-foundation-delivery/pg-t7*.txt`.
+Evidence: `.tmp-sfia-review/t7-atomic-revision-correction/` (RED + GREEN) and prior delivery PG logs.
 
 ---
 
@@ -2321,49 +2539,47 @@ FOUNDATION READY ≠ SHADOW ACTIVATED
 | Project push / PR | none |
 | Untracked | 10 CREATE paths + `.tmp-sfia-review/` evidence |
 
-**CLOSE-1..8:** ALL **PASS** → long green verdict:
+**CLOSE-1..8:** ALL **STILL PASS** → correction + foundation green verdict:
 
 ```text
 FINOPS TECHNICAL LOT T7 —
-FOUNDATION DEFAULT-OFF DELIVERY COMPLETE —
+FOUNDATION DEFAULT-OFF —
+ATOMIC ROLLOUT REVISION CORRECTION COMPLETE —
 
-DEDICATED PROJECT-SCOPED ROLLOUT PERSISTENCE DELIVERED —
-DEFAULT-OFF PROVEN —
-NO SEED —
-T7 MODE ADAPTER DELIVERED —
+CONCURRENT FIRST-WRITE DEFECT REPRODUCED RED —
+ROOT CAUSE CONFIRMED —
 
-OFF INERT / NEVER BLOCK —
-SHADOW ARCHITECTURE REPRESENTED / NOT ACTIVATED / NEVER BLOCK —
-MONITOR ARCHITECTURE REPRESENTED / NOT ACTIVATED / NEVER BLOCK —
-E1 ARCHITECTURE REPRESENTED / NOT ACTIVATED —
+ROLLOUT UPSERT NOW SINGLE-STATEMENT ATOMIC —
+FIRST WRITE REVISION 1 —
+EVERY ACCEPTED SAME-PROJECT MUTATION INCREMENTS DURABLE REVISION EXACTLY ONCE —
 
-T6 CANONICAL RUNTIME COMPOSITION REUSED —
+T7-PG11 CONCURRENT FIRST-WRITE GREEN —
+T7-PG12 CONCURRENT EXISTING-ROW UPDATE GREEN —
+T7-PG01..10 GREEN —
 
-T7 CANONICAL SERVER T2 MUTATION / RECONCILIATION BOUNDARY DELIVERED —
-POST-T2 T4 REFRESH WIRING PROVEN —
+NO SCHEMA CHANGE —
+NO NEW MIGRATION —
+NO ADVISORY LOCK —
+NO PROCESS MUTEX —
+NO GLOBAL LOCK —
 
-R-T4-PROJECTION-REFRESH-01 CLOSED —
-RUNTIME FOUNDATION FRESHNESS WIRING DELIVERED AND TESTED —
-NO PRODUCT ACTIVATION CLAIM —
+EXACT 3 LOCAL T7 FILES CHANGED —
+EXACT 7 T7 FILES BYTE-PRESERVED —
+GIT-vs-MAIN MANIFEST REMAINS 10 CREATE / 0 MODIFY / 0 DELETE —
+
+DEFAULT-OFF PRESERVED —
+FAIL-OPEN OFF PRESERVED —
+
+R-T4-PROJECTION-REFRESH-01 CLOSED — UNCHANGED —
+CLOSE-1..8 STILL PASS —
 
 R-T6-RUNTIME-COMPOSITION-01 CLOSED ON MAIN —
 R-T4-T3-SYNC-01 OPEN —
 R-PR-T2-API-01 OPEN MINOR —
 
-NO T3 SYNC —
-NO T6-EXT —
-NO T5 —
-NO IAM —
-NO CALIBRATION —
-
 SHADOW NOT ACTIVATED —
 MONITOR NOT ACTIVATED —
 E1 NOT AUTHORIZED —
-
-NO EXECUTION-RUN MODIFICATION —
-NO PROVIDER —
-NO MONETARY THRESHOLD —
-NO PRODUCT ACTIVATION —
 
 NO PROJECT STAGING —
 NO PROJECT COMMIT —
@@ -2372,73 +2588,63 @@ NO PR —
 
 REVIEW HANDOFF REMOTE VERIFIED —
 
-T7 FOUNDATION COMPLETE —
-READY FOR CHATGPT T7 FOUNDATION VALIDATION —
-NEXT GATE = DEDICATED ACTIVATION QA —
-SHADOW STILL REQUIRES DISTINCT MORRIS GO
+T7 FOUNDATION CORRECTED —
+READY FOR CHATGPT T7 FOUNDATION REVALIDATION
 ```
 
 ```text
 FOUNDATION READY ≠ SHADOW ACTIVATED
 ```
-
 ```
 
-## Project git final state
-- Branch: `delivery/sfia-studio-assistant-sfia-native-openai-finops-t7-foundation-default-off`
-- HEAD == origin/main == `511a18d409e25d0a3fdbd3425ade65512a5f4e2b`
-- Staged: empty
-- Project commit: none
-- Project push: none
-- PR: none
-- Untracked: exact 10 CREATE + `.tmp-sfia-review/` evidence
+## Final git status
+- Untracked: exact 10 T7 paths + `.tmp-sfia-review/`
+- Staged: empty · Project commit/push/PR: none
+- HEAD = origin/main = `511a18d…`
 
 ## Handoff after
-- To be filled by publisher remote verification (tip/blob after single L3 publish)
-- Recommended commit message: `docs(review-handoff): publish T7 foundation default-off`
+Captured post single L3 publish from origin.
 
 ## Verdict
 ```
 FINOPS TECHNICAL LOT T7 —
-FOUNDATION DEFAULT-OFF DELIVERY COMPLETE —
+FOUNDATION DEFAULT-OFF —
+ATOMIC ROLLOUT REVISION CORRECTION COMPLETE —
 
-DEDICATED PROJECT-SCOPED ROLLOUT PERSISTENCE DELIVERED —
-DEFAULT-OFF PROVEN —
-NO SEED —
-T7 MODE ADAPTER DELIVERED —
+CONCURRENT FIRST-WRITE DEFECT REPRODUCED RED —
+ROOT CAUSE CONFIRMED —
 
-OFF INERT / NEVER BLOCK —
-SHADOW ARCHITECTURE REPRESENTED / NOT ACTIVATED / NEVER BLOCK —
-MONITOR ARCHITECTURE REPRESENTED / NOT ACTIVATED / NEVER BLOCK —
-E1 ARCHITECTURE REPRESENTED / NOT ACTIVATED —
+ROLLOUT UPSERT NOW SINGLE-STATEMENT ATOMIC —
+FIRST WRITE REVISION 1 —
+EVERY ACCEPTED SAME-PROJECT MUTATION INCREMENTS DURABLE REVISION EXACTLY ONCE —
 
-T6 CANONICAL RUNTIME COMPOSITION REUSED —
+T7-PG11 CONCURRENT FIRST-WRITE GREEN —
+T7-PG12 CONCURRENT EXISTING-ROW UPDATE GREEN —
+T7-PG01..10 GREEN —
 
-T7 CANONICAL SERVER T2 MUTATION / RECONCILIATION BOUNDARY DELIVERED —
-POST-T2 T4 REFRESH WIRING PROVEN —
+NO SCHEMA CHANGE —
+NO NEW MIGRATION —
+NO ADVISORY LOCK —
+NO PROCESS MUTEX —
+NO GLOBAL LOCK —
 
-R-T4-PROJECTION-REFRESH-01 CLOSED —
-RUNTIME FOUNDATION FRESHNESS WIRING DELIVERED AND TESTED —
-NO PRODUCT ACTIVATION CLAIM —
+EXACT 3 LOCAL T7 FILES CHANGED —
+EXACT 7 T7 FILES BYTE-PRESERVED —
+GIT-vs-MAIN MANIFEST REMAINS 10 CREATE / 0 MODIFY / 0 DELETE —
+
+DEFAULT-OFF PRESERVED —
+FAIL-OPEN OFF PRESERVED —
+
+R-T4-PROJECTION-REFRESH-01 CLOSED — UNCHANGED —
+CLOSE-1..8 STILL PASS —
 
 R-T6-RUNTIME-COMPOSITION-01 CLOSED ON MAIN —
 R-T4-T3-SYNC-01 OPEN —
 R-PR-T2-API-01 OPEN MINOR —
 
-NO T3 SYNC —
-NO T6-EXT —
-NO T5 —
-NO IAM —
-NO CALIBRATION —
-
 SHADOW NOT ACTIVATED —
 MONITOR NOT ACTIVATED —
 E1 NOT AUTHORIZED —
-
-NO EXECUTION-RUN MODIFICATION —
-NO PROVIDER —
-NO MONETARY THRESHOLD —
-NO PRODUCT ACTIVATION —
 
 NO PROJECT STAGING —
 NO PROJECT COMMIT —
@@ -2447,8 +2653,6 @@ NO PR —
 
 REVIEW HANDOFF REMOTE VERIFIED —
 
-T7 FOUNDATION COMPLETE —
-READY FOR CHATGPT T7 FOUNDATION VALIDATION —
-NEXT GATE = DEDICATED ACTIVATION QA —
-SHADOW STILL REQUIRES DISTINCT MORRIS GO
+T7 FOUNDATION CORRECTED —
+READY FOR CHATGPT T7 FOUNDATION REVALIDATION
 ```
