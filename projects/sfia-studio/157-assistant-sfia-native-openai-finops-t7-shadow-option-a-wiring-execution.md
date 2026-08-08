@@ -15,6 +15,7 @@
 | Option A (pre-provider execution-run) selected by Morris | **TRUE** |
 | Thin adapter delivered | **TRUE** |
 | Pilot projectId `sfia-studio-ops1` selected by Morris | **TRUE** |
+| Pilot identity declared as OA-local constant (no `lib/oa` → `lib/ops1` import) | **TRUE** |
 | Existing `composeExecutionRunD2D3` injection surface reused | **TRUE** |
 | `coordinateExecutionRun` unmodified | **TRUE** |
 | `composeExecutionRunD2D3` unmodified | **TRUE** |
@@ -78,7 +79,19 @@ composeExecutionRunD2D3T7ShadowPilot
 
 ---
 
-## F. Next
+## F. Corrective Delivery (PR #321 CI)
 
-Cycle 9 — Dedicated T7 SHADOW Wiring QA (distinct GO).  
-Then distinct GO for actual pilot activation if Morris authorizes.
+PR #321 CI identified OA→OPS1 boundary violation
+(`import { OPS1_PROJECT_KEY } from "@/lib/ops1/types"` in the pilot composer).
+
+Corrective Delivery removes the direct OA→OPS1 import while preserving the
+Morris-selected pilot value `sfia-studio-ops1` as an OA-local constant
+(`T7_SHADOW_PILOT_PROJECT_ID`). No shared identity abstraction; OPS1 unchanged.
+
+---
+
+## G. Next
+
+Cycle 9 — Dedicated Corrective QA (distinct GO) after this corrective commit.  
+Then distinct GO for push of the corrective commit onto PR #321.  
+Activation SHADOW remains a separate Morris decision.

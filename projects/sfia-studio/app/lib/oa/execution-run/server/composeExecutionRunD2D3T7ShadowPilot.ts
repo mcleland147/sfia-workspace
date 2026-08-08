@@ -8,11 +8,11 @@
  * - SHADOW NOT ACTIVATED (no durable SHADOW row write).
  * - MONITOR / E1 not activated.
  * - No real provider / Neon / production threshold.
- * - Pilot identity: OPS1_PROJECT_KEY (sfia-studio-ops1) — Morris-selected.
+ * - Pilot identity: Morris-selected `sfia-studio-ops1` (OA-local constant).
+ * - Does NOT import lib/ops1 (preserves OA / OPS1 isolation).
  */
 
 import type { Pool } from "pg";
-import { OPS1_PROJECT_KEY } from "@/lib/ops1/types";
 import {
   composeFinOpsT7ShadowExecutionDeps,
   type FinOpsT7ShadowDecisionDiagnostic,
@@ -28,10 +28,11 @@ import type { ExecutionRunProviderComposition } from "./composeExecutionRunProvi
 import { assertServerOnly } from "./serverOnly";
 
 /**
- * Morris-selected T7 SHADOW pilot identity — not global project identity.
- * Reuses existing OPS1_PROJECT_KEY constant (= "sfia-studio-ops1").
+ * Morris-selected T7 SHADOW pilot identity.
+ * Locally declared in OA to preserve OA / OPS1 import isolation.
+ * This is pilot-scoped identity, not a global project identity authority.
  */
-export const T7_SHADOW_PILOT_PROJECT_ID = OPS1_PROJECT_KEY;
+export const T7_SHADOW_PILOT_PROJECT_ID = "sfia-studio-ops1";
 
 export type ComposeExecutionRunD2D3T7ShadowPilotInput = {
   /** Caller-owned FinOps pool. Never closed here. */
