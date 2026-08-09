@@ -1,17 +1,17 @@
-# Cycle 11 Critical — FinOps T7 SHADOW — Live Activation — Review Pack
+# Cycle 11 Critical — FinOps T7 SHADOW — Live Activation PF16 Continuation — Review Pack
 
 **Level:** FULL
-**Date/heure:** 2026-08-09 19:17:59 CEST / 2026-08-09 17:17:59 UTC
+**Date/heure:** 2026-08-09 20:37:20 CEST / 2026-08-09 18:37:20 UTC
 **Repo:** mcleland147/sfia-workspace
-**Baseline:** SFIA v2.6
-**Cycle:** 11 — Déploiement / release
+**Cycle:** 11 — Déploiement / release — T7 SHADOW live activation continuation
 **Profil:** Critical
-**Typologie:** EVOL / LIVE ROLLOUT / CONTROLLED RELEASE
-**Blocs:** FinOps · Sécurité · Déploiement/release · DevOps · Observabilité / RUN readiness
+**Typologie:** EVOL / LIVE ROLLOUT / CONTROLLED RELEASE CONTINUATION
 
 ---
 
-## Morris GO (exact)
+## Morris authority
+
+### Original GO (still governing)
 
 GO T7 SHADOW LIVE ACTIVATION —
 sfia-studio-ops1 —
@@ -28,6 +28,13 @@ NO POLICY VALUES —
 NO MONITOR —
 NO E1.
 
+### Continuation authorization
+
+GO REPRISE PF16
+
+Previous REAL_APPLY_ATTEMPTS = 0 → unique apply authority still unconsumed.
+TOTAL_REAL_APPLY_ATTEMPTS_ACROSS_CYCLE remains 0 after this continuation (no apply).
+
 ---
 
 ## Git truth
@@ -37,29 +44,9 @@ NO E1.
 | branch | `main` |
 | HEAD / origin/main | `96a8a14bc894b520043b3a8f758b1fb14a72a5e4` |
 | BASELINE_PINNED | YES |
-| tracked clean | YES (`?? .tmp-sfia-review/` only) |
+| tracked clean | YES |
 | staged | NONE |
 | CAS ancestor `5d3f608…` | YES |
-
----
-
-## Sources consultées
-
-- cycle template / routing / validation checklist / v2.5 method / CKC matrix / 02-fifteen-cycles synthetic map
-- docs 160 / 161 / 162
-- `finOpsT7TargetIdentity.ts`, `finops-t7-shadow-rollout.ts`, `operateFinOpsT7ShadowRollout.ts`, rollout store/port, pilot composition, shadow deps, versioned policy source, platform AI config/provider
-- current handoff `sfia/review-handoff`
-
----
-
-## CKC
-
-| Field | Value |
-|---|---|
-| cycle | 11 — Déploiement / release |
-| detailed CKC | ABSENT |
-| fallback | `02-fifteen-cycles-synthetic-map.md` + méthode Cycle 11 |
-| autorité | aucune |
 
 ---
 
@@ -67,198 +54,149 @@ NO E1.
 
 | Field | Expected | Observed |
 |---|---|---|
-| tip | `29467a80f4e806931281b2c7c4f8dbe81e127a91` | MATCH |
-| blob | `c7e57b06a455d9b1026b39cc2f3306615983c805` | MATCH |
+| tip | `786f87f03161bf1167c12813c81fab8f1da7b872` | MATCH |
+| blob | `cfefaf8889f6da8139424eedb171be2353aed8f7` | MATCH |
 
-Confirms: CAS CLOSED · TARGET-BINDING CLOSED · OBS OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY · C08 OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY · T4-T3 OPEN BEFORE MONITOR + DEFERRED · PRE_ACTIVATION_RESERVE_BLOCKER NONE · LIVE_ACTIVATION_PREFLIGHT STILL REQUIRED · SHADOW NOT ACTIVATED · POLICY NOT SELECTED · MONITOR NOT ACTIVATED · E1 NOT AUTHORIZED.
-
----
-
-## Reserves before activation (unchanged by this cycle)
-
-| Reserve | Status |
-|---|---|
-| R-T7-OP-EXPECTED-MODE-CAS-01 | CLOSED |
-| R-T7-OP-TARGET-BINDING-01 | CLOSED |
-| R-T7-SHADOW-OBS-01 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY |
-| R-QA-T7-C08-SCENARIO-01 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY |
-| R-T4-T3-SYNC-01 | OPEN BEFORE MONITOR + DEFERRED UNTIL PRE-MONITOR |
+Previous stop: BLOCKED BEFORE APPLY · PF16/PF17 FAIL · REAL_APPLY_ATTEMPTS=0 · EFFECTIVE OFF · ROW_EXISTS=false · dry-run PASS · SHADOW NOT ACTIVATED.
 
 ---
 
-## Operator contract verification
+## Previous stop summary
 
-| Contract | Result |
-|---|---|
-| fingerprint mandatory before Pool | PASS |
-| pilot projectId bounded `sfia-studio-ops1` | PASS |
-| modes OFF\|SHADOW only | PASS |
-| MONITOR/E1 refused | PASS |
-| dry-run without CAS | PASS |
-| apply via `compareAndSwapProjectRollout` | PASS |
-| CAS expectedMode + expectedRevision | PASS |
-| absent/effective OFF supported | PASS |
-| stale actor zero mutation (prior CAS proof) | PASS (not re-run) |
-| rollback SHADOW→OFF supported by CLI | PASS (command prepared; not executed) |
-
-**OPERATOR CONTRACT DRIFT = NO**
+Cause: OPENAI_API_KEY unavailable.
+This continuation aimed to clear PF16/PF17 with Keychain OpenAI credential.
 
 ---
 
-## Policy source
+## OpenAI Keychain / model / secret hygiene
 
 | Field | Value |
 |---|---|
-| POLICY_VALUES_SELECTED | NO |
-| POLICY_SOURCE_STATE | EMPTY / NOT_CONFIGURED (`Object.freeze({})`) |
-| Expected first-pilot semantics | allow / not_configured / signal_only |
-
----
-
-## Secret hygiene
-
-| Field | Value |
-|---|---|
-| Keychain service | `sfia-studio-finops-t7-shadow-pilot-DATABASE_URL_DIRECT` |
+| Keychain service | `sfia-studio-OPENAI_API_KEY` |
 | Keychain account | `morris` |
-| Keychain presence | YES |
-| DATABASE_URL_DIRECT_READ | YES — PROCESS ONLY |
-| RAW_DATABASE_URL_PRESENT | NO (never printed / not in pack) |
-| PASSWORD_VALUE_PRESENT | NO |
+| KEYCHAIN_OPENAI_ENTRY | PRESENT (metadata) |
+| Secret value usable | **NO** — `security … -w` returns empty (char length 0) |
+| OPENAI_MODEL process intent | `gpt-5.6` |
+| OPENAI_API_KEY_AVAILABLE (live config) | NO |
+| OPENAI_MODEL_CONFIGURED when model env set | YES |
+| LIVE_CONFIG_AVAILABLE | NO |
+| FAKE_PROVIDER_FORCED | NO (`OPS1_CONVERSATION_PROVIDER` unset) |
+| RAW_OPENAI_API_KEY_LOGGED | NO |
+| RAW_DATABASE_URL_LOGGED | NO |
+| SECRET_WRITTEN_TO_FILE | NO |
+| SECRET_WRITTEN_TO_GIT | NO |
 | REAL_SECRET_LEAK | NO |
-| Secret cleared from shell after preflight | YES |
+
+DB Keychain (`sfia-studio-finops-t7-shadow-pilot-DATABASE_URL_DIRECT` / `morris`) remains usable process-only.
 
 ---
 
-## Target identity + connection
+## Provider path + PF16
+
+Intended path:
+`resolveConversationProvider()` → `OpenAIConversationProvider` (Responses API)
+→ `PlatformAiExecutionAdapter`
+→ `composeExecutionRunProviders(...)`
+→ `composeExecutionRunD2D3T7ShadowPilot`
+
+Temporary harness created (untracked):
+`.tmp-sfia-review/t7-live-activation/provider-probe.ts`
+
+AVAIL probe result (sanitized): Keychain entry present but empty secret → live config unavailable → **PF16 FAIL**.
+
+OFF/SHADOW provider probes **not executed** (no usable API key; no retry; no fallback model).
+
+---
+
+## Fresh target identity / fingerprint / connection / OFF
 
 | Field | Value |
 |---|---|
-| hostname | `ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech` |
-| port | 5432 |
-| database | `neondb` |
-| fingerprint | `7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331` |
 | SAFE_IDENTITY_MATCH | YES |
-| TARGET_FINGERPRINT_MATCH | YES |
+| hostname/port/database | `ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech` / 5432 / `neondb` |
+| TARGET_FINGERPRINT_MATCH | YES (`7476c251…`) |
 | CONNECTION | PASS |
 | SERVER_MAJOR | 16 |
-| CURRENT_DATABASE | `neondb` |
-| TARGET_LABEL | `neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot` |
-
-Note: `SHOW ssl` returned `off` (Neon GUC); connection used Neon connection-string TLS path via `pg` driver (same as CLI). No config mutation.
+| PRE_APPLY_ROW_SNAPSHOT | ROW_EXISTS=false · MODE=null · REVISION=null · EFFECTIVE_MODE=OFF |
 
 ---
 
-## Initial rollout snapshot
+## OFF provider baseline / PF17
 
 | Field | Value |
 |---|---|
-| ROW_EXISTS | false |
-| MODE | null |
-| REVISION | null |
-| UPDATED_AT | null |
-| EFFECTIVE_MODE | OFF |
-
-**PRE_APPLY_ROW_SNAPSHOT** = absent row / effective OFF (form A).
-
----
-
-## Provider probe discovery — BLOCKING
-
-Discovery:
-- Real provider path = `composeExecutionRunD2D3T7ShadowPilot` + injected providers using `PlatformAiExecutionAdapter(resolveConversationProvider())`.
-- Real OpenAI requires `OPENAI_API_KEY` + `OPENAI_MODEL` (`lib/platform/ai/config.ts`).
-- No existing CLI/script in repo performs a live T7 pilot provider probe.
-- Temporary harness under `.tmp-sfia-review/` could import production runtime, but **cannot** obtain a real provider secret:
-  - `OPENAI_API_KEY` absent from process env
-  - no Keychain item `sfia-studio-OPENAI_API_KEY` (or other discovered OpenAI service)
-  - FakeAiExecutionAdapter rejected (not the configured live provider)
-
-| Field | Value |
-|---|---|
-| PROVIDER_PROBE_AVAILABLE | NO |
 | OFF_BASELINE_PROVIDER_PROBE | NOT EXECUTED |
-| POST_SHADOW_PROVIDER_PROBE | NOT EXECUTED |
-| Block reason | NO SAFE BOUNDED PROVIDER CONTINUITY PROBE — OPENAI_API_KEY unavailable without project mutation or inventing secrets |
-
-Per §13 / §17: **STOP BEFORE APPLY**.
+| PF17 | **FAIL** (blocked by PF16) |
 
 ---
 
-## Telemetry baseline (captured before dry-run / for reference)
+## Fresh telemetry baseline (pre-apply; no OFF provider events)
 
 | Field | Value |
 |---|---|
-| USAGE_BASELINE | projectId=sfia-studio-ops1 · count=0 · maxOccurredAt=null |
-| AUDIT_BASELINE | projectId=sfia-studio-ops1 · count=0 · maxOccurredAt=null |
-| usage columns | event_id, dedup_key, project_id, execution_run_id, correlation_id, provider, model, occurred_at, … |
-| audit columns | audit_event_id, event_type, project_id, execution_run_id, correlation_id, occurred_at, payload_json, created_at |
+| USAGE_BASELINE | count=0 · maxOccurredAt=null |
+| AUDIT_BASELINE | count=0 · maxOccurredAt=null |
+
+Note: GO required baseline after OFF provider probe; probe not run → baseline remains pre-provider fresh read.
 
 ---
 
-## Real dry-run
+## Fresh dry-run
 
-Command (no secret):
+Command without secret:
 
 ```text
 npm run finops:t7:rollout -- --project sfia-studio-ops1 --mode SHADOW --expected-mode OFF --target neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot --expected-target-fingerprint 7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331
 ```
 
-Sanitized result:
+Result:
 
 ```json
 {
   "ok": true,
-  "targetLabel": "neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot",
-  "projectId": "sfia-studio-ops1",
   "requestedMode": "SHADOW",
   "expectedMode": "OFF",
   "beforeEffectiveMode": "OFF",
   "beforeRevision": null,
   "afterMode": "OFF",
   "afterRevision": null,
-  "updatedAt": null,
   "applied": false,
   "result": "dry_run"
 }
 ```
 
-Post dry-run re-read: snapshot identical (ROW_EXISTS=false · EFFECTIVE_MODE=OFF · revision=null).
-
-| Field | Value |
-|---|---|
-| DRY_RUN | PASS |
-| DRY_RUN_MUTATION | ZERO |
-| TARGET_FINGERPRINT_MATCH | YES |
+Post re-read identical · DRY_RUN_MUTATION=ZERO.
 
 ---
 
-## PF01–PF18
+## PF01–PF18 (full recalculation — not cumulative)
 
-| ID | Check | Result |
-|---|---|---|
-| PF01 | main exact decision baseline | PASS |
-| PF02 | tracked clean / staged none | PASS |
-| PF03 | incoming handoff exact | PASS |
-| PF04 | CAS CLOSED evidence | PASS |
-| PF05 | target-binding CLOSED evidence | PASS |
-| PF06 | OBS first-pilot acceptance | PASS |
-| PF07 | C08 first-pilot acceptance | PASS |
-| PF08 | T4-T3 deferred pre-MONITOR | PASS |
-| PF09 | operator contract intact | PASS |
-| PF10 | policy source EMPTY | PASS |
-| PF11 | Keychain secret process-only | PASS |
-| PF12 | safe identity exact | PASS |
-| PF13 | fingerprint exact | PASS |
-| PF14 | real target connection PASS | PASS |
-| PF15 | current effective OFF | PASS |
-| PF16 | safe bounded provider probe available | **FAIL** |
-| PF17 | OFF baseline provider PASS | FAIL (blocked by PF16) |
-| PF18 | real dry-run PASS + zero mutation | PASS |
+| ID | Result |
+|---|---|
+| PF01 main exact baseline | PASS |
+| PF02 clean/staged | PASS |
+| PF03 handoff exact | PASS |
+| PF04 CAS CLOSED | PASS |
+| PF05 target-binding CLOSED | PASS |
+| PF06 OBS acceptance | PASS |
+| PF07 C08 acceptance | PASS |
+| PF08 T4-T3 deferred | PASS |
+| PF09 operator contract | PASS |
+| PF10 policy EMPTY | PASS |
+| PF11 secrets process-only (DB yes; OpenAI value empty) | FAIL (OpenAI usable secret absent) |
+| PF12 safe identity | PASS |
+| PF13 fingerprint | PASS |
+| PF14 connection | PASS |
+| PF15 effective OFF | PASS |
+| PF16 safe bounded real provider probe available | **FAIL** |
+| PF17 OFF baseline real provider PASS | **FAIL** |
+| PF18 fresh dry-run PASS / zero mutation | PASS |
 
-**PF01–PF18 = 16/18 PASS · 2 FAIL (PF16/PF17)**
+**PF01–PF18 = 15/18 PASS · FAIL PF11/PF16/PF17**
 
 → **NO APPLY**
+
+Clarification PF11: DB Keychain hygiene PASS; OpenAI Keychain metadata PRESENT but secret value empty → overall PF11 FAIL for this continuation's dual-secret requirement.
 
 ---
 
@@ -266,107 +204,322 @@ Post dry-run re-read: snapshot identical (ROW_EXISTS=false · EFFECTIVE_MODE=OFF
 
 | Field | Value |
 |---|---|
-| REAL_APPLY_ATTEMPTS | 0 |
+| REAL_APPLY_ATTEMPTS_THIS_RUN | 0 |
+| TOTAL_REAL_APPLY_ATTEMPTS_ACROSS_CYCLE | 0 |
 | REAL_APPLY_SUCCESS | NO (not attempted) |
 | activation attempted | NO |
-| apply command | NOT EXECUTED |
-
-Final pre-apply state remained OFF; no §18 apply window opened due to PF failure.
 
 ---
 
-## Durable SHADOW / post-activation checks
+## Durable SHADOW / post checks
 
 | Field | Value |
 |---|---|
-| DURABLE_SHADOW_STATE | N/A — not activated |
-| SHADOW_REVISION | N/A |
+| DURABLE_SHADOW_STATE | N/A |
 | POST_SHADOW_PROVIDER_PROBE | N/A |
 | USAGE_OBSERVABILITY | N/A |
 | AUDIT_OBSERVABILITY | N/A |
+| Final EFFECTIVE_MODE | OFF |
+| SHADOW | NOT ACTIVATED |
 
 ---
 
 ## Rollback
 
-Prepared command (not executed):
-
-```text
-npm run finops:t7:rollout -- --project sfia-studio-ops1 --mode OFF --expected-mode SHADOW --target neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot --expected-target-fingerprint 7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331 --apply
-```
-
 | Field | Value |
 |---|---|
-| ROLLBACK_PREPARED | YES |
+| ROLLBACK_PREPARED | YES (same SHADOW→OFF command) |
 | ROLLBACK_REQUIRED | NO |
 | ROLLBACK_EXECUTED | NO |
-| ROLLBACK_RESULT | N/A |
 
 ---
 
-## LA01–LA28
+## RA01–RA30
 
-| ID | Result | Notes |
-|---|---|---|
-| LA01 | PASS | baseline pinned |
-| LA02 | PASS | handoff exact |
-| LA03 | PASS | CAS CLOSED |
-| LA04 | PASS | target-binding CLOSED |
-| LA05 | PASS | OBS scoped acceptance |
-| LA06 | PASS | C08 scoped acceptance |
-| LA07 | PASS | T4-T3 deferred |
-| LA08 | PASS | policy absent |
-| LA09 | PASS | secret hygiene |
-| LA10 | PASS | safe identity |
-| LA11 | PASS | fingerprint |
-| LA12 | PASS | connection |
-| LA13 | PASS | initial OFF |
-| LA14 | FAIL | probe path not safely resolvable (no live AI secret) |
-| LA15 | FAIL | OFF provider baseline not run |
-| LA16 | PASS | telemetry baseline captured |
-| LA17 | PASS | dry-run |
-| LA18 | PASS | zero mutation |
-| LA19 | N/A | apply not reached |
-| LA20 | PASS | exactly zero apply attempts (correct under stop) |
-| LA21 | N/A | no apply result |
-| LA22 | N/A | no SHADOW |
-| LA23 | N/A | |
-| LA24 | N/A | |
-| LA25 | N/A | |
-| LA26 | PASS | signal_only / never-block code path unchanged; policy EMPTY |
-| LA27 | PASS | rollback prepared; not required/executed |
-| LA28 | PASS | no project mutation / no policy / no MONITOR / no E1 |
+PASS: RA01–RA10, RA11(DB), RA15(fake disabled), RA16–RA19, RA23–RA24, RA30 (no mutation)
+FAIL: RA12 usable secret (entry present/empty), RA13 usable process-only OpenAI, RA14 effective live model bind (blocked by empty key), RA20 PF16, RA21 PF17, RA25 18/18
+N/A: RA22 post-OFF-provider baseline timing, RA26–RA29 apply/post/rollback execution
 
 ---
 
-## Final runtime state
+## Reserves / MONITOR / E1 (unchanged)
 
-| Field | Value |
+| Reserve | Status |
 |---|---|
-| EFFECTIVE_MODE | OFF |
-| ROW_EXISTS | false |
-| REVISION | null |
-| SHADOW | NOT ACTIVATED |
-| REAL_TARGET_APPLY | ZERO |
+| CAS | CLOSED |
+| TARGET-BINDING | CLOSED |
+| OBS-01 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY |
+| C08 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY |
+| T4-T3 | OPEN BEFORE MONITOR + DEFERRED |
+| POLICY VALUES | NOT SELECTED |
+| MONITOR | NOT ACTIVATED |
+| E1 | NOT AUTHORIZED |
 
 ---
 
 ## Project mutation
 
-| Claim | Value |
-|---|---|
-| PROJECT_FILE_CHANGES | ZERO |
-| PROJECT_COMMIT | ZERO |
-| PROJECT_PUSH | ZERO |
-| PROJECT_PR | ZERO |
-
-Temporary untracked only: `.tmp-sfia-review/**` (readonly probe harness + this pack).
+PROJECT_FILE_CHANGES/COMMIT/PUSH/PR = ZERO
+Temporary only: `.tmp-sfia-review/**`
 
 ---
 
-## Temporary harness (complete content)
+## Temporary harnesses (complete)
 
-Path: `.tmp-sfia-review/t7-live-activation/neon-readonly.ts`
+### `.tmp-sfia-review/t7-live-activation/provider-probe.ts`
+
+```typescript
+/**
+ * Temporary untracked harness — Cycle 11 PF16 continuation.
+ * Uses production SFIA pilot composition + resolveConversationProvider().
+ * Does NOT call new OpenAI() directly. Does NOT use FakeConversationProvider for AI.
+ * Secrets must arrive via process env only; never logged.
+ */
+import { createHash } from "node:crypto";
+import { createRequire } from "node:module";
+import { composeExecutionRunD2D3T7ShadowPilot } from "../../projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts";
+import { composeExecutionRunProviders } from "../../projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunProviders.ts";
+import { PlatformAiExecutionAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ai/platformAiExecutionAdapter.ts";
+import { FakeGitReadAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/git/fakeGitReadAdapter.ts";
+import { FixtureCursorExecutionAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/cursor/fixtureCursorExecutionAdapter.ts";
+import { FakeSecretSourceAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/secrets/fakeSecretSourceAdapter.ts";
+import { RecordingExecutionEventSink } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/events/recordingExecutionEventSink.ts";
+import { getFixture } from "../../projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts";
+import {
+  getLiveConversationAvailability,
+  isFakeConversationProviderForced,
+} from "../../projects/sfia-studio/app/lib/platform/ai/config.ts";
+import { resolveConversationProvider } from "../../projects/sfia-studio/app/lib/platform/ai/provider.ts";
+import { deriveFinOpsT7TargetIdentity, assertExpectedTargetFingerprintMatch } from "../../projects/sfia-studio/app/lib/oa/finops/server/finOpsT7TargetIdentity.ts";
+
+const require = createRequire(
+  new URL("../../projects/sfia-studio/app/package.json", import.meta.url),
+);
+const { Pool } = require("pg") as typeof import("pg");
+
+const PILOT = "sfia-studio-ops1";
+const EXPECTED_FP =
+  "7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331";
+
+function truncHash(value: string | undefined): string | null {
+  if (!value) return null;
+  return createHash("sha256").update(value, "utf8").digest("hex").slice(0, 16);
+}
+
+function phaseArg(): "OFF" | "SHADOW" | "AVAIL" {
+  const a = process.argv[2]?.trim().toUpperCase();
+  if (a === "OFF" || a === "SHADOW" || a === "AVAIL") return a;
+  throw new Error("Usage: provider-probe.ts <AVAIL|OFF|SHADOW>");
+}
+
+async function main() {
+  const phase = phaseArg();
+
+  const availability = getLiveConversationAvailability();
+  const fakeForced = isFakeConversationProviderForced();
+  const model = process.env.OPENAI_MODEL?.trim() ?? "";
+
+  if (phase === "AVAIL") {
+    const missing =
+      availability.available === false ? availability.missing : [];
+    const out = {
+      OPENAI_API_KEY_AVAILABLE: !missing.includes("OPENAI_API_KEY"),
+      OPENAI_MODEL_CONFIGURED: !missing.includes("OPENAI_MODEL"),
+      OPENAI_MODEL: model || null,
+      LIVE_CONFIG_AVAILABLE: availability.available === true,
+      FAKE_PROVIDER_FORCED: fakeForced,
+      PROVIDER_RESOLVER: "resolveConversationProvider",
+      PROVIDER: "openai",
+    };
+    console.log(JSON.stringify(out, null, 2));
+    if (!availability.available || fakeForced || model !== "gpt-5.6") {
+      process.exit(2);
+    }
+    return;
+  }
+
+  if (!process.env.DATABASE_URL_DIRECT?.trim()) {
+    throw new Error("DATABASE_URL_DIRECT missing");
+  }
+  if (!process.env.OPENAI_API_KEY?.trim()) {
+    throw new Error("OPENAI_API_KEY missing");
+  }
+  if (model !== "gpt-5.6") {
+    throw new Error("OPENAI_MODEL must be gpt-5.6");
+  }
+  if (fakeForced) {
+    throw new Error("OPS1_CONVERSATION_PROVIDER=fake is forbidden");
+  }
+  if (!availability.available) {
+    throw new Error(
+      `live conversation unavailable: missing ${(availability as { missing: string[] }).missing.join(",")}`,
+    );
+  }
+
+  const url = process.env.DATABASE_URL_DIRECT!;
+  const id = deriveFinOpsT7TargetIdentity(url);
+  assertExpectedTargetFingerprintMatch(id.fingerprint, EXPECTED_FP);
+
+  const conversation = resolveConversationProvider();
+  if (conversation.providerId !== "openai") {
+    throw new Error(`unexpected providerId=${conversation.providerId}`);
+  }
+  // Ensure we did not resolve the fake provider.
+  if (conversation.constructor?.name === "FakeConversationProvider") {
+    throw new Error("FakeConversationProvider resolved — forbidden");
+  }
+
+  const pool = new Pool({ connectionString: url, max: 2 });
+  const started = Date.now();
+  try {
+    const rollout = await pool.query(
+      `SELECT mode, revision FROM finops_rollout_config WHERE project_id=$1`,
+      [PILOT],
+    );
+    const exists = (rollout.rowCount ?? 0) > 0;
+    const mode = exists ? String(rollout.rows[0].mode) : "OFF";
+    const effective = exists ? mode : "OFF";
+    if (phase === "OFF" && effective !== "OFF") {
+      throw new Error(`expected OFF before probe, got ${effective}`);
+    }
+    if (phase === "SHADOW" && effective !== "SHADOW") {
+      throw new Error(`expected SHADOW before probe, got ${effective}`);
+    }
+
+    const secretsAdapter = new FakeSecretSourceAdapter();
+    const providers = composeExecutionRunProviders({
+      ai: new PlatformAiExecutionAdapter(conversation, {
+        defaultTimeoutMs: 60_000,
+        verified: true,
+      }),
+      git: new FakeGitReadAdapter({
+        repositoryAllowlist: [
+          "o/r",
+          "example/example",
+          "mcleland147/sfia-studio",
+          "mcleland147/sfia-workspace",
+        ],
+        pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
+      }),
+      cursor: new FixtureCursorExecutionAdapter(),
+      secrets: { resolve: (secretId) => secretsAdapter.resolve(secretId) },
+      events: new RecordingExecutionEventSink(),
+    });
+
+    const composition = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      nowIso: () => new Date().toISOString(),
+      providers,
+      // default versioned EMPTY policy source
+    });
+
+    const suffix = `live-${phase.toLowerCase()}-${Date.now()}`;
+    const fixture = getFixture("nominal");
+    const correlationId = `corr:t7live:${suffix}`;
+    const result = await composition.coordinate({
+      intent: {
+        ...fixture.intent,
+        intentId: `intent:t7live:${suffix}`,
+        correlationId,
+        requestedLane: "ai",
+        requestedSource: "fixture",
+      },
+      context: {
+        ...fixture.context,
+        projectId: PILOT,
+        declaredSource: "fixture",
+      },
+      providerRequest: {
+        correlationId,
+        lane: "ai",
+        operation: "complete",
+        messages: [
+          {
+            role: "user",
+            content:
+              "SFIA T7 bounded continuity probe. Reply with exactly: SFIA_T7_PROBE_OK",
+          },
+        ],
+        timeoutMs: 60_000,
+      },
+      timeoutMs: 90_000,
+    });
+
+    await composition.flushAudit().catch(() => undefined);
+
+    const usage = result.validatedUsage ?? result.run?.evidence?.[0]?.usage;
+    const finopsCapture = result.finopsCapture ?? null;
+    const providerResponseId =
+      usage && typeof usage === "object" && "providerResponseId" in usage
+        ? String((usage as { providerResponseId?: string }).providerResponseId ?? "")
+        : "";
+
+    const safe = {
+      PHASE: phase,
+      SUCCESS: result.ok === true && result.providerCompleted === true,
+      PROVIDER_ID: conversation.providerId,
+      MODEL_CONFIGURED: model,
+      MODEL_RETURNED:
+        usage && typeof usage === "object" && "model" in usage
+          ? (usage as { model?: string }).model ?? null
+          : null,
+      PROVIDER_RESPONSE_ID_HASH16: truncHash(providerResponseId || undefined),
+      PROVIDER_INVOKED: result.providerInvoked === true,
+      PROVIDER_COMPLETED: result.providerCompleted === true,
+      RUN_STATE: result.run?.state ?? null,
+      FINOPS_CAPTURE_STATUS:
+        finopsCapture && typeof finopsCapture === "object" && "status" in finopsCapture
+          ? (finopsCapture as { status: string }).status
+          : null,
+      FINOPS_CAPTURE_REASON:
+        finopsCapture && typeof finopsCapture === "object" && "reason" in finopsCapture
+          ? (finopsCapture as { reason?: string }).reason ?? null
+          : null,
+      FINOPS_PROVIDER_BLOCK: false,
+      INPUT_TOKENS:
+        usage && typeof usage === "object" && "inputTokens" in usage
+          ? (usage as { inputTokens?: number }).inputTokens ?? null
+          : null,
+      OUTPUT_TOKENS:
+        usage && typeof usage === "object" && "outputTokens" in usage
+          ? (usage as { outputTokens?: number }).outputTokens ?? null
+          : null,
+      TOTAL_TOKENS:
+        usage && typeof usage === "object" && "totalTokens" in usage
+          ? (usage as { totalTokens?: number }).totalTokens ?? null
+          : null,
+      DURATION_MS: Date.now() - started,
+      CORRELATION_ID: correlationId,
+      RUN_ID: result.run?.runId ?? null,
+      ROLLOUT_EFFECTIVE_AT_PROBE: effective,
+      ERROR_CATEGORY:
+        result.ok === true
+          ? null
+          : result.failure?.code ?? result.failure?.family ?? "COORDINATE_FAILED",
+    };
+
+    // Defense: if FinOps somehow blocked provider, surface it.
+    if (result.run?.state === "blocked") {
+      (safe as { FINOPS_PROVIDER_BLOCK: boolean }).FINOPS_PROVIDER_BLOCK = true;
+    }
+
+    console.log(JSON.stringify(safe, null, 2));
+    if (!safe.SUCCESS || safe.FINOPS_PROVIDER_BLOCK) process.exit(3);
+  } finally {
+    await pool.end().catch(() => undefined);
+  }
+}
+
+main().catch((e) => {
+  const message = String(e && (e as Error).message ? (e as Error).message : e)
+    .replace(/sk-[A-Za-z0-9._-]+/g, "[redacted_key]")
+    .replace(/postgres(ql)?:\/\/[^\s]+/gi, "postgres://[redacted]");
+  console.error(JSON.stringify({ ok: false, message }, null, 2));
+  process.exit(1);
+});
+```
+
+### `.tmp-sfia-review/t7-live-activation/neon-readonly.ts`
 
 ```typescript
 import { createRequire } from "node:module";
@@ -465,54 +618,36 @@ main().catch((e) => {
 });
 ```
 
-No secrets in harness. No OpenAI probe harness created (would be useless without key).
-
----
-
-## Policy / MONITOR / E1 / accepted reserves
-
-| Claim | Value |
-|---|---|
-| POLICY VALUES | NOT SELECTED |
-| MONITOR | NOT ACTIVATED |
-| E1 | NOT AUTHORIZED |
-| OBS-01 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY (preserved) |
-| C08 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY (preserved) |
-| T4-T3 | OPEN BEFORE MONITOR + DEFERRED (preserved) |
-| CAS | CLOSED |
-| TARGET-BINDING | CLOSED |
-
 ---
 
 ## Next Morris gate (proposed — not executed)
 
-GO T7 SHADOW LIVE ACTIVATION PROVIDER PROBE PRECONDITION —
-PROVISION OPENAI_API_KEY + OPENAI_MODEL FOR BOUNDED PROCESS-ONLY USE —
-OR POINT CURSOR TO EXISTING SECURE SECRET LOCATION —
-THEN RETRY LIVE ACTIVATION PREFLIGHT FROM PF16 —
+GO T7 SHADOW LIVE ACTIVATION PROVIDER SECRET REPAIR —
+STORE NON-EMPTY OPENAI API KEY INTO KEYCHAIN —
+service sfia-studio-OPENAI_API_KEY —
+account morris —
+THEN GO REPRISE PF16 AGAIN —
+OPENAI_MODEL=gpt-5.6 —
 KEEP MAIN PINNED 96a8a14bc894b520043b3a8f758b1fb14a72a5e4 —
 NO REAL TARGET APPLY UNTIL PF01–PF18 = 18/18 —
 NO POLICY VALUES —
 NO MONITOR —
 NO E1.
 
-Alternative if Morris prefers a different evidence path: authorize an explicit existing application surface that already holds live provider credentials, without inventing a new API.
+Do not paste the key into chat. Update the existing Keychain item password/data so `security … -w` returns a non-empty value.
 
 ---
 
 ## Unique verdict
 
-T7 SHADOW LIVE ACTIVATION BLOCKED BEFORE APPLY —
+T7 SHADOW LIVE ACTIVATION CONTINUATION BLOCKED BEFORE APPLY —
 CYCLE 11 CRITICAL —
-CAUSE NO SAFE BOUNDED PROVIDER CONTINUITY PROBE (OPENAI_API_KEY UNAVAILABLE IN ENV/KEYCHAIN) —
-PF16 FAIL —
-REAL APPLY ZERO —
-FINAL ROLLOUT OFF (ROW ABSENT) —
+CAUSE KEYCHAIN OPENAI ENTRY PRESENT BUT SECRET VALUE EMPTY / UNUSABLE —
+PF01–PF18 15/18 (PF11/PF16/PF17 FAIL) —
+TOTAL REAL APPLY ATTEMPTS ACROSS CYCLE ZERO —
+FINAL ROLLOUT OFF —
 SHADOW NOT ACTIVATED —
-TARGET IDENTITY / FINGERPRINT / DRY-RUN VERIFIED —
+TARGET IDENTITY / FINGERPRINT / FRESH DRY-RUN VERIFIED —
 NO PROJECT MUTATION —
-POLICY VALUES NOT SELECTED —
-MONITOR NOT ACTIVATED —
-E1 NOT AUTHORIZED —
 MORRIS REVIEW REQUIRED —
 HANDOFF REMOTE VERIFIED.
