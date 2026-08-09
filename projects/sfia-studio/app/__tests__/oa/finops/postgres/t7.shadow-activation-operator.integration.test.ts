@@ -5,7 +5,7 @@
  * Ephemeral local Postgres only — never Neon / shared / production.
  */
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import type { Pool } from "pg";
+import type { Pool, PoolClient } from "pg";
 import {
   closeFinOpsPool,
   createFinOpsPool,
@@ -23,10 +23,16 @@ const PILOT = "sfia-studio-ops1";
 
 describeDb("T7 SHADOW activation operator — PostgreSQL", () => {
   let pool: Pool;
+  let lockClient: PoolClient;
   const store = () => createPostgresFinOpsRolloutStore(pool);
 
   beforeAll(async () => {
+    // max includes lock client — serialize vs other T7 suites on finops_rollout_config.
     pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 4 });
+    lockClient = await pool.connect();
+    await lockClient.query(
+      `SELECT pg_advisory_lock(hashtext('finops-t7-rollout-table'))`,
+    );
     await pool.query(`DELETE FROM finops_rollout_config WHERE project_id = $1`, [
       PILOT,
     ]);
@@ -41,6 +47,14 @@ describeDb("T7 SHADOW activation operator — PostgreSQL", () => {
     } catch {
       // ignore
     }
+    try {
+      await lockClient.query(
+        `SELECT pg_advisory_unlock(hashtext('finops-t7-rollout-table'))`,
+      );
+    } catch {
+      // ignore
+    }
+    lockClient.release();
     await closeFinOpsPool(pool);
   });
 
