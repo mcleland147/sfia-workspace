@@ -54,8 +54,10 @@ type ParsedCostsPage = {
   }>;
 };
 
+// Numbered groups only (tsc target < ES2018 rejects named capturing groups).
+// 1=valueNum, 2=valueStr, 3=currencyA, 4=currencyB, 5=valueNum2, 6=valueStr2
 const AMOUNT_BLOCK_RE =
-  /"amount"\s*:\s*\{\s*(?:(?:"value"\s*:\s*(?<valueNum>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|"value"\s*:\s*"(?<valueStr>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)")\s*,\s*"currency"\s*:\s*"(?<currencyA>[^"]+)"|"currency"\s*:\s*"(?<currencyB>[^"]+)"\s*,\s*(?:"value"\s*:\s*(?<valueNum2>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|"value"\s*:\s*"(?<valueStr2>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)"))\s*\}/g;
+  /"amount"\s*:\s*\{\s*(?:(?:"value"\s*:\s*(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|"value"\s*:\s*"(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)")\s*,\s*"currency"\s*:\s*"([^"]+)"|"currency"\s*:\s*"([^"]+)"\s*,\s*(?:"value"\s*:\s*(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|"value"\s*:\s*"(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)"))\s*\}/g;
 
 /**
  * Extract amount.value decimal literals from raw JSON wire text.
@@ -66,12 +68,8 @@ export function extractAmountLiteralsFromRawCostsPage(
 ): ReadonlyArray<{ readonly valueLiteral: string; readonly currencyRaw: string }> {
   const out: Array<{ valueLiteral: string; currencyRaw: string }> = [];
   for (const match of rawPage.matchAll(AMOUNT_BLOCK_RE)) {
-    const valueLiteral =
-      match.groups?.valueNum ??
-      match.groups?.valueStr ??
-      match.groups?.valueNum2 ??
-      match.groups?.valueStr2;
-    const currencyRaw = match.groups?.currencyA ?? match.groups?.currencyB;
+    const valueLiteral = match[1] ?? match[2] ?? match[5] ?? match[6];
+    const currencyRaw = match[3] ?? match[4];
     if (!valueLiteral || !currencyRaw) {
       throw new Error("OpenAI costs amount block incomplete in raw page text");
     }

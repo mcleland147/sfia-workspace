@@ -1,11 +1,18 @@
 /**
  * FinOps T2 — BILLED period reconciliation (PROJECT_PERIOD attribution).
  * Delta-based append-only corrections; no fake executionRunId.
+ *
+ * Complete snapshot semantics: atoms previously active in the same economic
+ * scope but absent from the current complete snapshot converge to zero via
+ * negative deltas. Incomplete / failed provider fetches never tombstone.
  */
 
 import {
+  buildAbsentFromCompleteSnapshotCorrectionRef,
   buildCorrectionRef,
   buildProviderPayloadDigest,
+  derivedSourceReferenceBelongsToScope,
+  isParsableDerivedSourceReference,
 } from "./billedPeriodIdentity";
 import {
   formatMoneyString,
@@ -17,10 +24,7 @@ import {
 import { computeUtcMonthPeriod } from "../domain/period";
 import type { FinOpsAggregatePort } from "../ports/finopsAggregatePort";
 import type { FinOpsReconciliationPort } from "../ports/finopsReconciliationPort";
-import {
-  recomputeAggregates,
-  type RecomputeAggregatesDeps,
-} from "./recomputeAggregates";
+import { buildAggregatesFromCostEvents } from "./recomputeAggregates";
 import {
   derivePeriodCostEventIdentity,
   derivePeriodReconciliationDedupKey,
@@ -52,11 +56,44 @@ function periodStartMatchesOccurredAt(
   }
 }
 
-function validateProjectPeriodFact(fact: BilledPeriodFact, periodStart: string): void {
+function validateProjectPeriodFact(
+  fact: BilledPeriodFact,
+  input: {
+    readonly projectId: string;
+    readonly periodStart: string;
+    readonly provider: string;
+    readonly externalProjectId: string;
+  },
+): void {
   if (!fact.derivedSourceReference.trim()) {
     throw new Error("derivedSourceReference is required for BILLED period facts");
   }
-  if (!periodStartMatchesOccurredAt(periodStart, fact.sourceBucketStart)) {
+  if (!isParsableDerivedSourceReference(fact.derivedSourceReference)) {
+    throw new Error("derivedSourceReference is not parsable for scope proof");
+  }
+  if (fact.projectId.trim() !== input.projectId) {
+    throw new Error("fact projectId does not match reconciliation projectId");
+  }
+  if (fact.provider.trim() !== input.provider) {
+    throw new Error("fact provider does not match snapshot provider");
+  }
+  if (fact.externalProjectId.trim() !== input.externalProjectId) {
+    throw new Error(
+      "fact externalProjectId does not match snapshot externalProjectId",
+    );
+  }
+  if (
+    !derivedSourceReferenceBelongsToScope(fact.derivedSourceReference, {
+      provider: input.provider,
+      externalProjectId: input.externalProjectId,
+      sfiaProjectId: input.projectId,
+    })
+  ) {
+    throw new Error(
+      "derivedSourceReference does not belong to reconciliation economic scope",
+    );
+  }
+  if (!periodStartMatchesOccurredAt(input.periodStart, fact.sourceBucketStart)) {
     throw new Error("fact sourceBucketStart does not belong to periodStart");
   }
 }
@@ -87,6 +124,162 @@ function sumLedgerForAtom(
   ).amountMinor;
 }
 
+function currencyFromDerivedSourceReference(
+  derivedSourceReference: string,
+): string {
+  const parts = derivedSourceReference.split("|");
+  return normalizeCurrency(parts[parts.length - 1]!);
+}
+
+function collectActiveScopedAtoms(
+  ledger: ReadonlyArray<FinOpsCostEvent>,
+  scope: {
+    readonly projectId: string;
+    readonly periodStart: string;
+    readonly provider: string;
+    readonly externalProjectId: string;
+  },
+): ReadonlyArray<{
+  readonly derivedSourceReference: string;
+  readonly currency: string;
+  readonly cumulativeMinor: bigint;
+  readonly occurredAt: string;
+}> {
+  const byRef = new Map<
+    string,
+    { currency: string; occurredAt: string; events: FinOpsCostEvent[] }
+  >();
+
+  for (const event of ledger) {
+    if (
+      event.projectId !== scope.projectId ||
+      event.periodStart !== scope.periodStart ||
+      event.sourceOfTruth !== "BILLED" ||
+      event.attributionScope !== "PROJECT_PERIOD" ||
+      event.amount === null
+    ) {
+      continue;
+    }
+    const ref = event.derivedSourceReference;
+    if (!ref || !ref.trim()) {
+      throw new Error(
+        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE: PROJECT_PERIOD BILLED event missing derivedSourceReference",
+      );
+    }
+    if (!isParsableDerivedSourceReference(ref)) {
+      throw new Error(
+        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE: PROJECT_PERIOD BILLED event has unparsable derivedSourceReference",
+      );
+    }
+    if (
+      !derivedSourceReferenceBelongsToScope(ref, {
+        provider: scope.provider,
+        externalProjectId: scope.externalProjectId,
+        sfiaProjectId: scope.projectId,
+      })
+    ) {
+      // Other economic scope — never tombstone.
+      continue;
+    }
+    const existing = byRef.get(ref);
+    if (!existing) {
+      byRef.set(ref, {
+        currency: normalizeCurrency(event.currency),
+        occurredAt: event.occurredAt,
+        events: [event],
+      });
+    } else {
+      existing.events.push(event);
+    }
+  }
+
+  const active: Array<{
+    derivedSourceReference: string;
+    currency: string;
+    cumulativeMinor: bigint;
+    occurredAt: string;
+  }> = [];
+
+  for (const [derivedSourceReference, bucket] of byRef) {
+    const cumulativeMinor = sumMoney(
+      bucket.currency,
+      bucket.events.map((e) => parseMoneyString(e.amount!, bucket.currency)),
+    ).amountMinor;
+    if (cumulativeMinor === BigInt(0)) continue;
+    active.push({
+      derivedSourceReference,
+      currency: bucket.currency,
+      cumulativeMinor,
+      occurredAt: bucket.occurredAt,
+    });
+  }
+  return active;
+}
+
+async function appendDeltaEvent(input: {
+  readonly ops: {
+    readonly insertCostEvent: FinOpsReconciliationPort["insertCostEvent"];
+  };
+  readonly ledger: FinOpsCostEvent[];
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly sourceBatchId: string;
+  readonly provider: string;
+  readonly derivedSourceReference: string;
+  readonly currency: string;
+  readonly deltaAmount: string;
+  readonly correctionRef: string;
+  readonly occurredAt: string;
+}): Promise<"created" | "duplicate"> {
+  const identity = derivePeriodCostEventIdentity({
+    projectId: input.projectId,
+    periodStart: input.periodStart,
+    provider: input.provider,
+    derivedSourceReference: input.derivedSourceReference,
+    correctionRef: input.correctionRef,
+    sourceBatchId: input.sourceBatchId,
+    amount: input.deltaAmount,
+    currency: input.currency,
+  });
+
+  const event: FinOpsCostEvent = {
+    costEventId: identity.costEventId,
+    dedupKey: identity.dedupKey,
+    projectId: input.projectId,
+    attributionScope: "PROJECT_PERIOD",
+    executionRunId: null,
+    derivedSourceReference: input.derivedSourceReference,
+    usageEventId: null,
+    periodStart: input.periodStart,
+    currency: input.currency,
+    amount: input.deltaAmount,
+    evidenceClass: "billed",
+    sourceOfTruth: "BILLED",
+    estimationStatus: "available",
+    correctionRef: input.correctionRef,
+    catalogVersion: null,
+    provider: input.provider,
+    model: null,
+    unit: null,
+    billingQuantum: null,
+    usageQuantity: null,
+    occurredAt: input.occurredAt,
+  };
+
+  const result = await input.ops.insertCostEvent(event);
+  if (result.outcome === "created") {
+    input.ledger.push(event);
+    return "created";
+  }
+  if (result.outcome === "duplicate") {
+    return "duplicate";
+  }
+  if (result.outcome === "conflict") {
+    throw new Error(result.message);
+  }
+  throw new Error(result.message);
+}
+
 export async function reconcileBilledPeriod(
   deps: ReconcileBilledPeriodDeps,
   input: ReconcileBilledPeriodInput,
@@ -103,6 +296,27 @@ export async function reconcileBilledPeriod(
       finopsSideOnly: true,
     };
   }
+
+  const snapshot = input.snapshot;
+  if (
+    !snapshot ||
+    (snapshot.completeness !== "complete" &&
+      snapshot.completeness !== "incomplete") ||
+    !snapshot.provider?.trim() ||
+    !snapshot.externalProjectId?.trim()
+  ) {
+    return {
+      outcome: "failed",
+      reconciliationId: null,
+      code: "FINOPS_RECON_INVALID_INPUT",
+      message:
+        "snapshot.completeness, snapshot.provider, and snapshot.externalProjectId are required",
+      finopsSideOnly: true,
+    };
+  }
+
+  const provider = snapshot.provider.trim();
+  const externalProjectId = snapshot.externalProjectId.trim();
 
   const { reconciliationId, dedupKey } = derivePeriodReconciliationDedupKey({
     projectId,
@@ -222,8 +436,16 @@ export async function reconcileBilledPeriod(
           })),
         ];
 
+        const presentRefs = new Set<string>();
+
         for (const fact of input.facts) {
-          validateProjectPeriodFact(fact, periodStart);
+          validateProjectPeriodFact(fact, {
+            projectId,
+            periodStart,
+            provider,
+            externalProjectId,
+          });
+          presentRefs.add(fact.derivedSourceReference);
           const currency = normalizeCurrency(fact.currency);
           const providerAmount = parseMoneyString(fact.providerAmount, currency);
 
@@ -262,66 +484,112 @@ export async function reconcileBilledPeriod(
                   }),
                 });
 
-          const identity = derivePeriodCostEventIdentity({
+          const insertOutcome = await appendDeltaEvent({
+            ops,
+            ledger,
             projectId,
             periodStart,
-            provider: fact.provider,
-            derivedSourceReference: fact.derivedSourceReference,
-            correctionRef,
             sourceBatchId,
-            amount: deltaAmount,
-            currency,
-          });
-
-          const event: FinOpsCostEvent = {
-            costEventId: identity.costEventId,
-            dedupKey: identity.dedupKey,
-            projectId,
-            attributionScope: "PROJECT_PERIOD",
-            executionRunId: null,
+            provider,
             derivedSourceReference: fact.derivedSourceReference,
-            usageEventId: null,
-            periodStart,
             currency,
-            amount: deltaAmount,
-            evidenceClass: "billed",
-            sourceOfTruth: "BILLED",
-            estimationStatus: "available",
+            deltaAmount,
             correctionRef,
-            catalogVersion: null,
-            provider: fact.provider,
-            model: null,
-            unit: null,
-            billingQuantum: null,
-            usageQuantity: null,
             occurredAt: fact.sourceBucketStart,
-          };
-
-          const result = await ops.insertCostEvent(event);
-          if (result.outcome === "created") {
+          });
+          if (insertOutcome === "created") {
             createdCount += 1;
-            ledger.push(event);
-          } else if (result.outcome === "duplicate") {
-            duplicateCount += 1;
-          } else if (result.outcome === "conflict") {
-            throw new Error(result.message);
           } else {
-            throw new Error(result.message);
+            duplicateCount += 1;
           }
           processedCount += 1;
         }
 
-        const recomputeDeps: RecomputeAggregatesDeps = {
-          aggregates: deps.aggregates,
-          nowIso: deps.nowIso,
-        };
-        const recomputed = await recomputeAggregates(recomputeDeps, {
+        // Missing-atom corrections only for COMPLETE snapshots of this scope.
+        // Incomplete / provider failure must never be treated as empty-complete.
+        if (snapshot.completeness === "complete") {
+          const active = collectActiveScopedAtoms(ledger, {
+            projectId,
+            periodStart,
+            provider,
+            externalProjectId,
+          });
+
+          for (const atom of active) {
+            if (presentRefs.has(atom.derivedSourceReference)) continue;
+
+            // Target absolute economic state = 0 for this atom in scope.
+            const currency =
+              atom.currency ||
+              currencyFromDerivedSourceReference(atom.derivedSourceReference);
+            const cumulative = sumLedgerForAtom(ledger, {
+              projectId,
+              periodStart,
+              currency,
+              derivedSourceReference: atom.derivedSourceReference,
+            });
+            if (cumulative === BigInt(0)) continue;
+
+            const deltaMinor = BigInt(0) - cumulative;
+            const deltaAmount = formatMoneyString(
+              moneyFromMinor(deltaMinor, currency),
+            );
+            const correctionRef = buildAbsentFromCompleteSnapshotCorrectionRef({
+              derivedSourceReference: atom.derivedSourceReference,
+              sourceBatchId,
+              provider,
+              externalProjectId,
+              sfiaProjectId: projectId,
+              periodStart,
+            });
+
+            const insertOutcome = await appendDeltaEvent({
+              ops,
+              ledger,
+              projectId,
+              periodStart,
+              sourceBatchId,
+              provider,
+              derivedSourceReference: atom.derivedSourceReference,
+              currency,
+              deltaAmount,
+              correctionRef,
+              occurredAt: atom.occurredAt,
+            });
+            if (insertOutcome === "created") {
+              createdCount += 1;
+            } else {
+              duplicateCount += 1;
+            }
+            processedCount += 1;
+          }
+        }
+
+        // Rebuild from the in-session ledger. A separate DB read would miss
+        // uncommitted inserts under withExclusiveProjectPeriodReconciliation.
+        const existingAggregates =
+          await deps.aggregates.listAggregatesForProjectPeriod({
+            projectId,
+            periodStart,
+          });
+        const previousVersions = new Map(
+          existingAggregates.map((row) => [row.currency, row.rebuildVersion]),
+        );
+        const rebuilt = buildAggregatesFromCostEvents({
           projectId,
           periodStart,
+          events: ledger,
+          rebuiltAt: deps.nowIso(),
+          previousVersions,
         });
-        if (recomputed.outcome === "failed") {
-          throw new Error(recomputed.message);
-        }
+        const aggregates =
+          await deps.aggregates.withExclusiveProjectPeriodRebuild(
+            { projectId, periodStart },
+            async (aggregateOps) => {
+              await aggregateOps.replaceAggregates(rebuilt);
+              return rebuilt;
+            },
+          );
 
         await ops.completeReconciliationRecord({
           reconciliationId,
@@ -338,7 +606,7 @@ export async function reconcileBilledPeriod(
           processedCount,
           createdCount,
           duplicateCount,
-          aggregates: recomputed.aggregates,
+          aggregates,
           idempotentReplay: false,
         };
       } catch (error) {

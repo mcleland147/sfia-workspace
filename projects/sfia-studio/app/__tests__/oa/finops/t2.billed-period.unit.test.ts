@@ -63,6 +63,45 @@ function billedFact(
   };
 }
 
+function completeSnapshot(externalProjectId: string = EXTERNAL) {
+  return {
+    completeness: "complete" as const,
+    provider: "openai",
+    externalProjectId,
+  };
+}
+
+function incompleteSnapshot(externalProjectId: string = EXTERNAL) {
+  return {
+    completeness: "incomplete" as const,
+    provider: "openai",
+    externalProjectId,
+  };
+}
+
+function batchForAtoms(
+  atoms: ReadonlyArray<{
+    line_item: string | null;
+    providerAmount: string;
+  }>,
+): string {
+  return buildBilledPeriodSourceBatchId({
+    provider: "openai",
+    externalProjectId: EXTERNAL,
+    sfiaProjectId: PROJECT,
+    periodStart: PERIOD,
+    adapterContractVersion: "openai-costs-v1",
+    atoms: atoms.map((a) => ({
+      sourceBucketStart: BUCKET,
+      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+      project_id: EXTERNAL,
+      line_item: a.line_item,
+      currency: "USD",
+      providerAmount: a.providerAmount,
+    })),
+  });
+}
+
 describe("FinOps T2 billed period", () => {
   it("deriveCostEventIdentity unchanged for fixed RUN inputs", () => {
     const identity = deriveCostEventIdentity({
@@ -155,6 +194,7 @@ describe("FinOps T2 billed period", () => {
         periodStart: PERIOD,
         sourceBatchId: "batch-a",
         facts: [bad],
+        snapshot: completeSnapshot(),
       },
     );
     expect(result.outcome).toBe("failed");
@@ -233,6 +273,7 @@ describe("FinOps T2 billed period", () => {
       periodStart: PERIOD,
       sourceBatchId: batch1,
       facts: [billedFact("100.00000000", batch1)],
+      snapshot: completeSnapshot(),
     });
     expect(first.outcome).toBe("succeeded");
     if (first.outcome !== "succeeded") return;
@@ -260,6 +301,7 @@ describe("FinOps T2 billed period", () => {
       periodStart: PERIOD,
       sourceBatchId: batch2,
       facts: [billedFact("105.00000000", batch2)],
+      snapshot: completeSnapshot(),
     });
     expect(second.outcome).toBe("succeeded");
     if (second.outcome !== "succeeded") return;
@@ -287,6 +329,7 @@ describe("FinOps T2 billed period", () => {
       periodStart: PERIOD,
       sourceBatchId: batch3,
       facts: [billedFact("103.00000000", batch3)],
+      snapshot: completeSnapshot(),
     });
     expect(third.outcome).toBe("succeeded");
     if (third.outcome !== "succeeded") return;
@@ -299,6 +342,7 @@ describe("FinOps T2 billed period", () => {
       periodStart: PERIOD,
       sourceBatchId: batch3,
       facts: [billedFact("103.00000000", batch3)],
+      snapshot: completeSnapshot(),
     });
     expect(replay.outcome).toBe("succeeded");
     if (replay.outcome !== "succeeded") return;
@@ -455,6 +499,7 @@ describe("FinOps T2 billed period", () => {
       periodStart: PERIOD,
       sourceBatchId: batch,
       facts: [billedFact("50.00000000", batch)],
+      snapshot: completeSnapshot(),
     };
     const [a, b] = await Promise.all([
       reconcileBilledPeriod(deps, input),
@@ -472,5 +517,345 @@ describe("FinOps T2 billed period", () => {
     expect(billedEvents).toHaveLength(1);
     expect(billedEvents[0]!.amount).toBe("50.00000000");
     expect(billedEvents[0]!.executionRunId).toBeNull();
+  });
+
+  it("T35 removed atom correction: A100+B10 then complete A100/B absent => billed 100", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms([
+      { line_item: "A", providerAmount: "100.00000000" },
+      { line_item: "B", providerAmount: "10.00000000" },
+    ]);
+    const s1 = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFact("100.00000000", batch1, "A"),
+        billedFact("10.00000000", batch1, "B"),
+      ],
+      snapshot: completeSnapshot(),
+    });
+    expect(s1.outcome).toBe("succeeded");
+    if (s1.outcome !== "succeeded") return;
+    expect(s1.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "110.00000000",
+    );
+
+    const batch2 = batchForAtoms([
+      { line_item: "A", providerAmount: "100.00000000" },
+    ]);
+    const s2 = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch2,
+      facts: [billedFact("100.00000000", batch2, "A")],
+      snapshot: completeSnapshot(),
+    });
+    expect(s2.outcome).toBe("succeeded");
+    if (s2.outcome !== "succeeded") return;
+    expect(s2.createdCount).toBe(1);
+    expect(s2.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "100.00000000",
+    );
+    const bDelta = reconciliation._costEvents.find(
+      (e) =>
+        e.derivedSourceReference === derivedRef("B") &&
+        e.amount === "-10.00000000",
+    );
+    expect(bDelta).toBeTruthy();
+    expect(bDelta?.correctionRef?.startsWith("ABSENT_FROM_COMPLETE_SNAPSHOT|")).toBe(
+      true,
+    );
+  });
+
+  it("T36 removed atom exact replay adds no new economic event", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms([
+      { line_item: "A", providerAmount: "100.00000000" },
+      { line_item: "B", providerAmount: "10.00000000" },
+    ]);
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFact("100.00000000", batch1, "A"),
+        billedFact("10.00000000", batch1, "B"),
+      ],
+      snapshot: completeSnapshot(),
+    });
+    const batch2 = batchForAtoms([
+      { line_item: "A", providerAmount: "100.00000000" },
+    ]);
+    const input = {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch2,
+      facts: [billedFact("100.00000000", batch2, "A")],
+      snapshot: completeSnapshot(),
+    };
+    const s2 = await reconcileBilledPeriod(deps, input);
+    expect(s2.outcome).toBe("succeeded");
+    const eventsAfterS2 = reconciliation._costEvents.length;
+    const replay = await reconcileBilledPeriod(deps, input);
+    expect(replay.outcome).toBe("succeeded");
+    if (replay.outcome !== "succeeded") return;
+    expect(replay.idempotentReplay).toBe(true);
+    expect(replay.createdCount).toBe(0);
+    expect(reconciliation._costEvents.length).toBe(eventsAfterS2);
+    expect(
+      (await aggregates.listAggregatesForProjectPeriod({
+        projectId: PROJECT,
+        periodStart: PERIOD,
+      })).find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("100.00000000");
+  });
+
+  it("T37 empty complete snapshot zeros all atoms in scope", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms([
+      { line_item: "A", providerAmount: "100.00000000" },
+      { line_item: "B", providerAmount: "10.00000000" },
+    ]);
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFact("100.00000000", batch1, "A"),
+        billedFact("10.00000000", batch1, "B"),
+      ],
+      snapshot: completeSnapshot(),
+    });
+    const batch2 = batchForAtoms([]);
+    const s2 = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch2,
+      facts: [],
+      snapshot: completeSnapshot(),
+    });
+    expect(s2.outcome).toBe("succeeded");
+    if (s2.outcome !== "succeeded") return;
+    expect(s2.createdCount).toBe(2);
+    expect(s2.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "0.00000000",
+    );
+    const amounts = reconciliation._costEvents
+      .filter((e) => e.attributionScope === "PROJECT_PERIOD")
+      .map((e) => e.amount)
+      .sort();
+    expect(amounts).toEqual([
+      "-10.00000000",
+      "-100.00000000",
+      "10.00000000",
+      "100.00000000",
+    ]);
+  });
+
+  it("T38 provider failure / incomplete is NOT empty snapshot", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms([
+      { line_item: "A", providerAmount: "100.00000000" },
+      { line_item: "B", providerAmount: "10.00000000" },
+    ]);
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFact("100.00000000", batch1, "A"),
+        billedFact("10.00000000", batch1, "B"),
+      ],
+      snapshot: completeSnapshot(),
+    });
+    const eventsBefore = reconciliation._costEvents.length;
+    const batchFail = "batch_incomplete_failure_not_empty";
+    const incomplete = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batchFail,
+      facts: [],
+      snapshot: incompleteSnapshot(),
+    });
+    expect(incomplete.outcome).toBe("succeeded");
+    if (incomplete.outcome !== "succeeded") return;
+    expect(incomplete.createdCount).toBe(0);
+    expect(reconciliation._costEvents.length).toBe(eventsBefore);
+    expect(
+      incomplete.aggregates.find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("110.00000000");
+    expect(
+      reconciliation._costEvents.some((e) =>
+        (e.correctionRef ?? "").startsWith("ABSENT_FROM_COMPLETE_SNAPSHOT|"),
+      ),
+    ).toBe(false);
+  });
+
+  it("T39 scope isolation: other externalProjectId atom is never zeroed", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const OTHER = "proj_openai_other";
+    const batch1 = batchForAtoms([
+      { line_item: "A", providerAmount: "100.00000000" },
+      { line_item: "B", providerAmount: "10.00000000" },
+    ]);
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFact("100.00000000", batch1, "A"),
+        billedFact("10.00000000", batch1, "B"),
+      ],
+      snapshot: completeSnapshot(),
+    });
+
+    const otherRef = buildDerivedSourceReference({
+      provider: "openai",
+      externalProjectId: OTHER,
+      sfiaProjectId: PROJECT,
+      sourceBucketStart: BUCKET,
+      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+      lineItem: "X",
+      currency: "USD",
+    });
+    const otherBatch = buildBilledPeriodSourceBatchId({
+      provider: "openai",
+      externalProjectId: OTHER,
+      sfiaProjectId: PROJECT,
+      periodStart: PERIOD,
+      adapterContractVersion: "openai-costs-v1",
+      atoms: [
+        {
+          sourceBucketStart: BUCKET,
+          sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+          project_id: OTHER,
+          line_item: "X",
+          currency: "USD",
+          providerAmount: "7.00000000",
+        },
+      ],
+    });
+    const otherFact: BilledPeriodFact = {
+      projectId: PROJECT,
+      externalProjectId: OTHER,
+      periodStart: PERIOD,
+      provider: "openai",
+      sourceBucketStart: BUCKET,
+      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+      lineItem: "X",
+      providerAmount: "7.00000000",
+      currency: "USD",
+      derivedSourceReference: otherRef,
+      sourceBatchId: otherBatch,
+    };
+    const other = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: otherBatch,
+      facts: [otherFact],
+      snapshot: completeSnapshot(OTHER),
+    });
+    expect(other.outcome).toBe("succeeded");
+
+    const emptyLocal = batchForAtoms([]);
+    const s2 = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: emptyLocal,
+      facts: [],
+      snapshot: completeSnapshot(EXTERNAL),
+    });
+    expect(s2.outcome).toBe("succeeded");
+    if (s2.outcome !== "succeeded") return;
+    expect(s2.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "7.00000000",
+    );
+    const otherEvents = reconciliation._costEvents.filter(
+      (e) => e.derivedSourceReference === otherRef,
+    );
+    expect(otherEvents).toHaveLength(1);
+    expect(otherEvents[0]!.amount).toBe("7.00000000");
+  });
+
+  it("T40 reappearance after absence: B=10 → absent → 7 yields aggregate 7", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms([
+      { line_item: "B", providerAmount: "10.00000000" },
+    ]);
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [billedFact("10.00000000", batch1, "B")],
+      snapshot: completeSnapshot(),
+    });
+    const batchAbsent = batchForAtoms([]);
+    const absent = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batchAbsent,
+      facts: [],
+      snapshot: completeSnapshot(),
+    });
+    expect(absent.outcome).toBe("succeeded");
+    if (absent.outcome !== "succeeded") return;
+    expect(absent.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "0.00000000",
+    );
+
+    const batchRe = batchForAtoms([
+      { line_item: "B", providerAmount: "7.00000000" },
+    ]);
+    const reappear = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batchRe,
+      facts: [billedFact("7.00000000", batchRe, "B")],
+      snapshot: completeSnapshot(),
+    });
+    expect(reappear.outcome).toBe("succeeded");
+    if (reappear.outcome !== "succeeded") return;
+    expect(
+      reappear.aggregates.find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("7.00000000");
+    const bAmounts = reconciliation._costEvents
+      .filter((e) => e.derivedSourceReference === derivedRef("B"))
+      .map((e) => e.amount);
+    expect(bAmounts).toEqual([
+      "10.00000000",
+      "-10.00000000",
+      "7.00000000",
+    ]);
   });
 });

@@ -116,3 +116,51 @@ export function buildProviderPayloadDigest(input: {
   ].join("|");
   return sha256Hex(material);
 }
+
+/**
+ * derivedSourceReference material:
+ * provider|externalProjectId|sfiaProjectId|sourceBucketStart|sourceBucketEndExclusive|lineItemOrALL|currency
+ */
+export function derivedSourceReferenceBelongsToScope(
+  derivedSourceReference: string,
+  scope: {
+    readonly provider: string;
+    readonly externalProjectId: string;
+    readonly sfiaProjectId: string;
+  },
+): boolean {
+  const parts = derivedSourceReference.split("|");
+  if (parts.length < 7) return false;
+  return (
+    parts[0] === normalizePart(scope.provider) &&
+    parts[1] === normalizePart(scope.externalProjectId) &&
+    parts[2] === normalizePart(scope.sfiaProjectId)
+  );
+}
+
+export function isParsableDerivedSourceReference(
+  derivedSourceReference: string,
+): boolean {
+  return derivedSourceReference.split("|").length >= 7;
+}
+
+/** Deterministic correction for an atom absent from a complete snapshot. */
+export function buildAbsentFromCompleteSnapshotCorrectionRef(input: {
+  readonly derivedSourceReference: string;
+  readonly sourceBatchId: string;
+  readonly provider: string;
+  readonly externalProjectId: string;
+  readonly sfiaProjectId: string;
+  readonly periodStart: string;
+}): string {
+  const material = [
+    "ABSENT_FROM_COMPLETE_SNAPSHOT",
+    normalizePart(input.derivedSourceReference),
+    normalizePart(input.sourceBatchId),
+    normalizePart(input.provider),
+    normalizePart(input.externalProjectId),
+    normalizePart(input.sfiaProjectId),
+    normalizePart(input.periodStart),
+  ].join("|");
+  return `ABSENT_FROM_COMPLETE_SNAPSHOT|${sha256Hex(material)}`;
+}

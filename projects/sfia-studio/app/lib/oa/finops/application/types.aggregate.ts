@@ -133,12 +133,27 @@ export type BilledPeriodFact = {
   readonly sourceBatchId: string;
 };
 
+/**
+ * Declares whether the caller holds a COMPLETE provider snapshot for a scope.
+ * incomplete / failed provider fetch must NEVER be treated as empty-complete.
+ */
+export type BilledPeriodSnapshotDeclaration = {
+  readonly completeness: "complete" | "incomplete";
+  readonly provider: string;
+  readonly externalProjectId: string;
+};
+
 export type ReconcileBilledPeriodInput = {
   readonly projectId: string;
   readonly periodStart: string;
   readonly sourceBatchId: string;
   readonly facts: ReadonlyArray<BilledPeriodFact>;
   readonly maxFacts?: number;
+  /**
+   * Snapshot completeness + economic scope for missing-atom corrections.
+   * Scope = provider + SFIA projectId + externalProjectId + periodStart.
+   */
+  readonly snapshot: BilledPeriodSnapshotDeclaration;
 };
 
 export type ReconcileProjectPeriodResult =
