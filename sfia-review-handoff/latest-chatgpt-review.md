@@ -1,297 +1,197 @@
-# Cycle 1 Standard — T7 SHADOW Pilot Policy Values Calibration / Decision Preparation — Review Pack (full)
+# Cycle 9 Critical — T7 SHADOW Pilot Activation Readiness — Review Pack (full)
 
 ## 1. Date / time
-- CEST: 2026-08-09 06:08:53 CEST
-- UTC: 2026-08-09 04:08:53 UTC
+- CEST: 2026-08-09 06:51:47 CEST
+- UTC: 2026-08-09 04:51:47 UTC
 
-## 2. Décision Morris reçue
-GO SHADOW PILOT POLICY VALUES
+## 2. Décision Morris exacte
+GO PRESERVE T7 SEQUENCE —
+POLICY VALUES DEFERRED UNTIL POST-SHADOW CALIBRATION —
+NEXT SUBJECT SHADOW ACTIVATION READINESS.
 
-## 3. Interprétation exacte du GO
-This GO opens Cycle 1 Standard framing / calibration / decision preparation only.
-It does NOT select thresholdCode / currency / thresholdAmount.
-It does NOT override the selected T7 sequencing.
-It does NOT mutate the Option A versioned source.
-It does NOT activate SHADOW / MONITOR / E1.
+## 3. Cycle / profil + justification Critical
+- Cycle: 9 — QA / validation
+- Profil: Critical (EXPLICIT)
+- Justification: last technical gate before durable pilot rollout mutation; execution-run/provider path impact; fail-open / never-block / rollback OFF / activation mechanism / SHADOW evidence must be proven; no real activation authorized in this cycle.
+- Blocs: FinOps + Observability/RUN readiness (bounded).
 
-## 4. Cycle / profil
-- Cycle: 1 — Cadrage
-- Profil: Standard
-- Bloc: FinOps
-- Baseline: SFIA v2.6
-
-## 5. Git Truth
+## 4. Git Truth
 - branch: main
 - HEAD = origin/main = `bb52624e4de6aa19a7d68205af053596bf599a1a`
 - tracked clean; staged none; untracked `.tmp-sfia-review/**` only
-- no project branch created (read-only cycle)
 
-## 6. Handoff entrant tip / blob
-- tip: `bb7b9cec32b25cc378e24a847e1aca8645997b15`
-- blob: `bb0bf1775ce7b2e4bab7c338e1aa3d3d33ec72a6`
-- cycle: Cycle 14 Standard — Policy Source Option A Post-merge
-- confirmed: POLICY SOURCE INFRASTRUCTURE ON MAIN; EMPTY / INERT; POLICY VALUES NOT SELECTED; SHADOW NOT ACTIVATED; MONITOR NOT ACTIVATED; C08 OPEN MINOR; R-T4-T3-SYNC-01 OPEN BEFORE MONITOR
+## 5. Handoff entrant tip / blob
+- tip: `eb6250ee26a39330a760f22acc993383e65aee69`
+- blob: `3a6f6b3cffa9512e2e8cc4405bfee50ed2670586`
+- cycle: Cycle 1 Standard — Policy Values Calibration
+- confirmed: PRESERVE SELECTED SEQUENCE recommended; VALUES NOT SELECTED; SHADOW NOT ACTIVATED; EMPTY/INERT; REAL-AMOUNT INSUFFICIENT
+- Morris decision in this prompt validates PRESERVE SELECTED SEQUENCE as DECISION VALIDATED BY MORRIS (status upgrade only for that recommendation)
 
-## 7. Sources consultées
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/{sfia-cycle-routing-guide,sfia-chatgpt-cursor-operating-model,sfia-rules-and-guardrails}.md
-- method/sfia-fast-track/checklists/sfia-validation-checklist.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md
-- projects/sfia-studio/156…t7-foundation…execution.md
-- projects/sfia-studio/158…temporal-dual-gate…execution.md
-- projects/sfia-studio/159…policy-source-option-a…execution.md
-- versionedFinOpsT7ShadowPolicySource.ts
-- types.enforcement.ts
-- evaluateFinOpsEnforcement.ts
-- historical handoff commit (corrected SHA — see §8)
-- supporting docs 103 / 149 for documentary 15/20/25/30 classification only
+## 6. Sources consultées
+- SFIA templates/core/checklists/delivery-qa-standard/CKC pilots/04-qa-validation.md
+- docs 156 / 157 / 158 / 159
+- types.rollout.ts · resolveFinOpsRollout.ts · postgresFinOpsRolloutStore.ts
+- composeFinOpsT7Runtime.ts · composeFinOpsT7ShadowExecutionDeps.ts · versionedFinOpsT7ShadowPolicySource.ts
+- composeExecutionRunD2D3T7ShadowPilot.ts · coordinateExecutionRun.ts
+- migration `1754600004000_finops-t7-rollout-config.js`
+- T7 unit + PostgreSQL suites
+- handoff Cycle 1 calibration (full)
 
-## 8. Historical calibration decision D-T7-CALIBRATION-PILOT-01
-PROMPT_SHA=e6e026c9629535e9d8852f4613acf473b417e0
-ACTUAL_SHA=e6e026c9629535e5a9d8852f4613acf473b417e0
-ACTUAL_BLOB=79e29f7df68d4c522610c5b63377b3bf37b4e3f0
+## 7. PRESERVE SEQUENCE actée
+PRESERVE SELECTED SEQUENCE = DECISION VALIDATED BY MORRIS
+POLICY VALUES remain NOT SELECTED / deferred until post-SHADOW calibration.
+Real calibration remains REQUIRED BEFORE MONITOR, NOT BEFORE SHADOW.
 
-Note: the cycle prompt listed SHA `…e9d8852f…` which is not resolvable; Git/doc 156 authoritative SHA is `e6e026c9629535e5a9d8852f4613acf473b417e0` (handoff blob `79e29f7df68d4c522610c5b63377b3bf37b4e3f0`).
+## 8. AR01–AR15
+| ID | Statement | Status | Evidence |
+|----|-----------|--------|----------|
+| AR01 | T7 rollout persistence ON MAIN | PASS | migration `1754600004000…` + `postgresFinOpsRolloutStore` + T7-PG* PASS |
+| AR02 | missing row → OFF | PASS | resolveFinOpsRollout default_off; T7-U01 / T7-PG01 / T7-SW02 PASS |
+| AR03 | SHADOW = evaluateT4 true / signal_only / blockingAllowed false | PASS | resolveFinOpsRollout SHADOW case; T7-U04 PASS |
+| AR04 | pilot identity = sfia-studio-ops1 | PASS | `T7_SHADOW_PILOT_PROJECT_ID`; T7-SW15 / T7-SW15 unit PASS |
+| AR05 | execution-run SHADOW wiring ON MAIN | PASS | composeExecutionRunD2D3T7ShadowPilot + T7-SW* / T7-C* PASS |
+| AR06 | never-block defense ON MAIN | PASS | ensureShadowNeverBlocks; T7-SW06 / SW05 / SW10 PASS |
+| AR07 | fail-open / provider continuity | PASS | T7-SW03 / SW11 / SW12 / U02 PASS |
+| AR08 | Option C PRE∧POST SHADOW | PASS | T7-C02 PASS (doc 158 ON MAIN) |
+| AR09 | OFF→SHADOW no retroactive capture | PASS | T7-C03 PASS |
+| AR10 | SHADOW→OFF immediate observational rollback | PASS | T7-C04 PASS |
+| AR11 | Option A policy source ON MAIN | PASS | versionedFinOpsT7ShadowPolicySource.ts + doc 159 |
+| AR12 | Option A EMPTY / INERT | PASS | Object.freeze({}); PS-U01..U05 + T7-PS01 PASS |
+| AR13 | empty policy compatible with technical SHADOW | PASS | T7-PS01 / T7-SW10 allow/not_configured + provider continues |
+| AR14 | T3 sync NOT REQUIRED before SHADOW | PASS | T7-U04 T3 not required for SHADOW; reserve R-T4-T3-SYNC-01 remains BEFORE MONITOR |
+| AR15 | real calibration NOT REQUIRED before SHADOW | PASS | D-T7-CALIBRATION-PILOT-01 + Morris PRESERVE SEQUENCE decision |
 
-SELECTED BY MORRIS:
-`D-T7-CALIBRATION-PILOT-01` = **A BEFORE MONITOR USING REAL AMOUNTS**
+## 9. Activation mechanism discovery
+ACTIVATION_MECHANISM = **INFRASTRUCTURE_ONLY**
 
-Historical handoff semantics (excerpt):
-```
-### CRITICAL DISTINCTION (mandatory)
+Findings:
+- Port method `upsertProjectRollout` exists on `finopsRolloutPort` / `postgresFinOpsRolloutStore`.
+- `composeFinOpsT7Runtime` explicitly: *Does not expose upsertProjectRollout as a product API.*
+- Runtime composition exposes read-only `resolveProjectRollout` only.
+- All call sites of upsert outside the store definition are **tests** (T7-PG*, foundation runtime, wiring).
+- No CLI, admin route, server action, operator script, seed, or bounded activation command found for OFF↔SHADOW.
+- Persistence method existence ≠ operational activation mechanism.
 
-| Topic | Status |
-|-------|--------|
-| Product IAM capability required before E1 | **SELECTED** |
-| Product IAM technology / provider | **NOT_SELECTED** |
-| T5 Delivery | **NOT AUTHORIZED** this cycle |
-| Product IAM selection / Delivery | **NOT AUTHORIZED** this cycle |
+Intermediate verdict: **ACTIVATION MECHANISM NOT OPERATIONALIZED.**
 
----
+## 10. upsertProjectRollout usages found
+- Definition: `postgresFinOpsRolloutStore.ts`
+- Port: `finopsRolloutPort.ts`
+- Anti-exposure comment: `composeFinOpsT7Runtime.ts`
+- Callers: tests only (`t7.rollout.integration`, `t7.foundation-runtime.integration`, `t7.shadow-option-a.wiring.integration`, unit fakes)
+- Product/admin/CLI callers: **0**
 
-## O. D-T7-CALIBRATION-PILOT-01 — SELECTED
+## 11. Environment inventory
+- Local/ephemeral Postgres used by CI-A / this rehearsal (`127.0.0.1` docker) — NOT Neon.
+- Repo explicitly distinguishes local CI ephemeral DB from Neon/production.
+- Studio README marks MVP/production as closed / requiring distinct Morris GOs.
+- No FinOps SHADOW-specific staging/preview/production target selected in repo for `sfia-studio-ops1`.
 
-**Status:** **SELECTED BY MORRIS**
+## 12. Activation target classification
+ACTIVATION_TARGET = **NOT_DEFINED** (for SHADOW pilot activation decision).
+Local ephemeral = rehearsal-only candidate, not an activation target.
+No environment selected by Cursor on behalf of Morris.
 
-**Option:** **A — MORRIS CALIBRATION REQUIRED BEFORE MONITOR USING REAL AMOUNTS**
+## 13. Rehearsal R01–R15 (existing tests only)
+| R | Requirement | Mapping | Result |
+|---|-------------|---------|--------|
+| R01 | absent → OFF | T7-U01 / PG01 / SW02 / R01 | PASS |
+| R02 | local upsert SHADOW → resolve SHADOW | T7-PG03 / R13 / SW04 | PASS (test-only upsert) |
+| R03 | SHADOW + empty Option A → allow/not_configured | T7-PS01 / SW10 | PASS |
+| R04 | provider still invoked | SW05 / SW04 / SW10–SW12 | PASS |
+| R05 | no BLOCK | SW05 / SW06 / never-block | PASS |
+| R06 | capture when PRE+POST SHADOW | T7-C02 / SW13 | PASS |
+| R07 | non-pilot inert | SW07 / SW14 / C05 | PASS |
+| R08 | OFF→SHADOW mid-provider no retro capture | T7-C03 | PASS |
+| R09 | SHADOW→OFF mid-provider no post capture | T7-C04 | PASS |
+| R10 | explicit OFF rollback subsequent inert | SW01 / SW14 / C01 after OFF | PASS |
+| R11 | revision monotonic | T7-PG04 / PG11 / PG12 | PASS |
+| R12 | resolver/store failure fail-open | T7-U02 / SW03 | PASS |
+| R13 | hostile policy cannot BLOCK in SHADOW | SW05 / SW06 | PASS |
+| R14 | MONITOR/E1 outside rehearsal activation | SW08 / SW09 / U05 / U06 | PASS (rows resolve but adapter inert) |
+| R15 | no policy values needed | PS-U* / PS01 / U10 / R12 | PASS |
 
-**Semantics:**
+## 14. PostgreSQL ephemeral proof + cleanup
+- Container: `sfia-t7-ar-pg` on `127.0.0.1:55445` (local-only, non-prod credentials).
+- Migrations up through T7 rollout complete.
+- Container removed after tests: `docker rm -f sfia-t7-ar-pg`.
+- No Neon / shared staging / production access.
 
-| Phase | Calibration posture |
-|-------|---------------------|
-| SHADOW | non-enforcing; may use technical/candidate params explicitly **non-adopted**; no historical value adoption |
-| MONITOR | uses real calibrated monetary policy; remains **NON-BLOCKING**; feeds human review |
-| E1 | reuses calibrated policy only after MONITOR evidence + E1 readiness + **distinct** Morris E1 GO |
+## 15. Tests exacts et résultats
+- Unit: `t7.rollout.unit` + `t7.shadow-option-a.unit` + `t7.shadow-policy-source-option-a.unit` → **21/21 PASS**
+- PG: `t7.rollout.integration` + `t7.foundation-runtime.integration` + `t7.shadow-option-a.wiring.integration` → **51/51 PASS**
+- Total targeted Critical suites: **72/72 PASS**
 
-**Historical values 15 / 20 / 25 / 30 remain:**
+## 16. Typecheck / lint / build / regression
+- typecheck PASS
+- lint PASS
+- build PASS
+- `git diff --check` PASS
+- Full npm regression: NOT re-run (Critical scope covered by T7 targeted suites + typecheck/lint/build; prior Cycle 9 Dedicated QA already validated full suite on identical Option A bytes; no project mutation this cycle).
 
-- historical
-- documentary
-- provisional
-- **NOT runtime-active**
+## 17. Rollback readiness
+SHADOW → OFF semantics READY at runtime/store level:
+- project-scoped upsert mode OFF
+- revision increments (auditable)
+- Option C prevents post-provider capture when POST=OFF (T7-C04)
+- no financial ledger deletion / no migration down required
+- process restart not required if runtime re-reads rollout each execution
 
-**No real monetary threshold is SELECTED by this arbitration.**
+Future stop conditions recommending OFF after a real activation:
+- FinOps-attributable runtime error impacting provider continuity
+- capture path anomaly / unexpected project scope
+- incorrect rollout resolution
+- evidence contamination
+- any unanticipated BLOCK
+- inability to determine current rollout state
 
-**Pilot qualitative categories from document 152:** **ACCEPTED** as required future pilot evidence categories.
+Real shared-environment rollback NOT executed in this cycle.
 
-**Quantitative acceptance metrics:** **DEFERRED** (future Morris+QA).
+## 18. Evidence plan E01–E14 (post future activation)
+| E | What | Source candidate | Expected |
+|---|------|------------------|----------|
+| E01 | mode SHADOW for sfia-studio-ops1 | finops_rollout_config read | mode=SHADOW |
+| E02 | revision known | same table revision | monotonic int ≥1 |
+| E03 | non-pilot unaffected | other project_id rows / absence | OFF/default_off |
+| E04 | provider continues | execution logs / provider stubs in QA | calls occur |
+| E05 | 0 FinOps BLOCK | enforcement decisions / never-block | no block |
+| E06 | empty source → allow/not_configured | decision reason | not_configured |
+| E07 | capture/cost when applicable | finops_usage_event / audit | created/duplicate when PRE∧POST SHADOW |
+| E08 | projection freshness | finops_enforcement_projection.rebuilt_at | observable after T2 refresh |
+| E09 | FinOps fail-open | failed decisions / provider continue | no provider halt |
+| E10 | Option C transitions | PRE/POST eligibility behavior | C03/C04 semantics |
+| E11 | multi-currency isolation | projection keys currency | no FX aggregation |
+| E12 | rollback OFF demonstrated | mode OFF + subsequent inert run | PASS |
+| E13 | diagnostic provenance | decision provenance fields / audit payload | sufficient for incident |
+| E14 | no silent policy values | versioned source still empty | EMPTY |
 
----
+No new quantitative acceptance metrics invented.
 
-## P. OFF semantics — SELECTED architecture
+## 19. Observability assessment
+OBSERVABILITY = **PARTIAL**
 
-**Status:** **SELECTED BY MORRIS** (architecture semantics)
+- Durable existing: rollout row (mode/revision), usage/cost ledger, audit capture events, enforcement projection.
+- Transient internal: soft_signal (internal-only, non-durable) — not expected while policy empty.
+- Test-only: upsert rehearsal paths.
+- Absent: operator activation audit trail (no operational mechanism yet); product SHADOW dashboard/metrics.
 
-| Dimension | SELECTED OFF |
-|-----------|--------------|
-| Feature-flag state | Default |
-| T4 enforcement path | Inert / not required |
-| Projection read | Not required |
-| BLOCK possible? | **Never** |
-| Provider | Unchanged / normal |
-## U. Selected architecture sequencing
+Sufficient to prove technical SHADOW gating/capture/continuity/rollback once an activation mechanism + target exist.
+Not a blocking gap for runtime correctness, but activation cannot proceed without mechanism/target decisions.
 
-**Status:** **ARCHITECTURE SEQUENCING SELECTED BY MORRIS** — **execution gates remain distinct / NOT AUTHORIZED**
+## 20. Reserves
+- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
+- R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
+- R-PR-T2-API-01 = OPEN MINOR (si toujours applicable)
+- REAL CALIBRATION = DEFERRED UNTIL POST-SHADOW / REQUIRED BEFORE MONITOR
+- POLICY VALUES = NOT SELECTED
+- T6-ext = NOT AUTHORIZED
+- Product IAM = NOT_SELECTED
+- T5 = OUT OF SCOPE SHADOW
+- MONITOR = NOT ACTIVATED
+- E1 = NOT AUTHORIZED
 
-1. T7 Decisions Applied *(this documentary cycle)*
-2. T6 runtime composition
-3. T4 projection refresh
-4. T7 foundation Delivery default-OFF
-5. dedicated activation QA
-6. distinct GO SHADOW
-7. SHADOW evidence
-8. T3↔T4 synchronization
-9. Morris calibration
-10. distinct GO MONITOR
-11. MONITOR evidence
-12. T6-ext-T3T4
-13. T5
-14. Product IAM
-15. E1 readiness review
-16. distinct GO E1
-17. E1 pilot
-
-**Rules:**
-
-- This is a **SELECTED architecture sequence**, not a batch of Delivery GOs.
-- Each subsequent Delivery/activation requires a **distinct Morris decision**.
-- T6-ext / T5 / IAM may later be organized in parallel only if manifests are disjoint **and** a Delivery arbitration allows it.
-- Do **not** auto-execute the next step from this list.
-
----
-
-## V. Pilot evidence qualitative contract
-
-**Status:** qualitative categories **ACCEPTED**; quantitative metrics **DEFERRED**
-
-Accepted future pilot evidence categories:
-
-1. no false block
-2. API_USAGE never blocks
-3. estimation / parametric never blocks
-4. projection freshness
-5. rebuild failure fail-open
-6. technical failure ≠ BLOCK
-7. decision provenance
-8. audit completeness (relative to authorized T6 scope)
-9. T3 synchronization when activated
-10. override behavior when T5 available
-11. rollback OFF
-12. provider-call behavior (never invoked on BLOCK)
-13. multi-currency isolation
-14. incident diagnostics
-15. human review evidence
-
-**Quantitative** duration / volume / acceptable false-positive rate: **DEFERRED**.
-
----
-
-## W. Remaining deferred / non-selected decisions
-
-Intentionally **NOT** SELECTED by this arbitration:
-```
-
-Key: SHADOW may use technical/candidate params only if explicitly **non-adopted**; MONITOR uses real calibrated monetary policy; 15/20/25/30 remain historical/documentary/provisional/NOT runtime-active.
-
-## 9. Selected architecture sequence
-1. T7 Decisions Applied
-2. T6 runtime composition
-3. T4 projection refresh
-4. T7 foundation Delivery default-OFF
-5. dedicated activation QA
-6. distinct GO SHADOW
-7. SHADOW evidence
-8. T3↔T4 synchronization
-9. Morris calibration
-10. distinct GO MONITOR
-… then MONITOR evidence / T6-ext / T5 / IAM / E1 gates (still distinct later GOs)
-
-Consequence: real calibration is NOT a historical prerequisite of SHADOW.
-
-## 10. Current policy contract (main)
-- projectId pilot = `sfia-studio-ops1` (`T7_SHADOW_PILOT_PROJECT_ID`)
-- policy source = `versionedFinOpsT7ShadowPolicySource`
-- table = `Object.freeze({})` — ACTIVE POLICY ENTRIES = 0
-- resolver returns null ⇒ evaluateFinOpsEnforcement allow / `not_configured`
-- policy shape when present: thresholdCode + currency + thresholdAmount (Money scale-8, strictly positive) + effect
-- SHADOW effect via composition/adapter = `signal_only` when policy present
-- SHA-256 source = `f5f23972740178ec1fc099c4d453a403c4fd89d4ebcfafe5eb91f4441dd5e2d3`
-- no process.env / no DB policy store / no ops1 runtime import in source
-- 15 / 20 / 25 / 30 = HISTORICAL / DOCUMENTARY ONLY — NOT SELECTED — NOT RUNTIME DEFAULTS
-
-## 11. Evidence inventory complete
-```
-=== EVIDENCE INVENTORY ===
-A1	DOCUMENTARY	Enveloppe mensuelle cible 25 USD (doc 103 IP-0C)	— PROVISIONAL — SELECTED historically; NOT RUNTIME; NOT real observed spend
-A2	DOCUMENTARY	Seuils alerte/revue/plafond 15/20/30 USD (doc 103/149)	— HISTORICAL / DOCUMENTARY ONLY; explicitly NOT RUNTIME-ACTIVE
-A3	ABSENT	Budget Morris/product hard for sfia-studio-ops1	— No Morris-validated real budget found on main for pilot
-B1	TEST FIXTURE	T2/T4 projection amounts in unit/PG tests (e.g. EUR 20.00000000)	— Synthetic inserts for mechanism tests
-B2	TEST FIXTURE	thresholdCode FICT_T4 / TEST_ONLY_SW	— Test-only codes; not product naming SoT
-B3	ABSENT / UNKNOWN	Pilot sfia-studio-ops1 billed/providerObserved ledger periods on main	— No admissible real pilot spend series in repo; prod/Neon access forbidden this cycle
-C1	REAL / PILOT (identity only)	Pilot identity constant T7_SHADOW_PILOT_PROJECT_ID=sfia-studio-ops1	— Identity SELECTED; not a monetary value
-C2	REAL / PILOT (runtime state)	Option A versioned source EMPTY Object.freeze({})	— ACTIVE POLICY ENTRIES = 0; null → allow/not_configured
-C3	TEST FIXTURE / VERIFICATION SEAM	resolveShadowPolicy optional override	— Not product policy; Option C product diagnostic ABSENT
-D1	ABSENT	thresholdCode naming convention product	— Only FICT_/TEST_ONLY_ in tests → naming RECOMMENDATION ONLY if needed later
-D2	TEST FIXTURE	Currency EUR appearances in tests	— Cannot select EUR as policy currency from fixtures
-D3	DOCUMENTARY	Currency USD in documentary 15/20/25/30	— Not selectable as operational currency without real data GO
-REAL_AMOUNT_SUFFICIENCY=INSUFFICIENT
-BUDGET_DERIVED_POSSIBLE=NO (provisional envelope is documentary only)
-OBSERVED_SPEND_DERIVED_POSSIBLE=NO
-CANDIDATE_VALUES=NONE
-CURRENCY_SELECTABLE=NO
-THRESHOLD_CODE_CONVENTION=RECOMMENDATION_ONLY_IF_NEEDED_LATER
-```
-
-## 12. Budget evidence
-- Provisional monthly envelope 25 USD appears in doc 103 IP-0C as PROVISIONAL — SELECTED (documentary).
-- OPS1 functional docs mark numeric FinOps values OPEN / to decide under distinct GO.
-- No Morris-validated hard pilot budget for `sfia-studio-ops1` found as operational SoT on main.
-- Classification: DOCUMENTARY — insufficient as budget-derived operational threshold.
-
-## 13. Cost / real amount evidence
-- No admissible real pilot billedAmount / providerObservedAmount / blockingEligibleAmount time series for `sfia-studio-ops1` in repo.
-- Neon / production DB / provider API / external billing access: FORBIDDEN and NOT USED.
-- Local Postgres CI fixtures are ephemeral synthetic data, not real pilot spend.
-- Verdict: REAL-AMOUNT CALIBRATION EVIDENCE INSUFFICIENT
-
-## 14. Fixture / synthetic / documentary evidence
-- Tests: EUR amounts, `FICT_T4`, `TEST_ONLY_SW` → TEST FIXTURE
-- Docs 103/149: 15/20/25/30 USD → DOCUMENTARY / PROVISIONAL / NOT RUNTIME-ACTIVE
-- Must not be adopted as operational policy values
-
-## 15. Currency evidence
-- EUR: appears in test fixtures only → NOT SELECTABLE
-- USD: appears in documentary provisional calibration → NOT SELECTABLE as operational currency without real evidence + Morris GO
-- CURRENCY NOT SELECTABLE FROM CURRENT EVIDENCE
-
-## 16. ThresholdCode convention evidence
-- Product convention ABSENT
-- Test codes only (`FICT_T4`, `TEST_ONLY_SW`)
-- THRESHOLD CODE NAMING — RECOMMENDATION ONLY (deferred): e.g. semantic/versioned identifier such as `T7_SHADOW_PILOT_V1` IF/WHEN values are later selected — not adopted now
-
-## 17. Data gaps
-1. Real pilot spend periods for sfia-studio-ops1
-2. Morris/product operational budget SoT
-3. Dominant operational currency from real data
-4. Representative sample size / freshness of projections
-5. Quantitative acceptance metrics (DEFERRED by T7 arbitration)
-
-## 18. Candidate values
-NONE — no numeric threshold invented; no candidates written to runtime.
-
-## 19. Options A / B / C
-
-### OPTION A — PRESERVE SELECTED T7 SEQUENCE
-SHADOW first → SHADOW evidence → T3 sync → real calibration → MONITOR
-Consequence now: POLICY VALUES remain NOT SELECTED; source stays EMPTY / INERT.
-Matches D-T7-CALIBRATION-PILOT-01 and selected sequencing.
-
-### OPTION B — EARLY REAL POLICY VALUES IN SHADOW
-Would require TRAJECTORY OVERRIDE CANDIDATE + distinct Morris GO before Delivery.
-Not justified: real-amount evidence insufficient; adopting 15/20/25/30 would violate explicit anti-claims.
-Even if later justified, SHADOW would remain signal_only and still need a separate GO SHADOW.
-
-### OPTION C — DIAGNOSTIC NON-ADOPTED SHADOW PARAMETERS
-Historical arbitration allows technical/candidate params in SHADOW only if explicitly non-adopted.
-Current product mechanism for that: ABSENT.
-Only existing seam: optional `resolveShadowPolicy` test/verification override — NOT product policy / NOT durable SoT.
-Do not invent a new diagnostic mechanism in this cycle.
-
-## 20. Challenge dette / simplicité
-1. Need for real policy values BEFORE SHADOW? — Not required by selected sequence; SHADOW was designed as lighter technical phase.
-2. What early values solve that empty SHADOW does not? — Only earlier monetary-signal observation; wiring/fail-open/not_configured already testable without values.
-3. Premature coupling? — Yes: couples financial policy to infrastructure activation without real spend evidence.
-4. Real budget/representative amounts available? — NO (insufficient).
-5. Simpler path? — Preserve selected sequence.
-6. Benefit > override cost? — NO on current evidence.
-7. Threshold without confusing technical diagnostic and financial policy? — Only via explicitly non-adopted diagnostic (Option C), which lacks a product mechanism; test override must not be sold as policy.
-
-## 21. Recommendation (≠ decision)
-**PRESERVE SELECTED SEQUENCE**
-
-Supporting classification: **CALIBRATION BLOCKED — REAL DATA REQUIRED** for any numeric thresholdCode/currency/thresholdAmount selection.
-PATH B is NOT recommended and is NOT decided by the received GO wording.
+## 21. Policy source status
+OPTION A ON MAIN — EMPTY / INERT
 
 ## 22. Policy values status
 NOT SELECTED
@@ -299,44 +199,64 @@ NOT SELECTED
 ## 23. SHADOW status
 NOT ACTIVATED
 
-## 24. Reserves
-- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
-- R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
-- R-PR-T2-API-01 = OPEN MINOR (si toujours applicable)
-- real calibration = REQUIRED BEFORE MONITOR USING REAL AMOUNTS
-- T6-ext = NOT AUTHORIZED
-- Product IAM = NOT_SELECTED
-- T5 = OUT OF SCOPE
-- MONITOR = NOT ACTIVATED
-- E1 = NOT AUTHORIZED
-- POLICY SOURCE INFRASTRUCTURE = ON MAIN (EMPTY / INERT)
+## 24. Project mutation
+NO — no project source/test/doc create/modify; no shared DB activation; no commit/push/PR/merge.
 
-## 25. Project mutation
-NO — no project file create/modify/delete; no project commit/push/PR/merge; no runtime policy entry; no SHADOW activation.
+## 25. Readiness summary
+- RUNTIME READINESS = PASS
+- ACTIVATION MECHANISM READINESS = FAIL (NOT OPERATIONALIZED)
+- TARGET ENVIRONMENT READINESS = NOT_DEFINED / NOT SELECTED
+- ROLLBACK READINESS = PASS (semantics)
+- OBSERVABILITY READINESS = PARTIAL (non-blocking for mechanism decision)
+- OVERALL SHADOW ACTIVATION READINESS = **BLOCKED**
 
-## 26. Morris decision required
+## 26. Recommendation
+Do NOT request GO SHADOW ACTIVATION yet.
+
+Prefer minimal mechanism without product UI/API debt:
+**bounded audited server operator command/script** that:
+- accepts projectId=`sfia-studio-ops1` only (or strict allow-list)
+- accepts mode ∈ {SHADOW, OFF} only for this gate
+- uses existing `createPostgresFinOpsRolloutStore(pool).upsertProjectRollout`
+- requires explicit target DB URL local/non-prod or later Morris-selected target
+- prints before/after mode+revision
+- is reversible via same command mode=OFF
+- is NOT exposed as public product API / UI
+
+Challenge answer:
+- UI? NO (not required)
+- Product API? NO (not required)
+- New platform tool? NO if a minimal server operator command suffices
+- Minimal operator server command? YES — recommended
+
+## 27. Exact next Morris gate
 ```text
-GO PRESERVE T7 SEQUENCE —
-POLICY VALUES DEFERRED UNTIL POST-SHADOW CALIBRATION —
-NEXT SUBJECT SHADOW ACTIVATION READINESS.
+GO MINIMAL SHADOW ACTIVATION MECHANISM —
+BOUNDED SERVER OPERATOR COMMAND —
+PILOT sfia-studio-ops1 ONLY —
+MODES OFF|SHADOW ONLY —
+NO PRODUCT UI/API —
+NO POLICY VALUES —
+SHADOW REMAINS NOT ACTIVATED UNTIL DISTINCT GO.
 ```
 
-Anti-claims for that future path:
-- preserve ≠ activate SHADOW
-- SHADOW activation remains a distinct Morris GO
-- early values would still require a separate override GO + Delivery if Morris later chooses PATH B
-- if Morris instead wants data acquisition first: GO POLICY CALIBRATION DATA SOURCE — <admissible local/real source to define> before any value selection
+After that Delivery + QA, separately decide:
+GO SHADOW ACTIVATION TARGET — <OPTIONS>
+then only later:
+GO SHADOW ACTIVATION — …
 
-## 27. Unique verdict
-T7 SHADOW PILOT POLICY VALUES CALIBRATION BLOCKED —
-CYCLE 1 STANDARD —
-CURRENT POLICY SOURCE EMPTY / INERT VERIFIED —
-SELECTED T7 SEQUENCE VERIFIED —
-REAL-AMOUNT CALIBRATION EVIDENCE INSUFFICIENT —
-NO NUMERIC THRESHOLD INVENTED —
+## 28. Unique verdict
+T7 SHADOW PILOT ACTIVATION READINESS BLOCKED —
+CYCLE 9 CRITICAL —
+RUNTIME PREREQUISITES PASS —
+REHEARSAL PASS —
+SHADOW NEVER-BLOCK VERIFIED —
+ROLLBACK SEMANTICS VERIFIED —
+ACTIVATION MECHANISM NOT OPERATIONALIZED —
+ACTIVATION TARGET NOT DEFINED —
+OBSERVABILITY PARTIAL —
 POLICY VALUES NOT SELECTED —
 SHADOW NOT ACTIVATED —
-RECOMMENDATION PRESERVE SELECTED SEQUENCE —
-DATA SOURCE DECISION REQUIRED BEFORE ANY EARLY VALUES OVERRIDE —
+MINIMAL ACTIVATION MECHANISM DECISION REQUIRED —
 NO PROJECT MUTATION —
 HANDOFF REMOTE VERIFIED
