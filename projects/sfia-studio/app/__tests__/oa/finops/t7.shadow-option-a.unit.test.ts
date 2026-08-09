@@ -42,6 +42,17 @@ describe("T7 SHADOW Option A — unit", () => {
     ).toBe("failed");
   });
 
+  it("T7-C-U01 ensureShadowNeverBlocks preserves captureEligibility eligible", () => {
+    const out = ensureShadowNeverBlocks({
+      decision: "block",
+      reason: "threshold_crossed_enforce",
+      captureEligibility: "eligible",
+    });
+    expect(out.decision).toBe("failed");
+    expect(out.reason).toBe("shadow_block_forbidden");
+    expect(out.captureEligibility).toBe("eligible");
+  });
+
   it("T7-SW15 pilot constant equals OPS1_PROJECT_KEY sfia-studio-ops1", () => {
     expect(T7_SHADOW_PILOT_PROJECT_ID).toBe("sfia-studio-ops1");
     expect(T7_SHADOW_PILOT_PROJECT_ID).toBe(OPS1_PROJECT_KEY);
@@ -65,8 +76,29 @@ describe("T7 SHADOW Option A — unit", () => {
     expect(adapter).toMatch(/effect:\s*"signal_only"/);
     expect(adapter).toMatch(/shadow_block_forbidden/);
     expect(adapter).toMatch(/rollout_not_shadow_inert/);
+    expect(adapter).toMatch(/captureEligibility/);
+    expect(adapter).not.toMatch(/new Map\s*\(/);
+    expect(adapter).not.toMatch(/new Set\s*\(/);
+    expect(adapter).not.toMatch(/WeakMap/);
+    expect(adapter).not.toMatch(/AsyncLocalStorage/);
     expect(pilot).not.toMatch(/E1_ENFORCED/);
     expect(pilot).not.toMatch(/effect:\s*"enforce"/);
     expect(adapter).not.toMatch(/upsertProjectRollout/);
+  });
+
+  it("T7-C-U02 static: no process-local eligibility registry in runtime trio", () => {
+    const roots = [
+      "lib/oa/finops/application/types.enforcement.ts",
+      "lib/oa/execution-run/application/coordinateExecutionRun.ts",
+      "lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps.ts",
+    ];
+    for (const rel of roots) {
+      const src = readFileSync(path.join(process.cwd(), rel), "utf8");
+      expect(src).not.toMatch(/new Map\s*\(/);
+      expect(src).not.toMatch(/new Set\s*\(/);
+      expect(src).not.toMatch(/WeakMap/);
+      expect(src).not.toMatch(/WeakSet/);
+      expect(src).not.toMatch(/AsyncLocalStorage/);
+    }
   });
 });

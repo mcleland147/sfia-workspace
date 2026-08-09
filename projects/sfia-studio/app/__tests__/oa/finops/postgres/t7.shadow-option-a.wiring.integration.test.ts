@@ -21,12 +21,15 @@ import { FixtureCursorExecutionAdapter } from "@/lib/oa/execution-run/infrastruc
 import { FakeSecretSourceAdapter } from "@/lib/oa/execution-run/infrastructure/secrets/fakeSecretSourceAdapter";
 import { RecordingExecutionEventSink } from "@/lib/oa/execution-run/infrastructure/events/recordingExecutionEventSink";
 import { composeFinOpsT7ShadowExecutionDeps } from "@/lib/oa/finops/server/composeFinOpsT7ShadowExecutionDeps";
+import { composeExecutionRunD2D3 } from "@/lib/oa/execution-run/server/composeExecutionRunD2D3";
 import { createPostgresFinOpsRolloutStore } from "@/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore";
 import {
   closeFinOpsPool,
   createFinOpsPool,
 } from "@/lib/oa/finops/infrastructure/postgres/createFinOpsPool";
 import type { FinOpsRolloutMode } from "@/lib/oa/finops/application/types.rollout";
+import type { FinOpsCapturePort } from "@/lib/oa/finops/ports/finopsCapturePort";
+import type { FinOpsEnforcementPort } from "@/lib/oa/finops/ports/finopsEnforcementPort";
 
 const DATABASE_URL = process.env.DATABASE_URL?.trim() ?? "";
 const describeDb = DATABASE_URL ? describe : describe.skip;
@@ -160,7 +163,12 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
     expect(result.providerInvoked).toBe(true);
     expect(completeSpy).toHaveBeenCalled();
     expect(policy).not.toHaveBeenCalled();
-    expect(result.finopsCapture?.status).toBe("disabled");
+    expect(result.finopsCapture).toEqual(
+      expect.objectContaining({
+        status: "disabled",
+        reason: "finops_pre_provider_capture_ineligible",
+      }),
+    );
   });
 
   it("T7-SW02 pilot + missing row → default OFF inert", async () => {
@@ -479,5 +487,381 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
     });
     expect(seen).toEqual(["sfia-studio-ops1"]);
     expect(deps.pilotProjectId).toBe("sfia-studio-ops1");
+  });
+
+  it("T7-C01 OFF → OFF · PRE ineligible · capture disabled · no usage event", async () => {
+    await upsertMode(pool, PILOT, "OFF");
+    const { providers, completeSpy } = spyProviders();
+    const composition = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      clockIso,
+      providers,
+      resolveShadowPolicy: async () => null,
+    });
+    const result = await composition.coordinate(
+      coordinateInput(PILOT, "c01"),
+    );
+    expect(result.ok).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+    expect(result.finopsCapture).toEqual(
+      expect.objectContaining({
+        status: "disabled",
+        reason: "finops_pre_provider_capture_ineligible",
+      }),
+    );
+  });
+
+  it("T7-C02 SHADOW → SHADOW · PRE eligible · capture created/duplicate", async () => {
+    await upsertMode(pool, PILOT, "SHADOW");
+    await seedProjection(pool, PILOT, "0.10000000");
+    const deps = composeFinOpsT7ShadowExecutionDeps({
+      pool,
+      nowIso: () => clockIso,
+      pilotProjectId: PILOT,
+      resolveShadowPolicy: async () => null,
+    });
+    const decision = await deps.finopsEnforcement.evaluateBeforeProvider({
+      projectId: PILOT,
+      executionRunId: "run:c02",
+      correlationId: "corr:c02",
+      occurredAt: clockIso,
+    });
+    expect(decision.captureEligibility).toBe("eligible");
+    const { providers } = spyProviders();
+    const composition = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      clockIso,
+      providers,
+      resolveShadowPolicy: async () => null,
+    });
+    const result = await composition.coordinate(
+      coordinateInput(PILOT, "c02"),
+    );
+    expect(result.ok).toBe(true);
+    expect(["created", "duplicate", "failed"]).toContain(
+      result.finopsCapture!.status,
+    );
+  });
+
+  it("T7-C03 OFF → SHADOW mid-provider · PRE ineligible · capture short-circuited", async () => {
+    await upsertMode(pool, PILOT, "OFF");
+    const ai = new FakeAiExecutionAdapter();
+    const completeSpy = vi.spyOn(ai, "complete").mockImplementation(async () => {
+      await upsertMode(pool, PILOT, "SHADOW");
+      return {
+        kind: "success" as const,
+        completeness: "complete" as const,
+        redactedSummary: "TEST_ONLY flip OFF→SHADOW",
+        disclosureNotes: ["source=fake", "live=false"],
+        usage: {
+          status: "validated" as const,
+          inputTokens: 1,
+          outputTokens: 1,
+          unit: "tokens" as const,
+        },
+      };
+    });
+    const secretsAdapter = new FakeSecretSourceAdapter();
+    const providers = composeExecutionRunProviders({
+      ai,
+      git: new FakeGitReadAdapter({
+        repositoryAllowlist: [
+          "o/r",
+          "example/example",
+          "mcleland147/sfia-workspace",
+        ],
+        pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
+      }),
+      cursor: new FixtureCursorExecutionAdapter(),
+      secrets: {
+        resolve: (secretId) => secretsAdapter.resolve(secretId),
+      },
+      events: new RecordingExecutionEventSink(),
+    });
+    const composition = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      clockIso,
+      providers,
+      resolveShadowPolicy: async () => null,
+    });
+    const result = await composition.coordinate(
+      coordinateInput(PILOT, "c03"),
+    );
+    expect(result.ok).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+    expect(result.finopsCapture).toEqual(
+      expect.objectContaining({
+        status: "disabled",
+        reason: "finops_pre_provider_capture_ineligible",
+      }),
+    );
+    // POST would be SHADOW, but PRE gate must win (no retroactive capture).
+    const postMode = await createPostgresFinOpsRolloutStore(pool).readProjectRollout(
+      PILOT,
+    );
+    expect(postMode?.mode ?? "OFF").toBe("SHADOW");
+  });
+
+  it("T7-C04 SHADOW → OFF mid-provider · PRE eligible · POST disables capture", async () => {
+    await upsertMode(pool, PILOT, "SHADOW");
+    await seedProjection(pool, PILOT, "0.10000000");
+    const ai = new FakeAiExecutionAdapter();
+    const completeSpy = vi.spyOn(ai, "complete").mockImplementation(async () => {
+      await upsertMode(pool, PILOT, "OFF");
+      return {
+        kind: "success" as const,
+        completeness: "complete" as const,
+        redactedSummary: "TEST_ONLY flip SHADOW→OFF",
+        disclosureNotes: ["source=fake", "live=false"],
+        usage: {
+          status: "validated" as const,
+          inputTokens: 1,
+          outputTokens: 1,
+          unit: "tokens" as const,
+        },
+      };
+    });
+    const secretsAdapter = new FakeSecretSourceAdapter();
+    const providers = composeExecutionRunProviders({
+      ai,
+      git: new FakeGitReadAdapter({
+        repositoryAllowlist: [
+          "o/r",
+          "example/example",
+          "mcleland147/sfia-workspace",
+        ],
+        pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
+      }),
+      cursor: new FixtureCursorExecutionAdapter(),
+      secrets: {
+        resolve: (secretId) => secretsAdapter.resolve(secretId),
+      },
+      events: new RecordingExecutionEventSink(),
+    });
+    const composition = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      clockIso,
+      providers,
+      resolveShadowPolicy: async () => null,
+    });
+    const result = await composition.coordinate(
+      coordinateInput(PILOT, "c04"),
+    );
+    expect(result.ok).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+    expect(result.finopsCapture).toEqual(
+      expect.objectContaining({
+        status: "disabled",
+        reason: "shadow_capture_inactive",
+      }),
+    );
+  });
+
+  it("T7-C05 PRE eligibility matrix · non-pilot/OFF/MONITOR/E1 ineligible · SHADOW eligible", async () => {
+    await upsertMode(pool, PILOT, "SHADOW");
+    await upsertMode(pool, OTHER, "SHADOW");
+    const deps = composeFinOpsT7ShadowExecutionDeps({
+      pool,
+      nowIso: () => clockIso,
+      pilotProjectId: PILOT,
+      resolveShadowPolicy: async () => null,
+    });
+    const nonPilot = await deps.finopsEnforcement.evaluateBeforeProvider({
+      projectId: OTHER,
+      executionRunId: "run:c05a",
+      correlationId: "corr:c05a",
+      occurredAt: clockIso,
+    });
+    expect(nonPilot.captureEligibility).toBe("ineligible");
+
+    await upsertMode(pool, PILOT, "OFF");
+    const off = await deps.finopsEnforcement.evaluateBeforeProvider({
+      projectId: PILOT,
+      executionRunId: "run:c05b",
+      correlationId: "corr:c05b",
+      occurredAt: clockIso,
+    });
+    expect(off.captureEligibility).toBe("ineligible");
+
+    await upsertMode(pool, PILOT, "MONITOR");
+    const monitor = await deps.finopsEnforcement.evaluateBeforeProvider({
+      projectId: PILOT,
+      executionRunId: "run:c05c",
+      correlationId: "corr:c05c",
+      occurredAt: clockIso,
+    });
+    expect(monitor.captureEligibility).toBe("ineligible");
+
+    await upsertMode(pool, PILOT, "E1_ENFORCED");
+    const e1 = await deps.finopsEnforcement.evaluateBeforeProvider({
+      projectId: PILOT,
+      executionRunId: "run:c05d",
+      correlationId: "corr:c05d",
+      occurredAt: clockIso,
+    });
+    expect(e1.captureEligibility).toBe("ineligible");
+
+    await upsertMode(pool, PILOT, "SHADOW");
+    await seedProjection(pool, PILOT, TEST_ONLY_ELIGIBLE);
+    const shadowNull = await deps.finopsEnforcement.evaluateBeforeProvider({
+      projectId: PILOT,
+      executionRunId: "run:c05e",
+      correlationId: "corr:c05e",
+      occurredAt: clockIso,
+    });
+    expect(shadowNull.captureEligibility).toBe("eligible");
+
+    const depsThrow = composeFinOpsT7ShadowExecutionDeps({
+      pool,
+      nowIso: () => clockIso,
+      pilotProjectId: PILOT,
+      resolveShadowPolicy: async () => {
+        throw new Error("TEST_ONLY policy boom");
+      },
+    });
+    const shadowThrow = await depsThrow.finopsEnforcement.evaluateBeforeProvider({
+      projectId: PILOT,
+      executionRunId: "run:c05f",
+      correlationId: "corr:c05f",
+      occurredAt: clockIso,
+    });
+    expect(shadowThrow.decision).toBe("failed");
+    expect(shadowThrow.captureEligibility).toBe("eligible");
+  });
+
+  it("T7-C06 legacy: no captureEligibility on generic enforcement → capture preserved", async () => {
+    let captureCalled = 0;
+    const capture: FinOpsCapturePort = {
+      async captureUsage() {
+        captureCalled += 1;
+        return {
+          status: "created",
+          eventId: "evt:legacy-c06",
+          dedupKey: "dedup:legacy-c06",
+        };
+      },
+    };
+    const enforcement: FinOpsEnforcementPort = {
+      async evaluateBeforeProvider() {
+        return { decision: "allow", reason: "generic_allow_no_eligibility" };
+      },
+    };
+    const { providers, completeSpy } = spyProviders();
+    const composition = composeExecutionRunD2D3({
+      providers,
+      clockIso,
+      finops: capture,
+      finopsEnforcement: enforcement,
+    });
+    const result = await composition.coordinate(
+      coordinateInput(PILOT, "c06"),
+    );
+    expect(result.ok).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+    expect(captureCalled).toBe(1);
+    expect(result.finopsCapture?.status).toBe("created");
+  });
+
+  it("T7-C07 legacy: no finopsEnforcement · capture path preserved", async () => {
+    let captureCalled = 0;
+    const capture: FinOpsCapturePort = {
+      async captureUsage() {
+        captureCalled += 1;
+        return {
+          status: "created",
+          eventId: "evt:legacy-c07",
+          dedupKey: "dedup:legacy-c07",
+        };
+      },
+    };
+    const { providers, completeSpy } = spyProviders();
+    const composition = composeExecutionRunD2D3({
+      providers,
+      clockIso,
+      finops: capture,
+    });
+    const result = await composition.coordinate(
+      coordinateInput(PILOT, "c07"),
+    );
+    expect(result.ok).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+    expect(captureCalled).toBe(1);
+    expect(result.finopsCapture?.status).toBe("created");
+  });
+
+  it("T7-C08 concurrency: A SHADOW-eligible and B OFF-ineligible do not contaminate", async () => {
+    await upsertMode(pool, PILOT, "SHADOW");
+    await seedProjection(pool, PILOT, "0.10000000");
+    await upsertMode(pool, OTHER, "OFF");
+
+    // B uses OTHER as non-pilot under PILOT SHADOW adapter → always ineligible.
+    // A uses PILOT under SHADOW → eligible; flip OFF during A's provider to prove POST gate.
+    const aiA = new FakeAiExecutionAdapter();
+    vi.spyOn(aiA, "complete").mockImplementation(async () => {
+      await upsertMode(pool, PILOT, "OFF");
+      return {
+        kind: "success" as const,
+        completeness: "complete" as const,
+        redactedSummary: "TEST_ONLY concurrent A",
+        disclosureNotes: ["source=fake", "live=false"],
+        usage: {
+          status: "validated" as const,
+          inputTokens: 1,
+          outputTokens: 1,
+          unit: "tokens" as const,
+        },
+      };
+    });
+    const secretsA = new FakeSecretSourceAdapter();
+    const compositionA = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      clockIso,
+      providers: composeExecutionRunProviders({
+        ai: aiA,
+        git: new FakeGitReadAdapter({
+          repositoryAllowlist: [
+            "o/r",
+            "example/example",
+            "mcleland147/sfia-workspace",
+          ],
+          pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
+        }),
+        cursor: new FixtureCursorExecutionAdapter(),
+        secrets: { resolve: (id) => secretsA.resolve(id) },
+        events: new RecordingExecutionEventSink(),
+      }),
+      resolveShadowPolicy: async () => null,
+    });
+
+    await upsertMode(pool, PILOT, "SHADOW");
+    const { providers: providersB } = spyProviders();
+    const compositionB = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      clockIso,
+      providers: providersB,
+      resolveShadowPolicy: async () => null,
+    });
+
+    const [resultA, resultB] = await Promise.all([
+      compositionA.coordinate(coordinateInput(PILOT, "c08a")),
+      compositionB.coordinate(coordinateInput(OTHER, "c08b")),
+    ]);
+
+    expect(resultA.ok).toBe(true);
+    expect(resultB.ok).toBe(true);
+    // A: PRE eligible then POST OFF → shadow_capture_inactive
+    expect(resultA.finopsCapture).toEqual(
+      expect.objectContaining({
+        status: "disabled",
+        reason: "shadow_capture_inactive",
+      }),
+    );
+    // B: non-pilot PRE ineligible → coordinator short-circuit
+    expect(resultB.finopsCapture).toEqual(
+      expect.objectContaining({
+        status: "disabled",
+        reason: "finops_pre_provider_capture_ineligible",
+      }),
+    );
   });
 });
