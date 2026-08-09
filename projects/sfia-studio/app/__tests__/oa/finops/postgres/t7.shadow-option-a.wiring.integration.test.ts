@@ -6,7 +6,7 @@
  * TEST ONLY rows/policies — NOT product activation / NOT 15/20/25/30.
  */
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { Pool } from "pg";
+import type { Pool, PoolClient } from "pg";
 import { getFixture } from "@/lib/oa/execution-run";
 import {
   composeExecutionRunD2D3T7ShadowPilot,
@@ -123,10 +123,16 @@ function coordinateInput(projectId: string, suffix: string) {
 
 describeDb("T7 SHADOW Option A — wiring integration", () => {
   let pool: Pool;
+  let lockClient: PoolClient;
   const clockIso = "2026-08-08T16:10:00.000Z";
 
   beforeAll(async () => {
+    // Session-scoped lock — serialize finops_rollout_config vs other T7 suites.
     pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 6 });
+    lockClient = await pool.connect();
+    await lockClient.query(
+      `SELECT pg_advisory_lock(hashtext('finops-t7-rollout-table'))`,
+    );
     await pool.query(`SELECT 1`);
   });
 
@@ -139,6 +145,14 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
       `DELETE FROM finops_enforcement_projection WHERE project_id = ANY($1::text[])`,
       [[PILOT, OTHER]],
     );
+    try {
+      await lockClient.query(
+        `SELECT pg_advisory_unlock(hashtext('finops-t7-rollout-table'))`,
+      );
+    } catch {
+      // ignore
+    }
+    lockClient.release();
     await closeFinOpsPool(pool);
   });
 
