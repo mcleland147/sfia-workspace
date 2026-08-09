@@ -14,7 +14,8 @@
     "test:e2e": "playwright test",
     "test:db": "vitest run __tests__/oa/finops/postgres",
     "migrate:up": "node-pg-migrate up --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT",
-    "migrate:down": "node-pg-migrate down --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT"
+    "migrate:down": "node-pg-migrate down --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT",
+    "finops:t7:rollout": "tsx scripts/finops-t7-shadow-rollout.ts"
   },
   "dependencies": {
     "ajv": "^6.15.0",
@@ -38,6 +39,7 @@
     "eslint-config-next": "^15.3.3",
     "jsdom": "^26.1.0",
     "node-pg-migrate": "^8.0.4",
+    "tsx": "^4.20.5",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"
   }
