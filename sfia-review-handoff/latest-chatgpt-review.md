@@ -1,27 +1,41 @@
-# Cycle 12 Critical — FinOps T7 SHADOW — First Pilot Observation — Review Pack
+# Cycle 1 Critical — FinOps T7 SHADOW — Bounded Calibration — Review Pack
 
 **Level:** FULL
-**Date/heure:** 2026-08-09 21:12:20 CEST / 2026-08-09 19:12:20 UTC
+**Date/heure:** 2026-08-09 22:00:56 CEST / 2026-08-09 20:00:56 UTC
 **Repo:** mcleland147/sfia-workspace
-**Cycle:** 12 — Observabilité / RUN readiness
+**Cycle type:** 1 — Cadrage
 **Profil:** Critical
-**Typologie:** RUN / LIVE OBSERVATION
+**Typologie v2.4:** EVOL / DECISION PREPARATION / READ-ONLY CALIBRATION
+**projectId:** `sfia-studio-ops1`
+**target:** `neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot`
 
 ---
 
 ## Morris GO (exact)
 
-GO T7 SHADOW OBSERVATION —
-sfia-studio-ops1 —
-TARGET neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot —
-KEEP SHADOW ACTIVE —
-COLLECT BOUNDED PROVIDER / USAGE / AUDIT EVIDENCE —
-ASSESS FIRST-PILOT BEHAVIOR AND CALIBRATION INPUTS —
-PRESERVE OBS-01 / C08 ACCEPTANCE SCOPE —
-NO POLICY VALUES YET —
-NO MONITOR —
-NO E1 —
-NO ROLLBACK UNLESS SAFETY TRIGGER.
+GO T7 SHADOW BOUNDED CALIBRATION
+
+Autorise: lecture Git · lecture runtime DB strictement read-only · analyse · options candidates · recommandation non décisionnelle · review pack · handoff Git borné.
+
+N’autorise PAS: sélection d’option · sélection thresholdCode/currency/thresholdAmount · modification policy source · provider call · rollout mutation · rollback · MONITOR · E1 · T4-T3 remediation · code change projet · PR/merge.
+
+---
+
+## Cycle Knowledge Contract
+
+| Field | Value |
+|---|---|
+| recherché | oui |
+| cycle | 1 — Cadrage |
+| contrat | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` |
+| statut | candidate |
+| usage | experimental cognitive guidance |
+| autorité | aucune autorité d’exécution |
+| posture | distinguer intention, hypothèses, données disponibles, inconnues et décision Morris |
+| anti-claim | calibration préparée ≠ policy validée ≠ MONITOR ready |
+
+Blocs activés: FinOps · Observabilité / RUN readiness.
+Blocs désactivés: Delivery · Architecture technique · Déploiement/release · Performance · GreenOps · UX/UI · RGPD · Accessibilité.
 
 ---
 
@@ -30,728 +44,918 @@ NO ROLLBACK UNLESS SAFETY TRIGGER.
 | Field | Value |
 |---|---|
 | branch | `main` |
-| HEAD / origin/main | `96a8a14bc894b520043b3a8f758b1fb14a72a5e4` |
+| HEAD | `96a8a14bc894b520043b3a8f758b1fb14a72a5e4` |
+| origin/main | `96a8a14bc894b520043b3a8f758b1fb14a72a5e4` |
 | BASELINE_PINNED | YES |
-| tracked clean | YES (`?? .tmp-sfia-review/` only) |
+| tracked | CLEAN |
 | staged | NONE |
+| untracked allowed | `?? .tmp-sfia-review/` only |
+| other untracked | NONE listed beyond `.tmp-sfia-review/**` |
 
 ---
 
-## Sources consulted
+## Sources consulted (Git)
 
-Cycle template / routing / validation checklist / v2.5 method / `02-fifteen-cycles-synthetic-map.md` · incoming handoff · docs 160/161/162 · platform AI config/provider/openaiProvider · T7 pilot composition / shadow deps / policy source / target identity / operator / CLI · usage/audit persistence paths.
+Method: `prompts/templates/sfia-cycle-execution-template.md` · `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` · `method/sfia-fast-track/checklists/sfia-validation-checklist.md` · `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` · CKC routing matrix · `pilots/01-cadrage.md`.
 
-CKC: cycle 12 detailed ABSENT · fallback synthetic map + §4.12 · candidate · Ops realism · no execution authority.
+FinOps: `types.enforcement.ts` · `evaluateFinOpsEnforcement.ts` · `types.aggregate.ts` · `buildUsageEvent.ts` · `composeFinOpsT7ShadowExecutionDeps.ts` · `versionedFinOpsT7ShadowPolicySource.ts` · `composeFinOpsT7Runtime.ts` · `postgresFinOpsEnforcementProjectionStore.ts` · `rebuildEnforcementProjection.ts` · `estimateUsageCost.ts` · `reconcileProjectPeriod.ts` · `blockingEligibility.ts` · `costEvidence.ts` · `postgresFinOpsUsageLedger.ts` · `postgresFinOpsReconciliation.ts` · `postgresFinOpsPriceCatalog.ts` · `postgresFinOpsAggregateStore.ts`.
 
 ---
 
-## Incoming handoff
+## Incoming handoff (required)
 
 | Field | Expected | Observed |
 |---|---|---|
-| tip | `6fef10eecdf7e2682b2441ac75484015def7cc27` | MATCH |
-| blob | `58a620c488bd7c64cf596fbc876487851275b673` | MATCH |
+| tip | `4dff3af64dedd44bccb92e94d2413ba879867735` | MATCH |
+| blob | `11bdea99e4aee7c0f96622d28afbbd3dfcba3b99` | MATCH |
 
-Confirms Cycle 11 Critical · PF 18/18 · apply total 1 · SHADOW rev1 · post-SHADOW openai/`gpt-5.6-sol` · FINOPS_PROVIDER_BLOCK=NO · usage/audit PASS · policy EMPTY · rollback not executed · OBS-01/C08 accepted first-pilot · T4-T3 deferred · next gate OBSERVATION.
+Incoming confirms: Cycle 12 Critical · SHADOW rev1 · 3/3 probes PASS · retry=0 · usage 1→4 · audit 1→4 · correlation 3/3 · cross-project=0 · no anomalies · ST1–ST4 FALSE · rollback not executed · policy EMPTY · OBS-01 OPEN · C08 OPEN · T4-T3 OPEN BEFORE MONITOR · MONITOR NOT ACTIVATED · E1 NOT AUTHORIZED · project mutation ZERO.
 
 ---
 
-## Initial SHADOW snapshot
+## Calibration doctrine (applied)
 
-| Field | Value |
+| Layer | Applied? |
 |---|---|
-| ROW_EXISTS | true |
-| MODE | SHADOW |
-| REVISION | 1 |
-| UPDATED_AT | 2026-08-09T18:50:15.239Z |
-| SAFE_IDENTITY | ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech:5432/neondb |
-| FINGERPRINT | `7476c251…` MATCH |
-| CONNECTION | PASS |
+| OBSERVATION | YES — Git + Neon RO facts |
+| HYPOTHESIS | YES — marked separately |
+| OPTION | NO produced (evidence insufficient) |
+| RECOMMENDATION | YES — non-décisionnelle |
+| DECISION | Morris only |
+
+Aucune OPTION ne devient DECISION dans ce cycle.
 
 ---
 
-## Keychain / model / provider hygiene
+## Policy contract (Git)
 
-| Field | Value |
+| Contract | Evidence |
 |---|---|
-| DB Keychain | PRESENT NON_EMPTY (service/account as authorized) |
-| OpenAI Keychain | PRESENT NON_EMPTY |
-| OPENAI_MODEL | gpt-5.6 |
-| FAKE_PROVIDER_FORCED | NO |
-| Provider path | resolveConversationProvider → OpenAIConversationProvider (Responses) → PlatformAiExecutionAdapter → composeExecutionRunD2D3T7ShadowPilot |
-| REAL_SECRET_LEAK | NO |
+| `FinOpsT7ShadowPolicyInput` | `thresholdCode` · `currency` · `thresholdAmount` only |
+| effect | omitted from source; adapter forces `effect: "signal_only"` |
+| T4 compare | `blockingEligibleAmount` vs `thresholdAmount` |
+| eligible < threshold | `allow` / `below_threshold` |
+| eligible ≥ threshold + signal_only | `soft_signal` / `threshold_crossed_signal_only` |
+| versioned source | `Object.freeze({})` |
+| ACTIVE POLICY ENTRIES | **0** |
+| historical 15/20/25/30 | FORBIDDEN as product thresholds (comments + adapter anti-claims) |
+| runtime policy state | EMPTY / NOT_CONFIGURED (null resolver → allow/not_configured) |
 
 ---
 
-## Policy state
+## Point critique — tokens ≠ money
 
-POLICY_VALUES_SELECTED = NO
-POLICY_SOURCE_STATE = EMPTY / NOT_CONFIGURED (`Object.freeze({})`)
-
----
-
-## Baseline usage/audit (B0 before observation probes)
-
-| Field | Value |
+| Claim | Status |
 |---|---|
-| USAGE_BASELINE_COUNT (U0) | 1 (activation SHADOW probe retained) |
-| AUDIT_BASELINE_COUNT (A0) | 1 |
-| usage maxOccurredAt | 2026-08-04T09:15:00.000Z (execution clock composition quirk; known) |
-| audit maxOccurredAt | 2026-08-09T18:50:34.498Z |
+| T1 usage ledger = NO MONEY | CONFIRMED (`buildUsageEvent.ts`) |
+| Cycle 12 events carry tokens/provider/model only | CONFIRMED in Neon |
+| tokens alone ≠ `thresholdAmount` | CONFIRMED |
+| invent price / monthly extrapolate / recycle 15–30 | NOT DONE |
 
 ---
 
-## Bound contract
+## Financial evidence model (Git)
 
-OBSERVATION_PROVIDER_PROBES_MAX=3 · WINDOW≤10m · RETRY=0 · MODEL_FALLBACK=NONE · LOAD_TEST=NO
+```
+usage events (T1 ledger; API_USAGE; tokens; NO MONEY)
+    ↓  [NOT automatic in SHADOW capture]
+cost events (T2; via explicit reconcileProjectPeriod facts
+             OR estimation path needing R3 catalog)
+    ↓
+aggregates (finops_usage_aggregate; rebuildable)
+    ↓
+enforcement projection (T4; rebuildable; SoT-safe)
+    ↓
+T4 evaluateFinOpsEnforcement (only if policy non-null)
+```
 
-Harness reused/copied under `.tmp-sfia-review/t7-shadow-observation/` from activation harness; runner added for per-probe precheck + correlation telemetry.
+### Authoritative source per stage
+
+| Stage | Authoritative |
+|---|---|
+| usage | `finops_usage_event` append-only ledger |
+| cost | `finops_cost_event` (ledger/cost remain financially authoritative per T4 types) |
+| projection | derived / rebuildable from cost events; not independent money SoT |
+| T4 decision | projection + injected policy (absent ⇒ inert allow/not_configured) |
+
+### Field definitions (code)
+
+| Field | Definition |
+|---|---|
+| `sourceOfTruth` | domain enum on usage/cost (`API_USAGE`, `PROVIDER_OBSERVED`, `BILLED`, estimates, `UNKNOWN`) |
+| `evidenceClass` | derived classification: estimated / observed / billed / unknown |
+| `estimationStatus` | on cost events: available / unavailable / unknown |
+| `catalogVersion` | R3 catalog entry version when estimation used |
+| `providerObserved` / `billed` | projection amount buckets from eligible cost events |
+| `blockingEligibleAmount` | **billed + providerObserved** (canonical Money scale-8; **no FX**) |
+
+Contract comment in `types.enforcement.ts` matches implementation in `rebuildEnforcementProjection.ts` (`billedMoney.amountMinor + observedMoney.amountMinor`). **No divergence.**
+
+Blocking eligibility (`blockingEligibility.ts`): only `BILLED` and `PROVIDER_OBSERVED` contribute. **`API_USAGE` never blocks** and never contributes to `blockingEligibleAmount`.
 
 ---
 
-## Probe 1
+## Runtime safety precheck
 
-| Field | Value |
+| Check | Result |
 |---|---|
-| index | 1 |
-| correlationId | `corr:t7live:live-shadow-1786302709143` |
-| runId | `executionrun:d2d1:0001` |
-| PROVIDER_ID | openai |
-| MODEL_RETURNED | gpt-5.6-sol |
-| response hash16 | `b2c089d2bfa77954` |
-| invoked/completed | True / True |
-| RUN_STATE | succeeded |
-| FINOPS_CAPTURE_STATUS | created |
-| FINOPS_PROVIDER_BLOCK | False |
-| tokens in/out/total | 25 / 11 / 36 |
-| DURATION_MS | 2273 |
-| usage event | `evt_e3af4ce4c6eee26129fe1fd9501defbcb1234bed8db2cc0e755237ac9cce08e1` |
-| audit event | `aud_bc90c37a2ca89f79cc182dd0084f64c12ed05b0c38a16cc2ee7eab33f44d4635` / `finops_capture_created` |
-| CROSS_PROJECT_USAGE | 0 |
-| pre/post rollout | SHADOW/1 → SHADOW/1 |
-| correlation OK | True |
-
-## Probe 2
-
-| Field | Value |
-|---|---|
-| index | 2 |
-| correlationId | `corr:t7live:live-shadow-1786302723022` |
-| runId | `executionrun:d2d1:0001` |
-| PROVIDER_ID | openai |
-| MODEL_RETURNED | gpt-5.6-sol |
-| response hash16 | `94adc115ebb86aef` |
-| invoked/completed | True / True |
-| RUN_STATE | succeeded |
-| FINOPS_CAPTURE_STATUS | created |
-| FINOPS_PROVIDER_BLOCK | False |
-| tokens in/out/total | 25 / 11 / 36 |
-| DURATION_MS | 1732 |
-| usage event | `evt_da0ec4fda9f4d4d4af683747917662c61b1de1112c457c29b9cd05118e114f1e` |
-| audit event | `aud_b0d55ae7aa61c3341ff8f31b82f9eb14f5384672e96faffc33f374e2f674c97f` / `finops_capture_created` |
-| CROSS_PROJECT_USAGE | 0 |
-| pre/post rollout | SHADOW/1 → SHADOW/1 |
-| correlation OK | True |
-
-## Probe 3
-
-| Field | Value |
-|---|---|
-| index | 3 |
-| correlationId | `corr:t7live:live-shadow-1786302725662` |
-| runId | `executionrun:d2d1:0001` |
-| PROVIDER_ID | openai |
-| MODEL_RETURNED | gpt-5.6-sol |
-| response hash16 | `8b70722dba3fc384` |
-| invoked/completed | True / True |
-| RUN_STATE | succeeded |
-| FINOPS_CAPTURE_STATUS | created |
-| FINOPS_PROVIDER_BLOCK | False |
-| tokens in/out/total | 25 / 11 / 36 |
-| DURATION_MS | 2426 |
-| usage event | `evt_afde374b862d49a652f85b49667c8040bf3c81e2926e394fd629b666c51328ff` |
-| audit event | `aud_c6cd978f6e2586977a5cd54a5033cf76f870f494ed81a187848707be2e35f259` / `finops_capture_created` |
-| CROSS_PROJECT_USAGE | 0 |
-| pre/post rollout | SHADOW/1 → SHADOW/1 |
-| correlation OK | True |
+| OpenAI calls | **0** — OPENAI_API_KEY NOT LOADED |
+| DB secret | Keychain `sfia-studio-finops-t7-shadow-pilot-DATABASE_URL_DIRECT` / `morris` — loaded process-only; value never displayed |
+| target identity | MATCH |
+| fingerprint | `7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331` MATCH |
+| rollout | ROW_EXISTS=true · MODE=SHADOW · REVISION=1 · updatedAt=`2026-08-09T18:50:15.239Z` |
+| policy source | EMPTY |
 
 ---
 
-## Final durable state
+## Database access
 
-| Field | Value |
+| Guarantee | Value |
 |---|---|
-| MODE | SHADOW |
-| REVISION | 1 |
-| USAGE_FINAL_COUNT (U1) | 4 |
-| AUDIT_FINAL_COUNT (A1) | 4 |
-| U1−U0 | 3 |
-| A1−A0 | 3 |
-| SHADOW | KEEP ACTIVE |
-
-Cardinality matches design: one usage + one audit capture per successful SHADOW provider run.
+| harness | `.tmp-sfia-review/t7-shadow-calibration/calibration-readonly.ts` |
+| transaction | `BEGIN READ ONLY` … `COMMIT` |
+| INSERT/UPDATE/DELETE/UPSERT/DDL/migration/rebuild/reconcile/refresh/rollout | **ZERO** |
+| READ_ONLY_MUTATIONS | **0** |
 
 ---
 
-## CALIBRATION_INPUTS_ONLY
+## Usage evidence (bounded `sfia-studio-ops1`)
 
 | Metric | Value |
 |---|---|
-| probes attempted / provider pass | 3 / 3 |
-| usage captures / audits | 3 / 3 |
-| correlation match rate | 3/3 |
-| input tokens total | 75 |
-| output tokens total | 33 |
-| total tokens | 108 |
-| durations_ms | [2273, 1732, 2426] |
-| min / median / max ms | 1732 / 2273 / 2426 |
-| models returned | ['gpt-5.6-sol', 'gpt-5.6-sol', 'gpt-5.6-sol'] |
-| capture statuses | ['created', 'created', 'created'] |
-| FINOPS_PROVIDER_BLOCK | all false |
-| anomalies | NONE observed in sample |
+| USAGE_EVENT_COUNT (U) | **4** |
+| periodStart present | `2026-08-01` only |
+| provider/model | openai / `gpt-5.6-sol` (all) |
+| usage SoT / evidence / status | `API_USAGE` / `observed` / `validated` (all) |
 
-Anti-claims: NOT a SLO · NOT a load benchmark · NOT statistically representative · NOT a calibrated policy · NO monthly cost extrapolation · NO threshold recommendation.
+| eventId (prefix) | correlationId | provider/model | in/out/total | occurredAt | periodStart | SoT | evidence | status |
+|---|---|---|---|---|---|---|---|---|
+| `evt_9e1f6085d43987bb…` | `corr:t7live:live-shadow-1786301432289` | openai / `gpt-5.6-sol` | 25/11/36 | 2026-08-04T09:15:00.000Z | 2026-08-01 | API_USAGE | observed | validated |
+| `evt_afde374b862d49a6…` | `corr:t7live:live-shadow-1786302725662` | openai / `gpt-5.6-sol` | 25/11/36 | 2026-08-04T09:15:00.000Z | 2026-08-01 | API_USAGE | observed | validated |
+| `evt_da0ec4fda9f4d4d4…` | `corr:t7live:live-shadow-1786302723022` | openai / `gpt-5.6-sol` | 25/11/36 | 2026-08-04T09:15:00.000Z | 2026-08-01 | API_USAGE | observed | validated |
+| `evt_e3af4ce4c6eee261…` | `corr:t7live:live-shadow-1786302709143` | openai / `gpt-5.6-sol` | 25/11/36 | 2026-08-04T09:15:00.000Z | 2026-08-01 | API_USAGE | observed | validated |
+
+Note: `occurredAt` stored as fixed pilot timestamp `2026-08-04T09:15:00.000Z` (same across events); durable capture audits from Cycle 12 are later (2026-08-09T19:11–19:12Z). Tokens are evidence of usage volume only — **not money**.
 
 ---
 
-## Safety triggers
+## Cost coverage
 
-| Trigger | Result |
+| Metric | Value |
 |---|---|
-| ST1 FinOps blocks provider | FALSE |
-| ST2 usage missing after window | FALSE |
-| ST3 audit missing after window | FALSE |
-| ST4 corruption / cross-project | FALSE |
+| USAGE_EVENT_COUNT U | 4 |
+| MATCHED_COST_EVENT_COUNT C | **0** |
+| KNOWN_AMOUNT_COUNT K | **0** |
+| COST_COVERAGE_RATE C/U | **0** |
+| KNOWN_AMOUNT_COVERAGE_RATE K/U | **0** |
+| COST_EVENTS_TOTAL_FOR_PROJECT | 0 |
+| currencies | none |
+| cost sourceOfTruth / evidenceClass / estimationStatus / catalogVersion | none |
+| reconciliations | **0** |
+| aggregates (`finops_usage_aggregate`) | **0** |
+| price catalog entries total | **0** |
+| catalog hits for openai/`gpt-5.6-sol` | **0** |
 
-ROLLBACK_REQUIRED=NO · ROLLBACK_EXECUTED=NO · prepared SHADOW→OFF command unused.
+These rates are completeness controls on the small SHADOW sample — not product statistics.
 
 ---
 
-## O01–O24
+## Enforcement projection (read-only inspect)
 
-All **PASS**.
+| Field | Value |
+|---|---|
+| rows for sfia-studio-ops1 | **ABSENT (0)** |
+| blockingEligibleAmount | N/A — no projection |
+| rebuild/reconcile/refresh executed | **NO** |
 
 ---
 
-## Reserves
+## T4 ↔ T3 readiness analysis
+
+R-T4-T3-SYNC-01 remains **OPEN BEFORE MONITOR** (not closed by this cycle).
+
+| Question | Finding |
+|---|---|
+| Is `gpt-5.6-sol` covered by exploitable T3/catalog? | **NO** — catalog empty; 0 hits |
+| Are T4 cost events fed with clear provenance? | **NO cost events exist** |
+| catalogVersion present when needed? | N/A — no estimation/cost |
+| estimationStatus available? | N/A — no cost events |
+| Are blockingEligibleAmount amounts traceable? | **NO projection / no eligible amounts** |
+| Risk of policy on unsynced financial data? | **HIGH if numeric thresholds were invented now** |
+
+**Verdict T4-T3 (calibration only):** `INSUFFICIENT FOR NUMERIC CALIBRATION`
+**Never claimed:** T4-T3 CLOSED.
+
+---
+
+## E01–E12 sufficiency gate
+
+| ID | Gate | Result |
+|---|---|---|
+| E01 | usage evidence identified | PASS (U=4) |
+| E02 | cost-event linkage known | FAIL (C=0) |
+| E03 | known monetary amounts available | FAIL (K=0) |
+| E04 | currency unambiguous | FAIL (none) |
+| E05 | sourceOfTruth acceptable for money/T4 | FAIL (usage=`API_USAGE` never contributes to blockingEligible; no BILLED/PROVIDER_OBSERVED cost) |
+| E06 | evidenceClass understood | PASS for usage mapping; FAIL for cost (absent) |
+| E07 | catalogVersion / pricing provenance | FAIL (catalog empty; model uncovered) |
+| E08 | enforcement projection present/traceable | FAIL (absent) |
+| E09 | blockingEligibleAmount provenance | FAIL (no amount chain) |
+| E10 | no unresolved contradiction invalidating amounts | PASS (absence, not contradiction) |
+| E11 | sample limitations explicit | PASS (n=4 probes/events; tokens≠money) |
+| E12 | T4-T3 gap does not invalidate calibration-option exercise | FAIL — gap invalidates **numeric** options |
+
+### CALIBRATION_EVIDENCE
+
+**INSUFFICIENT**
+
+---
+
+## Candidate options
+
+**NONE PRODUCED.**
+
+Reason (exact gap):
+
+1. No `finops_cost_event` linked to SHADOW usage (C=0, K=0).
+2. Empty `finops_price_catalog_entry` — no authorized tariff for openai/`gpt-5.6-sol`.
+3. No enforcement projection / no `blockingEligibleAmount`.
+4. Usage SoT `API_USAGE` cannot feed T4 blocking-eligible money.
+5. Forbidden to invent money from tokens / external price / historical 15–30.
+
+### What exists
+- SHADOW rev1 durable · 4 validated usage events · tokens/provider/model · T4 mechanics inert under EMPTY policy · financial pipeline code path understood.
+
+### What is missing (minimal)
+At least one of:
+- **Authoritative monetary facts** for the pilot period as `finops_cost_event` with `sourceOfTruth ∈ {BILLED, PROVIDER_OBSERVED}`, known `amount`, unambiguous `currency`, consistent `evidenceClass`, then a rebuildable projection — **or**
+- An **authorized T3/R3 catalog entry** covering openai/`gpt-5.6-sol` + unit/currency + `catalogVersion`, plus an authorized estimation/reconciliation path producing known amounts with explicit provenance.
+
+### Why this blocks monetary calibration
+Without known amounts in the authoritative cost/projection chain, any `thresholdAmount` would be invented — violating tokens≠money and T4 eligibility rules.
+
+### Minimal next evidence action (not opened)
+Morris-authorized **read-only design / subsequent bounded cycle** to obtain either (a) provider-observed or billed cost facts into T2, or (b) authorized catalog+estimation provenance — **without** selecting policy values, without MONITOR/E1, without inventing tariffs.
+
+### Debt if gap were bypassed
+Policy thresholds detached from financial SoT · false soft_signal/noise · T4-T3 reserve laundered closed · irreversible enforcement design debt once promoted.
+
+---
+
+## Recommendation (non-décisionnelle)
+
+**RECOMMENDATION ONLY — MORRIS DECIDES.**
+
+Ne sélectionner aucune option actuellement.
+Demander davantage de preuves financières (cost events connus et/ou catalog T3 autorisé pour `gpt-5.6-sol`) avant tout arbitrage de `thresholdAmount`.
+
+Never: POLICY SELECTED.
+
+---
+
+## Option comparison
+
+N/A — no candidates.
+
+---
+
+## Calibration matrix C01–C24
+
+| ID | Gate | Result |
+|---|---|---|
+| C01 | main pinned | PASS |
+| C02 | tracked clean | PASS |
+| C03 | incoming handoff exact | PASS |
+| C04 | SHADOW rev1 exact | PASS |
+| C05 | target identity/fingerprint | PASS |
+| C06 | policy EMPTY | PASS |
+| C07 | no provider calls | PASS |
+| C08 | DB access read-only | PASS |
+| C09 | usage dataset bounded | PASS |
+| C10 | usage facts traced | PASS |
+| C11 | cost linkage measured | PASS (C=0) |
+| C12 | monetary coverage measured | PASS (K=0) |
+| C13 | currencies identified | PASS (none) |
+| C14 | evidence classes identified | PASS |
+| C15 | sourceOfTruth identified | PASS |
+| C16 | catalog/provenance assessed | PASS (empty/uncovered) |
+| C17 | T4 projection inspected RO | PASS (absent) |
+| C18 | blockingEligibleAmount traceability | PASS — understood; no runtime amount |
+| C19 | T4-T3 calibration readiness classified | PASS = INSUFFICIENT FOR NUMERIC CALIBRATION |
+| C20 | E01–E12 sufficiency gate | PASS → INSUFFICIENT |
+| C21 | candidate options compliant or correctly omitted | PASS (omitted) |
+| C22 | reserves preserved | PASS |
+| C23 | policy/MONITOR/E1 untouched | PASS |
+| C24 | project/runtime mutation zero | PASS |
+
+---
+
+## Reserves (preserved — none closed)
 
 | Reserve | Status |
 |---|---|
-| CAS | CLOSED |
-| TARGET-BINDING | CLOSED |
-| OBS-01 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY — still no durable per-execution decision/reason sink; not closed |
-| C08 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY — not re-run / not closed |
-| T4-T3 | OPEN BEFORE MONITOR + DEFERRED |
-
-POLICY VALUES=NOT SELECTED · MONITOR=NOT ACTIVATED · E1=NOT AUTHORIZED
+| R-T7-OP-EXPECTED-MODE-CAS-01 | CLOSED |
+| R-T7-OP-TARGET-BINDING-01 | CLOSED |
+| R-T7-SHADOW-OBS-01 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY |
+| R-QA-T7-C08-SCENARIO-01 | OPEN MINOR + ACCEPTED FOR FIRST SHADOW PILOT ONLY |
+| R-T4-T3-SYNC-01 | OPEN BEFORE MONITOR |
 
 ---
 
-## Project mutation / secret hygiene
+## Policy / MONITOR / E1 / immutability
 
-PROJECT mutations ZERO · secrets not written to files/Git · process-only injection · unset after · SECRET_LEAK=NO
-
----
-
-## Sample limits
-
-Three synthetic continuity probes only. Ops realism for repeatability — not product traffic, not MONITOR readiness claim.
-
----
-
-## Decisions Morris required (options only — Cursor does not decide)
-
-- continue additional SHADOW observation if factual uncertainty remains;
-- open a bounded calibration cycle later;
-- open a separate rollback-demonstration cycle later;
-- pause trajectory / hold.
-
-NOT concluded: READY FOR MONITOR. MONITOR requires distinct Morris GO + applicable preconditions (incl. T4-T3).
+| Field | Value |
+|---|---|
+| POLICY_VALUES_SELECTED | NO |
+| VERSIONED_POLICY_SOURCE_CHANGED | NO |
+| ROLLOUT_MUTATION | ZERO |
+| MODE | SHADOW |
+| REVISION | 1 |
+| MONITOR | NOT ACTIVATED |
+| E1 | NOT AUTHORIZED |
+| ROLLBACK | NOT EXECUTED |
+| project files modified/created | NONE |
+| temporary only | `.tmp-sfia-review/t7-shadow-calibration/**` · `.tmp-sfia-review/chatgpt-review.md` |
 
 ---
 
-## Temporary harnesses created/copied this cycle
+## Secret hygiene
 
-### `.tmp-sfia-review/t7-shadow-observation/provider-probe.ts`
+- DATABASE_URL_DIRECT: Keychain process-only; never printed.
+- OPENAI_API_KEY: not required; not loaded.
+- Review pack / harness outputs: sanitized (no connection strings).
+
+---
+
+## Next Morris decisions
+
+Si INSUFFICIENT (cas actuel):
+
+1. HOLD — rester en SHADOW rev1 sans policy values.
+2. REQUEST MORE EVIDENCE — autoriser un cycle ultérieur pour preuves monétaires minimales (cost facts BILLED/PROVIDER_OBSERVED et/ou catalog T3 autorisé pour le modèle observé).
+3. Ne pas SELECT / REJECT d’option (aucune produite).
+4. Ne pas ouvrir MONITOR / E1 / policy implementation.
+
+Une éventuelle sélection future nécessitera un cycle séparé d’implémentation/validation — hors GO actuel.
+
+---
+
+## Unique verdict
+
+T7 SHADOW BOUNDED CALIBRATION COMPLETE WITH INSUFFICIENT EVIDENCE —
+CYCLE 1 CRITICAL —
+FINANCIAL EVIDENCE INSUFFICIENT FOR NUMERIC POLICY OPTIONS —
+EXACT GAP NO_COST_EVENTS + EMPTY_PRICE_CATALOG + NO_ENFORCEMENT_PROJECTION + API_USAGE_NOT_BLOCKING_ELIGIBLE —
+NO THRESHOLD VALUE INVENTED —
+NO POLICY CANDIDATE AMOUNT PRODUCED —
+T4-T3 RESERVE REMAINS OPEN —
+POLICY SOURCE UNCHANGED —
+SHADOW KEPT ACTIVE REVISION 1 —
+NO PROVIDER CALL —
+NO RUNTIME MUTATION —
+MONITOR NOT ACTIVATED —
+E1 NOT AUTHORIZED —
+MORRIS DECISION REQUIRED ON NEXT EVIDENCE STEP —
+HANDOFF REMOTE VERIFIED.
+
+---
+
+## Runtime snapshot JSON (sanitized harness output)
+
+```json
+{
+  "ok": true,
+  "READ_ONLY_MUTATIONS": 0,
+  "TARGET_LABEL": "neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot",
+  "SAFE_IDENTITY": {
+    "hostname": "ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech",
+    "port": 5432,
+    "database": "neondb"
+  },
+  "FINGERPRINT": "7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331",
+  "FINGERPRINT_MATCH": true,
+  "ROLLOUT": {
+    "ROW_EXISTS": true,
+    "MODE": "SHADOW",
+    "REVISION": 1,
+    "UPDATED_AT": "2026-08-09T18:50:15.239Z"
+  },
+  "PERIOD_STARTS_PRESENT": [
+    "2026-08-01"
+  ],
+  "USAGE_EVENT_COUNT": 4,
+  "USAGE_EVENTS": [
+    {
+      "eventId": "evt_9e1f6085d43987bbb4abb9b92c0ca829bb33add4411cf237c9a6402c248eace3",
+      "executionRunId": "executionrun:d2d1:0001",
+      "correlationId": "corr:t7live:live-shadow-1786301432289",
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "inputTokens": "25",
+      "outputTokens": "11",
+      "totalTokens": "36",
+      "occurredAt": "2026-08-04T09:15:00.000Z",
+      "periodStart": "2026-08-01",
+      "sourceOfTruth": "API_USAGE",
+      "evidenceClass": "observed",
+      "usageStatus": "validated"
+    },
+    {
+      "eventId": "evt_afde374b862d49a652f85b49667c8040bf3c81e2926e394fd629b666c51328ff",
+      "executionRunId": "executionrun:d2d1:0001",
+      "correlationId": "corr:t7live:live-shadow-1786302725662",
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "inputTokens": "25",
+      "outputTokens": "11",
+      "totalTokens": "36",
+      "occurredAt": "2026-08-04T09:15:00.000Z",
+      "periodStart": "2026-08-01",
+      "sourceOfTruth": "API_USAGE",
+      "evidenceClass": "observed",
+      "usageStatus": "validated"
+    },
+    {
+      "eventId": "evt_da0ec4fda9f4d4d4af683747917662c61b1de1112c457c29b9cd05118e114f1e",
+      "executionRunId": "executionrun:d2d1:0001",
+      "correlationId": "corr:t7live:live-shadow-1786302723022",
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "inputTokens": "25",
+      "outputTokens": "11",
+      "totalTokens": "36",
+      "occurredAt": "2026-08-04T09:15:00.000Z",
+      "periodStart": "2026-08-01",
+      "sourceOfTruth": "API_USAGE",
+      "evidenceClass": "observed",
+      "usageStatus": "validated"
+    },
+    {
+      "eventId": "evt_e3af4ce4c6eee26129fe1fd9501defbcb1234bed8db2cc0e755237ac9cce08e1",
+      "executionRunId": "executionrun:d2d1:0001",
+      "correlationId": "corr:t7live:live-shadow-1786302709143",
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "inputTokens": "25",
+      "outputTokens": "11",
+      "totalTokens": "36",
+      "occurredAt": "2026-08-04T09:15:00.000Z",
+      "periodStart": "2026-08-01",
+      "sourceOfTruth": "API_USAGE",
+      "evidenceClass": "observed",
+      "usageStatus": "validated"
+    }
+  ],
+  "MATCHED_COST_EVENT_COUNT": 0,
+  "KNOWN_AMOUNT_COUNT": 0,
+  "COST_COVERAGE_RATE": 0,
+  "KNOWN_AMOUNT_COVERAGE_RATE": 0,
+  "COST_EVENTS_TOTAL_FOR_PROJECT": 0,
+  "COST_EVENTS": [],
+  "CURRENCIES_PRESENT": [],
+  "COST_SOURCE_OF_TRUTH": [],
+  "COST_EVIDENCE_CLASS": [],
+  "ESTIMATION_STATUS": [],
+  "CATALOG_VERSIONS_ON_COST": [],
+  "AGGREGATES": [],
+  "ENFORCEMENT_PROJECTIONS": [],
+  "RECONCILIATIONS": [],
+  "PRICE_CATALOG_ENTRY_TOTAL": 0,
+  "PRICE_CATALOG_FOR_OBSERVED_MODELS": [
+    {
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "hitCount": 0,
+      "entries": []
+    }
+  ]
+}
+```
+
+---
+
+## Temporary harness — full contents
+
+Path: `.tmp-sfia-review/t7-shadow-calibration/calibration-readonly.ts`
 
 ```typescript
 /**
- * Temporary untracked harness — Cycle 11 PF16 continuation.
- * Uses production SFIA pilot composition + resolveConversationProvider().
- * Does NOT call new OpenAI() directly. Does NOT use FakeConversationProvider for AI.
- * Secrets must arrive via process env only; never logged.
+ * FinOps T7 SHADOW — bounded calibration READ-ONLY harness.
+ * ZERO mutations: no INSERT/UPDATE/DELETE/UPSERT/DDL/migration/rebuild/reconcile.
  */
-import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
-import { composeExecutionRunD2D3T7ShadowPilot } from "../../projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts";
-import { composeExecutionRunProviders } from "../../projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunProviders.ts";
-import { PlatformAiExecutionAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/ai/platformAiExecutionAdapter.ts";
-import { FakeGitReadAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/git/fakeGitReadAdapter.ts";
-import { FixtureCursorExecutionAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/cursor/fixtureCursorExecutionAdapter.ts";
-import { FakeSecretSourceAdapter } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/secrets/fakeSecretSourceAdapter.ts";
-import { RecordingExecutionEventSink } from "../../projects/sfia-studio/app/lib/oa/execution-run/infrastructure/events/recordingExecutionEventSink.ts";
-import { getFixture } from "../../projects/sfia-studio/app/lib/oa/execution-run/fixtures/catalogue.ts";
 import {
-  getLiveConversationAvailability,
-  isFakeConversationProviderForced,
-} from "../../projects/sfia-studio/app/lib/platform/ai/config.ts";
-import { resolveConversationProvider } from "../../projects/sfia-studio/app/lib/platform/ai/provider.ts";
-import { deriveFinOpsT7TargetIdentity, assertExpectedTargetFingerprintMatch } from "../../projects/sfia-studio/app/lib/oa/finops/server/finOpsT7TargetIdentity.ts";
+  assertExpectedTargetFingerprintMatch,
+  deriveFinOpsT7TargetIdentity,
+} from "../../projects/sfia-studio/app/lib/oa/finops/server/finOpsT7TargetIdentity.ts";
 
 const require = createRequire(
   new URL("../../projects/sfia-studio/app/package.json", import.meta.url),
 );
 const { Pool } = require("pg") as typeof import("pg");
 
-const PILOT = "sfia-studio-ops1";
+const PROJECT_ID = "sfia-studio-ops1";
 const EXPECTED_FP =
   "7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331";
+const TARGET_LABEL =
+  "neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot";
 
-function truncHash(value: string | undefined): string | null {
-  if (!value) return null;
-  return createHash("sha256").update(value, "utf8").digest("hex").slice(0, 16);
-}
-
-function phaseArg(): "OFF" | "SHADOW" | "AVAIL" {
-  const a = process.argv[2]?.trim().toUpperCase();
-  if (a === "OFF" || a === "SHADOW" || a === "AVAIL") return a;
-  throw new Error("Usage: provider-probe.ts <AVAIL|OFF|SHADOW>");
-}
-
-async function main() {
-  const phase = phaseArg();
-
-  const availability = getLiveConversationAvailability();
-  const fakeForced = isFakeConversationProviderForced();
-  const model = process.env.OPENAI_MODEL?.trim() ?? "";
-
-  if (phase === "AVAIL") {
-    const missing =
-      availability.available === false ? availability.missing : [];
-    const out = {
-      OPENAI_API_KEY_AVAILABLE: !missing.includes("OPENAI_API_KEY"),
-      OPENAI_MODEL_CONFIGURED: !missing.includes("OPENAI_MODEL"),
-      OPENAI_MODEL: model || null,
-      LIVE_CONFIG_AVAILABLE: availability.available === true,
-      FAKE_PROVIDER_FORCED: fakeForced,
-      PROVIDER_RESOLVER: "resolveConversationProvider",
-      PROVIDER: "openai",
-    };
-    console.log(JSON.stringify(out, null, 2));
-    if (!availability.available || fakeForced || model !== "gpt-5.6") {
-      process.exit(2);
-    }
-    return;
+/** node-pg DATE → local Y-M-D (same rule as postgresFinOpsReconciliation). */
+function formatPgDate(value: unknown): string {
+  if (value instanceof Date) {
+    const y = value.getFullYear();
+    const m = String(value.getMonth() + 1).padStart(2, "0");
+    const d = String(value.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
   }
-
-  if (!process.env.DATABASE_URL_DIRECT?.trim()) {
-    throw new Error("DATABASE_URL_DIRECT missing");
-  }
-  if (!process.env.OPENAI_API_KEY?.trim()) {
-    throw new Error("OPENAI_API_KEY missing");
-  }
-  if (model !== "gpt-5.6") {
-    throw new Error("OPENAI_MODEL must be gpt-5.6");
-  }
-  if (fakeForced) {
-    throw new Error("OPS1_CONVERSATION_PROVIDER=fake is forbidden");
-  }
-  if (!availability.available) {
-    throw new Error(
-      `live conversation unavailable: missing ${(availability as { missing: string[] }).missing.join(",")}`,
-    );
-  }
-
-  const url = process.env.DATABASE_URL_DIRECT!;
-  const id = deriveFinOpsT7TargetIdentity(url);
-  assertExpectedTargetFingerprintMatch(id.fingerprint, EXPECTED_FP);
-
-  const conversation = resolveConversationProvider();
-  if (conversation.providerId !== "openai") {
-    throw new Error(`unexpected providerId=${conversation.providerId}`);
-  }
-  // Ensure we did not resolve the fake provider.
-  if (conversation.constructor?.name === "FakeConversationProvider") {
-    throw new Error("FakeConversationProvider resolved — forbidden");
-  }
-
-  const pool = new Pool({ connectionString: url, max: 2 });
-  const started = Date.now();
-  try {
-    const rollout = await pool.query(
-      `SELECT mode, revision FROM finops_rollout_config WHERE project_id=$1`,
-      [PILOT],
-    );
-    const exists = (rollout.rowCount ?? 0) > 0;
-    const mode = exists ? String(rollout.rows[0].mode) : "OFF";
-    const effective = exists ? mode : "OFF";
-    if (phase === "OFF" && effective !== "OFF") {
-      throw new Error(`expected OFF before probe, got ${effective}`);
-    }
-    if (phase === "SHADOW" && effective !== "SHADOW") {
-      throw new Error(`expected SHADOW before probe, got ${effective}`);
-    }
-
-    const secretsAdapter = new FakeSecretSourceAdapter();
-    const providers = composeExecutionRunProviders({
-      ai: new PlatformAiExecutionAdapter(conversation, {
-        defaultTimeoutMs: 60_000,
-        verified: true,
-      }),
-      git: new FakeGitReadAdapter({
-        repositoryAllowlist: [
-          "o/r",
-          "example/example",
-          "mcleland147/sfia-studio",
-          "mcleland147/sfia-workspace",
-        ],
-        pathAllowlistPrefixes: ["projects/sfia-studio/", "README.md"],
-      }),
-      cursor: new FixtureCursorExecutionAdapter(),
-      secrets: { resolve: (secretId) => secretsAdapter.resolve(secretId) },
-      events: new RecordingExecutionEventSink(),
-    });
-
-    const composition = composeExecutionRunD2D3T7ShadowPilot({
-      pool,
-      nowIso: () => new Date().toISOString(),
-      providers,
-      // default versioned EMPTY policy source
-    });
-
-    const suffix = `live-${phase.toLowerCase()}-${Date.now()}`;
-    const fixture = getFixture("nominal");
-    const correlationId = `corr:t7live:${suffix}`;
-    const result = await composition.coordinate({
-      intent: {
-        ...fixture.intent,
-        intentId: `intent:t7live:${suffix}`,
-        correlationId,
-        requestedLane: "ai",
-        requestedSource: "fixture",
-      },
-      context: {
-        ...fixture.context,
-        projectId: PILOT,
-        declaredSource: "fixture",
-      },
-      providerRequest: {
-        correlationId,
-        lane: "ai",
-        operation: "complete",
-        messages: [
-          {
-            role: "user",
-            content:
-              "SFIA T7 bounded continuity probe. Reply with exactly: SFIA_T7_PROBE_OK",
-          },
-        ],
-        timeoutMs: 60_000,
-      },
-      // MAX_COORDINATOR_TIMEOUT_MS = 60_000
-      timeoutMs: 60_000,
-    });
-
-    await composition.flushAudit().catch(() => undefined);
-
-    const usage = result.validatedUsage ?? result.run?.evidence?.[0]?.usage;
-    const finopsCapture = result.finopsCapture ?? null;
-    const providerResponseId =
-      usage && typeof usage === "object" && "providerResponseId" in usage
-        ? String((usage as { providerResponseId?: string }).providerResponseId ?? "")
-        : "";
-
-    const safe = {
-      PHASE: phase,
-      SUCCESS: result.ok === true && result.providerCompleted === true,
-      PROVIDER_ID: conversation.providerId,
-      MODEL_CONFIGURED: model,
-      MODEL_RETURNED:
-        usage && typeof usage === "object" && "model" in usage
-          ? (usage as { model?: string }).model ?? null
-          : null,
-      PROVIDER_RESPONSE_ID_HASH16: truncHash(providerResponseId || undefined),
-      PROVIDER_INVOKED: result.providerInvoked === true,
-      PROVIDER_COMPLETED: result.providerCompleted === true,
-      RUN_STATE: result.run?.state ?? null,
-      FINOPS_CAPTURE_STATUS:
-        finopsCapture && typeof finopsCapture === "object" && "status" in finopsCapture
-          ? (finopsCapture as { status: string }).status
-          : null,
-      FINOPS_CAPTURE_REASON:
-        finopsCapture && typeof finopsCapture === "object" && "reason" in finopsCapture
-          ? (finopsCapture as { reason?: string }).reason ?? null
-          : null,
-      FINOPS_PROVIDER_BLOCK: false,
-      INPUT_TOKENS:
-        usage && typeof usage === "object" && "inputTokens" in usage
-          ? (usage as { inputTokens?: number }).inputTokens ?? null
-          : null,
-      OUTPUT_TOKENS:
-        usage && typeof usage === "object" && "outputTokens" in usage
-          ? (usage as { outputTokens?: number }).outputTokens ?? null
-          : null,
-      TOTAL_TOKENS:
-        usage && typeof usage === "object" && "totalTokens" in usage
-          ? (usage as { totalTokens?: number }).totalTokens ?? null
-          : null,
-      DURATION_MS: Date.now() - started,
-      CORRELATION_ID: correlationId,
-      RUN_ID: result.run?.runId ?? null,
-      ROLLOUT_EFFECTIVE_AT_PROBE: effective,
-      ERROR_CATEGORY:
-        result.ok === true
-          ? null
-          : result.failure?.code ?? result.failure?.family ?? "COORDINATE_FAILED",
-    };
-
-    // Defense: if FinOps somehow blocked provider, surface it.
-    if (result.run?.state === "blocked") {
-      (safe as { FINOPS_PROVIDER_BLOCK: boolean }).FINOPS_PROVIDER_BLOCK = true;
-    }
-
-    console.log(JSON.stringify(safe, null, 2));
-    if (!safe.SUCCESS || safe.FINOPS_PROVIDER_BLOCK) process.exit(3);
-  } finally {
-    await pool.end().catch(() => undefined);
-  }
-}
-
-main().catch((e) => {
-  const message = String(e && (e as Error).message ? (e as Error).message : e)
-    .replace(/sk-[A-Za-z0-9._-]+/g, "[redacted_key]")
-    .replace(/postgres(ql)?:\/\/[^\s]+/gi, "postgres://[redacted]");
-  console.error(JSON.stringify({ ok: false, message }, null, 2));
-  process.exit(1);
-});
-```
-
-### `.tmp-sfia-review/t7-shadow-observation/run-observation.ts`
-
-```typescript
-/**
- * Cycle 12 observation runner — temporary untracked.
- * Runs one SHADOW probe then correlates usage/audit by correlationId.
- * Args: <probeIndex 1..3>
- */
-import { createRequire } from "node:module";
-import { createHash } from "node:crypto";
-import { spawn } from "node:child_process";
-import { pathToFileURL } from "node:url";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-import { deriveFinOpsT7TargetIdentity, assertExpectedTargetFingerprintMatch } from "../../projects/sfia-studio/app/lib/oa/finops/server/finOpsT7TargetIdentity.ts";
-import { resolveVersionedFinOpsT7ShadowPolicy } from "../../projects/sfia-studio/app/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts";
-import { isFakeConversationProviderForced, getLiveConversationAvailability } from "../../projects/sfia-studio/app/lib/platform/ai/config.ts";
-
-const require = createRequire(new URL("../../projects/sfia-studio/app/package.json", import.meta.url));
-const { Pool } = require("pg") as typeof import("pg");
-
-const PILOT = "sfia-studio-ops1";
-const EXPECTED_FP = "7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-async function readRollout(pool: any) {
-  const row = await pool.query(
-    `SELECT mode, revision::text AS revision, updated_at FROM finops_rollout_config WHERE project_id=$1`,
-    [PILOT],
-  );
-  const exists = (row.rowCount ?? 0) > 0;
-  return {
-    ROW_EXISTS: exists,
-    MODE: exists ? String(row.rows[0].mode) : null,
-    REVISION: exists ? String(row.rows[0].revision) : null,
-    UPDATED_AT: exists ? row.rows[0].updated_at : null,
-    EFFECTIVE_MODE: exists ? String(row.rows[0].mode) : "OFF",
-  };
-}
-
-async function waitTelemetry(pool: any, correlationId: string) {
-  const deadline = Date.now() + 60_000;
-  let attempt = 0;
-  while (attempt < 3 && Date.now() < deadline) {
-    attempt += 1;
-    const usage = await pool.query(
-      `SELECT event_id::text, correlation_id, project_id, provider, model, usage_status,
-              input_tokens::text, output_tokens::text, total_tokens::text, occurred_at
-       FROM finops_usage_event WHERE project_id=$1 AND correlation_id=$2`,
-      [PILOT, correlationId],
-    );
-    const audit = await pool.query(
-      `SELECT audit_event_id::text, event_type, correlation_id, project_id, occurred_at
-       FROM finops_audit_event WHERE project_id=$1 AND correlation_id=$2`,
-      [PILOT, correlationId],
-    );
-    const otherUsage = await pool.query(
-      `SELECT COUNT(*)::int AS c FROM finops_usage_event WHERE correlation_id=$1 AND project_id <> $2`,
-      [correlationId, PILOT],
-    );
-    if ((usage.rowCount ?? 0) >= 1 && (audit.rowCount ?? 0) >= 1) {
-      return {
-        attempts: attempt,
-        USAGE_ROWS: usage.rows,
-        AUDIT_ROWS: audit.rows,
-        CROSS_PROJECT_USAGE: otherUsage.rows[0].c,
-        USAGE_COUNT_FOR_CORR: usage.rowCount,
-        AUDIT_COUNT_FOR_CORR: audit.rowCount,
-      };
-    }
-    if (attempt < 3) await new Promise((r) => setTimeout(r, 15_000));
-  }
-  const usage = await pool.query(
-    `SELECT event_id::text, correlation_id, project_id, provider, model, usage_status,
-            input_tokens::text, output_tokens::text, total_tokens::text, occurred_at
-     FROM finops_usage_event WHERE project_id=$1 AND correlation_id=$2`,
-    [PILOT, correlationId],
-  );
-  const audit = await pool.query(
-    `SELECT audit_event_id::text, event_type, correlation_id, project_id, occurred_at
-     FROM finops_audit_event WHERE project_id=$1 AND correlation_id=$2`,
-    [PILOT, correlationId],
-  );
-  const otherUsage = await pool.query(
-    `SELECT COUNT(*)::int AS c FROM finops_usage_event WHERE correlation_id=$1 AND project_id <> $2`,
-    [correlationId, PILOT],
-  );
-  return {
-    attempts: attempt,
-    USAGE_ROWS: usage.rows,
-    AUDIT_ROWS: audit.rows,
-    CROSS_PROJECT_USAGE: otherUsage.rows[0].c,
-    USAGE_COUNT_FOR_CORR: usage.rowCount ?? 0,
-    AUDIT_COUNT_FOR_CORR: audit.rowCount ?? 0,
-  };
-}
-
-function runProbe(): Promise<{ code: number; stdout: string; stderr: string }> {
-  return new Promise((resolve) => {
-    const probePath = path.join(__dirname, "provider-probe.ts");
-    const child = spawn(
-      "npx",
-      ["--yes", "tsx", probePath, "SHADOW"],
-      {
-        cwd: path.resolve(__dirname, "../../projects/sfia-studio/app"),
-        env: process.env,
-        stdio: ["ignore", "pipe", "pipe"],
-      },
-    );
-    let stdout = "";
-    let stderr = "";
-    child.stdout.on("data", (d) => { stdout += String(d); });
-    child.stderr.on("data", (d) => { stderr += String(d); });
-    child.on("close", (code) => resolve({ code: code ?? 1, stdout, stderr }));
-  });
+  const match = /^(\d{4}-\d{2}-\d{2})/.exec(String(value));
+  if (match) return match[1]!;
+  return String(value);
 }
 
 async function main() {
-  const probeIndex = Number(process.argv[2] || "0");
-  if (![1, 2, 3].includes(probeIndex)) throw new Error("Usage: run-observation.ts <1|2|3>");
-
   const url = process.env.DATABASE_URL_DIRECT?.trim() ?? "";
   if (!url) throw new Error("DATABASE_URL_DIRECT missing");
-  if (!process.env.OPENAI_API_KEY?.trim()) throw new Error("OPENAI_API_KEY missing");
-  if (process.env.OPENAI_MODEL !== "gpt-5.6") throw new Error("OPENAI_MODEL must be gpt-5.6");
-  if (isFakeConversationProviderForced()) throw new Error("fake provider forced");
-  const avail = getLiveConversationAvailability();
-  if (!avail.available) throw new Error("live conversation unavailable");
 
   const id = deriveFinOpsT7TargetIdentity(url);
   assertExpectedTargetFingerprintMatch(id.fingerprint, EXPECTED_FP);
-  const policy = resolveVersionedFinOpsT7ShadowPolicy({ projectId: PILOT } as any);
-  if (policy !== null) throw new Error("UNAUTHORIZED POLICY VALUE PRESENT");
 
   const pool = new Pool({ connectionString: url, max: 1 });
   try {
-    const before = await readRollout(pool);
-    if (before.MODE !== "SHADOW" || before.REVISION !== "1") {
-      console.log(JSON.stringify({ ok: false, code: "STATE_DRIFT", before }, null, 2));
-      process.exit(4);
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN READ ONLY");
+
+      const rollout = await client.query(
+        `SELECT project_id, mode, revision, updated_at
+         FROM finops_rollout_config WHERE project_id = $1`,
+        [PROJECT_ID],
+      );
+      const rowExists = (rollout.rowCount ?? 0) > 0;
+      const mode = rowExists ? String(rollout.rows[0].mode) : null;
+      const revision = rowExists ? Number(rollout.rows[0].revision) : null;
+      const updatedAt = rowExists ? rollout.rows[0].updated_at : null;
+
+      if (!rowExists || mode !== "SHADOW" || revision !== 1) {
+        await client.query("ROLLBACK");
+        console.log(
+          JSON.stringify(
+            {
+              ok: false,
+              stop: "CALIBRATION RUNTIME STATE DRIFT",
+              ROW_EXISTS: rowExists,
+              MODE: mode,
+              REVISION: revision,
+              UPDATED_AT: updatedAt,
+              FINGERPRINT: id.fingerprint,
+            },
+            null,
+            2,
+          ),
+        );
+        process.exit(3);
+      }
+
+      const usage = await client.query(
+        `SELECT
+           event_id,
+           execution_run_id,
+           correlation_id,
+           provider,
+           model,
+           input_tokens,
+           output_tokens,
+           total_tokens,
+           occurred_at,
+           period_start,
+           source_of_truth,
+           evidence_class,
+           usage_status
+         FROM finops_usage_event
+         WHERE project_id = $1
+         ORDER BY occurred_at ASC, event_id ASC`,
+        [PROJECT_ID],
+      );
+
+      const periodStarts = [
+        ...new Set(
+          usage.rows.map((r: { period_start: unknown }) =>
+            formatPgDate(r.period_start),
+          ),
+        ),
+      ];
+
+      const cost = await client.query(
+        `SELECT
+           cost_event_id,
+           dedup_key,
+           usage_event_id,
+           execution_run_id,
+           period_start,
+           currency,
+           amount,
+           evidence_class,
+           source_of_truth,
+           estimation_status,
+           correction_ref,
+           catalog_version,
+           provider,
+           model,
+           unit,
+           billing_quantum,
+           usage_quantity,
+           occurred_at
+         FROM finops_cost_event
+         WHERE project_id = $1
+         ORDER BY occurred_at ASC NULLS LAST, cost_event_id ASC`,
+        [PROJECT_ID],
+      );
+
+      const aggregates = await client.query(
+        `SELECT *
+         FROM finops_usage_aggregate
+         WHERE project_id = $1
+         ORDER BY period_start, currency`,
+        [PROJECT_ID],
+      );
+
+      const projections = await client.query(
+        `SELECT
+           project_id,
+           period_start,
+           currency,
+           blocking_eligible_amount,
+           billed_amount,
+           provider_observed_amount,
+           eligible_cost_event_count,
+           billed_event_count,
+           provider_observed_event_count,
+           rebuild_version,
+           rebuilt_at
+         FROM finops_enforcement_projection
+         WHERE project_id = $1
+         ORDER BY period_start, currency`,
+        [PROJECT_ID],
+      );
+
+      const recon = await client.query(
+        `SELECT reconciliation_id, dedup_key, period_start, source_batch_id,
+                status, processed_count, error_code, error_message, completed_at
+         FROM finops_reconciliation_record
+         WHERE project_id = $1
+         ORDER BY completed_at ASC NULLS LAST`,
+        [PROJECT_ID],
+      );
+
+      // Catalog coverage for observed provider/model pairs (metadata only).
+      const providerModels = [
+        ...new Map(
+          usage.rows.map((r: { provider: string; model: string | null }) => [
+            `${r.provider}::${r.model ?? ""}`,
+            { provider: r.provider, model: r.model },
+          ]),
+        ).values(),
+      ];
+
+      const catalogHits: Array<Record<string, unknown>> = [];
+      for (const pm of providerModels) {
+        if (!pm.model) {
+          catalogHits.push({
+            provider: pm.provider,
+            model: pm.model,
+            hitCount: 0,
+            reason: "model_null",
+          });
+          continue;
+        }
+        const hit = await client.query(
+          `SELECT catalog_entry_id, catalog_version, provider, model, unit,
+                  currency, billing_quantum, amount_per_quantum::text AS amount_per_quantum,
+                  valid_from, valid_to
+           FROM finops_price_catalog_entry
+           WHERE provider = $1 AND model = $2
+           ORDER BY valid_from DESC
+           LIMIT 5`,
+          [pm.provider, pm.model],
+        );
+        catalogHits.push({
+          provider: pm.provider,
+          model: pm.model,
+          hitCount: hit.rowCount ?? 0,
+          entries: hit.rows.map((r) => ({
+            catalogEntryId: r.catalog_entry_id,
+            catalogVersion: r.catalog_version,
+            unit: r.unit,
+            currency: r.currency,
+            billingQuantum: String(r.billing_quantum),
+            // amount present as string for provenance audit — not used as threshold
+            amountPerQuantumPresent: r.amount_per_quantum != null,
+            validFrom:
+              r.valid_from instanceof Date
+                ? r.valid_from.toISOString()
+                : r.valid_from,
+            validTo:
+              r.valid_to instanceof Date
+                ? r.valid_to.toISOString()
+                : r.valid_to,
+          })),
+        });
+      }
+
+      const catalogTotal = await client.query(
+        `SELECT COUNT(*)::int AS c FROM finops_price_catalog_entry`,
+      );
+
+      await client.query("COMMIT");
+
+      const usageEventIds = new Set(
+        usage.rows.map((r: { event_id: string }) => r.event_id),
+      );
+      const matchedCost = cost.rows.filter(
+        (r: { usage_event_id: string | null }) =>
+          r.usage_event_id != null && usageEventIds.has(r.usage_event_id),
+      );
+      const knownAmount = matchedCost.filter(
+        (r: { amount: unknown }) => r.amount != null,
+      );
+      const U = usage.rowCount ?? 0;
+      const C = matchedCost.length;
+      const K = knownAmount.length;
+
+      const currencies = [
+        ...new Set(
+          cost.rows
+            .map((r: { currency: string }) => r.currency)
+            .filter(Boolean),
+        ),
+      ];
+      const sources = [
+        ...new Set(
+          cost.rows.map((r: { source_of_truth: string }) => r.source_of_truth),
+        ),
+      ];
+      const evidenceClasses = [
+        ...new Set(
+          cost.rows.map((r: { evidence_class: string }) => r.evidence_class),
+        ),
+      ];
+      const estimationStatuses = [
+        ...new Set(
+          cost.rows.map(
+            (r: { estimation_status: string }) => r.estimation_status,
+          ),
+        ),
+      ];
+      const catalogVersions = [
+        ...new Set(
+          cost.rows
+            .map((r: { catalog_version: string | null }) => r.catalog_version)
+            .filter((v): v is string => v != null && v !== ""),
+        ),
+      ];
+
+      console.log(
+        JSON.stringify(
+          {
+            ok: true,
+            READ_ONLY_MUTATIONS: 0,
+            TARGET_LABEL,
+            SAFE_IDENTITY: {
+              hostname: id.hostname,
+              port: id.port,
+              database: id.database,
+            },
+            FINGERPRINT: id.fingerprint,
+            FINGERPRINT_MATCH: true,
+            ROLLOUT: {
+              ROW_EXISTS: true,
+              MODE: mode,
+              REVISION: revision,
+              UPDATED_AT: updatedAt,
+            },
+            PERIOD_STARTS_PRESENT: periodStarts,
+            USAGE_EVENT_COUNT: U,
+            USAGE_EVENTS: usage.rows.map((r) => ({
+              eventId: r.event_id,
+              executionRunId: r.execution_run_id,
+              correlationId: r.correlation_id,
+              provider: r.provider,
+              model: r.model,
+              inputTokens: r.input_tokens,
+              outputTokens: r.output_tokens,
+              totalTokens: r.total_tokens,
+              occurredAt:
+                r.occurred_at instanceof Date
+                  ? r.occurred_at.toISOString()
+                  : String(r.occurred_at),
+              periodStart: formatPgDate(r.period_start),
+              sourceOfTruth: r.source_of_truth,
+              evidenceClass: r.evidence_class,
+              usageStatus: r.usage_status,
+            })),
+            MATCHED_COST_EVENT_COUNT: C,
+            KNOWN_AMOUNT_COUNT: K,
+            COST_COVERAGE_RATE: U === 0 ? null : C / U,
+            KNOWN_AMOUNT_COVERAGE_RATE: U === 0 ? null : K / U,
+            COST_EVENTS_TOTAL_FOR_PROJECT: cost.rowCount ?? 0,
+            COST_EVENTS: cost.rows.map((r) => ({
+              costEventId: r.cost_event_id,
+              usageEventId: r.usage_event_id,
+              executionRunId: r.execution_run_id,
+              periodStart: formatPgDate(r.period_start),
+              currency: r.currency,
+              amountPresent: r.amount != null,
+              amountCanonical: r.amount == null ? null : String(r.amount),
+              evidenceClass: r.evidence_class,
+              sourceOfTruth: r.source_of_truth,
+              estimationStatus: r.estimation_status,
+              correctionRef: r.correction_ref,
+              catalogVersion: r.catalog_version,
+              provider: r.provider,
+              model: r.model,
+              unit: r.unit,
+              billingQuantum:
+                r.billing_quantum == null ? null : String(r.billing_quantum),
+              usageQuantity:
+                r.usage_quantity == null ? null : String(r.usage_quantity),
+              occurredAt:
+                r.occurred_at instanceof Date
+                  ? r.occurred_at.toISOString()
+                  : r.occurred_at == null
+                    ? null
+                    : String(r.occurred_at),
+            })),
+            CURRENCIES_PRESENT: currencies,
+            COST_SOURCE_OF_TRUTH: sources,
+            COST_EVIDENCE_CLASS: evidenceClasses,
+            ESTIMATION_STATUS: estimationStatuses,
+            CATALOG_VERSIONS_ON_COST: catalogVersions,
+            AGGREGATES: aggregates.rows.map((r) => {
+              const out: Record<string, unknown> = {};
+              for (const [k, v] of Object.entries(r)) {
+                out[k] =
+                  v instanceof Date
+                    ? v.toISOString()
+                    : typeof v === "bigint"
+                      ? v.toString()
+                      : v;
+              }
+              return out;
+            }),
+            ENFORCEMENT_PROJECTIONS: projections.rows.map((r) => ({
+              projectId: r.project_id,
+              periodStart: formatPgDate(r.period_start),
+              currency: r.currency,
+              blockingEligibleAmount: String(r.blocking_eligible_amount),
+              billedAmount: String(r.billed_amount),
+              providerObservedAmount: String(r.provider_observed_amount),
+              eligibleCostEventCount: Number(r.eligible_cost_event_count),
+              billedEventCount: Number(r.billed_event_count),
+              providerObservedEventCount: Number(
+                r.provider_observed_event_count,
+              ),
+              rebuildVersion: Number(r.rebuild_version),
+              rebuiltAt:
+                r.rebuilt_at instanceof Date
+                  ? r.rebuilt_at.toISOString()
+                  : String(r.rebuilt_at),
+            })),
+            RECONCILIATIONS: recon.rows.map((r) => ({
+              reconciliationId: r.reconciliation_id,
+              periodStart: formatPgDate(r.period_start),
+              sourceBatchId: r.source_batch_id,
+              status: r.status,
+              processedCount: r.processed_count,
+              errorCode: r.error_code,
+              errorMessage: r.error_message,
+              completedAt:
+                r.completed_at instanceof Date
+                  ? r.completed_at.toISOString()
+                  : r.completed_at,
+            })),
+            PRICE_CATALOG_ENTRY_TOTAL: catalogTotal.rows[0].c,
+            PRICE_CATALOG_FOR_OBSERVED_MODELS: catalogHits,
+          },
+          null,
+          2,
+        ),
+      );
+    } finally {
+      client.release();
     }
-
-    const probe = await runProbe();
-    // Strip SSL warning noise; parse last JSON object
-    const jsonStart = probe.stdout.lastIndexOf("{");
-    const jsonText = jsonStart >= 0 ? probe.stdout.slice(jsonStart) : "";
-    let probeResult: any = null;
-    try { probeResult = JSON.parse(jsonText); } catch {
-      console.log(JSON.stringify({
-        ok: false,
-        code: "PROBE_PARSE_FAILED",
-        exitCode: probe.code,
-        stderrTail: probe.stderr.slice(-500).replace(/sk-[A-Za-z0-9._-]+/g, "[redacted]"),
-      }, null, 2));
-      process.exit(1);
-    }
-
-    const correlationId = probeResult.CORRELATION_ID;
-    let telemetry = null;
-    if (probeResult.SUCCESS === true) {
-      telemetry = await waitTelemetry(pool, correlationId);
-    }
-    const after = await readRollout(pool);
-
-    const usageOk =
-      telemetry &&
-      telemetry.USAGE_COUNT_FOR_CORR === 1 &&
-      telemetry.AUDIT_COUNT_FOR_CORR >= 1 &&
-      telemetry.CROSS_PROJECT_USAGE === 0 &&
-      telemetry.USAGE_ROWS[0]?.provider === "openai" &&
-      telemetry.USAGE_ROWS[0]?.project_id === PILOT &&
-      telemetry.AUDIT_ROWS.every((r: any) => r.project_id === PILOT && r.correlation_id === correlationId);
-
-    const out = {
-      PROBE_INDEX: probeIndex,
-      PRECHECK_ROLLOUT: before,
-      POLICY_EMPTY: true,
-      FAKE_DISABLED: true,
-      PROBE: probeResult,
-      TELEMETRY: telemetry,
-      USAGE_AUDIT_CORRELATION_OK: usageOk === true,
-      POSTCHECK_ROLLOUT: after,
-      FINOPS_PROVIDER_BLOCK: probeResult.FINOPS_PROVIDER_BLOCK === true,
-      PROVIDER_SUCCESS: probeResult.SUCCESS === true,
-    };
-    console.log(JSON.stringify(out, null, 2));
-
-    if (probeResult.SUCCESS !== true) process.exit(3);
-    if (probeResult.FINOPS_PROVIDER_BLOCK === true) process.exit(6);
-    if (!usageOk) process.exit(5);
-    if (after.MODE !== "SHADOW" || after.REVISION !== "1") process.exit(4);
   } finally {
     await pool.end().catch(() => undefined);
   }
 }
 
 main().catch((e) => {
-  console.error(JSON.stringify({ ok: false, message: String((e as Error).message || e).replace(/sk-[A-Za-z0-9._-]+/g, "[redacted]") }));
+  console.error(
+    JSON.stringify({
+      ok: false,
+      message: String(e && e.message ? e.message : e),
+    }),
+  );
   process.exit(1);
 });
+
 ```
-
----
-
-## Unique verdict
-
-T7 SHADOW OBSERVATION PASS WITH ACCEPTED RESERVES —
-CYCLE 12 CRITICAL —
-SHADOW KEPT ACTIVE REVISION 1 —
-BOUNDED LIVE OBSERVATION COMPLETE —
-REAL OPENAI PROVIDER CONTINUITY PASS —
-PROBES 3/3 PASS —
-PROVIDER RETRY ZERO —
-USAGE OBSERVABILITY PASS —
-AUDIT OBSERVABILITY PASS —
-CORRELATION INTEGRITY PASS —
-SIGNAL_ONLY / NEVER-BLOCK PRESERVED —
-CALIBRATION INPUTS COLLECTED ONLY —
-NO POLICY VALUES SELECTED —
-OBS-01 REMAINS OPEN MINOR / ACCEPTED FIRST PILOT ONLY —
-C08 REMAINS OPEN MINOR / ACCEPTED FIRST PILOT ONLY —
-T4-T3 REMAINS OPEN BEFORE MONITOR —
-ROLLBACK NOT REQUIRED / NOT EXECUTED —
-MONITOR NOT ACTIVATED —
-E1 NOT AUTHORIZED —
-NO PROJECT MUTATION —
-SECRET LEAK ZERO —
-READY FOR CHATGPT VALIDATION / MORRIS NEXT SHADOW DECISION —
-HANDOFF REMOTE VERIFIED.
