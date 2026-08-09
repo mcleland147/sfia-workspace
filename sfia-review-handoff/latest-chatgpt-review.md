@@ -1,252 +1,114 @@
-# Cycle 8 Standard — T7 PostgreSQL Test Isolation CI Remediation — Review Pack (Light)
+# Cycle 13 Standard — T7 PostgreSQL Test Isolation CI Remediation — Commit + Push PR #324 — Review Pack
 
-**Date/heure (CEST):** 2026-08-09 12:27:48 CEST
-**Date/heure (UTC):** 2026-08-09 10:27:48 UTC
+**Date/heure (CEST):** 2026-08-09 12:35:19 CEST
+**Date/heure (UTC):** 2026-08-09 10:35:19 UTC
 **Baseline:** SFIA v2.6
 
 ## Décision Morris
 
 ```text
-GO CI REMEDIATION — T7 POSTGRES TEST ISOLATION — SHARED ADVISORY LOCK FOR FINOPS_ROLLOUT_CONFIG SUITES — TEST-ONLY — NO OPERATOR RUNTIME CHANGE — NO REAL ACTIVATION.
+GO LOCAL COMMIT + PUSH CI REMEDIATION TO PR #324 —
+EXACT 2-FILE TEST-ONLY FIX —
+NO REAL ACTIVATION.
 ```
 
-## Git Truth
+## Git Truth avant/après
 
 ```text
-branch = delivery/sfia-studio-finops-t7-shadow-activation-operator
-HEAD / remote branch = 12d3e10c4a9f57b6548779a030131af89b75066a
+avant HEAD/remote = 12d3e10c4a9f57b6548779a030131af89b75066a
+après remediation commit = 0a606a93d73d72b3207dac4112721baacbfeab50
+parent = 12d3e10c4a9f57b6548779a030131af89b75066a
 origin/main = bb52624e4de6aa19a7d68205af053596bf599a1a
-local uncommitted TEST-ONLY diffs = 2 files
-project commit/push/PR update/merge = NO
+force push = NO
 ```
 
 ## Handoff entrant
 
 ```text
-tip  = a95fdae522ec630a1ef17aa824dcc8ecdf18d060
-blob = 0a0d3bfabe23ded22bba82ce19a129c950bf6d08
+tip  = 3a18e3129d494252cdc83562c1f068be25b6e4ad
+blob = f17702f3f0ce6beb1cc627938a3758902c91c87c
 status = MATCHED
 ```
 
-## Diagnostic CI (run 31307867952)
-
-- typecheck/lint/build/unit PASS
-- FinOps T1 migrate up PASS
-- failure in `npm run test:db` concurrent T7 suites on `finops_rollout_config`
-- symptoms: relation missing / revision reset / expected-mode mismatch / C08 contamination
-- cause: activation-operator + option-a wiring suites lacked shared advisory lock held by rollout + foundation-runtime
-
-## Sources
-
-- t7.rollout.integration.test.ts — lock present (reference)
-- t7.foundation-runtime.integration.test.ts — lock present (reference)
-- t7.shadow-activation-operator.integration.test.ts — lock absent → FIXED
-- t7.shadow-option-a.wiring.integration.test.ts — lock absent → FIXED
-
-## Exact 2-path subject
-
-1. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts`
-2. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
-
-## Diff utile complet
-
-### activation-operator
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
-index 1733750..414b8a6 100644
---- a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
-@@ -5,7 +5,7 @@
-  * Ephemeral local Postgres only — never Neon / shared / production.
-  */
- import { afterAll, beforeAll, describe, expect, it } from "vitest";
--import type { Pool } from "pg";
-+import type { Pool, PoolClient } from "pg";
- import {
-   closeFinOpsPool,
-   createFinOpsPool,
-@@ -23,10 +23,16 @@ const PILOT = "sfia-studio-ops1";
-
- describeDb("T7 SHADOW activation operator — PostgreSQL", () => {
-   let pool: Pool;
-+  let lockClient: PoolClient;
-   const store = () => createPostgresFinOpsRolloutStore(pool);
-
-   beforeAll(async () => {
-+    // max includes lock client — serialize vs other T7 suites on finops_rollout_config.
-     pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 4 });
-+    lockClient = await pool.connect();
-+    await lockClient.query(
-+      `SELECT pg_advisory_lock(hashtext('finops-t7-rollout-table'))`,
-+    );
-     await pool.query(`DELETE FROM finops_rollout_config WHERE project_id = $1`, [
-       PILOT,
-     ]);
-@@ -41,6 +47,14 @@ describeDb("T7 SHADOW activation operator — PostgreSQL", () => {
-     } catch {
-       // ignore
-     }
-+    try {
-+      await lockClient.query(
-+        `SELECT pg_advisory_unlock(hashtext('finops-t7-rollout-table'))`,
-+      );
-+    } catch {
-+      // ignore
-+    }
-+    lockClient.release();
-     await closeFinOpsPool(pool);
-   });
-```
-
-### wiring
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
-index 57bb0e5..1beb631 100644
---- a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
-@@ -6,7 +6,7 @@
-  * TEST ONLY rows/policies — NOT product activation / NOT 15/20/25/30.
-  */
- import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
--import type { Pool } from "pg";
-+import type { Pool, PoolClient } from "pg";
- import { getFixture } from "@/lib/oa/execution-run";
- import {
-   composeExecutionRunD2D3T7ShadowPilot,
-@@ -123,10 +123,16 @@ function coordinateInput(projectId: string, suffix: string) {
-
- describeDb("T7 SHADOW Option A — wiring integration", () => {
-   let pool: Pool;
-+  let lockClient: PoolClient;
-   const clockIso = "2026-08-08T16:10:00.000Z";
-
-   beforeAll(async () => {
-+    // Session-scoped lock — serialize finops_rollout_config vs other T7 suites.
-     pool = createFinOpsPool({ connectionString: DATABASE_URL, max: 6 });
-+    lockClient = await pool.connect();
-+    await lockClient.query(
-+      `SELECT pg_advisory_lock(hashtext('finops-t7-rollout-table'))`,
-+    );
-     await pool.query(`SELECT 1`);
-   });
-
-@@ -139,6 +145,14 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
-       `DELETE FROM finops_enforcement_projection WHERE project_id = ANY($1::text[])`,
-       [[PILOT, OTHER]],
-     );
-+    try {
-+      await lockClient.query(
-+        `SELECT pg_advisory_unlock(hashtext('finops-t7-rollout-table'))`,
-+      );
-+    } catch {
-+      // ignore
-+    }
-+    lockClient.release();
-     await closeFinOpsPool(pool);
-   });
-```
-
-## Shared advisory lock
+## SHA QA attendus / pre-commit / committed
 
 ```text
-key = hashtext('finops-t7-rollout-table')
-acquire = SELECT pg_advisory_lock(...) on dedicated PoolClient in beforeAll
-hold = entire suite
-cleanup under lock = YES
-unlock = SELECT pg_advisory_unlock(...) then release then closeFinOpsPool
-```
+QA expected:
+0e45dc91…  t7.shadow-activation-operator.integration.test.ts
+35c3ef22…  t7.shadow-option-a.wiring.integration.test.ts
 
-## SHA256 PRE/POST
-
-### PRE
-```text
-49f7ff66f7b5de61e06b24a966ec111456dd170a2091d78a0025af39fd3c5c88  projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
-10fd61280c98c62c85ef355d40c05c73131151593e91b9808c3f57f04065b7d6  projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
-```
-
-### POST
-```text
+pre-commit:
 0e45dc91f174c5b4b429fe5fb5092d6b04fd38a37025e4e4e8a58d6ce46f619b  projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
 35c3ef229bd709f0382ee6dacafaf7a1e5f0bb5b166946748200b2fa06f19c34  projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
+
+committed from HEAD:
+0e45dc91f174c5b4b429fe5fb5092d6b04fd38a37025e4e4e8a58d6ce46f619b  t7.shadow-activation-operator.integration.test.ts
+35c3ef229bd709f0382ee6dacafaf7a1e5f0bb5b166946748200b2fa06f19c34  t7.shadow-option-a.wiring.integration.test.ts
+COMMITTED_QA_MATCH=True
 ```
 
-## Tests
+## Remediation commit
 
-### Four-suite run #1
 ```text
- ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests) 81ms
- ✓ __tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts (8 tests) 98ms
- ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 83ms
- ✓ __tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts (23 tests) 155ms
- Test Files  4 passed (4)
-      Tests  59 passed (59)
-   Duration  628ms (transform 267ms, setup 232ms, collect 478ms, tests 418ms, environment 0ms, prepare 157ms)
-FOUR1_EXIT=0
-FOUR1_EXIT from log: see file
+message = test(sfia-studio): serialize T7 rollout postgres suites
+SHA = 0a606a93d73d72b3207dac4112721baacbfeab50
+parent = 12d3e10c4a9f57b6548779a030131af89b75066a
+paths:
+M	projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
+M	projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
 ```
 
-### Four-suite run #2
+## Remote / PR #324
+
 ```text
- ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests) 84ms
- ✓ __tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts (8 tests) 99ms
- ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 93ms
- ✓ __tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts (23 tests) 170ms
- Test Files  4 passed (4)
-      Tests  59 passed (59)
-   Duration  539ms (transform 245ms, setup 117ms, collect 430ms, tests 445ms, environment 0ms, prepare 130ms)
-FOUR2_EXIT=0
+remote branch SHA = 0a606a93d73d72b3207dac4112721baacbfeab50
+PR = https://github.com/mcleland147/sfia-workspace/pull/324
+state = OPEN non-draft
+base = main @ bb52624e4de6aa19a7d68205af053596bf599a1a
+head = delivery/… @ 0a606a93d73d72b3207dac4112721baacbfeab50
+commits = 2
+files = 8 (exact cumulative subject)
 ```
 
-### npm run test:db
+## Exact cumulative 8-path PR subject
+
+1. operateFinOpsT7ShadowRollout.ts
+2. finops-t7-shadow-rollout.ts
+3. t7.shadow-activation-operator.unit.test.ts
+4. t7.shadow-activation-operator.integration.test.ts
+5. 160-…-execution.md
+6. package.json
+7. package-lock.json
+8. t7.shadow-option-a.wiring.integration.test.ts
+
+## Validation locale héritée
+
 ```text
- ✓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests) 98ms
- ✓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests) 134ms
- ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 106ms
- ✓ __tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts (8 tests) 164ms
- ✓ __tests__/oa/finops/postgres/t3.alert-review.integration.test.ts (7 tests) 167ms
- ✓ __tests__/oa/finops/postgres/t4.enforcement-projection.integration.test.ts (14 tests) 169ms
- ✓ __tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts (8 tests) 216ms
- ✓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests) 251ms
- ✓ __tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts (4 tests) 39ms
- ✓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests) 44ms
- ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 51ms
- ✓ __tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts (23 tests) 214ms
- Test Files  12 passed (12)
-      Tests  116 passed (116)
-   Duration  900ms (transform 648ms, setup 562ms, collect 1.47s, tests 1.65s, environment 5ms, prepare 599ms)
-TESTDB_EXIT=0
+TEST RE-RUN = NOT REQUIRED — QA-VALIDATED BYTES UNCHANGED
+Cycle 8: four-suite 59/59 x2, test:db 116/116, typecheck/lint/diff-check PASS
 ```
 
-### typecheck / lint / diff-check
-```text
-typecheck PASS
-lint PASS
-git diff --check PASS
-```
-
-## Decisions
+## Nouvelle CI
 
 ```text
-FULL REGRESSION = NOT REQUIRED — NO SIGNAL
-BUILD = NOT REQUIRED — TEST-ONLY / PREVIOUS CI BUILD PASS
-```
-
-## Garde-fous
-
-```text
-runtime bytes changed = NO
-migration changed = NO
-CI workflow changed = NO
-assertions métier unchanged = YES
-project commit/push/PR update/merge = NO
+workflow = SFIA Studio CI
+run = 31308578469
+url = https://github.com/mcleland147/sfia-workspace/actions/runs/31308578469
+headSha = 0a606a93d73d72b3207dac4112721baacbfeab50
+conclusion = success
+Detect SFIA Studio changes = SUCCESS
+Build and validate SFIA Studio = SUCCESS
+  Typecheck/Lint/Build/Unit = SUCCESS
+  FinOps T1 migrate up = SUCCESS
+  FinOps T1 PostgreSQL integration tests = SUCCESS
+SFIA Studio Required Gate = SUCCESS
+CI REMEDIATION = VERIFIED
 ```
 
 ## Reserves
 
 - R-T7-OP-TARGET-BINDING-01 = OPEN MINOR
-- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR (carried)
+- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
 - R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
 
 ## Anti-claims
@@ -255,35 +117,38 @@ project commit/push/PR update/merge = NO
 SHADOW = NOT ACTIVATED
 POLICY VALUES = NOT SELECTED
 ACTIVATION TARGET = NOT SELECTED
+MERGE = NO
 ```
 
 ## Next Morris gate
 
 ```text
-GO LOCAL COMMIT + PUSH CI REMEDIATION TO PR #324 —
-EXACT 2-FILE TEST-ONLY FIX —
-NO REAL ACTIVATION.
+GO MERGE PR #324 —
+T7 SHADOW MINIMAL ACTIVATION OPERATOR —
+CI REMEDIATION VERIFIED —
+CARRY R-T7-OP-TARGET-BINDING-01 —
+NO SHADOW ACTIVATION.
 ```
 
 ## Verdict
 
 ```text
-T7 POSTGRES TEST ISOLATION CI REMEDIATION VALIDATED —
-CYCLE 8 STANDARD —
-EXACT 2-PATH TEST-ONLY FIX —
-SHARED FINOPS_ROLLOUT_CONFIG ADVISORY LOCK APPLIED —
-RUNTIME BYTES UNCHANGED —
-MIGRATION UNCHANGED —
-CI WORKFLOW UNCHANGED —
-TARGETED T7 CONCURRENT SUITES PASS —
-NPM RUN TEST:DB PASS —
-TYPECHECK/LINT PASS —
-NO FULL REGRESSION SIGNAL —
+PR #324 CI REMEDIATION COMMITTED + PUSHED —
+CYCLE 13 STANDARD —
+EXACT 2-FILE TEST-ONLY REMEDIATION COMMIT —
+QA-VALIDATED REMEDIATION BYTES MATCH 2/2 —
+NON-FORCE PUSH VERIFIED —
+PR HEAD UPDATED —
+2 COMMITS TOTAL —
+EXACT 8-PATH CUMULATIVE PR DIFF —
+NEW SFIA STUDIO CI PASS —
+FINOPS POSTGRES INTEGRATION PASS —
+REQUIRED GATE PASS —
 R-T7-OP-TARGET-BINDING-01 OPEN MINOR —
 SHADOW NOT ACTIVATED —
 POLICY VALUES NOT SELECTED —
 ACTIVATION TARGET NOT SELECTED —
-NO PROJECT COMMIT/PUSH/PR UPDATE/MERGE —
-READY FOR MORRIS GO LOCAL COMMIT + PUSH CI REMEDIATION TO PR #324 —
+NO MERGE —
+READY FOR MORRIS GO MERGE PR #324 —
 HANDOFF REMOTE VERIFIED
 ```
