@@ -365,17 +365,20 @@ describe("FinOps T2 billed period", () => {
   });
 
   it("OpenAI mapper handles null line_item and rejects external project mismatch", () => {
+    // Wire format mirrors OpenAI docs: amount.value is a JSON number.
     const raw = JSON.stringify({
       object: "page",
       data: [
         {
+          object: "bucket",
           start_time: 1786060800,
           end_time: 1786147200,
           results: [
             {
+              object: "organization.costs.result",
               project_id: EXTERNAL,
               line_item: null,
-              amount: { value: "1.23000000", currency: "usd" },
+              amount: { value: 1.23, currency: "usd" },
             },
           ],
         },
@@ -386,6 +389,7 @@ describe("FinOps T2 billed period", () => {
     expect(atoms).toHaveLength(1);
     expect(atoms[0]!.line_item).toBeNull();
     expect(atoms[0]!.currency).toBe("USD");
+    expect(atoms[0]!.providerAmount).toBe("1.23000000");
 
     const facts = mapAtomsToBilledPeriodFacts({
       projectId: PROJECT,

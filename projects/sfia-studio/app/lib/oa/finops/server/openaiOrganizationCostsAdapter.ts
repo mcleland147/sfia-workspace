@@ -43,12 +43,42 @@ type ParsedCostsPage = {
     readonly start_time: number;
     readonly end_time?: number;
     readonly results?: ReadonlyArray<{
-      readonly project_id?: string;
+      readonly object?: string;
+      readonly project_id?: string | null;
       readonly line_item?: string | null;
-      readonly amount?: { readonly value?: string; readonly currency?: string };
+      readonly amount?: {
+        readonly value?: unknown;
+        readonly currency?: string;
+      };
     }>;
   }>;
 };
+
+const AMOUNT_BLOCK_RE =
+  /"amount"\s*:\s*\{\s*(?:(?:"value"\s*:\s*(?<valueNum>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|"value"\s*:\s*"(?<valueStr>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)")\s*,\s*"currency"\s*:\s*"(?<currencyA>[^"]+)"|"currency"\s*:\s*"(?<currencyB>[^"]+)"\s*,\s*(?:"value"\s*:\s*(?<valueNum2>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|"value"\s*:\s*"(?<valueStr2>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)"))\s*\}/g;
+
+/**
+ * Extract amount.value decimal literals from raw JSON wire text.
+ * Never uses JSON Number as authoritative Money input.
+ */
+export function extractAmountLiteralsFromRawCostsPage(
+  rawPage: string,
+): ReadonlyArray<{ readonly valueLiteral: string; readonly currencyRaw: string }> {
+  const out: Array<{ valueLiteral: string; currencyRaw: string }> = [];
+  for (const match of rawPage.matchAll(AMOUNT_BLOCK_RE)) {
+    const valueLiteral =
+      match.groups?.valueNum ??
+      match.groups?.valueStr ??
+      match.groups?.valueNum2 ??
+      match.groups?.valueStr2;
+    const currencyRaw = match.groups?.currencyA ?? match.groups?.currencyB;
+    if (!valueLiteral || !currencyRaw) {
+      throw new Error("OpenAI costs amount block incomplete in raw page text");
+    }
+    out.push({ valueLiteral, currencyRaw });
+  }
+  return out;
+}
 
 export function parseCostsPageToAtoms(rawPage: string): OpenAiCostsAtom[] {
   let parsed: ParsedCostsPage;
@@ -58,27 +88,40 @@ export function parseCostsPageToAtoms(rawPage: string): OpenAiCostsAtom[] {
     throw new Error("OpenAI costs page is not valid JSON");
   }
 
+  const amountLiterals = extractAmountLiteralsFromRawCostsPage(rawPage);
+  let amountCursor = 0;
+
   const atoms: OpenAiCostsAtom[] = [];
   for (const bucket of parsed.data ?? []) {
     const sourceBucketStart = unixSecondsToIso(bucket.start_time);
     const sourceBucketEndExclusive =
       bucket.end_time === undefined ? null : unixSecondsToIso(bucket.end_time);
     for (const result of bucket.results ?? []) {
-      const projectId = result.project_id?.trim();
+      if (
+        result.object !== undefined &&
+        result.object !== "organization.costs.result"
+      ) {
+        continue;
+      }
+      const projectId =
+        typeof result.project_id === "string" ? result.project_id.trim() : "";
       if (!projectId) continue;
-      const amountRaw = result.amount?.value;
-      const currencyRaw = result.amount?.currency;
-      if (!amountRaw || !currencyRaw) continue;
+      if (result.amount == null) continue;
 
-      const valueMatch = new RegExp(
-        `"value"\\s*:\\s*"${amountRaw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`,
-      ).exec(rawPage);
-      if (!valueMatch) {
-        throw new Error("OpenAI costs amount.value missing from raw page text");
+      const literal = amountLiterals[amountCursor];
+      amountCursor += 1;
+      if (!literal) {
+        throw new Error(
+          "OpenAI costs amount.value literal missing from raw page text",
+        );
       }
 
-      const currency = normalizeProviderCurrency(currencyRaw);
-      const providerAmount = canonicalProviderAmountString(amountRaw, currency);
+      const currency = normalizeProviderCurrency(literal.currencyRaw);
+      // Authoritative Money path: raw decimal literal → BigInt scale-8 (no Number).
+      const providerAmount = canonicalProviderAmountString(
+        literal.valueLiteral,
+        currency,
+      );
       atoms.push({
         sourceBucketStart,
         sourceBucketEndExclusive,
