@@ -1,34 +1,30 @@
-# ChatGPT Review Pack — FinOps Fast-Track Remediation (FULL)
+# ChatGPT Review Pack — FinOps Snapshot Coverage Fix (FULL)
 
 ## Meta
 - Level: FULL
-- Timestamp CEST: 2026-08-09 23:41:22 CEST
-- Timestamp UTC: 2026-08-09 21:41:22 UTC
+- Timestamp CEST: 2026-08-10 00:02:02 CEST
+- Timestamp UTC: 2026-08-09 22:02:02 UTC
 - Repo: mcleland147/sfia-workspace
 - Branch: `delivery/sfia-studio-finops-fast-track-billed-period-e2e`
 - Review base origin/main: `96a8a14bc894b520043b3a8f758b1fb14a72a5e4`
-- Review HEAD: `b4ce168f0f9ab3a90f430c3237c3eb5403815ccd`
-- HEAD before remediation: `eb50183876fd00df149cfcec72fe5a800c0233a8`
+- Review HEAD: `8feaa747f0bb33f304989c438fbfc9880d5ce2e7`
+- HEAD before micro-correction: `b4ce168f0f9ab3a90f430c3237c3eb5403815ccd`
 - Synthesis-only: NO
 - Project push: NO
 - Provider calls: 0
-- Pilot DB mutations this remediation: 0
+- Pilot DB mutations: 0
 - MONITOR: NOT ACTIVATED
 - E1: NOT AUTHORIZED
 - Live Costs reserve: OPEN
 - R-T4-T3-SYNC-01: OPEN BEFORE MONITOR
 - T4 logic changed: NO
 - T2-v1 identity unchanged: YES
-- PostgreSQL concurrency proof (real ephemeral): YES
-- Verdict target: FINOPS FAST-TRACK REMEDIATION PASS — MISSING ATOM CORRECTION SAFE — COMPLETE SNAPSHOT SEMANTICS PROVED — REPLAY IDEMPOTENT — POSTGRES CONCURRENCY PROVED — NO DOUBLE COUNT — T2-V1 PRESERVED — T4 LOGIC UNCHANGED — LIVE COSTS RESERVE UNCHANGED — R-T4-T3-SYNC-01 DEFERRED — REVIEW HANDOFF COMPLETE — READY FOR CHATGPT VALIDATION / PR READINESS
+- Adapter contract: openai-costs-v1 → openai-costs-v2 (coverage-bound sourceBatchId)
+- Period identity t2-v2-period: UNCHANGED
+- PostgreSQL ephemeral used: YES
+- Verdict target: FINOPS SNAPSHOT COVERAGE FIX PASS — COMPLETE SNAPSHOT TEMPORALLY BOUNDED — OUT-OF-COVERAGE ATOMS PRESERVED — EMPTY SNAPSHOT IDENTITIES COVERAGE-SAFE — REPLAY IDEMPOTENT — POSTGRES COVERAGE ISOLATION PROVED — T2-V1 PRESERVED — T4 UNCHANGED — LIVE COSTS RESERVE OPEN — REVIEW HANDOFF COMPLETE — READY FOR PR READINESS
 
 ## Local Git Truth
-- Branch: `delivery/sfia-studio-finops-fast-track-billed-period-e2e`
-- origin/main: `96a8a14bc894b520043b3a8f758b1fb14a72a5e4`
-- HEAD: `b4ce168f0f9ab3a90f430c3237c3eb5403815ccd`
-- staged: NONE (post-commit)
-- untracked accepted: `.tmp-sfia-review/` only
-
 ```
 ?? .tmp-sfia-review/
 
@@ -36,6 +32,7 @@
 
 ## Commits (origin/main..HEAD)
 ```
+8feaa74 fix(sfia-studio): bind billed snapshots to temporal coverage
 b4ce168 fix(sfia-studio): close billed snapshot reconciliation reserves
 eb50183 fix(sfia-studio): parse OpenAI Costs amount.value from raw JSON decimals
 a7844d7 feat(sfia-studio): complete FinOps billed period fast-track
@@ -45,33 +42,33 @@ a7844d7 feat(sfia-studio): complete FinOps billed period fast-track
 ## Diff inventory
 ### git diff --stat origin/main...HEAD
 ```
- .../postgres/t2.aggregate.integration.test.ts      |  20 +-
- ...2.billed-period-concurrency.integration.test.ts | 330 ++++++++
- .../postgres/t2.reconciliation.integration.test.ts |   4 +-
- .../t4.enforcement-projection.integration.test.ts  |  34 +-
- .../t4.projection-refresh.integration.test.ts      |   2 +
- .../__tests__/oa/finops/t2.aggregate.unit.test.ts  |  16 +-
- .../oa/finops/t2.billed-period.unit.test.ts        | 861 +++++++++++++++++++++
- .../oa/finops/t2.reconciliation.unit.test.ts       |   2 +
- .../oa/finops/t3.alert-review.unit.test.ts         |   6 +
- .../oa/finops/t4.enforcement.unit.test.ts          |   2 +
- .../oa/finops/t4.projection-refresh.unit.test.ts   |  37 +
- ...00005000_finops-t2-billed-period-attribution.js | 117 +++
- .../oa/finops/application/billedPeriodIdentity.ts  | 166 ++++
- .../oa/finops/application/providerMoneyBoundary.ts |  67 ++
- .../oa/finops/application/reconcileBilledPeriod.ts | 633 +++++++++++++++
- .../finops/application/reconcileProjectPeriod.ts   |   5 +
- .../application/refreshEnforcementAfterT2.ts       |  35 +
- .../app/lib/oa/finops/application/t2Identity.ts    |  57 +-
- .../lib/oa/finops/application/types.aggregate.ts   |  48 +-
- .../finops/infrastructure/memory/memoryFinOpsT2.ts |  56 +-
- .../postgres/postgresFinOpsAggregateStore.ts       |  16 +-
- .../postgresFinOpsEnforcementProjectionStore.ts    |  16 +-
- .../postgres/postgresFinOpsReconciliation.ts       | 288 ++++---
- .../oa/finops/ports/finopsReconciliationPort.ts    |  17 +
- .../lib/oa/finops/server/composeFinOpsT7Runtime.ts |  11 +
- .../server/openaiOrganizationCostsAdapter.ts       | 294 +++++++
- 26 files changed, 3024 insertions(+), 116 deletions(-)
+ .../postgres/t2.aggregate.integration.test.ts      |   20 +-
+ ...2.billed-period-concurrency.integration.test.ts |  466 +++++++
+ .../postgres/t2.reconciliation.integration.test.ts |    4 +-
+ .../t4.enforcement-projection.integration.test.ts  |   34 +-
+ .../t4.projection-refresh.integration.test.ts      |    2 +
+ .../__tests__/oa/finops/t2.aggregate.unit.test.ts  |   16 +-
+ .../oa/finops/t2.billed-period.unit.test.ts        | 1326 ++++++++++++++++++++
+ .../oa/finops/t2.reconciliation.unit.test.ts       |    2 +
+ .../oa/finops/t3.alert-review.unit.test.ts         |    6 +
+ .../oa/finops/t4.enforcement.unit.test.ts          |    2 +
+ .../oa/finops/t4.projection-refresh.unit.test.ts   |   37 +
+ ...00005000_finops-t2-billed-period-attribution.js |  117 ++
+ .../oa/finops/application/billedPeriodIdentity.ts  |  221 ++++
+ .../oa/finops/application/providerMoneyBoundary.ts |   67 +
+ .../oa/finops/application/reconcileBilledPeriod.ts |  884 +++++++++++++
+ .../finops/application/reconcileProjectPeriod.ts   |    5 +
+ .../application/refreshEnforcementAfterT2.ts       |   35 +
+ .../app/lib/oa/finops/application/t2Identity.ts    |   57 +-
+ .../lib/oa/finops/application/types.aggregate.ts   |   55 +-
+ .../finops/infrastructure/memory/memoryFinOpsT2.ts |   56 +-
+ .../postgres/postgresFinOpsAggregateStore.ts       |   16 +-
+ .../postgresFinOpsEnforcementProjectionStore.ts    |   16 +-
+ .../postgres/postgresFinOpsReconciliation.ts       |  288 +++--
+ .../oa/finops/ports/finopsReconciliationPort.ts    |   17 +
+ .../lib/oa/finops/server/composeFinOpsT7Runtime.ts |   11 +
+ .../server/openaiOrganizationCostsAdapter.ts       |  333 +++++
+ 26 files changed, 3977 insertions(+), 116 deletions(-)
 
 ```
 
@@ -105,87 +102,63 @@ M	projects/sfia-studio/app/lib/oa/finops/server/composeFinOpsT7Runtime.ts
 A	projects/sfia-studio/app/lib/oa/finops/server/openaiOrganizationCostsAdapter.ts
 ```
 
-## Remediation summary
-### R1 — Missing atom / complete snapshot
-- Scope for disappearance detection: provider + SFIA projectId + externalProjectId + periodStart
-- Atom identity: `derivedSourceReference` (parsable `provider|externalProjectId|sfiaProjectId|...|currency`)
-- Complete snapshot: atoms previously active in scope but absent → append-only negative delta to 0
-- CorrectionRef: deterministic `ABSENT_FROM_COMPLETE_SNAPSHOT|<sha256>` (no Date.now/UUID/secrets)
-- Incomplete/failure ≠ empty: no tombstones when `snapshot.completeness === "incomplete"`
-- Empty complete snapshot → all scope atoms → 0
-- Aggregate rebuild uses in-session ledger (avoids uncommitted-read race under PG exclusive txn)
+## Bug fixed
+A COMPLETE snapshot previously meant “complete for the economic scope in the month”, allowing an empty/partial-day snapshot to tombstone atoms belonging to other day buckets in the same month.
 
-### R2 — PostgreSQL concurrency
-- Environment: Docker ephemeral `postgres:16-alpine` on `127.0.0.1:55449`
-- DSN shape (non-secret CI-like): `postgres://sfia_ci:***@127.0.0.1:55449/sfia_studio_finops_t1`
-- Container name: `finops-ft-remediation-pg`
-- NOT Neon pilot
-- Serialization: existing `pg_advisory_xact_lock` via `withExclusiveProjectPeriodReconciliation`
-- PG-T01/02/03: PASS (events re-read from PostgreSQL)
+## Coverage contract
+- `snapshot.completeness = complete` means complete ONLY for `[coverageStart, coverageEndExclusive)`
+- Scope remains: provider + SFIA projectId + externalProjectId + periodStart
+- Coverage must be parseable UTC, start < endExclusive, entirely inside the UTC month of periodStart
+- Invalid coverage → `FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE` before any economic write
+- Facts prevalidated (incl. bucket fully inside coverage) before first cost-event write
+- Missing-atom tombstone only if historical bucket fully inside coverage; unparsable same-scope interval → `FINOPS_RECON_ATOM_COVERAGE_UNPROVABLE` (fail closed, no partial mutation)
 
-### R3 — Review pack completeness
-- Every CREATED/MODIFIED file below has exploitable FULL content or FULL DIFF
-- Coverage matrix at end — no INCOMPLETE rows
+## sourceBatchId binding
+Material now includes coverageStart + coverageEndExclusive.
+Empty atoms + different coverages → different sourceBatchId (T44).
+Adapter contract bumped to `openai-costs-v2`.
+COMPLETE snapshot adapter requires explicit endTimeUnix (`OPENAI_COSTS_COMPLETE_SNAPSHOT_REQUIRES_BOUNDED_END`).
 
-## Required validation results
-### Unit (64 tests)
+## Validation results
+### Unit FinOps (74)
 ```
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/projects/sfia-studio/app
 
- ✓ __tests__/oa/finops/t2.money.unit.test.ts (12 tests) 4ms
- ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 6ms
- ✓ __tests__/oa/finops/t2.reconciliation.unit.test.ts (4 tests) 7ms
- ✓ __tests__/oa/finops/t4.projection-refresh.unit.test.ts (8 tests) 13ms
- ✓ __tests__/oa/finops/t4.enforcement.unit.test.ts (19 tests) 20ms
- ✓ __tests__/oa/finops/t2.billed-period.unit.test.ts (16 tests) 27ms
+ ✓ __tests__/oa/finops/t2.money.unit.test.ts (12 tests) 2ms
+ ✓ __tests__/oa/finops/t2.aggregate.unit.test.ts (5 tests) 4ms
+ ✓ __tests__/oa/finops/t2.reconciliation.unit.test.ts (4 tests) 4ms
+ ✓ __tests__/oa/finops/t4.projection-refresh.unit.test.ts (8 tests) 8ms
+ ✓ __tests__/oa/finops/t4.enforcement.unit.test.ts (19 tests) 10ms
+ ✓ __tests__/oa/finops/t2.billed-period.unit.test.ts (26 tests) 19ms
 
  Test Files  6 passed (6)
-      Tests  64 passed (64)
-   Start at  23:39:43
-   Duration  481ms (transform 435ms, setup 440ms, collect 761ms, tests 78ms, environment 1ms, prepare 337ms)
+      Tests  74 passed (74)
+   Start at  00:01:35
+   Duration  298ms (transform 187ms, setup 214ms, collect 414ms, tests 47ms, environment 1ms, prepare 225ms)
 
 ```
 
-### PostgreSQL T2 (13 tests incl. PG-T01/02/03)
+### PostgreSQL T2 incl PG-T01..04 (14)
 ```
 
  RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/projects/sfia-studio/app
 
- ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 179ms
- ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 225ms
- ✓ __tests__/oa/finops/postgres/t2.billed-period-concurrency.integration.test.ts (3 tests) 256ms
+ ✓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests) 49ms
+ ✓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests) 61ms
+ ✓ __tests__/oa/finops/postgres/t2.billed-period-concurrency.integration.test.ts (4 tests) 86ms
 
  Test Files  3 passed (3)
-      Tests  13 passed (13)
-   Start at  23:39:44
-   Duration  918ms (transform 365ms, setup 297ms, collect 695ms, tests 660ms, environment 1ms, prepare 282ms)
-
-```
-
-### Latest PG concurrency re-run
-```
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/projects/sfia-studio/app
-
- ✓ __tests__/oa/finops/t2.billed-period.unit.test.ts (16 tests) 16ms
- ✓ __tests__/oa/finops/postgres/t2.billed-period-concurrency.integration.test.ts (3 tests) 80ms
-
- Test Files  2 passed (2)
-      Tests  19 passed (19)
-   Start at  23:39:02
-   Duration  392ms (transform 92ms, setup 89ms, collect 148ms, tests 96ms, environment 0ms, prepare 88ms)
+      Tests  14 passed (14)
+   Start at  00:01:34
+   Duration  417ms (transform 119ms, setup 141ms, collect 209ms, tests 196ms, environment 0ms, prepare 148ms)
 
 ```
 
 ### Typecheck
 ```
-
-> sfia-studio@0.1.0 typecheck
-> tsc --noEmit
-
+tsc --noEmit: EXIT 0
 ```
-Note: typecheck exit 0 after numbered-group regex fix in openaiOrganizationCostsAdapter.
 
 ### Lint
 ```
@@ -201,16 +174,18 @@ npx @next/codemod@canary next-lint-to-eslint-cli .
 ✔ No ESLint warnings or errors
 ```
 
-### Snapshot / concurrency proof checklist
-- T35 A100+B10 → A100/B absent → billed 100: PASS
-- T36 removed-atom replay idempotent: PASS
-- T37 empty complete → 0: PASS
-- T38 incomplete/failure not empty: PASS
-- T39 scope isolation: PASS
-- T40 reappearance B→absent→7: PASS
-- PG-T01 concurrent +50 once: PASS
-- PG-T02 concurrent 50→55 = +5 / 55: PASS
-- PG-T03 concurrent B removed -10 once / 100: PASS
+### Checklist
+- T41 narrow coverage isolation: PASS
+- T42 missing atom inside coverage: PASS
+- T43 outside coverage preserved: PASS
+- T44 empty snapshots distinct sourceBatchId: PASS
+- T45 invalid/cross-period fails before writes: PASS
+- T46 incomplete never tombstones: PASS
+- T47 exact replay coverage idempotent: PASS
+- T48 adapter bounded snapshot declaration: PASS
+- T49 adapter missing end bound fails closed: PASS
+- T50 fact outside coverage rejected before writes: PASS
+- PG-T01/02/03/04: PASS
 
 ## Files — exploitable content
 
@@ -648,7 +623,7 @@ describeDb("FinOps T2 PostgreSQL aggregate integration", () => {
 ```
 
 ### `projects/sfia-studio/app/__tests__/oa/finops/postgres/t2.billed-period-concurrency.integration.test.ts` (CREATED) — content mode FULL
-Coverage: COMPLETE. full file (10025 bytes)
+Coverage: COMPLETE. full file (14152 bytes)
 
 ```
 /**
@@ -679,11 +654,20 @@ const PERIOD = "2026-08-01";
 const BUCKET = "2026-08-07T00:00:00.000Z";
 const EXTERNAL = "proj_openai_pg_conc";
 
-function completeSnapshot(externalProjectId: string = EXTERNAL) {
+const COV_START = BUCKET;
+const COV_END = "2026-08-08T00:00:00.000Z";
+
+function completeSnapshot(
+  coverageStart: string = COV_START,
+  coverageEndExclusive: string = COV_END,
+  externalProjectId: string = EXTERNAL,
+) {
   return {
     completeness: "complete" as const,
     provider: "openai",
     externalProjectId,
+    coverageStart,
+    coverageEndExclusive,
   };
 }
 
@@ -693,14 +677,19 @@ function makeFact(input: {
   readonly sourceBatchId: string;
   readonly providerAmount: string;
   readonly lineItem: string | null;
+  readonly sourceBucketStart?: string;
+  readonly sourceBucketEndExclusive?: string;
 }): BilledPeriodFact {
+  const sourceBucketStart = input.sourceBucketStart ?? BUCKET;
+  const sourceBucketEndExclusive =
+    input.sourceBucketEndExclusive ?? "2026-08-08T00:00:00.000Z";
   return {
     projectId: input.projectId,
     externalProjectId: input.externalProjectId,
     periodStart: PERIOD,
     provider: "openai",
-    sourceBucketStart: BUCKET,
-    sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+    sourceBucketStart,
+    sourceBucketEndExclusive,
     lineItem: input.lineItem,
     providerAmount: input.providerAmount,
     currency: "USD",
@@ -708,8 +697,8 @@ function makeFact(input: {
       provider: "openai",
       externalProjectId: input.externalProjectId,
       sfiaProjectId: input.projectId,
-      sourceBucketStart: BUCKET,
-      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+      sourceBucketStart,
+      sourceBucketEndExclusive,
       lineItem: input.lineItem,
       currency: "USD",
     }),
@@ -720,20 +709,28 @@ function makeFact(input: {
 function batchId(input: {
   readonly projectId: string;
   readonly externalProjectId: string;
+  readonly coverageStart?: string;
+  readonly coverageEndExclusive?: string;
   readonly atoms: ReadonlyArray<{
     line_item: string | null;
     providerAmount: string;
+    sourceBucketStart?: string;
+    sourceBucketEndExclusive?: string;
   }>;
 }): string {
+  const coverageStart = input.coverageStart ?? COV_START;
+  const coverageEndExclusive = input.coverageEndExclusive ?? COV_END;
   return buildBilledPeriodSourceBatchId({
     provider: "openai",
     externalProjectId: input.externalProjectId,
     sfiaProjectId: input.projectId,
     periodStart: PERIOD,
-    adapterContractVersion: "openai-costs-v1",
+    adapterContractVersion: "openai-costs-v2",
+    coverageStart,
+    coverageEndExclusive,
     atoms: input.atoms.map((a) => ({
-      sourceBucketStart: BUCKET,
-      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+      sourceBucketStart: a.sourceBucketStart ?? coverageStart,
+      sourceBucketEndExclusive: a.sourceBucketEndExclusive ?? coverageEndExclusive,
       project_id: input.externalProjectId,
       line_item: a.line_item,
       currency: "USD",
@@ -980,6 +977,120 @@ describeDb("FinOps T2 PostgreSQL billed-period concurrency", () => {
     });
     expect(agg?.billedAmount).toBe("100.00000000");
   });
+
+  it("PG-T04 coverage isolation: empty Aug8 does not zero Aug7", async () => {
+    const projectId = `proj-pg-t04-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const aggregates = createPostgresFinOpsAggregateStore(pool);
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T12:00:00.000Z",
+    };
+    const aug7Start = "2026-08-07T00:00:00.000Z";
+    const aug7End = "2026-08-08T00:00:00.000Z";
+    const aug8Start = "2026-08-08T00:00:00.000Z";
+    const aug8End = "2026-08-09T00:00:00.000Z";
+
+    const batch7 = batchId({
+      projectId,
+      externalProjectId: EXTERNAL,
+      coverageStart: aug7Start,
+      coverageEndExclusive: aug7End,
+      atoms: [
+        {
+          line_item: "A",
+          providerAmount: "10.00000000",
+          sourceBucketStart: aug7Start,
+          sourceBucketEndExclusive: aug7End,
+        },
+      ],
+    });
+    const seed7 = await reconcileBilledPeriod(deps, {
+      projectId,
+      periodStart: PERIOD,
+      sourceBatchId: batch7,
+      facts: [
+        makeFact({
+          projectId,
+          externalProjectId: EXTERNAL,
+          sourceBatchId: batch7,
+          providerAmount: "10.00000000",
+          lineItem: "A",
+          sourceBucketStart: aug7Start,
+          sourceBucketEndExclusive: aug7End,
+        }),
+      ],
+      snapshot: completeSnapshot(aug7Start, aug7End),
+    });
+    expect(seed7.outcome).toBe("succeeded");
+
+    const batch8 = batchId({
+      projectId,
+      externalProjectId: EXTERNAL,
+      coverageStart: aug8Start,
+      coverageEndExclusive: aug8End,
+      atoms: [
+        {
+          line_item: "B",
+          providerAmount: "5.00000000",
+          sourceBucketStart: aug8Start,
+          sourceBucketEndExclusive: aug8End,
+        },
+      ],
+    });
+    const seed8 = await reconcileBilledPeriod(deps, {
+      projectId,
+      periodStart: PERIOD,
+      sourceBatchId: batch8,
+      facts: [
+        makeFact({
+          projectId,
+          externalProjectId: EXTERNAL,
+          sourceBatchId: batch8,
+          providerAmount: "5.00000000",
+          lineItem: "B",
+          sourceBucketStart: aug8Start,
+          sourceBucketEndExclusive: aug8End,
+        }),
+      ],
+      snapshot: completeSnapshot(aug8Start, aug8End),
+    });
+    expect(seed8.outcome).toBe("succeeded");
+
+    const empty8 = batchId({
+      projectId,
+      externalProjectId: EXTERNAL,
+      coverageStart: aug8Start,
+      coverageEndExclusive: aug8End,
+      atoms: [],
+    });
+    const cleared = await reconcileBilledPeriod(deps, {
+      projectId,
+      periodStart: PERIOD,
+      sourceBatchId: empty8,
+      facts: [],
+      snapshot: completeSnapshot(aug8Start, aug8End),
+    });
+    expect(cleared.outcome).toBe("succeeded");
+
+    const events = await reconciliation.listCostEventsForProjectPeriod({
+      projectId,
+      periodStart: PERIOD,
+    });
+    const amounts = events.map((e) => e.amount).sort();
+    expect(amounts).toEqual(["-5.00000000", "10.00000000", "5.00000000"]);
+    expect(events.filter((e) => e.amount === "-10.00000000")).toHaveLength(0);
+    expect(events.filter((e) => e.amount === "-5.00000000")).toHaveLength(1);
+
+    const agg = await aggregates.readAggregate({
+      projectId,
+      periodStart: PERIOD,
+      currency: "USD",
+    });
+    expect(agg?.billedAmount).toBe("10.00000000");
+  });
+
 });
 
 ```
@@ -2759,7 +2870,7 @@ describe("FinOps T2 aggregates", () => {
 ```
 
 ### `projects/sfia-studio/app/__tests__/oa/finops/t2.billed-period.unit.test.ts` (CREATED) — content mode FULL
-Coverage: COMPLETE. full file (27269 bytes)
+Coverage: COMPLETE. full file (42800 bytes)
 
 ```
 /**
@@ -2786,6 +2897,8 @@ import {
 import { buildEnforcementProjectionsFromCostEvents } from "@/lib/oa/finops/application/rebuildEnforcementProjection";
 import { createMemoryFinOpsT2Pair } from "@/lib/oa/finops/infrastructure/memory/memoryFinOpsT2";
 import {
+  buildOpenAiCostsSourceBatchId,
+  fetchOpenAiOrganizationCostsSnapshot,
   mapAtomsToBilledPeriodFacts,
   parseCostsPageToAtoms,
 } from "@/lib/oa/finops/server/openaiOrganizationCostsAdapter";
@@ -2827,19 +2940,85 @@ function billedFact(
   };
 }
 
-function completeSnapshot(externalProjectId: string = EXTERNAL) {
+const COV_START = BUCKET;
+const COV_END = "2026-08-08T00:00:00.000Z";
+const BUCKET_AUG7 = "2026-08-07T00:00:00.000Z";
+const BUCKET_AUG8 = "2026-08-08T00:00:00.000Z";
+const BUCKET_AUG9 = "2026-08-09T00:00:00.000Z";
+const END_AUG8 = "2026-08-08T00:00:00.000Z";
+const END_AUG9 = "2026-08-09T00:00:00.000Z";
+const END_AUG10 = "2026-08-10T00:00:00.000Z";
+
+function completeSnapshot(
+  coverageStart: string = COV_START,
+  coverageEndExclusive: string = COV_END,
+  externalProjectId: string = EXTERNAL,
+) {
   return {
     completeness: "complete" as const,
     provider: "openai",
     externalProjectId,
+    coverageStart,
+    coverageEndExclusive,
   };
 }
 
-function incompleteSnapshot(externalProjectId: string = EXTERNAL) {
+function incompleteSnapshot(
+  coverageStart: string = COV_START,
+  coverageEndExclusive: string = COV_END,
+  externalProjectId: string = EXTERNAL,
+) {
   return {
     completeness: "incomplete" as const,
     provider: "openai",
     externalProjectId,
+    coverageStart,
+    coverageEndExclusive,
+  };
+}
+
+function derivedRefAt(
+  bucketStart: string,
+  bucketEndExclusive: string,
+  lineItem: string | null = "ALL",
+  externalProjectId: string = EXTERNAL,
+): string {
+  return buildDerivedSourceReference({
+    provider: "openai",
+    externalProjectId,
+    sfiaProjectId: PROJECT,
+    sourceBucketStart: bucketStart,
+    sourceBucketEndExclusive: bucketEndExclusive,
+    lineItem: lineItem === "ALL" ? null : lineItem,
+    currency: "USD",
+  });
+}
+
+function billedFactAt(
+  providerAmount: string,
+  sourceBatchId: string,
+  bucketStart: string,
+  bucketEndExclusive: string,
+  lineItem: string | null = null,
+  externalProjectId: string = EXTERNAL,
+): BilledPeriodFact {
+  return {
+    projectId: PROJECT,
+    externalProjectId,
+    periodStart: PERIOD,
+    provider: "openai",
+    sourceBucketStart: bucketStart,
+    sourceBucketEndExclusive: bucketEndExclusive,
+    lineItem,
+    providerAmount,
+    currency: "USD",
+    derivedSourceReference: derivedRefAt(
+      bucketStart,
+      bucketEndExclusive,
+      lineItem,
+      externalProjectId,
+    ),
+    sourceBatchId,
   };
 }
 
@@ -2847,18 +3026,26 @@ function batchForAtoms(
   atoms: ReadonlyArray<{
     line_item: string | null;
     providerAmount: string;
+    sourceBucketStart?: string;
+    sourceBucketEndExclusive?: string;
   }>,
+  coverageStart: string = COV_START,
+  coverageEndExclusive: string = COV_END,
+  externalProjectId: string = EXTERNAL,
 ): string {
   return buildBilledPeriodSourceBatchId({
     provider: "openai",
-    externalProjectId: EXTERNAL,
+    externalProjectId,
     sfiaProjectId: PROJECT,
     periodStart: PERIOD,
-    adapterContractVersion: "openai-costs-v1",
+    adapterContractVersion: "openai-costs-v2",
+    coverageStart,
+    coverageEndExclusive,
     atoms: atoms.map((a) => ({
-      sourceBucketStart: BUCKET,
-      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
-      project_id: EXTERNAL,
+      sourceBucketStart: a.sourceBucketStart ?? coverageStart,
+      sourceBucketEndExclusive:
+        a.sourceBucketEndExclusive ?? coverageEndExclusive,
+      project_id: externalProjectId,
       line_item: a.line_item,
       currency: "USD",
       providerAmount: a.providerAmount,
@@ -2983,7 +3170,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: EXTERNAL,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [atomA, atomB],
     });
     const reverse = buildBilledPeriodSourceBatchId({
@@ -2991,7 +3180,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: EXTERNAL,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [atomB, atomA],
     });
     expect(forward).toBe(reverse);
@@ -3002,7 +3193,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: EXTERNAL,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [{ ...atomA, providerAmount: "101.00000000" }],
     });
     expect(changed).not.toBe(forward);
@@ -3020,7 +3213,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: EXTERNAL,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [
         {
           sourceBucketStart: BUCKET,
@@ -3048,7 +3243,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: EXTERNAL,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [
         {
           sourceBucketStart: BUCKET,
@@ -3076,7 +3273,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: EXTERNAL,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [
         {
           sourceBucketStart: BUCKET,
@@ -3246,7 +3445,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: EXTERNAL,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [
         {
           sourceBucketStart: BUCKET,
@@ -3513,7 +3714,9 @@ describe("FinOps T2 billed period", () => {
       externalProjectId: OTHER,
       sfiaProjectId: PROJECT,
       periodStart: PERIOD,
-      adapterContractVersion: "openai-costs-v1",
+      adapterContractVersion: "openai-costs-v2",
+      coverageStart: COV_START,
+      coverageEndExclusive: COV_END,
       atoms: [
         {
           sourceBucketStart: BUCKET,
@@ -3543,7 +3746,7 @@ describe("FinOps T2 billed period", () => {
       periodStart: PERIOD,
       sourceBatchId: otherBatch,
       facts: [otherFact],
-      snapshot: completeSnapshot(OTHER),
+      snapshot: completeSnapshot(COV_START, COV_END, OTHER),
     });
     expect(other.outcome).toBe("succeeded");
 
@@ -3553,7 +3756,7 @@ describe("FinOps T2 billed period", () => {
       periodStart: PERIOD,
       sourceBatchId: emptyLocal,
       facts: [],
-      snapshot: completeSnapshot(EXTERNAL),
+      snapshot: completeSnapshot(COV_START, COV_END, EXTERNAL),
     });
     expect(s2.outcome).toBe("succeeded");
     if (s2.outcome !== "succeeded") return;
@@ -3622,6 +3825,379 @@ describe("FinOps T2 billed period", () => {
       "7.00000000",
     ]);
   });
+
+  it("T41 narrow coverage isolation: empty Aug8 does not zero Aug7", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch7 = batchForAtoms(
+      [{ line_item: "A", providerAmount: "10.00000000" }],
+      BUCKET_AUG7,
+      END_AUG8,
+    );
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch7,
+      facts: [
+        billedFactAt("10.00000000", batch7, BUCKET_AUG7, END_AUG8, "A"),
+      ],
+      snapshot: completeSnapshot(BUCKET_AUG7, END_AUG8),
+    });
+    const batch8 = batchForAtoms(
+      [{ line_item: "B", providerAmount: "5.00000000" }],
+      BUCKET_AUG8,
+      END_AUG9,
+    );
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch8,
+      facts: [
+        billedFactAt("5.00000000", batch8, BUCKET_AUG8, END_AUG9, "B"),
+      ],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    const emptyAug8 = batchForAtoms([], BUCKET_AUG8, END_AUG9);
+    const result = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: emptyAug8,
+      facts: [],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "10.00000000",
+    );
+    const amountsA = reconciliation._costEvents
+      .filter((e) => e.derivedSourceReference === derivedRefAt(BUCKET_AUG7, END_AUG8, "A"))
+      .map((e) => e.amount);
+    const amountsB = reconciliation._costEvents
+      .filter((e) => e.derivedSourceReference === derivedRefAt(BUCKET_AUG8, END_AUG9, "B"))
+      .map((e) => e.amount);
+    expect(amountsA).toEqual(["10.00000000"]);
+    expect(amountsB).toEqual(["5.00000000", "-5.00000000"]);
+  });
+
+  it("T42 missing atom inside coverage still tombstones", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms(
+      [
+        { line_item: "A", providerAmount: "100.00000000" },
+        { line_item: "B", providerAmount: "10.00000000" },
+      ],
+      BUCKET_AUG8,
+      END_AUG9,
+    );
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFactAt("100.00000000", batch1, BUCKET_AUG8, END_AUG9, "A"),
+        billedFactAt("10.00000000", batch1, BUCKET_AUG8, END_AUG9, "B"),
+      ],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    const batch2 = batchForAtoms(
+      [{ line_item: "A", providerAmount: "100.00000000" }],
+      BUCKET_AUG8,
+      END_AUG9,
+    );
+    const s2 = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch2,
+      facts: [
+        billedFactAt("100.00000000", batch2, BUCKET_AUG8, END_AUG9, "A"),
+      ],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    expect(s2.outcome).toBe("succeeded");
+    if (s2.outcome !== "succeeded") return;
+    expect(s2.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "100.00000000",
+    );
+    expect(
+      reconciliation._costEvents.some(
+        (e) =>
+          e.derivedSourceReference ===
+            derivedRefAt(BUCKET_AUG8, END_AUG9, "B") &&
+          e.amount === "-10.00000000",
+      ),
+    ).toBe(true);
+  });
+
+  it("T43 outside coverage preserved across multi-day month", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    for (const [start, end, line, amt] of [
+      [BUCKET_AUG7, END_AUG8, "A", "10.00000000"],
+      [BUCKET_AUG8, END_AUG9, "B", "5.00000000"],
+      [BUCKET_AUG9, END_AUG10, "C", "7.00000000"],
+    ] as const) {
+      const batch = batchForAtoms(
+        [{ line_item: line, providerAmount: amt }],
+        start,
+        end,
+      );
+      const r = await reconcileBilledPeriod(deps, {
+        projectId: PROJECT,
+        periodStart: PERIOD,
+        sourceBatchId: batch,
+        facts: [billedFactAt(amt, batch, start, end, line)],
+        snapshot: completeSnapshot(start, end),
+      });
+      expect(r.outcome).toBe("succeeded");
+    }
+    const emptyAug8 = batchForAtoms([], BUCKET_AUG8, END_AUG9);
+    const result = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: emptyAug8,
+      facts: [],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    expect(result.outcome).toBe("succeeded");
+    if (result.outcome !== "succeeded") return;
+    expect(result.aggregates.find((a) => a.currency === "USD")?.billedAmount).toBe(
+      "17.00000000",
+    );
+    expect(
+      reconciliation._costEvents.filter((e) => e.amount?.startsWith("-")),
+    ).toHaveLength(1);
+    expect(
+      reconciliation._costEvents.find((e) => e.amount === "-5.00000000")
+        ?.derivedSourceReference,
+    ).toBe(derivedRefAt(BUCKET_AUG8, END_AUG9, "B"));
+  });
+
+  it("T44 empty snapshots different coverage have different sourceBatchId", () => {
+    const a = batchForAtoms([], BUCKET_AUG7, END_AUG8);
+    const b = batchForAtoms([], BUCKET_AUG8, END_AUG9);
+    expect(a).not.toBe(b);
+    const a2 = batchForAtoms([], BUCKET_AUG7, END_AUG8);
+    expect(a2).toBe(a);
+  });
+
+  it("T45 invalid/cross-period coverage fails before writes", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch = batchForAtoms([]);
+    const inverted = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch,
+      facts: [],
+      snapshot: completeSnapshot(END_AUG9, BUCKET_AUG8),
+    });
+    expect(inverted.outcome).toBe("failed");
+    if (inverted.outcome !== "failed") return;
+    expect(inverted.code).toBe("FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE");
+    expect(reconciliation._costEvents).toHaveLength(0);
+
+    const cross = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: "batch_cross_month",
+      facts: [],
+      snapshot: completeSnapshot(
+        "2026-07-31T00:00:00.000Z",
+        "2026-08-02T00:00:00.000Z",
+      ),
+    });
+    expect(cross.outcome).toBe("failed");
+    if (cross.outcome !== "failed") return;
+    expect(cross.code).toBe("FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE");
+    expect(reconciliation._costEvents).toHaveLength(0);
+    const aggs = await aggregates.listAggregatesForProjectPeriod({
+      projectId: PROJECT,
+      periodStart: PERIOD,
+    });
+    expect(aggs).toHaveLength(0);
+  });
+
+  it("T46 incomplete snapshot never tombstones", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms(
+      [
+        { line_item: "A", providerAmount: "100.00000000" },
+        { line_item: "B", providerAmount: "10.00000000" },
+      ],
+      BUCKET_AUG8,
+      END_AUG9,
+    );
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFactAt("100.00000000", batch1, BUCKET_AUG8, END_AUG9, "A"),
+        billedFactAt("10.00000000", batch1, BUCKET_AUG8, END_AUG9, "B"),
+      ],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    const before = reconciliation._costEvents.length;
+    const incomplete = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: "batch_incomplete_aug8",
+      facts: [],
+      snapshot: incompleteSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    expect(incomplete.outcome).toBe("succeeded");
+    if (incomplete.outcome !== "succeeded") return;
+    expect(incomplete.createdCount).toBe(0);
+    expect(reconciliation._costEvents.length).toBe(before);
+    expect(
+      incomplete.aggregates.find((a) => a.currency === "USD")?.billedAmount,
+    ).toBe("110.00000000");
+  });
+
+  it("T47 exact replay coverage idempotent", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch1 = batchForAtoms(
+      [{ line_item: "A", providerAmount: "10.00000000" }],
+      BUCKET_AUG8,
+      END_AUG9,
+    );
+    await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch1,
+      facts: [
+        billedFactAt("10.00000000", batch1, BUCKET_AUG8, END_AUG9, "A"),
+      ],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    const empty = batchForAtoms([], BUCKET_AUG8, END_AUG9);
+    const input = {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: empty,
+      facts: [] as BilledPeriodFact[],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    };
+    const first = await reconcileBilledPeriod(deps, input);
+    expect(first.outcome).toBe("succeeded");
+    const events = reconciliation._costEvents.length;
+    const replay = await reconcileBilledPeriod(deps, input);
+    expect(replay.outcome).toBe("succeeded");
+    if (replay.outcome !== "succeeded") return;
+    expect(replay.idempotentReplay).toBe(true);
+    expect(replay.createdCount).toBe(0);
+    expect(reconciliation._costEvents.length).toBe(events);
+    expect(batchForAtoms([], BUCKET_AUG8, END_AUG9)).toBe(empty);
+  });
+
+  it("T48 adapter bounded snapshot declaration", async () => {
+    const start = 1786147200; // 2026-08-08T00:00:00.000Z
+    const end = 1786233600; // 2026-08-09T00:00:00.000Z
+    const raw = JSON.stringify({
+      object: "page",
+      data: [],
+      next_page: null,
+    });
+    const prev = process.env.OPENAI_ADMIN_KEY;
+    process.env.OPENAI_ADMIN_KEY = "test-admin-key-not-live";
+    let result;
+    try {
+    result = await fetchOpenAiOrganizationCostsSnapshot({
+      projectId: PROJECT,
+      externalProjectId: EXTERNAL,
+      periodStart: PERIOD,
+      startTimeUnix: start,
+      endTimeUnix: end,
+      fetchImpl: async () =>
+        new Response(raw, { status: 200, headers: { "content-type": "application/json" } }),
+    });
+    expect(result.snapshot.coverageStart).toBe("2026-08-08T00:00:00.000Z");
+    expect(result.snapshot.coverageEndExclusive).toBe("2026-08-09T00:00:00.000Z");
+    expect(result.snapshot.completeness).toBe("complete");
+    const expectedBatch = buildOpenAiCostsSourceBatchId({
+      externalProjectId: EXTERNAL,
+      sfiaProjectId: PROJECT,
+      periodStart: PERIOD,
+      coverageStart: "2026-08-08T00:00:00.000Z",
+      coverageEndExclusive: "2026-08-09T00:00:00.000Z",
+      atoms: [],
+    });
+    expect(result.sourceBatchId).toBe(expectedBatch);
+    } finally {
+      if (prev === undefined) delete process.env.OPENAI_ADMIN_KEY;
+      else process.env.OPENAI_ADMIN_KEY = prev;
+    }
+  });
+
+  it("T49 adapter complete snapshot without end bound fails closed", async () => {
+    await expect(
+      fetchOpenAiOrganizationCostsSnapshot({
+        projectId: PROJECT,
+        externalProjectId: EXTERNAL,
+        periodStart: PERIOD,
+        startTimeUnix: 1786147200,
+        fetchImpl: async () => {
+          throw new Error("fetch must not be called");
+        },
+      }),
+    ).rejects.toThrow("OPENAI_COSTS_COMPLETE_SNAPSHOT_REQUIRES_BOUNDED_END");
+  });
+
+  it("T50 fact outside declared coverage rejected before writes", async () => {
+    const { reconciliation, aggregates } = createMemoryFinOpsT2Pair();
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T11:00:00.000Z",
+    };
+    const batch = batchForAtoms(
+      [{ line_item: "A", providerAmount: "10.00000000" }],
+      BUCKET_AUG8,
+      END_AUG9,
+    );
+    const result = await reconcileBilledPeriod(deps, {
+      projectId: PROJECT,
+      periodStart: PERIOD,
+      sourceBatchId: batch,
+      facts: [
+        billedFactAt("10.00000000", batch, BUCKET_AUG7, END_AUG8, "A"),
+      ],
+      snapshot: completeSnapshot(BUCKET_AUG8, END_AUG9),
+    });
+    expect(result.outcome).toBe("failed");
+    if (result.outcome !== "failed") return;
+    expect(result.code).toBe("FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE");
+    expect(reconciliation._costEvents).toHaveLength(0);
+  });
+
 });
 
 ```
@@ -6358,7 +6934,7 @@ END $$;
 ```
 
 ### `projects/sfia-studio/app/lib/oa/finops/application/billedPeriodIdentity.ts` (CREATED) — content mode FULL
-Coverage: COMPLETE. full file (5317 bytes)
+Coverage: COMPLETE. full file (7130 bytes)
 
 ```
 /**
@@ -6367,7 +6943,11 @@ Coverage: COMPLETE. full file (5317 bytes)
 
 import { createHash } from "node:crypto";
 
-export const OPENAI_COSTS_ADAPTER_CONTRACT_VERSION = "openai-costs-v1" as const;
+/**
+ * Adapter contract bumped for coverage-bound sourceBatchId material
+ * (coverageStart + coverageEndExclusive). No live PROJECT_PERIOD data exists.
+ */
+export const OPENAI_COSTS_ADAPTER_CONTRACT_VERSION = "openai-costs-v2" as const;
 
 function normalizePart(value: string | null | undefined): string {
   if (value === null || value === undefined) return "";
@@ -6425,6 +7005,8 @@ export function buildBilledPeriodSourceBatchId(input: {
   readonly sfiaProjectId: string;
   readonly periodStart: string;
   readonly adapterContractVersion: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
   readonly atoms: ReadonlyArray<BilledPeriodBatchAtom>;
 }): string {
   const sorted = [...input.atoms]
@@ -6436,6 +7018,8 @@ export function buildBilledPeriodSourceBatchId(input: {
     normalizePart(input.sfiaProjectId),
     normalizePart(input.periodStart),
     normalizePart(input.adapterContractVersion),
+    normalizePart(input.coverageStart),
+    normalizePart(input.coverageEndExclusive),
     sorted.join("\n"),
   ].join("|");
   return `batch_${sha256Hex(material)}`;
@@ -6505,6 +7089,53 @@ export function isParsableDerivedSourceReference(
   derivedSourceReference: string,
 ): boolean {
   return derivedSourceReference.split("|").length >= 7;
+}
+
+/** Parse bucket bounds from derivedSourceReference; null if unprovable. */
+export function parseBucketIntervalFromDerivedSourceReference(
+  derivedSourceReference: string,
+): {
+  readonly sourceBucketStart: string;
+  readonly sourceBucketEndExclusive: string;
+} | null {
+  const parts = derivedSourceReference.split("|");
+  if (parts.length < 7) return null;
+  const sourceBucketStart = normalizePart(parts[3]);
+  const sourceBucketEndExclusive = normalizePart(parts[4]);
+  if (!sourceBucketStart || !sourceBucketEndExclusive) return null;
+  if (
+    Number.isNaN(Date.parse(sourceBucketStart)) ||
+    Number.isNaN(Date.parse(sourceBucketEndExclusive))
+  ) {
+    return null;
+  }
+  return { sourceBucketStart, sourceBucketEndExclusive };
+}
+
+/** bucketStart >= coverageStart AND bucketEndExclusive <= coverageEndExclusive */
+export function bucketFullyWithinCoverage(
+  bucket: {
+    readonly sourceBucketStart: string;
+    readonly sourceBucketEndExclusive: string;
+  },
+  coverage: {
+    readonly coverageStart: string;
+    readonly coverageEndExclusive: string;
+  },
+): boolean {
+  const bStart = Date.parse(bucket.sourceBucketStart);
+  const bEnd = Date.parse(bucket.sourceBucketEndExclusive);
+  const cStart = Date.parse(coverage.coverageStart);
+  const cEnd = Date.parse(coverage.coverageEndExclusive);
+  if (
+    Number.isNaN(bStart) ||
+    Number.isNaN(bEnd) ||
+    Number.isNaN(cStart) ||
+    Number.isNaN(cEnd)
+  ) {
+    return false;
+  }
+  return bStart >= cStart && bEnd <= cEnd;
 }
 
 /** Deterministic correction for an atom absent from a complete snapshot. */
@@ -6605,24 +7236,26 @@ export function canonicalProviderAmountString(
 ```
 
 ### `projects/sfia-studio/app/lib/oa/finops/application/reconcileBilledPeriod.ts` (CREATED) — content mode FULL
-Coverage: COMPLETE. full file (19598 bytes)
+Coverage: COMPLETE. full file (26610 bytes)
 
 ```
 /**
  * FinOps T2 — BILLED period reconciliation (PROJECT_PERIOD attribution).
  * Delta-based append-only corrections; no fake executionRunId.
  *
- * Complete snapshot semantics: atoms previously active in the same economic
- * scope but absent from the current complete snapshot converge to zero via
- * negative deltas. Incomplete / failed provider fetches never tombstone.
+ * Complete snapshot semantics are temporally bounded:
+ * completeness=complete means complete ONLY for
+ * [coverageStart, coverageEndExclusive) within the economic scope.
  */
 
 import {
+  bucketFullyWithinCoverage,
   buildAbsentFromCompleteSnapshotCorrectionRef,
   buildCorrectionRef,
   buildProviderPayloadDigest,
   derivedSourceReferenceBelongsToScope,
   isParsableDerivedSourceReference,
+  parseBucketIntervalFromDerivedSourceReference,
 } from "./billedPeriodIdentity";
 import {
   formatMoneyString,
@@ -6654,6 +7287,14 @@ export type ReconcileBilledPeriodDeps = {
 
 const DEFAULT_MAX_FACTS = 100;
 
+class ReconValidationError extends Error {
+  readonly code: string;
+  constructor(code: string, message: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
 function periodStartMatchesOccurredAt(
   periodStart: string,
   occurredAt: string,
@@ -6666,6 +7307,66 @@ function periodStartMatchesOccurredAt(
   }
 }
 
+function parseUtcInstantMs(value: string, label: string): number {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      `${label} is required`,
+    );
+  }
+  const ms = Date.parse(trimmed);
+  if (Number.isNaN(ms)) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      `${label} is not a parseable UTC instant`,
+    );
+  }
+  return ms;
+}
+
+function validateSnapshotCoverage(input: {
+  readonly periodStart: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
+}): {
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
+} {
+  const coverageStart = input.coverageStart.trim();
+  const coverageEndExclusive = input.coverageEndExclusive.trim();
+  const cStart = parseUtcInstantMs(coverageStart, "coverageStart");
+  const cEnd = parseUtcInstantMs(coverageEndExclusive, "coverageEndExclusive");
+  if (!(cStart < cEnd)) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "coverageStart must be strictly before coverageEndExclusive",
+    );
+  }
+
+  const periodInstant = `${input.periodStart}T00:00:00.000Z`;
+  let period;
+  try {
+    period = computeUtcMonthPeriod(periodInstant);
+  } catch {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "periodStart is not a valid UTC month anchor",
+    );
+  }
+  const pStart = Date.parse(period.periodStart);
+  const pEnd = Date.parse(period.periodEnd);
+  // Coverage must lie entirely inside the UTC month (end may equal next month start).
+  if (cStart < pStart || cEnd > pEnd) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "snapshot coverage is not entirely contained in periodStart UTC month",
+    );
+  }
+
+  return { coverageStart, coverageEndExclusive };
+}
+
 function validateProjectPeriodFact(
   fact: BilledPeriodFact,
   input: {
@@ -6673,23 +7374,51 @@ function validateProjectPeriodFact(
     readonly periodStart: string;
     readonly provider: string;
     readonly externalProjectId: string;
+    readonly sourceBatchId: string;
+    readonly coverageStart: string;
+    readonly coverageEndExclusive: string;
   },
 ): void {
   if (!fact.derivedSourceReference.trim()) {
-    throw new Error("derivedSourceReference is required for BILLED period facts");
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "derivedSourceReference is required for BILLED period facts",
+    );
   }
   if (!isParsableDerivedSourceReference(fact.derivedSourceReference)) {
-    throw new Error("derivedSourceReference is not parsable for scope proof");
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "derivedSourceReference is not parsable for scope proof",
+    );
   }
   if (fact.projectId.trim() !== input.projectId) {
-    throw new Error("fact projectId does not match reconciliation projectId");
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact projectId does not match reconciliation projectId",
+    );
+  }
+  if (fact.periodStart.trim() !== input.periodStart) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact periodStart does not match reconciliation periodStart",
+    );
   }
   if (fact.provider.trim() !== input.provider) {
-    throw new Error("fact provider does not match snapshot provider");
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact provider does not match snapshot provider",
+    );
   }
   if (fact.externalProjectId.trim() !== input.externalProjectId) {
-    throw new Error(
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
       "fact externalProjectId does not match snapshot externalProjectId",
+    );
+  }
+  if (fact.sourceBatchId.trim() !== input.sourceBatchId) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact sourceBatchId does not match input.sourceBatchId",
     );
   }
   if (
@@ -6699,12 +7428,47 @@ function validateProjectPeriodFact(
       sfiaProjectId: input.projectId,
     })
   ) {
-    throw new Error(
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
       "derivedSourceReference does not belong to reconciliation economic scope",
     );
   }
   if (!periodStartMatchesOccurredAt(input.periodStart, fact.sourceBucketStart)) {
-    throw new Error("fact sourceBucketStart does not belong to periodStart");
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact sourceBucketStart does not belong to periodStart",
+    );
+  }
+  parseUtcInstantMs(fact.sourceBucketStart, "fact.sourceBucketStart");
+  if (
+    fact.sourceBucketEndExclusive === null ||
+    !fact.sourceBucketEndExclusive.trim()
+  ) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact sourceBucketEndExclusive is required to prove coverage containment",
+    );
+  }
+  parseUtcInstantMs(
+    fact.sourceBucketEndExclusive,
+    "fact.sourceBucketEndExclusive",
+  );
+  if (
+    !bucketFullyWithinCoverage(
+      {
+        sourceBucketStart: fact.sourceBucketStart.trim(),
+        sourceBucketEndExclusive: fact.sourceBucketEndExclusive.trim(),
+      },
+      {
+        coverageStart: input.coverageStart,
+        coverageEndExclusive: input.coverageEndExclusive,
+      },
+    )
+  ) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact bucket is outside declared snapshot coverage",
+    );
   }
 }
 
@@ -6772,13 +7536,15 @@ function collectActiveScopedAtoms(
     }
     const ref = event.derivedSourceReference;
     if (!ref || !ref.trim()) {
-      throw new Error(
-        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE: PROJECT_PERIOD BILLED event missing derivedSourceReference",
+      throw new ReconValidationError(
+        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE",
+        "PROJECT_PERIOD BILLED event missing derivedSourceReference",
       );
     }
     if (!isParsableDerivedSourceReference(ref)) {
-      throw new Error(
-        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE: PROJECT_PERIOD BILLED event has unparsable derivedSourceReference",
+      throw new ReconValidationError(
+        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE",
+        "PROJECT_PERIOD BILLED event has unparsable derivedSourceReference",
       );
     }
     if (
@@ -6788,7 +7554,6 @@ function collectActiveScopedAtoms(
         sfiaProjectId: scope.projectId,
       })
     ) {
-      // Other economic scope — never tombstone.
       continue;
     }
     const existing = byRef.get(ref);
@@ -6824,6 +7589,66 @@ function collectActiveScopedAtoms(
     });
   }
   return active;
+}
+
+/**
+ * Before any economic write: classify active atoms for complete-snapshot tombstones.
+ * Unparsable same-scope intervals fail closed (no partial mutation).
+ */
+function planMissingAtomCorrections(input: {
+  readonly ledger: ReadonlyArray<FinOpsCostEvent>;
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly provider: string;
+  readonly externalProjectId: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
+  readonly presentRefs: ReadonlySet<string>;
+}): ReadonlyArray<{
+  readonly derivedSourceReference: string;
+  readonly currency: string;
+  readonly occurredAt: string;
+}> {
+  const active = collectActiveScopedAtoms(input.ledger, {
+    projectId: input.projectId,
+    periodStart: input.periodStart,
+    provider: input.provider,
+    externalProjectId: input.externalProjectId,
+  });
+
+  const toCorrect: Array<{
+    derivedSourceReference: string;
+    currency: string;
+    occurredAt: string;
+  }> = [];
+
+  for (const atom of active) {
+    if (input.presentRefs.has(atom.derivedSourceReference)) continue;
+    const interval = parseBucketIntervalFromDerivedSourceReference(
+      atom.derivedSourceReference,
+    );
+    if (!interval) {
+      throw new ReconValidationError(
+        "FINOPS_RECON_ATOM_COVERAGE_UNPROVABLE",
+        "active atom bucket interval is not provable for coverage-safe tombstone",
+      );
+    }
+    if (
+      !bucketFullyWithinCoverage(interval, {
+        coverageStart: input.coverageStart,
+        coverageEndExclusive: input.coverageEndExclusive,
+      })
+    ) {
+      // Outside coverage — preserve economically; never tombstone.
+      continue;
+    }
+    toCorrect.push({
+      derivedSourceReference: atom.derivedSourceReference,
+      currency: atom.currency,
+      occurredAt: atom.occurredAt,
+    });
+  }
+  return toCorrect;
 }
 
 async function appendDeltaEvent(input: {
@@ -6925,8 +7750,65 @@ export async function reconcileBilledPeriod(
     };
   }
 
+  let coverageStart: string;
+  let coverageEndExclusive: string;
+  try {
+    const coverage = validateSnapshotCoverage({
+      periodStart,
+      coverageStart: snapshot.coverageStart ?? "",
+      coverageEndExclusive: snapshot.coverageEndExclusive ?? "",
+    });
+    coverageStart = coverage.coverageStart;
+    coverageEndExclusive = coverage.coverageEndExclusive;
+  } catch (error) {
+    if (error instanceof ReconValidationError) {
+      return {
+        outcome: "failed",
+        reconciliationId: null,
+        code: error.code,
+        message: error.message,
+        finopsSideOnly: true,
+      };
+    }
+    throw error;
+  }
+
   const provider = snapshot.provider.trim();
   const externalProjectId = snapshot.externalProjectId.trim();
+
+  try {
+    for (const fact of input.facts) {
+      validateProjectPeriodFact(fact, {
+        projectId,
+        periodStart,
+        provider,
+        externalProjectId,
+        sourceBatchId,
+        coverageStart,
+        coverageEndExclusive,
+      });
+      // Money parse fail-closed before any write.
+      parseMoneyString(fact.providerAmount, normalizeCurrency(fact.currency));
+    }
+  } catch (error) {
+    if (error instanceof ReconValidationError) {
+      return {
+        outcome: "failed",
+        reconciliationId: null,
+        code: error.code,
+        message: error.message,
+        finopsSideOnly: true,
+      };
+    }
+    return {
+      outcome: "failed",
+      reconciliationId: null,
+      code: "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      message:
+        error instanceof Error ? error.message : "fact prevalidation failed",
+      finopsSideOnly: true,
+    };
+  }
 
   const { reconciliationId, dedupKey } = derivePeriodReconciliationDedupKey({
     projectId,
@@ -6951,6 +7833,78 @@ export async function reconcileBilledPeriod(
           duplicateCount: existing.processedCount,
           aggregates,
           idempotentReplay: true,
+        };
+      }
+
+      const maxFacts = input.maxFacts ?? DEFAULT_MAX_FACTS;
+      if (
+        typeof maxFacts !== "number" ||
+        !Number.isSafeInteger(maxFacts) ||
+        maxFacts <= 0
+      ) {
+        return {
+          outcome: "failed",
+          reconciliationId: null,
+          code: "FINOPS_RECON_INVALID_BATCH_BOUND",
+          message: "maxFacts must be a positive safe integer",
+          finopsSideOnly: true,
+        };
+      }
+
+      if (input.facts.length > maxFacts) {
+        return {
+          outcome: "failed",
+          reconciliationId: null,
+          code: "FINOPS_RECON_BATCH_TOO_LARGE",
+          message: `facts exceed bounded batch maxFacts=${maxFacts}`,
+          finopsSideOnly: true,
+        };
+      }
+
+      // Read ledger + plan missing-atom corrections BEFORE any economic write.
+      let ledger: FinOpsCostEvent[];
+      let missingPlan: ReadonlyArray<{
+        readonly derivedSourceReference: string;
+        readonly currency: string;
+        readonly occurredAt: string;
+      }> = [];
+      const presentRefs = new Set(
+        input.facts.map((f) => f.derivedSourceReference),
+      );
+      try {
+        ledger = [
+          ...(await ops.listCostEventsForProjectPeriod({
+            projectId,
+            periodStart,
+          })),
+        ];
+        if (snapshot.completeness === "complete") {
+          missingPlan = planMissingAtomCorrections({
+            ledger,
+            projectId,
+            periodStart,
+            provider,
+            externalProjectId,
+            coverageStart,
+            coverageEndExclusive,
+            presentRefs,
+          });
+        }
+      } catch (error) {
+        const code =
+          error instanceof ReconValidationError
+            ? error.code
+            : "FINOPS_RECON_FAILED";
+        const message =
+          error instanceof Error
+            ? error.message
+            : "billed period prevalidation failed";
+        return {
+          outcome: "failed",
+          reconciliationId: null,
+          code,
+          message,
+          finopsSideOnly: true,
         };
       }
 
@@ -6993,69 +7947,12 @@ export async function reconcileBilledPeriod(
         };
       }
 
-      const maxFacts = input.maxFacts ?? DEFAULT_MAX_FACTS;
-      if (
-        typeof maxFacts !== "number" ||
-        !Number.isSafeInteger(maxFacts) ||
-        maxFacts <= 0
-      ) {
-        await ops.completeReconciliationRecord({
-          reconciliationId,
-          status: "failed",
-          processedCount: 0,
-          errorCode: "FINOPS_RECON_INVALID_BATCH_BOUND",
-          errorMessage: "maxFacts must be a positive safe integer",
-          completedAt: deps.nowIso(),
-        });
-        return {
-          outcome: "failed",
-          reconciliationId,
-          code: "FINOPS_RECON_INVALID_BATCH_BOUND",
-          message: "maxFacts must be a positive safe integer",
-          finopsSideOnly: true,
-        };
-      }
-
-      if (input.facts.length > maxFacts) {
-        await ops.completeReconciliationRecord({
-          reconciliationId,
-          status: "failed",
-          processedCount: 0,
-          errorCode: "FINOPS_RECON_BATCH_TOO_LARGE",
-          errorMessage: `facts exceed bounded batch maxFacts=${maxFacts}`,
-          completedAt: deps.nowIso(),
-        });
-        return {
-          outcome: "failed",
-          reconciliationId,
-          code: "FINOPS_RECON_BATCH_TOO_LARGE",
-          message: `facts exceed bounded batch maxFacts=${maxFacts}`,
-          finopsSideOnly: true,
-        };
-      }
-
       let createdCount = 0;
       let duplicateCount = 0;
       let processedCount = 0;
 
       try {
-        const ledger: FinOpsCostEvent[] = [
-          ...(await ops.listCostEventsForProjectPeriod({
-            projectId,
-            periodStart,
-          })),
-        ];
-
-        const presentRefs = new Set<string>();
-
         for (const fact of input.facts) {
-          validateProjectPeriodFact(fact, {
-            projectId,
-            periodStart,
-            provider,
-            externalProjectId,
-          });
-          presentRefs.add(fact.derivedSourceReference);
           const currency = normalizeCurrency(fact.currency);
           const providerAmount = parseMoneyString(fact.providerAmount, currency);
 
@@ -7115,68 +8012,53 @@ export async function reconcileBilledPeriod(
           processedCount += 1;
         }
 
-        // Missing-atom corrections only for COMPLETE snapshots of this scope.
-        // Incomplete / provider failure must never be treated as empty-complete.
-        if (snapshot.completeness === "complete") {
-          const active = collectActiveScopedAtoms(ledger, {
+        for (const atom of missingPlan) {
+          const currency =
+            atom.currency ||
+            currencyFromDerivedSourceReference(atom.derivedSourceReference);
+          const cumulative = sumLedgerForAtom(ledger, {
             projectId,
             periodStart,
+            currency,
+            derivedSourceReference: atom.derivedSourceReference,
+          });
+          if (cumulative === BigInt(0)) continue;
+
+          const deltaMinor = BigInt(0) - cumulative;
+          const deltaAmount = formatMoneyString(
+            moneyFromMinor(deltaMinor, currency),
+          );
+          const correctionRef = buildAbsentFromCompleteSnapshotCorrectionRef({
+            derivedSourceReference: atom.derivedSourceReference,
+            sourceBatchId,
             provider,
             externalProjectId,
+            sfiaProjectId: projectId,
+            periodStart,
           });
 
-          for (const atom of active) {
-            if (presentRefs.has(atom.derivedSourceReference)) continue;
-
-            // Target absolute economic state = 0 for this atom in scope.
-            const currency =
-              atom.currency ||
-              currencyFromDerivedSourceReference(atom.derivedSourceReference);
-            const cumulative = sumLedgerForAtom(ledger, {
-              projectId,
-              periodStart,
-              currency,
-              derivedSourceReference: atom.derivedSourceReference,
-            });
-            if (cumulative === BigInt(0)) continue;
-
-            const deltaMinor = BigInt(0) - cumulative;
-            const deltaAmount = formatMoneyString(
-              moneyFromMinor(deltaMinor, currency),
-            );
-            const correctionRef = buildAbsentFromCompleteSnapshotCorrectionRef({
-              derivedSourceReference: atom.derivedSourceReference,
-              sourceBatchId,
-              provider,
-              externalProjectId,
-              sfiaProjectId: projectId,
-              periodStart,
-            });
-
-            const insertOutcome = await appendDeltaEvent({
-              ops,
-              ledger,
-              projectId,
-              periodStart,
-              sourceBatchId,
-              provider,
-              derivedSourceReference: atom.derivedSourceReference,
-              currency,
-              deltaAmount,
-              correctionRef,
-              occurredAt: atom.occurredAt,
-            });
-            if (insertOutcome === "created") {
-              createdCount += 1;
-            } else {
-              duplicateCount += 1;
-            }
-            processedCount += 1;
+          const insertOutcome = await appendDeltaEvent({
+            ops,
+            ledger,
+            projectId,
+            periodStart,
+            sourceBatchId,
+            provider,
+            derivedSourceReference: atom.derivedSourceReference,
+            currency,
+            deltaAmount,
+            correctionRef,
+            occurredAt: atom.occurredAt,
+          });
+          if (insertOutcome === "created") {
+            createdCount += 1;
+          } else {
+            duplicateCount += 1;
           }
+          processedCount += 1;
         }
 
-        // Rebuild from the in-session ledger. A separate DB read would miss
-        // uncommitted inserts under withExclusiveProjectPeriodReconciliation.
+        // Rebuild from the in-session ledger (visible uncommitted inserts).
         const existingAggregates =
           await deps.aggregates.listAggregatesForProjectPeriod({
             projectId,
@@ -7823,7 +8705,7 @@ export function derivePeriodReconciliationDedupKey(input: {
 ```
 
 ### `projects/sfia-studio/app/lib/oa/finops/application/types.aggregate.ts` (MODIFIED) — content mode FULL
-Coverage: COMPLETE. full file (6583 bytes)
+Coverage: COMPLETE. full file (6926 bytes)
 
 ```
 /**
@@ -7964,11 +8846,18 @@ export type BilledPeriodFact = {
 /**
  * Declares whether the caller holds a COMPLETE provider snapshot for a scope.
  * incomplete / failed provider fetch must NEVER be treated as empty-complete.
+ *
+ * When completeness = "complete", the snapshot is complete ONLY for
+ * [coverageStart, coverageEndExclusive) — never for the whole UTC month.
  */
 export type BilledPeriodSnapshotDeclaration = {
   readonly completeness: "complete" | "incomplete";
   readonly provider: string;
   readonly externalProjectId: string;
+  /** Inclusive UTC instant bound of the covered window. */
+  readonly coverageStart: string;
+  /** Exclusive UTC instant bound of the covered window. */
+  readonly coverageEndExclusive: string;
 };
 
 export type ReconcileBilledPeriodInput = {
@@ -9500,7 +10389,7 @@ export function composeFinOpsT7Runtime(
 ```
 
 ### `projects/sfia-studio/app/lib/oa/finops/server/openaiOrganizationCostsAdapter.ts` (CREATED) — content mode FULL
-Coverage: COMPLETE. full file (9875 bytes)
+Coverage: COMPLETE. full file (11142 bytes)
 
 ```
 /**
@@ -9689,6 +10578,8 @@ export function buildOpenAiCostsSourceBatchId(input: {
   readonly externalProjectId: string;
   readonly sfiaProjectId: string;
   readonly periodStart: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
   readonly atoms: ReadonlyArray<OpenAiCostsAtom>;
 }): string {
   return buildBilledPeriodSourceBatchId({
@@ -9697,6 +10588,8 @@ export function buildOpenAiCostsSourceBatchId(input: {
     sfiaProjectId: input.sfiaProjectId,
     periodStart: input.periodStart,
     adapterContractVersion: OPENAI_COSTS_ADAPTER_CONTRACT_VERSION,
+    coverageStart: input.coverageStart,
+    coverageEndExclusive: input.coverageEndExclusive,
     atoms: input.atoms.map((atom) => ({
       sourceBucketStart: atom.sourceBucketStart,
       sourceBucketEndExclusive: atom.sourceBucketEndExclusive,
@@ -9706,6 +10599,13 @@ export function buildOpenAiCostsSourceBatchId(input: {
       providerAmount: atom.providerAmount,
     })),
   });
+}
+
+function unixSecondsToIsoUtc(unixSeconds: number): string {
+  if (!Number.isFinite(unixSeconds) || !Number.isInteger(unixSeconds)) {
+    throw new Error("OpenAI costs unix bound must be a finite integer");
+  }
+  return new Date(unixSeconds * 1000).toISOString();
 }
 
 export type FetchOpenAiOrganizationCostsInput = {
@@ -9767,7 +10667,22 @@ export async function fetchOpenAiOrganizationCostsSnapshot(
   readonly atoms: OpenAiCostsAtom[];
   readonly sourceBatchId: string;
   readonly facts: BilledPeriodFact[];
+  readonly snapshot: {
+    readonly completeness: "complete";
+    readonly provider: "openai";
+    readonly externalProjectId: string;
+    readonly coverageStart: string;
+    readonly coverageEndExclusive: string;
+  };
 }> {
+  // COMPLETE snapshot requires an explicit bounded end — never invent Date.now.
+  if (input.endTimeUnix === undefined || input.endTimeUnix === null) {
+    throw new Error("OPENAI_COSTS_COMPLETE_SNAPSHOT_REQUIRES_BOUNDED_END");
+  }
+
+  const coverageStart = unixSecondsToIsoUtc(input.startTimeUnix);
+  const coverageEndExclusive = unixSecondsToIsoUtc(input.endTimeUnix);
+
   const allAtoms: OpenAiCostsAtom[] = [];
   let page: string | null = null;
   do {
@@ -9780,6 +10695,8 @@ export async function fetchOpenAiOrganizationCostsSnapshot(
     externalProjectId: input.externalProjectId,
     sfiaProjectId: input.projectId,
     periodStart: input.periodStart,
+    coverageStart,
+    coverageEndExclusive,
     atoms: allAtoms,
   });
   const facts = mapAtomsToBilledPeriodFacts({
@@ -9790,7 +10707,18 @@ export async function fetchOpenAiOrganizationCostsSnapshot(
     atoms: allAtoms,
     sourceBatchId,
   });
-  return { atoms: allAtoms, sourceBatchId, facts };
+  return {
+    atoms: allAtoms,
+    sourceBatchId,
+    facts,
+    snapshot: {
+      completeness: "complete",
+      provider: "openai",
+      externalProjectId: input.externalProjectId,
+      coverageStart,
+      coverageEndExclusive,
+    },
+  };
 }
 
 export {
@@ -9834,23 +10762,21 @@ export {
 Incomplete rows: 0
 Synthesis-only: NO
 
-## Reserves (unchanged / deferred)
-- Live OpenAI Costs proof: OPEN (no Admin key / no live call; ZERO provider calls this remediation)
+## Reserves
+- Live OpenAI Costs: OPEN
 - R-T4-T3-SYNC-01: OPEN BEFORE MONITOR
 - MONITOR: NOT ACTIVATED
 - E1: NOT AUTHORIZED
-- T4 formula/logic: UNCHANGED
-- Pilot Neon mutations this remediation: ZERO
 
 ## Instruction for ChatGPT
-Read from Git branch `sfia/review-handoff` file `sfia-review-handoff/latest-chatgpt-review.md`.
-Verify: base/HEAD, total diff, exploitable content for ALL created/modified files, missing-atom correction, empty vs failure distinction, scope isolation, real PostgreSQL concurrency (not memory-only), tests, no double count, T4 unchanged, reserves, remote tip/blob.
-Do not conclude READY if any modified file lacks exploitable coverage or concurrency is memory-only.
+Read Git branch `sfia/review-handoff` file `sfia-review-handoff/latest-chatgpt-review.md`.
+Verify base/HEAD, total diff, exploitable content for all files, coverageStart/End, no out-of-coverage tombstones, distinct empty snapshot sourceBatchIds, pre-write validation, T41–T50, PG-T01–04, no double count, T2-v1/T4 unchanged, reserves, tip/blob.
+Do not conclude READY if a partial snapshot can still tombstone an out-of-coverage bucket.
 
 ## Cursor recommendation
-NEXT = PR READINESS.
-AFTER INTEGRATION = STOP FINOPS PHASE 1 — RETURN TO PRODUCT.
-No further FinOps architecture/development cycle.
+NEXT = PR READINESS
+NO MORE FINOPS DEVELOPMENT CYCLE
+AFTER INTEGRATION = STOP FINOPS PHASE 1 — RETURN TO PRODUCT
 
 ## Proposed verdict
-FINOPS FAST-TRACK REMEDIATION PASS — MISSING ATOM CORRECTION SAFE — COMPLETE SNAPSHOT SEMANTICS PROVED — REPLAY IDEMPOTENT — POSTGRES CONCURRENCY PROVED — NO DOUBLE COUNT — T2-V1 PRESERVED — T4 LOGIC UNCHANGED — LIVE COSTS RESERVE UNCHANGED — R-T4-T3-SYNC-01 DEFERRED — REVIEW HANDOFF COMPLETE — READY FOR CHATGPT VALIDATION / PR READINESS
+FINOPS SNAPSHOT COVERAGE FIX PASS — COMPLETE SNAPSHOT TEMPORALLY BOUNDED — OUT-OF-COVERAGE ATOMS PRESERVED — EMPTY SNAPSHOT IDENTITIES COVERAGE-SAFE — REPLAY IDEMPOTENT — POSTGRES COVERAGE ISOLATION PROVED — T2-V1 PRESERVED — T4 UNCHANGED — LIVE COSTS RESERVE OPEN — REVIEW HANDOFF COMPLETE — READY FOR PR READINESS
