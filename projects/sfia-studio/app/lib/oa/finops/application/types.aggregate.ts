@@ -6,6 +6,10 @@
 import type { FinOpsCostEvidenceClass, FinOpsSourceOfTruth } from "../domain/types";
 
 export const FINOPS_T2_IDENTITY_CONTRACT_VERSION = "t2-v1" as const;
+export const FINOPS_T2_PERIOD_IDENTITY_CONTRACT_VERSION =
+  "t2-v2-period" as const;
+
+export type FinOpsAttributionScope = "EXECUTION_RUN" | "PROJECT_PERIOD";
 
 export type FinOpsEstimationStatus =
   | "available"
@@ -40,7 +44,9 @@ export type FinOpsCostEvent = {
   readonly costEventId: string;
   readonly dedupKey: string;
   readonly projectId: string;
-  readonly executionRunId: string;
+  readonly attributionScope: FinOpsAttributionScope;
+  readonly executionRunId: string | null;
+  readonly derivedSourceReference: string | null;
   readonly usageEventId: string | null;
   readonly periodStart: string;
   readonly currency: string;
@@ -113,6 +119,28 @@ export type ReconcileProjectPeriodInput = {
   readonly maxFacts?: number;
 };
 
+export type BilledPeriodFact = {
+  readonly projectId: string;
+  readonly externalProjectId: string;
+  readonly periodStart: string;
+  readonly provider: string;
+  readonly sourceBucketStart: string; // ISO
+  readonly sourceBucketEndExclusive: string | null;
+  readonly lineItem: string | null;
+  readonly providerAmount: string; // absolute canonical Money scale-8
+  readonly currency: string;
+  readonly derivedSourceReference: string;
+  readonly sourceBatchId: string;
+};
+
+export type ReconcileBilledPeriodInput = {
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly sourceBatchId: string;
+  readonly facts: ReadonlyArray<BilledPeriodFact>;
+  readonly maxFacts?: number;
+};
+
 export type ReconcileProjectPeriodResult =
   | {
       readonly outcome: "succeeded";
@@ -132,6 +160,9 @@ export type ReconcileProjectPeriodResult =
       /** FinOps-side only — never invalidates a successful user AI run. */
       readonly finopsSideOnly: true;
     };
+
+/** Alias — billed period reconciliation reuses the same result shape. */
+export type ReconcileBilledPeriodResult = ReconcileProjectPeriodResult;
 
 /**
  * Full A1 rebuild for a project + UTC period.

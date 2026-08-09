@@ -100,7 +100,9 @@ describe("FinOps T4 projection refresh unit", () => {
       costEventId: identity.costEventId,
       dedupKey: identity.dedupKey,
       projectId: "p1",
+      attributionScope: "EXECUTION_RUN",
       executionRunId: "r1",
+      derivedSourceReference: null,
       usageEventId: null,
       periodStart: "2026-08-01",
       currency: "USD",
@@ -150,7 +152,9 @@ describe("FinOps T4 projection refresh unit", () => {
       costEventId: identity.costEventId,
       dedupKey: identity.dedupKey,
       projectId: "p1",
+      attributionScope: "EXECUTION_RUN",
       executionRunId: "r1",
+      derivedSourceReference: null,
       usageEventId: null,
       periodStart: "2026-08-01",
       currency: "USD",
@@ -217,7 +221,9 @@ describe("FinOps T4 projection refresh unit", () => {
       costEventId: identity.costEventId,
       dedupKey: identity.dedupKey,
       projectId: "p1",
+      attributionScope: "EXECUTION_RUN",
       executionRunId: "r1",
+      derivedSourceReference: null,
       usageEventId: null,
       periodStart: "2026-08-01",
       currency: "USD",
@@ -295,6 +301,33 @@ describe("FinOps T4 projection refresh unit", () => {
           retryable: false,
         };
       },
+      withExclusiveProjectPeriodReconciliation: <T>(
+        _input: { readonly projectId: string; readonly periodStart: string },
+        work: (
+          ops: Pick<
+            typeof pair.reconciliation,
+            | "insertCostEvent"
+            | "listCostEventsForProjectPeriod"
+            | "findReconciliationByDedup"
+            | "insertReconciliationRecord"
+            | "completeReconciliationRecord"
+          >,
+        ) => Promise<T>,
+      ) =>
+        work({
+          insertCostEvent: (event) => pair.reconciliation.insertCostEvent(event),
+          listCostEventsForProjectPeriod: (input) =>
+            pair.reconciliation.listCostEventsForProjectPeriod(input),
+          findReconciliationByDedup: (dedupKey) =>
+            pair.reconciliation.findReconciliationByDedup(dedupKey),
+          insertReconciliationRecord: async () => ({
+            outcome: "failed" as const,
+            message: "injected reconciliation persist failure",
+            retryable: false,
+          }),
+          completeReconciliationRecord: (input) =>
+            pair.reconciliation.completeReconciliationRecord(input),
+        }),
     };
     const result = await reconcileProjectPeriodThenRefreshEnforcementProjection(
       {
@@ -380,7 +413,9 @@ describe("FinOps T4 projection refresh unit", () => {
       costEventId: identity.costEventId,
       dedupKey: identity.dedupKey,
       projectId: "p1",
+      attributionScope: "EXECUTION_RUN",
       executionRunId: "r1",
+      derivedSourceReference: null,
       usageEventId: null,
       periodStart: "2026-08-01",
       currency: "USD",
@@ -430,7 +465,9 @@ describe("FinOps T4 projection refresh unit", () => {
       costEventId: identity.costEventId,
       dedupKey: identity.dedupKey,
       projectId: "p1",
+      attributionScope: "EXECUTION_RUN",
       executionRunId: "r1",
+      derivedSourceReference: null,
       usageEventId: null,
       periodStart: "2026-08-01",
       currency: "USD",

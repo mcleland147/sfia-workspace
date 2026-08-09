@@ -3,7 +3,10 @@
  */
 
 import { createHash } from "node:crypto";
-import { FINOPS_T2_IDENTITY_CONTRACT_VERSION } from "./types.aggregate";
+import {
+  FINOPS_T2_IDENTITY_CONTRACT_VERSION,
+  FINOPS_T2_PERIOD_IDENTITY_CONTRACT_VERSION,
+} from "./types.aggregate";
 
 function normalizePart(value: string | null | undefined): string {
   if (value === null || value === undefined) return "";
@@ -49,6 +52,58 @@ export function deriveReconciliationDedupKey(input: {
   const material = [
     FINOPS_T2_IDENTITY_CONTRACT_VERSION,
     "recon",
+    normalizePart(input.projectId),
+    normalizePart(input.periodStart),
+    normalizePart(input.sourceBatchId),
+  ].join("|");
+  const digest = sha256Hex(material);
+  return {
+    reconciliationId: `recon_${digest}`,
+    dedupKey: `recon_dedup_${digest}`,
+  };
+}
+
+export function derivePeriodCostEventIdentity(input: {
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly provider: string;
+  readonly derivedSourceReference: string;
+  readonly correctionRef: string;
+  readonly sourceBatchId: string;
+  readonly amount: string;
+  readonly currency: string;
+}): { readonly costEventId: string; readonly dedupKey: string } {
+  const material = [
+    FINOPS_T2_PERIOD_IDENTITY_CONTRACT_VERSION,
+    "cost",
+    "PROJECT_PERIOD",
+    normalizePart(input.projectId),
+    normalizePart(input.periodStart),
+    normalizePart(input.provider),
+    "BILLED",
+    "billed",
+    normalizePart(input.derivedSourceReference),
+    normalizePart(input.correctionRef),
+    normalizePart(input.sourceBatchId),
+    normalizePart(input.amount),
+    normalizePart(input.currency),
+  ].join("|");
+  const digest = sha256Hex(material);
+  return {
+    costEventId: `cost_${digest}`,
+    dedupKey: `cost_dedup_${digest}`,
+  };
+}
+
+export function derivePeriodReconciliationDedupKey(input: {
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly sourceBatchId: string;
+}): { readonly reconciliationId: string; readonly dedupKey: string } {
+  const material = [
+    FINOPS_T2_PERIOD_IDENTITY_CONTRACT_VERSION,
+    "recon",
+    "PROJECT_PERIOD",
     normalizePart(input.projectId),
     normalizePart(input.periodStart),
     normalizePart(input.sourceBatchId),

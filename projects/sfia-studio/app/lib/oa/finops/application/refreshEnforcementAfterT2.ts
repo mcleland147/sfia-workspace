@@ -16,10 +16,16 @@ import {
   type ReconcileProjectPeriodDeps,
 } from "./reconcileProjectPeriod";
 import {
+  reconcileBilledPeriod,
+  type ReconcileBilledPeriodDeps,
+} from "./reconcileBilledPeriod";
+import {
   rebuildEnforcementProjection,
   type RebuildEnforcementProjectionDeps,
 } from "./rebuildEnforcementProjection";
 import type {
+  ReconcileBilledPeriodInput,
+  ReconcileBilledPeriodResult,
   ReconcileProjectPeriodInput,
   ReconcileProjectPeriodResult,
   RecomputeAggregatesInput,
@@ -43,6 +49,12 @@ export type RefreshAfterRecomputeResult = {
 
 export type RefreshAfterReconcileResult = {
   readonly t2: ReconcileProjectPeriodResult;
+  readonly t4Refresh: RebuildEnforcementProjectionResult | null;
+  readonly t4RefreshAttempted: boolean;
+};
+
+export type RefreshAfterBilledReconcileResult = {
+  readonly t2: ReconcileBilledPeriodResult;
   readonly t4Refresh: RebuildEnforcementProjectionResult | null;
   readonly t4RefreshAttempted: boolean;
 };
@@ -112,6 +124,29 @@ export async function reconcileProjectPeriodThenRefreshEnforcementProjection(
     nowIso: deps.nowIso,
   };
   const t2 = await reconcileProjectPeriod(reconDeps, input);
+  if (t2.outcome !== "succeeded") {
+    return { t2, t4Refresh: null, t4RefreshAttempted: false };
+  }
+  const t4Refresh = await safeRebuild(projectionDeps(deps), {
+    projectId: input.projectId,
+    periodStart: input.periodStart,
+  });
+  return { t2, t4Refresh, t4RefreshAttempted: true };
+}
+
+/**
+ * Wrapper: reconcileBilledPeriod → on success → rebuildEnforcementProjection once.
+ */
+export async function reconcileBilledPeriodThenRefreshEnforcementProjection(
+  deps: RefreshEnforcementAfterT2Deps,
+  input: ReconcileBilledPeriodInput,
+): Promise<RefreshAfterBilledReconcileResult> {
+  const reconDeps: ReconcileBilledPeriodDeps = {
+    reconciliation: deps.reconciliation,
+    aggregates: deps.aggregates,
+    nowIso: deps.nowIso,
+  };
+  const t2 = await reconcileBilledPeriod(reconDeps, input);
   if (t2.outcome !== "succeeded") {
     return { t2, t4Refresh: null, t4RefreshAttempted: false };
   }

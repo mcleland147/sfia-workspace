@@ -73,11 +73,25 @@ function rowToAggregate(
 }
 
 function rowToCostEvent(row: Record<string, unknown>): FinOpsCostEvent {
+  const attributionScopeRaw = row.attribution_scope;
+  const attributionScope =
+    attributionScopeRaw === null || attributionScopeRaw === undefined
+      ? ("EXECUTION_RUN" as const)
+      : (String(attributionScopeRaw) as FinOpsCostEvent["attributionScope"]);
   return {
     costEventId: String(row.cost_event_id),
     dedupKey: String(row.dedup_key),
     projectId: String(row.project_id),
-    executionRunId: String(row.execution_run_id),
+    attributionScope,
+    executionRunId:
+      row.execution_run_id === null || row.execution_run_id === undefined
+        ? null
+        : String(row.execution_run_id),
+    derivedSourceReference:
+      row.derived_source_reference === null ||
+      row.derived_source_reference === undefined
+        ? null
+        : String(row.derived_source_reference),
     usageEventId:
       row.usage_event_id === null || row.usage_event_id === undefined
         ? null

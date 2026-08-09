@@ -40,4 +40,21 @@ export type FinOpsReconciliationPort = {
     readonly errorMessage: string | null;
     readonly completedAt: string;
   }) => Promise<void>;
+
+  readonly withExclusiveProjectPeriodReconciliation: <T>(
+    input: {
+      readonly projectId: string;
+      readonly periodStart: string;
+    },
+    work: (
+      ops: Pick<
+        FinOpsReconciliationPort,
+        | "insertCostEvent"
+        | "listCostEventsForProjectPeriod"
+        | "findReconciliationByDedup"
+        | "insertReconciliationRecord"
+        | "completeReconciliationRecord"
+      >,
+    ) => Promise<T>,
+  ) => Promise<T>;
 };
