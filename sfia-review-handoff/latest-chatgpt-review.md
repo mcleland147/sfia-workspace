@@ -1,43 +1,36 @@
-# Cycle 6 Standard — FinOps T7 — Financial Evidence Path Assessment — Review Pack
+# Cycle 6 Standard — FinOps T7 — BILLED Period Identity Contract Design — Review Pack
 
 **Level:** FULL
-**Date/heure:** 2026-08-09 22:31:03 CEST / 2026-08-09 20:31:03 UTC
+**Date/heure:** 2026-08-09 22:52:26 CEST / 2026-08-09 20:52:26 UTC
 **Repo:** mcleland147/sfia-workspace
-**Cycle type:** 6 — Architecture technique
+**Cycle:** 6 — Architecture technique
 **Profil:** Standard
-**Typologie v2.4:** EVOL / ARCHITECTURE ASSESSMENT / READ-ONLY
-**projectId:** `sfia-studio-ops1`
-**target:** `neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot`
+**Typologie:** EVOL / ARCHITECTURE CONTRACT DESIGN / READ-ONLY
+**projectId context:** sfia-studio-ops1 (design only)
 
 ---
 
 ## Morris GO (exact)
 
-GO T7 FINANCIAL EVIDENCE PATH ASSESSMENT
+GO T7 BILLED PERIOD IDENTITY CONTRACT DESIGN
 
-Autorise: lecture Git · lecture Neon RO si utile · analyse architecture · comparaison A/B/C · INPUT documentaire OpenAI pré-vérifié ChatGPT · recommandation non décisionnelle · review pack · handoff L3 borné.
+Autorise: lecture Git · analyse T2/T4 · handoff précédent · options · contrat candidat · analyse migration/tests futurs · recommandation non décisionnelle · review pack · handoff L3.
 
-N’autorise PAS: sélection définitive · Admin API key create/use · OpenAI Usage/Costs/Responses calls · credential mutation · ingestion financière · reconciliation/rebuild runtime · DB/code/catalog/policy mutation · rollout/rollback · MONITOR · E1 · PR/merge.
+N’autorise PAS: adoption · bump FINOPS_T2_IDENTITY_CONTRACT_VERSION · modif ReconcileFact/FinOpsCostEvent · migration · ledger · Costs adapter · Admin key · OpenAI/provider calls · DB write · reconcile/rebuild · policy · rollout · MONITOR · E1 · commit/PR/merge projet.
 
 Morris décide.
 
 ---
 
-## Qualification SFIA
+## Qualification
 
 | Field | Value |
 |---|---|
 | Baseline | SFIA v2.6 |
-| Cycle | 6 — Architecture technique |
-| Profil | Standard (pas Critical par confort) |
-| Justification | Comparer options techniques + trade-offs avant décision; read-only; aucune décision d’architecture irréversible |
-| CKC | `method/.../pilots/03-architecture-technique.md` · candidate · experimental guidance · aucune autorité d’exécution |
+| CKC | `pilots/03-architecture-technique.md` candidate · no execution authority |
 | Blocs ON | FinOps · Sécurité · Observabilité / RUN readiness |
-| Blocs OFF | Delivery · Déploiement/release · UX/UI · GreenOps · RGPD · Accessibilité · Performance hors comparaison |
-
-Anti-claim CKC: ne pas implémenter sous couvert d’architecture.
-
-Futur cycle d’implémentation/décision (credential org/admin, ingestion, modif T2/T3/T4, provenance durable) → requalification séparée, potentiellement Critical + GO Morris.
+| Anti-claim | CANDIDATE_ONLY ≠ adopted ≠ ADR validated ≠ implementation authorized |
+| Future Critical | if Morris later authorizes T2 identity/types/schema/Costs adapter/admin credential/ingestion |
 
 ---
 
@@ -46,40 +39,16 @@ Futur cycle d’implémentation/décision (credential org/admin, ingestion, modi
 | Field | Value |
 |---|---|
 | branch | `main` |
-| HEAD | `96a8a14bc894b520043b3a8f758b1fb14a72a5e4` |
-| origin/main | `96a8a14bc894b520043b3a8f758b1fb14a72a5e4` |
+| HEAD / origin/main | `96a8a14bc894b520043b3a8f758b1fb14a72a5e4` |
 | tracked | CLEAN |
 | staged | NONE |
-| untracked allowed | `?? .tmp-sfia-review/` only |
+| untracked | `?? .tmp-sfia-review/` only |
 
 ---
 
-## Sources Git consultées
+## Sources
 
-Method/CKC: cycle template · routing guide · validation checklist · chatgpt-cursor operating model · rules/guardrails · v2.5 cycles method · `pilots/03-architecture-technique.md`.
-
-FinOps: `types.aggregate.ts` · `types.enforcement.ts` · `estimateUsageCost.ts` · `reconcileProjectPeriod.ts` · `recomputeAggregates.ts` · `rebuildEnforcementProjection.ts` · `blockingEligibility.ts` · `costEvidence.ts` · `domain/types.ts` · `finopsPriceCatalogPort.ts` · `postgresFinOpsPriceCatalog.ts` · `composeFinOpsT7Runtime.ts` · `composeFinOpsT7ShadowExecutionDeps.ts` · `t2Identity.ts` · `refreshEnforcementAfterT2.ts` · `postgresFinOpsReconciliation.ts` · tests `t2.reconciliation.unit.test.ts` · `t4.enforcement.unit.test.ts` · `blockingEligibility.test.ts`.
-
-Discovery conclusion: **no OpenAI Costs/Usage monetary adapter** under `projects/sfia-studio/app/lib`.
-
----
-
-## EXTERNAL FACT — OpenAI (NOT Git SoT)
-
-Classifier: **EXTERNAL_CURRENT_PROVIDER_EVIDENCE**
-Pré-vérifié par ChatGPT: **2026-08-09**
-Ce cycle: **NO call** to Usage API / Costs API / Responses API.
-
-Documented facts used as INPUT only:
-
-1. Usage API — detailed API usage data.
-2. Costs endpoint — `GET /v1/organization/costs`.
-3. Costs ≠ Usage API.
-4. OpenAI indicates Costs is preferred for financial reconciliation with billing.
-5. Costs may be grouped by `project_id`, `line_item`.
-6. Official Costs access example uses `OPENAI_ADMIN_KEY`.
-
-Not assumed: run/correlation granularity; Responses-key reuse; any undocumented field.
+Method/CKC as listed in GO. FinOps: `types.aggregate.ts` · `t2Identity.ts` · `reconcileProjectPeriod.ts` · `postgresFinOpsReconciliation.ts` · `finopsReconciliationPort.ts` · `recomputeAggregates.ts` · `refreshEnforcementAfterT2.ts` · `rebuildEnforcementProjection.ts` · `blockingEligibility.ts` · `costEvidence.ts` · migration `1754600000000_finops-t2-aggregation-reconciliation.js` · tests T2/T4 listed in consumer map.
 
 ---
 
@@ -87,405 +56,459 @@ Not assumed: run/correlation granularity; Responses-key reuse; any undocumented 
 
 | Field | Expected | Observed |
 |---|---|---|
-| tip | `388b221b111a3da9caccfbbe720443baccb7cc26` | MATCH |
-| blob | `2df45b0e41a843c5fb26ae433641a0bd6ecc5544` | MATCH |
+| tip | `bc4814d2305e326ee0a0ed42fd419966bf59a6a8` | MATCH |
+| blob | `874f9bd7e7ca19ecfbcba874ce1ad48d230dea04` | MATCH |
 
-Confirms: SHADOW rev1 · policy EMPTY · U=4 · C=0 · K=0 · catalog=0 · projection=0 · CALIBRATION_EVIDENCE=INSUFFICIENT · T4-T3=INSUFFICIENT FOR NUMERIC CALIBRATION · no provider call · no runtime mutation · MONITOR not activated · E1 not authorized.
+Confirms: PREFERRED PATH CANDIDATE A1 · CANDIDATE_ONLY · FEASIBLE_WITH_BOUNDED_CONTRACT_INCREMENT · granularity PARTIAL · executionRunId required · usageEventId/model nullable · A2 SOURCE ABSENT · B NOT T4 ELIGIBLE ALONE · C OPTIONAL · SHADOW rev1 · policy EMPTY · runtime mutations ZERO · R-T4-T3 OPEN BEFORE MONITOR.
 
 ---
 
-## Runtime snapshot (read-only revalidation)
+## EXTERNAL provider input (from incoming handoff only)
 
-| Field | Value |
+Classifier remains **EXTERNAL_CURRENT_PROVIDER_EVIDENCE** (not Git SoT).
+No Internet/OpenAI calls this cycle.
+Not assumed: run-level cost · correlationId · model attribution · usageEventId · provider-issued cost result id · invoice id · undocumented granularity.
+If candidate needs more provider fields: **EXTERNAL_EVIDENCE_REQUIRED** (noted for line_item / external project mapping details beyond handoff).
+
+---
+
+## Current contract — t2-v1 baseline (Git verified)
+
+`FINOPS_T2_IDENTITY_CONTRACT_VERSION = "t2-v1"`
+
+### ReconcileFact
+`executionRunId: string` · `usageEventId: string | null` · `evidenceClass: observed|billed` · `sourceOfTruth: PROVIDER_OBSERVED|BILLED` · `amount` · `currency` · `correctionRef: string` · `provider` · `model: string | null` · `occurredAt`
+
+### Batch
+`projectId` · `periodStart` · `sourceBatchId` · `facts[]` · `maxFacts?`
+
+### FinOpsCostEvent
+`executionRunId: string` (required) · `usageEventId: string | null` · plus money/SoT/estimation/catalog/provider/model/unit/quantum/quantity/occurredAt
+
+### Cost identity material (`deriveCostEventIdentity`)
+`t2-v1 | cost | projectId | executionRunId | evidenceClass | correctionRef | sourceBatchId | amount | currency`
+
+### Reconciliation identity
+`t2-v1 | recon | projectId | periodStart | sourceBatchId`
+
+### Runtime checks
+`correctionRef` required non-empty · `periodStartMatchesOccurredAt` · Money parse · append-only insert · single aggregate rebuild after batch · T4 refresh via wrapper.
+
+---
+
+## Problem statement
+
+A1 BILLED evidence may exist at provider/project/time-bucket/line-item/amount/currency granularity **without** an honest `executionRunId`.
+Current contract **requires** `executionRunId` (type + DB NOT NULL + identity material).
+Forbidden: invent run id · encode period into executionRunId · reuse arbitrary run · fake usage linkage · invent model · invent correlation.
+Need explicit **BILLED_PROJECT_PERIOD** (or equivalent) without granularity lying.
+
+---
+
+## Invariants I01–I18 (design constraints)
+
+| ID | Invariant |
 |---|---|
-| fingerprint | `7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331` MATCH |
-| safe identity | host=`ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech` port=`5432` db=`neondb` |
-| MODE / REVISION | `SHADOW` / `1` |
-| updatedAt | `2026-08-09T18:50:15.239Z` |
-| USAGE_EVENT_COUNT | `4` |
-| COST_EVENT_COUNT | `0` |
-| PRICE_CATALOG_ENTRY_COUNT | `0` |
-| ENFORCEMENT_PROJECTION_COUNT | `0` |
-| policy Git | EMPTY `Object.freeze({})` |
-| READ_ONLY_MUTATIONS | 0 |
-| counts drift vs calibration | NONE (still 0/0/0) |
-
-OPENAI_API_KEY / OPENAI_ADMIN_KEY: not loaded / not requested / not created.
+| I01 | Internal cost-event ledger remains authoritative for T2 |
+| I02 | BILLED ⇒ sourceOfTruth=BILLED · evidenceClass=billed |
+| I03 | Estimation never becomes BILLED |
+| I04 | No fake executionRunId |
+| I05 | usageEventId null when unproven |
+| I06 | model null when unproven |
+| I07 | Canonical Money / existing scale |
+| I08 | Explicit currency · no FX |
+| I09 | Append-only cost history |
+| I10 | Deterministic idempotence |
+| I11 | Same-source replay ⇒ no new economic fact |
+| I12 | Real correction ⇒ new append-only event |
+| I13 | Aggregates rebuildable from cost events |
+| I14 | T4 derived from cost events |
+| I15 | blockingEligibleAmount = BILLED + PROVIDER_OBSERVED only |
+| I16 | Identity evolution must not silently reinterpret t2-v1 identities |
+| I17 | No unjustified second financial SoT |
+| I18 | Provider provenance auditable |
 
 ---
 
-## Current financial gap (unchanged)
+## Schema constraints (migration `1754600000000_...`)
 
-Usage ledger tokens exist (API_USAGE). No cost events. Empty catalog. No T4 projection. Tokens ≠ money. No numeric policy calibration possible yet.
-
----
-
-## Financial evidence contracts (Git)
-
-### Sources
-
-`BILLED` · `PROVIDER_OBSERVED` · `API_USAGE` · `LOCAL_COUNT` · `PARAMETRIC_ESTIMATE` · `UNKNOWN`
-
-### Classification (`costEvidence.ts`)
-
-| SoT | evidenceClass |
+| Constraint | Value |
 |---|---|
-| BILLED | billed |
-| PROVIDER_OBSERVED / API_USAGE | observed |
-| LOCAL_COUNT / PARAMETRIC_ESTIMATE | estimated |
-| UNKNOWN | unknown |
+| `execution_run_id` | **TEXT NOT NULL** · **no FK** to execution_run |
+| `usage_event_id` | TEXT nullable · no FK |
+| `dedup_key` | UNIQUE NOT NULL |
+| `cost_event_id` | PK TEXT |
+| `period_start` | DATE NOT NULL · month-start check |
+| `currency` | TEXT NOT NULL · `^[A-Z]{3}$` |
+| `amount` | numeric(20,8) nullable |
+| `evidence_class` / `source_of_truth` / `estimation_status` | CHECK enums |
+| `correction_ref` | TEXT nullable at DB (app requires for ReconcileFact) |
+| `provider` | NOT NULL · `model` nullable |
+| indexes | `(project_id, period_start, currency)` |
+| triggers | append-only (no UPDATE/DELETE) |
+| `finops_reconciliation_record` | unique `dedup_key` · status succeeded/failed · `source_batch_id` NOT NULL |
 
-### Blocking eligibility (`blockingEligibility.ts`)
+### SCHEMA_SUPPORTS_PERIOD_BILLED_TODAY
 
-| SoT | Blocking eligible? |
+**PARTIAL**
+
+- YES: no FK forces a real run; period_start/currency/provider/amount already storable; usage_event_id/model already nullable.
+- NO: honest null `execution_run_id` impossible under NOT NULL + TS `string` required.
+- Fake non-null sentinel would “fit” schema but **violates I04** — not a support path.
+
+---
+
+## Consumer impact map (`executionRunId`)
+
+### Identity / dedup
+- `deriveCostEventIdentity` — material component
+- `reconcileProjectPeriod` — copies fact → event + identity
+- `postgresFinOpsReconciliation.fingerprintEqual` / memory T2 — compares field on dedup conflict
+
+### Persistence mapping
+- INSERT/SELECT `execution_run_id` NOT NULL
+- Aggregate/projection stores map field when hydrating `FinOpsCostEvent`
+
+### Assumes real run (semantic)
+- `ReconcileFact.executionRunId: string` required
+- `FinOpsCostEvent.executionRunId: string` required
+
+### Money path does NOT use executionRunId
+- `recomputeAggregates` · `rebuildEnforcementProjection` · `refreshEnforcementAfterT2` — **no** executionRunId dependency for amounts
+
+### Trace / gate context (not cost identity)
+- T4 evaluate input includes `executionRunId` for request context
+- T1 usage/audit paths require run ids separately
+
+### Tests
+Heavy fixture use of run-scoped ids across T2/T4/T7 integration tests.
+
+### Join
+**No** FK/join from `finops_cost_event.execution_run_id` to an execution_run table.
+
+---
+
+## Options (4)
+
+### OPTION A — Minimal nullable `executionRunId` for some BILLED facts
+
+**Description:** Allow `executionRunId: string | null` when BILLED; put period dimensions into identity when null.
+
+| Dimension | Assessment |
 |---|---|
-| BILLED | YES |
-| PROVIDER_OBSERVED | YES |
-| API_USAGE | NO — never |
-| LOCAL_COUNT | NO — never |
-| PARAMETRIC_ESTIMATE | NO — never |
-| UNKNOWN | NO — never |
+| Type/schema | TS nullable + DROP NOT NULL |
+| Identity | Branch when null; risk of ambiguous null meaning |
+| ReconcileFact | executionRunId optional |
+| Aggregates/T4 | Compatible if SoT/evidence unchanged |
+| Debt | Weak semantic honesty — null without explicit scope |
+| Reversibility | Medium |
 
-### T4 projection (`rebuildEnforcementProjection.ts` + `types.enforcement.ts`)
+### OPTION B — Discriminated attribution scope (RUN vs PROJECT_PERIOD)
 
-`blockingEligibleAmount` = **billed + providerObserved** per currency, **no FX**.
-API_USAGE / LOCAL_COUNT / PARAMETRIC_ESTIMATE / UNKNOWN **never contribute**.
-**No divergence** vs contract comments.
+**Description:** Explicit `attributionScope`. RUN keeps t2-v1. PROJECT_PERIOD requires `executionRunId=null` and period identity material. Common `finops_cost_event` ledger retained.
 
-### T2 ReconcileFact (`types.aggregate.ts`)
-
-Required money facts for reconcile path:
-
-- `executionRunId: string` (required)
-- `usageEventId: string | null`
-- `evidenceClass: "observed" | "billed"` only
-- `sourceOfTruth: "PROVIDER_OBSERVED" | "BILLED"` only
-- `amount` canonical · `currency` · `correctionRef` (required non-empty)
-- `provider` · `model: string | null` · `occurredAt`
-- batch: `sourceBatchId` · periodStart · projectId
-- identity/dedup via `deriveCostEventIdentity` (includes executionRunId, evidenceClass, correctionRef, sourceBatchId, amount, currency)
-
-T7 composition exposes `reconcileProjectPeriodAndRefresh` (T2 → aggregates → T4 rebuild once). SHADOW adapter does **not** auto-call reconcile/estimate.
-
----
-
-## PATH A1 — BILLED
-
-### What it enables
-- Authoritative billed money into `finops_cost_event` with `sourceOfTruth=BILLED` / `evidenceClass=billed`.
-- Feeds aggregates `billedAmount` and T4 `blockingEligibleAmount`.
-- Reuses existing T2 `reconcileProjectPeriod` + T7 `reconcileProjectPeriodAndRefresh`.
-- Best alignment with OpenAI guidance that Costs is preferred for billing reconciliation (EXTERNAL fact).
-
-### What it does not enable alone
-- Run/correlation-level attribution from OpenAI Costs (not documented).
-- Honest model/usageEvent linkage from Costs aggregates.
-- Closing R-T4-T3-SYNC-01 by itself (reserve needs dedicated cycle).
-- Policy selection / MONITOR / E1.
-
-### Mapping vs OpenAI Costs (EXTERNAL)
-
-| OpenAI Costs (EXTERNAL) | SFIA ReconcileFact / CostEvent |
+| Dimension | Assessment |
 |---|---|
-| monetary amount + currency | amount + currency — compatible if quantized to Money scale-8 |
-| project_id grouping | projectId — conceptually alignable to pilot mapping |
-| daily time bucket | occurredAt / periodStart — mappable with care |
-| line_item | may inform provider/model **only if documented**; else model=null |
-| no run/correlation documented | executionRunId **required** by current contract |
-| Admin key example | separate privileged credential — not Responses key |
+| Type/schema | add scope · nullable execution_run_id · checks |
+| Identity | coexistence t2-v1 + t2-v2-period |
+| ReconcileFact | run path unchanged; period via boundary type |
+| Aggregates/T4 | No money-logic change |
+| Debt | Controlled · explicit honesty |
+| Reversibility | Strong (stop producer) |
 
-### GRANULARITY GAP verdict
+### OPTION C — `BilledPeriodFact` boundary type → common cost-event after validation
 
-**PARTIAL — additional bounded contract required.**
+**Description:** Dedicated input DTO validated then mapped into ledger. Complements B; alone without scope still needs ledger representation.
 
-Reasons:
-- `usageEventId` and `model` MAY be null honestly.
-- `executionRunId` is **required** on `ReconcileFact` and participates in cost-event identity.
-- Inventing a fake execution-run id to stash project/day billed totals would be semantically dishonest.
-- Therefore existing contract does **not** fully support aggregated Costs ingestion without a **bounded period/project-level billed identity contract** (future Critical/Standard implementation cycle + GO).
-
-Authorized answer selected: **PARTIAL**.
-
-### Future changes (conceptual only)
-1. Bounded contract for period-level BILLED facts (identity/dedup/correctionRef/sourceBatchId semantics without fake runs).
-2. Server-only OpenAI Costs adapter (read → ReconcileFact batch) — not present today.
-3. Separate Admin-class secret handle + least-privilege process boundary.
-4. Explicit project mapping OpenAI project_id ↔ `sfia-studio-ops1`.
-5. Tests: idempotence, provenance, no invented run linkage, T4 projection from billed only.
-
-### Security / privilege
-- Official Costs example uses org/admin key → higher blast radius than Responses key.
-- Must NOT reuse Responses credential.
-- Separate Keychain/secret handle, rotation/revocation, server-only materialization, minimal org scopes if/when documented by OpenAI.
-- Risk does **not** make A1 impossible; it raises credential governance cost vs financial authority benefit.
-
-### Debt / reversibility
-- Debt if rushed: fake run ids · second financial SoT · silent FX · hard-coded tariffs.
-- Reversibility: append-only ledger + rebuildable projection → disable adapter without rewriting history; good if provenance honest.
-- Repo-first: reuse T2/T4; new adapter only at ingestion boundary.
-
-### PATH A1 RESULT
-
-**FEASIBLE_WITH_BOUNDED_CONTRACT_INCREMENT** — strongest T4 financial authority candidate among paths assessed.
-
----
-
-## PATH A2 — PROVIDER_OBSERVED
-
-### Discovery
-- Repo has domain + ReconcileFact support for `PROVIDER_OBSERVED`.
-- No monetary provider-observed ingestion adapter found under `app/lib`.
-- Responses usage capture produces **API_USAGE tokens**, not provider-observed money.
-
-### Verdict
-
-**PATH_A2_SOURCE = ABSENT**
-
-Necessary future source (if chosen): an authorized provider monetary observation feed distinct from token usage (not invented from tokens; not equated to Costs billed).
-
-### PATH A2 RESULT
-
-**BLOCKED_TODAY — SOURCE ABSENT** (contract ready; producer absent).
-
----
-
-## PATH B — T3/R3 PARAMETRIC_ESTIMATE
-
-### Existing contract
-Catalog entry: provider · model · unit · currency · billingQuantum · ratePerQuantum · catalogVersion · validFrom · validTo.
-Missing entry → unavailable → **never invent tariff** (`estimateUsageCost` / `postgresFinOpsPriceCatalog`).
-
-### Wiring reality (Git)
-- `estimateUsageCost` computes Money estimate — **no persistence**.
-- Used in tests; **not wired** into T7 SHADOW/runtime capture composition.
-- Estimated `FinOpsCostEvent` can exist (tests insert via `insertCostEvent` directly).
-- `reconcileProjectPeriod` **cannot** accept PARAMETRIC_ESTIMATE facts (`ReconcileFact` SoT limited to PROVIDER_OBSERVED|BILLED).
-- Runtime catalog count = **0**; openai/`gpt-5.6-sol` uncovered.
-
-### Can PATH B alone enter `blockingEligibleAmount`?
-
-**NO** (revalidated): PARAMETRIC_ESTIMATE never blocking-eligible.
-
-Classifier:
-
-**USEFUL_FOR_ESTIMATION / EARLY VISIBILITY**
-**NOT SUFFICIENT ALONE FOR T4 BLOCKING-ELIGIBLE EVIDENCE**
-
-This is an explicit financial guardrail, not a defect.
-
-### Future changes if B pursued
-- Authorized catalog entry(ies) for observed models/units/currency.
-- New/explicit estimated cost-event producer (usage → estimate → insertCostEvent) — currently absent as product path.
-- Still requires A1/A2 later for T4-eligible money.
-
-### PATH B RESULT
-
-**SUPPORTIVE_ONLY — DORMANT — NOT_T4_ELIGIBLE_ALONE**.
-
----
-
-## PATH C — Hybrid lifecycle
-
-### Justification from Git
-- `reconcileProjectPeriod.ts` header: estimated → observed → billed via append-only correction events.
-- Unit test `t2.reconciliation.unit.test.ts` exercises estimated then observed then billed; aggregates keep all layers; history append-only.
-- Aggregates rebuildable; T4 projection SoT-safe (estimates excluded).
-
-### What C enables
-- Early visibility (estimated) without polluting blocking-eligible amounts.
-- Later authoritative correction (observed/billed) with `correctionRef` / `sourceBatchId` provenance.
-- Aligns with R-T4-T3-SYNC-01 remediation trajectory without claiming closure.
-
-### What C does not enable alone
-- Still needs catalog+estimated producer **and** A1/A2 authoritative source.
-- More moving parts than A1-only for first T4-eligible evidence.
-
-### Implementation gaps
-1. Catalog empty + no product estimated producer.
-2. A2 source absent.
-3. A1 Costs adapter + period-level identity contract absent.
-4. No automated hybrid orchestrator in T7 SHADOW path (on-demand only).
-
-### PATH C RESULT
-
-**JUSTIFIED_LIFECYCLE — OPTIONAL_FOR_FIRST_T4_EVIDENCE — GAPS_OPEN**.
-
----
-
-## Comparison matrix F01–F24
-
-Notation: STRONG / MEDIUM / WEAK / BLOCKED / UNKNOWN
-
-| Factor | A1 BILLED | A2 PROVIDER_OBSERVED | B PARAMETRIC | C HYBRID | Justification |
-|---|---|---|---|---|---|
-| F01 financial authority | STRONG | STRONG (if source existed) | WEAK | MEDIUM→STRONG over time | Billed ranks #1 SoT; estimate never authoritative for enforcement |
-| F02 T4 blocking eligibility | STRONG | STRONG | BLOCKED | STRONG (final stage) | Only BILLED/PROVIDER_OBSERVED contribute |
-| F03 T2 contract compatibility | MEDIUM | STRONG | MEDIUM | STRONG | A1 needs period-level identity; B needs non-reconcile producer; C matches tested lifecycle |
-| F04 granularity fit | WEAK→MEDIUM | UNKNOWN | STRONG (run/usage) | MEDIUM | Costs daily/project vs run-scoped ReconcileFact |
-| F05 provenance/audit | STRONG (if correctionRef/batch honest) | STRONG | MEDIUM (catalogVersion) | STRONG | Append-only + refs |
-| F06 reconciliation semantics | STRONG | STRONG | WEAK (not via ReconcileFact) | STRONG | T2 reconcile designed for observed/billed |
-| F07 idempotence/dedup | STRONG | STRONG | MEDIUM | STRONG | t2Identity + recon dedup exist |
-| F08 latency of evidence | WEAK (billing lag) | UNKNOWN | STRONG (fast if catalog) | MEDIUM | Estimates fast; billed slower |
-| F09 provider dependency | STRONG | STRONG | MEDIUM | STRONG | A/C depend on provider money feeds |
-| F10 credential privilege | WEAK (Admin/org) | UNKNOWN | STRONG (no admin for estimate) | WEAK→MEDIUM | Costs example uses Admin key |
-| F11 secret-management impact | WEAK | UNKNOWN | MEDIUM | WEAK | New privileged secret handle for A1 |
-| F12 implementation surface | MEDIUM | BLOCKED | MEDIUM | WEAK (largest) | C = B producer + A source + orchestration |
-| F13 runtime coupling | MEDIUM | MEDIUM | WEAK | MEDIUM | On-demand T2 preferred over always-on |
-| F14 observability | STRONG | STRONG | MEDIUM | STRONG | Cost/aggregate/projection layers |
-| F15 failure modes | MEDIUM | UNKNOWN | MEDIUM | WEAK | Hybrid more failure points |
-| F16 reversibility | STRONG | STRONG | STRONG | STRONG | Disable ingestion; ledger append-only |
-| F17 operational complexity | MEDIUM | UNKNOWN | MEDIUM | WEAK | C highest ops burden |
-| F18 maintenance burden | MEDIUM | UNKNOWN | WEAK (tariff upkeep) | WEAK | Catalog drift + billing API drift |
-| F19 financial correctness risk | MEDIUM (granularity) | UNKNOWN | WEAK (estimate≠bill) | MEDIUM | Risk controlled if estimates never block |
-| F20 debt created | MEDIUM | BLOCKED | MEDIUM | WEAK if overbuilt early | Fake run ids / dual SoT forbidden |
-| F21 future SHADOW calibration | STRONG | STRONG | WEAK alone | STRONG | Need blocking-eligible amounts for numeric options |
-| F22 future MONITOR prerequisites | STRONG | STRONG | BLOCKED alone | STRONG | MONITOR needs trustworthy T4 basis |
-| F23 R-T4-T3-SYNC-01 | IMPROVES | IMPROVES | IMPROVES visibility / NEUTRAL for close | IMPROVES | None closes reserve here |
-| F24 unknowns needing evidence | MEDIUM | STRONG | MEDIUM | MEDIUM | Admin scopes; Costs field details; A2 source existence |
-
----
-
-## Security assessment (PATH A1 focus)
-
-| Topic | Assessment |
+| Dimension | Assessment |
 |---|---|
-| Least privilege | Prefer minimal org Costs read scope if/when available; not Responses capability |
-| Credential reuse | FORBIDDEN to reuse existing Responses Keychain entry |
-| Storage | Separate Keychain/service handle; server-only; process-only materialization |
-| Blast radius | Org billing visibility potentially broader than pilot project |
-| Rotation/revocation | Required before any live use; dual-control Morris GO |
-| Process boundary | Server-only job/adapter; no browser; no commit of secret |
-| This cycle | No Admin key requested/created/loaded |
+| Surface | Extra DTO · less pollution of ReconcileFact |
+| Identity | Still needs period identity (B) |
+| Debt | Low if paired with B; medium if alone |
+| Reversibility | Strong |
 
-Privilege cost is real but does not invalidate A1’s financial superiority for T4.
+### OPTION D — Separate billed-period ledger/table
 
----
+**Description:** Parallel table as financial facts for period billed.
 
-## Architectural debt check
-
-| Path | Useful now? | Debt if chosen | Simplest correct? | Repo-first? | New abstraction? | Reuse T2/T3/T4? | Second SoT? |
-|---|---|---|---|---|---|---|---|
-| A1 | YES for T4 money | Period-identity + Admin secret ops | YES for T4-eligible | YES | Costs→ReconcileFact adapter + identity contract | YES T2/T4 | Avoid if Costs is source with provenance |
-| A2 | NO — source absent | Would invent money from tokens if forced | N/A | N/A | Needs real monetary source | Contract ready | N/A |
-| B | Visibility only | Catalog maintenance; false sense of T4 readiness | For estimate yes; for T4 no | YES catalog/estimate | Estimated event producer | T3 catalog + estimate | No if clearly estimated |
-| C | Later lifecycle | Overbuild if before A1 | No for first increment | YES | Orchestration | YES | No if layers distinct |
-
-Forbidden patterns avoided in recommendation: parallel ledger · process-local registry · unreplicated external SoT · token-derived thresholds · hard-coded tariffs · recycled 15/20/25/30.
-
----
-
-## Preferred path candidate (NON-DECISION)
-
-**PREFERRED PATH CANDIDATE = A1 (BILLED via OpenAI Costs → T2 reconcile → T4 projection)**
-status = **CANDIDATE_ONLY — NOT SELECTED ARCHITECTURE**
-
-Answers:
-
-1. Best financial proof for T4: **A1 BILLED**.
-2. Simplest correct for T4-eligible money: **A1** (after period-level identity contract) — smaller than full hybrid.
-3. Least debt for T4 goal: **A1-first**; defer B/C until visibility need is explicit.
-4. Can B alone work for T4? **NO**.
-5. Hybrid justified? **YES as lifecycle**, **optional/not required** for first T4-eligible evidence; useful after A1 (and optional B) exist.
-6. Smallest next useful increment: **bounded period-level BILLED identity contract + design of Costs→ReconcileFact adapter (no live Admin call yet)** under separate Morris GO; profile likely Critical when credentials/ingestion start.
-
-Alternatives deferred:
-- **A2**: source absent.
-- **B-alone**: cannot feed blockingEligibleAmount.
-- **C-now**: justified but higher surface before any authoritative money exists.
-
----
-
-## Minimal future increment (A1 candidate only — conceptual)
-
-| Item | Description |
+| Dimension | Assessment |
 |---|---|
-| Objectif | Ingester des faits BILLED project/période traçables vers T4 projection sans inventer run linkage |
-| Entrées | OpenAI Costs buckets (EXTERNAL) · mapping project · periodStart · sourceBatchId · correctionRef |
-| Sorties | `finops_cost_event` BILLED · aggregates · enforcement projection |
-| Réutilisé | `reconcileProjectPeriod` / `reconcileProjectPeriodAndRefresh` · money parse · t2Identity (possibly extended) · projection rebuild |
-| Nouveau | period-level BILLED identity contract · Costs read adapter · Admin secret handle |
-| Fichiers probablement impactés (futur) | new server adapter under `oa/finops` · possibly `types.aggregate`/`t2Identity` · tests T2/T4 · **none in this cycle** |
-| Credential | future separate OPENAI_ADMIN-class secret — not created here |
-| Données écrites | cost events + recon record + aggregate/projection rebuild (future cycle only) |
-| Idempotence | sourceBatchId + correctionRef + dedup keys |
-| Audit | FinOps-side audit of recon success/failure |
-| Tests | granularity honesty · null model/usageEventId · no fake run · T4 eligibility · idempotent replay |
-| Rollback/disable | stop adapter; leave append-only history; SHADOW unchanged |
-| Réserves | R-T4-T3 remains OPEN until dedicated close cycle |
-| Profil SFIA probable | Critical (credential + financial ingestion + provenance) |
-| Gates Morris | GO dedicated ingestion/contract; never implied by this assessment |
-
-AUCUN code · AUCUN fichier tracked · AUCUN ADR validé · AUCUN choix irréversible.
+| SoT | Risks **second financial SoT** (I17) |
+| T4 | Would need dual read or sync — expansion |
+| Debt | High |
+| Verdict | **Deferred / rejected** for first T4 evidence |
 
 ---
 
-## R-T4-T3-SYNC-01 impact
+## Comparison D01–D20
 
-| Path | Impact on future close capability |
-|---|---|
-| A1 | IMPROVES |
-| A2 | IMPROVES (if source appears) |
-| B | IMPROVES visibility / NEUTRAL for closure alone |
-| C | IMPROVES |
+| Factor | A nullable | B scope | C boundary | D separate table |
+|---|---|---|---|---|
+| D01 semantic honesty | WEAK | STRONG | STRONG | STRONG |
+| D02 minimal surface | STRONG | MEDIUM | MEDIUM | WEAK |
+| D03 backward compatibility | MEDIUM | STRONG | STRONG | WEAK |
+| D04 deterministic identity | MEDIUM | STRONG | STRONG | MEDIUM |
+| D05 replay idempotence | MEDIUM | STRONG | STRONG | MEDIUM |
+| D06 correction semantics | MEDIUM | STRONG | STRONG | MEDIUM |
+| D07 period boundary correctness | MEDIUM | STRONG | STRONG | STRONG |
+| D08 monetary correctness | STRONG | STRONG | STRONG | STRONG |
+| D09 provenance | MEDIUM | STRONG | STRONG | STRONG |
+| D10 auditability | WEAK | STRONG | STRONG | STRONG |
+| D11 reconcileProjectPeriod compat | MEDIUM | STRONG | STRONG | WEAK |
+| D12 aggregates compat | STRONG | STRONG | STRONG | WEAK |
+| D13 T4 compat | STRONG | STRONG | STRONG | WEAK |
+| D14 schema impact | MEDIUM | MEDIUM | MEDIUM | WEAK |
+| D15 migration impact | MEDIUM | MEDIUM | MEDIUM | WEAK |
+| D16 test surface | MEDIUM | MEDIUM | MEDIUM | WEAK |
+| D17 operational complexity | STRONG | MEDIUM | MEDIUM | WEAK |
+| D18 reversibility | MEDIUM | STRONG | STRONG | WEAK |
+| D19 debt | WEAK | MEDIUM | MEDIUM | BLOCKED |
+| D20 future provider-independence | MEDIUM | STRONG | STRONG | WEAK |
 
-**R-T4-T3-SYNC-01 remains OPEN BEFORE MONITOR.** Never closed here.
+Justifications: B/C maximize honesty without second SoT; A is smaller but ambiguous; D conflicts I17/T4 single-ledger preference.
 
 ---
 
-## Runtime / trajectory immutability (end state)
+## PREFERRED CONTRACT CANDIDATE
 
-| Field | Value |
+**PREFERRED_CONTRACT_CANDIDATE = OPTION_B_ATTRIBUTION_SCOPE**
+**status = CANDIDATE_ONLY**
+**pairs with R2 = BilledPeriodFact boundary (OPTION C input style)**
+**NOT ADOPTED · NOT ADR VALIDATED · NOT ARCHITECTURE SELECTED**
+
+---
+
+## CONTRAT CANDIDAT COMPLET
+
+### 1. Attribution scope
+- `EXECUTION_RUN` — existing t2-v1 run-scoped facts
+- `PROJECT_PERIOD` — BILLED (and future observed if proven) at project/period(/bucket) granularity
+- Future `PROJECT_PERIOD_LINE_ITEM`: representable later via `derivedSourceReference` including line item **without** new generic framework now
+- Challenge: useful now? **YES** (unblocks A1). Simplest? **YES among honest options**. Premature generic scope enum explosion? **NO** — only two scopes now.
+
+### 2. Types (future — not applied)
+- `FinOpsAttributionScope = "EXECUTION_RUN" | "PROJECT_PERIOD"`
+- `FinOpsCostEvent.attributionScope: FinOpsAttributionScope`
+- `FinOpsCostEvent.executionRunId: string | null`
+- `BilledPeriodFact` input type (see JSON below)
+- Run `ReconcileFact` remains t2-v1 for EXECUTION_RUN
+
+### 3. Nullable / non-null rules
+| Scope | executionRunId | usageEventId | model |
+|---|---|---|---|
+| EXECUTION_RUN | required non-empty real run | optional | optional |
+| PROJECT_PERIOD | **MUST null** | **MUST null** unless proven | **MUST null** unless proven |
+
+Empty-string sentinel for run id = **invalid**.
+
+### 4. Identity material
+**EXECUTION_RUN (t2-v1 UNCHANGED):**
+`t2-v1|cost|projectId|executionRunId|evidenceClass|correctionRef|sourceBatchId|amount|currency`
+
+**PROJECT_PERIOD (t2-v2-period branch — not bumped in this cycle):**
+`t2-v2-period|cost|PROJECT_PERIOD|projectId|periodStart|provider|evidenceClass|sourceOfTruth|derivedSourceReference|sourceBatchId|amount|currency`
+
+Mandatory answers:
+- **periodStart in period identity?** YES (subject).
+- **provider in period identity?** YES (collision safety).
+- **sourceOfTruth in period identity?** YES on period branch (future observed-period safety); validate consistency with evidenceClass.
+- **amount in identity?** YES (keep; corrections change derivedSourceReference/correctionRef).
+- **correctionRef vs sourceBatchId overlap?** Distinct responsibilities; both participate; stability rules prevent double-count.
+
+### 5. Reconciliation identity
+Unchanged: `t2-v1|recon|projectId|periodStart|sourceBatchId`
+
+### 6. sourceBatchId semantics
+Represents a **logical provider snapshot/import**, not a wall-clock attempt.
+
+**SOURCE_BATCH_ID_STABILITY_RULE:**
+Deterministic from `provider + (externalProjectId|sfiaProjectId) + periodStart + stable ordered sourceBucketStart set + currency set + adapterContractVersion`.
+Retries of the same logical snapshot **MUST** reuse the same `sourceBatchId`.
+Pagination tokens MUST NOT alone mint new batch ids.
+MUST NOT depend on secret value, Keychain name, or `Date.now()`.
+
+### 7. correctionRef / DERIVED_SOURCE_REFERENCE semantics
+- `derivedSourceReference` = SFIA-derived economic atom key (NOT official OpenAI id).
+- Candidate material: `provider|externalProjectId|sfiaProjectId|sourceBucketStart|lineItemOrALL|currency`
+- `correctionRef` distinguishes INITIAL vs CORRECTION versions of that atom (e.g. suffix `|INITIAL` / `|CORR|<monotonic provider revision or content hash>` when provider revision absent — content hash only over **provider payload fields**, not local time).
+- Identical reread: same identities → duplicate/idempotent.
+- Real amount change: new append-only event with new correctionRef.
+
+**EXTERNAL_EVIDENCE_REQUIRED** if OpenAI Costs line_item / project_id field semantics need tighter binding than handoff EXTERNAL FACT.
+
+### 8. Time semantics (candidate choice)
+- `sourceBucketStart` = provider bucket start
+- `occurredAt = sourceBucketStart` (UTC timestamptz)
+- `periodStart` = UTC month start containing `occurredAt`
+- Reject if `periodStartMatchesOccurredAt` fails
+- Avoids 31 Aug bucket mapped to 1 Sep occurredAt
+- `sourceBucketEndExclusive` optional only if documented; else omit
+
+### 9. Money semantics
+- Canonical decimal string scale-8 · explicit currency · no FX
+- Future adapter: no IEEE float; parse via existing Money boundary; FinOps-side fail on bad amount
+
+### 10. Provenance / audit fields (minimal)
+Must answer later: why amount · external source · window · provider project · currency · correction · logical batch · identity contract version/scope · run vs period · replay vs correction.
+Fields: attributionScope · provider · externalProjectId? · periodStart · occurredAt/sourceBucketStart · derivedSourceReference · correctionRef · sourceBatchId · amount · currency · sourceOfTruth · evidenceClass · identity contract label.
+
+### 11. Versioning / backward compatibility
+- **Choice C:** coexistence t2-v1 RUN + t2-v2-period
+- `EXISTING_T2_V1_IDENTITIES_REINTERPRETED = NO`
+- Historical rows: remain valid; read-compat default `attributionScope=EXECUTION_RUN` without rewriting identities
+- No version bump in this cycle
+
+### 12. Migration implication (future only)
+1. `ALTER ... execution_run_id DROP NOT NULL`
+2. Add `attribution_scope TEXT NOT NULL` + CHECK (`EXECUTION_RUN|PROJECT_PERIOD`)
+3. Backfill existing rows `EXECUTION_RUN`
+4. Optional `derived_source_reference TEXT`
+5. CHECK: (scope=EXECUTION_RUN ⇒ execution_run_id IS NOT NULL) AND (scope=PROJECT_PERIOD ⇒ execution_run_id IS NULL)
+6. No second ledger table
+
+### 13. T4 compatibility
+BILLED PROJECT_PERIOD event → aggregate billedAmount → projection billedAmount → blockingEligibleAmount.
+**No T4 financial logic change required.**
+`ARCHITECTURE EXPANSION — MORRIS GATE REQUIRED` only for T2 implementation/schema/adapter — **not** for T4 formula.
+
+### 14. Invariants
+I01–I18 upheld by construction (esp. I04/I05/I06/I16/I17).
+
+### 15. Failure modes
+See preferred JSON — invalid scope/run nullness · period mismatch · unparseable money · unstable batch id · invented run.
+
+### 16. Security boundary (conceptual)
+`privileged external Costs source → sanitized BilledPeriodFact → T2 reconciliation boundary`.
+Identity MUST NOT depend on secret value / Keychain name / volatile pagination / local non-deterministic timestamps.
+
+### 17. Reconciliation approach selected conceptually
+**OPTION R2:** `BilledPeriodFact` distinct input → shared reconciliation/insertCostEvent/aggregate rebuild/T4 refresh path.
+Preserve: bounded batch · sourceBatchId idempotence · append-only corrections · single aggregate rebuild · post-success T4 refresh.
+Avoid two reconciliation engines.
+R1 (overload ReconcileFact with scopes) deferred as noisier for run callers.
+
+---
+
+## Recommendation
+
+**RECOMMENDATION ONLY — MORRIS DECIDES.**
+
+- **Recommended:** OPTION B (+ R2 BilledPeriodFact boundary).
+- **Why simplest honest path:** explicit scope avoids fake runs; reuses single ledger/T4; isolates t2-v1.
+- **Debt created:** schema nullability + scope column + second identity branch + tests.
+- **Debt avoided:** second SoT (D); ambiguous null (A); T4 rewrite.
+- **Deferred/rejected:** A (honesty weak); D (second SoT); full hybrid C orchestration beyond boundary DTO.
+- **Open:** exact OpenAI Costs field binding for line_item/external project (**EXTERNAL_EVIDENCE_REQUIRED** at adapter design time); whether to persist `derived_source_reference` as own column vs encode in correctionRef.
+
+---
+
+## Future implementation impact map (candidate only — no edits)
+
+| File / area | Class |
 |---|---|
-| MODE | SHADOW |
-| REVISION | 1 |
-| POLICY_VALUES_SELECTED | NO |
-| POLICY_SOURCE_CHANGED | NO |
-| COST_EVENTS_INSERTED | 0 |
-| CATALOG_ENTRIES_INSERTED | 0 |
-| RECONCILIATIONS_EXECUTED | 0 |
-| PROJECTION_REBUILDS | 0 |
+| `types.aggregate.ts` | MUST_CHANGE |
+| `t2Identity.ts` | MUST_CHANGE |
+| `reconcileProjectPeriod.ts` | LIKELY_CHANGE (or sibling reconcileBilledPeriod) |
+| `finopsReconciliationPort.ts` | LIKELY_CHANGE |
+| `postgresFinOpsReconciliation.ts` | MUST_CHANGE |
+| migration/schema | MUST_CHANGE |
+| `recomputeAggregates.ts` | NO_CHANGE_EXPECTED (money by evidenceClass) |
+| `refreshEnforcementAfterT2.ts` | NO_CHANGE_EXPECTED / LIKELY wire-only |
+| `rebuildEnforcementProjection.ts` | NO_CHANGE_EXPECTED |
+| `blockingEligibility.ts` / `costEvidence.ts` | NO_CHANGE_EXPECTED |
+| memory T2 | MUST_CHANGE |
+| T2/T4/T7 tests | TEST_ONLY / MUST_CHANGE tests |
+
+---
+
+## Future test contract
+
+T01 run-scoped t2-v1 identity unchanged
+T02 period BILLED identity deterministic
+T03 identical source replay duplicate/idempotent
+T04 corrected amount creates append-only correction event
+T05 correction replay idempotent
+T06 no fake executionRunId (reject non-null on PROJECT_PERIOD; reject sentinel strings)
+T07 null usageEventId accepted for PROJECT_PERIOD
+T08 null model supported
+T09 UTC month boundary (incl. last day of month)
+T10 currency canonicalization
+T11 no FX
+T12 source batch retry stable
+T13 distinct provider/source fact does not collide
+T14 BILLED contributes T4
+T15 PARAMETRIC_ESTIMATE still never contributes T4
+T16 historical t2-v1 events retain identity
+T17 mixed RUN + PROJECT_PERIOD aggregate correctly
+T18 no double counting after replay
+T19 T4 refresh exactly once after successful reconciliation
+T20 failure remains FinOps-side only
+T21 CHECK constraint scope↔executionRunId nullness
+T22 empty-string executionRunId rejected
+T23 identity material excludes secrets/pagination volatility
+
+---
+
+## R-T4-T3 / trajectory
+
+`BILLED_PERIOD_IDENTITY_CONTRACT = IMPROVES T4-T3 READINESS` (unblocks honest A1 ingestion design).
+**R-T4-T3-SYNC-01 remains OPEN BEFORE MONITOR.**
+No MONITOR readiness verdict.
+SHADOW rev1 transmitted by handoff — **not re-queried** (no Neon this cycle).
+
+---
+
+## Runtime immutability
+
+| Metric | Value |
+|---|---|
 | PROVIDER_CALLS | 0 |
 | OPENAI_COSTS_CALLS | 0 |
 | OPENAI_USAGE_CALLS | 0 |
-| MONITOR | NOT ACTIVATED |
-| E1 | NOT AUTHORIZED |
-| ROLLBACK | NOT EXECUTED |
-| project mutation | ZERO |
+| DB_QUERIES | 0 |
+| DB_MUTATIONS | 0 |
+| RECONCILIATIONS | 0 |
+| PROJECTION_REBUILDS | 0 |
+| ROLLOUT_MUTATIONS | 0 |
+| DATABASE_URL_DIRECT | NOT LOADED |
+| OPENAI_* keys | NOT LOADED / NOT REQUESTED |
+
+POLICY_VALUES_SELECTED=NO · POLICY_SOURCE_CHANGED=NO · MONITOR NOT ACTIVATED · E1 NOT AUTHORIZED · ROLLBACK NOT EXECUTED.
 
 ---
 
-## Validation matrix P01–P24
+## Validation matrix V01–V24
 
 | ID | Result |
 |---|---|
-| P01 main pinned | PASS |
-| P02 tracked clean / staged none | PASS |
-| P03 incoming handoff exact | PASS |
-| P04 SHADOW state preserved | PASS |
-| P05 policy EMPTY | PASS |
-| P06 financial contracts traced from Git | PASS |
-| P07 PATH A1 evaluated | PASS |
-| P08 PATH A2 evaluated | PASS |
-| P09 PATH B evaluated | PASS |
-| P10 PATH C evaluated (justified) | PASS |
-| P11 OpenAI external fact correctly scoped | PASS |
-| P12 no external API call | PASS |
-| P13 granularity gap assessed | PASS = PARTIAL |
-| P14 blocking eligibility correctly applied | PASS |
-| P15 T2 reconciliation compatibility assessed | PASS |
-| P16 T3 catalog compatibility assessed | PASS |
-| P17 security / credential privilege assessed | PASS |
-| P18 provenance / audit assessed | PASS |
-| P19 debt / complexity assessed | PASS |
-| P20 comparison F01–F24 complete | PASS |
-| P21 recommendation remains non-decision | PASS |
-| P22 T4-T3 reserve preserved | PASS |
-| P23 policy/MONITOR/E1 untouched | PASS |
-| P24 project/runtime mutations zero | PASS |
+| V01 main pinned | PASS |
+| V02 tracked clean / staged none | PASS |
+| V03 incoming handoff exact | PASS |
+| V04 t2-v1 reconstructed | PASS |
+| V05 schema constraints discovered | PASS |
+| V06 executionRunId consumers mapped | PASS |
+| V07 fake-run anti-pattern preserved | PASS |
+| V08 >=2 options compared | PASS (4) |
+| V09 period attribution explicit | PASS |
+| V10 identity material explicit | PASS |
+| V11 sourceBatchId semantics explicit | PASS |
+| V12 correctionRef semantics explicit | PASS |
+| V13 time semantics explicit | PASS |
+| V14 Money semantics explicit | PASS |
+| V15 provenance explicit | PASS |
+| V16 backward compatibility explicit | PASS |
+| V17 t2-v1 identities preserved by design | PASS |
+| V18 T2 reconciliation compatibility assessed | PASS |
+| V19 aggregates compatibility assessed | PASS |
+| V20 T4 compatibility assessed | PASS |
+| V21 future tests complete | PASS |
+| V22 recommendation candidate-only | PASS |
+| V23 T4-T3/policy/MONITOR/E1 preserved | PASS |
+| V24 project/runtime mutation zero | PASS |
 
 ---
 
-## Reserves preserved
+## Reserves
 
 | Reserve | Status |
 |---|---|
@@ -497,160 +520,269 @@ AUCUN code · AUCUN fichier tracked · AUCUN ADR validé · AUCUN choix irréver
 
 ---
 
-## Recommendation (non-décisionnelle)
-
-**RECOMMENDATION ONLY — MORRIS DECIDES.**
-
-PREFERRED PATH CANDIDATE: **A1 BILLED (OpenAI Costs → T2 → T4)** after a bounded period-level identity contract.
-Do not select B alone for T4.
-Treat C as justified later lifecycle, not the minimal first increment.
-Do not create/load Admin key in this cycle.
-
-Never: SELECTED ARCHITECTURE · POLICY SELECTED · T4-T3 CLOSED.
-
----
-
 ## Morris decisions required
 
-1. ACCEPT / REJECT / HOLD preferred candidate A1.
-2. If ACCEPT directionally: authorize a **separate** cycle for period-level BILLED identity contract (+ later Critical ingestion/credential GO).
-3. Decide whether early estimate visibility (B/C) is needed before billed lands — default recommendation: **defer**.
-4. Keep SHADOW rev1 · no policy · no MONITOR · no E1.
+1. **ACCEPT CONTRACT CANDIDATE** OPTION_B_ATTRIBUTION_SCOPE
+2. **REQUEST REVISION**
+3. **REJECT**
+4. **HOLD**
+
+Even ACCEPT ≠ implementation authority. Separate GO required for identity versioning · type/schema · migration · Costs adapter · admin credential · real ingestion.
 
 ---
 
 ## Unique verdict
 
-T7 FINANCIAL EVIDENCE PATH ASSESSMENT PASS —
+T7 BILLED PERIOD IDENTITY CONTRACT DESIGN PASS —
 CYCLE 6 STANDARD —
-FINANCIAL EVIDENCE PATHS COMPARED —
-PATH A1 FEASIBLE_WITH_BOUNDED_CONTRACT_INCREMENT —
-PATH A2 BLOCKED_TODAY_SOURCE_ABSENT —
-PATH B SUPPORTIVE_ONLY_NOT_T4_ELIGIBLE_ALONE —
-PATH C JUSTIFIED_LIFECYCLE_OPTIONAL_FOR_FIRST_T4_EVIDENCE —
-T4 BLOCKING-ELIGIBILITY CONTRACT PRESERVED —
-OPENAI BILLING GRANULARITY / PRIVILEGE IMPACT ASSESSED —
-PREFERRED PATH CANDIDATE A1 —
-RECOMMENDATION ONLY / MORRIS DECIDES —
-MINIMAL NEXT INCREMENT DEFINED —
+T2-V1 CONTRACT VERIFIED —
+SCHEMA / CONSUMER IMPACT MAPPED —
+FAKE EXECUTION RUN PROHIBITED —
+4 CONTRACT OPTIONS COMPARED —
+PREFERRED CONTRACT CANDIDATE OPTION_B_ATTRIBUTION_SCOPE —
+CANDIDATE ONLY / NOT ADOPTED —
+ATTRIBUTION SCOPE DEFINED —
+IDENTITY / DEDUP SEMANTICS DEFINED —
+SOURCE BATCH SEMANTICS DEFINED —
+CORRECTION SEMANTICS DEFINED —
+TIME / MONEY / PROVENANCE SEMANTICS DEFINED —
+T2-V1 BACKWARD COMPATIBILITY PRESERVED BY DESIGN —
+T4 CONTRACT PRESERVED —
+FUTURE IMPLEMENTATION IMPACT MAPPED —
+FUTURE TEST CONTRACT DEFINED —
 R-T4-T3-SYNC-01 REMAINS OPEN BEFORE MONITOR —
 POLICY NOT SELECTED —
-SHADOW KEPT ACTIVE —
-NO PROVIDER / COSTS / USAGE API CALL —
-NO RUNTIME MUTATION —
+SHADOW STATE NOT TOUCHED —
+NO DB / OPENAI CALL —
 NO PROJECT MUTATION —
-MONITOR NOT ACTIVATED —
-E1 NOT AUTHORIZED —
-READY FOR CHATGPT VALIDATION / MORRIS PATH DECISION —
+READY FOR CHATGPT VALIDATION / MORRIS CONTRACT DECISION —
 HANDOFF REMOTE VERIFIED.
 
 ---
 
 ## Temporary files — full contents
 
-### `.tmp-sfia-review/t7-financial-evidence-path/analysis-notes.json`
+### analysis-notes.json
 
 ```json
 {
-  "cycle": "6 Standard \u2014 Financial Evidence Path Assessment",
-  "granularity_gap_verdict": "PARTIAL \u2014 additional bounded contract required",
-  "path_a1": "FEASIBLE WITH CONTRACT INCREMENT for period-level BILLED identity; OpenAI Costs EXTERNAL_CURRENT_PROVIDER_EVIDENCE requires Admin-class credential; maps project/time/line_item money but not run/correlation",
-  "path_a2": "PATH_A2_SOURCE=ABSENT \u2014 Responses tokens are API_USAGE not PROVIDER_OBSERVED money; no monetary provider-observed adapter in repo",
-  "path_b": "estimateUsageCost + price catalog EXIST but DORMANT in T7 runtime; no product estimated cost-event producer; catalog empty; PARAMETRIC_ESTIMATE never blocking-eligible \u2192 NOT SUFFICIENT ALONE FOR T4",
-  "path_c": "JUSTIFIED by Git (reconcile header + unit test estimated\u2192observed\u2192billed append-only); T4 remains SoT-safe; implementation gaps: catalog+estimated producer + authoritative ingestion",
-  "preferred_path_candidate": "A1 \u2014 BILLED via OpenAI Costs into T2 reconcile \u2192 T4 projection (after period-level identity contract)",
-  "b_alone_for_t4": false,
-  "hybrid_justified": "YES as lifecycle, OPTIONAL for first T4-eligible evidence; A1 alone is sufficient for blocking-eligible money"
+  "SCHEMA_SUPPORTS_PERIOD_BILLED_TODAY": "PARTIAL",
+  "schema_reason": "execution_run_id TEXT NOT NULL, no FK; usage_event_id nullable; unique dedup_key; append-only triggers. Honest NULL executionRunId impossible without migration.",
+  "PREFERRED_CONTRACT_CANDIDATE": "OPTION_B_ATTRIBUTION_SCOPE",
+  "reconciliation_input": "R2_BilledPeriodFact_boundary",
+  "versioning": "coexistence t2-v1 RUN identity unchanged + t2-v2-period identity branch",
+  "EXISTING_T2_V1_IDENTITIES_REINTERPRETED": "NO",
+  "T4_ARCHITECTURE_EXPANSION": "NO",
+  "fake_executionRunId": "FORBIDDEN"
 }
 ```
 
-### `.tmp-sfia-review/t7-financial-evidence-path/runtime-ro-result.json`
+### consumer-impact-map.json
 
 ```json
 {
-  "ok": true,
-  "READ_ONLY_MUTATIONS": 0,
-  "FINGERPRINT": "7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331",
-  "FINGERPRINT_MATCH": true,
-  "SAFE_IDENTITY": {
-    "hostname": "ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech",
-    "port": 5432,
-    "database": "neondb"
-  },
-  "ROLLOUT": {
-    "ROW_EXISTS": true,
-    "MODE": "SHADOW",
-    "REVISION": 1,
-    "UPDATED_AT": "2026-08-09T18:50:15.239Z"
-  },
-  "USAGE_EVENT_COUNT": 4,
-  "COST_EVENT_COUNT": 0,
-  "PRICE_CATALOG_ENTRY_COUNT": 0,
-  "ENFORCEMENT_PROJECTION_COUNT": 0,
-  "POLICY_SOURCE_GIT": "EMPTY Object.freeze({})"
+  "identity_dedup": [
+    "t2Identity.deriveCostEventIdentity (executionRunId in material)",
+    "reconcileProjectPeriod (passes fact.executionRunId)",
+    "postgresFinOpsReconciliation.fingerprintEqual (compares executionRunId)",
+    "memoryFinOpsT2 fingerprint compare"
+  ],
+  "persistence_mapping": [
+    "postgresFinOpsReconciliation INSERT/SELECT execution_run_id NOT NULL",
+    "postgresFinOpsAggregateStore.rowToCostEvent",
+    "postgresFinOpsEnforcementProjectionStore.rowToCostEvent (maps field; T4 money logic does not use it)"
+  ],
+  "assumes_real_run": [
+    "ReconcileFact.executionRunId: string required (semantic run assumption)",
+    "FinOpsCostEvent.executionRunId: string required",
+    "T1 usage path (separate): buildUsageEvent/capture require non-empty executionRunId \u2014 out of T2 cost period scope but shows run-centric culture"
+  ],
+  "trace_only_not_money": [
+    "rebuildEnforcementProjection \u2014 NO executionRunId use",
+    "recomputeAggregates \u2014 NO executionRunId use",
+    "refreshEnforcementAfterT2 \u2014 NO executionRunId use",
+    "evaluateFinOpsEnforcement input has executionRunId for gate context, not cost ledger identity"
+  ],
+  "tests": [
+    "t2.reconciliation.unit/integration",
+    "t2.aggregate.*",
+    "t4.enforcement-projection.integration",
+    "t4.projection-refresh.integration",
+    "t7.foundation-runtime.integration"
+  ],
+  "no_fk_join_to_execution_run_table": true
 }
 ```
 
-### `.tmp-sfia-review/t7-financial-evidence-path/runtime-ro-stderr.txt` (sanitized)
+### preferred-contract-candidate.json
 
-```
-(node:852) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
-In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
-
-To prepare for this change:
-- If you want the current behavior, explicitly use 'sslmode=verify-full'
-- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
-
-See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
-(Use `node --trace-warnings ...` to show where the warning was created)
-```
-
-### `.tmp-sfia-review/t7-financial-evidence-path/runtime-ro-precheck.ts`
-
-```typescript
-import { createRequire } from "node:module";
-import {
-  assertExpectedTargetFingerprintMatch,
-  deriveFinOpsT7TargetIdentity,
-} from "../../projects/sfia-studio/app/lib/oa/finops/server/finOpsT7TargetIdentity.ts";
-const require = createRequire(new URL("../../projects/sfia-studio/app/package.json", import.meta.url));
-const { Pool } = require("pg") as typeof import("pg");
-const PROJECT_ID = "sfia-studio-ops1";
-const EXPECTED_FP = "7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331";
-async function main() {
-  const url = process.env.DATABASE_URL_DIRECT?.trim() ?? "";
-  if (!url) throw new Error("DATABASE_URL_DIRECT missing");
-  const id = deriveFinOpsT7TargetIdentity(url);
-  assertExpectedTargetFingerprintMatch(id.fingerprint, EXPECTED_FP);
-  const pool = new Pool({ connectionString: url, max: 1 });
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN READ ONLY");
-    const rollout = await client.query(`SELECT mode, revision, updated_at FROM finops_rollout_config WHERE project_id=$1`, [PROJECT_ID]);
-    const cost = await client.query(`SELECT COUNT(*)::int AS c FROM finops_cost_event WHERE project_id=$1`, [PROJECT_ID]);
-    const catalog = await client.query(`SELECT COUNT(*)::int AS c FROM finops_price_catalog_entry`);
-    const proj = await client.query(`SELECT COUNT(*)::int AS c FROM finops_enforcement_projection WHERE project_id=$1`, [PROJECT_ID]);
-    const usage = await client.query(`SELECT COUNT(*)::int AS c FROM finops_usage_event WHERE project_id=$1`, [PROJECT_ID]);
-    await client.query("COMMIT");
-    const row = rollout.rows[0];
-    console.log(JSON.stringify({
-      ok: true,
-      READ_ONLY_MUTATIONS: 0,
-      FINGERPRINT: id.fingerprint,
-      FINGERPRINT_MATCH: true,
-      SAFE_IDENTITY: { hostname: id.hostname, port: id.port, database: id.database },
-      ROLLOUT: { ROW_EXISTS: (rollout.rowCount??0)>0, MODE: row?.mode ?? null, REVISION: row ? Number(row.revision) : null, UPDATED_AT: row?.updated_at ?? null },
-      USAGE_EVENT_COUNT: usage.rows[0].c,
-      COST_EVENT_COUNT: cost.rows[0].c,
-      PRICE_CATALOG_ENTRY_COUNT: catalog.rows[0].c,
-      ENFORCEMENT_PROJECTION_COUNT: proj.rows[0].c,
-      POLICY_SOURCE_GIT: "EMPTY Object.freeze({})",
-    }, null, 2));
-  } finally {
-    client.release();
-    await pool.end().catch(()=>undefined);
-  }
+```json
+{
+  "PREFERRED_CONTRACT_CANDIDATE": "OPTION_B_ATTRIBUTION_SCOPE",
+  "status": "CANDIDATE_ONLY",
+  "name": "FinOps T2 Attribution Scope \u2014 PROJECT_PERIOD BILLED",
+  "pairs_with": "R2 BilledPeriodFact boundary into common finops_cost_event ledger",
+  "attribution_scopes": [
+    "EXECUTION_RUN",
+    "PROJECT_PERIOD"
+  ],
+  "future_extension_noted_not_implemented": "PROJECT_PERIOD_LINE_ITEM optional later via derivedSourceReference dimension \u2014 no generic abstraction now",
+  "types_candidate": {
+    "FinOpsAttributionScope": "EXECUTION_RUN | PROJECT_PERIOD",
+    "FinOpsCostEvent_additions": {
+      "attributionScope": "required on new writes; historical rows treated as EXECUTION_RUN by default at read-compat layer OR backfilled only under separate GO",
+      "executionRunId": "string | null \u2014 non-null iff attributionScope=EXECUTION_RUN; null iff PROJECT_PERIOD",
+      "periodStart": "unchanged required",
+      "usageEventId": "null for PROJECT_PERIOD unless proven",
+      "model": "null unless proven",
+      "provider": "required",
+      "sourceOfTruth": "BILLED for this path",
+      "evidenceClass": "billed",
+      "derivedSourceReference": "optional explicit field OR stored in correctionRef per semantics below"
+    },
+    "BilledPeriodFact_input": {
+      "projectId": "string",
+      "periodStart": "YYYY-MM-DD UTC month start",
+      "provider": "string",
+      "amount": "canonical Money string",
+      "currency": "ISO 4217",
+      "occurredAt": "ISO timestamptz = source bucket start UTC",
+      "sourceBucketStart": "ISO date/timestamptz",
+      "sourceBucketEndExclusive": "ISO optional if known; else UNKNOWN not invented",
+      "lineItem": "string | null \u2014 null if not proven",
+      "externalProjectId": "string | null \u2014 provider project id if known",
+      "derivedSourceReference": "SFIA-derived stable economic fact key",
+      "correctionKind": "INITIAL | CORRECTION",
+      "sourceBatchId": "stable logical snapshot id"
+    },
+    "ReconcileFact_run_path": "t2-v1 unchanged for EXECUTION_RUN"
+  },
+  "nullable_rules": {
+    "PROJECT_PERIOD.executionRunId": "MUST be null \u2014 never empty string sentinel, never fake run",
+    "PROJECT_PERIOD.usageEventId": "MUST be null unless proven linkage",
+    "PROJECT_PERIOD.model": "MUST be null unless proven",
+    "EXECUTION_RUN.executionRunId": "MUST be non-empty real run id (t2-v1)"
+  },
+  "identity_material": {
+    "EXECUTION_RUN_t2_v1_UNCHANGED": [
+      "FINOPS_T2_IDENTITY_CONTRACT_VERSION=t2-v1",
+      "cost",
+      "projectId",
+      "executionRunId",
+      "evidenceClass",
+      "correctionRef",
+      "sourceBatchId",
+      "amount",
+      "currency"
+    ],
+    "PROJECT_PERIOD_t2_v2_period": [
+      "t2-v2-period",
+      "cost",
+      "attributionScope=PROJECT_PERIOD",
+      "projectId",
+      "periodStart",
+      "provider",
+      "evidenceClass",
+      "sourceOfTruth",
+      "derivedSourceReference OR correctionRef",
+      "sourceBatchId",
+      "amount",
+      "currency"
+    ],
+    "answers": {
+      "periodStart_in_period_identity": "YES \u2014 subject dimension for PROJECT_PERIOD",
+      "provider_in_period_identity": "YES \u2014 prevent cross-provider collision",
+      "sourceOfTruth_in_period_identity": "YES for period branch \u2014 distinguish future PROVIDER_OBSERVED period facts if added; validate BILLED consistency",
+      "amount_in_identity": "YES \u2014 retain; corrections use new derivedSourceReference/correctionRef",
+      "correctionRef_vs_sourceBatchId": "sourceBatchId=logical provider snapshot/import; correctionRef/derivedSourceReference=economic fact version; both in identity; stability rules prevent double-count on retry"
+    }
+  },
+  "reconciliation_identity": {
+    "unchanged": [
+      "t2-v1",
+      "recon",
+      "projectId",
+      "periodStart",
+      "sourceBatchId"
+    ]
+  },
+  "sourceBatchId_semantics": {
+    "represents": "logical provider snapshot/import identity for a bounded reconciliation attempt \u2014 NOT wall-clock, NOT secret, NOT volatile pagination token alone",
+    "SOURCE_BATCH_ID_STABILITY_RULE": "Deterministic from: provider + externalProjectId|sfiaProjectId + periodStart + ordered stable set of sourceBucketStart values included + currency set + adapterContractVersion. Retries of the same logical snapshot MUST reuse the same sourceBatchId. Page fetches within one snapshot MUST NOT mint a new sourceBatchId per page.",
+    "not": [
+      "local Date.now()",
+      "Keychain item name",
+      "Admin key value",
+      "random UUID per attempt"
+    ]
+  },
+  "correctionRef_semantics": {
+    "role": "Fact-level economic version / correction identity",
+    "INITIAL": "first accepted BILLED economic atom for derivedSourceReference within snapshot rules",
+    "CORRECTION": "new append-only event with new correctionRef when provider amount for same economic atom changes",
+    "identical_reread": "same sourceBatchId + same identity \u2192 duplicate/idempotent, no new economic fact",
+    "DERIVED_SOURCE_REFERENCE": {
+      "is": "SFIA-computed stable key from proven provider fields",
+      "not": "official OpenAI ID",
+      "material_candidate": "provider|externalProjectId|sfiaProjectId|sourceBucketStart|lineItemOrALL|currency",
+      "EXTERNAL_EVIDENCE_REQUIRED_if": "line_item semantics or provider project id mapping fields change vs EXTERNAL FACT handoff"
+    }
+  },
+  "time_semantics": {
+    "periodStart": "UTC month start YYYY-MM-DD containing sourceBucketStart",
+    "occurredAt": "sourceBucketStart as timestamptz UTC",
+    "sourceBucketStart": "provider time bucket start",
+    "sourceBucketEndExclusive": "optional if documented; else omit \u2014 do not invent",
+    "chosen_rule": "occurredAt = source bucket start UTC",
+    "justification": "Aligns with periodStartMatchesOccurredAt (month of occurredAt must equal periodStart); avoids Aug31 bucket \u2192 Sep1 occurredAt rejection; honest to daily Costs buckets",
+    "month_boundary": "bucket starting 2026-08-31T00:00:00Z \u2192 periodStart 2026-08-01; bucket 2026-09-01T00:00:00Z \u2192 periodStart 2026-09-01"
+  },
+  "money_semantics": {
+    "canonical": "numeric(20,8) / existing Money parseMoneyString scale-8",
+    "currency": "explicit ISO 4217; no FX",
+    "adapter_protection_future": "reject binary float; accept decimal string/integer minor units only; fail FinOps-side on unparseable provider amount"
+  },
+  "versioning": {
+    "choice": "C \u2014 coexistence t2-v1 RUN + t2-v2-period branch",
+    "EXISTING_T2_V1_IDENTITIES_REINTERPRETED": "NO",
+    "historical_events": "remain t2-v1; read as attributionScope=EXECUTION_RUN by compatibility default without rewriting rows",
+    "bump_now": "NO \u2014 design only",
+    "migration_implication": "future: alter execution_run_id DROP NOT NULL; add attribution_scope text NOT NULL with check; optional derived_source_reference; backfill scope=EXECUTION_RUN for existing rows",
+    "rollback_producer": "stop BilledPeriod producer; historical period rows remain append-only; T4 rebuildable",
+    "double_count_risk": "mitigated by stable sourceBatchId + derivedSourceReference; forbidden to ingest same atom under RUN and PERIOD scopes"
+  },
+  "t4_compatibility": {
+    "path": "BILLED PROJECT_PERIOD cost event \u2192 aggregates billedAmount \u2192 enforcement projection billedAmount \u2192 blockingEligibleAmount",
+    "T4_code_change_required": "NO",
+    "ARCHITECTURE_EXPANSION_MORRIS_GATE": "NOT REQUIRED for T4 money logic; REQUIRED for T2 types/schema/identity/adapter implementation cycles"
+  },
+  "invariants_preserved": [
+    "I01",
+    "I02",
+    "I03",
+    "I04",
+    "I05",
+    "I06",
+    "I07",
+    "I08",
+    "I09",
+    "I10",
+    "I11",
+    "I12",
+    "I13",
+    "I14",
+    "I15",
+    "I16",
+    "I17",
+    "I18"
+  ],
+  "failure_modes": [
+    "provider amount unparseable \u2192 FinOps-side fail, no AI run impact",
+    "periodStart/occurredAt mismatch \u2192 reject fact",
+    "executionRunId non-null on PROJECT_PERIOD \u2192 reject",
+    "model/usageEventId present without proof \u2192 reject",
+    "unstable sourceBatchId \u2192 recon non-idempotent / double count risk",
+    "invented run id \u2192 FORBIDDEN / reject in validation"
+  ]
 }
-main().catch((e)=>{ console.error(JSON.stringify({ok:false,message:String(e&&e.message?e.message:e)})); process.exit(1); });
-
 ```
