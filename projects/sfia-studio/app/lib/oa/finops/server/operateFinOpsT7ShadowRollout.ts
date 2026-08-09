@@ -1,20 +1,21 @@
 /**
  * FinOps T7 SHADOW — bounded server operator for pilot rollout OFF|SHADOW.
  *
- * Reuses FinOpsRolloutPort upsert/read. Does NOT embed SQL.
+ * Reuses FinOpsRolloutCasPort read + atomic compare-and-swap. Does NOT embed SQL.
  * Does NOT expose product UI/API. Does NOT select policy values.
  * Does NOT activate SHADOW by its mere existence — mutation only when apply=true
- * and all fail-closed guards pass.
+ * and all fail-closed guards pass, including durable CAS at write time.
  *
  * Anti-claims:
  * - SHADOW NOT ACTIVATED until a distinct Morris GO + apply on an authorized target.
  * - MONITOR / E1_ENFORCED rejected.
  * - Non-pilot projectIds rejected.
- * - Dry-run (apply=false) never mutates.
+ * - Dry-run (apply=false) never mutates (zero CAS / zero upsert).
+ * - Pre-read expected-mode check is diagnostic only; apply authority is CAS.
  */
 
 import type { FinOpsRolloutConfig } from "../application/types.rollout";
-import type { FinOpsRolloutPort } from "../ports/finopsRolloutPort";
+import type { FinOpsRolloutCasPort } from "../ports/finopsRolloutPort";
 
 export type FinOpsT7OperatorShadowMode = "OFF" | "SHADOW";
 
@@ -106,10 +107,10 @@ function sanitizeStoreError(error: unknown): OperateFinOpsT7ShadowRolloutError {
 }
 
 /**
- * Bounded operator core. Injectable FinOpsRolloutPort for unit tests.
+ * Bounded operator core. Injectable FinOpsRolloutCasPort for unit tests.
  */
 export async function operateFinOpsT7ShadowRollout(
-  rollout: FinOpsRolloutPort,
+  rollout: FinOpsRolloutCasPort,
   input: OperateFinOpsT7ShadowRolloutInput,
 ): Promise<OperateFinOpsT7ShadowRolloutSuccess> {
   const allowed = input.allowedProjectId.trim();
@@ -201,10 +202,13 @@ export async function operateFinOpsT7ShadowRollout(
   const updatedAt = input.nowIso();
   const expectedAfterRevision = beforeRevision === null ? 1 : beforeRevision + 1;
 
-  let afterRow: FinOpsRolloutConfig;
+  let afterRow: FinOpsRolloutConfig | null;
   try {
-    afterRow = await rollout.upsertProjectRollout({
+    // Pre-read is diagnostic only. Durable authority is atomic CAS at write time.
+    afterRow = await rollout.compareAndSwapProjectRollout({
       projectId,
+      expectedMode,
+      expectedRevision: beforeRevision,
       mode: requestedMode,
       updatedAt,
     });
@@ -212,31 +216,22 @@ export async function operateFinOpsT7ShadowRollout(
     throw sanitizeStoreError(error);
   }
 
-  let verified: FinOpsRolloutConfig | null;
-  try {
-    verified = await rollout.readProjectRollout(projectId);
-  } catch (error) {
-    throw sanitizeStoreError(error);
-  }
-
-  if (
-    !verified ||
-    verified.mode !== requestedMode ||
-    verified.revision !== expectedAfterRevision
-  ) {
+  if (!afterRow) {
     throw new OperateFinOpsT7ShadowRolloutError(
-      "POST_APPLY_MISMATCH",
-      "FinOps T7 operator refused: post-apply read did not match requested mode/revision",
+      "EXPECTED_MODE_MISMATCH",
+      "FinOps T7 operator refused: durable rollout state changed before atomic mutation (CAS not matched)",
     );
   }
 
+  // RETURNING row is the primary success proof. Do not re-read: a concurrent
+  // legitimate later actor could advance revision and create a false mismatch.
   if (
     afterRow.mode !== requestedMode ||
     afterRow.revision !== expectedAfterRevision
   ) {
     throw new OperateFinOpsT7ShadowRolloutError(
       "POST_APPLY_MISMATCH",
-      "FinOps T7 operator refused: upsert return did not match requested mode/revision",
+      "FinOps T7 operator refused: CAS return did not match requested mode/revision",
     );
   }
 
@@ -248,9 +243,9 @@ export async function operateFinOpsT7ShadowRollout(
     expectedMode,
     beforeEffectiveMode,
     beforeRevision,
-    afterMode: verified.mode as FinOpsT7OperatorShadowMode,
-    afterRevision: verified.revision,
-    updatedAt: verified.updatedAt,
+    afterMode: afterRow.mode as FinOpsT7OperatorShadowMode,
+    afterRevision: afterRow.revision,
+    updatedAt: afterRow.updatedAt,
     applied: true,
     result: "applied",
   };
