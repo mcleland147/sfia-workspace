@@ -1,473 +1,255 @@
-# Cycle 9 Critical — FinOps T7 Expected-Mode CAS Remediation — Targeted QA — Review Pack
+# Cycle 13 Critical — FinOps T7 Expected-Mode CAS Remediation — Local Commit + PR Readiness — Review Pack
 
 **Level:** FULL
-**Date/time:** 2026-08-09 16:26:59 CEST / 2026-08-09 14:26:59 UTC
+**Date/time:** 2026-08-09 16:43:09 CEST / 2026-08-09 14:43:09 UTC
 **Repo:** mcleland147/sfia-workspace
 **Baseline:** SFIA v2.6 / 34b6a321a69e0315f410ac0876cd5e9734a77206
 **Profile:** Critical
-**Typologie:** EVOL / QA / CONCURRENCY SAFETY
+**Typologie:** EVOL / PR READINESS / LOCAL COMMIT
 
 ---
 
 ## 1. Morris GO (exact)
 
-GO TARGETED CYCLE 9 QA —
+GO LOCAL COMMIT + PR READINESS —
 T7 EXPECTED-MODE CAS REMEDIATION —
-EXACT DELIVERY SUBJECT —
-PROVE STALE ACTOR ZERO MUTATION —
-PROVE ABSENT + EXISTING CONCURRENCY CAS —
-VERIFY ROLLBACK CAS —
-REAL TARGET DRY-RUN ONLY —
+EXACT 6-PATH SUBJECT —
+TARGETED CYCLE 9 QA VALIDATED —
+NO PUSH —
+NO PR CREATION —
+NO REAL TARGET APPLY —
 NO SHADOW ACTIVATION.
 
 ---
 
-## 2. Git Truth initial / final
+## 2. Git Truth initial
 
-Initial & final identical:
 - branch = delivery/sfia-studio-finops-t7-expected-mode-cas-remediation
-- HEAD = 34b6a321a69e0315f410ac0876cd5e9734a77206
+- HEAD (pre-commit) = 34b6a321a69e0315f410ac0876cd5e9734a77206
 - origin/main = 34b6a321a69e0315f410ac0876cd5e9734a77206
-- remote CAS branch = ABSENT
-- staged = NONE
-- project commit/push/PR = ZERO
-- versioned changes = exact 6 paths (5 M + 1 ?? 162)
-- .tmp-sfia-review/** untracked only (QA harness)
+- staged = NONE · ahead = 0 · remote CAS branch = ABSENT
+- working-tree subject = exact 6 paths
 
 ---
 
-## 3. Template / routing / checklist / CKC
+## 3. Sources / CKC
 
 - prompts/templates/sfia-cycle-execution-template.md
 - method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 - method/sfia-fast-track/checklists/sfia-validation-checklist.md
 - method/.../04-cycle-to-ckc-routing-matrix.md
-- method/.../pilots/04-qa-validation.md
-- cycle 9 QA / validation · CKC candidate · no execution authority
+- method/.../02-fifteen-cycles-synthetic-map.md
+- Cycle 13 PR readiness · CKC candidate/fallback · no execution authority
 
 ---
 
-## 4. Incoming handoff
+## 4. Incoming QA handoff
 
-- tip = 7ca8d4147c8cc4d4177471ffe27105a94927267e
-- blob = f3a89925645a430c6d624f987406534ba548dd25
-- Cycle 8 Critical · exact 6 paths · no project commit/push/PR
-- FinOpsRolloutCasPort.compareAndSwapProjectRollout
-- single CTE: conditional UPDATE + INSERT ON CONFLICT DO NOTHING
-- pre-read diagnostic · CAS apply authority · RETURNING primary · no success post-read
-- R-T7-OP-EXPECTED-MODE-CAS-01 = RESOLUTION CANDIDATE
-- SHADOW NOT ACTIVATED · REAL APPLY ZERO
-- MATCH subject = YES
+- tip = 11904a1ac35cd2183b59db21a787a3b299da4f05
+- blob = cd146f2ab4c36c7e0ce7201186715ce759bbdb12
+- Cycle 9 Critical PASS · PRE/POST 6/6 · S01–S16 · Q01–Q20
+- absent 20/20 · existing 20/20 · rollback 10/10 · stale zero mutation
+- Neon OFF dry-run zero · CAS VALIDATED RESOLUTION CANDIDATE
+- project commit/push/PR ZERO at QA time
 
 ---
 
-## 5. Exact 6 paths + PRE hash lock 6/6
+## 5. Exact 6 paths + PRE hash 6/6
 
-| Path | SHA256 |
-|---|---|
-| projects/sfia-studio/app/lib/oa/finops/ports/finopsRolloutPort.ts | 97cee2f8bac5099ed67c470b458c96ce387f73a24bbc044852d2f6d5e8ca669d |
-| projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore.ts | f8b802481970176c6a6ed83df40d64418014c0b4cae13167ecd9699305b965af |
-| projects/sfia-studio/app/lib/oa/finops/server/operateFinOpsT7ShadowRollout.ts | 78d237d7127d894f78b39d48c43b909d29152a9c31b79745d3af39b2f62245c5 |
-| projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-activation-operator.unit.test.ts | c3d26627c6016863a464f20f62971953c5a3e6c87b6c4a9960f032af5c837b02 |
-| projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts | 1c27b1c97521fecebd577f686c80f7fa2c9f20ba1a32a19d59d4a5e92b580e8d |
-| projects/sfia-studio/162-assistant-sfia-native-openai-finops-t7-expected-mode-cas-remediation-execution.md | b038ac1c7c17eca751339a6919181a752974953e30fbd78de064a716d1bbd26f |
+- `97cee2f8bac5099ed67c470b458c96ce387f73a24bbc044852d2f6d5e8ca669d`  projects/sfia-studio/app/lib/oa/finops/ports/finopsRolloutPort.ts  (MATCH)
+- `f8b802481970176c6a6ed83df40d64418014c0b4cae13167ecd9699305b965af`  projects/sfia-studio/app/lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore.ts  (MATCH)
+- `78d237d7127d894f78b39d48c43b909d29152a9c31b79745d3af39b2f62245c5`  projects/sfia-studio/app/lib/oa/finops/server/operateFinOpsT7ShadowRollout.ts  (MATCH)
+- `c3d26627c6016863a464f20f62971953c5a3e6c87b6c4a9960f032af5c837b02`  projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-activation-operator.unit.test.ts  (MATCH)
+- `1c27b1c97521fecebd577f686c80f7fa2c9f20ba1a32a19d59d4a5e92b580e8d`  projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts  (MATCH)
+- `b038ac1c7c17eca751339a6919181a752974953e30fbd78de064a716d1bbd26f`  projects/sfia-studio/162-assistant-sfia-native-openai-finops-t7-expected-mode-cas-remediation-execution.md  (MATCH)
 
-PRE_QA_HASH_LOCK = 6/6 MATCH (identical to Cycle 8 validated handoff hashes).
-QA did not modify any Delivery path.
+PRE_COMMIT_HASH_LOCK = 6/6 MATCH
 
 ---
 
-## 6. Static S01–S16
+## 6. Staging
 
-| ID | Result | Evidence |
-|---|---|---|
-| S01 | PASS | FinOpsRolloutPort read+upsert retained |
-| S02 | PASS | CompareAndSwapProjectRolloutInput expectedMode+expectedRevision |
-| S03 | PASS | createPostgresFinOpsRolloutStore → FinOpsRolloutCasPort |
-| S04 | PASS | WHERE r.mode = e.expected_mode AND r.revision = e.expected_revision |
-| S05 | PASS | INSERT only when expected_revision IS NULL AND expected_mode = OFF |
-| S06 | PASS | ON CONFLICT DO NOTHING |
-| S07 | PASS | first-write revision = 1 |
-| S08 | PASS | existing success revision = durable + 1 |
-| S09 | PASS | CAS mismatch returns null |
-| S10 | PASS | operator apply calls compareAndSwapProjectRollout only |
-| S11 | PASS | expectedRevision: beforeRevision |
-| S12 | PASS | CAS null → EXPECTED_MODE_MISMATCH |
-| S13 | PASS | RETURNING row mode/revision checked |
-| S14 | PASS | no success-path re-read |
-| S15 | PASS | dry-run returns before CAS |
-| S16 | PASS | no migration / lock table / new dependency |
-
-SCOPE_DISCIPLINE = PASS
+STAGED_PATH_COUNT = 6
+STAGED_HASH_LOCK = 6/6 MATCH
+Explicit `git add -- <6 paths>` only · no `git add .`
 
 ---
 
-## 7. SQL atomicity findings
+## 7. Local commit
 
-ATOMIC_STATEMENT = YES
-CHECK_AND_WRITE_COUPLED = YES
-EXPECTED_MODE_IN_WRITE_PREDICATE = YES
-EXPECTED_REVISION_IN_WRITE_PREDICATE = YES
-ABSENT_FIRST_WRITER_UNIQUE_CONSTRAINT = YES
-APPLICATION_PRE_READ_IS_FINAL_AUTHORITY = NO
-POST_READ_IS_CAS_SUBSTITUTE = NO
+- COMMIT_SHA = 5d3f6086403b6394629c4268f38b571b801de8f9
+- COMMIT_PARENT = 34b6a321a69e0315f410ac0876cd5e9734a77206
+- COMMIT_SUBJECT = fix(sfia-studio): enforce atomic T7 rollout expected-mode CAS
+- commit count origin/main..HEAD = 1
+- ONE_SUBJECT = ONE_COMMIT
 
 ---
 
-## 8. Unit tests
+## 8. Post-commit proofs
 
-t7.shadow-activation-operator.unit.test.ts — 14/14 PASS
-U-CAS01..U-CAS10 covered (dry-run zero CAS; OFF/null; rev N; non-match; success; POST_APPLY; SHADOW→OFF; early mismatch no CAS; guards).
-
----
-
-## 9. PG-CAS01–08
-
-Versioned integration suite 19/19 PASS including PG-CAS01–08.
+- tracked clean except .tmp-sfia-review/**
+- staged = NONE
+- POST_COMMIT_HASH_LOCK = 6/6
+- COMMITTED_BLOB_CONTENT_HASH_LOCK = 6/6
+- origin/main...HEAD paths = exact 6 (1 CREATE 162 + 5 MODIFY)
+- remote project branch = ABSENT · PR = NONE
 
 ---
 
-## 10–13. Independent harness concurrency (sanitized)
-
-ABSENT_CONCURRENCY_ROUNDS = 20/20 PASS · SECOND_MUTATION_COUNT = 0
-EXISTING_CONCURRENCY_ROUNDS = 20/20 PASS · N_PLUS_2_COUNT = 0
-STALE_PRE_READ_SAFE = YES (capturedRev=1 → advance → CAS null → EXPECTED_MODE_MISMATCH → final OFF rev2, no SHADOW from stale)
-Direct probes D01–D08 PASS (null + unchanged)
-RETURNING proof: SUCCESS_PROOF=CAS_RETURNING · STRICT_SUCCESS_POST_READ=ABSENT
-Rollback functional PASS · stale rollback ZERO · ROLLBACK_CONCURRENCY=10/10
-Dry-run casOnDry=0
-
-Harness summary:
-```json
-{
-  "directProbes": {
-    "D01_staleOldRev": {
-      "cas": null,
-      "unchanged": true
-    },
-    "D02_futureRev": {
-      "cas": null,
-      "unchanged": true
-    },
-    "D03_wrongMode": {
-      "cas": null,
-      "unchanged": true
-    },
-    "D04_existingNullRev": {
-      "cas": null,
-      "unchanged": true
-    },
-    "D05_absentShadowNull": {
-      "cas": null,
-      "row": null
-    },
-    "D07_nonPositive": {
-      "cas": null,
-      "unchanged": true
-    },
-    "D08_otherProjectAbsent": true
-  },
-  "stalePreRead": {
-    "capturedRev": 1,
-    "casInputRev": 1,
-    "outcome": {
-      "ok": false,
-      "code": "EXPECTED_MODE_MISMATCH"
-    },
-    "final": {
-      "projectId": "sfia-studio-ops1",
-      "mode": "OFF",
-      "revision": 2,
-      "updatedAt": "2026-08-09T12:11:01.000Z"
-    },
-    "STALE_PRE_READ_SAFE": true
-  },
-  "returningProof": {
-    "actorA_success": true,
-    "actorB_later": true,
-    "SUCCESS_PROOF": "CAS_RETURNING",
-    "STRICT_SUCCESS_POST_READ": "ABSENT"
-  },
-  "absentConcurrency": {
-    "ABSENT_CONCURRENCY_ROUNDS": "20/20",
-    "SECOND_MUTATION_COUNT": 0
-  },
-  "absent_fail_rounds": [],
-  "existingConcurrency": {
-    "EXISTING_CONCURRENCY_ROUNDS": "20/20",
-    "N_PLUS_2_COUNT": 0
-  },
-  "existing_fail_rounds": [],
-  "rollback": {
-    "functional": true,
-    "staleNull": true,
-    "final": {
-      "projectId": "sfia-studio-ops1",
-      "mode": "OFF",
-      "revision": 2,
-      "updatedAt": "2026-08-09T12:30:01.000Z"
-    },
-    "STALE_ROLLBACK_MUTATION": "ZERO"
-  },
-  "rollbackConcurrency": {
-    "ROLLBACK_CONCURRENCY": "10/10"
-  },
-  "rollback_fail_rounds": [],
-  "dryRun": {
-    "dry": {
-      "ok": true,
-      "targetLabel": "dry",
-      "projectId": "sfia-studio-ops1",
-      "requestedMode": "SHADOW",
-      "expectedMode": "OFF",
-      "beforeEffectiveMode": "OFF",
-      "beforeRevision": null,
-      "afterMode": "OFF",
-      "afterRevision": null,
-      "updatedAt": null,
-      "applied": false,
-      "result": "dry_run"
-    },
-    "casOnDry": 0,
-    "zeroCas": true,
-    "row": null
-  }
-}
-```
-
----
-
-## 14. Local DB cleanup
-
-LOCAL_QA_DB_DESTROYED = YES
-LEFTOVER_CONTAINER = NO
-
----
-
-## 15. Neon fingerprint / OFF / dry-run / zero mutation
-
-Before:
-```
-{"fingerprintMatch":true,"actualFingerprint":"7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331","safeIdentity":"host=ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech\nport=5432\ndatabase=neondb","ROW_EXISTS":false,"MODE":null,"REVISION":null,"EFFECTIVE_MODE":"OFF","ROW_COUNT":0}
-```
-
-Dry-run (no --apply):
-```
-> sfia-studio@0.1.0 finops:t7:rollout
-> tsx scripts/finops-t7-shadow-rollout.ts --project sfia-studio-ops1 --mode SHADOW --expected-mode OFF --target neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot --expected-target-fingerprint 7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331
-
-{
-  "ok": true,
-  "targetLabel": "neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot",
-  "projectId": "sfia-studio-ops1",
-  "requestedMode": "SHADOW",
-  "expectedMode": "OFF",
-  "beforeEffectiveMode": "OFF",
-  "beforeRevision": null,
-  "afterMode": "OFF",
-  "afterRevision": null,
-  "updatedAt": null,
-  "applied": false,
-  "result": "dry_run"
-}
-```
-
-After:
-```
-{"fingerprintMatch":true,"actualFingerprint":"7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331","safeIdentity":"host=ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech\nport=5432\ndatabase=neondb","ROW_EXISTS":false,"MODE":null,"REVISION":null,"EFFECTIVE_MODE":"OFF","ROW_COUNT":0}
-```
-
-REAL_TARGET_MUTATION = ZERO · ROW_COUNT 0→0 · EFFECTIVE_MODE OFF
-
----
-
-## 16. Bounds / non-regression / quality
-
-Pilot-only / OFF|SHADOW / MONITOR+E1 reject / no-op / fingerprint / empty policy / signal-only / PRE∧POST — unchanged.
-Related suites 75 PASS · typecheck PASS · lint PASS · build PASS
-
----
-
-## 17. Q01–Q20
-
-| ID | Verdict |
-|---|---|
-| Q01 PRE hash lock 6/6 | PASS |
-| Q02 exact scope 6 | PASS |
-| Q03 static CAS API | PASS |
-| Q04 SQL expectedMode predicate | PASS |
-| Q05 SQL expectedRevision predicate | PASS |
-| Q06 absent first-writer | PASS |
-| Q07 PG-CAS01–08 | PASS |
-| Q08 absent concurrency single mutation | PASS |
-| Q09 absent 20/20 | PASS |
-| Q10 existing N+1 | PASS |
-| Q11 existing 20/20 | PASS |
-| Q12 stale pre-read zero mutation | PASS |
-| Q13 stale direct store probes | PASS |
-| Q14 rollback functional | PASS |
-| Q15 rollback stale zero | PASS |
-| Q16 rollback concurrency 10/10 | PASS |
-| Q17 dry-run zero CAS | PASS |
-| Q18 Neon OFF + dry-run zero | PASS |
-| Q19 non-regression + quality | PASS |
-| Q20 POST hash lock 6/6 | PASS |
-
----
-
-## 18. POST hash lock 6/6
-
-Identical to PRE / Cycle 8 validated hashes (listed §5).
-POST_QA_HASH_LOCK = 6/6
-
----
-
-## 19. Document 162 (complete; byte-identical to PRE lock)
-
-```markdown
-# 162 — FinOps T7 Expected-Mode CAS Remediation — Execution
-
-**Date/time:** 2026-08-09 16:04:17 CEST / 2026-08-09 14:04:17 UTC
-**Repo:** mcleland147/sfia-workspace
-**Baseline:** 34b6a321a69e0315f410ac0876cd5e9734a77206 (SFIA v2.6)
-**Branch (local only):** delivery/sfia-studio-finops-t7-expected-mode-cas-remediation
-**Cycle:** 8 — Delivery / implémentation
-**Profile:** Critical
-
-## Morris decision (exact)
-
-GO T7 EXPECTED-MODE CAS REMEDIATION —
-sfia-studio-ops1 —
-IMPLEMENT MINIMAL ATOMIC EXPECTED-MODE / REVISION COMPARE-AND-SWAP —
-PRESERVE OFF|SHADOW PILOT BOUNDS —
-NO REAL TARGET APPLY —
-NO SHADOW ACTIVATION.
-
-## Problem (Cycle 9 TOCTOU)
-
-Cycle 9 Critical proved:
-
-readProjectRollout → application expected-mode check → unconditional upsert → post-read.
-
-Two concurrent actors both pre-read ABSENT/OFF, both wrote, durable revision became 2, both failed only via POST_APPLY_MISMATCH after mutation.
-
-EXPECTED_MODE_CAS = NOT ATOMIC · TOCTOU = PRESENT · R-T7-OP-EXPECTED-MODE-CAS-01 OPEN BLOCKING.
-
-## Architecture before
-
-- FinOpsRolloutPort: read + unconditional upsert
-- Operator apply authority = pre-read check + upsert
-- Post-read used as mismatch detector (too late)
-
-## Architecture after
-
-- FinOpsRolloutPort unchanged for generic upsert/read consumers
-- FinOpsRolloutCasPort extends FinOpsRolloutPort with compareAndSwapProjectRollout
-- Operator apply authority = atomic CAS with (expectedMode, expectedRevision)
-- Dry-run: zero CAS / zero upsert
-- RETURNING row is primary success proof; no success-path post-read (avoids false POST_APPLY_MISMATCH when a later actor advances revision)
-
-## CAS API
+## 9. Complete commit (sanitized synthetic fixture)
 
 ```
-compareAndSwapProjectRollout({
-  projectId,
-  expectedMode,
-  expectedRevision, // null = expect absent (effective OFF first-writer)
-  mode,
-  updatedAt,
-}) -> FinOpsRolloutConfig | null
-```
+commit 5d3f6086403b6394629c4268f38b571b801de8f9
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Sun Aug 9 16:42:18 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Sun Aug 9 16:42:18 2026 +0200
 
-null = precondition not matched · zero mutation.
+    fix(sfia-studio): enforce atomic T7 rollout expected-mode CAS
 
-## Absent / OFF / null semantics
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-- expectedMode=OFF + expectedRevision=null → conditional INSERT revision=1 · ON CONFLICT DO NOTHING
-- expectedRevision=null + expectedMode≠OFF → null (zero write)
-- existing row + expectedRevision=null → null (ON CONFLICT DO NOTHING)
-
-## Existing mode/revision semantics
-
-- UPDATE WHERE project_id AND mode=expectedMode AND revision=expectedRevision
-- success → mode=requested, revision=N+1
-- mismatch mode or revision → null
-
-## SQL atomicity contract
-
-Single CTE statement: conditional UPDATE union conditional INSERT … ON CONFLICT DO NOTHING.
-Unique(project_id) guarantees exactly one first-writer.
-No migration. No advisory lock. No SERIALIZABLE required.
-
-## Operator apply flow
-
-1. Guards (pilot / mode / expected / target / no-op)
-2. Pre-read diagnostic (beforeEffectiveMode / beforeRevision)
-3. Early expected-mode mismatch → fail closed, no CAS
-4. apply=false → dry_run
-5. apply=true → compareAndSwap(expectedMode, beforeRevision, requestedMode)
-6. CAS null → EXPECTED_MODE_MISMATCH (durable state changed)
-7. CAS row mode/revision ≠ expectedAfter → POST_APPLY_MISMATCH
-8. else applied=true
-
-## Dry-run unchanged
-
-result=dry_run · applied=false · afterMode=before · afterRevision=before · zero CAS
-
-## Files (exact 6)
-
-1. ports/finopsRolloutPort.ts (MODIFY)
-2. postgresFinOpsRolloutStore.ts (MODIFY)
-3. operateFinOpsT7ShadowRollout.ts (MODIFY)
-4. t7.shadow-activation-operator.unit.test.ts (MODIFY)
-5. t7.shadow-activation-operator.integration.test.ts (MODIFY)
-6. this document 162 (CREATE)
-
-## Evidence summary
-
-- Units: U-CAS01..U-CAS10 + prior guards PASS (14)
-- PG-CAS01..PG-CAS08 PASS
-- Adversarial absent: 2 pre-reads ABSENT, 2 CAS attempts, exactly 1 success, loser EXPECTED_MODE_MISMATCH, final SHADOW rev=1
-- Adversarial existing OFF rev1: exactly 1 success, final SHADOW rev=2 (not 3)
-- Rollback: SHADOW→OFF rev2; stale SHADOW/rev1 → zero mutation
-- Neon: fingerprint MATCH; effective OFF; dry-run PASS; mutation ZERO
-- typecheck / lint / build PASS
-- LOCAL_CAS_TEST_DB_DESTROYED=YES
-
-## Secret hygiene
-
-No connection strings. Keychain inject process-only. SECRET_LEAK=NO
-
-## Reserves
-
-- R-T7-OP-EXPECTED-MODE-CAS-01 = RESOLUTION CANDIDATE (not CLOSED)
-- R-T7-OP-TARGET-BINDING-01 = VALIDATED RESOLUTION CANDIDATE (unchanged)
-- R-T7-SHADOW-OBS-01 = OPEN MINOR (unchanged / out of scope)
-- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
-- R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
-
-## Anti-claims
-
-SHADOW NOT ACTIVATED · REAL NEON APPLY ZERO · POLICY VALUES NOT SELECTED · MONITOR/E1 not authorized · LOCAL CAS PASS ≠ QA PASS ≠ MAIN INTEGRATED ≠ ACTIVATION READY · CAS remediated locally ≠ reserve CLOSED
-
-## Next gate
-
-GO TARGETED CYCLE 9 QA —
-T7 EXPECTED-MODE CAS REMEDIATION —
-EXACT DELIVERY SUBJECT —
-PROVE STALE ACTOR ZERO MUTATION —
-PROVE ABSENT + EXISTING CONCURRENCY CAS —
-VERIFY ROLLBACK CAS —
-REAL TARGET DRY-RUN ONLY —
-NO SHADOW ACTIVATION.
-
-```
-
----
-
-## 20. Complete git diff of 5 modified files (sanitized fixtures)
-
-```diff
+diff --git a/projects/sfia-studio/162-assistant-sfia-native-openai-finops-t7-expected-mode-cas-remediation-execution.md b/projects/sfia-studio/162-assistant-sfia-native-openai-finops-t7-expected-mode-cas-remediation-execution.md
+new file mode 100644
+index 0000000..78922ec
+--- /dev/null
++++ b/projects/sfia-studio/162-assistant-sfia-native-openai-finops-t7-expected-mode-cas-remediation-execution.md
+@@ -0,0 +1,135 @@
++# 162 — FinOps T7 Expected-Mode CAS Remediation — Execution
++
++**Date/time:** 2026-08-09 16:04:17 CEST / 2026-08-09 14:04:17 UTC
++**Repo:** mcleland147/sfia-workspace
++**Baseline:** 34b6a321a69e0315f410ac0876cd5e9734a77206 (SFIA v2.6)
++**Branch (local only):** delivery/sfia-studio-finops-t7-expected-mode-cas-remediation
++**Cycle:** 8 — Delivery / implémentation
++**Profile:** Critical
++
++## Morris decision (exact)
++
++GO T7 EXPECTED-MODE CAS REMEDIATION —
++sfia-studio-ops1 —
++IMPLEMENT MINIMAL ATOMIC EXPECTED-MODE / REVISION COMPARE-AND-SWAP —
++PRESERVE OFF|SHADOW PILOT BOUNDS —
++NO REAL TARGET APPLY —
++NO SHADOW ACTIVATION.
++
++## Problem (Cycle 9 TOCTOU)
++
++Cycle 9 Critical proved:
++
++readProjectRollout → application expected-mode check → unconditional upsert → post-read.
++
++Two concurrent actors both pre-read ABSENT/OFF, both wrote, durable revision became 2, both failed only via POST_APPLY_MISMATCH after mutation.
++
++EXPECTED_MODE_CAS = NOT ATOMIC · TOCTOU = PRESENT · R-T7-OP-EXPECTED-MODE-CAS-01 OPEN BLOCKING.
++
++## Architecture before
++
++- FinOpsRolloutPort: read + unconditional upsert
++- Operator apply authority = pre-read check + upsert
++- Post-read used as mismatch detector (too late)
++
++## Architecture after
++
++- FinOpsRolloutPort unchanged for generic upsert/read consumers
++- FinOpsRolloutCasPort extends FinOpsRolloutPort with compareAndSwapProjectRollout
++- Operator apply authority = atomic CAS with (expectedMode, expectedRevision)
++- Dry-run: zero CAS / zero upsert
++- RETURNING row is primary success proof; no success-path post-read (avoids false POST_APPLY_MISMATCH when a later actor advances revision)
++
++## CAS API
++
++```
++compareAndSwapProjectRollout({
++  projectId,
++  expectedMode,
++  expectedRevision, // null = expect absent (effective OFF first-writer)
++  mode,
++  updatedAt,
++}) -> FinOpsRolloutConfig | null
++```
++
++null = precondition not matched · zero mutation.
++
++## Absent / OFF / null semantics
++
++- expectedMode=OFF + expectedRevision=null → conditional INSERT revision=1 · ON CONFLICT DO NOTHING
++- expectedRevision=null + expectedMode≠OFF → null (zero write)
++- existing row + expectedRevision=null → null (ON CONFLICT DO NOTHING)
++
++## Existing mode/revision semantics
++
++- UPDATE WHERE project_id AND mode=expectedMode AND revision=expectedRevision
++- success → mode=requested, revision=N+1
++- mismatch mode or revision → null
++
++## SQL atomicity contract
++
++Single CTE statement: conditional UPDATE union conditional INSERT … ON CONFLICT DO NOTHING.
++Unique(project_id) guarantees exactly one first-writer.
++No migration. No advisory lock. No SERIALIZABLE required.
++
++## Operator apply flow
++
++1. Guards (pilot / mode / expected / target / no-op)
++2. Pre-read diagnostic (beforeEffectiveMode / beforeRevision)
++3. Early expected-mode mismatch → fail closed, no CAS
++4. apply=false → dry_run
++5. apply=true → compareAndSwap(expectedMode, beforeRevision, requestedMode)
++6. CAS null → EXPECTED_MODE_MISMATCH (durable state changed)
++7. CAS row mode/revision ≠ expectedAfter → POST_APPLY_MISMATCH
++8. else applied=true
++
++## Dry-run unchanged
++
++result=dry_run · applied=false · afterMode=before · afterRevision=before · zero CAS
++
++## Files (exact 6)
++
++1. ports/finopsRolloutPort.ts (MODIFY)
++2. postgresFinOpsRolloutStore.ts (MODIFY)
++3. operateFinOpsT7ShadowRollout.ts (MODIFY)
++4. t7.shadow-activation-operator.unit.test.ts (MODIFY)
++5. t7.shadow-activation-operator.integration.test.ts (MODIFY)
++6. this document 162 (CREATE)
++
++## Evidence summary
++
++- Units: U-CAS01..U-CAS10 + prior guards PASS (14)
++- PG-CAS01..PG-CAS08 PASS
++- Adversarial absent: 2 pre-reads ABSENT, 2 CAS attempts, exactly 1 success, loser EXPECTED_MODE_MISMATCH, final SHADOW rev=1
++- Adversarial existing OFF rev1: exactly 1 success, final SHADOW rev=2 (not 3)
++- Rollback: SHADOW→OFF rev2; stale SHADOW/rev1 → zero mutation
++- Neon: fingerprint MATCH; effective OFF; dry-run PASS; mutation ZERO
++- typecheck / lint / build PASS
++- LOCAL_CAS_TEST_DB_DESTROYED=YES
++
++## Secret hygiene
++
++No connection strings. Keychain inject process-only. SECRET_LEAK=NO
++
++## Reserves
++
++- R-T7-OP-EXPECTED-MODE-CAS-01 = RESOLUTION CANDIDATE (not CLOSED)
++- R-T7-OP-TARGET-BINDING-01 = VALIDATED RESOLUTION CANDIDATE (unchanged)
++- R-T7-SHADOW-OBS-01 = OPEN MINOR (unchanged / out of scope)
++- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
++- R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
++
++## Anti-claims
++
++SHADOW NOT ACTIVATED · REAL NEON APPLY ZERO · POLICY VALUES NOT SELECTED · MONITOR/E1 not authorized · LOCAL CAS PASS ≠ QA PASS ≠ MAIN INTEGRATED ≠ ACTIVATION READY · CAS remediated locally ≠ reserve CLOSED
++
++## Next gate
++
++GO TARGETED CYCLE 9 QA —
++T7 EXPECTED-MODE CAS REMEDIATION —
++EXACT DELIVERY SUBJECT —
++PROVE STALE ACTOR ZERO MUTATION —
++PROVE ABSENT + EXISTING CONCURRENCY CAS —
++VERIFY ROLLBACK CAS —
++REAL TARGET DRY-RUN ONLY —
++NO SHADOW ACTIVATION.
 diff --git a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
 index 414b8a6..5ccf6e6 100644
 --- a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts
@@ -1579,93 +1361,198 @@ index e50fd26..830fdaa 100644
 
 ---
 
-## 21. Secret scan
+## 10. PR tests / quality
 
-RAW_DATABASE_URL_PRESENT = NO
-REAL_PASSWORD_VALUE_PRESENT = NO
-SECRET_LEAK = NO
-(synthetic unit redaction fixture scrubbed in pack only)
+- units + PG operator/rollout: 63 PASS
+- typecheck PASS · lint PASS · build PASS
+- LOCAL_PR_DB_DESTROYED = YES
+
+Critical concurrency evidence reused by exact hash lock (Cycle 9 handoff tip/blob above). No re-run of 20/20/10 required.
 
 ---
 
-## 22. Reserves
+## 11. Neon note
+
+PR READINESS DOES NOT REVALIDATE CURRENT LIVE TARGET STATE.
+QA-locked evidence: fingerprint 7476c251…3331 · OFF · dry-run PASS · mutation ZERO.
+This cycle: real apply ZERO.
+
+---
+
+## 12. PR01–PR18
+
+| ID | Verdict |
+|---|---|
+| PR01 origin/main baseline exact | PASS |
+| PR02 branch exact | PASS |
+| PR03 one local commit only | PASS |
+| PR04 commit parent exact baseline | PASS |
+| PR05 exact 6 paths | PASS |
+| PR06 pre hash 6/6 | PASS |
+| PR07 staged hash 6/6 | PASS |
+| PR08 post commit hash 6/6 | PASS |
+| PR09 committed blobs 6/6 | PASS |
+| PR10 diff check PASS | PASS |
+| PR11 secret scan PASS | PASS |
+| PR12 QA handoff valid | PASS |
+| PR13 Critical concurrency evidence reusable by exact hash | PASS |
+| PR14 PR tests PASS | PASS |
+| PR15 typecheck/lint/build PASS | PASS |
+| PR16 no migration/dependency/workflow/out-of-scope | PASS |
+| PR17 reserves accurately represented | PASS |
+| PR18 project branch unpushed / no PR | PASS |
+
+---
+
+## 13. Secret scan
+
+RAW_REAL_DATABASE_URL = NO
+REAL_PASSWORD_VALUE = NO
+REAL_SECRET_LEAK = NO
+(synthetic unit redaction fixture scrubbed in pack)
+
+---
+
+## 14. Reserves
 
 R-T7-OP-EXPECTED-MODE-CAS-01 = VALIDATED RESOLUTION CANDIDATE —
 TARGETED CYCLE 9 QA PASS —
-ATOMIC MODE+REVISION CAS PROVEN —
-ABSENT FIRST-WRITER CONCURRENCY = ONE MUTATION —
-EXISTING ROW CONCURRENCY = N+1 ONLY —
-STALE PRE-READ = ZERO MUTATION —
-ROLLBACK CAS + CONCURRENCY VERIFIED —
-REAL TARGET NOT APPLIED —
-LOCAL DELIVERY NOT YET INTEGRATED —
-PENDING COMMIT / PR / MAIN INTEGRATION.
+QA-VALIDATED BYTES COMMITTED LOCALLY —
+EXACT 6-PATH COMMIT —
+COMMITTED HASH LOCK 6/6 —
+PR READINESS PASS —
+NOT YET ON ORIGIN BRANCH —
+NOT YET INTEGRATED MAIN —
+PENDING PUSH / PR / MERGE.
 
-R-T7-OP-TARGET-BINDING-01 = VALIDATED RESOLUTION CANDIDATE — TARGET + FINGERPRINT STABLE — PENDING MORRIS CLOSURE / ACTIVATION DECISION.
-R-T7-SHADOW-OBS-01 = OPEN MINOR — UNCHANGED.
+R-T7-OP-TARGET-BINDING-01 = VALIDATED RESOLUTION CANDIDATE — TARGET + FINGERPRINT VERIFIED — PENDING MORRIS CLOSURE / ACTIVATION DECISION.
+R-T7-SHADOW-OBS-01 = OPEN MINOR — SHADOW DECISION NOT DURABLE ON DEFAULT PATH — UNCHANGED.
 R-QA-T7-C08-SCENARIO-01 = OPEN MINOR.
 R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR.
 
 ---
 
-## 23. Anti-claims
+## 15. Anti-claims
 
+LOCAL COMMIT = AUTHORIZED
+PROJECT PUSH = NOT AUTHORIZED
+PR CREATION = NOT AUTHORIZED
+MERGE = NOT AUTHORIZED
 SHADOW = NOT ACTIVATED
 REAL NEON APPLY = ZERO
 POLICY VALUES = NOT SELECTED
 MONITOR = NOT ACTIVATED
 E1 = NOT AUTHORIZED
-QA PASS ≠ MAIN INTEGRATED
-QA PASS ≠ CAS RESERVE CLOSED
-QA PASS ≠ SHADOW ACTIVATION READY
-QA PASS ≠ MORRIS GO ACTIVATION
-LOCAL ROLLBACK TEST ≠ REAL ROLLBACK EXECUTED
-TARGET-BINDING VALIDATED ≠ RESERVE CLOSED
-OBSERVABILITY MINOR RESERVE = UNCHANGED
+PR READINESS PASS ≠ PR CREATED
+PR READINESS PASS ≠ MAIN INTEGRATED
+PR READINESS PASS ≠ SHADOW ACTIVATION READY
+CAS RESERVE ≠ CLOSED
+TARGET-BINDING RESERVE ≠ CLOSED
+QA EVIDENCE REUSED BY HASH ≠ NEW LIVE NEON VALIDATION
 
 ---
 
-## 24. Project commit / push / PR
+## 16. Future PR title
 
-ZERO / ZERO / ZERO
+fix(sfia-studio): enforce atomic T7 rollout expected-mode CAS
 
 ---
 
-## 25. Next Morris gate
+## 17. Future PR body (complete)
 
-GO LOCAL COMMIT + PR READINESS —
+## Summary
+
+- Atomic mode+revision CAS for T7 rollout operator (`FinOpsRolloutCasPort.compareAndSwapProjectRollout`)
+- Absent OFF/null first-writer semantics with `ON CONFLICT DO NOTHING`
+- Stale actor zero mutation (EXPECTED_MODE_MISMATCH before durable write)
+- RETURNING used as success authority (no success-path post-read)
+
+## Scope
+
+- Exact 6 paths (5 modify + 1 create doc 162)
+- No migration / dependency / CLI / workflow change
+- No policy values / observability remediation
+- No MONITOR/E1 activation surface expansion
+
+## QA evidence (Cycle 9 Critical — bytes locked)
+
+- PRE/POST hash lock 6/6
+- S01–S16 PASS · Q01–Q20 PASS
+- Units 14/14 · PG-CAS01–08 PASS
+- Absent concurrency 20/20 · second mutation 0 · final rev1
+- Existing concurrency 20/20 · N+2 count 0 · final N+1
+- Stale pre-read zero mutation
+- Rollback concurrency 10/10
+- Local commit `5d3f6086403b6394629c4268f38b571b801de8f9` preserves QA-validated bytes (committed blob hash 6/6)
+
+## PR readiness checks
+
+- Operator + target-binding units PASS
+- Operator + rollout PostgreSQL integration PASS (ephemeral local PG destroyed)
+- typecheck / lint / build PASS
+
+## Real target safety
+
+- Cycle 9 QA: Neon `neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot` fingerprint `7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331` remained OFF; dry-run only; mutation ZERO
+- This PR-readiness cycle performed no real Neon apply / no live revalidation
+
+## Reserves
+
+- R-T7-OP-EXPECTED-MODE-CAS-01 VALIDATED RESOLUTION CANDIDATE
+- R-T7-OP-TARGET-BINDING-01 VALIDATED RESOLUTION CANDIDATE
+- R-T7-SHADOW-OBS-01 OPEN MINOR
+- R-QA-T7-C08-SCENARIO-01 OPEN MINOR
+- R-T4-T3-SYNC-01 OPEN BEFORE MONITOR
+
+## Anti-claims
+
+- SHADOW NOT ACTIVATED
+- POLICY VALUES NOT SELECTED
+- MONITOR NOT ACTIVATED
+- E1 NOT AUTHORIZED
+- PR merge requires Morris GO
+
+
+---
+
+## 18. Project push / PR creation
+
+PROJECT_PUSH = ZERO
+PR_CREATION = ZERO
+REAL_NEON_APPLY = ZERO
+
+---
+
+## 19. Next Morris gate
+
+GO PUSH + PR CREATION —
 T7 EXPECTED-MODE CAS REMEDIATION —
-EXACT 6-PATH SUBJECT —
-TARGETED CYCLE 9 QA VALIDATED —
-NO PUSH —
-NO PR CREATION —
+EXACT LOCAL COMMIT 5d3f6086403b6394629c4268f38b571b801de8f9 —
+PR READINESS VALIDATED —
+PUSH EXACT DELIVERY BRANCH —
+CREATE PR TO MAIN —
+NO MERGE —
 NO REAL TARGET APPLY —
 NO SHADOW ACTIVATION.
 
 ---
 
-## 26. Unique verdict
+## 20. Unique verdict
 
-T7 EXPECTED-MODE CAS REMEDIATION QA PASS WITH RESERVES —
-CYCLE 9 CRITICAL —
-EXACT 6-PATH DELIVERY SUBJECT VERIFIED —
-HASH LOCK PRE/POST 6/6 —
-ATOMIC EXPECTED MODE+REVISION CAS PROVEN —
-STALE PRE-READ ZERO MUTATION —
-ABSENT CONCURRENCY 20/20 = EXACTLY ONE MUTATION / FINAL REV1 —
-EXISTING CONCURRENCY 20/20 = EXACTLY ONE MUTATION / FINAL N+1 —
-ROLLBACK CAS VERIFIED —
-ROLLBACK CONCURRENCY 10/10 —
-DRY-RUN ZERO CAS / ZERO MUTATION —
-REAL NEON TARGET VERIFIED OFF —
-REAL NEON DRY-RUN PASS / ZERO MUTATION —
-NON-REGRESSION PASS —
+T7 EXPECTED-MODE CAS REMEDIATION LOCAL COMMIT + PR READINESS PASS WITH RESERVES —
+CYCLE 13 CRITICAL —
+EXACT 6-PATH QA-VALIDATED SUBJECT COMMITTED —
+ONE LOCAL COMMIT —
+COMMIT PARENT = 34b6a321a69e0315f410ac0876cd5e9734a77206 —
+HASH LOCK PRE/STAGED/POST/COMMITTED = 6/6 —
+TARGETED CYCLE 9 QA EVIDENCE PRESERVED —
+PR TESTS PASS —
+TYPECHECK/LINT/BUILD PASS —
 R-T7-OP-EXPECTED-MODE-CAS-01 VALIDATED RESOLUTION CANDIDATE —
-R-T7-SHADOW-OBS-01 OPEN MINOR UNCHANGED —
-NO PROJECT COMMIT —
-NO PROJECT PUSH —
-NO PR —
+PROJECT BRANCH NOT PUSHED —
+PR NOT CREATED —
+REAL NEON APPLY ZERO —
 SHADOW NOT ACTIVATED —
 POLICY VALUES NOT SELECTED —
-READY FOR MORRIS GO LOCAL COMMIT + PR READINESS —
+READY FOR MORRIS GO PUSH + PR CREATION —
 HANDOFF REMOTE VERIFIED
