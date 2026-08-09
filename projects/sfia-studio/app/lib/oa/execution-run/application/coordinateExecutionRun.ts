@@ -248,6 +248,13 @@ async function captureFinOpsAfterAiSuccess(args: {
   readonly run: ExecutionRun;
   readonly usage: UsageSummary;
   readonly providerSucceeded: boolean;
+  /**
+   * Transient Option C PRE hint from evaluateBeforeProvider.
+   * - "ineligible" ⇒ short-circuit capture (no port call)
+   * - "eligible" | undefined ⇒ call capture port (POST gate / legacy)
+   * Local to this coordinateExecutionRun call only — no registry/cache.
+   */
+  readonly captureEligibility?: "eligible" | "ineligible";
 }): Promise<FinOpsCaptureDiagnostic> {
   if (args.run.intent.requestedLane !== "ai") {
     return finopsNotAttempted("non_ai_lane");
@@ -257,6 +264,14 @@ async function captureFinOpsAfterAiSuccess(args: {
   }
   if (!args.deps.finops) {
     return finopsDisabled();
+  }
+  // Option C PRE gate: captureEligibility === "ineligible" prevents capture port call.
+  // undefined preserves legacy FinOps compositions without temporal gate.
+  if (args.captureEligibility === "ineligible") {
+    return {
+      status: "disabled",
+      reason: "finops_pre_provider_capture_ineligible",
+    };
   }
   try {
     return await args.deps.finops.captureUsage({
@@ -1053,6 +1068,9 @@ export async function coordinateExecutionRun(
   // T4 ENF-B: after create + pre-engagement, before intent_valid / provider.
   // Absent dependency ⇒ inert. allow/soft_signal/failed/throw ⇒ fail-open continue.
   // block ⇒ HUMAN_GATE_REQUIRED; provider never attempted/invoked.
+  // Option C: optional captureEligibility is kept in this call-local variable only
+  // (no Map/registry/cache). Undefined ⇒ legacy capture behavior.
+  let captureEligibility: FinOpsEnforcementDecision["captureEligibility"];
   if (deps.finopsEnforcement) {
     let enforcementDecision: FinOpsEnforcementDecision;
     try {
@@ -1069,6 +1087,8 @@ export async function coordinateExecutionRun(
         finopsSideOnly: true,
       };
     }
+
+    captureEligibility = enforcementDecision.captureEligibility;
 
     if (enforcementDecision.decision === "block") {
       const enforcementFailure = normalizedFailure({
@@ -1188,12 +1208,14 @@ export async function coordinateExecutionRun(
   }
 
   // Fail-open FinOps capture: never convert provider success into user failure.
+  // Option C: pass call-local PRE captureEligibility (undefined = legacy).
   const runForCapture = terminal.result.run ?? current;
   const finopsCapture = await captureFinOpsAfterAiSuccess({
     deps,
     run: runForCapture,
     usage: terminal.usage,
     providerSucceeded,
+    captureEligibility,
   });
 
   if (!terminal.result.ok) {

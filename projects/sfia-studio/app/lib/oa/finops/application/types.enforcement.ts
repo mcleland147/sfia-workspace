@@ -76,12 +76,29 @@ export type FinOpsEnforcementDecisionProvenance = {
   readonly rebuiltAt: string;
 };
 
+/**
+ * Transient T7 SHADOW Option C dual-gate hint (PRE_WAS_SHADOW).
+ *
+ * Anti-claims:
+ * - optional — absent means legacy capture behavior (no temporal gate)
+ * - internal only — not a public/product API
+ * - transient — lives only within one coordinateExecutionRun call stack
+ * - not persisted — not a durable event / DB column / audit SoT
+ * - does not enforce provider path — capture gate ≠ provider gate
+ */
+export type FinOpsCaptureEligibility = "eligible" | "ineligible";
+
 export type FinOpsEnforcementDecision = {
   readonly decision: FinOpsEnforcementDecisionKind;
   readonly reason: string;
   /** True when FinOps-side technical failure — never means BLOCK. */
   readonly finopsSideOnly?: true;
   readonly provenance?: FinOpsEnforcementDecisionProvenance;
+  /**
+   * Optional transient capture eligibility from PRE FinOps evaluation.
+   * Absent ⇒ preserve historical capture behavior for non-T7 / legacy ports.
+   */
+  readonly captureEligibility?: FinOpsCaptureEligibility;
 };
 
 export type EvaluateFinOpsEnforcementInput = {

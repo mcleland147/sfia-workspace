@@ -90,23 +90,39 @@ function assertServerOnly(): void {
   }
 }
 
-function allow(reason: string): FinOpsEnforcementDecision {
-  return { decision: "allow", reason };
+function allow(
+  reason: string,
+  captureEligibility: FinOpsEnforcementDecision["captureEligibility"],
+): FinOpsEnforcementDecision {
+  return {
+    decision: "allow",
+    reason,
+    ...(captureEligibility ? { captureEligibility } : {}),
+  };
 }
 
-function failed(reason: string): FinOpsEnforcementDecision {
-  return { decision: "failed", reason, finopsSideOnly: true };
+function failed(
+  reason: string,
+  captureEligibility: FinOpsEnforcementDecision["captureEligibility"],
+): FinOpsEnforcementDecision {
+  return {
+    decision: "failed",
+    reason,
+    finopsSideOnly: true,
+    ...(captureEligibility ? { captureEligibility } : {}),
+  };
 }
 
 /**
  * Defense-in-depth: SHADOW path must never surface `block` to the coordinator.
  * Exported for focused unit proof (T7-SW06).
+ * Preserves optional transient captureEligibility (Option C PRE latch).
  */
 export function ensureShadowNeverBlocks(
   decision: FinOpsEnforcementDecision,
 ): FinOpsEnforcementDecision {
   if (decision.decision === "block") {
-    return failed("shadow_block_forbidden");
+    return failed("shadow_block_forbidden", decision.captureEligibility);
   }
   return decision;
 }
@@ -145,13 +161,17 @@ export function composeFinOpsT7ShadowExecutionDeps(
   const finopsEnforcement: FinOpsEnforcementPort = {
     async evaluateBeforeProvider(evalInput) {
       let mode: FinOpsT7ShadowDecisionDiagnostic["mode"] = "unresolved";
+      // Option C: PRE_WAS_SHADOW only after pilot + resolved SHADOW mode.
+      // Policy success/failure does not affect temporal eligibility.
+      let captureEligibility: FinOpsEnforcementDecision["captureEligibility"] =
+        "ineligible";
       try {
         const projectId =
           typeof evalInput.projectId === "string"
             ? evalInput.projectId.trim()
             : "";
         if (!projectId || projectId !== pilotProjectId) {
-          const decision = allow("non_pilot_inert");
+          const decision = allow("non_pilot_inert", "ineligible");
           await emitShadowDecision(input.onShadowDecision, {
             projectId: projectId || "",
             mode: "OFF",
@@ -166,7 +186,7 @@ export function composeFinOpsT7ShadowExecutionDeps(
         try {
           instruction = await t7.resolveProjectRollout(projectId);
         } catch {
-          const decision = failed("rollout_resolve_failed");
+          const decision = failed("rollout_resolve_failed", "ineligible");
           await emitShadowDecision(input.onShadowDecision, {
             projectId,
             mode: "unresolved",
@@ -181,7 +201,7 @@ export function composeFinOpsT7ShadowExecutionDeps(
 
         if (instruction.mode !== "SHADOW") {
           // OFF / MONITOR / E1_ENFORCED / inert — this adapter does not activate them.
-          const decision = allow("rollout_not_shadow_inert");
+          const decision = allow("rollout_not_shadow_inert", "ineligible");
           await emitShadowDecision(input.onShadowDecision, {
             projectId,
             mode,
@@ -191,6 +211,9 @@ export function composeFinOpsT7ShadowExecutionDeps(
           });
           return decision;
         }
+
+        // PRE_WAS_SHADOW proven — eligibility is mode-based, not policy-based.
+        captureEligibility = "eligible";
 
         const port = createFinOpsEnforcementPort({
           projection,
@@ -211,9 +234,11 @@ export function composeFinOpsT7ShadowExecutionDeps(
           },
         });
 
-        const decision = ensureShadowNeverBlocks(
-          await port.evaluateBeforeProvider(evalInput),
-        );
+        const evaluated = await port.evaluateBeforeProvider(evalInput);
+        const decision = ensureShadowNeverBlocks({
+          ...evaluated,
+          captureEligibility,
+        });
 
         await emitShadowDecision(input.onShadowDecision, {
           projectId,
@@ -224,7 +249,8 @@ export function composeFinOpsT7ShadowExecutionDeps(
         });
         return decision;
       } catch {
-        const decision = failed("shadow_adapter_failed");
+        // If PRE SHADOW was already proven, keep eligibility across adapter failure.
+        const decision = failed("shadow_adapter_failed", captureEligibility);
         await emitShadowDecision(input.onShadowDecision, {
           projectId:
             typeof evalInput.projectId === "string"
