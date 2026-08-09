@@ -1,20 +1,21 @@
-# SFIA Review Pack — Light
+# SFIA Review Pack — FULL
 
 | Champ | Valeur |
 |-------|--------|
-| **Rôle** | Product Restart — Cycle 1 Cadrage |
+| **Rôle** | Cycle 8 Delivery — Workspace → OPS1 continuity |
 | **Profil** | Standard |
-| **Typologie** | EVOL / cadrage produit, read-only |
-| **Timestamp CEST** | 2026-08-10 01:30:37 CEST |
-| **Timestamp UTC** | 2026-08-09 23:30:37 UTC |
-| **Branche** | `main` |
-| **HEAD** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
-| **origin/main** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
-| **git status (tracked)** | clean |
-| **Untracked acceptable** | `.tmp-sfia-review/**` |
+| **Typologie** | INC — incrément produit borné |
+| **GO Morris consommé** | `GO DELIVERY OPTION A — WORKSPACE → OPS1 / CONTROL TOWER` |
+| **Timestamp CEST** | 2026-08-10 01:59:34 CEST |
+| **Timestamp UTC** | 2026-08-09 23:59:34 UTC |
+| **Branche** | `delivery/sfia-studio-workspace-ops1-continuity` |
+| **Base SHA / origin/main** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
+| **HEAD projet** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` (aucun commit projet) |
+| **Working tree avant** | tracked clean ; `?? .tmp-sfia-review/` |
+| **Working tree après** | 7 fichiers tracked modifiés + 1 test créé ; non commités |
 | **Synthesis-only** | NO |
-| **CKC** | `pilots/01-cadrage.md` — candidate / experimental cognitive guidance / aucune autorité d’exécution |
-| **Baseline méthode** | SFIA v2.6 opérationnelle (v2.5 candidate = historique absorbé uniquement) |
+| **CKC** | fallback `02-fifteen-cycles-synthetic-map.md` + v2.5 §4.8 — method-candidate / aucune autorité |
+| **Correction numérotation** | handoff entrant « Cycle 5 » = erreur ; cycle canonique = **8 — Delivery** (handoff entrant non modifié) |
 
 ---
 
@@ -22,322 +23,638 @@
 
 | Contrôle | Résultat |
 |----------|----------|
-| Git truth check | PASS — HEAD = origin/main = `6e851777…` (merge PR #327 FinOps Phase 1) |
-| Tracked worktree | clean |
-| Project tracked mutations | **0** |
-| Project commits | **0** |
-| Project pushes | **0** |
-| Provider calls (OpenAI/Cursor real/GitHub write/Neon) | **0** |
+| Base drift | PASS — HEAD = origin/main = `6e851777…` |
+| Dirty worktree initial | PASS — tracked clean |
+| Branch existence | PASS — créée localement ; absente sur origin |
+| Project commit | **0** |
+| Project push | **0** |
+| PR | **0** |
+| Provider OpenAI live | **0** |
+| Cursor real | **0** |
+| GitHub write | **0** |
+| Neon | **0** |
 | FinOps development | **0** |
-| STOP FINOPS | respecté — réserves Live Costs / R-T4-T3-SYNC-01 transportées comme contexte uniquement |
+| Migrations | **0** |
+| Backend/domain model changes | **0** |
+| OPS1 actions/types/repository/db | **0** |
+| ExecutionRun changes | **0** |
 
 ---
 
-## 1. Sources méthode consultées (Git main)
+## 1. Sources méthode / produit / handoff entrant
 
+### Méthode
 - `prompts/templates/sfia-cycle-execution-template.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
 - `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/04-cycle-to-ckc-routing-matrix.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` (**historique/candidate**, non baseline)
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` (fallback)
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` (historique/candidate)
 
-Principes CKC appliqués : intention ≠ solution ; finalité/valeur utilisateur ; bénéficiaire ; périmètre/hors périmètre ; contraintes ; risques structurants ; critères de succès ; inconnues critiques ; pas de mini-conception ; cycle suivant non ouvert automatiquement.
+### Handoff entrant
+- `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+- Rôle : Product Restart — Cycle 1 Cadrage
+- Base `6e851777…`
+- Verdict cadrage : PRODUCT RESTART CADRAGE READY / Option A recommandée
 
----
-
-## 2. Sources produit consultées
-
-### Cadrage Control Tower
-- `projects/sfia-studio/66-control-tower-product-framing.md`
-- `projects/sfia-studio/67-control-tower-capabilities-and-user-journeys.md`
-- `projects/sfia-studio/68-control-tower-scope-success-criteria-and-risks.md`
-- `projects/sfia-studio/69-control-tower-options-and-decision-pack.md`
-
-### Fast Track Control Tower
-- `projects/sfia-studio/70-…architecture-and-contract.md`
-- `projects/sfia-studio/71-…backlog-and-delivery.md`
-- `projects/sfia-studio/72-…decision-pack.md`
-- `projects/sfia-studio/73-…delivery-report.md`
-
-**Stale metadata identifiés (docs ≠ Git courant) :**
-- Doc `70` statut « plan-open / non implémenté » — **stale** : le code Control Tower tools + reinjection est sur main via #254.
-- Doc `73` « branche locale non poussée / HEAD 32e527… » — **stale** : capacités listées présentes sur main ; ne pas traiter le metadata historique comme vérité.
-
-**Règle appliquée :** Git courant + code + runtime prime sur metadata documentaire.
+### Produit
+- `projects/sfia-studio/66`–`73` Control Tower (metadata 70/73 stale possibles ; code main prime)
 
 ---
 
-## 3. Historique produit reconstruit (minimum demandé + post-merges)
+## 2. Diagnostic technique (avant)
 
-| Merge | Contenu produit | État sur main |
-|-------|-----------------|---------------|
-| #254 | Control Tower + AI-guided intake foundation | Présent (OPS1 tools, D1 intake, report reinjection) |
-| #294 | V2-A2 Create Project UI | Présent `/studio/projects/new` |
-| #295 | V2-A3 Project Workspace UI | Présent `/studio/projects/[id]` |
-| #308 | V3.1-D2-D1 Execution Run foundation | Présent moteur `lib/oa/execution-run/**` — **pas d’UI produit** |
-| #309–#311 | D2-D2/D3 adapters + e2e + REX | Moteurs/tests — pas de cockpit ExecutionRun |
-| #297–#303 | V3.1 catalog / CKC / qualify-cycle bridge | Moteurs cycle — exposition UI partielle (VS/D1), absente du Studio workspace |
-| #312–#327 | FinOps Phase 1 | Clos avec réserves — **hors scope** de ce cycle |
+`ProjectWorkspaceView` n’offrait que « Créer un autre projet ».
+OPS1 accessible séparément via `/ops1/nouvelle-demande`.
+`ops1CreateSessionAction` n’accepte que `mode` — **non modifié**.
+Aucun Project ID dans CycleSession.
 
 ---
 
-## 4. Runtime observation
+## 3. Design minimal réalisé
+
+1. CTA primaire **Continuer le pilotage** → `/ops1/nouvelle-demande?projectId=<encoded>`
+2. CTA secondaire **Créer un autre projet** conservée
+3. `NouvelleDemandePageClient` parse/valide `projectId` (préfixe `prj:` + suffixe non vide, max 128, sans whitespace) — **navigation-only**
+4. Invalid/absent → comportement OPS1 historique
+5. `Ops1SessionScreen` affiche bandeau « Projet Studio courant » + microcopy anti-binding + **Retour au workspace**
+6. Aucune création de session implicite
+7. Fixture reste le défaut
+
+---
+
+## 4. Fichiers modifiés / créés
+
+### Production (5)
+- `projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx`
+- `projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css`
+- `projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx`
+- `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx`
+- `projects/sfia-studio/app/features/ops1/ops1-session.module.css`
+
+### Tests (3)
+- `projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx` (modifié)
+- `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx` (modifié)
+- `projects/sfia-studio/app/__tests__/ops1/workspaceOps1Continuity.test.tsx` (**créé**)
+
+**Justification nouveau test :** `globalModeBadge.ui.test.tsx` hardcode `URLSearchParams()` vide ; `Ops1SessionScreen.test.tsx` ne couvre pas le parsing `NouvelleDemandePageClient`.
+
+**Total fichiers tracked touchés :** 8 (≤6 production ; OK)
+
+---
+
+## 5. Critères AC-01…AC-12
+
+| AC | Résultat | Preuve |
+|----|----------|--------|
+| AC-01 Workspace CTA | **PASS** | UI + `projectWorkspaceUi.test.tsx` + runtime screenshot 01 |
+| AC-02 Destination encodée | **PASS** | href `?projectId=prj%3A…` |
+| AC-03 Secondary CTA | **PASS** | Créer un autre projet → `/studio/projects/new` |
+| AC-04 OPS1 contexte | **PASS** | bandeau + tests continuity + screenshot 02 |
+| AC-05 Anti-claim | **PASS** | microcopy « navigation uniquement / pas liée ni persistée » |
+| AC-06 Retour | **PASS** | lien `/studio/projects/<encoded>` |
+| AC-07 OPS1 historique | **PASS** | sans projectId → pas de bandeau |
+| AC-08 Query invalide | **PASS** | ignorée ; OPS1 intact |
+| AC-09 Pas de session implicite | **PASS** | create non appelé au load ; empty state |
+| AC-10 Fixture intacte | **PASS** | session fixture créée volontairement ; screenshot 03 |
+| AC-11 Gates intactes | **PASS** | aucun changement actions/gates ; projectId display-only |
+| AC-12 Aucune nouvelle autorité | **PASS** | projectId non passé à actions/backend |
+
+---
+
+## 6. Tests & checks
+
+| Check | Résultat |
+|-------|----------|
+| Targeted vitest (workspace + OPS1 continuity + globalModeBadge) | **PASS** 17/17 |
+| `npx vitest run --exclude '__tests__/oa/finops/postgres/**'` | **PASS** 153 files / 1576 tests |
+| `npm test` (inclut FinOps postgres) | **FAIL env** — `ECONNREFUSED 127.0.0.1:55479` sur `__tests__/oa/finops/postgres/**` uniquement ; hors scope FinOps ; Docker Postgres non disponible |
+| `npm run typecheck` | **PASS** |
+| `npm run lint` | **PASS** |
+| `npm run build` | **PASS** |
+| `git diff --check` | **PASS** |
+| Accessibility (axe workspace test existant) | **PASS** (violations = []) |
+
+---
+
+## 7. Runtime fixture
 
 | Champ | Valeur |
 |-------|--------|
-| Runtime lancé | **YES** |
-| Commande | `npm run dev` (port **3020**) dans `projects/sfia-studio/app` |
-| Modes | fixture/local uniquement ; `OPS1_CURSOR_REAL` unset ; pas de clé OpenAI forcée |
-| Captures | 3 sous `.tmp-sfia-review/product-restart/screenshots/` |
+| Runtime | **YES** — `npm run dev` :3020 ; fixture/local ; no OpenAI/Cursor real |
+| Routes | `/studio/projects/new` → workspace → `/ops1/nouvelle-demande?projectId=prj%3A4c24a450-…` |
+| Project démo | `prj:4c24a450-85cf-43fe-89cd-ebdf74789427` |
+| Session fixture | `ops1-sess-863d5a95-7abe-4c54-92cd-60675d8124cf` ; `projectKey=sfia-studio-ops1` (non relié) |
+| Captures | `.tmp-sfia-review/workspace-ops1-continuity/screenshots/01-workspace-cta.png` ; `02-ops1-project-context.png` ; `03-ops1-fixture-session.png` |
 
-### Captures produites
-1. `01-create-project.png` — `/studio/projects/new`
-2. `02-project-workspace.png` — `/studio/projects/prj:f6f7ff33-3337-4909-8d3e-2bae9bc80d09`
-3. `03-ops1-control-tower.png` — `/ops1/nouvelle-demande`
-
-### Projet démo créé via UI
-- Nom : `Product Restart Demo`
-- Project ID : `prj:f6f7ff33-3337-4909-8d3e-2bae9bc80d09`
-- LPS : `lps:cc64c546-b06d-4c9c-98f6-6e5ad99a7862`
-- Source UI : `REAL_LOCAL_CORE` / fixture=false
-- Disclosures runtime : `LOCAL_PROCESS` · `NOT_GUARANTEED` · `AGENT DISABLED` · `NOT_READY` · `RUN READY=false` · `PRODUCT READY=false`
-
-### Routes réellement observées (runtime)
-- `/studio/projects/new` — création operable
-- `/studio/projects/[id]` — workspace projection operable
-- `/ops1/nouvelle-demande` — OPS1/Control Tower fixture create-session operable (live GPT disabled sans clés)
-
-### Routes identifiées code (page.tsx) au-delà de STUDIO_ROUTES
-`/`, `/synthese`, `/nouvelle-demande`, `/ops1/nouvelle-demande`, `/cycle-actif`, `/decision`, `/workspace`, `/projects/[id]`, `/projects/new`, `/studio/projects/new`, `/studio/projects/[id]`
-
-Rail utilitaire expose aussi : Workspace D1 (`W`), OPS1 legacy (`O`) — hors rail principal.
+Note runtime : clic Next.js Link parfois non navigué par l’automate browser ; destination vérifiée via href déterministe + navigation URL équivalente (même query).
 
 ---
 
-## 5. Matrice de vérité produit
+## 8. Réserves
 
-Légende états : **V+O** = Visible + Operable · **V-LIM** = Visible mais limité/local/fixture · **ENG** = Moteur implémenté mal exposé · **FRAG** = Fragmenté · **DOC** = Documenté non prouvé code courant · **ABS** = Absent · **HIST** = Historique/obsolète
-
-| # | Capacité | État | Route / surface | Fichiers source (preuves) | Preuve test/runtime | Valeur utilisateur actuelle | Limitation | Maturité | Dette / dépendance |
-|---|----------|------|-----------------|---------------------------|---------------------|----------------------------|------------|----------|--------------------|
-| 1 | Création projet Studio | **V+O** | `/studio/projects/new` | `CreateProjectForm.tsx`, `vertical-slice-runtime/actions` | Runtime create OK ; tests `__tests__/vertical-slice-ui/**` | Démarre un Project+LPS réel local | Process-local volatil ; NOT_READY | Slice V2-A2 stable | Persistence/IAM non requis pour valeur locale |
-| 2 | Ouverture workspace projet | **V+O** | `/studio/projects/[id]` | `ProjectWorkspaceClient/View.tsx` | Runtime projection OK | Voir contexte Project/LPS/doctrine | Lecture seule ; CTA suivante = « créer un autre » | Slice V2-A3 stable | Pas de suite produit |
-| 3 | Contexte / LPS | **V-LIM** | Workspace Studio | core V1 + LPS projection | Runtime montre LPS + doctrine digest | Transparence locale | Pas d’édition LPS ; volatil | Core local | Persistence produit NON urgente pour démo |
-| 4 | Conversation utilisateur | **FRAG** | D1 `/nouvelle-demande` ; OPS1 `/ops1/nouvelle-demande` ; Nora shell disabled | `IntakeView.tsx`, `Ops1SessionScreen.tsx` | Runtime OPS1 fixture create ; Nora chat disabled | Expliquer un besoin (2 modèles) | Non relié au Studio Project | Fort en OPS1 fixture | Dual model D1 vs OPS1 vs Studio |
-| 5 | Cadrage / qualification SFIA | **FRAG** | VS `?vs` ; D1 intake propositions ; OPS1 qualify-not-required | `VsNouvelleDemandeScreen.tsx`, `qualifyAction.ts`, D1 intake | Tests D1/VS ; runtime non forcé live | Qualification partielle / fixture | Pas dans Studio workspace | Moteurs présents | Bridging manquant |
-| 6 | Sources repo-informed | **V-LIM** | OPS1 panneau « Sources & outils (Control Tower) » | `lib/ops1/tools/**`, `platform/tools/toolRouter.ts`, `gitLocalReadAdapter` | Tests `controlTowerTools.test.ts` ; runtime fixture markers | Lecture Git/GitHub bornée en session OPS1 | Hors workspace Studio ; live gated | CT FT sur main | Pas de write |
-| 7 | ActionCandidate | **V-LIM** | OPS1 session | `ops1/actions.ts`, `Ops1SessionScreen.tsx` | UI + tests OPS1 | Préparer action bornée | Isolé de Project Studio | Mature slice OPS1 | Binding projet manquant |
-| 8 | Gate humain | **V-LIM** | OPS1 gate UI | `actionGate.ts`, Ops1 UI | UI gate + tests | Décider avant exécution | Non dans parcours Studio create→workspace | Mature OPS1 | — |
-| 9 | ExecutionContract | **V-LIM** | OPS1 | `executionContractService.ts` | Tests I3–I6 | Contrat scellé avant run | Invisible hors OPS1 | Mature OPS1 | — |
-| 10 | Cursor execution | **V-LIM** | OPS1 | `cursorExecutionAdapter.ts` | Fixture default ; real gated `OPS1_CURSOR_REAL=1` | Exécution bornée démontrable en fixture | Real disabled par défaut (voulu) | Mature OPS1 | Ne pas ouvrir real sans GO |
-| 11 | Rapport / preuves | **V-LIM** | OPS1 I6 | `reportService.ts`, `reportReinjection.ts` | UI + reinjection CT | Voir résultat + réinjecter | Pas de surface Preuves rail (disabled simulé) | Mature OPS1/CT | — |
-| 12 | Réinjection / continuation | **V-LIM** | OPS1 | `generateReportAndReinject` | Code + UI `ct-reinjection-turn` | Continuer après exécution | Isolé ; I7 absent | CT FT | — |
-| 13 | ExecutionRun | **ENG** | Aucune route UI | `lib/oa/execution-run/**` | Tests D2-D1+ ; **0 UI features/app** | Aucune valeur visible utilisateur | Socle domaine/runtime | Fondation | UI prématurée sans parcours |
-| 14 | Timeline / état | **FRAG** | OPS1 timeline partielle ; D1 audit ; rail Preuves disabled | Ops1SessionScreen ; D1 cockpit | Runtime OPS1 ; Preuves simulé disabled | Visibilité partielle | Pas unifiée produit | Partiel | Unification = dette non urgente |
-| 15 | Git / GitHub read | **V-LIM** | OPS1 tools | adapters + tool router | Tests CT | Sources visibles en session | Pas Studio workspace | Présent | Write interdit |
-| 16 | PR / readiness | **ABS** (UI) | — | disclosures readiness locally only | Runtime pills NOT_READY | Signal honnête local | Pas de readiness GitHub produit | N/A | Hors scope |
-| 17 | Navigation / cockpit | **FRAG** | Shell + D1 + Studio + OPS1 | `navigation.ts`, `UtilityRail.tsx`, shells | Runtime | Entrée multiple confuse | 3 modèles projet ; POC flush screens | Shell mature, parcours non | Consolidation nécessaire |
+1. `npm test` global échoue sur suite FinOps postgres (env) — non introduit par cette slice ; FinOps non rouvert.
+2. Automate browser a nécessité navigation directe pour confirmer la route OPS1 (href CTA validé séparément).
+3. Overlay Next.js « Issues » visible en dev — hors scope polish.
 
 ---
 
-## 6. Parcours utilisateur réellement possible aujourd’hui
+## 9. FULL DIFF — fichiers tracked modifiés
 
-Grille de référence (non architecture future) :
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+index b21a56a..597484e 100644
+--- a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
++++ b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+@@ -8,6 +8,21 @@ const get = vi.fn();
+ const send = vi.fn();
+ const liveConfig = vi.fn();
 
-| Étape | Possible aujourd’hui ? | Comment |
-|-------|------------------------|---------|
-| Entrer dans Studio | OUI | Shell `/synthese` etc. |
-| Créer / ouvrir un projet | OUI (Studio V2) | Create → Open workspace |
-| Expliquer son besoin | PARTIEL | D1 intake **ou** OPS1 conversation — **pas** depuis Studio workspace |
-| Être guidé par SFIA | PARTIEL | VS qualify / D1 propositions / OPS1 — fragmenté |
-| Comprendre cycle / recommandation | FAIBLE | Cycle actif = POC visual ; catalog moteur peu exposé workspace |
-| Décider | PARTIEL | Gate OPS1 oui ; page Décision = POC visual |
-| Lancer action bornée | OUI (OPS1 fixture) | Hors lien Project Studio |
-| Voir exécution / preuves | OUI (OPS1) | Rail Preuves simulé disabled |
-| Poursuivre le projet | FAIBLE | Workspace CTA = créer un autre ; D1 dit cycle C4/C5 non disponible |
++vi.mock("next/link", () => ({
++  default: ({
++    children,
++    href,
++    ...props
++  }: {
++    children: React.ReactNode;
++    href: string;
++  }) => (
++    <a href={href} {...props}>
++      {children}
++    </a>
++  ),
++}));
++
+ vi.mock("@/lib/ops1/actions", () => ({
+   ops1CreateSessionAction: (...args: unknown[]) => create(...args),
+   ops1GetSessionAction: (...args: unknown[]) => get(...args),
+@@ -104,6 +119,32 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
+     expect(screen.getByTestId("ops1-create-mode-selector")).toBeInTheDocument();
+     expect(screen.getByTestId("ops1-badge-live-unavailable")).toBeInTheDocument();
+     expect(screen.getByTestId("ops1-create-mode-live")).toBeDisabled();
++    expect(
++      screen.queryByTestId("ops1-studio-project-nav-context"),
++    ).toBeNull();
++  });
++
++  it("renders navigation-only Studio Project context without creating a session", async () => {
++    const projectId = "prj:continuity-1";
++    render(
++      <Ops1SessionScreen
++        projectNavigationContext={{ projectId }}
++      />,
++    );
++    await waitFor(() => {
++      expect(screen.getByTestId("ops1-empty-state")).toBeInTheDocument();
++    });
++    expect(screen.getByTestId("ops1-studio-project-nav-context")).toBeVisible();
++    expect(screen.getByTestId("ops1-studio-project-id")).toHaveTextContent(
++      projectId,
++    );
++    expect(
++      screen.getByRole("link", { name: "Retour au workspace" }),
++    ).toHaveAttribute(
++      "href",
++      `/studio/projects/${encodeURIComponent(projectId)}`,
++    );
++    expect(create).not.toHaveBeenCalled();
+   });
 
-**Parcours démontrable le plus cohérent aujourd’hui (mais discontinu) :**
-1. Créer Project Studio → ouvrir workspace (**fin de piste**)
-2. *Saut manuel* rail `O` → `/ops1/nouvelle-demande` → session fixture → conversation / ActionCandidate / gate / Cursor fixture / rapport
+   it("creates fixture session locked and refuses interactive mode change", async () => {
+diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx b/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
+index fde151e..25f100c 100644
+--- a/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
++++ b/projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx
+@@ -151,12 +151,25 @@ describe("V2-A3 Project Workspace UI", () => {
+     expect(
+       within(screen.getByLabelText("Contraintes")).getAllByText("Sans IAM"),
+     ).toHaveLength(2);
++    const continuePilotage = screen.getByRole("link", {
++      name: "Continuer le pilotage",
++    });
++    expect(continuePilotage).toBeVisible();
++    expect(continuePilotage).toHaveAttribute(
++      "href",
++      `/ops1/nouvelle-demande?projectId=${encodeURIComponent("prj:v2-a3-1")}`,
++    );
++    expect(screen.getByTestId("workspace-continue-pilotage")).toBe(
++      continuePilotage,
++    );
+     expect(
+       screen.getByRole("link", { name: "Créer un autre projet" }),
+     ).toHaveAttribute("href", "/studio/projects/new");
+     expect(screen.queryByText(/\brecommendation engine\b/i)).toBeNull();
+     expect(screen.queryByText(/\borchestrateur\b/i)).toBeNull();
+     expect(screen.queryByRole("heading", { name: /dashboard/i })).toBeNull();
++    expect(screen.queryByText(/Project lié à OPS1/i)).toBeNull();
++    expect(screen.queryByText(/Workspace connecté/i)).toBeNull();
+   });
+
+   it("loads the workspace through getProjectRuntimeAction", async () => {
+diff --git a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx b/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
+index bc5642a..404cfdb 100644
+--- a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
++++ b/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
+@@ -11,6 +11,21 @@ import {
+   type GlobalModeContext,
+ } from "@/lib/ops1/globalModeBadge";
+
++/** Navigation-only Studio Project id — never trusted as OPS1 domain input. */
++const STUDIO_PROJECT_NAV_ID_MAX_LEN = 128;
++
++function parseStudioProjectNavigationId(
++  raw: string | null,
++): string | null {
++  if (raw == null) return null;
++  const value = raw.trim();
++  if (!value) return null;
++  if (value.length > STUDIO_PROJECT_NAV_ID_MAX_LEN) return null;
++  // Require non-empty Studio Project suffix after the canonical prefix.
++  if (!/^prj:[^\s]+$/.test(value)) return null;
++  return value;
++}
++
+ const COPILOT = {
+   variant: "flush" as const,
+   name: "Nora · SFIA Copilot",
+@@ -38,6 +53,9 @@ function NouvelleDemandeBody({
+ }) {
+   const params = useSearchParams();
+   const vsMode = params.has("vs");
++  const projectNavigationId = parseStudioProjectNavigationId(
++    params.get("projectId"),
++  );
+
+   if (vsMode) {
+     return (
+@@ -50,6 +68,11 @@ function NouvelleDemandeBody({
+   return (
+     <Ops1SessionScreen
+       onGlobalModeContextChange={onGlobalModeContextChange}
++      projectNavigationContext={
++        projectNavigationId
++          ? { projectId: projectNavigationId }
++          : undefined
++      }
+     />
+   );
+ }
+diff --git a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+index 194e8a3..3012e76 100644
+--- a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
++++ b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+@@ -1,5 +1,6 @@
+ "use client";
+
++import Link from "next/link";
+ import { useCallback, useEffect, useState, useTransition } from "react";
+ import { CtaButton } from "@/components/ui/CtaButton";
+ import { StatusPill } from "@/components/ui/StatusPill";
+@@ -169,10 +170,18 @@ function gateAvailable(candidate: ActionCandidate): boolean {
+   );
+ }
+
++export type Ops1ProjectNavigationContext = {
++  /** Studio Project id for navigation continuity only — not a session binding. */
++  projectId: string;
++};
++
+ export function Ops1SessionScreen({
+   onGlobalModeContextChange,
++  projectNavigationContext,
+ }: {
+   onGlobalModeContextChange?: (ctx: GlobalModeContext) => void;
++  /** Optional Studio Project navigation context — display only, never domain input. */
++  projectNavigationContext?: Ops1ProjectNavigationContext;
+ } = {}) {
+   const [phase, setPhase] = useState<UiPhase>("boot");
+   const [session, setSession] = useState<CycleSession | null>(null);
+@@ -920,6 +929,41 @@ export function Ops1SessionScreen({
+         </div>
+       </header>
+
++      {projectNavigationContext ? (
++        <aside
++          className={styles.studioNavContext}
++          data-testid="ops1-studio-project-nav-context"
++          aria-labelledby="ops1-studio-project-nav-title"
++        >
++          <h3
++            id="ops1-studio-project-nav-title"
++            className={styles.studioNavContextTitle}
++          >
++            Projet Studio courant
++          </h3>
++          <p
++            className={styles.studioNavContextId}
++            data-testid="ops1-studio-project-id"
++          >
++            {projectNavigationContext.projectId}
++          </p>
++          <p
++            className={styles.studioNavContextDisclaimer}
++            data-testid="ops1-studio-project-nav-disclaimer"
++          >
++            Contexte de navigation uniquement — cette session OPS1 n’est pas
++            liée ni persistée dans le Project Studio.
++          </p>
++          <Link
++            className={styles.studioNavContextReturn}
++            href={`/studio/projects/${encodeURIComponent(projectNavigationContext.projectId)}`}
++            data-testid="ops1-studio-project-return"
++          >
++            Retour au workspace
++          </Link>
++        </aside>
++      ) : null}
++
+       {phase === "boot" || (pending && phase === "creating") ? (
+         <p className={styles.muted} data-testid="ops1-loading">
+           {phase === "creating" ? "Création de la session…" : "Chargement…"}
+diff --git a/projects/sfia-studio/app/features/ops1/ops1-session.module.css b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
+index ddb3d6d..d31caf9 100644
+--- a/projects/sfia-studio/app/features/ops1/ops1-session.module.css
++++ b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
+@@ -39,6 +39,50 @@
+   margin-top: 0.25rem;
+ }
+
++.studioNavContext {
++  display: flex;
++  flex-direction: column;
++  gap: 0.45rem;
++  padding: 0.9rem 1rem;
++  border: 1px solid var(--sfia-border);
++  border-radius: 12px;
++  background: #f7f9fc;
++}
++
++.studioNavContextTitle {
++  margin: 0;
++  font-size: 0.95rem;
++  color: var(--sfia-ink);
++}
++
++.studioNavContextId {
++  margin: 0;
++  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
++  font-size: 0.85rem;
++  color: var(--sfia-ink);
++  overflow-wrap: anywhere;
++}
++
++.studioNavContextDisclaimer {
++  margin: 0;
++  font-size: 0.85rem;
++  line-height: 1.4;
++  color: var(--sfia-muted);
++}
++
++.studioNavContextReturn {
++  align-self: flex-start;
++  color: var(--sfia-blue);
++  font-size: 0.85rem;
++  font-weight: 650;
++  text-decoration: none;
++}
++
++.studioNavContextReturn:focus-visible {
++  outline: 3px solid var(--sfia-blue-soft);
++  outline-offset: 2px;
++}
++
+ .panel {
+   background: var(--sfia-surface);
+   border: 1px solid var(--sfia-border);
+diff --git a/projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx b/projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx
+index 43b42ed..e34949a 100644
+--- a/projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx
++++ b/projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx
+@@ -1,4 +1,3 @@
+-import Link from "next/link";
+ import { Card } from "@/components/ui/Card";
+ import { CtaButton } from "@/components/ui/CtaButton";
+ import { StatusPill } from "@/components/ui/StatusPill";
+@@ -128,9 +127,19 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
+       </section>
+
+       <div className={styles.actions}>
+-        <Link className={styles.navLink} href="/studio/projects/new">
++        <CtaButton
++          href={`/ops1/nouvelle-demande?projectId=${encodeURIComponent(result.project.projectId)}`}
++          data-testid="workspace-continue-pilotage"
++        >
++          Continuer le pilotage
++        </CtaButton>
++        <CtaButton
++          href="/studio/projects/new"
++          variant="secondary"
++          data-testid="workspace-create-another-project"
++        >
+           Créer un autre projet
+-        </Link>
++        </CtaButton>
+       </div>
+       </div>
+     </Card>
+diff --git a/projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css b/projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css
+index 0b0dbd9..12cfe3c 100644
+--- a/projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css
++++ b/projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css
+@@ -112,6 +112,8 @@
+
+ .actions {
+   justify-content: flex-end;
++  align-items: center;
++  gap: var(--sfia-space-md);
+   padding-top: var(--sfia-space-xs);
+   border-top: 1px solid var(--sfia-border-soft);
+ }
+
+```
 
 ---
 
-## 7. Réponses aux questions produit
+## 10. FULL CONTENT — fichier test créé
 
-### Q1 — Prochaine action évidente après workspace ?
-**« Créer un autre projet »** uniquement (`ProjectWorkspaceView`). Aucune CTA vers conversation, cadrage, cycle, Control Tower, ActionCandidate ou ExecutionRun. Runtime confirme.
+```tsx
+/**
+ * Workspace → OPS1 navigation continuity.
+ *
+ * Justification for a dedicated file: existing `globalModeBadge.ui.test.tsx`
+ * hardcodes `useSearchParams: () => new URLSearchParams()` with no projectId,
+ * and `Ops1SessionScreen.test.tsx` does not exercise NouvelleDemandePageClient
+ * query parsing. This file covers AC-04/05/07/08/09 at the page-client boundary.
+ */
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { NouvelleDemandePageClient } from "@/features/nouvelle-demande/NouvelleDemandePageClient";
 
-### Q2 — Workspace relié aux capacités centrales ?
-**Non.** Conversation, Control Tower/OPS1, ActionCandidate, ExecutionRun vivent en vertical slices séparées. Workspace = projection contexte local.
+const create = vi.fn();
+const get = vi.fn();
+const liveConfig = vi.fn();
+let searchParams = new URLSearchParams();
 
-### Q3 — Control Tower / OPS1 aujourd’hui ?
-**Mélange des trois :**
-- fondation réutilisable riche (tools, gate, contract, Cursor, report, reinjection) — **prouvée code/tests** ;
-- expérience operable en fixture sur `/ops1/nouvelle-demande` ;
-- **pas** l’expérience principale du parcours create→workspace (accès utilitaire « OPS1 legacy », live GPT off sans clés).
+vi.mock("next/navigation", () => ({
+  useSearchParams: () => searchParams,
+}));
 
-### Q4 — ExecutionRun D2-D1 valeur visible ?
-**Socle domaine/runtime uniquement.** Aucune surface `.tsx` produit. Valeur utilisateur visible = **0** aujourd’hui.
+vi.mock("next/link", () => ({
+  default: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
 
-### Q5 — Rupture principale ?
-**Rupture de continuité Project Workspace → suite de pilotage** (conversation / cadrage / cycle / action / preuves). Secondaire : multiplicités D1 vs Studio Project vs OPS1 session target fixe `sfia-studio-ops1`.
+vi.mock("@/lib/ops1/actions", () => ({
+  ops1CreateSessionAction: (...args: unknown[]) => create(...args),
+  ops1GetSessionAction: (...args: unknown[]) => get(...args),
+  ops1SendMessageAction: vi.fn(),
+  ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
+  ops1EnsureSfiaContextAction: vi.fn(async () => ({
+    ok: true,
+    data: { context: null },
+  })),
+  ops1GetSfiaContextAction: vi.fn(async () => ({
+    ok: true,
+    data: { context: null },
+  })),
+  ops1InstantiateCursorPromptAction: vi.fn(),
+  ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
+    ok: true,
+    data: { flagEnabled: false, binPath: null, available: false },
+  })),
+  ops1AppendUserMessageAction: vi.fn(),
+  ops1QualifyActionNotRequiredAction: vi.fn(),
+  ops1CreateFixtureActionCandidateAction: vi.fn(),
+  ops1RefineActionCandidateAction: vi.fn(),
+  ops1RecordGateDecisionAction: vi.fn(),
+  ops1RefuseExecutionAction: vi.fn(),
+  ops1EvaluateAllowlistAction: vi.fn(),
+  ops1CreateExecutionContractAction: vi.fn(),
+  ops1RecordExecutionGateAction: vi.fn(),
+  ops1RunExecutionAttemptAction: vi.fn(),
+  ops1GenerateExecutionReportAction: vi.fn(),
+  ops1ResumePostReportChatAction: vi.fn(),
+  ops1CloseSessionAction: vi.fn(),
+  ops1OpenContinuationAction: vi.fn(),
+}));
 
-### Q6 — Capacité réutilisable immédiatement ?
-**OPS1 / Control Tower fixture path** (conversation → ActionCandidate → gate → ExecutionContract → Cursor fixture → report → reinjection) + **Studio create/workspace** comme entrée Project/LPS. Ne pas reconstruire ces moteurs.
+describe("Workspace → OPS1 navigation continuity", () => {
+  afterEach(() => cleanup());
 
-### Q7 — Flags bloquants pour la prochaine valeur ?
-| Flag | Utile maintenant ? | Verdict |
-|------|--------------------|---------|
-| NOT_READY / productReady=false | Signal honnête | **Non bloquant** pour une slice de continuité locale |
-| NOT_GUARANTEED persistence | Attendu process-local | **Non bloquant** pour démo locale |
-| IAM NOT_SELECTED | Gouvernance future | **Non bloquant** maintenant |
-| persistence non sélectionnée | Idem | **Ne pas** ouvrir chantier persistence |
-| agent execution disabled (Studio disclosures) | Studio path sans agent | **Non bloquant** si on réutilise OPS1 fixture ; **ne pas** ouvrir Cursor real |
+  beforeEach(() => {
+    vi.clearAllMocks();
+    window.sessionStorage.clear();
+    searchParams = new URLSearchParams();
+    liveConfig.mockResolvedValue({
+      ok: true,
+      data: {
+        available: false,
+        missing: ["OPENAI_API_KEY", "OPENAI_MODEL"],
+        testProvider: false,
+      },
+    });
+  });
 
----
+  it("shows Studio Project navigation context for a valid projectId query", async () => {
+    const projectId = "prj:v2-a3-1";
+    searchParams = new URLSearchParams({ projectId });
+    render(<NouvelleDemandePageClient />);
 
-## 8. Hypothèse ChatGPT (testée, non décision)
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("ops1-studio-project-nav-context"),
+      ).toBeVisible();
+    });
+    expect(screen.getByTestId("ops1-studio-project-id")).toHaveTextContent(
+      projectId,
+    );
+    expect(
+      screen.getByTestId("ops1-studio-project-nav-disclaimer"),
+    ).toHaveTextContent(/Contexte de navigation uniquement/i);
+    expect(
+      screen.getByTestId("ops1-studio-project-nav-disclaimer"),
+    ).toHaveTextContent(/pas liée ni persistée/i);
+    expect(
+      screen.getByRole("link", { name: "Retour au workspace" }),
+    ).toHaveAttribute(
+      "href",
+      `/studio/projects/${encodeURIComponent(projectId)}`,
+    );
+    expect(create).not.toHaveBeenCalled();
+    expect(
+      await screen.findByTestId("ops1-empty-state"),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: /Créer session fixture/i }),
+    ).toBeVisible();
+  });
 
-> Gap principal = raccord Project / Project Workspace ↔ Control Tower / conversation / cadrage / cycle / ExecutionRun.
+  it("keeps historical OPS1 empty state when projectId is absent", async () => {
+    render(<NouvelleDemandePageClient />);
 
-**Verdict : CONFIRMÉE, avec nuance.**
+    await waitFor(() => {
+      expect(screen.getByTestId("ops1-empty-state")).toBeVisible();
+    });
+    expect(
+      screen.queryByTestId("ops1-studio-project-nav-context"),
+    ).toBeNull();
+    expect(create).not.toHaveBeenCalled();
+  });
 
-- Confirmé runtime + code : workspace operable mais sans suite ; OPS1/CT riche mais disjoint ; ExecutionRun encore plus dissocié (engine-only).
-- Nuance : il n’y a pas un seul « cockpit manquant », mais **trois surfaces projet** (Studio V2, D1, OPS1) qui se concurrencent. Le gap dominant pour la démonstration produit reste bien la **continuité** après create/open.
+  it("ignores invalid or oversized projectId without blocking OPS1", async () => {
+    for (const projectId of [
+      "not-a-project",
+      "prj:",
+      `prj:${"x".repeat(200)}`,
+      "prj:has space",
+    ]) {
+      cleanup();
+      searchParams = new URLSearchParams({ projectId });
+      render(<NouvelleDemandePageClient />);
 
----
+      await waitFor(() => {
+        expect(screen.getByTestId("ops1-empty-state")).toBeVisible();
+      });
+      expect(
+        screen.queryByTestId("ops1-studio-project-nav-context"),
+      ).toBeNull();
+      expect(create).not.toHaveBeenCalled();
+    }
+  });
+});
 
-## 9. Moteurs réutilisables prioritaires (ne pas reconstruire)
-
-1. Studio V2-A1/A2/A3 — create + workspace + disclosures
-2. OPS1 I3–I6 + Control Tower tools/reinjection
-3. D1 intake (si on choisit la continuité D1 — secondaire)
-4. Cycle catalog / CKC / qualify bridge (V3.1) — pour une slice ultérieure de recommandation de cycle
-5. ExecutionRun — garder en fondation ; **ne pas** prioriser UI seule
-
----
-
-## 10. Dettes
-
-### Bloquantes pour la prochaine valeur visible
-- Absence de CTA / parcours reliant Studio workspace → surface de pilotage existante (OPS1/CT ou équivalent borné)
-- Fragmentation navigation (utilisateur ne sait pas où continuer)
-
-### NON bloquantes maintenant
-- IAM NOT_SELECTED
-- Product persistence NOT_SELECTED / Neon
-- Cursor real / OpenAI live
-- Unification timeline globale
-- FinOps Live Costs / R-T4-T3-SYNC-01
-- Page Preuves rail
-- Refonte shell/Figma
-- Exposer ExecutionRun UI isolément
-
----
-
-## 11. À NE PAS construire maintenant
-
-- Nouvelle architecture / AF re-arbitrage
-- Persistence produit / IAM
-- FinOps (STOP FINOPS)
-- MONITOR / E1
-- Nouvelle plateforme MCP
-- Refonte globale navigation
-- Polish pixel-perfect / Figma
-- Industrialisation readiness GitHub
-- UI ExecutionRun sans parcours conversation→gate
-- Live providers comme prérequis de la prochaine slice
-
----
-
-## 12. Options de prochaine vertical slice (max 3)
-
-### Option A — Continuité Workspace → OPS1/Control Tower (fixture)
-- **Problème utilisateur supprimé :** après création/ouverture, l’utilisateur sait quoi faire ensuite pour piloter.
-- **Parcours :** create → workspace → continuer vers session OPS1/CT (fixture) avec contexte projet visible.
-- **Réutilise :** Studio V2 + OPS1/CT complets.
-- **Changements nécessaires (cadrage, non conception) :** CTA + passage de contexte minimal + disclosure honnête du binding (même s’il reste shallow) ; **pas** nouvelle architecture.
-- **Dette créée :** faible si binding explicitement borné / non-garanti.
-- **Dépendances :** aucune persistence/IAM/live.
-- **Valeur démo :** haute — parcours cohérent démontrable sans providers payants.
-- **Risque :** sur-promettre un binding projet↔session trop fort.
-- **Cycle SFIA suivant candidat :** 5 — Delivery (vertical slice bornée) **après** GO conception légère si Morris l’exige, sinon delivery direct borné selon operating model.
-- **Profil candidat :** Standard
-- **Pourquoi maintenant :** ferme la rupture #1 avec moteurs existants.
-- **Pourquoi pas :** si Morris préfère d’abord clarifier le modèle projet unique (Studio vs D1) — voir option B.
-
-### Option B — Continuité Workspace → D1 intake / cockpit
-- **Problème :** même rupture, via D1.
-- **Réutilise :** D1 intake + cockpit.
-- **Limitation preuve :** D1 cockpit dit déjà « ouvrir un cycle (C4/C5 — non disponible) » → continuité partielle, moins riche que OPS1 pour agents/preuves.
-- **Valeur démo :** moyenne.
-- **Pourquoi pas maintenant :** déplace la rupture vers « cycle non disponible » ; n’exploite pas le moteur agent le plus riche.
-- **Cycle candidat :** 5 — Delivery · Profil Standard
-
-### Option C — Recommandation de cycle visible dans le workspace (catalog/CKC/qualify)
-- **Problème :** « être guidé / comprendre le cycle ».
-- **Réutilise :** V3.1 catalog/CKC/qualify.
-- **Limitation :** sans continuité conversation/action, la démo s’arrête encore avant décision/exécution.
-- **Valeur démo :** moyenne-faible vs A.
-- **Pourquoi pas maintenant :** utile ensuite, après continuité A.
-- **Cycle candidat :** 1/5 selon profondeur · Profil Standard
-
----
-
-## 13. Recommandation unique (NON décision Morris)
-
-**Recommander Option A — Continuité Project Workspace → OPS1 / Control Tower (mode fixture).**
-
-Justification (ordre imposé) :
-1. **Valeur visible** : l’utilisateur cesse de « finir » sur une fiche projet.
-2. **Continuité de parcours** : create → open → piloter.
-3. **Réutilisation moteur** : OPS1/CT déjà sur main (#254).
-4. **Faible dette** : pas d’IAM/persistence/FinOps/architecture.
-5. **Scope borné** : CTA + contexte + disclosures ; fixture only.
-6. **Preuve rapide** : démontrable localement sans provider live.
-
-Ce n’est **pas** un GO delivery. Morris décide.
-
----
-
-## 14. Cycle SFIA suivant candidat / profil / gates
-
-| Élément | Proposition candidat |
-|---------|----------------------|
-| Cycle suivant candidat | **5 — Delivery** (vertical slice continuité), éventuellement précédé d’un micro-cadrage/conception bornée si Morris l’exige |
-| Profil candidat | **Standard** |
-| Gates Morris nécessaires avant exécution | 1) GO sur la recommandation de slice (Option A ou alternative) · 2) GO delivery / exécution code · 3) tout élargissement (binding fort, live providers, persistence, unification D1/Studio) = gate séparé |
-| Non-ouvert automatiquement | Delivery, conception UX/UI, architecture, FinOps |
-
----
-
-## 15. Inconnues critiques (non bloquantes pour ce cadrage)
-
-- Binding exact Project Studio ↔ session OPS1 (shallow label vs identité partagée) — **à trancher au GO slice**, pas ici.
-- Destin à moyen terme de D1 vs Studio Project model — hors périmètre immédiat.
-- Quand (si) exposer ExecutionRun dans l’UI — après continuité, pas avant.
-- Statut « expérience principale » vs « legacy » d’OPS1 dans la nav — décision produit Morris.
-
----
-
-## 16. Verdict final
-
-**PRODUCT RESTART CADRAGE READY — CURRENT USER JOURNEY MAPPED — PRIMARY PRODUCT GAP IDENTIFIED — NEXT VERTICAL SLICE RECOMMENDED — NO DELIVERY EXECUTED — MORRIS DECISION REQUIRED**
-
-Réserves non bloquantes : metadata docs 70/73 stale (signalés) ; live GPT non observé (volontairement) ; binding projet↔OPS1 non spécifié (inconnu pour le GO suivant).
+```
 
 ---
 
-## 17. Instruction ChatGPT de validation
+## 11. Verdict
 
-Lire depuis Git :
-- current main `6e85177709b63cc2dc14e18e424176f1e9a8e0b7`
-- branche `sfia/review-handoff`
-- `sfia-review-handoff/latest-chatgpt-review.md`
+**OPTION A DELIVERY PASS WITH RESERVES — WORKSPACE TO OPS1 CONTINUITY IMPLEMENTED — NO DOMAIN BINDING — NO PROJECT COMMIT — READY FOR CHATGPT VALIDATION**
 
-Vérifier : cycle 1 / Standard ; vérité Git ; matrice sourcée ; captures runtime pour claims UX ; 0 mutation projet ; 0 provider live ; FinOps non rouvert ; séparation observation / hypothèse / option / recommandation ; recommandation ≠ décision Morris ; slice bornée ; cycle suivant candidat ; gates Morris ; handoff distant.
+Prochaine gate Morris candidate uniquement :
 
-**Règle finale :** CE CYCLE NE LANCE PAS LA PROCHAINE VERTICAL SLICE. Il la recommande. Morris décide. ChatGPT valide et prépare. Cursor n’exécute aucun delivery sans nouveau GO Morris.
+**MORRIS GO COMMIT OPTION A**
+
+(non accordée par ce cycle)
+
+---
+
+## 12. Instruction ChatGPT
+
+Lire main + `sfia/review-handoff` + `sfia-review-handoff/latest-chatgpt-review.md`.
+
+Vérifier FULL DIFF : fichiers autorisés seulement ; CTA ; encoding ; anti-binding ; 0 domain/actions/db/migration ; 0 session implicite ; fixture défaut ; tests/runtime ; 0 FinOps ; 0 commit/push/PR projet.
+
+Le travail projet reste **non commité** jusqu’au GO Morris commit.
