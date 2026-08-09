@@ -7,18 +7,27 @@
  *     --mode SHADOW|OFF \
  *     --expected-mode OFF|SHADOW \
  *     --target <explicit-label> \
+ *     --expected-target-fingerprint <64-hex-sha256> \
  *     [--apply]
  *
  * Without --apply: dry-run (default), zero mutation.
  * With --apply: mutates via createPostgresFinOpsRolloutStore only.
  *
+ * Fail-closed Option B: derive safe identity from DATABASE_URL_DIRECT,
+ * require --expected-target-fingerprint, MATCH before Pool creation.
+ *
  * Never prints DATABASE_URL_DIRECT or credentials.
- * Pool is always closed in finally.
+ * Pool is always closed in finally (only if created).
  */
 
 import { Pool } from "pg";
 import { T7_SHADOW_PILOT_PROJECT_ID } from "../lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot";
 import { createPostgresFinOpsRolloutStore } from "../lib/oa/finops/infrastructure/postgres/postgresFinOpsRolloutStore";
+import {
+  FinOpsT7TargetIdentityError,
+  assertExpectedTargetFingerprintMatch,
+  deriveFinOpsT7TargetIdentity,
+} from "../lib/oa/finops/server/finOpsT7TargetIdentity";
 import {
   OperateFinOpsT7ShadowRolloutError,
   operateFinOpsT7ShadowRollout,
@@ -29,6 +38,7 @@ type ParsedArgs = {
   mode: string | null;
   expectedMode: string | null;
   targetLabel: string | null;
+  expectedTargetFingerprint: string | null;
   apply: boolean;
 };
 
@@ -38,6 +48,7 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
     mode: null,
     expectedMode: null,
     targetLabel: null,
+    expectedTargetFingerprint: null,
     apply: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
@@ -67,14 +78,20 @@ function parseArgs(argv: ReadonlyArray<string>): ParsedArgs {
       i += 1;
       continue;
     }
+    if (arg === "--expected-target-fingerprint" && next) {
+      out.expectedTargetFingerprint = next;
+      i += 1;
+      continue;
+    }
   }
   return out;
 }
 
 function usage(): string {
   return [
-    "Usage: npm run finops:t7:rollout -- --project <id> --mode OFF|SHADOW --expected-mode OFF|SHADOW --target <label> [--apply]",
+    "Usage: npm run finops:t7:rollout -- --project <id> --mode OFF|SHADOW --expected-mode OFF|SHADOW --target <label> --expected-target-fingerprint <64-hex-sha256> [--apply]",
     "Dry-run is the default (omit --apply).",
+    "Fingerprint check is mandatory for dry-run and apply; Pool is created only after MATCH.",
   ].join("\n");
 }
 
@@ -84,7 +101,8 @@ async function main(): Promise<void> {
     !parsed.projectId ||
     !parsed.mode ||
     !parsed.expectedMode ||
-    !parsed.targetLabel
+    !parsed.targetLabel ||
+    !parsed.expectedTargetFingerprint
   ) {
     process.stderr.write(`${usage()}\n`);
     process.exitCode = 2;
@@ -98,6 +116,26 @@ async function main(): Promise<void> {
     );
     process.exitCode = 2;
     return;
+  }
+
+  // Fail-closed Option B: identity + fingerprint BEFORE Pool.
+  let actualFingerprint: string;
+  try {
+    const identity = deriveFinOpsT7TargetIdentity(connectionString);
+    actualFingerprint = identity.fingerprint;
+    assertExpectedTargetFingerprintMatch(
+      actualFingerprint,
+      parsed.expectedTargetFingerprint,
+    );
+  } catch (error) {
+    if (error instanceof FinOpsT7TargetIdentityError) {
+      process.stderr.write(
+        `${JSON.stringify({ ok: false, code: error.code, message: error.message }, null, 2)}\n`,
+      );
+      process.exitCode = 1;
+      return;
+    }
+    throw error;
   }
 
   const pool = new Pool({ connectionString, max: 2 });
