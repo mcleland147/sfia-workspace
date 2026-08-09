@@ -1,408 +1,653 @@
-# Cycle 6 Standard — T7 SHADOW Pilot Policy Source Architecture — Review Pack (full)
+# Cycle 8 Standard — T7 SHADOW Policy Source Option A Infrastructure Delivery — Review Pack (full)
 
 ## 1. Date / heure
 
-- **CEST:** 2026-08-09 04:10:52 CEST
-- **UTC:** 2026-08-09 02:10:52 UTC
-- Pack repair/finalize after failed shell expansion publish of skeleton (same analysis window).
+- **CEST:** 2026-08-09 04:32:56 CEST
+- **UTC:** 2026-08-09 02:32:56 UTC
 
-## 2. Décision Morris interprétée (exacte)
+## 2. Décision Morris Policy Source (exacte)
 
-Contexte immédiat reçu : `ok go`
+> GO POLICY SOURCE — OPTION A (composition-owned / versioned config), source uniquement ;
+> policy values restent NOT SELECTED ; SHADOW reste NOT ACTIVATED.
 
-**Résolution stricte appliquée :**
+## 3. Décision Morris Delivery (exacte)
 
-> GO pour ouvrir le sujet structurant : SHADOW PILOT POLICY SOURCE
-
-Autorise : discovery / analyse architecture / comparaison d’options / recommandation / review pack / handoff.
-
-## 3. Limite du GO
-
-**N’autorise PAS :**
-sélection automatique d’option · modification code · migration · nouvelle table · seed · policy réelle · choix thresholdAmount/thresholdCode métier · activation SHADOW · mutation rollout · commit/push projet · PR · MONITOR · E1.
-
-Ce cycle traite **A. SOURCE DE POLICY** uniquement.
-**B. VALEURS DE POLICY** = hors scope.
+> GO Delivery Cycle 8 Standard — implement Policy Source Option A infrastructure only;
+> no policy values; no SHADOW activation.
 
 ## 4. Cycle / profil
 
-- **Cycle:** 6 — Architecture technique
+- **Cycle:** 8 — Delivery / implémentation
 - **Profil:** Standard
-- **Nature:** READ-ONLY ARCHITECTURE ANALYSIS
-- **CKC:** `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` — candidate 0.1.0 — experimental cognitive guidance — aucune autorité d’exécution
+- **Typologie:** EVOL / CODE / TEST / DOC
+- **CKC:** synthetic map fallback — candidate — no execution authority
 - **Bloc:** FinOps
 
-## 5. Git Truth
+## 5. Git Truth initial (main)
 
-| Item | Value |
-|------|-------|
-| branch | main |
-| HEAD | afa12efe692014552eda277a484a71d6b479994e |
-| origin/main | afa12efe692014552eda277a484a71d6b479994e |
-| tracked | clean |
-| staged | none |
-| untracked | `.tmp-sfia-review/` only |
-| Delivery temporal branch local | ABSENT |
-| Delivery temporal branch remote | ABSENT |
-| Temporal Dual-Gate | POST-MERGE COMPLETE |
-| TEMPORAL MODE DRIFT OFF→SHADOW | CLOSED ON MAIN |
-| SHADOW PILOT POLICY SOURCE | NOT SELECTED |
-| SHADOW | NOT ACTIVATED |
-| Pilote | sfia-studio-ops1 |
+- branch = main
+- HEAD = origin/main = afa12efe692014552eda277a484a71d6b479994e
+- tracked clean; staged none; untracked `.tmp-sfia-review/` only
+- remote Delivery branch ABSENT
+- local Delivery branch created at base afa12efe…
 
-## 6. Handoff entrant tip/blob
+## 6. Branch / worktree
 
-- tip = `16be5b83f37528c1dcca59ff49ae8997b754cd89`
-- blob = `0edd4f1ff6fbf0f9ac519db392ceade7bbeddab8`
-- cycle = Cycle 14 Standard — T7 SHADOW Temporal Dual-Gate Post-Merge
-- markers HIT: main afa12efe… · CLOSED ON MAIN · R-QA-T7-C08-SCENARIO-01 OPEN MINOR · POLICY SOURCE NOT SELECTED · SHADOW NOT ACTIVATED
+- branch = `delivery/sfia-studio-finops-t7-shadow-policy-source-option-a`
+- worktree = `…/worktrees/finops-t7-shadow-policy-source-option-a`
+- main worktree remains on `main` @ afa12efe…
 
-## 7. Sources consultées
+## 7. Base / main
 
-**Méthode (main):**
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/checklists/sfia-validation-checklist.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md
+HEAD Delivery = origin/main = `afa12efe692014552eda277a484a71d6b479994e` (no project commit)
 
-**Projet (minimum + discovery):**
-- composeFinOpsT7ShadowExecutionDeps.ts
-- composeExecutionRunD2D3T7ShadowPilot.ts
-- evaluateFinOpsEnforcement.ts
-- types.enforcement.ts / types.rollout.ts
-- composeFinOpsT7Runtime.ts
-- postgresFinOpsRolloutStore.ts
-- migration 1754600004000_finops-t7-rollout-config.js
-- docs 156 / 157 / 158
-- OA FinOps T2–T7 stores, T3 alert/threshold types, platform AI env, OPS1, D1, LPS, harness ceilings
+## 8. Handoff entrant tip/blob
 
-## 8. Baseline runtime prouvée
+- tip = `86768a1dd54110af44cfc321787a5c4da58676d6`
+- blob = `66c67e3e178dee8ac07ac00b7907bb54b11ed5cf`
+- Cycle 6 Architecture · Option A RECOMMENDED · values NOT SELECTED · SHADOW NOT ACTIVATED
 
-1. **resolveShadowPolicy is caller-injected** — required on ComposeFinOpsT7ShadowExecutionDepsInput and ComposeExecutionRunD2D3T7ShadowPilotInput; forwarded into thin adapter; no default.
-2. **null = policy absente / inertie / not_configured** — T4 evaluateFinOpsEnforcement returns allow/not_configured without projection access when policy is null.
-3. **Aucun resolver production par défaut** — outside tests, only type/injection sites; no `function resolveShadowPolicy`; T4 states no production default resolver.
-4. **Policy SHADOW fields only:** thresholdCode + currency + thresholdAmount (FinOpsT7ShadowPolicyInput).
-5. **effect n’appartient pas à la source** — adapter forces effect signal_only when wrapping into T4 policy.
-6. **SHADOW path never block** — ensureShadowNeverBlocks → shadow_block_forbidden if block surfaces.
-7. **Policy resolver failure = fail-open FinOps-side** — catch around resolveShadowPolicy → policy_resolver_failed into T4 failed/finopsSideOnly; adapter outer catch → shadow_adapter_failed; never provider block.
-8. **Pilot = sfia-studio-ops1 only** — T7_SHADOW_PILOT_PROJECT_ID; non-pilot → non_pilot_inert.
-9. **finops_rollout_config columns:** project_id, mode, revision, updated_at only — migration header: no monetary columns, no IAM/actor fields.
-10. **Option C temporal dual-gate indépendante de la policy** — captureEligibility=eligible set after PRE SHADOW mode proven, before resolveShadowPolicy; comment: policy success/failure does not affect temporal eligibility.
+## 9. Sources consultées
 
-No baseline divergence requiring stop.
+Method templates/guardrails/CKC synthetic map; handoff Architecture; composeFinOpsT7ShadowExecutionDeps; composeExecutionRunD2D3T7ShadowPilot; evaluateFinOpsEnforcement; types; docs 156/157/158; existing unit/wiring tests; package.json scripts (read-only).
 
-## 9. Current resolveShadowPolicy contract
+## 10. Architecture source status
+
+**OPTION A = SELECTED BY MORRIS** (architecture)
+
+**OPTION A infrastructure = DELIVERED LOCALLY**
+
+## 11. Policy values status
+
+**NOT SELECTED** — default config EMPTY / INERT
+
+## 12. SHADOW status
+
+**NOT ACTIVATED**
+
+## 13. Exact 5-file manifest
+
+CREATE:
+1. `projects/sfia-studio/app/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts`
+2. `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-policy-source-option-a.unit.test.ts`
+3. `projects/sfia-studio/159-assistant-sfia-native-openai-finops-t7-shadow-policy-source-option-a-execution.md`
+
+MODIFY:
+4. `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts`
+5. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
+
+## 14. FULL CONTENT — versionedFinOpsT7ShadowPolicySource.ts
 
 ```ts
-resolveShadowPolicy: (input: EvaluateFinOpsEnforcementInput) =>
-  Promise<FinOpsT7ShadowPolicyInput | null> | FinOpsT7ShadowPolicyInput | null
+/**
+ * FinOps T7 SHADOW — Option A versioned / composition-owned policy source.
+ *
+ * Git-versioned, server-side, project-scoped. EMPTY by default this Delivery.
+ *
+ * Anti-claims:
+ * - Does NOT select operational policy values (thresholdCode / currency / amount).
+ * - Does NOT activate SHADOW / MONITOR / E1.
+ * - Does NOT read env, DB, secrets, or OPS1.
+ * - Does NOT mutate rollout / finops_rollout_config.
+ * - Does NOT introduce process-local cache registries.
+ * - Absence of entry ⇒ null ⇒ T4 allow/not_configured.
+ */
 
-FinOpsT7ShadowPolicyInput = {
-  thresholdCode: string
-  currency: string
-  thresholdAmount: string  // canonical Money scale-8; NOT a product default
+import type { EvaluateFinOpsEnforcementInput } from "../application/types.enforcement";
+import type { FinOpsT7ShadowPolicyInput } from "./composeFinOpsT7ShadowExecutionDeps";
+
+function assertServerOnly(): void {
+  if (typeof window !== "undefined") {
+    throw new Error(
+      "oa/finops/server/versionedFinOpsT7ShadowPolicySource is server-only and must not run in a browser context.",
+    );
+  }
 }
-// effect omitted — adapter forces signal_only
+
+/**
+ * Typed resolver compatible with resolveShadowPolicy injection.
+ */
+export type ResolveVersionedFinOpsT7ShadowPolicy = (
+  input: EvaluateFinOpsEnforcementInput,
+) => FinOpsT7ShadowPolicyInput | null;
+
+/**
+ * Git-versioned project-scoped SHADOW policy table.
+ * Intentionally EMPTY — ACTIVE POLICY ENTRIES = 0.
+ * Future entries would be added only under a Morris GO for policy values.
+ */
+const VERSIONED_FINOPS_T7_SHADOW_POLICY_BY_PROJECT_ID: Readonly<
+  Record<string, FinOpsT7ShadowPolicyInput>
+> = Object.freeze({});
+
+/**
+ * Resolve SHADOW policy from the Option A versioned source.
+ * Returns null for empty/unknown projectId and for any project without an entry.
+ */
+export function resolveVersionedFinOpsT7ShadowPolicy(
+  input: EvaluateFinOpsEnforcementInput,
+): FinOpsT7ShadowPolicyInput | null {
+  assertServerOnly();
+  const projectId =
+    typeof input.projectId === "string" ? input.projectId.trim() : "";
+  if (!projectId) {
+    return null;
+  }
+  return VERSIONED_FINOPS_T7_SHADOW_POLICY_BY_PROJECT_ID[projectId] ?? null;
+}
 ```
 
-Evaluate input fields: projectId, executionRunId, correlationId, occurredAt (no currency on input — currency comes from policy payload).
-
-Path: composeExecutionRunD2D3T7ShadowPilot → composeFinOpsT7ShadowExecutionDeps → (pilot + SHADOW) createFinOpsEnforcementPort → T4 evaluate.
-
-## 10. Discovery — mécanismes de config existants
-
-| ID | Mechanism | Semantic fit for monetary SHADOW policy |
-|----|-----------|----------------------------------------|
-| C1 | finops_rollout_config (T7 mode store) | WEAK — mode only |
-| C2 | Caller-injected resolveShadowPolicy | GOOD contract / ABSENT store |
-| C3 | T3 FinOpsThresholdDefinition injection | ABSENT store (same shape, no catalog) |
-| C4 | T3 alert / Morris review outcome rows | WEAK — outcome ≠ policy SoT |
-| C5 | T4 enforcement projection | ABSENT — no threshold columns |
-| C6 | T2 price catalog | WEAK — global rates ≠ project policy |
-| C7 | T6 audit journal | ABSENT |
-| C8 | Env / platform AI secrets | WEAK/ABSENT — global; no FinOps threshold env |
-| C9 | Feature flags (D1/harness) | ABSENT |
-| C10 | OA Project / LPS | ABSENT for money |
-| C11 | Doctrine packages | ABSENT |
-| C12 | D1 SQLite projects | ABSENT |
-| C13 | OPS1 SQLite/gates | ABSENT + OA must not import lib/ops1 |
-| C14 | Harness FinOps call ceilings | WEAK — POC ceilings ≠ SHADOW period policy |
-
-**Conclusion discovery:** aucune persistence existante ne peut légitimement fournir thresholdCode/currency/thresholdAmount project-scoped pour le pilote. Le contrat d’injection existe; la source n’existe pas encore.
-
-## 11. Invariants non négociables
-
-I1 SHADOW = signal_only · I2 never BLOCK · I3 fail-open · I4 null=inertie · I5 pilot sfia-studio-ops1 · I6 no historical 15/20/25/30 · I7 no monetary value in this cycle · I8 no SHADOW activation · I9 Option C unchanged · I10 no env/global as rollout authority · I11 no silent monetary overload of finops_rollout_config · I12 T4 owns monetary evaluation · I13 T7 owns rollout/mode · I14 policy source ≠ global project identity authority.
-
-## 12. OPTION A — CONFIGURATION VERSIONNÉE / COMPOSITION-OWNED
-
-**Définition (après discovery):** resolver server-side typé, injecté dans resolveShadowPolicy, alimenté par une configuration versionnée dans Git (module typed dédié / constantes project-scoped), hors thin adapter.
-
-Conceptual shape (NON-DECISIONAL EXAMPLE — not implementing):
+## 15. FULL CONTENT — t7.shadow-policy-source-option-a.unit.test.ts
 
 ```ts
-if (input.projectId !== T7_SHADOW_PILOT_PROJECT_ID) return null
-return PILOT_SHADOW_POLICY_BY_PROJECT[input.projectId] ?? null
-// values would be POLICY_CODE_EXAMPLE / CUR / AMOUNT_EXAMPLE — NOT selected here
+/**
+ * @vitest-environment node
+ *
+ * T7 SHADOW Policy Source Option A — unit proofs (no DB / no env).
+ * Source is EMPTY / INERT — no operational policy values.
+ */
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import { T7_SHADOW_PILOT_PROJECT_ID } from "@/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot";
+import { resolveVersionedFinOpsT7ShadowPolicy } from "@/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource";
+
+const SOURCE_PATH = path.join(
+  process.cwd(),
+  "lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts",
+);
+
+function evalInput(projectId: string) {
+  return {
+    projectId,
+    executionRunId: "run:ps-unit",
+    correlationId: "corr:ps-unit",
+    occurredAt: "2026-08-09T02:00:00.000Z",
+  };
+}
+
+describe("T7 SHADOW Policy Source Option A — unit", () => {
+  it("PS-U01 versioned resolver returns null for sfia-studio-ops1", () => {
+    expect(T7_SHADOW_PILOT_PROJECT_ID).toBe("sfia-studio-ops1");
+    expect(
+      resolveVersionedFinOpsT7ShadowPolicy(evalInput(T7_SHADOW_PILOT_PROJECT_ID)),
+    ).toBeNull();
+  });
+
+  it("PS-U02 versioned resolver returns null for unknown projectId", () => {
+    expect(
+      resolveVersionedFinOpsT7ShadowPolicy(evalInput("project:unknown-pilot")),
+    ).toBeNull();
+  });
+
+  it("PS-U03 versioned resolver returns null for empty / whitespace projectId", () => {
+    expect(resolveVersionedFinOpsT7ShadowPolicy(evalInput(""))).toBeNull();
+    expect(resolveVersionedFinOpsT7ShadowPolicy(evalInput("   "))).toBeNull();
+  });
+
+  it("PS-U04 resolver requires no I/O / env / DB", () => {
+    const beforeEnv = process.env.DATABASE_URL;
+    // Pure call — no pool, no migrate, no env dependency.
+    const out = resolveVersionedFinOpsT7ShadowPolicy(
+      evalInput(T7_SHADOW_PILOT_PROJECT_ID),
+    );
+    expect(out).toBeNull();
+    expect(process.env.DATABASE_URL).toBe(beforeEnv);
+  });
+
+  it("PS-U05 source infrastructure has zero active policy entries", () => {
+    const source = readFileSync(SOURCE_PATH, "utf8");
+    const codeOnly = source
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/^\s*\/\/.*$/gm, "");
+    expect(source).toMatch(/Object\.freeze\(\{\s*\}\)/);
+    expect(source).toMatch(/ACTIVE POLICY ENTRIES = 0/);
+    expect(codeOnly).not.toMatch(/thresholdCode\s*:/);
+    expect(codeOnly).not.toMatch(/thresholdAmount\s*:/);
+    expect(codeOnly).not.toMatch(/currency\s*:\s*["']/);
+    expect(codeOnly).not.toMatch(/process\.env/);
+    expect(codeOnly).not.toMatch(/pool\.query|CREATE TABLE|INSERT INTO/i);
+    expect(codeOnly).not.toMatch(
+      /new Map\s*\(|new Set\s*\(|WeakMap|WeakSet|AsyncLocalStorage/,
+    );
+    expect(codeOnly).not.toMatch(/lib\/ops1/);
+    expect(codeOnly).not.toMatch(/"15"|"20"|"25"|"30"/);
+    // Behavioral: pilot resolves null ⇒ inert / not_configured at T4 boundary.
+    expect(
+      resolveVersionedFinOpsT7ShadowPolicy(evalInput(T7_SHADOW_PILOT_PROJECT_ID)),
+    ).toBeNull();
+  });
+});
 ```
 
-| Dimension | Assessment |
-|-----------|------------|
-| Simplicité | GOOD — zero migration; fits existing injection |
-| Zéro migration | GOOD |
-| Changement policy | requires deploy/PR (Git audit) |
-| Audit Git | GOOD — diff = policy change |
-| Capacité pilote SHADOW | GOOD — sufficient for one pilot |
-| Risque hardcode product | ACCEPTABLE if module separate from thin adapter; REJECT if values land in adapter |
-| Trajectoire MONITOR | ACCEPTABLE — may later graduate to durable store when mutation without deploy is needed |
-| Réversibilité | GOOD — return null / remove module / revert commit |
-| Fail-open | GOOD — preserve null/throw → T4 failed/allow paths |
-| Ownership | T4-shaped policy values behind T7 consumption; thin adapter stays effect-forcer only |
-
-**Dette créée:** policy change coupled to release train.
-**Dette évitée:** migration, mutation API, premature MONITOR store.
-
-## 13. OPTION B — DEDICATED PROJECT-SCOPED POLICY STORE
-
-**Définition:** persistence PostgreSQL dédiée (table distincte de finops_rollout_config) pour policy FinOps (thresholdCode/currency/thresholdAmount + revision), lue par un resolver injecté.
-
-| Dimension | Assessment |
-|-----------|------------|
-| Owner | Prefer T4 policy boundary (monetary) with T7 consuming via injection — not T7 mode table |
-| Schéma minimal | project_id PK (+ currency only if multi-currency proven — not proven for pilot) |
-| Revision/audit | revision + updated_at plausible; no complex historization yet |
-| Migration | YES if selected — not authorized this cycle |
-| Mutation path futur | controlled upsert (Morris-gated) — not build now |
-| Coût/dette | WEAK now — store before values/calibration selected |
-| Rollback | delete/row OFF independent of rollout mode — GOOD separation |
-| MONITOR fit | GOOD later; premature for single SHADOW pilot |
-
-## 14. OPTION C — REUSE INFRASTRUCTURE EXISTANTE
-
-**Verdict après discovery:** NOT CREDIBLE / ABSENT
-
-Aucun store existant n’a le fit sémantique monétaire project-scoped. Candidats proches:
-- C1 rollout (mode) → anti-option X2
-- C4 T3 outcomes → wrong SoT
-- C8 env → anti-option X1
-
-Ne pas inventer une abstraction générique de configuration.
-
-## 15. Anti-option X1 — ENV / GLOBAL CONFIG DIRECTE
-
-| Question | Answer |
-|----------|--------|
-| Acceptable? | REJECT for functional policy authority |
-| Project-scoped? | NO |
-| Audit | WEAK |
-| Coupling | deployment/env confusion with rollout authority (I10) |
-| Secret vs functional authority | thresholds are product/policy, not secrets |
-
-Acceptable only for secrets (API keys), never as SHADOW threshold SoT.
-
-## 16. Anti-option X2 — EXTEND finops_rollout_config
-
-Historical decision (migration + types + docs 156): table = mode/revision/updatedAt, explicitly no monetary columns.
-
-| Concern | Assessment |
-|---------|------------|
-| Séparation T7 rollout / T4 policy | violated if monetary columns added |
-| Coupling | mode lifecycle ↔ threshold lifecycle fused |
-| Rollback ambiguity | OFF mode vs policy absence conflated |
-| Simplification réelle? | short-term convenience only |
-| Recommendation | REJECT unless a future Morris ADR explicitly overturns T7/T4 separation |
-
-## 17. Anti-option X3 — HARDCODE THRESHOLD DANS LE THIN ADAPTER
-
-REJECT (adapter anti-claim: does NOT select production thresholds).
-Thin adapter owns effect forcing + never-block + pilot/mode gating, not policy values.
-Hardcode inside adapter would make T7 adapter the monetary SoT — ownership inversion.
-
-## 18. Keying / lifecycle (simplest sufficient)
-
-**Key candidate for pilot:** projectId only — GOOD / sufficient
-- Runtime input has no currency; currency is part of policy payload.
-- Single pilot sfia-studio-ops1; multi-currency not proven as concurrent SHADOW policies.
-
-**Reject for now (no proven need):**
-effective dating · scheduler · TTL · complex historization · multi-tenant abstraction · UI/API mutation · process cache (avoid ALS/Map temporal patterns).
-
-**Absent policy:** null → T4 not_configured (already implemented).
-
-**Change tracing:**
-- Option A: Git commit on typed module
-- Option B: revision++ + updated_at (if later)
-
-**Rollback:**
-- Option A: revert commit / map entry → null; rollout OFF remains independent via T7 store
-- Option B: delete/disable row; keep rollout mode separate
-
-**Cache:** not needed for Option A (in-memory constants).
-
-## 19. Source vs value — séparation vérifiée
-
-| | This cycle |
-|--|------------|
-| Source architecture | analyzed + recommendation only |
-| thresholdAmount réel | NOT SELECTED |
-| currency opérationnelle | NOT SELECTED |
-| thresholdCode métier | NOT SELECTED |
-| 15/20/25/30 | FORBIDDEN / not adopted |
-
-Examples if needed later: POLICY_CODE_EXAMPLE / CUR / AMOUNT_EXAMPLE = NON-DECISIONAL EXAMPLE only.
-
-## 20. Comparison matrix
-
-| Criterion | A Composition-owned | B Dedicated store | C Reuse existing | X1 Env | X2 Extend rollout | X3 Hardcode adapter |
-|-----------|---------------------|-------------------|------------------|--------|-------------------|---------------------|
-| Simplicité | GOOD | WEAK | REJECT/ABSENT | WEAK | ACCEPTABLE short-term | WEAK |
-| Ownership T4/T7 | GOOD | GOOD (if T4-shaped) | — | WEAK | REJECT | REJECT |
-| Project scoping | GOOD | GOOD | — | REJECT | GOOD | WEAK |
-| Auditabilité | GOOD (Git) | GOOD (revision) | — | WEAK | ACCEPTABLE | WEAK |
-| Réversibilité | GOOD | ACCEPTABLE | — | ACCEPTABLE | WEAK | WEAK |
-| Fail-open | GOOD | GOOD | — | WEAK | GOOD | WEAK |
-| Testabilité | GOOD | ACCEPTABLE | — | WEAK | ACCEPTABLE | WEAK |
-| Runtime/DB impact | GOOD (0 DB) | ACCEPTABLE (1 read) | — | GOOD | ACCEPTABLE | GOOD |
-| Mutation surface future | WEAK (deploy) | GOOD | — | WEAK | WEAK | REJECT |
-| Migration | GOOD (NO) | WEAK (YES) | — | NO | YES | NO |
-| Coupling | GOOD | ACCEPTABLE | — | REJECT | REJECT | REJECT |
-| Dette immédiate | GOOD | WEAK | — | WEAK | WEAK | REJECT |
-| Dette future | ACCEPTABLE | GOOD for MONITOR | — | WEAK | WEAK | REJECT |
-| Compat SHADOW | GOOD | GOOD | — | WEAK | ACCEPTABLE | WEAK |
-| Compat MONITOR traj. | ACCEPTABLE | GOOD | — | REJECT | WEAK | REJECT |
-| Config hygiene | GOOD | GOOD | — | WEAK | WEAK | REJECT |
-| Operational burden | GOOD | WEAK | — | WEAK | WEAK | WEAK |
-
-## 21. Challenge SFIA — réponses
-
-1. **Utile maintenant?** OUI — activation SHADOW est bloquée conceptuellement par POLICY SOURCE NOT SELECTED; architecture doit borner la source avant Delivery de valeurs.
-2. **Moins de dette pour UN pilote SHADOW?** Option A.
-3. **Nouvelle table nécessaire avant SHADOW?** NON — pas prouvée; values not even selected.
-4. **Config versionnée suffit-elle?** OUI à cette étape (one pilot, signal_only, rare change).
-5. **Réutiliser rollout_config = mauvais ownership?** OUI — fusionne T7 mode et T4 monetary policy (X2 REJECT).
-6. **Abstraction générique config = sur-design?** OUI — Option C ABSENT; inventer un config framework serait dette.
-7. **Plus facile à retirer?** Option A (delete module / return null).
-8. **Rollback OFF sans coupler policy/rollout?** A and B both can — keep policy resolution independent of finops_rollout_config mode writes. X2 harms this.
-9. **Morris-gated absolument?** Sélection de l’option source; puis (cycle distinct) valeurs policy; puis (cycle distinct) activation SHADOW mode write.
-
-## 22. Recommendation
-
-### OPTION RECOMMENDED — A (CONFIGURATION VERSIONNÉE / COMPOSITION-OWNED)
-
-**Justification factuelle:**
-- Injection contract already exists and is the only production consumption surface.
-- Discovery found no suitable durable monetary store to reuse.
-- One pilot (sfia-studio-ops1), SHADOW signal_only, no proven need for runtime mutation without deploy.
-- Zero migration; preserves I11/I12/I13; easiest reverse.
-- Option C ABSENT; Option B is MONITOR-shaped premature debt.
-
-**Suffisante maintenant:** yes for making a future SHADOW activation resolvable once Morris selects values in a later cycle.
-
-**Dette créée:** policy value changes require Git/deploy.
-**Dette évitée:** migration, mutation API, conflating rollout table, generic config framework.
-
-**Limitations:** not ideal if Morris later requires frequent threshold edits without release; re-evaluate then toward B.
-
-**Futur point de réévaluation:** before MONITOR / when calibration demands frequent non-deploy mutation / when multi-project policies appear.
-
-**Impact Delivery (if later selected):** see §25.
-**Migration if selected:** NO.
-
-> RECOMMENDATION ONLY — MORRIS DECISION REQUIRED
->
-> Ne pas lire ceci comme SELECTED / VALIDATED / ADOPTED / APPROVED.
-
-## 23. Alternative acceptable
-
-OPTION B — Dedicated project-scoped policy store — acceptable if Morris explicitly prioritizes durable mutable policy before first SHADOW, accepting migration + Critical-leaning Delivery. Still not extending finops_rollout_config.
-
-## 24. Options rejected
-
-| Option | Reason |
-|--------|--------|
-| C Reuse existing | ABSENT / no semantic fit |
-| X1 Env/global | not project-scoped; I10; weak audit |
-| X2 Extend rollout_config | violates T7/T4 separation; historical no-monetary-columns |
-| X3 Hardcode in thin adapter | adapter must not own policy values |
-
-## 25. Delivery impact (Option A only — NOT implementing)
-
-| Item | Estimate |
-|------|----------|
-| Cycle probable | 8 Delivery (or small wiring Delivery) after Morris selects source=A AND separately selects values (values still Morris-gated) |
-| Profil probable | Standard if only typed module + inject wiring + tests; discuss Critical only if combined with SHADOW mode activation or Neon/prod mutation |
-| Fichiers probablement touchés | new small server module under app/lib/oa/finops/... (policy resolver); composeExecutionRunD2D3T7ShadowPilot or higher composer call-site to inject resolver; unit tests; possibly doc execution md |
-| Nouveau fichier probable | YES (typed policy module / resolver) |
-| Migration | NO |
-| Tests | unit (null/non-pilot/pilot resolve; never 15/20/25/30); reuse wiring integration with injected resolver |
-| QA dédiée | probable Standard QA if values+wiring; Critical if activation SHADOW coupled |
-
-## 26. Migration impact
-
-- Recommended Option A: NO migration
-- Alternative B: YES migration (new table) — not in this cycle
-
-## 27. QA impact
-
-- This architecture cycle: no QA execution required beyond analysis integrity
-- Future Delivery of A: prove resolver injection, null inertia, fail-open, pilot scope, no historical thresholds, Option C unchanged, SHADOW still not activated unless separate GO
-
-## 28. Reserves (conservées)
-
-- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
-- SHADOW PILOT POLICY SOURCE = NOT SELECTED (recommendation ≠ selection)
-- R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
-- R-PR-T2-API-01 = OPEN MINOR
-- Calibration réelle = REQUIRED BEFORE MONITOR
-- T6-ext = NOT AUTHORIZED
-- Product IAM = NOT_SELECTED
-- T5 = OUT OF SCOPE
-- MONITOR / E1 = NOT AUTHORIZED
-- TEMPORAL MODE DRIFT = CLOSED ON MAIN
-
-## 29. Project mutation
-
-NO
-
-## 30. Policy source selected
-
-NO — recommendation only
-
-## 31. Policy values selected
-
-NO
-
-## 32. SHADOW
-
-NOT ACTIVATED
-
-## 33. Next Morris gate
-
-Morris must decide explicitly:
-
-1. Accept / reject / alternate Option A as policy source architecture
-2. Separately (later): select policy values (code/currency/amount) — non-decisional placeholders forbidden as product
-3. Separately (later): GO SHADOW activation (rollout mode write) after source+values resolvable
-
-Sujet structurant reste ouvert jusqu’à décision Morris sur la source.
-
-## 34. Verdict unique
+## 16. FULL CONTENT — document 159
+
+```md
+# 159 — FinOps T7 SHADOW Policy Source Option A — Infrastructure Execution Record
+
+**Project:** SFIA Studio — Assistant SFIA natif OpenAI
+**Document:** `projects/sfia-studio/159-assistant-sfia-native-openai-finops-t7-shadow-policy-source-option-a-execution.md`
+**Cycle:** 8 — Delivery / implémentation
+**Profil:** Standard
+**Typologie:** EVOL / CODE / TEST / DOC
+**Baseline:** SFIA v2.6
+**Date (CEST):** 2026-08-09 04:22 CEST
+**Date (UTC):** 2026-08-09 02:22 UTC
+
+---
+
+## A. Status / anti-claims
+
+| Claim | Status |
+|-------|--------|
+| Source architecture Option A selected by Morris | **TRUE** |
+| Option A infrastructure delivered locally | **TRUE** |
+| Default versioned config EMPTY / INERT | **TRUE** |
+| Default resolution null / not_configured | **TRUE** |
+| Pilot composer default source wiring | **TRUE** |
+| Test override seam preserved | **TRUE** |
+| Policy values selected | **FALSE** |
+| SHADOW activated | **FALSE** |
+| Migration / policy DB store | **FALSE** |
+| Env / global policy authority | **FALSE** |
+| Rollout mutation / seed SHADOW | **FALSE** |
+| MONITOR / E1 | **FALSE** |
+| Project commit / push / PR | **FALSE** |
 
 ```text
-T7 SHADOW PILOT POLICY SOURCE ARCHITECTURE COMPLETE —
-CYCLE 6 STANDARD —
-CURRENT INJECTED POLICY CONTRACT VERIFIED —
-SOURCE / VALUE SEPARATION VERIFIED —
-OPTIONS COMPARED —
-OPTION A (COMPOSITION-OWNED / VERSIONED CONFIG) RECOMMENDED —
-RECOMMENDATION ONLY —
-POLICY SOURCE NOT SELECTED —
+OPTION A SOURCE ARCHITECTURE SELECTED BY MORRIS —
+OPTION A INFRASTRUCTURE DELIVERED LOCALLY —
+DEFAULT POLICY CONFIG EMPTY / INERT —
 POLICY VALUES NOT SELECTED —
-NO PROJECT MUTATION —
 SHADOW NOT ACTIVATED —
-MORRIS DECISION REQUIRED —
+NO PROJECT COMMIT / PUSH / PR
+```
+
+---
+
+## B. Morris decisions
+
+**Architecture (source only):**
+
+> GO POLICY SOURCE — OPTION A (composition-owned / versioned config), source uniquement ;
+> policy values restent NOT SELECTED ; SHADOW reste NOT ACTIVATED.
+
+**Delivery:**
+
+> GO Delivery Cycle 8 Standard — implement Policy Source Option A infrastructure only;
+> no policy values; no SHADOW activation.
+
+**Supplants prior handoff status only for:**
+`SOURCE ARCHITECTURE = OPTION A SELECTED`
+
+**Does not supplant:**
+`POLICY VALUES = NOT SELECTED` · `SHADOW = NOT ACTIVATED`
+
+---
+
+## C. Files create / modify (exact 5)
+
+**CREATE**
+
+1. `projects/sfia-studio/app/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts`
+2. `projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-policy-source-option-a.unit.test.ts`
+3. `projects/sfia-studio/159-assistant-sfia-native-openai-finops-t7-shadow-policy-source-option-a-execution.md`
+
+**MODIFY**
+
+4. `projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts`
+5. `projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
+
+---
+
+## D. Architecture / wiring
+
+```text
+composeExecutionRunD2D3T7ShadowPilot
+  resolveShadowPolicy =
+    input.resolveShadowPolicy  (optional TEST / verification seam)
+    ?? resolveVersionedFinOpsT7ShadowPolicy  (default Option A source)
+  → composeFinOpsT7ShadowExecutionDeps (thin adapter unchanged)
+       forces effect=signal_only
+       never-block defense
+       Option C captureEligibility unchanged
+  → T4 evaluateFinOpsEnforcement
+       null policy → allow / not_configured
+```
+
+- Thin adapter **not modified**.
+- `finops_rollout_config` remains mode-only.
+- No migration / no new table / no env authority.
+- No `lib/ops1` import from OA.
+
+---
+
+## E. Default vs test override semantics
+
+| Path | Authority |
+|------|-----------|
+| Default (omit `resolveShadowPolicy`) | Option A versioned Git source (EMPTY → null) |
+| Explicit `resolveShadowPolicy` | Test / verification seam only — not product SoT |
+
+Default source EMPTY ⇒ inert FinOps evaluation even if TEST-ONLY SHADOW rollout row exists in ephemeral PG.
+
+---
+
+## F. Tests
+
+| ID | Proof |
+|----|-------|
+| PS-U01..U05 | Unit: null for pilot/unknown/empty; no I/O; zero active entries |
+| T7-PS01 | Integration: no override + SHADOW row → allow/not_configured · provider continues · never block |
+| Existing T7-SW* | Override seam still used; must keep PASS |
+
+---
+
+## G. FinOps block notes
+
+- No amount / currency / thresholdCode adopted.
+- No extra DB read for policy (static empty table).
+- Debt created: future policy value change requires Git/release.
+- Debt avoided: premature policy DB store, migration, mutation API.
+
+---
+
+## H. Rollback
+
+1. Revert the 5 Delivery paths (or discard local worktree diff).
+2. Pilot composer returns to required injected resolver without default source.
+3. No DB rollback required (no migration).
+
+---
+
+## I. Reserves
+
+- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
+- POLICY VALUES = NOT SELECTED
+- SHADOW = NOT ACTIVATED
+- R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
+- Calibration réelle = REQUIRED BEFORE MONITOR
+- TEMPORAL MODE DRIFT = CLOSED ON MAIN (unchanged)
+
+---
+
+## J. Next gate
+
+Recommended:
+
+> GO Cycle 9 Dedicated QA Standard — T7 SHADOW Policy Source Option A Infrastructure.
+
+Subsequent Morris GOs required for:
+
+- operational policy values
+- SHADOW activation
+- project commit / push / PR / merge
+```
+
+## 17. Modified pilot composer — useful full diff
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts
+index a8db16a..6b08c08 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts
+@@ -4,10 +4,17 @@
+  * Reuses composeExecutionRunD2D3 injection surface unchanged.
+  * Reuses composeFinOpsT7ShadowExecutionDeps thin adapter.
+  *
++ * Policy source (Option A — Morris-selected architecture):
++ * - Default composition path = versioned Git source
++ *   (`resolveVersionedFinOpsT7ShadowPolicy`) — EMPTY / INERT this Delivery.
++ * - Optional `resolveShadowPolicy` = test/verification override seam only,
++ *   not a second product authority.
++ *
+  * Anti-claims:
+  * - SHADOW NOT ACTIVATED (no durable SHADOW row write).
+  * - MONITOR / E1 not activated.
+  * - No real provider / Neon / production threshold.
++ * - Policy values NOT SELECTED (default source has zero entries).
+  * - Pilot identity: Morris-selected `sfia-studio-ops1` (OA-local constant).
+  * - Does NOT import lib/ops1 (preserves OA / OPS1 isolation).
+  */
+@@ -18,6 +25,7 @@ import {
+   type FinOpsT7ShadowDecisionDiagnostic,
+   type FinOpsT7ShadowPolicyInput,
+ } from "../../finops/server/composeFinOpsT7ShadowExecutionDeps";
++import { resolveVersionedFinOpsT7ShadowPolicy } from "../../finops/server/versionedFinOpsT7ShadowPolicySource";
+ import type { EvaluateFinOpsEnforcementInput } from "../../finops/application/types.enforcement";
+ import {
+   composeExecutionRunD2D3,
+@@ -42,10 +50,12 @@ export type ComposeExecutionRunD2D3T7ShadowPilotInput = {
+   readonly clock?: ClockPort;
+   readonly clockIso?: string;
+   /**
+-   * Explicit SHADOW policy injection (TEST or future activation source).
++   * Optional SHADOW policy override seam (tests / bounded verification only).
++   * Default composition path uses Option A versioned source
++   * (`resolveVersionedFinOpsT7ShadowPolicy`) which is EMPTY / INERT.
+    * Returning null ⇒ allow/not_configured. Effect always forced signal_only by adapter.
+    */
+-  readonly resolveShadowPolicy: (
++  readonly resolveShadowPolicy?: (
+     input: EvaluateFinOpsEnforcementInput,
+   ) =>
+     | Promise<FinOpsT7ShadowPolicyInput | null>
+@@ -81,11 +91,14 @@ export function composeExecutionRunD2D3T7ShadowPilot(
+     input.clock?.nowIso ??
+     (() => input.clockIso ?? "2026-08-08T16:00:00.000Z");
+
++  const resolveShadowPolicy =
++    input.resolveShadowPolicy ?? resolveVersionedFinOpsT7ShadowPolicy;
++
+   const shadowDeps = composeFinOpsT7ShadowExecutionDeps({
+     pool: input.pool,
+     nowIso,
+     pilotProjectId: T7_SHADOW_PILOT_PROJECT_ID,
+-    resolveShadowPolicy: input.resolveShadowPolicy,
++    resolveShadowPolicy,
+     onShadowDecision: input.onShadowDecision,
+   });
+```
+
+## 18. Modified wiring integration — useful full diff (added T7-PS01)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
+index f430c23..57bb0e5 100644
+--- a/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
+@@ -864,4 +864,39 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
+       }),
+     );
+   });
++
++  it("T7-PS01 default Option A source (no override) → null → allow/not_configured · never block", async () => {
++    await upsertMode(pool, PILOT, "SHADOW");
++    const diagnostics: Array<{
++      mode: string;
++      decision: string;
++      reason: string;
++    }> = [];
++    const { providers, completeSpy } = spyProviders();
++    const composition = composeExecutionRunD2D3T7ShadowPilot({
++      pool,
++      clockIso,
++      providers,
++      // No resolveShadowPolicy — composition default = versioned Option A source (EMPTY).
++      onShadowDecision: (diagnostic) => {
++        diagnostics.push({
++          mode: String(diagnostic.mode),
++          decision: diagnostic.decision,
++          reason: diagnostic.reason,
++        });
++      },
++    });
++    const result = await composition.coordinate(
++      coordinateInput(PILOT, "ps01-default-source"),
++    );
++    expect(result.ok).toBe(true);
++    expect(result.providerInvoked).toBe(true);
++    expect(completeSpy).toHaveBeenCalled();
++    expect(diagnostics.length).toBeGreaterThan(0);
++    const last = diagnostics[diagnostics.length - 1]!;
++    expect(last.mode).toBe("SHADOW");
++    expect(last.decision).toBe("allow");
++    expect(last.reason).toBe("not_configured");
++    expect(diagnostics.every((d) => d.decision !== "block")).toBe(true);
++  });
+ });
+```
+
+
+## 19. Empty source proof
+
+- `Object.freeze({})` table
+- comment ACTIVE POLICY ENTRIES = 0
+- PS-U01..U05 PASS — pilot/unknown/empty → null
+- VERSIONED POLICY SOURCE = PRESENT
+- ACTIVE POLICY ENTRIES = 0
+- DEFAULT RESOLUTION = null / not_configured
+
+## 20. Default resolver proof
+
+Pilot composer:
+`resolveShadowPolicy = input.resolveShadowPolicy ?? resolveVersionedFinOpsT7ShadowPolicy`
+
+T7-PS01 (PG): no override + SHADOW row → onShadowDecision mode=SHADOW decision=allow reason=not_configured · provider continues · never block.
+
+## 21. Test override seam proof
+
+`resolveShadowPolicy?` remains optional override; existing T7-SW* tests still inject resolvers and PASS (23/23 wiring).
+
+## 22. No policy value proof
+
+Static gates on runtime CREATE/MODIFY paths: no concrete thresholdCode/currency/amount, no 15/20/25/30 as policy, no effect=enforce.
+
+## 23. No migration proof
+
+No files under `app/db/migrations/**`. migrate:up used existing migrations only on ephemeral PG.
+
+## 24. No DB/env proof
+
+Source module: no process.env, no pool.query. Pure in-memory empty table.
+
+## 25. No OPS1 import proof
+
+No `lib/ops1` import in CREATE/MODIFY runtime OA files (comment-only mention of isolation).
+
+## 26. signal_only / never-block proof
+
+Thin adapter untouched. Existing T7-SW unit (6/6) + wiring never-block scenarios PASS.
+
+## 27. Temporal Option C preservation
+
+No edits to coordinateExecutionRun / types.enforcement / composeFinOpsT7ShadowExecutionDeps. Dual-gate contract unchanged.
+
+## 28. Targeted unit results
+
+Command: `npm test -- __tests__/oa/finops/t7.shadow-policy-source-option-a.unit.test.ts`
+Result: **5/5 PASS**
+
+Command: `npm test -- __tests__/oa/finops/t7.shadow-option-a.unit.test.ts`
+Result: **6/6 PASS**
+
+## 29. PostgreSQL wiring result
+
+Ephemeral: `finops-t7-ps-option-a-pg` @ 127.0.0.1:55441 (removed after).
+Command: `npm test -- __tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts`
+Result: **23/23 PASS** including T7-PS01.
+Neon/shared/prod: NOT USED.
+
+## 30. Boundary
+
+OA→OPS1 isolation preserved (static). Existing ops1 isolation probes covered in full suite.
+
+## 31. Typecheck
+
+`npm run typecheck` — PASS
+
+## 32. Lint
+
+`npm run lint` — PASS (No ESLint warnings or errors)
+
+## 33. Build
+
+`npm run build` — PASS (Compiled successfully)
+
+## 34. Full regression
+
+- Default `npm test` under high parallelism: unrelated `createProjectUi` 5s timeouts (flake). Same file PASS in isolation on Delivery and on main baseline.
+- Confirmatory: `npx vitest run --maxWorkers=2` → **149 passed | 11 skipped (160)** · **1514 passed | 108 skipped (1622)** · **PASS**
+- PG suite skipped in general run (no DATABASE_URL); targeted PG already PASS.
+- Main baseline `npm test` without Delivery changes: **148 passed | 11 skipped** · createProjectUi PASS.
+
+## 35. Diff-check
+
+`git diff --check` — PASS (exit 0)
+
+## 36. Staged status
+
+staged = none
+
+## 37. Project commit
+
+**NO**
+
+## 38. Project push
+
+**NO**
+
+## 39. PR
+
+**NO**
+
+## 40. Reserves
+
+- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
+- POLICY VALUES = NOT SELECTED
+- SHADOW = NOT ACTIVATED
+- R-T4-T3-SYNC-01 OPEN BEFORE MONITOR
+- Calibration REQUIRED BEFORE MONITOR
+- Full-suite UI timeout flake under default workers noted; confirmatory maxWorkers=2 PASS
+- TEMPORAL MODE DRIFT = CLOSED ON MAIN
+
+## 41. Next gate
+
+GO Cycle 9 Dedicated QA Standard — T7 SHADOW Policy Source Option A Infrastructure.
+
+## 42. Verdict
+
+```text
+T7 SHADOW POLICY SOURCE OPTION A INFRASTRUCTURE DELIVERED WITH RESERVES —
+CYCLE 8 STANDARD —
+OPTION A SOURCE ARCHITECTURE SELECTED BY MORRIS —
+VERSIONED COMPOSITION-OWNED POLICY SOURCE IMPLEMENTED —
+DEFAULT POLICY CONFIG EMPTY / INERT —
+DEFAULT RESOLUTION NULL / NOT_CONFIGURED VERIFIED —
+PILOT COMPOSER DEFAULT SOURCE WIRING VERIFIED —
+TEST OVERRIDE SEAM PRESERVED —
+POLICY VALUES NOT SELECTED —
+NO POLICY VALUE INTRODUCED —
+NO MIGRATION —
+NO POLICY DB STORE —
+NO ENV / GLOBAL POLICY AUTHORITY —
+SIGNAL_ONLY PRESERVED —
+SHADOW NEVER BLOCK PRESERVED —
+FAIL-OPEN PRESERVED —
+TEMPORAL OPTION C PRESERVED —
+OA→OPS1 ISOLATION PRESERVED —
+TARGETED UNIT PASS —
+POSTGRES WIRING PASS —
+TYPECHECK PASS —
+LINT PASS —
+BUILD PASS —
+FULL REGRESSION PASS —
+DIFF CHECK PASS —
+EXACT 5-PATH DELIVERY —
+NO PROJECT COMMIT —
+NO PROJECT PUSH —
+NO PR —
+SHADOW NOT ACTIVATED —
+READY FOR DEDICATED QA CYCLE 9 STANDARD —
 HANDOFF REMOTE VERIFIED
 ```
