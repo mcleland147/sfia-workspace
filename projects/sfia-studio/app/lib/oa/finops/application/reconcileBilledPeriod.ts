@@ -1,0 +1,884 @@
+/**
+ * FinOps T2 — BILLED period reconciliation (PROJECT_PERIOD attribution).
+ * Delta-based append-only corrections; no fake executionRunId.
+ *
+ * Complete snapshot semantics are temporally bounded:
+ * completeness=complete means complete ONLY for
+ * [coverageStart, coverageEndExclusive) within the economic scope.
+ */
+
+import {
+  bucketFullyWithinCoverage,
+  buildAbsentFromCompleteSnapshotCorrectionRef,
+  buildCorrectionRef,
+  buildProviderPayloadDigest,
+  derivedSourceReferenceBelongsToScope,
+  isParsableDerivedSourceReference,
+  parseBucketIntervalFromDerivedSourceReference,
+} from "./billedPeriodIdentity";
+import {
+  formatMoneyString,
+  moneyFromMinor,
+  normalizeCurrency,
+  parseMoneyString,
+  sumMoney,
+} from "../domain/money";
+import { computeUtcMonthPeriod } from "../domain/period";
+import type { FinOpsAggregatePort } from "../ports/finopsAggregatePort";
+import type { FinOpsReconciliationPort } from "../ports/finopsReconciliationPort";
+import { buildAggregatesFromCostEvents } from "./recomputeAggregates";
+import {
+  derivePeriodCostEventIdentity,
+  derivePeriodReconciliationDedupKey,
+} from "./t2Identity";
+import type {
+  BilledPeriodFact,
+  FinOpsCostEvent,
+  ReconcileBilledPeriodInput,
+  ReconcileBilledPeriodResult,
+} from "./types.aggregate";
+
+export type ReconcileBilledPeriodDeps = {
+  readonly reconciliation: FinOpsReconciliationPort;
+  readonly aggregates: FinOpsAggregatePort;
+  readonly nowIso: () => string;
+};
+
+const DEFAULT_MAX_FACTS = 100;
+
+class ReconValidationError extends Error {
+  readonly code: string;
+  constructor(code: string, message: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
+function periodStartMatchesOccurredAt(
+  periodStart: string,
+  occurredAt: string,
+): boolean {
+  try {
+    const period = computeUtcMonthPeriod(occurredAt);
+    return period.periodStart.slice(0, 10) === periodStart;
+  } catch {
+    return false;
+  }
+}
+
+function parseUtcInstantMs(value: string, label: string): number {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      `${label} is required`,
+    );
+  }
+  const ms = Date.parse(trimmed);
+  if (Number.isNaN(ms)) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      `${label} is not a parseable UTC instant`,
+    );
+  }
+  return ms;
+}
+
+function validateSnapshotCoverage(input: {
+  readonly periodStart: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
+}): {
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
+} {
+  const coverageStart = input.coverageStart.trim();
+  const coverageEndExclusive = input.coverageEndExclusive.trim();
+  const cStart = parseUtcInstantMs(coverageStart, "coverageStart");
+  const cEnd = parseUtcInstantMs(coverageEndExclusive, "coverageEndExclusive");
+  if (!(cStart < cEnd)) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "coverageStart must be strictly before coverageEndExclusive",
+    );
+  }
+
+  const periodInstant = `${input.periodStart}T00:00:00.000Z`;
+  let period;
+  try {
+    period = computeUtcMonthPeriod(periodInstant);
+  } catch {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "periodStart is not a valid UTC month anchor",
+    );
+  }
+  const pStart = Date.parse(period.periodStart);
+  const pEnd = Date.parse(period.periodEnd);
+  // Coverage must lie entirely inside the UTC month (end may equal next month start).
+  if (cStart < pStart || cEnd > pEnd) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "snapshot coverage is not entirely contained in periodStart UTC month",
+    );
+  }
+
+  return { coverageStart, coverageEndExclusive };
+}
+
+function validateProjectPeriodFact(
+  fact: BilledPeriodFact,
+  input: {
+    readonly projectId: string;
+    readonly periodStart: string;
+    readonly provider: string;
+    readonly externalProjectId: string;
+    readonly sourceBatchId: string;
+    readonly coverageStart: string;
+    readonly coverageEndExclusive: string;
+  },
+): void {
+  if (!fact.derivedSourceReference.trim()) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "derivedSourceReference is required for BILLED period facts",
+    );
+  }
+  if (!isParsableDerivedSourceReference(fact.derivedSourceReference)) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "derivedSourceReference is not parsable for scope proof",
+    );
+  }
+  if (fact.projectId.trim() !== input.projectId) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact projectId does not match reconciliation projectId",
+    );
+  }
+  if (fact.periodStart.trim() !== input.periodStart) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact periodStart does not match reconciliation periodStart",
+    );
+  }
+  if (fact.provider.trim() !== input.provider) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact provider does not match snapshot provider",
+    );
+  }
+  if (fact.externalProjectId.trim() !== input.externalProjectId) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact externalProjectId does not match snapshot externalProjectId",
+    );
+  }
+  if (fact.sourceBatchId.trim() !== input.sourceBatchId) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact sourceBatchId does not match input.sourceBatchId",
+    );
+  }
+  if (
+    !derivedSourceReferenceBelongsToScope(fact.derivedSourceReference, {
+      provider: input.provider,
+      externalProjectId: input.externalProjectId,
+      sfiaProjectId: input.projectId,
+    })
+  ) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "derivedSourceReference does not belong to reconciliation economic scope",
+    );
+  }
+  if (!periodStartMatchesOccurredAt(input.periodStart, fact.sourceBucketStart)) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact sourceBucketStart does not belong to periodStart",
+    );
+  }
+  parseUtcInstantMs(fact.sourceBucketStart, "fact.sourceBucketStart");
+  if (
+    fact.sourceBucketEndExclusive === null ||
+    !fact.sourceBucketEndExclusive.trim()
+  ) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact sourceBucketEndExclusive is required to prove coverage containment",
+    );
+  }
+  parseUtcInstantMs(
+    fact.sourceBucketEndExclusive,
+    "fact.sourceBucketEndExclusive",
+  );
+  if (
+    !bucketFullyWithinCoverage(
+      {
+        sourceBucketStart: fact.sourceBucketStart.trim(),
+        sourceBucketEndExclusive: fact.sourceBucketEndExclusive.trim(),
+      },
+      {
+        coverageStart: input.coverageStart,
+        coverageEndExclusive: input.coverageEndExclusive,
+      },
+    )
+  ) {
+    throw new ReconValidationError(
+      "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      "fact bucket is outside declared snapshot coverage",
+    );
+  }
+}
+
+function sumLedgerForAtom(
+  events: ReadonlyArray<FinOpsCostEvent>,
+  input: {
+    readonly projectId: string;
+    readonly periodStart: string;
+    readonly currency: string;
+    readonly derivedSourceReference: string;
+  },
+): bigint {
+  const matching = events.filter(
+    (e) =>
+      e.projectId === input.projectId &&
+      e.periodStart === input.periodStart &&
+      e.currency === input.currency &&
+      e.derivedSourceReference === input.derivedSourceReference &&
+      e.sourceOfTruth === "BILLED" &&
+      e.attributionScope === "PROJECT_PERIOD" &&
+      e.amount !== null,
+  );
+  if (matching.length === 0) return BigInt(0);
+  return sumMoney(
+    input.currency,
+    matching.map((e) => parseMoneyString(e.amount!, input.currency)),
+  ).amountMinor;
+}
+
+function currencyFromDerivedSourceReference(
+  derivedSourceReference: string,
+): string {
+  const parts = derivedSourceReference.split("|");
+  return normalizeCurrency(parts[parts.length - 1]!);
+}
+
+function collectActiveScopedAtoms(
+  ledger: ReadonlyArray<FinOpsCostEvent>,
+  scope: {
+    readonly projectId: string;
+    readonly periodStart: string;
+    readonly provider: string;
+    readonly externalProjectId: string;
+  },
+): ReadonlyArray<{
+  readonly derivedSourceReference: string;
+  readonly currency: string;
+  readonly cumulativeMinor: bigint;
+  readonly occurredAt: string;
+}> {
+  const byRef = new Map<
+    string,
+    { currency: string; occurredAt: string; events: FinOpsCostEvent[] }
+  >();
+
+  for (const event of ledger) {
+    if (
+      event.projectId !== scope.projectId ||
+      event.periodStart !== scope.periodStart ||
+      event.sourceOfTruth !== "BILLED" ||
+      event.attributionScope !== "PROJECT_PERIOD" ||
+      event.amount === null
+    ) {
+      continue;
+    }
+    const ref = event.derivedSourceReference;
+    if (!ref || !ref.trim()) {
+      throw new ReconValidationError(
+        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE",
+        "PROJECT_PERIOD BILLED event missing derivedSourceReference",
+      );
+    }
+    if (!isParsableDerivedSourceReference(ref)) {
+      throw new ReconValidationError(
+        "FINOPS_RECON_ATOM_SCOPE_UNPROVABLE",
+        "PROJECT_PERIOD BILLED event has unparsable derivedSourceReference",
+      );
+    }
+    if (
+      !derivedSourceReferenceBelongsToScope(ref, {
+        provider: scope.provider,
+        externalProjectId: scope.externalProjectId,
+        sfiaProjectId: scope.projectId,
+      })
+    ) {
+      continue;
+    }
+    const existing = byRef.get(ref);
+    if (!existing) {
+      byRef.set(ref, {
+        currency: normalizeCurrency(event.currency),
+        occurredAt: event.occurredAt,
+        events: [event],
+      });
+    } else {
+      existing.events.push(event);
+    }
+  }
+
+  const active: Array<{
+    derivedSourceReference: string;
+    currency: string;
+    cumulativeMinor: bigint;
+    occurredAt: string;
+  }> = [];
+
+  for (const [derivedSourceReference, bucket] of byRef) {
+    const cumulativeMinor = sumMoney(
+      bucket.currency,
+      bucket.events.map((e) => parseMoneyString(e.amount!, bucket.currency)),
+    ).amountMinor;
+    if (cumulativeMinor === BigInt(0)) continue;
+    active.push({
+      derivedSourceReference,
+      currency: bucket.currency,
+      cumulativeMinor,
+      occurredAt: bucket.occurredAt,
+    });
+  }
+  return active;
+}
+
+/**
+ * Before any economic write: classify active atoms for complete-snapshot tombstones.
+ * Unparsable same-scope intervals fail closed (no partial mutation).
+ */
+function planMissingAtomCorrections(input: {
+  readonly ledger: ReadonlyArray<FinOpsCostEvent>;
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly provider: string;
+  readonly externalProjectId: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
+  readonly presentRefs: ReadonlySet<string>;
+}): ReadonlyArray<{
+  readonly derivedSourceReference: string;
+  readonly currency: string;
+  readonly occurredAt: string;
+}> {
+  const active = collectActiveScopedAtoms(input.ledger, {
+    projectId: input.projectId,
+    periodStart: input.periodStart,
+    provider: input.provider,
+    externalProjectId: input.externalProjectId,
+  });
+
+  const toCorrect: Array<{
+    derivedSourceReference: string;
+    currency: string;
+    occurredAt: string;
+  }> = [];
+
+  for (const atom of active) {
+    if (input.presentRefs.has(atom.derivedSourceReference)) continue;
+    const interval = parseBucketIntervalFromDerivedSourceReference(
+      atom.derivedSourceReference,
+    );
+    if (!interval) {
+      throw new ReconValidationError(
+        "FINOPS_RECON_ATOM_COVERAGE_UNPROVABLE",
+        "active atom bucket interval is not provable for coverage-safe tombstone",
+      );
+    }
+    if (
+      !bucketFullyWithinCoverage(interval, {
+        coverageStart: input.coverageStart,
+        coverageEndExclusive: input.coverageEndExclusive,
+      })
+    ) {
+      // Outside coverage — preserve economically; never tombstone.
+      continue;
+    }
+    toCorrect.push({
+      derivedSourceReference: atom.derivedSourceReference,
+      currency: atom.currency,
+      occurredAt: atom.occurredAt,
+    });
+  }
+  return toCorrect;
+}
+
+async function appendDeltaEvent(input: {
+  readonly ops: {
+    readonly insertCostEvent: FinOpsReconciliationPort["insertCostEvent"];
+  };
+  readonly ledger: FinOpsCostEvent[];
+  readonly projectId: string;
+  readonly periodStart: string;
+  readonly sourceBatchId: string;
+  readonly provider: string;
+  readonly derivedSourceReference: string;
+  readonly currency: string;
+  readonly deltaAmount: string;
+  readonly correctionRef: string;
+  readonly occurredAt: string;
+}): Promise<"created" | "duplicate"> {
+  const identity = derivePeriodCostEventIdentity({
+    projectId: input.projectId,
+    periodStart: input.periodStart,
+    provider: input.provider,
+    derivedSourceReference: input.derivedSourceReference,
+    correctionRef: input.correctionRef,
+    sourceBatchId: input.sourceBatchId,
+    amount: input.deltaAmount,
+    currency: input.currency,
+  });
+
+  const event: FinOpsCostEvent = {
+    costEventId: identity.costEventId,
+    dedupKey: identity.dedupKey,
+    projectId: input.projectId,
+    attributionScope: "PROJECT_PERIOD",
+    executionRunId: null,
+    derivedSourceReference: input.derivedSourceReference,
+    usageEventId: null,
+    periodStart: input.periodStart,
+    currency: input.currency,
+    amount: input.deltaAmount,
+    evidenceClass: "billed",
+    sourceOfTruth: "BILLED",
+    estimationStatus: "available",
+    correctionRef: input.correctionRef,
+    catalogVersion: null,
+    provider: input.provider,
+    model: null,
+    unit: null,
+    billingQuantum: null,
+    usageQuantity: null,
+    occurredAt: input.occurredAt,
+  };
+
+  const result = await input.ops.insertCostEvent(event);
+  if (result.outcome === "created") {
+    input.ledger.push(event);
+    return "created";
+  }
+  if (result.outcome === "duplicate") {
+    return "duplicate";
+  }
+  if (result.outcome === "conflict") {
+    throw new Error(result.message);
+  }
+  throw new Error(result.message);
+}
+
+export async function reconcileBilledPeriod(
+  deps: ReconcileBilledPeriodDeps,
+  input: ReconcileBilledPeriodInput,
+): Promise<ReconcileBilledPeriodResult> {
+  const projectId = input.projectId.trim();
+  const periodStart = input.periodStart.trim();
+  const sourceBatchId = input.sourceBatchId.trim();
+  if (!projectId || !periodStart || !sourceBatchId) {
+    return {
+      outcome: "failed",
+      reconciliationId: null,
+      code: "FINOPS_RECON_INVALID_INPUT",
+      message: "projectId, periodStart, and sourceBatchId are required",
+      finopsSideOnly: true,
+    };
+  }
+
+  const snapshot = input.snapshot;
+  if (
+    !snapshot ||
+    (snapshot.completeness !== "complete" &&
+      snapshot.completeness !== "incomplete") ||
+    !snapshot.provider?.trim() ||
+    !snapshot.externalProjectId?.trim()
+  ) {
+    return {
+      outcome: "failed",
+      reconciliationId: null,
+      code: "FINOPS_RECON_INVALID_INPUT",
+      message:
+        "snapshot.completeness, snapshot.provider, and snapshot.externalProjectId are required",
+      finopsSideOnly: true,
+    };
+  }
+
+  let coverageStart: string;
+  let coverageEndExclusive: string;
+  try {
+    const coverage = validateSnapshotCoverage({
+      periodStart,
+      coverageStart: snapshot.coverageStart ?? "",
+      coverageEndExclusive: snapshot.coverageEndExclusive ?? "",
+    });
+    coverageStart = coverage.coverageStart;
+    coverageEndExclusive = coverage.coverageEndExclusive;
+  } catch (error) {
+    if (error instanceof ReconValidationError) {
+      return {
+        outcome: "failed",
+        reconciliationId: null,
+        code: error.code,
+        message: error.message,
+        finopsSideOnly: true,
+      };
+    }
+    throw error;
+  }
+
+  const provider = snapshot.provider.trim();
+  const externalProjectId = snapshot.externalProjectId.trim();
+
+  try {
+    for (const fact of input.facts) {
+      validateProjectPeriodFact(fact, {
+        projectId,
+        periodStart,
+        provider,
+        externalProjectId,
+        sourceBatchId,
+        coverageStart,
+        coverageEndExclusive,
+      });
+      // Money parse fail-closed before any write.
+      parseMoneyString(fact.providerAmount, normalizeCurrency(fact.currency));
+    }
+  } catch (error) {
+    if (error instanceof ReconValidationError) {
+      return {
+        outcome: "failed",
+        reconciliationId: null,
+        code: error.code,
+        message: error.message,
+        finopsSideOnly: true,
+      };
+    }
+    return {
+      outcome: "failed",
+      reconciliationId: null,
+      code: "FINOPS_RECON_INVALID_SNAPSHOT_COVERAGE",
+      message:
+        error instanceof Error ? error.message : "fact prevalidation failed",
+      finopsSideOnly: true,
+    };
+  }
+
+  const { reconciliationId, dedupKey } = derivePeriodReconciliationDedupKey({
+    projectId,
+    periodStart,
+    sourceBatchId,
+  });
+
+  return deps.reconciliation.withExclusiveProjectPeriodReconciliation(
+    { projectId, periodStart },
+    async (ops) => {
+      const existing = await ops.findReconciliationByDedup(dedupKey);
+      if (existing && existing.status === "succeeded") {
+        const aggregates = await deps.aggregates.listAggregatesForProjectPeriod({
+          projectId,
+          periodStart,
+        });
+        return {
+          outcome: "succeeded",
+          reconciliationId: existing.reconciliationId,
+          processedCount: existing.processedCount,
+          createdCount: 0,
+          duplicateCount: existing.processedCount,
+          aggregates,
+          idempotentReplay: true,
+        };
+      }
+
+      const maxFacts = input.maxFacts ?? DEFAULT_MAX_FACTS;
+      if (
+        typeof maxFacts !== "number" ||
+        !Number.isSafeInteger(maxFacts) ||
+        maxFacts <= 0
+      ) {
+        return {
+          outcome: "failed",
+          reconciliationId: null,
+          code: "FINOPS_RECON_INVALID_BATCH_BOUND",
+          message: "maxFacts must be a positive safe integer",
+          finopsSideOnly: true,
+        };
+      }
+
+      if (input.facts.length > maxFacts) {
+        return {
+          outcome: "failed",
+          reconciliationId: null,
+          code: "FINOPS_RECON_BATCH_TOO_LARGE",
+          message: `facts exceed bounded batch maxFacts=${maxFacts}`,
+          finopsSideOnly: true,
+        };
+      }
+
+      // Read ledger + plan missing-atom corrections BEFORE any economic write.
+      let ledger: FinOpsCostEvent[];
+      let missingPlan: ReadonlyArray<{
+        readonly derivedSourceReference: string;
+        readonly currency: string;
+        readonly occurredAt: string;
+      }> = [];
+      const presentRefs = new Set(
+        input.facts.map((f) => f.derivedSourceReference),
+      );
+      try {
+        ledger = [
+          ...(await ops.listCostEventsForProjectPeriod({
+            projectId,
+            periodStart,
+          })),
+        ];
+        if (snapshot.completeness === "complete") {
+          missingPlan = planMissingAtomCorrections({
+            ledger,
+            projectId,
+            periodStart,
+            provider,
+            externalProjectId,
+            coverageStart,
+            coverageEndExclusive,
+            presentRefs,
+          });
+        }
+      } catch (error) {
+        const code =
+          error instanceof ReconValidationError
+            ? error.code
+            : "FINOPS_RECON_FAILED";
+        const message =
+          error instanceof Error
+            ? error.message
+            : "billed period prevalidation failed";
+        return {
+          outcome: "failed",
+          reconciliationId: null,
+          code,
+          message,
+          finopsSideOnly: true,
+        };
+      }
+
+      const insert = await ops.insertReconciliationRecord({
+        reconciliationId,
+        dedupKey,
+        projectId,
+        periodStart,
+        sourceBatchId,
+        status: "failed",
+        processedCount: 0,
+        errorCode: null,
+        errorMessage: null,
+        completedAt: null,
+      });
+
+      if (insert.outcome === "duplicate" && insert.existing.status === "succeeded") {
+        const aggregates = await deps.aggregates.listAggregatesForProjectPeriod({
+          projectId,
+          periodStart,
+        });
+        return {
+          outcome: "succeeded",
+          reconciliationId: insert.existing.reconciliationId,
+          processedCount: insert.existing.processedCount,
+          createdCount: 0,
+          duplicateCount: insert.existing.processedCount,
+          aggregates,
+          idempotentReplay: true,
+        };
+      }
+
+      if (insert.outcome === "failed") {
+        return {
+          outcome: "failed",
+          reconciliationId,
+          code: "FINOPS_RECON_PERSIST_FAILED",
+          message: insert.message,
+          finopsSideOnly: true,
+        };
+      }
+
+      let createdCount = 0;
+      let duplicateCount = 0;
+      let processedCount = 0;
+
+      try {
+        for (const fact of input.facts) {
+          const currency = normalizeCurrency(fact.currency);
+          const providerAmount = parseMoneyString(fact.providerAmount, currency);
+
+          const cumulative = sumLedgerForAtom(ledger, {
+            projectId,
+            periodStart,
+            currency,
+            derivedSourceReference: fact.derivedSourceReference,
+          });
+          const deltaMinor = providerAmount.amountMinor - cumulative;
+          if (deltaMinor === BigInt(0)) {
+            duplicateCount += 1;
+            processedCount += 1;
+            continue;
+          }
+
+          const deltaAmount = formatMoneyString(
+            moneyFromMinor(deltaMinor, currency),
+          );
+          const correctionRef =
+            cumulative === BigInt(0)
+              ? buildCorrectionRef({ kind: "INITIAL" })
+              : buildCorrectionRef({
+                  kind: "CORR",
+                  providerPayloadDigest: buildProviderPayloadDigest({
+                    provider: fact.provider,
+                    externalProjectId: fact.externalProjectId,
+                    projectId: fact.projectId,
+                    periodStart,
+                    sourceBucketStart: fact.sourceBucketStart,
+                    sourceBucketEndExclusive: fact.sourceBucketEndExclusive,
+                    lineItem: fact.lineItem,
+                    currency,
+                    providerAmount: fact.providerAmount,
+                    derivedSourceReference: fact.derivedSourceReference,
+                  }),
+                });
+
+          const insertOutcome = await appendDeltaEvent({
+            ops,
+            ledger,
+            projectId,
+            periodStart,
+            sourceBatchId,
+            provider,
+            derivedSourceReference: fact.derivedSourceReference,
+            currency,
+            deltaAmount,
+            correctionRef,
+            occurredAt: fact.sourceBucketStart,
+          });
+          if (insertOutcome === "created") {
+            createdCount += 1;
+          } else {
+            duplicateCount += 1;
+          }
+          processedCount += 1;
+        }
+
+        for (const atom of missingPlan) {
+          const currency =
+            atom.currency ||
+            currencyFromDerivedSourceReference(atom.derivedSourceReference);
+          const cumulative = sumLedgerForAtom(ledger, {
+            projectId,
+            periodStart,
+            currency,
+            derivedSourceReference: atom.derivedSourceReference,
+          });
+          if (cumulative === BigInt(0)) continue;
+
+          const deltaMinor = BigInt(0) - cumulative;
+          const deltaAmount = formatMoneyString(
+            moneyFromMinor(deltaMinor, currency),
+          );
+          const correctionRef = buildAbsentFromCompleteSnapshotCorrectionRef({
+            derivedSourceReference: atom.derivedSourceReference,
+            sourceBatchId,
+            provider,
+            externalProjectId,
+            sfiaProjectId: projectId,
+            periodStart,
+          });
+
+          const insertOutcome = await appendDeltaEvent({
+            ops,
+            ledger,
+            projectId,
+            periodStart,
+            sourceBatchId,
+            provider,
+            derivedSourceReference: atom.derivedSourceReference,
+            currency,
+            deltaAmount,
+            correctionRef,
+            occurredAt: atom.occurredAt,
+          });
+          if (insertOutcome === "created") {
+            createdCount += 1;
+          } else {
+            duplicateCount += 1;
+          }
+          processedCount += 1;
+        }
+
+        // Rebuild from the in-session ledger (visible uncommitted inserts).
+        const existingAggregates =
+          await deps.aggregates.listAggregatesForProjectPeriod({
+            projectId,
+            periodStart,
+          });
+        const previousVersions = new Map(
+          existingAggregates.map((row) => [row.currency, row.rebuildVersion]),
+        );
+        const rebuilt = buildAggregatesFromCostEvents({
+          projectId,
+          periodStart,
+          events: ledger,
+          rebuiltAt: deps.nowIso(),
+          previousVersions,
+        });
+        const aggregates =
+          await deps.aggregates.withExclusiveProjectPeriodRebuild(
+            { projectId, periodStart },
+            async (aggregateOps) => {
+              await aggregateOps.replaceAggregates(rebuilt);
+              return rebuilt;
+            },
+          );
+
+        await ops.completeReconciliationRecord({
+          reconciliationId,
+          status: "succeeded",
+          processedCount,
+          errorCode: null,
+          errorMessage: null,
+          completedAt: deps.nowIso(),
+        });
+
+        return {
+          outcome: "succeeded",
+          reconciliationId,
+          processedCount,
+          createdCount,
+          duplicateCount,
+          aggregates,
+          idempotentReplay: false,
+        };
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "billed period reconciliation failed";
+        await ops.completeReconciliationRecord({
+          reconciliationId,
+          status: "failed",
+          processedCount,
+          errorCode: "FINOPS_RECON_FAILED",
+          errorMessage: message,
+          completedAt: deps.nowIso(),
+        });
+        return {
+          outcome: "failed",
+          reconciliationId,
+          code: "FINOPS_RECON_FAILED",
+          message,
+          finopsSideOnly: true,
+        };
+      }
+    },
+  );
+}

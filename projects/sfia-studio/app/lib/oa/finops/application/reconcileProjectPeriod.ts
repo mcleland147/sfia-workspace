@@ -174,6 +174,9 @@ export async function reconcileProjectPeriod(
       if (!fact.correctionRef.trim()) {
         throw new Error("correctionRef is required for reconciliation facts");
       }
+      if (!fact.executionRunId.trim()) {
+        throw new Error("executionRunId is required for EXECUTION_RUN reconciliation facts");
+      }
       if (!periodStartMatchesOccurredAt(periodStart, fact.occurredAt)) {
         throw new Error("fact occurredAt does not belong to periodStart");
       }
@@ -195,7 +198,9 @@ export async function reconcileProjectPeriod(
         costEventId: identity.costEventId,
         dedupKey: identity.dedupKey,
         projectId,
+        attributionScope: "EXECUTION_RUN",
         executionRunId: fact.executionRunId,
+        derivedSourceReference: null,
         usageEventId: fact.usageEventId,
         periodStart,
         currency,

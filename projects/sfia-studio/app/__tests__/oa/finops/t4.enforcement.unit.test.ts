@@ -36,7 +36,9 @@ function costEvent(
   return {
     dedupKey: `dedup:${partial.costEventId}`,
     projectId: "proj-t4",
+    attributionScope: "EXECUTION_RUN",
     executionRunId: "run-t4",
+    derivedSourceReference: null,
     usageEventId: null,
     periodStart: "2026-08-01",
     estimationStatus: "available",

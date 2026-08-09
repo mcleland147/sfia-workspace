@@ -20,14 +20,24 @@ import {
 const FICTITIOUS_RATE = parseMoneyString("0.00010000", "USD"); // fixture — NOT a provider tariff
 
 function costEvent(
-  partial: Omit<FinOpsCostEvent, "costEventId" | "dedupKey" | "correctionRef"> & {
+  partial: Omit<
+    FinOpsCostEvent,
+    "costEventId" | "dedupKey" | "correctionRef" | "attributionScope" | "derivedSourceReference"
+  > & {
     correctionRef?: string | null;
+    attributionScope?: FinOpsCostEvent["attributionScope"];
+    derivedSourceReference?: string | null;
   },
 ): FinOpsCostEvent {
   const correctionRef = partial.correctionRef ?? null;
+  const attributionScope = partial.attributionScope ?? "EXECUTION_RUN";
+  const derivedSourceReference =
+    partial.derivedSourceReference === undefined
+      ? null
+      : partial.derivedSourceReference;
   const identity = deriveCostEventIdentity({
     projectId: partial.projectId,
-    executionRunId: partial.executionRunId,
+    executionRunId: partial.executionRunId ?? "",
     evidenceClass: partial.evidenceClass,
     correctionRef,
     amount: partial.amount,
@@ -35,6 +45,8 @@ function costEvent(
   });
   return {
     ...partial,
+    attributionScope,
+    derivedSourceReference,
     correctionRef,
     costEventId: identity.costEventId,
     dedupKey: identity.dedupKey,

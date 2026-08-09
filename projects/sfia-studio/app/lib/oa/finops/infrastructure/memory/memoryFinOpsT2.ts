@@ -116,18 +116,19 @@ export function createMemoryFinOpsReconciliation(): FinOpsReconciliationPort & {
   const costEvents: FinOpsCostEvent[] = [];
   const recon = new Map<string, FinOpsReconciliationRecord>();
   const byDedup = new Map<string, FinOpsCostEvent>();
+  const exclusiveChains = new Map<string, Promise<unknown>>();
 
-  return {
-    _costEvents: costEvents,
-    _recon: recon,
-    async insertCostEvent(event): Promise<FinOpsCostEventInsertResult> {
+  const coreOps = {
+    async insertCostEvent(event: FinOpsCostEvent): Promise<FinOpsCostEventInsertResult> {
       const existing = byDedup.get(event.dedupKey);
       if (existing) {
         const same =
           existing.amount === event.amount &&
           existing.evidenceClass === event.evidenceClass &&
           existing.correctionRef === event.correctionRef &&
-          existing.executionRunId === event.executionRunId;
+          existing.executionRunId === event.executionRunId &&
+          existing.attributionScope === event.attributionScope &&
+          existing.derivedSourceReference === event.derivedSourceReference;
         if (!same) {
           return {
             outcome: "conflict",
@@ -141,7 +142,11 @@ export function createMemoryFinOpsReconciliation(): FinOpsReconciliationPort & {
       byDedup.set(event.dedupKey, event);
       return { outcome: "created", costEventId: event.costEventId };
     },
-    async listCostEventsForProjectPeriod(input) {
+    async listCostEventsForProjectPeriod(input: {
+      readonly projectId: string;
+      readonly periodStart: string;
+      readonly currency?: string;
+    }) {
       return costEvents.filter(
         (e) =>
           e.projectId === input.projectId &&
@@ -149,10 +154,10 @@ export function createMemoryFinOpsReconciliation(): FinOpsReconciliationPort & {
           (input.currency === undefined || e.currency === input.currency),
       );
     },
-    async findReconciliationByDedup(dedupKey) {
+    async findReconciliationByDedup(dedupKey: string) {
       return recon.get(dedupKey) ?? null;
     },
-    async insertReconciliationRecord(record) {
+    async insertReconciliationRecord(record: FinOpsReconciliationRecord) {
       const existing = recon.get(record.dedupKey);
       if (existing) {
         return { outcome: "duplicate" as const, existing };
@@ -160,7 +165,14 @@ export function createMemoryFinOpsReconciliation(): FinOpsReconciliationPort & {
       recon.set(record.dedupKey, record);
       return { outcome: "created" as const };
     },
-    async completeReconciliationRecord(input) {
+    async completeReconciliationRecord(input: {
+      readonly reconciliationId: string;
+      readonly status: "succeeded" | "failed";
+      readonly processedCount: number;
+      readonly errorCode: string | null;
+      readonly errorMessage: string | null;
+      readonly completedAt: string;
+    }) {
       for (const [k, v] of recon.entries()) {
         if (v.reconciliationId === input.reconciliationId) {
           recon.set(k, {
@@ -172,6 +184,32 @@ export function createMemoryFinOpsReconciliation(): FinOpsReconciliationPort & {
             completedAt: input.completedAt,
           });
         }
+      }
+    },
+  };
+
+  return {
+    _costEvents: costEvents,
+    _recon: recon,
+    insertCostEvent: coreOps.insertCostEvent,
+    listCostEventsForProjectPeriod: coreOps.listCostEventsForProjectPeriod,
+    findReconciliationByDedup: coreOps.findReconciliationByDedup,
+    insertReconciliationRecord: coreOps.insertReconciliationRecord,
+    completeReconciliationRecord: coreOps.completeReconciliationRecord,
+    async withExclusiveProjectPeriodReconciliation(input, work) {
+      const lockKey = `${input.projectId}|${input.periodStart}`;
+      const prev = exclusiveChains.get(lockKey) ?? Promise.resolve();
+      let release!: () => void;
+      const gate = new Promise<void>((resolve) => {
+        release = resolve;
+      });
+      const next = prev.then(() => gate);
+      exclusiveChains.set(lockKey, next.catch(() => undefined));
+      await prev.catch(() => undefined);
+      try {
+        return await work(coreOps);
+      } finally {
+        release();
       }
     },
   };

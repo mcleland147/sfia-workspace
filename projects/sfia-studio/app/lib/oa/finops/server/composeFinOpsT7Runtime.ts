@@ -16,12 +16,15 @@
 import type { Pool } from "pg";
 import {
   recomputeAggregatesThenRefreshEnforcementProjection,
+  reconcileBilledPeriodThenRefreshEnforcementProjection,
   reconcileProjectPeriodThenRefreshEnforcementProjection,
+  type RefreshAfterBilledReconcileResult,
   type RefreshAfterReconcileResult,
   type RefreshAfterRecomputeResult,
 } from "../application/refreshEnforcementAfterT2";
 import { resolveFinOpsRollout } from "../application/resolveFinOpsRollout";
 import type {
+  ReconcileBilledPeriodInput,
   ReconcileProjectPeriodInput,
   RecomputeAggregatesInput,
 } from "../application/types.aggregate";
@@ -54,6 +57,9 @@ export type FinOpsT7RuntimeComposition = {
   readonly reconcileProjectPeriodAndRefresh: (
     input: ReconcileProjectPeriodInput,
   ) => Promise<RefreshAfterReconcileResult>;
+  readonly reconcileBilledPeriodAndRefresh: (
+    input: ReconcileBilledPeriodInput,
+  ) => Promise<RefreshAfterBilledReconcileResult>;
 };
 
 function assertServerOnly(): void {
@@ -99,6 +105,11 @@ export function composeFinOpsT7Runtime(
       ),
     reconcileProjectPeriodAndRefresh: (reconcileInput) =>
       reconcileProjectPeriodThenRefreshEnforcementProjection(
+        refreshDeps,
+        reconcileInput,
+      ),
+    reconcileBilledPeriodAndRefresh: (reconcileInput) =>
+      reconcileBilledPeriodThenRefreshEnforcementProjection(
         refreshDeps,
         reconcileInput,
       ),
