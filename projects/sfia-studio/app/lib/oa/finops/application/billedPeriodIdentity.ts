@@ -4,7 +4,11 @@
 
 import { createHash } from "node:crypto";
 
-export const OPENAI_COSTS_ADAPTER_CONTRACT_VERSION = "openai-costs-v1" as const;
+/**
+ * Adapter contract bumped for coverage-bound sourceBatchId material
+ * (coverageStart + coverageEndExclusive). No live PROJECT_PERIOD data exists.
+ */
+export const OPENAI_COSTS_ADAPTER_CONTRACT_VERSION = "openai-costs-v2" as const;
 
 function normalizePart(value: string | null | undefined): string {
   if (value === null || value === undefined) return "";
@@ -62,6 +66,8 @@ export function buildBilledPeriodSourceBatchId(input: {
   readonly sfiaProjectId: string;
   readonly periodStart: string;
   readonly adapterContractVersion: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
   readonly atoms: ReadonlyArray<BilledPeriodBatchAtom>;
 }): string {
   const sorted = [...input.atoms]
@@ -73,6 +79,8 @@ export function buildBilledPeriodSourceBatchId(input: {
     normalizePart(input.sfiaProjectId),
     normalizePart(input.periodStart),
     normalizePart(input.adapterContractVersion),
+    normalizePart(input.coverageStart),
+    normalizePart(input.coverageEndExclusive),
     sorted.join("\n"),
   ].join("|");
   return `batch_${sha256Hex(material)}`;
@@ -142,6 +150,53 @@ export function isParsableDerivedSourceReference(
   derivedSourceReference: string,
 ): boolean {
   return derivedSourceReference.split("|").length >= 7;
+}
+
+/** Parse bucket bounds from derivedSourceReference; null if unprovable. */
+export function parseBucketIntervalFromDerivedSourceReference(
+  derivedSourceReference: string,
+): {
+  readonly sourceBucketStart: string;
+  readonly sourceBucketEndExclusive: string;
+} | null {
+  const parts = derivedSourceReference.split("|");
+  if (parts.length < 7) return null;
+  const sourceBucketStart = normalizePart(parts[3]);
+  const sourceBucketEndExclusive = normalizePart(parts[4]);
+  if (!sourceBucketStart || !sourceBucketEndExclusive) return null;
+  if (
+    Number.isNaN(Date.parse(sourceBucketStart)) ||
+    Number.isNaN(Date.parse(sourceBucketEndExclusive))
+  ) {
+    return null;
+  }
+  return { sourceBucketStart, sourceBucketEndExclusive };
+}
+
+/** bucketStart >= coverageStart AND bucketEndExclusive <= coverageEndExclusive */
+export function bucketFullyWithinCoverage(
+  bucket: {
+    readonly sourceBucketStart: string;
+    readonly sourceBucketEndExclusive: string;
+  },
+  coverage: {
+    readonly coverageStart: string;
+    readonly coverageEndExclusive: string;
+  },
+): boolean {
+  const bStart = Date.parse(bucket.sourceBucketStart);
+  const bEnd = Date.parse(bucket.sourceBucketEndExclusive);
+  const cStart = Date.parse(coverage.coverageStart);
+  const cEnd = Date.parse(coverage.coverageEndExclusive);
+  if (
+    Number.isNaN(bStart) ||
+    Number.isNaN(bEnd) ||
+    Number.isNaN(cStart) ||
+    Number.isNaN(cEnd)
+  ) {
+    return false;
+  }
+  return bStart >= cStart && bEnd <= cEnd;
 }
 
 /** Deterministic correction for an atom absent from a complete snapshot. */

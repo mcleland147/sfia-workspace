@@ -184,6 +184,8 @@ export function buildOpenAiCostsSourceBatchId(input: {
   readonly externalProjectId: string;
   readonly sfiaProjectId: string;
   readonly periodStart: string;
+  readonly coverageStart: string;
+  readonly coverageEndExclusive: string;
   readonly atoms: ReadonlyArray<OpenAiCostsAtom>;
 }): string {
   return buildBilledPeriodSourceBatchId({
@@ -192,6 +194,8 @@ export function buildOpenAiCostsSourceBatchId(input: {
     sfiaProjectId: input.sfiaProjectId,
     periodStart: input.periodStart,
     adapterContractVersion: OPENAI_COSTS_ADAPTER_CONTRACT_VERSION,
+    coverageStart: input.coverageStart,
+    coverageEndExclusive: input.coverageEndExclusive,
     atoms: input.atoms.map((atom) => ({
       sourceBucketStart: atom.sourceBucketStart,
       sourceBucketEndExclusive: atom.sourceBucketEndExclusive,
@@ -201,6 +205,13 @@ export function buildOpenAiCostsSourceBatchId(input: {
       providerAmount: atom.providerAmount,
     })),
   });
+}
+
+function unixSecondsToIsoUtc(unixSeconds: number): string {
+  if (!Number.isFinite(unixSeconds) || !Number.isInteger(unixSeconds)) {
+    throw new Error("OpenAI costs unix bound must be a finite integer");
+  }
+  return new Date(unixSeconds * 1000).toISOString();
 }
 
 export type FetchOpenAiOrganizationCostsInput = {
@@ -262,7 +273,22 @@ export async function fetchOpenAiOrganizationCostsSnapshot(
   readonly atoms: OpenAiCostsAtom[];
   readonly sourceBatchId: string;
   readonly facts: BilledPeriodFact[];
+  readonly snapshot: {
+    readonly completeness: "complete";
+    readonly provider: "openai";
+    readonly externalProjectId: string;
+    readonly coverageStart: string;
+    readonly coverageEndExclusive: string;
+  };
 }> {
+  // COMPLETE snapshot requires an explicit bounded end — never invent Date.now.
+  if (input.endTimeUnix === undefined || input.endTimeUnix === null) {
+    throw new Error("OPENAI_COSTS_COMPLETE_SNAPSHOT_REQUIRES_BOUNDED_END");
+  }
+
+  const coverageStart = unixSecondsToIsoUtc(input.startTimeUnix);
+  const coverageEndExclusive = unixSecondsToIsoUtc(input.endTimeUnix);
+
   const allAtoms: OpenAiCostsAtom[] = [];
   let page: string | null = null;
   do {
@@ -275,6 +301,8 @@ export async function fetchOpenAiOrganizationCostsSnapshot(
     externalProjectId: input.externalProjectId,
     sfiaProjectId: input.projectId,
     periodStart: input.periodStart,
+    coverageStart,
+    coverageEndExclusive,
     atoms: allAtoms,
   });
   const facts = mapAtomsToBilledPeriodFacts({
@@ -285,7 +313,18 @@ export async function fetchOpenAiOrganizationCostsSnapshot(
     atoms: allAtoms,
     sourceBatchId,
   });
-  return { atoms: allAtoms, sourceBatchId, facts };
+  return {
+    atoms: allAtoms,
+    sourceBatchId,
+    facts,
+    snapshot: {
+      completeness: "complete",
+      provider: "openai",
+      externalProjectId: input.externalProjectId,
+      coverageStart,
+      coverageEndExclusive,
+    },
+  };
 }
 
 export {

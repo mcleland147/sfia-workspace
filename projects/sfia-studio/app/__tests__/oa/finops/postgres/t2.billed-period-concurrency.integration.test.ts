@@ -26,11 +26,20 @@ const PERIOD = "2026-08-01";
 const BUCKET = "2026-08-07T00:00:00.000Z";
 const EXTERNAL = "proj_openai_pg_conc";
 
-function completeSnapshot(externalProjectId: string = EXTERNAL) {
+const COV_START = BUCKET;
+const COV_END = "2026-08-08T00:00:00.000Z";
+
+function completeSnapshot(
+  coverageStart: string = COV_START,
+  coverageEndExclusive: string = COV_END,
+  externalProjectId: string = EXTERNAL,
+) {
   return {
     completeness: "complete" as const,
     provider: "openai",
     externalProjectId,
+    coverageStart,
+    coverageEndExclusive,
   };
 }
 
@@ -40,14 +49,19 @@ function makeFact(input: {
   readonly sourceBatchId: string;
   readonly providerAmount: string;
   readonly lineItem: string | null;
+  readonly sourceBucketStart?: string;
+  readonly sourceBucketEndExclusive?: string;
 }): BilledPeriodFact {
+  const sourceBucketStart = input.sourceBucketStart ?? BUCKET;
+  const sourceBucketEndExclusive =
+    input.sourceBucketEndExclusive ?? "2026-08-08T00:00:00.000Z";
   return {
     projectId: input.projectId,
     externalProjectId: input.externalProjectId,
     periodStart: PERIOD,
     provider: "openai",
-    sourceBucketStart: BUCKET,
-    sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+    sourceBucketStart,
+    sourceBucketEndExclusive,
     lineItem: input.lineItem,
     providerAmount: input.providerAmount,
     currency: "USD",
@@ -55,8 +69,8 @@ function makeFact(input: {
       provider: "openai",
       externalProjectId: input.externalProjectId,
       sfiaProjectId: input.projectId,
-      sourceBucketStart: BUCKET,
-      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+      sourceBucketStart,
+      sourceBucketEndExclusive,
       lineItem: input.lineItem,
       currency: "USD",
     }),
@@ -67,20 +81,28 @@ function makeFact(input: {
 function batchId(input: {
   readonly projectId: string;
   readonly externalProjectId: string;
+  readonly coverageStart?: string;
+  readonly coverageEndExclusive?: string;
   readonly atoms: ReadonlyArray<{
     line_item: string | null;
     providerAmount: string;
+    sourceBucketStart?: string;
+    sourceBucketEndExclusive?: string;
   }>;
 }): string {
+  const coverageStart = input.coverageStart ?? COV_START;
+  const coverageEndExclusive = input.coverageEndExclusive ?? COV_END;
   return buildBilledPeriodSourceBatchId({
     provider: "openai",
     externalProjectId: input.externalProjectId,
     sfiaProjectId: input.projectId,
     periodStart: PERIOD,
-    adapterContractVersion: "openai-costs-v1",
+    adapterContractVersion: "openai-costs-v2",
+    coverageStart,
+    coverageEndExclusive,
     atoms: input.atoms.map((a) => ({
-      sourceBucketStart: BUCKET,
-      sourceBucketEndExclusive: "2026-08-08T00:00:00.000Z",
+      sourceBucketStart: a.sourceBucketStart ?? coverageStart,
+      sourceBucketEndExclusive: a.sourceBucketEndExclusive ?? coverageEndExclusive,
       project_id: input.externalProjectId,
       line_item: a.line_item,
       currency: "USD",
@@ -327,4 +349,118 @@ describeDb("FinOps T2 PostgreSQL billed-period concurrency", () => {
     });
     expect(agg?.billedAmount).toBe("100.00000000");
   });
+
+  it("PG-T04 coverage isolation: empty Aug8 does not zero Aug7", async () => {
+    const projectId = `proj-pg-t04-${suffix}`;
+    const reconciliation = createPostgresFinOpsReconciliation(pool);
+    const aggregates = createPostgresFinOpsAggregateStore(pool);
+    const deps = {
+      reconciliation,
+      aggregates,
+      nowIso: () => "2026-08-07T12:00:00.000Z",
+    };
+    const aug7Start = "2026-08-07T00:00:00.000Z";
+    const aug7End = "2026-08-08T00:00:00.000Z";
+    const aug8Start = "2026-08-08T00:00:00.000Z";
+    const aug8End = "2026-08-09T00:00:00.000Z";
+
+    const batch7 = batchId({
+      projectId,
+      externalProjectId: EXTERNAL,
+      coverageStart: aug7Start,
+      coverageEndExclusive: aug7End,
+      atoms: [
+        {
+          line_item: "A",
+          providerAmount: "10.00000000",
+          sourceBucketStart: aug7Start,
+          sourceBucketEndExclusive: aug7End,
+        },
+      ],
+    });
+    const seed7 = await reconcileBilledPeriod(deps, {
+      projectId,
+      periodStart: PERIOD,
+      sourceBatchId: batch7,
+      facts: [
+        makeFact({
+          projectId,
+          externalProjectId: EXTERNAL,
+          sourceBatchId: batch7,
+          providerAmount: "10.00000000",
+          lineItem: "A",
+          sourceBucketStart: aug7Start,
+          sourceBucketEndExclusive: aug7End,
+        }),
+      ],
+      snapshot: completeSnapshot(aug7Start, aug7End),
+    });
+    expect(seed7.outcome).toBe("succeeded");
+
+    const batch8 = batchId({
+      projectId,
+      externalProjectId: EXTERNAL,
+      coverageStart: aug8Start,
+      coverageEndExclusive: aug8End,
+      atoms: [
+        {
+          line_item: "B",
+          providerAmount: "5.00000000",
+          sourceBucketStart: aug8Start,
+          sourceBucketEndExclusive: aug8End,
+        },
+      ],
+    });
+    const seed8 = await reconcileBilledPeriod(deps, {
+      projectId,
+      periodStart: PERIOD,
+      sourceBatchId: batch8,
+      facts: [
+        makeFact({
+          projectId,
+          externalProjectId: EXTERNAL,
+          sourceBatchId: batch8,
+          providerAmount: "5.00000000",
+          lineItem: "B",
+          sourceBucketStart: aug8Start,
+          sourceBucketEndExclusive: aug8End,
+        }),
+      ],
+      snapshot: completeSnapshot(aug8Start, aug8End),
+    });
+    expect(seed8.outcome).toBe("succeeded");
+
+    const empty8 = batchId({
+      projectId,
+      externalProjectId: EXTERNAL,
+      coverageStart: aug8Start,
+      coverageEndExclusive: aug8End,
+      atoms: [],
+    });
+    const cleared = await reconcileBilledPeriod(deps, {
+      projectId,
+      periodStart: PERIOD,
+      sourceBatchId: empty8,
+      facts: [],
+      snapshot: completeSnapshot(aug8Start, aug8End),
+    });
+    expect(cleared.outcome).toBe("succeeded");
+
+    const events = await reconciliation.listCostEventsForProjectPeriod({
+      projectId,
+      periodStart: PERIOD,
+    });
+    const amounts = events.map((e) => e.amount).sort();
+    expect(amounts).toEqual(["-5.00000000", "10.00000000", "5.00000000"]);
+    expect(events.filter((e) => e.amount === "-10.00000000")).toHaveLength(0);
+    expect(events.filter((e) => e.amount === "-5.00000000")).toHaveLength(1);
+
+    const agg = await aggregates.readAggregate({
+      projectId,
+      periodStart: PERIOD,
+      currency: "USD",
+    });
+    expect(agg?.billedAmount).toBe("10.00000000");
+  });
+
 });

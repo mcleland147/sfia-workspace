@@ -136,11 +136,18 @@ export type BilledPeriodFact = {
 /**
  * Declares whether the caller holds a COMPLETE provider snapshot for a scope.
  * incomplete / failed provider fetch must NEVER be treated as empty-complete.
+ *
+ * When completeness = "complete", the snapshot is complete ONLY for
+ * [coverageStart, coverageEndExclusive) — never for the whole UTC month.
  */
 export type BilledPeriodSnapshotDeclaration = {
   readonly completeness: "complete" | "incomplete";
   readonly provider: string;
   readonly externalProjectId: string;
+  /** Inclusive UTC instant bound of the covered window. */
+  readonly coverageStart: string;
+  /** Exclusive UTC instant bound of the covered window. */
+  readonly coverageEndExclusive: string;
 };
 
 export type ReconcileBilledPeriodInput = {
