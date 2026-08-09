@@ -4,10 +4,17 @@
  * Reuses composeExecutionRunD2D3 injection surface unchanged.
  * Reuses composeFinOpsT7ShadowExecutionDeps thin adapter.
  *
+ * Policy source (Option A — Morris-selected architecture):
+ * - Default composition path = versioned Git source
+ *   (`resolveVersionedFinOpsT7ShadowPolicy`) — EMPTY / INERT this Delivery.
+ * - Optional `resolveShadowPolicy` = test/verification override seam only,
+ *   not a second product authority.
+ *
  * Anti-claims:
  * - SHADOW NOT ACTIVATED (no durable SHADOW row write).
  * - MONITOR / E1 not activated.
  * - No real provider / Neon / production threshold.
+ * - Policy values NOT SELECTED (default source has zero entries).
  * - Pilot identity: Morris-selected `sfia-studio-ops1` (OA-local constant).
  * - Does NOT import lib/ops1 (preserves OA / OPS1 isolation).
  */
@@ -18,6 +25,7 @@ import {
   type FinOpsT7ShadowDecisionDiagnostic,
   type FinOpsT7ShadowPolicyInput,
 } from "../../finops/server/composeFinOpsT7ShadowExecutionDeps";
+import { resolveVersionedFinOpsT7ShadowPolicy } from "../../finops/server/versionedFinOpsT7ShadowPolicySource";
 import type { EvaluateFinOpsEnforcementInput } from "../../finops/application/types.enforcement";
 import {
   composeExecutionRunD2D3,
@@ -42,10 +50,12 @@ export type ComposeExecutionRunD2D3T7ShadowPilotInput = {
   readonly clock?: ClockPort;
   readonly clockIso?: string;
   /**
-   * Explicit SHADOW policy injection (TEST or future activation source).
+   * Optional SHADOW policy override seam (tests / bounded verification only).
+   * Default composition path uses Option A versioned source
+   * (`resolveVersionedFinOpsT7ShadowPolicy`) which is EMPTY / INERT.
    * Returning null ⇒ allow/not_configured. Effect always forced signal_only by adapter.
    */
-  readonly resolveShadowPolicy: (
+  readonly resolveShadowPolicy?: (
     input: EvaluateFinOpsEnforcementInput,
   ) =>
     | Promise<FinOpsT7ShadowPolicyInput | null>
@@ -81,11 +91,14 @@ export function composeExecutionRunD2D3T7ShadowPilot(
     input.clock?.nowIso ??
     (() => input.clockIso ?? "2026-08-08T16:00:00.000Z");
 
+  const resolveShadowPolicy =
+    input.resolveShadowPolicy ?? resolveVersionedFinOpsT7ShadowPolicy;
+
   const shadowDeps = composeFinOpsT7ShadowExecutionDeps({
     pool: input.pool,
     nowIso,
     pilotProjectId: T7_SHADOW_PILOT_PROJECT_ID,
-    resolveShadowPolicy: input.resolveShadowPolicy,
+    resolveShadowPolicy,
     onShadowDecision: input.onShadowDecision,
   });
 

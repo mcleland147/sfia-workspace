@@ -864,4 +864,39 @@ describeDb("T7 SHADOW Option A — wiring integration", () => {
       }),
     );
   });
+
+  it("T7-PS01 default Option A source (no override) → null → allow/not_configured · never block", async () => {
+    await upsertMode(pool, PILOT, "SHADOW");
+    const diagnostics: Array<{
+      mode: string;
+      decision: string;
+      reason: string;
+    }> = [];
+    const { providers, completeSpy } = spyProviders();
+    const composition = composeExecutionRunD2D3T7ShadowPilot({
+      pool,
+      clockIso,
+      providers,
+      // No resolveShadowPolicy — composition default = versioned Option A source (EMPTY).
+      onShadowDecision: (diagnostic) => {
+        diagnostics.push({
+          mode: String(diagnostic.mode),
+          decision: diagnostic.decision,
+          reason: diagnostic.reason,
+        });
+      },
+    });
+    const result = await composition.coordinate(
+      coordinateInput(PILOT, "ps01-default-source"),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.providerInvoked).toBe(true);
+    expect(completeSpy).toHaveBeenCalled();
+    expect(diagnostics.length).toBeGreaterThan(0);
+    const last = diagnostics[diagnostics.length - 1]!;
+    expect(last.mode).toBe("SHADOW");
+    expect(last.decision).toBe("allow");
+    expect(last.reason).toBe("not_configured");
+    expect(diagnostics.every((d) => d.decision !== "block")).toBe(true);
+  });
 });
