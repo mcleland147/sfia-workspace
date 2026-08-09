@@ -245,12 +245,14 @@ describeDb("FinOps T7 foundation runtime composition integration", () => {
         "capture",
         "flushAudit",
         "recomputeAggregatesAndRefresh",
+        "reconcileBilledPeriodAndRefresh",
         "reconcileProjectPeriodAndRefresh",
         "resolveProjectRollout",
       ].sort(),
     );
     expect(rt).not.toHaveProperty("recomputeAggregates");
     expect(rt).not.toHaveProperty("reconcileProjectPeriod");
+    expect(rt).not.toHaveProperty("reconcileBilledPeriod");
     expect(rt).not.toHaveProperty("upsertProjectRollout");
     expect(rt).not.toHaveProperty("evaluateFinOpsEnforcement");
   });
