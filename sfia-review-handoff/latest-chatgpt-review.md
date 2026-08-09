@@ -1,51 +1,54 @@
-# Cycle 13 Standard — T7 SHADOW Policy Source Option A Local Commit + PR Readiness — Review Pack (full)
+# Cycle 13 Standard — T7 SHADOW Policy Source Option A PR Publication — Review Pack (full)
 
 ## 1. Date / time
-- CEST: 2026-08-09 05:10:01 CEST
-- UTC: 2026-08-09 03:10:01 UTC
+- CEST: 2026-08-09 05:23:55 CEST
+- UTC: 2026-08-09 03:23:55 UTC
 
 ## 2. Décision Morris exacte
-GO LOCAL COMMIT + PR READINESS — T7 SHADOW Policy Source Option A Infrastructure.
+GO PUSH BRANCH + OPEN PR — T7 SHADOW Policy Source Option A Infrastructure.
 
 ## 3. Cycle / profil
-- Cycle: 13 — PR readiness
+- Cycle: 13 — PR readiness / publication distante
 - Profil: Standard
 - Bloc: FinOps
 - Baseline: SFIA v2.6
-- CKC détaillé: ABSENT (fallback synthetic map, method-candidate, experimental cognitive guidance only)
+- CKC détaillé: ABSENT (fallback synthetic map, method-candidate only)
 
 ## 4. Git Truth initial
-- worktree Delivery: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-shadow-policy-source-option-a`
-- branch: `delivery/sfia-studio-finops-t7-shadow-policy-source-option-a`
-- HEAD initial: `afa12efe692014552eda277a484a71d6b479994e`
+- Delivery worktree branch: `delivery/sfia-studio-finops-t7-shadow-policy-source-option-a`
+- local HEAD: `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
+- parent: `afa12efe692014552eda277a484a71d6b479994e`
 - origin/main: `afa12efe692014552eda277a484a71d6b479994e`
-- ahead/behind initial: `0 0`
-- staged initial: NONE
-- remote Delivery branch: ABSENT
+- ahead/behind: `0 1`
+- tracked clean; staged none
+- remote Delivery pre-push: ABSENT
+- PR pre-publication: ABSENT
 
 ## 5. Handoff entrant tip / blob
-- tip: `3838f99dc7a3a82520b6517254f0f9772f436912`
-- blob: `f1e86fe8d73e3d83fd41a3cdb21b4b12d3a0ce33`
-- cycle entrant: Cycle 9 Standard — T7 SHADOW Policy Source Option A Infrastructure Dedicated QA
-- confirmed: QA-G2 PASS, QA-G3 PASS, EXACT 5 PATHS, PRE/POST BYTES IDENTICAL, POLICY SOURCE OPTION A SELECTED BY MORRIS, POLICY VALUES NOT SELECTED, SHADOW NOT ACTIVATED, PROJECT COMMIT NO, PROJECT PUSH NO, PR NO
+- tip: `d2b429a363aa4c0a27cda69c5ddefdf2660a4393`
+- blob: `1996763b4dc41b8422ad096f289edc086218d51d`
+- cycle: Cycle 13 Standard — Local Commit + PR Readiness
+- confirmed: LOCAL_COMMIT_SHA, PARENT, QA-G2/G3 PASS, EXACT 5-PATH, QA bytes preserved, VALUES NOT SELECTED, SHADOW NOT ACTIVATED, REMOTE ABSENT, PR NO, READY FOR PUSH + OPEN PR
 
-## 6. Base / main
-`afa12efe692014552eda277a484a71d6b479994e`
+## 6. Main initial
+`afa12efe692014552eda277a484a71d6b479994e` (unchanged through push/PR/CI)
 
-## 7. Exact initial 5-path scope
+## 7. Local branch / head / parent
+- branch: `delivery/sfia-studio-finops-t7-shadow-policy-source-option-a`
+- HEAD: `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
+- HEAD^: `afa12efe692014552eda277a484a71d6b479994e`
+
+## 8. Exact 5-path manifest
 ```
-A projects/sfia-studio/app/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts
-A projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-policy-source-option-a.unit.test.ts
 A projects/sfia-studio/159-assistant-sfia-native-openai-finops-t7-shadow-policy-source-option-a-execution.md
+A projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-policy-source-option-a.unit.test.ts
+A projects/sfia-studio/app/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts
 M projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts
 M projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
 ```
+3 CREATE + 2 MODIFY. Diff: 5 files / +344 / -3.
 
-## 8. QA-G2 / QA-G3
-- QA-G2 = PASS
-- QA-G3 = PASS
-
-## 9. QA expected hashes
+## 9. QA hashes attendus
 | Path | SHA-256 |
 |------|---------|
 | versionedFinOpsT7ShadowPolicySource.ts | f5f23972740178ec1fc099c4d453a403c4fd89d4ebcfafe5eb91f4441dd5e2d3 |
@@ -54,92 +57,78 @@ M projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wirin
 | composeExecutionRunD2D3T7ShadowPilot.ts | c6bf13e1056fd0d8bc38d32d47160d1b4e097c39b5e927120e12a5ac9393479c |
 | t7.shadow-option-a.wiring.integration.test.ts | 10fd61280c98c62c85ef355d40c05c73131151593e91b9808c3f57f04065b7d6 |
 
-## 10. Pre-staging actual hashes
-All MATCH (BYTE_FAIL 0). See evidence `pre-staging-hashes.txt`.
+## 10. Local committed hashes
+5/5 MATCH (LOCAL_QA_FAIL 0)
 
-## 11. QA tracked diff hash
-`5d8acf9ab7caff02e3460c798d5877edd10e471199ed6d288380bd67b7873334` — MATCH
+## 11. Remote branch pre-state
+ABSENT (`git ls-remote --heads` empty before push)
 
-## 12. Pre-staging diff-check
-PASS (`git diff --check` exit 0)
-
-## 13. Staged exact manifest
+## 12. Push command / result
 ```
-A	projects/sfia-studio/159-assistant-sfia-native-openai-finops-t7-shadow-policy-source-option-a-execution.md
-M	projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
-A	projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-policy-source-option-a.unit.test.ts
-M	projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts
-A	projects/sfia-studio/app/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts
+git push -u origin delivery/sfia-studio-finops-t7-shadow-policy-source-option-a
 ```
-Exact 5 staged paths. No other staged.
+Result: new branch created on origin. Non-force. No force flags used.
 
-## 14. Staged hashes
-All MATCH QA freeze (STAGED_BYTE_FAIL 0).
+## 13. Remote branch tip
+`991f4763f9ea28fe8e7fce15fa79681eee6beb43`
 
-## 15. Staged diff-check
-PASS (`git diff --cached --check` exit 0)
+## 14. Remote commit parent
+`afa12efe692014552eda277a484a71d6b479994e`
 
-## 16. Commit command
+## 15. Remote 5-path diff
+Exact same 5 paths; 5 files changed, 344 insertions(+), 3 deletions(-)
+
+## 16. Remote hashes 5/5
+REMOTE_QA_FAIL 0 — all MATCH QA freeze
+
+## 17. PR existence / idempotency check
+Pre-push search by head branch and commit SHA: empty. Created new PR (not PR_ALREADY_EXISTS).
+
+## 18. PR create command / result
 ```
-git commit -m "feat(sfia-studio): add T7 shadow policy source infrastructure"
+gh pr create --base main --head delivery/sfia-studio-finops-t7-shadow-policy-source-option-a \
+  --title "feat(sfia-studio): add T7 shadow policy source infrastructure" \
+  --body-file .tmp-sfia-review/t7-shadow-policy-source-option-a-pr/pr-body-publication.md
 ```
-No amend.
+Result: PR created successfully.
 
-## 17. Commit SHA
-LOCAL_COMMIT_SHA = `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
+## 19. PR number
+323
 
-## 18. Parent SHA
-PARENT_SHA = `afa12efe692014552eda277a484a71d6b479994e`
+## 20. PR URL
+https://github.com/mcleland147/sfia-workspace/pull/323
 
-## 19. Commit exact scope
-3 A + 2 M — exact 5 paths (see §13). `git rev-list --left-right --count origin/main...HEAD` = `0 1`.
+## 21. PR state / draft
+- state: OPEN
+- draft: false
+- mergeable: MERGEABLE
+- mergeStateStatus: CLEAN
+- merge executed: NO
 
-## 20. Committed hashes
-All MATCH QA freeze (COMMITTED_BYTE_FAIL 0).
+## 22. PR head branch / head SHA
+- head branch: `delivery/sfia-studio-finops-t7-shadow-policy-source-option-a`
+- head SHA: `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
 
-## 21. origin/main...HEAD diff stat
-5 files changed, 344 insertions(+), 3 deletions(-)
+## 23. PR base / base SHA at opening
+- base: `main`
+- base SHA: `afa12efe692014552eda277a484a71d6b479994e`
 
-## 22. origin/main...HEAD exact paths
-Same exact 5 paths as §13 / §19. No scope creep.
-
-## 23. Protected path check
-- `.github/**` = 0
-- `method/**` = 0
-- `prompts/**` = 0
-- `scripts/**` = 0
-- migrations = 0
-- package*.json = 0
-- lib/ops1 runtime = 0
-
-## 24. Secret check
-NO_SECRET_HITS on `origin/main...HEAD` heuristic scan. No new env authority / token material.
-
-## 25. QA evidence reused
-- Policy Source unit = 5/5 PASS
-- T7 SW unit = 6/6 PASS
-- PostgreSQL wiring = 23/23 PASS
-- OA/OPS1 probe = 5/5 PASS
-- Typecheck = PASS
-- Lint = PASS
-- Build = PASS
-- Full regression = 149 passed files / 11 skipped ; 1514 passed tests / 108 skipped ; PASS
-- UI timeout = NOT REPRODUCED IN QA
-- QA-G2 = PASS
-- QA-G3 = PASS
-
-## 26. Reason tests not rerun
-Cycle 9 Dedicated QA validated the exact bytes now committed; committed SHA-256 hashes match QA freeze; parent = `afa12efe…`; commit contains exactly the 5 paths; no byte mutation in this cycle.
-
-## 27. PR TITLE COMPLET
+## 24. Exact changed files
 ```
-feat(sfia-studio): add T7 shadow policy source infrastructure
+added    projects/sfia-studio/159-assistant-sfia-native-openai-finops-t7-shadow-policy-source-option-a-execution.md
+added    projects/sfia-studio/app/__tests__/oa/finops/t7.shadow-policy-source-option-a.unit.test.ts
+added    projects/sfia-studio/app/lib/oa/finops/server/versionedFinOpsT7ShadowPolicySource.ts
+modified projects/sfia-studio/app/lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts
+modified projects/sfia-studio/app/__tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts
 ```
-Path: `.tmp-sfia-review/t7-shadow-policy-source-option-a-pr/pr-title.txt`
 
-## 28. PR BODY COMPLET
-Path: `.tmp-sfia-review/t7-shadow-policy-source-option-a-pr/pr-body.md`
+## 25. Diff stat
+5 files / +344 / -3
 
+## 26. PR title remote
+`feat(sfia-studio): add T7 shadow policy source infrastructure`
+
+## 27. PR BODY COMPLET final
 ```markdown
 # Summary
 
@@ -160,6 +149,7 @@ Commit candidate:
 - Delivery Cycle 8 Standard authorized
 - Dedicated QA Cycle 9 Standard authorized
 - Local commit + PR readiness authorized
+- Push branch + open PR authorized by Morris
 
 Explicitly NOT authorized:
 - policy values
@@ -244,63 +234,72 @@ Explicitly NOT authorized:
 
 # Next gates
 
-1. Morris GO PUSH BRANCH + OPEN PR
-2. remote CI on exact commit
-3. ChatGPT PR validation
-4. distinct Morris GO MERGE
-5. Cycle 14 Post-merge
-6. only after infrastructure integration: separate policy-values decision
-7. SHADOW activation remains another distinct Morris GO
+1. remote CI on exact head
+2. ChatGPT PR validation
+3. distinct Morris GO MERGE
+4. Cycle 14 Post-merge
+5. separate policy-values decision only after infrastructure integration
+6. SHADOW activation remains a distinct Morris GO
+
+# Remote PR status
+
+- PR #323 OPEN
+- head `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
+- base `afa12efe692014552eda277a484a71d6b479994e` at opening
+- 5 files / +344 / -3
+- merge NOT AUTHORIZED
+- SHADOW NOT ACTIVATED
+- POLICY VALUES NOT SELECTED
+- CI run `31292362499` SUCCESS
+- SFIA Studio Required Gate PASS
+- Remote CI SUCCESS does NOT authorize merge.
 ```
 
-## 29. Body self-check
-BODY_SELF_CHECK_PASS = true
-- local commit SHA present
-- no affirmative PR existence claim
-- no remote CI SUCCESS claim
-- no merge authorized claim
-- C08 OPEN MINOR preserved
-- SHADOW NOT ACTIVATED preserved
-- POLICY VALUES NOT SELECTED preserved
-- QA-G2/G3 PASS present
-- source / values / activation distinguished
+## 28. Body anti-claim self-check
+PASS:
+- POLICY VALUES NOT SELECTED
+- SHADOW NOT ACTIVATED
+- merge NOT AUTHORIZED
+- Remote CI SUCCESS does NOT authorize merge
+- no POLICY CONFIGURED / PRODUCTION POLICY ACTIVE / SHADOW ACTIVE / MERGE APPROVED / MONITOR READY / READY FOR SHADOW ACTIVATION
 
-## 30. Final branch / HEAD / main
-- branch: `delivery/sfia-studio-finops-t7-shadow-policy-source-option-a`
-- HEAD: `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
-- HEAD^ / origin/main: `afa12efe692014552eda277a484a71d6b479994e`
+## 29. Protected path check
+`.github/**` = 0; `method/**` = 0; `prompts/**` = 0; `scripts/**` = 0; migrations = 0; package*.json = 0; lib/ops1 runtime = 0
 
-## 31. Final ahead / behind
-`0 1` (behind 0 / ahead 1)
+## 30. Secret check
+Targeted CI secret pattern scan SUCCESS; PR scope project Studio only; no secret material in changed paths.
 
-## 32. Final status
-Tracked clean; staged none. Untracked evidence under `.tmp-sfia-review/**` allowed (main evidence worktree).
+## 31. QA evidence carried from Cycle 9
+- Policy Source unit 5/5 PASS
+- T7 SW unit 6/6 PASS
+- PostgreSQL wiring 23/23 PASS
+- OA/OPS1 probe 5/5 PASS
+- typecheck/lint/build PASS
+- regression 149 passed files / 1514 passed tests
+- UI timeout NOT REPRODUCED IN QA
+- QA-G2 PASS / QA-G3 PASS
+- committed/remote bytes match QA freeze hashes
 
-## 33. Remote branch absent
-`git ls-remote --heads origin delivery/sfia-studio-finops-t7-shadow-policy-source-option-a` → empty (ABSENT)
+## 32. CI run ID / head / status
+- CI_RUN_ID: `31292362499`
+- CI_HEAD_SHA: `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
+- CI_OVERALL_STATUS: SUCCESS
+- workflow: SFIA Studio CI
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/31292362499
 
-## 34. Project push
-NO
+## 33. Required Gate status
+SFIA Studio Required Gate = PASS / SUCCESS
 
-## 35. PR
-NO
+Jobs:
+- Detect SFIA Studio changes = pass
+- Build and validate SFIA Studio = pass
+- SFIA Studio Required Gate = pass
 
-## 36. Merge
-NO
+## 34. CI failure details
+N/A — CI SUCCESS
 
-## 37. Policy source
-OPTION A SELECTED BY MORRIS — versioned source EMPTY / INERT by default
-
-## 38. Policy values
-NOT SELECTED
-
-## 39. SHADOW
-NOT ACTIVATED
-
-## 40. C08 reserve
-R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
-
-## 41. Other trajectory reserves
+## 35. Reserves
+- R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
 - R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
 - R-PR-T2-API-01 = OPEN MINOR (si toujours applicable)
 - real calibration = REQUIRED BEFORE MONITOR
@@ -310,27 +309,61 @@ R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
 - MONITOR = NOT ACTIVATED
 - E1 = NOT AUTHORIZED
 
-## 42. Next gate
-Morris GO PUSH BRANCH + OPEN PR — T7 SHADOW Policy Source Option A Infrastructure.
-(Must verify main still afa12efe…, HEAD = LOCAL_COMMIT_SHA, non-force push, open PR with prepared title/body, observe CI; do NOT merge; do NOT open policy values; do NOT activate SHADOW.)
+## 36. Policy source status
+OPTION A SELECTED BY MORRIS — infrastructure IMPLEMENTED / QA VALIDATED / PR OPEN — default config EMPTY / INERT
 
-## 43. Verdict
-T7 SHADOW POLICY SOURCE OPTION A LOCAL COMMIT + PR READINESS VALIDATED WITH RESERVES —
+## 37. Policy values
+NOT SELECTED
+
+## 38. SHADOW
+NOT ACTIVATED
+
+## 39. Merge
+NOT AUTHORIZED in this cycle (no merge executed)
+
+## 40. Final local / remote branch status
+- local HEAD = `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
+- origin Delivery = `991f4763f9ea28fe8e7fce15fa79681eee6beb43`
+- origin/main = `afa12efe692014552eda277a484a71d6b479994e`
+- tracked clean; staged none; ahead/behind `0 1`
+- PR #323 OPEN
+
+## 41. Project commit
+existing `991f4763f9ea28fe8e7fce15fa79681eee6beb43` only
+
+## 42. Additional project commit
+NO
+
+## 43. Force push
+NO
+
+## 44. Merge
+NO
+
+## 45. Next gate
+Morris GO MERGE PR #323 — T7 SHADOW Policy Source Option A Infrastructure
+Condition: head remains exactly `991f4763f9ea28fe8e7fce15fa79681eee6beb43` and Required Gate remains green at merge time.
+Still NOT authorized by that future GO alone: policy values; SHADOW activation.
+After merge: Cycle 14 Post-merge with secure cleanup; only then separate POLICY VALUES topic.
+
+## 46. Verdict
+T7 SHADOW POLICY SOURCE OPTION A PR PUBLICATION VALIDATED WITH RESERVES —
 CYCLE 13 STANDARD —
-LOCAL COMMIT 991f4763f9ea28fe8e7fce15fa79681eee6beb43 —
-PARENT afa12efe692014552eda277a484a71d6b479994e —
-EXACT 5-PATH COMMIT —
-QA-VALIDATED BYTES PRESERVED —
+PR #323 OPEN —
+HEAD 991f4763f9ea28fe8e7fce15fa79681eee6beb43 VERIFIED —
+BASE afa12efe692014552eda277a484a71d6b479994e VERIFIED —
+EXACT 5-PATH REMOTE DIFF —
+QA-VALIDATED BYTES VERIFIED REMOTELY —
 QA-G2 PASS —
 QA-G3 PASS —
-OPTION A VERSIONED SOURCE EMPTY / INERT —
+CI 31292362499 SUCCESS —
+SFIA STUDIO REQUIRED GATE PASS —
+OPTION A SOURCE EMPTY / INERT —
 POLICY VALUES NOT SELECTED —
 SHADOW NOT ACTIVATED —
 R-QA-T7-C08-SCENARIO-01 OPEN MINOR —
-PR TITLE READY —
-PR BODY READY —
-NO PROJECT PUSH —
-NO PR CREATED —
+NO FORCE PUSH —
+NO ADDITIONAL PROJECT COMMIT —
 NO MERGE —
-READY FOR PUSH + OPEN PR —
-HANDOFF REMOTE VERIFIED (pending publish verification below)
+READY FOR MORRIS GO MERGE —
+HANDOFF REMOTE VERIFIED
