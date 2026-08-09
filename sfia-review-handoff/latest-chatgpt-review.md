@@ -1,17 +1,20 @@
-# Cycle 7 Critical — FinOps T7 SHADOW Pilot Target Provisioning / Selection — Review Pack
+# Cycle 7 Critical — FinOps T7 SHADOW Pilot — Neon Free Target Establishment — Review Pack
 
-**Date/heure (CEST):** 2026-08-09 14:46:38 CEST
-**Date/heure (UTC):** 2026-08-09 12:46:38 UTC
+**Date/heure (CEST):** 2026-08-09 15:21:53 CEST
+**Date/heure (UTC):** 2026-08-09 13:21:53 UTC
 **Baseline:** SFIA v2.6
 **Profile:** Critical
 
 ## Décision Morris
 
 ```text
-GO SHADOW PILOT TARGET PROVISIONING / SELECTION —
+GO PROVIDER / BILLING / PILOT DB ESTABLISHMENT —
 sfia-studio-ops1 —
-ESTABLISH ELIGIBLE PERSISTENT DATABASE TARGET —
-CAPTURE SAFE TARGET FINGERPRINT —
+OPTION 1 NEON —
+ESTABLISH DEDICATED NON-PROD T7 SHADOW PILOT DATABASE —
+USE FREE / NO-ADDITIONAL-COST TIER IF AVAILABLE —
+SELECT REGION APPROPRIATE FOR THE PILOT —
+SECURE CREDENTIAL HANDOFF OUTSIDE GIT —
 NO SHADOW ACTIVATION.
 ```
 
@@ -21,156 +24,223 @@ NO SHADOW ACTIVATION.
 branch = main
 HEAD = origin/main = 34b6a321a69e0315f410ac0876cd5e9734a77206
 tracked clean (.tmp only)
-baseline ancestor YES
-project branch created = NO
+project branch/commit/push/PR = NONE
 ```
 
 ## Handoff entrant
 
 ```text
-tip  = 2f945f38856bc936d8000f2dfe2f72d13562ad01
-blob = 0bcbb15da81ab4fa59152ea9c4d946c63512643f
-Option B on main / real target NOT SELECTED / SHADOW NOT ACTIVATED = confirmed
+tip  = 3f176400a36818950b789ac461a4fa4da9b6f27e
+blob = 49b5b39b1310bbbc526b7f06aaa844e843d67174
+prior CASE C / real target NOT SELECTED confirmed
 ```
 
 ## Sources / CKC
 
 ```text
-template + routing + validation checklist + synthetic map + routing matrix consulted
-CKC cycle 7 = candidate (experimental; no execution authority)
-docs 160/161 + operator/CLI/identity/store + package.json consulted
-repo Neon/Postgres docs: Neon SELECTED documentarily, NOT CONFIGURED / no account
+template + routing + validation checklist + synthetic map consulted
+CKC cycle 7 = candidate/fallback (no execution authority)
+docs 160/161 + Option B helper/CLI/operator + migrations consulted
+Neon pricing + projects docs verified at runtime
 ```
 
-## Environment inventory (no secret values)
+## Neon Free runtime verification (F01–F06)
 
 ```text
-===ENV_PRESENCE===
-DATABASE_URL_DIRECT=PRESENT
-DATABASE_URL=PRESENT
-POSTGRES_URL=ABSENT
-NEON_API_KEY=ABSENT
-NEON_PROJECT_ID=ABSENT
-VERCEL_TOKEN=ABSENT
-VERCEL_ORG_ID=ABSENT
-===ENV_FILES_NAMES_ONLY===
-NO_APP_ENV_FILES
-===TOOLING===
-psql=NO
-docker=YES
-neonctl=NO
-neon=NO
-vercel=NO
-gh=YES
-npx=YES
-===AUTH_STATUS_NO_SECRETS===
-NEONCTL_CREDENTIALS_FILE=ABSENT
-NEONCTL_HOME=ABSENT
+F01 Free plan available = PASS ($0/month permanent Free)
+F02 Cost displayed = $0 = PASS
+F03 No card required = PASS (pricing: no credit card required)
+F04 Not auto-convertible trial = PASS (Free is permanent, not a trial)
+F05 aws-eu-central-1 available = PASS (docs/changelog confirm Frankfurt capacity)
+F06 PostgreSQL 16 available = PASS (PG18 default for new projects; PG16 still supported — must select explicitly)
 ```
 
-Process DATABASE_URL_DIRECT safe identity:
+## Auth / billing
+
+```text
+HUMAN NEON AUTH completed by Morris (console)
+ACCOUNT_PLAN = Free
+ADDITIONAL_COST = $0
+PAYMENT_METHOD_REQUIRED = NO
+UPGRADE_REQUIRED = NO
+card entry = NOT REQUESTED / NOT PERFORMED
+```
+
+## Project safe metadata
+
+```text
+NEON_PROJECT_NAME=sfia-studio-finops-t7-shadow-pilot
+ORG_LABEL=SFIA Studio
+ACCOUNT_PLAN=Free
+ADDITIONAL_COST=$0
+PAYMENT_METHOD_REQUIRED=NO
+UPGRADE_REQUIRED=NO
+REGION_LABEL=AWS Europe Central 1 (Frankfurt)
+REGION_ID=aws-eu-central-1
+POSTGRES_MAJOR=16
+DEFAULT_BRANCH_NAME=production
+COMPUTE_SIZE=0.25-2 CU
+SCALE_TO_ZERO=ENABLED (Free default)
+USAGE_COMPUTE=0/100 CU-hrs
+USAGE_STORAGE=0/0.5 GB
+USAGE_NETWORK=0/5 GB
+PERSISTENT=YES
+DEDICATED_PROJECT=YES
+NON_PROD=YES
+NO_REAL_USER_DATA=YES
+PROVIDER_DEFAULT_BRANCH_NAME=production (NOT application production)
+TARGET_LABEL=neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot
+KEYCHAIN_SERVICE=sfia-studio-finops-t7-shadow-pilot-DATABASE_URL_DIRECT
+DATABASE_NAME = neondb (default dedicated project database — no second DB created)
+ENDPOINT_HOST_SAFE = ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech
+```
+
+## Direct / TLS
+
+```text
+direct/non-pooled = YES (hostname has no -pooler)
+sslmode=require + channel_binding=require
+TLS transport connect with rejectUnauthorized = YES
+sslmode=disable connect = REJECTED
+pg_stat_ssl.ssl may report false behind Neon proxy (expected)
+TLS_ACTIVE (GO evidence) = True
+SERVER_MAJOR = 16
+```
+
+## Keychain handoff
+
+```text
+KEYCHAIN_ENTRY_PRESENT = YES
+KEYCHAIN_SERVICE = sfia-studio-finops-t7-shadow-pilot-DATABASE_URL_DIRECT
+KEYCHAIN_ACCOUNT = morris
+credential value exposed in Git/report/handoff/stdout = NO
+.env created = NO
+```
+
+## Safe canonical identity
+
+```text
+host=ep-dry-shape-b1fabcbm.c-5.eu-central-1.aws.neon.tech
+port=5432
+database=neondb
+```
+
+## Fingerprints
+
+```text
+FP-A = 7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331
+FP-B = 7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331
+ORACLE_MATCH = True
+```
+
+## Pre-migration cleanliness
+
+```text
+PUBLIC_TABLE_COUNT before migrate = 0
+NO_EXISTING_APPLICATION_DATA = YES
+```
+
+## Migrations
+
+```text
+MIGRATION_STATUS = SUCCESS
+applied =
+- 1754500000000_finops-t1-usage-ledger
+- 1754600000000_finops-t2-aggregation-reconciliation
+- 1754600001000_finops-t6-audit-journal
+- 1754600002000_finops-t3-alert-review-state
+- 1754600003000_finops-t4-enforcement-projection
+- 1754600004000_finops-t7-rollout-config
+custom migrations = NONE
+```
+
+## Schema readiness
+
+```text
+SCHEMA_READY = True
+finops_rollout_config = PRESENT
+tables = finops_alert_state, finops_audit_event, finops_cost_event, finops_enforcement_projection, finops_morris_review_state, finops_price_catalog_entry, finops_reconciliation_record, finops_rollout_config, finops_usage_aggregate, finops_usage_event, pgmigrations
+```
+
+## Rollout state before
+
+```text
+ROW_EXISTS = False
+ROW_COUNT_BEFORE = 0
+EFFECTIVE_MODE = OFF
+```
+
+## Target tuple
+
+```text
+TARGET neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot
+FINGERPRINT 7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331
+TARGET_LABEL = audit-only (not technical DB binding)
+```
+
+## Real dry-run (no --apply)
+
 ```json
 {
-  "present": true,
-  "protocol": "postgres",
-  "hostname": "127.0.0.1",
-  "port": 59471,
-  "database": "sfia_studio_finops_t7_optb_qa_testdb",
-  "classification": "INELIGIBLE_LOCAL_OR_LOOPBACK",
-  "eligibility": "INELIGIBLE",
-  "reason": "localhost/loopback ephemeral leftover from prior QA"
+  "ok": true,
+  "targetLabel": "neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot",
+  "projectId": "sfia-studio-ops1",
+  "requestedMode": "SHADOW",
+  "expectedMode": "OFF",
+  "beforeEffectiveMode": "OFF",
+  "beforeRevision": null,
+  "afterMode": "OFF",
+  "afterRevision": null,
+  "updatedAt": null,
+  "applied": false,
+  "result": "dry_run"
 }
 ```
 
-Secret mechanism candidates:
-```text
-===SECRET_MECHANISM_CANDIDATES===
-1password_cli=NO
-macos_security=YES
-VERCEL_HOME=ABSENT
-VERCEL_PROJECT_LINK=ABSENT
-GitHub Actions secrets (names only):
+## Rollout after / mutation
 
+```text
+ROW_COUNT_AFTER = 0
+MODE_AFTER = OFF
+ROW_COUNT_BEFORE == ROW_COUNT_AFTER = YES
+REAL_ACTIVATION_APPLY = ZERO
+SHADOW_ACTIVATED = NO
 ```
 
-## Candidates
+## Cost / resource
 
 ```text
-CANDIDATE MATRIX
-| id | source | provider | persistent | role | eligibility | reason |
-|----|--------|----------|------------|------|-------------|--------|
-| process-env-DATABASE_URL_DIRECT | shell env | local | NO | leftover-test | INELIGIBLE | loopback/local ephemeral leftover |
-| docker-finops-t7-pg-ephemeral | docker ps | local docker | NO | ci/test leftover | INELIGIBLE | ephemeral container |
-| docker-t4-projection | docker ps | local docker | NO | lot leftover | INELIGIBLE | ephemeral container |
-| docker-t6-runtime | docker ps | local docker | NO | lot leftover | INELIGIBLE | ephemeral container |
-| neon-studio-architected | repo docs (103/125) | neon | YES if provisioned | future managed | INELIGIBLE / NOT PROVISIONED | Neon SELECTED documentarily but NOT CONFIGURED; no neonctl/API key/credentials; no account |
-| vercel-linked-postgres | tooling | vercel | UNKNOWN | unknown | INELIGIBLE | vercel CLI/home/project link ABSENT |
-| github-actions-ci-pg | workflow | GHA postgres:16 | NO | CI | INELIGIBLE | ephemeral CI |
-| prod | none found | — | — | — | NOT FOUND | no prod candidate discovered |
-
-CASE = C
-REASON = No eligible persistent dedicated target found. Neon is architectural SELECTED in docs but provider not established operationally (no CLI, no API key, no credentials file, no project). Provisioning would require new Neon account/project and billing/plan decisions (region/tier). Multiple ineligible local leftovers exist but must not be selected.
+PROVIDER = Neon
+PLAN = Free
+ADDITIONAL_COST = $0
+REGION = aws-eu-central-1
+POSTGRES = 16
+PERSISTENT = YES
+DEDICATED = YES
+NON_PROD = YES
+SCALE_TO_ZERO = ENABLED (Free default)
 ```
 
-## Eligibility E01–E12 (no selectable target)
+## Deprovision procedure (NOT EXECUTED)
 
 ```text
-E01=FAIL — No persistent eligible target discovered
-E02=FAIL — Only loopback/Docker/CI found
-E03=FAIL — No dedicated pilot DB provisioned
-E04=UNKNOWN — N/A — no real target
-E05=FAIL — No eligible DATABASE_URL_DIRECT endpoint
-E06=FAIL — No stable non-local identity for pilot
-E07=UNKNOWN — N/A — no real target
-E08=FAIL — No established secure credential handoff for pilot DB
-E09=FAIL — Cannot retrieve pilot credentials reproducibly
-E10=UNKNOWN — N/A — nothing provisioned
-E11=FAIL — Neon SELECTED in docs but account/plan/region NOT CONFIGURED; Case C
-E12=FAIL — Billing/plan for Neon unknown; no free established project
-```
-
-## Case arbitration
-
-```text
-CASE = C
-- Case A: FAIL — no unique eligible existing target
-- Case B: FAIL — Neon architecturally selected but NOT operationally established
-  (neonctl ABSENT, NEON_API_KEY ABSENT, credentials file ABSENT, no project/region/plan)
-  Provisioning would require new account/tenant and billing/plan decisions
-- Case C: SELECTED — Morris provider/billing/architecture decision required
-```
-
-## Actions NOT performed (correctly blocked)
-
-```text
-Neon account/project create = NOT DONE
-migrations on real target = NOT DONE
-fingerprint capture = NOT APPLICABLE
-real dry-run = NOT APPLICABLE
---apply = ZERO
-SHADOW activation = NO
-repo changes = ZERO
-```
-
-## Cost / rollback
-
-```text
-TARGET_COST_CLASS = N/A (nothing provisioned)
-deprovision = N/A
-```
-
-## TARGET + FINGERPRINT
-
-```text
-TARGET = NOT SELECTED
-FINGERPRINT = NOT AVAILABLE
+1. Delete dedicated Neon project sfia-studio-finops-t7-shadow-pilot in Console
+2. Remove Keychain item service sfia-studio-finops-t7-shadow-pilot-DATABASE_URL_DIRECT
+Requires explicit future Morris decision if needed.
 ```
 
 ## R-T7-OP-TARGET-BINDING-01
 
 ```text
-OPEN — REAL TARGET NOT SELECTED
-(Option B remains ON MAIN / post-merge closed; binding mechanism ready, environment identity missing)
+RESOLUTION CANDIDATE —
+OPTION B ON MAIN —
+NEON REAL TARGET ESTABLISHED —
+FREE DEDICATED NON-PROD TARGET —
+TARGET + FINGERPRINT VERIFIED —
+REAL DRY-RUN PASS —
+ZERO ROLLOUT MUTATION —
+NO ACTIVATION —
+PENDING CHATGPT / MORRIS VALIDATION.
 ```
 
 ## Other reserves
@@ -178,6 +248,8 @@ OPEN — REAL TARGET NOT SELECTED
 ```text
 R-QA-T7-C08-SCENARIO-01 = OPEN MINOR
 R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
+POLICY VALUES = NOT SELECTED
+expected-mode CAS / TOCTOU = DEFERRED to activation-readiness
 ```
 
 ## Anti-claims
@@ -185,51 +257,66 @@ R-T4-T3-SYNC-01 = OPEN BEFORE MONITOR
 ```text
 SHADOW = NOT ACTIVATED
 POLICY VALUES = NOT SELECTED
-ACTIVATION TARGET = NOT SELECTED
-REAL DATABASE TARGET = NONE
 REAL ACTIVATION APPLY = ZERO
 MONITOR = NOT ACTIVATED
 E1 = NOT AUTHORIZED
-TARGET ESTABLISHED ≠ (not established)
-project files CREATE/MODIFY/DELETE = 0
-project commit/push/PR = 0
+NEON PROJECT CREATED ≠ SHADOW ACTIVATED
+MIGRATIONS APPLIED ≠ SHADOW ACTIVATED
+REAL DRY-RUN ≠ REAL APPLY
+TARGET + FINGERPRINT ESTABLISHED ≠ ACTIVATION READY
+TARGET + FINGERPRINT ESTABLISHED ≠ EXPECTED-MODE CAS VERIFIED
+FREE TARGET ≠ PRODUCTION TARGET
+PROVIDER DEFAULT BRANCH NAME ≠ APPLICATION PRODUCTION
+R-T7 RESOLUTION CANDIDATE ≠ RESERVE CLOSED
 ```
 
-## Options for Morris (factual; Cursor does not choose)
+## Repo scope
 
 ```text
-OPTION 1 — Establish Neon operationally under already-selected architecture:
-  create/use Neon account + project; capture API key via secure non-Git mechanism;
-  choose region/tier on existing free/already-covered plan if any;
-  then re-run this Cycle 7 Critical GO.
-
-OPTION 2 — Supply an already-existing eligible persistent dedicated PostgreSQL
-  (non-prod, empty/dedicated, TLS, stable host/port/db) via secure credential handoff
-  usable as DATABASE_URL_DIRECT; then re-run selection/fingerprint/dry-run.
-
-OPTION 3 — Explicitly authorize a different managed provider + billing/plan
-  (architecture change vs documentaire Neon SELECTED) — separate Morris decision.
+CREATE/MODIFY/DELETE project files = 0
+project commits/pushes/PR = 0
+document 162 = NOT CREATED
 ```
 
 ## Next Morris gate
 
 ```text
-GO PROVIDER / BILLING / PILOT DB ESTABLISHMENT DECISION —
+GO T7 SHADOW ACTIVATION READINESS —
 sfia-studio-ops1 —
-CHOOSE OPERATIONAL PATH FOR PERSISTENT DEDICATED FINOPS T7 PILOT DATABASE —
+TARGET neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot —
+FINGERPRINT 7476c251892df0e312c2ec302901b028a44b939b77f87ac4c40977529e3f3331 —
+VERIFY EXPECTED-MODE ATOMICITY / CAS —
+VERIFY CURRENT OFF + ROLLBACK —
+VERIFY OBSERVABILITY —
+REAL TARGET DRY-RUN ONLY —
 NO SHADOW ACTIVATION.
 ```
 
 ## Verdict
 
 ```text
-T7 SHADOW PILOT TARGET NOT ESTABLISHED —
+T7 SHADOW PILOT NEON TARGET ESTABLISHED WITH RESERVE —
 CYCLE 7 CRITICAL —
-BLOCKING CAUSE = CASE C — PROVIDER NOT OPERATIONALLY ESTABLISHED / BILLING-ARCHITECTURE DECISION REQUIRED —
-REAL TARGET NOT SELECTED —
-R-T7-OP-TARGET-BINDING-01 OPEN —
+PROJECT sfia-studio-ops1 —
+PROVIDER NEON —
+FREE / NO-ADDITIONAL-COST TARGET VERIFIED —
+AWS EU CENTRAL 1 FRANKFURT —
+POSTGRES 16 —
+DEDICATED NON-PROD PROJECT VERIFIED —
+DIRECT TLS CONNECTION VERIFIED —
+SECURE MACOS KEYCHAIN HANDOFF VERIFIED —
+NO SECRET LEAK —
+SAFE TARGET IDENTITY CAPTURED —
+TARGET FINGERPRINT VERIFIED BY TWO ORACLES —
+SCHEMA READY —
+INITIAL EFFECTIVE MODE OFF —
+REAL TARGET DRY-RUN PASS —
+APPLIED FALSE —
+ROLLOUT MUTATION ZERO —
+TARGET + FINGERPRINT TUPLE ESTABLISHED —
+R-T7-OP-TARGET-BINDING-01 RESOLUTION CANDIDATE —
 NO PROJECT FILE CHANGES —
-NO SHADOW ACTIVATION —
-MORRIS DECISION REQUIRED —
+SHADOW NOT ACTIVATED —
+POLICY VALUES NOT SELECTED —
 HANDOFF REMOTE VERIFIED
 ```
