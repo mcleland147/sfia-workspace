@@ -7,6 +7,7 @@ import {
   ResolveDoctrinePackage,
   Sha256DigestVerificationAdapter,
   SystemClock,
+  type ClockPort,
   type DoctrinePackagePin,
 } from "@/lib/oa/doctrine";
 import {
@@ -69,6 +70,9 @@ export interface LocalProjectFacade {
 export interface LocalVerticalSliceServices {
   readonly facade: LocalProjectFacade;
   readonly architecture: LocalVerticalSliceArchitecture;
+  /** Shared OA ProjectServices instance used by the LocalProjectFacade. */
+  readonly projectServices: ProjectServices;
+  readonly clock: ClockPort;
 }
 
 class RandomLocalProjectIdSource implements LocalProjectIdSource {
@@ -494,5 +498,7 @@ export function createLocalVerticalSliceServices(
       () => clock.nowIso(),
     ),
     architecture: LOCAL_VERTICAL_SLICE_ARCHITECTURE,
+    projectServices,
+    clock,
   });
 }

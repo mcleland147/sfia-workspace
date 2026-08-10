@@ -17,8 +17,8 @@ function listTsFiles(dir: string): string[] {
   return out;
 }
 
-describe("F1 project-assistant import boundaries", () => {
-  it("does not import lib/ops1 or features/ops1", () => {
+describe("project-assistant import boundaries (F1+F2)", () => {
+  it("does not import ops1, execution-run, or cursor execution paths", () => {
     const files = listTsFiles(FEATURE_DIR);
     expect(files.length).toBeGreaterThan(0);
     for (const file of files) {
@@ -26,6 +26,13 @@ describe("F1 project-assistant import boundaries", () => {
       expect(source).not.toMatch(/@\/lib\/ops1/);
       expect(source).not.toMatch(/@\/features\/ops1/);
       expect(source).not.toMatch(/from ["'].*ops1/);
+      expect(source).not.toMatch(/@\/lib\/oa\/execution-run/);
+      expect(source).not.toMatch(/from ["'][^"']*execution-run/);
+      expect(source).not.toMatch(/from ["']@\/lib\/.*cursor/i);
+      expect(source).not.toMatch(
+        /(?:import|export)[\s\S]{0,80}\b(?:StartExecution|ExecutionRun)\b/,
+      );
+      expect(source).not.toMatch(/selectedAgentRef\s*:\s*["'`]/);
     }
   });
 });

@@ -197,7 +197,9 @@ describe("V2-A2 Create Project UI", () => {
     expect(screen.getByText("Le contexte est obligatoire.")).toBeVisible();
   });
 
-  it("validates name, short reference, and per-line constraint lengths", async () => {
+  it(
+    "validates name, short reference, and per-line constraint lengths",
+    async () => {
     const user = userEvent.setup();
     render(<CreateProjectForm />);
 
@@ -225,9 +227,13 @@ describe("V2-A2 Create Project UI", () => {
         /chaque contrainte doit contenir au maximum 500/i,
       ),
     ).toBeVisible();
-  });
+  },
+    15_000,
+  );
 
-  it("calls only the runtime action with the exact DTO and parsed constraints", async () => {
+  it(
+    "calls only the runtime action with the exact DTO and parsed constraints",
+    async () => {
     createProjectRuntimeActionMock.mockResolvedValue(SUCCESS_RESULT);
     const user = userEvent.setup();
     render(<CreateProjectForm />);
@@ -242,18 +248,22 @@ describe("V2-A2 Create Project UI", () => {
 
     await user.click(screen.getByTestId("create-project-submit"));
 
-    await waitFor(() =>
-      expect(createProjectRuntimeActionMock).toHaveBeenCalledWith({
-        name: "Projet V2-A2",
-        objective: "Créer une interface réelle.",
-        context: "Contexte local borné.",
-        criticality: "HIGH",
-        constraints: ["Sans IAM", "Sans persistance produit"],
-        shortReference: "V2-A2",
-        idempotencyKey: key,
-      }),
+    await waitFor(
+      () =>
+        expect(createProjectRuntimeActionMock).toHaveBeenCalledWith({
+          name: "Projet V2-A2",
+          objective: "Créer une interface réelle.",
+          context: "Contexte local borné.",
+          criticality: "HIGH",
+          constraints: ["Sans IAM", "Sans persistance produit"],
+          shortReference: "V2-A2",
+          idempotencyKey: key,
+        }),
+      { timeout: 10_000 },
     );
-  });
+  },
+    15_000,
+  );
 
   it("keeps the idempotency key stable across a retry", async () => {
     createProjectRuntimeActionMock

@@ -16,6 +16,22 @@ describe("platform AI + security foundations", () => {
     expect(result.usage.model).toBe("fake-test-model");
   });
 
+  it("completeStructured reuses F2 markers and reports model telemetry", async () => {
+    const provider = new FakeConversationProvider();
+    const result = await provider.completeStructured!({
+      messages: [
+        { role: "system", content: "SFIA Studio F2" },
+        { role: "user", content: "go __F2_ACTIONABLE__" },
+      ],
+      schemaName: "f2_intent_analysis",
+      jsonSchema: { type: "object" },
+    });
+    expect(result.text).toContain("TEST/FAKE");
+    expect(result.text).toContain('"intentClass":"actionable"');
+    expect(result.usage.model).toBe("fake-test-model");
+    expect(result.usage.providerResponseId).toMatch(/^fake-resp-/);
+  });
+
   it("messagesToInputItems preserves order", () => {
     const items = messagesToInputItems([
       { role: "system", content: "s" },

@@ -62,6 +62,15 @@ export interface ConversationProvider {
     items: ProviderInputItem[];
     tools: ToolDefinition[];
   }): Promise<ProviderRoundResult>;
+  /**
+   * Optional schema-native structured completion (Responses API json_schema).
+   * Domain callers must still validate parsed payloads fail-closed.
+   */
+  completeStructured?(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+  }): Promise<ProviderCompletionResult>;
 }
 
 export function messagesToInputItems(
