@@ -1,26 +1,27 @@
-# SFIA Review Pack — LIGHT — F2 Merge Gate
+# SFIA Review Pack — LIGHT — F2 Post-merge
 
 | Champ | Valeur |
 |-------|--------|
-| **Rôle** | F2 Merge Gate — Qualification + Proposition + Gate SFIA Studio |
+| **Rôle** | Cycle 14 — Post-merge F2 Qualification + Proposition + Gate SFIA Studio |
 | **Synthesis-only** | **NO** |
 | **Niveau** | LIGHT |
-| **GO Morris exact** | `GO MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO` |
-| **Cycle / opération** | Merge Gate — F2 |
+| **GO Morris exact** | `GO POST-MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO` |
+| **Cycle / opération** | Cycle 14 — Post-merge — F2 |
 | **Profil SFIA** | Standard |
 | **Typologie** | INC |
 | **Qualification** | Qualification + Proposition + Gate (F2) — Project Assistant SFIA Studio |
-| **Branch locale** | `delivery/sfia-studio-f2-qualification-proposal-gate` |
-| **HEAD local (inchangé)** | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
-| **origin/main avant merge** | `1847fc61f384e13b15651ed914286fe87ac7133c` |
-| **origin/main après merge** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| **MAIN worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main` |
+| **F2 worktree (pre-cleanup)** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f2-delivery` |
+| **Branch locale (MAIN WT)** | `main` |
+| **HEAD local MAIN (pre-align)** | `1847fc61f384e13b15651ed914286fe87ac7133c` |
+| **HEAD local MAIN (post-align)** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| **origin/main** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
 | **Merge commit SHA** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| **Package tip (ancestor)** | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
-| **Local worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f2-delivery` |
-| **Inbound handoff tip** | `5f668cea8e41e43e8dcc05468bf0e90e4a61ddb3` |
-| **Inbound handoff blob** | `e01d99089874cbcdab5e35849b17c1797290554c` |
-| **Timestamp Europe/Paris (CEST)** | 2026-08-11 00:03:28 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-10 22:03:28 UTC |
+| **Package tip** | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
+| **Inbound handoff tip** | `93481eb70c996b085f64b850c118537074e4262a` |
+| **Inbound handoff blob** | `d7547a490c2fafd59594cb195b088c186f744e91` |
+| **Timestamp Europe/Paris (CEST)** | 2026-08-11 00:34:00 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-10 22:34:00 UTC |
 | **Repository** | `mcleland147/sfia-workspace` |
 | **PR** | https://github.com/mcleland147/sfia-workspace/pull/330 |
 
@@ -29,164 +30,225 @@
 ## Verdict (exact)
 
 ```
-F2 MERGE COMPLETE —
-PR #330 MERGED INTO MAIN —
-PACKAGE INTEGRATED —
-CI GREEN AT MERGE —
+F2 CLOSED —
+POST-MERGE VALIDATED —
+PR #330 MERGED —
+MAIN @ 09BFBB2 —
+PACKAGE FA25C940 INTEGRATED —
+CI GREEN —
 NO CONTENT DRIFT —
-READY FOR CHATGPT REVIEW / POST-MERGE GATE
+DELIVERY WORKTREE CLEANED —
+DELIVERY BRANCH LOCAL + REMOTE CLEANED —
+R-FINOPS-PG NON-BLOCKING LOCAL ENVIRONMENT —
+R-PROCESS-LOCAL ACCEPTED LIMITATION —
+R-F2-SEMANTIC-CALIBRATION OPEN / NON-BLOCKING —
+NO CAPITALIZATION CYCLE REQUIRED NOW —
+F3 NOT OPENED —
+F2 CLOSED
 ```
 
-**Statut :** MERGE COMPLETE — PACKAGE ON MAIN — READY FOR CHATGPT REVIEW / POST-MERGE GATE
+**Cleanup status:** **CLEANUP COMPLETE**
 
-**Gate suivant (candidate — NOT consumed):**
-```
-GO POST-MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO
-```
-(or equivalent Morris post-merge / ChatGPT validation contract)
+**Handoff status:** **PUBLISH-IN-CYCLE** (L3 via `publish-review-handoff.sh`)
 
 ---
 
-## 0. GO / inbound / truth
+## 0. GO
 
-### GO Morris exact (consommé)
-`GO MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO`
+Consumed: `GO POST-MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO`.
+Authorized: post-merge verify · main sync ff-only · cleanup (all conditions PASS) · Light pack · handoff L3.
+Forbidden: product content change · project commits · new PR/merge · force push · `git branch -D` · worktree remove --force · rm -rf · live OpenAI · delete main/handoff.
 
-Autorise : verify PR #330 / CI GREEN · merge PR into `main` (GitHub) · verify main SHA / package · Review Pack LIGHT · publish handoff L3.
-N’autorise PAS : modification contenu projet · nouveau commit projet sur delivery · amend · force push · `--admin` · live OpenAI · suppression de branche sauf défaut GitHub (préférence: laisser branche).
+Interrupted Cycle 14 resume: prior shell backend block cleared; local main ff-aligned; cleanup executed; pack RESET.
 
-### Inbound handoff (verified briefly)
+---
+
+## 1. Worktree discovery
+
+| Worktree | Path | Branch | Notes |
+|---|---|---|---|
+| **MAIN** | `.../finops-t2-main` | `main` | Designated main WT |
+| **F2 delivery (pre-cleanup)** | `.../finops-t2-main/.tmp-sfia-review/worktrees/f2-delivery` | `delivery/sfia-studio-f2-qualification-proposal-gate` | Nested; removed this cycle |
+| Canonical gitdir root | `/Users/morris/Projects/sfia-workspace/.git` | — | Shared |
+
+`git worktree list --porcelain` executed — MAIN + F2 present before cleanup; F2 absent after.
+
+---
+
+## 2. Inbound handoff verify
+
+| Field | Expected | Observed | Result |
+|---|---|---|---|
+| tip `origin/sfia/review-handoff` | `93481eb…` | **MATCH** | **PASS** |
+| blob `sfia-review-handoff/latest-chatgpt-review.md` | `d7547a…` | **MATCH** | **PASS** |
+| Role | F2 Merge Gate | **MATCH** | **PASS** |
+| Synthesis-only | NO | **NO** | **PASS** |
+| Drift | none | none | **PASS — NO STOP** |
+
+---
+
+## 3. Main truth (MAIN worktree)
+
+| Field | Observed | Result |
+|---|---|---|
+| branch | `main` | **PASS** |
+| status (pre-pull) | `?? .tmp-sfia-review/` only | **PASS** tracked clean |
+| HEAD before | `1847fc61…` | behind |
+| `origin/main` | `09bfbb2…` | **PASS** |
+| `git pull --ff-only` | `1847fc61…` → `09bfbb2…` | **PASS** |
+| HEAD after | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` | **PASS** |
+| status after | `?? .tmp-sfia-review/` only | **PASS** |
+
+No divergence. No reset. No product mutation.
+
+---
+
+## 4. PR / CI / ancestry / package
+
+### PR #330
+
 | Field | Value |
 |---|---|
-| tip | `5f668cea8e41e43e8dcc05468bf0e90e4a61ddb3` |
-| blob | `e01d99089874cbcdab5e35849b17c1797290554c` |
-| message | `docs(review-handoff): publish F2 push PR gate` |
-| object types | commit + blob OK |
-| Statut entrant | PUSH + PR COMPLETE — CI PENDING (at publish); this merge gate re-verified CI GREEN |
+| state | **MERGED** |
+| mergedAt | `2026-08-10T22:03:03Z` |
+| mergeCommit | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| title | feat(sfia-studio): add F2 qualification proposal gate |
+| base / head | `main` / `delivery/sfia-studio-f2-qualification-proposal-gate` |
+| headRefOid | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
+| commits | 1 |
+| changed_files | **25** |
 
-### Local Git Truth (pre-merge)
-```text
-branch: delivery/sfia-studio-f2-qualification-proposal-gate
-HEAD:   fa25c940ad66033f6ad873f816d7a9c2868622d7
-origin/main: 1847fc61f384e13b15651ed914286fe87ac7133c
-status: ?? .tmp-sfia-review/ only (tracked clean)
-```
+### Ancestry / package
 
----
+| Check | Result |
+|---|---|
+| `fa25c940` ancestor of `09bfbb2` / `main` | **PASS** |
+| `git diff fa25c940..09bfbb2` (studio / full) | **EMPTY** — **NO CONTENT DRIFT** |
+| `git diff --name-only 1847fc61..09bfbb2` | **25 files** (+2929 / −39) |
 
-## 1. Pre-merge PR contract (STOP gates — all PASS)
-
-| Check | Required | Actual |
-|---|---|---|
-| state | OPEN | OPEN |
-| isDraft | false | false |
-| baseRefName | main | main |
-| headRefName | delivery/sfia-studio-f2-qualification-proposal-gate | match |
-| headRefOid | fa25c940… | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
-| mergeable | MERGEABLE | MERGEABLE |
-| mergeStateStatus | allowing merge | CLEAN |
-| commits | 1 | 1 |
-| files | 25 | 25 (17 M + 8 A) |
-
----
-
-## 2. CI at merge — GREEN
-
-**CI_GREEN** — all required checks COMPLETED / SUCCESS; none PENDING / FAILURE.
+### CI at merge (PR HEAD `fa25c940`)
 
 | Check | Conclusion |
 |---|---|
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| SFIA Studio Required Gate | SUCCESS |
+| Detect SFIA Studio changes | **SUCCESS** |
+| Build and validate SFIA Studio | **SUCCESS** |
+| SFIA Studio Required Gate | **SUCCESS** |
 
-Workflow: SFIA Studio CI (run associated with PR head `fa25c940…`).
+**PR HEAD CI GREEN AT MERGE.** No live OpenAI. No full local CI rerun. No separate main CI claimed beyond merge evidence.
 
 ---
 
-## 3. Merge execution
+## 5. Cleanup conditions 1–11
 
-```
-gh pr merge 330 --merge
-```
+| # | Condition | Result |
+|---|---|---|
+| 1 | PR #330 MERGED | **PASS** |
+| 2 | local main == origin/main == `09bfbb2…` | **PASS** |
+| 3 | merge commit `09bfbb2…` on origin/main | **PASS** |
+| 4 | package `fa25c940…` ancestor of merge/main | **PASS** |
+| 5 | MAIN WT tracked clean | **PASS** (`?? .tmp-sfia-review/` only) |
+| 6 | cleanup target = exact PR head delivery… @ `fa25c940…` | **PASS** |
+| 7 | branch not protected / not main / not handoff | **PASS** |
+| 8 | no unique commits on delivery vs main (`main..delivery` = 0) | **PASS** |
+| 9 | ≠ `main` / no force deletes | **PASS** |
+| 10 | ≠ `sfia/review-handoff` / F2 WT safe (delivery @ `fa25c940`, tracked clean, only `?? .tmp-sfia-review/**`) | **PASS** |
+| 11 | no other ambiguous target; merge handoff already on remote | **PASS** |
+| | **ALL_11** | **PASS** |
+
+---
+
+## 6. F2 worktree check (pre-cleanup)
+
+| Field | Observed |
+|---|---|
+| Branch | `delivery/sfia-studio-f2-qualification-proposal-gate` |
+| HEAD | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
+| Tracked | clean |
+| Untracked | `?? .tmp-sfia-review/` only |
+| Remote delivery (pre-delete) | `fa25c940…` |
+
+Pre-remove: relocated F2 `.tmp-sfia-review/` → MAIN `.tmp-sfia-review/f2-post-merge/delivery-tmp-archive-pre-remove/` so `git worktree remove` could succeed **without --force**. No product unique data.
+
+---
+
+## 7. Cleanup sequence
+
+| Step | Result |
+|---|---|
+| `git worktree remove <F2>` (no --force) | **PASS** (exit 0) |
+| `git branch -d delivery/...` (no -D) | **PASS** (was `fa25c94`) |
+| `ls-remote` before push-delete | `fa25c940…` **PASS** |
+| `git push origin --delete delivery/...` | **PASS** |
+| `git fetch origin --prune` | **PASS** |
+| local `branch --list delivery/...` | **EMPTY** |
+| remote `ls-remote` delivery/... | **EMPTY** |
+| worktree list contains F2 | **NO** |
+| Force options | **NOT USED** |
+
+**CLEANUP COMPLETE.**
+
+---
+
+## 8. Reserves (transported — unchanged)
+
+| ID | Status |
+|---|---|
+| **R-FinOps-PG** | NON-BLOCKING LOCAL ENVIRONMENT (CI PG green; local ECONNREFUSED may remain) |
+| **R-Process-Local** | ACCEPTED LIMITATION |
+| **R-F2-SEMANTIC-CALIBRATION** | OPEN / NON-BLOCKING |
+
+Product observation R-UX-STUDIO-CLUTTER: **OUTSIDE F2 CLOSURE SCOPE** (not blocking).
+
+Live/fixture proofs: **TRANSPORTED NOT RERUN**. Live OpenAI this cycle: **NONE**.
+
+---
+
+## 9. Capitalization
 
 | Field | Value |
 |---|---|
-| method | **merge commit** (matching F1 practice; not squash/rebase) |
-| `--delete-branch` | **not** passed |
-| `--admin` | **not** used |
-| auto-merge | not used |
-| MERGE_EXIT | 0 |
-| mergedAt | 2026-08-10T22:03:03Z |
-| mergeCommit | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| PR state | **MERGED** |
-| origin/main before | `1847fc61f384e13b15651ed914286fe87ac7133c` |
-| origin/main after | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| remote delivery branch | **LEFT** — still present at `fa25c940…` |
-| local delivery HEAD | still `fa25c940…` (no project commit / no reset) |
-| content mutation | **NONE** |
-
-Ancestor check: `git merge-base --is-ancestor fa25c940 origin/main` → **ANCESTOR_OK**
+| CAPITALIZATION NOW REQUIRED? | **NO** |
+| Recommendation | **NO SEPARATE CAPITALIZATION NOW** |
+| Rationale | Post-merge closure only; Structured Outputs learning already product-local; reserves traced; no method promotion this cycle |
 
 ---
 
-## 4. Package confirmation on main
-
-- `git diff --stat fa25c940 origin/main -- projects/sfia-studio` → **empty** (merge tip tree matches package tip for Studio paths)
-- Diff `1847fc61…origin/main` under `projects/sfia-studio` → **exactly 25 files** (same matrix as PR #330)
-- Package tip `fa25c940` is first-parent ancestry parent of merge commit on main
-
-25-file package integrated (no re-dump of FULL diffs in this LIGHT pack).
-
----
-
-## 5. Réserves (transported — unchanged)
-
-| ID | Nature | Status |
-|---|---|---|
-| **R-FinOps-PG** | FinOps postgres suite ECONNREFUSED without local DB; environmental; excluded from green gate | NON-BLOCKING |
-| **R-Process-Local** | Proposal/decision store process-local / non-durable (accepted design limitation) | ACCEPTED LIMITATION |
-| **R-F2-SEMANTIC-CALIBRATION** | Live L2 “ajouter un module de reporting financier” → `cyc:framing` / Critical / Morris gate; watch Critical over-classification | OPEN / NON-BLOCKING |
-
-Live/fixture proofs: **TRANSPORTED NOT RERUN** in this merge gate.
-
----
-
-## 6. Mutation counters
+## 10. Mutations / anti-claims
 
 | Counter | Value |
 |---|---|
 | Project content modifications | **0** |
-| New project commits on delivery | **0** |
-| Amend / rebase / force push | **0** |
-| `--admin` merge | **0** |
-| OpenAI live | **0** |
-| Branch deletion | **0** (remote delivery branch retained) |
-| GitHub merge of PR #330 | **1** (merge commit on main) |
+| Project commits | **0** |
+| New PR / new merge | **0** |
+| Force push / `-D` / remove --force / rm -rf | **0** |
+| Live OpenAI / Cursor product / ExecutionRun | **0** |
+| Local delivery branch deletion | **1** |
+| Remote delivery branch deletion | **1** |
+| F2 worktree removal | **1** |
+| Handoff L3 publish | **1** (this cycle) |
+
+Anti-claims: persistence durable **NOT** resolved · IAM **NOT** resolved · F3 **NOT** opened · Cursor product **NOT** claimed · OPS1 **NOT** deleted · Studio UX clutter **NOT** cleaned · semantic calibration **NOT** perfect · not production-ready global.
 
 ---
 
-## 7. Anti-claims
-
-- No project content drift during merge gate
-- No squash rewrite of package tip (merge commit; `fa25c940` remains ancestor)
-- No live OpenAI / no Cursor product execution
-- F3 / ExecutionRun / durable persistence / IAM **not** claimed
-- Reserves remain open / non-blocking as transported
-
----
-
-## 8. Final Git Truth (post-merge, pre-handoff)
+## 11. Final Git Truth
 
 | Field | Value |
 |---|---|
-| branch locale | `delivery/sfia-studio-f2-qualification-proposal-gate` |
-| HEAD local | `fa25c940ad66033f6ad873f816d7a9c2868622d7` (**UNCHANGED**) |
+| MAIN WT branch | `main` |
+| MAIN WT HEAD | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
 | origin/main | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| PR #330 | **MERGED** |
-| remote delivery | present @ `fa25c940…` |
-| tracked/staged | clean |
-| untracked | `?? .tmp-sfia-review/` only |
+| F2 worktree | **REMOVED** |
+| local delivery branch | **ABSENT** |
+| remote delivery branch | **ABSENT** |
+| MAIN status | `?? .tmp-sfia-review/` only (tracked clean) |
+| inbound handoff tip (pre-publish) | `93481eb…` |
+
+---
+
+## 12. Validation F2 (transported)
+
+Conception fonctionnelle VALIDATED · Delivery fixture 9/9 PASS · Live GPT-5.6 Sol 4/4 PASS · PR readiness 58 targeted + 1605 regression + typecheck/lint/build PASS · GitHub CI GREEN · PR #330 MERGED · package ancestor · main `09bfbb2` · no-execution preserved · process-local accepted · semantic calibration open reserve.
 
 ---
 
