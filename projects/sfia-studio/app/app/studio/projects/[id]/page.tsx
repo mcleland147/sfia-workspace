@@ -1,4 +1,5 @@
 import { StudioShell } from "@/components/shell/StudioShell";
+import { ProjectAssistantPanel } from "@/features/project-assistant";
 import { ProjectWorkspaceClient } from "@/features/vertical-slice-ui/ProjectWorkspaceClient";
 import { RuntimeDisclosureBanner } from "@/features/vertical-slice-ui/RuntimeDisclosureBanner";
 import styles from "@/features/vertical-slice-ui/project-workspace.module.css";
@@ -29,21 +30,13 @@ export default async function ProjectWorkspacePage({
       ]}
       copilot={{
         variant: "flush",
-        name: "Nora · Project Copilot",
-        subtitle: "Lecture seule · aucune autorité",
+        name: "Nora · Assistant projet",
+        subtitle: "Analyse · conversation · lecture seule",
         avatarTone: "purple",
-        levelPill: "Aucune décision",
+        levelPill: "F1 · Aucune exécution",
         summary:
-          "Je rappelle le contexte local du Project. Je ne recommande aucun cycle et je ne prends aucune décision Morris.",
-        watchLabel: "GARDE-FOUS",
-        watchItems: [
-          { label: "État process-local volatil", dotColor: "#faa629" },
-          { label: "IAM non sélectionné", dotColor: "#7a4df5" },
-          { label: "Agent réel désactivé", dotColor: "#51607a" },
-        ],
-        riskTitle: "MODE LOCAL UNIQUEMENT",
-        riskText:
-          "Un redémarrage ou hot reload peut perdre le Project et son LPS. Aucune persistance produit, delivery ou cutover.",
+          "Assistant contextualisé au Project/LPS — sans OPS1, sans Cursor, sans écriture.",
+        interactiveContent: <ProjectAssistantPanel projectId={projectId} />,
       }}
     >
       <div className={styles.page}>

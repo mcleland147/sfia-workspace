@@ -111,11 +111,31 @@
 }
 
 .actions {
-  justify-content: flex-end;
-  align-items: center;
+  display: grid;
+  justify-content: stretch;
+  align-items: stretch;
   gap: var(--sfia-space-md);
   padding-top: var(--sfia-space-xs);
   border-top: 1px solid var(--sfia-border-soft);
+}
+
+.primaryAssistantHint {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--sfia-radius-sm);
+  border: 1px solid var(--sfia-border);
+  background: #f5f8ff;
+  color: var(--sfia-ink);
+  font-size: 13px;
+  line-height: var(--sfia-line-body);
+  font-weight: 600;
+}
+
+.secondaryActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--sfia-space-md);
 }
 
 .missingCard {

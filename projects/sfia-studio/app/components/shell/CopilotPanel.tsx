@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { StatusPill } from "@/components/ui/StatusPill";
 import styles from "./copilot-panel.module.css";
 
@@ -20,6 +21,11 @@ export interface CopilotProps {
   checklist?: string[];
   checklistTitle?: string;
   showRecommendationLabel?: boolean;
+  /**
+   * F1: when provided, replaces the static body + disabled composer
+   * with an interactive assistant surface (existing shell slot).
+   */
+  interactiveContent?: ReactNode;
 }
 
 export function CopilotPanel({
@@ -36,8 +42,10 @@ export function CopilotPanel({
   checklist,
   checklistTitle,
   showRecommendationLabel = false,
+  interactiveContent,
 }: CopilotProps) {
   const isFlush = variant === "flush";
+  const isInteractive = Boolean(interactiveContent);
 
   const avatarClass = [
     styles.avatar,
@@ -58,6 +66,7 @@ export function CopilotPanel({
       className={styles.panel}
       aria-label="Copilot Nora"
       data-testid="copilot-panel"
+      data-interactive={isInteractive ? "true" : "false"}
     >
       <div
         className={
@@ -85,82 +94,88 @@ export function CopilotPanel({
       </div>
 
       <div className={styles.body}>
-        {showRecommendationLabel && (
-          <p className={styles.recommendationBadge}>
-            Recommandation copilot — non décision Morris
-          </p>
-        )}
-
-        <div className={isFlush ? styles.messageFlush : styles.message}>
-          {summary}
-        </div>
-
-        {checklist && (
-          <div className={styles.checklist}>
-            <p className={styles.sectionTitle}>{checklistTitle}</p>
-            {checklist.map((item) => (
-              <div key={item} className={styles.checkRow}>
-                <span className={styles.checkIcon}>✓</span>
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {watchItems.length > 0 && (
+        {isInteractive ? (
+          interactiveContent
+        ) : (
           <>
-            <p className={styles.sectionLabel}>{watchLabel}</p>
-            {watchItems.map((item) => (
-              <div key={item.label} className={styles.watchItem}>
-                <span
-                  className={styles.watchDot}
-                  style={{ background: item.dotColor }}
-                  aria-hidden="true"
-                />
-                {item.label}
+            {showRecommendationLabel && (
+              <p className={styles.recommendationBadge}>
+                Recommandation copilot — non décision Morris
+              </p>
+            )}
+
+            <div className={isFlush ? styles.messageFlush : styles.message}>
+              {summary}
+            </div>
+
+            {checklist && (
+              <div className={styles.checklist}>
+                <p className={styles.sectionTitle}>{checklistTitle}</p>
+                {checklist.map((item) => (
+                  <div key={item} className={styles.checkRow}>
+                    <span className={styles.checkIcon}>✓</span>
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
+
+            {watchItems.length > 0 && (
+              <>
+                <p className={styles.sectionLabel}>{watchLabel}</p>
+                {watchItems.map((item) => (
+                  <div key={item.label} className={styles.watchItem}>
+                    <span
+                      className={styles.watchDot}
+                      style={{ background: item.dotColor }}
+                      aria-hidden="true"
+                    />
+                    {item.label}
+                  </div>
+                ))}
+              </>
+            )}
+
+            {riskTitle && riskText && (
+              <div className={isFlush ? styles.riskFlush : styles.risk}>
+                <p
+                  className={
+                    isFlush ? styles.riskTitleFlush : styles.riskTitle
+                  }
+                >
+                  {riskTitle}
+                </p>
+                <p className={styles.riskText}>{riskText}</p>
+              </div>
+            )}
+
+            <div
+              className={`${styles.composer} ${isFlush ? styles.composerFlush : ""}`}
+              data-testid="copilot-composer-disabled"
+              aria-disabled="true"
+            >
+              <p className={styles.composerPlaceholder}>
+                Chat non disponible dans ce POC — saisissez votre demande dans le
+                panneau central « Nouvelle demande ».
+              </p>
+              <div className={styles.composerRow}>
+                <StatusPill tone={isFlush ? "blueFlush" : "muted"}>
+                  @ contexte (lecture seule)
+                </StatusPill>
+                <button
+                  type="button"
+                  className={`${styles.send} ${isFlush ? styles.sendFlush : ""}`}
+                  disabled
+                  title="Chat Nora non disponible dans ce POC"
+                  aria-label="Chat Nora non disponible dans ce POC"
+                  aria-disabled
+                >
+                  ↑
+                </button>
+              </div>
+            </div>
           </>
         )}
-
-        {riskTitle && riskText && (
-          <div className={isFlush ? styles.riskFlush : styles.risk}>
-            <p
-              className={
-                isFlush ? styles.riskTitleFlush : styles.riskTitle
-              }
-            >
-              {riskTitle}
-            </p>
-            <p className={styles.riskText}>{riskText}</p>
-          </div>
-        )}
-
-        <div
-          className={`${styles.composer} ${isFlush ? styles.composerFlush : ""}`}
-          data-testid="copilot-composer-disabled"
-          aria-disabled="true"
-        >
-          <p className={styles.composerPlaceholder}>
-            Chat non disponible dans ce POC — saisissez votre demande dans le
-            panneau central « Nouvelle demande ».
-          </p>
-          <div className={styles.composerRow}>
-            <StatusPill tone={isFlush ? "blueFlush" : "muted"}>
-              @ contexte (lecture seule)
-            </StatusPill>
-            <button
-              type="button"
-              className={`${styles.send} ${isFlush ? styles.sendFlush : ""}`}
-              disabled
-              title="Chat Nora non disponible dans ce POC"
-              aria-label="Chat Nora non disponible dans ce POC"
-              aria-disabled
-            >
-              ↑
-            </button>
-          </div>
-        </div>
       </div>
     </aside>
   );
