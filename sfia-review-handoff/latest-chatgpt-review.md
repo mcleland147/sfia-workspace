@@ -1,175 +1,146 @@
-# SFIA Review Pack — LIGHT — F2 Push + Create PR Gate
+# SFIA Review Pack — LIGHT — F2 Merge Gate
 
 | Champ | Valeur |
 |-------|--------|
-| **Rôle** | F2 Push + Create PR Gate — Qualification + Proposition + Gate SFIA Studio |
+| **Rôle** | F2 Merge Gate — Qualification + Proposition + Gate SFIA Studio |
 | **Synthesis-only** | **NO** |
 | **Niveau** | LIGHT |
-| **GO Morris exact** | `GO PUSH + CREATE PR — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO` |
-| **Cycle / opération** | Push + Create PR — F2 |
+| **GO Morris exact** | `GO MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO` |
+| **Cycle / opération** | Merge Gate — F2 |
 | **Profil SFIA** | Standard |
 | **Typologie** | INC |
 | **Qualification** | Qualification + Proposition + Gate (F2) — Project Assistant SFIA Studio |
-| **Branch** | `delivery/sfia-studio-f2-qualification-proposal-gate` |
-| **Base / origin/main** | `1847fc61f384e13b15651ed914286fe87ac7133c` |
-| **Commit SHA (HEAD)** | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
-| **Parent (HEAD^)** | `1847fc61f384e13b15651ed914286fe87ac7133c` |
-| **merge-base(HEAD, origin/main)** | `1847fc61f384e13b15651ed914286fe87ac7133c` |
-| **Commits ahead of origin/main** | 1 |
+| **Branch locale** | `delivery/sfia-studio-f2-qualification-proposal-gate` |
+| **HEAD local (inchangé)** | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
+| **origin/main avant merge** | `1847fc61f384e13b15651ed914286fe87ac7133c` |
+| **origin/main après merge** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| **Merge commit SHA** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| **Package tip (ancestor)** | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
 | **Local worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f2-delivery` |
-| **Inbound handoff tip** | `a13af6d864289c12e861f8e71d99791088afa183` |
-| **Inbound handoff blob** | `f195bc2a5078784a06c8500ef815fbee191393d8` |
-| **Timestamp Europe/Paris (CEST)** | 2026-08-10 23:53:45 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-10 21:53:45 UTC |
+| **Inbound handoff tip** | `5f668cea8e41e43e8dcc05468bf0e90e4a61ddb3` |
+| **Inbound handoff blob** | `e01d99089874cbcdab5e35849b17c1797290554c` |
+| **Timestamp Europe/Paris (CEST)** | 2026-08-11 00:03:28 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-10 22:03:28 UTC |
 | **Repository** | `mcleland147/sfia-workspace` |
+| **PR** | https://github.com/mcleland147/sfia-workspace/pull/330 |
 
 ---
 
 ## Verdict (exact)
 
 ```
-F2 QUALIFICATION PROPOSAL GATE PUSH + PR COMPLETE —
-DELIVERY BRANCH PUSHED AT EXACT COMMIT fa25c940 —
-PR #330 CREATED AGAINST MAIN —
-25-FILE PACKAGE VERIFIED ON GITHUB (17 M + 8 A) —
-PR CONTRACT VERIFIED —
-CI PENDING —
-NO CONTENT CHANGE / NEW COMMIT / MERGE —
-READY FOR CHATGPT REVIEW / CI COMPLETION BEFORE MERGE DECISION
+F2 MERGE COMPLETE —
+PR #330 MERGED INTO MAIN —
+PACKAGE INTEGRATED —
+CI GREEN AT MERGE —
+NO CONTENT DRIFT —
+READY FOR CHATGPT REVIEW / POST-MERGE GATE
 ```
 
-**Statut :** PUSH + PR COMPLETE — CI PENDING — NOT READY TO MERGE
+**Statut :** MERGE COMPLETE — PACKAGE ON MAIN — READY FOR CHATGPT REVIEW / POST-MERGE GATE
 
 **Gate suivant (candidate — NOT consumed):**
 ```
-GO MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO
+GO POST-MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO
 ```
-**Condition :** PR exact + CI GREEN after ChatGPT validation. If CI still PENDING → AUCUN GO MERGE. If CI FAILED → AUCUN GO MERGE — analyze under new contract.
+(or equivalent Morris post-merge / ChatGPT validation contract)
 
 ---
 
 ## 0. GO / inbound / truth
 
 ### GO Morris exact (consommé)
-`GO PUSH + CREATE PR — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO`
+`GO MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO`
 
-Autorise : push branche delivery exacte · création PR unique non-draft vers `main` · lecture GitHub/CI · Review Pack LIGHT · publication Review Handoff L3 borné.
-N’autorise PAS : modification contenu projet · nouveau commit projet · amend · rebase · merge · force push · auto-merge · live OpenAI · Cursor produit.
+Autorise : verify PR #330 / CI GREEN · merge PR into `main` (GitHub) · verify main SHA / package · Review Pack LIGHT · publish handoff L3.
+N’autorise PAS : modification contenu projet · nouveau commit projet sur delivery · amend · force push · `--admin` · live OpenAI · suppression de branche sauf défaut GitHub (préférence: laisser branche).
 
-### Inbound handoff (verified)
+### Inbound handoff (verified briefly)
 | Field | Value |
 |---|---|
-| tip | `a13af6d864289c12e861f8e71d99791088afa183` |
-| blob | `f195bc2a5078784a06c8500ef815fbee191393d8` |
-| message | `docs(review-handoff): publish F2 PR readiness` |
-| Rôle | Cycle 13 — PR readiness F2 Qualification + Proposition + Gate SFIA Studio |
-| Statut entrant | **READY FOR PR WITH RESERVES** |
-| Verdict entrant | `READY FOR CHATGPT REVIEW / MORRIS PUSH + CREATE PR DECISION` |
-| Files | **25** (17 M + 8 A) |
-| Fixture | **9/9 PASS** (transported) |
-| Live | **4/4 PASS** — **LIVE TRANSPORTED NOT RERUN** |
-| Commit SHA | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
+| tip | `5f668cea8e41e43e8dcc05468bf0e90e4a61ddb3` |
+| blob | `e01d99089874cbcdab5e35849b17c1797290554c` |
+| message | `docs(review-handoff): publish F2 push PR gate` |
+| object types | commit + blob OK |
+| Statut entrant | PUSH + PR COMPLETE — CI PENDING (at publish); this merge gate re-verified CI GREEN |
 
-### Local Git Truth (pre-push)
+### Local Git Truth (pre-merge)
 ```text
 branch: delivery/sfia-studio-f2-qualification-proposal-gate
 HEAD:   fa25c940ad66033f6ad873f816d7a9c2868622d7
-HEAD^:  1847fc61f384e13b15651ed914286fe87ac7133c
 origin/main: 1847fc61f384e13b15651ed914286fe87ac7133c
-merge-base: 1847fc61f384e13b15651ed914286fe87ac7133c
-ahead: 1
-status: ?? .tmp-sfia-review/ only
-staged: empty
-log tip: feat(sfia-studio): add F2 qualification proposal gate
-remote delivery before: ABSENT
-existing PR before: none
+status: ?? .tmp-sfia-review/ only (tracked clean)
 ```
-Base drift: **PASS** · Dirty tracked: **PASS** · Commit drift: **PASS** · `git diff --check`: **PASS**
 
 ---
 
-## 1. Package reconfirm (no FULL dump)
+## 1. Pre-merge PR contract (STOP gates — all PASS)
 
-`git diff --name-status 1847fc61…HEAD` → **exactly 25 files (17 M + 8 A)**.
-`git diff --stat` → **25 files changed, 2929 insertions(+), 39 deletions(-)**.
-`git diff --check` → exit 0.
-Scope drift: **NONE**.
-
-Full 25-file matrix / diffs remain in inbound Cycle 13 PR-readiness FULL pack (tip `a13af6d` / blob `f195bc2a`). This LIGHT pack does **not** re-dump them.
-
----
-
-## 2. Git Review Index (PR + commit)
-
-| Index | Value |
-|---|---|
-| Commit | `fa25c940ad66033f6ad873f816d7a9c2868622d7` — `feat(sfia-studio): add F2 qualification proposal gate` |
-| Parent | `1847fc61f384e13b15651ed914286fe87ac7133c` (= origin/main) |
-| Remote branch | `origin/delivery/sfia-studio-f2-qualification-proposal-gate` @ `fa25c940…` |
-| PR | **#330** — https://github.com/mcleland147/sfia-workspace/pull/330 |
-| Title | `feat(sfia-studio): add F2 qualification proposal gate` |
-| Base / Head | `main` ← `delivery/sfia-studio-f2-qualification-proposal-gate` |
-| headRefOid | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
-| Commits on PR | **1** |
-| Files on PR | **25** (17 M + 8 A) — `gh pr diff --name-only` count 25 |
-| Body source | `.tmp-sfia-review/f2-pr-readiness/pr-body.md` (sections verified; not reinvented) |
-
----
-
-## 3. Remote preflight → Push → PR create
-
-| Step | Result |
-|---|---|
-| `ls-remote` delivery before | empty |
-| `gh pr list --head … --state all` before | `[]` |
-| Case | **A** — remote absent + no PR → push then create |
-| Push | `git push -u origin delivery/sfia-studio-f2-qualification-proposal-gate` (NO `--force`) → new remote branch |
-| Remote SHA after push | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
-| origin/main after push | still `1847fc61f384e13b15651ed914286fe87ac7133c` |
-| `gh pr create` | base `main` · head delivery · title exact · `--body-file` pr-body.md · **no `--draft`** |
-| PR URL | https://github.com/mcleland147/sfia-workspace/pull/330 |
-
-### PR contract verify
-| Field | Expected | Actual |
+| Check | Required | Actual |
 |---|---|---|
 | state | OPEN | OPEN |
 | isDraft | false | false |
 | baseRefName | main | main |
 | headRefName | delivery/sfia-studio-f2-qualification-proposal-gate | match |
 | headRefOid | fa25c940… | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
+| mergeable | MERGEABLE | MERGEABLE |
+| mergeStateStatus | allowing merge | CLEAN |
 | commits | 1 | 1 |
-| files | 25 | 25 |
-| mergeable | as-is | **MERGEABLE** |
-| mergeStateStatus | as-is | **BLOCKED** (checks in progress; merge NOT performed) |
-
-### PR body sections verified (not invented)
-Summary · What changed · Functional flow · Live structured intent correction · Human-decision safeguards · Validation · Live proof · Known limitations / reserves · Out of scope · Risk / rollback · Checklist — **PASS**
+| files | 25 | 25 (17 M + 8 A) |
 
 ---
 
-## 4. CI snapshot (single read; no wait; no remediation)
+## 2. CI at merge — GREEN
+
+**CI_GREEN** — all required checks COMPLETED / SUCCESS; none PENDING / FAILURE.
+
+| Check | Conclusion |
+|---|---|
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | SUCCESS |
+| SFIA Studio Required Gate | SUCCESS |
+
+Workflow: SFIA Studio CI (run associated with PR head `fa25c940…`).
+
+---
+
+## 3. Merge execution
+
+```
+gh pr merge 330 --merge
+```
 
 | Field | Value |
 |---|---|
-| CI class | **PENDING** |
-| Detect SFIA Studio changes | COMPLETED / SUCCESS |
-| Build and validate SFIA Studio | IN_PROGRESS |
-| Note | Pending acceptable for this Push+Create gate; **not** READY TO MERGE; **never claim GREEN while pending** |
+| method | **merge commit** (matching F1 practice; not squash/rebase) |
+| `--delete-branch` | **not** passed |
+| `--admin` | **not** used |
+| auto-merge | not used |
+| MERGE_EXIT | 0 |
+| mergedAt | 2026-08-10T22:03:03Z |
+| mergeCommit | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| PR state | **MERGED** |
+| origin/main before | `1847fc61f384e13b15651ed914286fe87ac7133c` |
+| origin/main after | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| remote delivery branch | **LEFT** — still present at `fa25c940…` |
+| local delivery HEAD | still `fa25c940…` (no project commit / no reset) |
+| content mutation | **NONE** |
 
-Artifacts: `.tmp-sfia-review/f2-push-pr/{pr-view.json,remote-sha.txt,ci-state.txt}`
+Ancestor check: `git merge-base --is-ancestor fa25c940 origin/main` → **ANCESTOR_OK**
 
 ---
 
-## 5. Live / fixture proofs
+## 4. Package confirmation on main
 
-**LIVE TRANSPORTED NOT RERUN** in this Push+Create gate.
-- Fixture **9/9 PASS** (from inbound)
-- Live L1–L4 **4/4 PASS** (from inbound / live-correction cycle)
-- Fake QA from PR readiness transported (58/58 targeted; 1605/1605 broad excl. FinOps postgres; typecheck/lint/build PASS)
+- `git diff --stat fa25c940 origin/main -- projects/sfia-studio` → **empty** (merge tip tree matches package tip for Studio paths)
+- Diff `1847fc61…origin/main` under `projects/sfia-studio` → **exactly 25 files** (same matrix as PR #330)
+- Package tip `fa25c940` is first-parent ancestry parent of merge commit on main
+
+25-file package integrated (no re-dump of FULL diffs in this LIGHT pack).
 
 ---
 
-## 6. Réserves (carried)
+## 5. Réserves (transported — unchanged)
 
 | ID | Nature | Status |
 |---|---|---|
@@ -177,56 +148,46 @@ Artifacts: `.tmp-sfia-review/f2-push-pr/{pr-view.json,remote-sha.txt,ci-state.tx
 | **R-Process-Local** | Proposal/decision store process-local / non-durable (accepted design limitation) | ACCEPTED LIMITATION |
 | **R-F2-SEMANTIC-CALIBRATION** | Live L2 “ajouter un module de reporting financier” → `cyc:framing` / Critical / Morris gate; watch Critical over-classification | OPEN / NON-BLOCKING |
 
+Live/fixture proofs: **TRANSPORTED NOT RERUN** in this merge gate.
+
 ---
 
-## 7. Mutation counters
+## 6. Mutation counters
 
 | Counter | Value |
 |---|---|
 | Project content modifications | **0** |
-| New project commits | **0** |
+| New project commits on delivery | **0** |
 | Amend / rebase / force push | **0** |
-| Delivery pushes | **1** |
-| PR creates | **1** |
-| Project merges | **0** |
-| Auto-merge | **0** |
-| Branch deletions | **0** |
+| `--admin` merge | **0** |
 | OpenAI live | **0** |
-| Cursor produit | **0** |
-| FinOps work | **0** |
+| Branch deletion | **0** (remote delivery branch retained) |
+| GitHub merge of PR #330 | **1** (merge commit on main) |
 
 ---
 
-## 8. Anti-claims
+## 7. Anti-claims
 
-- PR **not** merged · main **not** modified · CI **not** claimed GREEN
-- OpenAI live **not** rerun · fixture/live proofs **transported only**
-- F3 / ExecutionRun / Cursor product execution **not** opened
-- Durable persistence / IAM **not** claimed
-- Merge **not** authorized by this gate
+- No project content drift during merge gate
+- No squash rewrite of package tip (merge commit; `fa25c940` remains ancestor)
+- No live OpenAI / no Cursor product execution
+- F3 / ExecutionRun / durable persistence / IAM **not** claimed
+- Reserves remain open / non-blocking as transported
 
 ---
 
-## 9. Final Git Truth (pre-handoff publish)
+## 8. Final Git Truth (post-merge, pre-handoff)
 
 | Field | Value |
 |---|---|
-| branch | `delivery/sfia-studio-f2-qualification-proposal-gate` |
-| HEAD | `fa25c940ad66033f6ad873f816d7a9c2868622d7` (**UNCHANGED**) |
-| HEAD^ | `1847fc61f384e13b15651ed914286fe87ac7133c` |
-| origin/main | `1847fc61f384e13b15651ed914286fe87ac7133c` (**UNCHANGED**) |
-| ahead | 1 |
-| remote delivery SHA | `fa25c940ad66033f6ad873f816d7a9c2868622d7` |
+| branch locale | `delivery/sfia-studio-f2-qualification-proposal-gate` |
+| HEAD local | `fa25c940ad66033f6ad873f816d7a9c2868622d7` (**UNCHANGED**) |
+| origin/main | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| PR #330 | **MERGED** |
+| remote delivery | present @ `fa25c940…` |
 | tracked/staged | clean |
 | untracked | `?? .tmp-sfia-review/` only |
-| merge | **NOT performed** |
 
 ---
-
-## 10. Gate candidat suivant
-
-- If PR exact + CI **GREEN** after ChatGPT validation: `GO MERGE — F2 QUALIFICATION + PROPOSITION + GATE SFIA STUDIO`
-- If CI **PENDING**: **AUCUN GO MERGE** — wait / recheck CI
-- If CI **FAILED**: **AUCUN GO MERGE** — analyze under new contract
 
 Morris décide. ChatGPT qualifie et valide. Cursor exécute. Git trace.
