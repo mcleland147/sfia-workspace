@@ -112,6 +112,8 @@
 
 .actions {
   justify-content: flex-end;
+  align-items: center;
+  gap: var(--sfia-space-md);
   padding-top: var(--sfia-space-xs);
   border-top: 1px solid var(--sfia-border-soft);
 }

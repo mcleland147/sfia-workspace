@@ -39,6 +39,50 @@
   margin-top: 0.25rem;
 }
 
+.studioNavContext {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  background: #f7f9fc;
+}
+
+.studioNavContextTitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--sfia-ink);
+}
+
+.studioNavContextId {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  color: var(--sfia-ink);
+  overflow-wrap: anywhere;
+}
+
+.studioNavContextDisclaimer {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--sfia-muted);
+}
+
+.studioNavContextReturn {
+  align-self: flex-start;
+  color: var(--sfia-blue);
+  font-size: 0.85rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.studioNavContextReturn:focus-visible {
+  outline: 3px solid var(--sfia-blue-soft);
+  outline-offset: 2px;
+}
+
 .panel {
   background: var(--sfia-surface);
   border: 1px solid var(--sfia-border);

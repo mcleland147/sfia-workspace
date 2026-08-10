@@ -151,12 +151,25 @@ describe("V2-A3 Project Workspace UI", () => {
     expect(
       within(screen.getByLabelText("Contraintes")).getAllByText("Sans IAM"),
     ).toHaveLength(2);
+    const continuePilotage = screen.getByRole("link", {
+      name: "Continuer le pilotage",
+    });
+    expect(continuePilotage).toBeVisible();
+    expect(continuePilotage).toHaveAttribute(
+      "href",
+      `/ops1/nouvelle-demande?projectId=${encodeURIComponent("prj:v2-a3-1")}`,
+    );
+    expect(screen.getByTestId("workspace-continue-pilotage")).toBe(
+      continuePilotage,
+    );
     expect(
       screen.getByRole("link", { name: "Créer un autre projet" }),
     ).toHaveAttribute("href", "/studio/projects/new");
     expect(screen.queryByText(/\brecommendation engine\b/i)).toBeNull();
     expect(screen.queryByText(/\borchestrateur\b/i)).toBeNull();
     expect(screen.queryByRole("heading", { name: /dashboard/i })).toBeNull();
+    expect(screen.queryByText(/Project lié à OPS1/i)).toBeNull();
+    expect(screen.queryByText(/Workspace connecté/i)).toBeNull();
   });
 
   it("loads the workspace through getProjectRuntimeAction", async () => {
