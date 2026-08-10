@@ -1,193 +1,138 @@
-# ChatGPT Review Pack — F1 Assistant Project — Push + Create PR Gate (Light)
+# ChatGPT Review Pack — F1 Assistant Project — Merge Gate (Light)
 
 ## Meta
 
-- Role: F1 Assistant Project — Push + Create PR Gate
-- date_cest: 2026-08-10 17:55:47 CEST (+0200)
-- date_utc: 2026-08-10 15:55:47 UTC
-- cycle: 13 — PR readiness — Push + Create PR Gate
+- Role: F1 Assistant Project — Merge Gate
+- date_cest: 2026-08-10 18:03:33 CEST (+0200)
+- date_utc: 2026-08-10 16:03:33 UTC
+- cycle: 13 — Merge Gate — F1 Assistant Project
 - profil: Standard
 - typologie: INC
 - niveau: Light
-- GO Morris exact: `GO PUSH + CREATE PR — F1 ASSISTANT PROJET CONTEXTUALISÉ SFIA STUDIO`
-- GO autorise: push branche exacte · création PR unique vers main · lecture GitHub/CI · handoff L3
-- GO N'autorise PAS: content change · nouveau commit · amend · rebase · merge · force push · auto-merge · F2 · OpenAI live · Cursor produit
+- GO Morris exact: `GO MERGE — F1 ASSISTANT PROJET CONTEXTUALISÉ SFIA STUDIO`
+- GO autorise: merge PR #329 (merge commit) si contrat PR + CI GREEN · lecture GitHub/CI · handoff L3
+- GO N'autorise PAS: content change · nouveau commit projet · amend · rebase · force push · squash (sauf exigence repo) · --admin · auto-merge · F2 · OpenAI live · suppression OPS1
 - Repo: `mcleland147/sfia-workspace`
 - Worktree: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main`
-- Branch: `delivery/sfia-studio-f1-project-assistant`
-- HEAD: `5354643cd3184f4f8ebf51f31bf649203f8c25f0`
-- HEAD^ / origin/main: `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34`
-- Inbound handoff tip: `84313ec32b6d8a44ce830859f8c9f975a19e5204`
-- Inbound handoff blob: `82ce20d73a8780a6f2d6c048272298e0a73e77e0`
-- Inbound verdict: F1 ASSISTANT PROJECT PR READINESS PASS — READY FOR CHATGPT REVIEW / MORRIS PUSH + PR GATE
+- Branch locale: `delivery/sfia-studio-f1-project-assistant`
+- HEAD local (inchangé): `5354643cd3184f4f8ebf51f31bf649203f8c25f0`
+- origin/main avant merge: `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34`
+- origin/main après merge: `1847fc61f384e13b15651ed914286fe87ac7133c`
+- Merge commit: `1847fc61f384e13b15651ed914286fe87ac7133c`
+- PR: https://github.com/mcleland147/sfia-workspace/pull/329
 
 ## Verdict (pack)
 
 ```
-F1 ASSISTANT PROJECT PUSH + PR COMPLETE —
-DELIVERY BRANCH PUSHED AT EXACT COMMIT 5354643 —
-PR CREATED AGAINST MAIN —
-17-FILE PACKAGE VERIFIED ON GITHUB —
-PR CONTRACT VERIFIED —
-CI PENDING —
-NO CONTENT CHANGE / NEW COMMIT / MERGE —
-READY FOR CHATGPT REVIEW / CI COMPLETION BEFORE MERGE DECISION
+F1 ASSISTANT PROJECT MERGE COMPLETE —
+PR #329 MERGED TO MAIN —
+PACKAGE 5354643 INTEGRATED —
+CI GREEN AT MERGE —
+NO FORCE / NO CONTENT CHANGE —
+READY FOR CHATGPT REVIEW / POST-MERGE DECISION
 ```
 
 ## 1. GO
 
-Consumed: `GO PUSH + CREATE PR — F1 ASSISTANT PROJET CONTEXTUALISÉ SFIA STUDIO`.
-Authorized remote mutation only for exact delivery branch push + one non-draft PR to main + handoff publish. Merge forbidden.
+Consumed: `GO MERGE — F1 ASSISTANT PROJET CONTEXTUALISÉ SFIA STUDIO`.
+Authorized: merge-commit of PR #329 into `main` only if PR contract matches and CI green; then Light review pack + handoff publish.
+Forbidden: content change, project commits, amend, force push, admin bypass, auto-merge.
 
-## 2. Local Git Truth (initial)
+## 2. Local Git Truth (pre-merge)
 
 | Field | Value |
 |---|---|
 | branch | `delivery/sfia-studio-f1-project-assistant` |
 | HEAD | `5354643cd3184f4f8ebf51f31bf649203f8c25f0` |
-| HEAD^ | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
 | origin/main | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
-| ahead | 1 |
-| status | `?? .tmp-sfia-review/` only (tracked/staged clean) |
-| log | `5354643 feat(sfia-studio): add contextual project assistant` |
-| remote delivery before | **ABSENT** |
+| status | `?? .tmp-sfia-review/` only |
 
-## 3. Inbound handoff
+## 3. PR contract verification
 
 | Check | Result |
 |---|---|
-| tip | **PASS** `84313ec32b6d8a44ce830859f8c9f975a19e5204` |
-| blob | **PASS** `82ce20d73a8780a6f2d6c048272298e0a73e77e0` |
-| role | Cycle 13 — PR Readiness F1 |
-| verdict | **PR READINESS PASS** |
-
-## 4. Package reconfirm
-
-`git diff --name-status origin/main...HEAD` → **17 files** (5 M + 12 A).
-`git diff --stat` → **17 files changed, 1710 insertions(+), 101 deletions(-)**.
-`git diff --check` → exit 0.
-Scope drift: **NONE**.
-
-## 5. Idempotence / remote state before
-
-| Check | Result |
-|---|---|
-| `ls-remote` delivery | empty |
-| open PR head/base | `[]` |
-| Case | **A** — remote absent + no PR → push then create |
-
-## 6. Push
-
-| Field | Value |
-|---|---|
-| command | `git push -u origin delivery/sfia-studio-f1-project-assistant` (NO --force) |
-| result | new remote branch created |
-| remote SHA | `5354643cd3184f4f8ebf51f31bf649203f8c25f0` |
-| GitHub compare | ahead_by=1 · total_commits=1 · files=17 |
-
-## 7. PR created
-
-| Field | Value |
-|---|---|
-| number | **#329** |
+| number | **329** |
 | url | https://github.com/mcleland147/sfia-workspace/pull/329 |
-| state | **OPEN** |
-| isDraft | **false** |
+| state | **OPEN** → then **MERGED** |
+| isDraft | false |
 | title | `feat(sfia-studio): add contextual project assistant` |
-| baseRefName | `main` |
-| headRefName | `delivery/sfia-studio-f1-project-assistant` |
+| base | `main` |
+| head | `delivery/sfia-studio-f1-project-assistant` |
 | headRefOid | `5354643cd3184f4f8ebf51f31bf649203f8c25f0` |
-| files (`gh pr diff --name-only`) | **17** exact |
 | mergeable | MERGEABLE |
-| mergeStateStatus | BLOCKED (checks in progress; merge NOT performed) |
+| mergeStateStatus | CLEAN |
+| files | **17** (exact) |
 
-### PR body (exact)
+## 4. CI classification
 
-```markdown
-## Summary
-- Adds a contextual, read-only Project Assistant in SFIA Studio workspace (`/studio/projects/[id]`) via Copilot interactive slot.
-- Reuses platform AI + tool loop and existing project runtime projection; conversations are ephemeral (fixture/demo or fail-closed live).
-- Keeps OPS1 « Continuer le pilotage » as a temporary secondary escape hatch (not the primary path).
+**CI_GREEN** — all completed checks SUCCESS; none pending/failed.
 
-## Scope
-- 17 files on `delivery/sfia-studio-f1-project-assistant` @ `5354643` (12 added + 5 modified under `projects/sfia-studio/app`).
-- New `features/project-assistant/**` + tests; CopilotPanel interactive content; ProjectWorkspaceView secondary CTA copy.
+| Check | Conclusion |
+|---|---|
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | SUCCESS |
+| SFIA Studio Required Gate | SUCCESS |
 
-## Validation
-- Targeted vitest (project-assistant + workspace + shell): 17/17 PASS
-- Full vitest excluding FinOps postgres: 1588/1588 PASS
-- `npm run typecheck` / `lint` / `build`: PASS
-- Fixture runtime proof screenshots 01–04 + `runtime-proof-report.json` (fake provider; not live)
-- Import boundaries: no ops1 / oa/cycle / execution-run / Cursor production deps
-- AC-F1-01..15: PASS (AC-F1-15 secondary CTA reserve carried)
+## 5. Merge execution
 
-## Reserve
-- FinOps postgres suite: environmental non-blocking (ECONNREFUSED without local DB); not a green gate for F1
-- AC-F1-15: demote/hide OPS1 CTA after assistant primacy — later product decision
-- Live provider proof: separate Morris gate (not claimed here)
-- Parallel Vitest timeouts were observed under default heavy local parallelism; isolated retries and the bounded clean suite passed.
-
-## Anti-claims
-- Not OPS1 session productization; not Cursor execution; not Git/GitHub write; not F2 qualification
-- Not durable conversation persistence / IAM / FinOps / oa cycle UI
-- Not live OpenAI proof; fixture-only runtime evidence
-- Merge is not authorized by this PR creation gate
+```
+gh pr merge 329 --merge --delete-branch=false
 ```
 
-## 8. CI snapshot (initial)
-
 | Field | Value |
 |---|---|
-| CI class | **CI_PENDING** |
-| statusCheckRollup | Detect SFIA Studio changes — IN_PROGRESS |
-| note | Pending acceptable for this Push+Create gate; not READY TO MERGE |
+| method | merge commit (not squash/rebase) |
+| delete-branch | false |
+| --admin | not used |
+| auto-merge | not enabled |
+| mergedAt | 2026-08-10T16:02:38Z |
+| mergeCommit | `1847fc61f384e13b15651ed914286fe87ac7133c` |
+| PR state | **MERGED** |
+| origin/main advanced | `9b6d4bc…` → `1847fc6…` |
+| local HEAD | still `5354643…` on delivery (no hard reset) |
+| content change | **NONE** |
+| project commits before merge | **NONE** |
+| force / amend | **NONE** |
 
-## 9. Réserves (transported)
+## 6. 17-file package (integrated)
 
-1. **R1 FinOps postgres** — ENVIRONMENTAL / NON-BLOCKING F1
-2. **R2 AC-F1-15** — OPS1 secondary temporary escape hatch
-3. **R3 Live provider** — OpenAI live not validated in F1
-4. **R4 Vitest local** — timeouts under heavy parallelism; clean bounded gate + isolated retries PASS
+1. `projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
+2. `projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts`
+3. `projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts`
+4. `projects/sfia-studio/app/__tests__/vertical-slice-ui/projectWorkspaceUi.test.tsx`
+5. `projects/sfia-studio/app/app/studio/projects/[id]/page.tsx`
+6. `projects/sfia-studio/app/components/shell/CopilotPanel.tsx`
+7. `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`
+8. `projects/sfia-studio/app/features/project-assistant/actions.ts`
+9. `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts`
+10. `projects/sfia-studio/app/features/project-assistant/collectToolTelemetry.ts`
+11. `projects/sfia-studio/app/features/project-assistant/index.ts`
+12. `projects/sfia-studio/app/features/project-assistant/memoryEventSink.ts`
+13. `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+14. `projects/sfia-studio/app/features/project-assistant/project-assistant.module.css`
+15. `projects/sfia-studio/app/features/project-assistant/types.ts`
+16. `projects/sfia-studio/app/features/vertical-slice-ui/ProjectWorkspaceView.tsx`
+17. `projects/sfia-studio/app/features/vertical-slice-ui/project-workspace.module.css`
 
-## 10. Mutation counters
+## 7. Reserves (OPEN)
 
-| Counter | Value |
-|---|---|
-| Project content modifications | **0** |
-| New project commits | **0** |
-| Delivery pushes | **1** |
-| PR creates | **1** |
-| Project merges | **0** |
-| Branch deletions | **0** |
-| Force pushes | **0** |
-| OpenAI live | **0** |
-| Cursor produit | **0** |
-| FinOps work | **0** |
+- FinOps environmental / cross-lot coupling not re-validated in this gate
+- AC-F1-15 (live OpenAI) not validated here
+- Live product behavior not validated in this merge gate
 
-## 11. Anti-claims
+## 8. Anti-claims
 
-- PR **not** merged · main **not** modified · CI **not** claimed green
-- OpenAI live **not** validated · F2 **not** opened · OPS1 **not** removed
-- Not production-ready claim · Merge **not** authorized by this gate
+- NOT live / production-validated OpenAI assistant
+- NOT F2
+- NOT OPS1 deleted
+- NOT content change during merge gate
+- NOT force-push / amend / admin bypass
 
-## 12. Final Git Truth
+## 9. Post-merge local
 
 | Field | Value |
 |---|---|
 | branch | `delivery/sfia-studio-f1-project-assistant` |
-| HEAD | `5354643cd3184f4f8ebf51f31bf649203f8c25f0` (UNCHANGED) |
-| HEAD^ | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
-| origin/main | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` (UNCHANGED) |
-| ahead | 1 |
-| remote delivery SHA | `5354643cd3184f4f8ebf51f31bf649203f8c25f0` |
-| tracked/staged | clean |
-| untracked | `?? .tmp-sfia-review/` only |
-| merge | **NOT performed** |
-
-## 13. Gate candidat suivant
-
-- If PR exact + CI green after ChatGPT validation: `GO MERGE — F1 ASSISTANT PROJET CONTEXTUALISÉ SFIA STUDIO`
-- If CI pending: **AUCUN GO MERGE** — wait / recheck CI
-- If CI failed: **AUCUN GO MERGE** — analyze under new contract
-
-Morris décide. ChatGPT qualifie et valide. Cursor exécute. Git trace.
+| local HEAD | `5354643cd3184f4f8ebf51f31bf649203f8c25f0` |
+| origin/main | `1847fc61f384e13b15651ed914286fe87ac7133c` |
+| relation | package tip is parent of merge commit; local delivery HEAD unchanged |
