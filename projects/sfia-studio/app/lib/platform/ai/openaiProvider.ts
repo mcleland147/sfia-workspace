@@ -44,6 +44,63 @@ export class OpenAIConversationProvider implements ConversationProvider {
     return { text: round.text, usage: round.usage };
   }
 
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+  }): Promise<ProviderCompletionResult> {
+    try {
+      const response = await this.client.responses.create({
+        model: this.model,
+        input: input.messages.map((m) => ({
+          role: m.role,
+          content: m.content,
+        })) as OpenAI.Responses.ResponseInput,
+        text: {
+          format: {
+            type: "json_schema",
+            name: input.schemaName,
+            schema: input.jsonSchema,
+            strict: true,
+          },
+        },
+      });
+
+      const usage = response.usage;
+      const inputTokens = usage?.input_tokens ?? null;
+      const outputTokens = usage?.output_tokens ?? null;
+      const totalTokens =
+        usage?.total_tokens ??
+        (inputTokens != null && outputTokens != null
+          ? inputTokens + outputTokens
+          : null);
+      const text = (response.output_text ?? "").trim();
+      if (!text) {
+        throw new TechnicalError(
+          "PROVIDER",
+          "Réponse fournisseur vide. Aucun tour assistant live n’a été créé.",
+        );
+      }
+      return {
+        text,
+        usage: {
+          inputTokens,
+          outputTokens,
+          totalTokens,
+          model: response.model ?? this.model,
+          providerResponseId: response.id ?? null,
+        },
+      };
+    } catch (error) {
+      if (error instanceof TechnicalError) throw error;
+      throw new TechnicalError(
+        "PROVIDER",
+        "Échec de l’appel fournisseur GPT. Réessayez manuellement.",
+        error,
+      );
+    }
+  }
+
   async completeRound(input: {
     items: ProviderInputItem[];
     tools: ToolDefinition[];

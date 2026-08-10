@@ -34,6 +34,17 @@ export class FakeConversationProvider implements ConversationProvider {
     this.toolScript = options?.toolScript;
   }
 
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+  }): Promise<ProviderCompletionResult> {
+    void input.schemaName;
+    void input.jsonSchema;
+    // Reuse F2 marker / analysis scripted JSON from complete().
+    return this.complete(input.messages);
+  }
+
   async complete(
     messages: ProviderChatMessage[],
   ): Promise<ProviderCompletionResult> {
@@ -47,6 +58,227 @@ export class FakeConversationProvider implements ConversationProvider {
     if (lastUser?.content.includes("__OPS1_FORCE_PROVIDER_ERROR__")) {
       throw new Error("FAKE_PROVIDER_ERROR");
     }
+
+    // F2 deterministic structured intent JSON (TEST/FAKE only)
+    if (lastUser?.content.includes("__F2_INFORMATIVE__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "informative",
+          candidateCycleTypeId: null,
+          signals: null,
+          objective: "Résumer le projet",
+          scope: null,
+          rephrasedRequest: "Résumer l'objectif du projet",
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__F2_ACTIONABLE__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          objective: "Préparer la prochaine étape fonctionnelle",
+          scope: "Proposition bornée sans exécution",
+          rephrasedRequest: "Préparer une proposition de livraison bornée",
+          outOfScope: ["Cursor", "Git write", "PR"],
+          risks: ["Confusion reco/décision"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition"],
+          expectedOutcome: "Proposition structurée prête pour revue",
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__F2_STRUCTURING__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:functional-architecture",
+          signals: {
+            structuralChange: true,
+            securityImpact: false,
+            architectureImpact: true,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: false,
+          },
+          objective: "Faire évoluer l'architecture produit",
+          scope: "Changement d'architecture structurant",
+          rephrasedRequest: "Préparer une proposition d'architecture",
+          outOfScope: ["Exécution", "PR", "merge"],
+          risks: ["Impact architecture"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition", "gate"],
+          expectedOutcome: "Gate Morris requis",
+          criticalJustification: "Besoin métier structurant documenté",
+          requestedOperation: "architecture change",
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__F2_AMBIGUOUS__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "ambiguous",
+          candidateCycleTypeId: null,
+          signals: null,
+          objective: null,
+          scope: null,
+          rephrasedRequest: "Fais le nécessaire",
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__F2_EXECUTION__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "execution_request",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: true,
+            securityImpact: false,
+            architectureImpact: true,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: false,
+          },
+          objective: "Lancer Cursor et créer une PR",
+          scope: "Exécution produit demandée — refusée en F2",
+          rephrasedRequest: "Demande d'exécution Cursor / PR",
+          outOfScope: ["Exécution réelle"],
+          risks: ["Exécution hors périmètre F2"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition", "gate"],
+          expectedOutcome: "Proposition sans exécution",
+          criticalJustification: "Demande d'exécution explicite à borner sans lancer d'agent",
+          requestedOperation: "cursor create pr",
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (lastUser?.content.includes("__F2_CRITICAL_NO_JUSTIFICATION__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:security",
+          signals: {
+            structuralChange: true,
+            securityImpact: true,
+            architectureImpact: true,
+            dataImpact: true,
+            irreversible: true,
+            lowRiskBounded: false,
+          },
+          objective: "Changer l'architecture sécurité",
+          scope: "Impact structurant sécurité",
+          rephrasedRequest: "Modifier architecture sécurité",
+          outOfScope: ["Exécution"],
+          risks: ["Impact critique"],
+          reservations: [],
+          stopConditions: ["Justification Critical obligatoire"],
+          activatedBlocks: ["qualification"],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: "architecture security change",
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    // Default unmarked analysis prompts (system asks for JSON): informative fail-open for F1
+    if (messages.some((m) => m.role === "system" && m.content.includes("SFIA Studio F2"))) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "informative",
+          candidateCycleTypeId: null,
+          signals: null,
+          objective: null,
+          scope: null,
+          rephrasedRequest: (lastUser?.content ?? "").slice(0, 200),
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+
     const historyLen = messages.length;
     const text =
       this.scripted?.[this.callCount - 1] ??

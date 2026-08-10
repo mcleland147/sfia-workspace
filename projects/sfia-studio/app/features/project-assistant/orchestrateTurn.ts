@@ -152,6 +152,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       text: loop.text,
       mode: modeResolution.mode,
       presentation,
+      model: loop.usage?.model ?? null,
       toolRounds: loop.toolRounds,
       toolCalls: loop.toolCalls,
       sources,

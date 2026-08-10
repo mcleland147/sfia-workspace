@@ -11,7 +11,19 @@ import {
   type LocalVerticalSliceServices,
 } from "@/lib/vertical-slice-core";
 import type { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
-import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
+import type { DoctrinePackagePin, ClockPort } from "@/lib/oa/doctrine";
+import {
+  createCkcQualificationServices,
+  createInMemoryCycleServices,
+  type CkcQualificationServices,
+  type CycleServices,
+} from "@/lib/oa/cycle";
+import {
+  MemoryAuthorityResolver,
+  createInMemoryDecisionServices,
+  type DecisionServices,
+} from "@/lib/oa/decision";
+import type { ProjectServices } from "@/lib/oa/project";
 import {
   toCreateLocalProjectCommand,
   toCreateProjectRuntimeFailure,
@@ -47,6 +59,15 @@ export interface RuntimeApplicationServiceOptions {
   readonly facade?: LocalProjectFacade;
 }
 
+export type RuntimeOaStack = {
+  readonly projectServices: ProjectServices;
+  readonly clock: ClockPort;
+  readonly cycleServices: CycleServices;
+  readonly ckcQualification: CkcQualificationServices;
+  readonly decisionServices: DecisionServices;
+  readonly authorityResolver: MemoryAuthorityResolver;
+};
+
 function resolveAudit(
   mode: RuntimeAuditMode,
   sqliteAuditStore: BoundedAtomicAuditStore | undefined,
@@ -65,20 +86,47 @@ function resolveAudit(
   return new NoOpLocalProjectCreationAudit();
 }
 
+function wireOaStack(
+  projectServices: ProjectServices,
+  clock: ClockPort,
+): RuntimeOaStack {
+  const cycleServices = createInMemoryCycleServices({ projectServices, clock });
+  const ckcQualification = createCkcQualificationServices({ clock });
+  const authorityResolver = new MemoryAuthorityResolver();
+  const decisionServices = createInMemoryDecisionServices({
+    projectServices,
+    cycleServices,
+    clock,
+    authorityResolver,
+  });
+  return Object.freeze({
+    projectServices,
+    clock,
+    cycleServices,
+    ckcQualification,
+    decisionServices,
+    authorityResolver,
+  });
+}
+
 /**
  * Application runtime service over V1 LocalProjectFacade.
  * Does not duplicate T-A0/T-A1 rules; maps serializable DTOs only.
+ * Exposes shared OA stack for F2 (same ProjectServices instance).
  */
 export class RuntimeApplicationService {
   private readonly facade: LocalProjectFacade;
   readonly architecture: LocalVerticalSliceServices["architecture"];
+  readonly oa: RuntimeOaStack | null;
 
   constructor(
     facade: LocalProjectFacade,
     architecture: LocalVerticalSliceServices["architecture"],
+    oa: RuntimeOaStack | null = null,
   ) {
     this.facade = facade;
     this.architecture = architecture;
+    this.oa = oa;
   }
 
   /** Use case: Create Project via V1 facade. */
@@ -115,6 +163,7 @@ export function createRuntimeApplicationService(
     return new RuntimeApplicationService(
       options.facade,
       LOCAL_VERTICAL_SLICE_ARCHITECTURE,
+      null,
     );
   }
 
@@ -128,5 +177,10 @@ export function createRuntimeApplicationService(
     audit: resolveAudit(options.auditMode ?? "noop", options.sqliteAuditStore),
   });
 
-  return new RuntimeApplicationService(services.facade, services.architecture);
+  const oa = wireOaStack(services.projectServices, services.clock);
+  return new RuntimeApplicationService(
+    services.facade,
+    services.architecture,
+    oa,
+  );
 }

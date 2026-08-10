@@ -59,4 +59,58 @@ describe("OpenAIConversationProvider mapping", () => {
       provider.complete([{ role: "user", content: "x" }]),
     ).rejects.toBeInstanceOf(TechnicalError);
   });
+
+  it("completeStructured passes Responses text.format json_schema strict", async () => {
+    createMock.mockResolvedValue({
+      id: "resp_structured",
+      model: "gpt-test",
+      output_text: '{"intentClass":"informative"}',
+      usage: { input_tokens: 2, output_tokens: 3, total_tokens: 5 },
+    });
+    const { OpenAIConversationProvider } = await import(
+      "@/lib/platform/ai/openaiProvider"
+    );
+    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
+    const schema = {
+      type: "object",
+      additionalProperties: false,
+      properties: { intentClass: { type: "string" } },
+      required: ["intentClass"],
+    };
+    const result = await provider.completeStructured({
+      messages: [
+        { role: "system", content: "sys" },
+        { role: "user", content: "ask" },
+      ],
+      schemaName: "f2_intent_analysis",
+      jsonSchema: schema,
+    });
+    expect(result.text).toContain("informative");
+    expect(result.usage).toEqual({
+      inputTokens: 2,
+      outputTokens: 3,
+      totalTokens: 5,
+      model: "gpt-test",
+      providerResponseId: "resp_structured",
+    });
+    expect(createMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        model: "gpt-test",
+        text: {
+          format: {
+            type: "json_schema",
+            name: "f2_intent_analysis",
+            schema,
+            strict: true,
+          },
+        },
+      }),
+    );
+    const payload = createMock.mock.calls[0][0];
+    expect(payload.input).toEqual([
+      { role: "system", content: "sys" },
+      { role: "user", content: "ask" },
+    ]);
+    expect(payload.tools).toBeUndefined();
+  });
 });

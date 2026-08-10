@@ -1,15 +1,25 @@
 /**
- * F1 Project Assistant — ephemeral DTOs (no durable persistence).
+ * Project Assistant DTOs — F1 conversation + F2 qualification/proposal/gate.
+ * Ephemeral / process-local only (no durable persistence).
  */
 
-export type AssistantUiMode = "fixture" | "live" | "unavailable";
+import type {
+  DecisionDto,
+  IntentClass,
+  ProposalDto,
+  QualificationDto,
+} from "./f2/types";
+
+export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed";
 
 export type AssistantTurnStatus =
   | "ok"
   | "provider_unavailable"
   | "provider_error"
   | "project_not_found"
-  | "validation_error";
+  | "validation_error"
+  | "stale"
+  | "decision_error";
 
 export type AssistantHistoryMessage = {
   role: "user" | "assistant";
@@ -51,18 +61,45 @@ export type ProjectAssistantContextDto = {
   readiness: string;
 };
 
+export type F2TurnLabels = {
+  recommendation: "RECOMMANDATION" | null;
+  proposition: "PROPOSITION" | null;
+  decisionRequired: "DÉCISION REQUISE" | null;
+  decisionTaken: "DÉCISION PRISE" | null;
+  noExecution: "AUCUNE EXÉCUTION";
+};
+
+export type F2TurnPayload = {
+  turnKind:
+    | "f1_informative"
+    | "f2_clarification"
+    | "f2_proposal"
+    | "f2_blocked"
+    | "f2_decision";
+  intentClass: IntentClass;
+  qualification: QualificationDto | null;
+  proposal: ProposalDto | null;
+  decision: DecisionDto | null;
+  labels: F2TurnLabels;
+  executionBlocked: boolean;
+  processLocalNotice: string;
+};
+
 export type ProjectAssistantSendSuccess = {
   ok: true;
   status: "ok";
   text: string;
-  mode: AssistantUiMode;
+  mode: Exclude<AssistantUiMode, "unconfirmed">;
   presentation: "test_provider" | "openai_live";
+  /** Observed provider model when available (from usage.model). */
+  model?: string | null;
   toolRounds: number;
   toolCalls: number;
   sources: AssistantSourceDto[];
   toolEvents: AssistantToolEventDto[];
   project: ProjectAssistantContextDto;
   ephemeralNotice: string;
+  f2?: F2TurnPayload;
 };
 
 export type ProjectAssistantSendFailure = {
@@ -72,8 +109,25 @@ export type ProjectAssistantSendFailure = {
   message: string;
   mode: AssistantUiMode;
   retryable: boolean;
+  proposal?: ProposalDto | null;
+  f2?: F2TurnPayload;
 };
 
 export type ProjectAssistantSendResult =
   | ProjectAssistantSendSuccess
+  | ProjectAssistantSendFailure;
+
+export type ProjectAssistantDecideSuccess = {
+  ok: true;
+  status: "ok";
+  mode: Exclude<AssistantUiMode, "unconfirmed">;
+  presentation: "test_provider" | "openai_live" | "unconfirmed";
+  text: string;
+  project: ProjectAssistantContextDto;
+  ephemeralNotice: string;
+  f2: F2TurnPayload;
+};
+
+export type ProjectAssistantDecideResult =
+  | ProjectAssistantDecideSuccess
   | ProjectAssistantSendFailure;

@@ -12,13 +12,17 @@ import { StudioShell } from "@/components/shell/StudioShell";
 import { ProjectAssistantPanel } from "@/features/project-assistant/ProjectAssistantPanel";
 import { ProjectWorkspaceView } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 
-const { projectAssistantSendActionMock } = vi.hoisted(() => ({
-  projectAssistantSendActionMock: vi.fn(),
-}));
+const { projectAssistantSendActionMock, projectAssistantDecideActionMock } =
+  vi.hoisted(() => ({
+    projectAssistantSendActionMock: vi.fn(),
+    projectAssistantDecideActionMock: vi.fn(),
+  }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantSendAction: (...args: unknown[]) =>
     projectAssistantSendActionMock(...args),
+  projectAssistantDecideAction: (...args: unknown[]) =>
+    projectAssistantDecideActionMock(...args),
 }));
 
 vi.mock("next/link", () => ({
@@ -90,6 +94,7 @@ const SUCCESS_RESULT = {
 describe("F1 ProjectAssistantPanel UI", () => {
   beforeEach(() => {
     projectAssistantSendActionMock.mockReset();
+    projectAssistantDecideActionMock.mockReset();
   });
 
   afterEach(() => {
@@ -305,6 +310,17 @@ describe("F1 ProjectAssistantPanel UI", () => {
     fireEvent.click(screen.getByTestId("project-assistant-send"));
     expect(await screen.findByTestId("project-assistant-error")).toBeVisible();
     expect(screen.getByTestId("project-assistant-retry")).toBeVisible();
+  });
+
+
+  it("shows MODE À CONFIRMER before first provider response", () => {
+    render(<ProjectAssistantPanel projectId="prj:f1-ui" />);
+    expect(screen.getByTestId("project-assistant-mode-pill")).toHaveTextContent(
+      /MODE À CONFIRMER/,
+    );
+    expect(screen.getByTestId("project-assistant-mode-pill")).not.toHaveTextContent(
+      /Fixture/,
+    );
   });
 
   it("blocks empty send", () => {

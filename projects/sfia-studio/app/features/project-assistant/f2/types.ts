@@ -1,0 +1,127 @@
+/**
+ * F2 Qualification + Proposal + Gate — process-local DTOs.
+ * Recommendation ≠ Decision ≠ Execution.
+ */
+
+export type IntentClass =
+  | "informative"
+  | "actionable"
+  | "ambiguous"
+  | "execution_request";
+
+export type F2ProposalStatus =
+  | "PROPOSED"
+  | "DECISION_REQUIRED"
+  | "APPROVED"
+  | "APPROVED_WITH_RESERVES"
+  | "REFUSED"
+  | "AMENDMENT_REQUIRED"
+  | "STALE"
+  | "NEEDS_CLARIFICATION"
+  | "BLOCKED_CRITICAL_JUSTIFICATION"
+  | "READY_NO_GATE";
+
+export type F2DecisionKind = "GO" | "GO_WITH_RESERVES" | "NO_GO" | "AMEND";
+
+export type F2QualificationSignals = {
+  structuralChange: boolean;
+  securityImpact: boolean;
+  architectureImpact: boolean;
+  dataImpact: boolean;
+  irreversible: boolean;
+  lowRiskBounded: boolean;
+};
+
+export type F2ContextSnapshot = {
+  projectId: string;
+  lpsId: string;
+  lpsVersion: number;
+  doctrineDigest: string;
+};
+
+export type QualificationDto = {
+  cycleTypeId: string;
+  cycleLabel: string;
+  recommendedProfile: string;
+  rationale: string;
+  criticalSignalsPresent: boolean;
+  requiresJustificationForCritical: boolean;
+  capitalizationViaCycleTypeId: boolean;
+  isMorrisDecision: false;
+  catalogVersion: string;
+  catalogHash: string;
+  detailedStatus: string;
+  disclosures: string[];
+  signals: F2QualificationSignals;
+  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
+};
+
+export type ProposalDto = {
+  proposalId: string;
+  status: F2ProposalStatus;
+  rephrasedRequest: string;
+  objective: string;
+  cycleTypeId: string;
+  recommendedProfile: string;
+  rationale: string;
+  scope: string;
+  outOfScope: string[];
+  activatedBlocks: string[];
+  expectedOutcome: string;
+  sources: string[];
+  risks: string[];
+  reservations: string[];
+  stopConditions: string[];
+  morrisGateRequired: boolean;
+  nextPossibleStep: string;
+  contextSnapshot: F2ContextSnapshot;
+  processLocalNotice: string;
+  executionForbidden: true;
+  noExecutingStatus: true;
+  /** Explicit F2 denial — never an agent binding. */
+  agentBinding: "NOT_AVAILABLE";
+  criticalJustification?: string | null;
+};
+
+export type DecisionDto = {
+  decisionId: string;
+  proposalId: string;
+  kind: F2DecisionKind;
+  statusLabel: "DÉCISION PRISE";
+  humanDecisionStatus: string;
+  scope: string;
+  reservesText: string | null;
+  capturedAt: string;
+  readyForNextGatedStep: boolean;
+  executionPerformed: false;
+};
+
+export type IntentAnalysisDto = {
+  intentClass: IntentClass;
+  candidateCycleTypeId: string | null;
+  signals: F2QualificationSignals | null;
+  objective: string | null;
+  scope: string | null;
+  rephrasedRequest: string | null;
+  outOfScope: string[];
+  risks: string[];
+  reservations: string[];
+  stopConditions: string[];
+  activatedBlocks: string[];
+  expectedOutcome: string | null;
+  criticalJustification: string | null;
+  requestedOperation: string | null;
+  parseOk: boolean;
+};
+
+export type F2TurnKind =
+  | "f1_informative"
+  | "f2_clarification"
+  | "f2_proposal"
+  | "f2_blocked";
+
+export type ProviderTrustDto = {
+  presentation: "test_provider" | "openai_live" | "unconfirmed";
+  model: string | null;
+  mode: "fixture" | "live" | "unavailable" | "unconfirmed";
+};
