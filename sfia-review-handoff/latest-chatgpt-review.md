@@ -2,46 +2,46 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Rôle** | Option A PR Creation Gate |
-| **Cycle** | 13 — PR readiness |
+| **Rôle** | Option A Merge Gate |
+| **Cycle** | 13 — Merge |
 | **Profil SFIA** | Standard |
 | **Review pack** | Light |
 | **Typologie** | INC |
-| **GO Morris** | `GO CREATE PR OPTION A` |
+| **GO Morris** | `GO MERGE OPTION A` |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-10 11:40:28 CEST |
-| **Timestamp UTC** | 2026-08-10 09:40:28 UTC |
+| **Timestamp CEST** | 2026-08-10 11:52:36 CEST |
+| **Timestamp UTC** | 2026-08-10 09:52:36 UTC |
 | **Repository** | `mcleland147/sfia-workspace` |
 | **Worktree** | `.../worktrees/finops-t2-main` |
-| **Branche** | `delivery/sfia-studio-workspace-ops1-continuity` |
-| **HEAD** | `93897e4feb8c31d19116fe1177073672f1f61f1d` |
-| **origin/main** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
-| **Remote head** | `93897e4feb8c31d19116fe1177073672f1f61f1d` (`origin/delivery/sfia-studio-workspace-ops1-continuity`) |
-| **Inbound handoff tip** | `dee8923854f914919df0dfe886b335b5107046a5` |
-| **Inbound handoff blob** | `4a8b12286f314c96a3d2f985a1acf24d3cb651e3` (`sfia-review-handoff/latest-chatgpt-review.md`) |
-| **Inbound readiness verdict** | `READY FOR PR WITH RESERVES — WORKSPACE TO OPS1 CONTINUITY — EXACT 8-FILE DIFF — NAVIGATION-ONLY — NO DOMAIN BINDING — BRANCH PUSHED AT 93897e4 — NO PR CREATED — FINOPS POSTGRES ENV RESERVE NON-BLOCKING` |
-| **PR creation authorized** | YES |
-| **PR existing before** | NO (empty `gh pr list --head … --state all`) |
-| **PR created** | YES |
+| **Branche (worktree)** | `delivery/sfia-studio-workspace-ops1-continuity` |
+| **HEAD (worktree)** | `93897e4feb8c31d19116fe1177073672f1f61f1d` |
+| **origin/main before** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
+| **origin/main after** | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
+| **local main after ff** | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
+| **Delivery head** | `93897e4feb8c31d19116fe1177073672f1f61f1d` |
+| **Inbound handoff tip** | `de9e34e249e492456a5ae2e62458545b1c2906e8` |
+| **Inbound handoff blob** | `a6a24098603a77fabb743c7a1648c1a0a2f703be` (`sfia-review-handoff/latest-chatgpt-review.md`) |
+| **Inbound gate** | Option A PR Creation — PR #328 OPEN |
 | **PR number** | 328 |
 | **PR URL** | https://github.com/mcleland147/sfia-workspace/pull/328 |
 | **Title** | `feat(sfia-studio): connect project workspace to OPS1 continuity` |
-| **State** | OPEN |
+| **State** | MERGED |
 | **Draft** | NO |
 | **Base branch** | `main` |
 | **Head branch** | `delivery/sfia-studio-workspace-ops1-continuity` |
-| **Head SHA** | `93897e4feb8c31d19116fe1177073672f1f61f1d` |
-| **Body verification** | PASS (navigation-only continuity; no domain binding; Validation section; FinOps postgres / ECONNREFUSED reserve; 8-file scope) |
-| **Reserve PostgreSQL present** | YES |
-| **Initial CI state** | PENDING (`Detect SFIA Studio changes` pending) |
+| **Head SHA at merge** | `93897e4feb8c31d19116fe1177073672f1f61f1d` |
+| **Merge method** | merge commit (`gh pr merge 328 --merge`) |
+| **Merge commit** | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
+| **Merge parents** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7 93897e4feb8c31d19116fe1177073672f1f61f1d ` |
+| **mergedAt** | `2026-08-10T09:51:22Z` |
+| **93897e4 in main ancestry** | YES |
+| **CI final** | PASS (Detect; Build and validate; SFIA Studio Required Gate) |
+| **Remote branch delete** | NO (left in place) |
 | **Project mutations** | 0 |
-| **New project commits** | 0 |
-| **Project push this gate** | 0 |
+| **New project commits (by us)** | 0 |
 | **Force push** | 0 |
 | **Amend** | 0 |
-| **Merge** | 0 |
-| **Auto-merge** | 0 |
-| **Branch deletion** | 0 |
+| **Auto-merge enable** | 0 |
 | **FinOps work** | 0 |
 | **Tracked worktree** | clean (`?? .tmp-sfia-review/` only) |
 
@@ -49,89 +49,77 @@
 
 ## 0. GO + scope
 
-**GO:** `GO CREATE PR OPTION A`
+**GO:** `GO MERGE OPTION A`
 
-**This gate only:** create open non-draft PR from verified delivery head onto `main`. No merge, no auto-merge, no product mutation, no FinOps, no test/runtime remediations.
+**Authorized:** merge PR #328 only if OPEN, non-draft, head SHA exact `93897e4…`, CI required checks PASS; prefer merge commit; post-verify; Light pack; handoff publish.
 
-**Referenced PR-readiness handoff (FULL DIFF already published there):**
-- tip `dee8923854f914919df0dfe886b335b5107046a5`
-- blob `4a8b12286f314c96a3d2f985a1acf24d3cb651e3`
-
-No FULL DIFF in this Light pack (project SHA unchanged; no project content created/modified this gate).
+**Not authorized:** squash/rebase unless forced; auto-merge enable beforehand; force push; product file edits; FinOps work; remote branch delete (prefer leave).
 
 ---
 
-## 1. Preflight truth
+## 1. Pre-merge gate
 
 | Contrôle | Résultat |
 |----------|----------|
 | `git fetch origin` | PASS |
-| Branch | PASS — `delivery/sfia-studio-workspace-ops1-continuity` |
-| HEAD = origin/delivery | PASS — `93897e4feb8c31d19116fe1177073672f1f61f1d` |
-| origin/main | PASS — `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
-| Ahead of main | PASS — 1 commit (`93897e4`) |
-| Tracked dirty / staged | PASS — clean / none |
-| Untracked | PASS — `?? .tmp-sfia-review/**` only |
-| Inbound tip/blob | PASS — matches expected readiness tip/blob |
-| Inbound verdict | PASS — `READY FOR PR WITH RESERVES` |
-| `gh --version` / `gh auth status` | PASS — gh 2.96.0 ; authenticated `mcleland147` |
-| Existing PR | PASS — none before create |
-| Diff vs main | PASS — exactly 8 files, `333 insertions(+), 3 deletions(-)` ; `--check` clean |
+| Worktree branch | PASS — `delivery/sfia-studio-workspace-ops1-continuity` |
+| HEAD exact | PASS — `93897e4feb8c31d19116fe1177073672f1f61f1d` |
+| Tracked clean | PASS — only `?? .tmp-sfia-review/` |
+| PR state | PASS — OPEN |
+| isDraft | PASS — false |
+| baseRefName | PASS — main |
+| headRefOid | PASS — exact match |
+| mergeable / mergeStateStatus | PASS — MERGEABLE / CLEAN |
+| origin/main before | PASS — `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
+| CI Detect SFIA Studio changes | PASS |
+| CI Build and validate SFIA Studio | PASS |
+| CI SFIA Studio Required Gate | PASS |
 
 ---
 
-## 2. PR creation
+## 2. Merge execution
 
 | Item | Value |
 |------|-------|
-| Command | `gh pr create --repo mcleland147/sfia-workspace --base main --head delivery/sfia-studio-workspace-ops1-continuity --title "feat(sfia-studio): connect project workspace to OPS1 continuity" --body-file .tmp-sfia-review/option-a-pr-body.md` |
-| Flags | no `--draft` / `--fill` / `--web` ; no auto-merge |
-| Body file | untracked `.tmp-sfia-review/option-a-pr-body.md` (exact prompt body) |
-| Result | https://github.com/mcleland147/sfia-workspace/pull/328 |
-
-### Immediate verify (`gh pr view 328 --json …`)
-
-| Field | Expected | Actual |
-|-------|----------|--------|
-| state | OPEN | OPEN |
-| isDraft | false | false |
-| baseRefName | main | main |
-| headRefName | delivery/sfia-studio-workspace-ops1-continuity | delivery/sfia-studio-workspace-ops1-continuity |
-| headRefOid | 93897e4… | 93897e4feb8c31d19116fe1177073672f1f61f1d |
-| title | feat(sfia-studio): connect project workspace to OPS1 continuity | exact match |
-| body | navigation-only / no domain binding / validation / FinOps reserve / 8 files | PASS |
+| Command | `gh pr merge 328 --repo mcleland147/sfia-workspace --merge` |
+| Exit | 0 |
+| Method | merge commit (same style as FinOps #327) |
+| Auto-merge beforehand | NO |
+| Squash / rebase | NO |
 
 ---
 
-## 3. Initial CI (single read; no wait; no remediation)
-
-```
-Detect SFIA Studio changes	pending
-```
-
-**CI state:** PENDING
-
----
-
-## 4. Post-create project non-mutation
+## 3. Post-verify
 
 | Check | Result |
 |-------|--------|
-| HEAD | unchanged `93897e4feb8c31d19116fe1177073672f1f61f1d` |
-| origin/main | unchanged `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
-| origin/delivery | unchanged `93897e4feb8c31d19116fe1177073672f1f61f1d` |
-| New project commits | 0 |
-| Project push | 0 |
-| Force push / amend / merge / auto-merge / branch delete | 0 |
+| PR state | MERGED |
+| Merge commit | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
+| origin/main | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` (advanced from `6e85177709b63cc2dc14e18e424176f1e9a8e0b7`) |
+| Parents include head | PASS — `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` + `93897e4feb8c31d19116fe1177073672f1f61f1d` |
+| `git merge-base --is-ancestor 93897e4feb8c31d19116fe1177073672f1f61f1d origin/main` | PASS |
+| local `main` ff | PASS — `git fetch origin main:main` → `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
+| Worktree still on delivery | YES — HEAD `93897e4feb8c31d19116fe1177073672f1f61f1d` retained |
+| Remote delivery branch | LEFT (not deleted) |
+| Project mutations this gate | 0 |
 | FinOps work | 0 |
-| Tracked worktree | clean |
+
+---
+
+## 4. CI final (at merge)
+
+```
+Build and validate SFIA Studio	pass
+Detect SFIA Studio changes	pass
+SFIA Studio Required Gate	pass
+```
+
+**CI state:** PASS
 
 ---
 
 ## 5. Verdict
 
-**OPTION A PR CREATED — OPEN NON-DRAFT PR — HEAD 93897E4 VERIFIED — BASE MAIN VERIFIED — CI PENDING — FINOPS POSTGRES ENVIRONMENTAL RESERVE CARRIED — NO PROJECT MUTATION — NO MERGE — READY FOR CHATGPT PR VALIDATION**
+**OPTION A MERGED — PR 328 MERGED — HEAD 93897E4 IN MAIN ANCESTRY — CI PASS — NO EXTRA PROJECT MUTATION — READY FOR CHATGPT POST-MERGE VALIDATION**
 
-**Next Morris gate:** `GO MERGE OPTION A` — **NOT GRANTED**
-
-PR created ≠ merge authorized. ChatGPT validates PR/CI; Morris decides merge.
+**Next implication (note only):** ChatGPT post-merge validation may surface a post-merge L1 / sync step; **no new GO invented here**. Morris gate for any post-merge follow-up is **NOT GRANTED** until explicitly issued.
