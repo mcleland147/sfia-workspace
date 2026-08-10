@@ -7,9 +7,9 @@
 | **Role** | F1 Assistant Project — Commit Gate |
 | **Synthesis-only** | NO |
 | **GO** | `GO COMMIT GATE — F1 ASSISTANT PROJECT` (inbound Delivery complete + Morris commit gate) |
-| **Timestamp Europe/Paris (CEST)** | 2026-08-10 16:56:41 CEST
- || **Timestamp UTC** | 2026-08-10 14:56:41 UTC
- || **Branch** | `delivery/sfia-studio-f1-project-assistant` |
+| **Timestamp Europe/Paris (CEST)** | 2026-08-10 16:56:41 CEST |
+| **Timestamp UTC** | 2026-08-10 14:56:41 UTC |
+| **Branch** | `delivery/sfia-studio-f1-project-assistant` |
 | **Base / origin/main** | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
 | **HEAD before commit** | `9b6d4bc3d4b73afb7a6a5b436848578fc9970c34` |
 | **HEAD after commit** | `5354643cd3184f4f8ebf51f31bf649203f8c25f0` |
