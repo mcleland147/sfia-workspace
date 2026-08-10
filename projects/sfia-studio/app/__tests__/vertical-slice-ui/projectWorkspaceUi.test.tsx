@@ -151,17 +151,16 @@ describe("V2-A3 Project Workspace UI", () => {
     expect(
       within(screen.getByLabelText("Contraintes")).getAllByText("Sans IAM"),
     ).toHaveLength(2);
-    const continuePilotage = screen.getByRole("link", {
-      name: "Continuer le pilotage",
-    });
+    const continuePilotage = screen.getByTestId("workspace-continue-pilotage");
     expect(continuePilotage).toBeVisible();
     expect(continuePilotage).toHaveAttribute(
       "href",
       `/ops1/nouvelle-demande?projectId=${encodeURIComponent("prj:v2-a3-1")}`,
     );
-    expect(screen.getByTestId("workspace-continue-pilotage")).toBe(
-      continuePilotage,
-    );
+    expect(continuePilotage).toHaveTextContent(/temporaire/i);
+    expect(
+      screen.getByTestId("workspace-primary-assistant-hint"),
+    ).toBeVisible();
     expect(
       screen.getByRole("link", { name: "Créer un autre projet" }),
     ).toHaveAttribute("href", "/studio/projects/new");

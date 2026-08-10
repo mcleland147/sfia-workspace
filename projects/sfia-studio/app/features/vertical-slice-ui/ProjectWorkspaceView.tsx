@@ -4,6 +4,15 @@ import { StatusPill } from "@/components/ui/StatusPill";
 import type { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
 import styles from "./project-workspace.module.css";
 
+/** F1 server-side project load — lazy so UI tests keep the type-only boundary. */
+export async function loadProjectRuntimeForAssistant(projectId: string) {
+  const { getProjectRuntimeAction } = await import(
+    "@/lib/vertical-slice-runtime/actions"
+  );
+  return getProjectRuntimeAction(projectId);
+}
+
+
 type GetProjectResult = Awaited<ReturnType<typeof getProjectRuntimeAction>>;
 type GetProjectSuccess = Extract<GetProjectResult, { ok: true }>;
 type GetProjectFailure = Extract<GetProjectResult, { ok: false }>;
@@ -127,19 +136,31 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
       </section>
 
       <div className={styles.actions}>
-        <CtaButton
-          href={`/ops1/nouvelle-demande?projectId=${encodeURIComponent(result.project.projectId)}`}
-          data-testid="workspace-continue-pilotage"
+        <p
+          className={styles.primaryAssistantHint}
+          data-testid="workspace-primary-assistant-hint"
         >
-          Continuer le pilotage
-        </CtaButton>
-        <CtaButton
-          href="/studio/projects/new"
-          variant="secondary"
-          data-testid="workspace-create-another-project"
-        >
-          Créer un autre projet
-        </CtaButton>
+          Parcours principal : Assistant Nora (panneau de droite) — analyse /
+          conversation / lecture seule. OPS1 n&apos;est pas requis.
+        </p>
+        <div className={styles.secondaryActions}>
+          <CtaButton
+            href={`/ops1/nouvelle-demande?projectId=${encodeURIComponent(result.project.projectId)}`}
+            variant="secondary"
+            data-testid="workspace-continue-pilotage"
+            title="Escape hatch temporaire vers OPS1 (non lié au Project)"
+            aria-label="Continuer le pilotage via OPS1 (temporaire)"
+          >
+            Continuer le pilotage (OPS1 · temporaire)
+          </CtaButton>
+          <CtaButton
+            href="/studio/projects/new"
+            variant="secondary"
+            data-testid="workspace-create-another-project"
+          >
+            Créer un autre projet
+          </CtaButton>
+        </div>
       </div>
       </div>
     </Card>
