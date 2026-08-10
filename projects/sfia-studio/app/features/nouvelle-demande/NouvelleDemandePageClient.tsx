@@ -11,6 +11,21 @@ import {
   type GlobalModeContext,
 } from "@/lib/ops1/globalModeBadge";
 
+/** Navigation-only Studio Project id — never trusted as OPS1 domain input. */
+const STUDIO_PROJECT_NAV_ID_MAX_LEN = 128;
+
+function parseStudioProjectNavigationId(
+  raw: string | null,
+): string | null {
+  if (raw == null) return null;
+  const value = raw.trim();
+  if (!value) return null;
+  if (value.length > STUDIO_PROJECT_NAV_ID_MAX_LEN) return null;
+  // Require non-empty Studio Project suffix after the canonical prefix.
+  if (!/^prj:[^\s]+$/.test(value)) return null;
+  return value;
+}
+
 const COPILOT = {
   variant: "flush" as const,
   name: "Nora · SFIA Copilot",
@@ -38,6 +53,9 @@ function NouvelleDemandeBody({
 }) {
   const params = useSearchParams();
   const vsMode = params.has("vs");
+  const projectNavigationId = parseStudioProjectNavigationId(
+    params.get("projectId"),
+  );
 
   if (vsMode) {
     return (
@@ -50,6 +68,11 @@ function NouvelleDemandeBody({
   return (
     <Ops1SessionScreen
       onGlobalModeContextChange={onGlobalModeContextChange}
+      projectNavigationContext={
+        projectNavigationId
+          ? { projectId: projectNavigationId }
+          : undefined
+      }
     />
   );
 }

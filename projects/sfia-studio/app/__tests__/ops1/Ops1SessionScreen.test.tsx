@@ -8,6 +8,21 @@ const get = vi.fn();
 const send = vi.fn();
 const liveConfig = vi.fn();
 
+vi.mock("next/link", () => ({
+  default: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
 vi.mock("@/lib/ops1/actions", () => ({
   ops1CreateSessionAction: (...args: unknown[]) => create(...args),
   ops1GetSessionAction: (...args: unknown[]) => get(...args),
@@ -104,6 +119,32 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
     expect(screen.getByTestId("ops1-create-mode-selector")).toBeInTheDocument();
     expect(screen.getByTestId("ops1-badge-live-unavailable")).toBeInTheDocument();
     expect(screen.getByTestId("ops1-create-mode-live")).toBeDisabled();
+    expect(
+      screen.queryByTestId("ops1-studio-project-nav-context"),
+    ).toBeNull();
+  });
+
+  it("renders navigation-only Studio Project context without creating a session", async () => {
+    const projectId = "prj:continuity-1";
+    render(
+      <Ops1SessionScreen
+        projectNavigationContext={{ projectId }}
+      />,
+    );
+    await waitFor(() => {
+      expect(screen.getByTestId("ops1-empty-state")).toBeInTheDocument();
+    });
+    expect(screen.getByTestId("ops1-studio-project-nav-context")).toBeVisible();
+    expect(screen.getByTestId("ops1-studio-project-id")).toHaveTextContent(
+      projectId,
+    );
+    expect(
+      screen.getByRole("link", { name: "Retour au workspace" }),
+    ).toHaveAttribute(
+      "href",
+      `/studio/projects/${encodeURIComponent(projectId)}`,
+    );
+    expect(create).not.toHaveBeenCalled();
   });
 
   it("creates fixture session locked and refuses interactive mode change", async () => {

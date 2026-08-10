@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
@@ -169,10 +170,18 @@ function gateAvailable(candidate: ActionCandidate): boolean {
   );
 }
 
+export type Ops1ProjectNavigationContext = {
+  /** Studio Project id for navigation continuity only — not a session binding. */
+  projectId: string;
+};
+
 export function Ops1SessionScreen({
   onGlobalModeContextChange,
+  projectNavigationContext,
 }: {
   onGlobalModeContextChange?: (ctx: GlobalModeContext) => void;
+  /** Optional Studio Project navigation context — display only, never domain input. */
+  projectNavigationContext?: Ops1ProjectNavigationContext;
 } = {}) {
   const [phase, setPhase] = useState<UiPhase>("boot");
   const [session, setSession] = useState<CycleSession | null>(null);
@@ -919,6 +928,41 @@ export function Ops1SessionScreen({
           ) : null}
         </div>
       </header>
+
+      {projectNavigationContext ? (
+        <aside
+          className={styles.studioNavContext}
+          data-testid="ops1-studio-project-nav-context"
+          aria-labelledby="ops1-studio-project-nav-title"
+        >
+          <h3
+            id="ops1-studio-project-nav-title"
+            className={styles.studioNavContextTitle}
+          >
+            Projet Studio courant
+          </h3>
+          <p
+            className={styles.studioNavContextId}
+            data-testid="ops1-studio-project-id"
+          >
+            {projectNavigationContext.projectId}
+          </p>
+          <p
+            className={styles.studioNavContextDisclaimer}
+            data-testid="ops1-studio-project-nav-disclaimer"
+          >
+            Contexte de navigation uniquement — cette session OPS1 n’est pas
+            liée ni persistée dans le Project Studio.
+          </p>
+          <Link
+            className={styles.studioNavContextReturn}
+            href={`/studio/projects/${encodeURIComponent(projectNavigationContext.projectId)}`}
+            data-testid="ops1-studio-project-return"
+          >
+            Retour au workspace
+          </Link>
+        </aside>
+      ) : null}
 
       {phase === "boot" || (pending && phase === "creating") ? (
         <p className={styles.muted} data-testid="ops1-loading">

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
@@ -128,9 +127,19 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
       </section>
 
       <div className={styles.actions}>
-        <Link className={styles.navLink} href="/studio/projects/new">
+        <CtaButton
+          href={`/ops1/nouvelle-demande?projectId=${encodeURIComponent(result.project.projectId)}`}
+          data-testid="workspace-continue-pilotage"
+        >
+          Continuer le pilotage
+        </CtaButton>
+        <CtaButton
+          href="/studio/projects/new"
+          variant="secondary"
+          data-testid="workspace-create-another-project"
+        >
           Créer un autre projet
-        </Link>
+        </CtaButton>
       </div>
       </div>
     </Card>
