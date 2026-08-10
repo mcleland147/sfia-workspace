@@ -3,11 +3,14 @@
 | Champ | Valeur |
 |-------|--------|
 | **Rôle** | Option A Commit Gate — Workspace → OPS1 continuity |
-| **Profil** | Light |
+| **Profil SFIA** | Standard |
+| **Review pack** | Light |
 | **Typologie** | INC — commit gate only |
 | **GO Morris consommé** | `GO COMMIT OPTION A` (validated delivery commit locally) |
 | **Timestamp CEST** | 2026-08-10 05:59:40 CEST |
 | **Timestamp UTC** | 2026-08-10 03:59:40 UTC |
+| **Correction / republication CEST** | 2026-08-10 06:11:27 CEST |
+| **Correction / republication UTC** | 2026-08-10 04:11:27 UTC |
 | **Branche** | `delivery/sfia-studio-workspace-ops1-continuity` |
 | **Pre-commit HEAD / origin/main** | `6e85177709b63cc2dc14e18e424176f1e9a8e0b7` |
 | **Commit SHA** | `93897e4feb8c31d19116fe1177073672f1f61f1d` |
@@ -22,6 +25,10 @@
 | **Previous delivery handoff tip** | `f2bb406a10e46a19f81b401f38d59643935f336d` |
 | **Previous delivery handoff blob** | `6e2177d0e956c731f58264b1b2b4c60b261cecd0` (`sfia-review-handoff/latest-chatgpt-review.md`) |
 | **Previous delivery verdict** | OPTION A DELIVERY PASS WITH RESERVES — WORKSPACE TO OPS1 CONTINUITY IMPLEMENTED — NO DOMAIN BINDING — NO PROJECT COMMIT — READY FOR CHATGPT VALIDATION |
+
+**Metadata correction:**
+- Profil SFIA = Standard
+- Review pack = Light
 
 ---
 
