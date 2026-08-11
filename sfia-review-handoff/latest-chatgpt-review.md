@@ -5,9 +5,9 @@
 |-------|-------|
 | **Role** | F3 Native Fixture Vertical Slice — Delivery |
 | **Pack type** | FULL Review Pack — synthesis-only **NO** |
-| **Timestamp CEST** | 2026-08-11 18:38:00 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-11 16:38:00 UTC |
-| **Timestamp ISO UTC** | 2026-08-11T16:38:00Z |
+| **Timestamp CEST** | 2026-08-11 18:39:30 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-11 16:39:30 UTC |
+| **Timestamp ISO UTC** | 2026-08-11T16:39:30Z |
 | **GO exact** | `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE` |
 | **Gate B** | **CONSUMED** (this cycle) |
 | **Cycle / profil** | Cycle **8** / **Standard** / **EVOL** / Critical **NON** |
@@ -310,8 +310,8 @@ Studio P0 Figma (`https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO`) covers i
 | First publish blob | `d11a4f9cc977d301d3c854e9e55bf828403936f4` |
 | Intermediate finalize tip (corrupted §8 metadata; superseded) | `8d600e3d4c8b6d9ac2e0d600ec3ef15fe07e4aca` |
 | Intermediate finalize blob (superseded) | `970f66980bc60dcc4c595135251d3160b0aae554` |
-| Remote tip AFTER | _set to FINAL tip after this corrective finalize publish_ |
-| Remote blob AFTER | _set to FINAL blob after this corrective finalize publish_ |
+| Remote tip AFTER | `712f6f27fe73c80ab61891cde5cba350673c4ad5` |
+| Remote blob AFTER | `8aac397779d7017c15a914b9a4396aa7288f3511` |
 | Push handoff | **done** (L3 FF-only; no force) |
 | Remote verification / reread | **yes** (after each publish) |
 | Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
@@ -327,6 +327,7 @@ Studio P0 Figma (`https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO`) covers i
 - tip after intermediate finalize (superseded): `8d600e3d4c8b6d9ac2e0d600ec3ef15fe07e4aca`
 - blob after intermediate finalize (superseded): `970f66980bc60dcc4c595135251d3160b0aae554`
 - authentic remote truth = tip/blob **after this corrective finalize** (reported in Cursor report fields 43–44)
+- authentic remote truth at Cursor report time = tip/blob of `origin/sfia/review-handoff` after the publish that embeds this filled §8 (may advance one commit beyond `712f6f27fe73c80ab61891cde5cba350673c4ad5`)
 - canonical path only: `sfia-review-handoff/latest-chatgpt-review.md`
 - delivery branch remote: ABSENT
 - force push: NOT USED
