@@ -323,16 +323,15 @@ Anti-claims:
 | publisher | `scripts/sfia/publish-review-handoff.sh` |
 | return branch | `main` @ `49b61e9` mandatory |
 
-### Handoff publish result (filled after publisher)
+### Handoff publish result
 
 | Field | Value |
 |-------|-------|
-| local commit | _(filled after publish)_ |
-| remote after | _(filled after publish)_ |
-| blob after | _(filled after publish)_ |
-| push | _(filled after publish)_ |
-| remote file re-read | _(filled after publish)_ |
-| return main | _(filled after publish)_ |
+| local / remote commit after | `0793f35fecc48f6c67bb3c00fa4a8faba19554c2` |
+| blob after | `a8e2a5101f00e19f34c379ed25abeaefaea02a84` |
+| push | L3 fast-forward `509e09c..0793f35` — **HANDOFF UPDATED — REMOTE VERIFIED** |
+| remote file re-read | tip `0793f35…` / blob `a8e2a51…` / message `docs(review-handoff): publish F3 post-merge` |
+| return main | `main` @ `49b61e9d833407a238459d9b011ca0b5b1cc0186` tracked clean (`?? .tmp-sfia-review/` only) |
 
 ---
 
