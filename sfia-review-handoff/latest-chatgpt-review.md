@@ -5,9 +5,9 @@
 |-------|-------|
 | **Role** | F3 Native Fixture Vertical Slice — Delivery |
 | **Pack type** | FULL Review Pack — synthesis-only **NO** |
-| **Timestamp CEST** | 2026-08-11 18:36:00 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-11 16:36:00 UTC |
-| **Timestamp ISO UTC** | 2026-08-11T16:36:00Z |
+| **Timestamp CEST** | 2026-08-11 18:38:00 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-11 16:38:00 UTC |
+| **Timestamp ISO UTC** | 2026-08-11T16:38:00Z |
 | **GO exact** | `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE` |
 | **Gate B** | **CONSUMED** (this cycle) |
 | **Cycle / profil** | Cycle **8** / **Standard** / **EVOL** / Critical **NON** |
@@ -306,27 +306,31 @@ Studio P0 Figma (`https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO`) covers i
 | Commit message | `docs(review-handoff): publish F3 fixture delivery` |
 | Remote tip BEFORE | `9a357f88cf5777545451d371c9753cbde748b652` |
 | Remote blob BEFORE | `d26e57ca7aeca0e185bd0fa90c54345dc7c8639f` |
-| Remote tip AFTER (first publish) |  |
-| Remote blob AFTER (first publish) |  |
-| Push handoff | **done** (L3 FF-only) |
-| Remote verification / reread | **yes** — tip/blob/title/size match source |
-| Publisher verdict (first) |  |
-| Finalize note | This finalize pass updates §8 with authentic remote tip/blob; second handoff commit is the authentic remote truth if present. |
-
-### §8.1 Remote re-read (post-publish, pre-finalize edit)
-
-- tip before:
-- blob before:
-- tip after first publish:
-- blob after first publish:
-- canonical path only:
-- delivery branch remote: ABSENT
-- force push: NOT USED
-
+| First publish tip | `df78b6782219105f3060df0f797d27eb4cdeb35a` |
+| First publish blob | `d11a4f9cc977d301d3c854e9e55bf828403936f4` |
+| Intermediate finalize tip (corrupted §8 metadata; superseded) | `8d600e3d4c8b6d9ac2e0d600ec3ef15fe07e4aca` |
+| Intermediate finalize blob (superseded) | `970f66980bc60dcc4c595135251d3160b0aae554` |
+| Remote tip AFTER | _set to FINAL tip after this corrective finalize publish_ |
+| Remote blob AFTER | _set to FINAL blob after this corrective finalize publish_ |
+| Push handoff | **done** (L3 FF-only; no force) |
+| Remote verification / reread | **yes** (after each publish) |
+| Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
 | Delivery branch push | **NOT DONE** (forbidden) |
 | Return to delivery branch | **required** after publish |
 
----
+### §8.1 Remote re-read chain
+
+- tip before (inbound): `9a357f88cf5777545451d371c9753cbde748b652`
+- blob before (inbound): `d26e57ca7aeca0e185bd0fa90c54345dc7c8639f`
+- tip after first publish: `df78b6782219105f3060df0f797d27eb4cdeb35a`
+- blob after first publish: `d11a4f9cc977d301d3c854e9e55bf828403936f4`
+- tip after intermediate finalize (superseded): `8d600e3d4c8b6d9ac2e0d600ec3ef15fe07e4aca`
+- blob after intermediate finalize (superseded): `970f66980bc60dcc4c595135251d3160b0aae554`
+- authentic remote truth = tip/blob **after this corrective finalize** (reported in Cursor report fields 43–44)
+- canonical path only: `sfia-review-handoff/latest-chatgpt-review.md`
+- delivery branch remote: ABSENT
+- force push: NOT USED
+
 
 ## §9 Instruction ChatGPT (obligatoire)
 
