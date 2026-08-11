@@ -3,7 +3,9 @@
 import { useEffect, useId, useRef, useState, useTransition } from "react";
 import { StatusPill } from "@/components/ui/StatusPill";
 import {
+  projectAssistantConfirmAndExecuteF3FixtureAction,
   projectAssistantDecideAction,
+  projectAssistantPrepareF3FixtureAction,
   projectAssistantSendAction,
 } from "./actions";
 import type {
@@ -12,6 +14,7 @@ import type {
   F2TurnPayload,
 } from "./types";
 import type { F2DecisionKind, ProposalDto } from "./f2/types";
+import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
 import styles from "./project-assistant.module.css";
 
 type UiMessage = {
@@ -81,6 +84,9 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
   const [f2, setF2] = useState<F2TurnPayload | null>(null);
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
   const [reservesText, setReservesText] = useState("");
+  const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
+  const [f3Execute, setF3Execute] = useState<F3ExecutePayload | null>(null);
+  const [f3Busy, setF3Busy] = useState(false);
   const [isPending, startTransition] = useTransition();
   const listRef = useRef<HTMLDivElement | null>(null);
 
@@ -95,10 +101,11 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
       top: el.scrollHeight,
       behavior: "smooth",
     });
-  }, [messages, toolEvents, error, activeProposal, f2]);
+  }, [messages, toolEvents, error, activeProposal, f2, f3Prepare, f3Execute]);
 
   const busy =
     isPending ||
+    f3Busy ||
     uiState === "SENDING" ||
     uiState === "ASSISTANT_WORKING" ||
     uiState === "SOURCE_LOOKUP";
@@ -206,6 +213,89 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
     });
   }
 
+  const canPrepareF3 =
+    Boolean(f2?.decision?.readyForNextGatedStep) &&
+    Boolean(f2?.decision?.decisionId) &&
+    Boolean(activeProposal) &&
+    !f3Prepare &&
+    !f3Execute &&
+    !busy &&
+    !blocked;
+
+  const canConfirmF3 =
+    Boolean(f3Prepare) &&
+    !f3Execute &&
+    !busy &&
+    !blocked;
+
+  function prepareF3() {
+    if (!canPrepareF3 || !activeProposal || !f2?.decision) return;
+    if (f3Busy) return;
+    setF3Busy(true);
+    startTransition(async () => {
+      setError(null);
+      const result = await projectAssistantPrepareF3FixtureAction({
+        projectId,
+        proposalId: activeProposal.proposalId,
+        decisionId: f2.decision!.decisionId,
+      });
+      setF3Busy(false);
+      if (!result.ok) {
+        setUiState("ERROR_RECOVERABLE");
+        setError(result.message);
+        if (result.proposal) setActiveProposal(result.proposal);
+        return;
+      }
+      setF3Prepare(result.f3);
+      setF3Execute(null);
+      setEphemeralNotice(result.ephemeralNotice);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: nextId("assistant"),
+          role: "assistant",
+          content: result.text,
+        },
+      ]);
+      setUiState("ANSWERED");
+    });
+  }
+
+  function confirmAndExecuteF3() {
+    if (!canConfirmF3 || !f3Prepare || !activeProposal) return;
+    if (f3Busy) return;
+    setF3Busy(true);
+    startTransition(async () => {
+      setError(null);
+      const result = await projectAssistantConfirmAndExecuteF3FixtureAction({
+        projectId,
+        proposalId: activeProposal.proposalId,
+        decisionId: f3Prepare.decisionId,
+        executionContractId: f3Prepare.contract.executionContractId,
+        expectedContractVersion: f3Prepare.contract.version,
+      });
+      setF3Busy(false);
+      if (!result.ok) {
+        setUiState("ERROR_RECOVERABLE");
+        setError(result.message);
+        if (result.proposal) setActiveProposal(result.proposal);
+        return;
+      }
+      setF3Execute(result.f3);
+      setEphemeralNotice(result.ephemeralNotice);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: nextId("assistant"),
+          role: "assistant",
+          content: result.text,
+        },
+      ]);
+      setUiState("ANSWERED");
+    });
+  }
+
+
   return (
     <div
       className={styles.root}
@@ -221,9 +311,9 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
         {ephemeralNotice}
       </p>
       <p className={styles.scope} data-testid="project-assistant-scope">
-        Périmètre F1+F2 : analyse · conversation · lecture · qualification ·
-        proposition · gate humain. Pas d&apos;exécution Cursor, pas d&apos;écriture,
-        pas de destination OPS1.
+        Périmètre F1+F2+F3 fixture : analyse · conversation · lecture · qualification ·
+        proposition · gate humain · prepare/confirm fixture. Pas d&apos;exécution Cursor REAL,
+        pas d&apos;écriture Git produit, pas de destination OPS1.
       </p>
 
       <div
@@ -449,7 +539,162 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
           {f2.decision.readyForNextGatedStep ? (
             <p data-testid="f2-ready-next">READY FOR NEXT GATED STEP</p>
           ) : null}
-          <p className={styles.noExecutionBanner}>AUCUNE EXÉCUTION</p>
+          <p className={styles.noExecutionBanner} data-testid="f2-decision-no-execution">
+            AUCUNE EXÉCUTION
+          </p>
+          <p className={styles.cardMeta} data-testid="f2-execution-performed">
+            executionPerformed: {String(f2.decision.executionPerformed)}
+          </p>
+        </section>
+      ) : null}
+
+      {canPrepareF3 ? (
+        <section
+          className={styles.f3Card}
+          data-testid="project-assistant-f3-prepare"
+        >
+          <h3 className={styles.cardTitle}>F3 FIXTURE — PREPARE</h3>
+          <p className={styles.cardMeta}>
+            Le GO F2 autorise uniquement la préparation d&apos;un contrat fixture.
+          </p>
+          <div className={styles.f3Labels} data-testid="f3-prepare-labels">
+            <StatusPill tone="muted">FIXTURE — AUCUNE EXÉCUTION RÉELLE</StatusPill>
+            <StatusPill tone="muted">CURSOR REAL BLOQUÉ</StatusPill>
+            <StatusPill tone="muted">AUCUN GIT WRITE PRODUIT</StatusPill>
+          </div>
+          <button
+            type="button"
+            className={styles.f3Button}
+            data-testid="f3-prepare-button"
+            disabled={!canPrepareF3}
+            onClick={() => prepareF3()}
+          >
+            Préparer l&apos;exécution fixture
+          </button>
+        </section>
+      ) : null}
+
+      {f3Prepare && !f3Execute ? (
+        <section
+          className={styles.f3Card}
+          data-testid="project-assistant-f3-contract"
+        >
+          <h3 className={styles.cardTitle}>CONTRAT FIXTURE PRÉPARÉ</h3>
+          <div className={styles.f3Labels} data-testid="f3-contract-labels">
+            <StatusPill tone="blueFlush">FIXTURE</StatusPill>
+            <StatusPill tone="muted">FIXTURE — AUCUNE EXÉCUTION RÉELLE</StatusPill>
+            <StatusPill tone="muted">AUCUN GIT WRITE PRODUIT</StatusPill>
+            <StatusPill tone="orange">CURSOR REAL BLOQUÉ</StatusPill>
+          </div>
+          <dl className={styles.cardDl}>
+            <div>
+              <dt>Contract id</dt>
+              <dd data-testid="f3-contract-id">
+                {f3Prepare.contract.executionContractId}
+              </dd>
+            </div>
+            <div>
+              <dt>Version</dt>
+              <dd data-testid="f3-contract-version">{f3Prepare.contract.version}</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd data-testid="f3-contract-status">{f3Prepare.contract.status}</dd>
+            </div>
+            <div>
+              <dt>Mode</dt>
+              <dd data-testid="f3-contract-mode">{f3Prepare.contract.mode}</dd>
+            </div>
+          </dl>
+          <p className={styles.noExecutionBanner} data-testid="f3-prepare-no-attempt">
+            attemptCreated: false — AUCUNE ATTEMPT
+          </p>
+          <button
+            type="button"
+            className={styles.f3Button}
+            data-testid="f3-confirm-execute-button"
+            disabled={!canConfirmF3}
+            onClick={() => confirmAndExecuteF3()}
+          >
+            Confirmer et exécuter la fixture
+          </button>
+        </section>
+      ) : null}
+
+      {f3Execute ? (
+        <section
+          className={styles.f3Card}
+          data-testid="project-assistant-f3-execute"
+          aria-live="polite"
+        >
+          <h3 className={styles.cardTitle}>F3 FIXTURE — RÉSULTATS</h3>
+          <div className={styles.f3Labels} data-testid="f3-execute-labels">
+            <StatusPill tone="muted">FIXTURE — AUCUNE EXÉCUTION RÉELLE</StatusPill>
+            <StatusPill tone="muted">AUCUN GIT WRITE PRODUIT</StatusPill>
+            <StatusPill tone="blueFlush">
+              RECOMMANDATION — PAS UNE DÉCISION MORRIS
+            </StatusPill>
+            <StatusPill tone="orange">CURSOR REAL BLOQUÉ</StatusPill>
+            <StatusPill tone="orange">HARD R-T-A3-1 / R-T-A3-2 OPEN</StatusPill>
+          </div>
+
+          <div data-testid="f3-attempt-card" className={styles.f3Subcard}>
+            <h4 className={styles.cardTitle}>Attempt</h4>
+            <p data-testid="f3-attempt-id">{f3Execute.attempt.attemptId}</p>
+            <p data-testid="f3-attempt-status">{f3Execute.attempt.status}</p>
+            <p data-testid="f3-attempt-adapter">{f3Execute.attempt.adapterId}</p>
+            <p data-testid="f3-attempt-external-effects">
+              externalEffects: {String(f3Execute.attempt.externalEffects)}
+            </p>
+            <p data-testid="f3-attempt-launch-count">
+              launchCount: {f3Execute.attempt.launchCount}
+            </p>
+            <p data-testid="f3-attempt-reused">
+              reusedExistingAttempt: {String(f3Execute.reusedExistingAttempt)}
+            </p>
+          </div>
+
+          <div data-testid="f3-evidence-card" className={styles.f3Subcard}>
+            <h4 className={styles.cardTitle}>Evidence</h4>
+            <p data-testid="f3-evidence-id">{f3Execute.evidence.evidenceId}</p>
+            <p data-testid="f3-evidence-status">{f3Execute.evidence.status}</p>
+            <p data-testid="f3-evidence-verified">
+              verified: {String(f3Execute.evidence.verified)}
+            </p>
+          </div>
+
+          <div data-testid="f3-review-bundle-card" className={styles.f3Subcard}>
+            <h4 className={styles.cardTitle}>ReviewBundle</h4>
+            <p data-testid="f3-review-bundle-id">
+              {f3Execute.reviewBundle.reviewBundleId}
+            </p>
+            <p data-testid="f3-review-bundle-status">
+              {f3Execute.reviewBundle.status}
+            </p>
+          </div>
+
+          <div data-testid="f3-recommendation-card" className={styles.f3Subcard}>
+            <h4 className={styles.cardTitle}>Recommendation</h4>
+            <p data-testid="f3-recommendation-label">
+              {f3Execute.recommendation.recommendationLabel}
+            </p>
+            <p data-testid="f3-recommendation-execution-authority">
+              executionAuthority:{" "}
+              {String(f3Execute.recommendation.executionAuthority)}
+            </p>
+            <p data-testid="f3-recommendation-gate-consumed">
+              gateConsumed: {String(f3Execute.recommendation.gateConsumed)}
+            </p>
+            <p data-testid="f3-recommendation-decision-created">
+              decisionCreated:{" "}
+              {String(f3Execute.recommendation.decisionCreated)}
+            </p>
+            <p data-testid="f3-recommendation-hard-refs">
+              {f3Execute.recommendation.openHardReservationRefs.join(" · ")}
+            </p>
+            <p data-testid="f3-no-ready-claim">PAS DE CLAIM READY</p>
+            <p data-testid="f3-no-ta6-complete">T-A6 COMPLETE NON DÉCLARÉ</p>
+          </div>
         </section>
       ) : null}
 
@@ -619,6 +864,20 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
         aria-hidden="true"
       >
         OPS1 n&apos;est pas la destination F2
+      </div>
+      <div
+        className={styles.srOnly}
+        data-testid="project-assistant-f3-no-real"
+        aria-hidden="true"
+      >
+        FIXTURE — AUCUNE EXÉCUTION RÉELLE
+      </div>
+      <div
+        className={styles.srOnly}
+        data-testid="project-assistant-f3-cursor-real-blocked"
+        aria-hidden="true"
+      >
+        CURSOR REAL BLOQUÉ
       </div>
     </div>
   );

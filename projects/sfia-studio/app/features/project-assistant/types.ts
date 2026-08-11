@@ -1,5 +1,5 @@
 /**
- * Project Assistant DTOs — F1 conversation + F2 qualification/proposal/gate.
+ * Project Assistant DTOs — F1 conversation + F2 qualification/proposal/gate + F3 fixture.
  * Ephemeral / process-local only (no durable persistence).
  */
 
@@ -9,6 +9,7 @@ import type {
   ProposalDto,
   QualificationDto,
 } from "./f2/types";
+import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
 
 export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed";
 
@@ -19,7 +20,9 @@ export type AssistantTurnStatus =
   | "project_not_found"
   | "validation_error"
   | "stale"
-  | "decision_error";
+  | "decision_error"
+  | "prepare_error"
+  | "execute_error";
 
 export type AssistantHistoryMessage = {
   role: "user" | "assistant";
@@ -131,3 +134,54 @@ export type ProjectAssistantDecideSuccess = {
 export type ProjectAssistantDecideResult =
   | ProjectAssistantDecideSuccess
   | ProjectAssistantSendFailure;
+
+export type ProjectAssistantPrepareF3Success = {
+  ok: true;
+  status: "ok";
+  mode: "fixture";
+  presentation: "unconfirmed";
+  text: string;
+  project: ProjectAssistantContextDto;
+  ephemeralNotice: string;
+  f2: F2TurnPayload | null;
+  f3: F3PreparePayload;
+};
+
+export type ProjectAssistantPrepareF3Failure = {
+  ok: false;
+  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
+  code: string;
+  message: string;
+  mode: AssistantUiMode;
+  retryable: boolean;
+  proposal?: ProposalDto | null;
+};
+
+export type ProjectAssistantPrepareF3Result =
+  | ProjectAssistantPrepareF3Success
+  | ProjectAssistantPrepareF3Failure;
+
+export type ProjectAssistantExecuteF3Success = {
+  ok: true;
+  status: "ok";
+  mode: "fixture";
+  presentation: "unconfirmed";
+  text: string;
+  project: ProjectAssistantContextDto;
+  ephemeralNotice: string;
+  f3: F3ExecutePayload;
+};
+
+export type ProjectAssistantExecuteF3Failure = {
+  ok: false;
+  status: "execute_error" | "stale" | "project_not_found" | "validation_error";
+  code: string;
+  message: string;
+  mode: AssistantUiMode;
+  retryable: boolean;
+  proposal?: ProposalDto | null;
+};
+
+export type ProjectAssistantExecuteF3Result =
+  | ProjectAssistantExecuteF3Success
+  | ProjectAssistantExecuteF3Failure;
