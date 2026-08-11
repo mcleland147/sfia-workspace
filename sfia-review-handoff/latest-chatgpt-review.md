@@ -1,170 +1,164 @@
-# Cycle 8 — F3 NATIVE FIXTURE VERTICAL SLICE — FULL Review Pack
-## FULL Review Pack — Delivery Gate B (FIXTURE only)
+# Cycle 9 — F3 NATIVE FIXTURE VERTICAL SLICE — QA / VALIDATION — FULL Review Pack
+## FULL Review Pack — QA Gate B fixture candidate (ACTUAL NEXT RUNTIME)
 
 | Field | Value |
 |-------|-------|
-| **Role** | F3 Native Fixture Vertical Slice — Delivery |
+| **Role** | F3 Native Fixture Vertical Slice — QA / validation |
 | **Pack type** | FULL Review Pack — synthesis-only **NO** |
-| **Timestamp CEST** | 2026-08-11 18:39:30 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-11 16:39:30 UTC |
-| **Timestamp ISO UTC** | 2026-08-11T16:39:30Z |
-| **GO exact** | `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE` |
-| **Gate B** | **CONSUMED** (this cycle) |
-| **Cycle / profil** | Cycle **8** / **Standard** / **EVOL** / Critical **NON** |
+| **Timestamp CEST** | 2026-08-11 19:25:02 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-11 17:25:02 UTC |
+| **Timestamp ISO UTC** | 2026-08-11T17:25:02Z |
+| **GO exact** | `GO QA` — QA end-to-end du F3 fixture déjà livré localement sous Gate B |
+| **Cycle / profil** | Cycle **9** / **Standard** / **EVOL** / Critical **NON** |
 | **Template** | v2.6 |
 | **Template SHA** | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| **CKC** | absent — fallback template v2.6 + méthode Cycle 8 + décisions F3 Git |
-| **Inbound handoff tip (BEFORE publish)** | `9a357f88cf5777545451d371c9753cbde748b652` |
-| **Inbound handoff blob (BEFORE publish)** | `d26e57ca7aeca0e185bd0fa90c54345dc7c8639f` |
-| **Inbound role** | Cycle 14 — CLEANUP F3 Pre-Delivery Governance Branch (PR #332) |
-| **Local Git Truth initial (MAIN)** | `main` = `origin/main` = `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` · tracked clean · staged empty · untracked `.tmp-sfia-review/**` only |
-| **Delivery branch** | `delivery/sfia-studio-f3-native-fixture-vertical-slice` |
+| **CKC** | absent — fallback template v2.6 + décisions F3 + handoff Delivery |
+| **Inbound handoff tip (BEFORE publish)** | `a01de1cfde398c0e8554829dafa758557d3e8534` |
+| **Inbound handoff blob (BEFORE publish)** | `e6b23ffcf08efa362e6a8501f889c56bac12c580` |
+| **Inbound role** | F3 Native Fixture Vertical Slice — Delivery (Cycle 8) |
+| **Inbound pack** | FULL · synthesis-only NO · Gate B CONSUMED · READY FOR CHATGPT REVIEW / QA FIXTURE GATE |
+| **Local Git Truth** | branch `delivery/sfia-studio-f3-native-fixture-vertical-slice` · HEAD=`origin/main`=`8dcac9276b46314c3ca7c977fbb98be27cfabcb7` · staged empty · remote delivery **ABSENT** · dirty working tree = candidate package only |
 | **Delivery WT** | `…/finops-t2-main/.tmp-sfia-review/worktrees/f3-native-fixture-vertical-slice` |
 | **MAIN WT** | `…/finops-t2-main` |
-| **HEAD (delivery / main)** | `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` — **no project commits** (dirty working tree only) |
-| **Remote delivery branch** | **ABSENT** (must remain absent) |
-| **F08-O1** | DECIDED — ADOPTED BY MORRIS (fixture-first) |
+| **Candidate patch SHA BEFORE** | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
+| **Candidate patch SHA AFTER** | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
+| **BEFORE/AFTER equality** | **IDENTICAL** (patch + all 11 new-file SHA-256) |
+| **Gate A** | CONSUMED (prior) |
+| **Gate B** | CONSUMED (Delivery) — **VALIDATED** by this QA (not re-consumed) |
+| **Gates C / D** | **NOT CONSUMED** |
+| **HARD R-T-A3-1 / R-T-A3-2** | **OPEN HARD** — BLOCKS REAL |
 | **B5 fixture path** | ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH |
 | **B5 global** | **OPEN** / NOT GLOBAL CLOSED |
-| **HARD R-T-A3-1 / R-T-A3-2** | **OPEN HARD** — BLOCKS REAL |
-| **Gate A** | CONSUMED (prior) |
-| **Gate B** | **CONSUMED** (this delivery) |
-| **Gates C / D** | **NOT CONSUMED** |
 | **T-A6 COMPLETE** | **NOT DECLARED** |
 | **Cursor REAL** | **BLOCKED** |
 | **REAL Delivery** | NOT AUTHORIZED |
-| **Project commits / push / PR / merge** | **0 / 0 / 0 / 0** |
-| **Real Cursor calls / external exec / Git writes product** | **0 / 0 / 0** |
+| **Project mutations / commits / push / PR / merge / force** | **0 / 0 / 0 / 0 / 0 / 0** |
 
 ---
 
 ## Verdict
 
 ```
-F3 NATIVE FIXTURE VERTICAL SLICE DELIVERY COMPLETE —
-GATE B CONSUMED —
+F3 NATIVE FIXTURE VERTICAL SLICE QA COMPLETE —
+ACTUAL NEXT RUNTIME END-TO-END VALIDATED —
+GATE B DELIVERY VALIDATED —
 F2 GO REMAINS PREPARE-ONLY —
-ASSISTANT→T-A4/T-A5/T-A6 WIRED FOR FIXTURE ONLY —
-EXECUTION CONTRACT PREPARED THROUGH NATIVE T-A4 —
-EXPLICIT FIXTURE CONFIRMATION REQUIRED BEFORE ATTEMPT —
-TEST EXECUTION ADAPTER ONLY —
+PREPARE CREATES CONTRACT WITHOUT ATTEMPT —
+EXPLICIT FIXTURE CONFIRMATION REQUIRED —
+T-A5 FIXTURE ATTEMPT SUCCEEDED —
+TEST EXECUTION ADAPTER CONFIRMED —
 ADAPTER EXTERNAL EFFECTS FALSE —
-EXECUTION ATTEMPT FIXTURE SUCCEEDED —
-EVIDENCE + REVIEWBUNDLE REINJECTED —
+DOUBLE INVOCATION DOES NOT DOUBLE-LAUNCH —
+PROCESS RESTART FAILS CLOSED —
+NO AUTHORITY RECONSTRUCTED FROM CONVERSATION —
+T-A6 EVIDENCE + REVIEWBUNDLE BINDINGS VALIDATED —
+NEXT-GATE OUTPUT REMAINS RECOMMENDATION ONLY —
 TECHNICAL SUCCESS DOES NOT IMPLY READY —
 T-A6 COMPLETE NOT DECLARED —
-NEXT-GATE OUTPUT REMAINS RECOMMENDATION ONLY —
-GATE C / D NOT CONSUMED —
 HARD R-T-A3-1 / R-T-A3-2 REMAIN OPEN —
 B5 GLOBAL REMAINS OPEN —
+GATE C / D NOT CONSUMED —
 CURSOR REAL BLOCKED —
-NO OPS1 / EXECUTION-RUN PRODUCT DEPENDENCY —
-NO AUTO RETRY —
-NO AUTO GIT WRITE —
-NO PROJECT COMMIT / PUSH / PR / MERGE —
+NO EXTERNAL NETWORK ACTIVITY —
+NO OPS1 / EXECUTION-RUN PRODUCT PATH —
+ACTUAL NEXT RUNTIME UI FUNCTIONALLY VALIDATED —
+FIGMA PIXEL-PERFECT NOT CLAIMED —
+CANDIDATE PACKAGE BYTE-IDENTICAL BEFORE / AFTER QA —
+NO PROJECT MUTATION / COMMIT / PUSH / PR / MERGE —
 FULL REVIEW PACK COMPLETE —
 HANDOFF REMOTE VERIFIED —
-READY FOR CHATGPT REVIEW / QA FIXTURE GATE
+READY FOR MORRIS PR READINESS GATE
 ```
 
 ---
 
 ## §0 GO / inbound / truth
 
-- **GO exact:** `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE`
-- **Synthesis-only:** NO — this pack embeds FULL DIFF of all modified tracked files + complete contents of all new product files.
-- **Gate B:** CONSUMED by this fixture-only delivery (Assistant→T-A4/T-A5/T-A6 + TestExecutionAdapter). Does **not** consume Gate C/D; does **not** authorize Cursor REAL.
-- **Inbound remote Git Truth (re-read before publish):** tip `9a357f88cf5777545451d371c9753cbde748b652` / blob `d26e57ca7aeca0e185bd0fa90c54345dc7c8639f` — CLEANUP F3 Pre-Delivery Governance — synthesis-only NO.
-- **MAIN Local Git Truth (initial, pre-delivery):** branch `main` · HEAD=`origin/main`=`8dcac9276b46314c3ca7c977fbb98be27cfabcb7` · tracked clean · staged empty · untracked `.tmp-sfia-review/**` only · remote delivery branch ABSENT · archive under `.tmp-sfia-review/archive/**` preserved (not deleted).
-- **Delivery WT after implementation:** still HEAD `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` · branch `delivery/sfia-studio-f3-native-fixture-vertical-slice` · dirty working tree with F3 fixture changes only · **0 project commits**.
+- **GO exact:** `GO QA` (Morris) — end-to-end QA of the F3 fixture already delivered locally under Gate B.
+- **Synthesis-only:** NO — this pack embeds FULL tracked diff + complete contents of all 11 new product files, plus BEFORE/AFTER SHA-256 equality proof.
+- **Validation-only:** YES — no intentional product edits; no silent product correction.
+- **Inbound remote Git Truth (re-read before publish):** tip `a01de1cfde398c0e8554829dafa758557d3e8534` / blob `e6b23ffcf08efa362e6a8501f889c56bac12c580` — Cycle 8 Delivery FULL pack · Gate B CONSUMED · READY FOR CHATGPT REVIEW / QA FIXTURE GATE.
+- **Local Git Truth (Delivery WT):** branch `delivery/sfia-studio-f3-native-fixture-vertical-slice` · HEAD=`8dcac9276b46314c3ca7c977fbb98be27cfabcb7` = `origin/main` · staged empty · remote delivery branch ABSENT · archive under `.tmp-sfia-review/archive/**` preserved.
+- **Candidate package:** 7 tracked modified (+707/−20) + 11 new product files — unchanged through QA.
 
 ---
 
-## §1 Architecture before / after
+## §1 Candidate package + immutability
 
-### Before
-- F2 Project Assistant path exists (propose → decide) with `executionPerformed: false` (prepare-only toward F3).
-- T-A4 / T-A5 / T-A6 foundations **EXIST** under `app/lib/oa/{execution-contract,execution-attempt,evidence-review}/**`.
-- Assistant **NOT WIRED** to T-A4/T-A5/T-A6 for F3.
-- Runtime stack could omit adapter → silent NoOp risk.
-- Cursor REAL blocked; HARD open; Gate B not consumed.
-
-### After (this delivery — FIXTURE only)
-- Assistant wires **native** T-A4 Build/Validate → confirmation → T-A5 Select/Start/Record → T-A6 Ingest Evidence / ReviewBundle / RecommendNextGate.
-- Explicit **`TestExecutionAdapter`** injected (`adp:f3-test-fixture`, `externalEffects=false`) — never silent NoOp; never Cursor REAL adapter.
-- Agent closed fixture descriptor: `agt:f3-fixture` · `trustLevel=fixture` · `executionMode=adapter_sync_fixture`.
-- PREPARE = Build+Validate only (no Select/Start/Attempt/Evidence).
-- CONFIRM+EXECUTE = explicit fixture confirmation then Attempt lifecycle; double-invoke reinjects succeeded attempt (launch count stays 1).
-- UI reinjects Evidence + ReviewBundle + Recommendation with all authority/gate/decision/auto-launch flags **false**; HARD refs + PAS DE CLAIM READY + T-A6 COMPLETE NON DÉCLARÉ.
-- No OPS1 / `oa/execution-run` product dependency; no shell/network/Git write product; no auto-retry; no project commit/push/PR/merge.
-
-### Maturity / HARD materialization caveat (honest)
-UI **always** surfaces HARD `R-T-A3-1` / `R-T-A3-2` / `R-M01` as OPEN. T-A6 `RecommendNextGate` only materializes `hard_reservation_open` blockers when a **MaturityAssessment** is bound; creating maturity needs claim/freeze chain beyond this fixture slice (no foundation change in this cycle). Technical fixture success ≠ READY; T-A6 COMPLETE **not** declared.
-
----
-
-## §2 T-A4 / T-A5 / T-A6 wiring + adapter
-
-| Layer | Wiring |
-|-------|--------|
-| **T-A4** | `prepareF3Fixture` → `buildExecutionContract` + `validateExecutionContract` only; status `confirmation_required`; Attempt count=0; launch=0 |
-| **Confirmation** | Distinct UI/action `confirmAndExecuteF3Fixture` — FIXTURE confirmation, not REAL proof |
-| **T-A5** | Select (`capabilities_deterministic`) → Start → RecordResult → `succeeded`; adapter `adp:f3-test-fixture` |
-| **Adapter** | `TestExecutionAdapter` via `createF3TestExecutionAdapter()`; `externalEffects=false`; identity assert fail-closed |
-| **T-A6** | `ingestEvidenceAndRecommend` → Evidence + ReviewBundle + RecommendNextGate; flags all false; reinjection into panel |
-| **Runtime** | `f3FixtureWiring.ts` + `service.ts` extend `RuntimeOaStack` with contract/attempt/evidence + **explicit** adapter |
-
-Constants (server-fixed; client cannot inject REAL): `F3_MODE=FIXTURE`, `F3_ADAPTER_ID=adp:f3-test-fixture`, `F3_AGENT_ID=agt:f3-fixture`, scope `f3-fixture:docs+metadata-only`, constraints include NO REAL / NO SHELL / NO NETWORK / NO GIT WRITE / NO AUTO RETRY / PROCESS LOCAL.
-
----
-
-## §3 F2 prepare-only + Attempt lifecycle proofs
-
-| Proof | Result |
-|-------|--------|
-| F2 `DecisionDto.executionPerformed` | literal **`false`** after GO |
-| After F2 GO alone | adapter `launchCallCount===0`; no attempts |
-| After PREPARE | `attemptCreated:false`; `executionPerformed:false`; status `confirmation_required`; launch=0 |
-| After CONFIRM+EXECUTE (first) | Attempt `accepted→running→succeeded`; **launch count = 1** |
-| Double-invoke | `reusedExistingAttempt:true`; launch stays **1** (no second Select/Start) |
-| Evidence + ReviewBundle | reinjected into UI |
-| Recommendation flags | `executionAuthority/gateConsumed/decisionCreated/attemptAutoLaunchNextCycle` all **false** |
-
----
-
-## §4 Files created / modified
-
-### Modified tracked (7) — +707 / −20
+### Tracked modified (7) — +707 / −20
 ```
- .../ProjectAssistantPanel.test.tsx                 |  22 +-
- .../project-assistant/importBoundaries.test.ts     |  28 ++-
- .../project-assistant/ProjectAssistantPanel.tsx    | 269 ++++++++++++++++++++-
- .../app/features/project-assistant/actions.ts      | 248 ++++++++++++++++++-
- .../project-assistant/project-assistant.module.css |  46 ++++
- .../app/features/project-assistant/types.ts        |  58 ++++-
- .../app/lib/vertical-slice-runtime/service.ts      |  56 ++++-
- 7 files changed, 707 insertions(+), 20 deletions(-)
+projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
+projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+projects/sfia-studio/app/features/project-assistant/actions.ts
+projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
+projects/sfia-studio/app/features/project-assistant/types.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ```
 
-### New product files (untracked)
-- `projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/constants.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/types.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts`
-- `projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts`
-
-### Delivery artifacts (untracked; not product)
-- `.tmp-sfia-review/f3-native-fixture-delivery/**` (patch, dump, vitest log, runtime-proof)
-- `.tmp-sfia-review/chatgpt-review.md` (this pack)
-
-### `git status --short`
+### New product files (11)
 ```
+projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+projects/sfia-studio/app/features/project-assistant/f3/index.ts
+projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+projects/sfia-studio/app/features/project-assistant/f3/types.ts
+projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+```
+
+### Fingerprints
+| Artifact | SHA-256 |
+|----------|---------|
+| `candidate-before.patch` | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
+| `candidate-after.patch` | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
+| Delivery `git-diff-full.patch` | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` (byte-identical) |
+
+**BEFORE new-file SHA-256:**
+```
+# candidate-before-sha256.txt — NEW product files only
+# generated 2026-08-11T17:03:10Z
+
+abe0d5aff9b52f34ee16198e2905c8714516247c5fd2ef8f573cfebd24b2d57a  17631  projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+8367d94a12702115605b1b176415f7a521d5cc398984ec11cfb8003dc6a098ce  1084  projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+dabcd63c4231283a2700221cbce9c236c76ba2319bd93fe40e0e48518588f31f  13085  projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+fe3f7dfeca0285d8400a564050bfab0c083163b5419e496f0521904b3f1020f2  2011  projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+4ab8a368595f2706bd0912e288f6ce3f12906e9b86218c338a0999a53a04a58f  1982  projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+8aaf8b65081fa9c0818f02069cae5075a048091807d44471c182760bd236aeae  679  projects/sfia-studio/app/features/project-assistant/f3/index.ts
+3495ac8c9f5ab40ce60ca52c31b2721b8b0ad194f94c1fb6ccd170c7faf423cc  5091  projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+8a93e12336659869b4e0c6802c60a7effbaf938070fc9fd8b62834bae4799901  5891  projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+993a5776b334efb6af9671705bedae462f54984eaf4a494efe64d02e8109c458  2797  projects/sfia-studio/app/features/project-assistant/f3/types.ts
+67ed05ee97a43071b966713a1f1eaeeb3091453670c76f1d107e313b197594cd  2968  projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+7b264f29f095df439bdb630eb2d003c0875cff055b3efd2c4f9d8df1443a7de1  2909  projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+```
+
+**AFTER new-file SHA-256:**
+```
+# candidate-after-sha256.txt — NEW product files only
+# generated 2026-08-11T17:21:29Z
+
+abe0d5aff9b52f34ee16198e2905c8714516247c5fd2ef8f573cfebd24b2d57a  17631  projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+8367d94a12702115605b1b176415f7a521d5cc398984ec11cfb8003dc6a098ce  1084  projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+dabcd63c4231283a2700221cbce9c236c76ba2319bd93fe40e0e48518588f31f  13085  projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+fe3f7dfeca0285d8400a564050bfab0c083163b5419e496f0521904b3f1020f2  2011  projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+4ab8a368595f2706bd0912e288f6ce3f12906e9b86218c338a0999a53a04a58f  1982  projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+8aaf8b65081fa9c0818f02069cae5075a048091807d44471c182760bd236aeae  679  projects/sfia-studio/app/features/project-assistant/f3/index.ts
+3495ac8c9f5ab40ce60ca52c31b2721b8b0ad194f94c1fb6ccd170c7faf423cc  5091  projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+8a93e12336659869b4e0c6802c60a7effbaf938070fc9fd8b62834bae4799901  5891  projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+993a5776b334efb6af9671705bedae462f54984eaf4a494efe64d02e8109c458  2797  projects/sfia-studio/app/features/project-assistant/f3/types.ts
+67ed05ee97a43071b966713a1f1eaeeb3091453670c76f1d107e313b197594cd  2968  projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+7b264f29f095df439bdb630eb2d003c0875cff055b3efd2c4f9d8df1443a7de1  2909  projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+```
+
+**Equality:** patch SHA IDENTICAL · all 11 new-file SHA lines IDENTICAL · Delivery pack patch IDENTICAL.
+
+### Final git probes (AFTER QA)
+```
+git status --short
  M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
  M projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
  M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
@@ -176,122 +170,147 @@ Constants (server-fixed; client cannot inject REAL): `F3_MODE=FIXTURE`, `F3_ADAP
 ?? projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/
 ?? projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
-```
 
-### `git diff --name-status`
+git diff --stat → 7 files changed, 707 insertions(+), 20 deletions(-)
+git diff --cached → (empty)
+git diff --check → (empty — PASS)
 ```
-M	projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-M	projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
-M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-M	projects/sfia-studio/app/features/project-assistant/actions.ts
-M	projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
-M	projects/sfia-studio/app/features/project-assistant/types.ts
-M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-```
-
-### `git diff --check`
-```
-(empty — PASS)
-```
+Note: gitignored `tsconfig.tsbuildinfo` / `.next/` may exist; ignored as non-product.
 
 ---
 
-## §5 Tests + quality gates
+## §2 Static / targeted / broad / security
 
-| Check | Result |
-|-------|--------|
-| Targeted F3 (`f3.fixtureVerticalSlice` + related) | **PASS** — 9/9 F3 + panel/import boundaries; quick log 12/12 across 2 files |
-| Broad vitest excl. `**/oa/finops/postgres/**` | **PASS** — **158** files / **1616** tests |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** |
-| `npm run build` | **PASS** |
-| `git diff --check` | **PASS** |
-| Import/security (forbidden OPS1 / execution-run / shell / features←lib) | **PASS** via `importBoundaries` + F3 scan |
-
-Evidence log: `.tmp-sfia-review/f3-native-fixture-delivery/vitest-f3-quick.txt`
+| Check | Result | Evidence |
+|-------|--------|----------|
+| typecheck | **PASS** (exit 0) | `f3-native-fixture-qa/logs/typecheck.log` |
+| lint | **PASS** (exit 0) | `logs/lint.log` |
+| build (`NEXT_TELEMETRY_DISABLED=1 npm run build`) | **PASS** (exit 0) | `logs/build.log` |
+| targeted vitest | **PASS** — 5 files / **29** tests | `logs/targeted.log` (incl. `f3.fixtureVerticalSlice` 9/9) |
+| broad vitest excl. `**/oa/finops/postgres/**` | **PASS** — **158** files / **1616** tests | `logs/broad.log` |
+| `git diff --check` | **PASS** | `logs/diff-check.log` |
+| security scan | **PASS** — Phase B dangerous usage = 0; constants `F3_MODE=FIXTURE`, `adp:f3-test-fixture`, `agt:f3-fixture`, `externalEffects` confirmed | `logs/security-scan.log` |
 
 ---
 
-## §6 Runtime proof
+## §3 Fail-closed matrix + idempotence (vitest + E2E)
 
-**Label:** FIXTURE UI PROOF VIA COMPONENT RENDER — offline/mocked panel states; **not** Cursor REAL; no secrets.
+| Case | Source | Result |
+|------|--------|--------|
+| F2 GO alone → no Attempt / launch=0 | vitest AC-F3-FIX-01/02 + E2E A | **PASS** |
+| PREPARE → contract without Attempt | vitest AC-F3-FIX-03/04 + E2E A | **PASS** |
+| Hostile REAL/adapter/agent fields ignored | vitest AC-F3-FIX-05 | **PASS** |
+| Refuse prepare without approved proposal / missing decision | vitest AC-F3-FIX-06/07 | **PASS** |
+| Confirm+execute chain + reinjection flags all false | vitest AC-F3-FIX-08..16 + E2E A | **PASS** |
+| Double invoke → launch stays 1 / reusedExistingAttempt | vitest AC-F3-FIX-17/18 + E2E A | **PASS** |
+| Contract version mismatch fail-closed | vitest AC-F3-FIX-19 | **PASS** |
+| Process-local wipe / proposal store reset fail-closed | vitest AC-F3-FIX-20/21 | **PASS** |
+| Explicit `TestExecutionAdapter` (not NoOp) | vitest AC-F3-FIX-22 | **PASS** |
+| Process restart (SIGTERM + `next start` same port) fails closed | E2E B | **PASS** — no silent execute success; old ids unavailable; adapter launch for wiped state = 0 |
+| No authority reconstructed from conversation after restart | E2E B | **PASS** |
 
-Base path (delivery WT):
-`.tmp-sfia-review/f3-native-fixture-delivery/runtime-proof/`
-
-| Scene | Desktop | Mobile |
-|-------|---------|--------|
-| 01 after F2 GO | `01-after-f2-go-desktop-1280x800.png` (**1280×800**) | `01-after-f2-go-mobile-390x844.png` (**390×844**) |
-| 02 after PREPARE | `02-after-prepare-desktop-1280x800.png` (**1280×800**) | `02-after-prepare-mobile-390x844.png` (**390×844**) |
-| 03 after EXECUTE | `03-after-execute-desktop-1280x800.png` (**1280×800**) | `03-after-execute-mobile-390x844.png` (**390×955** fullPage) |
-
-HTML harness + capture script + manifest co-located. Manifest excerpt:
-
-```markdown
-# F3 native fixture — runtime proof manifest
-
-## Label
-**FIXTURE UI PROOF VIA COMPONENT RENDER** — not a live Cursor REAL session; offline/mocked Project Assistant panel states mirroring `ProjectAssistantPanel` F3 sections.
-
-## Confirmation
-- No secrets shown (no API keys, tokens, env, credentials).
-- Demo fixture ids only (`exc:` / `att:` / `evd:` / `rvb:` prefixes).
-- FIXTURE labels visible; CURSOR REAL BLOQUÉ; PAS DE CLAIM READY on execute scene.
-- This is **FIXTURE UI proof**, not Cursor REAL.
-
-## Figma status
-FIGMA SOURCE NOT IDENTIFIED / NOT APPLICABLE FOR REUSED COMPONENT PATTERN.
-
-Studio P0 Figma (`https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO`) covers intake/synthèse/cycle/décision frames only — no identifiable Project Assistant panel frame.
-
-## Scenario steps
-1. **After F2 GO** — decision card with `executionPerformed: false` + prepare button.
-2. **After PREPARE** — contract FIXTURE labels + confirm/execute button; no attempt.
-3. **After EXECUTE** — attempt `succeeded` + evidence + review bundle + recommendation + HARD refs + `PAS DE CLAIM READY`.
-
-## Captures
-
-| Scene | Viewport | File |
-|-------|----------|------|
-| 01-after-f2-go — After F2 GO — prepare affordance, executionPerformed false | 1280x800 | `runtime-proof/01-after-f2-go-desktop-1280x800.png` |
-| 01-after-f2-go — After F2 GO — prepare affordance, executionPerformed false | 390x844 | `runtime-proof/01-after-f2-go-mobile-390x844.png` |
-| 02-after-prepare — After PREPARE — contract + confirm button + FIXTURE labels | 1280x800 | `runtime-proof/02-after-prepare-desktop-1280x800.png` |
-| 02-after-prepare — After PREPARE — contract + confirm button + FIXTURE labels | 390x844 | `runtime-proof/02-after-prepare-mobile-390x844.png` |
-| 03-after-execute — After EXECUTE — attempt succeeded + evidence + review bundle + recommendation + HARD refs + no READY | 1280x800 | `runtime-proof/03-after-execute-desktop-1280x800.png` |
-| 03-after-execute — After EXECUTE — attempt succeeded + evidence + review bundle + recommendation + HARD refs + no READY | 390x844 | `runtime-proof/03-after-execute-mobile-390x844.png` |
-
-## HTML sources
-- `runtime-proof/01-after-f2-go.html`
-- `runtime-proof/02-after-prepare.html`
-- `runtime-proof/03-after-execute.html`
-
-## Capture method
-- Script: `runtime-proof/capture-f3-runtime-proof.mjs`
-- Tool: Playwright Chromium headless
-- Approach: static HTML harness styled like `project-assistant.module.css` + StatusPill tones
-
-## Viewport notes
-- Desktop captures: exactly **1280×800**.
-- Mobile captures: viewport set to **390×844**; `03-after-execute-mobile` is **390×955** because Playwright `fullPage: true` extended height to fit content.
-```
-
-**Figma:** **FIGMA SOURCE NOT IDENTIFIED / NOT APPLICABLE FOR REUSED COMPONENT PATTERN** (Studio P0 Figma has no Project Assistant frame).
+**Idempotence:** first confirm+execute → `launchCount=1`; second invoke → `launchCount=1` (UI confirm button gone after success; vitest proves reused attempt).
 
 ---
 
-## §7 Counters + anti-claims
+## §4 ACTUAL NEXT RUNTIME (happy path)
 
+| Field | Value |
+|-------|-------|
+| Runtime label | **ACTUAL NEXT RUNTIME** (not component render / not Storybook / not vitest DOM) |
+| Server | `next start --hostname 127.0.0.1` on port **55293** (Next.js **15.5.20**) against existing `.next` build |
+| Base URL | `http://127.0.0.1:55293` |
+| Create route | `/studio/projects/new` |
+| Project route observed | `/studio/projects/prj%3A997d759a-6fad-4c30-9265-0cd3d642c9cf` |
+| Conversation provider | `OPS1_CONVERSATION_PROVIDER=fake` → **FakeConversationProvider** deterministic |
+| Other env | `D1_INTAKE_PROVIDER=fake` · fake `OPENAI_API_KEY` / model (no live OpenAI) |
+| Chromium | local ms-playwright chromium-1228 (no browser download) |
+| Scenario A | **PASS** |
+| Scenario B (restart) | **PASS** |
+
+### Happy-path proofs (E2E A)
+| Assertion | Detail |
+|-----------|--------|
+| F2 decision kind | **GO** |
+| `executionPerformed` after GO | **false** |
+| No execution banner after GO | PASS |
+| No attempt before/after prepare | PASS |
+| Contract id | `xct:f3:prop:f2:c86af26d-64c1-4d58-bb3f-9eeff4cbfdca` |
+| Contract version (UI after prepare) | `2` · status `confirmation_required` |
+| Attempt after confirm | **succeeded** · adapter `adp:f3-test-fixture` · agent `agt:f3-fixture` |
+| Evidence | `ev:f3-fixture:xat:f3:f3:prop:f2:c86af26d-64c1-4d58-bb3f-9eeff4cbfdca` |
+| ReviewBundle | `rb:f3-fixture:xat:f3:f3:prop:f2:c86af26d-64c1-4d58-bb3f-9eeff4cbfdca` |
+| Recommendation flags | `executionAuthority=false` · `gateConsumed=false` · `decisionCreated=false` |
+| Labels | PAS DE CLAIM READY · T-A6 COMPLETE NON · CURSOR REAL BLOQUÉ · AUCUN GIT WRITE |
+| launchCount | **1** (stays 1 after re-attempt) |
+| externalEffects | **false** (vitest + UI) |
+
+Artifacts: `e2e-results.json`, `logs/e2e-happy.log`, `logs/e2e-restart.log`, `logs/next-start.log`, `e2e/actual-next-f3-qa.mjs`.
+
+---
+
+## §5 Network / external effects
+
+| Field | Value |
+|-------|-------|
+| Origins observed | `http://127.0.0.1:55293` only |
+| External origins | **[]** |
+| External request count | **0** |
+| Request sample count | 34 (all loopback) |
+| Adapter externalEffects | **false** |
+| Product OPS1 / execution-run path | **none** (importBoundaries + security scan) |
+
+Evidence: `logs/network-origins.json` + `e2e-results.json` `network` block.
+
+---
+
+## §6 Screenshots — ACTUAL NEXT RUNTIME
+
+Path: `.tmp-sfia-review/f3-native-fixture-qa/runtime-proof/`
+
+| Scene | Desktop (actual PNG) | Mobile (actual PNG) |
+|-------|----------------------|---------------------|
+| 01 F2 GO — no execution | `01-f2-go-no-execution-desktop-1280x800.png` **1280×800** | `01-f2-go-no-execution-mobile-390x844.png` **390×844** |
+| 02 After PREPARE contract | `02-after-prepare-contract-desktop-1280x800.png` **1280×800** | `02-after-prepare-contract-mobile-390x844.png` **390×844** |
+| 03 After fixture execution | `03-after-fixture-execution-desktop-1280x800.png` **1280×800** | `03-after-fixture-execution-mobile-390x844.png` **390×844** |
+| 04 Restart fail-closed | `04-restart-fail-closed-desktop-1280x800.png` **1280×800** | `04-restart-fail-closed-mobile-390x844.png` **390×844** |
+
+All eight PNGs measured via IHDR; runtime label **ACTUAL NEXT RUNTIME**. Manifest: `runtime-proof/runtime-proof-manifest.md`.
+
+### Figma caveat
+**FIGMA SOURCE NOT IDENTIFIED / NOT APPLICABLE FOR REUSED COMPONENT PATTERN.** Studio P0 Figma has no Project Assistant panel frame. **FIGMA PIXEL-PERFECT NOT CLAIMED** — functional ACTUAL NEXT UI validation only.
+
+---
+
+## §7 HARD / B5 / Gates / anti-claims
+
+| Item | Status |
+|------|--------|
+| HARD `R-T-A3-1` / `R-T-A3-2` | **OPEN HARD** — UI surfaces OPEN; blocks REAL |
+| B5 fixture path | ADOPTED BY MORRIS (bounded) |
+| B5 global | **OPEN** |
+| Gate A | CONSUMED |
+| Gate B | CONSUMED (Delivery) + QA-validated |
+| Gate C / D | **NOT CONSUMED** |
+| T-A6 COMPLETE | **NOT DECLARED** |
+| Cursor REAL | **BLOCKED** |
+| READY product claim | **NOT MADE** — technical success ≠ READY |
+
+### Honest maturity caveat
+UI **always** surfaces HARD `R-T-A3-1` / `R-T-A3-2` / `R-M01` as OPEN. T-A6 `RecommendNextGate` only materializes `hard_reservation_open` blockers when a **MaturityAssessment** is bound; creating maturity needs claim/freeze chain beyond this fixture slice. Technical fixture success ≠ READY; T-A6 COMPLETE **not** declared. Figma not identified.
+
+### Counters
 | Counter | Value |
 |---------|-------|
+| project mutations (intentional QA) | **0** |
 | project commits | **0** |
-| project push | **0** |
+| project pushes | **0** |
 | PR | **0** |
 | merge | **0** |
+| force | **0** |
 | real Cursor calls | **0** |
-| external execution calls | **0** |
+| external execution / network | **0** |
 | Git writes product | **0** |
-
-**Does NOT mean:** READY · T-A6 COMPLETE · Gate C/D consumed · HARD closed · B5 global closed · Cursor REAL authorized · OPS1 dependency · durable authority · architecture pivot.
 
 ---
 
@@ -303,35 +322,23 @@ Studio P0 Figma (`https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO`) covers i
 | Branch | `sfia/review-handoff` |
 | Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
-| Commit message | `docs(review-handoff): publish F3 fixture delivery` |
-| Remote tip BEFORE | `9a357f88cf5777545451d371c9753cbde748b652` |
-| Remote blob BEFORE | `d26e57ca7aeca0e185bd0fa90c54345dc7c8639f` |
-| First publish tip | `df78b6782219105f3060df0f797d27eb4cdeb35a` |
-| First publish blob | `d11a4f9cc977d301d3c854e9e55bf828403936f4` |
-| Intermediate finalize tip (corrupted §8 metadata; superseded) | `8d600e3d4c8b6d9ac2e0d600ec3ef15fe07e4aca` |
-| Intermediate finalize blob (superseded) | `970f66980bc60dcc4c595135251d3160b0aae554` |
-| Remote tip AFTER | `712f6f27fe73c80ab61891cde5cba350673c4ad5` |
-| Remote blob AFTER | `8aac397779d7017c15a914b9a4396aa7288f3511` |
-| Push handoff | **done** (L3 FF-only; no force) |
-| Remote verification / reread | **yes** (after each publish) |
-| Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Commit message | `docs(review-handoff): publish F3 fixture QA` |
+| Remote tip BEFORE | `a01de1cfde398c0e8554829dafa758557d3e8534` |
+| Remote blob BEFORE | `e6b23ffcf08efa362e6a8501f889c56bac12c580` |
+| Remote tip AFTER | `«FILL_AFTER_PUBLISH»` |
+| Remote blob AFTER | `«FILL_AFTER_PUBLISH»` |
+| Push handoff | L3 FF-only; no force |
 | Delivery branch push | **NOT DONE** (forbidden) |
 | Return to delivery branch | **required** after publish |
 
 ### §8.1 Remote re-read chain
-
-- tip before (inbound): `9a357f88cf5777545451d371c9753cbde748b652`
-- blob before (inbound): `d26e57ca7aeca0e185bd0fa90c54345dc7c8639f`
-- tip after first publish: `df78b6782219105f3060df0f797d27eb4cdeb35a`
-- blob after first publish: `d11a4f9cc977d301d3c854e9e55bf828403936f4`
-- tip after intermediate finalize (superseded): `8d600e3d4c8b6d9ac2e0d600ec3ef15fe07e4aca`
-- blob after intermediate finalize (superseded): `970f66980bc60dcc4c595135251d3160b0aae554`
-- authentic remote truth = tip/blob **after this corrective finalize** (reported in Cursor report fields 43–44)
-- authentic remote truth at Cursor report time = tip/blob of `origin/sfia/review-handoff` after the publish that embeds this filled §8 (may advance one commit beyond `712f6f27fe73c80ab61891cde5cba350673c4ad5`)
-- canonical path only: `sfia-review-handoff/latest-chatgpt-review.md`
+- tip before (inbound): `a01de1cfde398c0e8554829dafa758557d3e8534`
+- blob before (inbound): `e6b23ffcf08efa362e6a8501f889c56bac12c580`
+- tip/blob after = authentic remote truth after publish (+ any finalize)
 - delivery branch remote: ABSENT
 - force push: NOT USED
 
+---
 
 ## §9 Instruction ChatGPT (obligatoire)
 
@@ -340,13 +347,16 @@ Avant de répondre à Morris, ChatGPT doit relire depuis Git :
 - branche : `sfia/review-handoff`
 - fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 
-Le rapport Cursor seul ne vaut pas validation. Vérifier notamment : Cycle 8 · GO exact · Gate B CONSUMED · HEAD `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` · 0 project commits · FULL DIFF + NEW FILES embedded · adapter `adp:f3-test-fixture` · `externalEffects=false` · launch=1 · HARD open · Gates C/D NOT CONSUMED · T-A6 COMPLETE NOT DECLARED · Cursor REAL BLOCKED · handoff remote tip/blob after · delivery branch absent on remote · verdict exact.
+Le rapport Cursor seul ne vaut pas validation. Vérifier notamment : Cycle 9 · GO QA · ACTUAL NEXT RUNTIME · restart fail-closed · launchCount=1 · externalEffects=false · external network 0 · candidate BEFORE/AFTER identical · 0 Git write projet · Gates C/D NOT CONSUMED · HARD OPEN · Cursor REAL BLOCKED · handoff remote tip/blob after · delivery branch absent · verdict exact READY FOR MORRIS PR READINESS GATE.
+
+Next gate candidate = **PR READINESS** of the F3 fixture package (no automatic PR / Gate C / Gate D / Cursor REAL).
 
 ---
 
-## §10 FULL DIFF — all modified tracked files
+## §10 FULL tracked diff (current AFTER — byte-identical to BEFORE / Delivery)
 
-Source: `.tmp-sfia-review/f3-native-fixture-delivery/git-diff-full.patch`
+Source: `.tmp-sfia-review/f3-native-fixture-qa/candidate-after.patch`
+SHA-256: `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
@@ -1286,19 +1296,14 @@ index 422315a..c2d6c3e 100644
   */
  export class RuntimeApplicationService {
    private readonly facade: LocalProjectFacade;
-
 ```
 
 ---
 
-## §11 NEW FILES — complete contents
+## §11 NEW product files — full dump (AFTER; SHA-identical to BEFORE)
 
-Source: `.tmp-sfia-review/f3-native-fixture-delivery/new-files-full-dump.txt`
-
-```text
-# Pack-ready dump of NEW (untracked) product files
-# Excludes .tmp-sfia-review/ delivery artifacts and node_modules
-
+# Pack-ready dump of NEW (untracked) product files — Cycle 9 QA AFTER
+# Byte-identical to BEFORE / Delivery pack (individual SHA-256 below)
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts =====
 /** @vitest-environment node */
@@ -1747,7 +1752,6 @@ describe("F3 native fixture vertical slice", () => {
     expect(candidates.some((a) => a.agentId === F3_AGENT_ID)).toBe(true);
   });
 });
-
 ===== END FILE: projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts =====
@@ -1785,7 +1789,6 @@ export function createAttemptReaderBridge(
     },
   };
 }
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts =====
@@ -2237,7 +2240,6 @@ export async function confirmAndExecuteF3Fixture(input: {
     deps: input.deps,
   });
 }
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/constants.ts =====
@@ -2305,7 +2307,6 @@ export const F3_LABELS = Object.freeze({
 
 export const F3_AUTHORITY_SOURCE =
   "LOCAL_PROCESS_F3_FIXTURE_AUTHORITY" as const;
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/constants.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts =====
@@ -2382,7 +2383,6 @@ export function assertF3AdapterIdentity(adapter: TestExecutionAdapter): void {
     throw new Error("f3_adapter_external_effects_must_be_false");
   }
 }
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/index.ts =====
@@ -2405,7 +2405,6 @@ export {
   createF3TestExecutionAdapter,
 } from "./fixtureAgent";
 export { createAttemptReaderBridge } from "./attemptReaderBridge";
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/index.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts =====
@@ -2576,7 +2575,6 @@ export async function ingestEvidenceAndRecommend(input: {
     },
   };
 }
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts =====
@@ -2796,7 +2794,6 @@ export async function prepareF3Fixture(input: {
     },
   };
 }
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/types.ts =====
@@ -2922,7 +2919,6 @@ export type F3ValidateFail = {
 };
 
 export type F3ValidateResult = F3ValidateOk | F3ValidateFail;
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/types.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts =====
@@ -3040,7 +3036,6 @@ export async function validateF2ForPrepare(input: {
     scope: expectedScope,
   };
 }
-
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts =====
@@ -3133,10 +3128,8 @@ export function createAttemptReaderBridge(
     },
   };
 }
-
 ===== END FILE: projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts =====
 
-```
 
 ---
 
