@@ -325,8 +325,10 @@ UI **always** surfaces HARD `R-T-A3-1` / `R-T-A3-2` / `R-M01` as OPEN. T-A6 `Rec
 | Commit message | `docs(review-handoff): publish F3 fixture QA` |
 | Remote tip BEFORE | `a01de1cfde398c0e8554829dafa758557d3e8534` |
 | Remote blob BEFORE | `e6b23ffcf08efa362e6a8501f889c56bac12c580` |
-| Remote tip AFTER | `«FILL_AFTER_PUBLISH»` |
-| Remote blob AFTER | `«FILL_AFTER_PUBLISH»` |
+| First publish tip | `644df5232dcfd4eb17c04bc7eb0e2776ce72cafb` |
+| First publish blob | `609ea79bffec9c4437c4a02d60755c67fef13e4e` |
+| Remote tip AFTER | `644df5232dcfd4eb17c04bc7eb0e2776ce72cafb` |
+| Remote blob AFTER | `609ea79bffec9c4437c4a02d60755c67fef13e4e` |
 | Push handoff | L3 FF-only; no force |
 | Delivery branch push | **NOT DONE** (forbidden) |
 | Return to delivery branch | **required** after publish |
@@ -334,7 +336,9 @@ UI **always** surfaces HARD `R-T-A3-1` / `R-T-A3-2` / `R-M01` as OPEN. T-A6 `Rec
 ### §8.1 Remote re-read chain
 - tip before (inbound): `a01de1cfde398c0e8554829dafa758557d3e8534`
 - blob before (inbound): `e6b23ffcf08efa362e6a8501f889c56bac12c580`
-- tip/blob after = authentic remote truth after publish (+ any finalize)
+- tip after first publish: `644df5232dcfd4eb17c04bc7eb0e2776ce72cafb`
+- blob after first publish: `609ea79bffec9c4437c4a02d60755c67fef13e4e`
+- tip/blob FINAL = authentic remote truth after finalize (reported in Cursor fields 44–45)
 - delivery branch remote: ABSENT
 - force push: NOT USED
 
