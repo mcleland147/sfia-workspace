@@ -183,7 +183,8 @@ Post-merge integration was already verified. This cycle completes the remaining 
 | commit message | `docs(review-handoff): publish F3 governance cleanup` |
 | remote before (re-read) | `2a78e1df8890a97295bd868e5ae6a080551581d8` |
 | blob before (re-read) | `5363e210a48eb81a08713eb691aa60dbe6f54f7a` |
-| publication commit | _(filled after publish)_ |
-| remote after (re-read) | _(filled after publish)_ |
-| blob after (re-read) | _(filled after publish)_ |
-| publish verdict | _(filled after publish)_ |
+| publication commit | `80c2a54724120bba5e6b230df04ec8f08f233350` |
+| remote after | `80c2a54724120bba5e6b230df04ec8f08f233350` |
+| blob after | `98d2631db7fe9b4001b45e444540faa800b24bd5` |
+| publish verdict | HANDOFF UPDATED — REMOTE VERIFIED |
+| handoff commit subject | `docs(review-handoff): publish F3 governance cleanup` |
