@@ -213,5 +213,7 @@ Candidate GO (not consumed):
 | path | `sfia-review-handoff/latest-chatgpt-review.md` |
 | commit message | `docs(review-handoff): publish F3 governance post-merge` |
 | remote before | `253c492b74634fa3dbe55d54d4a1a7f92acbd0fd` |
-| remote after | _(pending publish)_ |
-| blob after | _(pending publish)_ |
+| remote after | `df975a092cafed47f9939b361e80240ef124477c` |
+| blob after | `474b6d122c0ee8b5fd2587bd29f1efea8d5b607a` |
+| publish verdict | HANDOFF UPDATED — REMOTE VERIFIED |
+| handoff commit subject | `docs(review-handoff): publish F3 governance post-merge` |
