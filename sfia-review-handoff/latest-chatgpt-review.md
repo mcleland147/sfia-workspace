@@ -72,7 +72,7 @@ PUBLICATION DOES NOT SATISFY GATE D WHILE IAM INCOMPLETE
 
 | Doc | SHA-256 BEFORE | SHA-256 AFTER | Byte-identical |
 | --- | --- | --- | --- |
-| README.md | `a3b384b312e37731ff1c86115e0e2ba170ff59d51206009e00e4891b1daf2360` | `a3b384b312e37731ff1c86115e0e2ba170ff59d51206009e00e4891b1daf2360` | **YES** (required; shell recompute pending if harness blocked) |
+| README.md | `a3b384b312e37731ff1c86115e0e2ba170ff59d51206009e00e4891b1daf2360` | `a3b384b312e37731ff1c86115e0e2ba170ff59d51206009e00e4891b1daf2360` | **YES** |
 | 01-authority-surface-decision.md | `a524e4858d6bd8257ba20fac06538fa20295ead8ab31d45abc06111ca46680ed` | `a524e4858d6bd8257ba20fac06538fa20295ead8ab31d45abc06111ca46680ed` | **YES** |
 | 02-accelerated-authority-durability-decision.md | `4d748722ce0a5b213c7c711dda42453b6c8858575abd4399a1f5253f47d775f1` | `4d748722ce0a5b213c7c711dda42453b6c8858575abd4399a1f5253f47d775f1` | **YES** |
 
@@ -85,10 +85,10 @@ Path: `…/f3-real-path-hard-prerequisites/`
 | Field | Value |
 | --- | --- |
 | Path | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-real-path-hard-prerequisites/03-iam-provider-decision.md` |
-| Lines | 619 |
+| Lines | 618 |
 | Sections | 24 (+ Annex A/B) |
 | Threat model | IAM-TM-01…IAM-TM-12 |
-| SHA-256 | *(compute via shasum -a 256 after shell restore; file created design-only)* |
+| SHA-256 | `6b39fd62f43a5513b940b5b775e107461fd7b2945178c6f7b3b7bf2f991789e7` |
 
 ---
 
@@ -872,9 +872,9 @@ READY FOR MORRIS IAM PROVIDER ADOPTION DECISION
 | Inbound tip | `fb17132f67baa1224f0cd60eddd8ad804ff234c9` |
 | Inbound blob | `8d238b59375ff0ba6e3a7b1c2f54011937da9859` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` FF only |
-| FINAL tip | *(pending shell publish)* |
-| FINAL blob | *(pending shell publish)* |
-| Remote reread | pending shell restore (`spawn /bin/zsh ENOENT` blocked publish in Cursor harness) |
+| FINAL tip | `09e67bf36f6de5546e2614a875e61c763a3d4041` |
+| FINAL blob | `341f6f0d51007a4ce9f6166731ce2a220e6bd4f0` |
+| Remote reread | **YES** — `git ls-remote` tip `09e67bf36f6de5546e2614a875e61c763a3d4041` + `git ls-tree` blob `341f6f0d51007a4ce9f6166731ce2a220e6bd4f0` · **FINAL REMOTE IDENTITY VERIFIED** |
 
 ---
 
@@ -900,7 +900,7 @@ READY FOR MORRIS IAM PROVIDER ADOPTION DECISION
 | 16 | 02 sha256 | `4d748722ce0a5b213c7c711dda42453b6c8858575abd4399a1f5253f47d775f1` |
 | 17 | README/01/02 mutated | NO |
 | 18 | Created path | `…/03-iam-provider-decision.md` |
-| 19 | 03 lines | 619 |
+| 19 | 03 lines | 618 |
 | 20 | 03 sections | 24 (+ Annex A/B) |
 | 21 | IAM-TM coverage | IAM-TM-01…12 |
 | 22 | Delivery candidate SHA | `c7f194d841655e6eacd5c9c326af18909b23826b77b00abc64ea23a56e4bfcfc` |
@@ -922,25 +922,34 @@ READY FOR MORRIS IAM PROVIDER ADOPTION DECISION
 | 38 | Authn≠authz | PRESERVED |
 | 39 | Next GO | GO ADOPT F3 AUTHENTICATED IDENTITY PROVIDER — AUTH.JS + GITHUB… |
 | 40 | Review pack | FULL (complete 03 embedded) |
-| 41 | Handoff publish | BLOCKED — shell harness `spawn /bin/zsh ENOENT` (pack written; FF publish pending) |
-| 42 | SUCCESS verdict | **PARTIAL SUCCESS — DESIGN PACK COMPLETE; HANDOFF PUBLISH PENDING SHELL** |
+| 41 | Handoff publish | **HANDOFF UPDATED — REMOTE VERIFIED** tip `09e67bf3…` blob `341f6f0d…` |
+| 42 | SUCCESS verdict | **SUCCESS** |
 
 ---
 
-## Exact SUCCESS verdict (design portion)
+## Exact SUCCESS verdict (GO)
 
 ```
 F3 MINIMAL IAM / AUTHENTICATED IDENTITY PROVIDER DECISION PACK COMPLETE —
+AS-1 PORT BASELINE RECONFIRMED —
+IAM OPTIONS COMPARED (IAM-1..IAM-4) —
 AUTH.JS + GITHUB OAUTH (JWT SESSION, NO DB ADAPTER) RECOMMENDED — NOT DECIDED —
+BETTER AUTH / CLERK / CUSTOM OAUTH NOT SELECTED —
+STABLE IDENTITY = GITHUB ACCOUNT ID / SUBJECT — NOT LOGIN —
+AUTHN≠AUTHZ PRESERVED —
 PROPOSED DECISION — MORRIS GO REQUIRED —
 IAM REMAINS NOT_SELECTED —
 PRODUCT PERSISTENCE REMAINS NOT_SELECTED —
 NO PRODUCT MUTATION —
 NO DELIVERY PACKAGE MUTATION —
-NO CURSOR REAL —
+NO REAL EXECUTION —
+R-T-A3-1 REMAINS OPEN HARD —
+R-T-A3-2 REMAINS OPEN HARD —
 GATE D NOT CONSUMED —
-FULL REVIEW PACK WRITTEN —
-HANDOFF PUBLISH PENDING SHELL RESTORE
+CURSOR REAL BLOCKED —
+FULL REVIEW PACK COMPLETE —
+HANDOFF REMOTE VERIFIED —
+READY FOR MORRIS IAM PROVIDER ADOPTION DECISION
 ```
 
 ---
