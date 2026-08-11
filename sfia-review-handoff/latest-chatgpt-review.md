@@ -1,366 +1,625 @@
-# Cycle 9 — F3 NATIVE FIXTURE VERTICAL SLICE — QA / VALIDATION — FULL Review Pack
-## FULL Review Pack — QA Gate B fixture candidate (ACTUAL NEXT RUNTIME)
+# Cycle 13 — F3 NATIVE FIXTURE VERTICAL SLICE — PR READINESS — FULL Review Pack
+
+## FULL Review Pack — PR readiness (QA-validated fixture package committed locally)
 
 | Field | Value |
-|-------|-------|
-| **Role** | F3 Native Fixture Vertical Slice — QA / validation |
+|-------|--------|
+| **Timestamp CEST** | 2026-08-11 19:48:22 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-11 17:48:22 UTC |
+| **ISO CEST** | 2026-08-11T19:48:22+02:00 |
+| **ISO UTC** | 2026-08-11T17:48:22Z |
 | **Pack type** | FULL Review Pack — synthesis-only **NO** |
-| **Timestamp CEST** | 2026-08-11 19:25:02 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-11 17:25:02 UTC |
-| **Timestamp ISO UTC** | 2026-08-11T17:25:02Z |
-| **GO exact** | `GO QA` — QA end-to-end du F3 fixture déjà livré localement sous Gate B |
-| **Cycle / profil** | Cycle **9** / **Standard** / **EVOL** / Critical **NON** |
-| **Template** | v2.6 |
-| **Template SHA** | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| **CKC** | absent — fallback template v2.6 + décisions F3 + handoff Delivery |
-| **Inbound handoff tip (BEFORE publish)** | `a01de1cfde398c0e8554829dafa758557d3e8534` |
-| **Inbound handoff blob (BEFORE publish)** | `e6b23ffcf08efa362e6a8501f889c56bac12c580` |
-| **Inbound role** | F3 Native Fixture Vertical Slice — Delivery (Cycle 8) |
-| **Inbound pack** | FULL · synthesis-only NO · Gate B CONSUMED · READY FOR CHATGPT REVIEW / QA FIXTURE GATE |
-| **Local Git Truth** | branch `delivery/sfia-studio-f3-native-fixture-vertical-slice` · HEAD=`origin/main`=`8dcac9276b46314c3ca7c977fbb98be27cfabcb7` · staged empty · remote delivery **ABSENT** · dirty working tree = candidate package only |
-| **Delivery WT** | `…/finops-t2-main/.tmp-sfia-review/worktrees/f3-native-fixture-vertical-slice` |
-| **MAIN WT** | `…/finops-t2-main` |
-| **Candidate patch SHA BEFORE** | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
-| **Candidate patch SHA AFTER** | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
-| **BEFORE/AFTER equality** | **IDENTICAL** (patch + all 11 new-file SHA-256) |
-| **Gate A** | CONSUMED (prior) |
-| **Gate B** | CONSUMED (Delivery) — **VALIDATED** by this QA (not re-consumed) |
-| **Gates C / D** | **NOT CONSUMED** |
-| **HARD R-T-A3-1 / R-T-A3-2** | **OPEN HARD** — BLOCKS REAL |
-| **B5 fixture path** | ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH |
-| **B5 global** | **OPEN** / NOT GLOBAL CLOSED |
-| **T-A6 COMPLETE** | **NOT DECLARED** |
-| **Cursor REAL** | **BLOCKED** |
-| **REAL Delivery** | NOT AUTHORIZED |
-| **Project mutations / commits / push / PR / merge / force** | **0 / 0 / 0 / 0 / 0 / 0** |
+| **Cycle** | 13 — PR readiness |
+| **Profil** | Standard |
+| **Typologie** | EVOL |
+| **Critical** | NON |
+| **GO exact** | GO PR READINESS — F3 NATIVE FIXTURE VERTICAL SLICE — QA VALIDATED PACKAGE |
+| **Template** | prompts/templates/sfia-cycle-execution-template.md — version **v2.6** |
+| **Template blob** | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
+| **Delivery worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-native-fixture-vertical-slice` |
+| **MAIN worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main` |
 
 ---
 
 ## Verdict
 
 ```
-F3 NATIVE FIXTURE VERTICAL SLICE QA COMPLETE —
-ACTUAL NEXT RUNTIME END-TO-END VALIDATED —
-GATE B DELIVERY VALIDATED —
-F2 GO REMAINS PREPARE-ONLY —
-PREPARE CREATES CONTRACT WITHOUT ATTEMPT —
-EXPLICIT FIXTURE CONFIRMATION REQUIRED —
-T-A5 FIXTURE ATTEMPT SUCCEEDED —
-TEST EXECUTION ADAPTER CONFIRMED —
+F3 NATIVE FIXTURE VERTICAL SLICE PR READINESS COMPLETE —
+QA VALIDATED PACKAGE COMMITTED LOCALLY WITHOUT CONTENT DRIFT —
+EXACT 18-FILE PACKAGE —
+SINGLE PROJECT COMMIT —
+BRANCH AHEAD BY 1 —
+TRACKED WORKTREE CLEAN —
+STAGED EMPTY —
+QA FINGERPRINT PRESERVED —
+TYPECHECK / LINT / TARGETED VALIDATION PASS —
+ACTUAL NEXT E2E EVIDENCE TRANSPORTED —
+TEST EXECUTION ADAPTER REMAINS FIXTURE ONLY —
 ADAPTER EXTERNAL EFFECTS FALSE —
-DOUBLE INVOCATION DOES NOT DOUBLE-LAUNCH —
-PROCESS RESTART FAILS CLOSED —
-NO AUTHORITY RECONSTRUCTED FROM CONVERSATION —
-T-A6 EVIDENCE + REVIEWBUNDLE BINDINGS VALIDATED —
-NEXT-GATE OUTPUT REMAINS RECOMMENDATION ONLY —
-TECHNICAL SUCCESS DOES NOT IMPLY READY —
-T-A6 COMPLETE NOT DECLARED —
 HARD R-T-A3-1 / R-T-A3-2 REMAIN OPEN —
 B5 GLOBAL REMAINS OPEN —
+GATE A / B CONSUMED —
 GATE C / D NOT CONSUMED —
+T-A6 COMPLETE NOT DECLARED —
 CURSOR REAL BLOCKED —
-NO EXTERNAL NETWORK ACTIVITY —
-NO OPS1 / EXECUTION-RUN PRODUCT PATH —
-ACTUAL NEXT RUNTIME UI FUNCTIONALLY VALIDATED —
-FIGMA PIXEL-PERFECT NOT CLAIMED —
-CANDIDATE PACKAGE BYTE-IDENTICAL BEFORE / AFTER QA —
-NO PROJECT MUTATION / COMMIT / PUSH / PR / MERGE —
+NO OPS1 / EXECUTION-RUN DEPENDENCY —
+NO PROJECT PUSH —
+NO PR CREATED —
+NO MERGE —
+PR BODY READY —
 FULL REVIEW PACK COMPLETE —
 HANDOFF REMOTE VERIFIED —
-READY FOR MORRIS PR READINESS GATE
+READY FOR MORRIS PUSH + CREATE PR GATE
 ```
 
 ---
 
-## §0 GO / inbound / truth
+## 1. GO exact
 
-- **GO exact:** `GO QA` (Morris) — end-to-end QA of the F3 fixture already delivered locally under Gate B.
-- **Synthesis-only:** NO — this pack embeds FULL tracked diff + complete contents of all 11 new product files, plus BEFORE/AFTER SHA-256 equality proof.
-- **Validation-only:** YES — no intentional product edits; no silent product correction.
-- **Inbound remote Git Truth (re-read before publish):** tip `a01de1cfde398c0e8554829dafa758557d3e8534` / blob `e6b23ffcf08efa362e6a8501f889c56bac12c580` — Cycle 8 Delivery FULL pack · Gate B CONSUMED · READY FOR CHATGPT REVIEW / QA FIXTURE GATE.
-- **Local Git Truth (Delivery WT):** branch `delivery/sfia-studio-f3-native-fixture-vertical-slice` · HEAD=`8dcac9276b46314c3ca7c977fbb98be27cfabcb7` = `origin/main` · staged empty · remote delivery branch ABSENT · archive under `.tmp-sfia-review/archive/**` preserved.
-- **Candidate package:** 7 tracked modified (+707/−20) + 11 new product files — unchanged through QA.
+```
+GO PR READINESS — F3 NATIVE FIXTURE VERTICAL SLICE — QA VALIDATED PACKAGE
+```
+
+Gate Morris consommé: same.
+
+Gate A: CONSUMED
+Gate B: CONSUMED + QA VALIDATED
+Gate C: NOT CONSUMED
+Gate D: NOT CONSUMED
 
 ---
 
-## §1 Candidate package + immutability
+## 2. Cycle / profil / template
 
-### Tracked modified (7) — +707 / −20
-```
-projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
-projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-projects/sfia-studio/app/features/project-assistant/actions.ts
-projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
-projects/sfia-studio/app/features/project-assistant/types.ts
-projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-```
+- Cycle: **13 — PR readiness**
+- Profil: **Standard**
+- Typologie: **EVOL**
+- Critical: **NON**
+- Template: **v2.6**
+- Template blob SHA: `b9ce0a9fe57bb0f675afb8505ee0584180f830d7`
 
-### New product files (11)
-```
-projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
-projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
-projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
-projects/sfia-studio/app/features/project-assistant/f3/constants.ts
-projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
-projects/sfia-studio/app/features/project-assistant/f3/index.ts
-projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
-projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
-projects/sfia-studio/app/features/project-assistant/f3/types.ts
-projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
-projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
-```
-
-### Fingerprints
-| Artifact | SHA-256 |
-|----------|---------|
-| `candidate-before.patch` | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
-| `candidate-after.patch` | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` |
-| Delivery `git-diff-full.patch` | `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7` (byte-identical) |
-
-**BEFORE new-file SHA-256:**
-```
-# candidate-before-sha256.txt — NEW product files only
-# generated 2026-08-11T17:03:10Z
-
-abe0d5aff9b52f34ee16198e2905c8714516247c5fd2ef8f573cfebd24b2d57a  17631  projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
-8367d94a12702115605b1b176415f7a521d5cc398984ec11cfb8003dc6a098ce  1084  projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
-dabcd63c4231283a2700221cbce9c236c76ba2319bd93fe40e0e48518588f31f  13085  projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
-fe3f7dfeca0285d8400a564050bfab0c083163b5419e496f0521904b3f1020f2  2011  projects/sfia-studio/app/features/project-assistant/f3/constants.ts
-4ab8a368595f2706bd0912e288f6ce3f12906e9b86218c338a0999a53a04a58f  1982  projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
-8aaf8b65081fa9c0818f02069cae5075a048091807d44471c182760bd236aeae  679  projects/sfia-studio/app/features/project-assistant/f3/index.ts
-3495ac8c9f5ab40ce60ca52c31b2721b8b0ad194f94c1fb6ccd170c7faf423cc  5091  projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
-8a93e12336659869b4e0c6802c60a7effbaf938070fc9fd8b62834bae4799901  5891  projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
-993a5776b334efb6af9671705bedae462f54984eaf4a494efe64d02e8109c458  2797  projects/sfia-studio/app/features/project-assistant/f3/types.ts
-67ed05ee97a43071b966713a1f1eaeeb3091453670c76f1d107e313b197594cd  2968  projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
-7b264f29f095df439bdb630eb2d003c0875cff055b3efd2c4f9d8df1443a7de1  2909  projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
-```
-
-**AFTER new-file SHA-256:**
-```
-# candidate-after-sha256.txt — NEW product files only
-# generated 2026-08-11T17:21:29Z
-
-abe0d5aff9b52f34ee16198e2905c8714516247c5fd2ef8f573cfebd24b2d57a  17631  projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
-8367d94a12702115605b1b176415f7a521d5cc398984ec11cfb8003dc6a098ce  1084  projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
-dabcd63c4231283a2700221cbce9c236c76ba2319bd93fe40e0e48518588f31f  13085  projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
-fe3f7dfeca0285d8400a564050bfab0c083163b5419e496f0521904b3f1020f2  2011  projects/sfia-studio/app/features/project-assistant/f3/constants.ts
-4ab8a368595f2706bd0912e288f6ce3f12906e9b86218c338a0999a53a04a58f  1982  projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
-8aaf8b65081fa9c0818f02069cae5075a048091807d44471c182760bd236aeae  679  projects/sfia-studio/app/features/project-assistant/f3/index.ts
-3495ac8c9f5ab40ce60ca52c31b2721b8b0ad194f94c1fb6ccd170c7faf423cc  5091  projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
-8a93e12336659869b4e0c6802c60a7effbaf938070fc9fd8b62834bae4799901  5891  projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
-993a5776b334efb6af9671705bedae462f54984eaf4a494efe64d02e8109c458  2797  projects/sfia-studio/app/features/project-assistant/f3/types.ts
-67ed05ee97a43071b966713a1f1eaeeb3091453670c76f1d107e313b197594cd  2968  projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
-7b264f29f095df439bdb630eb2d003c0875cff055b3efd2c4f9d8df1443a7de1  2909  projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
-```
-
-**Equality:** patch SHA IDENTICAL · all 11 new-file SHA lines IDENTICAL · Delivery pack patch IDENTICAL.
-
-### Final git probes (AFTER QA)
-```
-git status --short
- M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
- M projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
- M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
- M projects/sfia-studio/app/features/project-assistant/actions.ts
- M projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
- M projects/sfia-studio/app/features/project-assistant/types.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
-?? projects/sfia-studio/app/features/project-assistant/f3/
-?? projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
-
-git diff --stat → 7 files changed, 707 insertions(+), 20 deletions(-)
-git diff --cached → (empty)
-git diff --check → (empty — PASS)
-```
-Note: gitignored `tsconfig.tsbuildinfo` / `.next/` may exist; ignored as non-product.
+Canonical reads:
+- `prompts/templates/sfia-cycle-execution-template.md` (§2, §6.11, §7)
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-functional-design-decisions/README.md`
+- `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-pre-delivery-governance-framing/README.md`
 
 ---
 
-## §2 Static / targeted / broad / security
-
-| Check | Result | Evidence |
-|-------|--------|----------|
-| typecheck | **PASS** (exit 0) | `f3-native-fixture-qa/logs/typecheck.log` |
-| lint | **PASS** (exit 0) | `logs/lint.log` |
-| build (`NEXT_TELEMETRY_DISABLED=1 npm run build`) | **PASS** (exit 0) | `logs/build.log` |
-| targeted vitest | **PASS** — 5 files / **29** tests | `logs/targeted.log` (incl. `f3.fixtureVerticalSlice` 9/9) |
-| broad vitest excl. `**/oa/finops/postgres/**` | **PASS** — **158** files / **1616** tests | `logs/broad.log` |
-| `git diff --check` | **PASS** | `logs/diff-check.log` |
-| security scan | **PASS** — Phase B dangerous usage = 0; constants `F3_MODE=FIXTURE`, `adp:f3-test-fixture`, `agt:f3-fixture`, `externalEffects` confirmed | `logs/security-scan.log` |
-
----
-
-## §3 Fail-closed matrix + idempotence (vitest + E2E)
-
-| Case | Source | Result |
-|------|--------|--------|
-| F2 GO alone → no Attempt / launch=0 | vitest AC-F3-FIX-01/02 + E2E A | **PASS** |
-| PREPARE → contract without Attempt | vitest AC-F3-FIX-03/04 + E2E A | **PASS** |
-| Hostile REAL/adapter/agent fields ignored | vitest AC-F3-FIX-05 | **PASS** |
-| Refuse prepare without approved proposal / missing decision | vitest AC-F3-FIX-06/07 | **PASS** |
-| Confirm+execute chain + reinjection flags all false | vitest AC-F3-FIX-08..16 + E2E A | **PASS** |
-| Double invoke → launch stays 1 / reusedExistingAttempt | vitest AC-F3-FIX-17/18 + E2E A | **PASS** |
-| Contract version mismatch fail-closed | vitest AC-F3-FIX-19 | **PASS** |
-| Process-local wipe / proposal store reset fail-closed | vitest AC-F3-FIX-20/21 | **PASS** |
-| Explicit `TestExecutionAdapter` (not NoOp) | vitest AC-F3-FIX-22 | **PASS** |
-| Process restart (SIGTERM + `next start` same port) fails closed | E2E B | **PASS** — no silent execute success; old ids unavailable; adapter launch for wiped state = 0 |
-| No authority reconstructed from conversation after restart | E2E B | **PASS** |
-
-**Idempotence:** first confirm+execute → `launchCount=1`; second invoke → `launchCount=1` (UI confirm button gone after success; vitest proves reused attempt).
-
----
-
-## §4 ACTUAL NEXT RUNTIME (happy path)
+## 3. Inbound QA handoff
 
 | Field | Value |
-|-------|-------|
-| Runtime label | **ACTUAL NEXT RUNTIME** (not component render / not Storybook / not vitest DOM) |
-| Server | `next start --hostname 127.0.0.1` on port **55293** (Next.js **15.5.20**) against existing `.next` build |
-| Base URL | `http://127.0.0.1:55293` |
-| Create route | `/studio/projects/new` |
-| Project route observed | `/studio/projects/prj%3A997d759a-6fad-4c30-9265-0cd3d642c9cf` |
-| Conversation provider | `OPS1_CONVERSATION_PROVIDER=fake` → **FakeConversationProvider** deterministic |
-| Other env | `D1_INTAKE_PROVIDER=fake` · fake `OPENAI_API_KEY` / model (no live OpenAI) |
-| Chromium | local ms-playwright chromium-1228 (no browser download) |
-| Scenario A | **PASS** |
-| Scenario B (restart) | **PASS** |
-
-### Happy-path proofs (E2E A)
-| Assertion | Detail |
-|-----------|--------|
-| F2 decision kind | **GO** |
-| `executionPerformed` after GO | **false** |
-| No execution banner after GO | PASS |
-| No attempt before/after prepare | PASS |
-| Contract id | `xct:f3:prop:f2:c86af26d-64c1-4d58-bb3f-9eeff4cbfdca` |
-| Contract version (UI after prepare) | `2` · status `confirmation_required` |
-| Attempt after confirm | **succeeded** · adapter `adp:f3-test-fixture` · agent `agt:f3-fixture` |
-| Evidence | `ev:f3-fixture:xat:f3:f3:prop:f2:c86af26d-64c1-4d58-bb3f-9eeff4cbfdca` |
-| ReviewBundle | `rb:f3-fixture:xat:f3:f3:prop:f2:c86af26d-64c1-4d58-bb3f-9eeff4cbfdca` |
-| Recommendation flags | `executionAuthority=false` · `gateConsumed=false` · `decisionCreated=false` |
-| Labels | PAS DE CLAIM READY · T-A6 COMPLETE NON · CURSOR REAL BLOQUÉ · AUCUN GIT WRITE |
-| launchCount | **1** (stays 1 after re-attempt) |
-| externalEffects | **false** (vitest + UI) |
-
-Artifacts: `e2e-results.json`, `logs/e2e-happy.log`, `logs/e2e-restart.log`, `logs/next-start.log`, `e2e/actual-next-f3-qa.mjs`.
+|-------|--------|
+| **Branch** | `sfia/review-handoff` |
+| **File** | `sfia-review-handoff/latest-chatgpt-review.md` |
+| **Inbound tip** | `e9c211d78fd0a1446825c52d3b31cc417fe47d88` |
+| **Inbound blob** | `b4aba1be5dedb7190baaaef13d6bd85b3e1de9c9` |
+| **Role** | F3 Native Fixture Vertical Slice — QA / validation |
+| **Pack** | FULL |
+| **Synthesis-only** | NO |
+| **Verdict entrant** | READY FOR MORRIS PR READINESS GATE |
 
 ---
 
-## §5 Network / external effects
+## 4. Local Git Truth — BEFORE commit
+
+| Check | Result |
+|-------|--------|
+| branch | `delivery/sfia-studio-f3-native-fixture-vertical-slice` |
+| HEAD | `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` |
+| origin/main | `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` |
+| ahead count | `0` |
+| staged | empty |
+| remote delivery branch | **ABSENT** |
+| handoff remote tip | `e9c211d78fd0a1446825c52d3b31cc417fe47d88` |
+| handoff blob | `b4aba1be5dedb7190baaaef13d6bd85b3e1de9c9` |
+| dirty state | QA-validated candidate package (7 M + 11 ??) + `.tmp-sfia-review/**` untracked |
+
+`git fetch origin --prune` executed. STOP conditions not triggered.
+
+---
+
+## 5. Package exact (18 files)
+
+### Modified (7)
+
+1. `projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
+2. `projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts`
+3. `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`
+4. `projects/sfia-studio/app/features/project-assistant/actions.ts`
+5. `projects/sfia-studio/app/features/project-assistant/project-assistant.module.css`
+6. `projects/sfia-studio/app/features/project-assistant/types.ts`
+7. `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
+
+### New (11)
+
+8. `projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts`
+9. `projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts`
+10. `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts`
+11. `projects/sfia-studio/app/features/project-assistant/f3/constants.ts`
+12. `projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts`
+13. `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
+14. `projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts`
+15. `projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts`
+16. `projects/sfia-studio/app/features/project-assistant/f3/types.ts`
+17. `projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts`
+18. `projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts`
+
+`.tmp-sfia-review/**` never staged.
+
+---
+
+## 6. QA fingerprints — pre-stage
+
+### Tracked candidate patch (7 files)
+
+Path: `.tmp-sfia-review/f3-native-fixture-pr-readiness/tracked-candidate.patch`
+SHA-256: `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7`
+Expected: `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7`
+Result: **MATCH**
+
+### New-file SHA-256 (pre-stage / post-commit identical)
+
+```
+abe0d5aff9b52f34ee16198e2905c8714516247c5fd2ef8f573cfebd24b2d57a  projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+8367d94a12702115605b1b176415f7a521d5cc398984ec11cfb8003dc6a098ce  projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+dabcd63c4231283a2700221cbce9c236c76ba2319bd93fe40e0e48518588f31f  projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+fe3f7dfeca0285d8400a564050bfab0c083163b5419e496f0521904b3f1020f2  projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+4ab8a368595f2706bd0912e288f6ce3f12906e9b86218c338a0999a53a04a58f  projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+8aaf8b65081fa9c0818f02069cae5075a048091807d44471c182760bd236aeae  projects/sfia-studio/app/features/project-assistant/f3/index.ts
+3495ac8c9f5ab40ce60ca52c31b2721b8b0ad194f94c1fb6ccd170c7faf423cc  projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+8a93e12336659869b4e0c6802c60a7effbaf938070fc9fd8b62834bae4799901  projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+993a5776b334efb6af9671705bedae462f54984eaf4a494efe64d02e8109c458  projects/sfia-studio/app/features/project-assistant/f3/types.ts
+67ed05ee97a43071b966713a1f1eaeeb3091453670c76f1d107e313b197594cd  projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+7b264f29f095df439bdb630eb2d003c0875cff055b3efd2c4f9d8df1443a7de1  projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+```
+
+Post-commit HEAD tree SHA-256:
+
+```
+abe0d5aff9b52f34ee16198e2905c8714516247c5fd2ef8f573cfebd24b2d57a  projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+8367d94a12702115605b1b176415f7a521d5cc398984ec11cfb8003dc6a098ce  projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+dabcd63c4231283a2700221cbce9c236c76ba2319bd93fe40e0e48518588f31f  projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+fe3f7dfeca0285d8400a564050bfab0c083163b5419e496f0521904b3f1020f2  projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+4ab8a368595f2706bd0912e288f6ce3f12906e9b86218c338a0999a53a04a58f  projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+8aaf8b65081fa9c0818f02069cae5075a048091807d44471c182760bd236aeae  projects/sfia-studio/app/features/project-assistant/f3/index.ts
+3495ac8c9f5ab40ce60ca52c31b2721b8b0ad194f94c1fb6ccd170c7faf423cc  projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+8a93e12336659869b4e0c6802c60a7effbaf938070fc9fd8b62834bae4799901  projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+993a5776b334efb6af9671705bedae462f54984eaf4a494efe64d02e8109c458  projects/sfia-studio/app/features/project-assistant/f3/types.ts
+67ed05ee97a43071b966713a1f1eaeeb3091453670c76f1d107e313b197594cd  projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+7b264f29f095df439bdb630eb2d003c0875cff055b3efd2c4f9d8df1443a7de1  projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+
+```
+
+Result: **ALL 11 MATCH — ZERO DRIFT**
+
+---
+
+## 7. Pre-stage readiness controls (replay)
+
+| Control | Command | Result |
+|---------|---------|--------|
+| typecheck | `npm run typecheck` (cwd `projects/sfia-studio/app`) | **PASS** exit 0 |
+| lint | `npm run lint` | **PASS** exit 0 — No ESLint warnings or errors |
+| targeted vitest | `npx vitest run __tests__/project-assistant/f3.fixtureVerticalSlice.test.ts __tests__/project-assistant/ProjectAssistantPanel.test.tsx __tests__/project-assistant/importBoundaries.test.ts __tests__/vertical-slice-runtime/` | **PASS** — 5 files / **29** tests |
+| git diff --check | `git diff --check` | **PASS** exit 0 |
+
+Transported QA evidence (Cycle 9 / Actual Next):
+- broad tests PASS — 158 files / 1616 tests
+- build PASS
+- Actual Next happy path PASS
+- restart fail-closed PASS
+- network external requests = 0
+- launchCount = 1
+- TestExecutionAdapter confirmed
+- externalEffects=false
+- candidate before/after identical (`030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7`)
+
+---
+
+## 8. Staging
+
+- Method: explicit `git add -- <18 paths>` — **never** `git add .` / `-A`
+- Staged count: **18**
+- `.tmp-sfia-review` in staged: **NO**
+- `git diff --cached --check`: **PASS**
+
+### staged name-status
+
+```
+M	projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+A	projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/index.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/types.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+M	projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+A	projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+
+```
+
+### staged stat
+
+```
+ .../ProjectAssistantPanel.test.tsx                 |  22 +-
+ .../f3.fixtureVerticalSlice.test.ts                | 446 ++++++++++++++++++++
+ .../project-assistant/importBoundaries.test.ts     |  28 +-
+ .../project-assistant/ProjectAssistantPanel.tsx    | 269 ++++++++++++-
+ .../app/features/project-assistant/actions.ts      | 248 +++++++++++-
+ .../project-assistant/f3/attemptReaderBridge.ts    |  34 ++
+ .../f3/confirmAndExecuteF3Fixture.ts               | 448 +++++++++++++++++++++
+ .../app/features/project-assistant/f3/constants.ts |  64 +++
+ .../features/project-assistant/f3/fixtureAgent.ts  |  73 ++++
+ .../app/features/project-assistant/f3/index.ts     |  19 +
+ .../f3/ingestEvidenceAndRecommend.ts               | 167 ++++++++
+ .../project-assistant/f3/prepareF3Fixture.ts       | 216 ++++++++++
+ .../app/features/project-assistant/f3/types.ts     | 122 ++++++
+ .../project-assistant/f3/validateF2ForPrepare.ts   | 114 ++++++
+ .../project-assistant/project-assistant.module.css |  46 +++
+ .../app/features/project-assistant/types.ts        |  58 ++-
+ .../lib/vertical-slice-runtime/f3FixtureWiring.ts  |  89 ++++
+ .../app/lib/vertical-slice-runtime/service.ts      |  56 ++-
+ 18 files changed, 2499 insertions(+), 20 deletions(-)
+
+```
+
+### Pre-commit content hashes (18 files)
+
+```
+ee72778f2f96010d6f0e8415ea9dae6a4a0e56d325271ce8cd32fd03dfda2c1f  projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+2bf5909374b31643cb5c5db11f7e0927af0909948da39506fb5c1bd94c49bde9  projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
+85a8f2a658af81eb7f5af9df9b47cb053ddfc16c518dd1cdc048ea6cc1ede6f2  projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+4be39bb9cbab830840c1ce31fb3d3ef48e52eb7def73f18a36d71b72ffdb36ee  projects/sfia-studio/app/features/project-assistant/actions.ts
+39eca2590e9d118befc849d65b7c439027ac3121943121472557f1cfbba6d3f0  projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
+f45eab47a9caf0940df92d962878df5ea77ae1d3fcac4aa816858d2c9faf4e16  projects/sfia-studio/app/features/project-assistant/types.ts
+275d02834e82d0ab73e915f28d0a89fd0147cc64f72988269df59ce10dc1e2cd  projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+abe0d5aff9b52f34ee16198e2905c8714516247c5fd2ef8f573cfebd24b2d57a  projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+8367d94a12702115605b1b176415f7a521d5cc398984ec11cfb8003dc6a098ce  projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+dabcd63c4231283a2700221cbce9c236c76ba2319bd93fe40e0e48518588f31f  projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+fe3f7dfeca0285d8400a564050bfab0c083163b5419e496f0521904b3f1020f2  projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+4ab8a368595f2706bd0912e288f6ce3f12906e9b86218c338a0999a53a04a58f  projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+8aaf8b65081fa9c0818f02069cae5075a048091807d44471c182760bd236aeae  projects/sfia-studio/app/features/project-assistant/f3/index.ts
+3495ac8c9f5ab40ce60ca52c31b2721b8b0ad194f94c1fb6ccd170c7faf423cc  projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+8a93e12336659869b4e0c6802c60a7effbaf938070fc9fd8b62834bae4799901  projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+993a5776b334efb6af9671705bedae462f54984eaf4a494efe64d02e8109c458  projects/sfia-studio/app/features/project-assistant/f3/types.ts
+67ed05ee97a43071b966713a1f1eaeeb3091453670c76f1d107e313b197594cd  projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+7b264f29f095df439bdb630eb2d003c0875cff055b3efd2c4f9d8df1443a7de1  projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+
+```
+
+Hook mutation check after commit: **HOOK_MUTATION_DRIFT_COUNT 0**
+
+---
+
+## 9. Commit
 
 | Field | Value |
-|-------|-------|
-| Origins observed | `http://127.0.0.1:55293` only |
-| External origins | **[]** |
-| External request count | **0** |
-| Request sample count | 34 (all loopback) |
-| Adapter externalEffects | **false** |
-| Product OPS1 / execution-run path | **none** (importBoundaries + security scan) |
+|-------|--------|
+| **commit SHA** | `ec7d6c8bbdcd71a49942e33f749826a9aba6d5a4` |
+| **commit subject** | `feat(sfia-studio): wire F3 native fixture vertical slice` |
+| **parent SHA** | `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` |
+| **ahead count** | `1` |
+| **commit count package** | `1` |
+| **staged after** | empty |
+| **tracked worktree** | clean |
+| **untracked** | `.tmp-sfia-review/**` only |
+| **--no-verify** | NOT used |
+| **amend/rebase/force** | NOT used |
 
-Evidence: `logs/network-origins.json` + `e2e-results.json` `network` block.
+### commit name-status
+
+```
+M	projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+A	projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/index.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/types.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+M	projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+A	projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+
+```
+
+### commit / range stat
+
+```
+ .../ProjectAssistantPanel.test.tsx                 |  22 +-
+ .../f3.fixtureVerticalSlice.test.ts                | 446 ++++++++++++++++++++
+ .../project-assistant/importBoundaries.test.ts     |  28 +-
+ .../project-assistant/ProjectAssistantPanel.tsx    | 269 ++++++++++++-
+ .../app/features/project-assistant/actions.ts      | 248 +++++++++++-
+ .../project-assistant/f3/attemptReaderBridge.ts    |  34 ++
+ .../f3/confirmAndExecuteF3Fixture.ts               | 448 +++++++++++++++++++++
+ .../app/features/project-assistant/f3/constants.ts |  64 +++
+ .../features/project-assistant/f3/fixtureAgent.ts  |  73 ++++
+ .../app/features/project-assistant/f3/index.ts     |  19 +
+ .../f3/ingestEvidenceAndRecommend.ts               | 167 ++++++++
+ .../project-assistant/f3/prepareF3Fixture.ts       | 216 ++++++++++
+ .../app/features/project-assistant/f3/types.ts     | 122 ++++++
+ .../project-assistant/f3/validateF2ForPrepare.ts   | 114 ++++++
+ .../project-assistant/project-assistant.module.css |  46 +++
+ .../app/features/project-assistant/types.ts        |  58 ++-
+ .../lib/vertical-slice-runtime/f3FixtureWiring.ts  |  89 ++++
+ .../app/lib/vertical-slice-runtime/service.ts      |  56 ++-
+ 18 files changed, 2499 insertions(+), 20 deletions(-)
+
+```
+
+### post-commit tracked patch SHA
+
+Path: `.tmp-sfia-review/f3-native-fixture-pr-readiness/committed-tracked.patch`
+SHA-256: `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7`
+Result: **MATCH QA fingerprint**
+
+### package integrity
+
+**PR READINESS PACKAGE INTEGRITY PASS — committed package byte-identical to QA validated package**
 
 ---
 
-## §6 Screenshots — ACTUAL NEXT RUNTIME
+## 10. Security / boundary scan (committed diff)
 
-Path: `.tmp-sfia-review/f3-native-fixture-qa/runtime-proof/`
+Confirmed constants:
+- `F3_MODE = "FIXTURE"`
+- adapter = `adp:f3-test-fixture`
+- agent = `agt:f3-fixture`
+- `externalEffects = false`
 
-| Scene | Desktop (actual PNG) | Mobile (actual PNG) |
-|-------|----------------------|---------------------|
-| 01 F2 GO — no execution | `01-f2-go-no-execution-desktop-1280x800.png` **1280×800** | `01-f2-go-no-execution-mobile-390x844.png` **390×844** |
-| 02 After PREPARE contract | `02-after-prepare-contract-desktop-1280x800.png` **1280×800** | `02-after-prepare-contract-mobile-390x844.png` **390×844** |
-| 03 After fixture execution | `03-after-fixture-execution-desktop-1280x800.png` **1280×800** | `03-after-fixture-execution-mobile-390x844.png` **390×844** |
-| 04 Restart fail-closed | `04-restart-fail-closed-desktop-1280x800.png` **1280×800** | `04-restart-fail-closed-mobile-390x844.png` **390×844** |
+Forbidden imports `@/lib/ops1`, `@/features/ops1`, `@/lib/oa/execution-run`: **0 hits** in product imports.
+`child_process` / REAL references appear only in **negative test assertions** (`importBoundaries.test.ts`) — expected.
 
-All eight PNGs measured via IHDR; runtime label **ACTUAL NEXT RUNTIME**. Manifest: `runtime-proof/runtime-proof-manifest.md`.
+Scan excerpt:
 
-### Figma caveat
-**FIGMA SOURCE NOT IDENTIFIED / NOT APPLICABLE FOR REUSED COMPONENT PATTERN.** Studio P0 Figma has no Project Assistant panel frame. **FIGMA PIXEL-PERFECT NOT CLAIMED** — functional ACTUAL NEXT UI validation only.
+```
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts:29:  F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts:126:      mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts:137:        mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts:145:        externalEffects: false,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts:150:        mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts:212:  if (input.deps.fixtureAdapter.externalEffects !== false) {
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts:216:      message: "externalEffects doit rester false (FIXTURE only).",
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/constants.ts:6:export const F3_MODE = "FIXTURE" as const;
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/constants.ts:8:export const F3_ADAPTER_ID = "adp:f3-test-fixture" as const;
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/constants.ts:9:export const F3_AGENT_ID = "agt:f3-fixture" as const;
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts:3: * Never silent NoOp. externalEffects=false. adapterRef === adapterId.
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts:70:  if (adapter.externalEffects !== false) {
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/index.ts:1:export { F3_MODE, F3_ADAPTER_ID, F3_AGENT_ID, F3_LABELS } from "./constants";
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts:10:  F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts:143:      mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts:150:      mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts:164:      mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts:18:  F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts:55:    mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts:191:      mode: F3_MODE,
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/types.ts:7:import type { F3_MODE } from "./constants";
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/types.ts:9:export type F3Mode = typeof F3_MODE;
+HEAD:projects/sfia-studio/app/features/project-assistant/f3/types.ts:28:  externalEffects: false;
+HEAD:projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts:17:export const F3_RUNTIME_ADAPTER_ID = "adp:f3-test-fixture" as const;
+HEAD:projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts:18:export const F3_RUNTIME_AGENT_ID = "agt:f3-fixture" as const;
+
+@/lib/ops1: 0
+@/features/ops1: 0
+@/lib/oa/execution-run: 0
+child_process: 3
+Cursor REAL: 2
+Git write: 1
+GitHub write: 0
+child_process: 3
+from "child_process": 0
+from 'child_process': 0
+spawn(: 0
+exec(: 0
+execFile(: 0
+execSync(: 0
+spawnSync(: 0
+GREP:
+HEAD:projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts:36:  it("F3 module forbids shell/child_process/ops1/execution-run/REAL adapters", () => {
+HEAD:projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts:41:      expect(source).not.toMatch(/child_process/);
+HEAD:projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts:42:      expect(source).not.toMatch(/node:child_process/);
+
+
+```
+
+Result: **PASS — FIXTURE ONLY — NO OPS1 / EXECUTION-RUN DEPENDENCY**
 
 ---
 
-## §7 HARD / B5 / Gates / anti-claims
+## 11. UX/UI / Figma
+
+- Actual Next runtime UI functionally validated (desktop 1280×800 / mobile 390×844)
+- **FIGMA SOURCE NOT IDENTIFIED / NOT APPLICABLE FOR REUSED COMPONENT PATTERN**
+- Claim allowed: **ACTUAL NEXT RUNTIME UI FUNCTIONALLY VALIDATED**
+- Claim forbidden: FIGMA PIXEL-PERFECT VALIDATED / FIGMA TO RUNTIME ALIGNED
+
+---
+
+## 12. Governance / anti-claims
 
 | Item | Status |
 |------|--------|
-| HARD `R-T-A3-1` / `R-T-A3-2` | **OPEN HARD** — UI surfaces OPEN; blocks REAL |
-| B5 fixture path | ADOPTED BY MORRIS (bounded) |
-| B5 global | **OPEN** |
 | Gate A | CONSUMED |
-| Gate B | CONSUMED (Delivery) + QA-validated |
-| Gate C / D | **NOT CONSUMED** |
-| T-A6 COMPLETE | **NOT DECLARED** |
-| Cursor REAL | **BLOCKED** |
-| READY product claim | **NOT MADE** — technical success ≠ READY |
+| Gate B | CONSUMED + QA VALIDATED |
+| Gate C | NOT CONSUMED |
+| Gate D | NOT CONSUMED |
+| F08-O1 | ADOPTED BY MORRIS |
+| B5 fixture path | ADOPTED / bounded |
+| B5 global | OPEN |
+| R-T-A3-1 | OPEN HARD — BLOCKS REAL |
+| R-T-A3-2 | OPEN HARD — BLOCKS REAL |
+| R-M01 | OPEN |
+| T-A6 COMPLETE | NOT DECLARED |
+| Cursor REAL | BLOCKED |
+| REAL Delivery | NOT AUTHORIZED |
 
-### Honest maturity caveat
-UI **always** surfaces HARD `R-T-A3-1` / `R-T-A3-2` / `R-M01` as OPEN. T-A6 `RecommendNextGate` only materializes `hard_reservation_open` blockers when a **MaturityAssessment** is bound; creating maturity needs claim/freeze chain beyond this fixture slice. Technical fixture success ≠ READY; T-A6 COMPLETE **not** declared. Figma not identified.
+---
 
-### Counters
-| Counter | Value |
-|---------|-------|
-| project mutations (intentional QA) | **0** |
-| project commits | **0** |
-| project pushes | **0** |
-| PR | **0** |
+## 13. PR title
+
+```
+feat(sfia-studio): wire F3 native fixture vertical slice
+```
+
+## 14. PR body COMPLETE
+
+Path: `.tmp-sfia-review/f3-native-fixture-pr-readiness/pr-body.md`
+
+```markdown
+## Summary
+
+- wire Project Assistant to native T-A4/T-A5/T-A6 for fixture-only F3
+- preserve F2 GO as PREPARE-only
+- explicit fixture confirmation before Attempt
+- TestExecutionAdapter only, externalEffects=false
+- Evidence / ReviewBundle / recommendation reinjection
+
+## Scope
+
+- FIXTURE only
+- process-local
+- no Cursor REAL
+- no external execution
+- no Git write product
+
+## Validation
+
+- targeted tests: PASS — 29
+- broad tests: PASS — 158 files / 1616 tests
+- typecheck: PASS
+- lint: PASS
+- build: PASS
+- Actual Next runtime E2E: PASS
+- restart fail-closed: PASS
+- external network requests: 0
+- double invoke launch count: 1
+- QA package byte-identical before/after
+
+## Governance
+
+- Gate A consumed
+- Gate B consumed + QA validated
+- Gate C/D NOT consumed
+- HARD R-T-A3-1 / R-T-A3-2 OPEN
+- B5 global OPEN
+- T-A6 COMPLETE NOT DECLARED
+- Cursor REAL BLOCKED
+
+## UI evidence
+
+- Actual Next runtime desktop/mobile validated
+- Figma pixel-perfect NOT claimed
+
+## Explicit non-claims
+
+This PR does NOT:
+- authorize Cursor REAL
+- close HARD reservations
+- close B5 globally
+- consume Gate C/D
+- select IAM or product persistence
+- introduce OPS1 / execution-run dependency
+- introduce auto-retry or auto Git write
+
+```
+
+PR creation this cycle: **0** (forbidden).
+No remote CI inventée.
+
+---
+
+## 15. Mutation counts this cycle
+
+| Action | Count |
+|--------|-------|
+| project commits | **1** |
+| project push | **0** |
+| PR create | **0** |
 | merge | **0** |
 | force | **0** |
-| real Cursor calls | **0** |
-| external execution / network | **0** |
-| Git writes product | **0** |
+| amend | **0** |
+| --no-verify | **0** |
 
 ---
 
-## §8 Handoff (publish-in-cycle L3)
+## 16. Final Git state (delivery)
 
 | Field | Value |
-|-------|-------|
-| Mode | `publish-in-cycle` |
+|-------|--------|
+| branch | `delivery/sfia-studio-f3-native-fixture-vertical-slice` |
+| HEAD | `ec7d6c8bbdcd71a49942e33f749826a9aba6d5a4` |
+| parent | `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` |
+| origin/main | `8dcac9276b46314c3ca7c977fbb98be27cfabcb7` |
+| ahead | **1** |
+| staged | empty |
+| tracked | clean |
+| remote delivery | **ABSENT** (confirmed pre + post) |
+| untracked | `.tmp-sfia-review/**` |
+
+---
+
+## 17. Review Handoff publication
+
+| Field | Value |
+|-------|--------|
+| Mode | publish-in-cycle |
 | Branch | `sfia/review-handoff` |
-| Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Publisher | `scripts/sfia/publish-review-handoff.sh` |
-| Commit message | `docs(review-handoff): publish F3 fixture QA` |
-| Remote tip BEFORE | `a01de1cfde398c0e8554829dafa758557d3e8534` |
-| Remote blob BEFORE | `e6b23ffcf08efa362e6a8501f889c56bac12c580` |
-| First publish tip | `644df5232dcfd4eb17c04bc7eb0e2776ce72cafb` |
-| First publish blob | `609ea79bffec9c4437c4a02d60755c67fef13e4e` |
-| Remote tip AFTER | `644df5232dcfd4eb17c04bc7eb0e2776ce72cafb` |
-| Remote blob AFTER | `609ea79bffec9c4437c4a02d60755c67fef13e4e` |
-| Push handoff | L3 FF-only; no force |
-| Delivery branch push | **NOT DONE** (forbidden) |
-| Return to delivery branch | **required** after publish |
+| Target | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Source | `.tmp-sfia-review/chatgpt-review.md` |
+| Inbound tip BEFORE | `e9c211d78fd0a1446825c52d3b31cc417fe47d88` |
+| Inbound blob BEFORE | `b4aba1be5dedb7190baaaef13d6bd85b3e1de9c9` |
+| Commit message | `docs(review-handoff): publish F3 fixture PR readiness` |
+| Script | `scripts/sfia/publish-review-handoff.sh` |
+| Force | **NO** — FF only |
+| Delivery push | **NO** |
 
-### §8.1 Remote re-read chain
-- tip before (inbound): `a01de1cfde398c0e8554829dafa758557d3e8534`
-- blob before (inbound): `e6b23ffcf08efa362e6a8501f889c56bac12c580`
-- tip after first publish: `644df5232dcfd4eb17c04bc7eb0e2776ce72cafb`
-- blob after first publish: `609ea79bffec9c4437c4a02d60755c67fef13e4e`
-- tip/blob FINAL = authentic remote truth after finalize (reported in Cursor fields 44–45)
-- delivery branch remote: ABSENT
-- force push: NOT USED
+*(Handoff FINAL tip/blob filled after publisher finalize — see §18)*
 
 ---
 
-## §9 Instruction ChatGPT (obligatoire)
+## 18. Handoff remote AFTER (filled after publish)
 
-Avant de répondre à Morris, ChatGPT doit relire depuis Git :
-
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-
-Le rapport Cursor seul ne vaut pas validation. Vérifier notamment : Cycle 9 · GO QA · ACTUAL NEXT RUNTIME · restart fail-closed · launchCount=1 · externalEffects=false · external network 0 · candidate BEFORE/AFTER identical · 0 Git write projet · Gates C/D NOT CONSUMED · HARD OPEN · Cursor REAL BLOCKED · handoff remote tip/blob after · delivery branch absent · verdict exact READY FOR MORRIS PR READINESS GATE.
-
-Next gate candidate = **PR READINESS** of the F3 fixture package (no automatic PR / Gate C / Gate D / Cursor REAL).
+| Field | Value |
+|-------|--------|
+| handoff tip FINAL | `__HANDOFF_TIP_FINAL__` |
+| handoff blob FINAL | `__HANDOFF_BLOB_FINAL__` |
+| remote reread | `__HANDOFF_REREAD__` |
+| publisher verdict | `__HANDOFF_VERDICT__` |
 
 ---
 
-## §10 FULL tracked diff (current AFTER — byte-identical to BEFORE / Delivery)
+## 19. Next gate (candidate only — NOT consumed)
 
-Source: `.tmp-sfia-review/f3-native-fixture-qa/candidate-after.patch`
-SHA-256: `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7`
+```
+GO PUSH + CREATE PR — F3 NATIVE FIXTURE VERTICAL SLICE — QA VALIDATED PACKAGE
+```
+
+No automatic push / PR / merge / Gate C/D / Cursor REAL.
+
+---
+
+## 20. Full diff `origin/main...HEAD`
+
+Fingerprints:
+- tracked 7-file patch SHA-256: `030190884f5c2ffc50d8b0f41bd53826670c615abbcdffe53b305bf6dfd17fb7`
+- 11 new-file SHA-256: see §6 (exact match)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
@@ -409,6 +668,458 @@ index bfdfcb5..d014533 100644
    });
 
    afterEach(() => {
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+new file mode 100644
+index 0000000..662b11b
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
+@@ -0,0 +1,446 @@
++/** @vitest-environment node */
++/**
++ * F3 native fixture vertical slice — AC-F3-FIX-01…22 coverage (practical).
++ */
++import path from "node:path";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import {
++  confirmAndExecuteF3Fixture,
++  prepareF3Fixture,
++  F3_ADAPTER_ID,
++  F3_AGENT_ID,
++  F3_MODE,
++} from "@/features/project-assistant/f3";
++import { F3_SCOPE } from "@/features/project-assistant/f3/constants";
++import {
++  createProposalId,
++  F2_PROCESS_LOCAL_NOTICE,
++  getProposal,
++  resetF2ProposalStoreForTests,
++  saveProposal,
++} from "@/features/project-assistant/f2/proposalStore";
++import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
++import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
++import {
++  createRuntimeApplicationService,
++  getRuntimeApplicationService,
++  resetRuntimeApplicationServiceForTests,
++  type RuntimeApplicationService,
++} from "@/lib/vertical-slice-runtime";
++
++const APP_ROOT = path.resolve(__dirname, "../..");
++const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
++const SCHEMAS_ROOT = path.resolve(
++  APP_ROOT,
++  "../sfia-v3-modeled/v3-native-option-a/schemas",
++);
++
++class FixedIdSource implements LocalProjectIdSource {
++  private project = 0;
++  private lps = 0;
++  private correlation = 0;
++  nextProjectId(): string {
++    this.project += 1;
++    return `prj:f3-${this.project}`;
++  }
++  nextLpsVersionId(): string {
++    this.lps += 1;
++    return `lps:f3-${this.lps}`;
++  }
++  nextCorrelationId(): string {
++    this.correlation += 1;
++    return `cor:f3-${this.correlation}`;
++  }
++}
++
++async function createRuntime(): Promise<RuntimeApplicationService> {
++  resetRuntimeApplicationServiceForTests();
++  return getRuntimeApplicationService({
++    registryRoot: REGISTRY_ROOT,
++    schemasRoot: SCHEMAS_ROOT,
++    nowIso: "2026-08-11T16:00:00.000Z",
++    idSource: new FixedIdSource(),
++    auditMode: "noop",
++  });
++}
++
++async function seedApprovedGo(runtime: RuntimeApplicationService) {
++  const created = await runtime.createProject({
++    name: "Projet F3 Fixture",
++    objective: "Vertical slice fixture",
++    context: "F3 process-local",
++    criticality: "STANDARD",
++    constraints: ["FIXTURE ONLY"],
++    shortReference: "F3F",
++    idempotencyKey: `f3-${Date.now()}-${Math.random()}`,
++  });
++  expect(created.ok).toBe(true);
++  if (!created.ok) throw new Error("create failed");
++  const projectId = created.project.projectId;
++  const overview = await runtime.getProject(projectId);
++  expect(overview.ok).toBe(true);
++  if (!overview.ok) throw new Error("overview failed");
++
++  const proposal = saveProposal({
++    proposalId: createProposalId(),
++    status: "DECISION_REQUIRED",
++    rephrasedRequest: "Préparer fixture F3",
++    objective: "Wire T-A4/5/6 fixture",
++    cycleTypeId: "cyc:delivery",
++    recommendedProfile: "Standard",
++    rationale: "F3 fixture slice",
++    scope: "fixture-docs",
++    outOfScope: ["REAL", "git write"],
++    activatedBlocks: ["prepare"],
++    expectedOutcome: "fixture attempt + evidence",
++    sources: [],
++    risks: [],
++    reservations: [],
++    stopConditions: ["AUCUNE EXÉCUTION RÉELLE"],
++    morrisGateRequired: true,
++    nextPossibleStep: "F3 PREPARE",
++    contextSnapshot: {
++      projectId,
++      lpsId: overview.livingState.id,
++      lpsVersion: overview.livingState.version,
++      doctrineDigest: overview.doctrine.digest,
++    },
++    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
++    executionForbidden: true,
++    noExecutingStatus: true,
++    agentBinding: "NOT_AVAILABLE",
++  });
++
++  const go = await recordF2Decision({
++    proposalId: proposal.proposalId,
++    projectId,
++    decisionKind: "GO",
++    currentContext: proposal.contextSnapshot,
++    decisionServices: runtime.oa!.decisionServices,
++    authorityResolver: runtime.oa!.authorityResolver,
++    nowIso: () => runtime.oa!.clock.nowIso(),
++  });
++  expect(go.ok).toBe(true);
++  if (!go.ok) throw new Error("GO failed");
++  return { projectId, proposal: go.proposal, decision: go.decision, runtime, overview };
++}
++
++describe("F3 native fixture vertical slice", () => {
++  beforeEach(() => {
++    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
++    resetF2ProposalStoreForTests();
++    resetRuntimeApplicationServiceForTests();
++  });
++
++  afterEach(() => {
++    resetF2ProposalStoreForTests();
++    resetRuntimeApplicationServiceForTests();
++  });
++
++  it("AC-F3-FIX-01/02 F2 GO remains prepare-only — no Attempt after GO alone", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    expect(seeded.decision.executionPerformed).toBe(false);
++    expect(seeded.decision.readyForNextGatedStep).toBe(true);
++
++    const listed =
++      await runtime.oa!.executionAttemptServices.listExecutionAttempts.execute({
++        executionContractId: "xct:f3:none",
++      });
++    // No contracts yet; stack has fixture adapter with 0 launches
++    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
++    expect(runtime.oa!.fixtureAdapter.externalEffects).toBe(false);
++    expect(runtime.oa!.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
++    void listed;
++  });
++
++  it("AC-F3-FIX-03/04 PREPARE builds+validates contract without Select/Start", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    const prepared = await prepareF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) return;
++    expect(prepared.payload.mode).toBe(F3_MODE);
++    expect(prepared.payload.attemptCreated).toBe(false);
++    expect(prepared.payload.executionPerformed).toBe(false);
++    expect(prepared.payload.contract.status).toBe("confirmation_required");
++    expect(prepared.payload.contract.scope).toBe(F3_SCOPE);
++    expect(prepared.payload.contract.constraints).toContain("FIXTURE ONLY");
++    expect(prepared.payload.contract.constraints).toContain("NO REAL");
++    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
++
++    const attempts =
++      await runtime.oa!.executionAttemptServices.listExecutionAttempts.execute({
++        executionContractId: prepared.payload.contract.executionContractId,
++      });
++    expect(attempts.ok).toBe(true);
++    if (attempts.ok) expect(attempts.attempts).toHaveLength(0);
++  });
++
++  it("AC-F3-FIX-05 hostile REAL/adapter/agent fields do not change FIXTURE path", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    const prepared = await prepareF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      currentContext: seeded.proposal.contextSnapshot,
++      mode: "REAL",
++      adapterRef: "adp:cursor-real",
++      agentId: "agt:cursor",
++      command: "rm -rf /",
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) return;
++    expect(prepared.payload.mode).toBe("FIXTURE");
++    expect(prepared.payload.labels.cursorRealBlocked).toBe("CURSOR REAL BLOQUÉ");
++  });
++
++  it("AC-F3-FIX-06/07 refuse prepare without approved proposal / missing decision", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    const bad = await prepareF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: "prop:f2:missing",
++      decisionId: seeded.decision.decisionId,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(bad.ok).toBe(false);
++    if (bad.ok) return;
++    expect(bad.code).toBe("PROPOSAL_NOT_FOUND");
++  });
++
++  it("AC-F3-FIX-08..16 confirm+execute fixture chain + reinjection flags", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    const prepared = await prepareF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) return;
++
++    const executed = await confirmAndExecuteF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      executionContractId: prepared.payload.contract.executionContractId,
++      expectedContractVersion: prepared.payload.contract.version,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        executionAttemptServices: runtime.oa!.executionAttemptServices,
++        evidenceReviewServices: runtime.oa!.evidenceReviewServices,
++        fixtureAdapter: runtime.oa!.fixtureAdapter,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(executed.ok).toBe(true);
++    if (!executed.ok) return;
++
++    expect(executed.payload.mode).toBe("FIXTURE");
++    expect(executed.payload.realExecution).toBe(false);
++    expect(executed.payload.gitWritePerformed).toBe(false);
++    expect(executed.payload.attempt.adapterId).toBe(F3_ADAPTER_ID);
++    expect(executed.payload.attempt.selectedAgentRef).toBe(F3_AGENT_ID);
++    expect(executed.payload.attempt.externalEffects).toBe(false);
++    expect(executed.payload.attempt.status).toBe("succeeded");
++    expect(executed.payload.attempt.launchCount).toBe(1);
++    expect(executed.payload.attempt.selectionStrategy).toBe(
++      "capabilities_deterministic",
++    );
++    expect(executed.payload.evidence.verified).toBe(false);
++    expect(executed.payload.evidence.status).toBe("available");
++    expect(executed.payload.recommendation.executionAuthority).toBe(false);
++    expect(executed.payload.recommendation.gateConsumed).toBe(false);
++    expect(executed.payload.recommendation.decisionCreated).toBe(false);
++    expect(executed.payload.recommendation.attemptAutoLaunchNextCycle).toBe(
++      false,
++    );
++    expect(executed.payload.recommendation.openHardReservationRefs).toEqual(
++      expect.arrayContaining(["R-T-A3-1", "R-T-A3-2", "R-M01"]),
++    );
++    expect(executed.payload.labels.fixtureNoReal).toContain("FIXTURE");
++    expect(executed.payload.disclosures).toContain("T-A6 COMPLETE NON DÉCLARÉ");
++    expect(executed.payload.disclosures).toContain("PAS DE CLAIM READY");
++    expect(JSON.stringify(executed.payload)).not.toMatch(/REAL READY/);
++    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(1);
++  });
++
++  it("AC-F3-FIX-17/18 double invoke does not second-launch", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    const prepared = await prepareF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) return;
++
++    const deps = {
++      decisionServices: runtime.oa!.decisionServices,
++      authorityResolver: runtime.oa!.authorityResolver,
++      executionContractServices: runtime.oa!.executionContractServices,
++      executionAttemptServices: runtime.oa!.executionAttemptServices,
++      evidenceReviewServices: runtime.oa!.evidenceReviewServices,
++      fixtureAdapter: runtime.oa!.fixtureAdapter,
++      nowIso: () => runtime.oa!.clock.nowIso(),
++    };
++
++    const first = await confirmAndExecuteF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      executionContractId: prepared.payload.contract.executionContractId,
++      expectedContractVersion: prepared.payload.contract.version,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps,
++    });
++    expect(first.ok).toBe(true);
++    if (!first.ok) return;
++    expect(first.payload.attempt.launchCount).toBe(1);
++    expect(first.payload.reusedExistingAttempt).toBe(false);
++
++    const second = await confirmAndExecuteF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      executionContractId: prepared.payload.contract.executionContractId,
++      expectedContractVersion: prepared.payload.contract.version,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps,
++    });
++    expect(second.ok).toBe(true);
++    if (!second.ok) return;
++    expect(second.payload.reusedExistingAttempt).toBe(true);
++    expect(second.payload.attempt.launchCount).toBe(1);
++    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(1);
++  });
++
++  it("AC-F3-FIX-19 contract version mismatch fail-closed", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    const prepared = await prepareF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) return;
++
++    const bad = await confirmAndExecuteF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      executionContractId: prepared.payload.contract.executionContractId,
++      expectedContractVersion: prepared.payload.contract.version + 99,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        executionAttemptServices: runtime.oa!.executionAttemptServices,
++        evidenceReviewServices: runtime.oa!.evidenceReviewServices,
++        fixtureAdapter: runtime.oa!.fixtureAdapter,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(bad.ok).toBe(false);
++    if (bad.ok) return;
++    expect(bad.code).toBe("CONTRACT_VERSION_MISMATCH");
++    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
++  });
++
++  it("AC-F3-FIX-20/21 process-local fail closed after proposal store reset", async () => {
++    const runtime = await createRuntime();
++    const seeded = await seedApprovedGo(runtime);
++    resetF2ProposalStoreForTests();
++    expect(getProposal(seeded.proposal.proposalId)).toBeNull();
++    const prepared = await prepareF3Fixture({
++      projectId: seeded.projectId,
++      proposalId: seeded.proposal.proposalId,
++      decisionId: seeded.decision.decisionId,
++      currentContext: seeded.proposal.contextSnapshot,
++      deps: {
++        decisionServices: runtime.oa!.decisionServices,
++        authorityResolver: runtime.oa!.authorityResolver,
++        executionContractServices: runtime.oa!.executionContractServices,
++        nowIso: () => runtime.oa!.clock.nowIso(),
++      },
++    });
++    expect(prepared.ok).toBe(false);
++    if (prepared.ok) return;
++    expect(prepared.code).toBe("PROPOSAL_NOT_FOUND");
++  });
++
++  it("AC-F3-FIX-22 runtime wires explicit TestExecutionAdapter (not NoOp)", async () => {
++    const runtime = createRuntimeApplicationService({
++      registryRoot: REGISTRY_ROOT,
++      schemasRoot: SCHEMAS_ROOT,
++      nowIso: "2026-08-11T16:00:00.000Z",
++      idSource: new FixedIdSource(),
++      auditMode: "noop",
++    });
++    expect(runtime.oa).toBeTruthy();
++    expect(runtime.oa!.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
++    expect(runtime.oa!.fixtureAdapter.externalEffects).toBe(false);
++    expect(runtime.oa!.executionAttemptServices.adapter.adapterId).toBe(
++      F3_ADAPTER_ID,
++    );
++    const candidates = runtime.oa!.executionAttemptServices.registry.findCandidates({
++      requiredCapabilities: ["cap:f3-fixture-docs"],
++      action: "fixture-docs-prepare",
++      target: "sfia-studio/f3-fixture-only",
++      scope: F3_SCOPE,
++    });
++    expect(candidates.some((a) => a.agentId === F3_AGENT_ID)).toBe(true);
++  });
++});
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
 index c4ef041..22ee388 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/importBoundaries.test.ts
@@ -1066,6 +1777,1317 @@ index bae1275..f891269 100644
 +    f3,
 +  };
 +}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts b/projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+new file mode 100644
+index 0000000..49e8a97
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts
+@@ -0,0 +1,34 @@
++/**
++ * READ-ONLY ExecutionAttemptReaderPort over T-A5 repository.
++ * Prefer product bridge over FakeExecutionAttemptReader seed drift.
++ */
++
++import type { ExecutionAttemptRepositoryPort } from "@/lib/oa/execution-attempt";
++import type {
++  ExecutionAttemptReaderPort,
++  ExecutionAttemptSnapshot,
++} from "@/lib/oa/evidence-review";
++
++export function createAttemptReaderBridge(
++  attempts: ExecutionAttemptRepositoryPort,
++): ExecutionAttemptReaderPort {
++  return {
++    async findById(
++      attemptId: string,
++    ): Promise<ExecutionAttemptSnapshot | null> {
++      const attempt = await attempts.findById(attemptId);
++      if (!attempt) return null;
++      return {
++        attemptId: attempt.attemptId,
++        executionContractId: attempt.executionContractId,
++        executionContractVersion: attempt.executionContractVersion,
++        status: attempt.status,
++        resultRef: attempt.resultRef,
++        errorRef: attempt.errorRef,
++        completedAt: attempt.completedAt,
++        failedAt: attempt.failedAt,
++        selectedAgentRef: attempt.selectedAgentRef,
++      };
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+new file mode 100644
+index 0000000..261e3e6
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
+@@ -0,0 +1,448 @@
++/**
++ * Confirm + fixture execute path:
++ * Request/Grant Confirmation (scope=contract.scope) → ConfirmExecutionContract
++ * → SelectExecutionAgent (capabilities_deterministic) → StartExecution
++ * → RecordExecutionResult (metadata-only resultRef).
++ *
++ * Idempotent: if an attempt already succeeded for the contract, reinject
++ * without a second adapter launch.
++ */
++
++import type {
++  DecisionServices,
++  MemoryAuthorityResolver,
++} from "@/lib/oa/decision";
++import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
++import type {
++  ExecutionAttemptServices,
++  TestExecutionAdapter,
++} from "@/lib/oa/execution-attempt";
++import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
++import type { F2ContextSnapshot } from "../f2/types";
++import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
++import {
++  F3_ADAPTER_ID,
++  F3_AGENT_ID,
++  F3_AUTHORITY_SOURCE,
++  F3_CONFIRM_ACTION_REF,
++  F3_LABELS,
++  F3_MODE,
++  F3_PROCESS_LOCAL_NOTICE,
++  F3_REQUIRED_AUTHORITY,
++  F3_SCOPE,
++} from "./constants";
++import { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
++import type { F3ExecutePayload } from "./types";
++import { validateF2ForPrepare } from "./validateF2ForPrepare";
++
++export type ConfirmExecuteF3Deps = {
++  decisionServices: DecisionServices;
++  authorityResolver: MemoryAuthorityResolver;
++  executionContractServices: ExecutionContractServices;
++  executionAttemptServices: ExecutionAttemptServices;
++  evidenceReviewServices: EvidenceReviewServices;
++  fixtureAdapter: TestExecutionAdapter;
++  nowIso: () => string;
++};
++
++function authorityEvidenceIdForProposal(proposalId: string): string {
++  return `evd:f3-fixture:${proposalId}`;
++}
++
++function ensureFixtureAuthority(
++  authority: MemoryAuthorityResolver,
++  proposalId: string,
++  nowIso: string,
++): { ok: true; evidenceId: string } | { ok: false; code: string; message: string } {
++  const evidenceId = authorityEvidenceIdForProposal(proposalId);
++  if (authority.getEvidence(evidenceId)) {
++    return { ok: true, evidenceId };
++  }
++  try {
++    authority.register({
++      evidenceId,
++      actorId: LOCAL_MORRIS_ACTOR.actorId,
++      level: F3_REQUIRED_AUTHORITY,
++      scope: F3_SCOPE,
++      issuedAt: nowIso,
++      source: F3_AUTHORITY_SOURCE,
++      canActAsMorris: false,
++    });
++    return { ok: true, evidenceId };
++  } catch (error) {
++    return {
++      ok: false,
++      code: "AUTHORITY_REGISTER_FAILED",
++      message:
++        error instanceof Error
++          ? error.message
++          : "Échec enregistrement authority F3 fixture.",
++    };
++  }
++}
++
++async function buildExecutePayload(input: {
++  proposal: F3ExecutePayload["proposal"];
++  decisionId: string;
++  contract: {
++    executionContractId: string;
++    version: number;
++    status: string;
++    action: string;
++    target: string;
++    scope: string;
++    requiredAuthority: string;
++    constraints: readonly string[];
++  };
++  attempt: {
++    attemptId: string;
++    status: string;
++    selectedAgentRef: string;
++    resultRef?: string;
++    selectionStrategy?: string;
++  };
++  launchCount: number;
++  reusedExistingAttempt: boolean;
++  projectId: string;
++  deps: ConfirmExecuteF3Deps;
++}): Promise<
++  | { ok: true; payload: F3ExecutePayload }
++  | { ok: false; code: string; message: string }
++> {
++  const ingested = await ingestEvidenceAndRecommend({
++    projectId: input.projectId,
++    attemptId: input.attempt.attemptId,
++    executionContractId: input.contract.executionContractId,
++    deps: { evidenceReviewServices: input.deps.evidenceReviewServices },
++  });
++  if (!ingested.ok) {
++    return ingested;
++  }
++
++  return {
++    ok: true,
++    payload: {
++      turnKind: "f3_execute",
++      mode: F3_MODE,
++      proposal: input.proposal,
++      decisionId: input.decisionId,
++      contract: {
++        executionContractId: input.contract.executionContractId,
++        version: input.contract.version,
++        status: input.contract.status,
++        action: input.contract.action,
++        target: input.contract.target,
++        scope: input.contract.scope,
++        requiredAuthority: input.contract.requiredAuthority,
++        mode: F3_MODE,
++        constraints: [...input.contract.constraints],
++      },
++      attempt: {
++        attemptId: input.attempt.attemptId,
++        status: input.attempt.status,
++        selectedAgentRef: input.attempt.selectedAgentRef,
++        adapterId: F3_ADAPTER_ID,
++        externalEffects: false,
++        resultRef: input.attempt.resultRef ?? null,
++        launchCount: input.launchCount,
++        selectionStrategy:
++          input.attempt.selectionStrategy ?? "capabilities_deterministic",
++        mode: F3_MODE,
++      },
++      evidence: ingested.evidence,
++      reviewBundle: ingested.reviewBundle,
++      recommendation: ingested.recommendation,
++      reusedExistingAttempt: input.reusedExistingAttempt,
++      executionPerformed: true,
++      realExecution: false,
++      gitWritePerformed: false,
++      labels: {
++        fixtureNoReal: F3_LABELS.fixtureNoReal,
++        noGitWrite: F3_LABELS.noGitWrite,
++        recommendationNotDecision: F3_LABELS.recommendationNotDecision,
++        cursorRealBlocked: F3_LABELS.cursorRealBlocked,
++        hardOpen: F3_LABELS.hardOpen,
++      },
++      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
++      disclosures: [
++        F3_LABELS.fixtureNoReal,
++        F3_LABELS.noGitWrite,
++        F3_LABELS.recommendationNotDecision,
++        F3_LABELS.cursorRealBlocked,
++        F3_LABELS.hardOpen,
++        F3_LABELS.noReadyClaim,
++        F3_LABELS.noTa6Complete,
++        F3_PROCESS_LOCAL_NOTICE,
++      ],
++    },
++  };
++}
++
++export async function confirmAndExecuteF3Fixture(input: {
++  projectId: string;
++  proposalId: string;
++  decisionId: string;
++  executionContractId: string;
++  expectedContractVersion: number;
++  currentContext: F2ContextSnapshot;
++  /** Hostile — ignored. */
++  mode?: unknown;
++  adapterRef?: unknown;
++  agentId?: unknown;
++  command?: unknown;
++  real?: unknown;
++  deps: ConfirmExecuteF3Deps;
++}): Promise<
++  | { ok: true; payload: F3ExecutePayload }
++  | { ok: false; code: string; message: string; proposal?: unknown }
++> {
++  void input.mode;
++  void input.adapterRef;
++  void input.agentId;
++  void input.command;
++  void input.real;
++
++  if (input.deps.fixtureAdapter.adapterId !== F3_ADAPTER_ID) {
++    return {
++      ok: false,
++      code: "ADAPTER_IDENTITY_MISMATCH",
++      message: "Adapter F3 identity mismatch — REAL/NoOp interdit.",
++    };
++  }
++  if (input.deps.fixtureAdapter.externalEffects !== false) {
++    return {
++      ok: false,
++      code: "EXTERNAL_EFFECTS_FORBIDDEN",
++      message: "externalEffects doit rester false (FIXTURE only).",
++    };
++  }
++
++  const validated = await validateF2ForPrepare({
++    proposalId: input.proposalId,
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    currentContext: input.currentContext,
++    decisionServices: input.deps.decisionServices,
++  });
++  if (!validated.ok) {
++    return {
++      ok: false,
++      code: validated.code,
++      message: validated.message,
++      proposal: validated.proposal ?? null,
++    };
++  }
++
++  const { proposal, decisionId } = validated;
++  const auth = ensureFixtureAuthority(
++    input.deps.authorityResolver,
++    proposal.proposalId,
++    input.deps.nowIso(),
++  );
++  if (!auth.ok) return { ...auth, proposal };
++
++  const contractResult =
++    await input.deps.executionContractServices.getExecutionContract.execute({
++      executionContractId: input.executionContractId,
++    });
++  if (!contractResult.ok) {
++    return {
++      ok: false,
++      code: contractResult.error.detailCode,
++      message: contractResult.error.message,
++      proposal,
++    };
++  }
++
++  let contract = contractResult.contract;
++  if (contract.projectId !== input.projectId) {
++    return {
++      ok: false,
++      code: "CONTRACT_PROJECT_MISMATCH",
++      message: "Le contrat n'appartient pas à ce projet.",
++      proposal,
++    };
++  }
++  if (contract.scope !== F3_SCOPE) {
++    return {
++      ok: false,
++      code: "CONTRACT_SCOPE_MISMATCH",
++      message: "Scope contrat ≠ F3 FIXTURE scope.",
++      proposal,
++    };
++  }
++
++  // Double-invoke protection BEFORE version OCC: if attempt already succeeded,
++  // reinject without re-launch even if contract version advanced post-exec.
++  const listed =
++    await input.deps.executionAttemptServices.listExecutionAttempts.execute({
++      executionContractId: contract.executionContractId,
++    });
++  if (listed.ok) {
++    const succeeded = listed.attempts.find((a) => a.status === "succeeded");
++    if (succeeded) {
++      const launchCount = input.deps.fixtureAdapter.launchCallCount;
++      return buildExecutePayload({
++        proposal,
++        decisionId,
++        contract,
++        attempt: succeeded,
++        launchCount,
++        reusedExistingAttempt: true,
++        projectId: input.projectId,
++        deps: input.deps,
++      });
++    }
++  }
++
++  if (contract.version !== input.expectedContractVersion) {
++    return {
++      ok: false,
++      code: "CONTRACT_VERSION_MISMATCH",
++      message: `Version contrat attendue ${input.expectedContractVersion}, actuelle ${contract.version}.`,
++      proposal,
++    };
++  }
++
++  if (
++    contract.status === "confirmation_required" ||
++    contract.status === "validated"
++  ) {
++    const confirmationId = `cfm:f3:${contract.executionContractId}:${contract.version}`;
++    const requested =
++      await input.deps.decisionServices.requestConfirmation.execute({
++        confirmationId,
++        level: F3_REQUIRED_AUTHORITY,
++        actionRef: F3_CONFIRM_ACTION_REF,
++        requestedBy: LOCAL_MORRIS_ACTOR,
++        requestedTo: LOCAL_MORRIS_ACTOR,
++        scope: contract.scope,
++        idempotencyKey: `idem:f3-cfm:${contract.executionContractId}:v${contract.version}`,
++        decisionRef: decisionId,
++      });
++    if (!requested.ok) {
++      return {
++        ok: false,
++        code: requested.error.detailCode,
++        message: requested.error.message,
++        proposal,
++      };
++    }
++
++    const granted = await input.deps.decisionServices.grantConfirmation.execute({
++      confirmationId,
++      actor: LOCAL_MORRIS_ACTOR,
++      authorityEvidenceId: auth.evidenceId,
++    });
++    if (!granted.ok) {
++      return {
++        ok: false,
++        code: granted.error.detailCode,
++        message: granted.error.message,
++        proposal,
++      };
++    }
++
++    const confirmed =
++      await input.deps.executionContractServices.confirmExecutionContract.execute(
++        {
++          executionContractId: contract.executionContractId,
++          confirmationId,
++          actor: LOCAL_MORRIS_ACTOR,
++          authorityEvidenceId: auth.evidenceId,
++          expectedVersion: contract.version,
++        },
++      );
++    if (!confirmed.ok) {
++      return {
++        ok: false,
++        code: confirmed.error.detailCode,
++        message: confirmed.error.message,
++        proposal,
++      };
++    }
++    contract = confirmed.contract;
++  } else if (contract.status !== "confirmed" && contract.status !== "executing" && contract.status !== "completed") {
++    return {
++      ok: false,
++      code: "CONTRACT_NOT_CONFIRMABLE",
++      message: `Contrat non confirmable (statut ${contract.status}).`,
++      proposal,
++    };
++  }
++
++  const attemptId = `xat:f3:${contract.executionContractId.replace(/^xct:/, "")}`;
++
++  const selected =
++    await input.deps.executionAttemptServices.selectExecutionAgent.execute({
++      attemptId,
++      executionContractId: contract.executionContractId,
++      idempotencyKey: `idem:f3-att:${contract.executionContractId}`,
++      actor: LOCAL_MORRIS_ACTOR,
++      authorityEvidenceId: auth.evidenceId,
++      expectedContractVersion: contract.version,
++      selectionProfile: "standard",
++      selectionStrategy: "capabilities_deterministic",
++      requestedAgentRef: F3_AGENT_ID,
++      systemInitiated: true,
++    });
++  if (!selected.ok) {
++    return {
++      ok: false,
++      code: selected.error.detailCode,
++      message: selected.error.message,
++      proposal,
++    };
++  }
++
++  const started =
++    await input.deps.executionAttemptServices.startExecution.execute({
++      attemptId,
++      actor: LOCAL_MORRIS_ACTOR,
++      authorityEvidenceId: auth.evidenceId,
++    });
++  if (!started.ok) {
++    return {
++      ok: false,
++      code: started.error.detailCode,
++      message: started.error.message,
++      proposal,
++    };
++  }
++
++  const resultRef = `res:f3-fixture:${attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`;
++  const recorded =
++    await input.deps.executionAttemptServices.recordExecutionResult.execute({
++      attemptId,
++      adapterId: F3_ADAPTER_ID,
++      resultRef,
++      technicalExitCode: 0,
++    });
++  if (!recorded.ok) {
++    return {
++      ok: false,
++      code: recorded.error.detailCode,
++      message: recorded.error.message,
++      proposal,
++    };
++  }
++
++  const launchCount = input.deps.fixtureAdapter.launchCallCount;
++
++  const refreshed =
++    await input.deps.executionContractServices.getExecutionContract.execute({
++      executionContractId: contract.executionContractId,
++    });
++  if (refreshed.ok) contract = refreshed.contract;
++
++  return buildExecutePayload({
++    proposal,
++    decisionId,
++    contract,
++    attempt: recorded.attempt,
++    launchCount,
++    reusedExistingAttempt: false,
++    projectId: input.projectId,
++    deps: input.deps,
++  });
++}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/constants.ts b/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+new file mode 100644
+index 0000000..60bacbc
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/constants.ts
+@@ -0,0 +1,64 @@
++/**
++ * F3 native fixture vertical slice — server-fixed constants.
++ * Client cannot inject REAL / adapterRef / agent / command.
++ */
++
++export const F3_MODE = "FIXTURE" as const;
++
++export const F3_ADAPTER_ID = "adp:f3-test-fixture" as const;
++export const F3_AGENT_ID = "agt:f3-fixture" as const;
++export const F3_AGENT_TYPE = "fixture_docs_writer" as const;
++
++export const F3_ACTION = "fixture-docs-prepare" as const;
++export const F3_TARGET = "sfia-studio/f3-fixture-only" as const;
++export const F3_SCOPE = "f3-fixture:docs+metadata-only" as const;
++export const F3_CAPABILITY = "cap:f3-fixture-docs" as const;
++
++export const F3_REQUIRED_AUTHORITY = "N2" as const;
++
++export const F3_CONSTRAINTS = Object.freeze([
++  "FIXTURE ONLY",
++  "TEST ADAPTER ONLY",
++  "NO REAL",
++  "NO SHELL",
++  "NO NETWORK EXECUTION",
++  "NO GIT WRITE",
++  "NO GITHUB WRITE",
++  "NO AUTO RETRY",
++  "PROCESS LOCAL",
++] as const);
++
++export const F3_STOP_CONDITIONS = Object.freeze([
++  "AUTHORITY_DENIED",
++  "STALE_CONTEXT",
++  "REAL_MODE_REQUESTED",
++  "ADAPTER_IDENTITY_MISMATCH",
++] as const);
++
++export const F3_EVIDENCE_REQUIREMENTS = Object.freeze([
++  "evreq:f3-fixture-metadata",
++] as const);
++
++export const F3_CONFIRM_ACTION_REF = "act:confirm-f3-fixture" as const;
++
++export const F3_OPEN_HARD_RESERVATION_REFS = Object.freeze([
++  "R-T-A3-1",
++  "R-T-A3-2",
++  "R-M01",
++] as const);
++
++export const F3_PROCESS_LOCAL_NOTICE =
++  "F3 fixture process-local — non persisté. Un redémarrage efface contrats, attempts et evidence. Aucune autorité d'exécution durable.";
++
++export const F3_LABELS = Object.freeze({
++  fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
++  noGitWrite: "AUCUN GIT WRITE PRODUIT",
++  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++  cursorRealBlocked: "CURSOR REAL BLOQUÉ",
++  noReadyClaim: "PAS DE CLAIM READY",
++  noTa6Complete: "T-A6 COMPLETE NON DÉCLARÉ",
++  hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN",
++} as const);
++
++export const F3_AUTHORITY_SOURCE =
++  "LOCAL_PROCESS_F3_FIXTURE_AUTHORITY" as const;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts b/projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+new file mode 100644
+index 0000000..dd2808d
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts
+@@ -0,0 +1,73 @@
++/**
++ * Closed fixture AgentDescriptor + explicit TestExecutionAdapter factory.
++ * Never silent NoOp. externalEffects=false. adapterRef === adapterId.
++ */
++
++import {
++  TestExecutionAdapter,
++  type AgentDescriptor,
++} from "@/lib/oa/execution-attempt";
++import type { ProvenanceRecord } from "@/lib/oa/doctrine";
++import {
++  F3_ACTION,
++  F3_ADAPTER_ID,
++  F3_AGENT_ID,
++  F3_AGENT_TYPE,
++  F3_CAPABILITY,
++  F3_SCOPE,
++  F3_TARGET,
++} from "./constants";
++
++function fixtureProvenance(nowIso: string): ProvenanceRecord {
++  return {
++    schemaVersion: "0.1.0-oa",
++    provenanceRecordId: "prv:f3-fixture-agent",
++    actor: {
++      actorId: "actor:system",
++      role: "system",
++      authorityLevel: "N1",
++    },
++    source: "system",
++    timestamp: nowIso,
++    correlationId: "cor:f3-fixture-agent",
++  };
++}
++
++export function createF3FixtureAgentDescriptor(
++  nowIso = "2026-08-11T00:00:00.000Z",
++): AgentDescriptor {
++  return Object.freeze({
++    schemaVersion: "0.1.0-oa",
++    agentId: F3_AGENT_ID,
++    agentType: F3_AGENT_TYPE,
++    adapterRef: F3_ADAPTER_ID,
++    supportedCapabilities: [F3_CAPABILITY],
++    allowedActions: [F3_ACTION],
++    allowedTargets: [F3_TARGET],
++    allowedScopes: [F3_SCOPE],
++    trustLevel: "fixture",
++    executionMode: "adapter_sync_fixture",
++    healthStatus: "healthy",
++    version: 1,
++    enabled: true,
++    createdAt: nowIso,
++    provenance: fixtureProvenance(nowIso),
++  });
++}
++
++/**
++ * Explicit TestExecutionAdapter only — callers must inject this into
++ * createInMemoryExecutionAttemptServices (never rely on NoOp default).
++ */
++export function createF3TestExecutionAdapter(): TestExecutionAdapter {
++  return new TestExecutionAdapter({ adapterId: F3_ADAPTER_ID });
++}
++
++export function assertF3AdapterIdentity(adapter: TestExecutionAdapter): void {
++  if (adapter.adapterId !== F3_ADAPTER_ID) {
++    throw new Error("f3_adapter_identity_mismatch");
++  }
++  if (adapter.externalEffects !== false) {
++    throw new Error("f3_adapter_external_effects_must_be_false");
++  }
++}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+new file mode 100644
+index 0000000..173037b
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+@@ -0,0 +1,19 @@
++export { F3_MODE, F3_ADAPTER_ID, F3_AGENT_ID, F3_LABELS } from "./constants";
++export type {
++  F3PreparePayload,
++  F3ExecutePayload,
++  F3ContractDto,
++  F3AttemptDto,
++  F3EvidenceDto,
++  F3ReviewBundleDto,
++  F3RecommendationDto,
++} from "./types";
++export { validateF2ForPrepare } from "./validateF2ForPrepare";
++export { prepareF3Fixture } from "./prepareF3Fixture";
++export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
++export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
++export {
++  createF3FixtureAgentDescriptor,
++  createF3TestExecutionAdapter,
++} from "./fixtureAgent";
++export { createAttemptReaderBridge } from "./attemptReaderBridge";
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts b/projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+new file mode 100644
+index 0000000..5c6039a
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+@@ -0,0 +1,167 @@
++/**
++ * IngestExecutionAttemptEvidence → CreateReviewBundle → RecommendNextGate.
++ * Recommendation-only; HARD refs passed through; no auto-launch.
++ */
++
++import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
++import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
++import {
++  F3_LABELS,
++  F3_MODE,
++  F3_OPEN_HARD_RESERVATION_REFS,
++} from "./constants";
++import type {
++  F3EvidenceDto,
++  F3RecommendationDto,
++  F3ReviewBundleDto,
++} from "./types";
++
++export type IngestRecommendDeps = {
++  evidenceReviewServices: EvidenceReviewServices;
++};
++
++export type IngestRecommendResult =
++  | {
++      ok: true;
++      evidence: F3EvidenceDto;
++      reviewBundle: F3ReviewBundleDto;
++      recommendation: F3RecommendationDto;
++    }
++  | { ok: false; code: string; message: string };
++
++export async function ingestEvidenceAndRecommend(input: {
++  projectId: string;
++  attemptId: string;
++  executionContractId: string;
++  deps: IngestRecommendDeps;
++}): Promise<IngestRecommendResult> {
++  const evidenceId = `ev:f3-fixture:${input.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`;
++  const ingested =
++    await input.deps.evidenceReviewServices.ingestExecutionAttemptEvidence.execute(
++      {
++        evidenceId,
++        executionAttemptId: input.attemptId,
++        idempotencyKey: `idem:f3-ev:${input.attemptId}`,
++        actor: LOCAL_MORRIS_ACTOR,
++        classification: "internal",
++        storageMode: "metadata_only",
++        bindings: {
++          projectId: input.projectId,
++          executionContractId: input.executionContractId,
++        },
++      },
++    );
++
++  if (!ingested.ok) {
++    return {
++      ok: false,
++      code: ingested.error.detailCode,
++      message: ingested.error.message,
++    };
++  }
++
++  const reviewBundleId = `rb:f3-fixture:${input.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`;
++  const bundle =
++    await input.deps.evidenceReviewServices.createReviewBundle.execute({
++      reviewBundleId,
++      idempotencyKey: `idem:f3-rb:${input.attemptId}`,
++      actor: LOCAL_MORRIS_ACTOR,
++      projectId: input.projectId,
++      executionContractId: input.executionContractId,
++      evidenceIds: [ingested.evidence.evidenceId],
++      reservations: [
++        ...F3_OPEN_HARD_RESERVATION_REFS,
++        "HARD remain OPEN — BLOCKS REAL",
++        "T-A6 COMPLETE NOT DECLARED",
++        "NO READY CLAIM",
++      ],
++    });
++
++  if (!bundle.ok) {
++    return {
++      ok: false,
++      code: bundle.error.detailCode,
++      message: bundle.error.message,
++    };
++  }
++
++  const recommended =
++    await input.deps.evidenceReviewServices.recommendNextGate.execute({
++      projectId: input.projectId,
++      subjectRef: input.executionContractId,
++      evidenceRefs: [
++        {
++          id: ingested.evidence.evidenceId,
++          version: ingested.evidence.version,
++        },
++      ],
++      reviewBundleRefs: [
++        {
++          id: bundle.reviewBundle.reviewBundleId,
++          version: bundle.reviewBundle.version,
++        },
++      ],
++      openHardReservationRefs: [...F3_OPEN_HARD_RESERVATION_REFS],
++      attemptAutoLaunchNextCycle: false,
++      actor: LOCAL_MORRIS_ACTOR,
++      correlationId: `cor:f3-reco:${input.attemptId}`,
++    });
++
++  if (!recommended.ok) {
++    return {
++      ok: false,
++      code: recommended.error.detailCode,
++      message: recommended.error.message,
++    };
++  }
++
++  const coordination = recommended.coordination;
++  /**
++   * T-A6 RecommendNextGate only materializes openHardReservationRefs as
++   * hard_reservation_open blockers when a MaturityAssessment is bound.
++   * Creating maturity requires claim/freeze chain beyond this fixture slice
++   * without foundation changes — so HARD visibility is guaranteed on the
++   * product DTO (openHardReservationRefs + hardBlockers) even when
++   * coordination.blockers omit them.
++   */
++  const openHard = [...F3_OPEN_HARD_RESERVATION_REFS];
++  const hardBlockers = [
++    ...coordination.blockers
++      .filter((b) => b.code === "hard_reservation_open")
++      .map((b) => b.sourceId ?? b.code),
++    ...openHard.map((ref) => `${ref} OPEN`),
++  ];
++
++  return {
++    ok: true,
++    evidence: {
++      evidenceId: ingested.evidence.evidenceId,
++      status: ingested.evidence.status,
++      sourceKind: ingested.evidence.sourceKind,
++      technicalResultRef: ingested.evidence.technicalResultRef ?? null,
++      verified: false,
++      mode: F3_MODE,
++    },
++    reviewBundle: {
++      reviewBundleId: bundle.reviewBundle.reviewBundleId,
++      status: bundle.reviewBundle.status,
++      version: bundle.reviewBundle.version,
++      evidenceRefs: [...bundle.reviewBundle.evidenceRefs],
++      mode: F3_MODE,
++    },
++    recommendation: {
++      kind: "recommendation",
++      status: coordination.status,
++      executionAuthority: false,
++      gateConsumed: false,
++      decisionCreated: false,
++      attemptAutoLaunchNextCycle: false,
++      openHardReservationRefs: openHard,
++      hardBlockers: [...new Set(hardBlockers)],
++      nextGateCode: coordination.nextGate?.gateCode ?? null,
++      nextActionCode: coordination.nextAction?.actionCode ?? null,
++      recommendationLabel: F3_LABELS.recommendationNotDecision,
++      mode: F3_MODE,
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+new file mode 100644
+index 0000000..ee20d7c
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts
+@@ -0,0 +1,216 @@
++/**
++ * F3 PREPARE — BuildExecutionContract + Validate only.
++ * NO Select / Start / Evidence / Attempt (F3-D01).
++ */
++
++import type { DecisionServices } from "@/lib/oa/decision";
++import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
++import type { MemoryAuthorityResolver } from "@/lib/oa/decision";
++import type { F2ContextSnapshot } from "../f2/types";
++import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
++import {
++  F3_ACTION,
++  F3_AUTHORITY_SOURCE,
++  F3_CAPABILITY,
++  F3_CONSTRAINTS,
++  F3_EVIDENCE_REQUIREMENTS,
++  F3_LABELS,
++  F3_MODE,
++  F3_PROCESS_LOCAL_NOTICE,
++  F3_REQUIRED_AUTHORITY,
++  F3_SCOPE,
++  F3_STOP_CONDITIONS,
++  F3_TARGET,
++} from "./constants";
++import type { F3PreparePayload } from "./types";
++import { validateF2ForPrepare } from "./validateF2ForPrepare";
++
++export type PrepareF3Deps = {
++  decisionServices: DecisionServices;
++  authorityResolver: MemoryAuthorityResolver;
++  executionContractServices: ExecutionContractServices;
++  nowIso: () => string;
++};
++
++function toContractDto(
++  contract: {
++    executionContractId: string;
++    version: number;
++    status: string;
++    action: string;
++    target: string;
++    scope: string;
++    requiredAuthority: string;
++    constraints: readonly string[];
++  },
++) {
++  return {
++    executionContractId: contract.executionContractId,
++    version: contract.version,
++    status: contract.status,
++    action: contract.action,
++    target: contract.target,
++    scope: contract.scope,
++    requiredAuthority: contract.requiredAuthority,
++    mode: F3_MODE,
++    constraints: [...contract.constraints],
++  };
++}
++
++export async function prepareF3Fixture(input: {
++  projectId: string;
++  proposalId: string;
++  decisionId: string;
++  currentContext: F2ContextSnapshot;
++  /** Hostile — ignored. */
++  mode?: unknown;
++  adapterRef?: unknown;
++  agentId?: unknown;
++  command?: unknown;
++  deps: PrepareF3Deps;
++}): Promise<
++  | { ok: true; payload: F3PreparePayload }
++  | { ok: false; code: string; message: string; proposal?: unknown }
++> {
++  void input.mode;
++  void input.adapterRef;
++  void input.agentId;
++  void input.command;
++
++  const validated = await validateF2ForPrepare({
++    proposalId: input.proposalId,
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    currentContext: input.currentContext,
++    decisionServices: input.deps.decisionServices,
++  });
++  if (!validated.ok) {
++    return {
++      ok: false,
++      code: validated.code,
++      message: validated.message,
++      proposal: validated.proposal ?? null,
++    };
++  }
++
++  const { proposal, decisionId } = validated;
++  const evidenceId = `evd:f3-fixture:${proposal.proposalId}`;
++  const issuedAt = input.deps.nowIso();
++
++  try {
++    if (!input.deps.authorityResolver.getEvidence(evidenceId)) {
++      input.deps.authorityResolver.register({
++        evidenceId,
++        actorId: LOCAL_MORRIS_ACTOR.actorId,
++        level: F3_REQUIRED_AUTHORITY,
++        scope: F3_SCOPE,
++        issuedAt,
++        source: F3_AUTHORITY_SOURCE,
++        canActAsMorris: false,
++      });
++    }
++  } catch (error) {
++    return {
++      ok: false,
++      code: "AUTHORITY_REGISTER_FAILED",
++      message:
++        error instanceof Error
++          ? error.message
++          : "Échec enregistrement authority F3 fixture.",
++      proposal,
++    };
++  }
++
++  const executionContractId = `xct:f3:${proposal.proposalId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48)}`;
++  const idempotencyKey = `idem:f3-prep:${proposal.proposalId}`;
++
++  const built =
++    await input.deps.executionContractServices.buildExecutionContract.execute({
++      executionContractId,
++      projectId: input.projectId,
++      decisionRefs: [decisionId],
++      action: F3_ACTION,
++      target: F3_TARGET,
++      scope: F3_SCOPE,
++      requiredCapabilities: [F3_CAPABILITY],
++      requiredAuthority: F3_REQUIRED_AUTHORITY,
++      constraints: [...F3_CONSTRAINTS],
++      stopConditions: [...F3_STOP_CONDITIONS],
++      evidenceRequirements: [...F3_EVIDENCE_REQUIREMENTS],
++      reversibility: "reversible",
++      idempotencyKey,
++      correlationId: `cor:f3-prep:${proposal.proposalId}`,
++      actor: LOCAL_MORRIS_ACTOR,
++      authorityEvidenceId: evidenceId,
++    });
++
++  if (!built.ok) {
++    return {
++      ok: false,
++      code: built.error.detailCode,
++      message: built.error.message,
++      proposal,
++    };
++  }
++
++  const validatedContract =
++    await input.deps.executionContractServices.validateExecutionContract.execute(
++      {
++        executionContractId: built.contract.executionContractId,
++        actor: LOCAL_MORRIS_ACTOR,
++        authorityEvidenceId: evidenceId,
++      },
++    );
++
++  if (!validatedContract.ok) {
++    return {
++      ok: false,
++      code: validatedContract.error.detailCode,
++      message: validatedContract.error.message,
++      proposal,
++    };
++  }
++
++  const contract = validatedContract.contract;
++  if (
++    contract.status !== "confirmation_required" &&
++    contract.status !== "validated"
++  ) {
++    return {
++      ok: false,
++      code: "UNEXPECTED_CONTRACT_STATUS",
++      message: `Statut contrat inattendu après Validate: ${contract.status}`,
++      proposal,
++    };
++  }
++
++  return {
++    ok: true,
++    payload: {
++      turnKind: "f3_prepare",
++      mode: F3_MODE,
++      proposal,
++      decisionId,
++      contract: toContractDto(contract),
++      executionPerformed: false,
++      attemptCreated: false,
++      labels: {
++        fixtureNoReal: F3_LABELS.fixtureNoReal,
++        noGitWrite: F3_LABELS.noGitWrite,
++        recommendationNotDecision: F3_LABELS.recommendationNotDecision,
++        cursorRealBlocked: F3_LABELS.cursorRealBlocked,
++        hardOpen: F3_LABELS.hardOpen,
++      },
++      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
++      disclosures: [
++        F3_LABELS.fixtureNoReal,
++        F3_LABELS.noGitWrite,
++        F3_LABELS.cursorRealBlocked,
++        F3_LABELS.hardOpen,
++        F3_LABELS.noReadyClaim,
++        F3_LABELS.noTa6Complete,
++        F3_PROCESS_LOCAL_NOTICE,
++      ],
++    },
++  };
++}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/types.ts b/projects/sfia-studio/app/features/project-assistant/f3/types.ts
+new file mode 100644
+index 0000000..8b70b62
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/types.ts
+@@ -0,0 +1,122 @@
++/**
++ * F3 FIXTURE reinjection DTOs — product layer only.
++ * Never claim READY / T-A6 COMPLETE / REAL READY.
++ */
++
++import type { ProposalDto } from "../f2/types";
++import type { F3_MODE } from "./constants";
++
++export type F3Mode = typeof F3_MODE;
++
++export type F3ContractDto = {
++  executionContractId: string;
++  version: number;
++  status: string;
++  action: string;
++  target: string;
++  scope: string;
++  requiredAuthority: string;
++  mode: F3Mode;
++  constraints: string[];
++};
++
++export type F3AttemptDto = {
++  attemptId: string;
++  status: string;
++  selectedAgentRef: string;
++  adapterId: string;
++  externalEffects: false;
++  resultRef: string | null;
++  launchCount: number;
++  selectionStrategy: string;
++  mode: F3Mode;
++};
++
++export type F3EvidenceDto = {
++  evidenceId: string;
++  status: string;
++  sourceKind: string;
++  technicalResultRef: string | null;
++  verified: false;
++  mode: F3Mode;
++};
++
++export type F3ReviewBundleDto = {
++  reviewBundleId: string;
++  status: string;
++  version: number;
++  evidenceRefs: string[];
++  mode: F3Mode;
++};
++
++export type F3RecommendationDto = {
++  kind: "recommendation";
++  status: string;
++  executionAuthority: false;
++  gateConsumed: false;
++  decisionCreated: false;
++  attemptAutoLaunchNextCycle: false;
++  openHardReservationRefs: string[];
++  hardBlockers: string[];
++  nextGateCode: string | null;
++  nextActionCode: string | null;
++  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
++  mode: F3Mode;
++};
++
++export type F3Labels = {
++  fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE";
++  noGitWrite: "AUCUN GIT WRITE PRODUIT";
++  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
++  cursorRealBlocked: "CURSOR REAL BLOQUÉ";
++  hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN";
++};
++
++export type F3PreparePayload = {
++  turnKind: "f3_prepare";
++  mode: F3Mode;
++  proposal: ProposalDto;
++  decisionId: string;
++  contract: F3ContractDto;
++  executionPerformed: false;
++  attemptCreated: false;
++  labels: F3Labels;
++  processLocalNotice: string;
++  disclosures: string[];
++};
++
++export type F3ExecutePayload = {
++  turnKind: "f3_execute";
++  mode: F3Mode;
++  proposal: ProposalDto;
++  decisionId: string;
++  contract: F3ContractDto;
++  attempt: F3AttemptDto;
++  evidence: F3EvidenceDto;
++  reviewBundle: F3ReviewBundleDto;
++  recommendation: F3RecommendationDto;
++  reusedExistingAttempt: boolean;
++  executionPerformed: true;
++  realExecution: false;
++  gitWritePerformed: false;
++  labels: F3Labels;
++  processLocalNotice: string;
++  disclosures: string[];
++};
++
++export type F3ValidateOk = {
++  ok: true;
++  proposal: ProposalDto;
++  decisionId: string;
++  decisionStatus: "accepted";
++  scope: string;
++};
++
++export type F3ValidateFail = {
++  ok: false;
++  code: string;
++  message: string;
++  proposal?: ProposalDto | null;
++};
++
++export type F3ValidateResult = F3ValidateOk | F3ValidateFail;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts b/projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+new file mode 100644
+index 0000000..dec5f36
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts
+@@ -0,0 +1,114 @@
++/**
++ * Fail-closed F2 eligibility checks before F3 PREPARE.
++ * F2 GO remains prepare-only — this never creates an Attempt.
++ */
++
++import type { DecisionServices } from "@/lib/oa/decision";
++import type { F2ContextSnapshot } from "../f2/types";
++import {
++  contextMatches,
++  getProposal,
++  markProposalStale,
++} from "../f2/proposalStore";
++import { proposalScope } from "../f2/recordDecision";
++import type { F3ValidateResult } from "./types";
++
++export async function validateF2ForPrepare(input: {
++  proposalId: string;
++  projectId: string;
++  decisionId: string;
++  currentContext: F2ContextSnapshot;
++  decisionServices: DecisionServices;
++}): Promise<F3ValidateResult> {
++  const proposal = getProposal(input.proposalId);
++  if (!proposal) {
++    return {
++      ok: false,
++      code: "PROPOSAL_NOT_FOUND",
++      message:
++        "Proposition introuvable (process-local). Fail closed après redémarrage — aucune autorité d'exécution reconstruite.",
++    };
++  }
++
++  if (proposal.contextSnapshot.projectId !== input.projectId) {
++    return {
++      ok: false,
++      code: "PROJECT_MISMATCH",
++      message: "La proposition n'appartient pas à ce projet.",
++      proposal,
++    };
++  }
++
++  if (!contextMatches(proposal.contextSnapshot, input.currentContext)) {
++    const stale = markProposalStale(proposal.proposalId);
++    return {
++      ok: false,
++      code: "STALE",
++      message:
++        "Contexte Project/LPS modifié — proposition STALE. Aucune préparation F3.",
++      proposal: stale,
++    };
++  }
++
++  if (
++    proposal.status !== "APPROVED" &&
++    proposal.status !== "APPROVED_WITH_RESERVES"
++  ) {
++    return {
++      ok: false,
++      code: "PROPOSAL_NOT_APPROVED",
++      message: `Proposition non approuvée (statut ${proposal.status}). PREPARE refusé.`,
++      proposal,
++    };
++  }
++
++  const decisionResult = await input.decisionServices.getHumanDecision.execute({
++    decisionId: input.decisionId,
++  });
++  if (!decisionResult.ok) {
++    return {
++      ok: false,
++      code: "DECISION_NOT_FOUND",
++      message:
++        "Décision F2 introuvable (process-local). Fail closed — pas d'exécution.",
++      proposal,
++    };
++  }
++
++  const decision = decisionResult.decision;
++  if (decision.projectId !== input.projectId) {
++    return {
++      ok: false,
++      code: "DECISION_PROJECT_MISMATCH",
++      message: "La décision n'appartient pas à ce projet.",
++      proposal,
++    };
++  }
++
++  if (decision.status !== "accepted") {
++    return {
++      ok: false,
++      code: "DECISION_NOT_ACCEPTED",
++      message: `Décision non acceptée (statut ${decision.status}).`,
++      proposal,
++    };
++  }
++
++  const expectedScope = proposalScope(proposal);
++  if (decision.scope !== expectedScope) {
++    return {
++      ok: false,
++      code: "DECISION_SCOPE_MISMATCH",
++      message: "Scope décision ≠ scope proposition F2.",
++      proposal,
++    };
++  }
++
++  return {
++    ok: true,
++    proposal,
++    decisionId: input.decisionId,
++    decisionStatus: "accepted",
++    scope: expectedScope,
++  };
++}
 diff --git a/projects/sfia-studio/app/features/project-assistant/project-assistant.module.css b/projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
 index 4ebc7b9..c599fa1 100644
 --- a/projects/sfia-studio/app/features/project-assistant/project-assistant.module.css
@@ -1205,6 +3227,101 @@ index 0c67e1a..b81c989 100644
 +export type ProjectAssistantExecuteF3Result =
 +  | ProjectAssistantExecuteF3Success
 +  | ProjectAssistantExecuteF3Failure;
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+new file mode 100644
+index 0000000..9dbb389
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts
+@@ -0,0 +1,89 @@
++/**
++ * F3 fixture identity + closed registry/adapter wiring for RuntimeOaStack.
++ * Lives under vertical-slice-runtime so lib never imports @/features/*.
++ */
++
++import type { ProvenanceRecord } from "@/lib/oa/doctrine";
++import {
++  TestExecutionAdapter,
++  type AgentDescriptor,
++  type ExecutionAttemptRepositoryPort,
++} from "@/lib/oa/execution-attempt";
++import type {
++  ExecutionAttemptReaderPort,
++  ExecutionAttemptSnapshot,
++} from "@/lib/oa/evidence-review";
++
++export const F3_RUNTIME_ADAPTER_ID = "adp:f3-test-fixture" as const;
++export const F3_RUNTIME_AGENT_ID = "agt:f3-fixture" as const;
++export const F3_RUNTIME_AGENT_TYPE = "fixture_docs_writer" as const;
++export const F3_RUNTIME_ACTION = "fixture-docs-prepare" as const;
++export const F3_RUNTIME_TARGET = "sfia-studio/f3-fixture-only" as const;
++export const F3_RUNTIME_SCOPE = "f3-fixture:docs+metadata-only" as const;
++export const F3_RUNTIME_CAPABILITY = "cap:f3-fixture-docs" as const;
++
++function fixtureProvenance(nowIso: string): ProvenanceRecord {
++  return {
++    schemaVersion: "0.1.0-oa",
++    provenanceRecordId: "prv:f3-fixture-agent",
++    actor: {
++      actorId: "actor:system",
++      role: "system",
++      authorityLevel: "N1",
++    },
++    source: "system",
++    timestamp: nowIso,
++    correlationId: "cor:f3-fixture-agent",
++  };
++}
++
++export function createF3FixtureAgentDescriptor(
++  nowIso = "2026-08-11T00:00:00.000Z",
++): AgentDescriptor {
++  return Object.freeze({
++    schemaVersion: "0.1.0-oa",
++    agentId: F3_RUNTIME_AGENT_ID,
++    agentType: F3_RUNTIME_AGENT_TYPE,
++    adapterRef: F3_RUNTIME_ADAPTER_ID,
++    supportedCapabilities: [F3_RUNTIME_CAPABILITY],
++    allowedActions: [F3_RUNTIME_ACTION],
++    allowedTargets: [F3_RUNTIME_TARGET],
++    allowedScopes: [F3_RUNTIME_SCOPE],
++    trustLevel: "fixture",
++    executionMode: "adapter_sync_fixture",
++    healthStatus: "healthy",
++    version: 1,
++    enabled: true,
++    createdAt: nowIso,
++    provenance: fixtureProvenance(nowIso),
++  });
++}
++
++/** Explicit TestExecutionAdapter — never silent NoOp. */
++export function createF3TestExecutionAdapter(): TestExecutionAdapter {
++  return new TestExecutionAdapter({ adapterId: F3_RUNTIME_ADAPTER_ID });
++}
++
++export function createAttemptReaderBridge(
++  attempts: ExecutionAttemptRepositoryPort,
++): ExecutionAttemptReaderPort {
++  return {
++    async findById(
++      attemptId: string,
++    ): Promise<ExecutionAttemptSnapshot | null> {
++      const attempt = await attempts.findById(attemptId);
++      if (!attempt) return null;
++      return {
++        attemptId: attempt.attemptId,
++        executionContractId: attempt.executionContractId,
++        executionContractVersion: attempt.executionContractVersion,
++        status: attempt.status,
++        resultRef: attempt.resultRef,
++        errorRef: attempt.errorRef,
++        completedAt: attempt.completedAt,
++        failedAt: attempt.failedAt,
++        selectedAgentRef: attempt.selectedAgentRef,
++      };
++    },
++  };
++}
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 index 422315a..c2d6c3e 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
@@ -1300,1840 +3417,8 @@ index 422315a..c2d6c3e 100644
   */
  export class RuntimeApplicationService {
    private readonly facade: LocalProjectFacade;
+
 ```
-
----
-
-## §11 NEW product files — full dump (AFTER; SHA-identical to BEFORE)
-
-# Pack-ready dump of NEW (untracked) product files — Cycle 9 QA AFTER
-# Byte-identical to BEFORE / Delivery pack (individual SHA-256 below)
-
-===== BEGIN FILE: projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts =====
-/** @vitest-environment node */
-/**
- * F3 native fixture vertical slice — AC-F3-FIX-01…22 coverage (practical).
- */
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  confirmAndExecuteF3Fixture,
-  prepareF3Fixture,
-  F3_ADAPTER_ID,
-  F3_AGENT_ID,
-  F3_MODE,
-} from "@/features/project-assistant/f3";
-import { F3_SCOPE } from "@/features/project-assistant/f3/constants";
-import {
-  createProposalId,
-  F2_PROCESS_LOCAL_NOTICE,
-  getProposal,
-  resetF2ProposalStoreForTests,
-  saveProposal,
-} from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-import {
-  createRuntimeApplicationService,
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-  type RuntimeApplicationService,
-} from "@/lib/vertical-slice-runtime";
-
-const APP_ROOT = path.resolve(__dirname, "../..");
-const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS_ROOT = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-class FixedIdSource implements LocalProjectIdSource {
-  private project = 0;
-  private lps = 0;
-  private correlation = 0;
-  nextProjectId(): string {
-    this.project += 1;
-    return `prj:f3-${this.project}`;
-  }
-  nextLpsVersionId(): string {
-    this.lps += 1;
-    return `lps:f3-${this.lps}`;
-  }
-  nextCorrelationId(): string {
-    this.correlation += 1;
-    return `cor:f3-${this.correlation}`;
-  }
-}
-
-async function createRuntime(): Promise<RuntimeApplicationService> {
-  resetRuntimeApplicationServiceForTests();
-  return getRuntimeApplicationService({
-    registryRoot: REGISTRY_ROOT,
-    schemasRoot: SCHEMAS_ROOT,
-    nowIso: "2026-08-11T16:00:00.000Z",
-    idSource: new FixedIdSource(),
-    auditMode: "noop",
-  });
-}
-
-async function seedApprovedGo(runtime: RuntimeApplicationService) {
-  const created = await runtime.createProject({
-    name: "Projet F3 Fixture",
-    objective: "Vertical slice fixture",
-    context: "F3 process-local",
-    criticality: "STANDARD",
-    constraints: ["FIXTURE ONLY"],
-    shortReference: "F3F",
-    idempotencyKey: `f3-${Date.now()}-${Math.random()}`,
-  });
-  expect(created.ok).toBe(true);
-  if (!created.ok) throw new Error("create failed");
-  const projectId = created.project.projectId;
-  const overview = await runtime.getProject(projectId);
-  expect(overview.ok).toBe(true);
-  if (!overview.ok) throw new Error("overview failed");
-
-  const proposal = saveProposal({
-    proposalId: createProposalId(),
-    status: "DECISION_REQUIRED",
-    rephrasedRequest: "Préparer fixture F3",
-    objective: "Wire T-A4/5/6 fixture",
-    cycleTypeId: "cyc:delivery",
-    recommendedProfile: "Standard",
-    rationale: "F3 fixture slice",
-    scope: "fixture-docs",
-    outOfScope: ["REAL", "git write"],
-    activatedBlocks: ["prepare"],
-    expectedOutcome: "fixture attempt + evidence",
-    sources: [],
-    risks: [],
-    reservations: [],
-    stopConditions: ["AUCUNE EXÉCUTION RÉELLE"],
-    morrisGateRequired: true,
-    nextPossibleStep: "F3 PREPARE",
-    contextSnapshot: {
-      projectId,
-      lpsId: overview.livingState.id,
-      lpsVersion: overview.livingState.version,
-      doctrineDigest: overview.doctrine.digest,
-    },
-    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    executionForbidden: true,
-    noExecutingStatus: true,
-    agentBinding: "NOT_AVAILABLE",
-  });
-
-  const go = await recordF2Decision({
-    proposalId: proposal.proposalId,
-    projectId,
-    decisionKind: "GO",
-    currentContext: proposal.contextSnapshot,
-    decisionServices: runtime.oa!.decisionServices,
-    authorityResolver: runtime.oa!.authorityResolver,
-    nowIso: () => runtime.oa!.clock.nowIso(),
-  });
-  expect(go.ok).toBe(true);
-  if (!go.ok) throw new Error("GO failed");
-  return { projectId, proposal: go.proposal, decision: go.decision, runtime, overview };
-}
-
-describe("F3 native fixture vertical slice", () => {
-  beforeEach(() => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    resetF2ProposalStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-  });
-
-  afterEach(() => {
-    resetF2ProposalStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-  });
-
-  it("AC-F3-FIX-01/02 F2 GO remains prepare-only — no Attempt after GO alone", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    expect(seeded.decision.executionPerformed).toBe(false);
-    expect(seeded.decision.readyForNextGatedStep).toBe(true);
-
-    const listed =
-      await runtime.oa!.executionAttemptServices.listExecutionAttempts.execute({
-        executionContractId: "xct:f3:none",
-      });
-    // No contracts yet; stack has fixture adapter with 0 launches
-    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
-    expect(runtime.oa!.fixtureAdapter.externalEffects).toBe(false);
-    expect(runtime.oa!.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
-    void listed;
-  });
-
-  it("AC-F3-FIX-03/04 PREPARE builds+validates contract without Select/Start", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    const prepared = await prepareF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    expect(prepared.payload.mode).toBe(F3_MODE);
-    expect(prepared.payload.attemptCreated).toBe(false);
-    expect(prepared.payload.executionPerformed).toBe(false);
-    expect(prepared.payload.contract.status).toBe("confirmation_required");
-    expect(prepared.payload.contract.scope).toBe(F3_SCOPE);
-    expect(prepared.payload.contract.constraints).toContain("FIXTURE ONLY");
-    expect(prepared.payload.contract.constraints).toContain("NO REAL");
-    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
-
-    const attempts =
-      await runtime.oa!.executionAttemptServices.listExecutionAttempts.execute({
-        executionContractId: prepared.payload.contract.executionContractId,
-      });
-    expect(attempts.ok).toBe(true);
-    if (attempts.ok) expect(attempts.attempts).toHaveLength(0);
-  });
-
-  it("AC-F3-FIX-05 hostile REAL/adapter/agent fields do not change FIXTURE path", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    const prepared = await prepareF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      currentContext: seeded.proposal.contextSnapshot,
-      mode: "REAL",
-      adapterRef: "adp:cursor-real",
-      agentId: "agt:cursor",
-      command: "rm -rf /",
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    expect(prepared.payload.mode).toBe("FIXTURE");
-    expect(prepared.payload.labels.cursorRealBlocked).toBe("CURSOR REAL BLOQUÉ");
-  });
-
-  it("AC-F3-FIX-06/07 refuse prepare without approved proposal / missing decision", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    const bad = await prepareF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: "prop:f2:missing",
-      decisionId: seeded.decision.decisionId,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(bad.ok).toBe(false);
-    if (bad.ok) return;
-    expect(bad.code).toBe("PROPOSAL_NOT_FOUND");
-  });
-
-  it("AC-F3-FIX-08..16 confirm+execute fixture chain + reinjection flags", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    const prepared = await prepareF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-
-    const executed = await confirmAndExecuteF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      executionContractId: prepared.payload.contract.executionContractId,
-      expectedContractVersion: prepared.payload.contract.version,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        executionAttemptServices: runtime.oa!.executionAttemptServices,
-        evidenceReviewServices: runtime.oa!.evidenceReviewServices,
-        fixtureAdapter: runtime.oa!.fixtureAdapter,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-
-    expect(executed.payload.mode).toBe("FIXTURE");
-    expect(executed.payload.realExecution).toBe(false);
-    expect(executed.payload.gitWritePerformed).toBe(false);
-    expect(executed.payload.attempt.adapterId).toBe(F3_ADAPTER_ID);
-    expect(executed.payload.attempt.selectedAgentRef).toBe(F3_AGENT_ID);
-    expect(executed.payload.attempt.externalEffects).toBe(false);
-    expect(executed.payload.attempt.status).toBe("succeeded");
-    expect(executed.payload.attempt.launchCount).toBe(1);
-    expect(executed.payload.attempt.selectionStrategy).toBe(
-      "capabilities_deterministic",
-    );
-    expect(executed.payload.evidence.verified).toBe(false);
-    expect(executed.payload.evidence.status).toBe("available");
-    expect(executed.payload.recommendation.executionAuthority).toBe(false);
-    expect(executed.payload.recommendation.gateConsumed).toBe(false);
-    expect(executed.payload.recommendation.decisionCreated).toBe(false);
-    expect(executed.payload.recommendation.attemptAutoLaunchNextCycle).toBe(
-      false,
-    );
-    expect(executed.payload.recommendation.openHardReservationRefs).toEqual(
-      expect.arrayContaining(["R-T-A3-1", "R-T-A3-2", "R-M01"]),
-    );
-    expect(executed.payload.labels.fixtureNoReal).toContain("FIXTURE");
-    expect(executed.payload.disclosures).toContain("T-A6 COMPLETE NON DÉCLARÉ");
-    expect(executed.payload.disclosures).toContain("PAS DE CLAIM READY");
-    expect(JSON.stringify(executed.payload)).not.toMatch(/REAL READY/);
-    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(1);
-  });
-
-  it("AC-F3-FIX-17/18 double invoke does not second-launch", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    const prepared = await prepareF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-
-    const deps = {
-      decisionServices: runtime.oa!.decisionServices,
-      authorityResolver: runtime.oa!.authorityResolver,
-      executionContractServices: runtime.oa!.executionContractServices,
-      executionAttemptServices: runtime.oa!.executionAttemptServices,
-      evidenceReviewServices: runtime.oa!.evidenceReviewServices,
-      fixtureAdapter: runtime.oa!.fixtureAdapter,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-    };
-
-    const first = await confirmAndExecuteF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      executionContractId: prepared.payload.contract.executionContractId,
-      expectedContractVersion: prepared.payload.contract.version,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps,
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) return;
-    expect(first.payload.attempt.launchCount).toBe(1);
-    expect(first.payload.reusedExistingAttempt).toBe(false);
-
-    const second = await confirmAndExecuteF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      executionContractId: prepared.payload.contract.executionContractId,
-      expectedContractVersion: prepared.payload.contract.version,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps,
-    });
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.payload.reusedExistingAttempt).toBe(true);
-    expect(second.payload.attempt.launchCount).toBe(1);
-    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(1);
-  });
-
-  it("AC-F3-FIX-19 contract version mismatch fail-closed", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    const prepared = await prepareF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-
-    const bad = await confirmAndExecuteF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      executionContractId: prepared.payload.contract.executionContractId,
-      expectedContractVersion: prepared.payload.contract.version + 99,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        executionAttemptServices: runtime.oa!.executionAttemptServices,
-        evidenceReviewServices: runtime.oa!.evidenceReviewServices,
-        fixtureAdapter: runtime.oa!.fixtureAdapter,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(bad.ok).toBe(false);
-    if (bad.ok) return;
-    expect(bad.code).toBe("CONTRACT_VERSION_MISMATCH");
-    expect(runtime.oa!.fixtureAdapter.launchCallCount).toBe(0);
-  });
-
-  it("AC-F3-FIX-20/21 process-local fail closed after proposal store reset", async () => {
-    const runtime = await createRuntime();
-    const seeded = await seedApprovedGo(runtime);
-    resetF2ProposalStoreForTests();
-    expect(getProposal(seeded.proposal.proposalId)).toBeNull();
-    const prepared = await prepareF3Fixture({
-      projectId: seeded.projectId,
-      proposalId: seeded.proposal.proposalId,
-      decisionId: seeded.decision.decisionId,
-      currentContext: seeded.proposal.contextSnapshot,
-      deps: {
-        decisionServices: runtime.oa!.decisionServices,
-        authorityResolver: runtime.oa!.authorityResolver,
-        executionContractServices: runtime.oa!.executionContractServices,
-        nowIso: () => runtime.oa!.clock.nowIso(),
-      },
-    });
-    expect(prepared.ok).toBe(false);
-    if (prepared.ok) return;
-    expect(prepared.code).toBe("PROPOSAL_NOT_FOUND");
-  });
-
-  it("AC-F3-FIX-22 runtime wires explicit TestExecutionAdapter (not NoOp)", async () => {
-    const runtime = createRuntimeApplicationService({
-      registryRoot: REGISTRY_ROOT,
-      schemasRoot: SCHEMAS_ROOT,
-      nowIso: "2026-08-11T16:00:00.000Z",
-      idSource: new FixedIdSource(),
-      auditMode: "noop",
-    });
-    expect(runtime.oa).toBeTruthy();
-    expect(runtime.oa!.fixtureAdapter.adapterId).toBe(F3_ADAPTER_ID);
-    expect(runtime.oa!.fixtureAdapter.externalEffects).toBe(false);
-    expect(runtime.oa!.executionAttemptServices.adapter.adapterId).toBe(
-      F3_ADAPTER_ID,
-    );
-    const candidates = runtime.oa!.executionAttemptServices.registry.findCandidates({
-      requiredCapabilities: ["cap:f3-fixture-docs"],
-      action: "fixture-docs-prepare",
-      target: "sfia-studio/f3-fixture-only",
-      scope: F3_SCOPE,
-    });
-    expect(candidates.some((a) => a.agentId === F3_AGENT_ID)).toBe(true);
-  });
-});
-===== END FILE: projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts =====
-/**
- * READ-ONLY ExecutionAttemptReaderPort over T-A5 repository.
- * Prefer product bridge over FakeExecutionAttemptReader seed drift.
- */
-
-import type { ExecutionAttemptRepositoryPort } from "@/lib/oa/execution-attempt";
-import type {
-  ExecutionAttemptReaderPort,
-  ExecutionAttemptSnapshot,
-} from "@/lib/oa/evidence-review";
-
-export function createAttemptReaderBridge(
-  attempts: ExecutionAttemptRepositoryPort,
-): ExecutionAttemptReaderPort {
-  return {
-    async findById(
-      attemptId: string,
-    ): Promise<ExecutionAttemptSnapshot | null> {
-      const attempt = await attempts.findById(attemptId);
-      if (!attempt) return null;
-      return {
-        attemptId: attempt.attemptId,
-        executionContractId: attempt.executionContractId,
-        executionContractVersion: attempt.executionContractVersion,
-        status: attempt.status,
-        resultRef: attempt.resultRef,
-        errorRef: attempt.errorRef,
-        completedAt: attempt.completedAt,
-        failedAt: attempt.failedAt,
-        selectedAgentRef: attempt.selectedAgentRef,
-      };
-    },
-  };
-}
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/attemptReaderBridge.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts =====
-/**
- * Confirm + fixture execute path:
- * Request/Grant Confirmation (scope=contract.scope) → ConfirmExecutionContract
- * → SelectExecutionAgent (capabilities_deterministic) → StartExecution
- * → RecordExecutionResult (metadata-only resultRef).
- *
- * Idempotent: if an attempt already succeeded for the contract, reinject
- * without a second adapter launch.
- */
-
-import type {
-  DecisionServices,
-  MemoryAuthorityResolver,
-} from "@/lib/oa/decision";
-import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
-import type {
-  ExecutionAttemptServices,
-  TestExecutionAdapter,
-} from "@/lib/oa/execution-attempt";
-import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
-import type { F2ContextSnapshot } from "../f2/types";
-import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
-import {
-  F3_ADAPTER_ID,
-  F3_AGENT_ID,
-  F3_AUTHORITY_SOURCE,
-  F3_CONFIRM_ACTION_REF,
-  F3_LABELS,
-  F3_MODE,
-  F3_PROCESS_LOCAL_NOTICE,
-  F3_REQUIRED_AUTHORITY,
-  F3_SCOPE,
-} from "./constants";
-import { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
-import type { F3ExecutePayload } from "./types";
-import { validateF2ForPrepare } from "./validateF2ForPrepare";
-
-export type ConfirmExecuteF3Deps = {
-  decisionServices: DecisionServices;
-  authorityResolver: MemoryAuthorityResolver;
-  executionContractServices: ExecutionContractServices;
-  executionAttemptServices: ExecutionAttemptServices;
-  evidenceReviewServices: EvidenceReviewServices;
-  fixtureAdapter: TestExecutionAdapter;
-  nowIso: () => string;
-};
-
-function authorityEvidenceIdForProposal(proposalId: string): string {
-  return `evd:f3-fixture:${proposalId}`;
-}
-
-function ensureFixtureAuthority(
-  authority: MemoryAuthorityResolver,
-  proposalId: string,
-  nowIso: string,
-): { ok: true; evidenceId: string } | { ok: false; code: string; message: string } {
-  const evidenceId = authorityEvidenceIdForProposal(proposalId);
-  if (authority.getEvidence(evidenceId)) {
-    return { ok: true, evidenceId };
-  }
-  try {
-    authority.register({
-      evidenceId,
-      actorId: LOCAL_MORRIS_ACTOR.actorId,
-      level: F3_REQUIRED_AUTHORITY,
-      scope: F3_SCOPE,
-      issuedAt: nowIso,
-      source: F3_AUTHORITY_SOURCE,
-      canActAsMorris: false,
-    });
-    return { ok: true, evidenceId };
-  } catch (error) {
-    return {
-      ok: false,
-      code: "AUTHORITY_REGISTER_FAILED",
-      message:
-        error instanceof Error
-          ? error.message
-          : "Échec enregistrement authority F3 fixture.",
-    };
-  }
-}
-
-async function buildExecutePayload(input: {
-  proposal: F3ExecutePayload["proposal"];
-  decisionId: string;
-  contract: {
-    executionContractId: string;
-    version: number;
-    status: string;
-    action: string;
-    target: string;
-    scope: string;
-    requiredAuthority: string;
-    constraints: readonly string[];
-  };
-  attempt: {
-    attemptId: string;
-    status: string;
-    selectedAgentRef: string;
-    resultRef?: string;
-    selectionStrategy?: string;
-  };
-  launchCount: number;
-  reusedExistingAttempt: boolean;
-  projectId: string;
-  deps: ConfirmExecuteF3Deps;
-}): Promise<
-  | { ok: true; payload: F3ExecutePayload }
-  | { ok: false; code: string; message: string }
-> {
-  const ingested = await ingestEvidenceAndRecommend({
-    projectId: input.projectId,
-    attemptId: input.attempt.attemptId,
-    executionContractId: input.contract.executionContractId,
-    deps: { evidenceReviewServices: input.deps.evidenceReviewServices },
-  });
-  if (!ingested.ok) {
-    return ingested;
-  }
-
-  return {
-    ok: true,
-    payload: {
-      turnKind: "f3_execute",
-      mode: F3_MODE,
-      proposal: input.proposal,
-      decisionId: input.decisionId,
-      contract: {
-        executionContractId: input.contract.executionContractId,
-        version: input.contract.version,
-        status: input.contract.status,
-        action: input.contract.action,
-        target: input.contract.target,
-        scope: input.contract.scope,
-        requiredAuthority: input.contract.requiredAuthority,
-        mode: F3_MODE,
-        constraints: [...input.contract.constraints],
-      },
-      attempt: {
-        attemptId: input.attempt.attemptId,
-        status: input.attempt.status,
-        selectedAgentRef: input.attempt.selectedAgentRef,
-        adapterId: F3_ADAPTER_ID,
-        externalEffects: false,
-        resultRef: input.attempt.resultRef ?? null,
-        launchCount: input.launchCount,
-        selectionStrategy:
-          input.attempt.selectionStrategy ?? "capabilities_deterministic",
-        mode: F3_MODE,
-      },
-      evidence: ingested.evidence,
-      reviewBundle: ingested.reviewBundle,
-      recommendation: ingested.recommendation,
-      reusedExistingAttempt: input.reusedExistingAttempt,
-      executionPerformed: true,
-      realExecution: false,
-      gitWritePerformed: false,
-      labels: {
-        fixtureNoReal: F3_LABELS.fixtureNoReal,
-        noGitWrite: F3_LABELS.noGitWrite,
-        recommendationNotDecision: F3_LABELS.recommendationNotDecision,
-        cursorRealBlocked: F3_LABELS.cursorRealBlocked,
-        hardOpen: F3_LABELS.hardOpen,
-      },
-      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
-      disclosures: [
-        F3_LABELS.fixtureNoReal,
-        F3_LABELS.noGitWrite,
-        F3_LABELS.recommendationNotDecision,
-        F3_LABELS.cursorRealBlocked,
-        F3_LABELS.hardOpen,
-        F3_LABELS.noReadyClaim,
-        F3_LABELS.noTa6Complete,
-        F3_PROCESS_LOCAL_NOTICE,
-      ],
-    },
-  };
-}
-
-export async function confirmAndExecuteF3Fixture(input: {
-  projectId: string;
-  proposalId: string;
-  decisionId: string;
-  executionContractId: string;
-  expectedContractVersion: number;
-  currentContext: F2ContextSnapshot;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  real?: unknown;
-  deps: ConfirmExecuteF3Deps;
-}): Promise<
-  | { ok: true; payload: F3ExecutePayload }
-  | { ok: false; code: string; message: string; proposal?: unknown }
-> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-  void input.real;
-
-  if (input.deps.fixtureAdapter.adapterId !== F3_ADAPTER_ID) {
-    return {
-      ok: false,
-      code: "ADAPTER_IDENTITY_MISMATCH",
-      message: "Adapter F3 identity mismatch — REAL/NoOp interdit.",
-    };
-  }
-  if (input.deps.fixtureAdapter.externalEffects !== false) {
-    return {
-      ok: false,
-      code: "EXTERNAL_EFFECTS_FORBIDDEN",
-      message: "externalEffects doit rester false (FIXTURE only).",
-    };
-  }
-
-  const validated = await validateF2ForPrepare({
-    proposalId: input.proposalId,
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    currentContext: input.currentContext,
-    decisionServices: input.deps.decisionServices,
-  });
-  if (!validated.ok) {
-    return {
-      ok: false,
-      code: validated.code,
-      message: validated.message,
-      proposal: validated.proposal ?? null,
-    };
-  }
-
-  const { proposal, decisionId } = validated;
-  const auth = ensureFixtureAuthority(
-    input.deps.authorityResolver,
-    proposal.proposalId,
-    input.deps.nowIso(),
-  );
-  if (!auth.ok) return { ...auth, proposal };
-
-  const contractResult =
-    await input.deps.executionContractServices.getExecutionContract.execute({
-      executionContractId: input.executionContractId,
-    });
-  if (!contractResult.ok) {
-    return {
-      ok: false,
-      code: contractResult.error.detailCode,
-      message: contractResult.error.message,
-      proposal,
-    };
-  }
-
-  let contract = contractResult.contract;
-  if (contract.projectId !== input.projectId) {
-    return {
-      ok: false,
-      code: "CONTRACT_PROJECT_MISMATCH",
-      message: "Le contrat n'appartient pas à ce projet.",
-      proposal,
-    };
-  }
-  if (contract.scope !== F3_SCOPE) {
-    return {
-      ok: false,
-      code: "CONTRACT_SCOPE_MISMATCH",
-      message: "Scope contrat ≠ F3 FIXTURE scope.",
-      proposal,
-    };
-  }
-
-  // Double-invoke protection BEFORE version OCC: if attempt already succeeded,
-  // reinject without re-launch even if contract version advanced post-exec.
-  const listed =
-    await input.deps.executionAttemptServices.listExecutionAttempts.execute({
-      executionContractId: contract.executionContractId,
-    });
-  if (listed.ok) {
-    const succeeded = listed.attempts.find((a) => a.status === "succeeded");
-    if (succeeded) {
-      const launchCount = input.deps.fixtureAdapter.launchCallCount;
-      return buildExecutePayload({
-        proposal,
-        decisionId,
-        contract,
-        attempt: succeeded,
-        launchCount,
-        reusedExistingAttempt: true,
-        projectId: input.projectId,
-        deps: input.deps,
-      });
-    }
-  }
-
-  if (contract.version !== input.expectedContractVersion) {
-    return {
-      ok: false,
-      code: "CONTRACT_VERSION_MISMATCH",
-      message: `Version contrat attendue ${input.expectedContractVersion}, actuelle ${contract.version}.`,
-      proposal,
-    };
-  }
-
-  if (
-    contract.status === "confirmation_required" ||
-    contract.status === "validated"
-  ) {
-    const confirmationId = `cfm:f3:${contract.executionContractId}:${contract.version}`;
-    const requested =
-      await input.deps.decisionServices.requestConfirmation.execute({
-        confirmationId,
-        level: F3_REQUIRED_AUTHORITY,
-        actionRef: F3_CONFIRM_ACTION_REF,
-        requestedBy: LOCAL_MORRIS_ACTOR,
-        requestedTo: LOCAL_MORRIS_ACTOR,
-        scope: contract.scope,
-        idempotencyKey: `idem:f3-cfm:${contract.executionContractId}:v${contract.version}`,
-        decisionRef: decisionId,
-      });
-    if (!requested.ok) {
-      return {
-        ok: false,
-        code: requested.error.detailCode,
-        message: requested.error.message,
-        proposal,
-      };
-    }
-
-    const granted = await input.deps.decisionServices.grantConfirmation.execute({
-      confirmationId,
-      actor: LOCAL_MORRIS_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-    if (!granted.ok) {
-      return {
-        ok: false,
-        code: granted.error.detailCode,
-        message: granted.error.message,
-        proposal,
-      };
-    }
-
-    const confirmed =
-      await input.deps.executionContractServices.confirmExecutionContract.execute(
-        {
-          executionContractId: contract.executionContractId,
-          confirmationId,
-          actor: LOCAL_MORRIS_ACTOR,
-          authorityEvidenceId: auth.evidenceId,
-          expectedVersion: contract.version,
-        },
-      );
-    if (!confirmed.ok) {
-      return {
-        ok: false,
-        code: confirmed.error.detailCode,
-        message: confirmed.error.message,
-        proposal,
-      };
-    }
-    contract = confirmed.contract;
-  } else if (contract.status !== "confirmed" && contract.status !== "executing" && contract.status !== "completed") {
-    return {
-      ok: false,
-      code: "CONTRACT_NOT_CONFIRMABLE",
-      message: `Contrat non confirmable (statut ${contract.status}).`,
-      proposal,
-    };
-  }
-
-  const attemptId = `xat:f3:${contract.executionContractId.replace(/^xct:/, "")}`;
-
-  const selected =
-    await input.deps.executionAttemptServices.selectExecutionAgent.execute({
-      attemptId,
-      executionContractId: contract.executionContractId,
-      idempotencyKey: `idem:f3-att:${contract.executionContractId}`,
-      actor: LOCAL_MORRIS_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-      expectedContractVersion: contract.version,
-      selectionProfile: "standard",
-      selectionStrategy: "capabilities_deterministic",
-      requestedAgentRef: F3_AGENT_ID,
-      systemInitiated: true,
-    });
-  if (!selected.ok) {
-    return {
-      ok: false,
-      code: selected.error.detailCode,
-      message: selected.error.message,
-      proposal,
-    };
-  }
-
-  const started =
-    await input.deps.executionAttemptServices.startExecution.execute({
-      attemptId,
-      actor: LOCAL_MORRIS_ACTOR,
-      authorityEvidenceId: auth.evidenceId,
-    });
-  if (!started.ok) {
-    return {
-      ok: false,
-      code: started.error.detailCode,
-      message: started.error.message,
-      proposal,
-    };
-  }
-
-  const resultRef = `res:f3-fixture:${attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`;
-  const recorded =
-    await input.deps.executionAttemptServices.recordExecutionResult.execute({
-      attemptId,
-      adapterId: F3_ADAPTER_ID,
-      resultRef,
-      technicalExitCode: 0,
-    });
-  if (!recorded.ok) {
-    return {
-      ok: false,
-      code: recorded.error.detailCode,
-      message: recorded.error.message,
-      proposal,
-    };
-  }
-
-  const launchCount = input.deps.fixtureAdapter.launchCallCount;
-
-  const refreshed =
-    await input.deps.executionContractServices.getExecutionContract.execute({
-      executionContractId: contract.executionContractId,
-    });
-  if (refreshed.ok) contract = refreshed.contract;
-
-  return buildExecutePayload({
-    proposal,
-    decisionId,
-    contract,
-    attempt: recorded.attempt,
-    launchCount,
-    reusedExistingAttempt: false,
-    projectId: input.projectId,
-    deps: input.deps,
-  });
-}
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/constants.ts =====
-/**
- * F3 native fixture vertical slice — server-fixed constants.
- * Client cannot inject REAL / adapterRef / agent / command.
- */
-
-export const F3_MODE = "FIXTURE" as const;
-
-export const F3_ADAPTER_ID = "adp:f3-test-fixture" as const;
-export const F3_AGENT_ID = "agt:f3-fixture" as const;
-export const F3_AGENT_TYPE = "fixture_docs_writer" as const;
-
-export const F3_ACTION = "fixture-docs-prepare" as const;
-export const F3_TARGET = "sfia-studio/f3-fixture-only" as const;
-export const F3_SCOPE = "f3-fixture:docs+metadata-only" as const;
-export const F3_CAPABILITY = "cap:f3-fixture-docs" as const;
-
-export const F3_REQUIRED_AUTHORITY = "N2" as const;
-
-export const F3_CONSTRAINTS = Object.freeze([
-  "FIXTURE ONLY",
-  "TEST ADAPTER ONLY",
-  "NO REAL",
-  "NO SHELL",
-  "NO NETWORK EXECUTION",
-  "NO GIT WRITE",
-  "NO GITHUB WRITE",
-  "NO AUTO RETRY",
-  "PROCESS LOCAL",
-] as const);
-
-export const F3_STOP_CONDITIONS = Object.freeze([
-  "AUTHORITY_DENIED",
-  "STALE_CONTEXT",
-  "REAL_MODE_REQUESTED",
-  "ADAPTER_IDENTITY_MISMATCH",
-] as const);
-
-export const F3_EVIDENCE_REQUIREMENTS = Object.freeze([
-  "evreq:f3-fixture-metadata",
-] as const);
-
-export const F3_CONFIRM_ACTION_REF = "act:confirm-f3-fixture" as const;
-
-export const F3_OPEN_HARD_RESERVATION_REFS = Object.freeze([
-  "R-T-A3-1",
-  "R-T-A3-2",
-  "R-M01",
-] as const);
-
-export const F3_PROCESS_LOCAL_NOTICE =
-  "F3 fixture process-local — non persisté. Un redémarrage efface contrats, attempts et evidence. Aucune autorité d'exécution durable.";
-
-export const F3_LABELS = Object.freeze({
-  fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
-  noGitWrite: "AUCUN GIT WRITE PRODUIT",
-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
-  cursorRealBlocked: "CURSOR REAL BLOQUÉ",
-  noReadyClaim: "PAS DE CLAIM READY",
-  noTa6Complete: "T-A6 COMPLETE NON DÉCLARÉ",
-  hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN",
-} as const);
-
-export const F3_AUTHORITY_SOURCE =
-  "LOCAL_PROCESS_F3_FIXTURE_AUTHORITY" as const;
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/constants.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts =====
-/**
- * Closed fixture AgentDescriptor + explicit TestExecutionAdapter factory.
- * Never silent NoOp. externalEffects=false. adapterRef === adapterId.
- */
-
-import {
-  TestExecutionAdapter,
-  type AgentDescriptor,
-} from "@/lib/oa/execution-attempt";
-import type { ProvenanceRecord } from "@/lib/oa/doctrine";
-import {
-  F3_ACTION,
-  F3_ADAPTER_ID,
-  F3_AGENT_ID,
-  F3_AGENT_TYPE,
-  F3_CAPABILITY,
-  F3_SCOPE,
-  F3_TARGET,
-} from "./constants";
-
-function fixtureProvenance(nowIso: string): ProvenanceRecord {
-  return {
-    schemaVersion: "0.1.0-oa",
-    provenanceRecordId: "prv:f3-fixture-agent",
-    actor: {
-      actorId: "actor:system",
-      role: "system",
-      authorityLevel: "N1",
-    },
-    source: "system",
-    timestamp: nowIso,
-    correlationId: "cor:f3-fixture-agent",
-  };
-}
-
-export function createF3FixtureAgentDescriptor(
-  nowIso = "2026-08-11T00:00:00.000Z",
-): AgentDescriptor {
-  return Object.freeze({
-    schemaVersion: "0.1.0-oa",
-    agentId: F3_AGENT_ID,
-    agentType: F3_AGENT_TYPE,
-    adapterRef: F3_ADAPTER_ID,
-    supportedCapabilities: [F3_CAPABILITY],
-    allowedActions: [F3_ACTION],
-    allowedTargets: [F3_TARGET],
-    allowedScopes: [F3_SCOPE],
-    trustLevel: "fixture",
-    executionMode: "adapter_sync_fixture",
-    healthStatus: "healthy",
-    version: 1,
-    enabled: true,
-    createdAt: nowIso,
-    provenance: fixtureProvenance(nowIso),
-  });
-}
-
-/**
- * Explicit TestExecutionAdapter only — callers must inject this into
- * createInMemoryExecutionAttemptServices (never rely on NoOp default).
- */
-export function createF3TestExecutionAdapter(): TestExecutionAdapter {
-  return new TestExecutionAdapter({ adapterId: F3_ADAPTER_ID });
-}
-
-export function assertF3AdapterIdentity(adapter: TestExecutionAdapter): void {
-  if (adapter.adapterId !== F3_ADAPTER_ID) {
-    throw new Error("f3_adapter_identity_mismatch");
-  }
-  if (adapter.externalEffects !== false) {
-    throw new Error("f3_adapter_external_effects_must_be_false");
-  }
-}
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/index.ts =====
-export { F3_MODE, F3_ADAPTER_ID, F3_AGENT_ID, F3_LABELS } from "./constants";
-export type {
-  F3PreparePayload,
-  F3ExecutePayload,
-  F3ContractDto,
-  F3AttemptDto,
-  F3EvidenceDto,
-  F3ReviewBundleDto,
-  F3RecommendationDto,
-} from "./types";
-export { validateF2ForPrepare } from "./validateF2ForPrepare";
-export { prepareF3Fixture } from "./prepareF3Fixture";
-export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
-export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
-export {
-  createF3FixtureAgentDescriptor,
-  createF3TestExecutionAdapter,
-} from "./fixtureAgent";
-export { createAttemptReaderBridge } from "./attemptReaderBridge";
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/index.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts =====
-/**
- * IngestExecutionAttemptEvidence → CreateReviewBundle → RecommendNextGate.
- * Recommendation-only; HARD refs passed through; no auto-launch.
- */
-
-import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
-import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
-import {
-  F3_LABELS,
-  F3_MODE,
-  F3_OPEN_HARD_RESERVATION_REFS,
-} from "./constants";
-import type {
-  F3EvidenceDto,
-  F3RecommendationDto,
-  F3ReviewBundleDto,
-} from "./types";
-
-export type IngestRecommendDeps = {
-  evidenceReviewServices: EvidenceReviewServices;
-};
-
-export type IngestRecommendResult =
-  | {
-      ok: true;
-      evidence: F3EvidenceDto;
-      reviewBundle: F3ReviewBundleDto;
-      recommendation: F3RecommendationDto;
-    }
-  | { ok: false; code: string; message: string };
-
-export async function ingestEvidenceAndRecommend(input: {
-  projectId: string;
-  attemptId: string;
-  executionContractId: string;
-  deps: IngestRecommendDeps;
-}): Promise<IngestRecommendResult> {
-  const evidenceId = `ev:f3-fixture:${input.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`;
-  const ingested =
-    await input.deps.evidenceReviewServices.ingestExecutionAttemptEvidence.execute(
-      {
-        evidenceId,
-        executionAttemptId: input.attemptId,
-        idempotencyKey: `idem:f3-ev:${input.attemptId}`,
-        actor: LOCAL_MORRIS_ACTOR,
-        classification: "internal",
-        storageMode: "metadata_only",
-        bindings: {
-          projectId: input.projectId,
-          executionContractId: input.executionContractId,
-        },
-      },
-    );
-
-  if (!ingested.ok) {
-    return {
-      ok: false,
-      code: ingested.error.detailCode,
-      message: ingested.error.message,
-    };
-  }
-
-  const reviewBundleId = `rb:f3-fixture:${input.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`;
-  const bundle =
-    await input.deps.evidenceReviewServices.createReviewBundle.execute({
-      reviewBundleId,
-      idempotencyKey: `idem:f3-rb:${input.attemptId}`,
-      actor: LOCAL_MORRIS_ACTOR,
-      projectId: input.projectId,
-      executionContractId: input.executionContractId,
-      evidenceIds: [ingested.evidence.evidenceId],
-      reservations: [
-        ...F3_OPEN_HARD_RESERVATION_REFS,
-        "HARD remain OPEN — BLOCKS REAL",
-        "T-A6 COMPLETE NOT DECLARED",
-        "NO READY CLAIM",
-      ],
-    });
-
-  if (!bundle.ok) {
-    return {
-      ok: false,
-      code: bundle.error.detailCode,
-      message: bundle.error.message,
-    };
-  }
-
-  const recommended =
-    await input.deps.evidenceReviewServices.recommendNextGate.execute({
-      projectId: input.projectId,
-      subjectRef: input.executionContractId,
-      evidenceRefs: [
-        {
-          id: ingested.evidence.evidenceId,
-          version: ingested.evidence.version,
-        },
-      ],
-      reviewBundleRefs: [
-        {
-          id: bundle.reviewBundle.reviewBundleId,
-          version: bundle.reviewBundle.version,
-        },
-      ],
-      openHardReservationRefs: [...F3_OPEN_HARD_RESERVATION_REFS],
-      attemptAutoLaunchNextCycle: false,
-      actor: LOCAL_MORRIS_ACTOR,
-      correlationId: `cor:f3-reco:${input.attemptId}`,
-    });
-
-  if (!recommended.ok) {
-    return {
-      ok: false,
-      code: recommended.error.detailCode,
-      message: recommended.error.message,
-    };
-  }
-
-  const coordination = recommended.coordination;
-  /**
-   * T-A6 RecommendNextGate only materializes openHardReservationRefs as
-   * hard_reservation_open blockers when a MaturityAssessment is bound.
-   * Creating maturity requires claim/freeze chain beyond this fixture slice
-   * without foundation changes — so HARD visibility is guaranteed on the
-   * product DTO (openHardReservationRefs + hardBlockers) even when
-   * coordination.blockers omit them.
-   */
-  const openHard = [...F3_OPEN_HARD_RESERVATION_REFS];
-  const hardBlockers = [
-    ...coordination.blockers
-      .filter((b) => b.code === "hard_reservation_open")
-      .map((b) => b.sourceId ?? b.code),
-    ...openHard.map((ref) => `${ref} OPEN`),
-  ];
-
-  return {
-    ok: true,
-    evidence: {
-      evidenceId: ingested.evidence.evidenceId,
-      status: ingested.evidence.status,
-      sourceKind: ingested.evidence.sourceKind,
-      technicalResultRef: ingested.evidence.technicalResultRef ?? null,
-      verified: false,
-      mode: F3_MODE,
-    },
-    reviewBundle: {
-      reviewBundleId: bundle.reviewBundle.reviewBundleId,
-      status: bundle.reviewBundle.status,
-      version: bundle.reviewBundle.version,
-      evidenceRefs: [...bundle.reviewBundle.evidenceRefs],
-      mode: F3_MODE,
-    },
-    recommendation: {
-      kind: "recommendation",
-      status: coordination.status,
-      executionAuthority: false,
-      gateConsumed: false,
-      decisionCreated: false,
-      attemptAutoLaunchNextCycle: false,
-      openHardReservationRefs: openHard,
-      hardBlockers: [...new Set(hardBlockers)],
-      nextGateCode: coordination.nextGate?.gateCode ?? null,
-      nextActionCode: coordination.nextAction?.actionCode ?? null,
-      recommendationLabel: F3_LABELS.recommendationNotDecision,
-      mode: F3_MODE,
-    },
-  };
-}
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts =====
-/**
- * F3 PREPARE — BuildExecutionContract + Validate only.
- * NO Select / Start / Evidence / Attempt (F3-D01).
- */
-
-import type { DecisionServices } from "@/lib/oa/decision";
-import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
-import type { MemoryAuthorityResolver } from "@/lib/oa/decision";
-import type { F2ContextSnapshot } from "../f2/types";
-import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
-import {
-  F3_ACTION,
-  F3_AUTHORITY_SOURCE,
-  F3_CAPABILITY,
-  F3_CONSTRAINTS,
-  F3_EVIDENCE_REQUIREMENTS,
-  F3_LABELS,
-  F3_MODE,
-  F3_PROCESS_LOCAL_NOTICE,
-  F3_REQUIRED_AUTHORITY,
-  F3_SCOPE,
-  F3_STOP_CONDITIONS,
-  F3_TARGET,
-} from "./constants";
-import type { F3PreparePayload } from "./types";
-import { validateF2ForPrepare } from "./validateF2ForPrepare";
-
-export type PrepareF3Deps = {
-  decisionServices: DecisionServices;
-  authorityResolver: MemoryAuthorityResolver;
-  executionContractServices: ExecutionContractServices;
-  nowIso: () => string;
-};
-
-function toContractDto(
-  contract: {
-    executionContractId: string;
-    version: number;
-    status: string;
-    action: string;
-    target: string;
-    scope: string;
-    requiredAuthority: string;
-    constraints: readonly string[];
-  },
-) {
-  return {
-    executionContractId: contract.executionContractId,
-    version: contract.version,
-    status: contract.status,
-    action: contract.action,
-    target: contract.target,
-    scope: contract.scope,
-    requiredAuthority: contract.requiredAuthority,
-    mode: F3_MODE,
-    constraints: [...contract.constraints],
-  };
-}
-
-export async function prepareF3Fixture(input: {
-  projectId: string;
-  proposalId: string;
-  decisionId: string;
-  currentContext: F2ContextSnapshot;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  deps: PrepareF3Deps;
-}): Promise<
-  | { ok: true; payload: F3PreparePayload }
-  | { ok: false; code: string; message: string; proposal?: unknown }
-> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-
-  const validated = await validateF2ForPrepare({
-    proposalId: input.proposalId,
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    currentContext: input.currentContext,
-    decisionServices: input.deps.decisionServices,
-  });
-  if (!validated.ok) {
-    return {
-      ok: false,
-      code: validated.code,
-      message: validated.message,
-      proposal: validated.proposal ?? null,
-    };
-  }
-
-  const { proposal, decisionId } = validated;
-  const evidenceId = `evd:f3-fixture:${proposal.proposalId}`;
-  const issuedAt = input.deps.nowIso();
-
-  try {
-    if (!input.deps.authorityResolver.getEvidence(evidenceId)) {
-      input.deps.authorityResolver.register({
-        evidenceId,
-        actorId: LOCAL_MORRIS_ACTOR.actorId,
-        level: F3_REQUIRED_AUTHORITY,
-        scope: F3_SCOPE,
-        issuedAt,
-        source: F3_AUTHORITY_SOURCE,
-        canActAsMorris: false,
-      });
-    }
-  } catch (error) {
-    return {
-      ok: false,
-      code: "AUTHORITY_REGISTER_FAILED",
-      message:
-        error instanceof Error
-          ? error.message
-          : "Échec enregistrement authority F3 fixture.",
-      proposal,
-    };
-  }
-
-  const executionContractId = `xct:f3:${proposal.proposalId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48)}`;
-  const idempotencyKey = `idem:f3-prep:${proposal.proposalId}`;
-
-  const built =
-    await input.deps.executionContractServices.buildExecutionContract.execute({
-      executionContractId,
-      projectId: input.projectId,
-      decisionRefs: [decisionId],
-      action: F3_ACTION,
-      target: F3_TARGET,
-      scope: F3_SCOPE,
-      requiredCapabilities: [F3_CAPABILITY],
-      requiredAuthority: F3_REQUIRED_AUTHORITY,
-      constraints: [...F3_CONSTRAINTS],
-      stopConditions: [...F3_STOP_CONDITIONS],
-      evidenceRequirements: [...F3_EVIDENCE_REQUIREMENTS],
-      reversibility: "reversible",
-      idempotencyKey,
-      correlationId: `cor:f3-prep:${proposal.proposalId}`,
-      actor: LOCAL_MORRIS_ACTOR,
-      authorityEvidenceId: evidenceId,
-    });
-
-  if (!built.ok) {
-    return {
-      ok: false,
-      code: built.error.detailCode,
-      message: built.error.message,
-      proposal,
-    };
-  }
-
-  const validatedContract =
-    await input.deps.executionContractServices.validateExecutionContract.execute(
-      {
-        executionContractId: built.contract.executionContractId,
-        actor: LOCAL_MORRIS_ACTOR,
-        authorityEvidenceId: evidenceId,
-      },
-    );
-
-  if (!validatedContract.ok) {
-    return {
-      ok: false,
-      code: validatedContract.error.detailCode,
-      message: validatedContract.error.message,
-      proposal,
-    };
-  }
-
-  const contract = validatedContract.contract;
-  if (
-    contract.status !== "confirmation_required" &&
-    contract.status !== "validated"
-  ) {
-    return {
-      ok: false,
-      code: "UNEXPECTED_CONTRACT_STATUS",
-      message: `Statut contrat inattendu après Validate: ${contract.status}`,
-      proposal,
-    };
-  }
-
-  return {
-    ok: true,
-    payload: {
-      turnKind: "f3_prepare",
-      mode: F3_MODE,
-      proposal,
-      decisionId,
-      contract: toContractDto(contract),
-      executionPerformed: false,
-      attemptCreated: false,
-      labels: {
-        fixtureNoReal: F3_LABELS.fixtureNoReal,
-        noGitWrite: F3_LABELS.noGitWrite,
-        recommendationNotDecision: F3_LABELS.recommendationNotDecision,
-        cursorRealBlocked: F3_LABELS.cursorRealBlocked,
-        hardOpen: F3_LABELS.hardOpen,
-      },
-      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
-      disclosures: [
-        F3_LABELS.fixtureNoReal,
-        F3_LABELS.noGitWrite,
-        F3_LABELS.cursorRealBlocked,
-        F3_LABELS.hardOpen,
-        F3_LABELS.noReadyClaim,
-        F3_LABELS.noTa6Complete,
-        F3_PROCESS_LOCAL_NOTICE,
-      ],
-    },
-  };
-}
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/types.ts =====
-/**
- * F3 FIXTURE reinjection DTOs — product layer only.
- * Never claim READY / T-A6 COMPLETE / REAL READY.
- */
-
-import type { ProposalDto } from "../f2/types";
-import type { F3_MODE } from "./constants";
-
-export type F3Mode = typeof F3_MODE;
-
-export type F3ContractDto = {
-  executionContractId: string;
-  version: number;
-  status: string;
-  action: string;
-  target: string;
-  scope: string;
-  requiredAuthority: string;
-  mode: F3Mode;
-  constraints: string[];
-};
-
-export type F3AttemptDto = {
-  attemptId: string;
-  status: string;
-  selectedAgentRef: string;
-  adapterId: string;
-  externalEffects: false;
-  resultRef: string | null;
-  launchCount: number;
-  selectionStrategy: string;
-  mode: F3Mode;
-};
-
-export type F3EvidenceDto = {
-  evidenceId: string;
-  status: string;
-  sourceKind: string;
-  technicalResultRef: string | null;
-  verified: false;
-  mode: F3Mode;
-};
-
-export type F3ReviewBundleDto = {
-  reviewBundleId: string;
-  status: string;
-  version: number;
-  evidenceRefs: string[];
-  mode: F3Mode;
-};
-
-export type F3RecommendationDto = {
-  kind: "recommendation";
-  status: string;
-  executionAuthority: false;
-  gateConsumed: false;
-  decisionCreated: false;
-  attemptAutoLaunchNextCycle: false;
-  openHardReservationRefs: string[];
-  hardBlockers: string[];
-  nextGateCode: string | null;
-  nextActionCode: string | null;
-  recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
-  mode: F3Mode;
-};
-
-export type F3Labels = {
-  fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE";
-  noGitWrite: "AUCUN GIT WRITE PRODUIT";
-  recommendationNotDecision: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
-  cursorRealBlocked: "CURSOR REAL BLOQUÉ";
-  hardOpen: "HARD R-T-A3-1 / R-T-A3-2 OPEN";
-};
-
-export type F3PreparePayload = {
-  turnKind: "f3_prepare";
-  mode: F3Mode;
-  proposal: ProposalDto;
-  decisionId: string;
-  contract: F3ContractDto;
-  executionPerformed: false;
-  attemptCreated: false;
-  labels: F3Labels;
-  processLocalNotice: string;
-  disclosures: string[];
-};
-
-export type F3ExecutePayload = {
-  turnKind: "f3_execute";
-  mode: F3Mode;
-  proposal: ProposalDto;
-  decisionId: string;
-  contract: F3ContractDto;
-  attempt: F3AttemptDto;
-  evidence: F3EvidenceDto;
-  reviewBundle: F3ReviewBundleDto;
-  recommendation: F3RecommendationDto;
-  reusedExistingAttempt: boolean;
-  executionPerformed: true;
-  realExecution: false;
-  gitWritePerformed: false;
-  labels: F3Labels;
-  processLocalNotice: string;
-  disclosures: string[];
-};
-
-export type F3ValidateOk = {
-  ok: true;
-  proposal: ProposalDto;
-  decisionId: string;
-  decisionStatus: "accepted";
-  scope: string;
-};
-
-export type F3ValidateFail = {
-  ok: false;
-  code: string;
-  message: string;
-  proposal?: ProposalDto | null;
-};
-
-export type F3ValidateResult = F3ValidateOk | F3ValidateFail;
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/types.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts =====
-/**
- * Fail-closed F2 eligibility checks before F3 PREPARE.
- * F2 GO remains prepare-only — this never creates an Attempt.
- */
-
-import type { DecisionServices } from "@/lib/oa/decision";
-import type { F2ContextSnapshot } from "../f2/types";
-import {
-  contextMatches,
-  getProposal,
-  markProposalStale,
-} from "../f2/proposalStore";
-import { proposalScope } from "../f2/recordDecision";
-import type { F3ValidateResult } from "./types";
-
-export async function validateF2ForPrepare(input: {
-  proposalId: string;
-  projectId: string;
-  decisionId: string;
-  currentContext: F2ContextSnapshot;
-  decisionServices: DecisionServices;
-}): Promise<F3ValidateResult> {
-  const proposal = getProposal(input.proposalId);
-  if (!proposal) {
-    return {
-      ok: false,
-      code: "PROPOSAL_NOT_FOUND",
-      message:
-        "Proposition introuvable (process-local). Fail closed après redémarrage — aucune autorité d'exécution reconstruite.",
-    };
-  }
-
-  if (proposal.contextSnapshot.projectId !== input.projectId) {
-    return {
-      ok: false,
-      code: "PROJECT_MISMATCH",
-      message: "La proposition n'appartient pas à ce projet.",
-      proposal,
-    };
-  }
-
-  if (!contextMatches(proposal.contextSnapshot, input.currentContext)) {
-    const stale = markProposalStale(proposal.proposalId);
-    return {
-      ok: false,
-      code: "STALE",
-      message:
-        "Contexte Project/LPS modifié — proposition STALE. Aucune préparation F3.",
-      proposal: stale,
-    };
-  }
-
-  if (
-    proposal.status !== "APPROVED" &&
-    proposal.status !== "APPROVED_WITH_RESERVES"
-  ) {
-    return {
-      ok: false,
-      code: "PROPOSAL_NOT_APPROVED",
-      message: `Proposition non approuvée (statut ${proposal.status}). PREPARE refusé.`,
-      proposal,
-    };
-  }
-
-  const decisionResult = await input.decisionServices.getHumanDecision.execute({
-    decisionId: input.decisionId,
-  });
-  if (!decisionResult.ok) {
-    return {
-      ok: false,
-      code: "DECISION_NOT_FOUND",
-      message:
-        "Décision F2 introuvable (process-local). Fail closed — pas d'exécution.",
-      proposal,
-    };
-  }
-
-  const decision = decisionResult.decision;
-  if (decision.projectId !== input.projectId) {
-    return {
-      ok: false,
-      code: "DECISION_PROJECT_MISMATCH",
-      message: "La décision n'appartient pas à ce projet.",
-      proposal,
-    };
-  }
-
-  if (decision.status !== "accepted") {
-    return {
-      ok: false,
-      code: "DECISION_NOT_ACCEPTED",
-      message: `Décision non acceptée (statut ${decision.status}).`,
-      proposal,
-    };
-  }
-
-  const expectedScope = proposalScope(proposal);
-  if (decision.scope !== expectedScope) {
-    return {
-      ok: false,
-      code: "DECISION_SCOPE_MISMATCH",
-      message: "Scope décision ≠ scope proposition F2.",
-      proposal,
-    };
-  }
-
-  return {
-    ok: true,
-    proposal,
-    decisionId: input.decisionId,
-    decisionStatus: "accepted",
-    scope: expectedScope,
-  };
-}
-===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts =====
-
-===== BEGIN FILE: projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts =====
-/**
- * F3 fixture identity + closed registry/adapter wiring for RuntimeOaStack.
- * Lives under vertical-slice-runtime so lib never imports @/features/*.
- */
-
-import type { ProvenanceRecord } from "@/lib/oa/doctrine";
-import {
-  TestExecutionAdapter,
-  type AgentDescriptor,
-  type ExecutionAttemptRepositoryPort,
-} from "@/lib/oa/execution-attempt";
-import type {
-  ExecutionAttemptReaderPort,
-  ExecutionAttemptSnapshot,
-} from "@/lib/oa/evidence-review";
-
-export const F3_RUNTIME_ADAPTER_ID = "adp:f3-test-fixture" as const;
-export const F3_RUNTIME_AGENT_ID = "agt:f3-fixture" as const;
-export const F3_RUNTIME_AGENT_TYPE = "fixture_docs_writer" as const;
-export const F3_RUNTIME_ACTION = "fixture-docs-prepare" as const;
-export const F3_RUNTIME_TARGET = "sfia-studio/f3-fixture-only" as const;
-export const F3_RUNTIME_SCOPE = "f3-fixture:docs+metadata-only" as const;
-export const F3_RUNTIME_CAPABILITY = "cap:f3-fixture-docs" as const;
-
-function fixtureProvenance(nowIso: string): ProvenanceRecord {
-  return {
-    schemaVersion: "0.1.0-oa",
-    provenanceRecordId: "prv:f3-fixture-agent",
-    actor: {
-      actorId: "actor:system",
-      role: "system",
-      authorityLevel: "N1",
-    },
-    source: "system",
-    timestamp: nowIso,
-    correlationId: "cor:f3-fixture-agent",
-  };
-}
-
-export function createF3FixtureAgentDescriptor(
-  nowIso = "2026-08-11T00:00:00.000Z",
-): AgentDescriptor {
-  return Object.freeze({
-    schemaVersion: "0.1.0-oa",
-    agentId: F3_RUNTIME_AGENT_ID,
-    agentType: F3_RUNTIME_AGENT_TYPE,
-    adapterRef: F3_RUNTIME_ADAPTER_ID,
-    supportedCapabilities: [F3_RUNTIME_CAPABILITY],
-    allowedActions: [F3_RUNTIME_ACTION],
-    allowedTargets: [F3_RUNTIME_TARGET],
-    allowedScopes: [F3_RUNTIME_SCOPE],
-    trustLevel: "fixture",
-    executionMode: "adapter_sync_fixture",
-    healthStatus: "healthy",
-    version: 1,
-    enabled: true,
-    createdAt: nowIso,
-    provenance: fixtureProvenance(nowIso),
-  });
-}
-
-/** Explicit TestExecutionAdapter — never silent NoOp. */
-export function createF3TestExecutionAdapter(): TestExecutionAdapter {
-  return new TestExecutionAdapter({ adapterId: F3_RUNTIME_ADAPTER_ID });
-}
-
-export function createAttemptReaderBridge(
-  attempts: ExecutionAttemptRepositoryPort,
-): ExecutionAttemptReaderPort {
-  return {
-    async findById(
-      attemptId: string,
-    ): Promise<ExecutionAttemptSnapshot | null> {
-      const attempt = await attempts.findById(attemptId);
-      if (!attempt) return null;
-      return {
-        attemptId: attempt.attemptId,
-        executionContractId: attempt.executionContractId,
-        executionContractVersion: attempt.executionContractVersion,
-        status: attempt.status,
-        resultRef: attempt.resultRef,
-        errorRef: attempt.errorRef,
-        completedAt: attempt.completedAt,
-        failedAt: attempt.failedAt,
-        selectedAgentRef: attempt.selectedAgentRef,
-      };
-    },
-  };
-}
-===== END FILE: projects/sfia-studio/app/lib/vertical-slice-runtime/f3FixtureWiring.ts =====
-
 
 ---
 
