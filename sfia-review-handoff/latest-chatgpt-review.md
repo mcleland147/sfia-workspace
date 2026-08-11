@@ -1,16 +1,16 @@
-# Cycle 1 — Cadrage F3 Pre-Delivery Governance — SFIA Studio
+# Cycle 15 — Capitalisation F3 F08+B5 Adoption — SFIA Studio
 ## FULL Review Pack
 
 | Field | Value |
 |-------|-------|
-| **Role** | Cycle 1 — Cadrage F3 Pre-Delivery Governance — SFIA Studio |
-| **Pack type** | FULL Review Pack — documentary framing |
+| **Role** | Cycle 15 — Capitalisation F3 F08+B5 Adoption — SFIA Studio |
+| **Pack type** | FULL Review Pack — documentary capitalization / adoption |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-11 15:16:40 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-11 13:16:40 UTC |
-| **Timestamp ISO UTC** | 2026-08-11T13:16:40Z |
-| **GO consumed** | `GO FRAME PRE-DELIVERY GOVERNANCE FOR F3 NATIVE FIXTURE PATH — INCLUDE F08 TIMING/CONTENT OPTIONS AND B5 STOP POLICY — NO APP/** DELIVERY — NO REAL CURSOR — NO HARD CLOSURE IMPLIED` |
-| **Cycle** | 1 — Cadrage |
+| **Timestamp CEST** | 2026-08-11 15:34:20 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-11 13:34:20 UTC |
+| **Timestamp ISO UTC** | 2026-08-11T13:34:20Z |
+| **GO consumed** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` |
+| **Cycle** | 15 — Capitalisation |
 | **Profil SFIA** | Standard |
 | **Typologie** | DOC |
 | **Critical** | NON |
@@ -22,17 +22,20 @@
 | **Framing worktree** | `.../finops-t2-main/.tmp-sfia-review/worktrees/f3-pre-delivery-governance` |
 | **Base / HEAD** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
 | **origin/main** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
-| **Inbound handoff tip** | `9fcade799cdfecbfbe2c2ceee23dd0479ad34cea` |
-| **Inbound handoff blob** | `46aba1a8470c053bec8f32d32d8f68c8a305da82` |
+| **Inbound handoff tip** | `402dfc84c31539c773633a2d88424aa04f324032` |
+| **Inbound handoff blob** | `5bc00bdc5f5dee86f26884a51a6213d109c77430` |
 | **README path** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-pre-delivery-governance-framing/README.md` |
-| **README content blob (uncommitted)** | `49b487604d0950dd0a8b9311e04152791c67be03` |
+| **README blob BEFORE** | `49b487604d0950dd0a8b9311e04152791c67be03` |
+| **README blob AFTER (uncommitted)** | `a442a374fac1664bdaad9211f6478ec6d9257788` |
 | **Project commit** | none |
 | **Project push / PR / merge** | 0 / 0 / 0 |
-| **F08** | NOT DECIDED |
-| **B5** | OPEN · STOP BEFORE DELIVERY · policy OPTION/RECOMMENDATION ≠ CLOSED |
-| **HARD** | R-T-A3-1 / R-T-A3-2 OPEN HARD |
+| **F08** | DECIDED — ADOPTED BY MORRIS (O1) · O2/O3/O4 NOT SELECTED |
+| **B5** | ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED) |
+| **HARD** | R-T-A3-1 / R-T-A3-2 OPEN HARD — BLOCKS REAL |
 | **Delivery** | NOT AUTHORIZED |
 | **Cursor REAL** | BLOCKED |
+| **Gate A** | CONSUMED |
+| **Gates B/C/D** | NOT CONSUMED |
 | **F3-D01…D11** | DECIDED — ADOPTED BY MORRIS (preserved) |
 
 ---
@@ -40,34 +43,37 @@
 ## Verdict (exact)
 
 ```
-F3 PRE-DELIVERY GOVERNANCE FRAMING COMPLETE —
-F08 OPTIONS FRAMED — NOT DECIDED —
-B5 STOP POLICY FRAMED — NOT CLOSED —
-HARD R-T-A3-1 / R-T-A3-2 MAPPED — REMAIN OPEN —
-BOUNDED FIXTURE-FIRST DELIVERY OPTION DEFINED —
-NO APP/** DELIVERY —
-NO CURSOR REAL —
+F3 F08 CONTENT + B5 STOP POLICY ADOPTED FOR F3 FIXTURE PATH —
+F08-O1 DECIDED — ADOPTED BY MORRIS —
+F08-O2 / O3 / O4 NOT SELECTED —
+B5 ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED) —
+HARD R-T-A3-1 / R-T-A3-2 REMAIN OPEN HARD — BLOCKS REAL —
+GATE A CONSUMED —
+GATES B / C / D NOT CONSUMED —
+DELIVERY NOT AUTHORIZED —
+NO APP/** —
+CURSOR REAL BLOCKED —
 NO HARD CLOSURE —
+NO GLOBAL B5 CLOSED CLAIM —
 NO ARCHITECTURE PIVOT —
-NEXT MORRIS DECISION GATES PREPARED —
 HANDOFF REMOTE VERIFIED —
 READY FOR CHATGPT REVIEW
 ```
 
 **Handoff status:** PUBLISH-IN-CYCLE (L3 via `scripts/sfia/publish-review-handoff.sh`) — verify after publish.
 
-**Statut attendu:** FRAMING COMPLETE — OPTIONS ONLY — NO ADOPTION
+**Statut attendu:** F08-O1 + B5 BOUNDED ADOPTED — NO DELIVERY — NO REAL — NO HARD CLOSURE
 
 ---
 
 ## §0 GO / qualification / blocs
 
-- **GO Morris exact (consommé):** `GO FRAME PRE-DELIVERY GOVERNANCE FOR F3 NATIVE FIXTURE PATH — INCLUDE F08 TIMING/CONTENT OPTIONS AND B5 STOP POLICY — NO APP/** DELIVERY — NO REAL CURSOR — NO HARD CLOSURE IMPLIED`
-- **Demande conversationnelle:** `ok go` → contextualisée exclusivement comme ce gate candidat (F3 decisions README §10)
-- **Authorized:** documentary framing · options · recommendations · local framing branch · FULL pack · handoff L3
-- **Not authorized:** app/** · Delivery · Delivery prep · Cursor REAL · OpenAI live · F08/B5/HARD auto-adoption/closure · IAM/persistence select · method edits · project commit/push/PR/merge · architecture durable pivot
-- **Blocs activés:** Gouvernance / autorité d'exécution · Sécurité fail-closed bornée · Capitalisation réserves (observation ≠ reco ≠ décision) — **pas** Cycle 15
-- **Blocs désactivés:** FinOps · GreenOps · RGPD · a11y · UX/UI/Figma · perf · DevOps · release · observabilité/RUN
+- **GO Morris exact (consommé):** `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE`
+- **Demande conversationnelle:** `ok go` → contextualisée exclusivement comme consommation du gate A (§9 du framing)
+- **Authorized:** documentary adoption status change · FULL pack · handoff L3 · local framing branch (uncommitted)
+- **Not authorized:** app/** · Delivery · Delivery prep · Cursor REAL · OpenAI live · HARD closure · global B5 CLOSED claim · IAM/persistence select · method edits · project commit/push/PR/merge · rewrite of O1/B5 functional policy content · architecture durable pivot
+- **Blocs activés:** Capitalisation / décisions documentaires · Gouvernance / autorité d'exécution · Sécurité fail-closed bornée
+- **Blocs désactivés:** FinOps · GreenOps · RGPD · a11y · UX/UI/Figma · perf · DevOps · release · observabilité/RUN · Delivery
 - **Synthesis-only:** NO
 
 ---
@@ -76,32 +82,30 @@ READY FOR CHATGPT REVIEW
 
 | Check | Observed | Result |
 |-------|----------|--------|
-| toplevel MAIN | `.../finops-t2-main` | PASS |
 | framing branch | `framing/sfia-studio-f3-pre-delivery-governance` | PASS |
 | HEAD | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | PASS |
 | origin/main | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | PASS |
-| status MAIN pre | `?? .tmp-sfia-review/` only | PASS |
 | staged | empty | PASS |
-| framing status post-create | `?? .../f3-pre-delivery-governance-framing/` | PASS |
-| inbound tip | `9fcade799cdfecbfbe2c2ceee23dd0479ad34cea` | PASS |
-| inbound blob | `46aba1a8470c053bec8f32d32d8f68c8a305da82` | PASS verified |
-| path conflict | no equivalent framing sibling | PASS |
-
-`origin/main` log -5: 49b61e9 Merge #331 F3 decisions · 2eab59e record F3 · 09bfbb2 Merge #330 F2 · fa25c94 F2 gate · 1847fc6 Merge #329 F1
+| status | `?? .tmp-sfia-review/` · `?? .../f3-pre-delivery-governance-framing/` | PASS |
+| inbound tip | `402dfc84c31539c773633a2d88424aa04f324032` | PASS |
+| inbound blob | `5bc00bdc5f5dee86f26884a51a6213d109c77430` | PASS verified (Cycle 1 cadrage) |
+| README blob before | `49b487604d0950dd0a8b9311e04152791c67be03` | PASS |
+| README blob after | `a442a374fac1664bdaad9211f6478ec6d9257788` | PASS (new) |
+| app/** mutations | 0 | PASS |
+| project commit | none | PASS |
 
 ---
 
 ## §2 Sources consultées
 
-1. `prompts/templates/sfia-cycle-execution-template.md` — v2.6 baseline
-2. `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` — tip/blob verified
-3. `f3-functional-design-decisions/README.md` — blob `9f15731a9b5d4e2abc949824d329cd5ee6dd428f`
-4. `t-a7-technical-readiness-framing/README.md` + `06-holds-and-stop-conditions.md` + `20-hard-ta6-…`
-5. `t-a7-next-decision-step-framing/03-open-reserves-and-gates.md`
-6. `a5-2-reservations-authority-atomicity-framing/README.md` + `02` + `03`
-7. F2 `types.ts` / `recordDecision.ts` — `executionPerformed:false`
-8. T-A4/T-A5/T-A6 `app/lib/oa/execution-contract|attempt|evidence-review` — EXISTS · NOT_WIRED
-9. CKC `pilots/01-cadrage.md` — candidate
+1. Inbound Cycle 1 FULL pack tip/blob verified — F08/B5 options framed, Gate A prepared
+2. Framing README (before blob `49b487604d0950dd0a8b9311e04152791c67be03`) — status-only transformation source
+3. `f3-functional-design-decisions/README.md` — D01–D11 ADOPTED · contradiction check
+4. A5.2 README — B5 OPEN · STOP BEFORE DELIVERY · ADOPTED ≠ CLOSED pattern
+5. T-A7 readiness / holds / next-decision F08 — HARD OPEN · Delivery NOT AUTHORIZED
+6. Template v2.6 · CKC cadrage candidate (guidance only)
+
+**Contradiction check:** Adoption bornée F3 fixture path **n'entre pas en contradiction** avec A5.2/T-A7 (B5 global reste OPEN ; HARD restent OPEN HARD ; Delivery reste NOT AUTHORIZED). Aucune réécriture du contenu fonctionnel O1 ni de la matrice B5.
 
 ---
 
@@ -109,56 +113,63 @@ READY FOR CHATGPT REVIEW
 
 | Action | Path |
 |--------|------|
-| **CREATED (uncommitted)** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-pre-delivery-governance-framing/README.md` |
-| Modified project files | **none** |
+| **MODIFIED (uncommitted)** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-pre-delivery-governance-framing/README.md` |
+| Modified project files outside this README | **none** |
 | app/** | **0** |
 
-Blob (git hash-object): `49b487604d0950dd0a8b9311e04152791c67be03`
+| Blob | SHA |
+|------|-----|
+| BEFORE | `49b487604d0950dd0a8b9311e04152791c67be03` |
+| AFTER | `a442a374fac1664bdaad9211f6478ec6d9257788` |
 
 ---
 
-## §4 COMPLETE README CONTENT
+## §4 COMPLETE README CONTENT (AFTER)
 
-```markdown
 # F3 — Pre-Delivery Governance Framing (F08 / B5 / HARD)
 
 | Champ | Valeur |
 |-------|--------|
-| **Gate Morris consommé** | `GO FRAME PRE-DELIVERY GOVERNANCE FOR F3 NATIVE FIXTURE PATH — INCLUDE F08 TIMING/CONTENT OPTIONS AND B5 STOP POLICY — NO APP/** DELIVERY — NO REAL CURSOR — NO HARD CLOSURE IMPLIED` |
-| **Demande Morris** | `ok go` — contextualisée exclusivement comme consommation de ce gate candidat déjà enregistré (F3 decisions README §10) |
+| **Gate Morris consommé** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` |
+| **Demande Morris** | `ok go` — contextualisée exclusivement comme consommation du gate A candidat déjà enregistré (§9) |
+| **Date/heure adoption (CEST)** | 2026-08-11 15:32:06 CEST (+0200) |
+| **Date/heure adoption (UTC)** | 2026-08-11 13:32:06 UTC |
 | **Date/heure cadrage (CEST)** | 2026-08-11 15:14:54 CEST (+0200) |
 | **Date/heure cadrage (UTC)** | 2026-08-11 13:14:54 UTC |
-| **Cycle / profil** | 1 — Cadrage · Standard · DOC |
+| **Cycle / profil** | 15 — Capitalisation · Standard · DOC |
 | **Critical** | `NON` |
 | **CKC** | `cycle-knowledge-contracts/pilots/01-cadrage.md` · status `candidate` · experimental cognitive guidance · **aucune autorité d'exécution** |
 | **Base** | `origin/main` @ `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
 | **Branche locale** | `framing/sfia-studio-f3-pre-delivery-governance` |
 | **Worktree** | `…/finops-t2-main/.tmp-sfia-review/worktrees/f3-pre-delivery-governance` |
-| **Statut** | `F3 PRE-DELIVERY GOVERNANCE FRAMED — OPTIONS ONLY — NO ADOPTION — NO DELIVERY` |
-| **F08** | `NOT DECIDED` |
-| **B5** | `OPEN` · `STOP BEFORE DELIVERY` · policy = **OPTION / RECOMMENDATION** ≠ CLOSED |
-| **HARD R-T-A3-1 / R-T-A3-2** | `OPEN HARD` · mapped ≠ closed |
+| **Statut** | `F08-O1 + B5 BOUNDED ADOPTED BY MORRIS — NO DELIVERY — NO REAL — NO HARD CLOSURE` |
+| **F08** | `DECIDED — ADOPTED BY MORRIS` (O1) · O2/O3/O4 `NOT SELECTED` |
+| **B5** | `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` · global B5 reste `OPEN` · `STOP BEFORE DELIVERY` hors bornage |
+| **HARD R-T-A3-1 / R-T-A3-2** | `OPEN HARD` · mapped ≠ closed · **BLOCKS REAL** |
 | **Delivery / Delivery preparation** | `NOT AUTHORIZED` |
 | **Cursor REAL** | `BLOCKED` |
 | **F3-D01…D11** | `DECIDED — ADOPTED BY MORRIS` (préservés exactement) |
+| **Gate A** | `CONSUMED` |
+| **Gates B / C / D** | `NOT CONSUMED` |
 | **Push / PR / merge projet** | **aucun** |
-| **Commit projet** | **aucun** (fichier créé, non commité) |
+| **Commit projet** | **aucun** (fichier modifié, non commité) |
 
 ## 1. Contexte / objectif
 
 Le contrat fonctionnel F3 est **décidé** (F3-D01…D11 ADOPTED BY MORRIS, PR #331 / merge `49b61e9…`). Cela ferme le *decision set* fonctionnel ; cela **n'autorise pas** Delivery, Delivery preparation, mutation `app/**`, ni Cursor REAL.
 
-Cycle 9 (validation conception) a classé la trajectoire inbound « bounded native fixture integration » immédiate comme **MAJOR** : elle sur-revendiquait Delivery avant satisfaction calendrier **F08** (T-A7-D05=.3 · avant delivery) tandis que **B5** reste `OPEN` · `STOP BEFORE DELIVERY`.
+Cycle 9 (validation conception) a classé la trajectoire inbound « bounded native fixture integration » immédiate comme **MAJOR** : elle sur-revendiquait Delivery avant satisfaction calendrier **F08** (T-A7-D05=.3 · avant delivery) tandis que **B5** reste `OPEN` · `STOP BEFORE DELIVERY` au plan global.
 
-**Objectif de ce cadrage :** préparer les arbitrages Morris pré-Delivery :
+Le cadrage Cycle 1 a préparé options F08, candidate B5 Stop Policy, mapping HARD, slice FIXTURE-first candidat, et gates A–D.
 
-1. options **F08** (timing / contenu / granularité du premier lot) ;
-2. candidate **B5 Stop Policy** fail-closed ;
-3. mapping **HARD** R-T-A3-1 / R-T-A3-2 (fixture vs REAL) ;
-4. slice vertical **FIXTURE-first** candidat ;
-5. gates Morris A–D suivants.
+**Objectif de cette capitalisation (gate A) :** adopter documentairement :
 
-**Ce GO autorise uniquement le CADRAGE.** Aucune option F08/B5 n'est adoptée. Aucune réserve n'est fermée. Aucune mutation applicative.
+1. **F08-O1** — Minimal fixture vertical slice — `DECIDED — ADOPTED BY MORRIS` (contenu fonctionnel O1 inchangé) ;
+2. **B5 Stop Policy** — matrice + invariants — `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` ;
+3. marquer O2/O3/O4 comme **NOT SELECTED** / historiques ;
+4. consommer **uniquement** le gate A ; laisser B/C/D **NOT CONSUMED**.
+
+**Ce GO n'autorise pas** Delivery, Delivery preparation, mutation `app/**`, Cursor REAL, fermeture HARD, ni claim `B5 CLOSED` global. Aucune mutation applicative.
 
 ## 2. Source truth
 
@@ -166,13 +177,14 @@ Cycle 9 (validation conception) a classé la trajectoire inbound « bounded nati
 |--------|------------|------|
 | `origin/main` / framing HEAD | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | baseline |
 | Package F3 decisions | `2eab59e00658f335fbe0743878648826580b9c8d` | commit doc |
-| `f3-functional-design-decisions/README.md` | blob `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` | D01–D11 ADOPTED · next gate = ce GO |
-| Inbound handoff tip `origin/sfia/review-handoff` | `9fcade799cdfecbfbe2c2ceee23dd0479ad34cea` | Cycle 14 post-merge F3 |
-| Inbound handoff blob | `46aba1a8470c053bec8f32d32d8f68c8a305da82` | verified tip unchanged |
+| `f3-functional-design-decisions/README.md` | blob `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` | D01–D11 ADOPTED · framing gate A préparé |
+| Ce framing (pré-adoption blob) | `49b487604d0950dd0a8b9311e04152791c67be03` | Cycle 1 cadrage F08/B5 options |
+| Inbound handoff tip `origin/sfia/review-handoff` | `402dfc84c31539c773633a2d88424aa04f324032` | Cycle 1 cadrage F3 pre-delivery |
+| Inbound handoff blob | `5bc00bdc5f5dee86f26884a51a6213d109c77430` | verified tip unchanged |
 | `t-a7-technical-readiness-framing/README.md` | @ main tip | HARD REDUCED≠CLOSED · B5/R1/R-M01 OPEN · Delivery NOT AUTHORIZED |
 | `…/06-holds-and-stop-conditions.md` | blob `6f0ec64c5b94e0eff95f22c1631a74359a397de4` | A52-B5 STOP · SC-07 · holds |
 | `…/20-hard-ta6-…foundation-lot.md` | @ main tip | R-T-A3-1…4 OPEN HARD · reduced evidence |
-| `t-a7-next-decision-step-framing/03-open-reserves-and-gates.md` | blob `769ebb115e5be7164ff1367b9dace3f9948093e6` | F08 timing avant delivery · contenu NOT DECIDED |
+| `t-a7-next-decision-step-framing/03-open-reserves-and-gates.md` | blob `769ebb115e5be7164ff1367b9dace3f9948093e6` | F08 timing avant delivery · contenu was NOT DECIDED |
 | `a5-2-…/README.md` | blob `146eb122b898b21b6a8bda3f14d57c8f60253d05` | A52-D01…D05 · STOP BEFORE DELIVERY |
 | `a5-2-…/02-reservation-dependency-matrix.md` | @ main tip | HARD blocks real · framing OK |
 | `a5-2-…/03-authority-model-and-gaps.md` | @ main tip | R-T-A3-1 gap · Confirm fail-closed |
@@ -183,34 +195,35 @@ Cycle 9 (validation conception) a classé la trajectoire inbound « bounded nati
 
 ### Path conflict check
 
-Siblings sous `v3-native-option-a/` : `f3-functional-design-decisions/`, packs T-A*, A5.2, vertical-slice*, CI docs. **Aucun** `f3-pre-delivery-governance-framing/` ni équivalent F08/B5 pre-delivery. Location candidate **retenue**.
+Siblings sous `v3-native-option-a/` : `f3-functional-design-decisions/`, packs T-A*, A5.2, vertical-slice*, CI docs. **Aucun** autre pack F08/B5 pre-delivery concurrent. Location **conservée**.
 
 ## 3. Current state
 
 | Sujet | Status | Notes |
 |-------|--------|-------|
 | **F3-D01…D11** | `DECIDED — ADOPTED BY MORRIS` | préservés exactement · pas réinterprétés |
-| **F08 content** | `NOT DECIDED` | calendrier = avant delivery (T-A7-D05=.3) · non consommé |
-| **B5** | `OPEN` · `STOP BEFORE DELIVERY` | A52-D01 · A52-B5 |
-| **R-T-A3-1** | `OPEN HARD` | Confirm Critical fail-closed · bloque REAL |
-| **R-T-A3-2** | `OPEN HARD` | atomicité durable résiduelle · bloque REAL |
+| **F08 content** | `DECIDED — ADOPTED BY MORRIS` (O1) | O2/O3/O4 `NOT SELECTED` · calendrier avant delivery conservé |
+| **B5 (F3 fixture path)** | `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` | matrice + invariants adoptés pour ce path |
+| **B5 (global)** | `OPEN` · `STOP BEFORE DELIVERY` | hors bornage F3 fixture · ≠ CLOSED |
+| **R-T-A3-1** | `OPEN HARD` | Confirm Critical fail-closed · **BLOCKS REAL** |
+| **R-T-A3-2** | `OPEN HARD` | atomicité durable résiduelle · **BLOCKS REAL** |
 | **R1** | `OPEN` | Project↔Cycle atomicity |
 | **R-M01** | `OPEN` | claims readiness |
 | **R-Process-Local** | ACCEPTED LIMITATION | insuffisant REAL (D07) |
 | **IAM** | `NOT_SELECTED` | |
 | **Product persistence** | `NOT_SELECTED` | local bounded ≠ product SELECTED |
-| **Delivery / Delivery prep** | `NOT AUTHORIZED` | |
-| **Cursor REAL** | `BLOCKED` · NO-GO NOW (D11) | adapter real MISSING |
-| **Fixture Delivery `app/**`** | `NOT AUTHORIZED` | = Delivery (V-T01) |
+| **Delivery / Delivery prep** | `NOT AUTHORIZED` | gate B `NOT CONSUMED` |
+| **Cursor REAL** | `BLOCKED` · NO-GO NOW (D11) | adapter real MISSING · HARD OPEN |
+| **Fixture Delivery `app/**`** | `NOT AUTHORIZED` | = Delivery (V-T01) · gate B requis |
 | **T-A6 COMPLETE** | `NOT DECLARED` | |
 | **Option A** | `NOT COMPLETE` | |
 | **Assistant→T-A4/5/6 wiring** | `NOT WIRED` | |
 
-## 4. F08 — options (NOT DECIDED)
+## 4. F08 — DECIDED — ADOPTED BY MORRIS (O1)
 
-F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery (calendrier déjà : **avant delivery**). Ce document **ne décide pas** F08.
+F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery (calendrier déjà : **avant delivery**). Gate A adopte **F08-O1** uniquement.
 
-### F08-O1 — Minimal fixture vertical slice (RECOMMENDED)
+### F08-O1 — Minimal fixture vertical slice (`DECIDED — ADOPTED BY MORRIS`)
 
 | Dimension | Contenu |
 |-----------|---------|
@@ -230,7 +243,7 @@ F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery
 | **Valeur** | Vertical slice utile minimal · réduit risque trajectoire |
 | **Risque / dette** | Wiring partiel ; dette REAL/authority reportée (acceptable) |
 
-### F08-O2 — Documentary-only F08 bulletin (no Delivery yet)
+### F08-O2 — Documentary-only F08 bulletin (no Delivery yet) — `NOT SELECTED` (historique)
 
 | Dimension | Contenu |
 |-----------|---------|
@@ -243,7 +256,7 @@ F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery
 | **Impact B5/HARD** | Neutre · B5/HARD inchangés |
 | **Fixture-only / prépare REAL** | N/A runtime |
 
-### F08-O3 — Fixture + partial HARD mitigation in same lot
+### F08-O3 — Fixture + partial HARD mitigation in same lot — `NOT SELECTED` (historique)
 
 | Dimension | Contenu |
 |-----------|---------|
@@ -257,7 +270,7 @@ F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery
 | **Fixture-only** | Menacé (pression REAL) |
 | **Prépare REAL** | Oui mais **trop tôt** sans gate A/B séparés |
 
-### F08-O4 — Defer fixture until HARD/B5 globally closed
+### F08-O4 — Defer fixture until HARD/B5 globally closed — `NOT SELECTED` (historique)
 
 | Dimension | Contenu |
 |-----------|---------|
@@ -268,28 +281,29 @@ F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery
 | **Impact B5/HARD** | Sur-bloque fixture alors que sources permettent fixture-path séparé de REAL |
 | **Fixture-only** | N/A (pas de slice) |
 
-### Recommandation F08
+### Décision F08
 
 ```
-RECOMMENDATION — NOT DECIDED
+DECIDED — ADOPTED BY MORRIS
 F08-O1 — Minimal fixture vertical slice (fixture-first)
+O2 / O3 / O4 — NOT SELECTED (historical)
 ```
 
-**Challenge :** Utile maintenant ? Oui — corrige MAJOR trajectory. Dette ? Wiring partiel acceptée. Plus simple ? O2 plus simple mais sans preuve. Repo-first ? Oui (foundations EXIST). Automatisable ? Non — gate Morris A puis B. Architecture durable ? Non requise. Fixture avant REAL ? Oui. Réduit risque ? Oui vs O3/O4.
+**Challenge (conservé) :** Utile maintenant ? Oui — corrige MAJOR trajectory. Dette ? Wiring partiel acceptée. Plus simple ? O2 plus simple mais sans preuve. Repo-first ? Oui (foundations EXIST). Automatisable ? Non — gate Morris A puis B. Architecture durable ? Non requise. Fixture avant REAL ? Oui. Réduit risque ? Oui vs O3/O4.
 
-**Statut : `F08 NOT DECIDED`.**
+**Statut : `F08-O1 DECIDED — ADOPTED BY MORRIS` · O2/O3/O4 `NOT SELECTED`.**
 
-## 5. B5 Stop Policy — candidate (NOT CLOSED)
+## 5. B5 Stop Policy — `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)`
 
 Hérite A52-D01 `.3` + `STOP BEFORE DELIVERY`. Statut ici :
 
-`B5 POLICY OPTION / RECOMMENDATION` — **pas** `B5 CLOSED`.
+`ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` — **pas** `B5 CLOSED` global.
 
 ### Question centrale B5
 
 > À quel moment SFIA Studio peut-il demander à un agent d'exécuter ?
 
-**Réponse candidate fail-closed :** uniquement après (1) ExecutionContract natif préparé depuis F2 éligible, (2) confirmation Morris **exacte** liée à l'identité immutable du contrat (D02) pour tout path REAL, (3) mode REAL|FIXTURE **explicite**, (4) GO Delivery applicable consommé pour le path, (5) autorité process-local **encore valide** (restart → fail closed · D07), (6) agent/adapter sélectionné sans fallback silencieux (D05). Conversation, proposal, ou F2 GO **seuls** ne suffisent **jamais**.
+**Réponse adoptée fail-closed (bornée F3 fixture path) :** uniquement après (1) ExecutionContract natif préparé depuis F2 éligible, (2) confirmation Morris **exacte** liée à l’identité immutable du contrat (D02) pour tout path REAL, (3) mode REAL|FIXTURE **explicite**, (4) GO Delivery applicable consommé pour le path, (5) autorité process-local **encore valide** (restart → fail closed · D07), (6) agent/adapter sélectionné sans fallback silencieux (D05). Conversation, proposal, ou F2 GO **seuls** ne suffisent **jamais**.
 
 ### Matrice de transitions (intent → next gate)
 
@@ -314,7 +328,7 @@ Hérite A52-D01 `.3` + `STOP BEFORE DELIVERY`. Statut ici :
 - F2 GO ≠ ExecutionAttempt
 - ExecutionContract préparé ≠ launch
 - confirmation Morris exacte liée au contrat (D02) pour REAL
-- aucune reconstruction d'autorité depuis conversation après restart (D07)
+- aucune reconstruction d’autorité depuis conversation après restart (D07)
 - REAL / FIXTURE explicites · **no silent fallback** (D05)
 - **no auto retry** · retry = nouvel Attempt (D08)
 - **no auto Git write** (D06)
@@ -322,17 +336,18 @@ Hérite A52-D01 `.3` + `STOP BEFORE DELIVERY`. Statut ici :
 - recommandation suivante **non executive** (D10)
 - B5 STOP BEFORE DELIVERY tant que non résolue / non acceptée-bornée par gate Morris
 
-### Recommandation B5
+### Décision B5
 
 ```
-RECOMMENDATION — NOT CLOSED
-Adopt transition matrix above as B5 Stop Policy candidate for F3 path;
-keep global B5 OPEN until Morris gate A accepts/bounds it for fixture Delivery.
+ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)
+Transition matrix + invariants above = B5 Stop Policy for F3 fixture path;
+global B5 remains OPEN — NOT CLOSED.
+Delivery / app/** still require gate B (NOT CONSUMED).
 ```
 
-**Challenge :** Utile ? Oui — opérationnalise A52-B5 pour F3. Dette ? Doc policy ≠ runtime enforce jusqu'à Delivery. Plus simple ? Liste invariants seule — insuffisante pour transitions. Repo-first ? Aligne D01–D11 + A52. Gate Morris ? **Oui (A)**. Architecture durable ? Non. Fixture avant REAL ? Oui. Réduit risque ? Oui (bloque launch prématuré).
+**Challenge (conservé) :** Utile ? Oui — opérationnalise A52-B5 pour F3. Dette ? Doc policy ≠ runtime enforce jusqu’à Delivery. Plus simple ? Liste invariants seule — insuffisante pour transitions. Repo-first ? Aligne D01–D11 + A52. Gate Morris ? **Oui (A — consommé)**. Architecture durable ? Non. Fixture avant REAL ? Oui. Réduit risque ? Oui (bloque launch prématuré).
 
-**Statut : `B5 OPEN` · policy framed ≠ closed.**
+**Statut : `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` · global B5 `OPEN` ≠ CLOSED.**
 
 ## 6. HARD mapping — R-T-A3-1 / R-T-A3-2
 
@@ -340,13 +355,13 @@ keep global B5 OPEN until Morris gate A accepts/bounds it for fixture Delivery.
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème** | Confirm Critical / autorité d'exécution réelle sans API publique authentifiée + auditée ; Confirm reste fail-closed (`CRITICAL_NOT_ACKNOWLEDGED`) |
+| **Problème** | Confirm Critical / autorité d’exécution réelle sans API publique authentifiée + auditée ; Confirm reste fail-closed (`CRITICAL_NOT_ACKNOWLEDGED`) |
 | **Source** | A5.2 `03-authority-model-and-gaps.md` · A52-D03 `.3` puis `.1` avant real Critical · readiness `20` · SC-07 / TR-S-08 |
 | **Impact** | Bloque **REAL** / Critical real ; IAM `NOT_SELECTED` |
 | **Déjà réduit** | Simulation/read-only ; fail-closed préservé ; foundation lot local (reduced ≠ closed) |
 | **Non résolu** | API publique ack · identité forte · anti-replay · IAM |
 | **Bloque REAL** | **OUI** |
-| **Bloque fixture-only framing / future fixture Delivery** | **NON** pour framing (T-A7-D03=.1) ; fixture Delivery reste soumis B5/F08/GO — HARD n'interdit pas *par elle-même* un path FIXTURE explicite non-Critical |
+| **Bloque fixture-only framing / future fixture Delivery** | **NON** pour framing (T-A7-D03=.1) ; fixture Delivery reste soumis B5/F08/GO — HARD n’interdit pas *par elle-même* un path FIXTURE explicite non-Critical |
 | **Preuve fermeture future** | API `.1` + audit + anti-replay + gate Morris HARD · **≠** ce cycle |
 | **Verdict** | `OPEN HARD — BLOCKS REAL` · `OPEN HARD — DOES NOT BLOCK FIXTURE-ONLY FRAMING` |
 
@@ -364,13 +379,13 @@ keep global B5 OPEN until Morris gate A accepts/bounds it for fixture Delivery.
 | **Preuve fermeture future** | Déclaration atomicité durable + preuves · T-A6 COMPLETE mémoire si requis · gate Morris |
 | **Verdict** | `OPEN HARD — BLOCKS REAL` · `OPEN HARD — DOES NOT BLOCK FIXTURE-ONLY FRAMING` |
 
-**Ne jamais transformer REDUCED → CLOSED.** Aucune HARD fermée ici.
+**Ne jamais transformer REDUCED → CLOSED.** Aucune HARD fermée ici. Gate A **n’implique aucune** fermeture HARD.
 
 ## 7. Autorité / source-of-truth matrix
 
 | Acteur / objet | Rôle | Autorité | Source de vérité | Mutation | Décision | Validité | Fail-closed |
 |----------------|------|----------|------------------|----------|----------|----------|-------------|
-| **Morris** | décideur | gates · REAL confirm · F08/B5 | bulletins Git / GO | via gates | **oui** | jusqu'au prochain GO | pas d'auto-adopt |
+| **Morris** | décideur | gates · REAL confirm · F08/B5 | bulletins Git / GO | via gates | **oui** | jusqu’au prochain GO | pas d’auto-adopt |
 | **Studio / Assistant** | UX + orchestration | prepare / display / recommend | F2 + native OA when wired | UI state · prepare only | **non** (reco ≠ decision) | session / store | restart ≠ rebuild exec auth |
 | **F2 Proposal** | qualification artifact | eligibility prepare | ProposalDto + snapshot | F2 only | non | stale rules | drift → refuse |
 | **F2 Decision** | Morris record | GO = prepare-only | DecisionDto · `executionPerformed:false` | recordDecision | Morris already | bound to proposal | never launches |
@@ -399,42 +414,44 @@ Studio Project → Assistant → Proposition validée (F2)
 ### Classification
 
 ```
-OPTION / RECOMMENDATION — NOT AUTHORIZED
+F08-O1 ADOPTED — DELIVERY STILL NOT AUTHORIZED
 FIXTURE-first bounded vertical slice (aligns F08-O1)
+Requires gate B before any app/** mutation
 ```
 
 ### Pourquoi FIXTURE-first avant REAL
 
 1. D11 / Cycle 9 : REAL **BLOCKED** (HARD · B5 · wiring · authority).
 2. D05 : REAL/FIXTURE distincts · no silent fallback — fixture prouve la chaîne sans lever HARD.
-3. V-T01 : `app/**` = Delivery → exige F08 + B5 bornage + GO Delivery dédié — **pas ce cycle**.
+3. V-T01 : `app/**` = Delivery → exige F08 + B5 bornage + GO Delivery dédié — **gate B NOT CONSUMED**.
 4. Foundations T-A4/5/6 EXISTS ; Assistant NOT WIRED — premier lot = wire + Test adapter.
-5. Process-local insuffisant pour REAL (D07) — fixture évite faux claim d'autorité durable.
+5. Process-local insuffisant pour REAL (D07) — fixture évite faux claim d’autorité durable.
 
 **Ne pas coder. Ne pas autoriser Cursor REAL. Ne pas muter `app/**` ici.**
 
-**Challenge :** Utile ? Oui. Dette ? Adapter fixture + wiring. Plus simple ? Doc-only O2 — moins de preuve. Repo-first ? Oui. Gate ? A puis B. Architecture durable ? Non. Fixture avant REAL ? **Oui**. Réduit risque ? Oui vs REAL-first / O3.
+**Challenge :** Utile ? Oui. Dette ? Adapter fixture + wiring. Plus simple ? Doc-only O2 — moins de preuve. Repo-first ? Oui. Gate ? A (consommé) puis B. Architecture durable ? Non. Fixture avant REAL ? **Oui**. Réduit risque ? Oui vs REAL-first / O3.
 
-## 9. Gates Morris suivants (NOT CONSUMED)
+## 9. Gates Morris suivants
 
 | ID | Gate candidat | Statut |
 |----|---------------|--------|
-| **A** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` | `NOT CONSUMED` |
+| **A** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` | `CONSUMED` |
 | **B** | `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE` | `NOT CONSUMED` |
 | **C** | `GO FRAME OR REDUCE HARD R-T-A3-1 / R-T-A3-2 FOR FUTURE REAL PATH — NO REAL EXECUTION — NO IAM/PERSISTENCE AUTO-SELECT` | `NOT CONSUMED` |
 | **D** | `GO CURSOR REAL PILOT F3 — EXACT CONTRACT CONFIRMATION — HARD/AUTHORITY PREREQUISITES SATISFIED — DISTINCT FROM FIXTURE` | `NOT CONSUMED` |
 
-Ordre recommandé (reco ≠ decision) : **A → B → QA fixture → C (as needed) → D**.
+Ordre restant (reco ≠ decision) : **B → QA fixture → C (as needed) → D**.
 
 ## 10. Anti-claims
 
-Ce cadrage **ne signifie PAS** :
+Cette adoption **ne signifie PAS** :
 
-- framing complete ≠ F08 decided
-- recommendation ≠ Morris decision
-- B5 policy proposed ≠ B5 closed
-- fixture option ≠ Delivery authorized
-- Delivery fixture ≠ Cursor REAL
+- F08-O1 adopted ≠ Delivery authorized
+- F08-O1 adopted ≠ Cursor REAL
+- B5 bounded acceptance ≠ B5 CLOSED global
+- B5 adopted for F3 fixture path ≠ Delivery / `app/**` authorized
+- Gate A consumed ≠ Gate B/C/D consumed
+- framing complete ≠ HARD closed
 - HARD mapped ≠ HARD closed
 - HARD REDUCED ≠ CLOSED
 - process-local ≠ durable authority
@@ -447,122 +464,492 @@ Ce cadrage **ne signifie PAS** :
 - T-A4/5/6 EXISTS ≠ Assistant wired
 - Option A complete · T-A6 COMPLETE · IAM/persistence SELECTED · F4 open · production ready
 
-### Challenge synthèse des recommandations
+### Challenge synthèse
 
-| Reco | Utile maintenant | Dette | Plus simple | Repo-first | Auto vs humain | Gate | Évite archi durable | Fixture avant REAL | Réduit risque |
-|------|------------------|-------|-------------|------------|----------------|------|---------------------|--------------------|---------------|
-| F08-O1 | Y | wiring partiel | O2 sans preuve | Y | humain | A+B | Y | Y | Y |
-| B5 matrix | Y | enforce runtime ultérieur | invariants seuls | Y | humain | A | Y | Y | Y |
+| Reco / décision | Utile maintenant | Dette | Plus simple | Repo-first | Auto vs humain | Gate | Évite archi durable | Fixture avant REAL | Réduit risque |
+|-----------------|------------------|-------|-------------|------------|----------------|------|---------------------|--------------------|---------------|
+| F08-O1 **ADOPTED** | Y | wiring partiel | O2 sans preuve | Y | humain | A✓ + B | Y | Y | Y |
+| B5 matrix **ADOPTED bounded** | Y | enforce runtime ultérieur | invariants seuls | Y | humain | A✓ | Y | Y | Y |
 | FIXTURE slice | Y | adapter | none useful | Y | humain | B | Y | Y | Y |
-| Gates A–D | Y | sequencing | merge gates — pire | Y | humain | — | Y | Y | Y |
+| Gates B–D | Y | sequencing | merge gates — pire | Y | humain | — | Y | Y | Y |
 
 ## 11. Effets / non-effets
 
 ### Effets
 
-- Options F08 O1–O4 cadrées · reco O1 **NOT DECIDED**
-- B5 Stop Policy candidate + matrice transitions · **NOT CLOSED**
-- HARD R-T-A3-1/2 mappées · restent **OPEN HARD**
-- Slice FIXTURE-first défini · **NOT AUTHORIZED**
-- Gates A–D préparés · **NOT CONSUMED**
+- **F08-O1** `DECIDED — ADOPTED BY MORRIS` · contenu fonctionnel O1 préservé
+- **F08-O2/O3/O4** `NOT SELECTED` (historiques)
+- **B5 Stop Policy** `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` · matrice inchangée sémantiquement
+- HARD R-T-A3-1/2 mappées · restent **OPEN HARD — BLOCKS REAL**
+- Slice FIXTURE-first aligné O1 · Delivery **NOT AUTHORIZED**
+- Gate **A CONSUMED** · Gates B/C/D **NOT CONSUMED**
 - D01–D11 préservés exactement
 
 ### Non-effets
 
 - Aucune mutation `app/**` · aucun Cursor REAL · aucun OpenAI live
-- F08 NOT DECIDED · B5 OPEN · HARD OPEN · Delivery NOT AUTHORIZED
+- Delivery / Delivery preparation **NOT AUTHORIZED**
+- B5 global **NOT CLOSED** · HARD **OPEN** · R1 / R-M01 **OPEN**
 - IAM / persistence NOT_SELECTED
 - Aucun commit / push / PR / merge projet
 
 ## 12. Verdict
 
 ```
-F3 PRE-DELIVERY GOVERNANCE FRAMING COMPLETE —
-F08 OPTIONS FRAMED — NOT DECIDED —
-B5 STOP POLICY FRAMED — NOT CLOSED —
-HARD R-T-A3-1 / R-T-A3-2 MAPPED — REMAIN OPEN —
-BOUNDED FIXTURE-FIRST DELIVERY OPTION DEFINED —
-NO APP/** DELIVERY —
-NO CURSOR REAL —
+F3 F08 CONTENT + B5 STOP POLICY ADOPTED FOR F3 FIXTURE PATH —
+F08-O1 DECIDED — ADOPTED BY MORRIS —
+F08-O2 / O3 / O4 NOT SELECTED —
+B5 ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED) —
+HARD R-T-A3-1 / R-T-A3-2 REMAIN OPEN HARD — BLOCKS REAL —
+GATE A CONSUMED —
+GATES B / C / D NOT CONSUMED —
+DELIVERY NOT AUTHORIZED —
+NO APP/** —
+CURSOR REAL BLOCKED —
 NO HARD CLOSURE —
+NO GLOBAL B5 CLOSED CLAIM —
 NO ARCHITECTURE PIVOT —
-NEXT MORRIS DECISION GATES PREPARED —
 READY FOR CHATGPT REVIEW
 ```
 
 *(Handoff remote verification is a cycle-pack concern; this README alone does not claim handoff published.)*
+
+---
+
+## §4b Useful before/after diffs (changed sections)
+
+Blob BEFORE `49b487604d0950dd0a8b9311e04152791c67be03` → AFTER `a442a374fac1664bdaad9211f6478ec6d9257788`
+
+### Diff — header metadata
+
+```diff
+--- before/header metadata
++++ after/header metadata
+@@ -3,9 +3,11 @@
+ | Champ | Valeur |
+ |-------|--------|
+-| **Gate Morris consommé** | `GO FRAME PRE-DELIVERY GOVERNANCE FOR F3 NATIVE FIXTURE PATH — INCLUDE F08 TIMING/CONTENT OPTIONS AND B5 STOP POLICY — NO APP/** DELIVERY — NO REAL CURSOR — NO HARD CLOSURE IMPLIED` |
+-| **Demande Morris** | `ok go` — contextualisée exclusivement comme consommation de ce gate candidat déjà enregistré (F3 decisions README §10) |
++| **Gate Morris consommé** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` |
++| **Demande Morris** | `ok go` — contextualisée exclusivement comme consommation du gate A candidat déjà enregistré (§9) |
++| **Date/heure adoption (CEST)** | 2026-08-11 15:32:06 CEST (+0200) |
++| **Date/heure adoption (UTC)** | 2026-08-11 13:32:06 UTC |
+ | **Date/heure cadrage (CEST)** | 2026-08-11 15:14:54 CEST (+0200) |
+ | **Date/heure cadrage (UTC)** | 2026-08-11 13:14:54 UTC |
+-| **Cycle / profil** | 1 — Cadrage · Standard · DOC |
++| **Cycle / profil** | 15 — Capitalisation · Standard · DOC |
+ | **Critical** | `NON` |
+ | **CKC** | `cycle-knowledge-contracts/pilots/01-cadrage.md` · status `candidate` · experimental cognitive guidance · **aucune autorité d'exécution** |
+@@ -13,12 +15,14 @@
+ | **Branche locale** | `framing/sfia-studio-f3-pre-delivery-governance` |
+ | **Worktree** | `…/finops-t2-main/.tmp-sfia-review/worktrees/f3-pre-delivery-governance` |
+-| **Statut** | `F3 PRE-DELIVERY GOVERNANCE FRAMED — OPTIONS ONLY — NO ADOPTION — NO DELIVERY` |
+-| **F08** | `NOT DECIDED` |
+-| **B5** | `OPEN` · `STOP BEFORE DELIVERY` · policy = **OPTION / RECOMMENDATION** ≠ CLOSED |
+-| **HARD R-T-A3-1 / R-T-A3-2** | `OPEN HARD` · mapped ≠ closed |
++| **Statut** | `F08-O1 + B5 BOUNDED ADOPTED BY MORRIS — NO DELIVERY — NO REAL — NO HARD CLOSURE` |
++| **F08** | `DECIDED — ADOPTED BY MORRIS` (O1) · O2/O3/O4 `NOT SELECTED` |
++| **B5** | `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` · global B5 reste `OPEN` · `STOP BEFORE DELIVERY` hors bornage |
++| **HARD R-T-A3-1 / R-T-A3-2** | `OPEN HARD` · mapped ≠ closed · **BLOCKS REAL** |
+ | **Delivery / Delivery preparation** | `NOT AUTHORIZED` |
+ | **Cursor REAL** | `BLOCKED` |
+ | **F3-D01…D11** | `DECIDED — ADOPTED BY MORRIS` (préservés exactement) |
++| **Gate A** | `CONSUMED` |
++| **Gates B / C / D** | `NOT CONSUMED` |
+ | **Push / PR / merge projet** | **aucun** |
+-| **Commit projet** | **aucun** (fichier créé, non commité) |
++| **Commit projet** | **aucun** (fichier modifié, non commité) |
+
+```
+
+### Diff — §1 Contexte
+
+```diff
+--- before/§1 Contexte
++++ after/§1 Contexte
+@@ -3,14 +3,15 @@
+ Le contrat fonctionnel F3 est **décidé** (F3-D01…D11 ADOPTED BY MORRIS, PR #331 / merge `49b61e9…`). Cela ferme le *decision set* fonctionnel ; cela **n'autorise pas** Delivery, Delivery preparation, mutation `app/**`, ni Cursor REAL.
+
+-Cycle 9 (validation conception) a classé la trajectoire inbound « bounded native fixture integration » immédiate comme **MAJOR** : elle sur-revendiquait Delivery avant satisfaction calendrier **F08** (T-A7-D05=.3 · avant delivery) tandis que **B5** reste `OPEN` · `STOP BEFORE DELIVERY`.
++Cycle 9 (validation conception) a classé la trajectoire inbound « bounded native fixture integration » immédiate comme **MAJOR** : elle sur-revendiquait Delivery avant satisfaction calendrier **F08** (T-A7-D05=.3 · avant delivery) tandis que **B5** reste `OPEN` · `STOP BEFORE DELIVERY` au plan global.
+
+-**Objectif de ce cadrage :** préparer les arbitrages Morris pré-Delivery :
++Le cadrage Cycle 1 a préparé options F08, candidate B5 Stop Policy, mapping HARD, slice FIXTURE-first candidat, et gates A–D.
+
+-1. options **F08** (timing / contenu / granularité du premier lot) ;
+-2. candidate **B5 Stop Policy** fail-closed ;
+-3. mapping **HARD** R-T-A3-1 / R-T-A3-2 (fixture vs REAL) ;
+-4. slice vertical **FIXTURE-first** candidat ;
+-5. gates Morris A–D suivants.
++**Objectif de cette capitalisation (gate A) :** adopter documentairement :
+
+-**Ce GO autorise uniquement le CADRAGE.** Aucune option F08/B5 n'est adoptée. Aucune réserve n'est fermée. Aucune mutation applicative.
++1. **F08-O1** — Minimal fixture vertical slice — `DECIDED — ADOPTED BY MORRIS` (contenu fonctionnel O1 inchangé) ;
++2. **B5 Stop Policy** — matrice + invariants — `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` ;
++3. marquer O2/O3/O4 comme **NOT SELECTED** / historiques ;
++4. consommer **uniquement** le gate A ; laisser B/C/D **NOT CONSUMED**.
+
++**Ce GO n'autorise pas** Delivery, Delivery preparation, mutation `app/**`, Cursor REAL, fermeture HARD, ni claim `B5 CLOSED` global. Aucune mutation applicative.
++
+```
+
+### Diff — §3 Current state
+
+```diff
+--- before/§3 Current state
++++ after/§3 Current state
+@@ -4,8 +4,9 @@
+ |-------|--------|-------|
+ | **F3-D01…D11** | `DECIDED — ADOPTED BY MORRIS` | préservés exactement · pas réinterprétés |
+-| **F08 content** | `NOT DECIDED` | calendrier = avant delivery (T-A7-D05=.3) · non consommé |
+-| **B5** | `OPEN` · `STOP BEFORE DELIVERY` | A52-D01 · A52-B5 |
+-| **R-T-A3-1** | `OPEN HARD` | Confirm Critical fail-closed · bloque REAL |
+-| **R-T-A3-2** | `OPEN HARD` | atomicité durable résiduelle · bloque REAL |
++| **F08 content** | `DECIDED — ADOPTED BY MORRIS` (O1) | O2/O3/O4 `NOT SELECTED` · calendrier avant delivery conservé |
++| **B5 (F3 fixture path)** | `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` | matrice + invariants adoptés pour ce path |
++| **B5 (global)** | `OPEN` · `STOP BEFORE DELIVERY` | hors bornage F3 fixture · ≠ CLOSED |
++| **R-T-A3-1** | `OPEN HARD` | Confirm Critical fail-closed · **BLOCKS REAL** |
++| **R-T-A3-2** | `OPEN HARD` | atomicité durable résiduelle · **BLOCKS REAL** |
+ | **R1** | `OPEN` | Project↔Cycle atomicity |
+ | **R-M01** | `OPEN` | claims readiness |
+@@ -13,7 +14,7 @@
+ | **IAM** | `NOT_SELECTED` | |
+ | **Product persistence** | `NOT_SELECTED` | local bounded ≠ product SELECTED |
+-| **Delivery / Delivery prep** | `NOT AUTHORIZED` | |
+-| **Cursor REAL** | `BLOCKED` · NO-GO NOW (D11) | adapter real MISSING |
+-| **Fixture Delivery `app/**`** | `NOT AUTHORIZED` | = Delivery (V-T01) |
++| **Delivery / Delivery prep** | `NOT AUTHORIZED` | gate B `NOT CONSUMED` |
++| **Cursor REAL** | `BLOCKED` · NO-GO NOW (D11) | adapter real MISSING · HARD OPEN |
++| **Fixture Delivery `app/**`** | `NOT AUTHORIZED` | = Delivery (V-T01) · gate B requis |
+ | **T-A6 COMPLETE** | `NOT DECLARED` | |
+ | **Option A** | `NOT COMPLETE` | |
+```
+
+### Diff — §4 F08 decision block
+
+```diff
+--- before/§4 F08 decision block
++++ after/§4 F08 decision block
+@@ -1,7 +1,7 @@
+-## 4. F08 — options (NOT DECIDED)
++## 4. F08 — DECIDED — ADOPTED BY MORRIS (O1)
+
+-F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery (calendrier déjà : **avant delivery**). Ce document **ne décide pas** F08.
++F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery (calendrier déjà : **avant delivery**). Gate A adopte **F08-O1** uniquement.
+
+-### F08-O1 — Minimal fixture vertical slice (RECOMMENDED)
++### F08-O1 — Minimal fixture vertical slice (`DECIDED — ADOPTED BY MORRIS`)
+
+ | Dimension | Contenu |
+@@ -23,5 +23,5 @@
+ | **Risque / dette** | Wiring partiel ; dette REAL/authority reportée (acceptable) |
+
+-### F08-O2 — Documentary-only F08 bulletin (no Delivery yet)
++### F08-O2 — Documentary-only F08 bulletin (no Delivery yet) — `NOT SELECTED` (historique)
+
+ | Dimension | Contenu |
+@@ -36,5 +36,5 @@
+ | **Fixture-only / prépare REAL** | N/A runtime |
+
+-### F08-O3 — Fixture + partial HARD mitigation in same lot
++### F08-O3 — Fixture + partial HARD mitigation in same lot — `NOT SELECTED` (historique)
+
+ | Dimension | Contenu |
+@@ -50,5 +50,5 @@
+ | **Prépare REAL** | Oui mais **trop tôt** sans gate A/B séparés |
+
+-### F08-O4 — Defer fixture until HARD/B5 globally closed
++### F08-O4 — Defer fixture until HARD/B5 globally closed — `NOT SELECTED` (historique)
+
+ | Dimension | Contenu |
+@@ -61,13 +61,14 @@
+ | **Fixture-only** | N/A (pas de slice) |
+
+-### Recommandation F08
++### Décision F08
+
+ ```
+-RECOMMENDATION — NOT DECIDED
++DECIDED — ADOPTED BY MORRIS
+ F08-O1 — Minimal fixture vertical slice (fixture-first)
++O2 / O3 / O4 — NOT SELECTED (historical)
+ ```
+
+-**Challenge :** Utile maintenant ? Oui — corrige MAJOR trajectory. Dette ? Wiring partiel acceptée. Plus simple ? O2 plus simple mais sans preuve. Repo-first ? Oui (foundations EXIST). Automatisable ? Non — gate Morris A puis B. Architecture durable ? Non requise. Fixture avant REAL ? Oui. Réduit risque ? Oui vs O3/O4.
++**Challenge (conservé) :** Utile maintenant ? Oui — corrige MAJOR trajectory. Dette ? Wiring partiel acceptée. Plus simple ? O2 plus simple mais sans preuve. Repo-first ? Oui (foundations EXIST). Automatisable ? Non — gate Morris A puis B. Architecture durable ? Non requise. Fixture avant REAL ? Oui. Réduit risque ? Oui vs O3/O4.
+
+-**Statut : `F08 NOT DECIDED`.**
++**Statut : `F08-O1 DECIDED — ADOPTED BY MORRIS` · O2/O3/O4 `NOT SELECTED`.**
+
+```
+
+### Diff — §5 B5 status/décision (not matrix)
+
+```diff
+--- before/§5 B5 status/décision (not matrix)
++++ after/§5 B5 status/décision (not matrix)
+@@ -1,7 +1,7 @@
+-## 5. B5 Stop Policy — candidate (NOT CLOSED)
++## 5. B5 Stop Policy — `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)`
+
+ Hérite A52-D01 `.3` + `STOP BEFORE DELIVERY`. Statut ici :
+
+-`B5 POLICY OPTION / RECOMMENDATION` — **pas** `B5 CLOSED`.
++`ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` — **pas** `B5 CLOSED` global.
+
+ ### Question centrale B5
+@@ -9,4 +9,4 @@
+ > À quel moment SFIA Studio peut-il demander à un agent d'exécuter ?
+
+-**Réponse candidate fail-closed :** uniquement après (1) ExecutionContract natif préparé depuis F2 éligible, (2) confirmation Morris **exacte** liée à l'identité immutable du contrat (D02) pour tout path REAL, (3) mode REAL|FIXTURE **explicite**, (4) GO Delivery applicable consommé pour le path, (5) autorité process-local **encore valide** (restart → fail closed · D07), (6) agent/adapter sélectionné sans fallback silencieux (D05). Conversation, proposal, ou F2 GO **seuls** ne suffisent **jamais**.
++**Réponse adoptée fail-closed (bornée F3 fixture path) :** uniquement après (1) ExecutionContract natif préparé depuis F2 éligible, (2) confirmation Morris **exacte** liée à l’identité immutable du contrat (D02) pour tout path REAL, (3) mode REAL|FIXTURE **explicite**, (4) GO Delivery applicable consommé pour le path, (5) autorité process-local **encore valide** (restart → fail closed · D07), (6) agent/adapter sélectionné sans fallback silencieux (D05). Conversation, proposal, ou F2 GO **seuls** ne suffisent **jamais**.
+
+```
+
+### Diff — §5 B5 décision footer
+
+```diff
+--- before/§5 B5 décision footer
++++ after/§5 B5 décision footer
+@@ -1,12 +1,13 @@
+-### Recommandation B5
++### Décision B5
+
+ ```
+-RECOMMENDATION — NOT CLOSED
+-Adopt transition matrix above as B5 Stop Policy candidate for F3 path;
+-keep global B5 OPEN until Morris gate A accepts/bounds it for fixture Delivery.
++ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)
++Transition matrix + invariants above = B5 Stop Policy for F3 fixture path;
++global B5 remains OPEN — NOT CLOSED.
++Delivery / app/** still require gate B (NOT CONSUMED).
+ ```
+
+-**Challenge :** Utile ? Oui — opérationnalise A52-B5 pour F3. Dette ? Doc policy ≠ runtime enforce jusqu'à Delivery. Plus simple ? Liste invariants seule — insuffisante pour transitions. Repo-first ? Aligne D01–D11 + A52. Gate Morris ? **Oui (A)**. Architecture durable ? Non. Fixture avant REAL ? Oui. Réduit risque ? Oui (bloque launch prématuré).
++**Challenge (conservé) :** Utile ? Oui — opérationnalise A52-B5 pour F3. Dette ? Doc policy ≠ runtime enforce jusqu’à Delivery. Plus simple ? Liste invariants seule — insuffisante pour transitions. Repo-first ? Aligne D01–D11 + A52. Gate Morris ? **Oui (A — consommé)**. Architecture durable ? Non. Fixture avant REAL ? Oui. Réduit risque ? Oui (bloque launch prématuré).
+
+-**Statut : `B5 OPEN` · policy framed ≠ closed.**
++**Statut : `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` · global B5 `OPEN` ≠ CLOSED.**
+
+```
+
+### Diff — §8 Classification
+
+```diff
+--- before/§8 Classification
++++ after/§8 Classification
+@@ -2,6 +2,7 @@
+
+ ```
+-OPTION / RECOMMENDATION — NOT AUTHORIZED
++F08-O1 ADOPTED — DELIVERY STILL NOT AUTHORIZED
+ FIXTURE-first bounded vertical slice (aligns F08-O1)
++Requires gate B before any app/** mutation
+ ```
+
+```
+
+### Diff — §9 Gates
+
+```diff
+--- before/§9 Gates
++++ after/§9 Gates
+@@ -1,11 +1,11 @@
+-## 9. Gates Morris suivants (NOT CONSUMED)
++## 9. Gates Morris suivants
+
+ | ID | Gate candidat | Statut |
+ |----|---------------|--------|
+-| **A** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` | `NOT CONSUMED` |
++| **A** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` | `CONSUMED` |
+ | **B** | `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE` | `NOT CONSUMED` |
+ | **C** | `GO FRAME OR REDUCE HARD R-T-A3-1 / R-T-A3-2 FOR FUTURE REAL PATH — NO REAL EXECUTION — NO IAM/PERSISTENCE AUTO-SELECT` | `NOT CONSUMED` |
+ | **D** | `GO CURSOR REAL PILOT F3 — EXACT CONTRACT CONFIRMATION — HARD/AUTHORITY PREREQUISITES SATISFIED — DISTINCT FROM FIXTURE` | `NOT CONSUMED` |
+
+-Ordre recommandé (reco ≠ decision) : **A → B → QA fixture → C (as needed) → D**.
++Ordre restant (reco ≠ decision) : **B → QA fixture → C (as needed) → D**.
+
+```
+
+### Diff — §10 Anti-claims
+
+```diff
+--- before/§10 Anti-claims
++++ after/§10 Anti-claims
+@@ -1,11 +1,12 @@
+ ## 10. Anti-claims
+
+-Ce cadrage **ne signifie PAS** :
++Cette adoption **ne signifie PAS** :
+
+-- framing complete ≠ F08 decided
+-- recommendation ≠ Morris decision
+-- B5 policy proposed ≠ B5 closed
+-- fixture option ≠ Delivery authorized
+-- Delivery fixture ≠ Cursor REAL
++- F08-O1 adopted ≠ Delivery authorized
++- F08-O1 adopted ≠ Cursor REAL
++- B5 bounded acceptance ≠ B5 CLOSED global
++- B5 adopted for F3 fixture path ≠ Delivery / `app/**` authorized
++- Gate A consumed ≠ Gate B/C/D consumed
++- framing complete ≠ HARD closed
+ - HARD mapped ≠ HARD closed
+ - HARD REDUCED ≠ CLOSED
+@@ -20,11 +21,11 @@
+ - Option A complete · T-A6 COMPLETE · IAM/persistence SELECTED · F4 open · production ready
+
+-### Challenge synthèse des recommandations
++### Challenge synthèse
+
+-| Reco | Utile maintenant | Dette | Plus simple | Repo-first | Auto vs humain | Gate | Évite archi durable | Fixture avant REAL | Réduit risque |
+-|------|------------------|-------|-------------|------------|----------------|------|---------------------|--------------------|---------------|
+-| F08-O1 | Y | wiring partiel | O2 sans preuve | Y | humain | A+B | Y | Y | Y |
+-| B5 matrix | Y | enforce runtime ultérieur | invariants seuls | Y | humain | A | Y | Y | Y |
++| Reco / décision | Utile maintenant | Dette | Plus simple | Repo-first | Auto vs humain | Gate | Évite archi durable | Fixture avant REAL | Réduit risque |
++|-----------------|------------------|-------|-------------|------------|----------------|------|---------------------|--------------------|---------------|
++| F08-O1 **ADOPTED** | Y | wiring partiel | O2 sans preuve | Y | humain | A✓ + B | Y | Y | Y |
++| B5 matrix **ADOPTED bounded** | Y | enforce runtime ultérieur | invariants seuls | Y | humain | A✓ | Y | Y | Y |
+ | FIXTURE slice | Y | adapter | none useful | Y | humain | B | Y | Y | Y |
+-| Gates A–D | Y | sequencing | merge gates — pire | Y | humain | — | Y | Y | Y |
++| Gates B–D | Y | sequencing | merge gates — pire | Y | humain | — | Y | Y | Y |
+
+```
+
+### Diff — §11 Effets
+
+```diff
+--- before/§11 Effets
++++ after/§11 Effets
+@@ -3,9 +3,10 @@
+ ### Effets
+
+-- Options F08 O1–O4 cadrées · reco O1 **NOT DECIDED**
+-- B5 Stop Policy candidate + matrice transitions · **NOT CLOSED**
+-- HARD R-T-A3-1/2 mappées · restent **OPEN HARD**
+-- Slice FIXTURE-first défini · **NOT AUTHORIZED**
+-- Gates A–D préparés · **NOT CONSUMED**
++- **F08-O1** `DECIDED — ADOPTED BY MORRIS` · contenu fonctionnel O1 préservé
++- **F08-O2/O3/O4** `NOT SELECTED` (historiques)
++- **B5 Stop Policy** `ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)` · matrice inchangée sémantiquement
++- HARD R-T-A3-1/2 mappées · restent **OPEN HARD — BLOCKS REAL**
++- Slice FIXTURE-first aligné O1 · Delivery **NOT AUTHORIZED**
++- Gate **A CONSUMED** · Gates B/C/D **NOT CONSUMED**
+ - D01–D11 préservés exactement
+
+@@ -13,5 +14,6 @@
+
+ - Aucune mutation `app/**` · aucun Cursor REAL · aucun OpenAI live
+-- F08 NOT DECIDED · B5 OPEN · HARD OPEN · Delivery NOT AUTHORIZED
++- Delivery / Delivery preparation **NOT AUTHORIZED**
++- B5 global **NOT CLOSED** · HARD **OPEN** · R1 / R-M01 **OPEN**
+ - IAM / persistence NOT_SELECTED
+ - Aucun commit / push / PR / merge projet
+```
+
+### Diff — §12 Verdict
+
+```diff
+--- before/§12 Verdict
++++ after/§12 Verdict
+@@ -2,14 +2,17 @@
+
+ ```
+-F3 PRE-DELIVERY GOVERNANCE FRAMING COMPLETE —
+-F08 OPTIONS FRAMED — NOT DECIDED —
+-B5 STOP POLICY FRAMED — NOT CLOSED —
+-HARD R-T-A3-1 / R-T-A3-2 MAPPED — REMAIN OPEN —
+-BOUNDED FIXTURE-FIRST DELIVERY OPTION DEFINED —
+-NO APP/** DELIVERY —
+-NO CURSOR REAL —
++F3 F08 CONTENT + B5 STOP POLICY ADOPTED FOR F3 FIXTURE PATH —
++F08-O1 DECIDED — ADOPTED BY MORRIS —
++F08-O2 / O3 / O4 NOT SELECTED —
++B5 ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED) —
++HARD R-T-A3-1 / R-T-A3-2 REMAIN OPEN HARD — BLOCKS REAL —
++GATE A CONSUMED —
++GATES B / C / D NOT CONSUMED —
++DELIVERY NOT AUTHORIZED —
++NO APP/** —
++CURSOR REAL BLOCKED —
+ NO HARD CLOSURE —
++NO GLOBAL B5 CLOSED CLAIM —
+ NO ARCHITECTURE PIVOT —
+-NEXT MORRIS DECISION GATES PREPARED —
+ READY FOR CHATGPT REVIEW
+ ```
 ```
 
 ---
 
 ## §5 Observations
 
-- Baseline clean @ 49b61e9 — no BASELINE DRIFT.
-- Inbound handoff tip matches expected post-merge F3 decisions pack.
-- F3-D01…D11 remain ADOPTED; this cycle does not reinterpret them.
-- Fixture app/** = Delivery (V-T01) — blocked by B5 STOP + F08 timing until dedicated GO.
-- HARD OPEN blocks REAL; sources allow fixture-only framing (and future fixture Delivery under separate GO) without HARD closure.
-- Recommendations explicitly ≠ decisions.
+1. Gate A consumed exactly as prepared in Cycle 1 §9.
+2. F08-O1 functional table preserved; status only → `DECIDED — ADOPTED BY MORRIS`.
+3. F08-O2/O3/O4 marked `NOT SELECTED` (historical) without content rewrite.
+4. B5 transition matrix semantically unchanged; status → bounded adoption for F3 fixture path.
+5. Global B5 remains OPEN — explicit anti-claim against CLOSED.
+6. HARD R-T-A3-1/2 remain `OPEN HARD — BLOCKS REAL`.
+7. Delivery / `app/**` / Cursor REAL remain unauthorized / blocked.
+8. Gates B/C/D remain `NOT CONSUMED`.
+9. No project commit/add/push/PR/merge; HEAD stays on `origin/main`.
 
 ---
 
 ## §6 Options / recommandations / décisions
 
-### Décisions déjà Morris (transported)
-
-F3-D01…D11 `DECIDED — ADOPTED BY MORRIS` · A52-D01…D05 · T-A7-D05=.3 F08 timing avant delivery.
-
-### Décisions candidates (NOT DECIDED / NOT CLOSED / NOT AUTHORIZED)
-
-| ID | Nature | Status |
-|----|--------|--------|
-| F08-O1 | Minimal fixture vertical slice | RECOMMENDATION — NOT DECIDED |
-| F08-O2 | Documentary-only F08 bulletin | option |
-| F08-O3 | Fixture + partial HARD same lot | option (not preferred) |
-| F08-O4 | Defer until HARD/B5 globally closed | option (over-blocks) |
-| B5 Stop Policy matrix | fail-closed transitions | POLICY OPTION / RECOMMENDATION — NOT CLOSED |
-| FIXTURE-first slice | vertical slice | OPTION/RECOMMENDATION — NOT AUTHORIZED |
+| Item | Avant | Après |
+|------|-------|-------|
+| F08-O1 | RECOMMENDATION — NOT DECIDED | **DECIDED — ADOPTED BY MORRIS** |
+| F08-O2/O3/O4 | options framed | **NOT SELECTED** (historical) |
+| B5 policy | OPTION / RECOMMENDATION — NOT CLOSED | **ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED)** |
+| Gate A | NOT CONSUMED | **CONSUMED** |
+| Gates B/C/D | NOT CONSUMED | **NOT CONSUMED** |
+| Vertical slice Delivery | NOT AUTHORIZED | **NOT AUTHORIZED** (requires B) |
 
 ---
 
 ## §7 Réserves
 
-| ID | Status | Notes |
-|----|--------|-------|
-| R-T-A3-1 | OPEN HARD — BLOCKS REAL · does not block fixture-only framing | Confirm fail-closed · API `.1` missing |
-| R-T-A3-2 | OPEN HARD — BLOCKS REAL · does not block fixture-only framing | durable atomicity residual |
-| B5 | OPEN · STOP BEFORE DELIVERY | policy framed ≠ closed |
-| R1 | OPEN | |
-| R-M01 | OPEN | |
-| R-Process-Local | ACCEPTED LIMITATION | insufficient for REAL |
-| IAM | NOT_SELECTED | |
-| Product persistence | NOT_SELECTED | |
-| F08 content | NOT DECIDED | |
+| Réserve | Status |
+|---------|--------|
+| HARD R-T-A3-1 | OPEN HARD — BLOCKS REAL |
+| HARD R-T-A3-2 | OPEN HARD — BLOCKS REAL |
+| B5 global | OPEN · STOP BEFORE DELIVERY · NOT CLOSED |
+| R1 | OPEN |
+| R-M01 | OPEN |
+| IAM | NOT_SELECTED |
+| Product persistence | NOT_SELECTED |
 
 ---
 
 ## §8 Anti-claims
 
-framing complete ≠ F08 decided · recommendation ≠ Morris decision · B5 policy proposed ≠ B5 closed · fixture option ≠ Delivery authorized · Delivery fixture ≠ Cursor REAL · HARD mapped ≠ HARD closed · REDUCED ≠ CLOSED · process-local ≠ durable authority · ExecutionContract prepared ≠ Attempt authorized · Evidence model ≠ execution proof · OPS1 proof ≠ Studio production authority · Git SoT ≠ auto writer · next gate recommended ≠ consumed · D01–D11 ADOPTED ≠ Delivery authorized · T-A4/5/6 EXISTS ≠ wired · Option A complete / T-A6 COMPLETE / production ready — **forbidden claims**.
+- F08-O1 adopted ≠ Delivery authorized ≠ Cursor REAL
+- B5 bounded acceptance ≠ B5 CLOSED global
+- Gate A consumed ≠ Gates B/C/D consumed
+- HARD mapped ≠ HARD closed · REDUCED ≠ CLOSED
+- No app/** · no OpenAI live · no IAM/persistence select · no architecture pivot
 
 ---
 
 ## §9 Stop conditions (cycle)
 
-STOP if baseline drift · dirty tracked · documentary location ambiguous · IAM/persistence required to proceed · recommendation implies REAL or app/** · auto-closes B5/HARD · project push/PR/merge required.
-
-None triggered.
+- STOP if project commit attempted — **honored (none)**
+- STOP if app/** mutation — **honored (none)**
+- STOP if HARD closure claimed — **honored (OPEN HARD)**
+- STOP if global B5 CLOSED claimed — **honored (NOT GLOBAL CLOSED)**
+- STOP if Delivery authorized — **honored (NOT AUTHORIZED)**
 
 ---
 
-## §10 Gates suivants (NOT CONSUMED)
+## §10 Gates suivants
 
-- **A** Adopt F08 content + B5 Stop Policy (bounded) — no app/** — no REAL — no HARD closure
-- **B** Delivery F3 native fixture vertical slice — fixture adapter only
-- **C** Frame/reduce HARD R-T-A3-1/2 for future REAL — no REAL now
-- **D** Cursor REAL pilot F3 — distinct — prerequisites satisfied
-
-Order reco (≠ decision): A → B → QA fixture → C as needed → D.
+| ID | Status |
+|----|--------|
+| A | **CONSUMED** |
+| B | NOT CONSUMED — next Delivery fixture GO |
+| C | NOT CONSUMED — HARD frame/reduce |
+| D | NOT CONSUMED — Cursor REAL pilot |
 
 ---
 
@@ -570,47 +957,46 @@ Order reco (≠ decision): A → B → QA fixture → C as needed → D.
 
 | Counter | Value |
 |---------|-------|
-| project content modifications (committed) | 0 |
-| project files created uncommitted | 1 (README) |
-| app/** mutations | 0 |
+| README docs edited | 1 |
+| app/** files | 0 |
 | project commits | 0 |
 | project pushes | 0 |
-| PR | 0 |
-| merge | 0 |
+| PRs | 0 |
+| merges | 0 |
 | Cursor REAL | 0 |
 | OpenAI live | 0 |
-| method modifications | 0 |
-| F08/B5/HARD closures | 0 |
-| handoff push | 1 (expected after publish) |
+| IAM/persistence selects | 0 |
+| HARD closures | 0 |
+| Global B5 closures | 0 |
 
 ---
 
-## §12 Challenge des recommandations (abrégé)
+## §12 Challenge (abrégé)
 
-| Reco | Verdict challenge |
-|------|-------------------|
-| F08-O1 | Simplest useful vertical slice; O2 weaker (no proof); O3 scope creep; O4 over-blocks vs T-A7-D03/D04 |
-| B5 matrix | Operationalizes A52-B5 for F3; needs Morris gate A; runtime enforce later |
-| FIXTURE-first | Aligns D05/D11/V-T01; does not lift HARD; not authorized now |
-| Gates A–D | Separates adoption / fixture Delivery / HARD / REAL — prevents trajectory MAJOR |
+| Décision | Utile | Dette | Fixture avant REAL | Gate | Réduit risque |
+|----------|-------|-------|--------------------|------|---------------|
+| F08-O1 ADOPTED | Y | wiring partiel | Y | A✓→B | Y |
+| B5 bounded ADOPTED | Y | runtime enforce later | Y | A✓ | Y |
+| Keep HARD OPEN | Y | REAL still blocked | Y | C/D later | Y |
 
 ---
 
 ## §13 Verdict reprise
 
-```
-F3 PRE-DELIVERY GOVERNANCE FRAMING COMPLETE —
-F08 OPTIONS FRAMED — NOT DECIDED —
-B5 STOP POLICY FRAMED — NOT CLOSED —
-HARD R-T-A3-1 / R-T-A3-2 MAPPED — REMAIN OPEN —
-BOUNDED FIXTURE-FIRST DELIVERY OPTION DEFINED —
-NO APP/** DELIVERY —
-NO CURSOR REAL —
+\`\`\`
+F3 F08 CONTENT + B5 STOP POLICY ADOPTED FOR F3 FIXTURE PATH —
+F08-O1 DECIDED — ADOPTED BY MORRIS —
+F08-O2 / O3 / O4 NOT SELECTED —
+B5 ADOPTED BY MORRIS — BOUNDED ACCEPTANCE FOR F3 FIXTURE PATH (NOT GLOBAL CLOSED) —
+HARD R-T-A3-1 / R-T-A3-2 REMAIN OPEN HARD — BLOCKS REAL —
+GATE A CONSUMED —
+GATES B / C / D NOT CONSUMED —
+DELIVERY NOT AUTHORIZED —
+NO APP/** —
+CURSOR REAL BLOCKED —
 NO HARD CLOSURE —
+NO GLOBAL B5 CLOSED CLAIM —
 NO ARCHITECTURE PIVOT —
-NEXT MORRIS DECISION GATES PREPARED —
 HANDOFF REMOTE VERIFIED —
 READY FOR CHATGPT REVIEW
-```
-
-Ce verdict ne signifie PAS : F08 DECIDED · B5 CLOSED · Delivery authorized · Cursor REAL authorized · HARD closed.
+\`\`\`
