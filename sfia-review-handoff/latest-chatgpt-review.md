@@ -1,367 +1,616 @@
-# Cycle 14 — POST-MERGE F3 Functional Design Decisions
-## LIGHT Review Pack
+# Cycle 1 — Cadrage F3 Pre-Delivery Governance — SFIA Studio
+## FULL Review Pack
 
 | Field | Value |
 |-------|-------|
-| **Role** | F3 Functional Design Decisions — Post-merge + PR branch cleanup |
-| **Pack type** | LIGHT Review Pack — Git integration / §6.12.1 cleanup / handoff |
+| **Role** | Cycle 1 — Cadrage F3 Pre-Delivery Governance — SFIA Studio |
+| **Pack type** | FULL Review Pack — documentary framing |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-11 14:43:52 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-11 12:43:52 UTC |
-| **Timestamp ISO UTC** | 2026-08-11T12:43:52Z |
-| **GO consumed** | GO POST-MERGE — F3 FUNCTIONAL DESIGN DECISIONS — PR #331 |
-| **Cycle** | 14 Light DOC Critical NON |
-| **Profil SFIA** | Light |
+| **Timestamp CEST** | 2026-08-11 15:16:40 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-11 13:16:40 UTC |
+| **Timestamp ISO UTC** | 2026-08-11T13:16:40Z |
+| **GO consumed** | `GO FRAME PRE-DELIVERY GOVERNANCE FOR F3 NATIVE FIXTURE PATH — INCLUDE F08 TIMING/CONTENT OPTIONS AND B5 STOP POLICY — NO APP/** DELIVERY — NO REAL CURSOR — NO HARD CLOSURE IMPLIED` |
+| **Cycle** | 1 — Cadrage |
+| **Profil SFIA** | Standard |
 | **Typologie** | DOC |
-| **Execution branch (final)** | `main` |
-| **MAIN worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main` |
-| **Framing worktree (pre-cleanup)** | `.../finops-t2-main/.tmp-sfia-review/worktrees/f3-functional-decisions` |
-| **HEAD MAIN (before align)** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| **HEAD MAIN (after align)** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
-| **origin/main** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
-| **Merge commit SHA** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
-| **Package tip** | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| **README path** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-functional-design-decisions/README.md` |
-| **README content blob** | `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` |
-| **Package** | 1 commit / 1 file / 185 insertions / 0 deletions |
-| **Inbound tip** | `509e09c984a79c6c5d1910142ba96c50854826c8` |
-| **Inbound blob** | `9c3c04b56f5857ce4435bda9a6e07a065b1811f6` |
-| **PR number** | #331 |
-| **PR URL** | https://github.com/mcleland147/sfia-workspace/pull/331 |
-| **PR title** | `docs(sfia-studio): record F3 functional design decisions (F3-D01…D11)` |
-| **PR base / head** | `main` / `framing/sfia-studio-f3-functional-design-decisions` |
-| **PR state** | MERGED |
-| **Merged at** | `2026-08-11T12:25:37Z` |
-| **Cleanup branch** | `framing/sfia-studio-f3-functional-design-decisions` |
+| **Critical** | NON |
+| **CKC** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` · candidate · experimental guidance only · no execution authority |
 | **Template baseline** | v2.6 |
-| **Prior gate** | F3 DECISION MERGE COMPLETE — READY FOR CHATGPT REVIEW / POST-MERGE GATE |
+| **Repo** | mcleland147/sfia-workspace |
+| **Execution branch** | `framing/sfia-studio-f3-pre-delivery-governance` |
+| **MAIN worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main` |
+| **Framing worktree** | `.../finops-t2-main/.tmp-sfia-review/worktrees/f3-pre-delivery-governance` |
+| **Base / HEAD** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
+| **origin/main** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
+| **Inbound handoff tip** | `9fcade799cdfecbfbe2c2ceee23dd0479ad34cea` |
+| **Inbound handoff blob** | `46aba1a8470c053bec8f32d32d8f68c8a305da82` |
+| **README path** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-pre-delivery-governance-framing/README.md` |
+| **README content blob (uncommitted)** | `49b487604d0950dd0a8b9311e04152791c67be03` |
+| **Project commit** | none |
+| **Project push / PR / merge** | 0 / 0 / 0 |
 | **F08** | NOT DECIDED |
+| **B5** | OPEN · STOP BEFORE DELIVERY · policy OPTION/RECOMMENDATION ≠ CLOSED |
+| **HARD** | R-T-A3-1 / R-T-A3-2 OPEN HARD |
 | **Delivery** | NOT AUTHORIZED |
 | **Cursor REAL** | BLOCKED |
+| **F3-D01…D11** | DECIDED — ADOPTED BY MORRIS (preserved) |
 
 ---
 
 ## Verdict (exact)
 
 ```
-F3 POST-MERGE COMPLETE —
-PR #331 INTEGRATION VERIFIED ON MAIN —
-MERGE 49B61E9 VERIFIED —
-PACKAGE 2EAB59E / BLOB 9F15731 INTACT —
-NO CONTENT DRIFT —
-BRANCH CLEANUP COMPLETE —
-REMOTE FRAMING BRANCH DELETED —
-MAIN CLEAN AND ALIGNED —
-F08 NOT DECIDED —
-DELIVERY NOT AUTHORIZED —
-CURSOR REAL BLOCKED —
+F3 PRE-DELIVERY GOVERNANCE FRAMING COMPLETE —
+F08 OPTIONS FRAMED — NOT DECIDED —
+B5 STOP POLICY FRAMED — NOT CLOSED —
+HARD R-T-A3-1 / R-T-A3-2 MAPPED — REMAIN OPEN —
+BOUNDED FIXTURE-FIRST DELIVERY OPTION DEFINED —
+NO APP/** DELIVERY —
+NO CURSOR REAL —
+NO HARD CLOSURE —
+NO ARCHITECTURE PIVOT —
+NEXT MORRIS DECISION GATES PREPARED —
 HANDOFF REMOTE VERIFIED —
-READY FOR NEXT MORRIS DECISION
+READY FOR CHATGPT REVIEW
 ```
 
-**Cleanup status:** **CLEANUP COMPLETE**
+**Handoff status:** PUBLISH-IN-CYCLE (L3 via `scripts/sfia/publish-review-handoff.sh`) — verify after publish.
 
-**Handoff status:** **PUBLISH-IN-CYCLE** (L3 via `scripts/sfia/publish-review-handoff.sh`)
-
-**Statut attendu:** POST-MERGE COMPLETE
+**Statut attendu:** FRAMING COMPLETE — OPTIONS ONLY — NO ADOPTION
 
 ---
 
-## §0 GO / inbound / truth
+## §0 GO / qualification / blocs
 
-- **GO Morris exact (consommé):** `GO POST-MERGE — F3 FUNCTIONAL DESIGN DECISIONS — PR #331`
-- **Authorized:** post-merge verify · main sync ff-only · §6.12.1 cleanup of exact PR branch · fetch/prune · Light pack · handoff L3
-- **Not authorized:** product/content edit · project commits · new PR/merge · force push · `git branch -D` · delete main/handoff · F08 / Delivery / Cursor REAL · HARD/B5 closure · worktree remove `--force`
+- **GO Morris exact (consommé):** `GO FRAME PRE-DELIVERY GOVERNANCE FOR F3 NATIVE FIXTURE PATH — INCLUDE F08 TIMING/CONTENT OPTIONS AND B5 STOP POLICY — NO APP/** DELIVERY — NO REAL CURSOR — NO HARD CLOSURE IMPLIED`
+- **Demande conversationnelle:** `ok go` → contextualisée exclusivement comme ce gate candidat (F3 decisions README §10)
+- **Authorized:** documentary framing · options · recommendations · local framing branch · FULL pack · handoff L3
+- **Not authorized:** app/** · Delivery · Delivery prep · Cursor REAL · OpenAI live · F08/B5/HARD auto-adoption/closure · IAM/persistence select · method edits · project commit/push/PR/merge · architecture durable pivot
+- **Blocs activés:** Gouvernance / autorité d'exécution · Sécurité fail-closed bornée · Capitalisation réserves (observation ≠ reco ≠ décision) — **pas** Cycle 15
+- **Blocs désactivés:** FinOps · GreenOps · RGPD · a11y · UX/UI/Figma · perf · DevOps · release · observabilité/RUN
 - **Synthesis-only:** NO
 
-### Inbound handoff verify
-
-| Field | Expected | Observed | Result |
-|-------|----------|----------|--------|
-| tip | `509e09c984a79c6c5d1910142ba96c50854826c8` | `509e09c984a79c6c5d1910142ba96c50854826c8` | **PASS** |
-| blob `sfia-review-handoff/latest-chatgpt-review.md` | `9c3c04b56f5857ce4435bda9a6e07a065b1811f6` | `9c3c04b56f5857ce4435bda9a6e07a065b1811f6` | **PASS** |
-| message | publish F3 decision merge gate | `docs(review-handoff): publish F3 decision merge gate` | **PASS** |
-| Role inbound | F3 Merge Gate | MATCH | **PASS** |
-| Synthesis-only | NO | NO | **PASS** |
-| Drift | none | none | **PASS — NO STOP** |
-
-MAIN `.tmp-sfia-review/chatgpt-review.md` reset from inbound blob before execution (hash-object = `9c3c04b…`).
-
 ---
 
-## §1 Sources consulted
+## §1 Local Git Truth Check
 
-1. `prompts/templates/sfia-cycle-execution-template.md` — Local Git Truth / §6.12 / §6.12.1 / §7 / §7.10 / §9
-2. `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (inbound tip `509e09c` / blob `9c3c04b`)
-3. `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-functional-design-decisions/README.md` on main
-4. `gh pr view 331` / `gh api` PR + branch protection + commit check-runs
-5. Local git: worktree list, fetch --prune, pull --ff-only, ancestry, blob, branch cleanup
-
----
-
-## §2 Worktree discovery
-
-| Worktree | Path | Branch | Notes |
-|----------|------|--------|-------|
-| **MAIN** | `.../finops-t2-main` | `main` | Designated main WT |
-| **F3 framing (pre-cleanup)** | `.../finops-t2-main/.tmp-sfia-review/worktrees/f3-functional-decisions` | `framing/sfia-studio-f3-functional-design-decisions` | Nested under `.tmp-sfia-review`; removed this cycle |
-| Handoff | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` | `sfia/review-handoff` | tip `509e09c` inbound |
-
-`git worktree list --porcelain` executed — MAIN + framing present before cleanup; framing absent after.
-
----
-
-## §3 Local Git Truth Check (MAIN)
-
-| Field | Observed | Result |
+| Check | Observed | Result |
 |-------|----------|--------|
-| branch | `main` | **PASS** |
-| status (pre-pull) | `?? .tmp-sfia-review/` only; behind origin/main by 2 | **PASS** tracked clean |
-| HEAD before | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` | match expected main-before |
-| `origin/main` (after fetch) | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | **PASS** |
-| `git pull --ff-only` | `09bfbb2…` → `49b61e9…` | **PASS** |
-| HEAD after | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | **PASS** |
-| status after | `?? .tmp-sfia-review/` only | **PASS** |
-| staged | empty | **PASS** |
+| toplevel MAIN | `.../finops-t2-main` | PASS |
+| framing branch | `framing/sfia-studio-f3-pre-delivery-governance` | PASS |
+| HEAD | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | PASS |
+| origin/main | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | PASS |
+| status MAIN pre | `?? .tmp-sfia-review/` only | PASS |
+| staged | empty | PASS |
+| framing status post-create | `?? .../f3-pre-delivery-governance-framing/` | PASS |
+| inbound tip | `9fcade799cdfecbfbe2c2ceee23dd0479ad34cea` | PASS |
+| inbound blob | `46aba1a8470c053bec8f32d32d8f68c8a305da82` | PASS verified |
+| path conflict | no equivalent framing sibling | PASS |
 
-No divergence. No reset. No product mutation.
+`origin/main` log -5: 49b61e9 Merge #331 F3 decisions · 2eab59e record F3 · 09bfbb2 Merge #330 F2 · fa25c94 F2 gate · 1847fc6 Merge #329 F1
 
 ---
 
-## §4 PR / merge / ancestry / package / drift
+## §2 Sources consultées
 
-### PR #331
+1. `prompts/templates/sfia-cycle-execution-template.md` — v2.6 baseline
+2. `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` — tip/blob verified
+3. `f3-functional-design-decisions/README.md` — blob `9f15731a9b5d4e2abc949824d329cd5ee6dd428f`
+4. `t-a7-technical-readiness-framing/README.md` + `06-holds-and-stop-conditions.md` + `20-hard-ta6-…`
+5. `t-a7-next-decision-step-framing/03-open-reserves-and-gates.md`
+6. `a5-2-reservations-authority-atomicity-framing/README.md` + `02` + `03`
+7. F2 `types.ts` / `recordDecision.ts` — `executionPerformed:false`
+8. T-A4/T-A5/T-A6 `app/lib/oa/execution-contract|attempt|evidence-review` — EXISTS · NOT_WIRED
+9. CKC `pilots/01-cadrage.md` — candidate
 
-| Field | Value |
-|-------|-------|
-| state | **MERGED** |
-| mergedAt | `2026-08-11T12:25:37Z` |
-| mergeCommit | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
-| baseRefOid (pre-merge) | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| headRefOid / package | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| title | docs(sfia-studio): record F3 functional design decisions (F3-D01…D11) |
-| base / head | `main` / `framing/sfia-studio-f3-functional-design-decisions` |
-| commits | 1 (`2eab59e`) |
-| files | 1 · README.md (+185 / −0) |
+---
 
-### Merge parents
+## §3 Fichiers créés / modifiés
 
-| Parent | SHA |
-|--------|-----|
-| HEAD^1 (main before) | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| HEAD^2 (package) | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| subject | Merge pull request #331 from mcleland147/framing/sfia-studio-f3-functional-design-decisions |
+| Action | Path |
+|--------|------|
+| **CREATED (uncommitted)** | `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-pre-delivery-governance-framing/README.md` |
+| Modified project files | **none** |
+| app/** | **0** |
 
-### Ancestry / blob / drift
+Blob (git hash-object): `49b487604d0950dd0a8b9311e04152791c67be03`
 
-| Check | Result |
+---
+
+## §4 COMPLETE README CONTENT
+
+```markdown
+# F3 — Pre-Delivery Governance Framing (F08 / B5 / HARD)
+
+| Champ | Valeur |
 |-------|--------|
-| `2eab59e` ancestor of `49b61e9` / `main` | **PASS** |
-| README blob on main | `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` **PASS** |
-| README blob on package | `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` **PASS** |
-| `git diff 2eab59e..49b61e9` names | **EMPTY** |
-| README content diff package vs main | **0 bytes** — **NO CONTENT DRIFT** |
-| `git log --oneline main..framing/...` (pre-delete) | **0 commits** |
-| `git diff --stat 09bfbb2..49b61e9` | 1 file / +185 / −0 |
+| **Gate Morris consommé** | `GO FRAME PRE-DELIVERY GOVERNANCE FOR F3 NATIVE FIXTURE PATH — INCLUDE F08 TIMING/CONTENT OPTIONS AND B5 STOP POLICY — NO APP/** DELIVERY — NO REAL CURSOR — NO HARD CLOSURE IMPLIED` |
+| **Demande Morris** | `ok go` — contextualisée exclusivement comme consommation de ce gate candidat déjà enregistré (F3 decisions README §10) |
+| **Date/heure cadrage (CEST)** | 2026-08-11 15:14:54 CEST (+0200) |
+| **Date/heure cadrage (UTC)** | 2026-08-11 13:14:54 UTC |
+| **Cycle / profil** | 1 — Cadrage · Standard · DOC |
+| **Critical** | `NON` |
+| **CKC** | `cycle-knowledge-contracts/pilots/01-cadrage.md` · status `candidate` · experimental cognitive guidance · **aucune autorité d'exécution** |
+| **Base** | `origin/main` @ `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
+| **Branche locale** | `framing/sfia-studio-f3-pre-delivery-governance` |
+| **Worktree** | `…/finops-t2-main/.tmp-sfia-review/worktrees/f3-pre-delivery-governance` |
+| **Statut** | `F3 PRE-DELIVERY GOVERNANCE FRAMED — OPTIONS ONLY — NO ADOPTION — NO DELIVERY` |
+| **F08** | `NOT DECIDED` |
+| **B5** | `OPEN` · `STOP BEFORE DELIVERY` · policy = **OPTION / RECOMMENDATION** ≠ CLOSED |
+| **HARD R-T-A3-1 / R-T-A3-2** | `OPEN HARD` · mapped ≠ closed |
+| **Delivery / Delivery preparation** | `NOT AUTHORIZED` |
+| **Cursor REAL** | `BLOCKED` |
+| **F3-D01…D11** | `DECIDED — ADOPTED BY MORRIS` (préservés exactement) |
+| **Push / PR / merge projet** | **aucun** |
+| **Commit projet** | **aucun** (fichier créé, non commité) |
+
+## 1. Contexte / objectif
+
+Le contrat fonctionnel F3 est **décidé** (F3-D01…D11 ADOPTED BY MORRIS, PR #331 / merge `49b61e9…`). Cela ferme le *decision set* fonctionnel ; cela **n'autorise pas** Delivery, Delivery preparation, mutation `app/**`, ni Cursor REAL.
+
+Cycle 9 (validation conception) a classé la trajectoire inbound « bounded native fixture integration » immédiate comme **MAJOR** : elle sur-revendiquait Delivery avant satisfaction calendrier **F08** (T-A7-D05=.3 · avant delivery) tandis que **B5** reste `OPEN` · `STOP BEFORE DELIVERY`.
+
+**Objectif de ce cadrage :** préparer les arbitrages Morris pré-Delivery :
+
+1. options **F08** (timing / contenu / granularité du premier lot) ;
+2. candidate **B5 Stop Policy** fail-closed ;
+3. mapping **HARD** R-T-A3-1 / R-T-A3-2 (fixture vs REAL) ;
+4. slice vertical **FIXTURE-first** candidat ;
+5. gates Morris A–D suivants.
+
+**Ce GO autorise uniquement le CADRAGE.** Aucune option F08/B5 n'est adoptée. Aucune réserve n'est fermée. Aucune mutation applicative.
+
+## 2. Source truth
+
+| Source | SHA / blob | Rôle |
+|--------|------------|------|
+| `origin/main` / framing HEAD | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | baseline |
+| Package F3 decisions | `2eab59e00658f335fbe0743878648826580b9c8d` | commit doc |
+| `f3-functional-design-decisions/README.md` | blob `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` | D01–D11 ADOPTED · next gate = ce GO |
+| Inbound handoff tip `origin/sfia/review-handoff` | `9fcade799cdfecbfbe2c2ceee23dd0479ad34cea` | Cycle 14 post-merge F3 |
+| Inbound handoff blob | `46aba1a8470c053bec8f32d32d8f68c8a305da82` | verified tip unchanged |
+| `t-a7-technical-readiness-framing/README.md` | @ main tip | HARD REDUCED≠CLOSED · B5/R1/R-M01 OPEN · Delivery NOT AUTHORIZED |
+| `…/06-holds-and-stop-conditions.md` | blob `6f0ec64c5b94e0eff95f22c1631a74359a397de4` | A52-B5 STOP · SC-07 · holds |
+| `…/20-hard-ta6-…foundation-lot.md` | @ main tip | R-T-A3-1…4 OPEN HARD · reduced evidence |
+| `t-a7-next-decision-step-framing/03-open-reserves-and-gates.md` | blob `769ebb115e5be7164ff1367b9dace3f9948093e6` | F08 timing avant delivery · contenu NOT DECIDED |
+| `a5-2-…/README.md` | blob `146eb122b898b21b6a8bda3f14d57c8f60253d05` | A52-D01…D05 · STOP BEFORE DELIVERY |
+| `a5-2-…/02-reservation-dependency-matrix.md` | @ main tip | HARD blocks real · framing OK |
+| `a5-2-…/03-authority-model-and-gaps.md` | @ main tip | R-T-A3-1 gap · Confirm fail-closed |
+| F2 `recordDecision.ts` / `types.ts` | @ main tip | `executionPerformed:false` · GO = prepare eligibility |
+| T-A4 / T-A5 / T-A6 `app/lib/oa/{execution-contract,execution-attempt,evidence-review}` | EXISTS foundations · **NOT WIRED** to Assistant | authority chain D03 |
+| Template | `prompts/templates/sfia-cycle-execution-template.md` v2.6 baseline | structure |
+| CKC Cadrage | `…/pilots/01-cadrage.md` candidate | guidance only |
+
+### Path conflict check
+
+Siblings sous `v3-native-option-a/` : `f3-functional-design-decisions/`, packs T-A*, A5.2, vertical-slice*, CI docs. **Aucun** `f3-pre-delivery-governance-framing/` ni équivalent F08/B5 pre-delivery. Location candidate **retenue**.
+
+## 3. Current state
+
+| Sujet | Status | Notes |
+|-------|--------|-------|
+| **F3-D01…D11** | `DECIDED — ADOPTED BY MORRIS` | préservés exactement · pas réinterprétés |
+| **F08 content** | `NOT DECIDED` | calendrier = avant delivery (T-A7-D05=.3) · non consommé |
+| **B5** | `OPEN` · `STOP BEFORE DELIVERY` | A52-D01 · A52-B5 |
+| **R-T-A3-1** | `OPEN HARD` | Confirm Critical fail-closed · bloque REAL |
+| **R-T-A3-2** | `OPEN HARD` | atomicité durable résiduelle · bloque REAL |
+| **R1** | `OPEN` | Project↔Cycle atomicity |
+| **R-M01** | `OPEN` | claims readiness |
+| **R-Process-Local** | ACCEPTED LIMITATION | insuffisant REAL (D07) |
+| **IAM** | `NOT_SELECTED` | |
+| **Product persistence** | `NOT_SELECTED` | local bounded ≠ product SELECTED |
+| **Delivery / Delivery prep** | `NOT AUTHORIZED` | |
+| **Cursor REAL** | `BLOCKED` · NO-GO NOW (D11) | adapter real MISSING |
+| **Fixture Delivery `app/**`** | `NOT AUTHORIZED` | = Delivery (V-T01) |
+| **T-A6 COMPLETE** | `NOT DECLARED` | |
+| **Option A** | `NOT COMPLETE` | |
+| **Assistant→T-A4/5/6 wiring** | `NOT WIRED` | |
+
+## 4. F08 — options (NOT DECIDED)
+
+F08 = arbitrage **contenu / timing / granularité** des réserves avant Delivery (calendrier déjà : **avant delivery**). Ce document **ne décide pas** F08.
+
+### F08-O1 — Minimal fixture vertical slice (RECOMMENDED)
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Moment** | Après adoption Morris F08/B5 (gate A) · **avant** tout `app/**` |
+| **Objectif** | Première preuve Studio→prepare→Attempt **FIXTURE**→Evidence→reinjection, sans REAL |
+| **Granularité** | Un seul scénario borné (ex. F3-S01+S08) · Test/NoOp adapter explicite |
+| **Frontières** | In : wire Assistant→T-A4/5/6 + fixture adapter + reinjection read-only. Out : REAL · Git writes · IAM · persistence produit · F4 |
+| **Entrée** | F3-D01…D11 ADOPTED · F08/B5 adoptés pour ce scope · B5 policy acceptée/bornée · Delivery GO dédié (gate B) |
+| **Sortie** | AC-F3 fixture applicables verts · Evidence incomplete ≠ READY · no REAL path |
+| **Evidence** | Attempt fixture · ReviewBundle · reinjection · anti-claims REAL |
+| **Dépendances** | Foundations T-A4/5/6 EXISTS · OPS1 harvest patterns · B5 policy |
+| **Réserves** | HARD restent OPEN · ne bloquent pas *framing* fixture ; bloquent REAL |
+| **Impact B5** | Exige acceptation/bornage B5 pour *ce* Delivery fixture · B5 global peut rester OPEN hors scope |
+| **Impact HARD** | Aucune fermeture · REAL toujours bloqué |
+| **Fixture-only** | **OUI** — mode explicite · no silent fallback |
+| **Prépare REAL sans l'autoriser** | OUI (contrat, evidence, reinjection) · REAL = gate D séparé |
+| **Valeur** | Vertical slice utile minimal · réduit risque trajectoire |
+| **Risque / dette** | Wiring partiel ; dette REAL/authority reportée (acceptable) |
+
+### F08-O2 — Documentary-only F08 bulletin (no Delivery yet)
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Moment** | Immédiatement après ce framing |
+| **Objectif** | Bulletin F08 formel (checklist réserves) **sans** GO Delivery |
+| **Granularité** | Doc-only · zéro `app/**` |
+| **Frontières** | In : F08 text. Out : tout runtime |
+| **Valeur** | Formalise calendrier/contenu |
+| **Risque / dette** | **Pas de preuve runtime** · retarde vertical slice · risque rejouer framing |
+| **Impact B5/HARD** | Neutre · B5/HARD inchangés |
+| **Fixture-only / prépare REAL** | N/A runtime |
+
+### F08-O3 — Fixture + partial HARD mitigation in same lot
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Moment** | Même GO Delivery |
+| **Objectif** | Fixture slice **et** mitigation R-T-A3-1/2 partielle |
+| **Granularité** | Large · multi-objectifs |
+| **Valeur** | Avance REAL track |
+| **Risque / dette** | Scope creep · mélange Delivery fixture et HARD · Critical/IAM pressure |
+| **Impact B5** | Complexifie bornage |
+| **Impact HARD** | Tente réduction — **≠ closure** ; risque sur-revendication |
+| **Fixture-only** | Menacé (pression REAL) |
+| **Prépare REAL** | Oui mais **trop tôt** sans gate A/B séparés |
+
+### F08-O4 — Defer fixture until HARD/B5 globally closed
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Moment** | Après fermeture HARD + B5 globale |
+| **Objectif** | Aucun Delivery tant que réserves P0 non closes |
+| **Valeur** | Max fail-closed |
+| **Risque / dette** | Bloque apprentissage fixture · contredit T-A7-D03/D04 (framing/design OK avec HARD open) · V-T03 |
+| **Impact B5/HARD** | Sur-bloque fixture alors que sources permettent fixture-path séparé de REAL |
+| **Fixture-only** | N/A (pas de slice) |
+
+### Recommandation F08
+
+```
+RECOMMENDATION — NOT DECIDED
+F08-O1 — Minimal fixture vertical slice (fixture-first)
+```
+
+**Challenge :** Utile maintenant ? Oui — corrige MAJOR trajectory. Dette ? Wiring partiel acceptée. Plus simple ? O2 plus simple mais sans preuve. Repo-first ? Oui (foundations EXIST). Automatisable ? Non — gate Morris A puis B. Architecture durable ? Non requise. Fixture avant REAL ? Oui. Réduit risque ? Oui vs O3/O4.
+
+**Statut : `F08 NOT DECIDED`.**
+
+## 5. B5 Stop Policy — candidate (NOT CLOSED)
+
+Hérite A52-D01 `.3` + `STOP BEFORE DELIVERY`. Statut ici :
+
+`B5 POLICY OPTION / RECOMMENDATION` — **pas** `B5 CLOSED`.
+
+### Question centrale B5
+
+> À quel moment SFIA Studio peut-il demander à un agent d'exécuter ?
+
+**Réponse candidate fail-closed :** uniquement après (1) ExecutionContract natif préparé depuis F2 éligible, (2) confirmation Morris **exacte** liée à l'identité immutable du contrat (D02) pour tout path REAL, (3) mode REAL|FIXTURE **explicite**, (4) GO Delivery applicable consommé pour le path, (5) autorité process-local **encore valide** (restart → fail closed · D07), (6) agent/adapter sélectionné sans fallback silencieux (D05). Conversation, proposal, ou F2 GO **seuls** ne suffisent **jamais**.
+
+### Matrice de transitions (intent → next gate)
+
+| Transition | Autorité | Entrée | STOP | Effet autorisé | Effet interdit | Preuve |
+|------------|----------|--------|------|----------------|----------------|--------|
+| User intent → F2 qualification | Studio + user | intent in scope | scope hors F2 / MethodMode hold | qualifier | launch agent | qualification record |
+| Qualification → Proposal | Studio F2 | eligibility rules | stale / drift | ProposalDto | ExecutionAttempt | proposal id + snapshot |
+| Proposal → Morris decision | Morris | proposal reviewable | hostile client claim | GO / GO_WITH_RESERVES / NO_GO / AMEND | auto-exec | DecisionDto · `executionPerformed:false` |
+| Morris decision → ExecutionContract | Studio prepare (D01) | GO/GO_WR + `readyForNextGatedStep` | NO_GO / AMEND / stale / B5 Delivery without acceptation | **PREPARE** contract | Attempt / agent call | contract id/version/digest |
+| ExecutionContract → confirmation | Morris (D02 REAL; fixture path per future GO) | contract identity exacte | digest mismatch / restart lost auth | confirm bind | silent confirm from chat | confirmation record |
+| Confirmation → ExecutionAttempt | Delivery GO + B5 bornage + mode explicit | confirmed + mode FIXTURE\|REAL | REAL without HARD/auth ; fixture without Delivery GO ; B5 STOP | create Attempt | auto-retry ; REAL if blocked | Attempt id · mode label |
+| Attempt → Agent call | selectedAgentRef + adapter | Attempt authorized | missing adapter / silent fallback | call labeled mode | REAL↔FIXTURE fallback ; Git remote | adapter invocation evidence |
+| Agent → Evidence | T-A6 | Attempt terminal | incomplete presented as READY | Evidence artifacts | claim READY if incomplete | evidence set |
+| Evidence → ReviewBundle | T-A6 | evidence linked | orphan evidence | ReviewBundle | Morris decision auto | bundle links Contract/Attempt |
+| ReviewBundle → Reinjection | Studio Assistant | bundle reviewable | reinjection triggers exec | contextual display | consume gate / relaunch | reinjection view |
+| Reinjection → Recommend next gate | Studio/Nora (D10) | post-reinjection | recommendation as decision | recommend only | execute / decide | recommendation record |
+
+### Invariants fail-closed (minimum)
+
+- conversation seule ≠ autorité
+- proposal seule ≠ autorité
+- F2 GO ≠ ExecutionAttempt
+- ExecutionContract préparé ≠ launch
+- confirmation Morris exacte liée au contrat (D02) pour REAL
+- aucune reconstruction d'autorité depuis conversation après restart (D07)
+- REAL / FIXTURE explicites · **no silent fallback** (D05)
+- **no auto retry** · retry = nouvel Attempt (D08)
+- **no auto Git write** (D06)
+- evidence obligatoire avant claim completion (D09)
+- recommandation suivante **non executive** (D10)
+- B5 STOP BEFORE DELIVERY tant que non résolue / non acceptée-bornée par gate Morris
+
+### Recommandation B5
+
+```
+RECOMMENDATION — NOT CLOSED
+Adopt transition matrix above as B5 Stop Policy candidate for F3 path;
+keep global B5 OPEN until Morris gate A accepts/bounds it for fixture Delivery.
+```
+
+**Challenge :** Utile ? Oui — opérationnalise A52-B5 pour F3. Dette ? Doc policy ≠ runtime enforce jusqu'à Delivery. Plus simple ? Liste invariants seule — insuffisante pour transitions. Repo-first ? Aligne D01–D11 + A52. Gate Morris ? **Oui (A)**. Architecture durable ? Non. Fixture avant REAL ? Oui. Réduit risque ? Oui (bloque launch prématuré).
+
+**Statut : `B5 OPEN` · policy framed ≠ closed.**
+
+## 6. HARD mapping — R-T-A3-1 / R-T-A3-2
+
+### R-T-A3-1
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème** | Confirm Critical / autorité d'exécution réelle sans API publique authentifiée + auditée ; Confirm reste fail-closed (`CRITICAL_NOT_ACKNOWLEDGED`) |
+| **Source** | A5.2 `03-authority-model-and-gaps.md` · A52-D03 `.3` puis `.1` avant real Critical · readiness `20` · SC-07 / TR-S-08 |
+| **Impact** | Bloque **REAL** / Critical real ; IAM `NOT_SELECTED` |
+| **Déjà réduit** | Simulation/read-only ; fail-closed préservé ; foundation lot local (reduced ≠ closed) |
+| **Non résolu** | API publique ack · identité forte · anti-replay · IAM |
+| **Bloque REAL** | **OUI** |
+| **Bloque fixture-only framing / future fixture Delivery** | **NON** pour framing (T-A7-D03=.1) ; fixture Delivery reste soumis B5/F08/GO — HARD n'interdit pas *par elle-même* un path FIXTURE explicite non-Critical |
+| **Preuve fermeture future** | API `.1` + audit + anti-replay + gate Morris HARD · **≠** ce cycle |
+| **Verdict** | `OPEN HARD — BLOCKS REAL` · `OPEN HARD — DOES NOT BLOCK FIXTURE-ONLY FRAMING` |
+
+### R-T-A3-2
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème** | Atomicité durable Decision↔LPS/Epistemic / Option B residual ; simulation/mémoire insuffisante pour real execution |
+| **Source** | A5.2 matrix · A52-D04 `.4` · readiness `20` · lié R1 |
+| **Impact** | Bloque **REAL** ; partial orphan risk sur chemins durables |
+| **Déjà réduit** | Mémoire/logique bornée ; audits locaux ; B5/R1 further reduced but OPEN |
+| **Non résolu** | Garantie durable · product persistence SELECTED · txn/outbox si requis |
+| **Bloque REAL** | **OUI** |
+| **Bloque fixture-only framing** | **NON** (framing/design OK) ; fixture Delivery borné possible sous B5 — sans claim persistence durable |
+| **Preuve fermeture future** | Déclaration atomicité durable + preuves · T-A6 COMPLETE mémoire si requis · gate Morris |
+| **Verdict** | `OPEN HARD — BLOCKS REAL` · `OPEN HARD — DOES NOT BLOCK FIXTURE-ONLY FRAMING` |
+
+**Ne jamais transformer REDUCED → CLOSED.** Aucune HARD fermée ici.
+
+## 7. Autorité / source-of-truth matrix
+
+| Acteur / objet | Rôle | Autorité | Source de vérité | Mutation | Décision | Validité | Fail-closed |
+|----------------|------|----------|------------------|----------|----------|----------|-------------|
+| **Morris** | décideur | gates · REAL confirm · F08/B5 | bulletins Git / GO | via gates | **oui** | jusqu'au prochain GO | pas d'auto-adopt |
+| **Studio / Assistant** | UX + orchestration | prepare / display / recommend | F2 + native OA when wired | UI state · prepare only | **non** (reco ≠ decision) | session / store | restart ≠ rebuild exec auth |
+| **F2 Proposal** | qualification artifact | eligibility prepare | ProposalDto + snapshot | F2 only | non | stale rules | drift → refuse |
+| **F2 Decision** | Morris record | GO = prepare-only | DecisionDto · `executionPerformed:false` | recordDecision | Morris already | bound to proposal | never launches |
+| **ExecutionContract (T-A4)** | scope/governance | native contract authority | contract id/version/digest | prepare/update per ports | non launch | digest bind | mismatch STOP |
+| **ExecutionAttempt (T-A5)** | technical try | launch under GO+confirm+mode | Attempt id · mode | create/terminal | non Morris | one-shot · retry=new | no auto-retry |
+| **Agent / Cursor** | executor | capability ≠ authority | adapter evidence | worktree effects under allowlist | **never Morris** | Attempt bound | missing REAL → fail closed |
+| **Git** | repo truth | human gates for write | commits / branches | **no auto write in F3** | N/A | SHA | deny remote Git in F3 |
+| **Evidence (T-A6)** | proofs | completeness authority T-A6 | evidence artifacts | append per Attempt | non READY claim alone | linked Attempt | incomplete ≠ READY |
+| **ReviewBundle (T-A6)** | review package | reviewability | bundle links | assemble | non executive | linked triad | orphan STOP |
+
+IAM / product persistence : **NOT_SELECTED** — non arbitrés ici.
+
+## 8. Vertical slice candidat (NOT AUTHORIZED)
+
+### Scénario examiné
+
+```
+Studio Project → Assistant → Proposition validée (F2)
+  → prepare ExecutionContract (D01)
+  → confirmation exacte (identité contrat)
+  → ExecutionAttempt mode=FIXTURE explicite
+  → Evidence → ReviewBundle → réinjection Workspace
+  → RecommendNextGate (non executive)
+```
+
+### Classification
+
+```
+OPTION / RECOMMENDATION — NOT AUTHORIZED
+FIXTURE-first bounded vertical slice (aligns F08-O1)
+```
+
+### Pourquoi FIXTURE-first avant REAL
+
+1. D11 / Cycle 9 : REAL **BLOCKED** (HARD · B5 · wiring · authority).
+2. D05 : REAL/FIXTURE distincts · no silent fallback — fixture prouve la chaîne sans lever HARD.
+3. V-T01 : `app/**` = Delivery → exige F08 + B5 bornage + GO Delivery dédié — **pas ce cycle**.
+4. Foundations T-A4/5/6 EXISTS ; Assistant NOT WIRED — premier lot = wire + Test adapter.
+5. Process-local insuffisant pour REAL (D07) — fixture évite faux claim d'autorité durable.
+
+**Ne pas coder. Ne pas autoriser Cursor REAL. Ne pas muter `app/**` ici.**
+
+**Challenge :** Utile ? Oui. Dette ? Adapter fixture + wiring. Plus simple ? Doc-only O2 — moins de preuve. Repo-first ? Oui. Gate ? A puis B. Architecture durable ? Non. Fixture avant REAL ? **Oui**. Réduit risque ? Oui vs REAL-first / O3.
+
+## 9. Gates Morris suivants (NOT CONSUMED)
+
+| ID | Gate candidat | Statut |
+|----|---------------|--------|
+| **A** | `GO ADOPT F08 CONTENT + B5 STOP POLICY FOR F3 FIXTURE PATH — SCOPE BOUNDED — NO APP/** — NO REAL — NO HARD CLOSURE` | `NOT CONSUMED` |
+| **B** | `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE` | `NOT CONSUMED` |
+| **C** | `GO FRAME OR REDUCE HARD R-T-A3-1 / R-T-A3-2 FOR FUTURE REAL PATH — NO REAL EXECUTION — NO IAM/PERSISTENCE AUTO-SELECT` | `NOT CONSUMED` |
+| **D** | `GO CURSOR REAL PILOT F3 — EXACT CONTRACT CONFIRMATION — HARD/AUTHORITY PREREQUISITES SATISFIED — DISTINCT FROM FIXTURE` | `NOT CONSUMED` |
+
+Ordre recommandé (reco ≠ decision) : **A → B → QA fixture → C (as needed) → D**.
+
+## 10. Anti-claims
+
+Ce cadrage **ne signifie PAS** :
+
+- framing complete ≠ F08 decided
+- recommendation ≠ Morris decision
+- B5 policy proposed ≠ B5 closed
+- fixture option ≠ Delivery authorized
+- Delivery fixture ≠ Cursor REAL
+- HARD mapped ≠ HARD closed
+- HARD REDUCED ≠ CLOSED
+- process-local ≠ durable authority
+- ExecutionContract prepared ≠ ExecutionAttempt authorized
+- Evidence model ≠ execution proof
+- OPS1 capability proof ≠ Studio production authority
+- Git source of truth ≠ Git automatic writer
+- next gate recommended ≠ gate consumed
+- F3-D01…D11 ADOPTED ≠ Delivery authorized
+- T-A4/5/6 EXISTS ≠ Assistant wired
+- Option A complete · T-A6 COMPLETE · IAM/persistence SELECTED · F4 open · production ready
+
+### Challenge synthèse des recommandations
+
+| Reco | Utile maintenant | Dette | Plus simple | Repo-first | Auto vs humain | Gate | Évite archi durable | Fixture avant REAL | Réduit risque |
+|------|------------------|-------|-------------|------------|----------------|------|---------------------|--------------------|---------------|
+| F08-O1 | Y | wiring partiel | O2 sans preuve | Y | humain | A+B | Y | Y | Y |
+| B5 matrix | Y | enforce runtime ultérieur | invariants seuls | Y | humain | A | Y | Y | Y |
+| FIXTURE slice | Y | adapter | none useful | Y | humain | B | Y | Y | Y |
+| Gates A–D | Y | sequencing | merge gates — pire | Y | humain | — | Y | Y | Y |
+
+## 11. Effets / non-effets
+
+### Effets
+
+- Options F08 O1–O4 cadrées · reco O1 **NOT DECIDED**
+- B5 Stop Policy candidate + matrice transitions · **NOT CLOSED**
+- HARD R-T-A3-1/2 mappées · restent **OPEN HARD**
+- Slice FIXTURE-first défini · **NOT AUTHORIZED**
+- Gates A–D préparés · **NOT CONSUMED**
+- D01–D11 préservés exactement
+
+### Non-effets
+
+- Aucune mutation `app/**` · aucun Cursor REAL · aucun OpenAI live
+- F08 NOT DECIDED · B5 OPEN · HARD OPEN · Delivery NOT AUTHORIZED
+- IAM / persistence NOT_SELECTED
+- Aucun commit / push / PR / merge projet
+
+## 12. Verdict
+
+```
+F3 PRE-DELIVERY GOVERNANCE FRAMING COMPLETE —
+F08 OPTIONS FRAMED — NOT DECIDED —
+B5 STOP POLICY FRAMED — NOT CLOSED —
+HARD R-T-A3-1 / R-T-A3-2 MAPPED — REMAIN OPEN —
+BOUNDED FIXTURE-FIRST DELIVERY OPTION DEFINED —
+NO APP/** DELIVERY —
+NO CURSOR REAL —
+NO HARD CLOSURE —
+NO ARCHITECTURE PIVOT —
+NEXT MORRIS DECISION GATES PREPARED —
+READY FOR CHATGPT REVIEW
+```
+
+*(Handoff remote verification is a cycle-pack concern; this README alone does not claim handoff published.)*
+```
 
 ---
 
-## §5 CI — merge vs post-merge (distinguished)
+## §5 Observations
 
-### CI at merge (PR HEAD `2eab59e`) — historical merge-gate fact
-
-| Check | Conclusion |
-|-------|------------|
-| Detect SFIA Studio changes | **SUCCESS** |
-| Build and validate SFIA Studio | **SUCCESS** |
-| SFIA Studio Required Gate | **SUCCESS** |
-
-**CI GREEN AT MERGE** (merge-gate evidence).
-
-### Checks observed on merge commit `49b61e9` (read-only)
-
-| Check | status / conclusion |
-|-------|---------------------|
-| Detect SFIA Studio changes | completed / **success** |
-| Build and validate SFIA Studio | completed / **success** |
-| SFIA Studio Required Gate | completed / **success** |
-
-No FAILED/BLOCKING required post-merge check. Anti-claim: merge-gate CI GREEN is not re-branded as a separate “post-merge main CI campaign”; observed check-runs on `49b61e9` reported as-is. **NO DISTINCT FAILED POST-MERGE MAIN CI.**
-
-Live OpenAI this cycle: **NONE**.
+- Baseline clean @ 49b61e9 — no BASELINE DRIFT.
+- Inbound handoff tip matches expected post-merge F3 decisions pack.
+- F3-D01…D11 remain ADOPTED; this cycle does not reinterpret them.
+- Fixture app/** = Delivery (V-T01) — blocked by B5 STOP + F08 timing until dedicated GO.
+- HARD OPEN blocks REAL; sources allow fixture-only framing (and future fixture Delivery under separate GO) without HARD closure.
+- Recommendations explicitly ≠ decisions.
 
 ---
 
-## §6 §6.12.1 cleanup conditions (1–9)
+## §6 Options / recommandations / décisions
 
-| # | Condition | Evidence | Result |
-|---|-----------|----------|--------|
-| 1 | PR #331 MERGED | `gh pr view` state=MERGED | **PASS** |
-| 2 | local main == origin/main | both `49b61e9…` | **PASS** |
-| 3 | merge commit present on main | HEAD=`49b61e9…`; parents OK | **PASS** |
-| 4 | PR package commit present on main | `2eab59e` ancestor | **PASS** |
-| 5 | working tree tracked clean | MAIN `?? .tmp-sfia-review/` only | **PASS** |
-| 6 | branch to delete = exact PR head branch | `framing/sfia-studio-f3-functional-design-decisions` | **PASS** |
-| 7 | branch not protected | `gh api` protected=false; protection 404 | **PASS** |
-| 8 | no unmerged divergence | `main..framing` = 0 commits | **PASS** |
-| 9 | ≠ main / ≠ sfia/review-handoff / ≠ special | framing PR branch only | **PASS** |
-| | **ALL_9** | | **PASS** |
+### Décisions déjà Morris (transported)
 
----
+F3-D01…D11 `DECIDED — ADOPTED BY MORRIS` · A52-D01…D05 · T-A7-D05=.3 F08 timing avant delivery.
 
-## §7 Framing worktree check (pre-cleanup)
+### Décisions candidates (NOT DECIDED / NOT CLOSED / NOT AUTHORIZED)
 
-| Field | Observed |
-|-------|----------|
-| Path | `.../.tmp-sfia-review/worktrees/f3-functional-decisions` |
-| Branch | `framing/sfia-studio-f3-functional-design-decisions` |
-| HEAD | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| Tracked | clean |
-| Untracked | `?? .tmp-sfia-review/` only |
-| Remote framing (pre-delete) | `2eab59e…` |
-
-Pre-remove: relocated framing `.tmp-sfia-review/` → MAIN `.tmp-sfia-review/f3-post-merge/framing-tmp-archive-pre-remove/` so `git worktree remove` could succeed **without --force** (F2 post-merge pattern; necessary to unlock `git branch -d` per §6.12.1). No product unique data.
+| ID | Nature | Status |
+|----|--------|--------|
+| F08-O1 | Minimal fixture vertical slice | RECOMMENDATION — NOT DECIDED |
+| F08-O2 | Documentary-only F08 bulletin | option |
+| F08-O3 | Fixture + partial HARD same lot | option (not preferred) |
+| F08-O4 | Defer until HARD/B5 globally closed | option (over-blocks) |
+| B5 Stop Policy matrix | fail-closed transitions | POLICY OPTION / RECOMMENDATION — NOT CLOSED |
+| FIXTURE-first slice | vertical slice | OPTION/RECOMMENDATION — NOT AUTHORIZED |
 
 ---
 
-## §8 Cleanup sequence
+## §7 Réserves
 
-| Step | Command / action | Result |
-|------|------------------|--------|
-| Archive framing `.tmp` | mv → `f3-post-merge/framing-tmp-archive-pre-remove/` | **PASS** |
-| Worktree remove | `git worktree remove <f3-functional-decisions>` (no `--force`) | **PASS** (exit 0) |
-| Local delete | `git branch -d framing/sfia-studio-f3-functional-design-decisions` (no `-D`) | **PASS** (was `2eab59e`) |
-| ls-remote before remote delete | `2eab59e…` present | **PASS** |
-| Remote delete | `git push origin --delete framing/sfia-studio-f3-functional-design-decisions` | **PASS** |
-| fetch prune | `git fetch origin --prune` | **PASS** |
-| local `branch --list framing/...` | **EMPTY** | **PASS** |
-| remote `ls-remote --heads origin framing/...` | **EMPTY** | **PASS** |
-| worktree list contains f3 framing | **NO** | **PASS** |
-| Force options | **NOT USED** | **PASS** |
-
-**Cleanup local:** DONE
-**Cleanup remote:** DONE
-**Remote branch after cleanup:** ABSENT / EMPTY
-**Verdict cleanup:** BRANCH CLEANUP COMPLETE — REMOTE FRAMING BRANCH DELETED
+| ID | Status | Notes |
+|----|--------|-------|
+| R-T-A3-1 | OPEN HARD — BLOCKS REAL · does not block fixture-only framing | Confirm fail-closed · API `.1` missing |
+| R-T-A3-2 | OPEN HARD — BLOCKS REAL · does not block fixture-only framing | durable atomicity residual |
+| B5 | OPEN · STOP BEFORE DELIVERY | policy framed ≠ closed |
+| R1 | OPEN | |
+| R-M01 | OPEN | |
+| R-Process-Local | ACCEPTED LIMITATION | insufficient for REAL |
+| IAM | NOT_SELECTED | |
+| Product persistence | NOT_SELECTED | |
+| F08 content | NOT DECIDED | |
 
 ---
 
-## §9 Final Git state (MAIN)
+## §8 Anti-claims
 
-| Field | Value |
-|-------|-------|
-| branch | `main` |
-| HEAD | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
-| origin/main | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
-| status | `?? .tmp-sfia-review/` only |
-| staged | empty |
-| project commits this cycle | **0** |
-| project files created | **0** |
-| project files modified | **0** |
-| modified-content coverage (project) | **N/A** (no project content mutation) |
+framing complete ≠ F08 decided · recommendation ≠ Morris decision · B5 policy proposed ≠ B5 closed · fixture option ≠ Delivery authorized · Delivery fixture ≠ Cursor REAL · HARD mapped ≠ HARD closed · REDUCED ≠ CLOSED · process-local ≠ durable authority · ExecutionContract prepared ≠ Attempt authorized · Evidence model ≠ execution proof · OPS1 proof ≠ Studio production authority · Git SoT ≠ auto writer · next gate recommended ≠ consumed · D01–D11 ADOPTED ≠ Delivery authorized · T-A4/5/6 EXISTS ≠ wired · Option A complete / T-A6 COMPLETE / production ready — **forbidden claims**.
 
 ---
 
-## §10 Réserves (transported, unchanged)
+## §9 Stop conditions (cycle)
 
-| ID | Status |
-|----|--------|
-| R-T-A3-1 / R-T-A3-2 | OPEN HARD |
-| B5 | OPEN / STOP BEFORE DELIVERY |
-| R1 | OPEN |
-| R-M01 | OPEN |
-| R-Process-Local | ACCEPTED LIMITATION (transported) |
-| R-F2-SEMANTIC-CALIBRATION | OPEN / NON-BLOCKING (transported) |
-| IAM | NOT_SELECTED |
-| product persistence | NOT_SELECTED |
-| F08 | **NOT DECIDED** |
-| Delivery | **NOT AUTHORIZED** |
-| Cursor REAL | **BLOCKED** |
+STOP if baseline drift · dirty tracked · documentary location ambiguous · IAM/persistence required to proceed · recommendation implies REAL or app/** · auto-closes B5/HARD · project push/PR/merge required.
 
-No HARD/B5 closure this cycle.
+None triggered.
 
 ---
 
-## §11 Mutation counters / anti-claims
+## §10 Gates suivants (NOT CONSUMED)
+
+- **A** Adopt F08 content + B5 Stop Policy (bounded) — no app/** — no REAL — no HARD closure
+- **B** Delivery F3 native fixture vertical slice — fixture adapter only
+- **C** Frame/reduce HARD R-T-A3-1/2 for future REAL — no REAL now
+- **D** Cursor REAL pilot F3 — distinct — prerequisites satisfied
+
+Order reco (≠ decision): A → B → QA fixture → C as needed → D.
+
+---
+
+## §11 Mutation counters
 
 | Counter | Value |
-|---------|------:|
-| project files modified this cycle | 0 |
-| project files created this cycle | 0 |
-| project commits created this cycle | 0 |
-| project push | 0 |
-| PR created | 0 |
-| merge | 0 (already merged prior cycle) |
-| force push | 0 |
-| `git branch -D` | 0 |
-| worktree remove --force | 0 |
-| F08 / Delivery / Cursor REAL actions | 0 |
-
-Anti-claims:
-- POST-MERGE ≠ Delivery authorized
-- POST-MERGE ≠ F08 decided
-- POST-MERGE ≠ Cursor REAL authorized
-- cleanup ≠ content mutation
-- handoff publish ≠ project mutation
-- CI GREEN at merge ≠ separate post-merge main CI campaign claim
+|---------|-------|
+| project content modifications (committed) | 0 |
+| project files created uncommitted | 1 (README) |
+| app/** mutations | 0 |
+| project commits | 0 |
+| project pushes | 0 |
+| PR | 0 |
+| merge | 0 |
+| Cursor REAL | 0 |
+| OpenAI live | 0 |
+| method modifications | 0 |
+| F08/B5/HARD closures | 0 |
+| handoff push | 1 (expected after publish) |
 
 ---
 
-## §12 Review Handoff Git
+## §12 Challenge des recommandations (abrégé)
 
-| Field | Value |
-|-------|-------|
-| decision | required |
-| mode | publish-in-cycle |
-| branch | `sfia/review-handoff` |
-| canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
-| source | `.tmp-sfia-review/chatgpt-review.md` |
-| commit message | `docs(review-handoff): publish F3 post-merge` |
-| remote commit before | `509e09c984a79c6c5d1910142ba96c50854826c8` |
-| remote blob before | `9c3c04b56f5857ce4435bda9a6e07a065b1811f6` |
-| push | L3 borné / fast-forward only / no force |
-| publisher | `scripts/sfia/publish-review-handoff.sh` |
-| return branch | `main` @ `49b61e9` mandatory |
-
-### Handoff publish result
-
-| Field | Value |
-|-------|-------|
-| local / remote commit after | `0793f35fecc48f6c67bb3c00fa4a8faba19554c2` |
-| blob after | `a8e2a5101f00e19f34c379ed25abeaefaea02a84` |
-| push | L3 fast-forward `509e09c..0793f35` — **HANDOFF UPDATED — REMOTE VERIFIED** |
-| remote file re-read | tip `0793f35…` / blob `a8e2a51…` / message `docs(review-handoff): publish F3 post-merge` |
-| return main | `main` @ `49b61e9d833407a238459d9b011ca0b5b1cc0186` tracked clean (`?? .tmp-sfia-review/` only) |
+| Reco | Verdict challenge |
+|------|-------------------|
+| F08-O1 | Simplest useful vertical slice; O2 weaker (no proof); O3 scope creep; O4 over-blocks vs T-A7-D03/D04 |
+| B5 matrix | Operationalizes A52-B5 for F3; needs Morris gate A; runtime enforce later |
+| FIXTURE-first | Aligns D05/D11/V-T01; does not lift HARD; not authorized now |
+| Gates A–D | Separates adoption / fixture Delivery / HARD / REAL — prevents trajectory MAJOR |
 
 ---
 
-## §13 Instruction ChatGPT (obligatoire)
-
-Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter :
-
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier notamment : cycle/profil · PR #331 · merge SHA · main final · package · blob · cleanup local · cleanup distant · branche distante absente · réserves · F08 · Delivery · Cursor REAL · handoff commit + vérification distante · verdict final.
-
-Le rapport Cursor seul ne remplace pas le handoff Git.
-
----
-
-## Exact verdict (required)
+## §13 Verdict reprise
 
 ```
-F3 POST-MERGE COMPLETE —
-PR #331 INTEGRATION VERIFIED ON MAIN —
-MERGE 49B61E9 VERIFIED —
-PACKAGE 2EAB59E / BLOB 9F15731 INTACT —
-NO CONTENT DRIFT —
-BRANCH CLEANUP COMPLETE —
-REMOTE FRAMING BRANCH DELETED —
-MAIN CLEAN AND ALIGNED —
-F08 NOT DECIDED —
-DELIVERY NOT AUTHORIZED —
-CURSOR REAL BLOCKED —
+F3 PRE-DELIVERY GOVERNANCE FRAMING COMPLETE —
+F08 OPTIONS FRAMED — NOT DECIDED —
+B5 STOP POLICY FRAMED — NOT CLOSED —
+HARD R-T-A3-1 / R-T-A3-2 MAPPED — REMAIN OPEN —
+BOUNDED FIXTURE-FIRST DELIVERY OPTION DEFINED —
+NO APP/** DELIVERY —
+NO CURSOR REAL —
+NO HARD CLOSURE —
+NO ARCHITECTURE PIVOT —
+NEXT MORRIS DECISION GATES PREPARED —
 HANDOFF REMOTE VERIFIED —
-READY FOR NEXT MORRIS DECISION
+READY FOR CHATGPT REVIEW
 ```
+
+Ce verdict ne signifie PAS : F08 DECIDED · B5 CLOSED · Delivery authorized · Cursor REAL authorized · HARD closed.
