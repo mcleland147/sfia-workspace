@@ -5,9 +5,9 @@
 |-------|-------|
 | **Role** | F3 Native Fixture Vertical Slice — Delivery |
 | **Pack type** | FULL Review Pack — synthesis-only **NO** |
-| **Timestamp CEST** | 2026-08-11 18:34:00 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-11 16:34:00 UTC |
-| **Timestamp ISO UTC** | 2026-08-11T16:34:00Z |
+| **Timestamp CEST** | 2026-08-11 18:36:00 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-11 16:36:00 UTC |
+| **Timestamp ISO UTC** | 2026-08-11T16:36:00Z |
 | **GO exact** | `GO DELIVERY — F3 NATIVE FIXTURE VERTICAL SLICE — ASSISTANT→T-A4/T-A5/T-A6 + FIXTURE ADAPTER ONLY — NO CURSOR REAL — NO AUTO GIT WRITE` |
 | **Gate B** | **CONSUMED** (this cycle) |
 | **Cycle / profil** | Cycle **8** / **Standard** / **EVOL** / Critical **NON** |
@@ -306,10 +306,23 @@ Studio P0 Figma (`https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO`) covers i
 | Commit message | `docs(review-handoff): publish F3 fixture delivery` |
 | Remote tip BEFORE | `9a357f88cf5777545451d371c9753cbde748b652` |
 | Remote blob BEFORE | `d26e57ca7aeca0e185bd0fa90c54345dc7c8639f` |
-| Remote tip AFTER | _filled after publish / finalize_ |
-| Remote blob AFTER | _filled after publish / finalize_ |
-| Push handoff | _pending_ |
-| Remote verification / reread | _pending_ |
+| Remote tip AFTER (first publish) |  |
+| Remote blob AFTER (first publish) |  |
+| Push handoff | **done** (L3 FF-only) |
+| Remote verification / reread | **yes** — tip/blob/title/size match source |
+| Publisher verdict (first) |  |
+| Finalize note | This finalize pass updates §8 with authentic remote tip/blob; second handoff commit is the authentic remote truth if present. |
+
+### §8.1 Remote re-read (post-publish, pre-finalize edit)
+
+- tip before:
+- blob before:
+- tip after first publish:
+- blob after first publish:
+- canonical path only:
+- delivery branch remote: ABSENT
+- force push: NOT USED
+
 | Delivery branch push | **NOT DONE** (forbidden) |
 | Return to delivery branch | **required** after publish |
 
