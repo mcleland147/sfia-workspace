@@ -1,33 +1,36 @@
-# Cycle 13 — PUSH + CREATE PR F3 Functional Design Decisions
+# Cycle 14 — MERGE GATE F3 Functional Design Decisions
 ## LIGHT Review Pack
 
 | Field | Value |
 |-------|-------|
-| **Role** | Cycle 13 — PUSH + CREATE PR F3 Functional Design Decisions |
-| **Pack type** | LIGHT Review Pack — Git / remote / PR metadata / package exact |
+| **Role** | F3 Functional Design Decisions — Merge Gate |
+| **Pack type** | LIGHT Review Pack — Git / PR merge / main integration / package exact |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-11 14:04:22 CEST |
-| **Timestamp UTC** | 2026-08-11 12:04:22 UTC |
-| **GO consumed** | GO PUSH + CREATE PR — F3 FUNCTIONAL DESIGN DECISIONS — ONE DOCUMENT ONLY |
-| **Cycle** | 13 Light DOC Critical NON |
-| **Branch** | `framing/sfia-studio-f3-functional-design-decisions` |
-| **HEAD** | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| **Parent / main / merge-base** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
-| **Inbound tip** | `ad234035e68e74bacc518aa9ce9e1c984752cdd3` |
-| **Inbound blob** | `9220375a4f3eb87ee49f39ac0d7640c193f2786e` |
+| **Timestamp CEST** | 2026-08-11 14:26:57 CEST |
+| **Timestamp UTC** | 2026-08-11 12:26:57 UTC |
+| **Timestamp ISO UTC** | 2026-08-11T12:26:57Z |
+| **GO consumed** | GO MERGE — F3 FUNCTIONAL DESIGN DECISIONS — PR #331 |
+| **Cycle** | 14 Light DOC Critical NON |
+| **Branch (head)** | `framing/sfia-studio-f3-functional-design-decisions` |
+| **HEAD (package)** | `2eab59e00658f335fbe0743878648826580b9c8d` |
+| **main before** | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` |
+| **main after / merge SHA** | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
+| **Merge method** | `--merge` (merge commit; no squash; no --admin) |
+| **Merged at** | `2026-08-11T12:25:37Z` |
+| **Inbound tip** | `20871dc0c063552b549f07ef3c86e9b6e4e37fa6` |
+| **Inbound blob** | `a6d8dc12206c81623afedc9037d743b1ddeee8bb` |
 | **README content blob** | `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` |
 | **Package** | 1 commit / 1 file / 185 insertions / 0 deletions |
-| **Remote project branch before** | EMPTY |
-| **Remote project branch after** | `2eab59e00658f335fbe0743878648826580b9c8d` |
 | **PR number** | #331 |
 | **PR URL** | https://github.com/mcleland147/sfia-workspace/pull/331 |
 | **PR title** | `docs(sfia-studio): record F3 functional design decisions (F3-D01…D11)` |
 | **PR base / head** | `main` / `framing/sfia-studio-f3-functional-design-decisions` |
-| **PR state / draft** | OPEN / false |
+| **PR state** | MERGED |
+| **Branch delete** | NOT deleted (remote head still present) |
 | **Tracked tree** | clean (`?? .tmp-sfia-review/` only) |
 | **Template baseline** | v2.6 |
-| **Prior gate** | F3 DECISION PR READINESS VALIDATED — READY FOR MORRIS PUSH + CREATE PR GATE |
-| **Merge** | 0 / NON |
+| **Prior gate** | F3 DECISION PUSH + PR CREATED — READY FOR MORRIS PR REVIEW |
+| **CI at merge** | GREEN (Detect / Build and validate / Required Gate — all SUCCESS) |
 | **F08** | NOT DECIDED |
 | **Delivery** | NOT AUTHORIZED |
 | **Cursor REAL** | BLOCKED |
@@ -37,128 +40,92 @@
 ## Verdict
 
 ```
-F3 DECISION PUSH + PR CREATED —
-REMOTE BRANCH VERIFIED AT 2EAB59E —
-PR OPEN AGAINST MAIN —
-EXACT ONE-DOCUMENT PACKAGE PRESERVED —
-NO PROJECT CONTENT CHANGE —
-NO MERGE —
+F3 DECISION MERGE COMPLETE —
+PR #331 MERGED INTO MAIN —
+ONE-DOCUMENT PACKAGE INTEGRATED —
+CI GREEN AT MERGE —
+NO CONTENT DRIFT —
 F08 NOT DECIDED —
 DELIVERY NOT AUTHORIZED —
 CURSOR REAL BLOCKED —
-HANDOFF REMOTE VERIFIED —
-READY FOR MORRIS PR REVIEW
+READY FOR CHATGPT REVIEW / POST-MERGE GATE
 ```
 
 ---
 
 ## §0 GO / inbound / truth
 
-- **GO consumed:** `GO PUSH + CREATE PR — F3 FUNCTIONAL DESIGN DECISIONS — ONE DOCUMENT ONLY`
-- **Inbound:** Cycle 13 PR Readiness VALIDATED; tip `ad234035e68e74bacc518aa9ce9e1c984752cdd3`; blob `9220375a4f3eb87ee49f39ac0d7640c193f2786e`
+- **Role:** F3 Functional Design Decisions — Merge Gate
 - **Synthesis-only:** NO
-- **Authorized:** project branch push + one non-draft PR to main + L3 handoff publish
-- **Not authorized:** merge / content change / new project commit / amend / rebase / force push / F08 / Delivery / Cursor REAL / second PR
+- **Inbound:** tip `20871dc0c063552b549f07ef3c86e9b6e4e37fa6` / blob `a6d8dc12206c81623afedc9037d743b1ddeee8bb` (Cycle 13 PUSH + CREATE PR)
+- **Authorized:** final `gh` confirm + `gh pr merge 331 --merge` + Light pack + L3 handoff publish
+- **Not authorized:** project content edit / new framing commit / force push / squash-unless-forbidden / --admin / F08 / Delivery / Cursor REAL
 
-## §1 Local Git Truth (pre-push)
+## §1 Pre-merge confirm (`gh pr view 331`)
 
 | Check | Evidence | Result |
 |-------|----------|--------|
-| toplevel | `.../worktrees/f3-functional-decisions` | PASS |
-| branch | `framing/sfia-studio-f3-functional-design-decisions` | PASS |
-| HEAD | `2eab59e00658f335fbe0743878648826580b9c8d` | PASS |
-| origin/main | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` | PASS |
-| ahead | 1 | PASS |
-| commit | `2eab59e docs(sfia-studio): record F3 functional design decisions` | PASS |
-| files | 1 · README.md | PASS |
-| stat | 185 + / 0 − | PASS |
-| blob | `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` | PASS |
-| staged | empty | PASS |
-| tracked | clean (`?? .tmp-sfia-review/` only) | PASS |
-| remote project before | EMPTY | PASS |
-| handoff tip before | `ad234035e68e74bacc518aa9ce9e1c984752cdd3` | PASS |
-| handoff blob before | `9220375a4f3eb87ee49f39ac0d7640c193f2786e` | PASS |
-| diff --check | PASS | PASS |
+| state | OPEN | PASS |
+| draft | false | PASS |
+| base / head | main / framing/sfia-studio-f3-functional-design-decisions | PASS |
+| headRefOid | `2eab59e00658f335fbe0743878648826580b9c8d` | PASS |
+| mergeable / mergeStateStatus | MERGEABLE / CLEAN | PASS |
+| commits | 1 (`2eab59e`) | PASS |
+| files | 1 · `.../f3-functional-design-decisions/README.md` (+185/0) | PASS |
+| Detect SFIA Studio changes | SUCCESS | PASS |
+| Build and validate SFIA Studio | SUCCESS | PASS |
+| SFIA Studio Required Gate | SUCCESS | PASS |
+| origin/main before | `09bfbb2db06b71cabf3369a5dccab0f7f1d7502a` | PASS |
 
-## §2 Sources consulted
-
-- inbound handoff `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (PR readiness VALIDATED)
-- `.tmp-sfia-review/f3-decision-pr-readiness/pr-body.md` (AS-IS, 1578 bytes)
-- Morris GO PUSH + CREATE PR brief (exact package + bans)
-- `scripts/sfia/publish-review-handoff.sh` (L3 publisher)
-- template baseline v2.6 (contract awareness)
-
-## §3 Actions realized
-
-1. Full Local Git Truth — MATCH expected.
-2. Reset `.tmp-sfia-review/chatgpt-review.md` early.
-3. Verified inbound tip/blob = PR readiness published handoff.
-4. Verified PR body non-empty AS-IS.
-5. `gh auth status` — authenticated `mcleland147`.
-6. `gh pr list` for head — empty (no existing PR).
-7. `git push -u origin framing/sfia-studio-f3-functional-design-decisions` — success.
-8. Remote SHA verified = `2eab59e00658f335fbe0743878648826580b9c8d`.
-9. `gh pr create` — PR #331 created (not draft).
-10. Remote PR metadata verified OPEN / main / exact title / 1 commit / 1 file / 185+/0-.
-11. LIGHT review pack written (this file).
-12. L3 handoff publish via canonical publisher (see §6).
-13. No merge. No project content change. No new project commit.
-
-## §4 Push projet
+## §2 Merge execution
 
 | Field | Value |
 |-------|-------|
-| command | `git push -u origin framing/sfia-studio-f3-functional-design-decisions` |
-| force | NO |
-| remote SHA | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| match HEAD | YES |
+| command | `gh pr merge 331 --merge` |
+| --admin | NO |
+| --squash | NO |
+| --delete-branch | NOT passed (gh default; branch retained) |
+| exit | 0 |
+| mergedAt | `2026-08-11T12:25:37Z` |
+| mergeCommit | `49b61e9d833407a238459d9b011ca0b5b1cc0186` |
+| merge parents | `09bfbb2` + `2eab59e` |
+| method | merge commit |
 
-## §5 PR metadata
+## §3 Post-merge main truth
 
-| Field | Value |
-|-------|-------|
-| number | **#331** |
-| url | https://github.com/mcleland147/sfia-workspace/pull/331 |
-| state | OPEN |
-| isDraft | false |
-| base | main |
-| head | framing/sfia-studio-f3-functional-design-decisions |
-| headRefOid | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| title | `docs(sfia-studio): record F3 functional design decisions (F3-D01…D11)` |
-| body | present (from readiness AS-IS) |
-| commits | 1 (`2eab59e`) |
-| files | 1 · `projects/sfia-studio/sfia-v3-delivery/v3-native-option-a/f3-functional-design-decisions/README.md` |
-| additions / deletions | 185 / 0 |
+| Check | Evidence | Result |
+|-------|----------|--------|
+| `git fetch origin main` | 09bfbb2..49b61e9 | PASS |
+| origin/main after | `49b61e9d833407a238459d9b011ca0b5b1cc0186` | PASS |
+| PR state | MERGED | PASS |
+| ancestor package→main | `merge-base --is-ancestor 2eab59e… origin/main` exit 0 | PASS |
+| README blob on main | `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` | PASS |
+| blob == package HEAD blob | YES | PASS |
+| remote framing branch | still `2eab59e` (not deleted) | NOTED |
 
-## §6 Validations
+## §4 CI summary (at merge)
 
-| Validation | Result |
-|------------|--------|
-| package exact preserved | PASS |
-| remote branch = HEAD | PASS |
-| PR OPEN not draft | PASS |
-| base main / head exact | PASS |
-| title exact | PASS |
-| 1 commit / 1 file / 185+/0- | PASS |
-| blob unchanged | PASS |
-| no project content change this cycle | PASS |
-| merge count | 0 |
-| F08 | NOT DECIDED |
-| Delivery | NOT AUTHORIZED |
-| Cursor REAL | BLOCKED |
+| Check | Conclusion |
+|-------|------------|
+| Detect SFIA Studio changes | SUCCESS (completed 2026-08-11T12:04:23Z) |
+| Build and validate SFIA Studio | SUCCESS (completed 2026-08-11T12:06:27Z) |
+| SFIA Studio Required Gate | SUCCESS (completed 2026-08-11T12:06:31Z) |
+| **CI GREEN** | YES |
 
-## §7 État Git final local (projet)
+## §5 Package / no content drift
 
 | Field | Value |
 |-------|-------|
-| branch | `framing/sfia-studio-f3-functional-design-decisions` |
-| HEAD | `2eab59e00658f335fbe0743878648826580b9c8d` |
-| tracking | `origin/framing/sfia-studio-f3-functional-design-decisions` |
-| status | `?? .tmp-sfia-review/` only |
-| staged | empty |
-| new project commits this cycle | 0 |
+| package commit | `2eab59e00658f335fbe0743878648826580b9c8d` |
+| message | `docs(sfia-studio): record F3 functional design decisions` |
+| files | 1 · README.md |
+| stat | 185 + / 0 − |
+| content blob | `9f15731a9b5d4e2abc949824d329cd5ee6dd428f` |
+| project content edits this cycle | 0 |
+| new framing commits this cycle | 0 |
+| force push | 0 |
 
-## §8 Réserves (transported, unchanged)
+## §6 Réserves (transported, unchanged)
 
 - R-T-A3-1 / R-T-A3-2 OPEN HARD
 - B5 OPEN/STOP
@@ -170,7 +137,7 @@ READY FOR MORRIS PR REVIEW
 - product persistence NOT_SELECTED
 - F08 NOT DECIDED
 
-## §9 Review Handoff Git
+## §7 Review Handoff Git
 
 | Field | Value |
 |-------|-------|
@@ -179,29 +146,46 @@ READY FOR MORRIS PR REVIEW
 | branch | `sfia/review-handoff` |
 | canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
 | source | `.tmp-sfia-review/chatgpt-review.md` |
-| commit message | `docs(review-handoff): publish F3 decision push PR` |
-| remote commit before | `ad234035e68e74bacc518aa9ce9e1c984752cdd3` |
+| commit message | `docs(review-handoff): publish F3 decision merge gate` |
+| remote commit before | `20871dc0c063552b549f07ef3c86e9b6e4e37fa6` |
+| remote blob before | `a6d8dc12206c81623afedc9037d743b1ddeee8bb` |
 | push | L3 borné / fast-forward only / no force |
 | return branch | framing project branch mandatory |
 
-## §10 Mutation counters
+## §8 Mutation counters
 
 | Counter | Value |
 |---------|------:|
 | project files modified this cycle | 0 |
 | project files created this cycle | 0 |
 | project commits created this cycle | 0 |
-| project push | 1 |
-| PR created | 1 (#331) |
-| merge | 0 |
+| project push | 0 |
+| PR created | 0 |
+| merge | 1 (#331 --merge) |
 | force push | 0 |
 | F08 / Delivery / Cursor REAL actions | 0 |
 
-## §11 Anti-claims
+## §9 Anti-claims
 
-- PR OPEN ≠ merged
-- PR OPEN ≠ Delivery authorized
-- PR OPEN ≠ F08 decided
-- PR OPEN ≠ Cursor REAL authorized
-- push ≠ content change
+- MERGED ≠ Delivery authorized
+- MERGED ≠ F08 decided
+- MERGED ≠ Cursor REAL authorized
+- merge ≠ content mutation
 - handoff publish ≠ project mutation
+- CI GREEN at merge ≠ post-merge main CI claimed here
+
+---
+
+## Exact verdict (required)
+
+```
+F3 DECISION MERGE COMPLETE —
+PR #331 MERGED INTO MAIN —
+ONE-DOCUMENT PACKAGE INTEGRATED —
+CI GREEN AT MERGE —
+NO CONTENT DRIFT —
+F08 NOT DECIDED —
+DELIVERY NOT AUTHORIZED —
+CURSOR REAL BLOCKED —
+READY FOR CHATGPT REVIEW / POST-MERGE GATE
+```
