@@ -336,3 +336,49 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.f3Card {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #0f766e;
+  border-radius: 10px;
+  background: #f0fdfa;
+}
+
+.f3Subcard {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.f3Labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.f3Button {
+  justify-self: start;
+  border: 1px solid #0f766e;
+  background: #fff;
+  color: #0f766e;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.f3Button:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
+}
+
+.f3Button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

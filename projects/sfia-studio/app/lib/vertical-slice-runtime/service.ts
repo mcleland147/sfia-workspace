@@ -23,7 +23,25 @@ import {
   createInMemoryDecisionServices,
   type DecisionServices,
 } from "@/lib/oa/decision";
+import {
+  createInMemoryExecutionContractServices,
+  type ExecutionContractServices,
+} from "@/lib/oa/execution-contract";
+import {
+  createInMemoryExecutionAttemptServices,
+  type ExecutionAttemptServices,
+  type TestExecutionAdapter,
+} from "@/lib/oa/execution-attempt";
+import {
+  createInMemoryEvidenceReviewServices,
+  type EvidenceReviewServices,
+} from "@/lib/oa/evidence-review";
 import type { ProjectServices } from "@/lib/oa/project";
+import {
+  createAttemptReaderBridge,
+  createF3FixtureAgentDescriptor,
+  createF3TestExecutionAdapter,
+} from "./f3FixtureWiring";
 import {
   toCreateLocalProjectCommand,
   toCreateProjectRuntimeFailure,
@@ -66,6 +84,11 @@ export type RuntimeOaStack = {
   readonly ckcQualification: CkcQualificationServices;
   readonly decisionServices: DecisionServices;
   readonly authorityResolver: MemoryAuthorityResolver;
+  readonly executionContractServices: ExecutionContractServices;
+  readonly executionAttemptServices: ExecutionAttemptServices;
+  readonly evidenceReviewServices: EvidenceReviewServices;
+  /** Explicit TestExecutionAdapter — never silent NoOp. */
+  readonly fixtureAdapter: TestExecutionAdapter;
 };
 
 function resolveAudit(
@@ -99,6 +122,33 @@ function wireOaStack(
     clock,
     authorityResolver,
   });
+
+  const executionContractServices = createInMemoryExecutionContractServices({
+    projectServices,
+    decisionServices,
+    cycleServices,
+    clock,
+    authorityResolver,
+  });
+
+  // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
+  const fixtureAdapter = createF3TestExecutionAdapter();
+  const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
+  const executionAttemptServices = createInMemoryExecutionAttemptServices({
+    decisionServices,
+    executionContractServices,
+    agents: [fixtureAgent],
+    adapter: fixtureAdapter,
+    clock,
+    authorityResolver,
+    policy: { defaultMaxRetriesBudget: 0 },
+  });
+
+  const evidenceReviewServices = createInMemoryEvidenceReviewServices({
+    clock,
+    attemptReader: createAttemptReaderBridge(executionAttemptServices.attempts),
+  });
+
   return Object.freeze({
     projectServices,
     clock,
@@ -106,13 +156,17 @@ function wireOaStack(
     ckcQualification,
     decisionServices,
     authorityResolver,
+    executionContractServices,
+    executionAttemptServices,
+    evidenceReviewServices,
+    fixtureAdapter,
   });
 }
 
 /**
  * Application runtime service over V1 LocalProjectFacade.
  * Does not duplicate T-A0/T-A1 rules; maps serializable DTOs only.
- * Exposes shared OA stack for F2 (same ProjectServices instance).
+ * Exposes shared OA stack for F2 + F3 (same ProjectServices instance).
  */
 export class RuntimeApplicationService {
   private readonly facade: LocalProjectFacade;

@@ -12,17 +12,27 @@ import { StudioShell } from "@/components/shell/StudioShell";
 import { ProjectAssistantPanel } from "@/features/project-assistant/ProjectAssistantPanel";
 import { ProjectWorkspaceView } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 
-const { projectAssistantSendActionMock, projectAssistantDecideActionMock } =
-  vi.hoisted(() => ({
-    projectAssistantSendActionMock: vi.fn(),
-    projectAssistantDecideActionMock: vi.fn(),
-  }));
+const {
+  projectAssistantSendActionMock,
+  projectAssistantDecideActionMock,
+  projectAssistantPrepareF3FixtureActionMock,
+  projectAssistantConfirmAndExecuteF3FixtureActionMock,
+} = vi.hoisted(() => ({
+  projectAssistantSendActionMock: vi.fn(),
+  projectAssistantDecideActionMock: vi.fn(),
+  projectAssistantPrepareF3FixtureActionMock: vi.fn(),
+  projectAssistantConfirmAndExecuteF3FixtureActionMock: vi.fn(),
+}));
 
 vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantSendAction: (...args: unknown[]) =>
     projectAssistantSendActionMock(...args),
   projectAssistantDecideAction: (...args: unknown[]) =>
     projectAssistantDecideActionMock(...args),
+  projectAssistantPrepareF3FixtureAction: (...args: unknown[]) =>
+    projectAssistantPrepareF3FixtureActionMock(...args),
+  projectAssistantConfirmAndExecuteF3FixtureAction: (...args: unknown[]) =>
+    projectAssistantConfirmAndExecuteF3FixtureActionMock(...args),
 }));
 
 vi.mock("next/link", () => ({
@@ -95,6 +105,8 @@ describe("F1 ProjectAssistantPanel UI", () => {
   beforeEach(() => {
     projectAssistantSendActionMock.mockReset();
     projectAssistantDecideActionMock.mockReset();
+    projectAssistantPrepareF3FixtureActionMock.mockReset();
+    projectAssistantConfirmAndExecuteF3FixtureActionMock.mockReset();
   });
 
   afterEach(() => {
