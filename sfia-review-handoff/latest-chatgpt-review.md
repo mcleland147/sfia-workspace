@@ -1,45 +1,48 @@
-# SFIA Studio Convergence Foundations — Cycle 13 PR Readiness
+# SFIA Studio Convergence — Cycle 8 Isolated Commit
 
 | Champ | Valeur |
 | --- | --- |
-| **Horodatage** | 2026-08-12 22:20:19 +0200 (Europe/Paris) |
-| **Cycle** | 13 — PR readiness |
-| **Profil SFIA** | Critical |
+| **Horodatage** | 2026-08-12 22:43:39 +0200 (Europe/Paris) |
+| **Cycle** | 8 — Delivery / repository isolation + commit |
+| **Profil** | Critical |
 | **Typologie** | DOC |
 | **Review pack** | FULL (synthesis-only = **NO**) |
-| **Branche projet** | `delivery/sfia-studio-f3-real-prerequisites` |
-| **HEAD** | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| **origin/main** | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| **HEAD == origin/main** | **YES** |
-| **Staged** | EMPTY |
-| **Workspace** | `mcleland147/sfia-workspace` (worktree f3-real-prerequisites-delivery) |
+| **Décision Morris consommée** | GO ISOLATION + COMMIT DÉDIÉ |
 
 ---
 
 ## 0. Verdict
 
-**READY FOR ISOLATED COMMIT — CONTENT APPROVED — PATCH ISOLATABLE — DEDICATED CONVERGENCE BRANCH REQUIRED — MORRIS COMMIT GATE REQUIRED**
+**ISOLATED COMMIT COMPLETE — CONVERGENCE PATCH IDENTITY VERIFIED — F3 WORKTREE PRESERVED — READY FOR MORRIS PUSH / PR GATE**
 
-Statut opérationnel : **READY FOR REVIEW** (contenu) / **READY** pour étape suivante d’isolation — **pas** GO commit/push/PR/merge.
+Project push = **0**. PR = **0**. Merge = **0**. main unmodified.
 
 ---
 
-## 1. Local Git Truth Check
+## 1. Handoff entrant (PR readiness)
 
-| Check | Résultat |
+| Champ | Valeur |
 | --- | --- |
-| pwd / toplevel | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-prerequisites-delivery` |
-| branch | `delivery/sfia-studio-f3-real-prerequisites` |
-| HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| divergence HEAD/base | **NONE** (identiques) |
-| staged | EMPTY |
-| STOP conditions | **NONE** déclenchées |
+| Tip | `86df3e722cbe15c3bf618935a5e9dfa4a88a95a1` |
+| Blob | `077f05125c56b3a7b69fbdee65bcf4488ecce52b` |
+| Verdict | READY FOR ISOLATED COMMIT — CONTENT APPROVED — PATCH ISOLATABLE — DEDICATED CONVERGENCE BRANCH REQUIRED — MORRIS COMMIT GATE REQUIRED |
 
-### Status initial/final (inchangé par ce cycle — read-only)
+---
+
+## 2. Worktree SOURCE (F3 — intact)
+
+| Champ | Valeur |
+| --- | --- |
+| Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-prerequisites-delivery` |
+| Branch | `delivery/sfia-studio-f3-real-prerequisites` |
+| HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| F3 preserved | **YES** |
+| Status initial == final | **YES** |
+
+### Status initial/final
 
 ```
-M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+ M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
  M method/sfia-fast-track/core/sfia-knowledge-layer.md
  M projects/sfia-studio/README.md
  M projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
@@ -65,168 +68,104 @@ M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 ?? projects/sfia-studio/convergence/
 ```
 
-### Staged
-
-```
-(empty)
-```
-
-### Séparation scope
-
-#### A — Lot convergence (allowlist exacte)
-
-| Fichier | Statut | Bytes / diff | Rôle | Lien A/B | Impact normatif | Contenu étranger | Isolable |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | **created** (untracked) | 10348 B · sha256 `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9` | Build Doctrine | A | Gouvernance construction Studio | NO | YES |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | **created** (untracked) | 15980 B · sha256 `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6` | Convergence Roadmap | B | Trajectoire vivante | NO | YES |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | **modified** | +43/−? (voir stat) | Routing §4.3.0a + reformulation v3 cible Studio | → A+B | Normatif méthode | NO | YES |
-| `method/sfia-fast-track/core/sfia-knowledge-layer.md` | **modified** | +4 | Matrice construction Studio | → A+B | Normatif méthode | NO | YES |
-| `projects/sfia-studio/README.md` | **modified** | +25/− | Nav + cible v3 vs processus v2.6 | → A+B | Doc produit | NO | YES |
-| `prompts/templates/sfia-cycle-execution-template.md` | **modified** | +77/− | Pre-check Convergence borné | → A+B | Template canonique | NO | YES |
-
-**Diff stat (4 tracked) :**
-
-```
-.../core/sfia-cycle-routing-guide.md               | 43 +++++++++++-
- .../sfia-fast-track/core/sfia-knowledge-layer.md   |  4 ++
- projects/sfia-studio/README.md                     | 25 +++++--
- prompts/templates/sfia-cycle-execution-template.md | 77 +++++++++++++++++++++-
- 4 files changed, 139 insertions(+), 10 deletions(-)
-```
-
-`git diff --check` (4 tracked) : **PASS**
-
-#### B — Chantier F3 REAL prerequisites (étranger — hors lot)
-
-Count lignes status app/package : **18**
-
-Exemples (non exhaustif) : `projects/sfia-studio/app/**` (critical-ack, Auth.js, journal, tests), `package.json` / `package-lock.json` si présents.
-
-**Contamination F3 dans le lot convergence : NO**
-
-#### C — Autre (attendu)
-
-`.tmp-sfia-review/**` artefacts de revue (non versionnés projet) — hors lot.
-
 ---
 
-## 2. Handoff entrant + décision Morris
+## 3. Worktree CIBLE
 
 | Champ | Valeur |
 | --- | --- |
-| Branche handoff | `sfia/review-handoff` |
-| Tip attendu / observé | `820d7af862a9b416de1296e5192f1d19f7eb2705` |
-| Blob | `717a73786982ad3fe6ff29c3d788341b8026ffeb` |
-| Contenu A local ⊂ handoff entrant | **True** |
-| Contenu B local ⊂ handoff entrant | **True** |
-| Identité contenu validé | **PASS** (A et B locaux = texte exact embarqué dans handoff foundations) |
-
-### Décision Morris **consommée** (contenu)
-
-DÉCISION VALIDÉE — Build Doctrine + Convergence Roadmap + routing/KL/template/README associés approuvés comme gouvernance de construction **candidate** à intégrer sur main.
-
-### Décisions / gates **NON consommés**
-
-- GO commit / push projet / PR / merge
-- GO modification instructions ChatGPT
-- Runtime v3 ADOPTED
-- Option 1
-- Product persistence
-- Auth/Critical Ack product decisions
-- Cursor REAL
-- Gate D
-- FREEZE/RETIRE LATER (restent **RECOMMENDATION**)
+| Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-foundations` |
+| Branch | `docs/sfia-studio-convergence-foundations` |
+| Base | `origin/main` @ `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| Status initial | clean |
+| Status avant staging | 4 M + ?? convergence/ |
+| Status après commit | clean |
 
 ---
 
-## 3. Cycle Knowledge Contract
+## 4. Identité patch
 
-- recherché : oui
-- cycle 13 : **absent** (pilotes : cadrage / conception / architecture / QA)
-- usage : fallback cognitive guidance v2.6
-- autorité d’exécution : **aucune**
-
----
-
-## 4. Validations documentaires
-
-### A — Build Doctrine : **PASS**
-
-cible v3 claire · v2.6 processus distingué · R1–R20 · challenge · POC/intermédiaire · classifications · chemin critique · preuve de sortie · gouvernance sources · trois couches · anti-patterns · stop markers · évolution gated · runtime NON ADOPTED
-
-### B — Roadmap : **PASS**
-
-état factuel · main/local/recommandation/décision · asset disposition · gap map · décisions ouvertes · G0 + M1–M8 · V3-F01…F15 · critical path · FREEZE = RECOMMENDATION · maintenance · pas de dates inventées · pas de claim runtime ADOPTED
-
-### Intégration cross-file : **PASS**
-
-Paths exacts `projects/sfia-studio/convergence/sfia-studio-convergence-{build-doctrine,roadmap}.md` présents dans README, routing §4.3.0a, Knowledge Layer, template §2.0.G.
-
-### Correction v3 routing/README : **PASS**
-
-Permet : Studio v3 = **cible produit décidée**.
-Interdit / ne permet pas : v3 = baseline globale ; runtime ADOPTED.
-
-### Template : **PASS**
-
-Comportement générique v2.6 préservé · trigger Studio borné · A+B obligatoires si construction Studio · markers présents · pas d’impact autres projets.
-
-### Markers : **PASS**
-
-- `STOP — TRAJECTORY LINK MISSING` (Build Doctrine)
-- `STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED` (routing + template + doctrine)
-- `PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE` (template + doctrine)
-
-### Anti-claims : **PASS**
-
-Aucune affirmation Option 1 decided / persistence selected / Cursor REAL authorized / Gate D consumed / v3 runtime ADOPTED. Mentions « ADOPTED » uniquement en négation / anti-claim / critère futur.
-
-### Stubs structurels : **PASS** (pas de TODO/FIXME/TBD)
-
-### Diff-check : **PASS**
-
----
-
-## 5. Isolabilité
-
-| Question | Réponse |
+| Artefact | SHA256 |
 | --- | --- |
-| Les 6 fichiers peuvent-ils être staged/committed ultérieurement **sans** `app/**` ? | **YES** (isolement par path) |
-| Branche actuelle `delivery/sfia-studio-f3-real-prerequisites` sémantiquement adaptée ? | **NO** — mélange deux chantiers |
-| Patch isolable techniquement | **YES** |
-| Branche dédiée convergence requise | **YES** |
+| A source/dest | `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9` |
+| B source/dest | `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6` |
+| Tracked patch source | `d100e08e3dde7825f8cde711bcaaf5283bf78db00a748f122ec9cccd59a7bfcf` |
+| Tracked patch destination | `d100e08e3dde7825f8cde711bcaaf5283bf78db00a748f122ec9cccd59a7bfcf` |
+| Identité | **PASS** |
 
-### Plan d’intégration recommandé (**NON EXÉCUTÉ**)
+Attendus PR readiness : A=`be306b6e…b326bc9` · B=`898d01ef…f1336a6` — **MATCH**.
 
-1. Créer worktree/branche propre depuis `origin/main` (ex. `docs/sfia-studio-convergence-foundations`).
-2. Transférer **exactement** les 6 fichiers / diffs (identité sha256 A/B + diff tracked).
-3. Vérifier identité de patch (`git diff --stat` = 2 created + 4 modified ; aucun `app/**`).
-4. Commit dédié (après **GO Morris commit**).
-5. Push + PR uniquement après GO explicites séparés.
-6. Ne **pas** committer sur la branche F3 dirty.
+Contamination F3 : **NO**
 
 ---
 
-## 6. Réserves (non bloquantes pour verdict READY FOR ISOLATED COMMIT)
+## 5. Commit
 
-1. A+B portent encore le statut documentaire « CANDIDATE — READY FOR MORRIS REVIEW » dans leur métadonnée interne — cohérent tant que non mergés ; post-merge pourra ajuster le statut (hors ce cycle).
-2. Worktree dirty F3 coexistant — impose branche dédiée (déjà dans le verdict).
-3. CKC Cycle 13 absent — fallback méthode uniquement.
-4. Extraction fence nested du handoff entrant peut tronquer A/B si on parse naïvement les ``` ; l’identité a été prouvée par **sous-chaîne exacte** A⊂handoff et B⊂handoff.
+| Champ | Valeur |
+| --- | --- |
+| SHA | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
+| Parent | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| Message | `docs(sfia-studio): add convergence doctrine and roadmap` |
+| Files | exactement 6 |
+
+```
+method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+method/sfia-fast-track/core/sfia-knowledge-layer.md
+projects/sfia-studio/README.md
+projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+prompts/templates/sfia-cycle-execution-template.md
+```
+
+```
+da0618d docs(sfia-studio): add convergence doctrine and roadmap
+ .../core/sfia-cycle-routing-guide.md               |  43 ++-
+ .../sfia-fast-track/core/sfia-knowledge-layer.md   |   4 +
+ projects/sfia-studio/README.md                     |  25 +-
+ .../sfia-studio-convergence-build-doctrine.md      | 212 +++++++++++++++
+ .../convergence/sfia-studio-convergence-roadmap.md | 297 +++++++++++++++++++++
+ prompts/templates/sfia-cycle-execution-template.md |  77 +++++-
+ 6 files changed, 648 insertions(+), 10 deletions(-)
+```
+
+Parent == `4b1a058050ae81d56cb6d96b88e8a57380799a86` : **YES**
 
 ---
 
-## 7. Capitalisation / REX (traçabilité uniquement)
+## 6. Validations
 
-`candidate created` → `Morris content validation` → `PR readiness` (ce cycle).
-
-Pas de nouvelle doctrine. A+B non modifiés.
+| Check | Résultat |
+| --- | --- |
+| 6 fichiers exacts | **PASS** |
+| 2 created + 4 modified | **PASS** |
+| cross-links | **PASS** |
+| markers | **PASS** |
+| anti-claims | **PASS** |
+| git diff --check (cached/commit) | **PASS** |
+| staged scope | **PASS** |
+| project push | **0** |
 
 ---
 
-## 8. FULL INLINE — Build Doctrine (A)
+## 7. Décisions toujours fermées
 
-sha256: `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9` · bytes: 10348
+push projet · PR · merge · instructions ChatGPT · Option 1 · persistence · Auth/Ack · Cursor REAL · Gate D · runtime v3 adoption · cleanup worktree/branche
+
+---
+
+## 8. Sources consultées
+
+- Template / routing (origin/main + candidats)
+- Operating model / rules
+- Handoff PR readiness tip `86df3e7…`
+- 6 fichiers source validés
+- CKC : fallback v2.6 (aucune autorité)
+
+---
+
+## 9. FULL INLINE — Build Doctrine (A) committed
+
+sha256 `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9`
 
 ```text
 # SFIA Studio Convergence / Build Doctrine
@@ -446,9 +385,9 @@ PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 
 ---
 
-## 9. FULL INLINE — Convergence Roadmap (B)
+## 10. FULL INLINE — Convergence Roadmap (B) committed
 
-sha256: `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6` · bytes: 15980
+sha256 `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6`
 
 ```text
 # SFIA Studio Convergence Roadmap
@@ -753,9 +692,17 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 
 ---
 
-## 10. DIFF COMPLET — 4 fichiers tracked (lot)
+## 11. DIFF COMPLET — commit (6 fichiers)
 
 ```diff
+commit da0618db8ce8dd6f1d7e98f8e207f7e169811d17
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Wed Aug 12 22:43:17 2026 +0200
+
+    docs(sfia-studio): add convergence doctrine and roadmap
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 index a331746..8949e76 100644
 --- a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
@@ -908,130 +855,6 @@ index 75f0598..37f7683 100644
  | Socle applicatif / harness A–E | `main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` (PR #234 MERGED) |
  | Vertical slice A–E | Docs `32`–`40` ; clôture `CLOSED_WITH_RESERVATIONS` |
  | Cadrage OPS1 | Docs `41`–`44` — **VALIDATED WITH RESERVATIONS** ; **intégrés** sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) / squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` ; cleanup branche effectué |
-diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
-index b9ce0a9..85ca739 100644
---- a/prompts/templates/sfia-cycle-execution-template.md
-+++ b/prompts/templates/sfia-cycle-execution-template.md
-@@ -74,6 +74,7 @@ routing guide (sfia-cycle-routing-guide.md)
- → template d'exécution (prompts/templates/sfia-cycle-execution-template.md)
- → operating model (sfia-chatgpt-cursor-operating-model.md)
- → guardrails (sfia-rules-and-guardrails.md)
-+→ si objet = construction/évolution SFIA Studio : Convergence Pre-check (§2.0.G)
- → contexte projet (documents projet concernés)
- → prompt Cursor généré (contrat d'exécution)
- ```
-@@ -124,6 +125,30 @@ Repo-informed pre-check ChatGPT
- - push handoff autorisé : oui — L3 borné (automatique si rapport Cursor, sauf exception technique)
- - limites / incertitudes :
- - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
-+
-+SFIA Studio Convergence Pre-check :
-+- triggered : oui / non
-+- Build Doctrine :
-+  - path : projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-+  - ref :
-+  - lue : oui/non
-+  - statut :
-+- Convergence Roadmap :
-+  - path : projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+  - ref :
-+  - lue : oui/non
-+  - snapshot/milestone courant :
-+- doctrine v3 applicable :
-+- capacité v3 ciblée :
-+- milestone ciblée :
-+- classification actifs :
-+- gap(s) fermé(s) :
-+- lien trajectoire :
-+- exit proof :
-+- dette temporaire :
-+- trajectoire de sortie :
-+- gates Morris :
-+- verdict : CONVERGENCE CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE / STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
- ```
-
- #### E. Cas Git inaccessible
-@@ -144,15 +169,61 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
-
- | Niveau | Rôle | Source |
- |--------|------|--------|
--| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 |
--| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check | Ce fichier sur Git `main` |
-+| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 ; **couche Studio convergence = PENDING** (mise à jour instructions = étape ultérieure Morris) |
-+| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check (+ Convergence Pre-check Studio) | Ce fichier sur Git `main` |
- | **3. Prompt Cursor généré** | Contrat d'exécution — vérifié localement par Local Git Truth Check | Prompt instancié par ChatGPT |
-
-+#### G. SFIA Studio Convergence Pre-check (spécialisation bornée)
-+
-+> **Ne s’applique pas** aux projets SFIA sans rapport avec la construction de SFIA Studio.
-+> **Ne transforme pas** ce template en template Studio-only.
-+
-+**Trigger Studio = oui** si l’objet est la construction, l’évolution, l’architecture, la roadmap, la validation ou le prompting de **SFIA Studio** (même trigger que routing guide §4.3.0a).
-+
-+Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer le prompt :
-+
-+1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-+3. sources v3 applicables (`projects/sfia-studio/sfia-v3-framing/**`)
-+4. état repo/projet Studio concerné
-+
-+**Règle dure :**
-+
-+```text
-+trigger Studio = oui
-+ET (Build Doctrine non lue
-+    OU Roadmap non lue
-+    OU capacité / trajectory link non qualifié)
-+→ NE PAS générer le prompt Cursor
-+
-+PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
-+```
-+
-+Si l’analyse Studio elle-même n’a pas chargé le contexte convergence requis :
-+
-+```text
-+STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
-+```
-+
-+Séquence :
-+
-+```text
-+Repo-informed pre-check
-+→ si Studio trigger : Convergence Pre-check (§2.0.G + mini-fiche)
-+→ qualification cycle
-+→ CKC/process guidance applicable
-+→ sources spécifiques
-+→ instanciation prompt Cursor
-+```
-+
-+Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; doctrine v3 = destination produit ; v2.6 = baseline opérationnelle processus ; runtime v3 **non ADOPTED** par défaut.
-+
- ### 2.1 Déclenchement
-
- À partir d'une demande Morris (nouveau chat ou conversation en cours) :
-
- 0. **Repo-informed pre-check** — §2.0 si trigger actif
-+0bis. **SFIA Studio Convergence Pre-check** — §2.0.G si objet = construction/évolution SFIA Studio ; sinon N/A
- 1. **Qualifier** la demande — objectif, risque, impact, livrable attendu
- 2. **Identifier le type de cycle projet** — cartographie §4 (15 cycles)
- 2bis. **Résoudre le Cycle Knowledge Contract candidat** — routing guide §4.4.5 ; lire pilote si disponible ; sinon carte synthétique + fallback méthode v2.6 ; déclarer statut `candidate` / `absent` dans la mini-fiche §2.0.D
-@@ -163,7 +234,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
- 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
- 8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
- 9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
--10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor
-+10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor ; **interdit** si §2.0.G échoue
-
- ### 2.2 Nouveau chat et sources projet
-```
-
----
-
-## 11. DIFF COMPLET — fichiers créés (git diff --no-index)
-
-### Build Doctrine
-
-```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
 new file mode 100644
 index 0000000..0591431
@@ -1250,12 +1073,6 @@ index 0000000..0591431
 +- Routing : `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 +- Knowledge Layer : `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 +- Template : `prompts/templates/sfia-cycle-execution-template.md`
-
-```
-
-### Roadmap
-
-```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 new file mode 100644
 index 0000000..d8d4899
@@ -1559,32 +1376,130 @@ index 0000000..d8d4899
 +- Build Doctrine : [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md)
 +- Audit handoff : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
 +- Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37`
+diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
+index b9ce0a9..85ca739 100644
+--- a/prompts/templates/sfia-cycle-execution-template.md
++++ b/prompts/templates/sfia-cycle-execution-template.md
+@@ -74,6 +74,7 @@ routing guide (sfia-cycle-routing-guide.md)
+ → template d'exécution (prompts/templates/sfia-cycle-execution-template.md)
+ → operating model (sfia-chatgpt-cursor-operating-model.md)
+ → guardrails (sfia-rules-and-guardrails.md)
++→ si objet = construction/évolution SFIA Studio : Convergence Pre-check (§2.0.G)
+ → contexte projet (documents projet concernés)
+ → prompt Cursor généré (contrat d'exécution)
+ ```
+@@ -124,6 +125,30 @@ Repo-informed pre-check ChatGPT
+ - push handoff autorisé : oui — L3 borné (automatique si rapport Cursor, sauf exception technique)
+ - limites / incertitudes :
+ - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
++
++SFIA Studio Convergence Pre-check :
++- triggered : oui / non
++- Build Doctrine :
++  - path : projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
++  - ref :
++  - lue : oui/non
++  - statut :
++- Convergence Roadmap :
++  - path : projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++  - ref :
++  - lue : oui/non
++  - snapshot/milestone courant :
++- doctrine v3 applicable :
++- capacité v3 ciblée :
++- milestone ciblée :
++- classification actifs :
++- gap(s) fermé(s) :
++- lien trajectoire :
++- exit proof :
++- dette temporaire :
++- trajectoire de sortie :
++- gates Morris :
++- verdict : CONVERGENCE CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE / STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
+ ```
+
+ #### E. Cas Git inaccessible
+@@ -144,15 +169,61 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
+
+ | Niveau | Rôle | Source |
+ |--------|------|--------|
+-| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 |
+-| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check | Ce fichier sur Git `main` |
++| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 ; **couche Studio convergence = PENDING** (mise à jour instructions = étape ultérieure Morris) |
++| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check (+ Convergence Pre-check Studio) | Ce fichier sur Git `main` |
+ | **3. Prompt Cursor généré** | Contrat d'exécution — vérifié localement par Local Git Truth Check | Prompt instancié par ChatGPT |
+
++#### G. SFIA Studio Convergence Pre-check (spécialisation bornée)
++
++> **Ne s’applique pas** aux projets SFIA sans rapport avec la construction de SFIA Studio.
++> **Ne transforme pas** ce template en template Studio-only.
++
++**Trigger Studio = oui** si l’objet est la construction, l’évolution, l’architecture, la roadmap, la validation ou le prompting de **SFIA Studio** (même trigger que routing guide §4.3.0a).
++
++Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer le prompt :
++
++1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
++2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
++3. sources v3 applicables (`projects/sfia-studio/sfia-v3-framing/**`)
++4. état repo/projet Studio concerné
++
++**Règle dure :**
++
++```text
++trigger Studio = oui
++ET (Build Doctrine non lue
++    OU Roadmap non lue
++    OU capacité / trajectory link non qualifié)
++→ NE PAS générer le prompt Cursor
++
++PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
++```
++
++Si l’analyse Studio elle-même n’a pas chargé le contexte convergence requis :
++
++```text
++STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
++```
++
++Séquence :
++
++```text
++Repo-informed pre-check
++→ si Studio trigger : Convergence Pre-check (§2.0.G + mini-fiche)
++→ qualification cycle
++→ CKC/process guidance applicable
++→ sources spécifiques
++→ instanciation prompt Cursor
++```
++
++Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; doctrine v3 = destination produit ; v2.6 = baseline opérationnelle processus ; runtime v3 **non ADOPTED** par défaut.
++
+ ### 2.1 Déclenchement
+
+ À partir d'une demande Morris (nouveau chat ou conversation en cours) :
+
+ 0. **Repo-informed pre-check** — §2.0 si trigger actif
++0bis. **SFIA Studio Convergence Pre-check** — §2.0.G si objet = construction/évolution SFIA Studio ; sinon N/A
+ 1. **Qualifier** la demande — objectif, risque, impact, livrable attendu
+ 2. **Identifier le type de cycle projet** — cartographie §4 (15 cycles)
+ 2bis. **Résoudre le Cycle Knowledge Contract candidat** — routing guide §4.4.5 ; lire pilote si disponible ; sinon carte synthétique + fallback méthode v2.6 ; déclarer statut `candidate` / `absent` dans la mini-fiche §2.0.D
+@@ -163,7 +234,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
+ 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
+ 8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
+ 9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
+-10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor
++10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor ; **interdit** si §2.0.G échoue
+
+ ### 2.2 Nouveau chat et sources projet
+
 
 ```
 
 ---
 
-## 12. Sources consultées
+## 12. Instruction ChatGPT
 
-- Template main + local candidat : `prompts/templates/sfia-cycle-execution-template.md`
-- Routing / Knowledge Layer / operating model / rules (main + local pour fichiers modifiés)
-- A+B locaux intégralement
-- Doctrine v3 framing 30–37 (contexte claims — lus au cycle foundations ; claims anti-ADOPTED vérifiés)
-- README Studio candidat
-- Handoff `origin/sfia/review-handoff` tip `820d7af862a9b416de1296e5192f1d19f7eb2705`
-
----
-
-## 13. Handoff publication (ce cycle)
-
-- required · mode publish-in-cycle · L3 borné
-- commit message attendu : `docs(review-handoff): publish sfia studio convergence pr readiness`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- **aucun** fichier projet dans le commit handoff
-
----
-
-## 14. Instruction ChatGPT
-
-Lire **obligatoirement** ce handoff depuis Git avant verdict.
-Si READY FOR ISOLATED COMMIT : préparer le prochain gate Morris pour (1) isolation patch sur branche dédiée ; (2) commit dédié — **sans** consommer push/PR/merge sauf autorisation explicite.
+Lire ce handoff depuis Git avant verdict.
+Si parent correct, 6 fichiers, identity PASS, F3 preserved, cible clean, push=0 : conclure
+**ISOLATED COMMIT COMPLETE — CONVERGENCE PATCH IDENTITY VERIFIED — F3 WORKTREE PRESERVED — READY FOR MORRIS PUSH / PR GATE**
+Ne pas exécuter push/PR/merge sans nouveau GO Morris.
