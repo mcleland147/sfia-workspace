@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| **Horodatage** | 2026-08-12 22:43:39 +0200 (Europe/Paris) |
+| **Horodatage** | 2026-08-12 22:47:08 +0200 (Europe/Paris) |
 | **Cycle** | 8 — Delivery / repository isolation + commit |
 | **Profil** | Critical |
 | **Typologie** | DOC |
@@ -15,7 +15,7 @@
 
 **ISOLATED COMMIT COMPLETE — CONVERGENCE PATCH IDENTITY VERIFIED — F3 WORKTREE PRESERVED — READY FOR MORRIS PUSH / PR GATE**
 
-Project push = **0**. PR = **0**. Merge = **0**. main unmodified.
+Project push = **0**. PR = **0**. Merge = **0**. main unmodified. Branche projet **non poussée**.
 
 ---
 
@@ -25,24 +25,53 @@ Project push = **0**. PR = **0**. Merge = **0**. main unmodified.
 | --- | --- |
 | Tip | `86df3e722cbe15c3bf618935a5e9dfa4a88a95a1` |
 | Blob | `077f05125c56b3a7b69fbdee65bcf4488ecce52b` |
-| Verdict | READY FOR ISOLATED COMMIT — CONTENT APPROVED — PATCH ISOLATABLE — DEDICATED CONVERGENCE BRANCH REQUIRED — MORRIS COMMIT GATE REQUIRED |
+| Verdict | READY FOR ISOLATED COMMIT — … — MORRIS COMMIT GATE REQUIRED |
 
 ---
 
-## 2. Worktree SOURCE (F3 — intact)
+## 2. Worktree SOURCE (F3)
 
 | Champ | Valeur |
 | --- | --- |
 | Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-prerequisites-delivery` |
-| Branch | `delivery/sfia-studio-f3-real-prerequisites` |
+| Branch (final) | `delivery/sfia-studio-f3-real-prerequisites` |
 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
 | F3 preserved | **YES** |
-| Status initial == final | **YES** |
+| Project paths vs initial | **EQUAL** |
 
-### Status initial/final
+### Status initial
 
 ```
  M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+ M method/sfia-fast-track/core/sfia-knowledge-layer.md
+ M projects/sfia-studio/README.md
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
+ M projects/sfia-studio/app/__tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts
+ M projects/sfia-studio/app/lib/d1/db.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+ M projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+ M projects/sfia-studio/app/package-lock.json
+ M projects/sfia-studio/app/package.json
+ M prompts/templates/sfia-cycle-execution-template.md
+?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/oa/critical-ack/
+?? projects/sfia-studio/app/__tests__/oa/execution-attempt/durableLaunchMarkers.test.ts
+?? projects/sfia-studio/app/app/api/
+?? projects/sfia-studio/app/auth.ts
+?? projects/sfia-studio/app/lib/oa/critical-ack/
+?? projects/sfia-studio/app/types/
+?? projects/sfia-studio/convergence/
+```
+
+### Status final (après recovery worktree)
+
+```
+M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
  M method/sfia-fast-track/core/sfia-knowledge-layer.md
  M projects/sfia-studio/README.md
  M projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
@@ -75,11 +104,13 @@ Project push = **0**. PR = **0**. Merge = **0**. main unmodified.
 | Champ | Valeur |
 | --- | --- |
 | Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-foundations` |
-| Branch | `docs/sfia-studio-convergence-foundations` |
+| Branch (final) | `docs/sfia-studio-convergence-foundations` |
 | Base | `origin/main` @ `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| Status initial | clean |
-| Status avant staging | 4 M + ?? convergence/ |
-| Status après commit | clean |
+| Status après commit / recovery | clean hors `.tmp-sfia-review/` |
+
+```
+?? .tmp-sfia-review/
+```
 
 ---
 
@@ -87,15 +118,12 @@ Project push = **0**. PR = **0**. Merge = **0**. main unmodified.
 
 | Artefact | SHA256 |
 | --- | --- |
-| A source/dest | `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9` |
-| B source/dest | `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6` |
-| Tracked patch source | `d100e08e3dde7825f8cde711bcaaf5283bf78db00a748f122ec9cccd59a7bfcf` |
-| Tracked patch destination | `d100e08e3dde7825f8cde711bcaaf5283bf78db00a748f122ec9cccd59a7bfcf` |
+| A source/dest/commit | `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9` |
+| B source/dest/commit | `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6` |
+| Tracked patch source=dest | `d100e08e3dde7825f8cde711bcaaf5283bf78db00a748f122ec9cccd59a7bfcf` |
 | Identité | **PASS** |
 
-Attendus PR readiness : A=`be306b6e…b326bc9` · B=`898d01ef…f1336a6` — **MATCH**.
-
-Contamination F3 : **NO**
+Contamination F3 dans le commit : **NO**
 
 ---
 
@@ -107,6 +135,7 @@ Contamination F3 : **NO**
 | Parent | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
 | Message | `docs(sfia-studio): add convergence doctrine and roadmap` |
 | Files | exactement 6 |
+| Remote branch | **ABSENT** (non poussée) |
 
 ```
 method/sfia-fast-track/core/sfia-cycle-routing-guide.md
@@ -128,8 +157,6 @@ da0618d docs(sfia-studio): add convergence doctrine and roadmap
  6 files changed, 648 insertions(+), 10 deletions(-)
 ```
 
-Parent == `4b1a058050ae81d56cb6d96b88e8a57380799a86` : **YES**
-
 ---
 
 ## 6. Validations
@@ -138,28 +165,30 @@ Parent == `4b1a058050ae81d56cb6d96b88e8a57380799a86` : **YES**
 | --- | --- |
 | 6 fichiers exacts | **PASS** |
 | 2 created + 4 modified | **PASS** |
-| cross-links | **PASS** |
-| markers | **PASS** |
-| anti-claims | **PASS** |
-| git diff --check (cached/commit) | **PASS** |
-| staged scope | **PASS** |
+| cross-links / markers / anti-claims | **PASS** |
+| git diff --check | **PASS** |
+| staged scope at commit | **PASS** |
 | project push | **0** |
 
 ---
 
-## 7. Décisions toujours fermées
+## 7. Réserve — incident post-publish worktree (récupéré)
 
-push projet · PR · merge · instructions ChatGPT · Option 1 · persistence · Auth/Ack · Cursor REAL · Gate D · runtime v3 adoption · cleanup worktree/branche
+Après le premier publish handoff L3, les attachments de branches worktree ont été perturbés (cible basculée sur `delivery/sfia-studio-f3-real-prerequisites`, source détachée, index source temporairement rempli). **Aucun contenu F3 perdu** (fichiers présents ; hashes A/B inchangés). Recovery effectuée :
+
+1. `git restore --staged .` dans le worktree source (désindexage uniquement) ;
+2. checkout `docs/sfia-studio-convergence-foundations` dans le worktree cible ;
+3. checkout `delivery/sfia-studio-f3-real-prerequisites` dans le worktree source.
+
+État final vérifié : commit `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` intact ; F3 project paths = initial ; branche projet non poussée.
+
+Le publisher canonique n’a modifié que `sfia/review-handoff`. La cause exacte du basculement d’attachment n’est pas attribuée au script `publish-review-handoff.sh` (opère uniquement sur `--handoff-worktree`).
 
 ---
 
-## 8. Sources consultées
+## 8. Décisions toujours fermées
 
-- Template / routing (origin/main + candidats)
-- Operating model / rules
-- Handoff PR readiness tip `86df3e7…`
-- 6 fichiers source validés
-- CKC : fallback v2.6 (aucune autorité)
+push projet · PR · merge · instructions ChatGPT · Option 1 · persistence · Auth/Ack · Cursor REAL · Gate D · runtime v3 adoption · cleanup worktree/branche
 
 ---
 
@@ -1503,3 +1532,4 @@ Lire ce handoff depuis Git avant verdict.
 Si parent correct, 6 fichiers, identity PASS, F3 preserved, cible clean, push=0 : conclure
 **ISOLATED COMMIT COMPLETE — CONVERGENCE PATCH IDENTITY VERIFIED — F3 WORKTREE PRESERVED — READY FOR MORRIS PUSH / PR GATE**
 Ne pas exécuter push/PR/merge sans nouveau GO Morris.
+Noter la réserve §7 (recovery worktree) — non bloquante si état final vérifié.
