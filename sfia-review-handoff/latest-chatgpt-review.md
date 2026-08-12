@@ -1,636 +1,924 @@
 # ChatGPT Review Pack — FULL
-## Cycle 6 Architecture technique Critical — SFIA Studio Runtime Convergence Audit
+## Cycle 1 Cadrage Critical DOC — SFIA Studio Convergence Foundations
 
 | Field | Value |
 | --- | --- |
-| **Role** | READ-ONLY exhaustive convergence audit |
 | **Pack level** | FULL |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-12 18:53:32 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-12 16:53:32 UTC |
-| **Cycle** | **6 — Architecture technique** |
+| **Timestamp CEST** | 2026-08-12 21:55:19 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-12 19:55:19 UTC |
+| **Cycle** | 1 — Cadrage / fondation méthode |
 | **Profil** | Critical |
-| **Typologie** | EVOL — audit préalable à convergence structurée |
-| **GO** | Morris audit read-only authorized by current request |
-| **R-T-A3-1** | ACCEPTED / CLOSED BY MORRIS |
-| **R-T-A3-2** | ACCEPTED / CLOSED BY MORRIS — BOUNDED SQLITE HARD CLOSURE |
-| **Product persistence** | NOT_SELECTED |
-| **crossStoreDurable** | false |
-| **productionRollbackProven** | false |
-| **Gate D** | NOT CONSUMED |
-| **Cursor REAL** | 0 |
-| **Review Pack** | FULL |
+| **Typologie** | DOC |
+| **Bloc** | Capitalisation / REX |
+| **Branch** | `delivery/sfia-studio-f3-real-prerequisites` |
+| **HEAD** | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| **origin/main** | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| **CKC** | `method/.../pilots/01-cadrage.md` blob `67a692dc…` — candidate — experimental cognitive guidance — aucune autorité d'exécution |
+| **Handoff convergence consulté** | tip `c5b417dc…` blob `31a5db07…` |
+| **Project commits** | 0 |
+| **Project pushes / PR / merge** | 0 / 0 / 0 |
+| **ChatGPT instructions** | **NOT MODIFIED** (PENDING next step) |
 | **Outbound remote identity** | Placeholder — FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
 
 ---
 
-# A. Executive summary
-
-SFIA Studio today is a **working fixture vertical slice** on `/studio` (create project → Nora F1 chat → F2 proposal/Morris demo gate → F3 fixture T-A4→T-A5→T-A6 UI reinjection) on a **process-local Memory OA stack**, plus **parallel** durable engines (OPS1 Cursor/SQLite, D1 SQLite, FinOps Postgres, execution-run memory) that are **not** the F3 authority chain.
-
-The shortest path to a Morris-usable v0.1 is **not** more micro-hardening of parallel engines; it is **convergence**: decide Product persistence, durable-bind Project + HumanDecision, harvest OPS1 Cursor behind T-A5 `ExecutionAdapter`, bind Critical Ack for REAL, then Gate D for a bounded read-only REAL.
-
-**RECOMMENDATION — NOT DECIDED — MORRIS DECISION REQUIRED:** Option 1 — OA Native Backbone + Harvest OPS1 Cursor.
-
-Dirty local candidate `delivery/sfia-studio-f3-real-prerequisites` (SHA `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab`) adds Auth.js + critical-ack Sqlite journal wiring — **not on HEAD/main** — useful prerequisite evidence, not baseline.
-
----
-
-# B. Audit scope / Git Truth
-
-| Check | Result |
-| --- | --- |
-| Worktree | `…/f3-real-prerequisites-delivery` |
-| Branch | `delivery/sfia-studio-f3-real-prerequisites` |
-| HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| Staged | EMPTY |
-| Remote delivery | ABSENT |
-| Dirty tracked F3 candidate | YES (expected; not cleaned) |
-| Candidate SHA BEFORE/AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` / `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` MATCH |
-| Manifest | `.tmp-sfia-review/r-t-a3-2-option-a-delivery/candidate-manifest.txt` (40 files) |
-| Template blob | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| Inbound handoff | tip `c5efa822…` blob `2f9405af…` |
-| PR range inspected | #234–#333 inclusive via `gh` (100/100; 97 merged; #271–#273 closed unmerged) |
-| OA TS files counted | ~337 under `lib/oa` |
-| Product mutations this cycle | **0** |
-| Project Git writes | **0** |
-| Cursor REAL / Gate D | **0 / NOT CONSUMED** |
-
-Method sources read: cycle execution template, routing guide, operating model, rules/guardrails, v2.5 cycles method candidate, CKC posture for Critical Architecture.
-
----
-
-# C. Timeline architectures (PR #234–#333)
-
-| PR range | Generation | Intention | Current role |
-| --- | --- | --- | --- |
-| #234 | Pre-OPS1 | Governed GPT slice close | historical/support |
-| #235–#253 | OPS1 I1–I6 | Session→gate→Cursor→report | **LEGACY_BUT_REUSABLE** (live `/ops1`) |
-| #254 | D1 / Control Tower | SQLite intake | parallel durable UI |
-| #255–#257 | Shared platform | AI/security/obs/tools | ACTIVE_SUPPORTING |
-| #258–#267 | OA T-A0…T-A6 | Native Option A engine | **ACTIVE_CANONICAL_CANDIDATE** (Memory) |
-| #268–#291 | CI + T-A7 framing/foundations | HARD/readiness | ACTIVE_SUPPORTING; cutover not done |
-| #292–#304 | Vertical-slice + D2-A/B/C | Visible project + CKC/qualify | ACTIVE_CANONICAL UX path |
-| #305–#311 | execution-run D2-D | Parallel run coordinator | PARALLEL (not F3 chain) |
-| #312–#327 | FinOps T0–T7 | Cost control Postgres | PARALLEL durable transverse |
-| #328 | OPS1 continuity bridge | Workspace link to OPS1 | legacy bridge |
-| #329–#333 | F1→F2→F3 fixture | Assistant + native fixture authority chain | WIRED_UI + FIXTURE_ONLY on main |
-
-Dirty-only (not main): `lib/oa/critical-ack/**`, `auth.ts`, NextAuth route, durable launch markers — F3 REAL prerequisites candidate.
-
----
-
-# D. Current runtime map
-
-Canonical Studio composition:
-
-```
-createRuntimeApplicationService (globalThis singleton)
-  → createLocalVerticalSliceServices (T-A1 Memory Project/LPS + doctrine FS)
-  → wireOaStack:
-       Cycle Memory | CKC qualify | MemoryAuthorityResolver
-       Decision Memory | SqliteAuthorityAttemptJournal (candidate)
-       ExecutionContract Memory | ExecutionAttempt + F3 TestExecutionAdapter
-       EvidenceReview Memory | createProductionAcknowledgeCritical (candidate)
-```
-
-Parallel compositions (not in wireOaStack for Nora):
-- `composeExecutionRun*` (+ optional FinOps T7 shadow)
-- OPS1 orchestrator + Cursor adapters
-- D1 actions over `d1.sqlite`
-
-UI surfaces: `/studio/projects/*` (Nora), `/ops1/*`, `/projects/*` (D1), Auth route (candidate).
-
----
-
-# E. User journey map
-
-| Hop | Status |
-| --- | --- |
-| User → Project create/view | EXISTS+WIRED (process-local) |
-| Project → LPS | EXISTS+WIRED (process-local) |
-| LPS → F1 context chat | EXISTS+WIRED |
-| F1 → F2 propose | EXISTS+WIRED |
-| F2 → Morris decide | EXISTS+WIRED + PROCESS_LOCAL + demo authority |
-| Morris → T-A3 HD | EXISTS+WIRED (Memory) |
-| T-A3 → T-A4 contract | EXISTS+WIRED (fixture prepare) |
-| T-A4 → F3 → T-A5 | EXISTS+WIRED + FIXTURE_ONLY |
-| T-A5 → adapter | FIXTURE_ONLY (`adp:f3-test-fixture`); REAL via OPS1 only |
-| → T-A6 Evidence | EXISTS+WIRED (Memory); UI DTO reinjection |
-| Evidence → LPS write-back | **MISSING** |
-| Critical Ack Auth.js | EXISTS on candidate BUT NOT WIRED to Nora UI |
-| Cycle create from F2 | EXISTS BUT NOT WIRED |
-| Cursor REAL via Nora | MISSING / BLOCKED BY DECISION |
-| Durable F2/HD/Contract | BLOCKED BY PERSISTENCE |
-
----
-
-# F. Reachability matrix
-
-See also artifact `reachability-matrix.md` (inline summary in §D/E).
-
-Class counts (approx): ACTIVE_CANONICAL ~7; ACTIVE_SUPPORTING ~4; WIRED_UI ~3; FIXTURE_ONLY ~2; PROCESS_LOCAL ~8; DURABLE_LOCAL ~2 (D1 + candidate journal); DURABLE_SHARED ~1 (FinOps PG); PARALLEL ~4; LEGACY_BUT_REUSABLE ~1 (OPS1); HISTORICAL_DOC ~schemas/docs.
-
----
-
-# G. Persistence map
-
-Full table in audit artifact; key topology:
-
-- **Studio OA product path:** almost entirely **Memory / process-local** (Project, LPS, Decision, Contract, Attempt, Evidence, F2 proposals).
-- **Only durable on Studio candidate stack:** Sqlite authority/attempt journal (pilot-bounded; ≠ Product persistence selected).
-- **Durable elsewhere:** D1 SQLite projects; OPS1 SQLite; FinOps PostgreSQL (cost domain).
-- **Doctrine:** filesystem package registry (read-durable).
-
-Implication: chat F2 GO and fixture F3 proofs **do not survive restart** and are **not REAL-eligible decisionRefs**.
-
----
-
-# H. Authority / security map
-
-| Control | Observed |
-| --- | --- |
-| Morris decides | Method + F2 gate UI; demo authority `LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY` on Studio path |
-| Authn | Auth.js GitHub on **candidate only**; not Nora-bound |
-| Authz | MemoryAuthorityResolver; Authn≠Authz explicit |
-| Critical Ack | Candidate composition `createProductionAcknowledgeCritical`; UI unwired |
-| Confirmations | T-A3 Memory confirmations used by F3 fixture |
-| Fail-closed REAL | OPS1 Cursor REAL fail-closed if flag≠1; F3 rejects hostile REAL fields |
-| Silent REAL→FIXTURE | Forbidden in OPS1 and F3 wiring comments; fixture is explicit |
-| Secrets | OPS1 secret boundaries exist; not audited as “secure” claim |
-| Sandbox | OPS1 `.sfia-exec` worktrees for Cursor |
-
-**No “secure for REAL Studio” claim** — Critical Ack/UI/durable HD still gaps.
-
----
-
-# I. Execution engines comparison
-
-| Engine | Authority model | Adapter | Durable | UI | Role vs F3 |
-| --- | --- | --- | --- | --- | --- |
-| T-A4/T-A5/T-A6 (OA) | Contract→Attempt→Evidence | TestExecutionAdapter in Studio | Memory (+ journal candidate) | Nora F3 | **target chain** |
-| OPS1 | Session/gates/allowlist | Cursor fixture + REAL | SQLite | `/ops1` | harvest candidate for Cursor |
-| execution-run | Provider lanes | Fake/fixture providers | Memory | none in Nora | parallel; freeze growth |
-
----
-
-# J. OPS1 disposition analysis
-
-- **Still live and useful** for Cursor REAL process, worktree sandbox, report reinjection patterns.
-- **Not** the F3 native authority chain (F3-D03 / governance docs).
-- **Credible target role:** encapsulated **ExecutionAdapter** implementation behind T-A5 port; OPS1 UI growth **STOP DOING** until disposition decided.
-- Disposition = **MORRIS DECISION REQUIRED** (harvest vs dual-shell vs later retire).
-
----
-
-# K. execution-run disposition analysis
-
-- Parallel D2-D coordinator; optional FinOps shadow hook.
-- **Not** wired to F1/F2/F3.
-- Credible role: quarantine; mine ideas later; **no new independent features** until convergence decided.
-- Disposition = **MORRIS DECISION REQUIRED**.
-
----
-
-# L. FinOps isolation analysis
-
-- Correctly isolable as **transverse cost/control** with Postgres durability.
-- **Must not** be conflated with Product persistence.
-- Optional future: capture hooks on Attempt launch — after Product path works.
-- New FinOps lots without user-visible Studio dependency: **STOP DOING recommendation**.
-
----
-
-# M. Reusable foundations
-
-| Foundation | Reuse verdict |
-| --- | --- |
-| T-A0 doctrine resolve/digest | KEEP — called on project create |
-| T-A1 Project/LPS ports + domain | KEEP — right product base; needs durable adapter |
-| T-A2/CKC/qualify | KEEP — F2 uses qualify; wire createCycle later |
-| T-A3 Decision/Confirmation/Authority ports | KEEP — right backbone; needs durable + real authority |
-| T-A4 ExecutionContract | KEEP — consumable by F3; needs durable + REAL fields path |
-| T-A5 Attempt + ExecutionAdapter port | KEEP — swap fixture for harvested Cursor adapter |
-| T-A6 Evidence/ReviewBundle/Recommend | KEEP — UI reinjection exists; add LPS write-back |
-| T-A7 HARD/readiness markers | KEEP as honesty rails |
-| Shared platform AI/security/obs | KEEP |
-| Vertical-slice runtime composition | KEEP as Studio composition root |
-| OPS1 Cursor spawn/worktree | HARVEST into adapter |
-| F1/F2/F3 UI flow | KEEP — replace demo/fixture bindings progressively |
-| Auth.js + critical-ack candidate | PROMOTE via Delivery after Architecture decisions |
-| FinOps Postgres | KEEP isolated |
-| D1 SQLite project UI | LEGACY disposition later |
-| Modeled JSON examples | schema/docs only |
-
----
-
-# N. Orphans / parallel systems / debt
-
-- Dual project UIs: `/studio` Memory vs `/projects` D1
-- Dual execution: Nora F3 fixture vs OPS1 Cursor
-- execution-run unused by product assistant
-- Cycle services wired but F2 doesn't create CycleInstances
-- Critical Ack composed (candidate) without UI
-- Process-local proposal/decision vs durable journal only for attempts/acks
-- Documentation “v3-native” naming ≠ authorization to reopen SFIA v3.0 product cutover
-
----
-
-# O. Ligaments missing
-
-See `ligaments.md`. Top blockers for usable v0.1:
-
-1. **L1** Durable Project/LPS
-2. **L2** Durable HumanDecision
-3. **L6** Cursor adapter harvest into T-A5
-4. **L7** Critical Ack UI binding
-5. **L8** Exact REAL contract prep from HD
-6. **L4** Live contextSnapshot
-7. **L9** Evidence reinjection beyond ephemeral panel state
-
----
-
-# P. Capabilities usable today
-
-### On main (HEAD) without Cursor REAL
-1. `/studio/projects/new` create process-local project + LPS view
-2. Nora F1 chat if OpenAI configured (else blocked; no silent demo unless forced)
-3. F2 qualification + proposal + Morris demo gate
-4. F3 fixture prepare → confirm/execute → see evidence/recommendation cards
-5. Navigate OPS1 separately for fixture Cursor (not Studio-bound)
-6. FinOps not user-facing Studio journey
-
-### On dirty candidate only
-7. Auth.js route + production Critical Ack composition + Sqlite journal markers (server); **no Nora Critical Ack UX**
-
-### Impossible today
-- Restart-safe Studio project/decision
-- REAL-eligible decisionRef for Gate D
-- Cursor REAL from Nora
-- Evidence durable + LPS write-back
-- Claiming product READY / T-A6 COMPLETE
-
----
-
-# Q. Target architecture options
-
-## Option 1 — OA Native Backbone + Harvest OPS1 Cursor
-**(RECOMMENDATION CANDIDATE)**
-
-```mermaid
-flowchart LR
-  UI[Studio UI Nora] --> VS[vertical-slice-runtime]
-  VS --> TA1[T-A1 durable Project/LPS]
-  VS --> F12[F1/F2]
-  F12 --> TA3[T-A3 durable HD]
-  TA3 --> TA4[T-A4 Contract]
-  TA4 --> ACK[Critical Ack]
-  ACK --> TA5[T-A5 Attempt]
-  TA5 --> ADP[Adapter port]
-  ADP --> CUR[Harvested OPS1 Cursor]
-  TA5 --> TA6[T-A6 Evidence]
-  TA6 --> UI
-  FIN[FinOps] -.-> TA5
-```
-
-Pros: aligns with F3 doctrine; reuses wired UI; clear authority; harvests REAL Cursor without dual product engines.
-Cons: requires persistence Architecture; adapter work; residual parallel UIs until disposition.
-Reversibility: high via ports.
-
-## Option 2 — Dual-Shell (OA front + OPS1 execution)
-Pros: faster opportunistic REAL via OPS1.
-Cons: deepens parallel engines; weaker single Evidence/authority story; fights F3-D03 intent.
-Reversibility: poor.
-
-FinOps-as-Product-persistence third peer **not** proposed (violates isolation + NOT_SELECTED).
-
----
-
-# R. Recommendation candidate
-
-```
-RECOMMENDATION — NOT DECIDED — MORRIS DECISION REQUIRED
-
-Adopt Option 1 as architecture target candidate:
-- Canonical backbone = T-A0→T-A7 + vertical-slice + F1/F2/F3
-- Harvest OPS1 Cursor into T-A5 ExecutionAdapter
-- Quarantine execution-run feature growth
-- Keep FinOps transverse/isolated
-- Decide Product persistence technology in a dedicated Architecture gate
-- Promote dirty critical-ack/Auth.js via explicit Delivery after decisions
-- Do not reopen SFIA v3.0 cutover; do not couple F3 to FinOps PG
-```
-
-Criteria fit: shortest usable path; max reuse; reduce parallel engines; fail-closed authority; evolutive after v0.1.
-
----
-
-# S. Candidate product roadmap (capability-guided)
-
-| Milestone | User capability | Reuse | Ligaments | Morris decisions | Probable cycles | Exit criteria | Deferred |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| **R0** | Architecture/convergence decided | audit | — | Option 1/2; persistence; OPS1/execution-run disposition | Architecture | Written GO on target + dispositions | implementation |
-| **R1** | Durable project open/create + live context | T-A1 ports, VS UI | L1,L4,L10 | Product persistence choice | Delivery | Restart-safe project/LPS; contextSnapshot resolvable | multi-region |
-| **R2** | Contextual assistant usable daily | F1, platform AI | history persistence optional | — | Delivery/Light | Chat with durable project context | advanced tools |
-| **R3** | F2 proposal + durable HD Morris gate | F2, T-A3 | L2,L3,L5 | Authority binding rules | Delivery Critical | accepted+current decisionRef survives restart | demo authority gone |
-| **R4** | Exact ExecutionContract + Gate D ready | T-A4, candidate ack | L7,L8,L11 | Gate D exact | Cadrage+Delivery | contract id/version/fingerprint frozen from HD | REAL launch |
-| **R5** | First Cursor REAL read-only from product | T-A5 port + OPS1 harvest | L6 | Gate D GO | Execution Critical | Evidence of REAL path; no silent fixture | writes |
-| **R6** | Evidence/ReviewBundle + UI/LPS reinjection | T-A6 | L9,L12 | — | Delivery | durable evidence visible in workspace | maturity auto |
-| **R7** | First bounded local WRITE Cursor | adapter allowlist | stop conditions | new Gate | Execution Critical | scoped write + review | broad Git publish |
-| **R8** | Daily-usable readiness/history | T-A7 honesty, journal | polish | — | mixed | NOT_READY honest; restart-safe core loop | full cutover |
-
-Roadmap = **CANDIDATE ONLY**.
-
----
-
-# T. MUST / SHOULD / LATER
-
-**MUST for v0.1 usable**
-- R0 decisions
-- Durable Project/LPS
-- Durable HumanDecision
-- Nora path without demo-only authority for structuring decisions
-- Harvested REAL adapter behind T-A5 (for R5)
-- Critical Ack bound for Critical REAL
-- Evidence visible reinjection
-
-**SHOULD after first usage**
-- CycleInstance binding
-- LPS write-back from ReviewBundle
-- OPS1 UI disposition
-- D1 UI disposition
-- FinOps optional capture on Attempts
-
-**LATER**
-- execution-run absorption
-- multi-instance HA
-- productionRollbackProven
-- broad WRITE Git/PR automation
-- SFIA v3.0 cutover
-
-**LEGACY disposition decision required**
-- OPS1 product UI
-- D1 `/projects` stack
-- execution-run feature stream
-
----
-
-# U. STOP DOING (recommendation only)
-
-Until R0 decided, avoid new cycles that deepen parallel engines without Studio user-visible dependency:
-- new FinOps feature lots
-- new independent execution-run features
-- OPS1 feature expansion beyond harvest needs
-- T-A7 hardening without user-visible dependency
-- F3 REAL attempts without durable HD + Gate D
-- Product persistence selection by implementers
-
----
-
-# V. Morris decisions (max 7)
-
-1. **Architecture target:** Option 1 vs Option 2?
-2. **Product persistence technology** for Project/LPS/Decision/(Contract/Attempt/Evidence as needed) — without implying FinOps coupling?
-3. **OPS1 disposition:** harvest-as-adapter vs dual-shell vs other?
-4. **execution-run disposition:** quarantine now?
-5. **Adopt candidate roadmap R0→R8** (or amend)?
-6. **Promote dirty F3 REAL prerequisites (Auth.js/critical-ack)** into Delivery after R0?
-7. **D1 `/projects` disposition:** maintain bridge / freeze / plan retire?
-
----
-
-# W. Reserves / anti-claims
-
-- Architecture **not** validated
-- Persistence **not** selected
-- OPS1 **not** deprecated by this audit
-- execution-run **not** deleted
-- Product **not** READY
-- Cursor REAL **not** ready on Nora
-- Gate D **not** ready / not consumed
-- Candidate dirty ≠ baseline
-- SFIA v3.0 **not** reopened
-- Fixture success ≠ functional READY
-- FinOps Postgres ≠ Product persistence
-- Sqlite journal ≠ global persistence platform
-
----
-
-# X. Integrity evidence
+## Git Truth
 
 | Item | Value |
 | --- | --- |
-| Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
-| Candidate SHA AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
+| Worktree | `…/f3-real-prerequisites-delivery` |
 | Staged | EMPTY |
-| Product mutations | 0 |
-| Tracked writes | 0 |
-| Project Git writes | 0 |
-| saveProposal/recordF2Decision/Build/Confirm/Ack/Start/launch | 0 |
-| Cursor REAL | 0 |
-| Gate D | NOT CONSUMED |
-| Analysis volume | PR #234–#333; ~337 OA TS files; 3 parallel stacks; 12 ligaments; 2 architecture options |
+| Allowlist overlap at start | NONE (authorized files were CLEAN) |
+| Other chantier present | YES — dirty F3 REAL prerequisites under `app/**` — **not modified** this cycle |
+| Dedicated branch | NOT created (worktree not clean; avoid mixing) |
+| origin/main vs prompt observation | UNCHANGED @ `4b1a058…` |
 
-Auxiliary artifacts under `.tmp-sfia-review/sfia-studio-runtime-convergence-audit/`:
-- PRECHECK.txt
-- reachability-matrix.md
-- persistence-map.md
-- ligaments.md
-- architecture-options.md
-- candidate-sha-before.txt / after.txt
+### Allowlist status (this cycle)
+
+```
+ M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+ M method/sfia-fast-track/core/sfia-knowledge-layer.md
+ M projects/sfia-studio/README.md
+ M prompts/templates/sfia-cycle-execution-template.md
+?? projects/sfia-studio/convergence/
+
+```
 
 ---
 
+## Décisions Morris consommées / non prises
+
+**Consommées pour ce cycle (création candidate + intégration locale routing/template) :**
+Studio v3 = cible produit ; doctrine v3 = destination ; Build Doctrine + Roadmap à créer ; réutiliser utile ; pas d'inertie ; lien capacité v3 obligatoire ; intermédiaires avec exit ; boucle métier prime ; A+B dans routing + template ; **pas** instructions ChatGPT.
+
+**Non prises :** Option 1 ; Product persistence ; Auth/Critical Ack promotion ; Cursor REAL ; Gate D ; retirement OPS1/D1/execution-run ; v3 runtime ADOPTED ; baseline v3 globale.
 
 ---
 
-# APPENDIX — FULL INLINE ARTIFACTS
+## Fichiers créés
 
-## Artifact: PRECHECK.txt
+1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
+## Fichiers modifiés
+
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+3. `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+4. `projects/sfia-studio/README.md`
+
+## Fichiers interdits respectés
+
+Aucun `app/**`, package, migration, autre `method/**`/`prompts/**`, doctrine 30–37 rewrite, instructions ChatGPT.
+
+---
+
+## Trois couches
+
+| Couche | Statut |
+| --- | --- |
+| 1 Instructions ChatGPT | **PENDING — volontairement hors cycle** |
+| 2 Repo / Source Routing | **IMPLEMENTED CANDIDATE** |
+| 3 Template Cursor | **IMPLEMENTED CANDIDATE** |
+
+---
+
+## Contradictions historiques
+
+README / routing « Pas de v3.0 / immediate NO-GO » : **superseded pour cible produit Studio** ; reformulé pour conserver refus de promotion baseline globale / claim ADOPTED sans GO, tout en reconnaissant Studio v3 comme cible produit.
+
+---
+
+## Validations
+
+- `git diff --check` allowlist : PASS
+- Markers présents : PASS
+- Cross-links A↔B↔README↔routing↔KL↔template : PASS
+- Anti-claims (no ADOPTED / no Option1 decided / no persistence selected / no Cursor REAL) : PASS
+- Template reste utilisable hors Studio : PASS (trigger borné)
+
+---
+
+## FULL INLINE — Build Doctrine (A)
+
+```markdown
+# SFIA Studio Convergence / Build Doctrine
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Rôle** | Doctrine de **construction / convergence** de SFIA Studio |
+| **Statut** | **CANDIDATE — READY FOR MORRIS REVIEW** (non promu main / non baseline) |
+| **Portée** | Travaux de construction / évolution de **SFIA Studio uniquement** |
+| **Git SoT** | Repository `mcleland147/sfia-workspace` — Git courant prime |
+| **Doctrine produit associée** | SFIA Studio v3 framing `30`–`37` = **CE QUE** Studio doit être |
+| **Roadmap associée** | [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md) = **OÙ** en est la construction |
+| **Processus opérationnel actuel** | SFIA **v2.6** = baseline ChatGPT ↔ Cursor externe |
+| **Runtime v3** | **NON ADOPTED** tant que preuves/gates manquent |
+| **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) |
+
+## A1. Anti-claims (ouverts)
+
+Ce document **n’est pas** :
+
+- une doctrine produit runtime remplaçant `sfia-v3-framing/30`–`37` ;
+- une autorisation d’adoption runtime v3 ;
+- une baseline méthodologique globale remplaçant SFIA v2.6 ;
+- une décision d’architecture technique (Option 1 reste **recommandation** jusqu’à GO Morris) ;
+- une sélection Product persistence ;
+- une autorisation Cursor REAL / Gate D ;
+- une instruction projet ChatGPT (couche 1 = PENDING hors ce cycle).
+
+## A2. Finalité
+
+> La doctrine produit **SFIA Studio v3** fixe la **destination**.
+> La **Build Doctrine** fixe les **lois de construction** qui empêchent de perdre cette destination.
+> La **Convergence Roadmap** fixe l’**état factuel** et la **prochaine capacité** à obtenir.
+
+## A3. Cible produit (boucle métier)
+
+Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED) :
+
+```text
+Morris
+  → SFIA Studio / Nora
+  → connaissance + contexte v3 (DoctrinePackage / CKC)
+  → qualification cycle / profil / lenses
+  → analyse / clarification
+  → Living Project State
+  → trajectoire / options / recommandation
+  → HumanDecision Morris
+  → Confirmation (si requise)
+  → ExecutionContract
+  → Cursor / agent sous contrat
+  → Evidence / ReviewBundle / Git
+  → analyse Nora
+  → mise à jour LPS / replanification
+  → décision Morris
+  → cycle suivant
 ```
-PRECHECK=OK
-BRANCH=delivery/sfia-studio-f3-real-prerequisites
-HEAD=4b1a058050ae81d56cb6d96b88e8a57380799a86
-ORIGIN_MAIN=4b1a058050ae81d56cb6d96b88e8a57380799a86
-STAGED=EMPTY
-REMOTE_DELIVERY=ABSENT
-CANDIDATE_SHA=082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab
-CANDIDATE_SHA_MATCH=YES
-INBOUND_HANDOFF_TIP=c5efa822a2a9c59ac0996f228801779a66b6c149
-INBOUND_HANDOFF_BLOB=2f9405afa26ea5a3ef96239f16cb5df7f2805e4e
-DIRTY_F3_CANDIDATE=YES
-CRITICAL_ACK_ON_HEAD=NO
-CURSOR_REAL=0
-GATE_D=NOT_CONSUMED
-PRODUCT_MUTATIONS=0
-TIMESTAMP_CEST=2026-08-12 18:53:32 CEST (+0200)
+
+Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
+
+## A4. Règles fondatrices de construction (R1–R20)
+
+| ID | Règle |
+| --- | --- |
+| **R1** | Tout développement doit avoir un **lien direct** avec une capacité v3 (fondation V3-Fxx et/ou étape de la boucle A3). |
+| **R2** | La **boucle métier complète** prime sur la profondeur locale non bloquante. |
+| **R3** | **Réutiliser** l’existant utile ; **ne jamais** conserver uniquement par inertie / coût passé. |
+| **R4** | Classifier les actifs : **KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER**. |
+| **R5** | Une étape **intermédiaire** n’est autorisée qu’avec justification, cible, condition de sortie et trajectoire de sortie. |
+| **R6** | Une impasse ou **architecture parallèle** sans cible explicite est **interdite** comme chemin de construction par défaut. |
+| **R7** | Aucun **POC / fixture / spike gratuit** sur le chemin critique. |
+| **R8** | Construire par **capacités utilisateur end-to-end**, pas par accumulation de micro-composants. |
+| **R9** | La roadmap est une **roadmap de convergence** (état → capacité → preuve), pas un catalogue de tickets. |
+| **R10** | Le **chemin critique** doit rester visible à tout moment (Roadmap B10). |
+| **R11** | Pas de dette volontaire sans propriétaire + condition de remboursement ou de retrait. |
+| **R12** | **Git** reste la vérité technique et documentaire. |
+| **R13** | La **décision structurante** reste humaine (Morris). |
+| **R14** | GPT/Nora **raisonne, challenge, recommande** ; il/elle ne transforme pas une recommandation en décision. |
+| **R15** | Cursor/agent **exécute uniquement** dans un périmètre/contrat gouverné. |
+| **R16** | Automatiser le **répétable**, pas l’arbitrage structurant. |
+| **R17** | Ne pas élargir un chantier uniquement pour « préparer le futur » sans lien trajectoire. |
+| **R18** | Fermer dans un **même lot** les gaps cohérents servant une seule capacité utilisateur, sauf raison de scission. |
+| **R19** | Aucun claim de maturité / READY / ADOPTED sans **preuve**. |
+| **R20** | Toute brique **temporaire** doit rendre visible sa **sortie**. |
+
+## A5. Challenge obligatoire avant tout chantier Studio
+
+Avant cadrage / prompt Cursor / delivery Studio, répondre :
+
+1. Quelle **capacité v3** ce travail débloque-t-il ?
+2. Est-ce utile **maintenant** (chemin critique) ?
+3. Existe-t-il déjà une brique **réutilisable** (KEEP/ADAPT/HARVEST) ?
+4. Créons-nous une **architecture ou un moteur parallèle** ?
+5. Peut-on fermer **plusieurs petits gaps** dans le même lot cohérent ?
+6. Quelle **preuve end-to-end** permettra de déclarer la capacité obtenue ?
+7. Quelle capacité ou décision vient **ensuite** ?
+8. Quelle **dette** est créée ?
+9. Action **répétable/automatisable** ou **arbitrage humain** ?
+10. Un **gate Morris** est-il nécessaire ?
+
+Si **1** ou **7** n’a pas de réponse exploitable :
+
+```text
+STOP — TRAJECTORY LINK MISSING
 ```
 
-## Artifact: reachability-matrix.md
+## A6. Politique POC / prototype / fixture
 
-```
-# Reachability / Wiring Matrix
+| Cas | Règle |
+| --- | --- |
+| Historique existant | Exploitable comme **preuve / harvest**, pas comme produit final. |
+| Nouvelle création | **Interdite par défaut** sur chemin critique. |
+| Exception | Uniquement risque technique précis non résoluble autrement + exit explicite. |
+| Gate | Morris gate si l’exception ouvre une branche de trajectoire. |
+| Interdit | Traiter POC/fixture comme produit final ou comme preuve REAL silencieuse. |
 
-| Subsystem | Path | Classification |
+## A7. Politique d’intermédiaire
+
+| Label | Autorisé ? | Exigence |
 | --- | --- | --- |
-| Doctrine T-A0 | lib/oa/doctrine | ACTIVE_SUPPORTING |
-| Project/LPS T-A1 | lib/oa/project | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
-| Cycle/CKC T-A2 | lib/oa/cycle | ACTIVE_SUPPORTING + WIRED_SERVER_ONLY (UI-orphan for createCycle) |
-| Decision T-A3 | lib/oa/decision | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
-| ExecutionContract T-A4 | lib/oa/execution-contract | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
-| ExecutionAttempt T-A5 | lib/oa/execution-attempt | ACTIVE_CANONICAL_CANDIDATE + FIXTURE_ONLY (adapter) |
-| EvidenceReview T-A6 | lib/oa/evidence-review | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
-| Critical-ack journal | lib/oa/critical-ack (dirty only) | WIRED_SERVER_ONLY + DURABLE_LOCAL (candidate) |
-| Auth.js GitHub | app/auth.ts (dirty only) | WIRED_SERVER_ONLY (candidate; no Nora UI) |
-| Vertical-slice runtime | lib/vertical-slice-runtime | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
-| F1 Assistant | features/project-assistant | WIRED_UI_REACHABLE |
-| F2 Proposal/Gate | features/project-assistant/f2 | WIRED_UI_REACHABLE + PROCESS_LOCAL |
-| F3 Fixture slice | features/project-assistant/f3 | WIRED_UI_REACHABLE + FIXTURE_ONLY |
-| OPS1 Cursor REAL | lib/ops1 | LEGACY_BUT_REUSABLE + PARALLEL_ARCHITECTURE |
-| execution-run D2-D | lib/oa/execution-run | PARALLEL_ARCHITECTURE |
-| FinOps T0–T7 | lib/oa/finops | PARALLEL_ARCHITECTURE + DURABLE_SHARED (Postgres; not Product persistence) |
-| D1 Project SQLite | lib/d1 | PARALLEL_ARCHITECTURE + DURABLE_LOCAL |
-| Shared platform | lib/platform | ACTIVE_SUPPORTING |
-| T-A7 HARD foundation | lib/platform/t-a7 | ACTIVE_SUPPORTING |
-| Modeled schemas | sfia-v3-modeled | HISTORICAL_DOC_ONLY / schema reference |
+| **TEMPORARY WITH EXIT** | OUI | Justification + cible + preuve de sortie + owner |
+| **TEMPORARY WITHOUT EXIT** | NON | Interdit (R5/R11/R20) |
+
+## A8. Politique de classification des actifs
+
+| Classe | Sens | Conditions | Conséquence roadmap | Preuve |
+| --- | --- | --- | --- | --- |
+| **KEEP** | Conserver tel quel sur le chemin | Utile à la boucle v3 ; pas de dette structurante | Aucun rewrite ; usage direct | Présence Git + usage actuel |
+| **ADAPT** | Conserver + adapter interfaces | Cœur utile ; frontières à aligner | Lot d’adaptation borné | Contrat/port clarifié |
+| **COMPLETE** | Combler un trou d’une brique presque prête | Manque wiring/durabilité/UI | Milestone COMPLETE | Capacité e2e démontrée |
+| **HARVEST** | Extraire une capacité d’un système parallèle | Valeur isolable (ex. Cursor spawn) | Anti-corruption adapter | Adapter branché sans dual-product |
+| **REPLACE** | Remplacer par équivalent cible | Brique incompatible / non alignée | Migration + exit ancien | Ancien hors chemin critique |
+| **FREEZE** | Ne plus étendre | N’aide pas le chemin critique | STOP DOING recommandé jusqu’à GO | Recommandation ≠ décision tant que Morris n’a pas tranché |
+| **RETIRE LATER** | Retrait différé | Remplacé ou inutile après milestone | Disposition gate | Plan de retrait + preuve non-régression |
+
+## A9. Chemin critique (priorité)
+
+```text
+capacité utilisateur complète
+  > hardening local non bloquant
+  > transverse non bloquant
+  > expérimentation
 ```
 
-## Artifact: persistence-map.md
+## A10. Preuve de sortie
 
-```
-# Persistence Map (observed)
+Une milestone **ne se termine pas** parce qu’un composant « existe ».
+Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition structurante** explicitement définie est **démontrée** (preuve Git / handoff / parcours UI).
 
-| Aggregate | Interface | Implementation | Backend | Durable | Restart-safe | Multi-instance | Product caller |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Project | ProjectRepositoryPort | MemoryProjectRepository | process memory | NO | NO | NO | vertical-slice-core |
-| LPS | LivingProjectStateRepositoryPort | MemoryLivingProjectStateRepository | process memory | NO | NO | NO | vertical-slice-core |
-| Cycle/Trajectory/Epistemic | Cycle* ports | Memory* | process memory | NO | NO | NO | wireOaStack (server) |
-| HumanDecision/Confirmation | DecisionRepositoryPort | MemoryDecisionRepository | process memory | NO | NO | NO | F2 recordF2Decision |
-| Authority resolver | AuthorityResolverPort | MemoryAuthorityResolver | process memory | NO | NO | NO | F2/F3 |
-| F2 Proposal | (no port) | proposalStore Map globalThis | process memory | NO | NO | NO | F2 orchestrate |
-| ExecutionContract | ExecutionContractRepositoryPort | MemoryExecutionContractStore | process memory | NO | NO | NO | F3 prepare/confirm |
-| ExecutionAttempt | AttemptRepositoryPort | MemoryAttemptStore | process memory | NO | NO | NO | F3 execute |
-| Authority/Attempt journal | AuthorityAttemptJournalPort | SqliteAuthorityAttemptJournal (dirty) / Memory (tests) | SQLite D1 file | YES (pilot-bounded) | YES (process epoch) | NO | wireOaStack Confirm/Start/Ack (candidate) |
-| Evidence/ReviewBundle/Claim/Maturity | Evidence* ports | Memory* | process memory | NO | NO | NO | F3 ingest |
-| Doctrine package | DoctrinePackageRepositoryPort | FilesystemDoctrinePackageRepository | filesystem fixtures | YES (files) | YES | YES (read) | create project |
-| D1 Project | d1 tables | better-sqlite | d1.sqlite | YES | YES | NO | /projects D1 UI (parallel) |
-| OPS1 session/report | ops1 sqlite | SQLite | ops1.sqlite | YES | YES | NO | /ops1 UI |
-| ExecutionRun | RunRepository | MemoryExecutionRunStore | process memory | NO | NO | NO | composeExecutionRun* (not F1–F3) |
-| FinOps ledgers/config/reviews | FinOps ports | createPostgresFinOps* | PostgreSQL | YES | YES | YES (pool) | FinOps compose / T7 shadow — NOT Product persistence |
+`technical SUCCESS ≠ functional READY ≠ V3 RUNTIME ADOPTED`.
 
-Product persistence = NOT_SELECTED (explicit). FinOps Postgres ≠ Product persistence. Sqlite journal ≠ platform globale.
-```
+## A11. Gouvernance des sources
 
-## Artifact: ligaments.md
+| Source | Rôle |
+| --- | --- |
+| Git + décisions Morris explicites | Vérité + autorité |
+| Doctrine produit v3 (`30`–`37`) | Destination produit |
+| **Build Doctrine (ce document)** | Lois de construction |
+| **Convergence Roadmap** | État + prochaine capacité |
+| Sources cycle / repo | Preuves locales du chantier |
+| Mémoire conversationnelle | Non SoT |
 
-```
-# Missing / Partial Ligaments
+## A12. Trois couches de vérification
 
-| ID | Ligament | Links | Partial exists? | Build/Reuse/Adapt | Size | Morris gate? |
-| --- | --- | --- | --- | --- | --- | --- |
-| L1 | Durable Project+LPS repository adapter behind existing ports | UI create/get ↔ T-A1 | Ports+Memory yes; durable impl NO | Build adapter; reuse ports | M | YES — Product persistence choice |
-| L2 | Durable HumanDecision+Confirmation repository | F2 decide ↔ T-A3 ↔ T-A4 decisionRefs | Ports+Memory yes; durable NO | Build adapter | M | YES — same persistence decision / Architecture C |
-| L3 | Durable or restart-safe Proposal binding OR proposal→HD materialization | F2 proposal ↔ HD | process-local Map only | Adapt recordF2Decision + durable HD | S–M | YES if durable HD |
-| L4 | Live contextSnapshot binder (projectId/lps/doctrineDigest) | F2 ProposalDto completeness | Needs live project | Reuse getProjectRuntime | S | NO if project durable exists |
-| L5 | CycleInstance binding from F2 qualification | F2 ↔ T-A2 createCycle | cycleServices wired but unused by F2 UI | Wire application service | M | Maybe (cycle lifecycle) |
-| L6 | T-A5 ExecutionAdapter bridge harvesting OPS1 Cursor REAL | T-A5 port ↔ OPS1 spawnRealCursor | OPS1 adapter exists; F3 uses TestExecutionAdapter only | Adapt anti-corruption | M | YES — REAL adapter authorization / Gate D later |
-| L7 | Critical Ack UI + Server Action binding | Nora ↔ acknowledgeCritical + Auth.js | composed on candidate; no UI action | Build UI+action | S–M | YES for Critical REAL |
-| L8 | Exact ExecutionContract builder from approved F2/HD | F2/HD ↔ BuildExecutionContract | F3 fixture builder exists | Adapt prepare path for REAL fields | M | Gate D |
-| L9 | Evidence→LPS / workspace reinjection | T-A6 ↔ LPS/UI durable view | UI DTO reinjection only | Build application write-back | M | Maybe |
-| L10 | Persistence abstraction / composition switch | Memory vs durable backends | factories are Memory-hardcoded in wireOaStack | Adapt composition root | M | YES |
-| L11 | Identity/authority binding Auth.js subject→actor | Auth.js ↔ AuthorityResolver | githubSubjectActorBinding on candidate | Reuse candidate | S | Partially decided (R-T-A3-1 closed) |
-| L12 | Restart reconciliation coordinator | journal + attempts + authority | candidate reconcile* present | Reuse candidate | S–M | Bounded already for journal |
+| Couche | Rôle | Statut après CE cycle |
+| --- | --- | --- |
+| **1. Instructions projet ChatGPT** | Déclenche la consultation | **PENDING — next step** (hors périmètre) |
+| **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **IMPLEMENTED CANDIDATE** (routing guide + Knowledge Layer) |
+| **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **IMPLEMENTED CANDIDATE** |
 
-Labels are observations — not deletion/adoption decisions.
+Séquence attendue :
+
+```text
+Repo-informed pre-check
+  → si Studio trigger : Convergence pre-check
+  → qualification cycle
+  → CKC/process guidance applicable (v2.6 process only)
+  → sources spécifiques
+  → instanciation prompt Cursor
 ```
 
-## Artifact: architecture-options.md
+## A13. Anti-patterns
 
-```
-# Target Architecture Options (CANDIDATE — NOT DECIDED)
+- micro-hardening sans blocker utilisateur ;
+- troisième moteur parallèle ;
+- POC sans exit ;
+- dette « on verra plus tard » ;
+- conservation par sunk cost ;
+- fonctionnalité fictive pour tester un concept déjà cadré ;
+- roadmap par composants sans user outcome ;
+- décision candidate présentée comme acquise ;
+- mass rewrite historique ;
+- Build Doctrine transformée en doctrine runtime.
 
-## Option 1 — OA Native Backbone + Harvest OPS1 Cursor (RECOMMENDED CANDIDATE)
+## A14. Stop markers
 
-```mermaid
-flowchart LR
-  UI[Studio UI / Nora] --> VS[vertical-slice-runtime]
-  VS --> TA1[T-A1 Project/LPS durable]
-  VS --> F1[F1 Assistant]
-  F1 --> F2[F2 Qualify/Propose]
-  F2 --> TA3[T-A3 HumanDecision durable]
-  TA3 --> TA4[T-A4 ExecutionContract]
-  TA4 --> ACK[Critical Ack Auth.js]
-  ACK --> TA5[T-A5 Attempt]
-  TA5 --> ADP[ExecutionAdapter port]
-  ADP --> CUR[OPS1 Cursor harvested adapter]
-  TA5 --> TA6[T-A6 Evidence/ReviewBundle]
-  TA6 --> UI
-  FIN[FinOps Postgres] -.->|optional capture| TA5
-  ER[execution-run] -.->|freeze new features| X[quarantine]
-  D1[D1 SQLite UI] -.->|legacy bridge or retire later| Y[disposition later]
+```text
+STOP — TRAJECTORY LINK MISSING
+STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
+PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 ```
 
-- Backbone: T-A0→T-A7 + F1/F2/F3 + vertical-slice composition
-- OPS1 role: harvest Cursor REAL/worktree/sandbox into T-A5 adapter; freeze OPS1 product UI growth
-- execution-run: quarantine / no new independent features; optional later absorption of provider ideas
-- FinOps: remain transverse cost subsystem; optional shadow capture; NOT Product persistence
-- Persistence topology candidate: durable Project+Decision(+Contract/Attempt/Evidence as needed) behind existing ports — technology UNDECIDED
-- Pros: shortest path to usable Studio; reuses OA authority chain already UI-wired; fail-closed REAL story
-- Cons: needs persistence Architecture decision; adapter harvest work; dual UI (OPS1/D1) residual until disposition
-- Debt: temporary coexistence of parallel UIs
-- Reversibility: high if ports kept; adapters swappable
-- Calendar: fastest to R5–R6 if persistence decided early
+## A15. Gouvernance d’évolution
 
-## Option 2 — Dual-Shell Continuity (OA governance + OPS1 execution shell)
+- Document **stable** : modification uniquement via cycle explicite + impact analysé + décision Morris.
+- La **Roadmap** évolue plus souvent (après décisions, milestones, preuves, dépendances).
+- Ne pas appliquer automatiquement A+B à des projets SFIA **sans rapport** avec la construction de SFIA Studio.
 
-```mermaid
-flowchart LR
-  UI[Studio UI] --> F2[F2/OA Decision]
-  F2 --> BRIDGE[Anti-corruption bridge]
-  BRIDGE --> OPS1[OPS1 session/Cursor]
-  OPS1 --> REP[OPS1 report]
-  REP --> BRIDGE
-  BRIDGE --> TA6[Map into T-A6 Evidence]
-  TA6 --> UI
-  OA[T-A4/T-A5] -.->|partial/unused| Z[shadow]
+## Références
+
+- Roadmap : [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md)
+- Doctrine produit : `projects/sfia-studio/sfia-v3-framing/30`–`37`
+- Routing : `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- Knowledge Layer : `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+- Template : `prompts/templates/sfia-cycle-execution-template.md`
+
 ```
-
-- Backbone: keep OPS1 as execution engine; OA as decision/governance front
-- Pros: Cursor REAL already exists in OPS1; less adapter porting
-- Cons: perpetuates parallel engines; F3-D03 says execution-run/OPS1 not F3 authority chain; higher long-term debt; harder single Evidence model
-- Debt: high coexistence
-- Reversibility: poorer (deepens OPS1 product dependency)
-- Calendar: maybe faster first REAL demo; slower coherent Studio v0.1
-
-## Option 3 — Not proposed as equal peer
-A pure “FinOps Postgres as Product persistence + execution-run as primary engine” option is **rejected as a third peer option** because FinOps is cost-control transverse, Product persistence is NOT_SELECTED, and F3 doctrine targets T-A4→T-A5→T-A6. Studying FinOps Postgres as *capacity* remains allowed without selecting it.
-```
-
-# Y. Handoff evidence
-
-Pending publish in-cycle:
-- branch `sfia/review-handoff`
-- file `sfia-review-handoff/latest-chatgpt-review.md`
-- message `docs(review-handoff): publish sfia studio runtime convergence audit`
 
 ---
 
-# Z. Verdict
+## FULL INLINE — Convergence Roadmap (B)
+
+```markdown
+# SFIA Studio Convergence Roadmap
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+| **Statut** | **CANDIDATE — READY FOR MORRIS REVIEW** |
+| **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
+| **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
+| **Snapshot Git** | HEAD / origin/main `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| **Timestamp** | 2026-08-12 21:53:10 CEST (+0200) |
+| **Sources** | Git courant · handoff convergence tip `c5b417dc13fa3700787d28571e5b5abe0599ae98` blob `31a5db07fba2555a59ee8c65ad76b537bbd8a73d` · framing `30`–`37` · code `projects/sfia-studio/app/**` |
+| **Anti-claims** | ≠ architecture décidée · ≠ persistence sélectionnée · ≠ v3 runtime ADOPTED · ≠ Cursor REAL authorized |
+
+## B1. Nature du document
+
+Roadmap de **capacités**. Pas de dates inventées. Pas de timeline calendaire artificielle.
+Observation / Recommendation / Decision Required doivent rester **distincts**.
+
+## B2. Destination (boucle produit v3)
+
+Voir Build Doctrine A3 — boucle Morris → Nora → … → Evidence → LPS → Morris.
+Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+
+## B3. Point de départ factuel
+
+### Sur main (`4b1a058050ae81d56cb6d96b88e8a57380799a86`)
+
+| Capacité | État observé |
+| --- | --- |
+| `/studio` Project create/view | WIRED — process-local Memory T-A1 |
+| F1 Nora chat | WIRED — contextual assistant |
+| F2 qualification / proposal / Morris gate | WIRED — process-local + demo authority |
+| F3 T-A4→T-A5→T-A6 | WIRED — **FIXTURE ONLY** (`TestExecutionAdapter`) |
+| Evidence UI reinjection | WIRED — DTO panel ; **pas** LPS write-back |
+| OPS1 Cursor REAL | EXISTS — UI `/ops1` parallèle ; flag `OPS1_CURSOR_REAL` |
+| D1 SQLite projects | EXISTS — UI `/projects` parallèle |
+| execution-run D2-D | EXISTS — **non** branché F1–F3 |
+| FinOps Postgres | EXISTS — transverse ; ≠ Product persistence |
+| Product persistence | **NOT_SELECTED** |
+| Cursor REAL depuis Nora | **0** |
+| Gate D | **NOT CONSUMED** |
+
+### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`)
+
+| Élément | État |
+| --- | --- |
+| Auth.js GitHub + Critical Ack composition | Présent localement ; **pas sur HEAD** |
+| SqliteAuthorityAttemptJournal wiring | Présent localement ; pilot-bounded ; ≠ Product persistence |
+| Classification | Observation / prérequis candidat — **promotion = Decision Required** |
+
+### Recommandation d’audit (≠ décision)
+
+Option 1 — OA Native Backbone + Harvest OPS1 Cursor = **RECOMMENDATION — NOT DECIDED**.
+
+## B4. Asset disposition matrix (actuelle)
+
+Légende : classifications = **recommandations de convergence** jusqu’à validation Morris, sauf KEEP factuel d’usage main.
+
+| Actif | Preuve | Classification | Justification courte |
+| --- | --- | --- | --- |
+| T-A0 Doctrine | `lib/oa/doctrine` + project create | **KEEP** | Appelé ; DoctrinePackage cible F03 |
+| T-A1 Project/LPS | Memory store + `/studio` | **COMPLETE** | Bonne base ; manque durabilité |
+| T-A2 Cycle/CKC | wired ; F2 qualify uses CKC | **ADAPT** / **COMPLETE** | Qualify OK ; CycleInstance UI non branché |
+| T-A3 HD/Confirm/Authority | Memory + F2 decide | **COMPLETE** | Backbone ; manque durable + autorité réelle |
+| T-A4 ExecutionContract | F3 prepare/confirm | **KEEP** / **COMPLETE** | Consommable ; path REAL + durable manquent |
+| T-A5 Attempt/Adapter port | F3 fixture adapter | **ADAPT** / **HARVEST** | Port OK ; adapter REAL à harvest OPS1 |
+| T-A6 Evidence/ReviewBundle | F3 ingest + UI cards | **COMPLETE** | UI reinjection ; LPS write-back manquant |
+| T-A7 readiness/HARD rails | `platform/t-a7` | **KEEP** | Honesty rails |
+| Shared platform AI | `lib/platform` | **KEEP** | Substrate F1 |
+| F1 / F2 / F3 UI | `features/project-assistant` | **KEEP** / **ADAPT** | Remplacer demo/fixture bindings progressivement |
+| vertical-slice-runtime | `wireOaStack` | **KEEP** / **ADAPT** | Composition root Studio |
+| OPS1 Cursor/worktree/report | `lib/ops1` | **HARVEST** (+ **FREEZE** UI growth **RECOMMENDATION**) | Capacité Cursor réelle isolable |
+| execution-run | `lib/oa/execution-run` | **FREEZE** (**RECOMMENDATION**) | Parallèle ; non F3 chain |
+| D1 `/projects` | `lib/d1` | **FREEZE** / **RETIRE LATER** (**RECOMMENDATION**) | Parallèle durable |
+| FinOps | `lib/oa/finops` | **KEEP** isolé + **FREEZE** lots non bloquants (**RECOMMENDATION**) | Transverse cost ≠ Product persistence |
+| Auth.js / Critical Ack candidate | dirty only | **COMPLETE** (après GO promotion) | Prérequis REAL Critical |
+| Persistence Memory OA | factories Memory* | **REPLACE** (adapters durables derrière ports) | Decision Required tech |
+
+## B5. Gap map → boucle cible
+
+| Gap | Statut | Bloque |
+| --- | --- | --- |
+| Project/LPS durable | MISSING | M1, contextSnapshot |
+| GuidedSession / historique durable | PARTIAL / MISSING | M2 daily use |
+| CycleInstance réel lié F2 | EXISTS BUT NOT WIRED | M2/M3 |
+| HumanDecision durable/authoritative | PROCESS_LOCAL / demo | M3, Gate D |
+| CKC ↔ cycle binding | PARTIAL (qualify only) | M2 |
+| live contextSnapshot | BLOCKED (no durable project) | F2 final / contracts |
+| ExecutionContract from real HD | FIXTURE path only | M3/M4 |
+| Cursor projection canonique | PARTIAL | M3/M4 |
+| Cursor REAL behind T-A5 | MISSING on Nora | M4 |
+| Critical Ack UI | CANDIDATE unwired | M4 |
+| Evidence durable | MISSING | M5 |
+| ReviewBundle → LPS writeback | MISSING | M5/M6 |
+| Nora post-exec analysis | PARTIAL (UI cards) | M5 |
+| Restart safety Studio core | MISSING | M1+ |
+| IAM/authz product-grade | PARTIAL (candidate Auth.js) | M4/M8 |
+
+## B6. Decisions / gates ouverts (non tranchés ici)
+
+1. Architecture convergence Option 1 vs 2 — **Decision Required**
+2. Product persistence technology — **NOT_SELECTED**
+3. Promotion Auth.js / Critical Ack candidate — **Decision Required**
+4. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
+5. Disposition OPS1 / D1 / execution-run — **Decision Required**
+6. Adoption explicite de cette Roadmap candidate — **Decision Required**
+7. Couche Instructions ChatGPT update — **PENDING** (cycle séparé)
+
+## B7–B8. Roadmap capability-driven (milestones)
+
+### Gate 0 — Convergence architecture / persistence
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | G0 |
+| **Capacité v3** | Précondition : un seul backbone de construction (évite multi-moteurs) |
+| **Outcome** | Morris tranche Option architecture + Product persistence (compact) |
+| **Fondations** | transversal (débloque F02/F05/F12…) |
+| **État actuel** | Audit complet ; Option 1 **recommandée** ; persistence NOT_SELECTED |
+| **Actifs** | audit handoff ; Build Doctrine |
+| **Gaps** | décisions structurantes ouvertes |
+| **Travaux** | pack décision compact — **pas** long cycle architecture gratuit |
+| **Gates Morris** | OUI — architecture + persistence |
+| **Hors périmètre** | implémentation ; Cursor REAL |
+| **Preuve de sortie** | décisions écrites consommables par Delivery |
+| **Dette tolérée** | aucune implementation speculative |
+| **Exit dette** | N/A |
+| **Next** | M1 |
+| **Statut** | **READY FOR DECISION** |
+
+### Milestone 1 — Socle projet v3 fiable
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M1 |
+| **Capacité v3** | V3-F02 LPS (+ Project) durable et exploitable |
+| **Outcome** | Morris crée/reprend un Project et retrouve LPS/contexte critique après redémarrage |
+| **État actuel** | Memory process-local `/studio` |
+| **Actifs** | T-A1 ports ; vertical-slice UI ; doctrine FS |
+| **Classification** | COMPLETE T-A1 ; ADAPT composition |
+| **Gaps** | L1 durable repo ; L4 contextSnapshot ; L10 composition switch |
+| **Dépendances** | G0 persistence |
+| **Gates** | Delivery après G0 |
+| **Hors périmètre** | Cursor REAL ; multi-region |
+| **Preuve e2e** | create → restart process → get same project/LPS/digest |
+| **Dette** | coexistence temporaire D1 UI |
+| **Exit dette** | disposition D1 après M1 stable |
+| **Next** | M2 |
+| **Statut** | **NOT STARTED** (prérequis G0) |
+
+### Milestone 2 — Pilotage cognitif v3 utilisable
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M2 |
+| **Capacité v3** | V3-F01 CKC · F03 DoctrinePackage · F04 épistémologie (base) · F05 chaîne cognitive |
+| **Outcome** | Dialogue Nora dans un projet durable ; qualification cycle ; LPS actualisé sans wizard rigide |
+| **État actuel** | F1/F2 wired process-local |
+| **Actifs** | F1, F2, platform AI, CKC qualify |
+| **Gaps** | historique conversation durable optionnel ; CycleInstance wire ; live context |
+| **Dépendances** | M1 |
+| **Preuve e2e** | conversation → proposal avec contextSnapshot live → LPS version visible |
+| **Statut** | **PARTIAL** (UI existe ; durabilité non) |
+
+### Milestone 3 — Gouvernance humaine + préparation réelle
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M3 |
+| **Capacité v3** | V3-F05 chaîne · HumanDecision · ExecutionContract (F12 réversibilité) |
+| **Outcome** | Options/reco → Morris décide → decisionRef durable → ExecutionContract exact + projection Cursor |
+| **État actuel** | F2 demo authority ; F3 fixture prepare |
+| **Actifs** | T-A3/T-A4 ; F2/F3 UI |
+| **Gaps** | L2 durable HD ; L3 proposal binding ; L8 REAL contract fields ; autorité non-demo |
+| **Dépendances** | M1–M2 ; IAM minimal |
+| **Preuve e2e** | GO Morris → HD accepted/current survive restart → contract fingerprint stable |
+| **Statut** | **PARTIAL** |
+
+### Milestone 4 — Première exécution Cursor REAL bornée depuis Studio
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M4 |
+| **Capacité v3** | V3-F11 AgentCapability · F12 · F05 exécution |
+| **Outcome** | Action REAL faible risque/read-only depuis Studio via T-A5 + adapter harvesté ; pas de silent REAL→fixture |
+| **État actuel** | F3 fixture only ; OPS1 REAL parallèle |
+| **Actifs** | T-A5 port ; OPS1 Cursor (**HARVEST**) ; critical-ack candidate |
+| **Gaps** | L6 adapter ; L7 Ack UI ; Gate D |
+| **Dépendances** | M3 ; promotion Ack ; Gate D |
+| **Preuve e2e** | Attempt REAL + journal markers + Evidence non-fixture ; FAIL CLOSED si adapter unavailable |
+| **Statut** | **NOT STARTED** |
+
+### Milestone 5 — Retour de preuve + analyse Nora
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M5 |
+| **Capacité v3** | V3-F14 Artifact Completeness · Evidence/ReviewBundle · F13 learning (base) |
+| **Outcome** | Evidence/ReviewBundle liés contrat/décision ; réinjectés Nora + LPS ; handoff Git transitionnel OK |
+| **État actuel** | UI cards Memory ; pas LPS write-back |
+| **Gaps** | L9 Evidence→LPS ; durable evidence |
+| **Dépendances** | M4 |
+| **Preuve e2e** | post-exec : ReviewBundle visible + LPS updated + recommendation next gate |
+| **Statut** | **PARTIAL** |
+
+### Milestone 6 — Boucle projet complète
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M6 |
+| **Capacité v3** | V3-F05 + F09 replanification (base) |
+| **Outcome** | Sans copier-coller manuel : conversation → qualification → décision → exécution → preuve → analyse → update projet → next step |
+| **État actuel** | Chaîne fragmentée / process-local / fixture |
+| **Dépendances** | M1–M5 |
+| **Preuve e2e** | parcours complet redémarrage-safe documenté |
+| **Statut** | **NOT STARTED** |
+
+### Milestone 7 — Élargissement contrôlé doctrine v3
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M7 |
+| **Capacité v3** | Couverture progressive F06–F10, F08, F13–F15 au-delà du backbone |
+| **Outcome** | Cycles/lenses/artefacts/transitions/contradictions/dette/capitalisation étendus **depuis** backbone utilisé |
+| **Dépendances** | M6 |
+| **Preuve** | matrice B9 avance avec preuves par fondation |
+| **Statut** | **NOT STARTED** |
+
+### Milestone 8 — Adoption produit / exploitation
+
+| Champ | Contenu |
+| --- | --- |
+| **ID** | M8 |
+| **Capacité v3** | Conditions d’un futur claim **v3 runtime ADOPTED** |
+| **Outcome** | persistence, IAM/authz, sécurité, observabilité, backup/reprise, qualité, rétention, multi-user si requis, coverage doctrine obligatoire |
+| **Anti-claim** | Ce milestone **ne préjuge pas** des critères non décidés et **n’autorise pas** le claim ADOPTED |
+| **Statut** | **NOT STARTED** |
+
+## B9. Matrice de couverture doctrine V3-F01…F15
+
+| Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
+| --- | --- | --- | --- | --- | --- |
+| V3-F01 CKC | Qualification cognitive | PARTIAL (F2 qualify) | M2, M7 | CKC lié cycle + proposal | CycleInstance wire |
+| V3-F02 LPS | Living Project State | PARTIAL Memory | M1, M5 | LPS durable + writeback | persistence |
+| V3-F03 DoctrinePackage | Package pin/digest | KEEP files | M1–M2 | live digest in snapshot | contextSnapshot |
+| V3-F04 Épistémologie | Obs/Hyp/… | DOC + UI tags partiels | M2, M7 | tags/stop contradictions | later depth |
+| V3-F05 Chaîne conv→exec | Boucle native | PARTIAL fixture | M2–M6 | e2e sans copier-coller | backbone |
+| V3-F06 Trajectory | ProjectTrajectory | Modeled / Memory cycle | M3, M7 | trajectory update post-HD | wire |
+| V3-F07 Provenance | Source hierarchy | Doctrine FS | M2, M7 | provenance on artifacts | later |
+| V3-F08 Contradictions | Stop/contradiction | DOC | M7 | UI stop + record | later |
+| V3-F09 Replanif | Governed replan | DOC | M6–M7 | next-step from ReviewBundle | after M5 |
+| V3-F10 DebtItem | Dette gouvernée | DOC | M7–M8 | debt records | later |
+| V3-F11 AgentCapability | Caps agents | Fixture agent | M4 | REAL agent descriptor | harvest |
+| V3-F12 Réversibilité | Action policy | Partial confirmations | M3–M4 | confirm+ack path | Ack UI |
+| V3-F13 Learning | REX contrôlé | DOC / capitalisation | M5, M7 | learning from Evidence | later |
+| V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle | M5 | completeness checks | durable evidence |
+| V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 | M8 | anti-claim maturity | no false READY |
+
+## B10. Chemin critique explicite
+
+```text
+CRITICAL PATH:
+  G0 (archi+persistence)
+  → M1 durable Project/LPS
+  → M2 Nora contextuel durable
+  → M3 HD durable + ExecutionContract exact
+  → M4 Cursor REAL borné (T-A5+harvest+Ack+Gate D)
+  → M5 Evidence/ReviewBundle + LPS writeback
+  → M6 boucle complète sans copier-coller
+
+TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
+FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
+DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion · Roadmap adoption · ChatGPT instructions
+```
+
+## B11. Freeze / stop-doing (**RECOMMENDATION**)
+
+Tant que le chemin critique n’est pas servi, **ne pas** étendre par défaut :
+
+- nouveaux lots FinOps sans dépendance Studio user-visible ;
+- nouvelles features execution-run indépendantes ;
+- expansion OPS1 UI (hors harvest adapter) ;
+- expansion D1 `/projects` ;
+- micro-hardening T-A7 sans blocker utilisateur.
+
+Ces FREEZE sont des **recommandations** jusqu’à validation Morris.
+
+## B12. Maintenance de la roadmap
+
+Mettre à jour après : décision Morris structurante · milestone obtenue · nouvelle preuve · changement de dépendance · architecture validée · réserve bloquante · post-merge structurant.
+Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
+
+## Références
+
+- Build Doctrine : [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md)
+- Audit handoff : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
+- Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37`
 
 ```
-SFIA STUDIO RUNTIME CONVERGENCE AUDIT COMPLETE —
-CURRENT ARCHITECTURE MAPPED —
-INTEGRATION GAPS IDENTIFIED —
-TARGET ARCHITECTURE OPTIONS READY —
-PRODUCT ROADMAP CANDIDATE READY FOR MORRIS DECISION —
-NO IMPLEMENTATION AUTHORIZED —
+
+---
+
+## FULL DIFF — fichiers modifiés (allowlist)
+
+```diff
+diff --git a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+index a331746..8949e76 100644
+--- a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
++++ b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+@@ -165,7 +165,10 @@ Si le type de cycle n'est pas clair, lancer d'abord un **cycle de cadrage** (mé
+
+ > **Référence détaillée :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`
+ > **Statut version :** héritage opérationnel **absorbé dans SFIA v2.6 (baseline opérationnelle)** — v2.4 = baseline historique précédente.
+-> **v3.0 :** immediate NO-GO — toute discussion v3.0 = décision Morris dédiée.
++> **SFIA v2.6 :** baseline opérationnelle actuelle du processus externe ChatGPT ↔ Cursor.
++> **SFIA Studio v3 :** doctrine **produit cible Studio** explicitement décidée par Morris (construction/convergence — voir §4.3.0a).
++> **≠** promotion de v3 en baseline méthodologique globale ; **≠** claim runtime v3 ADOPTED ; **≠** suppression de v2.6.
++> Toute promotion v3 baseline globale, claim runtime ADOPTED, ou discussion v3 hors trajectoire Studio décidée = **décision Morris dédiée**.
+
+ SFIA v2.4 reste le **standard de consolidation** de référence pour les cycles. Il couvre notamment :
+
+@@ -211,11 +214,45 @@ Morris valide le profil si **Critical** ou changement de doctrine.
+ - changement de doctrine ;
+ - arbitrage structurant ;
+ - passage vers v2.5+ ;
+-- toute discussion **v3.0** ;
++- promotion **v3 baseline globale**, claim **v3 runtime ADOPTED**, ou discussion v3 **hors** trajectoire Studio déjà décidée ;
+ - automatisation L3 structurante, L4, tout L5 ;
+ - merge et clôture structurante ;
+ - dette méthode ou projet importante.
+
++#### 4.3.0a SFIA STUDIO CONVERGENCE PRE-CHECK
++
++> **Portée :** uniquement les travaux dont l’objet est la **construction ou l’évolution de SFIA Studio**.
++> **Ne s’applique pas** aux autres projets SFIA sans rapport avec la construction de SFIA Studio.
++
++**Trigger = oui** si la demande concerne analyse, cadrage, roadmap, architecture, conception, delivery, validation, PR readiness, post-merge, capitalisation, prompt Cursor, évolution méthode/template ou évolution runtime **de SFIA Studio**.
++
++**Sources obligatoires supplémentaires (ordre) :**
++
++1. Git courant + décisions Morris explicites ;
++2. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` ;
++3. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` ;
++4. doctrine produit v3 applicable (`projects/sfia-studio/sfia-v3-framing/**`, notamment `30`–`37`) ;
++5. sources Studio/repo spécifiques au cycle ;
++6. processus SFIA **v2.6** nécessaire à l’exécution du cycle (template, operating model, guardrails).
++
++**Clarifications obligatoires :**
++
++| Affirmation | Statut |
++| --- | --- |
++| SFIA Studio v3 | doctrine **produit cible Studio** (décidée) |
++| SFIA v2.6 | baseline **opérationnelle** du processus ChatGPT/Cursor externe |
++| Build Doctrine + Roadmap | gouvernance de **construction** — **pas** doctrine runtime produit |
++| Runtime v3 ADOPTED | **non** tant que preuves/gates manquent |
++| Coexistence doctrinale runtime v2.6/v3 dans Studio | **ne pas réintroduire** |
++
++Consulter le template v2.6 pour **exécuter** les cycles de construction **ne signifie pas** charger v2.6 comme doctrine produit Studio.
++
++Si le contexte convergence requis n’est pas chargé :
++
++```text
++STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
++```
++
+ **Sans gate Morris dédié** (contrôles L1 ou validations techniques non structurantes) :
+
+ - vérifications read-only de cohérence documentaire ;
+@@ -921,7 +958,7 @@ SFIA **ne doit pas** automatiser la décision finale.
+ - arbitrage projet ;
+ - décision de delivery impactante.
+
+-**Complément SFIA v2.4 (§4.3.3) :** les contrôles L1 read-only, validations techniques non structurantes et post-merge documentaire **ne nécessitent pas** un gate Morris dédié. Morris reste L0 pour tout arbitrage structurant, passage v2.5+, discussion v3.0, L3 structurant / L4 / L5, merge et clôture structurante.
++**Complément SFIA v2.4 (§4.3.3) :** les contrôles L1 read-only, validations techniques non structurantes et post-merge documentaire **ne nécessitent pas** un gate Morris dédié. Morris reste L0 pour tout arbitrage structurant, passage v2.5+, promotion v3 baseline globale / claim runtime ADOPTED / discussion v3 hors trajectoire Studio décidée, L3 structurant / L4 / L5, merge et clôture structurante.
+
+ ## 10. Règle d'exécution Cursor
+
+diff --git a/method/sfia-fast-track/core/sfia-knowledge-layer.md b/method/sfia-fast-track/core/sfia-knowledge-layer.md
+index 7fe5b0e..1c77426 100644
+--- a/method/sfia-fast-track/core/sfia-knowledge-layer.md
++++ b/method/sfia-fast-track/core/sfia-knowledge-layer.md
+@@ -145,6 +145,7 @@ Cette matrice doit être utilisée avant toute création documentaire significat
+ | Post-merge | PR, merge commit, branch status | Post-merge status, capitalisation | Dossier de capitalisation ou projet concerné | Clôture / trace | PR, commit, branche, décision, prochaine étape |
+ | Archive / cleanup | Repository Blueprint, docs existants, audit | Archive map, cleanup report | `archive/` ou dossier archive local | Traçabilité | Justification, git mv, aucun delete brutal |
+ | Foundation consolidation | Evolution matrix, capitalization inputs, foundation docs | Foundation update, consistency rules | `docs/architecture/`, `method/sfia-fast-track/core/` | Fondation v1.1 | v1.0 preserved, v1.1 prevails, no source rewrite |
++| **SFIA Studio — construction / convergence** | **Build Doctrine** `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` ; **Convergence Roadmap** `…/sfia-studio-convergence-roadmap.md` ; doctrine produit v3 applicable (`sfia-v3-framing/30`–`37`) ; Git/docs Studio ; sources cycle | Selon type de cycle ; tout livrable doit indiquer **capacité v3 ciblée** + lien roadmap | Actifs produit/convergence → `projects/sfia-studio/` ; méthode/template **uniquement** si le cycle porte explicitement sur méthode/template | Convergence / construction Studio | capacité v3 ; milestone roadmap ; classification KEEP/ADAPT/COMPLETE/HARVEST/REPLACE/FREEZE/RETIRE LATER ; gaps fermés ; hors périmètre ; exit proof ; gates Morris ; dette temporaire + trajectoire de sortie |
+
+ Règle :
+
+@@ -186,6 +187,9 @@ La Documentation Routing Matrix n'est pas remplacée. Le Cycle Routing Guide la
+ | Routage CKC candidat (expérimental) | Routing guide §4.4.5, README CKC, pilote ou carte synthétique | Déclaration de consultation CKC ; évolutions CKC si cycle méthode dédié | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/` | Capitalisation méthode candidate | Statut candidate ; usage experimental cognitive guidance ; aucune autorité d'exécution |
+
+ **Séparation préservée :** Knowledge Layer = où classer et ranger · Routing guide = quoi lire et quand.
++**Pas d’index parallèle :** Build Doctrine + Roadmap s’insèrent dans cette matrice et dans le routing guide ; aucun registre/moteur documentaire supplémentaire.
++
++> **Studio construction :** Build Doctrine / Roadmap = gouvernance de **construction** (pas doctrine runtime). Runtime v3 reste non ADOPTED tant que les preuves/gates manquent. SFIA v2.6 reste la baseline opérationnelle du processus ChatGPT ↔ Cursor.
+
+ ### 6.2 Complément SFIA v2.4 — index méthode unique
+
+diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
+index 75f0598..37f7683 100644
+--- a/projects/sfia-studio/README.md
++++ b/projects/sfia-studio/README.md
+@@ -5,7 +5,9 @@
+ | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
+ | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
+ | **Statut** | `sfia-canonical-context-engine-local` — moteur de contexte SFIA **implémenté** sur branche locale ; **pas de commit/push/PR** ; validation live Morris **requise** ; MVP / production **fermés** |
+-| **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
++| **Baseline méthode (processus)** | **SFIA v2.6** — baseline opérationnelle actuelle ChatGPT ↔ Cursor externe |
++| **Doctrine produit cible Studio** | **SFIA Studio v3** (`sfia-v3-framing/30`–`37`) — cible produit décidée ; **runtime v3 NON ADOPTED** |
++| **Convergence** | [`convergence/sfia-studio-convergence-build-doctrine.md`](./convergence/sfia-studio-convergence-build-doctrine.md) · [`convergence/sfia-studio-convergence-roadmap.md`](./convergence/sfia-studio-convergence-roadmap.md) — **CANDIDATE** |
+ | **Autorité** | Morris (L0) |
+ | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
+ | **Typologie cycle** | DELIVERY / POC / ARCH / SEC / QA — Critical |
+@@ -120,9 +122,15 @@ Couverture **progressive**. Pas d’obligation dans le POC ou le MVP. Sous-ensem
+
+ Contrainte de **preuve** du POC — **pas** plateforme produit définitive.
+
+-### Relation méthode (G4 — Option C)
++### Relation méthode (G4 — Option C) — alignement cible Studio
+
+-Produit indépendant **consommant** SFIA v2.6. Pas de v2.7 / v3.0. Évolution méthode = CAPA/EVOL séparé + GO Morris.
++- **SFIA v2.6** : baseline opérationnelle actuelle du processus ChatGPT ↔ Cursor externe.
++- **SFIA Studio v3** : doctrine **produit cible Studio** (framing `30`–`37`) — décidée pour la construction/convergence.
++- **Runtime v3** : **non ADOPTED** tant que capacités, preuves et gates nécessaires ne sont pas atteints.
++- Évolution méthode globale / promotion v3 baseline méthodologique = CAPA/EVOL séparé + GO Morris.
++- Documents de construction actifs : [Build Doctrine](./convergence/sfia-studio-convergence-build-doctrine.md) · [Convergence Roadmap](./convergence/sfia-studio-convergence-roadmap.md) (**CANDIDATE**).
++
++> Formulation historique « Pas de v2.7 / v3.0 » (pré-convergence) : **superseded** pour la **cible produit Studio**. Elle ne doit plus être lue comme interdiction de construire vers Studio v3. Elle conserve sa valeur historique comme refus de promotion baseline globale sans GO.
+
+ ---
+
+@@ -156,6 +164,13 @@ Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrag
+
+ ## 3. Navigation
+
++### Convergence (actif — CANDIDATE)
++
++| Document | Rôle |
++|----------|------|
++| [convergence/sfia-studio-convergence-build-doctrine.md](./convergence/sfia-studio-convergence-build-doctrine.md) | Lois de construction / convergence Studio |
++| [convergence/sfia-studio-convergence-roadmap.md](./convergence/sfia-studio-convergence-roadmap.md) | Roadmap vivante état → capacités v3 |
++
+ ### Pré-cadrage (historique)
+
+ | Document | Rôle |
+@@ -389,7 +404,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+
+ | Élément | Source |
+ |---------|--------|
+-| Méthode | SFIA v2.6 — Option C méthode |
++| Méthode (processus) | SFIA v2.6 — baseline opérationnelle ChatGPT ↔ Cursor |
++| Doctrine produit Studio | SFIA Studio v3 framing `30`–`37` — cible ; runtime **non ADOPTED** |
++| Convergence (CANDIDATE) | `convergence/sfia-studio-convergence-build-doctrine.md` · `convergence/sfia-studio-convergence-roadmap.md` |
+ | Socle applicatif / harness A–E | `main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` (PR #234 MERGED) |
+ | Vertical slice A–E | Docs `32`–`40` ; clôture `CLOSED_WITH_RESERVATIONS` |
+ | Cadrage OPS1 | Docs `41`–`44` — **VALIDATED WITH RESERVATIONS** ; **intégrés** sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) / squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` ; cleanup branche effectué |
+diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
+index b9ce0a9..85ca739 100644
+--- a/prompts/templates/sfia-cycle-execution-template.md
++++ b/prompts/templates/sfia-cycle-execution-template.md
+@@ -74,6 +74,7 @@ routing guide (sfia-cycle-routing-guide.md)
+ → template d'exécution (prompts/templates/sfia-cycle-execution-template.md)
+ → operating model (sfia-chatgpt-cursor-operating-model.md)
+ → guardrails (sfia-rules-and-guardrails.md)
++→ si objet = construction/évolution SFIA Studio : Convergence Pre-check (§2.0.G)
+ → contexte projet (documents projet concernés)
+ → prompt Cursor généré (contrat d'exécution)
+ ```
+@@ -124,6 +125,30 @@ Repo-informed pre-check ChatGPT
+ - push handoff autorisé : oui — L3 borné (automatique si rapport Cursor, sauf exception technique)
+ - limites / incertitudes :
+ - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
++
++SFIA Studio Convergence Pre-check :
++- triggered : oui / non
++- Build Doctrine :
++  - path : projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
++  - ref :
++  - lue : oui/non
++  - statut :
++- Convergence Roadmap :
++  - path : projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++  - ref :
++  - lue : oui/non
++  - snapshot/milestone courant :
++- doctrine v3 applicable :
++- capacité v3 ciblée :
++- milestone ciblée :
++- classification actifs :
++- gap(s) fermé(s) :
++- lien trajectoire :
++- exit proof :
++- dette temporaire :
++- trajectoire de sortie :
++- gates Morris :
++- verdict : CONVERGENCE CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE / STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
+ ```
+
+ #### E. Cas Git inaccessible
+@@ -144,15 +169,61 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
+
+ | Niveau | Rôle | Source |
+ |--------|------|--------|
+-| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 |
+-| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check | Ce fichier sur Git `main` |
++| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 ; **couche Studio convergence = PENDING** (mise à jour instructions = étape ultérieure Morris) |
++| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check (+ Convergence Pre-check Studio) | Ce fichier sur Git `main` |
+ | **3. Prompt Cursor généré** | Contrat d'exécution — vérifié localement par Local Git Truth Check | Prompt instancié par ChatGPT |
+
++#### G. SFIA Studio Convergence Pre-check (spécialisation bornée)
++
++> **Ne s’applique pas** aux projets SFIA sans rapport avec la construction de SFIA Studio.
++> **Ne transforme pas** ce template en template Studio-only.
++
++**Trigger Studio = oui** si l’objet est la construction, l’évolution, l’architecture, la roadmap, la validation ou le prompting de **SFIA Studio** (même trigger que routing guide §4.3.0a).
++
++Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer le prompt :
++
++1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
++2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
++3. sources v3 applicables (`projects/sfia-studio/sfia-v3-framing/**`)
++4. état repo/projet Studio concerné
++
++**Règle dure :**
++
++```text
++trigger Studio = oui
++ET (Build Doctrine non lue
++    OU Roadmap non lue
++    OU capacité / trajectory link non qualifié)
++→ NE PAS générer le prompt Cursor
++
++PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
++```
++
++Si l’analyse Studio elle-même n’a pas chargé le contexte convergence requis :
++
++```text
++STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
++```
++
++Séquence :
++
++```text
++Repo-informed pre-check
++→ si Studio trigger : Convergence Pre-check (§2.0.G + mini-fiche)
++→ qualification cycle
++→ CKC/process guidance applicable
++→ sources spécifiques
++→ instanciation prompt Cursor
++```
++
++Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; doctrine v3 = destination produit ; v2.6 = baseline opérationnelle processus ; runtime v3 **non ADOPTED** par défaut.
++
+ ### 2.1 Déclenchement
+
+ À partir d'une demande Morris (nouveau chat ou conversation en cours) :
+
+ 0. **Repo-informed pre-check** — §2.0 si trigger actif
++0bis. **SFIA Studio Convergence Pre-check** — §2.0.G si objet = construction/évolution SFIA Studio ; sinon N/A
+ 1. **Qualifier** la demande — objectif, risque, impact, livrable attendu
+ 2. **Identifier le type de cycle projet** — cartographie §4 (15 cycles)
+ 2bis. **Résoudre le Cycle Knowledge Contract candidat** — routing guide §4.4.5 ; lire pilote si disponible ; sinon carte synthétique + fallback méthode v2.6 ; déclarer statut `candidate` / `absent` dans la mini-fiche §2.0.D
+@@ -163,7 +234,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
+ 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
+ 8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
+ 9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
+-10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor
++10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor ; **interdit** si §2.0.G échoue
+
+ ### 2.2 Nouveau chat et sources projet
+
+
+```
+
+---
+
+## Verdict
+
+```
+SFIA STUDIO CONVERGENCE FOUNDATION CANDIDATE COMPLETE —
+BUILD DOCTRINE + ROADMAP CREATED —
+REPO ROUTING INTEGRATED —
+CURSOR TEMPLATE INTEGRATED —
+READY FOR MORRIS REVIEW —
+CHATGPT INSTRUCTION UPDATE PENDING —
+NO PROJECT COMMIT —
+NO PROJECT PUSH —
+NO PR —
+NO MERGE —
+OPTION 1 NOT DECIDED —
+PRODUCT PERSISTENCE NOT_SELECTED —
 CURSOR REAL 0 —
 GATE D NOT CONSUMED —
-PRODUCT MUTATIONS 0 —
-CANDIDATE BYTE-IDENTICAL —
-READY FOR MORRIS ARCHITECTURE / PRODUCT ROADMAP DECISION
+V3 RUNTIME NOT ADOPTED
 ```
 
-Instruction ChatGPT: re-read handoff from Git before any architecture/roadmap decision. Cursor-copied report alone is insufficient.
+Instruction ChatGPT : relire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` avant verdict ; préparer ensuite (étape distincte) le texte d'update des instructions ChatGPT si conforme.
