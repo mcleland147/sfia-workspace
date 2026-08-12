@@ -1,95 +1,453 @@
 # ChatGPT Review Pack — FULL
-## Cycle 1 Cadrage Critical — F2 first REAL proposal framing (CONTEXT SNAPSHOT INCOMPLETE)
+## Cycle 6 Architecture technique Critical — SFIA Studio Runtime Convergence Audit
 
 | Field | Value |
 | --- | --- |
-| **Role** | Cadrage — F2 proposal framing for first bounded Cursor REAL (NO execution / NO approval consumption) |
+| **Role** | READ-ONLY exhaustive convergence audit |
 | **Pack level** | FULL |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-12 17:14:12 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-12 15:14:12 UTC |
-| **Timestamp CEST ISO** | `2026-08-12T17:14:12.428412+02:00` |
-| **Timestamp UTC ISO** | `2026-08-12T15:14:12Z` |
-| **GO / context** | **GO FRAME F2 PROPOSAL — FIRST BOUNDED CURSOR REAL READ-ONLY F3 RUNTIME VERIFICATION** (intention + cadrage only) |
+| **Timestamp CEST** | 2026-08-12 18:53:32 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-12 16:53:32 UTC |
+| **Cycle** | **6 — Architecture technique** |
+| **Profil** | Critical |
+| **Typologie** | EVOL — audit préalable à convergence structurée |
+| **GO** | Morris audit read-only authorized by current request |
 | **R-T-A3-1** | ACCEPTED / CLOSED BY MORRIS |
 | **R-T-A3-2** | ACCEPTED / CLOSED BY MORRIS — BOUNDED SQLITE HARD CLOSURE |
-| **FINAL HARD READINESS** | COMPLETE (prior) — does not invent F2 approval or contextSnapshot |
-| **Cycle** | **1 — Cadrage** |
-| **Profil** | Critical |
-| **Critical** | OUI — EXPLICITE (parent décisionnel potentiel du premier ExecutionContract REAL) |
+| **Product persistence** | NOT_SELECTED |
+| **crossStoreDurable** | false |
+| **productionRollbackProven** | false |
+| **Gate D** | NOT CONSUMED |
+| **Cursor REAL** | 0 |
 | **Review Pack** | FULL |
 | **Outbound remote identity** | Placeholder — FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
 
 ---
 
-## GO Morris consumed (exact)
+# A. Executive summary
 
-```
-GO FRAME F2 PROPOSAL —
-FIRST BOUNDED CURSOR REAL READ-ONLY F3 RUNTIME VERIFICATION —
-TARGET vertical-slice-runtime/service.ts + startExecution.ts —
-VERIFY Sqlite journal wiring + ATTEMPT_CREATED/LAUNCHED + no REAL→FIXTURE —
-PREPARE F2 PROPOSAL FOR MORRIS APPROVAL —
-NO CURSOR REAL —
-NO GATE D —
-NO PROJECT GIT WRITE
-```
+SFIA Studio today is a **working fixture vertical slice** on `/studio` (create project → Nora F1 chat → F2 proposal/Morris demo gate → F3 fixture T-A4→T-A5→T-A6 UI reinjection) on a **process-local Memory OA stack**, plus **parallel** durable engines (OPS1 Cursor/SQLite, D1 SQLite, FinOps Postgres, execution-run memory) that are **not** the F3 authority chain.
 
-Interpretation: intention + cadrage authorized. **NOT** F2 APPROVED / HumanDecision / decisionRef / ExecutionContract / Gate D / Cursor REAL.
+The shortest path to a Morris-usable v0.1 is **not** more micro-hardening of parallel engines; it is **convergence**: decide Product persistence, durable-bind Project + HumanDecision, harvest OPS1 Cursor behind T-A5 `ExecutionAdapter`, bind Critical Ack for REAL, then Gate D for a bounded read-only REAL.
+
+**RECOMMENDATION — NOT DECIDED — MORRIS DECISION REQUIRED:** Option 1 — OA Native Backbone + Harvest OPS1 Cursor.
+
+Dirty local candidate `delivery/sfia-studio-f3-real-prerequisites` (SHA `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab`) adds Auth.js + critical-ack Sqlite journal wiring — **not on HEAD/main** — useful prerequisite evidence, not baseline.
 
 ---
 
-## Local Git Truth (DEL)
+# B. Audit scope / Git Truth
 
-| Field | Value |
+| Check | Result |
 | --- | --- |
-| Worktree | `…/worktrees/f3-real-prerequisites-delivery` |
+| Worktree | `…/f3-real-prerequisites-delivery` |
 | Branch | `delivery/sfia-studio-f3-real-prerequisites` |
 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
 | origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| Staged | **EMPTY** |
-| Remote delivery | **ABSENT** |
-| Dirty worktree | expected F3 Option A candidate — non-STOP |
+| Staged | EMPTY |
+| Remote delivery | ABSENT |
+| Dirty tracked F3 candidate | YES (expected; not cleaned) |
+| Candidate SHA BEFORE/AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` / `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` MATCH |
+| Manifest | `.tmp-sfia-review/r-t-a3-2-option-a-delivery/candidate-manifest.txt` (40 files) |
+| Template blob | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
+| Inbound handoff | tip `c5efa822…` blob `2f9405af…` |
+| PR range inspected | #234–#333 inclusive via `gh` (100/100; 97 merged; #271–#273 closed unmerged) |
+| OA TS files counted | ~337 under `lib/oa` |
 | Product mutations this cycle | **0** |
-| Project Git writes this cycle | **0** |
-| saveProposal / recordF2Decision | **0 / 0** |
-| HumanDecision / ExecutionContract / Attempt / Ack REAL / Confirm / launch / Cursor REAL | **0 / 0 / 0 / 0 / 0 / 0 / 0** |
-| Gate D | **NOT CONSUMED** |
+| Project Git writes | **0** |
+| Cursor REAL / Gate D | **0 / NOT CONSUMED** |
+
+Method sources read: cycle execution template, routing guide, operating model, rules/guardrails, v2.5 cycles method candidate, CKC posture for Critical Architecture.
 
 ---
 
-## Template / routing / CKC / inbound handoff
+# C. Timeline architectures (PR #234–#333)
 
-| Field | Value |
+| PR range | Generation | Intention | Current role |
+| --- | --- | --- | --- |
+| #234 | Pre-OPS1 | Governed GPT slice close | historical/support |
+| #235–#253 | OPS1 I1–I6 | Session→gate→Cursor→report | **LEGACY_BUT_REUSABLE** (live `/ops1`) |
+| #254 | D1 / Control Tower | SQLite intake | parallel durable UI |
+| #255–#257 | Shared platform | AI/security/obs/tools | ACTIVE_SUPPORTING |
+| #258–#267 | OA T-A0…T-A6 | Native Option A engine | **ACTIVE_CANONICAL_CANDIDATE** (Memory) |
+| #268–#291 | CI + T-A7 framing/foundations | HARD/readiness | ACTIVE_SUPPORTING; cutover not done |
+| #292–#304 | Vertical-slice + D2-A/B/C | Visible project + CKC/qualify | ACTIVE_CANONICAL UX path |
+| #305–#311 | execution-run D2-D | Parallel run coordinator | PARALLEL (not F3 chain) |
+| #312–#327 | FinOps T0–T7 | Cost control Postgres | PARALLEL durable transverse |
+| #328 | OPS1 continuity bridge | Workspace link to OPS1 | legacy bridge |
+| #329–#333 | F1→F2→F3 fixture | Assistant + native fixture authority chain | WIRED_UI + FIXTURE_ONLY on main |
+
+Dirty-only (not main): `lib/oa/critical-ack/**`, `auth.ts`, NextAuth route, durable launch markers — F3 REAL prerequisites candidate.
+
+---
+
+# D. Current runtime map
+
+Canonical Studio composition:
+
+```
+createRuntimeApplicationService (globalThis singleton)
+  → createLocalVerticalSliceServices (T-A1 Memory Project/LPS + doctrine FS)
+  → wireOaStack:
+       Cycle Memory | CKC qualify | MemoryAuthorityResolver
+       Decision Memory | SqliteAuthorityAttemptJournal (candidate)
+       ExecutionContract Memory | ExecutionAttempt + F3 TestExecutionAdapter
+       EvidenceReview Memory | createProductionAcknowledgeCritical (candidate)
+```
+
+Parallel compositions (not in wireOaStack for Nora):
+- `composeExecutionRun*` (+ optional FinOps T7 shadow)
+- OPS1 orchestrator + Cursor adapters
+- D1 actions over `d1.sqlite`
+
+UI surfaces: `/studio/projects/*` (Nora), `/ops1/*`, `/projects/*` (D1), Auth route (candidate).
+
+---
+
+# E. User journey map
+
+| Hop | Status |
 | --- | --- |
-| Template | `prompts/templates/sfia-cycle-execution-template.md` blob `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| Routing | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` — Cycle 1 Cadrage |
-| CKC path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` |
-| CKC blob | `67a692dcac9187b981d6047fbe19fb92bf078459` |
-| CKC status | candidate — experimental cognitive guidance — **aucune autorité d'exécution** |
-| Inbound handoff tip | `9c7a7cd36fc3873d763454a987e81a2ae8911e45` |
-| Inbound handoff blob | `b6690d3eb5ddb97c61e1ffc3728fc39f2378145b` |
+| User → Project create/view | EXISTS+WIRED (process-local) |
+| Project → LPS | EXISTS+WIRED (process-local) |
+| LPS → F1 context chat | EXISTS+WIRED |
+| F1 → F2 propose | EXISTS+WIRED |
+| F2 → Morris decide | EXISTS+WIRED + PROCESS_LOCAL + demo authority |
+| Morris → T-A3 HD | EXISTS+WIRED (Memory) |
+| T-A3 → T-A4 contract | EXISTS+WIRED (fixture prepare) |
+| T-A4 → F3 → T-A5 | EXISTS+WIRED + FIXTURE_ONLY |
+| T-A5 → adapter | FIXTURE_ONLY (`adp:f3-test-fixture`); REAL via OPS1 only |
+| → T-A6 Evidence | EXISTS+WIRED (Memory); UI DTO reinjection |
+| Evidence → LPS write-back | **MISSING** |
+| Critical Ack Auth.js | EXISTS on candidate BUT NOT WIRED to Nora UI |
+| Cycle create from F2 | EXISTS BUT NOT WIRED |
+| Cursor REAL via Nora | MISSING / BLOCKED BY DECISION |
+| Durable F2/HD/Contract | BLOCKED BY PERSISTENCE |
+
+---
+
+# F. Reachability matrix
+
+See also artifact `reachability-matrix.md` (inline summary in §D/E).
+
+Class counts (approx): ACTIVE_CANONICAL ~7; ACTIVE_SUPPORTING ~4; WIRED_UI ~3; FIXTURE_ONLY ~2; PROCESS_LOCAL ~8; DURABLE_LOCAL ~2 (D1 + candidate journal); DURABLE_SHARED ~1 (FinOps PG); PARALLEL ~4; LEGACY_BUT_REUSABLE ~1 (OPS1); HISTORICAL_DOC ~schemas/docs.
+
+---
+
+# G. Persistence map
+
+Full table in audit artifact; key topology:
+
+- **Studio OA product path:** almost entirely **Memory / process-local** (Project, LPS, Decision, Contract, Attempt, Evidence, F2 proposals).
+- **Only durable on Studio candidate stack:** Sqlite authority/attempt journal (pilot-bounded; ≠ Product persistence selected).
+- **Durable elsewhere:** D1 SQLite projects; OPS1 SQLite; FinOps PostgreSQL (cost domain).
+- **Doctrine:** filesystem package registry (read-durable).
+
+Implication: chat F2 GO and fixture F3 proofs **do not survive restart** and are **not REAL-eligible decisionRefs**.
+
+---
+
+# H. Authority / security map
+
+| Control | Observed |
+| --- | --- |
+| Morris decides | Method + F2 gate UI; demo authority `LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY` on Studio path |
+| Authn | Auth.js GitHub on **candidate only**; not Nora-bound |
+| Authz | MemoryAuthorityResolver; Authn≠Authz explicit |
+| Critical Ack | Candidate composition `createProductionAcknowledgeCritical`; UI unwired |
+| Confirmations | T-A3 Memory confirmations used by F3 fixture |
+| Fail-closed REAL | OPS1 Cursor REAL fail-closed if flag≠1; F3 rejects hostile REAL fields |
+| Silent REAL→FIXTURE | Forbidden in OPS1 and F3 wiring comments; fixture is explicit |
+| Secrets | OPS1 secret boundaries exist; not audited as “secure” claim |
+| Sandbox | OPS1 `.sfia-exec` worktrees for Cursor |
+
+**No “secure for REAL Studio” claim** — Critical Ack/UI/durable HD still gaps.
+
+---
+
+# I. Execution engines comparison
+
+| Engine | Authority model | Adapter | Durable | UI | Role vs F3 |
+| --- | --- | --- | --- | --- | --- |
+| T-A4/T-A5/T-A6 (OA) | Contract→Attempt→Evidence | TestExecutionAdapter in Studio | Memory (+ journal candidate) | Nora F3 | **target chain** |
+| OPS1 | Session/gates/allowlist | Cursor fixture + REAL | SQLite | `/ops1` | harvest candidate for Cursor |
+| execution-run | Provider lanes | Fake/fixture providers | Memory | none in Nora | parallel; freeze growth |
+
+---
+
+# J. OPS1 disposition analysis
+
+- **Still live and useful** for Cursor REAL process, worktree sandbox, report reinjection patterns.
+- **Not** the F3 native authority chain (F3-D03 / governance docs).
+- **Credible target role:** encapsulated **ExecutionAdapter** implementation behind T-A5 port; OPS1 UI growth **STOP DOING** until disposition decided.
+- Disposition = **MORRIS DECISION REQUIRED** (harvest vs dual-shell vs later retire).
+
+---
+
+# K. execution-run disposition analysis
+
+- Parallel D2-D coordinator; optional FinOps shadow hook.
+- **Not** wired to F1/F2/F3.
+- Credible role: quarantine; mine ideas later; **no new independent features** until convergence decided.
+- Disposition = **MORRIS DECISION REQUIRED**.
+
+---
+
+# L. FinOps isolation analysis
+
+- Correctly isolable as **transverse cost/control** with Postgres durability.
+- **Must not** be conflated with Product persistence.
+- Optional future: capture hooks on Attempt launch — after Product path works.
+- New FinOps lots without user-visible Studio dependency: **STOP DOING recommendation**.
+
+---
+
+# M. Reusable foundations
+
+| Foundation | Reuse verdict |
+| --- | --- |
+| T-A0 doctrine resolve/digest | KEEP — called on project create |
+| T-A1 Project/LPS ports + domain | KEEP — right product base; needs durable adapter |
+| T-A2/CKC/qualify | KEEP — F2 uses qualify; wire createCycle later |
+| T-A3 Decision/Confirmation/Authority ports | KEEP — right backbone; needs durable + real authority |
+| T-A4 ExecutionContract | KEEP — consumable by F3; needs durable + REAL fields path |
+| T-A5 Attempt + ExecutionAdapter port | KEEP — swap fixture for harvested Cursor adapter |
+| T-A6 Evidence/ReviewBundle/Recommend | KEEP — UI reinjection exists; add LPS write-back |
+| T-A7 HARD/readiness markers | KEEP as honesty rails |
+| Shared platform AI/security/obs | KEEP |
+| Vertical-slice runtime composition | KEEP as Studio composition root |
+| OPS1 Cursor spawn/worktree | HARVEST into adapter |
+| F1/F2/F3 UI flow | KEEP — replace demo/fixture bindings progressively |
+| Auth.js + critical-ack candidate | PROMOTE via Delivery after Architecture decisions |
+| FinOps Postgres | KEEP isolated |
+| D1 SQLite project UI | LEGACY disposition later |
+| Modeled JSON examples | schema/docs only |
+
+---
+
+# N. Orphans / parallel systems / debt
+
+- Dual project UIs: `/studio` Memory vs `/projects` D1
+- Dual execution: Nora F3 fixture vs OPS1 Cursor
+- execution-run unused by product assistant
+- Cycle services wired but F2 doesn't create CycleInstances
+- Critical Ack composed (candidate) without UI
+- Process-local proposal/decision vs durable journal only for attempts/acks
+- Documentation “v3-native” naming ≠ authorization to reopen SFIA v3.0 product cutover
+
+---
+
+# O. Ligaments missing
+
+See `ligaments.md`. Top blockers for usable v0.1:
+
+1. **L1** Durable Project/LPS
+2. **L2** Durable HumanDecision
+3. **L6** Cursor adapter harvest into T-A5
+4. **L7** Critical Ack UI binding
+5. **L8** Exact REAL contract prep from HD
+6. **L4** Live contextSnapshot
+7. **L9** Evidence reinjection beyond ephemeral panel state
+
+---
+
+# P. Capabilities usable today
+
+### On main (HEAD) without Cursor REAL
+1. `/studio/projects/new` create process-local project + LPS view
+2. Nora F1 chat if OpenAI configured (else blocked; no silent demo unless forced)
+3. F2 qualification + proposal + Morris demo gate
+4. F3 fixture prepare → confirm/execute → see evidence/recommendation cards
+5. Navigate OPS1 separately for fixture Cursor (not Studio-bound)
+6. FinOps not user-facing Studio journey
+
+### On dirty candidate only
+7. Auth.js route + production Critical Ack composition + Sqlite journal markers (server); **no Nora Critical Ack UX**
+
+### Impossible today
+- Restart-safe Studio project/decision
+- REAL-eligible decisionRef for Gate D
+- Cursor REAL from Nora
+- Evidence durable + LPS write-back
+- Claiming product READY / T-A6 COMPLETE
+
+---
+
+# Q. Target architecture options
+
+## Option 1 — OA Native Backbone + Harvest OPS1 Cursor
+**(RECOMMENDATION CANDIDATE)**
+
+```mermaid
+flowchart LR
+  UI[Studio UI Nora] --> VS[vertical-slice-runtime]
+  VS --> TA1[T-A1 durable Project/LPS]
+  VS --> F12[F1/F2]
+  F12 --> TA3[T-A3 durable HD]
+  TA3 --> TA4[T-A4 Contract]
+  TA4 --> ACK[Critical Ack]
+  ACK --> TA5[T-A5 Attempt]
+  TA5 --> ADP[Adapter port]
+  ADP --> CUR[Harvested OPS1 Cursor]
+  TA5 --> TA6[T-A6 Evidence]
+  TA6 --> UI
+  FIN[FinOps] -.-> TA5
+```
+
+Pros: aligns with F3 doctrine; reuses wired UI; clear authority; harvests REAL Cursor without dual product engines.
+Cons: requires persistence Architecture; adapter work; residual parallel UIs until disposition.
+Reversibility: high via ports.
+
+## Option 2 — Dual-Shell (OA front + OPS1 execution)
+Pros: faster opportunistic REAL via OPS1.
+Cons: deepens parallel engines; weaker single Evidence/authority story; fights F3-D03 intent.
+Reversibility: poor.
+
+FinOps-as-Product-persistence third peer **not** proposed (violates isolation + NOT_SELECTED).
+
+---
+
+# R. Recommendation candidate
+
+```
+RECOMMENDATION — NOT DECIDED — MORRIS DECISION REQUIRED
+
+Adopt Option 1 as architecture target candidate:
+- Canonical backbone = T-A0→T-A7 + vertical-slice + F1/F2/F3
+- Harvest OPS1 Cursor into T-A5 ExecutionAdapter
+- Quarantine execution-run feature growth
+- Keep FinOps transverse/isolated
+- Decide Product persistence technology in a dedicated Architecture gate
+- Promote dirty critical-ack/Auth.js via explicit Delivery after decisions
+- Do not reopen SFIA v3.0 cutover; do not couple F3 to FinOps PG
+```
+
+Criteria fit: shortest usable path; max reuse; reduce parallel engines; fail-closed authority; evolutive after v0.1.
+
+---
+
+# S. Candidate product roadmap (capability-guided)
+
+| Milestone | User capability | Reuse | Ligaments | Morris decisions | Probable cycles | Exit criteria | Deferred |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **R0** | Architecture/convergence decided | audit | — | Option 1/2; persistence; OPS1/execution-run disposition | Architecture | Written GO on target + dispositions | implementation |
+| **R1** | Durable project open/create + live context | T-A1 ports, VS UI | L1,L4,L10 | Product persistence choice | Delivery | Restart-safe project/LPS; contextSnapshot resolvable | multi-region |
+| **R2** | Contextual assistant usable daily | F1, platform AI | history persistence optional | — | Delivery/Light | Chat with durable project context | advanced tools |
+| **R3** | F2 proposal + durable HD Morris gate | F2, T-A3 | L2,L3,L5 | Authority binding rules | Delivery Critical | accepted+current decisionRef survives restart | demo authority gone |
+| **R4** | Exact ExecutionContract + Gate D ready | T-A4, candidate ack | L7,L8,L11 | Gate D exact | Cadrage+Delivery | contract id/version/fingerprint frozen from HD | REAL launch |
+| **R5** | First Cursor REAL read-only from product | T-A5 port + OPS1 harvest | L6 | Gate D GO | Execution Critical | Evidence of REAL path; no silent fixture | writes |
+| **R6** | Evidence/ReviewBundle + UI/LPS reinjection | T-A6 | L9,L12 | — | Delivery | durable evidence visible in workspace | maturity auto |
+| **R7** | First bounded local WRITE Cursor | adapter allowlist | stop conditions | new Gate | Execution Critical | scoped write + review | broad Git publish |
+| **R8** | Daily-usable readiness/history | T-A7 honesty, journal | polish | — | mixed | NOT_READY honest; restart-safe core loop | full cutover |
+
+Roadmap = **CANDIDATE ONLY**.
+
+---
+
+# T. MUST / SHOULD / LATER
+
+**MUST for v0.1 usable**
+- R0 decisions
+- Durable Project/LPS
+- Durable HumanDecision
+- Nora path without demo-only authority for structuring decisions
+- Harvested REAL adapter behind T-A5 (for R5)
+- Critical Ack bound for Critical REAL
+- Evidence visible reinjection
+
+**SHOULD after first usage**
+- CycleInstance binding
+- LPS write-back from ReviewBundle
+- OPS1 UI disposition
+- D1 UI disposition
+- FinOps optional capture on Attempts
+
+**LATER**
+- execution-run absorption
+- multi-instance HA
+- productionRollbackProven
+- broad WRITE Git/PR automation
+- SFIA v3.0 cutover
+
+**LEGACY disposition decision required**
+- OPS1 product UI
+- D1 `/projects` stack
+- execution-run feature stream
+
+---
+
+# U. STOP DOING (recommendation only)
+
+Until R0 decided, avoid new cycles that deepen parallel engines without Studio user-visible dependency:
+- new FinOps feature lots
+- new independent execution-run features
+- OPS1 feature expansion beyond harvest needs
+- T-A7 hardening without user-visible dependency
+- F3 REAL attempts without durable HD + Gate D
+- Product persistence selection by implementers
+
+---
+
+# V. Morris decisions (max 7)
+
+1. **Architecture target:** Option 1 vs Option 2?
+2. **Product persistence technology** for Project/LPS/Decision/(Contract/Attempt/Evidence as needed) — without implying FinOps coupling?
+3. **OPS1 disposition:** harvest-as-adapter vs dual-shell vs other?
+4. **execution-run disposition:** quarantine now?
+5. **Adopt candidate roadmap R0→R8** (or amend)?
+6. **Promote dirty F3 REAL prerequisites (Auth.js/critical-ack)** into Delivery after R0?
+7. **D1 `/projects` disposition:** maintain bridge / freeze / plan retire?
+
+---
+
+# W. Reserves / anti-claims
+
+- Architecture **not** validated
+- Persistence **not** selected
+- OPS1 **not** deprecated by this audit
+- execution-run **not** deleted
+- Product **not** READY
+- Cursor REAL **not** ready on Nora
+- Gate D **not** ready / not consumed
+- Candidate dirty ≠ baseline
+- SFIA v3.0 **not** reopened
+- Fixture success ≠ functional READY
+- FinOps Postgres ≠ Product persistence
+- Sqlite journal ≠ global persistence platform
+
+---
+
+# X. Integrity evidence
+
+| Item | Value |
+| --- | --- |
 | Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
 | Candidate SHA AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
-| Candidate SHA byte-identical | **YES** |
-| Recompute method | SHA-256 of newline-joined path+sha256 body lines from r-t-a3-2-option-a-delivery/candidate-manifest.txt (40 lines; live digests ok=40) |
+| Staged | EMPTY |
+| Product mutations | 0 |
+| Tracked writes | 0 |
+| Project Git writes | 0 |
+| saveProposal/recordF2Decision/Build/Confirm/Ack/Start/launch | 0 |
+| Cursor REAL | 0 |
+| Gate D | NOT CONSUMED |
+| Analysis volume | PR #234–#333; ~337 OA TS files; 3 parallel stacks; 12 ligaments; 2 architecture options |
+
+Auxiliary artifacts under `.tmp-sfia-review/sfia-studio-runtime-convergence-audit/`:
+- PRECHECK.txt
+- reachability-matrix.md
+- persistence-map.md
+- ligaments.md
+- architecture-options.md
+- candidate-sha-before.txt / after.txt
 
 ---
 
-## F2 schema source
-
-| Item | Path |
-| --- | --- |
-| ProposalDto | `projects/sfia-studio/app/features/project-assistant/f2/types.ts` |
-| orchestrateF2 / buildProposal | `…/f2/orchestrateF2.ts` |
-| proposalStore / createProposalId | `…/f2/proposalStore.ts` (`prop:f2:<uuid>`) |
-| gatePolicy | `…/f2/gatePolicy.ts` (Critical ⇒ morrisGateRequired) |
-| recordDecision | `…/f2/recordDecision.ts` (LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY — not REAL) |
-| qualify | `…/f2/qualify.ts` |
 
 ---
 
-## PRECHECK.txt
+# APPENDIX — FULL INLINE ARTIFACTS
+
+## Artifact: PRECHECK.txt
 
 ```
 PRECHECK=OK
@@ -98,570 +456,181 @@ HEAD=4b1a058050ae81d56cb6d96b88e8a57380799a86
 ORIGIN_MAIN=4b1a058050ae81d56cb6d96b88e8a57380799a86
 STAGED=EMPTY
 REMOTE_DELIVERY=ABSENT
-INBOUND_HANDOFF_TIP=9c7a7cd36fc3873d763454a987e81a2ae8911e45
-INBOUND_HANDOFF_BLOB=b6690d3eb5ddb97c61e1ffc3728fc39f2378145b
 CANDIDATE_SHA=082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab
 CANDIDATE_SHA_MATCH=YES
-LIVE_DIGESTS=ok=40 mismatch=0 missing=0
-PROPOSAL_ID=prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4
-CONTEXT_SNAPSHOT=INCOMPLETE
-FRAMING_FINAL=NO
-HUMANDECISION=0
-EXECUTIONCONTRACT=0
-EXECUTION_ATTEMPT=0
-CRITICAL_ACK_REAL=0
-CONFIRM_REAL=0
-ADAPTER_LAUNCH=0
+INBOUND_HANDOFF_TIP=c5efa822a2a9c59ac0996f228801779a66b6c149
+INBOUND_HANDOFF_BLOB=2f9405afa26ea5a3ef96239f16cb5df7f2805e4e
+DIRTY_F3_CANDIDATE=YES
+CRITICAL_ACK_ON_HEAD=NO
 CURSOR_REAL=0
 GATE_D=NOT_CONSUMED
 PRODUCT_MUTATIONS=0
-PROJECT_GIT_WRITES=0
-NEXT_STEP_CLASS=C
-TIMESTAMP_CEST=2026-08-12 17:09:27 CEST (+0200)
+TIMESTAMP_CEST=2026-08-12 18:53:32 CEST (+0200)
 ```
 
----
-
-## Frozen proposal identity
-
-| Field | Value |
-| --- | --- |
-| proposalId | `prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4` |
-| status | `DECISION_REQUIRED` |
-| framingStatus | `CONTEXT_SNAPSHOT_INCOMPLETE` |
-| canBePresentedAsFinal | **NO** |
-| recommendedProfile | Critical |
-| cycleTypeId | `cyc:framing` |
-| morrisGateRequired | true |
-| executionForbidden | true |
-| noExecutingStatus | true |
-| agentBinding | NOT_AVAILABLE |
-| objective | FIRST BOUNDED CURSOR REAL — READ-ONLY F3 RUNTIME VERIFICATION |
-| targets | vertical-slice-runtime/service.ts + execution-attempt/application/startExecution.ts |
-| actionCandidate | INSPECT / VERIFY READ-ONLY F3 RUNTIME BOUNDARIES |
-
----
-
-## contextSnapshot
+## Artifact: reachability-matrix.md
 
 ```
-CONTEXT SNAPSHOT INCOMPLETE —
-F2 PROPOSAL CANNOT BE PRESENTED AS FINAL
+# Reachability / Wiring Matrix
+
+| Subsystem | Path | Classification |
+| --- | --- | --- |
+| Doctrine T-A0 | lib/oa/doctrine | ACTIVE_SUPPORTING |
+| Project/LPS T-A1 | lib/oa/project | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
+| Cycle/CKC T-A2 | lib/oa/cycle | ACTIVE_SUPPORTING + WIRED_SERVER_ONLY (UI-orphan for createCycle) |
+| Decision T-A3 | lib/oa/decision | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
+| ExecutionContract T-A4 | lib/oa/execution-contract | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
+| ExecutionAttempt T-A5 | lib/oa/execution-attempt | ACTIVE_CANONICAL_CANDIDATE + FIXTURE_ONLY (adapter) |
+| EvidenceReview T-A6 | lib/oa/evidence-review | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
+| Critical-ack journal | lib/oa/critical-ack (dirty only) | WIRED_SERVER_ONLY + DURABLE_LOCAL (candidate) |
+| Auth.js GitHub | app/auth.ts (dirty only) | WIRED_SERVER_ONLY (candidate; no Nora UI) |
+| Vertical-slice runtime | lib/vertical-slice-runtime | ACTIVE_CANONICAL_CANDIDATE + PROCESS_LOCAL |
+| F1 Assistant | features/project-assistant | WIRED_UI_REACHABLE |
+| F2 Proposal/Gate | features/project-assistant/f2 | WIRED_UI_REACHABLE + PROCESS_LOCAL |
+| F3 Fixture slice | features/project-assistant/f3 | WIRED_UI_REACHABLE + FIXTURE_ONLY |
+| OPS1 Cursor REAL | lib/ops1 | LEGACY_BUT_REUSABLE + PARALLEL_ARCHITECTURE |
+| execution-run D2-D | lib/oa/execution-run | PARALLEL_ARCHITECTURE |
+| FinOps T0–T7 | lib/oa/finops | PARALLEL_ARCHITECTURE + DURABLE_SHARED (Postgres; not Product persistence) |
+| D1 Project SQLite | lib/d1 | PARALLEL_ARCHITECTURE + DURABLE_LOCAL |
+| Shared platform | lib/platform | ACTIVE_SUPPORTING |
+| T-A7 HARD foundation | lib/platform/t-a7 | ACTIVE_SUPPORTING |
+| Modeled schemas | sfia-v3-modeled | HISTORICAL_DOC_ONLY / schema reference |
 ```
 
-Evidence: `d1_projects=0`; MemoryProjectStore only; no live LPS without createProject mutation; fixture doctrine digest file-only (`sha256:3b450750…`) must not be used as final snapshot; modeled `prj:campus360-oa` not used.
-
----
-
-## Durable HumanDecision dependency
-
-Chat approval ≠ durable decisionRef.
-proposalStore process-local. DecisionServices = MemoryDecisionStore only. LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY not REAL-eligible.
-
-**Requirement:** REAL-ELIGIBLE HUMANDECISION MATERIALIZATION REQUIRED BEFORE EXECUTIONCONTRACT
-**Classification:** **C — Architecture technique decision required**
-**Evidence:** DecisionRepositoryPort + RecordHumanDecision exist; no durable Decision repository implementation; Product persistence NOT_SELECTED; no auto-choice of SQLite/Postgres/Neon/file/Git.
-
----
-
-## OUT — f2-proposal-candidate.json (FULL INLINE)
-
-```json
-{
-  "artifactKind": "F2_PROPOSAL_CANDIDATE_FRAMING_ONLY",
-  "framingStatus": "CONTEXT_SNAPSHOT_INCOMPLETE",
-  "canBePresentedAsFinal": false,
-  "notInjectedIntoProposalStore": true,
-  "notApproved": true,
-  "notHumanDecision": true,
-  "notDecisionRef": true,
-  "notExecutionContract": true,
-  "notGateD": true,
-  "notCursorReal": true,
-  "schemaSource": "projects/sfia-studio/app/features/project-assistant/f2/types.ts#ProposalDto",
-  "proposalIdFrozen": "prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4",
-  "candidateShaBound": "082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab",
-  "contextSnapshotResolution": {
-    "status": "INCOMPLETE",
-    "projectId": null,
-    "lpsId": null,
-    "lpsVersion": null,
-    "doctrineDigest": null,
-    "doctrineDigestFileOnlyHint": {
-      "value": "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622",
-      "source": "projects/sfia-studio/app/lib/oa/doctrine/fixtures/packages/pkg-studio-v3-oa-1.0.0/manifest.json",
-      "recomputedMatch": true,
-      "note": "FILE-ONLY fixture package digest — NOT a live F2 contextSnapshot.doctrineDigest bound to a project/LPS. Must not be used as final contextSnapshot."
-    },
-    "evidence": [
-      "d1_projects row count = 0 in projects/sfia-studio/.sfia-exec/local-i1/state/d1.sqlite (read-only)",
-      "createInMemoryProjectServices / MemoryProjectStore — projects are process-local, not durable",
-      "loadProjectRuntimeForAssistant requires an existing projectId; none durable/live found without createProject mutation",
-      "Modeled example prj:campus360-oa / sha256:aaaa… is schema fixture only — not used"
-    ],
-    "stopLine": "CONTEXT SNAPSHOT INCOMPLETE — F2 PROPOSAL CANNOT BE PRESENTED AS FINAL"
-  },
-  "proposalCandidate": {
-    "proposalId": "prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4",
-    "status": "DECISION_REQUIRED",
-    "rephrasedRequest": "FIRST BOUNDED CURSOR REAL — READ-ONLY F3 RUNTIME VERIFICATION: inspect and verify, via the future real Cursor adapter only, the already-validated F3 Option A composition boundaries without any product write.",
-    "objective": "Démontrer pour la première fois le passage par le vrai adapter Cursor sur une mission strictement read-only et bornée, afin de valider le chemin d'exécution REAL → Evidence → ReviewBundle sans mutation projet.",
-    "cycleTypeId": "cyc:framing",
-    "recommendedProfile": "Critical",
-    "rationale": "Premier Cursor REAL borné; chaîne d'autorité Morris; vrai adapter Cursor (external process); preuve de sécurité et de contrôle requise; aucun auto-élargissement de scope.",
-    "scope": "Lecture uniquement de projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts et projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts, plus dépendances immédiates strictement nécessaires pour vérifier les quatre invariants ciblés. Pas d'élargissement automatique.",
-    "targets": [
-      "projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts",
-      "projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts"
-    ],
-    "actionCandidate": "INSPECT / VERIFY READ-ONLY F3 RUNTIME BOUNDARIES",
-    "outOfScope": [
-      "modification code",
-      "modification test",
-      "commit",
-      "push",
-      "PR",
-      "merge",
-      "branch deletion",
-      "release",
-      "déploiement",
-      "Notion/CMP",
-      "PostgreSQL mutation",
-      "Neon mutation",
-      "Product persistence selection",
-      "architecture pivot",
-      "correction automatique",
-      "auto-retry",
-      "auto-resume",
-      "fallback REAL→FIXTURE",
-      "second execution attempt automatique",
-      "external write",
-      "secret access inutile",
-      "Gate D consumption by agent",
-      "décision Morris by agent",
-      "SQLite produit write / migration",
-      "env mutation",
-      "package/dependency mutation"
-    ],
-    "activatedBlocks": [
-      "Sécurité/RSSI",
-      "Observabilité/RUN readiness"
-    ],
-    "expectedOutcome": "1) Confirmer que SqliteAuthorityAttemptJournal est wiring dans la composition F3 candidate (service.ts). 2) Confirmer ATTEMPT_CREATED avant tout appel launch (startExecution.ts). 3) Confirmer ATTEMPT_LAUNCHED seulement après acknowledgement de launch. 4) Confirmer qu'un chemin REAL ne bascule jamais silencieusement en FIXTURE. 5) Produire Evidence / ReviewBundle honnête de cette inspection. Si anomalie: rapport + STOP uniquement — aucune correction.",
-    "sources": [
-      "GO FRAME F2 PROPOSAL — FIRST BOUNDED CURSOR REAL READ-ONLY F3 RUNTIME VERIFICATION (Morris intention framing)",
-      "projects/sfia-studio/app/features/project-assistant/f2/types.ts#ProposalDto",
-      "projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts",
-      "projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts",
-      "projects/sfia-studio/app/lib/ops1/cursorExecutionAdapter.ts",
-      "handoff tip 9c7a7cd36fc3873d763454a987e81a2ae8911e45 (Gate D prep BLOCKED — no REAL-eligible F2)",
-      "candidateSha:082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab"
-    ],
-    "risks": [
-      "R1 BLOCKING — target ou scope élargi après approbation",
-      "R2 BLOCKING — faux REAL via fixture / silent REAL→FIXTURE",
-      "R3 BLOCKING — vrai adapter Cursor indisponible (must FAIL CLOSED, never fixture fallback)",
-      "R4 CONTROLLED — processus externe produit un effet non autorisé",
-      "R5 BLOCKING — divergence Candidate SHA entre F2 approval et Gate D",
-      "R6 CONTROLLED — secret affiché dans stdout/stderr",
-      "R7 BLOCKING — technical success présenté comme READY",
-      "R8 BLOCKING — décision F2 non durable / process-local utilisée comme decisionRef REAL",
-      "R9 BLOCKING — mismatch proposal ↔ HumanDecision ↔ ExecutionContract",
-      "R10 BLOCKING — restart entre décision et Gate D rendant l'état process-local invalide"
-    ],
-    "reservations": [
-      "Product persistence remains NOT_SELECTED",
-      "crossStoreDurable=false remains explicit",
-      "productionRollbackProven=false remains explicit",
-      "Project↔Cycle residual remains EXPLICIT",
-      "proposalStore is process-local — chat approval ≠ durable decisionRef",
-      "DecisionServices composition uses createInMemoryDecisionServices / MemoryDecisionStore only",
-      "LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY is NOT REAL-eligible",
-      "F3 vertical-slice composition still wires createF3TestExecutionAdapter (FIXTURE) — REAL adapter is OPS1 cursorExecutionAdapter, env-gated",
-      "contextSnapshot unresolved — proposal cannot be presented as FINAL until live project/LPS/doctrine binding exists without invention",
-      "REAL-ELIGIBLE DURABLE HUMANDECISION MATERIALIZATION REQUIRED BEFORE EXECUTIONCONTRACT",
-      "technical SUCCESS ≠ Morris READY / functional READY"
-    ],
-    "stopConditions": [
-      "Candidate SHA drift from 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab",
-      "branch/HEAD drift from delivery/sfia-studio-f3-real-prerequisites @ 4b1a058050ae81d56cb6d96b88e8a57380799a86",
-      "target hors scope",
-      "besoin de write / correction code / test / env / SQLite produit",
-      "adapter REAL unavailable — FAIL CLOSED (no fixture fallback)",
-      "absence d'autorité Morris valide",
-      "absence de binding exact (contract id/version/fingerprint when applicable)",
-      "absence de durable decisionRef REAL-eligible",
-      "secret requis ou secret leak",
-      "fallback fixture détecté / silent REAL→FIXTURE",
-      "launch effect non read-only",
-      "preuve insuffisante / Evidence incomplete",
-      "ambiguity action/target/scope",
-      "besoin de Git publication (commit/push/PR/merge)",
-      "besoin d'architecture supplémentaire non cadrée",
-      "contextSnapshot incomplete or drifted",
-      "auto-retry / auto-resume requested"
-    ],
-    "morrisGateRequired": true,
-    "nextPossibleStep": "Morris decision on this FRAMING candidate is blocked from FINAL approval until contextSnapshot is resolvable; separately, REAL-eligible durable HumanDecision materialization remains required before any ExecutionContract. No Cursor REAL. No Gate D.",
-    "contextSnapshot": null,
-    "processLocalNotice": "Proposition process-local — non persistée. Un redémarrage efface propositions et décisions. Aucune autorisation durable. ARTIFACT DE CADRAGE UNIQUEMENT — non injecté dans proposalStore — non approved — non HumanDecision — non decisionRef.",
-    "executionForbidden": true,
-    "noExecutingStatus": true,
-    "agentBinding": "NOT_AVAILABLE",
-    "criticalJustification": "Premier pilote Cursor REAL borné; identité exacte action/target/scope doit être figée avant Gate D; vrai adapter Cursor = processus externe; chaîne d'autorité Morris; risque de faux REAL via fixture; preuve Evidence/ReviewBundle obligatoire; technical SUCCESS ≠ READY."
-  },
-  "evidenceRequirementsFuturePilot": [
-    "candidate SHA exact",
-    "branch + HEAD",
-    "executionContractId futur",
-    "version future",
-    "fingerprint futur",
-    "HumanDecision decisionRef futur (durable REAL-eligible)",
-    "authenticated actor",
-    "AuthorityResolver decision",
-    "selectedAgentRef",
-    "mode REAL",
-    "exact adapter (OPS1 Cursor REAL — not F3 TestExecutionAdapter)",
-    "exact command / operation",
-    "files read",
-    "files changed = 0 attendu",
-    "external effects",
-    "launch result",
-    "durable ATTEMPT_CREATED",
-    "durable ATTEMPT_LAUNCHED ou ambiguity evidence",
-    "stdout/stderr redacted",
-    "exit code",
-    "reservations",
-    "ReviewBundle",
-    "recommendation next gate",
-    "FORBIDDEN: technical SUCCESS = Morris READY"
-  ],
-  "durableHumanDecisionDependency": {
-    "chatApprovalEqualsDurableDecisionRef": false,
-    "proposalStore": "process-local (globalThis Map)",
-    "decisionServicesComposition": "createInMemoryDecisionServices → MemoryDecisionStore only",
-    "localProcessMorrisDemoAuthority": "NOT REAL-eligible",
-    "requirement": "REAL-ELIGIBLE HUMANDECISION MATERIALIZATION REQUIRED BEFORE EXECUTIONCONTRACT",
-    "nextTechnicalStepClassification": "C",
-    "classificationRationale": "DecisionRepositoryPort + RecordHumanDecision application primitives exist, but no durable Decision repository implementation exists in candidate (only Memory*). Product persistence remains NOT_SELECTED; choosing SQLite/Postgres/Neon/file/Git for HumanDecision would be a new persistence-surface Architecture decision — not auto-selected in this framing cycle."
-  },
-  "pureStaticValidation": {
-    "saveProposalInvoked": false,
-    "recordF2DecisionInvoked": false,
-    "scopeNonEmpty": true,
-    "outOfScopeExplicit": true,
-    "morrisGateRequired": true,
-    "executionForbidden": true,
-    "noExecutingStatus": true,
-    "agentBinding": "NOT_AVAILABLE",
-    "criticalJustified": true,
-    "stopConditionsNonEmpty": true,
-    "expectedOutcomeVerifiable": true,
-    "processLocalNoticeHonest": true,
-    "statusNotApproved": true,
-    "contextSnapshotPresent": false,
-    "proposalDtoSchemaComplete": false,
-    "blockingValidationFailure": "contextSnapshot required by ProposalDto but unresolved — CONTEXT SNAPSHOT INCOMPLETE"
-  }
-}
-```
-
----
-
-## OUT — f2-proposal-review.md (FULL INLINE)
-
-# F2 Proposal Review — FIRST BOUNDED CURSOR REAL (READ-ONLY)
-
-**Artifact kind:** framing-only candidate
-**proposalId (frozen):** `prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4`
-**status:** `DECISION_REQUIRED` (not APPROVED)
-**framingStatus:** `CONTEXT_SNAPSHOT_INCOMPLETE`
-**canBePresentedAsFinal:** **NO**
-
----
-
-## Intention (Morris-validated for framing)
-
-**FIRST BOUNDED CURSOR REAL — READ-ONLY F3 RUNTIME VERIFICATION**
-
-Action candidate: `INSPECT / VERIFY READ-ONLY F3 RUNTIME BOUNDARIES`
-
-### Targets
-
-1. `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-2. `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-
-### Expected outcomes (only)
-
-1. `SqliteAuthorityAttemptJournal` wiring in F3 composition
-2. `ATTEMPT_CREATED` before launch
-3. `ATTEMPT_LAUNCHED` only after launch acknowledgement
-4. No silent REAL→FIXTURE
-5. Honest Evidence / ReviewBundle
-
-Anomaly ⇒ report + STOP (no auto-fix).
-
----
-
-## Profile / blocks
-
-| Field | Value |
-| --- | --- |
-| cycleTypeId | `cyc:framing` |
-| recommendedProfile | **Critical** |
-| morrisGateRequired | **true** |
-| activatedBlocks | Sécurité/RSSI ; Observabilité/RUN readiness |
-| executionForbidden | **true** |
-| noExecutingStatus | **true** |
-| agentBinding | `NOT_AVAILABLE` |
-
-Critical justification: first REAL; Morris authority chain; real Cursor external process; security/control evidence required.
-
----
-
-## contextSnapshot — STOP
+## Artifact: persistence-map.md
 
 ```
-CONTEXT SNAPSHOT INCOMPLETE —
-F2 PROPOSAL CANNOT BE PRESENTED AS FINAL
+# Persistence Map (observed)
+
+| Aggregate | Interface | Implementation | Backend | Durable | Restart-safe | Multi-instance | Product caller |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Project | ProjectRepositoryPort | MemoryProjectRepository | process memory | NO | NO | NO | vertical-slice-core |
+| LPS | LivingProjectStateRepositoryPort | MemoryLivingProjectStateRepository | process memory | NO | NO | NO | vertical-slice-core |
+| Cycle/Trajectory/Epistemic | Cycle* ports | Memory* | process memory | NO | NO | NO | wireOaStack (server) |
+| HumanDecision/Confirmation | DecisionRepositoryPort | MemoryDecisionRepository | process memory | NO | NO | NO | F2 recordF2Decision |
+| Authority resolver | AuthorityResolverPort | MemoryAuthorityResolver | process memory | NO | NO | NO | F2/F3 |
+| F2 Proposal | (no port) | proposalStore Map globalThis | process memory | NO | NO | NO | F2 orchestrate |
+| ExecutionContract | ExecutionContractRepositoryPort | MemoryExecutionContractStore | process memory | NO | NO | NO | F3 prepare/confirm |
+| ExecutionAttempt | AttemptRepositoryPort | MemoryAttemptStore | process memory | NO | NO | NO | F3 execute |
+| Authority/Attempt journal | AuthorityAttemptJournalPort | SqliteAuthorityAttemptJournal (dirty) / Memory (tests) | SQLite D1 file | YES (pilot-bounded) | YES (process epoch) | NO | wireOaStack Confirm/Start/Ack (candidate) |
+| Evidence/ReviewBundle/Claim/Maturity | Evidence* ports | Memory* | process memory | NO | NO | NO | F3 ingest |
+| Doctrine package | DoctrinePackageRepositoryPort | FilesystemDoctrinePackageRepository | filesystem fixtures | YES (files) | YES | YES (read) | create project |
+| D1 Project | d1 tables | better-sqlite | d1.sqlite | YES | YES | NO | /projects D1 UI (parallel) |
+| OPS1 session/report | ops1 sqlite | SQLite | ops1.sqlite | YES | YES | NO | /ops1 UI |
+| ExecutionRun | RunRepository | MemoryExecutionRunStore | process memory | NO | NO | NO | composeExecutionRun* (not F1–F3) |
+| FinOps ledgers/config/reviews | FinOps ports | createPostgresFinOps* | PostgreSQL | YES | YES | YES (pool) | FinOps compose / T7 shadow — NOT Product persistence |
+
+Product persistence = NOT_SELECTED (explicit). FinOps Postgres ≠ Product persistence. Sqlite journal ≠ platform globale.
 ```
 
-| Field | Resolved? |
-| --- | --- |
-| projectId | **NO** — `d1_projects=0`; MemoryProjectStore only |
-| lpsId | **NO** — no live LPS without createProject |
-| lpsVersion | **NO** |
-| doctrineDigest | **NO** as live binding — file-only fixture digest `sha256:3b450750…` exists but must not be used as final snapshot |
-
-No invention of `prj:campus360-oa` / modeled placeholders.
-
----
-
-## Process-local limitations
-
-- `proposalStore` = process-local Map
-- `DecisionServices` = `createInMemoryDecisionServices` / `MemoryDecisionStore`
-- `LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY` ≠ REAL-eligible
-- Chat F2 approval ≠ durable `decisionRef`
-
-**Requirement (unsolved here):**
-`REAL-ELIGIBLE HUMANDECISION MATERIALIZATION REQUIRED BEFORE EXECUTIONCONTRACT`
-
-### Next technical step classification
-
-**C — nécessite une décision Architecture technique**
-
-Evidence: ports/use-cases exist; durable Decision repository absent; Product persistence `NOT_SELECTED`; no auto-choice of SQLite/Postgres/Neon/file/Git in this cycle.
-
----
-
-## Pure/static validation
-
-| Check | Result |
-| --- | --- |
-| scope non-empty | PASS |
-| outOfScope explicit | PASS |
-| morrisGateRequired=true | PASS |
-| executionForbidden=true | PASS |
-| noExecutingStatus=true | PASS |
-| agentBinding=NOT_AVAILABLE | PASS |
-| Critical justified | PASS |
-| stopConditions non-empty | PASS |
-| expectedOutcome verifiable | PASS |
-| processLocalNotice honest | PASS |
-| status ≠ APPROVED | PASS |
-| contextSnapshot complete | **FAIL — blocking** |
-| saveProposal / recordF2Decision | **NOT INVOKED** |
-
----
-
-## Non-claims
-
-This artifact is **NOT**: F2 APPROVED · HumanDecision · decisionRef · ExecutionContract · Gate D · Cursor REAL · product mutation.
-
----
-
-## OUT — f2-proposal-morris-gate.md (FULL INLINE)
-
-# F2 Proposal — Morris Gate (FRAMING)
+## Artifact: ligaments.md
 
 ```
-F2 PROPOSAL — MORRIS DECISION REQUIRED —
-FIRST BOUNDED CURSOR REAL READ-ONLY F3 RUNTIME VERIFICATION —
-PROPOSAL ID = prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4 —
-PROFILE = CRITICAL —
-TARGETS = projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts + projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts —
-READ-ONLY ONLY —
-NO PRODUCT WRITE —
-NO PROJECT GIT WRITE —
-NO CURSOR REAL YET —
-NO GATE D —
-APPROVAL AUTHORIZES PREPARATION ONLY —
-REAL-ELIGIBLE DURABLE HUMANDECISION STILL REQUIRED BEFORE EXECUTIONCONTRACT
+# Missing / Partial Ligaments
+
+| ID | Ligament | Links | Partial exists? | Build/Reuse/Adapt | Size | Morris gate? |
+| --- | --- | --- | --- | --- | --- | --- |
+| L1 | Durable Project+LPS repository adapter behind existing ports | UI create/get ↔ T-A1 | Ports+Memory yes; durable impl NO | Build adapter; reuse ports | M | YES — Product persistence choice |
+| L2 | Durable HumanDecision+Confirmation repository | F2 decide ↔ T-A3 ↔ T-A4 decisionRefs | Ports+Memory yes; durable NO | Build adapter | M | YES — same persistence decision / Architecture C |
+| L3 | Durable or restart-safe Proposal binding OR proposal→HD materialization | F2 proposal ↔ HD | process-local Map only | Adapt recordF2Decision + durable HD | S–M | YES if durable HD |
+| L4 | Live contextSnapshot binder (projectId/lps/doctrineDigest) | F2 ProposalDto completeness | Needs live project | Reuse getProjectRuntime | S | NO if project durable exists |
+| L5 | CycleInstance binding from F2 qualification | F2 ↔ T-A2 createCycle | cycleServices wired but unused by F2 UI | Wire application service | M | Maybe (cycle lifecycle) |
+| L6 | T-A5 ExecutionAdapter bridge harvesting OPS1 Cursor REAL | T-A5 port ↔ OPS1 spawnRealCursor | OPS1 adapter exists; F3 uses TestExecutionAdapter only | Adapt anti-corruption | M | YES — REAL adapter authorization / Gate D later |
+| L7 | Critical Ack UI + Server Action binding | Nora ↔ acknowledgeCritical + Auth.js | composed on candidate; no UI action | Build UI+action | S–M | YES for Critical REAL |
+| L8 | Exact ExecutionContract builder from approved F2/HD | F2/HD ↔ BuildExecutionContract | F3 fixture builder exists | Adapt prepare path for REAL fields | M | Gate D |
+| L9 | Evidence→LPS / workspace reinjection | T-A6 ↔ LPS/UI durable view | UI DTO reinjection only | Build application write-back | M | Maybe |
+| L10 | Persistence abstraction / composition switch | Memory vs durable backends | factories are Memory-hardcoded in wireOaStack | Adapt composition root | M | YES |
+| L11 | Identity/authority binding Auth.js subject→actor | Auth.js ↔ AuthorityResolver | githubSubjectActorBinding on candidate | Reuse candidate | S | Partially decided (R-T-A3-1 closed) |
+| L12 | Restart reconciliation coordinator | journal + attempts + authority | candidate reconcile* present | Reuse candidate | S–M | Bounded already for journal |
+
+Labels are observations — not deletion/adoption decisions.
 ```
 
-**IMPORTANT — FINAL PRESENTATION BLOCK:**
+## Artifact: architecture-options.md
 
 ```
-CONTEXT SNAPSHOT INCOMPLETE —
-F2 PROPOSAL CANNOT BE PRESENTED AS FINAL
+# Target Architecture Options (CANDIDATE — NOT DECIDED)
+
+## Option 1 — OA Native Backbone + Harvest OPS1 Cursor (RECOMMENDED CANDIDATE)
+
+```mermaid
+flowchart LR
+  UI[Studio UI / Nora] --> VS[vertical-slice-runtime]
+  VS --> TA1[T-A1 Project/LPS durable]
+  VS --> F1[F1 Assistant]
+  F1 --> F2[F2 Qualify/Propose]
+  F2 --> TA3[T-A3 HumanDecision durable]
+  TA3 --> TA4[T-A4 ExecutionContract]
+  TA4 --> ACK[Critical Ack Auth.js]
+  ACK --> TA5[T-A5 Attempt]
+  TA5 --> ADP[ExecutionAdapter port]
+  ADP --> CUR[OPS1 Cursor harvested adapter]
+  TA5 --> TA6[T-A6 Evidence/ReviewBundle]
+  TA6 --> UI
+  FIN[FinOps Postgres] -.->|optional capture| TA5
+  ER[execution-run] -.->|freeze new features| X[quarantine]
+  D1[D1 SQLite UI] -.->|legacy bridge or retire later| Y[disposition later]
 ```
 
-Morris may still decide on intention/scope framing, but a **FINAL F2 approve** against a complete `ProposalDto` (with live `contextSnapshot`) is **not** ready until projectId / lpsId / lpsVersion / doctrineDigest are resolved without invention.
+- Backbone: T-A0→T-A7 + F1/F2/F3 + vertical-slice composition
+- OPS1 role: harvest Cursor REAL/worktree/sandbox into T-A5 adapter; freeze OPS1 product UI growth
+- execution-run: quarantine / no new independent features; optional later absorption of provider ideas
+- FinOps: remain transverse cost subsystem; optional shadow capture; NOT Product persistence
+- Persistence topology candidate: durable Project+Decision(+Contract/Attempt/Evidence as needed) behind existing ports — technology UNDECIDED
+- Pros: shortest path to usable Studio; reuses OA authority chain already UI-wired; fail-closed REAL story
+- Cons: needs persistence Architecture decision; adapter harvest work; dual UI (OPS1/D1) residual until disposition
+- Debt: temporary coexistence of parallel UIs
+- Reversibility: high if ports kept; adapters swappable
+- Calendar: fastest to R5–R6 if persistence decided early
+
+## Option 2 — Dual-Shell Continuity (OA governance + OPS1 execution shell)
+
+```mermaid
+flowchart LR
+  UI[Studio UI] --> F2[F2/OA Decision]
+  F2 --> BRIDGE[Anti-corruption bridge]
+  BRIDGE --> OPS1[OPS1 session/Cursor]
+  OPS1 --> REP[OPS1 report]
+  REP --> BRIDGE
+  BRIDGE --> TA6[Map into T-A6 Evidence]
+  TA6 --> UI
+  OA[T-A4/T-A5] -.->|partial/unused| Z[shadow]
+```
+
+- Backbone: keep OPS1 as execution engine; OA as decision/governance front
+- Pros: Cursor REAL already exists in OPS1; less adapter porting
+- Cons: perpetuates parallel engines; F3-D03 says execution-run/OPS1 not F3 authority chain; higher long-term debt; harder single Evidence model
+- Debt: high coexistence
+- Reversibility: poorer (deepens OPS1 product dependency)
+- Calendar: maybe faster first REAL demo; slower coherent Studio v0.1
+
+## Option 3 — Not proposed as equal peer
+A pure “FinOps Postgres as Product persistence + execution-run as primary engine” option is **rejected as a third peer option** because FinOps is cost-control transverse, Product persistence is NOT_SELECTED, and F3 doctrine targets T-A4→T-A5→T-A6. Studying FinOps Postgres as *capacity* remains allowed without selecting it.
+```
+
+# Y. Handoff evidence
+
+Pending publish in-cycle:
+- branch `sfia/review-handoff`
+- file `sfia-review-handoff/latest-chatgpt-review.md`
+- message `docs(review-handoff): publish sfia studio runtime convergence audit`
 
 ---
 
-## Gate fields
-
-| Field | Value |
-| --- | --- |
-| proposalId | `prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4` |
-| objective | First bounded Cursor REAL — read-only F3 runtime verification |
-| cycle / profile | `cyc:framing` / **Critical** |
-| scope | Read-only inspection of the two targets + immediate deps for four invariants |
-| targets | `service.ts` + `startExecution.ts` |
-| expected outcomes | Sqlite journal wiring; ATTEMPT_CREATED before launch; ATTEMPT_LAUNCHED after ack; no silent REAL→FIXTURE; honest Evidence/ReviewBundle |
-| out of scope | code/test writes; Git publish; PR/merge; release; Notion; PG/Neon; Product persistence; architecture pivot; auto-retry/resume; REAL→FIXTURE; Gate D / Morris by agent |
-| risks | R1–R10 (see candidate JSON) — R1/R2/R3/R5/R7/R8/R9/R10 BLOCKING |
-| stop conditions | SHA/branch drift; write needed; REAL adapter unavailable FAIL CLOSED; no durable decisionRef; fixture fallback; secret; ambiguity; Git publish; incomplete evidence/contextSnapshot |
-| evidence requirements | exact identities + REAL mode + durable ATTEMPT_* + ReviewBundle; SUCCESS≠READY |
-| durable HumanDecision dependency | **YES — still required** (classification **C**) |
-| next step if framing accepted | Resolve live contextSnapshot without invention → then Morris FINAL F2 approve → then architecture/materialization of REAL-eligible durable HumanDecision (separate cycle) → then ExecutionContract prep → Gate D. **No Cursor REAL in this chain until Gate D.** |
-
----
-
-## Options (Cursor consumes NONE)
-
-1. `GO APPROVE F2 PROPOSAL` — **not applicable as FINAL** while contextSnapshot incomplete (may acknowledge intention only if Morris elects)
-2. `GO APPROVE WITH RESERVES`
-3. `AMEND F2 PROPOSAL`
-4. `NO-GO F2 PROPOSAL`
-
-Recommended next Morris GO if intention holds:
+# Z. Verdict
 
 ```
-GO RESOLVE F2 CONTEXT SNAPSHOT —
-BIND LIVE projectId/lpsId/lpsVersion/doctrineDigest WITHOUT INVENTION —
-THEN RETURN FOR FINAL F2 PROPOSAL APPROVAL —
-NO CURSOR REAL —
-NO GATE D —
-NO PROJECT GIT WRITE —
-NO PRODUCT PERSISTENCE SELECTION
-```
-
----
-
-## Counters
-
-| Counter | Value |
-| --- | --- |
-| product mutations | 0 |
-| tracked test mutations | 0 |
-| project Git writes | 0 |
-| staged | EMPTY |
-| HumanDecision created | 0 |
-| ExecutionContract | 0 |
-| ExecutionAttempt | 0 |
-| Critical Ack REAL | 0 |
-| Confirm REAL | 0 |
-| adapter.launch | 0 |
-| Cursor REAL | 0 |
-| Gate D | NOT CONSUMED |
-
----
-
-## Cursor report fields 1–61
-
-| # | Field | Value |
-| ---: | --- | --- |
-| 1 | timestamp CEST / UTC | 2026-08-12 17:14:12 CEST (+0200) / 2026-08-12 15:14:12 UTC |
-| 2 | GO FRAME consommé | YES — framing only |
-| 3 | cycle | 1 — Cadrage |
-| 4 | profil | Critical |
-| 5 | justification Critical | parent décisionnel potentiel du premier ExecutionContract REAL |
-| 6 | branch | delivery/sfia-studio-f3-real-prerequisites |
-| 7 | HEAD | 4b1a058050ae81d56cb6d96b88e8a57380799a86 |
-| 8 | origin/main | 4b1a058050ae81d56cb6d96b88e8a57380799a86 |
-| 9 | status | dirty local F3 candidate (expected) |
-| 10 | staged | EMPTY |
-| 11 | remote delivery | ABSENT |
-| 12 | template/blob | sfia-cycle-execution-template.md / b9ce0a9f… |
-| 13 | routing | Cycle 1 Cadrage |
-| 14 | CKC/blob/status | 01-cadrage.md / 67a692dc… / candidate |
-| 15 | handoff entrant tip/blob | 9c7a7cd… / b6690d3… |
-| 16 | Candidate SHA BEFORE | 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab |
-| 17 | Candidate SHA AFTER | 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab |
-| 18 | F2 schema source | f2/types.ts ProposalDto |
-| 19 | proposalId | prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4 |
-| 20 | proposal status | DECISION_REQUIRED (framing; not APPROVED) |
-| 21 | contextSnapshot | **INCOMPLETE** |
-| 22 | objective | FIRST BOUNDED CURSOR REAL — READ-ONLY F3 RUNTIME VERIFICATION |
-| 23 | cycleTypeId | cyc:framing |
-| 24 | recommendedProfile | Critical |
-| 25 | scope | read-only two targets + immediate deps |
-| 26 | targets | service.ts + startExecution.ts |
-| 27 | outOfScope | explicit list in candidate JSON |
-| 28 | activatedBlocks | Sécurité/RSSI ; Observabilité/RUN readiness |
-| 29 | expectedOutcome | four invariants + Evidence/ReviewBundle |
-| 30 | sources | GO FRAME + F2/F3 paths + handoff + candidate SHA |
-| 31 | risks | R1–R10 classified |
-| 32 | reservations | persistence residuals + process-local + context incomplete |
-| 33 | stopConditions | SHA/branch/write/REAL unavailable/fixture/secret/… |
-| 34 | morrisGateRequired | true |
-| 35 | nextPossibleStep | resolve contextSnapshot then FINAL F2; durable HD before contract |
-| 36 | executionForbidden | true |
-| 37 | noExecutingStatus | true |
-| 38 | agentBinding | NOT_AVAILABLE |
-| 39 | criticalJustification | present |
-| 40 | evidence requirements | listed in candidate |
-| 41 | pure/static validation | FAIL blocking on contextSnapshot; other PASS; no saveProposal |
-| 42 | process-local limitation | YES honest |
-| 43 | durable HumanDecision requirement | YES |
-| 44 | next technical step A/B/C/D | **C** |
-| 45 | supporting repo evidence | MemoryDecisionStore only; Product persistence NOT_SELECTED |
-| 46 | f2-proposal-candidate.json | YES under OUT |
-| 47 | f2-proposal-review.md | YES |
-| 48 | f2-proposal-morris-gate.md | YES |
-| 49 | product mutations | 0 |
-| 50 | project Git writes | 0 |
-| 51 | ExecutionAttempt count | 0 |
-| 52 | Critical Ack REAL count | 0 |
-| 53 | Confirm REAL count | 0 |
-| 54 | adapter.launch count | 0 |
-| 55 | Cursor REAL count | 0 |
-| 56 | Gate D status | NOT CONSUMED |
-| 57 | review pack FULL/NO | FULL / Synthesis-only NO |
-| 58 | handoff final tip | PENDING PUBLISH |
-| 59 | handoff final blob | PENDING PUBLISH |
-| 60 | remote verification | PENDING PUBLISH |
-| 61 | final verdict | CONTEXT SNAPSHOT INCOMPLETE — NOT FINAL |
-
----
-
-## Verdict exact
-
-```
-F2 FIRST REAL PROPOSAL FRAMING INCOMPLETE —
-CONTEXT SNAPSHOT INCOMPLETE —
-F2 PROPOSAL CANNOT BE PRESENTED AS FINAL —
-PROPOSAL ID FROZEN = prop:f2:13cb9f11-31bb-4313-bc6d-d19bd911b9b4 —
-INTENTION / SCOPE / TARGETS / OUTCOMES / STOP CONDITIONS FROZEN —
-CRITICAL PROFILE JUSTIFIED —
-NO PRODUCT MUTATION —
-CANDIDATE BYTE-IDENTICAL —
-NO HUMANDECISION CREATED —
-NO EXECUTIONCONTRACT —
-NO EXECUTIONATTEMPT —
-NO CRITICAL ACK REAL —
-NO CONFIRM REAL —
-NO ADAPTER LAUNCH —
+SFIA STUDIO RUNTIME CONVERGENCE AUDIT COMPLETE —
+CURRENT ARCHITECTURE MAPPED —
+INTEGRATION GAPS IDENTIFIED —
+TARGET ARCHITECTURE OPTIONS READY —
+PRODUCT ROADMAP CANDIDATE READY FOR MORRIS DECISION —
+NO IMPLEMENTATION AUTHORIZED —
 CURSOR REAL 0 —
 GATE D NOT CONSUMED —
-REAL-ELIGIBLE DURABLE HUMANDECISION MATERIALIZATION STILL REQUIRED —
-NEXT TECHNICAL STEP = C ARCHITECTURE —
-F2 FINAL APPROVAL NOT READY —
-MORRIS DECISION REQUIRED ON FRAMING PATH / CONTEXT BINDING —
-HANDOFF UPDATED — REMOTE VERIFIED
+PRODUCT MUTATIONS 0 —
+CANDIDATE BYTE-IDENTICAL —
+READY FOR MORRIS ARCHITECTURE / PRODUCT ROADMAP DECISION
 ```
 
-Instruction ChatGPT: re-read `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` from Git before validation. Cursor-copied report alone is insufficient.
+Instruction ChatGPT: re-read handoff from Git before any architecture/roadmap decision. Cursor-copied report alone is insufficient.
