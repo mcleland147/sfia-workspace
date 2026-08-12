@@ -1,38 +1,38 @@
 # ChatGPT Review Pack — FULL
-## F3 LIVE GitHub OAuth Session Subject Confirmation — Cycle 10 QA Critical — SESSION CONFIRMED
+## F3 PROD IDENTITY ADAPTER WIRED — Cycle 11 Delivery Critical — PRODUCTION COMPOSITION WIRED
 
 | Field | Value |
 | --- | --- |
-| **Role** | F3 LIVE GitHub OAuth session subject confirmation (Morris attestation + adapter live-shape probe) |
+| **Role** | F3 production AcknowledgeCritical adapter wiring (AuthJsGitHubIdentityAdapter) |
 | **Pack level** | FULL |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-12 11:24:22 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-12 09:24:22 UTC |
-| **Timestamp CEST ISO** | `2026-08-12T11:24:22+0200` |
-| **Timestamp UTC ISO** | `2026-08-12T09:24:22Z` |
-| **Cycle** | 10 — QA / validation (CAPA) — SESSION CONFIRMED |
+| **Timestamp CEST** | 2026-08-12 12:19:06 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-12 10:19:06 UTC |
+| **Timestamp CEST ISO** | `2026-08-12T12:19:06+0200` |
+| **Timestamp UTC ISO** | `2026-08-12T10:19:06Z` |
+| **Cycle** | 11 — Delivery / implémentation |
 | **Profil** | Critical |
-| **Typologie** | CAPA / validation |
+| **Typologie** | Delivery / wiring |
 | **Critical** | OUI — EXPLICITE |
 | **Template** | prompts/templates/sfia-cycle-execution-template.md v2.6 |
 | **Template blob** | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| **Source mutation this cycle** | **0** |
-| **Package mutation this cycle** | **0** |
+| **Source mutation this cycle** | YES — production composition + runtime wire + honesty + tests |
+| **Package mutation this cycle** | YES — candidate freeze advanced |
 
 ---
 
-## GO exact (Morris — session confirmation)
+## GO exact (Morris — wire prod adapter)
 
 ```
-GO CONFIRM F3 LIVE SESSION SUBJECT —
-MORRIS CONFIRMED LIVE SESSION (non-secret):
-authProvider=github githubAccountId=295557155 —
-PROVE AuthJsGitHubIdentityAdapter MAPPING FOR LIVE SESSION SHAPE —
-REASSESS R-T-A3-1 HARD ACCEPTANCE CANDIDATE —
-NO CURSOR REAL — NO GATE D — NO PROJECT GIT WRITE
+GO WIRE PROD ADAPTER —
+CREATE createProductionAcknowledgeCritical —
+WIRE into vertical-slice-runtime —
+QA + FREEZE + HANDOFF —
+NO CURSOR REAL — NO GATE D — NO PROJECT GIT WRITE —
+R-T-A3-1 REMAINS HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED
 ```
 
-**Justification Critical :** Morris browser attestation closes live session/subject gap from Cycle 9; adapter mapping must be proven for confirmed session shape; R-T-A3-1 reassessment for HARD acceptance candidate requires Morris decision; Gate D remains not consumed; no source/package mutation.
+**Justification Critical :** Production Critical Ack path must use AuthJsGitHubIdentityAdapter (never Fake); authn/authz separation preserved; fail-closed controls proven; candidate re-frozen; R-T-A3-1 HARD acceptance remains Morris decision; Gate D not consumed; no project git write.
 
 ---
 
@@ -40,12 +40,12 @@ NO CURSOR REAL — NO GATE D — NO PROJECT GIT WRITE
 
 | Field | Value |
 | --- | --- |
-| Tip BEFORE | `1f2adcaeab68d0b1c9c7930c7ce34f16bad718e5` |
-| Blob BEFORE | `8c316f68401a1e16203b88f028e152f1528a65b5` |
-| Role (inbound) | F3 LIVE GitHub OAuth Proof — Cycle 9 QA Critical — PARTIAL PROOF COMPLETE |
+| Tip BEFORE | `ec2e44a5a2a17a2c70f2cbd23324458abe0ff5fc` |
+| Blob BEFORE | `4f10a512e3e2ec7715183a7f5dc9a59ab2c1103f` |
+| Role (inbound) | F3 LIVE GitHub OAuth Session Subject Confirmation — Cycle 10 |
 | Pack (inbound) | FULL |
 | Synthesis-only (inbound) | NO |
-| Remote verify BEFORE | `git ls-remote` tip exact + `git rev-parse origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` blob exact |
+| Remote verify BEFORE | `git ls-remote` tip exact + blob exact for `sfia-review-handoff/latest-chatgpt-review.md` |
 
 **Outbound remote identity:** FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE
 
@@ -59,10 +59,12 @@ NO CURSOR REAL — NO GATE D — NO PROJECT GIT WRITE
 | Branch | `delivery/sfia-studio-f3-real-prerequisites` |
 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
 | origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` (non-divergent) |
-| Remote delivery branch | **ABSENT** (local only; `git ls-remote` empty) |
-| Staged | empty (package remains local uncommitted candidate) |
+| Remote delivery branch | **ABSENT** (local only) |
+| Status initial | dirty local candidate package (prior Auth.js IAM + this wiring) |
+| Staged initial | empty |
+| Untracked initial | critical-ack package, auth.ts, api/auth route, types/auth.d.ts, `.tmp-sfia-review/` |
 | Project commit/push/PR/merge/force | **0 / 0 / 0 / 0 / 0** |
-| Package local | YES — frozen candidate unchanged |
+| Package local | YES — NEW candidate frozen |
 
 ---
 
@@ -77,178 +79,93 @@ NO CURSOR REAL — NO GATE D — NO PROJECT GIT WRITE
 
 ---
 
-## Candidate integrity (this cycle — no freeze change)
+## Candidate integrity
 
 | Field | Value |
 | --- | --- |
 | Candidate SHA BEFORE | `e2c3b9326ec41910f808842f9b545dca126c2016bf6a7eccba4c597a6dd2468e` |
-| Candidate SHA AFTER | `e2c3b9326ec41910f808842f9b545dca126c2016bf6a7eccba4c597a6dd2468e` |
-| Byte-identical | **YES — MATCH — 0 drift** |
-| Source mutation count | **0** |
-| Package mutation count | **0** |
+| Candidate SHA AFTER | `c7a979dbee3cd57b169f742502cbc1a131778bb0e2758622abe972444ba4670a` |
+| Byte-identical to BEFORE | **NO — intentionally advanced** |
+| Manifest path count | **37** |
+| New paths | `createProductionAcknowledgeCritical.ts`, `productionCompositionWiring.test.ts`, `vertical-slice-runtime/service.ts` |
 | Corrective loops this cycle | **0** |
 | next-auth | `5.0.0-beta.32` (unchanged) |
 
-Recompute method: SHA-256 of concatenated `path sha256` lines from frozen candidate manifest (34 paths) — identical to FREEZE_SHA.
+Recompute method: SHA-256 of concatenated `path sha256` lines from candidate manifest (37 paths).
 
 ---
 
-## Baseline IAM (unchanged — read-only confirmation)
+## Implementation summary
 
-- Provider: Auth.js (`next-auth@5.0.0-beta.32`) + GitHub OAuth
-- Session: JWT / **NO DB adapter**
-- Scope: `read:user` only
-- Stable subject: GitHub numeric account id → `github:<id>`
-- Adapter class: `AuthJsGitHubIdentityAdapter` EXISTS (exported from critical-ack main barrel)
-- `AcknowledgeCritical` resolves principal via injected `AuthenticatedIdentityPort`
-- **NO non-test production wiring** of `new AuthJsGitHubIdentityAdapter(...)` constructor (tests + temp probe only)
-- FakeAuthenticatedIdentityAdapter: testing barrel only; Fake fallback count this cycle = **0**
-- AuthorityResolverPort remains sole authz / `canActAsMorris` boundary
+### Created
+- `lib/oa/critical-ack/createProductionAcknowledgeCritical.ts` — production factory binding AuthJsGitHubIdentityAdapter ← Auth.js `auth` (lazy `@/auth` load)
+- `__tests__/oa/critical-ack/productionCompositionWiring.test.ts` — wiring + fail-closed proofs
+
+### Modified
+- `lib/oa/critical-ack/index.ts` — export factory; honesty `PRODUCTION_COMPOSITION_WIRED`
+- `lib/vertical-slice-runtime/service.ts` — wire MemoryAuthorityAttemptJournal + `createProductionAcknowledgeCritical` into `RuntimeOaStack`
+- `lib/platform/t-a7/hardBlockerFoundation.ts` — proofAvailable `production-acknowledge-critical-composition-authjs`; reductionEvidence note; **openHard remains true**
+- `__tests__/oa/critical-ack/importBoundaries.test.ts` — export + no-Fake source asserts
+- `__tests__/oa/critical-ack/acknowledgeCritical.test.ts` — honesty marker expectation
+
+### Architecture preserved
+- AuthenticatedIdentityPort ← AuthJsGitHubIdentityAdapter ← Auth.js
+- AuthorityResolverPort sole authz / Morris gate
+- No Fake on production path
+- Journal required (Memory in runtime composition; no product persistence auto-select)
+- AcknowledgeCritical never starts execution / never Cursor REAL
 
 ---
 
-## Morris live session confirmation (non-secret fields only)
+## Proofs
 
-| Field | Morris-confirmed value |
+| Proof | Result |
 | --- | --- |
-| authProvider | `github` |
-| githubAccountId | `295557155` |
-| Expected GitHub login | `mcleland147` (matches known Morris pilot account) |
-| Expected principal | `github:295557155` |
-| Expected actorId (with binding) | `actor:morris` |
-| Confirmation method | Morris browser attestation — `/api/auth/session` in login browser |
-
-Secret values exposed in pack/logs/chat: **0**
-
----
-
-## Secrets / credential presence (booleans only — NO values)
-
-| Variable class | Ambient / file presence |
-| --- | --- |
-| AUTH_SECRET | **PRESENT** (boolean only) |
-| AUTH_GITHUB_ID | **PRESENT** (boolean only) |
-| AUTH_GITHUB_SECRET | **PRESENT** (boolean only) |
-| AUTH_MORRIS_GITHUB_SUBJECT | **PRESENT** (boolean only — binding class `295557155`) |
-| AUTH_TRUST_HOST | **PRESENT** (boolean only) |
-| AUTH_URL | **PRESENT** (boolean only — class `http://localhost:3020`) |
-| `.env.local` | **ENV_LOCAL_EXISTS=yes** (gitignored; local non-versioned only) |
-| `.env.*` gitignore | YES — ignored by `.gitignore` |
-
-OAuth authorization codes / cookies / JWT raw / GitHub access tokens: **0**
+| Production adapter class | `identityAdapterClassName === "AuthJsGitHubIdentityAdapter"` |
+| Runtime surface | `createRuntimeApplicationService().oa.acknowledgeCritical` defined |
+| Source no Fake (factory + service) | PASS |
+| Null session → IDENTITY_REQUIRED | PASS |
+| Live shape `github:295557155` / AUTH_JS_GITHUB | PASS |
+| Without canActAsMorris → refuse | PASS |
+| Malformed githubAccountId / wrong provider | PASS (null principal) |
+| Authn ≠ authz | PASS |
 
 ---
 
-## Live proof results
+## QA
 
-| Proof item | Result |
+| Gate | Result |
 | --- | --- |
-| OAuth App configured | **YES** (Morris manual — prior cycle) |
-| LIVE_GITHUB_OAUTH_REDIRECT | **PROVEN** (prior cycle) |
-| LIVE_GITHUB_OAUTH_CALLBACK | **ATTESTED** (Morris — prior cycle) |
-| LIVE_AUTHJS_SESSION | **PROVEN** — Morris browser attestation: `authProvider=github`, session established |
-| LIVE_STABLE_SUBJECT | **PROVEN** — Morris-confirmed `githubAccountId=295557155` matches expected `mcleland147` numeric id |
-| LIVE_ADAPTER_SHAPE_PROBE | **PROVEN** — `probe-adapter-live-session.mjs` with injected authFn returning Morris-confirmed session shape → `principalId=github:295557155`, `authnSource=AUTH_JS_GITHUB`, `actorId=actor:morris` |
-| LIVE_ADAPTER_PROD_RUNTIME | **NOT WIRED** — `AuthJsGitHubIdentityAdapter` not instantiated in production route; `AcknowledgeCritical` uses injected port only |
-| LIVE_ACTOR_BINDING | **PROVEN** — binding probe + adapter probe both pass with `295557155` → `actor:morris` |
-| AUTHN_AUTHZ_SEPARATION | architecture preserved; automated QA green |
-| Fake fallback | **0** |
-| External GitHub write effects | **0** |
-| Cursor REAL | **0** |
-| Gate D consumed | **0 / NOT CONSUMED** |
-
-### Honest proof boundary
-
-- **PROVEN:** Morris live session fields (`authProvider=github`, `githubAccountId=295557155`); stable subject matches expected Morris pilot numeric id; `AuthJsGitHubIdentityAdapter.resolvePrincipal()` maps confirmed session shape correctly via injected authFn; actor binding with `AUTH_MORRIS_GITHUB_SUBJECT=295557155`.
-- **NOT PROVEN / NOT WIRED:** Direct production runtime path — `AcknowledgeCritical` HTTP route does not yet construct `AuthJsGitHubIdentityAdapter` with live `auth()`; no end-to-end prod-route adapter invocation.
+| `npm run typecheck` | **PASS** |
+| `npx vitest run __tests__/oa/critical-ack` | **PASS — 8 files / 54 tests** |
+| productionCompositionWiring | **PASS — 8 cases** |
+| `npm run lint` | **PASS** |
+| `npm run build` | **PASS** |
+| Corrective loops | **0** |
 
 ---
 
-## Targeted tests this cycle
+## HARD / Gate honesty
 
-| Suite | Result |
+| Item | Status |
 | --- | --- |
-| typecheck | **PASS** |
-| probe-adapter-live-session | **PASS** — `principalId=github:295557155`, `actorId=actor:morris`, `authnSource=AUTH_JS_GITHUB` |
-| probe-binding (prior) | **PASS** (unchanged) |
-| critical-ack (prior) | **44 PASS** (unchanged on frozen candidate) |
-
-Temp probe location: `.tmp-sfia-review/live-oauth-probe/probe-adapter-live-session.mjs` — review-only, not app source.
-
----
-
-## R-T-A3 / honesty / Gate D
-
-| Item | Assessment |
-| --- | --- |
-| R-T-A3-1 | **HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED (NOT CLOSED)** — GAINED: Morris live session attestation, stable subject `295557155` confirmed, adapter mapping proven for live session shape. REMAINING: Morris explicit GO for HARD closure; direct prod runtime wiring still absent. |
-| R-T-A3-2 | **Unchanged OPEN HARD** — `crossStoreDurable=false`; `productionRollbackProven=false`; persistenceProduct=NOT_SELECTED |
-| IAM honesty | SELECTED Auth.js+GitHub JWT/no-DB; **IMPLEMENTED — LIVE SESSION CONFIRMED — ADAPTER SHAPE MAPPING PROVEN — PROD ROUTE WIRING NOT YET EXPOSED** |
-| openHard | true |
-| deliveryReady | false |
-| Gate D technical prerequisites | **NOT_SATISFIED** (package local, R-T-A3-2 open, no prod adapter wiring) |
+| R-T-A3-1 | **HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED** (never CLOSED) |
+| R-T-A3-2 | **OPEN HARD** (unchanged) |
+| openHard / deliveryReady | `true` / `false` |
+| Product persistence | `NOT_SELECTED` |
+| Gate D technical | **NOT READY / NOT SATISFIED** |
 | Gate D consumed | **NOT CONSUMED** |
 | Cursor REAL | **0** |
-| External REAL effects | **0** |
-| Project git write | **0** |
 
 ---
 
-## Reserves
-
-1. **LIVE_ADAPTER_PROD_RUNTIME** — adapter proven via injected authFn probe; production HTTP route does not yet wire `AuthJsGitHubIdentityAdapter`.
-2. **R-T-A3-1** — HARD acceptance candidate pending Morris explicit decision; not auto-closed.
-3. **R-T-A3-2** — unchanged open hard; persistence NOT_SELECTED.
-4. Gate D NOT READY / NOT CONSUMED.
-5. No Cursor REAL.
-6. Package byte-identical — no drift.
-
----
-
-## Next Morris action (exact)
-
-```
-GO HARD ACCEPT R-T-A3-1 OR GO WIRE PROD ADAPTER —
-DECIDE R-T-A3-1 HARD ACCEPTANCE —
-OPTIONAL: WIRE AuthJsGitHubIdentityAdapter INTO AcknowledgeCritical PRODUCTION ROUTE —
-REASSESS GATE D ONLY AFTER R-T-A3-2 RESOLUTION —
-NO CURSOR REAL — NO GATE D CONSUMPTION — NO PROJECT GIT WRITE
-```
-
-**Not authorized by current GO:** project commit / push / PR / merge / Cursor REAL / Gate D consumption.
-
----
-
-## Verdict (exact §30 — honest)
-
-```
-F3 LIVE GITHUB OAUTH SESSION SUBJECT CONFIRMED —
-GITHUB NUMERIC SUBJECT 295557155 VERIFIED BY MORRIS —
-AUTH.JS LIVE SESSION FIELDS CONFIRMED —
-AUTHJSGITHUBIDENTITYADAPTER MAPPING PROVEN FOR LIVE SESSION SHAPE —
-DIRECT PRODUCTION RUNTIME WIRING NOT YET EXPOSED —
-R-T-A3-1 HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED —
-R-T-A3-2 REMAINS OPEN HARD —
-GATE D NOT READY —
-PACKAGE BYTE-IDENTICAL —
-NO CURSOR REAL —
-NO PROJECT GIT WRITE —
-HANDOFF UPDATED
-```
-
----
-
-## Handoff publication (publish-in-cycle)
+## Review Handoff publish
 
 | Field | Value |
 | --- | --- |
-| Mode | publish-in-cycle |
-| Branch | `sfia/review-handoff` |
-| Canonical file | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Expected commit message | `docs(review-handoff): publish F3 live session subject confirmation` |
-| Fast-forward only | YES |
+| Message | `docs(review-handoff): publish F3 prod adapter wiring delivery` |
 | Force | NO |
-| Inbound tip/blob | `1f2adcae…` / `8c316f68…` |
+| Inbound tip/blob | `ec2e44a5a2a17a2c70f2cbd23324458abe0ff5fc` / `4f10a512e3e2ec7715183a7f5dc9a59ab2c1103f` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` FF only |
 | FINAL tip | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
 | FINAL blob | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
@@ -256,55 +173,76 @@ HANDOFF UPDATED
 
 ---
 
-## Cursor report — 45 fields
+## Cursor report — 46 fields (§22)
 
 | # | Field | Value |
 | ---: | --- | --- |
-| 1 | GO consumed | GO CONFIRM F3 LIVE SESSION SUBJECT (Morris attestation) |
-| 2 | Cycle | 10 — QA / validation (CAPA) |
-| 3 | Profil | Critical |
-| 4 | Typologie | CAPA / validation |
-| 5 | Critical explicit | YES |
-| 6 | Template | v2.6 |
-| 7 | Template blob | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| 8 | Delivery WT | `f3-real-prerequisites-delivery` |
-| 9 | Delivery branch | `delivery/sfia-studio-f3-real-prerequisites` |
-| 10 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| 11 | origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| 12 | Inbound tip BEFORE | `1f2adcaeab68d0b1c9c7930c7ce34f16bad718e5` |
-| 13 | Inbound blob BEFORE | `8c316f68401a1e16203b88f028e152f1528a65b5` |
-| 14 | Candidate SHA BEFORE | `e2c3b9326ec41910f808842f9b545dca126c2016bf6a7eccba4c597a6dd2468e` |
-| 15 | Candidate SHA AFTER | `e2c3b9326ec41910f808842f9b545dca126c2016bf6a7eccba4c597a6dd2468e` |
-| 16 | Candidate byte-identical | YES — MATCH — 0 drift |
-| 17 | Source mutation count | 0 |
-| 18 | Package mutation count | 0 |
-| 19 | README/01/02/03 sha256 unchanged | YES |
-| 20 | OAuth secrets present (all three) | YES (boolean only) |
-| 21 | OAuth App configured | YES (Morris manual) |
-| 22 | Callback URL class | `http://localhost:3020/api/auth/callback/github` |
-| 23 | Login entrypoint class | `http://localhost:3020/api/auth/signin` |
-| 24 | LIVE_GITHUB_OAUTH_REDIRECT | PROVEN (prior cycle) |
-| 25 | LIVE_GITHUB_OAUTH_CALLBACK | ATTESTED (Morris) |
-| 26 | LIVE_AUTHJS_SESSION | **PROVEN** (Morris browser attestation) |
-| 27 | LIVE_STABLE_SUBJECT | **PROVEN** (`295557155`) |
-| 28 | LIVE_ADAPTER_SHAPE_PROBE | **PROVEN** (injected authFn, Morris session shape) |
-| 29 | LIVE_ADAPTER_PROD_RUNTIME | **NOT WIRED** |
-| 30 | LIVE_ACTOR_BINDING | PROVEN (`295557155` → `actor:morris`) |
-| 31 | Tests | typecheck PASS; probe-adapter-live-session PASS |
-| 32 | Fake fallback | 0 |
-| 33 | Secret leakage in report | 0 |
-| 34 | GitHub writes | 0 |
-| 35 | Project git commit/push/PR/merge | 0/0/0/0 |
-| 36 | R-T-A3-1 | HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED |
-| 37 | R-T-A3-2 | unchanged OPEN HARD |
-| 38 | Gate D technical | NOT_SATISFIED |
-| 39 | Gate D consumed | NOT CONSUMED |
-| 40 | Cursor REAL | 0 |
-| 41 | Review pack | FULL |
-| 42 | Handoff publish | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
-| 43 | Morris decision required | YES — R-T-A3-1 HARD acceptance |
-| 44 | Next GO | GO HARD ACCEPT R-T-A3-1 OR GO WIRE PROD ADAPTER |
-| 45 | Verdict §30 | F3 LIVE SESSION SUBJECT CONFIRMED (honest wording) |
+| 1 | GO consommé | GO WIRE PROD ADAPTER |
+| 2 | cycle | 11 — Delivery / implémentation |
+| 3 | profil | Critical |
+| 4 | Critical explicite | YES |
+| 5 | typologie | Delivery / wiring |
+| 6 | blocs | createProductionAcknowledgeCritical + vertical-slice-runtime wire + honesty + tests + freeze + handoff |
+| 7 | branche | `delivery/sfia-studio-f3-real-prerequisites` |
+| 8 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| 9 | origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| 10 | status initial | dirty local candidate (prior IAM + this cycle) |
+| 11 | staged initial | empty |
+| 12 | untracked initial | critical-ack / auth / api/auth / types / `.tmp-sfia-review` |
+| 13 | remote delivery branch | ABSENT |
+| 14 | template path | `prompts/templates/sfia-cycle-execution-template.md` |
+| 15 | template blob | `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
+| 16 | handoff entrant tip/blob | `ec2e44a5a2a17a2c70f2cbd23324458abe0ff5fc` / `4f10a512e3e2ec7715183a7f5dc9a59ab2c1103f` |
+| 17 | Candidate SHA BEFORE | `e2c3b9326ec41910f808842f9b545dca126c2016bf6a7eccba4c597a6dd2468e` |
+| 18 | fichiers lus | critical-ack barrel/adapter/ack, vertical-slice-runtime/service, helpers, hardBlocker, prior manifests/GO §22 |
+| 19 | composition prod identifiée | none prior — created `createProductionAcknowledgeCritical` |
+| 20 | fichiers prévus avant modification | factory + index + service + productionCompositionWiring.test + importBoundaries + acknowledgeCritical.test + hardBlocker |
+| 21 | fichiers effectivement modifiés/créés | as planned (+ service.ts added to freeze manifest) |
+| 22 | résumé technique du wiring | MemoryAuthorityAttemptJournal shared; factory → RuntimeOaStack.acknowledgeCritical + AuthJs class name |
+| 23 | preuve AuthJsGitHubIdentityAdapter production | identityAdapterClassName + runtime assert + source |
+| 24 | preuve authn/authz séparation | principal without canActAsMorris; refuse without Morris evidence |
+| 25 | preuve AuthorityResolverPort | sole authz boundary retained / required |
+| 26 | preuve no Fake | factory+service source + importBoundaries |
+| 27 | preuves fail-closed | null session / malformed id / wrong provider / Morris gate |
+| 28 | tests ajoutés/modifiés | productionCompositionWiring (+ importBoundaries, acknowledgeCritical honesty) |
+| 29 | typecheck résultat | PASS |
+| 30 | Critical Ack tests résultat + count | PASS — 54 tests / 8 files |
+| 31 | targeted composition tests résultat + count | PASS — 8 cases |
+| 32 | lint | PASS |
+| 33 | build | PASS |
+| 34 | corrective loops | 0 |
+| 35 | Candidate SHA AFTER | `c7a979dbee3cd57b169f742502cbc1a131778bb0e2758622abe972444ba4670a` |
+| 36 | byte-freeze après QA | YES — NEW freeze written after QA PASS |
+| 37 | R-T-A3-1 | HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED |
+| 38 | R-T-A3-2 | OPEN HARD |
+| 39 | Product persistence | NOT_SELECTED |
+| 40 | Gate D | NOT READY / NOT CONSUMED |
+| 41 | Cursor REAL | 0 |
+| 42 | project Git write count | 0 |
+| 43 | review pack FULL/synthesis-only | FULL |
+| 44 | handoff final tip/blob | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
+| 45 | réserves | R-T-A3-1 Morris HARD acceptance; R-T-A3-2 OPEN HARD; live OAuth/product persistence residual; Gate D |
+| 46 | verdict final | see exact verdict block |
+
+---
+
+## Verdict exact
+
+```
+F3 PROD IDENTITY ADAPTER WIRED —
+PRODUCTION CRITICAL ACK PATH USES AUTHJSGITHUBIDENTITYADAPTER —
+AUTHN/AUTHZ SEPARATION PRESERVED —
+FAIL-CLOSED CONTROLS GREEN —
+NO FAKE PRODUCTION FALLBACK —
+TARGETED QA PASS —
+NEW CANDIDATE FROZEN —
+R-T-A3-1 HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED —
+R-T-A3-2 REMAINS OPEN HARD —
+GATE D NOT READY / NOT CONSUMED —
+NO CURSOR REAL —
+NO PROJECT GIT WRITE —
+HANDOFF UPDATED
+```
 
 ---
 
