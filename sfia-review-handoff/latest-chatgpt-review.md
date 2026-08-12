@@ -1,22 +1,23 @@
 # ChatGPT Review Pack — FULL
-## Cycle 9 QA Critical — FINAL HARD READINESS
+## Cycle 1 Cadrage Critical — Gate D exact ExecutionContract preparation (BLOCKED)
 
 | Field | Value |
 | --- | --- |
-| **Role** | QA / governance — FINAL HARD READINESS CHECK before Gate D decision |
+| **Role** | Cadrage / ExecutionContract preparation — Gate D exact candidate (NO execution) |
 | **Pack level** | FULL |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-12 16:37:21 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-12 14:37:21 UTC |
-| **Timestamp CEST ISO** | `2026-08-12T16:37:21+0200` |
-| **Timestamp UTC ISO** | `2026-08-12T14:37:21Z` |
-| **GO / context** | **GO ACCEPT R-T-A3-2 HARD** (Morris consumed) — this cycle is **FINAL HARD READINESS CHECK** |
+| **Timestamp CEST** | 2026-08-12 16:56:08 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-12 14:56:08 UTC |
+| **Timestamp CEST ISO** | `2026-08-12T16:56:08+0200` |
+| **Timestamp UTC ISO** | `2026-08-12T14:56:08Z` |
+| **GO / context** | **GO: prepare exact ExecutionContract for Gate D** (Morris consumed — preparation only) |
 | **R-T-A3-1** | **ACCEPTED / CLOSED BY MORRIS — NO REGRESSION** |
-| **R-T-A3-2** | **ACCEPTED / CLOSED BY MORRIS — BOUNDED** — QA evidence still applicable (handoff tip may still say CANDIDATE = sync debt) |
-| **Cycle** | **9 — QA Critical — FINAL HARD READINESS** |
+| **R-T-A3-2** | **ACCEPTED / CLOSED BY MORRIS — BOUNDED SQLITE HARD CLOSURE** |
+| **FINAL HARD READINESS** | **COMPLETE** (prior cycle) — does **not** invent F2 approval |
+| **Cycle** | **1 — Cadrage** |
 | **Profil** | Critical |
-| **Critical** | OUI — EXPLICITE |
-| **Blocs** | CKC; template; candidate freeze; exhaustive HARD inventory; authority chain; REAL/FIXTURE; evidence honesty; Gate D prerequisites matrix; OUT artifacts FULL inline; L3 handoff |
+| **Critical** | OUI — EXPLICITE (exact identity of potential first Cursor REAL action) |
+| **Blocs** | CKC 01-cadrage; template; candidate freeze; F2 eligibility; recommended next F2; Gate D status; OUT FULL inline; L3 handoff |
 | **Review Pack** | FULL |
 | **Outbound remote identity** | Placeholder — FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
 
@@ -25,25 +26,24 @@
 ## GO Morris consumed (exact)
 
 ```
-GO ACCEPT R-T-A3-2 HARD —
-SQLITE AUTHORITY/ATTEMPT DURABILITY VALIDATED —
-CRASH/RESTART FAIL-CLOSED VALIDATED —
-NO AUTO-RESUME / NO AUTO-RETRY / NO DOUBLE-LAUNCH VALIDATED —
-CANDIDATE 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab ACCEPTED FOR R-T-A3-2 BOUNDED HARD CLOSURE —
-PROJECT↔CYCLE RESIDUAL REMAINS EXPLICIT —
-crossStoreDurable=false —
-productionRollbackProven=false —
-PRODUCT PERSISTENCE REMAINS NOT_SELECTED —
-NO CURSOR REAL —
-NO GATE D CONSUMPTION
+GO: prepare exact ExecutionContract for Gate D
 
-Statut :
-R-T-A3-2 = ACCEPTED / CLOSED BY MORRIS — BOUNDED HARD CLOSURE
+Authorizes:
+- repo analysis / F2 eligibility discovery
+- candidate contract preparation IF REAL-eligible F2 exists
+- fingerprint / exact Gate D wording prep
+- temporary review artifacts
+- review handoff L3 borné
 
-Handoff tip may still say HARD ACCEPTANCE CANDIDATE — MORRIS DECISION REQUIRED
-(expected sync debt; Morris decision wins).
-
-This cycle = FINAL HARD READINESS CHECK
+Does NOT authorize:
+- Gate D consumption
+- Critical Ack REAL
+- Confirm REAL
+- ExecutionAttempt
+- Cursor REAL
+- adapter.launch
+- product mutation
+- project Git write
 ```
 
 ---
@@ -62,30 +62,8 @@ This cycle = FINAL HARD READINESS CHECK
 | Project commit/push/PR/merge/force | **0 / 0 / 0 / 0 / 0** |
 | Product mutations this cycle | **0** |
 | Project Git writes this cycle | **0** |
-
-### git status --short (snapshot)
-
-```
- M projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
- M projects/sfia-studio/app/__tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts
- M projects/sfia-studio/app/lib/d1/db.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
- M projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts
- M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
- M projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
- M projects/sfia-studio/app/package-lock.json
- M projects/sfia-studio/app/package.json
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/oa/critical-ack/
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/durableLaunchMarkers.test.ts
-?? projects/sfia-studio/app/app/api/
-?? projects/sfia-studio/app/auth.ts
-?? projects/sfia-studio/app/lib/oa/critical-ack/
-?? projects/sfia-studio/app/types/
-```
+| BuildExecutionContract product invocation | **0** |
+| ExecutionAttempt / Critical Ack REAL / Confirm / launch / Cursor REAL | **0 / 0 / 0 / 0 / 0** |
 
 ---
 
@@ -94,12 +72,12 @@ This cycle = FINAL HARD READINESS CHECK
 | Field | Value |
 | --- | --- |
 | Template | `prompts/templates/sfia-cycle-execution-template.md` blob `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| CKC path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` |
-| CKC blob | `9d9970d611dbb6e52297ac215604d3a08e87e738` (verified `git rev-parse HEAD:…/04-qa-validation.md`) |
-| Inbound handoff tip | `8915a2b3ad3fd3fa9164412ef56d0a81e65af430` |
-| Inbound handoff blob | `a5ed7b45210efd1d898e83732ed32ee4fc40dfa4` |
-| Inbound message | `docs(review-handoff): publish F3 R-T-A3-2 SQLite crash-restart QA` |
-| Inbound R-T-A3-2 wording | HARD ACCEPTANCE CANDIDATE — **sync debt**; Morris GO newer = CLOSED BOUNDED |
+| CKC path | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` |
+| CKC blob | `67a692dcac9187b981d6047fbe19fb92bf078459` (verified `git rev-parse HEAD:…/01-cadrage.md`) |
+| CKC status | candidate — experimental cognitive guidance — **aucune autorité d'exécution** |
+| Inbound handoff tip | `9c3bb6854726300c88be5233425e22eb4beab09a` |
+| Inbound handoff blob | `0a76efef1c04714be0955f0b028ba083e2ad173e` |
+| Inbound message | `docs(review-handoff): publish F3 final HARD readiness check` |
 
 ---
 
@@ -110,409 +88,301 @@ This cycle = FINAL HARD READINESS CHECK
 | Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
 | Candidate SHA AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
 | MATCH BEFORE=AFTER | **yes** (byte-identical; no product mutation) |
-| Method | SHA-256 of newline-joined `path sha256` body lines from `.tmp-sfia-review/r-t-a3-2-option-a-delivery/candidate-manifest.txt` (comments excluded); live recompute this cycle |
+| Method | SHA-256 of newline-joined `path sha256` body lines from `.tmp-sfia-review/r-t-a3-2-option-a-delivery/candidate-manifest.txt` (comments excluded; trailing newline) |
 | File count / drift | **40 / 0** |
+| Live digests | **ok=40 mismatch=0 missing=0** |
 | Project Git write count | **0** |
 | Product persistence | **NOT_SELECTED** (unchanged) |
 
 ---
 
-## Gate / readiness honesty
+## Mission 1 result — F2 → T-A4 chain
+
+| Check | Result |
+| --- | --- |
+| F2 approved proposal found | **NO** (REAL-eligible) |
+| F2 REAL eligibility | **F2_ELIGIBLE=NO** |
+| F2 sources observed | fixture / in-memory / test seed only (`proposalStore` Map, `seedApprovedGo`, `MemoryDecisionStore`, `F3_MODE=FIXTURE`) |
+| Durable REAL decisionRefs | **ABSENT** |
+| `execution-contract-candidate.json` | **NOT WRITTEN** (must not invent) |
+| Exact identity / fingerprint | **NOT PREPARED** — blocked upstream |
+| Gate D exact confirmation | **NOT READY** |
+
+---
+
+## Gate / honesty
 
 | Field | Value |
 | --- | --- |
-| R-T-A3-1 | **ACCEPTED / CLOSED BY MORRIS — NO REGRESSION FOUND** |
-| R-T-A3-2 | **ACCEPTED / CLOSED BY MORRIS — BOUNDED SQLITE HARD CLOSURE** (QA evidence still applicable) |
+| R-T-A3-1 | **ACCEPTED / CLOSED BY MORRIS** |
+| R-T-A3-2 | **ACCEPTED / CLOSED BY MORRIS — BOUNDED** |
 | Persistence frontier | **KEEP SQLITE BY MORRIS** |
 | crossStoreDurable | **false** |
 | productionRollbackProven | **false** |
 | Product persistence | **NOT_SELECTED** |
 | Project↔Cycle residual | **REMAINS EXPLICIT** |
-| Blocking HARD count (pilot first REAL) | **0** |
-| Residual accepted | **explicit** (R-T-A3-3/4, B5, R1, R-M01, Project↔Cycle, crossStoreDurable=false, productionRollbackProven=false, persistence NOT_SELECTED, openHard/deliveryReady sync debt, …) |
-| Gate D | **NOT CONSUMED** — readiness only; Morris decision required next |
+| FINAL HARD READINESS | COMPLETE (prior) — readiness ≠ F2 approval |
+| Gate D | **NOT CONSUMED** — **NOT READY FOR EXACT CONFIRMATION** |
 | Cursor REAL | **0** |
 | Review Pack FULL / Synthesis-only | **FULL / NO** |
 
 ---
 
-## Exhaustive HARD inventory + OUT artifacts (FULL INLINE)
+## OUT artifacts (FULL INLINE)
 
-Artifacts directory: `$OUT` = `.tmp-sfia-review/f3-final-hard-readiness/`
+Artifacts directory: `$OUT` = `.tmp-sfia-review/f3-gate-d-contract-prep/`
 
-### INLINE COMPLETE — `$OUT/PRECHECK.md`
+**Explicit absence:** `execution-contract-candidate.json` — **NOT PRESENT** (correct under BLOCKED).
 
-# PRECHECK — F3 final HARD readiness (read-only)
-
-**Timestamp:** 2026-08-12 ~16:28–16:35 CEST
-**OUT:** `.tmp-sfia-review/f3-final-hard-readiness/`
-**Product writes:** **0**
-
-## A) Git Truth
-
-| Check | Expected | Observed | OK? |
-|---|---|---|---|
-| BRANCH | `delivery/sfia-studio-f3-real-prerequisites` | same | YES |
-| HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` | same | YES |
-| origin/main | same SHA | same | YES |
-| REMOTE_DELIVERY | ABSENT | empty ls-remote | YES |
-| STAGED | EMPTY | empty | YES |
-| HANDOFF tip | `8915a2b3ad3fd3fa9164412ef56d0a81e65af430` | same | YES |
-| Candidate SHA | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` | live recompute MATCH (40 files, 0 drift) | YES |
-| Dirty worktree | expected local candidate | M + ?? under `app/` + `.tmp-sfia-review/` | YES (expected) |
-
-## G) Light regression
-
-- Candidate SHA recompute: **MATCH**
-- `SqliteAuthorityAttemptJournal` in `service.ts`: **present**
-- `ATTEMPT_CREATED` / `ATTEMPT_LAUNCHED` in `startExecution.ts`: **present**
-- Full 150 tests: **not run** (not required; byte-identical)
-
-## Artifacts
-
-- `hard-inventory.md`
-- `authority-chain.md`
-- `real-fixture.md`
-- `evidence-honesty.md`
-- `contract-attempt-readiness.md`
-- `gate-d-prerequisites.md`
-
-## Blocker counts (pilot-bounded first REAL)
-
-| Class | Count |
-|---|---|
-| CLOSED (Morris) | 2 (R-T-A3-1, R-T-A3-2 BOUNDED) |
-| RESIDUAL ACCEPTED | ≥10 (Project↔Cycle, crossStoreDurable=false, productionRollbackProven=false, persistence NOT_SELECTED, R-T-A3-3/4, B5, R1, R-M01, openHard sync debt, …) |
-| BLOCKING HARD | **0** |
-| Expected pre-gate block | Cursor REAL until Gate D |
-
-## Preliminary READY FOR GATE D?
-
-**YES** — present for Morris decision; **NOT CONSUMED**.
-
-Reasons: Morris closed A3-1 and bounded-closed A3-2; candidate identical; authority chain fail-closed complete; no silent REAL→FIXTURE; exact contract bind mechanism available; residuals explicit; no pilot-blocking HARD found.
-
-Handoff tip may still say R-T-A3-2 CANDIDATE — **sync debt**; Morris GO wins.
-
----
-
-### INLINE COMPLETE — `$OUT/hard-inventory.md`
-
-# HARD inventory — F3 final hard readiness (read-only)
-
-**When:** 2026-08-12 16:28 CEST
-**Candidate:** `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` (MATCH live)
-**HEAD:** `4b1a058050ae81d56cb6d96b88e8a57380799a86`
-**Morris GO (newer than handoff tip):** `GO ACCEPT R-T-A3-2 HARD … ACCEPTED FOR R-T-A3-2 BOUNDED HARD CLOSURE`
-**Handoff tip `8915a2b3…`:** still says R-T-A3-2 = HARD ACCEPTANCE CANDIDATE — **sync debt expected; Morris decision wins**.
-
-Search (APP):
-`rg -n "OPEN HARD|HARD ACCEPTANCE|BLOCKED|NOT READY|R-T-A3|B5|Gate D|GATE D|CURSOR REAL|crossStoreDurable|productionRollbackProven|REAL|FIXTURE|RESERVE|residual|TODO.*HARD|deliveryReady" …`
-
-| ID | source | repo status | Morris status if newer | scope | blocks Gate D? | blocks first REAL? | residual accepted? | evidence | verdict |
-|---|---|---|---|---|---|---|---|---|---|
-| R-T-A3-1 | `hardBlockerFoundation.ts` reserves + F3 labels `HARD R-T-A3-1 / R-T-A3-2 OPEN`; confirm fail-closed | Repo markers: remainsOpen / OPEN HARD language; Auth.js+Ack wired | **ACCEPTED / CLOSED BY MORRIS** | Critical ack / authenticated authority | No (closed) | No (closed) | N/A — closed | `createProductionAcknowledgeCritical`, `AuthJsGitHubIdentityAdapter`, `AcknowledgeCritical`, confirm journal gate | **CLOSED** — no regression found in wiring; UI/foundation text = sync debt |
-| R-T-A3-2 | same + Sqlite journal + launch markers | Repo: OPEN HARD residual Project↔Cycle; QA candidate frozen | **ACCEPTED / CLOSED BY MORRIS — BOUNDED** (handoff may still say CANDIDATE) | Pilot-bounded SQLite authority/attempt durability | No for bounded pilot | No for bounded pilot | Yes — Project↔Cycle / cross-store remain | Candidate SHA MATCH; `SqliteAuthorityAttemptJournal` in `service.ts`; `ATTEMPT_CREATED`/`LAUNCHED` in `startExecution.ts` | **CLOSED BOUNDED** — QA evidence still applicable; handoff sync debt |
-| R-T-A3-3 | `hardBlockerFoundation.ts` | OPEN (severity OPEN) — memory authority registry | No Morris close | Durable AuthorityResolver registry | No for bounded pilot (Memory OK for pilot session) | No if Memory resolver injected | **Yes** | `MemoryAuthorityResolver` in `service.ts` | **RESIDUAL ACCEPTED** for first REAL pilot; blocks global/product claim |
-| R-T-A3-4 | `hardBlockerFoundation.ts` | OPEN — enum hygiene | No Morris close | Enum mapping hygiene | No | No | **Yes** | proofMissing: full enum hygiene audit | **RESIDUAL ACCEPTED** |
-| B5 | `blockerControlPlane.ts`, tests | OPEN/REDUCED; `deliveryReady=false`; STOP_BEFORE_DELIVERY | BOUNDED ACCEPTANCE FOR F3 REAL-prerequisites delivery+QA (framing docs) | Pre-delivery control plane | No for Gate D *decision* on bounded pilot | No if Gate D scopes pilot only | **Yes** (bounded ≠ global closed) | B5 remains open by contract; `deliveryReady` always false | **RESIDUAL ACCEPTED** for pilot Gate D; still blocks global delivery claim |
-| R1 | `blockerControlPlane.ts` | OPEN atomicity reserve | — | Atomicity/rollback | No for bounded SQLite pilot | No | **Yes** | ties to HARD/Project↔Cycle | **RESIDUAL ACCEPTED** |
-| R-M01 | `blockerControlPlane.ts` | OPEN claim-eval | — | ClaimEvaluator / T-A6 | No | No (evidence honesty preserves open HARD refs) | **Yes** | F3 reinjection keeps openHard refs | **RESIDUAL ACCEPTED** |
-| Project↔Cycle residual | `projectCycleAtomicCoordinator.ts`, foundation proofMissing | Explicit residual; sim only | Morris GO: residual remains explicit | Cross-aggregate durable txn | No | No | **Yes** | `crossStoreDurable: false` typed | **RESIDUAL ACCEPTED** |
-| crossStoreDurable=false | coordinator + foundation | Honest false | Morris: remains false | Cross-store durability claim | No | No | **Yes** | typed `false` in result | **RESIDUAL ACCEPTED** |
-| productionRollbackProven=false | same | Honest false | Morris: remains false | Prod rollback drill | No | No | **Yes** | typed `false` | **RESIDUAL ACCEPTED** |
-| Product persistence NOT_SELECTED | `hardBlockerFoundation.ts` `persistenceProduct` | NOT_SELECTED | Morris: remains NOT_SELECTED | Product DB selection | No | No | **Yes** | SQLite journal ≠ product persistence | **RESIDUAL ACCEPTED** |
-| openHard / deliveryReady | `evaluateHardFoundation` | `openHard: true`, `deliveryReady: false` always | Morris closed A3-1/A3-2 bounded; code flags not synced | Control honesty / anti-claim | No (honesty) | No | **Yes** — markers must stay honest until dedicated sync | foundation freezeDeep | **RESIDUAL / SYNC DEBT** — do not treat as reopening CLOSED HARD |
-| CURSOR REAL blocked | F3 UI/constants; OPS1 adapter | Explicit BLOQUÉ; `OPS1_CURSOR_REAL≠1` fail-closed | Until Gate D | First REAL execution | Gate D is the human gate | **Yes until Gate D consumes** | N/A — expected pre-gate | `runCursorAdapter` no silent fallback; F3 `F3_MODE=FIXTURE` | **EXPECTED BLOCK** until Gate D — not a failed prerequisite |
-| Gate D | governance | NOT READY / NOT CONSUMED | This cycle re-evaluates readiness only | Human gate for first REAL | Self | Self | — | No consumption this cycle | **NOT CONSUMED** |
-| Live OAuth proof | foundation proofMissing R-T-A3-1 | Still listed missing in code | Covered by Morris CLOSED R-T-A3-1 | Live GitHub session proof | No (Morris closed) | No (Morris closed) | Operational residual for ops | proofMissing list | **CLOSED via Morris**; live proof still ops residual |
-| IAM | foundation `iam: SELECTED Auth.js…`; control plane still `NOT_SELECTED` | Dual text (foundation newer) | IAM selected Auth.js+GitHub JWT/no-DB | Identity provider | No | No | Sync between control planes | `auth.ts`, adapter | **SELECTED (foundation)**; control-plane string sync debt |
-
-## Counts (pilot-bounded first REAL lens)
-
-| Class | Count | IDs |
-|---|---|---|
-| **CLOSED** (Morris) | 2 | R-T-A3-1, R-T-A3-2 BOUNDED |
-| **RESIDUAL ACCEPTED** | 10+ | R-T-A3-3, R-T-A3-4, B5, R1, R-M01, Project↔Cycle, crossStoreDurable=false, productionRollbackProven=false, persistence NOT_SELECTED, openHard/deliveryReady sync debt |
-| **BLOCKING HARD** (Gate D / first REAL pilot) | **0** identified | — |
-| **EXPECTED PRE-GATE BLOCK** | 1 | Cursor REAL until Gate D |
-
-## Notes
-
-- Repo `openHard=true` / F3 `HARD R-T-A3-1 / R-T-A3-2 OPEN` labels **do not reopen** Morris CLOSED — sync debt only.
-- Handoff tip still CANDIDATE for R-T-A3-2 — **expected**; Morris GO is newer.
-
----
-
-### INLINE COMPLETE — `$OUT/authority-chain.md`
-
-# Authority chain map (code-traced)
-
-Read-only trace of the F3 / AS-1 production composition on candidate worktree.
+### INLINE COMPLETE — `$OUT/PRECHECK.txt`
 
 ```
-Auth.js session (auth.ts)
-  → AuthJsGitHubIdentityAdapter.resolvePrincipal()
-  → AcknowledgeCritical (identity + AuthorityResolverPort)
-  → journal CRITICAL_ACK_GRANTED / CONFIRMATION_BOUND
-  → ConfirmExecutionContract (criticalAckJournal.hasCriticalAckGranted)
-  → StartExecution (ATTEMPT_CREATED → adapter.launch → ATTEMPT_LAUNCHED)
-  → Evidence / ReviewBundle / RecommendNextGate (read-only reinjection)
+PRECHECK=OK
+BRANCH=delivery/sfia-studio-f3-real-prerequisites
+HEAD=4b1a058050ae81d56cb6d96b88e8a57380799a86
+ORIGIN_MAIN=4b1a058050ae81d56cb6d96b88e8a57380799a86
+REMOTE_DELIVERY_HEAD=(none on origin)
+HANDOFF=9c3bb6854726300c88be5233425e22eb4beab09a
+HANDOFF_BLOB=0a76efef1c04714be0955f0b028ba083e2ad173e
+CANDIDATE_SHA=082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab
+CANDIDATE_SHA_MATCH=YES
+LIVE_DIGESTS=ok=40 mismatch=0 missing=0
+F2_ELIGIBLE=NO
+EXECUTION_CONTRACT_CANDIDATE_JSON=NOT_WRITTEN
+EXECUTION_ATTEMPT=0
+CRITICAL_ACK_REAL=0
+CONFIRM_REAL=0
+ADAPTER_LAUNCH=0
+CURSOR_REAL=0
+GATE_D=NOT_CONSUMED
+PRODUCT_MUTATIONS=0
+PROJECT_GIT_WRITES=0
+VERDICT_PATH=BLOCKED
+TIMESTAMP_CEST=2026-08-12 16:56:08 CEST (+0200)
 ```
 
-## Hop table
+### INLINE COMPLETE — `$OUT/f2-eligibility.md`
 
-| # | Hop | File(s) | Behavior | Fail-closed |
-|---|---|---|---|---|
-| 1 | Production composition | `lib/oa/critical-ack/createProductionAcknowledgeCritical.ts` | Builds `AcknowledgeCritical` with `AuthJsGitHubIdentityAdapter` (lazy `@/auth`); **never** test Fake by default | Throws if production identity is not AuthJs adapter |
-| 2 | Authn adapter | `lib/oa/critical-ack/infrastructure/authJsGitHubIdentityAdapter.ts`, `auth.ts`, `app/api/auth/[...nextauth]/route.ts` | Authn only; null/invalid session → `null` principal; **no** `canActAsMorris` | Null principal → ack fails IDENTITY |
-| 3 | AcknowledgeCritical | `lib/oa/critical-ack/application/acknowledgeCritical.ts` | Ignores hostile client actor fields; binds exact contract fingerprint via `assertExactContractBinding`; journals ack | Fingerprint/version mismatch, missing identity, authz deny, anti-replay |
-| 4 | AuthorityResolverPort | Injected `MemoryAuthorityResolver` via `lib/vertical-slice-runtime/service.ts` | **Sole authz** boundary for Morris gate | Deny → no ack grant |
-| 5 | Shared journal | `lib/oa/critical-ack/infrastructure/sqliteAuthorityAttemptJournal.ts` wired in `service.ts` | Same instance for Confirm / Start / Ack; pilot-bounded SQLite ≠ product persistence | Append/query failures surface; no silent skip of required markers |
-| 6 | ConfirmExecutionContract | `lib/oa/execution-contract/application/confirmExecutionContract.ts` | Critical cycles require `criticalAckJournal.hasCriticalAckGranted(fp)` when journal present | Unacked Critical → fail-closed (R-T-A3-1); Option B residual if consume+compensate both fail |
-| 7 | StartExecution | `lib/oa/execution-attempt/application/startExecution.ts` | Append **ATTEMPT_CREATED** before `adapter.launch`; **ATTEMPT_LAUNCHED** after validated ack; no auto-resume created-without-launched; no second launch if LAUNCHED present | Created-without-launched → fail-closed; LAUNCHED append fail after launch → fail-closed; policy `defaultMaxRetriesBudget: 0` in runtime |
-| 8 | Adapter | Runtime: `createF3TestExecutionAdapter()` / `TestExecutionAdapter` (`execution-attempt/infrastructure/testExecutionAdapter.ts`); OPS1 REAL: `lib/ops1/cursorExecutionAdapter.ts` | Fixture adapter `externalEffects=false`; REAL mode explicit + env-gated | REAL without `OPS1_CURSOR_REAL=1` or bin → error, **no fixture fallback** |
-| 9 | Restart invalidation | `lib/oa/critical-ack/application/invalidateActiveAuthorityOnRestart.ts`, `reconcileLaunchedAttemptOnRestart.ts` | DUR-4: invalidate active authority on new process epoch; launched crash → UNKNOWN/REVIEW_REQUIRED | No auto-resume |
-| 10 | Evidence / ReviewBundle | `lib/oa/evidence-review/**`; F3 `features/project-assistant/f3/ingestEvidenceAndRecommend.ts` | CreateReviewBundle + RecommendNextGate; reservations keep HARD open / NO READY | Recommend ≠ consume gate ≠ Morris decision |
+# Gate D Mission 1 — F2 eligibility (READ-ONLY prep)
 
-## Runtime wiring proof
+**Verdict: F2_ELIGIBLE=NO**
 
-`lib/vertical-slice-runtime/service.ts` `wireOaStack`:
+There is **no REAL-eligible F2 approved proposal** in the frozen candidate that can authorize a product `BuildExecutionContract` / Gate D execution-contract candidate.
 
-- `SqliteAuthorityAttemptJournal` shared
-- `criticalAckJournal` passed into execution-contract services
-- `authorityAttemptJournal` passed into execution-attempt services
-- `createProductionAcknowledgeCritical({… journal, authority: MemoryAuthorityResolver …})`
-- Explicit F3 TestExecutionAdapter (never omit / NoOp default)
-
-## Fail-closed summary
-
-- Authn ≠ authz (identity never grants Morris)
-- Critical confirm blocked without journal ack for fingerprint
-- Launch frontier durable markers required when journal present
-- No silent REAL→FIXTURE
-- RecommendNextGate never consumes Gate D
+`execution-contract-candidate.json` is **not** written (would falsely imply an approved F2).
 
 ---
 
-### INLINE COMPLETE — `$OUT/real-fixture.md`
+## A) Git / candidate precheck
 
-# REAL / FIXTURE boundary
+| Item | Value |
+|------|--------|
+| DEL branch | `delivery/sfia-studio-f3-real-prerequisites` |
+| HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` (= `origin/main`) |
+| `origin/main` | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| Staged | empty |
+| Working tree | dirty vs HEAD: candidate product files present as `M`/`??` (local delivery surface; not committed as a distinct remote tip) |
+| `git ls-remote --heads origin delivery/sfia-studio-f3-real-prerequisites` | **empty** (no remote head) |
+| Local ref | `refs/heads/delivery/sfia-studio-f3-real-prerequisites` → `4b1a058…` |
+| HANDOFF (`sfia/review-handoff`) | `9c3bb6854726300c88be5233425e22eb4beab09a` |
+| Candidate SHA (manifest body) | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
+| Recompute | **MATCH** (SHA-256 of newline-joined `path sha256` body lines from `r-t-a3-2-option-a-delivery/candidate-manifest.txt`, 40 lines) |
+| Live file digests vs manifest | **ok=40 mismatch=0 missing=0** |
 
-## Adapters found
-
-| Adapter | Path | Mode | Effects |
-|---|---|---|---|
-| TestExecutionAdapter | `lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts` | Scripted fixture | `externalEffects = false`; memory journal; no shell/network/Cursor |
-| F3 fixture wiring | `lib/vertical-slice-runtime/f3FixtureWiring.ts` + `service.ts` | Always FIXTURE in vertical slice | Explicit TestExecutionAdapter; comment: never omit |
-| OPS1 Cursor | `lib/ops1/cursorExecutionAdapter.ts` | `adapterMode: "fixture" \| "real"` | Fixture applies deterministic MD; Real spawns CLI |
-| OA fixture Cursor | `lib/oa/execution-run/infrastructure/cursor/fixtureCursorExecutionAdapter.ts` | Fixture for execution-run | Separate from OPS1 REAL |
-
-## Mode flags
-
-- F3 product: `features/project-assistant/f3/constants.ts` — `F3_MODE = "FIXTURE"`, constraints `FIXTURE ONLY` / `NO REAL`, labels `CURSOR REAL BLOQUÉ`
-- OPS1: `OPS1_CURSOR_REAL === "1"` required for real (`OPS1_CURSOR_REAL_FLAG`)
-- E2E forces `SFIA_CURSOR_REAL_SPIKE=0` / `SFIA_GPT_REAL_SPIKE=0`
-
-## No silent REAL → FIXTURE fallback (proven)
-
-`runCursorAdapter` (`cursorExecutionAdapter.ts`):
-
-1. If `adapterMode === "fixture"` → fixture path only.
-2. If mode is real and `OPS1_CURSOR_REAL≠1` → returns **failure** with `CURSOR_FLAG_OFF` / message `REAL ADAPTER UNAVAILABLE` — **does not** call fixture.
-3. If real flag on but bin missing → `CURSOR_UNAVAILABLE`, `realProcessInvoked: false` — **no** fixture substitute.
-4. Comment in source: *"never silently swap real→fixture"* / *"Fixture = explicit … never silent substitute for real"*.
-
-Tests: `__tests__/ops1/executionI5.test.ts` — refuses real without flag, never falls back; F3 `__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts` — hostile `mode: "REAL"` still executes FIXTURE path (client cannot force REAL).
-
-## Cursor REAL blocked (current)
-
-- Gate D **NOT CONSUMED**
-- F3 UI/actions emit `CURSOR REAL BLOQUÉ`
-- Vertical-slice OA stack wires **TestExecutionAdapter**, not OPS1 real spawn
-- OPS1 real requires explicit env + binary + authorized worktree
-
-**Verdict:** Boundary explicit. First REAL requires Gate D + exact contract binding + intentional REAL adapter selection — not ambient readiness.
+Freeze source: `.tmp-sfia-review/r-t-a3-2-option-a-delivery/{FREEZE_SHA.txt,candidate-manifest.txt,PHASE-QA-CANDIDATE-FROZEN.md}`.
 
 ---
 
-### INLINE COMPLETE — `$OUT/evidence-honesty.md`
+## B) F2_ELIGIBLE=NO — evidence
 
-# Evidence / reinjection honesty
+### Runtime stores (ephemeral / in-memory only)
 
-## Paths
+| Path | Role | Why not REAL-eligible |
+|------|------|------------------------|
+| `projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts` | Process-local Map on `globalThis` | Explicit: “no durable persistence”; restart clears proposals/decisions |
+| `projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts` | Morris-gate record | Uses `LOCAL_MORRIS_ACTOR` / `LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY`; GO → prepare-only (`executionPerformed` false) |
+| `projects/sfia-studio/app/lib/oa/decision/index.ts` | `createInMemoryDecisionServices` | Barrel: “In-memory only”; `MemoryDecisionStore` only infra under `lib/oa/decision/infrastructure/` (no SQLite/durable decision store) |
+| `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts` | Product composition | Wires `createInMemoryDecisionServices` + `createInMemoryExecutionContractServices` + `createF3TestExecutionAdapter` |
+| `projects/sfia-studio/app/features/project-assistant/f3/constants.ts` | F3 slice constants | `F3_MODE="FIXTURE"`, `F3_ADAPTER_ID="adp:f3-test-fixture"`, constraints include `FIXTURE ONLY` / `NO REAL` |
+| `projects/sfia-studio/app/features/project-assistant/f3/validateF2ForPrepare.ts` | Prepare gate | Fail-closed if process-local proposal/decision missing after restart |
+| `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx` | UI | “GO F2 autorise uniquement la préparation d'un contrat fixture” |
 
-| Piece | Path |
-|---|---|
-| ReviewBundle domain / create | `lib/oa/evidence-review/application/createReviewBundle.ts`, `domain/reviewBundleTypes.ts` |
-| RecommendNextGate | `lib/oa/evidence-review/application/recommendNextGate.ts` |
-| F3 ingest + recommend | `features/project-assistant/f3/ingestEvidenceAndRecommend.ts` |
-| F3 types anti-claim | `features/project-assistant/f3/types.ts` — *Never claim READY / T-A6 COMPLETE / REAL READY* |
-| Memory stores | `lib/oa/evidence-review/infrastructure/memoryReviewBundleRepository.ts` |
+### Test / fixture-only “approvals”
 
-## Proof: success ≠ Morris READY ≠ Gate D
+| Path | What exists |
+|------|-------------|
+| `projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts` | `seedApprovedGo()` — in-test F2 GO via process-local store + in-memory DecisionServices; resets via `resetF2ProposalStoreForTests` |
+| `projects/sfia-studio/app/features/project-assistant/f3/fixtureAgent.ts` | Closed fixture `AgentDescriptor` + `TestExecutionAdapter` factory |
+| `projects/sfia-studio/app/features/project-assistant/f3/prepareF3Fixture.ts` | Builds fixture contract path only |
+| `projects/sfia-studio/app/fixtures/vertical-slice.ts` | Vertical-slice fixture report refs (not an F2 product approval) |
 
-1. **RecommendNextGate** header: *Never mutates D1–D4. Never consumes a gate. Never creates a Morris decision.* Recommendation ≠ decision ≠ execution.
-2. F3 reinjection reservations include:
-   - `F3_OPEN_HARD_RESERVATION_REFS` (`R-T-A3-1`, `R-T-A3-2`, …)
-   - `"HARD remain OPEN — BLOCKS REAL"`
-   - `"T-A6 COMPLETE NOT DECLARED"`
-   - `"NO READY CLAIM"`
-3. Product DTO still surfaces `openHardReservationRefs` + `hardOpen` / `CURSOR REAL BLOQUÉ` even after fixture execute success.
-4. Technical attempt success (fixture adapter ack) does not flip `deliveryReady` or consume Gate D; foundation keeps `deliveryReady: false`.
+### Schema / docs examples (not live product decisions)
 
-## Honesty note (sync debt)
+Modeled JSON examples under `projects/sfia-studio/sfia-v3-modeled/**/examples/*human-decision*`, `*execution-attempt-accepted*`, etc. — schema validity samples only.
 
-F3 still labels `HARD R-T-A3-1 / R-T-A3-2 OPEN` while Morris has CLOSED them (bounded for A3-2). That over-states openness in UI — **safe direction** (does not falsely claim READY). Sync is out of scope for this read-only cycle.
+Docs (framing, not persisted approvals): e.g. `sfia-v3-delivery/v3-native-option-a/f3-pre-delivery-governance-framing/README.md` — F2 GO = prepare-only; conversation/proposal/F2 GO alone never authorize REAL execution.
 
-## Verdict
+**No** durable F2 APPROVED proposal JSON / seed DB row / product decision store record was found in the candidate that could serve as a REAL Gate D `decisionRefs` input.
 
-Evidence/reinjection path preserves anti-claims. Fixture/attempt success cannot be misread as Morris READY or Gate D consumed.
-
----
-
-### INLINE COMPLETE — `$OUT/contract-attempt-readiness.md`
-
-# Exact ExecutionContract / Attempt readiness (Gate D bind — no create now)
-
-## Mechanism already in code
-
-Gate D can bind a future first REAL pilot to an **exact** contract without creating one in this cycle:
-
-| Field | How bound | Code |
-|---|---|---|
-| `executionContractId` | Required on `AcknowledgeCriticalCommand` | `acknowledgeCritical.ts` + `assertNonEmptyId` |
-| `expectedVersion` (OCC) | Must match `contract.version` | `assertExactContractBinding` |
-| `expectedContractFingerprint` | Must equal `contractFingerprint(contract)` | `lib/oa/critical-ack/domain/types.ts` — joins id\|version\|action\|target\|scope\|idempotencyKey |
-| Confirmation id | Ack + confirm consume path | journal `CRITICAL_ACK_GRANTED` / `CONFIRMATION_BOUND` / `CRITICAL_ACK_CONSUMED` |
-| Attempt id | StartExecution + journal | `ATTEMPT_CREATED` / `ATTEMPT_LAUNCHED` keyed by `attemptId` + fingerprint |
-
-## How Gate D should use it (future — not now)
-
-1. Morris Gate D wording cites **exact** `executionContractId`, `version`, and `contractFingerprint` (and optionally attempt id once Start is authorized).
-2. Operator/runtime loads that contract from the ExecutionContract store (when created under Gate D authorization).
-3. `AcknowledgeCritical` fails closed on fingerprint/version mismatch — Gate D cannot be “approximate”.
-4. `ConfirmExecutionContract` requires journal ack for Critical cycles.
-5. `StartExecution` records durable created/launched markers before/after adapter launch.
-
-## What this cycle must NOT do
-
-- Create a REAL ExecutionContract
-- Run Critical Ack against a live OAuth session for Gate D
-- Call `adapter.launch` for REAL
-- Pre-mint attempt ids as “ready”
-
-## Readiness claim
-
-**Exact-bind mechanism: AVAILABLE.**
-**Concrete contract instance for Gate D: NOT CREATED (correct).**
-Gate D decision can require confirmation of the exact identity fields above when Morris authorizes the first bounded REAL pilot.
+`MemoryDecisionStore` / `createInMemoryDecisionServices` are the **product composition default** for this slice (not merely a jest helper), but remain **non-durable** and therefore **not REAL-eligible** for Gate D Mission 1.
 
 ---
 
-### INLINE COMPLETE — `$OUT/gate-d-prerequisites.md`
+## C) ExecutionContract fingerprint / build surface (prep notes only)
 
-# Gate D prerequisites matrix (Mission 14)
+| Item | Location | Notes |
+|------|----------|--------|
+| `contractFingerprint` | `lib/oa/critical-ack/domain/types.ts` | Joins `executionContractId\|version\|action\|target\|scope\|idempotencyKey` |
+| `BuildExecutionContract` | `lib/oa/execution-contract/application/buildExecutionContract.ts` | Requires accepted+current `decisionRefs`; **does** `contracts.save` (persists into **MemoryExecutionContractStore** — “NOT DATABASE SELECTED”) |
+| Domain fields | `lib/oa/execution-contract/domain/types.ts` | `action`/`target`/`scope`: **strings** (not closed enums); `requiredAuthority`: `N1\|N2\|N3\|MORRIS`; `reversibility`: closed enum |
+| Invariants | `lib/oa/execution-contract/domain/invariants.ts` | `AUTHORITY_CLASSES`, identifier prefixes, TA4/TA5 status sets |
+| Test adapter (OA attempt) | `lib/oa/execution-attempt/infrastructure/testExecutionAdapter.ts` | Deterministic, `externalEffects=false`; injectable with `NoOpExecutionAdapter` |
+| REAL Cursor (OPS1) | `lib/ops1/cursorExecutionAdapter.ts` | Env-gated `OPS1_CURSOR_REAL=1` + CLI bin; separate from F3 fixture vertical slice |
+| Fixture Cursor (execution-run) | `lib/oa/execution-run/infrastructure/cursor/fixtureCursorExecutionAdapter.ts` | Composition default in `composeExecutionRunProviders` |
 
-| PREREQUISITE | SOURCE | STATUS | EVIDENCE | BLOCKS GATE D? | BLOCKS FIRST REAL? | MORRIS DECISION? | RESIDUAL? |
-|---|---|---|---|---|---|---|---|
-| R-T-A3-1 | Morris GO + candidate ack chain | **CLOSED** | AuthJs adapter + production ack composition; no Fake fallback | No | No | Done (CLOSED) | Sync debt in UI/foundation text |
-| R-T-A3-2 | Morris GO ACCEPT BOUNDED + SHA | **CLOSED BOUNDED** | Candidate MATCH; Sqlite journal; CREATED/LAUNCHED; crash QA on handoff | No | No | Done (BOUNDED CLOSE) | Project↔Cycle etc. explicit |
-| Authenticated Morris identity | `AuthJsGitHubIdentityAdapter` | Wired; live OAuth ops residual | Fail-closed null session; authn≠authz | No | No (for decision) | IAM SELECTED Auth.js | Live session proof ops residual |
-| AuthorityResolver wiring | `MemoryAuthorityResolver` in `service.ts` | Present | Sole authz port on ack/confirm/start | No | No (pilot) | — | R-T-A3-3 durable registry residual |
-| Critical Ack | `AcknowledgeCritical` + journal | Present | Fingerprint bind; hostile fields ignored | No | No | Closed under A3-1 | — |
-| Restart authority invalidation | `invalidateActiveAuthorityOnRestart.ts` | Present | ACTIVE_AUTHORITY_INVALIDATED + epoch | No | No | — | — |
-| Durable Attempt markers | `startExecution.ts` + Sqlite journal | Present | ATTEMPT_CREATED before launch; LAUNCHED after ack | No | No | Part of A3-2 close | — |
-| ExecutionContract exact identity | `contractFingerprint` / OCC version | Mechanism ready | assertExactContractBinding | No | Would block bad bind | Gate D must cite exact ids | No contract created this cycle |
-| ExecutionAttempt identity | attemptId + journal findByAttemptId | Mechanism ready | StartExecution markers | No | Same | — | — |
-| no auto-retry | runtime `defaultMaxRetriesBudget: 0` | Present | `service.ts` policy | No | No | — | Retry use-case exists but budget 0 |
-| no auto-resume | startExecution journal branch | Present | created-without-launched fail-closed | No | No | — | — |
-| no double-launch | startExecution LAUNCHED check | Present | hasLaunched → no second launch | No | No | — | — |
-| REAL/FIXTURE explicitness | OPS1 + F3 constants | Explicit | No silent REAL→FIXTURE | No | Ambiguity would block; **none found** | — | F3 still FIXTURE until Gate D |
-| Cursor adapter presence | OPS1 `cursorExecutionAdapter.ts` | Present | Real env-gated; fixture separate | No | REAL blocked until Gate D (expected) | Gate D authorizes | F3 stack still TestExecutionAdapter |
-| Evidence/ReviewBundle | evidence-review + F3 ingest | Present | Reservations / NO READY | No | No | — | — |
-| Reinjection honesty | RecommendNextGate + F3 DTO | Honest | Never consumes gate | No | No | — | UI HARD OPEN sync debt |
-| B5 | blockerControlPlane | OPEN/REDUCED; deliveryReady false | STOP_BEFORE_DELIVERY contract | No for *decision* | No if pilot-scoped | Bounded for REAL-prereq delivery | Yes — not global closed |
-| R-T-A3-3 | hardBlockerFoundation | OPEN | Memory resolver | No | No for pilot | — | Yes |
-| R-T-A3-4 | hardBlockerFoundation | OPEN | Enum hygiene | No | No | — | Yes |
-| R1 / R-M01 | blockerControlPlane | OPEN | Atomicity / claim-eval | No | No | — | Yes |
-| Project↔Cycle residual | coordinator | Explicit | crossStoreDurable false | No | No | Explicit in GO | Yes |
-| crossStoreDurable | coordinator/foundation | **false** | Typed false | No | No | Explicit | Yes |
-| productionRollbackProven | same | **false** | Typed false | No | No | Explicit | Yes |
-| Product persistence | foundation | **NOT_SELECTED** | Comment on Sqlite journal | No | No | Explicit | Yes |
-| Remote project publish | git ls-remote delivery branch | **ABSENT** | No remote delivery branch | No | No | — | Local dirty candidate expected |
-| Gate D itself | governance | **NOT CONSUMED** | This cycle readiness only | Self | Self | **REQUIRED next** | — |
-| openHard / deliveryReady honesty | hardBlockerFoundation | openHard true / deliveryReady false | Anti-claim | No | No | Sync vs CLOSED HARD | Yes |
-
-## Preliminary Gate D readiness
-
-**READY FOR GATE D DECISION — MORRIS?** **YES** (preliminary)
-
-Reasons:
-
-- No remaining **pilot-blocking** HARD identified after Morris CLOSED R-T-A3-1 and BOUNDED CLOSED R-T-A3-2.
-- Authority chain complete and fail-closed; durable markers present; REAL/FIXTURE boundary explicit.
-- Residuals (Project↔Cycle, crossStoreDurable=false, productionRollbackProven=false, persistence NOT_SELECTED, R-T-A3-3/4, B5, R1, R-M01) are **explicit and accepted** for bounded first REAL — they still forbid global/production claims.
-- Candidate SHA byte-identical; Gate D **not** consumed; Cursor REAL **0**.
-
-**Not claimed:** GATE D CONSUMED · CURSOR REAL READY · CURSOR REAL EXECUTED · deliveryReady · product persistence selected.
-
+**Not invoked** in this prep: no `BuildExecutionContract` against product composition; no invented decisions.
 
 ---
 
-## Summary — HARD counts (pilot-bounded first REAL)
+## D) BLOCKED path — draft recommendation (NOT ADOPTED)
 
-| Class | Count |
+**Mission 1 status for Gate D ExecutionContract: BLOCKED** pending a REAL-eligible F2.
+
+### RECOMMENDATION (read-only fallback — do not treat as Morris GO)
+
+Frame a **read-only F3 runtime verification** intention (not an executable REAL contract):
+
+1. Verify candidate composition wiring: Critical Ack + SQLite authority/attempt journal + Auth.js GitHub IAM paths already in freeze, without launching Cursor REAL.
+2. Keep F3 fixture vertical-slice proofs as **QA evidence only** (`seedApprovedGo` / `prepareF3Fixture`) — never promote to Gate D candidate JSON.
+3. Next F2 framing (when Morris elects): a durable, project-scoped HumanDecision with `status=accepted`, real authority evidence (not `LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY`), explicit REAL vs FIXTURE mode, and prepare≠execute separation — then Gate D may rebuild a contract candidate from that decisionRef.
+
+This recommendation is **not adopted** by this prep. No product decision was created.
+
+---
+
+## Return line
+
+`PRECHECK=OK (CANDIDATE_SHA_MATCH=YES live_digests=40/40) · F2_ELIGIBLE=NO · BLOCKED · no execution-contract-candidate.json`
+
+### INLINE COMPLETE — `$OUT/recommended-next-f2.md`
+
+# Recommended next F2 — RECOMMENDATION ONLY (NOT ADOPTED)
+
+**Status:** RECOMMENDATION ONLY — **not** Morris-approved, **not** adopted by this cycle.
+
+## Recommendation title
+
+**FIRST BOUNDED CURSOR REAL — READ-ONLY F3 RUNTIME VERIFICATION**
+
+## Target
+
+- `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
+
+## Intended outcomes (read-only verification)
+
+1. Verify `SqliteAuthorityAttemptJournal` wiring in vertical-slice runtime composition.
+2. Verify `ATTEMPT_CREATED` is journaled **before** any adapter launch path.
+3. Verify `ATTEMPT_LAUNCHED` is journaled **after** Critical Ack / authorized launch sequencing.
+4. Verify **no silent REAL→FIXTURE** downgrade / fallback in the composition under review.
+
+## Explicit non-claims
+
+This recommendation is **NOT**:
+
+- **F2 APPROVED** (no REAL-eligible approved proposal created or adopted here)
+- an **ExecutionContract** candidate
+- **Gate D** consumption or exact confirmation readiness
+- Cursor REAL authorization
+- product mutation / BuildExecutionContract invocation
+
+## Framing note
+
+After Morris frames and approves a durable REAL-eligible F2 proposal (not fixture/in-memory/test seed), Gate D contract preparation may be re-attempted from that `decisionRef`.
+
+Until then: **EXECUTIONCONTRACT PREPARATION BLOCKED**.
+
+### INLINE COMPLETE — `$OUT/gate-d-status.md`
+
+# Gate D status — Mission 1 (ExecutionContract preparation)
+
+## Status line
+
+**GATE D NOT READY FOR EXACT CONFIRMATION — F2 PROPOSITION / MORRIS APPROVAL REQUIRED**
+
+## Facts (this cycle)
+
+| Item | Value |
+|------|--------|
+| F2_ELIGIBLE | **NO** — only fixture / in-memory / test seed paths |
+| `execution-contract-candidate.json` | **NOT WRITTEN** (must not invent) |
+| `BuildExecutionContract` product invocation | **0** |
+| ExecutionAttempt | **0** |
+| Critical Ack REAL | **0** |
+| Confirm REAL | **0** |
+| adapter.launch | **0** |
+| Cursor REAL | **0** |
+| Gate D | **NOT CONSUMED** |
+| Candidate SHA | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` (byte-identical / unchanged) |
+| Product mutations | **0** |
+| Project Git writes | **0** |
+
+## Why blocked
+
+No REAL-eligible F2 approved proposal exists in the frozen candidate that could supply honest `decisionRefs` for an exact Gate D ExecutionContract. Inventing a contract would falsify Gate D exactness.
+
+## Verdict path
+
+```
+EXECUTIONCONTRACT PREPARATION BLOCKED —
+NO REAL-ELIGIBLE F2 APPROVED PROPOSAL FOUND —
+F2 PROPOSITION / MORRIS APPROVAL REQUIRED —
+NO CONTRACT INVENTED —
+GATE D NOT READY FOR EXACT CONFIRMATION —
+CURSOR REAL 0
+```
+
+## Proposed next Morris GO (framing only — not consumed)
+
+```
+GO FRAME F2 APPROVED PROPOSAL —
+FIRST BOUNDED CURSOR REAL READ-ONLY F3 RUNTIME VERIFICATION —
+TARGET vertical-slice-runtime/service.ts + startExecution.ts —
+VERIFY Sqlite journal wiring + ATTEMPT_CREATED/LAUNCHED + no REAL→FIXTURE —
+THEN PREPARE EXACT EXECUTIONCONTRACT FOR GATE D —
+NO CURSOR REAL —
+NO GATE D —
+NO PROJECT GIT WRITE
+```
+
+---
+
+## Recommended next F2 framing (NOT ADOPTED)
+
+```
+GO FRAME F2 APPROVED PROPOSAL —
+FIRST BOUNDED CURSOR REAL READ-ONLY F3 RUNTIME VERIFICATION —
+TARGET vertical-slice-runtime/service.ts + startExecution.ts —
+VERIFY Sqlite journal wiring + ATTEMPT_CREATED/LAUNCHED + no REAL→FIXTURE —
+THEN PREPARE EXACT EXECUTIONCONTRACT FOR GATE D —
+NO CURSOR REAL —
+NO GATE D —
+NO PROJECT GIT WRITE
+```
+
+---
+
+## Closing block (byte-identical / no mutation / handoff)
+
+| Claim | Status |
 | --- | --- |
-| CLOSED (Morris) | 2 — R-T-A3-1; R-T-A3-2 BOUNDED |
-| RESIDUAL ACCEPTED | ≥10 — explicit; do not block bounded first REAL decision |
-| BLOCKING HARD | **0** |
-| EXPECTED PRE-GATE BLOCK | Cursor REAL until Gate D (not a failed prerequisite) |
-
----
-
-## Authority chain (condensed)
-
-Auth.js → AuthJsGitHubIdentityAdapter → AcknowledgeCritical → journal CRITICAL_ACK_GRANTED → ConfirmExecutionContract → StartExecution (ATTEMPT_CREATED → launch → ATTEMPT_LAUNCHED) → Evidence/ReviewBundle/RecommendNextGate (never consumes Gate D).
-
-Fail-closed: authn≠authz; Critical confirm requires journal ack; durable launch markers; no silent REAL→FIXTURE; Recommend ≠ Morris decision.
-
-Exact ExecutionContract bind mechanism (**AVAILABLE**): `executionContractId` + `expectedVersion` + `expectedContractFingerprint` via `assertExactContractBinding`. Concrete Gate D contract instance **NOT CREATED** (correct).
-
----
-
-## REAL / FIXTURE boundary
-
-- F3 vertical slice wires **TestExecutionAdapter** (FIXTURE); `F3_MODE=FIXTURE`; UI `CURSOR REAL BLOQUÉ`.
-- OPS1 REAL requires `OPS1_CURSOR_REAL=1` + bin; **no silent REAL→FIXTURE fallback**.
-- Cursor REAL **0** this cycle; Gate D **NOT CONSUMED**.
-
----
-
-## Evidence / ReviewBundle honesty
-
-RecommendNextGate never mutates D1–D4 / never consumes gate / never creates Morris decision. F3 reservations keep anti-claims (`NO READY CLAIM`, open HARD refs — sync debt safe direction vs Morris CLOSED). Fixture success ≠ Morris READY ≠ Gate D consumed.
-
----
-
-## Proposed next gate wording (from GO — NOT consumed)
-
-```
-GATE D — MORRIS DECISION REQUIRED —
-FIRST BOUNDED CURSOR REAL PILOT —
-EXACT EXECUTIONCONTRACT CONFIRMATION REQUIRED —
-R-T-A3-1 CLOSED —
-R-T-A3-2 CLOSED BOUNDED —
-NO REMAINING PILOT-BLOCKING HARD RESERVE —
-PRODUCT PERSISTENCE REMAINS NOT_SELECTED —
-PROJECT↔CYCLE / crossStoreDurable=false / productionRollbackProven=false REMAIN EXPLICIT —
-NO AUTO-RETRY —
-NO AUTO-RESUME —
-EVIDENCE / REVIEWBUNDLE REQUIRED —
-NO PROJECT GIT PUBLICATION
-```
-
-Do **not** produce a GO in place of Morris. Do **not** claim GATE D CONSUMED / CURSOR REAL READY / CURSOR REAL EXECUTED.
+| Candidate SHA byte-identical | **YES** — `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
+| Product mutation | **0** |
+| Project Git write | **0** |
+| ExecutionAttempt / Ack REAL / Confirm / launch / Cursor REAL | **0 / 0 / 0 / 0 / 0** |
+| Contract invented | **NO** |
+| Gate D consumed | **NO** |
+| Handoff | updated after publish — remote verified externally |
 
 ---
 
@@ -520,9 +390,9 @@ Do **not** produce a GO in place of Morris. Do **not** claim GATE D CONSUMED / C
 
 | Field | Value |
 | --- | --- |
-| Message | `docs(review-handoff): publish F3 final HARD readiness check` |
+| Message | `docs(review-handoff): publish F3 exact Gate D contract preparation` |
 | Force | NO (FF only) |
-| Inbound tip/blob | `8915a2b3ad3fd3fa9164412ef56d0a81e65af430` / `a5ed7b45210efd1d898e83732ed32ee4fc40dfa4` |
+| Inbound tip/blob | `9c3bb6854726300c88be5233425e22eb4beab09a` / `0a76efef1c04714be0955f0b028ba083e2ad173e` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Handoff worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | FINAL tip | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
@@ -530,98 +400,112 @@ Do **not** produce a GO in place of Morris. Do **not** claim GATE D CONSUMED / C
 
 ---
 
-## Cursor report — fields 1–60
+## Cursor report — fields 1–61
 
 | # | Field | Value |
 | ---: | --- | --- |
-| 1 | timestamp CEST + UTC | 2026-08-12 16:37:21 CEST (+0200) / 2026-08-12 14:37:21 UTC |
-| 2 | GO / context consommé | GO ACCEPT R-T-A3-2 HARD — FINAL HARD READINESS CHECK |
-| 3 | cycle | 9 — QA Critical — FINAL HARD READINESS |
+| 1 | timestamp CEST / UTC | 2026-08-12 16:56:08 CEST (+0200) / 2026-08-12 14:56:08 UTC |
+| 2 | GO consommé | GO: prepare exact ExecutionContract for Gate D |
+| 3 | cycle | 1 — Cadrage |
 | 4 | profil | Critical |
-| 5 | justification Critical | Last coherence audit before human Gate D authorizing potential first bounded Cursor REAL |
-| 6 | blocs | CKC; template; freeze; HARD inventory; authority; REAL/FIXTURE; evidence; Gate D matrix; OUT FULL inline; L3 |
-| 7 | worktree | f3-real-prerequisites-delivery |
-| 8 | branche | `delivery/sfia-studio-f3-real-prerequisites` |
-| 9 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| 10 | origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| 11 | status initial | dirty local F3 Option A candidate (expected) |
-| 12 | staged initial | empty |
-| 13 | untracked / review artifacts | `.tmp-sfia-review/f3-final-hard-readiness/` (+ prior QA/delivery artifacts) |
-| 14 | remote delivery branch | ABSENT |
-| 15 | template path/blob | prompts/templates/sfia-cycle-execution-template.md / `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| 16 | handoff entrant tip/blob | `8915a2b3ad3fd3fa9164412ef56d0a81e65af430` / `a5ed7b45210efd1d898e83732ed32ee4fc40dfa4` |
-| 17 | Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
-| 18 | Current State confirmé | R-T-A3-1 CLOSED; R-T-A3-2 CLOSED BOUNDED (Morris); FINAL HARD READINESS |
-| 19 | CKC path/blob | `…/pilots/04-qa-validation.md` / `9d9970d611dbb6e52297ac215604d3a08e87e738` |
-| 20 | fichiers prévus en écriture | chatgpt-review.md + `$OUT/*.md` review artifacts only |
-| 21 | fichiers réellement modifiés/créés | chatgpt-review.md (FULL overwrite DEL+MAIN) + existing `$OUT` (no product paths) |
-| 22 | product mutations | **0** |
-| 23 | Review Pack FULL / Synthesis-only NO | FULL / NO |
-| 24 | OUT artifacts inlined complete | YES — all 7 `$OUT/*.md` |
-| 25 | Exhaustive HARD inventory | YES — CLOSED 2 / RESIDUAL ACCEPTED ≥10 / BLOCKING HARD **0** |
-| 26 | Authority chain complete | YES — fail-closed hops traced |
-| 27 | Exact ExecutionContract mechanism | AVAILABLE (instance NOT CREATED) |
-| 28 | REAL / FIXTURE boundary explicit | YES — no silent REAL→FIXTURE |
-| 29 | Evidence / ReviewBundle honesty | PRESERVED |
-| 30 | Gate D prerequisites matrix | YES — READY FOR GATE D DECISION (not consumed) |
-| 31 | R-T-A3-1 status | ACCEPTED / CLOSED BY MORRIS — NO REGRESSION |
-| 32 | R-T-A3-2 status | ACCEPTED / CLOSED BY MORRIS — BOUNDED (QA evidence applicable; handoff sync debt) |
-| 33 | blocking HARD count | **0** |
-| 34 | residual accepted explicit | YES |
-| 35 | no auto-resume | VALIDATED / preserved |
-| 36 | no auto-retry | VALIDATED / preserved (`defaultMaxRetriesBudget: 0`) |
-| 37 | no double-launch | VALIDATED / preserved |
-| 38 | Candidate SHA AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
-| 39 | freeze / byte-identical | YES — BEFORE=AFTER; 40 files; 0 drift |
-| 40 | Project↔Cycle residual | remains explicit |
-| 41 | crossStoreDurable | false |
-| 42 | productionRollbackProven | false |
-| 43 | Product persistence | NOT_SELECTED |
-| 44 | Gate D | NOT CONSUMED |
-| 45 | Cursor REAL | 0 |
-| 46 | Proposed next gate wording | GATE D — MORRIS DECISION REQUIRED — FIRST BOUNDED CURSOR REAL PILOT — … |
-| 47 | product Git write count | 0 |
-| 48 | project commit/push/PR/merge/force | 0/0/0/0/0 |
-| 49 | handoff publish message | `docs(review-handoff): publish F3 final HARD readiness check` |
-| 50 | handoff force | NO — FF only |
-| 51 | handoff worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| 52 | handoff publisher | `scripts/sfia/publish-review-handoff.sh` |
-| 53 | remote contains READY FOR GATE D DECISION | filled after publish verify |
-| 54 | FINAL tip | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
-| 55 | FINAL blob | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
-| 56 | MAIN chatgpt-review sync | YES |
-| 57 | NO AUTO-RESUME / RETRY / DOUBLE-LAUNCH claims | preserved |
-| 58 | NO product mutation / NO project git write | YES / YES |
-| 59 | READY FOR GATE D DECISION — MORRIS | YES (decision required; not consumed) |
-| 60 | Verdict | FINAL HARD READINESS CHECK COMPLETE — … — READY FOR GATE D DECISION — MORRIS |
+| 5 | justification Critical | Exact identity of potential first Cursor REAL action; framing error could authorize wrong/fixture action |
+| 6 | branch | `delivery/sfia-studio-f3-real-prerequisites` |
+| 7 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| 8 | origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| 9 | status | dirty local F3 Option A candidate (expected) |
+| 10 | staged | empty |
+| 11 | untracked / review artifacts | `.tmp-sfia-review/f3-gate-d-contract-prep/` (+ prior artifacts) |
+| 12 | remote delivery | ABSENT |
+| 13 | template path/blob | prompts/templates/sfia-cycle-execution-template.md / `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
+| 14 | CKC path/blob/status | `…/pilots/01-cadrage.md` / `67a692dcac9187b981d6047fbe19fb92bf078459` / candidate |
+| 15 | handoff entrant tip/blob | `9c3bb6854726300c88be5233425e22eb4beab09a` / `0a76efef1c04714be0955f0b028ba083e2ad173e` |
+| 16 | Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
+| 17 | Candidate SHA AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
+| 18 | F2 approved proposal found | **NO** (REAL-eligible) |
+| 19 | F2 REAL eligibility | **NO** / F2_ELIGIBLE=NO |
+| 20 | F2 source | fixture/in-memory/test seed only |
+| 21 | projectId | N/A — no REAL-eligible F2 |
+| 22 | cycleInstanceId | N/A — no REAL-eligible F2 |
+| 23 | decisionRefs | ABSENT (REAL-eligible) |
+| 24 | decision statuses | N/A — no durable accepted REAL decision |
+| 25 | BuildExecutionContract persistence behavior | `contracts.save` into MemoryExecutionContractStore — **NOT invoked** |
+| 26 | product BuildExecutionContract invoked | **NO** |
+| 27 | executionContractId | **NOT PREPARED** |
+| 28 | version | **NOT PREPARED** |
+| 29 | contractFingerprint | **NOT PREPARED** |
+| 30 | fingerprint double-check | **N/A** (no contract) |
+| 31 | action | **NOT PREPARED** |
+| 32 | target | **NOT PREPARED** |
+| 33 | scope | **NOT PREPARED** |
+| 34 | inputs | **NOT PREPARED** |
+| 35 | expectedOutputs | **NOT PREPARED** |
+| 36 | requiredCapabilities | **NOT PREPARED** |
+| 37 | requiredAuthority | **NOT PREPARED** |
+| 38 | constraints | **NOT PREPARED** |
+| 39 | stopConditions | **NOT PREPARED** |
+| 40 | evidenceRequirements | **NOT PREPARED** |
+| 41 | reversibility | **NOT PREPARED** |
+| 42 | idempotencyKey | **NOT PREPARED** |
+| 43 | adapterExportRef | **NOT PREPARED** |
+| 44 | selectedAgentRef candidate | **NOT PREPARED** |
+| 45 | REAL/FIXTURE boundary | preserved — F3 composition remains FIXTURE; no silent REAL→FIXTURE |
+| 46 | pure validation results | N/A — no candidate constructed |
+| 47 | contract candidate artifact | **NOT WRITTEN** (`execution-contract-candidate.json` absent) |
+| 48 | exact identity artifact | covered by `$OUT/gate-d-status.md` — NOT READY |
+| 49 | Gate D draft artifact | `$OUT/gate-d-status.md` — GATE D NOT READY FOR EXACT CONFIRMATION |
+| 50 | ExecutionAttempt count | **0** |
+| 51 | Critical Ack REAL count | **0** |
+| 52 | Confirm REAL count | **0** |
+| 53 | adapter.launch count | **0** |
+| 54 | Cursor REAL count | **0** |
+| 55 | product mutations | **0** |
+| 56 | project Git write count | **0** |
+| 57 | review pack FULL / NO | FULL / Synthesis-only NO |
+| 58 | handoff final tip | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
+| 59 | handoff final blob | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
+| 60 | remote verification | filled after publish verify |
+| 61 | final verdict | **BLOCKED** — see exact verdict below |
 
 ---
 
 ## Verdict exact
 
 ```
-FINAL HARD READINESS CHECK COMPLETE —
-R-T-A3-1 ACCEPTED / CLOSED BY MORRIS — NO REGRESSION FOUND —
-R-T-A3-2 ACCEPTED / CLOSED BY MORRIS — BOUNDED SQLITE HARD CLOSURE —
+EXECUTIONCONTRACT PREPARATION BLOCKED —
+NO REAL-ELIGIBLE F2 APPROVED PROPOSAL FOUND —
+F2 PROPOSITION / MORRIS APPROVAL REQUIRED —
+NO CONTRACT INVENTED —
+GATE D NOT READY FOR EXACT CONFIRMATION —
+CURSOR REAL 0
+```
+
+Plus closing guarantees:
+
+```
 CANDIDATE BYTE-IDENTICAL —
-AUTHORITY CHAIN COMPLETE —
-EXACT EXECUTIONCONTRACT GATE MECHANISM AVAILABLE —
-REAL / FIXTURE BOUNDARY EXPLICIT —
-NO AUTO-RESUME —
-NO AUTO-RETRY —
-NO DOUBLE-LAUNCH —
-EVIDENCE / REVIEWBUNDLE HONESTY PRESERVED —
-NO REMAINING HARD BLOCKER FOR BOUNDED FIRST REAL IDENTIFIED —
-PROJECT↔CYCLE RESIDUAL REMAINS EXPLICIT —
-crossStoreDurable=false —
-productionRollbackProven=false —
-PRODUCT PERSISTENCE REMAINS NOT_SELECTED —
-GATE D NOT CONSUMED —
-CURSOR REAL 0 —
 NO PRODUCT MUTATION —
 NO PROJECT GIT WRITE —
-HANDOFF UPDATED — REMOTE VERIFIED —
-READY FOR GATE D DECISION — MORRIS
+NO EXECUTIONATTEMPT —
+NO CRITICAL ACK REAL —
+NO CONFIRM REAL —
+NO ADAPTER LAUNCH —
+CURSOR REAL 0 —
+GATE D NOT CONSUMED —
+NO CONTRACT INVENTED —
+HANDOFF UPDATED — REMOTE VERIFIED
+```
+
+Proposed next Morris GO (recommendation only — not consumed):
+
+```
+GO FRAME F2 APPROVED PROPOSAL —
+FIRST BOUNDED CURSOR REAL READ-ONLY F3 RUNTIME VERIFICATION —
+TARGET vertical-slice-runtime/service.ts + startExecution.ts —
+VERIFY Sqlite journal wiring + ATTEMPT_CREATED/LAUNCHED + no REAL→FIXTURE —
+THEN PREPARE EXACT EXECUTIONCONTRACT FOR GATE D —
+NO CURSOR REAL —
+NO GATE D —
+NO PROJECT GIT WRITE
 ```
 
 ---
