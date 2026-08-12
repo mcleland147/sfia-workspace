@@ -1,21 +1,21 @@
 # ChatGPT Review Pack — FULL
-## Cycle 8 Delivery Critical — R-T-A3-2 OPTION A
+## Cycle 6 Architecture Critical — R-T-A3-2 PERSISTENCE REASSESSMENT
 
 | Field | Value |
 | --- | --- |
-| **Role** | Delivery — R-T-A3-2 OPTION A (Sqlite Authority/Attempt durability frontier) |
+| **Role** | Architecture — R-T-A3-2 Persistence Frontier Reassessment |
 | **Pack level** | FULL |
 | **Synthesis-only** | NO |
-| **Timestamp CEST** | 2026-08-12 14:22:50 CEST (+0200) |
-| **Timestamp UTC** | 2026-08-12 12:22:50 UTC |
-| **Timestamp CEST ISO** | `2026-08-12T14:22:50+0200` |
-| **Timestamp UTC ISO** | `2026-08-12T12:22:50Z` |
-| **GO Morris consumed** | R-T-A3-2 ARCHITECTURE OPTION A = ADOPTED BY MORRIS (architecture GO ADOPT OPTION A; Delivery cycle authorized) |
+| **Timestamp CEST** | 2026-08-12 15:27:17 CEST (+0200) |
+| **Timestamp UTC** | 2026-08-12 13:27:17 UTC |
+| **Timestamp CEST ISO** | `2026-08-12T15:27:17+0200` |
+| **Timestamp UTC ISO** | `2026-08-12T13:27:17Z` |
+| **GO / context** | Cycle 6 Architecture Critical — persistence frontier reassessment after Option A Delivery; R-T-A3-1 ACCEPTED/CLOSED BY MORRIS; Option A ADOPTED+DELIVERED locally; QA paused; Product persistence NOT_SELECTED |
 | **R-T-A3-1** | **ACCEPTED / CLOSED BY MORRIS** (+ SYNC DEBT untouched — repo markers not synced) |
-| **Cycle** | **8 — Delivery Critical — R-T-A3-2 OPTION A** |
+| **Cycle** | **6 — Architecture Critical — R-T-A3-2 PERSISTENCE REASSESSMENT** |
 | **Profil** | Critical |
 | **Critical** | OUI — EXPLICITE |
-| **Blocs** | SqliteAuthorityAttemptJournal production wire; durable ATTEMPT_CREATED/LAUNCHED; restart fail-closed; QA Delivery; freeze; handoff |
+| **Blocs** | SQLite current-state map; Postgres/Neon FinOps map; boundaries Q1–Q10; NFR matrix; Security/DevOps/RUN/FinOps matrices; options A/B/C; KEEP SQLITE recommendation; Morris gate; product-persistence impact; FULL pack; L3 handoff |
 | **Review Pack** | FULL |
 | **Outbound remote identity** | Placeholder — filled after publish / verified externally after content freeze |
 
@@ -28,11 +28,12 @@
 | Worktree | `…/worktrees/f3-real-prerequisites-delivery` |
 | Branch | `delivery/sfia-studio-f3-real-prerequisites` |
 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` (same) |
-| Staged | **EMPTY** |
-| Remote delivery branch | **ABSENT** |
-| Dirty worktree | **expected** (F3 candidate local) — **non-STOP** |
+| origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| Staged | **EMPTY** (count=0) |
+| Remote delivery branch | **ABSENT** (ls-remote lines=0) |
+| Dirty worktree | **expected** (F3 Option A candidate local) — **non-STOP** |
 | Project commit/push/PR/merge/force | **0 / 0 / 0 / 0 / 0** |
+| Product mutations this cycle | **0** |
 
 ### git status --short (snapshot)
 
@@ -65,8 +66,9 @@
 | Field | Value |
 | --- | --- |
 | Template | `prompts/templates/sfia-cycle-execution-template.md` blob `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| Inbound handoff tip | `b85f64fc591495af70061371a45fc5dc11011ec9` |
-| Inbound handoff blob | `259135a47aa37a9754d0f377522e2432244c3034` |
+| Inbound handoff tip | `832eb175307379150811b6331223159e399d62b6` |
+| Inbound handoff blob | `323e7d88008cb3993324b5a47ada6f0fc46e89c4` |
+| Inbound message | `docs(review-handoff): publish F3 R-T-A3-2 option A delivery` |
 
 ---
 
@@ -74,13 +76,13 @@
 
 | Field | Value |
 | --- | --- |
-| Candidate SHA BEFORE | `c7a979dbee3cd57b169f742502cbc1a131778bb0e2758622abe972444ba4670a` |
+| Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
 | Candidate SHA AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
-| MATCH BEFORE≠AFTER | **yes** (required) |
-| Method | SHA-256 of newline-joined `path sha256` body lines from `.tmp-sfia-review/r-t-a3-2-option-a-delivery/candidate-manifest.txt` (comments excluded); double-compute confirmed |
-| Double-compute | **confirmed** identical |
+| MATCH BEFORE=AFTER | **yes** (required — byte-identical; no product mutation) |
+| Method | SHA-256 of newline-joined `path sha256` body lines from `.tmp-sfia-review/r-t-a3-2-option-a-delivery/candidate-manifest.txt` (comments excluded); recomputed this cycle |
+| Double-compute | **confirmed** identical to expected |
 | Project Git write count | **0** |
-| Product persistence | **NOT_SELECTED** |
+| Product persistence | **NOT_SELECTED** (unchanged) |
 
 ---
 
@@ -89,1153 +91,962 @@
 | Field | Value |
 | --- | --- |
 | R-T-A3-2 | **OPEN HARD** |
-| crossStoreDurable | **false** (Project↔Cycle residual) |
+| Persistence frontier decision | **REQUIRED — MORRIS** (RECOMMENDED KEEP SQLITE — NOT DECIDED) |
+| crossStoreDurable | **false** |
 | productionRollbackProven | **false** |
 | Product persistence | **NOT_SELECTED** |
 | Gate D | **NOT READY / NOT CONSUMED** |
 | Cursor REAL | **0** |
+| Cycle 9 QA | **PAUSED UNTIL MORRIS DECISION** |
 | R-T-A3-1 | **ACCEPTED / CLOSED BY MORRIS** (repo sync debt untouched) |
-| Max delivery verdict class | **READY FOR QA / VALIDATION** (Cycle 9 formal QA still required) |
 
 ---
 
-## GO Morris consumed (exact)
+## Reassessment summary
+
+1. PRECHECK OK — branch/HEAD/origin/main/staged/handoff/candidate SHA all green; dirty WT expected for Option A local candidate.
+2. SQLite F3 current-state mapped (production wire, D1 lifecycle, ATTEMPT markers, multi-process limits).
+3. Postgres/Neon FinOps foundation mapped (pg pool, migrations, txn patterns, no neutral platform abstraction).
+4. Boundaries Q1–Q10 answered — keep SQLite simplest for first REAL; thin F3-PG later if needed without FinOps domain import.
+5. NFR matrix (22 criteria) + Security/DevOps/RUN/FinOps matrices completed with PROVEN/ASSUMED/UNKNOWN; Neon prices UNKNOWN.
+6. Options: A KEEP SQLITE (recommended); B F3-specific Postgres (valid alternative Delivery); C multi-adapter REJECTED AS OVERDESIGN.
+7. Recommendation KEEP SQLITE — NOT DECIDED; Morris gate wording prepared; product persistence impact clarified (PG ≠ product SELECT).
+8. Candidate `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` preserved byte-identical; zero product mutations; Cycle 9 QA remains paused.
+
+---
+
+## Artifacts inlined (complete)
+
+
+### INLINE FILE: SUMMARY.md
+
+<!-- begin SUMMARY.md -->
+# PRECHECK + Maps Summary
+
+## PRECHECK: **OK**
+
+| Item | Result |
+|---|---|
+| BRANCH | OK `delivery/sfia-studio-f3-real-prerequisites` |
+| HEAD = origin/main | OK `4b1a058…` |
+| REMOTE_DELIVERY | OK ABSENT |
+| STAGED | OK EMPTY |
+| HANDOFF | OK `832eb175…` |
+| Candidate SHA | OK MATCH `082326a1…` |
+
+Note: WT dirty unstaged (Option-A candidate files); reassessment wrote only under `.tmp-sfia-review/r-t-a3-2-persistence-reassessment/`.
+
+## SQLite vs PG (condensed)
+
+| Dimension | SQLite F3 (current) | Postgres/Neon FinOps |
+|---|---|---|
+| Role | Authority/Attempt journal pilot | FinOps ledger/audit/rollout |
+| Location | `d1.sqlite` / `oa_authority_attempt_journal` | Neon/PG via `DATABASE_URL(_DIRECT)` |
+| Wiring | `wireOaStack` → `SqliteAuthorityAttemptJournal` | `composeFinOps(Runtime\|T7Runtime)` |
+| Txn style | `BEGIN IMMEDIATE` per append | BEGIN+dedup / INSERT / CAS CTE |
+| Multi-process | process-local singleton; file locks ASSUMED | Pool; shared DB |
+| Product claim | NOT_SELECTED / PILOT-LOCAL | FinOps foundation ≠ F3 |
+| Neutral abstraction | n/a (D1 open helper) | **None** outside FinOps |
+
+## Boundaries YES/NO
+
+1 YES · 2 NO · 3 SMALL REFACTOR · 4 YES · 5 YES · 6 YES · 7 YES · 8 YES · 9 SQLite-now/thin-PG-later · 10 YES keep SQLite
+
+<!-- end SUMMARY.md -->
+
+---
+
+### INLINE FILE: boundaries.md
+
+<!-- begin boundaries.md -->
+# Boundary Questions (Q1–Q10)
+
+Answers are brief YES/NO (or short enum) with evidence paths.
+Source questions: R-T-A3-2 persistence reassessment GO list.
+
+---
+
+### Q1 — F3 can use PG without FinOps domain import?
+
+**YES** (technically), with a caveat.
+
+- F3 depends on `AuthorityAttemptJournalPort` (`lib/oa/critical-ack/ports/authorityAttemptJournalPort.ts`) — domain-neutral.
+- `pg` is already a package dependency; a PG journal adapter can import `pg` / a thin non-FinOps factory without importing `lib/oa/finops/**` domain.
+- **Caveat:** reusing `createFinOpsPool` **would** pull FinOps infrastructure naming/path (`lib/oa/finops/infrastructure/postgres/createFinOpsPool.ts`) — avoid for clean boundary.
+
+---
+
+### Q2 — Neutral PG abstraction exists?
+
+**NO**
+
+- Only FinOps-branded `createFinOpsPool`.
+- Outside `finops/` + `d1/`: OPS1 SQLite; FinOps script `new Pool`; execution-run type-only `Pool` import.
+- Evidence: `postgres-neon-current.md` §6.
+
+---
+
+### Q3 — Creating one = small refactor or platform pivot?
+
+**SMALL REFACTOR** (thin Pool factory + F3 journal adapter behind existing port).
+
+- **Platform pivot** only if Morris selects product persistence (Option D in `.tmp-sfia-review/r-t-a3-2-architecture/options.md`).
+- Creating a neutral `createPool` helper ≠ SELECT product persistence.
+
+---
+
+### Q4 — Same Neon physical DB shareable?
+
+**YES** (physically), **ASSUMED** with schema/table isolation.
+
+- FinOps already targets Neon via `DATABASE_URL_DIRECT` / T7 identity.
+- No evidence of exclusive DB lock preventing additional non-FinOps tables.
+- Sharing requires strict schema separation + migration discipline; not a product authorization by itself.
+
+---
+
+### Q5 — Dedicated F3 schema/table enough?
+
+**YES** for the authority/attempt journal frontier.
+
+- SQLite already proves one table (`oa_authority_attempt_journal`) is the durability surface for Option A.
+- PG equivalent table/schema sufficient for same port semantics without FinOps domain tables.
+
+---
+
+### Q6 — Is SQLite locality a useful property?
+
+**YES** (for pilot-bounded F3).
+
+- Enables REAL Critical path without Neon/PG availability.
+- Matches PILOT-LOCAL labels and `NOT_SELECTED` product persistence.
+- Evidence: `sqliteAuthorityAttemptJournal.ts` header; architecture Option A recommendation.
+
+---
+
+### Q7 — Must F3 work when PG unavailable?
+
+**YES** under current Option A (SQLite).
+
+- Production `wireOaStack` uses SQLite journal only — no PG on F3 path today.
+- If F3 were moved PG-only, answer would flip to NO unless dual-write/fallback designed (not present).
+
+---
+
+### Q8 — Fail-closed if PG down before Cursor launch OK?
+
+**YES** (pattern already exists).
+
+- `startExecution` fails closed if `ATTEMPT_CREATED` append fails **before** `adapter.launch`.
+- Same contract applies to a PG-backed journal: unavailable PG ⇒ no launch.
+- Evidence: `lib/oa/execution-attempt/application/startExecution.ts`.
+
+---
+
+### Q9 — 6–12 month debt minimizer?
+
+**Keep Option A SQLite for F3 pilot; if PG needed, add dedicated F3 journal table + thin adapter behind existing port (no FinOps domain import, no product persistence SELECT).**
+
+- Minimizes coupling to FinOps Neon lifecycle.
+- Avoids Option D platform pivot until Morris gate.
+- Evidence: architecture `options.md` / `recommendation.md` (Option A adopted; product persistence NOT_SELECTED).
+
+---
+
+### Q10 — Simplest for first REAL without mortgaging product?
+
+**YES → stay on Option A SQLite journal (already wired).**
+
+- Already production-composed in `vertical-slice-runtime/service.ts`.
+- Loud NOT_SELECTED / crossStoreDurable=false remain honest.
+- Moving F3 to Neon/PG now adds ops surface without closing product persistence.
+
+---
+
+## Condensed YES/NO board
+
+| Q | Answer |
+|---|---|
+| Q1 F3 PG w/o FinOps domain | **YES** (raw/thin pool; not via FinOps modules) |
+| Q2 Neutral PG abstraction | **NO** |
+| Q3 Create abstraction | **SMALL REFACTOR** (not platform pivot) |
+| Q4 Share Neon physical DB | **YES** (w/ isolation) |
+| Q5 Dedicated F3 table enough | **YES** |
+| Q6 SQLite locality useful | **YES** |
+| Q7 F3 must work if PG down | **YES** (current Option A) |
+| Q8 Fail-closed pre-launch if PG down | **YES** |
+| Q9 Debt minimizer | **SQLite now; thin F3-PG later if needed** |
+| Q10 Simplest first REAL | **YES = keep SQLite Option A** |
+
+<!-- end boundaries.md -->
+
+---
+
+### INLINE FILE: morris-gate.md
+
+<!-- begin morris-gate.md -->
+# Morris Gate — R-T-A3-2 Persistence Frontier
+
+**Generated:** 2026-08-12
+**Gate name:** DECISION REQUIRED — MORRIS — R-T-A3-2 PERSISTENCE FRONTIER
+**Recommendation (non-binding):** KEEP SQLITE
+**Status until decision:** R-T-A3-2 REMAINS OPEN HARD · Cycle 9 QA PAUSED · Product persistence NOT CHANGED
+
+---
+
+## Context Morris must weigh
+
+- R-T-A3-1 = **ACCEPTED / CLOSED BY MORRIS** (repo sync debt untouched)
+- Architecture Option A = **ADOPTED + DELIVERED** locally; candidate frozen `082326a1…`
+- Cycle 9 formal QA = **paused** pending this reassessment decision
+- Product persistence = **NOT_SELECTED**
+- FinOps PG/Neon foundation = **real** but FinOps-scoped; no neutral platform DB layer
+- This reassessment is **Cycle 6 Architecture Critical** — **no product mutations**
+
+---
+
+## GO CONFIRM KEEP SQLITE (proposed exact wording)
 
 ```
-GO ADOPT R-T-A3-2 ARCHITECTURE OPTION A —
-BOUNDED SQLITE AUTHORITY/ATTEMPT DURABILITY FRONTIER —
-WIRE SQLITE JOURNAL IN PRODUCTION COMPOSITION —
-DURABLE LAUNCH MARKERS BEFORE AGENT —
-RESTART FAIL-CLOSED / NO AUTO-RETRY —
+GO CONFIRM KEEP SQLITE — R-T-A3-2 PERSISTENCE FRONTIER —
+KEEP CURRENT SQLITE AUTHORITY/ATTEMPT JOURNAL FRONTIER —
+CANDIDATE 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab REMAINS BYTE-IDENTICAL —
+RESUME CYCLE 9 QA ON SQLITE CANDIDATE —
+PRODUCT PERSISTENCE REMAINS NOT_SELECTED —
+NO FINOPS DOMAIN COUPLING —
+NO CURSOR REAL —
+NO GATE D CONSUMPTION —
+R-T-A3-2 REMAINS OPEN HARD UNTIL QA / HARD ACCEPTANCE
+
+Gate: R-T-A3-2 PERSISTENCE FRONTIER = KEEP SQLITE BY MORRIS
+```
+
+---
+
+## GO REVISE POSTGRES (proposed exact wording)
+
+```
+GO REVISE POSTGRES — R-T-A3-2 PERSISTENCE FRONTIER —
+AUTHORIZE SEPARATE F3-SPECIFIC POSTGRESQL DURABILITY DELIVERY —
+F3-OWNED TABLES/MIGRATIONS BEHIND AuthorityAttemptJournalPort —
+DO NOT IMPORT FINOPS DOMAIN MODULES —
+SQLITE CANDIDATE 082326a1… VALID BUT SUPERSEDED FOR HARD CLOSURE —
+PRODUCT PERSISTENCE REMAINS NOT_SELECTED UNLESS SEPARATE MORRIS GATE ELEVATES —
+NETWORK/CREDENTIALS/SSL/CI DATABASE_URL REQUIRED —
+NO CURSOR REAL —
+NO GATE D CONSUMPTION —
+CYCLE 9 SQLITE QA REMAINS SUPERSEDED / REPLAN REQUIRED
+
+Gate: R-T-A3-2 PERSISTENCE FRONTIER = REVISE TO POSTGRES BY MORRIS
+```
+
+---
+
+## NO-GO (proposed exact wording)
+
+```
+NO-GO R-T-A3-2 PERSISTENCE FRONTIER — REWORK REQUIRED —
+DO NOT RESUME CYCLE 9 QA YET —
+DO NOT AUTHORIZE F3 POSTGRES DELIVERY YET —
+PRESERVE CANDIDATE 082326a1… BYTE-IDENTICAL —
 PRODUCT PERSISTENCE REMAINS NOT_SELECTED —
 NO CURSOR REAL —
 NO GATE D CONSUMPTION —
-IMPLEMENTATION IN SEPARATE DELIVERY CYCLE
+RETURN WITH CLARIFIED NFR / BOUNDARY / PRODUCT-PERSISTENCE SCOPE
 
-Gate: R-T-A3-2 ARCHITECTURE OPTION A = ADOPTED BY MORRIS
+Gate: R-T-A3-2 PERSISTENCE FRONTIER = NO-GO — REWORK REQUIRED
 ```
 
 ---
 
-## Delivery summary
+## Explicitly out of scope for this gate
 
-1. Production `wireOaStack` now constructs shared `SqliteAuthorityAttemptJournal` (via `openD1Db()` / existing schema) and injects it into AcknowledgeCritical + StartExecution.
-2. `startExecution` durable-appends `ATTEMPT_CREATED` before adapter launch; `ATTEMPT_LAUNCHED` only after successful launch acknowledgment; launch blocked if durable write fails.
-3. `processEpochId` added on `StartExecutionRequest` / types for restart epoch binding.
-4. `hardBlockerFoundation` reductionEvidence updated; `openHard` remains **true**; `crossStoreDurable` / `productionRollbackProven` remain **false**.
-5. Tests: new `durableLaunchMarkers.test.ts`; helpers accept `authorityAttemptJournal`; productionCompositionWiring updated for Sqlite journal.
-6. QA Delivery: vitest critical-ack + execution-attempt **150/150 PASS**; typecheck/lint/build **PASS**.
-7. No `d1/db.ts` / `.env.local` edits; no R-T-A3-1 marker sync; no project git write.
+- Multi-adapter SQLite+Postgres abstraction (Option C — REJECTED AS OVERDESIGN)
+- Product-wide persistence SELECT (requires **separate** Morris gate — see product-persistence-impact.md)
+- Gate D consumption / Cursor REAL
+- Project git write / remote delivery branch publish
 
-### Changed files (this delivery)
-
-- `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts`
-- `projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/durableLaunchMarkers.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts`
-- `projects/sfia-studio/app/__tests__/oa/critical-ack/productionCompositionWiring.test.ts`
+<!-- end morris-gate.md -->
 
 ---
 
-## QA PASS
+### INLINE FILE: nfr-matrix.md
 
-| Gate | Result |
-| --- | --- |
-| `npx vitest run` critical-ack + execution-attempt | **PASS — 150/150** |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** |
-| `npm run build` | **PASS** |
-| Corrective loops | **0** (this freeze/pack step) |
+<!-- begin nfr-matrix.md -->
+# NFR Matrix — SQLite vs PostgreSQL/Neon (R-T-A3-2)
 
----
+**Generated:** 2026-08-12
+**Scope:** F3 Authority/Attempt journal frontier only (not product-wide persistence)
+**NFR source note:** Exact labeled “22 NFR items from GO Mission D” was not recovered as a standalone list in DEL/MAIN packs. Matrix uses **22 criteria** reconstructed from GO §D → INV-01…15, Delivery D-01…D-10 / Q-01…Q-10, and persistence-reassessment boundary questions (Q1–Q10). Marked `SOURCE=RECONSTRUCTED_FROM_GO_CONTEXT` in `_nfr22.txt`.
+**Tag legend:** PROVEN / ASSUMED / UNKNOWN
 
-## INLINE — NEW test file: durableLaunchMarkers.test.ts
+| # | criterion | SQLite (F3 current) | Postgres/Neon (FinOps foundation / F3-hypothetical) | gap | F3 importance | evidence |
+|---|---|---|---|---|---|---|
+| 1 | Durability (survives process crash) | PROVEN for journal appends via `d1.sqlite` + `BEGIN IMMEDIATE` | PROVEN for FinOps ledger/audit/rollout; ASSUMED for F3 if thin PG adapter added | SQLite already durable for Option A; PG would match durability class but is not wired to F3 | **Critical** | `sqliteAuthorityAttemptJournal.ts`; `lib/d1/db.ts`; FinOps postgres adapters |
+| 2 | Crash recovery / restart fail-closed | PROVEN design+unit: CREATED-without-LAUNCHED → fail-closed; no auto-resume | ASSUMED same port semantics possible; UNKNOWN until F3-PG Delivery+QA | Formal Cycle 9 crash/restart QA still paused for both | **Critical** | `startExecution.ts`; durableLaunchMarkers tests; architecture FC matrix |
+| 3 | Multi-process / multi-instance correctness | ASSUMED file locks; UNKNOWN multi-instance harness; process-local singleton PROVEN | PROVEN Pool shared-DB pattern in FinOps; better multi-process | SQLite weak for multi-instance; PG stronger — **accepted risk** under mono-operator pilot | Medium (pilot Low) | `sqlite-current.md` §4; `createFinOpsPool.ts` |
+| 4 | Backup / restore practicality | ASSUMED: file copy of `d1.sqlite`; UNKNOWN ops runbook for F3 | ASSUMED Neon/PG tooling exists for FinOps; UNKNOWN F3-specific restore drill | Second backup path if KEEP SQLite | Medium | path resolution `D1_SQLITE_PATH` / `.sfia-exec`; FinOps migrate scripts |
+| 5 | RPO / RTO (journal frontier) | UNKNOWN numeric RPO/RTO; local FS loss = journal loss | UNKNOWN numeric; Neon HA ASSUMED better RPO vs single local file | No repo evidence of measured RPO/RTO for either | Medium | no RPO/RTO docs in F3 paths |
+| 6 | Locality (pilot-local FS) | PROVEN useful for pilot-bounded journal | Networked; not local | Locality favors SQLite for first REAL | **High** | boundaries Q6; PILOT-LOCAL labels |
+| 7 | Network dependency | PROVEN none for F3 journal path | PROVEN required (`DATABASE_URL` / `_DIRECT`) | PG introduces Critical-path network dep before Cursor launch | **Critical** | boundaries Q7; `wireOaStack` SQLite-only today |
+| 8 | Credentials / secrets surface | Local path env names only (`D1_SQLITE_PATH`, `OPS1_EXEC_ROOT`) | Connection strings + Neon credentials required | PG expands secret surface | High | postgres-neon-current.md §3/§7 |
+| 9 | SSL / transport security | N/A local file (ASSUMED OS FS perms) | PROVEN explicit SSL option on FinOps pool; default false; Neon must set secure SSL | F3-PG must not infer SSL from URL | High | `createFinOpsPool.ts` |
+| 10 | Migrations / schema evolution | PROVEN in-process `SCHEMA_SQL` + integrity_check on open | PROVEN `node-pg-migrate` FinOps migrations; no F3 journal migration today | F3-PG needs new migration; SQLite schema already present | Medium | `lib/d1/db.ts`; `db/migrations/*finops*` |
+| 11 | Observability / audit inspectability | PROVEN journal kinds + indexes; local SQL inspect ASSUMED | PROVEN FinOps audit journal pattern; F3-PG would need own table/queries | Parity possible; tooling differs | Medium | journal kinds list; `postgresFinOpsAuditJournal.ts` |
+| 12 | Cost (ops + hosted DB) | Local FS: marginal host cost ASSUMED; UNKNOWN exact | Neon/hosted: **UNKNOWN** (no Neon price inventory in repo — do not invent) | Cost gap UNKNOWN; not decisive for pilot | Low–Medium | no price artifacts in repo |
+| 13 | Ops complexity / debt | Low–medium for single file; dual-engine debt if FinOps stays PG | One engine long-term; new F3 Delivery + CI env | KEEP accepts dual tooling; REVISE accepts new Delivery | High | options.md trade-offs |
+| 14 | Fail-closed before Cursor launch | PROVEN: append failure blocks launch | ASSUMED identical if port-backed; fails closed if PG down | Both can fail-closed; PG fails more often if network/creds bad | **Critical** | boundaries Q8; `startExecution.ts` |
+| 15 | Idempotence / no double-launch | PROVEN unique partial index + unit tests | ASSUMED via unique constraints + port; not delivered for F3 | No proven NFR failure of SQLite on this for pilot | **Critical** | schema unique partial; durableLaunchMarkers |
+| 16 | Atomicity / compensation honesty | PROVEN single-DB journal txn; Project↔Cycle still residual (`crossStoreDurable=false`) | Same residual unless platform pivot; FinOps CAS patterns PROVEN in FinOps domain only | Neither closes Project↔Cycle by engine swap alone | **Critical** (honesty) | hardBlockerFoundation; INV-15 |
+| 17 | Testability (crash/restart harness) | PROVEN unit + composition; formal Cycle 9 QA paused | FinOps integration tests PROVEN; F3-PG harness would be new | Switching engines before Cycle 9 burns calendar | High | Option A QA 150/150; Cycle 9 paused |
+| 18 | Rollback / productionRollbackProven | Remains **false** (honest) | Remains **false** unless separate drill | Engine choice does not flip this flag | High (honesty) | hardBlockerFoundation |
+| 19 | Schema isolation (F3 vs FinOps) | PROVEN F3 table on D1 SQLite silo | YES physically shareable Neon ASSUMED with table isolation; must not import FinOps domain | Isolation discipline required if PG chosen | High | boundaries Q4/Q5; postgres §6 |
+| 20 | Product-persistence honesty | PROVEN NOT_SELECTED / PILOT-LOCAL labels | Subsystem PG ≠ automatic Product SELECT; elevating = separate Morris gate | Misread risk if Neon shared | **Critical** | INV-14; product-persistence-impact.md |
+| 21 | CI / env wiring | Local path envs; no DATABASE_URL for F3 | Requires `DATABASE_URL` / `_DIRECT` in CI/runtime | PG raises launch-gate env coupling | High | package.json migrate scripts; FinOps tests |
+| 22 | FinOps coupling | PROVEN domain isolation (no FinOps import on F3 path) | Neutral PG abstraction **NO**; thin factory = SMALL REFACTOR; reuse `createFinOpsPool` = coupling risk | Coupling is the main architectural hazard of naive PG reuse | **Critical** | boundaries Q1–Q3; postgres §6 |
 
-```typescript
-/**
- * R-T-A3-2 OPTION A — durable ATTEMPT_CREATED / ATTEMPT_LAUNCHED launch frontier.
- * @vitest-environment node
- */
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  MemoryAuthorityAttemptJournal,
-  contractFingerprint,
-  type AppendAuthorityAttemptJournalInput,
-  type AuthorityAttemptJournalPort,
-  type AuthorityAttemptJournalRecord,
-} from "@/lib/oa/critical-ack";
-import { TestExecutionAdapter } from "@/lib/oa/execution-attempt";
-import {
-  MORRIS_ACTOR,
-  buildStack,
-  seedConfirmedContract,
-  selectStandardAgent,
-} from "./helpers";
+## Matrix verdict (assessment, not Morris decision)
 
-vi.mock("@/lib/oa/critical-ack", async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import("@/lib/oa/critical-ack")>();
-  return {
-    ...actual,
-    contractFingerprint: vi.fn(actual.contractFingerprint),
-  };
-});
+- For **mono-operator first REAL**, SQLite meets Critical NFRs that matter now (durability, fail-closed, locality, no network, product-persistence honesty) with **PROVEN** Option A delivery.
+- Postgres/Neon is a **real** FinOps foundation and a **valid future F3 durability engine**, but introduces network/creds/CI/coupling costs **without** closing Project↔Cycle or product persistence.
+- No PROVEN NFR failure of SQLite for the pilot-bounded frontier justifies burning the frozen candidate `082326a1…` before Cycle 9 QA.
 
-/** Journal that records append order and can fail on selected kinds. */
-class RecordingJournal
-  extends MemoryAuthorityAttemptJournal
-  implements AuthorityAttemptJournalPort
-{
-  readonly sequence: string[] = [];
-  failOnKind: AppendAuthorityAttemptJournalInput["kind"] | null = null;
-
-  override async append(
-    input: AppendAuthorityAttemptJournalInput,
-  ): Promise<AuthorityAttemptJournalRecord> {
-    this.sequence.push(input.kind);
-    if (this.failOnKind === input.kind) {
-      throw new Error(`forced_journal_fail:${input.kind}`);
-    }
-    return super.append(input);
-  }
-}
-
-function realFingerprint(
-  contract: Parameters<typeof contractFingerprint>[0],
-): string {
-  return [
-    contract.executionContractId,
-    String(contract.version),
-    contract.action,
-    contract.target,
-    contract.scope,
-    contract.idempotencyKey,
-  ].join("|");
-}
-
-describe("durable launch markers (OPTION A)", () => {
-  beforeEach(() => {
-    vi.mocked(contractFingerprint).mockImplementation(realFingerprint);
-  });
-
-  it("CREATED append failure → launch count 0", async () => {
-    const journal = new RecordingJournal();
-    journal.failOnKind = "ATTEMPT_CREATED";
-    const adapter = new TestExecutionAdapter();
-    const stack = buildStack({ adapter, authorityAttemptJournal: journal });
-    const { contractId } = await seedConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      executionContractId: contractId,
-    });
-    expect(selected.ok).toBe(true);
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:oa-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: "evd:morris-n3",
-      processEpochId: "epoch:created-fail",
-    });
-
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.detailCode).toBe("EXECUTION_PERSISTENCE_FAILED");
-      expect(started.error.internalCauseRef).toBe(
-        "durable_attempt_created_failed",
-      );
-    }
-    expect(adapter.launchCallCount).toBe(0);
-    expect(journal.sequence).toEqual(["ATTEMPT_CREATED"]);
-  });
-
-  it("writes CREATED before launch; LAUNCHED only after ack", async () => {
-    const journal = new RecordingJournal();
-    const adapter = new TestExecutionAdapter();
-    const stack = buildStack({ adapter, authorityAttemptJournal: journal });
-    const { contractId } = await seedConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      executionContractId: contractId,
-    });
-    expect(selected.ok).toBe(true);
-
-    const order: string[] = [];
-    const originalLaunch = adapter.launch.bind(adapter);
-    adapter.launch = async (req) => {
-      order.push("launch");
-      return originalLaunch(req);
-    };
-    const originalAppend = journal.append.bind(journal);
-    journal.append = async (input) => {
-      order.push(`journal:${input.kind}`);
-      return originalAppend(input);
-    };
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:oa-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: "evd:morris-n3",
-      processEpochId: "epoch:order",
-    });
-
-    expect(started.ok).toBe(true);
-    expect(order).toEqual([
-      "journal:ATTEMPT_CREATED",
-      "launch",
-      "journal:ATTEMPT_LAUNCHED",
-    ]);
-    expect(adapter.launchCallCount).toBe(1);
-    const records = journal.all();
-    expect(records.map((r) => r.kind)).toEqual([
-      "ATTEMPT_CREATED",
-      "ATTEMPT_LAUNCHED",
-    ]);
-    expect(records.every((r) => r.contractFingerprint)).toBe(true);
-    expect(records.every((r) => r.attemptId === "xat:oa-001")).toBe(true);
-  });
-
-  it("incomplete identity (missing fingerprint) fail-closed; launch count 0", async () => {
-    vi.mocked(contractFingerprint).mockReturnValueOnce("");
-    const journal = new RecordingJournal();
-    const adapter = new TestExecutionAdapter();
-    const stack = buildStack({ adapter, authorityAttemptJournal: journal });
-    const { contractId } = await seedConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      executionContractId: contractId,
-    });
-    expect(selected.ok).toBe(true);
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:oa-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: "evd:morris-n3",
-      processEpochId: "epoch:no-fp",
-    });
-
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.detailCode).toBe("ATTEMPT_INVALID");
-      expect(started.error.internalCauseRef).toBe(
-        "durable_attempt_identity_incomplete",
-      );
-    }
-    expect(adapter.launchCallCount).toBe(0);
-    expect(journal.sequence).toEqual([]);
-  });
-
-  it("second Start after LAUNCHED does not call adapter again", async () => {
-    const journal = new RecordingJournal();
-    const adapter = new TestExecutionAdapter();
-    const stack = buildStack({ adapter, authorityAttemptJournal: journal });
-    const { contractId } = await seedConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      executionContractId: contractId,
-      attemptId: "xat:oa-001",
-    });
-    expect(selected.ok).toBe(true);
-    const contract = await stack.execution.contracts.findById(contractId);
-    expect(contract).toBeTruthy();
-
-    await journal.append({
-      kind: "ATTEMPT_LAUNCHED",
-      processEpochId: "epoch:already-launched",
-      correlationId: "cor:already-launched",
-      attemptId: "xat:oa-001",
-      executionContractId: contractId,
-      contractVersion: contract!.version,
-      contractFingerprint: realFingerprint(contract!),
-      actorId: MORRIS_ACTOR.actorId,
-    });
-
-    const second = await stack.attempts.startExecution.execute({
-      attemptId: "xat:oa-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: "evd:morris-n3",
-      processEpochId: "epoch:dbl-2",
-    });
-    expect(second.ok).toBe(false);
-    if (!second.ok) {
-      expect(second.error.detailCode).toBe("ATTEMPT_STATE_CONFLICT");
-      expect(second.error.internalCauseRef).toBe(
-        "durable_attempt_already_launched_no_relaunch",
-      );
-    }
-    expect(adapter.launchCallCount).toBe(0);
-  });
-
-  it("CREATED without LAUNCHED → second Start fails closed; no launch", async () => {
-    const journal = new RecordingJournal();
-    const adapter = new TestExecutionAdapter();
-    const stack = buildStack({ adapter, authorityAttemptJournal: journal });
-    const { contractId } = await seedConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      executionContractId: contractId,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    const contract = await stack.execution.contracts.findById(contractId);
-    expect(contract).toBeTruthy();
-
-    await journal.append({
-      kind: "ATTEMPT_CREATED",
-      processEpochId: "epoch:pending",
-      correlationId: "cor:pending",
-      attemptId: "xat:oa-001",
-      executionContractId: contractId,
-      contractVersion: contract!.version,
-      contractFingerprint: realFingerprint(contract!),
-      actorId: MORRIS_ACTOR.actorId,
-    });
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:oa-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: "evd:morris-n3",
-      processEpochId: "epoch:pending-2",
-    });
-
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.detailCode).toBe("ATTEMPT_STATE_CONFLICT");
-      expect(started.error.internalCauseRef).toBe(
-        "durable_attempt_created_unlaunched_no_auto_resume",
-      );
-    }
-    expect(adapter.launchCallCount).toBe(0);
-  });
-
-  it("LAUNCHED append failure after ack → fail closed; no SUCCESS", async () => {
-    const journal = new RecordingJournal();
-    journal.failOnKind = "ATTEMPT_LAUNCHED";
-    const adapter = new TestExecutionAdapter();
-    const stack = buildStack({ adapter, authorityAttemptJournal: journal });
-    const { contractId } = await seedConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      executionContractId: contractId,
-    });
-    expect(selected.ok).toBe(true);
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:oa-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: "evd:morris-n3",
-      processEpochId: "epoch:launched-fail",
-    });
-
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.detailCode).toBe("EXECUTION_PERSISTENCE_FAILED");
-      expect(started.error.internalCauseRef).toBe(
-        "durable_attempt_launched_failed",
-      );
-    }
-    expect(adapter.launchCallCount).toBe(1);
-    expect(journal.sequence).toEqual(["ATTEMPT_CREATED", "ATTEMPT_LAUNCHED"]);
-    const attempt = await stack.attempts.attempts.findById("xat:oa-001");
-    expect(attempt?.status).toBe("accepted");
-    expect(journal.all().some((r) => r.kind === "ATTEMPT_LAUNCHED")).toBe(
-      false,
-    );
-  });
-
-  it("journal absent → prior behavior (no ATTEMPT_* required)", async () => {
-    const adapter = new TestExecutionAdapter();
-    const stack = buildStack({ adapter });
-    const { contractId } = await seedConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      executionContractId: contractId,
-    });
-    expect(selected.ok).toBe(true);
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:oa-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: "evd:morris-n3",
-    });
-    expect(started.ok).toBe(true);
-    expect(adapter.launchCallCount).toBe(1);
-  });
-});
-```
+<!-- end nfr-matrix.md -->
 
 ---
 
-## INLINE — FULL DIFFS / CONTENTS of modified files
+### INLINE FILE: options.md
 
-### `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
+<!-- begin options.md -->
+# Options — R-T-A3-2 Persistence Frontier Reassessment
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-index c2d6c3e..74e28fe 100644
---- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-+++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-@@ -36,6 +36,11 @@ import {
-   createInMemoryEvidenceReviewServices,
-   type EvidenceReviewServices,
- } from "@/lib/oa/evidence-review";
-+import {
-+  AcknowledgeCritical,
-+  SqliteAuthorityAttemptJournal,
-+  createProductionAcknowledgeCritical,
-+} from "@/lib/oa/critical-ack";
- import type { ProjectServices } from "@/lib/oa/project";
- import {
-   createAttemptReaderBridge,
-@@ -89,6 +94,14 @@ export type RuntimeOaStack = {
-   readonly evidenceReviewServices: EvidenceReviewServices;
-   /** Explicit TestExecutionAdapter — never silent NoOp. */
-   readonly fixtureAdapter: TestExecutionAdapter;
-+  /** Production Critical Ack (AuthJsGitHubIdentityAdapter — never Fake). */
-+  readonly acknowledgeCritical: AcknowledgeCritical;
-+  readonly authenticatedIdentityAdapterClassName: "AuthJsGitHubIdentityAdapter";
-+  /**
-+   * PILOT-BOUNDED AUTHORITY/ATTEMPT DURABILITY ≠ PRODUCT PERSISTENCE SELECTED.
-+   * Shared SqliteAuthorityAttemptJournal for Confirm / Start / Ack.
-+   */
-+  readonly authorityAttemptJournalClassName: "SqliteAuthorityAttemptJournal";
- };
-
- function resolveAudit(
-@@ -123,12 +136,17 @@ function wireOaStack(
-     authorityResolver,
-   });
-
-+  // PILOT-BOUNDED AUTHORITY/ATTEMPT DURABILITY ≠ PRODUCT PERSISTENCE SELECTED.
-+  // Shared journal instance for Confirm / Start / Ack (crossStoreDurable remains false).
-+  const authorityAttemptJournal = new SqliteAuthorityAttemptJournal();
-+
-   const executionContractServices = createInMemoryExecutionContractServices({
-     projectServices,
-     decisionServices,
-     cycleServices,
-     clock,
-     authorityResolver,
-+    criticalAckJournal: authorityAttemptJournal,
-   });
-
-   // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
-@@ -142,6 +160,7 @@ function wireOaStack(
-     clock,
-     authorityResolver,
-     policy: { defaultMaxRetriesBudget: 0 },
-+    authorityAttemptJournal,
-   });
-
-   const evidenceReviewServices = createInMemoryEvidenceReviewServices({
-@@ -149,6 +168,14 @@ function wireOaStack(
-     attemptReader: createAttemptReaderBridge(executionAttemptServices.attempts),
-   });
-
-+  const productionAck = createProductionAcknowledgeCritical({
-+    contracts: executionContractServices.contracts,
-+    authority: authorityResolver,
-+    decisionServices,
-+    journal: authorityAttemptJournal,
-+    clock,
-+  });
-+
-   return Object.freeze({
-     projectServices,
-     clock,
-@@ -160,6 +187,10 @@ function wireOaStack(
-     executionAttemptServices,
-     evidenceReviewServices,
-     fixtureAdapter,
-+    acknowledgeCritical: productionAck.acknowledgeCritical,
-+    authenticatedIdentityAdapterClassName:
-+      productionAck.identityAdapterClassName,
-+    authorityAttemptJournalClassName: "SqliteAuthorityAttemptJournal",
-   });
- }
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-index 42758a6..2ab3e49 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-@@ -7,12 +7,18 @@
-  *  2. The Attempt is ALREADY persisted `accepted` (Select did it). Start never
-  *     launches before an `accepted` Attempt exists (anti launch-then-persist).
-  *  3. The contract stays `confirmed` while the Attempt is `accepted`.
-- *  4. Only the injected fake adapter `launch(attemptId)` is called; it is
-+ *  4. When an AuthorityAttemptJournal is present (production): append
-+ *     ATTEMPT_CREATED before adapter.launch; append ATTEMPT_LAUNCHED after
-+ *     validated LaunchAck and before Attempt `running` persist. CREATED
-+ *     failure → never launch. LAUNCHED failure after launch → fail-closed
-+ *     without claiming success (CREATED without LAUNCHED ⇒ UNKNOWN on restart).
-+ *     Journal absent (legacy unit tests) → skip ATTEMPT_* markers.
-+ *  5. Only the injected fake adapter `launch(attemptId)` is called; it is
-  *     idempotent.
-- *  5. Launch reject/failure → Attempt `failed`, never `executing`.
-- *  6. LaunchAck → Attempt `running` persisted FIRST, then contract
-+ *  6. Launch reject/failure → Attempt `failed`, never `executing`.
-+ *  7. LaunchAck → Attempt `running` persisted FIRST, then contract
-  *     `executing`, then the agent_selection Confirmation is consumed.
-- *  7. Contract update failure after `running` → fail-closed compensation of
-+ *  8. Contract update failure after `running` → fail-closed compensation of
-  *     the Attempt, audited, with no second adapter call and no business
-  *     rollback.
-  *
-@@ -21,6 +27,7 @@
-  *   `confirmed`, so an authorized Retry remains possible;
-  * - launch FAIL (indeterminate adapter error) → contract `failed`.
-  */
-+import { randomBytes } from "node:crypto";
- import type { ClockPort } from "@/lib/oa/doctrine";
- import type { DecisionServices } from "@/lib/oa/decision";
- import type {
-@@ -28,6 +35,10 @@ import type {
-   ExecutionContractRepositoryPort,
- } from "@/lib/oa/execution-contract";
- import type { AuthorityResolverPort } from "@/lib/oa/decision";
-+import {
-+  contractFingerprint,
-+  type AuthorityAttemptJournalPort,
-+} from "@/lib/oa/critical-ack";
- import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
- import {
-   AGENT_SELECTION_SCOPE,
-@@ -53,6 +64,10 @@ import {
- import type { ExecutionContractStatusWriter } from "./executionContractStatusWriter";
- import { mapContractAuthorizationDetail } from "./selectExecutionAgent";
-
-+function newProcessEpochId(): string {
-+  return `epoch:${randomBytes(8).toString("hex")}`;
-+}
-+
- export class StartExecution {
-   constructor(
-     private readonly attempts: ExecutionAttemptRepositoryPort,
-@@ -66,6 +81,7 @@ export class StartExecution {
-     private readonly clock: ClockPort,
-     private readonly audit: ExecutionAttemptAuditPort,
-     private readonly store?: MemoryExecutionAttemptStore,
-+    private readonly authorityAttemptJournal?: AuthorityAttemptJournalPort,
-   ) {}
-
-   async execute(
-@@ -115,8 +131,28 @@ export class StartExecution {
-       }
-
-       // Crash-window replay: the Attempt is already running — return the same
--      // state without calling the adapter a second time.
-+      // state without calling the adapter a second time — UNLESS journal
-+      // disposition is UNKNOWN/REVIEW_REQUIRED (DUR-4 no auto-resume).
-       if (attempt.status === "running") {
-+        if (this.authorityAttemptJournal) {
-+          const disposition =
-+            await this.authorityAttemptJournal.latestDispositionForAttempt(
-+              attempt.attemptId,
-+            );
-+          if (
-+            disposition === "UNKNOWN" ||
-+            disposition === "REVIEW_REQUIRED"
-+          ) {
-+            return fail(
-+              "ATTEMPT_STATE_CONFLICT",
-+              `reconcile_${disposition}_no_auto_resume`,
-+              {
-+                executionContractId: attempt.executionContractId,
-+                attempt,
-+              },
-+            );
-+          }
-+        }
-         const contract = await this.contracts.findById(
-           attempt.executionContractId,
-         );
-@@ -326,8 +362,79 @@ export class StartExecution {
-         });
-       }
-
--      // Step 4 — the ONLY adapter interaction.
-+      // Step 4 — durable ATTEMPT_* frontier (when journal present) then the
-+      // ONLY adapter interaction.
-+      //
-+      // Double-launch protection (OPTION A):
-+      // - ATTEMPT_LAUNCHED already → no second launch (fail-closed here;
-+      //   running replay is handled earlier).
-+      // - ATTEMPT_CREATED without LAUNCHED → fail-closed no auto-resume
-+      //   (crash window / REVIEW_REQUIRED; do not call adapter again).
-+      // - else append CREATED then launch; on ack append LAUNCHED before
-+      //   running persist. LAUNCHED write failure after launch → fail closed
-+      //   without claiming success (CREATED without LAUNCHED ⇒ UNKNOWN).
-       let launch;
-+      const journal = this.authorityAttemptJournal;
-+      let processEpochId = request.processEpochId;
-+      let fingerprint: string | undefined;
-+
-+      if (journal) {
-+        const prior = await journal.findByAttemptId(attempt.attemptId);
-+        const hasLaunched = prior.some((r) => r.kind === "ATTEMPT_LAUNCHED");
-+        const hasCreated = prior.some((r) => r.kind === "ATTEMPT_CREATED");
-+        if (hasLaunched) {
-+          return fail(
-+            "ATTEMPT_STATE_CONFLICT",
-+            "durable_attempt_already_launched_no_relaunch",
-+            {
-+              executionContractId: contract.executionContractId,
-+              attempt,
-+            },
-+          );
-+        }
-+        if (hasCreated && !hasLaunched) {
-+          return fail(
-+            "ATTEMPT_STATE_CONFLICT",
-+            "durable_attempt_created_unlaunched_no_auto_resume",
-+            {
-+              executionContractId: contract.executionContractId,
-+              attempt,
-+            },
-+          );
-+        }
-+
-+        fingerprint = contractFingerprint(contract);
-+        if (!fingerprint) {
-+          return fail(
-+            "ATTEMPT_INVALID",
-+            "durable_attempt_identity_incomplete",
-+            { executionContractId: contract.executionContractId },
-+          );
-+        }
-+        processEpochId = processEpochId ?? newProcessEpochId();
-+
-+        try {
-+          await journal.append({
-+            kind: "ATTEMPT_CREATED",
-+            processEpochId,
-+            correlationId,
-+            occurredAt: timestamp,
-+            attemptId: attempt.attemptId,
-+            executionContractId: contract.executionContractId,
-+            contractVersion: contract.version,
-+            contractFingerprint: fingerprint,
-+            actorId: request.actor.actorId,
-+            payload: { selectedAgentRef: attempt.selectedAgentRef },
-+          });
-+        } catch {
-+          return fail(
-+            "EXECUTION_PERSISTENCE_FAILED",
-+            "durable_attempt_created_failed",
-+            { executionContractId: contract.executionContractId },
-+          );
-+        }
-+      }
-+
-       try {
-         launch = await this.adapter.launch({
-           attemptId: attempt.attemptId,
-@@ -383,6 +490,35 @@ export class StartExecution {
-         });
-       }
-
-+      // Durable ATTEMPT_LAUNCHED after validated ack, BEFORE running persist.
-+      if (journal && fingerprint && processEpochId) {
-+        try {
-+          await journal.append({
-+            kind: "ATTEMPT_LAUNCHED",
-+            processEpochId,
-+            correlationId,
-+            occurredAt: timestamp,
-+            attemptId: attempt.attemptId,
-+            executionContractId: contract.executionContractId,
-+            contractVersion: contract.version,
-+            contractFingerprint: fingerprint,
-+            actorId: request.actor.actorId,
-+            payload: { selectedAgentRef: attempt.selectedAgentRef },
-+          });
-+        } catch {
-+          // Launch already happened; do not invent SUCCESS. Leave Attempt
-+          // accepted with CREATED-without-LAUNCHED for UNKNOWN on restart.
-+          return fail(
-+            "EXECUTION_PERSISTENCE_FAILED",
-+            "durable_attempt_launched_failed",
-+            {
-+              executionContractId: contract.executionContractId,
-+              attempt,
-+            },
-+          );
-+        }
-+      }
-+
-       // Step 6a — Attempt running FIRST.
-       const runningAttempt: ExecutionAttempt = {
-         ...attempt,
-```
-
-### `projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-index d571f32..b8b355f 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-@@ -174,6 +174,11 @@ export type StartExecutionRequest = {
-   correlationId?: string;
-   expectedAttemptVersion?: number;
-   expectedContractVersion?: number;
-+  /**
-+   * Optional process epoch for durable ATTEMPT_* journal markers.
-+   * When absent and a journal is present, Start generates `epoch:<random>`.
-+   */
-+  processEpochId?: string;
-   /** Hostile — ignored, never trusted. */
-   claimedAuthorityLevel?: string;
-   nowIso?: string;
-```
-
-### `projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts b/projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts
-index 9174c28..d0c83c6 100644
---- a/projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts
-+++ b/projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts
-@@ -50,7 +50,7 @@ export interface HardFoundationSnapshot {
-   readonly closureCriteriaUnmet: readonly string[];
-   readonly mutable: false;
-   readonly writeCommands: false;
--  readonly iam: "NOT_SELECTED";
-+  readonly iam: "SELECTED — AUTH.JS + GITHUB OAUTH / JWT / NO DB ADAPTER";
-   readonly persistenceProduct: "NOT_SELECTED";
- }
-
-@@ -89,14 +89,24 @@ export function evaluateHardFoundation(
-       label: "Critical acknowledge / authority (no public Critical ack API)",
-       evidenceState: evidence,
-       proofAvailable: foundationPresent
--        ? ["hard-foundation-contract", "fail-closed-hold"]
-+        ? [
-+            "hard-foundation-contract",
-+            "fail-closed-hold",
-+            "critical-ack-port-surface",
-+            "authority-attempt-journal-local",
-+            "dur4-reconfirm-after-restart-policy",
-+            "authjs-github-identity-adapter",
-+            "jwt-session-no-db-adapter",
-+            "production-acknowledge-critical-composition-authjs",
-+          ]
-         : [],
-       proofMissing: [
--        "authenticated Critical acknowledge API",
--        "IAM-backed authority",
--        "Morris GO for real Critical execution",
-+        "live GitHub OAuth proof",
-+        "Morris GO for REAL Critical execution",
-+        "IAM-backed authority end-to-end with live session",
-+        "authenticated Critical acknowledge HTTP API",
-       ],
--      openDependencies: ["IAM", "DELIVERY_GATE"],
-+      openDependencies: ["LIVE_OAUTH_PROOF", "DELIVERY_GATE"],
-       remainsOpen: true,
-     },
-     {
-@@ -109,6 +119,8 @@ export function evaluateHardFoundation(
-             "bounded-local-atomic-audit",
-             "project-cycle-coordinator-sim",
-             "idempotency-keys",
-+            "authority-attempt-journal-local",
-+            "reconcile-unknown-disposition-no-attempt-enum",
-           ]
-         : [],
-       proofMissing: [
-@@ -166,17 +178,19 @@ export function evaluateHardFoundation(
-           "INTERNAL_ONLY hard foundation contract",
-           "bounded local atomic audit (node:sqlite)",
-           "project↔cycle coordinator with honest productionRollbackProven=false",
-+          "critical-ack journal surface (local harness; IAM SELECTED Auth.js+GitHub JWT/no-DB; production composition wired via createProductionAcknowledgeCritical / AuthJsGitHubIdentityAdapter; SqliteAuthorityAttemptJournal shared for Confirm/Start/Ack with ATTEMPT_CREATED before launch + ATTEMPT_LAUNCHED after ack; live OAuth proof / Morris HARD acceptance pending; Project↔Cycle cross-store residual)",
-+          "honest crossStoreDurable=false",
-         ]
-       : [],
-     closureCriteriaUnmet: [
--      "R-T-A3-1 authenticated Critical ack",
-+      "R-T-A3-1 live authenticated Critical ack (OAuth proof)",
-       "R-T-A3-2 durable cross-store atomicity",
-       "Morris dedicated HARD closure gate",
-       "No IAM/delivery/production requirement residual",
-     ],
-     mutable: false,
-     writeCommands: false,
--    iam: "NOT_SELECTED",
-+    iam: "SELECTED — AUTH.JS + GITHUB OAUTH / JWT / NO DB ADAPTER",
-     persistenceProduct: "NOT_SELECTED",
-   });
- }
-```
-
-### `projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
-index e96f90e..da3a035 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
-@@ -162,6 +162,7 @@ export function buildStack(
-     adapter?: TestExecutionAdapter | NoOpExecutionAdapter;
-     policy?: Partial<AttemptPolicy>;
-     fixedNowIso?: string;
-+    authorityAttemptJournal?: import("@/lib/oa/critical-ack").AuthorityAttemptJournalPort;
-   } = {},
- ): Stack {
-   const nowIso = options.fixedNowIso ?? NOW;
-@@ -198,6 +199,7 @@ export function buildStack(
-     adapter,
-     policy: options.policy,
-     fixedNowIso: nowIso,
-+    authorityAttemptJournal: options.authorityAttemptJournal,
-   });
-   return {
-     projects,
-```
-
-### `projects/sfia-studio/app/__tests__/oa/critical-ack/productionCompositionWiring.test.ts`
-
-```diff
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/oa/critical-ack/productionCompositionWiring.test.ts
-+/**
-+ * Production AcknowledgeCritical composition wiring proofs.
-+ * @vitest-environment node
-+ */
-+import fs from "node:fs";
-+import path from "node:path";
-+import { afterEach, describe, expect, it } from "vitest";
-+import { FixedClock } from "@/lib/oa/doctrine";
-+import {
-+  AuthJsGitHubIdentityAdapter,
-+  MemoryAuthorityAttemptJournal,
-+  SqliteAuthorityAttemptJournal,
-+  createProductionAcknowledgeCritical,
-+} from "@/lib/oa/critical-ack";
-+import { createRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-+import {
-+  APP_ROOT,
-+  buildStack,
-+  buildValidatedContract,
-+  registerMorris,
-+  seedAcceptedDecision,
-+  seedProject,
-+  SCHEMAS,
-+  FIXTURES,
-+} from "../execution-contract/helpers";
-+import { contractFingerprint } from "@/lib/oa/critical-ack";
-+
-+const REGISTRY_ROOT = FIXTURES;
-+const SCHEMAS_ROOT = SCHEMAS;
-+
-+type MockSession = {
-+  authProvider?: string;
-+  githubAccountId?: string;
-+} | null;
-+
-+function mockAuth(session: MockSession) {
-+  return async () => session as never;
-+}
-+
-+describe("production AcknowledgeCritical composition wiring", () => {
-+  const prevMorris = process.env.AUTH_MORRIS_GITHUB_SUBJECT;
-+
-+  afterEach(() => {
-+    if (prevMorris === undefined) {
-+      delete process.env.AUTH_MORRIS_GITHUB_SUBJECT;
-+    } else {
-+      process.env.AUTH_MORRIS_GITHUB_SUBJECT = prevMorris;
-+    }
-+  });
-+
-+  it("1. createProductionAcknowledgeCritical uses AuthJsGitHubIdentityAdapter", () => {
-+    const stack = buildStack();
-+    const composition = createProductionAcknowledgeCritical({
-+      contracts: stack.execution.contracts,
-+      authority: stack.decisions.authority,
-+      decisionServices: stack.decisions,
-+      journal: new MemoryAuthorityAttemptJournal(),
-+      clock: new FixedClock("2026-08-12T10:00:00.000Z"),
-+    });
-+    expect(composition.identityAdapterClassName).toBe(
-+      "AuthJsGitHubIdentityAdapter",
-+    );
-+    expect(composition.identity).toBeInstanceOf(AuthJsGitHubIdentityAdapter);
-+    expect(composition.acknowledgeCritical).toBeDefined();
-+  });
-+
-+  it("2. createProductionAcknowledgeCritical.ts source binds Auth.js; no Fake", () => {
-+    const src = fs.readFileSync(
-+      path.join(
-+        APP_ROOT,
-+        "lib/oa/critical-ack/createProductionAcknowledgeCritical.ts",
-+      ),
-+      "utf8",
-+    );
-+    expect(src).toMatch(/AuthJsGitHubIdentityAdapter/);
-+    expect(src).toMatch(/@\/auth/);
-+    expect(src).toMatch(/\bauth\b/);
-+    expect(src).not.toMatch(/FakeAuthenticatedIdentityAdapter/);
-+    expect(src).not.toMatch(/\bFake\b/);
-+  });
-+
-+  it("3. vertical-slice-runtime/service.ts wires production factory + Sqlite journal; no Fake/Memory production journal", () => {
-+    const src = fs.readFileSync(
-+      path.join(APP_ROOT, "lib/vertical-slice-runtime/service.ts"),
-+      "utf8",
-+    );
-+    expect(src).toMatch(/createProductionAcknowledgeCritical/);
-+    expect(src).toMatch(/SqliteAuthorityAttemptJournal/);
-+    expect(src).toMatch(
-+      /authorityAttemptJournalClassName:\s*"SqliteAuthorityAttemptJournal"/,
-+    );
-+    expect(src).not.toMatch(/FakeAuthenticatedIdentity/);
-+    expect(src).not.toMatch(/new MemoryAuthorityAttemptJournal/);
-+  });
-+
-+  it("4-5. createRuntimeApplicationService exposes AuthJs + Sqlite journal class", () => {
-+    const runtime = createRuntimeApplicationService({
-+      registryRoot: REGISTRY_ROOT,
-+      schemasRoot: SCHEMAS_ROOT,
-+      nowIso: "2026-08-12T10:00:00.000Z",
-+      auditMode: "noop",
-+    });
-+    expect(runtime.oa).not.toBeNull();
-+    expect(runtime.oa?.authenticatedIdentityAdapterClassName).toBe(
-+      "AuthJsGitHubIdentityAdapter",
-+    );
-+    expect(runtime.oa?.authorityAttemptJournalClassName).toBe(
-+      "SqliteAuthorityAttemptJournal",
-+    );
-+    expect(runtime.oa?.acknowledgeCritical).toBeDefined();
-+  });
-+
-+  it("4b. wireOaStack production journal class is SqliteAuthorityAttemptJournal", () => {
-+    expect(SqliteAuthorityAttemptJournal.name).toBe(
-+      "SqliteAuthorityAttemptJournal",
-+    );
-+    const src = fs.readFileSync(
-+      path.join(APP_ROOT, "lib/vertical-slice-runtime/service.ts"),
-+      "utf8",
-+    );
-+    expect(src).toContain("new SqliteAuthorityAttemptJournal()");
-+    expect(src).not.toContain("new MemoryAuthorityAttemptJournal()");
-+  });
-+  it("6. fail-closed: null session → IDENTITY_REQUIRED", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    registerMorris(stack.decisions.authority);
-+    await seedAcceptedDecision(stack);
-+    const { contractId, version } = await buildValidatedContract(stack);
-+    const get = await stack.execution.getExecutionContract.execute({
-+      executionContractId: contractId,
-+    });
-+    expect(get.ok).toBe(true);
-+    if (!get.ok) return;
-+    const fp = contractFingerprint(get.contract);
-+
-+    const identity = new AuthJsGitHubIdentityAdapter({
-+      authFn: mockAuth(null),
-+    });
-+    expect(await identity.resolvePrincipal()).toBeNull();
-+
-+    const composition = createProductionAcknowledgeCritical({
-+      contracts: stack.execution.contracts,
-+      authority: stack.decisions.authority,
-+      decisionServices: stack.decisions,
-+      journal: new MemoryAuthorityAttemptJournal(),
-+      clock: new FixedClock("2026-08-12T10:00:00.000Z"),
-+      identity,
-+    });
-+
-+    const result = await composition.acknowledgeCritical.execute({
-+      executionContractId: contractId,
-+      expectedVersion: version,
-+      expectedContractFingerprint: fp,
-+      confirmationId: "cfm:prod-null-session",
-+      idempotencyKey: "idem-prod-null-session-01",
-+      authorityEvidenceId: "evd:morris-n3",
-+    });
-+    expect(result.ok).toBe(false);
-+    if (!result.ok) {
-+      expect(result.error.detailCode).toBe("IDENTITY_REQUIRED");
-+    }
-+  });
-+
-+  it("7. valid github/295557155 principal; authz still requires Morris evidence", async () => {
-+    process.env.AUTH_MORRIS_GITHUB_SUBJECT = "295557155";
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    registerMorris(stack.decisions.authority);
-+    await seedAcceptedDecision(stack);
-+    const { contractId, version } = await buildValidatedContract(stack);
-+    const get = await stack.execution.getExecutionContract.execute({
-+      executionContractId: contractId,
-+    });
-+    expect(get.ok).toBe(true);
-+    if (!get.ok) return;
-+    const fp = contractFingerprint(get.contract);
-+
-+    // Separate N3 evidence without canActAsMorris — AuthorityResolver remains sole authz boundary.
-+    stack.decisions.authority.register({
-+      evidenceId: "evd:n3-no-morris-gate",
-+      actorId: "actor:morris",
-+      level: "N3",
-+      scope: "docs+schemas+examples only",
-+      issuedAt: "2026-07-01T00:00:00.000Z",
-+      source: "registry",
-+      canActAsMorris: false,
-+    });
-+
-+    const identity = new AuthJsGitHubIdentityAdapter({
-+      authFn: mockAuth({
-+        authProvider: "github",
-+        githubAccountId: "295557155",
-+      }),
-+      nowIso: () => "2026-08-12T10:00:00.000Z",
-+    });
-+    const principal = await identity.resolvePrincipal();
-+    expect(principal?.principalId).toBe("github:295557155");
-+    expect(principal?.actorId).toBe("actor:morris");
-+    expect(principal?.authnSource).toBe("AUTH_JS_GITHUB");
-+    expect(principal).not.toHaveProperty("canActAsMorris");
-+
-+    const composition = createProductionAcknowledgeCritical({
-+      contracts: stack.execution.contracts,
-+      authority: stack.decisions.authority,
-+      decisionServices: stack.decisions,
-+      journal: new MemoryAuthorityAttemptJournal(),
-+      clock: new FixedClock("2026-08-12T10:00:00.000Z"),
-+      identity,
-+    });
-+
-+    const result = await composition.acknowledgeCritical.execute({
-+      executionContractId: contractId,
-+      expectedVersion: version,
-+      expectedContractFingerprint: fp,
-+      confirmationId: "cfm:prod-live-shape",
-+      idempotencyKey: "idem-prod-live-shape-01",
-+      authorityEvidenceId: "evd:n3-no-morris-gate",
-+    });
-+    expect(result.ok).toBe(false);
-+    if (!result.ok) {
-+      expect(
-+        result.error.detailCode === "MORRIS_GATE_DENIED" ||
-+          result.error.detailCode === "AUTHORITY_DENIED",
-+      ).toBe(true);
-+    }
-+  });
-+
-+  it("8. malformed githubAccountId fail-closed", async () => {
-+    const stack = buildStack();
-+    const identity = new AuthJsGitHubIdentityAdapter({
-+      authFn: mockAuth({
-+        authProvider: "github",
-+        githubAccountId: "not-numeric",
-+      }),
-+    });
-+    const composition = createProductionAcknowledgeCritical({
-+      contracts: stack.execution.contracts,
-+      authority: stack.decisions.authority,
-+      decisionServices: stack.decisions,
-+      journal: new MemoryAuthorityAttemptJournal(),
-+      clock: new FixedClock("2026-08-12T10:00:00.000Z"),
-+      identity,
-+    });
-+    expect(await composition.identity.resolvePrincipal()).toBeNull();
-+  });
-+
-+  it("9. wrong provider fail-closed", async () => {
-+    const identity = new AuthJsGitHubIdentityAdapter({
-+      authFn: mockAuth({
-+        authProvider: "credentials",
-+        githubAccountId: "295557155",
-+      }),
-+    });
-+    expect(await identity.resolvePrincipal()).toBeNull();
-+    const stack = buildStack();
-+    const composition = createProductionAcknowledgeCritical({
-+      contracts: stack.execution.contracts,
-+      authority: stack.decisions.authority,
-+      decisionServices: stack.decisions,
-+      journal: new MemoryAuthorityAttemptJournal(),
-+      clock: new FixedClock("2026-08-12T10:00:00.000Z"),
-+      identity,
-+    });
-+    expect(await composition.identity.resolvePrincipal()).toBeNull();
-+  });
-+});
-```
+**Generated:** 2026-08-12
+**Status:** COMPARISON ONLY — **none decided** until Morris gate
+**Product persistence:** remains **NOT_SELECTED** unless Morris elevates in a separate gate
+**Candidate under assessment:** `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` (Option A Delivery — must stay byte-identical unless Morris chooses REVISE)
 
 ---
 
-## Freeze artifacts
+## OPTION A — KEEP CURRENT SQLITE FRONTIER
 
-### FREEZE_SHA / PHASE-QA-CANDIDATE-FROZEN
+### Intent
+
+Keep the delivered F3 production composition on `SqliteAuthorityAttemptJournal` / `d1.sqlite` / `oa_authority_attempt_journal`. Do **not** migrate F3 journal to Postgres/Neon for the Critical launch gate. Resume Cycle 9 formal QA on the frozen candidate. Product persistence remains NOT_SELECTED.
+
+### Pros
+
+- Locality — no network dependency for Critical launch gate
+- Domain isolation from FinOps (no FinOps module import on F3 path)
+- Already delivered + unit-tested (150/150 Delivery QA aggregate)
+- Fail-closed local journal before agent launch
+- Reversible later (KEEP now does not forbid future REVISE TO POSTGRES after REAL/pilot learning)
+
+### Cons
+
+- Second storage engine alongside FinOps PG
+- Second backup path / dual ops tooling debt
+- Multi-process limits of `node:sqlite` / process-local singleton
+- Future migration debt if product later requires shared PG
+
+### Classification of delivery
+
+**VALID CANDIDATE — KEEP** (if Morris confirms)
+
+Frozen SHA `082326a1…` remains the HARD-closure QA candidate. No product mutation required for this option.
+
+---
+
+## OPTION B — POSTGRESQL F3-SPECIFIC DURABILITY FRONTIER
+
+### Intent
+
+Introduce an F3-owned Postgres journal adapter behind existing `AuthorityAttemptJournalPort`, using `pg` Pool + F3-owned tables/migrations. **NOT** import FinOps domain modules (`lib/oa/finops/**`). May share Neon physical DB with strict schema isolation **or** use dedicated DB — physical share ≠ product persistence SELECT.
+
+### Pros
+
+- One engine long-term (aligns with FinOps PG tooling)
+- Multi-process / shared-DB capability
+- Existing `pg` + migrate toolchain already in package.json
+- Neon target exists for FinOps (ops familiarity ASSUMED)
+
+### Cons
+
+- New Delivery required (supersedes SQLite candidate for HARD closure)
+- Network dependency before Cursor launch
+- Credentials + explicit SSL required
+- No neutral platform DB abstraction yet → small refactor **or** couple risk via `createFinOpsPool`
+- CI/runtime needs `DATABASE_URL` / `_DIRECT`
+- Calendar burn before formal crash/restart QA on existing candidate
+
+### Product persistence
+
+**NO** — subsystem-specific technical persistence only (unless Morris elevates).
+If sharing Neon product-wide is implied, treat product-persistence elevation as **UNRESOLVED** pending separate Morris gate.
+
+### Classification of SQLite delivery if B chosen
+
+**VALID BUT SUPERSEDED IF MORRIS CHOOSES POSTGRES**
+
+Candidate `082326a1…` remains historically valid Option A Delivery evidence, but HARD closure path moves to a new F3-PG Delivery + QA.
+
+---
+
+## OPTION C — REJECTED AS OVERDESIGN
+
+### Intent (rejected)
+
+Ship a multi-adapter SQLite+Postgres abstraction layer and/or dual-env runtime that selects engine by configuration for F3 journal **before** first REAL.
+
+### Why rejected
+
+- Creates abstraction/debt without first-REAL benefit
+- Neither KEEP nor thin F3-PG requires a dual-adapter platform now
+- Dual-env increases test matrix, CI surface, and confused-state risk
+- Product persistence remains NOT_SELECTED — a platform multi-adapter smells like premature Option D pivot without Morris product gate
+- Violates simplest-path boundary answer (Q9/Q10): SQLite now; thin F3-PG later **if** needed — not both at once
+
+### Classification
+
+**REJECTED AS OVERDESIGN** — do not Delivery.
+
+---
+
+## Options board
+
+| Option | One-line | Status for Morris |
+|---|---|---|
+| A KEEP SQLITE | Resume Cycle 9 QA on `082326a1…` | **Recommended** (see recommendation.md) |
+| B F3 POSTGRES | New Delivery; supersede SQLite for HARD close | Alternative GO REVISE |
+| C Multi-adapter | Dual engine abstraction now | **REJECTED** |
+
+<!-- end options.md -->
+
+---
+
+### INLINE FILE: postgres-neon-current.md
+
+<!-- begin postgres-neon-current.md -->
+# PostgreSQL / Neon FinOps Current-State Map
+
+**Scope:** FinOps PG stack present on APP at DEL HEAD=`4b1a058` (= origin/main)
+**Tag legend:** PROVEN / ASSUMED / UNKNOWN
+
+---
+
+## 1. package.json dependencies — PROVEN
+
+**Path:** `projects/sfia-studio/app/package.json`
+
+- dependency: `pg` `~8.22.0`
+- devDependency: `node-pg-migrate` `^8.0.4`
+- scripts:
+  - `migrate:up` / `migrate:down` → `--migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT`
+
+---
+
+## 2. Migrations — PROVEN
+
+**Dir:** `projects/sfia-studio/app/db/migrations/`
+
+1. `1754500000000_finops-t1-usage-ledger.js`
+2. `1754600000000_finops-t2-aggregation-reconciliation.js`
+3. `1754600001000_finops-t6-audit-journal.js`
+4. `1754600002000_finops-t3-alert-review-state.js`
+5. `1754600003000_finops-t4-enforcement-projection.js`
+6. `1754600004000_finops-t7-rollout-config.js`
+7. `1754600005000_finops-t2-billed-period-attribution.js`
+
+All FinOps-named; no F3/OA authority journal migration.
+
+---
+
+## 3. createFinOpsPool.ts — PROVEN
+
+**Path:** `lib/oa/finops/infrastructure/postgres/createFinOpsPool.ts`
+
+- Factory returns `pg.Pool`
+- Options: `connectionString`, `max`, `connectionTimeoutMillis`, `idleTimeoutMillis`, `statementTimeoutMillis`, `ssl`
+- SSL: **explicit only**; default `false` (local/CI); Neon must pass secure SSL explicitly — never inferred from URL
+- Error text mentions `DATABASE_URL` (message only; factory takes caller-supplied `connectionString`)
+- `closeFinOpsPool(pool)` → `pool.end()`
+- Does **not** read `process.env` itself
+
+**Env var names seen in FinOps PG ecosystem (names only):**
+
+- `DATABASE_URL` — integration tests / pool connection string input
+- `DATABASE_URL_DIRECT` — migrations + T7 operator / target identity
+- `OPENAI_ADMIN_KEY` — costs adapter (adjacent; not pool)
+
+---
+
+## 4. Ledger / Audit / Rollout txn patterns — PROVEN
+
+### postgresFinOpsUsageLedger.ts
+
+- `pool.connect()` → `BEGIN` → `INSERT … ON CONFLICT (dedup_key) DO NOTHING`
+- rowCount=1 → `COMMIT` created
+- else SELECT-by-dedup → fingerprint compare → duplicate / conflict → `COMMIT`/`ROLLBACK`
+- `finally` releases client
+
+### postgresFinOpsAuditJournal.ts
+
+- Append-only `pool.query(INSERT INTO finops_audit_event …)` — **no** explicit BEGIN/CAS
+- Redaction assert before insert
+
+### postgresFinOpsRolloutStore.ts
+
+- Table: `finops_rollout_config`
+- Upsert: single-statement `INSERT … ON CONFLICT DO UPDATE` with `revision = revision + 1`
+- CAS: single atomic CTE (`UPDATE` on mode+revision match ∪ conditional `INSERT … ON CONFLICT DO NOTHING` for absent OFF/null first-writer)
+
+---
+
+## 5. Runtime composition — PROVEN
+
+| Module | Role |
+|---|---|
+| `composeFinOpsRuntime.ts` | Caller-owned `Pool` → usage ledger + audit journal + capture; server-only; does not create/close pool or read env |
+| `composeFinOpsT7Runtime.ts` | Reuses T6 compose + aggregates/reconciliation/projection/rollout; default-OFF; no pool create/env |
+| `finOpsT7TargetIdentity.ts` | Parse-safe identity from `DATABASE_URL_DIRECT` string **without I/O**; fingerprint compare fail-closed |
+
+---
+
+## 6. Neutral platform DB abstraction outside finops/ + d1/? — PROVEN: NO
+
+`rg` for `createPool|DatabaseSync|pg.Pool|from "pg"|new Pool` outside `finops/` and `d1/`:
+
+| Location | Finding |
+|---|---|
+| `lib/ops1/**` | Separate SQLite `DatabaseSync` (OPS1), not PG |
+| `lib/oa/critical-ack/.../sqliteAuthorityAttemptJournal.ts` | SQLite via `openD1Db` |
+| `scripts/finops-t7-shadow-rollout.ts` | FinOps operator script: `new Pool` + `DATABASE_URL_DIRECT` |
+| `lib/oa/execution-run/server/composeExecutionRunD2D3T7ShadowPilot.ts` | `import type { Pool } from "pg"` only (FinOps shadow pilot wiring) |
+| FinOps tests | `createFinOpsPool` |
+
+**Conclusion:** No neutral platform PG abstraction. Only FinOps-branded `createFinOpsPool` + raw `pg` in FinOps script/type imports. OPS1/D1 are SQLite silos.
+
+---
+
+## 7. DATABASE_URL_DIRECT usage scope — PROVEN
+
+Paths referencing the **name** `DATABASE_URL_DIRECT`:
+
+- `package.json` migrate:up/down
+- `lib/oa/finops/server/finOpsT7TargetIdentity.ts` (docs/comment + identity derivation input)
+- `scripts/finops-t7-shadow-rollout.ts` (required env for operator)
+- FinOps tests mentioning the name (`t1.ledger`, `t2.aggregate`, `t7.shadow-activation-operator.unit`)
+
+**Not used** by F3 critical-ack / execution-attempt / vertical-slice-runtime paths.
+
+---
+
+## 8. Neon references (names only) — PROVEN
+
+Basenames under `projects/sfia-studio` / tests / docs that mention Neon (non-exhaustive of body text; names only):
+
+- FinOps lot docs `103`, `123`, `125`–`128`, `135`–`147`, `149`–`150`, `154`–`157`, `160`–`162` (`*-finops-*` / backlog)
+- Code/tests: `createFinOpsPool.ts`, `composeExecutionRunD2D3T7ShadowPilot.ts`, FinOps postgres integration tests (`t1`/`t2`/`t3`/`t4`/`t6`/`t7*`) — typically “never Neon” for ephemeral CI Postgres
+
+Pilot target name seen in prior PR body artifacts: `neon-aws-eu-central-1-sfia-studio-finops-t7-shadow-pilot` (FinOps T7; not F3).
+
+<!-- end postgres-neon-current.md -->
+
+---
+
+### INLINE FILE: precheck.md
+
+<!-- begin precheck.md -->
+# R-T-A3-2 Persistence Reassessment — PRE-CHECK
+
+**Generated:** 2026-08-12
+**DEL:** `f3-real-prerequisites-delivery`
+**Verdict:** **PRECHECK OK** (with notes)
+
+## Git truth
+
+| Check | Expected | Observed | Status |
+|---|---|---|---|
+| BRANCH | `delivery/sfia-studio-f3-real-prerequisites` | `delivery/sfia-studio-f3-real-prerequisites` | OK |
+| HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` | `4b1a058050ae81d56cb6d96b88e8a57380799a86` | OK |
+| origin/main | same SHA | `4b1a058050ae81d56cb6d96b88e8a57380799a86` | OK |
+| REMOTE_DELIVERY | ABSENT | `ls-remote` lines=0 | OK |
+| STAGED | EMPTY | empty | OK |
+| HANDOFF tip | `832eb175307379150811b6331223159e399d62b6` | match | OK |
+| Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` | recomputed MATCH | OK |
+
+### Candidate SHA recompute
+
+- Manifest: `.tmp-sfia-review/r-t-a3-2-option-a-delivery/candidate-manifest.txt`
+- FREEZE_SHA / NEW_CANDIDATE_SHA: `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab`
+- Recipe: SHA-256 of the 40 `path sha256` content lines (comments excluded) → **MATCH**
+
+### Notes (non-STOP)
+
+- Working tree is **dirty (unstaged)** with Option-A delivery candidate files under `projects/sfia-studio/app/` — expected for this delivery worktree; **not staged**; no product mutations performed by this reassessment.
+- This PRE-CHECK does **not** authorize product persistence SELECT or Neon apply.
+
+## Artifacts
+
+- `sqlite-current.md`
+- `postgres-neon-current.md`
+- `boundaries.md`
+
+<!-- end precheck.md -->
+
+---
+
+### INLINE FILE: product-persistence-impact.md
+
+<!-- begin product-persistence-impact.md -->
+# Product Persistence Impact — R-T-A3-2
+
+**Generated:** 2026-08-12
+**Current product persistence status:** **NOT_SELECTED**
+**This reassessment changes that status:** **NO** (without separate Morris decision)
+
+---
+
+## Core rule
+
+**Choosing PostgreSQL for R-T-A3-2 = NO — subsystem-specific technical persistence only** (parallel to FinOps).
+
+It is **NOT** automatic Product persistence **SELECTED**.
+
+Elevating F3 (or shared Neon) to **product-wide** persistence = **SEPARATE Morris gate**.
+
+---
+
+## Mapping
+
+| Decision under R-T-A3-2 gate | Product persistence effect |
+|---|---|
+| KEEP SQLITE | Unchanged — NOT_SELECTED / PILOT-LOCAL |
+| REVISE POSTGRES (F3-owned tables, no FinOps domain import) | Still NOT_SELECTED unless Morris elevates |
+| Share Neon physical DB with FinOps (schema-isolated) | Still technical sharing only — **NOT** product SELECT by itself |
+| Imply Neon as product-wide store / platform SoT | **UNRESOLVED** → requires separate Morris product-persistence gate |
+| Multi-adapter platform (Option C) | Rejected; would smell like premature platform SELECT |
+
+---
+
+## Honesty labels that must remain loud
+
+- `PILOT-BOUNDED AUTHORITY/ATTEMPT DURABILITY ≠ PRODUCT PERSISTENCE SELECTED`
+- `crossStoreDurable = false`
+- `productionRollbackProven = false`
+- Local sqlite / F3 PG table ≠ product durable platform
+
+---
+
+## Why this separation matters
+
+- FinOps Neon foundation is **domain-scoped**, not a declared studio product persistence platform
+- No neutral platform DB abstraction exists outside FinOps + D1 silos
+- Silent elevation would mortgage product architecture without a Morris product gate
+- KEEP vs REVISE is about **F3 journal engine**, not about selecting the product store
+
+---
+
+## Status line
 
 ```
-PHASE QA — CANDIDATE FROZEN
-timestamp_utc: 2026-08-12T12:17:27Z
-timestamp_cest: 2026-08-12T14:17:27+0200
-NEW_CANDIDATE_SHA: 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab
-OLD_CANDIDATE_SHA: c7a979dbee3cd57b169f742502cbc1a131778bb0e2758622abe972444ba4670a
-branch: delivery/sfia-studio-f3-real-prerequisites
-HEAD: 4b1a058050ae81d56cb6d96b88e8a57380799a86
-note: R-T-A3-2 OPTION A — SqliteAuthorityAttemptJournal wired in production composition; durable ATTEMPT_CREATED/LAUNCHED markers; QA PASS 150/150 before freeze write; R-T-A3-2 remains OPEN HARD; crossStoreDurable=false; productionRollbackProven=false; product persistence NOT_SELECTED
-double_compute: confirmed (082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab)
-differs_from_before: yes
+PRODUCT PERSISTENCE — NOT_SELECTED
+R-T-A3-2 ENGINE CHOICE — DOES NOT AUTO-SELECT PRODUCT PERSISTENCE
+ELEVATION — SEPARATE MORRIS GATE REQUIRED
 ```
 
-### candidate-manifest.txt
+<!-- end product-persistence-impact.md -->
+
+---
+
+### INLINE FILE: recommendation.md
+
+<!-- begin recommendation.md -->
+# Recommendation — R-T-A3-2 Persistence Frontier
+
+**Generated:** 2026-08-12
+**Status:** **RECOMMENDED — NOT DECIDED**
+**Gate:** DECISION REQUIRED — MORRIS — R-T-A3-2 PERSISTENCE FRONTIER
+
+---
+
+## RECOMMENDATION — KEEP SQLITE
+
+Keep the current SQLite Authority/Attempt durability frontier (Option A Delivery candidate). Do not pivot F3 journal to PostgreSQL/Neon before Cycle 9 QA and first REAL learning.
+
+**Candidate SHA (must remain byte-identical under KEEP):**
+`082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab`
+
+---
+
+## Max 5 reasons
+
+1. **First REAL needs fail-closed durable markers without requiring FinOps/Neon availability.**
+2. **SQLite locality is a useful property for the pilot-bounded Authority/Attempt journal** (PROVEN Option A design; boundaries Q6/Q7/Q10).
+3. **Postgres foundation is real but FinOps-scoped; no neutral platform DB layer** — F3→FinOps coupling is suspect; a thin F3-PG adapter would be a **SEPARATE Delivery** anyway (boundaries Q1–Q3).
+4. **Delivered candidate `082326a1…` is VALID for Cycle 9 QA**; switching engines before formal crash/restart QA burns calendar without a proven NFR failure of SQLite for the mono-operator pilot.
+5. **Reversible:** KEEP now does not forbid later REVISE TO POSTGRES after REAL/pilot learning; **sunk cost alone is NOT the reason** — first-REAL suitability is.
+
+---
+
+## Risks accepted
+
+- Dual persistence tooling debt (F3 SQLite + FinOps PG)
+- Multi-process SQLite limits (`node:sqlite` process-local singleton; file-lock ASSUMED; multi-instance UNKNOWN)
+
+## Debt avoided
+
+- Premature platform pivot
+- FinOps coupling via FinOps-branded pool/modules
+- Network dependency before first REAL
+
+## Immediate next (if Morris confirms KEEP)
+
+Resume **Cycle 9 QA** on candidate `082326a1…` (formal crash/restart).
+QA remains **paused until Morris decision**.
+
+---
+
+## Explicit non-claims
+
+- Does **not** close R-T-A3-2 HARD by itself
+- Does **not** flip `crossStoreDurable` or `productionRollbackProven`
+- Does **not** SELECT product persistence
+- Does **not** consume Gate D / authorize Cursor REAL
+
+---
+
+## Status line
 
 ```
-# R-T-A3-2 OPTION A Delivery — candidate manifest
-# Branch: delivery/sfia-studio-f3-real-prerequisites
-# HEAD: 4b1a058050ae81d56cb6d96b88e8a57380799a86
-# Generated: 2026-08-12T12:17:27Z
-# Authenticated identity proof: PRODUCTION_COMPOSITION_WIRED + SQLITE_AUTHORITY_ATTEMPT_JOURNAL + DURABLE_LAUNCH_MARKERS
-# Honesty: openHard=true crossStoreDurable=false productionRollbackProven=false persistenceProduct=NOT_SELECTED R-T-A3-1=ACCEPTED/CLOSED BY MORRIS (sync debt untouched)
-# OLD_CANDIDATE_SHA: c7a979dbee3cd57b169f742502cbc1a131778bb0e2758622abe972444ba4670a
-# NEW_CANDIDATE_SHA: 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab
-# path sha256
-projects/sfia-studio/app/__tests__/oa/critical-ack/acknowledgeCritical.test.ts aa33ac6d3a3a3f53665fb0a1a49ace963b3b9881eab2e2dd6e89875b72228aba
-projects/sfia-studio/app/__tests__/oa/critical-ack/authJsConfigInvariants.test.ts 2e8a04da32471a3a4c8d269de689f945ff533c13f49273267f29d0eb5f478a99
-projects/sfia-studio/app/__tests__/oa/critical-ack/authJsGitHubIdentityAdapter.test.ts 76ec1d60aaca46837485538c8c38c826bcec93d066dd1c1ba243c4ef0b930238
-projects/sfia-studio/app/__tests__/oa/critical-ack/durabilityMatrix.test.ts f3eafc48c10b328019d0527433e774e23c6540afe243ec2a6e7a762248349c1b
-projects/sfia-studio/app/__tests__/oa/critical-ack/iamQaCriticalAck.test.ts 1f092ddfaefb3515b0986c85d7aba13b1f0919a8e0b4c0ae5a62e4908ae437cb
-projects/sfia-studio/app/__tests__/oa/critical-ack/importBoundaries.test.ts e0c5baaf67b91783c4faef776738b515bf34b25a3919ab1c9bfffa0a02c088fa
-projects/sfia-studio/app/__tests__/oa/critical-ack/sqliteJournalConfirmGate.test.ts 5fd457b743ca9d4bfa06e040895edd9430cabd51a28f1649e1cdf2e16d768817
-projects/sfia-studio/app/__tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts c5dd4db8893504158209f4f463af6d0e07dd1803f6e90197377e2c8eeb8054ad
-projects/sfia-studio/app/app/api/auth/[...nextauth]/route.ts c3e8185d66af3fe7019dd236a463365cce7e1e8dcaea2a7c3b8f0b103e930ce4
-projects/sfia-studio/app/auth.ts 11c95a177019c55ee94895365575db2c624acfd022d593f5be918b703d171078
-projects/sfia-studio/app/lib/d1/db.ts a2373e6c2e114e4b71e3660f534774e5abad26459079284c0d57d5924cf121e9
-projects/sfia-studio/app/lib/oa/critical-ack/application/acknowledgeCritical.ts 177ff9bf2607db91a9f6cddbacc0ce03f8f00f0da4dd59ae91d8ce4fcb4689e0
-projects/sfia-studio/app/lib/oa/critical-ack/application/invalidateActiveAuthorityOnRestart.ts 20c0da81afbc70a820fba7d0c8eb501b413d56974e450f5c75a5cb22134ca227
-projects/sfia-studio/app/lib/oa/critical-ack/application/reconcileLaunchedAttemptOnRestart.ts db0fc1dca37e7e55b7c4d202af9bd5c77fe135bb65260957201ba93f46d66569
-projects/sfia-studio/app/lib/oa/critical-ack/domain/errors.ts a4aca040497d0aeba75aef6bdaac157a3f158b1ea2438ba7845ec9f31881d0ef
-projects/sfia-studio/app/lib/oa/critical-ack/domain/invariants.ts 09e79c716e2baa699ed01b310f3fd52a04100cbe0a66ec3f1fd0369fcdf311f1
-projects/sfia-studio/app/lib/oa/critical-ack/domain/types.ts 1a49bc598be24e3e4d20124282b90229d8f66db54dc4e2a3a60d55ac6239a399
-projects/sfia-studio/app/lib/oa/critical-ack/index.ts a84bebc8642d2bc8d1a01c5c9d1715d67550f2db8f0c75d92e043e883f0a6a6a
-projects/sfia-studio/app/lib/oa/critical-ack/infrastructure/authJsGitHubIdentityAdapter.ts 3e82214980d1076d862c04b5e4e890b91c1a311b7babbaa5f2f5c3c5aa099acd
-projects/sfia-studio/app/lib/oa/critical-ack/infrastructure/githubSubjectActorBinding.ts 95a028957d7d2d83ca7790d8bab1505b290cd7f66c3d7b1a20205226585aba3b
-projects/sfia-studio/app/lib/oa/critical-ack/infrastructure/memoryAuthorityAttemptJournal.ts 2d05ab8a5a126d219d2a6efd8151987391e9479a643eaaec3d77352e70f03fae
-projects/sfia-studio/app/lib/oa/critical-ack/infrastructure/sqliteAuthorityAttemptJournal.ts 1eaec3751b4159597b7f3e5de009fe2e7be21b829e28462b2e7261b54b8de294
-projects/sfia-studio/app/lib/oa/critical-ack/infrastructure/testing/fakeAuthenticatedIdentityAdapter.ts 88f8e36dba3bbf99e31c842a5da1f00115b057c52925992b631721d9f9cec24f
-projects/sfia-studio/app/lib/oa/critical-ack/ports/authenticatedIdentityPort.ts 9959e90c64a5952ad3f537182377a5882a982d9b07d4272fd5cb87b1a1334845
-projects/sfia-studio/app/lib/oa/critical-ack/ports/authorityAttemptJournalPort.ts f7593f814fdcead7270532062de8e599bfe476ab379a6f2a779aeec71b24762d
-projects/sfia-studio/app/lib/oa/critical-ack/testing.ts b772c06f1fa2433082667f0e3ab8b3e99ca0477b6323ca0985b87fc41820b775
-projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts c1dcc92b6b57f5b3c2cd63d864aa7e7395f1b1dbbc727298392dc619bbc30c83
-projects/sfia-studio/app/lib/oa/execution-attempt/index.ts 05991677647730572e054b9897d9336797a531fa01eff56b51885251c14debef
-projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts bbd421f9303062ac539f48e037b306744ff7f6f540c1ed867624bfb9fa483453
-projects/sfia-studio/app/lib/oa/execution-contract/index.ts 91e5f1afbe0ecdf91feee96ef92bdca45171b50b2b39c589d6184d87248b9fba
-projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts 916ea214ae41101d8548ff0472656a2dbcbd4355220863da6e8090f0c57c2dc1
-projects/sfia-studio/app/package-lock.json 3d41ef451981ebf37df9e331d86d44d9fb37f1d5f93d1b66ca85355e6d7678c8
-projects/sfia-studio/app/package.json 58463b8b5fa7fa5fef86a7aa1bdb3e6c9266d2b7ff74c6280b7decc52a1def59
-projects/sfia-studio/app/types/auth.d.ts f9081d8e2df2478916ea4ec301d26b0fe731645aa8c0cc4620624b240b46e9d9
-projects/sfia-studio/app/lib/oa/critical-ack/createProductionAcknowledgeCritical.ts 17fb38e8ad1f9e93fe61015741ff719d90bb51b521e0d57a1e6ceeba6aa81aac
-projects/sfia-studio/app/__tests__/oa/critical-ack/productionCompositionWiring.test.ts 5932765f4f11eaba007a97f596ab523719b8deb471140cb0af0c245615dc6af8
-projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts 3c9fd67f4c8f4906f73f1eb75801b965361767829b834696f1f3e6f1b254e95e
-projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts bf7b4e6133df1f713cfc376695366038bf50488f8b41af45d769d81ed3ba602f
-projects/sfia-studio/app/__tests__/oa/execution-attempt/durableLaunchMarkers.test.ts 0997fb36d347962d9031d0f27a465eb7d53b6ad2d0f176b360eda0fd03754b93
-projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts 2a9deb71406d511b36c02b27135d79a72be1644ad3575a7e9ee805a0358191f0
+RECOMMENDATION — KEEP SQLITE
+STATUS — RECOMMENDED — NOT DECIDED
+PRODUCT PERSISTENCE — NOT_SELECTED (unchanged without Morris)
+R-T-A3-2 — REMAINS OPEN HARD
+CYCLE 9 QA — PAUSED UNTIL MORRIS DECISION
+CANDIDATE — 082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab
 ```
+
+<!-- end recommendation.md -->
+
+---
+
+### INLINE FILE: security-devops-run-finops.md
+
+<!-- begin security-devops-run-finops.md -->
+# Security / DevOps / RUN / FinOps Matrices — R-T-A3-2
+
+**Generated:** 2026-08-12
+**Scope:** F3 Authority/Attempt journal frontier vs FinOps PG/Neon foundation
+**Tag legend:** PROVEN / ASSUMED / UNKNOWN — costs UNKNOWN where not in repo (no invented Neon prices)
+
+---
+
+## 1. Security matrix
+
+| Topic | SQLite F3 | Postgres/Neon (FinOps / F3-hypothetical) | Tag | Notes |
+|---|---|---|---|---|
+| AuthN / AuthZ for Critical Ack | Unchanged; AuthJs GitHub identity adapter | Unchanged by engine swap | PROVEN | Engine ≠ IAM |
+| Secret surface | Path envs only (`D1_SQLITE_PATH`, `OPS1_EXEC_ROOT`) | `DATABASE_URL` / `DATABASE_URL_DIRECT` connection strings | PROVEN | PG expands secret inventory |
+| Transport encryption | N/A (local FS) | Explicit SSL on FinOps pool; default `false`; Neon must set secure SSL | PROVEN | `createFinOpsPool.ts` — never infer SSL from URL |
+| Data-at-rest encryption | OS/volume dependent | Neon/host dependent | UNKNOWN | Not evidenced in app code |
+| SQL injection / query discipline | Parameterized inserts in journal adapter | Parameterized FinOps adapters | ASSUMED | Follow existing adapter patterns |
+| Schema blast radius | D1 SQLite silo; F3 table isolated from FinOps | Physical share of Neon possible; needs table/schema isolation | PROVEN / ASSUMED | boundaries Q4/Q5 |
+| Credential leakage in logs | Path strings may appear | Connection strings must never log | ASSUMED | FinOps identity fingerprint exists; no F3-PG yet |
+| Multi-tenant isolation | Pilot mono-operator | FinOps Neon target identity fail-closed | PROVEN (FinOps) | F3 pilot not multi-tenant product store |
+| Confused-deputy / domain import | No FinOps domain on F3 path | Reusing `createFinOpsPool` pulls FinOps naming/path | PROVEN | Prefer thin non-FinOps pool if PG chosen |
+
+**Security verdict:** SQLite minimizes network/credential attack surface for Critical launch gate. PG is acceptable **only** with explicit SSL, isolated schema, and no FinOps domain import.
+
+---
+
+## 2. DevOps matrix
+
+| Topic | SQLite F3 | Postgres/Neon | Tag | Notes |
+|---|---|---|---|---|
+| Dependency | `node:sqlite` / D1 open helper | `pg` ~8.22 + `node-pg-migrate` | PROVEN | Both already in app package graph |
+| Migrations | In-process `SCHEMA_SQL` on open | `migrate:up/down` + FinOps migration set | PROVEN | No F3 PG migration today |
+| CI requirements | Local temp sqlite paths | Ephemeral Postgres + `DATABASE_URL` for FinOps tests | PROVEN | F3-PG would extend CI |
+| Env vars (names only) | `D1_SQLITE_PATH`, `OPS1_EXEC_ROOT` | `DATABASE_URL`, `DATABASE_URL_DIRECT` | PROVEN | Values never recorded here |
+| Deploy topology | Single-host / process-local pilot | Shared DB multi-process capable | PROVEN / ASSUMED | sqlite-current §4 |
+| Rollback of schema | File replace / reopen ASSUMED | migrate:down exists for FinOps | ASSUMED / PROVEN | `productionRollbackProven` still false |
+| Observability tooling | Local SQL / file inspect | PG tooling + FinOps audit patterns | ASSUMED | |
+| Dual-engine ops | Second storage engine if FinOps stays PG | Single engine if F3 also PG | PROVEN debt either way | KEEP accepts dual tooling |
+
+**DevOps verdict:** KEEP SQLite avoids Critical-path `DATABASE_URL` before first REAL; accepts dual persistence tooling debt.
+
+---
+
+## 3. RUN matrix
+
+| Topic | SQLite F3 | Postgres/Neon | Tag | Notes |
+|---|---|---|---|---|
+| Availability for launch | Local file must be writable | Neon/PG must be reachable | PROVEN | Q7/Q8 |
+| Fail-closed on write failure | Blocks launch before adapter | Would block launch if PG down | PROVEN / ASSUMED | `startExecution.ts` |
+| Restart recovery | Journal-driven UNKNOWN/REVIEW_REQUIRED | Same port semantics possible | PROVEN design (SQLite) | Cycle 9 QA paused |
+| Multi-writer contention | `BEGIN IMMEDIATE`; WAL/busy UNKNOWN | Row/txn isolation via Pool | ASSUMED / PROVEN (FinOps patterns) | |
+| Operator runbooks | PILOT-LOCAL labels; path under `.sfia-exec` | FinOps T7 operator script exists | PROVEN | No F3-PG operator |
+| Cross-store durable | false | false (unless platform pivot) | PROVEN | Honesty unchanged |
+| Cursor REAL readiness | Not authorized by engine choice | Not authorized by engine choice | PROVEN | Gate D NOT READY |
+
+**RUN verdict:** For first REAL, local fail-closed SQLite is the lower-coupling RUN posture. PG improves multi-process RUN characteristics after a dedicated Delivery.
+
+---
+
+## 4. FinOps / cost matrix
+
+| Topic | SQLite F3 | Postgres/Neon | Tag | Notes |
+|---|---|---|---|---|
+| Hosted DB subscription cost | N/A (local file) | **UNKNOWN** — no Neon price table in repo | UNKNOWN | Do not invent prices |
+| Egress / connection cost | N/A | **UNKNOWN** | UNKNOWN | |
+| Operator time (migrations, creds, SSL) | Low for pilot path | Higher before first REAL | ASSUMED | |
+| FinOps domain reuse savings | N/A | Tempting but **coupling risk** — not a cost win if it mortgages F3 boundary | PROVEN hazard | Q1–Q3 |
+| Dual backup / dual tooling cost | Accepted under KEEP | Avoided if F3 moves PG (new Delivery cost instead) | ASSUMED | |
+| Sunk Option A Delivery cost | Already delivered+unit tested | Would supersede candidate for HARD closure if Morris chooses PG | PROVEN | Candidate `082326a1…` |
+| Product persistence commercial decision | NOT_SELECTED | NOT automatic SELECT if F3 uses PG | PROVEN | Separate Morris gate |
+
+**FinOps/cost verdict:** Hosted costs are **UNKNOWN** in-repo. Decision driver is **coupling + network dependency + calendar**, not claimed Neon price savings.
+
+---
+
+## Cross-matrix summary
+
+| Lens | Favors KEEP SQLite | Favors REVISE Postgres | Unresolved / UNKNOWN |
+|---|---|---|---|
+| Security | Smaller secret/network surface | Mature SSL/pool patterns (FinOps) | At-rest encryption |
+| DevOps | No Critical-path DATABASE_URL | One engine long-term | Dual-ops exact burden |
+| RUN | Locality; fail-closed without Neon | Multi-process shared DB | Measured RPO/RTO |
+| FinOps/cost | Avoid premature hosted dependency | Possible future consolidation | Neon prices |
+
+<!-- end security-devops-run-finops.md -->
+
+---
+
+### INLINE FILE: sqlite-current.md
+
+<!-- begin sqlite-current.md -->
+# SQLite F3 Current-State Map
+
+**Scope:** F3 authority/attempt durability on D1 `node:sqlite`
+**Tag legend:** PROVEN = code evidence · ASSUMED = reasonable inference · UNKNOWN = not evidenced
+
+---
+
+## 1. Production wiring uses SqliteAuthorityAttemptJournal — PROVEN
+
+**Path:** `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
+
+- Imports `SqliteAuthorityAttemptJournal` from `@/lib/oa/critical-ack`.
+- `wireOaStack` constructs `new SqliteAuthorityAttemptJournal()` once and shares it across:
+  - `executionContractServices` (`criticalAckJournal`)
+  - `executionAttemptServices` (`authorityAttemptJournal`)
+  - `createProductionAcknowledgeCritical({ journal })`
+- Runtime surface advertises:
+  - `authorityAttemptJournalClassName: "SqliteAuthorityAttemptJournal"`
+- Explicit labels in comments:
+  - `PILOT-BOUNDED AUTHORITY/ATTEMPT DURABILITY ≠ PRODUCT PERSISTENCE SELECTED`
+  - `crossStoreDurable remains false`
+
+---
+
+## 2. Journal adapter + D1 connection lifecycle — PROVEN
+
+### Files
+
+| File | Role |
+|---|---|
+| `lib/oa/critical-ack/infrastructure/sqliteAuthorityAttemptJournal.ts` | Journal adapter implementing `AuthorityAttemptJournalPort` |
+| `lib/d1/db.ts` | `DatabaseSync` open/migrate singleton + schema SQL |
+| `lib/d1/paths.ts` | Path resolution for `d1.sqlite` |
+
+### Connection lifecycle — PROVEN
+
+- `SqliteAuthorityAttemptJournal` ctor default: `openD1Db()`.
+- `openD1Db(dbPath = resolveD1SqlitePath())`:
+  - process-local **singleton** keyed by path (`singleton` / `singletonPath`)
+  - closes previous singleton if path changes
+  - `new DatabaseSync(dbPath)` then `migrate(db)` (`SCHEMA_SQL` + `PRAGMA integrity_check`)
+- `resetD1DbForTests()` closes and clears singleton.
+
+### Path resolution — PROVEN
+
+`resolveD1SqlitePath()` order:
+
+1. `D1_SQLITE_PATH` (env name only)
+2. else `OPS1_EXEC_ROOT` → `<root>/state/d1.sqlite`
+3. else `<studioRoot>/.sfia-exec/local-i1/state/d1.sqlite` (must stay under `.sfia-exec`)
+
+### BEGIN IMMEDIATE — PROVEN
+
+`append()`:
+
+```
+BEGIN IMMEDIATE
+INSERT INTO oa_authority_attempt_journal (...)
+COMMIT
+```
+
+On error: `ROLLBACK` then rethrow. Concurrent double-ack protected by unique partial index on `CRITICAL_ACK_GRANTED` fingerprint (schema).
+
+### Schema table — PROVEN
+
+Table: `oa_authority_attempt_journal` in `lib/d1/db.ts` `SCHEMA_SQL`.
+
+Kinds include: `CRITICAL_ACK_GRANTED|CONSUMED`, `CONFIRMATION_BOUND`, `ATTEMPT_CREATED`, `ATTEMPT_LAUNCHED`, `ATTEMPT_TERMINAL`, `ACTIVE_AUTHORITY_INVALIDATED`, `RECONCILE_DISPOSITION`.
+
+Indexes: fingerprint, attempt, idempotency, process_epoch; unique partial on `(contract_fingerprint) WHERE kind='CRITICAL_ACK_GRANTED'`.
+
+---
+
+## 3. startExecution ATTEMPT_CREATED / ATTEMPT_LAUNCHED — PROVEN
+
+**Path:** `lib/oa/execution-attempt/application/startExecution.ts`
+
+When journal present:
+
+1. Prior rows by `attemptId`:
+   - `ATTEMPT_LAUNCHED` → fail-closed no relaunch
+   - `ATTEMPT_CREATED` without `LAUNCHED` → fail-closed no auto-resume
+2. Append `ATTEMPT_CREATED` **before** `adapter.launch`
+   - create-append failure → never launch (`EXECUTION_PERSISTENCE_FAILED`)
+3. On validated LaunchAck, append `ATTEMPT_LAUNCHED` **before** Attempt `running` persist
+   - launched-append failure after launch → fail-closed without inventing SUCCESS (CREATED-without-LAUNCHED ⇒ UNKNOWN on restart)
+
+Journal absent (legacy unit tests) → skip ATTEMPT_* markers.
+
+---
+
+## 4. Multi-process behavior of `node:sqlite` DatabaseSync — ASSUMED / UNKNOWN
+
+| Claim | Tag | Evidence |
+|---|---|---|
+| Singleton is **process-local** only | PROVEN | module-level `let singleton` in `db.ts` |
+| Separate Node processes get separate connections to same file | ASSUMED | standard SQLite file semantics; no cross-process singleton |
+| `BEGIN IMMEDIATE` serializes writers across connections/processes via SQLite locks | ASSUMED | SQLite reserved-lock semantics; no custom distributed lock in code |
+| Multi-writer correctness under multi-instance deploy proven | UNKNOWN | no multi-process integration harness found for F3 journal |
+| WAL / busy_timeout / multi-host NFS behavior configured | UNKNOWN | no explicit PRAGMA wal/busy settings in `db.ts` beyond schema + integrity_check |
+
+**Implication:** F3 SQLite journal is safe as a **single-host / few-process local pilot**, not as a multi-region product store.
+
+---
+
+## 5. Local-only assumptions — PROVEN
+
+From `sqliteAuthorityAttemptJournal.ts` header:
+
+- Label: **PILOT-LOCAL PROOF HARNESS ONLY ≠ PRODUCT DURABLE**
+- `crossStoreDurable` remains false
+- `productionRollbackProven` remains false
+- product persistence remains **NOT_SELECTED**
+
+From architecture recommendation/options (`.tmp-sfia-review/r-t-a3-2-architecture/`):
+
+- Option A = bounded SQLite Authority/Attempt durability frontier for F3 pilot
+- Does **not** select product persistence platform
+- Path lives under `.sfia-exec` (or env overrides) — local filesystem
+
+Env names involved (values never recorded here): `D1_SQLITE_PATH`, `OPS1_EXEC_ROOT`.
+
+<!-- end sqlite-current.md -->
 
 ---
 
@@ -1243,9 +1054,9 @@ projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts 2a9deb71406d5
 
 | Field | Value |
 | --- | --- |
-| Message | `docs(review-handoff): publish F3 R-T-A3-2 option A delivery` |
+| Message | `docs(review-handoff): publish F3 R-T-A3-2 persistence frontier reassessment` |
 | Force | NO (FF only) |
-| Inbound tip/blob | `b85f64fc591495af70061371a45fc5dc11011ec9` / `259135a47aa37a9754d0f377522e2432244c3034` |
+| Inbound tip/blob | `832eb175307379150811b6331223159e399d62b6` / `323e7d88008cb3993324b5a47ada6f0fc46e89c4` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Handoff worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | FINAL tip | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
@@ -1253,87 +1064,83 @@ projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts 2a9deb71406d5
 
 ---
 
-## Cursor report — 55 fields
+## Cursor report — fields 1–52
 
 | # | Field | Value |
 | ---: | --- | --- |
-| 1 | timestamp CEST + UTC | 2026-08-12 14:22:50 CEST (+0200) / 2026-08-12 12:22:50 UTC |
-| 2 | GO Morris consommé | R-T-A3-2 ARCHITECTURE OPTION A = ADOPTED BY MORRIS (GO ADOPT OPTION A) |
-| 3 | cycle | 8 — Delivery Critical — R-T-A3-2 OPTION A |
+| 1 | timestamp CEST + UTC | 2026-08-12 15:27:17 CEST (+0200) / 2026-08-12 13:27:17 UTC |
+| 2 | GO / context consommé | Cycle 6 Architecture Critical R-T-A3-2 persistence reassessment; R-T-A3-1 CLOSED; Option A ADOPTED+DELIVERED; QA paused; Product persistence NOT_SELECTED |
+| 3 | cycle | 6 — Architecture Critical — R-T-A3-2 PERSISTENCE REASSESSMENT |
 | 4 | profil | Critical |
-| 5 | justification Critical | Durable authority/attempt journal + pre-launch markers; crash/restart honesty; no double-launch |
-| 6 | blocs | Sqlite journal wire; ATTEMPT_CREATED/LAUNCHED; fail-closed restart; QA; freeze; handoff |
+| 5 | justification Critical | Persistence frontier decision blocks Cycle 9 QA / HARD path; SQLite vs PG/Neon trade-offs |
+| 6 | blocs | maps; boundaries; NFR; sec/devops/run/finops; options; recommendation; Morris gate; product-persistence; FULL pack; L3 handoff |
 | 7 | worktree | f3-real-prerequisites-delivery |
 | 8 | branche | `delivery/sfia-studio-f3-real-prerequisites` |
 | 9 | HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
 | 10 | origin/main | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| 11 | status initial | dirty local F3 candidate (prior wiring + OPTION A edits) |
+| 11 | status initial | dirty local F3 Option A candidate (expected) |
 | 12 | staged initial | empty |
-| 13 | untracked initial | critical-ack / auth surfaces / `.tmp-sfia-review` / durableLaunchMarkers.test.ts (as applicable) |
+| 13 | untracked / review artifacts | `.tmp-sfia-review/r-t-a3-2-persistence-reassessment/` (+ prior delivery artifacts) |
 | 14 | remote delivery branch | ABSENT |
 | 15 | template path/blob | prompts/templates/sfia-cycle-execution-template.md / `b9ce0a9fe57bb0f675afb8505ee0584180f830d7` |
-| 16 | handoff entrant tip/blob | `b85f64fc591495af70061371a45fc5dc11011ec9` / `259135a47aa37a9754d0f377522e2432244c3034` |
-| 17 | Candidate SHA BEFORE | `c7a979dbee3cd57b169f742502cbc1a131778bb0e2758622abe972444ba4670a` |
-| 18 | Current State confirmé | OPTION A precheck OK; Sqlite journal exists; Memory→Sqlite composition + durable markers delivered |
-| 19 | fichiers prévus en écriture | service.ts; startExecution.ts; types.ts; hardBlockerFoundation.ts; durableLaunchMarkers.test.ts; helpers.ts; productionCompositionWiring.test.ts |
-| 20 | fichiers réellement modifiés/créés | same seven paths (plus freeze/review artifacts under `.tmp-sfia-review/`) |
-| 21 | wiring Memory→Sqlite réalisé | YES — SqliteAuthorityAttemptJournal in production composition |
-| 22 | journal partagé réel | YES — shared journal instance across Ack + StartExecution |
-| 23 | durable ATTEMPT_CREATED proof | startExecution append before launch + durableLaunchMarkers tests |
-| 24 | launch-block-on-journal-failure proof | tests assert adapter.launch count = 0 when durable write fails |
-| 25 | ATTEMPT_LAUNCHED ordering proof | LAUNCHED only after successful launch ack |
-| 26 | contract identity durable proof | attemptId/contractId/version/fingerprint retained in markers |
-| 27 | restart fail-closed regression | UNKNOWN/REVIEW_REQUIRED → no auto-resume preserved |
-| 28 | UNKNOWN / REVIEW_REQUIRED | fail-closed; no auto-resume |
-| 29 | no auto-retry | preserved; explicit retry = new Attempt doctrine |
-| 30 | no double-launch | regression covered in durable launch marker tests |
-| 31 | Critical Ack tests + count | included in OA vitest aggregate **150/150** |
-| 32 | ExecutionAttempt tests + count | included in OA vitest aggregate **150/150** |
-| 33 | SQLite journal tests + count | covered via durableLaunchMarkers + composition wiring in aggregate **150/150** |
-| 34 | composition tests + count | productionCompositionWiring updated; aggregate **150/150** |
-| 35 | typecheck | PASS |
-| 36 | lint | PASS |
-| 37 | build | PASS |
-| 38 | corrective loops | 0 (freeze/pack) |
+| 16 | handoff entrant tip/blob | `832eb175307379150811b6331223159e399d62b6` / `323e7d88008cb3993324b5a47ada6f0fc46e89c4` |
+| 17 | Candidate SHA BEFORE | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
+| 18 | Current State confirmé | PRECHECK OK; Option A delivered; PG/Neon FinOps mapped; recommendation KEEP SQLITE NOT DECIDED |
+| 19 | fichiers prévus en écriture | review artifacts under `.tmp-sfia-review/r-t-a3-2-persistence-reassessment/` + chatgpt-review.md only |
+| 20 | fichiers réellement modifiés/créés | nfr-matrix.md; security-devops-run-finops.md; options.md; recommendation.md; morris-gate.md; product-persistence-impact.md; (+ precheck/SUMMARY/maps); chatgpt-review.md |
+| 21 | product mutations | **0** |
+| 22 | SQLite map complete | YES |
+| 23 | Postgres/Neon map complete | YES |
+| 24 | boundaries Q1–Q10 complete | YES |
+| 25 | NFR matrix 22 complete | YES (SOURCE=RECONSTRUCTED_FROM_GO_CONTEXT; closest GO §D = INV-01…15) |
+| 26 | Security/DevOps/RUN/FinOps matrices | YES (costs UNKNOWN where absent) |
+| 27 | options A/B/C | KEEP / F3-PG / REJECTED overdesign |
+| 28 | recommendation | **KEEP SQLITE** — RECOMMENDED — NOT DECIDED |
+| 29 | Morris gate wording | GO CONFIRM KEEP SQLITE / GO REVISE POSTGRES / NO-GO prepared |
+| 30 | product-persistence impact | PG choice ≠ product SELECT; elevation separate gate |
+| 31 | Option C | REJECTED AS OVERDESIGN |
+| 32 | Cycle 9 QA | PAUSED UNTIL MORRIS DECISION |
+| 33 | R-T-A3-1 | ACCEPTED / CLOSED BY MORRIS |
+| 34 | FinOps coupling assessment | No neutral PG abstraction; thin F3-PG = separate Delivery |
+| 35 | typecheck | N/A (no product code change) |
+| 36 | lint | N/A (no product code change) |
+| 37 | build | N/A (no product code change) |
+| 38 | corrective loops | 0 |
 | 39 | Candidate SHA AFTER | `082326a1aa521c9f53308ce1a85fda79a170ceab81a56692b6d2149e1895e6ab` |
-| 40 | freeze confirmation | YES — FREEZE_SHA + PHASE-QA-CANDIDATE-FROZEN + double-compute |
+| 40 | freeze / byte-identical confirmation | YES — BEFORE=AFTER |
 | 41 | R-T-A3-1 status | ACCEPTED / CLOSED BY MORRIS (repo sync debt untouched) |
 | 42 | R-T-A3-2 status | OPEN HARD |
-| 43 | Project↔Cycle residual | remains residual / not closed by OPTION A pilot |
+| 43 | Project↔Cycle residual | remains residual |
 | 44 | crossStoreDurable status | false |
 | 45 | productionRollbackProven status | false |
-| 46 | Product persistence status | NOT_SELECTED |
+| 46 | Product persistence status | NOT_SELECTED (unchanged) |
 | 47 | Gate D | NOT READY / NOT CONSUMED |
 | 48 | Cursor REAL | 0 |
 | 49 | product Git write count | 0 |
 | 50 | review pack FULL / Synthesis-only NO | FULL / NO |
 | 51 | handoff final tip | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
 | 52 | handoff final blob | FINAL REMOTE IDENTITY VERIFIED EXTERNALLY AFTER CONTENT FREEZE |
-| 53 | remote handoff verification | pending publish then sidecar update |
-| 54 | réserves | R-T-A3-2 OPEN HARD; Project↔Cycle residual; productionRollbackProven false; formal Cycle 9 crash/restart QA still required; R-T-A3-1 repo sync debt |
-| 55 | verdict final | see exact verdict block |
 
 ---
 
 ## Verdict exact
 
 ```
-R-T-A3-2 OPTION A DELIVERY COMPLETE —
-SQLITE AUTHORITY/ATTEMPT JOURNAL WIRED IN PRODUCTION —
-DURABLE PRE-LAUNCH MARKERS IMPLEMENTED —
-RESTART FAIL-CLOSED / NO AUTO-RETRY PRESERVED —
-NO DOUBLE-LAUNCH REGRESSION —
-PRODUCT PERSISTENCE REMAINS NOT_SELECTED —
-NEW CANDIDATE FROZEN —
-R-T-A3-1 ACCEPTED / CLOSED BY MORRIS —
-R-T-A3-2 REMAINS OPEN HARD — FORMAL QA / VALIDATION REQUIRED —
-PROJECT↔CYCLE DURABILITY REMAINS RESIDUAL —
-PRODUCTION ROLLBACK NOT YET PROVEN —
+R-T-A3-2 PERSISTENCE ARCHITECTURE REASSESSMENT COMPLETE —
+EXISTING SQLITE DELIVERY PRESERVED BYTE-IDENTICAL —
+POSTGRESQL / NEON FOUNDATION ASSESSED —
+FINOPS DOMAIN VS SHARED TECHNICAL PERSISTENCE BOUNDARY ASSESSED —
+NFR / SECURITY / DEVOPS / RUN / FINOPS TRADE-OFFS COMPLETE —
+RECOMMENDATION PREPARED —
+DECISION REQUIRED — MORRIS — R-T-A3-2 PERSISTENCE FRONTIER —
+R-T-A3-2 REMAINS OPEN HARD —
+CYCLE 9 QA REMAINS PAUSED UNTIL MORRIS DECISION —
+PRODUCT PERSISTENCE STATUS NOT CHANGED WITHOUT MORRIS DECISION —
 GATE D NOT READY / NOT CONSUMED —
 NO CURSOR REAL —
+PRODUCT CANDIDATE BYTE-IDENTICAL —
 NO PROJECT GIT WRITE —
-HANDOFF UPDATED — REMOTE VERIFIED —
-READY FOR QA / VALIDATION
+HANDOFF UPDATED — REMOTE VERIFIED
 ```
 
 ---
