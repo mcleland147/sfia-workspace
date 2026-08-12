@@ -74,6 +74,7 @@ routing guide (sfia-cycle-routing-guide.md)
 → template d'exécution (prompts/templates/sfia-cycle-execution-template.md)
 → operating model (sfia-chatgpt-cursor-operating-model.md)
 → guardrails (sfia-rules-and-guardrails.md)
+→ si objet = construction/évolution SFIA Studio : Convergence Pre-check (§2.0.G)
 → contexte projet (documents projet concernés)
 → prompt Cursor généré (contrat d'exécution)
 ```
@@ -124,6 +125,30 @@ Repo-informed pre-check ChatGPT
 - push handoff autorisé : oui — L3 borné (automatique si rapport Cursor, sauf exception technique)
 - limites / incertitudes :
 - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
+
+SFIA Studio Convergence Pre-check :
+- triggered : oui / non
+- Build Doctrine :
+  - path : projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+  - ref :
+  - lue : oui/non
+  - statut :
+- Convergence Roadmap :
+  - path : projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+  - ref :
+  - lue : oui/non
+  - snapshot/milestone courant :
+- doctrine v3 applicable :
+- capacité v3 ciblée :
+- milestone ciblée :
+- classification actifs :
+- gap(s) fermé(s) :
+- lien trajectoire :
+- exit proof :
+- dette temporaire :
+- trajectoire de sortie :
+- gates Morris :
+- verdict : CONVERGENCE CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE / STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
 ```
 
 #### E. Cas Git inaccessible
@@ -144,15 +169,61 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 
 | Niveau | Rôle | Source |
 |--------|------|--------|
-| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 |
-| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check | Ce fichier sur Git `main` |
+| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle | Projet ChatGPT (hors Git) — voir §10 ; **couche Studio convergence = PENDING** (mise à jour instructions = étape ultérieure Morris) |
+| **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check (+ Convergence Pre-check Studio) | Ce fichier sur Git `main` |
 | **3. Prompt Cursor généré** | Contrat d'exécution — vérifié localement par Local Git Truth Check | Prompt instancié par ChatGPT |
+
+#### G. SFIA Studio Convergence Pre-check (spécialisation bornée)
+
+> **Ne s’applique pas** aux projets SFIA sans rapport avec la construction de SFIA Studio.
+> **Ne transforme pas** ce template en template Studio-only.
+
+**Trigger Studio = oui** si l’objet est la construction, l’évolution, l’architecture, la roadmap, la validation ou le prompting de **SFIA Studio** (même trigger que routing guide §4.3.0a).
+
+Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer le prompt :
+
+1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+3. sources v3 applicables (`projects/sfia-studio/sfia-v3-framing/**`)
+4. état repo/projet Studio concerné
+
+**Règle dure :**
+
+```text
+trigger Studio = oui
+ET (Build Doctrine non lue
+    OU Roadmap non lue
+    OU capacité / trajectory link non qualifié)
+→ NE PAS générer le prompt Cursor
+
+PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
+```
+
+Si l’analyse Studio elle-même n’a pas chargé le contexte convergence requis :
+
+```text
+STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
+```
+
+Séquence :
+
+```text
+Repo-informed pre-check
+→ si Studio trigger : Convergence Pre-check (§2.0.G + mini-fiche)
+→ qualification cycle
+→ CKC/process guidance applicable
+→ sources spécifiques
+→ instanciation prompt Cursor
+```
+
+Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; doctrine v3 = destination produit ; v2.6 = baseline opérationnelle processus ; runtime v3 **non ADOPTED** par défaut.
 
 ### 2.1 Déclenchement
 
 À partir d'une demande Morris (nouveau chat ou conversation en cours) :
 
 0. **Repo-informed pre-check** — §2.0 si trigger actif
+0bis. **SFIA Studio Convergence Pre-check** — §2.0.G si objet = construction/évolution SFIA Studio ; sinon N/A
 1. **Qualifier** la demande — objectif, risque, impact, livrable attendu
 2. **Identifier le type de cycle projet** — cartographie §4 (15 cycles)
 2bis. **Résoudre le Cycle Knowledge Contract candidat** — routing guide §4.4.5 ; lire pilote si disponible ; sinon carte synthétique + fallback méthode v2.6 ; déclarer statut `candidate` / `absent` dans la mini-fiche §2.0.D
@@ -163,7 +234,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
 8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
 9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
-10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor
+10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor ; **interdit** si §2.0.G échoue
 
 ### 2.2 Nouveau chat et sources projet
 
