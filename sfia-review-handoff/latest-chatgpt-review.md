@@ -1,47 +1,502 @@
-# SFIA Studio Convergence — Cycle 8 Isolated Commit
+# SFIA Studio Convergence — Cycle 13 PR Creation
 
 | Champ | Valeur |
 | --- | --- |
-| **Horodatage** | 2026-08-12 22:47:08 +0200 (Europe/Paris) |
-| **Cycle** | 8 — Delivery / repository isolation + commit |
+| **Horodatage** | 2026-08-13 01:56:28 +0200 (Europe/Paris) |
+| **Cycle** | 13 — PR readiness / publication |
 | **Profil** | Critical |
 | **Typologie** | DOC |
 | **Review pack** | FULL (synthesis-only = **NO**) |
-| **Décision Morris consommée** | GO ISOLATION + COMMIT DÉDIÉ |
+| **Décision Morris consommée** | GO PUSH + CREATE PR |
 
 ---
 
 ## 0. Verdict
 
-**ISOLATED COMMIT COMPLETE — CONVERGENCE PATCH IDENTITY VERIFIED — F3 WORKTREE PRESERVED — READY FOR MORRIS PUSH / PR GATE**
+**PR CREATED — REMOTE PATCH VERIFIED — SFIA STUDIO CONVERGENCE READY FOR FINAL PR READINESS — MORRIS MERGE GATE STILL REQUIRED**
 
-Project push = **0**. PR = **0**. Merge = **0**. main unmodified. Branche projet **non poussée**.
-
----
-
-## 1. Handoff entrant (PR readiness)
-
-| Champ | Valeur |
-| --- | --- |
-| Tip | `86df3e722cbe15c3bf618935a5e9dfa4a88a95a1` |
-| Blob | `077f05125c56b3a7b69fbdee65bcf4488ecce52b` |
-| Verdict | READY FOR ISOLATED COMMIT — … — MORRIS COMMIT GATE REQUIRED |
+Merge performed = **NO**.
 
 ---
 
-## 2. Worktree SOURCE (F3)
+## 1. Local Git Truth
 
 | Champ | Valeur |
 | --- | --- |
-| Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-prerequisites-delivery` |
-| Branch (final) | `delivery/sfia-studio-f3-real-prerequisites` |
-| HEAD | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| F3 preserved | **YES** |
-| Project paths vs initial | **EQUAL** |
-
-### Status initial
+| Worktree | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-foundations` |
+| Branch | `docs/sfia-studio-convergence-foundations` |
+| HEAD | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
+| Parent | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| origin/main (avant push) | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| Staged | EMPTY |
+| Status | uniquement `?? .tmp-sfia-review/` |
 
 ```
+?? .tmp-sfia-review/
+
+```
+
+---
+
+## 2. Handoff entrant
+
+| Champ | Valeur |
+| --- | --- |
+| Tip | `fbff9c660cddc20e92f3ea10678e8f65e0ce392b` |
+| Blob | `3f062cebbd916cf0b3c80072e579f931c9c0cd94` |
+| Verdict | READY FOR MORRIS PUSH / PR GATE |
+
+---
+
+## 3. Push
+
+| Champ | Valeur |
+| --- | --- |
+| Remote branch avant | **ABSENTE** (Cas A) |
+| Commande | `git push -u origin docs/sfia-studio-convergence-foundations` (sans force) |
+| Remote SHA après | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
+| ls-remote | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
+| Identité | **PASS** |
+
+---
+
+## 4. Pull Request
+
+| Champ | Valeur |
+| --- | --- |
+| Number | **334** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/334 |
+| Title | docs(sfia-studio): add convergence doctrine and roadmap |
+| State | OPEN |
+| Base | `main` |
+| Head | `docs/sfia-studio-convergence-foundations` |
+| Head SHA | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
+| Commits | **1** |
+| Changed files | **6** |
+| Additions | **648** |
+| Deletions | **10** |
+| Merge performed | **NO** |
+
+### Exact file list
+
+1. method/sfia-fast-track/core/sfia-cycle-routing-guide.md (modified)
+2. method/sfia-fast-track/core/sfia-knowledge-layer.md (modified)
+3. projects/sfia-studio/README.md (modified)
+4. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (created)
+5. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (created)
+6. prompts/templates/sfia-cycle-execution-template.md (modified)
+
+app/** = **0**
+
+---
+
+## 5. Patch / anti-claims
+
+| Check | Résultat |
+| --- | --- |
+| Patch identity vs validated commit | **PASS** |
+| A sha256 | `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9` |
+| B sha256 | `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6` |
+| 2 created + 4 modified | **PASS** |
+| Anti-claims (NON ADOPTED / NOT DECIDED / NOT_SELECTED) | **PASS** |
+| git diff --check | **PASS** |
+
+---
+
+## 6. Worktrees BEFORE handoff publish
+
+```
+=== BEFORE HANDOFF ===
+Thu Aug 13 01:56:27 CEST 2026
+worktree /Users/morris/Projects/sfia-workspace
+HEAD 0cdf57a12843891da8b8db2d550cb38c7ba9f60a
+branch refs/heads/delivery/flex-office-demo-option-a
+
+worktree /Users/morris/Projects/sfia-codex-pilot
+HEAD ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+branch refs/heads/method/codex-operating-model-pilot
+
+worktree /Users/morris/Projects/sfia-task-tracker
+HEAD b763a318fb84e23e482ed23a0bd561c1d9e719e6
+branch refs/heads/cadrage/task-tracker-light
+
+worktree /Users/morris/Projects/sfia-workspace-a5-2-framing
+HEAD bd3608c6220e820cc3fa017422a7564a565a1296
+branch refs/heads/framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity
+
+worktree /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts
+HEAD cae841519ed1d2dd825e6ecb998337cd47b4a1e1
+branch refs/heads/method/sfia-cycle-knowledge-contracts
+
+worktree /Users/morris/Projects/sfia-workspace-d1-conversational-convergence
+HEAD 7dc6f9fc7e16f13de08a1003b492b0b6e243f05e
+branch refs/heads/ux/sfia-studio-d1-conversational-convergence
+
+worktree /Users/morris/Projects/sfia-workspace-d1-platform-integration
+HEAD c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9
+branch refs/heads/delivery/sfia-studio-d1-shared-platform-integration
+
+worktree /Users/morris/Projects/sfia-workspace-doc32-post-p3-m1
+HEAD dd2a68c6a1e45fee1e1f397cb644c2c082a3d877
+branch refs/heads/docs/sfia-studio-doc32-post-p3-m1-correction
+
+worktree /Users/morris/Projects/sfia-workspace-docs-recover
+HEAD 1a2fa31fab6343bdd0eab7211febb3bcc5326c33
+branch refs/heads/docs/sfia-studio-recover-unmerged-project-docs
+
+worktree /Users/morris/Projects/sfia-workspace-fa6-mitigated-clean
+HEAD 67f140a19cf4a992dbc0d7b053abfde579a9a68c
+branch refs/heads/docs/sfia-studio-fa6-mitigated-from-main
+
+worktree /Users/morris/Projects/sfia-workspace-framing-next-increment
+HEAD 88fa4658da07156614de270d8172f147535ddbf9
+branch refs/heads/framing/sfia-studio-next-product-increment
+
+worktree /Users/morris/Projects/sfia-workspace-m1-bypass-probe
+HEAD f0f0e0f5efdd21dc0207736f9c0cce1c563f1a23
+branch refs/heads/qa/sfia-studio-m1-bypass-probe
+
+worktree /Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert
+HEAD b502c0069f836a729090bdc187dd98a0c26591ca
+branch refs/heads/qa/sfia-studio-m1-bypass-probe-revert
+
+worktree /Users/morris/Projects/sfia-workspace-m1-capitalization
+HEAD fa0eebe00ce3b765a8a486aa660dddfab40123a0
+branch refs/heads/docs/sfia-studio-m1-capitalization-rex
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-after-t-a6
+HEAD aef7fd6d5a678857cf36e490f1550866d47c8887
+branch refs/heads/framing/sfia-studio-v3-native-option-a-after-t-a6
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-ci-governance
+HEAD 2f9560534e285c5b8105f81dca39c5252667860c
+branch refs/heads/delivery/sfia-studio-v3-native-option-a-ci-merge-governance
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-ci-governance-docs
+HEAD a42a85c0c0b3e146e59f82ea753329ed9253f278
+branch refs/heads/docs/sfia-studio-option-a-ci-governance-post-merge
+
+worktree /Users/morris/Projects/sfia-workspace-option-a-path-aware-required-check
+HEAD 9f03916243c470587f6958e058fd58909e5bd75a
+branch refs/heads/delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation
+
+worktree /Users/morris/Projects/sfia-workspace-review-handoff-publisher
+HEAD 14d58fe95a8f29c3dc1f72c794a64fedbc795bbe
+branch refs/heads/tooling/review-handoff-canonical-publisher
+
+worktree /Users/morris/Projects/sfia-workspace-shared-platform-delivery
+HEAD 08c282abafd97685bcc0b7e525ec96e6721ec589
+branch refs/heads/delivery/sfia-studio-shared-technical-platform
+
+worktree /Users/morris/Projects/sfia-workspace-t-a6-post-merge
+HEAD 1f2585712e460b4ba6267d9e520cd0fd3cea6d3e
+branch refs/heads/post-merge/sfia-studio-v3-native-option-a-t-a6
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-arbitration
+HEAD 6849b6f7530310ae669a5bd2e4f4a3f3323ccda6
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-readme-post-merge
+HEAD 960c90b32b2c1c5701a668b0ebc70fdd847c681b
+branch refs/heads/docs/sfia-studio-t-a7-f03-f11-f13-readme-post-merge-status
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-framing
+HEAD b7a5e827fddb7e80f03a71b3b64ca89271ede0a6
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge
+HEAD 08d6cd0dd1503a7f261bf1fe527dba782d8f27ed
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1
+HEAD 4e4db74f744718b6dd1e9842d48e912e8eff4870
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-t0-103-section-33-requalification
+HEAD 4e4db74f744718b6dd1e9842d48e912e8eff4870
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-t0-103-section-33-requalification-clean
+HEAD 489605cb2f2bd7c5db7174af2bc94715f1d3a8e1
+branch refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t0-operational-backlog-103-section-33-requalification-clean
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge
+HEAD 52c1d753ee890daf04a80ba37b11c6bf077dc307
+branch refs/heads/backlog/sfia-studio-v3-1-d2-d-integration-foundation
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-execution-pack
+HEAD 8dc54db0069eed78a8d8930cc2b035450ab56ad1
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-execution-pack-clean
+HEAD 8dc54db0069eed78a8d8930cc2b035450ab56ad1
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack
+HEAD e1e00df244aa78a063bf2abf21f69325e1036f3a
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack/.tmp-sfia-review/worktrees/finops-t6-post-t2-probe
+HEAD e1e00df244aa78a063bf2abf21f69325e1036f3a
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main
+HEAD 4b1a058050ae81d56cb6d96b88e8a57380799a86
+branch refs/heads/main
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-hard-prerequisites
+HEAD 4b1a058050ae81d56cb6d96b88e8a57380799a86
+branch refs/heads/framing/sfia-studio-f3-real-hard-prerequisites
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-prerequisites-delivery
+HEAD 4b1a058050ae81d56cb6d96b88e8a57380799a86
+branch refs/heads/delivery/sfia-studio-f3-real-prerequisites
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-foundations
+HEAD da0618db8ce8dd6f1d7e98f8e207f7e169811d17
+branch refs/heads/docs/sfia-studio-convergence-foundations
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation
+HEAD 2641263b9e9ef7336a4a2ac7824c13bb928f5199
+branch refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-preparation
+HEAD fdc60f4c575715284f0047e6b97b5ccdbcbc8ae6
+branch refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-projection-refresh
+HEAD 95cb95cdd1c99a5dfc3f45ffaec43bf8e318aa3b
+branch refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-projection-refresh
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation
+HEAD 093fd91632d4c7ba1b6c4e707a8fb46fa2f08f2c
+branch refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-audit
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation-post-t2-delivery
+HEAD 3931a82eadb101d01ba10a5efa135dfbd10f6cf2
+branch refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-foundation-post-t2-integration
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-runtime-composition
+HEAD 40cbff6aba59cbc224de1b845e61c7d12a3625df
+branch refs/heads/delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-runtime-composition
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-preparation
+HEAD 137d3846e4b00ffe686db7ab473f0fdcd58df82e
+branch refs/heads/implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t7-rollout-activation-readiness
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-next-decision
+HEAD 33ea3e87facc8c99c9c5619d6d2424030d3918a2
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-technical-readiness
+HEAD b6a19335f5116940175f5986492e3693722563bc
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-wave-1-decisions
+HEAD f89ba5fb6cfca4e3de97667d944569a20266a8aa
+branch refs/heads/record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions
+
+worktree /Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope
+HEAD 4fad47f72a7d6cde655d98a64351bb4624ed9ad1
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope
+
+worktree /Users/morris/Projects/sfia-workspace-template-handoff-fix
+HEAD 134be301792efbf6f9739d13f0572062ef976da7
+detached
+
+worktree /Users/morris/Projects/sfia-workspace-ux-reconciliation
+HEAD 7bdabdcc0ea5f760383da190a661250dcd5d2598
+branch refs/heads/project/sfia-studio-ux-ui-reconciliation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-doctrine-consolidation
+HEAD daf6f7d02bbac09024f6275a793769e66b2b3878
+branch refs/heads/method/sfia-studio-v3-doctrine-consolidation
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-audit
+HEAD 56ddf32e811f0f5f8b82f31400da18ceecf3bc30
+branch refs/heads/audit/sfia-studio-v3-native-dependencies
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-arch
+HEAD 577ff0c22491288d2293fd9730ed26f0af4095b0
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional-architecture
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-design
+HEAD e22bc243c8854df4e9422fafe46e92135fe242e9
+branch refs/heads/design/sfia-studio-v3-native-option-a-functional
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-modeled
+HEAD 52891e5c5a9b1254143e422111ea4955ca3a0940
+branch refs/heads/modeled/sfia-studio-v3-native-option-a
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-tech
+HEAD 0b696ed970823aa75d013336e44e72de08f2ac57
+branch refs/heads/framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity
+
+worktree /Users/morris/Projects/sfia-workspace-v3-native-option-a-ux
+HEAD 608d3d4cb3bee46ef2a533aa9cf94ee427c4cf71
+branch refs/heads/design/sfia-studio-v3-native-option-a-ux-ui
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+HEAD 32e5271842b9a344a7e292614675c27ea8ed941b
+branch refs/heads/ops1/action/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+HEAD 27811e8f5f3747706bbbe417a5dc949a066c9187
+branch refs/heads/ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230
+
+worktree /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+HEAD 4b279b8af41559c4e6e9c41a481c9c3b76675026
+branch refs/heads/ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0
+
+worktree /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+HEAD fbff9c660cddc20e92f3ea10678e8f65e0ce392b
+branch refs/heads/sfia/review-handoff
+
+--- WT ---
+branch=docs/sfia-studio-convergence-foundations HEAD=da0618db8ce8dd6f1d7e98f8e207f7e169811d17
+?? .tmp-sfia-review/
+--- SRC ---
+branch=delivery/sfia-studio-f3-real-prerequisites HEAD=4b1a058050ae81d56cb6d96b88e8a57380799a86
  M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
  M method/sfia-fast-track/core/sfia-knowledge-layer.md
  M projects/sfia-studio/README.md
@@ -66,133 +521,28 @@ Project push = **0**. PR = **0**. Merge = **0**. main unmodified. Branche projet
 ?? projects/sfia-studio/app/lib/oa/critical-ack/
 ?? projects/sfia-studio/app/types/
 ?? projects/sfia-studio/convergence/
+--- HANDOFF ---
+branch=sfia/review-handoff HEAD=fbff9c660cddc20e92f3ea10678e8f65e0ce392b
+
 ```
 
-### Status final (après recovery worktree)
-
-```
-M method/sfia-fast-track/core/sfia-cycle-routing-guide.md
- M method/sfia-fast-track/core/sfia-knowledge-layer.md
- M projects/sfia-studio/README.md
- M projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
- M projects/sfia-studio/app/__tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts
- M projects/sfia-studio/app/lib/d1/db.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
- M projects/sfia-studio/app/lib/oa/execution-contract/application/confirmExecutionContract.ts
- M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
- M projects/sfia-studio/app/lib/platform/t-a7/hardBlockerFoundation.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
- M projects/sfia-studio/app/package-lock.json
- M projects/sfia-studio/app/package.json
- M prompts/templates/sfia-cycle-execution-template.md
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/oa/critical-ack/
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/durableLaunchMarkers.test.ts
-?? projects/sfia-studio/app/app/api/
-?? projects/sfia-studio/app/auth.ts
-?? projects/sfia-studio/app/lib/oa/critical-ack/
-?? projects/sfia-studio/app/types/
-?? projects/sfia-studio/convergence/
-```
+Attachment drift expected after handoff = **NO**. If drift detected → STOP.
 
 ---
 
-## 3. Worktree CIBLE
+## 7. Décisions toujours fermées
 
-| Champ | Valeur |
-| --- | --- |
-| Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-foundations` |
-| Branch (final) | `docs/sfia-studio-convergence-foundations` |
-| Base | `origin/main` @ `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| Status après commit / recovery | clean hors `.tmp-sfia-review/` |
-
-```
-?? .tmp-sfia-review/
-```
+merge · cleanup branch/worktree · instructions ChatGPT · Option 1 · persistence · Auth/Ack · Cursor REAL · Gate D · runtime v3 adoption
 
 ---
 
-## 4. Identité patch
+## 8. Capitalisation / REX (traçabilité)
 
-| Artefact | SHA256 |
-| --- | --- |
-| A source/dest/commit | `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9` |
-| B source/dest/commit | `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6` |
-| Tracked patch source=dest | `d100e08e3dde7825f8cde711bcaaf5283bf78db00a748f122ec9cccd59a7bfcf` |
-| Identité | **PASS** |
-
-Contamination F3 dans le commit : **NO**
+validated content → isolated commit → remote branch → PR #334
 
 ---
 
-## 5. Commit
-
-| Champ | Valeur |
-| --- | --- |
-| SHA | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
-| Parent | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| Message | `docs(sfia-studio): add convergence doctrine and roadmap` |
-| Files | exactement 6 |
-| Remote branch | **ABSENT** (non poussée) |
-
-```
-method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-method/sfia-fast-track/core/sfia-knowledge-layer.md
-projects/sfia-studio/README.md
-projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-prompts/templates/sfia-cycle-execution-template.md
-```
-
-```
-da0618d docs(sfia-studio): add convergence doctrine and roadmap
- .../core/sfia-cycle-routing-guide.md               |  43 ++-
- .../sfia-fast-track/core/sfia-knowledge-layer.md   |   4 +
- projects/sfia-studio/README.md                     |  25 +-
- .../sfia-studio-convergence-build-doctrine.md      | 212 +++++++++++++++
- .../convergence/sfia-studio-convergence-roadmap.md | 297 +++++++++++++++++++++
- prompts/templates/sfia-cycle-execution-template.md |  77 +++++-
- 6 files changed, 648 insertions(+), 10 deletions(-)
-```
-
----
-
-## 6. Validations
-
-| Check | Résultat |
-| --- | --- |
-| 6 fichiers exacts | **PASS** |
-| 2 created + 4 modified | **PASS** |
-| cross-links / markers / anti-claims | **PASS** |
-| git diff --check | **PASS** |
-| staged scope at commit | **PASS** |
-| project push | **0** |
-
----
-
-## 7. Réserve — incident post-publish worktree (récupéré)
-
-Après le premier publish handoff L3, les attachments de branches worktree ont été perturbés (cible basculée sur `delivery/sfia-studio-f3-real-prerequisites`, source détachée, index source temporairement rempli). **Aucun contenu F3 perdu** (fichiers présents ; hashes A/B inchangés). Recovery effectuée :
-
-1. `git restore --staged .` dans le worktree source (désindexage uniquement) ;
-2. checkout `docs/sfia-studio-convergence-foundations` dans le worktree cible ;
-3. checkout `delivery/sfia-studio-f3-real-prerequisites` dans le worktree source.
-
-État final vérifié : commit `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` intact ; F3 project paths = initial ; branche projet non poussée.
-
-Le publisher canonique n’a modifié que `sfia/review-handoff`. La cause exacte du basculement d’attachment n’est pas attribuée au script `publish-review-handoff.sh` (opère uniquement sur `--handoff-worktree`).
-
----
-
-## 8. Décisions toujours fermées
-
-push projet · PR · merge · instructions ChatGPT · Option 1 · persistence · Auth/Ack · Cursor REAL · Gate D · runtime v3 adoption · cleanup worktree/branche
-
----
-
-## 9. FULL INLINE — Build Doctrine (A) committed
+## 9. FULL INLINE — Build Doctrine (A)
 
 sha256 `be306b6e2277e928876cfeebbd018ed4ba0b1166463fba34282968741b326bc9`
 
@@ -414,7 +764,7 @@ PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 
 ---
 
-## 10. FULL INLINE — Convergence Roadmap (B) committed
+## 10. FULL INLINE — Convergence Roadmap (B)
 
 sha256 `898d01efbde1a8facef75bc51590b610bfe0e505bc0bfd86c5bcde3ffb1336a6`
 
@@ -721,19 +1071,11 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 
 ---
 
-## 11. DIFF COMPLET — commit (6 fichiers)
+## 11. DIFF COMPLET — PR #334
 
 ```diff
-commit da0618db8ce8dd6f1d7e98f8e207f7e169811d17
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Wed Aug 12 22:43:17 2026 +0200
-
-    docs(sfia-studio): add convergence doctrine and roadmap
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
 diff --git a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-index a331746..8949e76 100644
+index a331746a..8949e764 100644
 --- a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 +++ b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 @@ -165,7 +165,10 @@ Si le type de cycle n'est pas clair, lancer d'abord un **cycle de cadrage** (mé
@@ -805,7 +1147,7 @@ index a331746..8949e76 100644
  ## 10. Règle d'exécution Cursor
 
 diff --git a/method/sfia-fast-track/core/sfia-knowledge-layer.md b/method/sfia-fast-track/core/sfia-knowledge-layer.md
-index 7fe5b0e..1c77426 100644
+index 7fe5b0e5..1c774269 100644
 --- a/method/sfia-fast-track/core/sfia-knowledge-layer.md
 +++ b/method/sfia-fast-track/core/sfia-knowledge-layer.md
 @@ -145,6 +145,7 @@ Cette matrice doit être utilisée avant toute création documentaire significat
@@ -827,7 +1169,7 @@ index 7fe5b0e..1c77426 100644
  ### 6.2 Complément SFIA v2.4 — index méthode unique
 
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 75f0598..37f7683 100644
+index 75f05989..37f76839 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
 @@ -5,7 +5,9 @@
@@ -886,7 +1228,7 @@ index 75f0598..37f7683 100644
  | Cadrage OPS1 | Docs `41`–`44` — **VALIDATED WITH RESERVATIONS** ; **intégrés** sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) / squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` ; cleanup branche effectué |
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
 new file mode 100644
-index 0000000..0591431
+index 00000000..05914319
 --- /dev/null
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
 @@ -0,0 +1,212 @@
@@ -1104,7 +1446,7 @@ index 0000000..0591431
 +- Template : `prompts/templates/sfia-cycle-execution-template.md`
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 new file mode 100644
-index 0000000..d8d4899
+index 00000000..d8d4899a
 --- /dev/null
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -0,0 +1,297 @@
@@ -1406,7 +1748,7 @@ index 0000000..d8d4899
 +- Audit handoff : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
 +- Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37`
 diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
-index b9ce0a9..85ca739 100644
+index b9ce0a9f..85ca7391 100644
 --- a/prompts/templates/sfia-cycle-execution-template.md
 +++ b/prompts/templates/sfia-cycle-execution-template.md
 @@ -74,6 +74,7 @@ routing guide (sfia-cycle-routing-guide.md)
@@ -1529,7 +1871,6 @@ index b9ce0a9..85ca739 100644
 ## 12. Instruction ChatGPT
 
 Lire ce handoff depuis Git avant verdict.
-Si parent correct, 6 fichiers, identity PASS, F3 preserved, cible clean, push=0 : conclure
-**ISOLATED COMMIT COMPLETE — CONVERGENCE PATCH IDENTITY VERIFIED — F3 WORKTREE PRESERVED — READY FOR MORRIS PUSH / PR GATE**
-Ne pas exécuter push/PR/merge sans nouveau GO Morris.
-Noter la réserve §7 (recovery worktree) — non bloquante si état final vérifié.
+Si remote SHA / PR head = `da0618db...`, base main, 1 commit, 6 fichiers, handoff PASS, merge non effectué :
+**PR CREATED — REMOTE PATCH VERIFIED — SFIA STUDIO CONVERGENCE READY FOR FINAL PR READINESS — MORRIS MERGE GATE STILL REQUIRED**
+Ne pas merger sans nouveau GO Morris.
