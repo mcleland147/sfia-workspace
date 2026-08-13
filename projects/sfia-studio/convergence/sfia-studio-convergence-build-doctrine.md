@@ -21,8 +21,8 @@ Ce document **n’est pas** :
 - une doctrine produit runtime remplaçant `sfia-v3-framing/30`–`37` ;
 - une autorisation d’adoption runtime v3 ;
 - une baseline méthodologique globale remplaçant SFIA v2.6 ;
-- une décision d’architecture technique (Option 1 reste **recommandation** jusqu’à GO Morris) ;
-- une sélection Product persistence ;
+- une décision d’architecture technique **consommée hors de ce fichier** (G0-A **ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor ; source : décision Morris + `sfia-studio-g0-architecture-persistence-decision-pack.md` / Roadmap) ;
+- une sélection Product persistence **consommée hors de ce fichier** (G0-B **ADOPTED** — `node:sqlite` Product Store OA ; même source) ;
 - une autorisation Cursor REAL / Gate D ;
 - le contenu des Instructions projet ChatGPT (couche 1 = **ACTIVE** — couche externe, hors contenu de ce fichier).
 

@@ -24,14 +24,15 @@ vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
 vi.mock("@/lib/vertical-slice-runtime/disclosures", () => ({
   RUNTIME_DISCLOSURES: {
     runtimeMode: "LOCAL_PROCESS",
-    persistence: "NOT_GUARANTEED",
+    persistence: "PARTIAL_PROJECT_LPS_DURABLE",
     agentExecution: "DISABLED",
     iam: "NOT_SELECTED",
-    productPersistence: "NOT_SELECTED",
+    productPersistence: "SQLITE_OA_PRODUCT_STORE",
     delivery: "NOT_AUTHORIZED",
     cutover: "NOT_AUTHORIZED",
-    localDataVolatile: true,
-    restartMayLoseState: true,
+    localDataVolatile: true as const,
+    restartMayLoseState: true as const,
+    projectLpsRestartSafe: true as const,
     messages: [],
   },
   RUNTIME_READINESS_NOT_READY: {
@@ -39,7 +40,7 @@ vi.mock("@/lib/vertical-slice-runtime/disclosures", () => ({
     hard: "OPEN",
     tA6: "INCOMPLETE",
     iam: "NOT_SELECTED",
-    productPersistence: "NOT_SELECTED",
+    productPersistence: "SQLITE_OA_PRODUCT_STORE",
     realAgentExecution: "DISABLED",
     delivery: "NOT_AUTHORIZED",
     cutover: "NOT_AUTHORIZED",
@@ -94,7 +95,7 @@ const SUCCESS_RESULT = {
     hard: "OPEN" as const,
     tA6: "INCOMPLETE" as const,
     iam: "NOT_SELECTED" as const,
-    productPersistence: "NOT_SELECTED" as const,
+    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
     realAgentExecution: "DISABLED" as const,
     delivery: "NOT_AUTHORIZED" as const,
     cutover: "NOT_AUTHORIZED" as const,
@@ -103,14 +104,15 @@ const SUCCESS_RESULT = {
   },
   disclosures: {
     runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "NOT_GUARANTEED" as const,
+    persistence: "PARTIAL_PROJECT_LPS_DURABLE" as const,
     agentExecution: "DISABLED" as const,
     iam: "NOT_SELECTED" as const,
-    productPersistence: "NOT_SELECTED" as const,
+    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
     delivery: "NOT_AUTHORIZED" as const,
     cutover: "NOT_AUTHORIZED" as const,
     localDataVolatile: true as const,
     restartMayLoseState: true as const,
+    projectLpsRestartSafe: true as const,
     messages: ["Temporary local data"],
   },
   reusedFromIdempotencyKey: false,
@@ -168,7 +170,9 @@ describe("V2-A2 Create Project UI", () => {
       screen.getByText(/entrée de qualification uniquement/i),
     ).toBeVisible();
     expect(screen.getAllByText("LOCAL_PROCESS").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("NOT_GUARANTEED").length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText("PARTIAL_PROJECT_LPS_DURABLE").length,
+    ).toBeGreaterThan(0);
     expect(screen.getAllByText(/AGENT DISABLED/).length).toBeGreaterThan(0);
     expect(screen.queryByLabelText(/email|organisation|token/i)).toBeNull();
     await waitFor(() =>
@@ -380,7 +384,9 @@ describe("V2-A2 Create Project UI", () => {
     expect(screen.getByText("pkg:studio-v3-oa")).toBeVisible();
     expect(screen.getByText("lps:v2-a2-1")).toBeVisible();
     expect(screen.getAllByText("NOT_READY").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("NOT_GUARANTEED").length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText("PARTIAL_PROJECT_LPS_DURABLE").length,
+    ).toBeGreaterThan(0);
     expect(
       screen.getByRole("link", { name: "Ouvrir l’espace de travail" }),
     ).toHaveAttribute("href", "/studio/projects/prj%3Av2-a2-1");

@@ -69,7 +69,7 @@ describe("visible slice V1 local composition", () => {
     const services = createLocalVerticalSliceServices(createOptions());
     expect(services.architecture).toEqual({
       accessSurface: "HEADLESS_INTERNAL",
-      businessState: "OA_MEMORY",
+      businessState: "OA_PRODUCT_SQLITE_T_A1",
       doctrine: "T_A0_LOCAL_REGISTRY",
       project: "T_A1_PROJECT_LPS",
       audit: "OPTIONAL_BOUNDED_LOCAL",
@@ -78,7 +78,7 @@ describe("visible slice V1 local composition", () => {
       react: false,
       network: false,
       iam: "NOT_SELECTED",
-      productPersistence: "NOT_SELECTED",
+      productPersistence: "SQLITE_OA_PRODUCT_STORE",
       realAgentExecution: "NOT_AVAILABLE",
     });
     expect(Object.isFrozen(services.architecture)).toBe(true);
@@ -159,7 +159,7 @@ describe("visible slice V1 Project/LPS happy path", () => {
       },
       localMode: true,
       iam: "NOT_SELECTED",
-      productPersistence: "NOT_SELECTED",
+      productPersistence: "SQLITE_OA_PRODUCT_STORE",
       realAgentExecution: "NOT_AVAILABLE",
       delivery: "NOT_AUTHORIZED",
       cutover: "NOT_AUTHORIZED",

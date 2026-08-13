@@ -19,7 +19,7 @@ import type {
 import type { LivingProjectStateRepositoryPort } from "../ports/livingProjectStateRepositoryPort";
 import type { ProjectAuditJournalPort } from "../ports/projectAuditJournalPort";
 import type { ProjectRepositoryPort } from "../ports/projectRepositoryPort";
-import type { MemoryProjectStore } from "../infrastructure/memoryProjectStore";
+import type { ProjectPersistenceUnitOfWorkPort } from "../ports/projectPersistenceUnitOfWorkPort";
 
 function newId(prefix: "lps" | "prv" | "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -55,7 +55,7 @@ export class CreateProject {
     private readonly doctrine: DoctrinePackageResolverPort,
     private readonly clock: ClockPort,
     private readonly audit: ProjectAuditJournalPort,
-    private readonly store?: MemoryProjectStore,
+    private readonly store?: ProjectPersistenceUnitOfWorkPort,
   ) {}
 
   async execute(request: CreateProjectRequest): Promise<CreateProjectResult> {

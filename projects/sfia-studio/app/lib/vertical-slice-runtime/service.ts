@@ -71,6 +71,10 @@ export interface RuntimeApplicationServiceOptions {
   readonly auditMode?: RuntimeAuditMode;
   readonly sqliteAuditStore?: BoundedAtomicAuditStore;
   /**
+   * OA Product SQLite path (M1). Isolated from D1/OPS1/FinOps.
+   */
+  readonly productDbPath?: string;
+  /**
    * Escape hatch for tests: inject a fully built V1 facade.
    * Production path builds via createLocalVerticalSliceServices.
    */
@@ -172,15 +176,27 @@ export class RuntimeApplicationService {
   private readonly facade: LocalProjectFacade;
   readonly architecture: LocalVerticalSliceServices["architecture"];
   readonly oa: RuntimeOaStack | null;
+  private readonly disposeProduct?: () => void;
 
   constructor(
     facade: LocalProjectFacade,
     architecture: LocalVerticalSliceServices["architecture"],
     oa: RuntimeOaStack | null = null,
+    disposeProduct?: () => void,
   ) {
     this.facade = facade;
     this.architecture = architecture;
     this.oa = oa;
+    this.disposeProduct = disposeProduct;
+  }
+
+  /** Release durable Product SQLite handles (tests / shutdown). */
+  dispose(): void {
+    try {
+      this.disposeProduct?.();
+    } catch {
+      /* ignore */
+    }
   }
 
   /** Use case: Create Project via V1 facade. */
@@ -229,6 +245,7 @@ export function createRuntimeApplicationService(
     idSource: options.idSource,
     nowIso: options.nowIso,
     audit: resolveAudit(options.auditMode ?? "noop", options.sqliteAuditStore),
+    productDbPath: options.productDbPath,
   });
 
   const oa = wireOaStack(services.projectServices, services.clock);
@@ -236,5 +253,6 @@ export function createRuntimeApplicationService(
     services.facade,
     services.architecture,
     oa,
+    services.projectServices.dispose,
   );
 }

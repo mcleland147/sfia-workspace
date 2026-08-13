@@ -46,7 +46,7 @@ export interface LocalProjectCreationView {
   readonly lps: LocalProjectLpsProjection;
   readonly localMode: true;
   readonly iam: "NOT_SELECTED";
-  readonly productPersistence: "NOT_SELECTED";
+  readonly productPersistence: "SQLITE_OA_PRODUCT_STORE";
   readonly realAgentExecution: "NOT_AVAILABLE";
   readonly delivery: "NOT_AUTHORIZED";
   readonly cutover: "NOT_AUTHORIZED";
@@ -100,7 +100,7 @@ export type GetLocalProjectOverviewResult =
 
 export interface LocalVerticalSliceArchitecture {
   readonly accessSurface: "HEADLESS_INTERNAL";
-  readonly businessState: "OA_MEMORY";
+  readonly businessState: "OA_PRODUCT_SQLITE_T_A1";
   readonly doctrine: "T_A0_LOCAL_REGISTRY";
   readonly project: "T_A1_PROJECT_LPS";
   readonly audit: "OPTIONAL_BOUNDED_LOCAL";
@@ -109,7 +109,7 @@ export interface LocalVerticalSliceArchitecture {
   readonly react: false;
   readonly network: false;
   readonly iam: "NOT_SELECTED";
-  readonly productPersistence: "NOT_SELECTED";
+  readonly productPersistence: "SQLITE_OA_PRODUCT_STORE";
   readonly realAgentExecution: "NOT_AVAILABLE";
 }
 
@@ -126,4 +126,9 @@ export interface LocalVerticalSliceCompositionOptions {
   readonly idSource?: LocalProjectIdSource;
   readonly nowIso?: string;
   readonly audit?: import("./audit").LocalProjectCreationAuditPort;
+  /**
+   * Explicit OA Product SQLite path (tests). Default resolves via
+   * SFIA_STUDIO_PRODUCT_DB_PATH / .sfia-exec/product/oa-product.sqlite.
+   */
+  readonly productDbPath?: string;
 }
