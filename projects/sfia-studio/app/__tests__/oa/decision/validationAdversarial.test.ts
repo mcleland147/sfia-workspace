@@ -462,7 +462,7 @@ describe("T-A3 validation B3 concurrent supersede", () => {
 });
 
 describe("T-A3 validation B4 link fail-closed", () => {
-  it("LPS link version conflict fails closed and compensates orphan decision", async () => {
+  it("LPS link version conflict fails closed with atomic rollback (no orphan)", async () => {
     const { projects, decisions } = buildStack();
     await seedProject(projects);
     registerMorris(decisions.authority, "subj:lps-fail");
@@ -488,9 +488,8 @@ describe("T-A3 validation B4 link fail-closed", () => {
     const stored = await decisions.getHumanDecision.execute({
       decisionId: "dec:lps-fail-1",
     });
-    expect(stored.ok).toBe(true);
-    if (!stored.ok) return;
-    expect(stored.decision.status).toBe("superseded");
+    // M3: HD+LPS share one UoW — conflict rolls back; no orphan / no compensate.
+    expect(stored.ok).toBe(false);
 
     const lps = await projects.getCurrentLivingProjectState.execute({
       projectId: "prj:campus360-oa",
@@ -502,7 +501,7 @@ describe("T-A3 validation B4 link fail-closed", () => {
     );
   });
 
-  it("LPS link without expectedLpsVersion fails closed", async () => {
+  it("LPS link without expectedLpsVersion fails closed with atomic rollback", async () => {
     const { projects, decisions } = buildStack();
     await seedProject(projects);
     registerMorris(decisions.authority, "subj:lps-nov", "evd:morris-n3c");
@@ -531,9 +530,7 @@ describe("T-A3 validation B4 link fail-closed", () => {
     const stored = await decisions.getHumanDecision.execute({
       decisionId: "dec:lps-nov-1",
     });
-    expect(stored.ok).toBe(true);
-    if (!stored.ok) return;
-    expect(stored.decision.status).toBe("superseded");
+    expect(stored.ok).toBe(false);
   });
 
   it("successful LPS link still returns ok with version", async () => {

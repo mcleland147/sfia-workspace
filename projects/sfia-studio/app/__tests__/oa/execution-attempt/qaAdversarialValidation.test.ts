@@ -23,6 +23,7 @@ import {
   seedConfirmedContract,
   selectStandardAgent,
 } from "./helpers";
+import { MemoryExecutionContractStore } from "@/lib/oa/execution-contract";
 
 describe("QA RTA5-09 invariant — Contract executing requires persisted running", () => {
   it("refuses executing when caller claims running but Attempt is only accepted", async () => {
@@ -309,7 +310,8 @@ describe("QA compensation — no second launch", () => {
     const stack = buildStack({ adapter });
     const { contractId } = await seedConfirmedContract(stack);
     await selectStandardAgent(stack, { executionContractId: contractId });
-    stack.execution.store.failNextSave = true;
+    // M3 widened ExecutionContractServices.store to UoW port; failNextSave is memory-store only.
+    (stack.execution.store as MemoryExecutionContractStore).failNextSave = true;
     const started = await stack.attempts.startExecution.execute({
       attemptId: "xat:oa-001",
       actor: MORRIS_ACTOR,

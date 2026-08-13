@@ -8,6 +8,7 @@ import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
 import type { F2DecisionKind } from "./f2/types";
 import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
 import { prepareF3Fixture } from "./f3/prepareF3Fixture";
+import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
 import { F3_PROCESS_LOCAL_NOTICE } from "./f3/constants";
 import type {
   AssistantHistoryMessage,
@@ -15,6 +16,7 @@ import type {
   ProjectAssistantDecideResult,
   ProjectAssistantExecuteF3Result,
   ProjectAssistantPrepareF3Result,
+  ProjectAssistantPrepareM3Result,
   ProjectAssistantSendResult,
 } from "./types";
 
@@ -272,6 +274,108 @@ export async function projectAssistantPrepareF3FixtureAction(input: {
     project,
     ephemeralNotice: F3_PROCESS_LOCAL_NOTICE,
     f2: null,
+    f3,
+  };
+}
+
+/**
+ * F3 M3 PREPARE — from durable decisionId (no ProposalStore).
+ * Exact contract from DecisionBasis. Cursor PREPARE-only. No Attempt.
+ */
+export async function projectAssistantPrepareM3Action(input: {
+  projectId: string;
+  decisionId: string;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantPrepareM3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "prepare_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour M3 PREPARE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const prepared = await prepareM3FromDecision({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    currentContext: {
+      projectId: project.projectId,
+      lpsId: project.lpsId,
+      lpsVersion: project.lpsVersion,
+      doctrineDigest: project.doctrineDigest,
+      activeCycleInstanceId: project.activeCycleInstanceId,
+      ckcResolutionRef: project.ckcResolutionRef,
+    },
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+    },
+  });
+
+  if (!prepared.ok) {
+    return {
+      ok: false,
+      status: prepared.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
+      code: prepared.code,
+      message: prepared.message,
+      mode: "fixture",
+      retryable: prepared.code === "CONTEXT_STALE",
+    };
+  }
+
+  const f3 = prepared.payload;
+  return {
+    ok: true,
+    status: "ok",
+    mode: "m3_prepare",
+    presentation: "unconfirmed",
+    text: [
+      "M3 PREPARE",
+      `Contrat ${f3.contract.executionContractId} v${f3.contract.version} (${f3.contract.status})`,
+      `Fingerprint ${f3.contract.semanticFingerprint.slice(0, 12)}…`,
+      "AUCUNE EXÉCUTION",
+      "CURSOR PREPARE-ONLY",
+      "NO GATE D",
+    ].join(" — "),
+    project,
+    ephemeralNotice:
+      "M3 PREPARE durable — Decision + ExecutionContract Product SQLite. Cursor REAL bloqué.",
     f3,
   };
 }

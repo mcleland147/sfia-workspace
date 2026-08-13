@@ -194,7 +194,7 @@ describe("T-A3 adversarial authority", () => {
       canActAsMorris: true,
     });
 
-    decisions.store.failNextSave = "decision";
+    (decisions.store as import("@/lib/oa/decision").MemoryDecisionStore).failNextSave = "decision";
     const result = await decisions.recordHumanDecision.execute({
       decisionId: "dec:fail-1",
       projectId: "prj:campus360-oa",

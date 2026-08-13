@@ -101,7 +101,7 @@ describe("M2 F2 cognitive piloting e2e", () => {
       result.f2?.qualification?.ckcResolutionRef,
     );
     expect(after.disclosures.persistence).toBe(
-      "PARTIAL_PROJECT_LPS_CYCLE_DURABLE",
+      "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
     );
     expect(after.disclosures.cycleInstanceRestartSafe).toBe(true);
     expect(after.disclosures.agentExecution).toBe("DISABLED");
@@ -145,7 +145,7 @@ describe("M2 F2 cognitive piloting e2e", () => {
 
   it("J — disclosures anti-claims (no FULLY_DURABLE / V3_ADOPTED / Cursor REAL)", () => {
     expect(RUNTIME_DISCLOSURES.persistence).toBe(
-      "PARTIAL_PROJECT_LPS_CYCLE_DURABLE",
+      "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
     );
     expect(RUNTIME_DISCLOSURES.agentExecution).toBe("DISABLED");
     expect(RUNTIME_DISCLOSURES.productPersistence).toBe(

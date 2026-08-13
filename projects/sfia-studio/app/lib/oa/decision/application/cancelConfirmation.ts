@@ -6,7 +6,7 @@ import type {
   Confirmation,
   ConfirmationResult,
 } from "../domain/types";
-import type { MemoryDecisionStore } from "../infrastructure/memoryDecisionStore";
+import type { DecisionPersistenceUnitOfWorkPort } from "../ports/decisionPersistenceUnitOfWorkPort";
 import type { ConfirmationRepositoryPort } from "../ports/confirmationRepository";
 import type { DecisionAuditPort } from "../ports/decisionAudit";
 
@@ -24,7 +24,7 @@ export class CancelConfirmation {
     private readonly confirmations: ConfirmationRepositoryPort,
     private readonly clock: ClockPort,
     private readonly audit: DecisionAuditPort,
-    private readonly store?: MemoryDecisionStore,
+    private readonly store?: DecisionPersistenceUnitOfWorkPort,
   ) {}
 
   async execute(

@@ -1,10 +1,20 @@
 /**
- * Record Morris-gate HumanDecision via OA DecisionServices.
- * Authority evidence is registered server-side only.
+ * Record Morris-gate HumanDecision via OA DecisionServices (M3 durable).
+ * Authority evidence is server-owned LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT
+ * when configured; fail-closed otherwise. Client claims ignored.
  */
 
 import { randomUUID } from "node:crypto";
-import type { DecisionServices, MemoryAuthorityResolver } from "@/lib/oa/decision";
+import type {
+  DecisionBasis,
+  DecisionServices,
+  MemoryAuthorityResolver,
+} from "@/lib/oa/decision";
+import {
+  computeDecisionBasisSourceDigest,
+  LOCAL_MORRIS_M3_ACTOR,
+  registerM3LocalMorrisAuthority,
+} from "@/lib/oa/decision";
 import type {
   DecisionDto,
   F2ContextSnapshot,
@@ -18,6 +28,7 @@ import {
   updateProposalStatus,
 } from "./proposalStore";
 
+/** @deprecated M2 demo actor — prefer LOCAL_MORRIS_M3_ACTOR when M3 authority enabled. */
 export const LOCAL_MORRIS_ACTOR = Object.freeze({
   actorId: "actor:local-morris-demo",
   role: "decision_maker" as const,
@@ -25,6 +36,7 @@ export const LOCAL_MORRIS_ACTOR = Object.freeze({
   authorityLevel: "none" as const,
 });
 
+/** @deprecated M2 demo source — M3 uses LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT. */
 export const LOCAL_MORRIS_EVIDENCE_SOURCE =
   "LOCAL_PROCESS_MORRIS_DEMO_AUTHORITY" as const;
 
@@ -69,6 +81,59 @@ function mapStatus(kind: F2DecisionKind): {
   }
 }
 
+function buildDecisionBasis(input: {
+  proposal: ProposalDto;
+  projectId: string;
+  currentContext: F2ContextSnapshot;
+}): DecisionBasis {
+  const { proposal, projectId, currentContext } = input;
+  const stablePayload = {
+    proposalId: proposal.proposalId,
+    objective: proposal.objective,
+    scope: proposal.scope,
+    outOfScope: proposal.outOfScope,
+    activatedBlocks: proposal.activatedBlocks,
+    expectedOutcome: proposal.expectedOutcome,
+    risks: proposal.risks,
+    reservations: proposal.reservations,
+    stopConditions: proposal.stopConditions,
+    cycleTypeId: proposal.cycleTypeId,
+    recommendedProfile: proposal.recommendedProfile,
+    rephrasedRequest: proposal.rephrasedRequest,
+  };
+  const cycleInstanceId =
+    currentContext.activeCycleInstanceId ??
+    proposal.contextSnapshot.activeCycleInstanceId ??
+    undefined;
+  return {
+    sourceType: "proposal",
+    sourceRef: proposal.proposalId,
+    sourceDigest: computeDecisionBasisSourceDigest(stablePayload),
+    projectId,
+    cycleInstanceId: cycleInstanceId ?? undefined,
+    proposalContext: {
+      lpsId: currentContext.lpsId,
+      lpsVersion: currentContext.lpsVersion,
+      doctrineDigest: currentContext.doctrineDigest,
+      activeCycleInstanceId: currentContext.activeCycleInstanceId ?? undefined,
+      ckcResolutionRef: currentContext.ckcResolutionRef ?? undefined,
+    },
+    executionBasis: {
+      objective: proposal.objective,
+      scope: proposal.scope,
+      outOfScope: [...proposal.outOfScope],
+      activatedBlocks: [...proposal.activatedBlocks],
+      expectedOutcome: proposal.expectedOutcome,
+      risks: [...proposal.risks],
+      reservations: [...proposal.reservations],
+      stopConditions: [...proposal.stopConditions],
+      cycleTypeId: proposal.cycleTypeId,
+      recommendedProfile: proposal.recommendedProfile,
+      requestedOperation: proposal.rephrasedRequest,
+    },
+  };
+}
+
 export async function recordF2Decision(input: {
   proposalId: string;
   projectId: string;
@@ -81,6 +146,8 @@ export async function recordF2Decision(input: {
   decisionServices: DecisionServices;
   authorityResolver: MemoryAuthorityResolver;
   nowIso: () => string;
+  /** Test inject for M3 authority. */
+  forceM3Authority?: boolean;
 }): Promise<
   | {
       ok: true;
@@ -165,27 +232,19 @@ export async function recordF2Decision(input: {
   }
 
   const scope = proposalScope(proposal);
-  const evidenceId = `evd:f2-morris:${proposal.proposalId}:${randomUUID()}`;
   const issuedAt = input.nowIso();
 
-  try {
-    input.authorityResolver.register({
-      evidenceId,
-      actorId: LOCAL_MORRIS_ACTOR.actorId,
-      level: "N3",
-      scope,
-      issuedAt,
-      source: LOCAL_MORRIS_EVIDENCE_SOURCE,
-      canActAsMorris: true,
-    });
-  } catch (error) {
+  const authority = registerM3LocalMorrisAuthority({
+    authorityResolver: input.authorityResolver,
+    scope,
+    issuedAt,
+    forceEnable: input.forceM3Authority === true,
+  });
+  if (!authority.ok) {
     return {
       ok: false,
-      code: "AUTHORITY_REGISTER_FAILED",
-      message:
-        error instanceof Error
-          ? error.message
-          : "Échec enregistrement evidence Morris locale.",
+      code: authority.code,
+      message: authority.message,
       proposal,
     };
   }
@@ -210,20 +269,36 @@ export async function recordF2Decision(input: {
         ]
       : undefined;
 
+  const isGoAccepted =
+    input.decisionKind === "GO" || input.decisionKind === "GO_WITH_RESERVES";
+  const decisionBasis = isGoAccepted
+    ? buildDecisionBasis({
+        proposal,
+        projectId: input.projectId,
+        currentContext: input.currentContext,
+      })
+    : undefined;
+
   const result = await input.decisionServices.recordHumanDecision.execute({
     decisionId,
     projectId: input.projectId,
+    cycleInstanceId: decisionBasis?.cycleInstanceId,
     subject: `F2 gate for ${proposal.proposalId}`,
     options,
     selectedOptionId: mapped.selectedOptionId,
-    actor: LOCAL_MORRIS_ACTOR,
+    actor: LOCAL_MORRIS_M3_ACTOR,
     authority: "morris",
     status: mapped.humanStatus,
     reversible: true,
     scope,
     reservations,
     rationale: `F2 ${input.decisionKind} on ${proposal.proposalId}`,
-    authorityEvidenceId: evidenceId,
+    authorityEvidenceId: authority.evidenceId,
+    decisionBasis,
+    linkToLivingProjectState: isGoAccepted,
+    expectedLpsVersion: isGoAccepted
+      ? input.currentContext.lpsVersion
+      : undefined,
     correlationId: `f2-dec:${proposal.proposalId}`,
   });
 
@@ -249,8 +324,7 @@ export async function recordF2Decision(input: {
         ? input.reservesText!.trim()
         : null,
     capturedAt: issuedAt,
-    readyForNextGatedStep:
-      input.decisionKind === "GO" || input.decisionKind === "GO_WITH_RESERVES",
+    readyForNextGatedStep: isGoAccepted,
     executionPerformed: false,
   };
 

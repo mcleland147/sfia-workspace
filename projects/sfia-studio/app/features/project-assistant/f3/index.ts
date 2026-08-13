@@ -10,6 +10,8 @@ export type {
 } from "./types";
 export { validateF2ForPrepare } from "./validateF2ForPrepare";
 export { prepareF3Fixture } from "./prepareF3Fixture";
+export { prepareM3FromDecision } from "./prepareM3FromDecision";
+export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
 export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
 export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
 export {

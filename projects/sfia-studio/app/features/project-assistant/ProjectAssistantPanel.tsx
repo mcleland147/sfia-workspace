@@ -6,6 +6,7 @@ import {
   projectAssistantConfirmAndExecuteF3FixtureAction,
   projectAssistantDecideAction,
   projectAssistantPrepareF3FixtureAction,
+  projectAssistantPrepareM3Action,
   projectAssistantSendAction,
 } from "./actions";
 import type {
@@ -15,6 +16,7 @@ import type {
 } from "./types";
 import type { F2DecisionKind, ProposalDto } from "./f2/types";
 import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
+import type { F3M3PreparePayload } from "./f3/prepareM3FromDecision";
 import styles from "./project-assistant.module.css";
 
 type UiMessage = {
@@ -85,6 +87,9 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
   const [reservesText, setReservesText] = useState("");
   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
+  const [f3M3Prepare, setF3M3Prepare] = useState<F3M3PreparePayload | null>(
+    null,
+  );
   const [f3Execute, setF3Execute] = useState<F3ExecutePayload | null>(null);
   const [f3Busy, setF3Busy] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -218,6 +223,15 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
     Boolean(f2?.decision?.decisionId) &&
     Boolean(activeProposal) &&
     !f3Prepare &&
+    !f3M3Prepare &&
+    !f3Execute &&
+    !busy &&
+    !blocked;
+
+  const canPrepareM3 =
+    Boolean(f2?.decision?.readyForNextGatedStep) &&
+    Boolean(f2?.decision?.decisionId) &&
+    !f3M3Prepare &&
     !f3Execute &&
     !busy &&
     !blocked;
@@ -247,6 +261,7 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
         return;
       }
       setF3Prepare(result.f3);
+      setF3M3Prepare(null);
       setF3Execute(null);
       setEphemeralNotice(result.ephemeralNotice);
       setMessages((prev) => [
@@ -261,6 +276,37 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
     });
   }
 
+  function prepareM3() {
+    if (!canPrepareM3 || !f2?.decision) return;
+    if (f3Busy) return;
+    setF3Busy(true);
+    startTransition(async () => {
+      setError(null);
+      const result = await projectAssistantPrepareM3Action({
+        projectId,
+        decisionId: f2.decision!.decisionId,
+      });
+      setF3Busy(false);
+      if (!result.ok) {
+        setUiState("ERROR_RECOVERABLE");
+        setError(result.message);
+        return;
+      }
+      setF3M3Prepare(result.f3);
+      setF3Prepare(null);
+      setF3Execute(null);
+      setEphemeralNotice(result.ephemeralNotice);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: nextId("assistant"),
+          role: "assistant",
+          content: result.text,
+        },
+      ]);
+      setUiState("ANSWERED");
+    });
+  }
   function confirmAndExecuteF3() {
     if (!canConfirmF3 || !f3Prepare || !activeProposal) return;
     if (f3Busy) return;
@@ -570,7 +616,7 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
         </section>
       ) : null}
 
-      {canPrepareF3 ? (
+      {canPrepareF3 || canPrepareM3 ? (
         <section
           className={styles.f3Card}
           data-testid="project-assistant-f3-prepare"
@@ -593,6 +639,47 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
           >
             Préparer l&apos;exécution fixture
           </button>
+          <button
+            type="button"
+            className={styles.f3Button}
+            data-testid="f3-m3-prepare-button"
+            disabled={!canPrepareM3}
+            onClick={() => prepareM3()}
+          >
+            M3 PREPARE (decision durable)
+          </button>
+        </section>
+      ) : null}
+
+      {f3M3Prepare && !f3Execute ? (
+        <section
+          className={styles.f3Card}
+          data-testid="project-assistant-f3-m3-prepare"
+        >
+          <h3 className={styles.cardTitle}>M3 PREPARE — CURSOR PREPARE-ONLY</h3>
+          <div className={styles.f3Labels}>
+            <StatusPill tone="muted">NO CURSOR REAL</StatusPill>
+            <StatusPill tone="muted">NO ATTEMPT</StatusPill>
+            <StatusPill tone="muted">GATE D NOT_CONSUMED</StatusPill>
+          </div>
+          <dl className={styles.cardDl}>
+            <div>
+              <dt>Contract id</dt>
+              <dd data-testid="f3-m3-contract-id">
+                {f3M3Prepare.contract.executionContractId}
+              </dd>
+            </div>
+            <div>
+              <dt>Fingerprint</dt>
+              <dd data-testid="f3-m3-fingerprint">
+                {f3M3Prepare.contract.semanticFingerprint}
+              </dd>
+            </div>
+            <div>
+              <dt>Action</dt>
+              <dd>{f3M3Prepare.contract.action}</dd>
+            </div>
+          </dl>
         </section>
       ) : null}
 

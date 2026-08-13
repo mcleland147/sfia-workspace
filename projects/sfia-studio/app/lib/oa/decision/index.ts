@@ -2,7 +2,9 @@
  * T-A3 Decision / Confirmation / Authority Foundation — public barrel.
  *
  * Isolated Option A v3-native module. Consumes T-A1 project + T-A2 cycle
- * public APIs only. Does not replace d1 / OPS1 / MethodMode. In-memory only.
+ * public APIs only. Does not replace d1 / OPS1 / MethodMode.
+ * Studio composition uses Product SQLite for HumanDecision (M3); Memory remains
+ * for tests / confirmations process-local.
  *
  * Critical cycle acknowledgment: T-A2 has no public AcknowledgeCriticalCycle
  * API. This foundation records decisions linking a cycle without mutating
@@ -12,11 +14,13 @@
 export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
+export { computeDecisionBasisSourceDigest } from "./domain/decisionBasisDigest";
 
 export * from "./ports/decisionRepository";
 export * from "./ports/confirmationRepository";
 export * from "./ports/authorityResolver";
 export * from "./ports/decisionAudit";
+export * from "./ports/decisionPersistenceUnitOfWorkPort";
 
 export { RecordHumanDecision } from "./application/recordHumanDecision";
 export { GetHumanDecision } from "./application/getHumanDecision";
@@ -37,6 +41,22 @@ export {
   ConsoleDecisionAuditJournal,
   MemoryDecisionAuditJournal,
 } from "./infrastructure/observability";
+export {
+  M3_LOCAL_MORRIS_ACTOR_ID,
+  M3_LOCAL_AUTHORITY_SOURCE,
+  M3_LOCAL_AUTHORITY_ENV,
+  LOCAL_MORRIS_M3_ACTOR,
+  isM3LocalAuthorityEnabled,
+  registerM3LocalMorrisAuthority,
+} from "./infrastructure/localSingleUserAuthority";
+export { SqliteDecisionRepository } from "./infrastructure/sqlite/sqliteDecisionRepository";
+export { SqliteDecisionAuditJournal } from "./infrastructure/sqlite/sqliteDecisionAuditJournal";
+export {
+  createSqliteDecisionServices,
+  createTestSqliteDecisionServices,
+  type CreateSqliteDecisionServicesOptions,
+  type SqliteDecisionServices,
+} from "./infrastructure/sqlite/createSqliteDecisionServices";
 
 import type { ClockPort } from "@/lib/oa/doctrine";
 import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
@@ -61,12 +81,15 @@ import {
   MemoryDecisionAuditJournal,
 } from "./infrastructure/observability";
 import type { AuthorityResolverPort } from "./ports/authorityResolver";
+import type { ConfirmationRepositoryPort } from "./ports/confirmationRepository";
 import type { DecisionAuditPort } from "./ports/decisionAudit";
+import type { DecisionPersistenceUnitOfWorkPort } from "./ports/decisionPersistenceUnitOfWorkPort";
+import type { DecisionRepositoryPort } from "./ports/decisionRepository";
 
 export type DecisionServices = {
-  store: MemoryDecisionStore;
-  decisions: MemoryDecisionRepository;
-  confirmations: MemoryConfirmationRepository;
+  store: DecisionPersistenceUnitOfWorkPort;
+  decisions: DecisionRepositoryPort;
+  confirmations: ConfirmationRepositoryPort;
   authority: AuthorityResolverPort;
   audit: DecisionAuditPort;
   recordHumanDecision: RecordHumanDecision;

@@ -83,7 +83,7 @@ describe("V2-A1 RuntimeApplicationService", () => {
     expect(result.readiness.productReady).toBe(false);
     expect(result.disclosures).toEqual(RUNTIME_DISCLOSURES);
     expect(result.disclosures.runtimeMode).toBe("LOCAL_PROCESS");
-    expect(result.disclosures.persistence).toBe("PARTIAL_PROJECT_LPS_CYCLE_DURABLE");
+    expect(result.disclosures.persistence).toBe("PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE");
     expect(result.disclosures.productPersistence).toBe("SQLITE_OA_PRODUCT_STORE");
     expect(result.disclosures.projectLpsRestartSafe).toBe(true);
     expect(result.disclosures.cycleInstanceRestartSafe).toBe(true);
@@ -124,7 +124,7 @@ describe("V2-A1 RuntimeApplicationService", () => {
     expect(missing).toMatchObject({
       ok: false,
       error: { code: "PROJECT_NOT_FOUND" },
-      disclosures: { persistence: "PARTIAL_PROJECT_LPS_CYCLE_DURABLE" },
+      disclosures: { persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" },
     });
   });
 

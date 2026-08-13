@@ -106,7 +106,7 @@ describe("T-A4 anti-T-A5 boundaries", () => {
     await stack.execution.buildExecutionContract.execute(baseBuildRequest());
 
     // Hostile store mutation simulating T-A5 status (should be refused).
-    const stored = stack.execution.store.contracts.get("xct:oa-001");
+    const stored = (stack.execution.store as import("@/lib/oa/execution-contract").MemoryExecutionContractStore).contracts.get("xct:oa-001");
     expect(stored).toBeDefined();
     if (!stored) return;
     stored.status = "executing";
@@ -298,7 +298,7 @@ describe("T-A4 immutability / TOCTOU", () => {
     await seedProject(stack.projects);
     registerMorris(stack.decisions.authority);
     await seedAcceptedDecision(stack);
-    stack.execution.store.failNextSave = true;
+    (stack.execution.store as import("@/lib/oa/execution-contract").MemoryExecutionContractStore).failNextSave = true;
 
     const result = await stack.execution.buildExecutionContract.execute(
       baseBuildRequest({

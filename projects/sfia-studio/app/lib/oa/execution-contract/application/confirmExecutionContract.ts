@@ -16,7 +16,7 @@ import type {
   ExecutionContract,
   ExecutionContractResult,
 } from "../domain/types";
-import type { MemoryExecutionContractStore } from "../infrastructure/memoryExecutionContractStore";
+import type { ExecutionContractPersistenceUnitOfWorkPort } from "../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
 import type { CancelExecutionContract } from "./cancelExecutionContract";
@@ -58,7 +58,7 @@ export class ConfirmExecutionContract {
     private readonly cycleServices: CycleServices | undefined,
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAuditPort,
-    private readonly store?: MemoryExecutionContractStore,
+    private readonly store?: ExecutionContractPersistenceUnitOfWorkPort,
     private readonly cancelExecutionContract?: CancelExecutionContract,
   ) {}
 

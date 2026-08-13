@@ -17,9 +17,9 @@ import type {
   OaActorReference,
   RecordHumanDecisionRequest,
 } from "../domain/types";
-import type { MemoryDecisionStore } from "../infrastructure/memoryDecisionStore";
 import type { AuthorityResolverPort } from "../ports/authorityResolver";
 import type { DecisionAuditPort } from "../ports/decisionAudit";
+import type { DecisionPersistenceUnitOfWorkPort } from "../ports/decisionPersistenceUnitOfWorkPort";
 import type { DecisionRepositoryPort } from "../ports/decisionRepository";
 
 function newId(prefix: "cor" | "prv" | "epi"): string {
@@ -53,6 +53,7 @@ type DecisionFieldSnapshot = {
   epistemicItemId: string | undefined;
   linkToLivingProjectState: boolean;
   expectedLpsVersion: number | undefined;
+  decisionBasis: RecordHumanDecisionRequest["decisionBasis"];
 };
 
 /**
@@ -63,7 +64,8 @@ type DecisionFieldSnapshot = {
  * (R-T-A3-1: no public AcknowledgeCriticalCycle API on T-A2).
  *
  * B1: snapshot authority/actor/selectedOptionId/status/subject/scope BEFORE awaits.
- * B4: requested LPS/epistemic links fail-closed (compensate orphan decision).
+ * M3: LPS append (when requested) runs INSIDE the same UoW as decision save —
+ * LPS_VERSION_CONFLICT rolls back (no orphan decision on Product SQLite).
  */
 export class RecordHumanDecision {
   constructor(
@@ -73,7 +75,7 @@ export class RecordHumanDecision {
     private readonly cycleServices: CycleServices | undefined,
     private readonly clock: ClockPort,
     private readonly audit: DecisionAuditPort,
-    private readonly store?: MemoryDecisionStore,
+    private readonly store?: DecisionPersistenceUnitOfWorkPort,
   ) {}
 
   async execute(
@@ -147,6 +149,9 @@ export class RecordHumanDecision {
         epistemicItemId: request.epistemicItemId,
         linkToLivingProjectState: request.linkToLivingProjectState === true,
         expectedLpsVersion: request.expectedLpsVersion,
+        decisionBasis: request.decisionBasis
+          ? structuredClone(request.decisionBasis)
+          : undefined,
       };
 
       const fieldViolation = validateDecisionFields({
@@ -279,6 +284,7 @@ export class RecordHumanDecision {
       let decision: HumanDecision | undefined;
       let epistemicItemId: string | undefined;
       let livingProjectStateVersion: number | undefined;
+      let lpsConflictCurrentVersion: number | undefined;
 
       const persist = async () => {
         if (status === "accepted") {
@@ -327,6 +333,9 @@ export class RecordHumanDecision {
             cloned.evidenceRefs.length > 0
               ? [...cloned.evidenceRefs]
               : undefined,
+          decisionBasis: snap.decisionBasis
+            ? structuredClone(snap.decisionBasis)
+            : undefined,
           provenance: {
             schemaVersion: "0.1.0-oa",
             provenanceRecordId: newId("prv"),
@@ -341,6 +350,50 @@ export class RecordHumanDecision {
 
         await this.decisions.save(next);
         decision = next;
+
+        // M3 — LPS append inside the same UoW (nested AsyncLocalStorage on Product).
+        if (status === "accepted" && snap.linkToLivingProjectState) {
+          if (snap.expectedLpsVersion === undefined) {
+            throw Object.assign(new Error("lps_expected_version_required"), {
+              detailCode: "PERSISTENCE_FAILURE" as const,
+            });
+          }
+          const current =
+            await this.projectServices.getCurrentLivingProjectState.execute({
+              projectId: snap.projectId,
+            });
+          if (!current.ok) {
+            throw Object.assign(new Error("lps_current_unavailable"), {
+              detailCode: "PERSISTENCE_FAILURE" as const,
+            });
+          }
+          const priorIds = current.livingProjectState.decisionIds ?? [];
+          const nextIds = [...priorIds, snap.decisionId];
+          const appended =
+            await this.projectServices.appendLivingProjectStateVersion.execute({
+              projectId: snap.projectId,
+              expectedVersion: snap.expectedLpsVersion,
+              objective: current.livingProjectState.objective,
+              createdBy: snap.actor,
+              correlationId,
+              context: current.livingProjectState.context,
+              scope: current.livingProjectState.scope,
+              decisionIds: nextIds,
+            });
+          if (!appended.ok) {
+            if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
+              lpsConflictCurrentVersion = current.livingProjectState.version;
+              throw Object.assign(new Error("lps_version_conflict"), {
+                detailCode: "LPS_VERSION_CONFLICT" as const,
+                currentVersion: current.livingProjectState.version,
+              });
+            }
+            throw Object.assign(new Error("lps_link_failed"), {
+              detailCode: "PERSISTENCE_FAILURE" as const,
+            });
+          }
+          livingProjectStateVersion = appended.livingProjectState.version;
+        }
       };
 
       try {
@@ -356,14 +409,24 @@ export class RecordHumanDecision {
           "detailCode" in err &&
           typeof (err as { detailCode: unknown }).detailCode === "string"
         ) {
+          const detailCode = (err as {
+            detailCode: Parameters<typeof createDecisionError>[0]["detailCode"];
+          }).detailCode;
           return fail(
-            (err as { detailCode: Parameters<typeof createDecisionError>[0]["detailCode"] })
-              .detailCode,
+            detailCode,
             err instanceof Error ? err.message : "rule",
             {
               projectId: snap.projectId,
               decisionId: snap.decisionId,
               subject: snap.subject,
+              expectedVersion:
+                detailCode === "LPS_VERSION_CONFLICT"
+                  ? snap.expectedLpsVersion
+                  : undefined,
+              currentVersion:
+                detailCode === "LPS_VERSION_CONFLICT"
+                  ? lpsConflictCurrentVersion
+                  : undefined,
             },
           );
         }
@@ -383,7 +446,7 @@ export class RecordHumanDecision {
       }
 
       const compensateOrphan = async (cause: string): Promise<DecisionResult> => {
-        // Best-effort compensate within decision store (R-T-A3-2 residual if this fails).
+        // Best-effort compensate for epistemic-only residual (R-T-A3-2).
         try {
           const mark = async () => {
             const current = await this.decisions.findById(snap.decisionId);
@@ -434,66 +497,6 @@ export class RecordHumanDecision {
           return compensateOrphan("epistemic_link_failed");
         }
         epistemicItemId = epiId;
-      }
-
-      // B4 — Optional LPS decisionIds link: fail-closed when requested.
-      if (status === "accepted" && snap.linkToLivingProjectState) {
-        if (snap.expectedLpsVersion === undefined) {
-          return compensateOrphan("lps_expected_version_required");
-        }
-        const current =
-          await this.projectServices.getCurrentLivingProjectState.execute({
-            projectId: snap.projectId,
-          });
-        if (!current.ok) {
-          return compensateOrphan("lps_current_unavailable");
-        }
-        const priorIds = current.livingProjectState.decisionIds ?? [];
-        const nextIds = [...priorIds, snap.decisionId];
-        const appended =
-          await this.projectServices.appendLivingProjectStateVersion.execute({
-            projectId: snap.projectId,
-            expectedVersion: snap.expectedLpsVersion,
-            objective: current.livingProjectState.objective,
-            createdBy: snap.actor,
-            correlationId,
-            context: current.livingProjectState.context,
-            scope: current.livingProjectState.scope,
-            decisionIds: nextIds,
-          });
-        if (!appended.ok) {
-          if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
-            // Compensate then surface LPS_VERSION_CONFLICT (retryable).
-            try {
-              const mark = async () => {
-                const cur = await this.decisions.findById(snap.decisionId);
-                if (!cur) return;
-                await this.decisions.save({
-                  ...cur,
-                  status: "superseded",
-                  version: (cur.version ?? 1) + 1,
-                  rationale: `${cur.rationale ?? ""} [compensated:lps_version_conflict]`.trim(),
-                });
-              };
-              if (this.store) {
-                await this.store.runInTransaction(mark);
-              } else {
-                await mark();
-              }
-            } catch {
-              // R-T-A3-2 residual
-            }
-            return fail("LPS_VERSION_CONFLICT", "lps_link_version_conflict", {
-              projectId: snap.projectId,
-              decisionId: snap.decisionId,
-              subject: snap.subject,
-              expectedVersion: snap.expectedLpsVersion,
-              currentVersion: current.livingProjectState.version,
-            });
-          }
-          return compensateOrphan("lps_link_failed");
-        }
-        livingProjectStateVersion = appended.livingProjectState.version;
       }
 
       const durationMs = Date.now() - started;

@@ -119,6 +119,7 @@ async function seedApprovedGo(runtime: RuntimeApplicationService) {
     decisionServices: runtime.oa!.decisionServices,
     authorityResolver: runtime.oa!.authorityResolver,
     nowIso: () => runtime.oa!.clock.nowIso(),
+    forceM3Authority: true,
   });
   expect(go.ok).toBe(true);
   if (!go.ok) throw new Error("GO failed");

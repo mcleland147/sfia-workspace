@@ -163,6 +163,30 @@ export type ProjectAssistantPrepareF3Result =
   | ProjectAssistantPrepareF3Success
   | ProjectAssistantPrepareF3Failure;
 
+export type ProjectAssistantPrepareM3Success = {
+  ok: true;
+  status: "ok";
+  mode: "m3_prepare";
+  presentation: "unconfirmed";
+  text: string;
+  project: ProjectAssistantContextDto;
+  ephemeralNotice: string;
+  f3: import("./f3/prepareM3FromDecision").F3M3PreparePayload;
+};
+
+export type ProjectAssistantPrepareM3Failure = {
+  ok: false;
+  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
+  code: string;
+  message: string;
+  mode: AssistantUiMode;
+  retryable: boolean;
+};
+
+export type ProjectAssistantPrepareM3Result =
+  | ProjectAssistantPrepareM3Success
+  | ProjectAssistantPrepareM3Failure;
+
 export type ProjectAssistantExecuteF3Success = {
   ok: true;
   status: "ok";

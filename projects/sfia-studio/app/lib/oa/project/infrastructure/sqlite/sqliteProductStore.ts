@@ -13,11 +13,11 @@ type TransactionContext = {
 };
 
 /**
- * SQLite product UnitOfWork for Project/LPS (M1) + CycleInstance (M2).
+ * SQLite product UnitOfWork for Project/LPS (M1) + Cycle (M2) + Decision/Contract (M3).
  * Isolated file — not D1 / OPS1 / FinOps. Single Product DB authority.
  *
  * Nested reentrance: same async chain (AsyncLocalStorage) reuses the open
- * transaction without re-queueing (CreateCycle → Append LPS).
+ * transaction without re-queueing (CreateCycle → Append LPS; HD → Append LPS).
  * Independent concurrent callers never join an open transaction — they wait
  * on the store queue and open their own BEGIN/COMMIT.
  */
@@ -31,7 +31,8 @@ export class SqliteProductStore
   readonly dbPath: string;
 
   /** Test hook — force next save to throw (atomicity tests). */
-  failNextSave: "project" | "lps" | "cycle" | null = null;
+  failNextSave: "project" | "lps" | "cycle" | "decision" | "contract" | null =
+    null;
 
   private queue: Promise<void> = Promise.resolve();
   private readonly txLocal = new AsyncLocalStorage<TransactionContext>();

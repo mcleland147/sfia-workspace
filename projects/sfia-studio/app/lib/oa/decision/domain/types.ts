@@ -63,6 +63,39 @@ export type DecisionReservation = {
   blocking?: boolean;
 };
 
+/** Minimal embedded basis for durable GO → PREPARE (generic T-A3; no F2 imports). */
+export type DecisionBasisProposalContext = {
+  lpsId: string;
+  lpsVersion: number;
+  doctrineDigest?: string;
+  activeCycleInstanceId?: string;
+  ckcResolutionRef?: string;
+};
+
+export type DecisionBasis = {
+  sourceType: "proposal";
+  /** Opaque proposal id — not an F2 type import. */
+  sourceRef: string;
+  /** SHA-256 hex of canonical JSON over stable proposal fields. */
+  sourceDigest: string;
+  projectId: string;
+  cycleInstanceId?: string;
+  proposalContext: DecisionBasisProposalContext;
+  executionBasis: {
+    objective?: string;
+    scope?: string;
+    outOfScope?: string[];
+    activatedBlocks?: string[];
+    expectedOutcome?: string;
+    risks?: string[];
+    reservations?: string[];
+    stopConditions?: string[];
+    cycleTypeId?: string;
+    recommendedProfile?: string;
+    requestedOperation?: string;
+  };
+};
+
 export type HumanDecision = {
   schemaVersion: "0.1.0-oa";
   decisionId: string;
@@ -84,6 +117,8 @@ export type HumanDecision = {
   provenance?: ProvenanceRecord;
   /** Optimistic concurrency token — incremented on supersede of this record. */
   version?: number;
+  /** M3: embedded basis for exact ExecutionContract preparation. */
+  decisionBasis?: DecisionBasis;
 };
 
 export type Confirmation = {
@@ -183,6 +218,8 @@ export type RecordHumanDecisionRequest = {
   /** After accept: append decisionId onto LPS via T-A1 append. */
   linkToLivingProjectState?: boolean;
   expectedLpsVersion?: number;
+  /** M3: embed DecisionBasis on the durable HumanDecision. */
+  decisionBasis?: DecisionBasis;
   correlationId?: string;
 };
 

@@ -12,6 +12,7 @@ import {
   isValidSupersessionReason,
   validateBuildFields,
 } from "../domain/invariants";
+import { computeExecutionContractSemanticFingerprint } from "../domain/semanticFingerprint";
 import type {
   ActorReference,
   AuthorityClass,
@@ -20,7 +21,7 @@ import type {
   Reversibility,
   SupersedeExecutionContractRequest,
 } from "../domain/types";
-import type { MemoryExecutionContractStore } from "../infrastructure/memoryExecutionContractStore";
+import type { ExecutionContractPersistenceUnitOfWorkPort } from "../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
 import { verifyRequiredAuthority } from "./authorityHelper";
@@ -61,7 +62,7 @@ export class SupersedeExecutionContract {
     private readonly authority: AuthorityResolverPort,
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAuditPort,
-    private readonly store?: MemoryExecutionContractStore,
+    private readonly store?: ExecutionContractPersistenceUnitOfWorkPort,
   ) {}
 
   async execute(
@@ -347,6 +348,8 @@ export class SupersedeExecutionContract {
           supersedes: snap.supersedesExecutionContractId,
         },
       };
+      successor.semanticFingerprint =
+        computeExecutionContractSemanticFingerprint(successor);
 
       let supersededContract: ExecutionContract | undefined;
       let savedSuccessor: ExecutionContract | undefined;

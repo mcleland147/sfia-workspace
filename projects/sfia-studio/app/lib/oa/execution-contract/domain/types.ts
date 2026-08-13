@@ -85,6 +85,8 @@ export type ExecutionContract = {
   adapterExportRef?: string;
   immutableAfterConfirm?: true;
   provenance?: ProvenanceRecord;
+  /** M3: SHA-256 semantic fingerprint (canonical execution-significant fields). */
+  semanticFingerprint?: string;
 };
 
 export type BuildExecutionContractRequest = {

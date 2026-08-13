@@ -1,7 +1,8 @@
 import { DatabaseSync } from "node:sqlite";
 
 export const PRODUCT_SCHEMA_VERSION_M1 = "m1-0.1.0" as const;
-export const PRODUCT_SCHEMA_VERSION = "m2-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION_M2 = "m2-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION = "m3-0.1.0" as const;
 
 const BASE_SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -80,6 +81,47 @@ CREATE INDEX IF NOT EXISTS idx_oa_audit_cycle
   ON oa_audit_events(event_type, occurred_at);
 `;
 
+const M3_DECISION_CONTRACT_SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS oa_human_decisions (
+  decision_id TEXT PRIMARY KEY NOT NULL,
+  project_id TEXT NOT NULL,
+  cycle_instance_id TEXT,
+  subject TEXT NOT NULL,
+  status TEXT NOT NULL,
+  authority TEXT NOT NULL,
+  version INTEGER NOT NULL,
+  effective_at TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT,
+  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_human_decisions_project
+  ON oa_human_decisions(project_id, effective_at);
+CREATE INDEX IF NOT EXISTS idx_oa_human_decisions_subject
+  ON oa_human_decisions(project_id, subject, status);
+
+CREATE TABLE IF NOT EXISTS oa_execution_contracts (
+  execution_contract_id TEXT PRIMARY KEY NOT NULL,
+  project_id TEXT NOT NULL,
+  cycle_instance_id TEXT,
+  status TEXT NOT NULL,
+  idempotency_key TEXT NOT NULL UNIQUE,
+  semantic_fingerprint TEXT NOT NULL,
+  version INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT,
+  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_execution_contracts_project
+  ON oa_execution_contracts(project_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_oa_execution_contracts_idempotency
+  ON oa_execution_contracts(idempotency_key);
+`;
+
 function readSchemaVersion(db: DatabaseSync): string | null {
   const row = db
     .prepare("SELECT value FROM schema_meta WHERE key = ?")
@@ -109,8 +151,16 @@ function assertIntegrity(db: DatabaseSync): void {
   }
 }
 
+function applyM2(db: DatabaseSync): void {
+  db.exec(M2_CYCLE_SCHEMA_SQL);
+}
+
+function applyM3(db: DatabaseSync): void {
+  db.exec(M3_DECISION_CONTRACT_SCHEMA_SQL);
+}
+
 /**
- * Open Product SQLite with additive M1→M2 migration.
+ * Open Product SQLite with additive M1→M2→M3 migration.
  * Fail closed on unknown/future schema versions.
  */
 export function openProductSqlite(dbPath: string): DatabaseSync {
@@ -119,14 +169,16 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
   db.exec(BASE_SCHEMA_SQL);
 
   const version = readSchemaVersion(db);
-  if (version === null) {
-    db.exec(M2_CYCLE_SCHEMA_SQL);
+  if (version === null || version === PRODUCT_SCHEMA_VERSION_M1) {
+    applyM2(db);
+    applyM3(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-  } else if (version === PRODUCT_SCHEMA_VERSION_M1) {
-    db.exec(M2_CYCLE_SCHEMA_SQL);
+  } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
+    applyM3(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION) {
-    db.exec(M2_CYCLE_SCHEMA_SQL);
+    applyM2(db);
+    applyM3(db);
   } else {
     try {
       db.close();
