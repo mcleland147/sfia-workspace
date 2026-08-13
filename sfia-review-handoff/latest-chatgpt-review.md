@@ -1,65 +1,47 @@
-# SFIA Studio Convergence — Cycle 14 Post-merge Status Alignment
+# SFIA Studio Convergence — Cycle 14 Worktree Reattach Recovery
 
 | Champ | Valeur |
 | --- | --- |
-| **Horodatage** | 2026-08-13 02:16:30 +0200 (Europe/Paris) |
-| **Cycle** | 14 — Post-merge |
+| **Horodatage** | 2026-08-13 02:28:47 +0200 (Europe/Paris) |
+| **Cycle** | 14 — Post-merge / worktree recovery |
 | **Profil** | Critical |
 | **Typologie** | DOC |
 | **Review pack** | FULL (synthesis-only = **NO**) |
+| **Décision Morris** | GO RÉATTACHE NON DESTRUCTIVE POST-MERGE CONVERGENCE |
 
 ---
 
 ## 0. Verdict
 
-**STOP — WORKTREE ATTACHMENT DRIFT — MORRIS DECISION REQUIRED**
+**WORKTREE ATTACHMENT RECOVERED — POST-MERGE PATCH PRESERVED BYTE-FOR-BYTE — INDEX CLEAN — F3 PRESERVED — READY FOR MORRIS COMMIT GATE**
 
-Contenu des 3 fichiers de statut : **préparé** (VALIDATED) dans le working tree du path post-merge.
-Attachment Git : **non conforme** — aucune recovery destructive effectuée.
-Gate commit : **bloqué** jusqu’à GO Morris de réattache.
+Commit / push / PR / merge = **NON CONSUMED**.
 
 ---
 
-## 1. Git / PR #334
+## 1. Handoff entrant
 
 | Champ | Valeur |
 | --- | --- |
-| origin/main | `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
-| Parents | `4b1a058050ae81d56cb6d96b88e8a57380799a86` + `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
-| PR #334 | MERGED |
-| Head intégré | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
-| app/** dans intervalle merge | EMPTY — PASS |
+| Tip | `cd345c4d021eabe901c3085c8a7115f9d6d43303` |
+| Blob | `81f5765eb9ed11f4a82c0fde8798b0eb624beeea` |
+| Verdict | STOP — WORKTREE ATTACHMENT DRIFT |
 
-Handoff entrant tip `8b4e606…` / blob `527b9205…` (pré-merge) — superseded par merge GitHub + décision Morris.
+origin/main = `1d09e4159932b3885817911e10a2d29a82ae9ea7`
 
 ---
 
-## 2. Décision Morris
+## 2. Before
 
-A+B = **VALIDATED** construction governance (2026-08-13 02:05 +0200).
-Anti-portée : ≠ runtime ADOPTED · ≠ Option 1 · ≠ persistence · ≠ Cursor REAL · ≠ Gate D · ≠ ChatGPT instructions.
+| Champ | Valeur |
+| --- | --- |
+| Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-post-merge` |
+| Branch | `docs/sfia-studio-convergence-foundations` |
+| HEAD | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
+| Destination tip | `post-merge/…` = `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| Base blobs da0618db == 1d09e415 (3 files) | **YES** |
 
----
-
-## 3. Worktree attachment DRIFT
-
-| Path | Attendu | Observé |
-| --- | --- | --- |
-| sfia-studio-convergence-post-merge | post-merge/… @ 1d09e41 | **docs/sfia-studio-convergence-foundations @ da0618db** |
-| sfia-studio-convergence-foundations | historique docs/… | **DETACHED @ da0618db** |
-| f3-real-prerequisites-delivery | delivery/… | **OK @ 4b1a058** |
-| branche post-merge/… | tip 1d09e41 | **existe, non checked-out** |
-
-Worktree courant path post-merge : branch=`docs/sfia-studio-convergence-foundations` HEAD=`da0618db8ce8dd6f1d7e98f8e207f7e169811d17`
-
-```
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-prerequisites-delivery       4b1a058 [delivery/sfia-studio-f3-real-prerequisites]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-foundations  da0618d (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-post-merge   da0618d [docs/sfia-studio-convergence-foundations]
-/Users/morris/Projects/sfia-workspace/sfia-review-handoff                                                                                                            b4fe6ea [sfia/review-handoff]
-```
-
-Status :
+### Status before
 
 ```
 AM .tmp-sfia-review/chatgpt-review.md
@@ -74,56 +56,119 @@ A  .tmp-sfia-review/convergence-pr-creation/worktrees-before.txt
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ?? .tmp-sfia-review-pre.txt
 ?? .tmp-sfia-review/post-merge-status.diff
+?? .tmp-sfia-review/reattach-recovery/
 ?? .tmp-sfia-review/worktrees-before.txt
 ```
 
-Note : blobs des 3 fichiers à da0618db ≡ 1d09e41 (merge). Diff VALIDATED reste relatif à main. Artefacts `.tmp-sfia-review` staging indésirable — non nettoyé.
+### Staged before (review only)
 
-Publish handoff n’a **pas** aggravé l’attachment (before==after pour les 3 worktrees projet).
+```
+.tmp-sfia-review/chatgpt-review.md
+.tmp-sfia-review/convergence-pr-creation/A.md
+.tmp-sfia-review/convergence-pr-creation/B.md
+.tmp-sfia-review/convergence-pr-creation/commit-full.show
+.tmp-sfia-review/convergence-pr-creation/pr-334.diff
+.tmp-sfia-review/convergence-pr-creation/worktrees-after.txt
+.tmp-sfia-review/convergence-pr-creation/worktrees-before.txt
+```
+
+### PRE SHA256
+
+```
+2c36bb0c010b5bd5d71fe30c243c5d34cc827d7bdd3db0d68d08340f4d063829  projects/sfia-studio/README.md
+ef527ee1f290c33f84e6b0493c2950f2651dab8fbabbe25230d510e1a72fd325  projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+7dd0d91cb8c565e1bf882c2eefcad879c23b5625659a8b23499f0b076983626f  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
+
+### Other worktrees before
+
+```
+CONV=|da0618db8ce8dd6f1d7e98f8e207f7e169811d17
+SRC=delivery/sfia-studio-f3-real-prerequisites|4b1a058050ae81d56cb6d96b88e8a57380799a86
+```
 
 ---
 
-## 4. Modifications contenu (working tree)
+## 3. Recovery actions
 
-Avant blobs origin/main :
-- A `059143190602b6bd92c8cebc9bd7aadfe1840fa8`
-- B `d8d4899af0f59b14b686a731204d2a6a9aa2ec8e`
-- README `37f7683974b33d7373ecaaa899eab39a622b712c`
+1. `git restore --staged -- .tmp-sfia-review` — index EMPTY
+2. Revalidated PRE hashes stable
+3. `git switch post-merge/sfia-studio-convergence-foundations` — **no force**, stash=NO, reset=NO, clean=NO
+4. SWITCH_RC=0
+
+---
+
+## 4. After
+
+| Champ | Valeur |
+| --- | --- |
+| Branch | `post-merge/sfia-studio-convergence-foundations` |
+| HEAD | `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| Staged | EMPTY |
+| Versioned changes | exactly 3 files |
+| Diff | 29 insertions / 18 deletions |
+| PRE == POST SHA | **PASS** |
+| Diff patch identical | **PASS** |
+| app/** | 0 |
+
+### Status after
 
 ```
-projects/sfia-studio/README.md                     |  8 +++----
+ M projects/sfia-studio/README.md
+ M projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+?? .tmp-sfia-review-pre.txt
+?? .tmp-sfia-review/
+```
+
+### POST SHA256
+
+```
+2c36bb0c010b5bd5d71fe30c243c5d34cc827d7bdd3db0d68d08340f4d063829  projects/sfia-studio/README.md
+ef527ee1f290c33f84e6b0493c2950f2651dab8fbabbe25230d510e1a72fd325  projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+7dd0d91cb8c565e1bf882c2eefcad879c23b5625659a8b23499f0b076983626f  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
+
+### Diff stat
+
+```
+ projects/sfia-studio/README.md                     |  8 +++----
  .../sfia-studio-convergence-build-doctrine.md      | 14 ++++++------
  .../convergence/sfia-studio-convergence-roadmap.md | 25 +++++++++++++++-------
  3 files changed, 29 insertions(+), 18 deletions(-)
 ```
 
-Checks contenu :
-- 3 files exact (projet) PASS
-- R1–R20 unchanged (20)
-- V3-F* unchanged (23)
-- G0/M1–M8 preserved
-- FREEZE/Option1 RECOMMENDATION preserved
-- markers preserved
-- template/routing/KL unchanged
-- couche 1 ChatGPT PENDING
+### Other worktrees after
+
+```
+CONV=|da0618db8ce8dd6f1d7e98f8e207f7e169811d17
+SRC=delivery/sfia-studio-f3-real-prerequisites|4b1a058050ae81d56cb6d96b88e8a57380799a86
+POST=post-merge/sfia-studio-convergence-foundations|1d09e4159932b3885817911e10a2d29a82ae9ea7
+```
+
+F3 preserved : **YES** (unchanged).
+Historical convergence-foundations : remains DETACHED @ `da0618db` — **not** auto-reattached (per instructions).
 
 ---
 
-## 5. Couches
+## 5. Content recheck (READ-ONLY)
 
-1. Instructions ChatGPT = PENDING
-2. Repo routing = VALIDATED ACTIVE ON MAIN
-3. Template = VALIDATED ACTIVE ON MAIN
+Build Doctrine VALIDATED ACTIVE ON MAIN · couches 2–3 VALIDATED · couche 1 PENDING
+Roadmap VALIDATED ACTIVE LIVING ROADMAP · Option1 NOT DECIDED · persistence NOT_SELECTED · REAL/Gate D not authorized/consumed · FREEZE RECOMMENDATION
+README Convergence VALIDATED labels
+Markers preserved · no content rewrite this cycle
 
 ---
 
 ## 6. Writes
 
-commit 0 · push projet 0 · PR 0 · merge 0
+project commit=0 · push=0 · PR=0 · merge=0
+
+Next gate : Morris **commit** — NON CONSUMED
 
 ---
 
-## 7. FULL INLINE — Build Doctrine (after)
+## 7. FULL INLINE — Build Doctrine (preserved working tree)
 
 ```text
 # SFIA Studio Convergence / Build Doctrine
@@ -345,7 +390,7 @@ PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 
 ---
 
-## 8. FULL INLINE — Convergence Roadmap (after)
+## 8. FULL INLINE — Convergence Roadmap (preserved working tree)
 
 ```text
 # SFIA Studio Convergence Roadmap
@@ -659,7 +704,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 
 ---
 
-## 9. DIFF complet — 3 fichiers
+## 9. DIFF COMPLET — 3 fichiers (identical before/after reattach)
 
 ```diff
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
@@ -806,12 +851,14 @@ index d8d4899..0c9863f 100644
  ```
 
  ## B11. Freeze / stop-doing (**RECOMMENDATION**)
+
 ```
 
 ---
 
-## 10. Instruction Morris / ChatGPT
+## 10. Instruction ChatGPT
 
-Lire ce handoff depuis Git.
-**STOP** attachment : autoriser d’abord réattache non destructive vers `post-merge/sfia-studio-convergence-foundations` @ `1d09e41` en préservant les 3 fichiers, unstage `.tmp-sfia-review`, puis gate commit.
-Ne pas Instructions ChatGPT / Option 1 / persistence / REAL / Gate D / runtime ADOPTED.
+Lire ce handoff distant avant verdict.
+Si recovery + hashes + index + worktrees OK :
+**WORKTREE ATTACHMENT RECOVERED — POST-MERGE PATCH PRESERVED BYTE-FOR-BYTE — INDEX CLEAN — F3 PRESERVED — READY FOR MORRIS COMMIT GATE**
+Ne pas commit/push/PR/merge sans nouveau GO.
