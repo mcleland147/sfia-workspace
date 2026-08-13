@@ -1,174 +1,93 @@
-# SFIA Studio Convergence — Cycle 14 Worktree Reattach Recovery
+# SFIA Studio Convergence — Cycle 14 Post-merge Status Commit
 
 | Champ | Valeur |
 | --- | --- |
-| **Horodatage** | 2026-08-13 02:28:47 +0200 (Europe/Paris) |
-| **Cycle** | 14 — Post-merge / worktree recovery |
+| **Horodatage** | 2026-08-13 02:54:26 +0200 (Europe/Paris) |
+| **Cycle** | 14 — Post-merge / commit documentaire |
 | **Profil** | Critical |
 | **Typologie** | DOC |
 | **Review pack** | FULL (synthesis-only = **NO**) |
-| **Décision Morris** | GO RÉATTACHE NON DESTRUCTIVE POST-MERGE CONVERGENCE |
+| **Décision Morris** | GO MORRIS — COMMIT POST-MERGE CONVERGENCE STATUS |
 
 ---
 
 ## 0. Verdict
 
-**WORKTREE ATTACHMENT RECOVERED — POST-MERGE PATCH PRESERVED BYTE-FOR-BYTE — INDEX CLEAN — F3 PRESERVED — READY FOR MORRIS COMMIT GATE**
+**POST-MERGE CONVERGENCE STATUS COMMITTED — 3-FILE PATCH IDENTITY VERIFIED — F3 PRESERVED — NO PROJECT PUSH — READY FOR MORRIS PUSH / PR GATE**
 
-Commit / push / PR / merge = **NON CONSUMED**.
-
----
-
-## 1. Handoff entrant
-
-| Champ | Valeur |
-| --- | --- |
-| Tip | `cd345c4d021eabe901c3085c8a7115f9d6d43303` |
-| Blob | `81f5765eb9ed11f4a82c0fde8798b0eb624beeea` |
-| Verdict | STOP — WORKTREE ATTACHMENT DRIFT |
-
-origin/main = `1d09e4159932b3885817911e10a2d29a82ae9ea7`
+Recovery : **ALREADY COMPLETE — NOT REEXECUTED**.
 
 ---
 
-## 2. Before
-
-| Champ | Valeur |
-| --- | --- |
-| Path | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-post-merge` |
-| Branch | `docs/sfia-studio-convergence-foundations` |
-| HEAD | `da0618db8ce8dd6f1d7e98f8e207f7e169811d17` |
-| Destination tip | `post-merge/…` = `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
-| Base blobs da0618db == 1d09e415 (3 files) | **YES** |
-
-### Status before
-
-```
-AM .tmp-sfia-review/chatgpt-review.md
-A  .tmp-sfia-review/convergence-pr-creation/A.md
-A  .tmp-sfia-review/convergence-pr-creation/B.md
-A  .tmp-sfia-review/convergence-pr-creation/commit-full.show
-A  .tmp-sfia-review/convergence-pr-creation/pr-334.diff
-A  .tmp-sfia-review/convergence-pr-creation/worktrees-after.txt
-A  .tmp-sfia-review/convergence-pr-creation/worktrees-before.txt
- M projects/sfia-studio/README.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? .tmp-sfia-review-pre.txt
-?? .tmp-sfia-review/post-merge-status.diff
-?? .tmp-sfia-review/reattach-recovery/
-?? .tmp-sfia-review/worktrees-before.txt
-```
-
-### Staged before (review only)
-
-```
-.tmp-sfia-review/chatgpt-review.md
-.tmp-sfia-review/convergence-pr-creation/A.md
-.tmp-sfia-review/convergence-pr-creation/B.md
-.tmp-sfia-review/convergence-pr-creation/commit-full.show
-.tmp-sfia-review/convergence-pr-creation/pr-334.diff
-.tmp-sfia-review/convergence-pr-creation/worktrees-after.txt
-.tmp-sfia-review/convergence-pr-creation/worktrees-before.txt
-```
-
-### PRE SHA256
-
-```
-2c36bb0c010b5bd5d71fe30c243c5d34cc827d7bdd3db0d68d08340f4d063829  projects/sfia-studio/README.md
-ef527ee1f290c33f84e6b0493c2950f2651dab8fbabbe25230d510e1a72fd325  projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-7dd0d91cb8c565e1bf882c2eefcad879c23b5625659a8b23499f0b076983626f  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-```
-
-### Other worktrees before
-
-```
-CONV=|da0618db8ce8dd6f1d7e98f8e207f7e169811d17
-SRC=delivery/sfia-studio-f3-real-prerequisites|4b1a058050ae81d56cb6d96b88e8a57380799a86
-```
-
----
-
-## 3. Recovery actions
-
-1. `git restore --staged -- .tmp-sfia-review` — index EMPTY
-2. Revalidated PRE hashes stable
-3. `git switch post-merge/sfia-studio-convergence-foundations` — **no force**, stash=NO, reset=NO, clean=NO
-4. SWITCH_RC=0
-
----
-
-## 4. After
+## 1. Git
 
 | Champ | Valeur |
 | --- | --- |
 | Branch | `post-merge/sfia-studio-convergence-foundations` |
-| HEAD | `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
-| Staged | EMPTY |
-| Versioned changes | exactly 3 files |
-| Diff | 29 insertions / 18 deletions |
-| PRE == POST SHA | **PASS** |
-| Diff patch identical | **PASS** |
-| app/** | 0 |
+| HEAD before | `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| Commit | `9ac65ebb66377cc41ce8f1f803d7532e8eeb6212` |
+| Parent | `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| Message | `docs(sfia-studio): validate convergence governance status` |
+| origin/main | `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| Remote project branch | **ABSENT** (push = 0) |
 
-### Status after
+Handoff entrant : tip `3ebff2bf3762dc764671a6c4803c4354217ba09c` · blob `b33e59f78043ac9a9802b803b394e6b96f9df8b5`
 
-```
- M projects/sfia-studio/README.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? .tmp-sfia-review-pre.txt
-?? .tmp-sfia-review/
-```
+---
 
-### POST SHA256
+## 2. Scope / identity
+
+Files:
 
 ```
-2c36bb0c010b5bd5d71fe30c243c5d34cc827d7bdd3db0d68d08340f4d063829  projects/sfia-studio/README.md
-ef527ee1f290c33f84e6b0493c2950f2651dab8fbabbe25230d510e1a72fd325  projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-7dd0d91cb8c565e1bf882c2eefcad879c23b5625659a8b23499f0b076983626f  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+projects/sfia-studio/README.md
+projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ```
 
-### Diff stat
-
 ```
+9ac65eb docs(sfia-studio): validate convergence governance status
  projects/sfia-studio/README.md                     |  8 +++----
  .../sfia-studio-convergence-build-doctrine.md      | 14 ++++++------
  .../convergence/sfia-studio-convergence-roadmap.md | 25 +++++++++++++++-------
  3 files changed, 29 insertions(+), 18 deletions(-)
 ```
 
-### Other worktrees after
+SHA256 PRE = COMMITTED :
+- README `2c36bb0c010b5bd5d71fe30c243c5d34cc827d7bdd3db0d68d08340f4d063829`
+- Build Doctrine `ef527ee1f290c33f84e6b0493c2950f2651dab8fbabbe25230d510e1a72fd325`
+- Roadmap `7dd0d91cb8c565e1bf882c2eefcad879c23b5625659a8b23499f0b076983626f`
+
+app/** in commit = 0 · .tmp-sfia-review in commit = 0
+
+Status after:
 
 ```
-CONV=|da0618db8ce8dd6f1d7e98f8e207f7e169811d17
-SRC=delivery/sfia-studio-f3-real-prerequisites|4b1a058050ae81d56cb6d96b88e8a57380799a86
-POST=post-merge/sfia-studio-convergence-foundations|1d09e4159932b3885817911e10a2d29a82ae9ea7
+?? .tmp-sfia-review-pre.txt
+?? .tmp-sfia-review/
 ```
 
-F3 preserved : **YES** (unchanged).
-Historical convergence-foundations : remains DETACHED @ `da0618db` — **not** auto-reattached (per instructions).
+---
+
+## 3. Content checks
+
+Build Doctrine VALIDATED ACTIVE ON MAIN · Roadmap VALIDATED ACTIVE LIVING ROADMAP · README Convergence VALIDATED
+R1–R20 PASS · G0/M1–M8 PASS · V3-F PASS · anti-claims PASS
+Layer 1 ChatGPT = PENDING · Layers 2–3 VALIDATED ACTIVE ON MAIN
 
 ---
 
-## 5. Content recheck (READ-ONLY)
+## 4. Worktrees
 
-Build Doctrine VALIDATED ACTIVE ON MAIN · couches 2–3 VALIDATED · couche 1 PENDING
-Roadmap VALIDATED ACTIVE LIVING ROADMAP · Option1 NOT DECIDED · persistence NOT_SELECTED · REAL/Gate D not authorized/consumed · FREEZE RECOMMENDATION
-README Convergence VALIDATED labels
-Markers preserved · no content rewrite this cycle
+post-merge @ `9ac65ebb66377cc41ce8f1f803d7532e8eeb6212` · F3 preserved @ `4b1a058…` · historical convergence DETACHED @ `da0618db…`
 
----
+Writes : project commit=1 · push=0 · PR=0 · merge=0
 
-## 6. Writes
-
-project commit=0 · push=0 · PR=0 · merge=0
-
-Next gate : Morris **commit** — NON CONSUMED
+Next gate : Morris push/PR — **NON CONSUMED**
 
 ---
 
-## 7. FULL INLINE — Build Doctrine (preserved working tree)
+## 5. FULL INLINE — Build Doctrine (committed)
 
 ```text
 # SFIA Studio Convergence / Build Doctrine
@@ -390,7 +309,7 @@ PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 
 ---
 
-## 8. FULL INLINE — Convergence Roadmap (preserved working tree)
+## 6. FULL INLINE — Convergence Roadmap (committed)
 
 ```text
 # SFIA Studio Convergence Roadmap
@@ -704,7 +623,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 
 ---
 
-## 9. DIFF COMPLET — 3 fichiers (identical before/after reattach)
+## 7. DIFF COMPLET (pre-commit / commit content)
 
 ```diff
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
@@ -856,9 +775,168 @@ index d8d4899..0c9863f 100644
 
 ---
 
-## 10. Instruction ChatGPT
+## 8. Commit show (reference)
+
+```
+commit 9ac65ebb66377cc41ce8f1f803d7532e8eeb6212
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Thu Aug 13 02:54:05 2026 +0200
+
+    docs(sfia-studio): validate convergence governance status
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
+index 37f7683..20bfd2a 100644
+--- a/projects/sfia-studio/README.md
++++ b/projects/sfia-studio/README.md
+@@ -7,7 +7,7 @@
+ | **Statut** | `sfia-canonical-context-engine-local` — moteur de contexte SFIA **implémenté** sur branche locale ; **pas de commit/push/PR** ; validation live Morris **requise** ; MVP / production **fermés** |
+ | **Baseline méthode (processus)** | **SFIA v2.6** — baseline opérationnelle actuelle ChatGPT ↔ Cursor externe |
+ | **Doctrine produit cible Studio** | **SFIA Studio v3** (`sfia-v3-framing/30`–`37`) — cible produit décidée ; **runtime v3 NON ADOPTED** |
+-| **Convergence** | [`convergence/sfia-studio-convergence-build-doctrine.md`](./convergence/sfia-studio-convergence-build-doctrine.md) · [`convergence/sfia-studio-convergence-roadmap.md`](./convergence/sfia-studio-convergence-roadmap.md) — **CANDIDATE** |
++| **Convergence** | [`convergence/sfia-studio-convergence-build-doctrine.md`](./convergence/sfia-studio-convergence-build-doctrine.md) · [`convergence/sfia-studio-convergence-roadmap.md`](./convergence/sfia-studio-convergence-roadmap.md) — **VALIDATED** |
+ | **Autorité** | Morris (L0) |
+ | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
+ | **Typologie cycle** | DELIVERY / POC / ARCH / SEC / QA — Critical |
+@@ -128,7 +128,7 @@ Contrainte de **preuve** du POC — **pas** plateforme produit définitive.
+ - **SFIA Studio v3** : doctrine **produit cible Studio** (framing `30`–`37`) — décidée pour la construction/convergence.
+ - **Runtime v3** : **non ADOPTED** tant que capacités, preuves et gates nécessaires ne sont pas atteints.
+ - Évolution méthode globale / promotion v3 baseline méthodologique = CAPA/EVOL séparé + GO Morris.
+-- Documents de construction actifs : [Build Doctrine](./convergence/sfia-studio-convergence-build-doctrine.md) · [Convergence Roadmap](./convergence/sfia-studio-convergence-roadmap.md) (**CANDIDATE**).
++- Documents de construction actifs : [Build Doctrine](./convergence/sfia-studio-convergence-build-doctrine.md) · [Convergence Roadmap](./convergence/sfia-studio-convergence-roadmap.md) (**VALIDATED**).
+
+ > Formulation historique « Pas de v2.7 / v3.0 » (pré-convergence) : **superseded** pour la **cible produit Studio**. Elle ne doit plus être lue comme interdiction de construire vers Studio v3. Elle conserve sa valeur historique comme refus de promotion baseline globale sans GO.
+
+@@ -164,7 +164,7 @@ Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrag
+
+ ## 3. Navigation
+
+-### Convergence (actif — CANDIDATE)
++### Convergence (actif — VALIDATED)
+
+ | Document | Rôle |
+ |----------|------|
+@@ -406,7 +406,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ |---------|--------|
+ | Méthode (processus) | SFIA v2.6 — baseline opérationnelle ChatGPT ↔ Cursor |
+ | Doctrine produit Studio | SFIA Studio v3 framing `30`–`37` — cible ; runtime **non ADOPTED** |
+-| Convergence (CANDIDATE) | `convergence/sfia-studio-convergence-build-doctrine.md` · `convergence/sfia-studio-convergence-roadmap.md` |
++| Convergence (VALIDATED) | `convergence/sfia-studio-convergence-build-doctrine.md` · `convergence/sfia-studio-convergence-roadmap.md` |
+ | Socle applicatif / harness A–E | `main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` (PR #234 MERGED) |
+ | Vertical slice A–E | Docs `32`–`40` ; clôture `CLOSED_WITH_RESERVATIONS` |
+ | Cadrage OPS1 | Docs `41`–`44` — **VALIDATED WITH RESERVATIONS** ; **intégrés** sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) / squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` ; cleanup branche effectué |
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+index 0591431..7627714 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+@@ -3,14 +3,16 @@
+ | Métadonnée | Valeur |
+ | --- | --- |
+ | **Rôle** | Doctrine de **construction / convergence** de SFIA Studio |
+-| **Statut** | **CANDIDATE — READY FOR MORRIS REVIEW** (non promu main / non baseline) |
++| **Statut** | **VALIDATED — ACTIVE ON MAIN** — gouvernance de construction SFIA Studio validée par Morris |
+ | **Portée** | Travaux de construction / évolution de **SFIA Studio uniquement** |
+ | **Git SoT** | Repository `mcleland147/sfia-workspace` — Git courant prime |
+ | **Doctrine produit associée** | SFIA Studio v3 framing `30`–`37` = **CE QUE** Studio doit être |
+ | **Roadmap associée** | [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md) = **OÙ** en est la construction |
+ | **Processus opérationnel actuel** | SFIA **v2.6** = baseline ChatGPT ↔ Cursor externe |
+ | **Runtime v3** | **NON ADOPTED** tant que preuves/gates manquent |
+-| **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) |
++| **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) *(historique)* |
++| **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
++| **Intégration Git** | PR #334 · merge commit `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+
+ ## A1. Anti-claims (ouverts)
+
+@@ -159,11 +161,11 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
+
+ ## A12. Trois couches de vérification
+
+-| Couche | Rôle | Statut après CE cycle |
++| Couche | Rôle | Statut courant |
+ | --- | --- | --- |
+-| **1. Instructions projet ChatGPT** | Déclenche la consultation | **PENDING — next step** (hors périmètre) |
+-| **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **IMPLEMENTED CANDIDATE** (routing guide + Knowledge Layer) |
+-| **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **IMPLEMENTED CANDIDATE** |
++| **1. Instructions projet ChatGPT** | Déclenche la consultation | **PENDING — prochaine étape** (hors périmètre) |
++| **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **VALIDATED — ACTIVE ON MAIN** (routing guide + Knowledge Layer) |
++| **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **VALIDATED — ACTIVE ON MAIN** |
+
+ Séquence attendue :
+
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index d8d4899..0c9863f 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -3,11 +3,14 @@
+ | Métadonnée | Valeur |
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+-| **Statut** | **CANDIDATE — READY FOR MORRIS REVIEW** |
++| **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+ | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
+ | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
+-| **Snapshot Git** | HEAD / origin/main `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+-| **Timestamp** | 2026-08-12 21:53:10 CEST (+0200) |
++| **Snapshot Git** | origin/main @ `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
++| **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
++| **Timestamp maintenance** | 2026-08-13 02:14:45 +0200 (Europe/Paris) |
++| **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
++| **Intégration Git** | PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+ | **Sources** | Git courant · handoff convergence tip `c5b417dc13fa3700787d28571e5b5abe0599ae98` blob `31a5db07fba2555a59ee8c65ad76b537bbd8a73d` · framing `30`–`37` · code `projects/sfia-studio/app/**` |
+ | **Anti-claims** | ≠ architecture décidée · ≠ persistence sélectionnée · ≠ v3 runtime ADOPTED · ≠ Cursor REAL authorized |
+
+@@ -23,7 +26,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
+
+ ## B3. Point de départ factuel
+
+-### Sur main (`4b1a058050ae81d56cb6d96b88e8a57380799a86`)
++### Sur main (`1d09e4159932b3885817911e10a2d29a82ae9ea7`)
+
+ | Capacité | État observé |
+ | --- | --- |
+@@ -96,15 +99,21 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
+ | Restart safety Studio core | MISSING | M1+ |
+ | IAM/authz product-grade | PARTIAL (candidate Auth.js) | M4/M8 |
+
+-## B6. Decisions / gates ouverts (non tranchés ici)
++## B6. Decisions / gates
++
++### Décision consommée
++
++- Build Doctrine + Convergence Roadmap = **VALIDATED** construction governance by Morris
++- intégrées sur main via PR #334 (`1d09e4159932b3885817911e10a2d29a82ae9ea7`)
++
++### Décisions / gates toujours ouverts (non tranchés ici)
+
+ 1. Architecture convergence Option 1 vs 2 — **Decision Required**
+ 2. Product persistence technology — **NOT_SELECTED**
+ 3. Promotion Auth.js / Critical Ack candidate — **Decision Required**
+ 4. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
+ 5. Disposition OPS1 / D1 / execution-run — **Decision Required**
+-6. Adoption explicite de cette Roadmap candidate — **Decision Required**
+-7. Couche Instructions ChatGPT update — **PENDING** (cycle séparé)
++6. Couche Instructions ChatGPT update — **PENDING** (cycle séparé)
+
+ ## B7–B8. Roadmap capability-driven (milestones)
+
+@@ -270,7 +279,7 @@ CRITICAL PATH:
+
+ TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
+ FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
+-DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion · Roadmap adoption · ChatGPT instructions
++DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion · ChatGPT instructions
+ ```
+
+ ## B11. Freeze / stop-doing (**RECOMMENDATION**)
+
+```
+
+---
+
+## 9. Instruction ChatGPT
 
 Lire ce handoff distant avant verdict.
-Si recovery + hashes + index + worktrees OK :
-**WORKTREE ATTACHMENT RECOVERED — POST-MERGE PATCH PRESERVED BYTE-FOR-BYTE — INDEX CLEAN — F3 PRESERVED — READY FOR MORRIS COMMIT GATE**
-Ne pas commit/push/PR/merge sans nouveau GO.
+Si conforme : **POST-MERGE CONVERGENCE STATUS COMMITTED — … — READY FOR MORRIS PUSH / PR GATE**
+Ne pas push/PR/merge sans nouveau GO.
