@@ -7,7 +7,7 @@
 | **Statut** | `sfia-canonical-context-engine-local` — moteur de contexte SFIA **implémenté** sur branche locale ; **pas de commit/push/PR** ; validation live Morris **requise** ; MVP / production **fermés** |
 | **Baseline méthode (processus)** | **SFIA v2.6** — baseline opérationnelle actuelle ChatGPT ↔ Cursor externe |
 | **Doctrine produit cible Studio** | **SFIA Studio v3** (`sfia-v3-framing/30`–`37`) — cible produit décidée ; **runtime v3 NON ADOPTED** |
-| **Convergence** | [`convergence/sfia-studio-convergence-build-doctrine.md`](./convergence/sfia-studio-convergence-build-doctrine.md) · [`convergence/sfia-studio-convergence-roadmap.md`](./convergence/sfia-studio-convergence-roadmap.md) — **CANDIDATE** |
+| **Convergence** | [`convergence/sfia-studio-convergence-build-doctrine.md`](./convergence/sfia-studio-convergence-build-doctrine.md) · [`convergence/sfia-studio-convergence-roadmap.md`](./convergence/sfia-studio-convergence-roadmap.md) — **VALIDATED** |
 | **Autorité** | Morris (L0) |
 | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
 | **Typologie cycle** | DELIVERY / POC / ARCH / SEC / QA — Critical |
@@ -128,7 +128,7 @@ Contrainte de **preuve** du POC — **pas** plateforme produit définitive.
 - **SFIA Studio v3** : doctrine **produit cible Studio** (framing `30`–`37`) — décidée pour la construction/convergence.
 - **Runtime v3** : **non ADOPTED** tant que capacités, preuves et gates nécessaires ne sont pas atteints.
 - Évolution méthode globale / promotion v3 baseline méthodologique = CAPA/EVOL séparé + GO Morris.
-- Documents de construction actifs : [Build Doctrine](./convergence/sfia-studio-convergence-build-doctrine.md) · [Convergence Roadmap](./convergence/sfia-studio-convergence-roadmap.md) (**CANDIDATE**).
+- Documents de construction actifs : [Build Doctrine](./convergence/sfia-studio-convergence-build-doctrine.md) · [Convergence Roadmap](./convergence/sfia-studio-convergence-roadmap.md) (**VALIDATED**).
 
 > Formulation historique « Pas de v2.7 / v3.0 » (pré-convergence) : **superseded** pour la **cible produit Studio**. Elle ne doit plus être lue comme interdiction de construire vers Studio v3. Elle conserve sa valeur historique comme refus de promotion baseline globale sans GO.
 
@@ -164,7 +164,7 @@ Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrag
 
 ## 3. Navigation
 
-### Convergence (actif — CANDIDATE)
+### Convergence (actif — VALIDATED)
 
 | Document | Rôle |
 |----------|------|
@@ -406,7 +406,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01�
 |---------|--------|
 | Méthode (processus) | SFIA v2.6 — baseline opérationnelle ChatGPT ↔ Cursor |
 | Doctrine produit Studio | SFIA Studio v3 framing `30`–`37` — cible ; runtime **non ADOPTED** |
-| Convergence (CANDIDATE) | `convergence/sfia-studio-convergence-build-doctrine.md` · `convergence/sfia-studio-convergence-roadmap.md` |
+| Convergence (VALIDATED) | `convergence/sfia-studio-convergence-build-doctrine.md` · `convergence/sfia-studio-convergence-roadmap.md` |
 | Socle applicatif / harness A–E | `main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` (PR #234 MERGED) |
 | Vertical slice A–E | Docs `32`–`40` ; clôture `CLOSED_WITH_RESERVATIONS` |
 | Cadrage OPS1 | Docs `41`–`44` — **VALIDATED WITH RESERVATIONS** ; **intégrés** sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) / squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` ; cleanup branche effectué |
