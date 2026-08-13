@@ -24,7 +24,7 @@ export function buildProjectSystemPrompt(
     "Distingue clairement observation / hypothèse / recommandation lorsque pertinent.",
     "Tu peux demander une clarification.",
     "Tu peux utiliser uniquement les outils de lecture (Git/GitHub read) exposés.",
-    "Ne revendique aucune persistence durable ; l'état conversationnel est éphémère.",
+    "Ne revendique pas de conversation durable ; Project/LPS/Cycle M2 sont Product SQLite. AUCUNE EXÉCUTION.",
     "Ne propose pas d'ouvrir OPS1, Cursor, ni un gate d'exécution.",
     "",
     "Contexte projet (autorité Project/LPS runtime Studio) :",

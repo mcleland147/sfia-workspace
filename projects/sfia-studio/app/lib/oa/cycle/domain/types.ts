@@ -182,6 +182,11 @@ export type CreateCycleRequest = {
   /** When true, also stamp Project.activeCycleInstanceId via LPS append path. */
   linkAsActiveCycle?: boolean;
   expectedLpsVersion?: number;
+  /**
+   * Durable CKC binding projection (no raw CKC dimensions).
+   * Written to LPS when linkAsActiveCycle is true.
+   */
+  ckcResolutionRef?: string;
 };
 
 export type CreateInitialTrajectoryRequest = {

@@ -30,8 +30,11 @@ export interface LocalProjectDoctrineProjection {
 
 export interface LocalProjectLpsProjection {
   readonly id: string;
-  readonly version: 1;
+  /** Current LPS version (M1 create = 1; M2 cycle linkage may append). */
+  readonly version: number;
   readonly createdAt: string;
+  readonly activeCycleInstanceId?: string | null;
+  readonly ckcResolutionRef?: string | null;
 }
 
 export interface LocalProjectCreationView {

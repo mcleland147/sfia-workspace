@@ -218,7 +218,8 @@ function buildProjection(
     !metadata ||
     !doctrine ||
     project.currentLpsVersionId !== lps.lpsVersionId ||
-    lps.version !== 1
+    !Number.isInteger(lps.version) ||
+    lps.version < 1
   ) {
     return null;
   }
@@ -239,8 +240,10 @@ function buildProjection(
     }),
     lps: Object.freeze({
       id: lps.lpsVersionId,
-      version: 1,
+      version: lps.version,
       createdAt: lps.createdAt,
+      activeCycleInstanceId: lps.activeCycleInstanceId ?? null,
+      ckcResolutionRef: lps.ckcResolutionRef ?? null,
     }),
     localMode: true,
     iam: "NOT_SELECTED",

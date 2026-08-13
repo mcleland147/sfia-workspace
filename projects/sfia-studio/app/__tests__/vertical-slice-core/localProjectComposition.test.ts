@@ -156,6 +156,8 @@ describe("visible slice V1 Project/LPS happy path", () => {
         id: "lps:v1-project-1",
         version: 1,
         createdAt: "2026-07-29T14:00:00.000Z",
+        activeCycleInstanceId: null,
+        ckcResolutionRef: null,
       },
       localMode: true,
       iam: "NOT_SELECTED",

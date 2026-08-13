@@ -62,6 +62,8 @@ export type ProjectAssistantContextDto = {
   runtimeMode: string;
   persistence: string;
   readiness: string;
+  activeCycleInstanceId?: string | null;
+  ckcResolutionRef?: string | null;
 };
 
 export type F2TurnLabels = {

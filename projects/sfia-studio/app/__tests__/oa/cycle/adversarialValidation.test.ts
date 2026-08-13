@@ -16,6 +16,7 @@ import {
 } from "@/lib/oa/project";
 import {
   CAPITALIZATION_CYCLE_TYPE_ID,
+  MemoryCycleStore,
   createTestCycleServices,
   type CkcResolution,
   type CkcResolverPort,
@@ -447,7 +448,7 @@ describe("adversarial validation", () => {
       const projects = buildProjectServices();
       await seedProject(projects, "prj:fail-cyc");
       const cycle = buildCycle(projects);
-      cycle.store.failNextSave = "cycle";
+      (cycle.store as MemoryCycleStore).failNextSave = "cycle";
       const result = await cycle.createCycle.execute({
         cycleInstanceId: "cyc:fail",
         cycleTypeId: "cyc:delivery",
@@ -468,7 +469,7 @@ describe("adversarial validation", () => {
       const projects = buildProjectServices();
       await seedProject(projects, "prj:fail-trj");
       const cycle = buildCycle(projects);
-      cycle.store.failNextSave = "trajectory";
+      (cycle.store as MemoryCycleStore).failNextSave = "trajectory";
       const result = await cycle.createInitialTrajectory.execute({
         trajectoryId: "trj:fail",
         projectId: "prj:fail-trj",
@@ -489,7 +490,7 @@ describe("adversarial validation", () => {
       const projects = buildProjectServices();
       await seedProject(projects, "prj:fail-epi");
       const cycle = buildCycle(projects);
-      cycle.store.failNextSave = "epistemic";
+      (cycle.store as MemoryCycleStore).failNextSave = "epistemic";
       const result = await cycle.updateEpistemicState.execute({
         projectId: "prj:fail-epi",
         createdBy: ACTOR,

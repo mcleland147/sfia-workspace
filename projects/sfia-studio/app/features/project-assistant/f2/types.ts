@@ -37,6 +37,9 @@ export type F2ContextSnapshot = {
   lpsId: string;
   lpsVersion: number;
   doctrineDigest: string;
+  /** Post-mutation cycle linkage when present (M2). */
+  activeCycleInstanceId?: string | null;
+  ckcResolutionRef?: string | null;
 };
 
 export type QualificationDto = {
@@ -54,6 +57,12 @@ export type QualificationDto = {
   disclosures: string[];
   signals: F2QualificationSignals;
   recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS";
+  /** Durable CKC binding projection (no raw CKC dimensions). */
+  ckcResolutionRef?: string;
+  executionAuthority?: false;
+  /** Set after durable CycleInstance create (M2). */
+  cycleInstanceId?: string;
+  cycleStatus?: string;
 };
 
 export type ProposalDto = {

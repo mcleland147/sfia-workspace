@@ -13,8 +13,8 @@ import type {
   CycleInstance,
 } from "../domain/types";
 import type { CycleAuditPort } from "../ports/cycleAudit";
+import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
 import type { CycleRepositoryPort } from "../ports/cycleRepository";
-import type { MemoryCycleStore } from "../infrastructure/memoryCycleStore";
 
 function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -32,7 +32,7 @@ export class CreateCycle {
     private readonly projectServices: ProjectServices,
     private readonly clock: ClockPort,
     private readonly audit: CycleAuditPort,
-    private readonly store?: MemoryCycleStore,
+    private readonly store?: CyclePersistenceUnitOfWorkPort,
   ) {}
 
   async execute(request: CreateCycleRequest): Promise<CreateCycleResult> {
@@ -156,6 +156,7 @@ export class CreateCycle {
               context: current.livingProjectState.context,
               scope: current.livingProjectState.scope,
               activeCycleInstanceId: request.cycleInstanceId,
+              ckcResolutionRef: request.ckcResolutionRef,
             });
           if (!appended.ok) {
             if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {

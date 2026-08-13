@@ -22,7 +22,12 @@ export {
   createRuntimeApplicationService,
   type RuntimeApplicationServiceOptions,
   type RuntimeAuditMode,
+  type RuntimeOaStack,
 } from "./service";
+export {
+  readLiveProjectContext,
+  type LiveProjectContext,
+} from "./liveProjectContext";
 export {
   getRuntimeApplicationService,
   isRuntimeApplicationServiceInitialized,

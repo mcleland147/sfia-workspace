@@ -18,6 +18,7 @@ export * from "./domain/catalogFingerprint";
 export * from "./domain/catalogProjection";
 
 export * from "./ports/cycleRepository";
+export * from "./ports/cyclePersistenceUnitOfWorkPort";
 export * from "./ports/trajectoryRepository";
 export * from "./ports/epistemicRepository";
 export * from "./ports/ckcResolver";
@@ -53,6 +54,14 @@ export {
 } from "./infrastructure/observability";
 export * from "./infrastructure/ckcReferenceManifest";
 export * from "./infrastructure/ckcQualificationResolver";
+export {
+  createSqliteCycleServices,
+  createTestSqliteCycleServices,
+  type CreateSqliteCycleServicesOptions,
+  type SqliteCycleServices,
+} from "./infrastructure/sqlite/createSqliteCycleServices";
+export { SqliteCycleRepository } from "./infrastructure/sqlite/sqliteCycleRepository";
+export { SqliteCycleAuditJournal } from "./infrastructure/sqlite/sqliteCycleAuditJournal";
 
 import type { ClockPort } from "@/lib/oa/doctrine";
 import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
@@ -82,14 +91,18 @@ import {
   MemoryCycleAuditJournal,
 } from "./infrastructure/observability";
 import type { CycleAuditPort } from "./ports/cycleAudit";
+import type { CyclePersistenceUnitOfWorkPort } from "./ports/cyclePersistenceUnitOfWorkPort";
+import type { CycleRepositoryPort } from "./ports/cycleRepository";
 import type { CkcResolverPort } from "./ports/ckcResolver";
 import type { CkcQualificationResolverPort } from "./ports/ckcQualificationResolver";
+import type { EpistemicRepositoryPort } from "./ports/epistemicRepository";
+import type { TrajectoryRepositoryPort } from "./ports/trajectoryRepository";
 
 export type CycleServices = {
-  store: MemoryCycleStore;
-  cycles: MemoryCycleRepository;
-  trajectories: MemoryTrajectoryRepository;
-  epistemic: MemoryEpistemicRepository;
+  store: CyclePersistenceUnitOfWorkPort;
+  cycles: CycleRepositoryPort;
+  trajectories: TrajectoryRepositoryPort;
+  epistemic: EpistemicRepositoryPort;
   ckc: CkcResolverPort;
   audit: CycleAuditPort;
   qualifyCycle: QualifyCycle;

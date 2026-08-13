@@ -1,14 +1,23 @@
 /**
- * Native SFIA qualification via QualifyCycleWithCkc (recommendation only).
+ * Native SFIA qualification via shared RuntimeOaStack CKC services (M2).
+ * Recommendation only — never a Morris decision / execution authority.
  */
 
 import {
   CYCLE_TYPE_CATALOG_FINGERPRINT,
   CYCLE_TYPE_CATALOG_VERSION,
-  createCkcQualificationServices,
+  type CkcQualificationServices,
   type CkcQualificationSuccessResult,
 } from "@/lib/oa/cycle";
 import type { F2QualificationSignals, QualificationDto } from "./types";
+
+export function projectCkcResolutionRef(
+  proof: CkcQualificationSuccessResult["proof"],
+): string {
+  const digest = proof.catalogHash.replace(/^sha256:/i, "").slice(0, 12);
+  const corr = proof.correlationId.replace(/[^a-zA-Z0-9]/g, "").slice(-16);
+  return `ckc:m2-${digest || "nodigest"}-${corr || "nocorr"}`;
+}
 
 export async function qualifyWithCkc(input: {
   cycleTypeId: string;
@@ -16,12 +25,13 @@ export async function qualifyWithCkc(input: {
   objective?: string;
   scope?: string;
   correlationId: string;
+  /** Shared runtime CKC services — preferred over private composition. */
+  ckcQualification: CkcQualificationServices;
 }): Promise<
   | { ok: true; qualification: QualificationDto; raw: CkcQualificationSuccessResult }
   | { ok: false; code: string; message: string }
 > {
-  const services = createCkcQualificationServices();
-  const result = await services.qualifyCycleWithCkc.execute({
+  const result = await input.ckcQualification.qualifyCycleWithCkc.execute({
     cycleTypeId: input.cycleTypeId,
     catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
     catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
@@ -54,6 +64,8 @@ export async function qualifyWithCkc(input: {
     disclosures: [...result.disclosures],
     signals: input.signals,
     recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
+    ckcResolutionRef: projectCkcResolutionRef(result.proof),
+    executionAuthority: false,
   };
 
   return { ok: true, qualification, raw: result };

@@ -8,11 +8,11 @@
 | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
 | **Snapshot Git** | origin/main @ `c6925954a7aa86f34c9fcd6f7babf0336014eba3` |
 | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
-| **Timestamp maintenance** | 2026-08-13 10:56:00 +0200 (Europe/Paris) — Post-merge M1 |
+| **Timestamp maintenance** | 2026-08-13 — M2 VALIDATED BY MORRIS — PR INTEGRATION PENDING |
 | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
 | **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS |
 | **Sources** | Git `main` · PR #337 · CI #158 · handoff M1 tip `84330e34461bbd35adc7baa14fabe993baf24288` · decision pack G0 · framing `30`–`37` · code `projects/sfia-studio/app/**` |
-| **Anti-claims** | G0-A/G0-B **consommés** · M1 **mergé** · ≠ runtime v3 ADOPTED · ≠ Cursor REAL authorized · ≠ Gate D consumed · ≠ Auth/Ack promoted · ≠ M2 authorized · ≠ full OA durable |
+| **Anti-claims** | G0-A/G0-B **consommés** · M1 **mergé** · M2 **VALIDATED BY MORRIS — IMPLEMENTED CANDIDATE — PR INTEGRATION PENDING** (≠ MERGED ON MAIN · ≠ COMPLETE ON MAIN) · ≠ runtime v3 ADOPTED · ≠ Cursor REAL authorized · ≠ Gate D consumed · ≠ Auth/Ack promoted · ≠ M3 authorized · ≠ full OA durable |
 
 ## B1. Nature du document
 
@@ -42,7 +42,8 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 | Product persistence | **SELECTED / ACTIVE FOR T-A1** — `node:sqlite` OA Product Store (G0-B) · **≠** persistence de tout le runtime |
 | Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
 | Project/LPS restart safety | **PROVEN / MERGED** (process A→B + CI #158) |
-| Autres OA (T-A2…T-A6) | **Memory partiel** — process-local |
+| Autres OA (T-A2 CycleInstance M2 subset) | **Product SQLite** — CycleInstance + LPS linkage restart-safe (M2 VALIDATED BY MORRIS — PR pending) |
+| Autres OA (T-A2 trajectory/epistemic ; T-A3…T-A6) | **Memory partiel** — process-local |
 | Cursor REAL depuis Nora | **0** / DISABLED |
 | Gate D | **NOT CONSUMED** |
 
@@ -88,11 +89,11 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | Gap | Statut | Bloque |
 | --- | --- | --- |
 | Project/LPS durable | **MERGED ON MAIN — EXIT PROOF SATISFIED** (PR #337) | M2+ |
-| GuidedSession / historique durable | PARTIAL / MISSING | M2 daily use |
-| CycleInstance réel lié F2 | EXISTS BUT NOT WIRED | M2/M3 |
+| GuidedSession / historique durable | PARTIAL / MISSING — **DEFERRED** (dette M2 optionnelle Roadmap) | usage quotidien / milestone ultérieur |
+| CycleInstance réel lié F2 | **CLOSED (M2 candidate)** — Product SQLite + F2 wire + restart proof | M3+ |
 | HumanDecision durable/authoritative | PROCESS_LOCAL / demo | M3, Gate D |
-| CKC ↔ cycle binding | PARTIAL (qualify only) | M2 |
-| live contextSnapshot | PARTIAL — LPS+doctrine digests durables ; agrégat ContextSnapshot **absent** | M2 |
+| CKC ↔ cycle binding | **CLOSED (M2 candidate)** — `ckcResolutionRef` projection on LPS | — |
+| live contextSnapshot | **CLOSED (M2 candidate)** — `F2ContextSnapshot` post-mutation (pas nouvel aggregate durable) | — |
 | ExecutionContract from real HD | FIXTURE path only | M3/M4 |
 | Cursor projection canonique | PARTIAL | M3/M4 |
 | Cursor REAL behind T-A5 | MISSING on Nora | M4 |
@@ -100,7 +101,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | Evidence durable | MISSING | M5 |
 | ReviewBundle → LPS writeback | MISSING | M5/M6 |
 | Nora post-exec analysis | PARTIAL (UI cards) | M5 |
-| Restart safety Studio core | **PARTIAL** — Project/LPS restart-safe ; autres OA Memory | M2+ |
+| Restart safety Studio core | **PARTIAL** — Project/LPS + CycleInstance M2 restart-safe ; conversation/proposal/HD/T-A3…T-A6 Memory | M3+ |
 | IAM/authz product-grade | PARTIAL (candidate Auth.js) | M4/M8 |
 
 ## B6. Decisions / gates
@@ -124,7 +125,8 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 1. Promotion Auth.js / Critical Ack candidate — **Decision Required**
 2. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
 3. Disposition OPS1 / D1 / execution-run — **Decision Required**
-4. **M2 Delivery** — **NOT AUTHORIZED — MORRIS GO REQUIRED**
+4. **M2** — **VALIDATED BY MORRIS — IMPLEMENTED CANDIDATE — PR INTEGRATION PENDING** (validation gate **CONSUMED** 2026-08-13 · commit/push/PR **AUTHORIZED** · merge **NOT AUTHORIZED** — gate Morris séparé · ≠ MERGED ON MAIN)
+5. **M3 Delivery** — **NOT AUTHORIZED — MORRIS GO REQUIRED**
 
 ## B7–B8. Roadmap capability-driven (milestones)
 
@@ -175,13 +177,18 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **ID** | M2 |
 | **Capacité v3** | V3-F01 CKC · F03 DoctrinePackage · F04 épistémologie (base) · F05 chaîne cognitive |
 | **Outcome** | Dialogue Nora dans un projet durable ; qualification cycle ; LPS actualisé sans wizard rigide |
-| **État actuel** | F1/F2 wired process-local |
-| **Actifs** | F1, F2, platform AI, CKC qualify |
-| **Gaps** | historique conversation durable optionnel ; CycleInstance wire ; live context ; CKC/cycle binding nécessaire |
+| **État actuel** | F1/F2 wired ; CycleInstance Product SQLite + LPS linkage + live `F2ContextSnapshot` post-mutation |
+| **Actifs** | T-A1 KEEP · T-A2 Cycle COMPLETE (subset) · F1/F2 ADAPT · CKC qualify KEEP · shared RuntimeOaStack |
+| **Gaps fermés (candidate)** | CycleInstance wire F2 · CKC↔cycle `ckcResolutionRef` · live ContextSnapshot · LPS N→N+1 · restart process A→B |
+| **Dette restante** | conversation/proposal process-local ; Trajectory/Epistemic Memory ; DOC-DEBT-M1-01 ouvert |
 | **Dépendances** | M1 — **SATISFIED** |
-| **Delivery authorization** | **NOT AUTHORIZED — MORRIS GO REQUIRED** |
-| **Preuve e2e** | conversation → proposal avec contextSnapshot live → LPS version visible |
-| **Statut** | **PARTIAL** (UI existe ; durabilité non) |
+| **Delivery authorization** | **AUTHORIZED / CONSUMED** — GO Morris M2 (Delivery) |
+| **Validation gate** | **CONSUMED** — GO MORRIS — VALIDATE M2 + COMMIT / PUSH / PR (2026-08-13) |
+| **Commit / push / PR** | **AUTHORIZED** — current gate |
+| **Merge** | **NOT AUTHORIZED** — separate Morris gate · ≠ COMPLETE ON MAIN |
+| **Preuve e2e** | conversation → qualification → Cycle durable → LPS N+1 → proposal ContextSnapshot live → visible `/studio` · process restart PASS · R1 AsyncLocalStorage concurrency PASS · R2 test-scope SHA frozen |
+| **Next** | M3 — **NOT AUTHORIZED — MORRIS GO REQUIRED** |
+| **Statut** | **VALIDATED BY MORRIS — IMPLEMENTED CANDIDATE — PR INTEGRATION PENDING** |
 
 ### Milestone 3 — Gouvernance humaine + préparation réelle
 
@@ -194,6 +201,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **Actifs** | T-A3/T-A4 ; F2/F3 UI |
 | **Gaps** | L2 durable HD ; L3 proposal binding ; L8 REAL contract fields ; autorité non-demo |
 | **Dépendances** | M1–M2 ; IAM minimal |
+| **Delivery authorization** | **NOT AUTHORIZED — MORRIS GO REQUIRED** |
 | **Preuve e2e** | GO Morris → HD accepted/current survive restart → contract fingerprint stable |
 | **Statut** | **PARTIAL** |
 
@@ -282,13 +290,13 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 ```text
 CRITICAL PATH:
   M1 durable Project/LPS — SATISFIED / MERGED ON MAIN (PR #337 @ c6925954…)
-  → M2 Nora contextuel durable
+  → M2 Nora contextuel durable — VALIDATED BY MORRIS — IMPLEMENTED CANDIDATE — PR INTEGRATION PENDING
   → M3 HD durable + ExecutionContract exact
   → M4 Cursor REAL borné (T-A5+harvest+Ack+Gate D)
   → M5 Evidence/ReviewBundle + LPS writeback
   → M6 boucle complète sans copier-coller
 
-NEXT CAPABILITY: M2 — NOT AUTHORIZED — MORRIS GO REQUIRED
+NEXT CAPABILITY: M3 — NOT AUTHORIZED — MORRIS GO REQUIRED
 
 TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
 FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth

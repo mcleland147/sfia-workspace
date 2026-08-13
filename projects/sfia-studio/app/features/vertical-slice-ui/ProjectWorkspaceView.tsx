@@ -25,8 +25,8 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
         <div>
           <h2>Espace de travail projet</h2>
           <p className={styles.hint}>
-            Vue de contexte locale — projection réelle du core V1, sans
-            dashboard, sans agent et sans persistance produit.
+            Vue de contexte locale — projection réelle du core V1 / Product
+            SQLite (Project/LPS/Cycle M2), sans dashboard et sans agent.
           </p>
         </div>
         <div className={styles.pillGroup}>
@@ -111,6 +111,28 @@ function ProjectProjection({ result }: { result: GetProjectSuccess }) {
               v{result.livingState.version} · {result.livingState.createdAt}
             </dd>
           </div>
+          {result.livingState.activeCycleInstanceId ? (
+            <div className={styles.definitionItem}>
+              <dt>CycleInstance actif (lien LPS)</dt>
+              <dd
+                className={styles.valueCode}
+                data-testid="workspace-active-cycle"
+              >
+                {result.livingState.activeCycleInstanceId}
+              </dd>
+            </div>
+          ) : null}
+          {result.livingState.ckcResolutionRef ? (
+            <div className={styles.definitionItem}>
+              <dt>CKC resolution ref</dt>
+              <dd
+                className={styles.valueCode}
+                data-testid="workspace-ckc-ref"
+              >
+                {result.livingState.ckcResolutionRef}
+              </dd>
+            </div>
+          ) : null}
         </dl>
       </section>
 
@@ -180,9 +202,10 @@ function MissingProject({
       <div>
         <h2>Projet introuvable dans ce processus</h2>
         <p className={styles.hint}>
-          L’identifiant demandé n’est pas disponible dans l’état process-local
-          courant. Un redémarrage ou hot reload peut avoir effacé le Project et
-          son LPS.
+          L’identifiant demandé n’est pas disponible dans le Product SQLite
+          ouvert par ce processus. Vérifiez l’identifiant ou créez un projet.
+          Conversation/Proposal F2 restent process-local ; Project/LPS/Cycle
+          durables ne dépendent pas de globalThis.
         </p>
       </div>
       <dl className={styles.definitionGrid}>

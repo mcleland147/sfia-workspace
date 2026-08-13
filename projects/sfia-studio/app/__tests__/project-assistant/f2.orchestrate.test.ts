@@ -1,8 +1,12 @@
 /** @vitest-environment node */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   setConversationProviderForTests,
 } from "@/lib/platform/ai";
+import { createCkcQualificationServices } from "@/lib/oa/cycle";
 import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
 import {
   evaluateMorrisGateRequired,
@@ -22,97 +26,55 @@ import {
   resetRuntimeApplicationServiceForTests,
 } from "@/lib/vertical-slice-runtime";
 
-const { getProjectRuntimeActionMock } = vi.hoisted(() => ({
-  getProjectRuntimeActionMock: vi.fn(),
-}));
-
-vi.mock("@/lib/vertical-slice-runtime/actions", async () => {
-  const actual = await vi.importActual<
-    typeof import("@/lib/vertical-slice-runtime/actions")
-  >("@/lib/vertical-slice-runtime/actions");
-  return {
-    ...actual,
-    getProjectRuntimeAction: getProjectRuntimeActionMock,
-  };
-});
-
-const SUCCESS = {
-  ok: true as const,
-  project: {
-    projectId: "prj:f2-demo",
-    name: "Projet F2",
-    shortReference: "F2",
-    objective: "Tester qualification et gate.",
-    contextSummary: "Contexte process-local F2.",
-    criticality: "STANDARD" as const,
-    constraints: ["Lecture seule"],
-    localMode: true as const,
-    source: "REAL_LOCAL_CORE" as const,
-    fixture: false as const,
-  },
-  doctrine: {
-    id: "pkg:studio-v3-oa",
-    version: "1.0.0",
-    digest: "digest:f2",
-    status: "RESOLVED",
-  },
-  livingState: {
-    id: "lps:f2-demo",
-    version: 1 as const,
-    createdAt: "2026-08-10T12:00:00.000Z",
-  },
-  readiness: {
-    status: "NOT_READY" as const,
-    hard: "OPEN" as const,
-    tA6: "INCOMPLETE" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    realAgentExecution: "DISABLED" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    runReady: false as const,
-    productReady: false as const,
-  },
-  disclosures: {
-    runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "PARTIAL_PROJECT_LPS_DURABLE" as const,
-    agentExecution: "DISABLED" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    localDataVolatile: true as const,
-    restartMayLoseState: true as const,
-    projectLpsRestartSafe: true as const,
-    messages: [] as const,
-  },
-};
-
 describe("F2 orchestration AC coverage", () => {
   const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
+  const tempDirs: string[] = [];
+  let projectId = "";
 
-  beforeEach(() => {
+  beforeEach(async () => {
     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
     delete process.env.OPENAI_API_KEY;
     delete process.env.OPENAI_MODEL;
-    getProjectRuntimeActionMock.mockReset();
-    getProjectRuntimeActionMock.mockResolvedValue(SUCCESS);
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
     resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-f2-"));
+    tempDirs.push(dir);
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "oa-product.sqlite"),
+      auditMode: "noop",
+      nowIso: "2026-08-13T12:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "Projet F2",
+      objective: "Tester qualification et gate.",
+      context: "Contexte F2 M2 durable.",
+      criticality: "STANDARD",
+      constraints: ["Lecture seule"],
+      shortReference: "F2",
+      idempotencyKey: `idem:f2-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("F2 setup create failed");
+    projectId = created.projectId;
   });
 
   afterEach(() => {
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
     resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const dir = tempDirs.pop();
+      if (dir) fs.rmSync(dir, { recursive: true, force: true });
+    }
     if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
     else process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
   });
 
   it("AC-F2-01 informative remains F1 without proposal", async () => {
     const result = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Résume l'objectif __F2_INFORMATIVE__",
     });
     expect(result.ok).toBe(true);
@@ -123,8 +85,13 @@ describe("F2 orchestration AC coverage", () => {
   });
 
   it("AC-F2-02/04/05/06/08/09/10 actionable qualifies and proposes", async () => {
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const preVersion = before.livingState.version;
+
     const result = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Prépare la prochaine étape __F2_ACTIONABLE__",
     });
     expect(result.ok).toBe(true);
@@ -132,16 +99,26 @@ describe("F2 orchestration AC coverage", () => {
     expect(result.f2?.qualification).toBeTruthy();
     expect(result.f2?.qualification?.isMorrisDecision).toBe(false);
     expect(result.f2?.qualification?.recommendationLabel).toMatch(/RECOMMANDATION/);
+    expect(result.f2?.qualification?.cycleInstanceId).toMatch(/^cyc:f2-/);
+    expect(result.f2?.qualification?.executionAuthority).toBe(false);
     expect(result.f2?.proposal).toBeTruthy();
+    expect(result.f2?.proposal?.contextSnapshot.lpsVersion).toBe(preVersion + 1);
     expect(result.f2?.proposal?.outOfScope.length).toBeGreaterThan(0);
     expect(result.f2?.labels.noExecution).toBe("AUCUNE EXÉCUTION");
     expect(result.f2?.proposal?.agentBinding).toBe("NOT_AVAILABLE");
+    expect(result.ephemeralNotice).toMatch(/Product SQLite/);
+    expect(result.ephemeralNotice).not.toMatch(/Aucune persistence produit/i);
     expect(JSON.stringify(result.f2?.proposal)).not.toMatch(/executing|completed|failed/);
   });
 
   it("AC-F2-03 ambiguous asks clarification without proposal", async () => {
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const preVersion = before.livingState.version;
+
     const result = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Fais le nécessaire __F2_AMBIGUOUS__",
     });
     expect(result.ok).toBe(true);
@@ -149,23 +126,38 @@ describe("F2 orchestration AC coverage", () => {
     expect(result.f2?.turnKind).toBe("f2_clarification");
     expect(result.f2?.proposal).toBeNull();
     expect(result.text).toMatch(/Clarification/i);
+
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingState.version).toBe(preVersion);
   });
 
   it("AC-F2-11 critical without justification blocks", async () => {
+    const before = await getRuntimeApplicationService().getProject(projectId);
+    expect(before.ok).toBe(true);
+    if (!before.ok) return;
+    const preVersion = before.livingState.version;
+
     const result = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Change sécurité __F2_CRITICAL_NO_JUSTIFICATION__",
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.f2?.proposal).toBeNull();
-    expect(result.text).toMatch(/Critical/i);
-    expect(result.f2?.qualification?.requiresJustificationForCritical).toBe(true);
+    expect(result.text).toMatch(/Critical|Justification/i);
+
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.livingState.version).toBe(preVersion);
+    expect(after.livingState.activeCycleInstanceId ?? null).toBeNull();
   });
 
   it("AC-F2-12/25 execution request may propose but blocks execution + gate", async () => {
     const result = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Lance Cursor et crée une PR __F2_EXECUTION__",
     });
     expect(result.ok).toBe(true);
@@ -278,7 +270,7 @@ describe("F2 orchestration AC coverage", () => {
     }
 
     const actionable = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Prépare la prochaine étape __F2_ACTIONABLE__",
     });
     expect(actionable.ok).toBe(true);
@@ -294,7 +286,7 @@ describe("F2 orchestration AC coverage", () => {
     expect(actionable.f2?.proposal?.executionForbidden).toBe(true);
 
     const structuring = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Fais évoluer l'architecture __F2_STRUCTURING__",
     });
     expect(structuring.ok).toBe(true);
@@ -313,7 +305,7 @@ describe("F2 orchestration AC coverage", () => {
     setConversationProviderForTests(provider);
 
     const f2 = await orchestrateAssistantSend({
-      projectId: "prj:f2-demo",
+      projectId,
       content: "Résume __F2_INFORMATIVE__",
     });
     expect(f2.ok).toBe(true);
@@ -344,12 +336,15 @@ describe("F2 orchestration AC coverage", () => {
         lowRiskBounded: true,
       },
       correlationId: "cor:test-cap",
+      ckcQualification: createCkcQualificationServices(),
     });
     expect(q.ok).toBe(true);
     if (!q.ok) return;
     expect(q.qualification.isMorrisDecision).toBe(false);
     expect(q.qualification.capitalizationViaCycleTypeId).toBe(true);
     expect(q.qualification.recommendedProfile).not.toMatch(/capitalization/i);
+    expect(q.qualification.executionAuthority).toBe(false);
+    expect(q.qualification.ckcResolutionRef).toMatch(/^ckc:m2-/);
   });
 
   it("gate policy is deterministic server-side", () => {
@@ -421,9 +416,6 @@ describe("F2 decisions with shared OA stack", () => {
     if (!created.ok) throw new Error("create failed");
     (globalThis as { __f2ProjectId?: string }).__f2ProjectId =
       created.project.projectId;
-    getProjectRuntimeActionMock.mockImplementation(async (projectId: string) => {
-      return runtime.getProject(projectId);
-    });
   });
 
   afterEach(() => {

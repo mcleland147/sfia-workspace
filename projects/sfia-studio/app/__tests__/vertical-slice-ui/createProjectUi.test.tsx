@@ -24,7 +24,7 @@ vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
 vi.mock("@/lib/vertical-slice-runtime/disclosures", () => ({
   RUNTIME_DISCLOSURES: {
     runtimeMode: "LOCAL_PROCESS",
-    persistence: "PARTIAL_PROJECT_LPS_DURABLE",
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DURABLE",
     agentExecution: "DISABLED",
     iam: "NOT_SELECTED",
     productPersistence: "SQLITE_OA_PRODUCT_STORE",
@@ -33,6 +33,7 @@ vi.mock("@/lib/vertical-slice-runtime/disclosures", () => ({
     localDataVolatile: true as const,
     restartMayLoseState: true as const,
     projectLpsRestartSafe: true as const,
+    cycleInstanceRestartSafe: true as const,
     messages: [],
   },
   RUNTIME_READINESS_NOT_READY: {
@@ -104,7 +105,7 @@ const SUCCESS_RESULT = {
   },
   disclosures: {
     runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "PARTIAL_PROJECT_LPS_DURABLE" as const,
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DURABLE" as const,
     agentExecution: "DISABLED" as const,
     iam: "NOT_SELECTED" as const,
     productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
@@ -113,6 +114,7 @@ const SUCCESS_RESULT = {
     localDataVolatile: true as const,
     restartMayLoseState: true as const,
     projectLpsRestartSafe: true as const,
+    cycleInstanceRestartSafe: true as const,
     messages: ["Temporary local data"],
   },
   reusedFromIdempotencyKey: false,
@@ -171,7 +173,7 @@ describe("V2-A2 Create Project UI", () => {
     ).toBeVisible();
     expect(screen.getAllByText("LOCAL_PROCESS").length).toBeGreaterThan(0);
     expect(
-      screen.getAllByText("PARTIAL_PROJECT_LPS_DURABLE").length,
+      screen.getAllByText("PARTIAL_PROJECT_LPS_CYCLE_DURABLE").length,
     ).toBeGreaterThan(0);
     expect(screen.getAllByText(/AGENT DISABLED/).length).toBeGreaterThan(0);
     expect(screen.queryByLabelText(/email|organisation|token/i)).toBeNull();
@@ -385,7 +387,7 @@ describe("V2-A2 Create Project UI", () => {
     expect(screen.getByText("lps:v2-a2-1")).toBeVisible();
     expect(screen.getAllByText("NOT_READY").length).toBeGreaterThan(0);
     expect(
-      screen.getAllByText("PARTIAL_PROJECT_LPS_DURABLE").length,
+      screen.getAllByText("PARTIAL_PROJECT_LPS_CYCLE_DURABLE").length,
     ).toBeGreaterThan(0);
     expect(
       screen.getByRole("link", { name: "Ouvrir l’espace de travail" }),

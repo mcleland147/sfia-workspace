@@ -1,13 +1,17 @@
 /**
- * F2 pipeline: intent → qualify → proposal / clarification.
- * Stops before any execution.
+ * F2 pipeline: intent → qualify → durable CycleInstance + LPS → live ContextSnapshot → proposal.
+ * Stops before any execution. M2: Cycle/LPS/CKC linkage durable; conversation/proposal process-local.
  */
 
-import { randomUUID } from "node:crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 import {
   getLiveConversationAvailability,
   isFakeConversationProviderForced,
 } from "@/lib/platform/ai";
+import {
+  getRuntimeApplicationService,
+  readLiveProjectContext,
+} from "@/lib/vertical-slice-runtime";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import type {
   AssistantHistoryMessage,
@@ -17,7 +21,7 @@ import type {
 import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
 import { analyzeIntent } from "./intentAnalysis";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
-import { qualifyWithCkc } from "./qualify";
+import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
 import {
   F2_PROCESS_LOCAL_NOTICE,
   createProposalId,
@@ -31,7 +35,7 @@ import type {
 } from "./types";
 
 const EPHEMERAL_NOTICE =
-  "Conversation et propositions éphémères (process-local) — un rechargement ou redémarrage peut tout effacer. Aucune persistence produit. AUCUNE EXÉCUTION.";
+  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
 
 function toContextDto(
   result: Extract<
@@ -57,6 +61,8 @@ function toContextDto(
     runtimeMode: result.disclosures.runtimeMode,
     persistence: result.disclosures.persistence,
     readiness: result.readiness.status,
+    activeCycleInstanceId: result.livingState.activeCycleInstanceId ?? null,
+    ckcResolutionRef: result.livingState.ckcResolutionRef ?? null,
   };
 }
 
@@ -66,6 +72,8 @@ function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
     lpsId: project.lpsId,
     lpsVersion: project.lpsVersion,
     doctrineDigest: project.doctrineDigest,
+    activeCycleInstanceId: project.activeCycleInstanceId ?? null,
+    ckcResolutionRef: project.ckcResolutionRef ?? null,
   };
 }
 
@@ -129,6 +137,12 @@ function buildProposal(input: {
       `ckc:${input.qualification.detailedStatus}`,
       `project:${input.project.projectId}`,
       `lps:${input.project.lpsId}@${input.project.lpsVersion}`,
+      ...(input.qualification.cycleInstanceId
+        ? [`cycle:${input.qualification.cycleInstanceId}`]
+        : []),
+      ...(input.qualification.ckcResolutionRef
+        ? [`ckcRef:${input.qualification.ckcResolutionRef}`]
+        : []),
     ],
     risks: input.intent.risks,
     reservations: input.intent.reservations,
@@ -202,6 +216,7 @@ function f2Success(base: {
 
 /**
  * Unified send orchestration: preserves F1 for informative intents.
+ * Actionable path creates durable CycleInstance + LPS append, then live snapshot.
  */
 export async function orchestrateAssistantSend(input: {
   projectId: string;
@@ -232,7 +247,7 @@ export async function orchestrateAssistantSend(input: {
     };
   }
 
-  const project = toContextDto(projectResult);
+  let project = toContextDto(projectResult);
   const modeResolution = resolveMode();
   if (!modeResolution.canProceed) {
     return {
@@ -274,13 +289,14 @@ export async function orchestrateAssistantSend(input: {
 
   const { analysis, presentation, model } = analysisResult;
 
-  // A — informative → existing F1 path
+  // A — informative → existing F1 path (no Cycle/LPS mutation)
   if (analysis.intentClass === "informative" && analysis.parseOk) {
     const f1 = await orchestrateProjectAssistantTurn(input);
     if (!f1.ok) return f1;
     return {
       ...f1,
       model: f1.model ?? model,
+      ephemeralNotice: EPHEMERAL_NOTICE,
       f2: {
         turnKind: "f1_informative",
         intentClass: "informative",
@@ -300,7 +316,7 @@ export async function orchestrateAssistantSend(input: {
     };
   }
 
-  // C — ambiguous / fail-closed
+  // C — ambiguous / fail-closed (no Cycle/LPS mutation)
   if (analysis.intentClass === "ambiguous" || !analysis.parseOk) {
     return f2Success({
       text:
@@ -326,12 +342,30 @@ export async function orchestrateAssistantSend(input: {
     });
   }
 
+  const runtime = getRuntimeApplicationService();
+  const oa = runtime.oa;
+  if (!oa) {
+    return f2Success({
+      text:
+        "[Runtime] Services OA indisponibles pour la qualification M2. AUCUNE EXÉCUTION.",
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+    });
+  }
+
+  const preLpsVersion = project.lpsVersion;
+  const correlationId = `cor:f2-${randomBytes(8).toString("hex")}`;
+
   const qualified = await qualifyWithCkc({
     cycleTypeId: analysis.candidateCycleTypeId,
     signals: analysis.signals,
     objective: analysis.objective ?? undefined,
     scope: analysis.scope ?? undefined,
-    correlationId: `f2-qual:${randomUUID()}`,
+    correlationId,
+    ckcQualification: oa.ckcQualification,
   });
 
   if (!qualified.ok) {
@@ -345,7 +379,10 @@ export async function orchestrateAssistantSend(input: {
     });
   }
 
-  const { qualification } = qualified;
+  let { qualification } = qualified;
+  const ckcResolutionRef =
+    qualification.ckcResolutionRef ??
+    projectCkcResolutionRef(qualified.raw.proof);
 
   if (
     qualification.requiresJustificationForCritical &&
@@ -363,6 +400,81 @@ export async function orchestrateAssistantSend(input: {
       executionBlocked: analysis.intentClass === "execution_request",
     });
   }
+
+  const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
+  const created = await oa.cycleServices.createCycle.execute({
+    cycleInstanceId,
+    cycleTypeId: qualification.cycleTypeId,
+    projectId: project.projectId,
+    objective: analysis.objective ?? undefined,
+    scope: analysis.scope ?? undefined,
+    signals: analysis.signals,
+    justification: analysis.criticalJustification ?? undefined,
+    createdBy: {
+      actorId: "actor:nora-f2",
+      role: "agent",
+      displayName: "Nora F2",
+      authorityLevel: "N1",
+    },
+    correlationId,
+    linkAsActiveCycle: true,
+    expectedLpsVersion: preLpsVersion,
+    ckcResolutionRef,
+  });
+
+  if (!created.ok) {
+    return f2Success({
+      text: `[Cycle] Création CycleInstance échouée (${created.error.detailCode}). Aucune mutation partielle. AUCUNE EXÉCUTION.`,
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      qualification,
+      executionBlocked: analysis.intentClass === "execution_request",
+    });
+  }
+
+  // Live context AFTER mutation — pre-mutation snapshot does not satisfy M2.
+  const live = await readLiveProjectContext(oa, project.projectId);
+  if (!live.ok) {
+    return f2Success({
+      text: `[Contexte] Relecture LPS post-mutation échouée. AUCUNE EXÉCUTION.`,
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      qualification: {
+        ...qualification,
+        cycleInstanceId: created.cycle.cycleInstanceId,
+        cycleStatus: created.cycle.status,
+        ckcResolutionRef,
+      },
+    });
+  }
+
+  const reloaded = await loadProjectRuntimeForAssistant(project.projectId);
+  if (reloaded.ok) {
+    project = toContextDto(reloaded);
+  } else {
+    project = {
+      ...project,
+      lpsId: live.context.lpsId,
+      lpsVersion: live.context.lpsVersion,
+      doctrineDigest: live.context.doctrineDigest,
+      activeCycleInstanceId: live.context.activeCycleInstanceId,
+      ckcResolutionRef: live.context.ckcResolutionRef,
+    };
+  }
+
+  qualification = {
+    ...qualification,
+    cycleInstanceId: created.cycle.cycleInstanceId,
+    cycleStatus: created.cycle.status,
+    ckcResolutionRef,
+    recommendedProfile: created.cycle.profile,
+  };
 
   const morrisGateRequired = evaluateMorrisGateRequired({
     recommendedProfile: qualification.recommendedProfile,
@@ -387,7 +499,9 @@ export async function orchestrateAssistantSend(input: {
     presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
     "Qualification SFIA et proposition structurée générées.",
     `Cycle: ${qualification.cycleTypeId} (${qualification.cycleLabel}).`,
+    `CycleInstance: ${created.cycle.cycleInstanceId} (${created.cycle.status}).`,
     `Profil recommandé: ${qualification.recommendedProfile}.`,
+    `LPS v${preLpsVersion} → v${project.lpsVersion}.`,
     qualification.recommendationLabel,
     morrisGateRequired
       ? "DÉCISION REQUISE — gate Morris ouvert."
