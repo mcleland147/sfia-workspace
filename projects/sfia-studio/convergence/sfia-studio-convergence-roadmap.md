@@ -6,13 +6,13 @@
 | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
 | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
-| **Snapshot Git** | origin/main @ `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| **Snapshot Git** | origin/main @ `c6925954a7aa86f34c9fcd6f7babf0336014eba3` |
 | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
-| **Timestamp maintenance** | 2026-08-13 02:14:45 +0200 (Europe/Paris) |
+| **Timestamp maintenance** | 2026-08-13 10:56:00 +0200 (Europe/Paris) — Post-merge M1 |
 | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
-| **Intégration Git** | PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
-| **Sources** | Git courant · handoff convergence tip `c5b417dc13fa3700787d28571e5b5abe0599ae98` blob `31a5db07fba2555a59ee8c65ad76b537bbd8a73d` · framing `30`–`37` · code `projects/sfia-studio/app/**` |
-| **Anti-claims** | ≠ architecture décidée · ≠ persistence sélectionnée · ≠ v3 runtime ADOPTED · ≠ Cursor REAL authorized |
+| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS |
+| **Sources** | Git `main` · PR #337 · CI #158 · handoff M1 tip `84330e34461bbd35adc7baa14fabe993baf24288` · decision pack G0 · framing `30`–`37` · code `projects/sfia-studio/app/**` |
+| **Anti-claims** | G0-A/G0-B **consommés** · M1 **mergé** · ≠ runtime v3 ADOPTED · ≠ Cursor REAL authorized · ≠ Gate D consumed · ≠ Auth/Ack promoted · ≠ M2 authorized · ≠ full OA durable |
 
 ## B1. Nature du document
 
@@ -26,11 +26,11 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 
 ## B3. Point de départ factuel
 
-### Sur main (`1d09e4159932b3885817911e10a2d29a82ae9ea7`)
+### Sur main (`c6925954a7aa86f34c9fcd6f7babf0336014eba3`)
 
 | Capacité | État observé |
 | --- | --- |
-| `/studio` Project create/view | WIRED — **Product SQLite T-A1** (G0-B / M1 candidate) |
+| `/studio` Project create/view | WIRED — **Product SQLite T-A1 — MERGED ON MAIN** (PR #337) |
 | F1 Nora chat | WIRED — contextual assistant |
 | F2 qualification / proposal / Morris gate | WIRED — process-local + demo authority |
 | F3 T-A4→T-A5→T-A6 | WIRED — **FIXTURE ONLY** (`TestExecutionAdapter`) |
@@ -39,9 +39,11 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 | D1 SQLite projects | EXISTS — UI `/projects` parallèle |
 | execution-run D2-D | EXISTS — **non** branché F1–F3 |
 | FinOps Postgres | EXISTS — transverse ; ≠ Product persistence |
-| Product persistence | **SELECTED — node:sqlite OA Product Store** (G0-B ADOPTED) |
+| Product persistence | **SELECTED / ACTIVE FOR T-A1** — `node:sqlite` OA Product Store (G0-B) · **≠** persistence de tout le runtime |
 | Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
-| Cursor REAL depuis Nora | **0** |
+| Project/LPS restart safety | **PROVEN / MERGED** (process A→B + CI #158) |
+| Autres OA (T-A2…T-A6) | **Memory partiel** — process-local |
+| Cursor REAL depuis Nora | **0** / DISABLED |
 | Gate D | **NOT CONSUMED** |
 
 ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`)
@@ -64,7 +66,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | Actif | Preuve | Classification | Justification courte |
 | --- | --- | --- | --- |
 | T-A0 Doctrine | `lib/oa/doctrine` + project create | **KEEP** | Appelé ; DoctrinePackage cible F03 |
-| T-A1 Project/LPS | Memory store + `/studio` | **COMPLETE** | Bonne base ; manque durabilité |
+| T-A1 Project/LPS | Product SQLite + `/studio` (PR #337) | **COMPLETE** (M1) / **KEEP** backbone | Durable + restart-safe on main |
 | T-A2 Cycle/CKC | wired ; F2 qualify uses CKC | **ADAPT** / **COMPLETE** | Qualify OK ; CycleInstance UI non branché |
 | T-A3 HD/Confirm/Authority | Memory + F2 decide | **COMPLETE** | Backbone ; manque durable + autorité réelle |
 | T-A4 ExecutionContract | F3 prepare/confirm | **KEEP** / **COMPLETE** | Consommable ; path REAL + durable manquent |
@@ -79,13 +81,13 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | D1 `/projects` | `lib/d1` | **FREEZE** / **RETIRE LATER** (**RECOMMENDATION**) | Parallèle durable |
 | FinOps | `lib/oa/finops` | **KEEP** isolé + **FREEZE** lots non bloquants (**RECOMMENDATION**) | Transverse cost ≠ Product persistence |
 | Auth.js / Critical Ack candidate | dirty only | **COMPLETE** (après GO promotion) | Prérequis REAL Critical |
-| Persistence Memory OA | factories Memory* (T-A2…T-A6) | **REPLACE** progressif (T-A1 = SQLite Product) | Decision Required tech hors T-A1 |
+| Persistence Memory OA | factories Memory* (T-A2…T-A6) | **REPLACE** progressif (T-A1 = SQLite Product **MERGED**) | T-A2…T-A6 restent process-local ; milestones ultérieurs |
 
 ## B5. Gap map → boucle cible
 
 | Gap | Statut | Bloque |
 | --- | --- | --- |
-| Project/LPS durable | **IMPLEMENTED CANDIDATE** (M1) | M2+ |
+| Project/LPS durable | **MERGED ON MAIN — EXIT PROOF SATISFIED** (PR #337) | M2+ |
 | GuidedSession / historique durable | PARTIAL / MISSING | M2 daily use |
 | CycleInstance réel lié F2 | EXISTS BUT NOT WIRED | M2/M3 |
 | HumanDecision durable/authoritative | PROCESS_LOCAL / demo | M3, Gate D |
@@ -111,11 +113,18 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 - **G0-B** Product persistence = **ADOPTED** — `node:sqlite` Product Store isolé derrière ports OA ; exit Postgres sur multi-writer/multi-user démontré (Morris · 2026-08-13)
 - preuve décisions : `convergence/sfia-studio-g0-architecture-persistence-decision-pack.md`
 
+### Preuve / milestone intégrée (≠ nouvelle décision d’architecture)
+
+- **M1** PR #337 merged on main @ `c6925954a7aa86f34c9fcd6f7babf0336014eba3`
+- head M1 `5cbda862885b36658fc7f2b33a20311611da969e` · CI SFIA Studio **#158** SUCCESS
+- exit proof Project/LPS (create → process restart → same Project/LPS/context/doctrine digest) **SATISFIED**
+
 ### Décisions / gates toujours ouverts (non tranchés ici)
 
 1. Promotion Auth.js / Critical Ack candidate — **Decision Required**
 2. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
 3. Disposition OPS1 / D1 / execution-run — **Decision Required**
+4. **M2 Delivery** — **NOT AUTHORIZED — MORRIS GO REQUIRED**
 
 ## B7–B8. Roadmap capability-driven (milestones)
 
@@ -127,7 +136,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **Capacité v3** | Précondition : un seul backbone de construction (évite multi-moteurs) |
 | **Outcome** | Morris tranche Option architecture + Product persistence (compact) |
 | **Fondations** | transversal (débloque F02/F05/F12…) |
-| **État actuel** | **G0-A/B ADOPTED** (Morris) ; Delivery M1 en cours / candidate |
+| **État actuel** | **G0-A/B ADOPTED** (Morris) ; M1 **MERGED ON MAIN** |
 | **Actifs** | decision pack G0 ; Build Doctrine ; Roadmap |
 | **Gaps** | — (décisions structurantes consommées) |
 | **Travaux** | décisions écrites — **consommées** |
@@ -136,7 +145,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **Preuve de sortie** | décision Morris + `sfia-studio-g0-architecture-persistence-decision-pack.md` |
 | **Dette tolérée** | aucune implementation speculative au stade G0 |
 | **Exit dette** | N/A |
-| **Next** | M1 |
+| **Next** | M2 *(M1 SATISFIED)* |
 | **Statut** | **DECIDED / CONSUMED** |
 
 ### Milestone 1 — Socle projet v3 fiable
@@ -146,18 +155,18 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **ID** | M1 |
 | **Capacité v3** | V3-F02 LPS (+ Project) durable et exploitable |
 | **Outcome** | Morris crée/reprend un Project et retrouve LPS/contexte critique après redémarrage |
-| **État actuel** | Product SQLite OA (`node:sqlite`) derrière ports T-A1 ; composition `/studio` branchée |
+| **État actuel** | Product SQLite OA (`node:sqlite`) derrière ports T-A1 ; composition `/studio` branchée — **on main** |
 | **Actifs** | T-A1 ports ; SQLite Product Store ; vertical-slice UI ; doctrine FS |
 | **Classification** | COMPLETE T-A1 stores ; ADAPT composition |
 | **Gaps** | L4 ContextSnapshot agrégat dédié **absent** du repo — contexte critique M1 = LPS fields + doctrinePackageRef digest (qualifié) |
 | **Dépendances** | G0 persistence — **SATISFIED** (G0-B ADOPTED) |
-| **Gates** | Delivery **AUTHORIZED** by Morris (post G0) ; validation Morris post-preuve requise |
-| **Hors périmètre** | Cursor REAL ; multi-region ; PostgreSQL Product |
-| **Preuve e2e** | create → restart process → get same project/LPS/digest |
+| **Gates** | Merge M1 — **CLOSED** (PR #337) |
+| **Hors périmètre** | Cursor REAL ; multi-region ; PostgreSQL Product ; full OA durable |
+| **Preuve e2e** | create → restart process → get same project/LPS/digest · + PR #337 merged · + CI #158 PASS |
 | **Dette** | coexistence temporaire D1 UI ; autres OA Memory ; exit SQLite→Postgres |
 | **Exit dette** | disposition D1 après M1 stable ; Postgres si multi-writer démontré |
 | **Next** | M2 |
-| **Statut** | **IMPLEMENTED CANDIDATE — READY FOR MORRIS VALIDATION** |
+| **Statut** | **MERGED ON MAIN — EXIT PROOF SATISFIED** |
 
 ### Milestone 2 — Pilotage cognitif v3 utilisable
 
@@ -168,8 +177,9 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **Outcome** | Dialogue Nora dans un projet durable ; qualification cycle ; LPS actualisé sans wizard rigide |
 | **État actuel** | F1/F2 wired process-local |
 | **Actifs** | F1, F2, platform AI, CKC qualify |
-| **Gaps** | historique conversation durable optionnel ; CycleInstance wire ; live context |
-| **Dépendances** | M1 |
+| **Gaps** | historique conversation durable optionnel ; CycleInstance wire ; live context ; CKC/cycle binding nécessaire |
+| **Dépendances** | M1 — **SATISFIED** |
+| **Delivery authorization** | **NOT AUTHORIZED — MORRIS GO REQUIRED** |
 | **Preuve e2e** | conversation → proposal avec contextSnapshot live → LPS version visible |
 | **Statut** | **PARTIAL** (UI existe ; durabilité non) |
 
@@ -252,7 +262,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
 | --- | --- | --- | --- | --- | --- |
 | V3-F01 CKC | Qualification cognitive | PARTIAL (F2 qualify) | M2, M7 | CKC lié cycle + proposal | CycleInstance wire |
-| V3-F02 LPS | Living Project State | PARTIAL Memory | M1, M5 | LPS durable + writeback | persistence |
+| V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — T-A1 Project/LPS durable SQLite **merged on main** ; writeback / autres états associés restent à compléter (M5+) | M1, M5 | M1 / PR #337 / restart proof | writeback + autres OA |
 | V3-F03 DoctrinePackage | Package pin/digest | KEEP files | M1–M2 | live digest in snapshot | contextSnapshot |
 | V3-F04 Épistémologie | Obs/Hyp/… | DOC + UI tags partiels | M2, M7 | tags/stop contradictions | later depth |
 | V3-F05 Chaîne conv→exec | Boucle native | PARTIAL fixture | M2–M6 | e2e sans copier-coller | backbone |
@@ -271,18 +281,28 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 
 ```text
 CRITICAL PATH:
-  M1 durable Project/LPS
+  M1 durable Project/LPS — SATISFIED / MERGED ON MAIN (PR #337 @ c6925954…)
   → M2 Nora contextuel durable
   → M3 HD durable + ExecutionContract exact
   → M4 Cursor REAL borné (T-A5+harvest+Ack+Gate D)
   → M5 Evidence/ReviewBundle + LPS writeback
   → M6 boucle complète sans copier-coller
 
+NEXT CAPABILITY: M2 — NOT AUTHORIZED — MORRIS GO REQUIRED
+
 TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
 FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
 DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack promotion
 G0 CONSUMED: Option 1 ADOPTED · Product persistence node:sqlite ADOPTED
 ```
+
+## B10b. Dette documentaire post-M1
+
+| Id | Observation | Impact | Classification | Owner / gate | Exit |
+| --- | --- | --- | --- | --- | --- |
+| **DOC-DEBT-M1-01** | Framing `32` métadonnées/maturité indiquent encore « persist runtime non migrée / schemas persist non créés » alors que T-A1 Project/LPS SQLite est **mergé** sur main | Risque de lecture contradictoire doctrine cible vs preuve runtime courante | documentation freshness debt | Morris — modification framing v3 = cycle + GO dédié | Cycle documentaire dédié corrigeant **uniquement** l’état factuel sans changer doctrine V3-F02/F06/F09 |
+
+**Anti-claim :** DOC-DEBT-M1-01 ≠ blocker M2 automatique · ≠ autorisation de modifier `32` dans ce cycle.
 
 ## B11. Freeze / stop-doing (**RECOMMENDATION**)
 
@@ -304,5 +324,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 ## Références
 
 - Build Doctrine : [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md)
-- Audit handoff : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
-- Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37`
+- G0 decision pack : [`sfia-studio-g0-architecture-persistence-decision-pack.md`](./sfia-studio-g0-architecture-persistence-decision-pack.md)
+- M1 : PR #337 · merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI #158 · handoff `84330e34461bbd35adc7baa14fabe993baf24288`
+- Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
+- Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont DOC-DEBT-M1-01 sur `32`)
