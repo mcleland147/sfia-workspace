@@ -4,414 +4,202 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-08-13 21:49:58 +0200 (CEST) |
+| **Date/heure/fuseau** | 2026-08-13 22:04:17 +0200 (CEST) |
 | **Niveau** | FULL |
 | **Cycle** | 9 — QA / validation |
 | **Profil** | Critical |
 | **Typologie** | RUN |
-| **GO Morris** | GO MORRIS — M3 CORRECTION MICRO-CYCLE (**consommé**) |
+| **GO Morris** | GO MORRIS — M3 FINAL FINGERPRINT CORRECTION MICRO-CYCLE (**consommé**) |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Branche** | `delivery/sfia-studio-m3-human-governance` |
 | **HEAD** | `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` |
 | **origin/main** | `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` |
 | **Remote M3** | ABSENT |
-| **Handoff source tip** | `b25299ac937591d58421e618b5fd033493504b17` |
-| **CKC** | `04-qa-validation.md` candidate |
+| **Handoff source tip** | `0bdfcb1a715dc8a442110b1587267c18cc24c78e` |
 | **Project commit/push/PR** | NONE |
 
 ## Convergence Pre-check
 
 | Item | Status |
 |------|--------|
-| Build Doctrine | VALIDATED — ACTIVE ON MAIN |
-| M1 | SATISFIED |
-| M2 | SATISFIED |
-| M3 | IMPLEMENTED CANDIDATE — VALIDATION BLOCKED BY R1/R2 + R3 (pre-correction) → evidence closed below |
+| M1 / M2 | SATISFIED |
+| M3 | IMPLEMENTED CANDIDATE — NOT VALIDATED BY MORRIS |
+| R1–R4 prior micro-cycle | CLOSED |
+| F1 fingerprint lifecycle-stability | **CLOSED** below |
+| F2 collateral test scope | **REGULARIZED** (forceM3Authority only) |
 | M4 | NOT AUTHORIZED |
-| Cursor REAL | DISABLED |
-| Gate D | NOT_CONSUMED |
+| Cursor REAL / Gate D | DISABLED / NOT_CONSUMED |
 | runtime v3 | NON ADOPTED |
 
-## Réserves initiales (Cycle 8 post-review)
+## Scope exact
 
-| ID | Réserve | Statut post-correction |
-|----|---------|------------------------|
-| R1 | ExecutionContract valeurs synthétiques | **CLOSED** — UNRESOLVED / fail-closed |
-| R2 | Restart proof DecisionBasis fabriqué | **CLOSED** — Proposal→recordF2Decision→HD→restart PREPARE |
-| R3 | 3 fichiers hors allowlist | **CLOSED** — setup RESTORED; attempt tests REGULARIZED; collateral forceM3Authority |
-| R4 | Git truth untracked incohérent | **CLOSED** — inventaires séparés tracked/untracked app/tmp/staged |
+WRITE:
+- `semanticFingerprint.ts`
+- `m3ExecutionContractPrepare.test.ts`
+- `m3RestartProcessWorker.ts`
+- `m3RestartProcessProof.test.ts`
 
-## R1 — ExecutionContract UNRESOLVED semantics
+REGULARIZED EXISTING (no further edits this cycle):
+- `f2.orchestrate.test.ts`
+- `f3.fixtureVerticalSlice.test.ts`
 
-### Sentinelles exactes
+## F1 — Semantic fingerprint lifecycle-stable
 
-- `UNRESOLVED_ACTION`
-- `UNRESOLVED_TARGET`
-- `cap:unresolved` (sentinel only — never executable)
-- `reversibility = irreversible` (**fail-closed safety default ≠ business claim**)
+### Material before → after
 
-### Stop conditions dynamiques
+**Before:** material included `status` + `version` (lifecycle T-A4), causing draft→validated / version++ to change the hash.
 
-- `ACTION_UNRESOLVED` (si requestedOperation absent/vide)
-- `TARGET_UNRESOLVED` (toujours — pas de target explicite DecisionBasis)
-- `CAPABILITY_UNRESOLVED`
-- `REVERSIBILITY_UNRESOLVED`
-- Conservées: `AUTHORITY_DENIED`, `CONTEXT_STALE`, `DECISION_NOT_CURRENT`
-- Constraints rails: `PREPARE_ONLY`, `NO_CURSOR_REAL`, `NO_ATTEMPT`, `NO_GATE_D`
+**After:**
+- EXCLUDED from material: `status`, `version`
+- KEPT: execution-significant fields (projectId, cycleInstanceId, decisionRefs, doctrinePackageRef, action, target, scope, inputs, expectedOutputs, requiredCapabilities, requiredAuthority, constraints, stopConditions, evidenceRequirements, reversibility, idempotencyKey, supersession bindings, …)
+- Nested `inputs` / `doctrinePackageRef` persistence-normalized via JSON round-trip so undefined keys cannot diverge build-time vs reload recompute (same as SQLite `payload_json`)
 
-### Valeurs synthétiques supprimées (preuve négative)
-
-Recherche dans `prepareM3FromDecision.ts` : **aucune** occurrence de
-`prepare-from-decision:`, `cap:m3-prepare-from-decision`, targets `cycle:` / `project:` synthétisés.
-
-### Fichier WRITE principal (complet)
+### Code complet
 
 ```typescript
 /**
- * F3 M3 PREPARE — Build+Validate ExecutionContract from durable HumanDecision + DecisionBasis.
- * NO ProposalStore. NO F3_ACTION fixture constants. Cursor PREPARE-only projection.
+ * SHA-256 semantic fingerprint for ExecutionContract (M3).
+ * Canonical JSON over execution-significant fields; excludes volatile provenance
+ * and T-A4 lifecycle metadata (status, version) that do not change intent.
+ *
+ * Nested objects are persistence-normalized (JSON round-trip) so undefined keys
+ * cannot make build-time hashes diverge from reload/recompute.
  */
+import { createHash } from "node:crypto";
+import { canonicalizeJson } from "@/lib/oa/doctrine";
+import type { ExecutionContract } from "./types";
 
-import type {
-  DecisionBasis,
-  DecisionServices,
-  MemoryAuthorityResolver,
-} from "@/lib/oa/decision";
-import {
-  LOCAL_MORRIS_M3_ACTOR,
-  registerM3LocalMorrisAuthority,
-} from "@/lib/oa/decision";
-import type {
-  CursorPrepareOnlyProjection,
-  ExecutionContractServices,
-} from "@/lib/oa/execution-contract";
-import { projectCursorPrepareOnly } from "@/lib/oa/execution-contract";
-import type { F2ContextSnapshot } from "../f2/types";
-
-export type PrepareM3Deps = {
-  decisionServices: DecisionServices;
-  authorityResolver: MemoryAuthorityResolver;
-  executionContractServices: ExecutionContractServices;
-  nowIso: () => string;
-  forceM3Authority?: boolean;
-};
-
-export type F3M3PreparePayload = {
-  turnKind: "f3_m3_prepare";
-  mode: "M3_PREPARE";
-  decisionId: string;
-  projectId: string;
-  contract: {
-    executionContractId: string;
-    version: number;
-    status: string;
-    action: string;
-    target: string;
-    scope: string;
-    requiredAuthority: string;
-    constraints: string[];
-    semanticFingerprint: string;
-  };
-  cursorProjection: CursorPrepareOnlyProjection;
-  executionPerformed: false;
-  attemptCreated: false;
-  cursorReal: false;
-  executionAllowed: false;
-  disclosures: string[];
-};
-
-function requireBasis(
-  basis: DecisionBasis | undefined,
-): DecisionBasis | { ok: false; code: string; message: string } {
-  if (!basis) {
-    return {
-      ok: false,
-      code: "DECISION_BASIS_REQUIRED",
-      message: "HumanDecision lacks DecisionBasis — cannot PREPARE M3.",
-    };
-  }
-  return basis;
+/** Drop undefined keys the same way SQLite payload_json persistence does. */
+function persistenceNormalize<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
 }
 
-/**
- * Map DecisionBasis → contract fields with explicit UNRESOLVED semantics.
- * Objective ≠ operation. cycleTypeId / projectId ≠ execution target.
- * `cap:unresolved` is a sentinel, never an executable capability.
- * `reversibility: irreversible` is a fail-closed safety default when unsourced,
- * NOT a business claim — always paired with REVERSIBILITY_UNRESOLVED.
- */
-function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
-  const eb = basis.executionBasis;
-  const stopConditions = [
-    ...(eb.stopConditions ?? []),
-    "AUTHORITY_DENIED",
-    "CONTEXT_STALE",
-    "DECISION_NOT_CURRENT",
-  ];
-
-  const requested = eb.requestedOperation?.trim() ?? "";
-  let action: string;
-  if (requested) {
-    action = requested;
-  } else {
-    action = "UNRESOLVED_ACTION";
-    stopConditions.push("ACTION_UNRESOLVED");
-  }
-
-  // No explicit target field on DecisionBasis today → always unresolved.
-  const target = "UNRESOLVED_TARGET";
-  stopConditions.push("TARGET_UNRESOLVED");
-
-  const requiredCapabilities = ["cap:unresolved"];
-  stopConditions.push("CAPABILITY_UNRESOLVED");
-
-  // Fail-closed safety default — not a sourced reversibility analysis.
-  const reversibility = "irreversible" as const;
-  stopConditions.push("REVERSIBILITY_UNRESOLVED");
-
-  const scope =
-    (eb.scope && eb.scope.trim()) || `decision:${decisionId}`;
-  const constraints = [
-    ...(eb.outOfScope ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
-    ...(eb.risks ?? []).map((s) => `RISK:${s}`),
-    ...(eb.reservations ?? []).map((s) => `RESERVATION:${s}`),
-    "PREPARE_ONLY",
-    "NO_CURSOR_REAL",
-    "NO_ATTEMPT",
-    "NO_GATE_D",
-  ];
-  if (eb.activatedBlocks?.length) {
-    for (const b of eb.activatedBlocks) {
-      constraints.push(`ACTIVATED_BLOCK:${b}`);
-    }
-  }
-  const expectedOutputs = eb.expectedOutcome
-    ? [eb.expectedOutcome]
-    : undefined;
-  return {
-    action,
-    target,
-    scope,
-    constraints,
-    stopConditions,
-    expectedOutputs,
-    requiredCapabilities,
-    reversibility,
-    inputs: {
-      objective: eb.objective,
-      recommendedProfile: eb.recommendedProfile,
-      cycleTypeId: eb.cycleTypeId,
-      activatedBlocks: eb.activatedBlocks,
-      sourceRef: basis.sourceRef,
-      sourceDigest: basis.sourceDigest,
-    },
-  };
-}
-
-export async function prepareM3FromDecision(input: {
+export type ExecutionContractSemanticMaterial = {
+  executionContractId: string;
   projectId: string;
-  decisionId: string;
-  currentContext: F2ContextSnapshot;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  deps: PrepareM3Deps;
-}): Promise<
-  | { ok: true; payload: F3M3PreparePayload }
-  | { ok: false; code: string; message: string }
-> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
+  cycleInstanceId?: string;
+  decisionRefs?: string[];
+  confirmationRef?: string;
+  doctrinePackageRef?: ExecutionContract["doctrinePackageRef"];
+  action: string;
+  target: string;
+  scope: string;
+  inputs?: Record<string, unknown>;
+  expectedOutputs?: string[];
+  requiredCapabilities: string[];
+  requiredAuthority: ExecutionContract["requiredAuthority"];
+  constraints: string[];
+  stopConditions: string[];
+  evidenceRequirements: string[];
+  reversibility: ExecutionContract["reversibility"];
+  idempotencyKey: string;
+  supersedesExecutionContractId?: string;
+  supersessionReason?: string;
+  adapterExportRef?: string;
+  immutableAfterConfirm?: true;
+};
 
-  const loaded = await input.deps.decisionServices.getHumanDecision.execute({
-    decisionId: input.decisionId,
-  });
-  if (!loaded.ok) {
-    return {
-      ok: false,
-      code: loaded.error.detailCode,
-      message: loaded.error.message,
-    };
+export function executionContractSemanticMaterial(
+  contract: Pick<
+    ExecutionContract,
+    | "executionContractId"
+    | "projectId"
+    | "cycleInstanceId"
+    | "decisionRefs"
+    | "confirmationRef"
+    | "doctrinePackageRef"
+    | "action"
+    | "target"
+    | "scope"
+    | "inputs"
+    | "expectedOutputs"
+    | "requiredCapabilities"
+    | "requiredAuthority"
+    | "constraints"
+    | "stopConditions"
+    | "evidenceRequirements"
+    | "reversibility"
+    | "idempotencyKey"
+    | "supersedesExecutionContractId"
+    | "supersessionReason"
+    | "adapterExportRef"
+    | "immutableAfterConfirm"
+  >,
+): ExecutionContractSemanticMaterial {
+  const material: ExecutionContractSemanticMaterial = {
+    executionContractId: contract.executionContractId,
+    projectId: contract.projectId,
+    action: contract.action,
+    target: contract.target,
+    scope: contract.scope,
+    requiredCapabilities: [...contract.requiredCapabilities],
+    requiredAuthority: contract.requiredAuthority,
+    constraints: [...contract.constraints],
+    stopConditions: [...contract.stopConditions],
+    evidenceRequirements: [...contract.evidenceRequirements],
+    reversibility: contract.reversibility,
+    idempotencyKey: contract.idempotencyKey,
+  };
+  if (contract.cycleInstanceId !== undefined) {
+    material.cycleInstanceId = contract.cycleInstanceId;
   }
-
-  const decision = loaded.decision;
-  if (decision.projectId !== input.projectId) {
-    return {
-      ok: false,
-      code: "PROJECT_MISMATCH",
-      message: "Decision does not belong to this project.",
-    };
+  if (contract.decisionRefs !== undefined) {
+    material.decisionRefs = [...contract.decisionRefs];
   }
-  if (decision.status !== "accepted") {
-    return {
-      ok: false,
-      code: "DECISION_NOT_CURRENT",
-      message: `Decision status ${decision.status} is not accepted for PREPARE.`,
-    };
+  if (contract.confirmationRef !== undefined) {
+    material.confirmationRef = contract.confirmationRef;
   }
-
-  const basisOrFail = requireBasis(decision.decisionBasis);
-  if ("ok" in basisOrFail && basisOrFail.ok === false) {
-    return basisOrFail;
-  }
-  const basis = basisOrFail as DecisionBasis;
-
-  const ctx = basis.proposalContext;
-  if (
-    ctx.doctrineDigest !== undefined &&
-    ctx.doctrineDigest !== input.currentContext.doctrineDigest
-  ) {
-    return {
-      ok: false,
-      code: "CONTEXT_STALE",
-      message:
-        "DecisionBasis doctrine digest is stale — re-decide before PREPARE.",
-    };
-  }
-  if (ctx.lpsId !== input.currentContext.lpsId) {
-    // LPS id changes on append after GO — allow when decision is linked on current LPS.
-    // Fall through to decisionIds check below.
-  }
-
-  // Reload is implicit via caller currentContext; require decision linked after GO LPS append.
-  // When LPS was linked, version advances; exact basis.lpsVersion match is not required.
-  // Fail closed if doctrine ok but decision is not current accepted (already checked).
-  if (
-    ctx.lpsVersion > input.currentContext.lpsVersion
-  ) {
-    return {
-      ok: false,
-      code: "CONTEXT_STALE",
-      message:
-        "DecisionBasis LPS version is ahead of current context — inconsistent state.",
-    };
-  }
-
-  const fields = fieldsFromBasis(basis, decision.decisionId);
-  const issuedAt = input.deps.nowIso();
-  const authority = registerM3LocalMorrisAuthority({
-    authorityResolver: input.deps.authorityResolver,
-    scope: fields.scope,
-    issuedAt,
-    evidenceId: `evd:m3-prep:${decision.decisionId}`,
-    forceEnable: input.deps.forceM3Authority === true,
-  });
-  if (!authority.ok) {
-    return {
-      ok: false,
-      code: authority.code,
-      message: authority.message,
-    };
-  }
-
-  const safeId = decision.decisionId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48);
-  const executionContractId = `xct:m3:${safeId}`;
-  const idempotencyKey = `idem:m3-prep:${decision.decisionId}`;
-
-  const built =
-    await input.deps.executionContractServices.buildExecutionContract.execute({
-      executionContractId,
-      projectId: input.projectId,
-      cycleInstanceId: decision.cycleInstanceId ?? basis.cycleInstanceId,
-      decisionRefs: [decision.decisionId],
-      action: fields.action,
-      target: fields.target,
-      scope: fields.scope,
-      inputs: fields.inputs,
-      expectedOutputs: fields.expectedOutputs,
-      requiredCapabilities: fields.requiredCapabilities,
-      requiredAuthority: "MORRIS",
-      constraints: fields.constraints,
-      stopConditions: fields.stopConditions,
-      evidenceRequirements: ["evreq:m3-prepare-decision-basis"],
-      reversibility: fields.reversibility,
-      idempotencyKey,
-      correlationId: `cor:m3-prep:${decision.decisionId}`,
-      actor: LOCAL_MORRIS_M3_ACTOR,
-      authorityEvidenceId: authority.evidenceId,
-    });
-
-  if (!built.ok) {
-    return {
-      ok: false,
-      code: built.error.detailCode,
-      message: built.error.message,
-    };
-  }
-
-  const validated =
-    await input.deps.executionContractServices.validateExecutionContract.execute(
-      {
-        executionContractId: built.contract.executionContractId,
-        actor: LOCAL_MORRIS_M3_ACTOR,
-        authorityEvidenceId: authority.evidenceId,
-      },
+  if (contract.doctrinePackageRef !== undefined) {
+    material.doctrinePackageRef = persistenceNormalize(
+      contract.doctrinePackageRef,
     );
-
-  if (!validated.ok) {
-    return {
-      ok: false,
-      code: validated.error.detailCode,
-      message: validated.error.message,
-    };
   }
-
-  const contract = validated.contract;
-  const cursorProjection = projectCursorPrepareOnly(contract);
-  if (
-    cursorProjection.executionAllowed !== false ||
-    cursorProjection.cursorReal !== false ||
-    cursorProjection.selectedAgentRef !== null ||
-    cursorProjection.gateD !== "NOT_CONSUMED"
-  ) {
-    return {
-      ok: false,
-      code: "CURSOR_PROJECTION_INVALID",
-      message: "Cursor PREPARE-only projection invariants violated.",
-    };
+  if (contract.inputs !== undefined) {
+    material.inputs = persistenceNormalize(contract.inputs);
   }
+  if (contract.expectedOutputs !== undefined) {
+    material.expectedOutputs = [...contract.expectedOutputs];
+  }
+  if (contract.supersedesExecutionContractId !== undefined) {
+    material.supersedesExecutionContractId =
+      contract.supersedesExecutionContractId;
+  }
+  if (contract.supersessionReason !== undefined) {
+    material.supersessionReason = contract.supersessionReason;
+  }
+  if (contract.adapterExportRef !== undefined) {
+    material.adapterExportRef = contract.adapterExportRef;
+  }
+  if (contract.immutableAfterConfirm !== undefined) {
+    material.immutableAfterConfirm = contract.immutableAfterConfirm;
+  }
+  return material;
+}
 
-  return {
-    ok: true,
-    payload: {
-      turnKind: "f3_m3_prepare",
-      mode: "M3_PREPARE",
-      decisionId: decision.decisionId,
-      projectId: input.projectId,
-      contract: {
-        executionContractId: contract.executionContractId,
-        version: contract.version,
-        status: contract.status,
-        action: contract.action,
-        target: contract.target,
-        scope: contract.scope,
-        requiredAuthority: contract.requiredAuthority,
-        constraints: [...contract.constraints],
-        semanticFingerprint: contract.semanticFingerprint ?? cursorProjection.fingerprint,
-      },
-      cursorProjection,
-      executionPerformed: false,
-      attemptCreated: false,
-      cursorReal: false,
-      executionAllowed: false,
-      disclosures: [
-        "M3 PREPARE — exact contract from DecisionBasis",
-        "NO CURSOR REAL",
-        "NO ATTEMPT",
-        "GATE D NOT_CONSUMED",
-        "NO FIXTURE F3_ACTION CONSTANTS",
-      ],
-    },
-  };
+export function computeExecutionContractSemanticFingerprint(
+  contract: Parameters<typeof executionContractSemanticMaterial>[0],
+): string {
+  const material = executionContractSemanticMaterial(contract);
+  const canonical = canonicalizeJson(material);
+  return createHash("sha256").update(canonical, "utf8").digest("hex");
 }
 
 ```
 
-### Tests R1 (complet)
+### Preuve status/version excluded
+
+- Type `ExecutionContractSemanticMaterial` has **no** `status` / `version` properties
+- `executionContractSemanticMaterial` never assigns them
+- Tests: status-only and version-only copies keep same fingerprint
+
+### Equality of four
+
+PERSISTED (build)
+= RECOMPUTED AFTER VALIDATE
+= RECOMPUTED AFTER PROCESS RESTART
+= CURSOR PROJECTION FINGERPRINT
+
+### Tests (complet)
 
 ```typescript
 /**
@@ -438,8 +226,11 @@ import {
   type DecisionBasis,
 } from "@/lib/oa/decision";
 import {
+  computeExecutionContractSemanticFingerprint,
   createTestSqliteExecutionContractServices,
+  executionContractSemanticMaterial,
   projectCursorPrepareOnly,
+  type ExecutionContract,
 } from "@/lib/oa/execution-contract";
 import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
 import { F3_ACTION } from "@/features/project-assistant/f3/constants";
@@ -716,8 +507,8 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
     if (!a) return;
     const fp1 = a.prepared.contract.semanticFingerprint;
     expect(fp1).toMatch(/^[a-f0-9]{64}$/);
-    // Persisted fingerprint must survive reload (restart stability).
     expect(a.contract.semanticFingerprint).toBe(fp1);
+    expect(computeExecutionContractSemanticFingerprint(a.contract)).toBe(fp1);
 
     const b = await recordAndPrepare(
       "r1g-b.sqlite",
@@ -729,6 +520,164 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
     expect(b.prepared.contract.semanticFingerprint).not.toBe(fp1);
     expect(b.contract.semanticFingerprint).toBe(
       b.prepared.contract.semanticFingerprint,
+    );
+  });
+
+  it("F1 — build→validate: persisted fingerprint === recomputed after validation", async () => {
+    const stack = await boot("f1-lifecycle.sqlite");
+    const decisionId = "dec:m3:f1";
+    const scope = "f1-scope";
+    const reg = registerM3LocalMorrisAuthority({
+      authorityResolver: stack.authority,
+      scope,
+      issuedAt: "2026-08-13T17:00:00.000Z",
+      forceEnable: true,
+      evidenceId: `evd:m3:${decisionId}`,
+    });
+    expect(reg.ok).toBe(true);
+    if (!reg.ok) return;
+
+    const basis: DecisionBasis = {
+      sourceType: "proposal",
+      sourceRef: "prop:f1",
+      sourceDigest: computeDecisionBasisSourceDigest({
+        objective: "f1-obj",
+        op: "exact-op-f1",
+      }),
+      projectId: "prj:m3-xc",
+      proposalContext: {
+        lpsId: "lps:m3-xc-v1",
+        lpsVersion: 1,
+        doctrineDigest: VALID_DIGEST,
+      },
+      executionBasis: {
+        objective: "f1-obj",
+        scope,
+        requestedOperation: "exact-op-f1",
+        cycleTypeId: "cyc:delivery",
+      },
+    };
+
+    const recorded = await stack.decisions.recordHumanDecision.execute({
+      decisionId,
+      projectId: "prj:m3-xc",
+      subject: decisionId,
+      options: [{ optionId: "opt:go", label: "GO" }],
+      selectedOptionId: "opt:go",
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authority: "morris",
+      reversible: true,
+      scope,
+      authorityEvidenceId: reg.evidenceId,
+      decisionBasis: basis,
+      linkToLivingProjectState: true,
+      expectedLpsVersion: 1,
+    });
+    expect(recorded.ok).toBe(true);
+
+    const built =
+      await stack.contracts.buildExecutionContract.execute({
+        executionContractId: "xct:m3:f1",
+        projectId: "prj:m3-xc",
+        decisionRefs: [decisionId],
+        action: "exact-op-f1",
+        target: "UNRESOLVED_TARGET",
+        scope,
+        requiredCapabilities: ["cap:unresolved"],
+        requiredAuthority: "MORRIS",
+        constraints: ["PREPARE_ONLY", "NO_CURSOR_REAL", "NO_ATTEMPT", "NO_GATE_D"],
+        stopConditions: [
+          "AUTHORITY_DENIED",
+          "CONTEXT_STALE",
+          "DECISION_NOT_CURRENT",
+          "TARGET_UNRESOLVED",
+          "CAPABILITY_UNRESOLVED",
+          "REVERSIBILITY_UNRESOLVED",
+        ],
+        evidenceRequirements: ["evreq:m3-prepare-decision-basis"],
+        reversibility: "irreversible",
+        idempotencyKey: "idem:m3-f1",
+        correlationId: "cor:m3-f1",
+        actor: LOCAL_MORRIS_M3_ACTOR,
+        authorityEvidenceId: reg.evidenceId,
+      });
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+
+    const F_BUILD = built.contract.semanticFingerprint;
+    expect(F_BUILD).toMatch(/^[a-f0-9]{64}$/);
+    expect(computeExecutionContractSemanticFingerprint(built.contract)).toBe(
+      F_BUILD,
+    );
+    expect(built.contract.status).toBe("draft");
+    const buildVersion = built.contract.version;
+
+    const validated = await stack.contracts.validateExecutionContract.execute({
+      executionContractId: built.contract.executionContractId,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: reg.evidenceId,
+      expectedVersion: buildVersion,
+    });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) return;
+
+    expect(validated.contract.status).not.toBe("draft");
+    expect(validated.contract.version).toBeGreaterThan(buildVersion);
+    const F_RECALC_VALIDATED = computeExecutionContractSemanticFingerprint(
+      validated.contract,
+    );
+    expect(F_RECALC_VALIDATED).toBe(F_BUILD);
+    expect(validated.contract.semanticFingerprint).toBe(F_BUILD);
+
+    // Material must not include lifecycle fields.
+    const material = executionContractSemanticMaterial(validated.contract);
+    expect(material).not.toHaveProperty("status");
+    expect(material).not.toHaveProperty("version");
+  });
+
+  it("F2 — execution-significant drift changes fingerprint; status/version do not", async () => {
+    const result = await recordAndPrepare(
+      "f2-drift.sqlite",
+      { requestedOperation: "base-op" },
+      "dec:m3:f2drift",
+    );
+    expect(result).not.toBeNull();
+    if (!result) return;
+    const base = result.contract;
+    const F_BUILD = base.semanticFingerprint!;
+    expect(computeExecutionContractSemanticFingerprint(base)).toBe(F_BUILD);
+
+    const significant: Array<keyof ExecutionContract> = [
+      "action",
+      "scope",
+      "requiredCapabilities",
+      "stopConditions",
+      "reversibility",
+    ];
+    for (const field of significant) {
+      const modified = structuredClone(base);
+      if (field === "action") modified.action = "drifted-action";
+      if (field === "scope") modified.scope = "drifted-scope";
+      if (field === "requiredCapabilities") {
+        modified.requiredCapabilities = ["cap:other"];
+      }
+      if (field === "stopConditions") {
+        modified.stopConditions = [...modified.stopConditions, "EXTRA_STOP"];
+      }
+      if (field === "reversibility") modified.reversibility = "reversible";
+      expect(
+        computeExecutionContractSemanticFingerprint(modified),
+        `field ${field} must change fingerprint`,
+      ).not.toBe(F_BUILD);
+    }
+
+    const statusOnly = { ...base, status: "confirmed" as const };
+    expect(computeExecutionContractSemanticFingerprint(statusOnly)).toBe(
+      F_BUILD,
+    );
+    const versionOnly = { ...base, version: base.version + 99 };
+    expect(computeExecutionContractSemanticFingerprint(versionOnly)).toBe(
+      F_BUILD,
     );
   });
 
@@ -841,21 +790,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
 
 ```
 
-### R1 tests PASS
-
-Cas R1-A…G + NO_GO + safety + negative source scan — **PASS** (11/11).
-
-## R2 — Real Proposal → GO → restart → PREPARE
-
-### Anti-triche
-
-- Process A: `saveProposal` + `recordF2Decision` (forceM3Authority test inject)
-- **Pas** de DecisionBasis manuel
-- **Pas** de `recordHumanDecision` direct sur le scénario E2E
-- Process B: `getProposal === null` avant PREPARE; `prepareM3FromDecision` only
-- Process C: reload fingerprint persisté + projection; Proposal absente
-
-### Worker (complet)
+## F3 restart recomputation (worker + proof)
 
 ```typescript
 /**
@@ -1175,17 +1110,29 @@ async function main(): Promise<void> {
       });
       if (!loaded.ok) process.exit(14);
 
+      const { computeExecutionContractSemanticFingerprint } = await import(
+        "@/lib/oa/execution-contract"
+      );
+      const persistedFingerprint =
+        prepared.payload.contract.semanticFingerprint;
+      const recomputedAfterValidate =
+        computeExecutionContractSemanticFingerprint(loaded.contract);
+
       process.stdout.write(
         `${JSON.stringify({
           ok: true,
           decisionId,
           contractId: prepared.payload.contract.executionContractId,
-          fingerprint: prepared.payload.contract.semanticFingerprint,
+          fingerprint: persistedFingerprint,
+          persistedFingerprint,
+          recomputedAfterValidate,
           action: prepared.payload.contract.action,
           target: prepared.payload.contract.target,
           stopConditions: loaded.contract.stopConditions,
           requiredCapabilities: loaded.contract.requiredCapabilities,
           reversibility: loaded.contract.reversibility,
+          status: loaded.contract.status,
+          version: loaded.contract.version,
           proposalPresentInProcessB: getProposal(proposalId) !== null,
           projectionOnly: prepared.payload.cursorProjection.projectionOnly,
           executionAllowed: prepared.payload.executionAllowed,
@@ -1193,6 +1140,7 @@ async function main(): Promise<void> {
           gateD: prepared.payload.cursorProjection.gateD,
           selectedAgentRef: prepared.payload.cursorProjection.selectedAgentRef,
           attemptCreated: prepared.payload.attemptCreated,
+          projectionFingerprint: prepared.payload.cursorProjection.fingerprint,
         })}\n`,
       );
       return;
@@ -1210,17 +1158,21 @@ async function main(): Promise<void> {
       });
       if (!contracts.ok || contracts.contracts.length === 0) process.exit(16);
       const contract = contracts.contracts[0]!;
-      const { projectCursorPrepareOnly } = await import(
-        "@/lib/oa/execution-contract"
-      );
+      const { projectCursorPrepareOnly, computeExecutionContractSemanticFingerprint } =
+        await import("@/lib/oa/execution-contract");
       const projection = projectCursorPrepareOnly(contract);
+      const persistedFingerprint = contract.semanticFingerprint;
+      const recomputedFingerprint =
+        computeExecutionContractSemanticFingerprint(contract);
       process.stdout.write(
         `${JSON.stringify({
           ok: true,
           decisionId: loaded.decision.decisionId,
           contractId: contract.executionContractId,
-          // Persisted fingerprint (build-time) — restart stability proof.
-          fingerprint: contract.semanticFingerprint,
+          fingerprint: persistedFingerprint,
+          persistedFingerprint,
+          recomputedFingerprint,
+          projectionFingerprint: projection.fingerprint,
           proposalPresentInProcessC: getProposal(proposalId) !== null,
           projectionOnly: projection.projectionOnly,
           executionAllowed: projection.executionAllowed,
@@ -1244,8 +1196,6 @@ main().catch((err) => {
 });
 
 ```
-
-### Proof test (complet)
 
 ```typescript
 /**
@@ -1348,11 +1298,16 @@ describe("M3 process restart proof (R2 real F2 chain)", () => {
           decisionId?: string;
           contractId?: string;
           fingerprint?: string;
+          persistedFingerprint?: string;
+          recomputedAfterValidate?: string;
+          projectionFingerprint?: string;
           action?: string;
           target?: string;
           stopConditions?: string[];
           requiredCapabilities?: string[];
           reversibility?: string;
+          status?: string;
+          version?: number;
           proposalPresentInProcessB?: boolean;
           projectionOnly?: boolean;
           executionAllowed?: boolean;
@@ -1381,6 +1336,10 @@ describe("M3 process restart proof (R2 real F2 chain)", () => {
         );
         expect(prepared.reversibility).toBe("irreversible");
         expect(prepared.fingerprint).toMatch(/^[a-f0-9]{64}$/);
+        expect(prepared.persistedFingerprint).toBe(prepared.fingerprint);
+        expect(prepared.recomputedAfterValidate).toBe(prepared.fingerprint);
+        expect(prepared.projectionFingerprint).toBe(prepared.fingerprint);
+        expect(prepared.status).not.toBe("draft");
         expect(prepared.projectionOnly).toBe(true);
         expect(prepared.executionAllowed).toBe(false);
         expect(prepared.cursorReal).toBe(false);
@@ -1395,6 +1354,9 @@ describe("M3 process restart proof (R2 real F2 chain)", () => {
           decisionId?: string;
           contractId?: string;
           fingerprint?: string;
+          persistedFingerprint?: string;
+          recomputedFingerprint?: string;
+          projectionFingerprint?: string;
           proposalPresentInProcessC?: boolean;
           executionAllowed?: boolean;
           cursorReal?: boolean;
@@ -1405,6 +1367,10 @@ describe("M3 process restart proof (R2 real F2 chain)", () => {
         expect(reread.proposalPresentInProcessC).toBe(false);
         expect(reread.decisionId).toBe(decisionId);
         expect(reread.contractId).toBe(prepared.contractId);
+        // PERSISTED = RECOMPUTED AFTER VALIDATE = RECOMPUTED AFTER RESTART = PROJECTION
+        expect(reread.persistedFingerprint).toBe(prepared.fingerprint);
+        expect(reread.recomputedFingerprint).toBe(prepared.fingerprint);
+        expect(reread.projectionFingerprint).toBe(prepared.fingerprint);
         expect(reread.fingerprint).toBe(prepared.fingerprint);
         expect(reread.executionAllowed).toBe(false);
         expect(reread.cursorReal).toBe(false);
@@ -1420,96 +1386,17 @@ describe("M3 process restart proof (R2 real F2 chain)", () => {
 
 ```
 
-### R2 PASS
+## Non-régression R1/R2
 
-Process A create → B go (Proposal réelle + recordF2Decision) → C PREPARE (Proposal absente, R1 unresolved stops) → D read (fingerprint persisté stable) — **PASS**.
+UNRESOLVED_ACTION / UNRESOLVED_TARGET / cap:unresolved / REVERSIBILITY_UNRESOLVED + related stops + PREPARE_ONLY rails + Proposal absent after restart — **PASS** (targeted + full suite).
 
-Note fingerprint: stabilité prouvée via **champ persisté** `semanticFingerprint` (build-time). Recalcul live après validate peut différer car le matériau inclut `status`/`version` et validate ne régénère pas le fingerprint (fichier fingerprint **FROZEN** — dette résiduelle non bloquante pour restart proof).
+No synthetic `prepare-from-decision:` / `cap:m3-prepare-from-decision` / cycle|project targets.
 
-## R3 — Scope regularization
+## F2 — Collateral scope regularization
 
-### Avant correction (delta vs origin/main)
+Diffs **before = after** this cycle (unchanged). Only `forceM3Authority: true` local injections.
 
-| Fichier | Delta initial | Décision |
-|---------|---------------|----------|
-| `__tests__/setup.ts` | `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1` global | **RESTORED** → origin/main (interdit global) |
-| `lifecycleFoundation.test.ts` | cast `failNextSave` memory store | restore puis **REGULARIZED** (cast only — typecheck) |
-| `qaAdversarialValidation.test.ts` | idem | restore puis **REGULARIZED** (cast only) |
-
-### setup.ts après
-
-```
-import "@testing-library/jest-dom/vitest";
-
-```
-
-Preuve: **aucune** `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` dans setup.
-
-### Diffs R3 attempt (après régularisation)
-
-#### lifecycleFoundation
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/lifecycleFoundation.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/lifecycleFoundation.test.ts
-index af1db96..4a6aced 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/lifecycleFoundation.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/lifecycleFoundation.test.ts
-@@ -8,6 +8,7 @@ import {
-   formatAgentSelectionActionRef,
-   TestExecutionAdapter,
- } from "@/lib/oa/execution-attempt";
-+import { MemoryExecutionContractStore } from "@/lib/oa/execution-contract";
- import {
-   MORRIS_ACTOR,
-   N1_ACTOR,
-@@ -280,7 +281,8 @@ describe("T-A5 StartExecution RTA5-09", () => {
-     const stack = buildStack();
-     const { contractId } = await seedConfirmedContract(stack);
-     await selectStandardAgent(stack, { executionContractId: contractId });
--    stack.execution.store.failNextSave = true;
-+    // M3 widened ExecutionContractServices.store to UoW port; failNextSave is memory-store only.
-+    (stack.execution.store as MemoryExecutionContractStore).failNextSave = true;
-     const started = await stack.attempts.startExecution.execute({
-       attemptId: "xat:oa-001",
-       actor: MORRIS_ACTOR,
-
-```
-
-#### qaAdversarialValidation
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/qaAdversarialValidation.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/qaAdversarialValidation.test.ts
-index b9b1ff9..7fe0269 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/qaAdversarialValidation.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/qaAdversarialValidation.test.ts
-@@ -23,6 +23,7 @@ import {
-   seedConfirmedContract,
-   selectStandardAgent,
- } from "./helpers";
-+import { MemoryExecutionContractStore } from "@/lib/oa/execution-contract";
-
- describe("QA RTA5-09 invariant — Contract executing requires persisted running", () => {
-   it("refuses executing when caller claims running but Attempt is only accepted", async () => {
-@@ -309,7 +310,8 @@ describe("QA compensation — no second launch", () => {
-     const stack = buildStack({ adapter });
-     const { contractId } = await seedConfirmedContract(stack);
-     await selectStandardAgent(stack, { executionContractId: contractId });
--    stack.execution.store.failNextSave = true;
-+    // M3 widened ExecutionContractServices.store to UoW port; failNextSave is memory-store only.
-+    (stack.execution.store as MemoryExecutionContractStore).failNextSave = true;
-     const started = await stack.attempts.startExecution.execute({
-       attemptId: "xat:oa-001",
-       actor: MORRIS_ACTOR,
-
-```
-
-### Collateral obligatoire (suite suite après restore setup)
-
-Sans global env, `recordF2Decision` fail-closed → 9 tests rouges.
-Injection locale `forceM3Authority: true` (règle R3 spéciale) dans:
-
-- `f2.orchestrate.test.ts` (GO/NO_GO/AMEND)
-- `f3.fixtureVerticalSlice.test.ts` (seedApprovedGo)
+### f2.orchestrate.test.ts
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
@@ -1543,6 +1430,8 @@ index ec51c5c..4ce26d6 100644
 
 ```
 
+### f3.fixtureVerticalSlice.test.ts
+
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
 index 662b11b..d97e15d 100644
@@ -1559,18 +1448,39 @@ index 662b11b..d97e15d 100644
 
 ```
 
-Aucun comportement T-A5 produit modifié. Aucune activation globale.
+### setup.ts
 
-## R4 — Git truth
+Identical to origin/main regarding M3 authority — **no** global `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY`.
+
+## Freeze / Roadmap
+
+| Artefact | Result |
+|----------|--------|
+| Roadmap SHA before/after | `96977f7ef7a701e93b2989a3f655e1f987971cca0563e9dba595b4865be033a0` **IDENTICAL** |
+| prepareM3FromDecision / recordDecision / db.ts / recordHumanDecision / cursor projection / SQLite decision+contract | **IDENTICAL** |
+| Tracked name-status vs pre-cycle | **IDENTICAL** (fingerprint file remains untracked M3 candidate) |
+
+## Validation
+
+| Suite | Result |
+|-------|--------|
+| Targeted M3 + authority + f2/f3 | **PASS** |
+| `npm run typecheck` | **PASS** |
+| `npm run lint` | **PASS** |
+| `npm test` | **1656 passed / 131 skipped / 0 failed** |
+| `npm run build` | **PASS** |
+| `git diff --check` | **PASS** |
+
+## R4 Git truth
 
 | Classe | Count |
 |--------|-------|
-| **Tracked modified** | 44 |
-| **Untracked application** | 18 |
-| **Untracked .tmp review** | 43 |
-| **Staged** | 0 |
+| Tracked modified | 44 |
+| Untracked application | 18 |
+| Untracked .tmp | 43 |
+| Staged | 0 |
 
-### Tracked modified inventory
+### Tracked modified
 
 ```
 projects/sfia-studio/app/__tests__/oa/decision/adversarialAuthority.test.ts
@@ -1619,7 +1529,7 @@ projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ```
 
-### Untracked application inventory
+### Untracked application
 
 ```
 projects/sfia-studio/app/__tests__/oa/decision/m3HumanDecisionDurability.test.ts
@@ -1642,7 +1552,7 @@ projects/sfia-studio/app/lib/oa/execution-contract/ports/executionContractPersis
 projects/sfia-studio/app/lib/oa/execution-contract/projection/cursorPrepareOnlyProjection.ts
 ```
 
-### Untracked .tmp inventory (paths)
+### Untracked .tmp
 
 ```
 .tmp-sfia-review-pre.txt
@@ -1690,81 +1600,43 @@ projects/sfia-studio/app/lib/oa/execution-contract/projection/cursorPrepareOnlyP
 .tmp-sfia-review/worktrees-before.txt
 ```
 
-### Staged
-
-```
-(empty)
-```
-
-**Anti-claim R4:** ne jamais écrire « untracked tmp only » — 18 fichiers applicatifs M3 restent untracked (candidate locale non commitée).
-
-## Freeze / non-drift
-
-| Artefact | SHA before = after |
-|----------|-------------------|
-| Roadmap | `96977f7ef7a701e93b2989a3f655e1f987971cca0563e9dba595b4865be033a0` **PASS** |
-| db.ts / recordHumanDecision / F2 recordDecision / proposalStore / semanticFingerprint / cursorPrepareOnlyProjection | **PASS** (core freeze list) |
-
-Roadmap status remains: **IMPLEMENTED CANDIDATE — READY FOR MORRIS VALIDATION** (≠ VALIDATED BY MORRIS / ≠ MERGED).
-
-## Validation
-
-### Targeted
-
-`m3ExecutionContractPrepare` · `m3RestartProcessProof` · `m3HumanDecisionDurability` · `m3ProductSchemaMigration` · R3 attempt tests — **PASS**
-
-### Full
-
-| Commande | Résultat |
-|----------|----------|
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** (No ESLint warnings or errors) |
-| `npm test` | **1654 passed / 131 skipped / 0 failed** |
-| `npm run build` | **PASS** |
-| `git diff --check` | **PASS** |
-
-## M3 / M4 status
+## Status claims
 
 | Claim | Value |
 |-------|-------|
 | M3 | **IMPLEMENTED CANDIDATE — READY FOR MORRIS VALIDATION** |
-| M3 VALIDATED BY MORRIS | **NO** |
-| M3 COMMITTED / PUSHED / PR / MERGED | **NO** |
-| M4 | **NOT AUTHORIZED** |
-| Cursor REAL | **DISABLED** |
-| Gate D | **NOT_CONSUMED** |
-| Auth/Ack promoted | **NO** |
-| runtime v3 ADOPTED | **NO** |
+| M3 VALIDATED BY MORRIS | NO |
+| M3 COMMITTED / PUSHED / PR / MERGED | NO |
+| M4 | NOT AUTHORIZED |
+| Cursor REAL / Gate D / Auth-Ack / runtime v3 ADOPTED | NO |
 
-## Dettes M3 conservées (non bloquantes validation evidence)
-
-- Fingerprint non régénéré après transition status validate (frozen core)
-- Authority locale temporaire Morris M3 (exit path futur)
-- ProposalStore toujours process-local (by design M3 PREPARE from decisionId)
-
-## Coverage checklist
+## Coverage
 
 | Item | Status |
 |------|--------|
-| modified content useful/full | **YES** |
-| R1 correction proof | **COMPLETE** |
-| R2 E2E proof | **COMPLETE** |
-| R3 scope proof | **COMPLETE** |
-| R4 Git truth | **COMPLETE** |
-| negative tests | **COMPLETE** |
-| full validation | **COMPLETE** |
-| synthesis only | **NO** |
-| review pack verdict | **COMPLETE** |
+| fingerprint correction | COMPLETE |
+| recomputation proof | COMPLETE |
+| restart proof | COMPLETE |
+| scope regularization | COMPLETE |
+| non-regression | COMPLETE |
+| Git truth | COMPLETE |
+| modified content useful/full | YES |
+| synthesis only | NO |
+| review pack verdict | COMPLETE |
 
 ## Verdict
 
-**M3 CORRECTION MICRO-CYCLE PASS —**
-R1 EXECUTIONCONTRACT TRUTHFUL UNRESOLVED SEMANTICS PASS —
-R2 REAL PROPOSAL→GO→RESTART→PREPARE E2E PASS —
-R3 SCOPE REGULARIZED PASS —
-R4 GIT TRUTH PASS —
+**M3 FINAL CORRECTION PASS —**
+SEMANTIC FINGERPRINT LIFECYCLE-STABLE PASS —
+BUILD = VALIDATED RECOMPUTE PASS —
+PROCESS RESTART RECOMPUTE PASS —
+CURSOR PROJECTION FINGERPRINT PASS —
+EXECUTION-SIGNIFICANT DRIFT DETECTION PASS —
+REAL PROPOSAL→GO→RESTART→PREPARE NON-REGRESSION PASS —
+UNRESOLVED SEMANTICS NON-REGRESSION PASS —
+COLLATERAL TEST SCOPE REGULARIZED PASS —
 FULL VALIDATION GREEN —
 M3 VALIDATION EVIDENCE COMPLETE —
 READY FOR CHATGPT RE-VALIDATION / MORRIS VALIDATION GATE
 
-Anti-claims: ≠ M3 VALIDATED BY MORRIS · ≠ M3 COMMITTED · ≠ M3 PUSHED · ≠ M3 PR · ≠ M3 MERGED · ≠ M4 AUTHORIZED · ≠ Cursor REAL · ≠ Gate D · ≠ Auth/Ack promoted · ≠ full runtime durable · ≠ runtime v3 ADOPTED
+Anti-claims: ≠ M3 VALIDATED BY MORRIS · ≠ M3 COMMITTED · ≠ M3 PUSHED · ≠ M3 PR · ≠ M3 MERGED · ≠ M4 AUTHORIZED · ≠ Cursor REAL · ≠ Gate D consumed · ≠ Auth/Ack promoted · ≠ full runtime durable · ≠ runtime v3 ADOPTED
