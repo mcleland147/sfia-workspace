@@ -1,22 +1,21 @@
-# SFIA Studio — Review Pack FULL — Cycle 14 Post-merge — M2
+# SFIA Studio — Review Pack FULL — Cycle 13 PR readiness — M2 Post-merge Roadmap
 
 | Champ | Valeur |
 | --- | --- |
-| **Timestamp** | 2026-08-13 13:43:55 +0200 (Europe/Paris) |
-| **Cycle** | 14 — Post-merge |
+| **Timestamp** | 2026-08-13 18:28:02 +0200 (Europe/Paris) |
+| **Cycle** | 13 — PR readiness |
 | **Profil** | Standard |
 | **Typologie** | DOC / RUN |
-| **Repository** | mcleland147/sfia-workspace |
+| **GO Morris consommé** | COMMIT / PUSH / PR POST-MERGE M2 ROADMAP |
+| **Handoff source** | `c2ba482309c7624dacc5ffb9178ea7b4fbeceeaf` |
 | **Branche** | `docs/sfia-studio-m2-post-merge` |
-| **HEAD / base** | `a9a4765c242948f2287392a2910fb1cd30061a7a` (= origin/main) |
+| **Baseline avant commit** | `a9a4765c242948f2287392a2910fb1cd30061a7a` |
 | **origin/main** | `a9a4765c242948f2287392a2910fb1cd30061a7a` |
-| **PR #339** | MERGED — feat(sfia-studio): deliver M2 cognitive piloting |
-| **M2 head** | `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` |
-| **Merge commit** | `a9a4765c242948f2287392a2910fb1cd30061a7a` |
-| **CI** | SFIA Studio CI **#162** — completed / **success** (run 31695068834) |
-| **Handoff source** | `sfia/review-handoff` @ `1ad4746b44169d777a726fc8ceeed1c663469c40` |
-| **Project commit/push/PR** | **NONE** (interdit ce cycle) |
-| **Branch deletion** | **NONE** — M2 delivery branch retained |
+| **POST_M2_COMMIT** | `d0b95b04c667f0efcc60ce068172980eed1b24a3` |
+| **Commit message** | `docs(sfia-studio): close m2 post-merge roadmap` |
+| **PR** | **#340** — https://github.com/mcleland147/sfia-workspace/pull/340 |
+| **draft** | true |
+| **Merge** | **NOT AUTHORIZED** |
 
 ---
 
@@ -24,252 +23,27 @@
 
 | Check | Résultat |
 | --- | --- |
-| `git fetch origin` | OK |
-| origin/main | `a9a4765c242948f2287392a2910fb1cd30061a7a` |
-| PR #339 state | MERGED |
-| PR head | `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` |
-| mergeCommit | `a9a4765c242948f2287392a2910fb1cd30061a7a` |
-| CI #162 | completed / success / headSha = M2 head |
-| handoff tip | `1ad4746b44169d777a726fc8ceeed1c663469c40` |
-| remote `docs/sfia-studio-m2-post-merge` | ABSENT (pré-création) |
-| versioned dirty | clean (only `?? .tmp-sfia-review*`) |
-| branch created | `git switch -c docs/sfia-studio-m2-post-merge origin/main` → HEAD = merge SHA |
-
-Verdict Local Git Truth: **PASS**
+| branch | docs/sfia-studio-m2-post-merge |
+| HEAD pré-commit | a9a4765c… |
+| origin/main | a9a4765c… |
+| tracked scope | unique Roadmap |
+| +45/−40 | PASS |
+| staged pré | vide |
+| remote docs absente | PASS |
+| handoff c2ba482 | PASS |
+| gh auth | PASS |
 
 ---
 
-## 2. Convergence Pre-check
+## 2. Diff vs handoff c2ba482
 
-| Élément | État |
-| --- | --- |
-| Build Doctrine | VALIDATED — ACTIVE ON MAIN |
-| G0-A / G0-B | ADOPTED / CONSUMED |
-| M1 | MERGED ON MAIN — EXIT PROOF SATISFIED |
-| M2 validation | VALIDATED BY MORRIS |
-| M2 Git | MERGED ON MAIN (PR #339 / a9a4765…) |
-| M2 exit evidence | schema m2-0.1.0 · CycleInstance · Cycle/LPS/CKC · live ContextSnapshot · restart A→B · Critical safety · R1/R2 CLOSED · 1636/131/0 · CI #162 · PR merged |
-| Actifs | T-A1 KEEP COMPLETE · T-A2 Cycle COMPLETE M2 · F1/F2 KEEP/ADAPT · CKC KEEP · Product SQLite KEEP · conversation/proposal process-local · Trajectory/Epistemic Memory |
-| Next | M3 — NOT AUTHORIZED — MORRIS GO REQUIRED |
-| runtime v3 | NON ADOPTED |
-| Cursor REAL / Gate D | DISABLED / NOT AUTHORIZED / NOT CONSUMED |
+- Cycle 14 claims / M2 status / M3 NOT AUTHORIZED / DOC-DEBT / anti-claims : **PASS**
+- Roadmap freeze SHA-256 `ea4173a5d62447433ea36b982f8a5456a7aa50318bd47b6d8635ebc98bc68368` inchangé jusqu’au commit : **PASS**
+- Embedded handoff ```diff``` fence was truncated in Cycle 14 pack ; content truth = frozen file + claim checklist (no editorial rewrite this cycle)
 
 ---
 
-## 3. Roadmap avant — claims stale (pré-alignement)
-
-Sur main merge (contenu M2 PR encore en statut pré-merge) :
-
-- Timestamp : PR INTEGRATION PENDING
-- Anti-claims : IMPLEMENTED CANDIDATE — PR INTEGRATION PENDING (≠ MERGED ON MAIN)
-- B3 : snapshot `c6925954…` ; T-A2 « PR pending »
-- B4 T-A2 : ADAPT / COMPLETE (CycleInstance UI non branché) — stale
-- B5 : CLOSED (M2 candidate)
-- B6 open gates : M2 encore listé comme open avec merge NOT AUTHORIZED
-- M2 milestone : Commit/PR AUTHORIZED · Merge NOT AUTHORIZED · Statut PR INTEGRATION PENDING
-- B10 : M2 encore chantier PR INTEGRATION PENDING
-
----
-
-## 4. Unique WRITE file
-
-`projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-Diff stat: **1 file changed, 45 insertions(+), 40 deletions(-)**
-
-`git diff --check` PASS · staged vide · aucun app/framing/Build Doctrine/G0/method/prompt/CI
-
----
-
-## 5. Sections Roadmap alignées (contenu utile)
-
-```markdown
-# SFIA Studio Convergence Roadmap
-
-| Métadonnée | Valeur |
-| --- | --- |
-| **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
-| **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-| **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
-| **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
-| **Snapshot Git** | origin/main @ `a9a4765c242948f2287392a2910fb1cd30061a7a` |
-| **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
-| **Timestamp maintenance** | 2026-08-13 — M2 VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED |
-| **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
-| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS |
-| **Sources** | Git `main` · PR #337 · CI #158 · PR #339 · CI #162 · handoff M2 PR-readiness `1ad4746b44169d777a726fc8ceeed1c663469c40` · decision pack G0 · framing `30`–`37` · code M2 on main `projects/sfia-studio/app/**` |
-| **Anti-claims** | G0-A/G0-B **consommés** · M1 **mergé** · M2 **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** · ≠ runtime v3 ADOPTED · ≠ Cursor REAL authorized · ≠ Gate D consumed · ≠ Auth/Ack promoted · ≠ M3 authorized · ≠ full OA durable |
-
-### Sur main (`a9a4765c242948f2287392a2910fb1cd30061a7a`)
-
-| Capacité | État observé |
-| --- | --- |
-| `/studio` Project create/view | WIRED — **Product SQLite T-A1 — MERGED ON MAIN** (PR #337) |
-| F1 Nora chat | WIRED — contextual assistant |
-| F2 qualification / proposal / Morris gate | WIRED — qualification + **real CycleInstance** + live post-mutation `F2ContextSnapshot` ; conversation/proposal **process-local** ; demo authority |
-| F3 T-A4→T-A5→T-A6 | WIRED — **FIXTURE ONLY** (`TestExecutionAdapter`) |
-| Evidence UI reinjection | WIRED — DTO panel ; **pas** LPS write-back |
-| OPS1 Cursor REAL | EXISTS — UI `/ops1` parallèle ; flag `OPS1_CURSOR_REAL` |
-| D1 SQLite projects | EXISTS — UI `/projects` parallèle |
-| execution-run D2-D | EXISTS — **non** branché F1–F3 |
-| FinOps Postgres | EXISTS — transverse ; ≠ Product persistence |
-| Product persistence | **SELECTED / ACTIVE** — `node:sqlite` OA Product Store (G0-B) · Project/LPS **+** CycleInstance M2 subset · **≠** persistence de tout le runtime |
-| Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
-| Project/LPS restart safety | **PROVEN / MERGED** (process A→B + CI #158) |
-| Autres OA (T-A2 CycleInstance M2 subset) | **Product SQLite — MERGED ON MAIN** (PR #339) — Cycle/LPS/CKC linkage durable + restart-safe (subset M2) |
-| Autres OA (T-A2 trajectory/epistemic ; T-A3…T-A6) | **Memory partiel** — process-local (HD / ExecutionContract / Attempt / Evidence / Trajectory/Epistemic **non durables**) |
-| Cursor REAL depuis Nora | **0** / DISABLED |
-| Gate D | **NOT CONSUMED** |
-## B4. Asset disposition matrix (actuelle)
-
-Légende : classifications = **recommandations de convergence** jusqu’à validation Morris, sauf KEEP factuel d’usage main.
-
-| Actif | Preuve | Classification | Justification courte |
-| --- | --- | --- | --- |
-| T-A0 Doctrine | `lib/oa/doctrine` + project create | **KEEP** | Appelé ; DoctrinePackage cible F03 |
-| T-A1 Project/LPS | Product SQLite + `/studio` (PR #337) | **COMPLETE** (M1) / **KEEP** backbone | Durable + restart-safe on main |
-| T-A2 Cycle/CKC | Product SQLite CycleInstance + F2/CKC/LPS linkage (PR #339) | **COMPLETE** (M2) / **KEEP** backbone | CycleInstance durable + restart-safe on main ; Trajectory/Epistemic restent Memory |
-| T-A3 HD/Confirm/Authority | Memory + F2 decide | **COMPLETE** | Backbone ; manque durable + autorité réelle |
-| T-A4 ExecutionContract | F3 prepare/confirm | **KEEP** / **COMPLETE** | Consommable ; path REAL + durable manquent |
-| T-A5 Attempt/Adapter port | F3 fixture adapter | **ADAPT** / **HARVEST** | Port OK ; adapter REAL à harvest OPS1 |
-| T-A6 Evidence/ReviewBundle | F3 ingest + UI cards | **COMPLETE** | UI reinjection ; LPS write-back manquant |
-| T-A7 readiness/HARD rails | `platform/t-a7` | **KEEP** | Honesty rails |
-| Shared platform AI | `lib/platform` | **KEEP** | Substrate F1 |
-| F1 / F2 / F3 UI | `features/project-assistant` | **KEEP** / **ADAPT** | Remplacer demo/fixture bindings progressivement |
-| vertical-slice-runtime | `wireOaStack` | **KEEP** / **ADAPT** | Composition root Studio |
-| OPS1 Cursor/worktree/report | `lib/ops1` | **HARVEST** (+ **FREEZE** UI growth **RECOMMENDATION**) | Capacité Cursor réelle isolable |
-| execution-run | `lib/oa/execution-run` | **FREEZE** (**RECOMMENDATION**) | Parallèle ; non F3 chain |
-| D1 `/projects` | `lib/d1` | **FREEZE** / **RETIRE LATER** (**RECOMMENDATION**) | Parallèle durable |
-| FinOps | `lib/oa/finops` | **KEEP** isolé + **FREEZE** lots non bloquants (**RECOMMENDATION**) | Transverse cost ≠ Product persistence |
-| Auth.js / Critical Ack candidate | dirty only | **COMPLETE** (après GO promotion) | Prérequis REAL Critical |
-| Persistence Memory OA | factories Memory* (trajectory/epistemic ; T-A3…T-A6) | **REPLACE** progressif (T-A1 + T-A2 Cycle subset = SQLite Product **MERGED**) | HD/contract/attempt/evidence/trajectory restent process-local ; milestones ultérieurs |
-
-
-| Gap | Statut | Bloque |
-| --- | --- | --- |
-| Project/LPS durable | **MERGED ON MAIN — EXIT PROOF SATISFIED** (PR #337) | — |
-| GuidedSession / historique durable | PARTIAL / MISSING — **DEFERRED** (dette optionnelle Roadmap) | usage quotidien / milestone ultérieur |
-| CycleInstance réel lié F2 | **CLOSED ON MAIN — M2** (PR #339) — Product SQLite + F2 wire + restart proof | — |
-| HumanDecision durable/authoritative | PROCESS_LOCAL / demo | M3, Gate D |
-| CKC ↔ cycle binding | **CLOSED ON MAIN — M2** — `ckcResolutionRef` projection on LPS | — |
-| live contextSnapshot | **CLOSED ON MAIN — M2** — `F2ContextSnapshot` post-mutation (pas nouvel aggregate durable) | — |
-| ExecutionContract from real HD | FIXTURE path only | M3/M4 |
-| Cursor projection canonique | PARTIAL | M3/M4 |
-| Cursor REAL behind T-A5 | MISSING on Nora | M4 |
-| Critical Ack UI | CANDIDATE unwired | M4 |
-| Evidence durable | MISSING | M5 |
-| ReviewBundle → LPS writeback | MISSING | M5/M6 |
-| Nora post-exec analysis | PARTIAL (UI cards) | M5 |
-| Restart safety Studio core | **PARTIAL** — Project/LPS + CycleInstance M2 subset **restart-safe on main** ; conversation/proposal/HD/T-A3…T-A6 Memory | M3+ |
-| IAM/authz product-grade | PARTIAL (candidate Auth.js) | M4/M8 |
-
-### Preuve / milestone intégrée (≠ nouvelle décision d’architecture)
-
-- **M1** PR #337 merged on main @ `c6925954a7aa86f34c9fcd6f7babf0336014eba3`
-- head M1 `5cbda862885b36658fc7f2b33a20311611da969e` · CI SFIA Studio **#158** SUCCESS
-- exit proof Project/LPS (create → process restart → same Project/LPS/context/doctrine digest) **SATISFIED**
-- **M2** **VALIDATED BY MORRIS** · PR #339 merged on main @ `a9a4765c242948f2287392a2910fb1cd30061a7a`
-- head M2 `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` · CI SFIA Studio **#162** SUCCESS
-- exit proof Cycle/LPS/CKC + live ContextSnapshot + restart A→B + R1/R2 **SATISFIED**
-- merge gate M2 **CLOSED**
-
-### Décisions / gates toujours ouverts (non tranchés ici)
-
-1. Promotion Auth.js / Critical Ack candidate — **Decision Required**
-2. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
-3. Disposition OPS1 / D1 / execution-run — **Decision Required**
-4. **M3 Delivery** — **NOT AUTHORIZED — MORRIS GO REQUIRED**
-| **Next** | M3 *(M2 SATISFIED)* |
-| **Statut** | **MERGED ON MAIN — EXIT PROOF SATISFIED** |
-
-### Milestone 2 — Pilotage cognitif v3 utilisable
-
-| Champ | Contenu |
-| --- | --- |
-| **ID** | M2 |
-| **Capacité v3** | V3-F01 CKC · F03 DoctrinePackage · F04 épistémologie (base) · F05 chaîne cognitive |
-| **Outcome** | Dialogue Nora dans un projet durable ; qualification cycle ; LPS actualisé sans wizard rigide |
-| **État actuel** | **On main** — F1/F2 wired ; CycleInstance Product SQLite + LPS linkage + live `F2ContextSnapshot` post-mutation (PR #339) |
-| **Actifs** | T-A1 KEEP · T-A2 Cycle **COMPLETE** (subset) · F1/F2 ADAPT · CKC qualify KEEP · shared RuntimeOaStack |
-| **Gaps fermés on main** | CycleInstance wire F2 · CKC↔cycle `ckcResolutionRef` · live ContextSnapshot · LPS N→N+1 · restart process A→B · R1 concurrency · R2 scope |
-| **Dette restante** | conversation/proposal process-local ; Trajectory/Epistemic Memory ; DOC-DEBT-M1-01 ouvert |
-| **Dépendances** | M1 — **SATISFIED** |
-| **Delivery authorization** | **CONSUMED** — GO Morris M2 (Delivery) |
-| **Validation gate** | **CONSUMED** — GO MORRIS — VALIDATE M2 + COMMIT / PUSH / PR (2026-08-13) |
-| **Commit / push / PR** | **CONSUMED** — PR #339 |
-| **Merge** | **CLOSED** — PR #339 MERGED @ `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI #162 SUCCESS |
-| **Preuve e2e** | conversation → qualification → Cycle durable → LPS N+1 → proposal ContextSnapshot live → visible `/studio` · process restart PASS · R1 AsyncLocalStorage concurrency PASS · R2 test-scope SHA frozen · PR #339 · merge `a9a4765…` · CI #162 SUCCESS |
-| **Next** | M3 — **NOT AUTHORIZED — MORRIS GO REQUIRED** |
-| **Statut** | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
-
-### Milestone 3 — Gouvernance humaine + préparation réelle
-
-| Champ | Contenu |
-| --- | --- |
-| **ID** | M3 |
-| **Capacité v3** | V3-F05 chaîne · HumanDecision · ExecutionContract (F12 réversibilité) |
-| **Outcome** | Options/reco → Morris décide → decisionRef durable → ExecutionContract exact + projection Cursor |
-| **État actuel** | F2 demo authority ; F3 fixture prepare |
-| **Actifs** | T-A3/T-A4 ; F2/F3 UI |
-| **Gaps** | L2 durable HD ; L3 proposal binding ; L8 REAL contract fields ; autorité non-demo |
-| **Dépendances** | M1–M2 — **SATISFIED** ; IAM minimal |
-| **Delivery authorization** | **NOT AUTHORIZED — MORRIS GO REQUIRED** |
-| **Preuve e2e** | GO Morris → HD accepted/current survive restart → contract fingerprint stable |
-| **Statut** | **PARTIAL** — **NEXT CAPABILITY** (≠ authorized) |
-| **Anti-claim** | Ce milestone **ne préjuge pas** des critères non décidés et **n’autorise pas** le claim ADOPTED |
-| **Statut** | **NOT STARTED** |
-
-## B9. Matrice de couverture doctrine V3-F01…F15
-
-| Fondation | Capacité | État courant | Milestone(s) | Preuve attendue | Gap / décision |
-| --- | --- | --- | --- | --- | --- |
-| V3-F01 CKC | Qualification cognitive | **PARTIAL RUNTIME** — F2 qualify + CycleInstance/CKC binding **on main** (M2) ; proposal process-local | M2, M7 | CKC lié cycle + proposal | proposal durable later |
-| V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — T-A1 Project/LPS durable SQLite **merged on main** ; writeback / autres états associés restent à compléter (M5+) | M1, M5 | M1 / PR #337 / restart proof | writeback + autres OA |
-| V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle | M5 | completeness checks | durable evidence |
-| V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 | M8 | anti-claim maturity | no false READY |
-
-## B10. Chemin critique explicite
-
-```text
-CRITICAL PATH:
-  M1 durable Project/LPS — SATISFIED / MERGED ON MAIN (PR #337 @ c6925954…)
-  → M2 Nora contextuel durable — VALIDATED BY MORRIS / MERGED ON MAIN / EXIT PROOF SATISFIED (PR #339 @ a9a4765…)
-  → M3 HD durable + ExecutionContract exact
-  → M4 Cursor REAL borné (T-A5+harvest+Ack+Gate D)
-  → M5 Evidence/ReviewBundle + LPS writeback
-  → M6 boucle complète sans copier-coller
-
-NEXT CAPABILITY: M3 — NOT AUTHORIZED — MORRIS GO REQUIRED
-
-TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
-FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
-DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack promotion
-G0 CONSUMED: Option 1 ADOPTED · Product persistence node:sqlite ADOPTED
-M2 MERGE GATE: CLOSED
-```
-
-## B10b. Dette documentaire post-M1
-
-| Id | Observation | Impact | Classification | Owner / gate | Exit |
-| --- | --- | --- | --- | --- | --- |
-| **DOC-DEBT-M1-01** | Framing `32` métadonnées/maturité indiquent encore « persist runtime non migrée / schemas persist non créés » alors que T-A1 Project/LPS **et** T-A2 CycleInstance M2 subset SQLite sont **mergés** sur main | Risque de lecture contradictoire doctrine cible vs preuve runtime courante (dette plus visible post-M2) | documentation freshness debt | Morris — modification framing v3 = cycle + GO dédié | Cycle documentaire dédié corrigeant **uniquement** l’état factuel sans changer doctrine V3-F02/F06/F09 |
-
-**Anti-claim :** DOC-DEBT-M1-01 ≠ blocker M3 automatique · ≠ autorisation de modifier `32` dans ce cycle · ≠ claim runtime v3 ADOPTED.
-
-Mettre à jour après : décision Morris structurante · milestone obtenue · nouvelle preuve · changement de dépendance · architecture validée · réserve bloquante · post-merge structurant.
-Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
-
-## Références
-
-- Build Doctrine : [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md)
-- G0 decision pack : [`sfia-studio-g0-architecture-persistence-decision-pack.md`](./sfia-studio-g0-architecture-persistence-decision-pack.md)
-- M1 : PR #337 · merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI #158 · handoff `84330e34461bbd35adc7baa14fabe993baf24288`
-
-```
-
----
-
-## 6. Diff complet Roadmap
+## 3. Exact Roadmap diff (commit)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -511,72 +285,72 @@ index e3b5b06..d04f7d1 100644
 
 ---
 
-## 7. Statuts post-alignement
+## 4. Staging / commit / push / PR
 
-| Claim | Valeur |
+| Step | Proof |
 | --- | --- |
-| Snapshot Git | origin/main @ `a9a4765c242948f2287392a2910fb1cd30061a7a` |
-| M2 status | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
-| M2 merge gate | **CLOSED** |
-| Gaps M2 fermés on main | CycleInstance lié F2 · CKC↔cycle · live ContextSnapshot |
-| Dettes restantes | conversation/proposal process-local · Trajectory/Epistemic Memory · HD process-local · DOC-DEBT-M1-01 · Auth/Ack · Cursor REAL/Gate D · OPS1/D1/execution-run · runtime v3 NON ADOPTED |
-| M3 | **NEXT CAPABILITY** · **NOT AUTHORIZED — MORRIS GO REQUIRED** |
-| DOC-DEBT-M1-01 | conservée ; plus visible post-M2 ; ≠ blocker M3 ; framing `32` **non modifié** |
-| runtime v3 | NON ADOPTED |
+| `git add --` Roadmap only | PASS |
+| cached name-status | M roadmap only |
+| cached --check | PASS |
+| unstaged tracked | empty |
+| commit | `d0b95b04c667f0efcc60ce068172980eed1b24a3` |
+| message | docs(sfia-studio): close m2 post-merge roadmap |
+| commit scope | 1 file · +45/−40 |
+| push -u | PASS · no force |
+| LOCAL=REMOTE | `d0b95b04c667f0efcc60ce068172980eed1b24a3` |
+| PR create draft | #340 |
+| title | docs(sfia-studio): close M2 post-merge roadmap |
+| base/head | main / docs/sfia-studio-m2-post-merge |
+| headRefOid | d0b95b04… |
+| PR files | roadmap only — PASS |
+| checks (one shot) | Detect SFIA Studio changes **pending** |
+| ready-for-review | non |
+| merge | non |
+| branch deletion | non — delivery M2 + docs post-merge retained |
+
+---
+
+## 5. Status claims in published commit
+
+| Claim | Value |
+| --- | --- |
+| M2 | VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED |
+| M2 merge gate | CLOSED |
+| M3 | NEXT CAPABILITY — NOT AUTHORIZED — MORRIS GO REQUIRED |
+| DOC-DEBT-M1-01 | OPEN |
 | Cursor REAL | DISABLED / NOT AUTHORIZED |
 | Gate D | NOT CONSUMED |
+| runtime v3 | NON ADOPTED |
+
+Remaining debts: conversation/proposal process-local · HD process-local · Trajectory/Epistemic Memory · Auth/Ack · Cursor REAL/Gate D · OPS1/D1/execution-run dispositions.
 
 ---
 
-## 8. Anti-claims scan
-
-Occurrences intentionnelles (négations) :
-
-- `≠ runtime v3 ADOPTED` (anti-claims + DOC-DEBT)
-- Aucun : PR INTEGRATION PENDING · CLOSED (M2 candidate) · M3 AUTHORIZED · FULLY_DURABLE · PRODUCT_READY · RUN_READY · Gate D CONSUMED · Cursor REAL AUTHORIZED
-
----
-
-## 9. Actions projet
-
-| Action | Statut |
-| --- | --- |
-| project `git add` / commit | **NONE** |
-| push `docs/sfia-studio-m2-post-merge` | **NONE** |
-| `gh pr create` | **NONE** |
-| merge | **NONE** |
-| delete `delivery/sfia-studio-m2-cognitive-piloting` | **NONE** — retained ; no cleanup authorized |
-| Review Handoff L3 only | **YES** (this pack) |
-
----
-
-## 10. Coverage
+## 6. Coverage
 
 | Coverage | Status |
 | --- | --- |
-| created files | none |
 | modified content useful/full | YES |
 | scope proof | COMPLETE |
-| Git merge proof | COMPLETE |
-| Roadmap alignment proof | COMPLETE |
+| commit proof | COMPLETE |
+| push proof | COMPLETE |
+| PR proof | COMPLETE |
 | synthesis only | NO |
 | review pack verdict | **COMPLETE** |
 
 ---
 
-## 11. Verdict
+## 7. Verdict
 
-**M2 POST-MERGE TRACE READY —**
-**MAIN ALIGNED AT a9a4765c —**
-**M2 VALIDATED BY MORRIS —**
-**M2 MERGED ON MAIN —**
-**EXIT PROOF SATISFIED —**
-**ROADMAP ALIGNED —**
-**M2 MERGE GATE CLOSED —**
-**M3 IDENTIFIED AS NEXT CAPABILITY —**
-**M3 NOT AUTHORIZED —**
-**MORRIS COMMIT GATE REQUIRED**
+**M2 POST-MERGE ROADMAP COMMITTED —**
+**POST-MERGE BRANCH PUSHED —**
+**DRAFT PR CREATED AND REMOTE VERIFIED —**
+**CHECKS PENDING —**
+**MERGE NOT AUTHORIZED —**
+**M3 NOT AUTHORIZED**
 
-Ce verdict ≠ commit Roadmap · ≠ push branche post-merge · ≠ PR post-merge · ≠ M3 · ≠ HD durable · ≠ Cursor REAL · ≠ Gate D · ≠ Auth/Ack · ≠ runtime v3 ADOPTED.
+runtime v3 = NON ADOPTED
+Cursor REAL = DISABLED / NOT AUTHORIZED
+Gate D = NOT CONSUMED
 
 Instruction ChatGPT: avant analyse, lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
