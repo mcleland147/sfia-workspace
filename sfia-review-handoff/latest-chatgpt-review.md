@@ -4,46 +4,37 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure/fuseau** | 2026-08-14 00:13:05 +0200 (CEST) |
+| **Date/heure/fuseau** | 2026-08-14 00:30:28 +0200 (CEST) |
 | **Niveau** | FULL |
-| **Cycle** | 6 — Architecture technique |
+| **Cycle** | 13 — PR readiness |
 | **Profil** | Critical |
 | **Typologie** | DOC |
-| **GO Morris** | **GO — ADOPT M4 ARCHITECTURE TRAJECTORY** (**consommé**) |
-| **Decisions** | D-M4-01→05 **ADOPTED** (no longer Recommendations) |
+| **GO Morris** | **GO MORRIS — COMMIT / PUSH / PR M4 ARCHITECTURE ROADMAP** (**consommé**) |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Worktree** | `.../worktrees/sfia-studio-m4-architecture-decisions` |
+| **Worktree** | `.../sfia-studio-m4-architecture-decisions` |
 | **Branch** | `docs/sfia-studio-m4-architecture-decisions` |
-| **HEAD/base** | `607763d9a1349d6b48633d8763f75ae3c07c84fc` (= origin/main) |
+| **Base / parent** | `607763d9a1349d6b48633d8763f75ae3c07c84fc` |
+| **Docs commit** | `80a4bde46e08740809f8965c7232c61d47e8516b` |
 | **origin/main** | `607763d9a1349d6b48633d8763f75ae3c07c84fc` |
-| **Handoff source** | `366726945f8f533d958c82b7251edb1a5a4b45f0` |
-| **Project commit/push/PR** | **NONE** |
-| **Cursor REAL** | **NOT ENTERED** |
-| **Gate D** | **NOT CONSUMED** |
+| **Handoff source** | `91ca25e1205575ab656791384f46042694a290b4` |
+| **PR** | #343 — https://github.com/mcleland147/sfia-workspace/pull/343 |
+| **Merge** | **NOT AUTHORIZED** |
 
-## Local Git Truth
+## Local Git Truth (before stage)
 
 | Check | Result |
 |-------|--------|
+| branch | `docs/sfia-studio-m4-architecture-decisions` |
+| HEAD | `607763d9a1349d6b48633d8763f75ae3c07c84fc` |
 | origin/main | `607763d9a1349d6b48633d8763f75ae3c07c84fc` |
-| handoff tip before publish | `366726945f8f533d958c82b7251edb1a5a4b45f0` |
-| remote docs branch | ABSENT |
-| target branch created from main | YES — clean |
-| tracked modified | Roadmap only |
-| staged | empty |
-| f3-real-prerequisites candidate | left intact (not checked out / not mutated) |
+| handoff tip | `91ca25e1…` |
+| remote docs | ABSENT |
+| existing PR | NONE |
+| tracked modified | Roadmap only (+86/−39) |
+| local vs handoff diff | **DIFF_MATCH** (sha `be6b7ce0c0a5c86e`) |
+| content freeze | RESPECTED |
 
-## Decisions consumed (exact)
-
-| ID | Adopted content |
-|----|-----------------|
-| D-M4-01 | L6 Option B — fixture port KEEP externalEffects:false ; specialized REAL OA boundary at Delivery ; StartExecution sole sequencer ; no OPS1 product runtime coupling |
-| D-M4-02 | Technical durable CREATED/LAUNCHED journal TEMPORARY WITH EXIT ; no auto-relaunch ; ≠ Product Store |
-| D-M4-03 | Bounded read-only REAL AgentCapability ; immutable deny-by-default registry |
-| D-M4-04 | Gate D GD-1 durable bound grant ; pre-launch check ; consume with CREATED ; fail-closed stale/expired |
-| D-M4-05 | L7-1 — Ack/Auth.js deferred for first RO ; not promoted ; future N2/N3/IAM gate |
-
-## Roadmap metadata (after)
+## Roadmap metadata
 
 ```markdown
 # SFIA Studio Convergence Roadmap
@@ -64,73 +55,7 @@
 
 ```
 
-## B3 (after — utile)
-
-```markdown
-## B3. Point de départ factuel
-
-### Sur main (`607763d9a1349d6b48633d8763f75ae3c07c84fc`)
-
-| Capacité | État observé |
-| --- | --- |
-| `/studio` Project create/view | WIRED — **Product SQLite T-A1 — MERGED ON MAIN** (PR #337) |
-| F1 Nora chat | WIRED — contextual assistant |
-| F2 qualification / proposal / Morris gate | WIRED — qualification + **real CycleInstance** + live post-mutation `F2ContextSnapshot` ; conversation/proposal **process-local** ; M3 GO path uses server-owned temporary local Morris authority (fail-closed) |
-| F3 / M3 PREPARE | WIRED — **M3 Product path** : HumanDecision durable → ExecutionContract durable → Cursor PREPARE-only projection ; **fixture historique/test** (`TestExecutionAdapter`) conservé ≠ chemin REAL |
-| Evidence UI reinjection | WIRED — DTO panel ; **pas** LPS write-back |
-| OPS1 Cursor REAL | EXISTS — UI `/ops1` parallèle ; flag `OPS1_CURSOR_REAL` |
-| D1 SQLite projects | EXISTS — UI `/projects` parallèle |
-| execution-run D2-D | EXISTS — **non** branché F1–F3 |
-| FinOps Postgres | EXISTS — transverse ; ≠ Product persistence |
-| Product persistence | **SELECTED / ACTIVE** — `node:sqlite` OA Product Store (G0-B) · Project/LPS + CycleInstance M2 subset + HD/ExecutionContract M3 · **≠** persistence de tout le runtime |
-| Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
-| Project/LPS restart safety | **PROVEN / MERGED** (process A→B + CI #158) |
-| Autres OA (T-A2 CycleInstance M2 subset) | **Product SQLite — MERGED ON MAIN** (PR #339) — Cycle/LPS/CKC linkage durable + restart-safe (subset M2) |
-| Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5…T-A6) | **Memory partiel** — process-local |
-| Autres OA (T-A3 HD) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) ; Confirmation reste Memory/process-local |
-| Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only ; no Attempt/REAL |
-| Architecture M4 | **DECIDED / DELIVERY PENDING** — D-M4-01→05 **ADOPTED BY MORRIS** ; code REAL **NOT IMPLEMENTED** on main |
-| T-A5 REAL (Nora/Studio) | **MISSING ON MAIN** — fixture adapters only (`externalEffects:false`) |
-| Cursor REAL depuis Nora | **0** / DISABLED |
-| Gate D | **NOT CONSUMED** (model **ADOPTED** by D-M4-04 — **NOT IMPLEMENTED**) |
-
-### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`)
-
-| Élément | État |
-| --- | --- |
-| Auth.js GitHub + Critical Ack composition | Inspecté (handoff `366726945f…`) ; **pas sur HEAD** ; bundle **NOT promotion-ready** (pre-M3 dirty) |
-| SqliteAuthorityAttemptJournal / CREATED·LAUNCHED wiring | Inspecté ; concept = **HARVEST/ADAPT source** for D-M4-02 ; ≠ Product Store ; **NOT IMPLEMENTED** on main |
-| Classification | Observation / harvest source — **Auth/Ack bundle ≠ promotion** (D-M4-05) ; journal concept **DECIDED** as TEMPORARY WITH EXIT for M4 Delivery future |
-
-### Recommandation d’audit (historique — supersédée)
-
-Option 1 — OA Native Backbone + Harvest OPS1 Cursor était **RECOMMENDATION — NOT DECIDED**.
-**Décision Morris G0-A :** désormais **ADOPTED**.
-
-
-```
-
-## B4 T-A5 / journal / Ack lines (after)
-
-```
-| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** · M4 architecture decided **≠** M4 Delivery authorized · M4 architecture decided **≠** Cursor REAL authorized · Gate D model adopted **≠** Gate D implemented **≠** Gate D consumed · L7-1 adopted **≠** Critical Ack promoted **≠** Auth.js promoted · technical launch journal adopted for M4 **≠** Product Store promotion · ≠ runtime v3 ADOPTED · ≠ full OA durable |
-| Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5…T-A6) | **Memory partiel** — process-local |
-| T-A5 REAL (Nora/Studio) | **MISSING ON MAIN** — fixture adapters only (`externalEffects:false`) |
-| T-A5 Attempt / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` | **KEEP** core lifecycle + **KEEP** zero-effect port | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) |
-| T-A5 specialized REAL boundary | MISSING on main | **ADAPT / COMPLETE in M4 Delivery** | OA-owned `RealExecutionLaunchPort` / `CursorCliLaunchGateway` (or equiv.) — **no** OA→OPS1 product runtime coupling (D-M4-01) |
-| T-A5 launch journal (CREATED/LAUNCHED) | MISSING on main | **TEMPORARY WITH EXIT — DECIDED FOR M4** (D-M4-02) | Technical safety journal ; ≠ Product Store ; ≠ dual product persistence ; exit → Attempt/Evidence durable path M5+ / dedicated Morris gate |
-| AgentCapability REAL RO profile | Fixture agent only | **KEEP** model / **ADAPT** bounded REAL read-only profile (D-M4-03) | Static immutable deny-by-default registry retained ; no live registry for M4 |
-| Auth.js / Critical Ack candidate | dirty only (inspected) | **DEFER for first RO** (D-M4-05) · **NOT PROMOTED** | Not a prerequisite of first M4 read-only proof ; remains candidate for future N2/N3 / IAM gate ; debt **preserved** |
-| Persistence Memory OA | factories Memory* (trajectory/epistemic ; Confirmation ; T-A5…T-A6) | **REPLACE** progressif (T-A1 + T-A2 + T-A3 HD + T-A4 ExecutionContract = SQLite Product **ON MAIN through M3**) | Attempt/Evidence/Trajectory/Confirmation restent process-local ; launch journal future = technical TEMPORARY WITH EXIT (≠ Product Store) |
-| Cursor REAL behind T-A5 | **MISSING ON MAIN** — **ARCHITECTURE DECIDED — DELIVERY GAP OPEN** (D-M4-01→05) | M4 Delivery |
-| **D-M4-02** | Technical durable launch journal CREATED/LAUNCHED — **TEMPORARY WITH EXIT** ; no ambiguous auto-relaunch after restart ; **not** Product Store ; no dual product-state persistence ; exit → Attempt/Evidence durability M5+ / dedicated Morris gate | **ADOPTED** |
-- Auth.js / Critical Ack promotion for elevated classes — open (see D-M4-05)
-| **Outcome** | Action REAL faible risque/read-only depuis Studio via T-A5 + adapter harvesté ; pas de silent REAL→fixture |
-| **Architecture selected (D-M4-01→05)** | specialized REAL OA boundary (Option B) · temporary durable launch journal CREATED/LAUNCHED · bounded RO AgentCapability · durable Gate D GD-1 · L7-1 for first RO |
-| **Actifs** | T-A5 lifecycle **KEEP** · fixture port `externalEffects:false` **KEEP** · OPS1 Cursor primitives **HARVEST** · Gate D model **ADOPTED** · launch journal **DECIDED TEMPORARY WITH EXIT** |
-```
-
-## B6 M4 Architecture Decisions (after — complet)
+## B6 M4 Architecture Decisions (complet)
 
 ```markdown
 ### M4 Architecture Decisions — CONSUMED BY MORRIS
@@ -164,7 +89,7 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
 
 ```
 
-## Milestone 4 (after — complet)
+## Milestone 4 (complet)
 
 ```markdown
 ### Milestone 4 — Première exécution Cursor REAL bornée depuis Studio
@@ -186,7 +111,7 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
 
 ```
 
-## B10 Critical path (after — complet)
+## B10 Critical path (complet)
 
 ```markdown
 ## B10. Chemin critique explicite
@@ -473,62 +398,203 @@ index 9b29254..0093edf 100644
 
 ```
 
-## Contradiction Ack scan
+## Staging / commit
 
-| Check | Result |
-|-------|--------|
-| prior absolute promotion Ack first-RO dependency removed | YES |
-| supersession D-M4-05 traced | True |
-| first RO NOT REQUIRED Ack | True |
-| residual bad absolute patterns | NONE |
-| Ack/Auth debt preserved | YES (DEFER / NOT PROMOTED / future N2/N3/IAM) |
+| Item | Value |
+|------|-------|
+| staged path | Roadmap only |
+| commit message | `docs(sfia-studio): record m4 architecture decisions` |
+| commit SHA | `80a4bde46e08740809f8965c7232c61d47e8516b` |
+| parent | `607763d9a1349d6b48633d8763f75ae3c07c84fc` |
+| files | 1 |
+| stat | 86 insertions(+), 39 deletions(-) |
 
-## Debts preserved
+## Push
 
-conversation/proposal process-local · Confirmation process-local · Attempt/Evidence Memory · Trajectory/Epistemic Memory · LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT · Auth.js/IAM · Critical Ack N2/N3 future · launch journal TEMPORARY WITH EXIT · DOC-DEBT-M1-01 · OPS1/D1/execution-run disposition · M5 Evidence→LPS · Nora post-exec M5
+| Item | Value |
+|------|-------|
+| remote before | ABSENT |
+| remote after | `80a4bde46e08740809f8965c7232c61d47e8516b` |
+| LOCAL == REMOTE | YES |
+| force | NONE |
 
-## Gates remaining open
+## PR remote verification
 
-M4 Delivery GO · First REAL GO · Gate D consumption · Ack/Auth promotion for N2/N3/IAM · OPS1/D1/execution-run · M5 · runtime v3
+| Item | Value |
+|------|-------|
+| number | 343 |
+| url | https://github.com/mcleland147/sfia-workspace/pull/343 |
+| title | docs(sfia-studio): record m4 architecture decisions |
+| state | OPEN |
+| draft | True |
+| base | main |
+| head | docs/sfia-studio-m4-architecture-decisions |
+| head SHA | 80a4bde46e08740809f8965c7232c61d47e8516b |
+| changed files | 1 |
+| path | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| additions/deletions | 86/39 |
 
-## Git validation
+### PR body (complet)
+
+## Summary
+
+- record Morris-adopted M4 architecture decisions D-M4-01→D-M4-05
+- align Convergence Roadmap before M4 Delivery
+- close the M4 architecture decision gate
+- preserve M4 Delivery and Cursor REAL as separate future gates
+
+## Decisions recorded
+
+D-M4-01
+L6 Option B:
+specialized OA REAL boundary; fixture port remains zero-effect.
+
+D-M4-02
+technical durable CREATED/LAUNCHED launch journal:
+TEMPORARY WITH EXIT;
+not Product Store.
+
+D-M4-03
+first REAL AgentCapability:
+bounded read-only;
+immutable deny-by-default registry.
+
+D-M4-04
+Gate D GD-1:
+durable bound pre-launch grant;
+single-consumption/fail-closed semantics.
+
+D-M4-05
+L7-1:
+Critical Ack/Auth.js deferred for the first weak-risk read-only proof;
+future N2/N3/IAM gate preserved.
+
+## Roadmap impact
+
+- M4 Architecture = DECIDED
+- M4 Delivery = NOT AUTHORIZED
+- next capability = M4 DELIVERY REAL-OFF
+- first REAL requires another Morris gate after Delivery validation
+- Critical Ack promotion no longer blocks the FIRST M4 RO proof
+- Auth/IAM debt remains open
+- crash/replay launch frontier remains NOT IMPLEMENTED
+- Gate D remains NOT IMPLEMENTED / NOT CONSUMED
+- Cursor REAL remains DISABLED
+
+## Evidence
+
+- source architecture handoff:
+  366726945f8f533d958c82b7251edb1a5a4b45f0
+- decision-sync handoff:
+  91ca25e1205575ab656791384f46042694a290b4
+- origin/main base:
+  607763d9a1349d6b48633d8763f75ae3c07c84fc
+- one Roadmap file only
+- git diff --check PASS
+- reviewed local stat:
+  +86 / -39
+
+## Remaining debt
+
+- conversation process-local
+- Proposal process-local
+- Confirmation process-local
+- Attempt Memory
+- Evidence Memory
+- Trajectory/Epistemic Memory
+- LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT
+- Auth.js / product-grade IAM
+- Critical Ack future N2/N3
+- technical launch journal TEMPORARY WITH EXIT
+- OPS1 / D1 / execution-run disposition
+- DOC-DEBT-M1-01
+- M5 Evidence→LPS
+- Nora post-exec M5
+
+## Governance / anti-claims
+
+M4 architecture decided
+≠ M4 Delivery authorized
+
+M4 architecture decided
+≠ Cursor REAL authorized
+
+Gate D model adopted
+≠ Gate D implemented
+≠ Gate D consumed
+
+L7-1 adopted
+≠ Critical Ack promoted
+≠ Auth.js promoted
+
+technical launch journal adopted
+≠ Product Store promotion
+
+Draft PR created
+≠ merge authorized
+
+M4
+≠ runtime v3 ADOPTED
+
+## Merge
+
+NOT AUTHORIZED —
+separate Morris merge gate required.
+
+Made with [Cursor](https://cursor.com)
+
+## CI state
 
 ```
-diff --check: PASS
-name-status:
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+Detect SFIA Studio changes	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/31750199158/job/94613987750
+```
 
-stat:
- .../convergence/sfia-studio-convergence-roadmap.md | 125 ++++++++++++++-------
- 1 file changed, 86 insertions(+), 39 deletions(-)
+**CI verdict:** CHECKS PENDING
 
-status:
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+## Status claims preserved
 
-cached: (empty)
+| Claim | Value |
+|-------|-------|
+| D-M4-01→05 | ADOPTED / preserved |
+| M4 Architecture | DECIDED / GATE CLOSED |
+| M4 Delivery | NOT AUTHORIZED |
+| Cursor REAL | NOT AUTHORIZED |
+| Gate D | MODEL ADOPTED · NOT IMPLEMENTED · NOT CONSUMED |
+| Critical Ack/Auth.js | NOT PROMOTED · DEFERRED FOR FIRST RO |
+| Technical launch journal | DECIDED TEMPORARY WITH EXIT · NOT IMPLEMENTED · ≠ Product Store |
+| M4 exit proof | NOT SATISFIED |
+| M5 | NOT AUTHORIZED |
+| runtime v3 | NON ADOPTED |
+| Debts | PRESERVED |
+| Merge of this docs PR | NOT AUTHORIZED |
+
+## Final git status
+
+```
+?? .tmp-sfia-review/
+
 ```
 
 ## Coverage
 
 | Item | Status |
 |------|--------|
+| scope proof | COMPLETE |
+| commit proof | COMPLETE |
+| remote proof | COMPLETE |
+| PR proof | COMPLETE |
+| CI state | COMPLETE |
 | modified content useful/full | YES |
-| D-M4-01→05 traced | YES |
-| L7 first-RO dependency aligned | YES |
-| debts preserved | YES |
-| commit/push/PR | NONE |
 | synthesis only | NO |
 | Review Pack verdict | COMPLETE |
 
 ## Verdict
 
-**M4 ARCHITECTURE DECISIONS ROADMAP SYNC COMPLETE —**
-D-M4-01 TO D-M4-05 TRACED —
-L7 FIRST-RO DEPENDENCY ALIGNED —
-DEBTS PRESERVED —
-M4 ARCHITECTURE GATE CLOSED —
+**M4 ARCHITECTURE ROADMAP COMMITTED —**
+BRANCH PUSHED AND REMOTE VERIFIED —
+DRAFT PR CREATED —
+PR SCOPE VERIFIED —
+CHECKS PENDING —
+MERGE NOT AUTHORIZED —
 M4 DELIVERY NOT AUTHORIZED —
-CURSOR REAL NOT AUTHORIZED —
-GATE D NOT CONSUMED —
-NO PROJECT COMMIT/PUSH/PR —
-READY FOR CHATGPT REVIEW / MORRIS M4 DELIVERY GATE
+CURSOR REAL NOT AUTHORIZED
