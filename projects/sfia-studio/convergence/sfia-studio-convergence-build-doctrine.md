@@ -24,7 +24,7 @@ Ce document **n’est pas** :
 - une décision d’architecture technique (Option 1 reste **recommandation** jusqu’à GO Morris) ;
 - une sélection Product persistence ;
 - une autorisation Cursor REAL / Gate D ;
-- une instruction projet ChatGPT (couche 1 = PENDING hors ce cycle).
+- le contenu des Instructions projet ChatGPT (couche 1 = **ACTIVE** — couche externe, hors contenu de ce fichier).
 
 ## A2. Finalité
 
@@ -163,7 +163,7 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
 
 | Couche | Rôle | Statut courant |
 | --- | --- | --- |
-| **1. Instructions projet ChatGPT** | Déclenche la consultation | **PENDING — prochaine étape** (hors périmètre) |
+| **1. Instructions projet ChatGPT** | Déclenche la consultation | **ACTIVE** |
 | **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **VALIDATED — ACTIVE ON MAIN** (routing guide + Knowledge Layer) |
 | **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **VALIDATED — ACTIVE ON MAIN** |
 
