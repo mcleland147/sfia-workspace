@@ -18,7 +18,7 @@ import type {
 
 const MAX_HISTORY_MESSAGES = 20;
 const EPHEMERAL_NOTICE =
-  "Conversation éphémère (process-local) — un rechargement ou redémarrage peut effacer l'historique. Aucune persistence produit.";
+  "Conversation éphémère (process-local) — un rechargement peut effacer l'historique. Project/LPS/Cycle linkage M2 reste dans Product SQLite. AUCUNE EXÉCUTION.";
 
 function toContextDto(
   result: Extract<

@@ -20,7 +20,7 @@ function getSlot(): StoreSlot {
 }
 
 export const F2_PROCESS_LOCAL_NOTICE =
-  "Proposition process-local — non persistée. Un redémarrage efface propositions et décisions. Aucune autorisation durable.";
+  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. Aucune autorisation d'exécution durable.";
 
 export function createProposalId(): string {
   return `prop:f2:${randomUUID()}`;

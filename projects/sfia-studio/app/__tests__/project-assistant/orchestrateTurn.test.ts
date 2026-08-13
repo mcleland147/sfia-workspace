@@ -52,7 +52,7 @@ const SUCCESS = {
   },
   disclosures: {
     runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "PARTIAL_PROJECT_LPS_DURABLE" as const,
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DURABLE" as const,
     agentExecution: "DISABLED" as const,
     iam: "NOT_SELECTED" as const,
     productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
@@ -61,6 +61,7 @@ const SUCCESS = {
     localDataVolatile: true as const,
     restartMayLoseState: true as const,
     projectLpsRestartSafe: true as const,
+    cycleInstanceRestartSafe: true as const,
     messages: [] as const,
   },
 };

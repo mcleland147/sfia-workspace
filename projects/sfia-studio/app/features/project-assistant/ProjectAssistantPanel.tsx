@@ -79,7 +79,7 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
   const [error, setError] = useState<string | null>(null);
   const [modeLabel, setModeLabel] = useState("MODE À CONFIRMER");
   const [ephemeralNotice, setEphemeralNotice] = useState(
-    "Conversation éphémère — aucune persistence produit.",
+    "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite.",
   );
   const [f2, setF2] = useState<F2TurnPayload | null>(null);
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
@@ -397,6 +397,25 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
               <dt>Profil recommandé</dt>
               <dd data-testid="f2-profile">{f2.qualification.recommendedProfile}</dd>
             </div>
+            {f2.qualification.cycleInstanceId ? (
+              <div>
+                <dt>CycleInstance</dt>
+                <dd data-testid="f2-cycle-instance">
+                  {f2.qualification.cycleInstanceId}
+                  {f2.qualification.cycleStatus
+                    ? ` · ${f2.qualification.cycleStatus}`
+                    : ""}
+                </dd>
+              </div>
+            ) : null}
+            {f2.qualification.ckcResolutionRef ? (
+              <div>
+                <dt>CKC ref</dt>
+                <dd data-testid="f2-ckc-ref">
+                  {f2.qualification.ckcResolutionRef}
+                </dd>
+              </div>
+            ) : null}
             <div>
               <dt>Rationale</dt>
               <dd data-testid="f2-rationale">{f2.qualification.rationale}</dd>
@@ -460,10 +479,13 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
             </div>
             <div>
               <dt>Contexte</dt>
-              <dd>
+              <dd data-testid="f2-context-snapshot">
                 {activeProposal.contextSnapshot.projectId} /{" "}
                 {activeProposal.contextSnapshot.lpsId}@
                 {activeProposal.contextSnapshot.lpsVersion}
+                {activeProposal.contextSnapshot.activeCycleInstanceId
+                  ? ` · cycle ${activeProposal.contextSnapshot.activeCycleInstanceId}`
+                  : ""}
               </dd>
             </div>
           </dl>

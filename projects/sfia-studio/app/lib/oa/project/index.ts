@@ -30,6 +30,12 @@ export {
 } from "./infrastructure/observability";
 
 export { resolveProductSqlitePath } from "./infrastructure/sqlite/paths";
+export {
+  openProductSqlite,
+  PRODUCT_SCHEMA_VERSION,
+  PRODUCT_SCHEMA_VERSION_M1,
+} from "./infrastructure/sqlite/db";
+export type { ProductSqliteHandle } from "./infrastructure/sqlite/productSqliteHandle";
 export { SqliteProductStore } from "./infrastructure/sqlite/sqliteProductStore";
 export { SqliteProjectRepository } from "./infrastructure/sqlite/sqliteProjectRepository";
 export { SqliteLivingProjectStateRepository } from "./infrastructure/sqlite/sqliteLivingProjectStateRepository";

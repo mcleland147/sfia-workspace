@@ -36,8 +36,10 @@ export interface RuntimeDoctrineState {
 
 export interface RuntimeLivingProjectState {
   readonly id: string;
-  readonly version: 1;
+  readonly version: number;
   readonly createdAt: string;
+  readonly activeCycleInstanceId?: string | null;
+  readonly ckcResolutionRef?: string | null;
 }
 
 export interface RuntimeProjectState {

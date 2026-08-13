@@ -15,6 +15,7 @@ import type { DoctrinePackagePin, ClockPort } from "@/lib/oa/doctrine";
 import {
   createCkcQualificationServices,
   createInMemoryCycleServices,
+  createSqliteCycleServices,
   type CkcQualificationServices,
   type CycleServices,
 } from "@/lib/oa/cycle";
@@ -37,6 +38,7 @@ import {
   type EvidenceReviewServices,
 } from "@/lib/oa/evidence-review";
 import type { ProjectServices } from "@/lib/oa/project";
+import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
 import {
   createAttemptReaderBridge,
   createF3FixtureAgentDescriptor,
@@ -117,7 +119,15 @@ function wireOaStack(
   projectServices: ProjectServices,
   clock: ClockPort,
 ): RuntimeOaStack {
-  const cycleServices = createInMemoryCycleServices({ projectServices, clock });
+  // M2: same Product SQLite store for Project/LPS + CycleInstance when available.
+  const cycleServices =
+    projectServices.store instanceof SqliteProductStore
+      ? createSqliteCycleServices({
+          projectServices,
+          productStore: projectServices.store,
+          clock,
+        })
+      : createInMemoryCycleServices({ projectServices, clock });
   const ckcQualification = createCkcQualificationServices({ clock });
   const authorityResolver = new MemoryAuthorityResolver();
   const decisionServices = createInMemoryDecisionServices({

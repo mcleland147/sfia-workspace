@@ -75,6 +75,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
 
     const allowed = new Set([
       "features/project-assistant/actions.ts:@/lib/vertical-slice-runtime",
+      "features/project-assistant/f2/orchestrateF2.ts:@/lib/vertical-slice-runtime",
       "features/vertical-slice-ui/CreateProjectForm.tsx:@/lib/vertical-slice-runtime/actions",
       "features/vertical-slice-ui/ProjectWorkspaceClient.tsx:@/lib/vertical-slice-runtime/actions",
       "features/vertical-slice-ui/ProjectWorkspaceView.tsx:@/lib/vertical-slice-runtime/actions",
