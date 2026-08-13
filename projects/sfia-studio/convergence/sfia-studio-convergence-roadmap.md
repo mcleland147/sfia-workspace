@@ -3,11 +3,14 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
-| **Statut** | **CANDIDATE — READY FOR MORRIS REVIEW** |
+| **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
 | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
-| **Snapshot Git** | HEAD / origin/main `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
-| **Timestamp** | 2026-08-12 21:53:10 CEST (+0200) |
+| **Snapshot Git** | origin/main @ `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
+| **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
+| **Timestamp maintenance** | 2026-08-13 02:14:45 +0200 (Europe/Paris) |
+| **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
+| **Intégration Git** | PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
 | **Sources** | Git courant · handoff convergence tip `c5b417dc13fa3700787d28571e5b5abe0599ae98` blob `31a5db07fba2555a59ee8c65ad76b537bbd8a73d` · framing `30`–`37` · code `projects/sfia-studio/app/**` |
 | **Anti-claims** | ≠ architecture décidée · ≠ persistence sélectionnée · ≠ v3 runtime ADOPTED · ≠ Cursor REAL authorized |
 
@@ -23,7 +26,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 
 ## B3. Point de départ factuel
 
-### Sur main (`4b1a058050ae81d56cb6d96b88e8a57380799a86`)
+### Sur main (`1d09e4159932b3885817911e10a2d29a82ae9ea7`)
 
 | Capacité | État observé |
 | --- | --- |
@@ -96,15 +99,21 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | Restart safety Studio core | MISSING | M1+ |
 | IAM/authz product-grade | PARTIAL (candidate Auth.js) | M4/M8 |
 
-## B6. Decisions / gates ouverts (non tranchés ici)
+## B6. Decisions / gates
+
+### Décision consommée
+
+- Build Doctrine + Convergence Roadmap = **VALIDATED** construction governance by Morris
+- intégrées sur main via PR #334 (`1d09e4159932b3885817911e10a2d29a82ae9ea7`)
+
+### Décisions / gates toujours ouverts (non tranchés ici)
 
 1. Architecture convergence Option 1 vs 2 — **Decision Required**
 2. Product persistence technology — **NOT_SELECTED**
 3. Promotion Auth.js / Critical Ack candidate — **Decision Required**
 4. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
 5. Disposition OPS1 / D1 / execution-run — **Decision Required**
-6. Adoption explicite de cette Roadmap candidate — **Decision Required**
-7. Couche Instructions ChatGPT update — **PENDING** (cycle séparé)
+6. Couche Instructions ChatGPT update — **PENDING** (cycle séparé)
 
 ## B7–B8. Roadmap capability-driven (milestones)
 
@@ -270,7 +279,7 @@ CRITICAL PATH:
 
 TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
 FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
-DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion · Roadmap adoption · ChatGPT instructions
+DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion · ChatGPT instructions
 ```
 
 ## B11. Freeze / stop-doing (**RECOMMENDATION**)

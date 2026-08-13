@@ -3,14 +3,16 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | **Rôle** | Doctrine de **construction / convergence** de SFIA Studio |
-| **Statut** | **CANDIDATE — READY FOR MORRIS REVIEW** (non promu main / non baseline) |
+| **Statut** | **VALIDATED — ACTIVE ON MAIN** — gouvernance de construction SFIA Studio validée par Morris |
 | **Portée** | Travaux de construction / évolution de **SFIA Studio uniquement** |
 | **Git SoT** | Repository `mcleland147/sfia-workspace` — Git courant prime |
 | **Doctrine produit associée** | SFIA Studio v3 framing `30`–`37` = **CE QUE** Studio doit être |
 | **Roadmap associée** | [`sfia-studio-convergence-roadmap.md`](./sfia-studio-convergence-roadmap.md) = **OÙ** en est la construction |
 | **Processus opérationnel actuel** | SFIA **v2.6** = baseline ChatGPT ↔ Cursor externe |
 | **Runtime v3** | **NON ADOPTED** tant que preuves/gates manquent |
-| **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) |
+| **Snapshot création** | HEAD `4b1a058050ae81d56cb6d96b88e8a57380799a86` · 2026-08-12 21:52:01 CEST (+0200) *(historique)* |
+| **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
+| **Intégration Git** | PR #334 · merge commit `1d09e4159932b3885817911e10a2d29a82ae9ea7` |
 
 ## A1. Anti-claims (ouverts)
 
@@ -159,11 +161,11 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
 
 ## A12. Trois couches de vérification
 
-| Couche | Rôle | Statut après CE cycle |
+| Couche | Rôle | Statut courant |
 | --- | --- | --- |
-| **1. Instructions projet ChatGPT** | Déclenche la consultation | **PENDING — next step** (hors périmètre) |
-| **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **IMPLEMENTED CANDIDATE** (routing guide + Knowledge Layer) |
-| **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **IMPLEMENTED CANDIDATE** |
+| **1. Instructions projet ChatGPT** | Déclenche la consultation | **PENDING — prochaine étape** (hors périmètre) |
+| **2. Repo / Source Routing** | Indique quoi consulter et dans quel ordre | **VALIDATED — ACTIVE ON MAIN** (routing guide + Knowledge Layer) |
+| **3. Template Cursor canonique** | Empêche génération de prompt Studio sans contexte convergence | **VALIDATED — ACTIVE ON MAIN** |
 
 Séquence attendue :
 
