@@ -9,7 +9,7 @@ import type {
   ExecutionContractResult,
   ValidateExecutionContractRequest,
 } from "../domain/types";
-import type { MemoryExecutionContractStore } from "../infrastructure/memoryExecutionContractStore";
+import type { ExecutionContractPersistenceUnitOfWorkPort } from "../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
 import { verifyRequiredAuthority } from "./authorityHelper";
@@ -39,7 +39,7 @@ export class ValidateExecutionContract {
     private readonly authority: AuthorityResolverPort,
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAuditPort,
-    private readonly store?: MemoryExecutionContractStore,
+    private readonly store?: ExecutionContractPersistenceUnitOfWorkPort,
   ) {}
 
   async execute(

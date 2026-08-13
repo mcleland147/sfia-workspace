@@ -20,7 +20,7 @@ function getSlot(): StoreSlot {
 }
 
 export const F2_PROCESS_LOCAL_NOTICE =
-  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. Aucune autorisation d'exécution durable.";
+  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle/HumanDecision/ExecutionContract M3 sont persistés dans Product SQLite. Authority locale TEMPORARY WITH EXIT. Aucune exécution Cursor REAL.";
 
 export function createProposalId(): string {
   return `prop:f2:${randomUUID()}`;

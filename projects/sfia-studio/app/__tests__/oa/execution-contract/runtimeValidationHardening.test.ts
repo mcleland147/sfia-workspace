@@ -384,7 +384,7 @@ describe("T-A4 runtime validation — Confirm Option B + failNextSave", () => {
       confirmationId: "cfm:fail-save",
     });
 
-    stack.execution.store.failNextSave = true;
+    (stack.execution.store as import("@/lib/oa/execution-contract").MemoryExecutionContractStore).failNextSave = true;
     const result = await stack.execution.confirmExecutionContract.execute({
       executionContractId: contractId,
       confirmationId: cfmId,
@@ -426,7 +426,7 @@ describe("T-A4 runtime validation — Confirm Option B + failNextSave", () => {
 
     // Persist (execution store) succeeds; consume (decision store) fails via
     // failNextSave. Option B compensates by cancelling the just-confirmed row.
-    stack.decisions.store.failNextSave = "confirmation";
+    (stack.decisions.store as import("@/lib/oa/decision").MemoryDecisionStore).failNextSave = "confirmation";
     const result = await stack.execution.confirmExecutionContract.execute({
       executionContractId: contractId,
       confirmationId: cfmId,

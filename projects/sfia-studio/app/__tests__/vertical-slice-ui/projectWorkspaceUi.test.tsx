@@ -21,7 +21,7 @@ vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
 vi.mock("@/lib/vertical-slice-runtime/disclosures", () => ({
   RUNTIME_DISCLOSURES: {
     runtimeMode: "LOCAL_PROCESS",
-    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DURABLE",
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
     agentExecution: "DISABLED",
     iam: "NOT_SELECTED",
     productPersistence: "SQLITE_OA_PRODUCT_STORE",
@@ -31,6 +31,8 @@ vi.mock("@/lib/vertical-slice-runtime/disclosures", () => ({
     restartMayLoseState: true as const,
     projectLpsRestartSafe: true as const,
     cycleInstanceRestartSafe: true as const,
+    humanDecisionRestartSafe: true as const,
+    executionContractRestartSafe: true as const,
     messages: [],
   },
   RUNTIME_READINESS_NOT_READY: {
@@ -101,7 +103,7 @@ const SUCCESS_RESULT = {
   },
   disclosures: {
     runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DURABLE" as const,
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
     agentExecution: "DISABLED" as const,
     iam: "NOT_SELECTED" as const,
     productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
@@ -111,6 +113,8 @@ const SUCCESS_RESULT = {
     restartMayLoseState: true as const,
     projectLpsRestartSafe: true as const,
     cycleInstanceRestartSafe: true as const,
+    humanDecisionRestartSafe: true as const,
+    executionContractRestartSafe: true as const,
     messages: [] as const,
   },
 };
@@ -151,7 +155,7 @@ describe("V2-A3 Project Workspace UI", () => {
     expect(screen.getAllByText("NOT_READY").length).toBeGreaterThan(0);
     expect(screen.getAllByText("LOCAL_PROCESS").length).toBeGreaterThan(0);
     expect(
-      screen.getAllByText("PARTIAL_PROJECT_LPS_CYCLE_DURABLE").length,
+      screen.getAllByText("PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE").length,
     ).toBeGreaterThan(0);
     expect(screen.getByText(/AGENT DISABLED/)).toBeVisible();
     expect(

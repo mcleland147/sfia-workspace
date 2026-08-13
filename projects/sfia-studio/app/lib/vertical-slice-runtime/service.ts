@@ -22,10 +22,13 @@ import {
 import {
   MemoryAuthorityResolver,
   createInMemoryDecisionServices,
+  createSqliteDecisionServices,
+  isM3LocalAuthorityEnabled,
   type DecisionServices,
 } from "@/lib/oa/decision";
 import {
   createInMemoryExecutionContractServices,
+  createSqliteExecutionContractServices,
   type ExecutionContractServices,
 } from "@/lib/oa/execution-contract";
 import {
@@ -119,31 +122,54 @@ function wireOaStack(
   projectServices: ProjectServices,
   clock: ClockPort,
 ): RuntimeOaStack {
-  // M2: same Product SQLite store for Project/LPS + CycleInstance when available.
-  const cycleServices =
+  // M2/M3: same Product SQLite store for Project/LPS + Cycle + Decision + Contract.
+  const productSqlite =
     projectServices.store instanceof SqliteProductStore
-      ? createSqliteCycleServices({
-          projectServices,
-          productStore: projectServices.store,
-          clock,
-        })
-      : createInMemoryCycleServices({ projectServices, clock });
+      ? projectServices.store
+      : null;
+  const cycleServices = productSqlite
+    ? createSqliteCycleServices({
+        projectServices,
+        productStore: productSqlite,
+        clock,
+      })
+    : createInMemoryCycleServices({ projectServices, clock });
   const ckcQualification = createCkcQualificationServices({ clock });
   const authorityResolver = new MemoryAuthorityResolver();
-  const decisionServices = createInMemoryDecisionServices({
-    projectServices,
-    cycleServices,
-    clock,
-    authorityResolver,
-  });
+  // M3 authority is fail-closed unless env enabled; registration happens per-scope in F2/F3.
+  void isM3LocalAuthorityEnabled;
 
-  const executionContractServices = createInMemoryExecutionContractServices({
-    projectServices,
-    decisionServices,
-    cycleServices,
-    clock,
-    authorityResolver,
-  });
+  const decisionServices = productSqlite
+    ? createSqliteDecisionServices({
+        projectServices,
+        cycleServices,
+        productStore: productSqlite,
+        clock,
+        authorityResolver,
+      })
+    : createInMemoryDecisionServices({
+        projectServices,
+        cycleServices,
+        clock,
+        authorityResolver,
+      });
+
+  const executionContractServices = productSqlite
+    ? createSqliteExecutionContractServices({
+        projectServices,
+        decisionServices,
+        cycleServices,
+        productStore: productSqlite,
+        clock,
+        authorityResolver,
+      })
+    : createInMemoryExecutionContractServices({
+        projectServices,
+        decisionServices,
+        cycleServices,
+        clock,
+        authorityResolver,
+      });
 
   // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
   const fixtureAdapter = createF3TestExecutionAdapter();

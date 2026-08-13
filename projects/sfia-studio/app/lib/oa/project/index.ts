@@ -34,6 +34,7 @@ export {
   openProductSqlite,
   PRODUCT_SCHEMA_VERSION,
   PRODUCT_SCHEMA_VERSION_M1,
+  PRODUCT_SCHEMA_VERSION_M2,
 } from "./infrastructure/sqlite/db";
 export type { ProductSqliteHandle } from "./infrastructure/sqlite/productSqliteHandle";
 export { SqliteProductStore } from "./infrastructure/sqlite/sqliteProductStore";

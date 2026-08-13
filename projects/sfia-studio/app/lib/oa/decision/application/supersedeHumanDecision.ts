@@ -13,9 +13,9 @@ import type {
   OaActorReference,
   SupersedeHumanDecisionRequest,
 } from "../domain/types";
-import type { MemoryDecisionStore } from "../infrastructure/memoryDecisionStore";
 import type { AuthorityResolverPort } from "../ports/authorityResolver";
 import type { DecisionAuditPort } from "../ports/decisionAudit";
+import type { DecisionPersistenceUnitOfWorkPort } from "../ports/decisionPersistenceUnitOfWorkPort";
 import type { DecisionRepositoryPort } from "../ports/decisionRepository";
 
 function newId(prefix: "cor" | "prv"): string {
@@ -67,7 +67,7 @@ export class SupersedeHumanDecision {
     private readonly authority: AuthorityResolverPort,
     private readonly clock: ClockPort,
     private readonly audit: DecisionAuditPort,
-    private readonly store?: MemoryDecisionStore,
+    private readonly store?: DecisionPersistenceUnitOfWorkPort,
   ) {}
 
   async execute(

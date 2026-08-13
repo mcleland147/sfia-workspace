@@ -3,7 +3,8 @@
  *
  * Isolated Option A v3-native module. Consumes T-A1 project, T-A2 cycle,
  * T-A3 decision/confirmation/authority public APIs only. Does not replace
- * d1 / OPS1 / MethodMode. In-memory only.
+ * d1 / OPS1 / MethodMode. Studio composition uses Product SQLite (M3);
+ * Memory remains for tests.
  *
  * Ownership: T-A4 through confirmed (+ cancelled pre-exec, superseded).
  * T-A5 statuses (executing|completed|failed) and selectedAgentRef are REFUSED.
@@ -21,9 +22,14 @@
 export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
+export {
+  computeExecutionContractSemanticFingerprint,
+  executionContractSemanticMaterial,
+} from "./domain/semanticFingerprint";
 
 export * from "./ports/executionContractRepository";
 export * from "./ports/executionAudit";
+export * from "./ports/executionContractPersistenceUnitOfWorkPort";
 
 export { BuildExecutionContract } from "./application/buildExecutionContract";
 export { GetExecutionContract } from "./application/getExecutionContract";
@@ -34,12 +40,25 @@ export { SupersedeExecutionContract } from "./application/supersedeExecutionCont
 export { CancelExecutionContract } from "./application/cancelExecutionContract";
 export { CheckExecutionAuthorization } from "./application/checkExecutionAuthorization";
 
+export {
+  projectCursorPrepareOnly,
+  type CursorPrepareOnlyProjection,
+} from "./projection/cursorPrepareOnlyProjection";
+
 export { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
 export { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";
 export {
   ConsoleExecutionAuditJournal,
   MemoryExecutionAuditJournal,
 } from "./infrastructure/observability";
+export { SqliteExecutionContractRepository } from "./infrastructure/sqlite/sqliteExecutionContractRepository";
+export { SqliteExecutionAuditJournal } from "./infrastructure/sqlite/sqliteExecutionAuditJournal";
+export {
+  createSqliteExecutionContractServices,
+  createTestSqliteExecutionContractServices,
+  type CreateSqliteExecutionContractServicesOptions,
+  type SqliteExecutionContractServices,
+} from "./infrastructure/sqlite/createSqliteExecutionContractServices";
 
 import type { ClockPort } from "@/lib/oa/doctrine";
 import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
@@ -64,10 +83,12 @@ import {
   MemoryExecutionAuditJournal,
 } from "./infrastructure/observability";
 import type { ExecutionAuditPort } from "./ports/executionAudit";
+import type { ExecutionContractPersistenceUnitOfWorkPort } from "./ports/executionContractPersistenceUnitOfWorkPort";
+import type { ExecutionContractRepositoryPort } from "./ports/executionContractRepository";
 
 export type ExecutionContractServices = {
-  store: MemoryExecutionContractStore;
-  contracts: MemoryExecutionContractRepository;
+  store: ExecutionContractPersistenceUnitOfWorkPort;
+  contracts: ExecutionContractRepositoryPort;
   audit: ExecutionAuditPort;
   buildExecutionContract: BuildExecutionContract;
   getExecutionContract: GetExecutionContract;

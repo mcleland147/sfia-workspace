@@ -12,7 +12,7 @@
 import type {
   ExecutionContract,
   ExecutionContractRepositoryPort,
-  MemoryExecutionContractStore,
+  ExecutionContractPersistenceUnitOfWorkPort,
 } from "@/lib/oa/execution-contract";
 import type { AttemptDetailCode, ExecutionAttemptStatus } from "../domain/types";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
@@ -53,7 +53,7 @@ export type ContractStatusWriteResult =
 export class ExecutionContractStatusWriter {
   constructor(
     private readonly contracts: ExecutionContractRepositoryPort,
-    private readonly store: MemoryExecutionContractStore | undefined,
+    private readonly store: ExecutionContractPersistenceUnitOfWorkPort | undefined,
     private readonly attempts: ExecutionAttemptRepositoryPort,
   ) {}
 

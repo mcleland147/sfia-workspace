@@ -14,6 +14,7 @@ import {
   EXECUTION_CONTRACT_SCHEMA_VERSION,
   validateBuildFields,
 } from "../domain/invariants";
+import { computeExecutionContractSemanticFingerprint } from "../domain/semanticFingerprint";
 import type {
   ActorReference,
   AuthorityClass,
@@ -22,7 +23,7 @@ import type {
   ExecutionContractResult,
   Reversibility,
 } from "../domain/types";
-import type { MemoryExecutionContractStore } from "../infrastructure/memoryExecutionContractStore";
+import type { ExecutionContractPersistenceUnitOfWorkPort } from "../ports/executionContractPersistenceUnitOfWorkPort";
 import type { ExecutionAuditPort } from "../ports/executionAudit";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
 import { verifyRequiredAuthority } from "./authorityHelper";
@@ -67,7 +68,7 @@ export class BuildExecutionContract {
     private readonly decisionServices: DecisionServices,
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAuditPort,
-    private readonly store?: MemoryExecutionContractStore,
+    private readonly store?: ExecutionContractPersistenceUnitOfWorkPort,
   ) {}
 
   async execute(
@@ -353,6 +354,8 @@ export class BuildExecutionContract {
           cycleInstanceId: snap.cycleInstanceId,
         },
       };
+      contract.semanticFingerprint =
+        computeExecutionContractSemanticFingerprint(contract);
 
       const persist = async () => {
         const again = await this.contracts.findById(snap.executionContractId);

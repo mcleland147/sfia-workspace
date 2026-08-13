@@ -8,6 +8,7 @@ import {
   formatAgentSelectionActionRef,
   TestExecutionAdapter,
 } from "@/lib/oa/execution-attempt";
+import { MemoryExecutionContractStore } from "@/lib/oa/execution-contract";
 import {
   MORRIS_ACTOR,
   N1_ACTOR,
@@ -280,7 +281,8 @@ describe("T-A5 StartExecution RTA5-09", () => {
     const stack = buildStack();
     const { contractId } = await seedConfirmedContract(stack);
     await selectStandardAgent(stack, { executionContractId: contractId });
-    stack.execution.store.failNextSave = true;
+    // M3 widened ExecutionContractServices.store to UoW port; failNextSave is memory-store only.
+    (stack.execution.store as MemoryExecutionContractStore).failNextSave = true;
     const started = await stack.attempts.startExecution.execute({
       attemptId: "xat:oa-001",
       actor: MORRIS_ACTOR,
