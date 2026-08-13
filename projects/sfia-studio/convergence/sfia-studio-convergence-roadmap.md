@@ -113,7 +113,6 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 3. Promotion Auth.js / Critical Ack candidate — **Decision Required**
 4. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
 5. Disposition OPS1 / D1 / execution-run — **Decision Required**
-6. Couche Instructions ChatGPT update — **PENDING** (cycle séparé)
 
 ## B7–B8. Roadmap capability-driven (milestones)
 
@@ -279,7 +278,7 @@ CRITICAL PATH:
 
 TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
 FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
-DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion · ChatGPT instructions
+DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion
 ```
 
 ## B11. Freeze / stop-doing (**RECOMMENDATION**)
