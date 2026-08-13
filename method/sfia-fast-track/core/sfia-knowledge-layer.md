@@ -145,6 +145,7 @@ Cette matrice doit être utilisée avant toute création documentaire significat
 | Post-merge | PR, merge commit, branch status | Post-merge status, capitalisation | Dossier de capitalisation ou projet concerné | Clôture / trace | PR, commit, branche, décision, prochaine étape |
 | Archive / cleanup | Repository Blueprint, docs existants, audit | Archive map, cleanup report | `archive/` ou dossier archive local | Traçabilité | Justification, git mv, aucun delete brutal |
 | Foundation consolidation | Evolution matrix, capitalization inputs, foundation docs | Foundation update, consistency rules | `docs/architecture/`, `method/sfia-fast-track/core/` | Fondation v1.1 | v1.0 preserved, v1.1 prevails, no source rewrite |
+| **SFIA Studio — construction / convergence** | **Build Doctrine** `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` ; **Convergence Roadmap** `…/sfia-studio-convergence-roadmap.md` ; doctrine produit v3 applicable (`sfia-v3-framing/30`–`37`) ; Git/docs Studio ; sources cycle | Selon type de cycle ; tout livrable doit indiquer **capacité v3 ciblée** + lien roadmap | Actifs produit/convergence → `projects/sfia-studio/` ; méthode/template **uniquement** si le cycle porte explicitement sur méthode/template | Convergence / construction Studio | capacité v3 ; milestone roadmap ; classification KEEP/ADAPT/COMPLETE/HARVEST/REPLACE/FREEZE/RETIRE LATER ; gaps fermés ; hors périmètre ; exit proof ; gates Morris ; dette temporaire + trajectoire de sortie |
 
 Règle :
 
@@ -186,6 +187,9 @@ La Documentation Routing Matrix n'est pas remplacée. Le Cycle Routing Guide la 
 | Routage CKC candidat (expérimental) | Routing guide §4.4.5, README CKC, pilote ou carte synthétique | Déclaration de consultation CKC ; évolutions CKC si cycle méthode dédié | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/` | Capitalisation méthode candidate | Statut candidate ; usage experimental cognitive guidance ; aucune autorité d'exécution |
 
 **Séparation préservée :** Knowledge Layer = où classer et ranger · Routing guide = quoi lire et quand.
+**Pas d’index parallèle :** Build Doctrine + Roadmap s’insèrent dans cette matrice et dans le routing guide ; aucun registre/moteur documentaire supplémentaire.
+
+> **Studio construction :** Build Doctrine / Roadmap = gouvernance de **construction** (pas doctrine runtime). Runtime v3 reste non ADOPTED tant que les preuves/gates manquent. SFIA v2.6 reste la baseline opérationnelle du processus ChatGPT ↔ Cursor.
 
 ### 6.2 Complément SFIA v2.4 — index méthode unique
 

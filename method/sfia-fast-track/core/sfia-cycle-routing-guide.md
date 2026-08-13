@@ -165,7 +165,10 @@ Si le type de cycle n'est pas clair, lancer d'abord un **cycle de cadrage** (mé
 
 > **Référence détaillée :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`
 > **Statut version :** héritage opérationnel **absorbé dans SFIA v2.6 (baseline opérationnelle)** — v2.4 = baseline historique précédente.
-> **v3.0 :** immediate NO-GO — toute discussion v3.0 = décision Morris dédiée.
+> **SFIA v2.6 :** baseline opérationnelle actuelle du processus externe ChatGPT ↔ Cursor.
+> **SFIA Studio v3 :** doctrine **produit cible Studio** explicitement décidée par Morris (construction/convergence — voir §4.3.0a).
+> **≠** promotion de v3 en baseline méthodologique globale ; **≠** claim runtime v3 ADOPTED ; **≠** suppression de v2.6.
+> Toute promotion v3 baseline globale, claim runtime ADOPTED, ou discussion v3 hors trajectoire Studio décidée = **décision Morris dédiée**.
 
 SFIA v2.4 reste le **standard de consolidation** de référence pour les cycles. Il couvre notamment :
 
@@ -211,10 +214,44 @@ Morris valide le profil si **Critical** ou changement de doctrine.
 - changement de doctrine ;
 - arbitrage structurant ;
 - passage vers v2.5+ ;
-- toute discussion **v3.0** ;
+- promotion **v3 baseline globale**, claim **v3 runtime ADOPTED**, ou discussion v3 **hors** trajectoire Studio déjà décidée ;
 - automatisation L3 structurante, L4, tout L5 ;
 - merge et clôture structurante ;
 - dette méthode ou projet importante.
+
+#### 4.3.0a SFIA STUDIO CONVERGENCE PRE-CHECK
+
+> **Portée :** uniquement les travaux dont l’objet est la **construction ou l’évolution de SFIA Studio**.
+> **Ne s’applique pas** aux autres projets SFIA sans rapport avec la construction de SFIA Studio.
+
+**Trigger = oui** si la demande concerne analyse, cadrage, roadmap, architecture, conception, delivery, validation, PR readiness, post-merge, capitalisation, prompt Cursor, évolution méthode/template ou évolution runtime **de SFIA Studio**.
+
+**Sources obligatoires supplémentaires (ordre) :**
+
+1. Git courant + décisions Morris explicites ;
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` ;
+3. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` ;
+4. doctrine produit v3 applicable (`projects/sfia-studio/sfia-v3-framing/**`, notamment `30`–`37`) ;
+5. sources Studio/repo spécifiques au cycle ;
+6. processus SFIA **v2.6** nécessaire à l’exécution du cycle (template, operating model, guardrails).
+
+**Clarifications obligatoires :**
+
+| Affirmation | Statut |
+| --- | --- |
+| SFIA Studio v3 | doctrine **produit cible Studio** (décidée) |
+| SFIA v2.6 | baseline **opérationnelle** du processus ChatGPT/Cursor externe |
+| Build Doctrine + Roadmap | gouvernance de **construction** — **pas** doctrine runtime produit |
+| Runtime v3 ADOPTED | **non** tant que preuves/gates manquent |
+| Coexistence doctrinale runtime v2.6/v3 dans Studio | **ne pas réintroduire** |
+
+Consulter le template v2.6 pour **exécuter** les cycles de construction **ne signifie pas** charger v2.6 comme doctrine produit Studio.
+
+Si le contexte convergence requis n’est pas chargé :
+
+```text
+STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
+```
 
 **Sans gate Morris dédié** (contrôles L1 ou validations techniques non structurantes) :
 
@@ -921,7 +958,7 @@ SFIA **ne doit pas** automatiser la décision finale.
 - arbitrage projet ;
 - décision de delivery impactante.
 
-**Complément SFIA v2.4 (§4.3.3) :** les contrôles L1 read-only, validations techniques non structurantes et post-merge documentaire **ne nécessitent pas** un gate Morris dédié. Morris reste L0 pour tout arbitrage structurant, passage v2.5+, discussion v3.0, L3 structurant / L4 / L5, merge et clôture structurante.
+**Complément SFIA v2.4 (§4.3.3) :** les contrôles L1 read-only, validations techniques non structurantes et post-merge documentaire **ne nécessitent pas** un gate Morris dédié. Morris reste L0 pour tout arbitrage structurant, passage v2.5+, promotion v3 baseline globale / claim runtime ADOPTED / discussion v3 hors trajectoire Studio décidée, L3 structurant / L4 / L5, merge et clôture structurante.
 
 ## 10. Règle d'exécution Cursor
 
