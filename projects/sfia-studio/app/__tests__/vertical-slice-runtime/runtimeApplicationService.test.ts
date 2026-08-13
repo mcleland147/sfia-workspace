@@ -83,7 +83,9 @@ describe("V2-A1 RuntimeApplicationService", () => {
     expect(result.readiness.productReady).toBe(false);
     expect(result.disclosures).toEqual(RUNTIME_DISCLOSURES);
     expect(result.disclosures.runtimeMode).toBe("LOCAL_PROCESS");
-    expect(result.disclosures.persistence).toBe("NOT_GUARANTEED");
+    expect(result.disclosures.persistence).toBe("PARTIAL_PROJECT_LPS_DURABLE");
+    expect(result.disclosures.productPersistence).toBe("SQLITE_OA_PRODUCT_STORE");
+    expect(result.disclosures.projectLpsRestartSafe).toBe(true);
     expect(result.disclosures.agentExecution).toBe("DISABLED");
     expect(result.auditStatus).toBe("DISABLED");
     expect(result.reusedFromIdempotencyKey).toBe(false);
@@ -121,7 +123,7 @@ describe("V2-A1 RuntimeApplicationService", () => {
     expect(missing).toMatchObject({
       ok: false,
       error: { code: "PROJECT_NOT_FOUND" },
-      disclosures: { persistence: "NOT_GUARANTEED" },
+      disclosures: { persistence: "PARTIAL_PROJECT_LPS_DURABLE" },
     });
   });
 
@@ -204,7 +206,10 @@ describe("V2-A1 RuntimeApplicationService", () => {
 
   it("exposes headless architecture flags without product persistence or agent", () => {
     const runtime = createService();
-    expect(runtime.architecture.productPersistence).toBe("NOT_SELECTED");
+    expect(runtime.architecture.productPersistence).toBe(
+      "SQLITE_OA_PRODUCT_STORE",
+    );
+    expect(runtime.architecture.businessState).toBe("OA_PRODUCT_SQLITE_T_A1");
     expect(runtime.architecture.realAgentExecution).toBe("NOT_AVAILABLE");
     expect(runtime.architecture.react).toBe(false);
     expect(runtime.architecture.network).toBe(false);

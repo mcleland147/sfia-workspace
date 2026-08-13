@@ -76,6 +76,11 @@ export function resetRuntimeApplicationServiceForTests(): void {
     );
   }
   const slot = getProcessLocalRuntimeSlot();
+  try {
+    slot.service?.dispose();
+  } catch {
+    /* ignore */
+  }
   slot.service = null;
   slot.options = undefined;
 }

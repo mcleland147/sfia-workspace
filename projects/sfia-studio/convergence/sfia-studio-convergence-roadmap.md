@@ -30,7 +30,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 
 | Capacité | État observé |
 | --- | --- |
-| `/studio` Project create/view | WIRED — process-local Memory T-A1 |
+| `/studio` Project create/view | WIRED — **Product SQLite T-A1** (G0-B / M1 candidate) |
 | F1 Nora chat | WIRED — contextual assistant |
 | F2 qualification / proposal / Morris gate | WIRED — process-local + demo authority |
 | F3 T-A4→T-A5→T-A6 | WIRED — **FIXTURE ONLY** (`TestExecutionAdapter`) |
@@ -39,7 +39,8 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 | D1 SQLite projects | EXISTS — UI `/projects` parallèle |
 | execution-run D2-D | EXISTS — **non** branché F1–F3 |
 | FinOps Postgres | EXISTS — transverse ; ≠ Product persistence |
-| Product persistence | **NOT_SELECTED** |
+| Product persistence | **SELECTED — node:sqlite OA Product Store** (G0-B ADOPTED) |
+| Architecture convergence | **Option 1 ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (G0-A) |
 | Cursor REAL depuis Nora | **0** |
 | Gate D | **NOT CONSUMED** |
 
@@ -51,9 +52,10 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
 | SqliteAuthorityAttemptJournal wiring | Présent localement ; pilot-bounded ; ≠ Product persistence |
 | Classification | Observation / prérequis candidat — **promotion = Decision Required** |
 
-### Recommandation d’audit (≠ décision)
+### Recommandation d’audit (historique — supersédée)
 
-Option 1 — OA Native Backbone + Harvest OPS1 Cursor = **RECOMMENDATION — NOT DECIDED**.
+Option 1 — OA Native Backbone + Harvest OPS1 Cursor était **RECOMMENDATION — NOT DECIDED**.
+**Décision Morris G0-A :** désormais **ADOPTED**.
 
 ## B4. Asset disposition matrix (actuelle)
 
@@ -77,18 +79,18 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | D1 `/projects` | `lib/d1` | **FREEZE** / **RETIRE LATER** (**RECOMMENDATION**) | Parallèle durable |
 | FinOps | `lib/oa/finops` | **KEEP** isolé + **FREEZE** lots non bloquants (**RECOMMENDATION**) | Transverse cost ≠ Product persistence |
 | Auth.js / Critical Ack candidate | dirty only | **COMPLETE** (après GO promotion) | Prérequis REAL Critical |
-| Persistence Memory OA | factories Memory* | **REPLACE** (adapters durables derrière ports) | Decision Required tech |
+| Persistence Memory OA | factories Memory* (T-A2…T-A6) | **REPLACE** progressif (T-A1 = SQLite Product) | Decision Required tech hors T-A1 |
 
 ## B5. Gap map → boucle cible
 
 | Gap | Statut | Bloque |
 | --- | --- | --- |
-| Project/LPS durable | MISSING | M1, contextSnapshot |
+| Project/LPS durable | **IMPLEMENTED CANDIDATE** (M1) | M2+ |
 | GuidedSession / historique durable | PARTIAL / MISSING | M2 daily use |
 | CycleInstance réel lié F2 | EXISTS BUT NOT WIRED | M2/M3 |
 | HumanDecision durable/authoritative | PROCESS_LOCAL / demo | M3, Gate D |
 | CKC ↔ cycle binding | PARTIAL (qualify only) | M2 |
-| live contextSnapshot | BLOCKED (no durable project) | F2 final / contracts |
+| live contextSnapshot | PARTIAL — LPS+doctrine digests durables ; agrégat ContextSnapshot **absent** | M2 |
 | ExecutionContract from real HD | FIXTURE path only | M3/M4 |
 | Cursor projection canonique | PARTIAL | M3/M4 |
 | Cursor REAL behind T-A5 | MISSING on Nora | M4 |
@@ -96,7 +98,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | Evidence durable | MISSING | M5 |
 | ReviewBundle → LPS writeback | MISSING | M5/M6 |
 | Nora post-exec analysis | PARTIAL (UI cards) | M5 |
-| Restart safety Studio core | MISSING | M1+ |
+| Restart safety Studio core | **PARTIAL** — Project/LPS restart-safe ; autres OA Memory | M2+ |
 | IAM/authz product-grade | PARTIAL (candidate Auth.js) | M4/M8 |
 
 ## B6. Decisions / gates
@@ -105,14 +107,15 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 
 - Build Doctrine + Convergence Roadmap = **VALIDATED** construction governance by Morris
 - intégrées sur main via PR #334 (`1d09e4159932b3885817911e10a2d29a82ae9ea7`)
+- **G0-A** Architecture = **ADOPTED** — OA Native Backbone + Harvest OPS1 Cursor (Morris · 2026-08-13)
+- **G0-B** Product persistence = **ADOPTED** — `node:sqlite` Product Store isolé derrière ports OA ; exit Postgres sur multi-writer/multi-user démontré (Morris · 2026-08-13)
+- preuve décisions : `convergence/sfia-studio-g0-architecture-persistence-decision-pack.md`
 
 ### Décisions / gates toujours ouverts (non tranchés ici)
 
-1. Architecture convergence Option 1 vs 2 — **Decision Required**
-2. Product persistence technology — **NOT_SELECTED**
-3. Promotion Auth.js / Critical Ack candidate — **Decision Required**
-4. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
-5. Disposition OPS1 / D1 / execution-run — **Decision Required**
+1. Promotion Auth.js / Critical Ack candidate — **Decision Required**
+2. Cursor REAL / Gate D — **NOT AUTHORIZED / NOT CONSUMED**
+3. Disposition OPS1 / D1 / execution-run — **Decision Required**
 
 ## B7–B8. Roadmap capability-driven (milestones)
 
@@ -124,17 +127,17 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **Capacité v3** | Précondition : un seul backbone de construction (évite multi-moteurs) |
 | **Outcome** | Morris tranche Option architecture + Product persistence (compact) |
 | **Fondations** | transversal (débloque F02/F05/F12…) |
-| **État actuel** | Audit complet ; Option 1 **recommandée** ; persistence NOT_SELECTED |
-| **Actifs** | audit handoff ; Build Doctrine |
-| **Gaps** | décisions structurantes ouvertes |
-| **Travaux** | pack décision compact — **pas** long cycle architecture gratuit |
-| **Gates Morris** | OUI — architecture + persistence |
-| **Hors périmètre** | implémentation ; Cursor REAL |
-| **Preuve de sortie** | décisions écrites consommables par Delivery |
-| **Dette tolérée** | aucune implementation speculative |
+| **État actuel** | **G0-A/B ADOPTED** (Morris) ; Delivery M1 en cours / candidate |
+| **Actifs** | decision pack G0 ; Build Doctrine ; Roadmap |
+| **Gaps** | — (décisions structurantes consommées) |
+| **Travaux** | décisions écrites — **consommées** |
+| **Gates Morris** | **CONSUMED** — architecture + persistence |
+| **Hors périmètre** | Cursor REAL (reste hors) |
+| **Preuve de sortie** | décision Morris + `sfia-studio-g0-architecture-persistence-decision-pack.md` |
+| **Dette tolérée** | aucune implementation speculative au stade G0 |
 | **Exit dette** | N/A |
 | **Next** | M1 |
-| **Statut** | **READY FOR DECISION** |
+| **Statut** | **DECIDED / CONSUMED** |
 
 ### Milestone 1 — Socle projet v3 fiable
 
@@ -143,18 +146,18 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 | **ID** | M1 |
 | **Capacité v3** | V3-F02 LPS (+ Project) durable et exploitable |
 | **Outcome** | Morris crée/reprend un Project et retrouve LPS/contexte critique après redémarrage |
-| **État actuel** | Memory process-local `/studio` |
-| **Actifs** | T-A1 ports ; vertical-slice UI ; doctrine FS |
-| **Classification** | COMPLETE T-A1 ; ADAPT composition |
-| **Gaps** | L1 durable repo ; L4 contextSnapshot ; L10 composition switch |
-| **Dépendances** | G0 persistence |
-| **Gates** | Delivery après G0 |
-| **Hors périmètre** | Cursor REAL ; multi-region |
+| **État actuel** | Product SQLite OA (`node:sqlite`) derrière ports T-A1 ; composition `/studio` branchée |
+| **Actifs** | T-A1 ports ; SQLite Product Store ; vertical-slice UI ; doctrine FS |
+| **Classification** | COMPLETE T-A1 stores ; ADAPT composition |
+| **Gaps** | L4 ContextSnapshot agrégat dédié **absent** du repo — contexte critique M1 = LPS fields + doctrinePackageRef digest (qualifié) |
+| **Dépendances** | G0 persistence — **SATISFIED** (G0-B ADOPTED) |
+| **Gates** | Delivery **AUTHORIZED** by Morris (post G0) ; validation Morris post-preuve requise |
+| **Hors périmètre** | Cursor REAL ; multi-region ; PostgreSQL Product |
 | **Preuve e2e** | create → restart process → get same project/LPS/digest |
-| **Dette** | coexistence temporaire D1 UI |
-| **Exit dette** | disposition D1 après M1 stable |
+| **Dette** | coexistence temporaire D1 UI ; autres OA Memory ; exit SQLite→Postgres |
+| **Exit dette** | disposition D1 après M1 stable ; Postgres si multi-writer démontré |
 | **Next** | M2 |
-| **Statut** | **NOT STARTED** (prérequis G0) |
+| **Statut** | **IMPLEMENTED CANDIDATE — READY FOR MORRIS VALIDATION** |
 
 ### Milestone 2 — Pilotage cognitif v3 utilisable
 
@@ -268,8 +271,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
 
 ```text
 CRITICAL PATH:
-  G0 (archi+persistence)
-  → M1 durable Project/LPS
+  M1 durable Project/LPS
   → M2 Nora contextuel durable
   → M3 HD durable + ExecutionContract exact
   → M4 Cursor REAL borné (T-A5+harvest+Ack+Gate D)
@@ -278,7 +280,8 @@ CRITICAL PATH:
 
 TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
 FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
-DECISION REQUIRED: Option 1/2 · persistence tech · OPS1/D1/execution-run disposition · Ack promotion
+DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack promotion
+G0 CONSUMED: Option 1 ADOPTED · Product persistence node:sqlite ADOPTED
 ```
 
 ## B11. Freeze / stop-doing (**RECOMMENDATION**)

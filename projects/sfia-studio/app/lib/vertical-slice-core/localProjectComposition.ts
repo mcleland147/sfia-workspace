@@ -1,4 +1,7 @@
 import { randomUUID } from "node:crypto";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import {
   AjvSchemaValidationAdapter,
   FilesystemDoctrinePackageRepository,
@@ -12,7 +15,7 @@ import {
 } from "@/lib/oa/doctrine";
 import {
   MemoryProjectAuditJournal,
-  createInMemoryProjectServices,
+  createSqliteProductProjectServices,
   type LivingProjectState,
   type Project,
   type ProjectServices,
@@ -241,7 +244,7 @@ function buildProjection(
     }),
     localMode: true,
     iam: "NOT_SELECTED",
-    productPersistence: "NOT_SELECTED",
+    productPersistence: "SQLITE_OA_PRODUCT_STORE",
     realAgentExecution: "NOT_AVAILABLE",
     delivery: "NOT_AUTHORIZED",
     cutover: "NOT_AUTHORIZED",
@@ -448,7 +451,7 @@ class LocalProjectFacadeImpl implements LocalProjectFacade {
 export const LOCAL_VERTICAL_SLICE_ARCHITECTURE: LocalVerticalSliceArchitecture =
   Object.freeze({
     accessSurface: "HEADLESS_INTERNAL",
-    businessState: "OA_MEMORY",
+    businessState: "OA_PRODUCT_SQLITE_T_A1",
     doctrine: "T_A0_LOCAL_REGISTRY",
     project: "T_A1_PROJECT_LPS",
     audit: "OPTIONAL_BOUNDED_LOCAL",
@@ -457,7 +460,7 @@ export const LOCAL_VERTICAL_SLICE_ARCHITECTURE: LocalVerticalSliceArchitecture =
     react: false,
     network: false,
     iam: "NOT_SELECTED",
-    productPersistence: "NOT_SELECTED",
+    productPersistence: "SQLITE_OA_PRODUCT_STORE",
     realAgentExecution: "NOT_AVAILABLE",
   });
 
@@ -478,10 +481,22 @@ export function createLocalVerticalSliceServices(
     clock,
     new MemoryDoctrineAuditJournal(),
   );
-  const projectServices = createInMemoryProjectServices({
+  // Vitest/process-local suites expect isolated Product DB per composition.
+  // Production/default resolves via SFIA_STUDIO_PRODUCT_DB_PATH / .sfia-exec/product.
+  const productDbPath =
+    options.productDbPath ??
+    (process.env.NODE_ENV === "test" &&
+    !process.env.SFIA_STUDIO_PRODUCT_DB_PATH?.trim()
+      ? path.join(
+          fs.mkdtempSync(path.join(os.tmpdir(), "sfia-product-")),
+          "oa-product.sqlite",
+        )
+      : undefined);
+  const projectServices = createSqliteProductProjectServices({
     doctrineResolver,
     clock,
     audit: new MemoryProjectAuditJournal(),
+    dbPath: productDbPath,
   });
   const idSource = options.idSource ?? new RandomLocalProjectIdSource();
   const audit =

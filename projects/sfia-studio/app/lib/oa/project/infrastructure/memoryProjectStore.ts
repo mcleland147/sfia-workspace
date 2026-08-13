@@ -1,8 +1,9 @@
 /**
  * Shared in-memory store with transactional helper for atomic Project + LPS create.
- * Reversible candidate — NOT DATABASE SELECTED (T-A1-D06).
+ * Still used by unit tests; Studio composition root uses SQLite Product Store (M1 / G0-B).
  */
 import type { LivingProjectState, Project } from "../domain/types";
+import type { ProjectPersistenceUnitOfWorkPort } from "../ports/projectPersistenceUnitOfWorkPort";
 
 type Snapshot = {
   projects: Map<string, Project>;
@@ -40,7 +41,7 @@ function restoreSnapshot(store: MemoryProjectStore, snap: Snapshot): void {
   store.idempotency = snap.idempotency;
 }
 
-export class MemoryProjectStore {
+export class MemoryProjectStore implements ProjectPersistenceUnitOfWorkPort {
   projects = new Map<string, Project>();
   lpsById = new Map<string, LivingProjectState>();
   lpsIndex = new Map<string, string>();

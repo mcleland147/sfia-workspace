@@ -2,7 +2,8 @@
  * T-A1 Project / LPS Foundation — public barrel.
  *
  * Isolated Option A v3-native module. Consumes T-A0 doctrine ports only.
- * Does not replace d1 / OPS1 / MethodMode. In-memory persistence only (reversible).
+ * Does not replace d1 / OPS1 / MethodMode.
+ * Studio composition uses SQLite Product Store (G0-B / M1); Memory remains for tests.
  */
 
 export * from "./domain/types";
@@ -12,6 +13,7 @@ export * from "./domain/invariants";
 export * from "./ports/projectRepositoryPort";
 export * from "./ports/livingProjectStateRepositoryPort";
 export * from "./ports/projectAuditJournalPort";
+export * from "./ports/projectPersistenceUnitOfWorkPort";
 
 export { CreateProject } from "./application/createProject";
 export { GetProject } from "./application/getProject";
@@ -26,6 +28,18 @@ export {
   ConsoleProjectAuditJournal,
   MemoryProjectAuditJournal,
 } from "./infrastructure/observability";
+
+export { resolveProductSqlitePath } from "./infrastructure/sqlite/paths";
+export { SqliteProductStore } from "./infrastructure/sqlite/sqliteProductStore";
+export { SqliteProjectRepository } from "./infrastructure/sqlite/sqliteProjectRepository";
+export { SqliteLivingProjectStateRepository } from "./infrastructure/sqlite/sqliteLivingProjectStateRepository";
+export { SqliteProjectAuditJournal } from "./infrastructure/sqlite/sqliteProjectAuditJournal";
+export {
+  createSqliteProductProjectServices,
+  createTestSqliteProductProjectServices,
+  type CreateSqliteProductProjectServicesOptions,
+  type SqliteProductProjectServices,
+} from "./infrastructure/sqlite/createSqliteProductProjectServices";
 
 import type {
   ClockPort,
@@ -44,18 +58,23 @@ import {
   ConsoleProjectAuditJournal,
   MemoryProjectAuditJournal,
 } from "./infrastructure/observability";
+import type { LivingProjectStateRepositoryPort } from "./ports/livingProjectStateRepositoryPort";
 import type { ProjectAuditJournalPort } from "./ports/projectAuditJournalPort";
+import type { ProjectPersistenceUnitOfWorkPort } from "./ports/projectPersistenceUnitOfWorkPort";
+import type { ProjectRepositoryPort } from "./ports/projectRepositoryPort";
 
 export type ProjectServices = {
-  store: MemoryProjectStore;
-  projects: MemoryProjectRepository;
-  lps: MemoryLivingProjectStateRepository;
+  store: ProjectPersistenceUnitOfWorkPort;
+  projects: ProjectRepositoryPort;
+  lps: LivingProjectStateRepositoryPort;
   audit: ProjectAuditJournalPort;
   createProject: CreateProject;
   getProject: GetProject;
   getCurrentLivingProjectState: GetCurrentLivingProjectState;
   getLivingProjectStateVersion: GetLivingProjectStateVersion;
   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
+  /** Optional dispose for durable backends (SQLite). */
+  dispose?: () => void;
 };
 
 export type CreateInMemoryProjectServicesOptions = {
@@ -64,10 +83,10 @@ export type CreateInMemoryProjectServicesOptions = {
   audit?: ProjectAuditJournalPort;
 };
 
-/** Factory for in-memory Project/LPS services (runtime candidate / tests). */
+/** Factory for in-memory Project/LPS services (unit tests / non-Studio callers). */
 export function createInMemoryProjectServices(
   options: CreateInMemoryProjectServicesOptions,
-): ProjectServices {
+): ProjectServices & { store: MemoryProjectStore } {
   const store = new MemoryProjectStore();
   const projects = new MemoryProjectRepository(store);
   const lps = new MemoryLivingProjectStateRepository(store);
@@ -115,7 +134,10 @@ export function createTestProjectServices(
     audit?: MemoryProjectAuditJournal;
     fixedNowIso?: string;
   },
-): ProjectServices & { audit: MemoryProjectAuditJournal } {
+): ProjectServices & {
+  store: MemoryProjectStore;
+  audit: MemoryProjectAuditJournal;
+} {
   const audit = options.audit ?? new MemoryProjectAuditJournal();
   const clock =
     options.clock ??
@@ -126,5 +148,8 @@ export function createTestProjectServices(
     ...options,
     clock,
     audit,
-  }) as ProjectServices & { audit: MemoryProjectAuditJournal };
+  }) as ProjectServices & {
+    store: MemoryProjectStore;
+    audit: MemoryProjectAuditJournal;
+  };
 }
