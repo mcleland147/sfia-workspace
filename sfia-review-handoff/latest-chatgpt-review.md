@@ -202,16 +202,118 @@ enabled
 <deterministic instruction>
 ```
 
-### I.2 `m4RealOffCorrectionR1.test.ts`
+### I.2 `m4RealOffCorrectionR1.test.ts` — DIFF EXACT COMPLET (obligatoire dans le handoff)
 
-Added import `SFIA_STUDIO_CURSOR_REAL_FLAG`.
-Added test `R1-10 pre-reproof bounding: argv --mode ask once + deterministic README instruction; timeout 60000`:
+Le handoff distant `76eafd45…` était **INCOMPLETE** au sens template v2.6 §7.2.1 : la section I.2 était synthesis-only et renvoyait vers `.tmp-sfia-review/m4-pre-reproof-bounding/r1-test.diff`, artefact local hors Git handoff. Verdict applicable au tip distant actuel :
+
+**REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+
+Ci-dessous : le **diff exact complet** `git diff` working tree vs `HEAD`/`origin/main` pour le fichier modifié. Aucune dépendance à un chemin `.tmp-sfia-review/**`.
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
+index e3a63f1..cb9b4bc 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
+@@ -13,6 +13,7 @@ import {
+   NODE_CURSOR_STDERR_CAP_BYTES,
+   NODE_CURSOR_STDOUT_CAP_BYTES,
+   NodeCursorProcessRunner,
++  SFIA_STUDIO_CURSOR_REAL_FLAG,
+   StudioCursorRealLaunchGateway,
+ } from "@/lib/oa/execution-attempt";
+ import { FakeProcessRunner } from "./support/fakeProcessRunner";
+@@ -213,4 +214,83 @@ describe("M4 REAL-OFF correction R1", () => {
+     }
+     expect(runner.calls).toHaveLength(0);
+   });
++
++  it("R1-10 pre-reproof bounding: argv --mode ask once + deterministic README instruction; timeout 60000", async () => {
++    // Gateway-local enablement via flag constant — does not set process.env.
++    // FakeProcessRunner only; no OS Cursor spawn.
++    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
++    const workspacePath = "/tmp/fake-exec-root/wt-pre-reproof";
++    const runner = new FakeProcessRunner({ processRef: "proc:sim:r1-10" });
++    const workspace = new FakeRealExecutionWorkspacePort({ workspacePath });
++    const gateway = new StudioCursorRealLaunchGateway({
++      processRunner: runner,
++      workspacePort: workspace,
++      env: {
++        ...process.env,
++        [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
++      },
++      resolveCursorBin: () => "/tmp/fake-cursor-bin",
++      // Omit defaultTimeoutMs — product default must remain 60_000.
++    });
++
++    const result = await gateway.launch({
++      attemptId: "xat:r1-10-pre-reproof",
++      executionContractId: "xct:pre-reproof",
++      executionContractVersion: 1,
++      semanticFingerprint: "fp:pre-reproof-bounding",
++      selectedAgentRef: "agt:m4.cursor.bounded_readonly",
++      adapterRef: gateway.gatewayId,
++      correlationId: "cor:r1-10",
++      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++      action: "cursor.read_only.inspect",
++      target: "workspace.isolated.read",
++      scope: "studio.m4.real_off",
++    });
++
++    expect(result.outcome).toBe("ack");
++    expect(runner.calls).toHaveLength(1);
++    expect(workspace.prepares).toHaveLength(1);
++    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
++
++    const call = runner.calls[0];
++    expect(call.timeoutMs).toBe(60_000);
++    expect(call.executable).toBe("/tmp/fake-cursor-bin");
++    expect(call.cwd).toBe(workspacePath);
++
++    const argv = [...call.argv];
++    expect(argv.filter((a) => a === "--mode")).toHaveLength(1);
++    expect(argv.filter((a) => a === "ask")).toHaveLength(1);
++    const modeIdx = argv.indexOf("--mode");
++    expect(argv[modeIdx + 1]).toBe("ask");
++
++    expect(argv).toContain("--print");
++    expect(argv).toContain("--workspace");
++    expect(argv).toContain("--trust");
++    expect(argv).toContain("--sandbox");
++    expect(argv[argv.indexOf("--sandbox") + 1]).toBe("enabled");
++    expect(argv[0]).toBe("agent");
++    expect(argv[argv.indexOf("--workspace") + 1]).toBe(workspacePath);
++
++    const instruction = argv[argv.length - 1];
++    expect(typeof instruction).toBe("string");
++    expect(instruction).toContain("README.md");
++    expect(instruction).toContain("M4_READ_ONLY_OK");
++    expect(instruction).toContain("M4_READ_ONLY_UNAVAILABLE");
++    expect(instruction).toMatch(/Ne lancer aucune commande Shell/i);
++    expect(instruction).toMatch(/Glob/i);
++    expect(instruction).toMatch(/Grep/i);
++    expect(instruction).toMatch(/Ne consulter aucun autre fichier/i);
++    expect(instruction).toMatch(/Ne modifier aucun fichier/i);
++    expect(instruction).toMatch(/git remote/i);
++    expect(instruction).toMatch(/commit/i);
++    expect(instruction).toMatch(/push/i);
++    expect(instruction).toMatch(/PR/i);
++    expect(instruction).toMatch(/merge/i);
++    expect(instruction).toContain("target=workspace.isolated.read");
++    expect(instruction).toContain("action=cursor.read_only.inspect");
++    expect(instruction).toContain("scope=studio.m4.real_off");
++    expect(instruction).toContain("fingerprint=fp:pre-reproof-bounding");
++    expect(instruction).not.toMatch(/lecture seule bornée/);
++    expect(instruction).not.toMatch(/inspect(?:ion)?\s+(?:globale|libre|workspace)/i);
++  });
+ });
+```
+
+Notes (non substitutives du diff) :
 
 - Gateway-local enablement via `[SFIA_STUDIO_CURSOR_REAL_FLAG]: "1"` (does **not** set `process.env`; avoids R3 literal scan patterns).
 - `FakeProcessRunner` only — no OS Cursor.
-- Asserts: `--mode`/`ask` exactly once; retains `--print`/`--workspace`/`--trust`/`--sandbox enabled`; instruction contains README.md + markers + Shell/Glob/Grep/mutation/git remote bans; target/action/scope/fingerprint projected; `timeoutMs === 60000` from product default (option omitted); parent `process.env.SFIA_STUDIO_CURSOR_REAL` still not `"1"`.
-
-Full test diff stored also at `.tmp-sfia-review/m4-pre-reproof-bounding/r1-test.diff`.
+- Asserts cover `--mode ask` once, retained REAL argv flags, deterministic markers, bans, fingerprint projection, product default timeout `60000`.
 
 ## J. Tests exécutés et résultats
 
@@ -294,11 +396,19 @@ Only metadata `--version` / `--help` / `help agent` were run.
 
 ## P. Décisions
 
-**Consommée:** GO MORRIS — M4 REAL COMPLETION PRE-REPROOF BOUNDING — NO REAL EXECUTION.
+**Consommée (bounding produit local):** GO MORRIS — M4 REAL COMPLETION PRE-REPROOF BOUNDING — NO REAL EXECUTION.
 
-**Non prises / non implicites:** project commit, push, PR, merge, REAL reproof, new Gate D, new Attempt, timeout ADAPT, AgentCapability ADAPT, M4 close, M5.
+**Consommée (réparation handoff — ce cycle):** GO MORRIS — REPAIR M4 PRE-REPROOF REVIEW HANDOFF — CONTENT COMPLETENESS ONLY — NO PRODUCT CHANGE — NO REAL EXECUTION.
+
+**Non prises / non implicites:** project commit, push projet, PR, merge, REAL reproof, new Gate D, new Attempt, timeout ADAPT, AgentCapability ADAPT, M4 close, M5.
 
 ## Q. Verdict
+
+**REVIEW HANDOFF REPAIRED FOR CONTENT COMPLETENESS — R1 DIFF EMBEDDED — NO PRODUCT CHANGE — NO REAL EXECUTION — READY FOR CHATGPT BOUNDING REVIEW**
+
+Le tip distant antérieur `76eafd45…` / blob `4dc3b09a…` était **INCOMPLETE** (I.2 synthesis-only). Ce cycle republie le pack avec le **diff exact complet** de `m4RealOffCorrectionR1.test.ts` inline. Aucun changement produit supplémentaire.
+
+Produit local (inchangé depuis le bounding) :
 
 **M4 PRE-REPROOF BOUNDING IMPLEMENTED WITH RESERVES — READ-ONLY CLI SURFACE BOUNDED — TIMEOUT WINDOW NOT REQUALIFIED — NO REAL EXECUTION — MORRIS REPROOF DECISION REQUIRED**
 
@@ -315,13 +425,18 @@ Statut: **READY FOR CHATGPT BOUNDING REVIEW**
 
 ## R. Review Handoff publication
 
-Filled after publisher success.
+| Champ | Valeur |
+| --- | --- |
+| Previous tip (incomplete) | `76eafd45c623f0b718406ee95c1b20efb8aa2d47` |
+| Previous blob (incomplete) | `4dc3b09a092e164706794fb18d27ab562c84fc3d` |
+| GO repair | CONSUMED |
+| Product files this repair | NONE |
+| Commit message | `docs(review-handoff): repair m4 pre-reproof bounding content completeness` |
+| Branch | `sfia/review-handoff` |
+| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
 
-- Message: `docs(review-handoff): publish m4 pre-reproof bounding`
-- Branch: `sfia/review-handoff`
-- Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-- Previous tip: `797daeccfa2ec445a1ecaf10f042de635cb1fe21`
+Filled after publisher success: new commit SHA / remote SHA / blob.
 
 Instruction ChatGPT:
 
-Review Handoff publié. ChatGPT doit relire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`, vérifier cycle/branche/HEAD/base, le diff complet, la qualification CLI, les tests, la preuve ZERO REAL et les réserves. Ce rapport n'autorise aucun reproof REAL. Toute nouvelle HumanDecision/ExecutionContract, Attempt REAL, Gate D ou exécution Cursor nécessite un nouveau GO Morris.
+Review Handoff publié. ChatGPT doit relire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`, vérifier cycle/branche/HEAD/base, le **diff complet gateway + R1**, la qualification CLI, les tests, la preuve ZERO REAL et les réserves. Ce rapport n'autorise aucun reproof REAL. Toute nouvelle HumanDecision/ExecutionContract, Attempt REAL, Gate D ou exécution Cursor nécessite un nouveau GO Morris.
