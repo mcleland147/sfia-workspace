@@ -1,199 +1,328 @@
-# SFIA Review Pack — FULL — Cycle 14 Post-merge — M4 Roadmap Sync
+# Review Pack FULL — M4 Post-merge Roadmap Sync PR readiness
 
-Timestamp (Europe/Paris): 2026-08-14 10:15:57 CEST
-Author: Cursor (documentary executor)
-GO Morris consumed: GO MORRIS — M4 POST-MERGE + ROADMAP SYNC
-Cycle: 14 — Post-merge
-Profil: Standard
-Typologie v2.4: DOC
-Mode: documentary sync only — no project commit/push/PR/merge, no branch delete, no code, no FIRST REAL, no Gate D consume, no M5, no runtime v3
-
-CKC: detailed ABSENT
-Fallback: method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
-Status: method-candidate · experimental cognitive guidance · no execution authority
-Cycle 14 synthetic map: finalité clôturer après merge ; objet sync/cleanup ; posture clôture honnête ; dimensions réserves/suite/branche ; résultat main aligné ; preuve HEAD=main + cleanup ; risque oublier réserves
-Exception this cycle: branch cleanup DISABLED — delivery/sfia-studio-m4-real-off retained
-
-Method sources read (from origin/main @ ec65fb47):
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/core/sfia-knowledge-layer.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md §4.14
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md (row 14)
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (VALIDATED — ACTIVE ON MAIN — untouched)
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (sole write)
-- projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md (untouched)
-- git show bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63:sfia-review-handoff/latest-chatgpt-review.md (Class C / M4 causality not established)
-- PR #344 metadata, f7270b21, merge ec65fb47, CI run 31779953226 SUCCESS
-
----
-
-## 1. Identity
-
-Repository: mcleland147/sfia-workspace
-Workspace: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off`
-
-Initial branch / HEAD: `delivery/sfia-studio-m4-real-off` @ `f7270b21ccdbcf1cd543879e7c4120d87b874479`
-Post-merge docs branch / HEAD: `docs/sfia-studio-m4-post-merge-roadmap` @ `ec65fb47c04b451d892297c806b9b041995339a5` (created via `git switch -c … origin/main`; no remote of that name existed)
-origin/main: `ec65fb47c04b451d892297c806b9b041995339a5`
-
-PR #344: MERGED (mergedAt 2026-08-14T08:03:45Z, isDraft false after merge-gate ready)
-Delivery head: `f7270b21ccdbcf1cd543879e7c4120d87b874479`
-Merge commit: `ec65fb47c04b451d892297c806b9b041995339a5`
-CI #172 / run 31779953226: SUCCESS (headSha f7270b21)
-Head ancestor of origin/main: PASS
-Delivery branch remote retained: YES `f7270b21ccdbcf1cd543879e7c4120d87b874479	refs/heads/delivery/sfia-studio-m4-real-off`
-Review Handoff tip before this cycle: `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` (verified via ls-remote before publish)
-Staged: empty throughout
-Untracked: `.tmp-sfia-review/**` only
-REAL flags: unset
-Cursor REAL this cycle: 0
-Gate D production consumption this cycle: 0
-Branch cleanup: NONE
-Project commit/push/PR: NONE
-
-STOP checks:
-- origin/main did not advance beyond ec65fb47
-- PR #344 is MERGED
-- CI #172 is SUCCESS
-- docs branch did not already exist with unknown state
-
----
-
-## 2. Convergence pre-check (verified against Git)
-
-Build Doctrine: VALIDATED — ACTIVE ON MAIN (file not modified)
-M1–M3: CLOSED / MERGED / EXIT PROOF SATISFIED
-M4 Architecture D-M4-01→05: ADOPTED (unchanged text in B6 table)
-M4 Delivery: VALIDATED BY MORRIS / MERGED ON MAIN / PR #344 / merge ec65fb47
-M4 REAL boundary: IMPLEMENTED ON MAIN / DEFAULT OFF (`wireOaStack` still fixture; REAL not wired by default — two comments only on VSR)
-Gate D GD-1: IMPLEMENTED ON MAIN (`grantGateD.ts`) / NOT PRODUCTION-CONSUMED
-Technical launch journal: IMPLEMENTED ON MAIN CREATED/LAUNCHED TEMPORARY WITH EXIT ≠ Product Store
-Bounded RO AgentCapability: IMPLEMENTED ON MAIN (`m4BoundedReadOnlyCursorAgent.ts`)
-NodeCursorProcessRunner: IMPLEMENTED ON MAIN
-Isolated contract-bound Git worktree: IMPLEMENTED ON MAIN (`studioGitWorktreeWorkspace.ts`)
-Actual Cursor REAL from Studio: 0
-FIRST REAL: NOT AUTHORIZED
-M4 exit proof: NOT SATISFIED
-M5: NOT AUTHORIZED
-runtime v3: NON ADOPTED
-
-D-M4-01→05: not reopened, not rewritten.
-
----
-
-## 3. Roadmap snapshot BEFORE (main @ ec65fb47 content, still the M3-post-merge / M4-architecture-docs snapshot)
-
-Stale current-state claims (treated as current, therefore blockers if left):
-- Snapshot Git 607763d9 (M3 post-merge #342) — actual main is ec65fb47
-- Timestamp: DELIVERY NOT AUTHORIZED
-- Anti-claims: architecture decided ≠ Delivery authorized (Delivery now merged)
-- B3: Architecture M4 DECIDED / DELIVERY PENDING ; REAL NOT IMPLEMENTED
-- B3: T-A5 REAL MISSING ON MAIN
-- B3: Cursor REAL 0 / DISABLED
-- B3: Gate D NOT CONSUMED / NOT IMPLEMENTED
-- B4: specialized REAL MISSING on main / ADAPT COMPLETE in Delivery
-- B4: launch journal MISSING / DECIDED FOR M4
-- B4: AgentCapability Fixture only / ADAPT
-- B5: Cursor REAL MISSING ON MAIN / DELIVERY GAP OPEN
-- B5: REAL adapter DECIDED — NOT IMPLEMENTED
-- B5: launch frontier DECIDED — NOT IMPLEMENTED
-- B5: Gate D DECIDED MODEL — NOT IMPLEMENTED / NOT CONSUMED
-- B5: bounded RO DECIDED — NOT IMPLEMENTED
-- B6 open gate 1: M4 Delivery NOT AUTHORIZED
-- M3 Next: DELIVERY NOT AUTHORIZED
-- M4 État: DELIVERY NOT STARTED / NOT AUTHORIZED / Cursor REAL DISABLED
-- M4 Gaps (Delivery) all NOT IMPLEMENTED
-- M5 Dépendances: M4 (unqualified)
-- B9 F11 NOT IMPLEMENTED ; F12 model ADOPTED only
-- B10 NEXT = M4 Delivery NOT AUTHORIZED ; DELIVERY GATE OPEN ; GATE D NOT IMPLEMENTED ; Cursor REAL DISABLED
-
----
-
-## 4. Stale claims corrected (current → Git-true)
-
-| Location | Before (stale as current) | After |
-| --- | --- | --- |
-| metadata Snapshot | 607763d9 | ec65fb47 |
-| Timestamp | DELIVERY NOT AUTHORIZED | MERGED ON MAIN — FIRST REAL NOT AUTHORIZED |
-| Intégration Git | stopped at #342 | + #343 architecture docs + #344 Delivery + CI #172 SUCCESS + Class C note |
-| Anti-claims | architecture ≠ Delivery authorized | Delivery merged ≠ exit proof ; Gate D implemented ≠ consumed ; REAL implemented ≠ executed |
-| B3 Architecture/REAL/Gate D/Cursor | NOT IMPLEMENTED / MISSING / DISABLED | IMPLEMENTED DEFAULT OFF / 0 REAL / Gate D NOT CONSUMED |
-| B4 T-A5 REAL / journal / agent / VSR / Memory OA | MISSING / future | COMPLETE M4 Delivery KEEP / TEMPORARY WITH EXIT IMPLEMENTED / not Product Store |
-| B5 implementation gaps | NOT IMPLEMENTED / MISSING ON MAIN | CLOSED or IMPLEMENTED / FIRST REAL pending |
-| B6 open #1 | M4 Delivery NOT AUTHORIZED | FIRST REAL MORRIS GO REQUIRED |
-| M3 Next | DELIVERY NOT AUTHORIZED | FIRST REAL MORRIS GO REQUIRED |
-| M4 fiche | Delivery not started | VALIDATED BY MORRIS MERGED — FIRST REAL NOT AUTHORIZED — EXIT PROOF NOT SATISFIED |
-| M5 | PARTIAL ; dep M4 | PARTIAL / NOT AUTHORIZED ; M4 exit proof not yet satisfied |
-| B9 F05/F11/F12 | Delivery gaps | implementation merged ; proof/consumption pending |
-| B10 | Delivery next | FIRST REAL next ; Delivery gate CLOSED/MERGED |
-
-CI #172: mentioned concisely in Intégration Git / B6 / Références — initial T7-C08 Class C, M4 causality not established, authorized rerun same head SUCCESS, no code change.
-
----
-
-## 5. Historical stale-like claims INTENTIONALLY RETAINED
-
-| Hit | Classification |
+| Field | Value |
 | --- | --- |
-| B3 dirty `delivery/sfia-studio-f3-real-prerequisites` Auth.js/Ack inspect | HISTORICAL / harvest — heading now marked historique/harvest ; D-M4-05 still DEFER |
-| SqliteAuthorityAttemptJournal harvest row | HISTORICAL / SUPERSEDED as current — text now says implemented via PR #344 |
-| Recommandation d’audit Option 1 was RECOMMENDATION | HISTORICAL / SUPERSEDED (unchanged block) |
-| D-M4-01→05 decision table ADOPTED | CURRENT architecture (not reopened) |
-| Critical Ack UI CANDIDATE / MISSING | CURRENT (Ack not promoted) |
-| GuidedSession PARTIAL / MISSING DEFERRED | CURRENT non-M4 debt |
-| Evidence durable MISSING | CURRENT M5 |
-| IAM PARTIAL / MISSING | CURRENT |
-| M1/M2/M3 EXIT PROOF SATISFIED | CURRENT for those milestones, not M4 |
-| G0/M1/M2 Next still “M4” | HISTORICAL next-at-close of those closed fiches ; not presented as current critical path |
-| DOC-DEBT-M1-01 framing 32 | CURRENT documentation debt ; not touched |
+| **Timestamp** | 2026-08-14 10:26:27 CEST (+0200) |
+| **Timezone** | Europe/Paris |
+| **Level** | FULL |
+| **GO consumed** | GO MORRIS — VALIDATE M4 POST-MERGE ROADMAP SYNC + COMMIT / PUSH / PR |
+| **Cycle** | 14 — Post-merge |
+| **Complementary block** | PR readiness / controlled publication |
+| **Profil SFIA** | Standard |
+| **Typologie v2.4** | DOC |
+| **CKC recherché** | oui |
+| **Cycle qualifié** | 14 — Post-merge |
+| **CKC détaillé trouvé** | non |
+| **CKC fallback** | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` |
+| **CKC statut** | method-candidate |
+| **CKC usage** | experimental cognitive guidance |
+| **CKC autorité** | aucune autorité d'exécution |
+| **CKC posture** | clôture honnête / sync / réserves / suite |
+| **CKC limite** | ne pas inventer de CKC détaillé |
+| **Repository** | mcleland147/sfia-workspace |
+| **Branch** | `docs/sfia-studio-m4-post-merge-roadmap` |
+| **Initial HEAD (pre-commit)** | `ec65fb47c04b451d892297c806b9b041995339a5` |
+| **origin/main** | `ec65fb47c04b451d892297c806b9b041995339a5` |
+| **Handoff source (candidate review)** | `a76518d6e37b860cd2f9776737330a318a7b0514` |
 
-Forbidden current claims absent:
-- no “M4 CLOSED” as milestone-complete
-- no “M4 EXIT PROOF SATISFIED”
-- no “FIRST REAL AUTHORIZED”
-- no “Gate D CONSUMED” as production fact (only “NOT CONSUMED”)
-- no “Cursor REAL EXECUTED”
-- no “M5 AUTHORIZED”
-- no “runtime v3 ADOPTED”
+## 1. Local Git Truth Check
 
-D-M4 decisions: unchanged wording in the ADOPTED table.
+```text
+TOPLEVEL=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off
+BRANCH=docs/sfia-studio-m4-post-merge-roadmap
+HEAD (pre-commit)=ec65fb47c04b451d892297c806b9b041995339a5
+origin/main=ec65fb47c04b451d892297c806b9b041995339a5
+tracked diff=projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+stat=+78 / -62
+git diff --check=PASS
+staged (pre-commit)=empty
+untracked=.tmp-sfia-review/** only
+remote docs branch (pre-push)=ABSENT
+existing PR (pre-create)=[]
+review-handoff remote=a76518d6e37b860cd2f9776737330a318a7b0514
+SFIA_STUDIO_CURSOR_REAL=<unset>
+OPS1_CURSOR_REAL=<unset>
+```
 
----
+Verdict: identity PASS. origin/main did not advance. No STOP.
 
-## 6. Sections changed
+## 2. Candidate identity check
 
-metadata · B3 · B4 (T-A5 rows, VSR, Persistence Memory OA) · B5 (M4 gaps + restart + HD bloque) · B6 (M4 Delivery consumed + open gates) · M3 Next · M4 fiche · M5 dependency/status · B9 F05/F11/F12 · B10 · Références
+Compared local unstaged `git diff -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` with FULL useful diff inside:
 
-Unchanged on purpose: B1, B2, G0, M1, M2 fiches (except M3 Next), M6–M8, B10b, B11, B12, Build Doctrine, framing 34, method, code.
+`git show a76518d6e37b860cd2f9776737330a318a7b0514:sfia-review-handoff/latest-chatgpt-review.md`
 
----
+| Check | Result |
+| --- | --- |
+| Files | 1 — Roadmap only |
+| Stat | +78 / -62 |
+| Functional content vs ChatGPT-reviewed candidate | IDENTICAL |
+| Raw byte compare of extracted markdown fence vs `git diff` | 29 empty-context-line mismatches (` ` vs ``) + 1 trailing newline — markdown fence trailing-space strip artifact, not a Roadmap content change |
+| After normalizing empty unified-diff context lines | candidate content IDENTICAL |
+| `git diff --check` | PASS |
 
-## 7. Status after candidate
+**Candidate identity: PASS**
 
-M4 Architecture: CLOSED
-M4 Delivery: VALIDATED BY MORRIS / MERGED ON MAIN
-REAL boundary: IMPLEMENTED / DEFAULT OFF
-Gate D: IMPLEMENTED / NOT CONSUMED
-Launch journal: IMPLEMENTED / TEMPORARY WITH EXIT
-Bounded RO AgentCapability: IMPLEMENTED
-Actual Cursor REAL: 0
-FIRST REAL: NOT AUTHORIZED / NEXT MORRIS GATE
-M4 exit proof: NOT SATISFIED
-M5: NOT AUTHORIZED
-runtime v3: NON ADOPTED
+No functional octet of the Roadmap changed after ChatGPT review. No STOP.
 
-Changed tracked files: 1 — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (+78/−62)
-git diff --check: PASS (empty)
-Frozen files: Build Doctrine, framing, app, method, prompts, .github — no diff vs HEAD
+## 3. Stale claim scan
 
----
+Command:
 
-## 8. Full useful diff (complete)
+```text
+rg -n 'DELIVERY NOT AUTHORIZED|DELIVERY NOT STARTED|MISSING ON MAIN|Gate D.*NOT IMPLEMENTED|REAL.*NOT IMPLEMENTED|FIRST REAL AUTHORIZED|M4 EXIT PROOF SATISFIED|M5 AUTHORIZED|runtime v3 ADOPTED' \
+  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
 
-The entire tracked diff of this cycle follows. ChatGPT must treat this as the source of modified content.
+Hits remaining:
+
+| Line | Phrase | Classification |
+| --- | --- | --- |
+| 15 | M3 **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** | HISTORICAL / CURRENT for **M3** (correct) |
+| 15 | M4 **≠** runtime v3 ADOPTED | CURRENT anti-claim (correct) |
+| 393 | ≠ claim runtime v3 ADOPTED | CURRENT anti-claim / M1 DOC-DEBT historical note (correct) |
+
+No remaining CURRENT presentation of:
+
+- M4 DELIVERY NOT AUTHORIZED / NOT STARTED
+- REAL / Gate D NOT IMPLEMENTED
+- FIRST REAL AUTHORIZED
+- M4 EXIT PROOF SATISFIED
+- M5 AUTHORIZED
+- runtime v3 ADOPTED (as a positive claim)
+
+**Stale claim scan: PASS**
+
+## 4. Staging
+
+Forbidden `git add .` / `git add -A` not used.
+
+Used:
+
+```text
+git add -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
+
+Cached:
+
+```text
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+1 file changed, 78 insertions(+), 62 deletions(-)
+git diff --cached --check = PASS
+```
+
+**Staged scope: PASS**
+
+## 5. Commit
+
+| Field | Value |
+| --- | --- |
+| **Commit SHA** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
+| **Parent SHA** | `ec65fb47c04b451d892297c806b9b041995339a5` |
+| **Commit message** | `docs(sfia-studio): sync m4 post-merge roadmap` |
+| **Committed file** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| **origin/main..HEAD count** | 1 |
+| **git diff --check HEAD^..HEAD** | PASS |
+
+Parent matches expected baseline. Granularity = 1 documentary commit. No STOP.
+
+## 6. Push / remote branch
+
+| Field | Value |
+| --- | --- |
+| **Remote branch (pre-push)** | ABSENT |
+| **Push** | `git push -u origin docs/sfia-studio-m4-post-merge-roadmap` (no force) |
+| **LOCAL_SHA** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
+| **REMOTE_SHA** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
+| **Match** | PASS |
+
+## 7. Draft PR
+
+| Field | Value |
+| --- | --- |
+| **PR number** | 345 |
+| **URL** | https://github.com/mcleland147/sfia-workspace/pull/345 |
+| **Title** | docs(sfia-studio): sync m4 post-merge roadmap |
+| **state** | OPEN |
+| **isDraft** | true |
+| **baseRefName** | main |
+| **headRefName** | docs/sfia-studio-m4-post-merge-roadmap |
+| **headRefOid** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
+| **changedFiles** | 1 |
+| **additions** | 78 |
+| **deletions** | 62 |
+| **remote file** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+
+**PR remote scope: PASS**
+
+### Complete PR body
+
+```markdown
+# Summary
+
+- synchronize the SFIA Studio Convergence Roadmap after M4 Delivery merge
+- record PR #344 / merge ec65fb47
+- record M4 REAL-OFF implementation now on main
+- move the critical path to FIRST M4 CURSOR REAL READ-ONLY PROOF
+- preserve all M4/M5/runtime anti-claims
+
+# Git truth
+
+Base:
+ec65fb47c04b451d892297c806b9b041995339a5
+
+M4 Delivery:
+PR #344
+head f7270b21ccdbcf1cd543879e7c4120d87b874479
+merge ec65fb47c04b451d892297c806b9b041995339a5
+
+CI:
+SFIA Studio CI #172 SUCCESS on same head after Morris-authorized rerun.
+
+T7-C08 diagnostic:
+Class C / CI environment timing suspected;
+M4 causality not established;
+no code change between failure and successful rerun.
+
+# Current M4 state
+
+M4 Architecture:
+CLOSED
+
+M4 Delivery:
+VALIDATED BY MORRIS
+MERGED ON MAIN
+
+REAL boundary:
+IMPLEMENTED
+DEFAULT OFF
+
+Gate D:
+IMPLEMENTED
+NOT CONSUMED
+
+Technical launch journal:
+IMPLEMENTED
+TEMPORARY WITH EXIT
+≠ Product Store
+
+Bounded RO AgentCapability:
+IMPLEMENTED
+
+Actual Cursor REAL:
+0
+
+FIRST REAL:
+NOT AUTHORIZED
+NEXT MORRIS GATE
+
+M4 exit proof:
+NOT SATISFIED
+
+M5:
+NOT AUTHORIZED
+
+runtime v3:
+NON ADOPTED
+
+# Roadmap sections synchronized
+
+- metadata
+- B3
+- B4
+- B5
+- B6
+- M3 Next
+- M4
+- M5 dependency/status
+- B9 F05/F11/F12
+- B10
+- references
+
+# Anti-claims
+
+M4 Delivery merged
+≠ M4 milestone closed
+
+REAL implementation merged
+≠ Cursor REAL executed
+
+Gate D implemented
+≠ Gate D consumed
+
+CREATED/LAUNCHED implementation
+≠ M4 REAL exit proof
+
+technical launch journal
+≠ Product Store
+
+FIRST REAL next
+≠ FIRST REAL authorized
+
+M4
+≠ runtime v3 ADOPTED
+
+Roadmap sync PR
+≠ merge permission
+
+# Scope
+
+Exactly one tracked file:
+
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+No code.
+No Build Doctrine change.
+No framing change.
+No method/template change.
+
+# Next gate
+
+Merge of this Roadmap sync remains a separate Morris gate.
+
+Only after this documentation is merged and main is verified may Morris separately authorize:
+
+FIRST M4 CURSOR REAL READ-ONLY PROOF
+
+```
+
+## 8. CI / checks
+
+Relieved once. No rerun. No project modification.
+
+```text
+Detect SFIA Studio changes	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/31783858097/job/94715263697
+```
+
+**CI: PENDING**
+
+Qualification: ROADMAP SYNC PR NOT READY FOR MERGE because CI is PENDING (not FAILED). Merge remains a separate Morris gate regardless.
+
+## 9. Product state preserved
+
+| Item | Status |
+| --- | --- |
+| M4 Architecture | CLOSED |
+| M4 Delivery | VALIDATED BY MORRIS / MERGED ON MAIN |
+| REAL boundary | IMPLEMENTED / DEFAULT OFF |
+| Gate D | IMPLEMENTED / NOT CONSUMED |
+| Technical launch journal | IMPLEMENTED / TEMPORARY WITH EXIT / ≠ Product Store |
+| Bounded RO AgentCapability | IMPLEMENTED |
+| Actual Cursor REAL | 0 |
+| FIRST REAL | NOT AUTHORIZED / NEXT MORRIS GATE |
+| M4 exit proof | NOT SATISFIED |
+| M5 | NOT AUTHORIZED |
+| runtime v3 | NON ADOPTED |
+| Merge of this PR | NOT AUTHORIZED |
+| Branch cleanup | NONE |
+| Project merge | NONE |
+| Cursor REAL this cycle | 0 |
+| Gate D production consume | 0 |
+| D-M4-01→05 | unchanged ADOPTED (not reopened) |
+
+## 10. Full useful committed diff
+
+Source: `git diff origin/main...HEAD`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -488,44 +617,38 @@ index 0093edf..494d357 100644
 
 ```
 
----
+## 11. Final Git truth (project branch, pre-handoff return)
 
-## 9. Anti-claims of this pack
+```text
+branch=docs/sfia-studio-m4-post-merge-roadmap
+HEAD=91fa0eb25fe29e833bd212a8f9097c2c039a3c97
+HEAD^=ec65fb47c04b451d892297c806b9b041995339a5
+origin/main=ec65fb47c04b451d892297c806b9b041995339a5
+ahead=1
+remote docs branch=91fa0eb25fe29e833bd212a8f9097c2c039a3c97
+tracked worktree=clean
+staged=empty
+untracked=.tmp-sfia-review/**
+PR=OPEN / DRAFT #345
+changed files=1 Roadmap only
+```
 
-- This cycle ≠ FIRST REAL authorization
-- Delivery merged ≠ M4 milestone closed
-- Gate D implemented ≠ consumed
-- Roadmap candidate ≠ merged (no project commit/push/PR)
-- Diagnostic worktrees/docs branch ≠ Studio REAL worktrees
-- Technical journal ≠ Product Store
-- CI #172 SUCCESS after rerun ≠ FinOps hardened on M4 branch
+## 12. Verdict
 
----
-
-## 10. Next gate (recommended, not this GO)
-
-GO MORRIS — VALIDATE M4 POST-MERGE ROADMAP SYNC + COMMIT / PUSH / PR
-
-That future documentary gate still must NOT authorize FIRST REAL.
-
-After that PR merges, product gate remains separate:
-GO MORRIS — FIRST M4 CURSOR REAL READ-ONLY PROOF
-
----
-
-## 11. Verdict
-
-M4 POST-MERGE VERIFIED —
-PR #344 MERGED ON MAIN —
-M4 DELIVERY VALIDATED BY MORRIS / MERGED —
-ROADMAP SYNC CANDIDATE COMPLETE —
-M4 IMPLEMENTATION STATE ALIGNED WITH GIT —
-FIRST REAL REMAINS THE NEXT MORRIS GATE —
+M4 POST-MERGE ROADMAP SYNC VALIDATED BY MORRIS —
+CANDIDATE IDENTITY VERIFIED —
+DOCUMENTARY COMMIT CREATED —
+BRANCH PUSHED AND REMOTE VERIFIED —
+DRAFT PR CREATED —
+REMOTE SCOPE VERIFIED —
+CI PENDING —
+MERGE NOT AUTHORIZED —
 FIRST REAL NOT AUTHORIZED —
 GATE D NOT CONSUMED —
 M4 EXIT PROOF NOT SATISFIED —
 M5 NOT AUTHORIZED —
-RUNTIME V3 NON ADOPTED —
-NO PROJECT COMMIT/PUSH/PR —
-NO BRANCH CLEANUP —
-READY FOR CHATGPT REVIEW / MORRIS ROADMAP SYNC VALIDATION GATE
+RUNTIME V3 NON ADOPTED
+
+Statut: READY FOR REVIEW / CI PENDING — MERGE NOT AUTHORIZED until Morris merge gate after CI settles.
+
+Next Morris gate: GO MORRIS — MERGE M4 POST-MERGE ROADMAP SYNC PR
