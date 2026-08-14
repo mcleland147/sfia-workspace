@@ -62,7 +62,9 @@ export type AgentExecutionMode =
   | "dry_run"
   | "simulated"
   | "adapter_async"
-  | "adapter_sync_fixture";
+  | "adapter_sync_fixture"
+  /** M4 REAL Cursor CLI mode — requires specialized RealExecutionLaunchPort (D-M4-03). */
+  | "cursor_cli_real";
 
 export type AgentHealthStatus =
   | "unknown"
@@ -329,7 +331,22 @@ export type AttemptDetailCode =
   | "EXECUTION_TIMEOUT"
   | "STALE_CONTEXT_DETECTED"
   | "CONCURRENCY_CONFLICT"
-  | "VERSION_CONFLICT";
+  | "VERSION_CONFLICT"
+  /** M4 REAL-OFF boundary (D-M4-01…05) */
+  | "REAL_BOUNDARY_DISABLED"
+  | "GATE_D_REQUIRED"
+  | "GATE_D_INVALID"
+  | "GATE_D_EXPIRED"
+  | "GATE_D_ALREADY_CONSUMED"
+  | "GATE_D_ALREADY_GRANTED"
+  | "GATE_D_BINDING_MISMATCH"
+  | "LAUNCH_JOURNAL_UNAVAILABLE"
+  | "LAUNCH_RECONCILIATION_REQUIRED"
+  | "REAL_AGENT_PROFILE_INVALID"
+  | "CURSOR_UNAVAILABLE"
+  | "REAL_WORKSPACE_INVALID"
+  | "WORKSPACE_INVALID"
+  | "REAL_LAUNCH_FAILED";
 
 export type AttemptStructuredError = {
   code: AttemptModeledErrorCode;

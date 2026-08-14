@@ -10,7 +10,8 @@
  * injectable adapters are `TestExecutionAdapter` and `NoOpExecutionAdapter`;
  * there is no shell, network, MCP, Cursor, worker, queue, scheduler, SQL or
  * UI anywhere in this module, and a real execution capability is NOT
- * authorized by it.
+ * authorized by it. M4 REAL boundary is opt-in via `realBoundary` and stays
+ * REAL-OFF unless the specialized gateway env flag is explicitly enabled.
  *
  * Ownership split with T-A4:
  * - T-A4 owns draft…confirmed (+ pre-exec cancelled, superseded) and REFUSES
@@ -26,13 +27,15 @@
  * Exported surface:
  * - domain types / errors / invariants (including the agent_selection
  *   Confirmation binding helpers);
- * - ports (repository, registry, adapter, audit);
+ * - ports (repository, registry, adapter, audit, REAL launch + journal + workspace);
  * - use-cases (Select, Start, Cancel, RecordResult, RecordFailure, Retry,
- *   TriggerTimeout, Get, List, CheckAttemptAuthorization);
+ *   TriggerTimeout, Get, List, CheckAttemptAuthorization, GrantRealExecutionGate);
  * - memory infrastructure and the two fake adapters;
  * - closed factories `createInMemoryExecutionAttemptServices` and
  *   `createTestExecutionAttemptServices`.
  *
+ * NOT exported: test-only REAL doubles (process runners / launch gateways) —
+ * those live under __tests__/…/support only.
  * NOT exported: any mutation entry point for the agent registry — the
  * descriptor set is closed at construction.
  */
@@ -40,14 +43,27 @@
 export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
+export * from "./domain/realLaunchSafety";
 
 export * from "./ports/executionAttemptRepository";
 export * from "./ports/agentRegistry";
 export * from "./ports/executionAdapter";
 export * from "./ports/executionAttemptAudit";
+export * from "./ports/realExecutionLaunchPort";
+export * from "./ports/realExecutionWorkspacePort";
+export * from "./ports/realLaunchSafetyJournalPort";
+// launchSafetyJournalPort is a thin re-export — avoid duplicate export * conflict.
 
 export { SelectExecutionAgent } from "./application/selectExecutionAgent";
-export { StartExecution } from "./application/startExecution";
+export { StartExecution, extractContractBaseHeadSha } from "./application/startExecution";
+export {
+  GrantRealExecutionGate,
+  GrantGateD,
+  type GrantRealExecutionGateRequest,
+  type GrantRealExecutionGateResult,
+  type GrantGateDRequest,
+  type GrantGateDResult,
+} from "./application/grantRealExecutionGate";
 export { CancelExecutionAttempt } from "./application/cancelExecutionAttempt";
 export { RecordExecutionResult } from "./application/recordExecutionResult";
 export { RecordExecutionFailure } from "./application/recordExecutionFailure";
@@ -82,6 +98,46 @@ export {
   ConsoleExecutionAttemptAuditJournal,
   MemoryExecutionAttemptAuditJournal,
 } from "./infrastructure/observability";
+export {
+  CursorCliLaunchGateway,
+  StudioCursorRealLaunchGateway,
+  DisabledRealProcessRunner,
+  NodeCursorProcessRunner,
+  NODE_CURSOR_STDOUT_CAP_BYTES,
+  NODE_CURSOR_STDERR_CAP_BYTES,
+  resolveStudioCursorBinPath,
+  resolveCursorBinPath,
+  type CursorCliLaunchGatewayOptions,
+  type StudioCursorRealLaunchGatewayOptions,
+  type SpawnPrimitive,
+  type NodeCursorProcessRunnerOptions,
+} from "./infrastructure/cursorCliLaunchGateway";
+export {
+  StudioGitWorktreeWorkspace,
+  NodeGitCommandRunner,
+  isFullGitSha,
+  workspacePathForAttempt,
+  type GitCommandRunner,
+  type GitCommandResult,
+  type StudioGitWorktreeWorkspaceOptions,
+} from "./infrastructure/studioGitWorktreeWorkspace";
+export {
+  SqliteRealLaunchSafetyJournal,
+  SqliteLaunchSafetyJournal,
+  type SqliteRealLaunchSafetyJournalOptions,
+  type SqliteLaunchSafetyJournalOptions,
+} from "./infrastructure/sqliteRealLaunchSafetyJournal";
+export { MemoryLaunchSafetyJournal } from "./infrastructure/memoryLaunchSafetyJournal";
+export {
+  createM4BoundedReadOnlyCursorAgentDescriptor,
+  isM4BoundedReadOnlyRealAgent,
+  M4_BOUNDED_RO_CAPABILITY,
+  M4_BOUNDED_RO_ACTION,
+  M4_BOUNDED_RO_TARGET,
+  M4_BOUNDED_RO_SCOPE,
+} from "./infrastructure/m4BoundedReadOnlyCursorAgent";
+export { M4_BOUNDED_RO_CURSOR_AGENT_ID, M4_REAL_GATEWAY_ADAPTER_ID } from "./domain/realLaunchSafety";
+export { assertStudioCursorRealOffForTests } from "./domain/realLaunchSafety";
 
 import type { ClockPort } from "@/lib/oa/doctrine";
 import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
@@ -93,6 +149,7 @@ import { CancelExecutionAttempt } from "./application/cancelExecutionAttempt";
 import { CheckAttemptAuthorization } from "./application/checkAttemptAuthorization";
 import { ExecutionContractStatusWriter } from "./application/executionContractStatusWriter";
 import { GetExecutionAttempt } from "./application/getExecutionAttempt";
+import { GrantRealExecutionGate } from "./application/grantRealExecutionGate";
 import { ListExecutionAttempts } from "./application/listExecutionAttempts";
 import { RecordExecutionFailure } from "./application/recordExecutionFailure";
 import { RecordExecutionResult } from "./application/recordExecutionResult";
@@ -112,11 +169,13 @@ import { TestExecutionAdapter } from "./infrastructure/testExecutionAdapter";
 import type { AgentDescriptor } from "./domain/types";
 import type { AgentRegistryPort } from "./ports/agentRegistry";
 import type { ExecutionAttemptAuditPort } from "./ports/executionAttemptAudit";
+import type { RealExecutionLaunchPort } from "./ports/realExecutionLaunchPort";
+import type { RealLaunchSafetyJournalPort } from "./ports/realLaunchSafetyJournalPort";
 
 /**
  * Closed union of injectable adapters. An arbitrary object implementing
  * `ExecutionAdapterPort` is NOT accepted by the factories: only these two
- * fakes exist in this foundation.
+ * fakes exist in this foundation. CursorCliLaunchGateway is NEVER injectable.
  */
 export type InjectableExecutionAdapter =
   | TestExecutionAdapter
@@ -130,6 +189,11 @@ export function isInjectableExecutionAdapter(
     candidate instanceof NoOpExecutionAdapter
   );
 }
+
+export type RealBoundaryWiring = {
+  readonly launchPort: RealExecutionLaunchPort;
+  readonly safetyJournal: RealLaunchSafetyJournalPort;
+};
 
 export type ExecutionAttemptServices = {
   store: MemoryExecutionAttemptStore;
@@ -149,6 +213,13 @@ export type ExecutionAttemptServices = {
   getExecutionAttempt: GetExecutionAttempt;
   listExecutionAttempts: ListExecutionAttempts;
   checkAttemptAuthorization: CheckAttemptAuthorization;
+  /** Present only when `realBoundary` was provided to the factory. */
+  grantRealExecutionGate?: GrantRealExecutionGate;
+  /** Alias for grantRealExecutionGate (Delivery naming). */
+  grantGateD?: GrantRealExecutionGate;
+  realBoundary?: RealBoundaryWiring;
+  launchSafetyJournal?: RealLaunchSafetyJournalPort;
+  realLaunch?: RealExecutionLaunchPort;
 };
 
 export type CreateInMemoryExecutionAttemptServicesOptions = {
@@ -164,6 +235,15 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
   policy?: Partial<AttemptPolicy>;
   /** Defaults to decisionServices.authority (T-A3 AuthorityResolverPort). */
   authorityResolver?: AuthorityResolverPort;
+  /**
+   * Optional M4 REAL boundary (journal + specialized launch port).
+   * Does NOT enable SFIA_STUDIO_CURSOR_REAL; default product wire stays REAL-OFF.
+   * No Fake REAL runner is chosen by this factory.
+   */
+  realBoundary?: RealBoundaryWiring;
+  /** Flat aliases accepted by tests — same as realBoundary. */
+  launchSafetyJournal?: RealLaunchSafetyJournalPort;
+  realLaunch?: RealExecutionLaunchPort;
 };
 
 /** Factory for the in-memory ExecutionAttempt runtime foundation. */
@@ -210,6 +290,25 @@ export function createInMemoryExecutionAttemptServices(
     store,
   );
 
+  const realBoundary =
+    options.realBoundary ??
+    (options.launchSafetyJournal && options.realLaunch
+      ? {
+          safetyJournal: options.launchSafetyJournal,
+          launchPort: options.realLaunch,
+        }
+      : undefined);
+  const grantRealExecutionGate = realBoundary
+    ? new GrantRealExecutionGate(
+        attempts,
+        contracts,
+        registry,
+        authority,
+        realBoundary.safetyJournal,
+        clock,
+      )
+    : undefined;
+
   return {
     store,
     attempts,
@@ -231,6 +330,8 @@ export function createInMemoryExecutionAttemptServices(
       clock,
       audit,
       store,
+      realBoundary?.launchPort,
+      realBoundary?.safetyJournal,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,
@@ -291,6 +392,11 @@ export function createInMemoryExecutionAttemptServices(
       clock,
       audit,
     ),
+    grantRealExecutionGate,
+    grantGateD: grantRealExecutionGate,
+    realBoundary,
+    launchSafetyJournal: realBoundary?.safetyJournal,
+    realLaunch: realBoundary?.launchPort,
   };
 }
 

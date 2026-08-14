@@ -172,6 +172,8 @@ function wireOaStack(
       });
 
   // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
+  // M4 REAL-OFF default: do NOT wire realBoundary / SFIA_STUDIO_CURSOR_REAL here.
+  // Opt-in REAL composition is explicit (journal + RealExecutionLaunchPort); no Fake defaults.
   const fixtureAdapter = createF3TestExecutionAdapter();
   const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
   const executionAttemptServices = createInMemoryExecutionAttemptServices({
