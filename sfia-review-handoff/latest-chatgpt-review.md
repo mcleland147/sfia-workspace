@@ -1,13 +1,13 @@
-# Review Pack FULL — M4 Post-merge Roadmap Sync PR readiness
+# Review Pack FULL — MERGE M4 POST-MERGE ROADMAP SYNC PR #345
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-08-14 10:26:27 CEST (+0200) |
+| **Timestamp** | 2026-08-14 10:31:30 CEST (+0200) |
 | **Timezone** | Europe/Paris |
 | **Level** | FULL |
-| **GO consumed** | GO MORRIS — VALIDATE M4 POST-MERGE ROADMAP SYNC + COMMIT / PUSH / PR |
+| **GO consumed** | GO MORRIS — MERGE M4 POST-MERGE ROADMAP SYNC PR #345 |
 | **Cycle** | 14 — Post-merge |
-| **Complementary block** | PR readiness / controlled publication |
+| **Complementary block** | PR merge / controlled integration |
 | **Profil SFIA** | Standard |
 | **Typologie v2.4** | DOC |
 | **CKC recherché** | oui |
@@ -20,142 +20,96 @@
 | **CKC posture** | clôture honnête / sync / réserves / suite |
 | **CKC limite** | ne pas inventer de CKC détaillé |
 | **Repository** | mcleland147/sfia-workspace |
-| **Branch** | `docs/sfia-studio-m4-post-merge-roadmap` |
-| **Initial HEAD (pre-commit)** | `ec65fb47c04b451d892297c806b9b041995339a5` |
-| **origin/main** | `ec65fb47c04b451d892297c806b9b041995339a5` |
-| **Handoff source (candidate review)** | `a76518d6e37b860cd2f9776737330a318a7b0514` |
+| **PR** | [#345](https://github.com/mcleland147/sfia-workspace/pull/345) |
+| **Previous handoff** | `8d808ad4599fb2a2c5b5543e1774b8574c66c201` |
 
-## 1. Local Git Truth Check
+## 1. Pre-merge Git / PR truth
 
 ```text
-TOPLEVEL=/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off
+TOPLEVEL=.../worktrees/sfia-studio-m4-real-off
 BRANCH=docs/sfia-studio-m4-post-merge-roadmap
-HEAD (pre-commit)=ec65fb47c04b451d892297c806b9b041995339a5
-origin/main=ec65fb47c04b451d892297c806b9b041995339a5
-tracked diff=projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-stat=+78 / -62
-git diff --check=PASS
-staged (pre-commit)=empty
-untracked=.tmp-sfia-review/** only
-remote docs branch (pre-push)=ABSENT
-existing PR (pre-create)=[]
-review-handoff remote=a76518d6e37b860cd2f9776737330a318a7b0514
+HEAD=91fa0eb25fe29e833bd212a8f9097c2c039a3c97
+origin/main (before)=ec65fb47c04b451d892297c806b9b041995339a5
+ahead=1
+tracked worktree=clean
+staged=empty
+untracked=.tmp-sfia-review/**
+remote docs branch=91fa0eb25fe29e833bd212a8f9097c2c039a3c97
+handoff remote=8d808ad4599fb2a2c5b5543e1774b8574c66c201
 SFIA_STUDIO_CURSOR_REAL=<unset>
 OPS1_CURSOR_REAL=<unset>
 ```
 
-Verdict: identity PASS. origin/main did not advance. No STOP.
+PR before merge:
 
-## 2. Candidate identity check
+| Field | Value |
+| --- | --- |
+| state | OPEN |
+| isDraft | true → marked ready (`gh pr ready 345`) then merged |
+| mergeable | MERGEABLE |
+| mergeStateStatus | CLEAN |
+| base | main |
+| head | docs/sfia-studio-m4-post-merge-roadmap |
+| headRefOid | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
+| commits | 1 |
+| changedFiles | 1 |
+| additions / deletions | 78 / 62 |
+| file | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| review threads | none |
 
-Compared local unstaged `git diff -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` with FULL useful diff inside:
+**Identity: PASS.** origin/main had not advanced. Scope unchanged vs publication cycle.
 
-`git show a76518d6e37b860cd2f9776737330a318a7b0514:sfia-review-handoff/latest-chatgpt-review.md`
+## 2. PR CI (pre-merge)
+
+SFIA Studio CI **#174** SUCCESS on head `91fa0eb25fe29e833bd212a8f9097c2c039a3c97`
+
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/31783858097
 
 | Check | Result |
 | --- | --- |
-| Files | 1 — Roadmap only |
-| Stat | +78 / -62 |
-| Functional content vs ChatGPT-reviewed candidate | IDENTICAL |
-| Raw byte compare of extracted markdown fence vs `git diff` | 29 empty-context-line mismatches (` ` vs ``) + 1 trailing newline — markdown fence trailing-space strip artifact, not a Roadmap content change |
-| After normalizing empty unified-diff context lines | candidate content IDENTICAL |
-| `git diff --check` | PASS |
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | SUCCESS (2m11s) |
+| SFIA Studio Required Gate | SUCCESS |
 
-**Candidate identity: PASS**
+**PR CI: GREEN**
 
-No functional octet of the Roadmap changed after ChatGPT review. No STOP.
+No rerun. No project modification.
 
-## 3. Stale claim scan
+## 3. Merge execution
 
-Command:
+Canonical strategy: **merge commit** (same as PR #344 / #343 / #342).
 
 ```text
-rg -n 'DELIVERY NOT AUTHORIZED|DELIVERY NOT STARTED|MISSING ON MAIN|Gate D.*NOT IMPLEMENTED|REAL.*NOT IMPLEMENTED|FIRST REAL AUTHORIZED|M4 EXIT PROOF SATISFIED|M5 AUTHORIZED|runtime v3 ADOPTED' \
-  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+gh pr ready 345
+gh pr merge 345 --merge
 ```
 
-Hits remaining:
+Forbidden flags not used: `--delete-branch`, `--force`, `--admin`, `--auto`, squash/rebase.
 
-| Line | Phrase | Classification |
-| --- | --- | --- |
-| 15 | M3 **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** | HISTORICAL / CURRENT for **M3** (correct) |
-| 15 | M4 **≠** runtime v3 ADOPTED | CURRENT anti-claim (correct) |
-| 393 | ≠ claim runtime v3 ADOPTED | CURRENT anti-claim / M1 DOC-DEBT historical note (correct) |
+| Field | Value |
+| --- | --- |
+| **Merge commit** | `3575c8863d8a13b610dbfde96a33426a620b2c56` |
+| **Parents** | `ec65fb47c04b451d892297c806b9b041995339a5` `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
+| **Subject** | Merge pull request #345 from mcleland147/docs/sfia-studio-m4-post-merge-roadmap |
+| **mergedAt** | 2026-08-14T08:30:48Z |
+| **mergedBy** | mcleland147 |
+| **PR after** | MERGED · isDraft=false |
+| **origin/main after** | `3575c8863d8a13b610dbfde96a33426a620b2c56` |
+| **91fa0eb ancestor of origin/main** | yes |
+| **Source branch retained** | `docs/sfia-studio-m4-post-merge-roadmap` @ `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
+| **Delivery branch retained** | `delivery/sfia-studio-m4-real-off` @ `f7270b21ccdbcf1cd543879e7c4120d87b874479` |
+| **Branch cleanup** | NONE |
+| **Local HEAD after merge** | still `91fa0eb…` on docs branch (no checkout of main required) |
 
-No remaining CURRENT presentation of:
-
-- M4 DELIVERY NOT AUTHORIZED / NOT STARTED
-- REAL / Gate D NOT IMPLEMENTED
-- FIRST REAL AUTHORIZED
-- M4 EXIT PROOF SATISFIED
-- M5 AUTHORIZED
-- runtime v3 ADOPTED (as a positive claim)
-
-**Stale claim scan: PASS**
-
-## 4. Staging
-
-Forbidden `git add .` / `git add -A` not used.
-
-Used:
-
-```text
-git add -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-```
-
-Cached:
+First-parent diff `origin/main^1 origin/main`:
 
 ```text
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 1 file changed, 78 insertions(+), 62 deletions(-)
-git diff --cached --check = PASS
+git diff --check = PASS
 ```
 
-**Staged scope: PASS**
-
-## 5. Commit
-
-| Field | Value |
-| --- | --- |
-| **Commit SHA** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
-| **Parent SHA** | `ec65fb47c04b451d892297c806b9b041995339a5` |
-| **Commit message** | `docs(sfia-studio): sync m4 post-merge roadmap` |
-| **Committed file** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
-| **origin/main..HEAD count** | 1 |
-| **git diff --check HEAD^..HEAD** | PASS |
-
-Parent matches expected baseline. Granularity = 1 documentary commit. No STOP.
-
-## 6. Push / remote branch
-
-| Field | Value |
-| --- | --- |
-| **Remote branch (pre-push)** | ABSENT |
-| **Push** | `git push -u origin docs/sfia-studio-m4-post-merge-roadmap` (no force) |
-| **LOCAL_SHA** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
-| **REMOTE_SHA** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
-| **Match** | PASS |
-
-## 7. Draft PR
-
-| Field | Value |
-| --- | --- |
-| **PR number** | 345 |
-| **URL** | https://github.com/mcleland147/sfia-workspace/pull/345 |
-| **Title** | docs(sfia-studio): sync m4 post-merge roadmap |
-| **state** | OPEN |
-| **isDraft** | true |
-| **baseRefName** | main |
-| **headRefName** | docs/sfia-studio-m4-post-merge-roadmap |
-| **headRefOid** | `91fa0eb25fe29e833bd212a8f9097c2c039a3c97` |
-| **changedFiles** | 1 |
-| **additions** | 78 |
-| **deletions** | 62 |
-| **remote file** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
-
-**PR remote scope: PASS**
-
-### Complete PR body
+## 4. Complete PR body (as merged)
 
 ```markdown
 # Summary
@@ -284,26 +238,32 @@ Only after this documentation is merged and main is verified may Morris separate
 
 FIRST M4 CURSOR REAL READ-ONLY PROOF
 
+
 ```
 
-## 8. CI / checks
+## 5. Post-merge CI
 
-Relieved once. No rerun. No project modification.
+Relieved once. No wait-to-green. No rerun.
 
-```text
-Detect SFIA Studio changes	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/31783858097/job/94715263697
-```
+SFIA Studio CI **#175** on `3575c8863d8a13b610dbfde96a33426a620b2c56`
 
-**CI: PENDING**
+- event: push
+- status: queued
+- url: https://github.com/mcleland147/sfia-workspace/actions/runs/31784204221
 
-Qualification: ROADMAP SYNC PR NOT READY FOR MERGE because CI is PENDING (not FAILED). Merge remains a separate Morris gate regardless.
+**POST-MERGE CI: PENDING**
 
-## 9. Product state preserved
+PR CI GREEN remains the merge-gate evidence. Post-merge CI is observational only in this cycle.
+
+## 6. Product state after documentary merge
+
+Roadmap now on `origin/main` @ `3575c88…` still records M4 Delivery merge `ec65fb47…` as the product snapshot (correct: this PR is documentation of that state, not a new product SHA).
 
 | Item | Status |
 | --- | --- |
 | M4 Architecture | CLOSED |
-| M4 Delivery | VALIDATED BY MORRIS / MERGED ON MAIN |
+| M4 Delivery | VALIDATED BY MORRIS / MERGED ON MAIN (PR #344 @ `ec65fb47…`) |
+| Roadmap sync | MERGED ON MAIN (PR #345 @ `3575c88…`) |
 | REAL boundary | IMPLEMENTED / DEFAULT OFF |
 | Gate D | IMPLEMENTED / NOT CONSUMED |
 | Technical launch journal | IMPLEMENTED / TEMPORARY WITH EXIT / ≠ Product Store |
@@ -313,16 +273,21 @@ Qualification: ROADMAP SYNC PR NOT READY FOR MERGE because CI is PENDING (not FA
 | M4 exit proof | NOT SATISFIED |
 | M5 | NOT AUTHORIZED |
 | runtime v3 | NON ADOPTED |
-| Merge of this PR | NOT AUTHORIZED |
-| Branch cleanup | NONE |
-| Project merge | NONE |
 | Cursor REAL this cycle | 0 |
 | Gate D production consume | 0 |
 | D-M4-01→05 | unchanged ADOPTED (not reopened) |
 
-## 10. Full useful committed diff
+Anti-claims preserved:
 
-Source: `git diff origin/main...HEAD`
+- Roadmap sync merged ≠ M4 milestone closed
+- REAL implementation merged ≠ Cursor REAL executed
+- Gate D implemented ≠ Gate D consumed
+- FIRST REAL next ≠ FIRST REAL authorized
+- M4 ≠ runtime v3 ADOPTED
+
+## 7. Full useful first-parent diff (what landed on main)
+
+Source: `git diff origin/main^1 origin/main`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -617,38 +582,32 @@ index 0093edf..494d357 100644
 
 ```
 
-## 11. Final Git truth (project branch, pre-handoff return)
+## 8. Final Git truth
 
 ```text
 branch=docs/sfia-studio-m4-post-merge-roadmap
 HEAD=91fa0eb25fe29e833bd212a8f9097c2c039a3c97
-HEAD^=ec65fb47c04b451d892297c806b9b041995339a5
-origin/main=ec65fb47c04b451d892297c806b9b041995339a5
-ahead=1
-remote docs branch=91fa0eb25fe29e833bd212a8f9097c2c039a3c97
+origin/main=3575c8863d8a13b610dbfde96a33426a620b2c56
+PR=MERGED #345
+source branch retained=yes
+delivery branch retained=yes
 tracked worktree=clean
 staged=empty
-untracked=.tmp-sfia-review/**
-PR=OPEN / DRAFT #345
-changed files=1 Roadmap only
 ```
 
-## 12. Verdict
+## 9. Verdict
 
-M4 POST-MERGE ROADMAP SYNC VALIDATED BY MORRIS —
-CANDIDATE IDENTITY VERIFIED —
-DOCUMENTARY COMMIT CREATED —
-BRANCH PUSHED AND REMOTE VERIFIED —
-DRAFT PR CREATED —
-REMOTE SCOPE VERIFIED —
-CI PENDING —
-MERGE NOT AUTHORIZED —
+M4 POST-MERGE ROADMAP SYNC PR #345 MERGED INTO MAIN —
+MERGE COMMIT VERIFIED —
+SOURCE BRANCH RETAINED —
+PR CI GREEN —
+POST-MERGE CI PENDING —
 FIRST REAL NOT AUTHORIZED —
 GATE D NOT CONSUMED —
 M4 EXIT PROOF NOT SATISFIED —
 M5 NOT AUTHORIZED —
 RUNTIME V3 NON ADOPTED
 
-Statut: READY FOR REVIEW / CI PENDING — MERGE NOT AUTHORIZED until Morris merge gate after CI settles.
+Statut: MERGED / POST-MERGE CI PENDING — FIRST REAL still a separate Morris gate.
 
-Next Morris gate: GO MORRIS — MERGE M4 POST-MERGE ROADMAP SYNC PR
+Next Morris gate (not consumed): FIRST M4 CURSOR REAL READ-ONLY PROOF — only after Morris separately authorizes it. This merge does not authorize FIRST REAL, Gate D consumption, M5, or runtime v3.
