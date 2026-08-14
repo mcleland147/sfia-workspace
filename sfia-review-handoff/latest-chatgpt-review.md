@@ -1,149 +1,59 @@
 # SFIA Studio — ChatGPT Review Pack (FULL)
-# M4 DELIVERY REAL-OFF — MICRO-CORRECTIF SPAWN ACK ≠ COMPLETION
+# M4 DELIVERY REAL-OFF — VALIDATION MORRIS + COMMIT / PUSH / DRAFT PR
 
 ## 0. Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Timestamp (Europe/Paris)** | 2026-08-14 09:04:04 CEST (+0200) |
+| **Timestamp (Europe/Paris)** | 2026-08-14 09:27:07 CEST (+0200) |
 | **Niveau** | FULL |
-| **Cycle** | 8 — Delivery / implémentation correction |
+| **Cycle** | 9 — QA / validation |
+| **Bloc** | PR readiness |
 | **Profil** | Critical |
-| **Typologie** | RUN — micro-correction candidat non commité |
-| **GO Morris** | **GO MICRO-CORRECTIF — SPAWN ACK ≠ COMPLETION** (consommé) |
+| **Typologie** | EVOL |
+| **GO Morris** | **GO MORRIS — VALIDATE M4 DELIVERY REAL-OFF + COMMIT / PUSH / PR** (consommé) |
+| **CKC** | Cycle 9 QA/validation candidate 0.1.0 — experimental cognitive guidance, no execution authority |
 | **Repo** | mcleland147/sfia-workspace |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off` |
 | **Branch** | `delivery/sfia-studio-m4-real-off` |
-| **HEAD** | `e974b7306f7400249c31399fd2890d5817833dbf` |
+| **Initial HEAD (pre-commit)** | `e974b7306f7400249c31399fd2890d5817833dbf` |
 | **origin/main** | `e974b7306f7400249c31399fd2890d5817833dbf` |
-| **Handoff source** | `e897c287a24d5698c0d431468aa1a51263708fdc` |
-| **Architecture evidence** | `366726945f8f533d958c82b7251edb1a5a4b45f0` |
-| **Project commit/push/PR** | **NONE** |
-| **Cursor REAL process** | **0** |
+| **Handoff source** | `a82c373f84db892f12d5f4f70b2064a8ac05ea25` |
+| **Commit SHA** | `f7270b21ccdbcf1cd543879e7c4120d87b874479` |
+| **Commit parent** | `e974b7306f7400249c31399fd2890d5817833dbf` |
+| **Remote branch SHA** | `f7270b21ccdbcf1cd543879e7c4120d87b874479` |
+| **PR** | [#344](https://github.com/mcleland147/sfia-workspace/pull/344) DRAFT OPEN |
+| **Merge** | NOT AUTHORIZED |
 
-## 1. Objectif unique
+## 1. Candidate identity vs a82c373f
 
-NodeCursorProcessRunner.invoke() must resolve on **spawn confirmation / PID known**, not on child close.
+PASS.
 
-Sequence:
+Local untracked/modified inventory matched the spawn-ACK handoff APPENDIX C file list and byte sizes exactly (31 project files; `.tmp-sfia-review` excluded). Frozen paths empty. No post-review mutation entered this publication cycle.
 
-CREATED → prepareWorkspace → spawn Cursor → spawn confirmed → **ACK invoke immediately** → LAUNCHED → Attempt running → ExecutionContract executing → process continues → observe/awaitCompletion separately.
+## 2. Morris validation conditions
 
-FORBIDDEN: spawn → wait close → ACK → running.
+All 15 conditions satisfied before staging:
 
-## 2. Local Git Truth
+1. candidate = a82c373f reviewed
+2. no unexpected new diff
+3. REAL flags OFF/unset
+4. targeted 130/130
+5. full 1698 passed / 131 skipped / 0 failed
+6. typecheck PASS
+7. lint PASS
+8. build PASS
+9. git diff --check PASS
+10. frozen paths PASS
+11. Cursor REAL process = 0
+12. real git worktree = 0
+13. R1/R2/R3 CLOSED
+14. spawn ACK CLOSED
+15. crash/replay PASS
 
-| Check | Result |
-|-------|--------|
-| branch | delivery/sfia-studio-m4-real-off |
-| HEAD | e974b730… (unchanged) |
-| origin/main | e974b730… |
-| remote delivery | ABSENT |
-| PR | NONE |
-| staged | empty |
-| handoff at start | e897c287… |
+**M4 Delivery REAL-OFF = VALIDATED BY MORRIS**
 
-## 3. R1 / R2 / R3
-
-| Reserve | Before this GO | After |
-|---------|----------------|-------|
-| R1 | CLOSED | **CLOSED PRESERVED** |
-| R2 | CLOSED | **CLOSED PRESERVED** |
-| R3 | CLOSED | **CLOSED PRESERVED** |
-
-No Fake product reintroduction. No caller cwd. No test flag=1.
-
-## 4. NodeCursorProcessRunner before / after
-
-**BEFORE (blocker):** after spawn confirmation, invoke() awaited child `close` / `error` before returning. That delayed LAUNCHED / running / executing until process completion.
-
-**AFTER:**
-- spawn throw / error-before-spawn → realProcessInvoked=false, no ACK
-- spawn confirmed / PID → register process-local tracked state, arm timeout, return immediately {processRef, realProcessInvoked=true, observation running (exitCode=null)}
-- close/error later → update registry; awaitCompletion resolves; historical ACK stays invoked=true
-- timeout after ACK → SIGTERM; timedOut=true on terminal observation
-- stdout/stderr listeners keep updating the same registry after ACK (64 KiB caps)
-
-invoke() does **not** await the completion promise.
-
-## 5. Observation registry
-
-Single source: `NodeCursorProcessRunner.processes` Map keyed by processRef.
-
-StudioCursorRealLaunchGateway.observe / awaitCompletion **delegate to the runner** when present. No competing frozen snapshot of a "running" observation.
-
-Fallback Map used only if a runner has no observe() (test FakeProcessRunner).
-
-Technical observation ≠ Evidence T-A6 / ReviewBundle / LPS.
-
-## 6. ProcessRunner interface
-
-Optional observe / awaitCompletion added. invoke contract documented: resolve on spawn, not close.
-
-## 7. Gateway
-
-Minimal: delegate observation; do not snapshot live observation when runner.observe exists. Enablement / workspace / argv / no fixture fallback unchanged.
-
-## 8. StartExecution
-
-**Unchanged this cycle.** Still: consume Gate D + CREATED → realLaunchPort.launch → LAUNCHED → running → executing. Now launch returns on spawn ACK, so those transitions no longer wait for completion.
-
-## 9. Sequence (textual)
-
-```
-Attempt accepted / contract confirmed / Gate D granted
-→ StartExecution validations
-→ consume Gate D + CREATED (durable)
-→ prepareWorkspace
-→ spawn (shell:false)
-→ spawn confirmed / PID
-→ invoke() RETURNS (realProcessInvoked=true)
-→ gateway ACK
-→ LAUNCHED durable
-→ Attempt running
-→ ExecutionContract executing
-→ Confirmation (existing)
-→ child continues
-→ observe (exitCode=null while running)
-→ close/timeout/error later
-→ awaitCompletion terminal observation
-```
-
-## 10. Proofs (FakeSpawnPrimitive / TestOnly doubles)
-
-| Proof | Result |
-|-------|--------|
-| A spawn confirmed → invoke resolved → close NOT emitted yet | PASS |
-| B LaunchAck → LAUNCHED → running → executing → completion pending | PASS |
-| C close later → terminal observation | PASS |
-| D timeout remains active after ACK | PASS |
-| E stdout/stderr after ACK + caps | PASS |
-| F pre-spawn failure invoked=false | PASS |
-| G post-spawn error keeps invoked=true | PASS |
-| no real Cursor / no real git worktree | PASS |
-
-## 11. Exact claims
-
-- NodeCursorProcessRunner production semantics tested with FakeSpawnPrimitive.
-- Launch ACK is produced after simulated spawn confirmation and before simulated process completion.
-- Production Cursor gateway remained disabled.
-- No Cursor process was launched.
-- production process.env flags remained OFF/unset; positive orchestration used TEST-ONLY doubles.
-
-NOT claimed: REAL process proven / Cursor execution proven / M4 exit proof / FIRST REAL ready.
-
-## 12. Env / counts
-
-| Claim | Value |
-|-------|-------|
-| SFIA_STUDIO_CURSOR_REAL | unset / OFF |
-| OPS1_CURSOR_REAL | unset / OFF |
-| Production gateway enabled calls | **0** |
-| Production Cursor actual spawn | **0** |
-| Real git worktree execution | **0** |
-| Cursor REAL process | **0** |
-
-## 13. QA
+## 3. QA (this cycle)
 
 Targeted:
 
@@ -153,8 +63,6 @@ Test Files  10 passed (10)
 Tests  130 passed (130)
 ```
 
-Including m4SpawnAckLifecycle.test.ts (7) + R1/R2/R3/crash-replay non-regression.
-
 Full:
 
 ```
@@ -163,70 +71,274 @@ Test Files  173 passed | 13 skipped (186)
 Tests  1698 passed | 131 skipped (1829)
 ```
 
-typecheck: exit 0
-lint: exit 0
-build: exit 0
-git diff --check: DIFF_CHECK_OK
+typecheck: PASS
+lint: PASS
+build: PASS
+git diff --check: PASS
 
-## 14. Static scans
+## 4. D-M4-01→05 / R1–R3 / spawn ACK
 
-- OA execution-attempt imports lib/ops1: NONE
-- Fake REAL barrel exports: NONE
-- tests set REAL flag=1: NONE
-- invoke() no longer `return await new Promise` on close — close only finishes completion registry
-- frozen paths: no diffs
+| Item | Status |
+|------|--------|
+| D-M4-01 fixture externalEffects:false + specialized REAL port | PRESERVED |
+| D-M4-02 CREATED/LAUNCHED technical journal; no auto-relaunch | PRESERVED |
+| D-M4-03 bounded RO agent; deny-by-default | PRESERVED |
+| D-M4-04 Gate D exact binding; atomic consume+CREATED | PRESERVED |
+| D-M4-05 Auth.js/Critical Ack absent from scope | PRESERVED |
+| R1 NodeCursorProcessRunner; no Fake product default | CLOSED |
+| R2 contract-bound baseHeadSha; execRoot; HEAD pin | CLOSED |
+| R3 production flags OFF; test-only positive path | CLOSED |
+| Spawn ACK = process invoked, not completed | CLOSED |
+| Crash/replay | PASS |
+| No REAL→fixture fallback | PASS |
 
-## 15. Changed files this cycle (spawn-ACK)
+## 5. REAL-OFF counts
 
-Modified:
-- `infrastructure/nodeCursorProcessRunner.ts` — ACK on spawn; observe/awaitCompletion registry
-- `infrastructure/studioCursorRealLaunchGateway.ts` — delegate observation to runner
-- `ports/realExecutionLaunchPort.ts` — optional observe/awaitCompletion on ProcessRunner
-- `__tests__/…/support/fakeSpawnAndGit.ts` — holdOpen + FakeChildHandle
-- `__tests__/…/support/testOnlyRealExecutionLaunchPort.ts` — holdCompletion latch
-- `__tests__/…/m4RealOffCorrectionR1.test.ts` — timeout/caps assert completion after ACK
+| Claim | Value |
+|-------|-------|
+| SFIA_STUDIO_CURSOR_REAL | unset / OFF |
+| OPS1_CURSOR_REAL | unset / OFF |
+| Production gateway enabled calls | 0 |
+| Actual Cursor production spawn | 0 |
+| Real git worktree execution | 0 |
+| Cursor REAL process | 0 |
 
-Created:
-- `__tests__/…/m4SpawnAckLifecycle.test.ts`
+## 6. Staging / commit / push
 
-StartExecution / Gate D / journal / workspace / agent / vertical-slice-runtime: **not modified this micro-cycle**.
+Staged with explicit `git add -- <paths>` only (never `git add .` / `-A`).
+`.tmp-sfia-review/**` not staged.
 
-## 16. Debts / remaining gates
+Commit message (exact):
 
-- Technical journal TEMPORARY WITH EXIT
-- Auth.js / Critical Ack not promoted
-- Production runner/workspace implemented ≠ executed
-- FIRST REAL requires separate Morris GO
-- M5 NOT AUTHORIZED
-- M4 exit proof NOT SATISFIED
-- runtime v3 NON ADOPTED
+`feat(sfia-studio): deliver m4 real-off execution boundary`
 
-## 17. Verdict
+| Field | Value |
+|-------|-------|
+| COMMIT_SHA | `f7270b21ccdbcf1cd543879e7c4120d87b874479` |
+| parent | `e974b7306f7400249c31399fd2890d5817833dbf` |
+| ahead of origin/main | 1 |
+| remote delivery SHA | `f7270b21ccdbcf1cd543879e7c4120d87b874479` (match) |
+| staged after commit | empty |
+| tracked worktree | clean (`.tmp` allowed) |
 
-**M4 DELIVERY SPAWN-ACK MICRO-CORRECTION COMPLETE —**
-LAUNCH ACK NOW MEANS PROCESS INVOKED, NOT PROCESS COMPLETED —
-NODE CURSOR RUNNER RETURNS AFTER SPAWN CONFIRMATION —
-LAUNCHED / ATTEMPT RUNNING / CONTRACT EXECUTING NO LONGER WAIT FOR COMPLETION —
-PROCESS COMPLETION REMAINS SEPARATELY OBSERVABLE —
-TIMEOUT AND OUTPUT CAPTURE PRESERVED AFTER ACK —
-CRASH/REPLAY SAFETY PRESERVED —
-R1/R2/R3 REMAIN CLOSED —
-PRODUCTION REAL FLAGS OFF —
-NO CURSOR REAL PROCESS —
-NO REAL GIT WORKTREE —
+## 7. Draft PR
+
+| Field | Value |
+|-------|-------|
+| number | 344 |
+| url | https://github.com/mcleland147/sfia-workspace/pull/344 |
+| state | OPEN |
+| isDraft | true |
+| base | main |
+| head | delivery/sfia-studio-m4-real-off |
+| headRefOid | `f7270b21ccdbcf1cd543879e7c4120d87b874479` |
+| changedFiles | 31 |
+| additions | 5673 |
+| deletions | 155 |
+
+Remote filenames: all under execution-attempt / execution-attempt tests / vertical-slice-runtime/service.ts. No frozen/forbidden paths.
+
+## 8. CI
+
+`Detect SFIA Studio changes` — **PENDING** (observed immediately after PR create; not invented).
+
+Merge: NOT AUTHORIZED.
+
+## 9. Debts / anti-claims
+
+Technical journal TEMPORARY WITH EXIT ≠ Product Store.
+Gate D implemented ≠ production consumed.
+M4 Delivery VALIDATED ≠ milestone CLOSED.
+PR ≠ on main. FIRST REAL NOT AUTHORIZED. M5 NOT AUTHORIZED. runtime v3 NON ADOPTED.
+
+## 10. Verdict
+
+**M4 DELIVERY REAL-OFF VALIDATED BY MORRIS —**
+CANDIDATE IDENTITY VERIFIED —
 QA GREEN —
-NO PROJECT COMMIT/PUSH/PR —
-M4 EXIT PROOF NOT SATISFIED —
-FIRST REAL NOT AUTHORIZED —
-READY FOR CHATGPT REVIEW / MORRIS M4 DELIVERY VALIDATION GATE
-
-## 18. Anti-claims
-
-Spawn semantics corrected ≠ Cursor REAL executed · Production runner capable ≠ used · Launch ACK ≠ process success · Process started ≠ completed successfully · Technical observation ≠ Evidence T-A6 · Corrected candidate ≠ M4 validated · M4 ≠ runtime v3 ADOPTED
+PROJECT COMMITTED —
+BRANCH PUSHED AND REMOTE VERIFIED —
+DRAFT PR CREATED —
+PR REMOTE SCOPE VERIFIED —
+CI PENDING —
+MERGE NOT AUTHORIZED —
+FIRST CURSOR REAL NOT AUTHORIZED
 
 ---
 
-# APPENDIX A — Full useful git diff (modified tracked files vs HEAD)
+# APPENDIX A — Complete PR body
+
+# Summary
+
+- deliver M4 REAL-OFF execution boundary on the OA Native Backbone
+- preserve fixture ExecutionAdapterPort as externalEffects:false
+- add specialized OA-owned REAL launch boundary
+- add durable technical CREATED/LAUNCHED safety frontier
+- implement Gate D GD-1
+- add bounded read-only Cursor AgentCapability
+- add isolated pinned Git worktree preparation
+- add production Node Cursor process runner with shell:false
+- make launch ACK mean process spawned/identified, not process completed
+- keep Cursor REAL disabled
+
+# Morris validation
+
+M4 Delivery REAL-OFF:
+VALIDATED BY MORRIS
+
+Integration:
+PR PENDING — NOT YET ON MAIN
+
+FIRST REAL:
+NOT AUTHORIZED
+
+M4 exit proof:
+NOT SATISFIED
+
+# Architecture decisions implemented
+
+D-M4-01:
+specialized REAL OA boundary;
+fixture zero-effect port preserved;
+StartExecution remains sole authority sequencer.
+
+D-M4-02:
+technical SQLite CREATED/LAUNCHED safety journal;
+TEMPORARY WITH EXIT;
+not Product Store;
+ambiguous restart = no auto-relaunch.
+
+D-M4-03:
+first REAL AgentCapability bounded/read-only;
+static deny-by-default registry.
+
+D-M4-04:
+Gate D GD-1 durable bound grant;
+consume coordinated atomically with CREATED;
+single-consumption / fail-closed.
+
+D-M4-05:
+Critical Ack/Auth.js not promoted for the first low-risk RO proof;
+future IAM/N2/N3 debt preserved.
+
+# Safety properties
+
+- no REAL→fixture fallback
+- no duplicate launch after ambiguous crash/restart
+- new Attempt id cannot bypass same contract fingerprint frontier
+- baseHeadSha bound through ExecutionContract
+- isolated worktree under server-owned exec root
+- worktree HEAD pinned to baseHeadSha
+- Cursor process spawn uses shell:false
+- launch ACK emitted after spawn confirmation
+- process completion observed separately
+- production REAL flags default OFF
+
+# QA
+
+Fresh results from this publication cycle (2026-08-14, REAL flags unset):
+
+targeted:
+
+```
+npx vitest run __tests__/oa/execution-attempt
+Test Files  10 passed (10)
+Tests  130 passed (130)
+```
+
+full:
+
+```
+npm test
+Test Files  173 passed | 13 skipped (186)
+Tests  1698 passed | 131 skipped (1829)
+```
+
+typecheck: PASS (`tsc --noEmit` exit 0)
+lint: PASS (next lint, no warnings/errors)
+build: PASS (Next.js production build)
+git diff --check: PASS
+
+production gateway enabled calls = 0
+actual Cursor production spawn = 0
+real git worktree execution = 0
+Cursor REAL process count = 0
+
+# Persistence truth
+
+Product durable from prior milestones:
+- Project/LPS
+- CycleInstance subset
+- HumanDecision
+- ExecutionContract
+
+Still process-local / partial where applicable:
+- Confirmation
+- Attempt product aggregate
+- Evidence
+- Trajectory/Epistemic
+- conversation / Proposal
+
+Technical launch journal:
+TEMPORARY WITH EXIT
+≠ Product Store
+
+# Remaining debt
+
+- technical launch journal exit toward future durable Attempt/Evidence path
+- Confirmation process-local
+- Attempt/Evidence product durability
+- conversation/Proposal process-local
+- Trajectory/Epistemic Memory
+- LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT
+- Auth.js / product-grade IAM
+- Critical Ack future N2/N3
+- M5 Evidence→LPS / Nora post-exec
+- OPS1 / D1 / execution-run disposition
+- DOC-DEBT-M1-01 where still applicable
+
+# Governance / anti-claims
+
+M4 Delivery validated
+≠ M4 milestone closed
+
+M4 Delivery validated
+≠ FIRST REAL authorized
+
+Gate D implemented
+≠ production Gate D consumed
+
+production runner implemented
+≠ Cursor REAL executed
+
+worktree implementation
+≠ REAL worktree proof performed
+
+technical journal
+≠ Product Store
+
+test-only simulated ACK
+≠ REAL proof
+
+Draft PR
+≠ merge authorized
+
+M4
+≠ runtime v3 ADOPTED
+
+# Next gate
+
+Merge remains a separate Morris gate.
+
+After merge + main verification only:
+
+FIRST M4 CURSOR REAL READ-ONLY PROOF
+requires separate explicit Morris GO.
+
+
+---
+
+# APPENDIX B — Full committed diff origin/main...HEAD
 
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
 index e96f90e..d48e57b 100644
@@ -328,6 +440,2915 @@ index e96f90e..d48e57b 100644
      selectionProfile: "standard",
      requestedAgentRef: input.requestedAgentRef,
      selectionTtlMs: input.selectionTtlMs,
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts
+new file mode 100644
+index 0000000..d001a5c
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts
+@@ -0,0 +1,531 @@
++/**
++ * M4 Delivery REAL-OFF — Gate D / CREATED / specialized launch boundary.
++ * Positive StartExecution paths use TestOnlyRealExecutionLaunchPort (SIMULATED ACK).
++ * Production gateway tested only for OFF/reject paths — never SFIA_STUDIO_CURSOR_REAL=1.
++ * @vitest-environment node
++ */
++import { readdirSync, readFileSync, mkdtempSync } from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import {
++  assertStudioCursorRealOffForTests,
++  createM4BoundedReadOnlyCursorAgentDescriptor,
++  createTestExecutionAttemptServices,
++  CursorCliLaunchGateway,
++  DisabledRealProcessRunner,
++  isInjectableExecutionAdapter,
++  isStudioCursorRealEnabled,
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++  M4_BOUNDED_RO_CURSOR_AGENT_ID,
++  SqliteRealLaunchSafetyJournal,
++  TestExecutionAdapter,
++  type RealLaunchSafetyJournalPort,
++} from "@/lib/oa/execution-attempt";
++import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
++import {
++  MORRIS_ACTOR,
++  NOW,
++  baseBuildRequest,
++  buildStack,
++  grantContractConfirmation,
++  registerMorris,
++  seedAcceptedDecision,
++  seedProject,
++  seedStandardCycle,
++  selectStandardAgent,
++  seedRunningAttempt,
++  type Stack,
++} from "./helpers";
++import { FakeProcessRunner } from "./support/fakeProcessRunner";
++import { FakeRealExecutionWorkspacePort } from "./support/fakeSpawnAndGit";
++import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
++import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
++
++const APP_LIB_OA = path.resolve(__dirname, "../../../lib/oa");
++
++function tempJournalPath(prefix: string): string {
++  const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
++  return path.join(dir, "m4-safety.sqlite");
++}
++
++function scanForOps1Imports(root: string): string[] {
++  const hits: string[] = [];
++  const walk = (dir: string) => {
++    for (const ent of readdirSync(dir, { withFileTypes: true })) {
++      const full = path.join(dir, ent.name);
++      if (ent.isDirectory()) {
++        walk(full);
++        continue;
++      }
++      if (!/\.(ts|tsx|js|mjs|cjs)$/.test(ent.name)) continue;
++      const text = readFileSync(full, "utf8");
++      if (
++        text.includes("@/lib/ops1") ||
++        text.includes('from "@/lib/ops1') ||
++        text.includes("from '@/lib/ops1") ||
++        /from\s+["'].*\/lib\/ops1/.test(text)
++      ) {
++        hits.push(path.relative(root, full));
++      }
++    }
++  };
++  walk(root);
++  return hits;
++}
++
++/** Confirmed M4 contract with contract-bound inputs.baseHeadSha. */
++async function seedM4ConfirmedContract(
++  stack: Stack,
++  overrides: {
++    executionContractId?: string;
++    idempotencyKey?: string;
++    inputs?: Record<string, unknown>;
++  } = {},
++): Promise<{ contractId: string; version: number }> {
++  await seedProject(stack.projects);
++  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
++  await seedAcceptedDecision(stack);
++  await seedStandardCycle(stack);
++
++  const built = await stack.execution.buildExecutionContract.execute(
++    baseBuildRequest({
++      cycleInstanceId: "cyc:std-001",
++      executionContractId: overrides.executionContractId ?? "xct:oa-001",
++      idempotencyKey: overrides.idempotencyKey ?? "idem-xct-oa-001",
++      action: M4_BOUNDED_RO_ACTION,
++      target: M4_BOUNDED_RO_TARGET,
++      scope: M4_BOUNDED_RO_SCOPE,
++      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++      authorityEvidenceId: M4_EVIDENCE,
++      inputs: overrides.inputs ?? m4ContractInputs(),
++    }),
++  );
++  expect(built.ok).toBe(true);
++  if (!built.ok) throw new Error("build failed");
++
++  const validated = await stack.execution.validateExecutionContract.execute({
++    executionContractId: built.contract.executionContractId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(validated.ok).toBe(true);
++  if (!validated.ok) throw new Error("validate failed");
++
++  const confirmationId = await grantContractConfirmation(stack, {
++    scope: M4_BOUNDED_RO_SCOPE,
++    evidenceId: M4_EVIDENCE,
++  });
++  const confirmed = await stack.execution.confirmExecutionContract.execute({
++    executionContractId: validated.contract.executionContractId,
++    confirmationId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++    expectedVersion: validated.contract.version,
++  });
++  expect(confirmed.ok).toBe(true);
++  if (!confirmed.ok) throw new Error("confirm failed");
++
++  return {
++    contractId: confirmed.contract.executionContractId,
++    version: confirmed.contract.version,
++  };
++}
++
++function wireM4Stack(input: {
++  journalPath: string;
++  launchPort?: TestOnlyRealExecutionLaunchPort;
++  journal?: RealLaunchSafetyJournalPort;
++}) {
++  const launchPort = input.launchPort ?? new TestOnlyRealExecutionLaunchPort();
++  const fixtureAdapter = new TestExecutionAdapter();
++  const ownedJournal =
++    input.journal == null
++      ? new SqliteRealLaunchSafetyJournal({ databasePath: input.journalPath })
++      : null;
++  const safetyJournal = input.journal ?? ownedJournal!;
++  const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++  const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++  const attempts = createTestExecutionAttemptServices({
++    decisionServices: stack.decisions,
++    executionContractServices: stack.execution,
++    agents: [m4Agent],
++    adapter: fixtureAdapter,
++    realBoundary: { launchPort, safetyJournal },
++    fixedNowIso: NOW,
++  });
++  stack.attempts = attempts as typeof stack.attempts;
++  return {
++    stack,
++    launchPort,
++    fixtureAdapter,
++    safetyJournal,
++    close: () => {
++      ownedJournal?.close();
++    },
++  };
++}
++
++describe("M4 REAL-OFF boundary", () => {
++  beforeEach(() => {
++    assertStudioCursorRealOffForTests();
++    expect(isStudioCursorRealEnabled()).toBe(false);
++    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
++    expect(process.env.OPS1_CURSOR_REAL).not.toBe("1");
++  });
++
++  afterEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++
++  it("fixture regression still starts via TestExecutionAdapter", async () => {
++    const stack = buildStack();
++    const { attemptId } = await seedRunningAttempt(stack);
++    const attempt = await stack.attempts.attempts.findById(attemptId);
++    expect(attempt?.status).toBe("running");
++    expect(
++      (stack.adapter as TestExecutionAdapter).calls.filter(
++        (c) => c.kind === "launch",
++      ).length,
++    ).toBeGreaterThanOrEqual(1);
++  });
++
++  it("rejects CursorCliLaunchGateway as InjectableExecutionAdapter", () => {
++    const gateway = new CursorCliLaunchGateway({
++      processRunner: new DisabledRealProcessRunner(),
++      workspacePort: new FakeRealExecutionWorkspacePort(),
++    });
++    expect(isInjectableExecutionAdapter(gateway)).toBe(false);
++    expect(() =>
++      createTestExecutionAttemptServices({
++        // @ts-expect-error intentional hostile inject
++        adapter: gateway,
++        decisionServices: {} as never,
++        executionContractServices: {} as never,
++      }),
++    ).toThrow(/adapter_not_allowed/);
++  });
++
++  it("static scan: no ops1 imports under oa execution-attempt", () => {
++    const hits = scanForOps1Imports(
++      path.join(APP_LIB_OA, "execution-attempt"),
++    );
++    expect(hits).toEqual([]);
++  });
++
++  it("Gate D grant then start: CREATED is journaled before simulated launch", async () => {
++    const journalPath = tempJournalPath("m4-created-before-");
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const inner = new TestOnlyRealExecutionLaunchPort();
++    const launchPort: TestOnlyRealExecutionLaunchPort = Object.assign(
++      Object.create(Object.getPrototypeOf(inner)),
++      inner,
++      {
++        async launch(
++          request: Parameters<TestOnlyRealExecutionLaunchPort["launch"]>[0],
++        ) {
++          const frontier = await journal.findFrontierByAttempt(
++            request.attemptId,
++          );
++          expect(frontier.some((r) => r.kind === "CREATED")).toBe(true);
++          expect(frontier.some((r) => r.kind === "LAUNCHED")).toBe(false);
++          return inner.launch(request);
++        },
++      },
++    );
++
++    const fixtureAdapter = new TestExecutionAdapter();
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    const attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: { launchPort, safetyJournal: journal },
++      fixedNowIso: NOW,
++    });
++    stack.attempts = attempts as typeof stack.attempts;
++
++    const { contractId, version } = await seedM4ConfirmedContract(stack);
++    const selected = await selectStandardAgent(stack, {
++      attemptId: "xat:m4-001",
++      executionContractId: contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++
++    expect(stack.attempts.grantRealExecutionGate).toBeDefined();
++    const granted = await stack.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:m4-001",
++      attemptId: "xat:m4-001",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:m4-001",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++      expectedContractVersion: version,
++    });
++    expect(started.ok).toBe(true);
++    if (!started.ok) return;
++    expect(started.attempt.status).toBe("running");
++    expect(inner.launchCallCount).toBe(1);
++    expect(inner.simulatedAckCount).toBe(1);
++    expect(
++      fixtureAdapter.calls.filter((c) => c.kind === "launch"),
++    ).toHaveLength(0);
++
++    const frontier = await journal.findFrontierByAttempt("xat:m4-001");
++    expect(frontier.map((r) => r.kind).sort()).toEqual(["CREATED", "LAUNCHED"]);
++    journal.close();
++  });
++
++  it("REAL flag OFF → production gateway reject; runner and fixture calls stay 0", async () => {
++    const journalPath = tempJournalPath("m4-flag-off-");
++    const runner = new FakeProcessRunner();
++    const safetyJournal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const launchPort = new CursorCliLaunchGateway({
++      processRunner: runner,
++      workspacePort: new FakeRealExecutionWorkspacePort(),
++      env: process.env,
++      resolveCursorBin: () => "/tmp/fake-cursor-bin",
++    });
++    const fixtureAdapter = new TestExecutionAdapter();
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    const attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: { launchPort, safetyJournal },
++      fixedNowIso: NOW,
++    });
++    stack.attempts = attempts as typeof stack.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack);
++    const selected = await selectStandardAgent(stack, {
++      attemptId: "xat:m4-off",
++      executionContractId: contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++
++    const granted = await stack.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:m4-off",
++      attemptId: "xat:m4-off",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:m4-off",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(started.ok).toBe(false);
++    if (!started.ok) {
++      expect(started.error.detailCode).toBe("REAL_BOUNDARY_DISABLED");
++    }
++    expect(runner.calls).toHaveLength(0);
++    expect(
++      fixtureAdapter.calls.filter((c) => c.kind === "launch"),
++    ).toHaveLength(0);
++    safetyJournal.close();
++  });
++
++  it("CREATED then crash before launch → retry LAUNCH_RECONCILIATION_REQUIRED", async () => {
++    const journalPath = tempJournalPath("m4-created-crash-");
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const ctx = wireM4Stack({ journalPath, launchPort });
++
++    const { contractId } = await seedM4ConfirmedContract(ctx.stack);
++    const selected = await selectStandardAgent(ctx.stack, {
++      attemptId: "xat:m4-created",
++      executionContractId: contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++    if (!selected.ok) return;
++
++    const granted = await ctx.stack.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:m4-created",
++      attemptId: "xat:m4-created",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++    if (!granted.ok) return;
++
++    const contract = await ctx.stack.execution.contracts.findById(contractId);
++    expect(contract).not.toBeNull();
++    const fingerprint =
++      contract!.semanticFingerprint ??
++      computeExecutionContractSemanticFingerprint(contract!);
++
++    await ctx.safetyJournal.consumeGateDAndAppendCreated({
++      grantId: granted.grant.grantId,
++      attemptId: "xat:m4-created",
++      occurredAt: NOW,
++      identity: {
++        executionContractId: contractId,
++        executionContractVersion: contract!.version,
++        semanticFingerprint: fingerprint,
++      },
++      selectedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++      actorId: MORRIS_ACTOR.actorId,
++      correlationId: "cor:crash-created",
++    });
++    expect(launchPort.launchCallCount).toBe(0);
++
++    const retry = await ctx.stack.attempts.startExecution.execute({
++      attemptId: "xat:m4-created",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(retry.ok).toBe(false);
++    if (!retry.ok) {
++      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
++    }
++    expect(launchPort.launchCallCount).toBe(0);
++    expect(
++      ctx.fixtureAdapter.calls.filter((c) => c.kind === "launch"),
++    ).toHaveLength(0);
++    ctx.close();
++  });
++
++  it("simulated ACK then fail before LAUNCHED → no second simulated launch on retry", async () => {
++    const journalPath = tempJournalPath("m4-launched-fail-");
++    const baseJournal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    let failAppend = true;
++    const journal: RealLaunchSafetyJournalPort = {
++      persistGateDGrant: (i) => baseJournal.persistGateDGrant(i),
++      findGateDGrant: (id) => baseJournal.findGateDGrant(id),
++      findActiveGateDGrantForAttempt: (id) =>
++        baseJournal.findActiveGateDGrantForAttempt(id),
++      consumeGateDAndAppendCreated: (i) =>
++        baseJournal.consumeGateDAndAppendCreated(i),
++      appendLaunched: async (i) => {
++        if (failAppend) {
++          failAppend = false;
++          throw new Error("simulated_crash_before_launched");
++        }
++        return baseJournal.appendLaunched(i);
++      },
++      findFrontierByAttempt: (id) => baseJournal.findFrontierByAttempt(id),
++      findFrontierByIdentity: (id) => baseJournal.findFrontierByIdentity(id),
++      hasAmbiguousFrontier: (id) => baseJournal.hasAmbiguousFrontier(id),
++      reconcileDispositionForIdentity: (id) =>
++        baseJournal.reconcileDispositionForIdentity(id),
++      hasKindForAttempt: (id, k) => baseJournal.hasKindForAttempt(id, k),
++    };
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const ctx = wireM4Stack({ journalPath, launchPort, journal });
++
++    const { contractId } = await seedM4ConfirmedContract(ctx.stack);
++    const selected = await selectStandardAgent(ctx.stack, {
++      attemptId: "xat:m4-ack-fail",
++      executionContractId: contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++
++    const granted = await ctx.stack.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:m4-ack-fail",
++      attemptId: "xat:m4-ack-fail",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++
++    const first = await ctx.stack.attempts.startExecution.execute({
++      attemptId: "xat:m4-ack-fail",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(first.ok).toBe(false);
++    if (!first.ok) {
++      expect(first.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
++    }
++    expect(launchPort.launchCallCount).toBe(1);
++    const frontier = await baseJournal.findFrontierByAttempt("xat:m4-ack-fail");
++    expect(frontier.some((r) => r.kind === "CREATED")).toBe(true);
++    expect(frontier.some((r) => r.kind === "LAUNCHED")).toBe(false);
++
++    const retry = await ctx.stack.attempts.startExecution.execute({
++      attemptId: "xat:m4-ack-fail",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(retry.ok).toBe(false);
++    if (!retry.ok) {
++      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
++    }
++    expect(launchPort.launchCallCount).toBe(1);
++    baseJournal.close();
++  });
++
++  it("new attemptId with same fingerprint is blocked by ambiguous frontier", async () => {
++    const journalPath = tempJournalPath("m4-ambig-");
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const ctx = wireM4Stack({ journalPath, launchPort });
++
++    const { contractId } = await seedM4ConfirmedContract(ctx.stack);
++    const selected = await selectStandardAgent(ctx.stack, {
++      attemptId: "xat:m4-a1",
++      executionContractId: contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++
++    const granted = await ctx.stack.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:m4-a1",
++      attemptId: "xat:m4-a1",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++
++    const started = await ctx.stack.attempts.startExecution.execute({
++      attemptId: "xat:m4-a1",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(started.ok).toBe(true);
++    expect(launchPort.launchCallCount).toBe(1);
++
++    const frontier = await ctx.safetyJournal.findFrontierByAttempt("xat:m4-a1");
++    expect(frontier.some((r) => r.kind === "LAUNCHED")).toBe(true);
++    const launched = frontier.find((r) => r.kind === "LAUNCHED")!;
++    const identity = {
++      executionContractId: launched.executionContractId,
++      executionContractVersion: launched.executionContractVersion,
++      semanticFingerprint: launched.semanticFingerprint,
++    };
++    expect(await ctx.safetyJournal.hasAmbiguousFrontier(identity)).toBe(true);
++    expect(
++      await ctx.safetyJournal.reconcileDispositionForIdentity(identity),
++    ).toBe("REVIEW_REQUIRED");
++    expect(launchPort.launchCallCount).toBe(1);
++    ctx.close();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
+new file mode 100644
+index 0000000..e3a63f1
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
+@@ -0,0 +1,216 @@
++/**
++ * M4 REAL-OFF correction R1 — production NodeCursorProcessRunner + no Fake product exports.
++ * @vitest-environment node
++ */
++import { readFileSync } from "node:fs";
++import path from "node:path";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import * as ExecutionAttemptBarrel from "@/lib/oa/execution-attempt";
++import {
++  assertStudioCursorRealOffForTests,
++  createInMemoryExecutionAttemptServices,
++  DisabledRealProcessRunner,
++  NODE_CURSOR_STDERR_CAP_BYTES,
++  NODE_CURSOR_STDOUT_CAP_BYTES,
++  NodeCursorProcessRunner,
++  StudioCursorRealLaunchGateway,
++} from "@/lib/oa/execution-attempt";
++import { FakeProcessRunner } from "./support/fakeProcessRunner";
++import {
++  FakeRealExecutionWorkspacePort,
++  FakeSpawnPrimitive,
++} from "./support/fakeSpawnAndGit";
++
++const BARREL_SRC = path.resolve(
++  __dirname,
++  "../../../lib/oa/execution-attempt/index.ts",
++);
++
++describe("M4 REAL-OFF correction R1", () => {
++  beforeEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++  afterEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++
++  it("R1-01 barrel does not export Fake REAL doubles", () => {
++    const src = readFileSync(BARREL_SRC, "utf8");
++    expect(src).not.toMatch(/export\s+\{[^}]*FakeProcessRunner/);
++    expect(src).not.toMatch(/export\s+\{[^}]*FakeRealProcessRunner/);
++    expect(src).not.toMatch(/export\s+\{[^}]*FakeRealExecutionLaunchGateway/);
++    expect(src).not.toMatch(
++      /from\s+["'].*fakeRealExecutionLaunchGateway["']/,
++    );
++    expect(
++      (ExecutionAttemptBarrel as Record<string, unknown>).FakeProcessRunner,
++    ).toBeUndefined();
++    expect(
++      (ExecutionAttemptBarrel as Record<string, unknown>).FakeRealProcessRunner,
++    ).toBeUndefined();
++    expect(
++      (ExecutionAttemptBarrel as Record<string, unknown>)
++        .FakeRealExecutionLaunchGateway,
++    ).toBeUndefined();
++    expect(
++      (ExecutionAttemptBarrel as Record<string, unknown>)
++        .createM4RealOffBoundaryHelpers,
++    ).toBeUndefined();
++  });
++
++  it("R1-02 product factory never defaults Fake REAL runner", () => {
++    const src = readFileSync(BARREL_SRC, "utf8");
++    expect(src).not.toMatch(/new FakeRealProcessRunner/);
++    expect(src).not.toMatch(/new FakeProcessRunner/);
++    expect(typeof createInMemoryExecutionAttemptServices).toBe("function");
++  });
++
++  it("R1-03/04 NodeCursorProcessRunner uses separate executable + shell:false", async () => {
++    const fake = new FakeSpawnPrimitive({ pid: 9001, exitCode: 0 });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:r1",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent", "--print", "hi"],
++      cwd: "/tmp/ws",
++      timeoutMs: 5_000,
++      env: process.env,
++    });
++    expect(fake.calls).toHaveLength(1);
++    expect(fake.calls[0].executable).toBe("/tmp/fake-cursor");
++    expect(fake.calls[0].argv).toEqual(["agent", "--print", "hi"]);
++    expect(fake.calls[0].argv[0]).not.toBe("/tmp/fake-cursor");
++    expect(fake.calls[0].options.shell).toBe(false);
++    expect(result.realProcessInvoked).toBe(true);
++    expect(result.processRef).toBe("pid:9001");
++  });
++
++  it("R1-05 pre-spawn failure → realProcessInvoked=false", async () => {
++    const fake = new FakeSpawnPrimitive({ throwBeforeSpawn: true });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:r1-pre",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 1_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(false);
++  });
++
++  it("R1-05b spawn error before start → realProcessInvoked=false", async () => {
++    const fake = new FakeSpawnPrimitive({ errorBeforeSpawn: true });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:r1-err",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 1_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(false);
++  });
++
++  it("R1-06 spawn confirmed yields stable processRef", async () => {
++    const fake = new FakeSpawnPrimitive({ pid: 7777, exitCode: 0 });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:r1-ack",
++      executable: "/bin/cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 2_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(true);
++    expect(result.processRef).toBe("pid:7777");
++  });
++
++  it("R1-07 timeout issues SIGTERM via fake child AFTER invoke ACK", async () => {
++    const fake = new FakeSpawnPrimitive({
++      pid: 5555,
++      hangMs: 5_000,
++      exitCode: null,
++    });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:r1-to",
++      executable: "/bin/cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 20,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(true);
++    expect(result.observation?.timedOut).toBe(false);
++    expect(result.observation?.exitCode).toBeNull();
++    const completed = await runner.awaitCompletion(result.processRef);
++    expect(completed?.timedOut).toBe(true);
++    expect(fake.lastHandle?.lastSignal).toBe("SIGTERM");
++  });
++
++  it("R1-08 stdout/stderr caps at 64 KiB on completion (after ACK)", async () => {
++    const big = "x".repeat(NODE_CURSOR_STDOUT_CAP_BYTES + 4_096);
++    const fake = new FakeSpawnPrimitive({
++      pid: 1,
++      exitCode: 0,
++      stdoutChunks: [big],
++      stderrChunks: [big],
++    });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:r1-cap",
++      executable: "/bin/cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 2_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(true);
++    const completed = await runner.awaitCompletion(result.processRef);
++    expect(completed?.stdout?.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
++    expect(completed?.stderr?.length).toBe(NODE_CURSOR_STDERR_CAP_BYTES);
++  });
++
++  it("R1-09 gateway OFF never falls back to fixture; DisabledRealProcessRunner stays product", async () => {
++    expect(new DisabledRealProcessRunner()).toBeInstanceOf(
++      DisabledRealProcessRunner,
++    );
++    const runner = new FakeProcessRunner();
++    const gateway = new StudioCursorRealLaunchGateway({
++      processRunner: runner,
++      workspacePort: new FakeRealExecutionWorkspacePort(),
++      env: { ...process.env },
++      resolveCursorBin: () => "/tmp/fake-cursor-bin",
++    });
++    const result = await gateway.launch({
++      attemptId: "xat:r1-09",
++      executionContractId: "xct:1",
++      executionContractVersion: 1,
++      semanticFingerprint: "fp",
++      selectedAgentRef: "agt:m4",
++      adapterRef: gateway.gatewayId,
++      correlationId: "cor:1",
++      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++    });
++    expect(result.outcome).toBe("reject");
++    if (result.outcome === "reject") {
++      expect(result.detailCode).toBe("REAL_BOUNDARY_DISABLED");
++    }
++    expect(runner.calls).toHaveLength(0);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
+new file mode 100644
+index 0000000..8fd12c8
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
+@@ -0,0 +1,608 @@
++/**
++ * M4 REAL-OFF correction R2 — contract baseHeadSha + StudioGitWorktreeWorkspace.
++ * @vitest-environment node
++ */
++import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import {
++  assertStudioCursorRealOffForTests,
++  createM4BoundedReadOnlyCursorAgentDescriptor,
++  createTestExecutionAttemptServices,
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_CURSOR_AGENT_ID,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++  SqliteRealLaunchSafetyJournal,
++  StudioCursorRealLaunchGateway,
++  StudioGitWorktreeWorkspace,
++  TestExecutionAdapter,
++  workspacePathForAttempt,
++} from "@/lib/oa/execution-attempt";
++import {
++  MORRIS_ACTOR,
++  NOW,
++  baseBuildRequest,
++  buildStack,
++  grantContractConfirmation,
++  registerMorris,
++  seedAcceptedDecision,
++  seedProject,
++  seedStandardCycle,
++  selectStandardAgent,
++  type Stack,
++} from "./helpers";
++import { FakeProcessRunner } from "./support/fakeProcessRunner";
++import {
++  FakeGitCommandRunner,
++  FakeRealExecutionWorkspacePort,
++} from "./support/fakeSpawnAndGit";
++import {
++  M4_EVIDENCE,
++  M4_TEST_BASE_HEAD_SHA,
++  m4ContractInputs,
++} from "./support/m4Fixtures";
++import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
++
++function tempJournalPath(prefix: string): string {
++  const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
++  return path.join(dir, "m4-safety.sqlite");
++}
++
++async function seedM4ConfirmedContract(
++  stack: Stack,
++  overrides: {
++    executionContractId?: string;
++    idempotencyKey?: string;
++    inputs?: Record<string, unknown> | undefined;
++    omitInputs?: boolean;
++  } = {},
++): Promise<{ contractId: string; version: number }> {
++  await seedProject(stack.projects);
++  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
++  await seedAcceptedDecision(stack);
++  await seedStandardCycle(stack);
++
++  const built = await stack.execution.buildExecutionContract.execute(
++    baseBuildRequest({
++      cycleInstanceId: "cyc:std-001",
++      executionContractId: overrides.executionContractId ?? "xct:oa-001",
++      idempotencyKey: overrides.idempotencyKey ?? "idem-xct-oa-001",
++      action: M4_BOUNDED_RO_ACTION,
++      target: M4_BOUNDED_RO_TARGET,
++      scope: M4_BOUNDED_RO_SCOPE,
++      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++      authorityEvidenceId: M4_EVIDENCE,
++      ...(overrides.omitInputs
++        ? {}
++        : { inputs: overrides.inputs ?? m4ContractInputs() }),
++    }),
++  );
++  expect(built.ok).toBe(true);
++  if (!built.ok) throw new Error("build failed");
++
++  const validated = await stack.execution.validateExecutionContract.execute({
++    executionContractId: built.contract.executionContractId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(validated.ok).toBe(true);
++  if (!validated.ok) throw new Error("validate failed");
++
++  const confirmationId = await grantContractConfirmation(stack, {
++    scope: M4_BOUNDED_RO_SCOPE,
++    evidenceId: M4_EVIDENCE,
++  });
++  const confirmed = await stack.execution.confirmExecutionContract.execute({
++    executionContractId: validated.contract.executionContractId,
++    confirmationId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++    expectedVersion: validated.contract.version,
++  });
++  expect(confirmed.ok).toBe(true);
++  if (!confirmed.ok) throw new Error("confirm failed");
++
++  return {
++    contractId: confirmed.contract.executionContractId,
++    version: confirmed.contract.version,
++  };
++}
++
++async function selectAndGrant(
++  stack: Stack,
++  contractId: string,
++  attemptId: string,
++  grantId: string,
++) {
++  const selected = await selectStandardAgent(stack, {
++    attemptId,
++    executionContractId: contractId,
++    requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++  });
++  expect(selected.ok).toBe(true);
++  const granted = await stack.attempts.grantRealExecutionGate!.execute({
++    grantId,
++    attemptId,
++    actor: MORRIS_ACTOR,
++    expiresAt: "2026-07-25T07:00:00.000Z",
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(granted.ok).toBe(true);
++  return granted;
++}
++
++describe("M4 REAL-OFF correction R2", () => {
++  beforeEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++  afterEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++
++  it("R2-01 missing baseHeadSha refused before Gate D consume / CREATED", async () => {
++    const journalPath = tempJournalPath("m4-r2-01-");
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const fixtureAdapter = new TestExecutionAdapter();
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    stack.attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: { launchPort, safetyJournal: journal },
++      fixedNowIso: NOW,
++    }) as typeof stack.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack, {
++      omitInputs: true,
++    });
++    await selectAndGrant(stack, contractId, "xat:r2-01", "gd:r2-01");
++
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-01",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(started.ok).toBe(false);
++    if (!started.ok) {
++      expect(started.error.detailCode).toBe("REAL_WORKSPACE_INVALID");
++      expect(started.error.internalCauseRef).toContain("base_head_sha");
++    }
++    expect(launchPort.launchCallCount).toBe(0);
++    expect(await journal.hasKindForAttempt("xat:r2-01", "CREATED")).toBe(
++      false,
++    );
++    const grant = await journal.findActiveGateDGrantForAttempt("xat:r2-01");
++    expect(grant?.status).toBe("granted");
++    journal.close();
++  });
++
++  it("R2-02 invalid baseHeadSha refused", async () => {
++    const journalPath = tempJournalPath("m4-r2-02-");
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const fixtureAdapter = new TestExecutionAdapter();
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    stack.attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: { launchPort, safetyJournal: journal },
++      fixedNowIso: NOW,
++    }) as typeof stack.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack, {
++      inputs: { baseHeadSha: "not-a-sha" },
++    });
++    await selectAndGrant(stack, contractId, "xat:r2-02", "gd:r2-02");
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-02",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(started.ok).toBe(false);
++    if (!started.ok) {
++      expect(started.error.detailCode).toBe("REAL_WORKSPACE_INVALID");
++    }
++    expect(launchPort.launchCallCount).toBe(0);
++    expect(await journal.hasKindForAttempt("xat:r2-02", "CREATED")).toBe(
++      false,
++    );
++    journal.close();
++  });
++
++  it("R2-03 launch receives contract baseHeadSha (not StartExecution field)", async () => {
++    const journalPath = tempJournalPath("m4-r2-03-");
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const fixtureAdapter = new TestExecutionAdapter();
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    stack.attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: { launchPort, safetyJournal: journal },
++      fixedNowIso: NOW,
++    }) as typeof stack.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack);
++    await selectAndGrant(stack, contractId, "xat:r2-03", "gd:r2-03");
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-03",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(started.ok).toBe(true);
++    expect(launchPort.calls[0]?.baseHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
++    expect(
++      (launchPort.calls[0] as { workspaceRoot?: string }).workspaceRoot,
++    ).toBeUndefined();
++    journal.close();
++  });
++
++  it("R2-04/05 fail-closed when repoRoot/execRoot missing or equal", () => {
++    const git = new FakeGitCommandRunner({
++      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++    });
++    expect(
++      () =>
++        new StudioGitWorktreeWorkspace({
++          repoRoot: "",
++          execRoot: "/tmp/exec",
++          gitRunner: git,
++        }),
++    ).toThrow(/repo_root/);
++    expect(
++      () =>
++        new StudioGitWorktreeWorkspace({
++          repoRoot: "/tmp/repo",
++          execRoot: "",
++          gitRunner: git,
++        }),
++    ).toThrow(/exec_root/);
++    expect(
++      () =>
++        new StudioGitWorktreeWorkspace({
++          repoRoot: "/tmp/same",
++          execRoot: "/tmp/same",
++          gitRunner: git,
++        }),
++    ).toThrow(/must_differ/);
++  });
++
++  it("R2-06/07 refuse outside execRoot / existing path", async () => {
++    const root = mkdtempSync(path.join(os.tmpdir(), "m4-r2-roots-"));
++    const repoRoot = path.join(root, "repo");
++    const execRoot = path.join(root, "exec");
++    mkdirSync(repoRoot);
++    mkdirSync(execRoot);
++    const git = new FakeGitCommandRunner({
++      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++    });
++    const ws = new StudioGitWorktreeWorkspace({
++      repoRoot,
++      execRoot,
++      gitRunner: git,
++    });
++    const existing = workspacePathForAttempt(execRoot, "xat:exists");
++    mkdirSync(existing, { recursive: true });
++    writeFileSync(path.join(existing, "marker"), "x");
++    await expect(
++      ws.prepareWorkspace({
++        attemptId: "xat:exists",
++        baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++      }),
++    ).rejects.toThrow(/workspace_path_exists/);
++  });
++
++  it("R2-08/10 fake git receives only expected commands; HEAD exact accepted", async () => {
++    const root = mkdtempSync(path.join(os.tmpdir(), "m4-r2-ok-"));
++    const repoRoot = path.join(root, "repo");
++    const execRoot = path.join(root, "exec");
++    mkdirSync(repoRoot);
++    mkdirSync(execRoot);
++    const git = new FakeGitCommandRunner({
++      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++    });
++    const ws = new StudioGitWorktreeWorkspace({
++      repoRoot,
++      execRoot,
++      gitRunner: git,
++    });
++    const prepared = await ws.prepareWorkspace({
++      attemptId: "xat:r2-ok",
++      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++    });
++    expect(prepared.verifiedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
++    expect(prepared.workspacePath.startsWith(execRoot + path.sep)).toBe(true);
++    expect(git.calls.map((c) => c.argv[0])).toEqual([
++      "rev-parse",
++      "worktree",
++      "rev-parse",
++    ]);
++    expect(git.calls[0].argv).toEqual([
++      "rev-parse",
++      "--verify",
++      `${M4_TEST_BASE_HEAD_SHA}^{commit}`,
++    ]);
++    expect(git.calls[1].argv.slice(0, 3)).toEqual([
++      "worktree",
++      "add",
++      "--detach",
++    ]);
++    expect(git.calls[2].argv).toEqual(["rev-parse", "HEAD"]);
++  });
++
++  it("R2-09 HEAD mismatch fail-closed", async () => {
++    const root = mkdtempSync(path.join(os.tmpdir(), "m4-r2-mis-"));
++    const repoRoot = path.join(root, "repo");
++    const execRoot = path.join(root, "exec");
++    mkdirSync(repoRoot);
++    mkdirSync(execRoot);
++    const git = new FakeGitCommandRunner({
++      baseHeadSha: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
++    });
++    const ws = new StudioGitWorktreeWorkspace({
++      repoRoot,
++      execRoot,
++      gitRunner: git,
++    });
++    await expect(
++      ws.prepareWorkspace({
++        attemptId: "xat:r2-mis",
++        baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++      }),
++    ).rejects.toThrow(/head_mismatch/);
++  });
++
++  it("R2-11 FakeGitCommandRunner never invokes OS git", async () => {
++    const git = new FakeGitCommandRunner({
++      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++    });
++    expect(git.calls).toHaveLength(0);
++    await git.run(["rev-parse", "HEAD"], "/tmp");
++    expect(git.calls).toHaveLength(1);
++  });
++
++  it("R2-12 CREATED durable before workspace prepare", async () => {
++    const journalPath = tempJournalPath("m4-r2-12-");
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const workspace = new FakeRealExecutionWorkspacePort();
++    const runner = new FakeProcessRunner();
++    // Production gateway stays OFF — use TestOnly for ACK, wrap to assert CREATED.
++    const base = new TestOnlyRealExecutionLaunchPort();
++    const launchPort = {
++      gatewayId: base.gatewayId,
++      externalEffects: true as const,
++      async launch(request: Parameters<typeof base.launch>[0]) {
++        const frontier = await journal.findFrontierByAttempt(request.attemptId);
++        expect(frontier.some((r) => r.kind === "CREATED")).toBe(true);
++        // prepare would happen inside production gateway after CREATED;
++        // here we simulate that ordering proof via journal assert above.
++        expect(workspace.prepares).toHaveLength(0);
++        return base.launch(request);
++      },
++    };
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const fixtureAdapter = new TestExecutionAdapter();
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    stack.attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: {
++        launchPort: launchPort as TestOnlyRealExecutionLaunchPort,
++        safetyJournal: journal,
++      },
++      fixedNowIso: NOW,
++    }) as typeof stack.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack);
++    await selectAndGrant(stack, contractId, "xat:r2-12", "gd:r2-12");
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-12",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(started.ok).toBe(true);
++    expect(runner.calls).toHaveLength(0);
++    journal.close();
++  });
++
++  it("R2-13 workspace prepare failure after CREATED → runner 0, retry blocked", async () => {
++    const journalPath = tempJournalPath("m4-r2-13-");
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const runner = new FakeProcessRunner();
++    const workspace = new FakeRealExecutionWorkspacePort({ fail: true });
++    // Use a custom launch port that mirrors gateway order: prepare then invoke.
++    const launchPort = {
++      gatewayId: "adp:m4-cursor-cli-real",
++      externalEffects: true as const,
++      async launch(request: {
++        attemptId: string;
++        baseHeadSha: string;
++      }) {
++        try {
++          await workspace.prepareWorkspace({
++            attemptId: request.attemptId,
++            baseHeadSha: request.baseHeadSha,
++          });
++        } catch {
++          return {
++            outcome: "reject" as const,
++            gatewayId: "adp:m4-cursor-cli-real",
++            attemptId: request.attemptId,
++            reason: "REAL_WORKSPACE_INVALID:fake_prepare_failed",
++            realProcessInvoked: false as const,
++            detailCode: "REAL_WORKSPACE_INVALID" as const,
++          };
++        }
++        return runner.invoke({
++          attemptId: request.attemptId,
++          executable: "/tmp/x",
++          argv: [],
++          cwd: "/tmp",
++          timeoutMs: 1,
++          env: process.env,
++        }).then((r) => ({
++          outcome: "ack" as const,
++          gatewayId: "adp:m4-cursor-cli-real",
++          attemptId: request.attemptId,
++          realProcessInvoked: true as const,
++          processRef: r.processRef,
++        }));
++      },
++    };
++
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const fixtureAdapter = new TestExecutionAdapter();
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    stack.attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: {
++        launchPort: launchPort as never,
++        safetyJournal: journal,
++      },
++      fixedNowIso: NOW,
++    }) as typeof stack.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack);
++    await selectAndGrant(stack, contractId, "xat:r2-13", "gd:r2-13");
++    const first = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-13",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(first.ok).toBe(false);
++    if (!first.ok) {
++      expect(first.error.detailCode).toBe("REAL_WORKSPACE_INVALID");
++    }
++    expect(await journal.hasKindForAttempt("xat:r2-13", "CREATED")).toBe(true);
++    expect(runner.calls).toHaveLength(0);
++
++    const retry = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-13",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(retry.ok).toBe(false);
++    if (!retry.ok) {
++      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
++    }
++    expect(runner.calls).toHaveLength(0);
++    journal.close();
++  });
++
++  it("R2-14 simulated worktree+invoke + LAUNCHED persist fail → no second launch", async () => {
++    const journalPath = tempJournalPath("m4-r2-14-");
++    const baseJournal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    let failAppend = true;
++    const journal = {
++      persistGateDGrant: (i: never) => baseJournal.persistGateDGrant(i),
++      findGateDGrant: (id: string) => baseJournal.findGateDGrant(id),
++      findActiveGateDGrantForAttempt: (id: string) =>
++        baseJournal.findActiveGateDGrantForAttempt(id),
++      consumeGateDAndAppendCreated: (i: never) =>
++        baseJournal.consumeGateDAndAppendCreated(i),
++      appendLaunched: async (i: never) => {
++        if (failAppend) {
++          failAppend = false;
++          throw new Error("r2_14_crash");
++        }
++        return baseJournal.appendLaunched(i);
++      },
++      findFrontierByAttempt: (id: string) =>
++        baseJournal.findFrontierByAttempt(id),
++      findFrontierByIdentity: (id: never) =>
++        baseJournal.findFrontierByIdentity(id),
++      hasAmbiguousFrontier: (id: never) =>
++        baseJournal.hasAmbiguousFrontier(id),
++      reconcileDispositionForIdentity: (id: never) =>
++        baseJournal.reconcileDispositionForIdentity(id),
++      hasKindForAttempt: (id: string, k: "CREATED" | "LAUNCHED") =>
++        baseJournal.hasKindForAttempt(id, k),
++    };
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const fixtureAdapter = new TestExecutionAdapter();
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    stack.attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: {
++        launchPort,
++        safetyJournal: journal as never,
++      },
++      fixedNowIso: NOW,
++    }) as typeof stack.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack);
++    await selectAndGrant(stack, contractId, "xat:r2-14", "gd:r2-14");
++    const first = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-14",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(first.ok).toBe(false);
++    expect(launchPort.launchCallCount).toBe(1);
++    const retry = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r2-14",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(retry.ok).toBe(false);
++    expect(launchPort.launchCallCount).toBe(1);
++    baseJournal.close();
++  });
++
++  it("production gateway with OFF env never prepares workspace / never invokes runner", async () => {
++    const runner = new FakeProcessRunner();
++    const workspace = new FakeRealExecutionWorkspacePort();
++    const gateway = new StudioCursorRealLaunchGateway({
++      processRunner: runner,
++      workspacePort: workspace,
++      env: process.env,
++      resolveCursorBin: () => "/tmp/fake-cursor-bin",
++    });
++    const result = await gateway.launch({
++      attemptId: "xat:gw-off",
++      executionContractId: "xct:1",
++      executionContractVersion: 1,
++      semanticFingerprint: "fp",
++      selectedAgentRef: "agt:m4",
++      adapterRef: gateway.gatewayId,
++      correlationId: "cor",
++      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
++    });
++    expect(result.outcome).toBe("reject");
++    expect(workspace.prepares).toHaveLength(0);
++    expect(runner.calls).toHaveLength(0);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts
+new file mode 100644
+index 0000000..8e9f4e5
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts
+@@ -0,0 +1,225 @@
++/**
++ * M4 REAL-OFF correction R3 — no test enables SFIA_STUDIO_CURSOR_REAL=1.
++ * @vitest-environment node
++ */
++import { readdirSync, readFileSync } from "node:fs";
++import path from "node:path";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import {
++  assertStudioCursorRealOffForTests,
++  createM4BoundedReadOnlyCursorAgentDescriptor,
++  createTestExecutionAttemptServices,
++  DisabledRealProcessRunner,
++  isStudioCursorRealEnabled,
++  M4_BOUNDED_RO_CURSOR_AGENT_ID,
++  SqliteRealLaunchSafetyJournal,
++  StudioCursorRealLaunchGateway,
++  TestExecutionAdapter,
++} from "@/lib/oa/execution-attempt";
++import { mkdtempSync } from "node:fs";
++import os from "node:os";
++import {
++  MORRIS_ACTOR,
++  NOW,
++  baseBuildRequest,
++  buildStack,
++  grantContractConfirmation,
++  registerMorris,
++  seedAcceptedDecision,
++  seedProject,
++  seedStandardCycle,
++  selectStandardAgent,
++} from "./helpers";
++import { FakeProcessRunner } from "./support/fakeProcessRunner";
++import { FakeRealExecutionWorkspacePort } from "./support/fakeSpawnAndGit";
++import {
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++} from "@/lib/oa/execution-attempt";
++import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
++import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
++
++const TESTS_DIR = __dirname;
++
++function scanM4TestsForRealFlagEnablement(): string[] {
++  const hits: string[] = [];
++  const walk = (dir: string) => {
++    for (const ent of readdirSync(dir, { withFileTypes: true })) {
++      const full = path.join(dir, ent.name);
++      if (ent.isDirectory()) {
++        walk(full);
++        continue;
++      }
++      if (!/\.(ts|tsx)$/.test(ent.name)) continue;
++      const text = readFileSync(full, "utf8");
++      // Positive enablement literals / assignments — allow negative assertions.
++      const enablePatterns = [
++        /SFIA_STUDIO_CURSOR_REAL:\s*["']1["']/,
++        /SFIA_STUDIO_CURSOR_REAL\s*=\s*["']1["']/,
++        /process\.env\.SFIA_STUDIO_CURSOR_REAL\s*=\s*["']1["']/,
++        /OPS1_CURSOR_REAL:\s*["']1["']/,
++        /OPS1_CURSOR_REAL\s*=\s*["']1["']/,
++      ];
++      for (const re of enablePatterns) {
++        if (re.test(text)) {
++          hits.push(path.relative(TESTS_DIR, full));
++          break;
++        }
++      }
++    }
++  };
++  walk(TESTS_DIR);
++  return hits;
++}
++
++describe("M4 REAL-OFF correction R3", () => {
++  beforeEach(() => {
++    assertStudioCursorRealOffForTests();
++    expect(isStudioCursorRealEnabled()).toBe(false);
++  });
++  afterEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++
++  it("R3-01 assertStudioCursorRealOffForTests passes in harness", () => {
++    expect(() => assertStudioCursorRealOffForTests()).not.toThrow();
++    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
++    expect(process.env.OPS1_CURSOR_REAL).not.toBe("1");
++  });
++
++  it("R3-02/03/04 static scan: no M4 test enables REAL flag to 1", () => {
++    expect(scanM4TestsForRealFlagEnablement()).toEqual([]);
++  });
++
++  it("R3-05 production gateway OFF → processRunner call count 0", async () => {
++    const runner = new FakeProcessRunner();
++    const gateway = new StudioCursorRealLaunchGateway({
++      processRunner: runner,
++      workspacePort: new FakeRealExecutionWorkspacePort(),
++      env: process.env,
++      resolveCursorBin: () => "/tmp/fake-cursor-bin",
++    });
++    const result = await gateway.launch({
++      attemptId: "xat:r3-05",
++      executionContractId: "xct:1",
++      executionContractVersion: 1,
++      semanticFingerprint: "fp",
++      selectedAgentRef: "agt:m4",
++      adapterRef: gateway.gatewayId,
++      correlationId: "cor",
++      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++    });
++    expect(result.outcome).toBe("reject");
++    expect(runner.calls).toHaveLength(0);
++  });
++
++  it("R3-05b missing flag / non-1 env reject with DisabledRealProcessRunner unused", async () => {
++    const runner = new DisabledRealProcessRunner();
++    const gateway = new StudioCursorRealLaunchGateway({
++      processRunner: runner,
++      workspacePort: new FakeRealExecutionWorkspacePort(),
++      env: { ...process.env, SFIA_STUDIO_CURSOR_REAL: "0" },
++      resolveCursorBin: () => "/tmp/fake-cursor-bin",
++    });
++    const result = await gateway.launch({
++      attemptId: "xat:r3-05b",
++      executionContractId: "xct:1",
++      executionContractVersion: 1,
++      semanticFingerprint: "fp",
++      selectedAgentRef: "agt:m4",
++      adapterRef: gateway.gatewayId,
++      correlationId: "cor",
++      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++    });
++    expect(result.outcome).toBe("reject");
++    if (result.outcome === "reject") {
++      expect(result.detailCode).toBe("REAL_BOUNDARY_DISABLED");
++    }
++  });
++
++  it("R3-06 positive StartExecution uses TestOnlyRealExecutionLaunchPort only", async () => {
++    const dir = mkdtempSync(path.join(os.tmpdir(), "m4-r3-06-"));
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: path.join(dir, "j.sqlite"),
++    });
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    expect(launchPort.constructor.name).toBe("TestOnlyRealExecutionLaunchPort");
++
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const fixtureAdapter = new TestExecutionAdapter();
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    stack.attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: { launchPort, safetyJournal: journal },
++      fixedNowIso: NOW,
++    }) as typeof stack.attempts;
++
++    await seedProject(stack.projects);
++    registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
++    await seedAcceptedDecision(stack);
++    await seedStandardCycle(stack);
++    const built = await stack.execution.buildExecutionContract.execute(
++      baseBuildRequest({
++        cycleInstanceId: "cyc:std-001",
++        action: M4_BOUNDED_RO_ACTION,
++        target: M4_BOUNDED_RO_TARGET,
++        scope: M4_BOUNDED_RO_SCOPE,
++        requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++        authorityEvidenceId: M4_EVIDENCE,
++        inputs: m4ContractInputs(),
++      }),
++    );
++    expect(built.ok).toBe(true);
++    if (!built.ok) return;
++    const validated = await stack.execution.validateExecutionContract.execute({
++      executionContractId: built.contract.executionContractId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(validated.ok).toBe(true);
++    if (!validated.ok) return;
++    const confirmationId = await grantContractConfirmation(stack, {
++      scope: M4_BOUNDED_RO_SCOPE,
++      evidenceId: M4_EVIDENCE,
++    });
++    const confirmed = await stack.execution.confirmExecutionContract.execute({
++      executionContractId: validated.contract.executionContractId,
++      confirmationId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++      expectedVersion: validated.contract.version,
++    });
++    expect(confirmed.ok).toBe(true);
++    if (!confirmed.ok) return;
++
++    const selected = await selectStandardAgent(stack, {
++      attemptId: "xat:r3-06",
++      executionContractId: confirmed.contract.executionContractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++    const granted = await stack.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:r3-06",
++      attemptId: "xat:r3-06",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:r3-06",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(started.ok).toBe(true);
++    expect(launchPort.simulatedAckCount).toBe(1);
++    expect(isStudioCursorRealEnabled()).toBe(false);
++    journal.close();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts
+new file mode 100644
+index 0000000..6b90c5d
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts
+@@ -0,0 +1,239 @@
++/**
++ * M4 REAL-OFF crash replay — durable journal across process restart.
++ * Uses TestOnlyRealExecutionLaunchPort (SIMULATED ACK) — never enables production REAL flag.
++ * @vitest-environment node
++ */
++import { mkdtempSync } from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import {
++  assertStudioCursorRealOffForTests,
++  createM4BoundedReadOnlyCursorAgentDescriptor,
++  createTestExecutionAttemptServices,
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_CURSOR_AGENT_ID,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++  SqliteRealLaunchSafetyJournal,
++  TestExecutionAdapter,
++  type RealLaunchSafetyJournalPort,
++} from "@/lib/oa/execution-attempt";
++import {
++  MORRIS_ACTOR,
++  NOW,
++  baseBuildRequest,
++  buildStack,
++  grantContractConfirmation,
++  registerMorris,
++  seedAcceptedDecision,
++  seedProject,
++  seedStandardCycle,
++  selectStandardAgent,
++  type Stack,
++} from "./helpers";
++import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
++import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
++
++function tempJournalPath(prefix: string): string {
++  const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
++  return path.join(dir, "m4-safety.sqlite");
++}
++
++async function seedM4ConfirmedContract(
++  stack: Stack,
++  overrides: { executionContractId?: string; idempotencyKey?: string } = {},
++): Promise<{ contractId: string; version: number }> {
++  await seedProject(stack.projects);
++  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
++  await seedAcceptedDecision(stack);
++  await seedStandardCycle(stack);
++
++  const built = await stack.execution.buildExecutionContract.execute(
++    baseBuildRequest({
++      cycleInstanceId: "cyc:std-001",
++      executionContractId: overrides.executionContractId ?? "xct:oa-001",
++      idempotencyKey: overrides.idempotencyKey ?? "idem-xct-oa-001",
++      action: M4_BOUNDED_RO_ACTION,
++      target: M4_BOUNDED_RO_TARGET,
++      scope: M4_BOUNDED_RO_SCOPE,
++      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++      authorityEvidenceId: M4_EVIDENCE,
++      inputs: m4ContractInputs(),
++    }),
++  );
++  expect(built.ok).toBe(true);
++  if (!built.ok) throw new Error("build failed");
++
++  const validated = await stack.execution.validateExecutionContract.execute({
++    executionContractId: built.contract.executionContractId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(validated.ok).toBe(true);
++  if (!validated.ok) throw new Error("validate failed");
++
++  const confirmationId = await grantContractConfirmation(stack, {
++    scope: M4_BOUNDED_RO_SCOPE,
++    evidenceId: M4_EVIDENCE,
++  });
++  const confirmed = await stack.execution.confirmExecutionContract.execute({
++    executionContractId: validated.contract.executionContractId,
++    confirmationId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++    expectedVersion: validated.contract.version,
++  });
++  expect(confirmed.ok).toBe(true);
++  if (!confirmed.ok) throw new Error("confirm failed");
++
++  return {
++    contractId: confirmed.contract.executionContractId,
++    version: confirmed.contract.version,
++  };
++}
++
++describe("M4 REAL-OFF crash replay", () => {
++  beforeEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++
++  afterEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++
++  it("restart with same journal path + new MemoryAttempt store refuses second launch", async () => {
++    const journalPath = tempJournalPath("m4-replay-");
++    const launchPort = new TestOnlyRealExecutionLaunchPort();
++    const fixtureAdapter = new TestExecutionAdapter();
++
++    // --- Process 1: simulated ACK then crash before LAUNCHED ---
++    const journal1 = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    let failAppend = true;
++    const wrappingJournal = (
++      base: SqliteRealLaunchSafetyJournal,
++    ): RealLaunchSafetyJournalPort => ({
++      persistGateDGrant: (i) => base.persistGateDGrant(i),
++      findGateDGrant: (id) => base.findGateDGrant(id),
++      findActiveGateDGrantForAttempt: (id) =>
++        base.findActiveGateDGrantForAttempt(id),
++      consumeGateDAndAppendCreated: (i) =>
++        base.consumeGateDAndAppendCreated(i),
++      appendLaunched: async (i) => {
++        if (failAppend) {
++          failAppend = false;
++          throw new Error("process1_crash_before_launched");
++        }
++        return base.appendLaunched(i);
++      },
++      findFrontierByAttempt: (id) => base.findFrontierByAttempt(id),
++      findFrontierByIdentity: (id) => base.findFrontierByIdentity(id),
++      hasAmbiguousFrontier: (id) => base.hasAmbiguousFrontier(id),
++      reconcileDispositionForIdentity: (id) =>
++        base.reconcileDispositionForIdentity(id),
++      hasKindForAttempt: (id, k) => base.hasKindForAttempt(id, k),
++    });
++
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const stack1 = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    const attempts1 = createTestExecutionAttemptServices({
++      decisionServices: stack1.decisions,
++      executionContractServices: stack1.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: {
++        launchPort,
++        safetyJournal: wrappingJournal(journal1),
++      },
++      fixedNowIso: NOW,
++    });
++    stack1.attempts = attempts1 as typeof stack1.attempts;
++
++    const { contractId } = await seedM4ConfirmedContract(stack1);
++    const selected = await selectStandardAgent(stack1, {
++      attemptId: "xat:m4-replay",
++      executionContractId: contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++
++    const granted = await stack1.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:m4-replay",
++      attemptId: "xat:m4-replay",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++
++    const crashed = await stack1.attempts.startExecution.execute({
++      attemptId: "xat:m4-replay",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(crashed.ok).toBe(false);
++    if (!crashed.ok) {
++      expect(crashed.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
++    }
++    expect(launchPort.launchCallCount).toBe(1);
++
++    const frontierBeforeRestart =
++      await journal1.findFrontierByAttempt("xat:m4-replay");
++    expect(frontierBeforeRestart.some((r) => r.kind === "CREATED")).toBe(true);
++    expect(frontierBeforeRestart.some((r) => r.kind === "LAUNCHED")).toBe(
++      false,
++    );
++    journal1.close();
++
++    // --- Process 2: new MemoryAttempt store, same journal file ---
++    const journal2 = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const stack2 = buildStack({
++      agents: [m4Agent],
++      adapter: new TestExecutionAdapter(),
++    });
++    const attempts2 = createTestExecutionAttemptServices({
++      decisionServices: stack2.decisions,
++      executionContractServices: stack2.execution,
++      agents: [m4Agent],
++      adapter: stack2.adapter as TestExecutionAdapter,
++      realBoundary: { launchPort, safetyJournal: journal2 },
++      fixedNowIso: NOW,
++    });
++    stack2.attempts = attempts2 as typeof stack2.attempts;
++
++    const seeded2 = await seedM4ConfirmedContract(stack2, {
++      executionContractId: "xct:oa-replay-2",
++      idempotencyKey: "idem-xct-replay-2",
++    });
++    const selected2 = await selectStandardAgent(stack2, {
++      attemptId: "xat:m4-replay",
++      executionContractId: seeded2.contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected2.ok).toBe(true);
++
++    const durable = await journal2.findFrontierByAttempt("xat:m4-replay");
++    expect(durable.some((r) => r.kind === "CREATED")).toBe(true);
++    expect(durable.some((r) => r.kind === "LAUNCHED")).toBe(false);
++
++    const retry = await stack2.attempts.startExecution.execute({
++      attemptId: "xat:m4-replay",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(retry.ok).toBe(false);
++    if (!retry.ok) {
++      expect([
++        "LAUNCH_RECONCILIATION_REQUIRED",
++        "GATE_D_REQUIRED",
++      ]).toContain(retry.error.detailCode);
++    }
++    expect(launchPort.launchCallCount).toBe(1);
++    journal2.close();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts
+new file mode 100644
+index 0000000..c890fcb
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts
+@@ -0,0 +1,318 @@
++/**
++ * M4 spawn-ACK micro-correctif — invoke returns on spawn, not process close.
++ * FakeSpawnPrimitive / TestOnly launch port only. No Cursor REAL. No real git.
++ * @vitest-environment node
++ */
++import { mkdtempSync } from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import {
++  assertStudioCursorRealOffForTests,
++  createM4BoundedReadOnlyCursorAgentDescriptor,
++  createTestExecutionAttemptServices,
++  M4_BOUNDED_RO_CURSOR_AGENT_ID,
++  NODE_CURSOR_STDOUT_CAP_BYTES,
++  NodeCursorProcessRunner,
++  SqliteRealLaunchSafetyJournal,
++  TestExecutionAdapter,
++} from "@/lib/oa/execution-attempt";
++import {
++  MORRIS_ACTOR,
++  NOW,
++  baseBuildRequest,
++  buildStack,
++  grantContractConfirmation,
++  registerMorris,
++  seedAcceptedDecision,
++  seedProject,
++  seedStandardCycle,
++  selectStandardAgent,
++} from "./helpers";
++import { FakeSpawnPrimitive } from "./support/fakeSpawnAndGit";
++import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
++import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
++import {
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++} from "@/lib/oa/execution-attempt";
++
++function tempJournalPath(prefix: string): string {
++  return path.join(mkdtempSync(path.join(os.tmpdir(), prefix)), "m4-safety.sqlite");
++}
++
++async function seedM4ConfirmedContract(
++  stack: ReturnType<typeof buildStack>,
++): Promise<{ contractId: string; version: number }> {
++  await seedProject(stack.projects);
++  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
++  await seedAcceptedDecision(stack);
++  await seedStandardCycle(stack);
++  const built = await stack.execution.buildExecutionContract.execute(
++    baseBuildRequest({
++      cycleInstanceId: "cyc:std-001",
++      executionContractId: "xct:oa-spawn-ack",
++      idempotencyKey: "idem-xct-oa-spawn-ack",
++      action: M4_BOUNDED_RO_ACTION,
++      target: M4_BOUNDED_RO_TARGET,
++      scope: M4_BOUNDED_RO_SCOPE,
++      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++      authorityEvidenceId: M4_EVIDENCE,
++      inputs: m4ContractInputs(),
++    }),
++  );
++  expect(built.ok).toBe(true);
++  if (!built.ok) throw new Error("build failed");
++  const validated = await stack.execution.validateExecutionContract.execute({
++    executionContractId: built.contract.executionContractId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(validated.ok).toBe(true);
++  if (!validated.ok) throw new Error("validate failed");
++  const confirmationId = await grantContractConfirmation(stack, {
++    scope: M4_BOUNDED_RO_SCOPE,
++    evidenceId: M4_EVIDENCE,
++  });
++  const confirmed = await stack.execution.confirmExecutionContract.execute({
++    executionContractId: validated.contract.executionContractId,
++    confirmationId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++    expectedVersion: validated.contract.version,
++  });
++  expect(confirmed.ok).toBe(true);
++  if (!confirmed.ok) throw new Error("confirm failed");
++  return {
++    contractId: confirmed.contract.executionContractId,
++    version: confirmed.contract.version,
++  };
++}
++
++describe("M4 spawn ACK ≠ process completion", () => {
++  beforeEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++  afterEach(() => {
++    assertStudioCursorRealOffForTests();
++  });
++
++  it("invoke resolves on spawn before close; completion is separate", async () => {
++    const fake = new FakeSpawnPrimitive({
++      pid: 4242,
++      holdOpen: true,
++    });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:spawn-ack",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 5_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(true);
++    expect(result.processRef).toBe("pid:4242");
++    expect(result.observation?.exitCode).toBeNull();
++
++    const running = await runner.observe(result.processRef);
++    expect(running?.exitCode).toBeNull();
++    expect(running?.realProcessInvoked).toBe(true);
++
++    let completionResolved = false;
++    const completion = runner.awaitCompletion(result.processRef).then((obs) => {
++      completionResolved = true;
++      return obs;
++    });
++    await Promise.resolve();
++    expect(completionResolved).toBe(false);
++
++    fake.lastHandle?.emitClose(0);
++    const terminal = await completion;
++    expect(completionResolved).toBe(true);
++    expect(terminal?.exitCode).toBe(0);
++    expect(terminal?.realProcessInvoked).toBe(true);
++  });
++
++  it("pre-spawn throw never returns invoked=true", async () => {
++    const fake = new FakeSpawnPrimitive({ throwBeforeSpawn: true });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:pre-throw",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 1_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(false);
++  });
++
++  it("error before spawn never returns invoked=true", async () => {
++    const fake = new FakeSpawnPrimitive({ errorBeforeSpawn: true });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:pre-err",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 1_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(false);
++  });
++
++  it("post-spawn error keeps invoked=true and completes observation", async () => {
++    const fake = new FakeSpawnPrimitive({ pid: 88, holdOpen: true });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:post-err",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 5_000,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(true);
++    fake.lastHandle?.emitError("fake_after_spawn");
++    const terminal = await runner.awaitCompletion(result.processRef);
++    expect(terminal?.realProcessInvoked).toBe(true);
++    expect(terminal?.exitCode).toBeNull();
++  });
++
++  it("timeout after ACK sends SIGTERM and marks timedOut", async () => {
++    const fake = new FakeSpawnPrimitive({ pid: 99, holdOpen: true });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:to-after-ack",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 20,
++      env: process.env,
++    });
++    expect(result.realProcessInvoked).toBe(true);
++    expect(result.observation?.timedOut).toBe(false);
++    const terminal = await runner.awaitCompletion(result.processRef);
++    expect(terminal?.timedOut).toBe(true);
++    expect(fake.lastHandle?.lastSignal).toBe("SIGTERM");
++  });
++
++  it("stdout/stderr after ACK remain observable and capped", async () => {
++    const fake = new FakeSpawnPrimitive({ pid: 11, holdOpen: true });
++    const runner = new NodeCursorProcessRunner({
++      spawnPrimitive: fake.asSpawnPrimitive(),
++    });
++    const result = await runner.invoke({
++      attemptId: "xat:io-after-ack",
++      executable: "/tmp/fake-cursor",
++      argv: ["agent"],
++      cwd: "/tmp/ws",
++      timeoutMs: 5_000,
++      env: process.env,
++    });
++    expect(result.observation?.stdout).toBe("");
++    const overflow = "y".repeat(NODE_CURSOR_STDOUT_CAP_BYTES + 100);
++    fake.lastHandle?.emitStdout(overflow);
++    fake.lastHandle?.emitStderr("err-chunk");
++    const mid = await runner.observe(result.processRef);
++    expect(mid?.stdout.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
++    expect(mid?.stderr).toBe("err-chunk");
++    expect(mid?.exitCode).toBeNull();
++    fake.lastHandle?.emitClose(0);
++    const terminal = await runner.awaitCompletion(result.processRef);
++    expect(terminal?.stdout.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
++    expect(terminal?.stderr).toBe("err-chunk");
++    expect(terminal?.exitCode).toBe(0);
++  });
++
++  it("StartExecution running/executing while simulated completion still pending", async () => {
++    const journalPath = tempJournalPath("m4-spawn-ack-app-");
++    const launchPort = new TestOnlyRealExecutionLaunchPort({
++      holdCompletion: true,
++    });
++    const fixtureAdapter = new TestExecutionAdapter();
++    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
++    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
++    const journal = new SqliteRealLaunchSafetyJournal({
++      databasePath: journalPath,
++    });
++    const attempts = createTestExecutionAttemptServices({
++      decisionServices: stack.decisions,
++      executionContractServices: stack.execution,
++      agents: [m4Agent],
++      adapter: fixtureAdapter,
++      realBoundary: { launchPort, safetyJournal: journal },
++      fixedNowIso: NOW,
++    });
++    stack.attempts = attempts as typeof stack.attempts;
++
++    const { contractId, version } = await seedM4ConfirmedContract(stack);
++    const selected = await selectStandardAgent(stack, {
++      attemptId: "xat:m4-ack-pending",
++      executionContractId: contractId,
++      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    });
++    expect(selected.ok).toBe(true);
++
++    const granted = await stack.attempts.grantRealExecutionGate!.execute({
++      grantId: "gd:m4-ack-pending",
++      attemptId: "xat:m4-ack-pending",
++      actor: MORRIS_ACTOR,
++      expiresAt: "2026-07-25T07:00:00.000Z",
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(granted.ok).toBe(true);
++
++    const started = await stack.attempts.startExecution.execute({
++      attemptId: "xat:m4-ack-pending",
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++      expectedContractVersion: version,
++    });
++    expect(started.ok).toBe(true);
++    if (!started.ok) return;
++    expect(started.attempt.status).toBe("running");
++    expect(launchPort.completionPending.value).toBe(true);
++
++    const processRef = launchPort.calls[0]
++      ? `proc:sim:${launchPort.calls[0].attemptId}`
++      : "";
++    const runningObs = await launchPort.observe(processRef);
++    expect(runningObs?.exitCode).toBeNull();
++
++    let completionDone = false;
++    const completion = launchPort.awaitCompletion(processRef).then((obs) => {
++      completionDone = true;
++      return obs;
++    });
++    await Promise.resolve();
++    expect(completionDone).toBe(false);
++
++    const frontier = await journal.findFrontierByAttempt("xat:m4-ack-pending");
++    expect(frontier.map((r) => r.kind).sort()).toEqual(["CREATED", "LAUNCHED"]);
++    const contract = await stack.execution.contracts.findById(contractId);
++    expect(contract?.status).toBe("executing");
++
++    launchPort.resolveSimulatedCompletion(processRef, { exitCode: 0 });
++    const terminal = await completion;
++    expect(completionDone).toBe(true);
++    expect(terminal?.exitCode).toBe(0);
++    expect(
++      fixtureAdapter.calls.filter((c) => c.kind === "launch"),
++    ).toHaveLength(0);
++    journal.close();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeProcessRunner.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeProcessRunner.ts
+new file mode 100644
+index 0000000..3302222
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeProcessRunner.ts
+@@ -0,0 +1,41 @@
++/**
++ * TEST-ONLY ProcessRunner doubles — never spawn Cursor.
++ * Not exported from product barrel.
++ */
++import type {
++  ProcessRunner,
++  ProcessRunnerInvokeInput,
++  ProcessRunnerInvokeResult,
++} from "@/lib/oa/execution-attempt";
++
++export class FakeProcessRunner implements ProcessRunner {
++  readonly calls: ProcessRunnerInvokeInput[] = [];
++  /** SIMULATED TECHNICAL ACK counter — not a real Cursor invoke. */
++  simulatedInvokeCount = 0;
++
++  constructor(
++    private readonly behavior: {
++      realProcessInvoked?: boolean;
++      processRef?: string;
++      throwError?: boolean;
++    } = {},
++  ) {}
++
++  async invoke(
++    input: ProcessRunnerInvokeInput,
++  ): Promise<ProcessRunnerInvokeResult> {
++    this.calls.push(input);
++    this.simulatedInvokeCount += 1;
++    if (this.behavior.throwError) {
++      throw new Error("fake_real_process_threw");
++    }
++    return {
++      processRef: this.behavior.processRef ?? `proc:sim:${input.attemptId}`,
++      // SIMULATED TECHNICAL ACK — not a live Cursor process.
++      realProcessInvoked: this.behavior.realProcessInvoked ?? true,
++    };
++  }
++}
++
++/** @deprecated Prefer FakeProcessRunner. */
++export { FakeProcessRunner as FakeRealProcessRunner };
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
+new file mode 100644
+index 0000000..bbbbd25
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
+@@ -0,0 +1,240 @@
++/**
++ * TEST-ONLY spawn / git doubles — no OS process, no real git.
++ */
++import { EventEmitter } from "node:events";
++import type { ChildProcess } from "node:child_process";
++import type {
++  GitCommandResult,
++  GitCommandRunner,
++  SpawnPrimitive,
++} from "@/lib/oa/execution-attempt";
++
++export type FakeSpawnCall = {
++  executable: string;
++  argv: readonly string[];
++  options: {
++    cwd: string;
++    env: NodeJS.ProcessEnv;
++    shell: false;
++    stdio: ["ignore", "pipe", "pipe"];
++  };
++};
++
++export type FakeChildBehavior = {
++  /** If true, spawn throws before child exists. */
++  throwBeforeSpawn?: boolean;
++  /** If true, emit error before spawn (realProcessInvoked=false). */
++  errorBeforeSpawn?: boolean;
++  pid?: number;
++  exitCode?: number | null;
++  stdoutChunks?: string[];
++  stderrChunks?: string[];
++  /** Delay close so timeout can fire. */
++  hangMs?: number;
++  /** Do not auto-close after spawn — tests drive close/error explicitly. */
++  holdOpen?: boolean;
++};
++
++export type FakeChildHandle = {
++  readonly child: ChildProcess;
++  lastSignal?: string;
++  killed: boolean;
++  assignPid(pid: number): void;
++  emitSpawn(): void;
++  emitError(message?: string): void;
++  emitStdout(chunk: string): void;
++  emitStderr(chunk: string): void;
++  emitClose(code: number | null): void;
++};
++
++export class FakeSpawnPrimitive {
++  readonly calls: FakeSpawnCall[] = [];
++  lastHandle: FakeChildHandle | null = null;
++  private behavior: FakeChildBehavior;
++
++  constructor(behavior: FakeChildBehavior = {}) {
++    this.behavior = behavior;
++  }
++
++  setBehavior(behavior: FakeChildBehavior): void {
++    this.behavior = behavior;
++  }
++
++  asSpawnPrimitive(): SpawnPrimitive {
++    return (executable, argv, options) => {
++      this.calls.push({ executable, argv, options });
++      if (this.behavior.throwBeforeSpawn) {
++        throw new Error("fake_spawn_threw_before_start");
++      }
++      const handle = createFakeChild(this.behavior);
++      this.lastHandle = handle;
++      return handle.child;
++    };
++  }
++}
++
++function createFakeChild(behavior: FakeChildBehavior): FakeChildHandle {
++  const ee = new EventEmitter() as ChildProcess & EventEmitter;
++  const stdout = new EventEmitter();
++  const stderr = new EventEmitter();
++  (ee as { stdout: EventEmitter }).stdout = stdout;
++  (ee as { stderr: EventEmitter }).stderr = stderr;
++  (ee as { killed: boolean }).killed = false;
++  let pid: number | undefined = behavior.errorBeforeSpawn
++    ? undefined
++    : behavior.holdOpen
++      ? undefined
++      : (behavior.pid ?? 4242);
++  Object.defineProperty(ee, "pid", {
++    get: () => pid,
++    configurable: true,
++  });
++
++  const handle: FakeChildHandle = {
++    child: ee,
++    killed: false,
++    assignPid(nextPid: number) {
++      pid = nextPid;
++    },
++    emitSpawn() {
++      ee.emit("spawn");
++    },
++    emitError(message?: string) {
++      ee.emit("error", new Error(message ?? "fake_child_error"));
++    },
++    emitStdout(chunk: string) {
++      stdout.emit("data", Buffer.from(chunk));
++    },
++    emitStderr(chunk: string) {
++      stderr.emit("data", Buffer.from(chunk));
++    },
++    emitClose(code: number | null) {
++      ee.emit("close", code);
++    },
++  };
++
++  (ee as { kill: (signal?: string) => boolean }).kill = (
++    signal?: string,
++  ) => {
++    handle.killed = true;
++    handle.lastSignal = signal;
++    (ee as { killed: boolean; lastSignal?: string }).killed = true;
++    (ee as { lastSignal?: string }).lastSignal = signal;
++    queueMicrotask(() => ee.emit("close", behavior.exitCode ?? null));
++    return true;
++  };
++
++  queueMicrotask(() => {
++    if (behavior.errorBeforeSpawn) {
++      ee.emit("error", new Error("fake_spawn_error_before_start"));
++      return;
++    }
++    if (behavior.holdOpen) {
++      if (behavior.pid && behavior.pid > 0) {
++        pid = behavior.pid;
++      }
++      ee.emit("spawn");
++      return;
++    }
++    ee.emit("spawn");
++    for (const chunk of behavior.stdoutChunks ?? []) {
++      stdout.emit("data", Buffer.from(chunk));
++    }
++    for (const chunk of behavior.stderrChunks ?? []) {
++      stderr.emit("data", Buffer.from(chunk));
++    }
++    if (behavior.hangMs && behavior.hangMs > 0) {
++      setTimeout(() => {
++        /* wait for kill from timeout */
++      }, behavior.hangMs);
++      return;
++    }
++    queueMicrotask(() => ee.emit("close", behavior.exitCode ?? 0));
++  });
++
++  return handle;
++}
++
++export class FakeGitCommandRunner implements GitCommandRunner {
++  readonly calls: Array<{ argv: readonly string[]; cwd: string }> = [];
++  private readonly scripted: GitCommandResult[];
++  private headOverride: string | null = null;
++  private failOn?: (argv: readonly string[]) => GitCommandResult | null;
++
++  constructor(
++    options: {
++      baseHeadSha?: string;
++      results?: GitCommandResult[];
++      failOn?: (argv: readonly string[]) => GitCommandResult | null;
++    } = {},
++  ) {
++    this.scripted = options.results ?? [];
++    this.headOverride = options.baseHeadSha ?? null;
++    this.failOn = options.failOn;
++  }
++
++  setHeadSha(sha: string): void {
++    this.headOverride = sha;
++  }
++
++  async run(
++    argv: readonly string[],
++    cwd: string,
++  ): Promise<GitCommandResult> {
++    this.calls.push({ argv: [...argv], cwd });
++    if (this.failOn) {
++      const forced = this.failOn(argv);
++      if (forced) return forced;
++    }
++    if (this.scripted.length > 0) {
++      return this.scripted.shift()!;
++    }
++    // Default happy path: verify / worktree add / rev-parse HEAD
++    if (argv[0] === "rev-parse" && argv[1] === "--verify") {
++      return { stdout: "commit\n", stderr: "", exitCode: 0 };
++    }
++    if (argv[0] === "worktree" && argv[1] === "add") {
++      return { stdout: "", stderr: "", exitCode: 0 };
++    }
++    if (argv[0] === "rev-parse" && argv[1] === "HEAD") {
++      return {
++        stdout: `${this.headOverride ?? "0".repeat(40)}\n`,
++        stderr: "",
++        exitCode: 0,
++      };
++    }
++    return { stdout: "", stderr: "unexpected_fake_git_argv", exitCode: 1 };
++  }
++}
++
++/** TEST-ONLY workspace port that records prepare calls. */
++export class FakeRealExecutionWorkspacePort {
++  readonly prepares: Array<{ attemptId: string; baseHeadSha: string }> = [];
++  private fail = false;
++  private workspacePath = "/tmp/fake-exec-root/wt-test";
++
++  constructor(
++    options: { workspacePath?: string; fail?: boolean } = {},
++  ) {
++    if (options.workspacePath) this.workspacePath = options.workspacePath;
++    this.fail = options.fail ?? false;
++  }
++
++  setFail(fail: boolean): void {
++    this.fail = fail;
++  }
++
++  async prepareWorkspace(request: {
++    attemptId: string;
++    baseHeadSha: string;
++  }): Promise<{ workspacePath: string; verifiedHeadSha: string }> {
++    this.prepares.push({ ...request });
++    if (this.fail) {
++      throw new Error("REAL_WORKSPACE_INVALID:fake_prepare_failed");
++    }
++    return {
++      workspacePath: this.workspacePath,
++      verifiedHeadSha: request.baseHeadSha.toLowerCase(),
++    };
++  }
++}
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts
+new file mode 100644
+index 0000000..1a4a0f4
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts
+@@ -0,0 +1,13 @@
++/**
++ * Shared M4 REAL-OFF test fixtures (contract inputs.baseHeadSha, wiring).
++ */
++export const M4_TEST_BASE_HEAD_SHA =
++  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
++
++export const M4_EVIDENCE = "evd:morris-n3";
++
++export function m4ContractInputs(
++  baseHeadSha: string = M4_TEST_BASE_HEAD_SHA,
++): { baseHeadSha: string } {
++  return { baseHeadSha };
++}
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts
+new file mode 100644
+index 0000000..d3e2034
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts
+@@ -0,0 +1,185 @@
++/**
++ * TEST-ONLY RealExecutionLaunchPort — simulated ACK for positive StartExecution paths.
++ * NEVER enables production StudioCursorRealLaunchGateway / SFIA_STUDIO_CURSOR_REAL.
++ * SIMULATED TECHNICAL ACK only — not a REAL Cursor invocation.
++ */
++import {
++  M4_REAL_GATEWAY_ADAPTER_ID,
++  type RealExecutionLaunchPort,
++  type RealLaunchRequest,
++  type RealLaunchResult,
++  type RealProcessObservation,
++} from "@/lib/oa/execution-attempt";
++
++export type TestOnlyRealExecutionLaunchPortOptions = {
++  readonly gatewayId?: string;
++  /**
++   * When true (default for ack), awaitCompletion stays pending until
++   * resolveSimulatedCompletion() — models spawn ACK ≠ process completion.
++   */
++  readonly holdCompletion?: boolean;
++  readonly behavior?:
++    | { outcome: "ack"; processRef?: string }
++    | {
++        outcome: "reject";
++        reason: string;
++        detailCode?: NonNullable<
++          Extract<RealLaunchResult, { outcome: "reject" }>["detailCode"]
++        >;
++      }
++    | {
++        outcome: "fail";
++        reason: string;
++        detailCode?: NonNullable<
++          Extract<RealLaunchResult, { outcome: "fail" }>["detailCode"]
++        >;
++      }
++    | { outcome: "throw"; reason: string };
++};
++
++/**
++ * Test-only launch port. Returns SIMULATED TECHNICAL ACK.
++ * Must never be confused with production gateway enablement.
++ */
++export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort {
++  readonly gatewayId: string;
++  readonly externalEffects = true as const;
++  readonly calls: RealLaunchRequest[] = [];
++  /** Explicit label for review claims — not a real Cursor process count. */
++  readonly simulatedTechnicalAckCount = { value: 0 };
++  private behavior: NonNullable<
++    TestOnlyRealExecutionLaunchPortOptions["behavior"]
++  >;
++  private readonly holdCompletion: boolean;
++  private readonly observations = new Map<string, RealProcessObservation>();
++  private readonly completionResolvers = new Map<
++    string,
++    (obs: RealProcessObservation) => void
++  >();
++  private readonly completionPromises = new Map<
++    string,
++    Promise<RealProcessObservation>
++  >();
++  readonly completionPending = { value: false };
++
++  constructor(options: TestOnlyRealExecutionLaunchPortOptions = {}) {
++    this.gatewayId = options.gatewayId ?? M4_REAL_GATEWAY_ADAPTER_ID;
++    this.behavior = options.behavior ?? { outcome: "ack" };
++    this.holdCompletion = options.holdCompletion ?? true;
++  }
++
++  setBehavior(
++    behavior: NonNullable<TestOnlyRealExecutionLaunchPortOptions["behavior"]>,
++  ): void {
++    this.behavior = behavior;
++  }
++
++  get launchCallCount(): number {
++    return this.calls.length;
++  }
++
++  get simulatedAckCount(): number {
++    return this.simulatedTechnicalAckCount.value;
++  }
++
++  async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
++    this.calls.push(structuredClone(request));
++    const b = this.behavior;
++    if (b.outcome === "throw") {
++      throw new Error(`test_only_real_launch_threw:${b.reason}`);
++    }
++    if (b.outcome === "reject") {
++      return {
++        outcome: "reject",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: b.reason,
++        realProcessInvoked: false,
++        detailCode: b.detailCode,
++      };
++    }
++    if (b.outcome === "fail") {
++      return {
++        outcome: "fail",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: b.reason,
++        realProcessInvoked: false,
++        detailCode: b.detailCode,
++      };
++    }
++    this.simulatedTechnicalAckCount.value += 1;
++    const processRef = b.processRef ?? `proc:sim:${request.attemptId}`;
++    this.observations.set(processRef, {
++      processRef,
++      exitCode: null,
++      timedOut: false,
++      stdout: "",
++      stderr: "",
++      durationMs: 0,
++      realProcessInvoked: true,
++    });
++    if (this.holdCompletion) {
++      this.completionPending.value = true;
++      const completion = new Promise<RealProcessObservation>((resolve) => {
++        this.completionResolvers.set(processRef, resolve);
++      });
++      this.completionPromises.set(processRef, completion);
++    } else {
++      const done: RealProcessObservation = {
++        processRef,
++        exitCode: 0,
++        timedOut: false,
++        stdout: "",
++        stderr: "",
++        durationMs: 0,
++        realProcessInvoked: true,
++      };
++      this.observations.set(processRef, done);
++      this.completionPromises.set(processRef, Promise.resolve(done));
++    }
++    // SIMULATED TECHNICAL ACK — production gateway flag was never enabled.
++    return {
++      outcome: "ack",
++      gatewayId: this.gatewayId,
++      attemptId: request.attemptId,
++      realProcessInvoked: true,
++      processRef,
++    };
++  }
++
++  resolveSimulatedCompletion(
++    processRef: string,
++    observation?: Partial<RealProcessObservation>,
++  ): void {
++    const current = this.observations.get(processRef);
++    const next: RealProcessObservation = {
++      processRef,
++      exitCode: observation?.exitCode ?? 0,
++      timedOut: observation?.timedOut ?? false,
++      stdout: observation?.stdout ?? current?.stdout ?? "",
++      stderr: observation?.stderr ?? current?.stderr ?? "",
++      durationMs: observation?.durationMs ?? 1,
++      realProcessInvoked: true,
++      worktreeRef: observation?.worktreeRef,
++    };
++    this.observations.set(processRef, next);
++    this.completionPending.value = false;
++    this.completionResolvers.get(processRef)?.(next);
++  }
++
++  async observe(processRef: string): Promise<RealProcessObservation | null> {
++    return this.observations.get(processRef) ?? null;
++  }
++
++  async awaitCompletion(
++    processRef: string,
++  ): Promise<RealProcessObservation | null> {
++    return this.completionPromises.get(processRef) ?? null;
++  }
++}
++
++/** Alias kept for relocated FakeRealExecutionLaunchGateway. */
++export {
++  TestOnlyRealExecutionLaunchPort as FakeRealExecutionLaunchGateway,
++};
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
+new file mode 100644
+index 0000000..48912a5
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
+@@ -0,0 +1,209 @@
++/**
++ * GrantGateD — Gate D GD-1 grant use-case (D-M4-04).
++ * Grant ≠ consume. StartExecution consumes with CREATED atomically.
++ * Never starts execution / never launches Cursor.
++ */
++import type { ClockPort } from "@/lib/oa/doctrine";
++import type { AuthorityResolverPort } from "@/lib/oa/decision";
++import type { ExecutionContractRepositoryPort } from "@/lib/oa/execution-contract";
++import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
++import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
++import type { AttemptDetailCode, ActorReference } from "../domain/types";
++import type { GateDGrant } from "../domain/realLaunchSafety";
++import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
++import type { AgentRegistryPort } from "../ports/agentRegistry";
++import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
++import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
++import {
++  authorityFailureDetail,
++  newCorrelationId,
++  verifyAttemptAuthority,
++} from "./attemptSupport";
++
++export type GrantGateDRequest = {
++  readonly grantId: string;
++  readonly attemptId: string;
++  readonly actor: ActorReference;
++  readonly expiresAt: string;
++  readonly authorityEvidenceId?: string;
++  readonly correlationId?: string;
++  readonly expectedAttemptVersion?: number;
++  readonly expectedContractVersion?: number;
++  readonly claimedAuthorityLevel?: string;
++  readonly nowIso?: string;
++};
++
++export type GrantGateDSuccess = {
++  readonly ok: true;
++  readonly grant: GateDGrant;
++  readonly durationMs: number;
++};
++
++export type GrantGateDFailure = {
++  readonly ok: false;
++  readonly error: ReturnType<typeof createAttemptError>;
++  readonly durationMs: number;
++};
++
++export type GrantGateDResult = GrantGateDSuccess | GrantGateDFailure;
++
++/** @deprecated Prefer GrantGateDRequest. */
++export type GrantRealExecutionGateRequest = GrantGateDRequest;
++/** @deprecated Prefer GrantGateDResult. */
++export type GrantRealExecutionGateResult = GrantGateDResult;
++
++export class GrantGateD {
++  constructor(
++    private readonly attempts: ExecutionAttemptRepositoryPort,
++    private readonly contracts: ExecutionContractRepositoryPort,
++    private readonly registry: AgentRegistryPort,
++    private readonly authority: AuthorityResolverPort,
++    private readonly safetyJournal: RealLaunchSafetyJournalPort,
++    private readonly clock: ClockPort,
++  ) {}
++
++  async execute(request: GrantGateDRequest): Promise<GrantGateDResult> {
++    const started = Date.now();
++    const timestamp = request.nowIso ?? this.clock.nowIso();
++    const correlationId = request.correlationId ?? newCorrelationId();
++
++    const fail = (
++      detailCode: AttemptDetailCode,
++      internalCauseRef: string,
++      extra?: Partial<Parameters<typeof createAttemptError>[0]>,
++    ): GrantGateDFailure => ({
++      ok: false,
++      error: createAttemptError({
++        detailCode,
++        timestamp,
++        correlationId,
++        attemptId: request.attemptId,
++        internalCauseRef,
++        ...extra,
++      }),
++      durationMs: Date.now() - started,
++    });
++
++    try {
++      if (!request.actor?.actorId || !request.grantId || !request.expiresAt) {
++        return fail("ATTEMPT_INVALID", "gate_d_input_invalid");
++      }
++      if (Date.parse(request.expiresAt) <= Date.parse(timestamp)) {
++        return fail("GATE_D_EXPIRED", "gate_d_expires_at_not_future");
++      }
++
++      const attempt = await this.attempts.findById(request.attemptId);
++      if (!attempt) return fail("ATTEMPT_NOT_FOUND", "missing_attempt");
++      if (attempt.status !== "accepted") {
++        return fail("ATTEMPT_STATE_CONFLICT", `attempt_status_${attempt.status}`);
++      }
++      if (
++        request.expectedAttemptVersion !== undefined &&
++        request.expectedAttemptVersion !== attempt.version
++      ) {
++        return fail("VERSION_CONFLICT", "attempt_occ_mismatch", {
++          expectedVersion: request.expectedAttemptVersion,
++          currentVersion: attempt.version,
++        });
++      }
++
++      const contract = await this.contracts.findById(attempt.executionContractId);
++      if (!contract) {
++        return fail("EXECUTION_CONTRACT_NOT_FOUND", "missing_contract");
++      }
++      if (contract.status !== "confirmed") {
++        return fail(
++          "EXECUTION_CONTRACT_NOT_CONFIRMED",
++          `contract_status_${contract.status}`,
++        );
++      }
++      if (contract.version !== attempt.executionContractVersion) {
++        return fail("EXECUTION_CONTRACT_STALE", "contract_version_changed");
++      }
++      if (
++        request.expectedContractVersion !== undefined &&
++        request.expectedContractVersion !== contract.version
++      ) {
++        return fail("EXECUTION_CONTRACT_STALE", "contract_occ_mismatch");
++      }
++
++      const fingerprint =
++        contract.semanticFingerprint ??
++        computeExecutionContractSemanticFingerprint(contract);
++      if (!fingerprint) {
++        return fail("ATTEMPT_INVALID", "semantic_fingerprint_missing");
++      }
++      if (
++        contract.action.includes("UNRESOLVED") ||
++        contract.target.includes("UNRESOLVED") ||
++        contract.requiredCapabilities.some(
++          (c) => c === "cap:unresolved" || c.includes("unresolved"),
++        )
++      ) {
++        return fail("REAL_AGENT_PROFILE_INVALID", "unresolved_contract_refused");
++      }
++
++      const agent = this.registry.getAgent(attempt.selectedAgentRef);
++      if (!agent) return fail("AGENT_NOT_FOUND", "selected_agent_missing");
++      if (!isM4BoundedReadOnlyRealAgent(agent)) {
++        return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_bounded_readonly_real");
++      }
++
++      const authz = verifyAttemptAuthority(this.authority, {
++        requiredAuthority: contract.requiredAuthority,
++        actorId: request.actor.actorId,
++        scope: contract.scope,
++        evidenceId: request.authorityEvidenceId,
++        claimedAuthorityLevel: request.claimedAuthorityLevel,
++      });
++      if (!authz.ok) {
++        return fail(
++          authorityFailureDetail(authz.reason),
++          `gate_d_${authz.reason}`,
++        );
++      }
++
++      const identity = {
++        executionContractId: contract.executionContractId,
++        executionContractVersion: contract.version,
++        semanticFingerprint: fingerprint,
++      };
++      if (await this.safetyJournal.hasAmbiguousFrontier(identity)) {
++        return fail(
++          "LAUNCH_RECONCILIATION_REQUIRED",
++          "ambiguous_frontier_blocks_gate_d",
++        );
++      }
++
++      const existing = await this.safetyJournal.findActiveGateDGrantForAttempt(
++        attempt.attemptId,
++      );
++      if (existing) {
++        return fail("GATE_D_ALREADY_GRANTED", "active_grant_exists");
++      }
++
++      const grant = await this.safetyJournal.persistGateDGrant({
++        grantId: request.grantId,
++        executionContractId: contract.executionContractId,
++        executionContractVersion: contract.version,
++        semanticFingerprint: fingerprint,
++        attemptId: attempt.attemptId,
++        selectedAgentRef: attempt.selectedAgentRef,
++        actorId: request.actor.actorId,
++        issuedAt: timestamp,
++        expiresAt: request.expiresAt,
++        correlationId,
++      });
++
++      return { ok: true, grant, durationMs: Date.now() - started };
++    } catch (err) {
++      if (isExecutionAttemptDomainError(err)) {
++        return fail(err.detailCode, err.message);
++      }
++      return fail("EXECUTION_PERSISTENCE_FAILED", "gate_d_persist_failed");
++    }
++  }
++}
++
++/** @deprecated Prefer GrantGateD. */
++export { GrantGateD as GrantRealExecutionGate };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts
+new file mode 100644
+index 0000000..7459716
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts
+@@ -0,0 +1,12 @@
++/**
++ * GrantRealExecutionGate — Gate D GD-1 grant use-case (D-M4-04).
++ * Re-exports GrantGateD under the Delivery cycle name.
++ */
++export {
++  GrantGateD as GrantRealExecutionGate,
++  GrantGateD,
++  type GrantGateDRequest as GrantRealExecutionGateRequest,
++  type GrantGateDResult as GrantRealExecutionGateResult,
++  type GrantGateDRequest,
++  type GrantGateDResult,
++} from "./grantGateD";
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 index 42758a6..9eb798c 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
@@ -1307,6 +4328,111 @@ index 7c82e7a..9cf4fdb 100644
  };
 
  const NON_RECOVERABLE: ReadonlySet<AttemptDetailCode> = new Set<
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+new file mode 100644
+index 0000000..790267e
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+@@ -0,0 +1,99 @@
++/**
++ * M4 REAL-OFF — technical launch safety + Gate D GD-1 types.
++ *
++ * TEMPORARY WITH EXIT technical journal (D-M4-02).
++ * ≠ Product Store · ≠ Attempt aggregate · ≠ Confirmation · ≠ PREPARE projection.
++ */
++
++export const SFIA_STUDIO_CURSOR_REAL_FLAG = "SFIA_STUDIO_CURSOR_REAL" as const;
++
++/** Closed REAL gateway adapter id — not part of InjectableExecutionAdapter. */
++export const M4_REAL_GATEWAY_ADAPTER_ID = "adp:m4-cursor-cli-real" as const;
++
++export const M4_BOUNDED_RO_CURSOR_AGENT_ID =
++  "agt:m4.cursor.bounded_readonly" as const;
++
++export type RealLaunchReconcileDisposition =
++  | "CLEAR"
++  | "UNKNOWN"
++  | "REVIEW_REQUIRED";
++
++/** Journal record kinds (D-M4-02 / D-M4-04). */
++export type LaunchSafetyRecordKind =
++  | "GATE_D_GRANTED"
++  | "GATE_D_CONSUMED"
++  | "ATTEMPT_CREATED"
++  | "ATTEMPT_LAUNCHED";
++
++/** Frontier kinds used for relaunch ambiguity (CREATED / LAUNCHED). */
++export type RealLaunchFrontierKind = "CREATED" | "LAUNCHED";
++
++export type GateDGrantStatus =
++  | "granted"
++  | "consumed"
++  | "expired"
++  | "invalidated";
++
++export type GateDGrant = {
++  readonly grantId: string;
++  readonly executionContractId: string;
++  readonly executionContractVersion: number;
++  readonly semanticFingerprint: string;
++  readonly attemptId: string;
++  readonly selectedAgentRef: string;
++  readonly actorId: string;
++  readonly issuedAt: string;
++  readonly expiresAt: string;
++  readonly status: GateDGrantStatus;
++  readonly consumedAt?: string;
++  readonly correlationId?: string;
++};
++
++export type RealLaunchFrontierRecord = {
++  readonly recordId: string;
++  readonly kind: RealLaunchFrontierKind;
++  readonly occurredAt: string;
++  readonly executionContractId: string;
++  readonly executionContractVersion: number;
++  readonly semanticFingerprint: string;
++  readonly attemptId: string;
++  readonly selectedAgentRef: string;
++  readonly actorId: string;
++  readonly grantId: string;
++  readonly correlationId: string;
++  readonly processRef?: string;
++  readonly payloadJson: string;
++};
++
++export type ContractSafetyIdentity = {
++  readonly executionContractId: string;
++  readonly executionContractVersion: number;
++  readonly semanticFingerprint: string;
++};
++
++export function isStudioCursorRealEnabled(
++  env: NodeJS.ProcessEnv = process.env,
++): boolean {
++  return env[SFIA_STUDIO_CURSOR_REAL_FLAG] === "1";
++}
++
++export function assertStudioCursorRealOffForTests(
++  env: NodeJS.ProcessEnv = process.env,
++): void {
++  if (env.OPS1_CURSOR_REAL === "1") {
++    throw new Error("M4_REAL_OFF_TESTS_REQUIRE_OPS1_CURSOR_REAL_OFF");
++  }
++  if (isStudioCursorRealEnabled(env)) {
++    throw new Error("M4_REAL_OFF_TESTS_REQUIRE_SFIA_STUDIO_CURSOR_REAL_OFF");
++  }
++}
++
++export function isRealCursorAgentMode(input: {
++  executionMode: string;
++  adapterRef: string;
++}): boolean {
++  return (
++    input.executionMode === "cursor_cli_real" ||
++    input.adapterRef === M4_REAL_GATEWAY_ADAPTER_ID
++  );
++}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
 index d571f32..14740c5 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
@@ -1566,6 +4692,1919 @@ index 35bc217..85ec45b 100644
    };
  }
 
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+new file mode 100644
+index 0000000..249de01
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+@@ -0,0 +1,21 @@
++/**
++ * CursorCliLaunchGateway — OA-owned REAL launch ACL (D-M4-01).
++ * Re-exports StudioCursorRealLaunchGateway under the Delivery cycle name.
++ * Fake runners are NOT re-exported — use __tests__/…/support doubles.
++ */
++export {
++  StudioCursorRealLaunchGateway as CursorCliLaunchGateway,
++  StudioCursorRealLaunchGateway,
++  DisabledRealProcessRunner,
++  resolveStudioCursorBinPath,
++  resolveCursorBinPath,
++  type StudioCursorRealLaunchGatewayOptions as CursorCliLaunchGatewayOptions,
++  type StudioCursorRealLaunchGatewayOptions,
++} from "./studioCursorRealLaunchGateway";
++export {
++  NodeCursorProcessRunner,
++  NODE_CURSOR_STDOUT_CAP_BYTES,
++  NODE_CURSOR_STDERR_CAP_BYTES,
++  type SpawnPrimitive,
++  type NodeCursorProcessRunnerOptions,
++} from "./nodeCursorProcessRunner";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedReadOnlyCursorAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedReadOnlyCursorAgent.ts
+new file mode 100644
+index 0000000..e7f5fc6
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedReadOnlyCursorAgent.ts
+@@ -0,0 +1,75 @@
++/**
++ * M4 bounded read-only Cursor agent descriptor (D-M4-03).
++ * Static / deny-by-default registry entry — no live health probe.
++ * Exact caps only — no wildcards, no unresolved.
++ */
++import type { ProvenanceRecord } from "@/lib/oa/doctrine";
++import {
++  M4_BOUNDED_RO_CURSOR_AGENT_ID,
++  M4_REAL_GATEWAY_ADAPTER_ID,
++} from "../domain/realLaunchSafety";
++import type { AgentDescriptor } from "../domain/types";
++
++export const M4_BOUNDED_RO_CAPABILITY = "cap:cursor.read_only" as const;
++export const M4_BOUNDED_RO_ACTION = "cursor.read_only.inspect" as const;
++export const M4_BOUNDED_RO_TARGET = "workspace.isolated.read" as const;
++export const M4_BOUNDED_RO_SCOPE = "studio.m4.real_off" as const;
++
++export function createM4BoundedReadOnlyCursorAgentDescriptor(
++  nowIso: string,
++  provenance?: ProvenanceRecord,
++): AgentDescriptor {
++  const defaultProvenance: ProvenanceRecord = {
++    schemaVersion: "0.1.0-oa",
++    provenanceRecordId: "prv:m4-bounded-ro-cursor-agent",
++    actor: {
++      actorId: "actor:system",
++      role: "system",
++      authorityLevel: "N1",
++    },
++    source: "system",
++    timestamp: nowIso,
++    correlationId: "cor:m4-bounded-ro-cursor-agent",
++  };
++  const descriptor: AgentDescriptor = {
++    schemaVersion: "0.1.0-oa",
++    agentId: M4_BOUNDED_RO_CURSOR_AGENT_ID,
++    agentType: "cursor_cli_bounded_readonly",
++    adapterRef: M4_REAL_GATEWAY_ADAPTER_ID,
++    supportedCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++    allowedActions: [M4_BOUNDED_RO_ACTION],
++    allowedTargets: [M4_BOUNDED_RO_TARGET],
++    allowedScopes: [M4_BOUNDED_RO_SCOPE],
++    trustLevel: "bounded",
++    executionMode: "cursor_cli_real",
++    healthStatus: "healthy",
++    version: 1,
++    enabled: true,
++    provenance: provenance ?? defaultProvenance,
++    createdAt: nowIso,
++  };
++  return Object.freeze(descriptor);
++}
++
++export function isM4BoundedReadOnlyRealAgent(agent: AgentDescriptor): boolean {
++  const hasWildcard = (values: readonly string[]) =>
++    values.some((v) => v === "*" || v.includes("*"));
++  return (
++    agent.executionMode === "cursor_cli_real" &&
++    agent.trustLevel === "bounded" &&
++    agent.adapterRef === M4_REAL_GATEWAY_ADAPTER_ID &&
++    agent.enabled === true &&
++    agent.supportedCapabilities.length > 0 &&
++    agent.allowedActions.length > 0 &&
++    agent.allowedTargets.length > 0 &&
++    agent.allowedScopes.length > 0 &&
++    !hasWildcard(agent.supportedCapabilities) &&
++    !hasWildcard(agent.allowedActions) &&
++    !hasWildcard(agent.allowedTargets) &&
++    !hasWildcard(agent.allowedScopes) &&
++    !agent.supportedCapabilities.includes("cap:unresolved") &&
++    !agent.allowedActions.some((a) => a.includes("UNRESOLVED")) &&
++    !agent.allowedTargets.some((t) => t.includes("UNRESOLVED")) &&
++    !agent.allowedScopes.some((s) => s.includes("UNRESOLVED"))
++  );
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/memoryLaunchSafetyJournal.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/memoryLaunchSafetyJournal.ts
+new file mode 100644
+index 0000000..23cbf1b
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/memoryLaunchSafetyJournal.ts
+@@ -0,0 +1,242 @@
++/**
++ * MemoryLaunchSafetyJournal — in-memory journal for unit tests.
++ * Prefer SqliteLaunchSafetyJournal with temp files for durability proofs.
++ */
++import { randomBytes } from "node:crypto";
++import type {
++  ContractSafetyIdentity,
++  GateDGrant,
++  RealLaunchFrontierKind,
++  RealLaunchFrontierRecord,
++  RealLaunchReconcileDisposition,
++} from "../domain/realLaunchSafety";
++import type {
++  AtomicConsumeGrantAndCreateFrontierInput,
++  CreateGrantInput,
++  GrantValidationResult,
++  LaunchSafetyJournalPort,
++  MarkLaunchedInput,
++  ValidateGrantForStartInput,
++} from "../ports/launchSafetyJournalPort";
++
++function newId(prefix: string): string {
++  return `${prefix}:${randomBytes(8).toString("hex")}`;
++}
++
++function identityKey(identity: ContractSafetyIdentity): string {
++  return `${identity.executionContractId}|${identity.executionContractVersion}|${identity.semanticFingerprint}`;
++}
++
++export class MemoryLaunchSafetyJournal implements LaunchSafetyJournalPort {
++  private readonly grants = new Map<string, GateDGrant>();
++  private readonly frontier: RealLaunchFrontierRecord[] = [];
++  /** When true, next atomicConsume throws before mutating (adversarial). */
++  failNextAtomicConsume = false;
++
++  async createGrant(input: CreateGrantInput): Promise<GateDGrant> {
++    if (this.grants.has(input.grantId)) {
++      throw new Error("m4_gate_d_duplicate_grant_id");
++    }
++    for (const g of this.grants.values()) {
++      if (g.attemptId === input.attemptId && g.status === "granted") {
++        throw new Error("m4_gate_d_attempt_unique");
++      }
++    }
++    const grant: GateDGrant = Object.freeze({
++      grantId: input.grantId,
++      executionContractId: input.executionContractId,
++      executionContractVersion: input.executionContractVersion,
++      semanticFingerprint: input.semanticFingerprint,
++      attemptId: input.attemptId,
++      selectedAgentRef: input.selectedAgentRef,
++      actorId: input.actorId,
++      issuedAt: input.issuedAt,
++      expiresAt: input.expiresAt,
++      status: "granted",
++      correlationId: input.correlationId,
++    });
++    this.grants.set(grant.grantId, grant);
++    return grant;
++  }
++
++  async findGrant(grantId: string): Promise<GateDGrant | null> {
++    return this.grants.get(grantId) ?? null;
++  }
++
++  async findActiveGateDGrantForAttempt(
++    attemptId: string,
++  ): Promise<GateDGrant | null> {
++    for (const g of this.grants.values()) {
++      if (g.attemptId === attemptId && g.status === "granted") return g;
++    }
++    return null;
++  }
++
++  async validateGrantForStart(
++    input: ValidateGrantForStartInput,
++  ): Promise<GrantValidationResult> {
++    const grant = await this.findGrant(input.grantId);
++    if (!grant) return { ok: false, reason: "GATE_D_REQUIRED" };
++    if (grant.status === "consumed") {
++      return { ok: false, reason: "GATE_D_ALREADY_CONSUMED" };
++    }
++    if (grant.status !== "granted") {
++      return { ok: false, reason: "GATE_D_INVALID" };
++    }
++    if (Date.parse(grant.expiresAt) <= Date.parse(input.nowIso)) {
++      return { ok: false, reason: "GATE_D_EXPIRED" };
++    }
++    if (
++      grant.attemptId !== input.attemptId ||
++      grant.actorId !== input.actorId ||
++      grant.selectedAgentRef !== input.selectedAgentRef ||
++      grant.executionContractId !== input.identity.executionContractId ||
++      grant.executionContractVersion !==
++        input.identity.executionContractVersion ||
++      grant.semanticFingerprint !== input.identity.semanticFingerprint
++    ) {
++      return { ok: false, reason: "GATE_D_BINDING_MISMATCH" };
++    }
++    return { ok: true, grant };
++  }
++
++  async atomicConsumeGrantAndCreateFrontier(
++    input: AtomicConsumeGrantAndCreateFrontierInput,
++  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
++    if (this.failNextAtomicConsume) {
++      this.failNextAtomicConsume = false;
++      throw new Error("m4_journal_atomic_consume_forced_fail");
++    }
++    const validated = await this.validateGrantForStart({
++      grantId: input.grantId,
++      attemptId: input.attemptId,
++      actorId: input.actorId,
++      selectedAgentRef: input.selectedAgentRef,
++      identity: input.identity,
++      nowIso: input.occurredAt,
++    });
++    if (!validated.ok) {
++      throw new Error(`m4_${validated.reason.toLowerCase()}`);
++    }
++    if (await this.hasAmbiguousFrontier(input.identity)) {
++      throw new Error("m4_launch_frontier_ambiguous");
++    }
++    const consumed: GateDGrant = Object.freeze({
++      ...validated.grant,
++      status: "consumed" as const,
++      consumedAt: input.occurredAt,
++    });
++    this.grants.set(consumed.grantId, consumed);
++    const created: RealLaunchFrontierRecord = Object.freeze({
++      recordId: newId("m4fr"),
++      kind: "CREATED",
++      occurredAt: input.occurredAt,
++      executionContractId: input.identity.executionContractId,
++      executionContractVersion: input.identity.executionContractVersion,
++      semanticFingerprint: input.identity.semanticFingerprint,
++      attemptId: input.attemptId,
++      selectedAgentRef: input.selectedAgentRef,
++      actorId: input.actorId,
++      grantId: input.grantId,
++      correlationId: input.correlationId,
++      payloadJson: "{}",
++    });
++    this.frontier.push(created);
++    return { grant: consumed, created };
++  }
++
++  async markLaunched(
++    input: MarkLaunchedInput,
++  ): Promise<RealLaunchFrontierRecord> {
++    const hasCreated = this.frontier.some(
++      (r) => r.attemptId === input.attemptId && r.kind === "CREATED",
++    );
++    if (!hasCreated) throw new Error("m4_launched_requires_created");
++    const launched: RealLaunchFrontierRecord = Object.freeze({
++      recordId: newId("m4fr"),
++      kind: "LAUNCHED",
++      occurredAt: input.occurredAt,
++      executionContractId: input.identity.executionContractId,
++      executionContractVersion: input.identity.executionContractVersion,
++      semanticFingerprint: input.identity.semanticFingerprint,
++      attemptId: input.attemptId,
++      selectedAgentRef: input.selectedAgentRef,
++      actorId: input.actorId,
++      grantId: input.grantId,
++      correlationId: input.correlationId,
++      processRef: input.processRef,
++      payloadJson: JSON.stringify(input.payload ?? {}),
++    });
++    this.frontier.push(launched);
++    return launched;
++  }
++
++  async findFrontierByContractFingerprint(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    const key = identityKey(identity);
++    return this.frontier.filter((r) => identityKey(r) === key);
++  }
++
++  async findFrontierByAttemptId(
++    attemptId: string,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    return this.frontier.filter((r) => r.attemptId === attemptId);
++  }
++
++  async hasAmbiguousFrontier(
++    identity: ContractSafetyIdentity,
++  ): Promise<boolean> {
++    const rows = await this.findFrontierByContractFingerprint(identity);
++    return rows.length > 0;
++  }
++
++  async reconcileDispositionForIdentity(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchReconcileDisposition> {
++    const rows = await this.findFrontierByContractFingerprint(identity);
++    if (rows.length === 0) return "CLEAR";
++    if (rows.some((r) => r.kind === "LAUNCHED")) return "REVIEW_REQUIRED";
++    if (rows.some((r) => r.kind === "CREATED")) return "UNKNOWN";
++    return "REVIEW_REQUIRED";
++  }
++
++  async hasKindForAttempt(
++    attemptId: string,
++    kind: RealLaunchFrontierKind,
++  ): Promise<boolean> {
++    return this.frontier.some((r) => r.attemptId === attemptId && r.kind === kind);
++  }
++
++  async persistGateDGrant(input: CreateGrantInput): Promise<GateDGrant> {
++    return this.createGrant(input);
++  }
++
++  async findGateDGrant(grantId: string): Promise<GateDGrant | null> {
++    return this.findGrant(grantId);
++  }
++
++  async consumeGateDAndAppendCreated(
++    input: AtomicConsumeGrantAndCreateFrontierInput,
++  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
++    return this.atomicConsumeGrantAndCreateFrontier(input);
++  }
++
++  async appendLaunched(
++    input: MarkLaunchedInput,
++  ): Promise<RealLaunchFrontierRecord> {
++    return this.markLaunched(input);
++  }
++
++  async findFrontierByAttempt(
++    attemptId: string,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    return this.findFrontierByAttemptId(attemptId);
++  }
++
++  async findFrontierByIdentity(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    return this.findFrontierByContractFingerprint(identity);
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts
+new file mode 100644
+index 0000000..ac8585f
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts
+@@ -0,0 +1,290 @@
++/**
++ * NodeCursorProcessRunner — production Cursor process runner (M4 R1 + spawn-ACK).
++ *
++ * spawn(shell:false); executable separate from argv; 64 KiB stdout/stderr caps;
++ * timeout → SIGTERM. invoke() RESOLVES on spawn confirmation (PID known), NOT
++ * on process close. Completion is observed separately via observe/awaitCompletion.
++ *
++ * SpawnPrimitive is injectable for tests (no real Cursor).
++ */
++import { spawn as nodeSpawn, type ChildProcess } from "node:child_process";
++import type {
++  ProcessRunner,
++  ProcessRunnerInvokeInput,
++  ProcessRunnerInvokeResult,
++  RealProcessObservation,
++} from "../ports/realExecutionLaunchPort";
++
++export const NODE_CURSOR_STDOUT_CAP_BYTES = 64 * 1024;
++export const NODE_CURSOR_STDERR_CAP_BYTES = 64 * 1024;
++
++export type SpawnPrimitive = (
++  executable: string,
++  argv: readonly string[],
++  options: {
++    cwd: string;
++    env: NodeJS.ProcessEnv;
++    shell: false;
++    stdio: ["ignore", "pipe", "pipe"];
++  },
++) => ChildProcess;
++
++export type NodeCursorProcessRunnerOptions = {
++  readonly spawnPrimitive?: SpawnPrimitive;
++};
++
++type TrackedProcess = {
++  readonly processRef: string;
++  readonly worktreeRef: string;
++  readonly started: number;
++  stdout: string;
++  stderr: string;
++  exitCode: number | null;
++  timedOut: boolean;
++  completed: boolean;
++  readonly completion: Promise<RealProcessObservation>;
++  resolveCompletion: (obs: RealProcessObservation) => void;
++};
++
++function appendCapped(current: string, chunk: Buffer, cap: number): string {
++  if (current.length >= cap) return current;
++  const next = chunk.toString("utf8");
++  const remaining = cap - current.length;
++  return current + next.slice(0, remaining);
++}
++
++function snapshot(tracked: TrackedProcess): RealProcessObservation {
++  return {
++    processRef: tracked.processRef,
++    exitCode: tracked.exitCode,
++    timedOut: tracked.timedOut,
++    stdout: tracked.stdout,
++    stderr: tracked.stderr,
++    durationMs: Date.now() - tracked.started,
++    realProcessInvoked: true,
++    worktreeRef: tracked.worktreeRef,
++  };
++}
++
++export class NodeCursorProcessRunner implements ProcessRunner {
++  private readonly spawnPrimitive: SpawnPrimitive;
++  /** Single process-local observation registry — not Evidence, not durable. */
++  private readonly processes = new Map<string, TrackedProcess>();
++
++  constructor(options: NodeCursorProcessRunnerOptions = {}) {
++    this.spawnPrimitive = options.spawnPrimitive ?? defaultSpawnPrimitive;
++  }
++
++  async invoke(
++    input: ProcessRunnerInvokeInput,
++  ): Promise<ProcessRunnerInvokeResult> {
++    if (!input.executable || input.executable.trim() === "") {
++      return {
++        processRef: `proc:pre-spawn:${input.attemptId}`,
++        realProcessInvoked: false,
++        observation: {
++          processRef: `proc:pre-spawn:${input.attemptId}`,
++          exitCode: null,
++          timedOut: false,
++          stdout: "",
++          stderr: "executable_missing",
++          durationMs: 0,
++          realProcessInvoked: false,
++        },
++      };
++    }
++
++    const started = Date.now();
++    let child: ChildProcess;
++    try {
++      child = this.spawnPrimitive(input.executable, [...input.argv], {
++        cwd: input.cwd,
++        env: input.env,
++        shell: false,
++        stdio: ["ignore", "pipe", "pipe"],
++      });
++    } catch {
++      return {
++        processRef: `proc:pre-spawn:${input.attemptId}`,
++        realProcessInvoked: false,
++        observation: {
++          processRef: `proc:pre-spawn:${input.attemptId}`,
++          exitCode: null,
++          timedOut: false,
++          stdout: "",
++          stderr: "spawn_threw_before_start",
++          durationMs: Date.now() - started,
++          realProcessInvoked: false,
++        },
++      };
++    }
++
++    let stdout = "";
++    let stderr = "";
++    child.stdout?.on("data", (chunk: Buffer) => {
++      stdout = appendCapped(stdout, chunk, NODE_CURSOR_STDOUT_CAP_BYTES);
++      const tracked = this.lookupByChild(child, input.attemptId, started);
++      if (tracked) tracked.stdout = stdout;
++    });
++    child.stderr?.on("data", (chunk: Buffer) => {
++      stderr = appendCapped(stderr, chunk, NODE_CURSOR_STDERR_CAP_BYTES);
++      const tracked = this.lookupByChild(child, input.attemptId, started);
++      if (tracked) tracked.stderr = stderr;
++    });
++
++    const spawned = await waitForSpawnConfirmation(child);
++    if (!spawned.ok) {
++      return {
++        processRef: `proc:pre-spawn:${input.attemptId}`,
++        realProcessInvoked: false,
++        observation: {
++          processRef: `proc:pre-spawn:${input.attemptId}`,
++          exitCode: null,
++          timedOut: false,
++          stdout,
++          stderr: stderr || spawned.reason,
++          durationMs: Date.now() - started,
++          realProcessInvoked: false,
++        },
++      };
++    }
++
++    const processRef =
++      typeof child.pid === "number" && child.pid > 0
++        ? `pid:${child.pid}`
++        : `proc:${input.attemptId}:${started}`;
++
++    let resolveCompletion!: (obs: RealProcessObservation) => void;
++    const completion = new Promise<RealProcessObservation>((resolve) => {
++      resolveCompletion = resolve;
++    });
++
++    const tracked: TrackedProcess = {
++      processRef,
++      worktreeRef: input.cwd,
++      started,
++      stdout,
++      stderr,
++      exitCode: null,
++      timedOut: false,
++      completed: false,
++      completion,
++      resolveCompletion,
++    };
++    this.processes.set(processRef, tracked);
++
++    const finish = (partial: {
++      exitCode: number | null;
++      timedOut?: boolean;
++    }) => {
++      if (tracked.completed) return;
++      tracked.completed = true;
++      tracked.exitCode = partial.exitCode;
++      if (partial.timedOut) tracked.timedOut = true;
++      tracked.stdout = stdout;
++      tracked.stderr = stderr;
++      clearTimeout(timer);
++      tracked.resolveCompletion(snapshot(tracked));
++    };
++
++    const timer = setTimeout(() => {
++      tracked.timedOut = true;
++      try {
++        child.kill("SIGTERM");
++      } catch {
++        /* ignore */
++      }
++    }, input.timeoutMs);
++
++    child.on("error", () => {
++      // Post-spawn error: historical invoke ACK remains invoked=true.
++      finish({ exitCode: null, timedOut: tracked.timedOut });
++    });
++    child.on("close", (code: number | null) => {
++      finish({ exitCode: code, timedOut: tracked.timedOut });
++    });
++
++    return {
++      processRef,
++      realProcessInvoked: true,
++      observation: snapshot(tracked),
++    };
++  }
++
++  async observe(processRef: string): Promise<RealProcessObservation | null> {
++    const tracked = this.processes.get(processRef);
++    return tracked ? snapshot(tracked) : null;
++  }
++
++  async awaitCompletion(
++    processRef: string,
++  ): Promise<RealProcessObservation | null> {
++    const tracked = this.processes.get(processRef);
++    if (!tracked) return null;
++    return tracked.completion;
++  }
++
++  private lookupByChild(
++    child: ChildProcess,
++    attemptId: string,
++    started: number,
++  ): TrackedProcess | undefined {
++    const byPid =
++      typeof child.pid === "number" && child.pid > 0
++        ? this.processes.get(`pid:${child.pid}`)
++        : undefined;
++    return byPid ?? this.processes.get(`proc:${attemptId}:${started}`);
++  }
++}
++
++function defaultSpawnPrimitive(
++  executable: string,
++  argv: readonly string[],
++  options: {
++    cwd: string;
++    env: NodeJS.ProcessEnv;
++    shell: false;
++    stdio: ["ignore", "pipe", "pipe"];
++  },
++): ChildProcess {
++  return nodeSpawn(executable, [...argv], options);
++}
++
++function waitForSpawnConfirmation(
++  child: ChildProcess,
++): Promise<{ ok: true } | { ok: false; reason: string }> {
++  return new Promise((resolve) => {
++    let settled = false;
++    const done = (result: { ok: true } | { ok: false; reason: string }) => {
++      if (settled) return;
++      settled = true;
++      child.off("spawn", onSpawn);
++      child.off("error", onError);
++      resolve(result);
++    };
++    const onSpawn = () => done({ ok: true });
++    const onError = () =>
++      done({ ok: false, reason: "spawn_error_before_start" });
++
++    if (typeof child.pid === "number" && child.pid > 0) {
++      done({ ok: true });
++      return;
++    }
++
++    child.once("spawn", onSpawn);
++    child.once("error", onError);
++
++    queueMicrotask(() => {
++      if (typeof child.pid === "number" && child.pid > 0) {
++        done({ ok: true });
++      }
++    });
++  });
++}
++
++/** Fail-closed runner kept in product surface — never spawns. */
++export class DisabledRealProcessRunner implements ProcessRunner {
++  async invoke(): Promise<ProcessRunnerInvokeResult> {
++    throw new Error("m4_real_process_runner_disabled_for_real_off_cycle");
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteLaunchSafetyJournal.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteLaunchSafetyJournal.ts
+new file mode 100644
+index 0000000..a1351a7
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteLaunchSafetyJournal.ts
+@@ -0,0 +1,478 @@
++/**
++ * SqliteLaunchSafetyJournal — technical SQLite safety DB (D-M4-02/04).
++ *
++ * Isolated file path · NOT Product Store · NOT D1 business DB · NOT Attempt store.
++ * TEMPORARY WITH EXIT.
++ */
++import { randomBytes } from "node:crypto";
++import { DatabaseSync } from "node:sqlite";
++import type {
++  ContractSafetyIdentity,
++  GateDGrant,
++  RealLaunchFrontierKind,
++  RealLaunchFrontierRecord,
++  RealLaunchReconcileDisposition,
++} from "../../domain/realLaunchSafety";
++import type {
++  AtomicConsumeGrantAndCreateFrontierInput,
++  CreateGrantInput,
++  GrantValidationResult,
++  LaunchSafetyJournalPort,
++  MarkLaunchedInput,
++  ValidateGrantForStartInput,
++} from "../../ports/launchSafetyJournalPort";
++
++const SCHEMA_SQL = `
++PRAGMA foreign_keys = ON;
++
++CREATE TABLE IF NOT EXISTS m4_gate_d_grants (
++  grant_id TEXT PRIMARY KEY NOT NULL,
++  execution_contract_id TEXT NOT NULL,
++  execution_contract_version INTEGER NOT NULL,
++  semantic_fingerprint TEXT NOT NULL,
++  attempt_id TEXT NOT NULL UNIQUE,
++  selected_agent_ref TEXT NOT NULL,
++  actor_id TEXT NOT NULL,
++  issued_at TEXT NOT NULL,
++  expires_at TEXT NOT NULL,
++  status TEXT NOT NULL,
++  consumed_at TEXT,
++  correlation_id TEXT
++);
++
++CREATE TABLE IF NOT EXISTS m4_launch_frontier (
++  record_id TEXT PRIMARY KEY NOT NULL,
++  kind TEXT NOT NULL,
++  occurred_at TEXT NOT NULL,
++  execution_contract_id TEXT NOT NULL,
++  execution_contract_version INTEGER NOT NULL,
++  semantic_fingerprint TEXT NOT NULL,
++  attempt_id TEXT NOT NULL,
++  selected_agent_ref TEXT NOT NULL,
++  actor_id TEXT NOT NULL,
++  grant_id TEXT NOT NULL,
++  correlation_id TEXT NOT NULL,
++  process_ref TEXT,
++  payload_json TEXT NOT NULL,
++  UNIQUE (attempt_id, kind)
++);
++
++-- At most one CREATED per contract safety identity (blocks new attemptId bypass).
++CREATE UNIQUE INDEX IF NOT EXISTS idx_m4_frontier_created_identity
++  ON m4_launch_frontier(execution_contract_id, execution_contract_version, semantic_fingerprint)
++  WHERE kind = 'CREATED';
++
++CREATE INDEX IF NOT EXISTS idx_m4_frontier_identity
++  ON m4_launch_frontier(execution_contract_id, execution_contract_version, semantic_fingerprint);
++`;
++
++function newId(prefix: string): string {
++  return `${prefix}:${randomBytes(8).toString("hex")}`;
++}
++
++function mapGrant(row: Record<string, unknown>): GateDGrant {
++  return Object.freeze({
++    grantId: String(row.grant_id),
++    executionContractId: String(row.execution_contract_id),
++    executionContractVersion: Number(row.execution_contract_version),
++    semanticFingerprint: String(row.semantic_fingerprint),
++    attemptId: String(row.attempt_id),
++    selectedAgentRef: String(row.selected_agent_ref),
++    actorId: String(row.actor_id),
++    issuedAt: String(row.issued_at),
++    expiresAt: String(row.expires_at),
++    status: String(row.status) as GateDGrant["status"],
++    consumedAt: row.consumed_at != null ? String(row.consumed_at) : undefined,
++    correlationId:
++      row.correlation_id != null ? String(row.correlation_id) : undefined,
++  });
++}
++
++function mapFrontier(row: Record<string, unknown>): RealLaunchFrontierRecord {
++  return Object.freeze({
++    recordId: String(row.record_id),
++    kind: String(row.kind) as RealLaunchFrontierKind,
++    occurredAt: String(row.occurred_at),
++    executionContractId: String(row.execution_contract_id),
++    executionContractVersion: Number(row.execution_contract_version),
++    semanticFingerprint: String(row.semantic_fingerprint),
++    attemptId: String(row.attempt_id),
++    selectedAgentRef: String(row.selected_agent_ref),
++    actorId: String(row.actor_id),
++    grantId: String(row.grant_id),
++    correlationId: String(row.correlation_id),
++    processRef: row.process_ref != null ? String(row.process_ref) : undefined,
++    payloadJson: String(row.payload_json ?? "{}"),
++  });
++}
++
++export type SqliteLaunchSafetyJournalOptions = {
++  /** Explicit technical DB path — required for durability across processes. */
++  readonly databasePath: string;
++};
++
++export class SqliteLaunchSafetyJournal implements LaunchSafetyJournalPort {
++  private readonly db: DatabaseSync;
++  readonly databasePath: string;
++
++  constructor(options: SqliteLaunchSafetyJournalOptions) {
++    if (!options.databasePath || options.databasePath.trim() === "") {
++      throw new Error("m4_safety_journal_database_path_required");
++    }
++    this.databasePath = options.databasePath;
++    this.db = new DatabaseSync(options.databasePath);
++    this.db.exec(SCHEMA_SQL);
++  }
++
++  /** Test helper — close handle. */
++  close(): void {
++    this.db.close();
++  }
++
++  async createGrant(input: CreateGrantInput): Promise<GateDGrant> {
++    this.db.exec("BEGIN IMMEDIATE");
++    try {
++      this.db
++        .prepare(
++          `INSERT INTO m4_gate_d_grants (
++            grant_id, execution_contract_id, execution_contract_version,
++            semantic_fingerprint, attempt_id, selected_agent_ref, actor_id,
++            issued_at, expires_at, status, correlation_id
++          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'granted', ?)`,
++        )
++        .run(
++          input.grantId,
++          input.executionContractId,
++          input.executionContractVersion,
++          input.semanticFingerprint,
++          input.attemptId,
++          input.selectedAgentRef,
++          input.actorId,
++          input.issuedAt,
++          input.expiresAt,
++          input.correlationId ?? null,
++        );
++      this.db.exec("COMMIT");
++    } catch (error) {
++      try {
++        this.db.exec("ROLLBACK");
++      } catch {
++        /* ignore */
++      }
++      throw error;
++    }
++    const grant = await this.findGrant(input.grantId);
++    if (!grant) throw new Error("m4_gate_d_persist_failed");
++    return grant;
++  }
++
++  /** Transitional alias. */
++  async persistGateDGrant(input: CreateGrantInput): Promise<GateDGrant> {
++    return this.createGrant(input);
++  }
++
++  async findGrant(grantId: string): Promise<GateDGrant | null> {
++    const row = this.db
++      .prepare(`SELECT * FROM m4_gate_d_grants WHERE grant_id = ?`)
++      .get(grantId) as Record<string, unknown> | undefined;
++    return row ? mapGrant(row) : null;
++  }
++
++  async findGateDGrant(grantId: string): Promise<GateDGrant | null> {
++    return this.findGrant(grantId);
++  }
++
++  async findActiveGateDGrantForAttempt(
++    attemptId: string,
++  ): Promise<GateDGrant | null> {
++    const row = this.db
++      .prepare(
++        `SELECT * FROM m4_gate_d_grants
++         WHERE attempt_id = ? AND status = 'granted'`,
++      )
++      .get(attemptId) as Record<string, unknown> | undefined;
++    return row ? mapGrant(row) : null;
++  }
++
++  async validateGrantForStart(
++    input: ValidateGrantForStartInput,
++  ): Promise<GrantValidationResult> {
++    const grant = await this.findGrant(input.grantId);
++    if (!grant) return { ok: false, reason: "GATE_D_REQUIRED" };
++    if (grant.status === "consumed") {
++      return { ok: false, reason: "GATE_D_ALREADY_CONSUMED" };
++    }
++    if (grant.status !== "granted") {
++      return { ok: false, reason: "GATE_D_INVALID" };
++    }
++    if (Date.parse(grant.expiresAt) <= Date.parse(input.nowIso)) {
++      return { ok: false, reason: "GATE_D_EXPIRED" };
++    }
++    if (
++      grant.attemptId !== input.attemptId ||
++      grant.actorId !== input.actorId ||
++      grant.selectedAgentRef !== input.selectedAgentRef ||
++      grant.executionContractId !== input.identity.executionContractId ||
++      grant.executionContractVersion !==
++        input.identity.executionContractVersion ||
++      grant.semanticFingerprint !== input.identity.semanticFingerprint
++    ) {
++      return { ok: false, reason: "GATE_D_BINDING_MISMATCH" };
++    }
++    return { ok: true, grant };
++  }
++
++  async atomicConsumeGrantAndCreateFrontier(
++    input: AtomicConsumeGrantAndCreateFrontierInput,
++  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
++    this.db.exec("BEGIN IMMEDIATE");
++    try {
++      const grantRow = this.db
++        .prepare(`SELECT * FROM m4_gate_d_grants WHERE grant_id = ?`)
++        .get(input.grantId) as Record<string, unknown> | undefined;
++      if (!grantRow) {
++        throw new Error("m4_gate_d_not_found");
++      }
++      const grant = mapGrant(grantRow);
++      if (grant.status === "consumed") {
++        throw new Error("m4_gate_d_already_consumed");
++      }
++      if (grant.status !== "granted") {
++        throw new Error("m4_gate_d_not_granted");
++      }
++      if (Date.parse(grant.expiresAt) <= Date.parse(input.occurredAt)) {
++        this.db
++          .prepare(
++            `UPDATE m4_gate_d_grants SET status = 'expired' WHERE grant_id = ?`,
++          )
++          .run(input.grantId);
++        throw new Error("m4_gate_d_expired");
++      }
++      if (grant.attemptId !== input.attemptId) {
++        throw new Error("m4_gate_d_attempt_mismatch");
++      }
++      if (
++        grant.executionContractId !== input.identity.executionContractId ||
++        grant.executionContractVersion !==
++          input.identity.executionContractVersion ||
++        grant.semanticFingerprint !== input.identity.semanticFingerprint
++      ) {
++        throw new Error("m4_gate_d_identity_mismatch");
++      }
++      if (grant.selectedAgentRef !== input.selectedAgentRef) {
++        throw new Error("m4_gate_d_agent_mismatch");
++      }
++      if (grant.actorId !== input.actorId) {
++        throw new Error("m4_gate_d_actor_mismatch");
++      }
++
++      const ambiguous = this.db
++        .prepare(
++          `SELECT 1 AS ok FROM m4_launch_frontier
++           WHERE execution_contract_id = ?
++             AND execution_contract_version = ?
++             AND semantic_fingerprint = ?
++           LIMIT 1`,
++        )
++        .get(
++          input.identity.executionContractId,
++          input.identity.executionContractVersion,
++          input.identity.semanticFingerprint,
++        );
++      if (ambiguous) {
++        throw new Error("m4_launch_frontier_ambiguous");
++      }
++
++      this.db
++        .prepare(
++          `UPDATE m4_gate_d_grants
++           SET status = 'consumed', consumed_at = ?
++           WHERE grant_id = ? AND status = 'granted'`,
++        )
++        .run(input.occurredAt, input.grantId);
++
++      const recordId = newId("m4fr");
++      this.db
++        .prepare(
++          `INSERT INTO m4_launch_frontier (
++            record_id, kind, occurred_at, execution_contract_id,
++            execution_contract_version, semantic_fingerprint, attempt_id,
++            selected_agent_ref, actor_id, grant_id, correlation_id,
++            process_ref, payload_json
++          ) VALUES (?, 'CREATED', ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, '{}')`,
++        )
++        .run(
++          recordId,
++          input.occurredAt,
++          input.identity.executionContractId,
++          input.identity.executionContractVersion,
++          input.identity.semanticFingerprint,
++          input.attemptId,
++          input.selectedAgentRef,
++          input.actorId,
++          input.grantId,
++          input.correlationId,
++        );
++
++      this.db.exec("COMMIT");
++
++      const createdRow = this.db
++        .prepare(`SELECT * FROM m4_launch_frontier WHERE record_id = ?`)
++        .get(recordId) as Record<string, unknown>;
++      const updatedGrant = await this.findGrant(input.grantId);
++      if (!updatedGrant) throw new Error("m4_gate_d_consume_lost");
++      return { grant: updatedGrant, created: mapFrontier(createdRow) };
++    } catch (error) {
++      try {
++        this.db.exec("ROLLBACK");
++      } catch {
++        /* ignore */
++      }
++      throw error;
++    }
++  }
++
++  /** Transitional alias. */
++  async consumeGateDAndAppendCreated(
++    input: AtomicConsumeGrantAndCreateFrontierInput,
++  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
++    return this.atomicConsumeGrantAndCreateFrontier(input);
++  }
++
++  async markLaunched(
++    input: MarkLaunchedInput,
++  ): Promise<RealLaunchFrontierRecord> {
++    this.db.exec("BEGIN IMMEDIATE");
++    try {
++      const created = this.db
++        .prepare(
++          `SELECT 1 AS ok FROM m4_launch_frontier
++           WHERE attempt_id = ? AND kind = 'CREATED'`,
++        )
++        .get(input.attemptId);
++      if (!created) {
++        throw new Error("m4_launched_requires_created");
++      }
++      const recordId = newId("m4fr");
++      const payloadJson = JSON.stringify(input.payload ?? {});
++      this.db
++        .prepare(
++          `INSERT INTO m4_launch_frontier (
++            record_id, kind, occurred_at, execution_contract_id,
++            execution_contract_version, semantic_fingerprint, attempt_id,
++            selected_agent_ref, actor_id, grant_id, correlation_id,
++            process_ref, payload_json
++          ) VALUES (?, 'LAUNCHED', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
++        )
++        .run(
++          recordId,
++          input.occurredAt,
++          input.identity.executionContractId,
++          input.identity.executionContractVersion,
++          input.identity.semanticFingerprint,
++          input.attemptId,
++          input.selectedAgentRef,
++          input.actorId,
++          input.grantId,
++          input.correlationId,
++          input.processRef,
++          payloadJson,
++        );
++      this.db.exec("COMMIT");
++      const row = this.db
++        .prepare(`SELECT * FROM m4_launch_frontier WHERE record_id = ?`)
++        .get(recordId) as Record<string, unknown>;
++      return mapFrontier(row);
++    } catch (error) {
++      try {
++        this.db.exec("ROLLBACK");
++      } catch {
++        /* ignore */
++      }
++      throw error;
++    }
++  }
++
++  /** Transitional alias. */
++  async appendLaunched(
++    input: MarkLaunchedInput,
++  ): Promise<RealLaunchFrontierRecord> {
++    return this.markLaunched(input);
++  }
++
++  async findFrontierByAttemptId(
++    attemptId: string,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    const rows = this.db
++      .prepare(
++        `SELECT * FROM m4_launch_frontier WHERE attempt_id = ? ORDER BY occurred_at`,
++      )
++      .all(attemptId) as Record<string, unknown>[];
++    return rows.map(mapFrontier);
++  }
++
++  async findFrontierByAttempt(
++    attemptId: string,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    return this.findFrontierByAttemptId(attemptId);
++  }
++
++  async findFrontierByContractFingerprint(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    const rows = this.db
++      .prepare(
++        `SELECT * FROM m4_launch_frontier
++         WHERE execution_contract_id = ?
++           AND execution_contract_version = ?
++           AND semantic_fingerprint = ?
++         ORDER BY occurred_at`,
++      )
++      .all(
++        identity.executionContractId,
++        identity.executionContractVersion,
++        identity.semanticFingerprint,
++      ) as Record<string, unknown>[];
++    return rows.map(mapFrontier);
++  }
++
++  async findFrontierByIdentity(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchFrontierRecord[]> {
++    return this.findFrontierByContractFingerprint(identity);
++  }
++
++  async hasAmbiguousFrontier(
++    identity: ContractSafetyIdentity,
++  ): Promise<boolean> {
++    const rows = await this.findFrontierByContractFingerprint(identity);
++    return rows.length > 0;
++  }
++
++  async reconcileDispositionForIdentity(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchReconcileDisposition> {
++    const rows = await this.findFrontierByContractFingerprint(identity);
++    if (rows.length === 0) return "CLEAR";
++    const hasCreated = rows.some((r) => r.kind === "CREATED");
++    const hasLaunched = rows.some((r) => r.kind === "LAUNCHED");
++    if (hasLaunched) return "REVIEW_REQUIRED";
++    if (hasCreated) return "UNKNOWN";
++    return "REVIEW_REQUIRED";
++  }
++
++  async hasKindForAttempt(
++    attemptId: string,
++    kind: RealLaunchFrontierKind,
++  ): Promise<boolean> {
++    const row = this.db
++      .prepare(
++        `SELECT 1 AS ok FROM m4_launch_frontier WHERE attempt_id = ? AND kind = ?`,
++      )
++      .get(attemptId, kind);
++    return Boolean(row);
++  }
++}
++
++/** Transitional export name. */
++export { SqliteLaunchSafetyJournal as SqliteRealLaunchSafetyJournal };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqliteRealLaunchSafetyJournal.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqliteRealLaunchSafetyJournal.ts
+new file mode 100644
+index 0000000..2bc3c99
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqliteRealLaunchSafetyJournal.ts
+@@ -0,0 +1,10 @@
++/**
++ * SqliteRealLaunchSafetyJournal — technical SQLite safety DB (D-M4-02/04).
++ * Re-exports SqliteLaunchSafetyJournal under the Delivery cycle name.
++ */
++export {
++  SqliteLaunchSafetyJournal as SqliteRealLaunchSafetyJournal,
++  SqliteLaunchSafetyJournal,
++  type SqliteLaunchSafetyJournalOptions as SqliteRealLaunchSafetyJournalOptions,
++  type SqliteLaunchSafetyJournalOptions,
++} from "./sqlite/sqliteLaunchSafetyJournal";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+new file mode 100644
+index 0000000..bb4adc7
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+@@ -0,0 +1,271 @@
++/**
++ * StudioCursorRealLaunchGateway — OA-owned REAL launch ACL (D-M4-01).
++ *
++ * Harvested concepts from OPS1 (no import from lib/ops1).
++ * Default REAL process enablement OFF via SFIA_STUDIO_CURSOR_REAL.
++ * Requires ProcessRunner + RealExecutionWorkspacePort (no Fake defaults).
++ * Order: enablement → bin resolve → prepareWorkspace → runner.invoke.
++ */
++import { accessSync, constants } from "node:fs";
++import path from "node:path";
++import {
++  isStudioCursorRealEnabled,
++  M4_REAL_GATEWAY_ADAPTER_ID,
++  SFIA_STUDIO_CURSOR_REAL_FLAG,
++} from "../domain/realLaunchSafety";
++import type {
++  ProcessRunner,
++  RealExecutionLaunchPort,
++  RealLaunchRequest,
++  RealLaunchResult,
++  RealProcessObservation,
++} from "../ports/realExecutionLaunchPort";
++import type { RealExecutionWorkspacePort } from "../ports/realExecutionWorkspacePort";
++import { DisabledRealProcessRunner } from "./nodeCursorProcessRunner";
++
++export type StudioCursorRealLaunchGatewayOptions = {
++  readonly processRunner: ProcessRunner;
++  readonly workspacePort: RealExecutionWorkspacePort;
++  readonly env?: NodeJS.ProcessEnv;
++  readonly resolveCursorBin?: () => string | null;
++  readonly defaultTimeoutMs?: number;
++};
++
++/** Copy of OPS1 resolveCursorBinPath pattern — no ops1 import. */
++export function resolveCursorBinPath(
++  env: NodeJS.ProcessEnv = process.env,
++): string | null {
++  const candidates = [
++    env.SFIA_CURSOR_BIN,
++    "/Applications/Cursor.app/Contents/Resources/app/bin/cursor",
++    path.join(env.HOME ?? "", ".local/bin/cursor-agent"),
++  ].filter(Boolean) as string[];
++  for (const c of candidates) {
++    try {
++      accessSync(c, constants.X_OK);
++      return c;
++    } catch {
++      /* next */
++    }
++  }
++  return null;
++}
++
++export const resolveStudioCursorBinPath = resolveCursorBinPath;
++
++export { DisabledRealProcessRunner };
++
++export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
++  readonly gatewayId = M4_REAL_GATEWAY_ADAPTER_ID;
++  readonly externalEffects = true as const;
++
++  private readonly runner: ProcessRunner;
++  private readonly workspacePort: RealExecutionWorkspacePort;
++  private readonly env: NodeJS.ProcessEnv;
++  private readonly resolveBin: () => string | null;
++  private readonly timeoutMs: number;
++  /**
++   * Fallback only when the runner has no observe/awaitCompletion.
++   * Live observation source is the runner registry when present
++   * (single source — no competing snapshot).
++   */
++  private readonly fallbackObservations = new Map<
++    string,
++    RealProcessObservation
++  >();
++
++  constructor(options: StudioCursorRealLaunchGatewayOptions) {
++    if (!options.processRunner) {
++      throw new Error("studio_cursor_real_launch_process_runner_required");
++    }
++    if (!options.workspacePort) {
++      throw new Error("studio_cursor_real_launch_workspace_port_required");
++    }
++    this.runner = options.processRunner;
++    this.workspacePort = options.workspacePort;
++    this.env = options.env ?? process.env;
++    this.resolveBin =
++      options.resolveCursorBin ?? (() => resolveCursorBinPath(this.env));
++    this.timeoutMs = options.defaultTimeoutMs ?? 60_000;
++  }
++
++  async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
++    if (request.adapterRef !== this.gatewayId) {
++      return {
++        outcome: "reject",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: "adapter_ref_mismatch",
++        realProcessInvoked: false,
++        detailCode: "REAL_AGENT_PROFILE_INVALID",
++      };
++    }
++
++    if (!isStudioCursorRealEnabled(this.env)) {
++      return {
++        outcome: "reject",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: "studio_cursor_real_disabled",
++        realProcessInvoked: false,
++        detailCode: "REAL_BOUNDARY_DISABLED",
++      };
++    }
++
++    if (
++      (request.target && request.target.includes("UNRESOLVED")) ||
++      (request.action && request.action.includes("UNRESOLVED"))
++    ) {
++      return {
++        outcome: "reject",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: "unresolved_contract_refused",
++        realProcessInvoked: false,
++        detailCode: "REAL_AGENT_PROFILE_INVALID",
++      };
++    }
++
++    const baseHeadSha =
++      request.baseHeadSha ?? request.worktreeBaseHeadSha ?? "";
++    if (!/^[0-9a-f]{40}$/i.test(baseHeadSha)) {
++      return {
++        outcome: "reject",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: "base_head_sha_invalid",
++        realProcessInvoked: false,
++        detailCode: "REAL_WORKSPACE_INVALID",
++      };
++    }
++
++    const bin = this.resolveBin();
++    if (!bin) {
++      return {
++        outcome: "fail",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: "cursor_unavailable",
++        realProcessInvoked: false,
++        detailCode: "CURSOR_UNAVAILABLE",
++      };
++    }
++
++    let workspacePath: string;
++    try {
++      const prepared = await this.workspacePort.prepareWorkspace({
++        attemptId: request.attemptId,
++        baseHeadSha,
++      });
++      workspacePath = prepared.workspacePath;
++    } catch (err) {
++      const message = err instanceof Error ? err.message : "workspace_failed";
++      return {
++        outcome: "reject",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: message.includes("REAL_WORKSPACE_INVALID")
++          ? message
++          : `workspace_prepare_failed:${message}`,
++        realProcessInvoked: false,
++        detailCode: "REAL_WORKSPACE_INVALID",
++      };
++    }
++
++    // Fixed argv shape — executable is separate; no user-controlled shell.
++    const instruction = [
++      "TÂCHE UNIQUE — lecture seule bornée.",
++      `target=${request.target ?? ""}`,
++      `action=${request.action ?? ""}`,
++      `scope=${request.scope ?? ""}`,
++      `fingerprint=${request.semanticFingerprint}`,
++      "Aucune mutation, aucun git remote/commit/push/PR/merge.",
++    ].join("\n");
++
++    const argv = [
++      "agent",
++      "--print",
++      "--workspace",
++      workspacePath,
++      "--trust",
++      "--sandbox",
++      "enabled",
++      instruction,
++    ];
++
++    try {
++      const invoked = await this.runner.invoke({
++        attemptId: request.attemptId,
++        executable: bin,
++        cwd: workspacePath,
++        argv,
++        timeoutMs: this.timeoutMs,
++        env: {
++          ...this.env,
++          [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
++        },
++      });
++
++      if (!invoked.realProcessInvoked) {
++        return {
++          outcome: "fail",
++          gatewayId: this.gatewayId,
++          attemptId: request.attemptId,
++          reason: "real_process_not_invoked",
++          realProcessInvoked: false,
++          detailCode: "REAL_LAUNCH_FAILED",
++        };
++      }
++
++      if (typeof this.runner.observe !== "function") {
++        this.fallbackObservations.set(invoked.processRef, {
++          processRef: invoked.processRef,
++          exitCode: invoked.observation?.exitCode ?? null,
++          timedOut: invoked.observation?.timedOut ?? false,
++          stdout: invoked.observation?.stdout ?? "",
++          stderr: invoked.observation?.stderr ?? "",
++          durationMs: invoked.observation?.durationMs ?? 0,
++          realProcessInvoked: true,
++          worktreeRef: workspacePath,
++        });
++      }
++
++      return {
++        outcome: "ack",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        realProcessInvoked: true,
++        processRef: invoked.processRef,
++        worktreeRef: workspacePath,
++      };
++    } catch {
++      return {
++        outcome: "fail",
++        gatewayId: this.gatewayId,
++        attemptId: request.attemptId,
++        reason: "real_launch_threw",
++        realProcessInvoked: false,
++        detailCode: "REAL_LAUNCH_FAILED",
++      };
++    }
++  }
++
++  async observe(processRef: string): Promise<RealProcessObservation | null> {
++    if (typeof this.runner.observe === "function") {
++      return this.runner.observe(processRef);
++    }
++    return this.fallbackObservations.get(processRef) ?? null;
++  }
++
++  async awaitCompletion(
++    processRef: string,
++  ): Promise<RealProcessObservation | null> {
++    if (typeof this.runner.awaitCompletion === "function") {
++      return this.runner.awaitCompletion(processRef);
++    }
++    return this.observe(processRef);
++  }
++}
++
++/** @deprecated Prefer StudioCursorRealLaunchGateway. */
++export { StudioCursorRealLaunchGateway as CursorCliLaunchGateway };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
+new file mode 100644
+index 0000000..9df1ffd
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
+@@ -0,0 +1,164 @@
++/**
++ * StudioGitWorktreeWorkspace — fail-closed isolated Git worktree prep (M4 R2).
++ *
++ * Injectable GitCommandRunner; production default spawn(shell:false).
++ * Tests MUST inject FakeGitCommandRunner — never run real git worktree in REAL-OFF.
++ */
++import { createHash } from "node:crypto";
++import { existsSync } from "node:fs";
++import path from "node:path";
++import { spawn as nodeSpawn } from "node:child_process";
++import type {
++  PrepareWorkspaceRequest,
++  PrepareWorkspaceResult,
++  RealExecutionWorkspacePort,
++} from "../ports/realExecutionWorkspacePort";
++
++export type GitCommandResult = {
++  readonly stdout: string;
++  readonly stderr: string;
++  readonly exitCode: number;
++};
++
++export interface GitCommandRunner {
++  run(
++    argv: readonly string[],
++    cwd: string,
++  ): Promise<GitCommandResult>;
++}
++
++export type StudioGitWorktreeWorkspaceOptions = {
++  readonly repoRoot: string;
++  readonly execRoot: string;
++  readonly gitRunner: GitCommandRunner;
++};
++
++const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
++
++export function isFullGitSha(value: unknown): value is string {
++  return typeof value === "string" && FULL_SHA_RE.test(value);
++}
++
++export function workspacePathForAttempt(
++  execRoot: string,
++  attemptId: string,
++): string {
++  const digest = createHash("sha256")
++    .update(attemptId, "utf8")
++    .digest("hex")
++    .slice(0, 24);
++  const safe = attemptId.replace(/[^a-zA-Z0-9._-]+/g, "_").slice(0, 48);
++  return path.resolve(execRoot, `wt-${safe}-${digest}`);
++}
++
++export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
++  private readonly repoRoot: string;
++  private readonly execRoot: string;
++  private readonly gitRunner: GitCommandRunner;
++
++  constructor(options: StudioGitWorktreeWorkspaceOptions) {
++    if (!options.repoRoot || options.repoRoot.trim() === "") {
++      throw new Error("studio_git_worktree_repo_root_required");
++    }
++    if (!options.execRoot || options.execRoot.trim() === "") {
++      throw new Error("studio_git_worktree_exec_root_required");
++    }
++    const repoRoot = path.resolve(options.repoRoot);
++    const execRoot = path.resolve(options.execRoot);
++    if (repoRoot === execRoot) {
++      throw new Error("studio_git_worktree_repo_exec_roots_must_differ");
++    }
++    if (!options.gitRunner) {
++      throw new Error("studio_git_worktree_git_runner_required");
++    }
++    this.repoRoot = repoRoot;
++    this.execRoot = execRoot;
++    this.gitRunner = options.gitRunner;
++  }
++
++  async prepareWorkspace(
++    request: PrepareWorkspaceRequest,
++  ): Promise<PrepareWorkspaceResult> {
++    if (!isFullGitSha(request.baseHeadSha)) {
++      throw new Error("REAL_WORKSPACE_INVALID:base_head_sha_invalid");
++    }
++    const baseHeadSha = request.baseHeadSha.toLowerCase();
++    const workspacePath = workspacePathForAttempt(
++      this.execRoot,
++      request.attemptId,
++    );
++
++    if (
++      workspacePath !== this.execRoot &&
++      !workspacePath.startsWith(this.execRoot + path.sep)
++    ) {
++      throw new Error("REAL_WORKSPACE_INVALID:workspace_outside_exec_root");
++    }
++    if (existsSync(workspacePath)) {
++      throw new Error("REAL_WORKSPACE_INVALID:workspace_path_exists");
++    }
++
++    // a) verify commit exists
++    const verify = await this.gitRunner.run(
++      ["rev-parse", "--verify", `${baseHeadSha}^{commit}`],
++      this.repoRoot,
++    );
++    if (verify.exitCode !== 0) {
++      throw new Error("REAL_WORKSPACE_INVALID:base_head_sha_missing");
++    }
++
++    // b) worktree add --detach
++    const add = await this.gitRunner.run(
++      ["worktree", "add", "--detach", workspacePath, baseHeadSha],
++      this.repoRoot,
++    );
++    if (add.exitCode !== 0) {
++      throw new Error("REAL_WORKSPACE_INVALID:worktree_add_failed");
++    }
++
++    // c) rev-parse HEAD must equal baseHeadSha exactly
++    const head = await this.gitRunner.run(["rev-parse", "HEAD"], workspacePath);
++    if (head.exitCode !== 0) {
++      throw new Error("REAL_WORKSPACE_INVALID:head_rev_parse_failed");
++    }
++    const verifiedHeadSha = head.stdout.trim().toLowerCase();
++    if (verifiedHeadSha !== baseHeadSha) {
++      throw new Error("REAL_WORKSPACE_INVALID:head_mismatch");
++    }
++
++    return { workspacePath, verifiedHeadSha };
++  }
++}
++
++/**
++ * Production GitCommandRunner — spawn(shell:false).
++ * Tests MUST NOT use this; inject FakeGitCommandRunner instead.
++ */
++export class NodeGitCommandRunner implements GitCommandRunner {
++  async run(
++    argv: readonly string[],
++    cwd: string,
++  ): Promise<GitCommandResult> {
++    return await new Promise((resolve) => {
++      const child = nodeSpawn("git", [...argv], {
++        cwd,
++        shell: false,
++        stdio: ["ignore", "pipe", "pipe"],
++      });
++      let stdout = "";
++      let stderr = "";
++      child.stdout?.on("data", (c: Buffer) => {
++        if (stdout.length < 64 * 1024) stdout += c.toString("utf8");
++      });
++      child.stderr?.on("data", (c: Buffer) => {
++        if (stderr.length < 64 * 1024) stderr += c.toString("utf8");
++      });
++      child.on("error", () => {
++        resolve({ stdout, stderr: stderr || "git_spawn_error", exitCode: 1 });
++      });
++      child.on("close", (code) => {
++        resolve({ stdout, stderr, exitCode: code ?? 1 });
++      });
++    });
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/launchSafetyJournalPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/launchSafetyJournalPort.ts
+new file mode 100644
+index 0000000..209c605
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/launchSafetyJournalPort.ts
+@@ -0,0 +1,15 @@
++/**
++ * LaunchSafetyJournalPort — Delivery naming aliases.
++ * Canonical definitions live in realLaunchSafetyJournalPort.ts.
++ */
++export type {
++  RealLaunchSafetyJournalPort,
++  LaunchSafetyJournalPort,
++  PersistGateDGrantInput,
++  PersistGateDGrantInput as CreateGrantInput,
++  AtomicConsumeGateDAndCreateFrontierInput,
++  AtomicConsumeGateDAndCreateFrontierInput as AtomicConsumeGrantAndCreateFrontierInput,
++  MarkLaunchedInput,
++  ValidateGrantForStartInput,
++  GrantValidationResult,
++} from "./realLaunchSafetyJournalPort";
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+new file mode 100644
+index 0000000..22c25d2
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+@@ -0,0 +1,127 @@
++/**
++ * RealExecutionLaunchPort — specialized REAL OA boundary (D-M4-01 Option B).
++ *
++ * Distinct from ExecutionAdapterPort (externalEffects:false forever).
++ * Must NOT be accepted by InjectableExecutionAdapter.
++ */
++
++export type RealLaunchRequest = {
++  readonly attemptId: string;
++  readonly executionContractId: string;
++  readonly executionContractVersion: number;
++  readonly semanticFingerprint: string;
++  readonly selectedAgentRef: string;
++  readonly adapterRef: string;
++  readonly correlationId: string;
++  /**
++   * Contract-bound full Git SHA (40 hex). Preferred name.
++   * Alias `worktreeBaseHeadSha` accepted for older call sites.
++   */
++  readonly baseHeadSha: string;
++  /** @deprecated Prefer baseHeadSha — kept as alias only. */
++  readonly worktreeBaseHeadSha?: string;
++  /** Structured contract fields for fixed argv — not free client argv. */
++  readonly action?: string;
++  readonly target?: string;
++  readonly scope?: string;
++};
++
++export type RealLaunchAck = {
++  readonly outcome: "ack";
++  readonly gatewayId: string;
++  readonly attemptId: string;
++  readonly realProcessInvoked: true;
++  readonly processRef: string;
++  readonly worktreeRef?: string;
++};
++
++export type RealLaunchReject = {
++  readonly outcome: "reject";
++  readonly gatewayId: string;
++  readonly attemptId: string;
++  readonly reason: string;
++  readonly realProcessInvoked: false;
++  readonly detailCode?:
++    | "REAL_BOUNDARY_DISABLED"
++    | "CURSOR_UNAVAILABLE"
++    | "REAL_WORKSPACE_INVALID"
++    | "REAL_LAUNCH_FAILED"
++    | "REAL_AGENT_PROFILE_INVALID";
++};
++
++export type RealLaunchFailure = {
++  readonly outcome: "fail";
++  readonly gatewayId: string;
++  readonly attemptId: string;
++  readonly reason: string;
++  readonly realProcessInvoked: false | boolean;
++  readonly detailCode?:
++    | "REAL_BOUNDARY_DISABLED"
++    | "CURSOR_UNAVAILABLE"
++    | "REAL_WORKSPACE_INVALID"
++    | "REAL_LAUNCH_FAILED";
++};
++
++export type RealLaunchResult =
++  | RealLaunchAck
++  | RealLaunchReject
++  | RealLaunchFailure;
++
++export type RealProcessObservation = {
++  readonly processRef: string;
++  readonly exitCode: number | null;
++  readonly timedOut: boolean;
++  readonly stdout: string;
++  readonly stderr: string;
++  readonly durationMs: number;
++  readonly realProcessInvoked: boolean;
++  readonly worktreeRef?: string;
++};
++
++export type ProcessRunnerInvokeInput = {
++  readonly attemptId: string;
++  /** Resolved Cursor binary — NEVER embedded as argv[0]. */
++  readonly executable: string;
++  readonly argv: readonly string[];
++  readonly cwd: string;
++  readonly timeoutMs: number;
++  readonly env: NodeJS.ProcessEnv;
++};
++
++export type ProcessRunnerInvokeResult = {
++  readonly processRef: string;
++  readonly realProcessInvoked: boolean;
++  readonly observation?: Partial<RealProcessObservation>;
++};
++
++/**
++ * Injectable process runner. Production: NodeCursorProcessRunner (spawn shell:false).
++ * Tests MUST inject a fake / FakeSpawnPrimitive — never spawn Cursor during REAL-OFF.
++ *
++ * invoke() MUST resolve on spawn confirmation (process invoked / PID known),
++ * NOT on process close. observe / awaitCompletion are the completion path.
++ */
++export interface ProcessRunner {
++  invoke(input: ProcessRunnerInvokeInput): Promise<ProcessRunnerInvokeResult>;
++  observe?(processRef: string): Promise<RealProcessObservation | null>;
++  awaitCompletion?(
++    processRef: string,
++  ): Promise<RealProcessObservation | null>;
++}
++
++/** @deprecated Prefer ProcessRunner. */
++export type RealProcessRunnerPort = ProcessRunner;
++
++export interface RealExecutionLaunchPort {
++  readonly gatewayId: string;
++  /**
++   * Static marker — REAL boundary may declare external effects.
++   * Fixture ExecutionAdapterPort must remain externalEffects:false.
++   */
++  readonly externalEffects: true;
++  launch(request: RealLaunchRequest): Promise<RealLaunchResult>;
++  observe?(processRef: string): Promise<RealProcessObservation | null>;
++  awaitCompletion?(
++    processRef: string,
++  ): Promise<RealProcessObservation | null>;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts
+new file mode 100644
+index 0000000..492cb57
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts
+@@ -0,0 +1,23 @@
++/**
++ * RealExecutionWorkspacePort — OA-owned isolated worktree preparation (M4 R2).
++ *
++ * Server-side roots only; callers supply attemptId + contract-bound baseHeadSha.
++ * Never accepts a free client cwd.
++ */
++
++export type PrepareWorkspaceRequest = {
++  readonly attemptId: string;
++  /** Full 40-hex Git SHA from ExecutionContract.inputs.baseHeadSha. */
++  readonly baseHeadSha: string;
++};
++
++export type PrepareWorkspaceResult = {
++  readonly workspacePath: string;
++  readonly verifiedHeadSha: string;
++};
++
++export interface RealExecutionWorkspacePort {
++  prepareWorkspace(
++    request: PrepareWorkspaceRequest,
++  ): Promise<PrepareWorkspaceResult>;
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realLaunchSafetyJournalPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realLaunchSafetyJournalPort.ts
+new file mode 100644
+index 0000000..f3373e7
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realLaunchSafetyJournalPort.ts
+@@ -0,0 +1,125 @@
++/**
++ * RealLaunchSafetyJournalPort — technical Gate D + launch frontier journal (D-M4-02/04).
++ *
++ * NOT Product Store · NOT Attempt aggregate · NOT Confirmation · TEMPORARY WITH EXIT.
++ */
++import type {
++  ContractSafetyIdentity,
++  GateDGrant,
++  RealLaunchFrontierKind,
++  RealLaunchFrontierRecord,
++  RealLaunchReconcileDisposition,
++} from "../domain/realLaunchSafety";
++
++export type PersistGateDGrantInput = {
++  readonly grantId: string;
++  readonly executionContractId: string;
++  readonly executionContractVersion: number;
++  readonly semanticFingerprint: string;
++  readonly attemptId: string;
++  readonly selectedAgentRef: string;
++  readonly actorId: string;
++  readonly issuedAt: string;
++  readonly expiresAt: string;
++  readonly correlationId?: string;
++};
++
++/** @deprecated Prefer PersistGateDGrantInput. */
++export type CreateGrantInput = PersistGateDGrantInput;
++
++export type AtomicConsumeGateDAndCreateFrontierInput = {
++  readonly grantId: string;
++  readonly attemptId: string;
++  readonly occurredAt: string;
++  readonly identity: ContractSafetyIdentity;
++  readonly selectedAgentRef: string;
++  readonly actorId: string;
++  readonly correlationId: string;
++};
++
++/** @deprecated Prefer AtomicConsumeGateDAndCreateFrontierInput. */
++export type AtomicConsumeGrantAndCreateFrontierInput =
++  AtomicConsumeGateDAndCreateFrontierInput;
++
++export type MarkLaunchedInput = {
++  readonly attemptId: string;
++  readonly occurredAt: string;
++  readonly identity: ContractSafetyIdentity;
++  readonly selectedAgentRef: string;
++  readonly actorId: string;
++  readonly grantId: string;
++  readonly correlationId: string;
++  readonly processRef: string;
++  readonly payload?: Record<string, unknown> | unknown;
++};
++
++export type ValidateGrantForStartInput = {
++  readonly grantId: string;
++  readonly attemptId: string;
++  readonly actorId: string;
++  readonly selectedAgentRef: string;
++  readonly identity: ContractSafetyIdentity;
++  readonly nowIso: string;
++};
++
++export type GrantValidationResult =
++  | { readonly ok: true; readonly grant: GateDGrant }
++  | {
++      readonly ok: false;
++      readonly reason:
++        | "GATE_D_REQUIRED"
++        | "GATE_D_INVALID"
++        | "GATE_D_EXPIRED"
++        | "GATE_D_ALREADY_CONSUMED"
++        | "GATE_D_BINDING_MISMATCH";
++    };
++
++/**
++ * Canonical M4 journal port used by StartExecution + GrantRealExecutionGate.
++ * Implementations may also expose transitional aliases (createGrant, markLaunched, …).
++ */
++export interface RealLaunchSafetyJournalPort {
++  persistGateDGrant(input: PersistGateDGrantInput): Promise<GateDGrant>;
++  findGateDGrant(grantId: string): Promise<GateDGrant | null>;
++  findActiveGateDGrantForAttempt(attemptId: string): Promise<GateDGrant | null>;
++  consumeGateDAndAppendCreated(
++    input: AtomicConsumeGateDAndCreateFrontierInput,
++  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }>;
++  appendLaunched(input: MarkLaunchedInput): Promise<RealLaunchFrontierRecord>;
++  findFrontierByAttempt(
++    attemptId: string,
++  ): Promise<RealLaunchFrontierRecord[]>;
++  findFrontierByIdentity(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchFrontierRecord[]>;
++  hasAmbiguousFrontier(identity: ContractSafetyIdentity): Promise<boolean>;
++  reconcileDispositionForIdentity(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchReconcileDisposition>;
++  hasKindForAttempt(
++    attemptId: string,
++    kind: RealLaunchFrontierKind,
++  ): Promise<boolean>;
++}
++
++/**
++ * Extended journal surface used by transitional GrantGateD / Memory journal.
++ * Includes both task names and alternate names.
++ */
++export interface LaunchSafetyJournalPort extends RealLaunchSafetyJournalPort {
++  createGrant(input: CreateGrantInput): Promise<GateDGrant>;
++  findGrant(grantId: string): Promise<GateDGrant | null>;
++  validateGrantForStart(
++    input: ValidateGrantForStartInput,
++  ): Promise<GrantValidationResult>;
++  atomicConsumeGrantAndCreateFrontier(
++    input: AtomicConsumeGrantAndCreateFrontierInput,
++  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }>;
++  markLaunched(input: MarkLaunchedInput): Promise<RealLaunchFrontierRecord>;
++  findFrontierByAttemptId(
++    attemptId: string,
++  ): Promise<RealLaunchFrontierRecord[]>;
++  findFrontierByContractFingerprint(
++    identity: ContractSafetyIdentity,
++  ): Promise<RealLaunchFrontierRecord[]>;
++}
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 index 3eb54c3..2c366c1 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
@@ -1581,4897 +6620,13 @@ index 3eb54c3..2c366c1 100644
    const executionAttemptServices = createInMemoryExecutionAttemptServices({
 
 ---
-
-# APPENDIX B — Full contents of untracked project files (candidate including this micro-correctif)
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts =====
-/**
- * M4 Delivery REAL-OFF — Gate D / CREATED / specialized launch boundary.
- * Positive StartExecution paths use TestOnlyRealExecutionLaunchPort (SIMULATED ACK).
- * Production gateway tested only for OFF/reject paths — never SFIA_STUDIO_CURSOR_REAL=1.
- * @vitest-environment node
- */
-import { readdirSync, readFileSync, mkdtempSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  assertStudioCursorRealOffForTests,
-  createM4BoundedReadOnlyCursorAgentDescriptor,
-  createTestExecutionAttemptServices,
-  CursorCliLaunchGateway,
-  DisabledRealProcessRunner,
-  isInjectableExecutionAdapter,
-  isStudioCursorRealEnabled,
-  M4_BOUNDED_RO_ACTION,
-  M4_BOUNDED_RO_CAPABILITY,
-  M4_BOUNDED_RO_SCOPE,
-  M4_BOUNDED_RO_TARGET,
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  SqliteRealLaunchSafetyJournal,
-  TestExecutionAdapter,
-  type RealLaunchSafetyJournalPort,
-} from "@/lib/oa/execution-attempt";
-import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
-import {
-  MORRIS_ACTOR,
-  NOW,
-  baseBuildRequest,
-  buildStack,
-  grantContractConfirmation,
-  registerMorris,
-  seedAcceptedDecision,
-  seedProject,
-  seedStandardCycle,
-  selectStandardAgent,
-  seedRunningAttempt,
-  type Stack,
-} from "./helpers";
-import { FakeProcessRunner } from "./support/fakeProcessRunner";
-import { FakeRealExecutionWorkspacePort } from "./support/fakeSpawnAndGit";
-import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
-
-const APP_LIB_OA = path.resolve(__dirname, "../../../lib/oa");
-
-function tempJournalPath(prefix: string): string {
-  const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
-  return path.join(dir, "m4-safety.sqlite");
-}
-
-function scanForOps1Imports(root: string): string[] {
-  const hits: string[] = [];
-  const walk = (dir: string) => {
-    for (const ent of readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, ent.name);
-      if (ent.isDirectory()) {
-        walk(full);
-        continue;
-      }
-      if (!/\.(ts|tsx|js|mjs|cjs)$/.test(ent.name)) continue;
-      const text = readFileSync(full, "utf8");
-      if (
-        text.includes("@/lib/ops1") ||
-        text.includes('from "@/lib/ops1') ||
-        text.includes("from '@/lib/ops1") ||
-        /from\s+["'].*\/lib\/ops1/.test(text)
-      ) {
-        hits.push(path.relative(root, full));
-      }
-    }
-  };
-  walk(root);
-  return hits;
-}
-
-/** Confirmed M4 contract with contract-bound inputs.baseHeadSha. */
-async function seedM4ConfirmedContract(
-  stack: Stack,
-  overrides: {
-    executionContractId?: string;
-    idempotencyKey?: string;
-    inputs?: Record<string, unknown>;
-  } = {},
-): Promise<{ contractId: string; version: number }> {
-  await seedProject(stack.projects);
-  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
-  await seedAcceptedDecision(stack);
-  await seedStandardCycle(stack);
-
-  const built = await stack.execution.buildExecutionContract.execute(
-    baseBuildRequest({
-      cycleInstanceId: "cyc:std-001",
-      executionContractId: overrides.executionContractId ?? "xct:oa-001",
-      idempotencyKey: overrides.idempotencyKey ?? "idem-xct-oa-001",
-      action: M4_BOUNDED_RO_ACTION,
-      target: M4_BOUNDED_RO_TARGET,
-      scope: M4_BOUNDED_RO_SCOPE,
-      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
-      authorityEvidenceId: M4_EVIDENCE,
-      inputs: overrides.inputs ?? m4ContractInputs(),
-    }),
-  );
-  expect(built.ok).toBe(true);
-  if (!built.ok) throw new Error("build failed");
-
-  const validated = await stack.execution.validateExecutionContract.execute({
-    executionContractId: built.contract.executionContractId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-  });
-  expect(validated.ok).toBe(true);
-  if (!validated.ok) throw new Error("validate failed");
-
-  const confirmationId = await grantContractConfirmation(stack, {
-    scope: M4_BOUNDED_RO_SCOPE,
-    evidenceId: M4_EVIDENCE,
-  });
-  const confirmed = await stack.execution.confirmExecutionContract.execute({
-    executionContractId: validated.contract.executionContractId,
-    confirmationId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-    expectedVersion: validated.contract.version,
-  });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error("confirm failed");
-
-  return {
-    contractId: confirmed.contract.executionContractId,
-    version: confirmed.contract.version,
-  };
-}
-
-function wireM4Stack(input: {
-  journalPath: string;
-  launchPort?: TestOnlyRealExecutionLaunchPort;
-  journal?: RealLaunchSafetyJournalPort;
-}) {
-  const launchPort = input.launchPort ?? new TestOnlyRealExecutionLaunchPort();
-  const fixtureAdapter = new TestExecutionAdapter();
-  const ownedJournal =
-    input.journal == null
-      ? new SqliteRealLaunchSafetyJournal({ databasePath: input.journalPath })
-      : null;
-  const safetyJournal = input.journal ?? ownedJournal!;
-  const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-  const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-  const attempts = createTestExecutionAttemptServices({
-    decisionServices: stack.decisions,
-    executionContractServices: stack.execution,
-    agents: [m4Agent],
-    adapter: fixtureAdapter,
-    realBoundary: { launchPort, safetyJournal },
-    fixedNowIso: NOW,
-  });
-  stack.attempts = attempts as typeof stack.attempts;
-  return {
-    stack,
-    launchPort,
-    fixtureAdapter,
-    safetyJournal,
-    close: () => {
-      ownedJournal?.close();
-    },
-  };
-}
-
-describe("M4 REAL-OFF boundary", () => {
-  beforeEach(() => {
-    assertStudioCursorRealOffForTests();
-    expect(isStudioCursorRealEnabled()).toBe(false);
-    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
-    expect(process.env.OPS1_CURSOR_REAL).not.toBe("1");
-  });
-
-  afterEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-
-  it("fixture regression still starts via TestExecutionAdapter", async () => {
-    const stack = buildStack();
-    const { attemptId } = await seedRunningAttempt(stack);
-    const attempt = await stack.attempts.attempts.findById(attemptId);
-    expect(attempt?.status).toBe("running");
-    expect(
-      (stack.adapter as TestExecutionAdapter).calls.filter(
-        (c) => c.kind === "launch",
-      ).length,
-    ).toBeGreaterThanOrEqual(1);
-  });
-
-  it("rejects CursorCliLaunchGateway as InjectableExecutionAdapter", () => {
-    const gateway = new CursorCliLaunchGateway({
-      processRunner: new DisabledRealProcessRunner(),
-      workspacePort: new FakeRealExecutionWorkspacePort(),
-    });
-    expect(isInjectableExecutionAdapter(gateway)).toBe(false);
-    expect(() =>
-      createTestExecutionAttemptServices({
-        // @ts-expect-error intentional hostile inject
-        adapter: gateway,
-        decisionServices: {} as never,
-        executionContractServices: {} as never,
-      }),
-    ).toThrow(/adapter_not_allowed/);
-  });
-
-  it("static scan: no ops1 imports under oa execution-attempt", () => {
-    const hits = scanForOps1Imports(
-      path.join(APP_LIB_OA, "execution-attempt"),
-    );
-    expect(hits).toEqual([]);
-  });
-
-  it("Gate D grant then start: CREATED is journaled before simulated launch", async () => {
-    const journalPath = tempJournalPath("m4-created-before-");
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const inner = new TestOnlyRealExecutionLaunchPort();
-    const launchPort: TestOnlyRealExecutionLaunchPort = Object.assign(
-      Object.create(Object.getPrototypeOf(inner)),
-      inner,
-      {
-        async launch(
-          request: Parameters<TestOnlyRealExecutionLaunchPort["launch"]>[0],
-        ) {
-          const frontier = await journal.findFrontierByAttempt(
-            request.attemptId,
-          );
-          expect(frontier.some((r) => r.kind === "CREATED")).toBe(true);
-          expect(frontier.some((r) => r.kind === "LAUNCHED")).toBe(false);
-          return inner.launch(request);
-        },
-      },
-    );
-
-    const fixtureAdapter = new TestExecutionAdapter();
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    const attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: { launchPort, safetyJournal: journal },
-      fixedNowIso: NOW,
-    });
-    stack.attempts = attempts as typeof stack.attempts;
-
-    const { contractId, version } = await seedM4ConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      attemptId: "xat:m4-001",
-      executionContractId: contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-
-    expect(stack.attempts.grantRealExecutionGate).toBeDefined();
-    const granted = await stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:m4-001",
-      attemptId: "xat:m4-001",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:m4-001",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-      expectedContractVersion: version,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
-    expect(started.attempt.status).toBe("running");
-    expect(inner.launchCallCount).toBe(1);
-    expect(inner.simulatedAckCount).toBe(1);
-    expect(
-      fixtureAdapter.calls.filter((c) => c.kind === "launch"),
-    ).toHaveLength(0);
-
-    const frontier = await journal.findFrontierByAttempt("xat:m4-001");
-    expect(frontier.map((r) => r.kind).sort()).toEqual(["CREATED", "LAUNCHED"]);
-    journal.close();
-  });
-
-  it("REAL flag OFF → production gateway reject; runner and fixture calls stay 0", async () => {
-    const journalPath = tempJournalPath("m4-flag-off-");
-    const runner = new FakeProcessRunner();
-    const safetyJournal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const launchPort = new CursorCliLaunchGateway({
-      processRunner: runner,
-      workspacePort: new FakeRealExecutionWorkspacePort(),
-      env: process.env,
-      resolveCursorBin: () => "/tmp/fake-cursor-bin",
-    });
-    const fixtureAdapter = new TestExecutionAdapter();
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    const attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: { launchPort, safetyJournal },
-      fixedNowIso: NOW,
-    });
-    stack.attempts = attempts as typeof stack.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      attemptId: "xat:m4-off",
-      executionContractId: contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-
-    const granted = await stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:m4-off",
-      attemptId: "xat:m4-off",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:m4-off",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.detailCode).toBe("REAL_BOUNDARY_DISABLED");
-    }
-    expect(runner.calls).toHaveLength(0);
-    expect(
-      fixtureAdapter.calls.filter((c) => c.kind === "launch"),
-    ).toHaveLength(0);
-    safetyJournal.close();
-  });
-
-  it("CREATED then crash before launch → retry LAUNCH_RECONCILIATION_REQUIRED", async () => {
-    const journalPath = tempJournalPath("m4-created-crash-");
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const ctx = wireM4Stack({ journalPath, launchPort });
-
-    const { contractId } = await seedM4ConfirmedContract(ctx.stack);
-    const selected = await selectStandardAgent(ctx.stack, {
-      attemptId: "xat:m4-created",
-      executionContractId: contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-
-    const granted = await ctx.stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:m4-created",
-      attemptId: "xat:m4-created",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-    if (!granted.ok) return;
-
-    const contract = await ctx.stack.execution.contracts.findById(contractId);
-    expect(contract).not.toBeNull();
-    const fingerprint =
-      contract!.semanticFingerprint ??
-      computeExecutionContractSemanticFingerprint(contract!);
-
-    await ctx.safetyJournal.consumeGateDAndAppendCreated({
-      grantId: granted.grant.grantId,
-      attemptId: "xat:m4-created",
-      occurredAt: NOW,
-      identity: {
-        executionContractId: contractId,
-        executionContractVersion: contract!.version,
-        semanticFingerprint: fingerprint,
-      },
-      selectedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-      actorId: MORRIS_ACTOR.actorId,
-      correlationId: "cor:crash-created",
-    });
-    expect(launchPort.launchCallCount).toBe(0);
-
-    const retry = await ctx.stack.attempts.startExecution.execute({
-      attemptId: "xat:m4-created",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(retry.ok).toBe(false);
-    if (!retry.ok) {
-      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
-    }
-    expect(launchPort.launchCallCount).toBe(0);
-    expect(
-      ctx.fixtureAdapter.calls.filter((c) => c.kind === "launch"),
-    ).toHaveLength(0);
-    ctx.close();
-  });
-
-  it("simulated ACK then fail before LAUNCHED → no second simulated launch on retry", async () => {
-    const journalPath = tempJournalPath("m4-launched-fail-");
-    const baseJournal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    let failAppend = true;
-    const journal: RealLaunchSafetyJournalPort = {
-      persistGateDGrant: (i) => baseJournal.persistGateDGrant(i),
-      findGateDGrant: (id) => baseJournal.findGateDGrant(id),
-      findActiveGateDGrantForAttempt: (id) =>
-        baseJournal.findActiveGateDGrantForAttempt(id),
-      consumeGateDAndAppendCreated: (i) =>
-        baseJournal.consumeGateDAndAppendCreated(i),
-      appendLaunched: async (i) => {
-        if (failAppend) {
-          failAppend = false;
-          throw new Error("simulated_crash_before_launched");
-        }
-        return baseJournal.appendLaunched(i);
-      },
-      findFrontierByAttempt: (id) => baseJournal.findFrontierByAttempt(id),
-      findFrontierByIdentity: (id) => baseJournal.findFrontierByIdentity(id),
-      hasAmbiguousFrontier: (id) => baseJournal.hasAmbiguousFrontier(id),
-      reconcileDispositionForIdentity: (id) =>
-        baseJournal.reconcileDispositionForIdentity(id),
-      hasKindForAttempt: (id, k) => baseJournal.hasKindForAttempt(id, k),
-    };
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const ctx = wireM4Stack({ journalPath, launchPort, journal });
-
-    const { contractId } = await seedM4ConfirmedContract(ctx.stack);
-    const selected = await selectStandardAgent(ctx.stack, {
-      attemptId: "xat:m4-ack-fail",
-      executionContractId: contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-
-    const granted = await ctx.stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:m4-ack-fail",
-      attemptId: "xat:m4-ack-fail",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-
-    const first = await ctx.stack.attempts.startExecution.execute({
-      attemptId: "xat:m4-ack-fail",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(first.ok).toBe(false);
-    if (!first.ok) {
-      expect(first.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
-    }
-    expect(launchPort.launchCallCount).toBe(1);
-    const frontier = await baseJournal.findFrontierByAttempt("xat:m4-ack-fail");
-    expect(frontier.some((r) => r.kind === "CREATED")).toBe(true);
-    expect(frontier.some((r) => r.kind === "LAUNCHED")).toBe(false);
-
-    const retry = await ctx.stack.attempts.startExecution.execute({
-      attemptId: "xat:m4-ack-fail",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(retry.ok).toBe(false);
-    if (!retry.ok) {
-      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
-    }
-    expect(launchPort.launchCallCount).toBe(1);
-    baseJournal.close();
-  });
-
-  it("new attemptId with same fingerprint is blocked by ambiguous frontier", async () => {
-    const journalPath = tempJournalPath("m4-ambig-");
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const ctx = wireM4Stack({ journalPath, launchPort });
-
-    const { contractId } = await seedM4ConfirmedContract(ctx.stack);
-    const selected = await selectStandardAgent(ctx.stack, {
-      attemptId: "xat:m4-a1",
-      executionContractId: contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-
-    const granted = await ctx.stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:m4-a1",
-      attemptId: "xat:m4-a1",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-
-    const started = await ctx.stack.attempts.startExecution.execute({
-      attemptId: "xat:m4-a1",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(started.ok).toBe(true);
-    expect(launchPort.launchCallCount).toBe(1);
-
-    const frontier = await ctx.safetyJournal.findFrontierByAttempt("xat:m4-a1");
-    expect(frontier.some((r) => r.kind === "LAUNCHED")).toBe(true);
-    const launched = frontier.find((r) => r.kind === "LAUNCHED")!;
-    const identity = {
-      executionContractId: launched.executionContractId,
-      executionContractVersion: launched.executionContractVersion,
-      semanticFingerprint: launched.semanticFingerprint,
-    };
-    expect(await ctx.safetyJournal.hasAmbiguousFrontier(identity)).toBe(true);
-    expect(
-      await ctx.safetyJournal.reconcileDispositionForIdentity(identity),
-    ).toBe("REVIEW_REQUIRED");
-    expect(launchPort.launchCallCount).toBe(1);
-    ctx.close();
-  });
-});
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts =====
-/**
- * M4 REAL-OFF correction R1 — production NodeCursorProcessRunner + no Fake product exports.
- * @vitest-environment node
- */
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import * as ExecutionAttemptBarrel from "@/lib/oa/execution-attempt";
-import {
-  assertStudioCursorRealOffForTests,
-  createInMemoryExecutionAttemptServices,
-  DisabledRealProcessRunner,
-  NODE_CURSOR_STDERR_CAP_BYTES,
-  NODE_CURSOR_STDOUT_CAP_BYTES,
-  NodeCursorProcessRunner,
-  StudioCursorRealLaunchGateway,
-} from "@/lib/oa/execution-attempt";
-import { FakeProcessRunner } from "./support/fakeProcessRunner";
-import {
-  FakeRealExecutionWorkspacePort,
-  FakeSpawnPrimitive,
-} from "./support/fakeSpawnAndGit";
-
-const BARREL_SRC = path.resolve(
-  __dirname,
-  "../../../lib/oa/execution-attempt/index.ts",
-);
-
-describe("M4 REAL-OFF correction R1", () => {
-  beforeEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-  afterEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-
-  it("R1-01 barrel does not export Fake REAL doubles", () => {
-    const src = readFileSync(BARREL_SRC, "utf8");
-    expect(src).not.toMatch(/export\s+\{[^}]*FakeProcessRunner/);
-    expect(src).not.toMatch(/export\s+\{[^}]*FakeRealProcessRunner/);
-    expect(src).not.toMatch(/export\s+\{[^}]*FakeRealExecutionLaunchGateway/);
-    expect(src).not.toMatch(
-      /from\s+["'].*fakeRealExecutionLaunchGateway["']/,
-    );
-    expect(
-      (ExecutionAttemptBarrel as Record<string, unknown>).FakeProcessRunner,
-    ).toBeUndefined();
-    expect(
-      (ExecutionAttemptBarrel as Record<string, unknown>).FakeRealProcessRunner,
-    ).toBeUndefined();
-    expect(
-      (ExecutionAttemptBarrel as Record<string, unknown>)
-        .FakeRealExecutionLaunchGateway,
-    ).toBeUndefined();
-    expect(
-      (ExecutionAttemptBarrel as Record<string, unknown>)
-        .createM4RealOffBoundaryHelpers,
-    ).toBeUndefined();
-  });
-
-  it("R1-02 product factory never defaults Fake REAL runner", () => {
-    const src = readFileSync(BARREL_SRC, "utf8");
-    expect(src).not.toMatch(/new FakeRealProcessRunner/);
-    expect(src).not.toMatch(/new FakeProcessRunner/);
-    expect(typeof createInMemoryExecutionAttemptServices).toBe("function");
-  });
-
-  it("R1-03/04 NodeCursorProcessRunner uses separate executable + shell:false", async () => {
-    const fake = new FakeSpawnPrimitive({ pid: 9001, exitCode: 0 });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:r1",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent", "--print", "hi"],
-      cwd: "/tmp/ws",
-      timeoutMs: 5_000,
-      env: process.env,
-    });
-    expect(fake.calls).toHaveLength(1);
-    expect(fake.calls[0].executable).toBe("/tmp/fake-cursor");
-    expect(fake.calls[0].argv).toEqual(["agent", "--print", "hi"]);
-    expect(fake.calls[0].argv[0]).not.toBe("/tmp/fake-cursor");
-    expect(fake.calls[0].options.shell).toBe(false);
-    expect(result.realProcessInvoked).toBe(true);
-    expect(result.processRef).toBe("pid:9001");
-  });
-
-  it("R1-05 pre-spawn failure → realProcessInvoked=false", async () => {
-    const fake = new FakeSpawnPrimitive({ throwBeforeSpawn: true });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:r1-pre",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 1_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(false);
-  });
-
-  it("R1-05b spawn error before start → realProcessInvoked=false", async () => {
-    const fake = new FakeSpawnPrimitive({ errorBeforeSpawn: true });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:r1-err",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 1_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(false);
-  });
-
-  it("R1-06 spawn confirmed yields stable processRef", async () => {
-    const fake = new FakeSpawnPrimitive({ pid: 7777, exitCode: 0 });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:r1-ack",
-      executable: "/bin/cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 2_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(true);
-    expect(result.processRef).toBe("pid:7777");
-  });
-
-  it("R1-07 timeout issues SIGTERM via fake child AFTER invoke ACK", async () => {
-    const fake = new FakeSpawnPrimitive({
-      pid: 5555,
-      hangMs: 5_000,
-      exitCode: null,
-    });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:r1-to",
-      executable: "/bin/cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 20,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(true);
-    expect(result.observation?.timedOut).toBe(false);
-    expect(result.observation?.exitCode).toBeNull();
-    const completed = await runner.awaitCompletion(result.processRef);
-    expect(completed?.timedOut).toBe(true);
-    expect(fake.lastHandle?.lastSignal).toBe("SIGTERM");
-  });
-
-  it("R1-08 stdout/stderr caps at 64 KiB on completion (after ACK)", async () => {
-    const big = "x".repeat(NODE_CURSOR_STDOUT_CAP_BYTES + 4_096);
-    const fake = new FakeSpawnPrimitive({
-      pid: 1,
-      exitCode: 0,
-      stdoutChunks: [big],
-      stderrChunks: [big],
-    });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:r1-cap",
-      executable: "/bin/cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 2_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(true);
-    const completed = await runner.awaitCompletion(result.processRef);
-    expect(completed?.stdout?.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
-    expect(completed?.stderr?.length).toBe(NODE_CURSOR_STDERR_CAP_BYTES);
-  });
-
-  it("R1-09 gateway OFF never falls back to fixture; DisabledRealProcessRunner stays product", async () => {
-    expect(new DisabledRealProcessRunner()).toBeInstanceOf(
-      DisabledRealProcessRunner,
-    );
-    const runner = new FakeProcessRunner();
-    const gateway = new StudioCursorRealLaunchGateway({
-      processRunner: runner,
-      workspacePort: new FakeRealExecutionWorkspacePort(),
-      env: { ...process.env },
-      resolveCursorBin: () => "/tmp/fake-cursor-bin",
-    });
-    const result = await gateway.launch({
-      attemptId: "xat:r1-09",
-      executionContractId: "xct:1",
-      executionContractVersion: 1,
-      semanticFingerprint: "fp",
-      selectedAgentRef: "agt:m4",
-      adapterRef: gateway.gatewayId,
-      correlationId: "cor:1",
-      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    });
-    expect(result.outcome).toBe("reject");
-    if (result.outcome === "reject") {
-      expect(result.detailCode).toBe("REAL_BOUNDARY_DISABLED");
-    }
-    expect(runner.calls).toHaveLength(0);
-  });
-});
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts =====
-/**
- * M4 REAL-OFF correction R2 — contract baseHeadSha + StudioGitWorktreeWorkspace.
- * @vitest-environment node
- */
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  assertStudioCursorRealOffForTests,
-  createM4BoundedReadOnlyCursorAgentDescriptor,
-  createTestExecutionAttemptServices,
-  M4_BOUNDED_RO_ACTION,
-  M4_BOUNDED_RO_CAPABILITY,
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  M4_BOUNDED_RO_SCOPE,
-  M4_BOUNDED_RO_TARGET,
-  SqliteRealLaunchSafetyJournal,
-  StudioCursorRealLaunchGateway,
-  StudioGitWorktreeWorkspace,
-  TestExecutionAdapter,
-  workspacePathForAttempt,
-} from "@/lib/oa/execution-attempt";
-import {
-  MORRIS_ACTOR,
-  NOW,
-  baseBuildRequest,
-  buildStack,
-  grantContractConfirmation,
-  registerMorris,
-  seedAcceptedDecision,
-  seedProject,
-  seedStandardCycle,
-  selectStandardAgent,
-  type Stack,
-} from "./helpers";
-import { FakeProcessRunner } from "./support/fakeProcessRunner";
-import {
-  FakeGitCommandRunner,
-  FakeRealExecutionWorkspacePort,
-} from "./support/fakeSpawnAndGit";
-import {
-  M4_EVIDENCE,
-  M4_TEST_BASE_HEAD_SHA,
-  m4ContractInputs,
-} from "./support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
-
-function tempJournalPath(prefix: string): string {
-  const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
-  return path.join(dir, "m4-safety.sqlite");
-}
-
-async function seedM4ConfirmedContract(
-  stack: Stack,
-  overrides: {
-    executionContractId?: string;
-    idempotencyKey?: string;
-    inputs?: Record<string, unknown> | undefined;
-    omitInputs?: boolean;
-  } = {},
-): Promise<{ contractId: string; version: number }> {
-  await seedProject(stack.projects);
-  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
-  await seedAcceptedDecision(stack);
-  await seedStandardCycle(stack);
-
-  const built = await stack.execution.buildExecutionContract.execute(
-    baseBuildRequest({
-      cycleInstanceId: "cyc:std-001",
-      executionContractId: overrides.executionContractId ?? "xct:oa-001",
-      idempotencyKey: overrides.idempotencyKey ?? "idem-xct-oa-001",
-      action: M4_BOUNDED_RO_ACTION,
-      target: M4_BOUNDED_RO_TARGET,
-      scope: M4_BOUNDED_RO_SCOPE,
-      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
-      authorityEvidenceId: M4_EVIDENCE,
-      ...(overrides.omitInputs
-        ? {}
-        : { inputs: overrides.inputs ?? m4ContractInputs() }),
-    }),
-  );
-  expect(built.ok).toBe(true);
-  if (!built.ok) throw new Error("build failed");
-
-  const validated = await stack.execution.validateExecutionContract.execute({
-    executionContractId: built.contract.executionContractId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-  });
-  expect(validated.ok).toBe(true);
-  if (!validated.ok) throw new Error("validate failed");
-
-  const confirmationId = await grantContractConfirmation(stack, {
-    scope: M4_BOUNDED_RO_SCOPE,
-    evidenceId: M4_EVIDENCE,
-  });
-  const confirmed = await stack.execution.confirmExecutionContract.execute({
-    executionContractId: validated.contract.executionContractId,
-    confirmationId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-    expectedVersion: validated.contract.version,
-  });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error("confirm failed");
-
-  return {
-    contractId: confirmed.contract.executionContractId,
-    version: confirmed.contract.version,
-  };
-}
-
-async function selectAndGrant(
-  stack: Stack,
-  contractId: string,
-  attemptId: string,
-  grantId: string,
-) {
-  const selected = await selectStandardAgent(stack, {
-    attemptId,
-    executionContractId: contractId,
-    requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  });
-  expect(selected.ok).toBe(true);
-  const granted = await stack.attempts.grantRealExecutionGate!.execute({
-    grantId,
-    attemptId,
-    actor: MORRIS_ACTOR,
-    expiresAt: "2026-07-25T07:00:00.000Z",
-    authorityEvidenceId: M4_EVIDENCE,
-  });
-  expect(granted.ok).toBe(true);
-  return granted;
-}
-
-describe("M4 REAL-OFF correction R2", () => {
-  beforeEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-  afterEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-
-  it("R2-01 missing baseHeadSha refused before Gate D consume / CREATED", async () => {
-    const journalPath = tempJournalPath("m4-r2-01-");
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    stack.attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: { launchPort, safetyJournal: journal },
-      fixedNowIso: NOW,
-    }) as typeof stack.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack, {
-      omitInputs: true,
-    });
-    await selectAndGrant(stack, contractId, "xat:r2-01", "gd:r2-01");
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-01",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.detailCode).toBe("REAL_WORKSPACE_INVALID");
-      expect(started.error.internalCauseRef).toContain("base_head_sha");
-    }
-    expect(launchPort.launchCallCount).toBe(0);
-    expect(await journal.hasKindForAttempt("xat:r2-01", "CREATED")).toBe(
-      false,
-    );
-    const grant = await journal.findActiveGateDGrantForAttempt("xat:r2-01");
-    expect(grant?.status).toBe("granted");
-    journal.close();
-  });
-
-  it("R2-02 invalid baseHeadSha refused", async () => {
-    const journalPath = tempJournalPath("m4-r2-02-");
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    stack.attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: { launchPort, safetyJournal: journal },
-      fixedNowIso: NOW,
-    }) as typeof stack.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack, {
-      inputs: { baseHeadSha: "not-a-sha" },
-    });
-    await selectAndGrant(stack, contractId, "xat:r2-02", "gd:r2-02");
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-02",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.detailCode).toBe("REAL_WORKSPACE_INVALID");
-    }
-    expect(launchPort.launchCallCount).toBe(0);
-    expect(await journal.hasKindForAttempt("xat:r2-02", "CREATED")).toBe(
-      false,
-    );
-    journal.close();
-  });
-
-  it("R2-03 launch receives contract baseHeadSha (not StartExecution field)", async () => {
-    const journalPath = tempJournalPath("m4-r2-03-");
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    stack.attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: { launchPort, safetyJournal: journal },
-      fixedNowIso: NOW,
-    }) as typeof stack.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack);
-    await selectAndGrant(stack, contractId, "xat:r2-03", "gd:r2-03");
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-03",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(started.ok).toBe(true);
-    expect(launchPort.calls[0]?.baseHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
-    expect(
-      (launchPort.calls[0] as { workspaceRoot?: string }).workspaceRoot,
-    ).toBeUndefined();
-    journal.close();
-  });
-
-  it("R2-04/05 fail-closed when repoRoot/execRoot missing or equal", () => {
-    const git = new FakeGitCommandRunner({
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-    });
-    expect(
-      () =>
-        new StudioGitWorktreeWorkspace({
-          repoRoot: "",
-          execRoot: "/tmp/exec",
-          gitRunner: git,
-        }),
-    ).toThrow(/repo_root/);
-    expect(
-      () =>
-        new StudioGitWorktreeWorkspace({
-          repoRoot: "/tmp/repo",
-          execRoot: "",
-          gitRunner: git,
-        }),
-    ).toThrow(/exec_root/);
-    expect(
-      () =>
-        new StudioGitWorktreeWorkspace({
-          repoRoot: "/tmp/same",
-          execRoot: "/tmp/same",
-          gitRunner: git,
-        }),
-    ).toThrow(/must_differ/);
-  });
-
-  it("R2-06/07 refuse outside execRoot / existing path", async () => {
-    const root = mkdtempSync(path.join(os.tmpdir(), "m4-r2-roots-"));
-    const repoRoot = path.join(root, "repo");
-    const execRoot = path.join(root, "exec");
-    mkdirSync(repoRoot);
-    mkdirSync(execRoot);
-    const git = new FakeGitCommandRunner({
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-    });
-    const ws = new StudioGitWorktreeWorkspace({
-      repoRoot,
-      execRoot,
-      gitRunner: git,
-    });
-    const existing = workspacePathForAttempt(execRoot, "xat:exists");
-    mkdirSync(existing, { recursive: true });
-    writeFileSync(path.join(existing, "marker"), "x");
-    await expect(
-      ws.prepareWorkspace({
-        attemptId: "xat:exists",
-        baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-      }),
-    ).rejects.toThrow(/workspace_path_exists/);
-  });
-
-  it("R2-08/10 fake git receives only expected commands; HEAD exact accepted", async () => {
-    const root = mkdtempSync(path.join(os.tmpdir(), "m4-r2-ok-"));
-    const repoRoot = path.join(root, "repo");
-    const execRoot = path.join(root, "exec");
-    mkdirSync(repoRoot);
-    mkdirSync(execRoot);
-    const git = new FakeGitCommandRunner({
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-    });
-    const ws = new StudioGitWorktreeWorkspace({
-      repoRoot,
-      execRoot,
-      gitRunner: git,
-    });
-    const prepared = await ws.prepareWorkspace({
-      attemptId: "xat:r2-ok",
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-    });
-    expect(prepared.verifiedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
-    expect(prepared.workspacePath.startsWith(execRoot + path.sep)).toBe(true);
-    expect(git.calls.map((c) => c.argv[0])).toEqual([
-      "rev-parse",
-      "worktree",
-      "rev-parse",
-    ]);
-    expect(git.calls[0].argv).toEqual([
-      "rev-parse",
-      "--verify",
-      `${M4_TEST_BASE_HEAD_SHA}^{commit}`,
-    ]);
-    expect(git.calls[1].argv.slice(0, 3)).toEqual([
-      "worktree",
-      "add",
-      "--detach",
-    ]);
-    expect(git.calls[2].argv).toEqual(["rev-parse", "HEAD"]);
-  });
-
-  it("R2-09 HEAD mismatch fail-closed", async () => {
-    const root = mkdtempSync(path.join(os.tmpdir(), "m4-r2-mis-"));
-    const repoRoot = path.join(root, "repo");
-    const execRoot = path.join(root, "exec");
-    mkdirSync(repoRoot);
-    mkdirSync(execRoot);
-    const git = new FakeGitCommandRunner({
-      baseHeadSha: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-    });
-    const ws = new StudioGitWorktreeWorkspace({
-      repoRoot,
-      execRoot,
-      gitRunner: git,
-    });
-    await expect(
-      ws.prepareWorkspace({
-        attemptId: "xat:r2-mis",
-        baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-      }),
-    ).rejects.toThrow(/head_mismatch/);
-  });
-
-  it("R2-11 FakeGitCommandRunner never invokes OS git", async () => {
-    const git = new FakeGitCommandRunner({
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-    });
-    expect(git.calls).toHaveLength(0);
-    await git.run(["rev-parse", "HEAD"], "/tmp");
-    expect(git.calls).toHaveLength(1);
-  });
-
-  it("R2-12 CREATED durable before workspace prepare", async () => {
-    const journalPath = tempJournalPath("m4-r2-12-");
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const workspace = new FakeRealExecutionWorkspacePort();
-    const runner = new FakeProcessRunner();
-    // Production gateway stays OFF — use TestOnly for ACK, wrap to assert CREATED.
-    const base = new TestOnlyRealExecutionLaunchPort();
-    const launchPort = {
-      gatewayId: base.gatewayId,
-      externalEffects: true as const,
-      async launch(request: Parameters<typeof base.launch>[0]) {
-        const frontier = await journal.findFrontierByAttempt(request.attemptId);
-        expect(frontier.some((r) => r.kind === "CREATED")).toBe(true);
-        // prepare would happen inside production gateway after CREATED;
-        // here we simulate that ordering proof via journal assert above.
-        expect(workspace.prepares).toHaveLength(0);
-        return base.launch(request);
-      },
-    };
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    stack.attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: {
-        launchPort: launchPort as TestOnlyRealExecutionLaunchPort,
-        safetyJournal: journal,
-      },
-      fixedNowIso: NOW,
-    }) as typeof stack.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack);
-    await selectAndGrant(stack, contractId, "xat:r2-12", "gd:r2-12");
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-12",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(started.ok).toBe(true);
-    expect(runner.calls).toHaveLength(0);
-    journal.close();
-  });
-
-  it("R2-13 workspace prepare failure after CREATED → runner 0, retry blocked", async () => {
-    const journalPath = tempJournalPath("m4-r2-13-");
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const runner = new FakeProcessRunner();
-    const workspace = new FakeRealExecutionWorkspacePort({ fail: true });
-    // Use a custom launch port that mirrors gateway order: prepare then invoke.
-    const launchPort = {
-      gatewayId: "adp:m4-cursor-cli-real",
-      externalEffects: true as const,
-      async launch(request: {
-        attemptId: string;
-        baseHeadSha: string;
-      }) {
-        try {
-          await workspace.prepareWorkspace({
-            attemptId: request.attemptId,
-            baseHeadSha: request.baseHeadSha,
-          });
-        } catch {
-          return {
-            outcome: "reject" as const,
-            gatewayId: "adp:m4-cursor-cli-real",
-            attemptId: request.attemptId,
-            reason: "REAL_WORKSPACE_INVALID:fake_prepare_failed",
-            realProcessInvoked: false as const,
-            detailCode: "REAL_WORKSPACE_INVALID" as const,
-          };
-        }
-        return runner.invoke({
-          attemptId: request.attemptId,
-          executable: "/tmp/x",
-          argv: [],
-          cwd: "/tmp",
-          timeoutMs: 1,
-          env: process.env,
-        }).then((r) => ({
-          outcome: "ack" as const,
-          gatewayId: "adp:m4-cursor-cli-real",
-          attemptId: request.attemptId,
-          realProcessInvoked: true as const,
-          processRef: r.processRef,
-        }));
-      },
-    };
-
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    stack.attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: {
-        launchPort: launchPort as never,
-        safetyJournal: journal,
-      },
-      fixedNowIso: NOW,
-    }) as typeof stack.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack);
-    await selectAndGrant(stack, contractId, "xat:r2-13", "gd:r2-13");
-    const first = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-13",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(first.ok).toBe(false);
-    if (!first.ok) {
-      expect(first.error.detailCode).toBe("REAL_WORKSPACE_INVALID");
-    }
-    expect(await journal.hasKindForAttempt("xat:r2-13", "CREATED")).toBe(true);
-    expect(runner.calls).toHaveLength(0);
-
-    const retry = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-13",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(retry.ok).toBe(false);
-    if (!retry.ok) {
-      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
-    }
-    expect(runner.calls).toHaveLength(0);
-    journal.close();
-  });
-
-  it("R2-14 simulated worktree+invoke + LAUNCHED persist fail → no second launch", async () => {
-    const journalPath = tempJournalPath("m4-r2-14-");
-    const baseJournal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    let failAppend = true;
-    const journal = {
-      persistGateDGrant: (i: never) => baseJournal.persistGateDGrant(i),
-      findGateDGrant: (id: string) => baseJournal.findGateDGrant(id),
-      findActiveGateDGrantForAttempt: (id: string) =>
-        baseJournal.findActiveGateDGrantForAttempt(id),
-      consumeGateDAndAppendCreated: (i: never) =>
-        baseJournal.consumeGateDAndAppendCreated(i),
-      appendLaunched: async (i: never) => {
-        if (failAppend) {
-          failAppend = false;
-          throw new Error("r2_14_crash");
-        }
-        return baseJournal.appendLaunched(i);
-      },
-      findFrontierByAttempt: (id: string) =>
-        baseJournal.findFrontierByAttempt(id),
-      findFrontierByIdentity: (id: never) =>
-        baseJournal.findFrontierByIdentity(id),
-      hasAmbiguousFrontier: (id: never) =>
-        baseJournal.hasAmbiguousFrontier(id),
-      reconcileDispositionForIdentity: (id: never) =>
-        baseJournal.reconcileDispositionForIdentity(id),
-      hasKindForAttempt: (id: string, k: "CREATED" | "LAUNCHED") =>
-        baseJournal.hasKindForAttempt(id, k),
-    };
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    stack.attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: {
-        launchPort,
-        safetyJournal: journal as never,
-      },
-      fixedNowIso: NOW,
-    }) as typeof stack.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack);
-    await selectAndGrant(stack, contractId, "xat:r2-14", "gd:r2-14");
-    const first = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-14",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(first.ok).toBe(false);
-    expect(launchPort.launchCallCount).toBe(1);
-    const retry = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r2-14",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(retry.ok).toBe(false);
-    expect(launchPort.launchCallCount).toBe(1);
-    baseJournal.close();
-  });
-
-  it("production gateway with OFF env never prepares workspace / never invokes runner", async () => {
-    const runner = new FakeProcessRunner();
-    const workspace = new FakeRealExecutionWorkspacePort();
-    const gateway = new StudioCursorRealLaunchGateway({
-      processRunner: runner,
-      workspacePort: workspace,
-      env: process.env,
-      resolveCursorBin: () => "/tmp/fake-cursor-bin",
-    });
-    const result = await gateway.launch({
-      attemptId: "xat:gw-off",
-      executionContractId: "xct:1",
-      executionContractVersion: 1,
-      semanticFingerprint: "fp",
-      selectedAgentRef: "agt:m4",
-      adapterRef: gateway.gatewayId,
-      correlationId: "cor",
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-    });
-    expect(result.outcome).toBe("reject");
-    expect(workspace.prepares).toHaveLength(0);
-    expect(runner.calls).toHaveLength(0);
-  });
-});
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts =====
-/**
- * M4 REAL-OFF correction R3 — no test enables SFIA_STUDIO_CURSOR_REAL=1.
- * @vitest-environment node
- */
-import { readdirSync, readFileSync } from "node:fs";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  assertStudioCursorRealOffForTests,
-  createM4BoundedReadOnlyCursorAgentDescriptor,
-  createTestExecutionAttemptServices,
-  DisabledRealProcessRunner,
-  isStudioCursorRealEnabled,
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  SqliteRealLaunchSafetyJournal,
-  StudioCursorRealLaunchGateway,
-  TestExecutionAdapter,
-} from "@/lib/oa/execution-attempt";
-import { mkdtempSync } from "node:fs";
-import os from "node:os";
-import {
-  MORRIS_ACTOR,
-  NOW,
-  baseBuildRequest,
-  buildStack,
-  grantContractConfirmation,
-  registerMorris,
-  seedAcceptedDecision,
-  seedProject,
-  seedStandardCycle,
-  selectStandardAgent,
-} from "./helpers";
-import { FakeProcessRunner } from "./support/fakeProcessRunner";
-import { FakeRealExecutionWorkspacePort } from "./support/fakeSpawnAndGit";
-import {
-  M4_BOUNDED_RO_ACTION,
-  M4_BOUNDED_RO_CAPABILITY,
-  M4_BOUNDED_RO_SCOPE,
-  M4_BOUNDED_RO_TARGET,
-} from "@/lib/oa/execution-attempt";
-import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
-
-const TESTS_DIR = __dirname;
-
-function scanM4TestsForRealFlagEnablement(): string[] {
-  const hits: string[] = [];
-  const walk = (dir: string) => {
-    for (const ent of readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, ent.name);
-      if (ent.isDirectory()) {
-        walk(full);
-        continue;
-      }
-      if (!/\.(ts|tsx)$/.test(ent.name)) continue;
-      const text = readFileSync(full, "utf8");
-      // Positive enablement literals / assignments — allow negative assertions.
-      const enablePatterns = [
-        /SFIA_STUDIO_CURSOR_REAL:\s*["']1["']/,
-        /SFIA_STUDIO_CURSOR_REAL\s*=\s*["']1["']/,
-        /process\.env\.SFIA_STUDIO_CURSOR_REAL\s*=\s*["']1["']/,
-        /OPS1_CURSOR_REAL:\s*["']1["']/,
-        /OPS1_CURSOR_REAL\s*=\s*["']1["']/,
-      ];
-      for (const re of enablePatterns) {
-        if (re.test(text)) {
-          hits.push(path.relative(TESTS_DIR, full));
-          break;
-        }
-      }
-    }
-  };
-  walk(TESTS_DIR);
-  return hits;
-}
-
-describe("M4 REAL-OFF correction R3", () => {
-  beforeEach(() => {
-    assertStudioCursorRealOffForTests();
-    expect(isStudioCursorRealEnabled()).toBe(false);
-  });
-  afterEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-
-  it("R3-01 assertStudioCursorRealOffForTests passes in harness", () => {
-    expect(() => assertStudioCursorRealOffForTests()).not.toThrow();
-    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
-    expect(process.env.OPS1_CURSOR_REAL).not.toBe("1");
-  });
-
-  it("R3-02/03/04 static scan: no M4 test enables REAL flag to 1", () => {
-    expect(scanM4TestsForRealFlagEnablement()).toEqual([]);
-  });
-
-  it("R3-05 production gateway OFF → processRunner call count 0", async () => {
-    const runner = new FakeProcessRunner();
-    const gateway = new StudioCursorRealLaunchGateway({
-      processRunner: runner,
-      workspacePort: new FakeRealExecutionWorkspacePort(),
-      env: process.env,
-      resolveCursorBin: () => "/tmp/fake-cursor-bin",
-    });
-    const result = await gateway.launch({
-      attemptId: "xat:r3-05",
-      executionContractId: "xct:1",
-      executionContractVersion: 1,
-      semanticFingerprint: "fp",
-      selectedAgentRef: "agt:m4",
-      adapterRef: gateway.gatewayId,
-      correlationId: "cor",
-      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    });
-    expect(result.outcome).toBe("reject");
-    expect(runner.calls).toHaveLength(0);
-  });
-
-  it("R3-05b missing flag / non-1 env reject with DisabledRealProcessRunner unused", async () => {
-    const runner = new DisabledRealProcessRunner();
-    const gateway = new StudioCursorRealLaunchGateway({
-      processRunner: runner,
-      workspacePort: new FakeRealExecutionWorkspacePort(),
-      env: { ...process.env, SFIA_STUDIO_CURSOR_REAL: "0" },
-      resolveCursorBin: () => "/tmp/fake-cursor-bin",
-    });
-    const result = await gateway.launch({
-      attemptId: "xat:r3-05b",
-      executionContractId: "xct:1",
-      executionContractVersion: 1,
-      semanticFingerprint: "fp",
-      selectedAgentRef: "agt:m4",
-      adapterRef: gateway.gatewayId,
-      correlationId: "cor",
-      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    });
-    expect(result.outcome).toBe("reject");
-    if (result.outcome === "reject") {
-      expect(result.detailCode).toBe("REAL_BOUNDARY_DISABLED");
-    }
-  });
-
-  it("R3-06 positive StartExecution uses TestOnlyRealExecutionLaunchPort only", async () => {
-    const dir = mkdtempSync(path.join(os.tmpdir(), "m4-r3-06-"));
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: path.join(dir, "j.sqlite"),
-    });
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    expect(launchPort.constructor.name).toBe("TestOnlyRealExecutionLaunchPort");
-
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    stack.attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: { launchPort, safetyJournal: journal },
-      fixedNowIso: NOW,
-    }) as typeof stack.attempts;
-
-    await seedProject(stack.projects);
-    registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
-    await seedAcceptedDecision(stack);
-    await seedStandardCycle(stack);
-    const built = await stack.execution.buildExecutionContract.execute(
-      baseBuildRequest({
-        cycleInstanceId: "cyc:std-001",
-        action: M4_BOUNDED_RO_ACTION,
-        target: M4_BOUNDED_RO_TARGET,
-        scope: M4_BOUNDED_RO_SCOPE,
-        requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
-        authorityEvidenceId: M4_EVIDENCE,
-        inputs: m4ContractInputs(),
-      }),
-    );
-    expect(built.ok).toBe(true);
-    if (!built.ok) return;
-    const validated = await stack.execution.validateExecutionContract.execute({
-      executionContractId: built.contract.executionContractId,
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(validated.ok).toBe(true);
-    if (!validated.ok) return;
-    const confirmationId = await grantContractConfirmation(stack, {
-      scope: M4_BOUNDED_RO_SCOPE,
-      evidenceId: M4_EVIDENCE,
-    });
-    const confirmed = await stack.execution.confirmExecutionContract.execute({
-      executionContractId: validated.contract.executionContractId,
-      confirmationId,
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-      expectedVersion: validated.contract.version,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const selected = await selectStandardAgent(stack, {
-      attemptId: "xat:r3-06",
-      executionContractId: confirmed.contract.executionContractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-    const granted = await stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:r3-06",
-      attemptId: "xat:r3-06",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:r3-06",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(started.ok).toBe(true);
-    expect(launchPort.simulatedAckCount).toBe(1);
-    expect(isStudioCursorRealEnabled()).toBe(false);
-    journal.close();
-  });
-});
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts =====
-/**
- * M4 REAL-OFF crash replay — durable journal across process restart.
- * Uses TestOnlyRealExecutionLaunchPort (SIMULATED ACK) — never enables production REAL flag.
- * @vitest-environment node
- */
-import { mkdtempSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  assertStudioCursorRealOffForTests,
-  createM4BoundedReadOnlyCursorAgentDescriptor,
-  createTestExecutionAttemptServices,
-  M4_BOUNDED_RO_ACTION,
-  M4_BOUNDED_RO_CAPABILITY,
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  M4_BOUNDED_RO_SCOPE,
-  M4_BOUNDED_RO_TARGET,
-  SqliteRealLaunchSafetyJournal,
-  TestExecutionAdapter,
-  type RealLaunchSafetyJournalPort,
-} from "@/lib/oa/execution-attempt";
-import {
-  MORRIS_ACTOR,
-  NOW,
-  baseBuildRequest,
-  buildStack,
-  grantContractConfirmation,
-  registerMorris,
-  seedAcceptedDecision,
-  seedProject,
-  seedStandardCycle,
-  selectStandardAgent,
-  type Stack,
-} from "./helpers";
-import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
-
-function tempJournalPath(prefix: string): string {
-  const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
-  return path.join(dir, "m4-safety.sqlite");
-}
-
-async function seedM4ConfirmedContract(
-  stack: Stack,
-  overrides: { executionContractId?: string; idempotencyKey?: string } = {},
-): Promise<{ contractId: string; version: number }> {
-  await seedProject(stack.projects);
-  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
-  await seedAcceptedDecision(stack);
-  await seedStandardCycle(stack);
-
-  const built = await stack.execution.buildExecutionContract.execute(
-    baseBuildRequest({
-      cycleInstanceId: "cyc:std-001",
-      executionContractId: overrides.executionContractId ?? "xct:oa-001",
-      idempotencyKey: overrides.idempotencyKey ?? "idem-xct-oa-001",
-      action: M4_BOUNDED_RO_ACTION,
-      target: M4_BOUNDED_RO_TARGET,
-      scope: M4_BOUNDED_RO_SCOPE,
-      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
-      authorityEvidenceId: M4_EVIDENCE,
-      inputs: m4ContractInputs(),
-    }),
-  );
-  expect(built.ok).toBe(true);
-  if (!built.ok) throw new Error("build failed");
-
-  const validated = await stack.execution.validateExecutionContract.execute({
-    executionContractId: built.contract.executionContractId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-  });
-  expect(validated.ok).toBe(true);
-  if (!validated.ok) throw new Error("validate failed");
-
-  const confirmationId = await grantContractConfirmation(stack, {
-    scope: M4_BOUNDED_RO_SCOPE,
-    evidenceId: M4_EVIDENCE,
-  });
-  const confirmed = await stack.execution.confirmExecutionContract.execute({
-    executionContractId: validated.contract.executionContractId,
-    confirmationId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-    expectedVersion: validated.contract.version,
-  });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error("confirm failed");
-
-  return {
-    contractId: confirmed.contract.executionContractId,
-    version: confirmed.contract.version,
-  };
-}
-
-describe("M4 REAL-OFF crash replay", () => {
-  beforeEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-
-  afterEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-
-  it("restart with same journal path + new MemoryAttempt store refuses second launch", async () => {
-    const journalPath = tempJournalPath("m4-replay-");
-    const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const fixtureAdapter = new TestExecutionAdapter();
-
-    // --- Process 1: simulated ACK then crash before LAUNCHED ---
-    const journal1 = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    let failAppend = true;
-    const wrappingJournal = (
-      base: SqliteRealLaunchSafetyJournal,
-    ): RealLaunchSafetyJournalPort => ({
-      persistGateDGrant: (i) => base.persistGateDGrant(i),
-      findGateDGrant: (id) => base.findGateDGrant(id),
-      findActiveGateDGrantForAttempt: (id) =>
-        base.findActiveGateDGrantForAttempt(id),
-      consumeGateDAndAppendCreated: (i) =>
-        base.consumeGateDAndAppendCreated(i),
-      appendLaunched: async (i) => {
-        if (failAppend) {
-          failAppend = false;
-          throw new Error("process1_crash_before_launched");
-        }
-        return base.appendLaunched(i);
-      },
-      findFrontierByAttempt: (id) => base.findFrontierByAttempt(id),
-      findFrontierByIdentity: (id) => base.findFrontierByIdentity(id),
-      hasAmbiguousFrontier: (id) => base.hasAmbiguousFrontier(id),
-      reconcileDispositionForIdentity: (id) =>
-        base.reconcileDispositionForIdentity(id),
-      hasKindForAttempt: (id, k) => base.hasKindForAttempt(id, k),
-    });
-
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const stack1 = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    const attempts1 = createTestExecutionAttemptServices({
-      decisionServices: stack1.decisions,
-      executionContractServices: stack1.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: {
-        launchPort,
-        safetyJournal: wrappingJournal(journal1),
-      },
-      fixedNowIso: NOW,
-    });
-    stack1.attempts = attempts1 as typeof stack1.attempts;
-
-    const { contractId } = await seedM4ConfirmedContract(stack1);
-    const selected = await selectStandardAgent(stack1, {
-      attemptId: "xat:m4-replay",
-      executionContractId: contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-
-    const granted = await stack1.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:m4-replay",
-      attemptId: "xat:m4-replay",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-
-    const crashed = await stack1.attempts.startExecution.execute({
-      attemptId: "xat:m4-replay",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(crashed.ok).toBe(false);
-    if (!crashed.ok) {
-      expect(crashed.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
-    }
-    expect(launchPort.launchCallCount).toBe(1);
-
-    const frontierBeforeRestart =
-      await journal1.findFrontierByAttempt("xat:m4-replay");
-    expect(frontierBeforeRestart.some((r) => r.kind === "CREATED")).toBe(true);
-    expect(frontierBeforeRestart.some((r) => r.kind === "LAUNCHED")).toBe(
-      false,
-    );
-    journal1.close();
-
-    // --- Process 2: new MemoryAttempt store, same journal file ---
-    const journal2 = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const stack2 = buildStack({
-      agents: [m4Agent],
-      adapter: new TestExecutionAdapter(),
-    });
-    const attempts2 = createTestExecutionAttemptServices({
-      decisionServices: stack2.decisions,
-      executionContractServices: stack2.execution,
-      agents: [m4Agent],
-      adapter: stack2.adapter as TestExecutionAdapter,
-      realBoundary: { launchPort, safetyJournal: journal2 },
-      fixedNowIso: NOW,
-    });
-    stack2.attempts = attempts2 as typeof stack2.attempts;
-
-    const seeded2 = await seedM4ConfirmedContract(stack2, {
-      executionContractId: "xct:oa-replay-2",
-      idempotencyKey: "idem-xct-replay-2",
-    });
-    const selected2 = await selectStandardAgent(stack2, {
-      attemptId: "xat:m4-replay",
-      executionContractId: seeded2.contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected2.ok).toBe(true);
-
-    const durable = await journal2.findFrontierByAttempt("xat:m4-replay");
-    expect(durable.some((r) => r.kind === "CREATED")).toBe(true);
-    expect(durable.some((r) => r.kind === "LAUNCHED")).toBe(false);
-
-    const retry = await stack2.attempts.startExecution.execute({
-      attemptId: "xat:m4-replay",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(retry.ok).toBe(false);
-    if (!retry.ok) {
-      expect([
-        "LAUNCH_RECONCILIATION_REQUIRED",
-        "GATE_D_REQUIRED",
-      ]).toContain(retry.error.detailCode);
-    }
-    expect(launchPort.launchCallCount).toBe(1);
-    journal2.close();
-  });
-});
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts =====
-/**
- * M4 spawn-ACK micro-correctif — invoke returns on spawn, not process close.
- * FakeSpawnPrimitive / TestOnly launch port only. No Cursor REAL. No real git.
- * @vitest-environment node
- */
-import { mkdtempSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  assertStudioCursorRealOffForTests,
-  createM4BoundedReadOnlyCursorAgentDescriptor,
-  createTestExecutionAttemptServices,
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  NODE_CURSOR_STDOUT_CAP_BYTES,
-  NodeCursorProcessRunner,
-  SqliteRealLaunchSafetyJournal,
-  TestExecutionAdapter,
-} from "@/lib/oa/execution-attempt";
-import {
-  MORRIS_ACTOR,
-  NOW,
-  baseBuildRequest,
-  buildStack,
-  grantContractConfirmation,
-  registerMorris,
-  seedAcceptedDecision,
-  seedProject,
-  seedStandardCycle,
-  selectStandardAgent,
-} from "./helpers";
-import { FakeSpawnPrimitive } from "./support/fakeSpawnAndGit";
-import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
-import {
-  M4_BOUNDED_RO_ACTION,
-  M4_BOUNDED_RO_CAPABILITY,
-  M4_BOUNDED_RO_SCOPE,
-  M4_BOUNDED_RO_TARGET,
-} from "@/lib/oa/execution-attempt";
-
-function tempJournalPath(prefix: string): string {
-  return path.join(mkdtempSync(path.join(os.tmpdir(), prefix)), "m4-safety.sqlite");
-}
-
-async function seedM4ConfirmedContract(
-  stack: ReturnType<typeof buildStack>,
-): Promise<{ contractId: string; version: number }> {
-  await seedProject(stack.projects);
-  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
-  await seedAcceptedDecision(stack);
-  await seedStandardCycle(stack);
-  const built = await stack.execution.buildExecutionContract.execute(
-    baseBuildRequest({
-      cycleInstanceId: "cyc:std-001",
-      executionContractId: "xct:oa-spawn-ack",
-      idempotencyKey: "idem-xct-oa-spawn-ack",
-      action: M4_BOUNDED_RO_ACTION,
-      target: M4_BOUNDED_RO_TARGET,
-      scope: M4_BOUNDED_RO_SCOPE,
-      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
-      authorityEvidenceId: M4_EVIDENCE,
-      inputs: m4ContractInputs(),
-    }),
-  );
-  expect(built.ok).toBe(true);
-  if (!built.ok) throw new Error("build failed");
-  const validated = await stack.execution.validateExecutionContract.execute({
-    executionContractId: built.contract.executionContractId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-  });
-  expect(validated.ok).toBe(true);
-  if (!validated.ok) throw new Error("validate failed");
-  const confirmationId = await grantContractConfirmation(stack, {
-    scope: M4_BOUNDED_RO_SCOPE,
-    evidenceId: M4_EVIDENCE,
-  });
-  const confirmed = await stack.execution.confirmExecutionContract.execute({
-    executionContractId: validated.contract.executionContractId,
-    confirmationId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId: M4_EVIDENCE,
-    expectedVersion: validated.contract.version,
-  });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error("confirm failed");
-  return {
-    contractId: confirmed.contract.executionContractId,
-    version: confirmed.contract.version,
-  };
-}
-
-describe("M4 spawn ACK ≠ process completion", () => {
-  beforeEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-  afterEach(() => {
-    assertStudioCursorRealOffForTests();
-  });
-
-  it("invoke resolves on spawn before close; completion is separate", async () => {
-    const fake = new FakeSpawnPrimitive({
-      pid: 4242,
-      holdOpen: true,
-    });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:spawn-ack",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 5_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(true);
-    expect(result.processRef).toBe("pid:4242");
-    expect(result.observation?.exitCode).toBeNull();
-
-    const running = await runner.observe(result.processRef);
-    expect(running?.exitCode).toBeNull();
-    expect(running?.realProcessInvoked).toBe(true);
-
-    let completionResolved = false;
-    const completion = runner.awaitCompletion(result.processRef).then((obs) => {
-      completionResolved = true;
-      return obs;
-    });
-    await Promise.resolve();
-    expect(completionResolved).toBe(false);
-
-    fake.lastHandle?.emitClose(0);
-    const terminal = await completion;
-    expect(completionResolved).toBe(true);
-    expect(terminal?.exitCode).toBe(0);
-    expect(terminal?.realProcessInvoked).toBe(true);
-  });
-
-  it("pre-spawn throw never returns invoked=true", async () => {
-    const fake = new FakeSpawnPrimitive({ throwBeforeSpawn: true });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:pre-throw",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 1_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(false);
-  });
-
-  it("error before spawn never returns invoked=true", async () => {
-    const fake = new FakeSpawnPrimitive({ errorBeforeSpawn: true });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:pre-err",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 1_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(false);
-  });
-
-  it("post-spawn error keeps invoked=true and completes observation", async () => {
-    const fake = new FakeSpawnPrimitive({ pid: 88, holdOpen: true });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:post-err",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 5_000,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(true);
-    fake.lastHandle?.emitError("fake_after_spawn");
-    const terminal = await runner.awaitCompletion(result.processRef);
-    expect(terminal?.realProcessInvoked).toBe(true);
-    expect(terminal?.exitCode).toBeNull();
-  });
-
-  it("timeout after ACK sends SIGTERM and marks timedOut", async () => {
-    const fake = new FakeSpawnPrimitive({ pid: 99, holdOpen: true });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:to-after-ack",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 20,
-      env: process.env,
-    });
-    expect(result.realProcessInvoked).toBe(true);
-    expect(result.observation?.timedOut).toBe(false);
-    const terminal = await runner.awaitCompletion(result.processRef);
-    expect(terminal?.timedOut).toBe(true);
-    expect(fake.lastHandle?.lastSignal).toBe("SIGTERM");
-  });
-
-  it("stdout/stderr after ACK remain observable and capped", async () => {
-    const fake = new FakeSpawnPrimitive({ pid: 11, holdOpen: true });
-    const runner = new NodeCursorProcessRunner({
-      spawnPrimitive: fake.asSpawnPrimitive(),
-    });
-    const result = await runner.invoke({
-      attemptId: "xat:io-after-ack",
-      executable: "/tmp/fake-cursor",
-      argv: ["agent"],
-      cwd: "/tmp/ws",
-      timeoutMs: 5_000,
-      env: process.env,
-    });
-    expect(result.observation?.stdout).toBe("");
-    const overflow = "y".repeat(NODE_CURSOR_STDOUT_CAP_BYTES + 100);
-    fake.lastHandle?.emitStdout(overflow);
-    fake.lastHandle?.emitStderr("err-chunk");
-    const mid = await runner.observe(result.processRef);
-    expect(mid?.stdout.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
-    expect(mid?.stderr).toBe("err-chunk");
-    expect(mid?.exitCode).toBeNull();
-    fake.lastHandle?.emitClose(0);
-    const terminal = await runner.awaitCompletion(result.processRef);
-    expect(terminal?.stdout.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
-    expect(terminal?.stderr).toBe("err-chunk");
-    expect(terminal?.exitCode).toBe(0);
-  });
-
-  it("StartExecution running/executing while simulated completion still pending", async () => {
-    const journalPath = tempJournalPath("m4-spawn-ack-app-");
-    const launchPort = new TestOnlyRealExecutionLaunchPort({
-      holdCompletion: true,
-    });
-    const fixtureAdapter = new TestExecutionAdapter();
-    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
-    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
-    const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: journalPath,
-    });
-    const attempts = createTestExecutionAttemptServices({
-      decisionServices: stack.decisions,
-      executionContractServices: stack.execution,
-      agents: [m4Agent],
-      adapter: fixtureAdapter,
-      realBoundary: { launchPort, safetyJournal: journal },
-      fixedNowIso: NOW,
-    });
-    stack.attempts = attempts as typeof stack.attempts;
-
-    const { contractId, version } = await seedM4ConfirmedContract(stack);
-    const selected = await selectStandardAgent(stack, {
-      attemptId: "xat:m4-ack-pending",
-      executionContractId: contractId,
-      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    });
-    expect(selected.ok).toBe(true);
-
-    const granted = await stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:m4-ack-pending",
-      attemptId: "xat:m4-ack-pending",
-      actor: MORRIS_ACTOR,
-      expiresAt: "2026-07-25T07:00:00.000Z",
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(granted.ok).toBe(true);
-
-    const started = await stack.attempts.startExecution.execute({
-      attemptId: "xat:m4-ack-pending",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-      expectedContractVersion: version,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
-    expect(started.attempt.status).toBe("running");
-    expect(launchPort.completionPending.value).toBe(true);
-
-    const processRef = launchPort.calls[0]
-      ? `proc:sim:${launchPort.calls[0].attemptId}`
-      : "";
-    const runningObs = await launchPort.observe(processRef);
-    expect(runningObs?.exitCode).toBeNull();
-
-    let completionDone = false;
-    const completion = launchPort.awaitCompletion(processRef).then((obs) => {
-      completionDone = true;
-      return obs;
-    });
-    await Promise.resolve();
-    expect(completionDone).toBe(false);
-
-    const frontier = await journal.findFrontierByAttempt("xat:m4-ack-pending");
-    expect(frontier.map((r) => r.kind).sort()).toEqual(["CREATED", "LAUNCHED"]);
-    const contract = await stack.execution.contracts.findById(contractId);
-    expect(contract?.status).toBe("executing");
-
-    launchPort.resolveSimulatedCompletion(processRef, { exitCode: 0 });
-    const terminal = await completion;
-    expect(completionDone).toBe(true);
-    expect(terminal?.exitCode).toBe(0);
-    expect(
-      fixtureAdapter.calls.filter((c) => c.kind === "launch"),
-    ).toHaveLength(0);
-    journal.close();
-  });
-});
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeProcessRunner.ts =====
-/**
- * TEST-ONLY ProcessRunner doubles — never spawn Cursor.
- * Not exported from product barrel.
- */
-import type {
-  ProcessRunner,
-  ProcessRunnerInvokeInput,
-  ProcessRunnerInvokeResult,
-} from "@/lib/oa/execution-attempt";
-
-export class FakeProcessRunner implements ProcessRunner {
-  readonly calls: ProcessRunnerInvokeInput[] = [];
-  /** SIMULATED TECHNICAL ACK counter — not a real Cursor invoke. */
-  simulatedInvokeCount = 0;
-
-  constructor(
-    private readonly behavior: {
-      realProcessInvoked?: boolean;
-      processRef?: string;
-      throwError?: boolean;
-    } = {},
-  ) {}
-
-  async invoke(
-    input: ProcessRunnerInvokeInput,
-  ): Promise<ProcessRunnerInvokeResult> {
-    this.calls.push(input);
-    this.simulatedInvokeCount += 1;
-    if (this.behavior.throwError) {
-      throw new Error("fake_real_process_threw");
-    }
-    return {
-      processRef: this.behavior.processRef ?? `proc:sim:${input.attemptId}`,
-      // SIMULATED TECHNICAL ACK — not a live Cursor process.
-      realProcessInvoked: this.behavior.realProcessInvoked ?? true,
-    };
-  }
-}
-
-/** @deprecated Prefer FakeProcessRunner. */
-export { FakeProcessRunner as FakeRealProcessRunner };
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts =====
-/**
- * TEST-ONLY spawn / git doubles — no OS process, no real git.
- */
-import { EventEmitter } from "node:events";
-import type { ChildProcess } from "node:child_process";
-import type {
-  GitCommandResult,
-  GitCommandRunner,
-  SpawnPrimitive,
-} from "@/lib/oa/execution-attempt";
-
-export type FakeSpawnCall = {
-  executable: string;
-  argv: readonly string[];
-  options: {
-    cwd: string;
-    env: NodeJS.ProcessEnv;
-    shell: false;
-    stdio: ["ignore", "pipe", "pipe"];
-  };
-};
-
-export type FakeChildBehavior = {
-  /** If true, spawn throws before child exists. */
-  throwBeforeSpawn?: boolean;
-  /** If true, emit error before spawn (realProcessInvoked=false). */
-  errorBeforeSpawn?: boolean;
-  pid?: number;
-  exitCode?: number | null;
-  stdoutChunks?: string[];
-  stderrChunks?: string[];
-  /** Delay close so timeout can fire. */
-  hangMs?: number;
-  /** Do not auto-close after spawn — tests drive close/error explicitly. */
-  holdOpen?: boolean;
-};
-
-export type FakeChildHandle = {
-  readonly child: ChildProcess;
-  lastSignal?: string;
-  killed: boolean;
-  assignPid(pid: number): void;
-  emitSpawn(): void;
-  emitError(message?: string): void;
-  emitStdout(chunk: string): void;
-  emitStderr(chunk: string): void;
-  emitClose(code: number | null): void;
-};
-
-export class FakeSpawnPrimitive {
-  readonly calls: FakeSpawnCall[] = [];
-  lastHandle: FakeChildHandle | null = null;
-  private behavior: FakeChildBehavior;
-
-  constructor(behavior: FakeChildBehavior = {}) {
-    this.behavior = behavior;
-  }
-
-  setBehavior(behavior: FakeChildBehavior): void {
-    this.behavior = behavior;
-  }
-
-  asSpawnPrimitive(): SpawnPrimitive {
-    return (executable, argv, options) => {
-      this.calls.push({ executable, argv, options });
-      if (this.behavior.throwBeforeSpawn) {
-        throw new Error("fake_spawn_threw_before_start");
-      }
-      const handle = createFakeChild(this.behavior);
-      this.lastHandle = handle;
-      return handle.child;
-    };
-  }
-}
-
-function createFakeChild(behavior: FakeChildBehavior): FakeChildHandle {
-  const ee = new EventEmitter() as ChildProcess & EventEmitter;
-  const stdout = new EventEmitter();
-  const stderr = new EventEmitter();
-  (ee as { stdout: EventEmitter }).stdout = stdout;
-  (ee as { stderr: EventEmitter }).stderr = stderr;
-  (ee as { killed: boolean }).killed = false;
-  let pid: number | undefined = behavior.errorBeforeSpawn
-    ? undefined
-    : behavior.holdOpen
-      ? undefined
-      : (behavior.pid ?? 4242);
-  Object.defineProperty(ee, "pid", {
-    get: () => pid,
-    configurable: true,
-  });
-
-  const handle: FakeChildHandle = {
-    child: ee,
-    killed: false,
-    assignPid(nextPid: number) {
-      pid = nextPid;
-    },
-    emitSpawn() {
-      ee.emit("spawn");
-    },
-    emitError(message?: string) {
-      ee.emit("error", new Error(message ?? "fake_child_error"));
-    },
-    emitStdout(chunk: string) {
-      stdout.emit("data", Buffer.from(chunk));
-    },
-    emitStderr(chunk: string) {
-      stderr.emit("data", Buffer.from(chunk));
-    },
-    emitClose(code: number | null) {
-      ee.emit("close", code);
-    },
-  };
-
-  (ee as { kill: (signal?: string) => boolean }).kill = (
-    signal?: string,
-  ) => {
-    handle.killed = true;
-    handle.lastSignal = signal;
-    (ee as { killed: boolean; lastSignal?: string }).killed = true;
-    (ee as { lastSignal?: string }).lastSignal = signal;
-    queueMicrotask(() => ee.emit("close", behavior.exitCode ?? null));
-    return true;
-  };
-
-  queueMicrotask(() => {
-    if (behavior.errorBeforeSpawn) {
-      ee.emit("error", new Error("fake_spawn_error_before_start"));
-      return;
-    }
-    if (behavior.holdOpen) {
-      if (behavior.pid && behavior.pid > 0) {
-        pid = behavior.pid;
-      }
-      ee.emit("spawn");
-      return;
-    }
-    ee.emit("spawn");
-    for (const chunk of behavior.stdoutChunks ?? []) {
-      stdout.emit("data", Buffer.from(chunk));
-    }
-    for (const chunk of behavior.stderrChunks ?? []) {
-      stderr.emit("data", Buffer.from(chunk));
-    }
-    if (behavior.hangMs && behavior.hangMs > 0) {
-      setTimeout(() => {
-        /* wait for kill from timeout */
-      }, behavior.hangMs);
-      return;
-    }
-    queueMicrotask(() => ee.emit("close", behavior.exitCode ?? 0));
-  });
-
-  return handle;
-}
-
-export class FakeGitCommandRunner implements GitCommandRunner {
-  readonly calls: Array<{ argv: readonly string[]; cwd: string }> = [];
-  private readonly scripted: GitCommandResult[];
-  private headOverride: string | null = null;
-  private failOn?: (argv: readonly string[]) => GitCommandResult | null;
-
-  constructor(
-    options: {
-      baseHeadSha?: string;
-      results?: GitCommandResult[];
-      failOn?: (argv: readonly string[]) => GitCommandResult | null;
-    } = {},
-  ) {
-    this.scripted = options.results ?? [];
-    this.headOverride = options.baseHeadSha ?? null;
-    this.failOn = options.failOn;
-  }
-
-  setHeadSha(sha: string): void {
-    this.headOverride = sha;
-  }
-
-  async run(
-    argv: readonly string[],
-    cwd: string,
-  ): Promise<GitCommandResult> {
-    this.calls.push({ argv: [...argv], cwd });
-    if (this.failOn) {
-      const forced = this.failOn(argv);
-      if (forced) return forced;
-    }
-    if (this.scripted.length > 0) {
-      return this.scripted.shift()!;
-    }
-    // Default happy path: verify / worktree add / rev-parse HEAD
-    if (argv[0] === "rev-parse" && argv[1] === "--verify") {
-      return { stdout: "commit\n", stderr: "", exitCode: 0 };
-    }
-    if (argv[0] === "worktree" && argv[1] === "add") {
-      return { stdout: "", stderr: "", exitCode: 0 };
-    }
-    if (argv[0] === "rev-parse" && argv[1] === "HEAD") {
-      return {
-        stdout: `${this.headOverride ?? "0".repeat(40)}\n`,
-        stderr: "",
-        exitCode: 0,
-      };
-    }
-    return { stdout: "", stderr: "unexpected_fake_git_argv", exitCode: 1 };
-  }
-}
-
-/** TEST-ONLY workspace port that records prepare calls. */
-export class FakeRealExecutionWorkspacePort {
-  readonly prepares: Array<{ attemptId: string; baseHeadSha: string }> = [];
-  private fail = false;
-  private workspacePath = "/tmp/fake-exec-root/wt-test";
-
-  constructor(
-    options: { workspacePath?: string; fail?: boolean } = {},
-  ) {
-    if (options.workspacePath) this.workspacePath = options.workspacePath;
-    this.fail = options.fail ?? false;
-  }
-
-  setFail(fail: boolean): void {
-    this.fail = fail;
-  }
-
-  async prepareWorkspace(request: {
-    attemptId: string;
-    baseHeadSha: string;
-  }): Promise<{ workspacePath: string; verifiedHeadSha: string }> {
-    this.prepares.push({ ...request });
-    if (this.fail) {
-      throw new Error("REAL_WORKSPACE_INVALID:fake_prepare_failed");
-    }
-    return {
-      workspacePath: this.workspacePath,
-      verifiedHeadSha: request.baseHeadSha.toLowerCase(),
-    };
-  }
-}
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts =====
-/**
- * Shared M4 REAL-OFF test fixtures (contract inputs.baseHeadSha, wiring).
- */
-export const M4_TEST_BASE_HEAD_SHA =
-  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-
-export const M4_EVIDENCE = "evd:morris-n3";
-
-export function m4ContractInputs(
-  baseHeadSha: string = M4_TEST_BASE_HEAD_SHA,
-): { baseHeadSha: string } {
-  return { baseHeadSha };
-}
-
-===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts =====
-/**
- * TEST-ONLY RealExecutionLaunchPort — simulated ACK for positive StartExecution paths.
- * NEVER enables production StudioCursorRealLaunchGateway / SFIA_STUDIO_CURSOR_REAL.
- * SIMULATED TECHNICAL ACK only — not a REAL Cursor invocation.
- */
-import {
-  M4_REAL_GATEWAY_ADAPTER_ID,
-  type RealExecutionLaunchPort,
-  type RealLaunchRequest,
-  type RealLaunchResult,
-  type RealProcessObservation,
-} from "@/lib/oa/execution-attempt";
-
-export type TestOnlyRealExecutionLaunchPortOptions = {
-  readonly gatewayId?: string;
-  /**
-   * When true (default for ack), awaitCompletion stays pending until
-   * resolveSimulatedCompletion() — models spawn ACK ≠ process completion.
-   */
-  readonly holdCompletion?: boolean;
-  readonly behavior?:
-    | { outcome: "ack"; processRef?: string }
-    | {
-        outcome: "reject";
-        reason: string;
-        detailCode?: NonNullable<
-          Extract<RealLaunchResult, { outcome: "reject" }>["detailCode"]
-        >;
-      }
-    | {
-        outcome: "fail";
-        reason: string;
-        detailCode?: NonNullable<
-          Extract<RealLaunchResult, { outcome: "fail" }>["detailCode"]
-        >;
-      }
-    | { outcome: "throw"; reason: string };
-};
-
-/**
- * Test-only launch port. Returns SIMULATED TECHNICAL ACK.
- * Must never be confused with production gateway enablement.
- */
-export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort {
-  readonly gatewayId: string;
-  readonly externalEffects = true as const;
-  readonly calls: RealLaunchRequest[] = [];
-  /** Explicit label for review claims — not a real Cursor process count. */
-  readonly simulatedTechnicalAckCount = { value: 0 };
-  private behavior: NonNullable<
-    TestOnlyRealExecutionLaunchPortOptions["behavior"]
-  >;
-  private readonly holdCompletion: boolean;
-  private readonly observations = new Map<string, RealProcessObservation>();
-  private readonly completionResolvers = new Map<
-    string,
-    (obs: RealProcessObservation) => void
-  >();
-  private readonly completionPromises = new Map<
-    string,
-    Promise<RealProcessObservation>
-  >();
-  readonly completionPending = { value: false };
-
-  constructor(options: TestOnlyRealExecutionLaunchPortOptions = {}) {
-    this.gatewayId = options.gatewayId ?? M4_REAL_GATEWAY_ADAPTER_ID;
-    this.behavior = options.behavior ?? { outcome: "ack" };
-    this.holdCompletion = options.holdCompletion ?? true;
-  }
-
-  setBehavior(
-    behavior: NonNullable<TestOnlyRealExecutionLaunchPortOptions["behavior"]>,
-  ): void {
-    this.behavior = behavior;
-  }
-
-  get launchCallCount(): number {
-    return this.calls.length;
-  }
-
-  get simulatedAckCount(): number {
-    return this.simulatedTechnicalAckCount.value;
-  }
-
-  async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
-    this.calls.push(structuredClone(request));
-    const b = this.behavior;
-    if (b.outcome === "throw") {
-      throw new Error(`test_only_real_launch_threw:${b.reason}`);
-    }
-    if (b.outcome === "reject") {
-      return {
-        outcome: "reject",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: b.reason,
-        realProcessInvoked: false,
-        detailCode: b.detailCode,
-      };
-    }
-    if (b.outcome === "fail") {
-      return {
-        outcome: "fail",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: b.reason,
-        realProcessInvoked: false,
-        detailCode: b.detailCode,
-      };
-    }
-    this.simulatedTechnicalAckCount.value += 1;
-    const processRef = b.processRef ?? `proc:sim:${request.attemptId}`;
-    this.observations.set(processRef, {
-      processRef,
-      exitCode: null,
-      timedOut: false,
-      stdout: "",
-      stderr: "",
-      durationMs: 0,
-      realProcessInvoked: true,
-    });
-    if (this.holdCompletion) {
-      this.completionPending.value = true;
-      const completion = new Promise<RealProcessObservation>((resolve) => {
-        this.completionResolvers.set(processRef, resolve);
-      });
-      this.completionPromises.set(processRef, completion);
-    } else {
-      const done: RealProcessObservation = {
-        processRef,
-        exitCode: 0,
-        timedOut: false,
-        stdout: "",
-        stderr: "",
-        durationMs: 0,
-        realProcessInvoked: true,
-      };
-      this.observations.set(processRef, done);
-      this.completionPromises.set(processRef, Promise.resolve(done));
-    }
-    // SIMULATED TECHNICAL ACK — production gateway flag was never enabled.
-    return {
-      outcome: "ack",
-      gatewayId: this.gatewayId,
-      attemptId: request.attemptId,
-      realProcessInvoked: true,
-      processRef,
-    };
-  }
-
-  resolveSimulatedCompletion(
-    processRef: string,
-    observation?: Partial<RealProcessObservation>,
-  ): void {
-    const current = this.observations.get(processRef);
-    const next: RealProcessObservation = {
-      processRef,
-      exitCode: observation?.exitCode ?? 0,
-      timedOut: observation?.timedOut ?? false,
-      stdout: observation?.stdout ?? current?.stdout ?? "",
-      stderr: observation?.stderr ?? current?.stderr ?? "",
-      durationMs: observation?.durationMs ?? 1,
-      realProcessInvoked: true,
-      worktreeRef: observation?.worktreeRef,
-    };
-    this.observations.set(processRef, next);
-    this.completionPending.value = false;
-    this.completionResolvers.get(processRef)?.(next);
-  }
-
-  async observe(processRef: string): Promise<RealProcessObservation | null> {
-    return this.observations.get(processRef) ?? null;
-  }
-
-  async awaitCompletion(
-    processRef: string,
-  ): Promise<RealProcessObservation | null> {
-    return this.completionPromises.get(processRef) ?? null;
-  }
-}
-
-/** Alias kept for relocated FakeRealExecutionLaunchGateway. */
-export {
-  TestOnlyRealExecutionLaunchPort as FakeRealExecutionLaunchGateway,
-};
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts =====
-/**
- * GrantGateD — Gate D GD-1 grant use-case (D-M4-04).
- * Grant ≠ consume. StartExecution consumes with CREATED atomically.
- * Never starts execution / never launches Cursor.
- */
-import type { ClockPort } from "@/lib/oa/doctrine";
-import type { AuthorityResolverPort } from "@/lib/oa/decision";
-import type { ExecutionContractRepositoryPort } from "@/lib/oa/execution-contract";
-import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
-import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
-import type { AttemptDetailCode, ActorReference } from "../domain/types";
-import type { GateDGrant } from "../domain/realLaunchSafety";
-import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
-import type { AgentRegistryPort } from "../ports/agentRegistry";
-import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
-import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
-import {
-  authorityFailureDetail,
-  newCorrelationId,
-  verifyAttemptAuthority,
-} from "./attemptSupport";
-
-export type GrantGateDRequest = {
-  readonly grantId: string;
-  readonly attemptId: string;
-  readonly actor: ActorReference;
-  readonly expiresAt: string;
-  readonly authorityEvidenceId?: string;
-  readonly correlationId?: string;
-  readonly expectedAttemptVersion?: number;
-  readonly expectedContractVersion?: number;
-  readonly claimedAuthorityLevel?: string;
-  readonly nowIso?: string;
-};
-
-export type GrantGateDSuccess = {
-  readonly ok: true;
-  readonly grant: GateDGrant;
-  readonly durationMs: number;
-};
-
-export type GrantGateDFailure = {
-  readonly ok: false;
-  readonly error: ReturnType<typeof createAttemptError>;
-  readonly durationMs: number;
-};
-
-export type GrantGateDResult = GrantGateDSuccess | GrantGateDFailure;
-
-/** @deprecated Prefer GrantGateDRequest. */
-export type GrantRealExecutionGateRequest = GrantGateDRequest;
-/** @deprecated Prefer GrantGateDResult. */
-export type GrantRealExecutionGateResult = GrantGateDResult;
-
-export class GrantGateD {
-  constructor(
-    private readonly attempts: ExecutionAttemptRepositoryPort,
-    private readonly contracts: ExecutionContractRepositoryPort,
-    private readonly registry: AgentRegistryPort,
-    private readonly authority: AuthorityResolverPort,
-    private readonly safetyJournal: RealLaunchSafetyJournalPort,
-    private readonly clock: ClockPort,
-  ) {}
-
-  async execute(request: GrantGateDRequest): Promise<GrantGateDResult> {
-    const started = Date.now();
-    const timestamp = request.nowIso ?? this.clock.nowIso();
-    const correlationId = request.correlationId ?? newCorrelationId();
-
-    const fail = (
-      detailCode: AttemptDetailCode,
-      internalCauseRef: string,
-      extra?: Partial<Parameters<typeof createAttemptError>[0]>,
-    ): GrantGateDFailure => ({
-      ok: false,
-      error: createAttemptError({
-        detailCode,
-        timestamp,
-        correlationId,
-        attemptId: request.attemptId,
-        internalCauseRef,
-        ...extra,
-      }),
-      durationMs: Date.now() - started,
-    });
-
-    try {
-      if (!request.actor?.actorId || !request.grantId || !request.expiresAt) {
-        return fail("ATTEMPT_INVALID", "gate_d_input_invalid");
-      }
-      if (Date.parse(request.expiresAt) <= Date.parse(timestamp)) {
-        return fail("GATE_D_EXPIRED", "gate_d_expires_at_not_future");
-      }
-
-      const attempt = await this.attempts.findById(request.attemptId);
-      if (!attempt) return fail("ATTEMPT_NOT_FOUND", "missing_attempt");
-      if (attempt.status !== "accepted") {
-        return fail("ATTEMPT_STATE_CONFLICT", `attempt_status_${attempt.status}`);
-      }
-      if (
-        request.expectedAttemptVersion !== undefined &&
-        request.expectedAttemptVersion !== attempt.version
-      ) {
-        return fail("VERSION_CONFLICT", "attempt_occ_mismatch", {
-          expectedVersion: request.expectedAttemptVersion,
-          currentVersion: attempt.version,
-        });
-      }
-
-      const contract = await this.contracts.findById(attempt.executionContractId);
-      if (!contract) {
-        return fail("EXECUTION_CONTRACT_NOT_FOUND", "missing_contract");
-      }
-      if (contract.status !== "confirmed") {
-        return fail(
-          "EXECUTION_CONTRACT_NOT_CONFIRMED",
-          `contract_status_${contract.status}`,
-        );
-      }
-      if (contract.version !== attempt.executionContractVersion) {
-        return fail("EXECUTION_CONTRACT_STALE", "contract_version_changed");
-      }
-      if (
-        request.expectedContractVersion !== undefined &&
-        request.expectedContractVersion !== contract.version
-      ) {
-        return fail("EXECUTION_CONTRACT_STALE", "contract_occ_mismatch");
-      }
-
-      const fingerprint =
-        contract.semanticFingerprint ??
-        computeExecutionContractSemanticFingerprint(contract);
-      if (!fingerprint) {
-        return fail("ATTEMPT_INVALID", "semantic_fingerprint_missing");
-      }
-      if (
-        contract.action.includes("UNRESOLVED") ||
-        contract.target.includes("UNRESOLVED") ||
-        contract.requiredCapabilities.some(
-          (c) => c === "cap:unresolved" || c.includes("unresolved"),
-        )
-      ) {
-        return fail("REAL_AGENT_PROFILE_INVALID", "unresolved_contract_refused");
-      }
-
-      const agent = this.registry.getAgent(attempt.selectedAgentRef);
-      if (!agent) return fail("AGENT_NOT_FOUND", "selected_agent_missing");
-      if (!isM4BoundedReadOnlyRealAgent(agent)) {
-        return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_bounded_readonly_real");
-      }
-
-      const authz = verifyAttemptAuthority(this.authority, {
-        requiredAuthority: contract.requiredAuthority,
-        actorId: request.actor.actorId,
-        scope: contract.scope,
-        evidenceId: request.authorityEvidenceId,
-        claimedAuthorityLevel: request.claimedAuthorityLevel,
-      });
-      if (!authz.ok) {
-        return fail(
-          authorityFailureDetail(authz.reason),
-          `gate_d_${authz.reason}`,
-        );
-      }
-
-      const identity = {
-        executionContractId: contract.executionContractId,
-        executionContractVersion: contract.version,
-        semanticFingerprint: fingerprint,
-      };
-      if (await this.safetyJournal.hasAmbiguousFrontier(identity)) {
-        return fail(
-          "LAUNCH_RECONCILIATION_REQUIRED",
-          "ambiguous_frontier_blocks_gate_d",
-        );
-      }
-
-      const existing = await this.safetyJournal.findActiveGateDGrantForAttempt(
-        attempt.attemptId,
-      );
-      if (existing) {
-        return fail("GATE_D_ALREADY_GRANTED", "active_grant_exists");
-      }
-
-      const grant = await this.safetyJournal.persistGateDGrant({
-        grantId: request.grantId,
-        executionContractId: contract.executionContractId,
-        executionContractVersion: contract.version,
-        semanticFingerprint: fingerprint,
-        attemptId: attempt.attemptId,
-        selectedAgentRef: attempt.selectedAgentRef,
-        actorId: request.actor.actorId,
-        issuedAt: timestamp,
-        expiresAt: request.expiresAt,
-        correlationId,
-      });
-
-      return { ok: true, grant, durationMs: Date.now() - started };
-    } catch (err) {
-      if (isExecutionAttemptDomainError(err)) {
-        return fail(err.detailCode, err.message);
-      }
-      return fail("EXECUTION_PERSISTENCE_FAILED", "gate_d_persist_failed");
-    }
-  }
-}
-
-/** @deprecated Prefer GrantGateD. */
-export { GrantGateD as GrantRealExecutionGate };
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts =====
-/**
- * GrantRealExecutionGate — Gate D GD-1 grant use-case (D-M4-04).
- * Re-exports GrantGateD under the Delivery cycle name.
- */
-export {
-  GrantGateD as GrantRealExecutionGate,
-  GrantGateD,
-  type GrantGateDRequest as GrantRealExecutionGateRequest,
-  type GrantGateDResult as GrantRealExecutionGateResult,
-  type GrantGateDRequest,
-  type GrantGateDResult,
-} from "./grantGateD";
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts =====
-/**
- * M4 REAL-OFF — technical launch safety + Gate D GD-1 types.
- *
- * TEMPORARY WITH EXIT technical journal (D-M4-02).
- * ≠ Product Store · ≠ Attempt aggregate · ≠ Confirmation · ≠ PREPARE projection.
- */
-
-export const SFIA_STUDIO_CURSOR_REAL_FLAG = "SFIA_STUDIO_CURSOR_REAL" as const;
-
-/** Closed REAL gateway adapter id — not part of InjectableExecutionAdapter. */
-export const M4_REAL_GATEWAY_ADAPTER_ID = "adp:m4-cursor-cli-real" as const;
-
-export const M4_BOUNDED_RO_CURSOR_AGENT_ID =
-  "agt:m4.cursor.bounded_readonly" as const;
-
-export type RealLaunchReconcileDisposition =
-  | "CLEAR"
-  | "UNKNOWN"
-  | "REVIEW_REQUIRED";
-
-/** Journal record kinds (D-M4-02 / D-M4-04). */
-export type LaunchSafetyRecordKind =
-  | "GATE_D_GRANTED"
-  | "GATE_D_CONSUMED"
-  | "ATTEMPT_CREATED"
-  | "ATTEMPT_LAUNCHED";
-
-/** Frontier kinds used for relaunch ambiguity (CREATED / LAUNCHED). */
-export type RealLaunchFrontierKind = "CREATED" | "LAUNCHED";
-
-export type GateDGrantStatus =
-  | "granted"
-  | "consumed"
-  | "expired"
-  | "invalidated";
-
-export type GateDGrant = {
-  readonly grantId: string;
-  readonly executionContractId: string;
-  readonly executionContractVersion: number;
-  readonly semanticFingerprint: string;
-  readonly attemptId: string;
-  readonly selectedAgentRef: string;
-  readonly actorId: string;
-  readonly issuedAt: string;
-  readonly expiresAt: string;
-  readonly status: GateDGrantStatus;
-  readonly consumedAt?: string;
-  readonly correlationId?: string;
-};
-
-export type RealLaunchFrontierRecord = {
-  readonly recordId: string;
-  readonly kind: RealLaunchFrontierKind;
-  readonly occurredAt: string;
-  readonly executionContractId: string;
-  readonly executionContractVersion: number;
-  readonly semanticFingerprint: string;
-  readonly attemptId: string;
-  readonly selectedAgentRef: string;
-  readonly actorId: string;
-  readonly grantId: string;
-  readonly correlationId: string;
-  readonly processRef?: string;
-  readonly payloadJson: string;
-};
-
-export type ContractSafetyIdentity = {
-  readonly executionContractId: string;
-  readonly executionContractVersion: number;
-  readonly semanticFingerprint: string;
-};
-
-export function isStudioCursorRealEnabled(
-  env: NodeJS.ProcessEnv = process.env,
-): boolean {
-  return env[SFIA_STUDIO_CURSOR_REAL_FLAG] === "1";
-}
-
-export function assertStudioCursorRealOffForTests(
-  env: NodeJS.ProcessEnv = process.env,
-): void {
-  if (env.OPS1_CURSOR_REAL === "1") {
-    throw new Error("M4_REAL_OFF_TESTS_REQUIRE_OPS1_CURSOR_REAL_OFF");
-  }
-  if (isStudioCursorRealEnabled(env)) {
-    throw new Error("M4_REAL_OFF_TESTS_REQUIRE_SFIA_STUDIO_CURSOR_REAL_OFF");
-  }
-}
-
-export function isRealCursorAgentMode(input: {
-  executionMode: string;
-  adapterRef: string;
-}): boolean {
-  return (
-    input.executionMode === "cursor_cli_real" ||
-    input.adapterRef === M4_REAL_GATEWAY_ADAPTER_ID
-  );
-}
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts =====
-/**
- * CursorCliLaunchGateway — OA-owned REAL launch ACL (D-M4-01).
- * Re-exports StudioCursorRealLaunchGateway under the Delivery cycle name.
- * Fake runners are NOT re-exported — use __tests__/…/support doubles.
- */
-export {
-  StudioCursorRealLaunchGateway as CursorCliLaunchGateway,
-  StudioCursorRealLaunchGateway,
-  DisabledRealProcessRunner,
-  resolveStudioCursorBinPath,
-  resolveCursorBinPath,
-  type StudioCursorRealLaunchGatewayOptions as CursorCliLaunchGatewayOptions,
-  type StudioCursorRealLaunchGatewayOptions,
-} from "./studioCursorRealLaunchGateway";
-export {
-  NodeCursorProcessRunner,
-  NODE_CURSOR_STDOUT_CAP_BYTES,
-  NODE_CURSOR_STDERR_CAP_BYTES,
-  type SpawnPrimitive,
-  type NodeCursorProcessRunnerOptions,
-} from "./nodeCursorProcessRunner";
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedReadOnlyCursorAgent.ts =====
-/**
- * M4 bounded read-only Cursor agent descriptor (D-M4-03).
- * Static / deny-by-default registry entry — no live health probe.
- * Exact caps only — no wildcards, no unresolved.
- */
-import type { ProvenanceRecord } from "@/lib/oa/doctrine";
-import {
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  M4_REAL_GATEWAY_ADAPTER_ID,
-} from "../domain/realLaunchSafety";
-import type { AgentDescriptor } from "../domain/types";
-
-export const M4_BOUNDED_RO_CAPABILITY = "cap:cursor.read_only" as const;
-export const M4_BOUNDED_RO_ACTION = "cursor.read_only.inspect" as const;
-export const M4_BOUNDED_RO_TARGET = "workspace.isolated.read" as const;
-export const M4_BOUNDED_RO_SCOPE = "studio.m4.real_off" as const;
-
-export function createM4BoundedReadOnlyCursorAgentDescriptor(
-  nowIso: string,
-  provenance?: ProvenanceRecord,
-): AgentDescriptor {
-  const defaultProvenance: ProvenanceRecord = {
-    schemaVersion: "0.1.0-oa",
-    provenanceRecordId: "prv:m4-bounded-ro-cursor-agent",
-    actor: {
-      actorId: "actor:system",
-      role: "system",
-      authorityLevel: "N1",
-    },
-    source: "system",
-    timestamp: nowIso,
-    correlationId: "cor:m4-bounded-ro-cursor-agent",
-  };
-  const descriptor: AgentDescriptor = {
-    schemaVersion: "0.1.0-oa",
-    agentId: M4_BOUNDED_RO_CURSOR_AGENT_ID,
-    agentType: "cursor_cli_bounded_readonly",
-    adapterRef: M4_REAL_GATEWAY_ADAPTER_ID,
-    supportedCapabilities: [M4_BOUNDED_RO_CAPABILITY],
-    allowedActions: [M4_BOUNDED_RO_ACTION],
-    allowedTargets: [M4_BOUNDED_RO_TARGET],
-    allowedScopes: [M4_BOUNDED_RO_SCOPE],
-    trustLevel: "bounded",
-    executionMode: "cursor_cli_real",
-    healthStatus: "healthy",
-    version: 1,
-    enabled: true,
-    provenance: provenance ?? defaultProvenance,
-    createdAt: nowIso,
-  };
-  return Object.freeze(descriptor);
-}
-
-export function isM4BoundedReadOnlyRealAgent(agent: AgentDescriptor): boolean {
-  const hasWildcard = (values: readonly string[]) =>
-    values.some((v) => v === "*" || v.includes("*"));
-  return (
-    agent.executionMode === "cursor_cli_real" &&
-    agent.trustLevel === "bounded" &&
-    agent.adapterRef === M4_REAL_GATEWAY_ADAPTER_ID &&
-    agent.enabled === true &&
-    agent.supportedCapabilities.length > 0 &&
-    agent.allowedActions.length > 0 &&
-    agent.allowedTargets.length > 0 &&
-    agent.allowedScopes.length > 0 &&
-    !hasWildcard(agent.supportedCapabilities) &&
-    !hasWildcard(agent.allowedActions) &&
-    !hasWildcard(agent.allowedTargets) &&
-    !hasWildcard(agent.allowedScopes) &&
-    !agent.supportedCapabilities.includes("cap:unresolved") &&
-    !agent.allowedActions.some((a) => a.includes("UNRESOLVED")) &&
-    !agent.allowedTargets.some((t) => t.includes("UNRESOLVED")) &&
-    !agent.allowedScopes.some((s) => s.includes("UNRESOLVED"))
-  );
-}
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/memoryLaunchSafetyJournal.ts =====
-/**
- * MemoryLaunchSafetyJournal — in-memory journal for unit tests.
- * Prefer SqliteLaunchSafetyJournal with temp files for durability proofs.
- */
-import { randomBytes } from "node:crypto";
-import type {
-  ContractSafetyIdentity,
-  GateDGrant,
-  RealLaunchFrontierKind,
-  RealLaunchFrontierRecord,
-  RealLaunchReconcileDisposition,
-} from "../domain/realLaunchSafety";
-import type {
-  AtomicConsumeGrantAndCreateFrontierInput,
-  CreateGrantInput,
-  GrantValidationResult,
-  LaunchSafetyJournalPort,
-  MarkLaunchedInput,
-  ValidateGrantForStartInput,
-} from "../ports/launchSafetyJournalPort";
-
-function newId(prefix: string): string {
-  return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
-
-function identityKey(identity: ContractSafetyIdentity): string {
-  return `${identity.executionContractId}|${identity.executionContractVersion}|${identity.semanticFingerprint}`;
-}
-
-export class MemoryLaunchSafetyJournal implements LaunchSafetyJournalPort {
-  private readonly grants = new Map<string, GateDGrant>();
-  private readonly frontier: RealLaunchFrontierRecord[] = [];
-  /** When true, next atomicConsume throws before mutating (adversarial). */
-  failNextAtomicConsume = false;
-
-  async createGrant(input: CreateGrantInput): Promise<GateDGrant> {
-    if (this.grants.has(input.grantId)) {
-      throw new Error("m4_gate_d_duplicate_grant_id");
-    }
-    for (const g of this.grants.values()) {
-      if (g.attemptId === input.attemptId && g.status === "granted") {
-        throw new Error("m4_gate_d_attempt_unique");
-      }
-    }
-    const grant: GateDGrant = Object.freeze({
-      grantId: input.grantId,
-      executionContractId: input.executionContractId,
-      executionContractVersion: input.executionContractVersion,
-      semanticFingerprint: input.semanticFingerprint,
-      attemptId: input.attemptId,
-      selectedAgentRef: input.selectedAgentRef,
-      actorId: input.actorId,
-      issuedAt: input.issuedAt,
-      expiresAt: input.expiresAt,
-      status: "granted",
-      correlationId: input.correlationId,
-    });
-    this.grants.set(grant.grantId, grant);
-    return grant;
-  }
-
-  async findGrant(grantId: string): Promise<GateDGrant | null> {
-    return this.grants.get(grantId) ?? null;
-  }
-
-  async findActiveGateDGrantForAttempt(
-    attemptId: string,
-  ): Promise<GateDGrant | null> {
-    for (const g of this.grants.values()) {
-      if (g.attemptId === attemptId && g.status === "granted") return g;
-    }
-    return null;
-  }
-
-  async validateGrantForStart(
-    input: ValidateGrantForStartInput,
-  ): Promise<GrantValidationResult> {
-    const grant = await this.findGrant(input.grantId);
-    if (!grant) return { ok: false, reason: "GATE_D_REQUIRED" };
-    if (grant.status === "consumed") {
-      return { ok: false, reason: "GATE_D_ALREADY_CONSUMED" };
-    }
-    if (grant.status !== "granted") {
-      return { ok: false, reason: "GATE_D_INVALID" };
-    }
-    if (Date.parse(grant.expiresAt) <= Date.parse(input.nowIso)) {
-      return { ok: false, reason: "GATE_D_EXPIRED" };
-    }
-    if (
-      grant.attemptId !== input.attemptId ||
-      grant.actorId !== input.actorId ||
-      grant.selectedAgentRef !== input.selectedAgentRef ||
-      grant.executionContractId !== input.identity.executionContractId ||
-      grant.executionContractVersion !==
-        input.identity.executionContractVersion ||
-      grant.semanticFingerprint !== input.identity.semanticFingerprint
-    ) {
-      return { ok: false, reason: "GATE_D_BINDING_MISMATCH" };
-    }
-    return { ok: true, grant };
-  }
-
-  async atomicConsumeGrantAndCreateFrontier(
-    input: AtomicConsumeGrantAndCreateFrontierInput,
-  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
-    if (this.failNextAtomicConsume) {
-      this.failNextAtomicConsume = false;
-      throw new Error("m4_journal_atomic_consume_forced_fail");
-    }
-    const validated = await this.validateGrantForStart({
-      grantId: input.grantId,
-      attemptId: input.attemptId,
-      actorId: input.actorId,
-      selectedAgentRef: input.selectedAgentRef,
-      identity: input.identity,
-      nowIso: input.occurredAt,
-    });
-    if (!validated.ok) {
-      throw new Error(`m4_${validated.reason.toLowerCase()}`);
-    }
-    if (await this.hasAmbiguousFrontier(input.identity)) {
-      throw new Error("m4_launch_frontier_ambiguous");
-    }
-    const consumed: GateDGrant = Object.freeze({
-      ...validated.grant,
-      status: "consumed" as const,
-      consumedAt: input.occurredAt,
-    });
-    this.grants.set(consumed.grantId, consumed);
-    const created: RealLaunchFrontierRecord = Object.freeze({
-      recordId: newId("m4fr"),
-      kind: "CREATED",
-      occurredAt: input.occurredAt,
-      executionContractId: input.identity.executionContractId,
-      executionContractVersion: input.identity.executionContractVersion,
-      semanticFingerprint: input.identity.semanticFingerprint,
-      attemptId: input.attemptId,
-      selectedAgentRef: input.selectedAgentRef,
-      actorId: input.actorId,
-      grantId: input.grantId,
-      correlationId: input.correlationId,
-      payloadJson: "{}",
-    });
-    this.frontier.push(created);
-    return { grant: consumed, created };
-  }
-
-  async markLaunched(
-    input: MarkLaunchedInput,
-  ): Promise<RealLaunchFrontierRecord> {
-    const hasCreated = this.frontier.some(
-      (r) => r.attemptId === input.attemptId && r.kind === "CREATED",
-    );
-    if (!hasCreated) throw new Error("m4_launched_requires_created");
-    const launched: RealLaunchFrontierRecord = Object.freeze({
-      recordId: newId("m4fr"),
-      kind: "LAUNCHED",
-      occurredAt: input.occurredAt,
-      executionContractId: input.identity.executionContractId,
-      executionContractVersion: input.identity.executionContractVersion,
-      semanticFingerprint: input.identity.semanticFingerprint,
-      attemptId: input.attemptId,
-      selectedAgentRef: input.selectedAgentRef,
-      actorId: input.actorId,
-      grantId: input.grantId,
-      correlationId: input.correlationId,
-      processRef: input.processRef,
-      payloadJson: JSON.stringify(input.payload ?? {}),
-    });
-    this.frontier.push(launched);
-    return launched;
-  }
-
-  async findFrontierByContractFingerprint(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    const key = identityKey(identity);
-    return this.frontier.filter((r) => identityKey(r) === key);
-  }
-
-  async findFrontierByAttemptId(
-    attemptId: string,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    return this.frontier.filter((r) => r.attemptId === attemptId);
-  }
-
-  async hasAmbiguousFrontier(
-    identity: ContractSafetyIdentity,
-  ): Promise<boolean> {
-    const rows = await this.findFrontierByContractFingerprint(identity);
-    return rows.length > 0;
-  }
-
-  async reconcileDispositionForIdentity(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchReconcileDisposition> {
-    const rows = await this.findFrontierByContractFingerprint(identity);
-    if (rows.length === 0) return "CLEAR";
-    if (rows.some((r) => r.kind === "LAUNCHED")) return "REVIEW_REQUIRED";
-    if (rows.some((r) => r.kind === "CREATED")) return "UNKNOWN";
-    return "REVIEW_REQUIRED";
-  }
-
-  async hasKindForAttempt(
-    attemptId: string,
-    kind: RealLaunchFrontierKind,
-  ): Promise<boolean> {
-    return this.frontier.some((r) => r.attemptId === attemptId && r.kind === kind);
-  }
-
-  async persistGateDGrant(input: CreateGrantInput): Promise<GateDGrant> {
-    return this.createGrant(input);
-  }
-
-  async findGateDGrant(grantId: string): Promise<GateDGrant | null> {
-    return this.findGrant(grantId);
-  }
-
-  async consumeGateDAndAppendCreated(
-    input: AtomicConsumeGrantAndCreateFrontierInput,
-  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
-    return this.atomicConsumeGrantAndCreateFrontier(input);
-  }
-
-  async appendLaunched(
-    input: MarkLaunchedInput,
-  ): Promise<RealLaunchFrontierRecord> {
-    return this.markLaunched(input);
-  }
-
-  async findFrontierByAttempt(
-    attemptId: string,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    return this.findFrontierByAttemptId(attemptId);
-  }
-
-  async findFrontierByIdentity(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    return this.findFrontierByContractFingerprint(identity);
-  }
-}
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts =====
-/**
- * NodeCursorProcessRunner — production Cursor process runner (M4 R1 + spawn-ACK).
- *
- * spawn(shell:false); executable separate from argv; 64 KiB stdout/stderr caps;
- * timeout → SIGTERM. invoke() RESOLVES on spawn confirmation (PID known), NOT
- * on process close. Completion is observed separately via observe/awaitCompletion.
- *
- * SpawnPrimitive is injectable for tests (no real Cursor).
- */
-import { spawn as nodeSpawn, type ChildProcess } from "node:child_process";
-import type {
-  ProcessRunner,
-  ProcessRunnerInvokeInput,
-  ProcessRunnerInvokeResult,
-  RealProcessObservation,
-} from "../ports/realExecutionLaunchPort";
-
-export const NODE_CURSOR_STDOUT_CAP_BYTES = 64 * 1024;
-export const NODE_CURSOR_STDERR_CAP_BYTES = 64 * 1024;
-
-export type SpawnPrimitive = (
-  executable: string,
-  argv: readonly string[],
-  options: {
-    cwd: string;
-    env: NodeJS.ProcessEnv;
-    shell: false;
-    stdio: ["ignore", "pipe", "pipe"];
-  },
-) => ChildProcess;
-
-export type NodeCursorProcessRunnerOptions = {
-  readonly spawnPrimitive?: SpawnPrimitive;
-};
-
-type TrackedProcess = {
-  readonly processRef: string;
-  readonly worktreeRef: string;
-  readonly started: number;
-  stdout: string;
-  stderr: string;
-  exitCode: number | null;
-  timedOut: boolean;
-  completed: boolean;
-  readonly completion: Promise<RealProcessObservation>;
-  resolveCompletion: (obs: RealProcessObservation) => void;
-};
-
-function appendCapped(current: string, chunk: Buffer, cap: number): string {
-  if (current.length >= cap) return current;
-  const next = chunk.toString("utf8");
-  const remaining = cap - current.length;
-  return current + next.slice(0, remaining);
-}
-
-function snapshot(tracked: TrackedProcess): RealProcessObservation {
-  return {
-    processRef: tracked.processRef,
-    exitCode: tracked.exitCode,
-    timedOut: tracked.timedOut,
-    stdout: tracked.stdout,
-    stderr: tracked.stderr,
-    durationMs: Date.now() - tracked.started,
-    realProcessInvoked: true,
-    worktreeRef: tracked.worktreeRef,
-  };
-}
-
-export class NodeCursorProcessRunner implements ProcessRunner {
-  private readonly spawnPrimitive: SpawnPrimitive;
-  /** Single process-local observation registry — not Evidence, not durable. */
-  private readonly processes = new Map<string, TrackedProcess>();
-
-  constructor(options: NodeCursorProcessRunnerOptions = {}) {
-    this.spawnPrimitive = options.spawnPrimitive ?? defaultSpawnPrimitive;
-  }
-
-  async invoke(
-    input: ProcessRunnerInvokeInput,
-  ): Promise<ProcessRunnerInvokeResult> {
-    if (!input.executable || input.executable.trim() === "") {
-      return {
-        processRef: `proc:pre-spawn:${input.attemptId}`,
-        realProcessInvoked: false,
-        observation: {
-          processRef: `proc:pre-spawn:${input.attemptId}`,
-          exitCode: null,
-          timedOut: false,
-          stdout: "",
-          stderr: "executable_missing",
-          durationMs: 0,
-          realProcessInvoked: false,
-        },
-      };
-    }
-
-    const started = Date.now();
-    let child: ChildProcess;
-    try {
-      child = this.spawnPrimitive(input.executable, [...input.argv], {
-        cwd: input.cwd,
-        env: input.env,
-        shell: false,
-        stdio: ["ignore", "pipe", "pipe"],
-      });
-    } catch {
-      return {
-        processRef: `proc:pre-spawn:${input.attemptId}`,
-        realProcessInvoked: false,
-        observation: {
-          processRef: `proc:pre-spawn:${input.attemptId}`,
-          exitCode: null,
-          timedOut: false,
-          stdout: "",
-          stderr: "spawn_threw_before_start",
-          durationMs: Date.now() - started,
-          realProcessInvoked: false,
-        },
-      };
-    }
-
-    let stdout = "";
-    let stderr = "";
-    child.stdout?.on("data", (chunk: Buffer) => {
-      stdout = appendCapped(stdout, chunk, NODE_CURSOR_STDOUT_CAP_BYTES);
-      const tracked = this.lookupByChild(child, input.attemptId, started);
-      if (tracked) tracked.stdout = stdout;
-    });
-    child.stderr?.on("data", (chunk: Buffer) => {
-      stderr = appendCapped(stderr, chunk, NODE_CURSOR_STDERR_CAP_BYTES);
-      const tracked = this.lookupByChild(child, input.attemptId, started);
-      if (tracked) tracked.stderr = stderr;
-    });
-
-    const spawned = await waitForSpawnConfirmation(child);
-    if (!spawned.ok) {
-      return {
-        processRef: `proc:pre-spawn:${input.attemptId}`,
-        realProcessInvoked: false,
-        observation: {
-          processRef: `proc:pre-spawn:${input.attemptId}`,
-          exitCode: null,
-          timedOut: false,
-          stdout,
-          stderr: stderr || spawned.reason,
-          durationMs: Date.now() - started,
-          realProcessInvoked: false,
-        },
-      };
-    }
-
-    const processRef =
-      typeof child.pid === "number" && child.pid > 0
-        ? `pid:${child.pid}`
-        : `proc:${input.attemptId}:${started}`;
-
-    let resolveCompletion!: (obs: RealProcessObservation) => void;
-    const completion = new Promise<RealProcessObservation>((resolve) => {
-      resolveCompletion = resolve;
-    });
-
-    const tracked: TrackedProcess = {
-      processRef,
-      worktreeRef: input.cwd,
-      started,
-      stdout,
-      stderr,
-      exitCode: null,
-      timedOut: false,
-      completed: false,
-      completion,
-      resolveCompletion,
-    };
-    this.processes.set(processRef, tracked);
-
-    const finish = (partial: {
-      exitCode: number | null;
-      timedOut?: boolean;
-    }) => {
-      if (tracked.completed) return;
-      tracked.completed = true;
-      tracked.exitCode = partial.exitCode;
-      if (partial.timedOut) tracked.timedOut = true;
-      tracked.stdout = stdout;
-      tracked.stderr = stderr;
-      clearTimeout(timer);
-      tracked.resolveCompletion(snapshot(tracked));
-    };
-
-    const timer = setTimeout(() => {
-      tracked.timedOut = true;
-      try {
-        child.kill("SIGTERM");
-      } catch {
-        /* ignore */
-      }
-    }, input.timeoutMs);
-
-    child.on("error", () => {
-      // Post-spawn error: historical invoke ACK remains invoked=true.
-      finish({ exitCode: null, timedOut: tracked.timedOut });
-    });
-    child.on("close", (code: number | null) => {
-      finish({ exitCode: code, timedOut: tracked.timedOut });
-    });
-
-    return {
-      processRef,
-      realProcessInvoked: true,
-      observation: snapshot(tracked),
-    };
-  }
-
-  async observe(processRef: string): Promise<RealProcessObservation | null> {
-    const tracked = this.processes.get(processRef);
-    return tracked ? snapshot(tracked) : null;
-  }
-
-  async awaitCompletion(
-    processRef: string,
-  ): Promise<RealProcessObservation | null> {
-    const tracked = this.processes.get(processRef);
-    if (!tracked) return null;
-    return tracked.completion;
-  }
-
-  private lookupByChild(
-    child: ChildProcess,
-    attemptId: string,
-    started: number,
-  ): TrackedProcess | undefined {
-    const byPid =
-      typeof child.pid === "number" && child.pid > 0
-        ? this.processes.get(`pid:${child.pid}`)
-        : undefined;
-    return byPid ?? this.processes.get(`proc:${attemptId}:${started}`);
-  }
-}
-
-function defaultSpawnPrimitive(
-  executable: string,
-  argv: readonly string[],
-  options: {
-    cwd: string;
-    env: NodeJS.ProcessEnv;
-    shell: false;
-    stdio: ["ignore", "pipe", "pipe"];
-  },
-): ChildProcess {
-  return nodeSpawn(executable, [...argv], options);
-}
-
-function waitForSpawnConfirmation(
-  child: ChildProcess,
-): Promise<{ ok: true } | { ok: false; reason: string }> {
-  return new Promise((resolve) => {
-    let settled = false;
-    const done = (result: { ok: true } | { ok: false; reason: string }) => {
-      if (settled) return;
-      settled = true;
-      child.off("spawn", onSpawn);
-      child.off("error", onError);
-      resolve(result);
-    };
-    const onSpawn = () => done({ ok: true });
-    const onError = () =>
-      done({ ok: false, reason: "spawn_error_before_start" });
-
-    if (typeof child.pid === "number" && child.pid > 0) {
-      done({ ok: true });
-      return;
-    }
-
-    child.once("spawn", onSpawn);
-    child.once("error", onError);
-
-    queueMicrotask(() => {
-      if (typeof child.pid === "number" && child.pid > 0) {
-        done({ ok: true });
-      }
-    });
-  });
-}
-
-/** Fail-closed runner kept in product surface — never spawns. */
-export class DisabledRealProcessRunner implements ProcessRunner {
-  async invoke(): Promise<ProcessRunnerInvokeResult> {
-    throw new Error("m4_real_process_runner_disabled_for_real_off_cycle");
-  }
-}
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteLaunchSafetyJournal.ts =====
-/**
- * SqliteLaunchSafetyJournal — technical SQLite safety DB (D-M4-02/04).
- *
- * Isolated file path · NOT Product Store · NOT D1 business DB · NOT Attempt store.
- * TEMPORARY WITH EXIT.
- */
-import { randomBytes } from "node:crypto";
-import { DatabaseSync } from "node:sqlite";
-import type {
-  ContractSafetyIdentity,
-  GateDGrant,
-  RealLaunchFrontierKind,
-  RealLaunchFrontierRecord,
-  RealLaunchReconcileDisposition,
-} from "../../domain/realLaunchSafety";
-import type {
-  AtomicConsumeGrantAndCreateFrontierInput,
-  CreateGrantInput,
-  GrantValidationResult,
-  LaunchSafetyJournalPort,
-  MarkLaunchedInput,
-  ValidateGrantForStartInput,
-} from "../../ports/launchSafetyJournalPort";
-
-const SCHEMA_SQL = `
-PRAGMA foreign_keys = ON;
-
-CREATE TABLE IF NOT EXISTS m4_gate_d_grants (
-  grant_id TEXT PRIMARY KEY NOT NULL,
-  execution_contract_id TEXT NOT NULL,
-  execution_contract_version INTEGER NOT NULL,
-  semantic_fingerprint TEXT NOT NULL,
-  attempt_id TEXT NOT NULL UNIQUE,
-  selected_agent_ref TEXT NOT NULL,
-  actor_id TEXT NOT NULL,
-  issued_at TEXT NOT NULL,
-  expires_at TEXT NOT NULL,
-  status TEXT NOT NULL,
-  consumed_at TEXT,
-  correlation_id TEXT
-);
-
-CREATE TABLE IF NOT EXISTS m4_launch_frontier (
-  record_id TEXT PRIMARY KEY NOT NULL,
-  kind TEXT NOT NULL,
-  occurred_at TEXT NOT NULL,
-  execution_contract_id TEXT NOT NULL,
-  execution_contract_version INTEGER NOT NULL,
-  semantic_fingerprint TEXT NOT NULL,
-  attempt_id TEXT NOT NULL,
-  selected_agent_ref TEXT NOT NULL,
-  actor_id TEXT NOT NULL,
-  grant_id TEXT NOT NULL,
-  correlation_id TEXT NOT NULL,
-  process_ref TEXT,
-  payload_json TEXT NOT NULL,
-  UNIQUE (attempt_id, kind)
-);
-
--- At most one CREATED per contract safety identity (blocks new attemptId bypass).
-CREATE UNIQUE INDEX IF NOT EXISTS idx_m4_frontier_created_identity
-  ON m4_launch_frontier(execution_contract_id, execution_contract_version, semantic_fingerprint)
-  WHERE kind = 'CREATED';
-
-CREATE INDEX IF NOT EXISTS idx_m4_frontier_identity
-  ON m4_launch_frontier(execution_contract_id, execution_contract_version, semantic_fingerprint);
-`;
-
-function newId(prefix: string): string {
-  return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
-
-function mapGrant(row: Record<string, unknown>): GateDGrant {
-  return Object.freeze({
-    grantId: String(row.grant_id),
-    executionContractId: String(row.execution_contract_id),
-    executionContractVersion: Number(row.execution_contract_version),
-    semanticFingerprint: String(row.semantic_fingerprint),
-    attemptId: String(row.attempt_id),
-    selectedAgentRef: String(row.selected_agent_ref),
-    actorId: String(row.actor_id),
-    issuedAt: String(row.issued_at),
-    expiresAt: String(row.expires_at),
-    status: String(row.status) as GateDGrant["status"],
-    consumedAt: row.consumed_at != null ? String(row.consumed_at) : undefined,
-    correlationId:
-      row.correlation_id != null ? String(row.correlation_id) : undefined,
-  });
-}
-
-function mapFrontier(row: Record<string, unknown>): RealLaunchFrontierRecord {
-  return Object.freeze({
-    recordId: String(row.record_id),
-    kind: String(row.kind) as RealLaunchFrontierKind,
-    occurredAt: String(row.occurred_at),
-    executionContractId: String(row.execution_contract_id),
-    executionContractVersion: Number(row.execution_contract_version),
-    semanticFingerprint: String(row.semantic_fingerprint),
-    attemptId: String(row.attempt_id),
-    selectedAgentRef: String(row.selected_agent_ref),
-    actorId: String(row.actor_id),
-    grantId: String(row.grant_id),
-    correlationId: String(row.correlation_id),
-    processRef: row.process_ref != null ? String(row.process_ref) : undefined,
-    payloadJson: String(row.payload_json ?? "{}"),
-  });
-}
-
-export type SqliteLaunchSafetyJournalOptions = {
-  /** Explicit technical DB path — required for durability across processes. */
-  readonly databasePath: string;
-};
-
-export class SqliteLaunchSafetyJournal implements LaunchSafetyJournalPort {
-  private readonly db: DatabaseSync;
-  readonly databasePath: string;
-
-  constructor(options: SqliteLaunchSafetyJournalOptions) {
-    if (!options.databasePath || options.databasePath.trim() === "") {
-      throw new Error("m4_safety_journal_database_path_required");
-    }
-    this.databasePath = options.databasePath;
-    this.db = new DatabaseSync(options.databasePath);
-    this.db.exec(SCHEMA_SQL);
-  }
-
-  /** Test helper — close handle. */
-  close(): void {
-    this.db.close();
-  }
-
-  async createGrant(input: CreateGrantInput): Promise<GateDGrant> {
-    this.db.exec("BEGIN IMMEDIATE");
-    try {
-      this.db
-        .prepare(
-          `INSERT INTO m4_gate_d_grants (
-            grant_id, execution_contract_id, execution_contract_version,
-            semantic_fingerprint, attempt_id, selected_agent_ref, actor_id,
-            issued_at, expires_at, status, correlation_id
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'granted', ?)`,
-        )
-        .run(
-          input.grantId,
-          input.executionContractId,
-          input.executionContractVersion,
-          input.semanticFingerprint,
-          input.attemptId,
-          input.selectedAgentRef,
-          input.actorId,
-          input.issuedAt,
-          input.expiresAt,
-          input.correlationId ?? null,
-        );
-      this.db.exec("COMMIT");
-    } catch (error) {
-      try {
-        this.db.exec("ROLLBACK");
-      } catch {
-        /* ignore */
-      }
-      throw error;
-    }
-    const grant = await this.findGrant(input.grantId);
-    if (!grant) throw new Error("m4_gate_d_persist_failed");
-    return grant;
-  }
-
-  /** Transitional alias. */
-  async persistGateDGrant(input: CreateGrantInput): Promise<GateDGrant> {
-    return this.createGrant(input);
-  }
-
-  async findGrant(grantId: string): Promise<GateDGrant | null> {
-    const row = this.db
-      .prepare(`SELECT * FROM m4_gate_d_grants WHERE grant_id = ?`)
-      .get(grantId) as Record<string, unknown> | undefined;
-    return row ? mapGrant(row) : null;
-  }
-
-  async findGateDGrant(grantId: string): Promise<GateDGrant | null> {
-    return this.findGrant(grantId);
-  }
-
-  async findActiveGateDGrantForAttempt(
-    attemptId: string,
-  ): Promise<GateDGrant | null> {
-    const row = this.db
-      .prepare(
-        `SELECT * FROM m4_gate_d_grants
-         WHERE attempt_id = ? AND status = 'granted'`,
-      )
-      .get(attemptId) as Record<string, unknown> | undefined;
-    return row ? mapGrant(row) : null;
-  }
-
-  async validateGrantForStart(
-    input: ValidateGrantForStartInput,
-  ): Promise<GrantValidationResult> {
-    const grant = await this.findGrant(input.grantId);
-    if (!grant) return { ok: false, reason: "GATE_D_REQUIRED" };
-    if (grant.status === "consumed") {
-      return { ok: false, reason: "GATE_D_ALREADY_CONSUMED" };
-    }
-    if (grant.status !== "granted") {
-      return { ok: false, reason: "GATE_D_INVALID" };
-    }
-    if (Date.parse(grant.expiresAt) <= Date.parse(input.nowIso)) {
-      return { ok: false, reason: "GATE_D_EXPIRED" };
-    }
-    if (
-      grant.attemptId !== input.attemptId ||
-      grant.actorId !== input.actorId ||
-      grant.selectedAgentRef !== input.selectedAgentRef ||
-      grant.executionContractId !== input.identity.executionContractId ||
-      grant.executionContractVersion !==
-        input.identity.executionContractVersion ||
-      grant.semanticFingerprint !== input.identity.semanticFingerprint
-    ) {
-      return { ok: false, reason: "GATE_D_BINDING_MISMATCH" };
-    }
-    return { ok: true, grant };
-  }
-
-  async atomicConsumeGrantAndCreateFrontier(
-    input: AtomicConsumeGrantAndCreateFrontierInput,
-  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
-    this.db.exec("BEGIN IMMEDIATE");
-    try {
-      const grantRow = this.db
-        .prepare(`SELECT * FROM m4_gate_d_grants WHERE grant_id = ?`)
-        .get(input.grantId) as Record<string, unknown> | undefined;
-      if (!grantRow) {
-        throw new Error("m4_gate_d_not_found");
-      }
-      const grant = mapGrant(grantRow);
-      if (grant.status === "consumed") {
-        throw new Error("m4_gate_d_already_consumed");
-      }
-      if (grant.status !== "granted") {
-        throw new Error("m4_gate_d_not_granted");
-      }
-      if (Date.parse(grant.expiresAt) <= Date.parse(input.occurredAt)) {
-        this.db
-          .prepare(
-            `UPDATE m4_gate_d_grants SET status = 'expired' WHERE grant_id = ?`,
-          )
-          .run(input.grantId);
-        throw new Error("m4_gate_d_expired");
-      }
-      if (grant.attemptId !== input.attemptId) {
-        throw new Error("m4_gate_d_attempt_mismatch");
-      }
-      if (
-        grant.executionContractId !== input.identity.executionContractId ||
-        grant.executionContractVersion !==
-          input.identity.executionContractVersion ||
-        grant.semanticFingerprint !== input.identity.semanticFingerprint
-      ) {
-        throw new Error("m4_gate_d_identity_mismatch");
-      }
-      if (grant.selectedAgentRef !== input.selectedAgentRef) {
-        throw new Error("m4_gate_d_agent_mismatch");
-      }
-      if (grant.actorId !== input.actorId) {
-        throw new Error("m4_gate_d_actor_mismatch");
-      }
-
-      const ambiguous = this.db
-        .prepare(
-          `SELECT 1 AS ok FROM m4_launch_frontier
-           WHERE execution_contract_id = ?
-             AND execution_contract_version = ?
-             AND semantic_fingerprint = ?
-           LIMIT 1`,
-        )
-        .get(
-          input.identity.executionContractId,
-          input.identity.executionContractVersion,
-          input.identity.semanticFingerprint,
-        );
-      if (ambiguous) {
-        throw new Error("m4_launch_frontier_ambiguous");
-      }
-
-      this.db
-        .prepare(
-          `UPDATE m4_gate_d_grants
-           SET status = 'consumed', consumed_at = ?
-           WHERE grant_id = ? AND status = 'granted'`,
-        )
-        .run(input.occurredAt, input.grantId);
-
-      const recordId = newId("m4fr");
-      this.db
-        .prepare(
-          `INSERT INTO m4_launch_frontier (
-            record_id, kind, occurred_at, execution_contract_id,
-            execution_contract_version, semantic_fingerprint, attempt_id,
-            selected_agent_ref, actor_id, grant_id, correlation_id,
-            process_ref, payload_json
-          ) VALUES (?, 'CREATED', ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, '{}')`,
-        )
-        .run(
-          recordId,
-          input.occurredAt,
-          input.identity.executionContractId,
-          input.identity.executionContractVersion,
-          input.identity.semanticFingerprint,
-          input.attemptId,
-          input.selectedAgentRef,
-          input.actorId,
-          input.grantId,
-          input.correlationId,
-        );
-
-      this.db.exec("COMMIT");
-
-      const createdRow = this.db
-        .prepare(`SELECT * FROM m4_launch_frontier WHERE record_id = ?`)
-        .get(recordId) as Record<string, unknown>;
-      const updatedGrant = await this.findGrant(input.grantId);
-      if (!updatedGrant) throw new Error("m4_gate_d_consume_lost");
-      return { grant: updatedGrant, created: mapFrontier(createdRow) };
-    } catch (error) {
-      try {
-        this.db.exec("ROLLBACK");
-      } catch {
-        /* ignore */
-      }
-      throw error;
-    }
-  }
-
-  /** Transitional alias. */
-  async consumeGateDAndAppendCreated(
-    input: AtomicConsumeGrantAndCreateFrontierInput,
-  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }> {
-    return this.atomicConsumeGrantAndCreateFrontier(input);
-  }
-
-  async markLaunched(
-    input: MarkLaunchedInput,
-  ): Promise<RealLaunchFrontierRecord> {
-    this.db.exec("BEGIN IMMEDIATE");
-    try {
-      const created = this.db
-        .prepare(
-          `SELECT 1 AS ok FROM m4_launch_frontier
-           WHERE attempt_id = ? AND kind = 'CREATED'`,
-        )
-        .get(input.attemptId);
-      if (!created) {
-        throw new Error("m4_launched_requires_created");
-      }
-      const recordId = newId("m4fr");
-      const payloadJson = JSON.stringify(input.payload ?? {});
-      this.db
-        .prepare(
-          `INSERT INTO m4_launch_frontier (
-            record_id, kind, occurred_at, execution_contract_id,
-            execution_contract_version, semantic_fingerprint, attempt_id,
-            selected_agent_ref, actor_id, grant_id, correlation_id,
-            process_ref, payload_json
-          ) VALUES (?, 'LAUNCHED', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        )
-        .run(
-          recordId,
-          input.occurredAt,
-          input.identity.executionContractId,
-          input.identity.executionContractVersion,
-          input.identity.semanticFingerprint,
-          input.attemptId,
-          input.selectedAgentRef,
-          input.actorId,
-          input.grantId,
-          input.correlationId,
-          input.processRef,
-          payloadJson,
-        );
-      this.db.exec("COMMIT");
-      const row = this.db
-        .prepare(`SELECT * FROM m4_launch_frontier WHERE record_id = ?`)
-        .get(recordId) as Record<string, unknown>;
-      return mapFrontier(row);
-    } catch (error) {
-      try {
-        this.db.exec("ROLLBACK");
-      } catch {
-        /* ignore */
-      }
-      throw error;
-    }
-  }
-
-  /** Transitional alias. */
-  async appendLaunched(
-    input: MarkLaunchedInput,
-  ): Promise<RealLaunchFrontierRecord> {
-    return this.markLaunched(input);
-  }
-
-  async findFrontierByAttemptId(
-    attemptId: string,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    const rows = this.db
-      .prepare(
-        `SELECT * FROM m4_launch_frontier WHERE attempt_id = ? ORDER BY occurred_at`,
-      )
-      .all(attemptId) as Record<string, unknown>[];
-    return rows.map(mapFrontier);
-  }
-
-  async findFrontierByAttempt(
-    attemptId: string,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    return this.findFrontierByAttemptId(attemptId);
-  }
-
-  async findFrontierByContractFingerprint(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    const rows = this.db
-      .prepare(
-        `SELECT * FROM m4_launch_frontier
-         WHERE execution_contract_id = ?
-           AND execution_contract_version = ?
-           AND semantic_fingerprint = ?
-         ORDER BY occurred_at`,
-      )
-      .all(
-        identity.executionContractId,
-        identity.executionContractVersion,
-        identity.semanticFingerprint,
-      ) as Record<string, unknown>[];
-    return rows.map(mapFrontier);
-  }
-
-  async findFrontierByIdentity(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchFrontierRecord[]> {
-    return this.findFrontierByContractFingerprint(identity);
-  }
-
-  async hasAmbiguousFrontier(
-    identity: ContractSafetyIdentity,
-  ): Promise<boolean> {
-    const rows = await this.findFrontierByContractFingerprint(identity);
-    return rows.length > 0;
-  }
-
-  async reconcileDispositionForIdentity(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchReconcileDisposition> {
-    const rows = await this.findFrontierByContractFingerprint(identity);
-    if (rows.length === 0) return "CLEAR";
-    const hasCreated = rows.some((r) => r.kind === "CREATED");
-    const hasLaunched = rows.some((r) => r.kind === "LAUNCHED");
-    if (hasLaunched) return "REVIEW_REQUIRED";
-    if (hasCreated) return "UNKNOWN";
-    return "REVIEW_REQUIRED";
-  }
-
-  async hasKindForAttempt(
-    attemptId: string,
-    kind: RealLaunchFrontierKind,
-  ): Promise<boolean> {
-    const row = this.db
-      .prepare(
-        `SELECT 1 AS ok FROM m4_launch_frontier WHERE attempt_id = ? AND kind = ?`,
-      )
-      .get(attemptId, kind);
-    return Boolean(row);
-  }
-}
-
-/** Transitional export name. */
-export { SqliteLaunchSafetyJournal as SqliteRealLaunchSafetyJournal };
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqliteRealLaunchSafetyJournal.ts =====
-/**
- * SqliteRealLaunchSafetyJournal — technical SQLite safety DB (D-M4-02/04).
- * Re-exports SqliteLaunchSafetyJournal under the Delivery cycle name.
- */
-export {
-  SqliteLaunchSafetyJournal as SqliteRealLaunchSafetyJournal,
-  SqliteLaunchSafetyJournal,
-  type SqliteLaunchSafetyJournalOptions as SqliteRealLaunchSafetyJournalOptions,
-  type SqliteLaunchSafetyJournalOptions,
-} from "./sqlite/sqliteLaunchSafetyJournal";
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts =====
-/**
- * StudioCursorRealLaunchGateway — OA-owned REAL launch ACL (D-M4-01).
- *
- * Harvested concepts from OPS1 (no import from lib/ops1).
- * Default REAL process enablement OFF via SFIA_STUDIO_CURSOR_REAL.
- * Requires ProcessRunner + RealExecutionWorkspacePort (no Fake defaults).
- * Order: enablement → bin resolve → prepareWorkspace → runner.invoke.
- */
-import { accessSync, constants } from "node:fs";
-import path from "node:path";
-import {
-  isStudioCursorRealEnabled,
-  M4_REAL_GATEWAY_ADAPTER_ID,
-  SFIA_STUDIO_CURSOR_REAL_FLAG,
-} from "../domain/realLaunchSafety";
-import type {
-  ProcessRunner,
-  RealExecutionLaunchPort,
-  RealLaunchRequest,
-  RealLaunchResult,
-  RealProcessObservation,
-} from "../ports/realExecutionLaunchPort";
-import type { RealExecutionWorkspacePort } from "../ports/realExecutionWorkspacePort";
-import { DisabledRealProcessRunner } from "./nodeCursorProcessRunner";
-
-export type StudioCursorRealLaunchGatewayOptions = {
-  readonly processRunner: ProcessRunner;
-  readonly workspacePort: RealExecutionWorkspacePort;
-  readonly env?: NodeJS.ProcessEnv;
-  readonly resolveCursorBin?: () => string | null;
-  readonly defaultTimeoutMs?: number;
-};
-
-/** Copy of OPS1 resolveCursorBinPath pattern — no ops1 import. */
-export function resolveCursorBinPath(
-  env: NodeJS.ProcessEnv = process.env,
-): string | null {
-  const candidates = [
-    env.SFIA_CURSOR_BIN,
-    "/Applications/Cursor.app/Contents/Resources/app/bin/cursor",
-    path.join(env.HOME ?? "", ".local/bin/cursor-agent"),
-  ].filter(Boolean) as string[];
-  for (const c of candidates) {
-    try {
-      accessSync(c, constants.X_OK);
-      return c;
-    } catch {
-      /* next */
-    }
-  }
-  return null;
-}
-
-export const resolveStudioCursorBinPath = resolveCursorBinPath;
-
-export { DisabledRealProcessRunner };
-
-export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
-  readonly gatewayId = M4_REAL_GATEWAY_ADAPTER_ID;
-  readonly externalEffects = true as const;
-
-  private readonly runner: ProcessRunner;
-  private readonly workspacePort: RealExecutionWorkspacePort;
-  private readonly env: NodeJS.ProcessEnv;
-  private readonly resolveBin: () => string | null;
-  private readonly timeoutMs: number;
-  /**
-   * Fallback only when the runner has no observe/awaitCompletion.
-   * Live observation source is the runner registry when present
-   * (single source — no competing snapshot).
-   */
-  private readonly fallbackObservations = new Map<
-    string,
-    RealProcessObservation
-  >();
-
-  constructor(options: StudioCursorRealLaunchGatewayOptions) {
-    if (!options.processRunner) {
-      throw new Error("studio_cursor_real_launch_process_runner_required");
-    }
-    if (!options.workspacePort) {
-      throw new Error("studio_cursor_real_launch_workspace_port_required");
-    }
-    this.runner = options.processRunner;
-    this.workspacePort = options.workspacePort;
-    this.env = options.env ?? process.env;
-    this.resolveBin =
-      options.resolveCursorBin ?? (() => resolveCursorBinPath(this.env));
-    this.timeoutMs = options.defaultTimeoutMs ?? 60_000;
-  }
-
-  async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
-    if (request.adapterRef !== this.gatewayId) {
-      return {
-        outcome: "reject",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: "adapter_ref_mismatch",
-        realProcessInvoked: false,
-        detailCode: "REAL_AGENT_PROFILE_INVALID",
-      };
-    }
-
-    if (!isStudioCursorRealEnabled(this.env)) {
-      return {
-        outcome: "reject",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: "studio_cursor_real_disabled",
-        realProcessInvoked: false,
-        detailCode: "REAL_BOUNDARY_DISABLED",
-      };
-    }
-
-    if (
-      (request.target && request.target.includes("UNRESOLVED")) ||
-      (request.action && request.action.includes("UNRESOLVED"))
-    ) {
-      return {
-        outcome: "reject",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: "unresolved_contract_refused",
-        realProcessInvoked: false,
-        detailCode: "REAL_AGENT_PROFILE_INVALID",
-      };
-    }
-
-    const baseHeadSha =
-      request.baseHeadSha ?? request.worktreeBaseHeadSha ?? "";
-    if (!/^[0-9a-f]{40}$/i.test(baseHeadSha)) {
-      return {
-        outcome: "reject",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: "base_head_sha_invalid",
-        realProcessInvoked: false,
-        detailCode: "REAL_WORKSPACE_INVALID",
-      };
-    }
-
-    const bin = this.resolveBin();
-    if (!bin) {
-      return {
-        outcome: "fail",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: "cursor_unavailable",
-        realProcessInvoked: false,
-        detailCode: "CURSOR_UNAVAILABLE",
-      };
-    }
-
-    let workspacePath: string;
-    try {
-      const prepared = await this.workspacePort.prepareWorkspace({
-        attemptId: request.attemptId,
-        baseHeadSha,
-      });
-      workspacePath = prepared.workspacePath;
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "workspace_failed";
-      return {
-        outcome: "reject",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: message.includes("REAL_WORKSPACE_INVALID")
-          ? message
-          : `workspace_prepare_failed:${message}`,
-        realProcessInvoked: false,
-        detailCode: "REAL_WORKSPACE_INVALID",
-      };
-    }
-
-    // Fixed argv shape — executable is separate; no user-controlled shell.
-    const instruction = [
-      "TÂCHE UNIQUE — lecture seule bornée.",
-      `target=${request.target ?? ""}`,
-      `action=${request.action ?? ""}`,
-      `scope=${request.scope ?? ""}`,
-      `fingerprint=${request.semanticFingerprint}`,
-      "Aucune mutation, aucun git remote/commit/push/PR/merge.",
-    ].join("\n");
-
-    const argv = [
-      "agent",
-      "--print",
-      "--workspace",
-      workspacePath,
-      "--trust",
-      "--sandbox",
-      "enabled",
-      instruction,
-    ];
-
-    try {
-      const invoked = await this.runner.invoke({
-        attemptId: request.attemptId,
-        executable: bin,
-        cwd: workspacePath,
-        argv,
-        timeoutMs: this.timeoutMs,
-        env: {
-          ...this.env,
-          [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
-        },
-      });
-
-      if (!invoked.realProcessInvoked) {
-        return {
-          outcome: "fail",
-          gatewayId: this.gatewayId,
-          attemptId: request.attemptId,
-          reason: "real_process_not_invoked",
-          realProcessInvoked: false,
-          detailCode: "REAL_LAUNCH_FAILED",
-        };
-      }
-
-      if (typeof this.runner.observe !== "function") {
-        this.fallbackObservations.set(invoked.processRef, {
-          processRef: invoked.processRef,
-          exitCode: invoked.observation?.exitCode ?? null,
-          timedOut: invoked.observation?.timedOut ?? false,
-          stdout: invoked.observation?.stdout ?? "",
-          stderr: invoked.observation?.stderr ?? "",
-          durationMs: invoked.observation?.durationMs ?? 0,
-          realProcessInvoked: true,
-          worktreeRef: workspacePath,
-        });
-      }
-
-      return {
-        outcome: "ack",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        realProcessInvoked: true,
-        processRef: invoked.processRef,
-        worktreeRef: workspacePath,
-      };
-    } catch {
-      return {
-        outcome: "fail",
-        gatewayId: this.gatewayId,
-        attemptId: request.attemptId,
-        reason: "real_launch_threw",
-        realProcessInvoked: false,
-        detailCode: "REAL_LAUNCH_FAILED",
-      };
-    }
-  }
-
-  async observe(processRef: string): Promise<RealProcessObservation | null> {
-    if (typeof this.runner.observe === "function") {
-      return this.runner.observe(processRef);
-    }
-    return this.fallbackObservations.get(processRef) ?? null;
-  }
-
-  async awaitCompletion(
-    processRef: string,
-  ): Promise<RealProcessObservation | null> {
-    if (typeof this.runner.awaitCompletion === "function") {
-      return this.runner.awaitCompletion(processRef);
-    }
-    return this.observe(processRef);
-  }
-}
-
-/** @deprecated Prefer StudioCursorRealLaunchGateway. */
-export { StudioCursorRealLaunchGateway as CursorCliLaunchGateway };
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts =====
-/**
- * StudioGitWorktreeWorkspace — fail-closed isolated Git worktree prep (M4 R2).
- *
- * Injectable GitCommandRunner; production default spawn(shell:false).
- * Tests MUST inject FakeGitCommandRunner — never run real git worktree in REAL-OFF.
- */
-import { createHash } from "node:crypto";
-import { existsSync } from "node:fs";
-import path from "node:path";
-import { spawn as nodeSpawn } from "node:child_process";
-import type {
-  PrepareWorkspaceRequest,
-  PrepareWorkspaceResult,
-  RealExecutionWorkspacePort,
-} from "../ports/realExecutionWorkspacePort";
-
-export type GitCommandResult = {
-  readonly stdout: string;
-  readonly stderr: string;
-  readonly exitCode: number;
-};
-
-export interface GitCommandRunner {
-  run(
-    argv: readonly string[],
-    cwd: string,
-  ): Promise<GitCommandResult>;
-}
-
-export type StudioGitWorktreeWorkspaceOptions = {
-  readonly repoRoot: string;
-  readonly execRoot: string;
-  readonly gitRunner: GitCommandRunner;
-};
-
-const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
-
-export function isFullGitSha(value: unknown): value is string {
-  return typeof value === "string" && FULL_SHA_RE.test(value);
-}
-
-export function workspacePathForAttempt(
-  execRoot: string,
-  attemptId: string,
-): string {
-  const digest = createHash("sha256")
-    .update(attemptId, "utf8")
-    .digest("hex")
-    .slice(0, 24);
-  const safe = attemptId.replace(/[^a-zA-Z0-9._-]+/g, "_").slice(0, 48);
-  return path.resolve(execRoot, `wt-${safe}-${digest}`);
-}
-
-export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
-  private readonly repoRoot: string;
-  private readonly execRoot: string;
-  private readonly gitRunner: GitCommandRunner;
-
-  constructor(options: StudioGitWorktreeWorkspaceOptions) {
-    if (!options.repoRoot || options.repoRoot.trim() === "") {
-      throw new Error("studio_git_worktree_repo_root_required");
-    }
-    if (!options.execRoot || options.execRoot.trim() === "") {
-      throw new Error("studio_git_worktree_exec_root_required");
-    }
-    const repoRoot = path.resolve(options.repoRoot);
-    const execRoot = path.resolve(options.execRoot);
-    if (repoRoot === execRoot) {
-      throw new Error("studio_git_worktree_repo_exec_roots_must_differ");
-    }
-    if (!options.gitRunner) {
-      throw new Error("studio_git_worktree_git_runner_required");
-    }
-    this.repoRoot = repoRoot;
-    this.execRoot = execRoot;
-    this.gitRunner = options.gitRunner;
-  }
-
-  async prepareWorkspace(
-    request: PrepareWorkspaceRequest,
-  ): Promise<PrepareWorkspaceResult> {
-    if (!isFullGitSha(request.baseHeadSha)) {
-      throw new Error("REAL_WORKSPACE_INVALID:base_head_sha_invalid");
-    }
-    const baseHeadSha = request.baseHeadSha.toLowerCase();
-    const workspacePath = workspacePathForAttempt(
-      this.execRoot,
-      request.attemptId,
-    );
-
-    if (
-      workspacePath !== this.execRoot &&
-      !workspacePath.startsWith(this.execRoot + path.sep)
-    ) {
-      throw new Error("REAL_WORKSPACE_INVALID:workspace_outside_exec_root");
-    }
-    if (existsSync(workspacePath)) {
-      throw new Error("REAL_WORKSPACE_INVALID:workspace_path_exists");
-    }
-
-    // a) verify commit exists
-    const verify = await this.gitRunner.run(
-      ["rev-parse", "--verify", `${baseHeadSha}^{commit}`],
-      this.repoRoot,
-    );
-    if (verify.exitCode !== 0) {
-      throw new Error("REAL_WORKSPACE_INVALID:base_head_sha_missing");
-    }
-
-    // b) worktree add --detach
-    const add = await this.gitRunner.run(
-      ["worktree", "add", "--detach", workspacePath, baseHeadSha],
-      this.repoRoot,
-    );
-    if (add.exitCode !== 0) {
-      throw new Error("REAL_WORKSPACE_INVALID:worktree_add_failed");
-    }
-
-    // c) rev-parse HEAD must equal baseHeadSha exactly
-    const head = await this.gitRunner.run(["rev-parse", "HEAD"], workspacePath);
-    if (head.exitCode !== 0) {
-      throw new Error("REAL_WORKSPACE_INVALID:head_rev_parse_failed");
-    }
-    const verifiedHeadSha = head.stdout.trim().toLowerCase();
-    if (verifiedHeadSha !== baseHeadSha) {
-      throw new Error("REAL_WORKSPACE_INVALID:head_mismatch");
-    }
-
-    return { workspacePath, verifiedHeadSha };
-  }
-}
-
-/**
- * Production GitCommandRunner — spawn(shell:false).
- * Tests MUST NOT use this; inject FakeGitCommandRunner instead.
- */
-export class NodeGitCommandRunner implements GitCommandRunner {
-  async run(
-    argv: readonly string[],
-    cwd: string,
-  ): Promise<GitCommandResult> {
-    return await new Promise((resolve) => {
-      const child = nodeSpawn("git", [...argv], {
-        cwd,
-        shell: false,
-        stdio: ["ignore", "pipe", "pipe"],
-      });
-      let stdout = "";
-      let stderr = "";
-      child.stdout?.on("data", (c: Buffer) => {
-        if (stdout.length < 64 * 1024) stdout += c.toString("utf8");
-      });
-      child.stderr?.on("data", (c: Buffer) => {
-        if (stderr.length < 64 * 1024) stderr += c.toString("utf8");
-      });
-      child.on("error", () => {
-        resolve({ stdout, stderr: stderr || "git_spawn_error", exitCode: 1 });
-      });
-      child.on("close", (code) => {
-        resolve({ stdout, stderr, exitCode: code ?? 1 });
-      });
-    });
-  }
-}
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/launchSafetyJournalPort.ts =====
-/**
- * LaunchSafetyJournalPort — Delivery naming aliases.
- * Canonical definitions live in realLaunchSafetyJournalPort.ts.
- */
-export type {
-  RealLaunchSafetyJournalPort,
-  LaunchSafetyJournalPort,
-  PersistGateDGrantInput,
-  PersistGateDGrantInput as CreateGrantInput,
-  AtomicConsumeGateDAndCreateFrontierInput,
-  AtomicConsumeGateDAndCreateFrontierInput as AtomicConsumeGrantAndCreateFrontierInput,
-  MarkLaunchedInput,
-  ValidateGrantForStartInput,
-  GrantValidationResult,
-} from "./realLaunchSafetyJournalPort";
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts =====
-/**
- * RealExecutionLaunchPort — specialized REAL OA boundary (D-M4-01 Option B).
- *
- * Distinct from ExecutionAdapterPort (externalEffects:false forever).
- * Must NOT be accepted by InjectableExecutionAdapter.
- */
-
-export type RealLaunchRequest = {
-  readonly attemptId: string;
-  readonly executionContractId: string;
-  readonly executionContractVersion: number;
-  readonly semanticFingerprint: string;
-  readonly selectedAgentRef: string;
-  readonly adapterRef: string;
-  readonly correlationId: string;
-  /**
-   * Contract-bound full Git SHA (40 hex). Preferred name.
-   * Alias `worktreeBaseHeadSha` accepted for older call sites.
-   */
-  readonly baseHeadSha: string;
-  /** @deprecated Prefer baseHeadSha — kept as alias only. */
-  readonly worktreeBaseHeadSha?: string;
-  /** Structured contract fields for fixed argv — not free client argv. */
-  readonly action?: string;
-  readonly target?: string;
-  readonly scope?: string;
-};
-
-export type RealLaunchAck = {
-  readonly outcome: "ack";
-  readonly gatewayId: string;
-  readonly attemptId: string;
-  readonly realProcessInvoked: true;
-  readonly processRef: string;
-  readonly worktreeRef?: string;
-};
-
-export type RealLaunchReject = {
-  readonly outcome: "reject";
-  readonly gatewayId: string;
-  readonly attemptId: string;
-  readonly reason: string;
-  readonly realProcessInvoked: false;
-  readonly detailCode?:
-    | "REAL_BOUNDARY_DISABLED"
-    | "CURSOR_UNAVAILABLE"
-    | "REAL_WORKSPACE_INVALID"
-    | "REAL_LAUNCH_FAILED"
-    | "REAL_AGENT_PROFILE_INVALID";
-};
-
-export type RealLaunchFailure = {
-  readonly outcome: "fail";
-  readonly gatewayId: string;
-  readonly attemptId: string;
-  readonly reason: string;
-  readonly realProcessInvoked: false | boolean;
-  readonly detailCode?:
-    | "REAL_BOUNDARY_DISABLED"
-    | "CURSOR_UNAVAILABLE"
-    | "REAL_WORKSPACE_INVALID"
-    | "REAL_LAUNCH_FAILED";
-};
-
-export type RealLaunchResult =
-  | RealLaunchAck
-  | RealLaunchReject
-  | RealLaunchFailure;
-
-export type RealProcessObservation = {
-  readonly processRef: string;
-  readonly exitCode: number | null;
-  readonly timedOut: boolean;
-  readonly stdout: string;
-  readonly stderr: string;
-  readonly durationMs: number;
-  readonly realProcessInvoked: boolean;
-  readonly worktreeRef?: string;
-};
-
-export type ProcessRunnerInvokeInput = {
-  readonly attemptId: string;
-  /** Resolved Cursor binary — NEVER embedded as argv[0]. */
-  readonly executable: string;
-  readonly argv: readonly string[];
-  readonly cwd: string;
-  readonly timeoutMs: number;
-  readonly env: NodeJS.ProcessEnv;
-};
-
-export type ProcessRunnerInvokeResult = {
-  readonly processRef: string;
-  readonly realProcessInvoked: boolean;
-  readonly observation?: Partial<RealProcessObservation>;
-};
-
-/**
- * Injectable process runner. Production: NodeCursorProcessRunner (spawn shell:false).
- * Tests MUST inject a fake / FakeSpawnPrimitive — never spawn Cursor during REAL-OFF.
- *
- * invoke() MUST resolve on spawn confirmation (process invoked / PID known),
- * NOT on process close. observe / awaitCompletion are the completion path.
- */
-export interface ProcessRunner {
-  invoke(input: ProcessRunnerInvokeInput): Promise<ProcessRunnerInvokeResult>;
-  observe?(processRef: string): Promise<RealProcessObservation | null>;
-  awaitCompletion?(
-    processRef: string,
-  ): Promise<RealProcessObservation | null>;
-}
-
-/** @deprecated Prefer ProcessRunner. */
-export type RealProcessRunnerPort = ProcessRunner;
-
-export interface RealExecutionLaunchPort {
-  readonly gatewayId: string;
-  /**
-   * Static marker — REAL boundary may declare external effects.
-   * Fixture ExecutionAdapterPort must remain externalEffects:false.
-   */
-  readonly externalEffects: true;
-  launch(request: RealLaunchRequest): Promise<RealLaunchResult>;
-  observe?(processRef: string): Promise<RealProcessObservation | null>;
-  awaitCompletion?(
-    processRef: string,
-  ): Promise<RealProcessObservation | null>;
-}
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts =====
-/**
- * RealExecutionWorkspacePort — OA-owned isolated worktree preparation (M4 R2).
- *
- * Server-side roots only; callers supply attemptId + contract-bound baseHeadSha.
- * Never accepts a free client cwd.
- */
-
-export type PrepareWorkspaceRequest = {
-  readonly attemptId: string;
-  /** Full 40-hex Git SHA from ExecutionContract.inputs.baseHeadSha. */
-  readonly baseHeadSha: string;
-};
-
-export type PrepareWorkspaceResult = {
-  readonly workspacePath: string;
-  readonly verifiedHeadSha: string;
-};
-
-export interface RealExecutionWorkspacePort {
-  prepareWorkspace(
-    request: PrepareWorkspaceRequest,
-  ): Promise<PrepareWorkspaceResult>;
-}
-
-===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/ports/realLaunchSafetyJournalPort.ts =====
-/**
- * RealLaunchSafetyJournalPort — technical Gate D + launch frontier journal (D-M4-02/04).
- *
- * NOT Product Store · NOT Attempt aggregate · NOT Confirmation · TEMPORARY WITH EXIT.
- */
-import type {
-  ContractSafetyIdentity,
-  GateDGrant,
-  RealLaunchFrontierKind,
-  RealLaunchFrontierRecord,
-  RealLaunchReconcileDisposition,
-} from "../domain/realLaunchSafety";
-
-export type PersistGateDGrantInput = {
-  readonly grantId: string;
-  readonly executionContractId: string;
-  readonly executionContractVersion: number;
-  readonly semanticFingerprint: string;
-  readonly attemptId: string;
-  readonly selectedAgentRef: string;
-  readonly actorId: string;
-  readonly issuedAt: string;
-  readonly expiresAt: string;
-  readonly correlationId?: string;
-};
-
-/** @deprecated Prefer PersistGateDGrantInput. */
-export type CreateGrantInput = PersistGateDGrantInput;
-
-export type AtomicConsumeGateDAndCreateFrontierInput = {
-  readonly grantId: string;
-  readonly attemptId: string;
-  readonly occurredAt: string;
-  readonly identity: ContractSafetyIdentity;
-  readonly selectedAgentRef: string;
-  readonly actorId: string;
-  readonly correlationId: string;
-};
-
-/** @deprecated Prefer AtomicConsumeGateDAndCreateFrontierInput. */
-export type AtomicConsumeGrantAndCreateFrontierInput =
-  AtomicConsumeGateDAndCreateFrontierInput;
-
-export type MarkLaunchedInput = {
-  readonly attemptId: string;
-  readonly occurredAt: string;
-  readonly identity: ContractSafetyIdentity;
-  readonly selectedAgentRef: string;
-  readonly actorId: string;
-  readonly grantId: string;
-  readonly correlationId: string;
-  readonly processRef: string;
-  readonly payload?: Record<string, unknown> | unknown;
-};
-
-export type ValidateGrantForStartInput = {
-  readonly grantId: string;
-  readonly attemptId: string;
-  readonly actorId: string;
-  readonly selectedAgentRef: string;
-  readonly identity: ContractSafetyIdentity;
-  readonly nowIso: string;
-};
-
-export type GrantValidationResult =
-  | { readonly ok: true; readonly grant: GateDGrant }
-  | {
-      readonly ok: false;
-      readonly reason:
-        | "GATE_D_REQUIRED"
-        | "GATE_D_INVALID"
-        | "GATE_D_EXPIRED"
-        | "GATE_D_ALREADY_CONSUMED"
-        | "GATE_D_BINDING_MISMATCH";
-    };
-
-/**
- * Canonical M4 journal port used by StartExecution + GrantRealExecutionGate.
- * Implementations may also expose transitional aliases (createGrant, markLaunched, …).
- */
-export interface RealLaunchSafetyJournalPort {
-  persistGateDGrant(input: PersistGateDGrantInput): Promise<GateDGrant>;
-  findGateDGrant(grantId: string): Promise<GateDGrant | null>;
-  findActiveGateDGrantForAttempt(attemptId: string): Promise<GateDGrant | null>;
-  consumeGateDAndAppendCreated(
-    input: AtomicConsumeGateDAndCreateFrontierInput,
-  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }>;
-  appendLaunched(input: MarkLaunchedInput): Promise<RealLaunchFrontierRecord>;
-  findFrontierByAttempt(
-    attemptId: string,
-  ): Promise<RealLaunchFrontierRecord[]>;
-  findFrontierByIdentity(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchFrontierRecord[]>;
-  hasAmbiguousFrontier(identity: ContractSafetyIdentity): Promise<boolean>;
-  reconcileDispositionForIdentity(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchReconcileDisposition>;
-  hasKindForAttempt(
-    attemptId: string,
-    kind: RealLaunchFrontierKind,
-  ): Promise<boolean>;
-}
-
-/**
- * Extended journal surface used by transitional GrantGateD / Memory journal.
- * Includes both task names and alternate names.
- */
-export interface LaunchSafetyJournalPort extends RealLaunchSafetyJournalPort {
-  createGrant(input: CreateGrantInput): Promise<GateDGrant>;
-  findGrant(grantId: string): Promise<GateDGrant | null>;
-  validateGrantForStart(
-    input: ValidateGrantForStartInput,
-  ): Promise<GrantValidationResult>;
-  atomicConsumeGrantAndCreateFrontier(
-    input: AtomicConsumeGrantAndCreateFrontierInput,
-  ): Promise<{ grant: GateDGrant; created: RealLaunchFrontierRecord }>;
-  markLaunched(input: MarkLaunchedInput): Promise<RealLaunchFrontierRecord>;
-  findFrontierByAttemptId(
-    attemptId: string,
-  ): Promise<RealLaunchFrontierRecord[]>;
-  findFrontierByContractFingerprint(
-    identity: ContractSafetyIdentity,
-  ): Promise<RealLaunchFrontierRecord[]>;
-}
-
-
----
-# APPENDIX C — Untracked file sizes
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts` (19253 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts` (7533 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts` (21325 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts` (7995 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts` (8387 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts` (11294 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeProcessRunner.ts` (1185 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts` (6811 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts` (350 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts` (5840 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts` (7582 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts` (385 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts` (2871 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts` (771 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedReadOnlyCursorAgent.ts` (2781 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/memoryLaunchSafetyJournal.ts` (8307 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts` (8483 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteLaunchSafetyJournal.ts` (15704 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqliteRealLaunchSafetyJournal.ts` (424 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts` (8403 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts` (5152 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/launchSafetyJournalPort.ts` (521 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts` (3931 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts` (647 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realLaunchSafetyJournalPort.ts` (4291 bytes)
-
-# APPENDIX D — Final git truth
+# APPENDIX C — Final git truth
 ```
 branch=delivery/sfia-studio-m4-real-off
-HEAD=e974b7306f7400249c31399fd2890d5817833dbf
+HEAD=f7270b21ccdbcf1cd543879e7c4120d87b874479
+HEAD^=e974b7306f7400249c31399fd2890d5817833dbf
 origin/main=e974b7306f7400249c31399fd2890d5817833dbf
- M projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/domain/errors.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+ahead=1
+remote_delivery=f7270b21ccdbcf1cd543879e7c4120d87b874479	refs/heads/delivery/sfia-studio-m4-real-off
 ?? .tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts
-?? projects/sfia-studio/app/__tests__/oa/execution-attempt/support/
-?? projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedReadOnlyCursorAgent.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/memoryLaunchSafetyJournal.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqliteRealLaunchSafetyJournal.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/launchSafetyJournalPort.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/realLaunchSafetyJournalPort.ts
 ```
