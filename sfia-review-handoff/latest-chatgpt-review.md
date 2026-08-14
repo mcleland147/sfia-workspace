@@ -1,840 +1,506 @@
-# Review Pack FULL — M4 CLOSURE ROADMAP SYNC — PR READINESS / GIT INTEGRATION
+# Review Pack FULL — M5 ENTRY QUALIFICATION — Evidence/ReviewBundle → Nora/LPS
 
 | Champ | Valeur |
 | --- | --- |
-| Timestamp | 2026-08-14 22:50:53 CEST (+0200) |
-| GO consumed | GO MORRIS — COMMIT / PUSH / PR — M4 CLOSURE ROADMAP SYNC — M5 NOT AUTHORIZED — ZERO REAL |
+| Timestamp | 2026-08-14 23:15:22 CEST (+0200) |
+| GO consumed | GO MORRIS — M5 ENTRY QUALIFICATION — EVIDENCE/REVIEWBUNDLE → NORA/LPS — NO REAL — NO DELIVERY |
 | Repo | mcleland147/sfia-workspace |
-| Cycle | 13 — PR readiness / Git integration |
-| Profil / Typologie | Standard / DOC |
-| CKC | fallback `02-fifteen-cycles-synthetic-map.md` + méthode v2.6 (candidate / no execution authority) |
-| Branch | `docs/sfia-studio-m4-closure-roadmap-sync` |
-| Base initiale / origin/main | `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` |
-| Commit SHA | `071bfdedb13f8f3102c73348f97c1711e2c4ff0f` |
-| Parent SHA | `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` |
-| Incoming handoff | `afdb037ee8c749e1a874d486765f8db5fe22d525` |
-| Draft PR | #348 — https://github.com/mcleland147/sfia-workspace/pull/348 |
-| CI | SUCCESS — Actions run 31839470236 (no rerun) |
-| Project merge / mark ready | NOT PERFORMED |
-| Cursor REAL / M5 | 0 |
+| Cycle | 6 — Architecture technique |
+| Profil / Typologie | Critical / EVOL |
+| CKC | `pilots/03-architecture-technique.md` (candidate / cognitive guidance only / no execution authority) |
+| Branch | `analysis/sfia-studio-m5-entry-qualification` |
+| HEAD | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
+| origin/main | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
+| Incoming handoff observed | `1e22ba99fe32ae898582bf4505ea25ea2d30f844` |
+| Project commit/push/PR/merge | NOT PERFORMED |
+| Cursor REAL / Delivery / schema mutation | 0 |
 
-## Convergence Pre-check
+## 1. Convergence Pre-check
 
 | Item | État |
 | --- | --- |
-| M4 | EXIT PROOF ACCEPTED BY MORRIS — CLOSED |
-| Next capability | M5 — Retour de preuve + analyse Nora |
-| M5 | PARTIAL / NOT AUTHORIZED |
+| Build Doctrine | READ — KEEP (R4/R6/R18 applied analytically) |
+| Roadmap | READ — NOT MODIFIED · Git `5132f1bc…` primes SHA snapshots inside Roadmap |
+| framing 30/32/33/35/37 | READ (34 only as Execution dependency context) |
+| M4 | CLOSED / exit proof ACCEPTED BY MORRIS |
+| M5 | PARTIAL / NOT AUTHORIZED — this cycle = ENTRY QUALIFICATION only |
+| Next capability after M5 | **M6 — Boucle projet complète** (V3-F05 + F09 base) — NOT STARTED / NOT AUTHORIZED |
 | runtime v3 | NON ADOPTED |
-| CURSOR_REAL_TIMEOUT_POLICY | OPEN / NON-BLOCKING POST-M4 |
-| 60000 | KEEP FOR NOW — sufficient for demonstrated M4 bounded RO path only — NOT universal — NOT defective |
-| Build Doctrine / framing / method | unchanged |
-| Trajectory | M4 CLOSED → Roadmap Git integration → main stable → M5 only under separate Morris GO |
+| Trajectory link | CONFIRMED: M4 CLOSED → M5 entry qualification → (future) M5 Delivery under separate Morris GO → M6 |
+| Parallel architecture needed? | No — reuse existing ports/use cases + Product SQLite backbone (G0-B ADOPTED) |
 
-## Candidate identity verification
-
-| Check | Result |
-| --- | --- |
-| Reviewed source | handoff `afdb037e…` DIFF COMPLET |
-| Local/staged/commit file SHA256 | `17408eb803a6eedcf50868589a786b57cb7dbc6f33146418fedbfea10300ddfa` |
-| Handoff patch apply → file identity | VERIFIED exact |
-| PR patch apply → file identity | VERIFIED exact |
-| Raw unified-diff byte equality vs handoff | NOT byte-identical |
-| Encoding-only delta | 27 empty context lines: git produces space-only context; handoff pack stored empty after rstrip |
-| Functional/textual candidate identity | VERIFIED |
-| Stat | 1 file · +113 / -74 |
-| Content mutations this cycle | 0 (no Roadmap rewrite) |
-
-**Verdict identity:** VERIFIED — candidate integrated exactly as reviewed; no documentary recomposition.
-
-## Pre-stage / staged validations
-
-- `git diff --check` clean
-- tracked modification exactly Roadmap
-- staged exactly Roadmap; untracked `.tmp-sfia-review/**` only
-- staged identity re-verified against handoff DIFF COMPLET (file-level)
-
-## Commit metadata
-
-```
-commit 071bfdedb13f8f3102c73348f97c1711e2c4ff0f
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Fri Aug 14 22:46:27 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Fri Aug 14 22:46:27 2026 +0200
-
-    docs(sfia-studio): close m4 convergence milestone in roadmap
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../convergence/sfia-studio-convergence-roadmap.md | 187 +++++++++++++--------
- 1 file changed, 113 insertions(+), 74 deletions(-)
-```
-
-Message: `docs(sfia-studio): close m4 convergence milestone in roadmap`
-
-## Commit patch COMPLETE — Roadmap
-
-````diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 01e6dbe..7401ed8 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,13 +6,13 @@
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
- | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
- | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
--| **Snapshot Git** | origin/main @ `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` |
-+| **Snapshot Git** | origin/main @ `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` |
- | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
--| **Timestamp maintenance** | 2026-08-14 Europe/Paris — M4 PRE-REPROOF BOUNDING MERGED (PR #346) — FIRST REAL HISTORICAL / COMPLETION NOT PROVEN — NEXT = M4 GOVERNED REAL COMPLETION PROOF |
-+| **Timestamp maintenance** | 2026-08-14 Europe/Paris — M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED — NEXT = M5 (NOT AUTHORIZED) — CURSOR_REAL_TIMEOUT_POLICY OPEN / NON-BLOCKING |
- | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
--| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration |
--| **Sources** | Git `main` @ `fc7e20aa…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346 · CI #158/#162/#166/#172/#176 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · M4 Product path on main `projects/sfia-studio/app/**` |
--| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** · M4 Delivery merged **≠** M4 exit proof satisfied · FIRST REAL attempt performed **≠** governed REAL completion proven · Gate D first-REAL consumption proven once **≠** reusable identity / future Gate D · CREATED/LAUNCHED REAL trace proven **≠** successful completion · pre-reproof bounding merged **≠** strict runtime read-only tool-surface proven · `--mode ask` metadata-qualified **≠** Shell impossibility proven · timeout 60000 unchanged **≠** proven sufficient or defective · M4 **≠** CLOSED · M5 **≠** AUTHORIZED · M4 **≠** runtime v3 ADOPTED · technical launch journal implemented **≠** Product Store · ≠ full OA durable |
-+| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** |
-+| **Sources** | Git `main` @ `2d1361ee…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · M4 Product path on main `projects/sfia-studio/app/**` |
-+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M4 CLOSED **≠** M5 AUTHORIZED · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **≠** M4 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · ≠ full OA durable |
-
- ## B1. Nature du document
-
-@@ -26,7 +26,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
-
- ## B3. Point de départ factuel
-
--### Sur main (`fc7e20aaeb5153b4d73c1809f865e361f00e1b34`)
-+### Sur main (`2d1361ee71bec7a21f6f76efc7c33eaf3146802a`)
-
- | Capacité | État observé |
- | --- | --- |
-@@ -46,12 +46,13 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence) | **Memory partiel** — process-local |
- | Autres OA (T-A3 HD) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) ; Confirmation reste Memory/process-local |
- | Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only ; Attempt product still Memory |
--| Architecture M4 | **ADOPTED + IMPLEMENTED ON MAIN** — D-M4-01→05 via PR #344 · Delivery **VALIDATED BY MORRIS / MERGED** · FIRST REAL **ATTEMPT PERFORMED** (historical) · pre-reproof bounding **MERGED** (PR #346) · M4 exit proof **NOT SATISFIED** |
--| T-A5 REAL (Nora/Studio) | **IMPLEMENTED ON MAIN / DEFAULT OFF** — specialized OA-owned boundary (`RealExecutionLaunchPort` / `NodeCursorProcessRunner` / isolated worktree) ; fixture `externalEffects:false` **preserved** ; gateway deterministic pre-reproof bounding **ON MAIN** (`--mode ask` + README.md markers) ; historical governed REAL launches = **1** ; successful governed REAL completions = **0** |
--| Cursor REAL depuis Nora | **1 historical attempt** (`xat:m4-first-real-001`) — governed launch **PROVEN** · completion **NOT PROVEN** (timeout) · identities **must not be reused** |
--| Gate D | **IMPLEMENTED ON MAIN** (GD-1) · first-REAL consumption **PROVEN ONCE** historically (`gtd:m4-first-real-001`) · future reproof requires **fresh** Gate D + Morris GO |
--| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · ≠ Product Store · **CREATED/LAUNCHED REAL TRACE PROVEN** on FIRST REAL attempt |
--| Bounded RO AgentCapability | **IMPLEMENTED ON MAIN** · static / deny-by-default · **exercised once in REAL** (FIRST REAL) · completion not obtained · strict CLI runtime RO tool-surface **NOT PROVEN** |
-+| Architecture M4 | **ADOPTED + IMPLEMENTED ON MAIN — M4 CLOSED** — D-M4-01→05 via PR #344 · Delivery **MERGED** · FIRST REAL historical + final governed completion reproof **PASS** · exit proof **ACCEPTED BY MORRIS** |
-+| T-A5 REAL (Nora/Studio) | **IMPLEMENTED ON MAIN / DEFAULT OFF** — specialized OA-owned boundary ; fixture `externalEffects:false` **preserved** ; gateway deterministic bounding **ON MAIN** (`--mode ask` + README.md markers) ; historical governed REAL launches = **2** ; successful governed REAL completions = **1** |
-+| Cursor REAL depuis Nora | **2 historical governed attempts** — Run1 FIRST REAL (`xat:m4-first-real-001`) launch **PROVEN** / completion **NOT** (timeout ~60s) · Run2 final reproof (`xat:m4-reproof-86b5ecb05474`) completion **PROVEN** (~15.7s / `M4_READ_ONLY_OK`) · identities never reused across runs |
-+| Gate D | **IMPLEMENTED ON MAIN** (GD-1) · consumed **once per governed REAL** historically (Run1 + Run2) · future REAL still requires **fresh** Gate D + Morris GO |
-+| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · ≠ Product Store · REAL TRACE **PROVEN** on both historical governed runs |
-+| Bounded RO AgentCapability | **IMPLEMENTED ON MAIN** · static / deny-by-default · KEEP · **STRICT BOUNDED RUNTIME TOOL-SURFACE PROVEN FOR FINAL M4 REPROOF** (Read=1 README only ; Shell/Glob/Grep/write=0) — **≠** “Cursor is globally read-only” |
-+| `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4 RESERVE** — current product timeout **60000** = **KEEP FOR NOW** · proven sufficient for demonstrated M4 bounded RO path · **NOT** universal policy · **NOT** proven defective |
-
- ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
-
-@@ -78,9 +79,10 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | T-A3 HD/Confirm/Authority | Product SQLite HD **ON MAIN** (PR #341) + Confirmation Memory + local Morris authority TEMPORARY WITH EXIT | **COMPLETE** (M3) / **KEEP** backbone | HD durable on main ; Confirmation process-local ; Auth.js exit ouvert |
- | T-A4 ExecutionContract | Product SQLite + M3 PREPARE truthful + Cursor projection PREPARE-only **ON MAIN** (PR #341) | **COMPLETE** (M3) / **KEEP** backbone | Durable on main ; no Attempt/REAL ; fixture path historique/test conservé |
- | T-A5 Attempt / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` · PR #344 | **KEEP** core lifecycle + **KEEP** zero-effect port | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) |
--| T-A5 specialized REAL boundary | PR #344 + PR #346 / main `fc7e20aa…` | **COMPLETE M4 Delivery / KEEP** (+ gateway bounding) | OA-owned `RealExecutionLaunchPort` / `StudioCursorRealLaunchGateway` / `NodeCursorProcessRunner` / `StudioGitWorktreeWorkspace` — **implemented, default OFF** — **no** OA→OPS1 product runtime coupling (D-M4-01) — FIRST REAL launch **PROVEN once** · completion **NOT PROVEN** · PR #346 adds `--mode ask` + deterministic README.md instruction (metadata-qualified RO ; strict runtime tool-surface **NOT PROVEN**) |
--| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · FIRST REAL exercised | **TEMPORARY WITH EXIT — IMPLEMENTED** | Technical safety journal ; ≠ Product Store ; ≠ dual product persistence ; crash/replay tests merged ; **CREATED/LAUNCHED REAL TRACE PROVEN** on FIRST REAL ; exit → Attempt/Evidence durable path M5+ / dedicated Morris gate |
--| AgentCapability REAL RO profile | PR #344 / `m4BoundedReadOnlyCursorAgent` · KEEP | **COMPLETE M4 Delivery / KEEP** | Static immutable deny-by-default registry retained ; bounded RO profile **implemented** ; **exercised once in REAL** (FIRST REAL) ; AgentCapability itself **unchanged** by PR #346 (gateway argv/instruction only) |
-+| T-A5 specialized REAL boundary | PR #344 + PR #346 / main `2d1361ee…` | **COMPLETE M4 / KEEP** (+ gateway bounding) | OA-owned REAL boundary **implemented, default OFF** — no OA→OPS1 runtime coupling — TWO historical governed launches · ONE successful completion under deterministic `--mode ask` / README bounding · M4 CLOSED |
-+| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · exercised on both REAL runs | **TEMPORARY WITH EXIT — IMPLEMENTED / KEEP** | Technical safety journal ; ≠ Product Store ; REAL TRACE PROVEN ; exit → Attempt/Evidence durable path M5+ / dedicated Morris gate |
-+| AgentCapability REAL RO profile | PR #344 / `m4BoundedReadOnlyCursorAgent` · KEEP | **COMPLETE M4 / KEEP** | Bounded RO profile exercised ; final reproof proved strict bounded tool-surface for that path ; AgentCapability **unchanged** through bounding/closure |
-+| Product timeout 60000 | product default / both REAL runs | **KEEP CURRENT VALUE FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** (`CURSOR_REAL_TIMEOUT_POLICY`) | Sufficient for demonstrated M4 bounded RO completion (~15.7s) ; FIRST REAL timeout historical ≠ proven defect ; **no** universal timeout policy selected |
- | T-A6 Evidence/ReviewBundle | F3 ingest + UI cards | **COMPLETE** | UI reinjection ; LPS write-back manquant |
- | T-A7 readiness/HARD rails | `platform/t-a7` | **KEEP** | Honesty rails |
- | Shared platform AI | `lib/platform` | **KEEP** | Substrate F1 |
-@@ -103,19 +105,20 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | HumanDecision durable/authoritative | **CLOSED ON MAIN — M3** — Product SQLite + LPS link ; autorité local-single-user TEMPORARY WITH EXIT (durabilité HD fermée ≠ IAM product-grade fermé) | future IAM (Ack **not** absolute for first RO — D-M4-05) ; historical Gate D first-REAL consumption already proven once |
- | CKC ↔ cycle binding | **CLOSED ON MAIN — M2** — `ckcResolutionRef` projection on LPS | — |
- | live contextSnapshot | **CLOSED ON MAIN — M2** — `F2ContextSnapshot` post-mutation (pas nouvel aggregate durable) | — |
--| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M4 GOVERNED REAL COMPLETION PROOF (fresh identities + Morris GO) |
--| Cursor projection canonique | **CLOSED ON MAIN — M3 PREPARE-only** (`executionAllowed=false`) | M4 GOVERNED REAL COMPLETION PROOF |
--| Cursor REAL behind T-A5 | **IMPLEMENTATION MERGED / DEFAULT OFF** · FIRST REAL attempt **PERFORMED** · governed launch **PROVEN** · governed completion **NOT PROVEN** · pre-reproof bounding **MERGED** (PR #346) | M4 GOVERNED REAL COMPLETION PROOF — MORRIS GO REQUIRED |
--| REAL specialized adapter boundary | **CLOSED ON MAIN — PR #344** (+ gateway bounding PR #346) — implemented, default OFF | completion reproof |
--| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · **CREATED/LAUNCHED REAL TRACE PROVEN** (FIRST REAL) | future Attempt/Evidence exit + completion reproof |
--| Gate D durable grant | **IMPLEMENTED ON MAIN** (GD-1) · first-REAL consumption **PROVEN ONCE** historically · **not reusable** | fresh Gate D for completion reproof |
--| bounded REAL AgentCapability RO | **IMPLEMENTED ON MAIN** · exercised once in REAL · completion not obtained · strict runtime RO tool-surface **NOT PROVEN** | M4 GOVERNED REAL COMPLETION PROOF |
--| governed REAL completion | **NOT PROVEN** — FIRST REAL timed out (~60s / exit 143) ; timeout diagnosis complete with reserves ; timeout 60000 **UNRESOLVED** | M4 GOVERNED REAL COMPLETION PROOF |
-+| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M5 (Evidence path) — separate Morris GO |
-+| Cursor projection canonique | **CLOSED ON MAIN — M3 PREPARE-only** (`executionAllowed=false`) | future elevated REAL classes / M5+ |
-+| Cursor REAL behind T-A5 | **IMPLEMENTATION MERGED / DEFAULT OFF** · M4 governed completion **PROVEN** (final reproof) · M4 **CLOSED** | future REAL requires distinct Morris GO (not M4 reopen) |
-+| REAL specialized adapter boundary | **CLOSED ON MAIN — PR #344** (+ gateway bounding PR #346) — implemented, default OFF | KEEP |
-+| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · REAL TRACE **PROVEN** (both runs) | Attempt/Evidence product durability exit M5+ |
-+| Gate D durable grant | **IMPLEMENTED ON MAIN** (GD-1) · consumed once per historical governed REAL · **not reusable** | fresh Gate D for any future REAL |
-+| bounded REAL AgentCapability RO | **IMPLEMENTED ON MAIN** · final reproof **STRICT BOUNDED TOOL-SURFACE PROVEN** for demonstrated path | KEEP ; future capabilities separate |
-+| governed REAL completion (M4) | **PROVEN** — final reproof PASS (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** | — |
-+| `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4** — 60000 KEEP FOR NOW | future REAL class needing policy qualification |
- | Critical Ack UI | CANDIDATE / MISSING — **NOT BLOCKING FIRST M4 READ-ONLY PROOF BY D-M4-05** ; remains for future N2/N3 / IAM | future N2/N3 · IAM gate |
- | Evidence durable | MISSING | M5 |
- | ReviewBundle → LPS writeback | MISSING | M5/M6 |
- | Nora post-exec analysis | PARTIAL (UI cards) | M5 |
--| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence Memory ; M4 crash/replay **protections implemented and tested** (PR #344) ; FIRST REAL journal reopen after timeout **PROVEN** · completion path still open | M4 GOVERNED REAL COMPLETION PROOF / M5+ |
-+| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence Memory ; M4 crash/replay protections + REAL journal reopen **PROVEN** | M5+ Attempt/Evidence durability |
- | IAM/authz product-grade | PARTIAL / MISSING (M3 local authority temporary ; Auth.js candidate **NOT PROMOTED**) — **not** a blocker of first RO proof (D-M4-05) ; debt preserved | future IAM gate / M8 |
-
- ## B6. Decisions / gates
-@@ -144,7 +147,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- - **M4 Delivery** **VALIDATED BY MORRIS** · PR #344 merged on main @ `ec65fb47c04b451d892297c806b9b041995339a5`
- - head M4 Delivery `f7270b21ccdbcf1cd543879e7c4120d87b874479` · CI SFIA Studio **#172** SUCCESS (Morris-authorized rerun, exact same head ; initial T7-C08 Class C / M4 causality not established)
- - merge gate M4 Delivery **CLOSED**
--- M4 exit proof **NOT SATISFIED** (governed REAL completion still **NOT PROVEN** after FIRST REAL attempt + diagnosis + PR #346 bounding)
-+- M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
-
- ### M4 Architecture Decisions — CONSUMED BY MORRIS
-
-@@ -168,28 +171,29 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- - Merge : **CLOSED — PR #344** merge `ec65fb47c04b451d892297c806b9b041995339a5`
- - CI : **#172 SUCCESS** on same head `f7270b21` after authorized rerun (no code change)
-
--### M4 REAL / diagnosis / bounding — CONSUMED (historical)
-+### M4 REAL / diagnosis / bounding / completion / closure — CONSUMED
-
--- FIRST M4 CURSOR REAL READ-ONLY PROOF GO — **CONSUMED** (base `3575c886…`)
--- Attempt `xat:m4-first-real-001` / Gate D `gtd:m4-first-real-001` — **CONSUMED ONCE** — **must never be reused**
--- Governed REAL launch / CREATED/LAUNCHED / worktree no-mutation — **PROVEN**
--- Governed REAL completion — **NOT PROVEN** (timedOut≈60030 ms · exitCode=143 · empty Studio stdout/stderr)
--- Timeout diagnosis GO — **CONSUMED** — no second REAL ; root cause UNIQUE **NOT PROVEN** ; timeout = **PLAUSIBLE CONTRIBUTING FACTOR**
--- Pre-reproof bounding — **MERGED** — PR #346 head `8900cd06…` / merge `fc7e20aa…` · CI #176 SUCCESS · ZERO REAL in that integration
-+- FIRST M4 CURSOR REAL READ-ONLY PROOF GO — **CONSUMED** (base `3575c886…`) — launch **PROVEN** · completion **NOT** (timeout ~60030 ms / exit 143) — identities never reused
-+- Timeout diagnosis GO — **CONSUMED** — UNIQUE root cause **NOT PROVEN** ; timeout = **PLAUSIBLE CONTRIBUTING FACTOR** historically
-+- Pre-reproof bounding — **MERGED** — PR #346 / merge `fc7e20aa…` · CI #176
-+- Post-pre-reproof Roadmap sync — **MERGED** — PR #347 / merge `2d1361ee…` · CI #178
-+- **M4 GOVERNED REAL COMPLETION PROOF** — **CONSUMED / PASS** — handoff `1123a30f…` · fresh HD/EC/Attempt/Gate D · StartExecution=1 · spawn=1 · retry=0 · duration≈15735 ms · timedOut=false · exit=0 · stdout `M4_READ_ONLY_OK` · README Read=1 · Shell/Glob/Grep/write=0
-+- **M4 EXIT PROOF EVALUATION** — **CONSUMED / PASS WITH RESERVES**
-+- **M4 EXIT PROOF** — **ACCEPTED BY MORRIS**
-+- **M4** — **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
-
- ### Décisions / gates toujours ouverts
-
--1. **M4 GOVERNED REAL COMPLETION PROOF** — **MORRIS GO REQUIRED** — **NOT AUTHORIZED** (fresh HD/EC/Attempt/Gate D identities only)
--2. **M4 exit proof evaluation** — **NOT SATISFIED** (blocked on completion proof)
--3. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
--4. Disposition OPS1 / D1 / execution-run — **Decision Required**
--5. **M5** — **NOT AUTHORIZED**
--6. runtime v3 adoption — **NOT AUTHORIZED**
-+1. **M5 — Retour de preuve + analyse Nora** — **NOT AUTHORIZED** — separate Morris GO required (M4 dependency **SATISFIED**)
-+2. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
-+3. Disposition OPS1 / D1 / execution-run — **Decision Required**
-+4. runtime v3 adoption — **NOT AUTHORIZED**
-+5. **`CURSOR_REAL_TIMEOUT_POLICY`** — **OPEN / NON-BLOCKING POST-M4 RESERVE** — current 60000 **KEEP FOR NOW** · no structural timeout decision selected
-
- ### Décisions / gates historiques encore listés (non tranchés comme promotion)
-
- - Auth.js / Critical Ack promotion for elevated classes — open (see D-M4-05)
--- Future REAL enablement / completion reproof — open (implementation merged / default OFF **≠** next REAL authorized without Morris GO)
-+- Future REAL enablement beyond closed M4 bounded path — open (default OFF **≠** authorized without Morris GO)
- ## B7–B8. Roadmap capability-driven (milestones)
-
- ### Gate 0 — Convergence architecture / persistence
-@@ -270,7 +274,7 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Merge** | **CLOSED** — PR #341 MERGED @ `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS |
- | **Exit evidence** | **EXIT PROOF SATISFIED ON MAIN** |
- | **Preuve e2e** | GO → HD durable + LPS N+1 · restart → PREPARE sans Proposal · ExecutionContract durable · fingerprint persisted=recomputed=projection · unresolved semantics fail-closed · Cursor PREPARE-only · authority adversarial PASS · local 1656 / 131 / 0 · CI #166 SUCCESS · merge #341 |
--| **Next** | M4 GOVERNED REAL COMPLETION PROOF — **MORRIS GO REQUIRED** *(FIRST REAL historical ; pre-reproof bounding MERGED)* |
-+| **Next** | M5 — Retour de preuve + analyse Nora — **MORRIS GO REQUIRED** *(M4 CLOSED)* |
- | **Statut** | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
-
- ### Milestone 4 — Première exécution Cursor REAL bornée depuis Studio
-@@ -280,14 +284,14 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **ID** | M4 |
- | **Capacité v3** | V3-F11 AgentCapability · F12 · F05 exécution |
- | **Outcome** | Action REAL faible risque/read-only depuis Studio via T-A5 + adapter harvesté ; pas de silent REAL→fixture |
--| **État actuel** | **M4 PARTIAL REAL PROOF** — Delivery REAL-OFF **MERGED** (PR #344) · FIRST REAL attempt **PERFORMED** (base `3575c886…`) · governed launch / Gate D once / CREATED·LAUNCHED / no-mutation **PROVEN** · governed completion **NOT PROVEN** (timeout) · diagnosis **COMPLETE WITH RESERVES** · pre-reproof bounding **MERGED ON MAIN** (PR #346 @ `fc7e20aa…`) · REAL default **OFF** · timeout 60000 **UNRESOLVED** |
-+| **État actuel** | **M4 CLOSED** — Delivery **MERGED** · FIRST REAL historical (launch proven / completion timeout) · diagnosis **COMPLETE WITH RESERVES** · pre-reproof bounding **MERGED** · final governed REAL completion reproof **PASS** (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · REAL default **OFF** · timeout 60000 **KEEP FOR NOW** |
- | **Architecture selected (D-M4-01→05)** | **ADOPTED + IMPLEMENTED** — specialized REAL OA boundary (Option B) · temporary durable launch journal CREATED/LAUNCHED · bounded RO AgentCapability · durable Gate D GD-1 · L7-1 for first RO |
--| **Actifs** | T-A5 lifecycle **KEEP** · fixture port `externalEffects:false` **KEEP** · specialized REAL boundary **COMPLETE** · production `NodeCursorProcessRunner` **COMPLETE** · isolated pinned Git worktree **COMPLETE** · Gate D GD-1 **COMPLETE** · first-REAL consumption **PROVEN ONCE historically** · technical launch journal **IMPLEMENTED / TEMPORARY WITH EXIT** · bounded RO AgentCapability **COMPLETE** · gateway deterministic bounding **ON MAIN** (`--mode ask` + README.md / `M4_READ_ONLY_OK`/`UNAVAILABLE`) · OPS1 Cursor primitives **HARVESTED**, no OA runtime coupling |
--| **Gaps restants M4** | governed REAL **completion** under current bounding · fresh identities (never reuse `xat:m4-first-real-001` / `gtd:m4-first-real-001`) · strict runtime read-only tool-surface observation · timeout 60000 sufficiency/defect still **unproven** · final M4 exit proof evaluation |
--| **Dépendances** | M3 — **SATISFIED** · Architecture decisions D-M4-01→05 — **SATISFIED** · M4 Delivery — **SATISFIED / MERGED** · FIRST REAL GO — **CONSUMED (historical)** · timeout diagnosis — **CONSUMED** · pre-reproof bounding — **SATISFIED / MERGED (PR #346)** · Critical Ack promotion — **NOT REQUIRED FOR FIRST RO by D-M4-05** · M4 GOVERNED REAL COMPLETION PROOF Morris gate — **REQUIRED** |
--| **Preuve de sortie future M4** | exact HumanDecision/ExecutionContract · bounded agent · Gate D consumed once · Cursor REAL invoked exactly once · CREATED/LAUNCHED trace · no duplicate launch after crash/restart · no fixture fallback · read-only bounded result · fail-closed unavailable/stale scenarios — launch/Gate D/CREATED·LAUNCHED/no-mutation subset **PROVEN historically** · **governed completion still NOT PROVEN** → exit proof **NOT SATISFIED** |
--| **Statut** | **DELIVERY MERGED — FIRST REAL ATTEMPT PERFORMED — GOVERNED LAUNCH PROVEN — COMPLETION NOT PROVEN — PRE-REPROOF BOUNDING MERGED — EXIT PROOF NOT SATISFIED — M4 NOT CLOSED** |
--| **Next** | M4 GOVERNED REAL COMPLETION PROOF — subject to **separate Morris GO** (after Roadmap sync Git integration if required) |
-+| **Actifs** | T-A5 lifecycle **KEEP** · fixture port `externalEffects:false` **KEEP** · specialized REAL boundary **COMPLETE / KEEP** · `NodeCursorProcessRunner` **KEEP** · isolated pinned Git worktree **KEEP** · Gate D GD-1 **KEEP** · technical launch journal **TEMPORARY WITH EXIT / KEEP** · bounded RO AgentCapability **KEEP** · gateway deterministic bounding **KEEP** · OPS1 Cursor primitives **HARVESTED**, no OA runtime coupling |
-+| **Gaps restants M4** | — **none blocking** · surviving non-blocking reserves: `CURSOR_REAL_TIMEOUT_POLICY` · launch journal TEMPORARY WITH EXIT · future IAM/Ack · partial Confirmation/Attempt/Evidence durability |
-+| **Dépendances** | M3 — **SATISFIED** · D-M4-01→05 — **SATISFIED** · Delivery — **SATISFIED** · FIRST REAL / diagnosis / bounding / completion proof / exit acceptance — **CONSUMED** |
-+| **Preuve de sortie M4** | **SATISFIED / ACCEPTED BY MORRIS** — exact HD/EC · bounded agent · Gate D single-use · governed Cursor REAL · CREATED/LAUNCHED · no duplicate launch · no fixture fallback · isolated pinned workspace · bounded RO completion · fail-closed safety · final completion PASS |
-+| **Statut** | **M4 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
-+| **Next** | M5 — Retour de preuve + analyse Nora — **NOT AUTHORIZED** without separate Morris GO |
-
- ### Milestone 5 — Retour de preuve + analyse Nora
-
-@@ -298,9 +302,9 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Outcome** | Evidence/ReviewBundle liés contrat/décision ; réinjectés Nora + LPS ; handoff Git transitionnel OK |
- | **État actuel** | UI cards Memory ; pas LPS write-back |
- | **Gaps** | L9 Evidence→LPS ; durable evidence |
--| **Dépendances** | M4 — **NOT YET SATISFIED** (M4 Delivery merged + FIRST REAL partial proof **≠** M4 exit proof satisfied ; governed REAL completion still required) |
-+| **Dépendances** | M4 — **SATISFIED / CLOSED** |
- | **Preuve e2e** | post-exec : ReviewBundle visible + LPS updated + recommendation next gate |
--| **Statut** | **PARTIAL / NOT AUTHORIZED** |
-+| **Statut** | **PARTIAL / NOT AUTHORIZED** — **M5 EXECUTION REQUIRES A SEPARATE MORRIS GO** |
-
- ### Milestone 6 — Boucle projet complète
-
-@@ -343,14 +347,14 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — T-A1 Project/LPS durable SQLite **merged on main** ; writeback / autres états associés restent à compléter (M5+) | M1, M5 | M1 / PR #337 / restart proof | writeback + autres OA |
- | V3-F03 DoctrinePackage | Package pin/digest | **PARTIAL RUNTIME** — digest in live `F2ContextSnapshot` **on main** (M2) ; KEEP files | M1–M2 | live digest in snapshot | — |
- | V3-F04 Épistémologie | Obs/Hyp/… | DOC + UI tags partiels (base M2) | M2, M7 | tags/stop contradictions | later depth |
--| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — cognitive piloting M2 + HD/ExecutionContract PREPARE-only **on main** (M3) + M4 Delivery REAL-OFF **merged** + FIRST REAL launch **proven once** + pre-reproof bounding **merged** ; governed REAL **completion** / Evidence / LPS writeback **not closed** | M2–M6 | e2e sans copier-coller | M4 GOVERNED REAL COMPLETION PROOF then M5+ |
-+| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — through M4 governed execution **demonstrated / milestone CLOSED** ; Evidence / LPS writeback / Nora post-exec **not closed** | M2–M6 | e2e sans copier-coller | M5+ (NOT AUTHORIZED yet) |
- | V3-F06 Trajectory | ProjectTrajectory | Modeled / Memory cycle | M3, M7 | trajectory update post-HD | wire |
- | V3-F07 Provenance | Source hierarchy | Doctrine FS | M2, M7 | provenance on artifacts | later |
- | V3-F08 Contradictions | Stop/contradiction | DOC | M7 | UI stop + record | later |
- | V3-F09 Replanif | Governed replan | DOC | M6–M7 | next-step from ReviewBundle | after M5 |
- | V3-F10 DebtItem | Dette gouvernée | DOC | M7–M8 | debt records | later |
--| V3-F11 AgentCapability | Caps agents | Fixture agent + **bounded REAL RO implementation MERGED ON MAIN** (PR #344) · exercised once in REAL (FIRST REAL) · completion **not** obtained · AgentCapability **KEEP** through PR #346 | M4 | REAL agent RO exercised with governed **completion** | M4 GOVERNED REAL COMPLETION PROOF |
--| V3-F12 Réversibilité | Action policy | Partial confirmations · Gate D **implementation merged** (GD-1) · CREATED/LAUNCHED safety frontier **merged** · spawn ACK/completion separation **merged** · Gate D first-REAL **consumption proven once** · Ack **deferred for first RO** (D-M4-05) | M3–M4 | confirm + Gate D consumed once (+ Ack for N2/N3 later) · completion still open | M4 GOVERNED REAL COMPLETION PROOF / future IAM |
-+| V3-F11 AgentCapability | Caps agents | Fixture + **bounded REAL RO KEEP** · M4 scope exercised successfully on final reproof (strict bounded tool-surface proven for that path) | M4 | M4 CLOSED for this capability class | future AgentCapability classes separate |
-+| V3-F12 Réversibilité | Action policy | Gate D + CREATED/LAUNCHED + spawn ACK/completion controls **demonstrated for M4** · Ack **deferred for first RO** (D-M4-05) | M3–M4 | M4 CLOSED · Ack for elevated classes later | future IAM / N2/N3 |
- | V3-F13 Learning | REX contrôlé | DOC / capitalisation | M5, M7 | learning from Evidence | later |
- | V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle | M5 | completeness checks | durable evidence |
- | V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 | M8 | anti-claim maturity | no false READY |
-@@ -364,44 +368,76 @@ CRITICAL PATH:
-   → M3 HD durable + ExecutionContract exact — VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED (PR #341 @ 8eea4cbf…)
-   → M4 Architecture — CLOSED (D-M4-01→05 ADOPTED BY MORRIS)
-   → M4 Delivery REAL-OFF — VALIDATED BY MORRIS / MERGED ON MAIN (PR #344 @ ec65fb47)
--  → FIRST M4 CURSOR REAL attempt performed (historical) — governed launch / Gate D once / CREATED·LAUNCHED / no-mutation PROVEN — completion NOT PROVEN
--  → timeout diagnosis completed — no second REAL — timeout = PLAUSIBLE CONTRIBUTING FACTOR — UNIQUE root cause NOT PROVEN
--  → pre-reproof deterministic bounding MERGED ON MAIN (PR #346 @ fc7e20aa…)
--  → M4 GOVERNED REAL COMPLETION PROOF [NEXT CAPABILITY — MORRIS GO REQUIRED]
--  → M4 exit proof evaluation
--  → M5 Evidence/ReviewBundle + Nora + LPS writeback — only if M4 exit proof satisfied + Morris authorization
-+  → FIRST M4 CURSOR REAL attempt (historical) — launch / Gate D / CREATED·LAUNCHED / no-mutation PROVEN — completion NOT (timeout ~60s)
-+  → timeout diagnosis COMPLETE WITH RESERVES — UNIQUE root cause NOT PROVEN — timeout = PLAUSIBLE CONTRIBUTING FACTOR (historical)
-+  → pre-reproof deterministic bounding MERGED (PR #346 @ fc7e20aa…)
-+  → post-pre-reproof Roadmap sync MERGED (PR #347 @ 2d1361ee…)
-+  → M4 GOVERNED REAL COMPLETION PROOF PASS (handoff 1123a30f…) — duration≈15.7s — M4_READ_ONLY_OK — strict bounded tool-surface PROVEN for that path
-+  → M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED
-+  → NEXT CAPABILITY = M5 — RETOUR DE PREUVE + ANALYSE NORA
-+  → M5 NOT AUTHORIZED (separate Morris GO required)
-
- M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
--M4 DELIVERY GATE: CLOSED / MERGED (PR #344 @ ec65fb47)
--FIRST REAL GATE: CONSUMED / HISTORICAL — PARTIAL REAL PROOF
-+M4 DELIVERY GATE: CLOSED / MERGED (PR #344)
-+FIRST REAL GATE: CONSUMED / HISTORICAL — PARTIAL (launch only)
- TIMEOUT DIAGNOSIS: COMPLETE WITH RESERVES
--PRE-REPROOF BOUNDING: MERGED (PR #346 / CI #176 SUCCESS)
--M4 GOVERNED REAL COMPLETION PROOF: OPEN — MORRIS GO REQUIRED
--M4 EXIT PROOF: OPEN — NOT SATISFIED
--GATE D: IMPLEMENTED ON MAIN — FIRST-REAL CONSUMPTION PROVEN ONCE — NOT REUSABLE
-+PRE-REPROOF BOUNDING: MERGED (PR #346)
-+M4 GOVERNED REAL COMPLETION PROOF: CONSUMED / PASS
-+M4 EXIT PROOF: ACCEPTED BY MORRIS — SATISFIED
-+M4: CLOSED
-+GATE D: IMPLEMENTED — consumed once per historical governed REAL — fresh grant required for future REAL
- CRITICAL ACK: DEFERRED FOR FIRST RO — FUTURE N2/N3 / IAM — NOT PROMOTED
--TECHNICAL LAUNCH JOURNAL: IMPLEMENTED TEMPORARY WITH EXIT — ≠ PRODUCT STORE — REAL TRACE PROVEN ONCE
--TIMEOUT 60000: UNCHANGED / NOT PROVEN SUFFICIENT OR DEFECTIVE
--STRICT RUNTIME READ-ONLY TOOL-SURFACE: NOT PROVEN
-+TECHNICAL LAUNCH JOURNAL: TEMPORARY WITH EXIT — ≠ PRODUCT STORE
-+TIMEOUT 60000: KEEP FOR NOW — proven sufficient for demonstrated M4 bounded RO path — NOT universal policy — NOT proven defective
-+CURSOR_REAL_TIMEOUT_POLICY: OPEN / NON-BLOCKING POST-M4 RESERVE
-+STRICT BOUNDED RUNTIME READ-ONLY TOOL-SURFACE: PROVEN FOR FINAL M4 REPROOF PATH ONLY
- M5: NOT AUTHORIZED
-
--NEXT CAPABILITY: M4 GOVERNED REAL COMPLETION PROOF — MORRIS GO REQUIRED
-+NEXT CAPABILITY: M5 — RETOUR DE PREUVE + ANALYSE NORA — MORRIS GO REQUIRED
-+
-+NON-BLOCKING POST-M4 RESERVES (do NOT reopen M4):
-+  - CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING
-+  - technical launch journal — TEMPORARY WITH EXIT
-+  - future IAM / Critical Ack for elevated classes
-+  - Confirmation / Attempt product / Evidence durability partial
-
- TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
- FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
--DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack/Auth.js promotion for future N2/N3/IAM (not first RO) · Auth.js/IAM exit autorité M3 temporaire
-+DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack/Auth.js promotion for future N2/N3/IAM · Auth.js/IAM exit autorité M3 temporaire · timeout policy qualification when a future REAL class needs it
- G0 CONSUMED: Option 1 ADOPTED · Product persistence node:sqlite ADOPTED
- M2 MERGE GATE: CLOSED
- M3 MERGE GATE: CLOSED
- M3: VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED
--M4: PARTIAL REAL PROOF — LAUNCH PROVEN — COMPLETION NOT PROVEN — BOUNDING MERGED — EXIT PROOF NOT SATISFIED — NOT CLOSED
--Cursor REAL: IMPLEMENTATION MERGED / DEFAULT OFF / 1 HISTORICAL ATTEMPT / 0 SUCCESSFUL COMPLETIONS / NEXT REAL NOT AUTHORIZED WITHOUT MORRIS GO
--Gate D IMPLEMENTED — FIRST-REAL CONSUMPTION PROVEN ONCE — FRESH GATE REQUIRED FOR REPROOF
-+M4: EXIT PROOF ACCEPTED BY MORRIS — CLOSED
-+Cursor REAL: IMPLEMENTATION MERGED / DEFAULT OFF / 2 HISTORICAL GOVERNED LAUNCHES / 1 SUCCESSFUL COMPLETION / future REAL NOT AUTHORIZED WITHOUT MORRIS GO
- runtime v3 NON ADOPTED
- ```
-
-+## B10a. CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING POST-M4 RESERVE
-+
-+Document key (tracking only — **not** an architecture decision):
-+
-+`CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING POST-M4 RESERVE`
-+
-+| Fact | Value |
-+| --- | --- |
-+| Current product timeout | **60000 ms** |
-+| FIRST REAL (historical) | timedOut≈60030 ms · exit 143 · agent still progressing · UNIQUE root cause **NOT PROVEN** · timeout = plausible contributing factor |
-+| Final M4 bounded reproof | timedOut=false · duration≈15735 ms · exit 0 · `M4_READ_ONLY_OK` |
-+| Proven | 60000 **sufficient for the demonstrated M4 bounded read-only path** |
-+| Not proven | 60000 as a **universal** Cursor REAL timeout policy |
-+| Not proven | 60000 **defective** |
-+| Classification | **KEEP CURRENT 60000 FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** |
-+| Blocks M5? | **No** |
-+| Reopens M4? | **No** |
-+
-+No structural selection now among: global 90s/120s · unlimited · dynamic · per-AgentCapability · per-ExecutionContract · per class. Any such selection needs dedicated proof + Morris decision.
-+
-+**Exit condition (reserve may close only if):** (1) timeout policy explicitly qualified for REAL execution classes actually needed ; **OR** (2) Morris decides a contractual/capability-scoped/other reference mechanism replacing the global value ; **OR** (3) product needs show the current global value is sufficient for the authorized execution population with adequate proof.
-+
- ## B10b. Dette documentaire post-M1
-
-+
- | Id | Observation | Impact | Classification | Owner / gate | Exit |
- | --- | --- | --- | --- | --- | --- |
- | **DOC-DEBT-M1-01** | Framing `32` métadonnées/maturité indiquent encore « persist runtime non migrée / schemas persist non créés » alors que T-A1 Project/LPS **et** T-A2 CycleInstance M2 subset SQLite sont **mergés** sur main | Risque de lecture contradictoire doctrine cible vs preuve runtime courante (dette plus visible post-M2) | documentation freshness debt | Morris — modification framing v3 = cycle + GO dédié | Cycle documentaire dédié corrigeant **uniquement** l’état factuel sans changer doctrine V3-F02/F06/F09 |
-@@ -437,11 +473,14 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
- - M4 Architecture docs : PR #343 · merge `e974b7306f7400249c31399fd2890d5817833dbf`
- - M4 Delivery : PR #344 · head `f7270b21ccdbcf1cd543879e7c4120d87b874479` · merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI #172 SUCCESS · diagnostic Class C handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63`
- - M4 post-Delivery Roadmap : PR #345 · merge `3575c8863d8a13b610dbfde96a33426a620b2c56`
--- FIRST M4 CURSOR REAL : handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · Attempt `xat:m4-first-real-001` · Gate D `gtd:m4-first-real-001` · base `3575c886…` · PARTIAL REAL PROOF
-+- FIRST M4 CURSOR REAL : handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · Attempt `xat:m4-first-real-001` · Gate D `gtd:m4-first-real-001` · base `3575c886…` · PARTIAL REAL PROOF (launch only / timeout)
- - M4 timeout diagnosis : handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · NO REAL REPROOF · timeout = PLAUSIBLE CONTRIBUTING FACTOR
- - M4 pre-reproof bounding content-complete : handoff `3c56cb29367268231c1db26b4de7af5cfe0ef499`
- - M4 pre-reproof bounding PR readiness : handoff `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c`
- - M4 pre-reproof bounding product : PR #346 · head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` · merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration
--- Current main : `fc7e20aaeb5153b4d73c1809f865e361f00e1b34`
-+- M4 post-pre-reproof Roadmap sync : PR #347 · head `4f989aba92bce5ca33e1de251523694559b53902` · merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS
-+- M4 GOVERNED REAL COMPLETION PROOF : handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · Attempt `xat:m4-reproof-86b5ecb05474` · Gate D `gtd:m4-reproof-86b5ecb05474` · PASS
-+- Morris GO : **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**
-+- Current main (Roadmap candidate base) : `2d1361ee71bec7a21f6f76efc7c33eaf3146802a`
- - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
- - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
-````
-
-## Push
-
-- local HEAD = remote `docs/sfia-studio-m4-closure-roadmap-sync` = `071bfdedb13f8f3102c73348f97c1711e2c4ff0f`
-- push normal (`-u`) — no force
-
-## Draft PR verification
-
-| Field | Value |
-| --- | --- |
-| Number / URL | #348 / https://github.com/mcleland147/sfia-workspace/pull/348 |
-| state | OPEN |
-| draft | true |
-| base | main @ `2d1361ee…` |
-| head | `docs/sfia-studio-m4-closure-roadmap-sync` @ `071bfded…` |
-| commits | 1 |
-| changed files | 1 — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
-| additions/deletions | +113 / -74 |
-| merge | NOT PERFORMED |
-| mark ready | 0 |
-
-## PR patch COMPLETE
-
-````diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 01e6dbe9..7401ed87 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -6,13 +6,13 @@
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
- | **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
- | **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
--| **Snapshot Git** | origin/main @ `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` |
-+| **Snapshot Git** | origin/main @ `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` |
- | **Timestamp création** | 2026-08-12 21:53:10 CEST (+0200) *(historique)* |
--| **Timestamp maintenance** | 2026-08-14 Europe/Paris — M4 PRE-REPROOF BOUNDING MERGED (PR #346) — FIRST REAL HISTORICAL / COMPLETION NOT PROVEN — NEXT = M4 GOVERNED REAL COMPLETION PROOF |
-+| **Timestamp maintenance** | 2026-08-14 Europe/Paris — M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED — NEXT = M5 (NOT AUTHORIZED) — CURSOR_REAL_TIMEOUT_POLICY OPEN / NON-BLOCKING |
- | **Validation Morris** | 2026-08-13 02:05 +0200 (Europe/Paris) — Build Doctrine + Convergence Roadmap officiellement validées comme gouvernance de construction SFIA Studio |
--| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration |
--| **Sources** | Git `main` @ `fc7e20aa…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346 · CI #158/#162/#166/#172/#176 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · M4 Product path on main `projects/sfia-studio/app/**` |
--| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** · M4 Delivery merged **≠** M4 exit proof satisfied · FIRST REAL attempt performed **≠** governed REAL completion proven · Gate D first-REAL consumption proven once **≠** reusable identity / future Gate D · CREATED/LAUNCHED REAL trace proven **≠** successful completion · pre-reproof bounding merged **≠** strict runtime read-only tool-surface proven · `--mode ask` metadata-qualified **≠** Shell impossibility proven · timeout 60000 unchanged **≠** proven sufficient or defective · M4 **≠** CLOSED · M5 **≠** AUTHORIZED · M4 **≠** runtime v3 ADOPTED · technical launch journal implemented **≠** Product Store · ≠ full OA durable |
-+| **Intégration Git** | Gouvernance : PR #334 / merge `1d09e4159932b3885817911e10a2d29a82ae9ea7` · **M1 :** PR #337 / head `5cbda862885b36658fc7f2b33a20311611da969e` / merge `c6925954a7aa86f34c9fcd6f7babf0336014eba3` · CI SFIA Studio **#158** SUCCESS · **M2 :** PR #339 / head `8a920a4726f3ef41a8660ef6fb0b5be88a7d8e51` / merge `a9a4765c242948f2287392a2910fb1cd30061a7a` · CI SFIA Studio **#162** SUCCESS · **M2 post-merge Roadmap :** PR #340 / merge `4a8a6121f8c46b60a3e4bd760e04c6dd4a64fd0a` · **M3 :** PR #341 / head `5ec6aaa5fe9b75a1a6cec0520a4e32ecf3226b19` / merge `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS · **M3 post-merge Roadmap :** PR #342 / merge `607763d9a1349d6b48633d8763f75ae3c07c84fc` · **M4 Architecture docs :** PR #343 / merge `e974b7306f7400249c31399fd2890d5817833dbf` · **M4 Delivery :** PR #344 / head `f7270b21ccdbcf1cd543879e7c4120d87b874479` / merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI SFIA Studio **#172** SUCCESS (same head `f7270b21` after Morris-authorized rerun ; initial T7-C08 Class C / M4 causality not established — diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` ; no code change between failure and success) · **M4 post-Delivery Roadmap :** PR #345 / merge `3575c8863d8a13b610dbfde96a33426a620b2c56` · **M4 pre-reproof bounding :** PR #346 / head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` / merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration · **M4 post-pre-reproof Roadmap :** PR #347 / merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS · **M4 GOVERNED REAL COMPLETION PROOF** handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** |
-+| **Sources** | Git `main` @ `2d1361ee…` · PR #337/#339/#340/#341/#342/#343/#344/#345/#346/#347 · CI #158/#162/#166/#172/#176/#178 · decision pack G0 · framing `30`–`37` (dont `34`) · M4 Architecture Handoff `sfia/review-handoff` @ `366726945f8f533d958c82b7251edb1a5a4b45f0` · M4 CI diagnostic handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63` · FIRST REAL handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · timeout diagnosis handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · pre-reproof bounding handoffs `3c56cb29367268231c1db26b4de7af5cfe0ef499` / `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` · final M4 governed REAL completion handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · GO Morris **ADOPT M4 ARCHITECTURE TRAJECTORY** (D-M4-01→05) · GO Morris **M4 Delivery** / **MERGE PR #344** · GO Morris **FIRST M4 CURSOR REAL** · GO Morris **DIAGNOSE TIMEOUT** · GO Morris **PRE-REPROOF BOUNDING** / **MERGE PR #346** · GO Morris **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION** · M4 Product path on main `projects/sfia-studio/app/**` |
-+| **Anti-claims** | G0-A/G0-B **consommés** · M1–M3 **mergés** · M3 exit proof **SATISFIED** · M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** · M4 CLOSED **≠** M5 AUTHORIZED · M4 CLOSED **≠** runtime v3 ADOPTED · one bounded successful REAL completion **≠** global Cursor REAL safety for arbitrary capabilities/tasks · strict runtime read-only proof applies to the **demonstrated M4 bounded path**, not arbitrary future Cursor tasks · timeout 60000 **proven sufficient for demonstrated M4 bounded RO path** **≠** universal Cursor REAL timeout policy · FIRST REAL historical timeout **≠** timeout proven defective · `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING **≠** M4 reopened · technical launch journal **≠** Product Store · Critical Ack/Auth.js future IAM **≠** required retroactively for M4 first low-risk RO path · v3 global baseline **NOT PROMOTED** · ≠ full OA durable |
-
- ## B1. Nature du document
-
-@@ -26,7 +26,7 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
-
- ## B3. Point de départ factuel
-
--### Sur main (`fc7e20aaeb5153b4d73c1809f865e361f00e1b34`)
-+### Sur main (`2d1361ee71bec7a21f6f76efc7c33eaf3146802a`)
-
- | Capacité | État observé |
- | --- | --- |
-@@ -46,12 +46,13 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | Autres OA (T-A2 trajectory/epistemic ; Confirmation ; T-A5 Attempt product ; T-A6 Evidence) | **Memory partiel** — process-local |
- | Autres OA (T-A3 HD) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) ; Confirmation reste Memory/process-local |
- | Autres OA (T-A4 ExecutionContract) | **Product SQLite — MERGED ON MAIN — M3** (PR #341) — PREPARE-only ; Attempt product still Memory |
--| Architecture M4 | **ADOPTED + IMPLEMENTED ON MAIN** — D-M4-01→05 via PR #344 · Delivery **VALIDATED BY MORRIS / MERGED** · FIRST REAL **ATTEMPT PERFORMED** (historical) · pre-reproof bounding **MERGED** (PR #346) · M4 exit proof **NOT SATISFIED** |
--| T-A5 REAL (Nora/Studio) | **IMPLEMENTED ON MAIN / DEFAULT OFF** — specialized OA-owned boundary (`RealExecutionLaunchPort` / `NodeCursorProcessRunner` / isolated worktree) ; fixture `externalEffects:false` **preserved** ; gateway deterministic pre-reproof bounding **ON MAIN** (`--mode ask` + README.md markers) ; historical governed REAL launches = **1** ; successful governed REAL completions = **0** |
--| Cursor REAL depuis Nora | **1 historical attempt** (`xat:m4-first-real-001`) — governed launch **PROVEN** · completion **NOT PROVEN** (timeout) · identities **must not be reused** |
--| Gate D | **IMPLEMENTED ON MAIN** (GD-1) · first-REAL consumption **PROVEN ONCE** historically (`gtd:m4-first-real-001`) · future reproof requires **fresh** Gate D + Morris GO |
--| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · ≠ Product Store · **CREATED/LAUNCHED REAL TRACE PROVEN** on FIRST REAL attempt |
--| Bounded RO AgentCapability | **IMPLEMENTED ON MAIN** · static / deny-by-default · **exercised once in REAL** (FIRST REAL) · completion not obtained · strict CLI runtime RO tool-surface **NOT PROVEN** |
-+| Architecture M4 | **ADOPTED + IMPLEMENTED ON MAIN — M4 CLOSED** — D-M4-01→05 via PR #344 · Delivery **MERGED** · FIRST REAL historical + final governed completion reproof **PASS** · exit proof **ACCEPTED BY MORRIS** |
-+| T-A5 REAL (Nora/Studio) | **IMPLEMENTED ON MAIN / DEFAULT OFF** — specialized OA-owned boundary ; fixture `externalEffects:false` **preserved** ; gateway deterministic bounding **ON MAIN** (`--mode ask` + README.md markers) ; historical governed REAL launches = **2** ; successful governed REAL completions = **1** |
-+| Cursor REAL depuis Nora | **2 historical governed attempts** — Run1 FIRST REAL (`xat:m4-first-real-001`) launch **PROVEN** / completion **NOT** (timeout ~60s) · Run2 final reproof (`xat:m4-reproof-86b5ecb05474`) completion **PROVEN** (~15.7s / `M4_READ_ONLY_OK`) · identities never reused across runs |
-+| Gate D | **IMPLEMENTED ON MAIN** (GD-1) · consumed **once per governed REAL** historically (Run1 + Run2) · future REAL still requires **fresh** Gate D + Morris GO |
-+| Technical CREATED/LAUNCHED frontier | **IMPLEMENTED ON MAIN** · **TEMPORARY WITH EXIT** · ≠ Product Store · REAL TRACE **PROVEN** on both historical governed runs |
-+| Bounded RO AgentCapability | **IMPLEMENTED ON MAIN** · static / deny-by-default · KEEP · **STRICT BOUNDED RUNTIME TOOL-SURFACE PROVEN FOR FINAL M4 REPROOF** (Read=1 README only ; Shell/Glob/Grep/write=0) — **≠** “Cursor is globally read-only” |
-+| `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4 RESERVE** — current product timeout **60000** = **KEEP FOR NOW** · proven sufficient for demonstrated M4 bounded RO path · **NOT** universal policy · **NOT** proven defective |
-
- ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
-
-@@ -78,9 +79,10 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | T-A3 HD/Confirm/Authority | Product SQLite HD **ON MAIN** (PR #341) + Confirmation Memory + local Morris authority TEMPORARY WITH EXIT | **COMPLETE** (M3) / **KEEP** backbone | HD durable on main ; Confirmation process-local ; Auth.js exit ouvert |
- | T-A4 ExecutionContract | Product SQLite + M3 PREPARE truthful + Cursor projection PREPARE-only **ON MAIN** (PR #341) | **COMPLETE** (M3) / **KEEP** backbone | Durable on main ; no Attempt/REAL ; fixture path historique/test conservé |
- | T-A5 Attempt / fixture adapter port | F3 fixture adapter · `ExecutionAdapterPort.externalEffects:false` · PR #344 | **KEEP** core lifecycle + **KEEP** zero-effect port | StartExecution remains sole authority sequencer ; fixture port intact (D-M4-01) |
--| T-A5 specialized REAL boundary | PR #344 + PR #346 / main `fc7e20aa…` | **COMPLETE M4 Delivery / KEEP** (+ gateway bounding) | OA-owned `RealExecutionLaunchPort` / `StudioCursorRealLaunchGateway` / `NodeCursorProcessRunner` / `StudioGitWorktreeWorkspace` — **implemented, default OFF** — **no** OA→OPS1 product runtime coupling (D-M4-01) — FIRST REAL launch **PROVEN once** · completion **NOT PROVEN** · PR #346 adds `--mode ask` + deterministic README.md instruction (metadata-qualified RO ; strict runtime tool-surface **NOT PROVEN**) |
--| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · FIRST REAL exercised | **TEMPORARY WITH EXIT — IMPLEMENTED** | Technical safety journal ; ≠ Product Store ; ≠ dual product persistence ; crash/replay tests merged ; **CREATED/LAUNCHED REAL TRACE PROVEN** on FIRST REAL ; exit → Attempt/Evidence durable path M5+ / dedicated Morris gate |
--| AgentCapability REAL RO profile | PR #344 / `m4BoundedReadOnlyCursorAgent` · KEEP | **COMPLETE M4 Delivery / KEEP** | Static immutable deny-by-default registry retained ; bounded RO profile **implemented** ; **exercised once in REAL** (FIRST REAL) ; AgentCapability itself **unchanged** by PR #346 (gateway argv/instruction only) |
-+| T-A5 specialized REAL boundary | PR #344 + PR #346 / main `2d1361ee…` | **COMPLETE M4 / KEEP** (+ gateway bounding) | OA-owned REAL boundary **implemented, default OFF** — no OA→OPS1 runtime coupling — TWO historical governed launches · ONE successful completion under deterministic `--mode ask` / README bounding · M4 CLOSED |
-+| T-A5 launch journal (CREATED/LAUNCHED) | PR #344 / main · exercised on both REAL runs | **TEMPORARY WITH EXIT — IMPLEMENTED / KEEP** | Technical safety journal ; ≠ Product Store ; REAL TRACE PROVEN ; exit → Attempt/Evidence durable path M5+ / dedicated Morris gate |
-+| AgentCapability REAL RO profile | PR #344 / `m4BoundedReadOnlyCursorAgent` · KEEP | **COMPLETE M4 / KEEP** | Bounded RO profile exercised ; final reproof proved strict bounded tool-surface for that path ; AgentCapability **unchanged** through bounding/closure |
-+| Product timeout 60000 | product default / both REAL runs | **KEEP CURRENT VALUE FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** (`CURSOR_REAL_TIMEOUT_POLICY`) | Sufficient for demonstrated M4 bounded RO completion (~15.7s) ; FIRST REAL timeout historical ≠ proven defect ; **no** universal timeout policy selected |
- | T-A6 Evidence/ReviewBundle | F3 ingest + UI cards | **COMPLETE** | UI reinjection ; LPS write-back manquant |
- | T-A7 readiness/HARD rails | `platform/t-a7` | **KEEP** | Honesty rails |
- | Shared platform AI | `lib/platform` | **KEEP** | Substrate F1 |
-@@ -103,19 +105,20 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- | HumanDecision durable/authoritative | **CLOSED ON MAIN — M3** — Product SQLite + LPS link ; autorité local-single-user TEMPORARY WITH EXIT (durabilité HD fermée ≠ IAM product-grade fermé) | future IAM (Ack **not** absolute for first RO — D-M4-05) ; historical Gate D first-REAL consumption already proven once |
- | CKC ↔ cycle binding | **CLOSED ON MAIN — M2** — `ckcResolutionRef` projection on LPS | — |
- | live contextSnapshot | **CLOSED ON MAIN — M2** — `F2ContextSnapshot` post-mutation (pas nouvel aggregate durable) | — |
--| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M4 GOVERNED REAL COMPLETION PROOF (fresh identities + Morris GO) |
--| Cursor projection canonique | **CLOSED ON MAIN — M3 PREPARE-only** (`executionAllowed=false`) | M4 GOVERNED REAL COMPLETION PROOF |
--| Cursor REAL behind T-A5 | **IMPLEMENTATION MERGED / DEFAULT OFF** · FIRST REAL attempt **PERFORMED** · governed launch **PROVEN** · governed completion **NOT PROVEN** · pre-reproof bounding **MERGED** (PR #346) | M4 GOVERNED REAL COMPLETION PROOF — MORRIS GO REQUIRED |
--| REAL specialized adapter boundary | **CLOSED ON MAIN — PR #344** (+ gateway bounding PR #346) — implemented, default OFF | completion reproof |
--| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · **CREATED/LAUNCHED REAL TRACE PROVEN** (FIRST REAL) | future Attempt/Evidence exit + completion reproof |
--| Gate D durable grant | **IMPLEMENTED ON MAIN** (GD-1) · first-REAL consumption **PROVEN ONCE** historically · **not reusable** | fresh Gate D for completion reproof |
--| bounded REAL AgentCapability RO | **IMPLEMENTED ON MAIN** · exercised once in REAL · completion not obtained · strict runtime RO tool-surface **NOT PROVEN** | M4 GOVERNED REAL COMPLETION PROOF |
--| governed REAL completion | **NOT PROVEN** — FIRST REAL timed out (~60s / exit 143) ; timeout diagnosis complete with reserves ; timeout 60000 **UNRESOLVED** | M4 GOVERNED REAL COMPLETION PROOF |
-+| ExecutionContract from real HD | **CLOSED ON MAIN — M3** — exact/unresolved fields from DecisionBasis ; fixture path historique conservé | M5 (Evidence path) — separate Morris GO |
-+| Cursor projection canonique | **CLOSED ON MAIN — M3 PREPARE-only** (`executionAllowed=false`) | future elevated REAL classes / M5+ |
-+| Cursor REAL behind T-A5 | **IMPLEMENTATION MERGED / DEFAULT OFF** · M4 governed completion **PROVEN** (final reproof) · M4 **CLOSED** | future REAL requires distinct Morris GO (not M4 reopen) |
-+| REAL specialized adapter boundary | **CLOSED ON MAIN — PR #344** (+ gateway bounding PR #346) — implemented, default OFF | KEEP |
-+| durable launch frontier (CREATED/LAUNCHED) | **IMPLEMENTED ON MAIN — PR #344** — TEMPORARY WITH EXIT · REAL TRACE **PROVEN** (both runs) | Attempt/Evidence product durability exit M5+ |
-+| Gate D durable grant | **IMPLEMENTED ON MAIN** (GD-1) · consumed once per historical governed REAL · **not reusable** | fresh Gate D for any future REAL |
-+| bounded REAL AgentCapability RO | **IMPLEMENTED ON MAIN** · final reproof **STRICT BOUNDED TOOL-SURFACE PROVEN** for demonstrated path | KEEP ; future capabilities separate |
-+| governed REAL completion (M4) | **PROVEN** — final reproof PASS (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** | — |
-+| `CURSOR_REAL_TIMEOUT_POLICY` | **OPEN / NON-BLOCKING POST-M4** — 60000 KEEP FOR NOW | future REAL class needing policy qualification |
- | Critical Ack UI | CANDIDATE / MISSING — **NOT BLOCKING FIRST M4 READ-ONLY PROOF BY D-M4-05** ; remains for future N2/N3 / IAM | future N2/N3 · IAM gate |
- | Evidence durable | MISSING | M5 |
- | ReviewBundle → LPS writeback | MISSING | M5/M6 |
- | Nora post-exec analysis | PARTIAL (UI cards) | M5 |
--| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence Memory ; M4 crash/replay **protections implemented and tested** (PR #344) ; FIRST REAL journal reopen after timeout **PROVEN** · completion path still open | M4 GOVERNED REAL COMPLETION PROOF / M5+ |
-+| Restart safety Studio core | **PARTIAL** — Project/LPS/Cycle/HD/ExecutionContract **restart-safe ON MAIN** ; conversation/proposal/Confirmation/Attempt product/Evidence Memory ; M4 crash/replay protections + REAL journal reopen **PROVEN** | M5+ Attempt/Evidence durability |
- | IAM/authz product-grade | PARTIAL / MISSING (M3 local authority temporary ; Auth.js candidate **NOT PROMOTED**) — **not** a blocker of first RO proof (D-M4-05) ; debt preserved | future IAM gate / M8 |
-
- ## B6. Decisions / gates
-@@ -144,7 +147,7 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
- - **M4 Delivery** **VALIDATED BY MORRIS** · PR #344 merged on main @ `ec65fb47c04b451d892297c806b9b041995339a5`
- - head M4 Delivery `f7270b21ccdbcf1cd543879e7c4120d87b874479` · CI SFIA Studio **#172** SUCCESS (Morris-authorized rerun, exact same head ; initial T7-C08 Class C / M4 causality not established)
- - merge gate M4 Delivery **CLOSED**
--- M4 exit proof **NOT SATISFIED** (governed REAL completion still **NOT PROVEN** after FIRST REAL attempt + diagnosis + PR #346 bounding)
-+- M4 exit proof **ACCEPTED BY MORRIS** · M4 **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
-
- ### M4 Architecture Decisions — CONSUMED BY MORRIS
-
-@@ -168,28 +171,29 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- - Merge : **CLOSED — PR #344** merge `ec65fb47c04b451d892297c806b9b041995339a5`
- - CI : **#172 SUCCESS** on same head `f7270b21` after authorized rerun (no code change)
-
--### M4 REAL / diagnosis / bounding — CONSUMED (historical)
-+### M4 REAL / diagnosis / bounding / completion / closure — CONSUMED
-
--- FIRST M4 CURSOR REAL READ-ONLY PROOF GO — **CONSUMED** (base `3575c886…`)
--- Attempt `xat:m4-first-real-001` / Gate D `gtd:m4-first-real-001` — **CONSUMED ONCE** — **must never be reused**
--- Governed REAL launch / CREATED/LAUNCHED / worktree no-mutation — **PROVEN**
--- Governed REAL completion — **NOT PROVEN** (timedOut≈60030 ms · exitCode=143 · empty Studio stdout/stderr)
--- Timeout diagnosis GO — **CONSUMED** — no second REAL ; root cause UNIQUE **NOT PROVEN** ; timeout = **PLAUSIBLE CONTRIBUTING FACTOR**
--- Pre-reproof bounding — **MERGED** — PR #346 head `8900cd06…` / merge `fc7e20aa…` · CI #176 SUCCESS · ZERO REAL in that integration
-+- FIRST M4 CURSOR REAL READ-ONLY PROOF GO — **CONSUMED** (base `3575c886…`) — launch **PROVEN** · completion **NOT** (timeout ~60030 ms / exit 143) — identities never reused
-+- Timeout diagnosis GO — **CONSUMED** — UNIQUE root cause **NOT PROVEN** ; timeout = **PLAUSIBLE CONTRIBUTING FACTOR** historically
-+- Pre-reproof bounding — **MERGED** — PR #346 / merge `fc7e20aa…` · CI #176
-+- Post-pre-reproof Roadmap sync — **MERGED** — PR #347 / merge `2d1361ee…` · CI #178
-+- **M4 GOVERNED REAL COMPLETION PROOF** — **CONSUMED / PASS** — handoff `1123a30f…` · fresh HD/EC/Attempt/Gate D · StartExecution=1 · spawn=1 · retry=0 · duration≈15735 ms · timedOut=false · exit=0 · stdout `M4_READ_ONLY_OK` · README Read=1 · Shell/Glob/Grep/write=0
-+- **M4 EXIT PROOF EVALUATION** — **CONSUMED / PASS WITH RESERVES**
-+- **M4 EXIT PROOF** — **ACCEPTED BY MORRIS**
-+- **M4** — **CLOSED** (GO **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**)
-
- ### Décisions / gates toujours ouverts
-
--1. **M4 GOVERNED REAL COMPLETION PROOF** — **MORRIS GO REQUIRED** — **NOT AUTHORIZED** (fresh HD/EC/Attempt/Gate D identities only)
--2. **M4 exit proof evaluation** — **NOT SATISFIED** (blocked on completion proof)
--3. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
--4. Disposition OPS1 / D1 / execution-run — **Decision Required**
--5. **M5** — **NOT AUTHORIZED**
--6. runtime v3 adoption — **NOT AUTHORIZED**
-+1. **M5 — Retour de preuve + analyse Nora** — **NOT AUTHORIZED** — separate Morris GO required (M4 dependency **SATISFIED**)
-+2. Critical Ack / Auth.js promotion for future N2/N3 / IAM — **Decision Required** (separate)
-+3. Disposition OPS1 / D1 / execution-run — **Decision Required**
-+4. runtime v3 adoption — **NOT AUTHORIZED**
-+5. **`CURSOR_REAL_TIMEOUT_POLICY`** — **OPEN / NON-BLOCKING POST-M4 RESERVE** — current 60000 **KEEP FOR NOW** · no structural timeout decision selected
-
- ### Décisions / gates historiques encore listés (non tranchés comme promotion)
-
- - Auth.js / Critical Ack promotion for elevated classes — open (see D-M4-05)
--- Future REAL enablement / completion reproof — open (implementation merged / default OFF **≠** next REAL authorized without Morris GO)
-+- Future REAL enablement beyond closed M4 bounded path — open (default OFF **≠** authorized without Morris GO)
- ## B7–B8. Roadmap capability-driven (milestones)
-
- ### Gate 0 — Convergence architecture / persistence
-@@ -270,7 +274,7 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Merge** | **CLOSED** — PR #341 MERGED @ `8eea4cbf211d9e159626394477353f19126fe900` · CI SFIA Studio **#166** SUCCESS |
- | **Exit evidence** | **EXIT PROOF SATISFIED ON MAIN** |
- | **Preuve e2e** | GO → HD durable + LPS N+1 · restart → PREPARE sans Proposal · ExecutionContract durable · fingerprint persisted=recomputed=projection · unresolved semantics fail-closed · Cursor PREPARE-only · authority adversarial PASS · local 1656 / 131 / 0 · CI #166 SUCCESS · merge #341 |
--| **Next** | M4 GOVERNED REAL COMPLETION PROOF — **MORRIS GO REQUIRED** *(FIRST REAL historical ; pre-reproof bounding MERGED)* |
-+| **Next** | M5 — Retour de preuve + analyse Nora — **MORRIS GO REQUIRED** *(M4 CLOSED)* |
- | **Statut** | **VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED** |
-
- ### Milestone 4 — Première exécution Cursor REAL bornée depuis Studio
-@@ -280,14 +284,14 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **ID** | M4 |
- | **Capacité v3** | V3-F11 AgentCapability · F12 · F05 exécution |
- | **Outcome** | Action REAL faible risque/read-only depuis Studio via T-A5 + adapter harvesté ; pas de silent REAL→fixture |
--| **État actuel** | **M4 PARTIAL REAL PROOF** — Delivery REAL-OFF **MERGED** (PR #344) · FIRST REAL attempt **PERFORMED** (base `3575c886…`) · governed launch / Gate D once / CREATED·LAUNCHED / no-mutation **PROVEN** · governed completion **NOT PROVEN** (timeout) · diagnosis **COMPLETE WITH RESERVES** · pre-reproof bounding **MERGED ON MAIN** (PR #346 @ `fc7e20aa…`) · REAL default **OFF** · timeout 60000 **UNRESOLVED** |
-+| **État actuel** | **M4 CLOSED** — Delivery **MERGED** · FIRST REAL historical (launch proven / completion timeout) · diagnosis **COMPLETE WITH RESERVES** · pre-reproof bounding **MERGED** · final governed REAL completion reproof **PASS** (handoff `1123a30f…`) · exit proof **ACCEPTED BY MORRIS** · REAL default **OFF** · timeout 60000 **KEEP FOR NOW** |
- | **Architecture selected (D-M4-01→05)** | **ADOPTED + IMPLEMENTED** — specialized REAL OA boundary (Option B) · temporary durable launch journal CREATED/LAUNCHED · bounded RO AgentCapability · durable Gate D GD-1 · L7-1 for first RO |
--| **Actifs** | T-A5 lifecycle **KEEP** · fixture port `externalEffects:false` **KEEP** · specialized REAL boundary **COMPLETE** · production `NodeCursorProcessRunner` **COMPLETE** · isolated pinned Git worktree **COMPLETE** · Gate D GD-1 **COMPLETE** · first-REAL consumption **PROVEN ONCE historically** · technical launch journal **IMPLEMENTED / TEMPORARY WITH EXIT** · bounded RO AgentCapability **COMPLETE** · gateway deterministic bounding **ON MAIN** (`--mode ask` + README.md / `M4_READ_ONLY_OK`/`UNAVAILABLE`) · OPS1 Cursor primitives **HARVESTED**, no OA runtime coupling |
--| **Gaps restants M4** | governed REAL **completion** under current bounding · fresh identities (never reuse `xat:m4-first-real-001` / `gtd:m4-first-real-001`) · strict runtime read-only tool-surface observation · timeout 60000 sufficiency/defect still **unproven** · final M4 exit proof evaluation |
--| **Dépendances** | M3 — **SATISFIED** · Architecture decisions D-M4-01→05 — **SATISFIED** · M4 Delivery — **SATISFIED / MERGED** · FIRST REAL GO — **CONSUMED (historical)** · timeout diagnosis — **CONSUMED** · pre-reproof bounding — **SATISFIED / MERGED (PR #346)** · Critical Ack promotion — **NOT REQUIRED FOR FIRST RO by D-M4-05** · M4 GOVERNED REAL COMPLETION PROOF Morris gate — **REQUIRED** |
--| **Preuve de sortie future M4** | exact HumanDecision/ExecutionContract · bounded agent · Gate D consumed once · Cursor REAL invoked exactly once · CREATED/LAUNCHED trace · no duplicate launch after crash/restart · no fixture fallback · read-only bounded result · fail-closed unavailable/stale scenarios — launch/Gate D/CREATED·LAUNCHED/no-mutation subset **PROVEN historically** · **governed completion still NOT PROVEN** → exit proof **NOT SATISFIED** |
--| **Statut** | **DELIVERY MERGED — FIRST REAL ATTEMPT PERFORMED — GOVERNED LAUNCH PROVEN — COMPLETION NOT PROVEN — PRE-REPROOF BOUNDING MERGED — EXIT PROOF NOT SATISFIED — M4 NOT CLOSED** |
--| **Next** | M4 GOVERNED REAL COMPLETION PROOF — subject to **separate Morris GO** (after Roadmap sync Git integration if required) |
-+| **Actifs** | T-A5 lifecycle **KEEP** · fixture port `externalEffects:false` **KEEP** · specialized REAL boundary **COMPLETE / KEEP** · `NodeCursorProcessRunner` **KEEP** · isolated pinned Git worktree **KEEP** · Gate D GD-1 **KEEP** · technical launch journal **TEMPORARY WITH EXIT / KEEP** · bounded RO AgentCapability **KEEP** · gateway deterministic bounding **KEEP** · OPS1 Cursor primitives **HARVESTED**, no OA runtime coupling |
-+| **Gaps restants M4** | — **none blocking** · surviving non-blocking reserves: `CURSOR_REAL_TIMEOUT_POLICY` · launch journal TEMPORARY WITH EXIT · future IAM/Ack · partial Confirmation/Attempt/Evidence durability |
-+| **Dépendances** | M3 — **SATISFIED** · D-M4-01→05 — **SATISFIED** · Delivery — **SATISFIED** · FIRST REAL / diagnosis / bounding / completion proof / exit acceptance — **CONSUMED** |
-+| **Preuve de sortie M4** | **SATISFIED / ACCEPTED BY MORRIS** — exact HD/EC · bounded agent · Gate D single-use · governed Cursor REAL · CREATED/LAUNCHED · no duplicate launch · no fixture fallback · isolated pinned workspace · bounded RO completion · fail-closed safety · final completion PASS |
-+| **Statut** | **M4 EXIT PROOF ACCEPTED BY MORRIS — CLOSED** |
-+| **Next** | M5 — Retour de preuve + analyse Nora — **NOT AUTHORIZED** without separate Morris GO |
-
- ### Milestone 5 — Retour de preuve + analyse Nora
-
-@@ -298,9 +302,9 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | **Outcome** | Evidence/ReviewBundle liés contrat/décision ; réinjectés Nora + LPS ; handoff Git transitionnel OK |
- | **État actuel** | UI cards Memory ; pas LPS write-back |
- | **Gaps** | L9 Evidence→LPS ; durable evidence |
--| **Dépendances** | M4 — **NOT YET SATISFIED** (M4 Delivery merged + FIRST REAL partial proof **≠** M4 exit proof satisfied ; governed REAL completion still required) |
-+| **Dépendances** | M4 — **SATISFIED / CLOSED** |
- | **Preuve e2e** | post-exec : ReviewBundle visible + LPS updated + recommendation next gate |
--| **Statut** | **PARTIAL / NOT AUTHORIZED** |
-+| **Statut** | **PARTIAL / NOT AUTHORIZED** — **M5 EXECUTION REQUIRES A SEPARATE MORRIS GO** |
-
- ### Milestone 6 — Boucle projet complète
-
-@@ -343,14 +347,14 @@ GO : **ADOPT M4 ARCHITECTURE TRAJECTORY** · source pack handoff `366726945f8f53
- | V3-F02 LPS | Living Project State | **PARTIAL RUNTIME** — T-A1 Project/LPS durable SQLite **merged on main** ; writeback / autres états associés restent à compléter (M5+) | M1, M5 | M1 / PR #337 / restart proof | writeback + autres OA |
- | V3-F03 DoctrinePackage | Package pin/digest | **PARTIAL RUNTIME** — digest in live `F2ContextSnapshot` **on main** (M2) ; KEEP files | M1–M2 | live digest in snapshot | — |
- | V3-F04 Épistémologie | Obs/Hyp/… | DOC + UI tags partiels (base M2) | M2, M7 | tags/stop contradictions | later depth |
--| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — cognitive piloting M2 + HD/ExecutionContract PREPARE-only **on main** (M3) + M4 Delivery REAL-OFF **merged** + FIRST REAL launch **proven once** + pre-reproof bounding **merged** ; governed REAL **completion** / Evidence / LPS writeback **not closed** | M2–M6 | e2e sans copier-coller | M4 GOVERNED REAL COMPLETION PROOF then M5+ |
-+| V3-F05 Chaîne conv→exec | Boucle native | **PARTIAL RUNTIME** — through M4 governed execution **demonstrated / milestone CLOSED** ; Evidence / LPS writeback / Nora post-exec **not closed** | M2–M6 | e2e sans copier-coller | M5+ (NOT AUTHORIZED yet) |
- | V3-F06 Trajectory | ProjectTrajectory | Modeled / Memory cycle | M3, M7 | trajectory update post-HD | wire |
- | V3-F07 Provenance | Source hierarchy | Doctrine FS | M2, M7 | provenance on artifacts | later |
- | V3-F08 Contradictions | Stop/contradiction | DOC | M7 | UI stop + record | later |
- | V3-F09 Replanif | Governed replan | DOC | M6–M7 | next-step from ReviewBundle | after M5 |
- | V3-F10 DebtItem | Dette gouvernée | DOC | M7–M8 | debt records | later |
--| V3-F11 AgentCapability | Caps agents | Fixture agent + **bounded REAL RO implementation MERGED ON MAIN** (PR #344) · exercised once in REAL (FIRST REAL) · completion **not** obtained · AgentCapability **KEEP** through PR #346 | M4 | REAL agent RO exercised with governed **completion** | M4 GOVERNED REAL COMPLETION PROOF |
--| V3-F12 Réversibilité | Action policy | Partial confirmations · Gate D **implementation merged** (GD-1) · CREATED/LAUNCHED safety frontier **merged** · spawn ACK/completion separation **merged** · Gate D first-REAL **consumption proven once** · Ack **deferred for first RO** (D-M4-05) | M3–M4 | confirm + Gate D consumed once (+ Ack for N2/N3 later) · completion still open | M4 GOVERNED REAL COMPLETION PROOF / future IAM |
-+| V3-F11 AgentCapability | Caps agents | Fixture + **bounded REAL RO KEEP** · M4 scope exercised successfully on final reproof (strict bounded tool-surface proven for that path) | M4 | M4 CLOSED for this capability class | future AgentCapability classes separate |
-+| V3-F12 Réversibilité | Action policy | Gate D + CREATED/LAUNCHED + spawn ACK/completion controls **demonstrated for M4** · Ack **deferred for first RO** (D-M4-05) | M3–M4 | M4 CLOSED · Ack for elevated classes later | future IAM / N2/N3 |
- | V3-F13 Learning | REX contrôlé | DOC / capitalisation | M5, M7 | learning from Evidence | later |
- | V3-F14 Artifact Completeness | Completeness gates | Partial ReviewBundle | M5 | completeness checks | durable evidence |
- | V3-F15 Maturity | Distributed maturity | Honesty rails T-A7 | M8 | anti-claim maturity | no false READY |
-@@ -364,44 +368,76 @@ CRITICAL PATH:
-   → M3 HD durable + ExecutionContract exact — VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED (PR #341 @ 8eea4cbf…)
-   → M4 Architecture — CLOSED (D-M4-01→05 ADOPTED BY MORRIS)
-   → M4 Delivery REAL-OFF — VALIDATED BY MORRIS / MERGED ON MAIN (PR #344 @ ec65fb47)
--  → FIRST M4 CURSOR REAL attempt performed (historical) — governed launch / Gate D once / CREATED·LAUNCHED / no-mutation PROVEN — completion NOT PROVEN
--  → timeout diagnosis completed — no second REAL — timeout = PLAUSIBLE CONTRIBUTING FACTOR — UNIQUE root cause NOT PROVEN
--  → pre-reproof deterministic bounding MERGED ON MAIN (PR #346 @ fc7e20aa…)
--  → M4 GOVERNED REAL COMPLETION PROOF [NEXT CAPABILITY — MORRIS GO REQUIRED]
--  → M4 exit proof evaluation
--  → M5 Evidence/ReviewBundle + Nora + LPS writeback — only if M4 exit proof satisfied + Morris authorization
-+  → FIRST M4 CURSOR REAL attempt (historical) — launch / Gate D / CREATED·LAUNCHED / no-mutation PROVEN — completion NOT (timeout ~60s)
-+  → timeout diagnosis COMPLETE WITH RESERVES — UNIQUE root cause NOT PROVEN — timeout = PLAUSIBLE CONTRIBUTING FACTOR (historical)
-+  → pre-reproof deterministic bounding MERGED (PR #346 @ fc7e20aa…)
-+  → post-pre-reproof Roadmap sync MERGED (PR #347 @ 2d1361ee…)
-+  → M4 GOVERNED REAL COMPLETION PROOF PASS (handoff 1123a30f…) — duration≈15.7s — M4_READ_ONLY_OK — strict bounded tool-surface PROVEN for that path
-+  → M4 EXIT PROOF ACCEPTED BY MORRIS — M4 CLOSED
-+  → NEXT CAPABILITY = M5 — RETOUR DE PREUVE + ANALYSE NORA
-+  → M5 NOT AUTHORIZED (separate Morris GO required)
-
- M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
--M4 DELIVERY GATE: CLOSED / MERGED (PR #344 @ ec65fb47)
--FIRST REAL GATE: CONSUMED / HISTORICAL — PARTIAL REAL PROOF
-+M4 DELIVERY GATE: CLOSED / MERGED (PR #344)
-+FIRST REAL GATE: CONSUMED / HISTORICAL — PARTIAL (launch only)
- TIMEOUT DIAGNOSIS: COMPLETE WITH RESERVES
--PRE-REPROOF BOUNDING: MERGED (PR #346 / CI #176 SUCCESS)
--M4 GOVERNED REAL COMPLETION PROOF: OPEN — MORRIS GO REQUIRED
--M4 EXIT PROOF: OPEN — NOT SATISFIED
--GATE D: IMPLEMENTED ON MAIN — FIRST-REAL CONSUMPTION PROVEN ONCE — NOT REUSABLE
-+PRE-REPROOF BOUNDING: MERGED (PR #346)
-+M4 GOVERNED REAL COMPLETION PROOF: CONSUMED / PASS
-+M4 EXIT PROOF: ACCEPTED BY MORRIS — SATISFIED
-+M4: CLOSED
-+GATE D: IMPLEMENTED — consumed once per historical governed REAL — fresh grant required for future REAL
- CRITICAL ACK: DEFERRED FOR FIRST RO — FUTURE N2/N3 / IAM — NOT PROMOTED
--TECHNICAL LAUNCH JOURNAL: IMPLEMENTED TEMPORARY WITH EXIT — ≠ PRODUCT STORE — REAL TRACE PROVEN ONCE
--TIMEOUT 60000: UNCHANGED / NOT PROVEN SUFFICIENT OR DEFECTIVE
--STRICT RUNTIME READ-ONLY TOOL-SURFACE: NOT PROVEN
-+TECHNICAL LAUNCH JOURNAL: TEMPORARY WITH EXIT — ≠ PRODUCT STORE
-+TIMEOUT 60000: KEEP FOR NOW — proven sufficient for demonstrated M4 bounded RO path — NOT universal policy — NOT proven defective
-+CURSOR_REAL_TIMEOUT_POLICY: OPEN / NON-BLOCKING POST-M4 RESERVE
-+STRICT BOUNDED RUNTIME READ-ONLY TOOL-SURFACE: PROVEN FOR FINAL M4 REPROOF PATH ONLY
- M5: NOT AUTHORIZED
-
--NEXT CAPABILITY: M4 GOVERNED REAL COMPLETION PROOF — MORRIS GO REQUIRED
-+NEXT CAPABILITY: M5 — RETOUR DE PREUVE + ANALYSE NORA — MORRIS GO REQUIRED
-+
-+NON-BLOCKING POST-M4 RESERVES (do NOT reopen M4):
-+  - CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING
-+  - technical launch journal — TEMPORARY WITH EXIT
-+  - future IAM / Critical Ack for elevated classes
-+  - Confirmation / Attempt product / Evidence durability partial
-
- TRANSVERSE LATER: FinOps capture optionnelle · multi-user · observability depth · F08/F10 depth
- FROZEN (RECOMMENDATION until GO): execution-run feature growth · OPS1 UI expansion · FinOps lots non bloquants · D1 feature growth
--DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack/Auth.js promotion for future N2/N3/IAM (not first RO) · Auth.js/IAM exit autorité M3 temporaire
-+DECISION REQUIRED: OPS1/D1/execution-run disposition · Ack/Auth.js promotion for future N2/N3/IAM · Auth.js/IAM exit autorité M3 temporaire · timeout policy qualification when a future REAL class needs it
- G0 CONSUMED: Option 1 ADOPTED · Product persistence node:sqlite ADOPTED
- M2 MERGE GATE: CLOSED
- M3 MERGE GATE: CLOSED
- M3: VALIDATED BY MORRIS — MERGED ON MAIN — EXIT PROOF SATISFIED
--M4: PARTIAL REAL PROOF — LAUNCH PROVEN — COMPLETION NOT PROVEN — BOUNDING MERGED — EXIT PROOF NOT SATISFIED — NOT CLOSED
--Cursor REAL: IMPLEMENTATION MERGED / DEFAULT OFF / 1 HISTORICAL ATTEMPT / 0 SUCCESSFUL COMPLETIONS / NEXT REAL NOT AUTHORIZED WITHOUT MORRIS GO
--Gate D IMPLEMENTED — FIRST-REAL CONSUMPTION PROVEN ONCE — FRESH GATE REQUIRED FOR REPROOF
-+M4: EXIT PROOF ACCEPTED BY MORRIS — CLOSED
-+Cursor REAL: IMPLEMENTATION MERGED / DEFAULT OFF / 2 HISTORICAL GOVERNED LAUNCHES / 1 SUCCESSFUL COMPLETION / future REAL NOT AUTHORIZED WITHOUT MORRIS GO
- runtime v3 NON ADOPTED
- ```
-
-+## B10a. CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING POST-M4 RESERVE
-+
-+Document key (tracking only — **not** an architecture decision):
-+
-+`CURSOR_REAL_TIMEOUT_POLICY — OPEN / NON-BLOCKING POST-M4 RESERVE`
-+
-+| Fact | Value |
-+| --- | --- |
-+| Current product timeout | **60000 ms** |
-+| FIRST REAL (historical) | timedOut≈60030 ms · exit 143 · agent still progressing · UNIQUE root cause **NOT PROVEN** · timeout = plausible contributing factor |
-+| Final M4 bounded reproof | timedOut=false · duration≈15735 ms · exit 0 · `M4_READ_ONLY_OK` |
-+| Proven | 60000 **sufficient for the demonstrated M4 bounded read-only path** |
-+| Not proven | 60000 as a **universal** Cursor REAL timeout policy |
-+| Not proven | 60000 **defective** |
-+| Classification | **KEEP CURRENT 60000 FOR NOW** + **OPEN / NON-BLOCKING POST-M4 RESERVE** |
-+| Blocks M5? | **No** |
-+| Reopens M4? | **No** |
-+
-+No structural selection now among: global 90s/120s · unlimited · dynamic · per-AgentCapability · per-ExecutionContract · per class. Any such selection needs dedicated proof + Morris decision.
-+
-+**Exit condition (reserve may close only if):** (1) timeout policy explicitly qualified for REAL execution classes actually needed ; **OR** (2) Morris decides a contractual/capability-scoped/other reference mechanism replacing the global value ; **OR** (3) product needs show the current global value is sufficient for the authorized execution population with adequate proof.
-+
- ## B10b. Dette documentaire post-M1
-
-+
- | Id | Observation | Impact | Classification | Owner / gate | Exit |
- | --- | --- | --- | --- | --- | --- |
- | **DOC-DEBT-M1-01** | Framing `32` métadonnées/maturité indiquent encore « persist runtime non migrée / schemas persist non créés » alors que T-A1 Project/LPS **et** T-A2 CycleInstance M2 subset SQLite sont **mergés** sur main | Risque de lecture contradictoire doctrine cible vs preuve runtime courante (dette plus visible post-M2) | documentation freshness debt | Morris — modification framing v3 = cycle + GO dédié | Cycle documentaire dédié corrigeant **uniquement** l’état factuel sans changer doctrine V3-F02/F06/F09 |
-@@ -437,11 +473,14 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
- - M4 Architecture docs : PR #343 · merge `e974b7306f7400249c31399fd2890d5817833dbf`
- - M4 Delivery : PR #344 · head `f7270b21ccdbcf1cd543879e7c4120d87b874479` · merge `ec65fb47c04b451d892297c806b9b041995339a5` · CI #172 SUCCESS · diagnostic Class C handoff `bf4928389fd1ec50ecf2cf2d485bfbd2d7d3ba63`
- - M4 post-Delivery Roadmap : PR #345 · merge `3575c8863d8a13b610dbfde96a33426a620b2c56`
--- FIRST M4 CURSOR REAL : handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · Attempt `xat:m4-first-real-001` · Gate D `gtd:m4-first-real-001` · base `3575c886…` · PARTIAL REAL PROOF
-+- FIRST M4 CURSOR REAL : handoff `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` · Attempt `xat:m4-first-real-001` · Gate D `gtd:m4-first-real-001` · base `3575c886…` · PARTIAL REAL PROOF (launch only / timeout)
- - M4 timeout diagnosis : handoff `797daeccfa2ec445a1ecaf10f042de635cb1fe21` · NO REAL REPROOF · timeout = PLAUSIBLE CONTRIBUTING FACTOR
- - M4 pre-reproof bounding content-complete : handoff `3c56cb29367268231c1db26b4de7af5cfe0ef499`
- - M4 pre-reproof bounding PR readiness : handoff `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c`
- - M4 pre-reproof bounding product : PR #346 · head `8900cd06be195b2dd9fa154a7153608fdde6f9a3` · merge `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` · CI SFIA Studio **#176** SUCCESS · ZERO REAL in bounding integration
--- Current main : `fc7e20aaeb5153b4d73c1809f865e361f00e1b34`
-+- M4 post-pre-reproof Roadmap sync : PR #347 · head `4f989aba92bce5ca33e1de251523694559b53902` · merge `2d1361ee71bec7a21f6f76efc7c33eaf3146802a` · CI SFIA Studio **#178** SUCCESS
-+- M4 GOVERNED REAL COMPLETION PROOF : handoff `1123a30f2261756a2ec744ee002ec023b7fea0af` · Attempt `xat:m4-reproof-86b5ecb05474` · Gate D `gtd:m4-reproof-86b5ecb05474` · PASS
-+- Morris GO : **ACCEPT M4 EXIT PROOF + CLOSE M4 — NO M5 EXECUTION**
-+- Current main (Roadmap candidate base) : `2d1361ee71bec7a21f6f76efc7c33eaf3146802a`
- - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
- - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
-````
-
-## CI observation
+## 2. Capability / Milestone
 
 | Item | Value |
 | --- | --- |
-| Workflow | SFIA Studio CI |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/31839470236 |
-| headSha | `071bfdedb13f8f3102c73348f97c1711e2c4ff0f` |
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| SFIA Studio Required Gate | SUCCESS |
-| Overall | SUCCESS |
-| Rerun | 0 |
+| Primary | V3-F14 Artifact Completeness |
+| Linked | V3-F13, V3-F02, V3-F04, V3-F05, V3-F09, V3-F10, V3-F15 |
+| Milestone | M5 — Retour de preuve + analyse Nora |
+| Previous | M4 CLOSED |
+| Next | M6 — Boucle projet complète |
 
-## Timeout reserve (preserved; not decided)
+## 3. Sources réellement lues
 
-- `CURSOR_REAL_TIMEOUT_POLICY` OPEN / NON-BLOCKING POST-M4
-- 60000 KEEP FOR NOW
-- proven sufficient for demonstrated M4 bounded RO path only
-- NOT universal · NOT proven defective
-- does not reopen M4 · does not block M5
-- no timeout architecture/policy selected
-- timeout change this cycle = 0
+### Convergence / doctrine / process
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (Git truth `5132f1bc…` overrides embedded older snapshot SHAs)
+- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md` (as applicable via chain)
+- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md` (LPS doctrine context)
+- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md` (provenance context)
+- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+- `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md` (as applicable)
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`
+- `prompts/templates/sfia-cycle-execution-template.md` / routing / operating model / guardrails (process only; not product doctrine)
 
-## M4 / M5
+### Product code (read-only)
+- Evidence/ReviewBundle: `app/lib/oa/evidence-review/domain/types.ts`, `reviewBundleTypes.ts`, `coordinationTypes.ts`, `application/ingestExecutionAttemptEvidence.ts`, `registerEvidence.ts`, `createReviewBundle.ts`, `attachEvidenceToReviewBundle.ts`, `completeReview.ts`, `freezeReviewBundle.ts`, `recommendNextGate.ts`, `infrastructure/memoryEvidenceStore.ts`, `memoryEvidenceRepository.ts`, `memoryReviewBundleStore.ts`, `memoryReviewBundleRepository.ts`, ports, `index.ts`
+- Attempt: `app/lib/oa/execution-attempt/domain/types.ts`, `memoryExecutionAttemptStore.ts`, `memoryExecutionAttemptRepository.ts`, `sqlite/sqliteLaunchSafetyJournal.ts`, `ports/launchSafetyJournalPort.ts`, `startExecution.ts` (provenance only), `index.ts`
+- Project/LPS: `app/lib/oa/project/domain/types.ts`, `application/appendLivingProjectStateVersion.ts`, `sqlite/db.ts`, `sqliteLivingProjectStateRepository.ts`, `createSqliteProductProjectServices.ts`
+- ExecutionContract: `app/lib/oa/execution-contract/domain/types.ts` (`decisionRefs`)
+- Wiring/UI: `app/lib/vertical-slice-runtime/service.ts` (`wireOaStack`), `features/project-assistant/f3/ingestEvidenceAndRecommend.ts`, `ProjectAssistantPanel.tsx` (F3 cards via prior survey)
 
-- M4 CLOSED — exit proof ACCEPTED BY MORRIS
-- M5 PARTIAL / NOT AUTHORIZED — execution = 0
+## 4. Git Truth
 
-## Safety counters
-
-| Control | Count |
+| Check | Result |
 | --- | --- |
-| Roadmap files committed | 1 |
-| Project commits | 1 |
-| Project push | 1 |
-| Draft PR created | 1 |
-| Cursor REAL | 0 |
-| StartExecution REAL | 0 |
-| new Gate D | 0 |
-| new Attempt REAL | 0 |
-| RetryExecutionAttempt | 0 |
-| M5 execution | 0 |
-| timeout change | 0 |
-| AgentCapability change | 0 |
-| gateway change | 0 |
-| code change | 0 |
-| Build Doctrine change | 0 |
-| v3 framing change | 0 |
-| method/template change | 0 |
-| mark ready | 0 |
-| merge | 0 |
-| branch delete | 0 |
-| force push | 0 |
+| origin/main | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` = expected `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
+| analysis branch HEAD | `5132f1bc2c147b2c7ebf6d331c04b1c6b1bd047e` |
+| tracked/staged before | clean |
+| untracked | `.tmp-sfia-review/**` only |
+| SFIA_STUDIO_CURSOR_REAL | unset |
+| OPS1_CURSOR_REAL | unset |
+| status --short | ```?? .tmp-sfia-review/``` |
 
-Parent env: SFIA_STUDIO_CURSOR_REAL unset; OPS1_CURSOR_REAL unset
-
-## Final project status
+## 5. Carte architecture actuelle (repo-first)
 
 ```
-?? .tmp-sfia-review/
+HumanDecision (Product SQLite oa_human_decisions) — DURABLE
+  → ExecutionContract (Product SQLite oa_execution_contracts; decisionRefs[]) — DURABLE
+    → ExecutionAttempt (Memory Map) — PROCESS-LOCAL
+      → resultRef / errorRef on Attempt
+      → optional M4 technical journal (isolated SQLite) CREATED/LAUNCHED + Gate D — TEMPORARY WITH EXIT ≠ Product Store
+        → Evidence (Memory; bindings + technicalResultRef) — PROCESS-LOCAL
+          → ReviewBundle (Memory; evidenceRefs) — PROCESS-LOCAL
+            → RecommendNextGate → CoordinationResult (computed; NOT aggregate; NOT persisted)
+              → F3/Nora UI DTO cards (process-local display)
+                → LivingProjectState (Product SQLite oa_lps) — DURABLE type has evidenceIds/reviewBundleIds
+                  BUT AppendLivingProjectStateRequest does NOT currently accept evidenceIds/reviewBundleIds
+                  AND no product path writes them from Evidence/ReviewBundle today
 ```
 
-## Anti-claims
+### Link-by-link matrix
 
-- M4 CLOSED · exit proof ACCEPTED BY MORRIS
-- M5 NOT AUTHORIZED · runtime v3 NON ADOPTED
-- Draft PR ≠ merge authorization
-- M4 CLOSED ≠ global Cursor REAL safety
-- 60000 sufficient for demonstrated M4 bounded RO path ≠ universal timeout policy
-- FIRST REAL timeout ≠ timeout proven defective
-- CURSOR_REAL_TIMEOUT_POLICY reserve ≠ M4 reopened · does not block M5
-- technical launch journal ≠ Product Store
-- no future timeout architecture selected
+| Maillon | Aggregate/object | Port | Adapter now | Persistence | Restart-safe | Provenance IDs | Tests | UI wiring | Classification | M5 gap |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| HumanDecision | HD | decision repos | SQLite product | Product SQLite | YES | decisionId | m3 durability tests | product | KEEP | none for M5 entry |
+| ExecutionContract | EC | contract repos | SQLite product | Product SQLite | YES | executionContractId + decisionRefs | m3 tests | product | KEEP | none |
+| ExecutionAttempt | Attempt | ExecutionAttemptRepositoryPort | MemoryExecutionAttemptRepository | process memory | NO | attemptId, executionContractId(+ver), resultRef | attempt repo/lifecycle/M4 tests | product via RuntimeOaStack memory | REPLACE (persistence) / KEEP domain+ports | durable Attempt |
+| Launch journal | technical grants/frontier | LaunchSafetyJournalPort | SqliteLaunchSafetyJournal | isolated SQLite file | YES for frontier only | attempt_id, contract identity, grant | m4 crash/replay | REAL path only | KEEP / TEMPORARY WITH EXIT | exit condition later |
+| Evidence | Evidence | EvidenceRepositoryPort | MemoryEvidenceRepository | process memory | NO | evidenceId, bindings (attempt/contract/decision/project…), technicalResultRef | evidence-review tests | F3 cards memory | REPLACE (persistence) / KEEP domain+ports+use cases | durable Evidence |
+| ReviewBundle | ReviewBundle | ReviewBundleRepositoryPort | MemoryReviewBundleRepository | process memory | NO | reviewBundleId, evidenceRefs, optional executionContractId/projectId | reviewBundle tests | F3 cards memory | REPLACE (persistence) / KEEP domain+ports+use cases | durable ReviewBundle |
+| RecommendNextGate | CoordinationResult | RO readers | in-memory readers over memory stores | none (computed) | N/A | sourceSnapshots / gateConsumed=false | recommendNextGate tests | F3 recommendation card | KEEP | wire after durable sources + LPS factual link |
+| LPS | LivingProjectState | LivingProjectStateRepositoryPort | sqliteLivingProjectStateRepository | Product SQLite | YES | lpsVersionId, decisionIds, evidenceIds?, reviewBundleIds? | m1 restart proofs | product | KEEP + ADAPT append request/API for evidence/RB ids | write-back path missing |
+| Nora/F3 compose | ingestEvidenceAndRecommend | uses EvidenceReviewServices | memory services | ephemeral chain | NO | attempt→evidence→RB→recommendation DTO | f3.fixtureVerticalSlice | ProjectAssistantPanel | HARVEST/ADAPT compose path — no new engine | durable compose + LPS append |
 
-## Next gate
+**Persistence proof (absence):** `app/lib/oa/project/infrastructure/sqlite/db.ts` has `oa_projects`, `oa_lps`, `oa_lps_current`, `oa_cycle_instances`, `oa_human_decisions`, `oa_execution_contracts` — **no** `oa_evidence` / Attempt product tables. Memory stores explicitly comment **NOT DATABASE SELECTED / non-durable**. Launch journal schema is separate (`m4_gate_d_grants`, `m4_launch_frontier`) and documents **NOT Product Store / NOT Attempt store**.
 
-- ChatGPT PR readiness review of this handoff + GitHub PR #348
-- separate Morris GO required for Ready / merge
-- separate Morris GO required for M5 after stable main
+## 6. Asset classification
 
-## Verdict
+| Asset | Class | Justification | M5 role | Exit if temporary |
+| --- | --- | --- | --- | --- |
+| Evidence domain + invariants | KEEP | Stable V3-native aggregate | Core M5 object | — |
+| EvidenceRepositoryPort / readers / audit | KEEP | Ports already abstract durability | Persist behind same ports | — |
+| MemoryEvidenceRepository/Store | REPLACE | Explicit process-local; blocks restart-safe M5 | Temporary runtime until SQLite adapter | Retire from product path when SQLite Evidence adapter wired + restart proof |
+| ReviewBundle domain + invariants | KEEP | Stable hybrid review aggregate | Core M5 object | — |
+| ReviewBundle ports | KEEP | Same | Persist behind ports | — |
+| MemoryReviewBundleRepository/Store | REPLACE | Process-local | Temporary until SQLite adapter | Same as Evidence |
+| IngestExecutionAttemptEvidence | KEEP | Correct bridge Attempt→Evidence; never mutates Attempt; copies resultRef→technicalResultRef | Critical M5 bridge | — |
+| RegisterEvidence / create/attach/freeze/complete ReviewBundle | KEEP | Lifecycle already modeled | Use as-is | — |
+| RecommendNextGate | KEEP | Explicit recommendation-only; gateConsumed/decisionCreated forced false | Nora recommendation engine already exists | — |
+| Claim/Maturity memory stores | FREEZE / later ADAPT | Present but not required for minimal M5 slice | Out of minimal M5 unless completeness path needs them | Do not inflate M5 |
+| ExecutionAttempt domain + ports | KEEP | Lifecycle complete for M4 | Provenance source for ingest | — |
+| MemoryExecutionAttemptRepository | REPLACE (for M5 coherence) or TEMPORARY WITH EXIT under Option A | Process-local Attempt breaks restart reconstruction / dangling evidence bindings | Depends on M5-A | Exit when SQLite Attempt product adapter exists |
+| SQLite LaunchSafetyJournal | KEEP / TEMPORARY WITH EXIT | Protects Gate D single-use + CREATED/LAUNCHED anti-relaunch; ≠ Attempt payload | Keep during M5 Delivery unless M5-C decides otherwise | See §10 |
+| LivingProjectState type | KEEP | Already has evidenceIds/reviewBundleIds | Target state surface | — |
+| AppendLivingProjectStateVersion | ADAPT | Request currently lacks evidenceIds/reviewBundleIds; does not write them | Factual write-back needs request/API extension | — |
+| Product SQLite backbone | KEEP / COMPLETE | G0-B ADOPTED; extend tables for M5 aggregates | Persistence target | — |
+| F3 ingestEvidenceAndRecommend + UI cards | HARVEST / ADAPT | Real product compose path; fixture-ish IDs/reservations but real use cases | Compose without new orchestrator | Remove fixture-only HARD claims as maturity advances |
+| createSqliteProductProjectServices | KEEP | Project/LPS only today | Not Evidence wiring | — |
+| RuntimeOaStack memory Evidence/Attempt | ADAPT | Swap adapters post-decision | Composition root change in Delivery | — |
 
-**M4 CLOSURE ROADMAP SYNC COMMITTED AND PUSHED — DRAFT PR CREATED — TIMEOUT POLICY RESERVE PRESERVED — M5 NOT AUTHORIZED — ZERO REAL — MORRIS MERGE DECISION REQUIRED**
+## 7. Gaps M5 (from repo + Roadmap)
+
+| Gap | Status | Indispensable for M5 slice? |
+| --- | --- | --- |
+| Durable Evidence behind existing port | MISSING | YES |
+| Durable ReviewBundle behind existing port | MISSING | YES |
+| Durable ExecutionAttempt product aggregate | MISSING | YES for restart-coherent provenance (Option B); OPTION A accepts temporary debt |
+| LPS factual link evidenceIds/reviewBundleIds | Type fields exist; append request + write path MISSING | YES |
+| Nora post-exec analysis beyond UI cards | PARTIAL — RecommendNextGate exists; not durable/not LPS-linked | YES (compose + persist sources + surface) |
+| Recommendation remains Recommendation | ALREADY enforced in code | KEEP invariant |
+| Technical journal exit | OPEN TEMPORARY WITH EXIT | NOT required to close M5 entry; may defer |
+| Claim/Maturity durable | Memory | Differable / not minimal M5 |
+| CURSOR_REAL_TIMEOUT_POLICY | OPEN NON-BLOCKING | OUT of M5 critical path |
+| Auth.js / Critical Ack / OPS1 disposition | future | OUT of M5 |
+| runtime v3 ADOPTED | NON ADOPTED | OUT |
+
+## 8. Provenance chain
+
+| Step | ID / binding available today? | Hole |
+| --- | --- | --- |
+| HD → EC | YES — EC.decisionRefs[] durable | — |
+| EC → Attempt | YES — Attempt.executionContractId(+version) memory | lost on restart |
+| Attempt → result | YES — Attempt.resultRef memory | lost on restart; journal does not store resultRef |
+| Attempt → Evidence | YES — bindings.executionAttemptId + executionContractId; technicalResultRef | Evidence memory → lost; after durable Evidence without durable Attempt, attemptId may dangle |
+| Evidence → ReviewBundle | YES — evidenceRefs | memory |
+| RB → RecommendNextGate | YES — refs passed into request; sourceSnapshots | result not persisted |
+| Recommendation → LPS | NO product write | hole |
+| Evidence/RB → LPS | LPS type has arrays; append API does not set them; no caller | hole |
+| DecisionId on Evidence | optional binding; F3 ingest does not always set decisionId (sets projectId+contractId) | may need explicit bind from EC.decisionRefs in Delivery |
+
+**Rule:** prefer referencing existing IDs; do not invent parallel proof objects if Evidence/ReviewBundle aggregates suffice.
+
+## 9. Persistence matrix (current)
+
+| Concern | Durable Product SQLite | Memory | Isolated technical SQLite | Computed only |
+| --- | --- | --- | --- | --- |
+| Project/LPS/Cycle/HD/EC | YES | — | — | — |
+| ExecutionAttempt business | — | YES | — | — |
+| Gate D / CREATED/LAUNCHED | — | — | YES (M4 journal) | — |
+| Evidence | — | YES | — | — |
+| ReviewBundle | — | YES | — | — |
+| Claims/Maturity | — | YES | — | — |
+| RecommendNextGate | — | — | — | YES |
+
+## 10. Technical launch journal — exit analysis
+
+| Question | Answer |
+| --- | --- |
+| What it protects | Gate D grant single-use; CREATED frontier uniqueness per contract safety identity; LAUNCHED marks; crash/replay anti-ambiguous relaunch |
+| What Attempt memory does not persist | Same safety frontier semantics are not in Attempt aggregate store; Attempt holds resultRef/status/business fields journal lacks |
+| Keep unchanged during M5? | **YES recommended** unless Morris chooses early retirement after durable Attempt proves equivalent safety |
+| Does durable Attempt/Evidence replace it? | Durable Attempt can eventually absorb business recovery; **safety journal role is not automatically identical** — replacement requires explicit proof that relaunch/grant invariants remain fail-closed without dual authority |
+| RETIRE LATER condition | (1) Product Attempt durability covers needed restart reconstruction AND (2) Gate D / launch anti-replay invariants relocated or proven redundant AND (3) dedicated Morris GO |
+| Premature deletion risk | Silent relaunch / duplicate CREATED / lost grant consumption audit |
+| Double-state risk | If both journal and Product Attempt become independently authoritative for launch permission → forbidden; journal must remain technical-only until exit |
+
+**M5-C classification now:** KEEP TEMPORARY WITH EXIT — no structural decision required to start M5 Delivery design; trigger = after Attempt durability + safety equivalence proof.
+
+## 11. M5 user slice (smallest coherent E2E)
+
+**Entry:** an existing terminal ExecutionAttempt with `resultRef` (fixture adapter path acceptable for Delivery QA; REAL not required for M5 capability proof unless Morris later expands).
+
+**Transformations:**
+1. IngestExecutionAttemptEvidence (existing)
+2. CreateReviewBundle (+ optional freeze if completeness requires — challenge during Delivery; F3 today creates draft with evidence attached)
+3. RecommendNextGate (existing; recommendation-only)
+4. Factual LPS append linking `evidenceIds` / `reviewBundleIds` (+ optional nextStep text as factual pointer, not decision)
+5. UI shows Evidence / ReviewBundle / Recommendation from durable stores and LPS reflects links
+
+**Persisted (target after Delivery):** Evidence, ReviewBundle, (recommended) Attempt, new LPS version.
+
+**Computed only:** CoordinationResult / gate recommendation.
+
+**LPS mutation:** factual linkage only — not HumanDecision, not gate consumption, not trajectory structural replan.
+
+**Visible output:** Nora panel cards + project LPS version showing evidence/RB ids + recommendation visible as Recommendation.
+
+**E2E proof:** restart process → Evidence/RB still loadable → LPS link intact → recommendation recomputable from durable sources → no gate consumed → no autonomous execution.
+
+**Restart proof:** REQUIRED for M5 exit if durability is the selected boundary (Roadmap e2e + V3-F14).
+
+**Exit criteria (proposed):** see §16.
+
+## 12. OPTION A — Evidence + ReviewBundle durable; Attempt remains memory temporary
+
+### Description
+Implement SQLite adapters for Evidence + ReviewBundle in Product Store behind existing ports. Keep Memory Attempt. Keep launch journal TEMPORARY WITH EXIT. Extend LPS append for evidence/RB ids. Compose existing use cases.
+
+### Future components / tables (indicative, not implemented)
+- `oa_evidence` (+ idempotency index)
+- `oa_review_bundles` (+ evidence ref relation or JSON refs matching current aggregate)
+- SqliteEvidenceRepository / SqliteReviewBundleRepository
+- wireOaStack adapter swap
+- AppendLivingProjectStateRequest ADAPT for evidenceIds/reviewBundleIds
+- thin application “recordEvidenceOutcomeToLps” or extend F3 compose
+
+### Invariants / atomicity / restart / idempotence / provenance
+- Keep Evidence/RB OCC + idempotency keys
+- Prefer unit-of-work within Product Store for RB create+attach if needed; cross-aggregate Evidence↔RB still careful (ports today say no cross-aggregate transaction claim — Delivery must not invent silent distributed TX)
+- Restart: Evidence/RB survive; Attempt lost → bindings.executionAttemptId may dangle; technicalResultRef + executionContractId still usable
+- Provenance HD→EC durable; Attempt gap after restart
+
+### Cost / complexity / debt
+- Lower immediate scope than B
+- Introduces explicit debt: Attempt product durability TEMPORARY WITH EXIT (owner: Studio OA; exit: M5 follow-on or early M6; proof: Attempt restart load + no dangling critical UX)
+- Launch journal exit delayed further
+
+### Risks
+- Artificial frontier: durable proof objects pointing at ephemeral Attempt
+- Dual mental model for operators after restart
+- Temptation to treat journal as Attempt store (must forbid)
+
+### Reversibility
+Medium — adapters behind ports; memory can remain for tests
+
+### M5 capability unlocked
+Partial restart-safe Evidence/RB + LPS link + recommendation; Attempt history not restart-safe
+
+### Proof of exit for Option A debt
+Durable Attempt adapter + restart proof OR Morris accepts permanent ID-only Attempt refs with documented limitation (unlikely desirable)
+
+### Pros / cons / reserves
+- Pros: faster slice; matches Roadmap “durable evidence” literal gap
+- Cons: R18 coherent gap partially deferred; provenance hole; journal exit harder
+- Reserves: dangling attemptId; F3 Attempt card empty after restart
+
+## 13. OPTION B — Attempt + Evidence + ReviewBundle durable together in Product SQLite
+
+### Description
+Close the coherent post-exec persistence frontier in one authorized Delivery program (may be sequenced PRs but one Morris-selected boundary): Product SQLite Attempt + Evidence + ReviewBundle; LPS factual write-back; compose existing use cases; keep launch journal TEMPORARY WITH EXIT until safety equivalence.
+
+### Future components / tables (indicative)
+- `oa_execution_attempts` (business aggregate; NOT m4 journal)
+- `oa_evidence`, `oa_review_bundles`
+- SQLite repos for all three behind existing ports
+- Attempt reader for ingest remains port-based
+- wireOaStack uses SQLite Attempt + EvidenceReview services
+- LPS append ADAPT
+
+### Invariants / atomicity / restart / idempotence / provenance
+- Restart-safe chain EC→Attempt→Evidence→RB
+- Prefer Product UoW patterns already used for Project/LPS/HD/EC
+- Idempotency keys preserved
+- Full ID provenance without dangling Attempt
+- Journal remains technical-only (no dual product Attempt authority)
+
+### Cost / complexity / debt
+- Higher Delivery cost than A
+- Aligns Build Doctrine R18
+- Reduces new temporary debt; journal still TEMPORARY WITH EXIT (narrower)
+
+### Risks
+- Larger PR surface; migration/schema discipline
+- Over-scoping Claim/Maturity if not fenced
+- Future-prep inflation if Claims/Maturity pulled in
+
+### Reversibility
+Medium — still port-based; larger schema commitment
+
+### M5 capability unlocked
+Full restart-safe post-exec proof path matching Roadmap e2e spirit
+
+### Pros / cons / reserves
+- Pros: coherent; best provenance; clears path to journal exit later; avoids artificial Attempt hole
+- Cons: more work; needs careful sequencing
+- Reserves: journal still present; REAL not required for M5 proof; Claims/Maturity still memory OK
+
+## 14. OPTION C — LPS-only summaries / links without durable Evidence/ReviewBundle aggregates
+
+### Description
+Append LPS text/summary and id lists without persisting Evidence/ReviewBundle aggregates.
+
+### Verdict
+**REJECT as M5 architecture option.**
+
+### Why
+- Contradicts V3-F14 Artifact Completeness and Roadmap gap “durable evidence”
+- Loses ReviewBundle lifecycle (freeze/complete/evidence refs integrity)
+- RecommendNextGate needs readable Evidence/RB versions — would force re-fixture or hide proof
+- Creates parallel “proof in LPS narrative” architecture (Build Doctrine R6 anti-pattern)
+
+Not retained beyond challenge record.
+
+## 15. Comparative trade-offs
+
+| Dimension | A | B | C |
+| --- | --- | --- | --- |
+| Restart-safe Evidence/RB | YES | YES | NO (ids without aggregates) |
+| Restart-safe Attempt | NO | YES | NO |
+| Provenance completeness | PARTIAL | STRONG | WEAK |
+| R18 coherent gap | PARTIAL | YES | NO |
+| Delivery cost | Lower | Higher | False-low then rewrite |
+| New temporary debt | Attempt durability | Mostly journal only | Proof architecture debt |
+| Parallel architecture risk | Low-medium | Low | High |
+| Journal exit readiness | Later | Closer | Worse |
+| Aligns V3-F14 | Partial+ | Yes | No |
+
+## 16. Nora → LPS write-back options (structural arbitration)
+
+### A. Factual state update (mechanizable)
+Examples: evidence available; reviewBundle linked; technicalResultRef referenced; reserve still open as factual note.
+- Can be L1/L2 automation after Evidence/RB persist
+- Must use AppendLivingProjectStateVersion with OCC expectedVersion
+- Must NOT set trajectory structural fields as “approved plan”
+- ADAPT append request to accept evidenceIds/reviewBundleIds (carry-forward semantics like decisionIds)
+
+### B. Recommendation
+- Keep CoordinationResult / RecommendNextGate as Recommendation (`kind: "recommendation"`, `gateConsumed: false`, `decisionCreated: false`, `executionAuthority: false`)
+- Surface in UI; optionally store a **reference** (e.g. correlationId / recommendation snapshot ref as epistemic or audit event) — **not** HumanDecision
+- Do not auto-create HD
+
+### C. Structural replan / decision
+- Remains Morris / HumanDecision path (M3 machinery)
+- M6 territory for full governed replan loop
+
+### Write-back variants compared
+
+| Variant | UX | Automation | Authority | Atomicity | Provenance | OCC | Restart | Implicit decision risk |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| W1: factual LPS append + separate Recommendation UI | Cards + LPS ids updated | L1–L2 | system factual / Morris for decisions | LPS append Tx; recommendation computed | strong if aggregates durable | yes | good | low |
+| W2: LPS append only after human validate recommendation | Extra confirm step | L0–L1 | Morris/human always | same | strong | yes | good | lowest |
+| W3: auto-apply recommendation as next trajectory/gate | “auto next” | L3+ forbidden here | usurps Morris | — | — | — | — | **HIGH — REJECT** |
+
+**RECOMMENDATION (write-back):** **W1** for M5 — factual LPS linkage automated; Recommendation remains visible/recomputable; structural changes require separate HumanDecision/Morris. Offer W2 as stricter alternative if Morris wants human ack before LPS evidence link (usually unnecessary for factual ids).
+
+## 17. Nora existing reuse
+
+| Question | Fact |
+| --- | --- |
+| What exists? | Domain+app use cases; RecommendNextGate; F3 ingestEvidenceAndRecommend; UI F3 cards; RuntimeOaStack wiring |
+| Fixture/test-only? | F3 uses fixture-like evidence/RB ids and HARD reservation strings; underlying commands are real OA services |
+| Product-wired? | YES via vertical-slice-runtime memory services |
+| HARVEST/ADAPT? | Compose path + UI; swap persistence adapters |
+| New orchestrator needed? | **NO** — compose existing commands; forbid “M5 Engine” / parallel store |
+| Enough ports? | YES — prove by adapter implementation in Delivery |
+
+## 18. Coherent gap closure (R18)
+
+| Gap | Classification |
+| --- | --- |
+| Evidence durability | Indispensable M5 |
+| ReviewBundle durability | Indispensable M5 |
+| Attempt durability | Coherent indispensable under Option B; deferrable debt under Option A |
+| LPS evidence/RB linkage | Indispensable M5 |
+| Nora recommendation linkage | Indispensable as Recommendation surface; not as Decision |
+| Technical journal exit | Differable with exit; not blocking M5 entry |
+| Claims/Maturity durability | Future-prep inflation if forced into minimal M5 |
+| Timeout policy / IAM / OPS1 | Hors M5 |
+
+## 19. Critical path — recommended future Delivery sequence (NOT executed)
+
+1. **Morris GO M5-A (+ M5-B)** — select persistence boundary + write-back authority
+2. **Foundation persistence** — schema + SQLite adapters behind ports (Attempt if B; Evidence; ReviewBundle) + unit/repo tests
+3. **Composition root wire** — RuntimeOaStack uses durable adapters (REAL still default OFF)
+4. **Bridge path** — ingestExecutionAttemptEvidence on durable Attempt reader
+5. **ReviewBundle durable path** — create/attach/(optional freeze)
+6. **RecommendNextGate** — unchanged semantics on durable readers
+7. **LPS factual write-back** — ADAPT append + compose after evidence/RB
+8. **UI** — F3/Nora cards read durable state; show recommendation as Recommendation
+9. **QA M5** — restart proof + anti-claims (no gate consume, no auto HD, ZERO unauthorized REAL)
+10. **Journal exit evaluation** — separate GO when ready (M5-C)
+
+Each step unlocks: durable proof objects → restart-safe Nora view → LPS-linked state → M5 exit candidate.
+
+Files/zones probable: `app/lib/oa/evidence-review/infrastructure/sqlite/**`, `app/lib/oa/execution-attempt/infrastructure/sqlite/**` (product Attempt, distinct from launch journal), `project/infrastructure/sqlite/db.ts`, `vertical-slice-runtime/service.ts`, `features/project-assistant/f3/**`, tests under `__tests__/oa/**`.
+
+## 20. Proposed M5 exit proof (future)
+
+### Obligatory
+- Admissible execution result produces/retrieves Evidence via ingest path
+- Evidence available after process restart (if durability selected — yes under A/B)
+- ReviewBundle exploitable + visible in product UI after restart
+- Provenance to ExecutionContract retained; Attempt retained under B (under A: documented attemptId dangling reserve)
+- Nora/RecommendNextGate produces bounded CoordinationResult Recommendation
+- LPS new version includes evidenceIds/reviewBundleIds factual links
+- Recommendation ≠ HumanDecision; gateConsumed=false; executionAuthority=false; no autonomous StartExecution
+- Restart/reload preserves expected durable state
+- Git/runtime evidence reproducible (tests + documented procedure)
+
+### Recommended not strictly obligatory for first M5 close
+- Full ClaimEvaluation/Maturity path
+- Launch journal retired
+- REAL Cursor path for M5 proof
+- M6 full conversation→… loop without copy-paste
+
+## 21. DebtItems / exits
+
+| ID | Debt | Exit |
+| --- | --- | --- |
+| DEBT-M5-ATTEMPT (only if Option A) | Attempt product memory | SQLite Attempt + restart proof |
+| DEBT-M4-JOURNAL | Launch journal TEMPORARY WITH EXIT | Safety equivalence + Morris GO |
+| DEBT-M5-APPEND-API | Append request lacks evidence/RB ids | ADAPT in Delivery |
+| DEBT-CLAIM-MATURITY-MEM | Claims/Maturity memory | Later milestone if needed |
+| CURSOR_REAL_TIMEOUT_POLICY | OPEN NON-BLOCKING | Future REAL class qualification — not M5 blocker |
+| Confirmation/Auth.js | prior temporary | Future IAM — out of M5 |
+
+## 22. Decision Pack Morris
+
+### M5-A — Persistence boundary — DECISION REQUIRED
+- **Subject:** Evidence/ReviewBundle only (A) vs Attempt+Evidence+ReviewBundle coherent close (B)?
+- **Options:** A / B / (C rejected)
+- **Recommendation (RECOMMENDATION ONLY):** **Option B**
+- **Why:** R18 coherent gap; restart-safe provenance; avoids artificial dangling Attempt; closer to Roadmap e2e; still reuses ports (no parallel architecture); Option A acceptable only if Morris explicitly accepts Attempt restart hole + longer journal dependency
+- **Trade-offs:** B costs more Delivery; A ships faster with structural debt
+- **Debt:** B → journal remains; A → Attempt + journal
+- **Reversibility:** port-based adapters; schema additive
+- **Impact M5:** determines restart proof strength
+- **Impact future:** B eases M6 loop and journal exit
+- **Proof needed before ADOPT claim in Delivery:** schema+adapters+restart tests
+- **GO Morris required:** YES before any M5 Delivery
+
+### M5-B — Nora/LPS write-back authority — DECISION REQUIRED
+- **Subject:** Which LPS mutations may be mechanized vs human-gated?
+- **Options:** W1 factual auto + Recommendation separate / W2 human ack before LPS link / W3 auto-structural (reject)
+- **Recommendation (RECOMMENDATION ONLY):** **W1**
+- **Trade-offs:** W1 enables M5 without turning Recommendation into Decision; W2 safer politically but slower UX; W3 violates doctrine
+- **Debt:** none structural if Recommendation invariants preserved
+- **Reversibility:** high
+- **Impact M5:** enables LPS updated exit criterion
+- **Impact future:** keeps M6 replan governed
+- **Proof:** append OCC tests; anti-claim tests gateConsumed/decisionCreated false
+- **GO Morris required:** YES before implementing write-back
+
+### M5-C — Technical launch journal exit — NOT REQUIRED TO DECIDE NOW
+- **Classification:** KEEP TEMPORARY WITH EXIT
+- **Trigger future:** durable Attempt safety equivalence + dedicated Morris GO
+- **Recommendation:** do not retire during first M5 persistence Delivery
+
+## 23. Explicit labels
+
+- All architecture choices above are **RECOMMENDATION ONLY** until Morris GO.
+- **DECISION REQUIRED:** M5-A, M5-B (M5-C deferred keep).
+- **M5 DELIVERY NOT AUTHORIZED** by this cycle.
+- **NO option ADOPTED.**
+
+## 24. Réserves
+
+- Roadmap metadata Snapshot may still mention older SHA in body; Git `5132f1bc…` is SoT for this cycle
+- F3 still carries fixture-flavored ids/HARD strings — Delivery should not confuse with architecture need for new engine
+- Append API gap means LPS type fields alone ≠ write-back capability
+- Option A residual provenance hole if chosen
+- Claim/Maturity not in minimal slice
+- No REAL used or required for qualification
+
+## 25. Anti-claims
+
+- M5 DELIVERY NOT AUTHORIZED
+- No persistence option ADOPTED without Morris
+- Evidence/ReviewBundle/Attempt durable NOT implemented by this analysis
+- Nora/LPS write-back NOT implemented by this analysis
+- Recommendation ≠ HumanDecision
+- NextGate/CoordinationResult ≠ gate consumed
+- LPS factual update ≠ structural trajectory validated
+- M5 qualification COMPLETE ≠ M5 CLOSED
+- M5 CLOSED (future) ≠ M6 authorized
+- M4 remains CLOSED
+- CURSOR_REAL_TIMEOUT_POLICY not on M5 critical path
+- runtime v3 NON ADOPTED
+- Studio v3 target ≠ global SFIA baseline promotion
+- This Cursor cycle executor ≠ Studio inner Cursor REAL
+- ZERO REAL authorized by this GO
+
+## 26. Git after (pre-handoff publish)
+
+Tracked product modifications: **0**
+Staged: **0**
+Schema/migrations: **0**
+Roadmap modifications: **0**
+Untracked analysis artifacts under `.tmp-sfia-review/**` only
+
+## 27. Verdict
+
+**M5 ENTRY QUALIFICATION COMPLETE — ARCHITECTURE OPTIONS + RECOMMENDATION READY FOR MORRIS DECISION — NO REAL — NO DELIVERY — M5 DELIVERY NOT AUTHORIZED**
 
 ### Instruction ChatGPT
-
-Relire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`, puis vérifier via GitHub: current main, project branch, commit parent, Draft PR #348 metadata, exact one-file Roadmap scope, PR patch, CI SUCCESS, M4 CLOSED, timeout reserve, M5 NOT AUTHORIZED, ZERO REAL, no merge. Ne recommander Ready/merge que si identité candidate exacte, scope exact, handoff FULL, CI satisfaisant, aucune réserve bloquante. MERGE et M5 restent interdits sans nouveau GO Morris.
+Lire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`. Vérifier: base `5132f1bc…`, cycle Critical architecture, carte persistence memory vs SQLite, options A/B (+C rejected), recommendation Option B + write-back W1, M5-A/M5-B DECISION REQUIRED, M5-C KEEP TEMPORARY, next capability M6, ZERO REAL, ZERO Delivery, anti-claims. Ne pas autoriser Delivery sans nouveau GO Morris sur M5-A/M5-B.
