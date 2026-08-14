@@ -1,96 +1,59 @@
-# Review Pack FULL — M4 CONVERGENCE ROADMAP SYNC AFTER PRE-REPROOF MERGE — DOCUMENTATION ONLY
+# Review Pack FULL — M4 CONVERGENCE ROADMAP SYNC — COMMIT / PUSH / DRAFT PR — NO REAL EXECUTION
 
 | Champ | Valeur |
 | --- | --- |
-| Timestamp | 2026-08-14 13:15:30 CEST (+0200) |
-| GO consumed | GO MORRIS — SYNC M4 CONVERGENCE ROADMAP AFTER PRE-REPROOF MERGE — DOCUMENTATION ONLY — NO REAL EXECUTION |
+| Timestamp | 2026-08-14 21:36:49 CEST (+0200) |
+| GO consumed | GO MORRIS — COMMIT / PUSH / PR — M4 CONVERGENCE ROADMAP SYNC — NO REAL EXECUTION |
 | Repo | mcleland147/sfia-workspace |
-| Cycle | 14 — Post-merge |
+| Cycle | 13 — PR readiness |
 | Profil / Typologie | Standard / DOC |
-| CKC | fallback `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` (candidate / experimental cognitive guidance / no execution authority) |
-| Initial branch / HEAD | `delivery/sfia-studio-m4-pre-reproof-bounding` @ `8900cd06be195b2dd9fa154a7153608fdde6f9a3` |
-| origin/main | `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` |
-| Target local branch | `docs/sfia-studio-m4-pre-reproof-roadmap-sync` @ `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` |
-| Incoming handoff | `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` |
-| Milestone | M4 |
-| Capacités | V3-F05 · V3-F11 · V3-F12 (+ V3-F14/F15 anti-claims) |
-| Project commit/push/PR/merge | NOT PERFORMED (forbidden by GO) |
+| CKC | fallback `02-fifteen-cycles-synthetic-map.md` (candidate / no execution authority) |
+| Branch | `docs/sfia-studio-m4-pre-reproof-roadmap-sync` |
+| Base / parent | `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` |
+| Project commit | `4f989aba92bce5ca33e1de251523694559b53902` |
+| Incoming handoff | `7da24882ee41d8bd7e0f750c53670b65fb5ee9e8` |
+| Candidate identity | VERIFIED (local/staged/commit diff == reviewed candidate bytes; handoff fence extract was truncated by nested ``` but full diff present in handoff file) |
+| Remote branch SHA | `4f989aba92bce5ca33e1de251523694559b53902` |
+| Draft PR | #347 · https://github.com/mcleland147/sfia-workspace/pull/347 |
+| PR draft | True · state OPEN |
+| PR base/head | main / docs/sfia-studio-m4-pre-reproof-roadmap-sync |
+| PR head SHA | `4f989aba92bce5ca33e1de251523694559b53902` |
+| CI | PENDING |
+| Project merge | NOT PERFORMED |
+
+## Local Git Truth (pre-commit)
+
+- branch `docs/sfia-studio-m4-pre-reproof-roadmap-sync`
+- HEAD `fc7e20aaeb5153b4d73c1809f865e361f00e1b34`
+- origin/main `fc7e20aaeb5153b4d73c1809f865e361f00e1b34`
+- incoming handoff `7da24882…`
+- remote project branch ABSENT before push
+- tracked M exactly Roadmap; staged empty; REAL unset
 
 ## Convergence Pre-check
 
 | Item | État |
 | --- | --- |
-| Build Doctrine | READ ONLY — not modified |
-| Roadmap | ADAPT factuel — this cycle |
-| framing 30/34/35/37 | READ ONLY |
-| StartExecution / Gate D / AgentCapability / ProcessRunner / journal | KEEP |
-| gateway deterministic pre-reproof bounding | KEEP / MERGED on main via PR #346 |
-| timeout 60000 | KEEP / UNRESOLVED |
-| Gap | governed REAL completion NOT PROVEN |
-| Next capability | M4 GOVERNED REAL COMPLETION PROOF |
+| Roadmap content | FREEZE during integration — no recomposition |
+| Next capability | M4 GOVERNED REAL COMPLETION PROOF (NOT executed) |
 | M4 exit proof | NOT SATISFIED |
 | M4 | NOT CLOSED |
 | M5 | NOT AUTHORIZED |
 | runtime v3 | NON ADOPTED |
 
-## Preuves consultées (Git / gh)
+## Validations
 
-| Preuve | SHA / id | Lecture |
-| --- | --- | --- |
-| origin/main | `fc7e20aaeb5153b4d73c1809f865e361f00e1b34` | VERIFIED |
-| PR #346 | MERGED · head `8900cd06…` · merge `fc7e20aa…` · CI #176 SUCCESS | VERIFIED via gh |
-| FIRST REAL handoff | `2234931e682bfede4b8515fd1ede7c2e1e2d2d01` | VERIFIED |
-| timeout diagnosis handoff | `797daeccfa2ec445a1ecaf10f042de635cb1fe21` | VERIFIED |
-| bounding content-complete | `3c56cb29367268231c1db26b4de7af5cfe0ef499` | VERIFIED |
-| bounding PR readiness | `9ffce8cc4a78f15af322d4fb4aab8bf63896ff6c` | VERIFIED |
-| gateway on main | `studioCursorRealLaunchGateway.ts` `--mode ask` + README markers | READ ONLY |
+- candidate identity = VERIFIED
+- documentary validation = PASS (`git diff --check` clean)
+- semantic checklist retained (FIRST REAL historical / launch proven / Gate D once / completion NOT PROVEN / diagnosis / PR #346 / strict RO NOT PROVEN / timeout unresolved / NEXT completion proof)
+- staged scope = EXACTLY Roadmap
+- commit parent = `fc7e20aa…` VERIFIED
+- commit scope = EXACTLY 1 ROADMAP
+- hook mutation = none
 
-## Matrice stale claim → nouvelle vérité
+## DIFF COMPLET — `sfia-studio-convergence-roadmap.md` (parent → commit)
 
-| Stale (post-#344/#345 Roadmap) | Nouvelle vérité |
-| --- | --- |
-| Snapshot `ec65fb47…` | Snapshot `fc7e20aa…` |
-| FIRST REAL NOT AUTHORIZED / 0 invocations | FIRST REAL attempt PERFORMED once · 0 successful completions |
-| Gate D NOT CONSUMED | Gate D first-REAL consumption PROVEN ONCE historically · not reusable |
-| NEXT = FIRST REAL | NEXT = M4 GOVERNED REAL COMPLETION PROOF |
-| M4 exit pending FIRST REAL | M4 exit still NOT SATISFIED because completion NOT PROVEN |
-| no REAL path consumed | CREATED/LAUNCHED REAL TRACE PROVEN ; journal reopen after timeout PROVEN |
-| — | timeout diagnosis COMPLETE WITH RESERVES |
-| — | pre-reproof bounding MERGED PR #346 / CI #176 |
-| — | strict runtime RO tool-surface NOT PROVEN |
-| — | timeout 60000 UNRESOLVED |
-
-## Sections Roadmap modifiées
-
-metadata · B3 · B4 · B5 · B6 · M3 Next · M4 · M5 deps · B9 F05/F11/F12 · B10 · Références
-
-## Validations documentaires
-
-### git diff --check
-
-```
-(clean)
-```
-
-### git status --short
-
-```
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? .tmp-sfia-review/
-```
-
-### git diff --stat
-
-```
- .../convergence/sfia-studio-convergence-roadmap.md | 135 ++++++++++++---------
- 1 file changed, 79 insertions(+), 56 deletions(-)
-```
-
-Scope tracked = EXACTEMENT 1 fichier modifié · staged empty · untracked `.tmp-sfia-review/**` only.
-
-## DIFF COMPLET — `sfia-studio-convergence-roadmap.md`
-
-```diff
+````diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index 494d357..01e6dbe 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -354,28 +317,9 @@ index 494d357..01e6dbe 100644
 +- Current main : `fc7e20aaeb5153b4d73c1809f865e361f00e1b34`
  - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
  - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 sur `32`)
-```
+````
 
-## Semantic validation checklist
-
-- current snapshot = `fc7e20aa…` — YES
-- PR #346 merged — YES
-- FIRST REAL = historical attempt actually performed — YES
-- first Gate D = consumed once historically — YES
-- governed launch = proven — YES
-- completion = not proven — YES
-- timeout diagnosis = complete with reserves — YES
-- strict CLI runtime RO = not proven — YES
-- pre-reproof bounding = merged — YES
-- timeout 60000 unchanged / unresolved — YES
-- next capability = M4 GOVERNED REAL COMPLETION PROOF — YES
-- separate Morris GO required — YES
-- M4 exit proof not satisfied — YES
-- M4 not closed — YES
-- M5 not authorized — YES
-- runtime v3 non adopted — YES
-
-## ZERO REAL proof (this cycle)
+## ZERO REAL
 
 | Control | Count |
 | --- | --- |
@@ -392,70 +336,54 @@ index 494d357..01e6dbe 100644
 | AgentCapability change | 0 |
 | architecture change | 0 |
 | code change | 0 |
-| project commit | 0 |
-| project push | 0 |
-| project PR | 0 |
 | merge | 0 |
 
 Parent env: SFIA_STUDIO_CURSOR_REAL unset; OPS1_CURSOR_REAL unset
 
-## Réserves
+## Réserves / Anti-claims
 
+- M4 EXIT PROOF NOT SATISFIED
+- M4 NOT CLOSED
+- M5 NOT AUTHORIZED
+- runtime v3 NON ADOPTED
 - STRICT RUNTIME READ-ONLY TOOL-SURFACE NOT PROVEN
 - TIMEOUT 60000 NOT PROVEN SUFFICIENT OR DEFECTIVE
 - GOVERNED REAL COMPLETION NOT PROVEN
 
-## Dette
+## Dette / exit / next
 
-- Documentaire résolue par ce sync : stale FIRST REAL / Gate D / critical path claims after PR #346
-- M4 toujours ouverte : completion proof + exit proof evaluation
-- DOC-DEBT-M1-01 (framing 32 freshness) inchangée / hors scope
-
-## Next capability
-
-M4 GOVERNED REAL COMPLETION PROOF — only after separate Morris GO (and after Roadmap Git integration if ChatGPT/Morris require it).
+- Dette documentaire Roadmap sync: resolved by this commit/PR once merged (merge not in this cycle)
+- M4 debt remains: governed REAL completion + exit proof evaluation
+- NEXT after Morris merge decision: stable main, then separate GO for M4 GOVERNED REAL COMPLETION PROOF
 
 ## Décisions Morris consommées
 
-- GO SYNC M4 CONVERGENCE ROADMAP AFTER PRE-REPROOF MERGE (this cycle)
-- Prior historical GOs reflected as facts: FIRST REAL · DIAGNOSE TIMEOUT · PRE-REPROOF BOUNDING · MERGE PR #346
+- GO COMMIT / PUSH / PR — M4 CONVERGENCE ROADMAP SYNC
 
 ## Décisions NON prises
 
-- project commit / push / PR / merge
-- M4 GOVERNED REAL COMPLETION PROOF
-- M4 closure
-- M5
-- runtime v3 ADOPTED
+- gh pr ready / merge
+- M4 REAL completion reproof
+- M4 closure / M5 / runtime v3 ADOPTED
 - timeout / AgentCapability / architecture ADAPT
-- Build Doctrine / framing / method changes
 
 ## Verdict
 
-**M4 CONVERGENCE ROADMAP SYNC IMPLEMENTED LOCALLY — FIRST REAL / DIAGNOSIS / PRE-REPROOF TRUTH ALIGNED — NO REAL EXECUTION — M4 EXIT PROOF NOT SATISFIED — READY FOR CHATGPT REVIEW**
+**M4 CONVERGENCE ROADMAP SYNC COMMITTED AND PUSHED — DRAFT PR CREATED — NO REAL EXECUTION — M4 EXIT PROOF NOT SATISFIED — MORRIS MERGE DECISION REQUIRED**
 
 ### Sous-statuts
 
-- Roadmap stale claims = CORRECTED
-- Current main = `fc7e20aa…` VERIFIED
-- FIRST REAL historical state = ALIGNED
-- Gate D historical consumption = ALIGNED
-- Diagnostic state = ALIGNED
-- Pre-reproof bounding PR #346 = ALIGNED / MERGED
-- Critical path = M4 GOVERNED REAL COMPLETION PROOF
-- M4 exit proof = NOT SATISFIED
-- M4 = NOT CLOSED
-- M5 = NOT AUTHORIZED
-- runtime v3 = NON ADOPTED
-- project commit = NOT PERFORMED
-- project push/PR/merge = NOT PERFORMED
-- Review Handoff = (to be filled after publish)
-- ZERO REAL = PROVEN FOR THIS CYCLE
-
-### Anti-claims
-
-M4 EXIT PROOF NOT SATISFIED · M4 NOT CLOSED · M5 NOT AUTHORIZED · runtime v3 NON ADOPTED · STRICT RUNTIME READ-ONLY TOOL-SURFACE NOT PROVEN · TIMEOUT 60000 NOT PROVEN SUFFICIENT OR DEFECTIVE · GOVERNED REAL COMPLETION NOT PROVEN
+- candidate identity = VERIFIED
+- documentary validation = PASS
+- project commit = CREATED
+- commit parent = fc7e20aa… VERIFIED
+- commit scope = EXACTLY 1 ROADMAP
+- project branch = PUSHED / REMOTE VERIFIED
+- Draft PR = CREATED
+- CI = PENDING
+- Review Handoff = (pending publish)
+- ZERO REAL = PROVEN
 
 ### Instruction ChatGPT
 
-Review Handoff publié. ChatGPT doit relire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`, vérifier cycle/branche/HEAD/base, preuves FIRST REAL et diagnostic, diff COMPLET Roadmap, cohérence metadata/B3/B4/B5/B6/M4/B9/B10/références, current critical path, anti-claims, projet non commité et preuve ZERO REAL. Ce cycle n'autorise ni commit/push/PR projet, ni merge, ni M4 REAL completion reproof.
+Review Handoff publié. ChatGPT doit vérifier commit/parent, exact one-file scope, remote branch, Draft PR #347, diff complet Roadmap, CI, ZERO REAL et anti-claims. Pas de merge ni REAL dans ce rapport.
