@@ -1,157 +1,73 @@
-# Review Pack FULL — M4 REAL COMPLETION PRE-REPROOF BOUNDING — NO REAL EXECUTION
+# Review Pack FULL — VALIDATE + COMMIT / PUSH / PR — M4 PRE-REPROOF BOUNDING — NO REAL EXECUTION
 
 ## A. Métadonnées
 
 | Champ | Valeur |
 | --- | --- |
-| Timestamp | 2026-08-14 12:26:24 CEST (+0200, Europe/Paris) |
-| GO consumed | GO MORRIS — M4 REAL COMPLETION PRE-REPROOF BOUNDING — NO REAL EXECUTION |
+| Timestamp | 2026-08-14 12:55:50 CEST (+0200, Europe/Paris) |
+| GO consumed | GO MORRIS — VALIDATE + COMMIT / PUSH / PR — M4 PRE-REPROOF BOUNDING — NO REAL EXECUTION |
 | Repository | mcleland147/sfia-workspace |
-| Cycle branch | `delivery/sfia-studio-m4-pre-reproof-bounding` |
-| HEAD (uncommitted candidate) | `3575c8863d8a13b610dbfde96a33426a620b2c56` (= origin/main) + local uncommitted gateway/test edits |
-| origin/main | `3575c8863d8a13b610dbfde96a33426a620b2c56` |
-| Incoming diagnostic handoff | `797daeccfa2ec445a1ecaf10f042de635cb1fe21` (verified via `git ls-remote` before consume) |
-| Incoming blob | `5cd0112a825cbb2c8f9968ccc11f86e717837aa6` |
 | Cycle | 8 — Delivery / implémentation |
-| Profil SFIA | Critical |
-| Typologie v2.4 | EVOL |
-| CKC | detailed Cycle 8 absent → fallback `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` candidate — experimental cognitive guidance — no execution authority |
-| Capacités v3 | V3-F05 + V3-F11 + V3-F12 (V3-F14/F15 anti-claims) |
+| Profil | Critical |
+| Typologie | EVOL |
+| CKC fallback | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` candidate — no execution authority |
+| Incoming handoff | `3c56cb29367268231c1db26b4de7af5cfe0ef499` (content completeness repaired) |
+| Bounding review ChatGPT | PASS WITH RESERVES — CANDIDATE TECHNICALLY COHERENT |
+| Branch | `delivery/sfia-studio-m4-pre-reproof-bounding` |
+| Project commit | `8900cd06be195b2dd9fa154a7153608fdde6f9a3` |
+| Parent | `3575c8863d8a13b610dbfde96a33426a620b2c56` |
+| Draft PR | [#346](https://github.com/mcleland147/sfia-workspace/pull/346) |
+
+## B. Convergence Pre-check
+
+| Item | Value |
+| --- | --- |
+| Capacités | V3-F05 + V3-F11 + V3-F12 (+ V3-F14/F15) |
 | Milestone | M4 |
-| Next capability (not executed) | M4 GOVERNED REAL COMPLETION PROOF |
+| Gateway argv/instruction | ADAPT — reviewed candidate now committed |
+| timeout 60000 | KEEP / unresolved |
+| AgentCapability / StartExecution / Gate D / ProcessRunner / journal | KEEP |
+| M4 exit proof | NOT SATISFIED |
+| M4 | NOT CLOSED |
+| M5 | NOT AUTHORIZED |
+| runtime v3 | NON ADOPTED |
+| Next capability | M4 GOVERNED REAL COMPLETION PROOF — NOT executed |
 
-## B. Git Truth avant / après
-
-### Avant
-
-```
-pwd = …/worktrees/sfia-studio-m4-real-off
-branch was docs/sfia-studio-m4-post-merge-roadmap @ 91fa0eb25fe29e833bd212a8f9097c2c039a3c97
-origin/main = 3575c8863d8a13b610dbfde96a33426a620b2c56
-status = ?? .tmp-sfia-review/ only
-diff/cached = empty
-APP tree vs origin/main = IDENTICAL
-SFIA_STUDIO_CURSOR_REAL = <unset>
-OPS1_CURSOR_REAL = <unset>
-handoff remote = 797daeccfa2ec445a1ecaf10f042de635cb1fe21
-README.md = TRACKED and present (git ls-files --error-unmatch README.md)
-dedicated branch = ABSENT → created
-```
-
-Created without destruction:
-
-```
-git switch -c delivery/sfia-studio-m4-pre-reproof-bounding origin/main
-HEAD = origin/main = 3575c8863d8a13b610dbfde96a33426a620b2c56
-```
-
-### Après (avant handoff push)
+## C. Local Git Truth initiale
 
 ```
 branch = delivery/sfia-studio-m4-pre-reproof-bounding
-HEAD commit still 3575c886… (no project commit)
-tracked modified (unstaged):
-  M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-  M projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
+HEAD = 3575c8863d8a13b610dbfde96a33426a620b2c56
+origin/main = 3575c8863d8a13b610dbfde96a33426a620b2c56
+origin/sfia/review-handoff = 3c56cb29367268231c1db26b4de7af5cfe0ef499
+candidate remote before push = ABSENT
+tracked modified EXACTLY 2 files (unstaged)
 staged = empty
 untracked = .tmp-sfia-review/**
-OUT_OF_SCOPE_UNTOUCHED vs origin/main:
-  m4BoundedReadOnlyCursorAgent.ts
-  nodeCursorProcessRunner.ts
-  startExecution.ts
-  grantGateD.ts
-  convergence/**
-  sfia-v3-framing/**
-parent REAL flags still unset
+SFIA_STUDIO_CURSOR_REAL = <unset>
+OPS1_CURSOR_REAL = <unset>
 ```
 
-No project commit / push / PR / merge.
+## D. Candidate identity vs handoff 3c56cb29…
 
-## C. Convergence qualification
+Compared working-tree diffs to handoff I.1 / I.2 (index/header-normalized for gateway partial presentation; R1 full-diff exact).
 
-| Item | Qualification |
+| File | Result |
 | --- | --- |
-| M4 Architecture | CLOSED |
-| M4 Delivery REAL-OFF | VALIDATED / MERGED |
-| governed REAL launch | PROVEN (prior) |
-| governed REAL completion | NOT PROVEN |
-| defaultTimeoutMs 60000 | KEEP this cycle — PLAUSIBLE CONTRIBUTING FACTOR / not requalified |
-| StudioCursorRealLaunchGateway argv/instruction | **ADAPT minimal** (this cycle) |
-| AgentCapability descriptor | KEEP / READ-ONLY this cycle |
-| ProcessRunner / Gate D / journal / StartExecution | KEEP |
-| Roadmap / Build Doctrine / framing | NO MODIFY |
-| M5 / runtime v3 | NOT AUTHORIZED / NON ADOPTED |
-| Gap remaining | FUTURE REAL completion proof (separate Morris GO) |
-| Exit proof | NOT SATISFIED |
+| studioCursorRealLaunchGateway.ts | VERIFIED — hunk identical to handoff I.1 |
+| m4RealOffCorrectionR1.test.ts | VERIFIED — full diff identical to handoff I.2 |
 
-## D. Diagnostic entrant (facts preserved, not re-executed)
+No recomposition / reformat / improvement. **candidate identity = VERIFIED**
 
-From handoff `797daecc…`: FIRST REAL PID 21247 timed out at ~60s mid-turn; CLI/auth/argv operational; first token ~7.6s; `--print` without restrictive mode allowed write/shell surface; Shell was used; worktree stayed clean. Timeout not proven inadequate. Identities `xat:m4-first-real-001` / `gtd:m4-first-real-001` must never be reused.
+## E. Diffs complets des deux fichiers (commit `8900cd06…`)
 
-## E. Sources lues
-
-Processus: `sfia-cycle-execution-template.md`, routing guide, operating model, guardrails, knowledge layer, CKC synthetic map 02.
-Convergence: Build Doctrine + Roadmap (read-only).
-Doctrine: framing 30, 34, 35, 37.
-Produit: `studioCursorRealLaunchGateway.ts`, `m4BoundedReadOnlyCursorAgent.ts` (RO), `nodeCursorProcessRunner.ts`, ports as needed.
-Preuve: remote handoff `797daecc…`.
-Tooling: `scripts/sfia/publish-review-handoff.sh` / README.
-
-## F. Tests directs découverts (avant code)
-
-Tracked files importing `StudioCursorRealLaunchGateway` or related argv:
-
-| File | Role | Modifiable this cycle? |
-| --- | --- | --- |
-| `m4RealOffCorrectionR1.test.ts` | Imports gateway; OFF path R1-09; best home for argv assertions | **YES — adapted** |
-| `m4RealOffCorrectionR2.test.ts` | Gateway OFF workspace/runner | No — no argv assertions needed |
-| `m4RealOffCorrectionR3.test.ts` | Gateway OFF + static scan forbids `SFIA_STUDIO_CURSOR_REAL: "1"` literals | No — scan still passes via flag constant |
-| `m4RealOffBoundary.test.ts` | Uses CursorCliLaunchGateway alias for OFF paths | No |
-| `support/fakeProcessRunner.ts` / `fakeSpawnAndGit.ts` | test doubles only | No |
-
-**Modified test files: 1 / max 3.** No new test file created. No REAL integration test.
-
-## G. CLI BOUNDING QUALIFICATION (metadata only)
-
-Invocations authorized and run:
-
-- `/Applications/Cursor.app/Contents/Resources/app/bin/cursor --version`
-- `/Applications/Cursor.app/Contents/Resources/app/bin/cursor --help`
-- `~/.local/bin/cursor-agent --version`
-- `~/.local/bin/cursor-agent --help`
-- `~/.local/bin/cursor-agent help agent`
-
-**NOT run:** `cursor agent`, `cursor-agent agent`, any `--print`, any prompt.
-
-Capture artifact: `.tmp-sfia-review/m4-pre-reproof-bounding/cli-help-capture.txt`
-
-| Field | Value |
-| --- | --- |
-| executable (Studio resolver first hit) | `/Applications/Cursor.app/Contents/Resources/app/bin/cursor` |
-| Desktop version | `3.15.19` / `de07bee81cefe43461ebf4f40c3d2d78d15052a0` / arm64 |
-| cursor-agent version | `2026.08.11-e8db854` |
-| option candidate | `--mode ask` |
-| wording observed (paraphrase of local help) | `--mode <mode>` choices `plan`, `ask`. **plan**: “read-only/planning (analyze, propose plans, no edits)”. **ask**: “Q&A style for explanations and questions (read-only)” |
-| read-only proven | **yes** (help text for `ask`) |
-| write/edit prohibited proven | **yes** for ask/plan as “read-only” / “no edits” on plan; ask labeled read-only |
-| Shell behavior | **unresolved** — help for `--print` still states “Has access to all tools, including write and shell”; help does not prove Shell is impossible under `--mode ask` |
-| nested `help agent` | only `-h` / prompt args — global flags including `--mode` documented on top-level `agent --help` |
-| verdict | **usable** for this bounding adaptation |
-
-## H. README target qualification
-
-```
-git ls-files --error-unmatch README.md → OK
-test -f README.md → OK
-```
-
-Deterministic proof target = tracked root `README.md`. No silent alternate file.
-
-## I. Diff produit COMPLET / exploitable
-
-### I.1 `studioCursorRealLaunchGateway.ts`
+### E.1 gateway
 
 ```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+index bb4adc7..f46b4ef 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 @@ -173,8 +173,20 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
      }
 
@@ -185,30 +101,7 @@ Deterministic proof target = tracked root `README.md`. No silent alternate file.
        "--trust",
 ```
 
-**Unchanged in same file:** `resolveCursorBinPath` order, `defaultTimeoutMs ?? 60_000`, ProcessRunner invoke contract, enablement gate, workspace prepare order, adapter id.
-
-**Resulting argv shape for future REAL:**
-
-```
-agent
---print
---mode
-ask
---workspace
-<workspacePath>
---trust
---sandbox
-enabled
-<deterministic instruction>
-```
-
-### I.2 `m4RealOffCorrectionR1.test.ts` — DIFF EXACT COMPLET (obligatoire dans le handoff)
-
-Le handoff distant `76eafd45…` était **INCOMPLETE** au sens template v2.6 §7.2.1 : la section I.2 était synthesis-only et renvoyait vers `.tmp-sfia-review/m4-pre-reproof-bounding/r1-test.diff`, artefact local hors Git handoff. Verdict applicable au tip distant actuel :
-
-**REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
-
-Ci-dessous : le **diff exact complet** `git diff` working tree vs `HEAD`/`origin/main` pour le fichier modifié. Aucune dépendance à un chemin `.tmp-sfia-review/**`.
+### E.2 R1 test
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
@@ -309,134 +202,141 @@ index e3a63f1..cb9b4bc 100644
  });
 ```
 
-Notes (non substitutives du diff) :
+## F. Validations
 
-- Gateway-local enablement via `[SFIA_STUDIO_CURSOR_REAL_FLAG]: "1"` (does **not** set `process.env`; avoids R3 literal scan patterns).
-- `FakeProcessRunner` only — no OS Cursor.
-- Asserts cover `--mode ask` once, retained REAL argv flags, deterministic markers, bans, fingerprint projection, product default timeout `60000`.
+Working directory: `projects/sfia-studio/app`. Parent REAL flags unset before/after.
 
-## J. Tests exécutés et résultats
+| Check | Result |
+| --- | --- |
+| `git diff --check` | PASS |
+| `npx vitest run …/m4RealOffCorrectionR1.test.ts` | **10 PASS** |
+| `npx vitest run __tests__/oa/execution-attempt` | **10 files / 131 PASS** |
+| `npm run typecheck` (`tsc --noEmit`) | **PASS** |
+| `npm run lint` (`next lint`) | **PASS** — “No ESLint warnings or errors”; tooling note: next lint deprecation warning only (not a candidate error) |
 
-Working directory: `projects/sfia-studio/app`.
-Flags parent: both REAL unset before/after.
+## G. Staging / commit / push
 
-1. `npx vitest run __tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts`
-   - 1 file / **10 tests PASS** (was 9 + R1-10)
-2. `npx vitest run __tests__/oa/execution-attempt`
-   - **10 files / 131 tests PASS**
-   - includes R3 static scan (still empty hits)
-   - crash-replay / spawn-ack / boundary green
-
-No `cursor agent` / `--print` / model task. Logs: `.tmp-sfia-review/m4-pre-reproof-bounding/vitest-*.log`.
-
-Lint/typecheck: not required to finish; change is local string/argv + unit test. Existing `npm run typecheck` exists but not run (bounded validation satisfied by targeted vitest).
-
-## K. Requirements matrix
-
-| Requirement | Status | Preuve |
-| --- | --- | --- |
-| CLI read-only mode | PASS | local help `--mode ask` = “read-only” |
-| deterministic target | PASS | README.md tracked + instruction |
-| deterministic success marker | PASS | `M4_READ_ONLY_OK` |
-| deterministic unavailable marker | PASS | `M4_READ_ONLY_UNAVAILABLE` |
-| no broad inspect instruction | PASS | explicit bans on Glob/Grep/other files/Shell |
-| timeout unchanged | PASS | source `?? 60_000`; R1-10 `call.timeoutMs === 60000` without override |
-| AgentCapability unchanged | PASS | `git diff --exit-code` on descriptor |
-| ProcessRunner unchanged | PASS | same |
-| Gate D unchanged | PASS | same |
-| zero REAL execution | PASS | §M |
-
-## L. Timeout 60000 proof unchanged
+Staged EXACTLY:
 
 ```
-studioCursorRealLaunchGateway.ts:89
-  this.timeoutMs = options.defaultTimeoutMs ?? 60_000;
+M projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts
+M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 ```
 
-No ADAPT of timeout. R1-10 omits `defaultTimeoutMs` and asserts `60_000`.
+Staged candidate matched handoff. Commit message:
 
-Qualification remains: PLAUSIBLE CONTRIBUTING FACTOR / completion duration UNKNOWN. Not proven sufficient. Not proven defective.
+```
+fix(sfia-studio): bound m4 real completion reproof
+```
 
-## M. ZERO REAL EXECUTION proof
+| Field | Value |
+| --- | --- |
+| commit | `8900cd06be195b2dd9fa154a7153608fdde6f9a3` |
+| parent | `3575c8863d8a13b610dbfde96a33426a620b2c56` |
+| files | EXACTLY 2 |
+| stats | +95 / −1 |
+| amend | none |
+| hook mutation | none observed (working tree clean except `.tmp-sfia-review/**`) |
+| remote branch SHA | `8900cd06be195b2dd9fa154a7153608fdde6f9a3` — REMOTE VERIFIED |
+| force push | none |
+
+## H. Draft PR
+
+| Field | Value |
+| --- | --- |
+| number | 346 |
+| url | https://github.com/mcleland147/sfia-workspace/pull/346 |
+| state | DRAFT |
+| base | main |
+| head | delivery/sfia-studio-m4-pre-reproof-bounding |
+| head SHA | `8900cd06be195b2dd9fa154a7153608fdde6f9a3` |
+| changed files | EXACTLY 2 (gateway + R1) |
+| merge | NOT performed |
+
+## I. CI state (at pack time)
+
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/31794153908
+
+| Check | Status |
+| --- | --- |
+| Detect SFIA Studio changes | SUCCESS / pass |
+| Build and validate SFIA Studio | **PENDING** (QUEUED at observation) |
+
+**CI = PENDING** — not claimed SUCCESS.
+
+## J. ZERO REAL proof
 
 | Control | Count |
 | --- | --- |
 | Gate D new | 0 |
 | Attempt REAL new | 0 |
-| StartExecution | 0 |
-| RetryExecutionAttempt | 0 |
+| StartExecution REAL | 0 |
+| RetryExecutionAttempt REAL | 0 |
 | REAL worktree | 0 |
-| `cursor agent` / `cursor-agent agent` | 0 |
-| `--print` invocation | 0 |
+| external Cursor Agent spawn | 0 |
+| agent --print invocation | 0 |
 | model task | 0 |
 | login/logout | 0 |
-| product commit | 0 |
-| project push / PR / merge | 0 |
-| `SFIA_STUDIO_CURSOR_REAL` parent | unset |
-| `OPS1_CURSOR_REAL` parent | unset |
+| timeout modification | 0 |
+| AgentCapability modification | 0 |
+| architecture modification | 0 |
+| merge | 0 |
+| parent SFIA_STUDIO_CURSOR_REAL | unset |
+| parent OPS1_CURSOR_REAL | unset |
 
-Only metadata `--version` / `--help` / `help agent` were run.
+## K. Réserves
 
-## N. Réserves
+1. Shell impossibility under `--mode ask` NOT runtime-proven.
+2. Strict runtime tool-surface still requires future REAL observation.
+3. timeout 60000 unchanged — NOT proven sufficient or defective.
+4. CI Build job was PENDING at handoff write time.
+5. next lint deprecation notice is tooling noise only.
 
-1. Shell under `--mode ask` is **unresolved** by help; `--print` help still mentions write/shell access. Future REAL must observe actual tool-surface.
-2. Help “read-only” is metadata proof for this machine’s installed CLI version — not a guarantee of future CLI versions.
-3. Nested `agent agent` help is sparse; flags taken from top-level `cursor-agent --help`.
-4. Deterministic instruction is text policy only until a future REAL proves the child obeys markers and exits 0.
-5. Timeout not requalified.
-6. Roadmap historical sentences superseded by prior REAL handoffs remain unedited.
-7. Candidate is **local uncommitted** — project commit/PR requires a new Morris GO.
-
-## O. Gaps M4 restants / capacité suivante
-
-- Governed REAL completion still NOT PROVEN.
-- M4 exit proof NOT SATISFIED.
-- Future: Morris GO for HumanDecision + ExecutionContract + Attempt + Gate D + **one** REAL spawn using this bounded argv/instruction (new identities only).
-- Not authorized: M5, Evidence durable, LPS write-back, runtime v3 ADOPTED, timeout change, AgentCapability change.
-
-## P. Décisions
-
-**Consommée (bounding produit local):** GO MORRIS — M4 REAL COMPLETION PRE-REPROOF BOUNDING — NO REAL EXECUTION.
-
-**Consommée (réparation handoff — ce cycle):** GO MORRIS — REPAIR M4 PRE-REPROOF REVIEW HANDOFF — CONTENT COMPLETENESS ONLY — NO PRODUCT CHANGE — NO REAL EXECUTION.
-
-**Non prises / non implicites:** project commit, push projet, PR, merge, REAL reproof, new Gate D, new Attempt, timeout ADAPT, AgentCapability ADAPT, M4 close, M5.
-
-## Q. Verdict
-
-**REVIEW HANDOFF REPAIRED FOR CONTENT COMPLETENESS — R1 DIFF EMBEDDED — NO PRODUCT CHANGE — NO REAL EXECUTION — READY FOR CHATGPT BOUNDING REVIEW**
-
-Le tip distant antérieur `76eafd45…` / blob `4dc3b09a…` était **INCOMPLETE** (I.2 synthesis-only). Ce cycle republie le pack avec le **diff exact complet** de `m4RealOffCorrectionR1.test.ts` inline. Aucun changement produit supplémentaire.
-
-Produit local (inchangé depuis le bounding) :
-
-**M4 PRE-REPROOF BOUNDING IMPLEMENTED WITH RESERVES — READ-ONLY CLI SURFACE BOUNDED — TIMEOUT WINDOW NOT REQUALIFIED — NO REAL EXECUTION — MORRIS REPROOF DECISION REQUIRED**
-
-Anti-claims:
+## L. Anti-claims
 
 - M4 EXIT PROOF NOT SATISFIED
 - M4 NOT CLOSED
 - M5 NOT AUTHORIZED
 - runtime v3 NON ADOPTED
-- REAL completion NOT PROVEN
-- timeout NOT proven correct/sufficient
+- STRICT RUNTIME READ-ONLY TOOL-SURFACE NOT PROVEN
+- TIMEOUT 60000 NOT PROVEN SUFFICIENT OR DEFECTIVE
+- no merge authorized by this cycle
+- no REAL reproof authorized by this cycle
 
-Statut: **READY FOR CHATGPT BOUNDING REVIEW**
+## M. Dette / exit / next
 
-## R. Review Handoff publication
+Dette: future REAL must observe tool-surface under `--mode ask`; timeout still unresolved.
+Exit of this cycle: Draft PR created for Morris CI/review/merge decision.
+Next capability after **separate** merge GO + stable base: M4 GOVERNED REAL COMPLETION PROOF (new identities only).
 
-| Champ | Valeur |
-| --- | --- |
-| Previous tip (incomplete) | `76eafd45c623f0b718406ee95c1b20efb8aa2d47` |
-| Previous blob (incomplete) | `4dc3b09a092e164706794fb18d27ab562c84fc3d` |
-| GO repair | CONSUMED |
-| Product files this repair | NONE |
-| Commit message | `docs(review-handoff): repair m4 pre-reproof bounding content completeness` |
-| Branch | `sfia/review-handoff` |
-| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
+## N. Décisions
 
-Filled after publisher success: new commit SHA / remote SHA / blob.
+**Consommée:** GO MORRIS — VALIDATE + COMMIT / PUSH / PR — M4 PRE-REPROOF BOUNDING — NO REAL EXECUTION
+
+Prior related GOs (history): bounding implement; handoff repair completeness.
+
+**NON prises:** merge, REAL reproof, Gate D, Attempt, StartExecution REAL, timeout ADAPT, AgentCapability ADAPT, Roadmap update, M4 close, M5.
+
+## O. Verdict
+
+**M4 PRE-REPROOF BOUNDING PR CREATED — REVIEWED CANDIDATE COMMITTED AND PUSHED — NO REAL EXECUTION — M4 EXIT PROOF NOT SATISFIED — MORRIS MERGE DECISION REQUIRED**
+
+Substatuses:
+- candidate identity = VERIFIED
+- validations = PASS
+- project commit = CREATED
+- project branch = PUSHED / REMOTE VERIFIED
+- Draft PR = CREATED (#346)
+- CI = PENDING
+- Review Handoff = (filled after publish)
+- ZERO REAL = PROVEN by cycle controls
+
+## P. Review Handoff publication
+
+- Message: `docs(review-handoff): publish m4 pre-reproof bounding pr readiness`
+- Previous tip expected: `3c56cb29367268231c1db26b4de7af5cfe0ef499`
+- Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
 
 Instruction ChatGPT:
 
-Review Handoff publié. ChatGPT doit relire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`, vérifier cycle/branche/HEAD/base, le **diff complet gateway + R1**, la qualification CLI, les tests, la preuve ZERO REAL et les réserves. Ce rapport n'autorise aucun reproof REAL. Toute nouvelle HumanDecision/ExecutionContract, Attempt REAL, Gate D ou exécution Cursor nécessite un nouveau GO Morris.
+Review Handoff publié. ChatGPT doit relire `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff`, vérifier Local Git Truth, identité de la candidate, validations, commit/parent, remote branch SHA, Draft PR/base/head/diff, CI, diff complet des deux fichiers, preuve ZERO REAL et réserves. Le rapport n'autorise aucun merge ni aucun reproof REAL. Le merge et toute future HumanDecision/ExecutionContract, Attempt REAL, Gate D ou exécution Cursor nécessitent des gates Morris distincts.
