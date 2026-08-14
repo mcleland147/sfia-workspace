@@ -13,6 +13,7 @@ import {
   NODE_CURSOR_STDERR_CAP_BYTES,
   NODE_CURSOR_STDOUT_CAP_BYTES,
   NodeCursorProcessRunner,
+  SFIA_STUDIO_CURSOR_REAL_FLAG,
   StudioCursorRealLaunchGateway,
 } from "@/lib/oa/execution-attempt";
 import { FakeProcessRunner } from "./support/fakeProcessRunner";
@@ -212,5 +213,84 @@ describe("M4 REAL-OFF correction R1", () => {
       expect(result.detailCode).toBe("REAL_BOUNDARY_DISABLED");
     }
     expect(runner.calls).toHaveLength(0);
+  });
+
+  it("R1-10 pre-reproof bounding: argv --mode ask once + deterministic README instruction; timeout 60000", async () => {
+    // Gateway-local enablement via flag constant — does not set process.env.
+    // FakeProcessRunner only; no OS Cursor spawn.
+    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
+    const workspacePath = "/tmp/fake-exec-root/wt-pre-reproof";
+    const runner = new FakeProcessRunner({ processRef: "proc:sim:r1-10" });
+    const workspace = new FakeRealExecutionWorkspacePort({ workspacePath });
+    const gateway = new StudioCursorRealLaunchGateway({
+      processRunner: runner,
+      workspacePort: workspace,
+      env: {
+        ...process.env,
+        [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
+      },
+      resolveCursorBin: () => "/tmp/fake-cursor-bin",
+      // Omit defaultTimeoutMs — product default must remain 60_000.
+    });
+
+    const result = await gateway.launch({
+      attemptId: "xat:r1-10-pre-reproof",
+      executionContractId: "xct:pre-reproof",
+      executionContractVersion: 1,
+      semanticFingerprint: "fp:pre-reproof-bounding",
+      selectedAgentRef: "agt:m4.cursor.bounded_readonly",
+      adapterRef: gateway.gatewayId,
+      correlationId: "cor:r1-10",
+      baseHeadSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      action: "cursor.read_only.inspect",
+      target: "workspace.isolated.read",
+      scope: "studio.m4.real_off",
+    });
+
+    expect(result.outcome).toBe("ack");
+    expect(runner.calls).toHaveLength(1);
+    expect(workspace.prepares).toHaveLength(1);
+    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
+
+    const call = runner.calls[0];
+    expect(call.timeoutMs).toBe(60_000);
+    expect(call.executable).toBe("/tmp/fake-cursor-bin");
+    expect(call.cwd).toBe(workspacePath);
+
+    const argv = [...call.argv];
+    expect(argv.filter((a) => a === "--mode")).toHaveLength(1);
+    expect(argv.filter((a) => a === "ask")).toHaveLength(1);
+    const modeIdx = argv.indexOf("--mode");
+    expect(argv[modeIdx + 1]).toBe("ask");
+
+    expect(argv).toContain("--print");
+    expect(argv).toContain("--workspace");
+    expect(argv).toContain("--trust");
+    expect(argv).toContain("--sandbox");
+    expect(argv[argv.indexOf("--sandbox") + 1]).toBe("enabled");
+    expect(argv[0]).toBe("agent");
+    expect(argv[argv.indexOf("--workspace") + 1]).toBe(workspacePath);
+
+    const instruction = argv[argv.length - 1];
+    expect(typeof instruction).toBe("string");
+    expect(instruction).toContain("README.md");
+    expect(instruction).toContain("M4_READ_ONLY_OK");
+    expect(instruction).toContain("M4_READ_ONLY_UNAVAILABLE");
+    expect(instruction).toMatch(/Ne lancer aucune commande Shell/i);
+    expect(instruction).toMatch(/Glob/i);
+    expect(instruction).toMatch(/Grep/i);
+    expect(instruction).toMatch(/Ne consulter aucun autre fichier/i);
+    expect(instruction).toMatch(/Ne modifier aucun fichier/i);
+    expect(instruction).toMatch(/git remote/i);
+    expect(instruction).toMatch(/commit/i);
+    expect(instruction).toMatch(/push/i);
+    expect(instruction).toMatch(/PR/i);
+    expect(instruction).toMatch(/merge/i);
+    expect(instruction).toContain("target=workspace.isolated.read");
+    expect(instruction).toContain("action=cursor.read_only.inspect");
+    expect(instruction).toContain("scope=studio.m4.real_off");
+    expect(instruction).toContain("fingerprint=fp:pre-reproof-bounding");
+    expect(instruction).not.toMatch(/lecture seule bornée/);
+    expect(instruction).not.toMatch(/inspect(?:ion)?\s+(?:globale|libre|workspace)/i);
   });
 });

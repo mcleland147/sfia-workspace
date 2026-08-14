@@ -173,8 +173,20 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     }
 
     // Fixed argv shape — executable is separate; no user-controlled shell.
+    // --mode ask: local CLI help documents ask as read-only Q&A (no edits).
+    // Shell under ask remains unresolved by help alone; future REAL must observe.
     const instruction = [
-      "TÂCHE UNIQUE — lecture seule bornée.",
+      "TÂCHE UNIQUE — preuve read-only déterministe.",
+      "Lire uniquement le fichier README.md à la racine du workspace.",
+      "Ne modifier aucun fichier.",
+      "Ne créer aucun fichier.",
+      "Ne lancer aucune commande Shell.",
+      "Ne faire aucune recherche récursive, Glob ou Grep.",
+      "Ne consulter aucun autre fichier.",
+      "Si README.md peut être lu, répondre exactement :",
+      "M4_READ_ONLY_OK",
+      "Si README.md ne peut pas être lu, répondre exactement :",
+      "M4_READ_ONLY_UNAVAILABLE",
       `target=${request.target ?? ""}`,
       `action=${request.action ?? ""}`,
       `scope=${request.scope ?? ""}`,
@@ -185,6 +197,8 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     const argv = [
       "agent",
       "--print",
+      "--mode",
+      "ask",
       "--workspace",
       workspacePath,
       "--trust",
