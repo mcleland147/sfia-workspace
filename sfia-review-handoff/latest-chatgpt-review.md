@@ -1,31 +1,35 @@
 # SFIA Studio — ChatGPT Review Pack (FULL)
-# M4 DELIVERY REAL-OFF — CORRECTION MICRO-CYCLE R1/R2/R3
+# M4 DELIVERY REAL-OFF — MICRO-CORRECTIF SPAWN ACK ≠ COMPLETION
 
 ## 0. Meta
 
 | Champ | Valeur |
 |-------|--------|
-| **Timestamp (Europe/Paris)** | 2026-08-14 03:48:44 CEST (+0200) |
+| **Timestamp (Europe/Paris)** | 2026-08-14 09:04:04 CEST (+0200) |
 | **Niveau** | FULL |
 | **Cycle** | 8 — Delivery / implémentation correction |
 | **Profil** | Critical |
 | **Typologie** | RUN — micro-correction candidat non commité |
-| **GO Morris** | **GO — M4 DELIVERY REAL-OFF CORRECTION** (consommé) |
+| **GO Morris** | **GO MICRO-CORRECTIF — SPAWN ACK ≠ COMPLETION** (consommé) |
 | **Repo** | mcleland147/sfia-workspace |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off` |
 | **Branch** | `delivery/sfia-studio-m4-real-off` |
 | **HEAD** | `e974b7306f7400249c31399fd2890d5817833dbf` |
 | **origin/main** | `e974b7306f7400249c31399fd2890d5817833dbf` |
-| **Handoff source** | `54ee64eebc8f0d8d0ad484356959916ced186e33` |
+| **Handoff source** | `e897c287a24d5698c0d431468aa1a51263708fdc` |
 | **Architecture evidence** | `366726945f8f533d958c82b7251edb1a5a4b45f0` |
 | **Project commit/push/PR** | **NONE** |
 | **Cursor REAL process** | **0** |
 
-## 1. GO / Convergence
+## 1. Objectif unique
 
-- M1–M3 CLOSED; M4 Architecture D-M4-01→05 ADOPTED ON MAIN — **not reopened**
-- M4 Delivery: IMPLEMENTED CANDIDATE → **CORRECTED CANDIDATE** (this cycle)
-- Cursor REAL / FIRST REAL / M5 / runtime v3 ADOPTED: **NOT AUTHORIZED**
+NodeCursorProcessRunner.invoke() must resolve on **spawn confirmation / PID known**, not on child close.
+
+Sequence:
+
+CREATED → prepareWorkspace → spawn Cursor → spawn confirmed → **ACK invoke immediately** → LAUNCHED → Attempt running → ExecutionContract executing → process continues → observe/awaitCompletion separately.
+
+FORBIDDEN: spawn → wait close → ACK → running.
 
 ## 2. Local Git Truth
 
@@ -34,149 +38,195 @@
 | branch | delivery/sfia-studio-m4-real-off |
 | HEAD | e974b730… (unchanged) |
 | origin/main | e974b730… |
-| remote delivery branch | ABSENT |
+| remote delivery | ABSENT |
 | PR | NONE |
 | staged | empty |
-| handoff tip at start | 54ee64ee… |
+| handoff at start | e897c287… |
 
-## 3. Inventaire AVANT correction (handoff 54ee64ee)
+## 3. R1 / R2 / R3
 
-- Specialized REAL gateway + Gate D + journal + bounded RO agent present
-- **R1 open:** FakeProcessRunner publicly composable; createM4RealOffBoundaryHelpers defaulted Fake; no NodeCursorProcessRunner
-- **R2 open:** EXEC_ROOT optional; caller cwd/workspaceRoot; baseHeadSha unused; no worktree prepare/HEAD verify
-- **R3 open:** tests injected gateway env `SFIA_STUDIO_CURSOR_REAL="1"` (process.env OFF but claim inaccurate)
+| Reserve | Before this GO | After |
+|---------|----------------|-------|
+| R1 | CLOSED | **CLOSED PRESERVED** |
+| R2 | CLOSED | **CLOSED PRESERVED** |
+| R3 | CLOSED | **CLOSED PRESERVED** |
 
-## 4. Inventaire APRÈS correction
+No Fake product reintroduction. No caller cwd. No test flag=1.
 
-### R1 CLOSED
-- `NodeCursorProcessRunner` — production; `SpawnPrimitive` injectable; default `node:child_process.spawn`; **shell:false**; executable ≠ argv; 64 KiB caps; timeout→SIGTERM; realProcessInvoked only after spawn success
-- Fake REAL doubles moved to `__tests__/oa/execution-attempt/support/`
-- Barrel **does not** export FakeProcessRunner / FakeRealProcessRunner / FakeRealExecutionLaunchGateway
-- `createM4RealOffBoundaryHelpers` **removed**
-- `fakeRealExecutionLaunchGateway.ts` **deleted** from product infra
-- Product gateway requires explicit `processRunner` + `workspacePort`
+## 4. NodeCursorProcessRunner before / after
 
-### R2 CLOSED
-- `RealExecutionWorkspacePort` + `StudioGitWorktreeWorkspace`
-- `repoRoot` + `execRoot` **required** (fail if missing/equal)
-- Contract-bound `inputs.baseHeadSha` (40 hex) validated in StartExecution **before** Gate D consume
-- No `StartExecutionRequest.realWorkspaceRoot`; no caller-controlled REAL cwd
-- Gateway: prepareWorkspace → then process invoke; HEAD must equal baseHeadSha
-- Git via injectable `GitCommandRunner`; tests use FakeGitCommandRunner only
-- Order: validations → baseHeadSha → Gate D → atomic CREATED → prepare → Cursor invoke → LAUNCHED
+**BEFORE (blocker):** after spawn confirmation, invoke() awaited child `close` / `error` before returning. That delayed LAUNCHED / running / executing until process completion.
 
-### R3 CLOSED
-- production `process.env` flags remained **unset/OFF** throughout
-- **0** test configs set `SFIA_STUDIO_CURSOR_REAL="1"` or `OPS1_CURSOR_REAL="1"`
-- Positive StartExecution / crash-replay use **`TestOnlyRealExecutionLaunchPort`** (SIMULATED technical ACK)
-- Production gateway tested **OFF-only** (runner call count 0)
+**AFTER:**
+- spawn throw / error-before-spawn → realProcessInvoked=false, no ACK
+- spawn confirmed / PID → register process-local tracked state, arm timeout, return immediately {processRef, realProcessInvoked=true, observation running (exitCode=null)}
+- close/error later → update registry; awaitCompletion resolves; historical ACK stays invoked=true
+- timeout after ACK → SIGTERM; timedOut=true on terminal observation
+- stdout/stderr listeners keep updating the same registry after ACK (64 KiB caps)
 
-## 5. Exact enablement / call claims
+invoke() does **not** await the completion promise.
+
+## 5. Observation registry
+
+Single source: `NodeCursorProcessRunner.processes` Map keyed by processRef.
+
+StudioCursorRealLaunchGateway.observe / awaitCompletion **delegate to the runner** when present. No competing frozen snapshot of a "running" observation.
+
+Fallback Map used only if a runner has no observe() (test FakeProcessRunner).
+
+Technical observation ≠ Evidence T-A6 / ReviewBundle / LPS.
+
+## 6. ProcessRunner interface
+
+Optional observe / awaitCompletion added. invoke contract documented: resolve on spawn, not close.
+
+## 7. Gateway
+
+Minimal: delegate observation; do not snapshot live observation when runner.observe exists. Enablement / workspace / argv / no fixture fallback unchanged.
+
+## 8. StartExecution
+
+**Unchanged this cycle.** Still: consume Gate D + CREATED → realLaunchPort.launch → LAUNCHED → running → executing. Now launch returns on spawn ACK, so those transitions no longer wait for completion.
+
+## 9. Sequence (textual)
+
+```
+Attempt accepted / contract confirmed / Gate D granted
+→ StartExecution validations
+→ consume Gate D + CREATED (durable)
+→ prepareWorkspace
+→ spawn (shell:false)
+→ spawn confirmed / PID
+→ invoke() RETURNS (realProcessInvoked=true)
+→ gateway ACK
+→ LAUNCHED durable
+→ Attempt running
+→ ExecutionContract executing
+→ Confirmation (existing)
+→ child continues
+→ observe (exitCode=null while running)
+→ close/timeout/error later
+→ awaitCompletion terminal observation
+```
+
+## 10. Proofs (FakeSpawnPrimitive / TestOnly doubles)
+
+| Proof | Result |
+|-------|--------|
+| A spawn confirmed → invoke resolved → close NOT emitted yet | PASS |
+| B LaunchAck → LAUNCHED → running → executing → completion pending | PASS |
+| C close later → terminal observation | PASS |
+| D timeout remains active after ACK | PASS |
+| E stdout/stderr after ACK + caps | PASS |
+| F pre-spawn failure invoked=false | PASS |
+| G post-spawn error keeps invoked=true | PASS |
+| no real Cursor / no real git worktree | PASS |
+
+## 11. Exact claims
+
+- NodeCursorProcessRunner production semantics tested with FakeSpawnPrimitive.
+- Launch ACK is produced after simulated spawn confirmation and before simulated process completion.
+- Production Cursor gateway remained disabled.
+- No Cursor process was launched.
+- production process.env flags remained OFF/unset; positive orchestration used TEST-ONLY doubles.
+
+NOT claimed: REAL process proven / Cursor execution proven / M4 exit proof / FIRST REAL ready.
+
+## 12. Env / counts
 
 | Claim | Value |
 |-------|-------|
-| PRODUCTION env `SFIA_STUDIO_CURSOR_REAL` | unset / OFF |
-| PRODUCTION env `OPS1_CURSOR_REAL` | unset / OFF |
-| Test configs setting real flag to 1 | **0** |
-| PRODUCTION gateway enabled calls | **0** |
-| PRODUCTION Cursor runner **actual** spawn | **0** (FakeSpawnPrimitive / no live spawn) |
-| REAL git worktree **actual** execution | **0** (FakeGitCommandRunner) |
-| Cursor REAL process count | **0** |
-| TEST-ONLY simulated RealExecutionLaunchPort calls | used in positive orchestration / crash-replay (SIMULATED ACK ≠ REAL) |
+| SFIA_STUDIO_CURSOR_REAL | unset / OFF |
+| OPS1_CURSOR_REAL | unset / OFF |
+| Production gateway enabled calls | **0** |
+| Production Cursor actual spawn | **0** |
+| Real git worktree execution | **0** |
+| Cursor REAL process | **0** |
 
-**Precise claim (not “REAL flag OFF” alone):**
-production process env flags remained OFF/unset throughout the cycle; positive orchestration tests used TEST-ONLY boundary doubles and did not enable the production Cursor gateway.
+## 13. QA
 
-## 6. Static scans (commands run)
+Targeted:
 
-```
-rg -n 'from ["'\''`].*lib/ops1' projects/sfia-studio/app/lib/oa/execution-attempt  → NONE
-rg FakeProcessRunner|FakeRealProcessRunner|FakeRealExecutionLaunchGateway|createM4RealOffBoundaryHelpers projects/.../index.ts → NONE
-rg 'SFIA_STUDIO_CURSOR_REAL\s*[=:]\s*["'\'']1' projects/.../__tests__/oa/execution-attempt → NONE
-rg 'new Fake' projects/.../lib/oa/execution-attempt → NONE
-git diff --name-only -- convergence sfia-v3-framing method prompts .github ops1 package.json → empty frozen
-```
-
-## 7. QA
-
-### Targeted
 ```
 npx vitest run __tests__/oa/execution-attempt
-Test Files  9 passed (9)
-Tests  123 passed (123)
+Test Files  10 passed (10)
+Tests  130 passed (130)
 ```
 
-### Full
+Including m4SpawnAckLifecycle.test.ts (7) + R1/R2/R3/crash-replay non-regression.
+
+Full:
+
 ```
 npm test
-Test Files  172 passed | 13 skipped (185)
-Tests  1691 passed | 131 skipped (1822)
+Test Files  173 passed | 13 skipped (186)
+Tests  1698 passed | 131 skipped (1829)
 ```
 
-### Other
-- `npm run typecheck` → exit 0 (after fixing ProcessEnv `{}` → `process.env` in R1/R2 tests)
-- `npm run lint` → exit 0
-- `npm run build` → exit 0
-- `git diff --check` → DIFF_CHECK_OK
+typecheck: exit 0
+lint: exit 0
+build: exit 0
+git diff --check: DIFF_CHECK_OK
 
-## 8. Security checklist
+## 14. Static scans
 
-| Control | Status |
-|---------|--------|
-| shell:false Cursor | YES (NodeCursorProcessRunner) |
-| shell:false Git runner | YES (production default spawn) |
-| executable server-side | YES |
-| argv structured / no generic command | YES |
-| no client cwd | YES |
-| execRoot required | YES |
-| containment | YES |
-| baseHeadSha contract-bound | YES |
-| existing worktree refused | YES |
-| HEAD pin verified | YES |
-| no fetch/push/pull/commit | YES |
-| timeout + SIGTERM | YES |
-| stdout/stderr 64 KiB | YES |
-| Fake not product default | YES |
-| Gate D / CREATED atomicity | PRESERVED |
-| no REAL→fixture fallback | PRESERVED |
-| crash/replay no relaunch | PRESERVED |
+- OA execution-attempt imports lib/ops1: NONE
+- Fake REAL barrel exports: NONE
+- tests set REAL flag=1: NONE
+- invoke() no longer `return await new Promise` on close — close only finishes completion registry
+- frozen paths: no diffs
 
-## 9. Debts / remaining gates
+## 15. Changed files this cycle (spawn-ACK)
+
+Modified:
+- `infrastructure/nodeCursorProcessRunner.ts` — ACK on spawn; observe/awaitCompletion registry
+- `infrastructure/studioCursorRealLaunchGateway.ts` — delegate observation to runner
+- `ports/realExecutionLaunchPort.ts` — optional observe/awaitCompletion on ProcessRunner
+- `__tests__/…/support/fakeSpawnAndGit.ts` — holdOpen + FakeChildHandle
+- `__tests__/…/support/testOnlyRealExecutionLaunchPort.ts` — holdCompletion latch
+- `__tests__/…/m4RealOffCorrectionR1.test.ts` — timeout/caps assert completion after ACK
+
+Created:
+- `__tests__/…/m4SpawnAckLifecycle.test.ts`
+
+StartExecution / Gate D / journal / workspace / agent / vertical-slice-runtime: **not modified this micro-cycle**.
+
+## 16. Debts / remaining gates
 
 - Technical journal TEMPORARY WITH EXIT
 - Auth.js / Critical Ack not promoted
-- Production runner/workspace **implemented ≠ executed**
-- FIRST REAL still requires **separate Morris GO**
+- Production runner/workspace implemented ≠ executed
+- FIRST REAL requires separate Morris GO
 - M5 NOT AUTHORIZED
 - M4 exit proof NOT SATISFIED
 - runtime v3 NON ADOPTED
 
-## 10. Verdict
+## 17. Verdict
 
-**M4 DELIVERY REAL-OFF CORRECTION COMPLETE —**
-R1 PRODUCTION CURSOR RUNNER CLOSED —
-FALSE REAL PROOF PATH REMOVED —
-R2 WORKSPACE / WORKTREE FAIL-CLOSED CLOSED —
-BASE HEAD CONTRACT-BOUND —
-R3 REAL-OFF TEST CLAIM CORRECTED —
-PRODUCTION REAL FLAGS OFF THROUGHOUT —
-NO PRODUCTION CURSOR SPAWN —
-NO REAL GIT WORKTREE EXECUTION —
+**M4 DELIVERY SPAWN-ACK MICRO-CORRECTION COMPLETE —**
+LAUNCH ACK NOW MEANS PROCESS INVOKED, NOT PROCESS COMPLETED —
+NODE CURSOR RUNNER RETURNS AFTER SPAWN CONFIRMATION —
+LAUNCHED / ATTEMPT RUNNING / CONTRACT EXECUTING NO LONGER WAIT FOR COMPLETION —
+PROCESS COMPLETION REMAINS SEPARATELY OBSERVABLE —
+TIMEOUT AND OUTPUT CAPTURE PRESERVED AFTER ACK —
 CRASH/REPLAY SAFETY PRESERVED —
-NO REAL→FIXTURE FALLBACK —
+R1/R2/R3 REMAIN CLOSED —
+PRODUCTION REAL FLAGS OFF —
+NO CURSOR REAL PROCESS —
+NO REAL GIT WORKTREE —
 QA GREEN —
 NO PROJECT COMMIT/PUSH/PR —
-M4 EXIT PROOF NOT YET SATISFIED —
+M4 EXIT PROOF NOT SATISFIED —
 FIRST REAL NOT AUTHORIZED —
 READY FOR CHATGPT REVIEW / MORRIS M4 DELIVERY VALIDATION GATE
 
-## 11. Anti-claims
+## 18. Anti-claims
 
-Production runner implemented ≠ executed · Worktree impl present ≠ real worktree created · Test-only simulated ACK ≠ Cursor REAL · Gateway capable ≠ REAL authorized · Gate D tests ≠ production consume · Corrected candidate ≠ M4 validated · M4 ≠ runtime v3 ADOPTED
+Spawn semantics corrected ≠ Cursor REAL executed · Production runner capable ≠ used · Launch ACK ≠ process success · Process started ≠ completed successfully · Technical observation ≠ Evidence T-A6 · Corrected candidate ≠ M4 validated · M4 ≠ runtime v3 ADOPTED
 
 ---
 
-# APPENDIX A — Full useful git diff (modified tracked files)
+# APPENDIX A — Full useful git diff (modified tracked files vs HEAD)
 
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/helpers.ts
 index e96f90e..d48e57b 100644
@@ -1532,7 +1582,7 @@ index 3eb54c3..2c366c1 100644
 
 ---
 
-# APPENDIX B — Full contents of new untracked project files
+# APPENDIX B — Full contents of untracked project files (candidate including this micro-correctif)
 
 ===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts =====
 /**
@@ -2206,7 +2256,7 @@ describe("M4 REAL-OFF correction R1", () => {
     expect(result.processRef).toBe("pid:7777");
   });
 
-  it("R1-07 timeout issues SIGTERM via fake child", async () => {
+  it("R1-07 timeout issues SIGTERM via fake child AFTER invoke ACK", async () => {
     const fake = new FakeSpawnPrimitive({
       pid: 5555,
       hangMs: 5_000,
@@ -2224,10 +2274,14 @@ describe("M4 REAL-OFF correction R1", () => {
       env: process.env,
     });
     expect(result.realProcessInvoked).toBe(true);
-    expect(result.observation?.timedOut).toBe(true);
+    expect(result.observation?.timedOut).toBe(false);
+    expect(result.observation?.exitCode).toBeNull();
+    const completed = await runner.awaitCompletion(result.processRef);
+    expect(completed?.timedOut).toBe(true);
+    expect(fake.lastHandle?.lastSignal).toBe("SIGTERM");
   });
 
-  it("R1-08 stdout/stderr caps at 64 KiB", async () => {
+  it("R1-08 stdout/stderr caps at 64 KiB on completion (after ACK)", async () => {
     const big = "x".repeat(NODE_CURSOR_STDOUT_CAP_BYTES + 4_096);
     const fake = new FakeSpawnPrimitive({
       pid: 1,
@@ -2246,12 +2300,10 @@ describe("M4 REAL-OFF correction R1", () => {
       timeoutMs: 2_000,
       env: process.env,
     });
-    expect(result.observation?.stdout?.length).toBe(
-      NODE_CURSOR_STDOUT_CAP_BYTES,
-    );
-    expect(result.observation?.stderr?.length).toBe(
-      NODE_CURSOR_STDERR_CAP_BYTES,
-    );
+    expect(result.realProcessInvoked).toBe(true);
+    const completed = await runner.awaitCompletion(result.processRef);
+    expect(completed?.stdout?.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
+    expect(completed?.stderr?.length).toBe(NODE_CURSOR_STDERR_CAP_BYTES);
   });
 
   it("R1-09 gateway OFF never falls back to fixture; DisabledRealProcessRunner stays product", async () => {
@@ -3361,6 +3413,326 @@ describe("M4 REAL-OFF crash replay", () => {
   });
 });
 
+===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts =====
+/**
+ * M4 spawn-ACK micro-correctif — invoke returns on spawn, not process close.
+ * FakeSpawnPrimitive / TestOnly launch port only. No Cursor REAL. No real git.
+ * @vitest-environment node
+ */
+import { mkdtempSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  assertStudioCursorRealOffForTests,
+  createM4BoundedReadOnlyCursorAgentDescriptor,
+  createTestExecutionAttemptServices,
+  M4_BOUNDED_RO_CURSOR_AGENT_ID,
+  NODE_CURSOR_STDOUT_CAP_BYTES,
+  NodeCursorProcessRunner,
+  SqliteRealLaunchSafetyJournal,
+  TestExecutionAdapter,
+} from "@/lib/oa/execution-attempt";
+import {
+  MORRIS_ACTOR,
+  NOW,
+  baseBuildRequest,
+  buildStack,
+  grantContractConfirmation,
+  registerMorris,
+  seedAcceptedDecision,
+  seedProject,
+  seedStandardCycle,
+  selectStandardAgent,
+} from "./helpers";
+import { FakeSpawnPrimitive } from "./support/fakeSpawnAndGit";
+import { M4_EVIDENCE, m4ContractInputs } from "./support/m4Fixtures";
+import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
+import {
+  M4_BOUNDED_RO_ACTION,
+  M4_BOUNDED_RO_CAPABILITY,
+  M4_BOUNDED_RO_SCOPE,
+  M4_BOUNDED_RO_TARGET,
+} from "@/lib/oa/execution-attempt";
+
+function tempJournalPath(prefix: string): string {
+  return path.join(mkdtempSync(path.join(os.tmpdir(), prefix)), "m4-safety.sqlite");
+}
+
+async function seedM4ConfirmedContract(
+  stack: ReturnType<typeof buildStack>,
+): Promise<{ contractId: string; version: number }> {
+  await seedProject(stack.projects);
+  registerMorris(stack.decisions.authority, M4_BOUNDED_RO_SCOPE, M4_EVIDENCE);
+  await seedAcceptedDecision(stack);
+  await seedStandardCycle(stack);
+  const built = await stack.execution.buildExecutionContract.execute(
+    baseBuildRequest({
+      cycleInstanceId: "cyc:std-001",
+      executionContractId: "xct:oa-spawn-ack",
+      idempotencyKey: "idem-xct-oa-spawn-ack",
+      action: M4_BOUNDED_RO_ACTION,
+      target: M4_BOUNDED_RO_TARGET,
+      scope: M4_BOUNDED_RO_SCOPE,
+      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
+      authorityEvidenceId: M4_EVIDENCE,
+      inputs: m4ContractInputs(),
+    }),
+  );
+  expect(built.ok).toBe(true);
+  if (!built.ok) throw new Error("build failed");
+  const validated = await stack.execution.validateExecutionContract.execute({
+    executionContractId: built.contract.executionContractId,
+    actor: MORRIS_ACTOR,
+    authorityEvidenceId: M4_EVIDENCE,
+  });
+  expect(validated.ok).toBe(true);
+  if (!validated.ok) throw new Error("validate failed");
+  const confirmationId = await grantContractConfirmation(stack, {
+    scope: M4_BOUNDED_RO_SCOPE,
+    evidenceId: M4_EVIDENCE,
+  });
+  const confirmed = await stack.execution.confirmExecutionContract.execute({
+    executionContractId: validated.contract.executionContractId,
+    confirmationId,
+    actor: MORRIS_ACTOR,
+    authorityEvidenceId: M4_EVIDENCE,
+    expectedVersion: validated.contract.version,
+  });
+  expect(confirmed.ok).toBe(true);
+  if (!confirmed.ok) throw new Error("confirm failed");
+  return {
+    contractId: confirmed.contract.executionContractId,
+    version: confirmed.contract.version,
+  };
+}
+
+describe("M4 spawn ACK ≠ process completion", () => {
+  beforeEach(() => {
+    assertStudioCursorRealOffForTests();
+  });
+  afterEach(() => {
+    assertStudioCursorRealOffForTests();
+  });
+
+  it("invoke resolves on spawn before close; completion is separate", async () => {
+    const fake = new FakeSpawnPrimitive({
+      pid: 4242,
+      holdOpen: true,
+    });
+    const runner = new NodeCursorProcessRunner({
+      spawnPrimitive: fake.asSpawnPrimitive(),
+    });
+    const result = await runner.invoke({
+      attemptId: "xat:spawn-ack",
+      executable: "/tmp/fake-cursor",
+      argv: ["agent"],
+      cwd: "/tmp/ws",
+      timeoutMs: 5_000,
+      env: process.env,
+    });
+    expect(result.realProcessInvoked).toBe(true);
+    expect(result.processRef).toBe("pid:4242");
+    expect(result.observation?.exitCode).toBeNull();
+
+    const running = await runner.observe(result.processRef);
+    expect(running?.exitCode).toBeNull();
+    expect(running?.realProcessInvoked).toBe(true);
+
+    let completionResolved = false;
+    const completion = runner.awaitCompletion(result.processRef).then((obs) => {
+      completionResolved = true;
+      return obs;
+    });
+    await Promise.resolve();
+    expect(completionResolved).toBe(false);
+
+    fake.lastHandle?.emitClose(0);
+    const terminal = await completion;
+    expect(completionResolved).toBe(true);
+    expect(terminal?.exitCode).toBe(0);
+    expect(terminal?.realProcessInvoked).toBe(true);
+  });
+
+  it("pre-spawn throw never returns invoked=true", async () => {
+    const fake = new FakeSpawnPrimitive({ throwBeforeSpawn: true });
+    const runner = new NodeCursorProcessRunner({
+      spawnPrimitive: fake.asSpawnPrimitive(),
+    });
+    const result = await runner.invoke({
+      attemptId: "xat:pre-throw",
+      executable: "/tmp/fake-cursor",
+      argv: ["agent"],
+      cwd: "/tmp/ws",
+      timeoutMs: 1_000,
+      env: process.env,
+    });
+    expect(result.realProcessInvoked).toBe(false);
+  });
+
+  it("error before spawn never returns invoked=true", async () => {
+    const fake = new FakeSpawnPrimitive({ errorBeforeSpawn: true });
+    const runner = new NodeCursorProcessRunner({
+      spawnPrimitive: fake.asSpawnPrimitive(),
+    });
+    const result = await runner.invoke({
+      attemptId: "xat:pre-err",
+      executable: "/tmp/fake-cursor",
+      argv: ["agent"],
+      cwd: "/tmp/ws",
+      timeoutMs: 1_000,
+      env: process.env,
+    });
+    expect(result.realProcessInvoked).toBe(false);
+  });
+
+  it("post-spawn error keeps invoked=true and completes observation", async () => {
+    const fake = new FakeSpawnPrimitive({ pid: 88, holdOpen: true });
+    const runner = new NodeCursorProcessRunner({
+      spawnPrimitive: fake.asSpawnPrimitive(),
+    });
+    const result = await runner.invoke({
+      attemptId: "xat:post-err",
+      executable: "/tmp/fake-cursor",
+      argv: ["agent"],
+      cwd: "/tmp/ws",
+      timeoutMs: 5_000,
+      env: process.env,
+    });
+    expect(result.realProcessInvoked).toBe(true);
+    fake.lastHandle?.emitError("fake_after_spawn");
+    const terminal = await runner.awaitCompletion(result.processRef);
+    expect(terminal?.realProcessInvoked).toBe(true);
+    expect(terminal?.exitCode).toBeNull();
+  });
+
+  it("timeout after ACK sends SIGTERM and marks timedOut", async () => {
+    const fake = new FakeSpawnPrimitive({ pid: 99, holdOpen: true });
+    const runner = new NodeCursorProcessRunner({
+      spawnPrimitive: fake.asSpawnPrimitive(),
+    });
+    const result = await runner.invoke({
+      attemptId: "xat:to-after-ack",
+      executable: "/tmp/fake-cursor",
+      argv: ["agent"],
+      cwd: "/tmp/ws",
+      timeoutMs: 20,
+      env: process.env,
+    });
+    expect(result.realProcessInvoked).toBe(true);
+    expect(result.observation?.timedOut).toBe(false);
+    const terminal = await runner.awaitCompletion(result.processRef);
+    expect(terminal?.timedOut).toBe(true);
+    expect(fake.lastHandle?.lastSignal).toBe("SIGTERM");
+  });
+
+  it("stdout/stderr after ACK remain observable and capped", async () => {
+    const fake = new FakeSpawnPrimitive({ pid: 11, holdOpen: true });
+    const runner = new NodeCursorProcessRunner({
+      spawnPrimitive: fake.asSpawnPrimitive(),
+    });
+    const result = await runner.invoke({
+      attemptId: "xat:io-after-ack",
+      executable: "/tmp/fake-cursor",
+      argv: ["agent"],
+      cwd: "/tmp/ws",
+      timeoutMs: 5_000,
+      env: process.env,
+    });
+    expect(result.observation?.stdout).toBe("");
+    const overflow = "y".repeat(NODE_CURSOR_STDOUT_CAP_BYTES + 100);
+    fake.lastHandle?.emitStdout(overflow);
+    fake.lastHandle?.emitStderr("err-chunk");
+    const mid = await runner.observe(result.processRef);
+    expect(mid?.stdout.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
+    expect(mid?.stderr).toBe("err-chunk");
+    expect(mid?.exitCode).toBeNull();
+    fake.lastHandle?.emitClose(0);
+    const terminal = await runner.awaitCompletion(result.processRef);
+    expect(terminal?.stdout.length).toBe(NODE_CURSOR_STDOUT_CAP_BYTES);
+    expect(terminal?.stderr).toBe("err-chunk");
+    expect(terminal?.exitCode).toBe(0);
+  });
+
+  it("StartExecution running/executing while simulated completion still pending", async () => {
+    const journalPath = tempJournalPath("m4-spawn-ack-app-");
+    const launchPort = new TestOnlyRealExecutionLaunchPort({
+      holdCompletion: true,
+    });
+    const fixtureAdapter = new TestExecutionAdapter();
+    const m4Agent = createM4BoundedReadOnlyCursorAgentDescriptor(NOW);
+    const stack = buildStack({ agents: [m4Agent], adapter: fixtureAdapter });
+    const journal = new SqliteRealLaunchSafetyJournal({
+      databasePath: journalPath,
+    });
+    const attempts = createTestExecutionAttemptServices({
+      decisionServices: stack.decisions,
+      executionContractServices: stack.execution,
+      agents: [m4Agent],
+      adapter: fixtureAdapter,
+      realBoundary: { launchPort, safetyJournal: journal },
+      fixedNowIso: NOW,
+    });
+    stack.attempts = attempts as typeof stack.attempts;
+
+    const { contractId, version } = await seedM4ConfirmedContract(stack);
+    const selected = await selectStandardAgent(stack, {
+      attemptId: "xat:m4-ack-pending",
+      executionContractId: contractId,
+      requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
+    });
+    expect(selected.ok).toBe(true);
+
+    const granted = await stack.attempts.grantRealExecutionGate!.execute({
+      grantId: "gd:m4-ack-pending",
+      attemptId: "xat:m4-ack-pending",
+      actor: MORRIS_ACTOR,
+      expiresAt: "2026-07-25T07:00:00.000Z",
+      authorityEvidenceId: M4_EVIDENCE,
+    });
+    expect(granted.ok).toBe(true);
+
+    const started = await stack.attempts.startExecution.execute({
+      attemptId: "xat:m4-ack-pending",
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: M4_EVIDENCE,
+      expectedContractVersion: version,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) return;
+    expect(started.attempt.status).toBe("running");
+    expect(launchPort.completionPending.value).toBe(true);
+
+    const processRef = launchPort.calls[0]
+      ? `proc:sim:${launchPort.calls[0].attemptId}`
+      : "";
+    const runningObs = await launchPort.observe(processRef);
+    expect(runningObs?.exitCode).toBeNull();
+
+    let completionDone = false;
+    const completion = launchPort.awaitCompletion(processRef).then((obs) => {
+      completionDone = true;
+      return obs;
+    });
+    await Promise.resolve();
+    expect(completionDone).toBe(false);
+
+    const frontier = await journal.findFrontierByAttempt("xat:m4-ack-pending");
+    expect(frontier.map((r) => r.kind).sort()).toEqual(["CREATED", "LAUNCHED"]);
+    const contract = await stack.execution.contracts.findById(contractId);
+    expect(contract?.status).toBe("executing");
+
+    launchPort.resolveSimulatedCompletion(processRef, { exitCode: 0 });
+    const terminal = await completion;
+    expect(completionDone).toBe(true);
+    expect(terminal?.exitCode).toBe(0);
+    expect(
+      fixtureAdapter.calls.filter((c) => c.kind === "launch"),
+    ).toHaveLength(0);
+    journal.close();
+  });
+});
+
 ===== NEW FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeProcessRunner.ts =====
 /**
  * TEST-ONLY ProcessRunner doubles — never spawn Cursor.
@@ -3438,10 +3810,25 @@ export type FakeChildBehavior = {
   stderrChunks?: string[];
   /** Delay close so timeout can fire. */
   hangMs?: number;
+  /** Do not auto-close after spawn — tests drive close/error explicitly. */
+  holdOpen?: boolean;
+};
+
+export type FakeChildHandle = {
+  readonly child: ChildProcess;
+  lastSignal?: string;
+  killed: boolean;
+  assignPid(pid: number): void;
+  emitSpawn(): void;
+  emitError(message?: string): void;
+  emitStdout(chunk: string): void;
+  emitStderr(chunk: string): void;
+  emitClose(code: number | null): void;
 };
 
 export class FakeSpawnPrimitive {
   readonly calls: FakeSpawnCall[] = [];
+  lastHandle: FakeChildHandle | null = null;
   private behavior: FakeChildBehavior;
 
   constructor(behavior: FakeChildBehavior = {}) {
@@ -3458,12 +3845,14 @@ export class FakeSpawnPrimitive {
       if (this.behavior.throwBeforeSpawn) {
         throw new Error("fake_spawn_threw_before_start");
       }
-      return createFakeChild(this.behavior) as ChildProcess;
+      const handle = createFakeChild(this.behavior);
+      this.lastHandle = handle;
+      return handle.child;
     };
   }
 }
 
-function createFakeChild(behavior: FakeChildBehavior): ChildProcess {
+function createFakeChild(behavior: FakeChildBehavior): FakeChildHandle {
   const ee = new EventEmitter() as ChildProcess & EventEmitter;
   const stdout = new EventEmitter();
   const stderr = new EventEmitter();
@@ -3472,15 +3861,42 @@ function createFakeChild(behavior: FakeChildBehavior): ChildProcess {
   (ee as { killed: boolean }).killed = false;
   let pid: number | undefined = behavior.errorBeforeSpawn
     ? undefined
-    : (behavior.pid ?? 4242);
+    : behavior.holdOpen
+      ? undefined
+      : (behavior.pid ?? 4242);
   Object.defineProperty(ee, "pid", {
     get: () => pid,
     configurable: true,
   });
 
+  const handle: FakeChildHandle = {
+    child: ee,
+    killed: false,
+    assignPid(nextPid: number) {
+      pid = nextPid;
+    },
+    emitSpawn() {
+      ee.emit("spawn");
+    },
+    emitError(message?: string) {
+      ee.emit("error", new Error(message ?? "fake_child_error"));
+    },
+    emitStdout(chunk: string) {
+      stdout.emit("data", Buffer.from(chunk));
+    },
+    emitStderr(chunk: string) {
+      stderr.emit("data", Buffer.from(chunk));
+    },
+    emitClose(code: number | null) {
+      ee.emit("close", code);
+    },
+  };
+
   (ee as { kill: (signal?: string) => boolean }).kill = (
     signal?: string,
   ) => {
+    handle.killed = true;
+    handle.lastSignal = signal;
     (ee as { killed: boolean; lastSignal?: string }).killed = true;
     (ee as { lastSignal?: string }).lastSignal = signal;
     queueMicrotask(() => ee.emit("close", behavior.exitCode ?? null));
@@ -3490,6 +3906,13 @@ function createFakeChild(behavior: FakeChildBehavior): ChildProcess {
   queueMicrotask(() => {
     if (behavior.errorBeforeSpawn) {
       ee.emit("error", new Error("fake_spawn_error_before_start"));
+      return;
+    }
+    if (behavior.holdOpen) {
+      if (behavior.pid && behavior.pid > 0) {
+        pid = behavior.pid;
+      }
+      ee.emit("spawn");
       return;
     }
     ee.emit("spawn");
@@ -3508,7 +3931,7 @@ function createFakeChild(behavior: FakeChildBehavior): ChildProcess {
     queueMicrotask(() => ee.emit("close", behavior.exitCode ?? 0));
   });
 
-  return ee;
+  return handle;
 }
 
 export class FakeGitCommandRunner implements GitCommandRunner {
@@ -3626,6 +4049,11 @@ import {
 
 export type TestOnlyRealExecutionLaunchPortOptions = {
   readonly gatewayId?: string;
+  /**
+   * When true (default for ack), awaitCompletion stays pending until
+   * resolveSimulatedCompletion() — models spawn ACK ≠ process completion.
+   */
+  readonly holdCompletion?: boolean;
   readonly behavior?:
     | { outcome: "ack"; processRef?: string }
     | {
@@ -3658,11 +4086,22 @@ export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort 
   private behavior: NonNullable<
     TestOnlyRealExecutionLaunchPortOptions["behavior"]
   >;
+  private readonly holdCompletion: boolean;
   private readonly observations = new Map<string, RealProcessObservation>();
+  private readonly completionResolvers = new Map<
+    string,
+    (obs: RealProcessObservation) => void
+  >();
+  private readonly completionPromises = new Map<
+    string,
+    Promise<RealProcessObservation>
+  >();
+  readonly completionPending = { value: false };
 
   constructor(options: TestOnlyRealExecutionLaunchPortOptions = {}) {
     this.gatewayId = options.gatewayId ?? M4_REAL_GATEWAY_ADAPTER_ID;
     this.behavior = options.behavior ?? { outcome: "ack" };
+    this.holdCompletion = options.holdCompletion ?? true;
   }
 
   setBehavior(
@@ -3716,6 +4155,25 @@ export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort 
       durationMs: 0,
       realProcessInvoked: true,
     });
+    if (this.holdCompletion) {
+      this.completionPending.value = true;
+      const completion = new Promise<RealProcessObservation>((resolve) => {
+        this.completionResolvers.set(processRef, resolve);
+      });
+      this.completionPromises.set(processRef, completion);
+    } else {
+      const done: RealProcessObservation = {
+        processRef,
+        exitCode: 0,
+        timedOut: false,
+        stdout: "",
+        stderr: "",
+        durationMs: 0,
+        realProcessInvoked: true,
+      };
+      this.observations.set(processRef, done);
+      this.completionPromises.set(processRef, Promise.resolve(done));
+    }
     // SIMULATED TECHNICAL ACK — production gateway flag was never enabled.
     return {
       outcome: "ack",
@@ -3726,8 +4184,34 @@ export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort 
     };
   }
 
+  resolveSimulatedCompletion(
+    processRef: string,
+    observation?: Partial<RealProcessObservation>,
+  ): void {
+    const current = this.observations.get(processRef);
+    const next: RealProcessObservation = {
+      processRef,
+      exitCode: observation?.exitCode ?? 0,
+      timedOut: observation?.timedOut ?? false,
+      stdout: observation?.stdout ?? current?.stdout ?? "",
+      stderr: observation?.stderr ?? current?.stderr ?? "",
+      durationMs: observation?.durationMs ?? 1,
+      realProcessInvoked: true,
+      worktreeRef: observation?.worktreeRef,
+    };
+    this.observations.set(processRef, next);
+    this.completionPending.value = false;
+    this.completionResolvers.get(processRef)?.(next);
+  }
+
   async observe(processRef: string): Promise<RealProcessObservation | null> {
     return this.observations.get(processRef) ?? null;
+  }
+
+  async awaitCompletion(
+    processRef: string,
+  ): Promise<RealProcessObservation | null> {
+    return this.completionPromises.get(processRef) ?? null;
   }
 }
 
@@ -4408,16 +4892,20 @@ export class MemoryLaunchSafetyJournal implements LaunchSafetyJournalPort {
 
 ===== NEW FILE: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts =====
 /**
- * NodeCursorProcessRunner — production Cursor process runner (M4 R1).
+ * NodeCursorProcessRunner — production Cursor process runner (M4 R1 + spawn-ACK).
  *
  * spawn(shell:false); executable separate from argv; 64 KiB stdout/stderr caps;
- * timeout → SIGTERM. SpawnPrimitive is injectable for tests (no real Cursor).
+ * timeout → SIGTERM. invoke() RESOLVES on spawn confirmation (PID known), NOT
+ * on process close. Completion is observed separately via observe/awaitCompletion.
+ *
+ * SpawnPrimitive is injectable for tests (no real Cursor).
  */
 import { spawn as nodeSpawn, type ChildProcess } from "node:child_process";
 import type {
   ProcessRunner,
   ProcessRunnerInvokeInput,
   ProcessRunnerInvokeResult,
+  RealProcessObservation,
 } from "../ports/realExecutionLaunchPort";
 
 export const NODE_CURSOR_STDOUT_CAP_BYTES = 64 * 1024;
@@ -4438,6 +4926,19 @@ export type NodeCursorProcessRunnerOptions = {
   readonly spawnPrimitive?: SpawnPrimitive;
 };
 
+type TrackedProcess = {
+  readonly processRef: string;
+  readonly worktreeRef: string;
+  readonly started: number;
+  stdout: string;
+  stderr: string;
+  exitCode: number | null;
+  timedOut: boolean;
+  completed: boolean;
+  readonly completion: Promise<RealProcessObservation>;
+  resolveCompletion: (obs: RealProcessObservation) => void;
+};
+
 function appendCapped(current: string, chunk: Buffer, cap: number): string {
   if (current.length >= cap) return current;
   const next = chunk.toString("utf8");
@@ -4445,8 +4946,23 @@ function appendCapped(current: string, chunk: Buffer, cap: number): string {
   return current + next.slice(0, remaining);
 }
 
+function snapshot(tracked: TrackedProcess): RealProcessObservation {
+  return {
+    processRef: tracked.processRef,
+    exitCode: tracked.exitCode,
+    timedOut: tracked.timedOut,
+    stdout: tracked.stdout,
+    stderr: tracked.stderr,
+    durationMs: Date.now() - tracked.started,
+    realProcessInvoked: true,
+    worktreeRef: tracked.worktreeRef,
+  };
+}
+
 export class NodeCursorProcessRunner implements ProcessRunner {
   private readonly spawnPrimitive: SpawnPrimitive;
+  /** Single process-local observation registry — not Evidence, not durable. */
+  private readonly processes = new Map<string, TrackedProcess>();
 
   constructor(options: NodeCursorProcessRunnerOptions = {}) {
     this.spawnPrimitive = options.spawnPrimitive ?? defaultSpawnPrimitive;
@@ -4498,12 +5014,15 @@ export class NodeCursorProcessRunner implements ProcessRunner {
 
     let stdout = "";
     let stderr = "";
-    // Attach stream listeners before awaiting spawn confirmation (microtask races).
     child.stdout?.on("data", (chunk: Buffer) => {
       stdout = appendCapped(stdout, chunk, NODE_CURSOR_STDOUT_CAP_BYTES);
+      const tracked = this.lookupByChild(child, input.attemptId, started);
+      if (tracked) tracked.stdout = stdout;
     });
     child.stderr?.on("data", (chunk: Buffer) => {
       stderr = appendCapped(stderr, chunk, NODE_CURSOR_STDERR_CAP_BYTES);
+      const tracked = this.lookupByChild(child, input.attemptId, started);
+      if (tracked) tracked.stderr = stderr;
     });
 
     const spawned = await waitForSpawnConfirmation(child);
@@ -4528,60 +5047,86 @@ export class NodeCursorProcessRunner implements ProcessRunner {
         ? `pid:${child.pid}`
         : `proc:${input.attemptId}:${started}`;
 
-    return await new Promise<ProcessRunnerInvokeResult>((resolve) => {
-      let timedOut = false;
-      let settled = false;
-
-      const finish = (result: ProcessRunnerInvokeResult) => {
-        if (settled) return;
-        settled = true;
-        clearTimeout(timer);
-        resolve(result);
-      };
-
-      const timer = setTimeout(() => {
-        timedOut = true;
-        try {
-          child.kill("SIGTERM");
-        } catch {
-          /* ignore */
-        }
-      }, input.timeoutMs);
-
-      child.on("error", () => {
-        finish({
-          processRef,
-          realProcessInvoked: true,
-          observation: {
-            processRef,
-            exitCode: null,
-            timedOut,
-            stdout,
-            stderr,
-            durationMs: Date.now() - started,
-            realProcessInvoked: true,
-            worktreeRef: input.cwd,
-          },
-        });
-      });
-
-      child.on("close", (code: number | null) => {
-        finish({
-          processRef,
-          realProcessInvoked: true,
-          observation: {
-            processRef,
-            exitCode: code,
-            timedOut,
-            stdout,
-            stderr,
-            durationMs: Date.now() - started,
-            realProcessInvoked: true,
-            worktreeRef: input.cwd,
-          },
-        });
-      });
+    let resolveCompletion!: (obs: RealProcessObservation) => void;
+    const completion = new Promise<RealProcessObservation>((resolve) => {
+      resolveCompletion = resolve;
     });
+
+    const tracked: TrackedProcess = {
+      processRef,
+      worktreeRef: input.cwd,
+      started,
+      stdout,
+      stderr,
+      exitCode: null,
+      timedOut: false,
+      completed: false,
+      completion,
+      resolveCompletion,
+    };
+    this.processes.set(processRef, tracked);
+
+    const finish = (partial: {
+      exitCode: number | null;
+      timedOut?: boolean;
+    }) => {
+      if (tracked.completed) return;
+      tracked.completed = true;
+      tracked.exitCode = partial.exitCode;
+      if (partial.timedOut) tracked.timedOut = true;
+      tracked.stdout = stdout;
+      tracked.stderr = stderr;
+      clearTimeout(timer);
+      tracked.resolveCompletion(snapshot(tracked));
+    };
+
+    const timer = setTimeout(() => {
+      tracked.timedOut = true;
+      try {
+        child.kill("SIGTERM");
+      } catch {
+        /* ignore */
+      }
+    }, input.timeoutMs);
+
+    child.on("error", () => {
+      // Post-spawn error: historical invoke ACK remains invoked=true.
+      finish({ exitCode: null, timedOut: tracked.timedOut });
+    });
+    child.on("close", (code: number | null) => {
+      finish({ exitCode: code, timedOut: tracked.timedOut });
+    });
+
+    return {
+      processRef,
+      realProcessInvoked: true,
+      observation: snapshot(tracked),
+    };
+  }
+
+  async observe(processRef: string): Promise<RealProcessObservation | null> {
+    const tracked = this.processes.get(processRef);
+    return tracked ? snapshot(tracked) : null;
+  }
+
+  async awaitCompletion(
+    processRef: string,
+  ): Promise<RealProcessObservation | null> {
+    const tracked = this.processes.get(processRef);
+    if (!tracked) return null;
+    return tracked.completion;
+  }
+
+  private lookupByChild(
+    child: ChildProcess,
+    attemptId: string,
+    started: number,
+  ): TrackedProcess | undefined {
+    const byPid =
+      typeof child.pid === "number" && child.pid > 0
+        ? this.processes.get(`pid:${child.pid}`)
+        : undefined;
+    return byPid ?? this.processes.get(`proc:${attemptId}:${started}`);
   }
 }
 
@@ -4614,7 +5159,6 @@ function waitForSpawnConfirmation(
     const onError = () =>
       done({ ok: false, reason: "spawn_error_before_start" });
 
-    // Already started (pid assigned synchronously on many platforms).
     if (typeof child.pid === "number" && child.pid > 0) {
       done({ ok: true });
       return;
@@ -4623,7 +5167,6 @@ function waitForSpawnConfirmation(
     child.once("spawn", onSpawn);
     child.once("error", onError);
 
-    // Microtask fallback: if neither fires quickly but pid appears.
     queueMicrotask(() => {
       if (typeof child.pid === "number" && child.pid > 0) {
         done({ ok: true });
@@ -5198,7 +5741,15 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
   private readonly env: NodeJS.ProcessEnv;
   private readonly resolveBin: () => string | null;
   private readonly timeoutMs: number;
-  private readonly observations = new Map<string, RealProcessObservation>();
+  /**
+   * Fallback only when the runner has no observe/awaitCompletion.
+   * Live observation source is the runner registry when present
+   * (single source — no competing snapshot).
+   */
+  private readonly fallbackObservations = new Map<
+    string,
+    RealProcessObservation
+  >();
 
   constructor(options: StudioCursorRealLaunchGatewayOptions) {
     if (!options.processRunner) {
@@ -5343,16 +5894,18 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         };
       }
 
-      this.observations.set(invoked.processRef, {
-        processRef: invoked.processRef,
-        exitCode: invoked.observation?.exitCode ?? null,
-        timedOut: invoked.observation?.timedOut ?? false,
-        stdout: invoked.observation?.stdout ?? "",
-        stderr: invoked.observation?.stderr ?? "",
-        durationMs: invoked.observation?.durationMs ?? 0,
-        realProcessInvoked: true,
-        worktreeRef: workspacePath,
-      });
+      if (typeof this.runner.observe !== "function") {
+        this.fallbackObservations.set(invoked.processRef, {
+          processRef: invoked.processRef,
+          exitCode: invoked.observation?.exitCode ?? null,
+          timedOut: invoked.observation?.timedOut ?? false,
+          stdout: invoked.observation?.stdout ?? "",
+          stderr: invoked.observation?.stderr ?? "",
+          durationMs: invoked.observation?.durationMs ?? 0,
+          realProcessInvoked: true,
+          worktreeRef: workspacePath,
+        });
+      }
 
       return {
         outcome: "ack",
@@ -5375,12 +5928,18 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
   }
 
   async observe(processRef: string): Promise<RealProcessObservation | null> {
-    return this.observations.get(processRef) ?? null;
+    if (typeof this.runner.observe === "function") {
+      return this.runner.observe(processRef);
+    }
+    return this.fallbackObservations.get(processRef) ?? null;
   }
 
   async awaitCompletion(
     processRef: string,
   ): Promise<RealProcessObservation | null> {
+    if (typeof this.runner.awaitCompletion === "function") {
+      return this.runner.awaitCompletion(processRef);
+    }
     return this.observe(processRef);
   }
 }
@@ -5671,9 +6230,16 @@ export type ProcessRunnerInvokeResult = {
 /**
  * Injectable process runner. Production: NodeCursorProcessRunner (spawn shell:false).
  * Tests MUST inject a fake / FakeSpawnPrimitive — never spawn Cursor during REAL-OFF.
+ *
+ * invoke() MUST resolve on spawn confirmation (process invoked / PID known),
+ * NOT on process close. observe / awaitCompletion are the completion path.
  */
 export interface ProcessRunner {
   invoke(input: ProcessRunnerInvokeInput): Promise<ProcessRunnerInvokeResult>;
+  observe?(processRef: string): Promise<RealProcessObservation | null>;
+  awaitCompletion?(
+    processRef: string,
+  ): Promise<RealProcessObservation | null>;
 }
 
 /** @deprecated Prefer ProcessRunner. */
@@ -5847,29 +6413,30 @@ export interface LaunchSafetyJournalPort extends RealLaunchSafetyJournalPort {
 
 
 ---
-# APPENDIX C — File sizes (untracked)
+# APPENDIX C — Untracked file sizes
 - `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffBoundary.test.ts` (19253 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts` (7187 bytes)
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR1.test.ts` (7533 bytes)
 - `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts` (21325 bytes)
 - `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts` (7995 bytes)
 - `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts` (8387 bytes)
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts` (11294 bytes)
 - `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeProcessRunner.ts` (1185 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts` (5501 bytes)
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts` (6811 bytes)
 - `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts` (350 bytes)
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts` (3762 bytes)
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts` (5840 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts` (7582 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts` (385 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts` (2871 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts` (771 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedReadOnlyCursorAgent.ts` (2781 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/memoryLaunchSafetyJournal.ts` (8307 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts` (6548 bytes)
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/nodeCursorProcessRunner.ts` (8483 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteLaunchSafetyJournal.ts` (15704 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqliteRealLaunchSafetyJournal.ts` (424 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts` (7866 bytes)
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts` (8403 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts` (5152 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/ports/launchSafetyJournalPort.ts` (521 bytes)
-- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts` (3613 bytes)
+- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts` (3931 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts` (647 bytes)
 - `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realLaunchSafetyJournalPort.ts` (4291 bytes)
 
@@ -5890,6 +6457,7 @@ origin/main=e974b7306f7400249c31399fd2890d5817833dbf
 ?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR3.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCrashReplay.test.ts
+?? projects/sfia-studio/app/__tests__/oa/execution-attempt/m4SpawnAckLifecycle.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/execution-attempt/support/
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/application/grantRealExecutionGate.ts
