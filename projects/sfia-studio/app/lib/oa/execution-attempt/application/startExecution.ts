@@ -7,8 +7,9 @@
  *  2. The Attempt is ALREADY persisted `accepted` (Select did it). Start never
  *     launches before an `accepted` Attempt exists (anti launch-then-persist).
  *  3. The contract stays `confirmed` while the Attempt is `accepted`.
- *  4. Only the injected fake adapter `launch(attemptId)` is called; it is
- *     idempotent.
+ *  4. Fixture path: only the injected fake adapter `launch(attemptId)` is
+ *     called; it is idempotent. REAL path (`cursor_cli_real`) NEVER calls the
+ *     fixture adapter — it uses RealExecutionLaunchPort + safety journal.
  *  5. Launch reject/failure → Attempt `failed`, never `executing`.
  *  6. LaunchAck → Attempt `running` persisted FIRST, then contract
  *     `executing`, then the agent_selection Confirmation is consumed.
@@ -20,13 +21,18 @@
  * - launch REJECT (deterministic refusal, nothing started) → contract stays
  *   `confirmed`, so an authorized Retry remains possible;
  * - launch FAIL (indeterminate adapter error) → contract `failed`.
+ *
+ * M4 REAL path (D-M4-01…05): Gate D consume+CREATED is atomic and precedes
+ * realLaunchPort.launch; LAUNCHED is journaled before Attempt `running`.
  */
 import type { ClockPort } from "@/lib/oa/doctrine";
 import type { DecisionServices } from "@/lib/oa/decision";
 import type {
   CheckExecutionAuthorization,
+  ExecutionContract,
   ExecutionContractRepositoryPort,
 } from "@/lib/oa/execution-contract";
+import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
 import type { AuthorityResolverPort } from "@/lib/oa/decision";
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
 import {
@@ -35,15 +41,24 @@ import {
   assertAgentSelectionConfirmation,
 } from "../domain/invariants";
 import type {
+  ActorReference,
+  AttemptDetailCode,
   ExecutionAttempt,
   ExecutionAttemptResult,
   StartExecutionRequest,
 } from "../domain/types";
+import type {
+  ContractSafetyIdentity,
+  GateDGrant,
+} from "../domain/realLaunchSafety";
+import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
 import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAdapterPort } from "../ports/executionAdapter";
 import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
+import type { RealExecutionLaunchPort } from "../ports/realExecutionLaunchPort";
+import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
 import {
   authorityFailureDetail,
   contractGateDetail,
@@ -52,6 +67,65 @@ import {
 } from "./attemptSupport";
 import type { ExecutionContractStatusWriter } from "./executionContractStatusWriter";
 import { mapContractAuthorizationDetail } from "./selectExecutionAgent";
+
+function isRealExecutionAgent(
+  agent: Parameters<typeof isM4BoundedReadOnlyRealAgent>[0],
+): boolean {
+  return (
+    agent.executionMode === "cursor_cli_real" ||
+    isM4BoundedReadOnlyRealAgent(agent)
+  );
+}
+
+const FULL_GIT_SHA_RE = /^[0-9a-f]{40}$/i;
+
+/** Contract-bound baseHeadSha from ExecutionContract.inputs (T-A4 inputs already exist). */
+export function extractContractBaseHeadSha(
+  contract: ExecutionContract,
+): string | null {
+  const inputs = contract.inputs;
+  if (!inputs || typeof inputs !== "object") return null;
+  const raw = (inputs as Record<string, unknown>).baseHeadSha;
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!FULL_GIT_SHA_RE.test(trimmed)) return null;
+  return trimmed.toLowerCase();
+}
+
+function mapRealLaunchRejectDetail(
+  reason: string,
+  detailCode?: string,
+): AttemptDetailCode {
+  if (
+    detailCode === "REAL_BOUNDARY_DISABLED" ||
+    detailCode === "CURSOR_UNAVAILABLE" ||
+    detailCode === "REAL_WORKSPACE_INVALID" ||
+    detailCode === "REAL_LAUNCH_FAILED" ||
+    detailCode === "REAL_AGENT_PROFILE_INVALID"
+  ) {
+    return detailCode;
+  }
+  if (
+    reason === "studio_cursor_real_disabled" ||
+    reason.includes("real_disabled")
+  ) {
+    return "REAL_BOUNDARY_DISABLED";
+  }
+  if (reason === "cursor_unavailable") return "CURSOR_UNAVAILABLE";
+  if (
+    reason === "workspace_invalid" ||
+    reason === "workspace_outside_exec_root" ||
+    reason.includes("REAL_WORKSPACE_INVALID") ||
+    reason.includes("base_head_sha") ||
+    reason.includes("workspace_prepare")
+  ) {
+    return "REAL_WORKSPACE_INVALID";
+  }
+  if (reason === "unresolved_contract_refused") {
+    return "REAL_AGENT_PROFILE_INVALID";
+  }
+  return "REAL_LAUNCH_FAILED";
+}
 
 export class StartExecution {
   constructor(
@@ -66,6 +140,8 @@ export class StartExecution {
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAttemptAuditPort,
     private readonly store?: MemoryExecutionAttemptStore,
+    private readonly realLaunchPort?: RealExecutionLaunchPort,
+    private readonly safetyJournal?: RealLaunchSafetyJournalPort,
   ) {}
 
   async execute(
@@ -326,7 +402,22 @@ export class StartExecution {
         });
       }
 
-      // Step 4 — the ONLY adapter interaction.
+      // M4 REAL path — never touch the fixture adapter.
+      if (isRealExecutionAgent(agent)) {
+        return this.executeRealLaunch({
+          request,
+          attempt,
+          contract,
+          agent,
+          consumeConfirmationId,
+          timestamp,
+          correlationId,
+          started,
+          fail,
+        });
+      }
+
+      // Step 4 — fixture adapter ONLY (non-REAL agents).
       let launch;
       try {
         launch = await this.adapter.launch({
@@ -383,158 +474,541 @@ export class StartExecution {
         });
       }
 
-      // Step 6a — Attempt running FIRST.
-      const runningAttempt: ExecutionAttempt = {
-        ...attempt,
-        status: "running",
-        launchedAt: timestamp,
-        startedAt: timestamp,
-        updatedAt: timestamp,
-        version: attempt.version + 1,
-      };
-      try {
-        const persist = async () => {
-          await this.attempts.update(runningAttempt, attempt.version);
-        };
-        if (this.store) {
-          await this.store.runInTransaction(persist);
-        } else {
-          await persist();
-        }
-      } catch (err) {
-        // Nothing real ran (fake adapter) — the Attempt stays `accepted` and
-        // a replayed Start reuses the memoized launch ack.
-        if (isExecutionAttemptDomainError(err)) {
-          return fail(err.detailCode, `running_persist_${err.message}`, {
-            executionContractId: contract.executionContractId,
-            expectedVersion: err.expectedVersion,
-            currentVersion: err.currentVersion,
-          });
-        }
-        return fail("EXECUTION_PERSISTENCE_FAILED", "running_persist_failed", {
-          executionContractId: contract.executionContractId,
-        });
-      }
-
-      // Step 6b — contract executing AFTER the Attempt is running.
-      const contractWrite = await this.contractStatusWriter.write({
-        executionContractId: contract.executionContractId,
-        expectedVersion: contract.version,
-        nextStatus: "executing",
-        selectedAgentRef: attempt.selectedAgentRef,
-        runningAttempt: {
-          attemptId: runningAttempt.attemptId,
-          status: runningAttempt.status,
-        },
-      });
-      if (!contractWrite.ok) {
-        const compensated = await this.compensateAfterRunning({
-          attempt: runningAttempt,
-          timestamp,
-          correlationId,
-          started,
-        });
-        return {
-          ok: false,
-          error: createAttemptError({
-            detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",
-            timestamp,
-            correlationId,
-            attemptId: attempt.attemptId,
-            executionContractId: contract.executionContractId,
-            internalCauseRef: contractWrite.internalCauseRef,
-            currentVersion: contractWrite.currentVersion,
-          }),
-          attempt: compensated,
-          durationMs: Date.now() - started,
-        };
-      }
-
-      // Step 6c — consume the agent_selection Confirmation on success only.
-      if (consumeConfirmationId) {
-        const consumed = await this.decisionServices.consumeConfirmation.execute(
-          {
-            confirmationId: consumeConfirmationId,
-            actor: request.actor,
-            correlationId,
-            nowIso: timestamp,
-          },
-        );
-        if (!consumed.ok) {
-          const alreadyConsumed =
-            consumed.error.detailCode === "CONFIRMATION_ALREADY_CONSUMED";
-          if (!alreadyConsumed) {
-            // Residual R-T-A3-2: the Attempt is running and the contract is
-            // executing; cross-store consumption cannot be rolled back.
-            this.audit.append({
-              event: "oa.execution_attempt.started",
-              ts: timestamp,
-              correlationId,
-              attemptId: attempt.attemptId,
-              executionContractId: contract.executionContractId,
-              confirmationRef: consumeConfirmationId,
-              newStatus: "running",
-              contractStatus: contractWrite.contract.status,
-              result: "error",
-              detailCode: "AGENT_CONFIRMATION_CONSUME_FAILED",
-              durationMs: Date.now() - started,
-            });
-            return {
-              ok: false,
-              error: createAttemptError({
-                detailCode: "AGENT_CONFIRMATION_CONSUME_FAILED",
-                timestamp,
-                correlationId,
-                attemptId: attempt.attemptId,
-                executionContractId: contract.executionContractId,
-                confirmationId: consumeConfirmationId,
-                internalCauseRef: `consume_${consumed.error.detailCode}`,
-              }),
-              attempt: runningAttempt,
-              durationMs: Date.now() - started,
-            };
-          }
-        }
-      }
-
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.execution_attempt.started",
-        ts: timestamp,
+      return this.persistRunningAfterAck({
+        attempt,
+        contract,
+        actor: request.actor,
+        consumeConfirmationId,
+        timestamp,
         correlationId,
-        attemptId: runningAttempt.attemptId,
-        executionContractId: contract.executionContractId,
-        executionContractVersion: contract.version,
-        selectedAgentRef: runningAttempt.selectedAgentRef,
-        adapterId: this.adapter.adapterId,
-        confirmationRef: consumeConfirmationId,
-        previousStatus: "accepted",
-        newStatus: "running",
-        contractStatus: contractWrite.contract.status,
-        result: "ok",
-        durationMs,
+        started,
+        adapterIdForAudit: this.adapter.adapterId,
+        fail,
       });
-      this.audit.append({
-        event: "oa.execution_contract.status_written",
-        ts: timestamp,
-        correlationId,
-        attemptId: runningAttempt.attemptId,
-        executionContractId: contract.executionContractId,
-        contractStatus: contractWrite.contract.status,
-        result: "ok",
-        durationMs,
-      });
-
-      return {
-        ok: true,
-        attempt: structuredClone(runningAttempt),
-        contractStatus: contractWrite.contract.status,
-        contractVersion: contractWrite.contract.version,
-        durationMs,
-      };
     } catch {
       return fail("EXECUTION_PERSISTENCE_FAILED", "unexpected_exception");
     }
+  }
+
+  private async executeRealLaunch(input: {
+    request: StartExecutionRequest;
+    attempt: ExecutionAttempt;
+    contract: ExecutionContract;
+    agent: NonNullable<ReturnType<AgentRegistryPort["getAgent"]>>;
+    consumeConfirmationId: string | undefined;
+    timestamp: string;
+    correlationId: string;
+    started: number;
+    fail: (
+      detailCode: AttemptDetailCode,
+      internalCauseRef: string,
+      extra?: Partial<Parameters<typeof createAttemptError>[0]> & {
+        attempt?: ExecutionAttempt;
+      },
+    ) => ExecutionAttemptResult;
+  }): Promise<ExecutionAttemptResult> {
+    const {
+      request,
+      attempt,
+      contract,
+      agent,
+      consumeConfirmationId,
+      timestamp,
+      correlationId,
+      started,
+      fail,
+    } = input;
+
+    if (!this.safetyJournal) {
+      return fail("LAUNCH_JOURNAL_UNAVAILABLE", "safety_journal_missing", {
+        executionContractId: contract.executionContractId,
+      });
+    }
+    if (!this.realLaunchPort) {
+      return fail("REAL_BOUNDARY_DISABLED", "real_launch_port_missing", {
+        executionContractId: contract.executionContractId,
+      });
+    }
+    if (!isM4BoundedReadOnlyRealAgent(agent)) {
+      return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_bounded_readonly_real", {
+        selectedAgentRef: attempt.selectedAgentRef,
+      });
+    }
+
+    // Contract-bound baseHeadSha BEFORE Gate D consume / CREATED (R2).
+    const baseHeadSha = extractContractBaseHeadSha(contract);
+    if (!baseHeadSha) {
+      const raw =
+        contract.inputs &&
+        typeof contract.inputs === "object" &&
+        "baseHeadSha" in (contract.inputs as Record<string, unknown>)
+          ? (contract.inputs as Record<string, unknown>).baseHeadSha
+          : undefined;
+      return fail(
+        raw === undefined || raw === null || raw === ""
+          ? "REAL_WORKSPACE_INVALID"
+          : "REAL_WORKSPACE_INVALID",
+        raw === undefined || raw === null || raw === ""
+          ? "contract_base_head_sha_missing"
+          : "contract_base_head_sha_invalid",
+        { executionContractId: contract.executionContractId },
+      );
+    }
+
+    const fingerprint =
+      contract.semanticFingerprint ??
+      computeExecutionContractSemanticFingerprint(contract);
+    if (!fingerprint) {
+      return fail("ATTEMPT_INVALID", "semantic_fingerprint_missing", {
+        executionContractId: contract.executionContractId,
+      });
+    }
+    const identity: ContractSafetyIdentity = {
+      executionContractId: contract.executionContractId,
+      executionContractVersion: contract.version,
+      semanticFingerprint: fingerprint,
+    };
+
+    if (await this.safetyJournal.hasAmbiguousFrontier(identity)) {
+      return fail(
+        "LAUNCH_RECONCILIATION_REQUIRED",
+        "ambiguous_frontier_blocks_real_start",
+        { executionContractId: contract.executionContractId },
+      );
+    }
+    const disposition =
+      await this.safetyJournal.reconcileDispositionForIdentity(identity);
+    if (disposition !== "CLEAR") {
+      return fail(
+        "LAUNCH_RECONCILIATION_REQUIRED",
+        `frontier_disposition_${disposition}`,
+        { executionContractId: contract.executionContractId },
+      );
+    }
+    if (
+      (await this.safetyJournal.hasKindForAttempt(
+        attempt.attemptId,
+        "CREATED",
+      )) ||
+      (await this.safetyJournal.hasKindForAttempt(
+        attempt.attemptId,
+        "LAUNCHED",
+      ))
+    ) {
+      return fail(
+        "LAUNCH_RECONCILIATION_REQUIRED",
+        "attempt_frontier_already_present",
+        { executionContractId: contract.executionContractId },
+      );
+    }
+
+    const grant = await this.safetyJournal.findActiveGateDGrantForAttempt(
+      attempt.attemptId,
+    );
+    if (!grant) {
+      return fail("GATE_D_REQUIRED", "active_gate_d_grant_missing", {
+        executionContractId: contract.executionContractId,
+      });
+    }
+    const bindingError = this.validateGateDGrantBinding({
+      grant,
+      attempt,
+      identity,
+      actorId: request.actor.actorId,
+      nowIso: timestamp,
+    });
+    if (bindingError) {
+      return fail(bindingError.detailCode, bindingError.reason, {
+        executionContractId: contract.executionContractId,
+      });
+    }
+
+    let consumedGrant: GateDGrant;
+    try {
+      const consumed = await this.safetyJournal.consumeGateDAndAppendCreated({
+        grantId: grant.grantId,
+        attemptId: attempt.attemptId,
+        occurredAt: timestamp,
+        identity,
+        selectedAgentRef: attempt.selectedAgentRef,
+        actorId: request.actor.actorId,
+        correlationId,
+      });
+      consumedGrant = consumed.grant;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "consume_failed";
+      if (message.includes("expired")) {
+        return fail("GATE_D_EXPIRED", message, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      if (message.includes("mismatch")) {
+        return fail("GATE_D_BINDING_MISMATCH", message, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      if (message.includes("ambiguous") || message.includes("frontier")) {
+        return fail("LAUNCH_RECONCILIATION_REQUIRED", message, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      if (message.includes("consumed") || message.includes("not_granted")) {
+        return fail("GATE_D_ALREADY_CONSUMED", message, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      return fail("GATE_D_INVALID", message, {
+        executionContractId: contract.executionContractId,
+      });
+    }
+
+    let launch;
+    try {
+      launch = await this.realLaunchPort.launch({
+        attemptId: attempt.attemptId,
+        executionContractId: contract.executionContractId,
+        executionContractVersion: contract.version,
+        semanticFingerprint: fingerprint,
+        selectedAgentRef: attempt.selectedAgentRef,
+        adapterRef: agent.adapterRef,
+        correlationId,
+        baseHeadSha,
+        action: contract.action,
+        target: contract.target,
+        scope: contract.scope,
+      });
+    } catch {
+      return this.failRealLaunch({
+        attempt,
+        contractVersion: contract.version,
+        detailCode: "REAL_LAUNCH_FAILED",
+        reason: "real_launch_threw",
+        timestamp,
+        correlationId,
+        started,
+        realProcessInvoked: false,
+      });
+    }
+
+    if (launch.outcome !== "ack" || launch.realProcessInvoked !== true) {
+      const reason =
+        launch.outcome === "ack" ? "real_process_not_invoked" : launch.reason;
+      const detailCode = mapRealLaunchRejectDetail(
+        reason,
+        launch.outcome === "ack"
+          ? undefined
+          : "detailCode" in launch
+            ? launch.detailCode
+            : undefined,
+      );
+      return this.failRealLaunch({
+        attempt,
+        contractVersion: contract.version,
+        detailCode,
+        reason,
+        timestamp,
+        correlationId,
+        started,
+        realProcessInvoked: Boolean(launch.realProcessInvoked),
+      });
+    }
+    if (launch.attemptId !== attempt.attemptId) {
+      return this.failRealLaunch({
+        attempt,
+        contractVersion: contract.version,
+        detailCode: "REAL_LAUNCH_FAILED",
+        reason: "real_launch_attempt_binding_mismatch",
+        timestamp,
+        correlationId,
+        started,
+        realProcessInvoked: true,
+      });
+    }
+    if (launch.gatewayId !== this.realLaunchPort.gatewayId) {
+      return this.failRealLaunch({
+        attempt,
+        contractVersion: contract.version,
+        detailCode: "REAL_LAUNCH_FAILED",
+        reason: "real_launch_gateway_binding_mismatch",
+        timestamp,
+        correlationId,
+        started,
+        realProcessInvoked: true,
+      });
+    }
+
+    try {
+      await this.safetyJournal.appendLaunched({
+        attemptId: attempt.attemptId,
+        occurredAt: timestamp,
+        identity,
+        selectedAgentRef: attempt.selectedAgentRef,
+        actorId: request.actor.actorId,
+        grantId: consumedGrant.grantId,
+        correlationId,
+        processRef: launch.processRef,
+        payload: { gatewayId: launch.gatewayId },
+      });
+    } catch (err) {
+      // Process invoked; LAUNCHED missing → CREATED-only UNKNOWN; no second launch.
+      const durationMs = Date.now() - started;
+      this.audit.append({
+        event: "oa.execution_attempt.launch_failed",
+        ts: timestamp,
+        correlationId,
+        attemptId: attempt.attemptId,
+        executionContractId: attempt.executionContractId,
+        selectedAgentRef: attempt.selectedAgentRef,
+        adapterId: this.realLaunchPort.gatewayId,
+        previousStatus: "accepted",
+        newStatus: "accepted",
+        result: "error",
+        detailCode: "LAUNCH_RECONCILIATION_REQUIRED",
+        durationMs,
+      });
+      return {
+        ok: false,
+        error: createAttemptError({
+          detailCode: "LAUNCH_RECONCILIATION_REQUIRED",
+          timestamp,
+          correlationId,
+          attemptId: attempt.attemptId,
+          executionContractId: contract.executionContractId,
+          internalCauseRef:
+            err instanceof Error
+              ? `launched_persist_failed_after_invoke:${err.message}`
+              : "launched_persist_failed_after_invoke",
+        }),
+        attempt,
+        durationMs,
+      };
+    }
+
+    return this.persistRunningAfterAck({
+      attempt,
+      contract,
+      actor: request.actor,
+      consumeConfirmationId,
+      timestamp,
+      correlationId,
+      started,
+      adapterIdForAudit: this.realLaunchPort.gatewayId,
+      fail,
+    });
+  }
+
+  private validateGateDGrantBinding(input: {
+    grant: GateDGrant;
+    attempt: ExecutionAttempt;
+    identity: ContractSafetyIdentity;
+    actorId: string;
+    nowIso: string;
+  }): { detailCode: AttemptDetailCode; reason: string } | null {
+    const { grant, attempt, identity, actorId, nowIso } = input;
+    if (grant.status === "consumed") {
+      return { detailCode: "GATE_D_ALREADY_CONSUMED", reason: "grant_consumed" };
+    }
+    if (grant.status !== "granted") {
+      return {
+        detailCode: "GATE_D_INVALID",
+        reason: `grant_status_${grant.status}`,
+      };
+    }
+    if (Date.parse(grant.expiresAt) <= Date.parse(nowIso)) {
+      return { detailCode: "GATE_D_EXPIRED", reason: "grant_expired" };
+    }
+    if (
+      grant.attemptId !== attempt.attemptId ||
+      grant.executionContractId !== identity.executionContractId ||
+      grant.executionContractVersion !== identity.executionContractVersion ||
+      grant.semanticFingerprint !== identity.semanticFingerprint ||
+      grant.selectedAgentRef !== attempt.selectedAgentRef ||
+      grant.actorId !== actorId
+    ) {
+      return {
+        detailCode: "GATE_D_BINDING_MISMATCH",
+        reason: "grant_binding_mismatch",
+      };
+    }
+    return null;
+  }
+
+  private async persistRunningAfterAck(input: {
+    attempt: ExecutionAttempt;
+    contract: ExecutionContract;
+    actor: ActorReference;
+    consumeConfirmationId: string | undefined;
+    timestamp: string;
+    correlationId: string;
+    started: number;
+    adapterIdForAudit: string;
+    fail: (
+      detailCode: AttemptDetailCode,
+      internalCauseRef: string,
+      extra?: Partial<Parameters<typeof createAttemptError>[0]> & {
+        attempt?: ExecutionAttempt;
+      },
+    ) => ExecutionAttemptResult;
+  }): Promise<ExecutionAttemptResult> {
+    const {
+      attempt,
+      contract,
+      actor,
+      consumeConfirmationId,
+      timestamp,
+      correlationId,
+      started,
+      adapterIdForAudit,
+      fail,
+    } = input;
+
+    // Step 6a — Attempt running FIRST.
+    const runningAttempt: ExecutionAttempt = {
+      ...attempt,
+      status: "running",
+      launchedAt: timestamp,
+      startedAt: timestamp,
+      updatedAt: timestamp,
+      version: attempt.version + 1,
+    };
+    try {
+      const persist = async () => {
+        await this.attempts.update(runningAttempt, attempt.version);
+      };
+      if (this.store) {
+        await this.store.runInTransaction(persist);
+      } else {
+        await persist();
+      }
+    } catch (err) {
+      // Fixture path: nothing real ran. REAL path after LAUNCHED: leave
+      // attempt accepted; journal already has CREATED+LAUNCHED (reconcile).
+      if (isExecutionAttemptDomainError(err)) {
+        return fail(err.detailCode, `running_persist_${err.message}`, {
+          executionContractId: contract.executionContractId,
+          expectedVersion: err.expectedVersion,
+          currentVersion: err.currentVersion,
+        });
+      }
+      return fail("EXECUTION_PERSISTENCE_FAILED", "running_persist_failed", {
+        executionContractId: contract.executionContractId,
+      });
+    }
+
+    // Step 6b — contract executing AFTER the Attempt is running.
+    const contractWrite = await this.contractStatusWriter.write({
+      executionContractId: contract.executionContractId,
+      expectedVersion: contract.version,
+      nextStatus: "executing",
+      selectedAgentRef: attempt.selectedAgentRef,
+      runningAttempt: {
+        attemptId: runningAttempt.attemptId,
+        status: runningAttempt.status,
+      },
+    });
+    if (!contractWrite.ok) {
+      const compensated = await this.compensateAfterRunning({
+        attempt: runningAttempt,
+        timestamp,
+        correlationId,
+        started,
+      });
+      return {
+        ok: false,
+        error: createAttemptError({
+          detailCode: "EXECUTION_CONTRACT_UPDATE_FAILED",
+          timestamp,
+          correlationId,
+          attemptId: attempt.attemptId,
+          executionContractId: contract.executionContractId,
+          internalCauseRef: contractWrite.internalCauseRef,
+          currentVersion: contractWrite.currentVersion,
+        }),
+        attempt: compensated,
+        durationMs: Date.now() - started,
+      };
+    }
+
+    // Step 6c — consume the agent_selection Confirmation on success only.
+    if (consumeConfirmationId) {
+      const consumed = await this.decisionServices.consumeConfirmation.execute({
+        confirmationId: consumeConfirmationId,
+        actor,
+        correlationId,
+        nowIso: timestamp,
+      });
+      if (!consumed.ok) {
+        const alreadyConsumed =
+          consumed.error.detailCode === "CONFIRMATION_ALREADY_CONSUMED";
+        if (!alreadyConsumed) {
+          // Residual R-T-A3-2: the Attempt is running and the contract is
+          // executing; cross-store consumption cannot be rolled back.
+          this.audit.append({
+            event: "oa.execution_attempt.started",
+            ts: timestamp,
+            correlationId,
+            attemptId: attempt.attemptId,
+            executionContractId: contract.executionContractId,
+            confirmationRef: consumeConfirmationId,
+            newStatus: "running",
+            contractStatus: contractWrite.contract.status,
+            result: "error",
+            detailCode: "AGENT_CONFIRMATION_CONSUME_FAILED",
+            durationMs: Date.now() - started,
+          });
+          return {
+            ok: false,
+            error: createAttemptError({
+              detailCode: "AGENT_CONFIRMATION_CONSUME_FAILED",
+              timestamp,
+              correlationId,
+              attemptId: attempt.attemptId,
+              executionContractId: contract.executionContractId,
+              confirmationId: consumeConfirmationId,
+              internalCauseRef: `consume_${consumed.error.detailCode}`,
+            }),
+            attempt: runningAttempt,
+            durationMs: Date.now() - started,
+          };
+        }
+      }
+    }
+
+    const durationMs = Date.now() - started;
+    this.audit.append({
+      event: "oa.execution_attempt.started",
+      ts: timestamp,
+      correlationId,
+      attemptId: runningAttempt.attemptId,
+      executionContractId: contract.executionContractId,
+      executionContractVersion: contract.version,
+      selectedAgentRef: runningAttempt.selectedAgentRef,
+      adapterId: adapterIdForAudit,
+      confirmationRef: consumeConfirmationId,
+      previousStatus: "accepted",
+      newStatus: "running",
+      contractStatus: contractWrite.contract.status,
+      result: "ok",
+      durationMs,
+    });
+    this.audit.append({
+      event: "oa.execution_contract.status_written",
+      ts: timestamp,
+      correlationId,
+      attemptId: runningAttempt.attemptId,
+      executionContractId: contract.executionContractId,
+      contractStatus: contractWrite.contract.status,
+      result: "ok",
+      durationMs,
+    });
+
+    return {
+      ok: true,
+      attempt: structuredClone(runningAttempt),
+      contractStatus: contractWrite.contract.status,
+      contractVersion: contractWrite.contract.version,
+      durationMs,
+    };
   }
 
   /** Launch reject/failure → Attempt failed, never executing. */
@@ -614,6 +1088,96 @@ export class StartExecution {
       ok: false,
       error: createAttemptError({
         detailCode,
+        timestamp: input.timestamp,
+        correlationId: input.correlationId,
+        attemptId: input.attempt.attemptId,
+        executionContractId: input.attempt.executionContractId,
+        internalCauseRef: input.reason,
+      }),
+      attempt: persistedAttempt,
+      durationMs,
+    };
+  }
+
+  /**
+   * REAL launch failed after CREATED (or without invoke). Marks Attempt failed.
+   * Journal CREATED is left in place for reconciliation (no second launch).
+   */
+  private async failRealLaunch(input: {
+    attempt: ExecutionAttempt;
+    contractVersion: number;
+    detailCode: AttemptDetailCode;
+    reason: string;
+    timestamp: string;
+    correlationId: string;
+    started: number;
+    realProcessInvoked: boolean;
+  }): Promise<ExecutionAttemptResult> {
+    const failedAttempt: ExecutionAttempt = {
+      ...input.attempt,
+      status: "failed",
+      failedAt: input.timestamp,
+      stopReason: `REAL_LAUNCH_FAILED: ${input.reason}`,
+      irreversibleEffectsPossible: input.realProcessInvoked,
+      updatedAt: input.timestamp,
+      version: input.attempt.version + 1,
+    };
+
+    let persistedAttempt: ExecutionAttempt | undefined;
+    try {
+      const persist = async () => {
+        await this.attempts.update(failedAttempt, input.attempt.version);
+        await this.attempts.releaseActiveContract(
+          failedAttempt.executionContractId,
+          failedAttempt.attemptId,
+        );
+      };
+      if (this.store) {
+        await this.store.runInTransaction(persist);
+      } else {
+        await persist();
+      }
+      persistedAttempt = failedAttempt;
+    } catch {
+      persistedAttempt = undefined;
+    }
+
+    let contractStatus: string | undefined;
+    const indeterminate =
+      input.detailCode === "REAL_LAUNCH_FAILED" ||
+      input.detailCode === "CURSOR_UNAVAILABLE";
+    if (indeterminate) {
+      const write = await this.contractStatusWriter.write({
+        executionContractId: input.attempt.executionContractId,
+        expectedVersion: input.contractVersion,
+        nextStatus: "failed",
+        reason: "REAL launch failed before acknowledgement",
+      });
+      contractStatus = write.ok ? write.contract.status : undefined;
+    }
+
+    const durationMs = Date.now() - input.started;
+    this.audit.append({
+      event: "oa.execution_attempt.launch_failed",
+      ts: input.timestamp,
+      correlationId: input.correlationId,
+      attemptId: input.attempt.attemptId,
+      executionContractId: input.attempt.executionContractId,
+      selectedAgentRef: input.attempt.selectedAgentRef,
+      adapterId: this.realLaunchPort?.gatewayId,
+      previousStatus: "accepted",
+      newStatus: persistedAttempt ? "failed" : "accepted",
+      contractStatus,
+      stopReason: failedAttempt.stopReason,
+      result: "error",
+      detailCode: input.detailCode,
+      durationMs,
+    });
+
+    return {
+      ok: false,
+      error: createAttemptError({
+        detailCode: input.detailCode,
         timestamp: input.timestamp,
         correlationId: input.correlationId,
         attemptId: input.attempt.attemptId,

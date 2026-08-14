@@ -52,6 +52,20 @@ const DETAIL_TO_MODELED: Record<AttemptDetailCode, AttemptModeledErrorCode> = {
   STALE_CONTEXT_DETECTED: "CONTEXT_STALE",
   CONCURRENCY_CONFLICT: "STATE_CONFLICT",
   VERSION_CONFLICT: "STATE_CONFLICT",
+  REAL_BOUNDARY_DISABLED: "AUTHORITY_DENIED",
+  GATE_D_REQUIRED: "AUTHORITY_DENIED",
+  GATE_D_INVALID: "AUTHORITY_DENIED",
+  GATE_D_EXPIRED: "CONTEXT_STALE",
+  GATE_D_ALREADY_CONSUMED: "STATE_CONFLICT",
+  GATE_D_ALREADY_GRANTED: "STATE_CONFLICT",
+  GATE_D_BINDING_MISMATCH: "AUTHORITY_DENIED",
+  LAUNCH_JOURNAL_UNAVAILABLE: "EXECUTION_FAILED",
+  LAUNCH_RECONCILIATION_REQUIRED: "STATE_CONFLICT",
+  REAL_AGENT_PROFILE_INVALID: "CAPABILITY_MISSING",
+  CURSOR_UNAVAILABLE: "EXECUTION_FAILED",
+  REAL_WORKSPACE_INVALID: "EXECUTION_FAILED",
+  WORKSPACE_INVALID: "EXECUTION_FAILED",
+  REAL_LAUNCH_FAILED: "EXECUTION_FAILED",
 };
 
 /** Safe operator-facing messages — never echo payloads, secrets or evidence. */
@@ -122,6 +136,25 @@ const SAFE_MESSAGES: Record<AttemptDetailCode, string> = {
     "Stale contract or decision detected; operation refused (no auto-cancel).",
   CONCURRENCY_CONFLICT: "Concurrent execution attempt conflict.",
   VERSION_CONFLICT: "Execution attempt version conflict.",
+  REAL_BOUNDARY_DISABLED:
+    "Studio Cursor REAL boundary is disabled; no real process may start.",
+  GATE_D_REQUIRED: "An explicit Gate D grant is required before REAL start.",
+  GATE_D_INVALID: "Gate D grant is invalid for this start.",
+  GATE_D_EXPIRED: "Gate D grant has expired.",
+  GATE_D_ALREADY_CONSUMED: "Gate D grant was already consumed.",
+  GATE_D_ALREADY_GRANTED: "An active Gate D grant already exists for this attempt.",
+  GATE_D_BINDING_MISMATCH:
+    "Gate D grant binding does not match attempt, contract, agent, or actor.",
+  LAUNCH_JOURNAL_UNAVAILABLE:
+    "Technical launch safety journal is unavailable.",
+  LAUNCH_RECONCILIATION_REQUIRED:
+    "Ambiguous launch frontier requires reconciliation; relaunch refused.",
+  REAL_AGENT_PROFILE_INVALID:
+    "Selected agent is not a valid bounded REAL Cursor profile.",
+  CURSOR_UNAVAILABLE: "Cursor CLI is unavailable for REAL launch.",
+  REAL_WORKSPACE_INVALID: "REAL launch workspace root is invalid.",
+  WORKSPACE_INVALID: "Isolated REAL workspace path is invalid.",
+  REAL_LAUNCH_FAILED: "REAL launch failed before acknowledgement.",
 };
 
 const NON_RECOVERABLE: ReadonlySet<AttemptDetailCode> = new Set<

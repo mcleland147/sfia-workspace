@@ -229,15 +229,19 @@ export function registerMorris(
   scope = CONTRACT_SCOPE,
   evidenceId = "evd:morris-n3",
 ): void {
-  authority.register({
-    evidenceId,
-    actorId: "actor:morris",
-    level: "N3",
-    scope,
-    issuedAt: "2026-07-01T00:00:00.000Z",
-    source: "registry",
-    canActAsMorris: true,
-  });
+  try {
+    authority.register({
+      evidenceId,
+      actorId: "actor:morris",
+      level: "N3",
+      scope,
+      issuedAt: "2026-07-01T00:00:00.000Z",
+      source: "registry",
+      canActAsMorris: true,
+    });
+  } catch (err) {
+    if (!(err instanceof Error) || err.message !== "evidence_immutable") throw err;
+  }
 }
 
 export function registerN3NoMorris(
@@ -403,12 +407,23 @@ export async function seedConfirmedContract(
   overrides: Partial<BuildExecutionContractRequest> = {},
 ): Promise<{ contractId: string; version: number }> {
   await seedProject(stack.projects);
-  registerMorris(stack.decisions.authority);
+  const scope = overrides.scope ?? CONTRACT_SCOPE;
+  const evidenceId =
+    typeof overrides.authorityEvidenceId === "string"
+      ? overrides.authorityEvidenceId
+      : scope === CONTRACT_SCOPE
+        ? "evd:morris-n3"
+        : `evd:morris-${scope.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`;
+  registerMorris(stack.decisions.authority, scope, evidenceId);
   await seedAcceptedDecision(stack);
   await seedStandardCycle(stack);
 
   const built = await stack.execution.buildExecutionContract.execute(
-    baseBuildRequest({ cycleInstanceId: "cyc:std-001", ...overrides }),
+    baseBuildRequest({
+      cycleInstanceId: "cyc:std-001",
+      authorityEvidenceId: evidenceId,
+      ...overrides,
+    }),
   );
   expect(built.ok).toBe(true);
   if (!built.ok) throw new Error("build failed");
@@ -416,17 +431,20 @@ export async function seedConfirmedContract(
   const validated = await stack.execution.validateExecutionContract.execute({
     executionContractId: built.contract.executionContractId,
     actor: MORRIS_ACTOR,
-    authorityEvidenceId: "evd:morris-n3",
+    authorityEvidenceId: evidenceId,
   });
   expect(validated.ok).toBe(true);
   if (!validated.ok) throw new Error("validate failed");
 
-  const confirmationId = await grantContractConfirmation(stack);
+  const confirmationId = await grantContractConfirmation(stack, {
+    scope,
+    evidenceId,
+  });
   const confirmed = await stack.execution.confirmExecutionContract.execute({
     executionContractId: validated.contract.executionContractId,
     confirmationId,
     actor: MORRIS_ACTOR,
-    authorityEvidenceId: "evd:morris-n3",
+    authorityEvidenceId: evidenceId,
     expectedVersion: validated.contract.version,
   });
   expect(confirmed.ok).toBe(true);
@@ -509,6 +527,7 @@ export async function selectStandardAgent(
     idempotencyKey?: string;
     requestedAgentRef?: string;
     selectionTtlMs?: number;
+    authorityEvidenceId?: string;
   },
 ) {
   return stack.attempts.selectExecutionAgent.execute({
@@ -516,7 +535,7 @@ export async function selectStandardAgent(
     executionContractId: input.executionContractId,
     idempotencyKey: input.idempotencyKey ?? "idem-attempt-001",
     actor: MORRIS_ACTOR,
-    authorityEvidenceId: "evd:morris-n3",
+    authorityEvidenceId: input.authorityEvidenceId ?? "evd:morris-n3",
     selectionProfile: "standard",
     requestedAgentRef: input.requestedAgentRef,
     selectionTtlMs: input.selectionTtlMs,
