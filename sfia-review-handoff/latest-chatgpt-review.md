@@ -1,94 +1,160 @@
-# QUALIFICATION PRÉ-M6 DU PARCOURS UTILISATEUR / RÉFÉRENTIEL UX — REVIEW PACK FULL CORRIGÉ EN FRANÇAIS
+# ChatGPT Review Pack — FULL
 
-## 1. Métadonnées
+## PRE-M6 FUNCTIONAL BASELINE ADOPTION + CONSOLIDATED PRE-FIGMA GAP READINESS G-UX-01→15
 
-- Horodatage Europe/Paris : 2026-08-15 13:47:01 CEST (+0200)
-- Niveau : FULL
-- Nature : correction linguistique complète, sans changement de conclusion fonctionnelle
-- Cycle : Cycle 2 — Conception fonctionnelle
-- Profil : Critique
-- Typologie : DESIGN / DOC / AUDIT
-- Capacité principale : V3-F05
-- Capacités complémentaires : V3-F02, V3-F14, V3-F15
-- Jalon : RÉFÉRENTIEL PRÉ-M6 DU PARCOURS UTILISATEUR / UX
+**Timestamp (Europe/Paris):** 2026-08-15 15:06:03 CEST
 
-## 2. Autorisations consommées
+**Mode:** FULL
+**Cycle:** Cycle 2 — Conception fonctionnelle · CONTINUATION / DECISION + GAP READINESS
+**Profile:** Critical
+**Primary capability:** V3-F05 (supporting V3-F02 / V3-F14 / V3-F15)
+**Typology:** DESIGN / DOC / AUDIT / DECISION READINESS
 
-GO Morris initial exact :
+---
 
-GO MORRIS — PRE-M6 USER JOURNEY / UX BASELINE QUALIFICATION — AUDIT EXISTING UI + DEFINE CANONICAL M1→M5 USER JOURNEY + UX/FUNCTIONAL IA — NO UI DELIVERY — NO M6 — ZERO REAL
+### 1. Timestamp
+2026-08-15 15:06:03 CEST
 
-GO de correction linguistique consommé après signalement du document en anglais :
+### 2. Exact Morris wording
+```
+ok ta recommandation est tres bien, go
+```
 
-bah go
+### 3. Governed interpretation
+Consume ChatGPT recommendation as Morris GO:
+1. Adopt Pre-M6 functional framing / canonical journey / functional IA / UI reuse principle.
+2. Accept Conversation/Proposal process-local for first bounded functional user test only.
+3. Keep G-UX-15 as structural blocker requiring REQUALIFY (no implementation this cycle).
+4. Produce consolidated readiness for G-UX-01…15 (before/in Figma / Delivery / UAT / accepted / deferred).
+5. Do NOT implement gaps; do NOT start Figma; do NOT authorize UI Delivery / M6 / REAL.
 
-Interprétation gouvernée : traduire intégralement en français l’unique artefact candidat, conserver strictement son contenu fonctionnel, ses identifiants techniques, conclusions, écarts et anti-revendications, régénérer le Review Pack FULL et republier le Review Handoff canonique. Aucune UI Delivery, aucun Figma, aucun M6, aucun Cursor REAL, aucune modification d’exécution et aucune écriture Git projet.
+### 4. Cycle 2 / Critical qualification
+Critical because conclusions determine which functional/application gaps must be qualified or resolved before visual design, which belong in the visual contract, which belong to UI Delivery, which must be proven at UAT, and which are accepted/deferred. No implementation authorized.
 
-## 3. Vérité Git et portée
+### 5. Current Git Truth
+- Repository: mcleland147/sfia-workspace (expected sfia-workspace)
+- Branch: `design/sfia-studio-pre-m6-ux-qualification`
+- HEAD: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
+- origin/main: `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
+- Remote project branch: ABSENT
+- Incoming Review Handoff: `c7b1abcd377965ba305c92b1f69ae02f240b6e61`
+- Incoming blob: `39e07e2d1487989c7a7502d6f325eeda3fb3bb19`
+- Working tree project file: only untracked/unstaged `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
+- Staged: empty
+- REAL env: unset
+- Allowed untracked: `.tmp-sfia-review/**`
 
-- Branche projet : `design/sfia-studio-pre-m6-ux-qualification`
-- HEAD / `origin/main` : `2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7`
-- Artefact : `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
-- Statut projet : candidat non suivi / non indexé, comme requis
-- Fichiers projet créés : 1
-- Fichiers projet existants modifiés : 0
-- Fichiers interdits modifiés : 0
-- Commit/push/PR/merge projet : 0/0/0/0
-- Code/backend/base/schéma/migration/tests : 0
+### 6. Incoming handoff commit/blob
+- Commit: `c7b1abcd377965ba305c92b1f69ae02f240b6e61`
+- Blob (French FULL embed identity verified before work): `39e07e2d1487989c7a7502d6f325eeda3fb3bb19`
 
-## 4. Correction effectuée
+### 7. Mandatory sources consulted
+Process: cycle execution template; routing guide; ChatGPT/Cursor OM; rules/guardrails; knowledge layer; v2.5 cycles method candidate; CKC pilot 02 (candidate / cognitive only).
+Convergence: Build Doctrine; Roadmap (READ ONLY).
+V3 framing: 30, 32, 33, 34, 35, 37 (plus prior 31/11/16 as historical).
+Current Pre-M6 artifact (amended).
+Targeted code (read-only): `prepareM3FromDecision.ts`, `ProjectAssistantPanel.tsx`, `confirmAndExecuteF3Fixture.ts`, `recordDecision.ts`, `supersedeExecutionContract.ts`, `recommendNextGate.ts`, `rehydrateEvidenceOutcomeFromLps.ts`.
 
-L’artefact a été traduit intégralement en français sans résumé ni suppression de section. Les 20 sections, tableaux, classifications d’actifs, états, parcours, IA, contrat Figma futur, contrat de preuve et dossier de décisions Morris sont conservés.
+### 8. Morris decisions now consumed
+| ID | Status |
+|---|---|
+| D-PRE-M6-UX-01 | **ADOPTED BY MORRIS** |
+| D-PRE-M6-UX-02 | **ADOPTED BY MORRIS** |
+| D-PRE-M6-UX-03 | **ADOPTED BY MORRIS AT PRINCIPLE LEVEL** (individual KEEP/ADAPT/HARVEST/REPLACE/FREEZE/RETIRE LATER remain recommendations) |
+| FIRST-TEST PROCESS-LOCAL LIMITATION | **ACCEPTED BY MORRIS** (Conversation/Proposal; first bounded test only; no new persistence) |
+| D-PRE-M6-UX-04 | **REQUALIFY G-UX-15** (BLOCKER remains open; no implementation) |
+| D-PRE-M6-UX-05 | **NO DECISION YET / FIGMA NOT AUTHORIZED** |
 
-Restent volontairement en anglais lorsqu’ils sont des identifiants ou littéraux gouvernés : noms de domaine (`HumanDecision`, `ExecutionContract`, `ExecutionAttempt`, `Evidence`, `ReviewBundle`, `Recommendation`, etc.), actions, routes, enums, IDs, `KEEP/ADAPT/COMPLETE/HARVEST/REPLACE/FREEZE/RETIRE LATER`, `NOW/DERIVED/GAP/FUTURE`, statuts de maturité et chaînes UI citées.
+### 9. Complete updated functional baseline status
+**BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — READINESS FIGMA / DELIVERY NON ACQUISE — GAPS OUVERTS**
 
-Le constat bloquant G-UX-15 est inchangé : le contrat durable M3 PREPARE non résolu doit être préservé, puis résolu ou remplacé par un contrat exécutable valide avant d’entrer dans la confirmation et la limite existante `StartExecution`/`ExecutionAttempt`. La fixture ne constitue pas une preuve produit du chemin critique.
+Anti-claims preserved: adopted ≠ visual UX approved ≠ Figma authorized ≠ gaps implemented ≠ UI Delivery authorized ≠ Pre-M6 complete ≠ M6 authorized ≠ runtime v3 ADOPTED.
 
-## 5. Validation
+### 10. Complete G-UX-01…15 readiness matrix (summary)
 
-- Document complet : 627 lignes
-- `git diff --check` : PASS
-- Changement suivi/stagé : aucun
-- Cohérence des anti-revendications : PASS
-- G-UX-15, D-PRE-M6-UX-01…05, M5 CLOSED, M5-C KEEP, M6 NOT AUTHORIZED, ZERO REAL : conservés
-- Figma/UI Delivery/runtime v3 adoption : toujours non autorisés
+| ID | Severity | Pre-Figma | Figma | Delivery | Proof | Notes |
+|---|---|---|---|---|---|---|
+| G-UX-01 | REQUIRED | FIGMA INPUT ONLY | MUST REPRESENT | UI DELIVERY | E2E+UAT | Entry `/studio` |
+| G-UX-02 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY hide/freeze | E2E+UAT | RETIRE LATER open |
+| G-UX-03 | REQUIRED | FIGMA INPUT | MUST REPRESENT | UI DELIVERY | Visual+UAT | Progressive disclosure |
+| G-UX-04 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY | E2E+visual+UAT | Contextual surfaces |
+| G-UX-05 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY on OA | E2E+UAT | Never D1 engine |
+| G-UX-06 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY projection | E2E+UAT | No timeline store |
+| G-UX-07 | REQUIRED | FIGMA INPUT | MUST REPRESENT | UI DELIVERY copy | Visual+UAT | Authority labels |
+| G-UX-08 | REQUIRED (full journey) | MUST DEFINE | MUST REPRESENT | Delivery or distinct slice before full E2E | E2E+UAT amend; not first GO-only | Not forced with 15 |
+| G-UX-09 | TEMPORARY ACCEPTED | MUST DEFINE honesty | MUST REPRESENT | No new persistence | UAT restart | Morris accepted |
+| G-UX-10 | REQUIRED | MUST DEFINE | MUST REPRESENT | UI DELIVERY derive | E2E+UAT | Prefer no new store |
+| G-UX-11 | REQUIRED (exit) | NO PRE-FIGMA ACTION | OUT OF SCOPE | E2E after Delivery | Browser E2E mandatory exit | Proof gap |
+| G-UX-12 | NON-BLOCKING | NO PRE-FIGMA ACTION | OPTIONAL | No RETIRE now | Not first proof | Principle adopted |
+| G-UX-13 | REQUIRED | MUST DEFINE (§9) | MUST REPRESENT | UI DELIVERY | Visual+E2E+UAT | States |
+| G-UX-14 | DEFERRED | NO ACTION | OUT OF SCOPE | DEFERRED | Not first proof | Future/M6+ |
+| G-UX-15 | **BLOCKER** | **MUST QUALIFY/DEFINE BEFORE FIGMA** | MUST REPRESENT (no hide) | **DISTINCT PRE-DELIVERY TECHNICAL SLICE** | Fixture-safe first; REAL separate GO | REQUALIFY; no impl this cycle |
 
-## 6. Publication Review Handoff
+Full multi-field matrices are in artifact §21.
 
-La publication canonique de ce pack corrigera le Review Handoff FULL précédent avec la version française complète. Elle constitue une publication L3 bornée supplémentaire explicitement autorisée par le GO de correction ; aucune branche projet n’est poussée.
+### 11. Targeted G-UX-15 qualification
+See artifact §22. Confirmed PREPARE-only durable path vs fixture Confirm/StartExecution. Target contract: supersede unresolved → valid successor → existing Confirmation → StartExecution → Attempt. Open Morris questions: target source, capability binding, impl timing vs Figma. ZERO REAL. No implementation.
 
-## 7. Prochaine validation
+### 12. Targeted G-UX-08 qualification
+See artifact §23. AMEND durable; incomplete clarification→requalify→new Proposal→new decision loop. Reuse F1/F2. Shared Decision objects with G-UX-15 but not ExecutionContract→StartExecution boundary. Not forced into same slice.
 
-ChatGPT relit le candidat français complet. Morris décide D-PRE-M6-UX-01…04. G-UX-15 exige une qualification distincte avant UI Delivery. D-PRE-M6-UX-05 ne peut autoriser un futur cycle Figma Visual Contract qu’après adoption du parcours et de l’IA. M6 reste non démarré et non autorisé.
+### 13. Targeted G-UX-10 qualification
+See artifact §24. RecommendNextGate read-only + LPS rehydrate. Prefer freshness derivation from durable versioned facts. Do not add Recommendation persistence by default. Recommendation ≠ Decision.
 
-## 8. Verdict
+### 14. Coherent treatment slice analysis
+- **A:** G-UX-15 only — **RECOMMENDED**
+- **B:** G-UX-15 + G-UX-08
+- **C:** G-UX-15 + G-UX-08 + G-UX-10
+Observation/options/recommendation/Morris decision required: artifact §25. Recommendation is **not** a consumed architecture decision.
 
-QUALIFICATION PRÉ-M6 DU PARCOURS UTILISATEUR / RÉFÉRENTIEL UX CORRIGÉE EN FRANÇAIS — CONTENU FONCTIONNEL ET CONCLUSIONS INCHANGÉS — ARTEFACT COMPLET — DISPOSITIONS D’ACTIFS TOUJOURS CANDIDATES — G-UX-15 TOUJOURS BLOQUANT AVANT UI DELIVERY — AUCUNE ACTION FIGMA — AUCUNE UI DELIVERY — AUCUN M6 — ZERO REAL — PRÊT POUR REVUE CHATGPT / DÉCISION MORRIS
+### 15. Process-local acceptance boundary
+ACCEPTED BY MORRIS — first bounded functional user test only. Honest continuity; no fake restore; restart from durable state; requalify when needed. Exit trigger: UAT proves material continuity/authority failure. No new persistence.
 
-## 9. CONTENU COMPLET DU NOUVEL ARTEFACT PROJET
+### 16. Figma readiness verdict
+**READY WITH FUNCTIONAL RESERVES** — **FIGMA NOT AUTHORIZED** (D-PRE-M6-UX-05).
 
+### 17. UI Delivery readiness verdict
+**NOT READY** — G-UX-15 unresolved. Figma readiness ≠ Delivery readiness.
+
+### 18. Future gate sequence
+Artifact §27 (review → Morris treatment set → G-UX-15 slice → proof → Figma GO → … → M6 Entry only under separate GO).
+
+### 19. Unresolved questions / Morris decisions required
+1. Select treatment set: A / B / C / amend.
+2. G-UX-15: authoritative **target** source; capability resolution; confirmation authority level; whether implementation must precede Figma or may follow visual contract but precede UI Delivery.
+3. Whether G-UX-08 must be in same pre-Delivery slice.
+4. Future D-PRE-M6-UX-05 Figma GO (not now).
+5. Roadmap sync after integration decision (not authorized now).
+6. M5-C owner still missing (governance debt).
+
+### 20. COMPLETE MODIFIED CONTENT of the project artifact
+
+Path: `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
+
+```markdown
 # SFIA Studio — Qualification pré-M6 du parcours utilisateur / référentiel UX
 
 | Champ | Valeur |
 |---|---|
-| Statut | **CANDIDAT — POUR REVUE CHATGPT / DÉCISION MORRIS** |
-| Rôle | Artefact de qualification fonctionnelle du produit pré-M6 |
-| Cycle | Cycle 2 — Conception fonctionnelle |
-| Profil / typologie | Critique · DESIGN / DOC / AUDIT |
+| Statut | **BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — READINESS FIGMA / DELIVERY NON ACQUISE — GAPS OUVERTS** |
+| Rôle | Artefact de baseline fonctionnelle pré-M6 + readiness consolidée des écarts G-UX-01→15 |
+| Cycle | Cycle 2 — Conception fonctionnelle · CONTINUATION / DÉCISION + GAP READINESS |
+| Profil / typologie | Critique · DESIGN / DOC / AUDIT / DECISION READINESS |
 | Capacité principale | V3-F05 — conversation → décision → exécution |
 | Capacités complémentaires | V3-F02 · V3-F14 · V3-F15 |
 | Base Git | `origin/main@2f0d7236e4e1b7c7ca8e987b9d4e6e3ece3c37a7` |
 | Jalon | RÉFÉRENTIEL PRÉ-M6 DU PARCOURS UTILISATEUR / UX |
 | Acteur produit | Morris / pilote du projet |
 | Autorité de livraison | **AUCUNE** — aucune UI Delivery, aucun Figma, M6, Cursor REAL ni changement d’exécution |
+| Décision Morris consommée | `ok ta recommandation est tres bien, go` → D-PRE-M6-UX-01/02/03 ADOPT ; D-PRE-M6-UX-04 REQUALIFY ; D-PRE-M6-UX-05 NO DECISION YET |
 
 ## 1. Périmètre et conclusion de la qualification
 
-Ce document définit le premier référentiel fonctionnel produit **candidat**, informé par le dépôt, couvrant l’exécution M1→M5. Il ne valide ni n’adopte ce référentiel.
+Ce document est la **baseline fonctionnelle pré-M6 adoptée par Morris** pour le parcours utilisateur M1→M5, l’architecture fonctionnelle de l’information et le principe de réutilisation UI. Il conserve l’audit complet antérieur et y ajoute la readiness consolidée pré-Figma des écarts G-UX-01→15.
 
-L’exécution actuelle démontre les capacités requises sur M1→M5, mais elle n’expose **pas** encore une chaîne canonique et cohérente d’exécution produit. Le chemin durable M3 HumanDecision → ExecutionContract est uniquement PREPARE et fermé par défaut à l’exécution ; le chemin actuellement exécutable de l’assistant M4→M5 consomme la Proposal locale au processus et le contrat de fixture. La fixture constitue une preuve utile d’orchestration, mais ne peut servir de preuve produit du chemin critique. Une qualification distincte de l’enchaînement durable M3 PREPARE → résolution/remplacement du contrat → exécution gouvernée est donc requise avant UI Delivery.
+L’exécution actuelle démontre les capacités requises sur M1→M5, mais elle n’expose **pas** encore une chaîne canonique et cohérente d’exécution produit. Le chemin durable M3 HumanDecision → ExecutionContract est uniquement PREPARE et fermé par défaut à l’exécution ; le chemin actuellement exécutable de l’assistant M4→M5 consomme la Proposal locale au processus et le contrat de fixture. La fixture constitue une preuve utile d’orchestration, mais ne peut servir de preuve produit du chemin critique. **G-UX-15 demeure BLOCKER** : une qualification / définition fonctionnelle-applicative distincte (sans implémentation dans ce cycle) est requise avant UI Delivery ; Figma ne peut masquer cet écart.
 
-La Conversation, la Proposal et certains états de travail de confirmation, de trajectoire et épistémiques restent locaux au processus. Cette limite peut convenir à une première preuve d’utilisabilité délibérément circonscrite si elle est signalée lors de la reprise et si aucun état local au processus n’est présenté comme une autorité durable. Elle ne résout pas l’écart de résolution/remplacement du contrat durable vers l’exécution gouvernée.
+La Conversation et la Proposal restent locales au processus. Morris a **accepté** cette limite pour le **premier test utilisateur fonctionnel borné uniquement**. La future UX doit être honnête sur le redémarrage/la reprise, récupérer depuis l’état durable du projet, requalifier si nécessaire, et ne jamais fabriquer un contexte de travail perdu. Ceci n’autorise aucune nouvelle persistance.
 
 L’interface utilisateur existante ne forme pas un produit cohérent unique. Elle comprend :
 
@@ -97,11 +163,11 @@ L’interface utilisateur existante ne forme pas un produit cohérent unique. El
 3. des écrans de fixture P0 `/synthese`, `/cycle-actif`, `/decision`, dont les composants visuels peuvent être récupérés sélectivement, mais dont le flux et les données ne constituent pas l’exécution canonique ;
 4. une surface historique OPS1 présentant un comportement historique d’exécution et de rapport, qui doit rester isolée du chemin produit.
 
-Le référentiel recommandé est une **expérience projet dominée par la conversation**, avec un résumé vivant du projet toujours accessible et des surfaces contextuelles, orientées tâche, pour la décision, l’exécution et les preuves. Il peut s’appuyer sur l’OA Native Backbone et Product SQLite existants. Il ne nécessite ni moteur métier propre à l’interface, ni état de projet dupliqué, ni modèle de décision dupliqué, ni persistance parallèle.
+Le référentiel **adopté** est une **expérience projet dominée par la conversation**, avec un résumé vivant du projet toujours accessible et des surfaces contextuelles, orientées tâche, pour la décision, l’exécution et les preuves. Il s’appuie sur l’OA Native Backbone et Product SQLite existants. Il ne nécessite ni moteur métier propre à l’interface, ni état de projet dupliqué, ni modèle de décision dupliqué, ni persistance parallèle.
 
-**Résultat de la qualification :** CANDIDAT POUR REVUE CHATGPT / DÉCISION MORRIS.
+**Résultat :** BASELINE FONCTIONNELLE PRÉ-M6 ADOPTÉE PAR MORRIS — readiness Figma / UI Delivery **non acquises** — gaps G-UX-01→15 ouverts et classifiés — G-UX-15 reste REQUALIFY / BLOCKER — **aucun** Figma, UI Delivery, M6 ni REAL autorisé.
 
-**Anti-revendications :** ce résultat n’est ni un référentiel UX adopté, ni une conception Figma approuvée, ni un contrat visuel, ni une spécification d’implémentation autorisée pour Delivery, ni une autorisation de remplacer ou retirer l’interface actuelle, ni une M6 Entry Qualification, ni une adoption de runtime v3.
+**Anti-revendications :** baseline fonctionnelle adoptée ≠ référentiel UX visuel approuvé ≠ Figma autorisé ≠ gaps implémentés ≠ UI Delivery autorisée ≠ Pre-M6 terminée ≠ M6 Entry Qualification ≠ runtime v3 ADOPTED. Les dispositions individuelles KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER restent des **recommandations** jusqu’aux gates de readiness / Delivery pertinentes.
 
 ## 2. Autorité et hiérarchie des sources
 
@@ -163,12 +229,21 @@ Les sources d’exécution, d’interface et de tests ont été examinées sous 
 ### 2.3 État de convergence gouverné
 
 - M5 : **CLOSED**.
-- M5-C : **KEEP TEMPORARY WITH EXIT** ; le journal technique de lancement reste distinct du stockage Product Attempt et n’a pas été retiré.
-- Trajectoire pré-M6 : décidée par Morris ; la production de ce document candidat de qualification est autorisée par le contrat d’exécution actuel. Son parcours, son IA, le traitement de ses écarts et les dispositions de ses actifs restent en attente de D-PRE-M6-UX-01…05.
-- Figma et Pre-M6 UI Delivery : non autorisés.
-- M6 : non démarré / non autorisé.
-- runtime v3 : non adopté.
-- Consommation de Cursor REAL / Gate D dans ce cycle : zéro.
+- M5-C : **KEEP TEMPORARY WITH EXIT** ; propriétaire **non explicitement consigné** (dette de gouvernance post-M5) ; le journal technique de lancement reste distinct du stockage Product Attempt et n’a pas été retiré.
+- Trajectoire pré-M6 : **DECIDED**.
+- Qualification pré-M6 : **COMPLETE + CHATGPT REVIEW PASS** (artefact français) ; **adoption Morris** consommée dans ce cycle de continuation.
+- Parcours utilisateur canonique : **ADOPTED BY MORRIS** (D-PRE-M6-UX-01).
+- Architecture fonctionnelle de l’information : **ADOPTED BY MORRIS** (D-PRE-M6-UX-02).
+- Principe de réutilisation UI : **ADOPTED BY MORRIS AT PRINCIPLE LEVEL** (D-PRE-M6-UX-03) — dispositions individuelles de composants **non consommées automatiquement**.
+- Limitation process-local premier test : **ACCEPTED BY MORRIS**.
+- G-UX-15 : **REQUALIFY** — BLOCKER demeure ouvert (D-PRE-M6-UX-04).
+- Readiness consolidée G-UX-01→15 : **AUTHORIZED / COMPLETED** dans ce cycle (classification seulement ; aucune implémentation).
+- Figma Visual Contract : **NOT AUTHORIZED** (D-PRE-M6-UX-05 = NO DECISION YET).
+- Pre-M6 UI Delivery : **NOT AUTHORIZED**.
+- M6 : **NOT STARTED / NOT AUTHORIZED**.
+- runtime v3 : **NON ADOPTED**.
+- Consommation de Cursor REAL / Gate D dans ce cycle : **0**.
+- Sync Roadmap : **REQUISE APRÈS** revue ChatGPT / décision Morris sur le jeu de traitements — **non autorisée** dans ce cycle.
 
 ## 3. Acteur et tâches à accomplir
 
@@ -475,9 +550,21 @@ Légende : **NOW** = directement pris en charge ; **DERIVED** = dérivation prop
 | HumanDecision/contrat | Durable | L’autorité peut survivre au redémarrage | Les traiter comme points d’ancrage de récupération | Non |
 | Attempt/Evidence/RB/références LPS | Durables et éprouvés au redémarrage | Le résultat reste visible après rechargement | Les utiliser comme point d’ancrage canonique de reprise | Non |
 
-**Recommendation :** ne pas faire d’une persistance plus large un prérequis à la première preuve d’utilisabilité pré-M6. La preuve doit inclure un scénario de redémarrage/reprise démontrant une gestion honnête de la perte et la récupération du résultat durable. Toute nouvelle sélection de persistance exige une décision Morris distincte.
+**Décision Morris consommée :** FIRST-TEST PROCESS-LOCAL LIMITATION = **ACCEPTED BY MORRIS**.
+
+Périmètre exact :
+
+- **Accepté pour le premier test utilisateur fonctionnel borné uniquement :** Conversation / Proposal process-local.
+- **Comportement UX requis :** continuité honnête ; aucune restauration factice ; reprise depuis l’état durable ; requalification offerte si nécessaire.
+- **Non accepté :** perte d’autorité masquée ; état d’exécution déduit de la Conversation locale ; reconstruction d’une Proposal consommée depuis la mémoire ; nouvelle persistance ad hoc sans décision.
+- **Aucune nouvelle persistance sélectionnée.**
+- **Déclencheur de sortie pour reconsidérer la durabilité :** uniquement si l’UAT / l’usage démontre que la perte de Conversation / Proposal de travail empêche matériellement la continuité attendue ou une autorité sûre.
+
+Les dispositions détaillées de readiness multi-dimensionnelle figurent au §21. Le registre §12 conserve l’audit factuel d’origine.
 
 ## 12. Registre des écarts
+
+> Les dispositions de readiness actualisées (sévérité, pré-Figma, Figma, Delivery, preuve/UAT) sont au **§21**. Ce registre conserve la preuve d’audit et l’impact utilisateur.
 
 | ID / classe | Preuve et impact utilisateur | Bloque la preuve fonctionnelle / Figma | Traitement candidat le plus simple | Risque d’exécution/architecture | Responsable / échéance |
 |---|---|---|---|---|---|
@@ -501,7 +588,11 @@ Légende : **NOW** = directement pris en charge ; **DERIVED** = dérivation prop
 
 ## 13. Résumé de la disposition des actifs existants
 
-Candidat uniquement :
+**Principe de réutilisation :** **ADOPTED BY MORRIS** (D-PRE-M6-UX-03 au niveau principe).
+
+**Dispositions individuelles de composants :** restent des **recommandations** jusqu’aux gates de readiness / Delivery pertinentes. Ce GO n’adopte **pas** silencieusement chaque KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER.
+
+Recommandations conservées (non consommées comme décisions de retrait/remplacement) :
 
 - **KEEP :** OA Native Backbone ; Product SQLite ; ports/cas d’utilisation de domaine actuels ; modèles Project, LPS, CycleInstance, HumanDecision, ExecutionContract, ExecutionAttempt, Evidence et ReviewBundle ; rédacteur LPS factuel ; relecture durable de Nora ; limite d’autorité StartExecution ; primitives d’interface testées sous réserve de revue visuelle.
 - **ADAPT :** `/studio/projects/new` ; `/studio/projects/[id]` ; `StudioShell` ; chargeurs/actions d’exécution ; primitives accessibles d’état/décision/preuve.
@@ -534,7 +625,7 @@ Si une future conception exige un moteur métier propre à l’interface, un LPS
 
 ## 15. Futur contrat d’entrée Figma
 
-Statut : **FIGMA INPUT CANDIDATE** — ni autorisation Figma ni contrat visuel.
+Statut : **FIGMA INPUT DEFINED FOR DESIGN READINESS** — **FIGMA NOT AUTHORIZED** (D-PRE-M6-UX-05 = NO DECISION YET). Voir verdict §26.
 
 | Scénario futur | Objectif utilisateur / informations requises | Actions et autorité | État de l’exécution | Critère d’acceptation |
 |---|---|---|---|---|
@@ -603,94 +694,747 @@ Anti-objectifs :
 - exposer la terminologie CKC/OA/SQLite/REAL comme contenu produit normal ;
 - périmètre M6, exécution Figma, UI Delivery ou Cursor REAL.
 
-Dépendances avant qu’un référentiel adopté puisse progresser :
+Dépendances avant progression autorisée :
 
-- décisions Morris D-PRE-M6-UX-01 à 05 ;
-- amendement de ce candidat si demandé ;
-- GO distinct pour Figma Visual Contract uniquement après adoption du parcours et de l’IA ;
-- validation Figma avant UI Delivery ;
-- qualification Delivery distincte préservant les limites OA/applicatives.
+- **Satisfaites dans ce cycle :** D-PRE-M6-UX-01/02/03 adoptés ; process-local premier test accepté ; D-PRE-M6-UX-04 = REQUALIFY ; readiness G-UX-01→15 classifiée.
+- **Ouvertes :** sélection Morris du jeu de traitements (tranche A/B/C) ; résolution/implémentation G-UX-15 hors de ce cycle ; D-PRE-M6-UX-05 (Figma GO) ; UI Delivery ; sync Roadmap après décision d’intégration.
+- GO distinct pour Figma Visual Contract uniquement lorsque les prérequis pré-Figma du §21/§26 sont stables.
+- Validation Figma avant UI Delivery.
+- Qualification / Delivery distincte de G-UX-15 préservant les limites OA/applicatives ; fixture ≠ preuve produit du chemin critique.
 
-## 18. Dossier de décisions Morris
+## 18. Dossier de décisions Morris — STATUTS CONSOMMÉS
 
-Aucune décision ci-dessous n’est consommée par ce document.
+Décision Morris exacte consommée : `ok ta recommandation est tres bien, go`.
 
-### D-PRE-M6-UX-01 — Candidat de parcours utilisateur canonique M1→M5
+### D-PRE-M6-UX-01 — Parcours utilisateur canonique M1→M5
 
-Options : **ADOPT / AMEND / REJECT**.
+**Statut : ADOPTED BY MORRIS.**
 
-Recommendation : **ADOPT WITH EXPLICIT FIRST-TEST PROCESS-LOCAL LIMITATION**, sous réserve de la critique ChatGPT et de la revue Morris.
+Signification : adopter le parcours M1→M5 canonique défini dans cet artefact, avec la limitation process-local explicite du premier test.
 
-### D-PRE-M6-UX-02 — Candidat d’architecture fonctionnelle de l’information
+### D-PRE-M6-UX-02 — Architecture fonctionnelle de l’information
 
-Options : **ADOPT / AMEND / REJECT**.
+**Statut : ADOPTED BY MORRIS.**
 
-Recommendation : **ADOPT** le modèle Projets → Projet actuel → historique contextuel, la domination de la Conversation et l’absence de navigation à une page par objet.
+Signification : Projets → Projet actuel → historique contextuel → Diagnostics optionnels ; Conversation dominante ; living project state accessible ; décisions / exécution / preuves contextualisées ; pas de navigation une-page-par-objet ; Project ≠ Cycle.
 
-### D-PRE-M6-UX-03 — Principe de réutilisation et dispositions des actifs significatifs
+### D-PRE-M6-UX-03 — Principe de réutilisation UI
 
-Options : **ADOPT / AMEND / REJECT**.
+**Statut : ADOPTED BY MORRIS AT PRINCIPLE LEVEL.**
 
-Recommendation : **ADOPT** la réutilisation par comportement/câblage :
+Signification :
 
-- conserver l’exécution OA et le câblage `/studio` ;
-- récupérer le comportement d’intention D1, pas son moteur d’état ;
-- récupérer sélectivement les composants P0, pas son flux de fixture ni son référentiel visuel ;
-- geler les routes historiques OPS1/P0/D1 ;
-- n’autoriser aucun retrait avant la preuve de remplacement.
+- KEEP l’ossature runtime/domaine/application M1→M5 utile ;
+- réutiliser l’UI existante sélectivement par comportement / câblage / modèle d’information ;
+- ne pas traiter le design visuel historique comme référentiel cible ;
+- ne pas créer de Frankenstein UX ;
+- ne pas réutiliser les moteurs d’état / cycles de vie D1/P0/OPS1 comme moteurs produit parallèles ;
+- ne pas supprimer l’UI historique encore.
 
-### D-PRE-M6-UX-04 — Écarts d’exécution bloquants
+**Important :** ce GO n’adopte **pas** automatiquement chaque disposition individuelle KEEP / ADAPT / HARVEST / REPLACE / FREEZE / RETIRE LATER. Celles-ci restent soumises aux gates de readiness / Delivery.
 
-Options : **SELECT TREATMENT / DEFER / REQUALIFY**.
+### FIRST-TEST PROCESS-LOCAL LIMITATION
 
-Constat : G-UX-15 est bloquant. Recommendation : **REQUALIFY** l’intégration durable M3 PREPARE → résolution/remplacement du contrat → exécution gouvernée avant UI Delivery. La qualification doit préserver le contrat non résolu, réutiliser ses HumanDecision/DecisionBasis durables, produire un contrat exécutable valide selon les règles existantes du cycle de vie du contrat, puis utiliser la confirmation existante et la limite StartExecution/ExecutionAttempt. Elle doit rester sûre pour la fixture/ZERO REAL et rejeter le contournement du fonctionnement fermé par défaut, les séquenceurs dupliqués ou l’état parallèle.
+**Statut : ACCEPTED BY MORRIS.**
 
-Séparément :
+Conversation / Proposal peuvent rester process-local pour le premier test utilisateur fonctionnel borné. Pas de nouvelle persistance. Voir §11.
 
-- recâbler AMEND durable vers la clarification avant le scénario complet d’amendement ;
-- accepter Conversation/Proposal locales au processus pour la première preuve uniquement si Morris accepte explicitement cette limite ;
-- qualifier une persistance étendue uniquement si elle est requise ultérieurement.
+### D-PRE-M6-UX-04 — Écarts d’exécution bloquants / G-UX-15
+
+**Statut : REQUALIFY G-UX-15.**
+
+G-UX-15 demeure BLOCKER structurel / de câblage applicatif. Un traitement futur distinct doit qualifier le chemin durable :
+
+HumanDecision / DecisionBasis → ExecutionContract M3 durable non résolu → ExecutionContract exécutable résolu / successeur valide → Confirmation existante → StartExecution existant → ExecutionAttempt existante
+
+sans : modifier le contrat non résolu en place ; contourner le fail-closed ; traiter la fixture comme preuve produit du chemin critique ; créer un séquenceur parallèle ; consommer REAL dans ce cycle.
+
+Aucune implémentation dans ce cycle. Qualification ciblée : §22.
 
 ### D-PRE-M6-UX-05 — Futur cycle Figma Visual Contract
 
-Options : **GO / NO-GO**, uniquement après adoption de D-PRE-M6-UX-01 et 02.
+**Statut : NO DECISION YET / FIGMA NOT AUTHORIZED.**
 
-Recommendation actuelle : **NO DECISION YET**. Un futur GO pourra être envisagé après adoption/amendement du parcours et de l’IA par ChatGPT et Morris.
+Ce GO n’autorise pas le Figma Visual Contract.
 
 ## 19. Recommendation, réserves et prochaine validation
 
-### Recommendation
+### Recommendation (post-adoption)
 
-Adopter, avec des amendements si nécessaire, un parcours canonique dominé par la conversation sur la route projet adossée à OA. Préserver l’ossature d’exécution/applicative existante et n’utiliser l’interface actuelle que comme preuve et source sélective de comportement/câblage/composants.
+La baseline fonctionnelle est adoptée. La prochaine décision structurale de Morris porte sur le **jeu de traitements** des gaps (recommandation de tranche : §25), pas sur une nouvelle adoption du parcours/IA.
 
-### Réserves
+### Réserves ouvertes
 
-1. La taxonomie et le texte actuels des routes représentent matériellement de façon erronée la réalité de l’exécution.
-2. Le câblage de la liste/l’historique des projets exige un futur travail Delivery, mais pas un nouveau modèle de domaine.
-3. L’enregistrement durable de AMEND existe, mais le flux de retour à la clarification/requalification est incomplet.
-4. La perte de Conversation/Proposal au redémarrage doit être acceptée et testée, ou qualifiée séparément avant Delivery.
-5. L’actualité de Recommendation nécessite un traitement explicite dans l’interface/l’application.
-6. Le retrait historique reste non approuvé.
-7. Le responsable/retrait M5-C reste une dette de gouvernance distincte et hors de ce référentiel.
+1. G-UX-15 BLOCKER — non implémenté ; doit rester visible dans tout futur Figma.
+2. G-UX-08 — boucle AMEND incomplete ; requise pour parcours complet, pas pour premier happy-path GO-only.
+3. G-UX-10 — actualité Recommendation à définir/câbler sans nouveau modèle de décision.
+4. G-UX-09 — process-local accepté temporairement pour le premier test uniquement.
+5. Dispositions individuelles de composants / RETIRE — non consommées.
+6. M5-C owner / exit — dette de gouvernance distincte.
+7. Roadmap sync — après revue / décision d’intégration ; non autorisée ici.
 
 ### Prochaine validation
 
-ChatGPT examine ce candidat complet au regard de l’exécution, de la convergence et de la doctrine v3, puis Morris décide D-PRE-M6-UX-01 à 04. D-PRE-M6-UX-04 doit sélectionner une qualification G-UX-15 distincte avant UI Delivery. Ce n’est qu’après adoption du parcours et de l’IA que Morris pourra décider D-PRE-M6-UX-05 pour un cycle Figma Visual Contract distinct ; Figma peut représenter les états prévus, mais ne doit pas masquer l’écart non résolu de la chaîne produit.
+1. ChatGPT lit le Review Handoff et vérifie chaque statut G-UX contre la vérité du dépôt.
+2. ChatGPT challenge la recommandation de tranche de traitement (§25).
+3. Morris sélectionne le futur jeu de traitements (ex. G-UX-15 seul, ou tranche cohérente élargie).
+4. Seulement ensuite : éventuelle qualification/Delivery technique de la tranche choisie ; puis, séparément, D-PRE-M6-UX-05 pour Figma.
 
-M6 reste **NOT STARTED / NOT AUTHORIZED** pendant toute la durée.
+M6 reste **NOT STARTED / NOT AUTHORIZED**.
 
 ## 20. Sécurité et anti-revendications finales
 
-- Nouveaux documents de projet : un.
-- Documents de projet existants modifiés : zéro.
-- Code, backend, base de données, schéma, migration et tests modifiés : zéro.
-- Interface existante supprimée ou disposition exécutée : zéro.
-- Actions/fichiers Figma : zéro.
-- UI Delivery : zéro.
-- Travail M6 : zéro.
-- Cursor REAL, Gate D et nouvel essai : zéro.
-- Retrait M5-C : zéro.
-- Adoption/promotion globale de runtime v3 : zéro.
-- Commit/push/PR/merge/suppression de branche du projet : zéro.
+- Artefacts projet créés dans ce cycle : **0**.
+- Artefact pré-M6 local existant modifié : **1**.
+- Autres docs projet / Roadmap / Build Doctrine / v3 framing : **0**.
+- Code, routes, composants, backend, schéma, tests : **0**.
+- Actions Figma : **0**.
+- UI Delivery : **0**.
+- Implémentation G-UX : **0**.
+- Travail M6 : **0**.
+- Cursor REAL / Gate D : **0**.
+- Retrait M5-C / adoption runtime v3 : **0**.
+- Commit / push / PR projet : **0**.
+- Review Handoff push : autorisé L3 borné (hors artefact projet).
 
-**CANDIDATE ne signifie pas VALIDATED, ADOPTED, READY FOR DELIVERY, FIGMA APPROVED, M6 READY ni runtime v3 ADOPTED.**
+**Anti-revendications :**
+
+- baseline fonctionnelle ADOPTÉE ≠ UX visuelle approuvée
+- baseline fonctionnelle ADOPTÉE ≠ Figma autorisé
+- gap readiness complète ≠ gap implementation complète
+- G-UX-15 qualifié (contrat cible) ≠ G-UX-15 implémenté
+- Figma readiness READY WITH FUNCTIONAL RESERVES ≠ Figma GO
+- UI Delivery readiness ≠ autorisation UI Delivery
+- progrès pré-M6 ≠ autorisation M6
+- ADOPT principe de réutilisation ≠ dispositions individuelles consommées
+
+## 21. PRE-FIGMA GAP READINESS — G-UX-01 → G-UX-15
+
+Taxonomie normalisée (dimensions co-existantes ; « comprendre avant Figma » ≠ « implémenter avant Figma ») :
+
+- **FUNCTIONAL SEVERITY :** BLOCKER | REQUIRED | NON-BLOCKING | TEMPORARY ACCEPTED | DEFERRED
+- **PRE-FIGMA STATUS :** MUST RESOLVE BEFORE FIGMA | MUST QUALIFY / DEFINE BEFORE FIGMA | FIGMA INPUT ONLY | NO PRE-FIGMA ACTION
+- **FIGMA STATUS :** MUST REPRESENT IN VISUAL CONTRACT | OPTIONAL / DIAGNOSTIC | OUT OF FIGMA SCOPE
+- **DELIVERY STATUS :** IMPLEMENT IN PRE-M6 UI DELIVERY | IMPLEMENT IN DISTINCT PRE-DELIVERY TECHNICAL SLICE | NO IMPLEMENTATION REQUIRED | DEFERRED
+- **PROOF STATUS :** MUST PROVE IN BROWSER E2E | MUST PROVE IN VISUAL COMPARISON | MUST PROVE IN MORRIS UAT | NOT REQUIRED FOR FIRST PROOF
+
+Vérification factuelle : base Git `2f0d7236…` ; sources ciblées `prepareM3FromDecision.ts`, `confirmAndExecuteF3Fixture.ts` / `ProjectAssistantPanel.tsx`, `recordDecision.ts`, `supersedeExecutionContract.ts`, `recommendNextGate.ts`, `rehydrateEvidenceOutcomeFromLps.ts`. Aucune preuve trouvée pour rétrograder G-UX-15 hors BLOCKER.
+
+### G-UX-01 — Entrée canonique `/studio` manquante
+
+| Champ | Valeur |
+|---|---|
+| Classe source | UX INFORMATION ARCHITECTURE GAP |
+| Condition factuelle actuelle | Toujours valide : pas d’entrée projet canonique `/studio` ; démarrages concurrents |
+| Étapes du parcours | Orientation / créer-ouvrir projet |
+| Impact utilisateur | Confusion d’entrée ; parcours produit non unique |
+| Risque actuel | Moyen (orientation) |
+| Dimension bloquante | IA / navigation |
+| Sévérité fonctionnelle | REQUIRED |
+| Pré-Figma | FIGMA INPUT ONLY (IA déjà adoptée) |
+| Figma | MUST REPRESENT IN VISUAL CONTRACT |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY |
+| Preuve / UAT | MUST PROVE IN BROWSER E2E ; MUST PROVE IN MORRIS UAT |
+| Acceptation temporaire | Non pour le produit cible |
+| Report possible | Non pour la sortie pré-M6 |
+| Dépendance | D-PRE-M6-UX-02 adopté |
+| Tranche proposée | UI Delivery navigation |
+| Traitement le plus simple | Destination Projets + redirections ; réutiliser lectures OA |
+| Risque architecture parallèle | Faible |
+| Preuve de clôture | Route d’entrée unique + E2E orientation |
+| Gate Morris | Confirmation visuelle puis Delivery (pas de nouveau modèle de domaine) |
+| Owner | Owner missing |
+| Disposition readiness | DEFINE VIA ADOPTED IA → REPRESENT IN FIGMA → IMPLEMENT IN DELIVERY |
+
+### G-UX-02 — Routes historiques présentées comme pairs
+
+| Champ | Valeur |
+|---|---|
+| Classe source | HISTORICAL UI DEBT |
+| Condition factuelle actuelle | Toujours valide : P0 / D1 / OA / OPS1 co-visibles |
+| Étapes | Orientation / navigation |
+| Impact | Fausse équivalence de chemins |
+| Risque | Moyen |
+| Dimension bloquante | Navigation / visibilité |
+| Sévérité | REQUIRED |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA (politique de navigation) |
+| Figma | MUST REPRESENT IN VISUAL CONTRACT (nav canonique seulement) |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY (masquer/geler ; ne pas supprimer) |
+| Preuve | MUST PROVE IN BROWSER E2E ; MUST PROVE IN MORRIS UAT |
+| Temporaire / report | RETIRE LATER = futur gate ; FREEZE maintenant |
+| Dépendance | D-PRE-M6-UX-03 principe |
+| Tranche | UI Delivery navigation |
+| Traitement simple | Masquer chemins historiques de la nav canonique |
+| Risque parallèle | Faible si pas de fusion de moteurs |
+| Preuve de clôture | Nav canonique seule ; routes historiques non liées |
+| Gate Morris | Disposition de masquage ; RETIRE ultérieur séparé |
+| Owner | Owner missing |
+| Disposition | DEFINE NAV POLICY BEFORE FIGMA → REPRESENT → HIDE IN DELIVERY → RETIRE LATER |
+
+### G-UX-03 — Concepts d’implémentation exposés
+
+| Champ | Valeur |
+|---|---|
+| Classe | UX PRESENTATION GAP |
+| Condition | Toujours valide : CKC / IDs / SQLite / indicateurs techniques exposés |
+| Étapes | Orientation / lecture d’état |
+| Impact | Charge cognitive / vocabulaire non produit |
+| Risque | Moyen |
+| Dimension | Présentation |
+| Sévérité | REQUIRED |
+| Pré-Figma | FIGMA INPUT ONLY |
+| Figma | MUST REPRESENT (résumé utilisateur ; diagnostics progressifs) |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY |
+| Preuve | MUST PROVE IN VISUAL COMPARISON ; MUST PROVE IN MORRIS UAT |
+| Temporaire / report | Non pour surface canonique |
+| Dépendance | §9 états |
+| Tranche | UI Delivery présentation |
+| Traitement | Progressive disclosure ; diagnostics optionnels |
+| Risque parallèle | Faible |
+| Preuve clôture | Capture + UAT sans jargon obligatoire |
+| Gate Morris | Validation visuelle |
+| Owner | Owner missing |
+| Disposition | FIGMA INPUT → DELIVERY COPY/PRESENTATION |
+
+### G-UX-04 — Assistant monolithique / objets structurés concurrents
+
+| Champ | Valeur |
+|---|---|
+| Classe | UX PRESENTATION GAP |
+| Condition | Toujours valide : long panneau unique concurrent |
+| Étapes | Conversation → décision → exécution → preuve |
+| Impact | Objets d’autorité perdus dans le flux |
+| Risque | Élevé UX |
+| Dimension | Composition / états |
+| Sévérité | REQUIRED |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA (états §9 déjà définis) |
+| Figma | MUST REPRESENT IN VISUAL CONTRACT |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY |
+| Preuve | E2E + visual + UAT |
+| Temporaire | Non |
+| Dépendance | D-PRE-M6-UX-01/02 |
+| Tranche | UI Delivery composition |
+| Traitement | Surfaces contextuelles liées à conversation dominante ; pas de nouveau moteur |
+| Risque parallèle | Faible si ports OA réutilisés |
+| Preuve clôture | États structurés distincts observables |
+| Gate Morris | Validation Figma puis Delivery |
+| Owner | Owner missing |
+| Disposition | DEFINE STATES → REPRESENT → IMPLEMENT IN DELIVERY |
+
+### G-UX-05 — Comportement D1 intent-first non câblé à OA
+
+| Champ | Valeur |
+|---|---|
+| Classe | APPLICATION WIRING GAP |
+| Condition | Toujours valide : D1 non branché sur M1→M5 OA |
+| Étapes | Conversation / intention |
+| Impact | Comportement utile absent du chemin canonique |
+| Risque | Élevé si moteur D1 réutilisé |
+| Dimension | Comportement / câblage |
+| Sévérité | REQUIRED (parcours cible) |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA (contrat de comportement) |
+| Figma | MUST REPRESENT (comportement cible, pas écrans D1) |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY sauf prérequis applicatif découvert |
+| Preuve | E2E + UAT |
+| Temporaire | Non pour parcours cible |
+| Dépendance | HARVEST comportement ; jamais stockage D1 |
+| Tranche | UI Delivery behavior harvest |
+| Traitement | Recréer sur actions OA ; ne pas relier stockages/lifecycles D1 |
+| Risque parallèle | **Élevé** si état D1 réutilisé |
+| Preuve clôture | Intention → qualification OA sans store D1 |
+| Gate Morris | Revue anti-parallèle Delivery |
+| Owner | Owner missing |
+| Disposition | DEFINE BEHAVIOR → REPRESENT → IMPLEMENT ON OA ONLY |
+
+### G-UX-06 — Destination / projection historique projet absente
+
+| Champ | Valeur |
+|---|---|
+| Classe | APPLICATION WIRING GAP |
+| Condition | Toujours valide : pas de destination stable d’historique |
+| Étapes | Reprise / preuve / décision passée |
+| Impact | Continuité et auditabilité utilisateur faibles |
+| Risque | Moyen |
+| Dimension | Modèle d’information / projection |
+| Sévérité | REQUIRED |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA |
+| Figma | MUST REPRESENT |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY (ports durables existants) |
+| Preuve | E2E + UAT |
+| Temporaire | Non pour sortie pré-M6 |
+| Dépendance | LPS / Decision / Attempt / Evidence / RB |
+| Tranche | UI Delivery history projection |
+| Traitement | Projection/requête ; pas de timeline store parallèle |
+| Risque parallèle | Moyen si nouveau store |
+| Preuve clôture | Historique lisible depuis faits durables |
+| Gate Morris | Revue modèle d’information |
+| Owner | Owner missing |
+| Disposition | DEFINE INFO MODEL → REPRESENT → IMPLEMENT AS PROJECTION |
+
+### G-UX-07 — Libellés runtime obsolètes / inexacts
+
+| Champ | Valeur |
+|---|---|
+| Classe | UX PRESENTATION GAP |
+| Condition | Toujours valide : wording « local/read-only/not ready » trompeur |
+| Étapes | Orientation / autorité |
+| Impact | Fausse lecture de capacité |
+| Risque | Moyen |
+| Dimension | Copy / sémantique d’autorité |
+| Sévérité | REQUIRED |
+| Pré-Figma | FIGMA INPUT ONLY |
+| Figma | MUST REPRESENT (labels d’autorité) |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY |
+| Preuve | Visual comparison + UAT |
+| Temporaire | Non |
+| Dépendance | Faible |
+| Tranche | UI Delivery copy |
+| Traitement | Remplacer par labels de capacité/autorité |
+| Risque parallèle | Faible |
+| Preuve clôture | Copy alignée capacité réelle |
+| Gate Morris | Validation visuelle |
+| Owner | Owner missing |
+| Disposition | FIGMA INPUT → DELIVERY COPY |
+
+### G-UX-08 — AMEND durable sans boucle clarification/requalification complète
+
+| Champ | Valeur |
+|---|---|
+| Classe | APPLICATION WIRING GAP |
+| Condition | Toujours valide : `recordDecision` mappe AMEND → `AMENDMENT_REQUIRED` / HumanDecision `amended` ; pas de retour conversation → nouvelle Proposal → nouvelle décision câblé de bout en bout dans l’UI |
+| Étapes | Décision → clarification → requalification |
+| Impact | Amendement enregistré sans reprise gouvernée |
+| Risque | Moyen |
+| Dimension | Câblage post-décision |
+| Sévérité | REQUIRED (parcours complet) ; **NON blocker** du premier happy-path GO-only |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA |
+| Figma | MUST REPRESENT (état amended + récupération) |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY **ou** tranche applicative distincte avant E2E/UAT complet |
+| Preuve | MUST PROVE IN BROWSER E2E ; MUST PROVE IN MORRIS UAT (scénario amend) ; **NOT REQUIRED FOR FIRST PROOF** GO-only |
+| Temporaire | Possible pour premier test GO-only seulement |
+| Report | Non pour sortie fonctionnelle complète |
+| Dépendance | F1/F2 orchestration ; Proposal process-local ; DecisionBasis |
+| Tranche | Candidate B avec G-UX-15 **non forcée** ; tranche Delivery séparée recommandée |
+| Traitement | Depuis HumanDecision amended → conversation → nouvelle Proposal → nouvelle décision ; Proposal stale refusée ; réutiliser F1/F2 |
+| Risque parallèle | Moyen si ancienne Proposal mutée / autorité inventée |
+| Preuve clôture | Scénario AMEND → nouvelle Proposal → GO |
+| Gate Morris | Autorisation de traitement ; voir §23 |
+| Owner | Owner missing |
+| Disposition | MUST DEFINE BEFORE FIGMA → IMPLEMENT BEFORE FULL E2E/UAT → NOT SAME MUST-SLICE AS G-UX-15 |
+
+### G-UX-09 — Conversation / Proposal process-local
+
+| Champ | Valeur |
+|---|---|
+| Classe | DURABILITY GAP |
+| Condition | Toujours valide : non reprenables après restart serveur |
+| Étapes | Conversation / qualification / reprise |
+| Impact | Perte de contexte de travail ; autorité durable intacte |
+| Risque | Moyen UX ; élevé si persistance ad hoc |
+| Dimension | Continuité |
+| Sévérité | **TEMPORARY ACCEPTED** (Morris) pour premier test borné |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA (sémantique honnête) |
+| Figma | MUST REPRESENT (reload/re-entry honnête) |
+| Delivery | NO IMPLEMENTATION REQUIRED (persistance) pour premier test ; honest UX in Delivery |
+| Preuve | MUST PROVE IN MORRIS UAT (reprise) ; E2E reprise |
+| Temporaire | **Oui — ACCEPTED BY MORRIS** premier test only |
+| Report | Future durability seulement si UAT prouve nécessité |
+| Dépendance | §11 ; points d’ancrage durables |
+| Tranche | Aucune tranche de persistance maintenant |
+| Traitement | Notices + reprise durable + requalification ; **pas** de nouveau store |
+| Risque parallèle | Élevé si persistance ad hoc |
+| Preuve clôture | Scénario restart honnête |
+| Gate Morris | Déjà consommé ; exit = preuve UAT de nécessité |
+| Owner | Morris (acceptation) |
+| Disposition | TEMPORARY ACCEPTED — HONEST UX REQUIRED — NO NEW PERSISTENCE |
+
+### G-UX-10 — Actualité / supersession Recommendation non explicite
+
+| Champ | Valeur |
+|---|---|
+| Classe | APPLICATION WIRING GAP |
+| Condition | Toujours valide : `RecommendNextGate` read-only avec snapshots/versions ; réhydratation LPS → evidenceIds/reviewBundleIds ; UI ne rend pas toujours la Recommendation périmée vs courante |
+| Étapes | Post-preuve / Recommendation → décision |
+| Impact | Suggestion Nora potentiellement stale |
+| Risque | Moyen (autorité cognitive) |
+| Dimension | Dérivation / présentation |
+| Sévérité | REQUIRED |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA |
+| Figma | MUST REPRESENT (périmée vs courante) |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY (dérivation préférée) |
+| Preuve | E2E + UAT ; Recommendation ≠ Decision |
+| Temporaire | Non pour sortie complète |
+| Report | Non |
+| Dépendance | Evidence / RB / LPS ; pas G-UX-15 must-group |
+| Tranche | Delivery wiring ; option C non forcée |
+| Traitement | Dériver stale depuis faits durables versionnés ; **pas** de nouveau modèle Recommendation durable sauf preuve de nécessité |
+| Risque parallèle | Moyen si Recommendation devient Decision |
+| Preuve clôture | Stale visible après nouvel Attempt/Evidence/RB |
+| Gate Morris | Revue modèle de fraîcheur ; voir §24 |
+| Owner | Owner missing |
+| Disposition | DEFINE FRESHNESS FROM DURABLE FACTS → REPRESENT → IMPLEMENT WITHOUT NEW PERSISTENCE DEFAULT |
+
+### G-UX-11 — Pas d’E2E navigateur canonique
+
+| Champ | Valeur |
+|---|---|
+| Classe | EVIDENCE GAP |
+| Condition | Toujours valide : E2E couvre P0/D1/OPS1 ; pas `/studio/projects/*` canonique |
+| Étapes | Preuve de sortie pré-M6 |
+| Impact | Pas de preuve produit navigateur unique |
+| Risque | Preuve |
+| Dimension | Proof |
+| Sévérité | REQUIRED (exit pré-M6) ; NON-BLOCKING pour démarrer Figma |
+| Pré-Figma | NO PRE-FIGMA ACTION |
+| Figma | OUT OF FIGMA SCOPE |
+| Delivery | NO IMPLEMENTATION REQUIRED pendant Figma ; E2E **après** UI Delivery |
+| Preuve | MUST PROVE IN BROWSER E2E (exit) |
+| Temporaire | N/A |
+| Report | Non pour exit |
+| Dépendance | Post Delivery + post G-UX-15 |
+| Tranche | Proof contract §16 |
+| Traitement | Playwright parcours §16 |
+| Risque parallèle | Faible |
+| Preuve clôture | E2E vert sur parcours canonique |
+| Gate Morris | Exit proof gate |
+| Owner | Owner missing |
+| Disposition | PROOF AFTER DELIVERY — MANDATORY FOR PRE-M6 EXIT |
+
+### G-UX-12 — Dispositions UI / retirement non consommées
+
+| Champ | Valeur |
+|---|---|
+| Classe | GOVERNANCE GAP |
+| Condition | Toujours valide ; principe réutilisation adopté ; dispositions individuelles ouvertes |
+| Étapes | Gouvernance |
+| Impact | Dette de retirement |
+| Risque | Faible court terme |
+| Dimension | Governance |
+| Sévérité | NON-BLOCKING |
+| Pré-Figma | NO PRE-FIGMA ACTION (visibilité canonique peut être designée) |
+| Figma | OPTIONAL / DIAGNOSTIC (nav canonique seulement) |
+| Delivery | NO IMPLEMENTATION REQUIRED pour RETIRE ; masquage ≠ retire |
+| Preuve | NOT REQUIRED FOR FIRST PROOF |
+| Temporaire | Oui — FREEZE |
+| Report | RETIRE LATER |
+| Dépendance | D-PRE-M6-UX-03 |
+| Tranche | Future retirement gate |
+| Traitement | Concevoir nav canonique ; RETIRE après remplacement prouvé |
+| Risque parallèle | Faible |
+| Preuve clôture | Décision Morris RETIRE + preuve remplacement |
+| Gate Morris | Future RETIRE |
+| Owner | Owner missing |
+| Disposition | PRINCIPLE ADOPTED — INDIVIDUAL RETIRE OPEN — NOT FIGMA BLOCKER |
+
+### G-UX-13 — États loading / empty / error / recovery canoniques manquants
+
+| Champ | Valeur |
+|---|---|
+| Classe | UX PRESENTATION GAP |
+| Condition | Toujours valide sur parcours agrégé |
+| Étapes | Tous |
+| Impact | Récupération opaque |
+| Risque | Moyen |
+| Dimension | États UX |
+| Sévérité | REQUIRED |
+| Pré-Figma | MUST QUALIFY / DEFINE BEFORE FIGMA (§9) |
+| Figma | MUST REPRESENT |
+| Delivery | IMPLEMENT IN PRE-M6 UI DELIVERY |
+| Preuve | Visual + E2E + UAT |
+| Temporaire | Non |
+| Report | Non |
+| Dépendance | §9 |
+| Tranche | UI Delivery states |
+| Traitement | Implémenter modèle §9 |
+| Risque parallèle | Faible |
+| Preuve clôture | États couverts dans captures/E2E |
+| Gate Morris | Validation visuelle |
+| Owner | Owner missing |
+| Disposition | DEFINE (§9) → REPRESENT → IMPLEMENT → PROVE |
+
+### G-UX-14 — Multi-user / IAM / administration absents
+
+| Champ | Valeur |
+|---|---|
+| Classe | NON-BLOCKING FUTURE ENHANCEMENT |
+| Condition | Toujours valide ; hors pré-M6 |
+| Étapes | N/A pré-M6 |
+| Impact | Aucun sur pilote Morris mono-acteur |
+| Risque | Élevé si anticipé maintenant |
+| Dimension | Future |
+| Sévérité | **DEFERRED** |
+| Pré-Figma | NO PRE-FIGMA ACTION |
+| Figma | OUT OF FIGMA SCOPE |
+| Delivery | DEFERRED |
+| Preuve | NOT REQUIRED FOR FIRST PROOF |
+| Temporaire | N/A |
+| Report | **Oui — FUTURE / M6+** |
+| Dépendance | Aucune pré-M6 |
+| Tranche | Aucune |
+| Traitement | Ne pas anticiper l’architecture |
+| Risque parallèle | Élevé si conçu maintenant |
+| Preuve clôture | Qualification future distincte |
+| Gate Morris | Future scope |
+| Owner | Owner missing |
+| Disposition | DEFERRED — NOT PRE-M6 BLOCKER |
+
+### G-UX-15 — Contrat M3 durable ne peut pas entrer dans l’exécution gouvernée canonique
+
+| Champ | Valeur |
+|---|---|
+| Classe | APPLICATION WIRING GAP — **BLOCKING** |
+| Condition | **Toujours valide et BLOCKER.** `prepareM3FromDecision` : `UNRESOLVED_TARGET`, `CAPABILITY_UNRESOLVED`, `REVERSIBILITY_UNRESOLVED`, contraintes PREPARE_ONLY / NO_ATTEMPT ; `executionAllowed: false`. `ProjectAssistantPanel` : `canConfirmF3` uniquement sur fixture `f3Prepare` ; M3 prepare n’ouvre pas Confirm/StartExecution. Fixture path : Proposal locale + contrat fixture → Confirmation → StartExecution → Attempt. Supersession OA existe (`SupersedeExecutionContract`) mais non câblée comme résolution produit M3→exécution. |
+| Étapes | Décision → contrat → confirmation → Attempt |
+| Impact | Pas de preuve produit M1→M5 du chemin critique durable |
+| Risque | **Élevé** (autorité / fail-closed / fixture-as-proof) |
+| Dimension | Câblage applicatif / cycle de vie contrat |
+| Sévérité | **BLOCKER** |
+| Pré-Figma | **MUST QUALIFY / DEFINE BEFORE FIGMA** (ce cycle) ; implémentation **peut** venir après contrat visuel mais **avant** UI Delivery / preuve critique — **MORRIS décide** le timing d’implémentation |
+| Figma | MUST REPRESENT (contrat non résolu, successeur, confirmation, fail-closed) — **sans masquer le gap** |
+| Delivery | **IMPLEMENT IN DISTINCT PRE-DELIVERY TECHNICAL SLICE** (recommandé) puis UI Delivery consomme le chemin |
+| Preuve | MUST PROVE (fixture-safe / simulated) avant claim produit ; REAL seulement sous GO séparé ultérieur |
+| Temporaire | **Non** — ne pas accepter comme « prêt produit » |
+| Report | **Non** — BLOCKER |
+| Dépendance | HumanDecision, DecisionBasis, ExecutionContract lifecycle, Confirmation, StartExecution, ExecutionAttempt, AgentCapability |
+| Tranche | **SLICE A recommandée** (G-UX-15 seul) ; voir §25 |
+| Traitement | Préserver contrat non résolu ; produire successeur résolu via supersession existante ; Confirmation + StartExecution existants ; ZERO REAL ce cycle |
+| Risque parallèle | **Élevé** si second séquenceur / mutation in-place / fixture comme critical-path proof |
+| Preuve clôture | Voir §22 |
+| Gate Morris | Sélection de tranche + éventuelle autorisation d’implémentation ; **DECISION REQUIRED — MORRIS** pour tout retrait de BLOCKER |
+| Owner | Owner missing |
+| Disposition | **BLOCKER — REQUALIFY — MUST DEFINE BEFORE FIGMA — NO IMPLEMENTATION THIS CYCLE — DISTINCT PRE-DELIVERY SLICE CANDIDATE** |
+
+---
+
+## 22. Qualification ciblée G-UX-15 — contrat fonctionnel / applicatif (sans implémentation)
+
+### 22.1 Faits runtime confirmés
+
+1. **Création M3 durable :** `prepareM3FromDecision` construit un ExecutionContract PREPARE-only depuis HumanDecision / DecisionBasis.
+2. **Champs non résolus :** action peut être `UNRESOLVED_ACTION` ; **target toujours** `UNRESOLVED_TARGET` (pas de champ target explicite sur DecisionBasis) ; `requiredCapabilities = ["cap:unresolved"]` ; `reversibility = irreversible` fail-closed ; stopConditions ACTION/TARGET/CAPABILITY/REVERSIBILITY_UNRESOLVED ; contraintes PREPARE_ONLY, NO_CURSOR_REAL, NO_ATTEMPT, NO_GATE_D.
+3. **Validation :** contrat M3 non exécutable (`executionAllowed: false`) ; confirmation UI absente pour ce chemin.
+4. **Supersession :** `SupersedeExecutionContract` existe — prior non superseded/cancelled ; OCC version ; crée successeur validé ; prior devient superseded ; pas de mutation silencieuse des champs critiques sans overrides.
+5. **Confirmation :** chemin fixture crée Confirmation liée au contrat fixture versionné.
+6. **StartExecution :** limite d’autorité existante ; utilisée par `confirmAndExecuteF3Fixture`.
+7. **ExecutionAttempt :** cycle de vie Product SQLite existant ; démarrage via StartExecution.
+8. **AgentCapability :** sélection/bounding existante sur le chemin fixture ; M3 laisse capability unresolved.
+9. **Divergence fixture :** UI `canConfirmF3` = fixture prepare seulement ; M3 prepare efface fixture prepare et **n’active pas** confirm/execute.
+10. **Restart durable :** HumanDecision / contrat / Attempt / Evidence / RB / LPS refs survivent ; Conversation/Proposal non.
+
+### 22.2 Contrat cible pour résolution future (candidat — non implémenté)
+
+| Question | Réponse candidate (nécessite gate Morris où noté) |
+|---|---|
+| Input autoritatif pour action résolue ? | DecisionBasis / HumanDecision + éventuelle résolution explicite Morris/UI bornée ; **pas** Conversation seule |
+| Input autoritatif pour target ? | **DECISION REQUIRED — MORRIS** : champ/source manquant aujourd’hui ; doit être fourni avant successeur exécutable |
+| AgentCapability ? | Résolution explicite vers capability réelle existante ; jamais `cap:unresolved` sur successeur exécutable |
+| Réversibilité ? | Dérivée/validée depuis analyse sourcée ou confirmation Morris ; pas le default fail-closed silencieux du PREPARE |
+| Successeur ExecutionContract ? | **Oui — recommandé** via supersession existante ; ne pas muter le PREPARE non résolu |
+| Contrat original ? | Conservé superseded/audit ; jamais exécuté |
+| Conditions « current » du successeur ? | Validation build fields ; prior superseded ; version OCC ; executionAllowed true seulement si résolu |
+| Morris revoit/confirme le successeur ? | **Oui** — examen + Confirmation avant StartExecution |
+| Niveau de confirmation ? | Réutiliser Confirmation existante / requiredAuthority du contrat |
+| Rejet DecisionBasis/context stale ? | Validations existantes F2/prepare + version/OCC ; fail-closed |
+| Atteindre StartExecution sans 2e séquenceur ? | Successeur valide → Confirmation → **StartExecution existant** uniquement |
+| Anti duplicate start/retry ? | Idempotency keys + états Attempt existants |
+| Preuve fixture-safe / simulated ? | Orchestration jusqu’à Attempt **simulée** / fixture-safe sans Cursor REAL |
+| Preuve éventuellement REAL ? | Uniquement sous GO Morris séparé Gate D / REAL — **hors ce cycle** |
+| Questions architecture Morris ? | Source de **target** ; binding capability ; moment d’implémentation vs Figma ; niveau d’autorité confirmation |
+
+### 22.3 Anti-revendications G-UX-15
+
+Qualification ≠ implementation. Fixture ≠ critical-path product proof. ZERO REAL. Aucun nouveau modèle de contrat. Aucun nouveau moteur de séquencement.
+
+---
+
+## 23. Qualification ciblée G-UX-08 — AMEND
+
+### Faits
+
+- `recordDecision` : AMEND → Proposal `AMENDMENT_REQUIRED`, HumanDecision `amended`, DecisionBasis durable.
+- UI expose le choix AMEND ; **pas** de boucle complète post-AMEND : clarification conversationnelle → nouvelle qualification → nouvelle Proposal → nouvelle décision.
+- Proposal reste process-local ; CycleInstance / ContextSnapshot liés à la qualification F2.
+- Orchestration F1/F2 réutilisable pour produire une **nouvelle** Proposal ; ne pas muter/reconstruire une Proposal consommée.
+
+### Comportement fonctionnel minimum requis
+
+HumanDecision amended → conversation/clarification → nouvelle qualification → nouvelle Proposal → nouvelle décision.
+
+Proposal stale : refusée pour consommation.
+
+### Relation à G-UX-15
+
+Partage DecisionBasis / HumanDecision / F2, **pas** le cycle de vie ExecutionContract → StartExecution. Groupage possible mais **non nécessaire** pour débloquer le happy-path d’exécution. Voir §25.
+
+Aucune implémentation dans ce cycle.
+
+---
+
+## 24. Qualification ciblée G-UX-10 — fraîcheur Recommendation
+
+### Faits
+
+- `RecommendNextGate` : coordination **read-only** ; `kind: recommendation` ; `executionAuthority: false` ; snapshots versionnés ; détecte claim/bundle superseded / version mismatch.
+- Réhydratation : LPS courant → `evidenceIds` / `reviewBundleIds` → readers → RecommendNextGate.
+- Pas de modèle Recommendation durable distinct comme autorité.
+
+### Modèle de fraîcheur candidat
+
+Dériver « courante / périmée » depuis les faits durables versionnés (Attempt/Evidence/RB/LPS refs) et les snapshots de coordination. Afficher explicitement l’état périmé et le résultat remplaçant.
+
+**Défaut :** pas de nouvelle persistence Recommendation. N’ajouter un store que si preuve de nécessité (exit trigger futur).
+
+Ne jamais transformer Recommendation en HumanDecision / autorité d’exécution.
+
+Aucune implémentation dans ce cycle.
+
+---
+
+## 25. Analyse des tranches de traitement cohérentes
+
+### OBSERVATION
+
+- G-UX-15 touche ExecutionContract supersession → Confirmation → StartExecution → Attempt.
+- G-UX-08 touche post-AMEND F1/F2 / Proposal / Decision.
+- G-UX-10 touche dérivation Evidence/RB/LPS / présentation Recommendation.
+- Frontières d’application largement distinctes ; preuves indépendantes possibles.
+- R18 autorise le groupage cohérent ; n’autorise pas l’inflation de scope.
+
+### OPTIONS
+
+| Option | Contenu | Avantage | Coût / risque |
+|---|---|---|---|
+| **SLICE A** | G-UX-15 seul | Plus petite capacité E2E critique ; PR reviewable ; prouvable isolément | AMEND/fraîcheur restent ouverts pour UAT complet |
+| **SLICE B** | G-UX-15 + G-UX-08 | Couvre amend + exécution | Scope ↑ ; dépendances partagées limitées ; revue plus lourde |
+| **SLICE C** | G-UX-15 + G-UX-08 + G-UX-10 | Max couverture applicative | Inflation ; G-UX-10 surtout présentation/dérivation Delivery |
+
+### RECOMMENDATION
+
+**SLICE A — G-UX-15 only** comme prochaine tranche structurelle pré-Delivery.
+
+Traiter G-UX-08 et G-UX-10 comme tranches Delivery / wiring séparées (ou B seulement si Morris exige le scénario AMEND dans la même capacité critique). Ne pas forcer C.
+
+Cette recommandation **n’est pas** une décision d’architecture consommée.
+
+### MORRIS DECISION REQUIRED
+
+Sélectionner : GO G-UX-15 ONLY | GO G-UX-15+08 | GO G-UX-15+08+10 | AMEND recommandation.
+
+---
+
+## 26. Verdicts de readiness
+
+### FIGMA READINESS = **READY WITH FUNCTIONAL RESERVES**
+
+**≠ Figma autorisé. D-PRE-M6-UX-05 = NO DECISION YET.**
+
+Sens : le parcours, l’IA, les états §9/§15 et les définitions G-UX-08/10/15 sont assez stables pour qu’un futur Visual Contract représente fidèlement les états **sans masquer G-UX-15**.
+
+Réserves fonctionnelles (peuvent rester non implémentées pendant un futur Figma, mais doivent être définies/représentées) :
+
+- G-UX-15 BLOCKER défini, non implémenté ;
+- G-UX-08/10 définis pour représentation ;
+- G-UX-01–07/13 inputs de design ;
+- G-UX-09 sémantique de reprise honnête ;
+- G-UX-11/12/14 hors ou non-bloquants Figma.
+
+Prérequis avant un futur Figma GO : revue ChatGPT de cette readiness ; Morris sélectionne le jeu de traitements ; stabilité des définitions pré-Figma ci-dessus.
+
+### UI DELIVERY READINESS = **NOT READY**
+
+Parce que G-UX-15 demeure unresolved / non implémenté. Figma readiness ≠ Delivery readiness.
+
+Prérequis Delivery : tranche G-UX-15 (ou élargie) qualifiée + implémentée + revue/preuve ; puis GO Delivery séparé.
+
+### ROADMAP
+
+Read-only dans ce cycle. **ROADMAP SYNC REQUIRED AFTER GAP READINESS DECISION / INTEGRATION.**
+
+---
+
+## 27. Séquence de gates futurs (candidate)
+
+1. Revue consolidée gap readiness (ChatGPT) — **prochaine**.
+2. Décision Morris sur le jeu de traitements (A/B/C).
+3. Qualification/Delivery technique de la tranche G-UX-15 (cohérente).
+4. Review + preuve (fixture-safe / simulated ; ZERO REAL sauf GO ultérieur).
+5. Morris Figma GO (D-PRE-M6-UX-05) — séparé.
+6. Figma Visual Contract.
+7. Validation visuelle Morris.
+8. UI Delivery sur runtime existant.
+9. Browser E2E + preuves visuelles runtime.
+10. Comparaison Figma/runtime.
+11. Morris UAT (incl. process-local honesty).
+12. Revue dettes/gaps restants (G-UX-08/10/12, M5-C owner).
+13. M6 Entry Qualification **uniquement** sous GO séparé.
+
+Aucun de ces gates n’est démarré par ce cycle.
+
+---
+
+## 28. Build Doctrine check (ce cycle)
+
+| Règle | Vérification |
+|---|---|
+| R1 | Traitements proposés servent V3-F05/F02/F14/F15 et parcours pré-M6 |
+| R2 | Capacité utilisateur complète prioritaire sur hardening non bloquant |
+| R3 | Réutilisation runtime/application existante |
+| R5/R20 | Process-local : exit = preuve UAT de nécessité |
+| R6 | Pas d’architecture parallèle proposée |
+| R7 | Fixture ≠ critical-path product proof |
+| R8 | Tranches futures doivent produire capacité E2E |
+| R11 | Pas de nouvelle dette volontaire sans owner+exit (M5-C owner déjà dette connue) |
+| R18 | Groupage évalué ; recommandation anti-inflation (SLICE A) |
+| R19 | Aucune claim READY/ADOPTED runtime v3 |
+
+---
+
+## 29. Compteurs de cycle (attendu)
+
+Project artifacts created = 0 · Existing Pre-M6 artifact modified = 1 · Roadmap/Build Doctrine/v3/app = 0 · Figma/UI Delivery/G-UX impl/M6/REAL/Gate D = 0 · project commit/push/PR = 0 · Review Handoff push = 1 bounded L3
+
+```
+
+### 21. Changed files
+- Modified (untracked, unstaged): `projects/sfia-studio/convergence/sfia-studio-pre-m6-user-journey-ux-baseline-qualification.md`
+- Review pack reset/written: `.tmp-sfia-review/chatgpt-review.md`
+- No other project files
+
+### 22. Forbidden-files check
+Roadmap / Build Doctrine / v3 framing / app/** / method/** / prompts/** / docs/foundation/** / .github/** / scripts/** / package*.json — **NOT MODIFIED**.
+
+### 23. Validation outputs
+- `git status --short`: only `??` artifact + `.tmp-sfia-review/**`
+- staged: empty
+- `git diff --check --no-index /dev/null <artifact>`: no trailing whitespace / conflict markers (exit 1 solely because --no-index reports a diff)
+- G-UX-01…15 each appear once as `### G-UX-NN` readiness entries
+- G-UX-15 remains BLOCKER
+- D-PRE-M6-UX-01/02/03/04/05 statuses match this GO
+- Process-local acceptance explicit and bounded
+- Figma / UI Delivery / M6 NOT AUTHORIZED; ZERO REAL
+- No project commit/push/PR
+
+### 24. Project Git writes
+0 (add/commit/push/PR forbidden)
+
+### 25. Figma actions
+0
+
+### 26. UI Delivery
+0
+
+### 27. M6
+0
+
+### 28. REAL
+0
+
+### 29. Next gate
+1. ChatGPT reads canonical Review Handoff.
+2. ChatGPT verifies every G-UX status against repo truth.
+3. ChatGPT challenges coherent treatment slice recommendation.
+4. Morris selects future treatment set (likely G-UX-15 only or coherent G-UX-15+related wiring).
+No code treatment pre-authorized. Separate Morris GO required before Figma Visual Contract.
+
+### 30. Verdict
+PRE-M6 FUNCTIONAL BASELINE MORRIS DECISIONS RECORDED — CANONICAL M1→M5 USER JOURNEY ADOPTED — FUNCTIONAL IA ADOPTED — UI REUSE PRINCIPLE ADOPTED — FIRST-TEST PROCESS-LOCAL LIMITATION ACCEPTED — G-UX-01→15 CONSOLIDATED READINESS QUALIFIED — G-UX-15 REMAINS REQUALIFY / NO IMPLEMENTATION IN THIS CYCLE — FIGMA READINESS ASSESSED BUT FIGMA NOT AUTHORIZED — UI DELIVERY NOT AUTHORIZED — M6 NOT AUTHORIZED — ZERO REAL — READY FOR CHATGPT REVIEW / MORRIS GAP-TREATMENT DECISION
