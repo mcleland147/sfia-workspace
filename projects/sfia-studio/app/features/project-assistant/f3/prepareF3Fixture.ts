@@ -16,11 +16,11 @@ import {
   F3_EVIDENCE_REQUIREMENTS,
   F3_LABELS,
   F3_MODE,
-  F3_PROCESS_LOCAL_NOTICE,
   F3_REQUIRED_AUTHORITY,
   F3_SCOPE,
   F3_STOP_CONDITIONS,
   F3_TARGET,
+  resolveF3EphemeralNotice,
 } from "./constants";
 import type { F3PreparePayload } from "./types";
 import { validateF2ForPrepare } from "./validateF2ForPrepare";
@@ -30,6 +30,11 @@ export type PrepareF3Deps = {
   authorityResolver: MemoryAuthorityResolver;
   executionContractServices: ExecutionContractServices;
   nowIso: () => string;
+  /**
+   * Required: true = Product SQLite OA composition; false = Memory/process-local.
+   * Callers must not omit — no silent default.
+   */
+  productDurablePath: boolean;
 };
 
 function toContractDto(
@@ -184,6 +189,10 @@ export async function prepareF3Fixture(input: {
     };
   }
 
+  const persistenceNotice = resolveF3EphemeralNotice(
+    input.deps.productDurablePath,
+  );
+
   return {
     ok: true,
     payload: {
@@ -201,7 +210,7 @@ export async function prepareF3Fixture(input: {
         cursorRealBlocked: F3_LABELS.cursorRealBlocked,
         hardOpen: F3_LABELS.hardOpen,
       },
-      processLocalNotice: F3_PROCESS_LOCAL_NOTICE,
+      processLocalNotice: persistenceNotice,
       disclosures: [
         F3_LABELS.fixtureNoReal,
         F3_LABELS.noGitWrite,
@@ -209,7 +218,7 @@ export async function prepareF3Fixture(input: {
         F3_LABELS.hardOpen,
         F3_LABELS.noReadyClaim,
         F3_LABELS.noTa6Complete,
-        F3_PROCESS_LOCAL_NOTICE,
+        persistenceNotice,
       ],
     },
   };

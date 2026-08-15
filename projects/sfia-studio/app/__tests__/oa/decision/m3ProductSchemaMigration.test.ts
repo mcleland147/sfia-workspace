@@ -15,6 +15,7 @@ import {
 import {
   PRODUCT_SCHEMA_VERSION,
   PRODUCT_SCHEMA_VERSION_M2,
+  PRODUCT_SCHEMA_VERSION_M3,
   createTestSqliteProductProjectServices,
   type ActorReference,
   type SqliteProductProjectServices,
@@ -129,7 +130,8 @@ describe("M3 Product SQLite schema migration", () => {
       .prepare("SELECT value FROM schema_meta WHERE key = ?")
       .get("schema_version") as { value: string };
     expect(version.value).toBe(PRODUCT_SCHEMA_VERSION);
-    expect(PRODUCT_SCHEMA_VERSION).toBe("m3-0.1.0");
+    expect(PRODUCT_SCHEMA_VERSION_M3).toBe("m3-0.1.0");
+    expect(PRODUCT_SCHEMA_VERSION).toBe("m5-0.1.0");
 
     const decisions = svc.store.db
       .prepare(
@@ -141,8 +143,14 @@ describe("M3 Product SQLite schema migration", () => {
         `SELECT name FROM sqlite_master WHERE type='table' AND name='oa_execution_contracts'`,
       )
       .get() as { name?: string } | undefined;
+    const attempts = svc.store.db
+      .prepare(
+        `SELECT name FROM sqlite_master WHERE type='table' AND name='oa_execution_attempts'`,
+      )
+      .get() as { name?: string } | undefined;
     expect(decisions?.name).toBe("oa_human_decisions");
     expect(contracts?.name).toBe("oa_execution_contracts");
+    expect(attempts?.name).toBe("oa_execution_attempts");
 
     const project = await svc.getProject.execute({ projectId: "prj:m3-mig" });
     expect(project.ok).toBe(true);

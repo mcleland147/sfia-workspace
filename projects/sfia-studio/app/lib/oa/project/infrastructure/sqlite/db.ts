@@ -2,7 +2,8 @@ import { DatabaseSync } from "node:sqlite";
 
 export const PRODUCT_SCHEMA_VERSION_M1 = "m1-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M2 = "m2-0.1.0" as const;
-export const PRODUCT_SCHEMA_VERSION = "m3-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION_M3 = "m3-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION = "m5-0.1.0" as const;
 
 const BASE_SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -122,6 +123,78 @@ CREATE INDEX IF NOT EXISTS idx_oa_execution_contracts_idempotency
   ON oa_execution_contracts(idempotency_key);
 `;
 
+const M5_ATTEMPT_EVIDENCE_SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS oa_execution_attempts (
+  attempt_id TEXT PRIMARY KEY NOT NULL,
+  execution_contract_id TEXT NOT NULL,
+  status TEXT NOT NULL,
+  idempotency_key TEXT NOT NULL UNIQUE,
+  version INTEGER NOT NULL,
+  result_recording_count INTEGER NOT NULL DEFAULT 0,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_execution_attempts_contract
+  ON oa_execution_attempts(execution_contract_id, attempt_id);
+
+CREATE TABLE IF NOT EXISTS oa_execution_attempt_active (
+  execution_contract_id TEXT PRIMARY KEY NOT NULL,
+  attempt_id TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS oa_execution_attempt_result_budget (
+  attempt_id TEXT PRIMARY KEY NOT NULL,
+  count INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS oa_evidence (
+  evidence_id TEXT PRIMARY KEY NOT NULL,
+  project_id TEXT,
+  status TEXT NOT NULL,
+  idempotency_key TEXT UNIQUE,
+  version INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_evidence_project
+  ON oa_evidence(project_id, created_at);
+
+CREATE TABLE IF NOT EXISTS oa_evidence_idempotency (
+  idempotency_key TEXT PRIMARY KEY NOT NULL,
+  evidence_id TEXT NOT NULL,
+  fingerprint TEXT NOT NULL,
+  operation TEXT NOT NULL,
+  FOREIGN KEY (evidence_id) REFERENCES oa_evidence(evidence_id)
+);
+
+CREATE TABLE IF NOT EXISTS oa_review_bundles (
+  review_bundle_id TEXT PRIMARY KEY NOT NULL,
+  project_id TEXT NOT NULL,
+  status TEXT NOT NULL,
+  idempotency_key TEXT UNIQUE,
+  version INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_review_bundles_project
+  ON oa_review_bundles(project_id, created_at);
+
+CREATE TABLE IF NOT EXISTS oa_review_bundle_idempotency (
+  idempotency_key TEXT PRIMARY KEY NOT NULL,
+  review_bundle_id TEXT NOT NULL,
+  fingerprint TEXT NOT NULL,
+  operation TEXT NOT NULL,
+  successor_id TEXT,
+  FOREIGN KEY (review_bundle_id) REFERENCES oa_review_bundles(review_bundle_id)
+);
+`;
+
 function readSchemaVersion(db: DatabaseSync): string | null {
   const row = db
     .prepare("SELECT value FROM schema_meta WHERE key = ?")
@@ -159,8 +232,12 @@ function applyM3(db: DatabaseSync): void {
   db.exec(M3_DECISION_CONTRACT_SCHEMA_SQL);
 }
 
+function applyM5(db: DatabaseSync): void {
+  db.exec(M5_ATTEMPT_EVIDENCE_SCHEMA_SQL);
+}
+
 /**
- * Open Product SQLite with additive M1→M2→M3 migration.
+ * Open Product SQLite with additive M1→M2→M3→M5 migration.
  * Fail closed on unknown/future schema versions.
  */
 export function openProductSqlite(dbPath: string): DatabaseSync {
@@ -172,13 +249,19 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
   if (version === null || version === PRODUCT_SCHEMA_VERSION_M1) {
     applyM2(db);
     applyM3(db);
+    applyM5(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
     applyM3(db);
+    applyM5(db);
+    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+  } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
+    applyM5(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION) {
     applyM2(db);
     applyM3(db);
+    applyM5(db);
   } else {
     try {
       db.close();

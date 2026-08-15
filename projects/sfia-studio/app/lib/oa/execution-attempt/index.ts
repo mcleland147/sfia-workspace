@@ -46,6 +46,7 @@ export * from "./domain/invariants";
 export * from "./domain/realLaunchSafety";
 
 export * from "./ports/executionAttemptRepository";
+export * from "./ports/executionAttemptTechnicalStorePort";
 export * from "./ports/agentRegistry";
 export * from "./ports/executionAdapter";
 export * from "./ports/executionAttemptAudit";
@@ -86,6 +87,14 @@ export {
 
 export { MemoryExecutionAttemptStore } from "./infrastructure/memoryExecutionAttemptStore";
 export { MemoryExecutionAttemptRepository } from "./infrastructure/memoryExecutionAttemptRepository";
+export { SqliteExecutionAttemptRepository } from "./infrastructure/sqlite/sqliteExecutionAttemptRepository";
+export { SqliteExecutionAttemptTechnicalStore } from "./infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore";
+export {
+  createSqliteExecutionAttemptServices,
+  createTestSqliteExecutionAttemptServices,
+  type CreateSqliteExecutionAttemptServicesOptions,
+  type SqliteExecutionAttemptServices,
+} from "./infrastructure/sqlite/createSqliteExecutionAttemptServices";
 export { MemoryAgentRegistry } from "./infrastructure/memoryAgentRegistry";
 export { TestExecutionAdapter } from "./infrastructure/testExecutionAdapter";
 export type {
@@ -169,6 +178,8 @@ import { TestExecutionAdapter } from "./infrastructure/testExecutionAdapter";
 import type { AgentDescriptor } from "./domain/types";
 import type { AgentRegistryPort } from "./ports/agentRegistry";
 import type { ExecutionAttemptAuditPort } from "./ports/executionAttemptAudit";
+import type { ExecutionAttemptRepositoryPort } from "./ports/executionAttemptRepository";
+import type { ExecutionAttemptTechnicalStorePort } from "./ports/executionAttemptTechnicalStorePort";
 import type { RealExecutionLaunchPort } from "./ports/realExecutionLaunchPort";
 import type { RealLaunchSafetyJournalPort } from "./ports/realLaunchSafetyJournalPort";
 
@@ -196,8 +207,8 @@ export type RealBoundaryWiring = {
 };
 
 export type ExecutionAttemptServices = {
-  store: MemoryExecutionAttemptStore;
-  attempts: MemoryExecutionAttemptRepository;
+  store: ExecutionAttemptTechnicalStorePort;
+  attempts: ExecutionAttemptRepositoryPort;
   registry: AgentRegistryPort;
   adapter: InjectableExecutionAdapter;
   audit: ExecutionAttemptAuditPort;

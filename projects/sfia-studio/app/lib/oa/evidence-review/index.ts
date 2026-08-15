@@ -88,6 +88,14 @@ export {
 
 export { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
 export { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceRepository";
+export { SqliteEvidenceRepository } from "./infrastructure/sqlite/sqliteEvidenceRepository";
+export { SqliteReviewBundleRepository } from "./infrastructure/sqlite/sqliteReviewBundleRepository";
+export {
+  createSqliteEvidenceReviewServices,
+  createTestSqliteEvidenceReviewServices,
+  type CreateSqliteEvidenceReviewServicesOptions,
+  type SqliteEvidenceReviewServices,
+} from "./infrastructure/sqlite/createSqliteEvidenceReviewServices";
 export { FakeEvidencePayloadAdapter } from "./infrastructure/fakeEvidencePayloadAdapter";
 export type { FakePayloadScript } from "./infrastructure/fakeEvidencePayloadAdapter";
 export { FakeExecutionAttemptReader } from "./infrastructure/fakeExecutionAttemptReader";
@@ -162,16 +170,18 @@ import type { ClaimEvaluationReaderPort } from "./ports/claimEvaluationReader";
 import type { EvidenceAuditPort } from "./ports/evidenceAudit";
 import type { EvidencePayloadPort } from "./ports/evidencePayloadPort";
 import type { EvidenceReaderPort } from "./ports/evidenceReader";
+import type { EvidenceRepositoryPort } from "./ports/evidenceRepository";
 import type { ExecutionAttemptReaderPort } from "./ports/executionAttemptReader";
 import type { IdGeneratorPort } from "./ports/idGenerator";
 import type { MaturityAssessmentReaderPort } from "./ports/maturityAssessmentReader";
 import type { ReviewBundleReaderPort } from "./ports/reviewBundleReader";
+import type { ReviewBundleRepositoryPort } from "./ports/reviewBundleRepository";
 
 export type EvidenceReviewServices = {
   store: MemoryEvidenceStore;
-  repository: MemoryEvidenceRepository;
+  repository: EvidenceRepositoryPort;
   reviewBundleStore: MemoryReviewBundleStore;
-  reviewBundleRepository: MemoryReviewBundleRepository;
+  reviewBundleRepository: ReviewBundleRepositoryPort;
   reviewBundleReader: ReviewBundleReaderPort;
   claimEvaluationStore: MemoryClaimEvaluationStore;
   claimEvaluationRepository: MemoryClaimEvaluationRepository;

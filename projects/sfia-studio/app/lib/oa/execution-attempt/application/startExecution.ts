@@ -52,7 +52,7 @@ import type {
   GateDGrant,
 } from "../domain/realLaunchSafety";
 import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
-import type { MemoryExecutionAttemptStore } from "../infrastructure/memoryExecutionAttemptStore";
+import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAdapterPort } from "../ports/executionAdapter";
 import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
@@ -139,7 +139,7 @@ export class StartExecution {
     private readonly adapter: ExecutionAdapterPort,
     private readonly clock: ClockPort,
     private readonly audit: ExecutionAttemptAuditPort,
-    private readonly store?: MemoryExecutionAttemptStore,
+    private readonly store?: ExecutionAttemptTechnicalStorePort,
     private readonly realLaunchPort?: RealExecutionLaunchPort,
     private readonly safetyJournal?: RealLaunchSafetyJournalPort,
   ) {}

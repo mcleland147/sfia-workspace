@@ -47,8 +47,32 @@ export const F3_OPEN_HARD_RESERVATION_REFS = Object.freeze([
   "R-M01",
 ] as const);
 
+/**
+ * Honest only for a true Memory / process-local OA stack (no Product SQLite).
+ * Do NOT use on the Product SQLite M5 path.
+ */
 export const F3_PROCESS_LOCAL_NOTICE =
   "F3 fixture process-local — non persisté. Un redémarrage efface contrats, attempts et evidence. Aucune autorité d'exécution durable.";
+
+/**
+ * Product SQLite M5 path — fixture/no-effect execution with durable Attempt /
+ * Evidence / ReviewBundle / LPS evidence links. REAL remains disabled.
+ * Distinguishes execution mode (fixture) from persistence durability (Product).
+ */
+export const F3_PRODUCT_DURABLE_NOTICE =
+  "F3 fixture execution — Attempt, Evidence, ReviewBundle and LPS evidence links are persisted in Product SQLite. REAL execution remains disabled. Recommendation is not a Morris decision.";
+
+/**
+ * Route F3 ephemeral disclosure by OA composition persistence, not by
+ * execution mode (fixture vs REAL).
+ */
+export function resolveF3EphemeralNotice(
+  productDurablePath: boolean,
+): typeof F3_PRODUCT_DURABLE_NOTICE | typeof F3_PROCESS_LOCAL_NOTICE {
+  return productDurablePath
+    ? F3_PRODUCT_DURABLE_NOTICE
+    : F3_PROCESS_LOCAL_NOTICE;
+}
 
 export const F3_LABELS = Object.freeze({
   fixtureNoReal: "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
