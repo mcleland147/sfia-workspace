@@ -1,357 +1,542 @@
 # SFIA Review Pack — FULL
 
 ## 1. Timestamp (Europe/Paris)
-2026-08-15 08:39:11 CEST
+2026-08-15 08:48:46 CEST
 
 ## 2. GO exact
-GO MORRIS — CYCLE 14 POST-MERGE + M5 EXIT PROOF EVALUATION — PR #350 — ZERO REAL — M6 NOT AUTHORIZED — M5 NOT CLOSED
+GO MORRIS — M5 UI/NORA DURABLE REHYDRATE DELIVERY — CLOSE M5-27/M5-28 ONLY — ZERO REAL — NO M6 — NO ROADMAP SYNC — M5 NOT CLOSED
 
 ## 3. Cycle / Profile / Typology
-- Cycle: 14 — Post-merge (+ bounded M5 exit proof evaluation)
+- Cycle: 8 — Delivery / implementation (bounded correction after Cycle 14)
 - Profile: Critical
 - Typology: EVOL
-- Capability: V3-F14 (+ F13/F02/F04/F05/F09/F15)
-- Milestone: M5 — Retour de preuve + analyse Nora
+- Capability: V3-F14 (+ F02/F05/F09)
+- Milestone: M5
 - M6: NOT AUTHORIZED
-- CKC Cycle 14 detailed: ABSENT → fallback synthetic map + v2.5 cycles method candidate (cognitive guidance only)
-- Branch cleanup: SKIPPED BY GOVERNANCE — DELETE NOT AUTHORIZED
+- CKC Cycle 8 detailed: ABSENT → synthetic map fallback
 
-## 4. Sync note (local main branch lock)
-Sibling worktree already holds branch `main` at another path.
-This evaluation worktree used:
-`git switch --detach origin/main`
-Result: HEAD = origin/main = 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-No reset/hard/rebase/non-FF. Tracked worktree clean.
-
-## 5. Git Truth
-- Repo: mcleland147/sfia-workspace
-- Evaluation HEAD: 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
+## 4. Git Truth
+- Branch: delivery/sfia-studio-m5-ui-rehydrate (created from origin/main)
+- HEAD: 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
 - origin/main: 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-- Remote main: 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943	refs/heads/main
-- Remote Delivery: 17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11	refs/heads/delivery/sfia-studio-m5-evidence-return
-- Remote handoff (incoming expected a7b9940…): a7b9940fea0bc5c79cba4f5ed7dd8619903e1fd1	refs/heads/sfia/review-handoff
-- Merge commit show:
-```
-8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-129570dfd44af5b4d466cc3dc0c166d928d26ef5 17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11
-Merge pull request #350 from mcleland147/delivery/sfia-studio-m5-evidence-return
-```
-- Parents: 129570dfd44af5b4d466cc3dc0c166d928d26ef5 + 17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11
-- Ancestor check: 17461da ∈ origin/main — OK
-- `git diff --exit-code 17461da 8f75321` — EMPTY (head tree == merge tree)
+- Incoming handoff: 958dad4c0f50956320240d3efe25697e03214475
+- Remote delivery/sfia-studio-m5-ui-rehydrate: ABSENT
+- Historical Delivery retained: delivery/sfia-studio-m5-evidence-return @ 17461dad…
+- staged: empty
 - REAL env: unset
-- Initial untracked only: .tmp-sfia-review/**
+- Project commit/push/PR: 0
 
-## 6. PR #350 post-merge metadata
-- state: MERGED (CLOSED/merged)
-- draft: false
-- base: main
-- head: delivery/sfia-studio-m5-evidence-return
-- head SHA: 17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11
-- merge commit: 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-- changedFiles: 44
-- commits: 1
-- mergedAt: 2026-08-15T06:28:09Z
-- URL: https://github.com/mcleland147/sfia-workspace/pull/350
+## 5. Incoming Cycle 14 finding
+- M5-26 SATISFIED ON MAIN (server rehydrate)
+- M5-27/M5-28 NOT SATISFIED — Panel did not consume rehydrate; cards only from session f3Execute
 
-## 7. CI
-### PR CI #184
-- run id: 31869335131
-- run_number: 184
-- event: pull_request
-- headSha: 17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11
-- status: completed / conclusion: success
-- jobs: Detect SUCCESS · Build SUCCESS · Required Gate SUCCESS
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/31869335131
+## 6. Architecture / reuse
+- Reused existing projectAssistantRehydrateEvidenceOutcomeAction (no new server action)
+- Distinct UI state durableEvidenceOutcome (success DTO) — no F3ExecutePayload reconstruction / no fake Attempt
+- Mount useEffect(projectId) read-only call + cancelled flag
+- Durable cards shown only when !f3Execute
+- NO_EVIDENCE_OUTCOME_REFS = silent normal (composer usable)
+- Other rehydrate errors = bounded notice, no Recommendation inventée
 
-### Post-merge CI #185
-- run id: 31869518657
-- run_number: 185
-- event: push
-- headBranch: main
-- headSha: 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-- status: completed / conclusion: success
-- jobs: Detect SUCCESS · Build SUCCESS · Required Gate SUCCESS
-- Build steps SUCCESS: Typecheck, Lint, Build, Unit tests (Vitest), FinOps T1 migrate, FinOps PostgreSQL tests, Modeled governance, Secret scan, Trailing whitespace
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/31869518657
-- rerun: 0
+## 7. Files modified (exactly 2)
+- projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+- projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
 
-## 8. Architecture decisions (preserved)
-- M5-A OPTION B — Product SQLite Attempt/Evidence/ReviewBundle
-- M5-B W1 — factual LPS evidenceIds/reviewBundleIds
-- M5-C KEEP TEMPORARY WITH EXIT — M4 technical journal
+## 8. Implementation summary
+- Import + call projectAssistantRehydrateEvidenceOutcomeAction on projectId mount/change
+- Clear prior durable state on projectId change
+- Render durable Evidence / ReviewBundle / Recommendation / LPS version / Product notice / anti-claims
+- Fail-closed durable-rehydrate-error notice
+- Tests: mount success, unmount/remount callCount>=2, NO_EVIDENCE path, EVIDENCE_REF_MISSING fail-closed
+- Existing F1 tests default rehydrate mock = NO_EVIDENCE_OUTCOME_REFS
 
-## 9. Roadmap stale contradiction (observation only)
-Roadmap on main still states (examples):
-- M5 Delivery NOT AUTHORIZED / NOT IMPLEMENTED
-- Attempt/Evidence/RB CURRENT Memory
-- NEXT GATE = M5 DELIVERY AUTHORIZATION
-Git SoT: PR #350 merged; Option B + W1 implemented on main; CI #185 SUCCESS.
-Classification: **C-DOC-RT** (living roadmap document stale relative to Git SoT).
-Impact:
-- A. Technical/functional exit proof: does **not** by itself falsify Product durability proofs.
-- B. Governance closure readiness: **sync required** before/at Morris closure gate.
-NO Roadmap edit this cycle.
+## 9. QA
+- ProjectAssistantPanel.test.tsx: 8 PASS
+- m5C1C2DisclosureAndRehydrateAction: PASS (preserved)
+- rehydrateEvidenceOutcomeFromLps: PASS
+- m5RestartProcessProof: PASS
+- recommendation-vs-decision: PASS
+- __tests__/project-assistant: PASS
+- typecheck / lint / build: PASS
+- full Vitest: 1725 passed / 131 skipped
+- modeled governance: 73 PASS
+- git diff --check: clean
+- REAL=0
 
-## 10. Targeted QA on main (REAL unset)
-Commands + results (all PASS):
+## 10. M5 matrix delta
+- M5-27: NOT SATISFIED → **SATISFIED LOCALLY** (remount ReviewBundle visible; rehydrate called)
+- M5-28: NOT SATISFIED → **SATISFIED LOCALLY** (remount Recommendation + anti-claims visible)
+- Other criteria: not reopened
+- SATISFIED LOCALLY ≠ SATISFIED ON MAIN / ≠ M5 CLOSED
+
+## 11. Reserves preserved
+- confirmAndExecute optional productDurablePath: NON-BLOCKING HARDENING
+- M5-C journal KEEP TEMPORARY WITH EXIT
+- Roadmap C-DOC-RT stale — NO SYNC THIS CYCLE
+- Journal owner: OWNER NOT EXPLICITLY RECORDED
+
+## 12. Final git status
 ```
-npm test -- \
-  __tests__/oa/project/m5ProductSchemaMigration.test.ts \
-  __tests__/oa/execution-attempt/m5AttemptDurability.test.ts \
-  __tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts \
-  __tests__/oa/project/m5W1LpsAppend.test.ts \
-  __tests__/oa/project/m5RestartProcessProof.test.ts \
-  __tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts \
-  __tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts \
-  __tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts \
-  __tests__/recommendation-vs-decision.test.tsx
-```
-Result: Test Files 9 passed · Tests 24 passed · Duration ~1.3s
-Full-stack CI proof: post-merge #185 SUCCESS (not re-run locally).
-
-## 11. M5 Exit Matrix (M5-01 → M5-34)
-
-| ID | Criterion | Status | Proof |
-|---|---|---|---|
-| M5-01 | Product schema M5 additive on main | SATISFIED ON MAIN | `PRODUCT_SCHEMA_VERSION = "m5-0.1.0"` in db.ts; m5ProductSchemaMigration.test.ts PASS |
-| M5-02 | ExecutionAttempt durable Product SQLite | SATISFIED ON MAIN | sqliteExecutionAttemptRepository + m5AttemptDurability PASS |
-| M5-03 | terminal Attempt + resultRef survive restart | SATISFIED ON MAIN | m5RestartProcessProof A→B: succeeded + same resultRef |
-| M5-04 | Evidence durable linked to Attempt/EC | SATISFIED ON MAIN | restart proof evidence.sourceKind=execution_attempt + bindings |
-| M5-05 | Evidence.technicalResultRef == Attempt.resultRef | SATISFIED ON MAIN | restart proof both = res:m5-proc-fixture |
-| M5-06 | ReviewBundle durable | SATISFIED ON MAIN | m5EvidenceReviewDurability + restart same rb id |
-| M5-07 | RB reopen/supersede atomic | SATISFIED ON MAIN | m5EvidenceReviewDurability reopen + concurrent reopen tests PASS |
-| M5-08 | OCC Attempt/Evidence/RB atomic | SATISFIED ON MAIN | m5AttemptDurability OCC + evidence/RB concurrent tests PASS |
-| M5-09 | active Attempt uniqueness | SATISFIED ON MAIN | m5AttemptDurability active reservation PASS |
-| M5-10 | result-recording budget durable | SATISFIED ON MAIN | oa_execution_attempt_result_budget + durability test PASS |
-| M5-11 | W1 LPS N+1 factual | SATISFIED ON MAIN | m5W1LpsAppend.test.ts PASS |
-| M5-12 | evidenceIds/RB ids carry-forward/dedup/restart-safe | SATISFIED ON MAIN | W1 + restart LPS refs identical |
-| M5-13 | W1 provenance system/authority none | SATISFIED ON MAIN | SFIA_STUDIO_SYSTEM_FACTUAL_WRITER role=system authorityLevel=none |
-| M5-14 | factual LPS ≠ HD/trajectory/gate | SATISFIED ON MAIN | anti-claims in rehydrate + recommendation tests |
-| M5-15 | process A→B same Attempt/resultRef/Ev/RB/LPS | SATISFIED ON MAIN | m5RestartProcessProof PASS |
-| M5-16 | RecommendNextGate recomputable after restart | SATISFIED ON MAIN | restart worker + rehydrateEvidenceOutcomeFromLps PASS |
-| M5-17 | Recommendation.kind=recommendation | SATISFIED ON MAIN | restart + C2 action assertions |
-| M5-18 | executionAuthority=false | SATISFIED ON MAIN | same |
-| M5-19 | gateConsumed=false | SATISFIED ON MAIN | same |
-| M5-20 | decisionCreated=false | SATISFIED ON MAIN | same |
-| M5-21 | attemptAutoLaunchNextCycle=false | SATISFIED ON MAIN | same |
-| M5-22 | no implicit HumanDecision | SATISFIED ON MAIN | recommendation-vs-decision + C2 |
-| M5-23 | no automatic execution | SATISFIED ON MAIN | rehydrate read-only; no StartExecution |
-| M5-24 | ZERO unauthorized REAL | SATISFIED ON MAIN | env unset; PR paths no REAL launch; CI no REAL |
-| M5-25 | Product/Memory disclosure coherent | SATISFIED ON MAIN | C1 Product + Memory prepare tests PASS; required productDurablePath |
-| M5-26 | durable Nora/product-facing readback after restart | SATISFIED ON MAIN | projectAssistantRehydrateEvidenceOutcomeAction + rehydrateFromLps + C2/restart tests |
-| M5-27 | ReviewBundle visible via Nora/UI after restart | **NOT SATISFIED** | UI holds RB only in React `f3Execute` state; no call to rehydrate action on mount/reload |
-| M5-28 | Recommendation visible via Nora/UI after restart | **NOT SATISFIED** | same — cards render only when `f3Execute` set from in-session execute |
-| M5-29 | post-merge main tree == reviewed candidate | SATISFIED ON MAIN | diff 17461da↔8f75321 empty; 44 files |
-| M5-30 | post-merge CI success | SATISFIED ON MAIN | CI #185 SUCCESS |
-| M5-31 | M4 technical journal unchanged/distinct | SATISFIED ON MAIN | memoryLaunchSafetyJournal not in PR; journal ≠ Product Attempt store; technicalStore only result budget facade |
-| M5-32 | M5-C KEEP explicit; no retirement | SATISFIED ON MAIN | journal present; no retirement code; disposition KEEP |
-| M5-33 | no parallel architecture | SATISFIED ON MAIN | Option B reuse of Product SQLite backbone |
-| M5-34 | M6 work = 0 | SATISFIED ON MAIN | no M6 scope in PR #350 |
-
-## 12. Restart proof detail
-m5RestartProcessProof: process A create via real UCs → process B rehydrate same dbPath.
-Asserts same attemptId, resultRef, evidenceId, reviewBundleId, EC id, technicalResultRef, recommendation anti-claim flags.
-
-## 13. Nora readback vs UI readback (critical distinction)
-
-### Server / product read-model (M5-26)
-- `actions.ts` exports `projectAssistantRehydrateEvidenceOutcomeAction`
-- Uses `rehydrateEvidenceOutcomeFromLps` → LPS refs → Evidence/RB → RecommendNextGate
-- Proven by m5C1C2DisclosureAndRehydrateAction.test.ts + rehydrateEvidenceOutcomeFromLps.test.ts + restart worker
-
-### UI consumer (M5-27 / M5-28)
-`rg projectAssistantRehydrateEvidenceOutcomeAction` hits ONLY:
-- actions.ts (definition)
-- m5C1C2DisclosureAndRehydrateAction.test.ts (tests)
-
-ProjectAssistantPanel imports (NO rehydrate):
-```
-import {
-  projectAssistantConfirmAndExecuteF3FixtureAction,
-  projectAssistantDecideAction,
-  projectAssistantPrepareF3FixtureAction,
-  projectAssistantPrepareM3Action,
-  projectAssistantSendAction,
-} from "./actions";
-```
-
-UI state + display gated on session `f3Execute`:
-```
-        </section>
-      ) : null}
-
-      {f3Execute ? (
-        <section
-          className={styles.f3Card}
-          data-testid="project-assistant-f3-execute"
-          aria-live="polite"
-        >
-          <h3 className={styles.cardTitle}>F3 FIXTURE — RÉSULTATS</h3>
-          <div className={styles.f3Labels} data-testid="f3-execute-labels">
-            <StatusPill tone="muted">FIXTURE — AUCUNE EXÉCUTION RÉELLE</StatusPill>
-            <StatusPill tone="muted">AUCUN GIT WRITE PRODUIT</StatusPill>
-            <StatusPill tone="blueFlush">
-              RECOMMANDATION — PAS UNE DÉCISION MORRIS
-            </StatusPill>
-            <StatusPill tone="orange">CURSOR REAL BLOQUÉ</StatusPill>
-            <StatusPill tone="orange">HARD R-T-A3-1 / R-T-A3-2 OPEN</StatusPill>
-          </div>
-
-          <div data-testid="f3-attempt-card" className={styles.f3Subcard}>
-            <h4 className={styles.cardTitle}>Attempt</h4>
-            <p data-testid="f3-attempt-id">{f3Execute.attempt.attemptId}</p>
-            <p data-testid="f3-attempt-status">{f3Execute.attempt.status}</p>
-            <p data-testid="f3-attempt-adapter">{f3Execute.attempt.adapterId}</p>
-            <p data-testid="f3-attempt-external-effects">
-              externalEffects: {String(f3Execute.attempt.externalEffects)}
-            </p>
-            <p data-testid="f3-attempt-launch-count">
-              launchCount: {f3Execute.attempt.launchCount}
-            </p>
-            <p data-testid="f3-attempt-reused">
-              reusedExistingAttempt: {String(f3Execute.reusedExistingAttempt)}
-            </p>
-          </div>
-
-          <div data-testid="f3-evidence-card" className={styles.f3Subcard}>
-            <h4 className={styles.cardTitle}>Evidence</h4>
-            <p data-testid="f3-evidence-id">{f3Execute.evidence.evidenceId}</p>
-            <p data-testid="f3-evidence-status">{f3Execute.evidence.status}</p>
-            <p data-testid="f3-evidence-verified">
-              verified: {String(f3Execute.evidence.verified)}
-            </p>
-          </div>
-
-          <div data-testid="f3-review-bundle-card" className={styles.f3Subcard}>
-            <h4 className={styles.cardTitle}>ReviewBundle</h4>
-            <p data-testid="f3-review-bundle-id">
-              {f3Execute.reviewBundle.reviewBundleId}
-            </p>
-            <p data-testid="f3-review-bundle-status">
-              {f3Execute.reviewBundle.status}
-            </p>
-          </div>
-
-          <div data-testid="f3-recommendation-card" className={styles.f3Subcard}>
-            <h4 className={styles.cardTitle}>Recommendation</h4>
-            <p data-testid="f3-recommendation-label">
-              {f3Execute.recommendation.recommendationLabel}
-            </p>
-            <p data-testid="f3-recommendation-execution-authority">
-              executionAuthority:{" "}
-              {String(f3Execute.recommendation.executionAuthority)}
-            </p>
-            <p data-testid="f3-recommendation-gate-consumed">
-              gateConsumed: {String(f3Execute.recommendation.gateConsumed)}
-            </p>
-            <p data-testid="f3-recommendation-decision-created">
-              decisionCreated:{" "}
-              {String(f3Execute.recommendation.decisionCreated)}
-            </p>
-            <p data-testid="f3-recommendation-hard-refs">
-              {f3Execute.recommendation.openHardReservationRefs.join(" · ")}
-            </p>
-            <p data-testid="f3-no-ready-claim">PAS DE CLAIM READY</p>
-            <p data-testid="f3-no-ta6-complete">T-A6 COMPLETE NON DÉCLARÉ</p>
-          </div>
-        </section>
-      ) : null}
-
-      <section
-```
-
-useEffect on mount only sets READY — does not rehydrate.
-No component/Playwright existing test proves post-reload UI visibility.
-→ M5-27/M5-28 **NOT SATISFIED** (capability gap, not mere incomplete sampling).
-
-## 14. confirmAndExecuteF3Fixture reserve
-Optional `productDurablePath?` + `??` fallback remains at helper boundary.
-Product server action passes flag explicitly; prepareF3Fixture requires boolean.
-Assessment: does not falsify Product path disclosures on current action surface.
-**NON-BLOCKING HARDENING RESERVE**
-
-## 15. M5-C temporary debt
-- Target: technical CREATED/LAUNCHED journal
-- Exit condition (doctrine): durable Attempt + safety equivalence + dedicated Morris GO
-- Status: KEEP; retirement = 0
-- Owner: **OWNER NOT EXPLICITLY RECORDED**
-- Impact governance: document in future closure/sync; not a technical exit falsifier under M5-C KEEP
-
-## 16. M4 / REAL regression safety
-PR path delta for REAL/GateD/journal/gateway runners: (none)
-triggerAttemptTimeout.ts only widened store port type to ExecutionAttemptTechnicalStorePort (not 60000 policy change).
-REAL=0 · Gate D grant=0 · REAL retry=0 · M4 remains CLOSED.
-
-## 17. Technical / Functional Exit Verdict
-**NOT SATISFIED**
-
-Rationale: durable Product path + restart + W1 + server rehydrate PASS on main, but canonical criteria M5-27 and M5-28 (Nora/UI exploitable visibility of ReviewBundle and Recommendation after restart/reload) are NOT SATISFIED. Milestone includes analyse Nora; UI remains process-local React state for those cards.
-
-## 18. Governance Closure Readiness Verdict
-**NOT READY — BLOCKING GAP**
-
-Blocking: UI/Nora post-restart visibility gap (M5-27/M5-28).
-Also: Roadmap C-DOC-RT stale (governance sync required even after functional fix).
-
-## 19. PROPOSED ROADMAP DELTA — NOT APPLIED
-Recommended updates for a future governed Roadmap sync cycle (do not apply now):
-1. Snapshot Git: main = 8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-2. Intégration: PR #350 merged; head 17461dad…; merge 8f753218…
-3. CI: PR #184 SUCCESS; post-merge #185 SUCCESS
-4. M5-A OPTION B: IMPLEMENTED ON MAIN (Attempt/Evidence/RB Product SQLite)
-5. M5-B W1: IMPLEMENTED ON MAIN (factual LPS evidenceIds/reviewBundleIds + system writer)
-6. M5-C: KEEP TEMPORARY WITH EXIT unchanged; journal not retired; OWNER NOT EXPLICITLY RECORDED
-7. M5 exit evaluation: TECHNICAL/FUNCTIONAL **NOT SATISFIED** — blocking UI post-reload visibility gap (M5-27/M5-28); durable server rehydrate SATISFIED (M5-26)
-8. Reserves: confirmAndExecute optional productDurablePath fallback (non-blocking); Roadmap sync debt
-9. NEXT GATE: bounded UI/Nora durable readback wiring correction cycle OR Morris review of gap severity — then re-evaluate exit
-10. M5 CLOSED = NO · M6 NOT AUTHORIZED · REAL=0 · runtime v3 NON ADOPTED
-
-## 20. Branch cleanup
-BRANCH CLEANUP — SKIPPED BY GOVERNANCE — DELETE NOT AUTHORIZED
-Remote still: delivery/sfia-studio-m5-evidence-return @ 17461dad78f92a3d5e5e1d9bd36aa20d1e86ac11
-
-## 21. Final Git status
-```
+ M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+ M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
 ?? .tmp-sfia-review/
 ```
+branch=delivery/sfia-studio-m5-ui-rehydrate
 HEAD=8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-origin/main=8f753218e4fff7d68d78c1d57e9c3e8fb7e60943
-tracked clean · staged empty · project commit/push/PR/merge this cycle = 0
 
-## 22. Reserves
-| Reserve | Class |
-|---|---|
-| UI does not consume rehydrate after reload (M5-27/28) | **BLOCKING** for M5 exit closure |
-| Roadmap stale vs Git (C-DOC-RT) | Governance sync required |
-| confirmAndExecute optional productDurablePath | NON-BLOCKING HARDENING |
-| M5-C journal KEEP; owner not explicit | NON-BLOCKING under KEEP (record at closure sync) |
+## 13. Next Morris gate
+1. ChatGPT QA review of this handoff
+2. If PASS → Morris GO commit/push/Draft PR UI rehydrate
+3. PR readiness → merge gate
+4. Post-merge re-evaluate M5-27/28 on main
+5. If M5-01…34 satisfied → Morris M5 exit/closure gate (+ Roadmap sync separate)
+6. M6 remains closed
 
-## 23. Next Morris gate
-1. ChatGPT reviews this handoff + GitHub SoT.
-2. Qualify bounded correction cycle: wire ProjectAssistantPanel (or Nora surface) to projectAssistantRehydrateEvidenceOutcomeAction on project load/reload — **without** M6 / REAL / journal retirement.
-3. Re-run Cycle 14-style exit evaluation after fix.
-4. Only then: possible Morris GO ACCEPT M5 EXIT + CLOSE M5 (+ Roadmap sync).
-5. M6 remains closed until explicit future GO after M5 CLOSED.
+## 14. Verdict
 
-## 24. Final Verdict
+M5 UI/NORA DURABLE REHYDRATE DELIVERY COMPLETE — M5-27/M5-28 SATISFIED LOCALLY — DURABLE REVIEWBUNDLE + RECOMMENDATION VISIBLE AFTER REMOUNT — EXISTING M5 PROOFS PRESERVED — ZERO REAL — NO M6 — NO ROADMAP SYNC — M5 NOT CLOSED — READY FOR CHATGPT QA REVIEW
 
-M5 POST-MERGE EXIT PROOF NOT SATISFIED — BLOCKING CAPABILITY GAP IDENTIFIED — M5 NOT CLOSED — M6 NOT AUTHORIZED — ZERO REAL
+# FULL DIFF
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+index e4da344..f7bd36b 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
++++ b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
+@@ -17,11 +17,13 @@ const {
+   projectAssistantDecideActionMock,
+   projectAssistantPrepareF3FixtureActionMock,
+   projectAssistantConfirmAndExecuteF3FixtureActionMock,
++  projectAssistantRehydrateEvidenceOutcomeActionMock,
+ } = vi.hoisted(() => ({
+   projectAssistantSendActionMock: vi.fn(),
+   projectAssistantDecideActionMock: vi.fn(),
+   projectAssistantPrepareF3FixtureActionMock: vi.fn(),
+   projectAssistantConfirmAndExecuteF3FixtureActionMock: vi.fn(),
++  projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
+ }));
 
-Blocking gap: Nora/UI post-restart/reload visibility of ReviewBundle + Recommendation (M5-27/M5-28) despite durable server readback (M5-26 SATISFIED ON MAIN).
+ vi.mock("@/features/project-assistant/actions", () => ({
+@@ -33,6 +35,8 @@ vi.mock("@/features/project-assistant/actions", () => ({
+     projectAssistantPrepareF3FixtureActionMock(...args),
+   projectAssistantConfirmAndExecuteF3FixtureAction: (...args: unknown[]) =>
+     projectAssistantConfirmAndExecuteF3FixtureActionMock(...args),
++  projectAssistantRehydrateEvidenceOutcomeAction: (...args: unknown[]) =>
++    projectAssistantRehydrateEvidenceOutcomeActionMock(...args),
+ }));
 
-## 25. Key command outputs appendix
-### rg rehydrate usages
-```
-projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts:10:  projectAssistantRehydrateEvidenceOutcomeAction,
-projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts:95:describe("C2 projectAssistantRehydrateEvidenceOutcomeAction", () => {
-projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts:175:    const result = await projectAssistantRehydrateEvidenceOutcomeAction({
-projects/sfia-studio/app/__tests__/project-assistant/m5C1C2DisclosureAndRehydrateAction.test.ts:235:    const result = await projectAssistantRehydrateEvidenceOutcomeAction({
-projects/sfia-studio/app/features/project-assistant/actions.ts:526:export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
-```
+ vi.mock("next/link", () => ({
+@@ -105,12 +109,90 @@ const SUCCESS_RESULT = {
+   },
+ };
 
-### PR changed files count
-44 (matches reviewed candidate)
++const NO_EVIDENCE_OUTCOME = {
++  ok: false as const,
++  status: "rehydrate_error" as const,
++  code: "NO_EVIDENCE_OUTCOME_REFS",
++  message: "Aucune référence Evidence/ReviewBundle sur le LPS courant.",
++  mode: "fixture" as const,
++  retryable: false,
++};
++
++const DURABLE_REHYDRATE_SUCCESS = {
++  ok: true as const,
++  status: "ok" as const,
++  mode: "fixture" as const,
++  presentation: "unconfirmed" as const,
++  text: "REHYDRATE EVIDENCE OUTCOME",
++  project: {
++    projectId: "prj:m5-ui",
++    name: "Projet M5 UI",
++    shortReference: "M5UI",
++    objective: "Durable rehydrate UI",
++    contextSummary: "M5-27/M5-28",
++    criticality: "STANDARD",
++    constraints: [] as string[],
++    lpsId: "lps:m5-ui",
++    lpsVersion: 3,
++    lpsCreatedAt: "2026-08-15T12:00:00.000Z",
++    doctrineId: "pkg:studio-v3-oa",
++    doctrineVersion: "1.0.0",
++    doctrineDigest: "digest:m5-ui",
++    doctrineStatus: "RESOLVED",
++    runtimeMode: "LOCAL_PROCESS",
++    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
++    readiness: "NOT_READY",
++  },
++  ephemeralNotice:
++    "F3 fixture execution — Attempt, Evidence, ReviewBundle and LPS evidence links are persisted in Product SQLite. REAL execution remains disabled. Recommendation is not a Morris decision.",
++  evidence: [
++    {
++      evidenceId: "ev:m5-ui",
++      status: "available",
++      sourceKind: "execution_attempt",
++      technicalResultRef: "res:m5-ui",
++      verified: false as const,
++      mode: "fixture" as const,
++    },
++  ],
++  reviewBundles: [
++    {
++      reviewBundleId: "rb:m5-ui",
++      status: "draft",
++      version: 1,
++      evidenceRefs: ["ev:m5-ui"],
++      mode: "fixture" as const,
++    },
++  ],
++  recommendation: {
++    kind: "recommendation" as const,
++    status: "not_recommended",
++    executionAuthority: false as const,
++    gateConsumed: false as const,
++    decisionCreated: false as const,
++    attemptAutoLaunchNextCycle: false as const,
++    openHardReservationRefs: [] as string[],
++    hardBlockers: [] as string[],
++    nextGateCode: null,
++    nextActionCode: null,
++    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION MORRIS" as const,
++    mode: "fixture" as const,
++  },
++  lpsVersion: 3,
++  evidenceIds: ["ev:m5-ui"],
++  reviewBundleIds: ["rb:m5-ui"],
++};
++
+ describe("F1 ProjectAssistantPanel UI", () => {
+   beforeEach(() => {
+     projectAssistantSendActionMock.mockReset();
+     projectAssistantDecideActionMock.mockReset();
+     projectAssistantPrepareF3FixtureActionMock.mockReset();
+     projectAssistantConfirmAndExecuteF3FixtureActionMock.mockReset();
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
++      NO_EVIDENCE_OUTCOME,
++    );
+   });
 
-### Merge tree equality
-git diff --exit-code 17461dad… 8f753218… → exit 0 EMPTY
+   afterEach(() => {
+@@ -344,3 +426,135 @@ describe("F1 ProjectAssistantPanel UI", () => {
+     expect(screen.getByTestId("project-assistant-send")).toBeDisabled();
+   });
+ });
++
++describe("M5-27/M5-28 durable Nora/UI rehydrate", () => {
++  beforeEach(() => {
++    projectAssistantSendActionMock.mockReset();
++    projectAssistantDecideActionMock.mockReset();
++    projectAssistantPrepareF3FixtureActionMock.mockReset();
++    projectAssistantConfirmAndExecuteF3FixtureActionMock.mockReset();
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
++      NO_EVIDENCE_OUTCOME,
++    );
++  });
++
++  afterEach(() => {
++    cleanup();
++  });
++
++  it("shows durable ReviewBundle + Recommendation after mount without f3Execute", async () => {
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
++      DURABLE_REHYDRATE_SUCCESS,
++    );
++
++    render(<ProjectAssistantPanel projectId="prj:m5-ui" />);
++
++    expect(
++      await screen.findByTestId("durable-evidence-outcome"),
++    ).toBeVisible();
++    expect(projectAssistantRehydrateEvidenceOutcomeActionMock).toHaveBeenCalledWith(
++      { projectId: "prj:m5-ui" },
++    );
++    expect(screen.getByTestId("durable-review-bundle-id")).toHaveTextContent(
++      "rb:m5-ui",
++    );
++    expect(screen.getByTestId("durable-review-bundle-status")).toHaveTextContent(
++      "draft",
++    );
++    expect(screen.getByTestId("durable-recommendation-label")).toHaveTextContent(
++      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++    );
++    expect(
++      screen.getByTestId("durable-recommendation-execution-authority"),
++    ).toHaveTextContent("executionAuthority: false");
++    expect(
++      screen.getByTestId("durable-recommendation-gate-consumed"),
++    ).toHaveTextContent("gateConsumed: false");
++    expect(
++      screen.getByTestId("durable-recommendation-decision-created"),
++    ).toHaveTextContent("decisionCreated: false");
++    expect(screen.queryByTestId("project-assistant-f3-execute")).toBeNull();
++    expect(
++      projectAssistantConfirmAndExecuteF3FixtureActionMock,
++    ).not.toHaveBeenCalled();
++  });
++
++  it("reloads durable ReviewBundle + Recommendation after unmount/remount", async () => {
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
++      DURABLE_REHYDRATE_SUCCESS,
++    );
++
++    const first = render(<ProjectAssistantPanel projectId="prj:m5-ui" />);
++    expect(
++      await screen.findByTestId("durable-review-bundle-id"),
++    ).toHaveTextContent("rb:m5-ui");
++    expect(
++      screen.getByTestId("durable-recommendation-label"),
++    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
++
++    first.unmount();
++
++    render(<ProjectAssistantPanel projectId="prj:m5-ui" />);
++    expect(
++      await screen.findByTestId("durable-review-bundle-id"),
++    ).toHaveTextContent("rb:m5-ui");
++    expect(
++      screen.getByTestId("durable-recommendation-label"),
++    ).toHaveTextContent("RECOMMANDATION — PAS UNE DÉCISION MORRIS");
++    expect(
++      screen.getByTestId("durable-recommendation-execution-authority"),
++    ).toHaveTextContent("executionAuthority: false");
++    expect(
++      projectAssistantRehydrateEvidenceOutcomeActionMock.mock.calls.length,
++    ).toBeGreaterThanOrEqual(2);
++    expect(screen.queryByTestId("project-assistant-f3-execute")).toBeNull();
++    expect(
++      projectAssistantConfirmAndExecuteF3FixtureActionMock,
++    ).not.toHaveBeenCalled();
++  });
++
++  it("keeps composer usable when LPS has no durable outcome refs", async () => {
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue(
++      NO_EVIDENCE_OUTCOME,
++    );
++
++    render(<ProjectAssistantPanel projectId="prj:m5-empty" />);
++
++    await waitFor(() => {
++      expect(
++        projectAssistantRehydrateEvidenceOutcomeActionMock,
++      ).toHaveBeenCalledWith({ projectId: "prj:m5-empty" });
++    });
++
++    expect(screen.queryByTestId("durable-evidence-outcome")).toBeNull();
++    expect(screen.queryByTestId("durable-review-bundle-card")).toBeNull();
++    expect(screen.queryByTestId("durable-recommendation-card")).toBeNull();
++    expect(screen.queryByTestId("durable-rehydrate-error")).toBeNull();
++    expect(screen.queryByTestId("project-assistant-error")).toBeNull();
++    expect(screen.getByTestId("project-assistant-input")).toBeEnabled();
++    expect(screen.getByTestId("project-assistant-composer")).toBeVisible();
++  });
++
++  it("shows bounded durable rehydrate error without blocking composer", async () => {
++    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue({
++      ok: false,
++      status: "rehydrate_error",
++      code: "EVIDENCE_REF_MISSING",
++      message: "Evidence manquante",
++      mode: "fixture",
++      retryable: false,
++    });
++
++    render(<ProjectAssistantPanel projectId="prj:m5-err" />);
++
++    expect(await screen.findByTestId("durable-rehydrate-error")).toHaveTextContent(
++      /Impossible de relire le dernier outcome durable/,
++    );
++    expect(screen.queryByTestId("durable-recommendation-card")).toBeNull();
++    expect(screen.getByTestId("project-assistant-input")).toBeEnabled();
++    expect(
++      projectAssistantConfirmAndExecuteF3FixtureActionMock,
++    ).not.toHaveBeenCalled();
++  });
++});
+diff --git a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+index a02564c..58871d7 100644
+--- a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
++++ b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+@@ -7,12 +7,14 @@ import {
+   projectAssistantDecideAction,
+   projectAssistantPrepareF3FixtureAction,
+   projectAssistantPrepareM3Action,
++  projectAssistantRehydrateEvidenceOutcomeAction,
+   projectAssistantSendAction,
+ } from "./actions";
+ import type {
+   AssistantHistoryMessage,
+   AssistantToolEventDto,
+   F2TurnPayload,
++  ProjectAssistantRehydrateEvidenceOutcomeSuccess,
+ } from "./types";
+ import type { F2DecisionKind, ProposalDto } from "./f2/types";
+ import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
+@@ -91,6 +93,11 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+     null,
+   );
+   const [f3Execute, setF3Execute] = useState<F3ExecutePayload | null>(null);
++  const [durableEvidenceOutcome, setDurableEvidenceOutcome] =
++    useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
++  const [durableRehydrateError, setDurableRehydrateError] = useState<
++    string | null
++  >(null);
+   const [f3Busy, setF3Busy] = useState(false);
+   const [isPending, startTransition] = useTransition();
+   const listRef = useRef<HTMLDivElement | null>(null);
+@@ -99,6 +106,36 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+     setUiState((prev) => (prev === "INITIAL" ? "READY" : prev));
+   }, []);
+
++  useEffect(() => {
++    let cancelled = false;
++    setDurableEvidenceOutcome(null);
++    setDurableRehydrateError(null);
++
++    void projectAssistantRehydrateEvidenceOutcomeAction({ projectId }).then(
++      (result) => {
++        if (cancelled) return;
++        if (result.ok) {
++          setDurableEvidenceOutcome(result);
++          setDurableRehydrateError(null);
++          return;
++        }
++        if (result.code === "NO_EVIDENCE_OUTCOME_REFS") {
++          setDurableEvidenceOutcome(null);
++          setDurableRehydrateError(null);
++          return;
++        }
++        setDurableEvidenceOutcome(null);
++        setDurableRehydrateError(
++          "Impossible de relire le dernier outcome durable.",
++        );
++      },
++    );
++
++    return () => {
++      cancelled = true;
++    };
++  }, [projectId]);
++
+   useEffect(() => {
+     const el = listRef.current;
+     if (!el || typeof el.scrollTo !== "function") return;
+@@ -106,7 +143,17 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+       top: el.scrollHeight,
+       behavior: "smooth",
+     });
+-  }, [messages, toolEvents, error, activeProposal, f2, f3Prepare, f3Execute]);
++  }, [
++    messages,
++    toolEvents,
++    error,
++    activeProposal,
++    f2,
++    f3Prepare,
++    f3Execute,
++    durableEvidenceOutcome,
++    durableRehydrateError,
++  ]);
+
+   const busy =
+     isPending ||
+@@ -807,6 +854,101 @@ export function ProjectAssistantPanel({ projectId }: { projectId: string }) {
+         </section>
+       ) : null}
+
++      {!f3Execute && durableRehydrateError ? (
++        <section
++          className={styles.f3Card}
++          data-testid="durable-rehydrate-error"
++          aria-live="polite"
++        >
++          <h3 className={styles.cardTitle}>Outcome durable</h3>
++          <p className={styles.cardMeta}>{durableRehydrateError}</p>
++        </section>
++      ) : null}
++
++      {!f3Execute && durableEvidenceOutcome ? (
++        <section
++          className={styles.f3Card}
++          data-testid="durable-evidence-outcome"
++          aria-live="polite"
++        >
++          <h3 className={styles.cardTitle}>OUTCOME DURABLE — RELECTURE LPS</h3>
++          <div className={styles.f3Labels} data-testid="durable-outcome-labels">
++            <StatusPill tone="blueFlush">
++              RECOMMANDATION — PAS UNE DÉCISION MORRIS
++            </StatusPill>
++            <StatusPill tone="muted">LECTURE SEULE — AUCUNE EXÉCUTION</StatusPill>
++          </div>
++          <p className={styles.cardMeta} data-testid="durable-lps-version">
++            LPS v{durableEvidenceOutcome.lpsVersion}
++          </p>
++          <p className={styles.cardMeta} data-testid="durable-ephemeral-notice">
++            {durableEvidenceOutcome.ephemeralNotice}
++          </p>
++
++          <div data-testid="durable-evidence-card" className={styles.f3Subcard}>
++            <h4 className={styles.cardTitle}>Evidence</h4>
++            <dl className={styles.cardDl}>
++              <div>
++                <dt>IDs</dt>
++                <dd data-testid="durable-evidence-ids">
++                  {durableEvidenceOutcome.evidenceIds.join(", ") || "—"}
++                </dd>
++              </div>
++              {durableEvidenceOutcome.evidence.map((ev) => (
++                <div key={ev.evidenceId}>
++                  <dt>{ev.evidenceId}</dt>
++                  <dd data-testid={`durable-evidence-status-${ev.evidenceId}`}>
++                    {ev.status}
++                  </dd>
++                </div>
++              ))}
++            </dl>
++          </div>
++
++          {durableEvidenceOutcome.reviewBundles.map((rb) => (
++            <div
++              key={rb.reviewBundleId}
++              data-testid="durable-review-bundle-card"
++              className={styles.f3Subcard}
++            >
++              <h4 className={styles.cardTitle}>ReviewBundle</h4>
++              <p data-testid="durable-review-bundle-id">{rb.reviewBundleId}</p>
++              <p data-testid="durable-review-bundle-status">{rb.status}</p>
++            </div>
++          ))}
++
++          <div
++            data-testid="durable-recommendation-card"
++            className={styles.f3Subcard}
++          >
++            <h4 className={styles.cardTitle}>Recommendation</h4>
++            <p data-testid="durable-recommendation-label">
++              {durableEvidenceOutcome.recommendation.recommendationLabel}
++            </p>
++            <p data-testid="durable-recommendation-execution-authority">
++              executionAuthority:{" "}
++              {String(
++                durableEvidenceOutcome.recommendation.executionAuthority,
++              )}
++            </p>
++            <p data-testid="durable-recommendation-gate-consumed">
++              gateConsumed:{" "}
++              {String(durableEvidenceOutcome.recommendation.gateConsumed)}
++            </p>
++            <p data-testid="durable-recommendation-decision-created">
++              decisionCreated:{" "}
++              {String(durableEvidenceOutcome.recommendation.decisionCreated)}
++            </p>
++            <p data-testid="durable-recommendation-auto-launch">
++              attemptAutoLaunchNextCycle:{" "}
++              {String(
++                durableEvidenceOutcome.recommendation.attemptAutoLaunchNextCycle,
++              )}
++            </p>
++          </div>
++        </section>
++      ) : null}
++
+       <section
+         className={styles.sources}
+         aria-labelledby="project-assistant-sources-title"
