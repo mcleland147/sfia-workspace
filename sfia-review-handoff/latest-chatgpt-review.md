@@ -1,86 +1,90 @@
 # SFIA Review Pack — FULL
 
 ## 1. Timestamp (Europe/Paris)
-2026-08-15 07:23:30 CEST
+2026-08-15 07:55:12 CEST
 
 ## 2. GO exact
 GO Morris M5 Delivery
-(GO MORRIS CONSOMMÉ — M5 DELIVERY)
 
-## 3. Cycle / Profile / Typology
-- Cycle: **8 — Delivery / implémentation**
-- Profile: **Critical**
-- Typology: **EVOL**
+## 3. Correction pass
+M5 DELIVERY — QA CORRECTION PASS B1 / B2 / B3
 
-## 4. Repo / branch / HEAD / base / origin-main
-- Repo: `mcleland147/sfia-workspace`
-- Worktree: `/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off`
-- Branch: `delivery/sfia-studio-m5-evidence-return`
-- HEAD: `129570dfd44af5b4d466cc3dc0c166d928d26ef5`
-- origin/main: `129570dfd44af5b4d466cc3dc0c166d928d26ef5`
-- Expected base: `129570dfd44af5b4d466cc3dc0c166d928d26ef5`
-- Match: **YES** (HEAD == origin/main == expected; Delivery uncommitted local)
-- Remote delivery branch: **absent** (local-only, as authorized — no project push)
-- Incoming `origin/sfia/review-handoff` at Delivery start / pre-publish: `183e0481af66cfad94a9f17694aa6195fe4f3b7d` (expected `183e0481af66cfad94a9f17694aa6195fe4f3b7d`)
+Incoming ChatGPT verdict corrected:
+M5 DELIVERY QA — CORRECTIONS REQUIRED — NOT READY FOR COMMIT / PUSH / PR
 
-## 5. Convergence pre-check
-- Capability principale: **V3-F14 Artifact Completeness**
-- Capacités directement servies: V3-F13, V3-F02, V3-F04, V3-F05, V3-F09
-- Milestone: **M5 — Retour de preuve + analyse Nora**
-- Previous: **M4 CLOSED**
-- Next capability AFTER M5 closure: **M6 — Boucle projet complète** (**NOT AUTHORIZED**)
-- Architecture parallel? **NO**
-- Classifications applied:
-  - ExecutionAttempt domain/ports = KEEP
-  - Memory ExecutionAttempt product adapter = REPLACE ON PRODUCT PATH (KEEP for tests)
-  - Evidence domain/ports/use cases = KEEP
-  - Memory Evidence product adapter = REPLACE ON PRODUCT PATH (KEEP for tests)
-  - ReviewBundle domain/ports/use cases = KEEP
-  - Memory ReviewBundle product adapter = REPLACE ON PRODUCT PATH (KEEP for tests)
-  - Product SQLite backbone = KEEP / COMPLETE (m5-0.1.0)
-  - LivingProjectState = KEEP
-  - AppendLivingProjectStateVersion = ADAPT (W1)
-  - RecommendNextGate = KEEP / RECOMMENDATION-ONLY
-  - Nora/F3 compose = HARVEST / ADAPT (no new engine)
-  - technical launch journal = KEEP / TEMPORARY WITH EXIT
-  - Claims/Maturity = FREEZE (remain Memory)
-  - Timeout = OUT OF M5 CRITICAL PATH (unchanged 60000)
+Incoming handoff:
+f3b915e275fa2a2e06844b4d477631ef73e878ac
 
-## 6. Capability / milestone / next
-M5 local Product path candidate. M6 not authorized. M5 CLOSED ≠ this Delivery.
+## 4. Cycle / Profile / Typology
+- Cycle: 8 — Delivery / implementation (correction pass)
+- Profile: Critical
+- Typology: EVOL
 
-## 7. Sources réellement lues
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
-- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
-- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
-- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
-- `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md`
-- Historical handoff `sfia/review-handoff/latest-chatgpt-review.md` @ `63f41e3f328868286c14312a58a7b79f850383c0` (M5 entry qualification)
-- Process templates / CKC synthetic map / v2.5 cycles method (guidance only)
-- `.github/workflows/sfia-studio-ci.yml` (read-only)
-- Repo discovery of Attempt / Evidence / ReviewBundle / Project SQLite / Runtime / F3
+## 5. Repo / branch / HEAD / origin-main
+- Repo: mcleland147/sfia-workspace
+- Branch: delivery/sfia-studio-m5-evidence-return
+- HEAD: 129570dfd44af5b4d466cc3dc0c166d928d26ef5
+- origin/main: 129570dfd44af5b4d466cc3dc0c166d928d26ef5
+- Expected: 129570dfd44af5b4d466cc3dc0c166d928d26ef5 — MATCH
+- Remote delivery branch: ABSENT (no project push)
+- Incoming handoff remote at correction start: f3b915e275fa2a2e06844b4b477631ef73e878ac
 
-## 8. Git Truth before
-- origin/main = `129570dfd44af5b4d466cc3dc0c166d928d26ef5` ✅
-- tracked/staged clean ✅
-- Untracked authorized: `.tmp-sfia-review/**` ✅
-- `SFIA_STUDIO_CURSOR_REAL` unset ✅
-- `OPS1_CURSOR_REAL` unset ✅
-- Branch created: `git switch -c delivery/sfia-studio-m5-evidence-return origin/main` ✅
+## 6. Convergence pre-check
+- Capability: V3-F14 (+ F13/F02/F04/F05/F09)
+- Milestone: M5
+- Previous: M4 CLOSED
+- Next after M5 closure: M6 NOT AUTHORIZED
+- Architecture preserved: M5-A OPTION B · M5-B W1 · M5-C KEEP TEMPORARY WITH EXIT
+- No parallel Product Store / new engine / REAL / journal retirement
 
-## 9. Repo discovery (réelle)
-- Memory Attempt store carried: activeByContractId Map, resultRecordingAttempts Map, runInTransaction snapshots
-- Use cases T-A5 depended on MemoryExecutionAttemptStore concrete type for txn + result budget
-- Evidence/RB Memory repos with OCC + idempotency + successor atomic reopen
-- Product SQLite was m3-0.1.0 with Project/LPS/Cycle/HD/EC; no Attempt/Evidence/RB tables
-- Runtime `wireOaStack` used Memory Attempt + Memory Evidence when productSqlite present
-- LPS types already had evidenceIds/reviewBundleIds but Append request did not write them (dropped on later appends)
-- F3 ingestEvidenceAndRecommend existed; product path still had fixture markers historically
-- M4 technical journal `sqliteLaunchSafetyJournal.ts` isolated — left untouched (diff empty for that file)
+## 7. Sources lues
+- Process templates / routing / operating model / guardrails
+- Convergence Build Doctrine + Roadmap (read-only)
+- v3 framing 32 / 33 / 35
+- Handoff @ f3b915e2…
+- Repo Attempt / Evidence / ReviewBundle / Project / Runtime / F3 surfaces
 
-## 10. Liste exacte des fichiers modifiés/créés
+## 8. Git Truth
+- HEAD == origin/main == expected base
+- staged empty
+- M5 candidate uncommitted preserved (no reset/checkout)
+- REAL env unset
+
+## 9. Candidate avant corrections
+Delivery candidate from f3b915e2 present locally with Option B + W1 wiring, but ChatGPT blocking findings B1/B2/B3.
+
+## 10. B1 finding + correction
+Finding: restart proof seeded accepted Attempt via repo create; RegisterEvidence manual; no resultRef; process B did not recompute RecommendNextGate; durable F3 readback absent.
+
+Correction:
+- Process A uses real use cases: Select → Start (TestExecutionAdapter externalEffects=false) → RecordExecutionResult → status=succeeded + resultRef
+- IngestExecutionAttemptEvidence (not manual RegisterEvidence)
+- CreateReviewBundle + W1 LPS append
+- rehydrateEvidenceOutcomeFromLps (read-only LPS → readers → RecommendNextGate)
+- Product action projectAssistantRehydrateEvidenceOutcomeAction
+- Process B reopens DB and asserts Recommendation recomputed with recommendation-only flags
+
+## 11. B2 finding + correction
+Finding: OCC TOCTOU (read version then UPDATE without version predicate).
+
+Correction:
+- Attempt/Evidence/ReviewBundle UPDATE: WHERE id = ? AND version = ? + changes === 1 else NOT_FOUND / VERSION_CONFLICT
+- Evidence/RB update + idempotency in Product transaction
+- createSuccessorAndMarkSuperseded: INSERT successor + CAS UPDATE source inside transaction (rollback on CAS fail → no orphan)
+- reserveActiveContract: INSERT ON CONFLICT DO NOTHING (same attemptId idempotent; other → EXECUTION_ALREADY_ACTIVE)
+- rebuildActiveIndex transactional + fail-closed on multi-active
+- Concurrent OCC adversarial tests added
+
+## 12. B3 finding + correction
+Finding: W1 used LOCAL_MORRIS_ACTOR (demo, Morris-named).
+
+Correction:
+- SFIA_STUDIO_SYSTEM_FACTUAL_WRITER — role=system, authorityLevel=none, actorId=actor:sfia-studio-system-factual-writer
+- Not registered in authority registry
+- Fixture LOCAL_MORRIS_ACTOR left in historical F3 fixture authority paths only
+- W1 tests assert system provenance != LOCAL_MORRIS_ACTOR
+
+## 13. Fichiers modifies/crees finaux
 
 ### Modified
 ```
@@ -89,6 +93,7 @@ M	projects/sfia-studio/app/features/project-assistant/actions.ts
 M	projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
 M	projects/sfia-studio/app/features/project-assistant/f3/index.ts
 M	projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+M	projects/sfia-studio/app/features/project-assistant/types.ts
 M	projects/sfia-studio/app/lib/oa/evidence-review/index.ts
 M	projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
 M	projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
@@ -104,31 +109,20 @@ M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
 M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteHandle.ts
 M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/sqliteProductStore.ts
 M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+
 ```
 
-### Created (untracked in Delivery working tree)
-- projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts
-- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts
-- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts
-- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
-- projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteEvidenceRepository.ts
-- projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteReviewBundleRepository.ts
-- projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts
-- projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts
-- projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts
-- projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts
-- projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts
-- projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts
-- projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts
-- projects/sfia-studio/app/__tests__/oa/evidence-review/m5EvidenceReviewDurability.test.ts
+### Created
+See NEW FILES section below (full content).
 
 ### Diff stat
 ```
  .../oa/decision/m3ProductSchemaMigration.test.ts   | 10 ++-
- .../app/features/project-assistant/actions.ts      |  1 +
+ .../app/features/project-assistant/actions.ts      | 79 ++++++++++++++++++++
  .../f3/confirmAndExecuteF3Fixture.ts               |  8 +-
- .../app/features/project-assistant/f3/index.ts     |  1 +
+ .../app/features/project-assistant/f3/index.ts     |  6 ++
  .../f3/ingestEvidenceAndRecommend.ts               | 28 +++++++
+ .../app/features/project-assistant/types.ts        | 38 +++++++++-
  .../app/lib/oa/evidence-review/index.ts            | 14 +++-
  .../application/cancelExecutionAttempt.ts          |  4 +-
  .../application/recordExecutionFailure.ts          |  4 +-
@@ -144,159 +138,67 @@ M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
  .../infrastructure/sqlite/productSqliteHandle.ts   | 14 +++-
  .../infrastructure/sqlite/sqliteProductStore.ts    | 15 +++-
  .../app/lib/vertical-slice-runtime/service.ts      | 51 +++++++++----
- 20 files changed, 253 insertions(+), 38 deletions(-)
+ 21 files changed, 373 insertions(+), 39 deletions(-)
+
 ```
 
-## 11. Architecture implémentée
-**M5-A OPTION B** — Attempt + Evidence + ReviewBundle durables dans le Product SQLite OA existant (même SqliteProductStore / DatabaseSync).
-**M5-B W1** — append factuel LPS evidenceIds/reviewBundleIds (merge+dedup dans F3 helper; carry-forward OCC dans Append).
-**M5-C** — technical launch journal M4 inchangé (KEEP TEMPORARY WITH EXIT).
-Pas de second Product Store. Pas de nouveau moteur Nora/M5. Claims/Maturity restent Memory.
+## 14. Architecture (unchanged decisions)
+OPTION B Product SQLite m5-0.1.0 · W1 factual LPS · M5-C journal KEEP
 
-## 12. Schema version before/after
-- Before: `m3-0.1.0`
-- After: `m5-0.1.0`
-- Constants: `PRODUCT_SCHEMA_VERSION_M1/M2/M3` retained; `PRODUCT_SCHEMA_VERSION = "m5-0.1.0"`
+## 15. Persistence semantics (post-correction)
+- Attempt: durable + atomic CAS OCC + active reservation atomic + result_budget durable
+- Evidence: durable + atomic CAS + ingest path proven
+- ReviewBundle: durable + atomic CAS + atomic successor reopen
+- Runtime Product path uses SQLite adapters; Memory kept for tests; REAL-OFF
 
-## 13. Tables/indexes ajoutés
-- `oa_execution_attempts` (+ index contract)
-- `oa_execution_attempt_active` (PK contract → attempt; one active non-terminal)
-- `oa_execution_attempt_result_budget` (durable resultRecordingAttempts)
-- `oa_evidence` (+ index project)
-- `oa_evidence_idempotency`
-- `oa_review_bundles` (+ index project)
-- `oa_review_bundle_idempotency`
+## 16. W1 + system provenance
+System factual writer only on automatic LPS evidence/RB append.
 
-## 14. Migration behavior
-- NULL / M1 → apply M2+M3+M5 → m5-0.1.0
-- M2 → M3+M5 → m5-0.1.0
-- M3 → M5 → m5-0.1.0
-- m5 reopen → idempotent
-- unknown/future → FAIL CLOSED
-- Aucune migration destructive; tables M1–M3 préservées
+## 17. Nora/F3 durable readback
+rehydrateEvidenceOutcomeFromLps + server action; fail-closed on missing/mismatch refs; recommendation-only.
 
-## 15. ExecutionAttempt durable semantics
-SqliteExecutionAttemptRepository behind ExecutionAttemptRepositoryPort:
-findById / findByIdempotencyKey / exists / create / update OCC / listByContract / reserveActiveContract / releaseActiveContract / rebuildActiveIndex / detectActiveIndexDrift / assertActiveIndexConsistent.
-Invariant: ≤1 non-terminal Attempt per executionContractId survives restart via `oa_execution_attempt_active`.
+## 18. Technical journal
+sqliteLaunchSafetyJournal.ts unchanged (not in diff).
 
-## 16. Hidden Memory store state audit
-| Concern | Discovery | Disposition |
-|---|---|---|
-| activeByContractId | process Map + rebuild | **Durable** via `oa_execution_attempt_active` (+ rebuild/drift APIs) |
-| resultRecordingAttempts | process Map; fail-closed budget after restart would reset if not persisted | **Durable** via `oa_execution_attempt_result_budget` (SqliteExecutionAttemptTechnicalStore Map facade) |
-| runInTransaction | Memory snapshot rollback | **Port** `ExecutionAttemptTechnicalStorePort.runInTransaction` — Memory keeps snapshot semantics; SQLite uses Product `runInTransaction` |
-| Use-case typing | concrete Memory store | Narrowed to `ExecutionAttemptTechnicalStorePort` (Memory still satisfies) |
+## 19. REAL proof
+SFIA_STUDIO_CURSOR_REAL unset · OPS1_CURSOR_REAL unset · Gate D 0 · REAL launch 0 · fixture/no-effect only
 
-No STOP — EXECUTION ATTEMPT DURABILITY REVEALS UNRESOLVED STRUCTURAL STATE (budget durability covered within OPTION B Product SQLite).
-
-## 17. Evidence persistence semantics
-SqliteEvidenceRepository: create/read, idempotency survives restart, OCC update, bindings/technicalResultRef/provenance in payload_json. EvidenceReaderPort unchanged.
-
-## 18. ReviewBundle persistence semantics
-SqliteReviewBundleRepository: create/read, idempotency, OCC, evidence refs / frozen snapshots in payload, `createSuccessorAndMarkSuperseded` atomic via Product transaction. Claim/Maturity not persisted.
-
-## 19. RuntimeOaStack wiring
-`vertical-slice-runtime/service.ts`: when `productSqlite` present → `createSqliteExecutionAttemptServices` + `createSqliteEvidenceReviewServices`; Memory path retained otherwise. REAL-OFF comments preserved; **no** `createStudioCursorRealBoundary` / realBoundary wiring. Claim/Maturity Memory.
-
-## 20. W1 implementation
-- `AppendLivingProjectStateRequest.evidenceIds?` / `reviewBundleIds?`
-- Append carries forward existing LPS ids when omitted (fixes prior drop)
-- F3 `appendEvidenceOutcomeToLps`: merge existing + new, `Set` dedup, OCC expectedVersion
-- Does **not** mutate trajectory / activeCycle / decisionIds / HumanDecision / gate / authority / maturity
-
-## 21. Nora/F3 product path
-- Harvest: IngestExecutionAttemptEvidence / CreateReviewBundle / RecommendNextGate / existing compose
-- `ingestEvidenceAndRecommend` optionally receives projectServices → W1 append after Evidence+RB
-- `confirmAndExecuteF3Fixture` / actions wired for optional LPS link
-- No new M5Engine / NoraEngine
-- Fixture historical path retained; Product-created IDs are not claimed as fixture
-
-## 22. Durable UI/readback path
-After restart: LPS current → evidenceIds/reviewBundleIds → Evidence/RB readers by id → RecommendNextGate recompute. No listByProject added. No UI redesign (data wiring only).
-
-## 23. Current vs target (IMPLEMENTED locally)
-| Target | Status |
-|---|---|
-| Product SQLite M5 schema additive | IMPLEMENTED |
-| Durable Attempt/Evidence/RB | IMPLEMENTED |
-| Runtime Product path adapters | IMPLEMENTED |
-| Memory adapters for tests | KEPT |
-| W1 LPS factual append | IMPLEMENTED |
-| Durable F3/Nora readback path | IMPLEMENTED (LPS ids + ports) |
-| RecommendNextGate recommendation-only | KEPT + tests |
-| M4 journal / REAL-OFF / Gate D / timeout | UNCHANGED |
-| M5 CLOSED | **NOT CLAIMED** |
-| M6 | **NOT AUTHORIZED / 0** |
-
-## 24. Technical journal proof = unchanged
-`sqliteLaunchSafetyJournal.ts` **not** in git diff (present on disk, unmodified). M5-C KEEP TEMPORARY WITH EXIT.
-
-## 25. REAL proof = ZERO
-- `SFIA_STUDIO_CURSOR_REAL` unset
-- `OPS1_CURSOR_REAL` unset
-- No Gate D grant
-- No REAL launch / retry
-- Runtime default REAL-OFF preserved
-- Restart/worker proofs use Product SQLite + seeded/no-effect paths only
-
-## 26. Tests ciblés — commandes + résultats
-(Executed by Delivery agent from `projects/sfia-studio/app`; REAL env absent)
-
+## 20. Tests
 | Suite | Result |
 |---|---|
-| `npm test -- __tests__/oa/project` | **46 passed** |
-| `npm test -- __tests__/oa/execution-attempt` | **133 passed** |
-| `npm test -- __tests__/oa/evidence-review` | **142 passed** |
-| `npm test -- __tests__/vertical-slice-runtime` | **13 passed** |
-| `npm test -- __tests__/project-assistant` | **pass** |
-| `npm test -- __tests__/recommendation-vs-decision.test.tsx` | **2 passed** |
+| __tests__/oa/project | 49 passed |
+| __tests__/oa/execution-attempt | 135 passed |
+| __tests__/oa/evidence-review | 144 passed |
+| __tests__/vertical-slice-runtime | 13 passed |
+| __tests__/project-assistant | 42 passed |
+| recommendation-vs-decision | 2 passed |
+| typecheck | green |
+| lint | green |
+| build | green |
+| full npm test | 1717 passed, 131 skipped |
+| modeled governance | 73 passed |
+| git diff --check | clean |
 
-New M5 suites include: schema migration M1/M2/M3→M5; Attempt durability; Evidence/RB durability; W1 LPS; **process restart proof** (two Node processes, same DB).
+## 21. Restart proof (corrected)
+Process A: terminal Attempt succeeded + resultRef → IngestExecutionAttemptEvidence → RB → W1 → optional pre-restart rehydrate.
+Process B: reopen → same Attempt/resultRef/Evidence/RB/LPS → rehydrate RecommendNextGate → recommendation-only flags. REAL=0.
 
-## 27. typecheck / lint / build / full Vitest
-| Check | Result |
-|---|---|
-| `npm run typecheck` | **green** |
-| `npm run lint` | **green** |
-| `npm run build` | **green** |
-| `npm test` (full) | **1710 passed**, 131 skipped |
+## 22. Anti-claims
+Recommendation != Decision/gate/authority · W1 != Morris action · Durable Attempt != journal retirement · Local PASS != M5 CLOSED != M6
 
-## 28. Modeled governance tests
-From `projects/sfia-studio`:
-`node --test` evidence-review-maturity / execution-contract / execution-attempt governance → **73 passed**
-
-## 29. Restart proof détaillé
-Process A (worker create): temp Product DB → Project+LPS → terminal Attempt (accepted) + result budget → Evidence → ReviewBundle → W1 LPS append → exit.
-Process B (worker read): reopen same dbPath → Attempt status `accepted`, resultBudget=1, same evidenceId/reviewBundleId, LPS evidenceIds/reviewBundleIds intact, same lpsVersion.
-REAL invocations = 0.
-
-## 30. Anti-claim proof
-- Recommendation.kind = recommendation (existing adversarial tests kept)
-- executionAuthority = false
-- gateConsumed = false
-- decisionCreated = false
-- W1 does not create HumanDecision
-- W1 does not structurally mutate trajectory
-- Durable Attempt ≠ journal retirement
-- Local Delivery ≠ M5 CLOSED ≠ M6 authorized
-
-## 31. FULL git diff — ALL modified + created content
-See sections below (mandatory FULL content).
-
-## 32. git diff --check
+## 23. git diff --check
 ```
 
 ```
-(empty = clean; exit 0)
 
-## 33. Final Git status (pre-handoff publish; project uncommitted)
+## 24. Final git status (project uncommitted)
 ```
  M projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
  M projects/sfia-studio/app/features/project-assistant/actions.ts
  M projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
  M projects/sfia-studio/app/features/project-assistant/f3/index.ts
  M projects/sfia-studio/app/features/project-assistant/f3/ingestEvidenceAndRecommend.ts
+ M projects/sfia-studio/app/features/project-assistant/types.ts
  M projects/sfia-studio/app/lib/oa/evidence-review/index.ts
  M projects/sfia-studio/app/lib/oa/execution-attempt/application/cancelExecutionAttempt.ts
  M projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
@@ -319,74 +221,64 @@ See sections below (mandatory FULL content).
 ?? projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts
 ?? projects/sfia-studio/app/__tests__/oa/project/m5W1LpsAppend.test.ts
+?? projects/sfia-studio/app/__tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts
 ?? projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptRepository.ts
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/sqliteExecutionAttemptTechnicalStore.ts
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/ports/executionAttemptTechnicalStorePort.ts
+
 ```
-- staged = empty
-- project commit = 0
-- project push = 0
-- project PR = 0
+- staged empty · project commit/push/PR = 0
 
-## 34. Réserves
-- Non-blocking: Claims/Maturity remain Memory (intentional FREEZE / out of minimal M5)
-- Non-blocking: Cross-aggregate Attempt/Evidence/RB/LPS not single distributed TX — idempotent retry converges; failure after Evidence/RB before LPS append does not claim SUCCESS (F3 helper returns ok:false); no compensatory HumanDecision
-- Non-blocking: `CURSOR_REAL_TIMEOUT_POLICY` remains OPEN / NON-BLOCKING; 60000 KEEP FOR NOW
-- Non-blocking: UI is wiring-only; no pixel-perfect UX claim
-- Blocking for M5 CLOSED: **none claimed here** — exit proof acceptance is a future Morris gate after ChatGPT review + commit/push/PR/merge GOs
+## 25. Reserves
+- Claims/Maturity Memory (intentional FREEZE)
+- Cross-aggregate not single distributed TX (idempotent retry; documented)
+- Timeout policy OPEN NON-BLOCKING (60000 KEEP)
+- UI: action/read-model only; no redesign claim
+- M5 CLOSED not claimed
 
-## 35. DebtItems / exit conditions
-- Debt: M5-C journal retirement still TEMPORARY WITH EXIT (not authorized this cycle)
-- Debt: Claims/Maturity Product durability deferred
-- Exit to M5 CLOSED requires separate Morris evaluation of exit proof after merge path
-- M6 requires distinct future GO
+## 26. Debt / exit
+- M5-C journal TEMPORARY WITH EXIT remains
+- M5 CLOSED requires future Morris post-merge exit evaluation
+- M6 requires distinct GO
 
-## 36. M5 exit proof matrix (local Delivery)
-| Criterion | Local proof | Status |
-|---|---|---|
-| 1 Product SQLite schema M5 additive | db.ts m5-0.1.0 + migration tests | SATISFIED LOCALLY |
-| 2 ExecutionAttempt durable | SQLite adapter + tests + restart | SATISFIED LOCALLY |
-| 3 Evidence durable | SQLite adapter + tests + restart | SATISFIED LOCALLY |
-| 4 ReviewBundle durable | SQLite adapter + tests + restart | SATISFIED LOCALLY |
-| 5 IDs/provenance cohérents | payload bindings + LPS ids | SATISFIED LOCALLY |
-| 6 RuntimeOaStack Product path | wireOaStack sqlite factories | SATISFIED LOCALLY |
-| 7 Memory adapters tests/fallback | factories kept | SATISFIED LOCALLY |
-| 8 fixture/no-effect path intact | F3 fixture path kept | SATISFIED LOCALLY |
-| 9 M4 REAL default OFF | runtime comments + no realBoundary | SATISFIED LOCALLY |
-| 10 technical journal unchanged | no diff on journal file | SATISFIED LOCALLY |
-| 11 W1 LPS N+1 factuel | append + tests | SATISFIED LOCALLY |
-| 12 evidenceIds/RB ids survive restart | process proof | SATISFIED LOCALLY |
-| 13 Attempt/resultRef survive restart | process proof | SATISFIED LOCALLY |
-| 14 Evidence/RB survive restart | process proof | SATISFIED LOCALLY |
-| 15 Recommendation recomputable | ports + readers + tests | SATISFIED LOCALLY |
-| 16 kind=recommendation | adversarial tests | SATISFIED LOCALLY |
-| 17 executionAuthority=false | tests | SATISFIED LOCALLY |
-| 18 gateConsumed=false | tests | SATISFIED LOCALLY |
-| 19 decisionCreated=false | tests | SATISFIED LOCALLY |
-| 20 no implicit HumanDecision | W1 factual only | SATISFIED LOCALLY |
-| 21 no automatic execution | no StartExecution from Recommendation | SATISFIED LOCALLY |
-| 22 Cursor REAL = 0 | env unset; no REAL path | SATISFIED LOCALLY |
-| 23 M6 work = 0 | scope | SATISFIED LOCALLY |
-| 24 QA ciblée PASS | suites above | SATISFIED LOCALLY |
-| 25 typecheck/lint/build/full unit | green / 1710 | SATISFIED LOCALLY |
-| Morris M5 CLOSED acceptance | — | **NOT PROVEN** (future gate) |
+## 27. Corrected M5 exit matrix
+| Criterion | Status |
+|---|---|
+| Product SQLite schema M5 additive | SATISFIED LOCALLY |
+| ExecutionAttempt durable | SATISFIED LOCALLY |
+| Attempt terminal succeeded | SATISFIED LOCALLY |
+| Attempt.resultRef restart-safe | SATISFIED LOCALLY |
+| Evidence via IngestExecutionAttemptEvidence | SATISFIED LOCALLY |
+| technicalResultRef == resultRef | SATISFIED LOCALLY |
+| Evidence bindings Attempt/Contract | SATISFIED LOCALLY |
+| ReviewBundle durable | SATISFIED LOCALLY |
+| W1 LPS N+1 factual | SATISFIED LOCALLY |
+| W1 system provenance | SATISFIED LOCALLY |
+| OCC atomic Attempt/Evidence/RB + concurrent tests | SATISFIED LOCALLY |
+| active reservation atomic | SATISFIED LOCALLY |
+| Recommendation recomputed after restart (process B rehydrate) | SATISFIED LOCALLY |
+| durable Product readback action | SATISFIED LOCALLY |
+| recommendation-only flags | SATISFIED LOCALLY |
+| REAL=0 / M6=0 / journal unchanged / timeout unchanged | SATISFIED LOCALLY |
+| QA typecheck/lint/build/full/governance | SATISFIED LOCALLY |
+| Morris M5 CLOSED acceptance | NOT PROVEN |
 
-## 37. Verdict
-**M5 DELIVERY IMPLEMENTED LOCALLY — OPTION B + W1 PRODUCT PATH COMPLETE — ZERO REAL — M6 NOT AUTHORIZED — READY FOR CHATGPT QA REVIEW**
+## 28. Verdict
+M5 DELIVERY QA CORRECTIONS COMPLETE — B1 RESTART/READBACK PROVEN — B2 ATOMIC OCC PROVEN — B3 W1 SYSTEM PROVENANCE CORRECTED — OPTION B + W1 PRODUCT PATH REVIEWABLE — ZERO REAL — M6 NOT AUTHORIZED — READY FOR CHATGPT QA RE-REVIEW
 
-(PRODUCT PATH COMPLETE = local reviewable candidate ≠ M5 CLOSED)
+!= commit/PR/merge authorized · != M5 CLOSED · != M6 authorized
 
-## 38. Next Morris gate
-1. ChatGPT QA/review of this handoff
-2. Corrections locales si nécessaires
-3. Morris GO commit/push/PR (if readiness)
-4. Morris GO merge séparé
-5. Post-merge / M5 exit proof evaluation
-6. Morris décision M5 exit/closure
-7. M6 only under distinct future GO
+## 29. Next Morris gate
+1. ChatGPT re-review of this handoff
+2. If PASS → Morris GO distinct for commit/push/PR
+3. Merge GO separee
+4. Post-merge exit proof → M5 closure decision
+5. M6 only under future GO
 
 ---
 
@@ -430,10 +322,26 @@ index 04202fb..e1fe203 100644
      const project = await svc.getProject.execute({ projectId: "prj:m3-mig" });
      expect(project.ok).toBe(true);
 diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index 4b05d0d..18b2a97 100644
+index 4b05d0d..cadd0b8 100644
 --- a/projects/sfia-studio/app/features/project-assistant/actions.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -467,6 +467,7 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+@@ -9,6 +9,7 @@ import type { F2DecisionKind } from "./f2/types";
+ import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
+ import { prepareF3Fixture } from "./f3/prepareF3Fixture";
+ import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
++import { rehydrateEvidenceOutcomeFromLps } from "./f3/rehydrateEvidenceOutcomeFromLps";
+ import { F3_PROCESS_LOCAL_NOTICE } from "./f3/constants";
+ import type {
+   AssistantHistoryMessage,
+@@ -17,6 +18,7 @@ import type {
+   ProjectAssistantExecuteF3Result,
+   ProjectAssistantPrepareF3Result,
+   ProjectAssistantPrepareM3Result,
++  ProjectAssistantRehydrateEvidenceOutcomeResult,
+   ProjectAssistantSendResult,
+ } from "./types";
+
+@@ -467,6 +469,7 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
        executionAttemptServices: runtime.oa.executionAttemptServices,
        evidenceReviewServices: runtime.oa.evidenceReviewServices,
        fixtureAdapter: runtime.oa.fixtureAdapter,
@@ -441,6 +349,86 @@ index 4b05d0d..18b2a97 100644
        nowIso: () => runtime.oa!.clock.nowIso(),
      },
    });
+@@ -506,3 +509,79 @@ export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+     f3,
+   };
+ }
++
++/**
++ * M5 durable Nora/F3 readback — LPS evidence/RB refs → RecommendNextGate.
++ * Strictly read-only: no Decision, no gate consume, no Attempt launch.
++ */
++export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
++  projectId: string;
++}): Promise<ProjectAssistantRehydrateEvidenceOutcomeResult> {
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) {
++    return {
++      ok: false,
++      status: "rehydrate_error",
++      code: "OA_STACK_UNAVAILABLE",
++      message: "Services OA process-local indisponibles pour rehydrate F3.",
++      mode: "unavailable",
++      retryable: false,
++    };
++  }
++
++  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
++  if (!projectResult.ok) {
++    return {
++      ok: false,
++      status: "project_not_found",
++      code: projectResult.error.code,
++      message: projectResult.error.message,
++      mode: "unavailable",
++      retryable: false,
++    };
++  }
++  const project = toContextDto(projectResult);
++
++  const rehydrated = await rehydrateEvidenceOutcomeFromLps({
++    projectId: input.projectId,
++    deps: {
++      projectServices: runtime.oa.projectServices,
++      evidenceReviewServices: runtime.oa.evidenceReviewServices,
++    },
++  });
++
++  if (!rehydrated.ok) {
++    return {
++      ok: false,
++      status: "rehydrate_error",
++      code: rehydrated.code,
++      message: rehydrated.message,
++      mode: "fixture",
++      retryable: false,
++      project,
++    };
++  }
++
++  return {
++    ok: true,
++    status: "ok",
++    mode: "fixture",
++    presentation: "unconfirmed",
++    text: [
++      "REHYDRATE EVIDENCE OUTCOME",
++      `LPS v${rehydrated.lpsVersion}`,
++      `Evidence ${rehydrated.evidenceIds.join(", ") || "—"}`,
++      `ReviewBundle ${rehydrated.reviewBundleIds.join(", ") || "—"}`,
++      "RECOMMANDATION — PAS UNE DÉCISION MORRIS",
++      F3_PROCESS_LOCAL_NOTICE,
++    ].join(" — "),
++    project,
++    ephemeralNotice: F3_PROCESS_LOCAL_NOTICE,
++    evidence: rehydrated.evidence,
++    reviewBundles: rehydrated.reviewBundles,
++    recommendation: rehydrated.recommendation,
++    lpsVersion: rehydrated.lpsVersion,
++    evidenceIds: rehydrated.evidenceIds,
++    reviewBundleIds: rehydrated.reviewBundleIds,
++  };
++}
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
 index 261e3e6..a1c89b9 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteF3Fixture.ts
@@ -475,14 +463,19 @@ index 261e3e6..a1c89b9 100644
    if (!ingested.ok) {
      return ingested;
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-index ba86054..23c6e2f 100644
+index ba86054..4a1e512 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-@@ -14,6 +14,7 @@ export { prepareM3FromDecision } from "./prepareM3FromDecision";
+@@ -14,6 +14,12 @@ export { prepareM3FromDecision } from "./prepareM3FromDecision";
  export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
  export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
  export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
 +export { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
++export { rehydrateEvidenceOutcomeFromLps } from "./rehydrateEvidenceOutcomeFromLps";
++export {
++  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
++  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
++} from "./systemFactualWriter";
  export {
    createF3FixtureAgentDescriptor,
    createF3TestExecutionAdapter,
@@ -556,6 +549,59 @@ index 5c6039a..c4ad4b3 100644
 +    lpsVersion,
    };
  }
+diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
+index 48e1d2f..d9fdf55 100644
+--- a/projects/sfia-studio/app/features/project-assistant/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/types.ts
+@@ -9,7 +9,13 @@ import type {
+   ProposalDto,
+   QualificationDto,
+ } from "./f2/types";
+-import type { F3ExecutePayload, F3PreparePayload } from "./f3/types";
++import type {
++  F3EvidenceDto,
++  F3ExecutePayload,
++  F3PreparePayload,
++  F3RecommendationDto,
++  F3ReviewBundleDto,
++} from "./f3/types";
+
+ export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed";
+
+@@ -211,3 +217,33 @@ export type ProjectAssistantExecuteF3Failure = {
+ export type ProjectAssistantExecuteF3Result =
+   | ProjectAssistantExecuteF3Success
+   | ProjectAssistantExecuteF3Failure;
++
++export type ProjectAssistantRehydrateEvidenceOutcomeSuccess = {
++  ok: true;
++  status: "ok";
++  mode: "fixture";
++  presentation: "unconfirmed";
++  text: string;
++  project: ProjectAssistantContextDto;
++  ephemeralNotice: string;
++  evidence: F3EvidenceDto[];
++  reviewBundles: F3ReviewBundleDto[];
++  recommendation: F3RecommendationDto;
++  lpsVersion: number;
++  evidenceIds: string[];
++  reviewBundleIds: string[];
++};
++
++export type ProjectAssistantRehydrateEvidenceOutcomeFailure = {
++  ok: false;
++  status: "rehydrate_error" | "project_not_found";
++  code: string;
++  message: string;
++  mode: AssistantUiMode;
++  retryable: boolean;
++  project?: ProjectAssistantContextDto;
++};
++
++export type ProjectAssistantRehydrateEvidenceOutcomeResult =
++  | ProjectAssistantRehydrateEvidenceOutcomeSuccess
++  | ProjectAssistantRehydrateEvidenceOutcomeFailure;
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
 index 474d8b4..45d97c4 100644
 --- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
@@ -1095,6 +1141,7 @@ index 2c366c1..272fff6 100644
 
    return Object.freeze({
      projectServices,
+
 ```
 
 # FULL CONTENT — NEW / CREATED FILES
@@ -1244,24 +1291,11 @@ export class SqliteExecutionAttemptRepository
     attempt: ExecutionAttempt,
     expectedVersion: number,
   ): Promise<void> {
-    const current = await this.findById(attempt.attemptId);
-    if (!current) {
-      throw new ExecutionAttemptDomainError(
-        "ATTEMPT_NOT_FOUND",
-        "update_missing_attempt",
-      );
-    }
-    if (current.version !== expectedVersion) {
-      throw new ExecutionAttemptDomainError("VERSION_CONFLICT", "occ_mismatch", {
-        expectedVersion,
-        currentVersion: current.version,
-      });
-    }
     if (attempt.version !== expectedVersion + 1) {
       throw new ExecutionAttemptDomainError(
         "VERSION_CONFLICT",
         "version_not_monotone",
-        { expectedVersion, currentVersion: current.version },
+        { expectedVersion },
       );
     }
     const shape = validateAttemptShape(attempt);
@@ -1271,7 +1305,8 @@ export class SqliteExecutionAttemptRepository
     this.failIfForced();
     const now = attempt.updatedAt ?? attempt.completedAt ?? attempt.createdAt;
     const payload = JSON.stringify(cloneAttempt(attempt));
-    this.store.db
+    // Atomic CAS: OCC enforced by SQL WHERE version = expectedVersion.
+    const result = this.store.db
       .prepare(
         `UPDATE oa_execution_attempts SET
            execution_contract_id = ?,
@@ -1280,7 +1315,7 @@ export class SqliteExecutionAttemptRepository
            version = ?,
            payload_json = ?,
            updated_at = ?
-         WHERE attempt_id = ?`,
+         WHERE attempt_id = ? AND version = ?`,
       )
       .run(
         attempt.executionContractId,
@@ -1290,7 +1325,21 @@ export class SqliteExecutionAttemptRepository
         payload,
         now,
         attempt.attemptId,
+        expectedVersion,
       );
+    if (Number(result.changes) !== 1) {
+      const current = await this.findById(attempt.attemptId);
+      if (!current) {
+        throw new ExecutionAttemptDomainError(
+          "ATTEMPT_NOT_FOUND",
+          "update_missing_attempt",
+        );
+      }
+      throw new ExecutionAttemptDomainError("VERSION_CONFLICT", "occ_mismatch", {
+        expectedVersion,
+        currentVersion: current.version,
+      });
+    }
   }
 
   async listByContract(
@@ -1325,26 +1374,30 @@ export class SqliteExecutionAttemptRepository
     executionContractId: string,
     attemptId: string,
   ): Promise<void> {
+    // Atomic insert — never silently replace another attempt's reservation.
+    const result = this.store.db
+      .prepare(
+        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
+         VALUES (?, ?)
+         ON CONFLICT(execution_contract_id) DO NOTHING`,
+      )
+      .run(executionContractId, attemptId);
+    if (Number(result.changes) === 1) {
+      return;
+    }
     const current = this.store.db
       .prepare(
         `SELECT attempt_id FROM oa_execution_attempt_active
          WHERE execution_contract_id = ?`,
       )
       .get(executionContractId) as { attempt_id?: string } | undefined;
-    if (current?.attempt_id && current.attempt_id !== attemptId) {
-      throw new ExecutionAttemptDomainError(
-        "EXECUTION_ALREADY_ACTIVE",
-        "active_attempt_already_reserved",
-      );
+    if (current?.attempt_id === attemptId) {
+      return; // idempotent same attemptId
     }
-    this.store.db
-      .prepare(
-        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
-         VALUES (?, ?)
-         ON CONFLICT(execution_contract_id) DO UPDATE SET
-           attempt_id = excluded.attempt_id`,
-      )
-      .run(executionContractId, attemptId);
+    throw new ExecutionAttemptDomainError(
+      "EXECUTION_ALREADY_ACTIVE",
+      "active_attempt_already_reserved",
+    );
   }
 
   async releaseActiveContract(
@@ -1360,32 +1413,34 @@ export class SqliteExecutionAttemptRepository
   }
 
   async rebuildActiveIndex(): Promise<void> {
-    const rows = this.store.db
-      .prepare(
-        `SELECT payload_json FROM oa_execution_attempts ORDER BY attempt_id ASC`,
-      )
-      .all() as Array<{ payload_json: string }>;
-    const rebuilt = new Map<string, string>();
-    for (const row of rows) {
-      const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
-      if (isAttemptTerminal(attempt.status)) continue;
-      const existing = rebuilt.get(attempt.executionContractId);
-      if (existing && existing !== attempt.attemptId) {
-        throw new ExecutionAttemptDomainError(
-          "ACTIVE_INDEX_DRIFT",
-          "multiple_active_attempts_for_contract",
-        );
+    await this.store.runInTransaction(async () => {
+      const rows = this.store.db
+        .prepare(
+          `SELECT payload_json FROM oa_execution_attempts ORDER BY attempt_id ASC`,
+        )
+        .all() as Array<{ payload_json: string }>;
+      const rebuilt = new Map<string, string>();
+      for (const row of rows) {
+        const attempt = JSON.parse(row.payload_json) as ExecutionAttempt;
+        if (isAttemptTerminal(attempt.status)) continue;
+        const existing = rebuilt.get(attempt.executionContractId);
+        if (existing && existing !== attempt.attemptId) {
+          throw new ExecutionAttemptDomainError(
+            "ACTIVE_INDEX_DRIFT",
+            "multiple_active_attempts_for_contract",
+          );
+        }
+        rebuilt.set(attempt.executionContractId, attempt.attemptId);
       }
-      rebuilt.set(attempt.executionContractId, attempt.attemptId);
-    }
-    this.store.db.exec(`DELETE FROM oa_execution_attempt_active`);
-    const insert = this.store.db.prepare(
-      `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
-       VALUES (?, ?)`,
-    );
-    for (const [executionContractId, attemptId] of rebuilt) {
-      insert.run(executionContractId, attemptId);
-    }
+      this.store.db.exec(`DELETE FROM oa_execution_attempt_active`);
+      const insert = this.store.db.prepare(
+        `INSERT INTO oa_execution_attempt_active(execution_contract_id, attempt_id)
+         VALUES (?, ?)`,
+      );
+      for (const [executionContractId, attemptId] of rebuilt) {
+        insert.run(executionContractId, attemptId);
+      }
+    });
   }
 
   async detectActiveIndexDrift(): Promise<ActiveIndexDrift[]> {
@@ -1906,25 +1961,10 @@ export class SqliteEvidenceRepository implements EvidenceRepositoryPort {
     expectedVersion: number,
     record?: IdempotencyRecord,
   ): Promise<void> {
-    const current = await this.findById(evidence.evidenceId);
-    if (!current) {
-      throw new EvidenceDomainError(
-        "EVIDENCE_NOT_FOUND",
-        "update_missing_evidence",
-      );
-    }
-    if (current.version !== expectedVersion) {
-      throw new EvidenceDomainError("VERSION_CONFLICT", "occ_mismatch", {
-        expectedVersion,
-        currentVersion: current.version,
-      });
-    }
     if (evidence.version !== expectedVersion + 1) {
-      throw new EvidenceDomainError(
-        "VERSION_CONFLICT",
-        "version_not_monotone",
-        { expectedVersion, currentVersion: current.version },
-      );
+      throw new EvidenceDomainError("VERSION_CONFLICT", "version_not_monotone", {
+        expectedVersion,
+      });
     }
     const shape = validateEvidenceShape(evidence);
     if (shape) {
@@ -1933,29 +1973,45 @@ export class SqliteEvidenceRepository implements EvidenceRepositoryPort {
     this.failIfForced();
     const now = evidence.updatedAt ?? evidence.createdAt;
     const payload = JSON.stringify(cloneEvidence(evidence));
-    this.store.db
-      .prepare(
-        `UPDATE oa_evidence SET
-           project_id = ?,
-           status = ?,
-           idempotency_key = ?,
-           version = ?,
-           payload_json = ?,
-           updated_at = ?
-         WHERE evidence_id = ?`,
-      )
-      .run(
-        evidence.bindings.projectId ?? null,
-        evidence.status,
-        evidence.idempotencyKey ?? null,
-        evidence.version,
-        payload,
-        now,
-        evidence.evidenceId,
-      );
-    if (record && evidence.idempotencyKey) {
-      this.upsertIdempotency(evidence.idempotencyKey, record);
-    }
+    await this.store.runInTransaction(async () => {
+      const result = this.store.db
+        .prepare(
+          `UPDATE oa_evidence SET
+             project_id = ?,
+             status = ?,
+             idempotency_key = ?,
+             version = ?,
+             payload_json = ?,
+             updated_at = ?
+           WHERE evidence_id = ? AND version = ?`,
+        )
+        .run(
+          evidence.bindings.projectId ?? null,
+          evidence.status,
+          evidence.idempotencyKey ?? null,
+          evidence.version,
+          payload,
+          now,
+          evidence.evidenceId,
+          expectedVersion,
+        );
+      if (Number(result.changes) !== 1) {
+        const current = await this.findById(evidence.evidenceId);
+        if (!current) {
+          throw new EvidenceDomainError(
+            "EVIDENCE_NOT_FOUND",
+            "update_missing_evidence",
+          );
+        }
+        throw new EvidenceDomainError("VERSION_CONFLICT", "occ_mismatch", {
+          expectedVersion,
+          currentVersion: current.version,
+        });
+      }
+      if (record && evidence.idempotencyKey) {
+        this.upsertIdempotency(evidence.idempotencyKey, record);
+      }
+    });
   }
 
   private upsertIdempotency(
@@ -2113,24 +2169,11 @@ export class SqliteReviewBundleRepository
     expectedVersion: number,
     record?: ReviewBundleIdempotencyRecord & { successorId?: string },
   ): Promise<void> {
-    const current = await this.findById(bundle.reviewBundleId);
-    if (!current) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_NOT_FOUND",
-        "update_missing",
-      );
-    }
-    if (current.version !== expectedVersion) {
-      throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
-        expectedVersion,
-        currentVersion: current.version,
-      });
-    }
     if (bundle.version !== expectedVersion + 1) {
       throw new ReviewBundleDomainError(
         "VERSION_CONFLICT",
         "version_not_monotone",
-        { expectedVersion, currentVersion: current.version },
+        { expectedVersion },
       );
     }
     const shape = validateReviewBundleShape(bundle);
@@ -2138,13 +2181,28 @@ export class SqliteReviewBundleRepository
       throw new ReviewBundleDomainError(shape.detailCode, shape.reason);
     }
     this.failIfForced();
-    this.updateBundleRow(bundle);
-    if (record) {
-      const key = bundle.idempotencyKey;
-      if (key) {
-        this.upsertIdempotency(key, record);
+    await this.store.runInTransaction(async () => {
+      const changes = this.updateBundleRowCas(bundle, expectedVersion);
+      if (changes !== 1) {
+        const current = await this.findById(bundle.reviewBundleId);
+        if (!current) {
+          throw new ReviewBundleDomainError(
+            "REVIEW_BUNDLE_NOT_FOUND",
+            "update_missing",
+          );
+        }
+        throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
+          expectedVersion,
+          currentVersion: current.version,
+        });
       }
-    }
+      if (record) {
+        const key = bundle.idempotencyKey;
+        if (key) {
+          this.upsertIdempotency(key, record);
+        }
+      }
+    });
   }
 
   async createSuccessorAndMarkSuperseded(
@@ -2191,31 +2249,11 @@ export class SqliteReviewBundleRepository
         "successor_must_differ_from_source",
       );
     }
-
-    const current = await this.findById(superseded.reviewBundleId);
-    if (!current) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_NOT_FOUND",
-        "reopen_source_missing",
-      );
-    }
-    if (current.version !== expectedVersion) {
-      throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
-        expectedVersion,
-        currentVersion: current.version,
-      });
-    }
     if (superseded.version !== expectedVersion + 1) {
       throw new ReviewBundleDomainError(
         "VERSION_CONFLICT",
         "version_not_monotone",
-        { expectedVersion, currentVersion: current.version },
-      );
-    }
-    if (await this.exists(successor.reviewBundleId)) {
-      throw new ReviewBundleDomainError(
-        "REVIEW_BUNDLE_ALREADY_EXISTS",
-        "successor_review_bundle_id_taken",
+        { expectedVersion },
       );
     }
     if (!superseded.idempotencyKey) {
@@ -2226,9 +2264,28 @@ export class SqliteReviewBundleRepository
     }
 
     await this.store.runInTransaction(async () => {
+      if (await this.exists(successor.reviewBundleId)) {
+        throw new ReviewBundleDomainError(
+          "REVIEW_BUNDLE_ALREADY_EXISTS",
+          "successor_review_bundle_id_taken",
+        );
+      }
       this.failIfForced();
       this.insertBundle(successor);
-      this.updateBundleRow(superseded);
+      const changes = this.updateBundleRowCas(superseded, expectedVersion);
+      if (changes !== 1) {
+        const current = await this.findById(superseded.reviewBundleId);
+        if (!current) {
+          throw new ReviewBundleDomainError(
+            "REVIEW_BUNDLE_NOT_FOUND",
+            "reopen_source_missing",
+          );
+        }
+        throw new ReviewBundleDomainError("VERSION_CONFLICT", "occ_mismatch", {
+          expectedVersion,
+          currentVersion: current.version,
+        });
+      }
       this.upsertIdempotency(superseded.idempotencyKey!, record);
     });
   }
@@ -2255,10 +2312,14 @@ export class SqliteReviewBundleRepository
       );
   }
 
-  private updateBundleRow(bundle: ReviewBundle): void {
+  /** Atomic CAS update — returns sqlite changes count. */
+  private updateBundleRowCas(
+    bundle: ReviewBundle,
+    expectedVersion: number,
+  ): number {
     const now = bundle.updatedAt ?? bundle.createdAt;
     const payload = JSON.stringify(cloneBundle(bundle));
-    this.store.db
+    const result = this.store.db
       .prepare(
         `UPDATE oa_review_bundles SET
            project_id = ?,
@@ -2267,7 +2328,7 @@ export class SqliteReviewBundleRepository
            version = ?,
            payload_json = ?,
            updated_at = ?
-         WHERE review_bundle_id = ?`,
+         WHERE review_bundle_id = ? AND version = ?`,
       )
       .run(
         bundle.projectId,
@@ -2277,7 +2338,9 @@ export class SqliteReviewBundleRepository
         payload,
         now,
         bundle.reviewBundleId,
+        expectedVersion,
       );
+    return Number(result.changes);
   }
 
   private upsertIdempotency(
@@ -2641,7 +2704,8 @@ export function createTestSqliteEvidenceReviewServices(
     audit: memoryAudit,
     ids: options.ids ?? new FixedIdGenerator(),
     payload: fakePayload,
-    attemptReader: fakeAttempts,
+    // Preserve caller-provided bridges (e.g. createAttemptReaderBridge).
+    attemptReader: options.attemptReader ?? fakeAttempts,
     claimAuthority: fakeClaimAuthority,
   });
 
@@ -2664,7 +2728,7 @@ export function createTestSqliteEvidenceReviewServices(
  */
 
 import type { ProjectServices } from "@/lib/oa/project";
-import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
+import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
 
 export type AppendEvidenceOutcomeToLpsResult =
   | { ok: true; lpsVersion: number }
@@ -2706,7 +2770,8 @@ export async function appendEvidenceOutcomeToLps(input: {
       objective: lps.objective,
       context: lps.context,
       scope: lps.scope,
-      createdBy: LOCAL_MORRIS_ACTOR,
+      // Automatic factual write-back — system actor, not Morris demo authority.
+      createdBy: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
       evidenceIds,
       reviewBundleIds,
     });
@@ -2723,6 +2788,276 @@ export async function appendEvidenceOutcomeToLps(input: {
 }
 
 ===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/appendEvidenceOutcomeToLps.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts =====
+/**
+ * M5-B W1 — system factual LPS writer.
+ * Not Morris, not decision_maker, authority none — automatic state linkage only.
+ */
+
+import type { ActorReference } from "@/lib/oa/doctrine";
+
+export const SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID =
+  "actor:sfia-studio-system-factual-writer" as const;
+
+/**
+ * Stable Studio system actor for automatic factual LPS write-back.
+ * Must not be registered as authority evidence / canActAsMorris.
+ */
+export const SFIA_STUDIO_SYSTEM_FACTUAL_WRITER: ActorReference = Object.freeze({
+  actorId: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
+  role: "system",
+  displayName: "SFIA Studio system factual state writer",
+  authorityLevel: "none",
+});
+
+===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/systemFactualWriter.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts =====
+/**
+ * M5 durable Nora/F3 readback — STRICTLY read-only.
+ * current LPS → evidenceIds / reviewBundleIds → durable readers → RecommendNextGate.
+ * Does not write LPS, create Decision, consume gate, or launch Attempt.
+ */
+
+import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import type { ProjectServices } from "@/lib/oa/project";
+import {
+  F3_LABELS,
+  F3_MODE,
+  F3_OPEN_HARD_RESERVATION_REFS,
+} from "./constants";
+import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "./systemFactualWriter";
+import type {
+  F3EvidenceDto,
+  F3RecommendationDto,
+  F3ReviewBundleDto,
+} from "./types";
+
+export type RehydrateEvidenceOutcomeDeps = {
+  projectServices: Pick<ProjectServices, "getCurrentLivingProjectState">;
+  evidenceReviewServices: Pick<
+    EvidenceReviewServices,
+    "evidenceReader" | "reviewBundleReader" | "recommendNextGate"
+  >;
+};
+
+export type RehydrateEvidenceOutcomeResult =
+  | {
+      ok: true;
+      projectId: string;
+      lpsVersion: number;
+      evidenceIds: string[];
+      reviewBundleIds: string[];
+      evidence: F3EvidenceDto[];
+      reviewBundles: F3ReviewBundleDto[];
+      subjectRef: string | null;
+      recommendation: F3RecommendationDto;
+    }
+  | { ok: false; code: string; message: string };
+
+export async function rehydrateEvidenceOutcomeFromLps(input: {
+  projectId: string;
+  deps: RehydrateEvidenceOutcomeDeps;
+}): Promise<RehydrateEvidenceOutcomeResult> {
+  const current =
+    await input.deps.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+  if (!current.ok) {
+    return {
+      ok: false,
+      code: current.error.detailCode,
+      message: current.error.message,
+    };
+  }
+
+  const lps = current.livingProjectState;
+  const evidenceIds = [...(lps.evidenceIds ?? [])];
+  const reviewBundleIds = [...(lps.reviewBundleIds ?? [])];
+
+  if (evidenceIds.length === 0 && reviewBundleIds.length === 0) {
+    return {
+      ok: false,
+      code: "NO_EVIDENCE_OUTCOME_REFS",
+      message: "LPS courant sans evidenceIds/reviewBundleIds.",
+    };
+  }
+
+  const evidenceDtos: F3EvidenceDto[] = [];
+  let subjectRef: string | null = null;
+
+  for (const evidenceId of evidenceIds) {
+    const evidence =
+      await input.deps.evidenceReviewServices.evidenceReader.findById(
+        evidenceId,
+      );
+    if (!evidence) {
+      return {
+        ok: false,
+        code: "EVIDENCE_REF_MISSING",
+        message: `Evidence ${evidenceId} référencée par LPS absente.`,
+      };
+    }
+    const boundProject = evidence.bindings.projectId;
+    if (boundProject && boundProject !== input.projectId) {
+      return {
+        ok: false,
+        code: "EVIDENCE_PROJECT_MISMATCH",
+        message: `Evidence ${evidenceId} project mismatch.`,
+      };
+    }
+    const contractId = evidence.bindings.executionContractId;
+    if (contractId) {
+      if (subjectRef && subjectRef !== contractId) {
+        return {
+          ok: false,
+          code: "EVIDENCE_CONTRACT_MISMATCH",
+          message: "Evidence refs span multiple executionContractId.",
+        };
+      }
+      subjectRef = contractId;
+    }
+    evidenceDtos.push({
+      evidenceId: evidence.evidenceId,
+      status: evidence.status,
+      sourceKind: evidence.sourceKind,
+      technicalResultRef: evidence.technicalResultRef ?? null,
+      verified: false,
+      mode: F3_MODE,
+    });
+  }
+
+  const reviewBundleDtos: F3ReviewBundleDto[] = [];
+  for (const reviewBundleId of reviewBundleIds) {
+    const bundle =
+      await input.deps.evidenceReviewServices.reviewBundleReader.findById(
+        reviewBundleId,
+      );
+    if (!bundle) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_REF_MISSING",
+        message: `ReviewBundle ${reviewBundleId} référencé par LPS absent.`,
+      };
+    }
+    if (bundle.projectId !== input.projectId) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_PROJECT_MISMATCH",
+        message: `ReviewBundle ${reviewBundleId} project mismatch.`,
+      };
+    }
+    if (bundle.executionContractId) {
+      if (subjectRef && subjectRef !== bundle.executionContractId) {
+        return {
+          ok: false,
+          code: "REVIEW_BUNDLE_CONTRACT_MISMATCH",
+          message: "ReviewBundle executionContractId incoherent with Evidence.",
+        };
+      }
+      subjectRef = bundle.executionContractId;
+    }
+    reviewBundleDtos.push({
+      reviewBundleId: bundle.reviewBundleId,
+      status: bundle.status,
+      version: bundle.version,
+      evidenceRefs: [...bundle.evidenceRefs],
+      mode: F3_MODE,
+    });
+  }
+
+  const evidenceRefs = [];
+  for (const evidenceId of evidenceIds) {
+    const evidence =
+      await input.deps.evidenceReviewServices.evidenceReader.findById(
+        evidenceId,
+      );
+    if (!evidence) {
+      return {
+        ok: false,
+        code: "EVIDENCE_REF_MISSING",
+        message: `Evidence ${evidenceId} disparue pendant rehydrate.`,
+      };
+    }
+    evidenceRefs.push({ id: evidence.evidenceId, version: evidence.version });
+  }
+
+  const reviewBundleRefs = [];
+  for (const reviewBundleId of reviewBundleIds) {
+    const bundle =
+      await input.deps.evidenceReviewServices.reviewBundleReader.findById(
+        reviewBundleId,
+      );
+    if (!bundle) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_REF_MISSING",
+        message: `ReviewBundle ${reviewBundleId} disparu pendant rehydrate.`,
+      };
+    }
+    reviewBundleRefs.push({
+      id: bundle.reviewBundleId,
+      version: bundle.version,
+    });
+  }
+
+  const recommended =
+    await input.deps.evidenceReviewServices.recommendNextGate.execute({
+      projectId: input.projectId,
+      subjectRef: subjectRef ?? undefined,
+      evidenceRefs,
+      reviewBundleRefs,
+      openHardReservationRefs: [...F3_OPEN_HARD_RESERVATION_REFS],
+      attemptAutoLaunchNextCycle: false,
+      actor: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
+      correlationId: `cor:m5-rehydrate:${input.projectId}:${lps.version}`,
+    });
+
+  if (!recommended.ok) {
+    return {
+      ok: false,
+      code: recommended.error.detailCode,
+      message: recommended.error.message,
+    };
+  }
+
+  const coordination = recommended.coordination;
+  const openHard = [...F3_OPEN_HARD_RESERVATION_REFS];
+  const hardBlockers = [
+    ...coordination.blockers
+      .filter((b) => b.code === "hard_reservation_open")
+      .map((b) => b.sourceId ?? b.code),
+    ...openHard.map((ref) => `${ref} OPEN`),
+  ];
+
+  return {
+    ok: true,
+    projectId: input.projectId,
+    lpsVersion: lps.version,
+    evidenceIds,
+    reviewBundleIds,
+    evidence: evidenceDtos,
+    reviewBundles: reviewBundleDtos,
+    subjectRef,
+    recommendation: {
+      kind: "recommendation",
+      status: coordination.status,
+      executionAuthority: false,
+      gateConsumed: false,
+      decisionCreated: false,
+      attemptAutoLaunchNextCycle: false,
+      openHardReservationRefs: openHard,
+      hardBlockers: [...new Set(hardBlockers)],
+      nextGateCode: coordination.nextGate?.gateCode ?? null,
+      nextActionCode: coordination.nextAction?.actionCode ?? null,
+      recommendationLabel: F3_LABELS.recommendationNotDecision,
+      mode: F3_MODE,
+    },
+  };
+}
+
+===== END FILE: projects/sfia-studio/app/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts =====
 /**
@@ -2975,6 +3310,11 @@ import {
   type SqliteProductProjectServices,
 } from "@/lib/oa/project";
 import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+import {
+  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
+  SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
+} from "@/features/project-assistant/f3/systemFactualWriter";
+import { LOCAL_MORRIS_ACTOR } from "@/features/project-assistant/f2/recordDecision";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -3071,6 +3411,64 @@ describe("M5 W1 LPS evidence/RB append", () => {
     expect(lps.livingProjectState.reviewBundleIds).toEqual(["rb:m5-w1"]);
   });
 
+  it("uses system factual writer provenance (not Morris)", async () => {
+    const dbPath = tempDbPath("w1-prov.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-w1-prov",
+      title: "M5 W1 provenance",
+      objective: "m5-w1-prov-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-w1-prov-v1",
+      idempotencyKey: "idem:m5-w1-prov",
+    });
+
+    const seeded = await projects.appendLivingProjectStateVersion.execute({
+      projectId: "prj:m5-w1-prov",
+      expectedVersion: 1,
+      objective: "m5-w1-prov-objective",
+      createdBy: ACTOR,
+      decisionIds: ["dec:keep"],
+      trajectoryId: "trj:keep",
+      trajectoryVersion: 3,
+    });
+    expect(seeded.ok).toBe(true);
+    if (!seeded.ok) return;
+
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId: "prj:m5-w1-prov",
+      evidenceId: "ev:m5-w1-prov",
+      reviewBundleId: "rb:m5-w1-prov",
+      projectServices: projects,
+    });
+    expect(linked.ok).toBe(true);
+    if (!linked.ok) return;
+
+    const lps = await projects.getCurrentLivingProjectState.execute({
+      projectId: "prj:m5-w1-prov",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    const state = lps.livingProjectState;
+    expect(state.createdBy.role).toBe("system");
+    expect(state.createdBy.authorityLevel).toBe("none");
+    expect(state.createdBy.actorId).toBe(SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID);
+    expect(state.createdBy.actorId).not.toBe(LOCAL_MORRIS_ACTOR.actorId);
+    expect(state.createdBy.actorId).toBe(
+      SFIA_STUDIO_SYSTEM_FACTUAL_WRITER.actorId,
+    );
+    expect(state.provenance?.actor.role).toBe("system");
+    expect(state.provenance?.actor.actorId).toBe(
+      SFIA_STUDIO_SYSTEM_FACTUAL_WRITER_ID,
+    );
+    expect(state.decisionIds).toEqual(["dec:keep"]);
+    expect(state.trajectoryId).toBe("trj:keep");
+    expect(state.trajectoryVersion).toBe(3);
+    expect(state.evidenceIds).toEqual(["ev:m5-w1-prov"]);
+    expect(state.reviewBundleIds).toEqual(["rb:m5-w1-prov"]);
+  });
+
   it("preserves evidenceIds/reviewBundleIds when omitted on later append", async () => {
     const dbPath = tempDbPath("carry.sqlite");
     const projects = openProjects(dbPath);
@@ -3110,8 +3508,8 @@ describe("M5 W1 LPS evidence/RB append", () => {
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessProof.test.ts =====
 /**
- * M5 strong restart proof — two independent Node processes, same DB file.
- * Attempt + Evidence + ReviewBundle + W1 LPS ids + result budget.
+ * M5 B1 strong restart proof — two independent Node processes, same DB file.
+ * Real use cases: Attempt succeeded + Evidence(execution_attempt) + RB + W1 + rehydrate.
  * @vitest-environment node
  */
 import { spawnSync } from "node:child_process";
@@ -3127,9 +3525,9 @@ const WORKER = path.join(
 );
 const TSX = path.join(APP_ROOT, "node_modules/.bin/tsx");
 
-describe("M5 process restart proof", () => {
+describe("M5 process restart proof (B1)", () => {
   it(
-    "create Attempt/Evidence/RB/W1 in process A, read in process B",
+    "create via real use cases in process A, rehydrate in process B",
     () => {
       expect(fs.existsSync(TSX)).toBe(true);
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-proc-"));
@@ -3141,48 +3539,106 @@ describe("M5 process restart proof", () => {
           cwd: APP_ROOT,
           encoding: "utf8",
           env: { ...process.env },
-          timeout: 60_000,
+          timeout: 90_000,
         });
         expect(create.status, create.stderr || create.stdout).toBe(0);
         const created = JSON.parse(create.stdout.trim()) as {
           ok: boolean;
           attemptId?: string;
+          resultRef?: string;
           evidenceId?: string;
           reviewBundleId?: string;
+          executionContractId?: string;
           lpsVersion?: number;
+          evidence?: {
+            sourceKind?: string;
+            technicalResultRef?: string | null;
+            bindings?: Record<string, string | undefined>;
+          };
+          recommendation?: {
+            kind?: string;
+            executionAuthority?: boolean;
+            gateConsumed?: boolean;
+            decisionCreated?: boolean;
+            attemptAutoLaunchNextCycle?: boolean;
+          };
         };
         expect(created.ok).toBe(true);
+        expect(created.attemptId).toBe("xat:m5-proc");
+        expect(created.resultRef).toBe("res:m5-proc-fixture");
+        expect(created.evidenceId).toBe("ev:m5-proc");
+        expect(created.reviewBundleId).toBe("rb:m5-proc");
+        expect(created.executionContractId).toBe("xct:m5-proc");
+        expect(created.evidence?.sourceKind).toBe("execution_attempt");
+        expect(created.evidence?.technicalResultRef).toBe(
+          "res:m5-proc-fixture",
+        );
+        expect(created.evidence?.bindings?.projectId).toBe(projectId);
+        expect(created.evidence?.bindings?.executionContractId).toBe(
+          "xct:m5-proc",
+        );
+        expect(created.recommendation?.kind).toBe("recommendation");
+        expect(created.recommendation?.executionAuthority).toBe(false);
+        expect(created.recommendation?.gateConsumed).toBe(false);
+        expect(created.recommendation?.decisionCreated).toBe(false);
+        expect(created.recommendation?.attemptAutoLaunchNextCycle).toBe(false);
 
         const read = spawnSync(TSX, [WORKER, "read", dbPath, projectId], {
           cwd: APP_ROOT,
           encoding: "utf8",
           env: { ...process.env },
-          timeout: 60_000,
+          timeout: 90_000,
         });
         expect(read.status, read.stderr || read.stdout).toBe(0);
         const loaded = JSON.parse(read.stdout.trim()) as {
           ok: boolean;
           attemptStatus?: string;
-          resultBudget?: number | null;
+          resultRef?: string;
           evidenceId?: string;
           reviewBundleId?: string;
+          evidence?: {
+            sourceKind?: string;
+            technicalResultRef?: string | null;
+            bindings?: Record<string, string | undefined>;
+          };
           evidenceIds?: string[];
           reviewBundleIds?: string[];
           lpsVersion?: number;
+          recommendation?: {
+            kind?: string;
+            executionAuthority?: boolean;
+            gateConsumed?: boolean;
+            decisionCreated?: boolean;
+            attemptAutoLaunchNextCycle?: boolean;
+          };
         };
         expect(loaded.ok).toBe(true);
-        expect(loaded.attemptStatus).toBe("accepted");
-        expect(loaded.resultBudget).toBe(1);
+        expect(loaded.attemptStatus).toBe("succeeded");
+        expect(loaded.resultRef).toBe(created.resultRef);
         expect(loaded.evidenceId).toBe("ev:m5-proc");
         expect(loaded.reviewBundleId).toBe("rb:m5-proc");
+        expect(loaded.evidence?.sourceKind).toBe("execution_attempt");
+        expect(loaded.evidence?.technicalResultRef).toBe(created.resultRef);
+        expect(loaded.evidence?.bindings?.projectId).toBe(projectId);
+        expect(loaded.evidence?.bindings?.executionContractId).toBe(
+          "xct:m5-proc",
+        );
+        expect(loaded.evidence?.bindings?.executionAttemptId).toBe(
+          "xat:m5-proc",
+        );
         expect(loaded.evidenceIds).toEqual(["ev:m5-proc"]);
         expect(loaded.reviewBundleIds).toEqual(["rb:m5-proc"]);
         expect(loaded.lpsVersion).toBe(created.lpsVersion);
+        expect(loaded.recommendation?.kind).toBe("recommendation");
+        expect(loaded.recommendation?.executionAuthority).toBe(false);
+        expect(loaded.recommendation?.gateConsumed).toBe(false);
+        expect(loaded.recommendation?.decisionCreated).toBe(false);
+        expect(loaded.recommendation?.attemptAutoLaunchNextCycle).toBe(false);
       } finally {
         fs.rmSync(dir, { recursive: true, force: true });
       }
     },
-    60_000,
+    90_000,
   );
 });
 
@@ -3190,30 +3646,50 @@ describe("M5 process restart proof", () => {
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts =====
 /**
- * Child-process worker for M5 restart proof.
+ * Child-process worker for M5 B1 restart proof.
  * Usage: tsx m5RestartProcessWorker.ts <create|read> <dbPath> <projectId>
+ *
+ * Create: Product SQLite + real use cases (select → start → result → ingest → RB → W1).
+ * Read: reopen same dbPath, assert durability, rehydrate via RecommendNextGate path.
+ *
+ * Does NOT import vitest helpers (child process / tsx).
  */
 import path from "node:path";
 import {
   createTestDoctrineResolver,
+  FixedClock,
   type Digest,
   type DoctrinePackagePin,
+  type ProvenanceRecord,
 } from "@/lib/oa/doctrine";
-import { createTestSqliteProductProjectServices } from "@/lib/oa/project";
 import {
-  SqliteExecutionAttemptRepository,
-  SqliteExecutionAttemptTechnicalStore,
-  type ExecutionAttempt,
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+} from "@/lib/oa/project";
+import { createSqliteCycleServices } from "@/lib/oa/cycle";
+import {
+  createTestSqliteDecisionServices,
+  MemoryAuthorityResolver,
+} from "@/lib/oa/decision";
+import { createTestSqliteExecutionContractServices } from "@/lib/oa/execution-contract";
+import {
+  createTestSqliteExecutionAttemptServices,
+  TestExecutionAdapter,
+  type AgentDescriptor,
 } from "@/lib/oa/execution-attempt";
 import { createTestSqliteEvidenceReviewServices } from "@/lib/oa/evidence-review";
 import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+import { createAttemptReaderBridge } from "@/features/project-assistant/f3/attemptReaderBridge";
+import { rehydrateEvidenceOutcomeFromLps } from "@/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps";
 
-const APP_ROOT = process.cwd();
+const APP_ROOT = path.resolve(__dirname, "../../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
 const SCHEMAS = path.resolve(
   APP_ROOT,
   "../sfia-v3-modeled/v3-native-option-a/schemas",
 );
+
+const NOW = "2026-07-25T06:00:00.000Z";
 
 const VALID_DIGEST =
   "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
@@ -3224,34 +3700,467 @@ const VALID_PIN: DoctrinePackagePin = {
   digest: VALID_DIGEST,
 };
 
-const NOW = "2026-08-15T10:00:00.000Z";
-const EVIDENCE_DIGEST =
-  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest;
+const MORRIS_ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "decision_maker",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
 
-function baseAttempt(attemptId: string): ExecutionAttempt {
+const CONTRACT_SCOPE = "docs+schemas+examples only";
+const CONTRACT_ACTION = "publish-modeled-pack";
+const CONTRACT_TARGET = "sfia-v3-modeled/v3-native-option-a";
+const CONTRACT_CAPABILITY = "cap:git-docs";
+
+const OPTIONS = [
+  { optionId: "opt:go", label: "Go", recommended: true },
+  { optionId: "opt:hold", label: "Hold" },
+];
+
+const ATTEMPT_ID = "xat:m5-proc";
+const CONTRACT_ID = "xct:m5-proc";
+const EVIDENCE_ID = "ev:m5-proc";
+const REVIEW_BUNDLE_ID = "rb:m5-proc";
+const DECISION_ID = "dec:m5-proc";
+const CYCLE_ID = "cyc:m5-proc";
+const RESULT_REF = "res:m5-proc-fixture";
+const AUTHORITY_EVIDENCE_ID = "evd:morris-n3";
+
+function provenance(actorId: string, id: string): ProvenanceRecord {
   return {
-    schemaVersion: "0.2.0-oa",
-    attemptId,
-    executionContractId: "xct:m5-proc",
-    executionContractVersion: 1,
-    selectedAgentRef: "agt:fixture",
-    status: "accepted",
-    idempotencyKey: `idem-${attemptId}`,
-    correlationId: "cor:m5-proc",
-    version: 1,
-    createdAt: NOW,
-    provenance: {
-      schemaVersion: "0.1.0-oa",
-      provenanceRecordId: "prv:m5-proc",
-      actor: { actorId: "actor:morris", role: "decision_maker" },
-      source: "human_decision",
-      timestamp: NOW,
-      correlationId: "cor:m5-proc",
-    },
-    selectionStrategy: "capabilities_deterministic",
-    selectionProfile: "standard",
-    selectionExpiresAt: "2026-08-15T10:30:00.000Z",
+    schemaVersion: "0.1.0-oa",
+    provenanceRecordId: `prv:${id}`,
+    actor: { actorId, role: "system", authorityLevel: "N1" },
+    source: "system",
+    timestamp: NOW,
+    correlationId: "cor:agent-registry-fixture",
   };
+}
+
+function agentDescriptor(
+  overrides: Partial<AgentDescriptor> & { agentId: string },
+): AgentDescriptor {
+  return {
+    schemaVersion: "0.1.0-oa",
+    agentType: "docs_writer",
+    adapterRef: "adp:test-fixture",
+    supportedCapabilities: [CONTRACT_CAPABILITY],
+    allowedActions: [CONTRACT_ACTION],
+    allowedTargets: [CONTRACT_TARGET],
+    allowedScopes: [CONTRACT_SCOPE],
+    trustLevel: "fixture",
+    executionMode: "adapter_sync_fixture",
+    healthStatus: "healthy",
+    version: 1,
+    enabled: true,
+    createdAt: NOW,
+    provenance: provenance("actor:system", overrides.agentId.replace(/\W/g, "")),
+    ...overrides,
+  };
+}
+
+function defaultAgents(): AgentDescriptor[] {
+  return [
+    agentDescriptor({ agentId: "agt:alpha" }),
+    agentDescriptor({ agentId: "agt:beta" }),
+    agentDescriptor({ agentId: "agt:disabled", enabled: false }),
+    agentDescriptor({ agentId: "agt:sick", healthStatus: "degraded" }),
+    agentDescriptor({
+      agentId: "agt:wrong-scope",
+      allowedScopes: ["everything"],
+    }),
+    agentDescriptor({
+      agentId: "agt:wrong-capability",
+      supportedCapabilities: ["cap:sql"],
+    }),
+  ];
+}
+
+function fail(code: number, payload: unknown): never {
+  console.error(JSON.stringify(payload));
+  process.exit(code);
+}
+
+function assertOk<T extends { ok: boolean }>(
+  result: T,
+  code: number,
+  label: string,
+): asserts result is T & { ok: true } {
+  if (!result.ok) {
+    fail(code, { label, result });
+  }
+}
+
+function registerMorris(
+  authority: MemoryAuthorityResolver,
+  scope: string,
+  evidenceId: string,
+): void {
+  try {
+    authority.register({
+      evidenceId,
+      actorId: "actor:morris",
+      level: "N3",
+      scope,
+      issuedAt: "2026-07-01T00:00:00.000Z",
+      source: "registry",
+      canActAsMorris: true,
+    });
+  } catch (err) {
+    if (!(err instanceof Error) || err.message !== "evidence_immutable") {
+      throw err;
+    }
+  }
+}
+
+async function boot(dbPath: string) {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const projects = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: NOW,
+    dbPath,
+  });
+  const cycles = createSqliteCycleServices({
+    projectServices: projects,
+    productStore: projects.store,
+    clock: new FixedClock(NOW),
+  });
+  const authority = new MemoryAuthorityResolver();
+  const decisions = createTestSqliteDecisionServices({
+    projectServices: projects,
+    cycleServices: cycles,
+    productStore: projects.store,
+    authorityResolver: authority,
+    fixedNowIso: NOW,
+  });
+  const execution = createTestSqliteExecutionContractServices({
+    projectServices: projects,
+    decisionServices: decisions,
+    cycleServices: cycles,
+    productStore: projects.store,
+    authorityResolver: authority,
+    fixedNowIso: NOW,
+  });
+  const adapter = new TestExecutionAdapter();
+  const attempts = createTestSqliteExecutionAttemptServices({
+    decisionServices: decisions,
+    executionContractServices: execution,
+    productStore: projects.store,
+    agents: defaultAgents(),
+    adapter,
+    authorityResolver: authority,
+    fixedNowIso: NOW,
+  });
+  return { projects, cycles, decisions, authority, execution, attempts, adapter };
+}
+
+async function createMode(dbPath: string, projectId: string): Promise<void> {
+  const stack = await boot(dbPath);
+  try {
+    const created = await stack.projects.createProject.execute({
+      projectId,
+      title: "M5 Process Restart",
+      objective: "m5-process-restart-objective",
+      context: "m5-process-restart-context",
+      scope: "m5-process-restart-scope",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: {
+        actorId: MORRIS_ACTOR.actorId,
+        role: "project_owner",
+        displayName: MORRIS_ACTOR.displayName,
+        authorityLevel: "N3",
+      },
+      lpsVersionId: "lps:m5-proc-v1",
+      idempotencyKey: `idem:${projectId}`,
+    });
+    assertOk(created, 2, "createProject");
+
+    registerMorris(stack.authority, CONTRACT_SCOPE, AUTHORITY_EVIDENCE_ID);
+    registerMorris(stack.authority, "subj:exec-gate", "evd:morris-subjexecgate");
+
+    const decided = await stack.decisions.recordHumanDecision.execute({
+      decisionId: DECISION_ID,
+      projectId,
+      subject: "subj:exec-gate",
+      options: OPTIONS,
+      selectedOptionId: "opt:go",
+      actor: MORRIS_ACTOR,
+      authority: "morris",
+      reversible: false,
+      authorityEvidenceId: "evd:morris-subjexecgate",
+    });
+    assertOk(decided, 3, "recordHumanDecision");
+
+    const cycle = await stack.cycles.createCycle.execute({
+      cycleInstanceId: CYCLE_ID,
+      cycleTypeId: "cyc:delivery",
+      projectId,
+      signals: {},
+      requestedProfile: "Standard",
+      createdBy: MORRIS_ACTOR,
+    });
+    assertOk(cycle, 4, "createCycle");
+
+    const built = await stack.execution.buildExecutionContract.execute({
+      executionContractId: CONTRACT_ID,
+      projectId,
+      decisionRefs: [DECISION_ID],
+      cycleInstanceId: CYCLE_ID,
+      action: CONTRACT_ACTION,
+      target: CONTRACT_TARGET,
+      scope: CONTRACT_SCOPE,
+      requiredCapabilities: [CONTRACT_CAPABILITY],
+      requiredAuthority: "N3",
+      constraints: ["no-runtime-code", "no-sql"],
+      stopConditions: ["DOCTRINE_UNRESOLVED", "AUTHORITY_DENIED"],
+      evidenceRequirements: ["evreq:schemas", "evreq:examples"],
+      reversibility: "partially_reversible",
+      idempotencyKey: "idem-xct-m5-proc",
+      correlationId: "cor:m5-proc",
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: AUTHORITY_EVIDENCE_ID,
+    });
+    assertOk(built, 5, "buildExecutionContract");
+
+    const validated = await stack.execution.validateExecutionContract.execute({
+      executionContractId: CONTRACT_ID,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: AUTHORITY_EVIDENCE_ID,
+    });
+    assertOk(validated, 6, "validateExecutionContract");
+
+    const confirmationId = "cfm:m5-proc";
+    const requested = await stack.decisions.requestConfirmation.execute({
+      confirmationId,
+      level: "N3",
+      actionRef: "act:confirm-exec",
+      requestedBy: MORRIS_ACTOR,
+      requestedTo: MORRIS_ACTOR,
+      scope: CONTRACT_SCOPE,
+      idempotencyKey: `idem-${confirmationId}`,
+      decisionRef: DECISION_ID,
+    });
+    assertOk(requested, 7, "requestConfirmation");
+
+    const granted = await stack.decisions.grantConfirmation.execute({
+      confirmationId,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: AUTHORITY_EVIDENCE_ID,
+    });
+    assertOk(granted, 8, "grantConfirmation");
+
+    const confirmed = await stack.execution.confirmExecutionContract.execute({
+      executionContractId: CONTRACT_ID,
+      confirmationId,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: AUTHORITY_EVIDENCE_ID,
+      expectedVersion: validated.contract.version,
+    });
+    assertOk(confirmed, 9, "confirmExecutionContract");
+
+    const selected = await stack.attempts.selectExecutionAgent.execute({
+      attemptId: ATTEMPT_ID,
+      executionContractId: CONTRACT_ID,
+      idempotencyKey: "idem-attempt-m5-proc",
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: AUTHORITY_EVIDENCE_ID,
+      selectionProfile: "standard",
+    });
+    assertOk(selected, 10, "selectExecutionAgent");
+
+    const started = await stack.attempts.startExecution.execute({
+      attemptId: ATTEMPT_ID,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: AUTHORITY_EVIDENCE_ID,
+    });
+    assertOk(started, 11, "startExecution");
+
+    const recorded = await stack.attempts.recordExecutionResult.execute({
+      attemptId: ATTEMPT_ID,
+      adapterId: "adp:test-fixture",
+      resultRef: RESULT_REF,
+      technicalExitCode: 0,
+    });
+    assertOk(recorded, 12, "recordExecutionResult");
+    if (recorded.attempt.status !== "succeeded") {
+      fail(12, {
+        label: "attempt_not_succeeded",
+        status: recorded.attempt.status,
+      });
+    }
+
+    const evidence = createTestSqliteEvidenceReviewServices({
+      productStore: stack.projects.store,
+      fixedNowIso: NOW,
+      attemptReader: createAttemptReaderBridge(stack.attempts.attempts),
+    });
+
+    const ingested = await evidence.ingestExecutionAttemptEvidence.execute({
+      evidenceId: EVIDENCE_ID,
+      executionAttemptId: ATTEMPT_ID,
+      idempotencyKey: "idem:ev:m5-proc",
+      actor: MORRIS_ACTOR,
+      classification: "internal",
+      storageMode: "metadata_only",
+      bindings: {
+        projectId,
+        executionContractId: CONTRACT_ID,
+      },
+    });
+    assertOk(ingested, 13, "ingestExecutionAttemptEvidence");
+
+    const bundle = await evidence.createReviewBundle.execute({
+      reviewBundleId: REVIEW_BUNDLE_ID,
+      idempotencyKey: "idem:rb:m5-proc",
+      actor: MORRIS_ACTOR,
+      projectId,
+      executionContractId: CONTRACT_ID,
+      evidenceIds: [EVIDENCE_ID],
+    });
+    assertOk(bundle, 14, "createReviewBundle");
+
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId,
+      evidenceId: EVIDENCE_ID,
+      reviewBundleId: REVIEW_BUNDLE_ID,
+      projectServices: stack.projects,
+    });
+    if (!linked.ok) {
+      fail(15, { label: "appendEvidenceOutcomeToLps", linked });
+    }
+
+    const preRestart = await rehydrateEvidenceOutcomeFromLps({
+      projectId,
+      deps: {
+        projectServices: stack.projects,
+        evidenceReviewServices: evidence,
+      },
+    });
+    if (!preRestart.ok) {
+      fail(16, { label: "rehydrate_pre_restart", preRestart });
+    }
+
+    process.stdout.write(
+      `${JSON.stringify({
+        ok: true,
+        attemptId: ATTEMPT_ID,
+        resultRef: RESULT_REF,
+        evidenceId: EVIDENCE_ID,
+        reviewBundleId: REVIEW_BUNDLE_ID,
+        executionContractId: CONTRACT_ID,
+        lpsVersion: linked.lpsVersion,
+        evidence: {
+          sourceKind: ingested.evidence.sourceKind,
+          technicalResultRef: ingested.evidence.technicalResultRef ?? null,
+          bindings: ingested.evidence.bindings,
+        },
+        recommendation: {
+          kind: preRestart.recommendation.kind,
+          executionAuthority: preRestart.recommendation.executionAuthority,
+          gateConsumed: preRestart.recommendation.gateConsumed,
+          decisionCreated: preRestart.recommendation.decisionCreated,
+          attemptAutoLaunchNextCycle:
+            preRestart.recommendation.attemptAutoLaunchNextCycle,
+        },
+      })}\n`,
+    );
+  } finally {
+    stack.projects.dispose();
+  }
+}
+
+async function readMode(dbPath: string, projectId: string): Promise<void> {
+  const stack = await boot(dbPath);
+  try {
+    const evidence = createTestSqliteEvidenceReviewServices({
+      productStore: stack.projects.store,
+      fixedNowIso: NOW,
+      attemptReader: createAttemptReaderBridge(stack.attempts.attempts),
+    });
+
+    const attempt = await stack.attempts.attempts.findById(ATTEMPT_ID);
+    const ev = await evidence.repository.findById(EVIDENCE_ID);
+    const rb = await evidence.reviewBundleRepository.findById(REVIEW_BUNDLE_ID);
+    const lps = await stack.projects.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!attempt || !ev || !rb || !lps.ok) {
+      process.stdout.write(
+        `${JSON.stringify({
+          ok: false,
+          attempt: !!attempt,
+          evidence: !!ev,
+          reviewBundle: !!rb,
+          lpsOk: lps.ok,
+        })}\n`,
+      );
+      process.exit(6);
+    }
+
+    if (attempt.status !== "succeeded") {
+      fail(7, { label: "attempt_status", status: attempt.status });
+    }
+    if (attempt.resultRef !== RESULT_REF) {
+      fail(7, {
+        label: "resultRef_mismatch",
+        expected: RESULT_REF,
+        actual: attempt.resultRef,
+      });
+    }
+    if (ev.sourceKind !== "execution_attempt") {
+      fail(8, { label: "sourceKind", sourceKind: ev.sourceKind });
+    }
+    if (ev.technicalResultRef !== RESULT_REF) {
+      fail(8, {
+        label: "technicalResultRef",
+        expected: RESULT_REF,
+        actual: ev.technicalResultRef,
+      });
+    }
+
+    const rehydrated = await rehydrateEvidenceOutcomeFromLps({
+      projectId,
+      deps: {
+        projectServices: stack.projects,
+        evidenceReviewServices: evidence,
+      },
+    });
+    if (!rehydrated.ok) {
+      fail(9, { label: "rehydrateEvidenceOutcomeFromLps", rehydrated });
+    }
+
+    process.stdout.write(
+      `${JSON.stringify({
+        ok: true,
+        attemptStatus: attempt.status,
+        resultRef: attempt.resultRef,
+        evidenceId: ev.evidenceId,
+        reviewBundleId: rb.reviewBundleId,
+        evidence: {
+          sourceKind: ev.sourceKind,
+          technicalResultRef: ev.technicalResultRef ?? null,
+          bindings: ev.bindings,
+        },
+        evidenceIds: lps.livingProjectState.evidenceIds ?? [],
+        reviewBundleIds: lps.livingProjectState.reviewBundleIds ?? [],
+        lpsVersion: lps.livingProjectState.version,
+        executionContractId: CONTRACT_ID,
+        recommendation: {
+          kind: rehydrated.recommendation.kind,
+          executionAuthority: rehydrated.recommendation.executionAuthority,
+          gateConsumed: rehydrated.recommendation.gateConsumed,
+          decisionCreated: rehydrated.recommendation.decisionCreated,
+          attemptAutoLaunchNextCycle:
+            rehydrated.recommendation.attemptAutoLaunchNextCycle,
+        },
+      })}\n`,
+    );
+  } finally {
+    stack.projects.dispose();
+  }
 }
 
 async function main(): Promise<void> {
@@ -3259,143 +4168,15 @@ async function main(): Promise<void> {
   if (!mode || !dbPath || !projectId) {
     throw new Error("usage: <create|read> <dbPath> <projectId>");
   }
-
-  const { resolver } = createTestDoctrineResolver({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-  });
-  const svc = createTestSqliteProductProjectServices({
-    doctrineResolver: resolver,
-    fixedNowIso: NOW,
-    dbPath,
-  });
-
-  try {
-    if (mode === "create") {
-      const created = await svc.createProject.execute({
-        projectId,
-        title: "M5 Process Restart",
-        objective: "m5-process-restart-objective",
-        context: "m5-process-restart-context",
-        scope: "m5-process-restart-scope",
-        doctrinePackagePin: VALID_PIN,
-        createdBy: {
-          actorId: "actor:morris",
-          role: "project_owner",
-          displayName: "Morris",
-          authorityLevel: "N3",
-        },
-        lpsVersionId: "lps:m5-proc-v1",
-        idempotencyKey: `idem:${projectId}`,
-      });
-      if (!created.ok) {
-        console.error(JSON.stringify(created.error));
-        process.exit(2);
-      }
-
-      const attempts = new SqliteExecutionAttemptRepository(svc.store);
-      const tech = new SqliteExecutionAttemptTechnicalStore(svc.store);
-      const attempt = baseAttempt("xat:m5-proc");
-      await attempts.create(attempt);
-      tech.resultRecordingAttempts.set(attempt.attemptId, 1);
-
-      const evidence = createTestSqliteEvidenceReviewServices({
-        productStore: svc.store,
-        fixedNowIso: NOW,
-      });
-      const reg = await evidence.registerEvidence.execute({
-        evidenceId: "ev:m5-proc",
-        idempotencyKey: "idem:ev:m5-proc",
-        actor: {
-          actorId: "actor:morris",
-          role: "decision_maker",
-          authorityLevel: "N3",
-        },
-        type: "document",
-        source: "fixture",
-        sourceKind: "manual",
-        bindings: { projectId },
-        classification: "internal",
-        storageMode: "metadata_only",
-        digest: EVIDENCE_DIGEST,
-      });
-      if (!reg.ok) {
-        console.error(JSON.stringify(reg.error));
-        process.exit(3);
-      }
-      const bundle = await evidence.createReviewBundle.execute({
-        reviewBundleId: "rb:m5-proc",
-        idempotencyKey: "idem:rb:m5-proc",
-        actor: {
-          actorId: "actor:morris",
-          role: "decision_maker",
-          authorityLevel: "N3",
-        },
-        projectId,
-        evidenceIds: ["ev:m5-proc"],
-      });
-      if (!bundle.ok) {
-        console.error(JSON.stringify(bundle.error));
-        process.exit(4);
-      }
-
-      const linked = await appendEvidenceOutcomeToLps({
-        projectId,
-        evidenceId: "ev:m5-proc",
-        reviewBundleId: "rb:m5-proc",
-        projectServices: svc,
-      });
-      if (!linked.ok) {
-        console.error(JSON.stringify(linked));
-        process.exit(5);
-      }
-
-      process.stdout.write(
-        `${JSON.stringify({
-          ok: true,
-          attemptId: attempt.attemptId,
-          evidenceId: "ev:m5-proc",
-          reviewBundleId: "rb:m5-proc",
-          lpsVersion: linked.lpsVersion,
-          resultBudget: 1,
-        })}\n`,
-      );
-      return;
-    }
-
-    if (mode === "read") {
-      const attempts = new SqliteExecutionAttemptRepository(svc.store);
-      const tech = new SqliteExecutionAttemptTechnicalStore(svc.store);
-      const evidence = createTestSqliteEvidenceReviewServices({
-        productStore: svc.store,
-      });
-      const attempt = await attempts.findById("xat:m5-proc");
-      const ev = await evidence.repository.findById("ev:m5-proc");
-      const rb = await evidence.reviewBundleRepository.findById("rb:m5-proc");
-      const lps = await svc.getCurrentLivingProjectState.execute({ projectId });
-      if (!attempt || !ev || !rb || !lps.ok) {
-        process.stdout.write(`${JSON.stringify({ ok: false })}\n`);
-        process.exit(6);
-      }
-      process.stdout.write(
-        `${JSON.stringify({
-          ok: true,
-          attemptStatus: attempt.status,
-          resultBudget: tech.resultRecordingAttempts.get("xat:m5-proc") ?? null,
-          evidenceId: ev.evidenceId,
-          reviewBundleId: rb.reviewBundleId,
-          evidenceIds: lps.livingProjectState.evidenceIds ?? [],
-          reviewBundleIds: lps.livingProjectState.reviewBundleIds ?? [],
-          lpsVersion: lps.livingProjectState.version,
-        })}\n`,
-      );
-      return;
-    }
-
-    throw new Error(`unknown mode ${mode}`);
-  } finally {
-    svc.dispose();
+  if (mode === "create") {
+    await createMode(dbPath, projectId);
+    return;
   }
+  if (mode === "read") {
+    await readMode(dbPath, projectId);
+    return;
+  }
+  throw new Error(`unknown mode ${mode}`);
 }
 
 main().catch((err) => {
@@ -3404,6 +4185,224 @@ main().catch((err) => {
 });
 
 ===== END FILE: projects/sfia-studio/app/__tests__/oa/project/m5RestartProcessWorker.ts =====
+
+===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts =====
+/**
+ * M5 rehydrateEvidenceOutcomeFromLps — read-only LPS → RecommendNextGate.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  createTestDoctrineResolver,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+  type SqliteProductProjectServices,
+} from "@/lib/oa/project";
+import {
+  createTestSqliteEvidenceReviewServices,
+  type ActorReference as EvidenceActor,
+  type Digest as EvidenceDigest,
+} from "@/lib/oa/evidence-review";
+import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+import { rehydrateEvidenceOutcomeFromLps } from "@/features/project-assistant/f3/rehydrateEvidenceOutcomeFromLps";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const EVIDENCE_DIGEST =
+  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as EvidenceDigest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
+
+const EV_ACTOR: EvidenceActor = {
+  actorId: "actor:morris",
+  role: "decision_maker",
+  authorityLevel: "N3",
+};
+
+const tempDirs: string[] = [];
+const openServices: Array<{ dispose: () => void }> = [];
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m5-reh-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
+
+function openProjects(dbPath: string): SqliteProductProjectServices {
+  const { resolver } = createTestDoctrineResolver({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+  });
+  const svc = createTestSqliteProductProjectServices({
+    doctrineResolver: resolver,
+    fixedNowIso: "2026-08-15T11:00:00.000Z",
+    dbPath,
+  });
+  openServices.push(svc);
+  return svc;
+}
+
+afterEach(() => {
+  while (openServices.length) {
+    try {
+      openServices.pop()?.dispose();
+    } catch {
+      /* ignore */
+    }
+  }
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+describe("rehydrateEvidenceOutcomeFromLps", () => {
+  it("reads LPS refs and returns recommendation-only DTO", async () => {
+    const dbPath = tempDbPath("rehydrate.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-reh",
+      title: "M5 rehydrate",
+      objective: "m5-reh-objective",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-reh-v1",
+      idempotencyKey: "idem:m5-reh",
+    });
+
+    const evidence = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+      fixedNowIso: "2026-08-15T11:00:00.000Z",
+    });
+    const reg = await evidence.registerEvidence.execute({
+      evidenceId: "ev:m5-reh",
+      idempotencyKey: "idem:ev:m5-reh",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: {
+        projectId: "prj:m5-reh",
+        executionContractId: "xct:m5-reh",
+      },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+
+    const bundle = await evidence.createReviewBundle.execute({
+      reviewBundleId: "rb:m5-reh",
+      idempotencyKey: "idem:rb:m5-reh",
+      actor: EV_ACTOR,
+      projectId: "prj:m5-reh",
+      executionContractId: "xct:m5-reh",
+      evidenceIds: ["ev:m5-reh"],
+    });
+    expect(bundle.ok).toBe(true);
+
+    const linked = await appendEvidenceOutcomeToLps({
+      projectId: "prj:m5-reh",
+      evidenceId: "ev:m5-reh",
+      reviewBundleId: "rb:m5-reh",
+      projectServices: projects,
+    });
+    expect(linked.ok).toBe(true);
+
+    const lpsBefore = await projects.getCurrentLivingProjectState.execute({
+      projectId: "prj:m5-reh",
+    });
+    expect(lpsBefore.ok).toBe(true);
+    if (!lpsBefore.ok) return;
+    const versionBefore = lpsBefore.livingProjectState.version;
+
+    const rehydrated = await rehydrateEvidenceOutcomeFromLps({
+      projectId: "prj:m5-reh",
+      deps: {
+        projectServices: projects,
+        evidenceReviewServices: evidence,
+      },
+    });
+    expect(rehydrated.ok).toBe(true);
+    if (!rehydrated.ok) return;
+
+    expect(rehydrated.evidenceIds).toEqual(["ev:m5-reh"]);
+    expect(rehydrated.reviewBundleIds).toEqual(["rb:m5-reh"]);
+    expect(rehydrated.evidence).toHaveLength(1);
+    expect(rehydrated.reviewBundles).toHaveLength(1);
+    expect(rehydrated.subjectRef).toBe("xct:m5-reh");
+    expect(rehydrated.recommendation.kind).toBe("recommendation");
+    expect(rehydrated.recommendation.executionAuthority).toBe(false);
+    expect(rehydrated.recommendation.gateConsumed).toBe(false);
+    expect(rehydrated.recommendation.decisionCreated).toBe(false);
+    expect(rehydrated.recommendation.attemptAutoLaunchNextCycle).toBe(false);
+
+    const lpsAfter = await projects.getCurrentLivingProjectState.execute({
+      projectId: "prj:m5-reh",
+    });
+    expect(lpsAfter.ok).toBe(true);
+    if (!lpsAfter.ok) return;
+    expect(lpsAfter.livingProjectState.version).toBe(versionBefore);
+    expect(lpsAfter.livingProjectState.decisionIds ?? []).toEqual(
+      lpsBefore.livingProjectState.decisionIds ?? [],
+    );
+  });
+
+  it("fails closed when LPS has no evidence/RB refs", async () => {
+    const dbPath = tempDbPath("empty.sqlite");
+    const projects = openProjects(dbPath);
+    await projects.createProject.execute({
+      projectId: "prj:m5-empty",
+      title: "M5 empty",
+      objective: "empty",
+      doctrinePackagePin: VALID_PIN,
+      createdBy: ACTOR,
+      lpsVersionId: "lps:m5-empty-v1",
+      idempotencyKey: "idem:m5-empty",
+    });
+    const evidence = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+    });
+    const result = await rehydrateEvidenceOutcomeFromLps({
+      projectId: "prj:m5-empty",
+      deps: {
+        projectServices: projects,
+        evidenceReviewServices: evidence,
+      },
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.code).toBe("NO_EVIDENCE_OUTCOME_REFS");
+  });
+});
+
+===== END FILE: projects/sfia-studio/app/__tests__/oa/project/rehydrateEvidenceOutcomeFromLps.test.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio/app/__tests__/oa/execution-attempt/m5AttemptDurability.test.ts =====
 /**
@@ -3583,6 +4582,77 @@ describe("M5 ExecutionAttempt durability", () => {
     await expect(
       repo.reserveActiveContract("xct:m5-001", "xat:other"),
     ).rejects.toMatchObject({ detailCode: "EXECUTION_ALREADY_ACTIVE" });
+  });
+
+  it("concurrent update with same expectedVersion → one win, one VERSION_CONFLICT", async () => {
+    const dbPath = tempDbPath("occ-concurrent.sqlite");
+    const projects = openProjects(dbPath);
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    await repo.create(baseAttempt({ attemptId: "xat:m5-occ-c" }));
+
+    const results = await Promise.allSettled([
+      repo.update(
+        baseAttempt({
+          attemptId: "xat:m5-occ-c",
+          status: "accepted",
+          version: 2,
+          updatedAt: NOW,
+          selectionExpiresAt: "2026-08-15T09:10:00.000Z",
+        }),
+        1,
+      ),
+      repo.update(
+        baseAttempt({
+          attemptId: "xat:m5-occ-c",
+          status: "accepted",
+          version: 2,
+          updatedAt: NOW,
+          selectionExpiresAt: "2026-08-15T09:20:00.000Z",
+        }),
+        1,
+      ),
+    ]);
+
+    const fulfilled = results.filter((r) => r.status === "fulfilled");
+    const rejected = results.filter((r) => r.status === "rejected");
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+    expect(rejected[0]).toMatchObject({
+      status: "rejected",
+      reason: expect.objectContaining({ detailCode: "VERSION_CONFLICT" }),
+    });
+    const loaded = await repo.findById("xat:m5-occ-c");
+    expect(loaded?.version).toBe(2);
+  });
+
+  it("concurrent reserveActiveContract different attemptIds → one EXECUTION_ALREADY_ACTIVE", async () => {
+    const dbPath = tempDbPath("reserve-concurrent.sqlite");
+    const projects = openProjects(dbPath);
+    const repo = new SqliteExecutionAttemptRepository(projects.store);
+    await repo.create(
+      baseAttempt({ attemptId: "xat:m5-res-a", executionContractId: "xct:m5-res" }),
+    );
+    await repo.create(
+      baseAttempt({ attemptId: "xat:m5-res-b", executionContractId: "xct:m5-res" }),
+    );
+
+    const results = await Promise.allSettled([
+      repo.reserveActiveContract("xct:m5-res", "xat:m5-res-a"),
+      repo.reserveActiveContract("xct:m5-res", "xat:m5-res-b"),
+    ]);
+
+    const fulfilled = results.filter((r) => r.status === "fulfilled");
+    const rejected = results.filter((r) => r.status === "rejected");
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+    expect(rejected[0]).toMatchObject({
+      status: "rejected",
+      reason: expect.objectContaining({
+        detailCode: "EXECUTION_ALREADY_ACTIVE",
+      }),
+    });
+    const active = await repo.findActiveByContract("xct:m5-res");
+    expect(["xat:m5-res-a", "xat:m5-res-b"]).toContain(active?.attemptId);
   });
 });
 
@@ -3818,6 +4888,156 @@ describe("M5 Evidence/ReviewBundle durability", () => {
       "rb:m5-successor",
     );
     expect(successor?.status).toBe("draft");
+  });
+
+  it("concurrent Evidence update expectedVersion=1 → one win, one VERSION_CONFLICT", async () => {
+    const dbPath = tempDbPath("ev-occ.sqlite");
+    const projects = openProjects(dbPath);
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+    });
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-occ",
+      idempotencyKey: "idem:ev:m5-occ",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-occ" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+    if (!reg.ok) return;
+
+    const base = reg.evidence;
+    const results = await Promise.allSettled([
+      services.repository.update(
+        {
+          ...base,
+          status: "stale",
+          version: 2,
+          updatedAt: "2026-08-15T09:01:00.000Z",
+        },
+        1,
+      ),
+      services.repository.update(
+        {
+          ...base,
+          status: "stale",
+          version: 2,
+          updatedAt: "2026-08-15T09:02:00.000Z",
+        },
+        1,
+      ),
+    ]);
+
+    const fulfilled = results.filter((r) => r.status === "fulfilled");
+    const rejected = results.filter((r) => r.status === "rejected");
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+    expect(rejected[0]).toMatchObject({
+      status: "rejected",
+      reason: expect.objectContaining({ detailCode: "VERSION_CONFLICT" }),
+    });
+    const loaded = await services.repository.findById("ev:m5-occ");
+    expect(loaded?.version).toBe(2);
+  });
+
+  it("concurrent createSuccessorAndMarkSuperseded → one wins, no orphan", async () => {
+    const dbPath = tempDbPath("reopen-concurrent.sqlite");
+    const projects = openProjects(dbPath);
+    const services = createTestSqliteEvidenceReviewServices({
+      productStore: projects.store,
+    });
+    const reg = await services.registerEvidence.execute({
+      evidenceId: "ev:m5-conc",
+      idempotencyKey: "idem:ev:m5-conc",
+      actor: EV_ACTOR,
+      type: "document",
+      source: "fixture",
+      sourceKind: "manual",
+      bindings: { projectId: "prj:m5-conc" },
+      classification: "internal",
+      storageMode: "metadata_only",
+      digest: EVIDENCE_DIGEST,
+    });
+    expect(reg.ok).toBe(true);
+
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      idempotencyKey: "idem:rb:m5-conc-src",
+      actor: EV_ACTOR,
+      projectId: "prj:m5-conc",
+      evidenceIds: ["ev:m5-conc"],
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      actor: EV_ACTOR,
+      expectedVersion: 1,
+      idempotencyKey: "idem:freeze:m5-conc",
+    });
+    expect(frozen.ok).toBe(true);
+    const started = await services.startReview.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      actor: EV_ACTOR,
+      expectedVersion: 2,
+      idempotencyKey: "idem:start:m5-conc",
+    });
+    expect(started.ok).toBe(true);
+    const completed = await services.completeReview.execute({
+      reviewBundleId: "rb:m5-conc-src",
+      actor: EV_ACTOR,
+      expectedVersion: 3,
+      outcome: "accepted",
+      idempotencyKey: "idem:complete:m5-conc",
+    });
+    expect(completed.ok).toBe(true);
+
+    const results = await Promise.allSettled([
+      services.reopenReview.execute({
+        reviewBundleId: "rb:m5-conc-src",
+        successorReviewBundleId: "rb:m5-conc-a",
+        actor: EV_ACTOR,
+        expectedVersion: 4,
+        reason: "revise-a",
+        idempotencyKey: "idem:reopen:m5-conc-a",
+      }),
+      services.reopenReview.execute({
+        reviewBundleId: "rb:m5-conc-src",
+        successorReviewBundleId: "rb:m5-conc-b",
+        actor: EV_ACTOR,
+        expectedVersion: 4,
+        reason: "revise-b",
+        idempotencyKey: "idem:reopen:m5-conc-b",
+      }),
+    ]);
+
+    const okResults = results.filter(
+      (r) => r.status === "fulfilled" && r.value.ok,
+    );
+    const failResults = results.filter(
+      (r) =>
+        r.status === "fulfilled" && !r.value.ok,
+    );
+    expect(okResults).toHaveLength(1);
+    expect(failResults).toHaveLength(1);
+    if (failResults[0]?.status === "fulfilled" && !failResults[0].value.ok) {
+      expect(failResults[0].value.error.detailCode).toBe("VERSION_CONFLICT");
+    }
+
+    const src = await services.reviewBundleRepository.findById("rb:m5-conc-src");
+    expect(src?.status).toBe("superseded");
+
+    const a = await services.reviewBundleRepository.findById("rb:m5-conc-a");
+    const b = await services.reviewBundleRepository.findById("rb:m5-conc-b");
+    const successors = [a, b].filter(Boolean);
+    expect(successors).toHaveLength(1);
+    expect(successors[0]?.status).toBe("draft");
   });
 });
 
