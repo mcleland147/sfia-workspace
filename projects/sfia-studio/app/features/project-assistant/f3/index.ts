@@ -17,6 +17,21 @@ export { validateF2ForPrepare } from "./validateF2ForPrepare";
 export { prepareF3Fixture } from "./prepareF3Fixture";
 export { prepareM3FromDecision } from "./prepareM3FromDecision";
 export type { F3M3PreparePayload, PrepareM3Deps } from "./prepareM3FromDecision";
+export { resolveM3ExecutionContract } from "./resolveM3ExecutionContract";
+export type {
+  M3ResolvedExecutionFields,
+  ResolveM3Deps,
+  ResolveM3ExecutionContractInput,
+  ResolveM3Failure,
+  ResolveM3Success,
+} from "./resolveM3ExecutionContract";
+export {
+  UNRESOLVED_STOP_SENTINELS,
+  canonicalM3PrepareContractId,
+  canonicalM3PrepareIdempotencyKey,
+  canonicalM3ResolutionIdempotencyKey,
+  safeDecisionSegment,
+} from "./resolveM3ExecutionContract";
 export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
 export { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
 export { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
